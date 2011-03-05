@@ -64,7 +64,7 @@
     <Link>
       <AdditionalDependencies>libhltypes.lib;zer0division.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>bin\$(Configuration)\$(TargetName)$(TargetExt)</OutputFile>
-      <AdditionalLibraryDirectories>external/lib/msvc;external/hltypes/bin/win32_Debug;external/zer0/bin/win32_Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>external/hltypes/bin/win32_Debug;external/zer0/bin/win32_Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalManifestDependencies>%(AdditionalManifestDependencies)</AdditionalManifestDependencies>
       <UACExecutionLevel>AsInvoker</UACExecutionLevel>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -82,7 +82,8 @@ copy external\atres\bin\win32_Debug\libatres.dll bin\$(Configuration)
 copy external\aprilui\bin\win32_Debug\libaprilui.dll bin\$(Configuration)
 copy external\xal\bin\win32_Debug\libxal.dll bin\$(Configuration)
 copy external\zer0\bin\win32_Debug\zer0division.dll bin\$(Configuration)
-copy external\lib\msvc\*.dll bin\$(Configuration)</Command>
+copy external\lib\msvc90\*.dll bin\$(Configuration)
+</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='win32_Release|Win32'">
@@ -107,7 +108,7 @@ copy external\lib\msvc\*.dll bin\$(Configuration)</Command>
     <Link>
       <AdditionalDependencies>libhltypes.lib;zer0division.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>bin\$(Configuration)\$(TargetName)$(TargetExt)</OutputFile>
-      <AdditionalLibraryDirectories>external/lib/msvc;external/hltypes/bin/win32_Release;external/zer0/bin/win32_Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>external/hltypes/bin/win32_Release;external/zer0/bin/win32_Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalManifestDependencies>%(AdditionalManifestDependencies)</AdditionalManifestDependencies>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
@@ -130,7 +131,7 @@ copy external\atres\bin\win32_Release\libatres.dll bin\$(Configuration)
 copy external\aprilui\bin\win32_Release\libaprilui.dll bin\$(Configuration)
 copy external\xal\bin\win32_Release\libxal.dll bin\$(Configuration)
 copy external\zer0\bin\win32_Release\zer0division.dll bin\$(Configuration)
-copy external\lib\msvc\*.dll bin\$(Configuration)
+copy external\lib\msvc90\*.dll bin\$(Configuration)
 del bin\$(Configuration)\*.obj
 del bin\$(Configuration)\*.res
 del bin\$(Configuration)\*.tlog
