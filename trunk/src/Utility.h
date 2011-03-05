@@ -5,7 +5,7 @@
 
 namespace arc
 {
-	void setupSystemPath();
+	void setupSystemPath(chstr gameName);
 	void log(chstr message);
 
 	extern hstr path;

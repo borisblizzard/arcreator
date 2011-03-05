@@ -1,3 +1,4 @@
+#include <hltypes/harray.h>
 #include <hltypes/hdir.h>
 #include <hltypes/hfile.h>
 #include <hltypes/hstring.h>
@@ -9,16 +10,16 @@ namespace arc
 	hstr path;
 
 	/// @todo Add Linux and Mac variants.
-	void setupSystemPath()
+	void setupSystemPath(chstr gameName)
 	{
 #ifdef _DEBUG
 		arc::path = "log";
 #elif defined(_WIN32)
-		arc:path = getenv("ALLUSERSPROFILE");
-		arc:path = arc:path.replace("\\", "/");
+		arc::path = getenv("ALLUSERSPROFILE");
+		arc::path = arc::path.replace("\\", "/");
 		if (getenv("LOCALAPPDATA") == NULL) // Vista / 7
 		{
-			arc:path += "/" + hstr(getenv("APPDATA")).split("\\").pop_back();
+			arc::path += "/" + hstr(getenv("APPDATA")).split("\\").pop_back();
 		}
 		const wchar_t* name = _wgetenv(L"USERNAME");
 		hstr username;
@@ -26,7 +27,7 @@ namespace arc
 		{
 			username += (char)(name[i] > 0x80 ? 0x40 + (name[i] % 26) : name[i]);
 		}
-		arc:path += hsprintf("/%s/%s/%s", "ARC", "ExampleGameName", username.c_str());
+		arc::path += hsprintf("/%s/%s/%s", "ARC", gameName.c_str(), username.c_str());
 #endif
 		hdir::create(arc::path);
 		arc::path += "/";
