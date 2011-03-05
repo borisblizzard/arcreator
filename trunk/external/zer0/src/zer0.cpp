@@ -9,6 +9,10 @@
 #include <hltypes/hstring.h>
 #include <xal/AudioManager.h>
 
+#include "Constants.h"
+#include "Context.h"
+#include "System.h"
+#include "TransitionManager.h"
 #include "zer0.h"
 
 namespace zer0
@@ -22,7 +26,7 @@ namespace zer0
 		g_logFunction(prefix + message);
 	}
 	
-	bool init(int width, int height, bool fullscreen, chstr name, void (*logFunction)(chstr))
+	bool init(int width, int height, bool fullscreen, chstr name, chstr path, void (*logFunction)(chstr))
 	{
 		bool result = true;
 		srand((unsigned int)time(NULL));
@@ -46,7 +50,7 @@ namespace zer0
 			xal::init("nosound", false);
 #endif
 #ifndef __BIG_ENDIAN__
-			april::rendersys->setIdleTextureUnloadTime(10);
+			april::rendersys->setIdleTextureUnloadTime(TEXTURE_UNLOAD_TIME);
 #else
 			april::rendersys->setIdleTextureUnloadTime(0);
 #endif
@@ -54,6 +58,10 @@ namespace zer0
 			aprilui::setLimitCursorToViewport(false);
 			aprilui::setViewport(grect(0.0f, 0.0f, (float)width, (float)height));
 			aprilui::setScreenViewport(aprilui::getViewport());
+			// zer0 related data
+			zer0::system = new zer0::System(path);
+			zer0::context = new zer0::Context();
+			zer0::transitionManager = new zer0::TransitionManager();
 		}
 		catch (hltypes::exception e)
 		{
@@ -73,6 +81,9 @@ namespace zer0
 		bool result = true;
 		try
 		{
+			delete zer0::system;
+			delete zer0::context;
+			delete zer0::transitionManager;
 			xal::destroy();
 			aprilui::destroy();
 			atres::destroy();
@@ -91,7 +102,7 @@ namespace zer0
 		return result;
 	}
 	
-	bool update(float time)
+	bool _update(float time)
 	{
 		result = true;
 #ifdef _DEBUG
@@ -100,9 +111,7 @@ namespace zer0
 #endif
 			april::rendersys->clear(true, false);
 			april::rendersys->setOrthoProjection(drawRect);
-#ifdef _DESKTOP
-			aprilui::drawCursor();
-#endif
+			result = zer0::system->update(time);
 #ifdef _DEBUG
 		}
 		catch (hltypes::exception e)
@@ -115,11 +124,17 @@ namespace zer0
 			zer0::log(e);
 			result = false;
 		}
-	#endif
+#endif
 		if (!result)
 		{
 			april::rendersys->getWindow()->terminateMainLoop();
 		}
 		return result;
 	}
+
+	void enterMainLoop()
+	{
+		_update(0);
+	}
+
 }
