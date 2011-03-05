@@ -4,9 +4,6 @@
     <Filter Include="Header Files">
       <UniqueIdentifier>{06850174-8790-4a81-a156-600d095d0107}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{ae08775a-d959-4dd9-bba0-f95b2373d0f0}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files">
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
@@ -20,10 +17,10 @@
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="fileproperties.rc">
-      <Filter>Resource Files</Filter>
+      <Filter>Source Files</Filter>
     </ResourceCompile>
     <ResourceCompile Include="resources.rc">
-      <Filter>Resource Files</Filter>
+      <Filter>Source Files</Filter>
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>

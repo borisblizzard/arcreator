@@ -40,7 +40,7 @@ namespace System
 	void _setupSystemPath()
 	{
 #ifdef _DEBUG
-		System::path = "bin/log";
+		System::path = "log";
 #elif defined(_WIN32)
 		System::path = getenv("ALLUSERSPROFILE");
 		System::path = System::path.replace("\\", "/");
