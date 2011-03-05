@@ -5,10 +5,6 @@
       <Configuration>win32_Debug</Configuration>
       <Platform>Win32</Platform>
     </ProjectConfiguration>
-    <ProjectConfiguration Include="win32_Demo|Win32">
-      <Configuration>win32_Demo</Configuration>
-      <Platform>Win32</Platform>
-    </ProjectConfiguration>
     <ProjectConfiguration Include="win32_Release|Win32">
       <Configuration>win32_Release</Configuration>
       <Platform>Win32</Platform>
@@ -20,12 +16,6 @@
     <ProjectName>arc</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='win32_Demo|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
-    <CharacterSet>MultiByte</CharacterSet>
-    <CLRSupport>false</CLRSupport>
-    <WholeProgramOptimization>true</WholeProgramOptimization>
-  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='win32_Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <CharacterSet>MultiByte</CharacterSet>
@@ -38,9 +28,6 @@
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
-  </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='win32_Demo|Win32'" Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='win32_Release|Win32'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
@@ -58,10 +45,6 @@
     <IntDir Condition="'$(Configuration)|$(Platform)'=='win32_Release|Win32'">bin\$(Configuration)\</IntDir>
     <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='win32_Release|Win32'">true</GenerateManifest>
     <EmbedManifest Condition="'$(Configuration)|$(Platform)'=='win32_Release|Win32'">true</EmbedManifest>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='win32_Demo|Win32'">bin\$(Configuration)\</OutDir>
-    <IntDir Condition="'$(Configuration)|$(Platform)'=='win32_Demo|Win32'">bin\$(Configuration)\</IntDir>
-    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='win32_Demo|Win32'">true</GenerateManifest>
-    <EmbedManifest Condition="'$(Configuration)|$(Platform)'=='win32_Demo|Win32'">true</EmbedManifest>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='win32_Debug|Win32'">
     <ClCompile>
@@ -95,12 +78,9 @@ copy external\april\bin\libapril.dll bin\$(Configuration)
 copy external\april\bin\libaprilutil.dll bin\$(Configuration)
 copy external\atres\bin\win32_Debug\libatres.dll bin\$(Configuration)
 copy external\aprilui\bin\win32_Debug\libaprilui.dll bin\$(Configuration)
-copy external\liteser\bin\win32_Debug\libliteser.dll bin\$(Configuration)
-copy external\gamesys\bin\win32_Debug\libgamesys.dll bin\$(Configuration)
 copy external\xal\bin\win32_Debug\libxal.dll bin\$(Configuration)
 copy external\xal\bin\xalutil\win32_Debug\libxalutil.dll bin\$(Configuration)
-copy external\lib\msvc\*.dll bin\$(Configuration)
-</Command>
+copy external\lib\msvc\*.dll bin\$(Configuration)</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='win32_Release|Win32'">
@@ -136,7 +116,8 @@ copy external\lib\msvc\*.dll bin\$(Configuration)
       <TargetMachine>MachineX86</TargetMachine>
     </Link>
     <Manifest>
-      <AdditionalManifestFiles>util/dpi_awareness.manifest;%(AdditionalManifestFiles)</AdditionalManifestFiles>
+      <AdditionalManifestFiles>
+      </AdditionalManifestFiles>
     </Manifest>
     <PostBuildEvent>
       <Command>copy external\gtypes\bin\win32_Release\libgtypes.dll bin\$(Configuration)
@@ -145,137 +126,9 @@ copy external\april\bin\libapril.dll bin\$(Configuration)
 copy external\april\bin\libaprilutil.dll bin\$(Configuration)
 copy external\atres\bin\win32_Release\libatres.dll bin\$(Configuration)
 copy external\aprilui\bin\win32_Release\libaprilui.dll bin\$(Configuration)
-copy external\liteser\bin\win32_Release\libliteser.dll bin\$(Configuration)
-copy external\gamesys\bin\win32_Release\libgamesys.dll bin\$(Configuration)
 copy external\xal\bin\win32_Release\libxal.dll bin\$(Configuration)
 copy external\xal\bin\xalutil\win32_Release\libxalutil.dll bin\$(Configuration)
-copy external\lib\msvc\*.dll bin\$(Configuration)
-if not exist bin\$(Configuration)\data%3b mkdir bin\$(Configuration)\data%3b
-if not exist bin\$(Configuration)\data\audio%3b mkdir bin\$(Configuration)\data\audio%3b
-if not exist bin\$(Configuration)\data\audio\music%3b mkdir bin\$(Configuration)\data\audio\music%3b
-if not exist bin\$(Configuration)\data\audio\sound%3b mkdir bin\$(Configuration)\data\audio\sound%3b
-if not exist bin\$(Configuration)\data\gui%3b mkdir bin\$(Configuration)\data\gui%3b
-if not exist bin\$(Configuration)\data\gui\1024x768%3b mkdir bin\$(Configuration)\data\gui\1024x768%3b
-if not exist bin\$(Configuration)\data\gui\fonts%3b mkdir bin\$(Configuration)\data\gui\fonts%3b
-if not exist bin\$(Configuration)\data\gui\texts%3b mkdir bin\$(Configuration)\data\gui\texts%3b
-if not exist bin\$(Configuration)\data\gui\maps%3b mkdir bin\$(Configuration)\data\gui\maps%3b
-if not exist bin\$(Configuration)\data\gui\textures%3b mkdir bin\$(Configuration)\data\gui\textures%3b
-if not exist bin\$(Configuration)\data\gui\units%3b mkdir bin\$(Configuration)\data\gui\units%3b
-if not exist bin\$(Configuration)\data\levels%3b mkdir bin\$(Configuration)\data\levels%3b
-if not exist bin\$(Configuration)\Microsoft.VC90.CRT%3b mkdir bin\$(Configuration)\Microsoft.VC90.CRT%3b
-copy data\*.* bin\$(Configuration)\data
-copy data\audio\music\*.* bin\$(Configuration)\data\audio\music
-copy data\audio\sound\*.* bin\$(Configuration)\data\audio\sound
-copy data\gui\*.* bin\$(Configuration)\data\gui
-copy data\gui\def_desktop\*.* bin\$(Configuration)\data\gui\1024x768
-copy data\gui\fonts\*.* bin\$(Configuration)\data\gui\fonts
-copy data\gui\texts\*.* bin\$(Configuration)\data\gui\texts
-copy data\gui\maps\*.* bin\$(Configuration)\data\gui\maps
-copy data\gui\textures\*.* bin\$(Configuration)\data\gui\textures
-copy data\gui\units\*.* bin\$(Configuration)\data\gui\units
-copy data\levels\*.* bin\$(Configuration)\data\levels
-copy external\lib\msvc\Microsoft.VC90.CRT\*.* bin\$(Configuration)\Microsoft.VC90.CRT
-del bin\$(Configuration)\data\gui\textures\cateia_logo_small.png
-del bin\$(Configuration)\data\gui\textures\loading_small.png
-del bin\$(Configuration)\data\gui\textures\ourgames.jpg
-del bin\$(Configuration)\data\gui\textures\ourgames_small.png
-del bin\$(Configuration)\*.obj
-del bin\$(Configuration)\*.res
-del bin\$(Configuration)\*.exp
-del bin\$(Configuration)\*.lib
-del bin\$(Configuration)\*.dep
-del bin\$(Configuration)\*.idb
-del bin\$(Configuration)\*.pdb
-del bin\$(Configuration)\*.manifest
-</Command>
-    </PostBuildEvent>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='win32_Demo|Win32'">
-    <BuildLog>
-      <Path>
-      </Path>
-    </BuildLog>
-    <ClCompile>
-      <Optimization>MaxSpeed</Optimization>
-      <IntrinsicFunctions>true</IntrinsicFunctions>
-      <AdditionalIncludeDirectories>src;external/include;external/gtypes/include;external/hltypes/include;external/april/include;external/april/aprilutil/include;external/atres/include;external/aprilui/include;external/xal/include;external/xal/xalutil/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>_WIN32;_DESKTOP;_DEMO;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
-      <FunctionLevelLinking>true</FunctionLevelLinking>
-      <ObjectFileName>$(IntDir)</ObjectFileName>
-      <WarningLevel>Level3</WarningLevel>
-      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <DisableSpecificWarnings>4251</DisableSpecificWarnings>
-      <UseFullPaths>false</UseFullPaths>
-      <OmitDefaultLibName>false</OmitDefaultLibName>
-    </ClCompile>
-    <Link>
-      <AdditionalDependencies>libgtypes.lib;libhltypes.lib;libapril.lib;libaprilutil.lib;libatres.lib;libaprilui.lib;libxal.lib;libxalutil.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <OutputFile>bin\$(Configuration)\$(ProjectName).exe</OutputFile>
-      <AdditionalLibraryDirectories>external/lib/msvc;external/gtypes/bin/win32_Release;external/hltypes/bin/win32_Release;external/april/bin;external/atres/bin/win32_Release;external/aprilui/bin/win32_Release;external/xal/bin/win32_Release;external/xal/bin/xalutil/win32_Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalManifestDependencies>%(AdditionalManifestDependencies)</AdditionalManifestDependencies>
-      <GenerateDebugInformation>false</GenerateDebugInformation>
-      <SubSystem>Windows</SubSystem>
-      <OptimizeReferences>true</OptimizeReferences>
-      <EnableCOMDATFolding>true</EnableCOMDATFolding>
-      <ImportLibrary>
-      </ImportLibrary>
-      <TargetMachine>MachineX86</TargetMachine>
-    </Link>
-    <PostBuildEvent>
-      <Command>copy external\gtypes\bin\win32_Release\libgtypes.dll bin\$(Configuration)
-copy external\hltypes\bin\win32_Release\libhltypes.dll bin\$(Configuration)
-copy external\april\bin\libapril.dll bin\$(Configuration)
-copy external\april\bin\libaprilutil.dll bin\$(Configuration)
-copy external\atres\bin\win32_Release\libatres.dll bin\$(Configuration)
-copy external\aprilui\bin\win32_Release\libaprilui.dll bin\$(Configuration)
-copy external\liteser\bin\win32_Release\libliteser.dll bin\$(Configuration)
-copy external\gamesys\bin\win32_Release\libgamesys.dll bin\$(Configuration)
-copy external\xal\bin\win32_Release\libxal.dll bin\$(Configuration)
-copy external\xal\bin\xalutil\win32_Release\libxalutil.dll bin\$(Configuration)
-copy external\lib\msvc\*.dll bin\$(Configuration)
-if not exist bin\$(Configuration)\data%3b mkdir bin\$(Configuration)\data%3b
-if not exist bin\$(Configuration)\data\audio%3b mkdir bin\$(Configuration)\data\audio%3b
-if not exist bin\$(Configuration)\data\audio\music%3b mkdir bin\$(Configuration)\data\audio\music%3b
-if not exist bin\$(Configuration)\data\audio\sound%3b mkdir bin\$(Configuration)\data\audio\sound%3b
-if not exist bin\$(Configuration)\data\gui%3b mkdir bin\$(Configuration)\data\gui%3b
-if not exist bin\$(Configuration)\data\gui\1024x768%3b mkdir bin\$(Configuration)\data\gui\1024x768%3b
-if not exist bin\$(Configuration)\data\gui\fonts%3b mkdir bin\$(Configuration)\data\gui\fonts%3b
-if not exist bin\$(Configuration)\data\gui\texts%3b mkdir bin\$(Configuration)\data\gui\texts%3b
-if not exist bin\$(Configuration)\data\gui\maps%3b mkdir bin\$(Configuration)\data\gui\maps%3b
-if not exist bin\$(Configuration)\data\gui\textures%3b mkdir bin\$(Configuration)\data\gui\textures%3b
-if not exist bin\$(Configuration)\data\gui\units%3b mkdir bin\$(Configuration)\data\gui\units%3b
-if not exist bin\$(Configuration)\data\levels%3b mkdir bin\$(Configuration)\data\levels%3b
-if not exist bin\$(Configuration)\Microsoft.VC90.CRT%3b mkdir bin\$(Configuration)\Microsoft.VC90.CRT%3b
-copy data\*.* bin\$(Configuration)\data
-copy data\audio\music\*.* bin\$(Configuration)\data\audio\music
-copy data\audio\sound\*.* bin\$(Configuration)\data\audio\sound
-copy data\gui\*.* bin\$(Configuration)\data\gui
-copy data\gui\def_desktop\*.* bin\$(Configuration)\data\gui\1024x768
-copy data\gui\fonts\*.* bin\$(Configuration)\data\gui\fonts
-copy data\gui\texts\*.* bin\$(Configuration)\data\gui\texts
-copy data\gui\textures\*.* bin\$(Configuration)\data\gui\textures
-copy data\gui\units\*.* bin\$(Configuration)\data\gui\units
-copy data_demo\*.* bin\$(Configuration)\data
-copy data_demo\gui\def_desktop\*.* bin\$(Configuration)\data\gui\1024x768
-copy data_demo\gui\maps\*.* bin\$(Configuration)\data\gui\maps
-copy data_demo\levels\*.* bin\$(Configuration)\data\levels
-copy external\lib\msvc\Microsoft.VC90.CRT\*.* bin\$(Configuration)\Microsoft.VC90.CRT
-del bin\$(Configuration)\data\gui\textures\brawe.jpg
-del bin\$(Configuration)\data\gui\textures\hotel.jpg
-del bin\$(Configuration)\data\gui\textures\loading_small.png
-del bin\$(Configuration)\data\gui\textures\locv.jpg
-del bin\$(Configuration)\data\gui\textures\ourgames.png
-del bin\$(Configuration)\data\gui\textures\pc_games.jpg
-del bin\$(Configuration)\*.obj
-del bin\$(Configuration)\*.res
-del bin\$(Configuration)\*.exp
-del bin\$(Configuration)\*.lib
-del bin\$(Configuration)\*.dep
-del bin\$(Configuration)\*.idb
-del bin\$(Configuration)\*.pdb
-del bin\$(Configuration)\*.manifest
-</Command>
+copy external\lib\msvc\*.dll bin\$(Configuration)</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -285,11 +138,24 @@ del bin\$(Configuration)\*.manifest
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='win32_Debug|Win32'">$(IntDir)%(RelativeDir)%(Filename).obj</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='win32_Release|Win32'">$(IntDir)%(RelativeDir)%(Filename).obj</ObjectFileName>
     </ClCompile>
-    <ClCompile Include="src\System\Context.cpp" />
-    <ClCompile Include="src\System\Main.cpp" />
-    <ClCompile Include="src\System\TransitionManager.cpp" />
-    <ClCompile Include="src\System\Utility.cpp" />
+    <ClCompile Include="src\System\Context.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='win32_Debug|Win32'">$(IntDir)%(RelativeDir)%(Filename).obj</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='win32_Release|Win32'">$(IntDir)%(RelativeDir)%(Filename).obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="src\System\Main.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='win32_Debug|Win32'">$(IntDir)%(RelativeDir)%(Filename).obj</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='win32_Release|Win32'">$(IntDir)%(RelativeDir)%(Filename).obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="src\System\TransitionManager.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='win32_Debug|Win32'">$(IntDir)%(RelativeDir)%(Filename).obj</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='win32_Release|Win32'">$(IntDir)%(RelativeDir)%(Filename).obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="src\System\Utility.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='win32_Debug|Win32'">$(IntDir)%(RelativeDir)%(Filename).obj</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='win32_Release|Win32'">$(IntDir)%(RelativeDir)%(Filename).obj</ObjectFileName>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="external\aprilui\libaprilui.vcxproj">
