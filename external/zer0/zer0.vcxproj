@@ -105,13 +105,23 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\zer0\Context.h" />
     <ClInclude Include="include\zer0\Sprite.h" />
+    <ClInclude Include="include\zer0\System.h" />
+    <ClInclude Include="include\zer0\TransitionManager.h" />
     <ClInclude Include="include\zer0\zer0.h" />
     <ClInclude Include="include\zer0\zer0Export.h" />
+    <ClInclude Include="src\Constants.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Context.cpp" />
     <ClCompile Include="src\Sprite.cpp" />
+    <ClCompile Include="src\System.cpp" />
+    <ClCompile Include="src\TransitionManager.cpp" />
     <ClCompile Include="src\zer0.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="fileproperties.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
