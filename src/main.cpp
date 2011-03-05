@@ -12,7 +12,7 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 int main(int argc, char** argv)
 #endif
 {
-	arc::setupSystemPath();
+	arc::setupSystemPath("ExampleGameName");
 	bool result = zer0::init(800, 600, false, "Advanced RPG Creator", &arc::log);
 	if (!result)
 	{
