@@ -89,7 +89,7 @@ copy external\lib\msvc\*.dll bin\$(Configuration)</Command>
       </Path>
     </BuildLog>
     <ClCompile>
-      <Optimization>MaxSpeed</Optimization>
+      <Optimization>Full</Optimization>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <AdditionalIncludeDirectories>src;external/include;external/hltypes/include;external/zer0/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_WIN32;_DESKTOP;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -101,6 +101,7 @@ copy external\lib\msvc\*.dll bin\$(Configuration)</Command>
       <DisableSpecificWarnings>4251</DisableSpecificWarnings>
       <UseFullPaths>false</UseFullPaths>
       <OmitDefaultLibName>false</OmitDefaultLibName>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
     </ClCompile>
     <Link>
       <AdditionalDependencies>libhltypes.lib;zer0division.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -128,7 +129,15 @@ copy external\atres\bin\win32_Release\libatres.dll bin\$(Configuration)
 copy external\aprilui\bin\win32_Release\libaprilui.dll bin\$(Configuration)
 copy external\xal\bin\win32_Release\libxal.dll bin\$(Configuration)
 copy external\zer0\bin\win32_Debug\zer0division.dll bin\$(Configuration)
-copy external\lib\msvc\*.dll bin\$(Configuration)</Command>
+copy external\lib\msvc\*.dll bin\$(Configuration)
+del bin\$(Configuration)\*.obj
+del bin\$(Configuration)\*.res
+del bin\$(Configuration)\*.tlog
+del bin\$(Configuration)\*.lastbuildstate
+del bin\$(Configuration)\*.pdb
+del bin\$(Configuration)\*.manifest
+del bin\$(Configuration)\glut32.dll
+</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
