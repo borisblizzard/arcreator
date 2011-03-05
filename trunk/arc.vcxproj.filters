@@ -8,53 +8,32 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-    <Filter Include="Header Files\System">
-      <UniqueIdentifier>{c8f04e13-b788-4fa2-9ad0-0cdc55f03f4a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\System">
-      <UniqueIdentifier>{65a9d32e-31fb-42ef-99b9-87a1b2d4fabf}</UniqueIdentifier>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{587c9cc9-07e3-4381-8cc3-258581ddc1fa}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="fileproperties.rc">
-      <Filter>Source Files</Filter>
+      <Filter>Resource Files</Filter>
     </ResourceCompile>
     <ResourceCompile Include="resources.rc">
-      <Filter>Source Files</Filter>
+      <Filter>Resource Files</Filter>
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\System\Main.cpp">
-      <Filter>Source Files\System</Filter>
-    </ClCompile>
-    <ClCompile Include="src\System\Context.cpp">
-      <Filter>Source Files\System</Filter>
-    </ClCompile>
-    <ClCompile Include="src\System\TransitionManager.cpp">
-      <Filter>Source Files\System</Filter>
-    </ClCompile>
-    <ClCompile Include="src\System\Utility.cpp">
-      <Filter>Source Files\System</Filter>
+    <ClCompile Include="src\Utility.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\System\Constants.h">
-      <Filter>Header Files\System</Filter>
+    <ClInclude Include="src\Constants.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\System\Context.h">
-      <Filter>Header Files\System</Filter>
-    </ClInclude>
-    <ClInclude Include="src\System\TransitionManager.h">
-      <Filter>Header Files\System</Filter>
-    </ClInclude>
-    <ClInclude Include="src\System\Utility.h">
-      <Filter>Header Files\System</Filter>
-    </ClInclude>
-    <ClInclude Include="src\System\Main.h">
-      <Filter>Header Files\System</Filter>
+    <ClInclude Include="src\Utility.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

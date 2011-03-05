@@ -49,8 +49,8 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='win32_Debug|Win32'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>src;external/include;external/gtypes/include;external/hltypes/include;external/april/include;external/april/aprilutil/include;external/atres/include;external/aprilui/include;external/xal/include;external/xal/xalutil/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>_WIN32;_LARGE_SCREEN;_DESKTOP;_DEBUG;_DEBUG_SERVER;_DEBUG_DATA;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>src;external/include;external/hltypes/include;external/zer0/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_WIN32;_DESKTOP;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>true</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
@@ -60,9 +60,9 @@
       <DisableSpecificWarnings>4251</DisableSpecificWarnings>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>libgtypes.lib;libhltypes.lib;libapril.lib;libaprilutil.lib;libatres.lib;libaprilui.lib;libxal.lib;libxalutil.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>libhltypes.lib;zer0division.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>bin\$(Configuration)\$(ProjectName).exe</OutputFile>
-      <AdditionalLibraryDirectories>external/lib/msvc;external/gtypes/bin/win32_Debug;external/hltypes/bin/win32_Debug;external/april/bin;external/atres/bin/win32_Debug;external/aprilui/bin/win32_Debug;external/xal/bin/win32_Debug;external/xal/bin/xalutil/win32_Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>external/lib/msvc;external/hltypes/bin/win32_Debug;external/zer0/bin/win32_Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalManifestDependencies>%(AdditionalManifestDependencies)</AdditionalManifestDependencies>
       <UACExecutionLevel>AsInvoker</UACExecutionLevel>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -79,7 +79,7 @@ copy external\april\bin\libaprilutil.dll bin\$(Configuration)
 copy external\atres\bin\win32_Debug\libatres.dll bin\$(Configuration)
 copy external\aprilui\bin\win32_Debug\libaprilui.dll bin\$(Configuration)
 copy external\xal\bin\win32_Debug\libxal.dll bin\$(Configuration)
-copy external\xal\bin\xalutil\win32_Debug\libxalutil.dll bin\$(Configuration)
+copy external\zer0\bin\win32_Debug\zer0division.dll bin\$(Configuration)
 copy external\lib\msvc\*.dll bin\$(Configuration)</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -91,7 +91,7 @@ copy external\lib\msvc\*.dll bin\$(Configuration)</Command>
     <ClCompile>
       <Optimization>MaxSpeed</Optimization>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <AdditionalIncludeDirectories>src;external/include;external/gtypes/include;external/hltypes/include;external/april/include;external/april/aprilutil/include;external/atres/include;external/aprilui/include;external/xal/include;external/xal/xalutil/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;external/include;external/hltypes/include;external/zer0/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_WIN32;_DESKTOP;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -103,9 +103,9 @@ copy external\lib\msvc\*.dll bin\$(Configuration)</Command>
       <OmitDefaultLibName>false</OmitDefaultLibName>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>libgtypes.lib;libhltypes.lib;libapril.lib;libaprilutil.lib;libatres.lib;libaprilui.lib;libxal.lib;libxalutil.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>libhltypes.lib;zer0division.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>bin\$(Configuration)\$(ProjectName).exe</OutputFile>
-      <AdditionalLibraryDirectories>external/lib/msvc;external/gtypes/bin/win32_Release;external/hltypes/bin/win32_Release;external/april/bin;external/atres/bin/win32_Release;external/aprilui/bin/win32_Release;external/xal/bin/win32_Release;external/xal/bin/xalutil/win32_Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>external/lib/msvc;external/hltypes/bin/win32_Release;external/zer0/bin/win32_Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalManifestDependencies>%(AdditionalManifestDependencies)</AdditionalManifestDependencies>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
@@ -127,7 +127,7 @@ copy external\april\bin\libaprilutil.dll bin\$(Configuration)
 copy external\atres\bin\win32_Release\libatres.dll bin\$(Configuration)
 copy external\aprilui\bin\win32_Release\libaprilui.dll bin\$(Configuration)
 copy external\xal\bin\win32_Release\libxal.dll bin\$(Configuration)
-copy external\xal\bin\xalutil\win32_Release\libxalutil.dll bin\$(Configuration)
+copy external\zer0\bin\win32_Debug\zer0division.dll bin\$(Configuration)
 copy external\lib\msvc\*.dll bin\$(Configuration)</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -140,28 +140,9 @@ copy external\lib\msvc\*.dll bin\$(Configuration)</Command>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='win32_Debug|Win32'">$(IntDir)%(RelativeDir)%(Filename).obj</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='win32_Release|Win32'">$(IntDir)%(RelativeDir)%(Filename).obj</ObjectFileName>
     </ClCompile>
-    <ClCompile Include="src\System\Context.cpp">
-      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='win32_Debug|Win32'">$(IntDir)%(RelativeDir)%(Filename).obj</ObjectFileName>
-      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='win32_Release|Win32'">$(IntDir)%(RelativeDir)%(Filename).obj</ObjectFileName>
-    </ClCompile>
-    <ClCompile Include="src\System\Main.cpp">
-      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='win32_Debug|Win32'">$(IntDir)%(RelativeDir)%(Filename).obj</ObjectFileName>
-      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='win32_Release|Win32'">$(IntDir)%(RelativeDir)%(Filename).obj</ObjectFileName>
-    </ClCompile>
-    <ClCompile Include="src\System\TransitionManager.cpp">
-      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='win32_Debug|Win32'">$(IntDir)%(RelativeDir)%(Filename).obj</ObjectFileName>
-      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='win32_Release|Win32'">$(IntDir)%(RelativeDir)%(Filename).obj</ObjectFileName>
-    </ClCompile>
-    <ClCompile Include="src\System\Utility.cpp">
-      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='win32_Debug|Win32'">$(IntDir)%(RelativeDir)%(Filename).obj</ObjectFileName>
-      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='win32_Release|Win32'">$(IntDir)%(RelativeDir)%(Filename).obj</ObjectFileName>
-    </ClCompile>
+    <ClCompile Include="src\Utility.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="external\aprilui\libaprilui.vcxproj">
-      <Project>{56ff74d1-34d0-4ddb-8b89-f6f9200842b8}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
     <ProjectReference Include="external\april\aprilutil\libaprilutil.vcxproj">
       <Project>{2d053cda-686c-4b36-80eb-1da5f0cef8f9}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
@@ -186,17 +167,10 @@ copy external\lib\msvc\*.dll bin\$(Configuration)</Command>
       <Project>{6b6c070b-7dd7-41b9-8dd7-12afbf0f6c08}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
-    <ProjectReference Include="external\xal\xalutil\libxalutil.vcxproj">
-      <Project>{b3e8df67-fee1-4660-902c-3d31d1f0735f}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\System\Constants.h" />
-    <ClInclude Include="src\System\Context.h" />
-    <ClInclude Include="src\System\Main.h" />
-    <ClInclude Include="src\System\TransitionManager.h" />
-    <ClInclude Include="src\System\Utility.h" />
+    <ClInclude Include="src\Constants.h" />
+    <ClInclude Include="src\Utility.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
