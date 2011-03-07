@@ -39,5 +39,5 @@ begin
   reflect(Tone.new(255, 255, 255, 255))
   reflect(Viewport.new(0, 0, 640, 480))
   reflect(Window.new())
-  reflect(RGSSEror.new())
+  reflect(RGSSError.new())
 end
