@@ -1,34 +1,34 @@
 def reflect(obj)
 	io = open("./" + obj.class.to_s + ".txt", 'wb')
-	io.write("Instence veribles:\n")
-	obj.instance_variables.each {|name|
+	io.write("Instance variables:\n")
+	(obj.instance_variables - Object.new.instance_variables).sort.each {|name|
 		io.write("\t" + name.to_s + " => " + 
 		obj.instance_variable_get(value).to_s + "\n")
 	}
 	io.write("Methods:\n")
-	obj.methods.each {|name|
+	(obj.methods - Object.new.methods).sort.each {|name|
 		io.write("\t" + name.to_s + "\n")
 	}
 	io.write("Public Methods:\n")
-	obj.public_methods(true).each {|name|
+	(obj.public_methods(true) - Object.new.public_methods(true)).sort.each {|name|
 		io.write("\t" + name.to_s + "\n")
 	}
 	io.write("Private Methods:\n")
-	obj.private_methods(true).each {|name|
+	(obj.private_methods(true) - Object.new.private_methods(true)).sort.each {|name|
 		io.write("\t" + name.to_s + "\n")
 	}
 	io.write("Protected Methods:\n")
-	obj.protected_methods(true).each {|name|
+	(obj.protected_methods(true) - Object.new.protected_methods(true)).sort.each {|name|
 		io.write("\t" + name.to_s + "\n")
 	}
 	io.write("Singleton Methods:\n")
-	obj.singleton_methods(true).each {|name|
+	(obj.singleton_methods(true) - Object.new.singleton_methods(true)).sort.each {|name|
 		io.write("\t" + name.to_s + "\n")
 	}
 end
 
 begin
-	reflect(Bitmap.new(32, 32))
+  reflect(Bitmap.new(32, 32))
   reflect(Color.new(255, 255, 255, 255))
   reflect(Font.new())
   reflect(Plane.new())
