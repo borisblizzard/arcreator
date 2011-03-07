@@ -9,7 +9,7 @@
 #include <hltypes/hstring.h>
 #include <xal/AudioManager.h>
 
-//#include 
+#include <ruby/ruby.h>
 
 #include "Constants.h"
 #include "Context.h"
@@ -35,6 +35,7 @@ namespace zer0
 		try
 		{
 			g_logFunction = logFunction;
+			/*
 			april::setLogFunction(logFunction);
 			atres::setLogFunction(logFunction);
 			aprilui::setLogFunction(logFunction);
@@ -60,6 +61,7 @@ namespace zer0
 			aprilui::setLimitCursorToViewport(false);
 			aprilui::setViewport(grect(0.0f, 0.0f, (float)width, (float)height));
 			aprilui::setScreenViewport(aprilui::getViewport());
+			*/
 			// zer0 related data
 			zer0::system = new zer0::System(path);
 			zer0::context = new zer0::Context();
@@ -86,10 +88,12 @@ namespace zer0
 			delete zer0::system;
 			delete zer0::context;
 			delete zer0::transitionManager;
+			/*
 			xal::destroy();
 			aprilui::destroy();
 			atres::destroy();
 			april::destroy();
+			*/
 		}
 		catch (hltypes::exception e)
 		{
@@ -134,9 +138,19 @@ namespace zer0
 		return result;
 	}
 
-	void enterMainLoop()
+	int enterMainLoop(int argc, char** argv)
 	{
-		_update(0);
+#ifdef RUBY_DEBUG_ENV
+		ruby_set_debug_option(getenv("RUBY_DEBUG"));
+#endif
+#ifdef HAVE_LOCALE_H
+	    setlocale(LC_CTYPE, "");
+#endif
+		ruby_init();
+		ruby_init_loadpath();
+		rb_load_file("test.rb");
+		ruby_exec();
+		return 0;
 	}
 
 }

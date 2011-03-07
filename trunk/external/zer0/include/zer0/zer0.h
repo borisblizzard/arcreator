@@ -11,7 +11,7 @@ namespace zer0
 	zer0FnExport bool destroy();
 	zer0FnExport void setLogFunction(void (*fnptr)(chstr));
 	zer0FnExport void log(chstr message, chstr prefix = "[zer0] ");
-	zer0FnExport void enterMainLoop();
+	zer0FnExport int enterMainLoop(int argc, char** argv);
 
 }
 
