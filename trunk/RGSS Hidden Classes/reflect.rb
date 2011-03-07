@@ -1,5 +1,9 @@
-def reflect(obj)
-	io = open("./" + obj.class.to_s + ".txt", 'wb')
+def reflect(obj, alt_name = nil)
+  if alt_name
+    io = open("./" + alt_name.to_s + ".txt", 'wb')
+  else
+    io = open("./" + obj.class.to_s + ".txt", 'wb')
+  end
 	io.write("Instance variables:\n")
 	(obj.instance_variables - Object.new.instance_variables).sort.each {|name|
 		io.write("\t" + name.to_s + " => " + 
@@ -25,6 +29,7 @@ def reflect(obj)
 	(obj.singleton_methods(true) - Object.new.singleton_methods(true)).sort.each {|name|
 		io.write("\t" + name.to_s + "\n")
 	}
+  io.close()
 end
 
 begin
@@ -40,4 +45,7 @@ begin
   reflect(Viewport.new(0, 0, 640, 480))
   reflect(Window.new())
   reflect(RGSSError.new())
+  reflect(Graphics, "Graphics")
+  reflect(Audio, "Audio")
+  reflect(Input, "Input")
 end
