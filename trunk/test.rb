@@ -1,7 +1,7 @@
 p "HELLO WORLD"
 
 a = "1"
-while a != ""
+while a != "" && a != "\n"
 	a = gets
 end
 exit

@@ -35,7 +35,6 @@ namespace zer0
 		try
 		{
 			g_logFunction = logFunction;
-			/*
 			april::setLogFunction(logFunction);
 			atres::setLogFunction(logFunction);
 			aprilui::setLogFunction(logFunction);
@@ -61,7 +60,6 @@ namespace zer0
 			aprilui::setLimitCursorToViewport(false);
 			aprilui::setViewport(grect(0.0f, 0.0f, (float)width, (float)height));
 			aprilui::setScreenViewport(aprilui::getViewport());
-			*/
 			// zer0 related data
 			zer0::system = new zer0::System(path);
 			zer0::context = new zer0::Context();
@@ -88,12 +86,10 @@ namespace zer0
 			delete zer0::system;
 			delete zer0::context;
 			delete zer0::transitionManager;
-			/*
 			xal::destroy();
 			aprilui::destroy();
 			atres::destroy();
 			april::destroy();
-			*/
 		}
 		catch (hltypes::exception e)
 		{
