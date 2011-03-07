@@ -13,12 +13,12 @@ int main(int argc, char** argv)
 #endif
 {
 	arc::setupSystemPath("ExampleGameName");
-	bool result = zer0::init(800, 600, false, "Advanced RPG Creator", arc::path, &arc::log);
-	if (!result)
+	bool initialized = zer0::init(800, 600, false, "Advanced RPG Creator", arc::path, &arc::log);
+	if (!initialized)
 	{
 		return 1;
 	}
-	zer0::enterMainLoop();
+	int result = zer0::enterMainLoop(argc, argv);
 	zer0::destroy();
-	return 0;
+	return result;
 }
