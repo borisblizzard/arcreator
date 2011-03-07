@@ -1,35 +1,35 @@
-def reflect(obj, alt_name = nil)
-  if alt_name
-    io = open("./" + alt_name.to_s + ".txt", 'wb')
-  else
-    io = open("./" + obj.class.to_s + ".txt", 'wb')
-  end
+def reflect(obj)
+	io = open("./" + obj.class.to_s + ".txt", 'wb')
 	io.write("Instance variables:\n")
-	(obj.instance_variables - Object.new.instance_variables).sort.each {|name|
+	(obj.instance_variables - Object.new.instance_variables - 
+	Class.instance_variables - Module.instance_variables).sort.each {|name|
 		io.write("\t" + name.to_s + " => " + 
 		obj.instance_variable_get(value).to_s + "\n")
 	}
 	io.write("Methods:\n")
-	(obj.methods - Object.new.methods).sort.each {|name|
+	(obj.methods - Object.new.methods - Class.methods - Module.methods).sort.each {|name|
 		io.write("\t" + name.to_s + "\n")
 	}
 	io.write("Public Methods:\n")
-	(obj.public_methods(true) - Object.new.public_methods(true)).sort.each {|name|
+	(obj.public_methods(true) - Object.new.public_methods(true) - 
+	Class.public_methods(true) - Module.public_methods(true)).sort.each {|name|
 		io.write("\t" + name.to_s + "\n")
 	}
 	io.write("Private Methods:\n")
-	(obj.private_methods(true) - Object.new.private_methods(true)).sort.each {|name|
+	(obj.private_methods(true) - Object.new.private_methods(true) - 
+	Class.private_methods(true) - Module.private_methods(true)).sort.each {|name|
 		io.write("\t" + name.to_s + "\n")
 	}
 	io.write("Protected Methods:\n")
-	(obj.protected_methods(true) - Object.new.protected_methods(true)).sort.each {|name|
+	(obj.protected_methods(true) - Object.new.protected_methods(true) - 
+	Class.protected_methods(true) - Module.protected_methods(true)).sort.each {|name|
 		io.write("\t" + name.to_s + "\n")
 	}
 	io.write("Singleton Methods:\n")
-	(obj.singleton_methods(true) - Object.new.singleton_methods(true)).sort.each {|name|
+	(obj.singleton_methods(true) - Object.new.singleton_methods(true) - 
+	Class.singleton_methods(true) - Module.singleton_methods(true)).sort.each {|name|
 		io.write("\t" + name.to_s + "\n")
 	}
-  io.close()
 end
 
 begin
@@ -44,8 +44,5 @@ begin
   reflect(Tone.new(255, 255, 255, 255))
   reflect(Viewport.new(0, 0, 640, 480))
   reflect(Window.new())
-  reflect(RGSSError.new())
-  reflect(Graphics, "Graphics")
-  reflect(Audio, "Audio")
-  reflect(Input, "Input")
+  reflect(RGSSEror.new())
 end
