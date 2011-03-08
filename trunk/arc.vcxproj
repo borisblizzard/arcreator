@@ -83,7 +83,7 @@ copy external\aprilui\bin\win32_Debug\libaprilui.dll bin\$(Configuration)
 copy external\xal\bin\win32_Debug\libxal.dll bin\$(Configuration)
 copy external\zer0\bin\win32_Debug\zer0division.dll bin\$(Configuration)
 copy external\lib\msvc90\*.dll bin\$(Configuration)
-copy external\lib\msvc\*.dll bin\$(Configuration)
+copy external\lib\msvc100\*.dll bin\$(Configuration)
 </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -133,7 +133,7 @@ copy external\aprilui\bin\win32_Release\libaprilui.dll bin\$(Configuration)
 copy external\xal\bin\win32_Release\libxal.dll bin\$(Configuration)
 copy external\zer0\bin\win32_Release\zer0division.dll bin\$(Configuration)
 copy external\lib\msvc90\*.dll bin\$(Configuration)
-copy external\lib\msvc\*.dll bin\$(Configuration)
+copy external\lib\msvc100\*.dll bin\$(Configuration)
 del bin\$(Configuration)\*.obj
 del bin\$(Configuration)\*.res
 del bin\$(Configuration)\*.tlog
