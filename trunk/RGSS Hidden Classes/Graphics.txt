@@ -1,109 +1,30 @@
 Instance variables:
 Methods:
-	<
-	<=
-	<=>
-	>
-	>=
 	_reset
-	ancestors
-	autoload
-	autoload?
-	class_eval
-	class_variables
-	const_defined?
-	const_get
-	const_missing
-	const_set
-	constants
 	frame_count
 	frame_count=
 	frame_rate
 	frame_rate=
 	frame_reset
-	include?
-	included_modules
-	instance_method
-	instance_methods
-	method_defined?
-	module_eval
-	name
-	private_class_method
-	private_instance_methods
-	private_method_defined?
-	protected_instance_methods
-	protected_method_defined?
-	public_class_method
-	public_instance_methods
-	public_method_defined?
 	transition
 	update
 	visible
 	visible=
 Public Methods:
-	<
-	<=
-	<=>
-	>
-	>=
 	_reset
-	ancestors
-	autoload
-	autoload?
-	class_eval
-	class_variables
-	const_defined?
-	const_get
-	const_missing
-	const_set
-	constants
 	frame_count
 	frame_count=
 	frame_rate
 	frame_rate=
 	frame_reset
-	include?
-	included_modules
-	instance_method
-	instance_methods
-	method_defined?
-	module_eval
-	name
-	private_class_method
-	private_instance_methods
-	private_method_defined?
-	protected_instance_methods
-	protected_method_defined?
-	public_class_method
-	public_instance_methods
-	public_method_defined?
 	transition
 	update
 	visible
 	visible=
 Private Methods:
-	alias_method
 	append_features
-	attr
-	attr_accessor
-	attr_reader
-	attr_writer
-	define_method
 	extend_object
-	extended
-	include
-	included
-	method_added
-	method_removed
-	method_undefined
 	module_function
-	private
-	protected
-	public
-	remove_class_variable
-	remove_const
-	remove_method
-	undef_method
 Protected Methods:
 Singleton Methods:
 	_reset
