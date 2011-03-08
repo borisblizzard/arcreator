@@ -1,7 +1,12 @@
-p "HELLO WORLD"
-
-a = "1"
-while a != "" && a != "\n"
-	a = gets
+class A
+	def p
+		puts 'HAI'
+	end
 end
-exit
+
+puts 'Hello World'
+puts 'Press ENTER to exit'
+input = '1'
+while input != '' && input != "\n"
+	input = gets
+end

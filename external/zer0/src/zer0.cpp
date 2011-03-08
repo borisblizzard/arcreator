@@ -35,6 +35,7 @@ namespace zer0
 		try
 		{
 			g_logFunction = logFunction;
+			/*
 			april::setLogFunction(logFunction);
 			atres::setLogFunction(logFunction);
 			aprilui::setLogFunction(logFunction);
@@ -60,7 +61,9 @@ namespace zer0
 			aprilui::setLimitCursorToViewport(false);
 			aprilui::setViewport(grect(0.0f, 0.0f, (float)width, (float)height));
 			aprilui::setScreenViewport(aprilui::getViewport());
+			*/
 			// zer0 related data
+			zer0::log("initializing Zer0 Division Engine");
 			zer0::system = new zer0::System(path);
 			zer0::context = new zer0::Context();
 			zer0::transitionManager = new zer0::TransitionManager();
@@ -83,13 +86,16 @@ namespace zer0
 		bool result = true;
 		try
 		{
+			zer0::log("destroying Zer0 Division Engine");
 			delete zer0::system;
 			delete zer0::context;
 			delete zer0::transitionManager;
+			/*
 			xal::destroy();
 			aprilui::destroy();
 			atres::destroy();
 			april::destroy();
+			*/
 		}
 		catch (hltypes::exception e)
 		{
@@ -134,19 +140,24 @@ namespace zer0
 		return result;
 	}
 
+	VALUE embedded(VALUE ignore)
+	{
+		rb_require("./test.rb");
+		return Qnil;
+	}
+
 	int enterMainLoop(int argc, char** argv)
 	{
-#ifdef RUBY_DEBUG_ENV
-		ruby_set_debug_option(getenv("RUBY_DEBUG"));
-#endif
 #ifdef HAVE_LOCALE_H
 	    setlocale(LC_CTYPE, "");
 #endif
+		int state;
+		ruby_sysinit(&argc, &argv);
+		RUBY_INIT_STACK;
 		ruby_init();
 		ruby_init_loadpath();
-		rb_load_file("test.rb");
-		ruby_exec();
-		return 0;
+		rb_protect(embedded, Qnil, &state);
+		return ruby_cleanup(state);
 	}
 
 }
