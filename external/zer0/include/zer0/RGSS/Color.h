@@ -18,7 +18,7 @@ namespace zer0
 			unsigned char alpha;
 
 			// Init Methods
-			Color()
+			Color();
 			Color(float r, float g, float b, float a = 255);
 
 			// Set methods
