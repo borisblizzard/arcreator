@@ -1,8 +1,7 @@
 #ifndef ZER0_COLOR_H
 #define ZER0_COLOR_H
 
-#include <april/Color.h>
-
+#include <hltypes/util.h>
 #include "zer0Export.h"
 
 namespace zer0
@@ -12,10 +11,10 @@ namespace zer0
 		class zer0Export Color : public april::Color
 		{
 		public:
-			unsigned char red;
-			unsigned char green;
-			unsigned char blue;
-			unsigned char alpha;
+			float red;
+			float green;
+			float blue;
+			float alpha;
 
 			// Init Methods
 			Color();
