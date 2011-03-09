@@ -12,13 +12,18 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 int main(int argc, char** argv)
 #endif
 {
+	//TODO - add reading of configuration data from INI
 	arc::setupSystemPath("ExampleGameName");
 	bool initialized = zer0::init(800, 600, false, "Advanced RPG Creator", arc::path, &arc::log);
 	if (!initialized)
 	{
 		return 1;
 	}
+#if !defined(_CONSOLE) && defined(_WIN32)
+	int result = zer0::enterMainLoop(0, NULL);
+#else
 	int result = zer0::enterMainLoop(argc, argv);
+#endif
 	zer0::destroy();
 	return result;
 }
