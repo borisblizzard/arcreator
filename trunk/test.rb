@@ -3,8 +3,13 @@ class A
 		puts 'HAI'
 	end
 end
+greeting = "\
+Useing Ruby '#{RUBY_VERSION}' built for '#{RUBY_PLATFORM}' releaced on '#{RUBY_RELEASE_DATE}'
 
-puts 'Hello World'
+Hello World. 
+
+"
+puts greeting
 puts 'Press ENTER to exit'
 input = '1'
 while input != '' && input != "\n"
