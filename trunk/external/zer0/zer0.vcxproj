@@ -129,25 +129,63 @@
     <ClInclude Include="src\Constants.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Context.cpp" />
-    <ClCompile Include="src\RGSS\Audio.cpp" />
-    <ClCompile Include="src\RGSS\Bitmap.cpp" />
-    <ClCompile Include="src\RGSS\Color.cpp" />
-    <ClCompile Include="src\RGSS\Font.cpp" />
-    <ClCompile Include="src\RGSS\Graphics.cpp" />
-    <ClCompile Include="src\RGSS\Input.cpp" />
-    <ClCompile Include="src\RGSS\Plane.cpp" />
-    <ClCompile Include="src\RGSS\Rect.cpp" />
-    <ClCompile Include="src\RGSS\RGSSError.cpp" />
-    <ClCompile Include="src\RGSS\Sprite.cpp" />
-    <ClCompile Include="src\RGSS\Table.cpp" />
-    <ClCompile Include="src\RGSS\Tilemap.cpp" />
-    <ClCompile Include="src\RGSS\Tone.cpp" />
-    <ClCompile Include="src\RGSS\Viewport.cpp" />
-    <ClCompile Include="src\RGSS\Window.cpp" />
-    <ClCompile Include="src\System.cpp" />
-    <ClCompile Include="src\TransitionManager.cpp" />
-    <ClCompile Include="src\zer0.cpp" />
+    <ClCompile Include="src\Context.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='win32_Debug|Win32'">$(IntDir)%(RelativeDir)%(Filename).obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="src\RGSS\Audio.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='win32_Debug|Win32'">$(IntDir)%(RelativeDir)%(Filename).obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="src\RGSS\Bitmap.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='win32_Debug|Win32'">$(IntDir)%(RelativeDir)%(Filename).obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="src\RGSS\Color.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='win32_Debug|Win32'">$(IntDir)%(RelativeDir)%(Filename).obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="src\RGSS\Font.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='win32_Debug|Win32'">$(IntDir)%(RelativeDir)%(Filename).obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="src\RGSS\Graphics.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='win32_Debug|Win32'">$(IntDir)%(RelativeDir)%(Filename).obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="src\RGSS\Input.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='win32_Debug|Win32'">$(IntDir)%(RelativeDir)%(Filename).obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="src\RGSS\Plane.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='win32_Debug|Win32'">$(IntDir)%(RelativeDir)%(Filename).obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="src\RGSS\Rect.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='win32_Debug|Win32'">$(IntDir)%(RelativeDir)%(Filename).obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="src\RGSS\RGSSError.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='win32_Debug|Win32'">$(IntDir)%(RelativeDir)%(Filename).obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="src\RGSS\Sprite.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='win32_Debug|Win32'">$(IntDir)%(RelativeDir)%(Filename).obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="src\RGSS\Table.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='win32_Debug|Win32'">$(IntDir)%(RelativeDir)%(Filename).obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="src\RGSS\Tilemap.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='win32_Debug|Win32'">$(IntDir)%(RelativeDir)%(Filename).obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="src\RGSS\Tone.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='win32_Debug|Win32'">$(IntDir)%(RelativeDir)%(Filename).obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="src\RGSS\Viewport.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='win32_Debug|Win32'">$(IntDir)%(RelativeDir)%(Filename).obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="src\RGSS\Window.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='win32_Debug|Win32'">$(IntDir)%(RelativeDir)%(Filename).obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="src\System.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='win32_Debug|Win32'">$(IntDir)%(RelativeDir)%(Filename).obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="src\TransitionManager.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='win32_Debug|Win32'">$(IntDir)%(RelativeDir)%(Filename).obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="src\zer0.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='win32_Debug|Win32'">$(IntDir)%(RelativeDir)%(Filename).obj</ObjectFileName>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="fileproperties.rc" />

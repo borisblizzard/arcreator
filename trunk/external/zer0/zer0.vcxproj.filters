@@ -84,7 +84,7 @@
       <Filter>Header Files\RGSS</Filter>
     </ClInclude>
     <ClInclude Include="src\CodeSnippets.h">
-      <Filter>Header Files\RGSS</Filter>
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
