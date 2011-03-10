@@ -1,9 +1,10 @@
-#ifndef ZER0_FONT_H
-#define ZER0_FONT_H
+#ifndef ZER0_RGSS_FONT_H
+#define ZER0_RGSS_FONT_H
 
-#include "zer0Export.h"
-#include "RGSS/Color.h"
 #include <hltypes/hstring.h>
+
+#include "RGSS/Color.h"
+#include "zer0Export.h"
 
 namespace zer0
 {
@@ -12,13 +13,6 @@ namespace zer0
 		class zer0Export Font
 		{
 		public:
-			// constructer and deconstructer
-			Font();
-			Font(hstr name);
-			Font(hstr name, int size);
-			~Font();
-
-			//data members
 			hstr name;
 			int size;
 			bool bold;
@@ -32,17 +26,12 @@ namespace zer0
 			static bool default_italic;
 			static Color default_color;
 
-			//getters and setters
-			hstr get_name();
-			void set_name(hstr name);
-			int get_size();
-			void set_size(int size);
-			bool get_bold();
-			void set_bold(bool state);
-			bool get_italic();
-			void set_italic(bool state);
-			Color get_color();
-			void set_color(Color &color);
+			// constructer and deconstructer
+			Font();
+			Font(chstr name);
+			Font(chstr name, int size);
+			~Font();
+
 		};
 
 	}

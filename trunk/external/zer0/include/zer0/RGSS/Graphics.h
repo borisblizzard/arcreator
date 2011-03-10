@@ -1,5 +1,5 @@
-#ifndef ZER0_GRAPHICS_H
-#define ZER0_GRAPHICS_H
+#ifndef ZER0_RGSS_GRAPHICS_H
+#define ZER0_RGSS_GRAPHICS_H
 
 #include "zer0Export.h"
 

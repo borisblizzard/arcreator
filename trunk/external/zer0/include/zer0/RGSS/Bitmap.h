@@ -1,5 +1,5 @@
-#ifndef ZER0_BITMAP_H
-#define ZER0_BITMAP_H
+#ifndef ZER0_RGSS_BITMAP_H
+#define ZER0_RGSS_BITMAP_H
 
 #include "zer0Export.h"
 

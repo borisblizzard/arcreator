@@ -1,5 +1,5 @@
-#ifndef ZER0_INPUT_H
-#define ZER0_INPUT_H
+#ifndef ZER0_RGSS_INPUT_H
+#define ZER0_RGSS_INPUT_H
 
 #include "zer0Export.h"
 

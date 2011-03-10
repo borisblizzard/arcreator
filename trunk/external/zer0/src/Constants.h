@@ -1,9 +1,6 @@
 #ifndef ZER0_CONSTANTS_H
 #define ZER0_CONSTANTS_H
 
-// iterator macros
-#define for_iter(name, min, max) for (int name = min; name < max; name++)
-
 #define VERSION_MAJOR (0)
 #define VERSION_MINOR (1)
 #define VERSION_REVISION (0)

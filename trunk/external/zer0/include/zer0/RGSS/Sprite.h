@@ -1,5 +1,5 @@
-#ifndef ZER0_SPRITE_H
-#define ZER0_SPRITE_H
+#ifndef ZER0_RGSS_SPRITE_H
+#define ZER0_RGSS_SPRITE_H
 
 #include "zer0Export.h"
 

@@ -1,5 +1,5 @@
-#ifndef ZER0_PLANE_H
-#define ZER0_PLANE_H
+#ifndef ZER0_RGSS_PLANE_H
+#define ZER0_RGSS_PLANE_H
 
 #include "zer0Export.h"
 

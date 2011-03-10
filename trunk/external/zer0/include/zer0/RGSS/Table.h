@@ -1,5 +1,5 @@
-#ifndef ZER0_TABLE_H
-#define ZER0_TABLE_H
+#ifndef ZER0_RGSS_TABLE_H
+#define ZER0_RGSS_TABLE_H
 
 #include "zer0Export.h"
 
@@ -10,26 +10,32 @@ namespace zer0
 		class zer0Export Table
 		{
 		public:
-			// data 
-			int xsize;
-			int ysize;
-			int zsize;
-			// getters & setters
-			int get_xsize();
-			int get_ysize();
-			int get_zsize();
-			// getter setter functions for table data
-			short get_data(int x, int y, int z);
-			void set_data(int x, int y, int z, short data);
 			// constructor / destructor
-			Table(int xsize, int ysize, int zsize);
+			Table(int xSize, int ySize = 1, int zSize = 1);
 			~Table();
-			//functions
-			void resize(int xsize, int ysize, int zsize);
+			// getters & setters
+			int getXSize() { return this->xSize; }
+			int getYSize() { return this->xSize; }
+			int getZSize() { return this->xSize; }
+			// getter setter functions for table data
+			short getData(int x);
+			short getData(int x, int y);
+			short getData(int x, int y, int z);
+			void setData(int x, short value);
+			void setData(int x, int y, short value);
+			void setData(int x, int y, int z, short value);
+			// functions
+			void resize(int xSize, int ySize = 1, int zSize = 1);
 
-		private:
+		protected:
+			// data
+			int xSize;
+			int ySize;
+			int zSize;
 			// pointer for data
 			short *data;
+
+			short* _createData(int xSize, int ySize, int zSize);
 			
 		};
 

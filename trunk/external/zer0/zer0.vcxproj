@@ -125,6 +125,7 @@
     <ClInclude Include="include\zer0\TransitionManager.h" />
     <ClInclude Include="include\zer0\zer0.h" />
     <ClInclude Include="include\zer0\zer0Export.h" />
+    <ClInclude Include="src\CodeSnippets.h" />
     <ClInclude Include="src\Constants.h" />
   </ItemGroup>
   <ItemGroup>

@@ -1,5 +1,5 @@
-#ifndef ZER0_AUDIO_H
-#define ZER0_AUDIO_H
+#ifndef ZER0_RGSS_AUDIO_H
+#define ZER0_RGSS_AUDIO_H
 
 #include "zer0Export.h"
 

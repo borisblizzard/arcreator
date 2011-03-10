@@ -83,6 +83,9 @@
     <ClInclude Include="include\zer0\RGSS\Window.h">
       <Filter>Header Files\RGSS</Filter>
     </ClInclude>
+    <ClInclude Include="src\CodeSnippets.h">
+      <Filter>Header Files\RGSS</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\zer0.cpp">

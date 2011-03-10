@@ -11,7 +11,9 @@
 
 #include <ruby/ruby.h>
 
+#include "CodeSnippets.h"
 #include "Constants.h"
+#include "RGSS/Table.h"
 #include "Context.h"
 #include "System.h"
 #include "TransitionManager.h"
