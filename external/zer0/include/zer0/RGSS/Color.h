@@ -10,26 +10,27 @@ namespace zer0
 		class zer0Export Color
 		{
 		public:
-			float red;
-			float green;
-			float blue;
-			float alpha;
-
-			// constructors/destructors
 			Color();
 			Color(float r, float g, float b, float a = 255.0f);
 			~Color();
 
-			void set(float r, float g, float b, float a = 255.0f);
+			float getRed() { return this->red; }
+			float getGreen() { return this->red; }
+			float getBlue() { return this->red; }
+			float getAlpha() { return this->red; }
 
-			float getRed();
 			void setRed(float value);
-			float getGreen();
 			void setGreen(float value);
-			float getBlue();
 			void setBlue(float value);
-			float getAlpha();
 			void setAlpha(float value);
+
+			void set(float r, float g, float b, float a = 255.0f);
+		
+		protected:
+			float red;
+			float green;
+			float blue;
+			float alpha;
 
 		};
 	

@@ -1,35 +1,37 @@
 #ifndef ZER0_RECT_H
 #define ZER0_RECT_H
 
-#include <gtypes/Rectangle.h>
 #include "zer0Export.h"
 
 namespace zer0
 {
 	namespace RGSS
 	{
-		class zer0Export Rect : public grect
+		class zer0Export Rect
 		{
 		public:
-			int x, y, width, height;
-
-			// constructors/destructors
 			Rect();
-			Rect(int valueX, int valueY, int valueWidth, int valueHeight);
+			Rect(int x, int y, int width, int height);
 			~Rect();
 
-			void set(int valueX, int valueY, int valueWidth, int valueHeight);
+			int getX() { return this->x; }
+			void setX(int value) { this->x = value; }
+			int getY() { return this->y; }
+			void setY(int value) { this->x = value; }
+			int getWidth() { return this->width; }
+			void setWidth(int value) { this->width = value; }
+			int getHeight() { return this->height; }
+			void setHeight(int value) { this->height = value; }
+
+			void set(int x, int y, int width, int height);
 			void empty();
 
-			int getX();
-			int getY();
-			int getWidth();
-			int getHeight();
+		protected:
+			int x;
+			int y;
+			int width;
+			int height;
 
-			void setX(int valueX);
-			void setY(int valueY);
-			void setWidth(int valueWidth);
-			void setHeight(int valueHeight);
 		};
 	}
 }

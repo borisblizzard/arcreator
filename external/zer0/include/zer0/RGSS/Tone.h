@@ -10,24 +10,27 @@ namespace zer0
 		class zer0Export Tone
 		{
 		public:
-			float red;
-			float green;
-			float blue;
-			float gray;
 			Tone();
 			Tone(float r, float g, float b, float gr = 255.0f);
 			~Tone();
 
+			float getRed() { return this->red; }
+			float getGreen() { return this->green; }
+			float getBlue() { return this->blue; }
+			float getGray() { return this->gray; }
+
+			void setRed(float value);
+			void setGreen(float value);
+			void setBlue(float value);
+			void setGray(float value);
+
 			void set(float r, float g, float b, float gr = 255.0f);
 
-			float getRed();
-			void setRed(float value);
-			float getGreen();
-			void setGreen(float value);
-			float getBlue();
-			void setBlue(float value);
-			float getGray();
-			void setGray(float value);
+		protected:
+			float red;
+			float green;
+			float blue;
+			float gray;
 
 		};
 	

@@ -1,3 +1,5 @@
+#include <stdio.h>
+
 #include "RGSS/Table.h"
 
 namespace zer0
