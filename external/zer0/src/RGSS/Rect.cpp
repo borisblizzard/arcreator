@@ -58,7 +58,7 @@ namespace zer0
 
 		Rect::~Rect()
 		{
-			// ????
+			// donconstructer, what to do when the object is deleated
 		}
 	}
 }
