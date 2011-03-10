@@ -1,5 +1,5 @@
-#ifndef ZER0_WINDOW_H
-#define ZER0_WINDOW_H
+#ifndef ZER0_RGSS_WINDOW_H
+#define ZER0_RGSS_WINDOW_H
 
 #include "zer0Export.h"
 

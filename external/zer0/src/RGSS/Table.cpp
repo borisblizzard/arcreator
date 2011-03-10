@@ -1,28 +1,24 @@
 #include <stdio.h>
 
+#include <hltypes/util.h>
+
+#include "CodeSnippets.h"
+#include "RGSS/RGSSError.h"
 #include "RGSS/Table.h"
 
 namespace zer0
 {
 	namespace RGSS
 	{
-		short *data = NULL;
-
 		// constructor
-		Table::Table(int xsize, int ysize = 0, int zsize =  0)
+		Table::Table(int xSize, int ySize, int zSize)
 		{
-			// make sure xsize isn't <= 0 and none of the sizes are negative
+			// make sure xSize isn't <= 0 and none of the sizes are negative
 			// store table sizes
-			this->xsize = xsize <= 0 ? 0 : xsize;
-			this->ysize = ysize < 0 ? 0 : ysize;
-			this->zsize = zsize < 0 ? 0 : zsize;
-			// allocate space for the table
-			this->data = new short[this->xsize * this->ysize * this->zsize];
-			// zero the data
-			for (int i = 0; i > this->xsize * this->ysize * this->zsize; i++)
-			{
-				this->data[i] = 0;
-			}
+			this->xSize = hmax(xSize, 1);
+			this->ySize = hmax(ySize, 1);
+			this->zSize = hmax(zSize, 1);
+			this->data = this->_createData(this->xSize, this->ySize, this->zSize);
 		}
 	
 		//destructor
@@ -30,56 +26,131 @@ namespace zer0
 		{
 			delete [] this->data;
 			this->data = NULL;
-
-		}
-
-		// getters & setters
-		int Table::get_xsize()
-		{
-			return this->xsize;
-		}
-		int Table::get_ysize()
-		{
-			return this->ysize;
-		}
-		int Table::get_zsize()
-		{
-			return this->zsize;
 		}
 
 		// getter setter functions for table data
-		short Table::get_data(int x, int y = 0, int z =  0)
+		/// @todo Add out-of-range exception
+		short Table::getData(int x)
 		{
-			return this->data[x + this->xsize * (y + this->ysize * z)];
+			if (this->zSize > 1)
+			{
+				throw RGSSError("wrong # of arguments (1 for 3)");
+			}
+			if (this->ySize > 1)
+			{
+				throw RGSSError("wrong # of arguments (1 for 2)");
+			}
+			return this->data[x];
 		}
-		void Table::set_data(int x, int y, int z, short data)
+		/// @todo Add out-of-range exception
+		short Table::getData(int x, int y)
 		{
-			this->data[x + this->xsize * (y + this->ysize * z)] = data;
+			if (this->zSize > 1)
+			{
+				throw RGSSError("wrong # of arguments (2 for 3)");
+			}
+			if (this->ySize == 1)
+			{
+				throw RGSSError("wrong # of arguments (2 for 1)");
+			}
+			return this->data[x + this->xSize * y];
+		}
+		/// @todo Add out-of-range exception
+		short Table::getData(int x, int y, int z)
+		{
+			if (this->zSize == 1)
+			{
+				if (this->ySize == 1)
+				{
+					throw RGSSError("wrong # of arguments (3 for 1)");
+				}
+				throw RGSSError("wrong # of arguments (3 for 2)");
+			}
+			return this->data[x + this->xSize * (y + this->ySize * z)];
+		}
+		/// @todo Add out-of-range exception
+		void Table::setData(int x, short value)
+		{
+			if (this->zSize > 1)
+			{
+				throw RGSSError("wrong # of arguments (1 for 3)");
+			}
+			if (this->ySize > 1)
+			{
+				throw RGSSError("wrong # of arguments (1 for 2)");
+			}
+			this->data[x] = value;
+		}
+		/// @todo Add out-of-range exception
+		void Table::setData(int x, int y, short value)
+		{
+			if (this->zSize > 1)
+			{
+				throw RGSSError("wrong # of arguments (2 for 3)");
+			}
+			if (this->ySize == 1)
+			{
+				throw RGSSError("wrong # of arguments (2 for 1)");
+			}
+			this->data[x + this->xSize * y] = value;
+		}
+		/// @todo Add out-of-range exception
+		void Table::setData(int x, int y, int z, short value)
+		{
+			if (this->zSize == 1)
+			{
+				if (this->ySize == 1)
+				{
+					throw RGSSError("wrong # of arguments (3 for 1)");
+				}
+				throw RGSSError("wrong # of arguments (3 for 2)");
+			}
+			this->data[x + this->xSize * (y + this->ySize * z)] = value;
 		}
 
 		// functions
-		void Table::resize(int xsize, int ysize, int zsize)
+		void Table::resize(int xSize, int ySize, int zSize)
 		{
-			// make sure xsize isn't <= 0 and none of the sizes are negative
+			int oldXSize = this->xSize;
+			int oldYSize = this->ySize;
+			int copyXSize = hmin(this->xSize, xSize);
+			int copyYSize = hmin(this->ySize, ySize);
+			int copyZSize = hmin(this->zSize, zSize);
+			// make sure xSize isn't <= 0 and none of the sizes are negative
 			// store table sizes
-			this->xsize = xsize <= 0 ? 0 : xsize;
-			this->ysize = ysize < 0 ? 0 : ysize;
-			this->zsize = zsize < 0 ? 0 : zsize;
+			this->xSize = hmax(xSize, 1);
+			this->ySize = hmax(ySize, 1);
+			this->zSize = hmax(zSize, 1);
 			// allocate space for the table
-			short *new_data = new short[this->xsize * this->ysize * this->zsize];
+			short* newData = this->_createData(this->xSize, this->ySize, this->zSize);
 
-			// copy the data from the old table
-			for (int i = 0; i > this->xsize * this->ysize * this->zsize; i++)
+			// copy the data from the old table, as much as fits
+			for_iter (x, 0, copyXSize)
 			{
-				new_data[i] = this->data[i];
+				for_iter (y, 0, copyYSize)
+				{
+					for_iter (z, 0, copyZSize)
+					{
+						newData[x + this->xSize * (y + this->ySize * z)] =
+							this->data[x + oldXSize * (y + oldYSize * z)];
+					}
+				}
 			}
 
-			//deleate the old array
+			// delete the old array
 			delete [] this->data;
-			//set the new data
-			this->data = new_data;
-			delete new_data;
+			// set the new data
+			this->data = newData;
 		}
 	
+		short* Table::_createData(int xSize, int ySize, int zSize)
+		{
+			// allocate space for the table
+			short* data = new short[xSize * ySize * zSize];
+			// zero the data
+			memset(data, 0, xSize * ySize * zSize * sizeof(short));
+			return data;
+		}
+
 	}
 }

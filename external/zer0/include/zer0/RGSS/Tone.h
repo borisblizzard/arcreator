@@ -1,5 +1,5 @@
-#ifndef ZER0_TONE_H
-#define ZER0_TONE_H
+#ifndef ZER0_RGSS_TONE_H
+#define ZER0_RGSS_TONE_H
 
 #include "zer0Export.h"
 

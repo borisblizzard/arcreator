@@ -1,5 +1,5 @@
-#ifndef ZER0_TILEMAP_H
-#define ZER0_TILEMAP_H
+#ifndef ZER0_RGSS_TILEMAP_H
+#define ZER0_RGSS_TILEMAP_H
 
 #include "zer0Export.h"
 

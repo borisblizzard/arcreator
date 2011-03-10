@@ -1,5 +1,5 @@
-#ifndef ZER0_COLOR_H
-#define ZER0_COLOR_H
+#ifndef ZER0_RGSS_COLOR_H
+#define ZER0_RGSS_COLOR_H
 
 #include "zer0Export.h"
 
