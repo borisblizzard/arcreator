@@ -21,16 +21,13 @@ namespace zer0
 			this->data = this->_createData(this->xSize, this->ySize, this->zSize);
 		}
 	
-		//destructor
 		Table::~Table()
 		{
 			delete [] this->data;
 			this->data = NULL;
 		}
 
-		// getter setter functions for table data
-		/// @todo Add out-of-range exception
-		short Table::getData(int x)
+		short Table::getData(int x) const
 		{
 			if (this->zSize > 1)
 			{
@@ -42,8 +39,8 @@ namespace zer0
 			}
 			return this->data[x];
 		}
-		/// @todo Add out-of-range exception
-		short Table::getData(int x, int y)
+		
+		short Table::getData(int x, int y) const
 		{
 			if (this->zSize > 1)
 			{
@@ -55,8 +52,8 @@ namespace zer0
 			}
 			return this->data[x + this->xSize * y];
 		}
-		/// @todo Add out-of-range exception
-		short Table::getData(int x, int y, int z)
+		
+		short Table::getData(int x, int y, int z) const
 		{
 			if (this->zSize == 1)
 			{
@@ -68,7 +65,7 @@ namespace zer0
 			}
 			return this->data[x + this->xSize * (y + this->ySize * z)];
 		}
-		/// @todo Add out-of-range exception
+		
 		void Table::setData(int x, short value)
 		{
 			if (this->zSize > 1)
@@ -81,7 +78,7 @@ namespace zer0
 			}
 			this->data[x] = value;
 		}
-		/// @todo Add out-of-range exception
+		
 		void Table::setData(int x, int y, short value)
 		{
 			if (this->zSize > 1)
@@ -94,7 +91,7 @@ namespace zer0
 			}
 			this->data[x + this->xSize * y] = value;
 		}
-		/// @todo Add out-of-range exception
+		
 		void Table::setData(int x, int y, int z, short value)
 		{
 			if (this->zSize == 1)
@@ -143,7 +140,7 @@ namespace zer0
 			this->data = newData;
 		}
 	
-		short* Table::_createData(int xSize, int ySize, int zSize)
+		short* Table::_createData(int xSize, int ySize, int zSize) const
 		{
 			// allocate space for the table
 			short* data = new short[xSize * ySize * zSize];
