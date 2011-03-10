@@ -21,16 +21,14 @@ namespace zer0
 		{
 			return this->y;
 		}
-		int getWidth()
+		int Rect::getWidth()
 		{
-			// This causes an error. Says it cannot be used in non-static member function. Why?
-			// How is different from the x and y? Confusion with the parent?
-			//return this->width;
+			return this->width;
 		}
-		int getHeight()
+		int Rect::getHeight()
 		{
-			// This too.
-			//return this->height; 
+			return this->height; 
+			// you forgot to prefix it with Rect:: to place the finction in the right scope :P - ryex
 		}
 
 		void Rect::setX(int value)
