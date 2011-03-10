@@ -7,7 +7,7 @@ namespace zer0
 		short *data = NULL;
 
 		// constructor
-		Table::Table(int xsize, int ysize, int zsize)
+		Table::Table(int xsize, int ysize = 0, int zsize =  0)
 		{
 			// make sure xsize isn't <= 0 and none of the sizes are negative
 			// store table sizes
