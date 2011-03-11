@@ -3,13 +3,15 @@
 
 #include <hltypes/hstring.h>
 
-#include "RGSS/Color.h"
 #include "zer0Export.h"
 
 namespace zer0
 {
 	namespace RGSS
 	{
+
+		class Color;
+
 		/// @brief Emulates RGSS's Font class.
 		class zer0Export Font
 		{

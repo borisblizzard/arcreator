@@ -1,3 +1,4 @@
+#include "RGSS/Color.h"
 #include "RGSS/Font.h"
 
 namespace zer0
