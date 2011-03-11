@@ -1,3 +1,4 @@
+#include "RGSS/Color.h"
 #include "RGSS/Viewport.h"
 
 namespace zer0
