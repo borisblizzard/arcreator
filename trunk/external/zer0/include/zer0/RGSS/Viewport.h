@@ -7,11 +7,13 @@ namespace zer0
 {
 	namespace RGSS
 	{
+		class Color;
 		class zer0Export Viewport
 		{
 			Viewport();
 			~Viewport();
-
+		private:
+			Color color;
 		};
 
 	}
