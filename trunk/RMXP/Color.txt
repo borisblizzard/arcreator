@@ -1,0 +1,26 @@
+Instance variables:
+Methods:
+	_dump
+	alpha
+	alpha=
+	blue
+	blue=
+	green
+	green=
+	red
+	red=
+	set
+Public Methods:
+	_dump
+	alpha
+	alpha=
+	blue
+	blue=
+	green
+	green=
+	red
+	red=
+	set
+Private Methods:
+Protected Methods:
+Singleton Methods:
