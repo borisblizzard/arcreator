@@ -12,9 +12,9 @@ namespace zer0
 		class Tone;
 		class zer0Export Viewport
 		{
+		public:
 			Viewport();
 			~Viewport();
-		public:
 			Color color;
 			Rect rect;
 			Tone tone;
