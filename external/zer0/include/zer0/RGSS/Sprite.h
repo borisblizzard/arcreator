@@ -42,11 +42,11 @@ namespace zer0
 			Tone tone; 
 			/// @brief The sprite's visibility.
 			bool visible;
-			/// @brief The sprite's X-coordinate.
+			/// @brief The sprite's X-coordinate
 			short x;
-			/// @brief The sprite's Y-coordinate.
+			/// @brief The sprite's Y-coordinate
 			short y;
-			/// @brief The sprite's Z-coordinate.
+			/// @brief The sprite's Z-coordinate
 			short z; 
 			/// @brief The sprite's X-axis zoom level
 			float zoom_x;
@@ -72,13 +72,13 @@ namespace zer0
 			/// @param[in] bitmap Bitmap object to set
 			void setBitmap(Bitmap value);
 			/// @brief Sets the alpha value of sprite
-			/// param[in] Integer value of sprite opacity
+			/// param[in] value Integer value of sprite opacity
 			void setOpacity(float value);
 			/// @brief Sets the sprite zoom on the x-axis
-			/// param[in] Zoom value. 1.0 denotes actual pixel size
+			/// param[in] value Zoom value. 1.0 denotes actual pixel size
 			void setZoomX(float value);
 			/// @brief Sets the sprite zoom on the y-axis
-			/// param[in] Zoom value. 1.0 denotes actual pixel size
+			/// param[in] value Zoom value. 1.0 denotes actual pixel size
 			void setZoomY(float value);
 			// Instance methods
 			/// @brief Frees the sprite
@@ -90,8 +90,7 @@ namespace zer0
 			/// @param[in] color Color to mix with the sprite during the flash
 			/// @param[in] duration The number of frames that flash will last
 			void flash(Color color, int duration);
-			/// @brief Sets the sprites angle of rotation
-			/// @param[in] angle Value in degrees of sprite's rotation
+			/// @brief Calls the update method
 			void update();
 
 		private:
