@@ -12,8 +12,6 @@ namespace zer0
 		class zer0Export Audio
 		{
 		public:
-
-			//public methods
 			// @brief starts BMG playback
 			// @param[in] filename Filename of the BGM to play
 			// @param[in] volume The volume of the BMG
