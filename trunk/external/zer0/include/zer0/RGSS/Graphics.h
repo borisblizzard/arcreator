@@ -16,11 +16,11 @@ namespace zer0
 			// @brief the number of frame updates per second
 			static int frame_rate;
 			// @brief ???
-			static bool visable;
+			static bool visible;
 
 			// @brief Resets the screen refresh timing.
 			static void FrameReset();
-			// @breif Fixes the current screen in preparation for transitions.
+			// @brief Fixes the current screen in preparation for transitions.
 			static void Freeze();
 			// @brief Carries out a transition from the screen fixed in Graphics.freeze to the current screen.
 			// @param[in] duration The number of frames the transition will last. 
