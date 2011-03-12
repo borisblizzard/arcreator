@@ -13,9 +13,11 @@ namespace zer0
 	{
 		Sprite::Sprite() 
 		{
+			this->viewport = new Viewport();
 		}
 		Sprite::Sprite(Viewport value)
 		{
+			this->viewport = value;
 		}
 		Sprite::~Sprite()
 		{
@@ -47,7 +49,7 @@ namespace zer0
 
 		void Sprite::dispose()
 		{
-			
+
 		}
 		bool Sprite::disposed()
 		{

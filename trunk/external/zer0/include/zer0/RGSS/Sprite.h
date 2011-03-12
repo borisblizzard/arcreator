@@ -40,8 +40,6 @@ namespace zer0
 			Rect src_rect;
 			/// @brief The sprite's color tone
 			Tone tone; 
-			/// @brief The sprite's viewport
-			Viewport viewport;
 			/// @brief The sprite's visibility.
 			bool visible;
 			/// @brief The sprite's X-coordinate.
@@ -64,21 +62,24 @@ namespace zer0
 			/// @brief Basic Deconstructor
 			~Sprite();
 
-			// Setters
-			void setAngle(int angle);
+			// Getters/Setters
+			/// @brief Returns the viewport specified
+			Viewport getViewport() { return this->viewport; };
+			/// @brief Sets the sprite's angle of rotation
+			/// @param[in] value Value to set the angle
+			void setAngle(int value);
 			/// @brief Sets the sprite's bitmap
 			/// @param[in] bitmap Bitmap object to set
-			void setBitmap(Bitmap bitmap);
+			void setBitmap(Bitmap value);
 			/// @brief Sets the alpha value of sprite
 			/// param[in] Integer value of sprite opacity
-			void setOpacity(float opacity);
+			void setOpacity(float value);
 			/// @brief Sets the sprite zoom on the x-axis
 			/// param[in] Zoom value. 1.0 denotes actual pixel size
-			void setZoomX(float zoomX);
+			void setZoomX(float value);
 			/// @brief Sets the sprite zoom on the y-axis
 			/// param[in] Zoom value. 1.0 denotes actual pixel size
-			void setZoomY(float zoomY);
-
+			void setZoomY(float value);
 			// Instance methods
 			/// @brief Frees the sprite
 			void dispose();
@@ -92,6 +93,10 @@ namespace zer0
 			/// @brief Sets the sprites angle of rotation
 			/// @param[in] angle Value in degrees of sprite's rotation
 			void update();
+
+		private:
+			/// @brief The sprite's viewport
+			Viewport viewport;
 
 			// Ideas
 			// Add method to reset viewport (RMXP doesn't have by default)
