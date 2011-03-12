@@ -7,14 +7,97 @@ namespace zer0
 {
 	namespace RGSS
 	{
+		class Bitmap; // forward declaration of Bitmap
+		class Color; // forward declaration of Color
+		class Rect; // forward declaration of Rect
+		class Tone; // forward declaration of Tone
+		class Viewport; // forward declaration of Viewport
+
+		/// @brief Emulates RGSS's Sprite class.
 		class zer0Export Sprite
 		{
 		public:
+			// Public variables
+			/// @brief The sprite's angle of rotation
+			int angle;
+			/// @brief The sprite's bitmap
+			Bitmap bitmap;
+			/// @brief Blend type used for sprite
+			short blend_type;
+			/// @brief Bush depth used for sprite
+			short bush_depth;
+			/// @brief Color blended with sprite
+			Color color;
+			/// @brief Flag to have sprite drawn flipped
+			bool mirror;
+			/// @brief The alpha value of the sprite
+			float opacity;
+			/// @brief The X-coordinate of the sprite's starting point
+			short ox;
+			/// @brief The Y-coordinate of the sprite's starting point
+			short oy;
+			/// @brief The Rect taken from the sprite's bitmap.
+			Rect src_rect;
+			/// @brief The sprite's color tone
+			Tone tone; 
+			/// @brief The sprite's viewport
+			Viewport viewport;
+			/// @brief The sprite's visibility.
+			bool visible;
+			/// @brief The sprite's X-coordinate.
+			short x;
+			/// @brief The sprite's Y-coordinate.
+			short y;
+			/// @brief The sprite's Z-coordinate.
+			short z; 
+			/// @brief The sprite's X-axis zoom level
+			float zoom_x;
+			/// @brief The sprite's Y-axis zoom level
+			float zoom_y;
+
+			// Constructors/Deconstructors
+			/// @brief Basic constructor
 			Sprite();
+			/// @brief Constructor to initialize with viewport
+			/// @param[in] viewport Specifies the viewport to use for this sprite
+			Sprite(Viewport viewport);
+			/// @brief Basic Deconstructor
 			~Sprite();
 
-		};
+			// Setters
+			void setAngle(int angle);
+			/// @brief Sets the sprite's bitmap
+			/// @param[in] bitmap Bitmap object to set
+			void setBitmap(Bitmap bitmap);
+			/// @brief Sets the alpha value of sprite
+			/// param[in] Integer value of sprite opacity
+			void setOpacity(float opacity);
+			/// @brief Sets the sprite zoom on the x-axis
+			/// param[in] Zoom value. 1.0 denotes actual pixel size
+			void setZoomX(float zoomX);
+			/// @brief Sets the sprite zoom on the y-axis
+			/// param[in] Zoom value. 1.0 denotes actual pixel size
+			void setZoomY(float zoomY);
 
+			// Instance methods
+			/// @brief Frees the sprite
+			void dispose();
+			/// @brief Boolean value if sprite has been disposed
+			/// @note This function is missing the "?" that the RGSS method uses. Not sure how to implement.
+			bool disposed();
+			/// @brief Mixes a color with the sprite for a short duration
+			/// @param[in] color Color to mix with the sprite during the flash
+			/// @param[in] duration The number of frames that flash will last
+			void flash(Color color, int duration);
+			/// @brief Sets the sprites angle of rotation
+			/// @param[in] angle Value in degrees of sprite's rotation
+			void update();
+
+			// Ideas
+			// Add method to reset viewport (RMXP doesn't have by default)
+			// Add rotate method, something like .rotate(rate, duration) and/or .rotate(degrees)
+			// Add a "3-D" rotate (think rotating target arrow over character's head)
+		};
 	}
 }
 #endif
