@@ -1,7 +1,7 @@
+#include "RGSS/Bitmap.h"
 #include "RGSS/Color.h"
 #include "RGSS/Font.h"
 #include "RGSS/Rect.h"
-#include "RGSS/Bitmap.h"
 
 namespace zer0
 {
@@ -46,7 +46,7 @@ namespace zer0
 			
 		Color Bitmap::getPixel(int x, int y)
 		{
-			// default inplamentation REPLACE
+			// default implementations REPLACE
 			return Color();
 		}
 			
@@ -64,7 +64,7 @@ namespace zer0
 			
 		Rect Bitmap::TextSize(hstr str)
 		{
-			// default inplamentation REPLACE
+			// default implementations REPLACE
 			return Rect(0, 0, 32, 32);
 		}
 	
