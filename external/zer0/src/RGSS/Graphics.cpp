@@ -9,9 +9,9 @@ namespace zer0
 		void Graphics::createRubyInterface()
 		{
 			VALUE classe = rb_define_module("Graphics");
-			rb_define_module_function(classe, "update", RUBY_METHOD_FUNC(zer0::RGSS::Graphics::update), 0);
-			rb_define_module_function(classe, "frame_count", RUBY_METHOD_FUNC(zer0::RGSS::Graphics::getFrameCount), 0);
-			rb_define_module_function(classe, "frame_count=", RUBY_METHOD_FUNC(zer0::RGSS::Graphics::setFrameCount), 1);
+			rb_define_module_function(classe, "update", RUBY_METHOD_FUNC(Graphics::update), 0);
+			rb_define_module_function(classe, "frame_count", RUBY_METHOD_FUNC(Graphics::getFrameCount), 0);
+			rb_define_module_function(classe, "frame_count=", RUBY_METHOD_FUNC(Graphics::setFrameCount), 1);
 		}
 
 		unsigned int Graphics::frameCount = 0;
