@@ -12,7 +12,11 @@ Hello World.
 puts greeting
 puts 'Press ENTER to exit'
 input = '1'
+p Graphics.frame_count
 10.times {Graphics.update}
+p Graphics.frame_count
+Graphics.frame_count = 50
+p Graphics.frame_count
 =begin
 while input != '' && input != "\n"
 	input = gets

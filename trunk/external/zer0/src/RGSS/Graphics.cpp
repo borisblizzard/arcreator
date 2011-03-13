@@ -6,7 +6,8 @@ namespace zer0
 {
 	namespace RGSS
 	{
-		
+		unsigned int Graphics::frameCount = 0;
+
 		void Graphics::frameReset()
 		{
 		}
@@ -19,10 +20,23 @@ namespace zer0
 		{
 		}
 
-		VALUE Graphics::update(...)
+		VALUE Graphics::getFrameCount()
 		{
-			printf("test\n");
-			return Qnil;
+			return INT2FIX(frameCount);
+		}
+
+		void Graphics::setFrameCount(VALUE value)
+		{
+			printf("frame_count: %u\n", FIX2UINT(INT2FIX(frameCount)));
+			frameCount = FIX2UINT(value);
+			frameCount++;
+			printf("frame_count: %u\n", frameCount);
+		}
+
+		void Graphics::update()
+		{
+			frameCount++;
+			printf("test %u\n", frameCount);
 		}
 	}
 }
