@@ -13,19 +13,19 @@ namespace zer0
 		{
 		}
 	
-		void Graphics::FrameReset()
+		void Graphics::frameReset()
 		{
 		}
 
-		void Graphics::Freeze()
+		void Graphics::freeze()
 		{
 		}
 
-		void Graphics::Transition(int duration = 8, hstr filename = "", int vague = 40)
+		void Graphics::transition(int duration = 8, hstr filename = "", int vague = 40)
 		{
 		}
 
-		void Graphics::Update()
+		void Graphics::update()
 		{
 		}
 	}

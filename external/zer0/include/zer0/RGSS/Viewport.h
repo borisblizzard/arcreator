@@ -1,15 +1,15 @@
 #ifndef ZER0_RGSS_VIEWPORT_H
 #define ZER0_RGSS_VIEWPORT_H
 
+#include "RGSS/Color.h"
+#include "RGSS/Rect.h"
+#include "RGSS/Tone.h"
 #include "zer0Export.h"
 
 namespace zer0
 {
 	namespace RGSS
 	{
-		class Color;
-		class Rect;
-		class Tone;
 		class zer0Export Viewport
 		{
 		public:
@@ -34,6 +34,7 @@ namespace zer0
 			void setOY(int value);
 			void setZ(int value);
 			void setVisible(bool value);
+
 		};
 
 	}

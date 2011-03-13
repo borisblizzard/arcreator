@@ -24,11 +24,11 @@ namespace zer0
 		{
 		}
 
-		void Viewport::setColor(float r, float g, float b, float a = 255.0f)
+		void Viewport::setColor(float r, float g, float b, float a)
 		{
 			this->color.set(r, g, b, a);
 		}
-		void Viewport::setTone(float r, float g, float b, float gr = 255.0f)
+		void Viewport::setTone(float r, float g, float b, float gr)
 		{
 			this->tone.set(r, g, b, gr);
 		}

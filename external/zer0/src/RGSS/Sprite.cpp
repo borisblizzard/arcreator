@@ -15,7 +15,7 @@ namespace zer0
 		{
 			this->viewport = new Viewport();
 		}
-		Sprite::Sprite(Viewport value)
+		Sprite::Sprite(Viewport* value)
 		{
 			this->viewport = value;
 		}
@@ -28,7 +28,7 @@ namespace zer0
 		{
 			this->angle = hclamp(value, 0, 359);
 		}
-		void Sprite::setBitmap(Bitmap value)
+		void Sprite::setBitmap(Bitmap* value)
 		{
 			this->bitmap = value;
 			/// @todo Include Exception handling
@@ -40,11 +40,11 @@ namespace zer0
 		}
 		void Sprite::setZoomX(float value)
 		{
-			this->zoom_x = hclamp(value, 0.0f, value);
+			this->zoomX = hclamp(value, 0.0f, value);
 		}
 		void Sprite::setZoomY(float value)
 		{
-			this->zoom_y = hclamp(value, 0.0f, value);
+			this->zoomY = hclamp(value, 0.0f, value);
 		}
 
 		void Sprite::dispose()
@@ -53,7 +53,7 @@ namespace zer0
 		}
 		bool Sprite::disposed()
 		{
-
+			return true;
 		}
 		void Sprite::flash(Color color, int duration)
 		{

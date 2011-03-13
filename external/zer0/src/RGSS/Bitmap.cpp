@@ -20,27 +20,27 @@ namespace zer0
 		{
 		}
 			
-		void Bitmap::Blit(int x, int y, Bitmap src_bitmap, Rect src_rect, int opacity)
+		void Bitmap::blit(int x, int y, Bitmap src_bitmap, Rect src_rect, int opacity)
 		{
 		}
 			
-		void Bitmap::Clear()
+		void Bitmap::clear()
 		{
 		}
 			
-		void Bitmap::DrawText(int x, int y, int width, int height, hstr str, int align)
+		void Bitmap::drawText(int x, int y, int width, int height, hstr str, int align)
 		{
 		}
 			
-		void Bitmap::DrawText(Rect rect, hstr str, int align)
+		void Bitmap::drawText(Rect rect, hstr str, int align)
 		{
 		}
 			
-		void Bitmap::FillRect(int x, int y, int width, int height, Color color)
+		void Bitmap::fillRect(int x, int y, int width, int height, Color color)
 		{
 		}
 			
-		void Bitmap::FillRect(Rect rect, Color color)
+		void Bitmap::fillRect(Rect rect, Color color)
 		{
 		}
 			
@@ -54,15 +54,15 @@ namespace zer0
 		{
 		}
 			
-		void Bitmap::ChangeHue(int hue)
+		void Bitmap::changeHue(int hue)
 		{
 		}
 			
-		void Bitmap::StretchBlt(Rect dest_rect, Bitmap src_bitmap, Rect src_rect, int opacity)
+		void Bitmap::stretchBlt(Rect dest_rect, Bitmap src_bitmap, Rect src_rect, int opacity)
 		{
 		}
 			
-		Rect Bitmap::TextSize(hstr str)
+		Rect Bitmap::textSize(hstr str)
 		{
 			// default implementations REPLACE
 			return Rect(0, 0, 32, 32);
