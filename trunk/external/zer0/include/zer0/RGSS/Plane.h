@@ -1,23 +1,23 @@
 #ifndef ZER0_RGSS_PLANE_H
 #define ZER0_RGSS_PLANE_H
 
+#include "RGSS/Color.h"
+#include "RGSS/Rect.h"
+#include "RGSS/Tone.h"
 #include "zer0Export.h"
 
 namespace zer0
 {
 	namespace RGSS
 	{
-		class Bitmap; // forward declaration of Bitmap
-		class Color; // forward declaration of Color
-		class Tone; // forward declaration of Tone
-		class Viewport; // forward declaration of Viewport
+		class Bitmap;
+		class Viewport;
 
 		class zer0Export Plane
 		{
 		public:
-			// Public variables
 			/// @brief The plane's bitmap
-			Bitmap bitmap;
+			Bitmap* bitmap;
 			/// @brief Blend type used for the plane
 			short blend_type;
 			/// @brief Color blended with plane
@@ -35,16 +35,23 @@ namespace zer0
 			/// @brief The plane's Z-coordinate
 			float z;
 			/// @brief The plane's X-axis zoom level
-			float zoom_x;
+			float zoomX;
 			/// @brief The plane's Y-axis zoom level
-			float zoom_y;
+			float zoomY;
 			
-			// Getters/Setters
+			/// @brief Basic constructor
+			Plane();
+			/// @brief Constructor to initialize with viewport
+			/// @param[in] viewport Specifies the viewport to use for this plane
+			Plane(Viewport* value);
+			/// @brief Basic Deconstructor
+			~Plane();
+
 			/// @brief Returns the viewport specified when initialized
-			Viewport getViewport() { return this->viewport; };
+			Viewport* getViewport() { return this->viewport; };
 			/// @brief Sets the sprite's bitmap
 			/// @param[in] bitmap Bitmap object to set
-			void setBitmap(Bitmap value);
+			void setBitmap(Bitmap* value);
 			/// @brief Sets the alpha value of sprite
 			/// param[in] Integer value of sprite opacity
 			void setOpacity(float value);
@@ -55,25 +62,16 @@ namespace zer0
 			/// param[in] Zoom value. 1.0 denotes actual pixel size
 			void setZoomY(float value);
 
-			// Instance methods
 			/// @brief Frees the sprite
 			void dispose();
 			/// @brief Boolean value if sprite has been disposed
 			/// @note This function is missing the "?" that the RGSS method uses. Not sure how to implement.
 			bool disposed();
 
-			// Constructors/Deconstructors
-			/// @brief Basic constructor
-			Plane();
-			/// @brief Constructor to initialize with viewport
-			/// @param[in] viewport Specifies the viewport to use for this plane
-			Plane(Viewport value);
-			/// @brief Basic Deconstructor
-			~Plane();
-
 		private:
 			/// @brief Private value to store the viewport
-			Viewport viewport;
+			Viewport* viewport;
+
 		};
 
 	}

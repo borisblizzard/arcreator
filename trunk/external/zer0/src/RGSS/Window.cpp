@@ -14,23 +14,23 @@ namespace zer0
 		{
 			this->viewport = new Viewport();
 		}
-		Window::Window(Viewport value)
+		Window::Window(Viewport* value)
 		{
 			this->viewport = value;
 		}
+		/// @todo implement
 		Window::~Window()
 		{
-			/// @todo Implement destructor
 		}
 	
 		void Window::setBackOpacity(float value)
 		{
 			this->back_opacity = hclamp(value, 0.0f, 255.0f);
 		}
-		void Window::setContents(Bitmap value)
+		/// @todo add RGSS Error calls
+		void Window::setContents(Bitmap* value)
 		{
 			this->contents = value;
-			/// @ todo Include RGSSError 
 		}
 		void Window::setContentsOpacity(float value)
 		{
@@ -40,10 +40,10 @@ namespace zer0
 		{
 			this->opacity = hclamp(value, 0.0f, 255.0f);
 		}
-		void Window::setWindowskin(Bitmap value)
+		/// @todo add RGSS Error calls
+		void Window::setWindowskin(Bitmap* value)
 		{
 			this->windowskin = value;
-			/// @ todo Include RGSSError 
 		}
 
 		void Window::dispose()
@@ -52,7 +52,7 @@ namespace zer0
 		}
 		bool Window::disposed()
 		{
-
+			return true;
 		}
 		void Window::update()
 		{

@@ -1,27 +1,26 @@
 #ifndef ZER0_RGSS_SPRITE_H
 #define ZER0_RGSS_SPRITE_H
 
+#include "RGSS/Color.h"
+#include "RGSS/Rect.h"
+#include "RGSS/Tone.h"
 #include "zer0Export.h"
 
 namespace zer0
 {
 	namespace RGSS
 	{
-		class Bitmap; // forward declaration of Bitmap
-		class Color; // forward declaration of Color
-		class Rect; // forward declaration of Rect
-		class Tone; // forward declaration of Tone
-		class Viewport; // forward declaration of Viewport
+		class Bitmap;
+		class Viewport;
 
 		/// @brief Emulates RGSS's Sprite class.
 		class zer0Export Sprite
 		{
 		public:
-			// Public variables
 			/// @brief The sprite's angle of rotation
 			int angle;
 			/// @brief The sprite's bitmap
-			Bitmap bitmap;
+			Bitmap* bitmap;
 			/// @brief Blend type used for sprite
 			short blend_type;
 			/// @brief Bush depth used for sprite
@@ -49,28 +48,26 @@ namespace zer0
 			/// @brief The sprite's Z-coordinate
 			short z; 
 			/// @brief The sprite's X-axis zoom level
-			float zoom_x;
+			float zoomX;
 			/// @brief The sprite's Y-axis zoom level
-			float zoom_y;
+			float zoomY;
 
-			// Constructors/Deconstructors
 			/// @brief Basic constructor
 			Sprite();
 			/// @brief Constructor to initialize with viewport
 			/// @param[in] viewport Specifies the viewport to use for this sprite
-			Sprite(Viewport viewport);
+			Sprite(Viewport* viewport);
 			/// @brief Basic Deconstructor
 			~Sprite();
 
-			// Getters/Setters
 			/// @brief Returns the viewport specified
-			Viewport getViewport() { return this->viewport; };
+			Viewport* getViewport() { return this->viewport; };
 			/// @brief Sets the sprite's angle of rotation
 			/// @param[in] value Value to set the angle
 			void setAngle(int value);
 			/// @brief Sets the sprite's bitmap
 			/// @param[in] bitmap Bitmap object to set
-			void setBitmap(Bitmap value);
+			void setBitmap(Bitmap* value);
 			/// @brief Sets the alpha value of sprite
 			/// param[in] value Integer value of sprite opacity
 			void setOpacity(float value);
@@ -95,7 +92,7 @@ namespace zer0
 
 		private:
 			/// @brief The sprite's viewport
-			Viewport viewport;
+			Viewport* viewport;
 
 			// Ideas
 			// Add method to reset viewport (RMXP doesn't have by default)

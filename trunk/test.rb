@@ -12,6 +12,9 @@ Hello World.
 puts greeting
 puts 'Press ENTER to exit'
 input = '1'
+1000.times {Graphics.update}
+=begin
 while input != '' && input != "\n"
 	input = gets
 end
+=end

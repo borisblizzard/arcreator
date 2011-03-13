@@ -15,25 +15,30 @@ namespace zer0
 
 		int Dir4()
 		{
+			return 0;
 		}
 
-		int Input::Dir8()
+		int Input::dir8()
 		{
+			return 0;
 		}
 
-		bool Input::Press(int num)
+		bool Input::press(int num)
 		{
+			return false;
 		}
 
-		bool Input::Trigger(int num)
+		bool Input::trigger(int num)
 		{
+			return false;
 		}
 
-		bool Input::Repeat(int num)
+		bool Input::repeat(int num)
 		{
+			return false;
 		}
 
-		void Input::Update()
+		void Input::update()
 		{
 		}
 	

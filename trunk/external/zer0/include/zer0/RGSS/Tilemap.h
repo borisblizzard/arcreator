@@ -1,6 +1,8 @@
 #ifndef ZER0_RGSS_TILEMAP_H
 #define ZER0_RGSS_TILEMAP_H
 
+#include "RGSS/Table.h"
+
 #include "zer0Export.h"
 
 namespace zer0
@@ -14,10 +16,10 @@ namespace zer0
 		class zer0Export Tilemap
 		{
 		public:
-			Bitmap autotiles[7];
+			Bitmap* autotiles[7];
 			/// @brief Table data to represent passable directions of tiles
 			/// @todo Modify default methods to allow for more autotiles per map
-			Table flash_data;
+			//Table flash_data;
 			/// @brief Table containing data of each tile
 			Table map_data;
 			/// @brief The origin point of the x-coordinate
@@ -27,7 +29,7 @@ namespace zer0
 			/// @brief Table to hold priority data
 			Table priorities;
 			/// @brief Bitmap used for the tilemap sprite
-			Bitmap tileset;
+			Bitmap* tileset;
 			/// @brief Visibility factor of tilemap
 			bool visible;
 			
@@ -35,12 +37,12 @@ namespace zer0
 			Tilemap();
 			/// @brief Constructor to specify viewport
 			/// @param[in] value Viewport to set to tilemap
-			Tilemap(Viewport value);
+			Tilemap(Viewport* value);
 			/// @brief Basic destructor
 			~Tilemap();
 
 			/// @brief Returns the viewport specified for the tilemap
-			Viewport getViewport() { return this->viewport; };
+			Viewport* getViewport() { return this->viewport; };
 
 			// Instance methods
 			/// @brief Frees the tilemap
@@ -52,7 +54,7 @@ namespace zer0
 			
 		private:
 			/// @brief Viewport specified for tilemap sprite
-			Viewport viewport;
+			Viewport* viewport;
 		};
 	
 	}

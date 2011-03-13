@@ -49,6 +49,7 @@ namespace zer0
 			static void sePlay(hstr filename, int volume, int pitch);
 			// @brief stops SE playback
 			static void seStop();
+
 		protected:
 			Audio();
 			~Audio();

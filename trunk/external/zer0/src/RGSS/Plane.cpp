@@ -15,7 +15,7 @@ namespace zer0
 		{
 			this->viewport = new Viewport();
 		}
-		Plane::Plane(Viewport value)
+		Plane::Plane(Viewport* value)
 		{
 			this->viewport = value;
 		}
@@ -24,7 +24,7 @@ namespace zer0
 			/// @todo Implement deconstructor
 		}
 
-		void Plane::setBitmap(Bitmap value)
+		void Plane::setBitmap(Bitmap* value)
 		{
 			this->bitmap = value;
 			/// @todo Include Exception handling
@@ -35,11 +35,11 @@ namespace zer0
 		}
 		void Plane::setZoomX(float value)
 		{
-			this->zoom_x = hclamp(value, 0.0f, value);
+			this->zoomX = hclamp(value, 0.0f, value);
 		}
 		void Plane::setZoomY(float value)
 		{
-			this->zoom_y = hclamp(value, 0.0f, value);
+			this->zoomY = hclamp(value, 0.0f, value);
 		}
 
 		void Plane::dispose()
@@ -48,7 +48,7 @@ namespace zer0
 		}
 		bool Plane::disposed()
 		{
-
+			return true;
 		}
 	}
 }

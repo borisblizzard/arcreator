@@ -2,16 +2,16 @@
 #define ZER0_RGSS_BITMAP_H
 
 #include <hltypes/hstring.h>
+
+#include "RGSS/Color.h"
+#include "RGSS/Font.h"
+#include "RGSS/Rect.h"
 #include "zer0Export.h"
 
 namespace zer0
 {
 	namespace RGSS
 	{
-		class Color; // forward declaration of Font
-		class Font; // forward declaration of Font
-		class Rect; // forward declaration of Rect
-
 		class zer0Export Bitmap
 		{
 		public:
@@ -36,9 +36,9 @@ namespace zer0
 			// @param[in] src_bitmap The Bitmap to transfer from
 			// @param[in] src_rect The rect to transfer from src_bitmap
 			// @param[in] opacity The alpha blend of the blit operation
-			void Blit(int x, int y, Bitmap src_bitmap, Rect src_rect, int opacity);
+			void blit(int x, int y, Bitmap src_bitmap, Rect src_rect, int opacity);
 			// @brief Clears the entire bitmap
-			void Clear();
+			void clear();
 			// @brief Draws text at position (x, y) using the Bitmap's Font
 			// @param[in] x X position of the start of the text
 			// @param[in] y Y Position of the start of the text
@@ -46,23 +46,23 @@ namespace zer0
 			// @param[in] height Height of the drawn text
 			// @param[in] str The text to draw
 			// @param[in] align How to align the text 0:left 1:center 1:right
-			void DrawText(int x, int y, int width, int height, hstr str, int align);
+			void drawText(int x, int y, int width, int height, hstr str, int align);
 			// @brief Draws text at inside rect using the Bitmap's Font
 			// @param[in] rect The rect to draw the text inside
 			// @param[in] str The text to draw
 			// @param[in] align How to align the text 0:left 1:center 1:right
-			void DrawText(Rect rect, hstr str, int align);
+			void drawText(Rect rect, hstr str, int align);
 			// @brief fill a rect with a solid color
 			// @param[in] x X coordinate of the top left corner of the rect to fill
 			// @param[in] y Y coordinate of the top left corner of the rect to fill
 			// @param[in] width The width of the rect to fill
 			// @param[in] height The height of the rect to fill
 			// @param[in] color The color to fill the rect with
-			void FillRect(int x, int y, int width, int height, Color color);
+			void fillRect(int x, int y, int width, int height, Color color);
 			// @brief fill a rec with a solid color
 			// @param[in] rect The rect to fill with color
 			// @param[in] color The color to fill the rect with
-			void FillRect(Rect rect, Color color);
+			void fillRect(Rect rect, Color color);
 			// @brief get the color of a pixel at (x, y)
 			// @param[in] x X coordinate
 			// @param[in] y Y coordinate
@@ -75,16 +75,16 @@ namespace zer0
 			void setPixel(int x, int y, Color color);
 			// @brief Changes the bitmap's hue within 360 degrees of displacement.
 			// @param[in] hue Degrees to rotate the hue
-			void ChangeHue(int hue);
+			void changeHue(int hue);
 			// @brief Blits src_rect from source bitmap to this one scaling the bitmap to fit inside dest_rect
 			// @param[in] dest_rect The rect to fit the blit to
 			// @param[in] src_bitmap The Bitmap to transfer from
 			// @param[in] src_rect The rect to transfer from src_bitmap
 			// @param[in] opacity The alpha blend of the blit operation
-			void StretchBlt(Rect dest_rect, Bitmap src_bitmap, Rect src_rect, int opacity); 
+			void stretchBlt(Rect dest_rect, Bitmap src_bitmap, Rect src_rect, int opacity); 
 			// @brief gets the rect needed to draw a string of text
 			// @return Rect the rect needed to draw a string of text
-			Rect TextSize(hstr str);
+			Rect textSize(hstr str);
 			/*
 			stretch_blt
 			text_size

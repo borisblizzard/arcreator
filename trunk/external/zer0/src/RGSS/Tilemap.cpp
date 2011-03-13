@@ -7,20 +7,19 @@ namespace zer0
 {
 	namespace RGSS
 	{
-	
-		Tilemap::Tilemap()
+		Tilemap::Tilemap() : map_data(20, 15, 3), priorities(20, 15, 3)
 		{
 			this->viewport = new Viewport();
 		}
 
-		Tilemap::Tilemap(Viewport value)
+		Tilemap::Tilemap(Viewport* value) : map_data(20, 15, 3), priorities(20, 15, 3)
 		{
 			this->viewport = value;
 		}
 	
+		/// @todo add RGSS Error calls
 		Tilemap::~Tilemap()
 		{
-			/// @todo Implement Deconstructor 
 		}
 
 		void Tilemap::update()
@@ -35,7 +34,7 @@ namespace zer0
 
 		bool Tilemap::disposed()
 		{
-
+			return true;
 		}
 	
 	}
