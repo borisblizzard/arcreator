@@ -6,6 +6,14 @@ namespace zer0
 {
 	namespace RGSS
 	{
+		void Graphics::createRubyInterface()
+		{
+			VALUE classe = rb_define_module("Graphics");
+			rb_define_module_function(classe, "update", RUBY_METHOD_FUNC(zer0::RGSS::Graphics::update), 0);
+			rb_define_module_function(classe, "frame_count", RUBY_METHOD_FUNC(zer0::RGSS::Graphics::getFrameCount), 0);
+			rb_define_module_function(classe, "frame_count=", RUBY_METHOD_FUNC(zer0::RGSS::Graphics::setFrameCount), 1);
+		}
+
 		unsigned int Graphics::frameCount = 0;
 
 		void Graphics::frameReset()
@@ -20,23 +28,21 @@ namespace zer0
 		{
 		}
 
-		VALUE Graphics::getFrameCount()
+		VALUE Graphics::getFrameCount(VALUE self)
 		{
-			return INT2FIX(frameCount);
+			return INT2NUM(frameCount);
 		}
 
-		void Graphics::setFrameCount(VALUE value)
+		VALUE Graphics::setFrameCount(VALUE self, VALUE value)
 		{
-			printf("frame_count: %u\n", FIX2UINT(INT2FIX(frameCount)));
-			frameCount = FIX2UINT(value);
-			frameCount++;
-			printf("frame_count: %u\n", frameCount);
+			frameCount = NUM2UINT(value);
+			return Qnil;
 		}
 
-		void Graphics::update()
+		VALUE Graphics::update(VALUE self)
 		{
 			frameCount++;
-			printf("test %u\n", frameCount);
+			return Qnil;
 		}
 	}
 }

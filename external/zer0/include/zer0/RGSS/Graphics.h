@@ -19,8 +19,8 @@ namespace zer0
 			/// @brief ???
 			static bool visible;
 
-			static VALUE getFrameCount();
-			static void setFrameCount(VALUE value);
+			static VALUE getFrameCount(VALUE self);
+			static VALUE setFrameCount(VALUE self, VALUE value);
 
 			/// @brief Resets the screen refresh timing.
 			static void frameReset();
@@ -32,7 +32,7 @@ namespace zer0
 			/// @param[in] vague Sets the ambiguity of the borderline between the graphic's starting and ending points.
 			static void transition(int duration, hstr filename, int vague);
 			/// @brief Refreshes the game screen and advances time by 1 frame.
-			static void update();
+			static VALUE update(VALUE self);
 			/// @brief Exposes this class to Ruby.
 			static void createRubyInterface();
 

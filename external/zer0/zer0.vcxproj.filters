@@ -145,9 +145,6 @@
     <ClCompile Include="src\RGSS\Window.cpp">
       <Filter>Source Files\RGSS</Filter>
     </ClCompile>
-    <ClCompile Include="src\RGSS\RubyInterfaces.cpp">
-      <Filter>Source Files\RGSS</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="fileproperties.rc">

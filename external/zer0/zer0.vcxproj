@@ -63,6 +63,7 @@
       <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
       <AdditionalLibraryDirectories>../lib/msvc;../lib/msvc100;../gtypes/bin/win32_Debug;../hltypes/bin/win32_Debug;../atres/bin/win32_Debug;../april/bin;../aprilui/bin/win32_Debug;../xal/bin/win32_Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>NotSet</SubSystem>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='win32_Release|Win32'">
@@ -159,7 +160,6 @@
     <ClCompile Include="src\RGSS\RGSSError.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='win32_Debug|Win32'">$(IntDir)%(RelativeDir)%(Filename).obj</ObjectFileName>
     </ClCompile>
-    <ClCompile Include="src\RGSS\RubyInterfaces.cpp" />
     <ClCompile Include="src\RGSS\Sprite.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='win32_Debug|Win32'">$(IntDir)%(RelativeDir)%(Filename).obj</ObjectFileName>
     </ClCompile>
