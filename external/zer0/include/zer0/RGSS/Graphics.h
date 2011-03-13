@@ -11,14 +11,16 @@ namespace zer0
 {
 	namespace RGSS
 	{
-		namespace Graphics
+		class zer0Export Graphics
 		{
-			/// @brief the number of frames that have passed
-			static int frame_count;
+		public:
 			/// @brief the number of frame updates per second
 			static int frame_rate;
 			/// @brief ???
 			static bool visible;
+
+			static VALUE getFrameCount();
+			static void setFrameCount(VALUE value);
 
 			/// @brief Resets the screen refresh timing.
 			static void frameReset();
@@ -30,10 +32,14 @@ namespace zer0
 			/// @param[in] vague Sets the ambiguity of the borderline between the graphic's starting and ending points.
 			static void transition(int duration, hstr filename, int vague);
 			/// @brief Refreshes the game screen and advances time by 1 frame.
-			extern "C"
-			VALUE update(...);
+			static void update();
 			/// @brief Exposes this class to Ruby.
-			void createRubyInterface();
+			static void createRubyInterface();
+
+		private:
+			/// @brief the number of frames that have passed
+			static unsigned int frameCount;
+			
 
 		};
 
