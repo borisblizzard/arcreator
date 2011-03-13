@@ -159,6 +159,7 @@
     <ClCompile Include="src\RGSS\RGSSError.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='win32_Debug|Win32'">$(IntDir)%(RelativeDir)%(Filename).obj</ObjectFileName>
     </ClCompile>
+    <ClCompile Include="src\RGSS\RubyInterfaces.cpp" />
     <ClCompile Include="src\RGSS\Sprite.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='win32_Debug|Win32'">$(IntDir)%(RelativeDir)%(Filename).obj</ObjectFileName>
     </ClCompile>

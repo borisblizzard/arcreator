@@ -13,7 +13,7 @@
 
 #include "CodeSnippets.h"
 #include "Constants.h"
-#include "RGSS/Table.h"
+#include "RGSS/Graphics.h"
 #include "Context.h"
 #include "System.h"
 #include "TransitionManager.h"
@@ -144,6 +144,7 @@ namespace zer0
 
 	VALUE embedded(VALUE ignore)
 	{
+		RGSS::Graphics::createRubyInterface();
 		rb_require("./test.rb");
 		return Qnil;
 	}

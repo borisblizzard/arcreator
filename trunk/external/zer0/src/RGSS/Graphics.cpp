@@ -1,18 +1,12 @@
+#include <ruby.h>
+#include <windows.h>
 #include "RGSS/Graphics.h"
 
 namespace zer0
 {
 	namespace RGSS
 	{
-	
-		Graphics::Graphics()
-		{
-		}
-	
-		Graphics::~Graphics()
-		{
-		}
-	
+		
 		void Graphics::frameReset()
 		{
 		}
@@ -25,8 +19,10 @@ namespace zer0
 		{
 		}
 
-		void Graphics::update()
+		VALUE Graphics::update(...)
 		{
+			printf("test\n");
+			return Qnil;
 		}
 	}
 }
