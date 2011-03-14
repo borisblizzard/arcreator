@@ -26,7 +26,7 @@ namespace zer0
 
 		void Viewport::setColor(float r, float g, float b, float a)
 		{
-			this->color.set(r, g, b, a);
+			//this->color.set(r, g, b, a);
 		}
 		void Viewport::setTone(float r, float g, float b, float gr)
 		{

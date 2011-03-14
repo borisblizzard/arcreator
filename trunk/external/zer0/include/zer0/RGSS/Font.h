@@ -27,6 +27,7 @@ namespace zer0
 			/// @brief Font Color.
 			Color color;
 
+			/*
 			/// @brief Default Font name.
 			static hstr default_name;
 			/// @brief Default Font size.
@@ -37,6 +38,7 @@ namespace zer0
 			static bool default_italic;
 			/// @brief Default Font Color.
 			static Color default_color;
+			*/
 
 			/// @brief Empty constructor.
 			Font();

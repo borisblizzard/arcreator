@@ -13,6 +13,7 @@
 
 #include "CodeSnippets.h"
 #include "Constants.h"
+#include "RGSS/Color.h"
 #include "RGSS/Graphics.h"
 #include "Context.h"
 #include "System.h"
@@ -62,6 +63,7 @@ namespace zer0
 			aprilui::setLimitCursorToViewport(false);
 			aprilui::setViewport(grect(0.0f, 0.0f, (float)width, (float)height));
 			aprilui::setScreenViewport(aprilui::getViewport());
+			april::rendersys->setOrthoProjection(aprilui::getViewport());
 			// zer0 related data
 			zer0::log("initializing Zer0 Division Engine");
 			zer0::system = new zer0::System(path);
@@ -108,38 +110,9 @@ namespace zer0
 		return result;
 	}
 	
-	bool _update(float time)
-	{
-		result = true;
-#ifdef _DEBUG
-		try
-		{
-#endif
-			april::rendersys->clear(true, false);
-			april::rendersys->setOrthoProjection(drawRect);
-			result = zer0::system->update(time);
-#ifdef _DEBUG
-		}
-		catch (hltypes::exception e)
-		{
-			zer0::log(e.message());
-			result = false;
-		}
-		catch (hstr e)
-		{
-			zer0::log(e);
-			result = false;
-		}
-#endif
-		if (!result)
-		{
-			april::rendersys->getWindow()->terminateMainLoop();
-		}
-		return result;
-	}
-
 	VALUE embedded(VALUE ignore)
 	{
+		RGSS::Color::createRubyInterface();
 		RGSS::Graphics::createRubyInterface();
 		rb_require("./test.rb");
 		return Qnil;
