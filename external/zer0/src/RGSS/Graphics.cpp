@@ -1,5 +1,9 @@
 #include <ruby.h>
-#include <windows.h>
+
+#include <april/RenderSystem.h>
+#include <april/Window.h>
+#include <gtypes/Rectangle.h>
+
 #include "RGSS/Graphics.h"
 
 namespace zer0
@@ -41,6 +45,11 @@ namespace zer0
 
 		VALUE Graphics::update(VALUE self)
 		{
+			// some testing for now
+			april::rendersys->clear();
+			april::rendersys->setOrthoProjection(grect(0.0f, 0.0f, 800.0f, 600.0f));
+			april::rendersys->drawColoredQuad(grect(80.0f + frameCount * 10.0f, 80.0f + frameCount * 10.0f, 160.0f, 160.0f), april::Color::GREEN);
+			april::rendersys->presentFrame();
 			frameCount++;
 			return Qnil;
 		}
