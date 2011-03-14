@@ -3,6 +3,7 @@
 #include <april/RenderSystem.h>
 #include <april/Window.h>
 #include <gtypes/Rectangle.h>
+#include <hltypes/util.h>
 
 #include "RGSS/Graphics.h"
 
@@ -10,26 +11,23 @@ namespace zer0
 {
 	namespace RGSS
 	{
-		void Graphics::createRubyInterface()
-		{
-			VALUE classe = rb_define_module("Graphics");
-			rb_define_module_function(classe, "update", RUBY_METHOD_FUNC(Graphics::update), 0);
-			rb_define_module_function(classe, "frame_count", RUBY_METHOD_FUNC(Graphics::getFrameCount), 0);
-			rb_define_module_function(classe, "frame_count=", RUBY_METHOD_FUNC(Graphics::setFrameCount), 1);
-		}
-
 		unsigned int Graphics::frameCount = 0;
+		unsigned int Graphics::frameRate = 40;
 
-		void Graphics::frameReset()
+		VALUE Graphics::frameReset(VALUE self)
 		{
+			frameCount = 0;
+			return Qnil;
 		}
 
-		void Graphics::freeze()
+		VALUE Graphics::freeze(VALUE self)
 		{
+			return Qnil;
 		}
 
-		void Graphics::transition(int duration = 8, hstr filename = "", int vague = 40)
+		VALUE Graphics::transition(VALUE self, int duration, hstr filename, int vague)
 		{
+			return Qnil;
 		}
 
 		VALUE Graphics::getFrameCount(VALUE self)
@@ -43,15 +41,39 @@ namespace zer0
 			return Qnil;
 		}
 
+		VALUE Graphics::getFrameRate(VALUE self)
+		{
+			return INT2NUM(frameRate);
+		}
+
+		VALUE Graphics::setFrameRate(VALUE self, VALUE value)
+		{
+			frameRate = hclamp(NUM2UINT(value), (unsigned int)10, (unsigned int)120);
+			return Qnil;
+		}
+
 		VALUE Graphics::update(VALUE self)
 		{
 			// some testing for now
 			april::rendersys->clear();
-			april::rendersys->setOrthoProjection(grect(0.0f, 0.0f, 800.0f, 600.0f));
 			april::rendersys->drawColoredQuad(grect(80.0f + frameCount * 10.0f, 80.0f + frameCount * 10.0f, 160.0f, 160.0f), april::Color::GREEN);
 			april::rendersys->presentFrame();
 			frameCount++;
 			return Qnil;
 		}
+
+		void Graphics::createRubyInterface()
+		{
+			VALUE classe = rb_define_module("Graphics");
+			rb_define_module_function(classe, "update", RUBY_METHOD_FUNC(&Graphics::update), 0);
+			rb_define_module_function(classe, "frame_count", RUBY_METHOD_FUNC(&Graphics::getFrameCount), 0);
+			rb_define_module_function(classe, "frame_count=", RUBY_METHOD_FUNC(&Graphics::setFrameCount), 1);
+			rb_define_module_function(classe, "frame_rate", RUBY_METHOD_FUNC(&Graphics::getFrameRate), 0);
+			rb_define_module_function(classe, "frame_rate=", RUBY_METHOD_FUNC(&Graphics::setFrameRate), 1);
+			rb_define_module_function(classe, "frame_reset", RUBY_METHOD_FUNC(&Graphics::frameReset), 0);
+			rb_define_module_function(classe, "freeze", RUBY_METHOD_FUNC(&Graphics::freeze), 0);
+			rb_define_module_function(classe, "transition", RUBY_METHOD_FUNC(&Graphics::transition), 3);
+		}
+
 	}
 }

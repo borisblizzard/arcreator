@@ -1,17 +1,17 @@
-class A
-	def p
-		puts 'HAI'
-	end
-end
 greeting = "\
-Useing Ruby '#{RUBY_VERSION}' built for '#{RUBY_PLATFORM}' releaced on '#{RUBY_RELEASE_DATE}'
+Using Ruby '#{RUBY_VERSION}' built for '#{RUBY_PLATFORM}' released on '#{RUBY_RELEASE_DATE}'
 
 Hello World. 
-
 "
 puts greeting
 puts 'Press ENTER to exit'
 input = '1'
+c = Color.new(128, 128, 128)
+p c.alpha
+c = Color.new(128, 128, 128, 128)
+p c.alpha
+c.set(564, 64, 64, 64)
+p c.red
 p Graphics.frame_count
 10.times {Graphics.update}
 p Graphics.frame_count

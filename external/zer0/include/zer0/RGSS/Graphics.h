@@ -14,23 +14,29 @@ namespace zer0
 		class zer0Export Graphics
 		{
 		public:
-			/// @brief the number of frame updates per second
-			static int frame_rate;
 			/// @brief ???
 			static bool visible;
 
+			/// @brief Gets the frame count.
 			static VALUE getFrameCount(VALUE self);
+			/// @brief Sets the frame count.
+			/// @param[in] value The new frame count.
 			static VALUE setFrameCount(VALUE self, VALUE value);
+			/// @brief Gets the frame rate.
+			static VALUE getFrameRate(VALUE self);
+			/// @brief Sets the frame rate.
+			/// @param[in] value The new frame rate.
+			static VALUE setFrameRate(VALUE self, VALUE value);
 
 			/// @brief Resets the screen refresh timing.
-			static void frameReset();
+			static VALUE frameReset(VALUE self);
 			/// @brief Fixes the current screen in preparation for transitions.
-			static void freeze();
+			static VALUE freeze(VALUE self);
 			/// @brief Carries out a transition from the screen fixed in Graphics.freeze to the current screen.
 			/// @param[in] duration The number of frames the transition will last. 
 			/// @param[in] filename The transition graphic file name.
 			/// @param[in] vague Sets the ambiguity of the borderline between the graphic's starting and ending points.
-			static void transition(int duration, hstr filename, int vague);
+			static VALUE transition(VALUE self, int duration = 8, hstr filename = "", int vague = 40);
 			/// @brief Refreshes the game screen and advances time by 1 frame.
 			static VALUE update(VALUE self);
 			/// @brief Exposes this class to Ruby.
@@ -39,6 +45,7 @@ namespace zer0
 		private:
 			/// @brief the number of frames that have passed
 			static unsigned int frameCount;
+			static unsigned int frameRate;
 			
 
 		};
