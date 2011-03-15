@@ -1,17 +1,24 @@
 #ifndef ZER0_RGSS_TABLE_H
 #define ZER0_RGSS_TABLE_H
 
+#include <ruby.h>
+
 #include "zer0Export.h"
 
 namespace zer0
 {
 	namespace RGSS
 	{
+		extern VALUE rb_cTable;
+
 		/// @brief Emulates RGSS's Table class.
 		/// @note Depending on the instance's dimensions, specific method calls will not work. Use the proper method calls.
 		class zer0Export Table
 		{
 		public:
+			/// @brief Exposes this class to Ruby.
+			static void createRubyInterface();
+
 			/// @brief Basic constructor.
 			/// @param xSize X dimension size.
 			/// @param ySize Y dimension size.

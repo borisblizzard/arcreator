@@ -1,3 +1,5 @@
+#include <ruby.h>
+
 #include <hltypes/util.h>
 
 #include "RGSS/Window.h"
@@ -9,6 +11,11 @@ namespace zer0
 {
 	namespace RGSS
 	{
+		VALUE rb_cWindow;
+
+		void Window::createRubyInterface()
+		{
+		}
 	
 		Window::Window()
 		{

@@ -1,16 +1,23 @@
 #ifndef ZER0_RGSS_TONE_H
 #define ZER0_RGSS_TONE_H
 
+#include <ruby.h>
+
 #include "zer0Export.h"
 
 namespace zer0
 {
 	namespace RGSS
 	{
+		extern VALUE rb_cTone;
+
 		/// @brief Emulates RGSS's Tone class.
 		class zer0Export Tone
 		{
 		public:
+			/// @brief Exposes this class to Ruby.
+			static void createRubyInterface();
+
 			/// @brief Empty constructor.
 			Tone();
 			/// @brief Basic constructor.

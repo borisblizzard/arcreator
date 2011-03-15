@@ -10,6 +10,7 @@ namespace zer0
 	namespace RGSS
 	{
 		extern VALUE rb_cColor;
+
 		/// @brief Emulates RGSS's Color class.
 		class zer0Export Color
 		{

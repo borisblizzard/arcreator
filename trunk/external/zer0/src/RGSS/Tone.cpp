@@ -1,3 +1,5 @@
+#include <ruby.h>
+
 #include <hltypes/util.h>
 
 #include "RGSS/Tone.h"
@@ -6,6 +8,12 @@ namespace zer0
 {
 	namespace RGSS
 	{
+		VALUE rb_cTone;
+
+		void Tone::createRubyInterface()
+		{
+		}
+
 		Tone::Tone()
 		{
 			this->set(255.0f, 255.0f, 255.0f);

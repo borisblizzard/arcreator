@@ -1,6 +1,8 @@
 #ifndef ZER0_RGSS_WINDOW_H
 #define ZER0_RGSS_WINDOW_H
 
+#include <ruby.h>
+
 #include "RGSS/Rect.h"
 #include "zer0Export.h"
 
@@ -8,6 +10,8 @@ namespace zer0
 {
 	namespace RGSS
 	{
+		extern VALUE rb_cWindow;
+
 		class Bitmap;
 		class Rect;
 		class Viewport;
@@ -15,6 +19,9 @@ namespace zer0
 		class zer0Export Window
 		{
 		public:
+			/// @brief Exposes this class to Ruby.
+			static void createRubyInterface();
+
 			/// @brief Boolean flag to denote if window is active.
 			bool active;
 			/// @brief The opacity of the background windowskin.

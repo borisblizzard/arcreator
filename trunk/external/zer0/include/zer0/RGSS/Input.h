@@ -17,6 +17,11 @@ namespace zer0
 		class zer0Export Input
 		{
 		public:
+			/// @brief Exposes this class to Ruby.
+			static void createRubyInterface();
+			/// @brief Intializes the module.
+			static void init();
+
 			static const int DOWN = 2;
 			static const int LEFT = 4;
 			static const int RIGHT = 6;
@@ -37,11 +42,6 @@ namespace zer0
 			static const int F7 = 27;
 			static const int F8 = 28;
 			static const int F9 = 29;
-
-			/// @brief Exposes this class to Ruby.
-			static void createRubyInterface();
-			/// @brief Intializes the module.
-			static void init();
 
 			// @brief Updates input data. As a rule, this method is called once per frame.
 			static VALUE update(VALUE self);

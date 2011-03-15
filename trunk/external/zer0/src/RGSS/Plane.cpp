@@ -1,3 +1,5 @@
+#include <ruby.h>
+
 #include <hltypes/util.h>
 
 #include "RGSS/Plane.h"
@@ -10,7 +12,12 @@ namespace zer0
 {
 	namespace RGSS
 	{
+		VALUE rb_cPlane;
 	
+		void Plane::createRubyInterface()
+		{
+		}
+
 		Plane::Plane()
 		{
 			this->viewport = new Viewport();

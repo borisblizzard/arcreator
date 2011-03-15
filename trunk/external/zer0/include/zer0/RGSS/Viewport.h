@@ -1,6 +1,8 @@
 #ifndef ZER0_RGSS_VIEWPORT_H
 #define ZER0_RGSS_VIEWPORT_H
 
+#include <ruby.h>
+
 #include "RGSS/Color.h"
 #include "RGSS/Rect.h"
 #include "RGSS/Tone.h"
@@ -10,9 +12,14 @@ namespace zer0
 {
 	namespace RGSS
 	{
+		extern VALUE rb_cViewport;
+
 		class zer0Export Viewport
 		{
 		public:
+			/// @brief Exposes this class to Ruby.
+			static void createRubyInterface();
+
 			Viewport();
 			~Viewport();
 			Color color;

@@ -1,3 +1,4 @@
+#include <ruby.h>
 #include <stdio.h>
 
 #include <hltypes/util.h>
@@ -10,6 +11,12 @@ namespace zer0
 {
 	namespace RGSS
 	{
+		VALUE rb_cTable;
+
+		void Table::createRubyInterface()
+		{
+		}
+
 		// constructor
 		Table::Table(int xSize, int ySize, int zSize)
 		{

@@ -1,6 +1,8 @@
 #ifndef ZER0_RGSS_BITMAP_H
 #define ZER0_RGSS_BITMAP_H
 
+#include <ruby.h>
+
 #include <hltypes/hstring.h>
 
 #include "RGSS/Color.h"
@@ -12,9 +14,14 @@ namespace zer0
 {
 	namespace RGSS
 	{
+		extern VALUE rb_cBitmap;
+
 		class zer0Export Bitmap
 		{
 		public:
+			/// @brief Exposes this class to Ruby.
+			static void createRubyInterface();
+
 			// @brief The Font used to draw text
 			Font font;
 			// @brief Bitmap Rect

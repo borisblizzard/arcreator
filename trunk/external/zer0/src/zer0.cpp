@@ -11,9 +11,21 @@
 
 #include <ruby/ruby.h>
 
+#include "RGSS/Audio.h"
+#include "RGSS/Bitmap.h"
 #include "RGSS/Color.h"
+#include "RGSS/Font.h"
 #include "RGSS/Graphics.h"
 #include "RGSS/Input.h"
+#include "RGSS/Plane.h"
+#include "RGSS/Rect.h"
+#include "RGSS/RGSSError.h"
+#include "RGSS/Sprite.h"
+#include "RGSS/Table.h"
+#include "RGSS/Tilemap.h"
+#include "RGSS/Tone.h"
+#include "RGSS/Viewport.h"
+#include "RGSS/Window.h"
 
 #include "CodeSnippets.h"
 #include "Constants.h"
@@ -117,12 +129,25 @@ namespace zer0
 	VALUE embedded(VALUE ignore)
 	{
 		// initialization of modules
+		RGSS::Audio::init();
 		RGSS::Graphics::init();
 		RGSS::Input::init();
-		// creating Ruby interfaces
+		// creating Ruby interfaces of C++ classes created for Ruby
+		RGSS::Audio::createRubyInterface();
+		RGSS::Bitmap::createRubyInterface();
+		RGSS::Color::createRubyInterface();
+		RGSS::Font::createRubyInterface();
 		RGSS::Graphics::createRubyInterface();
 		RGSS::Input::createRubyInterface();
-		RGSS::Color::createRubyInterface();
+		RGSS::Plane::createRubyInterface();
+		RGSS::Rect::createRubyInterface();
+		RGSS::RGSSError::createRubyInterface();
+		RGSS::Sprite::createRubyInterface();
+		RGSS::Table::createRubyInterface();
+		RGSS::Tilemap::createRubyInterface();
+		RGSS::Tone::createRubyInterface();
+		RGSS::Viewport::createRubyInterface();
+		RGSS::Window::createRubyInterface();
 		// running the Ruby scripts
 		rb_require("./test.rb");
 		return Qnil;

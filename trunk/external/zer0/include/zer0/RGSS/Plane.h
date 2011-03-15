@@ -1,6 +1,8 @@
 #ifndef ZER0_RGSS_PLANE_H
 #define ZER0_RGSS_PLANE_H
 
+#include <ruby.h>
+
 #include "RGSS/Color.h"
 #include "RGSS/Rect.h"
 #include "RGSS/Tone.h"
@@ -10,12 +12,17 @@ namespace zer0
 {
 	namespace RGSS
 	{
+		extern VALUE rb_cPlane;
+
 		class Bitmap;
 		class Viewport;
 
 		class zer0Export Plane
 		{
 		public:
+			/// @brief Exposes this class to Ruby.
+			static void createRubyInterface();
+
 			/// @brief The plane's bitmap
 			Bitmap* bitmap;
 			/// @brief Blend type used for the plane

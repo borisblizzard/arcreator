@@ -1,3 +1,5 @@
+#include <ruby.h>
+
 #include "RGSS/Color.h"
 #include "RGSS/Rect.h"
 #include "RGSS/Tone.h"
@@ -7,6 +9,12 @@ namespace zer0
 {
 	namespace RGSS
 	{
+		VALUE rb_cViewport;
+
+		void Viewport::createRubyInterface()
+		{
+		}
+
 		Viewport::Viewport()
 		{
 			this->rect.set(0, 0, 1, 1);

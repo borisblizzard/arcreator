@@ -1,3 +1,5 @@
+#include <ruby.h>
+
 #include "RGSS/Bitmap.h"
 #include "RGSS/Color.h"
 #include "RGSS/Font.h"
@@ -7,6 +9,11 @@ namespace zer0
 {
 	namespace RGSS
 	{
+		VALUE rb_cBitmap;
+
+		void Bitmap::createRubyInterface()
+		{
+		}
 	
 		Bitmap::Bitmap(hstr filename)
 		{
