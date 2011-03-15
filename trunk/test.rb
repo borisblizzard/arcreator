@@ -12,8 +12,13 @@ c = Color.new(128, 128, 128, 128)
 p c.alpha
 c.set(564, 64, 64, 64)
 p c.red
+c.red = 500
+p c.red
 p Graphics.frame_count
-10.times {Graphics.update}
+10.times {
+Graphics.update
+Input.update
+}
 p Graphics.frame_count
 Graphics.frame_count = 50
 p Graphics.frame_count
