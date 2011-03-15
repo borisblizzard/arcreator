@@ -11,10 +11,12 @@
 
 #include <ruby/ruby.h>
 
-#include "CodeSnippets.h"
-#include "Constants.h"
 #include "RGSS/Color.h"
 #include "RGSS/Graphics.h"
+#include "RGSS/Input.h"
+
+#include "CodeSnippets.h"
+#include "Constants.h"
 #include "Context.h"
 #include "System.h"
 #include "TransitionManager.h"
@@ -112,8 +114,9 @@ namespace zer0
 	
 	VALUE embedded(VALUE ignore)
 	{
-		RGSS::Color::createRubyInterface();
 		RGSS::Graphics::createRubyInterface();
+		RGSS::Input::createRubyInterface();
+		RGSS::Color::createRubyInterface();
 		rb_require("./test.rb");
 		return Qnil;
 	}

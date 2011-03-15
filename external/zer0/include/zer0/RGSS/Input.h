@@ -1,15 +1,20 @@
 #ifndef ZER0_RGSS_INPUT_H
 #define ZER0_RGSS_INPUT_H
 
+#include <ruby.h>
+
 #include "zer0Export.h"
 
 namespace zer0
 {
 	namespace RGSS
 	{
+		extern VALUE rb_mInput;
+
 		class zer0Export Input
 		{
 		public:
+
 			static const int DOWN = 2;
 			static const int LEFT = 4;
 			static const int RIGHT = 6;
@@ -31,26 +36,29 @@ namespace zer0
 			static const int F8 = 28;
 			static const int F9 = 29;
 
+			/// @brief Exposes this class to Ruby.
+			static void createRubyInterface();
+
+			// @brief Updates input data. As a rule, this method is called once per frame.
+			static VALUE update(VALUE self);
 			// @brief Checks the status of the directional buttons, translates the data into a specialized 4-direction input format.
 			// @return int (2, 4, 6, 8) The state of the directional buttons.
-			int dir4();
+			static VALUE dir4(VALUE self);
 			// @brief Checks the status of the directional buttons, translates the data into a specialized 8-direction input format.
 			// @return int (1, 2, 3, 4, 6, 7, 8, 9) The state of the directional buttons
-			int dir8();
+			static VALUE dir8(VALUE self);
 			// @brief Determines whether the button num is currently being pressed.
 			// @param[in] num An interger indentifing the keybord key.
 			// @return bool true if the key is being pressed false if not.
-			bool press(int num);
+			static VALUE press(VALUE self, VALUE keycode);
 			// @brief Determines whether the button num is being pressed again.
 			// @param[in] num An interger indentifing the keybord key.
 			// @return bool true if the key is being pressed false if not.
-			bool trigger(int num);
+			static VALUE trigger(VALUE self, VALUE keycode);
 			// @brief Determines whether the button num is being pressed again.
 			// @param[in] num An interger indentifing the keybord key.
 			// @return bool true if the key is being pressed false if not.
-			bool repeat(int num);
-			// @brief Updates input data. As a rule, this method is called once per frame.
-			void update();
+			static VALUE repeat(VALUE self, VALUE keycode);
 
 		/*
 		dir4
@@ -60,10 +68,11 @@ namespace zer0
 		trigger?
 		update
 		*/
+			/*
 		protected:
 			Input();
 			~Input();
-
+			*/
 		};
 	
 	}

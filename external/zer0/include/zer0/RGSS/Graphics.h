@@ -11,11 +11,15 @@ namespace zer0
 {
 	namespace RGSS
 	{
+		extern VALUE rb_mGraphics;
+
 		class zer0Export Graphics
 		{
 		public:
+			/// @brief Exposes this class to Ruby.
+			static void createRubyInterface();
 			/// @brief ???
-			static bool visible;
+			//static bool visible;
 
 			/// @brief Gets the frame count.
 			static VALUE getFrameCount(VALUE self);
@@ -36,11 +40,9 @@ namespace zer0
 			/// @param[in] duration The number of frames the transition will last. 
 			/// @param[in] filename The transition graphic file name.
 			/// @param[in] vague Sets the ambiguity of the borderline between the graphic's starting and ending points.
-			static VALUE transition(VALUE self, int duration = 8, hstr filename = "", int vague = 40);
+			static VALUE transition(VALUE self, VALUE duration, VALUE filename, VALUE vague);
 			/// @brief Refreshes the game screen and advances time by 1 frame.
 			static VALUE update(VALUE self);
-			/// @brief Exposes this class to Ruby.
-			static void createRubyInterface();
 
 		private:
 			/// @brief the number of frames that have passed
