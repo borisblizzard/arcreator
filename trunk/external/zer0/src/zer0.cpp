@@ -66,6 +66,8 @@ namespace zer0
 			aprilui::setViewport(grect(0.0f, 0.0f, (float)width, (float)height));
 			aprilui::setScreenViewport(aprilui::getViewport());
 			april::rendersys->setOrthoProjection(aprilui::getViewport());
+			april::rendersys->getWindow()->setKeyboardCallbacks(
+				zer0::Context::onKeyDown, zer0::Context::onKeyUp, zer0::Context::onChar);
 			// zer0 related data
 			zer0::log("initializing Zer0 Division Engine");
 			zer0::system = new zer0::System(path);
@@ -114,9 +116,14 @@ namespace zer0
 	
 	VALUE embedded(VALUE ignore)
 	{
+		// initialization of modules
+		RGSS::Graphics::init();
+		RGSS::Input::init();
+		// creating Ruby interfaces
 		RGSS::Graphics::createRubyInterface();
 		RGSS::Input::createRubyInterface();
 		RGSS::Color::createRubyInterface();
+		// running the Ruby scripts
 		rb_require("./test.rb");
 		return Qnil;
 	}
