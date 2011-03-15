@@ -1,9 +1,4 @@
-greeting = "\
-Using Ruby '#{RUBY_VERSION}' built for '#{RUBY_PLATFORM}' released on '#{RUBY_RELEASE_DATE}'
-
-Hello World. 
-"
-puts greeting
+puts "Using Ruby '#{RUBY_VERSION}' built for '#{RUBY_PLATFORM}' released on '#{RUBY_RELEASE_DATE}'\n\nHello World."
 puts 'Press ENTER to exit'
 loop do
 	Graphics.update
