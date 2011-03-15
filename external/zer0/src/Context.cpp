@@ -102,12 +102,12 @@ namespace zer0
 
 	void Context::onMouseDown(float x, float y, int button)
 	{
-		this->mouse = TRIGGER;
+		zer0::context->mouse = TRIGGER;
 	}
 
 	void Context::onMouseUp(float x, float y, int button)
 	{
-		this->mouse = RELEASE;
+		zer0::context->mouse = RELEASE;
 	}
 	
 	void Context::onMouseMove(float x, float y)
@@ -116,12 +116,12 @@ namespace zer0
 	
 	void Context::onKeyDown(unsigned int keycode)
 	{
-		this->keys[keycode] = true;
+		zer0::context->keys[keycode] = true;
 	}
 
 	void Context::onKeyUp(unsigned int keycode)
 	{
-		this->keys[keycode] = false;
+		zer0::context->keys[keycode] = false;
 	}
 	
 	/// @todo Implementation

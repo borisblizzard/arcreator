@@ -18,6 +18,8 @@ namespace zer0
 		public:
 			/// @brief Exposes this class to Ruby.
 			static void createRubyInterface();
+			/// @brief Intializes the module.
+			static void init();
 			/// @brief ???
 			//static bool visible;
 

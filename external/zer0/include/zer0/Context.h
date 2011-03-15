@@ -31,12 +31,6 @@ namespace zer0
 
 		void update();
 		void reset();
-		void onMouseDown(float x, float y, int button);
-		void onMouseUp(float x, float y, int button);
-		void onMouseMove(float x, float y);
-		void onKeyDown(unsigned int keycode);
-		void onKeyUp(unsigned int keycode);
-		void onChar(unsigned int charcode);
 		
 		bool isMouseTriggered();
 		bool isMousePressed();
@@ -47,6 +41,13 @@ namespace zer0
 		bool isKeyReleased(unsigned int keycode);
 		
 		void setPrevious();
+
+		static void onMouseDown(float x, float y, int button);
+		static void onMouseUp(float x, float y, int button);
+		static void onMouseMove(float x, float y);
+		static void onKeyDown(unsigned int keycode);
+		static void onKeyUp(unsigned int keycode);
+		static void onChar(unsigned int charcode);
 
 	private:
 		harray<State> states;

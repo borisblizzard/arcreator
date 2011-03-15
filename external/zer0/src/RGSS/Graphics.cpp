@@ -29,11 +29,15 @@ namespace zer0
 			rb_define_module_function(rb_mGraphics, "transition", RUBY_METHOD_FUNC(&Graphics::transition), 3);
 		}
 
+		void Graphics::init()
+		{
+		}
+
 		VALUE Graphics::update(VALUE self)
 		{
 			// some testing for now
 			april::rendersys->clear();
-			april::rendersys->drawColoredQuad(grect(80.0f + frameCount * 10.0f, 80.0f + frameCount * 10.0f, 160.0f, 160.0f), april::Color::GREEN);
+			april::rendersys->drawColoredQuad(grect(frameCount, frameCount, 80.0f, 80.0f), april::Color::GREEN);
 			april::rendersys->presentFrame();
 			frameCount++;
 			return Qnil;
