@@ -1,6 +1,8 @@
 #ifndef ZER0_RGSS_SPRITE_H
 #define ZER0_RGSS_SPRITE_H
 
+#include <ruby.h>
+
 #include "RGSS/Color.h"
 #include "RGSS/Rect.h"
 #include "RGSS/Tone.h"
@@ -10,6 +12,8 @@ namespace zer0
 {
 	namespace RGSS
 	{
+		extern VALUE rb_cSprite;
+
 		class Bitmap;
 		class Viewport;
 
@@ -17,6 +21,9 @@ namespace zer0
 		class zer0Export Sprite
 		{
 		public:
+			/// @brief Exposes this class to Ruby.
+			static void createRubyInterface();
+
 			/// @brief The sprite's angle of rotation
 			int angle;
 			/// @brief The sprite's bitmap

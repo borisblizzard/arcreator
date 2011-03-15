@@ -1,9 +1,17 @@
+#include <ruby.h>
+
 #include "RGSS/Rect.h"
 
 namespace zer0
 {
 	namespace RGSS
 	{
+		VALUE rb_cRect;
+
+		void Rect::createRubyInterface()
+		{
+		}
+
 		Rect::Rect()
 		{
 			this->set(0, 0, 0, 0);

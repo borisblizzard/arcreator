@@ -1,9 +1,20 @@
+#include <ruby.h>
+
 #include "RGSS/Audio.h"
 
 namespace zer0
 {
 	namespace RGSS
 	{
+		VALUE rb_mAudio;
+
+		void Audio::createRubyInterface()
+		{
+		}
+
+		void Audio::init()
+		{
+		}
 		
 		// Constructer
 		Audio::Audio()

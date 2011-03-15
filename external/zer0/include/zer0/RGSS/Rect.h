@@ -1,16 +1,23 @@
 #ifndef ZER0_RGSS_RECT_H
 #define ZER0_RGSS_RECT_H
 
+#include <ruby.h>
+
 #include "zer0Export.h"
 
 namespace zer0
 {
 	namespace RGSS
 	{
+		extern VALUE rb_cRect;
+
 		/// @brief Emulates RGSS's Rect class.
 		class zer0Export Rect
 		{
 		public:
+			/// @brief Exposes this class to Ruby.
+			static void createRubyInterface();
+
 			/// @brief X coordinate.
 			int x;
 			/// @brief Y coordinate.

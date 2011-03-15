@@ -1,6 +1,8 @@
 #ifndef ZER0_RGSS_AUDIO_H
 #define ZER0_RGSS_AUDIO_H
 
+#include <ruby.h>
+
 #include <hltypes/hstring.h>
 
 #include "zer0Export.h"
@@ -9,9 +11,16 @@ namespace zer0
 {
 	namespace RGSS
 	{
+		extern VALUE rb_mAudio;
+
 		class zer0Export Audio
 		{
 		public:
+			/// @brief Exposes this class to Ruby.
+			static void createRubyInterface();
+			/// @brief Intializes the module.
+			static void init();
+
 			// @brief starts BMG playback
 			// @param[in] filename Filename of the BGM to play
 			// @param[in] volume The volume of the BMG

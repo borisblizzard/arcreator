@@ -1,14 +1,17 @@
 #ifndef ZER0_RGSS_TILEMAP_H
 #define ZER0_RGSS_TILEMAP_H
 
-#include "RGSS/Table.h"
+#include <ruby.h>
 
+#include "RGSS/Table.h"
 #include "zer0Export.h"
 
 namespace zer0
 {
 	namespace RGSS
 	{
+		extern VALUE rb_cTilemap;
+
 		class Viewport; // forward declaration of Viewport
 		class Bitmap; // forward declaration of Bitmap
 		class Table; // forward declaration of Table
@@ -16,6 +19,9 @@ namespace zer0
 		class zer0Export Tilemap
 		{
 		public:
+			/// @brief Exposes this class to Ruby.
+			static void createRubyInterface();
+
 			Bitmap* autotiles[7];
 			/// @brief Table data to represent passable directions of tiles
 			/// @todo Modify default methods to allow for more autotiles per map

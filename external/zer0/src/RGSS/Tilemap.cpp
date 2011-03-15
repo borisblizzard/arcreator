@@ -1,3 +1,5 @@
+#include <ruby.h>
+
 #include "RGSS/Tilemap.h"
 #include "RGSS/Bitmap.h"
 #include "RGSS/Table.h"
@@ -7,6 +9,12 @@ namespace zer0
 {
 	namespace RGSS
 	{
+		VALUE rb_cTilemap;
+
+		void Tilemap::createRubyInterface()
+		{
+		}
+
 		Tilemap::Tilemap() : map_data(20, 15, 3), priorities(20, 15, 3)
 		{
 			this->viewport = new Viewport();

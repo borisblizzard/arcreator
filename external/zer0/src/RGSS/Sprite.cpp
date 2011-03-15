@@ -1,3 +1,5 @@
+#include <ruby.h>
+
 #include <hltypes/util.h>
 
 #include "RGSS/Sprite.h"
@@ -11,7 +13,13 @@ namespace zer0
 {
 	namespace RGSS
 	{
-		Sprite::Sprite() 
+		VALUE rb_cSprite;
+
+		void Sprite::createRubyInterface()
+		{
+		}
+
+		Sprite::Sprite()
 		{
 			this->viewport = new Viewport();
 		}

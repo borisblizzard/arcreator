@@ -5,6 +5,11 @@ namespace zer0
 {
 	namespace RGSS
 	{
+		VALUE rb_cFont;
+
+		void Font::createRubyInterface()
+		{
+		}
 		/*
 		hstr Font::default_name = "Arial";
 		int Font::default_size = 22;
