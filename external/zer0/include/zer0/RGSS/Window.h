@@ -24,7 +24,7 @@ namespace zer0
 			/// @brief Frees the sprite.
 			static VALUE dispose(VALUE self);
 			/// @brief Basic constructor.
-			/// @param[in] viewport Viewport component.
+			/// @param[in] value Viewport component.
 			static VALUE initialize(int argc, VALUE *argv, VALUE self);
 			/// @brief Returns true if disposed, else false.
 			static VALUE isDisposed(VALUE self);
