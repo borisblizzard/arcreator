@@ -37,7 +37,7 @@ namespace zer0
 			rb_define_method(rb_cWindow, "back_opacity=", RUBY_METHOD_FUNC(&Window::setBackOpacity), 1);
 			rb_define_method(rb_cWindow, "contents=", RUBY_METHOD_FUNC(&Window::setContents), 1);
 			rb_define_method(rb_cWindow, "contents_opacity=", RUBY_METHOD_FUNC(&Window::setContentsOpacity), 1);
-			rb_define_method(rb_cColor, "initialize", RUBY_METHOD_FUNC(&Color::initialize), -1);
+			rb_define_method(rb_cColor, "initialize", RUBY_METHOD_FUNC(&Window::initialize), -1);
 			rb_define_method(rb_cWindow, "opacity=", RUBY_METHOD_FUNC(&Window::setOpacity), 1);
 			rb_define_method(rb_cWindow, "windowskin=", RUBY_METHOD_FUNC(&Window::setWindowskin), 1);
 			rb_define_method(rb_cWindow, "dispose", RUBY_METHOD_FUNC(&Window::dispose), 0);
