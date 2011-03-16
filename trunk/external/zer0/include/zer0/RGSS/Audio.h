@@ -19,7 +19,7 @@ namespace zer0
 			/// @brief Exposes this class to Ruby.
 			static void createRubyInterface();
 			/// @brief Initializes the module.
-			static VALUE init(VALUE self); // ?????
+			static void init();
 
 			// @brief starts BMG playback.
 			// @param[in] filename Filename of the BGM to play.
