@@ -10,65 +10,84 @@ namespace zer0
 
 		void Audio::createRubyInterface()
 		{
+			VALUE rb_mAudio = rb_define_module("Audio");
+			rb_define_module_function(rb_mAudio, "bgm_play", RUBY_METHOD_FUNC(&Audio::bgm_play), 3);
+			rb_define_module_function(rb_mAudio, "bgm_fade", RUBY_METHOD_FUNC(&Audio::bgm_fade), 1);
+			rb_define_module_function(rb_mAudio, "bgm_stop", RUBY_METHOD_FUNC(&Audio::bgm_stop), 0);
+			rb_define_module_function(rb_mAudio, "bgs_play", RUBY_METHOD_FUNC(&Audio::bgs_play), 3);
+			rb_define_module_function(rb_mAudio, "bgs_fade", RUBY_METHOD_FUNC(&Audio::bgs_fade), 1);
+			rb_define_module_function(rb_mAudio, "bgs_stop", RUBY_METHOD_FUNC(&Audio::bgs_stop), 0);
+			rb_define_module_function(rb_mAudio, "me_play", RUBY_METHOD_FUNC(&Audio::me_play), 3);
+			rb_define_module_function(rb_mAudio, "me_fade", RUBY_METHOD_FUNC(&Audio::me_fade), 1);
+			rb_define_module_function(rb_mAudio, "me_stop", RUBY_METHOD_FUNC(&Audio::me_stop), 0);
+			rb_define_module_function(rb_mAudio, "se_play", RUBY_METHOD_FUNC(&Audio::se_play), 3);
+			rb_define_module_function(rb_mAudio, "se_stop", RUBY_METHOD_FUNC(&Audio::se_stop), 0);
 		}
 
-		void Audio::init()
+		VALUE Audio::bgm_play(VALUE self, VALUE filename, VALUE volume, VALUE pitch)
 		{
-		}
-		
-		// Constructer
-		Audio::Audio()
-		{
-		}
-	
-		// Destructer
-		Audio::~Audio()
-		{
+
+			return Qnil;
 		}
 
-		// functions
-		void Audio::bgmPlay(hstr filename, int volume, int pitch)
+		VALUE Audio::bgm_fade(VALUE self, VALUE value)
 		{
+
+			return Qnil;
 		}
 
-		void Audio::bgmFade(int time)
+		VALUE Audio::bgm_stop(VALUE self)
 		{
+
+			return Qnil;
 		}
 
-		void Audio::bgmStop()
+		VALUE Audio::bgs_play(VALUE self, VALUE filename, VALUE volume, VALUE pitch)
 		{
+
+			return Qnil;
 		}
 
-		void Audio::bgsPlay(hstr filename, int volume, int pitch)
+		VALUE Audio::bgs_fade(VALUE self, VALUE time)
 		{
+
+			return Qnil;
 		}
 
-		void Audio::bgsFade(int time)
+		VALUE Audio::bgs_stop(VALUE self)
 		{
+
+			return Qnil;
 		}
 
-		void Audio::bgsStop()
+		VALUE Audio::me_play(VALUE self, VALUE filename, VALUE volume, VALUE pitch)
 		{
+
+			return Qnil;
 		}
 
-		void Audio::mePlay(hstr filename, int volume, int pitch)
+		VALUE Audio::me_fade(VALUE self, VALUE time)
 		{
+
+			return Qnil;
 		}
 
-		void Audio::meFade(int time)
+		VALUE Audio::me_stop(VALUE self)
 		{
+
+			return Qnil;
 		}
 
-		void Audio::meStop()
+		VALUE Audio::se_play(VALUE self, VALUE filename, VALUE volume, VALUE pitch)
 		{
+
+			return Qnil;
 		}
 
-		void Audio::sePlay(hstr filename, int volume, int pitch)
+		VALUE Audio::se_stop(VALUE self)
 		{
-		}
 
-		void Audio::seStop()
-		{
+			return Qnil;
 		}
 	
 	}
