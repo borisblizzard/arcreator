@@ -100,5 +100,11 @@ namespace zer0
 			rb_iv_set(self, "@windowskin", *value);
 			return *value;
 		}
+
+		VALUE Window::update(VALUE self)
+		{
+
+			return Qnil;
+		}
 	}
 }
