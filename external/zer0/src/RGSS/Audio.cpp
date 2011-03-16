@@ -24,6 +24,10 @@ namespace zer0
 			rb_define_module_function(rb_mAudio, "se_stop", RUBY_METHOD_FUNC(&Audio::se_stop), 0);
 		}
 
+		void Audio::init()
+		{
+		}
+
 		VALUE Audio::bgm_play(VALUE self, VALUE filename, VALUE volume, VALUE pitch)
 		{
 
