@@ -70,7 +70,7 @@ namespace zer0
 
 		VALUE Window::setBackOpacity(VALUE self, VALUE value)
 		{
-			value = rb_float_new(hclamp(NUM2DBL(value), -255.0, 255.0));
+			value = rb_float_new(hclamp(NUM2DBL(value), 0.0, 255.0));
 			rb_iv_set(self, "@back_opacity", value);
 			return value;
 		}
@@ -83,14 +83,14 @@ namespace zer0
 
 		VALUE Window::setContentsOpacity(VALUE self, VALUE value)
 		{
-			value = rb_float_new(hclamp(NUM2DBL(value), -255.0, 255.0));
+			value = rb_float_new(hclamp(NUM2DBL(value), 0.0, 255.0));
 			rb_iv_set(self, "@opacity", value);
 			return value;
 		}
 
 		VALUE Window::setOpacity(VALUE self, VALUE value)
 		{
-			value = rb_float_new(hclamp(NUM2DBL(value), -255.0, 255.0));
+			value = rb_float_new(hclamp(NUM2DBL(value), 0.0, 255.0));
 			rb_iv_set(self, "@opacity", value);
 			return value;
 		}
