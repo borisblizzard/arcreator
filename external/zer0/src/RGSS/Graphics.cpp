@@ -37,7 +37,7 @@ namespace zer0
 		{
 			// some testing for now
 			april::rendersys->clear();
-			april::rendersys->drawColoredQuad(grect(frameCount, frameCount, 80.0f, 80.0f), april::Color::GREEN);
+			april::rendersys->drawColoredQuad(grect((float)frameCount, (float)frameCount, 80.0f, 80.0f), april::Color::GREEN);
 			april::rendersys->presentFrame();
 			frameCount++;
 			return Qnil;
