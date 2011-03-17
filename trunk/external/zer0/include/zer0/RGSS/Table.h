@@ -9,7 +9,7 @@ namespace zer0
 {
 	namespace RGSS
 	{
-		extern VALUE rb_cTable;
+		static VALUE rb_cTable;
 
 		/// @brief Emulates RGSS's Table class.
 		/// @note Depending on the instance's dimensions, specific method calls will not work. Use the proper method calls.

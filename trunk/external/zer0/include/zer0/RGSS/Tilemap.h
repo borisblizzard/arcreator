@@ -10,7 +10,7 @@ namespace zer0
 {
 	namespace RGSS
 	{
-		extern VALUE rb_cTilemap;
+		static VALUE rb_cTilemap;
 
 		class Viewport; // forward declaration of Viewport
 		class Bitmap; // forward declaration of Bitmap

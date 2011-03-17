@@ -12,7 +12,7 @@ namespace zer0
 {
 	namespace RGSS
 	{
-		extern VALUE rb_cRGSSError;
+		static VALUE rb_cRGSSError;
 
 		class zer0Export RGSSError : public hltypes::exception
 		{

@@ -8,16 +8,15 @@
 #include "RGSS/Tone.h"
 #include "RGSS/Viewport.h"
 #include "RGSS/Bitmap.h"
+#include "CodeSnippets.h"
 
 namespace zer0
 {
 	namespace RGSS
 	{
-		VALUE rb_cSprite;
-
 		void Sprite::createRubyInterface()
 		{
-			VALUE rb_cWindow = rb_define_class("Sprite", rb_cObject);
+			rb_cSprite = rb_define_class("Sprite", rb_cObject);
 			rb_define_attr(rb_cSprite, "angle", 1, 1);
 			rb_define_attr(rb_cSprite, "bitmap", 1, 0);
 			rb_define_attr(rb_cSprite, "blend_type", 1, 1);

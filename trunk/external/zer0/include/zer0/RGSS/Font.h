@@ -11,7 +11,7 @@ namespace zer0
 {
 	namespace RGSS
 	{
-		extern VALUE rb_cFont;
+		static VALUE rb_cFont;
 
 		class Color;
 

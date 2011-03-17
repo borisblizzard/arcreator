@@ -1,13 +1,12 @@
 #include <ruby.h>
 
 #include "RGSS/Rect.h"
+#include "CodeSnippets.h"
 
 namespace zer0
 {
 	namespace RGSS
 	{
-		VALUE rb_cRect;
-
 		void Rect::createRubyInterface()
 		{
 		}

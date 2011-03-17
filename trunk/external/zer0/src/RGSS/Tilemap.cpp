@@ -4,13 +4,12 @@
 #include "RGSS/Bitmap.h"
 #include "RGSS/Table.h"
 #include "RGSS/Viewport.h"
+#include "CodeSnippets.h"
 
 namespace zer0
 {
 	namespace RGSS
 	{
-		VALUE rb_cTilemap;
-
 		void Tilemap::createRubyInterface()
 		{
 		}

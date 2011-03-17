@@ -10,7 +10,7 @@ namespace zer0
 {
 	namespace RGSS
 	{
-		extern VALUE rb_cWindow;
+		static VALUE rb_cWindow;
 
 		class Bitmap;
 		class Rect;

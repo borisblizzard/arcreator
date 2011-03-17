@@ -14,7 +14,7 @@ namespace zer0
 {
 	namespace RGSS
 	{
-		extern VALUE rb_cBitmap;
+		static VALUE rb_cBitmap;
 
 		class zer0Export Bitmap
 		{

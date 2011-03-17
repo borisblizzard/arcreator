@@ -11,7 +11,7 @@ namespace zer0
 {
 	namespace RGSS
 	{
-		extern VALUE rb_mAudio;
+		static VALUE rb_mAudio;
 
 		class zer0Export Audio
 		{

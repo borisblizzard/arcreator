@@ -12,7 +12,7 @@ namespace zer0
 {
 	namespace RGSS
 	{
-		extern VALUE rb_mInput;
+		static VALUE rb_mInput;
 
 		class zer0Export Input
 		{
