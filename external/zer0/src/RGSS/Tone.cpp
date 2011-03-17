@@ -3,13 +3,12 @@
 #include <hltypes/util.h>
 
 #include "RGSS/Tone.h"
+#include "CodeSnippets.h"
 
 namespace zer0
 {
 	namespace RGSS
 	{
-		VALUE rb_cTone;
-
 		void Tone::createRubyInterface()
 		{
 		}

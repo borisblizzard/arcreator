@@ -9,7 +9,7 @@ namespace zer0
 {
 	namespace RGSS
 	{
-		extern VALUE rb_cRect;
+		static VALUE rb_cRect;
 
 		/// @brief Emulates RGSS's Rect class.
 		class zer0Export Rect

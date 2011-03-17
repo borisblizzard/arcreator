@@ -6,16 +6,15 @@
 #include "RGSS/Bitmap.h"
 #include "RGSS/Rect.h"
 #include "RGSS/Viewport.h"
+#include "CodeSnippets.h"
 
 namespace zer0
 {
 	namespace RGSS
 	{
-		VALUE rb_cWindow;
-
 		void Window::createRubyInterface()
 		{
-			VALUE rb_cWindow = rb_define_class("Window", rb_cObject);
+			rb_cWindow = rb_define_class("Window", rb_cObject);
 			rb_define_attr(rb_cWindow, "active", 1, 1);
 			rb_define_attr(rb_cWindow, "back_opacity", 1, 0);
 			rb_define_attr(rb_cWindow, "contents", 1, 0);

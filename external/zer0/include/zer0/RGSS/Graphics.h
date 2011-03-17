@@ -11,7 +11,7 @@ namespace zer0
 {
 	namespace RGSS
 	{
-		extern VALUE rb_mGraphics;
+		static VALUE rb_mGraphics;
 
 		class zer0Export Graphics
 		{

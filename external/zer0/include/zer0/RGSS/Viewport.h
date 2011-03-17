@@ -12,7 +12,7 @@ namespace zer0
 {
 	namespace RGSS
 	{
-		extern VALUE rb_cViewport;
+		static VALUE rb_cViewport;
 
 		class zer0Export Viewport
 		{

@@ -14,8 +14,6 @@ namespace zer0
 {
 	namespace RGSS
 	{
-		VALUE rb_mInput;
-
 		hmap<int, harray<unsigned char>> conversions;
 
 		void Input::createRubyInterface()

@@ -1,12 +1,11 @@
 #include "RGSS/Color.h"
 #include "RGSS/Font.h"
+#include "CodeSnippets.h"
 
 namespace zer0
 {
 	namespace RGSS
 	{
-		VALUE rb_cFont;
-
 		void Font::createRubyInterface()
 		{
 		}

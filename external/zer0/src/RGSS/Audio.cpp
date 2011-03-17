@@ -1,16 +1,15 @@
 #include <ruby.h>
 
 #include "RGSS/Audio.h"
+#include "CodeSnippets.h"
 
 namespace zer0
 {
 	namespace RGSS
 	{
-		VALUE rb_mAudio;
-
 		void Audio::createRubyInterface()
 		{
-			VALUE rb_mAudio = rb_define_module("Audio");
+			rb_mAudio = rb_define_module("Audio");
 			rb_define_module_function(rb_mAudio, "bgm_play", RUBY_METHOD_FUNC(&Audio::bgm_play), 3);
 			rb_define_module_function(rb_mAudio, "bgm_fade", RUBY_METHOD_FUNC(&Audio::bgm_fade), 1);
 			rb_define_module_function(rb_mAudio, "bgm_stop", RUBY_METHOD_FUNC(&Audio::bgm_stop), 0);

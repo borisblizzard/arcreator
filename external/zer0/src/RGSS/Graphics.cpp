@@ -6,19 +6,18 @@
 #include <hltypes/util.h>
 
 #include "RGSS/Graphics.h"
+#include "CodeSnippets.h"
 
 namespace zer0
 {
 	namespace RGSS
 	{
-		VALUE rb_mGraphics;
-
 		unsigned int Graphics::frameCount = 0;
 		unsigned int Graphics::frameRate = 40;
 
 		void Graphics::createRubyInterface()
 		{
-			VALUE rb_mGraphics = rb_define_module("Graphics");
+			rb_mGraphics = rb_define_module("Graphics");
 			rb_define_module_function(rb_mGraphics, "update", RUBY_METHOD_FUNC(&Graphics::update), 0);
 			rb_define_module_function(rb_mGraphics, "frame_count", RUBY_METHOD_FUNC(&Graphics::getFrameCount), 0);
 			rb_define_module_function(rb_mGraphics, "frame_count=", RUBY_METHOD_FUNC(&Graphics::setFrameCount), 1);

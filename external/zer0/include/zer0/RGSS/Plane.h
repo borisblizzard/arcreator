@@ -12,7 +12,7 @@ namespace zer0
 {
 	namespace RGSS
 	{
-		extern VALUE rb_cPlane;
+		static VALUE rb_cPlane;
 
 		class Bitmap;
 		class Viewport;

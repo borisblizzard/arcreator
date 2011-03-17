@@ -9,7 +9,7 @@ namespace zer0
 {
 	namespace RGSS
 	{
-		extern VALUE rb_cTone;
+		static VALUE rb_cTone;
 
 		/// @brief Emulates RGSS's Tone class.
 		class zer0Export Tone

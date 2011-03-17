@@ -3,16 +3,14 @@
 
 #include <hltypes/util.h>
 
-#include "CodeSnippets.h"
 #include "RGSS/RGSSError.h"
 #include "RGSS/Table.h"
+#include "CodeSnippets.h"
 
 namespace zer0
 {
 	namespace RGSS
 	{
-		VALUE rb_cTable;
-
 		void Table::createRubyInterface()
 		{
 		}

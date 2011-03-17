@@ -12,7 +12,7 @@ namespace zer0
 {
 	namespace RGSS
 	{
-		extern VALUE rb_cSprite;
+		static VALUE rb_cSprite;
 
 		class Bitmap;
 		class Viewport;

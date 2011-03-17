@@ -4,4 +4,6 @@
 // iterator macro
 #define for_iter(name, min, max) for (int name = min; name < max; name++)
 
+#define RB_VAR2CPP(type, name) type* name; Data_Get_Struct(self, type, name);
+
 #endif
