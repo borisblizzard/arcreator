@@ -29,7 +29,7 @@ namespace zer0
 
 			// @brief Constructor from filename
 			// @param[in] filename Filename where the bitmap can be found
-			Bitmap(hstr filename);
+			Bitmap(chstr filename);
 			// @brief Constructor From width and height
 			// @param[in] width The width of the new bitmap
 			// @param[in] height The height of the new bitmap
@@ -53,12 +53,12 @@ namespace zer0
 			// @param[in] height Height of the drawn text
 			// @param[in] str The text to draw
 			// @param[in] align How to align the text 0:left 1:center 1:right
-			void drawText(int x, int y, int width, int height, hstr str, int align);
+			void drawText(int x, int y, int width, int height, chstr str, int align);
 			// @brief Draws text at inside rect using the Bitmap's Font
 			// @param[in] rect The rect to draw the text inside
 			// @param[in] str The text to draw
 			// @param[in] align How to align the text 0:left 1:center 1:right
-			void drawText(Rect rect, hstr str, int align);
+			void drawText(Rect rect, chstr str, int align);
 			// @brief fill a rect with a solid color
 			// @param[in] x X coordinate of the top left corner of the rect to fill
 			// @param[in] y Y coordinate of the top left corner of the rect to fill
@@ -91,7 +91,7 @@ namespace zer0
 			void stretchBlt(Rect dest_rect, Bitmap src_bitmap, Rect src_rect, int opacity); 
 			// @brief gets the rect needed to draw a string of text
 			// @return Rect the rect needed to draw a string of text
-			Rect textSize(hstr str);
+			Rect textSize(chstr str);
 			/*
 			stretch_blt
 			text_size

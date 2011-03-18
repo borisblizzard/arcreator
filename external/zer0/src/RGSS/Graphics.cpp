@@ -6,6 +6,7 @@
 #include <hltypes/util.h>
 
 #include "RGSS/Graphics.h"
+#include "RGSS/Sprite.h"
 #include "CodeSnippets.h"
 
 namespace zer0
@@ -14,6 +15,7 @@ namespace zer0
 	{
 		unsigned int Graphics::frameCount = 0;
 		unsigned int Graphics::frameRate = 40;
+		harray<RGSS::Sprite*> sprites;
 
 		void Graphics::createRubyInterface()
 		{
@@ -32,11 +34,38 @@ namespace zer0
 		{
 		}
 
+		void Graphics::addSprite(RGSS::Sprite* sprite)
+		{
+			for_iter (i, 0, sprites.size())
+			{
+				if (sprite->z < sprites[i]->z)
+				{
+					sprites.insert_at(i, sprite);
+					return;
+				}
+			}
+			sprites += sprite;
+		}
+
+		void Graphics::removeSprite(RGSS::Sprite* sprite)
+		{
+			sprites -= sprite;
+		}
+
+		void Graphics::updateSprite(RGSS::Sprite* sprite)
+		{
+			removeSprite(sprite);
+			addSprite(sprite);
+		}
+
 		VALUE Graphics::update(VALUE self)
 		{
 			// some testing for now
 			april::rendersys->clear();
-			april::rendersys->drawColoredQuad(grect((float)frameCount, (float)frameCount, 80.0f, 80.0f), april::Color::GREEN);
+			foreach (Sprite*, it, sprites)
+			{
+				(*it)->draw();
+			}
 			april::rendersys->presentFrame();
 			frameCount++;
 			return Qnil;

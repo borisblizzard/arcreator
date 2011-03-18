@@ -11,6 +11,8 @@ namespace zer0
 {
 	namespace RGSS
 	{
+		class Sprite;
+
 		static VALUE rb_mGraphics;
 
 		class zer0Export Graphics
@@ -22,6 +24,16 @@ namespace zer0
 			static void init();
 			/// @brief ???
 			//static bool visible;
+
+			/// @brief Adds a new sprite to the rendering queue.
+			/// @param[in] sprite The sprite to be added.
+			static void addSprite(RGSS::Sprite* sprite);
+			/// @brief Removes the sprite from the rendering queue.
+			/// @param[in] sprite The sprite to be removed.
+			static void removeSprite(RGSS::Sprite* sprite);
+			/// @brief Updates a sprite within the rendering queue because of a change in the Z coordinate.
+			/// @param[in] sprite The sprite that has changed.
+			static void updateSprite(RGSS::Sprite* sprite);
 
 			/// @brief Gets the frame count.
 			static VALUE getFrameCount(VALUE self);

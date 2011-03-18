@@ -14,7 +14,7 @@ namespace zer0
 		{
 		}
 	
-		Bitmap::Bitmap(hstr filename)
+		Bitmap::Bitmap(chstr filename)
 		{
 		}
 
@@ -34,11 +34,11 @@ namespace zer0
 		{
 		}
 			
-		void Bitmap::drawText(int x, int y, int width, int height, hstr str, int align)
+		void Bitmap::drawText(int x, int y, int width, int height, chstr str, int align)
 		{
 		}
 			
-		void Bitmap::drawText(Rect rect, hstr str, int align)
+		void Bitmap::drawText(Rect rect, chstr str, int align)
 		{
 		}
 			
@@ -68,7 +68,7 @@ namespace zer0
 		{
 		}
 			
-		Rect Bitmap::textSize(hstr str)
+		Rect Bitmap::textSize(chstr str)
 		{
 			// default implementations REPLACE
 			return Rect();
