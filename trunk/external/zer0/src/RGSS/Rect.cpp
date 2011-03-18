@@ -23,6 +23,7 @@ namespace zer0
 			rb_define_alloc_func(rb_cRect, &Rect::rb_new);
 			// initialize
 			rb_define_method(rb_cRect, "initialize", RUBY_METHOD_FUNC(&Rect::rb_initialize), -1);
+			rb_define_method(rb_cRect, "inspect", RUBY_METHOD_FUNC(&Rect::rb_inspect), 0);
 			// getters and setters
 			rb_define_method(rb_cRect, "x", RUBY_METHOD_FUNC(&Rect::rb_getX), 0);
 			rb_define_method(rb_cRect, "x=", RUBY_METHOD_FUNC(&Rect::rb_setX), 1);
@@ -34,7 +35,6 @@ namespace zer0
 			rb_define_method(rb_cRect, "height=", RUBY_METHOD_FUNC(&Rect::rb_setHeight), 1);
 			// all other methods
 			rb_define_method(rb_cRect, "set", RUBY_METHOD_FUNC(&Rect::rb_set), -1);
-			rb_define_method(rb_cRect, "inspect", RUBY_METHOD_FUNC(&Rect::rb_inspect), 0);
 			// static methods
 		}
 
