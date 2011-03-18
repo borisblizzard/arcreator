@@ -133,21 +133,21 @@ namespace zer0
 		RGSS::Graphics::init();
 		RGSS::Input::init();
 		// creating Ruby interfaces of C++ classes created for Ruby
-		//RGSS::Audio::createRubyInterface();
-		//RGSS::Bitmap::createRubyInterface();
+		RGSS::Audio::createRubyInterface();
+		RGSS::Bitmap::createRubyInterface();
 		RGSS::Color::createRubyInterface();
-		//RGSS::Font::createRubyInterface();
+		RGSS::Font::createRubyInterface();
 		RGSS::Graphics::createRubyInterface();
 		RGSS::Input::createRubyInterface();
-		//RGSS::Plane::createRubyInterface();
-		//RGSS::Rect::createRubyInterface();
-		//RGSS::RGSSError::createRubyInterface();
-		//RGSS::Sprite::createRubyInterface();
-		//RGSS::Table::createRubyInterface();
-		//RGSS::Tilemap::createRubyInterface();
-		//RGSS::Tone::createRubyInterface();
-		//RGSS::Viewport::createRubyInterface();
-		//RGSS::Window::createRubyInterface();
+		RGSS::Plane::createRubyInterface();
+		RGSS::Rect::createRubyInterface();
+		RGSS::RGSSError::createRubyInterface();
+		RGSS::Sprite::createRubyInterface();
+		RGSS::Table::createRubyInterface();
+		RGSS::Tilemap::createRubyInterface();
+		RGSS::Tone::createRubyInterface();
+		RGSS::Viewport::createRubyInterface();
+		RGSS::Window::createRubyInterface();
 		// running the Ruby scripts
 		rb_require("./test.rb");
 		return Qnil;
