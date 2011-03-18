@@ -71,7 +71,7 @@ namespace zer0
 		Rect Bitmap::textSize(hstr str)
 		{
 			// default implementations REPLACE
-			return Rect(0, 0, 32, 32);
+			return Rect();
 		}
 	
 	}
