@@ -23,17 +23,25 @@ namespace zer0
 		public:
 			/// @brief Exposes this class to Ruby.
 			static void createRubyInterface();
-			/// @brief Frees the sprite.
-			static VALUE dispose(VALUE self);
+			/// @brief Marks referenced values of sprite for garbage collection.
+			/// @param[in] sprite Sprite to mark.
+			static void gc_mark(Sprite* sprite);
+			/// @brief Ruby allocation of an instance.
+			static VALUE rb_new(VALUE classe);
+			/// @brief Sets the color to the specified value.
+			/// @param[in] argc Number of arguments.
+			/// @param[in] argv Pointer to first argument.
+			/// @note Arguments are "[viewport]".
+			static VALUE rb_initialize(int argc, VALUE* argv, VALUE self);
+			/// @brief Frees the memory for the sprite.
+			static VALUE rb_dispose(VALUE self);
+			/// @brief Checks whether sprite is disposed.
+			static VALUE isDisposed(VALUE self);
+
 			/// @brief Mixes a color with the sprite for a short duration.
 			/// @param[in] color Color component.
 			/// @param[in] duration Number of frames.
 			static VALUE flash(VALUE self, VALUE color, VALUE duration);
-			/// @brief Basic constructor.
-			/// @param[in] value Viewport component.
-			static VALUE initialize(int argc, VALUE *argv, VALUE self);
-			/// @brief Gets truth value if sprite has been disposed.
-			static VALUE isDisposed(VALUE self);
 			/// @brief Sets the sprite's angle of rotation.
 			/// @param[in] value Angle value.
 			/// @note Uses modulus operation to keep value between 0 and 360.
@@ -52,6 +60,20 @@ namespace zer0
 			static VALUE setZoomY(VALUE self, VALUE value);
 			/// @brief Invokes the sprites update method.
 			static VALUE update(VALUE self);
+
+			// added for testing, needs to be refactored
+			int x;
+			int y;
+			int z;
+			void draw();
+			Sprite() { }
+			~Sprite() { }
+			static VALUE rb_getX(VALUE self);
+			static VALUE rb_setX(VALUE self, VALUE value);
+			static VALUE rb_getY(VALUE self);
+			static VALUE rb_setY(VALUE self, VALUE value);
+			static VALUE rb_getZ(VALUE self);
+			static VALUE rb_setZ(VALUE self, VALUE value);
 		};
 	}
 }
