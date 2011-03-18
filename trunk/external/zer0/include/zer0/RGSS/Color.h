@@ -20,7 +20,7 @@ namespace zer0
 			/// @todo Dummy for now, needs to be removed later.
 			~Color() { }
 
-			/// @brief Sets the tone to the specified value.
+			/// @brief Sets the color to the specified value.
 			/// @param[in] r Red component.
 			/// @param[in] g Green component.
 			/// @param[in] b Blue component.
