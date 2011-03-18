@@ -72,6 +72,8 @@
       <ImportLibrary>
       </ImportLibrary>
       <TargetMachine>MachineX86</TargetMachine>
+      <UACUIAccess>true</UACUIAccess>
+      <SuppressStartupBanner>false</SuppressStartupBanner>
     </Link>
     <PostBuildEvent>
       <Command>copy external\gtypes\bin\win32_Debug\libgtypes.dll bin\$(Configuration)
@@ -118,6 +120,8 @@ copy external\lib\msvc100\*.dll bin\$(Configuration)
       <ImportLibrary>
       </ImportLibrary>
       <TargetMachine>MachineX86</TargetMachine>
+      <SetChecksum>true</SetChecksum>
+      <UACUIAccess>true</UACUIAccess>
     </Link>
     <Manifest>
       <AdditionalManifestFiles>
