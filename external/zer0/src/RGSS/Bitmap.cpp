@@ -10,6 +10,10 @@ namespace zer0
 {
 	namespace RGSS
 	{
+		Bitmap::Bitmap(chstr filename) { }
+		Bitmap::Bitmap(int width, int height) { }
+		Bitmap::~Bitmap() { }
+
 		void Bitmap::createRubyInterface()
 		{
 			rb_cBitmap = rb_define_class("Bitmap", rb_cObject);
@@ -36,22 +40,11 @@ namespace zer0
 			rb_define_method(rb_cBitmap, "text_size", RUBY_METHOD_FUNC(&Bitmap::rb_textSize), 1); 
 		}
 	
+
 		/// @todo The following functions need implemented, all return self for now to allow compilation
-		void Bitmap::gc_mark(Bitmap* bitmap) { } 
-
-		VALUE Bitmap::rb_getRect(VALUE self)
-		{
-			return self;
-		}
-
 		VALUE Bitmap::rb_new(VALUE classe) 
 		{
 			return classe;
-		}
-
-		VALUE Bitmap::rb_blckTran(VALUE self, VALUE x, VALUE y, VALUE src_bitmap, VALUE src_rect, VALUE opacity)
-		{
-			return self;
 		}
 
 		VALUE Bitmap::rb_initialize(int argc, VALUE* argv, VALUE self) 
@@ -59,17 +52,17 @@ namespace zer0
 			return self;
 		}
 
-		VALUE Bitmap::rb_clear(VALUE self)
+		VALUE rb_inspect(VALUE self)
 		{
-			return self;
+			// not sure if this is how it will be implemented or not
+			RB_VAR2CPP(Bitmap, bitmap);
+			hstr result = hsprintf("Bitmap(%.1f, %.1f)", bitmap->rb_getWidth(self), bitmap->rb_getHeight(self));
+			return rb_str_new2(result.c_str());
 		}
 
-		VALUE Bitmap::rb_getFont(VALUE self)
-		{
-			return self;
-		}
+		void Bitmap::gc_mark(Bitmap* bitmap) { } 
 
-		VALUE Bitmap::rb_setFont(VALUE self, VALUE value)
+		VALUE Bitmap::rb_dispose(VALUE self) 
 		{
 			return self;
 		}
@@ -84,7 +77,27 @@ namespace zer0
 			return self;
 		}
 
-		VALUE Bitmap::rb_dispose(VALUE self) 
+		VALUE Bitmap::rb_getFont(VALUE self)
+		{
+			return self;
+		}
+
+		VALUE Bitmap::rb_setFont(VALUE self, VALUE value)
+		{
+			return self;
+		}
+
+		VALUE Bitmap::rb_getRect(VALUE self)
+		{
+			return self;
+		}
+
+		VALUE Bitmap::rb_blckTran(VALUE self, VALUE x, VALUE y, VALUE src_bitmap, VALUE src_rect, VALUE opacity)
+		{
+			return self;
+		}
+
+		VALUE Bitmap::rb_clear(VALUE self)
 		{
 			return self;
 		}
@@ -128,9 +141,5 @@ namespace zer0
 		{
 			return self;
 		}
-
-		Bitmap::Bitmap(chstr filename) { }
-		Bitmap::Bitmap(int width, int height) { }
-		Bitmap::~Bitmap() { }
 	}
 }
