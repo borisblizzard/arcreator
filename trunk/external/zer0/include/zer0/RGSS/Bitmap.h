@@ -21,11 +21,74 @@ namespace zer0
 		public:
 			/// @brief Exposes this class to Ruby.
 			static void createRubyInterface();
+			/// @brief Marks referenced values of bitmap for garbage collection.
+			/// @param[in] bitmap Bitmap to mark.
+			static void gc_mark(Bitmap* bitmap);
+			/// @brief Ruby allocation of an instance.
+			static VALUE rb_new(VALUE classe);
+			/// @brief Sets the bitmap dimensions
+			/// @param[in] argc Number of arguments.
+			/// @param[in] argv Pointer to first argument.
+			/// @note Arguments are "[filename]" or "[width, height]".
+			static VALUE rb_initialize(int argc, VALUE* argv, VALUE self);
+			/// @brief Frees the memory for the bitmap.
+			static VALUE rb_dispose(VALUE self);
+			/// @brief Checks whether bitmap is disposed.
+			static VALUE rb_isDisposed(VALUE self);
 
-			// @brief The Font used to draw text
-			Font font;
-			// @brief Bitmap Rect
-			Rect rect;
+			// methods
+			/// @brief Gets the font of the bitmap.
+			static VALUE rb_getFont(VALUE self);
+			/// @brief Sets the font used for the bitmap.
+			/// param[in] value The font to set for the bitmap.
+			static VALUE rb_setFont(VALUE self, VALUE value);
+			/// @brief Gets the height of the bitmap.
+			static VALUE rb_getHeight(VALUE self);
+			/// @brief Gets the bitmap's rectangle.
+			static VALUE rb_getRect(VALUE self);
+			/// @brief Gets the width of the bitmap.
+			static VALUE rb_getWidth(VALUE self);
+			/// @brief Blits src_rect From source bitmap to this one.
+			/// @param[in] x The x coordinate to place the bitmap.
+			/// @param[in] y The y coordinate to place the bitmap.
+			/// @param[in] src_bitmap The Bitmap to transfer from.
+			/// @param[in] src_rect The rect to transfer from src_bitmap.
+			/// @param[in] opacity The alpha blend of the blit operation.
+			static VALUE rb_blckTran(VALUE self, VALUE x, VALUE y, VALUE src_bitmap, VALUE src_rect, VALUE opacity);
+			// @brief Clears the entire bitmap
+			static VALUE rb_clear(VALUE self);
+			/// @brief Sets the color to the specified value.
+			/// @param[in] argc Number of arguments.
+			/// @param[in] argv Pointer to first argument.
+			/// @note Arguments are "[x, y, width, height, string, align]" or "[rect, string, align]".
+			static VALUE rb_drawText(int argc, VALUE* argv, VALUE self);
+			/// @brief Sets the color to the specified value.
+			/// @param[in] argc Number of arguments.
+			/// @param[in] argv Pointer to first argument.
+			/// @note Arguments are "[x, y, width, height, color]" or "[rect, color]".
+			static VALUE rb_fillRect(int argc, VALUE* argv, VALUE self);
+			// @brief Get the color of a pixel at (x, y).
+			// @param[in] x X coordinate.
+			// @param[in] y Y coordinate.
+			// @return Color The color of the pixel at (x, y).
+			static VALUE rb_getPixel(VALUE self, VALUE x, VALUE y);
+			// @brief Sets the color of a pixel at (x, y).
+			// @param[in] x X coordinate.
+			// @param[in] y Y coordinate.
+			// @param[in] color The color to set the pixel to.
+			static VALUE rb_setPixel(VALUE self, VALUE x, VALUE y, VALUE color);
+			// @brief Changes the bitmap's hue within 360 degrees of displacement.
+			// @param[in] hue Degrees to rotate the hue
+			static VALUE rb_changeHue(VALUE self, VALUE hue);
+			// @brief Blits src_rect from source bitmap to this one scaling the bitmap to fit inside dest_rect
+			// @param[in] dest_rect The rect to fit the blit to
+			// @param[in] src_bitmap The Bitmap to transfer from
+			// @param[in] src_rect The rect to transfer from src_bitmap
+			// @param[in] opacity The alpha blend of the blit operation
+			static VALUE rb_stretchBlt(VALUE self, VALUE dest_rect, VALUE src_bitmap, VALUE src_rect, VALUE opacity); 
+			// @brief Gets the rect needed to draw a string of text.
+			// @return value The rect needed to draw a string of text.
+			static VALUE rb_textSize(VALUE self, VALUE value);
 
 			// @brief Constructor from filename
 			// @param[in] filename Filename where the bitmap can be found
@@ -37,68 +100,12 @@ namespace zer0
 			// @brief Basic Deconstructor
 			~Bitmap();
 
-			// @brief Blits src_rect From source bitmap to this one
-			// @param[in] x The x coordinate to place the bitmap
-			// @param[in] y The y coordinate to place the bitmap
-			// @param[in] src_bitmap The Bitmap to transfer from
-			// @param[in] src_rect The rect to transfer from src_bitmap
-			// @param[in] opacity The alpha blend of the blit operation
-			void blit(int x, int y, Bitmap src_bitmap, Rect src_rect, int opacity);
-			// @brief Clears the entire bitmap
-			void clear();
-			// @brief Draws text at position (x, y) using the Bitmap's Font
-			// @param[in] x X position of the start of the text
-			// @param[in] y Y Position of the start of the text
-			// @param[in] width Width of the drawn text
-			// @param[in] height Height of the drawn text
-			// @param[in] str The text to draw
-			// @param[in] align How to align the text 0:left 1:center 1:right
-			void drawText(int x, int y, int width, int height, chstr str, int align);
-			// @brief Draws text at inside rect using the Bitmap's Font
-			// @param[in] rect The rect to draw the text inside
-			// @param[in] str The text to draw
-			// @param[in] align How to align the text 0:left 1:center 1:right
-			void drawText(Rect rect, chstr str, int align);
-			// @brief fill a rect with a solid color
-			// @param[in] x X coordinate of the top left corner of the rect to fill
-			// @param[in] y Y coordinate of the top left corner of the rect to fill
-			// @param[in] width The width of the rect to fill
-			// @param[in] height The height of the rect to fill
-			// @param[in] color The color to fill the rect with
-			void fillRect(int x, int y, int width, int height, Color color);
-			// @brief fill a rec with a solid color
-			// @param[in] rect The rect to fill with color
-			// @param[in] color The color to fill the rect with
-			void fillRect(Rect rect, Color color);
-			// @brief get the color of a pixel at (x, y)
-			// @param[in] x X coordinate
-			// @param[in] y Y coordinate
-			// @return Color the color of the pixel at (x, y)
-			Color getPixel(int x, int y);
-			// @brief set the color of a pixel at (x, y)
-			// @param[in] x X coordinate
-			// @param[in] y Y coordinate
-			// @param[in] color The color to set the pixel to
-			void setPixel(int x, int y, Color color);
-			// @brief Changes the bitmap's hue within 360 degrees of displacement.
-			// @param[in] hue Degrees to rotate the hue
-			void changeHue(int hue);
-			// @brief Blits src_rect from source bitmap to this one scaling the bitmap to fit inside dest_rect
-			// @param[in] dest_rect The rect to fit the blit to
-			// @param[in] src_bitmap The Bitmap to transfer from
-			// @param[in] src_rect The rect to transfer from src_bitmap
-			// @param[in] opacity The alpha blend of the blit operation
-			void stretchBlt(Rect dest_rect, Bitmap src_bitmap, Rect src_rect, int opacity); 
-			// @brief gets the rect needed to draw a string of text
-			// @return Rect the rect needed to draw a string of text
-			Rect textSize(chstr str);
-			/*
-			stretch_blt
-			text_size
-			*/
-
+		protected:
+			// @brief The Font used to draw text.
+			Font font;
+			// @brief The bitmap's rectangle.
+			Rect rect;
 		};
-	
 	}
 }
 #endif
