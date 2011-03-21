@@ -13,17 +13,30 @@ namespace zer0
 	{
 		void Table::createRubyInterface()
 		{
+			rb_cTable = rb_define_class("Table", rb_cObject);
+			rb_define_alloc_func(rb_cTable, &Table::rb_new);
+			// initialize
+			rb_define_method(rb_cTable, "initialize", RUBY_METHOD_FUNC(&Table::rb_initialize), -1);
+			rb_define_method(rb_cTable, "inspect", RUBY_METHOD_FUNC(&Table::rb_inspect), 0);
+			// getters and setters
+			rb_define_method(rb_cTable, "[]", RUBY_METHOD_FUNC(&Table::rb_getData), -1);
+			rb_define_method(rb_cTable, "[]=", RUBY_METHOD_FUNC(&Table::rb_setData), -1);
+			// all other methods
+			rb_define_method(rb_cTable, "resize", RUBY_METHOD_FUNC(&Table::rb_resize), -1);
+			// static methods
 		}
 
 		// constructor
-		Table::Table(int xSize, int ySize, int zSize)
+		Table::Table()
 		{
 			// make sure xSize isn't <= 0 and none of the sizes are negative
 			// store table sizes
+			/*
 			this->xSize = hmax(xSize, 1);
 			this->ySize = hmax(ySize, 1);
 			this->zSize = hmax(zSize, 1);
 			this->data = this->_createData(this->xSize, this->ySize, this->zSize);
+			*/
 		}
 	
 		Table::~Table()
@@ -32,86 +45,96 @@ namespace zer0
 			this->data = NULL;
 		}
 
-		short Table::getData(int x) const
+		VALUE Table::rb_new(VALUE classe)
 		{
-			if (this->zSize > 1)
-			{
-				throw RGSSError("wrong # of arguments (1 for 3)");
-			}
-			if (this->ySize > 1)
-			{
-				throw RGSSError("wrong # of arguments (1 for 2)");
-			}
-			return this->data[x];
-		}
-		
-		short Table::getData(int x, int y) const
-		{
-			if (this->zSize > 1)
-			{
-				throw RGSSError("wrong # of arguments (2 for 3)");
-			}
-			if (this->ySize == 1)
-			{
-				throw RGSSError("wrong # of arguments (2 for 1)");
-			}
-			return this->data[x + this->xSize * y];
-		}
-		
-		short Table::getData(int x, int y, int z) const
-		{
-			if (this->zSize == 1)
-			{
-				if (this->ySize == 1)
-				{
-					throw RGSSError("wrong # of arguments (3 for 1)");
-				}
-				throw RGSSError("wrong # of arguments (3 for 2)");
-			}
-			return this->data[x + this->xSize * (y + this->ySize * z)];
-		}
-		
-		void Table::setData(int x, short value)
-		{
-			if (this->zSize > 1)
-			{
-				throw RGSSError("wrong # of arguments (1 for 3)");
-			}
-			if (this->ySize > 1)
-			{
-				throw RGSSError("wrong # of arguments (1 for 2)");
-			}
-			this->data[x] = value;
-		}
-		
-		void Table::setData(int x, int y, short value)
-		{
-			if (this->zSize > 1)
-			{
-				throw RGSSError("wrong # of arguments (2 for 3)");
-			}
-			if (this->ySize == 1)
-			{
-				throw RGSSError("wrong # of arguments (2 for 1)");
-			}
-			this->data[x + this->xSize * y] = value;
-		}
-		
-		void Table::setData(int x, int y, int z, short value)
-		{
-			if (this->zSize == 1)
-			{
-				if (this->ySize == 1)
-				{
-					throw RGSSError("wrong # of arguments (3 for 1)");
-				}
-				throw RGSSError("wrong # of arguments (3 for 2)");
-			}
-			this->data[x + this->xSize * (y + this->ySize * z)] = value;
+			Table* table;
+			return Data_Make_Struct(classe, Table, NULL, NULL, table);
 		}
 
+		VALUE Table::rb_initialize(int argc, VALUE* argv, VALUE self)
+		{
+			VALUE xSize, ySize, zSize;
+			RB_VAR2CPP(Table, table);
+			rb_scan_args(argc, argv, "12", &xSize, &ySize, &zSize);
+			table->xSize = hmax((int)NUM2UINT(xSize), 1);
+			table->ySize = hmax(NIL_P(ySize) ? 1 : (int)NUM2UINT(ySize), 1);
+			table->zSize = hmax(NIL_P(zSize) ? 1 : (int)NUM2UINT(zSize), 1);
+			table->data = table->_createData(table->xSize, table->ySize, table->zSize);
+			return self;
+		}
+
+		VALUE Table::rb_inspect(VALUE self)
+		{
+			RB_VAR2CPP(Table, table);
+			//hstr result = hsprintf("(%.1f,%.1f,%.1f,%.1f)", table->xSize, table->ySize, table->zSize, table->data);
+			//return rb_str_new2(result.c_str());
+			return Qnil;
+		}
+
+		VALUE Table::rb_getData(int argc, VALUE* argv, VALUE self)
+		{
+			VALUE x, y, z = INT2NUM(0);
+			RB_VAR2CPP(Table, table);
+			if (table->zSize > 1)
+			{
+				rb_scan_args(argc, argv, "3", &x, &y, &z);
+			}
+			else if (table->ySize > 1)
+			{
+				rb_scan_args(argc, argv, "2", &x, &y);
+			}
+			else
+			{
+				rb_scan_args(argc, argv, "1", &x);
+			}
+			return INT2NUM(
+				table->data[(int)NUM2UINT(x) + table->xSize * ((int)NUM2UINT(y) + table->ySize * (int)NUM2UINT(z))]
+			);
+		}
+		
+		VALUE Table::rb_setData(int argc, VALUE* argv, VALUE self)
+		{
+			VALUE x, y, z, value = INT2NUM(0);
+			RB_VAR2CPP(Table, table);
+			if (table->zSize > 1)
+			{
+				rb_scan_args(argc, argv, "4", &x, &y, &z, &value);
+			}
+			else if (table->ySize > 1)
+			{
+				rb_scan_args(argc, argv, "3", &x, &y, &value);
+			}
+			else
+			{
+				rb_scan_args(argc, argv, "2", &x, &value);
+			}
+
+			table->data[(int)NUM2UINT(x) + table->xSize * ((int)NUM2UINT(y) + table->ySize * (int)NUM2UINT(z))] = (short)NUM2UINT(value);
+			return Qnil;
+		}
+		
+		VALUE Table::rb_resize(int argc, VALUE* argv, VALUE self)
+		{
+			VALUE xSize, ySize, zSize = INT2NUM(1);
+			RB_VAR2CPP(Table, table);
+			if (table->zSize > 1)
+			{
+				rb_scan_args(argc, argv, "3", &xSize, &ySize, &zSize);
+			}
+			else if (table->ySize > 1)
+			{
+				rb_scan_args(argc, argv, "2", &xSize, &ySize);
+			}
+			else
+			{
+				rb_scan_args(argc, argv, "1", &xSize);
+			}
+			table->_resize((int)NUM2UINT(xSize), (int)NUM2UINT(ySize), (int)NUM2UINT(zSize));
+			return Qnil;
+		
+		}
 		// functions
-		void Table::resize(int xSize, int ySize, int zSize)
+		void Table::_resize(int xSize, int ySize, int zSize)
 		{
 			int oldXSize = this->xSize;
 			int oldYSize = this->ySize;
