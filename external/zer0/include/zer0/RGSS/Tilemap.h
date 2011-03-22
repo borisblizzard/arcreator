@@ -12,53 +12,117 @@ namespace zer0
 	{
 		static VALUE rb_cTilemap;
 
-		class Viewport; // forward declaration of Viewport
-		class Bitmap; // forward declaration of Bitmap
-		class Table; // forward declaration of Table
+		class Viewport; 
+		class Bitmap; 
+		class Table; 
 
 		class zer0Export Tilemap
 		{
 		public:
+			// constructors/destructor
+			/// @brief Basic constructor
+			Tilemap();
+			/// @brief Constructor to specify viewport
+			/// @param[in] value Viewport to set to tilemap.
+			Tilemap(Viewport* value);
+			/// @brief Basic destructor
+			~Tilemap();
 			/// @brief Exposes this class to Ruby.
 			static void createRubyInterface();
+			/// @brief Ruby allocation of an instance.
+			static VALUE rb_new(VALUE classe);
+			/// @brief Sets the bitmap dimensions
+			/// @param[in] argc Number of arguments.
+			/// @param[in] argv Pointer to first argument.
+			/// @note Argument is "[viewport]".
+			static VALUE rb_initialize(int argc, VALUE* argv, VALUE self);
+			/// @brief Gets a string representation of the instance.
+			/// @return String representation of the instance.
+			static VALUE rb_inspect(VALUE self);
+			/// @brief Marks referenced values of bitmap for garbage collection.
+			/// @param[in] bitmap Bitmap to mark.
+			static void gc_mark(Tilemap* tilemap);
+			/// @brief Frees the memory for the bitmap.
+			static VALUE rb_dispose(VALUE self);
 
+			// getters/setters
+			/// @brief Gets the tilemap's autotiles.
+			/// @return Array of pointers to autotile bitmaps.
+			static VALUE rb_getAutotiles(VALUE self);
+			/// @brief Sets the tilemap's autotiles.
+			/// @param[in] Array of pointers for each autotile bitmap.
+			static VALUE rb_setAutotiles(VALUE self, VALUE* value);
+			/// @brief Gets the tilemap's map data.
+			/// @return Table that contains tile info.
+			static VALUE rb_getMapData(VALUE self);
+			/// @brief Sets the tilemap's map data.
+			/// @param[in] Table to set as the tilemap's map data.
+			static VALUE rb_setMapData(VALUE self, VALUE* value);
+			/// @brief Gets the tilemap's origin point on the x-axis.
+			/// @return Integer value of the starting point.
+			static VALUE rb_getOx(VALUE self);
+			/// @brief Sets the tilemap's origin point on the x-axis.
+			/// @param[in] Integer value to set for the origin point.
+			static VALUE rb_setOx(VALUE self, VALUE value);
+			/// @brief Gets the tilemap's origin point on the y-axis.
+			/// @return Integer value of the starting point.
+			static VALUE rb_getOy(VALUE self);
+			/// @brief Sets the tilemap's origin point on the y-axis.
+			/// @param[in] Integer value to set for the origin point.
+			static VALUE rb_setOy(VALUE self, VALUE value);
+			/// @brief Gets the tilemap's priority data.
+			/// @return Table that contains priority data.
+			static VALUE rb_getPriorities(VALUE self);
+			/// @brief Sets the tilemap's priority data.
+			/// @param[in] Table to use for the map's priorities.
+			static VALUE rb_setPriorities(VALUE self, VALUE* value);
+			/// @brief Gets the tilemap's flash data.
+			/// @return Table used to represent possible movement.
+			static VALUE rb_getFlashData(VALUE self);
+			/// @brief Sets the tilemap's flash data.
+			/// @param[in] Table to represent possible movement.
+			static VALUE rb_setFlashData(VALUE self, VALUE* value);
+			/// @brief Gets the tilemap's tileset data.
+			/// @return Bitmap used for the tilemap.
+			static VALUE rb_getTileset(VALUE self);
+			/// @brief Sets the tilemap's tileset bitmap.
+			/// @param[in] Bitmap to use for the tilemap's tileset.
+			static VALUE rb_setTileset(VALUE self, VALUE* value);
+			/// @brief Gets the tilemap's visibility value.
+			/// @return Bool whether or not tilemap is visible.
+			static VALUE Tilemap::rb_getVisible(VALUE self);
+			/// @brief Sets the tilemap's visibility value.
+			/// @param[in] Bool value to set for tilemap's visibility.
+			static VALUE Tilemap::rb_setVisible(VALUE self, VALUE value);
+			/// @brief Gets the tilemap's viewport.
+			/// @return Viewport used for the tilemap.
+			static VALUE rb_getViewport(VALUE self);
+
+			// methods
+			/// @brief Invokes the update method.
+			static VALUE rb_update(VALUE self);
+			/// @brief Gets the truth value if the tilemap has been disposed.
+			/// @return Bool value of instance disposal.
+			static VALUE rb_isDisposed(VALUE self);
+
+		protected:
+			/// @brief Pointers to each autotile bitmap.
+			/// @todo Modify default methods to allow for more autotiles per map
 			Bitmap* autotiles[7];
 			/// @brief Table data to represent passable directions of tiles
-			/// @todo Modify default methods to allow for more autotiles per map
-			//Table flash_data;
+			Table* flash_data;
 			/// @brief Table containing data of each tile
-			Table map_data;
+			Table* map_data;
 			/// @brief The origin point of the x-coordinate
 			int ox;
 			/// @brief The origin point of the y-coordinate
 			int oy;
 			/// @brief Table to hold priority data
-			Table priorities;
+			Table* priorities;
 			/// @brief Bitmap used for the tilemap sprite
 			Bitmap* tileset;
 			/// @brief Visibility factor of tilemap
 			bool visible;
-			
-			/// @brief Basic constructor
-			Tilemap();
-			/// @brief Constructor to specify viewport
-			/// @param[in] value Viewport to set to tilemap
-			Tilemap(Viewport* value);
-			/// @brief Basic destructor
-			~Tilemap();
-
-			/// @brief Returns the viewport specified for the tilemap
-			Viewport* getViewport() { return this->viewport; };
-
-			// Instance methods
-			/// @brief Frees the tilemap
-			void dispose();
-			/// @brief Flag for disposed tilemap
-			bool disposed();
-			/// @brief Updates the tilemap
-			void update();
-			
-		private:
 			/// @brief Viewport specified for tilemap sprite
 			Viewport* viewport;
 		};
