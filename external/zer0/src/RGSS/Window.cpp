@@ -58,13 +58,13 @@ namespace zer0
 		VALUE Window::dispose(VALUE self)
 		{
 			/// @todo Implement dispose method
-			return Qnil;
+			return self;
 		}
 
 		VALUE Window::isDisposed(VALUE self)
 		{
 			/// @todo Implement disposed? method 
-			return Qnil;
+			return self;
 		}
 
 		VALUE Window::setBackOpacity(VALUE self, VALUE value)
@@ -103,7 +103,7 @@ namespace zer0
 		VALUE Window::update(VALUE self)
 		{
 
-			return Qnil;
+			return self;
 		}
 	}
 }
