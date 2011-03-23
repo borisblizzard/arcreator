@@ -19,32 +19,6 @@ namespace zer0
 		class zer0Export Font
 		{
 		public:
-			/// @brief Exposes this class to Ruby.
-			static void createRubyInterface();
-			/// @brief Font name.
-			hstr name;
-			/// @brief Font size.
-			int size;
-			/// @brief Bold flag.
-			bool bold;
-			/// @brief Italic flag.
-			bool italic;
-			/// @brief Font Color.
-			Color color;
-
-			/*
-			/// @brief Default Font name.
-			static hstr default_name;
-			/// @brief Default Font size.
-			static int default_size;
-			/// @brief Default bold flag.
-			static bool default_bold;
-			/// @brief Default italic flag.
-			static bool default_italic;
-			/// @brief Default Font Color.
-			static Color default_color;
-			*/
-
 			/// @brief Empty constructor.
 			Font();
 			/// @brief Basic constructor.
@@ -56,9 +30,61 @@ namespace zer0
 			Font(chstr name, int size);
 			/// @brief Destructor
 			~Font();
+			/// @brief Exposes this class to Ruby.
+			static void createRubyInterface();
+			/// @brief Sets the font parameters.
+			/// @param[in] argc Number of arguments.
+			/// @param[in] argv Pointer to first argument.
+			static VALUE rb_initialize(int argc, VALUE* argv, VALUE self);
+			/// @brief Ruby allocation of an instance.
+			static VALUE rb_new(VALUE classe);
+			/// @brief Gets a string representation of the instance.
+			/// @return String representation of the instance.
+			static VALUE rb_inspect(VALUE self);
 
+			/// @brief Gets the font's bold value.
+			/// @return Bool value of bold parameter.
+			static VALUE rb_getBold(VALUE self);
+			/// @brief Sets the font's bold value.
+			/// @param[in] Bool value of bold parameter.
+			static VALUE rb_setBold(VALUE self, VALUE value);
+			/// @brief Gets the font's color.
+			/// @return Color used for the font.
+			static VALUE rb_getColor(VALUE self);
+			/// @brief Sets the font's color.
+			/// @param[in] Color used for the font.
+			static VALUE rb_setColor(VALUE self, VALUE* value);
+			/// @brief Gets the font's italic value.
+			/// @return Bool value of italic parameter.
+			static VALUE rb_getItalic(VALUE self);
+			/// @brief Sets the font's italic value.
+			/// @param[in] Bool value of italic parameter.
+			static VALUE rb_setItalic(VALUE self, VALUE value);
+			/// @brief Gets the font's name.
+			/// @return Hstr name of the font.
+			static VALUE rb_getName(VALUE self);
+			/// @brief Sets the font's name.
+			/// @param[in] Hstr name of the font.
+			static VALUE rb_setName(VALUE self, VALUE value);
+			/// @brief Gets the font's size.
+			/// @return Integer value of the font's size.
+			static VALUE rb_getSize(VALUE self);
+			/// @brief Sets the font's size.
+			/// @param[in] Integer value of the font's size.
+			static VALUE rb_setSize(VALUE self, VALUE value);
+
+		protected:
+			/// @brief Font name.
+			hstr name;
+			/// @brief Font size.
+			int size;
+			/// @brief Bold flag.
+			bool bold;
+			/// @brief Italic flag.
+			bool italic;
+			/// @brief Font Color.
+			Color color;
 		};
-
 	}
 }
 #endif
