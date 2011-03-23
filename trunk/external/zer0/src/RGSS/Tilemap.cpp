@@ -13,8 +13,10 @@ namespace zer0
 		void Tilemap::createRubyInterface()
 		{
 			rb_cTilemap = rb_define_class("Tilemap", rb_cObject);
+			rb_define_alloc_func(rb_cTilemap, &Tilemap::rb_new);
 			// initialize
 			rb_define_method(rb_cTilemap, "initialize", RUBY_METHOD_FUNC(&Tilemap::rb_initialize), -1);
+			rb_define_method(rb_cTilemap, "inspect", RUBY_METHOD_FUNC(&Tilemap::rb_inspect), 0);
 			// getters and setters
 			rb_define_method(rb_cTilemap, "autotiles", RUBY_METHOD_FUNC(&Tilemap::rb_getAutotiles), 0);
 			rb_define_method(rb_cTilemap, "autotiles=", RUBY_METHOD_FUNC(&Tilemap::rb_setAutotiles), 1);

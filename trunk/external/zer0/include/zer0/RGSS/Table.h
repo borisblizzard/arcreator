@@ -33,7 +33,9 @@ namespace zer0
 			/// @brief Gets a string representation of the instance.
 			/// @return String representation of the instance.
 			static VALUE rb_inspect(VALUE self);
-
+			/// @brief Marks referenced values of bitmap for garbage collection.
+			/// @param[in] bitmap Bitmap to mark.
+			static void gc_mark(Table* table);
 			/// @brief Gets the X dimension size.
 			/// @return X dimension size.
 			static VALUE rb_getXSize(VALUE self);

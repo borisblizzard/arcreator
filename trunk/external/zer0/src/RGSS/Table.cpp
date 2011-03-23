@@ -25,25 +25,16 @@ namespace zer0
 			rb_define_method(rb_cTable, "resize", RUBY_METHOD_FUNC(&Table::rb_resize), -1);
 			// static methods
 		}
-
-		// constructor
-		Table::Table()
-		{
-			// make sure xSize isn't <= 0 and none of the sizes are negative
-			// store table sizes
-			/*
-			this->xSize = hmax(xSize, 1);
-			this->ySize = hmax(ySize, 1);
-			this->zSize = hmax(zSize, 1);
-			this->data = this->_createData(this->xSize, this->ySize, this->zSize);
-			*/
-		}
 	
+		/*
 		Table::~Table()
 		{
 			delete [] this->data;
 			this->data = NULL;
 		}
+		*/
+
+		void Table::gc_mark(Table* table) { }
 
 		VALUE Table::rb_new(VALUE classe)
 		{
@@ -68,7 +59,7 @@ namespace zer0
 			RB_VAR2CPP(Table, table);
 			//hstr result = hsprintf("(%.1f,%.1f,%.1f,%.1f)", table->xSize, table->ySize, table->zSize, table->data);
 			//return rb_str_new2(result.c_str());
-			return Qnil;
+			return self;
 		}
 
 		VALUE Table::rb_getData(int argc, VALUE* argv, VALUE self)
@@ -110,7 +101,7 @@ namespace zer0
 			}
 
 			table->data[(int)NUM2UINT(x) + table->xSize * ((int)NUM2UINT(y) + table->ySize * (int)NUM2UINT(z))] = (short)NUM2UINT(value);
-			return Qnil;
+			return self;
 		}
 		
 		VALUE Table::rb_resize(int argc, VALUE* argv, VALUE self)
@@ -130,7 +121,7 @@ namespace zer0
 				rb_scan_args(argc, argv, "1", &xSize);
 			}
 			table->_resize((int)NUM2UINT(xSize), (int)NUM2UINT(ySize), (int)NUM2UINT(zSize));
-			return Qnil;
+			return self;
 		
 		}
 		// functions
