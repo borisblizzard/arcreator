@@ -17,10 +17,10 @@ namespace zer0
 		class zer0Export Input
 		{
 		public:
-			/// @brief Exposes this class to Ruby.
-			static void createRubyInterface();
 			/// @brief Intializes the module.
 			static void init();
+			/// @brief Exposes this class to Ruby.
+			static void createRubyInterface();
 
 			static const int DOWN = 2;
 			static const int LEFT = 4;

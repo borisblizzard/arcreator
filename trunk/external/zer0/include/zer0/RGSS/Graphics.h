@@ -18,12 +18,10 @@ namespace zer0
 		class zer0Export Graphics
 		{
 		public:
-			/// @brief Exposes this class to Ruby.
-			static void createRubyInterface();
 			/// @brief Intializes the module.
 			static void init();
-			/// @brief ???
-			//static bool visible;
+			/// @brief Exposes this class to Ruby.
+			static void createRubyInterface();
 
 			/// @brief Adds a new sprite to the rendering queue.
 			/// @param[in] sprite The sprite to be added.

@@ -26,20 +26,25 @@ namespace zer0
 			// static methods
 		}
 	
-		/*
-		Table::~Table()
+		VALUE Table::wrap()
 		{
-			delete [] this->data;
-			this->data = NULL;
+			Table* table = this;
+			return Data_Wrap_Struct(rb_cTable, NULL, NULL, table);
 		}
-		*/
 
-		void Table::gc_mark(Table* table) { }
+		void Table::gc_free(Table* table)
+		{
+			if (table->data != NULL)
+			{
+				delete [] table->data;
+				table->data = NULL;
+			}
+		}
 
 		VALUE Table::rb_new(VALUE classe)
 		{
 			Table* table;
-			return Data_Make_Struct(classe, Table, NULL, NULL, table);
+			return Data_Make_Struct(classe, Table, NULL, &Table::gc_free, table);
 		}
 
 		VALUE Table::rb_initialize(int argc, VALUE* argv, VALUE self)
@@ -47,9 +52,9 @@ namespace zer0
 			VALUE xSize, ySize, zSize;
 			RB_SELF2CPP(Table, table);
 			rb_scan_args(argc, argv, "12", &xSize, &ySize, &zSize);
-			table->xSize = hmax((int)NUM2UINT(xSize), 1);
-			table->ySize = hmax(NIL_P(ySize) ? 1 : (int)NUM2UINT(ySize), 1);
-			table->zSize = hmax(NIL_P(zSize) ? 1 : (int)NUM2UINT(zSize), 1);
+			table->xSize = hmax(NUM2INT(xSize), 1);
+			table->ySize = hmax(NIL_P(ySize) ? 1 : NUM2INT(ySize), 1);
+			table->zSize = hmax(NIL_P(zSize) ? 1 : NUM2INT(zSize), 1);
 			table->data = table->_createData(table->xSize, table->ySize, table->zSize);
 			return self;
 		}
@@ -64,7 +69,9 @@ namespace zer0
 
 		VALUE Table::rb_getData(int argc, VALUE* argv, VALUE self)
 		{
-			VALUE x, y, z = INT2NUM(0);
+			VALUE x;
+			VALUE y = INT2NUM(0);
+			VALUE z = INT2NUM(0);
 			RB_SELF2CPP(Table, table);
 			if (table->zSize > 1)
 			{
@@ -78,14 +85,16 @@ namespace zer0
 			{
 				rb_scan_args(argc, argv, "1", &x);
 			}
-			return INT2NUM(
-				table->data[(int)NUM2UINT(x) + table->xSize * ((int)NUM2UINT(y) + table->ySize * (int)NUM2UINT(z))]
-			);
+			int index = NUM2INT(x) + table->xSize * (NUM2INT(y) + table->ySize * NUM2INT(z));
+			return INT2FIX(table->data[index]);
 		}
 		
 		VALUE Table::rb_setData(int argc, VALUE* argv, VALUE self)
 		{
-			VALUE x, y, z, value = INT2NUM(0);
+			VALUE x;
+			VALUE y = INT2NUM(0);
+			VALUE z = INT2NUM(0);
+			VALUE value;
 			RB_SELF2CPP(Table, table);
 			if (table->zSize > 1)
 			{
@@ -99,28 +108,20 @@ namespace zer0
 			{
 				rb_scan_args(argc, argv, "2", &x, &value);
 			}
-
-			table->data[(int)NUM2UINT(x) + table->xSize * ((int)NUM2UINT(y) + table->ySize * (int)NUM2UINT(z))] = (short)NUM2UINT(value);
+			int index = NUM2INT(x) + table->xSize * (NUM2INT(y) + table->ySize * NUM2INT(z));
+			table->data[index] = (short)hclamp(NUM2INT(value), -32768, 32767);
 			return self;
 		}
 		
 		VALUE Table::rb_resize(int argc, VALUE* argv, VALUE self)
 		{
-			VALUE xSize, ySize, zSize = INT2NUM(1);
+			VALUE xSize, ySize, zSize;
 			RB_SELF2CPP(Table, table);
-			if (table->zSize > 1)
-			{
-				rb_scan_args(argc, argv, "3", &xSize, &ySize, &zSize);
-			}
-			else if (table->ySize > 1)
-			{
-				rb_scan_args(argc, argv, "2", &xSize, &ySize);
-			}
-			else
-			{
-				rb_scan_args(argc, argv, "1", &xSize);
-			}
-			table->_resize((int)NUM2UINT(xSize), (int)NUM2UINT(ySize), (int)NUM2UINT(zSize));
+			rb_scan_args(argc, argv, "12", &xSize, &ySize, &zSize);
+			table->xSize = hmax(NUM2INT(xSize), 1);
+			table->ySize = hmax(NIL_P(ySize) ? 1 : NUM2INT(ySize), 1);
+			table->zSize = hmax(NIL_P(zSize) ? 1 : NUM2INT(zSize), 1);
+			table->_resize(NUM2INT(xSize), NUM2INT(ySize), NUM2INT(zSize));
 			return self;
 		
 		}

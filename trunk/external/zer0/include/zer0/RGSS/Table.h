@@ -17,18 +17,18 @@ namespace zer0
 		{
 		public:
 			/// @todo Dummy for now, needs to be removed later.
-			Table();
+			Table() { }
 			// @todo Dummy for now, needs to be removed later.
-			~Table();
+			~Table() { }
 
 			/// @brief Exposes this class to Ruby.
 			static void createRubyInterface();
 			/// @brief Wraps this instance into a Ruby cobject.
 			/// @return Ruby object.
 			VALUE wrap();
-			/// @brief Marks referenced values of bitmap for garbage collection.
-			/// @param[in] bitmap Bitmap to mark.
-			static void gc_mark(Table* table);
+			/// @brief Frees allocated memory.
+			/// @param[in] table Table to free.
+			static void gc_free(Table* table);
 			/// @brief Ruby allocation of an instance.
 			static VALUE rb_new(VALUE classe);
 			/// @brief Sets the rect to the specified value.

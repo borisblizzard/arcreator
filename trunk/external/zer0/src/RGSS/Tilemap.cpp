@@ -41,7 +41,15 @@ namespace zer0
 			rb_define_method(rb_cTilemap, "disposed?", RUBY_METHOD_FUNC(&Tilemap::rb_isDisposed), 0);
 		}
 
-		void Tilemap::gc_mark(Tilemap* tilemap) { }
+		VALUE Tilemap::wrap()
+		{
+			Tilemap* tilemap = this;
+			return Data_Wrap_Struct(rb_cTilemap, NULL, NULL, tilemap);
+		}
+
+		void Tilemap::gc_mark(Tilemap* tilemap)
+		{
+		}
 
 		VALUE Tilemap::rb_new(VALUE classe) 
 		{

@@ -24,9 +24,6 @@ namespace zer0
 
 			/// @brief Exposes this class to Ruby.
 			static void createRubyInterface();
-			/// @brief Wraps this instance into a Ruby cobject.
-			/// @return Ruby object.
-			VALUE wrap();
 
 			Color color;
 			Rect rect;

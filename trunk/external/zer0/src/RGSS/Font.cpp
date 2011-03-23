@@ -6,44 +6,6 @@ namespace zer0
 {
 	namespace RGSS
 	{
-		//constructors
-		Font::Font()
-		{
-			/*
-			this->name = this->default_name;
-			this->size = this->default_size;
-			this->bold = this->default_bold;
-			this->italic = this->default_italic;
-			this->color = this->default_color;
-			*/
-		}
-
-		Font::Font(chstr name)
-		{
-			/*
-			this->name = name;
-			this->size = this->default_size;
-			this->bold = this->default_bold;
-			this->italic = this->default_italic;
-			this->color = this->default_color;
-			*/
-		}
-
-		Font::Font(chstr name, int size)
-		{
-			/*
-			this->name = name;
-			this->size = size;
-			this->bold = this->default_bold;
-			this->italic = this->default_italic;
-			this->color = this->default_color;
-			*/
-		}
-
-		Font::~Font()
-		{
-		}
-
 		void Font::createRubyInterface()
 		{
 			rb_cFont = rb_define_class("Font", rb_cObject);
@@ -63,6 +25,12 @@ namespace zer0
 			rb_define_method(rb_cFont, "size=", RUBY_METHOD_FUNC(&Font::rb_setSize), 1);
 		}
 
+		VALUE Font::wrap()
+		{
+			Font* font = this;
+			return Data_Wrap_Struct(rb_cFont, NULL, NULL, font);
+		}
+
 		VALUE Font::rb_new(VALUE classe)
 		{
 			return classe;
@@ -77,6 +45,8 @@ namespace zer0
 		{
 			return self;
 		}
+
+
 
 		VALUE Font::rb_getBold(VALUE self)
 		{

@@ -57,7 +57,7 @@ namespace zer0
 			/// @brief Gets a string representation of the instance.
 			/// @return String representation of the instance.
 			static VALUE rb_inspect(VALUE self);
-			/// @brief Frees the memory for the bitmap.
+			/// @brief Disposes the object.
 			static VALUE rb_dispose(VALUE self);
 
 			/// @brief Gets the height of the bitmap.

@@ -9,16 +9,12 @@ end
 
 GC.start
 test()
-#p bitmap
 s1.bitmap = Bitmap.new("docs/arc-logo")
-#s1.bitmap = bitmap
-#s1.bitmap = Bitmap.new("docs/arc-logo")
 p s1.bitmap
-#s1.set_pixel(0, 0, Color.new(255, 255, 255))
 s1.x = 100
 GC.start
 s2 = Sprite.new
-s2.bitmap = s1.bitmap#Bitmap.new("docs/arc-logo")
+s2.bitmap = s1.bitmap
 #s2.bitmap = Bitmap.new(32, 32)
 #s2.set_pixel(0, 0, Color.new(255, 255, 255))
 s2.y = 100
