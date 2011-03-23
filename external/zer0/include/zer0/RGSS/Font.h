@@ -19,6 +19,11 @@ namespace zer0
 		class zer0Export Font
 		{
 		public:
+			/// @todo Dummy for now, needs to be removed later.
+			Font() { }
+			/// @todo Dummy for now, needs to be removed later.
+			~Font() { }
+			/*
 			/// @brief Empty constructor.
 			Font();
 			/// @brief Basic constructor.
@@ -30,14 +35,19 @@ namespace zer0
 			Font(chstr name, int size);
 			/// @brief Destructor
 			~Font();
+			*/
+
 			/// @brief Exposes this class to Ruby.
 			static void createRubyInterface();
+			/// @brief Wraps into Ruby cobject.
+			/// @param[in] bitmap The bitmap to convert.
+			VALUE wrap();
+			/// @brief Ruby allocation of an instance.
+			static VALUE rb_new(VALUE classe);
 			/// @brief Sets the font parameters.
 			/// @param[in] argc Number of arguments.
 			/// @param[in] argv Pointer to first argument.
 			static VALUE rb_initialize(int argc, VALUE* argv, VALUE self);
-			/// @brief Ruby allocation of an instance.
-			static VALUE rb_new(VALUE classe);
 			/// @brief Gets a string representation of the instance.
 			/// @return String representation of the instance.
 			static VALUE rb_inspect(VALUE self);

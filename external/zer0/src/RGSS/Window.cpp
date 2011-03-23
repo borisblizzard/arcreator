@@ -36,17 +36,22 @@ namespace zer0
 			rb_define_method(rb_cWindow, "back_opacity=", RUBY_METHOD_FUNC(&Window::setBackOpacity), 1);
 			rb_define_method(rb_cWindow, "contents=", RUBY_METHOD_FUNC(&Window::setContents), 1);
 			rb_define_method(rb_cWindow, "contents_opacity=", RUBY_METHOD_FUNC(&Window::setContentsOpacity), 1);
-			rb_define_method(rb_cWindow, "initialize", RUBY_METHOD_FUNC(&Window::initialize), -1);
+			rb_define_method(rb_cWindow, "initialize", RUBY_METHOD_FUNC(&Window::rb_initialize), -1);
 			rb_define_method(rb_cWindow, "opacity=", RUBY_METHOD_FUNC(&Window::setOpacity), 1);
 			rb_define_method(rb_cWindow, "windowskin=", RUBY_METHOD_FUNC(&Window::setWindowskin), 1);
 			rb_define_method(rb_cWindow, "dispose", RUBY_METHOD_FUNC(&Window::dispose), 0);
 			rb_define_method(rb_cWindow, "disposed?", RUBY_METHOD_FUNC(&Window::isDisposed), 0);
 		}
 	
+		VALUE Window::wrap()
+		{
+			Window* window = this;
+			return Data_Wrap_Struct(rb_cWindow, NULL, NULL, window);
+		}
 		/// @todo add RGSS Error calls
 		/// @todo set values for changing alpha on C++ side
 
-		VALUE Window::initialize(int argc, VALUE *argv, VALUE self)
+		VALUE Window::rb_initialize(int argc, VALUE *argv, VALUE self)
 		{
 			if (argc > 1)
 				;// rb_raise(ArgumentError);

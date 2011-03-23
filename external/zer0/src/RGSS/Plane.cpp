@@ -49,6 +49,12 @@ namespace zer0
 			rb_define_method(rb_cPlane, "disposed?", RUBY_METHOD_FUNC(&Plane::rb_isDisposed), 0);
 		}
 
+		VALUE Plane::wrap()
+		{
+			Plane* plane = this;
+			return Data_Wrap_Struct(rb_cPlane, NULL, NULL, plane);
+		}
+
 		void Plane::gc_free(Plane* plane)
 		{
 		}
@@ -67,6 +73,8 @@ namespace zer0
 		{
 			return self;
 		}
+
+
 
 		VALUE Plane::rb_getBitmap(VALUE self)
 		{

@@ -14,23 +14,6 @@ namespace zer0
 		{
 		}
 
-		Viewport::Viewport()
-		{
-			this->rect.set(0, 0, 1, 1);
-		}
-		Viewport::Viewport(int x, int y, int width, int height)
-		{
-			this->rect.set(x, y, width, height);
-		}
-		Viewport::Viewport(Rect rect)
-		{
-			this->rect = rect;
-		}
-
-		Viewport::~Viewport()
-		{
-		}
-
 		void Viewport::setColor(float r, float g, float b, float a)
 		{
 			//this->color.set(r, g, b, a);

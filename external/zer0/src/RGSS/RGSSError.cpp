@@ -9,23 +9,6 @@ namespace zer0
 {
 	namespace RGSS 
 	{
-		/*
-		RGSSError::RGSSError() 
-		{
-
-		}
-
-		RGSSError::RGSSError(chstr message) : hltypes::exception(message, __FILE__, __LINE__)
-		{
-
-		}
-
-		RGSSError::~RGSSError()
-		{
-
-		}
-		*/
-
 		void RGSSError::createRubyInterface()
 		{
 			rb_cRGSSError = rb_define_class("RGSSError", rb_cObject);
@@ -38,6 +21,12 @@ namespace zer0
 			rb_define_method(rb_cRGSSError, "backtrace", RUBY_METHOD_FUNC(&RGSSError::rb_getBacktrace), 0);
 			rb_define_method(rb_cRGSSError, "to_s", RUBY_METHOD_FUNC(&RGSSError::rb_getString), 0);
 			rb_define_method(rb_cRGSSError, "set_backtrace", RUBY_METHOD_FUNC(&RGSSError::rb_setBacktrace), 1);
+		}
+
+		VALUE RGSSError::wrap()
+		{
+			RGSSError* rgssError = this;
+			return Data_Wrap_Struct(rb_cRGSSError, NULL, NULL, rgssError);
 		}
 
 		VALUE RGSSError::rb_new(VALUE classe)

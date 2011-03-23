@@ -24,10 +24,13 @@ namespace zer0
 			/// @brief Wraps this instance into a Ruby cobject.
 			/// @return Ruby object.
 			VALUE wrap();
-			/// @brief Basic constructor.
-			/// @param[in] value Viewport component.
-			static VALUE initialize(int argc, VALUE *argv, VALUE self);
-			/// @brief Frees the sprite.
+			/// @brief Ruby allocation of an instance.
+			static VALUE rb_new(VALUE classe);
+			/// @brief Sets the font parameters.
+			/// @param[in] argc Number of arguments.
+			/// @param[in] argv Pointer to first argument.
+			static VALUE rb_initialize(int argc, VALUE* argv, VALUE self);
+			/// @brief Disposes the object.
 			static VALUE dispose(VALUE self);
 
 			/// @brief Returns true if disposed, else false.

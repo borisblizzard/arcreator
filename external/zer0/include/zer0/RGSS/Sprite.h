@@ -47,7 +47,7 @@ namespace zer0
 			/// @param[in] argv Pointer to first argument.
 			/// @note Arguments are "[viewport]".
 			static VALUE rb_initialize(int argc, VALUE* argv, VALUE self);
-			/// @brief Frees the memory for the sprite.
+			/// @brief Disposes the object.
 			static VALUE rb_dispose(VALUE self);
 
 			/// @brief Gets the X coordinate.

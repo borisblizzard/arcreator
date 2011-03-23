@@ -26,8 +26,8 @@ namespace zer0
 
 			/// @brief Exposes this class to Ruby.
 			static void createRubyInterface();
-			/// @brief Wraps this instance into a Ruby cobject.
-			/// @return Ruby object.
+			/// @brief Wraps into Ruby cobject.
+			/// @param[in] bitmap The bitmap to convert.
 			VALUE wrap();
 			/// @brief Marks referenced values of bitmap for garbage collection.
 			/// @param[in] bitmap Bitmap to mark.
@@ -42,7 +42,7 @@ namespace zer0
 			/// @brief Gets a string representation of the instance.
 			/// @return String representation of the instance.
 			static VALUE rb_inspect(VALUE self);
-			/// @brief Disposes this object.
+			/// @brief Disposes the object.
 			static VALUE rb_dispose(VALUE self);
 
 			/// @brief Gets the tilemap's autotiles.

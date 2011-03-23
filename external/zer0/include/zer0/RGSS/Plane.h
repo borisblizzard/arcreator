@@ -20,6 +20,11 @@ namespace zer0
 		class zer0Export Plane
 		{
 		public:
+			/// @todo Dummy for now, needs to be removed later.
+			Plane() { }
+			/// @todo Dummy for now, needs to be removed later.
+			~Plane() { }
+
 			/// @brief Exposes this class to Ruby.
 			static void createRubyInterface();
 			/// @brief Wraps this instance into a Ruby cobject.
@@ -39,13 +44,6 @@ namespace zer0
 			static VALUE rb_inspect(VALUE self);
 			
 			
-			/// @brief Basic constructor
-			Plane();
-			/// @brief Constructor to initialize with viewport
-			/// @param[in] viewport Specifies the viewport to use for this plane
-			Plane(Viewport* value);
-			/// @brief Basic Deconstructor
-			~Plane();
 			/// @brief Gets the plane's bitmap
 			static VALUE rb_getBitmap(VALUE self);
 			/// @brief Sets the plane's bitmap
