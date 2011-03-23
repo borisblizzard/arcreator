@@ -45,7 +45,7 @@ namespace zer0
 		VALUE Table::rb_initialize(int argc, VALUE* argv, VALUE self)
 		{
 			VALUE xSize, ySize, zSize;
-			RB_VAR2CPP(Table, table);
+			RB_SELF2CPP(Table, table);
 			rb_scan_args(argc, argv, "12", &xSize, &ySize, &zSize);
 			table->xSize = hmax((int)NUM2UINT(xSize), 1);
 			table->ySize = hmax(NIL_P(ySize) ? 1 : (int)NUM2UINT(ySize), 1);
@@ -56,7 +56,7 @@ namespace zer0
 
 		VALUE Table::rb_inspect(VALUE self)
 		{
-			RB_VAR2CPP(Table, table);
+			RB_SELF2CPP(Table, table);
 			//hstr result = hsprintf("(%.1f,%.1f,%.1f,%.1f)", table->xSize, table->ySize, table->zSize, table->data);
 			//return rb_str_new2(result.c_str());
 			return self;
@@ -65,7 +65,7 @@ namespace zer0
 		VALUE Table::rb_getData(int argc, VALUE* argv, VALUE self)
 		{
 			VALUE x, y, z = INT2NUM(0);
-			RB_VAR2CPP(Table, table);
+			RB_SELF2CPP(Table, table);
 			if (table->zSize > 1)
 			{
 				rb_scan_args(argc, argv, "3", &x, &y, &z);
@@ -86,7 +86,7 @@ namespace zer0
 		VALUE Table::rb_setData(int argc, VALUE* argv, VALUE self)
 		{
 			VALUE x, y, z, value = INT2NUM(0);
-			RB_VAR2CPP(Table, table);
+			RB_SELF2CPP(Table, table);
 			if (table->zSize > 1)
 			{
 				rb_scan_args(argc, argv, "4", &x, &y, &z, &value);
@@ -107,7 +107,7 @@ namespace zer0
 		VALUE Table::rb_resize(int argc, VALUE* argv, VALUE self)
 		{
 			VALUE xSize, ySize, zSize = INT2NUM(1);
-			RB_VAR2CPP(Table, table);
+			RB_SELF2CPP(Table, table);
 			if (table->zSize > 1)
 			{
 				rb_scan_args(argc, argv, "3", &xSize, &ySize, &zSize);

@@ -3,6 +3,8 @@
 
 #include <ruby.h>
 
+#include <april/Color.h>
+
 #include "zer0Export.h"
 
 namespace zer0
@@ -15,10 +17,19 @@ namespace zer0
 		class zer0Export Color
 		{
 		public:
-			/// @todo Dummy for now, needs to be removed later.
+			/// @todo Dummy, needs to be removed.
 			Color() { }
-			/// @todo Dummy for now, needs to be removed later.
+			/// @todo Dummy, needs to be removed.
 			~Color() { }
+
+			/// @brief Red component.
+			float red;
+			/// @brief Green component.
+			float green;
+			/// @brief Blue component.
+			float blue;
+			/// @brief Alpha component.
+			float alpha;
 
 			/// @brief Sets the color to the specified value.
 			/// @param[in] r Red component.
@@ -28,9 +39,17 @@ namespace zer0
 			/// @note Color values will be clamped between -255 and 255.
 			/// @note Alpha is clamped between 0 and 255.
 			void set(float r, float g, float b, float a = 0.0f);
+			/// @brief Sets the color to the specified value.
+			/// @param[in] color april::Color.
+			/// @note Color values will be clamped between -255 and 255.
+			/// @note Alpha is clamped between 0 and 255.
+			void set(april::Color color);
 
 			/// @brief Exposes this class to Ruby.
 			static void createRubyInterface();
+			/// @brief Wraps into Ruby cobject.
+			/// @param[in] bitmap The bitmap to convert.
+			VALUE wrap();
 			/// @brief Ruby allocation of an instance.
 			static VALUE rb_new(VALUE classe);
 			/// @brief Sets the color to the specified value.
@@ -80,16 +99,6 @@ namespace zer0
 			/// @note Color values will be clamped between -255 and 255.
 			/// @note Alpha is clamped between 0 and 255.
 			static VALUE rb_set(int argc, VALUE* argv, VALUE self);
-
-		protected:
-			/// @brief Red component.
-			float red;
-			/// @brief Green component.
-			float green;
-			/// @brief Blue component.
-			float blue;
-			/// @brief Alpha component.
-			float alpha;
 
 		};
 	

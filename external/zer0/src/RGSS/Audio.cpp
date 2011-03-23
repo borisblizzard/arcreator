@@ -7,6 +7,10 @@ namespace zer0
 {
 	namespace RGSS
 	{
+		void Audio::init()
+		{
+		}
+
 		void Audio::createRubyInterface()
 		{
 			rb_mAudio = rb_define_module("Audio");
@@ -23,73 +27,58 @@ namespace zer0
 			rb_define_module_function(rb_mAudio, "se_stop", RUBY_METHOD_FUNC(&Audio::se_stop), 0);
 		}
 
-		void Audio::init()
-		{
-		}
-
 		VALUE Audio::bgm_play(VALUE self, VALUE filename, VALUE volume, VALUE pitch)
 		{
-
 			return Qnil;
 		}
 
 		VALUE Audio::bgm_fade(VALUE self, VALUE value)
 		{
-
 			return Qnil;
 		}
 
 		VALUE Audio::bgm_stop(VALUE self)
 		{
-
 			return Qnil;
 		}
 
 		VALUE Audio::bgs_play(VALUE self, VALUE filename, VALUE volume, VALUE pitch)
 		{
-
 			return Qnil;
 		}
 
 		VALUE Audio::bgs_fade(VALUE self, VALUE time)
 		{
-
 			return Qnil;
 		}
 
 		VALUE Audio::bgs_stop(VALUE self)
 		{
-
 			return Qnil;
 		}
 
 		VALUE Audio::me_play(VALUE self, VALUE filename, VALUE volume, VALUE pitch)
 		{
-
 			return Qnil;
 		}
 
 		VALUE Audio::me_fade(VALUE self, VALUE time)
 		{
-
 			return Qnil;
 		}
 
 		VALUE Audio::me_stop(VALUE self)
 		{
-
 			return Qnil;
 		}
 
 		VALUE Audio::se_play(VALUE self, VALUE filename, VALUE volume, VALUE pitch)
 		{
-
 			return Qnil;
 		}
 
 		VALUE Audio::se_stop(VALUE self)
 		{
-
 			return Qnil;
 		}
 	

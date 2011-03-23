@@ -19,16 +19,19 @@ namespace zer0
 		class zer0Export Tilemap
 		{
 		public:
-			// constructors/destructor
-			/// @brief Basic constructor
-			Tilemap();
-			/// @brief Constructor to specify viewport
-			/// @param[in] value Viewport to set to tilemap.
-			Tilemap(Viewport* value);
-			/// @brief Basic destructor
-			~Tilemap();
+			/// @todo Dummy for now, needs to be removed later.
+			Tilemap() { }
+			/// @todo Dummy for now, needs to be removed later.
+			~Tilemap() { }
+
 			/// @brief Exposes this class to Ruby.
 			static void createRubyInterface();
+			/// @brief Wraps this instance into a Ruby cobject.
+			/// @return Ruby object.
+			VALUE wrap();
+			/// @brief Marks referenced values of bitmap for garbage collection.
+			/// @param[in] bitmap Bitmap to mark.
+			static void gc_mark(Tilemap* tilemap);
 			/// @brief Ruby allocation of an instance.
 			static VALUE rb_new(VALUE classe);
 			/// @brief Sets the bitmap dimensions
@@ -39,13 +42,9 @@ namespace zer0
 			/// @brief Gets a string representation of the instance.
 			/// @return String representation of the instance.
 			static VALUE rb_inspect(VALUE self);
-			/// @brief Marks referenced values of bitmap for garbage collection.
-			/// @param[in] bitmap Bitmap to mark.
-			static void gc_mark(Tilemap* tilemap);
-			/// @brief Frees the memory for the bitmap.
+			/// @brief Disposes this object.
 			static VALUE rb_dispose(VALUE self);
 
-			// getters/setters
 			/// @brief Gets the tilemap's autotiles.
 			/// @return Array of pointers to autotile bitmaps.
 			static VALUE rb_getAutotiles(VALUE self);
@@ -98,7 +97,6 @@ namespace zer0
 			/// @return Viewport used for the tilemap.
 			static VALUE rb_getViewport(VALUE self);
 
-			// methods
 			/// @brief Invokes the update method.
 			static VALUE rb_update(VALUE self);
 			/// @brief Gets the truth value if the tilemap has been disposed.

@@ -20,6 +20,15 @@ namespace zer0
 			/// @todo Dummy for now, needs to be removed later.
 			~Rect() { }
 
+			/// @brief X coordinate.
+			float x;
+			/// @brief Y coordinate.
+			float y;
+			/// @brief Width.
+			float width;
+			/// @brief Height.
+			float height;
+
 			/// @brief Sets the rect to the specified value.
 			/// @param[in] x Y coordinate.
 			/// @param[in] y X coordinate.
@@ -29,6 +38,9 @@ namespace zer0
 
 			/// @brief Exposes this class to Ruby.
 			static void createRubyInterface();
+			/// @brief Wraps this instance into a Ruby cobject.
+			/// @return Ruby object.
+			VALUE wrap();
 			/// @brief Ruby allocation of an instance.
 			static VALUE rb_new(VALUE classe);
 			/// @brief Sets the rect to the specified value.
@@ -69,16 +81,6 @@ namespace zer0
 			/// @param[in] argv Pointer to first argument.
 			/// @note Arguments are "x, y, width, height".
 			static VALUE rb_set(int argc, VALUE* argv, VALUE self);
-
-		protected:
-			/// @brief X coordinate.
-			float x;
-			/// @brief Y coordinate.
-			float y;
-			/// @brief Width.
-			float width;
-			/// @brief Height.
-			float height;
 
 		};
 	

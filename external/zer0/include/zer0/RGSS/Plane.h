@@ -22,6 +22,11 @@ namespace zer0
 		public:
 			/// @brief Exposes this class to Ruby.
 			static void createRubyInterface();
+			/// @brief Wraps this instance into a Ruby cobject.
+			/// @return Ruby object.
+			VALUE wrap();
+			/// @brief Frees the memory.
+			static void gc_free(Plane* plane);
 			/// @brief Ruby allocation of an instance.
 			static VALUE rb_new(VALUE classe);
 			/// @brief Sets the bitmap dimensions
@@ -32,10 +37,6 @@ namespace zer0
 			/// @brief Gets a string representation of the instance.
 			/// @return String representation of the instance.
 			static VALUE rb_inspect(VALUE self);
-			/// @brief Marks referenced values of bitmap for garbage collection.
-			/// @param[in] bitmap Bitmap to mark.
-			static void gc_mark(Plane* plane);
-			/// @brief Frees the memory for the bitmap.
 			
 			
 			/// @brief Basic constructor

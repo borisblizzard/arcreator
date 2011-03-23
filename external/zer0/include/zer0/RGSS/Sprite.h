@@ -21,11 +21,25 @@ namespace zer0
 		class zer0Export Sprite
 		{
 		public:
+			/// @todo Dummy, needs to be removed.
+			Sprite() { }
+			/// @todo Dummy, needs to be removed.
+			~Sprite() { }
+
+			/// @brief Draws this sprite on the screen.
+			void draw();
+
 			/// @brief Exposes this class to Ruby.
 			static void createRubyInterface();
+			/// @brief Wraps this instance into a Ruby cobject.
+			/// @return Ruby object.
+			VALUE wrap();
 			/// @brief Marks referenced values of sprite for garbage collection.
 			/// @param[in] sprite Sprite to mark.
 			static void gc_mark(Sprite* sprite);
+			/// @brief Frees allocated memory.
+			/// @param[in] sprite Sprite to free.
+			static void gc_free(Sprite* sprite);
 			/// @brief Ruby allocation of an instance.
 			static VALUE rb_new(VALUE classe);
 			/// @brief Sets the color to the specified value.
@@ -35,8 +49,34 @@ namespace zer0
 			static VALUE rb_initialize(int argc, VALUE* argv, VALUE self);
 			/// @brief Frees the memory for the sprite.
 			static VALUE rb_dispose(VALUE self);
+
+			/// @brief Gets the X coordinate.
+			/// @return X coordinate.
+			static VALUE rb_getX(VALUE self);
+			/// @brief Sets the X coordinate.
+			/// @param[in] value X coordinate.
+			static VALUE rb_setX(VALUE self, VALUE value);
+			/// @brief Gets the Y coordinate.
+			/// @return Y coordinate.
+			static VALUE rb_getY(VALUE self);
+			/// @brief Sets the Y coordinate.
+			/// @param[in] value Y coordinate.
+			static VALUE rb_setY(VALUE self, VALUE value);
+			/// @brief Gets the Z coordinate.
+			/// @return Z coordinate.
+			static VALUE rb_getZ(VALUE self);
+			/// @brief Sets the Z coordinate.
+			/// @param[in] value Z coordinate.
+			static VALUE rb_setZ(VALUE self, VALUE value);
+			/// @brief Gets the bitmap.
+			/// @return Bitmap.
+			static VALUE rb_getBitmap(VALUE self);
+			/// @brief Sets the bitmap.
+			/// @param[in] value Bitmap.
+			static VALUE rb_setBitmap(VALUE self, VALUE value);
 			/// @brief Checks whether sprite is disposed.
-			static VALUE isDisposed(VALUE self);
+			/// @return True if sprite was disposed manually.
+			static VALUE rb_isDisposed(VALUE self);
 
 			/// @brief Mixes a color with the sprite for a short duration.
 			/// @param[in] color Color component.
@@ -61,19 +101,17 @@ namespace zer0
 			/// @brief Invokes the sprites update method.
 			static VALUE update(VALUE self);
 
-			// added for testing, needs to be refactored
+			/// @todo needs to be refactored
 			int x;
 			int y;
 			int z;
-			void draw();
-			Sprite() { }
-			~Sprite() { }
-			static VALUE rb_getX(VALUE self);
-			static VALUE rb_setX(VALUE self, VALUE value);
-			static VALUE rb_getY(VALUE self);
-			static VALUE rb_setY(VALUE self, VALUE value);
-			static VALUE rb_getZ(VALUE self);
-			static VALUE rb_setZ(VALUE self, VALUE value);
+
+		protected:
+			bool disposed;
+			Bitmap* bitmap;
+			VALUE rb_bitmap;
+
+
 		};
 	}
 }

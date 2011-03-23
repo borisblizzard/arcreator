@@ -51,59 +51,59 @@ namespace zer0
 
 		VALUE Rect::rb_inspect(VALUE self)
 		{
-			RB_VAR2CPP(Rect, rect);
+			RB_SELF2CPP(Rect, rect);
 			hstr result = hsprintf("(%.1f,%.1f,%.1f,%.1f)", rect->x, rect->y, rect->width, rect->height);
 			return rb_str_new2(result.c_str());
 		}
 
 		VALUE Rect::rb_getX(VALUE self)
 		{
-			RB_VAR2CPP(Rect, rect);
+			RB_SELF2CPP(Rect, rect);
 			return rb_float_new(rect->x);
 		}
 
 		VALUE Rect::rb_setX(VALUE self, VALUE value)
 		{
-			RB_VAR2CPP(Rect, rect);
+			RB_SELF2CPP(Rect, rect);
 			rect->x = (float)NUM2DBL(value);
 			return self;
 		}
 
 		VALUE Rect::rb_getY(VALUE self)
 		{
-			RB_VAR2CPP(Rect, rect);
+			RB_SELF2CPP(Rect, rect);
 			return rb_float_new(rect->y);
 		}
 
 		VALUE Rect::rb_setY(VALUE self, VALUE value)
 		{
-			RB_VAR2CPP(Rect, rect);
+			RB_SELF2CPP(Rect, rect);
 			rect->y = (float)NUM2DBL(value);
 			return self;
 		}
 
 		VALUE Rect::rb_getWidth(VALUE self)
 		{
-			RB_VAR2CPP(Rect, rect);
+			RB_SELF2CPP(Rect, rect);
 			return rb_float_new(rect->width);
 		}
 
 		VALUE Rect::rb_setWidth(VALUE self, VALUE value)
 		{
-			RB_VAR2CPP(Rect, rect);
+			RB_SELF2CPP(Rect, rect);
 			rect->width = (float)NUM2DBL(value);
 			return self;
 		}
 
 		VALUE Rect::rb_getHeight(VALUE self)
 		{
-			RB_VAR2CPP(Rect, rect);
+			RB_SELF2CPP(Rect, rect);
 			return rb_float_new(rect->height);
 		}
 
 		VALUE Rect::rb_setHeight(VALUE self, VALUE value)
 		{
-			RB_VAR2CPP(Rect, rect);
+			RB_SELF2CPP(Rect, rect);
 			rect->height = (float)NUM2DBL(value);
 			return self;
 		}
@@ -113,7 +113,7 @@ namespace zer0
 			VALUE x, y, width, height;
 			// "31" means 3 mandatory arguments, 1 optional argument
 			rb_scan_args(argc, argv, "4", &x, &y, &width, &height);
-			RB_VAR2CPP(Rect, rect);
+			RB_SELF2CPP(Rect, rect);
 			rect->x = (float)NUM2DBL(x);
 			rect->y = (float)NUM2DBL(y);
 			rect->width = (float)NUM2DBL(width);

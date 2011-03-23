@@ -62,6 +62,7 @@ namespace zer0
 		{
 			// some testing for now
 			april::rendersys->clear();
+			//harray<Sprite*> sprites
 			foreach (Sprite*, it, sprites)
 			{
 				(*it)->draw();

@@ -16,10 +16,10 @@ namespace zer0
 		class zer0Export Audio
 		{
 		public:
-			/// @brief Exposes this class to Ruby.
-			static void createRubyInterface();
 			/// @brief Initializes the module.
 			static void init();
+			/// @brief Exposes this class to Ruby.
+			static void createRubyInterface();
 
 			// @brief starts BMG playback.
 			// @param[in] filename Filename of the BGM to play.
@@ -58,6 +58,7 @@ namespace zer0
 			static VALUE se_play(VALUE self, VALUE filename, VALUE volume, VALUE pitch);
 			// @brief stops SE playback.
 			static VALUE se_stop(VALUE self);
+
 		};
 	
 	}

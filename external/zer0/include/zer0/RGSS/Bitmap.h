@@ -10,6 +10,11 @@
 #include "RGSS/Rect.h"
 #include "zer0Export.h"
 
+namespace april
+{
+	class Texture;
+}
+
 namespace zer0
 {
 	namespace RGSS
@@ -19,20 +24,29 @@ namespace zer0
 		class zer0Export Bitmap
 		{
 		public:
+			/// @todo Dummy, needs to be removed.
+			Bitmap() { }
+			/// @todo Dummy, needs to be removed.
+			~Bitmap() { }
 
-			// Constructors/Destructor
-			/// @brief Constructor from filename
-			/// @param[in] filename Filename where the bitmap can be found
-			Bitmap(chstr filename);
-			/// @brief Constructor From width and height
-			/// @param[in] width The width of the new bitmap
-			/// @param[in] height The height of the new bitmap
-			Bitmap(int width, int height);
-			/// @brief Basic Deconstructor
-			~Bitmap();
+			/// @brief Gets the april::Texture.
+			/// @return april::Texture used to draw.
+			april::Texture* getTexture() { return this->texture; }
+			/// @brief Gets the width.
+			/// @return Width of april::Texture.
+			int getWidth();
+			/// @brief Gets the height.
+			/// @return Height of april::Texture.
+			int getHeight();
 
 			/// @brief Exposes this class to Ruby.
 			static void createRubyInterface();
+			/// @brief Wraps this instance into a Ruby cobject.
+			/// @return Ruby object.
+			VALUE wrap();
+			/// @brief Frees additional resources used by this instance.
+			/// @param[in] bitmap Bitmap to free.
+			static void gc_free(Bitmap* bitmap);
 			/// @brief Ruby allocation of an instance.
 			static VALUE rb_new(VALUE classe);
 			/// @brief Sets the bitmap dimensions
@@ -43,17 +57,16 @@ namespace zer0
 			/// @brief Gets a string representation of the instance.
 			/// @return String representation of the instance.
 			static VALUE rb_inspect(VALUE self);
-			/// @brief Marks referenced values of bitmap for garbage collection.
-			/// @param[in] bitmap Bitmap to mark.
-			static void gc_mark(Bitmap* bitmap);
 			/// @brief Frees the memory for the bitmap.
 			static VALUE rb_dispose(VALUE self);
 
-			// public getters/setters
 			/// @brief Gets the height of the bitmap.
 			static VALUE rb_getHeight(VALUE self);
 			/// @brief Gets the width of the bitmap.
 			static VALUE rb_getWidth(VALUE self);
+
+
+
 			/// @brief Gets the font of the bitmap.
 			static VALUE rb_getFont(VALUE self);
 			/// @brief Sets the font used for the bitmap.
@@ -62,7 +75,6 @@ namespace zer0
 			/// @brief Gets the bitmap's rectangle.
 			static VALUE rb_getRect(VALUE self);
 
-			// public methods
 			/// @brief Checks whether bitmap is disposed.
 			/// @return bool True if bitmap has been freed.
 			static VALUE rb_isDisposed(VALUE self);
@@ -72,7 +84,7 @@ namespace zer0
 			/// @param[in] src_bitmap The Bitmap to transfer from.
 			/// @param[in] src_rect The rect to transfer from src_bitmap.
 			/// @param[in] opacity The alpha blend of the blit operation.
-			static VALUE rb_blckTran(VALUE self, VALUE x, VALUE y, VALUE src_bitmap, VALUE src_rect, VALUE opacity);
+			static VALUE rb_blt(VALUE self, VALUE x, VALUE y, VALUE src_bitmap, VALUE src_rect, VALUE opacity);
 			/// @brief Clears the entire bitmap
 			static VALUE rb_clear(VALUE self);
 			/// @brief Sets the color to the specified value.
@@ -109,12 +121,16 @@ namespace zer0
 			static VALUE rb_textSize(VALUE self, VALUE value);
 
 		protected:
-			// Protected instance variables
 			/// @brief The Font used to draw text.
 			Font font;
 			/// @brief The bitmap's rectangle.
 			Rect rect;
+
+			/// @brief The underlying rednering system texture.
+			april::Texture* texture;
+
 		};
 	}
 }
 #endif
+
