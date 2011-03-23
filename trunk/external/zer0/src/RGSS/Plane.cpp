@@ -49,16 +49,20 @@ namespace zer0
 			rb_define_method(rb_cPlane, "disposed?", RUBY_METHOD_FUNC(&Plane::rb_isDisposed), 0);
 		}
 
-		void Plane::gc_mark(Plane* plane) {}
+		void Plane::gc_free(Plane* plane)
+		{
+		}
 
 		VALUE Plane::rb_new(VALUE classe)
 		{
 			return classe;
 		}
+
 		VALUE Plane::rb_initialize(int argc, VALUE* argv, VALUE self)
 		{
 			return self;
 		}
+
 		VALUE Plane::rb_inspect(VALUE self)
 		{
 			return self;

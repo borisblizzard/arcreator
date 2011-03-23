@@ -16,7 +16,6 @@ namespace zer0
 		class zer0Export Table
 		{
 		public:
-			static VALUE rb_cTable;
 			/// @todo Dummy for now, needs to be removed later.
 			Table();
 			// @todo Dummy for now, needs to be removed later.
@@ -24,6 +23,12 @@ namespace zer0
 
 			/// @brief Exposes this class to Ruby.
 			static void createRubyInterface();
+			/// @brief Wraps this instance into a Ruby cobject.
+			/// @return Ruby object.
+			VALUE wrap();
+			/// @brief Marks referenced values of bitmap for garbage collection.
+			/// @param[in] bitmap Bitmap to mark.
+			static void gc_mark(Table* table);
 			/// @brief Ruby allocation of an instance.
 			static VALUE rb_new(VALUE classe);
 			/// @brief Sets the rect to the specified value.
@@ -33,9 +38,6 @@ namespace zer0
 			/// @brief Gets a string representation of the instance.
 			/// @return String representation of the instance.
 			static VALUE rb_inspect(VALUE self);
-			/// @brief Marks referenced values of bitmap for garbage collection.
-			/// @param[in] bitmap Bitmap to mark.
-			static void gc_mark(Table* table);
 			/// @brief Gets the X dimension size.
 			/// @return X dimension size.
 			static VALUE rb_getXSize(VALUE self);

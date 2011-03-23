@@ -17,11 +17,17 @@ namespace zer0
 		class zer0Export Viewport
 		{
 		public:
+			Viewport();
+			Viewport(int x, int y, int width, int height);
+			Viewport(Rect rect);
+			~Viewport();
+
 			/// @brief Exposes this class to Ruby.
 			static void createRubyInterface();
+			/// @brief Wraps this instance into a Ruby cobject.
+			/// @return Ruby object.
+			VALUE wrap();
 
-			Viewport();
-			~Viewport();
 			Color color;
 			Rect rect;
 			Tone tone;
@@ -29,9 +35,6 @@ namespace zer0
 			int ox;
 			int oy;
 			int z;
-
-			Viewport(int x, int y, int width, int height);
-			Viewport(Rect rect);
 
 			void setColor(float r, float g, float b, float a = 255.0f);
 			void setTone(float r, float g, float b, float gr = 255.0f);

@@ -51,59 +51,59 @@ namespace zer0
 
 		VALUE Tone::rb_inspect(VALUE self)
 		{
-			RB_VAR2CPP(Tone, color);
+			RB_SELF2CPP(Tone, color);
 			hstr result = hsprintf("(%.1f,%.1f,%.1f,%.1f)", color->red, color->green, color->blue, color->gray);
 			return rb_str_new2(result.c_str());
 		}
 
 		VALUE Tone::rb_getRed(VALUE self)
 		{
-			RB_VAR2CPP(Tone, color);
+			RB_SELF2CPP(Tone, color);
 			return rb_float_new(color->red);
 		}
 
 		VALUE Tone::rb_setRed(VALUE self, VALUE value)
 		{
-			RB_VAR2CPP(Tone, color);
+			RB_SELF2CPP(Tone, color);
 			color->red = hclamp((float)NUM2DBL(value), -255.0f, 255.0f);
 			return self;
 		}
 
 		VALUE Tone::rb_getGreen(VALUE self)
 		{
-			RB_VAR2CPP(Tone, color);
+			RB_SELF2CPP(Tone, color);
 			return rb_float_new(color->green);
 		}
 
 		VALUE Tone::rb_setGreen(VALUE self, VALUE value)
 		{
-			RB_VAR2CPP(Tone, color);
+			RB_SELF2CPP(Tone, color);
 			color->green = hclamp((float)NUM2DBL(value), -255.0f, 255.0f);
 			return self;
 		}
 
 		VALUE Tone::rb_getBlue(VALUE self)
 		{
-			RB_VAR2CPP(Tone, color);
+			RB_SELF2CPP(Tone, color);
 			return rb_float_new(color->blue);
 		}
 
 		VALUE Tone::rb_setBlue(VALUE self, VALUE value)
 		{
-			RB_VAR2CPP(Tone, color);
+			RB_SELF2CPP(Tone, color);
 			color->blue = hclamp((float)NUM2DBL(value), -255.0f, 255.0f);
 			return self;
 		}
 
 		VALUE Tone::rb_getGray(VALUE self)
 		{
-			RB_VAR2CPP(Tone, color);
+			RB_SELF2CPP(Tone, color);
 			return rb_float_new(color->gray);
 		}
 
 		VALUE Tone::rb_setGray(VALUE self, VALUE value)
 		{
-			RB_VAR2CPP(Tone, color);
+			RB_SELF2CPP(Tone, color);
 			color->gray = hclamp((float)NUM2DBL(value), 0.0f, 255.0f);
 			return self;
 		}
@@ -113,7 +113,7 @@ namespace zer0
 			VALUE r, g, b, a;
 			// "31" means 3 mandatory arguments, 1 optional argument
 			rb_scan_args(argc, argv, "31", &r, &g, &b, &a);
-			RB_VAR2CPP(Tone, color);
+			RB_SELF2CPP(Tone, color);
 			color->red = hclamp((float)NUM2DBL(r), -255.0f, 255.0f);
 			color->green = hclamp((float)NUM2DBL(g), -255.0f, 255.0f);
 			color->blue = hclamp((float)NUM2DBL(b), -255.0f, 255.0f);

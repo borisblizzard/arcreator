@@ -1,5 +1,6 @@
 #include <ruby.h>
 
+#include <april/Color.h>
 #include <hltypes/util.h>
 
 #include "RGSS/Color.h"
@@ -9,6 +10,10 @@ namespace zer0
 {
 	namespace RGSS
 	{
+		/****************************************************************************************
+		 * Pure C++ code
+		 ****************************************************************************************/
+
 		void Color::set(float r, float g, float b, float a)
 		{
 			this->red = hclamp(r, -255.0f, 255.0f);
@@ -16,6 +21,18 @@ namespace zer0
 			this->blue = hclamp(b, -255.0f, 255.0f);
 			this->alpha = hclamp(a, 0.0f, 255.0f);
 		}
+
+		void Color::set(april::Color color)
+		{
+			this->red = (float)color.r;
+			this->green = (float)color.g;
+			this->blue = (float)color.b;
+			this->alpha = (float)color.a;
+		}
+
+		/****************************************************************************************
+		 * Ruby Interfacing, Creation, Destruction, Systematics
+		 ****************************************************************************************/
 
 		void Color::createRubyInterface()
 		{
@@ -38,6 +55,12 @@ namespace zer0
 			// static methods
 		}
 
+		VALUE Color::wrap()
+		{
+			Color* color = this;
+			return Data_Wrap_Struct(rb_cColor, NULL, NULL, color);
+		}
+
 		VALUE Color::rb_new(VALUE classe)
 		{
 			Color* color;
@@ -51,69 +74,77 @@ namespace zer0
 
 		VALUE Color::rb_inspect(VALUE self)
 		{
-			RB_VAR2CPP(Color, color);
+			RB_SELF2CPP(Color, color);
 			hstr result = hsprintf("(%.1f,%.1f,%.1f,%.1f)", color->red, color->green, color->blue, color->alpha);
 			return rb_str_new2(result.c_str());
 		}
 
+		/****************************************************************************************
+		 * Ruby Getters/Setters
+		 ****************************************************************************************/
+
 		VALUE Color::rb_getRed(VALUE self)
 		{
-			RB_VAR2CPP(Color, color);
+			RB_SELF2CPP(Color, color);
 			return rb_float_new(color->red);
 		}
 
 		VALUE Color::rb_setRed(VALUE self, VALUE value)
 		{
-			RB_VAR2CPP(Color, color);
+			RB_SELF2CPP(Color, color);
 			color->red = hclamp((float)NUM2DBL(value), -255.0f, 255.0f);
 			return self;
 		}
 
 		VALUE Color::rb_getGreen(VALUE self)
 		{
-			RB_VAR2CPP(Color, color);
+			RB_SELF2CPP(Color, color);
 			return rb_float_new(color->green);
 		}
 
 		VALUE Color::rb_setGreen(VALUE self, VALUE value)
 		{
-			RB_VAR2CPP(Color, color);
+			RB_SELF2CPP(Color, color);
 			color->green = hclamp((float)NUM2DBL(value), -255.0f, 255.0f);
 			return self;
 		}
 
 		VALUE Color::rb_getBlue(VALUE self)
 		{
-			RB_VAR2CPP(Color, color);
+			RB_SELF2CPP(Color, color);
 			return rb_float_new(color->blue);
 		}
 
 		VALUE Color::rb_setBlue(VALUE self, VALUE value)
 		{
-			RB_VAR2CPP(Color, color);
+			RB_SELF2CPP(Color, color);
 			color->blue = hclamp((float)NUM2DBL(value), -255.0f, 255.0f);
 			return self;
 		}
 
 		VALUE Color::rb_getAlpha(VALUE self)
 		{
-			RB_VAR2CPP(Color, color);
+			RB_SELF2CPP(Color, color);
 			return rb_float_new(color->alpha);
 		}
 
 		VALUE Color::rb_setAlpha(VALUE self, VALUE value)
 		{
-			RB_VAR2CPP(Color, color);
+			RB_SELF2CPP(Color, color);
 			color->alpha = hclamp((float)NUM2DBL(value), 0.0f, 255.0f);
 			return self;
 		}
+
+		/****************************************************************************************
+		 * Ruby Methods
+		 ****************************************************************************************/
 
 		VALUE Color::rb_set(int argc, VALUE* argv, VALUE self)
 		{
 			VALUE r, g, b, a;
 			// "31" means 3 mandatory arguments, 1 optional argument
 			rb_scan_args(argc, argv, "31", &r, &g, &b, &a);
-			RB_VAR2CPP(Color, color);
+			RB_SELF2CPP(Color, color);
 			color->red = hclamp((float)NUM2DBL(r), -255.0f, 255.0f);
 			color->green = hclamp((float)NUM2DBL(g), -255.0f, 255.0f);
 			color->blue = hclamp((float)NUM2DBL(b), -255.0f, 255.0f);

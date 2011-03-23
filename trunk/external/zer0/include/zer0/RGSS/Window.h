@@ -21,11 +21,15 @@ namespace zer0
 		public:
 			/// @brief Exposes this class to Ruby.
 			static void createRubyInterface();
-			/// @brief Frees the sprite.
-			static VALUE dispose(VALUE self);
+			/// @brief Wraps this instance into a Ruby cobject.
+			/// @return Ruby object.
+			VALUE wrap();
 			/// @brief Basic constructor.
 			/// @param[in] value Viewport component.
 			static VALUE initialize(int argc, VALUE *argv, VALUE self);
+			/// @brief Frees the sprite.
+			static VALUE dispose(VALUE self);
+
 			/// @brief Returns true if disposed, else false.
 			static VALUE isDisposed(VALUE self);
 			/// @brief Set the back opacity.

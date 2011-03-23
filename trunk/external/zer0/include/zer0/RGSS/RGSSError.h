@@ -17,26 +17,18 @@ namespace zer0
 		class zer0Export RGSSError : public hltypes::exception
 		{
 		public:
-			/*
-			// constructors/destructor
-			/// @brief Basic constructor
-			RGSSError();
-			// constructors/destructor
-			/// @brief Basic constructor with supplied message.
-			RGSSError(chstr message);
-			// constructors/destructor
-			/// @brief Basic destructor
-			~RGSSError();
-			*/
-
 			/// @brief Exposes this class to Ruby.
 			static void createRubyInterface();
+			/// @brief Wraps this instance into a Ruby cobject.
+			/// @return Ruby object.
+			VALUE wrap();
+			/// @brief Ruby allocation of an instance.
+			static VALUE rb_new(VALUE classe);
 			/// @brief Sets the bitmap dimensions
 			/// @param[in] argc Number of arguments.
 			/// @param[in] argv Pointer to first argument.
 			static VALUE rb_initialize(int argc, VALUE* argv, VALUE self);
-			/// @brief Ruby allocation of an instance.
-			static VALUE rb_new(VALUE classe);
+
 			/// @brief Gets the exception from the parent class.
 			/// @return Exception of the parent.
 			static VALUE rb_getException(VALUE self);
