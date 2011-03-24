@@ -15,8 +15,8 @@ s1.x = 100
 GC.start
 s2 = Sprite.new
 s1.bitmap.fill_rect(200, 0, 50, 50, Color.new(255, 0, 0))
-#s1.bitmap.set_pixel(s1.bitmap.width - 1, s1.bitmap.height - 1, Color.new(255, 0, 0))
 s2.bitmap = Bitmap.new(64, 64)
+
 c = Color.new(255, 255, 255)
 s2.bitmap.set_pixel(0, 0, c)
 s2.bitmap.set_pixel(1, 0, c)
@@ -24,12 +24,14 @@ s2.bitmap.set_pixel(0, 1, c)
 s2.bitmap.set_pixel(1, 1, c)
 s2.bitmap.fill_rect(5, 5, 10, 10, Color.new(0, 255, 0))
 s2.bitmap.fill_rect(Rect.new(0, 30, 30, 30), Color.new(255, 255, 0))
+
 c = s2.bitmap.get_pixel(5, 31)
 p c.class
 p c
 s2.y = 100
 s1.z = 10
 GC.start
+
 loop do
 	Graphics.update
 	Input.update
