@@ -21,20 +21,20 @@ namespace zer0
 			~Rect() { }
 
 			/// @brief X coordinate.
-			float x;
+			int x;
 			/// @brief Y coordinate.
-			float y;
+			int y;
 			/// @brief Width.
-			float width;
+			int width;
 			/// @brief Height.
-			float height;
+			int height;
 
 			/// @brief Sets the rect to the specified value.
-			/// @param[in] x Y coordinate.
-			/// @param[in] y X coordinate.
+			/// @param[in] x X coordinate.
+			/// @param[in] y Y coordinate.
 			/// @param[in] width The width.
 			/// @param[in] height The height.
-			void set(float x, float y, float width, float height);
+			void set(int x, int y, int width, int height);
 
 			/// @brief Exposes this class to Ruby.
 			static void createRubyInterface();
@@ -43,10 +43,12 @@ namespace zer0
 			VALUE wrap();
 			/// @brief Ruby allocation of an instance.
 			static VALUE rb_new(VALUE classe);
-			/// @brief Sets the rect to the specified value.
-			/// @param[in] argc Number of arguments.
-			/// @param[in] argv Pointer to first argument.
-			static VALUE rb_initialize(int argc, VALUE* argv, VALUE self);
+			/// @brief Constructor.
+			/// @param[in] x X coordinate.
+			/// @param[in] y Y coordinate.
+			/// @param[in] width The width.
+			/// @param[in] height The height.
+			static VALUE rb_initialize(VALUE self, VALUE x, VALUE y, VALUE width, VALUE height);
 			/// @brief Gets a string representation of the instance.
 			/// @return String representation of the instance.
 			static VALUE rb_inspect(VALUE self);
@@ -77,10 +79,11 @@ namespace zer0
 			static VALUE rb_setHeight(VALUE self, VALUE value);
 
 			/// @brief Sets the rect to the specified value.
-			/// @param[in] argc Number of arguments.
-			/// @param[in] argv Pointer to first argument.
-			/// @note Arguments are "x, y, width, height".
-			static VALUE rb_set(int argc, VALUE* argv, VALUE self);
+			/// @param[in] x X coordinate.
+			/// @param[in] y Y coordinate.
+			/// @param[in] width The width.
+			/// @param[in] height The height.
+			static VALUE rb_set(VALUE self, VALUE x, VALUE y, VALUE width, VALUE height);
 
 		};
 	

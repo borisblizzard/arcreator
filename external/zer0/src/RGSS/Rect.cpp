@@ -9,7 +9,7 @@ namespace zer0
 {
 	namespace RGSS
 	{
-		void Rect::set(float x, float y, float width, float height)
+		void Rect::set(int x, int y, int width, int height)
 		{
 			this->x = x;
 			this->y = y;
@@ -22,7 +22,7 @@ namespace zer0
 			rb_cRect = rb_define_class("Rect", rb_cObject);
 			rb_define_alloc_func(rb_cRect, &Rect::rb_new);
 			// initialize
-			rb_define_method(rb_cRect, "initialize", RUBY_METHOD_FUNC(&Rect::rb_initialize), -1);
+			rb_define_method(rb_cRect, "initialize", RUBY_METHOD_FUNC(&Rect::rb_initialize), 4);
 			rb_define_method(rb_cRect, "inspect", RUBY_METHOD_FUNC(&Rect::rb_inspect), 0);
 			// getters and setters
 			rb_define_method(rb_cRect, "x", RUBY_METHOD_FUNC(&Rect::rb_getX), 0);
@@ -34,7 +34,7 @@ namespace zer0
 			rb_define_method(rb_cRect, "height", RUBY_METHOD_FUNC(&Rect::rb_getHeight), 0);
 			rb_define_method(rb_cRect, "height=", RUBY_METHOD_FUNC(&Rect::rb_setHeight), 1);
 			// all other methods
-			rb_define_method(rb_cRect, "set", RUBY_METHOD_FUNC(&Rect::rb_set), -1);
+			rb_define_method(rb_cRect, "set", RUBY_METHOD_FUNC(&Rect::rb_set), 4);
 			// static methods
 		}
 
@@ -50,9 +50,10 @@ namespace zer0
 			return Data_Make_Struct(classe, Rect, NULL, NULL, rect);
 		}
 
-		VALUE Rect::rb_initialize(int argc, VALUE* argv, VALUE self)
+		VALUE Rect::rb_initialize(VALUE self, VALUE x, VALUE y, VALUE width, VALUE height)
 		{
-			return Rect::rb_set(argc, argv, self);
+			Rect::rb_set(self, x, y, width, height);
+			return self;
 		}
 
 		VALUE Rect::rb_inspect(VALUE self)
@@ -65,66 +66,63 @@ namespace zer0
 		VALUE Rect::rb_getX(VALUE self)
 		{
 			RB_SELF2CPP(Rect, rect);
-			return rb_float_new(rect->x);
+			return INT2FIX(rect->x);
 		}
 
 		VALUE Rect::rb_setX(VALUE self, VALUE value)
 		{
 			RB_SELF2CPP(Rect, rect);
-			rect->x = (float)NUM2DBL(value);
-			return self;
+			rect->x = NUM2INT(value);
+			return value;
 		}
 
 		VALUE Rect::rb_getY(VALUE self)
 		{
 			RB_SELF2CPP(Rect, rect);
-			return rb_float_new(rect->y);
+			return INT2FIX(rect->y);
 		}
 
 		VALUE Rect::rb_setY(VALUE self, VALUE value)
 		{
 			RB_SELF2CPP(Rect, rect);
-			rect->y = (float)NUM2DBL(value);
-			return self;
+			rect->y = NUM2INT(value);
+			return value;
 		}
 
 		VALUE Rect::rb_getWidth(VALUE self)
 		{
 			RB_SELF2CPP(Rect, rect);
-			return rb_float_new(rect->width);
+			return INT2FIX(rect->width);
 		}
 
 		VALUE Rect::rb_setWidth(VALUE self, VALUE value)
 		{
 			RB_SELF2CPP(Rect, rect);
-			rect->width = (float)NUM2DBL(value);
-			return self;
+			rect->width = INT2FIX(value);
+			return value;
 		}
 
 		VALUE Rect::rb_getHeight(VALUE self)
 		{
 			RB_SELF2CPP(Rect, rect);
-			return rb_float_new(rect->height);
+			return INT2FIX(rect->height);
 		}
 
 		VALUE Rect::rb_setHeight(VALUE self, VALUE value)
 		{
 			RB_SELF2CPP(Rect, rect);
-			rect->height = (float)NUM2DBL(value);
-			return self;
+			rect->height = NUM2INT(value);
+			return value;
 		}
 
-		VALUE Rect::rb_set(int argc, VALUE* argv, VALUE self)
+		VALUE Rect::rb_set(VALUE self, VALUE x, VALUE y, VALUE width, VALUE height)
 		{
-			VALUE x, y, width, height;
-			// "31" means 3 mandatory arguments, 1 optional argument
-			rb_scan_args(argc, argv, "4", &x, &y, &width, &height);
 			RB_SELF2CPP(Rect, rect);
-			rect->x = (float)NUM2DBL(x);
-			rect->y = (float)NUM2DBL(y);
-			rect->width = (float)NUM2DBL(width);
-			rect->height = (float)NUM2DBL(height);
-			return self;
+			rect->x = NUM2INT(x);
+			rect->y = NUM2INT(y);
+			rect->width = NUM2INT(width);
+			rect->height = NUM2INT(height);
+			return Qnil;
 		}
 
 	}

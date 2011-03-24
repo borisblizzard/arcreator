@@ -12,6 +12,7 @@
 
 namespace april
 {
+	class ImageSource;
 	class Texture;
 }
 
@@ -38,6 +39,8 @@ namespace zer0
 			/// @brief Gets the height.
 			/// @return Height of april::Texture.
 			int getHeight();
+			/// @brief Updates the texture on the graphic card if necessary.
+			void Bitmap::updateTexture();
 
 			/// @brief Exposes this class to Ruby.
 			static void createRubyInterface();
@@ -128,6 +131,9 @@ namespace zer0
 
 			/// @brief The underlying rednering system texture.
 			april::Texture* texture;
+			april::ImageSource* imageSource;
+			//unsigned char* imageData;
+			bool textureNeedsUpdate;
 
 		};
 	}

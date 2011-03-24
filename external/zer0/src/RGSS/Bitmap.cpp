@@ -1,5 +1,6 @@
 #include <ruby.h>
 
+#include <april/ImageSource.h>
 #include <april/RenderSystem.h>
 #include <april/Texture.h>
 #include <hltypes/exception.h>
@@ -28,6 +29,20 @@ namespace zer0
 			return this->texture->getHeight();
 		}
 
+		void Bitmap::updateTexture()
+		{
+			if (this->textureNeedsUpdate)
+			{
+				this->textureNeedsUpdate = false;
+				if (this->texture != NULL)
+				{
+					delete this->texture;
+				}
+				this->texture = april::rendersys->createTextureFromMemory(
+					this->imageSource->data, this->imageSource->w, this->imageSource->h);
+			}
+		}
+
 		/****************************************************************************************
 		 * Ruby Interfacing, Creation, Destruction, Systematics
 		 ****************************************************************************************/
@@ -46,15 +61,16 @@ namespace zer0
 			rb_define_method(rb_cBitmap, "font=", RUBY_METHOD_FUNC(&Bitmap::rb_setFont), 1);
 			rb_define_method(rb_cBitmap, "rect", RUBY_METHOD_FUNC(&Bitmap::rb_getRect), 0);
 			// methods
-			rb_define_method(rb_cBitmap, "get_pixel", RUBY_METHOD_FUNC(&Bitmap::rb_getPixel), 2); 
+			rb_define_method(rb_cBitmap, "get_pixel", RUBY_METHOD_FUNC(&Bitmap::rb_getPixel), 2);
+			rb_define_method(rb_cBitmap, "set_pixel", RUBY_METHOD_FUNC(&Bitmap::rb_setPixel), 3);
+			rb_define_method(rb_cBitmap, "fill_rect", RUBY_METHOD_FUNC(&Bitmap::rb_fillRect), -1); 
 			// not implemented yet
-			rb_define_method(rb_cBitmap, "set_pixel", RUBY_METHOD_FUNC(&Bitmap::rb_setPixel), 3); 
+			
 			rb_define_method(rb_cBitmap, "blt", RUBY_METHOD_FUNC(&Bitmap::rb_blt), -1); 
 			rb_define_method(rb_cBitmap, "clear", RUBY_METHOD_FUNC(&Bitmap::rb_clear), 0); 
 			rb_define_method(rb_cBitmap, "dispose", RUBY_METHOD_FUNC(&Bitmap::rb_dispose), 0); 
 			rb_define_method(rb_cBitmap, "disposed?", RUBY_METHOD_FUNC(&Bitmap::rb_isDisposed), 0); 
 			rb_define_method(rb_cBitmap, "draw_text", RUBY_METHOD_FUNC(&Bitmap::rb_drawText), -1); 
-			rb_define_method(rb_cBitmap, "fill_rect", RUBY_METHOD_FUNC(&Bitmap::rb_fillRect), -1); 
 			rb_define_method(rb_cBitmap, "hue_change", RUBY_METHOD_FUNC(&Bitmap::rb_changeHue), 1); 
 			rb_define_method(rb_cBitmap, "stretch_blt", RUBY_METHOD_FUNC(&Bitmap::rb_stretchBlt), 4); 
 			rb_define_method(rb_cBitmap, "text_size", RUBY_METHOD_FUNC(&Bitmap::rb_textSize), 1); 
@@ -68,6 +84,11 @@ namespace zer0
 
 		void Bitmap::gc_free(Bitmap* bitmap)
 		{
+			if (bitmap->imageSource != NULL)
+			{
+				delete bitmap->imageSource;
+				bitmap->imageSource = NULL;
+			}
 			if (bitmap->texture != NULL)
 			{
 				delete bitmap->texture;
@@ -90,12 +111,14 @@ namespace zer0
 			if (NIL_P(arg2))
 			{
 				hstr filename = april::rendersys->findTextureFile(StringValuePtr(arg1));
-				bitmap->texture = april::rendersys->loadTexture(filename);
+				bitmap->imageSource = april::loadImage(filename);
 			}
 			else
 			{
-				bitmap->texture = april::rendersys->createEmptyTexture(NUM2INT(arg1), NUM2INT(arg2));
+				bitmap->imageSource = april::createEmptyImage(NUM2INT(arg1), NUM2INT(arg2));
 			}
+			bitmap->textureNeedsUpdate = true;
+			bitmap->updateTexture();
 			return self;
 		}
 
@@ -122,22 +145,62 @@ namespace zer0
 		VALUE Bitmap::rb_getPixel(VALUE self, VALUE x, VALUE y)
 		{
 			RB_SELF2CPP(Bitmap, bitmap);
-			april::Color aColor = bitmap->texture->getPixel(NUM2INT(x), NUM2INT(y));
-			VALUE result = Color::rb_new(rb_cColor);
-			RB_VAR2CPP(result, Color, color);
-			color->set(aColor);
-			return result;
+			april::Color aColor = bitmap->imageSource->getPixel(NUM2INT(x), NUM2INT(y));
+			Color* cColor = new Color();
+			cColor->set(aColor);
+			return cColor->wrap();
 		}
 
-		/// @todo This is problematic because after the change, this texture has to be uploaded to the graphic card again.
-		/// @todo It might be a good idea to put together an update batch that updates the texture on drawing only.
 		VALUE Bitmap::rb_setPixel(VALUE self, VALUE x, VALUE y, VALUE color)
 		{
 			RB_SELF2CPP(Bitmap, bitmap);
 			RB_VAR2CPP(color, Color, cColor);
 			april::Color aColor((int)cColor->red, (int)cColor->green, (int)cColor->blue, (int)cColor->alpha);
-			//bitmap->texture->setPixel(NUM2INT(x), NUM2INT(y), aColor);
+			bitmap->imageSource->setPixel(NUM2INT(x), NUM2INT(y), aColor);
+			bitmap->textureNeedsUpdate = true;
 			return Qnil;
+		}
+
+		/// @todo Needs to be optimized via april::ImageSource
+		VALUE Bitmap::rb_fillRect(int argc, VALUE* argv, VALUE self)
+		{
+			if (argc != 2 && argc != 5)
+			{
+				hstr message = hsprintf("wrong number of arguments (%d for 2 or 5)", argc);
+				rb_raise(rb_eArgError, message.c_str());
+			}
+			RB_SELF2CPP(Bitmap, bitmap);
+			int x, y, w, h;
+			VALUE arg1, arg2, arg3, arg4, color;
+			rb_scan_args(argc, argv, "23", &arg1, &arg2, &arg3, &arg4, &color);
+			if (NIL_P(arg3) && NIL_P(arg4) && NIL_P(color))
+			{
+				color = arg2;
+				RB_VAR2CPP(arg1, Rect, rect);
+				x = rect->x;
+				y = rect->y;
+				w = rect->width;
+				h = rect->height;
+			}
+			else
+			{
+				x = NUM2INT(arg1);
+				y = NUM2INT(arg2);
+				w = NUM2INT(arg3);
+				h = NUM2INT(arg4);
+			}
+			RB_VAR2CPP(color, Color, cColor);
+			april::Color aColor((int)cColor->red, (int)cColor->green, (int)cColor->blue, (int)cColor->alpha);
+			// this double loop should be handled by ImageSource when a fill_rect variant is implemented there
+			for_iter (j, y, y + h)
+			{
+				for_iter (i, x, x + w)
+				{
+					bitmap->imageSource->setPixel(i, j, aColor);
+				}
+			}
+			bitmap->textureNeedsUpdate = true;
+			return self;
 		}
 
 		/****************************************************************************************
@@ -183,11 +246,6 @@ namespace zer0
 		}
 
 		VALUE Bitmap::rb_drawText(int argc, VALUE* argv, VALUE self)
-		{
-			return self;
-		}
-
-		VALUE Bitmap::rb_fillRect(int argc, VALUE* argv, VALUE self)
 		{
 			return self;
 		}
