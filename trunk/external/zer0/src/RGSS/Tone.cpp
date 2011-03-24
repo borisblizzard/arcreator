@@ -52,7 +52,8 @@ namespace zer0
 
 		VALUE Tone::rb_initialize(int argc, VALUE* argv, VALUE self)
 		{
-			return Tone::rb_set(argc, argv, self);
+			Tone::rb_set(argc, argv, self);
+			return self;
 		}
 
 		VALUE Tone::rb_inspect(VALUE self)
@@ -124,7 +125,7 @@ namespace zer0
 			color->green = hclamp((float)NUM2DBL(g), -255.0f, 255.0f);
 			color->blue = hclamp((float)NUM2DBL(b), -255.0f, 255.0f);
 			color->gray = (NIL_P(a) ? 255.0f : hclamp((float)NUM2DBL(a), 0.0f, 255.0f));
-			return self;
+			return Qnil;
 		}
 
 	}

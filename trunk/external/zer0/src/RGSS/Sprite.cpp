@@ -25,6 +25,7 @@ namespace zer0
 		{
 			if (this->bitmap != NULL)
 			{
+				this->bitmap->updateTexture();
 				april::rendersys->setTexture(this->bitmap->getTexture());
 				april::rendersys->drawTexturedQuad(
 					grect(this->x, this->y, this->bitmap->getWidth(), this->bitmap->getHeight()), grect(0, 0, 1, 1));
@@ -152,7 +153,7 @@ namespace zer0
 		VALUE Sprite::rb_getBitmap(VALUE self)
 		{
 			RB_SELF2CPP(Sprite, sprite);
-			return sprite->bitmap->wrap();
+			return sprite->rb_bitmap;
 		}
 
 		VALUE Sprite::rb_setBitmap(VALUE self, VALUE value)
