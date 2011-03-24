@@ -1,4 +1,5 @@
-#ifndef ZER0_RGSS_WINDOW_H#define ZER0_RGSS_WINDOW_H
+#ifndef ZER0_RGSS_WINDOW_H
+#define ZER0_RGSS_WINDOW_H
 
 #include <ruby.h>
 
@@ -29,7 +30,7 @@ namespace zer0
 			/// @param[in] argc Number of arguments.
 			/// @param[in] argv Pointer to first argument.
 			static VALUE rb_initialize(int argc, VALUE* argv, VALUE self);
-Z			/// @brief Disposes the object.
+			/// @brief Disposes the object.
 			static VALUE dispose(VALUE self);
 
 			/// @brief Returns true if disposed, else false.
