@@ -1,6 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual C++ Express 2010
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "arc", "arc.vcxproj", "{E981D4B9-155F-496E-9C5D-3A6595A35CB8}"
+	ProjectSection(ProjectDependencies) = postProject
+		{2AAB8E59-CA6D-40F3-9006-547341626727} = {2AAB8E59-CA6D-40F3-9006-547341626727}
+	EndProjectSection
+EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libapril", "external\april\libapril.vcxproj", "{2D053CDA-686B-4B36-80EB-1DA5F0CEF8F9}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libaprilui", "external\aprilui\libaprilui.vcxproj", "{56FF74D1-34D0-4DDB-8B89-F6F9200842B8}"
@@ -14,11 +19,6 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libxal", "external\xal\libxal.vcxproj", "{6B6C070B-7DD7-41B9-8DD7-12AFBF0F6C08}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libaprilutil", "external\april\aprilutil\libaprilutil.vcxproj", "{2D053CDA-686C-4B36-80EB-1DA5F0CEF8F9}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "arc", "arc.vcxproj", "{E981D4B9-155F-496E-9C5D-3A6595A35CB8}"
-	ProjectSection(ProjectDependencies) = postProject
-		{2AAB8E59-CA6D-40F3-9006-547341626727} = {2AAB8E59-CA6D-40F3-9006-547341626727}
-	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "zer0", "external\zer0\zer0.vcxproj", "{2AAB8E59-CA6D-40F3-9006-547341626727}"
 	ProjectSection(ProjectDependencies) = postProject

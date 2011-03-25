@@ -72,7 +72,7 @@
       <ImportLibrary>
       </ImportLibrary>
       <TargetMachine>MachineX86</TargetMachine>
-      <UACUIAccess>true</UACUIAccess>
+      <UACUIAccess>false</UACUIAccess>
       <SuppressStartupBanner>true</SuppressStartupBanner>
     </Link>
     <PostBuildEvent>
@@ -121,7 +121,7 @@ copy external\lib\msvc100\*.dll bin\$(Configuration)
       </ImportLibrary>
       <TargetMachine>MachineX86</TargetMachine>
       <SetChecksum>true</SetChecksum>
-      <UACUIAccess>true</UACUIAccess>
+      <UACUIAccess>false</UACUIAccess>
     </Link>
     <Manifest>
       <AdditionalManifestFiles>
