@@ -1,0 +1,16 @@
+Project Management:
+- Boris Mikiæ (alias Blizzard)
+
+Engine Design & Programming:
+- Eric Freed (alias ForeverZer0)
+- Boris Mikiæ
+- Ronnie Deen Mooney III (alias game_guy)
+- Benjamin Powers (alias Ryex)
+
+ARC Editor Design & Programming:
+- Benjamin Powers
+
+Special Thanks:
+- nathmatt (for ARC icon artwork)
+- Xuroth (for ARC logo artwork)
+- Chaos Project Community (for the ideas and general support)
