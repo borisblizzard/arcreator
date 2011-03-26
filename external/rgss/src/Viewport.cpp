@@ -8,6 +8,10 @@
 
 namespace rgss
 {
+	void Viewport::init()
+	{
+	}
+
 	void Viewport::createRubyInterface()
 	{
 	}

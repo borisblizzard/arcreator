@@ -7,6 +7,10 @@
 
 namespace rgss 
 {
+	void RGSSError::init()
+	{
+	}
+
 	void RGSSError::createRubyInterface()
 	{
 		rb_cRGSSError = rb_define_class("RGSSError", rb_cObject);

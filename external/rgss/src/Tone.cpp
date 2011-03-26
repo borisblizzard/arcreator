@@ -15,6 +15,10 @@ namespace rgss
 		this->gray = hclamp(a, 0.0f, 255.0f);
 	}
 
+	void Tone::init()
+	{
+	}
+
 	void Tone::createRubyInterface()
 	{
 		rb_cTone = rb_define_class("Tone", rb_cObject);

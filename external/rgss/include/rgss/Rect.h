@@ -34,6 +34,8 @@ namespace rgss
 		/// @param[in] height The height.
 		void set(int x, int y, int width, int height);
 
+		/// @brief Intializes the module.
+		static void init();
 		/// @brief Exposes this class to Ruby.
 		static void createRubyInterface();
 		/// @brief Wraps this instance into a Ruby cobject.

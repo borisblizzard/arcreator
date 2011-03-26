@@ -14,11 +14,6 @@ namespace rgss
 	class rgssExport Graphics
 	{
 	public:
-		/// @brief Intializes the module.
-		static void init();
-		/// @brief Exposes this class to Ruby.
-		static void createRubyInterface();
-
 		/// @brief Adds a new sprite to the rendering queue.
 		/// @param[in] sprite The sprite to be added.
 		static void addSprite(Sprite* sprite);
@@ -31,6 +26,11 @@ namespace rgss
 		/// @brief Sets whether Graphics is still running.
 		/// @param[in] value The new value.
 		static void setRunning(bool value) { running = value; }
+
+		/// @brief Intializes the module.
+		static void init();
+		/// @brief Exposes this class to Ruby.
+		static void createRubyInterface();
 
 		/// @brief Gets the frame count.
 		static VALUE getFrameCount(VALUE self);

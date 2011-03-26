@@ -9,6 +9,10 @@
 
 namespace rgss
 {
+	void Table::init()
+	{
+	}
+
 	void Table::createRubyInterface()
 	{
 		rb_cTable = rb_define_class("Table", rb_cObject);

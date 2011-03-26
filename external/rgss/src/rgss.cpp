@@ -20,10 +20,22 @@ namespace rgss
 {
 	void init()
 	{
-		// initialization of modules
+		// initialization of RGSS classes
 		Audio::init();
+		Bitmap::init();
+		Color::init();
+		Font::init();
 		Graphics::init();
 		Input::init();
+		Plane::init();
+		Rect::init();
+		RGSSError::init();
+		Sprite::init();
+		Table::init();
+		Tilemap::init();
+		Tone::init();
+		Viewport::init();
+		Window::init();
 		// creating Ruby interfaces of C++ classes created for Ruby
 		Audio::createRubyInterface();
 		Bitmap::createRubyInterface();

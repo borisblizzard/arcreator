@@ -19,37 +19,6 @@ namespace rgss
 	bool released[MAX_KEYS];
 	bool keys[MAX_KEYS];
 
-	void Input::createRubyInterface()
-	{
-		rb_mInput = rb_define_module("Input");
-		rb_define_module_function(rb_mInput, "update", RUBY_METHOD_FUNC(&Input::rb_update), 0);
-		rb_define_module_function(rb_mInput, "dir4", RUBY_METHOD_FUNC(&Input::rb_dir4), 0);
-		rb_define_module_function(rb_mInput, "dir8", RUBY_METHOD_FUNC(&Input::rb_dir8), 0);
-		rb_define_module_function(rb_mInput, "trigger?", RUBY_METHOD_FUNC(&Input::rb_trigger), 1);
-		rb_define_module_function(rb_mInput, "repeat?", RUBY_METHOD_FUNC(&Input::rb_repeat), 1);
-		rb_define_module_function(rb_mInput, "press?", RUBY_METHOD_FUNC(&Input::rb_press), 1);
-		rb_define_const(rb_mInput, "DOWN", INT2FIX(Input::DOWN));
-		rb_define_const(rb_mInput, "LEFT", INT2FIX(Input::LEFT));
-		rb_define_const(rb_mInput, "RIGHT", INT2FIX(Input::RIGHT));
-		rb_define_const(rb_mInput, "UP", INT2FIX(Input::UP));
-		rb_define_const(rb_mInput, "A", INT2FIX(Input::A));
-		rb_define_const(rb_mInput, "B", INT2FIX(Input::B));
-		rb_define_const(rb_mInput, "C", INT2FIX(Input::C));
-		rb_define_const(rb_mInput, "X", INT2FIX(Input::X));
-		rb_define_const(rb_mInput, "Y", INT2FIX(Input::Y));
-		rb_define_const(rb_mInput, "Z", INT2FIX(Input::Z));
-		rb_define_const(rb_mInput, "L", INT2FIX(Input::L));
-		rb_define_const(rb_mInput, "R", INT2FIX(Input::R));
-		rb_define_const(rb_mInput, "SHIFT", INT2FIX(Input::SHIFT));
-		rb_define_const(rb_mInput, "CTRL", INT2FIX(Input::CTRL));
-		rb_define_const(rb_mInput, "ALT", INT2FIX(Input::ALT));
-		rb_define_const(rb_mInput, "F5", INT2FIX(Input::F5));
-		rb_define_const(rb_mInput, "F6", INT2FIX(Input::F6));
-		rb_define_const(rb_mInput, "F7", INT2FIX(Input::F7));
-		rb_define_const(rb_mInput, "F8", INT2FIX(Input::F8));
-		rb_define_const(rb_mInput, "F9", INT2FIX(Input::F9));
-	}
-
 	void Input::init()
 	{
 		harray<unsigned int> keys;
@@ -125,6 +94,37 @@ namespace rgss
 			controlKeys += it->second;
 		}
 		controlKeys.removed_duplicates();
+	}
+
+	void Input::createRubyInterface()
+	{
+		rb_mInput = rb_define_module("Input");
+		rb_define_module_function(rb_mInput, "update", RUBY_METHOD_FUNC(&Input::rb_update), 0);
+		rb_define_module_function(rb_mInput, "dir4", RUBY_METHOD_FUNC(&Input::rb_dir4), 0);
+		rb_define_module_function(rb_mInput, "dir8", RUBY_METHOD_FUNC(&Input::rb_dir8), 0);
+		rb_define_module_function(rb_mInput, "trigger?", RUBY_METHOD_FUNC(&Input::rb_trigger), 1);
+		rb_define_module_function(rb_mInput, "repeat?", RUBY_METHOD_FUNC(&Input::rb_repeat), 1);
+		rb_define_module_function(rb_mInput, "press?", RUBY_METHOD_FUNC(&Input::rb_press), 1);
+		rb_define_const(rb_mInput, "DOWN", INT2FIX(Input::DOWN));
+		rb_define_const(rb_mInput, "LEFT", INT2FIX(Input::LEFT));
+		rb_define_const(rb_mInput, "RIGHT", INT2FIX(Input::RIGHT));
+		rb_define_const(rb_mInput, "UP", INT2FIX(Input::UP));
+		rb_define_const(rb_mInput, "A", INT2FIX(Input::A));
+		rb_define_const(rb_mInput, "B", INT2FIX(Input::B));
+		rb_define_const(rb_mInput, "C", INT2FIX(Input::C));
+		rb_define_const(rb_mInput, "X", INT2FIX(Input::X));
+		rb_define_const(rb_mInput, "Y", INT2FIX(Input::Y));
+		rb_define_const(rb_mInput, "Z", INT2FIX(Input::Z));
+		rb_define_const(rb_mInput, "L", INT2FIX(Input::L));
+		rb_define_const(rb_mInput, "R", INT2FIX(Input::R));
+		rb_define_const(rb_mInput, "SHIFT", INT2FIX(Input::SHIFT));
+		rb_define_const(rb_mInput, "CTRL", INT2FIX(Input::CTRL));
+		rb_define_const(rb_mInput, "ALT", INT2FIX(Input::ALT));
+		rb_define_const(rb_mInput, "F5", INT2FIX(Input::F5));
+		rb_define_const(rb_mInput, "F6", INT2FIX(Input::F6));
+		rb_define_const(rb_mInput, "F7", INT2FIX(Input::F7));
+		rb_define_const(rb_mInput, "F8", INT2FIX(Input::F8));
+		rb_define_const(rb_mInput, "F9", INT2FIX(Input::F9));
 	}
 
 	VALUE Input::rb_update(VALUE self)

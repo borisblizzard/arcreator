@@ -9,18 +9,32 @@
 
 namespace rgss
 {
-	static VALUE rb_cFont;
-
 	class Color;
+
+	static VALUE rb_cFont;
 
 	/// @brief Emulates RGSS's Font class.
 	class rgssExport Font
 	{
 	public:
-		/// @todo Dummy for now, needs to be removed later.
-		Font() { }
-		/// @todo Dummy for now, needs to be removed later.
-		~Font() { }
+		/// @brief Default constructor.
+		Font();
+		/// @brief Destructor.
+		~Font();
+
+		/// @brief Default Font name.
+		static hstr defaultName;
+		/// @brief Default Font size.
+		static int defaultSize;
+		/// @brief Default Bold flag.
+		static bool defaultBold;
+		/// @brief Default Italic flag.
+		static bool defaultItalic;
+		/// @brief Default Font Color.
+		/// @todo This will cause memory problems if changed via Ruby, needs to be refactored.
+		static Color* defaultColor;
+
+
 		/*
 		/// @brief Empty constructor.
 		Font();
@@ -35,51 +49,87 @@ namespace rgss
 		~Font();
 		*/
 
+		/// @brief Intializes the module.
+		static void init();
 		/// @brief Exposes this class to Ruby.
 		static void createRubyInterface();
-		/// @brief Wraps into Ruby cobject.
-		/// @param[in] bitmap The bitmap to convert.
+		/// @brief Wraps this instance into a Ruby cobject.
+		/// @return Ruby object.
 		VALUE wrap();
+		/// @brief Marks referenced values of font for garbage collection.
+		/// @param[in] Font Font to mark.
+		static void gc_mark(Font* font);
+		/// @brief Frees allocated memory.
+		/// @param[in] font Font to free.
+		static void gc_free(Font* font);
 		/// @brief Ruby allocation of an instance.
 		static VALUE rb_new(VALUE classe);
 		/// @brief Sets the font parameters.
 		/// @param[in] argc Number of arguments.
 		/// @param[in] argv Pointer to first argument.
 		static VALUE rb_initialize(int argc, VALUE* argv, VALUE self);
-		/// @brief Gets a string representation of the instance.
-		/// @return String representation of the instance.
-		static VALUE rb_inspect(VALUE self);
 
+		/// @brief Gets the font's name.
+		/// @return Name of the font.
+		static VALUE rb_getName(VALUE self);
+		/// @brief Sets the font's name.
+		/// @param[in] Name of the font.
+		static VALUE rb_setName(VALUE self, VALUE value);
+		/// @brief Gets the font's size.
+		/// @return Value of the font's size.
+		static VALUE rb_getSize(VALUE self);
+		/// @brief Sets the font's size.
+		/// @param[in] Value of the font's size.
+		static VALUE rb_setSize(VALUE self, VALUE value);
 		/// @brief Gets the font's bold value.
-		/// @return Bool value of bold parameter.
+		/// @return Value of bold parameter.
 		static VALUE rb_getBold(VALUE self);
 		/// @brief Sets the font's bold value.
-		/// @param[in] Bool value of bold parameter.
+		/// @param[in] Value of bold parameter.
 		static VALUE rb_setBold(VALUE self, VALUE value);
+		/// @brief Gets the font's italic value.
+		/// @return Value of italic parameter.
+		static VALUE rb_getItalic(VALUE self);
+		/// @brief Sets the font's italic value.
+		/// @param[in] Value of italic parameter.
+		static VALUE rb_setItalic(VALUE self, VALUE value);
 		/// @brief Gets the font's color.
 		/// @return Color used for the font.
 		static VALUE rb_getColor(VALUE self);
 		/// @brief Sets the font's color.
 		/// @param[in] Color used for the font.
-		static VALUE rb_setColor(VALUE self, VALUE* value);
-		/// @brief Gets the font's italic value.
-		/// @return Bool value of italic parameter.
-		static VALUE rb_getItalic(VALUE self);
-		/// @brief Sets the font's italic value.
-		/// @param[in] Bool value of italic parameter.
-		static VALUE rb_setItalic(VALUE self, VALUE value);
+		static VALUE rb_setColor(VALUE self, VALUE value);
+
 		/// @brief Gets the font's name.
-		/// @return Hstr name of the font.
-		static VALUE rb_getName(VALUE self);
+		/// @return Default name of the font.
+		static VALUE rb_getDefaultName(VALUE classe);
 		/// @brief Sets the font's name.
-		/// @param[in] Hstr name of the font.
-		static VALUE rb_setName(VALUE self, VALUE value);
+		/// @param[in] Default name of the font.
+		static VALUE rb_setDefaultName(VALUE classe, VALUE value);
 		/// @brief Gets the font's size.
-		/// @return Integer value of the font's size.
-		static VALUE rb_getSize(VALUE self);
+		/// @return Default value of the font's size.
+		static VALUE rb_getDefaultSize(VALUE classe);
 		/// @brief Sets the font's size.
-		/// @param[in] Integer value of the font's size.
-		static VALUE rb_setSize(VALUE self, VALUE value);
+		/// @param[in] Default value of the font's size.
+		static VALUE rb_setDefaultSize(VALUE classe, VALUE value);
+		/// @brief Gets the font's bold value.
+		/// @return Default value of bold parameter.
+		static VALUE rb_getDefaultBold(VALUE classe);
+		/// @brief Sets the font's bold value.
+		/// @param[in] Default value of bold parameter.
+		static VALUE rb_setDefaultBold(VALUE classe, VALUE value);
+		/// @brief Gets the font's italic value.
+		/// @return Bool Default value of italic parameter.
+		static VALUE rb_getDefaultItalic(VALUE classe);
+		/// @brief Sets the font's italic value.
+		/// @param[in] Bool Default value of italic parameter.
+		static VALUE rb_setDefaultItalic(VALUE classe, VALUE value);
+		/// @brief Gets the font's color.
+		/// @return Default Color used for the font.
+		static VALUE rb_getDefaultColor(VALUE classe);
+		/// @brief Sets the font's color.
+		/// @param[in] Default Color used for the font.
+		static VALUE rb_setDefaultColor(VALUE classe, VALUE value);
 
 	protected:
 		/// @brief Font name.
@@ -91,7 +141,10 @@ namespace rgss
 		/// @brief Italic flag.
 		bool italic;
 		/// @brief Font Color.
-		Color color;
+		Color* color;
+		/// @brief Ruby object of font Color.
+		VALUE rb_color;
+
 	};
 
 }
