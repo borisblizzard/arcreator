@@ -2,7 +2,7 @@
 #define RGSS_CONSTANTS_H
 
 #define VERSION_MAJOR (0)
-#define VERSION_MINOR (2)
+#define VERSION_MINOR (3)
 #define VERSION_REVISION (0)
 #define VERSION_BUILD (0)
 
@@ -16,7 +16,7 @@
 #define VER_COMPANYNAME_STR "Chaos Project"
 #define VER_FILEDESCRIPTION_STR "Dynamic Link Library for Zer0 RGSS"
 #define VER_LEGALCOPYRIGHT_STR "© Chaos Project"
-#define VER_PRODUCTNAME_STR "Zer0 Ruby Game Scripting System"
+#define VER_PRODUCTNAME_STR "Zer0 Division Engine Ruby Game Scripting System"
 
 // numeric system constants
 #define TEXTURE_UNLOAD_TIME (5.0f)
