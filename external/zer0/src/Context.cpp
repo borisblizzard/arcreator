@@ -1,6 +1,7 @@
 #include <april/Keys.h>
 #include <aprilui/aprilui.h>
 #include <hltypes/harray.h>
+#include <rgss/Input.h>
 
 #include "CodeSnippets.h"
 #include "Context.h"
@@ -117,14 +118,15 @@ namespace zer0
 	void Context::onKeyDown(unsigned int keycode)
 	{
 		zer0::context->keys[keycode] = true;
+		rgss::Input::onKeyDown(keycode);
 	}
 
 	void Context::onKeyUp(unsigned int keycode)
 	{
 		zer0::context->keys[keycode] = false;
+		rgss::Input::onKeyUp(keycode);
 	}
 	
-	/// @todo Implementation
 	void Context::onChar(unsigned int charcode)
 	{
 	}
