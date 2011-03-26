@@ -162,17 +162,7 @@ namespace rgss
 
 	VALUE Font::rb_setColor(VALUE self, VALUE value)
 	{
-		RB_SELF2CPP(Font, font);
-		font->rb_color = value;
-		if (!NIL_P(value))
-		{
-			RB_VAR2CPP(value, Color, color);
-			font->color = color;
-		}
-		else
-		{
-			font->color = NULL;
-		}
+		RG_GENERATE_SETTER(Font, font, Color, color);
 		return value;
 	}
 
