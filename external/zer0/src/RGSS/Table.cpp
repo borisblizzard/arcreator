@@ -49,12 +49,12 @@ namespace zer0
 
 		VALUE Table::rb_initialize(int argc, VALUE* argv, VALUE self)
 		{
-			VALUE xSize, ySize, zSize;
+			VALUE arg1, arg2, arg3;
 			RB_SELF2CPP(Table, table);
-			rb_scan_args(argc, argv, "12", &xSize, &ySize, &zSize);
-			table->xSize = hmax(NUM2INT(xSize), 1);
-			table->ySize = hmax(NIL_P(ySize) ? 1 : NUM2INT(ySize), 1);
-			table->zSize = hmax(NIL_P(zSize) ? 1 : NUM2INT(zSize), 1);
+			rb_scan_args(argc, argv, "12", &arg1, &arg2, &arg3);
+			table->xSize = hmax(NUM2INT(arg1), 1);
+			table->ySize = hmax(NIL_P(arg2) ? 1 : NUM2INT(arg2), 1);
+			table->zSize = hmax(NIL_P(arg3) ? 1 : NUM2INT(arg3), 1);
 			table->data = table->_createData(table->xSize, table->ySize, table->zSize);
 			return self;
 		}
