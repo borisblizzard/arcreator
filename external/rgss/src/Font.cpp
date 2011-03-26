@@ -162,7 +162,7 @@ namespace rgss
 
 	VALUE Font::rb_setColor(VALUE self, VALUE value)
 	{
-		RG_GENERATE_SETTER(Font, font, Color, color);
+		RB_GENERATE_SETTER(Font, font, Color, color);
 		return value;
 	}
 
