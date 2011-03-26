@@ -11,13 +11,16 @@
 
 namespace rgss
 {
+	void Plane::init()
+	{
+	}
+
 	void Plane::createRubyInterface()
 	{
 		rb_cPlane = rb_define_class("Plane", rb_cObject);
 		rb_define_alloc_func(rb_cPlane, &Plane::rb_new);
 		// initialize
 		rb_define_method(rb_cPlane, "initialize", RUBY_METHOD_FUNC(&Plane::rb_initialize), -1);
-		rb_define_method(rb_cPlane, "inspect", RUBY_METHOD_FUNC(&Plane::rb_inspect), 0);
 		// getters and setters
 		rb_define_method(rb_cPlane, "bitmap", RUBY_METHOD_FUNC(&Plane::rb_getBitmap), 0);
 		rb_define_method(rb_cPlane, "bitmap=", RUBY_METHOD_FUNC(&Plane::rb_setBitmap), 1);
@@ -63,11 +66,6 @@ namespace rgss
 	}
 
 	VALUE Plane::rb_initialize(int argc, VALUE* argv, VALUE self)
-	{
-		return self;
-	}
-
-	VALUE Plane::rb_inspect(VALUE self)
 	{
 		return self;
 	}

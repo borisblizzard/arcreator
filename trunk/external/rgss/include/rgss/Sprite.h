@@ -27,6 +27,8 @@ namespace rgss
 		/// @brief Draws this sprite on the screen.
 		void draw();
 
+		/// @brief Intializes the module.
+		static void init();
 		/// @brief Exposes this class to Ruby.
 		static void createRubyInterface();
 		/// @brief Wraps this instance into a Ruby cobject.
@@ -105,8 +107,11 @@ namespace rgss
 		int z;
 
 	protected:
+		/// @brief Disposed flag.
 		bool disposed;
+		/// @brief Bitmap drawing reference.
 		Bitmap* bitmap;
+		/// @brief Ruby object of bitmap drawing reference.
 		VALUE rb_bitmap;
 
 	};

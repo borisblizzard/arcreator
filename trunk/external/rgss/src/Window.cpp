@@ -10,6 +10,10 @@
 
 namespace rgss
 {
+	void Window::init()
+	{
+	}
+
 	void Window::createRubyInterface()
 	{
 		rb_cWindow = rb_define_class("Window", rb_cObject);

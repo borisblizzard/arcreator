@@ -22,6 +22,8 @@ namespace rgss
 		/// @todo Dummy for now, needs to be removed later.
 		~Tilemap() { }
 
+		/// @brief Intializes the module.
+		static void init();
 		/// @brief Exposes this class to Ruby.
 		static void createRubyInterface();
 		/// @brief Wraps into Ruby cobject.
@@ -37,9 +39,6 @@ namespace rgss
 		/// @param[in] argv Pointer to first argument.
 		/// @note Argument is "[viewport]".
 		static VALUE rb_initialize(int argc, VALUE* argv, VALUE self);
-		/// @brief Gets a string representation of the instance.
-		/// @return String representation of the instance.
-		static VALUE rb_inspect(VALUE self);
 		/// @brief Disposes the object.
 		static VALUE rb_dispose(VALUE self);
 

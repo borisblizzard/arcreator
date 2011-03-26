@@ -9,8 +9,36 @@
 namespace rgss
 {
 	/****************************************************************************************
-		* Pure C++ code
-		****************************************************************************************/
+	 * Pure C++ code
+	 ****************************************************************************************/
+
+	Color::Color()
+	{
+		this->red = 255.0f;
+		this->green = 255.0f;
+		this->blue = 255.0f;
+		this->alpha = 255.0f;
+	}
+
+	Color::Color(float r, float g, float b, float a)
+	{
+		this->red = hclamp(r, -255.0f, 255.0f);
+		this->green = hclamp(g, -255.0f, 255.0f);
+		this->blue = hclamp(b, -255.0f, 255.0f);
+		this->alpha = hclamp(a, 0.0f, 255.0f);
+	}
+
+	Color::Color(april::Color color)
+	{
+		this->red = (float)color.r;
+		this->green = (float)color.g;
+		this->blue = (float)color.b;
+		this->alpha = (float)color.a;
+	}
+
+	Color::~Color()
+	{
+	}
 
 	void Color::set(float r, float g, float b, float a)
 	{
@@ -35,8 +63,12 @@ namespace rgss
 	}
 
 	/****************************************************************************************
-		* Ruby Interfacing, Creation, Destruction, Systematics
-		****************************************************************************************/
+	 * Ruby Interfacing, Creation, Destruction, Systematics
+	 ****************************************************************************************/
+
+	void Color::init()
+	{
+	}
 
 	void Color::createRubyInterface()
 	{
@@ -57,6 +89,7 @@ namespace rgss
 		// all other methods
 		rb_define_method(rb_cColor, "set", RUBY_METHOD_FUNC(&Color::rb_set), -1);
 		// static methods
+
 	}
 
 	VALUE Color::wrap()
@@ -85,8 +118,8 @@ namespace rgss
 	}
 
 	/****************************************************************************************
-		* Ruby Getters/Setters
-		****************************************************************************************/
+	 * Ruby Getters/Setters
+	 ****************************************************************************************/
 
 	VALUE Color::rb_getRed(VALUE self)
 	{
@@ -141,8 +174,8 @@ namespace rgss
 	}
 
 	/****************************************************************************************
-		* Ruby Methods
-		****************************************************************************************/
+	 * Ruby Methods
+	 ****************************************************************************************/
 
 	VALUE Color::rb_set(int argc, VALUE* argv, VALUE self)
 	{

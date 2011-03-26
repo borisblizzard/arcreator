@@ -15,6 +15,10 @@ namespace rgss
 		this->height = height;
 	}
 
+	void Rect::init()
+	{
+	}
+
 	void Rect::createRubyInterface()
 	{
 		rb_cRect = rb_define_class("Rect", rb_cObject);

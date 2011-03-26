@@ -14,9 +14,10 @@
 
 namespace rgss
 {
+
 	/****************************************************************************************
-		* Pure C++ code
-		****************************************************************************************/
+	 * Pure C++ code
+	 ****************************************************************************************/
 
 	int Bitmap::getWidth()
 	{
@@ -43,8 +44,12 @@ namespace rgss
 	}
 
 	/****************************************************************************************
-		* Ruby Interfacing, Creation, Destruction, Systematics
-		****************************************************************************************/
+	 * Ruby Interfacing, Creation, Destruction, Systematics
+	 ****************************************************************************************/
+	
+	void Bitmap::init()
+	{
+	}
 
 	void Bitmap::createRubyInterface()
 	{
@@ -82,6 +87,14 @@ namespace rgss
 		return Data_Wrap_Struct(rb_cBitmap, NULL, NULL, bitmap);
 	}
 
+	void Bitmap::gc_mark(Bitmap* bitmap)
+	{
+		if (!NIL_P(bitmap->rb_font))
+		{
+			rb_gc_mark(bitmap->rb_font);
+		}
+	}
+
 	void Bitmap::gc_free(Bitmap* bitmap)
 	{
 		if (bitmap->imageSource != NULL)
@@ -99,7 +112,7 @@ namespace rgss
 	VALUE Bitmap::rb_new(VALUE classe) 
 	{
 		Bitmap* bitmap;
-		return Data_Make_Struct(classe, Bitmap, NULL, Bitmap::gc_free, bitmap);
+		return Data_Make_Struct(classe, Bitmap, Bitmap::gc_mark, Bitmap::gc_free, bitmap);
 	}
 
 	VALUE Bitmap::rb_initialize(int argc, VALUE* argv, VALUE self) 
@@ -117,6 +130,8 @@ namespace rgss
 		{
 			bitmap->imageSource = april::createEmptyImage(NUM2INT(arg1), NUM2INT(arg2));
 		}
+		bitmap->font = new Font();
+		bitmap->rb_font = bitmap->font->wrap();
 		bitmap->textureNeedsUpdate = true;
 		return self;
 	}
@@ -132,8 +147,8 @@ namespace rgss
 	}
 
 	/****************************************************************************************
-		* Ruby Getters/Setters
-		****************************************************************************************/
+	 * Ruby Getters/Setters
+	 ****************************************************************************************/
 
 	VALUE Bitmap::rb_getWidth(VALUE self)
 	{
@@ -147,17 +162,28 @@ namespace rgss
 		return INT2FIX(bitmap->getHeight());
 	}
 
+	VALUE Bitmap::rb_getFont(VALUE self)
+	{
+		RB_SELF2CPP(Bitmap, bitmap);
+		return bitmap->font->wrap();
+	}
+
+	VALUE Bitmap::rb_setFont(VALUE self, VALUE value)
+	{
+		RB_GENERATE_SETTER(Bitmap, bitmap, Font, font);
+		return self;
+	}
+
 	/****************************************************************************************
-		* Ruby Methods
-		****************************************************************************************/
+	 * Ruby Methods
+	 ****************************************************************************************/
 
 	VALUE Bitmap::rb_getPixel(VALUE self, VALUE x, VALUE y)
 	{
 		RB_SELF2CPP(Bitmap, bitmap);
 		april::Color aColor = bitmap->imageSource->getPixel(NUM2INT(x), NUM2INT(y));
-		Color* cColor = new Color();
-		cColor->set(aColor);
-		return cColor->wrap();
+		Color* color = new Color(aColor);
+		return color->wrap();
 	}
 
 	VALUE Bitmap::rb_setPixel(VALUE self, VALUE x, VALUE y, VALUE color)
@@ -225,23 +251,13 @@ namespace rgss
 	}
 
 	/****************************************************************************************
-		* TODO
-		****************************************************************************************/
+	 * TODO
+	 ****************************************************************************************/
 
 
 
 
 	VALUE Bitmap::rb_dispose(VALUE self) 
-	{
-		return self;
-	}
-
-	VALUE Bitmap::rb_getFont(VALUE self)
-	{
-		return self;
-	}
-
-	VALUE Bitmap::rb_setFont(VALUE self, VALUE value)
 	{
 		return self;
 	}

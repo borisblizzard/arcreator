@@ -15,13 +15,15 @@ namespace rgss
 	class rgssExport Viewport
 	{
 	public:
+		/// @brief Intializes the module.
+		static void init();
+		/// @brief Exposes this class to Ruby.
+		static void createRubyInterface();
+
 		Viewport();
 		Viewport(int x, int y, int width, int height);
 		Viewport(Rect rect);
 		~Viewport();
-
-		/// @brief Exposes this class to Ruby.
-		static void createRubyInterface();
 
 		Color color;
 		Rect rect;

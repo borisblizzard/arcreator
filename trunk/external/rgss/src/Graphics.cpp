@@ -11,10 +11,17 @@
 
 namespace rgss
 {
-	unsigned int Graphics::frameCount = 0;
-	unsigned int Graphics::frameRate = 40;
-	bool Graphics::running = true;
+	unsigned int Graphics::frameCount;
+	unsigned int Graphics::frameRate;
+	bool Graphics::running;
 	harray<Sprite*> sprites;
+
+	void Graphics::init()
+	{
+		frameCount = 0;
+		frameRate = 40;
+		running = true;
+	}
 
 	void Graphics::createRubyInterface()
 	{
@@ -27,10 +34,6 @@ namespace rgss
 		rb_define_module_function(rb_mGraphics, "frame_reset", RUBY_METHOD_FUNC(&Graphics::frameReset), 0);
 		rb_define_module_function(rb_mGraphics, "freeze", RUBY_METHOD_FUNC(&Graphics::freeze), 0);
 		rb_define_module_function(rb_mGraphics, "transition", RUBY_METHOD_FUNC(&Graphics::transition), 3);
-	}
-
-	void Graphics::init()
-	{
 	}
 
 	void Graphics::addSprite(Sprite* sprite)

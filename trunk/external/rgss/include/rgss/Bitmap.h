@@ -40,11 +40,16 @@ namespace rgss
 		/// @brief Updates the texture on the graphic card if necessary.
 		void Bitmap::updateTexture();
 
+		/// @brief Intializes the module.
+		static void init();
 		/// @brief Exposes this class to Ruby.
 		static void createRubyInterface();
 		/// @brief Wraps this instance into a Ruby cobject.
 		/// @return Ruby object.
 		VALUE wrap();
+		/// @brief Marks referenced values of sprite for garbage collection.
+		/// @param[in] bitmap Bitmap to mark.
+		static void gc_mark(Bitmap* bitmap);
 		/// @brief Frees additional resources used by this instance.
 		/// @param[in] bitmap Bitmap to free.
 		static void gc_free(Bitmap* bitmap);
@@ -58,24 +63,23 @@ namespace rgss
 		/// @brief Used for clone and dup.
 		/// @param[in] original The original Bitmap.
 		static VALUE rb_initialize_copy(VALUE self, VALUE original);
-		/// @brief Gets a string representation of the instance.
-		/// @return String representation of the instance.
-		static VALUE rb_inspect(VALUE self);
 		/// @brief Disposes the object.
 		static VALUE rb_dispose(VALUE self);
 
 		/// @brief Gets the height of the bitmap.
+		/// @return Height of the bitmap.
 		static VALUE rb_getHeight(VALUE self);
 		/// @brief Gets the width of the bitmap.
+		/// @return Width of the bitmap.
 		static VALUE rb_getWidth(VALUE self);
-
-
-
 		/// @brief Gets the font of the bitmap.
+		/// @return Font of the bitmap.
 		static VALUE rb_getFont(VALUE self);
 		/// @brief Sets the font used for the bitmap.
 		/// param[in] value The font to set for the bitmap.
 		static VALUE rb_setFont(VALUE self, VALUE value);
+
+
 		/// @brief Gets the bitmap's rectangle.
 		static VALUE rb_getRect(VALUE self);
 
@@ -124,7 +128,9 @@ namespace rgss
 
 	protected:
 		/// @brief The Font used to draw text.
-		Font font;
+		Font* font;
+		/// @brief Ruby object of the Font used to draw text.
+		VALUE rb_font;
 		/// @brief The bitmap's rectangle.
 		Rect rect;
 
