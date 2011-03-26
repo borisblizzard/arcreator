@@ -8,6 +8,7 @@
 #include "RGSS/Graphics.h"
 #include "RGSS/Sprite.h"
 #include "CodeSnippets.h"
+#include "System.h"
 
 namespace zer0
 {
@@ -60,6 +61,11 @@ namespace zer0
 
 		VALUE Graphics::update(VALUE self)
 		{
+			if (zer0::system->Exiting)
+			{
+				rb_exit(0);
+				return Qnil;
+			}
 			// some testing for now
 			april::rendersys->clear();
 			//harray<Sprite*> sprites

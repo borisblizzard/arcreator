@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include "ruby.h"
 
 #include <april/Keys.h>
 #include <april/RenderSystem.h>
@@ -27,7 +28,7 @@ namespace zer0
 	 * Construct/Destruct
 	 ****************************************************************************************/
 
-	System::System(chstr path) : Time(0.0f), exiting(false), focused(true)
+	System::System(chstr path) : Time(0.0f), Exiting(false), focused(true)
 	{
 		this->Path = path;
 	}
@@ -97,6 +98,7 @@ namespace zer0
 
 	bool System::onQuit(bool canCancel)
 	{
+		zer0::system->Exiting = true;
 		return true;
 	}
 	

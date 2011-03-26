@@ -6,6 +6,7 @@
 #include <atres/atres.h>
 #include <aprilui/aprilui.h>
 #include <hltypes/exception.h>
+#include <hltypes/hfile.h>
 #include <hltypes/hstring.h>
 #include <xal/AudioManager.h>
 
@@ -80,6 +81,7 @@ namespace zer0
 			april::rendersys->setOrthoProjection(aprilui::getViewport());
 			april::rendersys->getWindow()->setKeyboardCallbacks(
 				zer0::Context::onKeyDown, zer0::Context::onKeyUp, zer0::Context::onChar);
+			april::rendersys->getWindow()->setQuitCallback(&System::onQuit);
 			// zer0 related data
 			zer0::log("initializing Zer0 Division Engine");
 			zer0::system = new zer0::System(path);
