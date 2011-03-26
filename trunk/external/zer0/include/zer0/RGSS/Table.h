@@ -35,9 +35,6 @@ namespace zer0
 			/// @param[in] argc Number of arguments.
 			/// @param[in] argv Pointer to first argument.
 			static VALUE rb_initialize(int argc, VALUE* argv, VALUE self);
-			/// @brief Gets a string representation of the instance.
-			/// @return String representation of the instance.
-			static VALUE rb_inspect(VALUE self);
 			/// @brief Gets the X dimension size.
 			/// @return X dimension size.
 			static VALUE rb_getXSize(VALUE self);
