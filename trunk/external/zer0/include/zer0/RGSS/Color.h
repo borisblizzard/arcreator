@@ -45,6 +45,10 @@ namespace zer0
 			/// @note Alpha is clamped between 0 and 255.
 			void set(april::Color color);
 
+			/// @brief Converts this instance into april::Color.
+			/// @return april::Color represenation.
+			april::Color toAColor();
+
 			/// @brief Exposes this class to Ruby.
 			static void createRubyInterface();
 			/// @brief Wraps into Ruby cobject.
