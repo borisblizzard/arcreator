@@ -18,9 +18,9 @@ namespace zer0
 		
 		hstr Path;
 		float Time;
+		bool Exiting;
 		
 		bool update(float k);
-		bool exitGame();
 		
 		static void onMouseDown(float x, float y, int button);
 		static void onMouseUp(float x, float y, int button);
@@ -32,7 +32,6 @@ namespace zer0
 		static void onFocusChange(bool focused);
 		
 	protected:
-		bool exiting;
 		bool focused;
 
 		bool _update();
