@@ -161,6 +161,7 @@ namespace rgss
 	VALUE Sprite::rb_setBitmap(VALUE self, VALUE value)
 	{
 		RB_GENERATE_SETTER(Sprite, sprite, Bitmap, bitmap);
+		return value;
 	}
 
 	VALUE Sprite::rb_isDisposed(VALUE self)
