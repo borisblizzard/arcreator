@@ -52,11 +52,14 @@ namespace zer0
 			static void gc_free(Bitmap* bitmap);
 			/// @brief Ruby allocation of an instance.
 			static VALUE rb_new(VALUE classe);
-			/// @brief Sets the bitmap dimensions
+			/// @brief Sets the bitmap dimensions.
 			/// @param[in] argc Number of arguments.
 			/// @param[in] argv Pointer to first argument.
 			/// @note Arguments are "[filename]" or "[width, height]".
 			static VALUE rb_initialize(int argc, VALUE* argv, VALUE self);
+			/// @brief Used for clone and dup.
+			/// @param[in] original The original Bitmap.
+			static VALUE rb_initialize_copy(VALUE self, VALUE original);
 			/// @brief Gets a string representation of the instance.
 			/// @return String representation of the instance.
 			static VALUE rb_inspect(VALUE self);
@@ -81,13 +84,11 @@ namespace zer0
 			/// @brief Checks whether bitmap is disposed.
 			/// @return bool True if bitmap has been freed.
 			static VALUE rb_isDisposed(VALUE self);
-			/// @brief Blits src_rect From source bitmap to this one.
-			/// @param[in] x The x coordinate to place the bitmap.
-			/// @param[in] y The y coordinate to place the bitmap.
-			/// @param[in] src_bitmap The Bitmap to transfer from.
-			/// @param[in] src_rect The rect to transfer from src_bitmap.
-			/// @param[in] opacity The alpha blend of the blit operation.
-			static VALUE rb_blt(VALUE self, VALUE x, VALUE y, VALUE src_bitmap, VALUE src_rect, VALUE opacity);
+			/// @brief Blits src_rect from source bitmap to this one.
+			/// @param[in] argc Number of arguments.
+			/// @param[in] argv Pointer to first argument.
+			/// @note Arguments are "x, y, src_bitmap, src_rect[, opacity]"
+			static VALUE rb_blt(int argc, VALUE* argv, VALUE self);
 			/// @brief Clears the entire bitmap
 			static VALUE rb_clear(VALUE self);
 			/// @brief Sets the color to the specified value.

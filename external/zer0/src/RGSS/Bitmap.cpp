@@ -4,6 +4,7 @@
 #include <april/RenderSystem.h>
 #include <april/Texture.h>
 #include <hltypes/exception.h>
+#include <hltypes/util.h>
 
 #include "RGSS/Bitmap.h"
 #include "RGSS/Color.h"
@@ -53,6 +54,7 @@ namespace zer0
 			rb_define_alloc_func(rb_cBitmap, &Bitmap::rb_new);
 			// initialize
 			rb_define_method(rb_cBitmap, "initialize", RUBY_METHOD_FUNC(&Bitmap::rb_initialize), -1);
+			rb_define_method(rb_cBitmap, "initialize_copy", RUBY_METHOD_FUNC(&Bitmap::rb_initialize_copy), 1);
 			// getters and setters
 			rb_define_method(rb_cBitmap, "width", RUBY_METHOD_FUNC(&Bitmap::rb_getWidth), 0);
 			rb_define_method(rb_cBitmap, "height", RUBY_METHOD_FUNC(&Bitmap::rb_getHeight), 0);
@@ -64,9 +66,9 @@ namespace zer0
 			rb_define_method(rb_cBitmap, "get_pixel", RUBY_METHOD_FUNC(&Bitmap::rb_getPixel), 2);
 			rb_define_method(rb_cBitmap, "set_pixel", RUBY_METHOD_FUNC(&Bitmap::rb_setPixel), 3);
 			rb_define_method(rb_cBitmap, "fill_rect", RUBY_METHOD_FUNC(&Bitmap::rb_fillRect), -1); 
+			rb_define_method(rb_cBitmap, "blt", RUBY_METHOD_FUNC(&Bitmap::rb_blt), -1); 
 			// not implemented yet
 			
-			rb_define_method(rb_cBitmap, "blt", RUBY_METHOD_FUNC(&Bitmap::rb_blt), -1); 
 			rb_define_method(rb_cBitmap, "clear", RUBY_METHOD_FUNC(&Bitmap::rb_clear), 0); 
 			rb_define_method(rb_cBitmap, "dispose", RUBY_METHOD_FUNC(&Bitmap::rb_dispose), 0); 
 			rb_define_method(rb_cBitmap, "disposed?", RUBY_METHOD_FUNC(&Bitmap::rb_isDisposed), 0); 
@@ -118,7 +120,16 @@ namespace zer0
 				bitmap->imageSource = april::createEmptyImage(NUM2INT(arg1), NUM2INT(arg2));
 			}
 			bitmap->textureNeedsUpdate = true;
-			bitmap->updateTexture();
+			return self;
+		}
+
+		VALUE Bitmap::rb_initialize_copy(VALUE self, VALUE original)
+		{
+			RB_SELF2CPP(Bitmap, bitmap);
+			RB_VAR2CPP(original, Bitmap, other);
+			bitmap->imageSource = april::createEmptyImage(other->imageSource->w, other->imageSource->h);
+			bitmap->imageSource->copyImage(other->imageSource);
+			bitmap->textureNeedsUpdate = true;
 			return self;
 		}
 
@@ -155,13 +166,11 @@ namespace zer0
 		{
 			RB_SELF2CPP(Bitmap, bitmap);
 			RB_VAR2CPP(color, Color, cColor);
-			april::Color aColor((int)cColor->red, (int)cColor->green, (int)cColor->blue, (int)cColor->alpha);
-			bitmap->imageSource->setPixel(NUM2INT(x), NUM2INT(y), aColor);
+			bitmap->imageSource->setPixel(NUM2INT(x), NUM2INT(y), cColor->toAColor());
 			bitmap->textureNeedsUpdate = true;
 			return Qnil;
 		}
 
-		/// @todo Needs to be optimized via april::ImageSource
 		VALUE Bitmap::rb_fillRect(int argc, VALUE* argv, VALUE self)
 		{
 			if (argc != 2 && argc != 5)
@@ -190,18 +199,29 @@ namespace zer0
 				h = NUM2INT(arg4);
 			}
 			RB_VAR2CPP(color, Color, cColor);
-			april::Color aColor((int)cColor->red, (int)cColor->green, (int)cColor->blue, (int)cColor->alpha);
-			// this double loop should be handled by ImageSource when a fill_rect variant is implemented there
-			bitmap->imageSource->setPixels(x, y, w, h, aColor);
-			/*
-			for_iter (j, y, y + h)
+			bitmap->imageSource->setPixels(x, y, w, h, cColor->toAColor());
+			bitmap->textureNeedsUpdate = true;
+			return self;
+		}
+
+		VALUE Bitmap::rb_blt(int argc, VALUE* argv, VALUE self)
+		{
+			RB_SELF2CPP(Bitmap, bitmap);
+			VALUE arg1, arg2, arg3, arg4, arg5;
+			rb_scan_args(argc, argv, "41", &arg1, &arg2, &arg3, &arg4, &arg5);
+			int x = NUM2INT(arg1);
+			int y = NUM2INT(arg2);
+			RB_VAR2CPP(arg3, Bitmap, source);
+			RB_VAR2CPP(arg4, Rect, rect);
+			if (NIL_P(arg5))
 			{
-				for_iter (i, x, x + w)
-				{
-					bitmap->imageSource->setPixel(i, j, aColor);
-				}
+				bitmap->imageSource->blit(x, y, source->imageSource, rect->x, rect->y, rect->width, rect->height);
 			}
-			*/
+			else
+			{
+				bitmap->imageSource->blit(x, y, source->imageSource, rect->x, rect->y, rect->width, rect->height,
+					(unsigned char)NUM2INT(arg5));
+			}
 			bitmap->textureNeedsUpdate = true;
 			return self;
 		}
@@ -229,11 +249,6 @@ namespace zer0
 		}
 
 		VALUE Bitmap::rb_getRect(VALUE self)
-		{
-			return self;
-		}
-
-		VALUE Bitmap::rb_blt(VALUE self, VALUE x, VALUE y, VALUE src_bitmap, VALUE src_rect, VALUE opacity)
 		{
 			return self;
 		}
