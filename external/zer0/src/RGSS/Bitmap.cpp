@@ -192,6 +192,8 @@ namespace zer0
 			RB_VAR2CPP(color, Color, cColor);
 			april::Color aColor((int)cColor->red, (int)cColor->green, (int)cColor->blue, (int)cColor->alpha);
 			// this double loop should be handled by ImageSource when a fill_rect variant is implemented there
+			bitmap->imageSource->setPixels(x, y, w, h, aColor);
+			/*
 			for_iter (j, y, y + h)
 			{
 				for_iter (i, x, x + w)
@@ -199,6 +201,7 @@ namespace zer0
 					bitmap->imageSource->setPixel(i, j, aColor);
 				}
 			}
+			*/
 			bitmap->textureNeedsUpdate = true;
 			return self;
 		}
