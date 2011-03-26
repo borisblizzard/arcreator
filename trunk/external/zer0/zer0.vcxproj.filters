@@ -12,12 +12,6 @@
     <Filter Include="Resource Files">
       <UniqueIdentifier>{72d6d404-11e4-46ce-b025-f31bf4ed8f17}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\RGSS">
-      <UniqueIdentifier>{a8f59aa0-632b-46fb-95c3-be37dbc38fc4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\RGSS">
-      <UniqueIdentifier>{630bbaac-fb95-4443-827b-bd46091140bf}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\zer0\zer0.h">
@@ -38,51 +32,6 @@
     <ClInclude Include="include\zer0\System.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\zer0\RGSS\Audio.h">
-      <Filter>Header Files\RGSS</Filter>
-    </ClInclude>
-    <ClInclude Include="include\zer0\RGSS\Bitmap.h">
-      <Filter>Header Files\RGSS</Filter>
-    </ClInclude>
-    <ClInclude Include="include\zer0\RGSS\Color.h">
-      <Filter>Header Files\RGSS</Filter>
-    </ClInclude>
-    <ClInclude Include="include\zer0\RGSS\Font.h">
-      <Filter>Header Files\RGSS</Filter>
-    </ClInclude>
-    <ClInclude Include="include\zer0\RGSS\Graphics.h">
-      <Filter>Header Files\RGSS</Filter>
-    </ClInclude>
-    <ClInclude Include="include\zer0\RGSS\Input.h">
-      <Filter>Header Files\RGSS</Filter>
-    </ClInclude>
-    <ClInclude Include="include\zer0\RGSS\Plane.h">
-      <Filter>Header Files\RGSS</Filter>
-    </ClInclude>
-    <ClInclude Include="include\zer0\RGSS\Rect.h">
-      <Filter>Header Files\RGSS</Filter>
-    </ClInclude>
-    <ClInclude Include="include\zer0\RGSS\RGSSError.h">
-      <Filter>Header Files\RGSS</Filter>
-    </ClInclude>
-    <ClInclude Include="include\zer0\RGSS\Sprite.h">
-      <Filter>Header Files\RGSS</Filter>
-    </ClInclude>
-    <ClInclude Include="include\zer0\RGSS\Table.h">
-      <Filter>Header Files\RGSS</Filter>
-    </ClInclude>
-    <ClInclude Include="include\zer0\RGSS\Tilemap.h">
-      <Filter>Header Files\RGSS</Filter>
-    </ClInclude>
-    <ClInclude Include="include\zer0\RGSS\Tone.h">
-      <Filter>Header Files\RGSS</Filter>
-    </ClInclude>
-    <ClInclude Include="include\zer0\RGSS\Viewport.h">
-      <Filter>Header Files\RGSS</Filter>
-    </ClInclude>
-    <ClInclude Include="include\zer0\RGSS\Window.h">
-      <Filter>Header Files\RGSS</Filter>
-    </ClInclude>
     <ClInclude Include="src\CodeSnippets.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -99,51 +48,6 @@
     </ClCompile>
     <ClCompile Include="src\System.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\RGSS\Audio.cpp">
-      <Filter>Source Files\RGSS</Filter>
-    </ClCompile>
-    <ClCompile Include="src\RGSS\Bitmap.cpp">
-      <Filter>Source Files\RGSS</Filter>
-    </ClCompile>
-    <ClCompile Include="src\RGSS\Color.cpp">
-      <Filter>Source Files\RGSS</Filter>
-    </ClCompile>
-    <ClCompile Include="src\RGSS\Font.cpp">
-      <Filter>Source Files\RGSS</Filter>
-    </ClCompile>
-    <ClCompile Include="src\RGSS\Graphics.cpp">
-      <Filter>Source Files\RGSS</Filter>
-    </ClCompile>
-    <ClCompile Include="src\RGSS\Input.cpp">
-      <Filter>Source Files\RGSS</Filter>
-    </ClCompile>
-    <ClCompile Include="src\RGSS\Plane.cpp">
-      <Filter>Source Files\RGSS</Filter>
-    </ClCompile>
-    <ClCompile Include="src\RGSS\Rect.cpp">
-      <Filter>Source Files\RGSS</Filter>
-    </ClCompile>
-    <ClCompile Include="src\RGSS\RGSSError.cpp">
-      <Filter>Source Files\RGSS</Filter>
-    </ClCompile>
-    <ClCompile Include="src\RGSS\Sprite.cpp">
-      <Filter>Source Files\RGSS</Filter>
-    </ClCompile>
-    <ClCompile Include="src\RGSS\Table.cpp">
-      <Filter>Source Files\RGSS</Filter>
-    </ClCompile>
-    <ClCompile Include="src\RGSS\Tilemap.cpp">
-      <Filter>Source Files\RGSS</Filter>
-    </ClCompile>
-    <ClCompile Include="src\RGSS\Tone.cpp">
-      <Filter>Source Files\RGSS</Filter>
-    </ClCompile>
-    <ClCompile Include="src\RGSS\Viewport.cpp">
-      <Filter>Source Files\RGSS</Filter>
-    </ClCompile>
-    <ClCompile Include="src\RGSS\Window.cpp">
-      <Filter>Source Files\RGSS</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

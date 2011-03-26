@@ -19,22 +19,10 @@ namespace zer0
 		hstr Path;
 		float Time;
 		bool Exiting;
+		bool Focused;
 		
-		bool update(float k);
-		
-		static void onMouseDown(float x, float y, int button);
-		static void onMouseUp(float x, float y, int button);
-		static void onMouseMove(float x, float y);
-		static void onKeyDown(unsigned int keycode);
-		static void onKeyUp(unsigned int keycode);
-		static void onChar(unsigned int charcode);
 		static bool onQuit(bool canCancel);
 		static void onFocusChange(bool focused);
-		
-	protected:
-		bool focused;
-
-		bool _update();
 		
 	};
 	

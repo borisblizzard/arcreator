@@ -1,0 +1,107 @@
+#include "Color.h"
+#include "Font.h"
+#include "CodeSnippets.h"
+
+namespace rgss
+{
+	void Font::createRubyInterface()
+	{
+		rb_cFont = rb_define_class("Font", rb_cObject);
+		rb_define_alloc_func(rb_cFont, &Font::rb_new);
+		// initialize
+		rb_define_method(rb_cFont, "initialize", RUBY_METHOD_FUNC(&Font::rb_initialize), -1);
+		// getters and setters
+		rb_define_method(rb_cFont, "bold", RUBY_METHOD_FUNC(&Font::rb_getBold), 0);
+		rb_define_method(rb_cFont, "bold=", RUBY_METHOD_FUNC(&Font::rb_setBold), 1);
+		rb_define_method(rb_cFont, "color", RUBY_METHOD_FUNC(&Font::rb_getColor), 0);
+		rb_define_method(rb_cFont, "color=", RUBY_METHOD_FUNC(&Font::rb_setColor), 1);
+		rb_define_method(rb_cFont, "italic", RUBY_METHOD_FUNC(&Font::rb_getItalic), 0);
+		rb_define_method(rb_cFont, "italic=", RUBY_METHOD_FUNC(&Font::rb_setItalic), 1);
+		rb_define_method(rb_cFont, "name", RUBY_METHOD_FUNC(&Font::rb_getName), 0);
+		rb_define_method(rb_cFont, "name=", RUBY_METHOD_FUNC(&Font::rb_setName), 1);
+		rb_define_method(rb_cFont, "size", RUBY_METHOD_FUNC(&Font::rb_getSize), 0);
+		rb_define_method(rb_cFont, "size=", RUBY_METHOD_FUNC(&Font::rb_setSize), 1);
+	}
+
+	VALUE Font::wrap()
+	{
+		Font* font = this;
+		return Data_Wrap_Struct(rb_cFont, NULL, NULL, font);
+	}
+
+	VALUE Font::rb_new(VALUE classe)
+	{
+		return classe;
+	}
+
+	VALUE Font::rb_initialize(int argc, VALUE* argv, VALUE self)
+	{
+		return self;
+	}
+
+	VALUE Font::rb_inspect(VALUE self)
+	{
+		return self;
+	}
+
+
+
+	VALUE Font::rb_getBold(VALUE self)
+	{
+		return self;
+	}
+
+	VALUE Font::rb_setBold(VALUE self, VALUE value)
+	{
+		return self;
+	}
+
+	VALUE Font::rb_getColor(VALUE self)
+	{
+		return self;
+	}
+
+	VALUE Font::rb_setColor(VALUE self, VALUE* value)
+	{
+		return self;
+	}
+
+	VALUE Font::rb_getItalic(VALUE self)
+	{
+		return self;
+	}
+
+	VALUE Font::rb_setItalic(VALUE self, VALUE value)
+	{
+		return self;
+	}
+
+	VALUE Font::rb_getName(VALUE self)
+	{
+		return self;
+	}
+
+	VALUE Font::rb_setName(VALUE self, VALUE value)
+	{
+		return self;
+	}
+
+	VALUE Font::rb_getSize(VALUE self)
+	{
+		return self;
+	}
+
+	VALUE Font::rb_setSize(VALUE self, VALUE value)
+	{
+		return self;
+	}
+
+	/*
+	hstr Font::defaultName = "Arial";
+	int Font::defaultSize = 22;
+	bool Font::defaultBold = false;
+	bool Font::defaultItalic = false;
+	Color Font::defaultColor = Color(255.0f, 255.0f, 255.0f);
+	*/
+
+}

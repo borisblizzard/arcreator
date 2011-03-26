@@ -11,9 +11,10 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{2AAB8E59-CA6D-40F3-9006-547341626727}</ProjectGuid>
+    <ProjectGuid>{58C3A996-27E7-485E-AE81-2025C3EC65BE}</ProjectGuid>
     <RootNamespace>hltypes</RootNamespace>
     <Keyword>Win32Proj</Keyword>
+    <ProjectName>rgss</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='win32_Release|Win32'" Label="Configuration">
@@ -41,14 +42,13 @@
     <IntDir Condition="'$(Configuration)|$(Platform)'=='win32_Debug|Win32'">bin\$(Configuration)\</IntDir>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='win32_Release|Win32'">bin\$(Configuration)\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='win32_Release|Win32'">bin\$(Configuration)\</IntDir>
-    <TargetName Condition="'$(Configuration)|$(Platform)'=='win32_Debug|Win32'">zer0division</TargetName>
-    <TargetName Condition="'$(Configuration)|$(Platform)'=='win32_Release|Win32'">zer0division</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='win32_Debug|Win32'">zer0rgss</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='win32_Release|Win32'">zer0rgss</TargetName>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='win32_Debug|Win32'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>src;include/zer0;../gtypes/include;../hltypes/include;../atres/include;../april/include;../aprilutil/include;../aprilui/include;../xal/include;../rgss/include;../include;../include/ruby192;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>_WIN32;_DEBUG;_DESKTOP;ZER0_EXPORTS;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_WIN32;_DEBUG;_DESKTOP;RGSS_EXPORTS;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>true</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
@@ -57,11 +57,12 @@
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <DisableSpecificWarnings>4251</DisableSpecificWarnings>
+      <AdditionalIncludeDirectories>src;include/rgss;../gtypes/include;../hltypes/include;../atres/include;../april/include;../xal/include;../include;../include/ruby192;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>msvcr100-ruby191.lib;libgtypes.lib;libhltypes.lib;libapril.lib;libaprilutil.lib;libatres.lib;libaprilui.lib;libxal.lib;zer0rgss.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>msvcr100-ruby191.lib;libgtypes.lib;libhltypes.lib;libapril.lib;libatres.lib;libxal.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
-      <AdditionalLibraryDirectories>../lib/msvc;../lib/msvc100;../gtypes/bin/win32_Debug;../hltypes/bin/win32_Debug;../atres/bin/win32_Debug;../april/bin;../aprilui/bin/win32_Debug;../xal/bin/win32_Debug;../rgss/bin/win32_Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>../lib/msvc;../lib/msvc100;../gtypes/bin/win32_Debug;../hltypes/bin/win32_Debug;../atres/bin/win32_Debug;../april/bin;../xal/bin/win32_Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>NotSet</SubSystem>
       <UACUIAccess>false</UACUIAccess>
@@ -71,8 +72,7 @@
     <ClCompile>
       <Optimization>Full</Optimization>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <AdditionalIncludeDirectories>src;include/zer0;../gtypes/include;../hltypes/include;../atres/include;../april/include;../aprilutil/include;../aprilui/include;../xal/include;../rgss/include;../include;../include/ruby192;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>_WIN32;_DESKTOP;ZER0_EXPORTS;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_WIN32;_DESKTOP;RGSS_EXPORTS;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <PrecompiledHeader>
@@ -82,10 +82,11 @@
       <DisableSpecificWarnings>4251</DisableSpecificWarnings>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <MinimalRebuild>false</MinimalRebuild>
+      <AdditionalIncludeDirectories>src;include/rgss;../gtypes/include;../hltypes/include;../atres/include;../april/include;../xal/include;../include;../include/ruby192;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>msvcr100-ruby191.lib;libgtypes.lib;libhltypes.lib;libapril.lib;libaprilutil.lib;libatres.lib;libaprilui.lib;libxal.lib;zer0rgss.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>../lib/msvc;../lib/msvc100;../gtypes/bin/win32_Release;../hltypes/bin/win32_Release;../atres/bin/win32_Release;../april/bin;../aprilui/bin/win32_Release;../xal/bin/win32_Release;../rgss/bin/win32_Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>msvcr100-ruby191.lib;libgtypes.lib;libhltypes.lib;libapril.lib;libatres.lib;libxal.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>../lib/msvc;../lib/msvc100;../gtypes/bin/win32_Release;../hltypes/bin/win32_Release;../atres/bin/win32_Release;../april/bin;../xal/bin/win32_Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
       <UACUIAccess>false</UACUIAccess>
       <GenerateDebugInformation>false</GenerateDebugInformation>
@@ -113,30 +114,46 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\zer0\Context.h" />
-    <ClInclude Include="include\zer0\System.h" />
-    <ClInclude Include="include\zer0\TransitionManager.h" />
-    <ClInclude Include="include\zer0\zer0.h" />
-    <ClInclude Include="include\zer0\zer0Export.h" />
+    <ResourceCompile Include="fileproperties.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\Audio.cpp" />
+    <ClCompile Include="src\Bitmap.cpp" />
+    <ClCompile Include="src\Color.cpp" />
+    <ClCompile Include="src\Font.cpp" />
+    <ClCompile Include="src\Graphics.cpp" />
+    <ClCompile Include="src\Input.cpp" />
+    <ClCompile Include="src\Plane.cpp" />
+    <ClCompile Include="src\Rect.cpp" />
+    <ClCompile Include="src\rgss.cpp" />
+    <ClCompile Include="src\RGSSError.cpp" />
+    <ClCompile Include="src\Sprite.cpp" />
+    <ClCompile Include="src\Table.cpp" />
+    <ClCompile Include="src\Tilemap.cpp" />
+    <ClCompile Include="src\Tone.cpp" />
+    <ClCompile Include="src\Viewport.cpp" />
+    <ClCompile Include="src\Window.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\rgss\Audio.h" />
+    <ClInclude Include="include\rgss\Bitmap.h" />
+    <ClInclude Include="include\rgss\Color.h" />
+    <ClInclude Include="include\rgss\Font.h" />
+    <ClInclude Include="include\rgss\Graphics.h" />
+    <ClInclude Include="include\rgss\Input.h" />
+    <ClInclude Include="include\rgss\Plane.h" />
+    <ClInclude Include="include\rgss\Rect.h" />
+    <ClInclude Include="include\rgss\RGSSError.h" />
+    <ClInclude Include="include\rgss\Sprite.h" />
+    <ClInclude Include="include\rgss\Table.h" />
+    <ClInclude Include="include\rgss\Tilemap.h" />
+    <ClInclude Include="include\rgss\Tone.h" />
+    <ClInclude Include="include\rgss\Viewport.h" />
+    <ClInclude Include="include\rgss\Window.h" />
+    <ClInclude Include="include\rgss\rgss.h" />
+    <ClInclude Include="include\rgss\rgssExport.h" />
     <ClInclude Include="src\CodeSnippets.h" />
     <ClInclude Include="src\Constants.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="src\Context.cpp">
-      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='win32_Debug|Win32'">$(IntDir)%(RelativeDir)%(Filename).obj</ObjectFileName>
-    </ClCompile>
-    <ClCompile Include="src\System.cpp">
-      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='win32_Debug|Win32'">$(IntDir)%(RelativeDir)%(Filename).obj</ObjectFileName>
-    </ClCompile>
-    <ClCompile Include="src\TransitionManager.cpp">
-      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='win32_Debug|Win32'">$(IntDir)%(RelativeDir)%(Filename).obj</ObjectFileName>
-    </ClCompile>
-    <ClCompile Include="src\zer0.cpp">
-      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='win32_Debug|Win32'">$(IntDir)%(RelativeDir)%(Filename).obj</ObjectFileName>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="fileproperties.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
