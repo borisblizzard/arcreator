@@ -74,7 +74,6 @@ namespace rgss
 		rb_define_method(rb_cTable, "[]=", RUBY_METHOD_FUNC(&Table::rb_setData), -1);
 		// all other methods
 		rb_define_method(rb_cTable, "resize", RUBY_METHOD_FUNC(&Table::rb_resize), -1);
-		// static methods
 	}
 	
 	VALUE Table::wrap()
@@ -100,8 +99,8 @@ namespace rgss
 
 	VALUE Table::rb_initialize(int argc, VALUE* argv, VALUE self)
 	{
-		VALUE arg1, arg2, arg3;
 		RB_SELF2CPP(Table, table);
+		VALUE arg1, arg2, arg3;
 		rb_scan_args(argc, argv, "12", &arg1, &arg2, &arg3);
 		table->xSize = hmax(NUM2INT(arg1), 1);
 		table->ySize = hmax(NIL_P(arg2) ? 1 : NUM2INT(arg2), 1);
@@ -116,54 +115,54 @@ namespace rgss
 
 	VALUE Table::rb_getData(int argc, VALUE* argv, VALUE self)
 	{
-		VALUE x;
-		VALUE y = INT2NUM(0);
-		VALUE z = INT2NUM(0);
 		RB_SELF2CPP(Table, table);
+		VALUE arg1, arg2, arg3;
 		if (table->zSize > 1)
 		{
-			rb_scan_args(argc, argv, "3", &x, &y, &z);
+			rb_scan_args(argc, argv, "3", &arg1, &arg2, &arg3);
 		}
 		else if (table->ySize > 1)
 		{
-			rb_scan_args(argc, argv, "2", &x, &y);
+			rb_scan_args(argc, argv, "2", &arg1, &arg2);
 		}
 		else
 		{
-			rb_scan_args(argc, argv, "1", &x);
+			rb_scan_args(argc, argv, "1", &arg1);
 		}
-		int index = NUM2INT(x) + table->xSize * (NUM2INT(y) + table->ySize * NUM2INT(z));
-		return INT2FIX(table->data[index]);
+		int x = NUM2INT(arg1);
+		int y = (NIL_P(arg2) ? 0 : NUM2INT(arg2));
+		int z = (NIL_P(arg3) ? 0 : NUM2INT(arg3));
+		return INT2FIX(table->data[x + table->xSize * (y + table->ySize * z)]);
 	}
 		
 	VALUE Table::rb_setData(int argc, VALUE* argv, VALUE self)
 	{
-		VALUE x;
-		VALUE y = INT2NUM(0);
-		VALUE z = INT2NUM(0);
-		VALUE value;
 		RB_SELF2CPP(Table, table);
+		VALUE arg1, arg2, arg3, arg4;
 		if (table->zSize > 1)
 		{
-			rb_scan_args(argc, argv, "4", &x, &y, &z, &value);
+			rb_scan_args(argc, argv, "4", &arg1, &arg2, &arg3, &arg4);
 		}
 		else if (table->ySize > 1)
 		{
-			rb_scan_args(argc, argv, "3", &x, &y, &value);
+			rb_scan_args(argc, argv, "3", &arg1, &arg2, &arg4);
 		}
 		else
 		{
-			rb_scan_args(argc, argv, "2", &x, &value);
+			rb_scan_args(argc, argv, "2", &arg1, &arg4);
 		}
-		int index = NUM2INT(x) + table->xSize * (NUM2INT(y) + table->ySize * NUM2INT(z));
-		table->data[index] = (short)hclamp(NUM2INT(value), -32768, 32767);
+		int x = NUM2INT(arg1);
+		int y = (NIL_P(arg2) ? 0 : NUM2INT(arg2));
+		int z = (NIL_P(arg3) ? 0 : NUM2INT(arg3));
+		int value = (short)hclamp(NUM2INT(arg4), -32768, 32767);
+		table->data[x + table->xSize * (y + table->ySize * z)] = value;
 		return self;
 	}
 		
 	VALUE Table::rb_resize(int argc, VALUE* argv, VALUE self)
 	{
-		VALUE xSize, ySize, zSize;
 		RB_SELF2CPP(Table, table);
+		VALUE xSize, ySize, zSize;
 		rb_scan_args(argc, argv, "12", &xSize, &ySize, &zSize);
 		table->xSize = hmax(NUM2INT(xSize), 1);
 		table->ySize = hmax(NIL_P(ySize) ? 1 : NUM2INT(ySize), 1);
