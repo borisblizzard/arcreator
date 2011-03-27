@@ -79,30 +79,6 @@ namespace rgss
 		/// param[in] value The font to set for the bitmap.
 		static VALUE rb_setFont(VALUE self, VALUE value);
 
-
-		/// @brief Gets the bitmap's rectangle.
-		static VALUE rb_getRect(VALUE self);
-
-		/// @brief Checks whether bitmap is disposed.
-		/// @return bool True if bitmap has been freed.
-		static VALUE rb_isDisposed(VALUE self);
-		/// @brief Blits src_rect from source bitmap to this one.
-		/// @param[in] argc Number of arguments.
-		/// @param[in] argv Pointer to first argument.
-		/// @note Arguments are "x, y, src_bitmap, src_rect[, opacity]"
-		static VALUE rb_blt(int argc, VALUE* argv, VALUE self);
-		/// @brief Clears the entire bitmap
-		static VALUE rb_clear(VALUE self);
-		/// @brief Sets the color to the specified value.
-		/// @param[in] argc Number of arguments.
-		/// @param[in] argv Pointer to first argument.
-		/// @note Arguments are "[x, y, width, height, string, align]" or "[rect, string, align]".
-		static VALUE rb_drawText(int argc, VALUE* argv, VALUE self);
-		/// @brief Sets the color to the specified value.
-		/// @param[in] argc Number of arguments.
-		/// @param[in] argv Pointer to first argument.
-		/// @note Arguments are "[x, y, width, height, color]" or "[rect, color]".
-		static VALUE rb_fillRect(int argc, VALUE* argv, VALUE self);
 		/// @brief Get the color of a pixel at (x, y).
 		/// @param[in] x X coordinate.
 		/// @param[in] y Y coordinate.
@@ -113,6 +89,30 @@ namespace rgss
 		/// @param[in] y Y coordinate.
 		/// @param[in] color The color to set the pixel to.
 		static VALUE rb_setPixel(VALUE self, VALUE x, VALUE y, VALUE color);
+		/// @brief Sets the color to the specified value.
+		/// @param[in] argc Number of arguments.
+		/// @param[in] argv Pointer to first argument.
+		/// @note Arguments are "[x, y, width, height, color]" or "[rect, color]".
+		static VALUE rb_fillRect(int argc, VALUE* argv, VALUE self);
+		/// @brief Blits src_rect from source bitmap to this one.
+		/// @param[in] argc Number of arguments.
+		/// @param[in] argv Pointer to first argument.
+		/// @note Arguments are "x, y, src_bitmap, src_rect[, opacity]"
+		static VALUE rb_blt(int argc, VALUE* argv, VALUE self);
+
+		/// @brief Gets the bitmap's rectangle.
+		static VALUE rb_getRect(VALUE self);
+
+		/// @brief Checks whether bitmap is disposed.
+		/// @return bool True if bitmap has been freed.
+		static VALUE rb_isDisposed(VALUE self);
+		/// @brief Clears the entire bitmap
+		static VALUE rb_clear(VALUE self);
+		/// @brief Sets the color to the specified value.
+		/// @param[in] argc Number of arguments.
+		/// @param[in] argv Pointer to first argument.
+		/// @note Arguments are "[x, y, width, height, string, align]" or "[rect, string, align]".
+		static VALUE rb_drawText(int argc, VALUE* argv, VALUE self);
 		/// @brief Changes the bitmap's hue within 360 degrees of displacement.
 		/// @param[in] hue Degrees to rotate the hue
 		static VALUE rb_changeHue(VALUE self, VALUE hue);
@@ -134,10 +134,11 @@ namespace rgss
 		/// @brief The bitmap's rectangle.
 		Rect rect;
 
-		/// @brief The underlying rednering system texture.
+		/// @brief Underlying rendering system texture.
 		april::Texture* texture;
+		/// @brief Actual Image Source.
 		april::ImageSource* imageSource;
-		//unsigned char* imageData;
+		/// @brief Update flag for texture recreation when imageSource has changed to reupload it on the GFX card.
 		bool textureNeedsUpdate;
 
 	};

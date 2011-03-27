@@ -180,7 +180,6 @@ namespace rgss
 	VALUE Color::rb_set(int argc, VALUE* argv, VALUE self)
 	{
 		VALUE r, g, b, a;
-		// "31" means 3 mandatory arguments, 1 optional argument
 		rb_scan_args(argc, argv, "31", &r, &g, &b, &a);
 		RB_SELF2CPP(Color, color);
 		color->red = hclamp((float)NUM2DBL(r), -255.0f, 255.0f);

@@ -14,7 +14,6 @@
 
 namespace rgss
 {
-
 	/****************************************************************************************
 	 * Pure C++ code
 	 ****************************************************************************************/
@@ -119,7 +118,6 @@ namespace rgss
 	{
 		RB_SELF2CPP(Bitmap, bitmap);
 		VALUE arg1, arg2;
-		// "11" means 1 mandatory argument, 1 optional argument
 		rb_scan_args(argc, argv, "11", &arg1, &arg2);
 		if (NIL_P(arg2))
 		{

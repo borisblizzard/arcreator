@@ -190,29 +190,21 @@ namespace rgss
 
 	VALUE Sprite::setAngle(VALUE self, VALUE value)
 	{
-		value = rb_int_new(NUM2INT(value) % 360);
-		rb_iv_set(rb_cSprite, "@angle", value);
 		return value;
 	}
 
 	VALUE Sprite::setOpacity(VALUE self, VALUE value)
 	{
-		value = rb_float_new(hclamp(NUM2DBL(value), 0.0, 255.0));
-		rb_iv_set(rb_cSprite, "@opacity", value);
 		return value;
 	}
 
 	VALUE Sprite::setZoomX(VALUE self, VALUE value)
 	{
-		value = rb_float_new(hclamp(NUM2DBL(value), 0.1, NUM2DBL(value)));
-		rb_iv_set(rb_cSprite, "@zoom_x", value);
 		return value;
 	}
 
 	VALUE Sprite::setZoomY(VALUE self, VALUE value)
 	{
-		value = rb_float_new(hclamp(NUM2DBL(value), 0.1, NUM2DBL(value)));
-		rb_iv_set(rb_cSprite, "@zoom_y", value);
 		return value;
 	}
 

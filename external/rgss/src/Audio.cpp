@@ -5,6 +5,10 @@
 
 namespace rgss
 {
+	/****************************************************************************************
+	 * Ruby Interfacing, Creation, Destruction, Systematics
+	 ****************************************************************************************/
+	
 	void Audio::init()
 	{
 	}
@@ -24,6 +28,10 @@ namespace rgss
 		rb_define_module_function(rb_mAudio, "se_play", RUBY_METHOD_FUNC(&Audio::se_play), 3);
 		rb_define_module_function(rb_mAudio, "se_stop", RUBY_METHOD_FUNC(&Audio::se_stop), 0);
 	}
+
+	/****************************************************************************************
+	 * Ruby Methods
+	 ****************************************************************************************/
 
 	VALUE Audio::bgm_play(VALUE self, VALUE filename, VALUE volume, VALUE pitch)
 	{

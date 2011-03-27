@@ -43,6 +43,8 @@ namespace rgss
 		/// @param[in] value The new frame rate.
 		static VALUE setFrameRate(VALUE self, VALUE value);
 
+		/// @brief Refreshes the game screen and advances time by 1 frame.
+		static VALUE update(VALUE self);
 		/// @brief Resets the screen refresh timing.
 		static VALUE frameReset(VALUE self);
 		/// @brief Fixes the current screen in preparation for transitions.
@@ -52,8 +54,6 @@ namespace rgss
 		/// @param[in] filename The transition graphic file name.
 		/// @param[in] vague Sets the ambiguity of the borderline between the graphic's starting and ending points.
 		static VALUE transition(VALUE self, VALUE duration, VALUE filename, VALUE vague);
-		/// @brief Refreshes the game screen and advances time by 1 frame.
-		static VALUE update(VALUE self);
 
 	private:
 		/// @brief The number of frames that have passed.

@@ -1,5 +1,4 @@
 #include <ruby.h>
-#include <stdio.h>
 
 #include <hltypes/util.h>
 
@@ -9,6 +8,57 @@
 
 namespace rgss
 {
+	/****************************************************************************************
+	 * Pure C++ code
+	 ****************************************************************************************/
+
+	void Table::_resize(int xSize, int ySize, int zSize)
+	{
+		int oldXSize = this->xSize;
+		int oldYSize = this->ySize;
+		int copyXSize = hmin(this->xSize, xSize);
+		int copyYSize = hmin(this->ySize, ySize);
+		int copyZSize = hmin(this->zSize, zSize);
+		// make sure xSize isn't <= 0 and none of the sizes are negative
+		// store table sizes
+		this->xSize = hmax(xSize, 1);
+		this->ySize = hmax(ySize, 1);
+		this->zSize = hmax(zSize, 1);
+		// allocate space for the table
+		short* newData = this->_createData(this->xSize, this->ySize, this->zSize);
+
+		// copy the data from the old table, as much as fits
+		for_iter (x, 0, copyXSize)
+		{
+			for_iter (y, 0, copyYSize)
+			{
+				for_iter (z, 0, copyZSize)
+				{
+					newData[x + this->xSize * (y + this->ySize * z)] =
+						this->data[x + oldXSize * (y + oldYSize * z)];
+				}
+			}
+		}
+
+		// delete the old array
+		delete [] this->data;
+		// set the new data
+		this->data = newData;
+	}
+	
+	short* Table::_createData(int xSize, int ySize, int zSize) const
+	{
+		// allocate space for the table
+		short* data = new short[xSize * ySize * zSize];
+		// zero the data
+		memset(data, 0, xSize * ySize * zSize * sizeof(short));
+		return data;
+	}
+
+	/****************************************************************************************
+	 * Ruby Interfacing, Creation, Destruction, Systematics
+	 ****************************************************************************************/
+
 	void Table::init()
 	{
 	}
@@ -59,6 +109,10 @@ namespace rgss
 		table->data = table->_createData(table->xSize, table->ySize, table->zSize);
 		return self;
 	}
+
+	/****************************************************************************************
+	 * Ruby Methods
+	 ****************************************************************************************/
 
 	VALUE Table::rb_getData(int argc, VALUE* argv, VALUE self)
 	{
@@ -118,48 +172,5 @@ namespace rgss
 		return self;
 		
 	}
-	// functions
-	void Table::_resize(int xSize, int ySize, int zSize)
-	{
-		int oldXSize = this->xSize;
-		int oldYSize = this->ySize;
-		int copyXSize = hmin(this->xSize, xSize);
-		int copyYSize = hmin(this->ySize, ySize);
-		int copyZSize = hmin(this->zSize, zSize);
-		// make sure xSize isn't <= 0 and none of the sizes are negative
-		// store table sizes
-		this->xSize = hmax(xSize, 1);
-		this->ySize = hmax(ySize, 1);
-		this->zSize = hmax(zSize, 1);
-		// allocate space for the table
-		short* newData = this->_createData(this->xSize, this->ySize, this->zSize);
-
-		// copy the data from the old table, as much as fits
-		for_iter (x, 0, copyXSize)
-		{
-			for_iter (y, 0, copyYSize)
-			{
-				for_iter (z, 0, copyZSize)
-				{
-					newData[x + this->xSize * (y + this->ySize * z)] =
-						this->data[x + oldXSize * (y + oldYSize * z)];
-				}
-			}
-		}
-
-		// delete the old array
-		delete [] this->data;
-		// set the new data
-		this->data = newData;
-	}
 	
-	short* Table::_createData(int xSize, int ySize, int zSize) const
-	{
-		// allocate space for the table
-		short* data = new short[xSize * ySize * zSize];
-		// zero the data
-		memset(data, 0, xSize * ySize * zSize * sizeof(short));
-		return data;
-	}
-
 }
