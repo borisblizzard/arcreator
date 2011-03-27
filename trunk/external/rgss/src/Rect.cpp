@@ -7,6 +7,10 @@
 
 namespace rgss
 {
+	/****************************************************************************************
+	 * Pure C++ code
+	 ****************************************************************************************/
+
 	void Rect::set(int x, int y, int width, int height)
 	{
 		this->x = x;
@@ -14,6 +18,10 @@ namespace rgss
 		this->width = width;
 		this->height = height;
 	}
+
+	/****************************************************************************************
+	 * Ruby Interfacing, Creation, Destruction, Systematics
+	 ****************************************************************************************/
 
 	void Rect::init()
 	{
@@ -64,6 +72,10 @@ namespace rgss
 		hstr result = hsprintf("(%.1f,%.1f,%.1f,%.1f)", rect->x, rect->y, rect->width, rect->height);
 		return rb_str_new2(result.c_str());
 	}
+
+	/****************************************************************************************
+	 * Ruby Getters/Setters
+	 ****************************************************************************************/
 
 	VALUE Rect::rb_getX(VALUE self)
 	{
@@ -116,6 +128,10 @@ namespace rgss
 		rect->height = NUM2INT(value);
 		return value;
 	}
+
+	/****************************************************************************************
+	 * Ruby Methods
+	 ****************************************************************************************/
 
 	VALUE Rect::rb_set(VALUE self, VALUE x, VALUE y, VALUE width, VALUE height)
 	{

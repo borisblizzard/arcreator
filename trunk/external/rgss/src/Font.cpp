@@ -4,6 +4,10 @@
 
 namespace rgss
 {
+	/****************************************************************************************
+	 * Pure C++ code
+	 ****************************************************************************************/
+
 	hstr Font::defaultName;
 	int Font::defaultSize;
 	bool Font::defaultBold;
@@ -24,6 +28,10 @@ namespace rgss
 	{
 		delete this->color;
 	}
+
+	/****************************************************************************************
+	 * Ruby Interfacing, Creation, Destruction, Systematics
+	 ****************************************************************************************/
 
 	void Font::init()
 	{
@@ -102,6 +110,10 @@ namespace rgss
 		return self;
 	}
 
+	/****************************************************************************************
+	 * Ruby Getters/Setters
+	 ****************************************************************************************/
+
 	VALUE Font::rb_getName(VALUE self)
 	{
 		RB_SELF2CPP(Font, font);
@@ -165,6 +177,10 @@ namespace rgss
 		RB_GENERATE_SETTER(Font, font, Color, color);
 		return value;
 	}
+
+	/****************************************************************************************
+	 * Ruby Static Getters/Setters
+	 ****************************************************************************************/
 
 	VALUE Font::rb_getDefaultName(VALUE classe)
 	{

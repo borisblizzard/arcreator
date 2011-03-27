@@ -11,11 +11,43 @@
 
 namespace rgss
 {
+	/****************************************************************************************
+	 * Pure C++ code
+	 ****************************************************************************************/
+
 	unsigned int Graphics::frameCount;
 	unsigned int Graphics::frameRate;
 	bool Graphics::running;
 	harray<Sprite*> sprites;
 
+	void Graphics::addSprite(Sprite* sprite)
+	{
+		for_iter (i, 0, sprites.size())
+		{
+			if (sprite->getZ() < sprites[i]->getZ())
+			{
+				sprites.insert_at(i, sprite);
+				return;
+			}
+		}
+		sprites += sprite;
+	}
+
+	void Graphics::removeSprite(Sprite* sprite)
+	{
+		sprites -= sprite;
+	}
+
+	void Graphics::updateSprite(Sprite* sprite)
+	{
+		removeSprite(sprite);
+		addSprite(sprite);
+	}
+
+	/****************************************************************************************
+	 * Ruby Interfacing, Creation, Destruction, Systematics
+	 ****************************************************************************************/
+	
 	void Graphics::init()
 	{
 		frameCount = 0;
@@ -36,29 +68,35 @@ namespace rgss
 		rb_define_module_function(rb_mGraphics, "transition", RUBY_METHOD_FUNC(&Graphics::transition), 3);
 	}
 
-	void Graphics::addSprite(Sprite* sprite)
+	/****************************************************************************************
+	 * Ruby Getters/Setters
+	 ****************************************************************************************/
+
+	VALUE Graphics::getFrameCount(VALUE self)
 	{
-		for_iter (i, 0, sprites.size())
-		{
-			if (sprite->z < sprites[i]->z)
-			{
-				sprites.insert_at(i, sprite);
-				return;
-			}
-		}
-		sprites += sprite;
+		return INT2NUM(frameCount);
 	}
 
-	void Graphics::removeSprite(Sprite* sprite)
+	VALUE Graphics::setFrameCount(VALUE self, VALUE value)
 	{
-		sprites -= sprite;
+		frameCount = NUM2UINT(value);
+		return Qnil;
 	}
 
-	void Graphics::updateSprite(Sprite* sprite)
+	VALUE Graphics::getFrameRate(VALUE self)
 	{
-		removeSprite(sprite);
-		addSprite(sprite);
+		return INT2NUM(frameRate);
 	}
+
+	VALUE Graphics::setFrameRate(VALUE self, VALUE value)
+	{
+		frameRate = hclamp(NUM2UINT(value), (unsigned int)10, (unsigned int)120);
+		return value;
+	}
+
+	/****************************************************************************************
+	 * Ruby Methods
+	 ****************************************************************************************/
 
 	VALUE Graphics::update(VALUE self)
 	{
@@ -69,7 +107,6 @@ namespace rgss
 		}
 		// some testing for now
 		april::rendersys->clear();
-		//harray<Sprite*> sprites
 		foreach (Sprite*, it, sprites)
 		{
 			(*it)->draw();
@@ -92,28 +129,6 @@ namespace rgss
 
 	VALUE Graphics::transition(VALUE self, VALUE duration, VALUE filename, VALUE vague)
 	{
-		return Qnil;
-	}
-
-	VALUE Graphics::getFrameCount(VALUE self)
-	{
-		return INT2NUM(frameCount);
-	}
-
-	VALUE Graphics::setFrameCount(VALUE self, VALUE value)
-	{
-		frameCount = NUM2UINT(value);
-		return Qnil;
-	}
-
-	VALUE Graphics::getFrameRate(VALUE self)
-	{
-		return INT2NUM(frameRate);
-	}
-
-	VALUE Graphics::setFrameRate(VALUE self, VALUE value)
-	{
-		frameRate = hclamp(NUM2UINT(value), (unsigned int)10, (unsigned int)120);
 		return Qnil;
 	}
 

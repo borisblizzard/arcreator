@@ -7,6 +7,10 @@
 
 namespace rgss
 {
+	/****************************************************************************************
+	 * Pure C++ code
+	 ****************************************************************************************/
+
 	void Tone::set(float r, float g, float b, float a)
 	{
 		this->red = hclamp(r, -255.0f, 255.0f);
@@ -14,6 +18,10 @@ namespace rgss
 		this->blue = hclamp(b, -255.0f, 255.0f);
 		this->gray = hclamp(a, 0.0f, 255.0f);
 	}
+
+	/****************************************************************************************
+	 * Ruby Interfacing, Creation, Destruction, Systematics
+	 ****************************************************************************************/
 
 	void Tone::init()
 	{
@@ -64,6 +72,10 @@ namespace rgss
 		hstr result = hsprintf("(%.1f,%.1f,%.1f,%.1f)", color->red, color->green, color->blue, color->gray);
 		return rb_str_new2(result.c_str());
 	}
+
+	/****************************************************************************************
+	 * Ruby Getters/Setters
+	 ****************************************************************************************/
 
 	VALUE Tone::rb_getRed(VALUE self)
 	{
@@ -117,10 +129,13 @@ namespace rgss
 		return self;
 	}
 
+	/****************************************************************************************
+	 * Ruby Methods
+	 ****************************************************************************************/
+
 	VALUE Tone::rb_set(int argc, VALUE* argv, VALUE self)
 	{
 		VALUE r, g, b, a;
-		// "31" means 3 mandatory arguments, 1 optional argument
 		rb_scan_args(argc, argv, "31", &r, &g, &b, &a);
 		RB_SELF2CPP(Tone, color);
 		color->red = hclamp((float)NUM2DBL(r), -255.0f, 255.0f);

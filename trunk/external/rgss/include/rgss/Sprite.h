@@ -24,6 +24,25 @@ namespace rgss
 		/// @todo Dummy, needs to be removed.
 		~Sprite() { }
 
+		/// @brief Gets the X coordinate.
+		/// @return The X coordinate.
+		int getX() { return this->x; }
+		/// @brief Sets the X coordinate.
+		/// @param[in] value The X coordinate.
+		void setX(int value) { this->x = value; }
+		/// @brief Gets the Y coordinate.
+		/// @return The Y coordinate.
+		int getY() { return this->y; }
+		/// @brief Sets the Y coordinate.
+		/// @param[in] value The Y coordinate.
+		void setY(int value) { this->y = value; }
+		/// @brief Gets the Z coordinate.
+		/// @return The Z coordinate.
+		int getZ() { return this->z; }
+		/// @brief Sets the Z coordinate.
+		/// @param[in] value The Z coordinate.
+		void setZ(int value) { this->z = value; }
+
 		/// @brief Draws this sprite on the screen.
 		void draw();
 
@@ -78,6 +97,8 @@ namespace rgss
 		/// @return True if sprite was disposed manually.
 		static VALUE rb_isDisposed(VALUE self);
 
+
+
 		/// @brief Mixes a color with the sprite for a short duration.
 		/// @param[in] color Color component.
 		/// @param[in] duration Number of frames.
@@ -86,9 +107,6 @@ namespace rgss
 		/// @param[in] value Angle value.
 		/// @note Uses modulus operation to keep value between 0 and 360.
 		static VALUE setAngle(VALUE self, VALUE value);
-		/// @brief Sets the sprite's bitmap.
-		/// @param[in] value Bitmap component.
-		static VALUE setBitmap(VALUE self, VALUE* value);
 		/// @brief Sets the alpha value of sprite.
 		/// param[in] value Alpha component.
 		static VALUE setOpacity(VALUE self, VALUE value);
@@ -101,12 +119,13 @@ namespace rgss
 		/// @brief Invokes the sprites update method.
 		static VALUE update(VALUE self);
 
-		/// @todo needs to be refactored
-		int x;
-		int y;
-		int z;
-
 	protected:
+		/// @brief X coordinate.
+		int x;
+		/// @brief Y coordinate.
+		int y;
+		/// @brief Z coordinate.
+		int z;
 		/// @brief Disposed flag.
 		bool disposed;
 		/// @brief Bitmap drawing reference.
