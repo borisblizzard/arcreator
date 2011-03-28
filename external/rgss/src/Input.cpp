@@ -11,6 +11,8 @@
 
 namespace rgss
 {
+	VALUE rb_mInput;
+
 	hmap<int, harray<unsigned int>> conversions;
 
 	harray<unsigned int> controlKeys;

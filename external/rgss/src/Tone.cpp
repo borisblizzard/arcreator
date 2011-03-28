@@ -11,6 +11,8 @@ namespace rgss
 	 * Pure C++ code
 	 ****************************************************************************************/
 
+	VALUE rb_cTone;
+
 	void Tone::set(float r, float g, float b, float a)
 	{
 		this->red = hclamp(r, -255.0f, 255.0f);

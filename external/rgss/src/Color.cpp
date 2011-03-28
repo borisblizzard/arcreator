@@ -12,6 +12,8 @@ namespace rgss
 	 * Pure C++ code
 	 ****************************************************************************************/
 
+	VALUE rb_cColor;
+
 	Color::Color()
 	{
 		this->red = 255.0f;
@@ -115,6 +117,13 @@ namespace rgss
 		RB_SELF2CPP(Color, color);
 		hstr result = hsprintf("(%.1f,%.1f,%.1f,%.1f)", color->red, color->green, color->blue, color->alpha);
 		return rb_str_new2(result.c_str());
+	}
+
+	VALUE Color::create(int argc, VALUE* argv)
+	{
+		VALUE object = rb_obj_alloc(rb_cColor);
+		rb_obj_call_init(object, argc, argv);
+		return object;
 	}
 
 	/****************************************************************************************

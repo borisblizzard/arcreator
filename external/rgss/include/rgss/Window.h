@@ -8,7 +8,7 @@
 
 namespace rgss
 {
-	static VALUE rb_cWindow;
+	extern VALUE rb_cWindow;
 
 	class Bitmap;
 	class Rect;

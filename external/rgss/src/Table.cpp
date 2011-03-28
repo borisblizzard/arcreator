@@ -12,6 +12,8 @@ namespace rgss
 	 * Pure C++ code
 	 ****************************************************************************************/
 
+	VALUE rb_cTable;
+
 	void Table::_resize(int xSize, int ySize, int zSize)
 	{
 		int oldXSize = this->xSize;

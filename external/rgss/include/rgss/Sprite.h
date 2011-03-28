@@ -10,7 +10,7 @@
 
 namespace rgss
 {
-	static VALUE rb_cSprite;
+	extern VALUE rb_cSprite;
 
 	class Bitmap;
 	class Viewport;

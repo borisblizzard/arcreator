@@ -8,6 +8,8 @@
 
 namespace rgss
 {
+	VALUE rb_cTilemap;
+
 	void Tilemap::init()
 	{
 	}

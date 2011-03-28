@@ -9,7 +9,7 @@
 
 namespace rgss
 {
-	static VALUE rb_cColor;
+	extern VALUE rb_cColor;
 
 	/// @brief Emulates RGSS's Color class.
 	class rgssExport Color
@@ -79,6 +79,13 @@ namespace rgss
 		/// @brief Gets a string representation of the instance.
 		/// @return String representation of the instance.
 		static VALUE rb_inspect(VALUE self);
+		/// @brief Creates a C++ version of this class.
+		/// @param[in] argc Number of arguments.
+		/// @param[in] argv Pointer to first argument.
+		/// @note Arguments are "r, g, b[, a]".
+		/// @note Color values will be clamped between -255 and 255.
+		/// @note Alpha is clamped between 0 and 255.
+		static VALUE create(int argc, VALUE* argv);
 
 		/// @brief Gets the red component.
 		/// @return Red component.

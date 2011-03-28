@@ -10,6 +10,8 @@
 
 namespace rgss
 {
+	VALUE rb_cWindow;
+
 	void Window::init()
 	{
 	}
