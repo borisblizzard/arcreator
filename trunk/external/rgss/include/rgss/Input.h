@@ -9,7 +9,7 @@
 
 namespace rgss
 {
-	static VALUE rb_mInput;
+	extern VALUE rb_mInput;
 
 	class rgssExport Input
 	{

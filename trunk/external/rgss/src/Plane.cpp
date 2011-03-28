@@ -11,6 +11,8 @@
 
 namespace rgss
 {
+	VALUE rb_cPlane;
+
 	void Plane::init()
 	{
 	}

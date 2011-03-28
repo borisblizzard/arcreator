@@ -7,9 +7,9 @@
 
 namespace rgss
 {
-	class Sprite;
+	extern VALUE rb_mGraphics;
 
-	static VALUE rb_mGraphics;
+	class Sprite;
 
 	class rgssExport Graphics
 	{

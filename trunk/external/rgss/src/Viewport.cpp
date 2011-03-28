@@ -8,6 +8,8 @@
 
 namespace rgss
 {
+	VALUE rb_cViewport;
+
 	void Viewport::init()
 	{
 	}

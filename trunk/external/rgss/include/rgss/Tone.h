@@ -7,7 +7,7 @@
 
 namespace rgss
 {
-	static VALUE rb_cTone;
+	extern VALUE rb_cTone;
 
 	/// @brief Emulates RGSS's Tone class.
 	class rgssExport Tone

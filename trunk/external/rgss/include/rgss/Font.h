@@ -11,7 +11,7 @@ namespace rgss
 {
 	class Color;
 
-	static VALUE rb_cFont;
+	extern VALUE rb_cFont;
 
 	/// @brief Emulates RGSS's Font class.
 	class rgssExport Font
@@ -33,6 +33,8 @@ namespace rgss
 		/// @brief Default Font Color.
 		/// @todo This will cause memory problems if changed via Ruby, needs to be refactored.
 		static Color* defaultColor;
+		/// @brief Default Font Color.
+		static VALUE rb_defaultColor;
 
 
 		/*
@@ -68,6 +70,10 @@ namespace rgss
 		/// @param[in] argc Number of arguments.
 		/// @param[in] argv Pointer to first argument.
 		static VALUE rb_initialize(int argc, VALUE* argv, VALUE self);
+		/// @brief Creates a C++ version of this class.
+		/// @param[in] argc Number of arguments.
+		/// @param[in] argv Pointer to first argument.
+		static VALUE create(int argc, VALUE* argv);
 
 		/// @brief Gets the font's name.
 		/// @return Name of the font.

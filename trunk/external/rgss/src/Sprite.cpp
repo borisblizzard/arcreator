@@ -19,6 +19,8 @@ namespace rgss
 	 * Pure C++ code
 	 ****************************************************************************************/
 
+	VALUE rb_cSprite;
+
 	void Sprite::draw()
 	{
 		if (this->bitmap != NULL)
@@ -83,12 +85,15 @@ namespace rgss
 	VALUE Sprite::rb_new(VALUE classe)
 	{
 		Sprite* sprite;
-		return Data_Make_Struct(rb_cSprite, Sprite, Sprite::gc_mark, Sprite::gc_free, sprite);
+		VALUE result = Data_Make_Struct(rb_cSprite, Sprite, Sprite::gc_mark, Sprite::gc_free, sprite);
+		sprite->disposed = true;
+		return result;
 	}
 
 	VALUE Sprite::rb_initialize(int argc, VALUE* argv, VALUE self)
 	{
 		RB_SELF2CPP(Sprite, sprite);
+		sprite->disposed = false;
 		Graphics::addSprite(sprite);
 		return self;
 	}

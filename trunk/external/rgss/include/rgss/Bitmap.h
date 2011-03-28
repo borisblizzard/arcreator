@@ -18,7 +18,7 @@ namespace april
 
 namespace rgss
 {
-	static VALUE rb_cBitmap;
+	extern VALUE rb_cBitmap;
 
 	class rgssExport Bitmap
 	{
@@ -140,6 +140,8 @@ namespace rgss
 		april::ImageSource* imageSource;
 		/// @brief Update flag for texture recreation when imageSource has changed to reupload it on the GFX card.
 		bool textureNeedsUpdate;
+		/// @brief Disposed flag.
+		bool disposed;
 
 	};
 

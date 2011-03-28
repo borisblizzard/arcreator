@@ -11,6 +11,8 @@ namespace rgss
 	 * Pure C++ code
 	 ****************************************************************************************/
 
+	VALUE rb_cRect;
+
 	void Rect::set(int x, int y, int width, int height)
 	{
 		this->x = x;

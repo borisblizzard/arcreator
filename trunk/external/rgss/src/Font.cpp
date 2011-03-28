@@ -8,11 +8,14 @@ namespace rgss
 	 * Pure C++ code
 	 ****************************************************************************************/
 
+	VALUE rb_cFont;
+
 	hstr Font::defaultName;
 	int Font::defaultSize;
 	bool Font::defaultBold;
 	bool Font::defaultItalic;
 	Color* Font::defaultColor;
+	VALUE Font::rb_defaultColor;
 
 	Font::Font()
 	{
@@ -20,8 +23,11 @@ namespace rgss
 		this->size = defaultSize;
 		this->bold = defaultBold;
 		this->italic = defaultItalic;
-		this->color = new Color(*defaultColor);
-		this->rb_color = this->color->wrap();
+		VALUE argv[4] = {INT2FIX(defaultColor->red), INT2FIX(defaultColor->green),
+			INT2FIX(defaultColor->blue), INT2FIX(defaultColor->alpha)};
+		this->rb_color = Color::create(4, argv);
+		RB_VAR2CPP(this->rb_color, Color, color);
+		this->color = color;
 	}
 	
 	Font::~Font()
@@ -39,7 +45,10 @@ namespace rgss
 		defaultSize = 22;
 		defaultBold = false;
 		defaultItalic = false;
-		defaultColor = new Color(255.0f, 255.0f, 255.0f);
+		VALUE argv[3] = {INT2FIX(255), INT2FIX(255), INT2FIX(255)};
+		rb_defaultColor = Color::create(3, argv);
+		RB_VAR2CPP(rb_defaultColor, Color, color);
+		defaultColor = color;
 	}
 
 	void Font::createRubyInterface()
@@ -105,9 +114,19 @@ namespace rgss
 		font->size = defaultSize;
 		font->bold = defaultBold;
 		font->italic = defaultItalic;
-		font->color = new Color(*defaultColor);
-		font->rb_color = font->color->wrap();
+		VALUE argv2[4] = {INT2FIX(defaultColor->red), INT2FIX(defaultColor->green),
+			INT2FIX(defaultColor->blue), INT2FIX(defaultColor->alpha)};
+		font->rb_color = Color::create(4, argv2);
+		RB_VAR2CPP(font->rb_color, Color, color);
+		font->color = color;
 		return self;
+	}
+
+	VALUE Font::create(int argc, VALUE* argv)
+	{
+		VALUE object = rb_obj_alloc(rb_cFont);
+		rb_obj_call_init(object, argc, argv);
+		return object;
 	}
 
 	/****************************************************************************************

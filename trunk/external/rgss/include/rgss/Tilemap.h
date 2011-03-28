@@ -8,7 +8,7 @@
 
 namespace rgss
 {
-	static VALUE rb_cTilemap;
+	extern VALUE rb_cTilemap;
 
 	class Viewport; 
 	class Bitmap; 

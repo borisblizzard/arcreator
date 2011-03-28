@@ -9,7 +9,7 @@
 
 namespace rgss
 {
-	static VALUE rb_mAudio;
+	extern VALUE rb_mAudio;
 
 	class rgssExport Audio
 	{

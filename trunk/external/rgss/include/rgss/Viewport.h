@@ -10,7 +10,7 @@
 
 namespace rgss
 {
-	static VALUE rb_cViewport;
+	extern VALUE rb_cViewport;
 
 	class rgssExport Viewport
 	{

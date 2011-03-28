@@ -7,7 +7,7 @@
 
 namespace rgss
 {
-	static VALUE rb_cRect;
+	extern VALUE rb_cRect;
 
 	/// @brief Emulates RGSS's Rect class.
 	class rgssExport Rect

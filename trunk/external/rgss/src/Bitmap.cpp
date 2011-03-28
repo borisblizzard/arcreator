@@ -10,6 +10,7 @@
 #include "Color.h"
 #include "Font.h"
 #include "Rect.h"
+#include "RGSSError.h"
 #include "CodeSnippets.h"
 
 namespace rgss
@@ -17,6 +18,8 @@ namespace rgss
 	/****************************************************************************************
 	 * Pure C++ code
 	 ****************************************************************************************/
+	
+	VALUE rb_cBitmap;
 
 	int Bitmap::getWidth()
 	{
@@ -111,12 +114,15 @@ namespace rgss
 	VALUE Bitmap::rb_new(VALUE classe) 
 	{
 		Bitmap* bitmap;
-		return Data_Make_Struct(classe, Bitmap, Bitmap::gc_mark, Bitmap::gc_free, bitmap);
+		VALUE result = Data_Make_Struct(classe, Bitmap, Bitmap::gc_mark, Bitmap::gc_free, bitmap);
+		bitmap->disposed = true;
+		return result;
 	}
 
 	VALUE Bitmap::rb_initialize(int argc, VALUE* argv, VALUE self) 
 	{
 		RB_SELF2CPP(Bitmap, bitmap);
+		bitmap->disposed = false;
 		VALUE arg1, arg2;
 		rb_scan_args(argc, argv, "11", &arg1, &arg2);
 		if (NIL_P(arg2))
@@ -126,10 +132,17 @@ namespace rgss
 		}
 		else
 		{
-			bitmap->imageSource = april::createEmptyImage(NUM2INT(arg1), NUM2INT(arg2));
+			int w = NUM2INT(arg1);
+			int h = NUM2INT(arg2);
+			if (w < 1 || h < 1)
+			{
+				rb_raise(rb_eRGSSError, "failed to create bitmap");
+			}
+			bitmap->imageSource = april::createEmptyImage(w, h);
 		}
-		bitmap->font = new Font();
-		bitmap->rb_font = bitmap->font->wrap();
+		bitmap->rb_font = Font::create(0, NULL);
+		RB_VAR2CPP(bitmap->rb_font, Font, font);
+		bitmap->font = font;
 		bitmap->textureNeedsUpdate = true;
 		return self;
 	}
@@ -179,9 +192,9 @@ namespace rgss
 	VALUE Bitmap::rb_getPixel(VALUE self, VALUE x, VALUE y)
 	{
 		RB_SELF2CPP(Bitmap, bitmap);
-		april::Color aColor = bitmap->imageSource->getPixel(NUM2INT(x), NUM2INT(y));
-		Color* color = new Color(aColor);
-		return color->wrap();
+		april::Color color = bitmap->imageSource->getPixel(NUM2INT(x), NUM2INT(y));
+		VALUE argv[4] = {INT2FIX(color.r), INT2FIX(color.g), INT2FIX(color.b), INT2FIX(color.a)};
+		return Color::create(4, argv);
 	}
 
 	VALUE Bitmap::rb_setPixel(VALUE self, VALUE x, VALUE y, VALUE color)
