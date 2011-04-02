@@ -9,20 +9,20 @@ namespace rgss
 {
 	extern VALUE rb_mGraphics;
 
-	class Sprite;
+	class Renderable;
 
 	class rgssExport Graphics
 	{
 	public:
-		/// @brief Adds a new sprite to the rendering queue.
-		/// @param[in] sprite The sprite to be added.
-		static void addSprite(Sprite* sprite);
-		/// @brief Removes the sprite from the rendering queue.
-		/// @param[in] sprite The sprite to be removed.
-		static void removeSprite(Sprite* sprite);
-		/// @brief Updates a sprite within the rendering queue because of a change in the Z coordinate.
-		/// @param[in] sprite The sprite that has changed.
-		static void updateSprite(Sprite* sprite);
+		/// @brief Adds a new renderable object to the rendering queue.
+		/// @param[in] renderable The renderable object to be added.
+		static void addRenderable(Renderable* renderable);
+		/// @brief Removes the renderable object from the rendering queue.
+		/// @param[in] renderable The renderable object to be removed.
+		static void removeRenderable(Renderable* renderable);
+		/// @brief Updates a renderable object within the rendering queue because of a change in the Z coordinate.
+		/// @param[in] renderable The renderable object that has changed.
+		static void updateRenderable(Renderable* renderable);
 		/// @brief Sets whether Graphics is still running.
 		/// @param[in] value The new value.
 		static void setRunning(bool value) { running = value; }

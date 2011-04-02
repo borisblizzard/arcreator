@@ -115,8 +115,10 @@ namespace rgss
 	{
 		sprite->rb_bitmap = Qnil;
 		sprite->bitmap = NULL;
+		sprite->rb_srcRect = Qnil;
+		sprite->srcRect = NULL;
 		sprite->disposed = true;
-		Graphics::removeSprite(sprite);
+		Graphics::removeRenderable(sprite);
 	}
 
 	VALUE Sprite::rb_new(VALUE classe)
@@ -124,6 +126,7 @@ namespace rgss
 		Sprite* sprite;
 		VALUE result = Data_Make_Struct(rb_cSprite, Sprite, Sprite::gc_mark, Sprite::gc_free, sprite);
 		sprite->disposed = true;
+		sprite->type = TYPE_SPRITE;
 		return result;
 	}
 
@@ -132,7 +135,7 @@ namespace rgss
 		RB_SELF2CPP(Sprite, sprite);
 		sprite->disposed = false;
 		Sprite::rb_setSrcRect(self, Rect::create(INT2FIX(0), INT2FIX(0), INT2FIX(1), INT2FIX(1)));
-		Graphics::addSprite(sprite);
+		Graphics::addRenderable(sprite);
 		return self;
 	}
 
@@ -142,7 +145,7 @@ namespace rgss
 		if (!sprite->disposed)
 		{
 			sprite->disposed = true;
-			Graphics::removeSprite(sprite);
+			Graphics::removeRenderable(sprite);
 		}
 		return Qnil;
 	}
@@ -174,24 +177,6 @@ namespace rgss
 	{
 		RB_SELF2CPP(Sprite, sprite);
 		sprite->y = NUM2INT(value);
-		return value;
-	}
-
-	VALUE Sprite::rb_getZ(VALUE self)
-	{
-		RB_SELF2CPP(Sprite, sprite);
-		return INT2NUM(sprite->z);
-	}
-
-	VALUE Sprite::rb_setZ(VALUE self, VALUE value)
-	{
-		RB_SELF2CPP(Sprite, sprite);
-		int z = NUM2INT(value);
-		if (sprite->z != z)
-		{
-			sprite->z = z;
-			Graphics::updateSprite(sprite);
-		}
 		return value;
 	}
 
