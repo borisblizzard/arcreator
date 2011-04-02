@@ -23,12 +23,12 @@ namespace rgss
 
 	int Bitmap::getWidth()
 	{
-		return this->texture->getWidth();
+		return this->imageSource->w;
 	}
 
 	int Bitmap::getHeight()
 	{
-		return this->texture->getHeight();
+		return this->imageSource->h;
 	}
 
 	void Bitmap::updateTexture()
@@ -140,9 +140,7 @@ namespace rgss
 			}
 			bitmap->imageSource = april::createEmptyImage(w, h);
 		}
-		bitmap->rb_font = Font::create(0, NULL);
-		RB_VAR2CPP(bitmap->rb_font, Font, font);
-		bitmap->font = font;
+		Bitmap::rb_setFont(self, Font::create(0, NULL));
 		bitmap->textureNeedsUpdate = true;
 		return self;
 	}

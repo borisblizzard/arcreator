@@ -121,8 +121,8 @@ namespace rgss
 
 	VALUE Color::create(int argc, VALUE* argv)
 	{
-		VALUE object = rb_obj_alloc(rb_cColor);
-		rb_obj_call_init(object, argc, argv);
+		VALUE object = Color::rb_new(rb_cColor);
+		object = Color::rb_initialize(argc, argv, object);
 		return object;
 	}
 
