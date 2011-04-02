@@ -1,6 +1,7 @@
 #include <ruby.h>
 
 #include <april/RenderSystem.h>
+#include <gtypes/Matrix4.h>
 #include <gtypes/Rectangle.h>
 #include <hltypes/util.h>
 
@@ -23,13 +24,40 @@ namespace rgss
 
 	void Sprite::draw()
 	{
-		if (this->bitmap != NULL)
+		if (this->bitmap == NULL)
 		{
-			this->bitmap->updateTexture();
-			april::rendersys->setTexture(this->bitmap->getTexture());
-			april::rendersys->drawTexturedQuad(
-				grect(this->x, this->y, this->bitmap->getWidth(), this->bitmap->getHeight()), grect(0, 0, 1, 1));
+			return;
 		}
+		gmat4 viewMatrix = april::rendersys->getModelviewMatrix();
+		if (this->x != 0 || this->y != 0)
+		{
+			april::rendersys->translate((float)this->x, (float)this->y);
+		}
+		if (this->angle != 0.0f)
+		{
+			april::rendersys->rotate(this->angle);
+		}
+		this->_render();
+		april::rendersys->setModelviewMatrix(viewMatrix);
+	}
+
+	void Sprite::_render()
+	{
+		this->bitmap->updateTexture();
+		april::rendersys->setTexture(this->bitmap->getTexture());
+		grect drawRect;
+		drawRect.x = (float)this->ox;
+		drawRect.y = (float)this->oy;
+		drawRect.w = (float)this->srcRect->width;
+		drawRect.h = (float)this->srcRect->height;
+		float w = (float)this->bitmap->getWidth();
+		float h = (float)this->bitmap->getHeight();
+		grect srcRect;
+		srcRect.x = this->srcRect->x / w;
+		srcRect.y = this->srcRect->y / h;
+		srcRect.w = hmin(this->srcRect->width / w, 1.0f - srcRect.x);
+		srcRect.h = hmin(this->srcRect->height / h, 1.0f - srcRect.y);
+		april::rendersys->drawTexturedQuad(drawRect, srcRect);
 	}
 
 	/****************************************************************************************
@@ -54,8 +82,16 @@ namespace rgss
 		rb_define_method(rb_cSprite, "y=", RUBY_METHOD_FUNC(&Sprite::rb_setY), 1);
 		rb_define_method(rb_cSprite, "z", RUBY_METHOD_FUNC(&Sprite::rb_getZ), 0);
 		rb_define_method(rb_cSprite, "z=", RUBY_METHOD_FUNC(&Sprite::rb_setZ), 1);
+		rb_define_method(rb_cSprite, "ox", RUBY_METHOD_FUNC(&Sprite::rb_getOX), 0);
+		rb_define_method(rb_cSprite, "ox=", RUBY_METHOD_FUNC(&Sprite::rb_setOX), 1);
+		rb_define_method(rb_cSprite, "oy", RUBY_METHOD_FUNC(&Sprite::rb_getOY), 0);
+		rb_define_method(rb_cSprite, "oy=", RUBY_METHOD_FUNC(&Sprite::rb_setOY), 1);
+		rb_define_method(rb_cSprite, "angle", RUBY_METHOD_FUNC(&Sprite::rb_getAngle), 0);
+		rb_define_method(rb_cSprite, "angle=", RUBY_METHOD_FUNC(&Sprite::rb_setAngle), 1);
 		rb_define_method(rb_cSprite, "bitmap", RUBY_METHOD_FUNC(&Sprite::rb_getBitmap), 0);
 		rb_define_method(rb_cSprite, "bitmap=", RUBY_METHOD_FUNC(&Sprite::rb_setBitmap), 1);
+		rb_define_method(rb_cSprite, "src_rect", RUBY_METHOD_FUNC(&Sprite::rb_getSrcRect), 0);
+		rb_define_method(rb_cSprite, "src_rect=", RUBY_METHOD_FUNC(&Sprite::rb_setSrcRect), 1);
 		rb_define_method(rb_cSprite, "disposed?", RUBY_METHOD_FUNC(&Sprite::rb_isDisposed), 0);
 		// methods
 	}
@@ -71,6 +107,7 @@ namespace rgss
 		if (!NIL_P(sprite->rb_bitmap))
 		{
 			rb_gc_mark(sprite->rb_bitmap);
+			rb_gc_mark(sprite->rb_srcRect);
 		}
 	}
 
@@ -94,6 +131,7 @@ namespace rgss
 	{
 		RB_SELF2CPP(Sprite, sprite);
 		sprite->disposed = false;
+		Sprite::rb_setSrcRect(self, Rect::create(INT2FIX(0), INT2FIX(0), INT2FIX(1), INT2FIX(1)));
 		Graphics::addSprite(sprite);
 		return self;
 	}
@@ -157,6 +195,45 @@ namespace rgss
 		return value;
 	}
 
+	VALUE Sprite::rb_getOX(VALUE self)
+	{
+		RB_SELF2CPP(Sprite, sprite);
+		return INT2NUM(-sprite->ox);
+	}
+
+	VALUE Sprite::rb_setOX(VALUE self, VALUE value)
+	{
+		RB_SELF2CPP(Sprite, sprite);
+		sprite->ox = -NUM2INT(value);
+		return value;
+	}
+
+	VALUE Sprite::rb_getOY(VALUE self)
+	{
+		RB_SELF2CPP(Sprite, sprite);
+		return INT2NUM(-sprite->oy);
+	}
+
+	VALUE Sprite::rb_setOY(VALUE self, VALUE value)
+	{
+		RB_SELF2CPP(Sprite, sprite);
+		sprite->oy = -NUM2INT(value);
+		return value;
+	}
+
+	VALUE Sprite::rb_getAngle(VALUE self)
+	{
+		RB_SELF2CPP(Sprite, sprite);
+		return rb_float_new(sprite->angle);
+	}
+
+	VALUE Sprite::rb_setAngle(VALUE self, VALUE value)
+	{
+		RB_SELF2CPP(Sprite, sprite);
+		sprite->angle = (float)NUM2DBL(value);
+		return value;
+	}
+
 	VALUE Sprite::rb_getBitmap(VALUE self)
 	{
 		RB_SELF2CPP(Sprite, sprite);
@@ -166,6 +243,22 @@ namespace rgss
 	VALUE Sprite::rb_setBitmap(VALUE self, VALUE value)
 	{
 		RB_GENERATE_SETTER(Sprite, sprite, Bitmap, bitmap);
+		if (sprite->bitmap != NULL)
+		{
+			sprite->getSrcRect()->set(0, 0, sprite->bitmap->getWidth(), sprite->bitmap->getHeight());
+		}
+		return value;
+	}
+
+	VALUE Sprite::rb_getSrcRect(VALUE self)
+	{
+		RB_SELF2CPP(Sprite, sprite);
+		return sprite->rb_srcRect;
+	}
+
+	VALUE Sprite::rb_setSrcRect(VALUE self, VALUE value)
+	{
+		RB_GENERATE_SETTER(Sprite, sprite, Rect, srcRect);
 		return value;
 	}
 
@@ -191,11 +284,6 @@ namespace rgss
 	{
 		/// @todo implement
 		return Qnil;
-	}
-
-	VALUE Sprite::setAngle(VALUE self, VALUE value)
-	{
-		return value;
 	}
 
 	VALUE Sprite::setOpacity(VALUE self, VALUE value)

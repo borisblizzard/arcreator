@@ -24,6 +24,7 @@ namespace rgss
 		/// @todo Dummy, needs to be removed.
 		~Sprite() { }
 
+		/*
 		/// @brief Gets the X coordinate.
 		/// @return The X coordinate.
 		int getX() { return this->x; }
@@ -36,12 +37,16 @@ namespace rgss
 		/// @brief Sets the Y coordinate.
 		/// @param[in] value The Y coordinate.
 		void setY(int value) { this->y = value; }
+		*/
 		/// @brief Gets the Z coordinate.
 		/// @return The Z coordinate.
 		int getZ() { return this->z; }
 		/// @brief Sets the Z coordinate.
 		/// @param[in] value The Z coordinate.
 		void setZ(int value) { this->z = value; }
+		/// @brief Gets the source rectangle.
+		/// @return Source Rectangle.
+		Rect* getSrcRect() { return this->srcRect; }
 
 		/// @brief Draws this sprite on the screen.
 		void draw();
@@ -87,12 +92,36 @@ namespace rgss
 		/// @brief Sets the Z coordinate.
 		/// @param[in] value Z coordinate.
 		static VALUE rb_setZ(VALUE self, VALUE value);
+		/// @brief Gets the offset X coordinate.
+		/// @return Offset X coordinate.
+		static VALUE rb_getOX(VALUE self);
+		/// @brief Sets the offset X coordinate.
+		/// @param[in] value Offset X coordinate.
+		static VALUE rb_setOX(VALUE self, VALUE value);
+		/// @brief Gets the offset Y coordinate.
+		/// @return Offset Y coordinate.
+		static VALUE rb_getOY(VALUE self);
+		/// @brief Sets the offset Y coordinate.
+		/// @param[in] value Offset Y coordinate.
+		static VALUE rb_setOY(VALUE self, VALUE value);
+		/// @brief Gets the angle.
+		/// @return Angle.
+		static VALUE rb_getAngle(VALUE self);
+		/// @brief Sets the angle.
+		/// @param[in] value Angle.
+		static VALUE rb_setAngle(VALUE self, VALUE value);
 		/// @brief Gets the bitmap.
 		/// @return Bitmap.
 		static VALUE rb_getBitmap(VALUE self);
 		/// @brief Sets the bitmap.
 		/// @param[in] value Bitmap.
 		static VALUE rb_setBitmap(VALUE self, VALUE value);
+		/// @brief Gets the source rectangle.
+		/// @return Source rectangle.
+		static VALUE rb_getSrcRect(VALUE self);
+		/// @brief Sets the source rectangle.
+		/// @param[in] value Source rectangle.
+		static VALUE rb_setSrcRect(VALUE self, VALUE value);
 		/// @brief Checks whether sprite is disposed.
 		/// @return True if sprite was disposed manually.
 		static VALUE rb_isDisposed(VALUE self);
@@ -103,10 +132,6 @@ namespace rgss
 		/// @param[in] color Color component.
 		/// @param[in] duration Number of frames.
 		static VALUE flash(VALUE self, VALUE color, VALUE duration);
-		/// @brief Sets the sprite's angle of rotation.
-		/// @param[in] value Angle value.
-		/// @note Uses modulus operation to keep value between 0 and 360.
-		static VALUE setAngle(VALUE self, VALUE value);
 		/// @brief Sets the alpha value of sprite.
 		/// param[in] value Alpha component.
 		static VALUE setOpacity(VALUE self, VALUE value);
@@ -120,18 +145,31 @@ namespace rgss
 		static VALUE update(VALUE self);
 
 	protected:
+		/// @brief Disposed flag.
+		bool disposed;
 		/// @brief X coordinate.
 		int x;
 		/// @brief Y coordinate.
 		int y;
 		/// @brief Z coordinate.
 		int z;
-		/// @brief Disposed flag.
-		bool disposed;
+		/// @brief Offset X coordinate.
+		int ox;
+		/// @brief Offset Y coordinate.
+		int oy;
+		/// @brief Rotation angle.
+		float angle;
 		/// @brief Bitmap drawing reference.
 		Bitmap* bitmap;
 		/// @brief Ruby object of bitmap drawing reference.
 		VALUE rb_bitmap;
+		/// @brief Source rectangle.
+		Rect* srcRect;
+		/// @brief Ruby object of source rectangle.
+		VALUE rb_srcRect;
+
+		/// @brief Renders the actual texture.
+		void _render();
 
 	};
 

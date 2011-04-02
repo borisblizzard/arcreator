@@ -13,11 +13,6 @@ namespace rgss
 	class rgssExport Rect
 	{
 	public:
-		/// @todo Dummy for now, needs to be removed later.
-		Rect() { }
-		/// @todo Dummy for now, needs to be removed later.
-		~Rect() { }
-
 		/// @brief X coordinate.
 		int x;
 		/// @brief Y coordinate.
@@ -52,6 +47,12 @@ namespace rgss
 		/// @brief Gets a string representation of the instance.
 		/// @return String representation of the instance.
 		static VALUE rb_inspect(VALUE self);
+		/// @brief Creates a C++ version of this class.
+		/// @param[in] x X coordinate.
+		/// @param[in] y Y coordinate.
+		/// @param[in] width The width.
+		/// @param[in] height The height.
+		static VALUE create(VALUE x, VALUE y, VALUE width, VALUE height);
 
 		/// @brief Gets the x coordinate.
 		/// @return X coordinate.

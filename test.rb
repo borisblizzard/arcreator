@@ -38,15 +38,23 @@ s2.y = 100
 s3.y = 300
 s1.z = 10
 GC.start
+s2.bitmap.fill_rect(0, 0, s2.bitmap.width, s2.bitmap.height, Color.new(255, 255, 255))
+s2.bitmap.fill_rect(s2.bitmap.width / 2, s2.bitmap.width / 2, s2.bitmap.width / 2, s2.bitmap.height / 2, Color.new(0, 255, 0))
+s2.x = 32
+s2.ox = 32
+s2.oy = 32
+s2.src_rect.set(16, 16, 40, 40)
+p s2.src_rect
 
 loop do
 	Graphics.update
 	Input.update
 	Graphics.frame_reset if Input.press?(Input::C)
 	s1.y = 100 + Graphics::frame_count % 40
-	s2.x = 100 + Graphics::frame_count % 40
+	#s2.x = 100 + Graphics::frame_count % 40
 	s3.x = Graphics::frame_count % 40
 	s3.y = 150 + Graphics::frame_count % 40
+	s2.angle += 1
 	break if Input.press?(Input::B)
 end
 

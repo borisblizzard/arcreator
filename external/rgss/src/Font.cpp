@@ -46,9 +46,7 @@ namespace rgss
 		defaultBold = false;
 		defaultItalic = false;
 		VALUE argv[3] = {INT2FIX(255), INT2FIX(255), INT2FIX(255)};
-		rb_defaultColor = Color::create(3, argv);
-		RB_VAR2CPP(rb_defaultColor, Color, color);
-		defaultColor = color;
+		Font::rb_setDefaultColor(rb_cFont, Color::create(3, argv));
 	}
 
 	void Font::createRubyInterface()
@@ -116,16 +114,14 @@ namespace rgss
 		font->italic = defaultItalic;
 		VALUE argv2[4] = {INT2FIX(defaultColor->red), INT2FIX(defaultColor->green),
 			INT2FIX(defaultColor->blue), INT2FIX(defaultColor->alpha)};
-		font->rb_color = Color::create(4, argv2);
-		RB_VAR2CPP(font->rb_color, Color, color);
-		font->color = color;
+		Font::rb_setColor(self, Color::create(4, argv2));
 		return self;
 	}
 
 	VALUE Font::create(int argc, VALUE* argv)
 	{
-		VALUE object = rb_obj_alloc(rb_cFont);
-		rb_obj_call_init(object, argc, argv);
+		VALUE object = Font::rb_new(rb_cFont);
+		object = Font::rb_initialize(argc, argv, object);
 		return object;
 	}
 

@@ -71,8 +71,15 @@ namespace rgss
 	VALUE Rect::rb_inspect(VALUE self)
 	{
 		RB_SELF2CPP(Rect, rect);
-		hstr result = hsprintf("(%.1f,%.1f,%.1f,%.1f)", rect->x, rect->y, rect->width, rect->height);
+		hstr result = hsprintf("(%d,%d,%d,%d)", rect->x, rect->y, rect->width, rect->height);
 		return rb_str_new2(result.c_str());
+	}
+
+	VALUE Rect::create(VALUE x, VALUE y, VALUE width, VALUE height)
+	{
+		VALUE object = Rect::rb_new(rb_cRect);
+		object = Rect::rb_initialize(object, x, y, width, height);
+		return object;
 	}
 
 	/****************************************************************************************
