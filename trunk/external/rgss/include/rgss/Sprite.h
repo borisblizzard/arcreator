@@ -5,6 +5,7 @@
 
 #include "Color.h"
 #include "Rect.h"
+#include "Renderable.h"
 #include "Tone.h"
 #include "rgssExport.h"
 
@@ -16,14 +17,9 @@ namespace rgss
 	class Viewport;
 
 	/// @brief Emulates RGSS's Sprite class.
-	class rgssExport Sprite
+	class rgssExport Sprite : public Renderable
 	{
 	public:
-		/// @todo Dummy, needs to be removed.
-		Sprite() { }
-		/// @todo Dummy, needs to be removed.
-		~Sprite() { }
-
 		/*
 		/// @brief Gets the X coordinate.
 		/// @return The X coordinate.
@@ -38,12 +34,6 @@ namespace rgss
 		/// @param[in] value The Y coordinate.
 		void setY(int value) { this->y = value; }
 		*/
-		/// @brief Gets the Z coordinate.
-		/// @return The Z coordinate.
-		int getZ() { return this->z; }
-		/// @brief Sets the Z coordinate.
-		/// @param[in] value The Z coordinate.
-		void setZ(int value) { this->z = value; }
 		/// @brief Gets the source rectangle.
 		/// @return Source Rectangle.
 		Rect* getSrcRect() { return this->srcRect; }
@@ -86,12 +76,6 @@ namespace rgss
 		/// @brief Sets the Y coordinate.
 		/// @param[in] value Y coordinate.
 		static VALUE rb_setY(VALUE self, VALUE value);
-		/// @brief Gets the Z coordinate.
-		/// @return Z coordinate.
-		static VALUE rb_getZ(VALUE self);
-		/// @brief Sets the Z coordinate.
-		/// @param[in] value Z coordinate.
-		static VALUE rb_setZ(VALUE self, VALUE value);
 		/// @brief Gets the offset X coordinate.
 		/// @return Offset X coordinate.
 		static VALUE rb_getOX(VALUE self);
@@ -151,8 +135,6 @@ namespace rgss
 		int x;
 		/// @brief Y coordinate.
 		int y;
-		/// @brief Z coordinate.
-		int z;
 		/// @brief Offset X coordinate.
 		int ox;
 		/// @brief Offset Y coordinate.

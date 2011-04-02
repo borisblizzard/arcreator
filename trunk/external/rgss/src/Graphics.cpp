@@ -6,7 +6,7 @@
 #include <hltypes/util.h>
 
 #include "Graphics.h"
-#include "Sprite.h"
+#include "Renderable.h"
 #include "CodeSnippets.h"
 
 namespace rgss
@@ -20,30 +20,30 @@ namespace rgss
 	unsigned int Graphics::frameCount;
 	unsigned int Graphics::frameRate;
 	bool Graphics::running;
-	harray<Sprite*> sprites;
+	harray<Renderable*> renderables;
 
-	void Graphics::addSprite(Sprite* sprite)
+	void Graphics::addRenderable(Renderable* renderable)
 	{
-		for_iter (i, 0, sprites.size())
+		for_iter (i, 0, renderables.size())
 		{
-			if (sprite->getZ() < sprites[i]->getZ())
+			if (renderable->getZ() < renderables[i]->getZ())
 			{
-				sprites.insert_at(i, sprite);
+				renderables.insert_at(i, renderable);
 				return;
 			}
 		}
-		sprites += sprite;
+		renderables += renderable;
 	}
 
-	void Graphics::removeSprite(Sprite* sprite)
+	void Graphics::removeRenderable(Renderable* renderable)
 	{
-		sprites -= sprite;
+		renderables -= renderable;
 	}
 
-	void Graphics::updateSprite(Sprite* sprite)
+	void Graphics::updateRenderable(Renderable* renderable)
 	{
-		removeSprite(sprite);
-		addSprite(sprite);
+		removeRenderable(renderable);
+		addRenderable(renderable);
 	}
 
 	/****************************************************************************************
@@ -109,7 +109,7 @@ namespace rgss
 		}
 		// some testing for now
 		april::rendersys->clear();
-		foreach (Sprite*, it, sprites)
+		foreach (Renderable*, it, renderables)
 		{
 			(*it)->draw();
 		}
