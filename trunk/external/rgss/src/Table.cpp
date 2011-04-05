@@ -136,7 +136,7 @@ namespace rgss
 		int x = NUM2INT(arg1);
 		int y = (NIL_P(arg2) ? 0 : NUM2INT(arg2));
 		int z = (NIL_P(arg3) ? 0 : NUM2INT(arg3));
-		if ((x >= table->xSize) || (x < 0) || (y >= table->ySize) || (y < 0) || (z >= table->zSize) || (z < 0))
+		if (!is_between(x, 0, table->xSize - 1) || !is_between(y, 0, table->ySize - 1) || !is_between(z, 0, table->zSize - 1))
 		{
 			return Qnil;
 		}
@@ -162,13 +162,13 @@ namespace rgss
 		int x = NUM2INT(arg1);
 		int y = (NIL_P(arg2) ? 0 : NUM2INT(arg2));
 		int z = (NIL_P(arg3) ? 0 : NUM2INT(arg3));
-		if ((x >= table->xSize) || (x < 0) || (y >= table->ySize) || (y < 0) || (z >= table->zSize) || (z < 0))
+		if (!is_between(x, 0, table->xSize - 1) || !is_between(y, 0, table->ySize - 1) || !is_between(z, 0, table->zSize - 1))
 		{
 			return Qnil;
 		}
 		int value = (short)hclamp(NUM2INT(arg4), -32768, 32767);
 		table->data[x + table->xSize * (y + table->ySize * z)] = value;
-		return self;
+		return Qnil;
 	}
 		
 	VALUE Table::rb_resize(int argc, VALUE* argv, VALUE self)
@@ -180,7 +180,7 @@ namespace rgss
 		table->ySize = hmax(NIL_P(ySize) ? 1 : NUM2INT(ySize), 1);
 		table->zSize = hmax(NIL_P(zSize) ? 1 : NUM2INT(zSize), 1);
 		table->_resize(NUM2INT(xSize), NUM2INT(ySize), NUM2INT(zSize));
-		return self;
+		return Qnil;
 		
 	}
 	
