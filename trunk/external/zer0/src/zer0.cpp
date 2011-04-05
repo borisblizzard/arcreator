@@ -26,6 +26,11 @@ namespace zer0
 	grect drawRect;
 	void (*g_logFunction)(chstr);
 	
+	void setLogFunction(void (*function)(chstr))
+	{
+		g_logFunction = function;
+	}
+	
 	void log(chstr message, chstr prefix)
 	{
 		g_logFunction(prefix + message);
@@ -115,7 +120,7 @@ namespace zer0
 	
 	VALUE embedded(VALUE ignore)
 	{
-		rgss::init();
+		rgss::init(g_logFunction);
 		// running the Ruby scripts
 		rb_require("./test.rb");
 		rgss::destroy();

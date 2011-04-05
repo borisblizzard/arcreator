@@ -18,8 +18,21 @@
 
 namespace rgss
 {
-	void init()
+	void (*g_logFunction)(chstr);
+	
+	void setLogFunction(void (*function)(chstr))
 	{
+		g_logFunction = function;
+	}
+	
+	void log(chstr message, chstr prefix)
+	{
+		g_logFunction(prefix + message);
+	}
+
+	void init(void (*logFunction)(chstr))
+	{
+		g_logFunction = logFunction;
 		// creating Ruby interfaces of C++ classes created for Ruby
 		Audio::createRubyInterface();
 		Bitmap::createRubyInterface();
@@ -52,10 +65,16 @@ namespace rgss
 		Tone::init();
 		Viewport::init();
 		Window::init();
+#ifdef _DEBUG
+		rgss::log("initializing Zer0 RGSS");
+#endif
 	}
 
 	void destroy()
 	{
+#ifdef _DEBUG
+		rgss::log("destroying Zer0 RGSS");
+#endif
 	}
 
 }
