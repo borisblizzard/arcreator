@@ -8,9 +8,11 @@
 
 namespace rgss
 {
+
 	/****************************************************************************************
 	 * Pure C++ code
 	 ****************************************************************************************/
+
 
 	VALUE rb_cTable;
 
@@ -134,6 +136,10 @@ namespace rgss
 		int x = NUM2INT(arg1);
 		int y = (NIL_P(arg2) ? 0 : NUM2INT(arg2));
 		int z = (NIL_P(arg3) ? 0 : NUM2INT(arg3));
+		if ((x >= table->xSize) || (x < 0) || (y >= table->ySize) || (y < 0) || (z >= table->zSize) || (z < 0))
+		{
+			return Qnil;
+		}
 		return INT2FIX(table->data[x + table->xSize * (y + table->ySize * z)]);
 	}
 		
@@ -156,6 +162,10 @@ namespace rgss
 		int x = NUM2INT(arg1);
 		int y = (NIL_P(arg2) ? 0 : NUM2INT(arg2));
 		int z = (NIL_P(arg3) ? 0 : NUM2INT(arg3));
+		if ((x >= table->xSize) || (x < 0) || (y >= table->ySize) || (y < 0) || (z >= table->zSize) || (z < 0))
+		{
+			return Qnil;
+		}
 		int value = (short)hclamp(NUM2INT(arg4), -32768, 32767);
 		table->data[x + table->xSize * (y + table->ySize * z)] = value;
 		return self;
