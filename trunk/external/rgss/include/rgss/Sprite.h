@@ -94,9 +94,6 @@ namespace rgss
 		/// @brief Sets the source rectangle.
 		/// @param[in] value Source rectangle.
 		static VALUE rb_setSrcRect(VALUE self, VALUE value);
-		/// @brief Checks whether sprite is disposed.
-		/// @return True if sprite was disposed manually.
-		static VALUE rb_isDisposed(VALUE self);
 
 
 
@@ -117,8 +114,6 @@ namespace rgss
 		static VALUE update(VALUE self);
 
 	protected:
-		/// @brief Disposed flag.
-		bool disposed;
 		/// @brief X coordinate.
 		int x;
 		/// @brief Y coordinate.

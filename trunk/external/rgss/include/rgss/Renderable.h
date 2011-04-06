@@ -16,6 +16,9 @@ namespace rgss
 	class rgssExport Renderable
 	{
 	public:
+		/// @brief Initializes the basic Renderable object.
+		void initialize();
+
 		/// @brief Gets the Z coordinate.
 		/// @return The Z coordinate.
 		int getZ() { return this->z; }
@@ -50,8 +53,13 @@ namespace rgss
 		/// @brief Sets the offset Y coordinate.
 		/// @param[in] value Offset Y coordinate.
 		static VALUE rb_setOY(VALUE self, VALUE value);
+		/// @brief Checks whether this renderable is disposed.
+		/// @return True if renderable is disposed.
+		static VALUE rb_isDisposed(VALUE self);
 
 	protected:
+		/// @brief Disposed flag.
+		bool disposed;
 		/// @brief Visible flag.
 		bool visible;
 		/// @brief Z coordinate.
