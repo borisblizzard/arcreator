@@ -26,16 +26,40 @@ namespace rgss
 		/// @brief Draws this sprite on the screen.
 		void draw();
 
+		/// @brief Gets the visibility.
+		/// @return The visibility.
+		static VALUE rb_getVisible(VALUE self);
+		/// @brief Sets the visibility.
+		/// @param[in] value Visibility.
+		static VALUE rb_setVisible(VALUE self, VALUE value);
 		/// @brief Gets the Z coordinate.
 		/// @return The Z coordinate.
 		static VALUE rb_getZ(VALUE self);
 		/// @brief Sets the Z coordinate.
 		/// @param[in] value Z coordinate.
 		static VALUE rb_setZ(VALUE self, VALUE value);
+		/// @brief Gets the offset X coordinate.
+		/// @return Offset X coordinate.
+		static VALUE rb_getOX(VALUE self);
+		/// @brief Sets the offset X coordinate.
+		/// @param[in] value Offset X coordinate.
+		static VALUE rb_setOX(VALUE self, VALUE value);
+		/// @brief Gets the offset Y coordinate.
+		/// @return Offset Y coordinate.
+		static VALUE rb_getOY(VALUE self);
+		/// @brief Sets the offset Y coordinate.
+		/// @param[in] value Offset Y coordinate.
+		static VALUE rb_setOY(VALUE self, VALUE value);
 
 	protected:
+		/// @brief Visible flag.
+		bool visible;
 		/// @brief Z coordinate.
 		int z;
+		/// @brief Offset X coordinate.
+		int ox;
+		/// @brief Offset Y coordinate.
+		int oy;
 		/// @brief Used for determining which renderable subclass it actually is.
 		/// @note This is a necessity because objects created through Ruby don't have a virtual function pointer table.
 		unsigned int type;

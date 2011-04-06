@@ -46,24 +46,6 @@ s2.oy = 32
 s2.src_rect.set(16, 16, 40, 40)
 p s2.src_rect
 
-#Begin Table Testing
-def create_table
-  puts t = Table.new(2, 2, 2)
-  puts t[0, 0, 0] = 39
-  puts t[1, 1, 1] = 40
-  puts "0 0 0", t[0, 0, 0]
-  puts "1 1 1", t[1, 1, 1]
-  puts t[2, 2, 2] = 41
-  puts "2 2 2", t[2, 2, 2]
-  puts t[-1, 0, 0] = 42
-  puts t[0, 0, -1] = 43
-  puts "-1 0 0", t[-1, 0, 0]
-  puts "0 0 -1", t[0, 0, -1]
-end
-create_table
-GC.start
-#End Table Testing
-
 loop do
 	Graphics.update
 	Input.update
@@ -73,6 +55,7 @@ loop do
 	s3.x = Graphics::frame_count % 40
 	s3.y = 150 + Graphics::frame_count % 40
 	s2.angle += 1
+	#s2.visible = Graphics::frame_count % 20 > 10
 	break if Input.press?(Input::B)
 end
 

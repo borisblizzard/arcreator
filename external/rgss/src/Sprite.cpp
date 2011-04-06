@@ -76,6 +76,8 @@ namespace rgss
 		rb_define_method(rb_cSprite, "initialize", RUBY_METHOD_FUNC(&Sprite::rb_initialize), -1);
 		rb_define_method(rb_cSprite, "dispose", RUBY_METHOD_FUNC(&Sprite::rb_dispose), 0);
 		// getters and setters
+		rb_define_method(rb_cSprite, "visible", RUBY_METHOD_FUNC(&Sprite::rb_getVisible), 0);
+		rb_define_method(rb_cSprite, "visible=", RUBY_METHOD_FUNC(&Sprite::rb_setVisible), 1);
 		rb_define_method(rb_cSprite, "x", RUBY_METHOD_FUNC(&Sprite::rb_getX), 0);
 		rb_define_method(rb_cSprite, "x=", RUBY_METHOD_FUNC(&Sprite::rb_setX), 1);
 		rb_define_method(rb_cSprite, "y", RUBY_METHOD_FUNC(&Sprite::rb_getY), 0);
@@ -177,32 +179,6 @@ namespace rgss
 	{
 		RB_SELF2CPP(Sprite, sprite);
 		sprite->y = NUM2INT(value);
-		return value;
-	}
-
-	VALUE Sprite::rb_getOX(VALUE self)
-	{
-		RB_SELF2CPP(Sprite, sprite);
-		return INT2NUM(-sprite->ox);
-	}
-
-	VALUE Sprite::rb_setOX(VALUE self, VALUE value)
-	{
-		RB_SELF2CPP(Sprite, sprite);
-		sprite->ox = -NUM2INT(value);
-		return value;
-	}
-
-	VALUE Sprite::rb_getOY(VALUE self)
-	{
-		RB_SELF2CPP(Sprite, sprite);
-		return INT2NUM(-sprite->oy);
-	}
-
-	VALUE Sprite::rb_setOY(VALUE self, VALUE value)
-	{
-		RB_SELF2CPP(Sprite, sprite);
-		sprite->oy = -NUM2INT(value);
 		return value;
 	}
 
