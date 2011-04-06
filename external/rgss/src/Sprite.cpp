@@ -135,7 +135,7 @@ namespace rgss
 	VALUE Sprite::rb_initialize(int argc, VALUE* argv, VALUE self)
 	{
 		RB_SELF2CPP(Sprite, sprite);
-		sprite->disposed = false;
+		sprite->initialize();
 		Sprite::rb_setSrcRect(self, Rect::create(INT2FIX(0), INT2FIX(0), INT2FIX(1), INT2FIX(1)));
 		Graphics::addRenderable(sprite);
 		return self;
@@ -221,12 +221,6 @@ namespace rgss
 	{
 		RB_GENERATE_SETTER(Sprite, sprite, Rect, srcRect);
 		return value;
-	}
-
-	VALUE Sprite::rb_isDisposed(VALUE self)
-	{
-		RB_SELF2CPP(Sprite, sprite);
-		return (sprite->disposed ? Qtrue : Qfalse);
 	}
 
 	/****************************************************************************************

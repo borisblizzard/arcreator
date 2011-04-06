@@ -14,6 +14,12 @@ namespace rgss
 	 * Pure C++ code
 	 ****************************************************************************************/
 
+	void Renderable::initialize()
+	{
+		this->disposed = false;
+		this->visible = true;
+	}
+
 	void Renderable::draw()
 	{
 		if (!this->visible)
@@ -96,6 +102,12 @@ namespace rgss
 		RB_SELF2CPP(Renderable, renderable);
 		renderable->oy = -NUM2INT(value);
 		return value;
+	}
+
+	VALUE Renderable::rb_isDisposed(VALUE self)
+	{
+		RB_SELF2CPP(Renderable, renderable);
+		return (renderable->disposed ? Qtrue : Qfalse);
 	}
 
 }

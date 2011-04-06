@@ -55,7 +55,7 @@ loop do
 	s3.x = Graphics::frame_count % 40
 	s3.y = 150 + Graphics::frame_count % 40
 	s2.angle += 1
-	#s2.visible = Graphics::frame_count % 20 > 10
+	s2.visible = Graphics::frame_count % 20 > 10
 	break if Input.press?(Input::B)
 end
 
