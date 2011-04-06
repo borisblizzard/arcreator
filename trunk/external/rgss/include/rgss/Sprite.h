@@ -76,18 +76,6 @@ namespace rgss
 		/// @brief Sets the Y coordinate.
 		/// @param[in] value Y coordinate.
 		static VALUE rb_setY(VALUE self, VALUE value);
-		/// @brief Gets the offset X coordinate.
-		/// @return Offset X coordinate.
-		static VALUE rb_getOX(VALUE self);
-		/// @brief Sets the offset X coordinate.
-		/// @param[in] value Offset X coordinate.
-		static VALUE rb_setOX(VALUE self, VALUE value);
-		/// @brief Gets the offset Y coordinate.
-		/// @return Offset Y coordinate.
-		static VALUE rb_getOY(VALUE self);
-		/// @brief Sets the offset Y coordinate.
-		/// @param[in] value Offset Y coordinate.
-		static VALUE rb_setOY(VALUE self, VALUE value);
 		/// @brief Gets the angle.
 		/// @return Angle.
 		static VALUE rb_getAngle(VALUE self);
@@ -135,10 +123,6 @@ namespace rgss
 		int x;
 		/// @brief Y coordinate.
 		int y;
-		/// @brief Offset X coordinate.
-		int ox;
-		/// @brief Offset Y coordinate.
-		int oy;
 		/// @brief Rotation angle.
 		float angle;
 		/// @brief Bitmap drawing reference.
