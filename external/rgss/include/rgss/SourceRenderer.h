@@ -25,6 +25,12 @@ namespace rgss
 		/// @param[in] sourceRenderer SourceRenderer to free.
 		static void gc_free(SourceRenderer* sourceRenderer);
 
+		/// @brief Gets the opacity.
+		/// @return The opacity.
+		static VALUE rb_getOpacity(VALUE self);
+		/// @brief Sets the opacity.
+		/// @param[in] value Opacity.
+		static VALUE rb_setOpacity(VALUE self, VALUE value);
 		/// @brief Gets the bitmap.
 		/// @return Bitmap.
 		static VALUE rb_getBitmap(VALUE self);
@@ -39,6 +45,8 @@ namespace rgss
 		static VALUE rb_setViewport(VALUE self, VALUE value);
 
 	protected:
+		/// @brief Opacity of the SourceRenderer.
+		int opacity;
 		/// @brief Bitmap drawing reference.
 		Bitmap* bitmap;
 		/// @brief Ruby object of bitmap drawing reference.

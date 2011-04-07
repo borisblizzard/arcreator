@@ -95,9 +95,6 @@ namespace rgss
 		/// @param[in] color Color component.
 		/// @param[in] duration Number of frames.
 		static VALUE flash(VALUE self, VALUE color, VALUE duration);
-		/// @brief Sets the alpha value of sprite.
-		/// param[in] value Alpha component.
-		static VALUE setOpacity(VALUE self, VALUE value);
 		/// @brief Sets the sprite zoom on the x-axis.
 		/// param[in] value X-axis zoom value.
 		static VALUE setZoomX(VALUE self, VALUE value);

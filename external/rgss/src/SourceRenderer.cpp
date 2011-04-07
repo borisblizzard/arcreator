@@ -1,5 +1,7 @@
 #include <ruby.h>
 
+#include <hltypes/util.h>
+
 #include "Bitmap.h"
 #include "Viewport.h"
 #include "SourceRenderer.h"
@@ -14,6 +16,7 @@ namespace rgss
 	void SourceRenderer::initializeSourceRenderer()
 	{
 		this->initializeRenderable();
+		this->opacity = 255;
 		this->rb_bitmap = Qnil;
 		this->bitmap = NULL;
 		this->rb_viewport = Qnil;
@@ -49,6 +52,19 @@ namespace rgss
 	/****************************************************************************************
 	 * Ruby Getters/Setters
 	 ****************************************************************************************/
+
+	VALUE SourceRenderer::rb_getOpacity(VALUE self)
+	{
+		RB_SELF2CPP(SourceRenderer, sourceRenderer);
+		return INT2NUM(sourceRenderer->opacity);
+	}
+
+	VALUE SourceRenderer::rb_setOpacity(VALUE self, VALUE value)
+	{
+		RB_SELF2CPP(SourceRenderer, sourceRenderer);
+		sourceRenderer->opacity = hclamp(NUM2INT(value), 0, 255);
+		return value;
+	}
 
 	VALUE SourceRenderer::rb_getBitmap(VALUE self)
 	{
