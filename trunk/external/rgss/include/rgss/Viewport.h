@@ -4,6 +4,7 @@
 #include <ruby.h>
 
 #include "Renderable.h"
+#include "RenderQueue.h"
 #include "rgssExport.h"
 
 namespace rgss
@@ -18,8 +19,12 @@ namespace rgss
 	class rgssExport Viewport : public Renderable
 	{
 	public:
+		RenderQueue renderQueue;
+
 		/// @brief Draws this sprite on the screen.
 		void draw();
+		/// @brief Disposed this viewport.
+		void dispose();
 
 		/// @brief Intializes the module.
 		static void init();
@@ -38,6 +43,9 @@ namespace rgss
 		/// @param[in] argv Pointer to first argument.
 		/// @note Arguments are "x, y, w, h" or "rect".
 		static VALUE rb_initialize(int argc, VALUE* argv, VALUE self);
+		/// @brief Gets a string representation of the instance.
+		/// @return String representation of the instance.
+		static VALUE rb_inspect(VALUE self);
 
 		/// @brief Gets the color.
 		/// @return Color.

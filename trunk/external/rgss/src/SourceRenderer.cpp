@@ -2,10 +2,11 @@
 
 #include <hltypes/util.h>
 
-#include "Bitmap.h"
-#include "Viewport.h"
-#include "SourceRenderer.h"
 #include "CodeSnippets.h"
+#include "Bitmap.h"
+#include "Graphics.h"
+#include "SourceRenderer.h"
+#include "Viewport.h"
 
 namespace rgss
 {
@@ -15,7 +16,6 @@ namespace rgss
 
 	void SourceRenderer::initializeSourceRenderer(VALUE rb_viewport)
 	{
-		this->initializeRenderable();
 		this->opacity = 255;
 		this->rb_bitmap = Qnil;
 		this->bitmap = NULL;
@@ -24,10 +24,12 @@ namespace rgss
 		{
 			RB_VAR2CPP(rb_viewport, Viewport, viewport);
 			this->viewport = viewport;
+			this->initializeRenderable(&viewport->renderQueue);
 		}
 		else
 		{
 			this->viewport = NULL;
+			this->initializeRenderable(&Graphics::renderQueue);
 		}
 	}
 

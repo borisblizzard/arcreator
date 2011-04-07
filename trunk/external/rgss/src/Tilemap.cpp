@@ -1,10 +1,10 @@
 #include <ruby.h>
 
+#include "CodeSnippets.h"
 #include "Tilemap.h"
 #include "Bitmap.h"
 #include "Table.h"
 #include "Viewport.h"
-#include "CodeSnippets.h"
 
 namespace rgss
 {

@@ -5,10 +5,10 @@
 #include <gtypes/Rectangle.h>
 #include <hltypes/util.h>
 
+#include "CodeSnippets.h"
 #include "Graphics.h"
 #include "Renderable.h"
 #include "RenderQueue.h"
-#include "CodeSnippets.h"
 
 namespace rgss
 {

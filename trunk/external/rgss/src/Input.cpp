@@ -6,8 +6,8 @@
 #include <hltypes/harray.h>
 #include <hltypes/hmap.h>
 
-#include "Input.h"
 #include "CodeSnippets.h"
+#include "Input.h"
 
 namespace rgss
 {

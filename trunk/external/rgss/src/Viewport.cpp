@@ -2,11 +2,12 @@
 
 #include <hltypes/hstring.h>
 
+#include "CodeSnippets.h"
 #include "Color.h"
+#include "Graphics.h"
 #include "Rect.h"
 #include "Tone.h"
 #include "Viewport.h"
-#include "CodeSnippets.h"
 
 namespace rgss
 {
@@ -16,6 +17,7 @@ namespace rgss
 
 	VALUE rb_cViewport;
 
+	/// @todo Still needs to be implemented fully.
 	void Viewport::draw()
 	{
 		this->_render();
@@ -23,6 +25,12 @@ namespace rgss
 
 	void Viewport::_render()
 	{
+		//this->renderQueue.draw();
+	}
+
+	void Viewport::dispose()
+	{
+		this->renderQueue.dispose();
 	}
 
 	/****************************************************************************************
@@ -55,11 +63,29 @@ namespace rgss
 
 	void Viewport::gc_mark(Viewport* viewport)
 	{
+		if (!NIL_P(viewport->rb_color))
+		{
+			rb_gc_mark(viewport->rb_color);
+		}
+		if (!NIL_P(viewport->rb_rect))
+		{
+			rb_gc_mark(viewport->rb_rect);
+		}
+		if (!NIL_P(viewport->rb_tone))
+		{
+			rb_gc_mark(viewport->rb_tone);
+		}
 		Renderable::gc_mark(viewport);
 	}
 
 	void Viewport::gc_free(Viewport* viewport)
 	{
+		viewport->rb_color = Qnil;
+		viewport->color = NULL;
+		viewport->rb_rect = Qnil;
+		viewport->rect = NULL;
+		viewport->rb_tone = Qnil;
+		viewport->tone = NULL;
 		Renderable::gc_free(viewport);
 	}
 
@@ -80,21 +106,28 @@ namespace rgss
 			rb_raise(rb_eArgError, message.c_str());
 		}
 		RB_SELF2CPP(Viewport, viewport);
-		viewport->initializeRenderable();
+		viewport->initializeRenderable(&Graphics::renderQueue);
 		VALUE arg1, arg2, arg3, arg4;
 		rb_scan_args(argc, argv, "13", &arg1, &arg2, &arg3, &arg4);
 		if (NIL_P(arg2) && NIL_P(arg3) && NIL_P(arg4))
 		{
-			Viewport::rb_setRect(arg1, self);
+			Viewport::rb_setRect(self, arg1);
 		}
 		else
 		{
-			Viewport::rb_setRect(Rect::create(arg1, arg2, arg3, arg4), self);
+			Viewport::rb_setRect(self, Rect::create(arg1, arg2, arg3, arg4));
 		}
-		VALUE argv2[4] = {rb_float_new(0.0f), rb_float_new(0.0f), rb_float_new(0.0f), rb_float_new(0.0f)};
-		Viewport::rb_setColor(Color::create(4, argv2), self);
-		Viewport::rb_setTone(Tone::create(4, argv2), self);
+		VALUE argv2[4] = {INT2FIX(0), INT2FIX(0), INT2FIX(0), INT2FIX(0)};
+		Viewport::rb_setColor(self, Color::create(4, argv2));
+		VALUE argv3[4] = {INT2FIX(0), INT2FIX(0), INT2FIX(0), INT2FIX(0)};
+		Viewport::rb_setTone(self, Tone::create(4, argv3));
 		return self;
+	}
+
+	VALUE Viewport::rb_inspect(VALUE self)
+	{
+		RB_SELF2CPP(Viewport, viewport);
+		return Color::rb_inspect(viewport->rb_color);
 	}
 
 	/****************************************************************************************

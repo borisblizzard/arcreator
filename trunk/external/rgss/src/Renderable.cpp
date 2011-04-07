@@ -1,14 +1,13 @@
 #include <ruby.h>
 
-#include "Graphics.h"
+#include "CodeSnippets.h"
 #include "Plane.h"
 #include "Renderable.h"
+#include "RenderQueue.h"
 #include "Sprite.h"
 #include "Tilemap.h"
 #include "Viewport.h"
 #include "Window.h"
-#include "CodeSnippets.h"
-#include "RenderQueue.h"
 
 namespace rgss
 {
@@ -17,11 +16,12 @@ namespace rgss
 	 ****************************************************************************************/
 
 	/// @todo Should be probably changed so the Renderable instance refers to the RenderQueue where it's stored.
-	void Renderable::initializeRenderable()
+	void Renderable::initializeRenderable(RenderQueue* renderQueue)
 	{
 		this->disposed = false;
 		this->visible = true;
-		Graphics::renderQueue.add(this);
+		this->renderQueue = renderQueue;
+		this->renderQueue->add(this);
 	}
 
 	void Renderable::draw()
@@ -52,7 +52,13 @@ namespace rgss
 		if (!this->disposed)
 		{
 			this->disposed = true;
-			Graphics::renderQueue.remove(this);
+			this->renderQueue->remove(this);
+			switch (this->type)
+			{
+			case TYPE_VIEWPORT:
+				((Viewport*)this)->dispose();
+				break;
+			}
 		}
 	}
 
@@ -66,7 +72,7 @@ namespace rgss
 
 	void Renderable::gc_free(Renderable* renderable)
 	{
-		Graphics::renderQueue.remove(renderable);
+		renderable->dispose();
 	}
 
 	/****************************************************************************************
@@ -99,7 +105,7 @@ namespace rgss
 		if (renderable->z != z)
 		{
 			renderable->z = z;
-			Graphics::renderQueue.update(renderable);
+			renderable->renderQueue->update(renderable);
 		}
 		return value;
 	}

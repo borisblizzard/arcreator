@@ -2,8 +2,8 @@
 
 #include <hltypes/util.h>
 
-#include "Rect.h"
 #include "CodeSnippets.h"
+#include "Rect.h"
 
 namespace rgss
 {

@@ -5,11 +5,11 @@
 #include <gtypes/Rectangle.h>
 #include <hltypes/util.h>
 
-#include "Window.h"
+#include "CodeSnippets.h"
 #include "Bitmap.h"
 #include "Rect.h"
 #include "Viewport.h"
-#include "CodeSnippets.h"
+#include "Window.h"
 
 namespace rgss
 {

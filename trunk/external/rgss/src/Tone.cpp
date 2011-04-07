@@ -2,8 +2,8 @@
 
 #include <hltypes/util.h>
 
-#include "Tone.h"
 #include "CodeSnippets.h"
+#include "Tone.h"
 
 namespace rgss
 {
