@@ -42,9 +42,6 @@ namespace rgss
 		static void init();
 		/// @brief Exposes this class to Ruby.
 		static void createRubyInterface();
-		/// @brief Wraps this instance into a Ruby cobject.
-		/// @return Ruby object.
-		VALUE wrap();
 		/// @brief Marks referenced values of sprite for garbage collection.
 		/// @param[in] sprite Sprite to mark.
 		static void gc_mark(Sprite* sprite);
@@ -53,13 +50,11 @@ namespace rgss
 		static void gc_free(Sprite* sprite);
 		/// @brief Ruby allocation of an instance.
 		static VALUE rb_new(VALUE classe);
-		/// @brief Sets the color to the specified value.
+		/// @brief Initializes this instance.
 		/// @param[in] argc Number of arguments.
 		/// @param[in] argv Pointer to first argument.
 		/// @note Arguments are "[viewport]".
 		static VALUE rb_initialize(int argc, VALUE* argv, VALUE self);
-		/// @brief Disposes the object.
-		static VALUE rb_dispose(VALUE self);
 
 		/// @brief Gets the X coordinate.
 		/// @return X coordinate.

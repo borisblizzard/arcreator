@@ -26,9 +26,6 @@ namespace rgss
 		static void init();
 		/// @brief Exposes this class to Ruby.
 		static void createRubyInterface();
-		/// @brief Wraps into Ruby cobject.
-		/// @param[in] bitmap The bitmap to convert.
-		VALUE wrap();
 		/// @brief Marks referenced values of bitmap for garbage collection.
 		/// @param[in] bitmap Bitmap to mark.
 		static void gc_mark(Tilemap* tilemap);

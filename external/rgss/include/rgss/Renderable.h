@@ -27,8 +27,10 @@ namespace rgss
 		/// @param[in] value The Z coordinate.
 		void setZ(int value) { this->z = value; }
 
-		/// @brief Draws this sprite on the screen.
+		/// @brief Draws this renderable on the screen.
 		void draw();
+		/// @brief Disposed this renderable.
+		void dispose();
 
 		/// @brief Marks referenced values of renderable for garbage collection.
 		/// @param[in] renderable Renderable to mark.
@@ -64,6 +66,9 @@ namespace rgss
 		/// @brief Checks whether this renderable is disposed.
 		/// @return True if renderable is disposed.
 		static VALUE rb_isDisposed(VALUE self);
+
+		/// @brief Disposes the object.
+		static VALUE rb_dispose(VALUE self);
 
 	protected:
 		/// @brief Disposed flag.

@@ -3,13 +3,13 @@ puts 'Press ESCAPE to exit'
 
 s1 = Sprite.new
 def test
-	bitmap = Bitmap.new("docs/arc-logo")
+	bitmap = Bitmap.new("test_resources/arc-logo")
 	return
 end
 
 GC.start
 test()
-s1.bitmap = Bitmap.new("docs/arc-logo")
+s1.bitmap = Bitmap.new("test_resources/arc-logo")
 p s1.bitmap
 s1.x = 100
 GC.start
@@ -45,6 +45,7 @@ s2.ox = 32
 s2.oy = 32
 s2.src_rect.set(16, 16, 40, 40)
 p s2.src_rect
+w1 = Window.new
 
 loop do
 	Graphics.update

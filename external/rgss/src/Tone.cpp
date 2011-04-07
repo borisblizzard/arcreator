@@ -50,12 +50,6 @@ namespace rgss
 		// static methods
 	}
 
-	VALUE Tone::wrap()
-	{
-		Tone* tone = this;
-		return Data_Wrap_Struct(rb_cTone, NULL, NULL, tone);
-	}
-
 	VALUE Tone::rb_new(VALUE classe)
 	{
 		Tone* color;

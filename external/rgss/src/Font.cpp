@@ -79,12 +79,6 @@ namespace rgss
 		rb_define_singleton_method(rb_cFont, "default_color=", RUBY_METHOD_FUNC(&Font::rb_setDefaultColor), 1);
 	}
 
-	VALUE Font::wrap()
-	{
-		Font* font = this;
-		return Data_Wrap_Struct(rb_cFont, NULL, NULL, font);
-	}
-
 	void Font::gc_mark(Font* font)
 	{
 		if (!NIL_P(font->rb_color))
@@ -243,7 +237,7 @@ namespace rgss
 	
 	VALUE Font::rb_getDefaultColor(VALUE classe)
 	{
-		return defaultColor->wrap();
+		return rb_defaultColor;
 	}
 
 	VALUE Font::rb_setDefaultColor(VALUE classe, VALUE value)

@@ -19,6 +19,7 @@ namespace rgss
 	{
 		this->disposed = false;
 		this->visible = true;
+		Graphics::addRenderable(this);
 	}
 
 	void Renderable::draw()
@@ -39,11 +40,20 @@ namespace rgss
 			//((Plane*)this)->draw();
 			break;
 		case TYPE_WINDOW:
-			//((Window*)this)->draw();
+			((Window*)this)->draw();
 			break;
 		case TYPE_TILEMAP:
 			//((Tilemap*)this)->draw();
 			break;
+		}
+	}
+
+	void Renderable::dispose()
+	{
+		if (!this->disposed)
+		{
+			this->disposed = true;
+			Graphics::removeRenderable(this);
 		}
 	}
 
@@ -125,6 +135,17 @@ namespace rgss
 	{
 		RB_SELF2CPP(Renderable, renderable);
 		return (renderable->disposed ? Qtrue : Qfalse);
+	}
+
+	/****************************************************************************************
+	 * Ruby Methods
+	 ****************************************************************************************/
+
+	VALUE Renderable::rb_dispose(VALUE self)
+	{
+		RB_SELF2CPP(Renderable, renderable);
+		renderable->dispose();
+		return Qnil;
 	}
 
 }

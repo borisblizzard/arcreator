@@ -40,9 +40,6 @@ namespace rgss
 		static void init();
 		/// @brief Exposes this class to Ruby.
 		static void createRubyInterface();
-		/// @brief Wraps this instance into a Ruby cobject.
-		/// @return Ruby object.
-		VALUE wrap();
 		/// @brief Ruby allocation of an instance.
 		static VALUE rb_new(VALUE classe);
 		/// @brief Sets the color to the specified value.

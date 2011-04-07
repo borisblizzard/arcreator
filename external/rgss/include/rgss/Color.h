@@ -64,9 +64,6 @@ namespace rgss
 		static void init();
 		/// @brief Exposes this class to Ruby.
 		static void createRubyInterface();
-		/// @brief Wraps into Ruby cobject.
-		/// @param[in] bitmap The bitmap to convert.
-		VALUE wrap();
 		/// @brief Ruby allocation of an instance.
 		static VALUE rb_new(VALUE classe);
 		/// @brief Sets the color to the specified value.

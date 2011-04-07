@@ -67,12 +67,6 @@ namespace rgss
 		rb_define_method(rb_cTilemap, "disposed?", RUBY_METHOD_FUNC(&Tilemap::rb_isDisposed), 0);
 	}
 
-	VALUE Tilemap::wrap()
-	{
-		Tilemap* tilemap = this;
-		return Data_Wrap_Struct(rb_cTilemap, NULL, NULL, tilemap);
-	}
-
 	void Tilemap::gc_mark(Tilemap* tilemap)
 	{
 	}

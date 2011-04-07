@@ -80,12 +80,6 @@ namespace rgss
 		rb_define_method(rb_cTable, "resize", RUBY_METHOD_FUNC(&Table::rb_resize), -1);
 	}
 	
-	VALUE Table::wrap()
-	{
-		Table* table = this;
-		return Data_Wrap_Struct(rb_cTable, NULL, NULL, table);
-	}
-
 	void Table::gc_free(Table* table)
 	{
 		if (table->data != NULL)

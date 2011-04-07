@@ -83,12 +83,6 @@ namespace rgss
 		rb_define_method(rb_cBitmap, "text_size", RUBY_METHOD_FUNC(&Bitmap::rb_textSize), 1); 
 	}
 	
-	VALUE Bitmap::wrap()
-	{
-		Bitmap* bitmap = this;
-		return Data_Wrap_Struct(rb_cBitmap, NULL, NULL, bitmap);
-	}
-
 	void Bitmap::gc_mark(Bitmap* bitmap)
 	{
 		if (!NIL_P(bitmap->rb_font))
@@ -174,7 +168,7 @@ namespace rgss
 	VALUE Bitmap::rb_getFont(VALUE self)
 	{
 		RB_SELF2CPP(Bitmap, bitmap);
-		return bitmap->font->wrap();
+		return bitmap->rb_font;
 	}
 
 	VALUE Bitmap::rb_setFont(VALUE self, VALUE value)

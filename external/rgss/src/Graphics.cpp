@@ -107,7 +107,6 @@ namespace rgss
 			rb_exit(0);
 			return Qnil;
 		}
-		// some testing for now
 		april::rendersys->clear();
 		foreach (Renderable*, it, renderables)
 		{
@@ -115,6 +114,11 @@ namespace rgss
 		}
 		april::rendersys->presentFrame();
 		frameCount++;
+		/// @todo - more often, less often?
+		if (frameCount % 200 == 0)
+		{
+			rb_eval_string("GC.start");
+		}
 		return Qnil;
 	}
 
