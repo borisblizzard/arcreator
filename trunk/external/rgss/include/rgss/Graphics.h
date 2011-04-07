@@ -3,7 +3,6 @@
 
 #include <ruby.h>
 
-#include "RenderQueue.h"
 #include "rgssExport.h"
 
 namespace rgss
@@ -17,7 +16,7 @@ namespace rgss
 	{
 	public:
 		/// @brief RenderQueue for all renderable objects.
-		static RenderQueue renderQueue;
+		static RenderQueue* renderQueue;
 
 		/// @brief Sets whether Graphics is still running.
 		/// @param[in] value The new value.

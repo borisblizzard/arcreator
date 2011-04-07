@@ -47,19 +47,18 @@ s2.src_rect.set(16, 16, 40, 40)
 p s2.src_rect
 w1 = Window.new
 #p1 = Plane.new()
-viewport = Viewport.new(32, 32, 64, 64)
-#s11 = Sprite.new(viewport)
-=begin
+viewport = Viewport.new(16, 16, 64, 64)
+s11 = Sprite.new(viewport)
 s11.z = 1000
 s11.bitmap = Bitmap.new(64, 64)
 s11.bitmap.fill_rect(0, 0, 64, 64, Color.new(255, 0, 0))
 s12 = Sprite.new(viewport)
 s12.z = 2000
+s12.bitmap = Bitmap.new(64, 64)
 s12.bitmap.fill_rect(0, 0, 64, 64, Color.new(0, 128, 255))
-s12.x = 32
+s12.x = -32
 s12.y = 32
 viewport.z = -100
-=end
 
 loop do
 	Graphics.update

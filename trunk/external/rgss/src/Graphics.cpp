@@ -21,7 +21,7 @@ namespace rgss
 	unsigned int Graphics::frameCount;
 	unsigned int Graphics::frameRate;
 	bool Graphics::running;
-	RenderQueue Graphics::renderQueue;
+	RenderQueue* Graphics::renderQueue;
 
 	/****************************************************************************************
 	 * Ruby Interfacing, Creation, Destruction, Systematics
@@ -32,6 +32,7 @@ namespace rgss
 		frameCount = 0;
 		frameRate = 40;
 		running = true;
+		renderQueue = new RenderQueue();
 	}
 
 	void Graphics::createRubyInterface()
@@ -85,7 +86,7 @@ namespace rgss
 			return Qnil;
 		}
 		april::rendersys->clear();
-		renderQueue.draw();
+		renderQueue->draw();
 		april::rendersys->presentFrame();
 		frameCount++;
 		/// @todo - more often, less often?

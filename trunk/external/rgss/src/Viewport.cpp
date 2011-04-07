@@ -1,11 +1,16 @@
 #include <ruby.h>
 
+#include <april/RenderSystem.h>
+#include <gtypes/Matrix4.h>
+#include <gtypes/Rectangle.h>
 #include <hltypes/hstring.h>
+#include <hltypes/util.h>
 
 #include "CodeSnippets.h"
 #include "Color.h"
 #include "Graphics.h"
 #include "Rect.h"
+#include "RenderQueue.h"
 #include "Tone.h"
 #include "Viewport.h"
 
@@ -20,17 +25,27 @@ namespace rgss
 	/// @todo Still needs to be implemented fully.
 	void Viewport::draw()
 	{
+		gmat4 viewMatrix = april::rendersys->getModelviewMatrix();
+		if (this->rect->x != 0 || this->rect->y != 0)
+		{
+			april::rendersys->translate((float)this->rect->x, (float)this->rect->y);
+		}
 		this->_render();
+		april::rendersys->setModelviewMatrix(viewMatrix);
 	}
 
 	void Viewport::_render()
 	{
-		//this->renderQueue.draw();
+		this->renderQueue->draw();
 	}
 
 	void Viewport::dispose()
 	{
-		this->renderQueue.dispose();
+		if (this->renderQueue != NULL)
+		{
+			delete this->renderQueue;
+			this->renderQueue = NULL;
+		}
 	}
 
 	/****************************************************************************************
@@ -106,7 +121,8 @@ namespace rgss
 			rb_raise(rb_eArgError, message.c_str());
 		}
 		RB_SELF2CPP(Viewport, viewport);
-		viewport->initializeRenderable(&Graphics::renderQueue);
+		viewport->renderQueue = new RenderQueue();
+		viewport->initializeRenderable(Graphics::renderQueue);
 		VALUE arg1, arg2, arg3, arg4;
 		rb_scan_args(argc, argv, "13", &arg1, &arg2, &arg3, &arg4);
 		if (NIL_P(arg2) && NIL_P(arg3) && NIL_P(arg4))
