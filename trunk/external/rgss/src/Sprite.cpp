@@ -106,21 +106,15 @@ namespace rgss
 
 	void Sprite::gc_mark(Sprite* sprite)
 	{
-		if (!NIL_P(sprite->rb_bitmap))
-		{
-			rb_gc_mark(sprite->rb_bitmap);
-			rb_gc_mark(sprite->rb_srcRect);
-		}
+		rb_gc_mark(sprite->rb_srcRect);
+		SourceRenderer::gc_mark(sprite);
 	}
 
 	void Sprite::gc_free(Sprite* sprite)
 	{
-		sprite->rb_bitmap = Qnil;
-		sprite->bitmap = NULL;
 		sprite->rb_srcRect = Qnil;
 		sprite->srcRect = NULL;
-		sprite->disposed = true;
-		Graphics::removeRenderable(sprite);
+		SourceRenderer::gc_free(sprite);
 	}
 
 	VALUE Sprite::rb_new(VALUE classe)
@@ -135,7 +129,7 @@ namespace rgss
 	VALUE Sprite::rb_initialize(int argc, VALUE* argv, VALUE self)
 	{
 		RB_SELF2CPP(Sprite, sprite);
-		sprite->initialize();
+		sprite->initializeSourceRenderer();
 		Sprite::rb_setSrcRect(self, Rect::create(INT2FIX(0), INT2FIX(0), INT2FIX(1), INT2FIX(1)));
 		Graphics::addRenderable(sprite);
 		return self;
@@ -195,22 +189,6 @@ namespace rgss
 		return value;
 	}
 
-	VALUE Sprite::rb_getBitmap(VALUE self)
-	{
-		RB_SELF2CPP(Sprite, sprite);
-		return sprite->rb_bitmap;
-	}
-
-	VALUE Sprite::rb_setBitmap(VALUE self, VALUE value)
-	{
-		RB_GENERATE_SETTER(Sprite, sprite, Bitmap, bitmap);
-		if (sprite->bitmap != NULL)
-		{
-			sprite->getSrcRect()->set(0, 0, sprite->bitmap->getWidth(), sprite->bitmap->getHeight());
-		}
-		return value;
-	}
-
 	VALUE Sprite::rb_getSrcRect(VALUE self)
 	{
 		RB_SELF2CPP(Sprite, sprite);
@@ -220,6 +198,17 @@ namespace rgss
 	VALUE Sprite::rb_setSrcRect(VALUE self, VALUE value)
 	{
 		RB_GENERATE_SETTER(Sprite, sprite, Rect, srcRect);
+		return value;
+	}
+
+	VALUE Sprite::rb_setBitmap(VALUE self, VALUE value)
+	{
+		SourceRenderer::rb_setBitmap(self, value);
+		RB_SELF2CPP(Sprite, sprite);
+		if (sprite->bitmap != NULL)
+		{
+			sprite->getSrcRect()->set(0, 0, sprite->bitmap->getWidth(), sprite->bitmap->getHeight());
+		}
 		return value;
 	}
 

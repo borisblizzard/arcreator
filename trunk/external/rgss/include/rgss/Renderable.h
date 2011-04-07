@@ -9,6 +9,7 @@
 #define TYPE_SPRITE 1
 #define TYPE_PLANE 2
 #define TYPE_WINDOW 3
+#define TYPE_TILEMAP 4
 
 namespace rgss
 {
@@ -17,7 +18,7 @@ namespace rgss
 	{
 	public:
 		/// @brief Initializes the basic Renderable object.
-		void initialize();
+		void initializeRenderable();
 
 		/// @brief Gets the Z coordinate.
 		/// @return The Z coordinate.
@@ -28,6 +29,13 @@ namespace rgss
 
 		/// @brief Draws this sprite on the screen.
 		void draw();
+
+		/// @brief Marks referenced values of renderable for garbage collection.
+		/// @param[in] renderable Renderable to mark.
+		static void gc_mark(Renderable* renderable);
+		/// @brief Frees allocated memory.
+		/// @param[in] renderable Renderable to free.
+		static void gc_free(Renderable* renderable);
 
 		/// @brief Gets the visibility.
 		/// @return The visibility.

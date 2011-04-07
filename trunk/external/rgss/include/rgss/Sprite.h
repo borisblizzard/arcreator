@@ -5,7 +5,7 @@
 
 #include "Color.h"
 #include "Rect.h"
-#include "Renderable.h"
+#include "SourceRenderer.h"
 #include "Tone.h"
 #include "rgssExport.h"
 
@@ -13,11 +13,8 @@ namespace rgss
 {
 	extern VALUE rb_cSprite;
 
-	class Bitmap;
-	class Viewport;
-
 	/// @brief Emulates RGSS's Sprite class.
-	class rgssExport Sprite : public Renderable
+	class rgssExport Sprite : public SourceRenderer
 	{
 	public:
 		/*
@@ -82,18 +79,15 @@ namespace rgss
 		/// @brief Sets the angle.
 		/// @param[in] value Angle.
 		static VALUE rb_setAngle(VALUE self, VALUE value);
-		/// @brief Gets the bitmap.
-		/// @return Bitmap.
-		static VALUE rb_getBitmap(VALUE self);
-		/// @brief Sets the bitmap.
-		/// @param[in] value Bitmap.
-		static VALUE rb_setBitmap(VALUE self, VALUE value);
 		/// @brief Gets the source rectangle.
 		/// @return Source rectangle.
 		static VALUE rb_getSrcRect(VALUE self);
 		/// @brief Sets the source rectangle.
 		/// @param[in] value Source rectangle.
 		static VALUE rb_setSrcRect(VALUE self, VALUE value);
+		/// @brief Sets the bitmap.
+		/// @param[in] value Bitmap.
+		static VALUE rb_setBitmap(VALUE self, VALUE value);
 
 
 
@@ -120,10 +114,6 @@ namespace rgss
 		int y;
 		/// @brief Rotation angle.
 		float angle;
-		/// @brief Bitmap drawing reference.
-		Bitmap* bitmap;
-		/// @brief Ruby object of bitmap drawing reference.
-		VALUE rb_bitmap;
 		/// @brief Source rectangle.
 		Rect* srcRect;
 		/// @brief Ruby object of source rectangle.
