@@ -31,19 +31,16 @@ namespace rgss
 		switch (this->type)
 		{
 		case TYPE_VIEWPORT:
-			//((Viewport*)this)->draw();
+			((Viewport*)this)->draw();
 			break;
 		case TYPE_SPRITE:
 			((Sprite*)this)->draw();
 			break;
 		case TYPE_PLANE:
-			//((Plane*)this)->draw();
+			((Plane*)this)->draw();
 			break;
 		case TYPE_WINDOW:
 			((Window*)this)->draw();
-			break;
-		case TYPE_TILEMAP:
-			//((Tilemap*)this)->draw();
 			break;
 		}
 	}

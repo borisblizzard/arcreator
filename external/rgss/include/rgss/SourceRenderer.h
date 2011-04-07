@@ -16,7 +16,7 @@ namespace rgss
 	{
 	public:
 		/// @brief Initializes the basic Renderable object.
-		void initializeSourceRenderer();
+		void initializeSourceRenderer(VALUE rb_viewport = Qnil);
 
 		/// @brief Marks referenced values of sourceRenderer for garbage collection.
 		/// @param[in] sourceRenderer SourceRenderer to mark.

@@ -24,7 +24,8 @@ namespace rgss
 
 	void Sprite::draw()
 	{
-		if (this->bitmap == NULL)
+		if (this->bitmap == NULL || this->opacity == 0 || this->srcRect->width <= 0 ||
+			this->srcRect->height <= 0)
 		{
 			return;
 		}
@@ -126,8 +127,10 @@ namespace rgss
 	VALUE Sprite::rb_initialize(int argc, VALUE* argv, VALUE self)
 	{
 		RB_SELF2CPP(Sprite, sprite);
-		sprite->initializeSourceRenderer();
-		Sprite::rb_setSrcRect(self, Rect::create(INT2FIX(0), INT2FIX(0), INT2FIX(1), INT2FIX(1)));
+		VALUE viewport;
+		rb_scan_args(argc, argv, "01", &viewport);
+		sprite->initializeSourceRenderer(viewport);
+		Sprite::rb_setSrcRect(self, Rect::create(INT2FIX(0), INT2FIX(0), INT2FIX(0), INT2FIX(0)));
 		return self;
 	}
 

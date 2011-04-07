@@ -79,14 +79,17 @@ namespace rgss
 
 	void Plane::gc_mark(Plane* plane)
 	{
-		//rb_gc_mark(plane->rb_srcRect);
+		if (!NIL_P(plane->rb_viewport))
+		{
+			//rb_gc_mark(plane->rb_viewport);
+		}
 		SourceRenderer::gc_mark(plane);
 	}
 
 	void Plane::gc_free(Plane* plane)
 	{
-		//plane->rb_srcRect = Qnil;
-		//plane->srcRect = NULL;
+		//plane->rb_viewport = Qnil;
+		//plane->viewport = NULL;
 		SourceRenderer::gc_free(plane);
 	}
 
@@ -99,10 +102,13 @@ namespace rgss
 		return result;
 	}
 
-	VALUE Plane::rb_initialize(int argc, VALUE* argv, VALUE self)
+	VALUE Plane::rb_initialize(VALUE self, VALUE rb_viewport)
 	{
 		RB_SELF2CPP(Plane, plane);
-		plane->initializeSourceRenderer();
+		plane->initializeSourceRenderer(rb_viewport);
+		plane->rb_viewport = rb_viewport;
+		RB_VAR2CPP(rb_viewport, Viewport, viewport);
+		plane->viewport = viewport;
 		return self;
 	}
 

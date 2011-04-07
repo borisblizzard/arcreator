@@ -13,14 +13,22 @@ namespace rgss
 	 * Pure C++ code
 	 ****************************************************************************************/
 
-	void SourceRenderer::initializeSourceRenderer()
+	void SourceRenderer::initializeSourceRenderer(VALUE rb_viewport)
 	{
 		this->initializeRenderable();
 		this->opacity = 255;
 		this->rb_bitmap = Qnil;
 		this->bitmap = NULL;
-		this->rb_viewport = Qnil;
-		this->viewport = NULL;
+		this->rb_viewport = rb_viewport;
+		if (!NIL_P(this->rb_viewport))
+		{
+			RB_VAR2CPP(rb_viewport, Viewport, viewport);
+			this->viewport = viewport;
+		}
+		else
+		{
+			this->viewport = NULL;
+		}
 	}
 
 	/****************************************************************************************
