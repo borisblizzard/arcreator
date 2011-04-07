@@ -32,10 +32,8 @@ namespace rgss
 		/// @brief Ruby allocation of an instance.
 		static VALUE rb_new(VALUE classe);
 		/// @brief Initializes this instance.
-		/// @param[in] argc Number of arguments.
-		/// @param[in] argv Pointer to first argument.
-		/// @note Arguments are "[viewport]".
-		static VALUE rb_initialize(int argc, VALUE* argv, VALUE self);
+		/// @param[in] viewport The viewport.
+		static VALUE rb_initialize(VALUE self, VALUE viewport);
 			
 		/// @brief Gets the plane's blend type
 		static VALUE rb_getBlendType(VALUE self);

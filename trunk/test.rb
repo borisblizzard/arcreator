@@ -46,6 +46,7 @@ s2.oy = 32
 s2.src_rect.set(16, 16, 40, 40)
 p s2.src_rect
 w1 = Window.new
+#p1 = Plane.new()
 
 loop do
 	Graphics.update

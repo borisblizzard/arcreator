@@ -69,6 +69,13 @@ namespace rgss
 		return rb_str_new2(result.c_str());
 	}
 
+	VALUE Tone::create(int argc, VALUE* argv)
+	{
+		VALUE object = Tone::rb_new(rb_cTone);
+		object = Tone::rb_initialize(argc, argv, object);
+		return object;
+	}
+
 	/****************************************************************************************
 	 * Ruby Getters/Setters
 	 ****************************************************************************************/

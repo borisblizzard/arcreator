@@ -115,7 +115,7 @@ namespace rgss
 	VALUE Window::rb_initialize(VALUE self)
 	{
 		RB_SELF2CPP(Window, window);
-		window->initializeSourceRenderer();
+		window->initializeSourceRenderer(Qnil);
 		return self;
 	}
 

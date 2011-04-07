@@ -9,7 +9,6 @@
 #define TYPE_SPRITE 1
 #define TYPE_PLANE 2
 #define TYPE_WINDOW 3
-#define TYPE_TILEMAP 4
 
 namespace rgss
 {
