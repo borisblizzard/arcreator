@@ -1,7 +1,6 @@
 #include <ruby.h>
 
 #include "Bitmap.h"
-#include "Graphics.h"
 #include "Viewport.h"
 #include "SourceRenderer.h"
 #include "CodeSnippets.h"
@@ -17,6 +16,8 @@ namespace rgss
 		this->initializeRenderable();
 		this->rb_bitmap = Qnil;
 		this->bitmap = NULL;
+		this->rb_viewport = Qnil;
+		this->viewport = NULL;
 	}
 
 	/****************************************************************************************
@@ -29,6 +30,10 @@ namespace rgss
 		{
 			rb_gc_mark(sourceRenderer->rb_bitmap);
 		}
+		if (!NIL_P(sourceRenderer->rb_viewport))
+		{
+			rb_gc_mark(sourceRenderer->rb_viewport);
+		}
 		Renderable::gc_mark(sourceRenderer);
 	}
 
@@ -36,6 +41,8 @@ namespace rgss
 	{
 		sourceRenderer->rb_bitmap = Qnil;
 		sourceRenderer->bitmap = NULL;
+		sourceRenderer->rb_viewport = Qnil;
+		sourceRenderer->viewport = NULL;
 		Renderable::gc_free(sourceRenderer);
 	}
 
@@ -45,13 +52,25 @@ namespace rgss
 
 	VALUE SourceRenderer::rb_getBitmap(VALUE self)
 	{
-		RB_SELF2CPP(SourceRenderer, sprite);
-		return sprite->rb_bitmap;
+		RB_SELF2CPP(SourceRenderer, sourceRenderer);
+		return sourceRenderer->rb_bitmap;
 	}
 
 	VALUE SourceRenderer::rb_setBitmap(VALUE self, VALUE value)
 	{
 		RB_GENERATE_SETTER(SourceRenderer, sourceRenderer, Bitmap, bitmap);
+		return value;
+	}
+
+	VALUE SourceRenderer::rb_getViewport(VALUE self)
+	{
+		RB_SELF2CPP(SourceRenderer, sourceRenderer);
+		return sourceRenderer->rb_viewport;
+	}
+
+	VALUE SourceRenderer::rb_setViewport(VALUE self, VALUE value)
+	{
+		RB_GENERATE_SETTER(SourceRenderer, sourceRenderer, Viewport, viewport);
 		return value;
 	}
 

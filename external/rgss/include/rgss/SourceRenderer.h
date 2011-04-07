@@ -31,12 +31,22 @@ namespace rgss
 		/// @brief Sets the bitmap.
 		/// @param[in] value Bitmap.
 		static VALUE rb_setBitmap(VALUE self, VALUE value);
+		/// @brief Gets the viewport.
+		/// @return Viewport.
+		static VALUE rb_getViewport(VALUE self);
+		/// @brief Sets the viewport.
+		/// @param[in] value Viewport.
+		static VALUE rb_setViewport(VALUE self, VALUE value);
 
 	protected:
 		/// @brief Bitmap drawing reference.
 		Bitmap* bitmap;
 		/// @brief Ruby object of bitmap drawing reference.
 		VALUE rb_bitmap;
+		/// @brief Viewport.
+		Viewport* viewport;
+		/// @brief Ruby object of viewport.
+		VALUE rb_viewport;
 
 	};
 
