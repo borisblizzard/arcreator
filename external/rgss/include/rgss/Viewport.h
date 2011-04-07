@@ -4,7 +4,6 @@
 #include <ruby.h>
 
 #include "Renderable.h"
-#include "RenderQueue.h"
 #include "rgssExport.h"
 
 namespace rgss
@@ -13,13 +12,14 @@ namespace rgss
 
 	class Color;
 	class Rect;
+	class RenderQueue;
 	class Tone;
 
 	/// @brief Emulates RGSS's Viewport class.
 	class rgssExport Viewport : public Renderable
 	{
 	public:
-		RenderQueue renderQueue;
+		RenderQueue* renderQueue;
 
 		/// @brief Draws this sprite on the screen.
 		void draw();

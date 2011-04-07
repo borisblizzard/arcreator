@@ -13,6 +13,9 @@ namespace rgss
 	class rgssExport RenderQueue
 	{
 	public:
+		/// @brief Destructor.
+		~RenderQueue();
+
 		/// @brief Draws this RenderQueue.
 		void draw();
 		/// @brief Adds a new renderable object.
@@ -24,8 +27,6 @@ namespace rgss
 		/// @brief Updates a renderable object because of a change in the Z coordinate.
 		/// @param[in] renderable The renderable object that has changed.
 		void update(Renderable* renderable);
-		/// @brief Disposes all renderables in this queue.
-		void dispose();
 
 	protected:
 		/// @brief Contains all renderable objects;

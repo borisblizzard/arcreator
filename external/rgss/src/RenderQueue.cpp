@@ -6,6 +6,14 @@
 
 namespace rgss
 {
+	RenderQueue::~RenderQueue()
+	{
+		while (this->renderables.size() > 0)
+		{
+			this->renderables[0]->dispose();
+		}
+	}
+
 	void RenderQueue::draw()
 	{
 		foreach (Renderable*, it, this->renderables)
@@ -36,14 +44,6 @@ namespace rgss
 	{
 		this->remove(renderable);
 		this->add(renderable);
-	}
-
-	void RenderQueue::dispose()
-	{
-		while (this->renderables.size() > 0)
-		{
-			this->renderables[0]->dispose();
-		}
 	}
 
 }

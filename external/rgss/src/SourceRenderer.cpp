@@ -24,12 +24,12 @@ namespace rgss
 		{
 			RB_VAR2CPP(rb_viewport, Viewport, viewport);
 			this->viewport = viewport;
-			this->initializeRenderable(&viewport->renderQueue);
+			this->initializeRenderable(viewport->renderQueue);
 		}
 		else
 		{
 			this->viewport = NULL;
-			this->initializeRenderable(&Graphics::renderQueue);
+			this->initializeRenderable(Graphics::renderQueue);
 		}
 	}
 

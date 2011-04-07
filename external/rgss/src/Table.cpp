@@ -13,7 +13,6 @@ namespace rgss
 	 * Pure C++ code
 	 ****************************************************************************************/
 
-
 	VALUE rb_cTable;
 
 	void Table::_resize(int xSize, int ySize, int zSize)
@@ -43,7 +42,6 @@ namespace rgss
 				}
 			}
 		}
-
 		// delete the old array
 		delete [] this->data;
 		// set the new data
