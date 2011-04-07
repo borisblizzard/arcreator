@@ -12,17 +12,17 @@
     <Filter Include="Resource Files">
       <UniqueIdentifier>{72d6d404-11e4-46ce-b025-f31bf4ed8f17}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\system">
-      <UniqueIdentifier>{dafca7db-5c84-4deb-b6c9-4c3f8cba290b}</UniqueIdentifier>
+    <Filter Include="Header Files\Support">
+      <UniqueIdentifier>{967b98c6-0872-4f3f-ba9c-ab822b51c7f4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\system">
+    <Filter Include="Header Files\System">
       <UniqueIdentifier>{d150e7fd-8f51-490f-b83e-6950a42265bf}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\support">
-      <UniqueIdentifier>{38b3d614-7592-4d14-a6b9-c74a1c010054}</UniqueIdentifier>
+    <Filter Include="Source Files\System">
+      <UniqueIdentifier>{dafca7db-5c84-4deb-b6c9-4c3f8cba290b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\support">
-      <UniqueIdentifier>{967b98c6-0872-4f3f-ba9c-ab822b51c7f4}</UniqueIdentifier>
+    <Filter Include="Source Files\Support">
+      <UniqueIdentifier>{38b3d614-7592-4d14-a6b9-c74a1c010054}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -32,7 +32,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\rgss.cpp">
-      <Filter>Source Files\system</Filter>
+      <Filter>Source Files\System</Filter>
     </ClCompile>
     <ClCompile Include="src\Audio.cpp">
       <Filter>Source Files</Filter>
@@ -80,27 +80,27 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Renderable.cpp">
-      <Filter>Source Files\support</Filter>
+      <Filter>Source Files\Support</Filter>
     </ClCompile>
     <ClCompile Include="src\SourceRenderer.cpp">
-      <Filter>Source Files\support</Filter>
+      <Filter>Source Files\Support</Filter>
     </ClCompile>
     <ClCompile Include="src\RenderQueue.cpp">
-      <Filter>Source Files\support</Filter>
+      <Filter>Source Files\System</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\CodeSnippets.h">
-      <Filter>Header Files\system</Filter>
+      <Filter>Header Files\System</Filter>
     </ClInclude>
     <ClInclude Include="src\Constants.h">
-      <Filter>Header Files\system</Filter>
+      <Filter>Header Files\System</Filter>
     </ClInclude>
     <ClInclude Include="include\rgss\rgss.h">
-      <Filter>Header Files\system</Filter>
+      <Filter>Header Files\System</Filter>
     </ClInclude>
     <ClInclude Include="include\rgss\rgssExport.h">
-      <Filter>Header Files\system</Filter>
+      <Filter>Header Files\System</Filter>
     </ClInclude>
     <ClInclude Include="include\rgss\Audio.h">
       <Filter>Header Files</Filter>
@@ -147,14 +147,14 @@
     <ClInclude Include="include\rgss\Window.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\rgss\SourceRenderer.h">
-      <Filter>Header Files\support</Filter>
-    </ClInclude>
     <ClInclude Include="include\rgss\Renderable.h">
-      <Filter>Header Files\support</Filter>
+      <Filter>Header Files\Support</Filter>
+    </ClInclude>
+    <ClInclude Include="include\rgss\SourceRenderer.h">
+      <Filter>Header Files\Support</Filter>
     </ClInclude>
     <ClInclude Include="include\rgss\RenderQueue.h">
-      <Filter>Header Files\support</Filter>
+      <Filter>Header Files\System</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

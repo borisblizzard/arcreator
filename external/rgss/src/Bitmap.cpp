@@ -6,12 +6,12 @@
 #include <hltypes/exception.h>
 #include <hltypes/util.h>
 
+#include "CodeSnippets.h"
 #include "Bitmap.h"
 #include "Color.h"
 #include "Font.h"
 #include "Rect.h"
 #include "RGSSError.h"
-#include "CodeSnippets.h"
 
 namespace rgss
 {

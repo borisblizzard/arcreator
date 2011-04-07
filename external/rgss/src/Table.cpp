@@ -2,9 +2,9 @@
 
 #include <hltypes/util.h>
 
+#include "CodeSnippets.h"
 #include "RGSSError.h"
 #include "Table.h"
-#include "CodeSnippets.h"
 
 namespace rgss
 {

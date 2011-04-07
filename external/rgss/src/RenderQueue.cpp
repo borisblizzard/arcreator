@@ -1,7 +1,7 @@
 #include <hltypes/harray.h>
 
-#include "Renderable.h"
 #include "CodeSnippets.h"
+#include "Renderable.h"
 #include "RenderQueue.h"
 
 namespace rgss
@@ -36,6 +36,14 @@ namespace rgss
 	{
 		this->remove(renderable);
 		this->add(renderable);
+	}
+
+	void RenderQueue::dispose()
+	{
+		while (this->renderables.size() > 0)
+		{
+			this->renderables[0]->dispose();
+		}
 	}
 
 }

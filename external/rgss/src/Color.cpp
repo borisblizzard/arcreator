@@ -3,8 +3,8 @@
 #include <april/Color.h>
 #include <hltypes/util.h>
 
-#include "Color.h"
 #include "CodeSnippets.h"
+#include "Color.h"
 
 namespace rgss
 {

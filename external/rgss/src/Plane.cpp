@@ -5,12 +5,12 @@
 #include <gtypes/Rectangle.h>
 #include <hltypes/util.h>
 
-#include "Plane.h"
+#include "CodeSnippets.h"
 #include "Bitmap.h"
 #include "Color.h"
+#include "Plane.h"
 #include "Tone.h"
 #include "Viewport.h"
-#include "CodeSnippets.h"
 
 namespace rgss
 {

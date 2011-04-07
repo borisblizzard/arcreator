@@ -12,12 +12,14 @@
 
 namespace rgss
 {
+	class RenderQueue;
+
 	/// @brief Provides commonly used rendering functionality.
 	class rgssExport Renderable
 	{
 	public:
 		/// @brief Initializes the basic Renderable object.
-		void initializeRenderable();
+		void initializeRenderable(RenderQueue* renderQueue);
 
 		/// @brief Gets the Z coordinate.
 		/// @return The Z coordinate.
@@ -70,6 +72,8 @@ namespace rgss
 		static VALUE rb_dispose(VALUE self);
 
 	protected:
+		/// @brief The RenderQueue this renderable belongs to.
+		RenderQueue* renderQueue;
 		/// @brief Disposed flag.
 		bool disposed;
 		/// @brief Visible flag.

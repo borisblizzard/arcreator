@@ -1,6 +1,6 @@
+#include "CodeSnippets.h"
 #include "Color.h"
 #include "Font.h"
-#include "CodeSnippets.h"
 
 namespace rgss
 {
