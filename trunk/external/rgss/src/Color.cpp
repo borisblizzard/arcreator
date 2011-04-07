@@ -94,12 +94,6 @@ namespace rgss
 
 	}
 
-	VALUE Color::wrap()
-	{
-		Color* color = this;
-		return Data_Wrap_Struct(rb_cColor, NULL, NULL, color);
-	}
-
 	VALUE Color::rb_new(VALUE classe)
 	{
 		Color* color;

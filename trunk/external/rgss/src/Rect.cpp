@@ -50,12 +50,6 @@ namespace rgss
 		// static methods
 	}
 
-	VALUE Rect::wrap()
-	{
-		Rect* rect = this;
-		return Data_Wrap_Struct(rb_cRect, NULL, NULL, rect);
-	}
-
 	VALUE Rect::rb_new(VALUE classe)
 	{
 		Rect* rect;

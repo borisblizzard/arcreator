@@ -44,9 +44,6 @@ namespace rgss
 		static void init();
 		/// @brief Exposes this class to Ruby.
 		static void createRubyInterface();
-		/// @brief Wraps this instance into a Ruby cobject.
-		/// @return Ruby object.
-		VALUE wrap();
 		/// @brief Marks referenced values of sprite for garbage collection.
 		/// @param[in] bitmap Bitmap to mark.
 		static void gc_mark(Bitmap* bitmap);

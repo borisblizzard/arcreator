@@ -23,9 +23,6 @@ namespace rgss
 		static void init();
 		/// @brief Exposes this class to Ruby.
 		static void createRubyInterface();
-		/// @brief Wraps this instance into a Ruby cobject.
-		/// @return Ruby object.
-		VALUE wrap();
 		/// @brief Frees allocated memory.
 		/// @param[in] table Table to free.
 		static void gc_free(Table* table);

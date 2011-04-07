@@ -78,6 +78,8 @@ namespace rgss
 		// getters and setters
 		rb_define_method(rb_cSprite, "visible", RUBY_METHOD_FUNC(&Sprite::rb_getVisible), 0);
 		rb_define_method(rb_cSprite, "visible=", RUBY_METHOD_FUNC(&Sprite::rb_setVisible), 1);
+		rb_define_method(rb_cSprite, "opacity", RUBY_METHOD_FUNC(&Sprite::rb_getOpacity), 0);
+		rb_define_method(rb_cSprite, "opacity=", RUBY_METHOD_FUNC(&Sprite::rb_setOpacity), 1);
 		rb_define_method(rb_cSprite, "x", RUBY_METHOD_FUNC(&Sprite::rb_getX), 0);
 		rb_define_method(rb_cSprite, "x=", RUBY_METHOD_FUNC(&Sprite::rb_setX), 1);
 		rb_define_method(rb_cSprite, "y", RUBY_METHOD_FUNC(&Sprite::rb_getY), 0);
@@ -92,16 +94,11 @@ namespace rgss
 		rb_define_method(rb_cSprite, "angle=", RUBY_METHOD_FUNC(&Sprite::rb_setAngle), 1);
 		rb_define_method(rb_cSprite, "bitmap", RUBY_METHOD_FUNC(&Sprite::rb_getBitmap), 0);
 		rb_define_method(rb_cSprite, "bitmap=", RUBY_METHOD_FUNC(&Sprite::rb_setBitmap), 1);
+		rb_define_method(rb_cSprite, "viewport", RUBY_METHOD_FUNC(&Sprite::rb_getViewport), 0);
 		rb_define_method(rb_cSprite, "src_rect", RUBY_METHOD_FUNC(&Sprite::rb_getSrcRect), 0);
 		rb_define_method(rb_cSprite, "src_rect=", RUBY_METHOD_FUNC(&Sprite::rb_setSrcRect), 1);
 		rb_define_method(rb_cSprite, "disposed?", RUBY_METHOD_FUNC(&Sprite::rb_isDisposed), 0);
 		// methods
-	}
-
-	VALUE Sprite::wrap()
-	{
-		Sprite* sprite = this;
-		return Data_Wrap_Struct(rb_cSprite, NULL, NULL, sprite);
 	}
 
 	void Sprite::gc_mark(Sprite* sprite)
@@ -131,19 +128,7 @@ namespace rgss
 		RB_SELF2CPP(Sprite, sprite);
 		sprite->initializeSourceRenderer();
 		Sprite::rb_setSrcRect(self, Rect::create(INT2FIX(0), INT2FIX(0), INT2FIX(1), INT2FIX(1)));
-		Graphics::addRenderable(sprite);
 		return self;
-	}
-
-	VALUE Sprite::rb_dispose(VALUE self)
-	{
-		RB_SELF2CPP(Sprite, sprite);
-		if (!sprite->disposed)
-		{
-			sprite->disposed = true;
-			Graphics::removeRenderable(sprite);
-		}
-		return Qnil;
 	}
 
 	/****************************************************************************************
