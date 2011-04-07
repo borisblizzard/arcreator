@@ -4,6 +4,7 @@
 #include "Plane.h"
 #include "Renderable.h"
 #include "Sprite.h"
+#include "Tilemap.h"
 #include "Viewport.h"
 #include "Window.h"
 #include "CodeSnippets.h"
@@ -14,7 +15,7 @@ namespace rgss
 	 * Pure C++ code
 	 ****************************************************************************************/
 
-	void Renderable::initialize()
+	void Renderable::initializeRenderable()
 	{
 		this->disposed = false;
 		this->visible = true;
@@ -40,7 +41,23 @@ namespace rgss
 		case TYPE_WINDOW:
 			//((Window*)this)->draw();
 			break;
+		case TYPE_TILEMAP:
+			//((Tilemap*)this)->draw();
+			break;
 		}
+	}
+
+	/****************************************************************************************
+	 * Ruby Interfacing, Creation, Destruction, Systematics
+	 ****************************************************************************************/
+
+	void Renderable::gc_mark(Renderable* renderable)
+	{
+	}
+
+	void Renderable::gc_free(Renderable* renderable)
+	{
+		Graphics::removeRenderable(renderable);
 	}
 
 	/****************************************************************************************
