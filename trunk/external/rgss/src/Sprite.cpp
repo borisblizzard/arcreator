@@ -230,11 +230,6 @@ namespace rgss
 		return Qnil;
 	}
 
-	VALUE Sprite::setOpacity(VALUE self, VALUE value)
-	{
-		return value;
-	}
-
 	VALUE Sprite::setZoomX(VALUE self, VALUE value)
 	{
 		return value;
