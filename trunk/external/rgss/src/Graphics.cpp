@@ -7,6 +7,7 @@
 
 #include "Graphics.h"
 #include "Renderable.h"
+#include "RenderQueue.h"
 #include "CodeSnippets.h"
 
 namespace rgss
@@ -20,31 +21,7 @@ namespace rgss
 	unsigned int Graphics::frameCount;
 	unsigned int Graphics::frameRate;
 	bool Graphics::running;
-	harray<Renderable*> renderables;
-
-	void Graphics::addRenderable(Renderable* renderable)
-	{
-		for_iter (i, 0, renderables.size())
-		{
-			if (renderable->getZ() < renderables[i]->getZ())
-			{
-				renderables.insert_at(i, renderable);
-				return;
-			}
-		}
-		renderables += renderable;
-	}
-
-	void Graphics::removeRenderable(Renderable* renderable)
-	{
-		renderables -= renderable;
-	}
-
-	void Graphics::updateRenderable(Renderable* renderable)
-	{
-		removeRenderable(renderable);
-		addRenderable(renderable);
-	}
+	RenderQueue Graphics::renderQueue;
 
 	/****************************************************************************************
 	 * Ruby Interfacing, Creation, Destruction, Systematics
@@ -108,10 +85,7 @@ namespace rgss
 			return Qnil;
 		}
 		april::rendersys->clear();
-		foreach (Renderable*, it, renderables)
-		{
-			(*it)->draw();
-		}
+		renderQueue.draw();
 		april::rendersys->presentFrame();
 		frameCount++;
 		/// @todo - more often, less often?

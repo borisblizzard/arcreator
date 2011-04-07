@@ -3,6 +3,7 @@
 
 #include <ruby.h>
 
+#include "RenderQueue.h"
 #include "rgssExport.h"
 
 namespace rgss
@@ -10,19 +11,14 @@ namespace rgss
 	extern VALUE rb_mGraphics;
 
 	class Renderable;
+	class RenderQueue;
 
 	class rgssExport Graphics
 	{
 	public:
-		/// @brief Adds a new renderable object to the rendering queue.
-		/// @param[in] renderable The renderable object to be added.
-		static void addRenderable(Renderable* renderable);
-		/// @brief Removes the renderable object from the rendering queue.
-		/// @param[in] renderable The renderable object to be removed.
-		static void removeRenderable(Renderable* renderable);
-		/// @brief Updates a renderable object within the rendering queue because of a change in the Z coordinate.
-		/// @param[in] renderable The renderable object that has changed.
-		static void updateRenderable(Renderable* renderable);
+		/// @brief RenderQueue for all renderable objects.
+		static RenderQueue renderQueue;
+
 		/// @brief Sets whether Graphics is still running.
 		/// @param[in] value The new value.
 		static void setRunning(bool value) { running = value; }

@@ -8,6 +8,7 @@
 #include "Viewport.h"
 #include "Window.h"
 #include "CodeSnippets.h"
+#include "RenderQueue.h"
 
 namespace rgss
 {
@@ -15,11 +16,12 @@ namespace rgss
 	 * Pure C++ code
 	 ****************************************************************************************/
 
+	/// @todo Should be probably changed so the Renderable instance refers to the RenderQueue where it's stored.
 	void Renderable::initializeRenderable()
 	{
 		this->disposed = false;
 		this->visible = true;
-		Graphics::addRenderable(this);
+		Graphics::renderQueue.add(this);
 	}
 
 	void Renderable::draw()
@@ -50,7 +52,7 @@ namespace rgss
 		if (!this->disposed)
 		{
 			this->disposed = true;
-			Graphics::removeRenderable(this);
+			Graphics::renderQueue.remove(this);
 		}
 	}
 
@@ -64,7 +66,7 @@ namespace rgss
 
 	void Renderable::gc_free(Renderable* renderable)
 	{
-		Graphics::removeRenderable(renderable);
+		Graphics::renderQueue.remove(renderable);
 	}
 
 	/****************************************************************************************
@@ -97,7 +99,7 @@ namespace rgss
 		if (renderable->z != z)
 		{
 			renderable->z = z;
-			Graphics::updateRenderable(renderable);
+			Graphics::renderQueue.update(renderable);
 		}
 		return value;
 	}

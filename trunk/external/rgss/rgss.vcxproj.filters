@@ -85,6 +85,9 @@
     <ClCompile Include="src\SourceRenderer.cpp">
       <Filter>Source Files\support</Filter>
     </ClCompile>
+    <ClCompile Include="src\RenderQueue.cpp">
+      <Filter>Source Files\support</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\CodeSnippets.h">
@@ -148,6 +151,9 @@
       <Filter>Header Files\support</Filter>
     </ClInclude>
     <ClInclude Include="include\rgss\Renderable.h">
+      <Filter>Header Files\support</Filter>
+    </ClInclude>
+    <ClInclude Include="include\rgss\RenderQueue.h">
       <Filter>Header Files\support</Filter>
     </ClInclude>
   </ItemGroup>
