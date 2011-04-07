@@ -126,6 +126,7 @@
     <ClCompile Include="src\Plane.cpp" />
     <ClCompile Include="src\Rect.cpp" />
     <ClCompile Include="src\Renderable.cpp" />
+    <ClCompile Include="src\RenderQueue.cpp" />
     <ClCompile Include="src\rgss.cpp" />
     <ClCompile Include="src\RGSSError.cpp" />
     <ClCompile Include="src\SourceRenderer.cpp" />
@@ -146,6 +147,7 @@
     <ClInclude Include="include\rgss\Plane.h" />
     <ClInclude Include="include\rgss\Rect.h" />
     <ClInclude Include="include\rgss\Renderable.h" />
+    <ClInclude Include="include\rgss\RenderQueue.h" />
     <ClInclude Include="include\rgss\RGSSError.h" />
     <ClInclude Include="include\rgss\SourceRenderer.h" />
     <ClInclude Include="include\rgss\Sprite.h" />
