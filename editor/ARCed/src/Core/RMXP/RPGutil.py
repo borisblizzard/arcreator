@@ -16,9 +16,10 @@ opj - Convert paths to the platform-specific separator
 """
 import os
 import numpy
-import pygame
 
-from pygame import surfarray
+#import pygame
+
+#from pygame import surfarray
 
 def opj(path):
     """Convert paths to the platform-specific separator"""
@@ -162,32 +163,35 @@ class Tone(object):
         self.blue = blue
         self.gray = gray
 
-class PySurfaceFunctions(object):
-
-    @staticmethod
-    def change_hue(surface, hue):
-        surface.lock()
-        for x in range(surface.get_width()):
-            for y in range(surface.get_height()):
-                color = pygame.Color(*surface.get_at((x, y)))
-                hsva = list(color.hsva)
-                hsva[0] = (hsva[0] + float(hue)) % 360.0
-                color.hsva = hsva
-                surface.set_at((x, y), (color.r, color.g, color.b, color.a))
-        surface.unlock()
-
-    @staticmethod
-    def adjust_alpha(surface, alpha):
-        if alpha > 255:
-            alpha = 255
-        if alpha < 0:
-            alpha = 0
-        factor = float(alpha) / 255.0
-        alphas = surfarray.pixels_alpha(surface)
-        alphas = (alphas * factor)
-        alphas = numpy.clip(alphas, 0, 255)
-        alphas[:] = alphas.astype("uint8")
-        del alphas
+#pygame function if we ever need them
+#===============================================================================
+# class PySurfaceFunctions(object):
+# 
+#    @staticmethod
+#    def change_hue(surface, hue):
+#        surface.lock()
+#        for x in range(surface.get_width()):
+#            for y in range(surface.get_height()):
+#                color = pygame.Color(*surface.get_at((x, y)))
+#                hsva = list(color.hsva)
+#                hsva[0] = (hsva[0] + float(hue)) % 360.0
+#                color.hsva = hsva
+#                surface.set_at((x, y), (color.r, color.g, color.b, color.a))
+#        surface.unlock()
+# 
+#    @staticmethod
+#    def adjust_alpha(surface, alpha):
+#        if alpha > 255:
+#            alpha = 255
+#        if alpha < 0:
+#            alpha = 0
+#        factor = float(alpha) / 255.0
+#        alphas = surfarray.pixels_alpha(surface)
+#        alphas = (alphas * factor)
+#        alphas = numpy.clip(alphas, 0, 255)
+#        alphas[:] = alphas.astype("uint8")
+#        del alphas
+#===============================================================================
 
 
 
