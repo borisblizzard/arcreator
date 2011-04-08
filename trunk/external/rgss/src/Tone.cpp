@@ -47,6 +47,8 @@ namespace rgss
 		rb_define_method(rb_cTone, "gray=", RUBY_METHOD_FUNC(&Tone::rb_setGray), 1);
 		// all other methods
 		rb_define_method(rb_cTone, "set", RUBY_METHOD_FUNC(&Tone::rb_set), -1);
+		rb_define_method(rb_cTone, "_dump", RUBY_METHOD_FUNC(&Tone::rb_dump), -1);
+		rb_define_singleton_method(rb_cTone, "_load", RUBY_METHOD_FUNC(&Tone::rb_load), 1);
 		// static methods
 	}
 
@@ -148,4 +150,45 @@ namespace rgss
 		return Qnil;
 	}
 
+	VALUE Tone::rb_dump(int argc, VALUE* argv, VALUE self)
+	{
+		VALUE d;
+		rb_scan_args(argc, argv, "01", &d);
+		if (NIL_P(d))
+		{
+			d = INT2FIX(0);
+		}
+		RB_SELF2CPP(Tone, tone);
+		// create array
+		VALUE arr = rb_ary_new();
+		// populate array
+		rb_ary_push(arr, rb_float_new(tone->red));
+		rb_ary_push(arr, rb_float_new(tone->green));
+		rb_ary_push(arr, rb_float_new(tone->blue));
+		rb_ary_push(arr, rb_float_new(tone->gray));
+		// get the method id
+		ID pack_id = rb_intern("pack");
+		// create the ruby pack format string 
+		VALUE format_str = rb_str_new2("d4");
+		// call the pack method
+		VALUE byte_string = rb_funcall(arr, pack_id, 1, format_str);
+		return byte_string;
+
+	}
+
+	VALUE Tone::rb_load(VALUE self, VALUE value)
+	{
+		// get the method id
+		ID unpack_id = rb_intern("unpack");
+		// create the ruby pack format string 
+		VALUE format_str = rb_str_new2("d4");
+		// call the unpack function
+		VALUE arr = rb_funcall(value, unpack_id, 1, format_str);
+		VALUE c_arr[4];
+		c_arr[0] = rb_ary_shift(arr);
+		c_arr[1] = rb_ary_shift(arr);
+		c_arr[2] = rb_ary_shift(arr);
+		c_arr[3] = rb_ary_shift(arr);
+		return Tone::create(4, c_arr);
+	}
 }

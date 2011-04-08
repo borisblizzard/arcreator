@@ -90,6 +90,8 @@ namespace rgss
 		rb_define_method(rb_cColor, "alpha=", RUBY_METHOD_FUNC(&Color::rb_setAlpha), 1);
 		// methods
 		rb_define_method(rb_cColor, "set", RUBY_METHOD_FUNC(&Color::rb_set), -1);
+		rb_define_method(rb_cColor, "_dump", RUBY_METHOD_FUNC(&Color::rb_dump), -1);
+		rb_define_singleton_method(rb_cColor, "_load", RUBY_METHOD_FUNC(&Color::rb_load), 1);
 	}
 
 	VALUE Color::rb_new(VALUE classe)
@@ -188,6 +190,48 @@ namespace rgss
 		color->blue = hclamp((float)NUM2DBL(b), -255.0f, 255.0f);
 		color->alpha = (NIL_P(a) ? 255.0f : hclamp((float)NUM2DBL(a), 0.0f, 255.0f));
 		return Qnil;
+	}
+
+	VALUE Color::rb_dump(int argc, VALUE* argv, VALUE self)
+	{
+		VALUE d;
+		rb_scan_args(argc, argv, "01", &d);
+		if (NIL_P(d))
+		{
+			d = INT2FIX(0);
+		}
+		RB_SELF2CPP(Color, color);
+		// create array
+		VALUE arr = rb_ary_new();
+		// populate array
+		rb_ary_push(arr, rb_float_new(color->red));
+		rb_ary_push(arr, rb_float_new(color->green));
+		rb_ary_push(arr, rb_float_new(color->blue));
+		rb_ary_push(arr, rb_float_new(color->alpha));
+		// get the method id
+		ID pack_id = rb_intern("pack");
+		// create the ruby pack format string 
+		VALUE format_str = rb_str_new2("d4");
+		// call the pack method
+		VALUE byte_string = rb_funcall(arr, pack_id, 1, format_str);
+		return byte_string;
+
+	}
+
+	VALUE Color::rb_load(VALUE self, VALUE value)
+	{
+		// get the method id
+		ID unpack_id = rb_intern("unpack");
+		// create the ruby pack format string 
+		VALUE format_str = rb_str_new2("d4");
+		// call the unpack function
+		VALUE arr = rb_funcall(value, unpack_id, 1, format_str);
+		VALUE c_arr[4];
+		c_arr[0] = rb_ary_shift(arr);
+		c_arr[1] = rb_ary_shift(arr);
+		c_arr[2] = rb_ary_shift(arr);
+		c_arr[3] = rb_ary_shift(arr);
+		return Color::create(4, c_arr);
 	}
 
 }

@@ -52,6 +52,7 @@ namespace rgss
 		/// @brief Gets a string representation of the instance.
 		/// @return String representation of the instance.
 		static VALUE rb_inspect(VALUE self);
+
 		/// @brief Creates a C++ version of this class.
 		/// @param[in] argc Number of arguments.
 		/// @param[in] argv Pointer to first argument.
@@ -96,6 +97,17 @@ namespace rgss
 		/// @note Tone values will be clamped between -255 and 255.
 		/// @note Gray is clamped between 0 and 255.
 		static VALUE rb_set(int argc, VALUE* argv, VALUE self);
+
+		/// @brief returns a bytestring containging data needed to ronconstruct the Tone object
+		/// @param[in] argc Number of arguments.
+		/// @param[in] argv Pointer to first argument.
+		/// @note only one argument d, it defualts to 0 and is used for object depth
+		/// @return byte string.
+		static VALUE rb_dump(int argc, VALUE* argv, VALUE self);
+
+		/// @brief returns a Tone object constructed form a byte string
+		/// @param[in] value the byte string forom which to load the object
+		static VALUE rb_load(VALUE self, VALUE value);
 
 	};
 	

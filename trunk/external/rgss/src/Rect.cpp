@@ -47,6 +47,8 @@ namespace rgss
 		rb_define_method(rb_cRect, "height=", RUBY_METHOD_FUNC(&Rect::rb_setHeight), 1);
 		// all other methods
 		rb_define_method(rb_cRect, "set", RUBY_METHOD_FUNC(&Rect::rb_set), 4);
+		rb_define_method(rb_cRect, "_dump", RUBY_METHOD_FUNC(&Rect::rb_dump), -1);
+		rb_define_singleton_method(rb_cRect, "_load", RUBY_METHOD_FUNC(&Rect::rb_load), 1);
 		// static methods
 	}
 
@@ -144,6 +146,47 @@ namespace rgss
 		rect->width = NUM2INT(width);
 		rect->height = NUM2INT(height);
 		return Qnil;
+	}
+
+	VALUE Rect::rb_dump(int argc, VALUE* argv, VALUE self)
+	{
+		VALUE d;
+		rb_scan_args(argc, argv, "01", &d);
+		if (NIL_P(d))
+		{
+			d = INT2FIX(0);
+		}
+		RB_SELF2CPP(Rect, rect);
+		// create array
+		VALUE arr = rb_ary_new();
+		// populate array
+		rb_ary_push(arr, INT2FIX(rect->x));
+		rb_ary_push(arr, INT2FIX(rect->y));
+		rb_ary_push(arr, INT2FIX(rect->width));
+		rb_ary_push(arr, INT2FIX(rect->height));
+		// get the method id
+		ID pack_id = rb_intern("pack");
+		// create the ruby pack format string 
+		VALUE format_str = rb_str_new2("l4");
+		// call the pack method
+		VALUE byte_string = rb_funcall(arr, pack_id, 1, format_str);
+		return byte_string;
+
+	}
+
+	VALUE Rect::rb_load(VALUE self, VALUE value)
+	{
+		// get the method id
+		ID unpack_id = rb_intern("unpack");
+		// create the ruby pack format string 
+		VALUE format_str = rb_str_new2("l4");
+		// call the unpack function
+		VALUE arr = rb_funcall(value, unpack_id, 1, format_str);
+		VALUE x = rb_ary_shift(arr);
+		VALUE y = rb_ary_shift(arr);
+		VALUE width = rb_ary_shift(arr);
+		VALUE height = rb_ary_shift(arr);
+		return Rect::create(x, y, width, height);
 	}
 
 }
