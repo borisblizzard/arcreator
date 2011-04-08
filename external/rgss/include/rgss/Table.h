@@ -34,6 +34,13 @@ namespace rgss
 		static VALUE rb_initialize(int argc, VALUE* argv, VALUE self);
 		/// @brief Gets the X dimension size.
 		/// @return X dimension size.
+
+		/// @brief Creates a C++ version of this class.
+		/// @param[in] argc Number of arguments.
+		/// @param[in] argv Pointer to first argument.
+		/// @note Arguments are "xsize[, ysize[, zsize]]"
+		static VALUE create(int argc, VALUE* argv);
+
 		static VALUE rb_getXSize(VALUE self);
 		/// @brief Gets the Y dimension size.
 		/// @return Y dimension size.
@@ -61,6 +68,17 @@ namespace rgss
 		/// @param[in] argv Pointer to first argument.
 		/// @note Arguments are "xSize[, ySize[, zSize]]".
 		static VALUE rb_resize(int argc, VALUE* argv, VALUE self);
+
+		/// @brief returns a bytestring containging data needed to ronconstruct the Tone object
+		/// @param[in] argc Number of arguments.
+		/// @param[in] argv Pointer to first argument.
+		/// @note only one argument d, it defualts to 0 and is used for object depth
+		/// @return byte string.
+		static VALUE rb_dump(int argc, VALUE* argv, VALUE self);
+
+		/// @brief returns a Tone object constructed form a byte string
+		/// @param[in] value the byte string forom which to load the object
+		static VALUE rb_load(VALUE self, VALUE value);
 
 	protected:
 		/// @brief X dimension size.

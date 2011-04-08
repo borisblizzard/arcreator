@@ -83,6 +83,17 @@ namespace rgss
 		/// @param[in] height The height.
 		static VALUE rb_set(VALUE self, VALUE x, VALUE y, VALUE width, VALUE height);
 
+		/// @brief returns a bytestring containging data needed to ronconstruct the Rect object
+		/// @param[in] argc Number of arguments.
+		/// @param[in] argv Pointer to first argument.
+		/// @note only one argument d, it defualts to 0 and is used for object depth
+		/// @return byte string.
+		static VALUE rb_dump(int argc, VALUE* argv, VALUE self);
+
+		/// @brief returns a Rect object constructed form a byte string
+		/// @param[in] value the byte string forom which to load the object
+		static VALUE rb_load(VALUE self, VALUE value);
+
 	};
 	
 }
