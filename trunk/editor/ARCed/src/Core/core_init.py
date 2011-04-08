@@ -75,7 +75,7 @@ class RMXPType(SuperType):
     Table = Type("Table")
     RMXPProject = Type("RMXPProject")
     WxCache = Type("WxCache")
-    PyGameCache = Type("PyGameCache")
+    #PyGameCache = Type("PyGameCache")
 
     #---------------------------- data handlers ------------------------------
     ProjectLoader = Type("ProjectLoader")
@@ -109,8 +109,8 @@ class RMXPType(SuperType):
         self.add_types(self.HueRotationOperator, self.AdjustAlphaOperator)
 
         #------------------------- data holder -------------------------------
-        self.add_types(self.RPG, self.Table, self.RMXPProject, self.WxCache,
-                       self.PyGameCache)
+        self.add_types(self.RPG, self.Table, self.RMXPProject, self.WxCache)
+        #, self.PyGameCache)
 
         #------------------------ data handlers ------------------------------
         self.add_types(self.ProjectLoader, self.ProjectSaver,
@@ -195,14 +195,17 @@ class CorePackage(Package):
         # * add components (RMXP)
         #=====================================================================
         #-------------------------- functions --------------------------------
-        self.add_component(Component(RMXP.RPGutil.PySurfaceFunctions.change_hue,
-                                     "HueRotationOperator", "RMXP",
-                                     "RMXPHueRotationOperator", "CORE", 1.0,
-                                     self))
-        self.add_component(Component(RMXP.RPGutil.PySurfaceFunctions.adjust_alpha,
-                                     "AdjustAlphaOperator", "RMXP",
-                                     "RMXPAdjustAlphaOperator", "CORE", 1.0,
-                                     self))
+        #pygame
+        #=======================================================================
+        # self.add_component(Component(RMXP.RPGutil.PySurfaceFunctions.change_hue,
+        #                             "HueRotationOperator", "RMXP",
+        #                             "RMXPHueRotationOperator", "CORE", 1.0,
+        #                             self))
+        # self.add_component(Component(RMXP.RPGutil.PySurfaceFunctions.adjust_alpha,
+        #                             "AdjustAlphaOperator", "RMXP",
+        #                             "RMXPAdjustAlphaOperator", "CORE", 1.0,
+        #                             self))
+        #=======================================================================
         #------------------------- data holders ------------------------------
         self.add_component(Component(RMXP.RGSS1_RPG.RPG, "RPG", "RMXP",
                                      "RGSS1_RPG", "CORE", 1.0, self))
@@ -213,9 +216,12 @@ class CorePackage(Package):
                                      self))
         self.add_component(Component(RMXP.Cache.WxCache, "WxCache", "RMXP",
                                      "RMXPWxCache", "CORE", 1.0, self))
-        self.add_component(Component(RMXP.Cache.PyGameCache, "PyGameCache",
-                                     "RMXP",
-                                     "RMXPPyGameCache", "CORE", 1.0, self))
+        #pygame
+        #=======================================================================
+        # self.add_component(Component(RMXP.Cache.PyGameCache, "PyGameCache",
+        #                             "RMXP",
+        #                             "RMXPPyGameCache", "CORE", 1.0, self))
+        #=======================================================================
 
         #-------------------------- data handlers ----------------------------
         self.add_component(Component(RMXP.Data.RMXPProjectLoader,
@@ -246,9 +252,12 @@ class CorePackage(Package):
         self.add_component(Component(RMXP.Controls.WxRMXPMapPanel,
                                      "MapEditorWindow", "RMXP",
                                      "WxRMXPMapWindow", "CORE", 1.0, self))
-        self.add_component(Component(RMXP.Controls.PyGameRMXPMapPanel,
-                                     "MapEditorWindow", "RMXP",
-                                     "PyGameRMXPMapWindow", "CORE", 1.0, self))
+        #pygame
+        #=======================================================================
+        # self.add_component(Component(RMXP.Controls.PyGameRMXPMapPanel,
+        #                             "MapEditorWindow", "RMXP",
+        #                             "PyGameRMXPMapWindow", "CORE", 1.0, self))
+        #=======================================================================
         self.add_component(Component(RMXP.Controls.RMXPMapTreePanel,
                                      "MainMapTreeCtrl", "RMXP",
                                      "RMXPMapTreeCtrl", "CORE", 1.0,
