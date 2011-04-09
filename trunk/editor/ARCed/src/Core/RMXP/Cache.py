@@ -27,7 +27,7 @@ from Kernel import Manager as KM
 
 import RPGutil
 opj = RPGutil.opj
-ChangeHue = RPGutil.PySurfaceFunctions.change_hue
+#ChangeHue = RPGutil.PySurfaceFunctions.change_hue
 
 class WxCache(object):
 
