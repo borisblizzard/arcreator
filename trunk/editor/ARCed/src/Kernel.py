@@ -122,8 +122,7 @@ class Manager(object):
         if default:
             return (Manager.get_type(type, supertype).get_default_component())
         else:
-            return (Manager.get_type(type, supertype).
-                            get_component(name, author, version))
+            return (Manager.get_type(type, supertype).get_component(name, author, version))
 
 class Component(object):
     '''A data class that holds a registered extension'''
@@ -243,27 +242,24 @@ class Type(object):
         @param package: optional; either a Package object or the string 
         version of the packages name 
         '''
-        full_name = self.join_name(component.name, component.author,
-                                    component.version, package)
-        self.components[str(full_name)] = component
+        key = self.get_key(component.name, component.author, component.version, package)
+        self.components[key] = component
 
-    def join_name(self, name, author, version, package):
+    def get_key(self, name, author, version, package):
         '''
-        creates a string name from the name, author, version, and 
-        package name
+        creates a key
         
         @param name: string name
         @param author: string author
         @param version: version number converted to string with str()
         @param package: either a string or a Package object
         '''
-        pre = ""
+        pack= ""
         if isinstance(package, Package):
-            pre = str(package.name) + "_"
+            pack = str(package.name)
         elif package is not None:
-            pre = str(package) + "_"
-        return (str(pre) + "" + str(name) + "_" + str(author) + "_" +
-                str(version))
+            pack = str(package)
+        return (str(pack), str(name), str(author), str(version))
 
     def set_default_component(self, name, author, version, package=None):
         '''sets the default component
@@ -273,9 +269,9 @@ class Type(object):
         @param version: version number converted to string with str()
         @param package: either a string or a Package object
         '''
-        full_name = self.join_name(name, author, version, package)
+        key = self.get_key(name, author, version, package)
         try:
-            self.default = self.components[str(full_name)]
+            self.default = self.components[key]
         except KeyError:
             self.default = None
             return False
@@ -300,8 +296,8 @@ class Type(object):
         @param version: version number converted to string with str()
         @param package: either a string or a Package object
         '''
-        full_name = self.join_name(name, author, version, package)
-        return self.components[str(full_name)]
+        key = self.get_key(name, author, version, package)
+        return self.components[key]
 
 class Package(object):
     '''A data class intended to hold information regarding a package and all 

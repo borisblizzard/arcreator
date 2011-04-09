@@ -32,8 +32,7 @@ def Call_RMXP_Import(path, changed, all=False):
 
     #set up directories
     os.chdir(Kernel.Global.Program_Dir)
-    pathop = KM.get_component("PathOperator").object
-    local_path = pathop(Kernel.Global.Program_Dir + "/import")
+    local_path = os.path.normpath(Kernel.Global.Program_Dir + "/import")
     config = Kernel.Global.RMPYconfig
 
     #start the process
@@ -187,8 +186,7 @@ class RMXPProjectLoader(object):
         #load
         self.doLoad(path)
 
-    def doLoad(self, path):
-        opj = KM.get_component("PathOperator").object
+
         self.project.Location = path
         if platform.system() == "Windows":
             rtppath = "%PROGRAMFILES%/Common Files/Enterbrain/RGSS/Standard"
@@ -197,37 +195,37 @@ class RMXPProjectLoader(object):
         else:
             self.project.RTP_Location = ""
         self.project.Data_actors = (self.load_data(os.path.
-                                    join(path, opj("Data/Actors.xppy"))))
+                                    join(path, os.path.normpath("Data/Actors.xppy"))))
         self.project.Data_classes = (self.load_data(os.path.
-                                     join(path, opj("Data/Classes.xppy"))))
+                                     join(path, os.path.normpath("Data/Classes.xppy"))))
         self.project.Data_skills = (self.load_data(os.path.
-                                    join(path, opj("Data/Skills.xppy"))))
+                                    join(path, os.path.normpath("Data/Skills.xppy"))))
         self.project.Data_items = (self.load_data(os.path.
-                                   join(path, opj("Data/Items.xppy"))))
+                                   join(path, os.path.normpath("Data/Items.xppy"))))
         self.project.Data_weapons = (self.load_data(os.path.
-                                     join(path, opj("Data/Weapons.xppy"))))
+                                     join(path, os.path.normpath("Data/Weapons.xppy"))))
         self.project.Data_armors = (self.load_data(os.path.
-                                    join(path, opj("Data/Armors.xppy"))))
+                                    join(path, os.path.normpath("Data/Armors.xppy"))))
         self.project.Data_enemies = (self.load_data(os.path.
-                                     join(path, opj("Data/Enemies.xppy"))))
+                                     join(path, os.path.normpath("Data/Enemies.xppy"))))
         self.project.Data_troops = (self.load_data(os.path.
-                                    join(path, opj("Data/Troops.xppy"))))
+                                    join(path, os.path.normpath("Data/Troops.xppy"))))
         self.project.Data_states = (self.load_data(os.path.
-                                    join(path, opj("Data/States.xppy"))))
+                                    join(path, os.path.normpath("Data/States.xppy"))))
         self.project.Data_animations = (self.load_data(os.path.join(path,
-                                        opj("Data/Animations.xppy"))))
+                                        os.path.normpath("Data/Animations.xppy"))))
         self.project.Data_tilesets = (self.load_data(os.path.
-                                      join(path, opj("Data/Tilesets.xppy"))))
+                                      join(path, os.path.normpath("Data/Tilesets.xppy"))))
         self.project.Data_common_events = (self.load_data(os.path.join(path,
-                                           opj("Data/CommonEvents.xppy"))))
+                                           os.path.normpath("Data/CommonEvents.xppy"))))
         self.project.Data_system = (self.load_data(os.path.
-                                    join(path, opj("Data/System.xppy"))))
+                                    join(path, os.path.normpath("Data/System.xppy"))))
         self.project.Map_infos = (self.load_data(os.path.
-                                  join(path, opj("Data/MapInfos.xppy"))))
+                                  join(path, os.path.normpath("Data/MapInfos.xppy"))))
         self.project.Maps = {}
         for key in self.project.Map_infos.keys():
             _map = (self.load_data(os.path.
-                    join(path, opj("Data/Map%03d.xppy" % key))))
+                    join(path, os.path.normpath("Data/Map%03d.xppy" % key))))
             self.project.Maps[key] = _map
 
         KM.raise_event("EventRefreshProject")
@@ -243,41 +241,40 @@ class RMXPProjectSaver(object):
         self.project = KM.get_component("RMXPProject", "RMXP").object
 
     def Save(self, path):
-        opj = KM.get_component("PathOperator").object
         dirpath = os.path.join(path, "Data")
         if not os.path.exists(dirpath) and not os.path.isdir(dirpath):
             os.mkdir(dirpath)
         self.dump_data(self.project.Data_actors, os.path.join(path,
-                       opj("Data/Actors.xppy")))
+                       os.path.normpath("Data/Actors.xppy")))
         self.dump_data(self.project.Data_classes, os.path.join(path,
-                       opj("Data/Classes.xppy")))
+                       os.path.normpath("Data/Classes.xppy")))
         self.dump_data(self.project.Data_skills, os.path.join(path,
-                       opj("Data/Skills.xppy")))
+                       os.path.normpath("Data/Skills.xppy")))
         self.dump_data(self.project.Data_items, os.path.join(path,
-                       opj("Data/Items.xppy")))
+                       os.path.normpath("Data/Items.xppy")))
         self.dump_data(self.project.Data_weapons, os.path.join(path,
-                       opj("Data/Weapons.xppy")))
+                       os.path.normpath("Data/Weapons.xppy")))
         self.dump_data(self.project.Data_armors, os.path.join(path,
-                       opj("Data/Armors.xppy")))
+                       os.path.normpath("Data/Armors.xppy")))
         self.dump_data(self.project.Data_enemies, os.path.join(path,
-                       opj("Data/Enemies.xppy")))
+                       os.path.normpath("Data/Enemies.xppy")))
         self.dump_data(self.project.Data_troops, os.path.join(path,
-                       opj("Data/Troops.xppy")))
+                       os.path.normpath("Data/Troops.xppy")))
         self.dump_data(self.project.Data_states, os.path.join(path,
-                       opj("Data/States.xppy")))
+                       os.path.normpath("Data/States.xppy")))
         self.dump_data(self.project.Data_animations, os.path.join(path,
-                       opj("Data/Animations.xppy")))
+                       os.path.normpath("Data/Animations.xppy")))
         self.dump_data(self.project.Data_tilesets, os.path.join(path,
-                       opj("Data/Tilesets.xppy")))
+                       os.path.normpath("Data/Tilesets.xppy")))
         self.dump_data(self.project.Data_common_events, os.path.join(path,
-                       opj("Data/CommonEvents.xppy")))
+                       os.path.normpath("Data/CommonEvents.xppy")))
         self.dump_data(self.project.Data_system, os.path.join(path,
-                       opj("Data/System.xppy")))
+                       os.path.normpath("Data/System.xppy")))
         self.dump_data(self.project.Map_infos, os.path.join(path,
-                       opj("Data/MapInfos.xppy")))
+                       os.path.normpath("Data/MapInfos.xppy")))
         for key in self.project.Map_infos.iterkeys():
             self.dump_data(self.project.Maps[key], os.path.join(path,
-                           opj("Data/Map%03d.xppy" % key)))
+                           os.path.normpath("Data/Map%03d.xppy" % key)))
 
 
     def dump_data(self, data, filename):
@@ -314,7 +311,6 @@ class RMXPProjectImporter(object):
 
 
     def doImport(self, path):
-        opj = KM.get_component("PathOperator").object
         Call_RMXP_Import(path, self.changed, self.all)
         if platform.system() == "Windows":
             rtppath = "%PROGRAMFILES%/Common Files/Enterbrain/RGSS/Standard"
@@ -329,65 +325,65 @@ class RMXPProjectImporter(object):
         if self.all or "Actors" in self.changed:
             self.dlgUpdate(1, "Loading Actors")
             self.project.Data_actors = (self.load_data(os.path.
-                                        join(local_path, opj("Data/Actors.rmpy"))))
+                                        join(local_path, os.path.normpath("Data/Actors.rmpy"))))
         if self.all or "Classes" in self.changed:
             self.dlgUpdate(2, "Loading Classes")
             self.project.Data_classes = (self.load_data(os.path.
-                                         join(local_path, opj("Data/Classes.rmpy"))))
+                                         join(local_path, os.path.normpath("Data/Classes.rmpy"))))
         if self.all or "Skills" in self.changed:
             self.dlgUpdate(3, "Loading Skills")
             self.project.Data_skills = (self.load_data(os.path.
-                                        join(local_path, opj("Data/Skills.rmpy"))))
+                                        join(local_path, os.path.normpath("Data/Skills.rmpy"))))
         if self.all or "Items" in self.changed:
             self.dlgUpdate(4, "Loading Items")
             self.project.Data_items = (self.load_data(os.path.
-                                       join(local_path, opj("Data/Items.rmpy"))))
+                                       join(local_path, os.path.normpath("Data/Items.rmpy"))))
         if self.all or "Items" in self.changed:
             self.dlgUpdate(5, "Loading Weapons")
             self.project.Data_weapons = (self.load_data(os.path.
-                                         join(local_path, opj("Data/Weapons.rmpy"))))
+                                         join(local_path, os.path.normpath("Data/Weapons.rmpy"))))
         if self.all or "Armors" in self.changed:
             self.dlgUpdate(6, "Loading Armors")
             self.project.Data_armors = (self.load_data(os.path.
-                                        join(local_path, opj("Data/Armors.rmpy"))))
+                                        join(local_path, os.path.normpath("Data/Armors.rmpy"))))
         if self.all or "Enemies" in self.changed:
             self.dlgUpdate(7, "Loading Enemies")
             self.project.Data_enemies = (self.load_data(os.path.
-                                         join(local_path, opj("Data/Enemies.rmpy"))))
+                                         join(local_path, os.path.normpath("Data/Enemies.rmpy"))))
         if self.all or "Troops" in self.changed:
             self.dlgUpdate(8, "Loading Troops")
             self.project.Data_troops = (self.load_data(os.path.
-                                        join(local_path, opj("Data/Troops.rmpy"))))
+                                        join(local_path, os.path.normpath("Data/Troops.rmpy"))))
         if self.all or "States" in self.changed:
             self.dlgUpdate(9, "Loading States")
             self.project.Data_states = (self.load_data(os.path.
-                                        join(local_path, opj("Data/States.rmpy"))))
+                                        join(local_path, os.path.normpath("Data/States.rmpy"))))
         if self.all or "Animations" in self.changed:
             self.dlgUpdate(10, "Loading Animations")
             self.project.Data_animations = (self.load_data(os.path.join(local_path,
-                                            opj("Data/Animations.rmpy"))))
+                                            os.path.normpath("Data/Animations.rmpy"))))
         if self.all or "Tilesets" in self.changed:
             self.dlgUpdate(11, "Loading Tilesets")
             self.project.Data_tilesets = (self.load_data(os.path.
-                                          join(local_path, opj("Data/Tilesets.rmpy"))))
+                                          join(local_path, os.path.normpath("Data/Tilesets.rmpy"))))
         if self.all or "CommonEvents" in self.changed:
             self.dlgUpdate(12, "Loading CommonEvents")
             self.project.Data_common_events = (self.load_data(os.path.
                                                join(local_path,
-                                               opj("Data/CommonEvents.rmpy"))))
+                                               os.path.normpath("Data/CommonEvents.rmpy"))))
         if self.all or "System" in self.changed:
             self.dlgUpdate(13, "Loading System")
             self.project.Data_system = (self.load_data(os.path.
-                                        join(local_path, opj("Data/System.rmpy"))))
+                                        join(local_path, os.path.normpath("Data/System.rmpy"))))
         if self.all or "MapInfos" in self.changed:
             self.dlgUpdate(14, "Loading MapInfos")
             self.project.Map_infos = (self.load_data(os.path.
-                                      join(local_path, opj("Data/MapInfos.rmpy"))))
+                                      join(local_path, os.path.normpath("Data/MapInfos.rmpy"))))
         for key in self.project.Map_infos.keys():
             if self.all or ("Map%03d" % key) in self.changed:
                 self.dlgUpdate(15, "Loading Map: %d" % key)
                 _map = (self.load_data(os.path.
-                        join(local_path, opj("Data/Map%03d.rmpy" % key))))
+                        join(local_path, os.path.normpath("Data/Map%03d.rmpy" % key))))
                 self.project.Maps[key] = _map
 
         self.dlgUpdate(15, "Removing temp files")
@@ -442,7 +438,6 @@ class RMXPProjectExporter(object):
         self.thread.start()
 
     def doExport(self, path):
-        opj = KM.get_component("PathOperator").object
         local_path = os.path.join(Kernel.Global.Program_Dir, "export")
         data_path = os.path.join(local_path, "Data")
         if not os.path.exists(data_path) and not os.path.isdir(data_path):
@@ -453,63 +448,63 @@ class RMXPProjectExporter(object):
         if self.all or "Actors" in self.changed:
             self.dlgUpdate(0, "Dumping Actors")
             self.dump_data(self.project.Data_actors, os.path.join(local_path,
-                           opj("Data/Actors.rmpy")))
+                           os.path.normpath("Data/Actors.rmpy")))
         if self.all or "Classes" in self.changed:
             self.dlgUpdate(1, "Dumping Classes")
             self.dump_data(self.project.Data_classes, os.path.join(local_path,
-                           opj("Data/Classes.rmpy")))
+                           os.path.normpath("Data/Classes.rmpy")))
         if self.all or "Skills" in self.changed:
             self.dlgUpdate(2, "Dumping Skills")
             self.dump_data(self.project.Data_skills, os.path.join(local_path,
-                           opj("Data/Skills.rmpy")))
+                           os.path.normpath("Data/Skills.rmpy")))
         if self.all or "Items" in self.changed:
             self.dlgUpdate(3, "Dumping Items")
             self.dump_data(self.project.Data_items, os.path.join(local_path,
-                           opj("Data/Items.rmpy")))
+                           os.path.normpath("Data/Items.rmpy")))
         if self.all or "Items" in self.changed:
             self.dlgUpdate(4, "Dumping Weapons")
             self.dump_data(self.project.Data_weapons, os.path.join(local_path,
-                           opj("Data/Weapons.rmpy")))
+                           os.path.normpath("Data/Weapons.rmpy")))
         if self.all or "Armors" in self.changed:
             self.dlgUpdate(5, "Dumping Armors")
             self.dump_data(self.project.Data_armors, os.path.join(local_path,
-                           opj("Data/Armors.rmpy")))
+                           os.path.normpath("Data/Armors.rmpy")))
         if self.all or "Enemies" in self.changed:
             self.dlgUpdate(6, "Dumping Enemies")
             self.dump_data(self.project.Data_enemies, os.path.join(local_path,
-                           opj("Data/Enemies.rmpy")))
+                           os.path.normpath("Data/Enemies.rmpy")))
         if self.all or "Troops" in self.changed:
             self.dlgUpdate(7, "Dumping Troops")
             self.dump_data(self.project.Data_troops, os.path.join(local_path,
-                           opj("Data/Troops.rmpy")))
+                           os.path.normpath("Data/Troops.rmpy")))
         if self.all or "States" in self.changed:
             self.dlgUpdate(8, "Dumping States")
             self.dump_data(self.project.Data_states, os.path.join(local_path,
-                           opj("Data/States.rmpy")))
+                           os.path.normpath("Data/States.rmpy")))
         if self.all or "Animations" in self.changed:
             self.dlgUpdate(9, "Dumping Animations")
             self.dump_data(self.project.Data_animations, os.path.join(
-                           local_path, opj("Data/Animations.rmpy")))
+                           local_path, os.path.normpath("Data/Animations.rmpy")))
         if self.all or "Tilesets" in self.changed:
             self.dlgUpdate(10, "Dumping Tilesets")
             self.dump_data(self.project.Data_tilesets, os.path.join(local_path,
-                           opj("Data/Tilesets.rmpy")))
+                           os.path.normpath("Data/Tilesets.rmpy")))
         if self.all or "CommonEvents" in self.changed:
             self.dlgUpdate(11, "Dumping CommonEvents")
             self.dump_data(self.project.Data_common_events, os.path.join(
-                           local_path, opj("Data/CommonEvents.rmpy")))
+                           local_path, os.path.normpath("Data/CommonEvents.rmpy")))
         if self.all or "System" in self.changed:
             self.dlgUpdate(12, "Dumping System")
             self.dump_data(self.project.Data_system, os.path.join(local_path,
-                           opj("Data/System.rmpy")))
+                           os.path.normpath("Data/System.rmpy")))
         if self.all or "MapInfos" in self.changed:
             self.dlgUpdate(13, "Dumping MapInfos")
             self.dump_data(self.project.Map_infos, os.path.join(local_path,
-                           opj("Data/MapInfos.rmpy")))
+                           os.path.normpath("Data/MapInfos.rmpy")))
         for key, map in self.project.Map_infos:
             self.dlgUpdate(14, "Loading Map: %d" % key)
             self.dump_data(map, os.path.join(path,
-                           opj("Data/Map%03d.rmpy" % key)))
+                           os.path.normpath("Data/Map%03d.rmpy" % key)))
 
         self.dlgUpdate(15, "Exporting to .rxdata")
         Call_RMXP_Export(local_path, path, self.changed, self.all)

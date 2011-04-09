@@ -8,4 +8,4 @@ import Dialogs
 import Frames
 import Menues
 import Controls
-import core_init
+import register

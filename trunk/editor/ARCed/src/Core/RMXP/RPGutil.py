@@ -21,15 +21,6 @@ import numpy
 
 #from pygame import surfarray
 
-def opj(path):
-    """Convert paths to the platform-specific separator"""
-    path.replace("\\", "/")
-    st = apply(os.path.join, tuple(path.split('/')))
-    # HACK: on Linux, a leading / gets lost...
-    if path.startswith('/'):
-        st = '/' + st
-    return st
-
 class Table(object):
     """a three dimensional table object"""
     __class_path__ = "Table"

@@ -27,7 +27,6 @@ def NewProject(mainwindow):
     dlg.Destroy()
 
 def OpenProject(mainwindow, filehistory, path=""):
-    pathop = KM.get_component("PathOperator").object
     if Kernel.Global.ProjectOpen:
         message = "Do you want to save the currently open project?"
         caption = "There is already an open project"
@@ -39,7 +38,7 @@ def OpenProject(mainwindow, filehistory, path=""):
     if not path == "":
         Kernel.Global.CurrentProjectDir = path
         config = ConfigParser.ConfigParser()
-        config.read(pathop(path))
+        config.read(os.path.normpath(path))
         Kernel.Global.Title = config.get("Project", "title")
         Kernel.Global.Mode = config.get("Project", "type")
         Kernel.Global.config = config
@@ -49,7 +48,7 @@ def OpenProject(mainwindow, filehistory, path=""):
         Kernel.Global.ProjectOpen = True
         loader = KM.get_component("ProjectLoader",
                                   str(Kernel.Global.Mode)).object()
-        loader.Load(pathop(path), mainwindow)
+        loader.Load(os.path.normpath(path), mainwindow)
     else:
         wildcard = "RMPY Project File (*.rmpyproj)|*.rmpyproj"
         defaultpath = (os.path.join(wx.StandardPaths.Get().GetDocumentsDir(),
@@ -62,7 +61,7 @@ def OpenProject(mainwindow, filehistory, path=""):
             )
         if dlg.ShowModal() == wx.ID_OK:
             config = ConfigParser.ConfigParser()
-            config.read(pathop(dlg.GetPath()))
+            config.read(os.path.normpath(dlg.GetPath()))
             filehistory.AddFileToHistory(dlg.GetPath())
             Kernel.Global.Title = config.get("Project", "title")
             Kernel.Global.Mode = config.get("Project", "type")
@@ -75,7 +74,7 @@ def OpenProject(mainwindow, filehistory, path=""):
             loader = KM.get_component("ProjectLoader",
                                       str(Kernel.Global.Mode)).object()
 
-            loader.Load(pathop(path), mainwindow)
+            loader.Load(os.path.normpath(path), mainwindow)
 
 def SaveProject(mainwindow):
     saver = KM.get_component("ProjectSaver", Kernel.Global.Mode).object()
@@ -83,7 +82,6 @@ def SaveProject(mainwindow):
 
 def SaveProjectAS(mainwindow, filehistory):
     wildcard = "RMPY Project File (*.rmpyproj)|*.rmpyproj|"
-    pathop = KM.get_component("PathOperator").object
     defaultpath = (os.path.join(wx.StandardPaths.Get().GetDocumentsDir(),
                                 "RMPY"))
     dlg = wx.DirDialog(mainwindow, "Choose a Location:",
