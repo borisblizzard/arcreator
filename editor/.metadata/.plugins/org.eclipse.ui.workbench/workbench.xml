@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<workbench progressCount="31" version="2.0">
+<workbench progressCount="13" version="2.0">
 <workbenchAdvisor/>
-<window height="786" width="1246" x="96" y="37">
+<window height="786" minimized="true" width="1246" x="96" y="37">
 <fastViewData fastViewLocation="1024"/>
 <perspectiveBar>
 <itemSize x="160"/>
@@ -19,7 +19,7 @@
 <coolItem id="org.eclipse.ui.workbench.navigate" itemType="typeToolBarContribution" x="190" y="22"/>
 <coolItem id="group.editor" itemType="typeGroupMarker"/>
 <coolItem id="org.eclipse.ui.DefaultTextEditor" itemType="typePlaceholder" x="-1" y="-1"/>
-<coolItem id="org.python.pydev.editor.PythonEditor" itemType="typePlaceholder" x="-1" y="-1"/>
+<coolItem id="org.python.pydev.editor.PythonEditor" itemType="typeToolBarContribution" x="-1" y="-1"/>
 <coolItem id="group.help" itemType="typeGroupMarker"/>
 <coolItem id="org.eclipse.ui.workbench.help" itemType="typeToolBarContribution" x="-1" y="-1"/>
 </coolbarLayout>
@@ -28,22 +28,56 @@
 <editorArea activeWorkbook="DefaultEditorWorkbook">
 <info part="DefaultEditorWorkbook">
 <folder appearance="1" expanded="2">
-<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory"/>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
+<part id="0"/>
+<part id="1"/>
+<part id="2"/>
+<part id="3"/>
+<part id="4"/>
+<part id="5"/>
+<part id="6"/>
+</presentation>
 </folder>
 </info>
 </editorArea>
+<editor id="org.python.pydev.editor.PythonEditor" name="Controls.py" partName="Controls (Core)" path="C:/Users/Ben/Desktop/ARC/SVN/editor/ARCed/src/Core/Controls.py" title="Controls (Core)" tooltip="ARCed/src/Core/Controls.py" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/ARCed/src/Core/Controls.py"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="0" selectionTopPixel="15"/>
+</editor>
+<editor id="org.python.pydev.editor.PythonEditor" name="Cache.py" partName="Cache" path="C:/Users/Ben/Desktop/ARC/SVN/editor/ARCed/src/Core/RMXP/Cache.py" title="Cache" tooltip="ARCed/src/Core/RMXP/Cache.py" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/ARCed/src/Core/RMXP/Cache.py"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="9959" selectionTopPixel="0"/>
+</editor>
+<editor id="org.python.pydev.editor.PythonEditor" name="Kernel.py" partName="Kernel" path="C:/Users/Ben/Desktop/ARC/SVN/editor/ARCed/src/Kernel.py" title="Kernel" tooltip="ARCed/src/Kernel.py" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/ARCed/src/Kernel.py"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="513" selectionTopPixel="357"/>
+</editor>
+<editor id="org.python.pydev.editor.PythonEditor" name="Data.py" partName="Data" path="C:/Users/Ben/Desktop/ARC/SVN/editor/ARCed/src/Core/RMXP/Data.py" title="Data" tooltip="ARCed/src/Core/RMXP/Data.py" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/ARCed/src/Core/RMXP/Data.py"/>
+<editorState selectionHorizontalPixel="0" selectionLength="210" selectionOffset="7494" selectionTopPixel="918"/>
+</editor>
+<editor id="org.python.pydev.editor.PythonEditor" name="Controls.py" partName="Controls (RMXP)" path="C:/Users/Ben/Desktop/ARC/SVN/editor/ARCed/src/Core/RMXP/Controls.py" title="Controls (RMXP)" tooltip="ARCed/src/Core/RMXP/Controls.py" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/ARCed/src/Core/RMXP/Controls.py"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="49677" selectionTopPixel="4792"/>
+</editor>
+<editor activePart="true" focus="true" id="org.python.pydev.editor.PythonEditor" name="RGSS1_RPG.py" partName="RGSS1_RPG" path="C:/Users/Ben/Desktop/ARC/SVN/editor/ARCed/src/Core/RMXP/RGSS1_RPG.py" title="RGSS1_RPG" tooltip="ARCed/src/Core/RMXP/RGSS1_RPG.py" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/ARCed/src/Core/RMXP/RGSS1_RPG.py"/>
+<editorState selectionHorizontalPixel="0" selectionLength="12" selectionOffset="19995" selectionTopPixel="9503"/>
+</editor>
+<editor id="org.python.pydev.editor.PythonEditor" name="RPGutil.py" partName="RPGutil" path="C:/Users/Ben/Desktop/ARC/SVN/editor/ARCed/src/Core/RMXP/RPGutil.py" title="RPGutil" tooltip="ARCed/src/Core/RMXP/RPGutil.py" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/ARCed/src/Core/RMXP/RPGutil.py"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="1816" selectionTopPixel="833"/>
+</editor>
 </editors>
 <views>
 <view id="org.eclipse.search.ui.views.SearchView" partName="Search">
 <viewState isPinned="false">
-<view IMemento.internal.id="org.eclipse.search.text.FileSearchResultPage" org.eclipse.search.lastActivation="1" org.eclipse.search.resultpage.layout="2" org.eclipse.search.resultpage.limit="1000" org.eclipse.search.resultpage.sorting="2"/>
 <view IMemento.internal.id="" org.eclipse.search.lastActivation="0"/>
 </viewState>
 </view>
 <view id="org.eclipse.ui.views.ProblemView" partName="Problems">
 <viewState PRIMARY_SORT_FIELD="org.eclipse.ui.ide.severityAndDescriptionField" categoryGroup="org.eclipse.ui.ide.severity" markerContentGenerator="org.eclipse.ui.ide.problemsGenerator" partName="Problems">
-<expanded>
-<category IMemento.internal.id="Warnings (24 items)"/>
+<expanded>&#x0A;<category IMemento.internal.id="Warnings (24 items)"/>
 </expanded>
 <columnWidths org.eclipse.ui.ide.locationField="64" org.eclipse.ui.ide.markerType="94" org.eclipse.ui.ide.pathField="124" org.eclipse.ui.ide.resourceField="94" org.eclipse.ui.ide.severityAndDescriptionField="300"/>
 <visible IMemento.internal.id="org.eclipse.ui.ide.severityAndDescriptionField"/>
@@ -105,12 +139,12 @@
 <expanded IMemento.internal.id="C:/Users/Ben/Desktop/ARC/SVN/editor/ARCed/src"/>
 <expanded IMemento.internal.id="C:/Users/Ben/Desktop/ARC/SVN/editor/ARCed/src/Core"/>
 <expanded IMemento.internal.id="C:/Users/Ben/Desktop/ARC/SVN/editor/ARCed/src/Core/RMXP"/>
-<selected IMemento.internal.id="C:/Users/Ben/Desktop/ARC/SVN/editor/ARCed"/>
+<selected IMemento.internal.id="C:/Users/Ben/Desktop/ARC/SVN/editor/ARCed/src/Core/RMXP/RPGutil.py"/>
 </viewState>
 </view>
 <view id="org.eclipse.jdt.ui.JavadocView" partName="Javadoc"/>
 </views>
-<perspectives activePart="org.eclipse.search.ui.views.SearchView" activePerspective="org.python.pydev.ui.PythonPerspective">
+<perspectives activePart="org.python.pydev.editor.PythonEditor" activePerspective="org.python.pydev.ui.PythonPerspective">
 <perspective editorAreaTrimState="2" editorAreaVisible="1" fixed="0" version="0.016">
 <descriptor class="org.eclipse.jdt.internal.ui.JavaPerspectiveFactory" id="org.eclipse.jdt.ui.JavaPerspective" label="Java"/>
 <alwaysOnActionSet id="org.eclipse.ui.cheatsheets.actionSet"/>
@@ -299,7 +333,53 @@
 </perspective>
 </perspectives>
 <workingSets/>
-<navigationHistory/>
+<navigationHistory>
+<editors>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.python.pydev.editor.PythonEditor" path="/ARCed/src/Core/Controls.py"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.python.pydev.editor.PythonEditor" path="/ARCed/src/Core/RMXP/Cache.py"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.python.pydev.editor.PythonEditor" path="/ARCed/src/Kernel.py"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.python.pydev.editor.PythonEditor" path="/ARCed/src/Core/RMXP/Data.py"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.python.pydev.editor.PythonEditor" path="/ARCed/src/Core/RMXP/Controls.py"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.python.pydev.editor.PythonEditor" path="/ARCed/src/Core/RMXP/RGSS1_RPG.py"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.python.pydev.editor.PythonEditor" path="/ARCed/src/Core/RMXP/RPGutil.py"/>
+</editors>
+<item historyLabel="Controls (Core)" index="0">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="Cache" index="1">
+<position info="not_deleted" x="9959" y="0"/>
+</item>
+<item historyLabel="Kernel" index="2">
+<position info="not_deleted" x="513" y="0"/>
+</item>
+<item historyLabel="Data" index="3">
+<position info="not_deleted" x="7494" y="210"/>
+</item>
+<item historyLabel="Controls (Core)" index="0">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="Controls (RMXP)" index="4">
+<position info="not_deleted" x="61572" y="1383"/>
+</item>
+<item historyLabel="RGSS1_RPG" index="5">
+<position info="not_deleted" x="11689" y="0"/>
+</item>
+<item historyLabel="RPGutil" index="6">
+<position info="not_deleted" x="1816" y="0"/>
+</item>
+<item historyLabel="RGSS1_RPG" index="5">
+<position info="not_deleted" x="20027" y="14"/>
+</item>
+<item historyLabel="Controls (Core)" index="0">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+<item historyLabel="Controls (RMXP)" index="4">
+<position info="not_deleted" x="49677" y="0"/>
+</item>
+<item active="true" historyLabel="RGSS1_RPG" index="5">
+<position info="not_deleted" x="20027" y="14"/>
+</item>
+</navigationHistory>
 <input factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/" type="8"/>
 </page>
 <workbenchWindowAdvisor/>
@@ -316,20 +396,32 @@
 </trimLayout>
 </window>
 <mruList>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.python.pydev.editor.PythonEditor" name="RPGutil.py" tooltip="ARCed/src/Core/RMXP/RPGutil.py">
+<persistable path="/ARCed/src/Core/RMXP/RPGutil.py"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.python.pydev.editor.PythonEditor" name="RGSS1_RPG.py" tooltip="ARCed/src/Core/RMXP/RGSS1_RPG.py">
+<persistable path="/ARCed/src/Core/RMXP/RGSS1_RPG.py"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.python.pydev.editor.PythonEditor" name="Controls.py" tooltip="ARCed/src/Core/RMXP/Controls.py">
+<persistable path="/ARCed/src/Core/RMXP/Controls.py"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.python.pydev.editor.PythonEditor" name="Data.py" tooltip="ARCed/src/Core/RMXP/Data.py">
+<persistable path="/ARCed/src/Core/RMXP/Data.py"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.python.pydev.editor.PythonEditor" name="Kernel.py" tooltip="ARCed/src/Kernel.py">
+<persistable path="/ARCed/src/Kernel.py"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.python.pydev.editor.PythonEditor" name="Cache.py" tooltip="ARCed/src/Core/RMXP/Cache.py">
+<persistable path="/ARCed/src/Core/RMXP/Cache.py"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.python.pydev.editor.PythonEditor" name="Controls.py" tooltip="ARCed/src/Core/Controls.py">
+<persistable path="/ARCed/src/Core/Controls.py"/>
+</file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.ui.DefaultTextEditor" name="userdefaults.ini" tooltip="ARCed/src/userdefaults.ini">
 <persistable path="/ARCed/src/userdefaults.ini"/>
 </file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.ui.DefaultTextEditor" name="defaults.ini" tooltip="ARCed/src/defaults.ini">
 <persistable path="/ARCed/src/defaults.ini"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.python.pydev.editor.PythonEditor" name="Cache.py" tooltip="ARCed/src/Core/RMXP/Cache.py">
-<persistable path="/ARCed/src/Core/RMXP/Cache.py"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.python.pydev.editor.PythonEditor" name="Controls.py" tooltip="ARCed/src/Core/RMXP/Controls.py">
-<persistable path="/ARCed/src/Core/RMXP/Controls.py"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.python.pydev.editor.PythonEditor" name="Kernel.py" tooltip="ARCed/src/Kernel.py">
-<persistable path="/ARCed/src/Kernel.py"/>
 </file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.python.pydev.editor.PythonEditor" name="Dialogs.py" tooltip="ARCed/src/Core/Dialogs.py">
 <persistable path="/ARCed/src/Core/Dialogs.py"/>
