@@ -61,7 +61,7 @@ class MainToolbar(object):
         self.toolbar.AddSimpleTool(self.newid, "New", newbmp,
                                    "Create a new project")
         self.toolbar.AddSimpleTool(self.openid, "Open", openbmp,
-                                   "Open a RMPY Project")
+                                   "Open a ARC Project")
         self.toolbar.AddSimpleTool(self.saveid, "Save", savebmp,
                                    "Save the current Project")
         self.toolbar.AddSeparator()
@@ -143,7 +143,7 @@ class RMXPMapTreeCtrl(wx.TreeCtrl):
                                              wx.Size(16, 16)))
         self.AssignImageList(imglist)
 
-        root = self.AddRoot("RPG Maker PY Project", 0)
+        root = self.AddRoot("Advanced RPG Creator Project", 0)
         items = []
         self.maps = {}
 
@@ -152,7 +152,7 @@ class RMXPMapTreeCtrl(wx.TreeCtrl):
         self.Bind(wx.EVT_WINDOW_DESTROY, self.onClose, self)
 
     def Refresh_Map_List(self):
-        project = KM.get_component("RMXPProject", "RMXP").object
+        project = Kernel.Global.Project
         mapinfos = project.Map_infos
         self.DeleteAllItems()
         root = self.AddRoot(Kernel.Global.Title, 0)
@@ -257,7 +257,7 @@ class WxRMXPMapWindow(wx.ScrolledWindow):
         # get plugin components
         self.RPG = KM.get_component("RPG", "RMXP").object
         self.Table = KM.get_component("Table", "RMXP").object
-        self.RMXPProject = KM.get_component("RMXPProject", "RMXP").object
+        self.Project = Kernel.Global.Project
         self.Cache = KM.get_component("WxCache", "RMXP").object
         #init data
         self.map_id = 0
@@ -272,7 +272,7 @@ class WxRMXPMapWindow(wx.ScrolledWindow):
         self.old_active = 0
         self.mode = 0
         self.old_mode = 0
-        self.tileset = self.RMXPProject.Data_tilesets[self.tileset_id]
+        self.tileset = self.Project.getTilesets()[self.tileset_id]
         self.autotile_names = []
         self.tileset_name = ""
         self.tileset_passages = self.Table()
@@ -329,7 +329,7 @@ class WxRMXPMapWindow(wx.ScrolledWindow):
     def setup(self, id):
         self.init = True
         self.map_id = id
-        self.map = self.RMXPProject.getMap(self.map_id)
+        self.map = self.Project.getMap(self.map_id)
         self.width = self.map.width
         self.height = self.map.height
         self.data = self.Table(self.width, self.height, 3)
@@ -343,7 +343,7 @@ class WxRMXPMapWindow(wx.ScrolledWindow):
         self.old_active = 0
         self.mode = 0
         self.old_mode = 0
-        self.tileset = self.RMXPProject.Data_tilesets[self.tileset_id]
+        self.tileset = self.Project.getTilesets()[self.tileset_id]
         self.autotile_names = []
         self.tileset_name = ""
         self.tileset_passages = self.Table()
@@ -416,8 +416,8 @@ class WxRMXPMapWindow(wx.ScrolledWindow):
         if layerflags.any():
             self.data._data[:] = self.map.data._data
         #test events
-        if self.RMXPProject.Event_redraw_flags.has_key(self.map_id):
-            if self.RMXPProject.Event_redraw_flags[self.map_id]:
+        if self.Project.Event_redraw_flags.has_key(self.map_id):
+            if self.Project.Event_redraw_flags[self.map_id]:
                 layerEflag = True
         #test active
         if self.old_active != self.active:
@@ -636,11 +636,9 @@ class WxRMXPMapWindow(wx.ScrolledWindow):
     def load_autotiles(self):
         for i in range(7):
             autotile_name = self.autotile_names[i]
-            self.autotiles_b[i] = self.Cache.Autotile(autotile_name,
-                                                 self.RMXPProject.Location)
+            self.autotiles_b[i] = self.Cache.Autotile(autotile_name, self.Project.Location)
             if not self.autotiles_b[i]:
-                self.autotiles_b[i] = self.Cache.Autotile(autotile_name,
-                                                     self.RMXPProject.RTP_Location)
+                self.autotiles_b[i] = self.Cache.Autotile(autotile_name, self.Project.RTP_Location)
             if not self.autotiles_b[i]:
                 self.autotiles_b[i] = wx.EmptyBitmapRGBA(32 * 3, 32 * 4)
 
@@ -684,11 +682,9 @@ class WxRMXPMapWindow(wx.ScrolledWindow):
             dc.SelectObject(self.layerP)
             dc.SetBackground(wx.Brush(wx.Colour(255, 255, 255, 0), wx.TRANSPARENT))
             dc.Clear()
-            tileset = self.Cache.Tileset(self.tileset_name,
-                                self.RMXPProject.Location)
+            tileset = self.Cache.Tileset(self.tileset_name, self.Project.Location)
             if not tileset:
-                tileset = self.Cache.Tileset(self.tileset_name,
-                                    self.RMXPProject.RTP_Location)
+                tileset = self.Cache.Tileset(self.tileset_name, self.Project.RTP_Location)
             if not tileset:
                 tileset = wx.EmptyBitmapRGBA(32 * 6, 32)
             for p in range(0, 5):
@@ -748,27 +744,21 @@ class WxRMXPMapWindow(wx.ScrolledWindow):
             event = self.events[key]
             eventGraphic = self.events[key].pages[0].graphic
             if eventGraphic.tile_id >= 384:
-                temp_bitmap = self.Cache.Tile(self.tileset_name,
-                                         eventGraphic.tile_id,
-                                         eventGraphic.character_hue,
-                                         self.RMXPProject.Location)
+                temp_bitmap = self.Cache.Tile(self.tileset_name, eventGraphic.tile_id,
+                                              eventGraphic.character_hue, self.Project.Location)
                 if not temp_bitmap:
-                    temp_bitmap = self.Cache.Tile(self.tileset_name,
-                                             eventGraphic.tile_id,
-                                             eventGraphic.character_hue,
-                                             self.RMXPProject.RTP_Location)
+                    temp_bitmap = self.Cache.Tile(self.tileset_name, eventGraphic.tile_id,
+                                                  eventGraphic.character_hue, self.Project.RTP_Location)
                 if not temp_bitmap:
                     temp_bitmap = wx.EmptyBitmapRGBA(32, 32)
                 rect = wx.Rect(5, 5, 22, 22)
                 bitmap = temp_bitmap.GetSubBitmap(rect)
             else:
                 temp_bitmap = self.Cache.Character(eventGraphic.character_name,
-                                              eventGraphic.character_hue,
-                                              self.RMXPProject.Location)
+                                                   eventGraphic.character_hue, self.Project.Location)
                 if not temp_bitmap:
-                    temp_bitmap = self.Cache.Character(eventGraphic.character_name,
-                                                  eventGraphic.character_hue,
-                                                  self.RMXPProject.RTP_Location)
+                    temp_bitmap = self.Cache.Character(eventGraphic.character_name, eventGraphic.character_hue,
+                                                       self.Project.RTP_Location)
                 if not temp_bitmap:
                     temp_bitmap = wx.EmptyBitmapRGBA(32 * 4, 32 * 4)
                 cw = temp_bitmap.GetWidth() / 4
@@ -794,11 +784,9 @@ class WxRMXPMapWindow(wx.ScrolledWindow):
         dc.Clear()
         dc = wx.GCDC(dc)
         emptybitmap = False
-        tileset = self.Cache.Tileset(self.tileset_name,
-                                self.RMXPProject.Location)
+        tileset = self.Cache.Tileset(self.tileset_name, self.Project.Location)
         if not tileset:
-            tileset = self.Cache.Tileset(self.tileset_name,
-                                    self.RMXPProject.RTP_Location)
+            tileset = self.Cache.Tileset(self.tileset_name, self.Project.RTP_Location)
         if not tileset:
             tileset = wx.EmptyBitmapRGBA(32 * 8, 32)
             emptybitmap = True
@@ -836,11 +824,9 @@ class WxRMXPMapWindow(wx.ScrolledWindow):
         dc.Clear()
         dc = wx.GCDC(dc)
         emptybitmap = False
-        tileset = self.Cache.Tileset(self.tileset_name,
-                                self.RMXPProject.Location)
+        tileset = self.Cache.Tileset(self.tileset_name, self.Project.Location)
         if not tileset:
-            tileset = self.Cache.Tileset(self.tileset_name,
-                                    self.RMXPProject.RTP_Location)
+            tileset = self.Cache.Tileset(self.tileset_name, self.Project.RTP_Location)
         if not tileset:
             tileset = wx.EmptyBitmapRGBA(32 * 8, 32)
             emptybitmap = True
@@ -878,11 +864,9 @@ class WxRMXPMapWindow(wx.ScrolledWindow):
         dc.Clear()
         dc = wx.GCDC(dc)
         emptybitmap = False
-        tileset = self.Cache.Tileset(self.tileset_name,
-                                self.RMXPProject.Location)
+        tileset = self.Cache.Tileset(self.tileset_name, self.Project.Location)
         if not tileset:
-            tileset = self.Cache.Tileset(self.tileset_name,
-                                    self.RMXPProject.RTP_Location)
+            tileset = self.Cache.Tileset(self.tileset_name, self.Project.RTP_Location)
         if not tileset:
             tileset = wx.EmptyBitmapRGBA(32 * 8, 32)
             emptybitmap = True
@@ -958,7 +942,7 @@ class WxRMXPMapWindow(wx.ScrolledWindow):
 #        # get plugin components
 #        self.RPG = KM.get_component("RPG", "RMXP").object
 #        self.Table = KM.get_component("Table", "RMXP").object
-#        self.RMXPProject = KM.get_component("RMXPProject", "RMXP").object
+#        self.Project = Kernel.Global.Project
 #        self.Cache = KM.get_component("PyGameCache", "RMXP").object
 #        self.adjust_alpha = KM.get_component("AdjustAlphaOperator", "RMXP").object
 # 
@@ -977,7 +961,7 @@ class WxRMXPMapWindow(wx.ScrolledWindow):
 #        self.old_active = 0
 #        self.mode = 0
 #        self.old_mode = 0
-#        self.tileset = self.RMXPProject.Data_tilesets[self.tileset_id]
+#        self.tileset = self.Project.getTilesets()[self.tileset_id]
 #        self.autotile_names = []
 #        self.tileset_name = ""
 #        self.tileset_passages = self.Table()
@@ -1062,7 +1046,7 @@ class WxRMXPMapWindow(wx.ScrolledWindow):
 #        '''
 #        self.init = True
 #        self.map_id = id
-#        self.map = self.RMXPProject.getMap(self.map_id)
+#        self.map = self.Project.getMap(self.map_id)
 #        self.width = self.map.width
 #        self.height = self.map.height
 #        self.data = self.Table(self.width, self.height, 3)
@@ -1078,7 +1062,7 @@ class WxRMXPMapWindow(wx.ScrolledWindow):
 #        self.old_active = 0
 #        self.mode = 0
 #        self.old_mode = 0
-#        self.tileset = self.RMXPProject.Data_tilesets[self.tileset_id]
+#        self.tileset = self.Project.getTilesets()[self.tileset_id]
 #        self.autotile_names = []
 #        self.tileset_name = ""
 #        self.tileset_passages = self.Table()
@@ -1172,8 +1156,8 @@ class WxRMXPMapWindow(wx.ScrolledWindow):
 #            self.data._data[:] = self.map.data._data
 # 
 #        #test events
-#        if self.RMXPProject.Event_redraw_flags.has_key(self.map_id):
-#            if self.RMXPProject.Event_redraw_flags[self.map_id]:
+#        if self.Project.Event_redraw_flags.has_key(self.map_id):
+#            if self.Project.Event_redraw_flags[self.map_id]:
 #                layerEflag = True
 # 
 #        #test active
@@ -1409,7 +1393,6 @@ class WxRMXPMapWindow(wx.ScrolledWindow):
 #            self.drawlayer(self.Layer1)
 #        if flag or layer2flag:
 #            self.drawlayer(self.Layer2)
-#            print "drew layer 2"
 #        if flag or layer3flag:
 #            self.drawlayer(self.Layer3)
 #        if flag or layerEflag:
@@ -1433,21 +1416,18 @@ class WxRMXPMapWindow(wx.ScrolledWindow):
 #            #collect the tile form the cache checking the local project folder
 #            #and the system RTP folder
 #            bitmap = self.Cache.AutotilePattern(autotile, pattern,
-#                                                self.RMXPProject.Location)
+#                                                self.Project.Location)
 #            if not bitmap:
-#                bitmap = self.Cache.AutotilePattern(autotile, pattern, self.
-#                                                    RMXPProject.RTP_Location)
+#                bitmap = self.Cache.AutotilePattern(autotile, pattern, self.Project.RTP_Location)
 #            if not bitmap:
 #                flag = True
 #                bitmap = pygame.Surface((32, 32), pygame.SRCALPHA, 32)
 #        #normal tile
 #        else:
 #            #get the tile bitmap
-#            bitmap = self.Cache.Tile(self.tileset_name, id, 0,
-#                                     self.RMXPProject.Location)
+#            bitmap = self.Cache.Tile(self.tileset_name, id, 0, self.Project.Location)
 #            if not bitmap:
-#                bitmap = self.Cache.Tile(self.tileset_name, id, 0,
-#                                         self.RMXPProject.RTP_Location)
+#                bitmap = self.Cache.Tile(self.tileset_name, id, 0, self.Project.RTP_Location)
 #            if not bitmap:
 #                bitmap = pygame.Surface((32, 32), pygame.SRCALPHA, 32)
 #        #draw the tile to the surface
@@ -1485,12 +1465,12 @@ class WxRMXPMapWindow(wx.ScrolledWindow):
 #                bitmap = self.Cache.Tile(self.tileset_name,
 #                                         eventGraphic.tile_id,
 #                                         eventGraphic.character_hue,
-#                                         self.RMXPProject.Location)
+#                                         self.Project.Location)
 #                if not bitmap:
 #                    bitmap = self.Cache.Tile(self.tileset_name,
 #                                             eventGraphic.tile_id,
 #                                             eventGraphic.character_hue,
-#                                             self.RMXPProject.RTP_Location)
+#                                             self.Project.RTP_Location)
 #                if not bitmap:
 #                    bitmap = pygame.Surface((32, 32), pygame.SRCALPHA, 32)
 #                rect = (5, 5, 22, 22)
@@ -1498,11 +1478,11 @@ class WxRMXPMapWindow(wx.ScrolledWindow):
 #            else:
 #                bitmap = self.Cache.Character(eventGraphic.character_name,
 #                                              eventGraphic.character_hue,
-#                                              self.RMXPProject.Location)
+#                                              self.Project.Location)
 #                if not bitmap:
 #                    bitmap = self.Cache.Character(eventGraphic.character_name,
 #                                                  eventGraphic.character_hue,
-#                                                  self.RMXPProject.RTP_Location)
+#                                                  self.Project.RTP_Location)
 #                if not bitmap:
 #                    bitmap = pygame.Surface((32 * 4, 32 * 4),
 #                                            pygame.SRCALPHA, 32)
@@ -1553,7 +1533,6 @@ class WxRMXPMapWindow(wx.ScrolledWindow):
 class WxRMXPMapPanel(wx.Panel):
     def __init__(self, parent, style):
         wx.Panel.__init__(self, parent)
-        print "wx window in use"
 
         #set up Sizer
         box = wx.BoxSizer(wx.VERTICAL)
@@ -1576,7 +1555,6 @@ class WxRMXPMapPanel(wx.Panel):
 # class PyGameRMXPMapPanel(wx.Panel):
 #    def __init__(self, parent, style):
 #        wx.Panel.__init__(self, parent)
-#        print "pygame window in use"
 # 
 #        #set up containers
 #        self.editors = []

@@ -26,7 +26,6 @@ import Kernel
 from Kernel import Manager as KM
 
 import RPGutil
-opj = RPGutil.opj
 #ChangeHue = RPGutil.PySurfaceFunctions.change_hue
 
 class WxCache(object):
@@ -39,13 +38,11 @@ class WxCache(object):
         key = (folder_name, filename, loc, hue)
         if not WxCache._Cache.has_key(key) or not WxCache._Cache[key].Ok:
             for ext in WxCache._image_ext:
-                path = os.path.abspath(opj(loc + "/" + folder_name +
+                path = os.path.abspath(os.path.normpath(loc + "/" + folder_name +
                                            filename + ext))
                 if os.path.exists(path) and os.path.isfile(path):
-                    #print "found image at: %s" % path
                     break
             if not os.path.exists(path) and not os.path.isfile(path):
-                #print "couldn't find the image: %s" % path
                 return None
             try:
                 if filename != "":
@@ -168,7 +165,7 @@ class WxCache(object):
 #        key = (folder_name, filename, loc, hue)
 #        if not PyGameCache._Cache.has_key(key) or not PyGameCache._Cache[key]:
 #            for ext in PyGameCache._image_ext:
-#                path = os.path.abspath(opj(loc + "/" + folder_name +
+#                path = os.path.abspath(os.path.normpath(loc + "/" + folder_name +
 #                                           filename + ext))
 #                if os.path.exists(path) and os.path.isfile(path):
 #                    break

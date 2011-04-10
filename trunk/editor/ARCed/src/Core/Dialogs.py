@@ -18,7 +18,7 @@ class NewProjectDialog(wx.Dialog):
         #(500, 170)
         pre = wx.PreDialog()
         pre.SetExtraStyle(wx.DIALOG_EX_CONTEXTHELP)
-        pre.Create(parent, title=u"New RPG Maker PY Project", size=wx.DefaultSize,
+        pre.Create(parent, title=u"New ARCed Project", size=wx.DefaultSize,
                    style=wx.CLOSE_BOX | wx.DEFAULT_DIALOG_STYLE)
         #post create
         self.PostCreate(pre)
@@ -26,7 +26,7 @@ class NewProjectDialog(wx.Dialog):
         #set up properties
         self.name = ""
         self.location = (os.path.join(wx.StandardPaths.Get().
-                         GetDocumentsDir(), "RMPY"))
+                         GetDocumentsDir(), "ARC"))
         if not os.path.exists(self.location) and not os.path.isdir(self.location):
             os.mkdir(self.location)
         founddir = False
@@ -67,7 +67,7 @@ class NewProjectDialog(wx.Dialog):
 
         typeSizer.Add(self.typeText, 0, wx.ALL, 5)
 
-        typeChoiceChoices = Kernel.Global.ProjectModes
+        typeChoiceChoices = Kernel.Global.ProjectModes.keys()
         self.typeChoice = wx.Choice(self, wx.ID_ANY, wx.DefaultPosition,
                                     wx.DefaultSize, typeChoiceChoices, 0)
         self.typeChoice.SetSelection(0)
@@ -203,7 +203,7 @@ class NewProjectDialog(wx.Dialog):
         defaultpath = os.path.expandvars(self.location)
         if defaultpath == "" or not os.path.exists(defaultpath):
             defaultpath = (os.path.join(wx.StandardPaths.Get().
-                           GetDocumentsDir(), "RMPY"))
+                           GetDocumentsDir(), "ARC"))
         dlg = wx.DirDialog(self, "Choose a Location:",
                            defaultPath=defaultpath,
                            style=wx.DD_DEFAULT_STYLE
@@ -226,12 +226,11 @@ class NewProjectDialog(wx.Dialog):
             event.Skip()
 
     def getdata(self):
-        print (self.type, self.name, self.location)
         return (self.type, self.name, self.location)
 
     def checkdata(self):
         if self.name.strip() == "":
-            caption = "RPG Maker PY"
+            caption = "ARCed"
             message = '''The project name can't be left blank'''
             dlg = wx.MessageDialog(self, message, caption,
                                    style=wx.OK | wx.CENTRE
@@ -241,7 +240,7 @@ class NewProjectDialog(wx.Dialog):
         if self.type.strip() == "":
             types = self.typeChoice.GetItems()
             if len(types) == 0:
-                caption = "RPG Maker PY"
+                caption = "ARCed"
                 message = '''There are no project types available'''
                 dlg = wx.MessageDialog(self, message, caption,
                                    style=wx.OK | wx.CENTRE
@@ -249,7 +248,7 @@ class NewProjectDialog(wx.Dialog):
                 dlg.ShowModal()
                 return False
             elif len(types) > 1:
-                caption = "RPG Maker PY"
+                caption = "ARCed"
                 message = '''Please select a project type'''
                 dlg = wx.MessageDialog(self, message, caption,
                                    style=wx.OK | wx.CENTRE
@@ -260,7 +259,7 @@ class NewProjectDialog(wx.Dialog):
                 self.type = types[0]
         string = os.path.split(os.path.expandvars(self.location))[0]
         if not os.path.exists(string) and not os.path.isdir(string):
-            caption = "RPG Maker PY"
+            caption = "ARCed"
             message = "Please provide a valid path to the project parent directory."
             dlg = wx.MessageDialog(self, message, caption,
                                    style=wx.OK | wx.CENTRE
@@ -272,7 +271,7 @@ class NewProjectDialog(wx.Dialog):
             try:
                 os.mkdir(string)
             except Exception:
-                caption = "RPG Maker PY"
+                caption = "ARCed"
                 message = "Failed to make Project folder, please provide a " \
                           "valid folder name."
                 dlg = wx.MessageDialog(self, message, caption,

@@ -30,7 +30,7 @@ import wx
 import os
 import gc
 
-from RPGutil import Table, Color, opj
+from RPGutil import Table, Color
 
 class Actor(object):
     __class_path__ = "RPG::Actor"
