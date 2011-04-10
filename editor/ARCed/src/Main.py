@@ -5,7 +5,7 @@ the main program module. load the wx libary and runs the application
 
 Classes in this module
 -----------------------
-RMPY_App - main application class
+ARC_App - main application class
 '''
 import os
 import sys
@@ -25,14 +25,14 @@ import Core
 
 
 
-class RMPY_App(wx.App):
+class ARC_App(wx.App):
 
     def OnInit(self):
         self.SetupData()
         self.LoadConponentDefaults()
         global MainWindow
         MainWindow = KM.get_component("EditorMainWindow").object
-        self.frame = MainWindow(None, wx.ID_ANY, 'RPG Maker PY')
+        self.frame = MainWindow(None, wx.ID_ANY, 'ARCed')
         self.frame.Show(True)
         self.SetTopWindow(self.frame)
 
@@ -43,9 +43,9 @@ class RMPY_App(wx.App):
 
     def SetupData(self):
         config = ConfigParser.ConfigParser()
-        path = os.path.join(dirName, "RMPY.cfg")
+        path = os.path.join(dirName, "ARC.cfg")
         config.read(path)
-        Kernel.Global.RMPYconfig = config
+        Kernel.Global.ARCconfig = config
 
     def LoadConponentDefaults(self):
         template = Kernel.ConfigLoader.build_from_file(os.path.join(dirName,
@@ -62,5 +62,5 @@ if __name__ == '__main__':
     provider = wx.SimpleHelpProvider()
     wx.HelpProvider.Set(provider)
 
-    app = RMPY_App(False)
+    app = ARC_App(False)
     app.MainLoop()

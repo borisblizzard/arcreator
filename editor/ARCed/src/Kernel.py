@@ -23,7 +23,8 @@ import re
 #==============================================================================
 
 class Global(object):
-
+    
+    Project = None
     ProjectOpen = False
     FileHistory = None
     CurrentProjectDir = ""
@@ -31,12 +32,13 @@ class Global(object):
     Title = ""
     Mode = ""
     config = None
-    RMPYconfig = None
+    ARCconfig = None
     programconfig = None
 
     LoadedComponentDefaultsTemplate = None
 
-    ProjectModes = []
+    ProjectModes = {}
+    ProjectCreators = {}
 
 class GlobalObjects(object):
 

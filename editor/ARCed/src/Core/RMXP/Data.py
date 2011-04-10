@@ -33,7 +33,7 @@ def Call_RMXP_Import(path, changed, all=False):
     #set up directories
     os.chdir(Kernel.Global.Program_Dir)
     local_path = os.path.normpath(Kernel.Global.Program_Dir + "/import")
-    config = Kernel.Global.RMPYconfig
+    config = Kernel.Global.ARCconfig
 
     #start the process
     if platform.system() == "Windows":
@@ -100,7 +100,7 @@ def Call_RMXP_Export(path, topath, changed, all=False):
 
     #set up directories   
     os.chdir(Kernel.Global.Program_Dir)
-    config = Kernel.Global.RMPYconfig
+    config = Kernel.Global.ARCconfig
 
     #start the process
     if platform.system() == "Windows":
@@ -179,7 +179,7 @@ class RMXPProjectLoader(object):
                  ]
 
     def __init__(self):
-        self.project = KM.get_component("RMXPProject", "RMXP").object
+        self.project = KM.get_component("Project", "RMXP").object()
 
     def Load(self, path, mainwindow=None):
         self.mainwindow = mainwindow
@@ -227,7 +227,8 @@ class RMXPProjectLoader(object):
             _map = (self.load_data(os.path.
                     join(path, os.path.normpath("Data/Map%03d.xppy" % key))))
             self.project.Maps[key] = _map
-
+            
+        Kernel.Global.Project = self.project
         KM.raise_event("EventRefreshProject")
 
     def load_data(self, filename):
@@ -238,7 +239,7 @@ class RMXPProjectLoader(object):
 
 class RMXPProjectSaver(object):
     def __init__(self):
-        self.project = KM.get_component("RMXPProject", "RMXP").object
+        self.project = Kernel.Global.Project
 
     def Save(self, path):
         dirpath = os.path.join(path, "Data")
@@ -284,7 +285,7 @@ class RMXPProjectSaver(object):
 
 class RMXPProjectImporter(object):
     def __init__(self, all=False):
-        self.project = KM.get_component("RMXPProject", "RMXP").object
+        self.project = KM.get_component("Project", "RMXP").object()
         self.all = all
         self.progress = 0
         self.message = ""
@@ -319,7 +320,7 @@ class RMXPProjectImporter(object):
         else:
             self.project.RTP_Location = ""
         print "================================"
-        print "Loading data into RPG Maker PY"
+        print "Loading data into ARCed"
         print "================================"
         local_path = os.path.join(Kernel.Global.Program_Dir, "import")
         if self.all or "Actors" in self.changed:
@@ -395,6 +396,7 @@ class RMXPProjectImporter(object):
         self.dlg.Destroy()
         saver = RMXPProjectSaver()
         saver.Save(self.project.Location)
+        Kernel.Global.Project = self.project
         KM.raise_event("EventRefreshProject")
 
     def load_data(self, filename):
@@ -414,7 +416,7 @@ class RMXPProjectImporter(object):
 class RMXPProjectExporter(object):
 
     def __init__(self, all=False):
-        self.project = KM.get_component("RMXPProject", "RMXP").object
+        self.project = Kernel.Global.Project
         self.all = all
         self.progress = 0
         self.message = ""
@@ -529,17 +531,18 @@ class RMXPProjectExporter(object):
 
 class RMXPProjectCreator(object):
     def __init__(self):
-        self.project = KM.get_component("RMXPProject", "RMXP").object
+        self.project = KM.get_component("Project", "RMXP").object()
 
     def Create(self, path, title, saveas=False):
         config = ConfigParser.ConfigParser()
         config.add_section("Project")
         config.set("Project", "title", title)
         config.set("Project", "type", "RMXP")
-        filename = os.path.join(path, "Project.rmpyproj")
+        filename = os.path.join(path, "Project.arcproj")
         f = open(filename, 'w')
         config.write(f)
         f.close()
+        Kernel.Global.Project = self.project
         saver = RMXPProjectSaver()
         saver.Save(path)
         if not saveas:

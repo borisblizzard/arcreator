@@ -59,8 +59,8 @@ class CoreEditorMainWindow(wx.Frame):
         self.ClearLayout()
         mode = Kernel.Global.Mode
         #get the layout component
-        layout = KM.get_component("EditorMainWindowLayout", mode).object
-        self.layout_mgr = layout(self)
+        layout = KM.get_component("EditorMainWindowLayout").object
+        self.layout_mgr = layout(self, mode)
 
     def CreateMenuBar(self):
         self.menubar = KM.get_component("MainMenuBar").object(self)

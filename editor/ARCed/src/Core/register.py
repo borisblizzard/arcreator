@@ -21,13 +21,20 @@ NewProjectHandler = Type("NewProjectHandler")
 OpenProjectHandler = Type("OpenProjectHandler")
 SaveProjectHandler = Type("SaveProjectHandler")
 SaveAsProjectHandler = Type("SaveAsProjectHandler")
+ARCProjectCreator = Type("ARCProjectCreator")
 
 #------------------------------- frames --------------------------------------
 EditorMainWindow = Type("EditorMainWindow")
 
 #-------------------------------- ctrls --------------------------------------
 MainToolbar = Type("MainToolbar")
+MapEditorWindow = Type("MapEditorWindow")
+MainMapTreeCtrl = Type("MainMapTreeCtrl")
 
+#-------------------------------- layouts --------------------------------
+EditorMainWindowLayout = Type("EditorMainWindowLayout")
+ARCModeLayout = Type("ARCModeLayout")
+    
 #-------------------------------- menus --------------------------------------
 MainMenuBar = Type("MainMenuBar")
 MainStatusBar = Type("MainStatusBar")
@@ -44,14 +51,17 @@ NewProjectDialog = Type("NewProjectDialog")
 #------------------------------- functions -----------------------------------)
 
 #------------------------------ data handlers --------------------------------
-Manager.register_types(NewProjectHandler, OpenProjectHandler,
-                       SaveProjectHandler, SaveAsProjectHandler)
+Manager.register_types(NewProjectHandler, OpenProjectHandler, SaveProjectHandler, 
+                       SaveAsProjectHandler, ARCProjectCreator)
 
 #-------------------------------- frames -------------------------------------
 Manager.register_types(EditorMainWindow)
 
 #-------------------------------- ctrls --------------------------------------
-Manager.register_types(MainToolbar)
+Manager.register_types(MainToolbar, MapEditorWindow, MainMapTreeCtrl)
+
+#-------------------------------- layouts --------------------------------
+Manager.register_types(EditorMainWindowLayout, ARCModeLayout)
 
 #-------------------------------- menus --------------------------------------
 Manager.register_types(MainMenuBar, MainStatusBar, ProjectMenuItems,
@@ -66,13 +76,13 @@ Manager.register_types(NewProjectDialog)
 class RMXPType(SuperType):
 
     #-------------------------- functions ------------------------------------
-    HueRotationOperator = Type("HueRotationOperator")
-    AdjustAlphaOperator = Type("AdjustAlphaOperator")
+    #HueRotationOperator = Type("HueRotationOperator")
+    #AdjustAlphaOperator = Type("AdjustAlphaOperator")
 
     #---------------------------- data holder --------------------------------
     RPG = Type("RPG")
     Table = Type("Table")
-    RMXPProject = Type("RMXPProject")
+    Project = Type("Project")
     WxCache = Type("WxCache")
     #PyGameCache = Type("PyGameCache")
 
@@ -86,11 +96,8 @@ class RMXPType(SuperType):
     ProjectExportHandler = Type("ProjectExportHandler")
 
     #------------------------------- ctrls -----------------------------------
-    MapEditorWindow = Type("MapEditorWindow")
-    MainMapTreeCtrl = Type("MainMapTreeCtrl")
-
+    
     #-------------------------------- layouts --------------------------------
-    EditorMainWindowLayout = Type("EditorMainWindowLayout")
 
     #------------------------------- dialogs ---------------------------------
     DialogImportProject = Type("DialogImportProject")
@@ -105,10 +112,10 @@ class RMXPType(SuperType):
         #=====================================================================
 
         #-------------------------- functions --------------------------------
-        self.add_types(self.HueRotationOperator, self.AdjustAlphaOperator)
+        #self.add_types(self.HueRotationOperator, self.AdjustAlphaOperator)
 
         #------------------------- data holder -------------------------------
-        self.add_types(self.RPG, self.Table, self.RMXPProject, self.WxCache)
+        self.add_types(self.RPG, self.Table, self.Project, self.WxCache)
         #, self.PyGameCache)
 
         #------------------------ data handlers ------------------------------
@@ -118,10 +125,8 @@ class RMXPType(SuperType):
                        self.ProjectExportHandler)
 
         #---------------------------- ctrls ----------------------------------
-        self.add_types(self.MapEditorWindow, self.MainMapTreeCtrl)
 
         #---------------------------- layouts --------------------------------
-        self.add_types(self.EditorMainWindowLayout)
 
         #---------------------------- dialogs --------------------------------
         self.add_types(self.DialogImportProject, self.DialogExportProject)
@@ -159,6 +164,9 @@ class CorePackage(Package):
         self.add_component(Component(Data.SaveProjectAS, "SaveAsProjectHandler",
                                      None, "CoreSaveAsProjectHandler", "CORE",
                                      1.0, self))
+        self.add_component(Component(Data.ARCProjectCreator, "ARCProjectCreator",
+                                     None, "CoreARCProjectCreator", "CORE",
+                                     1.0, self))
 
 
         #---------------------------- frames ---------------------------------
@@ -186,10 +194,12 @@ class CorePackage(Package):
                                      self))
 
         #----------------------------- layouts -------------------------------
-        self.add_component(Component(Layouts.RMXPMainWindow,
+        self.add_component(Component(Layouts.MainWindowLayout,
                                      "EditorMainWindowLayout", None,
-                                     "RMXPEditorMainWindowLayout", "CORE", 1.0,
-                                     self))
+                                     "COREEditorMainWindowLayout", "CORE", 1.0, self))
+        self.add_component(Component(Layouts.ARCModeLayout,
+                                     "ARCModeLayout", None,
+                                     "COREARCModeLayout", "CORE", 1.0, self))
 
         #----------------------------- menus ---------------------------------
         self.add_component(Component(Menues.CoreMainMenuBar, "MainMenuBar",
@@ -226,7 +236,7 @@ class CorePackage(Package):
                                      "RGSS1_RPG", "CORE", 1.0, self))
         self.add_component(Component(RMXP.RPGutil.Table, "Table", "RMXP",
                                      "RMXPTable", "CORE", 1.0, self))
-        self.add_component(Component(RMXP.Project.Project, "RMXPProject",
+        self.add_component(Component(RMXP.Project.Project, "Project",
                                      "RMXP", "CoreRMXPProject", "CORE", 1.0,
                                      self))
         self.add_component(Component(RMXP.Cache.WxCache, "WxCache", "RMXP",
@@ -314,4 +324,6 @@ EventOpenProject.register(RMXP.Data.Call_RMXP_Import)
 # * Add the Project modes
 #=============================================================================
 
-Kernel.Global.ProjectModes.append("RMXP")
+# [ModeName] = ("ComponentTypeName", "SuperTypeName")
+Kernel.Global.ProjectModes["ARC"] = ("ARCModeLayout",)
+Kernel.Global.ProjectCreators["ARC"] = ("ProjectCreator", "RMXP")

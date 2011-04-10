@@ -30,7 +30,7 @@ class FileMenu(wx.Menu):
     def __init__(self, mainwindow):
         wx.Menu.__init__(self)
         self.filehistory = wx.FileHistory(5)
-        self.config = wx.Config("RMPY", style=wx.CONFIG_USE_LOCAL_FILE)
+        self.config = wx.Config("ARC", style=wx.CONFIG_USE_LOCAL_FILE)
         self.filehistory.Load(self.config)
 
         Kernel.Global.FileHistory = self.filehistory

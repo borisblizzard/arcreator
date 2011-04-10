@@ -260,7 +260,7 @@ class ImportRMXPProjectDialog (wx.Dialog):
     def checkdata(self):
         string = os.path.expandvars(self.locationTextCtrl.GetValue())
         if not os.path.exists(string) and not os.path.isdir(string):
-            caption = "RPG Maker PY"
+            caption = "ARCed"
             message = "Please provide a valid path to the project location"
             dlg = wx.MessageDialog(self, message, caption,
                                    style=wx.OK | wx.CENTRE
@@ -269,7 +269,7 @@ class ImportRMXPProjectDialog (wx.Dialog):
             return False
         checkpath = os.path.join(string, "Game.rxproj")
         if not os.path.exists(checkpath):
-            caption = "RPG Maker PY"
+            caption = "ARCed"
             message = "Please provide a path where a RMXP project file " \
                       "can be found"
             dlg = wx.MessageDialog(self, message, caption,
@@ -509,7 +509,7 @@ class ExportRMXPProjectDialog (wx.Dialog):
     def checkdata(self):
         string = os.path.expandvars(self.locationTextCtrl.GetValue())
         if not os.path.exists(string) and not os.path.isdir(string):
-            caption = "RPG Maker PY"
+            caption = "ARCed"
             message = "Please provide a valid path to the export location"
             dlg = wx.MessageDialog(self, message, caption,
                                    style=wx.OK | wx.CENTRE

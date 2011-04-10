@@ -20,7 +20,7 @@ def NewProject(mainwindow):
         Kernel.Global.Mode = mode
         Kernel.Global.Title = name
         KM.raise_event("EventMode")
-        projectcreator = KM.get_component("ProjectCreator", mode).object()
+        projectcreator = KM.get_component(*Kernel.Global.ProjectCreators[mode]).object()
         projectcreator.Create(path, name)
         Kernel.Global.CurrentProjectDir = path
         Kernel.Global.ProjectOpen = True
@@ -50,9 +50,9 @@ def OpenProject(mainwindow, filehistory, path=""):
                                   str(Kernel.Global.Mode)).object()
         loader.Load(os.path.normpath(path), mainwindow)
     else:
-        wildcard = "RMPY Project File (*.rmpyproj)|*.rmpyproj"
+        wildcard = "ARC Project File (*.arcproj)|*.arcproj"
         defaultpath = (os.path.join(wx.StandardPaths.Get().GetDocumentsDir(),
-                                    "RMPY"))
+                                    "ARC"))
         dlg = wx.FileDialog(mainwindow, message="Choose a file",
             defaultDir=defaultpath,
             defaultFile="",
@@ -81,15 +81,51 @@ def SaveProject(mainwindow):
     saver.Save(Kernel.Global.CurrentProjectDir)
 
 def SaveProjectAS(mainwindow, filehistory):
-    wildcard = "RMPY Project File (*.rmpyproj)|*.rmpyproj|"
+    wildcard = "ARC Project File (*.arcproj)|*.arcproj|"
     defaultpath = (os.path.join(wx.StandardPaths.Get().GetDocumentsDir(),
-                                "RMPY"))
+                                "ARC"))
     dlg = wx.DirDialog(mainwindow, "Choose a Location:",
                        defaultPath=defaultpath,
                        style=wx.DD_DEFAULT_STYLE
                        | wx.DD_NEW_DIR_BUTTON)
     if dlg.ShowModal() == wx.ID_OK:
         location = dlg.GetPath()
-        filehistory.AddFileToHistory(os.path.join(location, "Project.rmpyproj"))
+        filehistory.AddFileToHistory(os.path.join(location, "Project.arcproj"))
         saver = KM.get_component("ProjectCreator", Kernel.Global.Mode).object()
         saver.Create(location, Kernel.Global.Title, saveas=True)
+
+class ARCProjectCreator(object):
+    
+    def __init__(self):
+        self.project = None
+        
+    def Create(self, path, title, saveas=False):
+        config = ConfigParser.ConfigParser()
+        config.add_section("Project")
+        config.set("Project", "title", title)
+        config.set("Project", "type", "ARC")
+        filename = os.path.join(path, "Project.arcproj")
+        f = open(filename, 'w')
+        config.write(f)
+        f.close()
+        Kernel.Global.Project = self.project
+        saver = ARCProjectSaver()
+        saver.Save(path)
+        if not saveas:
+            KM.raise_event("EventRefreshProject")
+            
+class ARCProjectSaver(object):
+    def __init__(self):
+        self.project = Kernel.Global.Project
+
+    def Save(self, path):
+        dirpath = os.path.join(path, "Data")
+        if not os.path.exists(dirpath) and not os.path.isdir(dirpath):
+            os.mkdir(dirpath)
+        #TODO Finish after data struture is decided
+
+
+    def dump_data(self, data, filename):
+        f = open(filename, 'wb')
+        cPickle.dump(data, f, protocol= -1)
+        f.close()
