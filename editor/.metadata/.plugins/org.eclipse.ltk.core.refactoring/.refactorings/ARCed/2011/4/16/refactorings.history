@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;ARCed/src/RMPY.cfg&apos; to &apos;ARC.cfg&apos;" description="Rename resource &apos;RMPY.cfg&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="src/RMPY.cfg" name="ARC.cfg" stamp="1302402353781" updateReferences="true"/>
+</session>
