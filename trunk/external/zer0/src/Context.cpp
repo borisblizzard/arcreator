@@ -113,6 +113,7 @@ namespace zer0
 	
 	void Context::onMouseMove(float x, float y)
 	{
+		aprilui::updateCursorPosition();
 	}
 	
 	void Context::onKeyDown(unsigned int keycode)
