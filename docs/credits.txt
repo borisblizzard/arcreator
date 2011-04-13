@@ -1,16 +1,17 @@
 Project Management:
-- Boris Mikiæ (alias Blizzard)
+- Boris "Blizzard" Mikiæ
 
 Engine Design & Programming:
-- Eric Freed (alias ForeverZer0)
-- Boris Mikiæ
-- Ronnie Deen Mooney III (alias game_guy)
-- Benjamin Powers (alias Ryex)
+- Eric "ForeverZer0" Freed
+- Boris "Blizzard" Mikiæ
+- Ronnie Deen "game_guy" Mooney III
+- Benjamin "Ryex" Powers
 
 ARC Editor Design & Programming:
-- Benjamin Powers
+- Benjamin "Ryex" Powers
 
 Special Thanks:
+- Naoise "The Niche" McHugh (for 1 RTP Standard Characters graphic)
 - nathmatt (for ARC icon artwork)
 - Xuroth (for ARC logo artwork)
 - Chaos Project Community (for the ideas and general support)
