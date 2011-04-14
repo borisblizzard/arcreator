@@ -1,23 +1,40 @@
-Project Management:
-- Boris "Blizzard" Mikiæ
+[size=14pt][b]Project Management:[/b][/size]
 
-Engine Design & Programming:
-- Eric "ForeverZer0" Freed
-- Boris "Blizzard" Mikiæ
-- Ronnie Deen "game_guy" Mooney III
-- Benjamin "Ryex" Powers
+[list]
+[li]Boris "Blizzard" Mikiæ[/li]
+[/list]
 
-ARC Editor Design & Programming:
-- Benjamin "Ryex" Powers
+[size=14pt][b]Engine Design & Programming:[/b][/size]
 
-RTP:
-- Spencer Lee "legacyblade" Conrad (icons graphics, final editing of characters)
-- Naoise "The Niche" McHugh (1 character)
+[list]
+[li]Eric "ForeverZer0" Freed[/li]
+[li]Boris "Blizzard" Mikiæ[/li]
+[li]Ronnie Deen "game_guy" Mooney III[/li]
+[li]Benjamin "Ryex" Powers[/li]
+[/list]
 
-Special Thanks:
-- nathmatt (for ARC icon artwork)
-- Xuroth (for ARC logo artwork)
-- Chaos Project Community (for the ideas and general support)
+[size=14pt][b]ARC Editor Design & Programming:[/b][/size]
+
+[list]
+[li]Ronnie Deen "game_guy" Mooney III[/li]
+[li]Benjamin "Ryex" Powers[/li]
+[/list]
+
+[size=14pt][b]Run Time Package:[/b][/size]
+
+[list]
+[li]Spencer Lee "legacyblade" Conrad (icons graphics, final editing of characters)[/li]
+[li]Naoise "The Niche" McHugh (1 character)[/li]
+[li]Boris "Blizzard" Mikiæ (icons, windowskins, characters, animations, misc graphics)[/li]
+[/list]
+
+[size=14pt][b]Special Thanks:[/b][/size]
+
+[list]
+[li]nathmatt (for ARC icon artwork)[/li]
+[li]Xuroth (for ARC logo artwork)[/li]
+[li]Chaos Project Community (for the ideas and general support)[/li]
+[/list]
 
 
 
