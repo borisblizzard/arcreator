@@ -10,8 +10,11 @@ Engine Design & Programming:
 ARC Editor Design & Programming:
 - Benjamin "Ryex" Powers
 
+RTP:
+- Spencer Lee "legacyblade" Conrad (icons graphics, final editing of characters)
+- Naoise "The Niche" McHugh (1 character)
+
 Special Thanks:
-- Naoise "The Niche" McHugh (for 1 RTP Standard Characters graphic)
 - nathmatt (for ARC icon artwork)
 - Xuroth (for ARC logo artwork)
 - Chaos Project Community (for the ideas and general support)
