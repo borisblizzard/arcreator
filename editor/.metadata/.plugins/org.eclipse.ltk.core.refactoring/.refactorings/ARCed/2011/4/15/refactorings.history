@@ -1,3 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">&#x0A;<refactoring comment="Rename resource &apos;ARCed/src/Core/RMXP/RMXPProject.py&apos; to &apos;Project.py&apos;" description="Rename resource &apos;RMXPProject.py&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="src/Core/RMXP/RMXPProject.py" name="Project.py" stamp="1302388865338" updateReferences="true"/>&#x0A;<refactoring comment="Rename resource &apos;ARCed/src/Core/core_init.py&apos; to &apos;register.py&apos;" description="Rename resource &apos;core_init.py&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="src/Core/core_init.py" name="register.py" stamp="1302389263546" updateReferences="true"/>
-</session>

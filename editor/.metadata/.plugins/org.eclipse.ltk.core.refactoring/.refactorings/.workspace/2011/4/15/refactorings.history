@@ -1,3 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">&#x0A;<refactoring comment="Delete resource &apos;Tezt&apos;" deleteContents="false" description="Delete resource &apos;Tezt&apos;" element1="/Tezt" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="1" stamp="1302303722756"/>&#x0A;<refactoring comment="Delete resource &apos;ARCed/src/Core/RMXP/Controls.py&apos;" deleteContents="false" description="Delete resource &apos;ARCed/src/Core/RMXP/Controls.py&apos;" element1="/ARCed/src/Core/RMXP/Controls.py" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="1" stamp="1302389213234"/>
-</session>
