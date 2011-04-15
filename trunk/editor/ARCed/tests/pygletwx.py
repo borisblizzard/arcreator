@@ -69,15 +69,19 @@ class GLPanel(wx.Panel):
             self.canvas.Refresh(False)
         event.Skip()
 
-    def processPaintEvent(self, event):
-        '''Process the drawing event.'''
+    def PrepareGL(self):
         self.canvas.SetCurrent()
 
-        # This is a 'perfect' time to initialize OpenGL ... only if we need to
+        #initialize OpenGL only if we need to
         if not self.GLinitialized:
             self.OnInitGL()
             self.GLinitialized = True
-
+            
+        self.pygletcontext.set_current()
+    
+    def processPaintEvent(self, event):
+        '''Process the drawing event.''' 
+        self.PrepareGL()
         self.OnDraw()
         event.Skip()
         
@@ -114,7 +118,6 @@ class GLPanel(wx.Panel):
         gl.glMatrixMode(gl.GL_MODELVIEW)
         #pyglet stuff
 
-        # Wrap text to the width of the window
         if self.GLinitialized:
             self.pygletcontext.set_current()
             self.update_object_resize()
@@ -122,7 +125,6 @@ class GLPanel(wx.Panel):
     def OnDraw(self, *args, **kwargs):
         "Draw the window."
         #clear the context
-        self.pygletcontext.set_current()
         gl.glClear(gl.GL_COLOR_BUFFER_BIT|gl.GL_DEPTH_BUFFER_BIT)
         #draw objects
         self.draw_objects()
@@ -144,7 +146,6 @@ class GLPanel(wx.Panel):
         '''called in the middle of ondraw after the buffer has been cleared'''
         pass
        
-   
 rtppath = "%PROGRAMFILES%/Common Files/Enterbrain/RGSS/Standard"
 RTP_Location = os.path.normpath(os.path.expandvars(rtppath))
 
