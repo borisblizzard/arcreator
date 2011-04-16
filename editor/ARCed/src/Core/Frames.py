@@ -26,7 +26,7 @@ from Kernel import Manager as KM
 
 class CoreEditorMainWindow(wx.Frame):
     def __init__(self, parent, id=wx.ID_ANY, title="", pos=wx.DefaultPosition,
-                 size=wx.Size(1000, 500), style=wx.DEFAULT_FRAME_STYLE | wx.SUNKEN_BORDER, log=None):
+                 size=wx.Size(1000, 500), style=wx.DEFAULT_FRAME_STYLE | wx.SUNKEN_BORDER):
 
         wx.Frame.__init__(self, parent, id, title, pos, size, style)
 

@@ -14,6 +14,7 @@ except ImportError:
     raise ImportError, "Required dependency numpy not present"
     
 import pyglet
+from pyglet import gl
 
 #load our libaries
 import Core
@@ -47,7 +48,7 @@ class TestGlPanel(pygletwx.GLPanel):
 class TilemapPanel(pygletwx.GLPanel):
 
     def __init__(self, parent, map, tilesets, id=wx.ID_ANY):
-        super(TilemapPanel, self).__init__(parent, id, wx.DefaultPosition, (800, 600), 
+        super(TilemapPanel, self).__init__(parent, id, wx.DefaultPosition, wx.Size(800, 600), 
               wx.VSCROLL | wx.HSCROLL)
         
         #set data
@@ -57,6 +58,7 @@ class TilemapPanel(pygletwx.GLPanel):
         
         #set up scrollbars
         size = self.GetVirtualSizeTuple()
+        print size
         width = self.map.width * 32
         height = self.map.height * 32
         self.SetScrollbar(wx.HORIZONTAL, 0, size[0], width, refresh=True)
@@ -81,13 +83,10 @@ class TilemapPanel(pygletwx.GLPanel):
             self.NeedRedraw = False
             
     def update_scroll_pos(self, event):
-        print 'Scroll To Pos'
         self.OnScroll(event.GetOrientation(), event.GetPosition())
-        self.NeedRedraw = True
         event.Skip()
         
     def scroll_lineup(self, event):
-        print 'Scroll Line Up'
         orient = event.GetOrientation()
         pos = self.GetScrollPos(orient)
         new_pos = pos - 1
@@ -98,7 +97,6 @@ class TilemapPanel(pygletwx.GLPanel):
         self.OnScroll(orient, new_pos)
         
     def scroll_linedown(self, event):
-        print 'Scroll Line Down'
         orient = event.GetOrientation()
         pos = self.GetScrollPos(orient)
         new_pos = pos + 1
@@ -109,7 +107,6 @@ class TilemapPanel(pygletwx.GLPanel):
         self.OnScroll(orient, new_pos)
         
     def scroll_pageup(self, event):
-        print 'Scroll Page up'
         orient = event.GetOrientation()
         pos = self.GetScrollPos(orient)
         new_pos = pos - 32
@@ -120,7 +117,6 @@ class TilemapPanel(pygletwx.GLPanel):
         self.OnScroll(orient, new_pos)
         
     def scroll_pagedown(self, event):
-        print 'Scroll Page Down'
         orient = event.GetOrientation()
         pos = self.GetScrollPos(orient)
         new_pos = pos + 32
@@ -147,9 +143,21 @@ class TilemapPanel(pygletwx.GLPanel):
             print orient
             print wx.HORIZONTAL
             print wx.VERTICAL
-        
+        self.SetOrigin()
+        self.OnDraw()
         self.SetScrollbar(orient, pos, thumb, range, refresh=True)
         
+    def SetOrigin(self):
+        size = self.GetGLExtents()
+        gl.glViewport(0, 0,  size.width,  size.height)
+        gl.glMatrixMode(gl.GL_PROJECTION)
+        gl.glLoadIdentity()
+        gl.glOrtho(0,  size.width, 0,  size.height, 1, -1)
+        x = -self.GetScrollPos(wx.HORIZONTAL)
+        y = -(self.map.height * 32) + size.height + self.GetScrollPos(wx.VERTICAL)
+        gl.glTranslatef(x, y, 0)
+        gl.glMatrixMode(gl.GL_MODELVIEW)
+    
     def create_objects(self):
         '''create opengl objects when opengl is initialized'''
         data = self.map.data._data
@@ -159,6 +167,7 @@ class TilemapPanel(pygletwx.GLPanel):
     def update_object_resize(self):
         '''called when the window recieves only if opengl is initialized'''
         #update the scrollbar widths
+        self.SetOrigin()
         size = self.GetVirtualSizeTuple()
         self.SetScrollbar(wx.HORIZONTAL, self.GetScrollPos(wx.HORIZONTAL), size[0], 
                           self.map.width * 32, refresh=True)
@@ -174,7 +183,7 @@ class TestFrame(wx.Frame):
     '''A simple class for using OpenGL with wxPython.'''
 
     def __init__(self, parent, id, title, pos=wx.DefaultPosition,
-                 size=(800, 600), style=wx.DEFAULT_FRAME_STYLE,
+                 size=wx.Size(800, 600), style=wx.DEFAULT_FRAME_STYLE,
                  name='frame'):
         super(TestFrame, self).__init__(parent, id, title, pos, size, style, name)
         
@@ -191,7 +200,7 @@ class TestFrame(wx.Frame):
         self.mainsizer.Add(self.TilemapPanel, 1, wx.EXPAND, 5)
         
         self.SetSizer(self.mainsizer)
-        self.mainsizer.Fit(self)
+        self.Layout()
         
         
         
