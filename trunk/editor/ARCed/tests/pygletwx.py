@@ -31,7 +31,7 @@ class GLPanel(wx.Panel):
         self.canvas = glcanvas.GLCanvas(self, attribList=attribList)
         self.sizer.Add(self.canvas, 1, wx.EXPAND)
         self.SetSizer(self.sizer)
-        self.sizer.Fit(self)
+        self.Layout()
 
         # bind events
         self.canvas.Bind(wx.EVT_ERASE_BACKGROUND, self.processEraseBackgroundEvent)
@@ -76,6 +76,8 @@ class GLPanel(wx.Panel):
         if not self.GLinitialized:
             self.OnInitGL()
             self.GLinitialized = True
+            size = self.GetGLExtents()
+            self.OnReshape(size.width, size.height)
             
         self.pygletcontext.set_current()
     
