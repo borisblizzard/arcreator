@@ -16,7 +16,7 @@
 [size=14pt][b]ARC Editor Design & Programming:[/b][/size]
 
 [list]
-[li]Ronnie Deen "game_guy" Mooney III[/li]
+[li]Ronnie "game_guy" Mooney III[/li]
 [li]Benjamin "Ryex" Powers[/li]
 [/list]
 
