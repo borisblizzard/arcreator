@@ -282,7 +282,7 @@ class Tilemap(object):
         
     def Draw(self):
         for z in range(len(self.renderingBatches)):
-            if z == self.activeLayer and z != 0 and self.LayerDimming:
+            if z == self.activeLayer and self.LayerDimming: #and z != 0
                 if self.dimmingSprite is not None:
                     self.dimmingSprite.draw()
             self.renderingBatches[z].draw()
