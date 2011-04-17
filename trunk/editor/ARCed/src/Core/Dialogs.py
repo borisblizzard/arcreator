@@ -71,8 +71,7 @@ class NewProjectDialog(wx.Dialog):
         self.typeChoice = wx.Choice(self, wx.ID_ANY, wx.DefaultPosition,
                                     wx.DefaultSize, typeChoiceChoices, 0)
         self.typeChoice.SetSelection(0)
-        self.typeChoice.SetHelpText(u"The type of project, RMXP? RMVX? Somthing \
-                                    else?")
+        self.typeChoice.SetHelpText(u"The type of project.")
 
         typeSizer.Add(self.typeChoice, 1, wx.ALL | wx.EXPAND, 5)
 

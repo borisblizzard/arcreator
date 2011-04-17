@@ -5,6 +5,7 @@ import pyglet
 
 class PygletCache(object):
 
+    
     _image_ext = ["", ".png", ".gif", ".jpg", ".bmp"]
 
     Autotiles = [
@@ -28,10 +29,10 @@ class PygletCache(object):
                 [13, 18, 43, 48], [1, 2, 7, 8] ]
                ]
 
+
     def __init__(self):
         self._Cache = {}
-    
-    
+        
     def Load_bitmap(self, folder_name, filename, hue=0, loc=""):
         key = (folder_name, filename, loc, hue)
         if not self._Cache.has_key(key) or not self._Cache[key]:
@@ -53,6 +54,7 @@ class PygletCache(object):
                return None
         else:
             return self._Cache[key]
+
 
     def Animation(self, filename, hue, loc=""):
         return self.Load_bitmap("Graphics/Animations/", filename, hue, loc)
@@ -121,7 +123,7 @@ class PygletCache(object):
                 id = int(tile_id) - 384
                 x = id % 8 * 32
                 y = id / 8 * 32
-                self._Cache[key]= tileset.get_region(x, tileset.height - y - 32, 32, 32)
+                self._Cache[key] = tileset.get_region(x, tileset.height - y - 32, 32, 32)
             else:
                 return None
         return self._Cache[key]
