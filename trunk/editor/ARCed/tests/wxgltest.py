@@ -107,13 +107,14 @@ class TilemapPanel(pygletwx.GLPanel):
     def update_object_resize(self, width, height):
         '''called when the window recieves only if opengl is initialized'''
         #update the scrollbar widths
+        self.tilemap.UpdateDimmingSprite(width, height)
         self.SetOrigin()
         size = self.GetVirtualSizeTuple()
         self.SetScrollbar(wx.HORIZONTAL, self.GetScrollPos(wx.HORIZONTAL), size[0], 
                           self.map.width * 32, refresh=True)
         self.SetScrollbar(wx.VERTICAL, self.GetScrollPos(wx.VERTICAL), size[1], 
                           self.map.height * 32, refresh=True)
-        self.tilemap.UpdateDimmingSprite(width, height)
+        
         
     def draw_objects(self):
         '''called in the middle of ondraw after the buffer has been cleared'''
