@@ -8,8 +8,6 @@ from pyglet import gl
 
 import numpy
 
-import cache
-
 class GLPanel(wx.Panel):
 
     '''A simple class for using OpenGL with wxPython.'''
@@ -116,13 +114,17 @@ class GLPanel(wx.Panel):
         gl.glViewport(0, 0, width, height)
         gl.glMatrixMode(gl.GL_PROJECTION)
         gl.glLoadIdentity()
+        if width <= 0:
+            width = 1
+        if height <= 0:
+            height = 1
         gl.glOrtho(0, width, 0, height, 1, -1)
         gl.glMatrixMode(gl.GL_MODELVIEW)
         #pyglet stuff
 
         if self.GLinitialized:
             self.pygletcontext.set_current()
-            self.update_object_resize()
+            self.update_object_resize(width, height)
             
     def OnDraw(self, *args, **kwargs):
         "Draw the window."
@@ -140,7 +142,7 @@ class GLPanel(wx.Panel):
         '''create opengl objects when opengl is initialized'''
         pass
         
-    def update_object_resize(self):
+    def update_object_resize(self, width, height):
         '''called when the window recieves only if opengl is initialized'''
         pass
         
@@ -153,23 +155,44 @@ RTP_Location = os.path.normpath(os.path.expandvars(rtppath))
 
 class Tilemap(object):
     
-    def __init__(self, data, tileset="", autotiles=[]):
-        self.cache = cache.PygletCache()
+    def __init__(self, data, cache, tileset="", autotiles=[]):
+        self.cache = cache
         self.data = data
         self.tile_ids = numpy.zeros(data.shape)
-        self.batch = pyglet.graphics.Batch()
+        self.renderingBatches = []
         self.sprites = []
         self.blank_tile = pyglet.image.create(32, 32)
+        self.dimmingImagePatteren = None
+        self.dimmingImage = None
+        self.dimmingSprite = None
+        self.dimmingSpriteWidth = 0
+        self.dimmingSpriteHeight = 0
+        self.activeLayer = 0
+        self.LayerDimming = True
         self.x = self.oldx = self.y = self.oldy = 0
         self.autotile_names = autotiles
         self.tileset_name = tileset
         self.ordered_groups = []
-        for i in range(3):
+        for i in range(self.data.shape[2]):
             self.ordered_groups.append(pyglet.graphics.OrderedGroup(i))
-        self.tiles = self.create_tilemap()
+            self.renderingBatches.append(pyglet.graphics.Batch())
+        self.tiles = self.createTilemap()
+    
+    def UpdateDimmingSprite(self, width, height):
+        if width != self.dimmingSpriteWidth or height != self.dimmingSpriteHeight:
+            self.dimmingSpriteWidth = width
+            self.dimmingSpriteHeight = height
+            if self.dimmingImagePatteren is None:
+                self.dimmingImagePatteren = pyglet.image.SolidColorImagePattern((0, 0, 0, 255))
+            self.dimmingImage = self.dimmingImagePatteren.create_image(width, height).get_texture()
+            self.dimmingSprite = pyglet.sprite.Sprite(self.dimmingImage, 0, 0)
+            self.dimmingSprite.opacity = 180
+            #self.dimmingSprite.draw()
+    def setDimXY(self, x, y):
+        if self.dimmingSprite is not None:
+            self.dimmingSprite.set_position(x, y)
             
-        
-    def create_tilemap(self):
+    def createTilemap(self):
         shape = self.data.shape
         sprites = numpy.empty(shape, dtype=object)
         for x in range(shape[0]):
@@ -178,7 +201,7 @@ class Tilemap(object):
                     xpos = x * 32
                     ypos = ((shape[1] - y) * 32) - 32
                     sprite = pyglet.sprite.Sprite(self.blank_tile, xpos, ypos, 
-                                                  batch=self.batch, group=self.ordered_groups[z])
+                                                  batch=self.renderingBatches[z], group=self.ordered_groups[z])
                     sprites[x, y, z] = sprite
                     self.sprites.append(sprite)
         return sprites
@@ -198,19 +221,22 @@ class Tilemap(object):
         flag = False
         #get the tile bitmap
         if id < 384:
-            #get the filename
-            autotile = self.autotile_names[int(id) / 48 - 1]
-            #get the right pattern
-            pattern = id % 48
-            #collect the tile form the cache checking the local project folder
-            #and the system RTP folder
-            bitmap = self.cache.AutotilePattern(autotile, pattern, RTP_Location)
-            if not bitmap:
-                bitmap = self.cache.AutotilePattern(autotile, pattern, RTP_Location)
-            if not bitmap:
-                flag = True
-                print "empty auto tile"
+            if id <= 47:
                 bitmap = pyglet.image.create(32, 32)
+            else:
+                #get the filename
+                autotile = self.autotile_names[int(id) / 48 - 1]
+                #get the right pattern
+                pattern = id % 48
+                #collect the tile form the cache checking the local project folder
+                #and the system RTP folder
+                bitmap = self.cache.AutotilePattern(autotile, pattern, RTP_Location)
+                if not bitmap:
+                    bitmap = self.cache.AutotilePattern(autotile, pattern, RTP_Location)
+                if not bitmap:
+                    flag = True
+                    print "could not get autotile"
+                    bitmap = pyglet.image.create(32, 32)
         #normal tile
         else:
             #get the tile bitmap
@@ -219,20 +245,48 @@ class Tilemap(object):
                 bitmap = self.cache.Tile(self.tileset_name, id, 0, RTP_Location)
             if not bitmap:
                 flag = True
-                print "empty tile"
+                print "could not get tile"
                 bitmap = pyglet.image.create(32, 32)
         #draw the tile to the surface
-        if flag:
-            print "empty tile"
         tile.image = bitmap
         
     def translate(self, x, y):
         for sprite in self.sprites:
             sprite.set_position(sprite.x + x, sprite.y + y)
+            
+    def SetLayerOpacity(self, layer, opacity):
+        layer = self.tiles[:, :, layer]
+        for sprite in layer.flatten():
+            sprite.opacity = opacity
+            
+    def SetActiveLayer(self, layer):
+        self.activeLayer = layer
+        if self.LayerDimming:
+            for z in range(self.data.shape[2]):
+                if z <= self.activeLayer:
+                    self.SetLayerOpacity(z, 255)
+                else:
+                    self.SetLayerOpacity(z, 80)
+    
+    def SetLayerDimming(self, bool):
+        self.LayerDimming = bool
+        if self.LayerDimming:
+            for z in range(self.data.shape[2]):
+                if z <= self.activeLayer:
+                    self.SetLayerOpacity(z, 255)
+                else:
+                    self.SetLayerOpacity(z, 80)
+        else:
+            for z in range(self.data.shape[2]):
+                self.SetLayerOpacity(z, 255)
         
     def Draw(self):
-        self.batch.draw()
-        
+        for z in range(len(self.renderingBatches)):
+            if z == self.activeLayer and z != 0 and self.LayerDimming:
+                if self.dimmingSprite is not None:
+                    self.dimmingSprite.draw()
+            self.renderingBatches[z].draw()
+            
     def  __del__(self):
         self.destroy()
         
