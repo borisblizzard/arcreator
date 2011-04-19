@@ -42,7 +42,7 @@ namespace rgss
 		this->bitmap->updateTexture();
 		april::rendersys->setTexture(this->bitmap->getTexture());
 		//april::rendersys->draw>drawTexturedQuad(drawRect, srcRect);
-		april::rendersys->drawColoredQuad(grect(0, 0, 1, 1), april::Color::CYAN);
+		april::rendersys->drawColoredQuad(grect(0, 0, 1, 1), APRIL_COLOR_CYAN);
 	}
 	/****************************************************************************************
 	 * Ruby Interfacing, Creation, Destruction, Systematics
