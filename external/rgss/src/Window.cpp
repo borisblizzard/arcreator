@@ -35,7 +35,7 @@ namespace rgss
 		//this->bitmap->updateTexture();
 		//april::rendersys->setTexture(this->bitmap->getTexture());
 		//april::rendersys->draw>drawTexturedQuad(drawRect, srcRect);
-		april::rendersys->drawColoredQuad(grect(0, 0, 32, 32), april::Color::PURPLE);
+		april::rendersys->drawColoredQuad(grect(0, 0, 32, 32), APRIL_COLOR_PURPLE);
 	}
 
 	/****************************************************************************************
