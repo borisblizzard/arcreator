@@ -19,46 +19,51 @@ namespace rgss
 		/// @brief Draws this sprite on the screen.
 		void draw();
 
-		/// @brief Intializes the module.
+		/// @brief Initializes the module.
 		static void init();
 		/// @brief Exposes this class to Ruby.
 		static void createRubyInterface();
-		/// @brief Marks referenced values of plane for garbage collection.
-		/// @param[in] plane Plane to mark.
-		static void gc_mark(Plane* sprite);
+		/// @brief Marks referenced values of Plane for garbage collection.
+		/// @param[in] plane Pointer to the Plane to mark.
+		static void gc_mark(Plane* plane);
 		/// @brief Frees allocated memory.
-		/// @param[in] plane Plane to free.
+		/// @param[in] plane Pointer to the Plane to free.
 		static void gc_free(Plane* plane);
 		/// @brief Ruby allocation of an instance.
 		static VALUE rb_new(VALUE classe);
 		/// @brief Initializes this instance.
-		/// @param[in] viewport The viewport.
-		static VALUE rb_initialize(VALUE self, VALUE viewport);
+		/// @param[in] value The viewport to initialize the Plane with.
+		static VALUE rb_initialize(VALUE self, VALUE value);
 			
 		/// @brief Gets the plane's blend type
+		/// @return Returns the Plane's blend type.
 		static VALUE rb_getBlendType(VALUE self);
-		/// @brief Sets the plan's blend type
-		/// @param[in] value The blend type to set
+		/// @brief Sets the Plane's blend type
+		/// @param[in] value The blend type to set.
 		static VALUE rb_setBlendType(VALUE self, VALUE value);
 		/// @brief Gets the plan's color
+		/// @return value Returns the Plane's RGSS::Color object.
 		static VALUE rb_getColor(VALUE self);
-		/// @brief Sets the plan;s color
+		/// @brief Sets the Plane's color
 		/// @param[in] value the RGSS::Color object to set
 		static VALUE rb_setColor(VALUE self, VALUE value);
-		/// @brief gets the Tone of the plane
+		/// @brief Gets the Tone of the plane.
+		/// @return Returns the Plane's RGSS::Tone object.
 		static VALUE rb_getTone(VALUE self);
-		/// @brief sets the tone of the plane
-		/// @param[in] value the RGSS::Tone object to set
+		/// @brief Sets the tone of the Plane.
+		/// @param[in] value The RGSS::Tone object to set.
 		static VALUE rb_setTone(VALUE self, VALUE value);
-		/// @brief gets the plane's  zoom on the x-axis
+		/// @brief Gets the plane's  zoom on the x-axis.
+		/// @return Returns the zoom value on the x-axis.
 		static VALUE rb_getZoomX(VALUE self);
-		/// @brief Sets the plane's zoom on the x-axis
-		/// param[in] Zoom value. 1.0 denotes actual pixel size
+		/// @brief Sets the Plane's zoom on the x-axis.
+		/// param[in] value Zoom value. 1.0 denotes actual pixel size
 		static VALUE rb_setZoomX(VALUE self, VALUE value);
-		/// @brief gets the plane's zoom on the y-axis
+		/// @brief Gets the Plane's zoom on the y-axis
+		/// @return Returns the zoom value on the y-axis.
 		static VALUE rb_getZoomY(VALUE self);
 		/// @brief Sets the sprite zoom on the y-axis
-		/// param[in] Zoom value. 1.0 denotes actual pixel size
+		/// param[in] value Zoom value. 1.0 denotes actual pixel size
 		static VALUE rb_setZoomY(VALUE self, VALUE value);
 
 	protected:

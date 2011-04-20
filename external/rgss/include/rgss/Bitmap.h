@@ -40,15 +40,15 @@ namespace rgss
 		/// @brief Updates the texture on the graphic card if necessary.
 		void Bitmap::updateTexture();
 
-		/// @brief Intializes the module.
+		/// @brief Initializes the module.
 		static void init();
 		/// @brief Exposes this class to Ruby.
 		static void createRubyInterface();
 		/// @brief Marks referenced values of sprite for garbage collection.
-		/// @param[in] bitmap Bitmap to mark.
+		/// @param[in] bitmap Pointer to the Bitmap to mark.
 		static void gc_mark(Bitmap* bitmap);
 		/// @brief Frees additional resources used by this instance.
-		/// @param[in] bitmap Bitmap to free.
+		/// @param[in] bitmap Pointer to the Bitmap to free.
 		static void gc_free(Bitmap* bitmap);
 		/// @brief Ruby allocation of an instance.
 		static VALUE rb_new(VALUE classe);
@@ -59,6 +59,7 @@ namespace rgss
 		static VALUE rb_initialize(int argc, VALUE* argv, VALUE self);
 		/// @brief Used for clone and dup.
 		/// @param[in] original The original Bitmap.
+		/// @return Copy of original Bitmap.
 		static VALUE rb_initialize_copy(VALUE self, VALUE original);
 		/// @brief Disposes the object.
 		static VALUE rb_dispose(VALUE self);
@@ -96,10 +97,9 @@ namespace rgss
 		/// @param[in] argv Pointer to first argument.
 		/// @note Arguments are "x, y, src_bitmap, src_rect[, opacity]"
 		static VALUE rb_blt(int argc, VALUE* argv, VALUE self);
-
 		/// @brief Gets the bitmap's rectangle.
+		/// @return Rect The bitmap's rectangle.
 		static VALUE rb_getRect(VALUE self);
-
 		/// @brief Checks whether bitmap is disposed.
 		/// @return bool True if bitmap has been freed.
 		static VALUE rb_isDisposed(VALUE self);
@@ -120,7 +120,7 @@ namespace rgss
 		/// @param[in] opacity The alpha blend of the blit operation
 		static VALUE rb_stretchBlt(VALUE self, VALUE dest_rect, VALUE src_bitmap, VALUE src_rect, VALUE opacity); 
 		/// @brief Gets the rect needed to draw a string of text.
-		/// @return value The rect needed to draw a string of text.
+		/// @return Rect The rectangle needed to draw a string of text.
 		static VALUE rb_textSize(VALUE self, VALUE value);
 
 	protected:
@@ -139,9 +139,7 @@ namespace rgss
 		bool textureNeedsUpdate;
 		/// @brief Disposed flag.
 		bool disposed;
-
 	};
-
 }
 #endif
 

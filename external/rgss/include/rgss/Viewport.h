@@ -26,15 +26,15 @@ namespace rgss
 		/// @brief Disposed this viewport.
 		void dispose();
 
-		/// @brief Intializes the module.
+		/// @brief Initializes the module.
 		static void init();
 		/// @brief Exposes this class to Ruby.
 		static void createRubyInterface();
-		/// @brief Marks referenced values of sprite for garbage collection.
-		/// @param[in] sprite Sprite to mark.
+		/// @brief Marks referenced values of Viewport for garbage collection.
+		/// @param[in] viewport Pointer to the Viewport to mark.
 		static void gc_mark(Viewport* viewport);
 		/// @brief Frees allocated memory.
-		/// @param[in] sprite Sprite to free.
+		/// @param[in] viewport Pointer to the Viewport to free.
 		static void gc_free(Viewport* viewport);
 		/// @brief Ruby allocation of an instance.
 		static VALUE rb_new(VALUE classe);
@@ -44,31 +44,31 @@ namespace rgss
 		/// @note Arguments are "x, y, w, h" or "rect".
 		static VALUE rb_initialize(int argc, VALUE* argv, VALUE self);
 		/// @brief Gets a string representation of the instance.
-		/// @return String representation of the instance.
+		/// @return value The string representation of the instance.
 		static VALUE rb_inspect(VALUE self);
 
 		/// @brief Gets the color.
-		/// @return Color.
+		/// @return The Viewport's RGSS::Color object.
 		static VALUE rb_getColor(VALUE self);
 		/// @brief Sets the color.
-		/// @param[in] value Color.
+		/// @param[in] value An RGSS::Color object.
 		static VALUE rb_setColor(VALUE self, VALUE value);
 		/// @brief Gets the display rectangle.
-		/// @return Display rectangle.
+		/// @return The Viewport's RGSS::Rect object.
 		static VALUE rb_getRect(VALUE self);
 		/// @brief Sets the display rectangle.
-		/// @param[in] value Display rectangle.
+		/// @param[in] value An RGSS::Rect object.
 		static VALUE rb_setRect(VALUE self, VALUE value);
 		/// @brief Gets the tone.
-		/// @return Tone.
+		/// @return The Viewport's RGSS::Tone object.
 		static VALUE rb_getTone(VALUE self);
 		/// @brief Sets the tone.
-		/// @param[in] value Tone.
+		/// @param[in] value A RGSS::Tone object.
 		static VALUE rb_setTone(VALUE self, VALUE value);
 
-
-
-
+		/// @brief Blends a color with the Viewport for a duration.
+		/// @param[in] clr The Color to blend.
+		/// @param[in] duration The number of frames the color will be blended.
 		void flash(Color clr, int duration);
 		
 	protected:

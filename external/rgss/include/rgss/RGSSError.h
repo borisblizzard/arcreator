@@ -12,7 +12,7 @@ namespace rgss
 	class rgssExport RGSSError
 	{
 	public:
-		/// @brief Intializes the module.
+		/// @brief Initializes the module.
 		static void init();
 		/// @brief Exposes this class to Ruby.
 		static void createRubyInterface();

@@ -22,17 +22,19 @@ namespace rgss
 		/// @param[in] value The new value.
 		static void setRunning(bool value) { running = value; }
 
-		/// @brief Intializes the module.
+		/// @brief Initializes the module.
 		static void init();
 		/// @brief Exposes this class to Ruby.
 		static void createRubyInterface();
 
 		/// @brief Gets the frame count.
+		/// @return int Returns the frame-count.
 		static VALUE getFrameCount(VALUE self);
 		/// @brief Sets the frame count.
 		/// @param[in] value The new frame count.
 		static VALUE setFrameCount(VALUE self, VALUE value);
 		/// @brief Gets the frame rate.
+		/// @return int Returns the frame rate.
 		static VALUE getFrameRate(VALUE self);
 		/// @brief Sets the frame rate.
 		/// @param[in] value The new frame rate.
