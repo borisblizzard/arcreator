@@ -1,5 +1,11 @@
 #include <ruby.h>
 
+#include <april/RenderSystem.h>
+#include <gtypes/Matrix4.h>
+#include <gtypes/Rectangle.h>
+#include <hltypes/hstring.h>
+#include <hltypes/util.h>
+
 #include "CodeSnippets.h"
 #include "Tilemap.h"
 #include "Bitmap.h"
@@ -73,112 +79,113 @@ namespace rgss
 
 	VALUE Tilemap::rb_new(VALUE classe) 
 	{
+		/// @todo This needs implemented so that a Data_Make_Struct object can be returned. Using Sprite class? 
 		return classe;
 	}
 
 	VALUE Tilemap::rb_initialize(int argc, VALUE* argv, VALUE self) 
 	{
-		return self;
+		return Qnil;
 	}
 
 	VALUE Tilemap::rb_dispose(VALUE self)
 	{
-		return self;
+		return Qnil;
 	}
 
 	VALUE Tilemap::rb_getAutotiles(VALUE self)
 	{
-		return self;
+		return Qnil;
 	}
 
 	VALUE Tilemap::rb_setAutotiles(VALUE self, VALUE* value)
 	{
-		return self;
+		return Qnil;
 	}
 
 	VALUE Tilemap::rb_getMapData(VALUE self)
 	{
-		return self;
+		return Qnil;
 	}
 
 	VALUE Tilemap::rb_setMapData(VALUE self, VALUE* value)
 	{
-		return self;
+		return Qnil;
 	}
 
 	VALUE Tilemap::rb_getOx(VALUE self)
 	{
-		return self;
+		return Qnil;
 	}
 
 	VALUE Tilemap::rb_setOx(VALUE self, VALUE value)
 	{
-		return self;
+		return Qnil;
 	}
 
 	VALUE Tilemap::rb_getOy(VALUE self)
 	{
-		return self;
+		return Qnil;
 	}
 
 	VALUE Tilemap::rb_setOy(VALUE self, VALUE value)
 	{
-		return self;
+		return Qnil;
 	}
 
 	VALUE Tilemap::rb_getPriorities(VALUE self)
 	{
-		return self;
+		return Qnil;
 	}
 
 	VALUE Tilemap::rb_setPriorities(VALUE self, VALUE* value)
 	{
-		return self;
+		return Qnil;
 	}
 
 	VALUE Tilemap::rb_getFlashData(VALUE self)
 	{
-		return self;
+		return Qnil;
 	}
 
 	VALUE Tilemap::rb_setFlashData(VALUE self, VALUE* value)
 	{
-		return self;
+		return Qnil;
 	}
 
 	VALUE Tilemap::rb_getTileset(VALUE self)
 	{
-		return self;
+		return Qnil;
 	}
 
 	VALUE Tilemap::rb_setTileset(VALUE self, VALUE* value)
 	{
-		return self;
+		return Qnil;
 	}
 
 	VALUE Tilemap::rb_getVisible(VALUE self)
 	{
-		return self;
+		return Qnil;
 	}
 
 	VALUE Tilemap::rb_setVisible(VALUE self, VALUE value)
 	{
-		return self;
+		return Qnil;
 	}
 
 	VALUE Tilemap::rb_getViewport(VALUE self)
 	{
-		return self;
+		return Qnil;
 	}
 
 	VALUE Tilemap::rb_isDisposed(VALUE self)
 	{
-		return self;
+		return Qnil;
 	}
 
 	VALUE Tilemap::rb_update(VALUE self)
 	{
-		return self;
+		return Qnil;
 	}
 	/*
 

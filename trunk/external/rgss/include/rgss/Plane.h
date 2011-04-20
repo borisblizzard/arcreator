@@ -33,6 +33,7 @@ namespace rgss
 		static VALUE rb_new(VALUE classe);
 		/// @brief Initializes this instance.
 		/// @param[in] value The viewport to initialize the Plane with.
+		/// @todo Use a pointer here? Default argument if no Viewport is passed?
 		static VALUE rb_initialize(VALUE self, VALUE value);
 			
 		/// @brief Gets the plane's blend type
