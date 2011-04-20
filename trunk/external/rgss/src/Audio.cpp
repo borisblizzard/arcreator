@@ -18,16 +18,16 @@ namespace rgss
 	void Audio::createRubyInterface()
 	{
 		rb_mAudio = rb_define_module("Audio");
-		rb_define_module_function(rb_mAudio, "bgm_play", RUBY_METHOD_FUNC(&Audio::bgm_play), 3);
+		rb_define_module_function(rb_mAudio, "bgm_play", RUBY_METHOD_FUNC(&Audio::bgm_play), -1);
 		rb_define_module_function(rb_mAudio, "bgm_fade", RUBY_METHOD_FUNC(&Audio::bgm_fade), 1);
 		rb_define_module_function(rb_mAudio, "bgm_stop", RUBY_METHOD_FUNC(&Audio::bgm_stop), 0);
-		rb_define_module_function(rb_mAudio, "bgs_play", RUBY_METHOD_FUNC(&Audio::bgs_play), 3);
+		rb_define_module_function(rb_mAudio, "bgs_play", RUBY_METHOD_FUNC(&Audio::bgs_play), -1);
 		rb_define_module_function(rb_mAudio, "bgs_fade", RUBY_METHOD_FUNC(&Audio::bgs_fade), 1);
 		rb_define_module_function(rb_mAudio, "bgs_stop", RUBY_METHOD_FUNC(&Audio::bgs_stop), 0);
-		rb_define_module_function(rb_mAudio, "me_play", RUBY_METHOD_FUNC(&Audio::me_play), 3);
+		rb_define_module_function(rb_mAudio, "me_play", RUBY_METHOD_FUNC(&Audio::me_play), -1);
 		rb_define_module_function(rb_mAudio, "me_fade", RUBY_METHOD_FUNC(&Audio::me_fade), 1);
 		rb_define_module_function(rb_mAudio, "me_stop", RUBY_METHOD_FUNC(&Audio::me_stop), 0);
-		rb_define_module_function(rb_mAudio, "se_play", RUBY_METHOD_FUNC(&Audio::se_play), 3);
+		rb_define_module_function(rb_mAudio, "se_play", RUBY_METHOD_FUNC(&Audio::se_play), -1);
 		rb_define_module_function(rb_mAudio, "se_stop", RUBY_METHOD_FUNC(&Audio::se_stop), 0);
 	}
 
@@ -35,7 +35,7 @@ namespace rgss
 	 * Ruby Methods
 	 ****************************************************************************************/
 
-	VALUE Audio::bgm_play(VALUE self, VALUE filename, VALUE volume, VALUE pitch)
+	VALUE Audio::bgm_play(int argc, VALUE* argv, VALUE self)
 	{
 		return Qnil;
 	}
@@ -50,7 +50,7 @@ namespace rgss
 		return Qnil;
 	}
 
-	VALUE Audio::bgs_play(VALUE self, VALUE filename, VALUE volume, VALUE pitch)
+	VALUE Audio::bgs_play(int argc, VALUE* argv, VALUE self)
 	{
 		return Qnil;
 	}
@@ -65,7 +65,7 @@ namespace rgss
 		return Qnil;
 	}
 
-	VALUE Audio::me_play(VALUE self, VALUE filename, VALUE volume, VALUE pitch)
+	VALUE Audio::me_play(int argc, VALUE* argv, VALUE self)
 	{
 		return Qnil;
 	}
@@ -80,7 +80,7 @@ namespace rgss
 		return Qnil;
 	}
 
-	VALUE Audio::se_play(VALUE self, VALUE filename, VALUE volume, VALUE pitch)
+	VALUE Audio::se_play(int argc, VALUE* argv, VALUE self)
 	{
 		return Qnil;
 	}
