@@ -46,11 +46,8 @@ namespace rgss
 	{
 		this->bitmap->updateTexture();
 		april::rendersys->setTexture(this->bitmap->getTexture());
-		grect drawRect;
-		drawRect.x = (float)this->ox;
-		drawRect.y = (float)this->oy;
-		drawRect.w = (float)this->srcRect->width;
-		drawRect.h = (float)this->srcRect->height;
+		grect drawRect((float)this->ox, (float)this->oy,
+			(float)this->srcRect->width, (float)this->srcRect->height);
 		float w = (float)this->bitmap->getWidth();
 		float h = (float)this->bitmap->getHeight();
 		grect srcRect;

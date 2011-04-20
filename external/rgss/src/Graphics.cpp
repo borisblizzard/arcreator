@@ -18,6 +18,8 @@ namespace rgss
 
 	VALUE rb_mGraphics;
 
+	int Graphics::width;
+	int Graphics::height;
 	unsigned int Graphics::frameCount;
 	unsigned int Graphics::frameRate;
 	bool Graphics::running;
@@ -29,6 +31,9 @@ namespace rgss
 	
 	void Graphics::init()
 	{
+		april::Window* window = april::rendersys->getWindow();
+		width = window->getWidth();
+		height = window->getHeight();
 		frameCount = 0;
 		frameRate = 40;
 		running = true;

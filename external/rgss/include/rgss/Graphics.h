@@ -18,6 +18,12 @@ namespace rgss
 		/// @brief RenderQueue for all renderable objects.
 		static RenderQueue* renderQueue;
 
+		/// @brief Gets the render window width.
+		/// @result The render window width.
+		static int getWidth() { return width; }
+		/// @brief Sets the render window height.
+		/// @result The render window height.
+		static int getHeight() { return height; }
 		/// @brief Sets whether Graphics is still running.
 		/// @param[in] value The new value.
 		static void setRunning(bool value) { running = value; }
@@ -53,6 +59,10 @@ namespace rgss
 		static VALUE transition(VALUE self, VALUE duration, VALUE filename, VALUE vague);
 
 	private:
+		/// @brief Render window width.
+		static int width;
+		/// @brief Render window height.
+		static int height;
 		/// @brief The number of frames that have passed.
 		static unsigned int frameCount;
 		/// @brief The frame rate.

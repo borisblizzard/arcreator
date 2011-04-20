@@ -32,9 +32,10 @@ namespace rgss
 		/// @brief Ruby allocation of an instance.
 		static VALUE rb_new(VALUE classe);
 		/// @brief Initializes this instance.
-		/// @param[in] value The viewport to initialize the Plane with.
-		/// @todo Use a pointer here? Default argument if no Viewport is passed?
-		static VALUE rb_initialize(VALUE self, VALUE value);
+		/// @param[in] argc Number of arguments.
+		/// @param[in] argv Pointer to first argument.
+		/// @note Arguments are "[viewport]".
+		static VALUE rb_initialize(int argc, VALUE* argv, VALUE self);
 			
 		/// @brief Gets the plane's blend type
 		/// @return Returns the Plane's blend type.
@@ -68,9 +69,11 @@ namespace rgss
 		static VALUE rb_setZoomY(VALUE self, VALUE value);
 
 	protected:
+		/// @brief Gets the render area rectangle.
+		/// @return The render area rectangle.
+		Rect _getRenderRect();
 		/// @brief Renders the actual texture.
 		void _render();
-
 
 		/// @brief Blend type used for the plane
 		short blend_type;

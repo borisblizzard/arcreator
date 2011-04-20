@@ -4,6 +4,7 @@
 #include <april/RenderSystem.h>
 #include <april/Texture.h>
 #include <hltypes/exception.h>
+#include <hltypes/hfile.h>
 #include <hltypes/util.h>
 
 #include "CodeSnippets.h"
@@ -121,8 +122,18 @@ namespace rgss
 		rb_scan_args(argc, argv, "11", &arg1, &arg2);
 		if (NIL_P(arg2))
 		{
-			hstr filename = april::rendersys->findTextureFile(StringValuePtr(arg1));
-			bitmap->imageSource = april::loadImage(filename);
+			hstr filename = StringValuePtr(arg1);
+			hstr fullFilename = april::rendersys->findTextureFile(filename);
+			if (fullFilename == "")
+			{
+				/// @todo Has to throw Errno::ENOENT without using eval()
+				//rb_raise(rb_eENOENT, ("No such file or directory - " + filename).c_str());
+				//rb_raise(rb_eENOENT, ("No such file or directory - " + filename).c_str());
+				//rb_raise(rb_eRGSSError, ("No such file or directory - " + filename).c_str());
+				hstr evalString = "raise Errno::ENOENT.new(\"" + filename + "\")";
+				rb_eval_string(evalString.c_str());
+			}
+			bitmap->imageSource = april::loadImage(fullFilename);
 		}
 		else
 		{

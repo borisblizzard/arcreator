@@ -8,6 +8,7 @@
 #include "CodeSnippets.h"
 #include "Bitmap.h"
 #include "Color.h"
+#include "Graphics.h"
 #include "Plane.h"
 #include "Tone.h"
 #include "Viewport.h"
@@ -27,12 +28,14 @@ namespace rgss
 			return;
 		}
 		gmat4 viewMatrix = april::rendersys->getModelviewMatrix();
-		/*
-		if (this->x != 0 || this->y != 0)
+		if (this->viewport != NULL)
 		{
-			april::rendersys->translate((float)this->x, (float)this->y);
+			Rect* rect = this->viewport->getRect();
+			if (rect->x != 0 || rect->y != 0)
+			{
+				april::rendersys->translate((float)rect->x, (float)rect->y);
+			}
 		}
-		*/
 		this->_render();
 		april::rendersys->setModelviewMatrix(viewMatrix);
 	}
@@ -41,9 +44,31 @@ namespace rgss
 	{
 		this->bitmap->updateTexture();
 		april::rendersys->setTexture(this->bitmap->getTexture());
-		//april::rendersys->draw>drawTexturedQuad(drawRect, srcRect);
-		april::rendersys->drawColoredQuad(grect(0, 0, 1, 1), APRIL_COLOR_CYAN);
+		grect drawRect = this->_getRenderRect().toGRect();
+		float w = (float)this->bitmap->getWidth();
+		float h = (float)this->bitmap->getHeight();
+		grect srcRect;
+		srcRect.x = -(float)this->ox / w;
+		srcRect.y = -(float)this->oy / h;
+		srcRect.w = drawRect.w / w;
+		srcRect.h = drawRect.h / h;
+		april::rendersys->drawTexturedQuad(drawRect, srcRect);
 	}
+
+	Rect Plane::_getRenderRect()
+	{
+		Rect rect;
+		if (this->viewport != NULL)
+		{
+			rect = Rect(*this->viewport->getRect());
+		}
+		else
+		{
+			rect.set(0, 0, Graphics::getWidth(), Graphics::getHeight());
+		}
+		return rect;
+	}
+
 	/****************************************************************************************
 	 * Ruby Interfacing, Creation, Destruction, Systematics
 	 ****************************************************************************************/
@@ -102,13 +127,12 @@ namespace rgss
 		return result;
 	}
 
-	VALUE Plane::rb_initialize(VALUE self, VALUE rb_viewport)
+	VALUE Plane::rb_initialize(int argc, VALUE* argv, VALUE self)
 	{
 		RB_SELF2CPP(Plane, plane);
-		plane->initializeSourceRenderer(rb_viewport);
-		plane->rb_viewport = rb_viewport;
-		RB_VAR2CPP(rb_viewport, Viewport, viewport);
-		plane->viewport = viewport;
+		VALUE viewport;
+		rb_scan_args(argc, argv, "01", &viewport);
+		plane->initializeSourceRenderer(viewport);
 		return self;
 	}
 
