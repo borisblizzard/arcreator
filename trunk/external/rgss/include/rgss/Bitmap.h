@@ -120,7 +120,7 @@ namespace rgss
 		/// @param[in] opacity The alpha blend of the blit operation
 		static VALUE rb_stretchBlt(VALUE self, VALUE dest_rect, VALUE src_bitmap, VALUE src_rect, VALUE opacity); 
 		/// @brief Gets the rect needed to draw a string of text.
-		/// @return Rect The rectangle needed to draw a string of text.
+		/// @return value The rectangle needed to draw a string of text.
 		static VALUE rb_textSize(VALUE self, VALUE value);
 
 	protected:
@@ -135,7 +135,7 @@ namespace rgss
 		april::Texture* texture;
 		/// @brief Actual Image Source.
 		april::ImageSource* imageSource;
-		/// @brief Update flag for texture recreation when imageSource has changed to reupload it on the GFX card.
+		/// @brief Update flag for texture recreation when imageSource has changed to re-upload it on the GFX card.
 		bool textureNeedsUpdate;
 		/// @brief Disposed flag.
 		bool disposed;
