@@ -149,7 +149,7 @@ namespace rgss
 
 	VALUE Window::update(VALUE self)
 	{
-		return self;
+		return Qnil;
 	}
 
 }

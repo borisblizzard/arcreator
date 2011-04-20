@@ -124,52 +124,52 @@ namespace rgss
 
 	VALUE Plane::rb_getBlendType(VALUE self)
 	{
-		return self;
+		return Qnil;
 	}
 
 	VALUE Plane::rb_setBlendType(VALUE self, VALUE value)
 	{
-		return self;
+		return Qnil;
 	}
 
 	VALUE Plane::rb_getColor(VALUE self)
 	{
-		return self;
+		return Qnil;
 	}
 
 	VALUE Plane::rb_setColor(VALUE self, VALUE value)
 	{
-		return self;
+		return Qnil;
 	}
 
 	VALUE Plane::rb_getTone(VALUE self)
 	{
-		return self;
+		return Qnil;
 	}
 
 	VALUE Plane::rb_setTone(VALUE self, VALUE value)
 	{
-		return self;
+		return Qnil;
 	}
 
 	VALUE Plane::rb_getZoomX(VALUE self)
 	{
-		return self;
+		return Qnil;
 	}
 
 	VALUE Plane::rb_setZoomX(VALUE self, VALUE value)
 	{
-		return self;
+		return Qnil;
 	}
 
 	VALUE Plane::rb_getZoomY(VALUE self)
 	{
-		return self;
+		return Qnil;
 	}
 
 	VALUE Plane::rb_setZoomY(VALUE self, VALUE value)
 	{
-		return self;
+		return Qnil;
 	}
 
 }
