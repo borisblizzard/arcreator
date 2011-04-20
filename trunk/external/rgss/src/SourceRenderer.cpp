@@ -16,9 +16,6 @@ namespace rgss
 
 	void SourceRenderer::initializeSourceRenderer(VALUE rb_viewport)
 	{
-		this->opacity = 255;
-		this->rb_bitmap = Qnil;
-		this->bitmap = NULL;
 		this->rb_viewport = rb_viewport;
 		if (!NIL_P(this->rb_viewport))
 		{
@@ -31,6 +28,9 @@ namespace rgss
 			this->viewport = NULL;
 			this->initializeRenderable(Graphics::renderQueue);
 		}
+		this->opacity = 255;
+		this->rb_bitmap = Qnil;
+		this->bitmap = NULL;
 	}
 
 	/****************************************************************************************

@@ -5,8 +5,8 @@
 
 #include "Color.h"
 #include "Rect.h"
-#include "SourceRenderer.h"
 #include "Tone.h"
+#include "Zoomable.h"
 #include "rgssExport.h"
 
 namespace rgss
@@ -14,23 +14,9 @@ namespace rgss
 	extern VALUE rb_cSprite;
 
 	/// @brief Emulates RGSS's Sprite class.
-	class rgssExport Sprite : public SourceRenderer
+	class rgssExport Sprite : public Zoomable
 	{
 	public:
-		/*
-		/// @brief Gets the X coordinate.
-		/// @return The X coordinate.
-		int getX() { return this->x; }
-		/// @brief Sets the X coordinate.
-		/// @param[in] value The X coordinate.
-		void setX(int value) { this->x = value; }
-		/// @brief Gets the Y coordinate.
-		/// @return The Y coordinate.
-		int getY() { return this->y; }
-		/// @brief Sets the Y coordinate.
-		/// @param[in] value The Y coordinate.
-		void setY(int value) { this->y = value; }
-		*/
 		/// @brief Gets the source rectangle.
 		/// @return Source Rectangle.
 		Rect* getSrcRect() { return this->srcRect; }
@@ -56,6 +42,9 @@ namespace rgss
 		/// @note Arguments are "[viewport]".
 		static VALUE rb_initialize(int argc, VALUE* argv, VALUE self);
 
+		/// @brief Sets the bitmap.
+		/// @param[in] value The Sprite's RGSS::Bitmap object.
+		static VALUE rb_setBitmap(VALUE self, VALUE value);
 		/// @brief Gets the X coordinate.
 		/// @return value The X coordinate.
 		static VALUE rb_getX(VALUE self);
@@ -80,9 +69,6 @@ namespace rgss
 		/// @brief Sets the source rectangle.
 		/// @param[in] value Sets the Sprite's source RGSS::Rect object.
 		static VALUE rb_setSrcRect(VALUE self, VALUE value);
-		/// @brief Sets the bitmap.
-		/// @param[in] value The Sprite's RGSS::Bitmap object.
-		static VALUE rb_setBitmap(VALUE self, VALUE value);
 
 		/// @todo Where's the rb_getBitmap method? 
 
@@ -90,12 +76,6 @@ namespace rgss
 		/// @param[in] color Color component.
 		/// @param[in] duration Number of frames.
 		static VALUE flash(VALUE self, VALUE color, VALUE duration);
-		/// @brief Sets the sprite zoom on the x-axis.
-		/// param[in] value The zoom value of the X-axis.
-		static VALUE setZoomX(VALUE self, VALUE value);
-		/// @brief Sets the sprite zoom on the y-axis.
-		/// param[in] value The zoom value of the Y-axis.
-		static VALUE setZoomY(VALUE self, VALUE value);
 		/// @brief Invokes the sprites update method.
 		static VALUE update(VALUE self);
 

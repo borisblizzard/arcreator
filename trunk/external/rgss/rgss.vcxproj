@@ -136,10 +136,12 @@
     <ClCompile Include="src\Tone.cpp" />
     <ClCompile Include="src\Viewport.cpp" />
     <ClCompile Include="src\Window.cpp" />
+    <ClCompile Include="src\Zoomable.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\rgss\Audio.h" />
     <ClInclude Include="include\rgss\Bitmap.h" />
+    <ClInclude Include="include\rgss\BlendType.h" />
     <ClInclude Include="include\rgss\Color.h" />
     <ClInclude Include="include\rgss\Font.h" />
     <ClInclude Include="include\rgss\Graphics.h" />
@@ -158,6 +160,7 @@
     <ClInclude Include="include\rgss\Window.h" />
     <ClInclude Include="include\rgss\rgss.h" />
     <ClInclude Include="include\rgss\rgssExport.h" />
+    <ClInclude Include="include\rgss\Zoomable.h" />
     <ClInclude Include="src\CodeSnippets.h" />
     <ClInclude Include="src\Constants.h" />
   </ItemGroup>
