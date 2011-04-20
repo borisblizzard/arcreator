@@ -262,42 +262,42 @@ namespace rgss
 
 	VALUE Bitmap::rb_dispose(VALUE self) 
 	{
-		return self;
+		return Qnil;
 	}
 
 	VALUE Bitmap::rb_getRect(VALUE self)
 	{
-		return self;
+		return  Qnil;
 	}
 
 	VALUE Bitmap::rb_clear(VALUE self)
 	{
-		return self;
+		return  Qnil;
 	}
 
 	VALUE Bitmap::rb_isDisposed(VALUE self)
 	{
-		return self;
+		return Qnil;
 	}
 
 	VALUE Bitmap::rb_drawText(int argc, VALUE* argv, VALUE self)
 	{
-		return self;
+		return Qnil;
 	}
 
 	VALUE Bitmap::rb_changeHue(VALUE self, VALUE hue)
 	{
-		return self;
+		return Qnil;
 	}
 
 	VALUE Bitmap::rb_stretchBlt(VALUE self, VALUE dest_rect, VALUE src_bitmap, VALUE src_rect, VALUE opacity)
 	{
-		return self;
+		return Qnil;
 	}
 
 	VALUE Bitmap::rb_textSize(VALUE self, VALUE value)
 	{
-		return self;
+		return Qnil;
 	}
 	
 }
