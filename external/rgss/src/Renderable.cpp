@@ -75,6 +75,13 @@ namespace rgss
 		renderable->dispose();
 	}
 
+	VALUE Renderable::rb_dispose(VALUE self)
+	{
+		RB_SELF2CPP(Renderable, renderable);
+		renderable->dispose();
+		return Qnil;
+	}
+
 	/****************************************************************************************
 	 * Ruby Getters/Setters
 	 ****************************************************************************************/
@@ -140,17 +147,6 @@ namespace rgss
 	{
 		RB_SELF2CPP(Renderable, renderable);
 		return (renderable->disposed ? Qtrue : Qfalse);
-	}
-
-	/****************************************************************************************
-	 * Ruby Methods
-	 ****************************************************************************************/
-
-	VALUE Renderable::rb_dispose(VALUE self)
-	{
-		RB_SELF2CPP(Renderable, renderable);
-		renderable->dispose();
-		return Qnil;
 	}
 
 }

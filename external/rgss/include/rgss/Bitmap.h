@@ -32,8 +32,11 @@ namespace rgss
 		/// @brief Gets the height.
 		/// @return Height of april::Texture.
 		int getHeight();
+
 		/// @brief Updates the texture on the graphic card if necessary.
-		void Bitmap::updateTexture();
+		void updateTexture();
+		/// @brief Disposes this renderable.
+		void dispose();
 
 		/// @brief Initializes the module.
 		static void init();
@@ -71,6 +74,9 @@ namespace rgss
 		/// @brief Sets the font used for the bitmap.
 		/// param[in] value The font to set for the bitmap.
 		static VALUE rb_setFont(VALUE self, VALUE value);
+		/// @brief Checks whether bitmap is disposed.
+		/// @return bool True if bitmap has been freed.
+		static VALUE rb_isDisposed(VALUE self);
 
 		/// @brief Get the color of a pixel at (x, y).
 		/// @param[in] x X coordinate.
@@ -87,19 +93,15 @@ namespace rgss
 		/// @param[in] argv Pointer to first argument.
 		/// @note Arguments are "[x, y, width, height, color]" or "[rect, color]".
 		static VALUE rb_fillRect(int argc, VALUE* argv, VALUE self);
+		/// @brief Clears the entire bitmap
+		static VALUE rb_clear(VALUE self);
 		/// @brief Blits src_rect from source bitmap to this one.
 		/// @param[in] argc Number of arguments.
 		/// @param[in] argv Pointer to first argument.
 		/// @note Arguments are "x, y, src_bitmap, src_rect[, opacity]"
 		static VALUE rb_blt(int argc, VALUE* argv, VALUE self);
-		/// @brief Gets the bitmap's rectangle.
-		/// @return Rect The bitmap's rectangle.
-		static VALUE rb_getRect(VALUE self);
-		/// @brief Checks whether bitmap is disposed.
-		/// @return bool True if bitmap has been freed.
-		static VALUE rb_isDisposed(VALUE self);
-		/// @brief Clears the entire bitmap
-		static VALUE rb_clear(VALUE self);
+
+
 		/// @brief Sets the color to the specified value.
 		/// @param[in] argc Number of arguments.
 		/// @param[in] argv Pointer to first argument.
@@ -123,8 +125,6 @@ namespace rgss
 		Font* font;
 		/// @brief Ruby object of the Font used to draw text.
 		VALUE rb_font;
-		/// @brief The bitmap's rectangle.
-		Rect rect;
 
 		/// @brief Underlying rendering system texture.
 		april::Texture* texture;

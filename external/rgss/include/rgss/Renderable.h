@@ -39,6 +39,8 @@ namespace rgss
 		/// @brief Frees allocated memory.
 		/// @param[in] renderable Renderable to free.
 		static void gc_free(Renderable* renderable);
+		/// @brief Disposes the object.
+		static VALUE rb_dispose(VALUE self);
 
 		/// @brief Gets the visibility.
 		/// @return The visibility.
@@ -67,9 +69,6 @@ namespace rgss
 		/// @brief Checks whether this renderable is disposed.
 		/// @return True if renderable is disposed.
 		static VALUE rb_isDisposed(VALUE self);
-
-		/// @brief Disposes the object.
-		static VALUE rb_dispose(VALUE self);
 
 	protected:
 		/// @brief The RenderQueue this renderable belongs to.

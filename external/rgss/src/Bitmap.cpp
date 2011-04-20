@@ -46,6 +46,21 @@ namespace rgss
 		}
 	}
 
+	void Bitmap::dispose()
+	{
+		if (this->imageSource != NULL)
+		{
+			delete this->imageSource;
+			this->imageSource = NULL;
+		}
+		if (this->texture != NULL)
+		{
+			delete this->texture;
+			this->texture = NULL;
+		}
+		this->disposed = true;
+	}
+
 	/****************************************************************************************
 	 * Ruby Interfacing, Creation, Destruction, Systematics
 	 ****************************************************************************************/
@@ -67,15 +82,14 @@ namespace rgss
 		// not implemented yet
 		rb_define_method(rb_cBitmap, "font", RUBY_METHOD_FUNC(&Bitmap::rb_getFont), 0);
 		rb_define_method(rb_cBitmap, "font=", RUBY_METHOD_FUNC(&Bitmap::rb_setFont), 1);
-		rb_define_method(rb_cBitmap, "rect", RUBY_METHOD_FUNC(&Bitmap::rb_getRect), 0);
 		// methods
 		rb_define_method(rb_cBitmap, "get_pixel", RUBY_METHOD_FUNC(&Bitmap::rb_getPixel), 2);
 		rb_define_method(rb_cBitmap, "set_pixel", RUBY_METHOD_FUNC(&Bitmap::rb_setPixel), 3);
 		rb_define_method(rb_cBitmap, "fill_rect", RUBY_METHOD_FUNC(&Bitmap::rb_fillRect), -1); 
+		rb_define_method(rb_cBitmap, "clear", RUBY_METHOD_FUNC(&Bitmap::rb_clear), 0); 
 		rb_define_method(rb_cBitmap, "blt", RUBY_METHOD_FUNC(&Bitmap::rb_blt), -1); 
 		// not implemented yet
 			
-		rb_define_method(rb_cBitmap, "clear", RUBY_METHOD_FUNC(&Bitmap::rb_clear), 0); 
 		rb_define_method(rb_cBitmap, "dispose", RUBY_METHOD_FUNC(&Bitmap::rb_dispose), 0); 
 		rb_define_method(rb_cBitmap, "disposed?", RUBY_METHOD_FUNC(&Bitmap::rb_isDisposed), 0); 
 		rb_define_method(rb_cBitmap, "draw_text", RUBY_METHOD_FUNC(&Bitmap::rb_drawText), -1); 
@@ -94,16 +108,7 @@ namespace rgss
 
 	void Bitmap::gc_free(Bitmap* bitmap)
 	{
-		if (bitmap->imageSource != NULL)
-		{
-			delete bitmap->imageSource;
-			bitmap->imageSource = NULL;
-		}
-		if (bitmap->texture != NULL)
-		{
-			delete bitmap->texture;
-			bitmap->texture = NULL;
-		}
+		bitmap->dispose();
 	}
 
 	VALUE Bitmap::rb_new(VALUE classe) 
@@ -128,8 +133,6 @@ namespace rgss
 			{
 				/// @todo Has to throw Errno::ENOENT without using eval()
 				//rb_raise(rb_eENOENT, ("No such file or directory - " + filename).c_str());
-				//rb_raise(rb_eENOENT, ("No such file or directory - " + filename).c_str());
-				//rb_raise(rb_eRGSSError, ("No such file or directory - " + filename).c_str());
 				hstr evalString = "raise Errno::ENOENT.new(\"" + filename + "\")";
 				rb_eval_string(evalString.c_str());
 			}
@@ -160,6 +163,13 @@ namespace rgss
 		return self;
 	}
 
+	VALUE Bitmap::rb_dispose(VALUE self)
+	{
+		RB_SELF2CPP(Bitmap, bitmap);
+		bitmap->dispose();
+		return Qnil;
+	}
+
 	/****************************************************************************************
 	 * Ruby Getters/Setters
 	 ****************************************************************************************/
@@ -186,6 +196,12 @@ namespace rgss
 	{
 		RB_GENERATE_SETTER(Bitmap, bitmap, Font, font);
 		return self;
+	}
+
+	VALUE Bitmap::rb_isDisposed(VALUE self)
+	{
+		RB_SELF2CPP(Bitmap, bitmap);
+		return (bitmap->disposed ? Qtrue : Qfalse);
 	}
 
 	/****************************************************************************************
@@ -242,6 +258,14 @@ namespace rgss
 		return self;
 	}
 
+	VALUE Bitmap::rb_clear(VALUE self)
+	{
+		RB_SELF2CPP(Bitmap, bitmap);
+		bitmap->imageSource->setPixels(0, 0, bitmap->getWidth(), bitmap->getHeight(), APRIL_COLOR_CLEAR);
+		bitmap->textureNeedsUpdate = true;
+		return self;
+	}
+
 	VALUE Bitmap::rb_blt(int argc, VALUE* argv, VALUE self)
 	{
 		RB_SELF2CPP(Bitmap, bitmap);
@@ -270,26 +294,6 @@ namespace rgss
 
 
 
-
-	VALUE Bitmap::rb_dispose(VALUE self) 
-	{
-		return Qnil;
-	}
-
-	VALUE Bitmap::rb_getRect(VALUE self)
-	{
-		return  Qnil;
-	}
-
-	VALUE Bitmap::rb_clear(VALUE self)
-	{
-		return  Qnil;
-	}
-
-	VALUE Bitmap::rb_isDisposed(VALUE self)
-	{
-		return Qnil;
-	}
 
 	VALUE Bitmap::rb_drawText(int argc, VALUE* argv, VALUE self)
 	{

@@ -28,14 +28,6 @@ namespace rgss
 			return;
 		}
 		gmat4 viewMatrix = april::rendersys->getModelviewMatrix();
-		if (this->viewport != NULL)
-		{
-			Rect* rect = this->viewport->getRect();
-			if (rect->x != 0 || rect->y != 0)
-			{
-				april::rendersys->translate((float)rect->x, (float)rect->y);
-			}
-		}
 		this->_render();
 		april::rendersys->setModelviewMatrix(viewMatrix);
 	}
@@ -48,8 +40,8 @@ namespace rgss
 		float w = (float)this->bitmap->getWidth();
 		float h = (float)this->bitmap->getHeight();
 		grect srcRect;
-		srcRect.x = -(float)this->ox / w;
-		srcRect.y = -(float)this->oy / h;
+		srcRect.x = -this->ox / w;
+		srcRect.y = -this->oy / h;
 		srcRect.w = drawRect.w / w;
 		srcRect.h = drawRect.h / h;
 		april::rendersys->drawTexturedQuad(drawRect, srcRect);
@@ -60,7 +52,8 @@ namespace rgss
 		Rect rect;
 		if (this->viewport != NULL)
 		{
-			rect = Rect(*this->viewport->getRect());
+			Rect* vRect = this->viewport->getRect();
+			rect.set(0, 0, vRect->width, vRect->height);
 		}
 		else
 		{
