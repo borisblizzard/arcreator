@@ -15,24 +15,6 @@ namespace rgss
 	class rgssExport Color
 	{
 	public:
-		/// @brief Default constructor.
-		Color();
-		/// @brief Constructor.
-		/// @param[in] r Red component.
-		/// @param[in] g Green component.
-		/// @param[in] b Blue component.
-		/// @param[in] a Alpha component.
-		/// @note Color values will be clamped between -255 and 255.
-		/// @note Alpha is clamped between 0 and 255.
-		Color(float r, float g, float b, float a = 0.0f);
-		/// @brief Constructor.
-		/// @param[in] color april::Color.
-		/// @note Color values will be clamped between -255 and 255.
-		/// @note Alpha is clamped between 0 and 255.
-		Color(april::Color color);
-		/// @todo Dummy, needs to be removed.
-		~Color();
-
 		/// @brief Red component.
 		float red;
 		/// @brief Green component.

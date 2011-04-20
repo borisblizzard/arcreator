@@ -21,6 +21,10 @@ namespace rgss
 	public:
 		RenderQueue* renderQueue;
 
+		/// @brief Gets the Rect.
+		/// @return The Rect.
+		Rect* getRect() { return this->rect; }
+
 		/// @brief Draws this sprite on the screen.
 		void draw();
 		/// @brief Disposed this viewport.

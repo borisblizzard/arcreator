@@ -3,6 +3,8 @@
 
 #include <ruby.h>
 
+#include <gtypes/Rectangle.h>
+
 #include "rgssExport.h"
 
 namespace rgss
@@ -28,6 +30,10 @@ namespace rgss
 		/// @param[in] width The width.
 		/// @param[in] height The height.
 		void set(int x, int y, int width, int height);
+
+		/// @brief Converts this instance into gtypes::Rectangle.
+		/// @return gtypes::Rectangle representation.
+		grect toGRect();
 
 		/// @brief Initializes the module.
 		static void init();

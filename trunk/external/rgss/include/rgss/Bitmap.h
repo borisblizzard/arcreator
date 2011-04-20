@@ -23,11 +23,6 @@ namespace rgss
 	class rgssExport Bitmap
 	{
 	public:
-		/// @todo Dummy, needs to be removed.
-		Bitmap() { }
-		/// @todo Dummy, needs to be removed.
-		~Bitmap() { }
-
 		/// @brief Gets the april::Texture.
 		/// @return april::Texture used to draw.
 		april::Texture* getTexture() { return this->texture; }

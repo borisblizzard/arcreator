@@ -1,5 +1,6 @@
 #include <ruby.h>
 
+#include <gtypes/Rectangle.h>
 #include <hltypes/util.h>
 
 #include "CodeSnippets.h"
@@ -19,6 +20,11 @@ namespace rgss
 		this->y = y;
 		this->width = width;
 		this->height = height;
+	}
+
+	grect Rect::toGRect()
+	{
+		return grect((float)this->x, (float)this->y, (float)this->width, (float)this->height);
 	}
 
 	/****************************************************************************************

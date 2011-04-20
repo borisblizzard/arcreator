@@ -46,7 +46,6 @@ s2.oy = 32
 s2.src_rect.set(16, 16, 40, 40)
 p s2.src_rect
 w1 = Window.new
-#p1 = Plane.new()
 viewport = Viewport.new(16, 16, 64, 64)
 s11 = Sprite.new(viewport)
 s11.z = 1000
@@ -59,6 +58,9 @@ s12.bitmap.fill_rect(0, 0, 64, 64, Color.new(0, 128, 255))
 s12.x = -32
 s12.y = 32
 viewport.z = -100
+p1 = Plane.new(viewport)
+p1.ox = 128
+p1.bitmap = Bitmap.new("test_resources/04-Chaos01")
 
 loop do
 	Graphics.update

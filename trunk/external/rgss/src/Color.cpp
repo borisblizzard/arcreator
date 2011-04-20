@@ -14,34 +14,6 @@ namespace rgss
 
 	VALUE rb_cColor;
 
-	Color::Color()
-	{
-		this->red = 255.0f;
-		this->green = 255.0f;
-		this->blue = 255.0f;
-		this->alpha = 255.0f;
-	}
-
-	Color::Color(float r, float g, float b, float a)
-	{
-		this->red = hclamp(r, -255.0f, 255.0f);
-		this->green = hclamp(g, -255.0f, 255.0f);
-		this->blue = hclamp(b, -255.0f, 255.0f);
-		this->alpha = hclamp(a, 0.0f, 255.0f);
-	}
-
-	Color::Color(april::Color color)
-	{
-		this->red = (float)color.r;
-		this->green = (float)color.g;
-		this->blue = (float)color.b;
-		this->alpha = (float)color.a;
-	}
-
-	Color::~Color()
-	{
-	}
-
 	void Color::set(float r, float g, float b, float a)
 	{
 		this->red = hclamp(r, -255.0f, 255.0f);
