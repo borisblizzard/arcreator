@@ -51,15 +51,15 @@ namespace rgss
 		~Font();
 		*/
 
-		/// @brief Intializes the module.
+		/// @brief Initializes the module.
 		static void init();
 		/// @brief Exposes this class to Ruby.
 		static void createRubyInterface();
 		/// @brief Marks referenced values of font for garbage collection.
-		/// @param[in] Font Font to mark.
+		/// @param[in] font Pointer to the Font to mark.
 		static void gc_mark(Font* font);
 		/// @brief Frees allocated memory.
-		/// @param[in] font Font to free.
+		/// @param[in] font Pointer to the Font to free.
 		static void gc_free(Font* font);
 		/// @brief Ruby allocation of an instance.
 		static VALUE rb_new(VALUE classe);
@@ -73,65 +73,65 @@ namespace rgss
 		static VALUE create(int argc, VALUE* argv);
 
 		/// @brief Gets the font's name.
-		/// @return Name of the font.
+		/// @return value Name of the font.
 		static VALUE rb_getName(VALUE self);
 		/// @brief Sets the font's name.
-		/// @param[in] Name of the font.
+		/// @param[in] value Name of the font.
 		static VALUE rb_setName(VALUE self, VALUE value);
 		/// @brief Gets the font's size.
-		/// @return Value of the font's size.
+		/// @return value Value of the font's size.
 		static VALUE rb_getSize(VALUE self);
 		/// @brief Sets the font's size.
-		/// @param[in] Value of the font's size.
+		/// @param[in] value Value of the font's size.
 		static VALUE rb_setSize(VALUE self, VALUE value);
 		/// @brief Gets the font's bold value.
-		/// @return Value of bold parameter.
+		/// @return bool Value of bold parameter.
 		static VALUE rb_getBold(VALUE self);
 		/// @brief Sets the font's bold value.
-		/// @param[in] Value of bold parameter.
+		/// @param[in] bool Value of bold parameter.
 		static VALUE rb_setBold(VALUE self, VALUE value);
 		/// @brief Gets the font's italic value.
-		/// @return Value of italic parameter.
+		/// @return bool Value of italic parameter.
 		static VALUE rb_getItalic(VALUE self);
 		/// @brief Sets the font's italic value.
-		/// @param[in] Value of italic parameter.
+		/// @param[in] bool Value of italic parameter.
 		static VALUE rb_setItalic(VALUE self, VALUE value);
 		/// @brief Gets the font's color.
-		/// @return Color used for the font.
+		/// @return value The Color value used for the font.
 		static VALUE rb_getColor(VALUE self);
 		/// @brief Sets the font's color.
-		/// @param[in] Color used for the font.
+		/// @param[in] value The Color used for the font.
 		static VALUE rb_setColor(VALUE self, VALUE value);
 
 		/// @brief Gets the font's name.
-		/// @return Default name of the font.
+		/// @return value Default name of the font.
 		static VALUE rb_getDefaultName(VALUE classe);
 		/// @brief Sets the font's name.
-		/// @param[in] Default name of the font.
+		/// @param[in] value Default name of the font.
 		static VALUE rb_setDefaultName(VALUE classe, VALUE value);
 		/// @brief Gets the font's size.
 		/// @return Default value of the font's size.
 		static VALUE rb_getDefaultSize(VALUE classe);
 		/// @brief Sets the font's size.
-		/// @param[in] Default value of the font's size.
+		/// @param[in] value Default value of the font's size.
 		static VALUE rb_setDefaultSize(VALUE classe, VALUE value);
 		/// @brief Gets the font's bold value.
 		/// @return Default value of bold parameter.
 		static VALUE rb_getDefaultBold(VALUE classe);
 		/// @brief Sets the font's bold value.
-		/// @param[in] Default value of bold parameter.
+		/// @param[in] value Default value of bold parameter.
 		static VALUE rb_setDefaultBold(VALUE classe, VALUE value);
 		/// @brief Gets the font's italic value.
-		/// @return Bool Default value of italic parameter.
+		/// @return bool Default value of italic parameter.
 		static VALUE rb_getDefaultItalic(VALUE classe);
 		/// @brief Sets the font's italic value.
-		/// @param[in] Bool Default value of italic parameter.
+		/// @param[in] value Default value of italic parameter.
 		static VALUE rb_setDefaultItalic(VALUE classe, VALUE value);
 		/// @brief Gets the font's color.
 		/// @return Default Color used for the font.
 		static VALUE rb_getDefaultColor(VALUE classe);
 		/// @brief Sets the font's color.
-		/// @param[in] Default Color used for the font.
+		/// @param[in] value Default Color used for the font.
 		static VALUE rb_setDefaultColor(VALUE classe, VALUE value);
 
 	protected:
@@ -147,8 +147,6 @@ namespace rgss
 		Color* color;
 		/// @brief Ruby object of font Color.
 		VALUE rb_color;
-
 	};
-
 }
 #endif

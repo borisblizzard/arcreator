@@ -36,7 +36,7 @@ namespace rgss
 		/// @note Gray is clamped between 0 and 255.
 		void set(float r, float g, float b, float gr = 0.0f);
 
-		/// @brief Intializes the module.
+		/// @brief Initializes the module.
 		static void init();
 		/// @brief Exposes this class to Ruby.
 		static void createRubyInterface();
@@ -50,7 +50,7 @@ namespace rgss
 		/// @note Gray is clamped between 0 and 255.
 		static VALUE rb_initialize(int argc, VALUE* argv, VALUE self);
 		/// @brief Gets a string representation of the instance.
-		/// @return String representation of the instance.
+		/// @return value The string representation of the instance.
 		static VALUE rb_inspect(VALUE self);
 
 		/// @brief Creates a C++ version of this class.
@@ -62,31 +62,31 @@ namespace rgss
 		static VALUE create(int argc, VALUE* argv);
 
 		/// @brief Gets the red component.
-		/// @return Red component.
+		/// @return value The red component.
 		static VALUE rb_getRed(VALUE self);
 		/// @brief Sets the red component.
-		/// @param[in] value Red component.
+		/// @param[in] value The red component.
 		/// @note The value will be clamped between -255 and 255.
 		static VALUE rb_setRed(VALUE self, VALUE value);
 		/// @brief Gets the green component.
-		/// @return Green component.
+		/// @return value The green component.
 		static VALUE rb_getGreen(VALUE self);
 		/// @brief Sets the green component.
 		/// @param[in] value Green component.
 		/// @note The value will be clamped between -255 and 255.
 		static VALUE rb_setGreen(VALUE self, VALUE value);
 		/// @brief Gets the blue component.
-		/// @return Blue component.
+		/// @return value The blue component.
 		static VALUE rb_getBlue(VALUE self);
 		/// @brief Sets the blue component.
-		/// @param[in] value Blue component.
+		/// @param[in] value The blue component.
 		/// @note The value will be clamped between -255 and 255.
 		static VALUE rb_setBlue(VALUE self, VALUE value);
 		/// @brief Gets the gray component.
-		/// @return Gray component.
+		/// @return value The gray component.
 		static VALUE rb_getGray(VALUE self);
 		/// @brief Sets the gray component.
-		/// @param[in] value Gray component.
+		/// @param[in] value The gray component.
 		/// @note The value will be clamped between 0 and 255.
 		static VALUE rb_setGray(VALUE self, VALUE value);
 
@@ -98,15 +98,15 @@ namespace rgss
 		/// @note Gray is clamped between 0 and 255.
 		static VALUE rb_set(int argc, VALUE* argv, VALUE self);
 
-		/// @brief returns a bytestring containging data needed to ronconstruct the Tone object
+		/// @brief returns a bytestring containing data needed to reconstruct the Tone object
 		/// @param[in] argc Number of arguments.
 		/// @param[in] argv Pointer to first argument.
-		/// @note only one argument d, it defualts to 0 and is used for object depth
-		/// @return byte string.
+		/// @note Only one argument d, it defaults to 0 and is used for object depth.
+		/// @return value The byte string.
 		static VALUE rb_dump(int argc, VALUE* argv, VALUE self);
 
-		/// @brief returns a Tone object constructed form a byte string
-		/// @param[in] value the byte string forom which to load the object
+		/// @brief Returns an RGSS::Tone object constructed from a byte string.
+		/// @param[in] value The byte string from which to load the object.
 		static VALUE rb_load(VALUE self, VALUE value);
 
 	};

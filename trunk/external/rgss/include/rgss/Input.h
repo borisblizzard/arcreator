@@ -14,7 +14,7 @@ namespace rgss
 	class rgssExport Input
 	{
 	public:
-		/// @brief Intializes the module.
+		/// @brief Initializes the module.
 		static void init();
 		/// @brief Exposes this class to Ruby.
 		static void createRubyInterface();
@@ -40,45 +40,45 @@ namespace rgss
 		static const int F8 = 28;
 		static const int F9 = 29;
 
-		// @brief Updates input data. As a rule, this method is called once per frame.
+		/// @brief Updates input data. As a rule, this method is called once per frame.
 		static VALUE rb_update(VALUE self);
-		// @brief Checks the status of the directional buttons, translates the data into a specialized 4-direction input format.
-		// @return int (2, 4, 6, 8) The state of the directional buttons.
+		/// @brief Checks the status of the directional buttons, translates the data into a specialized 4-direction input format.
+		/// @return int (2, 4, 6, 8) The state of the directional buttons.
 		static VALUE rb_dir4(VALUE self);
-		// @brief Checks the status of the directional buttons, translates the data into a specialized 8-direction input format.
-		// @return int (1, 2, 3, 4, 6, 7, 8, 9) The state of the directional buttons
+		/// @brief Checks the status of the directional buttons, translates the data into a specialized 8-direction input format.
+		/// @return int (1, 2, 3, 4, 6, 7, 8, 9) The state of the directional buttons
 		static VALUE rb_dir8(VALUE self);
-		// @brief Determines whether a button is being pressed again.
-		// @param[in] keycode An integer indentifying the keyboard key.
-		// @return bool true if the key is being pressed false if not.
-		static VALUE rb_trigger(VALUE self, VALUE keycode);
-		// @brief Determines whether a button is currently being pressed.
-		// @param[in] keycode An integer indentifying the keyboard key.
-		// @return bool true if the key is being pressed false if not.
-		static VALUE rb_press(VALUE self, VALUE keycode);
-		// @brief Determines whether a button is being pressed again.
-		// @param[in] keycode An integer indentifying the keyboard key.
-		// @return bool true if the key is being pressed false if not.
-		static VALUE rb_repeat(VALUE self, VALUE keycode);
+		/// @brief Determines whether a button is being pressed again.
+		/// @param[in] value An integer indentifying the keyboard key.
+		/// @return bool Boolean state of key being triggered.
+		static VALUE rb_trigger(VALUE self, VALUE value);
+		/// @brief Determines whether a button is currently being pressed.
+		/// @param[in] value An integer indentifying the keyboard key.
+		/// @return bool Boolean state of key being pressed.
+		static VALUE rb_press(VALUE self, VALUE value);
+		/// @brief Determines whether a button is being pressed again.
+		/// @param[in] value An integer indentifying the keyboard key.
+		/// @return bool Boolean state of key being triggered repeatedly.
+		static VALUE rb_repeat(VALUE self, VALUE value);
 
-		// @brief Determines whether a specific functionaly key is being pressed again.
-		// @param[in] keycode An integer indentifying the keyboard key.
-		// @return bool true if the key is being pressed false if not.
-		static bool isTriggered(unsigned char keycode);
-		// @brief Determines whether a specific functionaly key is currently being pressed.
-		// @param[in] keycode An integer indentifying the keyboard key.
-		// @return bool true if the key is being pressed false if not.
-		static bool isPressed(unsigned char keycode);
-		// @brief Determines whether a specific functionaly key is being pressed again.
-		// @param[in] keycode An integer indentifying the keyboard key.
-		// @return bool true if the key is being pressed false if not.
+		/// @brief Determines whether a specific functionality key is being pressed again.
+		/// @param[in] value An integer indentifying the keyboard key.
+		/// @return Boolean state of key being triggered.
+		static bool isTriggered(unsigned char value);
+		/// @brief Determines whether a specific functionality key is currently being pressed.
+		/// @param[in] value An integer indentifying the keyboard key.
+		/// @return Boolean state of key being pressed.
+		static bool isPressed(unsigned char value);
+		/// @brief Determines whether a specific functionality key is being pressed again.
+		/// @param[in] keycode An integer indentifying the keyboard key.
+		/// @return bool Boolean state of key being triggered repeatedly.
 		static bool isRepeated(unsigned char keycode);
-		// @brief Key Down input callback.
-		// @param[in] keycode An integer indentifying the keyboard key.
-		static void onKeyDown(unsigned int keycode);
-		// @brief Key Up input callback.
-		// @param[in] keycode An integer indentifying the keyboard key.
-		static void onKeyUp(unsigned int keycode);
+		/// @brief Key Down input callback.
+		/// @param[in] value An integer indentifying the keyboard key.
+		static void onKeyDown(unsigned int value);
+		/// @brief Key Up input callback.
+		/// @param[in] value An integer indentifying the keyboard key.
+		static void onKeyUp(unsigned int value);
 
 	};
 	

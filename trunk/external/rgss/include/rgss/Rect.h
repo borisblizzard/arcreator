@@ -29,7 +29,7 @@ namespace rgss
 		/// @param[in] height The height.
 		void set(int x, int y, int width, int height);
 
-		/// @brief Intializes the module.
+		/// @brief Initializes the module.
 		static void init();
 		/// @brief Exposes this class to Ruby.
 		static void createRubyInterface();
@@ -42,7 +42,7 @@ namespace rgss
 		/// @param[in] height The height.
 		static VALUE rb_initialize(VALUE self, VALUE x, VALUE y, VALUE width, VALUE height);
 		/// @brief Gets a string representation of the instance.
-		/// @return String representation of the instance.
+		/// @return value String representation of the instance.
 		static VALUE rb_inspect(VALUE self);
 		/// @brief Creates a C++ version of this class.
 		/// @param[in] x X coordinate.
@@ -52,46 +52,46 @@ namespace rgss
 		static VALUE create(VALUE x, VALUE y, VALUE width, VALUE height);
 
 		/// @brief Gets the x coordinate.
-		/// @return X coordinate.
+		/// @return value The X coordinate.
 		static VALUE rb_getX(VALUE self);
 		/// @brief Sets the x coordinate.
-		/// @param[in] value X coordinate.
+		/// @param[in] value The X coordinate.
 		static VALUE rb_setX(VALUE self, VALUE value);
 		/// @brief Gets the y coordinate.
-		/// @return Y coordinate.
+		/// @return The Y coordinate.
 		static VALUE rb_getY(VALUE self);
 		/// @brief Sets the y coordinate.
-		/// @param[in] value Y coordinate.
+		/// @param[in] value The Y coordinate.
 		static VALUE rb_setY(VALUE self, VALUE value);
 		/// @brief Gets the width.
-		/// @return Width.
+		/// @return value The width.
 		static VALUE rb_getWidth(VALUE self);
 		/// @brief Sets the width.
-		/// @param[in] value Width.
+		/// @param[in] value The width.
 		static VALUE rb_setWidth(VALUE self, VALUE value);
 		/// @brief Gets the height.
-		/// @return Height.
+		/// @return value The height.
 		static VALUE rb_getHeight(VALUE self);
 		/// @brief Sets the height.
-		/// @param[in] value Height.
+		/// @param[in] value The height.
 		static VALUE rb_setHeight(VALUE self, VALUE value);
 
-		/// @brief Sets the rect to the specified value.
-		/// @param[in] x X coordinate.
-		/// @param[in] y Y coordinate.
+		/// @brief Sets the Rect to the specified value.
+		/// @param[in] x The X coordinate.
+		/// @param[in] y The Y coordinate.
 		/// @param[in] width The width.
 		/// @param[in] height The height.
 		static VALUE rb_set(VALUE self, VALUE x, VALUE y, VALUE width, VALUE height);
 
-		/// @brief returns a bytestring containging data needed to ronconstruct the Rect object
+		/// @brief Returns a byte string containing data needed to reconstruct the Rect object.
 		/// @param[in] argc Number of arguments.
 		/// @param[in] argv Pointer to first argument.
-		/// @note only one argument d, it defualts to 0 and is used for object depth
-		/// @return byte string.
+		/// @note Only one argument d, it defaults to 0 and is used for object depth.
+		/// @return value The byte string.
 		static VALUE rb_dump(int argc, VALUE* argv, VALUE self);
 
-		/// @brief returns a Rect object constructed form a byte string
-		/// @param[in] value the byte string forom which to load the object
+		/// @brief Returns a Rect object constructed from a byte string.
+		/// @param[in] value The byte string from which to load the object.
 		static VALUE rb_load(VALUE self, VALUE value);
 
 	};

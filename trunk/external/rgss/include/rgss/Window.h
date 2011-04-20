@@ -19,33 +19,34 @@ namespace rgss
 		/// @brief Draws this sprite on the screen.
 		void draw();
 
-		/// @brief Intializes the module.
+		/// @brief Initializes the module.
 		static void init();
 		/// @brief Exposes this class to Ruby.
 		static void createRubyInterface();
 		/// @brief Marks referenced values of window for garbage collection.
-		/// @param[in] window Window to mark.
+		/// @param[in] window Pointer to the Window to mark.
 		static void gc_mark(Window* window);
 		/// @brief Frees allocated memory.
-		/// @param[in] window Window to free.
+		/// @param[in] window Pointer to the Window to free.
 		static void gc_free(Window* window);
 		/// @brief Ruby allocation of an instance.
 		static VALUE rb_new(VALUE classe);
-		/// @brief Initializes this instance.
+
+		/// @todo Are we still including a viewport parameter for Window? If not, definition needs changed.
+		/// @brief Initializes this instance, setting the viewport if provided.
+		/// @note Arguments are "[viewport]".
 		static VALUE rb_initialize(VALUE self);
 
-
-
 		/// @brief Set the back opacity.
-		/// @param[in] value Alpha component.
+		/// @param[in] value The alpha component.
 		/// @note The value will be clamped between -255 and 255.
 		static VALUE setBackOpacity(VALUE self, VALUE value);
 		/// @brief Set the window contents' opacity.
-		/// @param[in] value Alpha component
+		/// @param[in] value The alpha component
 		/// @note The value will be clamped between -255 and 255.
 		static VALUE setContentsOpacity(VALUE self, VALUE value);
 		/// @brief Sets the source bitmap of the windowskin.
-		/// @param[in] value Bitmap component.
+		/// @param[in] value Pointer to the Bitmap component.
 		static VALUE setWindowskin(VALUE self, VALUE* value);
 		/// @brief Calls the update method.
 		static VALUE update(VALUE self);
