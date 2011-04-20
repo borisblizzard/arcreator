@@ -25,7 +25,7 @@ namespace rgss
 	void Sprite::draw()
 	{
 		if (this->bitmap == NULL || this->opacity == 0 || this->srcRect->width <= 0 ||
-			this->srcRect->height <= 0)
+			this->srcRect->height <= 0 || this->zoomX == 0.0f || this->zoomY == 0.0f)
 		{
 			return;
 		}
@@ -33,6 +33,10 @@ namespace rgss
 		if (this->x != 0 || this->y != 0)
 		{
 			april::rendersys->translate((float)this->x, (float)this->y);
+		}
+		if (this->zoomX != 1.0f || this->zoomY != 1.0f)
+		{
+			april::rendersys->scale(this->zoomX, this->zoomY, 1.0f);
 		}
 		if (this->angle != 0.0f)
 		{
@@ -73,43 +77,52 @@ namespace rgss
 		// initialize
 		rb_define_method(rb_cSprite, "initialize", RUBY_METHOD_FUNC(&Sprite::rb_initialize), -1);
 		rb_define_method(rb_cSprite, "dispose", RUBY_METHOD_FUNC(&Sprite::rb_dispose), 0);
-		// getters and setters
+		// getters and setters (Renderable)
 		rb_define_method(rb_cSprite, "visible", RUBY_METHOD_FUNC(&Sprite::rb_getVisible), 0);
 		rb_define_method(rb_cSprite, "visible=", RUBY_METHOD_FUNC(&Sprite::rb_setVisible), 1);
-		rb_define_method(rb_cSprite, "opacity", RUBY_METHOD_FUNC(&Sprite::rb_getOpacity), 0);
-		rb_define_method(rb_cSprite, "opacity=", RUBY_METHOD_FUNC(&Sprite::rb_setOpacity), 1);
-		rb_define_method(rb_cSprite, "x", RUBY_METHOD_FUNC(&Sprite::rb_getX), 0);
-		rb_define_method(rb_cSprite, "x=", RUBY_METHOD_FUNC(&Sprite::rb_setX), 1);
-		rb_define_method(rb_cSprite, "y", RUBY_METHOD_FUNC(&Sprite::rb_getY), 0);
-		rb_define_method(rb_cSprite, "y=", RUBY_METHOD_FUNC(&Sprite::rb_setY), 1);
 		rb_define_method(rb_cSprite, "z", RUBY_METHOD_FUNC(&Sprite::rb_getZ), 0);
 		rb_define_method(rb_cSprite, "z=", RUBY_METHOD_FUNC(&Sprite::rb_setZ), 1);
 		rb_define_method(rb_cSprite, "ox", RUBY_METHOD_FUNC(&Sprite::rb_getOX), 0);
 		rb_define_method(rb_cSprite, "ox=", RUBY_METHOD_FUNC(&Sprite::rb_setOX), 1);
 		rb_define_method(rb_cSprite, "oy", RUBY_METHOD_FUNC(&Sprite::rb_getOY), 0);
 		rb_define_method(rb_cSprite, "oy=", RUBY_METHOD_FUNC(&Sprite::rb_setOY), 1);
-		rb_define_method(rb_cSprite, "angle", RUBY_METHOD_FUNC(&Sprite::rb_getAngle), 0);
-		rb_define_method(rb_cSprite, "angle=", RUBY_METHOD_FUNC(&Sprite::rb_setAngle), 1);
+		rb_define_method(rb_cSprite, "disposed?", RUBY_METHOD_FUNC(&Sprite::rb_isDisposed), 0);
+		// getters and setters (SourceRenderer)
+		rb_define_method(rb_cSprite, "opacity", RUBY_METHOD_FUNC(&Sprite::rb_getOpacity), 0);
+		rb_define_method(rb_cSprite, "opacity=", RUBY_METHOD_FUNC(&Sprite::rb_setOpacity), 1);
 		rb_define_method(rb_cSprite, "bitmap", RUBY_METHOD_FUNC(&Sprite::rb_getBitmap), 0);
 		rb_define_method(rb_cSprite, "bitmap=", RUBY_METHOD_FUNC(&Sprite::rb_setBitmap), 1);
 		rb_define_method(rb_cSprite, "viewport", RUBY_METHOD_FUNC(&Sprite::rb_getViewport), 0);
+		// getters and setters (Zoomable)
+		rb_define_method(rb_cSprite, "zoom_x", RUBY_METHOD_FUNC(&Sprite::rb_getZoomX), 0);
+		rb_define_method(rb_cSprite, "zoom_x=", RUBY_METHOD_FUNC(&Sprite::rb_setZoomX), 1);
+		rb_define_method(rb_cSprite, "zoom_y", RUBY_METHOD_FUNC(&Sprite::rb_getZoomY), 0);
+		rb_define_method(rb_cSprite, "zoom_y=", RUBY_METHOD_FUNC(&Sprite::rb_setZoomY), 1);
+		rb_define_method(rb_cSprite, "blend_type", RUBY_METHOD_FUNC(&Sprite::rb_getBlendType), 0);
+		rb_define_method(rb_cSprite, "blend_type=", RUBY_METHOD_FUNC(&Sprite::rb_setBlendType), 1);
+		// getters and setters
+		rb_define_method(rb_cSprite, "x", RUBY_METHOD_FUNC(&Sprite::rb_getX), 0);
+		rb_define_method(rb_cSprite, "x=", RUBY_METHOD_FUNC(&Sprite::rb_setX), 1);
+		rb_define_method(rb_cSprite, "y", RUBY_METHOD_FUNC(&Sprite::rb_getY), 0);
+		rb_define_method(rb_cSprite, "y=", RUBY_METHOD_FUNC(&Sprite::rb_setY), 1);
+		rb_define_method(rb_cSprite, "angle", RUBY_METHOD_FUNC(&Sprite::rb_getAngle), 0);
+		rb_define_method(rb_cSprite, "angle=", RUBY_METHOD_FUNC(&Sprite::rb_setAngle), 1);
 		rb_define_method(rb_cSprite, "src_rect", RUBY_METHOD_FUNC(&Sprite::rb_getSrcRect), 0);
 		rb_define_method(rb_cSprite, "src_rect=", RUBY_METHOD_FUNC(&Sprite::rb_setSrcRect), 1);
-		rb_define_method(rb_cSprite, "disposed?", RUBY_METHOD_FUNC(&Sprite::rb_isDisposed), 0);
 		// methods
 	}
 
 	void Sprite::gc_mark(Sprite* sprite)
 	{
 		rb_gc_mark(sprite->rb_srcRect);
-		SourceRenderer::gc_mark(sprite);
+		Zoomable::gc_mark(sprite);
 	}
 
 	void Sprite::gc_free(Sprite* sprite)
 	{
 		sprite->rb_srcRect = Qnil;
 		sprite->srcRect = NULL;
-		SourceRenderer::gc_free(sprite);
+		Zoomable::gc_free(sprite);
 	}
 
 	VALUE Sprite::rb_new(VALUE classe)
@@ -126,7 +139,7 @@ namespace rgss
 		RB_SELF2CPP(Sprite, sprite);
 		VALUE viewport;
 		rb_scan_args(argc, argv, "01", &viewport);
-		sprite->initializeSourceRenderer(viewport);
+		sprite->initializeZoomable(viewport);
 		Sprite::rb_setSrcRect(self, Rect::create(INT2FIX(0), INT2FIX(0), INT2FIX(0), INT2FIX(0)));
 		return self;
 	}
@@ -134,6 +147,17 @@ namespace rgss
 	/****************************************************************************************
 	 * Ruby Getters/Setters
 	 ****************************************************************************************/
+
+	VALUE Sprite::rb_setBitmap(VALUE self, VALUE value)
+	{
+		Zoomable::rb_setBitmap(self, value);
+		RB_SELF2CPP(Sprite, sprite);
+		if (sprite->bitmap != NULL)
+		{
+			sprite->getSrcRect()->set(0, 0, sprite->bitmap->getWidth(), sprite->bitmap->getHeight());
+		}
+		return value;
+	}
 
 	VALUE Sprite::rb_getX(VALUE self)
 	{
@@ -186,17 +210,6 @@ namespace rgss
 		return value;
 	}
 
-	VALUE Sprite::rb_setBitmap(VALUE self, VALUE value)
-	{
-		SourceRenderer::rb_setBitmap(self, value);
-		RB_SELF2CPP(Sprite, sprite);
-		if (sprite->bitmap != NULL)
-		{
-			sprite->getSrcRect()->set(0, 0, sprite->bitmap->getWidth(), sprite->bitmap->getHeight());
-		}
-		return value;
-	}
-
 	/****************************************************************************************
 	 * Ruby Methods
 	 ****************************************************************************************/
@@ -213,16 +226,6 @@ namespace rgss
 	{
 		/// @todo implement
 		return Qnil;
-	}
-
-	VALUE Sprite::setZoomX(VALUE self, VALUE value)
-	{
-		return value;
-	}
-
-	VALUE Sprite::setZoomY(VALUE self, VALUE value)
-	{
-		return value;
 	}
 
 	VALUE Sprite::update(VALUE self)

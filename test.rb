@@ -58,13 +58,15 @@ s12.bitmap.fill_rect(0, 0, 64, 64, Color.new(0, 128, 255))
 s12.x = -32
 s12.y = 32
 viewport.z = -100
-viewport = Viewport.new(16, 16, 192, 128)
+viewport = Viewport.new(608, 472, 192, 128)
 p1 = Plane.new(viewport)
-#p1.oy = -64
+p1.ox = -32
+p1.oy = -32
 p1.bitmap = Bitmap.new("test_resources/04-Chaos01")
 p2 = Plane.new
 p2.bitmap = Bitmap.new("test_resources/02-Energy01")
 p2.z = -1000
+p2.zoom_x = 4
 
 loop do
 	Graphics.update
