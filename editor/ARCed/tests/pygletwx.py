@@ -218,7 +218,7 @@ class EventGrid(object):
             
         xpos = event.x * 32
         ypos = ((self.map.height - event.y) * 32) - 32
-        if not self.sprites.has_key(key):
+        if not self.sprites.has_key(key) or self.sprites[key][0] is None:
             sprite = None
             if bitmap: 
                sprite = pyglet.sprite.Sprite(image, x=xpos, y=ypos, batch=self.renderingBatch, group=self.spriteGroup)
@@ -228,7 +228,11 @@ class EventGrid(object):
             
             self.sprites[key] = [sprite, background]
         else:
-            self.sprites[key][0].image = image 
+            if bitmap:
+                self.sprites[key][0].image = image 
+            else:
+                self.sprites[key][0].delete()
+                self.sprites[key][0] = None
             
     def updateEvent(self, key):
         #get event
