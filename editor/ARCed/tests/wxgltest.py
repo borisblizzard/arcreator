@@ -21,30 +21,6 @@ import Core
 import pygletwx
 from cache import PygletCache as Cache
 
-class TestGlPanel(pygletwx.GLPanel):
-    
-    def __init__(self, parent, id=wx.ID_ANY, pos=(10, 10)):
-        super(TestGlPanel, self).__init__(parent, id, wx.DefaultPosition, wx.DefaultSize, 0)
-        self.spritepos = pos
-        
-    def create_objects(self):
-        '''create opengl objects when opengl is initialized'''
-        FOO_IMAGE = pyglet.image.load('foo.png')
-        self.batch = pyglet.graphics.Batch()
-        self.sprite = pyglet.sprite.Sprite(FOO_IMAGE, batch=self.batch)
-        self.sprite.x = self.spritepos[0]
-        self.sprite.y = self.spritepos[1]
-        self.sprite2 = pyglet.sprite.Sprite(FOO_IMAGE, batch=self.batch)
-        self.sprite2.x = self.spritepos[0] + 30
-        self.sprite2.y = self.spritepos[1] + 20
-        
-    def update_object_resize(self):
-        '''called when the window recieves only if opengl is initialized'''
-        pass
-        
-    def draw_objects(self):
-        '''called in the middle of ondraw after the buffer has been cleared'''
-        self.batch.draw()
         
 class TilemapPanel(pygletwx.GLPanel):
 
@@ -80,8 +56,7 @@ class TilemapPanel(pygletwx.GLPanel):
         self.Bind(wx.EVT_SCROLLWIN_THUMBRELEASE, self.update_scroll_pos)
         # UI update
         self.Bind(wx.EVT_UPDATE_UI, self.Update) 
-        
-        
+            
     def SetOrigin(self):
         size = self.GetGLExtents()
         gl.glViewport(0, 0,  size.width,  size.height)
@@ -103,6 +78,8 @@ class TilemapPanel(pygletwx.GLPanel):
         self.cache = Cache()
         self.tilemap = pygletwx.Tilemap(data, self.cache, tileset.tileset_name, tileset.autotile_names)
         self.SetActiveLayer(self.activeLayer)
+        self.tileGrid = pygletwx.TileGrid(self.map)
+        self.eventGrid = pygletwx.EventGrid(self.map, self.cache, tileset.tileset_name)
         
     def update_object_resize(self, width, height):
         '''called when the window recieves only if opengl is initialized'''
@@ -114,12 +91,15 @@ class TilemapPanel(pygletwx.GLPanel):
                           self.map.width * 32, refresh=True)
         self.SetScrollbar(wx.VERTICAL, self.GetScrollPos(wx.VERTICAL), size[1], 
                           self.map.height * 32, refresh=True)
-        
-        
+               
     def draw_objects(self):
         '''called in the middle of ondraw after the buffer has been cleared'''
         self.tilemap.update()
         self.tilemap.Draw()
+        if self.activeLayer == (self.map.data._data.shape[2] + 1):
+            self.tileGrid.Draw()
+            self.eventGrid.update()
+            self.eventGrid.Draw()
         
     def Update(self, event):
         self.PrepareGL() 
@@ -190,9 +170,9 @@ class TilemapPanel(pygletwx.GLPanel):
         self.SetScrollbar(orient, pos, thumb, range, refresh=True)
         
     def SetActiveLayer(self, layer):
+        #if the selected layer is the event layer
         self.tilemap.setDimXY(-self.translateX, -self.translateY)
         self.activeLayer = layer
-        print "activelayer set"
         self.tilemap.SetActiveLayer(layer)
         self.OnDraw()
     
@@ -223,8 +203,7 @@ class MapPanel(wx.Panel):
         '''creates the toolbar and adds tools'''
         self.toolbar = MapToolbar(self, self.map)
         self.sizer.Add(self.toolbar, 0, wx.EXPAND)
-        
-        
+               
 class MapToolbar(wx.ToolBar):
     
     def __init__(self, parent, map, style=0):
@@ -267,6 +246,8 @@ class MapToolbar(wx.ToolBar):
             choice = "Layer %s" % (z + 1)
             self.layerChoiceIDs[choice] = z
             choices.append(choice)
+        self.layerChoiceIDs["Event Layer"] = self.map.data._data.shape[2] + 1
+        choices.append("Event Layer")
         return choices
 
     def BindToolEvents(self):
