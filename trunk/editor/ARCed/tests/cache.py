@@ -3,42 +3,74 @@ import gc
 
 import pyglet
 import numpy
+from PIL import Image
+import colorsys
+
+import time
 
 #do stuff to use pygame with out a window
-os.environ["SDL_VIDEODRIVER"] = "dummy"
-if 1:
-   #some platforms might need to init the display for some parts of pygame.
-   import pygame
-   pygame.init()
-   screen = pygame.display.set_mode((1, 1))
-   from pygame import surfarray
+#os.environ["SDL_VIDEODRIVER"] = "dummy"
+#if 1:
+#   #some platforms might need to init the display for some parts of pygame.
+#   import pygame
+#   pygame.init()
+#   screen = pygame.display.set_mode((1, 1))
+#   from pygame import surfarray
 
-class PySurfaceFunctions(object):
+class ImageFunctions(object):
 
-   @staticmethod
-   def change_hue(surface, hue):
-       surface.lock()
-       for x in range(surface.get_width()):
-           for y in range(surface.get_height()):
-               color = pygame.Color(*surface.get_at((x, y)))
-               hsva = list(color.hsva)
-               hsva[0] = (hsva[0] + float(hue)) % 360.0
-               color.hsva = hsva
-               surface.set_at((x, y), (color.r, color.g, color.b, color.a))
-       surface.unlock()
-
-   @staticmethod
-   def adjust_alpha(surface, alpha):
-       if alpha > 255:
-           alpha = 255
-       if alpha < 0:
-           alpha = 0
-       factor = float(alpha) / 255.0
-       alphas = surfarray.pixels_alpha(surface)
-       alphas = (alphas * factor)
-       alphas = numpy.clip(alphas, 0, 255)
-       alphas[:] = alphas.astype("uint8")
-       del alphas
+#    @staticmethod
+#    def change_hue_pygame(surface, hue):
+#        surface.lock()
+#        for x in range(surface.get_width()):
+#            for y in range(surface.get_height()):
+#                color = pygame.Color(*surface.get_at((x, y)))
+#                hsva = list(color.hsva)
+#                hsva[0] = (hsva[0] + float(hue)) % 360.0
+#                color.hsva = hsva
+#                surface.set_at((x, y), (color.r, color.g, color.b, color.a))
+#        surface.unlock()
+    
+    @staticmethod
+    def normalize(r, g, b, a=None):
+        if a is None:
+            color = (r / 255.0, g / 255.0, b / 255.0)
+        else:
+            color = (r / 255.0, g / 255.0, b / 255.0, a / 255.0)
+        return color
+    
+    @staticmethod
+    def de_normalize(r, g, b, a=None):
+        if a is None:
+            color = (int(r * 255), int(g * 255), int(b * 255))
+        else:
+            color = (int(r * 255), int(g * 255), int(b * 255), int(a * 255))
+        return color
+    
+    @staticmethod
+    def change_hue_PIL(image, hue):
+        for x in range(image.size[0]):
+            for y in range(image.size[1]):
+                color = list(image.getpixel((x, y)))
+                rgb = ImageFunctions.normalize(*color[:3])
+                hls = list(colorsys.rgb_to_hls(*rgb))
+                hls[0] = (hls[0] + float(hue / 360.0)) % 1.0
+                rgb = colorsys.hls_to_rgb(*hls)
+                color[:3] = ImageFunctions.de_normalize(*rgb)
+                image.putpixel((x, y), tuple(color))
+    
+#    @staticmethod
+#    def adjust_alpha_pygame(surface, alpha):
+#        if alpha > 255:
+#            alpha = 255
+#        if alpha < 0:
+#            alpha = 0
+#        factor = float(alpha) / 255.0
+#        alphas = surfarray.pixels_alpha(surface)
+#        alphas = (alphas * factor)
+#        alphas = numpy.clip(alphas, 0, 255)
+#        alphas[:] = alphas.astype("uint8")
+#        del alphas
 
 
 class PygletCache(object):
@@ -73,10 +105,24 @@ class PygletCache(object):
         
     def changeHue(self, image, hue):
         pitch = len('RGBA') * image.width
-        data = image.get_image_data().get_data('RGBA')
-        surface = pygame.image.frombuffer(string, (image.width, image.height), 'RGBA')
-        PySurfaceFunctions.change_hue(surface, hue)
-        image.set_data('RGBA', pitch, data)
+        data = image.get_data('RGBA', pitch)
+        
+        #t = time.time()
+        
+        #surface = pygame.image.frombuffer(data, (image.width, image.height), 'RGBA')
+        #ImageFunctions.change_hue_pygame(surface, hue)
+        
+        im = Image.fromstring('RGBA', (image.width, image.height), data)
+        ImageFunctions.change_hue_PIL(im, hue)
+        
+        #newdata = pygame.image.tostring(surface, 'RGBA')
+        newdata = im.tostring()
+        
+        image.set_data('RGBA', pitch, newdata)
+        
+        #print time.time() - t
+        
+        return image
         
     def Load_bitmap(self, folder_name, filename, hue=0, loc=""):
         key = (folder_name, filename, loc, hue)
@@ -92,7 +138,7 @@ class PygletCache(object):
                 if filename != "":
                     image = pyglet.image.load(path)
                     if hue != 0:
-                        self.changeHue(image, hue)
+                        image = self.changeHue(image.get_image_data(), hue)
                     self._Cache[key] = image
                 else:
                     return None
