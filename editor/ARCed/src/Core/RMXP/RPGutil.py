@@ -47,11 +47,23 @@ class Table(object):
         self._data[key] = value
 
     def resize(self, xsize=1, ysize=1, zsize=1):
-        # This only works for increasing the size of the data,
-        # but is easy do adapt to other cases
+        # should work to increase and decrease the table size
         newdata = numpy.zeros((xsize, ysize, zsize))
         shape = self._data.shape
-        newdata[:shape[0], :shape[1], :shape[2]] = self._data
+        mask = [0, 0, 0]
+        if xsize >= shape[0]:
+            mask[0] = shape[0]
+        else:
+            mask[0] = xsize
+        if ysize >= shape[1]:
+            mask[1] = shape[1]
+        else:
+            mask[1] = ysize
+        if ysize >= shape[2]:
+            mask[2] = shape[2]
+        else:
+            mask[2] = zsize  
+        newdata[:mask[0], :mask[1], :mask[2]] = self._data[:mask[0], :mask[1], :mask[2]]
         self._data = newdata
 
 class Color(object):
