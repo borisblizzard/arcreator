@@ -30,6 +30,102 @@ class ImageFunctions(object):
 #                color.hsva = hsva
 #                surface.set_at((x, y), (color.r, color.g, color.b, color.a))
 #        surface.unlock()
+#        return surface
+
+    @staticmethod
+    def Get_HSV_From_Image(image):
+        a = numpy.asarray(image.convert('RGB'), int)
+        R, G, B = a.T
+        
+        m = numpy.min(a,2).T
+        M = numpy.max(a,2).T
+    
+        C = M-m #chroma
+        Cmsk = C!=0
+    
+        # Hue
+        H = numpy.zeros(R.shape, int)
+        mask = (M==R)&Cmsk
+        H[mask] = numpy.mod(60*(G[mask]-B[mask])/C[mask], 360)
+        mask = (M==G)&Cmsk
+        H[mask] = (60*(B[mask]-R[mask])/C[mask] + 120)
+        mask = (M==B)&Cmsk
+        H[mask] = (60*(R[mask]-G[mask])/C[mask] + 240)
+        H *= 255
+        H /= 360 # if you prefer, leave as 0-360, but don't convert to uint8
+    
+        # Value
+        V = M
+        # Saturation
+        S = numpy.zeros(R.shape, int)
+        S[Cmsk] = ((255*C[Cmsk])/V[Cmsk])
+        
+        # H, S, and V are now defined as integers 0-255
+        return H, S, V
+    
+    @staticmethod 
+    def Get_RGB_From_HSV(H, S, V):
+        H = (H / 255.0) * 360.0
+        S = (S / 255.0)
+        V = (V / 255.0)
+        
+        C = V * S
+        Hp = H / 60.0
+        X = C * (1 - numpy.absolute(numpy.mod(Hp, 2) - 1))
+        
+        R = numpy.zeros(H.shape, float)
+        G = numpy.zeros(H.shape, float)
+        B = numpy.zeros(H.shape, float)
+        
+        mask = (0 <= Hp) & (Hp < 1)
+        R[mask] = C[mask]
+        mask = (1 <= Hp) & (Hp < 2)
+        R[mask] = X[mask]
+        mask = (2 <= Hp) & (Hp < 3)
+        R[mask] = 0
+        mask = (3 <= Hp) & (Hp < 4)
+        R[mask] = 0
+        mask = (4 <= Hp) & (Hp < 5)
+        R[mask] = X[mask]
+        mask = (5 <= Hp) & (Hp < 6)
+        R[mask] = C[mask]
+        
+        mask = (0 <= Hp) & (Hp < 1)
+        G[mask] = X[mask]
+        mask = (1 <= Hp) & (Hp < 2)
+        G[mask] = C[mask]
+        mask = (2 <= Hp) & (Hp < 3)
+        G[mask] = C[mask]
+        mask = (3 <= Hp) & (Hp < 4)
+        G[mask] = X[mask]
+        mask = (4 <= Hp) & (Hp < 5)
+        G[mask] = 0
+        mask = (5 <= Hp) & (Hp < 6)
+        G[mask] = 0
+        
+        mask = (0 <= Hp) & (Hp < 1)
+        B[mask] = 0
+        mask = (1 <= Hp) & (Hp < 2)
+        B[mask] = 0
+        mask = (2 <= Hp) & (Hp < 3)
+        B[mask] = X[mask]
+        mask = (3 <= Hp) & (Hp < 4)
+        B[mask] = C[mask]
+        mask = (4 <= Hp) & (Hp < 5)
+        B[mask] = C[mask]
+        mask = (5 <= Hp) & (Hp < 6)
+        B[mask] = X[mask]
+        
+        m = V - C
+        R += m
+        G += m
+        B += m
+        
+        R *= 255
+        G *= 255
+        B *= 255
+        
+        return R, G, B
     
     @staticmethod
     def normalize(r, g, b, a=None):
@@ -58,6 +154,19 @@ class ImageFunctions(object):
                 rgb = colorsys.hls_to_rgb(*hls)
                 color[:3] = ImageFunctions.de_normalize(*rgb)
                 image.putpixel((x, y), tuple(color))
+        return image
+                
+    @staticmethod
+    def change_hue_PIL_alt(image, hue):
+        Red, Green, Blue, Alpha = image.convert('RGBA').split()
+        H, S, V = ImageFunctions.Get_HSV_From_Image(image)
+        RH = (H + (int(255.0 * (hue / 360.0)))) % 255
+        r, g, b = ImageFunctions.Get_RGB_From_HSV(RH, S, V)
+        imagearray = numpy.array([r, g, b])
+        newimage = Image.fromarray(imagearray.T.astype('uint8'))
+        red, green, blue = newimage.split()
+        finishedimage = Image.merge('RGBA', (red, green, blue, Alpha))
+        return finishedimage
     
 #    @staticmethod
 #    def adjust_alpha_pygame(surface, alpha):
@@ -113,10 +222,11 @@ class PygletCache(object):
         #ImageFunctions.change_hue_pygame(surface, hue)
         
         im = Image.fromstring('RGBA', (image.width, image.height), data)
-        ImageFunctions.change_hue_PIL(im, hue)
+        #roatedImage = ImageFunctions.change_hue_PIL(im, hue)
+        roatedImage = ImageFunctions.change_hue_PIL_alt(im, hue)
         
         #newdata = pygame.image.tostring(surface, 'RGBA')
-        newdata = im.tostring()
+        newdata = roatedImage.tostring()
         
         image.set_data('RGBA', pitch, newdata)
         

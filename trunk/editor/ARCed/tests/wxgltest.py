@@ -1,27 +1,532 @@
+#load standard libs
 import os
 import cPickle
-
-
-try:
-    import wx
-    from wx import glcanvas
-except ImportError:
-    raise ImportError, "Required dependency wx.glcanvas not present"
-    
-try:
-    from numpy import *
-except ImportError:
-    raise ImportError, "Required dependency numpy not present"
-    
+#load 3d party libs
+import numpy  
+import wx
+from wx import glcanvas  
 import pyglet
 from pyglet import gl
-
-#load our libaries
+#load our libraries
 import Core
 import pygletwx
 from cache import PygletCache as Cache
 
+#Set up some global strings
+rtppath = "%PROGRAMFILES%/Common Files/Enterbrain/RGSS/Standard"
+RTP_Location = os.path.normpath(os.path.expandvars(rtppath))
+Project_Location = ""
+
+class EventStruct(object):
+    '''
+    A small data structure so that the Event Grid class can keep track 
+    of changes on specific events and draw them if they have changed
+    '''
+
+    def __init__(self, x, y, tile_id, name, hue, direction, pattern):
+        self.x = x
+        self.y = y
+        self.tile_id = tile_id
+        self.name = name
+        self.hue = hue
+        self.direction = direction
+        self.pattern = pattern
         
+class EventGrid(object):
+    '''
+    A organizer class, organizes and updates the sprites for events and 
+    their background when they are drawn in the editor
+    '''
+    def __init__(self, map, cache, tileset=""):
+        #set properties
+        self.map = map
+        self.cache = cache
+        self.tileset_name = tileset
+        #setup the rendering batch and the oarding groups
+        self.renderingBatch = pyglet.graphics.Batch()
+        self.backgroundGroup = pyglet.graphics.OrderedGroup(1)
+        self.spriteGroup = pyglet.graphics.OrderedGroup(2)
+        #set up data containers
+        self.events = {}
+        self.sprites = {}
+        #setup the outline image used for background sprites
+        self.setupOutline()
+        #update the sprites
+        self.update()
+        
+    def setupOutline(self):
+        '''
+        draws an outline for the event adn stores it so that it can be uses in sprites later
+        '''
+        outlineEdgePattern = pyglet.image.SolidColorImagePattern((255, 255, 255, 255))
+        eventOutline = outlineEdgePattern.create_image(24, 24).get_texture()
+        outlineBackPattern = pyglet.image.SolidColorImagePattern((255, 255, 255, 80))
+        background = outlineBackPattern.create_image(22, 22)
+        eventOutline.blit_into(background, 1, 1, 0)
+        self.eventOutline = eventOutline.get_image_data()
+    
+    def setEventGraphic(self, key):
+        '''
+        takes an event id as a key and updates the sprite graphic
+        '''
+        #get event
+        event = self.events[key] 
+        #if the graphic is a tile
+        if event.tile_id >= 384:
+            bitmap = self.cache.Tile(self.tileset_name, event.tile_id, event.hue, Project_Location)
+            if not bitmap:
+                bitmap = self.cache.Tile(self.tileset_name, event.tile_id, event.hue, RTP_Location)
+            if bitmap:
+                rect = (5, 5, 22, 22)
+        #other wise the graphic is a sprite
+        else:
+            bitmap = self.cache.Character(event.name, event.hue, Project_Location)
+            if not bitmap:
+                bitmap = self.cache.Character(event.name, event.hue, RTP_Location)
+            if bitmap:
+                cw = bitmap.width / 4
+                ch = bitmap.height / 4
+                sx = event.pattern * cw
+                sy = (event.direction - 2) / 2 * ch
+                rect = (sx + (cw - 22) / 2, bitmap.height - sy - ch / 2 - 5, 22, 22)
+        
+        #draw a portion of the event graphic
+        if bitmap:
+            image = pyglet.image.create(32, 32).get_texture()
+            reagion = bitmap.get_region(*rect)
+            image.blit_into(reagion, 5, 5, 0)
+            
+        xpos = event.x * 32
+        ypos = ((self.map.height - event.y) * 32) - 32
+        if not self.sprites.has_key(key) or self.sprites[key][0] is None:
+            sprite = None
+            if bitmap: 
+               sprite = pyglet.sprite.Sprite(image, x=xpos, y=ypos, batch=self.renderingBatch, group=self.spriteGroup)
+            
+            background = pyglet.sprite.Sprite(self.eventOutline, x=xpos + 4, y=ypos + 4, 
+                                 batch=self.renderingBatch, group=self.backgroundGroup)
+            
+            self.sprites[key] = [sprite, background]
+        else:
+            if bitmap:
+                self.sprites[key][0].image = image 
+            else:
+                self.sprites[key][0].delete()
+                self.sprites[key][0] = None
+            
+    def updateEvent(self, key):
+        '''
+        compares graphically relevant data to stored versions of the data
+        for each event and sets the graphic to be updated if the data has changed
+        '''
+        #get event
+        flag = False
+        mapEvent = self.map.events[key]
+        graphic = self.map.events[key].pages[0].graphic
+        if not self.events.has_key(key):
+            event = EventStruct(mapEvent.x, mapEvent.y, graphic.tile_id, graphic.character_name,  
+                                graphic.character_hue, graphic.direction, graphic.pattern)
+            self.events[key] = event
+            flag = True
+        else:
+            event = self.events[key]
+            if event.x != mapEvent.x:
+                event.x = mapEvent.x
+            if event.y != mapEvent.x:
+                event.y = mapEvent.y
+            xpos = event.x * 32
+            ypos = ((self.map.height - event.y) * 32) - 32
+            if self.sprites.has_key(key):
+                if self.sprites[key][0] is not None:
+                    if self.sprites[key][0].x != xpos or self.sprites[key][0].y != ypos:
+                        self.sprites[key][0].set_position(xpos, ypos)
+                    if self.sprites[key][1].x != xpos or self.sprites[key][1].y != ypos:
+                        self.sprites[key][1].set_position(xpos, ypos)
+            if event.tile_id != graphic.tile_id:
+                flag = True
+                event.tile_id = graphic.tile_id
+            if event.name != graphic.character_name:
+                flag = True
+                event.name = graphic.character_name
+            if event.hue != graphic.character_hue:
+                flag = True
+                event.hue = graphic.character_hue
+            if event.direction != graphic.direction:
+                flag = True
+                event.direction = graphic.direction
+            if event.pattern != graphic.pattern:
+                flag = True
+                event.pattern = graphic.pattern 
+        if flag:
+            self.setEventGraphic(key)
+        #test values that are drawn to see if the graphic (or position) need to be updated
+    
+    def update(self):
+        '''
+        loops through every event and removes sprites for events that have been deleted, 
+        then calls the updateEvent method for the rest of the events
+        '''
+        removed = list(set(self.events.keys()) - set(self.map.events.keys()))
+        for key in removed:
+            for sprite in self.events[key]:
+                if sprite is not None:
+                    sprite.delete()
+            del self.events[key]
+        for key in self.map.events.iterkeys():
+            self.updateEvent(key)
+            
+    def Draw(self):
+        '''
+        Draws the rendering batch and thus all the attached sprites
+        '''
+        self.renderingBatch.draw()
+        
+    def  __del__(self):
+        '''
+        to be sure that all sprites are deleated properly
+        '''
+        self.destroy()
+        
+    def destroy(self):
+        '''
+        destroys all the sprites
+        '''
+        for group in self.sprites.itervalues():
+            for sprite in group:
+                if sprite is not None:
+                    sprite.delete()
+
+class TileGrid(object):
+    '''
+    A container and organizer class. maintains sprites that form a transparent 
+    grid over the tilemap when in the event mode
+    '''
+    def __init__(self, map):
+        #store the map
+        self.map = map
+        #create an image for the sprites
+        self.grid_image = pyglet.image.create(32, 32)
+        #get a rendering batch to draw the grid quickly
+        self.renderingBatch = pyglet.graphics.Batch()
+        #setup the grid image
+        self.setupGridImage()
+        #create all the sprites in the grid and store them in a numpy array of dtype object
+        self.sprites = self.createGrid()
+        
+    def setupGridImage(self):
+        '''
+        draws the black outline around the edge of the tile 
+        '''
+        self.black_pattern = pyglet.image.SolidColorImagePattern((0, 0, 0, 255))
+        self.grid_image = self.black_pattern.create_image(32, 32).get_texture()
+        self.cut_pattern = pyglet.image.create(30, 30)
+        self.grid_image.blit_into(self.cut_pattern, 1, 1, 0)
+                
+    def createGrid(self):
+        '''
+        loops through the maps x and y to create all the necessary sprites
+        '''
+        shape = (self.map.width, self.map.height)
+        sprites = numpy.empty(shape, dtype=object)
+        for x in range(shape[0]):
+            for y in range(shape[1]):
+                sprite = self.makeSprite(x, y)
+                sprites[x, y] = sprite
+        return sprites
+    
+    def makeSprite(self, x, y):
+        xpos = x * 32
+        ypos = ((self.map.height - y) * 32) - 32
+        sprite = pyglet.sprite.Sprite(self.grid_image, xpos, ypos, 
+                                      batch=self.renderingBatch,)
+        sprite.opacity = 80
+        return sprite
+                                
+    def update(self):
+        '''
+        updates the sprites in the grid so that if the map size changes the grid changes too
+        '''
+        #if it isn;t the same size as the map
+        shape = (self.map.width, self.map.height)
+        if self.sprites.shape != shape:
+            self.resize(*shape)
+                
+    def Draw(self):
+        '''
+        draws the rendering batch and thus all the attached sprites
+        '''
+        self.renderingBatch.draw()
+        
+    def  __del__(self):
+        '''
+        to be sure the sprites get deleted properly
+        '''
+        self.destroy()
+        
+    def destroy(self):
+        '''
+        delete all the sprites
+        '''
+        for sprite in self.sprites.flatten():
+            sprite.delete()
+            
+    def resize(self, xsize=1, ysize=1):
+        '''
+        '''
+        newdata = numpy.empty((xsize, ysize), dtype=object)
+        shape = self.sprites.shape
+        mask = [0, 0, 0]
+        if xsize >= shape[0]:
+            mask[0] = shape[0]
+        else:
+            mask[0] = xsize
+        if ysize >= shape[1]:
+            mask[1] = shape[1]
+        else:
+            mask[1] = ysize
+        newdata[:mask[0], :mask[1]] = self.sprites[:mask[0], :mask[1]]
+        self.sprites = newdata
+        shape = self.sprites.shape
+        for x in range(shape[0]):
+            for y in range(shape[1]):
+                if self.sprites[x, y] is None:
+                    self.sprites[x, y] = self.makeSprite(x, y)
+                else:
+                    xpos = x * 32
+                    ypos = ((self.map.height - y) * 32) - 32
+                    self.sprites[x, y].set_position(xpos, ypos)
+                
+class Tilemap(object):
+    
+    def __init__(self, table, cache, tileset="", autotiles=[]):
+        self.cache = cache
+        self.table = table
+        self.tile_ids = numpy.zeros(self.table._data.shape)
+        self.renderingBatches = []
+        self.sprites = []
+        self.blank_tile = pyglet.image.create(32, 32)
+        self.dimmingImagePatteren = None
+        self.dimmingImage = None
+        self.dimmingSprite = None
+        self.dimmingSpriteWidth = 0
+        self.dimmingSpriteHeight = 0
+        self.activeLayer = 0
+        self.LayerDimming = True
+        self.x = self.oldx = self.y = self.oldy = 0
+        self.autotile_names = autotiles
+        self.tileset_name = tileset
+        self.ordered_groups = []
+        for i in range(self.table._data.shape[2]):
+            self.ordered_groups.append(pyglet.graphics.OrderedGroup(i))
+            self.renderingBatches.append(pyglet.graphics.Batch())
+        self.tiles = self.createTilemap()
+    
+    def UpdateDimmingSprite(self, width, height):
+        '''
+        '''
+        if width != self.dimmingSpriteWidth or height != self.dimmingSpriteHeight:
+            self.dimmingSpriteWidth = width
+            self.dimmingSpriteHeight = height
+            if self.dimmingImagePatteren is None:
+                self.dimmingImagePatteren = pyglet.image.SolidColorImagePattern((0, 0, 0, 255))
+            self.dimmingImage = self.dimmingImagePatteren.create_image(width, height).get_texture()
+            self.dimmingSprite = pyglet.sprite.Sprite(self.dimmingImage, 0, 0)
+            self.dimmingSprite.opacity = 180
+            
+    def setDimXY(self, x, y):
+        '''
+        '''
+        if self.dimmingSprite is not None:
+            self.dimmingSprite.set_position(x, y)
+            
+    def createTilemap(self):
+        '''
+        '''
+        shape = self.table._data.shape
+        sprites = numpy.empty(shape, dtype=object)
+        for x in range(shape[0]):
+            for y in range(shape[1]):
+                for z in range(shape[2]):
+                    sprite = self.makeSprite(x, y, z)
+                    sprites[x, y, z] = sprite
+        return sprites
+    
+    def makeSprite(self, x, y, z):
+        xpos = x * 32
+        ypos = ((self.table._data.shape[1] - y) * 32) - 32
+        sprite = pyglet.sprite.Sprite(self.blank_tile, xpos, ypos, 
+                                      batch=self.renderingBatches[z], group=self.ordered_groups[z])
+        return sprite
+                       
+    def update(self):
+        '''
+        '''
+        #if the arn't the same size
+        if self.tile_ids.shape != self.table._data.shape:
+            self.resize(*self.table._data.shape)
+        #find the tiles who's ids have changed
+        indexes = numpy.argwhere(self.table._data != self.tile_ids)
+        #we have the idexes of the tiles we need to update so copy 
+        #the changed data over so we don;t have to update again
+        self.tile_ids[:] = self.table._data[:]
+        for index in indexes:
+            self.set_image(tuple(index), self.tile_ids[tuple(index)])
+         
+    def set_image(self, index, id):
+        '''
+        '''
+        tile = self.tiles[index]
+        #if for some reason the sprite does not exist (ie. the map was resized) make it
+        if tile is None:
+            x, y, z = index
+            tile = self.makeSprite(x, y, z)
+            self.tiles[index] = tile
+            
+        flag = False
+        #get the tile bitmap
+        if id < 384:
+            if id <= 47:
+                bitmap = self.blank_tile
+            else:
+                #get the filename
+                autotile = self.autotile_names[int(id) / 48 - 1]
+                #get the right pattern
+                pattern = id % 48
+                #collect the tile form the cache checking the local project folder
+                #and the system RTP folder
+                bitmap = self.cache.AutotilePattern(autotile, pattern, RTP_Location)
+                if not bitmap:
+                    bitmap = self.cache.AutotilePattern(autotile, pattern, RTP_Location)
+                if not bitmap:
+                    flag = True
+                    print "could not get autotile"
+                    bitmap = self.blank_tile
+        #normal tile
+        else:
+            #get the tile bitmap
+            bitmap = self.cache.Tile(self.tileset_name, id, 0, RTP_Location)
+            if not bitmap:
+                bitmap = self.cache.Tile(self.tileset_name, id, 0, RTP_Location)
+            if not bitmap:
+                flag = True
+                print "could not get tile"
+                bitmap = self.blank_tile
+        #draw the tile to the surface
+        tile.image = bitmap
+        
+    def translate(self, x, y):
+        '''
+        '''
+        for sprite in self.tiles.flatten():
+            sprite.set_position(sprite.x + x, sprite.y + y)
+            
+    def SetLayerOpacity(self, layer, opacity):
+        '''
+        '''
+        layer = self.tiles[:, :, layer]
+        for sprite in layer.flatten():
+            sprite.opacity = opacity
+            
+    def SetActiveLayer(self, layer):
+        '''
+        '''
+        self.activeLayer = layer
+        if layer == (self.table._data.shape[2] + 1):
+            for z in range(self.table._data.shape[2]):
+                self.SetLayerOpacity(z, 255)
+        else:
+            if self.LayerDimming:
+                for z in range(self.table._data.shape[2]):
+                    if z <= self.activeLayer:
+                        self.SetLayerOpacity(z, 255)
+                    else:
+                        self.SetLayerOpacity(z, 80)
+    
+    def SetLayerDimming(self, bool):
+        '''
+        '''
+        self.LayerDimming = bool
+        if self.LayerDimming:
+            for z in range(self.table._data.shape[2]):
+                if z <= self.activeLayer:
+                    self.SetLayerOpacity(z, 255)
+                else:
+                    self.SetLayerOpacity(z, 80)
+        else:
+            for z in range(self.table._data.shape[2]):
+                self.SetLayerOpacity(z, 255)
+        
+    def Draw(self):
+        '''
+        '''
+        for z in range(len(self.renderingBatches)):
+            if z == self.activeLayer and self.LayerDimming: #and z != 0
+                if self.dimmingSprite is not None:
+                    self.dimmingSprite.draw()
+            self.renderingBatches[z].draw()
+            
+    def  __del__(self):
+        '''
+        '''
+        self.destroy()
+        
+    def destroy(self):
+        '''
+        '''
+        for sprite in self.tiles.flatten():
+            sprite.delete()  
+        
+    def resize(self, xsize=1, ysize=1, zsize=1):
+        '''
+        '''
+        newdata = numpy.empty((xsize, ysize, zsize), dtype=object)
+        shape = self.tiles.shape
+        mask = [0, 0, 0]
+        if xsize >= shape[0]:
+            mask[0] = shape[0]
+        else:
+            mask[0] = xsize
+        if ysize >= shape[1]:
+            mask[1] = shape[1]
+        else:
+            mask[1] = ysize
+        if zsize >= shape[2]:
+            mask[2] = shape[2]
+        else:
+            mask[2] = zsize  
+        newdata[:mask[0], :mask[1], :mask[2]] = self.tiles[:mask[0], :mask[1], :mask[2]]
+        self.tiles = newdata
+        shape = self.tiles.shape
+        for x in range(shape[0]):
+            for y in range(shape[1]):
+                for z in range(shape[2]):
+                    if self.tiles[x, y, z] is not None:
+                        xpos = x * 32
+                        ypos = ((self.map.height - y) * 32) - 32
+                        self.tiles[x, y, z].set_position(xpos, ypos)
+        newdata = numpy.zeros((xsize, ysize, zsize))
+        shape = self.tile_ids.shape
+        mask = [0, 0, 0]
+        if xsize >= shape[0]:
+            mask[0] = shape[0]
+        else:
+            mask[0] = xsize
+        if ysize >= shape[1]:
+            mask[1] = shape[1]
+        else:
+            mask[1] = ysize
+        if ysize >= shape[2]:
+            mask[2] = shape[2]
+        else:
+            mask[2] = zsize  
+        newdata[:mask[0], :mask[1], :mask[2]] = self.tile_ids[:mask[0], :mask[1], :mask[2]]
+        self.tile_ids = newdata     
+               
+class MouseSprite(object):
+    
+    def __init__(self):
+        pass
+    
 class TilemapPanel(pygletwx.GLPanel):
 
     def __init__(self, parent, map, tilesets, toolbar, id=wx.ID_ANY):
@@ -54,8 +559,42 @@ class TilemapPanel(pygletwx.GLPanel):
         self.Bind(wx.EVT_SCROLLWIN_PAGEDOWN, self.scroll_pagedown)
         self.Bind(wx.EVT_SCROLLWIN_THUMBTRACK, self.update_scroll_pos)
         self.Bind(wx.EVT_SCROLLWIN_THUMBRELEASE, self.update_scroll_pos)
+        # mouse eent
+        self.Bind(wx.EVT_LEFT_DOWN, self.OnLeftButtonEvent)
+        self.Bind(wx.EVT_LEFT_UP, self.OnLeftButtonEvent)
+        self.Bind(wx.EVT_MOTION, self.OnLeftButtonEvent)
         # UI update
         self.Bind(wx.EVT_UPDATE_UI, self.Update) 
+
+    def OnLeftButtonEvent(self, event):
+        if self.mode != self.LayerE:
+            self.SetMouseXY(event)
+        if event.LeftDown():
+            self.SetFocus()
+            self.SetMouseXY(event)
+            self.CaptureMouse()
+            self.drawing = True
+
+        elif event.Dragging() and self.drawing:
+            self.buildBrush()
+
+        elif event.LeftUp():
+            self.ReleaseMouse()
+            if self.drawing:
+                self.commitBrush()
+
+        # draw the mouse
+        
+        
+    def SetMouseXY(self, event):
+        x, y = self.ConvertEventCoords(event)
+        x = x / int(32 * self.zoom)
+        y = y / int(32 * self.zoom)
+        self.mouse_x, self.mouse_y = x, y
+
+    def ConvertEventCoords(self, event):
+        newpos = self.CalcUnscrolledPosition(event.GetX(), event.GetY())
+        return newpos
             
     def SetOrigin(self):
         size = self.GetGLExtents()
@@ -73,13 +612,13 @@ class TilemapPanel(pygletwx.GLPanel):
     
     def create_objects(self):
         '''create opengl objects when opengl is initialized'''
-        data = self.map.data._data
+        table = self.map.data
         tileset = self.tilesets[self.map.tileset_id]
         self.cache = Cache()
-        self.tilemap = pygletwx.Tilemap(data, self.cache, tileset.tileset_name, tileset.autotile_names)
+        self.tilemap = Tilemap(table, self.cache, tileset.tileset_name, tileset.autotile_names)
         self.SetActiveLayer(self.activeLayer)
-        self.tileGrid = pygletwx.TileGrid(self.map)
-        self.eventGrid = pygletwx.EventGrid(self.map, self.cache, tileset.tileset_name)
+        self.tileGrid = TileGrid(self.map)
+        self.eventGrid = EventGrid(self.map, self.cache, tileset.tileset_name)
         
     def update_object_resize(self, width, height):
         '''called when the window recieves only if opengl is initialized'''
