@@ -524,9 +524,386 @@ class Tilemap(object):
                
 class MouseSprite(object):
     
-    def __init__(self):
-        pass
+    def __init__(self, map):
+        #setup data
+        self.map = map
+        self.cornerSprites = []
+        self.cornerRenderingBatch = pyglet.graphics.Batch()
+        self.topRowSprites = []
+        self.bottomRowSprites = []
+        self.horizontalRenderingBatch = pyglet.graphics.Batch()
+        self.leftRowSprites = []
+        self.rightRowSprites = []
+        self.verticalRenderingBatch = pyglet.graphics.Batch()
+        self.TBCorners = []
+        self.TBRenderingBatch = pyglet.graphics.Batch()
+        self.LRCorners = []
+        self.LRRenderingBatch = pyglet.graphics.Batch()
+        self.sprites = []
+        self.singleMode = False
+        self.topLeftPos = [-1, -1]
+        self.bottomRightPos = [-1, -1]
+        #create images to use
+        self.setupImages()
+        #create the sprites
+        self.setupSprites()
+            
+    def setupImages(self):
+        #get out solid color patterns
+        blackPattern = pyglet.image.SolidColorImagePattern((0, 0, 0, 255))
+        whitePattern = pyglet.image.SolidColorImagePattern((255, 255, 255, 255))
+        #create the single image
+        self.singleImage = blackPattern.create_image(32, 32).get_texture()
+        whiteInner = whitePattern.create_image(30, 30)
+        self.singleImage.blit_into(whiteInner, 1, 1, 0)
+        blackInner = blackPattern.create_image(26, 26)
+        self.singleImage.blit_into(blackInner, 3, 3, 0)
+        clearInner = pyglet.image.create(24, 24)
+        self.singleImage.blit_into(clearInner, 4, 4, 0)
+        #get the pieces to construct the other sprites from the single sprite
+        TLCorner = self.singleImage.get_region(0, 16, 16, 16).get_image_data()
+        BLCorner = self.singleImage.get_region(0, 0, 16, 16).get_image_data()
+        TRCorner = self.singleImage.get_region(16, 16, 16, 16).get_image_data()
+        BRCorner = self.singleImage.get_region(16, 0, 16, 16).get_image_data()
+        striateBH = self.singleImage.get_region(8, 0, 16, 16).get_image_data()
+        striateLV = self.singleImage.get_region(0, 8, 16, 16).get_image_data()
+        striateTH = self.singleImage.get_region(8, 16, 16, 16).get_image_data()
+        striateRV = self.singleImage.get_region(16, 8, 16, 16).get_image_data()
+        #Top Left corner
+        self.TLCorner = pyglet.image.create(32, 32).get_texture()
+        self.TLCorner.blit_into(TLCorner, 0, 16, 0)
+        self.TLCorner.blit_into(striateLV, 0, 0, 0)
+        self.TLCorner.blit_into(striateTH, 16, 16, 0)
+        #Bottom Left corner
+        self.BLCorner = pyglet.image.create(32, 32).get_texture()
+        self.BLCorner.blit_into(BLCorner, 0, 0, 0)
+        self.BLCorner.blit_into(striateLV, 0, 16, 0)
+        self.BLCorner.blit_into(striateBH, 16, 0, 0)
+        #Top Right corner
+        self.TRCorner = pyglet.image.create(32, 32).get_texture()
+        self.TRCorner.blit_into(TRCorner, 16, 16, 0)
+        self.TRCorner.blit_into(striateRV, 16, 0, 0)
+        self.TRCorner.blit_into(striateTH, 0, 16, 0)
+        #Bottom Right corner
+        self.BRCorner = pyglet.image.create(32, 32).get_texture()
+        self.BRCorner.blit_into(BRCorner, 16, 0, 0)
+        self.BRCorner.blit_into(striateRV, 16, 16, 0)
+        self.BRCorner.blit_into(striateBH, 0, 0, 0)
+        #Left Vertical
+        self.LeftV = pyglet.image.create(32, 32).get_texture()
+        self.LeftV.blit_into(striateLV, 0, 0, 0)
+        self.LeftV.blit_into(striateLV, 0, 16, 0)
+        #Right Vertical
+        self.RightV = pyglet.image.create(32, 32).get_texture()
+        self.RightV.blit_into(striateRV, 16, 0, 0)
+        self.RightV.blit_into(striateRV, 16, 16, 0)
+        #Left Corners
+        self.LeftC = pyglet.image.create(32, 32).get_texture()
+        self.LeftC.blit_into(BLCorner, 0, 0, 0)
+        self.LeftC.blit_into(TLCorner, 0, 16, 0)
+        self.LeftC.blit_into(striateTH, 16, 16, 0)
+        self.LeftC.blit_into(striateBH, 16, 0, 0)
+        #Right Corners
+        self.RightC = pyglet.image.create(32, 32).get_texture()
+        self.RightC.blit_into(TRCorner, 16, 16, 0)
+        self.RightC.blit_into(BRCorner, 16, 0, 0)
+        self.RightC.blit_into(striateTH, 0, 16, 0)
+        self.RightC.blit_into(striateBH, 0, 0, 0)
+        #Top Corners
+        self.TopC = pyglet.image.create(32, 32).get_texture()
+        self.TopC.blit_into(TRCorner, 16, 16, 0)
+        self.TopC.blit_into(TLCorner, 0, 16, 0)
+        self.TopC.blit_into(striateLV, 0, 0, 0)
+        self.TopC.blit_into(striateRV, 16, 0, 0)
+        #Bottom Corners
+        self.BottomC = pyglet.image.create(32, 32).get_texture()
+        self.BottomC.blit_into(BLCorner, 0, 0, 0)
+        self.BottomC.blit_into(BRCorner, 16, 0, 0)
+        self.BottomC.blit_into(striateLV, 0, 16, 0)
+        self.BottomC.blit_into(striateRV, 16, 16, 0)
+        #Top Horizontal 
+        self.TopH = pyglet.image.create(32, 32).get_texture()
+        self.TopH.blit_into(striateTH, 0, 16, 0)
+        self.TopH.blit_into(striateTH, 16, 16, 0)
+        #Bottom Horizontal 
+        self.BottomH = pyglet.image.create(32, 32).get_texture()
+        self.BottomH.blit_into(striateBH, 0, 0, 0)
+        self.BottomH.blit_into(striateBH, 16, 0, 0)
+        
+    def makeSprite(self, type, x=-1, y=-1):
+        #correct range
+        if type < 0:
+            type = 0
+        if type > 7:
+            type = 7
+        #create the right sprite
+        if type == 0: # TLC
+            sprite = pyglet.sprite.Sprite(self.TLCorner, x, y, batch=self.cornerRenderingBatch)
+        elif type == 1: # TRC
+            sprite = pyglet.sprite.Sprite(self.TRCorner, x, y, batch=self.cornerRenderingBatch)
+        elif type == 2: # BLC
+            sprite = pyglet.sprite.Sprite(self.BLCorner, x, y, batch=self.cornerRenderingBatch)
+        elif type == 3: # BRC
+            sprite = pyglet.sprite.Sprite(self.BRCorner, x, y, batch=self.cornerRenderingBatch)
+        elif type == 4: # TH
+            sprite = pyglet.sprite.Sprite(self.TopH, x, y, batch=self.horizontalRenderingBatch)
+        elif type == 5: # BH
+            sprite = pyglet.sprite.Sprite(self.BottomH, x, y, batch=self.horizontalRenderingBatch)
+        elif type == 6: # LV
+            sprite = pyglet.sprite.Sprite(self.LeftV, x, y, batch=self.verticalRenderingBatch)
+        elif type == 7: # RV
+            sprite = pyglet.sprite.Sprite(self.RightV, x, y, batch=self.verticalRenderingBatch)
+        elif type == 8: # LC
+            sprite = pyglet.sprite.Sprite(self.LeftC, x, y, batch=self.LRRenderingBatch)
+        elif type == 9: # RC
+            sprite = pyglet.sprite.Sprite(self.RightC, x, y, batch=self.LRRenderingBatch)
+        elif type == 10: #TC
+            sprite = pyglet.sprite.Sprite(self.TopC, x, y, batch=self.TBRenderingBatch)
+        elif type == 11: #BC
+            sprite = pyglet.sprite.Sprite(self.BottomC, x, y, batch=self.TBRenderingBatch)
+        #add the sprite to the sprites array so we can keep track of it 
+        self.sprites.append(sprite)
+        # return the sprite
+        return sprite
+        
+    def setupSprites(self):
+        self.singleTileSprite = pyglet.sprite.Sprite(self.singleImage, -1, -1)
+        self.sprites.append(self.singleTileSprite)
+        #make corner sprites
+        for type in range(4): 
+            self.cornerSprites.append(self.makeSprite(type))
+        #add a striate sprite for each side, the lists will expand or contract as needed
+        self.topRowSprites.append(self.makeSprite(4))
+        self.bottomRowSprites.append(self.makeSprite(5))
+        self.leftRowSprites.append(self.makeSprite(6))
+        self.rightRowSprites.append(self.makeSprite(7))
+        #add the left right corners
+        self.LRCorners.append(self.makeSprite(8))
+        self.LRCorners.append(self.makeSprite(9))
+        #add the top bottom corners
+        self.TBCorners.append(self.makeSprite(10))
+        self.TBCorners.append(self.makeSprite(11))
+       
+    def setTopLeft(self, x, y):
+        self.topLeftPos[0] = x
+        self.topLeftPos[1] = y
+        
+    def setBottomRight(self, x, y):
+        self.bottomRightPos[0] = x
+        self.bottomRightPos[1] = y   
+        
+    def update(self):
+        '''
+        updates the positions of the sprite used to represent the mouse cursor
+        '''
+        fourCornersUpdateFlag = True
+        verticalUpdateFlag = True
+        horizontalUpdateFlag = True
+        width = self.bottomRightPos[0] - self.topLeftPos[0]
+        height = self.bottomRightPos[1] - self.topLeftPos[1]
+        if self.singleMode or (width == 0 and height == 0):
+            #update the positions of the single tile sprite
+            self.singleTileSprite.set_position(self.topLeftPos[0] * 32, 
+                                               ((self.map.height - self.topLeftPos[1]) * 32) - 32)
+            fourCornersUpdateFlag = False
+            verticalUpdateFlag = False
+            horizontalUpdateFlag = False
+        elif width > 0:
+            if height == 0:
+                #update positions of left right corners
+                self.LRCorners[0].set_position(self.topLeftPos[0] * 32,
+                                               ((self.map.height - self.topLeftPos[1]) * 32) - 32)
+                self.LRCorners[1].set_position(self.bottomRightPos[0] * 32,
+                                               ((self.map.height - self.topLeftPos[1]) * 32) - 32)
+                fourCornersUpdateFlag = False
+            else:
+                if abs(width) > 1:
+                    horizontalUpdateFlag = False
+                if abs(height) > 1:
+                    verticalUpdateFlag = False
+        elif height > 0:
+            if width == 0:   
+                #update the position of the top Bottom corners
+                self.TBCorners[0].set_position(self.topLeftPos[0] * 32,
+                                               ((self.map.height - self.topLeftPos[1]) * 32) - 32)
+                self.TBCorners[1].set_position(self.topLeftPos[0] * 32,
+                                               ((self.map.height - self.bottomRightPos[1]) * 32) - 32)
+                fourCornersUpdateFlag = False
+            else: 
+                if abs(width) > 1:
+                    horizontalUpdateFlag = False
+                if abs(height) > 1:
+                    verticalUpdateFlag = False
+        
+        if fourCornersUpdateFlag:
+            #update the positions of the corners sprites
+            # TL
+            self.cornerSprites[0].set_position(self.topLeftPos[0] * 32, 
+                                               ((self.map.height - self.topLeftPos[1]) * 32) - 32)
+            # TR
+            self.cornerSprites[1].set_position(self.bottomRightPos[0] * 32, 
+                                               ((self.map.height - self.topLeftPos[1]) * 32) - 32)
+            # BL
+            self.cornerSprites[2].set_position(self.topLeftPos[0] * 32, 
+                                               ((self.map.height - self.bottomRightPos[1]) * 32) - 32)
+            # BR
+            self.cornerSprites[3].set_position(self.bottomRightPos[0] * 32, 
+                                               ((self.map.height - self.bottomRightPos[1]) * 32) - 32)
+            
+        if horizontalUpdateFlag:
+            #update the positions of the horizontal, adding for sprites or removing them as needed
+            sprites_used = 0
+            for x in range(1, abs(self.bottomRightPos[0] - self.topLeftPos[0]) - 1):
+                if (self.bottomRightPos[0] - self.topLeftPos[0]) < 0:
+                    m = -1
+                else:
+                    m = 1
+                if x <= len(self.topRowSprites):
+                    self.topRowSprites[x - 1].set_position((self.topLeftPos[0] + x * m) * 32, 
+                                                           ((self.map.height - self.topLeftPos[1]) * 32) - 32)
+                else:
+                    self.topRowSprites.append(self.makeSprite(4, (self.topLeftPos[0] + x * m) * 32, 
+                                                              ((self.map.height - self.topLeftPos[1]) * 32) - 32))
+                if x <= len(self.bottomRowSprites):
+                    self.bottomRowSprites[x - 1].set_position((self.topLeftPos[0] + x * m) * 32, 
+                                                           ((self.map.height - self.bottomRightPos[1]) * 32) - 32)
+                else:
+                    self.bottomRowSprites.append(self.makeSprite(5, (self.topLeftPos[0] + x * m) * 32, 
+                                                                 ((self.map.height - self.bottomRightPos[1]) * 32) - 32))
+                sprites_used += 1
+            #remove unused sprites only if they would be drawn
+            if sprites_used > 0:
+                for i in range(sprites_used, len(self.topRowSprites)):
+                    sprite = self.topRowSprites.pop()
+                    sprite.delete()
+                for i in range(sprites_used, len(self.bottomRowSprites)):
+                    print i, len(self.bottomRowSprites)
+                    sprite = self.bottomRowSprites.pop()
+                    sprite.delete()
+                    
+        if verticalUpdateFlag:
+            #update the positions of the lists, adding for sprites or removing them as needed
+            sprites_used = 0
+            for y in range(1, abs(self.topLeftPos[1] - self.bottomRightPos[1]) - 1):
+                if (self.topLeftPos[1] - self.bottomRightPos[1]) < 0:
+                    m = -1
+                else:
+                    m = 1
+                if y <= len(self.leftRowSprites):
+                    self.leftRowSprites[y - 1].set_position(self.topLeftPos[0] * 32, 
+                                                           ((self.map.height - self.topLeftPos[1] - y * m) * 32) - 32)
+                else:
+                    self.leftRowSprites.append(self.makeSprite(6, self.topLeftPos[0] * 32, 
+                                                              ((self.map.height - self.topLeftPos[1] - y * m) * 32) - 32))
+                if y <= len(self.rightRowSprites):
+                    self.rightRowSprites[y - 1].set_position(self.bottomRightPos[0] * 32, 
+                                                           ((self.map.height - self.topLeftPos[1] - y * m) * 32) - 32)
+                else:
+                    self.rightRowSprites.append(self.makeSprite(7, self.bottomRightPos[0] * 32, 
+                                                                ((self.map.height - self.topLeftPos[1] - y * m) * 32) - 32))
+                sprites_used += 1
+            #remove unused sprites only if they would be drawn
+            if sprites_used > 0:
+                for i in range(sprites_used, len(self.leftRowSprites)):
+                    sprite = self.leftRowSprites.pop()
+                    sprite.delete()
+                for i in range(sprites_used, len(self.rightRowSprites)):
+                    sprite = self.rightRowSprites.pop()
+                    sprite.delete()
+                        
+    def Draw(self):
+        '''
+        draws the rendering batchs to render the mouse sprites to the screen 
+        '''
+        fourCornersFlag = False
+        verticalFlag = False
+        horizontalFlag = False
+        LRFlag = False
+        TBFlag = False
+        width = self.bottomRightPos[0] - self.topLeftPos[0]
+        height = self.bottomRightPos[1] - self.topLeftPos[1]
+        if self.singleMode or (width == 0 and height == 0):
+            #draw the single tile sprite
+            self.singleTileSprite.draw()
+        elif width > 0:
+            if abs(width) > 1:
+                horizontalFlag = True
+            if height == 0:
+                LRFlag = True
+            else:
+                if abs(height) > 1:
+                    verticalFlag = True      
+        elif height > 0:
+            if abs(height) > 1:
+                verticalFlag = True
+            if width == 0:   
+                TBFlag = True
+            else: 
+                if abs(width) > 1:
+                    horizontalFlag = True 
+                 
+        if horizontalFlag:
+            #draw the horizontal sprites
+            self.horizontalRenderingBatch.draw()
+        if verticalFlag:
+            #draw the vertical sprites
+            self.verticalRenderingBatch.draw() 
+        if TBFlag:
+            #draw the top and Bottom corners in two tiles
+            self.TBRenderingBatch.draw()
+        if LRFlag:
+            #draw the left and right corners in two tiles
+            self.LRRenderingBatch.draw()
+        if fourCornersFlag:
+            #draw the four corner sprites
+            self.cornerRenderingBatch.draw()
+        
+    def  __del__(self):
+        '''
+        to be sure the sprites get deleted properly
+        '''
+        self.destroy()
+        
+    def destroy(self):
+        '''
+        delete all the sprites
+        '''
+        for sprite in self.sprites:
+            if sprite is not None:
+                sprite.delete()
+
+class MouseManager(object):
     
+    def __init__(self, mapPanel, map, toolbar):
+        self.map = map
+        self.toolbar = toolbar
+        self.mapPanel = mapPanel
+        self.sprite = None
+        self.topLeft = [-1, -1]
+        self.bottomRight = [-1, -1]
+        
+    def setSprite(self, sprite):
+        self.sprite = sprite
+        
+    def setTopLeft(self, x, y):
+        if x != self.topLeft[0] or y != self.topLeft[1]:
+            self.topLeft[0] = x
+            self.topLeft[1] = y
+            self.mapPanel.NeedRedraw = True
+            if self.sprite is not None:
+                self.sprite.setTopLeft(x, y)
+    
+    def setBottomRight(self, x, y):
+        if x != self.bottomRight[0] or y != self.bottomRight[1]:
+            self.bottomRight[0] = x
+            self.bottomRight[1] = y
+            self.mapPanel.NeedRedraw = True
+            if self.sprite is not None:
+                self.sprite.setBottomRight(x, y)
+        
+        
+        
+
 class TilemapPanel(pygletwx.GLPanel):
 
     def __init__(self, parent, map, tilesets, toolbar, id=wx.ID_ANY):
@@ -542,6 +919,10 @@ class TilemapPanel(pygletwx.GLPanel):
         self.toolbar.mapwin = self
         self.translateX = 0
         self.translateY = 0
+        self.zoom = 1.0
+        self.drawing = False
+        
+        self.MouseManager = MouseManager(self, self.map, self.toolbar)
         
         #set up scrollbars
         size = self.GetVirtualSizeTuple()
@@ -559,41 +940,54 @@ class TilemapPanel(pygletwx.GLPanel):
         self.Bind(wx.EVT_SCROLLWIN_PAGEDOWN, self.scroll_pagedown)
         self.Bind(wx.EVT_SCROLLWIN_THUMBTRACK, self.update_scroll_pos)
         self.Bind(wx.EVT_SCROLLWIN_THUMBRELEASE, self.update_scroll_pos)
-        # mouse eent
-        self.Bind(wx.EVT_LEFT_DOWN, self.OnLeftButtonEvent)
-        self.Bind(wx.EVT_LEFT_UP, self.OnLeftButtonEvent)
-        self.Bind(wx.EVT_MOTION, self.OnLeftButtonEvent)
+        # mouse event
+        self.canvas.Bind(wx.EVT_LEFT_DOWN, self.OnLeftButtonEvent)
+        self.canvas.Bind(wx.EVT_LEFT_UP, self.OnLeftButtonEvent)
+        self.canvas.Bind(wx.EVT_MOTION, self.OnLeftButtonEvent)
         # UI update
         self.Bind(wx.EVT_UPDATE_UI, self.Update) 
 
     def OnLeftButtonEvent(self, event):
-        if self.mode != self.LayerE:
-            self.SetMouseXY(event)
+        onEventLayer = (self.activeLayer == (self.map.data._data.shape[2] + 1))
+        if not onEventLayer:
+            if not self.drawing:
+                self.SetTopLeftXY(event)
+            self.SetBottomRightXY(event)
         if event.LeftDown():
             self.SetFocus()
-            self.SetMouseXY(event)
-            self.CaptureMouse()
+            if onEventLayer:
+                self.SetTopLeftXY(event)
             self.drawing = True
-
         elif event.Dragging() and self.drawing:
-            self.buildBrush()
-
+            if not onEventLayer:
+                self.buildBrush()
         elif event.LeftUp():
-            self.ReleaseMouse()
+            self.drawing = False
             if self.drawing:
                 self.commitBrush()
-
-        # draw the mouse
+        if self.NeedRedraw:
+            self.ForceRedraw()
+        event.Skip()
         
-        
-    def SetMouseXY(self, event):
+    def buildBrush(self):
+        pass
+    
+    def SetTopLeftXY(self, event):
         x, y = self.ConvertEventCoords(event)
         x = x / int(32 * self.zoom)
         y = y / int(32 * self.zoom)
-        self.mouse_x, self.mouse_y = x, y
+        self.MouseManager.setTopLeft(x, y)
+    
+    def SetBottomRightXY(self, event):
+        x, y = self.ConvertEventCoords(event)
+        x = x / int(32 * self.zoom)
+        y = y / int(32 * self.zoom)
+        self.MouseManager.setBottomRight(x, y)
 
     def ConvertEventCoords(self, event):
-        newpos = self.CalcUnscrolledPosition(event.GetX(), event.GetY())
+        scrollX = self.GetScrollPos(wx.HORIZONTAL)
+        scrollY = self.GetScrollPos(wx.VERTICAL)
+        newpos = [event.GetX() + scrollX, event.GetY() + scrollY]
         return newpos
             
     def SetOrigin(self):
@@ -616,9 +1010,11 @@ class TilemapPanel(pygletwx.GLPanel):
         tileset = self.tilesets[self.map.tileset_id]
         self.cache = Cache()
         self.tilemap = Tilemap(table, self.cache, tileset.tileset_name, tileset.autotile_names)
-        self.SetActiveLayer(self.activeLayer)
         self.tileGrid = TileGrid(self.map)
         self.eventGrid = EventGrid(self.map, self.cache, tileset.tileset_name)
+        self.mouseSprite = MouseSprite(self.map)
+        self.MouseManager.setSprite(self.mouseSprite)
+        self.SetActiveLayer(self.activeLayer, True)
         
     def update_object_resize(self, width, height):
         '''called when the window recieves only if opengl is initialized'''
@@ -639,6 +1035,8 @@ class TilemapPanel(pygletwx.GLPanel):
             self.tileGrid.Draw()
             self.eventGrid.update()
             self.eventGrid.Draw()
+        self.mouseSprite.update()
+        self.mouseSprite.Draw()
         
     def Update(self, event):
         self.PrepareGL() 
@@ -646,6 +1044,11 @@ class TilemapPanel(pygletwx.GLPanel):
             self.OnDraw()
             self.NeedRedraw = False
             
+    def ForceRedraw(self):
+        self.PrepareGL()
+        self.OnDraw()
+        self.NeedRedraw = False
+         
     def update_scroll_pos(self, event):
         self.OnScroll(event.GetOrientation(), event.GetPosition())
         event.Skip()
@@ -708,12 +1111,13 @@ class TilemapPanel(pygletwx.GLPanel):
         self.OnDraw()
         self.SetScrollbar(orient, pos, thumb, range, refresh=True)
         
-    def SetActiveLayer(self, layer):
+    def SetActiveLayer(self, layer, init=False):
         #if the selected layer is the event layer
         self.tilemap.setDimXY(-self.translateX, -self.translateY)
         self.activeLayer = layer
         self.tilemap.SetActiveLayer(layer)
-        self.OnDraw()
+        if not init:
+            self.OnDraw()
     
     def SetLayerDimming(self, bool):
         self.tilemap.SetLayerDimming(bool)

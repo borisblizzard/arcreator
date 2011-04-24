@@ -34,11 +34,12 @@ class GLPanel(wx.Panel):
         # bind events
         self.canvas.Bind(wx.EVT_ERASE_BACKGROUND, self.processEraseBackgroundEvent)
         self.canvas.Bind(wx.EVT_SIZE, self.processSizeEvent)
-        self.canvas.Bind(wx.EVT_PAINT, self.processPaintEvent)
+        self.canvas.Bind(wx.EVT_PAINT, self.processPaintEvent)        
         
     #==========================================================================
     # Canvas Proxy Methods
     #==========================================================================
+   
     def GetGLExtents(self):
         '''Get the extents of the OpenGL canvas.'''
         return self.canvas.GetClientSize()
@@ -50,6 +51,7 @@ class GLPanel(wx.Panel):
     #==========================================================================
     # wxPython Window Handlers
     #==========================================================================
+   
     def processEraseBackgroundEvent(self, event):
         '''Process the erase background event.'''
         pass # Do nothing, to avoid flashing on MSWin
@@ -94,6 +96,7 @@ class GLPanel(wx.Panel):
     #==========================================================================
     # GLFrame OpenGL Event Handlers
     #==========================================================================
+ 
     def OnInitGL(self):
         '''Initialize OpenGL for use in the window.'''
         #create a pyglet context for this panel
@@ -138,6 +141,7 @@ class GLPanel(wx.Panel):
     #==========================================================================
     # To be implamented by a sub class
     #==========================================================================
+   
     def create_objects(self):
         '''create opengl objects when opengl is initialized'''
         pass
