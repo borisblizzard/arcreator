@@ -1,3 +1,5 @@
+#include <ruby.h>
+
 #include "CodeSnippets.h"
 #include "Color.h"
 #include "Font.h"
@@ -16,24 +18,6 @@ namespace rgss
 	bool Font::defaultItalic;
 	Color* Font::defaultColor;
 	VALUE Font::rb_defaultColor;
-
-	Font::Font()
-	{
-		this->name = defaultName;
-		this->size = defaultSize;
-		this->bold = defaultBold;
-		this->italic = defaultItalic;
-		VALUE argv[4] = {INT2FIX(defaultColor->red), INT2FIX(defaultColor->green),
-			INT2FIX(defaultColor->blue), INT2FIX(defaultColor->alpha)};
-		this->rb_color = Color::create(4, argv);
-		RB_VAR2CPP(this->rb_color, Color, color);
-		this->color = color;
-	}
-	
-	Font::~Font()
-	{
-		delete this->color;
-	}
 
 	/****************************************************************************************
 	 * Ruby Interfacing, Creation, Destruction, Systematics

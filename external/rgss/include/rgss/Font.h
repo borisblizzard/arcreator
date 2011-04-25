@@ -17,10 +17,21 @@ namespace rgss
 	class rgssExport Font
 	{
 	public:
-		/// @brief Default constructor.
-		Font();
-		/// @brief Destructor.
-		~Font();
+		/// @brief Gets the name.
+		/// @return The name.
+		hstr getName() { return this->name; }
+		/// @brief Gets the size.
+		/// @return The size.
+		int getSize() { return this->size; }
+		/// @brief Gets the bold flag.
+		/// @return The bold flag.
+		bool getBold() { return this->bold; }
+		/// @brief Gets the bold flag.
+		/// @return The bold flag.
+		bool getItalic() { return this->italic; }
+		/// @brief Gets the color.
+		/// @return The color.
+		Color* getColor() { return this->color; }
 
 		/// @brief Default Font name.
 		static hstr defaultName;
@@ -35,21 +46,6 @@ namespace rgss
 		static Color* defaultColor;
 		/// @brief Default Font Color.
 		static VALUE rb_defaultColor;
-
-
-		/*
-		/// @brief Empty constructor.
-		Font();
-		/// @brief Basic constructor.
-		/// @param[in] name Font name.
-		Font(chstr name);
-		/// @brief Basic constructor.
-		/// @param[in] name Font name.
-		/// @param[in] size Font size.
-		Font(chstr name, int size);
-		/// @brief Destructor
-		~Font();
-		*/
 
 		/// @brief Initializes the module.
 		static void init();

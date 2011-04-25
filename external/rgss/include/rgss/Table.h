@@ -14,10 +14,22 @@ namespace rgss
 	class rgssExport Table
 	{
 	public:
-		/// @todo Dummy for now, needs to be removed later.
-		Table() { }
-		// @todo Dummy for now, needs to be removed later.
-		~Table() { }
+		/// @brief Gets the Z size.
+		/// @return The Z size.
+		int getZSize() { return this->zSize; }
+
+		/// @brief Gets the table entry at a specific position.
+		/// @param[in] x X coordinate.
+		/// @param[in] y Y coordinate.
+		/// @param[in] z Z coordinate.
+		/// @return The table entry at a specific position.
+		short getData(int x, int y = 0, int z = 0);
+		/// @brief Gets the table entry at a specific position with circular x, y rotation.
+		/// @param[in] x X coordinate.
+		/// @param[in] y Y coordinate.
+		/// @param[in] z Z coordinate.
+		/// @return The table entry at a specific position.
+		short getCircularData(int x, int y = 0, int z = 0);
 
 		/// @brief Initializes the module.
 		static void init();

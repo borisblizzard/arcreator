@@ -19,6 +19,10 @@ namespace rgss
 		/// @param[in] rb_viewport Ruby Viewport object.
 		void initializeSourceRenderer(VALUE rb_viewport);
 
+		/// @brief Sets the opacity.
+		/// @param[in] value The opacity.
+		void setOpacity(int value);
+
 		/// @brief Marks referenced values of sourceRenderer for garbage collection.
 		/// @param[in] sourceRenderer SourceRenderer to mark.
 		static void gc_mark(SourceRenderer* sourceRenderer);
@@ -26,6 +30,24 @@ namespace rgss
 		/// @param[in] sourceRenderer SourceRenderer to free.
 		static void gc_free(SourceRenderer* sourceRenderer);
 
+		/// @brief Gets the viewport.
+		/// @return Viewport.
+		static VALUE rb_getViewport(VALUE self);
+		/// @brief Sets the viewport.
+		/// @param[in] value Viewport.
+		static VALUE rb_setViewport(VALUE self, VALUE value);
+		/// @brief Gets the X coordinate.
+		/// @return value The X coordinate.
+		static VALUE rb_getX(VALUE self);
+		/// @brief Sets the X coordinate.
+		/// @param[in] value The X coordinate.
+		static VALUE rb_setX(VALUE self, VALUE value);
+		/// @brief Gets the Y coordinate.
+		/// @return value The Y coordinate.
+		static VALUE rb_getY(VALUE self);
+		/// @brief Sets the Y coordinate.
+		/// @param[in] value The Y coordinate.
+		static VALUE rb_setY(VALUE self, VALUE value);
 		/// @brief Gets the opacity.
 		/// @return The opacity.
 		static VALUE rb_getOpacity(VALUE self);
@@ -38,24 +60,22 @@ namespace rgss
 		/// @brief Sets the bitmap.
 		/// @param[in] value Bitmap.
 		static VALUE rb_setBitmap(VALUE self, VALUE value);
-		/// @brief Gets the viewport.
-		/// @return Viewport.
-		static VALUE rb_getViewport(VALUE self);
-		/// @brief Sets the viewport.
-		/// @param[in] value Viewport.
-		static VALUE rb_setViewport(VALUE self, VALUE value);
 
 	protected:
-		/// @brief Opacity of the SourceRenderer.
+		/// @brief Viewport.
+		Viewport* viewport;
+		/// @brief Ruby object of viewport.
+		VALUE rb_viewport;
+		/// @brief X coordinate.
+		int x;
+		/// @brief Y coordinate.
+		int y;
+		/// @brief The opacity.
 		int opacity;
 		/// @brief Bitmap drawing reference.
 		Bitmap* bitmap;
 		/// @brief Ruby object of bitmap drawing reference.
 		VALUE rb_bitmap;
-		/// @brief Viewport.
-		Viewport* viewport;
-		/// @brief Ruby object of viewport.
-		VALUE rb_viewport;
 
 	};
 

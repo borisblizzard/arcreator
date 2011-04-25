@@ -96,6 +96,7 @@ namespace rgss
 			controlKeys += it->second;
 		}
 		controlKeys.removed_duplicates();
+		controlKeys.sort();
 	}
 
 	void Input::createRubyInterface()

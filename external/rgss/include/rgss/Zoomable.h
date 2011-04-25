@@ -15,7 +15,7 @@ namespace rgss
 	public:
 		/// @brief Initializes the basic Zoomable object.
 		/// @param[in] rb_viewport Ruby Viewport object.
-		void initializeZoomable(VALUE rb_viewport);
+		void initializeZoomable(VALUE rb_viewport = Qnil);
 
 		/// @brief Marks referenced values of zoomable for garbage collection.
 		/// @param[in] zoomable Zoomable to mark.

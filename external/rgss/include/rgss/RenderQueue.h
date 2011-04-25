@@ -9,10 +9,12 @@ namespace rgss
 {
 	class Renderable;
 
-	/// @brief Represents a render queue to organize renderable objects by Z order and allow the functionality of RGSS's Viewport class.
+	/// @brief Represents a render queue to organize renderable objects by Z order and creation order and make functionality of RGSS's Viewport class easier to implement.
 	class rgssExport RenderQueue
 	{
 	public:
+		/// @brief Constructor.
+		RenderQueue();
 		/// @brief Destructor.
 		~RenderQueue();
 
@@ -31,6 +33,8 @@ namespace rgss
 	protected:
 		/// @brief Contains all renderable objects;
 		harray<Renderable*> renderables;
+		/// @brief Needs-Sorting flag.
+		bool needsSorting;
 
 	};
 

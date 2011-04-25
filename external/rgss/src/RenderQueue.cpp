@@ -6,6 +6,10 @@
 
 namespace rgss
 {
+	RenderQueue::RenderQueue() : needsSorting(false)
+	{
+	}
+
 	RenderQueue::~RenderQueue()
 	{
 		while (this->renderables.size() > 0)
@@ -14,8 +18,18 @@ namespace rgss
 		}
 	}
 
+	bool compareFunction(Renderable* a, Renderable* b)
+	{
+		return (a->getZ() < b->getZ() || a->getZ() == b->getZ() && a->getCounterId() < b->getCounterId());
+	}
+
 	void RenderQueue::draw()
 	{
+		if (this->needsSorting)
+		{
+			this->renderables.sort(&compareFunction);
+			this->needsSorting = false;
+		}
 		foreach (Renderable*, it, this->renderables)
 		{
 			(*it)->draw();
@@ -26,7 +40,9 @@ namespace rgss
 	{
 		for_iter (i, 0, this->renderables.size())
 		{
-			if (renderable->getZ() < this->renderables[i]->getZ())
+			if (renderable->getZ() < this->renderables[i]->getZ() ||
+				renderable->getZ() == this->renderables[i]->getZ() &&
+				renderable->getCounterId() == this->renderables[i]->getCounterId())
 			{
 				this->renderables.insert_at(i, renderable);
 				return;
@@ -42,8 +58,7 @@ namespace rgss
 
 	void RenderQueue::update(Renderable* renderable)
 	{
-		this->remove(renderable);
-		this->add(renderable);
+		this->needsSorting = true;
 	}
 
 }

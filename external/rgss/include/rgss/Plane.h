@@ -37,19 +37,6 @@ namespace rgss
 		/// @note Arguments are "[viewport]".
 		static VALUE rb_initialize(int argc, VALUE* argv, VALUE self);
 			
-		/// @brief Gets the plan's color
-		/// @return value Returns the Plane's RGSS::Color object.
-		static VALUE rb_getColor(VALUE self);
-		/// @brief Sets the Plane's color
-		/// @param[in] value the RGSS::Color object to set
-		static VALUE rb_setColor(VALUE self, VALUE value);
-		/// @brief Gets the Tone of the plane.
-		/// @return Returns the Plane's RGSS::Tone object.
-		static VALUE rb_getTone(VALUE self);
-		/// @brief Sets the tone of the Plane.
-		/// @param[in] value The RGSS::Tone object to set.
-		static VALUE rb_setTone(VALUE self, VALUE value);
-
 	protected:
 		/// @brief Gets the render area rectangle.
 		/// @return The render area rectangle.

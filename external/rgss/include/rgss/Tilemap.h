@@ -3,24 +3,25 @@
 
 #include <ruby.h>
 
+#include <hltypes/harray.h>
+
 #include "Table.h"
+#include "SourceRenderer.h"
 #include "rgssExport.h"
 
 namespace rgss
 {
 	extern VALUE rb_cTilemap;
 
-	class Viewport; 
 	class Bitmap; 
-	class Table; 
+	class Sprite;
+	class Table;
 
-	class rgssExport Tilemap
+	class rgssExport Tilemap : public SourceRenderer
 	{
 	public:
-		/// @todo Dummy for now, needs to be removed later.
-		Tilemap() { }
-		/// @todo Dummy for now, needs to be removed later.
-		~Tilemap() { }
+		/// @brief Disposes this instance.
+		void dispose();
 
 		/// @brief Initializes the module.
 		static void init();
@@ -29,6 +30,9 @@ namespace rgss
 		/// @brief Marks referenced values of bitmap for garbage collection.
 		/// @param[in] tilemap Pointer to the Tilemap to mark.
 		static void gc_mark(Tilemap* tilemap);
+		/// @brief Frees allocated memory.
+		/// @param[in] sprite Pointer to the Tilemap to free.
+		static void gc_free(Tilemap* tilemap);
 		/// @brief Ruby allocation of an instance.
 		static VALUE rb_new(VALUE classe);
 		/// @brief Initializes this instance, setting the viewport if provided.
@@ -36,87 +40,72 @@ namespace rgss
 		/// @param[in] argv Pointer to first argument.
 		/// @note Argument is "[viewport]".
 		static VALUE rb_initialize(int argc, VALUE* argv, VALUE self);
-		/// @brief Disposes the object.
-		static VALUE rb_dispose(VALUE self);
 
+		/// @brief Sets the offset X coordinate.
+		/// @param[in] value Offset X coordinate.
+		static VALUE rb_setOX(VALUE self, VALUE value);
+		/// @brief Sets the offset Y coordinate.
+		/// @param[in] value Offset Y coordinate.
+		static VALUE rb_setOY(VALUE self, VALUE value);
+		/// @brief Sets the visible flag.
+		/// @param[in] value The visible flag.
+		static VALUE rb_setVisible(VALUE self, VALUE value);
 		/// @brief Gets the tilemap's autotiles.
 		/// @return value Array of pointers to autotile bitmaps.
 		static VALUE rb_getAutotiles(VALUE self);
-		/// @brief Sets the tilemap's autotiles.
-		/// @param[in] value Array of pointers for each autotile bitmap.
-		static VALUE rb_setAutotiles(VALUE self, VALUE* value);
-		/// @brief Gets the tilemap's map data.
-		/// @return value Pointer to the Table that contains tile info.
+		/// @brief Gets the map data.
+		/// @return value The map data.
 		static VALUE rb_getMapData(VALUE self);
-		/// @brief Sets the tilemap's map data.
-		/// @param[in] value Pointer to the Table to set as the tilemap's map data.
-		static VALUE rb_setMapData(VALUE self, VALUE* value);
-		/// @brief Gets the tilemap's origin point on the x-axis.
-		/// @return value Value of the starting point.
-		static VALUE rb_getOx(VALUE self);
-		/// @brief Sets the tilemap's origin point on the x-axis.
-		/// @param[in] value Value to set for the origin point.
-		static VALUE rb_setOx(VALUE self, VALUE value);
-		/// @brief Gets the tilemap's origin point on the y-axis.
-		/// @return value Value of the starting point.
-		static VALUE rb_getOy(VALUE self);
-		/// @brief Sets the tilemap's origin point on the y-axis.
-		/// @param[in] value Value to set for the origin point.
-		static VALUE rb_setOy(VALUE self, VALUE value);
-		/// @brief Gets the tilemap's priority data.
-		/// @return value The pointer the table that contains priority data.
+		/// @brief Sets the map data.
+		/// @param[in] value The map data.
+		static VALUE rb_setMapData(VALUE self, VALUE value);
+		/// @brief Gets the priority data.
+		/// @return value The priority data.
 		static VALUE rb_getPriorities(VALUE self);
-		/// @brief Sets the tilemap's priority data.
-		/// @param[in] Table to use for the map's priorities.
-		static VALUE rb_setPriorities(VALUE self, VALUE* value);
-		/// @brief Gets the tilemap's flash data.
-		/// @return Table used to represent possible movement.
+		/// @brief Sets the priority data.
+		/// @param[in] value The priority data.
+		static VALUE rb_setPriorities(VALUE self, VALUE value);
+		/// @brief Gets the flash data.
+		/// @return value The flash data.
 		static VALUE rb_getFlashData(VALUE self);
-		/// @brief Sets the tilemap's flash data.
-		/// @param[in] Table to represent possible movement.
-		static VALUE rb_setFlashData(VALUE self, VALUE* value);
-		/// @brief Gets the tilemap's tileset data.
-		/// @return value The Bitmap used for the tilemap.
-		static VALUE rb_getTileset(VALUE self);
-		/// @brief Sets the tilemap's tileset bitmap.
-		/// @param[in] value Pointer to the Bitmap to use for the Tilemap's tileset.
-		static VALUE rb_setTileset(VALUE self, VALUE* value);
-		/// @brief Gets the tilemap's visibility value.
-		/// @return value Boolean value of Tilemap's visibility.
-		static VALUE Tilemap::rb_getVisible(VALUE self);
-		/// @brief Sets the tilemap's visibility value.
-		/// @param[in] value Boolean value to set for tilemap's visibility.
-		static VALUE Tilemap::rb_setVisible(VALUE self, VALUE value);
-		/// @brief Gets the tilemap's viewport.
-		/// @return value The Viewport used for the tilemap.
-		static VALUE rb_getViewport(VALUE self);
+		/// @brief Sets the flash data.
+		/// @param[in] value The flash data.
+		static VALUE rb_setFlashData(VALUE self, VALUE value);
 
 		/// @brief Invokes the update method.
 		static VALUE rb_update(VALUE self);
-		/// @brief Gets the truth value if the tilemap has been disposed.
-		/// @return value The Boolean value of instance disposal.
-		static VALUE rb_isDisposed(VALUE self);
 
 	protected:
-		/// @brief Pointers to each autotile bitmap.
-		/// @todo Modify default methods to allow for more autotiles per map.
-		Bitmap* autotiles[7];
-		/// @brief Table data to represent passable directions of tiles
-		Table* flash_data;
-		/// @brief Table containing data of each tile
-		Table* map_data;
-		/// @brief The origin point of the x-coordinate
-		int ox;
-		/// @brief The origin point of the y-coordinate
-		int oy;
-		/// @brief Table to hold priority data
+		/// @brief Autotile bitmaps.
+		VALUE rb_autotiles;
+		/// @brief Map data.
+		Table* mapData;
+		/// @brief Ruby object of map data.
+		VALUE rb_mapData;
+		/// @brief Priority data.
 		Table* priorities;
-		/// @brief Bitmap used for the tilemap sprite
-		Bitmap* tileset;
-		/// @brief Visibility factor of tilemap
-		bool visible;
-		/// @brief Viewport specified for tilemap sprite
-		Viewport* viewport;
+		/// @brief Ruby object of priority data.
+		VALUE rb_priorities;
+		/// @brief Flash data.
+		Table* flashData;
+		/// @brief Ruby object of flash data.
+		VALUE rb_flashData;
+		/// @brief Horizontal tile sprite count.
+		int width;
+		/// @brief Vertical tile sprite count.
+		int height;
+		/// @brief Depth tile sprite count.
+		int depth;
+		/// @brief Tile sprites.
+		/// @note Ruby does not initialize the superclass when it creates an instance of a C++ class so this variable has to be created manually.
+		harray<Sprite*>* tileSprites;
+		/// @brief Ruby objects of tile sprites.
+		/// @note Ruby does not initialize the superclass when it creates an instance of a C++ class so this variable has to be created manually.
+		harray<VALUE>* rb_tileSprites;
+
+		/// @brief Updates tile sprites.
+		void _updateTileSprites();
+
 	};
 
 }

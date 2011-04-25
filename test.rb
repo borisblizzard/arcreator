@@ -15,6 +15,14 @@ s1.x = 100
 GC.start
 s1.bitmap.fill_rect(200, 0, 50, 50, Color.new(255, 0, 0))
 
+b = Bitmap.new("test_resources/04-Chaos01")
+#s1.bitmap = Bitmap.new(96, 64)
+#s1.bitmap.stretch_blt(Rect.new(0, 0, 96, 64), b, Rect.new(0, 0, b.width, b.height))
+s1.bitmap = Bitmap.new(384, 256)
+s1.bitmap.stretch_blt(Rect.new(0, 0, 384, 256), b, Rect.new(0, 0, b.width, b.height))
+
+
+
 s2 = Sprite.new
 s2.bitmap = Bitmap.new(64, 64)
 c = Color.new(255, 255, 255)
@@ -45,7 +53,7 @@ s2.ox = 32
 s2.oy = 32
 s2.src_rect.set(16, 16, 40, 40)
 p s2.src_rect
-w1 = Window.new
+
 viewport = Viewport.new(16, 16, 128, 64)
 s11 = Sprite.new(viewport)
 s11.z = 1000
@@ -58,7 +66,8 @@ s12.bitmap.fill_rect(0, 0, 64, 64, Color.new(0, 128, 255))
 s12.x = -32
 s12.y = 32
 viewport.z = -100
-viewport = Viewport.new(608, 472, 192, 128)
+
+viewport = Viewport.new(448, 352, 192, 128)
 p1 = Plane.new(viewport)
 p1.ox = -32
 p1.oy = -32
@@ -67,6 +76,11 @@ p2 = Plane.new
 p2.bitmap = Bitmap.new("test_resources/02-Energy01")
 p2.z = -1000
 p2.zoom_x = 4
+
+w1 = Window.new
+w1.x = 256
+w1.y = 256
+w1.z = 10000
 
 loop do
 	Graphics.update

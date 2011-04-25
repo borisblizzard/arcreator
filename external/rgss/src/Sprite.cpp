@@ -24,7 +24,7 @@ namespace rgss
 
 	void Sprite::draw()
 	{
-		if (this->bitmap == NULL || this->opacity == 0 || this->srcRect->width <= 0 ||
+		if (this->bitmap == NULL || this->bitmap->isDisposed() || this->opacity == 0 || this->srcRect->width <= 0 ||
 			this->srcRect->height <= 0 || this->zoomX == 0.0f || this->zoomY == 0.0f)
 		{
 			return;
@@ -50,6 +50,10 @@ namespace rgss
 	{
 		this->bitmap->updateTexture();
 		april::rendersys->setTexture(this->bitmap->getTexture());
+		if (this->blendType == Positive)
+		{
+			april::rendersys->setBlendMode(april::ADD);
+		}
 		grect drawRect((float)this->ox, (float)this->oy,
 			(float)this->srcRect->width, (float)this->srcRect->height);
 		float w = (float)this->bitmap->getWidth();
@@ -59,7 +63,9 @@ namespace rgss
 		srcRect.y = this->srcRect->y / h;
 		srcRect.w = hmin(this->srcRect->width / w, 1.0f - srcRect.x);
 		srcRect.h = hmin(this->srcRect->height / h, 1.0f - srcRect.y);
-		april::rendersys->drawTexturedQuad(drawRect, srcRect);
+		april::rendersys->drawTexturedQuad(drawRect, srcRect,
+			april::Color(APRIL_COLOR_WHITE, (unsigned char)this->opacity));
+		april::rendersys->setBlendMode(april::DEFAULT);
 	}
 
 	/****************************************************************************************
@@ -87,12 +93,20 @@ namespace rgss
 		rb_define_method(rb_cSprite, "oy", RUBY_METHOD_FUNC(&Sprite::rb_getOY), 0);
 		rb_define_method(rb_cSprite, "oy=", RUBY_METHOD_FUNC(&Sprite::rb_setOY), 1);
 		rb_define_method(rb_cSprite, "disposed?", RUBY_METHOD_FUNC(&Sprite::rb_isDisposed), 0);
+		rb_define_method(rb_cSprite, "color", RUBY_METHOD_FUNC(&Sprite::rb_getColor), 0);
+		rb_define_method(rb_cSprite, "color=", RUBY_METHOD_FUNC(&Sprite::rb_setColor), 1);
+		rb_define_method(rb_cSprite, "tone", RUBY_METHOD_FUNC(&Sprite::rb_getTone), 0);
+		rb_define_method(rb_cSprite, "tone=", RUBY_METHOD_FUNC(&Sprite::rb_setTone), 1);
 		// getters and setters (SourceRenderer)
+		rb_define_method(rb_cSprite, "viewport", RUBY_METHOD_FUNC(&Sprite::rb_getViewport), 0);
+		rb_define_method(rb_cSprite, "x", RUBY_METHOD_FUNC(&Sprite::rb_getX), 0);
+		rb_define_method(rb_cSprite, "x=", RUBY_METHOD_FUNC(&Sprite::rb_setX), 1);
+		rb_define_method(rb_cSprite, "y", RUBY_METHOD_FUNC(&Sprite::rb_getY), 0);
+		rb_define_method(rb_cSprite, "y=", RUBY_METHOD_FUNC(&Sprite::rb_setY), 1);
 		rb_define_method(rb_cSprite, "opacity", RUBY_METHOD_FUNC(&Sprite::rb_getOpacity), 0);
 		rb_define_method(rb_cSprite, "opacity=", RUBY_METHOD_FUNC(&Sprite::rb_setOpacity), 1);
 		rb_define_method(rb_cSprite, "bitmap", RUBY_METHOD_FUNC(&Sprite::rb_getBitmap), 0);
 		rb_define_method(rb_cSprite, "bitmap=", RUBY_METHOD_FUNC(&Sprite::rb_setBitmap), 1);
-		rb_define_method(rb_cSprite, "viewport", RUBY_METHOD_FUNC(&Sprite::rb_getViewport), 0);
 		// getters and setters (Zoomable)
 		rb_define_method(rb_cSprite, "zoom_x", RUBY_METHOD_FUNC(&Sprite::rb_getZoomX), 0);
 		rb_define_method(rb_cSprite, "zoom_x=", RUBY_METHOD_FUNC(&Sprite::rb_setZoomX), 1);
@@ -101,15 +115,17 @@ namespace rgss
 		rb_define_method(rb_cSprite, "blend_type", RUBY_METHOD_FUNC(&Sprite::rb_getBlendType), 0);
 		rb_define_method(rb_cSprite, "blend_type=", RUBY_METHOD_FUNC(&Sprite::rb_setBlendType), 1);
 		// getters and setters
-		rb_define_method(rb_cSprite, "x", RUBY_METHOD_FUNC(&Sprite::rb_getX), 0);
-		rb_define_method(rb_cSprite, "x=", RUBY_METHOD_FUNC(&Sprite::rb_setX), 1);
-		rb_define_method(rb_cSprite, "y", RUBY_METHOD_FUNC(&Sprite::rb_getY), 0);
-		rb_define_method(rb_cSprite, "y=", RUBY_METHOD_FUNC(&Sprite::rb_setY), 1);
 		rb_define_method(rb_cSprite, "angle", RUBY_METHOD_FUNC(&Sprite::rb_getAngle), 0);
 		rb_define_method(rb_cSprite, "angle=", RUBY_METHOD_FUNC(&Sprite::rb_setAngle), 1);
+		rb_define_method(rb_cSprite, "mirror", RUBY_METHOD_FUNC(&Sprite::rb_getMirror), 0);
+		rb_define_method(rb_cSprite, "mirror=", RUBY_METHOD_FUNC(&Sprite::rb_setMirror), 1);
+		rb_define_method(rb_cSprite, "bush_depth", RUBY_METHOD_FUNC(&Sprite::rb_getBushDepth), 0);
+		rb_define_method(rb_cSprite, "bush_depth=", RUBY_METHOD_FUNC(&Sprite::rb_setBushDepth), 1);
 		rb_define_method(rb_cSprite, "src_rect", RUBY_METHOD_FUNC(&Sprite::rb_getSrcRect), 0);
 		rb_define_method(rb_cSprite, "src_rect=", RUBY_METHOD_FUNC(&Sprite::rb_setSrcRect), 1);
 		// methods
+		rb_define_method(rb_cSprite, "flash", RUBY_METHOD_FUNC(&Sprite::rb_flash), 2);
+		rb_define_method(rb_cSprite, "update", RUBY_METHOD_FUNC(&Sprite::rb_update), 0);
 	}
 
 	void Sprite::gc_mark(Sprite* sprite)
@@ -128,7 +144,7 @@ namespace rgss
 	VALUE Sprite::rb_new(VALUE classe)
 	{
 		Sprite* sprite;
-		VALUE result = Data_Make_Struct(rb_cSprite, Sprite, Sprite::gc_mark, Sprite::gc_free, sprite);
+		VALUE result = Data_Make_Struct(classe, Sprite, Sprite::gc_mark, Sprite::gc_free, sprite);
 		sprite->disposed = true;
 		sprite->type = TYPE_SPRITE;
 		return result;
@@ -144,6 +160,13 @@ namespace rgss
 		return self;
 	}
 
+	VALUE Sprite::create(int argc, VALUE* argv)
+	{
+		VALUE object = Sprite::rb_new(rb_cSprite);
+		object = Sprite::rb_initialize(argc, argv, object);
+		return object;
+	}
+
 	/****************************************************************************************
 	 * Ruby Getters/Setters
 	 ****************************************************************************************/
@@ -152,36 +175,10 @@ namespace rgss
 	{
 		Zoomable::rb_setBitmap(self, value);
 		RB_SELF2CPP(Sprite, sprite);
-		if (sprite->bitmap != NULL)
+		if (sprite->bitmap != NULL && !sprite->bitmap->isDisposed())
 		{
 			sprite->getSrcRect()->set(0, 0, sprite->bitmap->getWidth(), sprite->bitmap->getHeight());
 		}
-		return value;
-	}
-
-	VALUE Sprite::rb_getX(VALUE self)
-	{
-		RB_SELF2CPP(Sprite, sprite);
-		return INT2NUM(sprite->x);
-	}
-
-	VALUE Sprite::rb_setX(VALUE self, VALUE value)
-	{
-		RB_SELF2CPP(Sprite, sprite);
-		sprite->x = NUM2INT(value);
-		return value;
-	}
-
-	VALUE Sprite::rb_getY(VALUE self)
-	{
-		RB_SELF2CPP(Sprite, sprite);
-		return INT2NUM(sprite->y);
-	}
-
-	VALUE Sprite::rb_setY(VALUE self, VALUE value)
-	{
-		RB_SELF2CPP(Sprite, sprite);
-		sprite->y = NUM2INT(value);
 		return value;
 	}
 
@@ -195,6 +192,32 @@ namespace rgss
 	{
 		RB_SELF2CPP(Sprite, sprite);
 		sprite->angle = (float)NUM2DBL(value);
+		return value;
+	}
+
+	VALUE Sprite::rb_getMirror(VALUE self)
+	{
+		RB_SELF2CPP(Sprite, sprite);
+		return (sprite->mirror ? Qtrue : Qfalse);
+	}
+
+	VALUE Sprite::rb_setMirror(VALUE self, VALUE value)
+	{
+		RB_SELF2CPP(Sprite, sprite);
+		sprite->mirror = (bool)RTEST(value);
+		return value;
+	}
+
+	VALUE Sprite::rb_getBushDepth(VALUE self)
+	{
+		RB_SELF2CPP(Sprite, sprite);
+		return INT2NUM(sprite->bushDepth);
+	}
+
+	VALUE Sprite::rb_setBushDepth(VALUE self, VALUE value)
+	{
+		RB_SELF2CPP(Sprite, sprite);
+		sprite->bushDepth = NUM2INT(value);
 		return value;
 	}
 
@@ -218,17 +241,13 @@ namespace rgss
 	 * TODO
 	 ****************************************************************************************/
 
-
-
-
-
-	VALUE Sprite::flash(VALUE self, VALUE color, VALUE duration)
+	VALUE Sprite::rb_flash(VALUE self, VALUE color, VALUE duration)
 	{
 		/// @todo implement
 		return Qnil;
 	}
 
-	VALUE Sprite::update(VALUE self)
+	VALUE Sprite::rb_update(VALUE self)
 	{
 		/// @todo implement
 		return Qnil;

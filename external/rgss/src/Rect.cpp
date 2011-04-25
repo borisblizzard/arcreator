@@ -42,6 +42,8 @@ namespace rgss
 		// initialize
 		rb_define_method(rb_cRect, "initialize", RUBY_METHOD_FUNC(&Rect::rb_initialize), 4);
 		rb_define_method(rb_cRect, "inspect", RUBY_METHOD_FUNC(&Rect::rb_inspect), 0);
+		rb_define_method(rb_cRect, "_dump", RUBY_METHOD_FUNC(&Rect::rb_dump), -1);
+		rb_define_singleton_method(rb_cRect, "_load", RUBY_METHOD_FUNC(&Rect::rb_load), 1);
 		// getters and setters
 		rb_define_method(rb_cRect, "x", RUBY_METHOD_FUNC(&Rect::rb_getX), 0);
 		rb_define_method(rb_cRect, "x=", RUBY_METHOD_FUNC(&Rect::rb_setX), 1);
@@ -51,11 +53,9 @@ namespace rgss
 		rb_define_method(rb_cRect, "width=", RUBY_METHOD_FUNC(&Rect::rb_setWidth), 1);
 		rb_define_method(rb_cRect, "height", RUBY_METHOD_FUNC(&Rect::rb_getHeight), 0);
 		rb_define_method(rb_cRect, "height=", RUBY_METHOD_FUNC(&Rect::rb_setHeight), 1);
-		// all other methods
+		// methods
 		rb_define_method(rb_cRect, "set", RUBY_METHOD_FUNC(&Rect::rb_set), 4);
-		rb_define_method(rb_cRect, "_dump", RUBY_METHOD_FUNC(&Rect::rb_dump), -1);
-		rb_define_singleton_method(rb_cRect, "_load", RUBY_METHOD_FUNC(&Rect::rb_load), 1);
-		// static methods
+		rb_define_method(rb_cRect, "empty", RUBY_METHOD_FUNC(&Rect::rb_empty), 0);
 	}
 
 	VALUE Rect::rb_new(VALUE classe)
@@ -151,6 +151,13 @@ namespace rgss
 		rect->y = NUM2INT(y);
 		rect->width = NUM2INT(width);
 		rect->height = NUM2INT(height);
+		return Qnil;
+	}
+
+	VALUE Rect::rb_empty(VALUE self)
+	{
+		RB_SELF2CPP(Rect, rect);
+		rect->set(0, 0, 0, 0);
 		return Qnil;
 	}
 

@@ -30,17 +30,54 @@ namespace rgss
 		{
 			april::rendersys->translate((float)this->rect->x, (float)this->rect->y);
 		}
+		bool needsTextureUpdate = false;
+		if (this->texture == NULL)
+		{
+			needsTextureUpdate = true;
+		}
+		else if (this->rect->width != this->texture->getWidth() ||
+			this->rect->height != this->texture->getHeight())
+		{
+			delete this->texture;
+			needsTextureUpdate = true;
+		}
+		if (needsTextureUpdate)
+		{
+			int size = this->rect->width * this->rect->height * 4;
+			unsigned char* data = new unsigned char[size];
+			memset(data, 0, size);
+			printf("-- CREATING VIEWPORT TEXTURE\n");
+			this->texture = april::rendersys->createTextureFromMemory(data, this->rect->width, this->rect->height);
+			delete data;
+		}
 		this->_render();
 		april::rendersys->setModelviewMatrix(viewMatrix);
 	}
 
 	void Viewport::_render()
 	{
+		//*
+		april::rendersys->setRenderTarget(this->texture);
+		april::rendersys->setBlendMode(april::ALPHA_BLEND);
+		//*/
 		this->renderQueue->draw();
+		//*
+		april::rendersys->setRenderTarget(NULL);
+		april::rendersys->setBlendMode(april::DEFAULT);
+		april::rendersys->setTexture(this->texture);
+		grect drawRect(0.0f, 0.0f, (float)this->rect->width, (float)this->rect->height);
+		grect srcRect(0.0f, 0.0f, 1.0f, 1.0f);
+		april::rendersys->drawTexturedQuad(drawRect, srcRect);
+		//*/
 	}
 
 	void Viewport::dispose()
 	{
+		if (this->texture != NULL)
+		{
+			delete this->texture;
+			this->texture = NULL;
+		}
 		if (this->renderQueue != NULL)
 		{
 			delete this->renderQueue;
@@ -64,6 +101,7 @@ namespace rgss
 		rb_define_method(rb_cViewport, "initialize", RUBY_METHOD_FUNC(&Viewport::rb_initialize), -1);
 		rb_define_method(rb_cViewport, "dispose", RUBY_METHOD_FUNC(&Viewport::rb_dispose), 0);
 		// getters and setters (Renderable)
+		rb_define_method(rb_cViewport, "disposed?", RUBY_METHOD_FUNC(&Viewport::rb_isDisposed), 0);
 		rb_define_method(rb_cViewport, "visible", RUBY_METHOD_FUNC(&Viewport::rb_getVisible), 0);
 		rb_define_method(rb_cViewport, "visible=", RUBY_METHOD_FUNC(&Viewport::rb_setVisible), 1);
 		rb_define_method(rb_cViewport, "z", RUBY_METHOD_FUNC(&Viewport::rb_getZ), 0);
@@ -72,9 +110,16 @@ namespace rgss
 		rb_define_method(rb_cViewport, "ox=", RUBY_METHOD_FUNC(&Viewport::rb_setOX), 1);
 		rb_define_method(rb_cViewport, "oy", RUBY_METHOD_FUNC(&Viewport::rb_getOY), 0);
 		rb_define_method(rb_cViewport, "oy=", RUBY_METHOD_FUNC(&Viewport::rb_setOY), 1);
-		rb_define_method(rb_cViewport, "disposed?", RUBY_METHOD_FUNC(&Viewport::rb_isDisposed), 0);
+		rb_define_method(rb_cViewport, "color", RUBY_METHOD_FUNC(&Viewport::rb_getColor), 0);
+		rb_define_method(rb_cViewport, "color=", RUBY_METHOD_FUNC(&Viewport::rb_setColor), 1);
+		rb_define_method(rb_cViewport, "tone", RUBY_METHOD_FUNC(&Viewport::rb_getTone), 0);
+		rb_define_method(rb_cViewport, "tone=", RUBY_METHOD_FUNC(&Viewport::rb_setTone), 1);
 		// getters and setters
+		rb_define_method(rb_cViewport, "rect", RUBY_METHOD_FUNC(&Viewport::rb_getRect), 0);
+		rb_define_method(rb_cViewport, "rect=", RUBY_METHOD_FUNC(&Viewport::rb_setRect), 1);
 		// methods
+		rb_define_method(rb_cViewport, "flash", RUBY_METHOD_FUNC(&Viewport::rb_flash), 2);
+		rb_define_method(rb_cViewport, "update", RUBY_METHOD_FUNC(&Viewport::rb_update), 0);
 	}
 
 	void Viewport::gc_mark(Viewport* viewport)
@@ -108,7 +153,7 @@ namespace rgss
 	VALUE Viewport::rb_new(VALUE classe)
 	{
 		Viewport* viewport;
-		VALUE result = Data_Make_Struct(rb_cViewport, Viewport, Viewport::gc_mark, Viewport::gc_free, viewport);
+		VALUE result = Data_Make_Struct(classe, Viewport, Viewport::gc_mark, Viewport::gc_free, viewport);
 		viewport->disposed = true;
 		viewport->type = TYPE_VIEWPORT;
 		return result;
@@ -123,6 +168,7 @@ namespace rgss
 		}
 		RB_SELF2CPP(Viewport, viewport);
 		viewport->renderQueue = new RenderQueue();
+		viewport->texture = NULL;
 		viewport->initializeRenderable(Graphics::renderQueue);
 		VALUE arg1, arg2, arg3, arg4;
 		rb_scan_args(argc, argv, "13", &arg1, &arg2, &arg3, &arg4);
@@ -188,12 +234,23 @@ namespace rgss
 	}
 
 	/****************************************************************************************
+	 * Ruby Methods
+	 ****************************************************************************************/
+
+	/****************************************************************************************
 	 * TODO
 	 ****************************************************************************************/
 
-	void Viewport::flash(Color clr, int duration)
+	VALUE Viewport::rb_flash(VALUE self, VALUE color, VALUE duration)
 	{
-			
+		/// @todo implement
+		return Qnil;
 	}
-	
+
+	VALUE Viewport::rb_update(VALUE self)
+	{
+		/// @todo implement
+		return Qnil;
+	}
+
 }
