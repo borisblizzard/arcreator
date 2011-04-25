@@ -23,7 +23,7 @@
 [size=14pt][b]Run Time Package:[/b][/size]
 
 [list]
-[li]Spencer Lee "legacyblade" Conrad (icons graphics, final editing of characters)[/li]
+[li]Lee Spencer "legacyblade" Conrad (icons graphics, final editing of characters)[/li]
 [li]Naoise "The Niche" McHugh (1 character)[/li]
 [li]Boris "Blizzard" Mikiæ (icons, windowskins, characters, animations, misc graphics)[/li]
 [li]Ilya "Agckuu Coceg" Suprunenko (2 characters)[/li]
