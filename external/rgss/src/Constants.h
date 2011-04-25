@@ -2,9 +2,9 @@
 #define RGSS_CONSTANTS_H
 
 #define VERSION_MAJOR (0)
-#define VERSION_MINOR (4)
-#define VERSION_REVISION (6)
-#define VERSION_BUILD (199)
+#define VERSION_MINOR (7)
+#define VERSION_REVISION (0)
+#define VERSION_BUILD (208)
 
 #define cstr(s) #s
 #define cstr2(s) cstr(s)
