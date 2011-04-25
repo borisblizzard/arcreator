@@ -36,6 +36,8 @@ namespace rgss
 		// initialize
 		rb_define_method(rb_cTone, "initialize", RUBY_METHOD_FUNC(&Tone::rb_initialize), -1);
 		rb_define_method(rb_cTone, "inspect", RUBY_METHOD_FUNC(&Tone::rb_inspect), 0);
+		rb_define_method(rb_cTone, "_dump", RUBY_METHOD_FUNC(&Tone::rb_dump), -1);
+		rb_define_singleton_method(rb_cTone, "_load", RUBY_METHOD_FUNC(&Tone::rb_load), 1);
 		// getters and setters
 		rb_define_method(rb_cTone, "red", RUBY_METHOD_FUNC(&Tone::rb_getRed), 0);
 		rb_define_method(rb_cTone, "red=", RUBY_METHOD_FUNC(&Tone::rb_setRed), 1);
@@ -47,8 +49,6 @@ namespace rgss
 		rb_define_method(rb_cTone, "gray=", RUBY_METHOD_FUNC(&Tone::rb_setGray), 1);
 		// all other methods
 		rb_define_method(rb_cTone, "set", RUBY_METHOD_FUNC(&Tone::rb_set), -1);
-		rb_define_method(rb_cTone, "_dump", RUBY_METHOD_FUNC(&Tone::rb_dump), -1);
-		rb_define_singleton_method(rb_cTone, "_load", RUBY_METHOD_FUNC(&Tone::rb_load), 1);
 		// static methods
 	}
 

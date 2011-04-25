@@ -5,6 +5,11 @@
 
 #include "rgssExport.h"
 
+namespace april
+{
+	class Timer;
+}
+
 namespace rgss
 {
 	extern VALUE rb_mGraphics;
@@ -35,41 +40,48 @@ namespace rgss
 
 		/// @brief Gets the frame count.
 		/// @return int Returns the frame-count.
-		static VALUE getFrameCount(VALUE self);
+		static VALUE rb_getFrameCount(VALUE self);
 		/// @brief Sets the frame count.
 		/// @param[in] value The new frame count.
-		static VALUE setFrameCount(VALUE self, VALUE value);
+		static VALUE rb_setFrameCount(VALUE self, VALUE value);
 		/// @brief Gets the frame rate.
 		/// @return int Returns the frame rate.
-		static VALUE getFrameRate(VALUE self);
+		static VALUE rb_getFrameRate(VALUE self);
 		/// @brief Sets the frame rate.
 		/// @param[in] value The new frame rate.
-		static VALUE setFrameRate(VALUE self, VALUE value);
+		static VALUE rb_setFrameRate(VALUE self, VALUE value);
 
 		/// @brief Refreshes the game screen and advances time by 1 frame.
-		static VALUE update(VALUE self);
+		static VALUE rb_update(VALUE self);
 		/// @brief Resets the screen refresh timing.
-		static VALUE frameReset(VALUE self);
+		static VALUE rb_frameReset(VALUE self);
 		/// @brief Fixes the current screen in preparation for transitions.
-		static VALUE freeze(VALUE self);
+		static VALUE rb_freeze(VALUE self);
 		/// @brief Carries out a transition from the screen fixed in Graphics.freeze to the current screen.
-		/// @param[in] duration The number of frames the transition will last. 
-		/// @param[in] filename The transition graphic file name.
-		/// @param[in] vague Sets the ambiguity of the borderline between the graphic's starting and ending points.
-		static VALUE transition(VALUE self, VALUE duration, VALUE filename, VALUE vague);
+		/// @param[in] argc Number of arguments.
+		/// @param[in] argv Pointer to first argument.
+		/// @note Arguments are "[duration[, filename[, vague]]]".
+		static VALUE rb_transition(int argc, VALUE* argv, VALUE self);
 
 	private:
 		/// @brief Render window width.
 		static int width;
 		/// @brief Render window height.
 		static int height;
+		/// @brief Flag whether rendering is active.
+		static bool active;
 		/// @brief The number of frames that have passed.
 		static unsigned int frameCount;
 		/// @brief The frame rate.
 		static unsigned int frameRate;
 		/// @brief Flag whether it is still running.
 		static bool running;
+		/// @brief Timer for FPS normalization.
+		static april::Timer* timer;
 			
+		/// @brief Waits for the frame sync for FPS limitation.
+		static void _waitForFrameSync();
+
 	};
 
 }

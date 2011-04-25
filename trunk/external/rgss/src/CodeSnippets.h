@@ -13,7 +13,7 @@
 /// @param[in] type Type of the C++ variable.
 /// @param[in] name Name of the C++ variable.
 #define RB_SELF2CPP(type, name) type* name; Data_Get_Struct(self, type, name);
-/// @brief Generates the whole Ruby setter method in C++.
+/// @brief Generates an entire Ruby setter method in C++.
 /// @param[in] type1 Type of the C++ variable.
 /// @param[in] name1 Name of the C++ variable.
 /// @param[in] type2 Type of the C++ variable that is being set.
@@ -29,6 +29,22 @@
 	else \
 	{ \
 		name1->name2 = NULL; \
+	}
+/// @brief Generates an entire initializer for Ruby in C++.
+/// @param[in] type1 Type of the C++ variable.
+/// @param[in] name1 Name of the C++ variable.
+/// @param[in] type2 Type of the C++ variable that is being set.
+/// @param[in] name2 Name of the C++ variable that is being set.
+#define CPP_GENERATE_INITIALIZER(type, name) \
+	this->rb_ ## name = rb_ ## name; \
+	if (!NIL_P(rb_ ## name)) \
+	{ \
+		RB_VAR2CPP(rb_ ## name, type, name); \
+		this->name = name; \
+	} \
+	else \
+	{ \
+		this->name = NULL; \
 	}
 
 #endif

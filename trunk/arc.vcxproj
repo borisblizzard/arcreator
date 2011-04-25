@@ -42,7 +42,8 @@
     <IntDir Condition="'$(Configuration)|$(Platform)'=='win32_Debug|Win32'">bin\$(Configuration)\</IntDir>
     <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='win32_Debug|Win32'">true</GenerateManifest>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='win32_Release|Win32'">bin\$(Configuration)\</OutDir>
-    <IntDir Condition="'$(Configuration)|$(Platform)'=='win32_Release|Win32'">bin\$(Configuration)\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='win32_Release|Win32'">
+    </IntDir>
     <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='win32_Release|Win32'">true</GenerateManifest>
     <EmbedManifest Condition="'$(Configuration)|$(Platform)'=='win32_Release|Win32'">true</EmbedManifest>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='win32_Release|Win32'">Game</TargetName>

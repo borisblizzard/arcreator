@@ -11,22 +11,41 @@
 
 namespace rgss
 {
+	unsigned int Renderable::CounterProgress;
+
 	/****************************************************************************************
 	 * Pure C++ code
 	 ****************************************************************************************/
 
-	/// @todo Should be probably changed so the Renderable instance refers to the RenderQueue where it's stored.
 	void Renderable::initializeRenderable(RenderQueue* renderQueue)
 	{
 		this->disposed = false;
 		this->visible = true;
+		VALUE argv[3] = {INT2FIX(255), INT2FIX(255), INT2FIX(255)};
+		this->rb_color = Color::create(3, argv);
+		RB_VAR2CPP(this->rb_color, Color, color);
+		this->color = color;
+		this->rb_tone = Tone::create(3, argv);
+		RB_VAR2CPP(this->rb_tone, Tone, tone);
+		this->tone = tone;
+		this->counterId = CounterProgress;
+		CounterProgress++;
 		this->renderQueue = renderQueue;
 		this->renderQueue->add(this);
 	}
 
+	void Renderable::setZ(int value)
+	{
+		if (this->z != value)
+		{
+			this->z = value;
+			this->renderQueue->update(this);
+		}
+	}
+
 	void Renderable::draw()
 	{
-		if (!this->visible)
+		if (!this->visible || this->isDisposed())
 		{
 			return;
 		}
@@ -49,6 +68,10 @@ namespace rgss
 
 	void Renderable::dispose()
 	{
+		this->rb_color = Qnil;
+		this->color = NULL;
+		this->rb_tone = Qnil;
+		this->tone = NULL;
 		if (!this->disposed)
 		{
 			this->disposed = true;
@@ -57,6 +80,9 @@ namespace rgss
 			{
 			case TYPE_VIEWPORT:
 				((Viewport*)this)->dispose();
+				break;
+			case TYPE_WINDOW:
+				((Window*)this)->dispose();
 				break;
 			}
 		}
@@ -68,6 +94,14 @@ namespace rgss
 
 	void Renderable::gc_mark(Renderable* renderable)
 	{
+		if (!NIL_P(renderable->rb_color))
+		{
+			rb_gc_mark(renderable->rb_color);
+		}
+		if (!NIL_P(renderable->rb_tone))
+		{
+			rb_gc_mark(renderable->rb_tone);
+		}
 	}
 
 	void Renderable::gc_free(Renderable* renderable)
@@ -86,6 +120,12 @@ namespace rgss
 	 * Ruby Getters/Setters
 	 ****************************************************************************************/
 
+	VALUE Renderable::rb_isDisposed(VALUE self)
+	{
+		RB_SELF2CPP(Renderable, renderable);
+		return (renderable->disposed ? Qtrue : Qfalse);
+	}
+
 	VALUE Renderable::rb_getVisible(VALUE self)
 	{
 		RB_SELF2CPP(Renderable, renderable);
@@ -95,7 +135,7 @@ namespace rgss
 	VALUE Renderable::rb_setVisible(VALUE self, VALUE value)
 	{
 		RB_SELF2CPP(Renderable, renderable);
-		renderable->visible = (value != Qfalse && value != Qnil);
+		renderable->visible = (bool)RTEST(value);
 		return value;
 	}
 
@@ -108,12 +148,7 @@ namespace rgss
 	VALUE Renderable::rb_setZ(VALUE self, VALUE value)
 	{
 		RB_SELF2CPP(Renderable, renderable);
-		int z = NUM2INT(value);
-		if (renderable->z != z)
-		{
-			renderable->z = z;
-			renderable->renderQueue->update(renderable);
-		}
+		renderable->setZ(NUM2INT(value));
 		return value;
 	}
 
@@ -143,10 +178,28 @@ namespace rgss
 		return value;
 	}
 
-	VALUE Renderable::rb_isDisposed(VALUE self)
+	VALUE Renderable::rb_getColor(VALUE self)
 	{
 		RB_SELF2CPP(Renderable, renderable);
-		return (renderable->disposed ? Qtrue : Qfalse);
+		return renderable->rb_color;
+	}
+
+	VALUE Renderable::rb_setColor(VALUE self, VALUE value)
+	{
+		RB_GENERATE_SETTER(Renderable, renderable, Color, color);
+		return value;
+	}
+
+	VALUE Renderable::rb_getTone(VALUE self)
+	{
+		RB_SELF2CPP(Renderable, renderable);
+		return renderable->rb_tone;
+	}
+
+	VALUE Renderable::rb_setTone(VALUE self, VALUE value)
+	{
+		RB_GENERATE_SETTER(Renderable, renderable, Tone, tone);
+		return value;
 	}
 
 }

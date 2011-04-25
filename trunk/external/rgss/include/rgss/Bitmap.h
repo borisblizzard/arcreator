@@ -23,18 +23,51 @@ namespace rgss
 	class rgssExport Bitmap
 	{
 	public:
+		/// @brief Constructor.
+		/// @param[in] width The width.
+		/// @param[in] height The height.
+		Bitmap(int width, int height);
+		/// @brief Constructor.
+		/// @param[in] filename The filename.
+		Bitmap(chstr filename);
+		/// @brief Destructor.
+		~Bitmap();
+
 		/// @brief Gets the april::Texture.
 		/// @return april::Texture used to draw.
 		april::Texture* getTexture() { return this->texture; }
 		/// @brief Gets the width.
-		/// @return Width of april::Texture.
+		/// @return The width.
 		int getWidth();
 		/// @brief Gets the height.
-		/// @return Height of april::Texture.
+		/// @return The height.
 		int getHeight();
+		/// @brief Gets the disposed flag.
+		/// @return The disposed flag.
+		bool isDisposed() { return this->disposed; }
 
 		/// @brief Updates the texture on the graphic card if necessary.
 		void updateTexture();
+		/// @brief Blits rect from source bitmap to this one.
+		/// @param[in] x X coordinate.
+		/// @param[in] y Y coordinate.
+		/// @param[in] source Source Bitmap.
+		/// @param[in] sx Source X coordinate.
+		/// @param[in] sy Source Y coordinate.
+		/// @param[in] sw Source width.
+		/// @param[in] sh Source height.
+		void blt(int x, int y, Bitmap* source, int sx, int sy, int sw, int sh);
+		/// @brief Blits rect from source bitmap to this one.
+		/// @param[in] x X coordinate.
+		/// @param[in] y Y coordinate.
+		/// @param[in] w Destination width.
+		/// @param[in] h Destination height.
+		/// @param[in] source Source Bitmap.
+		/// @param[in] sx Source X coordinate.
+		/// @param[in] sy Source Y coordinate.
+		/// @param[in] sw Source width.
+		/// @param[in] sh Source height.
+		void stretchBlt(int x, int y, int w, int h, Bitmap* source, int sx, int sy, int sw, int sh);
 		/// @brief Disposes this renderable.
 		void dispose();
 
@@ -62,12 +95,21 @@ namespace rgss
 		/// @brief Disposes the object.
 		static VALUE rb_dispose(VALUE self);
 
+		/// @brief Creates a C++ version of this class.
+		/// @param[in] argc Number of arguments.
+		/// @param[in] argv Pointer to first argument.
+		/// @note Arguments are "[viewport]"
+		static VALUE create(int argc, VALUE* argv);
+
 		/// @brief Gets the height of the bitmap.
 		/// @return Height of the bitmap.
 		static VALUE rb_getHeight(VALUE self);
 		/// @brief Gets the width of the bitmap.
 		/// @return Width of the bitmap.
 		static VALUE rb_getWidth(VALUE self);
+		/// @brief Gets the size rectangle.
+		/// @return The size rectangle.
+		static VALUE rb_getRect(VALUE self);
 		/// @brief Gets the font of the bitmap.
 		/// @return Font of the bitmap.
 		static VALUE rb_getFont(VALUE self);
@@ -100,6 +142,11 @@ namespace rgss
 		/// @param[in] argv Pointer to first argument.
 		/// @note Arguments are "x, y, src_bitmap, src_rect[, opacity]"
 		static VALUE rb_blt(int argc, VALUE* argv, VALUE self);
+		/// @brief Stretch-blits src_rect from source bitmap to this dest_rect in this one.
+		/// @param[in] argc Number of arguments.
+		/// @param[in] argv Pointer to first argument.
+		/// @note Arguments are "dest_rect, src_bitmap, src_rect[, opacity]"
+		static VALUE rb_stretchBlt(int argc, VALUE* argv, VALUE self);
 
 
 		/// @brief Sets the color to the specified value.
@@ -110,30 +157,37 @@ namespace rgss
 		/// @brief Changes the bitmap's hue within 360 degrees of displacement.
 		/// @param[in] hue Degrees to rotate the hue
 		static VALUE rb_changeHue(VALUE self, VALUE hue);
-		/// @brief Blits src_rect from source bitmap to this one scaling the bitmap to fit inside dest_rect
-		/// @param[in] dest_rect The rect to fit the blit to
-		/// @param[in] src_bitmap The Bitmap to transfer from
-		/// @param[in] src_rect The rect to transfer from src_bitmap
-		/// @param[in] opacity The alpha blend of the blit operation
-		static VALUE rb_stretchBlt(VALUE self, VALUE dest_rect, VALUE src_bitmap, VALUE src_rect, VALUE opacity); 
 		/// @brief Gets the rect needed to draw a string of text.
 		/// @return value The rectangle needed to draw a string of text.
-		static VALUE rb_textSize(VALUE self, VALUE value);
+		static VALUE rb_textSize(VALUE self, VALUE string);
 
 	protected:
+		/// @brief Disposed flag.
+		bool disposed;
+		/// @brief Update flag for texture recreation when imageSource has changed to re-upload it on the GFX card.
+		bool textureNeedsUpdate;
+		/// @brief Underlying rendering system texture.
+		april::Texture* texture;
+		/// @brief Actual Image Source.
+		april::ImageSource* imageSource;
 		/// @brief The Font used to draw text.
 		Font* font;
 		/// @brief Ruby object of the Font used to draw text.
 		VALUE rb_font;
 
-		/// @brief Underlying rendering system texture.
-		april::Texture* texture;
-		/// @brief Actual Image Source.
-		april::ImageSource* imageSource;
-		/// @brief Update flag for texture recreation when imageSource has changed to re-upload it on the GFX card.
-		bool textureNeedsUpdate;
-		/// @brief Disposed flag.
-		bool disposed;
+		/// @brief Draws text onto this bitmap;
+		/// @param[in] x X coordinate.
+		/// @param[in] y Y coordinate.
+		/// @param[in] w Destination width.
+		/// @param[in] h Destination height.
+		/// @param[in] text Text to draw.
+		/// @param[in] align Alignment.
+		/// @note The alignments are: 0 = left; 1 = center; 1 = right
+		void _drawText(int x, int y, int w, int h, chstr text, int align);
+		/// @brief Gets the Atres font name.
+		/// @return Atres font name.
+		hstr _getAFontName();
+
 	};
 }
 #endif

@@ -88,6 +88,8 @@ namespace rgss
 		/// @param[in] width The width.
 		/// @param[in] height The height.
 		static VALUE rb_set(VALUE self, VALUE x, VALUE y, VALUE width, VALUE height);
+		/// @brief Resets the Rect.
+		static VALUE rb_empty(VALUE self);
 
 		/// @brief Returns a byte string containing data needed to reconstruct the Rect object.
 		/// @param[in] argc Number of arguments.

@@ -14,7 +14,7 @@ int main(int argc, char** argv)
 {
 	//TODO - add reading of configuration data from INI
 	arc::setupSystemPath("ExampleGameName");
-	bool initialized = zer0::init(800, 600, false, "Advanced RPG Creator", arc::path, &arc::log);
+	bool initialized = zer0::init(640, 480, false, "Advanced RPG Creator", arc::path, &arc::log);
 	if (!initialized)
 	{
 		return 1;

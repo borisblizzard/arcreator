@@ -51,6 +51,8 @@ namespace rgss
 		// initialize
 		rb_define_method(rb_cColor, "initialize", RUBY_METHOD_FUNC(&Color::rb_initialize), -1);
 		rb_define_method(rb_cColor, "inspect", RUBY_METHOD_FUNC(&Color::rb_inspect), 0);
+		rb_define_method(rb_cColor, "_dump", RUBY_METHOD_FUNC(&Color::rb_dump), -1);
+		rb_define_singleton_method(rb_cColor, "_load", RUBY_METHOD_FUNC(&Color::rb_load), 1);
 		// getters and setters
 		rb_define_method(rb_cColor, "red", RUBY_METHOD_FUNC(&Color::rb_getRed), 0);
 		rb_define_method(rb_cColor, "red=", RUBY_METHOD_FUNC(&Color::rb_setRed), 1);
@@ -62,8 +64,6 @@ namespace rgss
 		rb_define_method(rb_cColor, "alpha=", RUBY_METHOD_FUNC(&Color::rb_setAlpha), 1);
 		// methods
 		rb_define_method(rb_cColor, "set", RUBY_METHOD_FUNC(&Color::rb_set), -1);
-		rb_define_method(rb_cColor, "_dump", RUBY_METHOD_FUNC(&Color::rb_dump), -1);
-		rb_define_singleton_method(rb_cColor, "_load", RUBY_METHOD_FUNC(&Color::rb_load), 1);
 	}
 
 	VALUE Color::rb_new(VALUE classe)

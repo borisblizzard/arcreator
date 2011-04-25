@@ -8,12 +8,27 @@
 
 namespace rgss
 {
-
 	/****************************************************************************************
 	 * Pure C++ code
 	 ****************************************************************************************/
 
 	VALUE rb_cTable;
+
+	short Table::getData(int x, int y, int z)
+	{
+		x = hclamp(x, 0, this->xSize - 1);
+		y = hclamp(y, 0, this->ySize - 1);
+		z = hclamp(z, 0, this->zSize - 1);
+		return this->data[x + this->xSize * (y + this->ySize * z)];
+	}
+
+	short Table::getCircularData(int x, int y, int z)
+	{
+		x %= this->xSize;
+		y %= this->ySize;
+		z = hclamp(z, 0, this->zSize - 1);
+		return this->data[x + this->xSize * (y + this->ySize * z)];
+	}
 
 	void Table::_resize(int xSize, int ySize, int zSize)
 	{
@@ -71,13 +86,16 @@ namespace rgss
 		rb_define_alloc_func(rb_cTable, &Table::rb_new);
 		// initialize
 		rb_define_method(rb_cTable, "initialize", RUBY_METHOD_FUNC(&Table::rb_initialize), -1);
+		rb_define_method(rb_cTable, "_dump", RUBY_METHOD_FUNC(&Table::rb_dump), -1);
+		rb_define_singleton_method(rb_cTable, "_load", RUBY_METHOD_FUNC(&Table::rb_load), 1);
 		// getters and setters
+		rb_define_method(rb_cTable, "xsize", RUBY_METHOD_FUNC(&Table::rb_getXSize), 0);
+		rb_define_method(rb_cTable, "ysize", RUBY_METHOD_FUNC(&Table::rb_getYSize), 0);
+		rb_define_method(rb_cTable, "zsize", RUBY_METHOD_FUNC(&Table::rb_getZSize), 0);
 		rb_define_method(rb_cTable, "[]", RUBY_METHOD_FUNC(&Table::rb_getData), -1);
 		rb_define_method(rb_cTable, "[]=", RUBY_METHOD_FUNC(&Table::rb_setData), -1);
 		// all other methods
 		rb_define_method(rb_cTable, "resize", RUBY_METHOD_FUNC(&Table::rb_resize), -1);
-		rb_define_method(rb_cTable, "_dump", RUBY_METHOD_FUNC(&Table::rb_dump), -1);
-		rb_define_singleton_method(rb_cTable, "_load", RUBY_METHOD_FUNC(&Table::rb_load), 1);
 	}
 	
 	void Table::gc_free(Table* table)
@@ -118,10 +136,30 @@ namespace rgss
 	 * Ruby Methods
 	 ****************************************************************************************/
 
+	VALUE Table::rb_getXSize(VALUE self)
+	{
+		RB_SELF2CPP(Table, table);
+		return INT2NUM(table->xSize);
+	}
+
+	VALUE Table::rb_getYSize(VALUE self)
+	{
+		RB_SELF2CPP(Table, table);
+		return INT2NUM(table->ySize);
+	}
+
+	VALUE Table::rb_getZSize(VALUE self)
+	{
+		RB_SELF2CPP(Table, table);
+		return INT2NUM(table->zSize);
+	}
+
 	VALUE Table::rb_getData(int argc, VALUE* argv, VALUE self)
 	{
 		RB_SELF2CPP(Table, table);
-		VALUE arg1, arg2, arg3;
+		VALUE arg1 = Qnil;
+		VALUE arg2 = Qnil;
+		VALUE arg3 = Qnil;
 		if (table->zSize > 1)
 		{
 			rb_scan_args(argc, argv, "3", &arg1, &arg2, &arg3);
@@ -147,7 +185,10 @@ namespace rgss
 	VALUE Table::rb_setData(int argc, VALUE* argv, VALUE self)
 	{
 		RB_SELF2CPP(Table, table);
-		VALUE arg1, arg2, arg3, arg4;
+		VALUE arg1 = Qnil;
+		VALUE arg2 = Qnil;
+		VALUE arg3 = Qnil;
+		VALUE arg4 = Qnil;
 		if (table->zSize > 1)
 		{
 			rb_scan_args(argc, argv, "4", &arg1, &arg2, &arg3, &arg4);
@@ -182,7 +223,6 @@ namespace rgss
 		table->zSize = hmax(NIL_P(zSize) ? 1 : NUM2INT(zSize), 1);
 		table->_resize(NUM2INT(xSize), NUM2INT(ySize), NUM2INT(zSize));
 		return Qnil;
-		
 	}
 
 	VALUE Table::rb_dump(int argc, VALUE* argv, VALUE self)
@@ -194,49 +234,26 @@ namespace rgss
 			d = INT2FIX(0);
 		}
 		RB_SELF2CPP(Table, table);
-
-		// create the byte string that will be returned
-		VALUE byte_string = rb_str_new2("");
 		// get the method id
 		ID pack_id = rb_intern("pack");
-		// create the ruby pack format strings 
-		VALUE long_format_str = rb_str_new2("L");
-		VALUE short_format_str = rb_str_new2("S");
 
-		// create array
-		VALUE arr = rb_ary_new();
-		rb_ary_push(arr, INT2FIX(3));
-		rb_str_concat(byte_string, rb_funcall(arr, pack_id, 1, long_format_str));
-		// xSize
-		VALUE xSize_arr = rb_ary_new();
-		rb_ary_push(xSize_arr, INT2FIX(table->xSize));
-		rb_str_concat(byte_string, rb_funcall(xSize_arr, pack_id, 1, long_format_str));
-		// ySize
-		VALUE ySize_arr = rb_ary_new();
-		rb_ary_push(ySize_arr, INT2FIX(table->ySize));
-		rb_str_concat(byte_string, rb_funcall(ySize_arr, pack_id, 1, long_format_str));
-		// zSize
-		VALUE zSize_arr = rb_ary_new();
-		rb_ary_push(zSize_arr, INT2FIX(table->zSize));
-		rb_str_concat(byte_string, rb_funcall(zSize_arr, pack_id, 1, long_format_str));
-		// size
-		VALUE size_arr = rb_ary_new();
-		rb_ary_push(size_arr, INT2FIX(table->xSize * table->ySize * table->zSize));
-		rb_str_concat(byte_string, rb_funcall(size_arr, pack_id, 1, long_format_str));
-		// table data
-		for_iter (x, 0, table->xSize)
+		int size = table->xSize * table->ySize * table->zSize;
+		// store sizes
+		VALUE data = rb_ary_new();
+		rb_ary_push(data, INT2FIX(2));
+		rb_ary_push(data, INT2FIX(table->xSize));
+		rb_ary_push(data, INT2FIX(table->ySize));
+		rb_ary_push(data, INT2FIX(table->zSize));
+		rb_ary_push(data, INT2FIX(size));
+		// store data
+		for_iter (i, 0, size)
 		{
-			for_iter (y, 0, table->ySize)
-			{
-				for_iter (z, 0, table->zSize)
-				{
-					VALUE data_arr = rb_ary_new();
-					rb_ary_push(data_arr, INT2FIX(table->data[x + table->xSize * (y + table->ySize * z)]));
-					rb_str_concat(byte_string, rb_funcall(data_arr, pack_id, 1, short_format_str));
-				}
-			}
+			rb_ary_push(data, INT2FIX(table->data[i]));
 		}
-		// return the byte string
+		// convert data array into data stream
+		hstr format = "LLLLL" + hstr('S', size);
+		VALUE data_fmt = rb_str_new2(format.c_str());
+		VALUE byte_string = rb_funcall(data, pack_id, 1, data_fmt);
 		return byte_string;
 	}
 
@@ -245,62 +262,25 @@ namespace rgss
 		// get the method ids
 		ID unpack_id = rb_intern("unpack");
 		ID slice_id = rb_intern("[]");
-		// create the ruby pack format strings 
-		VALUE long_format_str = rb_str_new2("L");
-		VALUE short_format_str = rb_str_new2("S");
-
-		VALUE size, nx, ny, nz;
-		VALUE data = rb_ary_new();
-
-		// size
-		VALUE sliced_string = rb_funcall(value, slice_id, 2, INT2FIX(0), INT2FIX(4));
-		size = rb_ary_shift(rb_funcall(sliced_string, unpack_id, 1, long_format_str));
-		// nx
-		sliced_string = rb_funcall(value, slice_id, 2, INT2FIX(4), INT2FIX(4));
-		nx = rb_ary_shift(rb_funcall(sliced_string, unpack_id, 1, long_format_str));
-		// ny
-		sliced_string = rb_funcall(value, slice_id, 2, INT2FIX(8), INT2FIX(4));
-		ny = rb_ary_shift(rb_funcall(sliced_string, unpack_id, 1, long_format_str));
-		// nz
-		sliced_string = rb_funcall(value, slice_id, 2, INT2FIX(12), INT2FIX(4));
-		nz = rb_ary_shift(rb_funcall(sliced_string, unpack_id, 1, long_format_str));
-
-		int pointer = 20;
-		// collect table data
-		while (true)
-		{
-			VALUE sliced_string = rb_funcall(value, slice_id, 2, INT2FIX(pointer), INT2FIX(2));
-			rb_ary_push(data,  rb_ary_shift(rb_funcall(sliced_string, unpack_id, 1, short_format_str)));
-			pointer += 2;
-			if (pointer > (rb_str_strlen(value) - 1) )
-			{
-				break;
-			}
-		}
-		// create c array of arguments
-		VALUE c_arr[3];
-		c_arr[0] = nx;
-		c_arr[1] = ny;
-		c_arr[2] = nz;
+		// load Table size data
+		VALUE sliced_string = rb_funcall(value, slice_id, 2, INT2FIX(4), INT2FIX(12));
+		VALUE data = rb_funcall(sliced_string, unpack_id, 1, rb_str_new2("LLL"));
+		VALUE rb_xSize = rb_ary_shift(data);
+		VALUE rb_ySize = rb_ary_shift(data);
+		VALUE rb_zSize = rb_ary_shift(data);
+		int size = NUM2INT(rb_xSize) * NUM2INT(rb_ySize) * NUM2INT(rb_zSize);
 		// create the table
-		VALUE rb_table = Table::create(3, c_arr);
-		// get the C++ version
-		Table* table; 
-		Data_Get_Struct(rb_table, Table, table);
-		// set the data
-		long n = 0;
-		for_iter (z, 0, FIX2LONG(nz))
+		VALUE argv[3] = {rb_xSize, rb_ySize, rb_zSize};
+		VALUE rb_table = Table::create(3, argv);
+		RB_VAR2CPP(rb_table, Table, table);
+		// loading data entries
+		VALUE data_fmt = rb_str_new2(hstr('S', size).c_str());
+		sliced_string = rb_funcall(value, slice_id, 2, INT2FIX(20), INT2FIX(size * 2));
+		data = rb_funcall(sliced_string, unpack_id, 1, data_fmt);
+		for_iter (i, 0, size)
 		{
-			for_iter (y, 0, FIX2LONG(ny))
-			{
-				for_iter (x, 0, FIX2LONG(nx))
-				{
-					table->data[x + table->xSize * (y + table->ySize * z)] = (short)hclamp(NUM2INT(rb_ary_entry(data, n)), -32768, 32767);
-					n += 1;
-				}
-			}
+			table->data[i] = (short)NUM2INT(rb_ary_shift(data));
 		}
-		// return the ruby table
 		return rb_table;
 	}
 	

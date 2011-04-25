@@ -10,6 +10,7 @@
 #include <hltypes/exception.h>
 #include <hltypes/hfile.h>
 #include <hltypes/hstring.h>
+#include <hltypes/util.h>
 #include <rgss/rgss.h>
 #include <xal/AudioManager.h>
 
@@ -65,6 +66,7 @@ namespace zer0
 			april::rendersys->setIdleTextureUnloadTime(0);
 #endif
 			atres::setGlobalOffsets(true);
+			atres::loadFont("Graphics/Fonts/Arial.font");
 			aprilui::setLimitCursorToViewport(false);
 			aprilui::setViewport(grect(0.0f, 0.0f, (float)width, (float)height));
 			aprilui::setScreenViewport(aprilui::getViewport());
@@ -122,7 +124,13 @@ namespace zer0
 	{
 		rgss::init(g_logFunction);
 		// running the Ruby scripts
-		rb_require("./test.rb");
+		//rb_require("./test.rb");
+		//*
+		rb_eval_string("$DEBUG = true");
+		rb_require("./Data/RMXP.rb");
+		rb_require("./Data/System.rb");
+		rb_require("./Data/Scripts.rb");
+		//*/
 		rgss::destroy();
 		return Qnil;
 	}

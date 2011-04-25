@@ -6,6 +6,11 @@
 #include "Renderable.h"
 #include "rgssExport.h"
 
+namespace april
+{
+	class Texture;
+}
+
 namespace rgss
 {
 	extern VALUE rb_cViewport;
@@ -27,7 +32,7 @@ namespace rgss
 
 		/// @brief Draws this sprite on the screen.
 		void draw();
-		/// @brief Disposed this viewport.
+		/// @brief Disposed this instance.
 		void dispose();
 
 		/// @brief Initializes the module.
@@ -70,10 +75,12 @@ namespace rgss
 		/// @param[in] value A RGSS::Tone object.
 		static VALUE rb_setTone(VALUE self, VALUE value);
 
-		/// @brief Blends a color with the Viewport for a duration.
-		/// @param[in] clr The Color to blend.
-		/// @param[in] duration The number of frames the color will be blended.
-		void flash(Color clr, int duration);
+		/// @brief Mixes a color with the viewport for a short duration.
+		/// @param[in] color Color component.
+		/// @param[in] duration Number of frames.
+		static VALUE rb_flash(VALUE self, VALUE color, VALUE duration);
+		/// @brief Invokes the update method.
+		static VALUE rb_update(VALUE self);
 		
 	protected:
 		/// @brief Color.
@@ -88,6 +95,8 @@ namespace rgss
 		Tone* tone;
 		/// @brief Ruby object of tone.
 		VALUE rb_tone;
+		/// @brief Rendering texture.
+		april::Texture* texture;
 
 		/// @brief Renders the actual texture.
 		void _render();
