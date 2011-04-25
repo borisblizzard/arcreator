@@ -284,7 +284,7 @@ namespace rgss
 		foreach (unsigned int, it, conversions[keycode])
 		{
 			//if (repeated[*it])
-			if (pressed[*it])
+			if (triggered[*it])
 			{
 				return true;
 			}
