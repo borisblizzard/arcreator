@@ -696,64 +696,40 @@ class MouseSprite(object):
         '''
         updates the positions of the sprite used to represent the mouse cursor
         '''
-        fourCornersUpdateFlag = True
-        verticalUpdateFlag = True
-        horizontalUpdateFlag = True
+        fourCornersFlag = False
+        verticalFlag = False
+        horizontalFlag = False
+        LRFlag = False
+        TBFlag = False
         width = self.bottomRightPos[0] - self.topLeftPos[0]
         height = self.bottomRightPos[1] - self.topLeftPos[1]
         if self.singleMode or (width == 0 and height == 0):
             #update the positions of the single tile sprite
             self.singleTileSprite.set_position(self.topLeftPos[0] * 32, 
                                                ((self.map.height - self.topLeftPos[1]) * 32) - 32)
-            fourCornersUpdateFlag = False
-            verticalUpdateFlag = False
-            horizontalUpdateFlag = False
         elif width > 0:
+            if abs(width) > 1:
+                horizontalFlag = True
             if height == 0:
-                #update positions of left right corners
-                self.LRCorners[0].set_position(self.topLeftPos[0] * 32,
-                                               ((self.map.height - self.topLeftPos[1]) * 32) - 32)
-                self.LRCorners[1].set_position(self.bottomRightPos[0] * 32,
-                                               ((self.map.height - self.topLeftPos[1]) * 32) - 32)
-                fourCornersUpdateFlag = False
+                LRFlag = True
             else:
-                if abs(width) > 1:
-                    horizontalUpdateFlag = False
+                fourCornersFlag = True
                 if abs(height) > 1:
-                    verticalUpdateFlag = False
+                    verticalFlag = True      
         elif height > 0:
+            if abs(height) > 1:
+                verticalFlag = True
             if width == 0:   
-                #update the position of the top Bottom corners
-                self.TBCorners[0].set_position(self.topLeftPos[0] * 32,
-                                               ((self.map.height - self.topLeftPos[1]) * 32) - 32)
-                self.TBCorners[1].set_position(self.topLeftPos[0] * 32,
-                                               ((self.map.height - self.bottomRightPos[1]) * 32) - 32)
-                fourCornersUpdateFlag = False
+                TBFlag = True
             else: 
+                fourCornersFlag = True
                 if abs(width) > 1:
-                    horizontalUpdateFlag = False
-                if abs(height) > 1:
-                    verticalUpdateFlag = False
-        
-        if fourCornersUpdateFlag:
-            #update the positions of the corners sprites
-            # TL
-            self.cornerSprites[0].set_position(self.topLeftPos[0] * 32, 
-                                               ((self.map.height - self.topLeftPos[1]) * 32) - 32)
-            # TR
-            self.cornerSprites[1].set_position(self.bottomRightPos[0] * 32, 
-                                               ((self.map.height - self.topLeftPos[1]) * 32) - 32)
-            # BL
-            self.cornerSprites[2].set_position(self.topLeftPos[0] * 32, 
-                                               ((self.map.height - self.bottomRightPos[1]) * 32) - 32)
-            # BR
-            self.cornerSprites[3].set_position(self.bottomRightPos[0] * 32, 
-                                               ((self.map.height - self.bottomRightPos[1]) * 32) - 32)
-            
-        if horizontalUpdateFlag:
-            #update the positions of the horizontal, adding for sprites or removing them as needed
+                    horizontalFlag = True 
+                 
+        if horizontalFlag:
+             #update the positions of the horizontal, adding for sprites or removing them as needed
             sprites_used = 0
-            for x in range(1, abs(self.bottomRightPos[0] - self.topLeftPos[0]) - 1):
+            for x in range(1, abs(self.bottomRightPos[0] - self.topLeftPos[0])):
                 if (self.bottomRightPos[0] - self.topLeftPos[0]) < 0:
                     m = -1
                 else:
@@ -772,20 +748,23 @@ class MouseSprite(object):
                                                                  ((self.map.height - self.bottomRightPos[1]) * 32) - 32))
                 sprites_used += 1
             #remove unused sprites only if they would be drawn
-            if sprites_used > 0:
-                for i in range(sprites_used, len(self.topRowSprites)):
-                    sprite = self.topRowSprites.pop()
-                    sprite.delete()
-                for i in range(sprites_used, len(self.bottomRowSprites)):
-                    print i, len(self.bottomRowSprites)
-                    sprite = self.bottomRowSprites.pop()
-                    sprite.delete()
-                    
-        if verticalUpdateFlag:
-            #update the positions of the lists, adding for sprites or removing them as needed
+            sprites = []
+            for i in range(sprites_used):  
+                sprites.append(self.topRowSprites.pop(0))
+            for sprite in self.topRowSprites:
+                sprite.delete()
+            self.topRowSprites = sprites
+            sprites = []
+            for i in range(sprites_used):  
+                sprites.append(self.bottomRowSprites.pop(0))
+            for sprite in self.bottomRowSprites:
+                sprite.delete()
+            self.bottomRowSprites = sprites
+        if verticalFlag:
+             #update the positions of the lists, adding for sprites or removing them as needed
             sprites_used = 0
-            for y in range(1, abs(self.topLeftPos[1] - self.bottomRightPos[1]) - 1):
-                if (self.topLeftPos[1] - self.bottomRightPos[1]) < 0:
+            for y in range(1, abs(self.topLeftPos[1] - self.bottomRightPos[1])):
+                if (self.bottomRightPos[1] - self.topLeftPos[1]) < 0:
                     m = -1
                 else:
                     m = 1
@@ -803,13 +782,46 @@ class MouseSprite(object):
                                                                 ((self.map.height - self.topLeftPos[1] - y * m) * 32) - 32))
                 sprites_used += 1
             #remove unused sprites only if they would be drawn
-            if sprites_used > 0:
-                for i in range(sprites_used, len(self.leftRowSprites)):
-                    sprite = self.leftRowSprites.pop()
-                    sprite.delete()
-                for i in range(sprites_used, len(self.rightRowSprites)):
-                    sprite = self.rightRowSprites.pop()
-                    sprite.delete()
+            sprites = []
+            for i in range(sprites_used):  
+                sprites.append(self.leftRowSprites.pop(0))
+            for sprite in self.leftRowSprites:
+                sprite.delete()
+            self.leftRowSprites = sprites
+            sprites = []
+            for i in range(sprites_used):  
+                sprites.append(self.rightRowSprites.pop(0))
+            for sprite in self.rightRowSprites:
+                sprite.delete()
+            self.rightRowSprites = sprites
+
+        if TBFlag:
+            #update the position of the top Bottom corners
+            self.TBCorners[0].set_position(self.topLeftPos[0] * 32,
+                                           ((self.map.height - self.topLeftPos[1]) * 32) - 32)
+            self.TBCorners[1].set_position(self.topLeftPos[0] * 32,
+                                           ((self.map.height - self.bottomRightPos[1]) * 32) - 32)
+        if LRFlag:
+            #update positions of left right corners
+            self.LRCorners[0].set_position(self.topLeftPos[0] * 32,
+                                           ((self.map.height - self.topLeftPos[1]) * 32) - 32)
+            self.LRCorners[1].set_position(self.bottomRightPos[0] * 32,
+                                           ((self.map.height - self.topLeftPos[1]) * 32) - 32)
+        if fourCornersFlag:
+            #update the positions of the corners sprites
+            # TL
+            self.cornerSprites[0].set_position(self.topLeftPos[0] * 32, 
+                                               ((self.map.height - self.topLeftPos[1]) * 32) - 32)
+            # TR
+            self.cornerSprites[1].set_position(self.bottomRightPos[0] * 32, 
+                                               ((self.map.height - self.topLeftPos[1]) * 32) - 32)
+            # BL
+            self.cornerSprites[2].set_position(self.topLeftPos[0] * 32, 
+                                               ((self.map.height - self.bottomRightPos[1]) * 32) - 32)
+            # BR
+            self.cornerSprites[3].set_position(self.bottomRightPos[0] * 32, 
+                                               ((self.map.height - self.bottomRightPos[1]) * 32) - 32)
+           
                         
     def Draw(self):
         '''
@@ -831,6 +843,7 @@ class MouseSprite(object):
             if height == 0:
                 LRFlag = True
             else:
+                fourCornersFlag = True
                 if abs(height) > 1:
                     verticalFlag = True      
         elif height > 0:
@@ -839,6 +852,7 @@ class MouseSprite(object):
             if width == 0:   
                 TBFlag = True
             else: 
+                fourCornersFlag = True
                 if abs(width) > 1:
                     horizontalFlag = True 
                  
