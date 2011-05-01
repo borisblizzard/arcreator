@@ -30,17 +30,17 @@ namespace rgss
 			return;
 		}
 		gmat4 viewMatrix = april::rendersys->getModelviewMatrix();
-		if (this->x != 0 || this->y != 0)
+		if (this->x != 0 || this->y != 0) 
 		{
 			april::rendersys->translate((float)this->x, (float)this->y);
+		}
+		if (this->angle != 0.0f) 
+		{
+			april::rendersys->rotate(this->angle);
 		}
 		if (this->zoomX != 1.0f || this->zoomY != 1.0f)
 		{
 			april::rendersys->scale(this->zoomX, this->zoomY, 1.0f);
-		}
-		if (this->angle != 0.0f)
-		{
-			april::rendersys->rotate(this->angle);
 		}
 		this->_render();
 		april::rendersys->setModelviewMatrix(viewMatrix);
