@@ -321,10 +321,10 @@ class Tilemap(object):
             self.renderingBatches.append(pyglet.graphics.Batch())
         self.tiles = self.createTilemap()
     
-    def UpdateDimmingSprite(self, width, height):
+    def UpdateDimmingSprite(self, width, height, scale):
         '''
         '''
-        if width != self.dimmingSpriteWidth or height != self.dimmingSpriteHeight:
+        if width != self.dimmingSpriteWidth or height != self.dimmingSpriteHeight or scale != self.dimmingSprite.scale:
             self.dimmingSpriteWidth = width
             self.dimmingSpriteHeight = height
             if self.dimmingImagePatteren is None:
@@ -332,6 +332,7 @@ class Tilemap(object):
             self.dimmingImage = self.dimmingImagePatteren.create_image(width, height).get_texture()
             self.dimmingSprite = pyglet.sprite.Sprite(self.dimmingImage, 0, 0)
             self.dimmingSprite.opacity = 180
+            self.dimmingSprite.scale = scale
             
     def setDimXY(self, x, y):
         '''
@@ -1014,7 +1015,7 @@ class TilemapPanel(pygletwx.GLPanel):
         self.SetScrollbar(wx.VERTICAL, self.GetScrollPos(wx.VERTICAL), size[1], 
                           self.map.height * 32 * self.zoom, refresh=True)
         size = self.GetGLExtents()
-        self.tilemap.UpdateDimmingSprite(int(size.width / self.zoom), int(size.height / self.zoom))
+        self.tilemap.UpdateDimmingSprite(int(size.width), int(size.height), 1/self.zoom)
         gl.glViewport(0, 0,  size.width,  size.height)
         gl.glMatrixMode(gl.GL_PROJECTION)
         gl.glLoadIdentity()
@@ -1230,8 +1231,8 @@ class MapToolbar(wx.ToolBar):
     def GenZoomChoices(self):
         choices = []
         self.zoomChoiceIDs = {}
-        values = [['2x', 2.0], ['1x', 1.0], ['1/2x', 1.0/2.0], ['1/3x', 1.0/3.0], 
-                 ['1/4x', 1.0/4.0], ['1/5x', 1.0/5.0]]
+        values = [['2x', 2.0], ['1x', 1.0], ['1/2x', 1.0/2.0], #['1/3x', 1.0/3.0], 
+                 ['1/4x', 1.0/4.0], ]#['1/5x', 1.0/5.0]]
         for z in values:
             self.zoomChoiceIDs[z[0]] = z[1]
             choices.append(z[0])
@@ -1295,9 +1296,7 @@ class MapToolbar(wx.ToolBar):
             items = self.zoomChoice.GetItems()
             layer = self.zoomChoiceIDs[items[selection]]
             self.mapwin.SetZoom(layer) 
-            
-        
-    
+                
 class TestFrame(wx.Frame):
     '''A simple class for using OpenGL with wxPython.'''
 
