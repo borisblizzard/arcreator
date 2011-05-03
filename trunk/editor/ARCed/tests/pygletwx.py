@@ -106,7 +106,6 @@ class GLPanel(wx.Panel):
         gl.glEnable(gl.GL_BLEND)
         gl.glBlendFunc(gl.GL_SRC_ALPHA, gl.GL_ONE_MINUS_SRC_ALPHA)
         gl.glEnable(gl.GL_TEXTURE_2D)
-        gl.glShadeModel(gl.GL_SMOOTH)
         gl.glClearColor(1, 1, 1, 1)
         
         #create objects to draw
