@@ -3,7 +3,6 @@
 #include <hltypes/exception.h>
 #include <hltypes/util.h>
 #include <xal/AudioManager.h>
-#include <xal/Sound.h>
 
 #include "Audio.h"
 #include "CodeSnippets.h"
@@ -33,13 +32,13 @@ namespace rgss
 	
 	void Audio::init()
 	{
-		xal::mgr->createCategory(CATEGORY_BGM);//, true);
+		xal::mgr->createCategory(CATEGORY_BGM, xal::STREAMED, xal::STREAMED);
 		xal::mgr->createSoundsFromPath(PATH_BGM, CATEGORY_BGM, PATH_BGM);
-		xal::mgr->createCategory(CATEGORY_BGS);//, true);
+		xal::mgr->createCategory(CATEGORY_BGS, xal::STREAMED, xal::STREAMED);
 		xal::mgr->createSoundsFromPath(PATH_BGS, CATEGORY_BGS, PATH_BGS);
-		xal::mgr->createCategory(CATEGORY_ME, false, true);
+		xal::mgr->createCategory(CATEGORY_ME, xal::LAZY, xal::LAZY);
 		xal::mgr->createSoundsFromPath(PATH_ME, CATEGORY_ME, PATH_ME);
-		xal::mgr->createCategory(CATEGORY_SE, false, true);
+		xal::mgr->createCategory(CATEGORY_SE, xal::LAZY, xal::LAZY);
 		xal::mgr->createSoundsFromPath(PATH_SE, CATEGORY_SE, PATH_SE);
 		bgmPlaying = "";
 		bgmPitch = 100;
@@ -81,7 +80,7 @@ namespace rgss
 				Audio::bgm_stop(self);
 				if (filename != "")
 				{
-					xal::mgr->getSound(filename)->play(0.0f, true);
+					xal::mgr->getSound()->play(0.0f, true);
 				}
 				bgmPlaying = filename;
 			}

@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <time.h>
 
+#include <ruby/dl.h>
 #include <ruby/ruby.h>
 
 #include <april/RenderSystem.h>
@@ -13,6 +14,7 @@
 #include <hltypes/util.h>
 #include <rgss/rgss.h>
 #include <xal/AudioManager.h>
+#include <xal/xal.h>
 
 #include "CodeSnippets.h"
 #include "Constants.h"
@@ -53,12 +55,12 @@ namespace zer0
 			aprilui::init();
 #ifndef _NOSOUND
 #ifdef _THREADED_SOUND
-			xal::init("", true);
+			xal::init("", (unsigned long)april::rendersys->getWindow()->getIDFromBackend(), true);
 #else
-			xal::init("", false);
+			xal::init("", (unsigned long)april::rendersys->getWindow()->getIDFromBackend(), false);
 #endif
 #else
-			xal::init("nosound", false);
+			xal::init(XAL_AS_DISABLED, (unsigned long)april::rendersys->getWindow()->getIDFromBackend(), false);
 #endif
 #ifndef __BIG_ENDIAN__
 			april::rendersys->setIdleTextureUnloadTime(TEXTURE_UNLOAD_TIME);
