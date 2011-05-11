@@ -46,7 +46,6 @@ namespace rgss
 			int size = this->rect->width * this->rect->height * 4;
 			unsigned char* data = new unsigned char[size];
 			memset(data, 0, size);
-			printf("-- CREATING VIEWPORT TEXTURE\n");
 			this->texture = april::rendersys->createTextureFromMemory(data, this->rect->width, this->rect->height);
 			delete data;
 		}

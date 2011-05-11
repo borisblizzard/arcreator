@@ -161,7 +161,6 @@ namespace rgss
 				entry.size = rect.getSize();
 				entry.sequences = sequences;
 				characterCache[text] = entry;
-				printf("- caching %s\n", text.c_str());
 			}
 		}
 		/// @todo This works but is very slow, improve it
