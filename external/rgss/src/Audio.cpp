@@ -3,6 +3,8 @@
 #include <hltypes/exception.h>
 #include <hltypes/util.h>
 #include <xal/AudioManager.h>
+#include <xal/Player.h>
+#include <xal/Sound.h>
 
 #include "Audio.h"
 #include "CodeSnippets.h"
@@ -25,9 +27,9 @@ namespace rgss
 
 	VALUE rb_mAudio;
 
-	hstr bgmPlaying;
+	xal::Player* bgmPlayer;
 	int bgmPitch;
-	hstr bgsPlaying;
+	xal::Player* bgsPlayer;
 	int bgsPitch;
 	
 	void Audio::init()
@@ -40,9 +42,9 @@ namespace rgss
 		xal::mgr->createSoundsFromPath(PATH_ME, CATEGORY_ME, PATH_ME);
 		xal::mgr->createCategory(CATEGORY_SE, xal::LAZY, xal::LAZY);
 		xal::mgr->createSoundsFromPath(PATH_SE, CATEGORY_SE, PATH_SE);
-		bgmPlaying = "";
+		bgmPlayer = NULL;
 		bgmPitch = 100;
-		bgsPlaying = "";
+		bgsPlayer = NULL;
 		bgsPitch = 100;
 	}
 
@@ -75,18 +77,25 @@ namespace rgss
 		int pitch = hclamp((NIL_P(arg3) ? 100 : NUM2INT(arg3)), 50, 150); // unsupported now
 		try
 		{
-			if (bgmPlaying != filename)
+			if (bgmPlayer != NULL && !bgmPlayer->isPlaying())
 			{
 				Audio::bgm_stop(self);
-				if (filename != "")
-				{
-					xal::mgr->getSound()->play(0.0f, true);
-				}
-				bgmPlaying = filename;
 			}
-			if (bgmPlaying != "")
+			if (bgmPlayer != NULL)
 			{
-				xal::mgr->getSound(bgmPlaying)->setGain(volume / 100.0f);
+				if (bgmPlayer->getName() != filename)
+				{
+					Audio::bgm_stop(self);
+					if (filename != "")
+					{
+						bgmPlayer = xal::mgr->createPlayer(filename);
+						bgmPlayer->play(0.0f, true);
+					}
+				}
+				if (bgmPlayer != NULL)
+				{
+					bgmPlayer->setGain(volume / 100.0f);
+				}
 			}
 		}
 		catch (hltypes::exception e)
@@ -104,7 +113,12 @@ namespace rgss
 
 	VALUE Audio::bgm_stop(VALUE self)
 	{
-		xal::mgr->stopCategory(CATEGORY_BGM);
+		if (bgmPlayer != NULL)
+		{
+			bgmPlayer->stop();
+			xal::mgr->destroyPlayer(bgmPlayer);
+			bgmPlayer = NULL;
+		}
 		return Qnil;
 	}
 
@@ -117,18 +131,25 @@ namespace rgss
 		int pitch = hclamp((NIL_P(arg3) ? 100 : NUM2INT(arg3)), 50, 150); // unsupported now
 		try
 		{
-			if (bgsPlaying != filename)
+			if (bgsPlayer != NULL && !bgsPlayer->isPlaying())
 			{
 				Audio::bgs_stop(self);
-				if (filename != "")
-				{
-					xal::mgr->getSound(filename)->play(0.0f, true);
-				}
-				bgsPlaying = filename;
 			}
-			if (bgsPlaying != "")
+			if (bgsPlayer != NULL)
 			{
-				xal::mgr->getSound(bgsPlaying)->setGain(volume / 100.0f);
+				if (bgsPlayer->getName() != filename)
+				{
+					Audio::bgs_stop(self);
+					if (filename != "")
+					{
+						bgsPlayer = xal::mgr->createPlayer(filename);
+						bgsPlayer->play(0.0f, true);
+					}
+				}
+				if (bgsPlayer != NULL)
+				{
+					bgsPlayer->setGain(volume / 100.0f);
+				}
 			}
 		}
 		catch (hltypes::exception e)
@@ -146,7 +167,12 @@ namespace rgss
 
 	VALUE Audio::bgs_stop(VALUE self)
 	{
-		xal::mgr->stopCategory(CATEGORY_BGS);
+		if (bgsPlayer != NULL)
+		{
+			bgsPlayer->stop();
+			xal::mgr->destroyPlayer(bgsPlayer);
+			bgsPlayer = NULL;
+		}
 		return Qnil;
 	}
 
@@ -161,8 +187,7 @@ namespace rgss
 		{
 			if (filename != "")
 			{
-				xal::mgr->getSound(filename)->play();
-				xal::mgr->getSound(filename)->setGain(volume / 100.0f);
+				xal::mgr->play(filename, 0.0f, false, volume / 100.0f);
 			}
 		}
 		catch (hltypes::exception e)
@@ -195,8 +220,7 @@ namespace rgss
 		{
 			if (filename != "")
 			{
-				xal::mgr->getSound(filename)->play();
-				xal::mgr->getSound(filename)->setGain(volume / 100.0f);
+				xal::mgr->play(filename, 0.0f, false, volume / 100.0f);
 			}
 		}
 		catch (hltypes::exception e)
