@@ -154,10 +154,6 @@ namespace rgss
 	VALUE Sprite::rb_initialize(int argc, VALUE* argv, VALUE self)
 	{
 		RB_SELF2CPP(Sprite, sprite);
-		if (sprite->disposed)
-		{
-			rb_raise(rb_eRGSSError, "disposed sprite");
-		}
 		VALUE viewport;
 		rb_scan_args(argc, argv, "01", &viewport);
 		sprite->initializeZoomable(viewport);
@@ -284,22 +280,12 @@ namespace rgss
 
 	VALUE Sprite::rb_flash(VALUE self, VALUE color, VALUE duration)
 	{
-		RB_SELF2CPP(Sprite, sprite);
-		if (sprite->disposed)
-		{
-			rb_raise(rb_eRGSSError, "disposed sprite");
-		}
 		/// @todo implement
 		return Qnil;
 	}
 
 	VALUE Sprite::rb_update(VALUE self)
 	{
-		RB_SELF2CPP(Sprite, sprite);
-		if (sprite->disposed)
-		{
-			rb_raise(rb_eRGSSError, "disposed sprite");
-		}
 		/// @todo implement
 		return Qnil;
 	}
