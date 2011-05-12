@@ -12,6 +12,7 @@
 #include "Plane.h"
 #include "Tone.h"
 #include "Viewport.h"
+#include "RGSSError.h"
 
 namespace rgss
 {

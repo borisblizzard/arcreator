@@ -14,6 +14,7 @@
 #include "Table.h"
 #include "Tilemap.h"
 #include "Viewport.h"
+#include "RGSSError.h"
 
 #define TILE_SIZE 32
 
@@ -273,6 +274,10 @@ namespace rgss
 		if (value != rb_ox)
 		{
 			RB_SELF2CPP(Tilemap, tilemap);
+			if (tilemap->disposed)
+			{
+				rb_raise(rb_eRGSSError, "disposed sprite");
+			}
 			tilemap->_updateTileSprites();
 		}
 		return value;
@@ -285,6 +290,10 @@ namespace rgss
 		if (value != rb_oy)
 		{
 			RB_SELF2CPP(Tilemap, tilemap);
+			if (tilemap->disposed)
+			{
+				rb_raise(rb_eRGSSError, "disposed sprite");
+			}
 			tilemap->_updateTileSprites();
 		}
 		return value;
@@ -297,6 +306,10 @@ namespace rgss
 		if (value != rb_visible)
 		{
 			RB_SELF2CPP(Tilemap, tilemap);
+			if (tilemap->disposed)
+			{
+				rb_raise(rb_eRGSSError, "disposed sprite");
+			}
 			tilemap->_updateTileSprites();
 		}
 		return value;
@@ -304,6 +317,10 @@ namespace rgss
 
 	VALUE Tilemap::rb_getAutotiles(VALUE self)
 	{
+		/* @note Not sure how RGSSError should be handled here. RMXP still allows for the 
+		   referencing of the autotiles after the Tilemap is disposed. Our method, which
+		   disposes the autotiles, would still cause an error here.
+		*/
 		RB_SELF2CPP(Tilemap, tilemap);
 		return tilemap->rb_autotiles;
 	}
@@ -311,6 +328,10 @@ namespace rgss
 	VALUE Tilemap::rb_getMapData(VALUE self)
 	{
 		RB_SELF2CPP(Tilemap, tilemap);
+		if (tilemap->disposed)
+		{
+			rb_raise(rb_eRGSSError, "disposed sprite");
+		}
 		return tilemap->rb_mapData;
 	}
 
@@ -318,6 +339,10 @@ namespace rgss
 	{
 		VALUE rb_mapData = Tilemap::rb_getMapData(self);
 		RB_GENERATE_SETTER(Tilemap, tilemap, Table, mapData);
+		if (tilemap->disposed)
+		{
+			rb_raise(rb_eRGSSError, "disposed sprite");
+		}
 		if (value != rb_mapData)
 		{
 			tilemap->_updateTileSprites();
@@ -328,6 +353,10 @@ namespace rgss
 	VALUE Tilemap::rb_getPriorities(VALUE self)
 	{
 		RB_SELF2CPP(Tilemap, tilemap);
+		if (tilemap->disposed)
+		{
+			rb_raise(rb_eRGSSError, "disposed sprite");
+		}
 		return tilemap->rb_priorities;
 	}
 
@@ -335,6 +364,10 @@ namespace rgss
 	{
 		VALUE rb_priorities = Tilemap::rb_getPriorities(self);
 		RB_GENERATE_SETTER(Tilemap, tilemap, Table, priorities);
+		if (tilemap->disposed)
+		{
+			rb_raise(rb_eRGSSError, "disposed sprite");
+		}
 		if (value != rb_priorities)
 		{
 			tilemap->_updateTileSprites();
@@ -345,6 +378,10 @@ namespace rgss
 	VALUE Tilemap::rb_getFlashData(VALUE self)
 	{
 		RB_SELF2CPP(Tilemap, tilemap);
+		if (tilemap->disposed)
+		{
+			rb_raise(rb_eRGSSError, "disposed sprite");
+		}
 		return tilemap->rb_flashData;
 	}
 
@@ -352,6 +389,10 @@ namespace rgss
 	{
 		VALUE rb_flashData = Tilemap::rb_getFlashData(self);
 		RB_GENERATE_SETTER(Tilemap, tilemap, Table, flashData);
+		if (tilemap->disposed)
+		{
+			rb_raise(rb_eRGSSError, "disposed sprite");
+		}
 		if (value != rb_flashData)
 		{
 			tilemap->_updateTileSprites();
@@ -365,6 +406,11 @@ namespace rgss
 
 	VALUE Tilemap::rb_update(VALUE self)
 	{
+		RB_SELF2CPP(Tilemap, tilemap);
+		if (tilemap->disposed)
+		{
+			rb_raise(rb_eRGSSError, "disposed sprite");
+		}
 		return Qnil;
 	}
 	
