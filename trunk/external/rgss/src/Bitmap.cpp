@@ -340,6 +340,10 @@ namespace rgss
 	VALUE Bitmap::rb_initialize_copy(VALUE self, VALUE original)
 	{
 		RB_SELF2CPP(Bitmap, bitmap);
+		if (bitmap->disposed)
+		{
+			rb_raise(rb_eRGSSError, "disposed bitmap");
+		}
 		RB_VAR2CPP(original, Bitmap, other);
 		bitmap->imageSource = april::createEmptyImage(other->imageSource->w, other->imageSource->h);
 		bitmap->imageSource->copyImage(other->imageSource);
@@ -350,6 +354,10 @@ namespace rgss
 	VALUE Bitmap::rb_dispose(VALUE self)
 	{
 		RB_SELF2CPP(Bitmap, bitmap);
+		if (bitmap->disposed)
+		{
+			rb_raise(rb_eRGSSError, "disposed bitmap");
+		}
 		bitmap->dispose();
 		return Qnil;
 	}
@@ -368,30 +376,50 @@ namespace rgss
 	VALUE Bitmap::rb_getWidth(VALUE self)
 	{
 		RB_SELF2CPP(Bitmap, bitmap);
+		if (bitmap->disposed)
+		{
+			rb_raise(rb_eRGSSError, "disposed bitmap");
+		}
 		return INT2FIX(bitmap->getWidth());
 	}
 
 	VALUE Bitmap::rb_getHeight(VALUE self)
 	{
 		RB_SELF2CPP(Bitmap, bitmap);
+		if (bitmap->disposed)
+		{
+			rb_raise(rb_eRGSSError, "disposed bitmap");
+		}
 		return INT2FIX(bitmap->getHeight());
 	}
 
 	VALUE Bitmap::rb_getRect(VALUE self)
 	{
 		RB_SELF2CPP(Bitmap, bitmap);
+		if (bitmap->disposed)
+		{
+			rb_raise(rb_eRGSSError, "disposed bitmap");
+		}
 		return Rect::create(INT2FIX(0), INT2FIX(0), INT2FIX(bitmap->getWidth()), INT2FIX(bitmap->getHeight()));
 	}
 
 	VALUE Bitmap::rb_getFont(VALUE self)
 	{
 		RB_SELF2CPP(Bitmap, bitmap);
+		if (bitmap->disposed)
+		{
+			rb_raise(rb_eRGSSError, "disposed bitmap");
+		}
 		return bitmap->rb_font;
 	}
 
 	VALUE Bitmap::rb_setFont(VALUE self, VALUE value)
 	{
 		RB_GENERATE_SETTER(Bitmap, bitmap, Font, font);
+		if (bitmap->disposed)
+		{
+			rb_raise(rb_eRGSSError, "disposed bitmap");
+		}
 		return value;
 	}
 
@@ -408,6 +436,10 @@ namespace rgss
 	VALUE Bitmap::rb_getPixel(VALUE self, VALUE x, VALUE y)
 	{
 		RB_SELF2CPP(Bitmap, bitmap);
+		if (bitmap->disposed)
+		{
+			rb_raise(rb_eRGSSError, "disposed bitmap");
+		}
 		april::Color color = bitmap->imageSource->getPixel(NUM2INT(x), NUM2INT(y));
 		VALUE argv[4] = {INT2FIX(color.r), INT2FIX(color.g), INT2FIX(color.b), INT2FIX(color.a)};
 		return Color::create(4, argv);
@@ -416,6 +448,10 @@ namespace rgss
 	VALUE Bitmap::rb_setPixel(VALUE self, VALUE x, VALUE y, VALUE color)
 	{
 		RB_SELF2CPP(Bitmap, bitmap);
+		if (bitmap->disposed)
+		{
+			rb_raise(rb_eRGSSError, "disposed bitmap");
+		}
 		RB_VAR2CPP(color, Color, cColor);
 		bitmap->imageSource->setPixel(NUM2INT(x), NUM2INT(y), cColor->toAColor());
 		bitmap->textureNeedsUpdate = true;
@@ -430,6 +466,10 @@ namespace rgss
 			rb_raise(rb_eArgError, message.c_str());
 		}
 		RB_SELF2CPP(Bitmap, bitmap);
+		if (bitmap->disposed)
+		{
+			rb_raise(rb_eRGSSError, "disposed bitmap");
+		}
 		int x, y, w, h;
 		VALUE arg1, arg2, arg3, arg4, color;
 		rb_scan_args(argc, argv, "23", &arg1, &arg2, &arg3, &arg4, &color);
@@ -458,6 +498,10 @@ namespace rgss
 	VALUE Bitmap::rb_clear(VALUE self)
 	{
 		RB_SELF2CPP(Bitmap, bitmap);
+		if (bitmap->disposed)
+		{
+			rb_raise(rb_eRGSSError, "disposed bitmap");
+		}
 		bitmap->imageSource->clear();
 		bitmap->textureNeedsUpdate = true;
 		return Qnil;
@@ -466,6 +510,10 @@ namespace rgss
 	VALUE Bitmap::rb_blt(int argc, VALUE* argv, VALUE self)
 	{
 		RB_SELF2CPP(Bitmap, bitmap);
+		if (bitmap->disposed)
+		{
+			rb_raise(rb_eRGSSError, "disposed bitmap");
+		}
 		VALUE arg1, arg2, arg3, arg4, arg5;
 		rb_scan_args(argc, argv, "41", &arg1, &arg2, &arg3, &arg4, &arg5);
 		int x = NUM2INT(arg1);
@@ -488,6 +536,10 @@ namespace rgss
 	VALUE Bitmap::rb_stretchBlt(int argc, VALUE* argv, VALUE self)
 	{
 		RB_SELF2CPP(Bitmap, bitmap);
+		if (bitmap->disposed)
+		{
+			rb_raise(rb_eRGSSError, "disposed bitmap");
+		}
 		VALUE arg1, arg2, arg3, arg4;
 		rb_scan_args(argc, argv, "31", &arg1, &arg2, &arg3, &arg4);
 		RB_VAR2CPP(arg1, Rect, dest_rect);
@@ -520,6 +572,10 @@ namespace rgss
 			rb_raise(rb_eArgError, message.c_str());
 		}
 		RB_SELF2CPP(Bitmap, bitmap);
+		if (bitmap->disposed)
+		{
+			rb_raise(rb_eRGSSError, "disposed bitmap");
+		}
 		int x, y, w, h;
 		hstr text;
 		VALUE arg1, arg2, arg3, arg4, arg5, arg6;
@@ -550,6 +606,11 @@ namespace rgss
 
 	VALUE Bitmap::rb_changeHue(VALUE self, VALUE hue)
 	{
+		RB_SELF2CPP(Bitmap, bitmap);
+		if (bitmap->disposed)
+		{
+			rb_raise(rb_eRGSSError, "disposed bitmap");
+		}
 		return Qnil;
 	}
 
@@ -557,6 +618,10 @@ namespace rgss
 	{
 		/// @todo Test this.
 		RB_SELF2CPP(Bitmap, bitmap);
+		if (bitmap->disposed)
+		{
+			rb_raise(rb_eRGSSError, "disposed bitmap");
+		}
 		hstr text = StringValuePtr(string);
 		hstr fontName = bitmap->_getAFontName();
 		float w = atres::getTextWidthUnformatted(fontName, text);
