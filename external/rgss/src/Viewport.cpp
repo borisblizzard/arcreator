@@ -13,6 +13,7 @@
 #include "RenderQueue.h"
 #include "Tone.h"
 #include "Viewport.h"
+#include "RGSSError.h"
 
 namespace rgss
 {
@@ -189,6 +190,7 @@ namespace rgss
 	VALUE Viewport::rb_inspect(VALUE self)
 	{
 		RB_SELF2CPP(Viewport, viewport);
+		/// @note Should we add a branch here if the viewport has been disposed to return Qnil?
 		return Color::rb_inspect(viewport->rb_color);
 	}
 
@@ -199,36 +201,60 @@ namespace rgss
 	VALUE Viewport::rb_getColor(VALUE self)
 	{
 		RB_SELF2CPP(Viewport, viewport);
+		if (viewport->disposed)
+		{
+			rb_raise(rb_eRGSSError, "disposed viewport");
+		}
 		return viewport->rb_color;
 	}
 
 	VALUE Viewport::rb_setColor(VALUE self, VALUE value)
 	{
 		RB_GENERATE_SETTER(Viewport, sprite, Color, color);
+		if (sprite->disposed)
+		{
+			rb_raise(rb_eRGSSError, "disposed viewport");
+		}
 		return value;
 	}
 
 	VALUE Viewport::rb_getRect(VALUE self)
 	{
 		RB_SELF2CPP(Viewport, viewport);
+		if (viewport->disposed)
+		{
+			rb_raise(rb_eRGSSError, "disposed viewport");
+		}
 		return viewport->rb_rect;
 	}
 
 	VALUE Viewport::rb_setRect(VALUE self, VALUE value)
 	{
 		RB_GENERATE_SETTER(Viewport, sprite, Rect, rect);
+		if (sprite->disposed)
+		{
+			rb_raise(rb_eRGSSError, "disposed viewport");
+		}
 		return value;
 	}
 
 	VALUE Viewport::rb_getTone(VALUE self)
 	{
 		RB_SELF2CPP(Viewport, viewport);
+		if (viewport->disposed)
+		{
+			rb_raise(rb_eRGSSError, "disposed viewport");
+		}
 		return viewport->rb_tone;
 	}
 
 	VALUE Viewport::rb_setTone(VALUE self, VALUE value)
 	{
 		RB_GENERATE_SETTER(Viewport, sprite, Tone, tone);
+		if (sprite->disposed)
+		{
+			rb_raise(rb_eRGSSError, "disposed sprite");
+		}
 		return value;
 	}
 
@@ -242,12 +268,22 @@ namespace rgss
 
 	VALUE Viewport::rb_flash(VALUE self, VALUE color, VALUE duration)
 	{
+		RB_SELF2CPP(Viewport, viewport);
+		if (viewport->disposed)
+		{
+			rb_raise(rb_eRGSSError, "disposed viewport");
+		}
 		/// @todo implement
 		return Qnil;
 	}
 
 	VALUE Viewport::rb_update(VALUE self)
 	{
+		RB_SELF2CPP(Viewport, viewport);
+		if (viewport->disposed)
+		{
+			rb_raise(rb_eRGSSError, "disposed viewport");
+		}
 		/// @todo implement
 		return Qnil;
 	}
