@@ -13,6 +13,7 @@
 #include "Sprite.h"
 #include "Tone.h"
 #include "Viewport.h"
+#include "RGSSError.h"
 
 namespace rgss
 {
@@ -153,6 +154,10 @@ namespace rgss
 	VALUE Sprite::rb_initialize(int argc, VALUE* argv, VALUE self)
 	{
 		RB_SELF2CPP(Sprite, sprite);
+		if (sprite->disposed)
+		{
+			rb_raise(rb_eRGSSError, "disposed sprite");
+		}
 		VALUE viewport;
 		rb_scan_args(argc, argv, "01", &viewport);
 		sprite->initializeZoomable(viewport);
@@ -175,6 +180,10 @@ namespace rgss
 	{
 		Zoomable::rb_setBitmap(self, value);
 		RB_SELF2CPP(Sprite, sprite);
+		if (sprite->disposed)
+		{
+			rb_raise(rb_eRGSSError, "disposed sprite");
+		}
 		if (sprite->bitmap != NULL && !sprite->bitmap->isDisposed())
 		{
 			sprite->getSrcRect()->set(0, 0, sprite->bitmap->getWidth(), sprite->bitmap->getHeight());
@@ -185,12 +194,20 @@ namespace rgss
 	VALUE Sprite::rb_getAngle(VALUE self)
 	{
 		RB_SELF2CPP(Sprite, sprite);
+		if (sprite->disposed)
+		{
+			rb_raise(rb_eRGSSError, "disposed sprite");
+		}
 		return rb_float_new(sprite->angle);
 	}
 
 	VALUE Sprite::rb_setAngle(VALUE self, VALUE value)
 	{
 		RB_SELF2CPP(Sprite, sprite);
+		if (sprite->disposed)
+		{
+			rb_raise(rb_eRGSSError, "disposed sprite");
+		}
 		sprite->angle = (float)NUM2DBL(value);
 		return value;
 	}
@@ -198,12 +215,20 @@ namespace rgss
 	VALUE Sprite::rb_getMirror(VALUE self)
 	{
 		RB_SELF2CPP(Sprite, sprite);
+		if (sprite->disposed)
+		{
+			rb_raise(rb_eRGSSError, "disposed sprite");
+		}
 		return (sprite->mirror ? Qtrue : Qfalse);
 	}
 
 	VALUE Sprite::rb_setMirror(VALUE self, VALUE value)
 	{
 		RB_SELF2CPP(Sprite, sprite);
+		if (sprite->disposed)
+		{
+			rb_raise(rb_eRGSSError, "disposed sprite");
+		}
 		sprite->mirror = (bool)RTEST(value);
 		return value;
 	}
@@ -211,12 +236,20 @@ namespace rgss
 	VALUE Sprite::rb_getBushDepth(VALUE self)
 	{
 		RB_SELF2CPP(Sprite, sprite);
+		if (sprite->disposed)
+		{
+			rb_raise(rb_eRGSSError, "disposed sprite");
+		}
 		return INT2NUM(sprite->bushDepth);
 	}
 
 	VALUE Sprite::rb_setBushDepth(VALUE self, VALUE value)
 	{
 		RB_SELF2CPP(Sprite, sprite);
+		if (sprite->disposed)
+		{
+			rb_raise(rb_eRGSSError, "disposed sprite");
+		}
 		sprite->bushDepth = NUM2INT(value);
 		return value;
 	}
@@ -224,12 +257,20 @@ namespace rgss
 	VALUE Sprite::rb_getSrcRect(VALUE self)
 	{
 		RB_SELF2CPP(Sprite, sprite);
+		if (sprite->disposed)
+		{
+			rb_raise(rb_eRGSSError, "disposed sprite");
+		}
 		return sprite->rb_srcRect;
 	}
 
 	VALUE Sprite::rb_setSrcRect(VALUE self, VALUE value)
 	{
 		RB_GENERATE_SETTER(Sprite, sprite, Rect, srcRect);
+		if (sprite->disposed)
+		{
+			rb_raise(rb_eRGSSError, "disposed sprite");
+		}
 		return value;
 	}
 
@@ -243,12 +284,22 @@ namespace rgss
 
 	VALUE Sprite::rb_flash(VALUE self, VALUE color, VALUE duration)
 	{
+		RB_SELF2CPP(Sprite, sprite);
+		if (sprite->disposed)
+		{
+			rb_raise(rb_eRGSSError, "disposed sprite");
+		}
 		/// @todo implement
 		return Qnil;
 	}
 
 	VALUE Sprite::rb_update(VALUE self)
 	{
+		RB_SELF2CPP(Sprite, sprite);
+		if (sprite->disposed)
+		{
+			rb_raise(rb_eRGSSError, "disposed sprite");
+		}
 		/// @todo implement
 		return Qnil;
 	}
