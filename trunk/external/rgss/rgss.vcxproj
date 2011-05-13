@@ -60,7 +60,7 @@
       <AdditionalIncludeDirectories>src;include/rgss;../gtypes/include;../hltypes/include;../atres/include;../april/include;../xal/include;../include;../include/ruby192;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>msvcr100-ruby192.lib;dl.lib;callback.lib;libgtypes.lib;libhltypes.lib;libapril.lib;libatres.lib;libxal.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>msvcr100-ruby192.lib;win32api.lib;libgtypes.lib;libhltypes.lib;libapril.lib;libatres.lib;libxal.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
       <AdditionalLibraryDirectories>../lib/msvc;../lib/msvc100;../gtypes/bin/win32_Debug;../hltypes/bin/win32_Debug;../atres/bin/win32_Debug;../april/bin;../xal/bin;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
