@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <time.h>
 
-//#include <ruby/extensions.h>
+#include <ruby/extensions.h>
 #include <ruby/ruby.h>
 
 #include <april/RenderSystem.h>
@@ -136,6 +136,7 @@ namespace zer0
 
 	int enterMainLoop(int argc, char** argv)
 	{
+		// initialization of all Ruby related parts
 #ifdef HAVE_LOCALE_H
 	    setlocale(LC_CTYPE, "");
 #endif
@@ -151,6 +152,9 @@ namespace zer0
 		{
 			rb_eval_string("$DEBUG = true");
 		}
+		// initializing statically linked Ruby extensions
+		Init_api();
+		// running everything
 		rb_protect(embedded, Qnil, &state);
 		return ruby_cleanup(state);
 	}
