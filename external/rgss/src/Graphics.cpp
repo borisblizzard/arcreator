@@ -8,6 +8,7 @@
 #include <gtypes/Rectangle.h>
 #include <hltypes/hthread.h>
 #include <hltypes/util.h>
+#include <xal/AudioManager.h>
 
 #include "CodeSnippets.h"
 #include "Graphics.h"
@@ -114,6 +115,7 @@ namespace rgss
 			rb_exit(0);
 			return Qnil;
 		}
+		april::rendersys->getWindow()->doEvents();
 		if (active)
 		{
 			april::rendersys->clear();
@@ -122,6 +124,8 @@ namespace rgss
 		}
 		_waitForFrameSync();
 		frameCount++;
+		/// @todo - remove once threaded XAL works 100% fine
+		xal::mgr->update(0.01666667f);
 		/// @todo - more often, less often?
 		if (frameCount % 200 == 0)
 		{

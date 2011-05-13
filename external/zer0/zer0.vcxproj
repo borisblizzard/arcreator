@@ -59,7 +59,7 @@
       <DisableSpecificWarnings>4251</DisableSpecificWarnings>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>msvcr100-ruby192.lib;libgtypes.lib;libhltypes.lib;libapril.lib;libaprilutil.lib;libatres.lib;libaprilui.lib;libxal.lib;zer0rgss.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>msvcr100-ruby192.lib;win32api.lib;libgtypes.lib;libhltypes.lib;libapril.lib;libaprilutil.lib;libatres.lib;libaprilui.lib;libxal.lib;zer0rgss.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
       <AdditionalLibraryDirectories>../lib/msvc;../lib/msvc100;../gtypes/bin/win32_Debug;../hltypes/bin/win32_Debug;../atres/bin/win32_Debug;../april/bin;../aprilui/bin/win32_Debug;../xal/bin;../rgss/bin/win32_Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -84,7 +84,7 @@
       <MinimalRebuild>false</MinimalRebuild>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>msvcr100-ruby192.lib;libgtypes.lib;libhltypes.lib;libapril.lib;libaprilutil.lib;libatres.lib;libaprilui.lib;libxal.lib;zer0rgss.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>msvcr100-ruby192.lib;win32api.lib;libgtypes.lib;libhltypes.lib;libapril.lib;libaprilutil.lib;libatres.lib;libaprilui.lib;libxal.lib;zer0rgss.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>../lib/msvc;../lib/msvc100;../gtypes/bin/win32_Release;../hltypes/bin/win32_Release;../atres/bin/win32_Release;../april/bin;../aprilui/bin/win32_Release;../xal/bin;../rgss/bin/win32_Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
       <UACUIAccess>false</UACUIAccess>
