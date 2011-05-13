@@ -38,6 +38,11 @@
 [li]Chaos Project Community (for the ideas and general support)[/li]
 [/list]
 
+[size=14pt][b]Other Work:[/b][/size]
+
+[list]
+[li]Win32-API Ruby extension, licensed under Artistic License 2.0, (C) Daniel J. Berger, Park Heesob, All rights reserved[/li]
+[/list]
 
 
 
