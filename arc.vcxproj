@@ -150,7 +150,6 @@ del bin\$(Configuration)\*.tlog
 del bin\$(Configuration)\*.lastbuildstate
 del bin\$(Configuration)\*.pdb
 del bin\$(Configuration)\*.manifest
-del bin\$(Configuration)\glut32.dll
 </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
