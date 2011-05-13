@@ -1,3 +1,5 @@
+#include <ruby/dl.h>
+
 #include "Audio.h"
 #include "Bitmap.h"
 #include "Color.h"
@@ -33,6 +35,7 @@ namespace rgss
 	void init(void (*logFunction)(chstr))
 	{
 		g_logFunction = logFunction;
+		Init_dl();
 		// creating Ruby interfaces of C++ classes created for Ruby
 		Audio::createRubyInterface();
 		Bitmap::createRubyInterface();
