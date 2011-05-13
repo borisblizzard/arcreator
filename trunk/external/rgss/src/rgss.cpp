@@ -1,4 +1,4 @@
-#include <ruby/dl.h>
+#include <ruby/extensions.h>
 
 #include "Audio.h"
 #include "Bitmap.h"

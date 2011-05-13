@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <time.h>
 
-#include <ruby/dl.h>
+//#include <ruby/extensions.h>
 #include <ruby/ruby.h>
 
 #include <april/RenderSystem.h>
