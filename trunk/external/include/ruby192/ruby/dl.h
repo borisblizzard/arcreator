@@ -220,5 +220,9 @@ int rb_dlcfunc_kind_p(VALUE func);
 VALUE rb_dlptr_new(void *ptr, long size, freefunc_t func);
 VALUE rb_dlptr_new2(VALUE klass, void *ptr, long size, freefunc_t func);
 VALUE rb_dlptr_malloc(long size, freefunc_t func);
+extern "C"
+{
+	void Init_dl(void);
+}
 
 #endif

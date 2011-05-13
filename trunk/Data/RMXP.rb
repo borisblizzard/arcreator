@@ -26,6 +26,11 @@ class Win32API
 end
 =end
 
+# this makes sure that Kernel#require and Kernel#load don't need (but still accept) a full path anymore
+$:.clear
+$:.push(Dir.getwd)
+
+# RMXP's data loader from the RGSSAD archive
 def load_data(filename)
 	file = File.open(filename)
 	data = Marshal.load(file)

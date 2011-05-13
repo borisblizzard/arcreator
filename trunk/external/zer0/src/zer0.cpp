@@ -127,12 +127,9 @@ namespace zer0
 		rgss::init(g_logFunction);
 		// running the Ruby scripts
 		//rb_require("./test.rb");
-		//*
-		rb_eval_string("$DEBUG = true");
-		rb_require("./Data/RMXP.rb");
-		rb_require("./Data/System.rb");
-		rb_require("./Data/Scripts.rb");
-		//*/
+		rb_load(rb_str_new2("./Data/RMXP.rb"), 0);
+		rb_load(rb_str_new2("./Data/System.rb"), 0);
+		rb_load(rb_str_new2("./Data/Scripts.rb"), 0);
 		rgss::destroy();
 		return Qnil;
 	}
@@ -147,6 +144,13 @@ namespace zer0
 		RUBY_INIT_STACK;
 		ruby_init();
 		ruby_init_loadpath();
+		ruby_script("ARC");
+#ifndef _DEBUG
+		if (argc >= 2 && hstr(argv[1]).lower() == "-debug")
+#endif
+		{
+			rb_eval_string("$DEBUG = true");
+		}
 		rb_protect(embedded, Qnil, &state);
 		return ruby_cleanup(state);
 	}
