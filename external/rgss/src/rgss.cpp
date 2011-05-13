@@ -35,7 +35,8 @@ namespace rgss
 	void init(void (*logFunction)(chstr))
 	{
 		g_logFunction = logFunction;
-		Init_dl();
+		// initializing statically linked Ruby extensions
+		Init_api();
 		// creating Ruby interfaces of C++ classes created for Ruby
 		Audio::createRubyInterface();
 		Bitmap::createRubyInterface();

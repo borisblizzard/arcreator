@@ -3,7 +3,7 @@
 
 extern "C"
 {
-	void Init_dl();
+	void Init_api();
 }
 
 #endif
