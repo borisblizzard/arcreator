@@ -14,6 +14,7 @@
 #include "Graphics.h"
 #include "Renderable.h"
 #include "RenderQueue.h"
+#include "rgss.h"
 
 namespace rgss
 {
@@ -89,7 +90,7 @@ namespace rgss
 
 	VALUE Graphics::rb_setFrameCount(VALUE self, VALUE value)
 	{
-		frameCount = NUM2UINT(value);
+		frameCount = (unsigned int)hmax(NUM2INT(value), 0);
 		return Qnil;
 	}
 
@@ -125,7 +126,7 @@ namespace rgss
 		_waitForFrameSync();
 		frameCount++;
 		/// @todo - remove once threaded XAL works 100% fine
-		xal::mgr->update(0.01666667f);
+		xal::mgr->update(1000.0f / frameRate);
 		/// @todo - more often, less often?
 		if (frameCount % 200 == 0)
 		{
@@ -174,6 +175,7 @@ namespace rgss
 		int duration1 = duration - duration / 2;
 		for_iter (i, 0, duration0)
 		{
+			april::rendersys->getWindow()->doEvents();
 			april::rendersys->clear();
 			/*
 			april::rendersys->setTexture(texture);
@@ -183,6 +185,8 @@ namespace rgss
 			*/
 			april::rendersys->presentFrame();
 			_waitForFrameSync();
+			/// @todo - remove once threaded XAL works 100% fine
+			xal::mgr->update(1000.0f / frameRate);
 		}
 		/*
 		delete texture;
@@ -198,6 +202,7 @@ namespace rgss
 		*/
 		for_iter (i, 0, duration1)
 		{
+			april::rendersys->getWindow()->doEvents();
 			april::rendersys->clear();
 			/*
 			april::rendersys->setTexture(texture);
@@ -207,6 +212,8 @@ namespace rgss
 			*/
 			april::rendersys->presentFrame();
 			_waitForFrameSync();
+			/// @todo - remove once threaded XAL works 100% fine
+			xal::mgr->update(1000.0f / frameRate);
 		}
 		//delete texture;
 		active = true;

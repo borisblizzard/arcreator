@@ -1,4 +1,10 @@
-﻿#==============================================================================
+﻿if $game_exists
+  Thread.new {system('Game')}
+  exit
+end
+$game_exists = true
+
+#==============================================================================
 # ** Game_Temp
 #------------------------------------------------------------------------------
 #  This class handles temporary data that is not included with save data.
@@ -105,6 +111,7 @@ class Game_Temp
     @debug_index = 0
   end
 end
+
 #==============================================================================
 # ** Game_System
 #------------------------------------------------------------------------------
@@ -316,6 +323,7 @@ class Game_System
     end
   end
 end
+
 #==============================================================================
 # ** Game_Switches
 #------------------------------------------------------------------------------
@@ -352,6 +360,7 @@ class Game_Switches
     end
   end
 end
+
 #==============================================================================
 # ** Game_Variables
 #------------------------------------------------------------------------------
@@ -388,6 +397,7 @@ class Game_Variables
     end
   end
 end
+
 #==============================================================================
 # ** Game_SelfSwitches
 #------------------------------------------------------------------------------
@@ -418,6 +428,7 @@ class Game_SelfSwitches
     @data[key] = value
   end
 end
+
 #==============================================================================
 # ** Game_Screen
 #------------------------------------------------------------------------------
@@ -566,6 +577,7 @@ class Game_Screen
     end
   end
 end
+
 #==============================================================================
 # ** Game_Picture
 #------------------------------------------------------------------------------
@@ -722,6 +734,7 @@ class Game_Picture
     end
   end
 end
+
 #==============================================================================
 # ** Game_Battler (part 1)
 #------------------------------------------------------------------------------
@@ -1029,6 +1042,7 @@ class Game_Battler
     return (@current_action.kind == 0 and @current_action.basic == 3)
   end
 end
+
 #==============================================================================
 # ** Game_Battler (part 2)
 #------------------------------------------------------------------------------
@@ -1323,6 +1337,7 @@ class Game_Battler
     return effective
   end
 end
+
 #==============================================================================
 # ** Game_Battler (part 3)
 #------------------------------------------------------------------------------
@@ -1677,6 +1692,7 @@ class Game_Battler
     return weakest
   end
 end
+
 #==============================================================================
 # ** Game_BattleAction
 #------------------------------------------------------------------------------
@@ -1822,6 +1838,7 @@ class Game_BattleAction
     end
   end
 end
+
 #==============================================================================
 # ** Game_Actor
 #------------------------------------------------------------------------------
@@ -2417,6 +2434,7 @@ class Game_Actor < Game_Battler
     end
   end
 end
+
 #==============================================================================
 # ** Game_Enemy
 #------------------------------------------------------------------------------
@@ -2734,6 +2752,7 @@ class Game_Enemy < Game_Battler
     end
   end
 end
+
 #==============================================================================
 # ** Game_Actors
 #------------------------------------------------------------------------------
@@ -2762,6 +2781,7 @@ class Game_Actors
     return @data[actor_id]
   end
 end
+
 #==============================================================================
 # ** Game_Party
 #------------------------------------------------------------------------------
@@ -3119,6 +3139,7 @@ class Game_Party
     end
   end
 end
+
 #==============================================================================
 # ** Game_Troop
 #------------------------------------------------------------------------------
@@ -3203,6 +3224,7 @@ class Game_Troop
     end
   end
 end
+
 #==============================================================================
 # ** Game_Map
 #------------------------------------------------------------------------------
@@ -3622,6 +3644,7 @@ class Game_Map
     end
   end
 end
+
 #==============================================================================
 # ** Game_CommonEvent
 #------------------------------------------------------------------------------
@@ -3692,6 +3715,7 @@ class Game_CommonEvent
     end
   end
 end
+
 #==============================================================================
 # ** Game_Character (part 1)
 #------------------------------------------------------------------------------
@@ -3993,6 +4017,16 @@ class Game_Character
   def terrain_tag
     return $game_map.terrain_tag(@x, @y)
   end
+end
+
+#==============================================================================
+# ** Game_Character (part 2)
+#------------------------------------------------------------------------------
+#  This class deals with characters. It's used as a superclass for the
+#  Game_Player and Game_Event classes.
+#==============================================================================
+
+class Game_Character
   #--------------------------------------------------------------------------
   # * Frame Update
   #--------------------------------------------------------------------------
@@ -4322,10 +4356,7 @@ class Game_Character
         when 44  # Play SE
           $game_system.se_play(command.parameters[0])
         when 45  # Script
-          begin
-            eval(command.parameters[0])
-          rescue
-          end
+          result = eval(command.parameters[0])
         end
         @move_route_index += 1
       end
@@ -4338,6 +4369,16 @@ class Game_Character
     # Clear stop count
     @stop_count = 0
   end
+end
+
+#==============================================================================
+# ** Game_Character (part 3)
+#------------------------------------------------------------------------------
+#  This class deals with characters. It's used as a superclass for the
+#  Game_Player and Game_Event classes.
+#==============================================================================
+
+class Game_Character
   #--------------------------------------------------------------------------
   # * Move Down
   #     turn_enabled : a flag permits direction change on that spot
@@ -4814,6 +4855,7 @@ class Game_Character
     end
   end
 end
+
 #==============================================================================
 # ** Game_Event
 #------------------------------------------------------------------------------
@@ -5040,6 +5082,7 @@ class Game_Event < Game_Character
     end
   end
 end
+
 #==============================================================================
 # ** Game_Player
 #------------------------------------------------------------------------------
@@ -5318,6 +5361,7 @@ class Game_Player < Game_Character
     end
   end
 end
+
 #==============================================================================
 # ** Sprite_Character
 #------------------------------------------------------------------------------
@@ -5395,6 +5439,7 @@ class Sprite_Character < RPG::Sprite
     end
   end
 end
+
 #==============================================================================
 # ** Sprite_Battler
 #------------------------------------------------------------------------------
@@ -5526,6 +5571,7 @@ class Sprite_Battler < RPG::Sprite
     self.z = @battler.screen_z
   end
 end
+
 #==============================================================================
 # ** Sprite_Picture
 #------------------------------------------------------------------------------
@@ -5598,6 +5644,7 @@ class Sprite_Picture < Sprite
     self.tone = @picture.tone
   end
 end
+
 #==============================================================================
 # ** Sprite_Timer
 #------------------------------------------------------------------------------
@@ -5651,6 +5698,7 @@ class Sprite_Timer < Sprite
     end
   end
 end
+
 #==============================================================================
 # ** Spriteset_Map
 #------------------------------------------------------------------------------
@@ -5807,6 +5855,7 @@ class Spriteset_Map
     @viewport3.update
   end
 end
+
 #==============================================================================
 # ** Spriteset_Battle
 #------------------------------------------------------------------------------
@@ -5939,6 +5988,7 @@ class Spriteset_Battle
     @viewport4.update
   end
 end
+
 #==============================================================================
 # ** Window_Base
 #------------------------------------------------------------------------------
@@ -5978,23 +6028,15 @@ class Window_Base < Window
   #     n : text color number (0-7)
   #--------------------------------------------------------------------------
   def text_color(n)
-    case n
-    when 0
-      return Color.new(255, 255, 255, 255)
-    when 1
-      return Color.new(128, 128, 255, 255)
-    when 2
-      return Color.new(255, 128, 128, 255)
-    when 3
-      return Color.new(128, 255, 128, 255)
-    when 4
-      return Color.new(128, 255, 255, 255)
-    when 5
-      return Color.new(255, 128, 255, 255)
-    when 6
-      return Color.new(255, 255, 128, 255)
-    when 7
-      return Color.new(192, 192, 192, 255)
+    return case n
+    when 0 then Color.new(255, 255, 255)
+    when 1 then Color.new(80, 80, 255)
+    when 2 then Color.new(255, 0, 0)
+    when 3 then Color.new(0, 255, 0)
+    when 4 then Color.new(128, 192, 255)
+    when 5 then Color.new(255, 0, 255)
+    when 6 then Color.new(255, 255, 0)
+    when 7 then Color.new(160, 160, 160)
     else
       normal_color
     end
@@ -6260,6 +6302,7 @@ class Window_Base < Window
     self.contents.draw_text(x + 28, y, 212, 32, item.name)
   end
 end
+
 #==============================================================================
 # ** Window_Selectable
 #------------------------------------------------------------------------------
@@ -6463,6 +6506,7 @@ class Window_Selectable < Window_Base
     update_cursor_rect
   end
 end
+
 #==============================================================================
 # ** Window_Command
 #------------------------------------------------------------------------------
@@ -6512,6 +6556,7 @@ class Window_Command < Window_Selectable
     draw_item(index, disabled_color)
   end
 end
+
 #==============================================================================
 # ** Window_Help
 #------------------------------------------------------------------------------
@@ -6573,6 +6618,7 @@ class Window_Help < Window_Base
     set_text(text, 1)
   end
 end
+
 #==============================================================================
 # ** Window_Gold
 #------------------------------------------------------------------------------
@@ -6600,6 +6646,7 @@ class Window_Gold < Window_Base
     self.contents.draw_text(124-cx, 0, cx, 32, $data_system.words.gold, 2)
   end
 end
+
 #==============================================================================
 # ** Window_PlayTime
 #------------------------------------------------------------------------------
@@ -6640,6 +6687,7 @@ class Window_PlayTime < Window_Base
     end
   end
 end
+
 #==============================================================================
 # ** Window_Steps
 #------------------------------------------------------------------------------
@@ -6666,6 +6714,7 @@ class Window_Steps < Window_Base
     self.contents.draw_text(4, 32, 120, 32, $game_party.steps.to_s, 2)
   end
 end
+
 #==============================================================================
 # ** Window_MenuStatus
 #------------------------------------------------------------------------------
@@ -6714,6 +6763,7 @@ class Window_MenuStatus < Window_Selectable
     end
   end
 end
+
 #==============================================================================
 # ** Window_Item
 #------------------------------------------------------------------------------
@@ -6818,6 +6868,7 @@ class Window_Item < Window_Selectable
     @help_window.set_text(self.item == nil ? "" : self.item.description)
   end
 end
+
 #==============================================================================
 # ** Window_Skill
 #------------------------------------------------------------------------------
@@ -6901,6 +6952,7 @@ class Window_Skill < Window_Selectable
     @help_window.set_text(self.skill == nil ? "" : self.skill.description)
   end
 end
+
 #==============================================================================
 # ** Window_SkillStatus
 #------------------------------------------------------------------------------
@@ -6929,6 +6981,7 @@ class Window_SkillStatus < Window_Base
     draw_actor_sp(@actor, 460, 0)
   end
 end
+
 #==============================================================================
 # ** Window_Target
 #------------------------------------------------------------------------------
@@ -6978,6 +7031,7 @@ class Window_Target < Window_Selectable
     end
   end
 end
+
 #==============================================================================
 # ** Window_EquipLeft
 #------------------------------------------------------------------------------
@@ -7039,6 +7093,7 @@ class Window_EquipLeft < Window_Base
     end
   end
 end
+
 #==============================================================================
 # ** Window_EquipRight
 #------------------------------------------------------------------------------
@@ -7095,6 +7150,7 @@ class Window_EquipRight < Window_Selectable
     @help_window.set_text(self.item == nil ? "" : self.item.description)
   end
 end
+
 #==============================================================================
 # ** Window_EquipItem
 #------------------------------------------------------------------------------
@@ -7189,6 +7245,7 @@ class Window_EquipItem < Window_Selectable
     @help_window.set_text(self.item == nil ? "" : self.item.description)
   end
 end
+
 #==============================================================================
 # ** Window_Status
 #------------------------------------------------------------------------------
@@ -7239,20 +7296,8 @@ class Window_Status < Window_Base
     draw_item_name($data_armors[@actor.armor3_id], 320 + 16, 352)
     draw_item_name($data_armors[@actor.armor4_id], 320 + 16, 400)
   end
-  def dummy
-    self.contents.font.color = system_color
-    self.contents.draw_text(320, 112, 96, 32, $data_system.words.weapon)
-    self.contents.draw_text(320, 176, 96, 32, $data_system.words.armor1)
-    self.contents.draw_text(320, 240, 96, 32, $data_system.words.armor2)
-    self.contents.draw_text(320, 304, 96, 32, $data_system.words.armor3)
-    self.contents.draw_text(320, 368, 96, 32, $data_system.words.armor4)
-    draw_item_name($data_weapons[@actor.weapon_id], 320 + 24, 144)
-    draw_item_name($data_armors[@actor.armor1_id], 320 + 24, 208)
-    draw_item_name($data_armors[@actor.armor2_id], 320 + 24, 272)
-    draw_item_name($data_armors[@actor.armor3_id], 320 + 24, 336)
-    draw_item_name($data_armors[@actor.armor4_id], 320 + 24, 400)
-  end
 end
+
 #==============================================================================
 # ** Window_SaveFile
 #------------------------------------------------------------------------------
@@ -7344,6 +7389,7 @@ class Window_SaveFile < Window_Base
     end
   end
 end
+
 #==============================================================================
 # ** Window_ShopCommand
 #------------------------------------------------------------------------------
@@ -7381,6 +7427,7 @@ class Window_ShopCommand < Window_Selectable
     self.contents.draw_text(x, 0, 128, 32, @commands[index])
   end
 end
+
 #==============================================================================
 # ** Window_ShopBuy
 #------------------------------------------------------------------------------
@@ -7474,6 +7521,7 @@ class Window_ShopBuy < Window_Selectable
     @help_window.set_text(self.item == nil ? "" : self.item.description)
   end
 end
+
 #==============================================================================
 # ** Window_ShopSell
 #------------------------------------------------------------------------------
@@ -7568,6 +7616,7 @@ class Window_ShopSell < Window_Selectable
     @help_window.set_text(self.item == nil ? "" : self.item.description)
   end
 end
+
 #==============================================================================
 # ** Window_ShopNumber
 #------------------------------------------------------------------------------
@@ -7655,6 +7704,7 @@ class Window_ShopNumber < Window_Base
     end
   end
 end
+
 #==============================================================================
 # ** Window_ShopStatus
 #------------------------------------------------------------------------------
@@ -7762,6 +7812,7 @@ class Window_ShopStatus < Window_Base
     end
   end
 end
+
 #==============================================================================
 # ** Window_NameEdit
 #------------------------------------------------------------------------------
@@ -7866,6 +7917,7 @@ class Window_NameEdit < Window_Base
     update_cursor_rect
   end
 end
+
 #==============================================================================
 # ** Window_NameInput
 #------------------------------------------------------------------------------
@@ -8029,6 +8081,7 @@ class Window_NameInput < Window_Base
     update_cursor_rect
   end
 end
+
 #==============================================================================
 # ** Window_InputNumber
 #------------------------------------------------------------------------------
@@ -8123,6 +8176,7 @@ class Window_InputNumber < Window_Base
     end
   end
 end
+
 #==============================================================================
 # ** Window_Message
 #------------------------------------------------------------------------------
@@ -8357,7 +8411,7 @@ class Window_Message < Window_Selectable
         end
       end
       # Confirm
-      if Input.repeat?(Input::C)
+      if Input.trigger?(Input::C)
         if $game_temp.choice_max > 0
           $game_system.se_play($data_system.decision_se)
           $game_temp.choice_proc.call(self.index)
@@ -8405,6 +8459,7 @@ class Window_Message < Window_Selectable
     end
   end
 end
+
 #==============================================================================
 # ** Window_PartyCommand
 #------------------------------------------------------------------------------
@@ -8447,6 +8502,7 @@ class Window_PartyCommand < Window_Selectable
     self.cursor_rect.set(160 + index * 160, 0, 128, 32)
   end
 end
+
 #==============================================================================
 # ** Window_BattleStatus
 #------------------------------------------------------------------------------
@@ -8509,6 +8565,7 @@ class Window_BattleStatus < Window_Base
     end
   end
 end
+
 #==============================================================================
 # ** Window_BattleResult
 #------------------------------------------------------------------------------
@@ -8560,6 +8617,7 @@ class Window_BattleResult < Window_Base
     end
   end
 end
+
 #==============================================================================
 # ** Window_DebugLeft
 #------------------------------------------------------------------------------
@@ -8617,6 +8675,7 @@ class Window_DebugLeft < Window_Selectable
     end
   end
 end
+
 #==============================================================================
 # ** Window_DebugRight
 #------------------------------------------------------------------------------
@@ -8686,6 +8745,7 @@ class Window_DebugRight < Window_Selectable
     end
   end
 end
+
 #==============================================================================
 # ** Arrow_Base
 #------------------------------------------------------------------------------
@@ -8751,6 +8811,7 @@ class Arrow_Base < Sprite
     end
   end
 end
+
 #==============================================================================
 # ** Arrow_Enemy
 #------------------------------------------------------------------------------
@@ -8808,6 +8869,7 @@ class Arrow_Enemy < Arrow_Base
     @help_window.set_enemy(self.enemy)
   end
 end
+
 #==============================================================================
 # ** Arrow_Actor
 #------------------------------------------------------------------------------
@@ -8853,8 +8915,9 @@ class Arrow_Actor < Arrow_Base
     @help_window.set_actor(self.actor)
   end
 end
+
 #==============================================================================
-# ** Interpreter 
+# ** Interpreter (part 1)
 #------------------------------------------------------------------------------
 #  This interpreter runs event commands. This class is used within the
 #  Game_System class and the Game_Event class.
@@ -9164,6 +9227,16 @@ class Interpreter
       end
     end
   end
+end
+
+#==============================================================================
+# ** Interpreter (part 2)
+#------------------------------------------------------------------------------
+#  This interpreter runs event commands. This class is used within the
+#  Game_System class and the Game_Event class.
+#==============================================================================
+
+class Interpreter
   #--------------------------------------------------------------------------
   # * Event Command Execution
   #--------------------------------------------------------------------------
@@ -9441,6 +9514,16 @@ class Interpreter
     # Return value
     return value
   end
+end
+
+#==============================================================================
+# ** Interpreter (part 3)
+#------------------------------------------------------------------------------
+#  This interpreter runs event commands. This class is used within the
+#  Game_System class and the Game_Event class.
+#==============================================================================
+
+class Interpreter
   #--------------------------------------------------------------------------
   # * Show Text
   #--------------------------------------------------------------------------
@@ -9695,11 +9778,7 @@ class Interpreter
     when 11  # button
       result = (Input.press?(@parameters[1]))
     when 12  # script
-      begin
-        eval(@parameters[1])
-      rescue
-      end
-      result = true
+      result = eval(@parameters[1])
     end
     # Store determinant results in hash
     @branch[@list[@index].indent] = result
@@ -9849,6 +9928,16 @@ class Interpreter
       temp_index += 1
     end
   end
+end
+
+#==============================================================================
+# ** Interpreter (part 4)
+#------------------------------------------------------------------------------
+#  This interpreter runs event commands. This class is used within the
+#  Game_System class and the Game_Event class.
+#==============================================================================
+
+class Interpreter
   #--------------------------------------------------------------------------
   # * Control Switches
   #--------------------------------------------------------------------------
@@ -10167,6 +10256,16 @@ class Interpreter
     # Continue
     return true
   end
+end
+
+#==============================================================================
+# ** Interpreter (part 5)
+#------------------------------------------------------------------------------
+#  This interpreter runs event commands. This class is used within the
+#  Game_System class and the Game_Event class.
+#==============================================================================
+
+class Interpreter
   #--------------------------------------------------------------------------
   # * Transfer Player
   #--------------------------------------------------------------------------
@@ -10602,6 +10701,16 @@ class Interpreter
     # Continue
     return true
   end
+end
+
+#==============================================================================
+# ** Interpreter (part 6)
+#------------------------------------------------------------------------------
+#  This interpreter runs event commands. This class is used within the
+#  Game_System class and the Game_Event class.
+#==============================================================================
+
+class Interpreter
   #--------------------------------------------------------------------------
   # * Battle Processing
   #--------------------------------------------------------------------------
@@ -10902,6 +11011,16 @@ class Interpreter
     # Continue
     return true
   end
+end
+
+#==============================================================================
+# ** Interpreter (part 7)
+#------------------------------------------------------------------------------
+#  This interpreter runs event commands. This class is used within the
+#  Game_System class and the Game_Event class.
+#==============================================================================
+
+class Interpreter
   #--------------------------------------------------------------------------
   # * Change Enemy HP
   #--------------------------------------------------------------------------
@@ -11165,14 +11284,17 @@ class Interpreter
       @index += 1
     end
     # Evaluation
-    begin
-      eval(script)
-    rescue
+    result = eval(script)
+    # If return value is false
+    if result == false
+      # End
+      return false
     end
     # Continue
     return true
   end
 end
+
 #==============================================================================
 # ** Scene_Title
 #------------------------------------------------------------------------------
@@ -11180,6 +11302,7 @@ end
 #==============================================================================
 
 class Scene_Title
+  
   #--------------------------------------------------------------------------
   # * Main Processing
   #--------------------------------------------------------------------------
@@ -11189,6 +11312,27 @@ class Scene_Title
       battle_test
       return
     end
+    # add some extras
+    @mask = Sprite.new
+    @mask.bitmap = RPG::Cache.title("logo_mask")
+    @mask.z = 100
+    @glow = Sprite.new
+    @glow.bitmap = RPG::Cache.title("glow")
+    @glow.z = 50
+    @glow.x = -160
+    @ver = Sprite.new
+    @ver.bitmap = Bitmap.new(160, 32)
+    @ver.bitmap.font.name = "Arial"
+    @ver.bitmap.font.size = 18
+    @ver.bitmap.font.color.set(0, 96, 255)
+    @ver.bitmap.font.bold = true
+    ver = (BlizzABS::VERSION * 1000 + 0.1).to_i
+    ver = "Version #{ver/1000%10}.#{ver/100%10}.#{ver/10%10}.#{ver%10}"
+    @ver.bitmap.draw_text(0, 0, 160, 32, ver, 1)
+    @ver.x = 240
+    @ver.y = 200
+    @ver.z = 150
+    @count = false
     # Load database
     $data_actors        = load_data("Data/Actors.rxdata")
     $data_classes       = load_data("Data/Classes.rxdata")
@@ -11209,21 +11353,23 @@ class Scene_Title
     @sprite = Sprite.new
     @sprite.bitmap = RPG::Cache.title($data_system.title_name)
     # Make command window
-    s1 = "New Game"
-    s2 = "Continue"
-    s3 = "Shutdown"
-    @command_window = Window_Command.new(192, [s1, s2, s3])
+    commands1 = ["Run Blizz-ABS #{ver}", 'Resume', 'Quit']
+    commands2 = ['Chronicles of Sir Lag-A-Lot', 'Back to Main Menu']
+    @command_window = Window_Command.new(352, commands1)
     @command_window.back_opacity = 160
     @command_window.x = 320 - @command_window.width / 2
-    @command_window.y = 288
+    @command_window.y = 320 - @command_window.height / 2
+    @command_window2 = Window_Command.new(320, commands2)
+    @command_window2.back_opacity = 160
+    @command_window2.x = 320 - @command_window2.width / 2
+    @command_window2.y = 320 - @command_window2.height / 2
+    @command_window2.active = @command_window2.visible = false
     # Continue enabled determinant
     # Check if at least one save file exists
     # If enabled, make @continue_enabled true; if disabled, make it false
     @continue_enabled = false
     for i in 0..3
-      if FileTest.exist?("Save#{i+1}.rxdata")
-        @continue_enabled = true
-      end
+      @continue_enabled = true if FileTest.exist?("Save#{i+1}.rxdata")
     end
     # If continue is enabled, move cursor to "Continue"
     # If disabled, display "Continue" text in gray
@@ -11248,50 +11394,87 @@ class Scene_Title
       # Frame update
       update
       # Abort loop if screen is changed
-      if $scene != self
-        break
-      end
+      break if $scene != self
     end
     # Prepare for transition
     Graphics.freeze
     # Dispose of command window
     @command_window.dispose
+    @command_window2.dispose
     # Dispose of title graphic
     @sprite.bitmap.dispose
     @sprite.dispose
+    # dispose the extras
+    @mask.dispose
+    @glow.dispose
+    @ver.dispose
   end
   #--------------------------------------------------------------------------
   # * Frame Update
   #--------------------------------------------------------------------------
   def update
+    # is it time to update the glow
+    if (Graphics.frame_count + 100) % 150 == 0 or @count
+      # move glowing frame
+      @glow.x += 50
+      # still glowing
+      @count = (@glow.x < 640)
+    else
+      # reset glow position
+      @glow.x = -160
+    end
     # Update command window
-    @command_window.update
-    if Input.trigger?(Input::A)
-      if @command_window.windowskin == nil
-        @command_window.windowskin = RPG::Cache.windowskin($game_system.windowskin_name)
-        @command_window.contents = RPG::Cache.windowskin($game_system.windowskin_name)
-      else
-        @command_window.windowskin = nil
-        @command_window.contents = nil
+    @command_window.update if @command_window.active
+    @command_window2.update if @command_window2.active
+    # If C button was pressed
+    if Input.trigger?(Input::B)
+      if @command_window.active
+        $game_system.se_play($data_system.buzzer_se)
+      elsif @command_window2.active
+        $game_system.se_play($data_system.cancel_se)
+        @command_window.active = @command_window.visible = true
+        @command_window2.active = @command_window2.visible = false
       end
     end
-    # If C button was pressed
     if Input.trigger?(Input::C)
+      if @command_window.active
+        case @command_window.index
+        when 0  # Next window
+          $game_system.se_play($data_system.decision_se)
+          @command_window.active = @command_window.visible = false
+          @command_window2.active = @command_window2.visible = true
+        when 1  # Continue
+          command_continue
+        when 2  # Shutdown
+          command_shutdown
+        end
+      elsif @command_window2.active
       # Branch by command window cursor position
-      case @command_window.index
-      when 0  # New game
-        command_new_game
-      when 1  # Continue
-        command_continue
-      when 2  # Shutdown
-        command_shutdown
+        case @command_window2.index
+        when 0  # Start game 1
+          command_start_lag_a_lot
+        when 1  # Back to Main Menu
+          $game_system.se_play($data_system.decision_se)
+          @command_window2.index = 0
+          @command_window.active = @command_window.visible = true
+          @command_window2.active = @command_window2.visible = false
+        end
       end
     end
   end
   #--------------------------------------------------------------------------
-  # * Command: New Game
+  # * Command: Start Game "Chronicles of Sir Lag-A-Lot"
   #--------------------------------------------------------------------------
-  def command_new_game
+  def command_start_lag_a_lot
+    # basic game initialization
+    command_init_game
+    # Switch to intro screen
+    $scene = Scene_StormTronics.new(1)
+  end
+  #--------------------------------------------------------------------------
+  # * Command: Initialize Game
+  #--------------------------------------------------------------------------
+  def command_init_game
     # Play decision SE
     $game_system.se_play($data_system.decision_se)
     # Stop BGM
@@ -11310,20 +11493,6 @@ class Scene_Title
     $game_troop         = Game_Troop.new
     $game_map           = Game_Map.new
     $game_player        = Game_Player.new
-    # Set up initial party
-    $game_party.setup_starting_members
-    # Set up initial map position
-    $game_map.setup($data_system.start_map_id)
-    # Move player to initial position
-    $game_player.moveto($data_system.start_x, $data_system.start_y)
-    # Refresh player
-    $game_player.refresh
-    # Run automatic change for BGM and BGS set with map
-    $game_map.autoplay
-    # Update map (run parallel process event)
-    $game_map.update
-    # Switch to map screen
-    $scene = Scene_Map.new
   end
   #--------------------------------------------------------------------------
   # * Command: Continue
@@ -11398,7 +11567,9 @@ class Scene_Title
     # Switch to battle screen
     $scene = Scene_Battle.new
   end
+  
 end
+
 #==============================================================================
 # ** Scene_Map
 #------------------------------------------------------------------------------
@@ -11684,6 +11855,7 @@ class Scene_Map
     Input.update
   end
 end
+
 #==============================================================================
 # ** Scene_Menu
 #------------------------------------------------------------------------------
@@ -11897,6 +12069,7 @@ class Scene_Menu
     end
   end
 end
+
 #==============================================================================
 # ** Scene_Item
 #------------------------------------------------------------------------------
@@ -12102,6 +12275,7 @@ class Scene_Item
     end
   end
 end
+
 #==============================================================================
 # ** Scene_Skill
 #------------------------------------------------------------------------------
@@ -12334,6 +12508,7 @@ class Scene_Skill
     end
   end
 end
+
 #==============================================================================
 # ** Scene_Equip
 #------------------------------------------------------------------------------
@@ -12556,6 +12731,7 @@ class Scene_Equip
     end
   end
 end
+
 #==============================================================================
 # ** Scene_Status
 #------------------------------------------------------------------------------
@@ -12634,6 +12810,7 @@ class Scene_Status
     end
   end
 end
+
 #==============================================================================
 # ** Scene_File
 #------------------------------------------------------------------------------
@@ -12745,6 +12922,7 @@ class Scene_File
     return "Save#{file_index + 1}.rxdata"
   end
 end
+
 #==============================================================================
 # ** Scene_Save
 #------------------------------------------------------------------------------
@@ -12829,6 +13007,7 @@ class Scene_Save < Scene_File
     Marshal.dump($game_player, file)
   end
 end
+
 #==============================================================================
 # ** Scene_Load
 #------------------------------------------------------------------------------
@@ -12922,6 +13101,7 @@ class Scene_Load < Scene_File
     $game_party.refresh
   end
 end
+
 #==============================================================================
 # ** Scene_End
 #------------------------------------------------------------------------------
@@ -13030,8 +13210,9 @@ class Scene_End
     $scene = Scene_Menu.new(5)
   end
 end
+
 #==============================================================================
-# ** Scene_Battle 
+# ** Scene_Battle (part 1)
 #------------------------------------------------------------------------------
 #  This class performs battle screen processing.
 #==============================================================================
@@ -13352,6 +13533,15 @@ class Scene_Battle
       update_phase5
     end
   end
+end
+
+#==============================================================================
+# ** Scene_Battle (part 2)
+#------------------------------------------------------------------------------
+#  This class performs battle screen processing.
+#==============================================================================
+
+class Scene_Battle
   #--------------------------------------------------------------------------
   # * Start Pre-Battle Phase
   #--------------------------------------------------------------------------
@@ -13565,6 +13755,15 @@ class Scene_Battle
       battle_end(0)
     end
   end
+end
+
+#==============================================================================
+# ** Scene_Battle (part 3)
+#------------------------------------------------------------------------------
+#  This class performs battle screen processing.
+#==============================================================================
+
+class Scene_Battle
   #--------------------------------------------------------------------------
   # * Start Actor Command Phase
   #--------------------------------------------------------------------------
@@ -13984,6 +14183,15 @@ class Scene_Battle
     @actor_command_window.active = true
     @actor_command_window.visible = true
   end
+end
+
+#==============================================================================
+# ** Scene_Battle (part 4)
+#------------------------------------------------------------------------------
+#  This class performs battle screen processing.
+#==============================================================================
+
+class Scene_Battle
   #--------------------------------------------------------------------------
   # * Start Main Phase
   #--------------------------------------------------------------------------
@@ -14429,6 +14637,7 @@ class Scene_Battle
     @phase4_step = 1
   end
 end
+
 #==============================================================================
 # ** Scene_Shop
 #------------------------------------------------------------------------------
@@ -14759,6 +14968,7 @@ class Scene_Shop
     end
   end
 end
+
 #==============================================================================
 # ** Scene_Name
 #------------------------------------------------------------------------------
@@ -14861,6 +15071,7 @@ class Scene_Name
     end
   end
 end
+
 #==============================================================================
 # ** Scene_Gameover
 #------------------------------------------------------------------------------
@@ -14920,6 +15131,7 @@ class Scene_Gameover
     end
   end
 end
+
 #==============================================================================
 # ** Scene_Debug
 #------------------------------------------------------------------------------
@@ -15110,29 +15322,20193 @@ class Scene_Debug
     end
   end
 end
+
+#:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=
+# Chaos Project Debug System by Blizzard
+# Version: 1.0b
+# Type: Heavy Debug Utility
+# Date: 25.8.2007
+# Date v1.0b: 5.09.2007
+#:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=
+# 
+# Compatibility:
+# 
+#   99% compatible with SDK v1.x. 90% compatible with SDK v2.x. Can cause
+#   incompatibility issues with following systems:
+#   - exotic CBS-es
+#   - exotic Skill Systems
+#   - exotic Weapon Systems
+#   - exotic Armor Systems
+#   - exotic Item Systems
+#   - exotic Party Changers
+#   This script is being used by "The Legend of Lexima IV - Chaos Project" and
+#   no incompatiblity issues are known with any of the large number of custom
+#   systems and scripts this game has built in.
+# 
+# 
+# Features:
+# 
+#   - new options in DEBUG menu (press F9 to open the DEBUG menu):
+#     -> Manage Switches
+#     -> Manage Variables
+#     -> Manage Party
+#     -> Manage System
+#     -> Manage Actors
+#     -> Manage Battle
+#     -> Teleport
+#     -> Easy Party Switcher
+#     -> Save
+#     -> Load
+#     -> Return to DEBUG ROOM
+#     -> Exit
+#   - can be called from the map and from battle
+#   - returns to the scene from where it was called
+#   - supports "Easy Party Switcher" v2.1b and higher as enhancement
+# 
+# new in v1.0b:
+#   - fixed glitch where skills would conflict with states
+#   - fixed glitch where "Load" would be always displayed grayed out
+#   - now beta
+# 
+# 
+# Explanation:
+# 
+#   This script will allow you to use an enhanced debugging menu with many
+#   useful options that even works in the battle without interrupting the
+#   battle and resetting the Scene_Battle.
+# 
+# 
+# Instructions:
+# 
+# - How to use:
+#   
+#   The Debug System can be called through pressing F9 either in battle or on
+#   the map. This Debug_Scene only interrupts the calling scene and it is
+#   possible that lag can appear in the Debug Scene. But upon exit, the calling
+#   scene WILL NOT be restarted which means that battles will not be reseted
+#   and can be continued as if nothing happened. Same goes for the map scene.
+#   Note that changing HP/SP/states of actors will not be updated immediately
+#   in the battle status window! If you change numeric variables you can hold
+#   A, S and/or D to multiply the added/subtracted value by 10, 100 and/or 1000
+#   which can result up to 1000000 if all three keys are being pressed while
+#   changing the value of the variable. Each variable can be set to a value
+#   from -99999999 to 99999999, regardless if those values are allowed
+#   (i.e. actor has 99999 HP, even though his max HP are 8267). Same works for
+#   actor class/weapon/armor IDs. "True" and "False" values are displayed as
+#   "T" and "F" for more convenience. Items which can be set up in a special
+#   menu are written in capital letters and have 'SP' as value. When you want
+#   to change switches or variables you need to specifiy the range with
+#   LEFT/RIGHT in the main debug screen. This is necessary to decrease lag as
+#   drawing up to 5000 items (5000 is the max number of switches/variables you
+#   can use) can crash the game, because of the "Script is hanging" error. Keep
+#   in mind that you can quickly skip a couple of items on the list if you
+#   press Q/W instead of UP/DOWN. 
+#   
+# - Configuration:
+# 
+#   Set DEBUG_ROOM_ID to the ID of your debug map to be able to use the option
+#   "Return to DEBUG Room" so you can quickly return to a predefined map
+#   without using the teleport command. You will be teleported to the center of
+#   the Debug Room. If you set TELEPORT_POSITION to true you can set up the
+#   position where you want to be teleported to when using the "Teleport"
+#   in the debug screen. When using values out of range (like an actor's level
+#   over 99 or under 0) the game may crash. If you want to prevent such a
+#   crash in the Debug Menu, set PREVENT_CRASH to true. If you don't want to
+#   get an error message at all, set SHOW_ERROR to false. Note that using
+#   PREVENT_CRASH is not recommended as it could cover up possible bugs in this
+#   or other scripts. The SAVE options are for custom save systems.
+# 
+# - Options:
+#   
+#   Manage Switches:
+#     -> Turn switches on and off.
+#   Manage Variables:
+#     -> Change the value of variables. If you "access" a variable, you can
+#        set up quickly very large positive and negative values.
+#   Manage Party:
+#     -> Allows changing of gold, steps, weapons, armors, items and any integer
+#        and false/true variable used by other scripts.
+#   Manage System:
+#     -> Allows changing of any integer and false/true variable used by the
+#        default and any other scripts.
+#   Manage Actors:
+#     -> Allows changing of any integer and false/true variable used by the
+#        default and any other scripts. (i.e. hp, sp, sr, limit, etc)
+#     -> When changing skills and/or states a special screen will appear.
+#     -> When changine the weapon ID/armor IDs/class ID the window in the upper
+#        right corner will display the current weapon/armor/class
+#   Manage Battle:
+#     -> This option is only available if the debug screen was called from
+#        battle.
+#     -> Allows quick winning, losing or aborting/escaping the battle. This
+#        works for ANY battle, regardless of the limitations you have set up.
+#     -> Allows access to enemy integer and false/true variables.
+#     -> Changing special enemy states will call a special screen.
+#   Teleport:
+#     -> Allows quick teleportation to any map in your game.
+#     -> You can set up the position if you set TELEPORT_POSITION to true in
+#        the configuration. Otherwise you will be set at the center of the map.
+#     -> WILL return to the map scene.
+#   Easy Party Switcher:
+#     -> If you are using Easy Party Switcher v2.x, you can call the scene from
+#        here. Note that only v2.1b and higher will override the
+#        "not_available" and "disabled_for_party" options. Otherwise this
+#        option will be disabled. You can also use the EPS only for debug and
+#        not in your game at all.
+#     -> WILL return to the map scene.
+#   Save:
+#     -> Allows saving the game in case you're using a CMS without Saving
+#        option.
+#     -> WILL return to the map after exiting this scene.
+#   Load:
+#     -> Allows loading games in case you are using the DMS or a CMS without
+#        Loading option. Will be disabled if you have no save file to load.
+#     -> WILL return to the map after exiting this scene.
+#   Return to DEBUG ROOM:
+#     -> Allows quick teleport to a predefined map where you can set up events
+#        for advanced testing. If DEBUG_ROOM_ID is 0, this option will be
+#        disabled.
+#     -> WILL return to the map scene.
+#   Exit:
+#     -> Returns to the scene where the debug screen was called from.
+# 
+# 
+# If you find any bugs, please report them here:
+# http://www.chaosproject.co.nr
+#:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=
+
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+# START Configuration
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+# the ID of the map where you have set up various events for quick testing
+DEBUG_ROOM_ID = 0
+# set this value to true if you want to decide the coordinates where you want
+# to be teleported when using the teleport command, othersise the position will
+# be the center of the map by default
+TELEPORT_POSITION = false
+# set this option to true if you want to be able to set up values out of range
+# without fearing a crash, an error message will appear
+PREVENT_CRASH = true
+# if you have set PREVENT_CRASH to true and want an error message to appear
+SHOW_ERROR = true
+# if you are using a custom save system
+SAVE_NAME = 'Save'
+SAVE_EXTENSION = 'rxdata'
+SAVE_FILES_NUMBER = 4
+
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+# END Configuration
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
 #==============================================================================
-# ** Main
-#------------------------------------------------------------------------------
-#  After defining each class, actual processing begins here.
+# Object
 #==============================================================================
 
-begin
-  # Prepare for transition
-  Graphics.freeze
-  # Make scene object (title screen)
-  $scene = Scene_Title.new
-  # Call main method as long as $scene is effective
-  while $scene != nil
-    $scene.main
+class Object
+  
+  def get_internal(var)
+    eval("return @#{var}")
   end
-  # Fade out
-  Graphics.transition(20)
-rescue Errno::ENOENT
-  # Supplement Errno::ENOENT exception
-  # If unable to open file, display message and end
-  filename = $!.message.sub("No such file or directory - ", "")
-  print("Unable to find file #{filename}.")
+  
+  def set_internal(var, val)
+    eval("@#{var} = val")
+  end
+  
+end
+
+#==============================================================================
+# Window_DebugInfo
+#==============================================================================
+
+class Window_DebugInfo < Window_Base
+  
+  def initialize
+    super(400, 288, 240, 192)
+    self.contents = Bitmap.new(width - 32, height - 32)
+    self.contents.font.name = 'Arial'
+    self.contents.font.size = 24
+    self.z, self.back_opacity = 10000, 224
+  end
+  
+  def set_mode(mode)
+    self.contents.clear
+    self.contents.font.color = system_color
+    case mode
+    when -2
+      self.contents.draw_text(4, 0, 200, 32, 'ENTER')
+      self.contents.draw_text(4, 32, 200, 32, '← / →')
+      self.contents.draw_text(4, 64, 200, 32, 'Hold A')
+      self.contents.draw_text(4, 96, 200, 32, 'Hold S')
+      self.contents.draw_text(4, 128, 200, 32, 'Hold D')
+      self.contents.font.color = normal_color
+      self.contents.draw_text(4, 0, 200, 32, 'Access', 2)
+      self.contents.draw_text(4, 32, 200, 32, '-/+ 1', 2)
+      self.contents.draw_text(4, 64, 200, 32, '× 10', 2)
+      self.contents.draw_text(4, 96, 200, 32, '× 100', 2)
+      self.contents.draw_text(4, 128, 200, 32, '× 1000', 2)
+    when -1
+      self.contents.draw_text(4, 0, 200, 32, '↑ / ↓')
+      self.contents.draw_text(4, 32, 200, 32, '← / →')
+      self.contents.draw_text(4, 64, 200, 32, 'ENTER')
+      self.contents.font.color = normal_color
+      self.contents.draw_text(4, 0, 200, 32, 'Choose', 2)
+      self.contents.draw_text(4, 32, 200, 32, 'Range', 2)
+      self.contents.draw_text(4, 64, 200, 32, 'Access', 2)
+    when 0
+      self.contents.draw_text(4, 0, 200, 32, '← / →')
+      self.contents.font.color = normal_color
+      self.contents.draw_text(4, 0, 200, 32, 'Trigger Switch', 2)
+    when 1..3
+      self.contents.draw_text(4, 0, 200, 32, '← / →')
+      self.contents.draw_text(4, 32, 200, 32, 'Hold A')
+      self.contents.draw_text(4, 64, 200, 32, 'Hold S')
+      self.contents.draw_text(4, 96, 200, 32, 'Hold D')
+      self.contents.font.color = normal_color
+      self.contents.draw_text(4, 0, 200, 32, '-/+ 1', 2)
+      self.contents.draw_text(4, 32, 200, 32, '× 10', 2)
+      self.contents.draw_text(4, 64, 200, 32, '× 100', 2)
+      self.contents.draw_text(4, 96, 200, 32, '× 1000', 2)
+    when 4
+      self.contents.draw_text(4, 0, 200, 32, 'ENTER')
+      self.contents.font.color = normal_color
+      self.contents.draw_text(4, 0, 200, 32, 'Access', 2)
+    when 5
+      self.contents.draw_text(4, 0, 200, 32, '← / →')
+      self.contents.draw_text(4, 32, 200, 32, 'ENTER')
+      self.contents.font.color = normal_color
+      self.contents.draw_text(4, 0, 200, 32, 'Battle End', 2)
+      self.contents.draw_text(4, 32, 200, 32, 'Access', 2)
+    when 6
+      self.contents.draw_text(4, 0, 200, 32, 'ENTER')
+      self.contents.draw_text(4, 32, 200, 32, '← / →')
+      self.contents.draw_text(4, 64, 200, 32, 'Hold A')
+      self.contents.draw_text(4, 96, 200, 32, 'Hold S')
+      self.contents.font.color = normal_color
+      self.contents.draw_text(4, 0, 200, 32, 'Teleport', 2)
+      self.contents.draw_text(4, 32, 200, 32, '-/+ 1', 2)
+      self.contents.draw_text(4, 64, 200, 32, '× 10', 2)
+      self.contents.draw_text(4, 96, 200, 32, '× 100', 2)
+    when 7
+      self.contents.draw_text(4, 0, 200, 32, '← / →')
+      self.contents.draw_text(4, 32, 200, 32, 'Hold A')
+      self.contents.draw_text(4, 64, 200, 32, 'Hold S')
+      self.contents.font.color = normal_color
+      self.contents.draw_text(4, 0, 200, 32, '-/+ 1', 2)
+      self.contents.draw_text(4, 32, 200, 32, '× 10', 2)
+      self.contents.draw_text(4, 64, 200, 32, '× 100', 2)
+    when 8
+      self.contents.draw_text(4, 0, 200, 32, '← / →')
+      self.contents.font.color = normal_color
+      self.contents.draw_text(4, 0, 200, 32, 'Add / Remove', 2)
+    end
+  end
+  
+end
+  
+#==============================================================================
+# Window_DebugInfo
+#==============================================================================
+
+class Window_DebugStatus < Window_Base
+  
+  def initialize(battler = nil)
+    super(400, 0, 240, 288)
+    self.contents = Bitmap.new(width - 32, height - 32)
+    self.contents.font.name = 'Arial'
+    self.contents.font.size = 24
+    refresh(battler)
+    self.z, self.back_opacity = 10000, 224
+  end
+  
+  def refresh(battler = nil)
+    self.contents.clear
+    if battler.is_a?(Array)
+      self.visible = true
+      case battler[0]
+      when 0 then data = $data_classes
+      when 1 then data = $data_weapons
+      when 2 then data = $data_armors
+      end
+      min = [[battler[1]-4, 0].max, data.size-8].min
+      max = [min+7, data.size-1].min
+      (min..max).each {|i|
+        self.contents.font.color =
+            (i == battler[1] ? normal_color : disabled_color)
+        self.contents.draw_text(4, (i-min)*32, 200, 32, (data[i] == nil ?
+            '--------' : data[i].name))}
+    elsif battler != nil
+      self.visible = true
+      draw_actor_name(battler, 4, 0)
+      self.contents.font.color = system_color
+      self.contents.draw_text(4, 32, 200, 32, "Battler ID: #{battler.id}")
+      draw_actor_hp(battler, 4, 64, 200)
+      draw_actor_sp(battler, 4, 96, 200)
+      draw_actor_state(battler, 4, 128, 200)
+      if battler.is_a?(Game_Actor)
+        self.contents.font.color = system_color
+        if battler.index
+          self.contents.draw_text(4, 224, 176, 32, 'Party Index:')
+          self.contents.font.color = normal_color
+          self.contents.draw_text(4, 224, 200, 32, battler.index.to_s, 2)
+        else
+          self.contents.draw_text(4, 224, 176, 32, 'Not in Party')
+        end
+        draw_actor_level(battler, 4, 160)
+        draw_actor_exp(battler, 4, 192)
+      elsif battler.is_a?(Game_Enemy)
+        self.contents.font.color = system_color
+        self.contents.draw_text(4, 160, 160, 32, 'Hidden:')
+        self.contents.draw_text(4, 192, 160, 32, 'Immortal:')
+        self.contents.draw_text(4, 224, 160, 32, 'Member Index:')
+        self.contents.font.color = normal_color
+        self.contents.draw_text(4, 160, 200, 32, battler.hidden ? 'Yes' : 'No', 2)
+        self.contents.draw_text(4, 192, 200, 32, battler.immortal ? 'Yes' : 'No', 2)
+        self.contents.draw_text(4, 224, 200, 32, battler.index.to_s, 2)
+      end
+    else
+      self.visible = false
+    end
+  end
+  
+end
+  
+#==============================================================================
+# Window_DebugArray
+#==============================================================================
+
+class Window_DebugArray < Window_Selectable
+  
+  attr_reader :battler
+  
+  def initialize(battler, ary)
+    super(0, 64, 400, 416)
+    @type = (ary[1].is_a?(RPG::Skill) ? 0 : 1)
+    @battler, @ary, @triggers = battler, ary[1, ary.size-1], []
+    input = (@type == 0 ? @battler.skills : @battler.states)
+    (1...ary.size).each {|i| @triggers.push(input.include?(i))}
+    @item_max = @ary.size
+    self.contents = Bitmap.new(width - 32, @item_max*32)
+    self.contents.font.name = 'Arial'
+    self.contents.font.size = 24
+    refresh
+    self.z, self.index, self.back_opacity = 10000, 0, 224
+  end
+  
+  def refresh
+    self.contents.clear
+    (0...@item_max).each {|i| draw_item(i)}
+  end
+  
+  def update
+    super
+    if Input.repeat?(Input::RIGHT) || Input.repeat?(Input::LEFT)
+      $game_system.se_play($data_system.cursor_se)
+      @triggers[index] = !@triggers[index]
+      draw_item(index)
+      if @type == 1
+        @ary[index].plus_state_set.each {|i|
+            @triggers[i-1] = true
+            draw_item(i-1)}
+        @ary[index].minus_state_set.each {|i|
+            @triggers[i-1] = false
+            draw_item(i-1)}
+      end
+    end
+  end
+  
+  def draw_item(i)
+    self.contents.fill_rect(0, i*32, 368, 32, Color.new(0, 0, 0, 0))
+    self.contents.draw_text(4, i*32, 360, 32, sprintf('%03d', @ary[i].id))
+    if @type == 0
+      icon = RPG::Cache.icon(@ary[i].icon_name)
+      self.contents.blt(48, i*32+4, icon, Rect.new(0, 0, 24, 24))
+      self.contents.draw_text(80, i*32, 284, 32, @ary[i].name)
+    else
+      self.contents.draw_text(48, i*32, 320, 32, @ary[i].name)
+    end
+    self.contents.draw_text(4, i*32, 360, 32, (@triggers[i] ? 'Yes' : 'No'), 2)
+  end
+  
+  def dispose
+    new = []
+    (0...@triggers.size).each {|i| new.push(i+1) if @triggers[i]}
+    if @type == 0
+      (@battler.skills - new).each {|i| @battler.forget_skill(i)}
+      (new - @battler.skills).each {|i| @battler.learn_skill(i)}
+    else
+      (@battler.states - new).each {|i| @battler.remove_state(i)}
+      (new - @battler.states).each {|i| @battler.add_state(i)}
+    end
+    super
+  end
+  
+end
+  
+#==============================================================================
+# Window_DebugParty
+#==============================================================================
+
+class Window_DebugParty < Window_Selectable
+  
+  def initialize(ary)
+    super(0, 64, 400, 416)
+    @type = (ary[1].is_a?(RPG::Item) ? 0 : (ary[1].is_a?(RPG::Weapon) ? 1 : 2))
+    @ary = ary[1, ary.size-1]
+    @item_max = @ary.size
+    self.contents = Bitmap.new(width - 32, @item_max*32)
+    self.contents.font.name = 'Arial'
+    self.contents.font.size = 24
+    refresh
+    self.z, self.index, self.back_opacity = 10000, 0, 224
+  end
+  
+  def refresh
+    self.contents.clear
+    (0...@item_max).each {|i| draw_item(i)}
+  end
+  
+  def update
+    super
+    val = 1
+    val *= 10 if Input.press?(Input::X)
+    val *= 100 if Input.press?(Input::Y)
+    if Input.repeat?(Input::RIGHT)
+      old_value = new_value = 0
+      case @type
+      when 0
+        old_value = $game_party.item_number(index + 1)
+        $game_party.gain_item(index+1, val)
+        new_value = $game_party.item_number(index + 1)
+      when 1
+        old_value = $game_party.weapon_number(index + 1)
+        $game_party.gain_weapon(index+1, val)
+        new_value = $game_party.weapon_number(index + 1)
+      when 2
+        old_value = $game_party.armor_number(index + 1)
+        $game_party.gain_armor(index+1, val)
+        new_value = $game_party.armor_number(index + 1)
+      end
+      if old_value != new_value
+        $game_system.se_play($data_system.cursor_se)
+        draw_item(index)
+      else
+        $game_system.se_play($data_system.buzzer_se)
+      end
+    elsif Input.repeat?(Input::LEFT)
+      old_value = new_value = 0
+      case @type
+      when 0
+        old_value = $game_party.item_number(index + 1)
+        $game_party.lose_item(index+1, val)
+        new_value = $game_party.item_number(index + 1)
+      when 1
+        old_value = $game_party.weapon_number(index + 1)
+        $game_party.lose_weapon(index+1, val)
+        new_value = $game_party.weapon_number(index + 1)
+      when 2
+        old_value = $game_party.armor_number(index + 1)
+        $game_party.lose_armor(index+1, val)
+        new_value = $game_party.armor_number(index + 1)
+      end
+      if old_value != new_value
+        $game_system.se_play($data_system.cursor_se)
+        draw_item(index)
+      else
+        $game_system.se_play($data_system.buzzer_se)
+      end
+    end
+  end
+  
+  def draw_item(i)
+    self.contents.fill_rect(0, i*32, 368, 32, Color.new(0, 0, 0, 0))
+    self.contents.draw_text(4, i*32, 360, 32, sprintf('%03d', @ary[i].id))
+    icon = RPG::Cache.icon(@ary[i].icon_name)
+    self.contents.blt(48, i*32+4, icon, Rect.new(0, 0, 24, 24))
+    self.contents.draw_text(80, i*32, 284, 32, @ary[i].name)
+    number = case @type
+    when 0 then $game_party.item_number(i+1).to_s
+    when 1 then $game_party.weapon_number(i+1).to_s
+    when 2 then $game_party.armor_number(i+1).to_s
+    end
+    self.contents.draw_text(4, i*32, 360, 32, number, 2)
+  end
+  
+end
+  
+#==============================================================================
+# Window_DebugList
+#==============================================================================
+
+class Window_DebugBattler < Window_Selectable
+  
+  attr_reader :battler
+  
+  def initialize(battler, status_window)
+    super(0, 64, 400, 416)
+    @status_window, @battler, @commands = status_window, battler, []
+    dont_show = ['actor_id', 'animation_hit', 'animation_id', 'battler_hue',
+      'blink', 'character_hue', 'critical', 'damage_pop', 'enemy_id', 'name',
+      'member_index', 'state_changed', 'troop_id', 'white_flash']
+    @battler.instance_variables.each {|item|
+        value = @battler.get_internal(item[1, item.size-1])
+        if (value.is_a?(Integer) || value.is_a?(FalseClass) ||
+            value.is_a?(TrueClass)) && !dont_show.include?(item[1, item.size-1])
+          @commands.push(item[1, item.size-1])
+        end}
+    @commands.push('SKILLS') if @battler.is_a?(Game_Actor)
+    @commands.push('STATES')
+    @commands.sort!
+    @item_max = @commands.size
+    self.contents = Bitmap.new(width - 32, @item_max * 32)
+    self.contents.font.name = 'Arial'
+    self.contents.font.size = 24
+    refresh
+    self.active, self.z, self.index, self.back_opacity = true, 10000, 0, 224
+  end
+  
+  def refresh
+    self.contents.clear
+    (0...@item_max).each {|i| draw_instance_variable(i)}
+  end
+  
+  def special?
+    return case @commands[index]
+    when 'SKILLS' then 0
+    when 'STATES' then 1
+    end
+  end
+  
+  def update(old_index = index)
+    super()
+    value = @battler.get_internal(@commands[index])
+    if old_index != index
+      case @commands[index][0, 5]
+      when 'class' then @status_window.refresh([0, value])
+      when 'weapo' then @status_window.refresh([1, value])
+      when 'armor' then @status_window.refresh([2, value])
+      else
+        @status_window.refresh(@battler)
+      end
+    end
+    if value.is_a?(Integer)
+      val = 1
+      val *= 10 if Input.press?(Input::X)
+      val *= 100 if Input.press?(Input::Y)
+      val *= 1000 if Input.press?(Input::Z)
+      if Input.repeat?(Input::LEFT)
+        case @commands[index][0, 5]
+        when 'class'
+          value = (value+$data_classes.size-val) % $data_classes.size
+          new = [0, value]
+        when 'weapo'
+          value = (value+$data_weapons.size-val) % $data_weapons.size
+          new = [1, value]
+        when 'armor'
+          value = (value+$data_armors.size-val) % $data_armors.size
+          new = [2, value]
+        else
+          value -= val
+          new = @battler
+        end
+      elsif Input.repeat?(Input::RIGHT)
+        case @commands[index][0, 5]
+        when 'class'
+          value = (value+val) % $data_classes.size
+          new = [0, value]
+        when 'weapo'
+          value = (value+val) % $data_weapons.size
+          new = [1, value]
+        when 'armor'
+          value = (value+val) % $data_armors.size
+          new = [2, value]
+        else
+          value += val
+          new = @battler
+        end
+      end
+      if new != nil
+        $game_system.se_play($data_system.cursor_se)
+        @battler.set_internal(@commands[index], value)
+        @status_window.refresh(new)
+        draw_instance_variable(index)
+      end
+    elsif (value == true || value == false) &&
+        (Input.repeat?(Input::LEFT) || Input.repeat?(Input::RIGHT))
+      $game_system.se_play($data_system.cursor_se)
+      @battler.set_internal(@commands[index], !value)
+      @status_window.refresh(@battler)
+      draw_instance_variable(index)
+    end
+  end
+  
+  def draw_instance_variable(i)
+    self.contents.fill_rect(4, i*32, 368, 32, Color.new(0, 0, 0, 0))
+    self.contents.draw_text(4, i*32, 280, 32, @commands[i])
+    value = @battler.get_internal(@commands[i])
+    value = case value
+    when true then 'T'
+    when false then 'F'
+    when nil then 'SP'
+    else
+      value.to_s
+    end
+    self.contents.draw_text(244, i*32, 120, 32, value, 2)
+  end
+  
+end
+
+#==============================================================================
+# Window_DebugList
+#==============================================================================
+
+class Window_DebugList < Window_Selectable
+  
+  attr_reader :type
+  attr_reader :battle_mode
+  attr_reader :swi
+  attr_reader :var
+  attr_reader :map
+  
+  def initialize(type, other = nil)
+    super(0, 64, 400, 416)
+    $battle, @commands, @type = 0, [], type
+    case type
+    when Array
+      @commands, @swi, @var, @type = other, type[1], type[2], 7
+    when 0
+      @type = type + other[type] - 1
+      (@type+1...[@type+101, $data_system.switches.size].min).each {|i|
+          @commands.push($data_system.switches[i])}
+    when 1
+      @type = type + other[type] - 1
+      (@type...[@type+100, $data_system.variables.size].min).each {|i|
+          @commands.push($data_system.variables[i])}
+    when 2
+      @object = $game_party
+      @object.instance_variables.sort.each {|item|
+          value = @object.get_internal(item[1, item.size-1])
+          if value.is_a?(Integer) || value.is_a?(FalseClass) ||
+              value.is_a?(TrueClass)
+            @commands.push(item[1, item.size-1])
+          end}
+      @commands.push('ITEMS', 'WEAPONS', 'ARMORS')
+      @commands.sort!
+    when 3
+      @object = $game_system
+      @object.instance_variables.sort.each {|item|
+          value = @object.get_internal(item[1, item.size-1])
+          if value.is_a?(Integer) || value.is_a?(FalseClass) ||
+              value.is_a?(TrueClass)
+            @commands.push(item[1, item.size-1])
+          end}
+      @commands.sort!
+    when 4
+      (1...$data_actors.size).each {|i| @commands.push($game_actors[i].name)}
+      @status_window = other
+      @status_window.refresh($game_actors[1])
+    when 5
+      @commands.push('Manipulate Battle')
+      $game_troop.enemies.each {|enemy| @commands.push(enemy.name)}
+      @status_window = other
+      @status_window.refresh
+    when 6
+      @map_data = load_data('Data/MapInfos.rxdata')
+      @commands = ['Map doesn\'t exist']
+      @commands.push('X coordinate', 'Y coordinate') if TELEPORT_POSITION
+      @map = [0, 0, 0]
+      self.height = @commands.size*32 + 32
+    end
+    @item_max = @commands.size
+    self.contents = Bitmap.new(width - 32, @item_max * 32)
+    self.contents.font.name, self.contents.font.size = 'Arial', 24
+    refresh
+    self.z, self.index, self.back_opacity = 10000, 0, 224
+  end
+  
+  def refresh
+    self.contents.clear
+    case @type % 100
+    when 0 then (0...@item_max).each {|i| draw_switch(i)}
+    when 1 then (0...@item_max).each {|i| draw_variable(i)}
+    when 2..3 then (0...@item_max).each {|i| draw_instance_variable(i)}
+    when 4..5, 7 then (0...@item_max).each {|i| draw_item(i)}
+    when 6 then (0...@item_max).each {|i| draw_map(i, disabled_color)}
+    end
+    if @type == 5
+      draw_battle
+    elsif @type == 7
+      draw_main(0)
+      draw_main(1)
+    end
+  end
+  
+  def special?
+    return case @commands[index]
+    when 'ITEMS' then 1
+    when 'WEAPONS' then 2
+    when 'ARMORS' then 3
+    end
+  end
+  
+  def update(old_index = index)
+    super()
+    case @type % 100
+    when 0
+      if Input.trigger?(Input::LEFT) || Input.trigger?(Input::RIGHT)
+        $game_system.se_play($data_system.decision_se)
+        $game_switches[index+@type+1] = !$game_switches[index+@type+1]
+        draw_switch(index)
+      end
+    when 1
+      val = 1
+      val *= 10 if Input.press?(Input::X)
+      val *= 100 if Input.press?(Input::Y)
+      val *= 1000 if Input.press?(Input::Z)
+      if Input.repeat?(Input::LEFT)
+        if $game_variables[index+@type] > -99999999
+          $game_system.se_play($data_system.cursor_se)
+          $game_variables[index+@type] =
+              [$game_variables[index+@type] - val, -99999999].max
+          draw_variable(index)
+        else
+          $game_system.se_play($data_system.buzzer_se)
+        end
+      elsif Input.repeat?(Input::RIGHT)
+        if $game_variables[index+@type] < 99999999
+          $game_system.se_play($data_system.cursor_se)
+          $game_variables[index+@type] =
+              [$game_variables[index+@type] + val, 99999999].min
+          draw_variable(index)
+        else
+          $game_system.se_play($data_system.buzzer_se)
+        end
+      end
+    when 2..3
+      value = @object.get_internal(@commands[index])
+      if value.is_a?(Integer)
+        val = 1
+        val *= 10 if Input.press?(Input::X)
+        val *= 100 if Input.press?(Input::Y)
+        val *= 1000 if Input.press?(Input::Z)
+        if Input.repeat?(Input::LEFT)
+          $game_system.se_play($data_system.cursor_se)
+          value = @object.get_internal(@commands[index])
+          @object.set_internal(@commands[index], value - val)
+          draw_instance_variable(index)
+        elsif Input.repeat?(Input::RIGHT)
+          $game_system.se_play($data_system.cursor_se)
+          value = @object.get_internal(@commands[index])
+          @object.set_internal(@commands[index], value + val)
+          draw_instance_variable(index)
+        end
+      elsif (value == true || value == false) &&
+          (Input.repeat?(Input::LEFT) || Input.repeat?(Input::RIGHT))
+        $game_system.se_play($data_system.cursor_se)
+        value = @object.get_internal(@commands[index])
+        @object.set_internal(@commands[index], !value)
+        draw_instance_variable(index)
+      end
+    when 4
+      @status_window.refresh($game_actors[index+1]) if old_index != index
+      if Input.trigger?(Input::C)
+        $game_system.se_play($data_system.decision_se)
+      end
+    when 5
+      if old_index != index
+        @status_window.refresh(index == 0 ? nil : $game_troop.enemies[index-1])
+      end
+      if index == 0
+        mode = $battle
+        if Input.repeat?(Input::RIGHT)
+          $battle = ($battle + 1) % 4
+        elsif Input.repeat?(Input::LEFT)
+          $battle = ($battle + 3) % 4
+        end
+        if mode != $battle
+          $game_system.se_play($data_system.cursor_se)
+          draw_item(0)
+          draw_battle
+        end
+      elsif Input.trigger?(Input::C)
+        $game_system.se_play($data_system.decision_se)
+      end
+    when 6
+      val = 1
+      val *= 10 if Input.press?(Input::X)
+      val *= 100 if Input.press?(Input::Y)
+      if index == 0
+        old_map = @map[0]
+        if Input.repeat?(Input::RIGHT)
+          @map[0] = (@map[0]+val) % 1000
+        elsif Input.repeat?(Input::LEFT)
+          @map[0] = (@map[0]+1000-val) % 1000
+        end
+        if old_map != @map[0]
+          $game_system.se_play($data_system.cursor_se)
+          if @map_data.keys.include?(@map[0])
+            @loaded = load_data(sprintf('Data/Map%03d.rxdata', @map[0]))
+            @commands[0] = @map_data[@map[0]].name
+            draw_map(0)
+            if TELEPORT_POSITION
+              @map[1] = [@loaded.width, @map[1]].min
+              @map[2] = [@loaded.height, @map[2]].min
+              draw_map(1)
+              draw_map(2)
+            end
+          else
+            @loaded = nil
+            @commands[0] = 'Map doesn\'t exist'
+            draw_map(0, disabled_color)
+            if TELEPORT_POSITION
+              draw_map(1, disabled_color)
+              draw_map(2, disabled_color)
+            end
+          end
+        end
+      elsif @loaded != nil
+        limit = (index == 1 ? @loaded.width : @loaded.height)
+        old_map = @map[index]
+        if Input.repeat?(Input::RIGHT)
+          @map[index] = (@map[index]+val) % limit
+        elsif Input.repeat?(Input::LEFT)
+          @map[index] = (@map[index]+limit-val) % limit
+        end
+        if old_map != @map[index]
+          $game_system.se_play($data_system.cursor_se)
+          draw_map(index)
+        end
+      elsif Input.repeat?(Input::RIGHT) || Input.repeat?(Input::LEFT)
+        $game_system.se_play($data_system.buzzer_se)
+      end
+    when 7
+      if index == 0
+        val = @swi
+        if Input.repeat?(Input::RIGHT)
+          if $data_system.switches.size > 101
+            @swi = (@swi + 100) % (($data_system.switches.size+98)/100*100)
+          else
+            $game_system.se_play($data_system.buzzer_se)
+          end
+        elsif Input.repeat?(Input::LEFT)
+          if $data_system.switches.size > 100
+            size = ($data_system.switches.size+98)/100*100
+            @swi = (@swi+size-100) % size
+          else
+            $game_system.se_play($data_system.buzzer_se)
+          end
+        end
+        if val != @swi
+          $game_system.se_play($data_system.cursor_se)
+          draw_item(0)
+          draw_main(0)
+        end
+      elsif index == 1
+        val = @var
+        if Input.repeat?(Input::RIGHT)
+          if $data_system.variables.size > 101
+            @var = (@var + 100) % (($data_system.variables.size+98)/100*100)
+          else
+            $game_system.se_play($data_system.buzzer_se)
+          end
+        elsif Input.repeat?(Input::LEFT)
+          if $data_system.variables.size > 100
+            size = ($data_system.variables.size+98)/100*100
+            @var = (@var+size-100) % size
+          else
+            $game_system.se_play($data_system.buzzer_se)
+          end
+        end
+        if val != @var
+          $game_system.se_play($data_system.cursor_se)
+          draw_item(1)
+          draw_main(1)
+        end
+      end
+    end
+  end
+  
+  def battler
+    if @type == 4
+      return $game_actors[index+1]
+    elsif @type == 5 && index > 0
+      return $game_troop.enemies[index-1]
+    end
+    return nil
+  end
+  
+  def draw_switch(i)
+    self.contents.fill_rect(4, i*32, 368, 32, Color.new(0, 0, 0, 0))
+    self.contents.draw_text(4, i*32, 320, 32, "[#{sprintf('%04d', i+@type+1)}] #{@commands[i]}")
+    self.contents.draw_text(324, i*32, 40, 32, $game_switches[i+@type+1] ? 'ON' : 'OFF', 2)
+  end
+  
+  def draw_variable(i)
+    self.contents.fill_rect(4, i*32, 368, 32, Color.new(0, 0, 0, 0))
+    self.contents.draw_text(4, i*32, 240, 32, "[#{sprintf('%04d', i+@type)}] #{@commands[i]}")
+    self.contents.draw_text(244, i*32, 120, 32, $game_variables[i+@type].to_s, 2)
+  end
+  
+  def draw_instance_variable(i)
+    self.contents.fill_rect(4, i*32, 368, 32, Color.new(0, 0, 0, 0))
+    self.contents.draw_text(4, i*32, 280, 32, @commands[i])
+    value = @object.get_internal(@commands[i])
+    value = case value
+    when true then 'T'
+    when false then 'F'
+    when nil then 'SP'
+    else
+      value.to_s
+    end
+    self.contents.draw_text(244, i*32, 120, 32, value, 2)
+  end
+  
+  def draw_battle
+    text = case $battle
+    when 0 then ': Nothing'
+    when 1 then ': Win'
+    when 2 then ': Lose'
+    when 3 then ': Abort/Escape'
+    end
+    self.contents.draw_text(244, 0, 200, 32, text)
+  end
+    
+  def draw_item(i)
+    self.contents.fill_rect(0, i*32, 368, 32, Color.new(0, 0, 0, 0))
+    self.contents.draw_text(4, i*32, 360, 32, @commands[i])
+  end
+  
+  def draw_map(i, color = normal_color)
+    self.contents.fill_rect(0, i*32, 368, 32, Color.new(0, 0, 0, 0))
+    self.contents.font.color = color
+    self.contents.draw_text(4, i*32, 360, 32, @commands[i])
+    self.contents.font.color = normal_color if i == 0
+    self.contents.draw_text(4, i*32, 360, 32, @map[i].to_s, 2)
+  end
+  
+  def draw_main(i)
+    if i == 0
+      text1 = sprintf('%04d', @swi)
+      text2 = sprintf('%04d', [@swi+99, $data_system.switches.size-1].min)
+    else
+      text1 = sprintf('%04d', @var)
+      text2 = sprintf('%04d', [@var+99, $data_system.variables.size-1].min)
+    end
+    self.contents.draw_text(4, i*32, 360, 32, "[#{text1}] - [#{text2}]", 2)
+  end
+  
+  def disable_item(i)
+    self.contents.font.color = disabled_color
+    draw_item(i)
+    self.contents.font.color = normal_color
+  end
+  
+end
+
+#==============================================================================
+# Scene_Map
+#==============================================================================
+
+class Scene_Map
+  
+  alias upd_cp_debugger_later update
+  def update
+    upd_cp_debugger_later
+    if $scene.is_a?(Scene_Debug)
+      $scene = self
+      scene = SceneSub_Debug.new
+      Graphics.freeze
+      scene.main
+      Graphics.transition
+    end
+  end
+  
+end
+
+#==============================================================================
+# Scene_Battle
+#==============================================================================
+
+class Scene_Battle
+  
+  alias upd_cp_debugger_later update
+  def update
+    if $DEBUG && Input.trigger?(Input::F9)
+      $game_system.se_play($data_system.decision_se)
+      scene = SceneSub_Debug.new
+      Graphics.freeze
+      scene.main
+      Graphics.transition
+      if $battle != nil
+        case $battle
+        when 1..2
+          battlers = ($battle == 1 ? $game_troop.enemies : $game_party.actors)
+          battlers.each {|battler| battler.hp = 0 if battler.exist?}
+          @party_command_window.active = @party_command_window.visible =
+          @actor_command_window.active = @actor_command_window.visible = false
+          @active_battler.blink = false unless @active_battler == nil
+          @spriteset.update
+          start_phase1
+        when 3 then $game_temp.battle_abort = true
+        end
+        $battle = nil
+      end
+    else
+      upd_cp_debugger_later
+    end
+  end
+  
+end
+
+#==============================================================================
+# SceneSub_Debug
+#==============================================================================
+
+class SceneSub_Debug
+  
+  def main
+    @mem_index, @extra = [0, 0, 0], [1, 1]
+    @commands = ['Manage Switches', 'Manage Variables', 'Manage Party',
+                'Manage System', 'Manage Actors', 'Manage Battle',
+                'Teleport', 'Easy Party Switcher', 'Save', 'Load',
+                'Return to DEBUG ROOM', 'Exit']
+    @continue = (1..SAVE_FILES_NUMBER).any? {|i|
+        FileTest.exist?("#{SAVE_NAME}#{i}.#{SAVE_EXTENSION}")}
+    make_debug_window
+    @help_window = Window_Help.new
+    @help_window.width = 400
+    @help_window.contents.dispose
+    @help_window.contents = Bitmap.new(368, 32)
+    @help_window.set_text('Debug Main Menu', 1)
+    @help_window.z, @help_window.back_opacity = 10000, 224
+    @info_window = Window_DebugInfo.new
+    @info_window.set_mode(-1)
+    @list = true
+    Graphics.transition
+    loop do
+      Graphics.update
+      Input.update
+      if PREVENT_CRASH
+        begin
+          update
+        rescue
+          if SHOW_ERROR
+            p 'Error detected! Set the value back.'
+            p "Original Error Message:  #{$!}"
+          end
+        end
+      else
+        update
+      end
+      break if @abort
+    end
+    Graphics.freeze
+    [@debug_window, @control_window, @battler_window, @help_window,
+        @info_window].each {|win| win.dispose if win != nil}
+    $battle = nil if $battle == 0
+    $scene.transfer_player if $game_temp.transition_processing
+  end
+  
+  def make_debug_window
+    @debug_window = Window_DebugList.new([7] + @extra, @commands)
+    @debug_window.disable_item(5) unless $game_temp.in_battle
+    @debug_window.disable_item(7) unless $easy_party_switcher
+    @debug_window.disable_item(9) unless @continue
+    @debug_window.disable_item(10) if DEBUG_ROOM_ID == 0
+    @debug_window.index = @mem_index[0]
+  end
+  
+  def remove_debug_window
+    @extra = [@debug_window.swi, @debug_window.var]
+    @info_window.set_mode(@debug_window.index)
+    @help_window.set_text(@commands[@debug_window.index], 1)
+    @mem_index[0] = @debug_window.index
+    @debug_window.dispose
+    @debug_window = nil
+  end
+        
+  def update
+    if @hash_window != nil
+      @hash_window.update
+      if Input.trigger?(Input::B)
+        $game_system.se_play($data_system.cancel_se)
+        @control_window = Window_DebugList.new(@mem_index[0], @status_window)
+        @control_window.index = @mem_index[1]
+        @control_window.update(-1)
+        @info_window.set_mode(@mem_index[0])
+        @help_window.set_text(@commands[@mem_index[0]], 1)
+        @hash_window.dispose
+        @hash_window = nil
+      end
+    elsif @array_window != nil
+      @array_window.update
+      if Input.trigger?(Input::B)
+        $game_system.se_play($data_system.cancel_se)
+        @battler_window = Window_DebugBattler.new(@array_window.battler,
+            @status_window)
+        @battler_window.index = @mem_index[2]
+        @help_window.set_text(@array_window.battler.name, 1)
+        @info_window.set_mode(-2)
+        @status_window.visible = true
+        @array_window.dispose
+        @array_window = nil
+        @status_window.refresh(@battler_window.battler)
+      end
+    elsif @battler_window != nil
+      @battler_window.update
+      if Input.trigger?(Input::B)
+        $game_system.se_play($data_system.cancel_se)
+        @control_window = Window_DebugList.new(@mem_index[0], @status_window)
+        @control_window.index = @mem_index[1]
+        @control_window.update(-1)
+        @info_window.set_mode(@mem_index[0])
+        @help_window.set_text(@commands[@mem_index[0]], 1)
+        @battler_window.dispose
+        @battler_window = nil
+      elsif Input.trigger?(Input::C)
+        case @battler_window.special?
+        when 0 then ary = [$data_skills, ' - Skills']
+        when 1 then ary = [$data_states, ' - States']
+        end
+        if ary != nil
+          $game_system.se_play($data_system.decision_se)
+          @array_window = Window_DebugArray.new(@battler_window.battler, ary[0])
+          @mem_index[2] = @battler_window.index
+          @status_window.visible = false
+          @help_window.set_text(@battler_window.battler.name + ary[1], 1)
+          @info_window.set_mode(8)
+          @battler_window.dispose
+          @battler_window = nil
+        end
+      end
+    elsif @control_window != nil
+      @control_window.update
+      if Input.trigger?(Input::C) && @mem_index[0] == 6
+        $game_system.se_play($data_system.decision_se)
+        @abort = true
+        $game_temp.player_new_map_id = @control_window.map[0]
+        $game_temp.player_transferring = true
+        $game_temp.transition_processing = true
+        if TELEPORT_POSITION
+          $game_temp.player_new_x = @control_window.map[1]
+          $game_temp.player_new_y = @control_window.map[2]
+        else
+          map = load_data(sprintf('Data/Map%03d.rxdata', @control_window.map[0]))
+          $game_temp.player_new_x = map.width/2
+          $game_temp.player_new_y = map.height/2
+        end
+        $scene = Scene_Map.new unless $scene.is_a?(Scene_Map)
+      elsif Input.trigger?(Input::C) && @mem_index[0] == 2
+        case @control_window.special?
+        when 1 then ary = [$data_items, 'Party - Items']
+        when 2 then ary = [$data_weapons, 'Party - Weapons']
+        when 3 then ary = [$data_armors, 'Party - Armors']
+        end
+        if ary != nil
+          $game_system.se_play($data_system.decision_se)
+          @hash_window = Window_DebugParty.new(ary[0])
+          @mem_index[1] = @control_window.index
+          @help_window.set_text(ary[1], 1)
+          @info_window.set_mode(7)
+          @control_window.dispose
+          @control_window = nil
+        end
+      elsif Input.trigger?(Input::C) && @control_window.battler != nil
+        @battler_window = Window_DebugBattler.new(@control_window.battler,
+            @status_window)
+        @battler_window.update(-1)
+        @mem_index[1] = @control_window.index
+        @help_window.set_text(@control_window.battler.name, 1)
+        @info_window.set_mode(-2)
+        @control_window.dispose
+        @control_window = nil
+      elsif Input.trigger?(Input::B)
+        $game_system.se_play($data_system.cancel_se)
+        @control_window.dispose
+        @control_window = nil
+        if @status_window != nil
+          @status_window.dispose
+          @status_window = nil
+        end
+        @help_window.set_text('Debug Main Menu', 1)
+        @info_window.set_mode(-1)
+        make_debug_window
+      end
+    else
+      @debug_window.update
+      if Input.trigger?(Input::B) || Input.trigger?(Input::C) && @debug_window.index == 11
+        $game_system.se_play($data_system.cancel_se)
+        @abort = true
+      elsif Input.trigger?(Input::C)
+        case @debug_window.index
+        when 0..1
+          $game_system.se_play($data_system.decision_se)
+          @extra = [@debug_window.swi, @debug_window.var]
+          @control_window = Window_DebugList.new(@debug_window.index, @extra)
+          remove_debug_window
+        when 2, 3, 6
+          $game_system.se_play($data_system.decision_se)
+          @control_window = Window_DebugList.new(@debug_window.index)
+          remove_debug_window
+        when 4
+          $game_system.se_play($data_system.decision_se)
+          @status_window = Window_DebugStatus.new
+          @control_window = Window_DebugList.new(@debug_window.index, @status_window)
+          remove_debug_window
+        when 5
+          if $game_temp.in_battle
+            $game_system.se_play($data_system.decision_se)
+            @status_window = Window_DebugStatus.new
+            @control_window = Window_DebugList.new(@debug_window.index, @status_window)
+            remove_debug_window
+          else
+            $game_system.se_play($data_system.buzzer_se)
+          end
+        when 7
+          if $easy_party_switcher
+            $game_system.se_play($data_system.decision_se)
+            @abort = true
+            $scene = Scene_PartySwitcher.new(10)
+          else
+            $game_system.se_play($data_system.buzzer_se)
+          end
+        when 8
+          $game_system.se_play($data_system.decision_se)
+          $game_temp.save_calling = true
+          @abort = true
+          $scene = Scene_Save.new
+        when 9
+          if @continue
+            $game_system.se_play($data_system.decision_se)
+            @abort = true
+            $scene = Scene_Load.new
+          else
+            $game_system.se_play($data_system.buzzer_se)
+          end
+        when 10
+          if DEBUG_ROOM_ID != 0
+            $game_system.se_play($data_system.decision_se)
+            @abort = true
+            map = load_data(sprintf('Data/Map%03d.rxdata', DEBUG_ROOM_ID))
+            $game_temp.player_new_map_id = DEBUG_ROOM_ID
+            $game_temp.player_new_x = map.width/2
+            $game_temp.player_new_y = map.height/2
+            $game_temp.player_transferring = true
+            $game_temp.transition_processing = true
+            $scene = Scene_Map.new unless $scene.is_a?(Scene_Map)
+          else
+            $game_system.se_play($data_system.buzzer_se)
+          end
+        end
+      end
+    end
+  end
+  
+end
+
+#==============================================================================
+# Scene_StormTronics
+#------------------------------------------------------------------------------
+#  Intro scene for games from StormTronics. You are not allowed to use any code
+#  of this, but you are allowed to take a look at it and maybe understant the
+#  idea and animation process.
+#==============================================================================
+
+class Scene_StormTronics
+  
+  # initialize which game
+  def initialize(game)
+    @game = game
+  end
+  
+  # make display delay in seconds
+  def delay(frame)
+    (frame*40).to_i.times {Graphics.update}
+  end
+  
+  # main process
+  def main
+    # pre-initialization
+    $game_party.setup_starting_members
+    $game_map.setup($data_system.start_map_id)
+    # intro handling
+    unless false #$DEBUG
+      show_intro
+      Graphics.freeze
+    end
+    $game_map.autoplay
+    # post-initialization
+    $game_player.moveto($data_system.start_x, $data_system.start_y)
+    $game_player.refresh
+    $game_map.update
+    # change scene
+    $scene = Scene_Map.new
+  end
+    
+  # StormTronics intro
+  def show_intro
+    # create common viewport
+    view = Viewport.new(0, 0, 640, 480)
+    Graphics.transition
+    Graphics.freeze
+    # create a few sprites
+    @intro1 = Sprite.new
+    @intro2 = Sprite.new
+    @intro3 = Sprite.new
+    @presents = Sprite.new
+    @intro4 = Sprite.new
+    @intro4.z = 100
+    # stop all audio playing
+    Audio.se_stop
+    Audio.me_stop
+    Audio.bgm_stop
+    Audio.bgs_stop
+    # delay
+    delay(0.5)
+    # cache StromTronics imgaes
+    @intro1.bitmap = RPG::Cache.title('StormTronics')
+    @intro2.bitmap = RPG::Cache.title('glow')
+    @intro3.bitmap = RPG::Cache.title('StormMask')
+    @presents.bitmap = RPG::Cache.title('presents')
+    @presents.x = @presents.y = 160
+    @intro2.x = -240
+    # transition
+    Graphics.transition
+    # delay
+    delay(0.5)
+    Graphics.freeze
+    # set up flash effect
+    @intro4.visible = true
+    @intro4.bitmap = RPG::Cache.title('StormFlash')
+    # show flash effect within 4 frames
+    Graphics.transition(2)
+    Graphics.freeze
+    @intro4.dispose
+    Graphics.transition(2)
+    # delay
+    delay(0.5)
+    # make the reflection seem to move
+    loop do
+      @intro2.x += 50
+      Graphics.update
+      break if @intro2.x > 700
+    end
+    # delay
+    delay(2)
+    Graphics.freeze
+    # free memory from image
+    @intro1.dispose
+    @intro2.dispose
+    @intro3.dispose
+    @presents.dispose
+    @intro1 = @intro2 = @intro3 = @intro4 = @presents = nil
+    Graphics.transition(10)
+    # delay
+    delay(1)
+    # pre-cache images to avoid lag later
+    RPG::Cache.title('back')
+    RPG::Cache.title('lagalot')
+    RPG::Cache.title('letters1')
+    RPG::Cache.title('letters2')
+    RPG::Cache.title('letters3')
+    RPG::Cache.title('final')
+    RPG::Cache.title('abs_game')
+    RPG::Cache.title('inverted')
+    Graphics.freeze
+    (1..8).each {|i| RPG::Cache.title(i.to_s)}
+    # music play depending on which example game
+    music = case @game
+    when 1
+      'E Nomine - Die Schwarzen Reiter (Blizzard Edit for Blizz-ABS Demo)'
+    end
+    Audio.me_play("Audio/BGM/#{music}", 95, 100)
+    # create a few sprites
+    @stripes = Sprite.new(view)
+    @back = Sprite.new(view)
+    @lag = Sprite.new(view)
+    @letters1 = Sprite.new(view)
+    @letters2 = Sprite.new(view)
+    @letters3 = Sprite.new(view)
+    # use the cached images
+    @back.bitmap = RPG::Cache.title('back')
+    @lag.bitmap = RPG::Cache.title('lagalot')
+    @letters1.bitmap = RPG::Cache.title('letters1')
+    @letters2.bitmap = RPG::Cache.title('letters2')
+    @letters3.bitmap = RPG::Cache.title('letters3')
+    @stripes.bitmap = Bitmap.new(640, 480)
+    # make movie stripes
+    @stripes.bitmap.fill_rect(0, 0, 640, 80, Color.new(0, 0, 0))
+    @stripes.bitmap.fill_rect(0, 400, 640, 80, Color.new(0, 0, 0))
+    # set up position of all sprites
+    @stripes.z = 100
+    @back.zoom_x = @back.zoom_y = 2.0
+    @letters1.y = -4400
+    @letters2.x = 4840
+    @letters3.y = 4770
+    @back.x = @lag.x = @back.ox = @lag.ox = 640
+    @back.y = 80
+    @lag.oy = -80
+    @lag.zoom_x = @lag.zoom_y = 1.7
+    @letters1.x = 270
+    @letters2.y = 190
+    @letters3.x = 140
+    @letters1.z = @letters2.z = @letters3.z = 200
+    Graphics.transition(2)
+    # make the animation
+    loop do
+      Graphics.update
+      @back.zoom_x = @back.zoom_y = [@back.zoom_x - 0.004, 1.0].max
+      @letters1.y += 16
+      @letters2.x -= 16
+      @letters3.y -= 16
+      @lag.zoom_x = @lag.zoom_y = [@back.zoom_x - 0.0028, 1.0].max
+      break if @letters1.y == 80
+    end
+    # delete all sprites
+    view.dispose
+    # make a new viewport
+    view = Viewport.new(0, 0, 640, 480)
+    # make a white flashing animation that transits to the final title image
+    @white = Sprite.new(view)
+    @white.z = 300
+    @white.bitmap = RPG::Cache.title('inverted')
+    #@white.bitmap = Bitmap.new(640, 480)
+    #@white.bitmap.fill_rect(0, 0, 640, 480, Color.new(255, 255, 255))
+    @final = Sprite.new(view)
+    @final.z = 200
+    @final.bitmap = RPG::Cache.title('final')
+    17.times {Graphics.update; @white.opacity -= 15}
+    Graphics.update
+    Graphics.freeze
+    Graphics.transition(80)
+    # delay
+    delay(0.9)
+    Graphics.freeze
+    # show the ABS example image
+    @abs = Sprite.new(view)
+    @abs.bitmap = RPG::Cache.title('abs_game')
+    @abs.y, @abs.z = 400, 500
+    Graphics.transition(80)
+    Graphics.freeze
+    delay(1.7)
+    # delete all sprites
+    view.dispose
+    Graphics.transition(60)
+    Graphics.freeze
+    # delay
+    delay(1)
+    # Credits
+    Graphics.transition
+    Graphics.freeze
+    @snap = Sprite.new
+    @credits = Sprite.new
+    @snap.bitmap = RPG::Cache.title('1')
+    @snap.x = 320
+    @snap.y = 256
+    @credits.bitmap = Bitmap.new(640, 480)
+    @credits.bitmap.font.name = 'Arial'
+    @credits.bitmap.font.size = 26
+    @credits.bitmap.draw_text(64, 96, 480, 32, 'Producer')
+    @credits.bitmap.draw_text(64, 160, 480, 32, 'Boris Mikić alias Blizzard')
+    Graphics.transition
+    delay(3.5)
+    Graphics.freeze
+    @snap.bitmap.dispose
+    @credits.bitmap.clear
+    Graphics.transition
+    delay(1)
+    Graphics.freeze
+    @snap.bitmap = RPG::Cache.title('2')
+    @snap.x = 96
+    @snap.y = 64
+    @credits.bitmap.draw_text(354, 256, 640, 32, 'Graphics')
+    @credits.bitmap.draw_text(354, 320, 640, 32, 'Enterbrain')
+    @credits.bitmap.draw_text(354, 352, 640, 32, 'landofshadows')
+    @credits.bitmap.draw_text(354, 384, 640, 32, 'Various artists')
+    Graphics.transition
+    delay(3.5)
+    Graphics.freeze
+    @snap.bitmap.dispose
+    @credits.bitmap.clear
+    Graphics.transition
+    delay(1)
+    Graphics.freeze
+    @snap.bitmap = RPG::Cache.title('3')
+    @snap.x = 400
+    @snap.y = 80
+    @credits.bitmap.draw_text(64, 256, 640, 32, 'Music')
+    @credits.bitmap.draw_text(64, 320, 640, 32, 'Enterbrain')
+    @credits.bitmap.draw_text(64, 352, 640, 32, 'Various artists')
+    Graphics.transition
+    delay(3.5)
+    Graphics.freeze
+    @snap.bitmap.dispose
+    @credits.bitmap.clear
+    Graphics.transition
+    delay(1)
+    Graphics.freeze
+    @snap.bitmap = RPG::Cache.title('4')
+    @snap.x = 96
+    @snap.y = 288
+    @credits.bitmap.draw_text(320, 96, 640, 32, 'Main Engine')
+    @credits.bitmap.draw_text(320, 160, 640, 32, 'Enterbrain')
+    Graphics.transition
+    delay(3.5)
+    Graphics.freeze
+    @snap.bitmap.dispose
+    @credits.bitmap.clear
+    Graphics.transition
+    delay(1)
+    Graphics.freeze
+    @snap.bitmap = RPG::Cache.title('5')
+    @snap.x = 352
+    @snap.y = 288
+    @credits.bitmap.draw_text(96, 96, 640, 32, 'Custom Scripts and Blizz-ABS')
+    @credits.bitmap.draw_text(96, 160, 640, 32, 'Blizzard')
+    Graphics.transition
+    delay(3.5)
+    Graphics.freeze
+    @snap.bitmap.dispose
+    @credits.bitmap.clear
+    Graphics.transition
+    delay(1)
+    Graphics.freeze
+    @snap.bitmap = RPG::Cache.title('6')
+    @snap.x = 64
+    @snap.y = 64
+    @credits.bitmap.draw_text(224, 288, 640, 32, 'Additional Blizz-ABS Graphics')
+    @credits.bitmap.draw_text(224, 352, 640, 32, 'Blizzard')
+    Graphics.transition
+    delay(3.5)
+    Graphics.freeze
+    @snap.bitmap.dispose
+    @credits.bitmap.clear
+    Graphics.transition
+    delay(1)
+    Graphics.freeze
+    @snap.bitmap = RPG::Cache.title('7')
+    @snap.x = 416
+    @snap.y = 96
+    @credits.bitmap.draw_text(32, 224, 640, 32, 'Mapping')
+    @credits.bitmap.draw_text(32, 288, 640, 32, 'Original maps by Blizzard')
+    @credits.bitmap.draw_text(32, 320, 640, 32, 'Maps from "The Legend of Lexima™ IV - Chaos Project"')
+    Graphics.transition
+    delay(3.5)
+    Graphics.freeze
+    @snap.bitmap.dispose
+    @credits.bitmap.clear
+    Graphics.transition
+    delay(1)
+    Graphics.freeze
+    @snap.bitmap = RPG::Cache.title('8')
+    @snap.x = 64
+    @snap.y = 288
+    @credits.bitmap.draw_text(192, 96, 640, 32, 'Title Music:')
+    @credits.bitmap.draw_text(192, 160, 640, 32, 'E Nomine - Die schwarzen Reiter')
+    @credits.bitmap.draw_text(192, 192, 640, 32, '(Blizzard Edit for Blizz-ABS Demo)')
+    Graphics.transition
+    delay(3.5)
+    Graphics.freeze
+    @snap.dispose
+    @credits.dispose
+    # last transition
+    Graphics.transition
+    delay(2)
+  end
+
+end
+
+#:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=
+# Tons of Add-ons by Blizzard
+# Version: 5.0b
+# Type: Add-on Collection Control Script
+# Date v1.00b:  14.11.2006
+# Date v1.10b:  17.11.2006
+# Date v1.60b:   4.12.2006
+# Date v1.62b:   6.12.2006
+# Date v1.70b:  13.12.2006
+# Date v1.87b:  12.01.2007
+# Date v2.20b:  16.01.2007
+# Date v2.30b:  22.01.2007
+# Date v2.31b:  24.01.2007
+# Date v2.40b:   1.02.2007
+# Date v2.50b:   4.02.2007
+# Date v2.70b:   7.02.2007
+# Date v2.71b:  12.02.2007
+# Date v2.80b:  17.02.2007
+# Date v3.70b:  19.02.2007
+# Date v3.71b:  23.02.2007
+# Date v3.80b:   7.03.2007
+# Date v4.00b:   7.03.2007
+# Date v4.01b:   9.03.2007
+# Date v4.02b:  11.03.2007
+# Date v4.30b:  12.03.2007
+# Date v4.32b:  18.03.2007
+# Date v4.50b:  24.03.2007
+# Date v4.70b:  30.04.2007
+# Date v4.80b:   4.05.2007
+# Date v4.81b:   8.05.2007
+# Date v4.85b:   7.07.2007
+# Date v4.86b:   8.08.2007
+# Date v4.90b:  12.07.2007
+# Date v4.91b:  14.07.2007
+# Date v4.97b:  31.07.2007
+# Date v4.98b:   7.08.2007
+# Date v5.00b:  ??.0?.2007
+#:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=
+# 
+# VERY IMPORTANT NOTE:
+# 
+#   For any new add-on the version will increase by 0.1, for any update of the
+#   collection or any update on an add-on the version will increase by 0.01.
+#   Also from v3.71b on there is a recognition global variable available which
+#   will make the Tons of Add-ons much more compatible with many of my scripts.
+#   I noticed serious issues with several of my older scripts.
+# 
+# 
+# Important note:
+# 
+#   All Add-ons are initially turned off in any later version than 1.87b! 
+#   Also note that "Full Reflection System" is BELOW HP/SP Absorbtion, because
+#   of incompatibility issues.
+# 
+# 
+# Compatibility:
+# 
+#   80% compatible with SKD v1.x. 40% compatible with SDK v2.x. Some add-ons
+#   will corrupt your old savegames. If you experience the "Stack level too
+#   deep" error, you might already use one of these add-ons. All of these
+#   add-ons here work with each other with a success rate of 99%. This add-on
+#   collection itself WILL corrupt your old savegames. May cause
+#   incompatibility issues with following systems:
+#   - exotic CBS-ex
+#   - exotic CMS-es
+#   - skill learning systems
+#   - exotic graphic systems on the map
+#   - weapon/armor changing systems
+# 
+# 
+# Featured add-ons so far:
+# 
+#   - 49 add-ons by Blizzard
+#   - 1 add-on by Zan
+#   = 50 add-ons altogether
+# 
+# Ideas:
+# 
+#   - Blizzard
+#   - GuardianAngelX72
+#   - BanisherOfEden
+#   - italianstal1ion
+#   - indinera
+#   - Yami
+#   - blazinhandle
+#   - Arrow-1
+#   - Dark Angel Sion
+#   - Zan
+#   - shahafyz57
+#   - Echo
+# 
+# 
+# Features:
+# 
+#   ----> Graphic (make your game look nice):
+# - Better Tilemap update (will update autotiles faster)
+# - Animated Title (have an animated title screen without .gifs)
+# - Center Battler (they will be centered instead of lined next to each other)
+# - HP/SP/EXP gradient/slant bars (including 7 styles, opacity and least lag)
+# - Location Names (shows pictures or names of the location the player visits)
+# - Black Fade (shows a black screen when changing the map or before battle)
+# - Simple Shaded Text (draws a shadow behind your text)
+# - Blizz-Art lagless HUD (Heads Up Display using either HP/SP/EXP or simple)
+# - Screen Tremble (makes your screen shake vertically, too)
+# - Animation Stack (shows animation of all inflicted status effects)
+# - Simple Facesets (shows a face instead of the spriteset in the main menu)
+# - Caterpillar (party members follow you on the map)
+# - Arrow over Player (shows arrow over player's head if he's "behind")
+# - Animated Battle Background (animates battle backgrounds)
+# - Map as Battleback (map is the battle backgrounds)
+# - Facesets for DSS (shows a face instead of the spriteset in the status menu)
+# - Status Effects as Icons (displays status effects as icons)
+# - Animated Battlers Non-Action BS (animates battlers in battle systems)
+# 
+#   ----> Utility (make your game more unique and better/help you during debug):
+# - FPS Modulator (increase the fps rate up 3 times like in an emulator)
+# - Speed Modulator (change the main character's speed on the map)
+# - Blizz-ABSEAL (the best event anti-lag for maps ever)
+# - Fullscreen? (asks the player at game start if he wishes to switch to full)
+# - Death Toll (counts killed enemies and actor deaths)
+# - Window_BattleResult (displays gained items in a different, but better way)
+# - Unique Skill Commands (different name for the Skill command for each class)
+# - Ultimate Font Override (will override the font from any RMXP version)
+# - Heal at LvlUp (heals characters who level up)
+# - Weapon/Armor HP/SP Plus (max HP and max SP can also be increased)
+# - EQUAP Skills (equipment skills, equip to learn + AP system like FF9)
+# - Picture Movie Scene (easily create picture based cutscenes)
+# - Target 'em all! (make skills target all battlers)
+# - Quick Passability Test (let's you debug maps faster and more convenient)
+# - Dynamic Passability Minimap (never was a minimap so easy to use)
+# - Enemy Status in Battle (displays enemies' HP, SP and state)
+# - Different Difficulties (like "Easy", "Normal", "Hard")
+# - Skill Separation System (like "White Magic", "Black Magic", "Technic", etc.)
+# - Multi-Hit (make weapons/skills/enemies hit more than once)
+# 
+#   ----> Status Effect (non-standard status effects):
+# - Zombie (Healing items will hurt and light attacks are effective)
+# - Regen (progressive healing aka poison, but the other way)
+# - Auto-Revive (or Auto-Life, will be automatically revived after dieing)
+# - Fury Status (if a specific character dies, another one will become Fury)
+# - Invincible Status (this status will nullify ANY DAMAGE done by enemies)
+# - Half SP (this status will halve SP cost when skills are used)
+# - 1 SP (this status will set SP cost to 1 for all skills)
+# - Full Reflection System (finally a Reflect that actually DOES work)
+# 
+#   ----> Skill (non-standard skills):
+# - Absorb HP/SP (with considering undead enemies)
+# - Death Roulette (kills a random target)
+# - Blue Magic Skill (can learn enemy's skills)
+# - EMP Skill (paralyze machine enemies)
+# - Demi Skill (deals damage equal to a percentage of the remaining HP)
+# 
+# 
+# Version history:
+# 
+# v1.10b:
+#   -> added Black Fade by Blizzard
+# 
+# v1.60b:
+#   -> added Ultimate Font Override by Blizzard
+#   -> added Simple Shaded Text by Blizzard
+#   -> added Heal at LvlUp by Blizzard
+#   -> added Fury Status by Blizzard
+#   -> added Invincible Status by Blizzard
+# 
+# v1.62b:
+#   -> upgraded Death Toll by Blizzard to v1.2b
+# 
+# v1.70b:
+#   -> added Half SP by Blizzard
+# 
+# v1.87b:
+#   -> added Blizz-Art lagless HUD by Blizzard
+#   -> upgraded Animated Title by Blizzard to v1.33b
+#   -> upgraded Centered Battlers by Blizzard to v2.1b
+#   -> upgraded HP/SP/EXP bars by Blizzard to v4.11b
+#   -> upgraded Speed Modulator by Blizzard to v1.01b
+#   -> upgraded Regen Status Effect by Blizzard to v1.1b
+#   -> upgraded Auto-Revive by Blizzard to v1.21b
+#   -> updated FPS Modulator by Blizzard
+# 
+# v2.20b:
+#   -> added Weapon/Armor HP/SP Plus by Blizzard
+#   -> added Full Reflection System by Blizzard
+#   -> added EQ Skills by Blizzard
+#   -> added Picture Movie Scene by Blizzard
+# 
+# v2.30b:
+#   -> added Screen Tremble by Blizzard
+# 
+# v2.31b:
+#   -> updated Screen Tremble by Blizzard
+#   -> updated Better Tilemap update by Blizzard
+# 
+# v2.40b:
+#   -> added Animation Stack by Blizzard
+#   -> upgraded Picture Movie Scene by Blizzard to v2.02b
+#   -> updated Screen Tremble by Blizzard
+# 
+# v2.50b:
+#   -> added Target 'em all! by Blizzard
+#   -> upgraded Unique Skill Commands by Blizzard to v1.11b
+# 
+# v2.70b:
+#   -> added Quick Passability Test by Blizzard
+#   -> added Dynamic Passability Minimap by Blizzard
+#   -> upgraded Picture Movie Scene by Blizzard to v2.03b
+# 
+# v2.71b:
+#   -> upgraded Dynamic Passability Minimap by Blizzard to v1.01b
+# 
+# v2.80b:
+#   -> added Enemy Status in Battle by Blizzard
+# 
+# v3.70b:
+#   -> added Simple Facesets by Blizzard
+#   -> changed EQ Skills by Blizzard to EQUAP Skills and upgraded to v3.0b
+#   -> upgraded Unique Skill Commands by Blizzard to v1.2b
+#   -> updated Center Battler by Blizzard
+#   -> updated Weapon/Armor HP/SP Plus by Blizzard
+#   -> added constant for recognition by other scripts to improve compatibility
+#   -> Why suddenly v3.7b? 37 add-ons are featured so far!
+# 
+# v3.71b:
+#   -> upgraded Simple Facesets by Blizzard to v1.01b
+#   -> fixed a problem with the compatibility recognition
+# 
+# v3.80b:
+#   -> added Caterpillar by Blizzard
+# 
+# v4.00b:
+#   -> added Arrow over Player by Blizzard
+#   -> added EMP Skill by Blizzard
+#   -> upgraded Caterpillar by Blizzard to v1.01b
+#   -> upgraded EQUAP Skills by Blizzard to v3.02b
+# 
+# v4.01b:
+#   -> upgraded Black Fade by Blizzard to v1.1b
+# 
+# v4.02b:
+#   -> upgraded Window_BattleResult by Blizzard to v1.1b
+# 
+# v4.30b:
+#   -> added Animated Battle Background by Blizzard
+#   -> added Map as Battleback by Blizzard
+#   -> added 1 SP by Blizzard
+#   -> upgraded HP/SP/EXP gradient/slant bars by Blizzard to v4.2b
+#   -> upgraded Blizz-Art lagless HUD by Blizzard to v1.2b
+#   -> upgraded Window_BattleResult by Blizzard to v1.1b
+#   -> upgraded Weapon/Armor HP/SP Plus by Blizzard to v1.01b
+#   -> upgraded Full Reflection System by Blizzard to v2.0b
+#   -> upgraded EMP Skill by Blizzard to v1.01b
+# 
+# v4.32b:
+#   -> upgraded Zombie Status Effect by Blizzard to v1.1b
+#   -> updated Arrow over Player by Blizzard
+# 
+# v4.50b:
+#   -> added Different Difficulties by Blizzard
+#   -> added Skill Separation System by Blizzard
+#   -> upgraded Half SP by Blizzard to v1.4b
+#   -> upgraded 1 SP by Blizzard to v1.1b
+#   -> updated Center Battler by Blizzard
+#   -> updated Blizz-Art lagless HUD by Blizzard
+#   -> updated Death Roulette by Blizzard
+#   -> updated EMP Skill by Blizzard
+# 
+# v4.70b:
+#   -> added Facesets for DSS by Zan
+#   -> added Status Effects as Icons for DSS by Blizzard
+#   -> now compatible with Blizz-ABS 1.0.0.1 and higher
+# 
+# v4.80b:
+#   -> added Animated Battlers for DBS by Blizzard
+#   -> fixed the HUD lag problem with Blizz-ABS 1.0.0.1 and higher
+# 
+# v4.81b:
+#   -> updated Skill Separation System by Blizzard
+# 
+# v4.85b:
+#   -> upgraded Weapon/Armor HP/SP Plus by Blizzard to v2.0
+#   -> upgraded Location Names by Blizzard to v2.1b
+#   -> upgraded Blizz-Art lagless HUD by Blizzard to v1.3b
+#   -> improved overall coding of Tons of Add-ons and fixed incompatibility bugs
+# 
+# v4.86b:
+#   -> upgraded Fullscreen? by Blizzard to v1.22b
+# 
+# v4.9b:
+#   -> added Demi Skill by Blizzard
+# 
+# v4.91b:
+#   -> upgraded HP/SP/EXP gradient/slant bars by Blizzard to v4.4b
+# 
+# v4.97b:
+#   -> due to a bug Ultimate Font Override can't be turned on/off ingame now
+#   -> upgraded Location Names by Blizzard to v2.11b
+#   -> upgraded Arrow over Player by Blizzard to v1.01b
+#   -> upgraded Weapon/Armor HP/SP Plus by Blizzard to v2.0b
+#   -> upgraded Death Toll by Blizzard to v1.3b
+#   -> updated ABSEAL by Blizzard
+# 
+# v4.98b:
+#   -> upgraded Caterpillar by Blizzard to v2.0
+# 
+# v5.0b:
+#   -> added Multi-Hit by Blizzard
+#   -> upgraded Caterpillar by Blizzard to v2.0b
+#   -> upgraded Animated Battle Background by Blizzard to v1.1b
+#   -> upgraded Map as Battleback by Blizzard to v1.5b
+#   -> upgraded 1 SP by Blizzard to v1.11b
+#   -> renamed and upgraded Blizz-ABSEAL by Blizzard to v2.0
+#   -> renamed and upgraded Animated Battlers for Non-Action BS by Blizzard to v1.3b
+#   -> rewritten conditions using classic syntax to avoid RGSS conditioning bug
+#   -> now compatible with RTAB v1.16 + Plug-ins
+# 
+# 
+# Instructions:
+# 
+# - Explanation:
+# 
+#   Every Add-on has its own instructions. Please read and follow them.
+# 
+# - Configuration:
+# 
+#   Configure the part just below to define which add-ons you want to use and 
+#   which not. The configuration is split into two part for reason, don't
+#   change this. It will work fine if you leave it as it is.
+# 
+# - For scripters:
+# 
+#   If you have any ideas how to improve this collection, just say so. I will
+#   add you into the credits of this add-on collection if you have an own
+#   add-on. I will not add any add-ons made by somebody else than yourself, you
+#   can't ask me for somebody else to add an add-on. The creator has to ask me
+#   himself.
+# 
+# 
+# Side note:
+# 
+#   These add-ons were mostly tested in a different enviroment or not at all.
+# 
+# 
+# Useless facts:
+# 
+#   - Tons of Add-ons already exceeds many CMS-es and even several CBS-es in
+#     number of lines of code.
+#   - The version history of Tons of Add-ons has more lines than several
+#     add-ons themselves in Tons of Add-ons.
+#   - Chaos Project uses only about 60% of the Tons of Add-ons.
+#   - A good code is a short code that does what it is supposed to, not the
+#     "Microsoft" way where you have many actually redundant lines of code.
+#     Simple, short and straight, nothing more than necessary, that's what
+#     makes codes efficient!
+#   - Russian Reversal on Croatian Blizzards:
+#     "In Russia Blizzard makes his scripts SDK compatible with YOU!"
+# 
+# 
+# If you find any bugs, please report them here:
+# http://www.chaosproject.co.nr
+#:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=
+
+#:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::#
+#                                                                             #
+#   ###   ###  #   # #####  #   #### #   # ####   ###  #####  #   ###  #   #  #
+#  #   # #   # ##  # #      #  #     #   # #   # #   #   #    #  #   # ##  #  #
+#  #     #   # # # # ####   #  #  ## #   # ####  #   #   #    #  #   # # # #  #
+#  #   # #   # #  ## #      #  #   # #   # #   # #####   #    #  #   # #  ##  #
+#   ###   ###  #   # #      #   ####  ###  #   # #   #   #    #   ###  #   #  #
+#                                                                             #
+#:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::#
+
+$tons_version = 5.0
+
+module TONS_OF_ADDONS
+  
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+# START Configuration 1
+# 
+# You can enable/disable any add-on here if you wish. Set the value to false
+# to disable it. These features CANNOT be turned on/off during the game.
+# 
+# NAME_OF_THE_ADDON = true
+# NAME_OF_THE_ADDON = false
+# 
+# where NAME_OF_THE_ADDON is the same variable as the one used below.
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+  # the graphic add-ons
+  ANIMATED_TITLE                = false
+  # the utility add-ons
+  FULLSCREEN                    = true
+  ULTIMATE_FONT_OVERRIDE        = true
+  EQUAP_SKILLS                  = false
+  DIFFICULTY                    = false
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+# END Configuration 1
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+  
+end
+
+#==============================================================================
+# Game_System
+#==============================================================================
+
+class Game_System
+  
+  alias init_tons_of_addons_later initialize
+  def initialize
+    init_tons_of_addons_later
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+# START Configuration 2
+# 
+# You can enable/disable any add-on here if you wish. Set the value to true
+# to disable it initially. To turn it on/off ingame, just use the Call script
+# command with one of these syntaxes:
+# 
+# $game_system.NAME_OF_THE_ADDON = true
+# $game_system.NAME_OF_THE_ADDON = false
+# 
+# where NAME_OF_THE_ADDON is the same variable as the one used below.
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+    # the GRAPHIC add-ons
+    @BETTER_TILEMAP_UPDATE      = true
+    @CENTER_BATTLER             = false
+    @BARS                       = true
+    @LOCATION_NAMES             = true
+    @BLACKFADE                  = true
+    @SHADED_TEXT                = true
+    @HUD                        = false
+    @TREMBLE                    = false
+    @ANIMATION_STACK            = false
+    @FACESETS                   = false
+    @CATERPILLAR                = false
+    @ARROW_OVER_PLAYER          = false
+    @ANIMATED_BATTLE_BACKGROUND = false
+    @MAP_AS_BATTLEBACK          = false
+    @FACESETS_DSS               = false
+    @STATUS_ICONS               = false
+    @ANIMATED_BATTLERS_DBS      = false
+    # the UTILITY add-ons
+    @FPS_MODULATOR              = false
+    @SPEED_MODULATOR            = false
+    @DEATH_TOLL                 = false
+    @WINDOW_BATTLERESULT        = false
+    @UNIQUE_SKILL_COMMANDS      = false
+    @HEAL_AT_LVLUP              = false
+    @HPSPPLUS                   = false
+    @TARGET_EM_ALL              = false
+    @QUICK_PASSABILITY_TEST     = false
+    @MINIMAP                    = false
+    @ENEMY_STATUS               = false
+    @SKILL_SEPARATION           = false
+    # the STATUS EFFECT add-ons
+    @ZOMBIE_STATUS              = true
+    @REGEN_STATUS               = true
+    @AUTO_REVIVE                = true
+    @FURY_STATUS                = true
+    @INVINCIBLE_STATUS          = true
+    @HALF_SP                    = true
+    @_1_SP                      = true
+    @REFLECT                    = true
+    # the SKILL add-ons
+    @ABSORB_HP_SP               = true
+    @DEATH_ROULETTE             = true
+    @BLUE_MAGIC_SKILL           = true
+    @EMP_SKILL                  = true
+    @DEMI_SKILL                 = true
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+# END Configuration 2
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+  end
+  
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+# I suggest you don't edit anything below this line except for the
+# configuration of the add-ons.
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+  attr_accessor :BETTER_TILEMAP_UPDATE
+  attr_accessor :CENTER_BATTLER
+  attr_accessor :BARS
+  attr_accessor :LOCATION_NAMES
+  attr_accessor :BLACKFADE
+  attr_accessor :SHADED_TEXT
+  attr_accessor :HUD
+  attr_accessor :TREMBLE
+  attr_accessor :ANIMATION_STACK
+  attr_accessor :FACESETS
+  attr_accessor :CATERPILLAR
+  attr_accessor :ARROW_OVER_PLAYER
+  attr_accessor :ANIMATED_BATTLE_BACKGROUND
+  attr_accessor :MAP_AS_BATTLEBACK
+  attr_accessor :FACESETS_DSS
+  attr_accessor :STATUS_ICONS
+  attr_accessor :ANIMATED_BATTLERS_DBS
+  attr_accessor :FPS_MODULATOR
+  attr_accessor :SPEED_MODULATOR
+  attr_accessor :DEATH_TOLL
+  attr_accessor :WINDOW_BATTLERESULT
+  attr_accessor :UNIQUE_SKILL_COMMANDS
+  attr_accessor :HEAL_AT_LVLUP
+  attr_accessor :HPSPPLUS
+  attr_accessor :TARGET_EM_ALL
+  attr_accessor :QUICK_PASSABILITY_TEST
+  attr_accessor :MINIMAP
+  attr_accessor :ENEMY_STATUS
+  attr_accessor :SKILL_SEPARATION
+  attr_accessor :ZOMBIE_STATUS
+  attr_accessor :REGEN_STATUS
+  attr_accessor :AUTO_REVIVE
+  attr_accessor :FURY_STATUS
+  attr_accessor :INVINCIBLE_STATUS
+  attr_accessor :HALF_SP
+  attr_accessor :_1_SP
+  attr_accessor :REFLECT
+  attr_accessor :ABSORB_HP_SP
+  attr_accessor :DEATH_ROULETTE
+  attr_accessor :BLUE_MAGIC_SKILL
+  attr_accessor :EMP_SKILL
+  attr_accessor :DEMI_SKILL
+  
+end
+
+#:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::#
+#                                                                             #
+#                #### ####   ###  ####  #   #  #  ###  #####                  #
+#               #     #   # #   # #   # #   #  # #   # #                      #
+#               #  ## ####  #   # ####  #####  # #     #####                  #
+#               #   # #   # ##### #     #   #  # #   #     #                  #
+#                #### #   # #   # #     #   #  #  ###  #####                  #
+#                                                                             #
+#:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::#
+
+#==============================================================================
+# Better Tilemap update by Blizzard#
+# Type: Map Graphic Improvement
+# Version: 1.0b
+# Date: 13.8.2006
+# 
+# new in 1.0b:
+#   - changed method of updating
+# 
+#   This will add a little faster update of autotile frames to allow a more
+#   natural feeling.
+#==============================================================================
+
+#==============================================================================
+# Tilemap
+#==============================================================================
+
+class Tilemap
+  
+  alias upd_fps_later update
+  def update
+    if $game_system.BETTER_TILEMAP_UPDATE
+      upd_fps_later if Graphics.frame_count % (Graphics.frame_rate / 5) == 0
+    end
+    upd_fps_later
+  end
+  
+end
+
+#==============================================================================
+# Animated Title by Blizzard
+# Version: 1.33b
+# Type: Game Graphic Design Improvement
+# Date: 17.3.2006
+# Date v1.3: 26.5.2006
+# Date v1.32b: 14.11.2006
+# Date v1.33b: 12.1.2007
+# 
+# 
+# v1.3 features:
+#   - completely overworked and 99% SDK compatible
+# 
+# v1.32b features:
+#   - slightly improved code
+# 
+# v1.33b features:
+#   - slightly improved code
+# 
+# 
+# Instructions:
+# 
+#   - if you want to change the delay between the frames change "DELAY"
+#   - name the frames of your title pictures "title0", "title1" and so on.
+#   - to change the number of frames, change the value of "PICS"
+#   - be sure to set "title0" as your title screen in the database
+#==============================================================================
+
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+# START Configuration
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+DELAY = 20 # change the delay
+PICS = 1 # number of pictures/frames
+
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+# END Configuration
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+#==============================================================================
+# Scene_Title
+#==============================================================================
+
+class Scene_Title
+  
+  alias initialize_animated_title initialize
+  def initialize
+    initialize_animated_title
+    @frame = @counter = 0
+  end
+  
+  alias update_animated_title update
+  def update
+    if TONS_OF_ADDONS::ANIMATED_TITLE && PICS > 1
+      @counter += 1
+      if @counter == DELAY
+        @counter = 0
+        @frame = (@frame + 1) % PICS
+        @sprite.bitmap = RPG::Cache.title("title#{@frame}")
+        Graphics.transition
+      end
+    end
+    update_animated_title
+  end
+  
+end
+
+#==============================================================================
+# Centered Battlers by Blizzard
+# Version: 2.1b
+# Type: Battle Graphic Improvement
+# Date: 14.11.2006
+# Date v2.1b: 12.1.2007
+# 
+# new in v2.0b:
+#   - new code is much more compatible and not merged into the Regen add-on
+# 
+# new in v2.1b:
+#   - compatible with "Easy LvlUp Notifier"
+#==============================================================================
+
+#==============================================================================
+# Sprite_Battler
+#==============================================================================
+
+class Sprite_Battler < RPG::Sprite 
+    
+  alias upd_center_battler_later update
+  def update
+    upd_center_battler_later
+    if $game_system.CENTER_BATTLER && @battler != nil
+      if @battler.is_a?(Game_Actor)
+        self.x = case $game_party.actors.size
+        when 1 then @battler.screen_x + 240
+        when 2 then @battler.screen_x + 80 + @battler.index * 160
+        when 3 then @battler.screen_x + 80
+        when 4 then @battler.screen_x
+        end
+      elsif @battler.is_a?(Game_Enemy)
+        self.x = @battler.screen_x
+      end
+      self.y = @battler.screen_y
+      self.z = @battler.screen_z
+    end
+  end 
+  
+end
+
+#==============================================================================
+# Scene_Battle
+#==============================================================================
+
+class Scene_Battle
+  
+  alias upd_center_battler_later update
+  def update
+    if $game_system.CENTER_BATTLER && @lvlup_windows != nil
+      for i in 0...@lvlup_windows.size
+        @lvlup_windows[i].x = case $game_party.actors.size
+        when 1 then 240
+        when 2 then 80 + i * 320
+        when 3 then 80 + i * 160
+        when 4 then i * 160
+        end
+      end
+    end
+    upd_center_battler_later
+  end
+  
+  alias phase3_setup_command_window_center_battler_later phase3_setup_command_window
+  def phase3_setup_command_window
+    phase3_setup_command_window_center_battler_later
+    if $game_system.CENTER_BATTLER
+      @actor_command_window.x = case $game_party.actors.size
+      when 1 then 240
+      when 2 then 80 + @actor_index * 320
+      when 3 then 80 + @actor_index * 160
+      when 4 then @actor_index * 160
+      end
+      @actor_command_window.index = 0
+    end
+  end
+
+end
+
+#==============================================================================
+# Arrow_Actor
+#==============================================================================
+
+class Arrow_Actor < Arrow_Base
+  
+  alias upd_center_battler_later update
+  def update
+    upd_center_battler_later
+    if $game_system.CENTER_BATTLER && self.actor != nil
+      self.x = case $game_party.actors.size
+      when 1 then 240 + self.actor.screen_x
+      when 2 then 2 * self.actor.screen_x
+      when 3 then 80 + self.actor.screen_x
+      when 4 then self.actor.screen_x
+      end
+      self.y = self.actor.screen_y
+    end
+  end
+
+end
+
+#==============================================================================
+# Window_BattleStatus
+#==============================================================================
+
+class Window_BattleStatus < Window_Base
+  
+  alias refresh_center_battler_later refresh
+  def refresh
+    unless $game_system.CENTER_BATTLER
+      refresh_center_battler_later
+      return
+    end
+    self.contents.clear
+    @item_max = $game_party.actors.size
+    for i in 0...$game_party.actors.size
+      actor = $game_party.actors[i]
+      actor_x = case $game_party.actors.size
+      when 1 then 4 + 240
+      when 2 then 4 + 80 + i * 320
+      when 3 then 4 + 80 + i * 160
+      when 4 then 4 + i * 160
+      end
+      draw_actor_name(actor, actor_x, 0)
+      draw_actor_hp(actor, actor_x, 32, 120)
+      draw_actor_sp(actor, actor_x, 64, 120)
+      if @level_up_flags[i]
+        self.contents.font.color = normal_color
+        self.contents.draw_text(actor_x, 96, 120, 32, 'LEVEL UP!')
+      else
+        draw_actor_state(actor, actor_x, 96)
+      end
+    end
+  end
+
+end
+
+#==============================================================================
+# Blizz-Art Gradient Styler with HP/SP/EXP bars by Blizzard
+# Version: 4.4b
+# Type: Game Playability Improvement
+# Date v4.0: 13.11.2006
+# Date v4.11: 12.1.2007
+# Date v4.2b: 12.3.2007
+# Date v4.4b: 14.7.2007
+# 
+# v2.0+:
+#   - 2 styles, better code
+# v3.0+:
+#   - 6 styles, far better code
+# v4.0:
+#   - 6 styles, overworked and extremely delagged, enjoy the most lagless
+#     gradient/slant bar code ever
+# v4.11:
+#   - added instructions and a recognition constant for plugins
+# v4.2b:
+#   - improved code
+# v4.4b:
+#   - improved code, now 7 styles
+# 
+# 
+# Instructions:
+# 
+#   You can change style and opacity by using the "Call script" event command.
+#   Use one of of these syntaxes:
+# 
+#     $game_system.bar_style = X
+#     $game_system.bar_opacity = Y
+# 
+#   X - number from 0 to 6 and is the ID number of the style
+#   Y - number from 0 to 255 and indicates the opacity
+#   
+#   Values out of range will be corrected.
+#==============================================================================
+
+$Blizz_Art = true
+
+#==============================================================================
+# Game_System
+#==============================================================================
+
+class Game_System
+  
+  attr_accessor :bar_style
+  attr_reader   :bar_opacity
+  
+  alias init_blizzart_later initialize
+  def initialize
+    init_blizzart_later
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+# START Configuration
+# 
+#   Configure this part manually if you have no "Options" controller for the
+#   styles and the opacity. (style: 0~6, opacity: 0~255)
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+    @bar_style = 5
+    self.bar_opacity = 255
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+# END Configuration
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+  end
+  
+  def bar_opacity=(alpha)
+    @bar_opacity = [[alpha, 0].max, 255].min
+  end
+  
+end
+
+#==============================================================================
+# Game_Actor 
+#==============================================================================
+
+class Game_Actor < Game_Battler 
+  
+  def now_exp 
+    return @exp - @exp_list[@level] 
+  end 
+  
+  def next_exp 
+    return @exp_list[@level+1] > 0 ? @exp_list[@level+1] - @exp_list[@level] : 0
+  end 
+  
+end
+
+#==============================================================================
+# Bitmap
+#==============================================================================
+
+class Bitmap
+
+  def gradient_bar(x, y, w, color1, color2, color3, rate)
+    return unless $game_system.BARS
+    return if $game_system.bar_style < 0 || $game_system.bar_style > 6
+    styles = [1, 3, 4, 5]
+    offset = 5
+    x += offset
+    y += 26
+    if styles.include?($game_system.bar_style)
+      offset += 2
+      w = w / 8 * 8
+      y -= 1
+      $game_system.bar_style == 5 ? y-= 2 : x += 1
+    elsif $game_system.bar_style == 6
+      offset += 2
+      y -= 3
+    end
+    alpha = $game_system.bar_opacity
+    if $game_system.bar_style < 5
+      for i in 0...(offset+3)
+        fill_rect(x-i, y+i-2, w+3, 1, Color.new(0, 0, 0))
+      end
+      for i in 0...(offset+1)
+        fill_rect(x-i, y+i-1, w+1, 1, Color.new(255, 255, 255))
+      end
+      if $game_system.bar_style < 2
+        for i in 0...(w+offset)
+          red = color3.red * i / (w + offset)
+          green = color3.green * i / (w + offset)
+          blue = color3.blue * i / (w + offset)
+          oy = i < offset ? offset-i : 0
+          off = i < offset ? i : i > w ? w+offset-i : offset
+          fill_rect(x+i-offset+1, y+oy-1, 1, off, Color.new(red, green, blue, alpha))
+        end
+        if (w*rate).to_i >= offset
+          for i in 0...((w*rate).to_i+offset)
+            red = color1.red + (color2.red-color1.red)*i/((w+offset)*rate)
+            green = color1.green + (color2.green-color1.green)*i/((w+offset)*rate)
+            blue = color1.blue + (color2.blue-color1.blue)*i/((w+offset)*rate)
+            oy = i < offset ? offset-i : 0
+            off = i < offset ? i : i > w*rate ? (w*rate).to_i+offset-i : offset
+            fill_rect(x+i-offset+1, y+oy-1, 1, off, Color.new(red, green, blue, alpha))
+          end
+        else
+          for i in 0...(w*rate).to_i
+            for j in 0...offset
+              red = color1.red + (color2.red-color1.red) * i / (w * rate)
+              green = color1.green + (color2.green-color1.green) * i / (w * rate)
+              blue = color1.blue + (color2.blue-color1.blue) * i / (w * rate)
+              set_pixel(x+i-j+1, y+j-1, Color.new(red, green, blue, alpha))
+            end
+          end
+        end
+      else
+        for i in 0...offset
+          red = color3.red * i / offset
+          green = color3.green * i / offset
+          blue = color3.blue * i / offset
+          fill_rect(x-i+1, y+i-1, w, 1, Color.new(red, green, blue, alpha))
+          if $game_system.bar_style == 4
+            if i < offset / 2
+              red = color2.red * (i+1) / (offset/2) 
+              green = color2.green * (i+1) / (offset/2)
+              blue = color2.blue * (i+1) / (offset/2)
+            else
+              red = color2.red * (offset+1-i) / (offset/2 + 1)
+              green = color2.green * (offset+1-i) / (offset/2 + 1)
+              blue = color2.blue * (offset+1-i) / (offset/2 + 1) 
+            end
+          else
+            red = color1.red + (color2.red-color1.red) * i / offset
+            green = color1.green + (color2.green-color1.green) * i / offset
+            blue = color1.blue + (color2.blue-color1.blue) * i / offset
+          end
+          fill_rect(x-i+1, y+i-1, w*rate, 1, Color.new(red, green, blue, alpha))
+        end
+      end
+      if styles.include?($game_system.bar_style)
+        for i in 0...w
+          for j in 0...offset
+            if styles.include?($game_system.bar_style) && i % 8 < 2
+              set_pixel(x+i-j+1, y+j-1, Color.new(0, 0, 0, alpha))
+            end
+          end
+        end
+      end
+    else
+      fill_rect(x+1, y-3, w+2, 12, Color.new(255, 255, 255, alpha))
+      for i in 0...10
+        if i < 5
+          red = color3.red * (i+1) / 5
+          green = color3.green * (i+1) / 5
+          blue = color3.blue * (i+1) / 5
+        else
+          red = color3.red * (11-i) / 6
+          green = color3.green * (11-i) / 6
+          blue = color3.blue * (11-i) / 6
+        end
+        fill_rect(x+2, y+i-2, w, 1, Color.new(red, green, blue, alpha))
+        if i < 5
+          red = color2.red * (i+1) / 5
+          green = color2.green * (i+1) / 5
+          blue = color2.blue * (i+1) / 5
+        else
+          red = color2.red * (11-i) / 6
+          green = color2.green * (11-i) / 6
+          blue = color2.blue * (11-i) / 6
+        end
+        fill_rect(x+2, y+i-2, w*rate, 1, Color.new(red, green, blue, alpha))
+      end
+      if styles.include?($game_system.bar_style)
+        for i in 0...w/8
+          fill_rect(x+2+i*8, y-2, 1, 10, Color.new(0, 0, 0, alpha))
+          fill_rect(x+9+i*8, y-2, 1, 10, Color.new(0, 0, 0, alpha))
+        end
+      end
+    end
+  end
+  
+end
+
+#==============================================================================
+# Window_Base
+#==============================================================================
+
+class Window_Base < Window
+
+  alias draw_actor_hp_blizzart_later draw_actor_hp
+  def draw_actor_hp(actor, x, y, w = 148)
+    if $game_system.BARS
+      w -= 12
+      rate = (actor.maxhp > 0 ? actor.hp.to_f / actor.maxhp : 0)
+      if rate > 0.6
+        color1 = Color.new(80 - 150 * (rate-0.6), 80, 50 * (rate-0.6), 192) 
+        color2 = Color.new(240 - 450 * (rate-0.6), 240, 150 * (rate-0.6), 192) 
+      elsif rate > 0.2 && rate <= 0.6
+        color1 = Color.new(80, 200 * (rate-0.2), 0, 192) 
+        color2 = Color.new(240, 600 * (rate-0.2), 0, 192) 
+      elsif rate <= 0.2
+        color1 = Color.new(400 * rate, 0, 0, 192) 
+        color2 = Color.new(240, 0, 0, 192) 
+      end
+      color3 = Color.new(0, 80, 0, 192)
+      self.contents.gradient_bar(x, y, w, color1, color2, color3, rate)
+      if $scene.is_a?(Scene_Battle)
+        draw_actor_hp_blizzart_later(actor, x, y, w)
+      else
+        draw_actor_hp_blizzart_later(actor, x, y)
+      end
+    else
+      draw_actor_hp_blizzart_later(actor, x, y, w)
+    end
+  end
+
+  alias draw_actor_sp_blizzart_later draw_actor_sp
+  def draw_actor_sp(actor, x, y, w = 148)
+    if $game_system.BARS
+      w -= 12
+      rate = (actor.maxsp > 0 ? actor.sp.to_f / actor.maxsp : 0)
+      if rate > 0.4
+        color1 = Color.new(60 - 66 * (rate-0.4), 20, 80, 192) 
+        color2 = Color.new(180 - 200 * (rate-0.4), 60, 240, 192) 
+      elsif rate <= 0.4
+        color1 = Color.new(20 + 100 * rate, 50 * rate, 26 + 166 * rate, 192) 
+        color2 = Color.new(60 + 300 * rate, 150 * rate, 80 + 400 * rate, 192) 
+      end
+      color3 = Color.new(0, 0, 80, 192) 
+      self.contents.gradient_bar(x, y, w, color1, color2, color3, rate)
+      if $scene.is_a?(Scene_Battle)
+        draw_actor_sp_blizzart_later(actor, x, y, w)
+      else
+        draw_actor_sp_blizzart_later(actor, x, y)
+      end
+    else
+      draw_actor_sp_blizzart_later(actor, x, y, w)
+    end
+  end
+
+  alias draw_actor_exp_blizzart_later draw_actor_exp
+  def draw_actor_exp(actor, x, y, w = 148)
+    if $game_system.BARS
+      w += 12
+      rate = (actor.next_exp != 0 ? actor.now_exp.to_f / actor.next_exp : 1)
+      if rate < 0.5
+        color1 = Color.new(20 * rate, 60, 80, 192) 
+        color2 = Color.new(60 * rate, 180, 240, 192) 
+      elsif rate >= 0.5
+        color1 = Color.new(20 + 120 * (rate-0.5), 60 + 40 * (rate-0.5), 80, 192)
+        color2 = Color.new(60 + 360 * (rate-0.5), 180 + 120 * (rate-0.5), 240, 192)
+      end
+      color3 = Color.new(80, 80, 80, 192) 
+      self.contents.gradient_bar(x, y, w, color1, color2, color3, rate)
+    end
+    draw_actor_exp_blizzart_later(actor, x, y)
+  end
+  
+end
+
+#==============================================================================
+# Location Names with Pictures or Text by Blizzard
+# Version: 2.11b
+# Type: Game Playability Improvement
+# Date: 14.11.2006
+# Date v2.1b: 7.7.2007
+# Date v2.11b: 30.7.2007
+# 
+# NOTE: This script WILL corrupt old savegames!
+# 
+# Instructions:
+#   Connect map IDs with picture names. All pictures MUST be in the the Names
+#   folder in your picture folder. If you don't have a picture, the map name
+#   will be written out using the default text engine from RMXP. Please set up
+#   the font you wish the text to be displayed in this case.
+#==============================================================================
+
+LOCATION_FONT = 'Arial'
+LOCATION_SIZE = 32
+LOCATION_BOLD = true
+LOCATION_ITALIC = false
+LOCATION_COLOR = Color.new(255, 255, 255) # Color.new(R, G, B, A)
+DISPLAY_TIME = 5 # in seconds
+
+#==============================================================================
+# Game_System
+#==============================================================================
+
+class Game_System
+  
+  attr_accessor :map_name_id
+  attr_accessor :name_timer
+  
+  alias init_names_later initialize
+  def initialize
+    init_names_later
+    @map_name_id = 0
+    @name_timer = 0
+  end
+  
+end
+
+#==============================================================================
+# Name_Sprite
+#==============================================================================
+
+class Name_Sprite < Sprite
+  
+  attr_accessor :timer
+  
+  def initialize
+    super
+    if $game_system.map_name_id == $game_map.map_id
+      @timer = $game_system.name_timer
+    else
+      @timer = 0
+    end
+    if @timer < 16
+      self.opacity = @timer * 15
+    elsif @timer > 16 + 20 * DISPLAY_TIME
+      self.opacity = 255 - (@timer - 16 - 20 * DISPLAY_TIME)* 15
+    end
+    $game_system.map_name_id = $game_map.map_id
+    self.z = 6000
+    self.bitmap = get_image($game_map.map_id)
+    self.bitmap == nil ? self.dispose : self.x = 640 - self.bitmap.width
+  end
+  
+  def get_image(id)
+    case id
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+# START of Database
+# 
+#   Use this template to configure this add-on:
+# 
+#     when ID then name = 'FILE_NAME'
+#   
+#   ID - map ID where the picture should be displayed
+#   FILE_NAME - the file name of the picture file in the Pictures/Names folder
+# 
+#   If you don't have a picture and want the name displayed anyway, please use:
+# 
+#     when ID then name = nil
+# 
+#   Instead of an image normal text will be displayed in the chosen font.
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+    when 10, 12, 13, 17, 20, 22, 23, 24, 25 then name = nil
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+# END of Database
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+    else
+      return nil
+    end
+    if name == nil
+      bitmap = Bitmap.new(1, 1)
+      bitmap.font.name = LOCATION_FONT
+      bitmap.font.size = LOCATION_SIZE
+      w = bitmap.text_size($game_map.name).width + 40
+      bitmap.dispose
+      bitmap = Bitmap.new(w, LOCATION_SIZE + 16)
+      bitmap.font.name = LOCATION_FONT
+      bitmap.font.size = LOCATION_SIZE
+      bitmap.font.bold = LOCATION_BOLD
+      bitmap.font.italic = LOCATION_ITALIC
+      bitmap.font.color = LOCATION_COLOR
+      bitmap.draw_text(0, 8, w, LOCATION_SIZE + 8, $game_map.name, 1)
+    else
+      bitmap = RPG::Cache.picture("Names\\#{name}")
+    end
+    return bitmap
+  end
+  
+  def dispose
+    $game_system.name_timer = @timer
+    super
+  end
+  
+end
+
+#==============================================================================
+# Spriteset_Map
+#==============================================================================
+
+class Spriteset_Map
+  
+  attr_accessor :name
+  
+  alias init_name_later initialize
+  def initialize
+    init_name_later
+    @name = Name_Sprite.new if $game_system.LOCATION_NAMES
+  end
+  
+  alias upd_name_later update
+  def update
+    if @name != nil 
+      unless @name.disposed?
+        @name.timer += 1
+        @name.opacity += 15 if @name.timer < 16
+        @name.opacity -= 15 if @name.timer > 16 + 20 * DISPLAY_TIME
+        if @name.opacity == 0
+          @name.dispose
+          @name = nil
+        end
+      else
+        @name = nil
+      end
+    end
+    upd_name_later
+  end
+  
+  alias dispose_name_later dispose
+  def dispose
+    dispose_name_later
+    unless @name == nil
+      $game_system.name_timer = @name.timer
+      @name.dispose
+    end
+    @name = nil
+  end
+  
+end
+
+#============================================================================== 
+# Scene_Title
+#============================================================================== 
+
+class Scene_Title
+
+  alias main_location_later main
+  def main
+    $map_infos = load_data('Data/MapInfos.rxdata')
+    for key in $map_infos.keys
+      $map_infos[key] = $map_infos[key].name
+    end
+    main_location_later
+  end
+  
+end
+
+#============================================================================== 
+# Game_Map 
+#============================================================================== 
+
+class Game_Map
+        
+  def name
+    return $map_infos[@map_id]
+  end
+   
+end
+
+#==============================================================================
+# Black Fade by Blizzard
+# Version: 1.1b
+# Type: Graphical Improvement
+# Date: 28.4.2006
+# Date v1.1b: 9.3.2006
+# 
+# 
+# new in 1.1b:
+#   - optional setting for black fade before battle
+# 
+# Explanation:
+# 
+#   Replaces the standard fading between maps with a black screen. Note that
+#   this add-on is much less compatible than other add-ons and therefore it
+#   might cause problems.
+#==============================================================================
+
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+# START Configuration
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+MAP_FADE = true # execute black fade when changing maps
+MAP_TRANSIT = 8 # how long does the transition take
+MAP_BLACKTIME = 12 # how long does black screen stay
+BATTLE_FADE = true # execute black fade when changing maps
+BATTLE_TRANSIT = 20 # how long does the transition take
+BATTLE_BLACKTIME = 12 # how long does black screen stay
+
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+# END Configuration
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+#==============================================================================
+# Scene_Map
+#==============================================================================
+
+class Scene_Map
+  
+  alias main_player_black_fade_later main
+  def main
+    main_player_black_fade_later
+    if $game_system.BLACKFADE && BATTLE_FADE && $scene.is_a?(Scene_Battle)
+      if $data_system.battle_transition == ''
+        Graphics.transition(BATTLE_TRANSIT)
+      else
+        Graphics.transition(BATTLE_TRANSIT, 'Graphics/Transitions/' +
+          $data_system.battle_transition)
+      end
+      Graphics.freeze
+      Graphics.transition(BATTLE_BLACKTIME)
+      Graphics.freeze
+    end
+  end
+  
+  alias transfer_player_black_fade_later transfer_player
+  def transfer_player
+    unless $game_system.BLACKFADE && MAP_FADE
+      transfer_player_black_fade_later
+      return
+    end
+    $game_temp.player_transferring = false
+    if $game_map.map_id != $game_temp.player_new_map_id
+      $game_map.setup($game_temp.player_new_map_id)
+    end
+    $game_player.moveto($game_temp.player_new_x, $game_temp.player_new_y)
+    case $game_temp.player_new_direction
+    when 2 then $game_player.turn_down
+    when 4 then $game_player.turn_left
+    when 6 then $game_player.turn_right
+    when 8 then $game_player.turn_up
+    end
+    $game_player.straighten
+    $game_map.update
+    Graphics.freeze if $game_temp.transition_processing # added
+    @spriteset.dispose
+    # added from here
+    if $game_temp.transition_processing
+      Graphics.transition(MAP_TRANSIT)
+      Graphics.freeze
+      Graphics.transition(MAP_BLACKTIME)
+      Graphics.freeze
+    end
+    # to here
+    @spriteset = Spriteset_Map.new
+    if $game_temp.transition_processing
+      $game_temp.transition_processing = false
+      Graphics.transition(MAP_TRANSIT) # instead of 20 now MAP_TRANSIT
+    end
+    $game_map.autoplay
+    Graphics.frame_reset
+    Input.update
+  end
+  
+end
+
+#==============================================================================
+# Simple Shaded Text by Blizzard
+# Version: 1.0c
+# Type: Text Readability Improvement
+# Date: 2.7.2006
+#==============================================================================
+
+#==============================================================================
+# Bitmap
+#==============================================================================
+
+class Bitmap
+  
+  alias draw_text_shaded_text_later draw_text
+  def draw_text(x2, y2, w2 = 0, h2 = 0, text2 = '', a2 = 0)
+    if x2.is_a?(Rect)
+      x, y, w, h, text, a = x2.x, x2.y, x2.width, x2.height, y2, w2
+    else
+      x, y, w, h, text, a = x2, y2, w2, h2, text2, a2
+    end
+    if $game_system != nil && $game_system.SHADED_TEXT
+      save_color = self.font.color.clone
+      self.font.color = Color.new(0, 0, 0, 255)
+      draw_text_shaded_text_later(x+1, y+1, w, h, text, a)
+      self.font.color = save_color
+    end
+    draw_text_shaded_text_later(x, y, w, h, text, a)
+  end
+  
+end
+
+#==============================================================================
+# Blizz-Art lagless HUD by Blizzard
+# Version: 1.3b
+# Type: Game Playability Improvement
+# Date: 16.12.2006
+# Date v1.1b: 12.1.2007
+# Date v1.2b: 11.3.2007
+# Date v1.3b: 7.7.2007
+# 
+# 
+# IMPORTANT:
+# 
+#   The "not simple" method of using this add-on REQUIRES Blizz-Art Gradient
+#   styler for HP/SP/EXP bars. Blizz-ABS disables this add-on automatically and
+#   uses the Blizz-ABS HUD system.
+# 
+# 
+# Instructions:
+# 
+#   This add-on will add a HUD into your game. Configure the part below. The
+#   meanings of the variables are:
+# 
+#     SIMPLE       - set this to false to use Blizz-Art Gradient styler instead
+#                    of the normal bars
+#     FULL_DISPLAY - set to true to show the stats of all party members in the
+#                    display (otherwise hold D and press Q/W to cycle through
+#                    the actors)
+#     TOP          - set this value to false and the HUD will appear on the
+#                    bottom
+# 
+# Side-Note:
+# 
+#   This add-on comes BELOW the Gradient Styler. This HUD was made for an
+#   infinite number of party members, but if using FULL_DISPLAY, only the first
+#   4 members will be displayed.
+#==============================================================================
+
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+# Start HUD Configuration
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+SIMPLE = true
+FULL_DISPLAY = false
+TOP = true
+HUD_TYPE = 0 # 0, 1 or 2
+
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+# End HUD Configuration
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+#==============================================================================
+# Game_System
+#==============================================================================
+
+class Game_System
+  
+  attr_accessor :index
+  attr_accessor :bar_style unless FULL_DISPLAY
+  attr_reader   :bar_opacity
+  
+  alias init_blizzart_hud_later initialize
+  def initialize
+    init_blizzart_hud_later
+    @index = 0 unless FULL_DISPLAY
+    unless $Blizz_Art
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+# START Configuration
+# 
+#   Configure this part manually if you have no "Options" controller for the
+#   styles and the opacity. (style: 0~5, opacity: 0~255)
+#   Note that this WILL be overriden if you use Blizz-Art Gradient Styler.
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+      @bar_style = 5
+      self.bar_opacity = 255
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+# END Configuration
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+    end
+  end
+  
+  def bar_opacity=(alpha)
+    @bar_opacity = [[alpha, 0].max, 255].max
+  end
+  
+end
+
+#==============================================================================
+# Bitmap
+#==============================================================================
+
+class Bitmap
+  
+  def gradient_bar_simple(x, y, w, color1, color2, rate)
+    w = w / 8 * 8
+    alpha = $game_system.bar_opacity
+    case HUD_TYPE
+    when 0 then fill_rect(x + 1, y, w + 2, 14, Color.new(255, 255, 255, 192))
+    when 1 then fill_rect(x + 1, y, w + 2, 14, Color.new(255, 255, 255, 0))
+    end
+    for i in 1..6
+      color = Color.new(color2.red*i/6, color2.green*i/6, color2.blue*i/6, alpha)
+      fill_rect(x + 2, y + i, w, 14 - i * 2, color)
+      color = Color.new(color1.red*i/6, color1.green*i/6, color1.blue*i/6, alpha)
+      fill_rect(x + 2, y + i, w * rate, 14 - i * 2, color)
+    end
+  end
+  
+  unless $Blizz_Art
+  alias draw_text_shaded_text_later draw_text
+  def draw_text(x2, y2, w2 = 0, h2 = 0, text2 = '', a2 = 0)
+    if x2.is_a?(Rect)
+      x, y, w, h, text, a = x2.x, x2.y, x2.width, x2.height, y2, w2
+    else
+      x, y, w, h, text, a = x2, y2, w2, h2, text2, a2
+    end
+    save_color = self.font.color.clone
+    self.font.color = Color.new(0, 0, 0, 255)
+    draw_text_shaded_text_later(x+1, y+1, w, h, text, a)
+    self.font.color = save_color
+    draw_text_shaded_text_later(x, y, w, h, text, a)
+  end
+  end
+
+  def draw_text_full(x2, y2, w2 = 0, h2 = 0, text2 = '', a2 = 0)
+    if x2.is_a?(Rect)
+      x, y, w, h, text, a = x2.x, x2.y, x2.width, x2.height, y2, w2
+    else
+      x, y, w, h, text, a = x2, y2, w2, h2, text2, a2
+    end
+    save_color = self.font.color.clone
+    self.font.color = Color.new(0, 0, 0, 255)
+    draw_text_shaded_text_later(x+1, y+1, w, h, text, a)
+    draw_text_shaded_text_later(x-1, y+1, w, h, text, a)
+    draw_text_shaded_text_later(x-1, y-1, w, h, text, a)
+    draw_text_shaded_text_later(x+1, y-1, w, h, text, a)
+    self.font.color = save_color
+    draw_text_shaded_text_later(x, y, w, h, text, a)
+  end
+  
+end
+
+#==============================================================================
+# Window_Base
+#==============================================================================
+
+class Window_Base < Window
+
+  def draw_actor_exp_alt(actor, x, y)
+    self.contents.font.color = system_color
+    self.contents.draw_text(x, y, 64, 32, 'next')
+    self.contents.font.color = normal_color
+    self.contents.draw_text(x + 56, y, 84, 32, actor.next_rest_exp_s, 2)
+  end
+  
+  alias draw_actor_exp_alt_blizzart_hud_later draw_actor_exp_alt
+  def draw_actor_exp_alt(actor, x, y, w = 148)
+    w -= 12
+    rate = (actor.next_exp != 0 ? actor.now_exp.to_f / actor.next_exp : 1)
+    if rate < 0.5
+      color1 = Color.new(20 * rate, 60, 80, 192)
+      color2 = Color.new(60 * rate, 180, 240, 192)
+    elsif rate >= 0.5
+      color1 = Color.new(20 + 120 * (rate-0.5), 60 + 40 * (rate-0.5), 80, 192)
+      color2 = Color.new(60 + 360 * (rate-0.5), 180 + 120 * (rate-0.5), 240, 192)
+    end
+    color3 = Color.new(80, 80, 80, 192)
+    self.contents.gradient_bar(x, y, w, color1, color2, color3, rate)
+    draw_actor_exp_alt_blizzart_hud_later(actor, x, y)
+  end
+
+  def draw_actor_hp_hud(actor, x, y, w = 148)
+    rate = (actor.maxhp > 0 ? actor.hp.to_f / actor.maxhp : 0)
+    if rate > 0.6
+      color1 = Color.new(240 - 450 * (rate-0.6), 240, 150 * (rate-0.6), 192) 
+    elsif rate > 0.2 && rate <= 0.6
+      color1 = Color.new(240, 600 * (rate-0.2), 0, 192) 
+    elsif rate <= 0.2
+      color1 = Color.new(240, 0, 0, 192)
+    end
+    color2 = Color.new(0, 80, 0, 192)
+    self.contents.gradient_bar_simple(x + 32, y, w - 48, color1, color2, rate)
+    y -= 9
+    self.contents.font.color = system_color
+    self.contents.draw_text_full(x, y, 32, 32, $data_system.words.hp)
+    hp_x = x + w - 122
+    self.contents.font.color = actor.hp == 0 ? knockout_color :
+      actor.hp <= actor.maxhp / 4 ? crisis_color : normal_color
+    self.contents.draw_text_full(hp_x, y, 48, 32, actor.hp.to_s, 2)
+    self.contents.font.color = normal_color
+    self.contents.draw_text_full(hp_x + 48, y, 12, 32, '/', 1)
+    self.contents.draw_text_full(hp_x + 60, y, 48, 32, actor.maxhp.to_s)
+    self.contents.font.color.alpha = 255
+  end
+  
+  def draw_actor_sp_hud(actor, x, y, w = 148)
+    rate = (actor.maxsp > 0 ? actor.sp.to_f / actor.maxsp : 0)
+    if rate > 0.4
+      color1 = Color.new(180 - 200 * (rate-0.4), 60, 240, 192) 
+    elsif rate <= 0.4
+      color1 = Color.new(60 + 300 * rate, 150 * rate, 80 + 400 * rate, 192) 
+    end
+    color2 = Color.new(0, 0, 80, 192) 
+    self.contents.gradient_bar_simple(x + 32, y, w - 48, color1, color2, rate)
+    y -= 9
+    self.contents.font.color = system_color
+    self.contents.draw_text_full(x, y, 32, 32, $data_system.words.sp)
+    sp_x = x + w - 122
+    self.contents.font.color = actor.sp == 0 ? knockout_color :
+      actor.sp <= actor.maxhp / 4 ? crisis_color : normal_color
+    self.contents.draw_text_full(sp_x, y, 48, 32, actor.sp.to_s, 2)
+    self.contents.font.color = normal_color
+    self.contents.draw_text_full(sp_x + 48, y, 12, 32, '/', 1)
+    self.contents.draw_text_full(sp_x + 60, y, 48, 32, actor.maxsp.to_s)
+  end
+  
+  def draw_actor_exp_hud(actor, x, y, w = 148)
+    rate = (actor.next_exp != 0 ? actor.now_exp.to_f / actor.next_exp : 1)
+    if rate < 0.5
+      color1 = Color.new(60 * rate, 180, 240, 192) 
+    elsif rate >= 0.5
+      color1 = Color.new(60 + 360 * (rate-0.5), 180 + 120 * (rate-0.5), 240, 192) 
+    end
+    color2 = Color.new(80, 80, 80, 192)
+    self.contents.gradient_bar_simple(x + 32, y, w - 48, color1, color2, rate)
+    y -= 9
+    self.contents.font.color = system_color
+    self.contents.draw_text_full(x, y, 80, 32, 'next')
+    self.contents.font.color = normal_color
+    self.contents.draw_text_full(x + 56, y, 84, 32, actor.next_rest_exp_s, 2)
+    self.contents.font.color.alpha = 255
+  end
+  
+end
+
+#============================================================================== 
+# Game_Actor 
+#============================================================================== 
+
+class Game_Actor < Game_Battler 
+  
+  def now_exp
+    return @exp - @exp_list[@level] 
+  end 
+  
+  def next_exp
+    return @exp_list[@level+1] > 0 ? @exp_list[@level+1] - @exp_list[@level] : 0 
+  end
+  
+end
+
+#==============================================================================
+# Hud
+#==============================================================================
+
+class Hud < Window_Base
+  
+  def initialize
+    super(-12, -16, 192, 112)
+    self.opacity = 0
+    unless TOP
+      self.y += 400
+      self.y -= 16 unless SIMPLE
+    end
+    self.height += 32 unless SIMPLE
+    self.z = 5000
+    refresh
+  end
+  
+  def refresh
+    self.contents.clear if self.contents != nil
+    self.width = FULL_DISPLAY ? 32 + 160 * $game_party.actors.size : 192
+    self.contents = Bitmap.new(self.width - 32, self.height - 32)
+    self.contents.font.name = 'Arial'
+    self.contents.font.size = 16
+    self.contents.font.bold = true
+    @names, @levels, @hps, @sps, @exps = [], [], [], [], []
+    for i in 0...$game_party.actors.size
+      actor = $game_party.actors[(FULL_DISPLAY ? i : $game_system.index)]
+      self.contents.font.italic = true
+      self.contents.font.size += 2
+      self.contents.font.color = system_color
+      self.contents.draw_text(i*160, -8, 152, 32, actor.name, 1)
+      self.contents.font.italic = false
+      if SIMPLE
+        self.contents.font.size -= 2
+        draw_actor_hp_hud(actor, i*160, 16, 160)
+        draw_actor_sp_hud(actor, i*160, 32, 160)
+        draw_actor_exp_hud(actor, i*160, 48, 160)
+      else
+        draw_actor_hp(actor, i*160, 8, 160)
+        draw_actor_sp(actor, i*160, 32, 160)
+        draw_actor_exp_alt(actor, i*160, 56, 160)
+        self.contents.font.size -= 2
+      end
+    end
+    text = "#{$data_system.words.gold}: #{$game_party.gold}"
+    self.contents.font.color = Color.new(255, 255, 0)
+    self.contents.draw_text(0, (SIMPLE ? 56 : 84), 152, 32, text)
+    for actor in $game_party.actors
+      @names.push(actor.name)
+      @levels.push(actor.level)
+      @hps.push(actor.hp)
+      @sps.push(actor.sp)
+      @exps.push(actor.exp)
+    end
+    @gold = $game_party.gold
+  end
+  
+  def test_changes
+    return true if $game_party.gold != @gold
+    if FULL_DISPLAY
+      for i in 0...$game_party.actors.size
+        actor = $game_party.actors[i]
+        if actor.name != @names[i] || actor.level != @levels[i] ||
+            actor.hp != @hps[i] || actor.sp != @sps[i]
+          return true
+        end
+      end
+    else
+      actor = $game_party.actors[$game_system.index]
+      if actor.name != @names[$game_system.index] ||
+          actor.level != @levels[$game_system.index] ||
+          actor.hp != @hps[$game_system.index] ||
+          actor.sp != @sps[$game_system.index]
+        return true
+      end
+    end
+    return false
+  end
+  
+end
+
+#==============================================================================
+# Scene_Map
+#==============================================================================
+
+class Scene_Map
+  
+  alias main_blizzart_hud_later main
+  def main
+    if $BlizzABS != true || BlizzABS::VERSION < 1.001
+      @hud = Hud.new if $game_system.HUD
+    end
+    main_blizzart_hud_later
+    @hud.dispose if @hud != nil
+  end
+  
+  alias upd_blizzart_hud_later update
+  def update
+    if $BlizzABS != true || BlizzABS::VERSION < 1.001
+      if $game_system.HUD
+        @hud = Hud.new if @hud == nil
+      else
+        @hud.dispose if @hud != nil
+        @hud = nil
+      end
+      if @hud != nil
+        if Input.press?(Input::Z) && Input.trigger?(Input::L)
+          $game_system.index += $game_party.actors.size - 1
+          $game_system.index %= $game_party.actors.size
+          @hud.refresh
+        elsif Input.press?(Input::Z) && Input.trigger?(Input::R)
+          $game_system.index += 1
+          $game_system.index %= $game_party.actors.size
+          @hud.refresh
+        elsif @hud.test_changes
+          @hud.refresh
+        end
+      end
+    end
+    upd_blizzart_hud_later
+  end
+  
+end
+
+#==============================================================================
+# Screen Tremble by Blizzard
+# Version: 1.0c
+# Type: Game Experience Improvement
+# Date: 22.1.2007
+# Date v1.0b: 24.1.2007
+# 
+# 
+# new in 1.0b:
+#   - improved code and better method of shaking the screen apart
+# 
+# new in 1.0c:
+#   - improved code and better method of shaking the screen apart
+# 
+# 
+# Compatibility:
+# 
+#   98% compatible with SDK v1.x. 90% compatible with SDK v2.x. WILL corrupt
+#   old savegames. Might glitch with exotic CBS-es or exotic Map modifications.
+# 
+# 
+# Explanation:
+#
+#   This add-on will add an advanced feature of screen shaking:
+#   Vertical shaking!
+# 
+# 
+# Configuration:
+# 
+#   Change TREMBLE_SWITCH to a switch ID number. Turn this switch on to enable
+#   vertical screen-shaking. You MUST have screen shaking turned on. This
+#   add-on will not work if no screen shaking is activated at all. You can't
+#   have only vertical screen shaking.
+#==============================================================================
+
+TREMBLE_SWITCH = 189
+
+#==============================================================================
+# Game_Screen
+#==============================================================================
+
+class Game_Screen
+  
+  attr_reader :tremble
+  
+  alias init_tremble_later initialize
+  def initialize
+    init_tremble_later
+    @tremble = 0
+    @tremble_power = 0
+    @tremble_direction = 1
+  end
+  
+  alias upd_tremble_later update
+  def update
+    upd_tremble_later
+    if $game_system.TREMBLE && $game_switches[TREMBLE_SWITCH] &&
+        (@shake_duration >= 1 || @tremble != 0)
+      delta = (@tremble_power * (@shake_speed + 1) * @tremble_direction) / 10.0
+      if @shake_duration <= 1 && @tremble * (@tremble + delta) < 0
+        @tremble = 0
+      else
+        @tremble += delta
+      end
+      @tremble_direction = -1 if @tremble > @tremble_power * 1.5
+      @tremble_direction = 1 if @tremble < -@tremble_power * 1.5
+      @shake_duration -= 1 if @shake_duration >= 1
+    end
+  end
+
+  alias start_tremble start_shake
+  def start_shake(power, speed, duration)
+    start_tremble(power, speed, duration)
+    @tremble_power = power * 8 / 7 if $game_switches[TREMBLE_SWITCH]
+  end
+  
+end
+
+#==============================================================================
+# Spriteset_Map
+#==============================================================================
+
+class Spriteset_Map
+  
+  alias upd_tremble_later update
+  def update
+    @viewport1.oy = ($game_switches[TREMBLE_SWITCH] ? $game_screen.tremble : 0)
+    upd_tremble_later
+  end
+
+end
+
+#==============================================================================
+# Spriteset_Battle
+#==============================================================================
+
+class Spriteset_Battle
+  
+  alias upd_tremble_later update
+  def update
+    @viewport1.oy = ($game_switches[TREMBLE_SWITCH] ? $game_screen.tremble : 0)
+    upd_tremble_later
+  end
+
+end
+
+#==============================================================================
+# Animation Stack by Blizzard
+# Version: 1.0
+# Type: Battle Graphic Improvement
+# Date: 1.2.2007
+# 
+# This add-on will make the display of all status effect animations possible.
+# 
+# LOOPS - set this value to the number of how many time an animation should
+#         loop before the next one is being displayed
+#==============================================================================
+
+LOOPS = 3
+
+#==============================================================================
+# Game_Battler
+#==============================================================================
+
+class Game_Battler
+  
+  alias init_anima_stack_later initialize
+  def initialize
+    init_anima_stack_later
+    @anima_count = 0
+    @anima_index = 0
+  end
+  
+  alias state_animation_id_anima_stack_later state_animation_id
+  def state_animation_id
+    if $game_system.ANIMATION_STACK
+      if @states.size == 0
+        @anima_count = @anima_index = 0
+        return 0
+      end
+      size = 0
+      loop do
+        @anima_index %= @states.size
+        state = $data_states[@states[@anima_index]]
+        break unless $data_animations[state.animation_id] == nil
+        @anima_index += 1
+        size += 1
+        return 0 if size == @states.size
+      end
+      state = $data_states[@states[@anima_index]]
+      if @anima_count > 2*LOOPS*$data_animations[state.animation_id].frame_max
+        @anima_count = 0
+        @anima_index += 1
+      else
+        @anima_count += 1
+      end
+      return state.animation_id
+    end
+    return state_animation_id_anima_stack_later
+  end
+  
+end
+
+#==============================================================================
+# Simple Facesets by Blizzard
+# Version: 1.01b
+# Type: Menu Graphic Alteration
+# Date: 18.2.2007
+# 
+# 
+# Explanation:
+# 
+#   This litte add-on will change the spritesets in the main menu to facesets
+#   or any other pictures you might be using. Name the pictures exactly like
+#   the spritesets and add _face to their name. Put them into the "Characters"
+#   folder. Size is not fixed, the script will put it into the correct place,
+#   it's up to you to find the right size.
+# 
+# Note:
+# 
+#   This might not be compatible with exotic CMS-es.
+#==============================================================================
+
+FACE_HUE = false # set it to true to apply the same hue as the spriteset
+
+#==============================================================================
+# Window_Base
+#==============================================================================
+
+class Window_Base < Window
+  
+  alias draw_actor_graphic_faces_later draw_actor_graphic
+  def draw_actor_graphic(actor, x, y)
+    if $game_system.FACESETS && self.is_a?(Window_MenuStatus)
+      if actor != nil && actor.character_name != ''
+        draw_actor_face(actor, x, y)
+      end
+    else
+      draw_actor_graphic_faces_later(actor, x, y)
+    end
+  end
+  
+  def draw_actor_face(actor, x, y)
+    hue = (FACE_HUE ? actor.character_hue : 0)
+    bitmap = RPG::Cache.character("#{actor.character_name}_face", hue)
+    src_rect = Rect.new(0, 0, bitmap.width, bitmap.height)
+    self.contents.blt(x-bitmap.width/2, y-bitmap.height/2, bitmap, src_rect)
+  end
+
+end
+
+#==============================================================================
+# Caterpillar by Blizzard
+# Version: 2.0b
+# Type: Game Experience Improvement
+# Date: 7.3.2007
+# Date v1.01b: 7.3.2007
+# Date v2.0: 7.8.2007
+# Date v2.0b: 8.8.2007
+# 
+# 
+# new in 1.01b:
+#   - now events can't go through your party members anymore
+# 
+# new in 2.0:
+#   - completely overworked and improved
+# 
+# new in 2.0b:
+#   - improved coding and made it work more convenient
+#   - fixed a few glitches
+#   - added DEAD_DISPLAY option
+# 
+# 
+# Compatibility:
+# 
+#   93% compatible with SDK v1.x. 60% compatible with SDK v2.x. You might
+#   experience problems with pixel movement scripts or map graphic manipulating
+#   scripts. Blizz-ABS disables this add-on automatically and uses the
+#   Blizz-ABS Caterpillar system.
+# 
+# 
+# Features:
+# 
+#   - your party members follow you on the map
+#   - less code than other caterpillar scripts
+#   - use $game_player.update_buffer('reset') if you need all party members to
+#     gather around the player
+#==============================================================================
+
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+# START Configuration
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+# max number of party members
+MAX_PARTY = 4
+# actor IDs where the actor is animated even when not walking
+ANIMATED_IDS = []
+# 0 - shows all characters; 1 - shows "ghosts"; 2 - removes from caterpillar
+DEAD_DISPLAY = 0
+
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+# END Configuration
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+#==============================================================================
+# Game_Character
+#==============================================================================
+    
+class Game_Character
+  
+  alias passable_caterpillar_later? passable?
+  def passable?(x, y, d)
+    result = passable_caterpillar_later?(x, y, d)
+    return result if $BlizzABS && BlizzABS::VERSION >= 1.001
+    return result if self.is_a?(Game_Player) || self.is_a?(Game_Member)
+    new_x = x + (d == 6 ? 1 : d == 4 ? -1 : 0)
+    new_y = y + (d == 2 ? 1 : d == 8 ? -1 : 0)
+    for member in $game_player.members
+      if member.character_name != '' && member.x == new_x && member.y == new_y
+        return false
+      end
+    end
+    return result 
+  end
+  
+end
+
+#==============================================================================
+# Game_Player
+#==============================================================================
+    
+class Game_Player < Game_Character
+  
+  attr_reader :members
+  attr_reader :move_speed
+  
+  alias init_caterpillar_later initialize
+  def initialize
+    init_caterpillar_later
+    @members = []
+    1.upto(MAX_PARTY-1) {|i| @members.push(Game_Member.new(i))}
+  end
+  
+  alias upd_caterpillar_later update
+  def update
+    upd_caterpillar_later
+    refresh if DEAD_DISPLAY > 0
+    @members.each {|member| member.update}
+    @step_anime = (ANIMATED_IDS.include?(actor.id))
+  end
+  
+  alias straighten_caterpillar_later straighten
+  def straighten
+    straighten_caterpillar_later
+    @members.each {|member| member.straighten}
+  end
+  
+  alias refresh_caterpillar refresh
+  def refresh
+    act = $game_party.actors[0]
+    $game_party.actors[0] = actor
+    refresh_caterpillar
+    $game_party.actors[0] = act
+    if actor.dead? && DEAD_DISPLAY == 1
+      @opacity = Graphics.frame_count % 2 * 255
+      @blend_type = 1
+    end
+  end
+  
+  def actor
+    if DEAD_DISPLAY > 0
+      for actor in $game_party.actors
+        return actor unless actor.dead?
+      end
+    end
+    return $game_party.actors[0]
+  end
+  
+  def update_buffer(next_move)
+    if next_move == nil
+      @members.each {|member| member.buffer = []}
+    else 
+      @members.each {|member| member.update_buffer(
+          next_move == 'reset' ? nil : next_move)}
+    end
+  end
+  
+  alias move_down_caterpillar_later move_down
+  def move_down(turn_enabled = true)
+    update_buffer(2) if passable?(@x, @y, 2)
+    move_down_caterpillar_later
+  end
+  
+  alias move_left_caterpillar_later move_left
+  def move_left(turn_enabled = true)
+    update_buffer(4) if passable?(@x, @y, 4)
+    move_left_caterpillar_later
+  end
+  
+  alias move_right_caterpillar_later move_right
+  def move_right(turn_enabled = true)
+    update_buffer(6) if passable?(@x, @y, 6)
+    move_right_caterpillar_later
+  end
+  
+  alias move_up_caterpillar_later move_up
+  def move_up(turn_enabled = true)
+    update_buffer(8) if passable?(@x, @y, 8)
+    move_up_caterpillar_later
+  end
+  
+  alias move_lower_left_caterpillar_later move_lower_left
+  def move_lower_left
+    if passable?(@x, @y, 2) && passable?(@x, @y + 1, 4) ||
+       passable?(@x, @y, 4) && passable?(@x - 1, @y, 2)
+      update_buffer(1)
+    end
+    move_lower_left_caterpillar_later
+  end
+  
+  alias move_lower_right_caterpillar_later move_lower_right
+  def move_lower_right
+    if passable?(@x, @y, 2) && passable?(@x, @y + 1, 6) ||
+       passable?(@x, @y, 6) && passable?(@x + 1, @y, 2)
+      update_buffer(3)
+    end
+    move_lower_right_caterpillar_later
+  end
+  
+  alias move_upper_left_caterpillar_later move_upper_left
+  def move_upper_left
+    if passable?(@x, @y, 8) && passable?(@x, @y - 1, 4) ||
+       passable?(@x, @y, 4) && passable?(@x - 1, @y, 8)
+      update_buffer(7)
+    end
+    move_upper_left_caterpillar_later
+  end
+  
+  alias move_upper_right_caterpillar_later move_upper_right
+  def move_upper_right
+    if passable?(@x, @y, 8) && passable?(@x, @y - 1, 6) ||
+       passable?(@x, @y, 6) && passable?(@x + 1, @y, 8)
+      update_buffer(9)
+    end
+    move_upper_right_caterpillar_later
+  end
+  
+  alias jump_caterpillar_later jump
+  def jump(x_plus, y_plus)
+    if (x_plus != 0 || y_plus != 0) && passable?(@x + x_plus, @y + y_plus, 0)
+      update_buffer([x_plus, y_plus])
+    end
+    jump_caterpillar_later(x_plus, y_plus)
+  end
+  
+  alias moveto_caterpillar moveto
+  def moveto(x, y)
+    update_buffer(nil)
+    moveto_caterpillar(x, y)
+    for member in @members
+      member.moveto(x, y)
+      case @direction
+      when 2 then member.turn_down
+      when 4 then member.turn_left
+      when 6 then member.turn_right
+      when 8 then member.turn_up
+      end
+    end
+  end
+  
+end
+  
+#==============================================================================
+# Game_Member
+#==============================================================================
+
+class Game_Member < Game_Character
+  
+  attr_accessor :buffer
+  
+  def initialize(index)
+    super()
+    @index = index
+    @force_movement = 0
+    @buffer = []
+    @through = true
+  end
+  
+  def refresh
+    unless $game_system.CATERPILLAR && actor != nil
+      @character_name = ''
+      @character_hue = 0
+      return
+    end
+    @character_name = actor.character_name
+    @character_hue = actor.character_hue
+    if actor.dead? && DEAD_DISPLAY == 1
+      @opacity = Graphics.frame_count % 2 * 255
+      @blend_type = 1
+    else
+      @opacity = 255
+      @blend_type = 0
+    end
+  end
+  
+  def actor
+    case DEAD_DISPLAY
+    when 0
+      return $game_party.actors[@index]
+    when 1
+      alive = 0
+      $game_party.actors.each {|actor| alive += 1 unless actor.dead?}
+      if @index >= alive
+        ind = @index - alive
+        for i in 0...$game_party.actors.size
+          ind -= 1 if $game_party.actors[i].dead?
+          return $game_party.actors[i] if ind < 0
+        end
+      else
+        ind = @index
+        for i in 0...$game_party.actors.size
+          ind -= 1 unless $game_party.actors[i].dead?
+          return $game_party.actors[i] if ind < 0
+        end
+      end
+      return nil
+    when 2
+      ind = @index
+      for i in 0...$game_party.actors.size
+        ind -= 1 unless $game_party.actors[i].dead?
+        return $game_party.actors[i] if ind < 0
+      end
+    end
+    return nil
+  end
+  
+  def update
+    refresh
+    @transparent = $game_player.transparent
+    @move_speed = $game_player.move_speed
+    unless moving? || @buffer.size <= @index && @force_movement <= 0
+      if @buffer.size > 0
+        move = @buffer.shift
+        if move.is_a?(Array)
+          jump(move[0], move[1])
+        else
+          case move
+          when 1 then move_lower_left
+          when 2 then move_down(true)
+          when 3 then move_lower_right
+          when 4 then move_left(true)
+          when 6 then move_right(true)
+          when 7 then move_upper_left
+          when 8 then move_up(true)
+          when 9 then move_upper_right
+          end
+        end
+        @force_movement -= 1 if @force_movement > 0
+      end
+    end
+    super
+    @step_anime = (ANIMATED_IDS.include?($game_party.actors[@index].id))
+  end
+  
+  def update_buffer(next_move)
+    if next_move == nil
+      @force_movement = @buffer.size
+    else
+      @buffer.push(next_move)
+      @force_movement = @buffer.size if next_move.is_a?(Array)
+    end
+  end
+  
+  def check_event_trigger_touch(x, y) # don't remove this, it's necessary...
+  end
+  
+  def screen_z(height = 0)
+    return (super - @index)
+  end
+  
+end
+
+#==============================================================================
+# Spriteset_Map
+#==============================================================================
+
+class Spriteset_Map
+  
+  alias init_caterpillar_later initialize
+  def initialize
+    init_caterpillar_later
+    return if $BlizzABS && BlizzABS::VERSION >= 1.001
+    for member in $game_player.members
+      sprite = Sprite_Character.new(@viewport1, member)
+      sprite.update
+      @character_sprites.push(sprite)
+    end
+  end
+  
+end
+
+#==============================================================================
+# Scene_Map
+#==============================================================================
+
+class Scene_Map
+  
+  alias transfer_player_caterpillar_later transfer_player
+  def transfer_player
+    transfer_player_caterpillar_later
+    return if $BlizzABS
+    case $game_temp.player_new_direction
+    when 2 then $game_player.members.each {|member| member.turn_down}
+    when 4 then $game_player.members.each {|member| member.turn_left}
+    when 6 then $game_player.members.each {|member| member.turn_right}
+    when 8 then $game_player.members.each {|member| member.turn_up}
+    end
+  end
+  
+end
+
+#==============================================================================
+# Arrow over Player by Blizzard
+# Version: 1.01b
+# Type: Game Playability Improvement
+# Date: 7.3.2007
+# Date v1.01b: 30.7.2007
+# 
+# 
+# new in 1.01b:
+#   - shows arrow if tile has higher priority AND isn't completely transparent
+#   - slightly faster arrow drawing due to half-optimized code
+# 
+# Explanation:
+# 
+#   This add-on will show an arrow over the player's head if he's behind a tile
+#   with a higher priority that isn't completely transparent.
+#==============================================================================
+
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+# START Configuration
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+INNER_COLOR = Color.new(0, 0, 0, 128)
+OUTER_COLOR = Color.new(255, 255, 255, 192)
+
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+# END Configuration
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+#==============================================================================
+# Spriteset_Map
+#==============================================================================
+
+class Spriteset_Map
+  
+  alias init_arrow_over_player_later initialize
+  def initialize
+    if $game_system.ARROW_OVER_PLAYER
+      @arrow = Sprite.new
+      @arrow.bitmap = Bitmap.new(16, 9)
+      @arrow.bitmap.fill_rect(1, 0, 14, 1, OUTER_COLOR)
+      @arrow.bitmap.set_pixel(0, 1, OUTER_COLOR)
+      @arrow.bitmap.fill_rect(1, 1, 7, 1, INNER_COLOR)
+      @arrow.bitmap.fill_rect(8, 1, 7, 1, INNER_COLOR)
+      @arrow.bitmap.set_pixel(15, 1, OUTER_COLOR)
+      @arrow.bitmap.set_pixel(1, 2, OUTER_COLOR)
+      @arrow.bitmap.fill_rect(2, 2, 6, 1, INNER_COLOR)
+      @arrow.bitmap.fill_rect(8, 2, 6, 1, INNER_COLOR)
+      @arrow.bitmap.set_pixel(14, 2, OUTER_COLOR)
+      @arrow.bitmap.set_pixel(2, 3, OUTER_COLOR)
+      @arrow.bitmap.fill_rect(3, 3, 5, 1, INNER_COLOR)
+      @arrow.bitmap.fill_rect(8, 3, 5, 1, INNER_COLOR)
+      @arrow.bitmap.set_pixel(13, 3, OUTER_COLOR)
+      @arrow.bitmap.set_pixel(3, 4, OUTER_COLOR)
+      @arrow.bitmap.fill_rect(4, 4, 4, 1, INNER_COLOR)
+      @arrow.bitmap.fill_rect(8, 4, 4, 1, INNER_COLOR)
+      @arrow.bitmap.set_pixel(12, 4, OUTER_COLOR)
+      @arrow.bitmap.set_pixel(4, 5, OUTER_COLOR)
+      @arrow.bitmap.fill_rect(5, 5, 3, 1, INNER_COLOR)
+      @arrow.bitmap.fill_rect(8, 5, 3, 1, INNER_COLOR)
+      @arrow.bitmap.set_pixel(11, 5, OUTER_COLOR)
+      @arrow.bitmap.set_pixel(5, 6, OUTER_COLOR)
+      @arrow.bitmap.fill_rect(6, 6, 2, 1, INNER_COLOR)
+      @arrow.bitmap.fill_rect(8, 6, 2, 1, INNER_COLOR)
+      @arrow.bitmap.set_pixel(10, 6, OUTER_COLOR)
+      @arrow.bitmap.set_pixel(6, 7, OUTER_COLOR)
+      @arrow.bitmap.set_pixel(7, 7, INNER_COLOR)
+      @arrow.bitmap.set_pixel(8, 7, INNER_COLOR)
+      @arrow.bitmap.set_pixel(9, 7, OUTER_COLOR)
+      @arrow.bitmap.fill_rect(7, 8, 2, 1, OUTER_COLOR)
+      @arrow.visible = false
+      @arrow.z = 5000
+      @arrow.ox = 8
+      @arrow_mode = true
+    end
+    init_arrow_over_player_later
+  end
+  
+  alias upd_arrow_over_player_later update
+  def update
+    upd_arrow_over_player_later
+    if $game_system.ARROW_OVER_PLAYER
+      @arrow.x = $game_player.screen_x
+      @arrow.y = $game_player.screen_y - 56
+      @arrow.visible = false
+      for n in 0..2
+        tile_id = $game_map.data[$game_player.x, $game_player.y-1, n]
+        if tile_id != nil && tile_id != 0 && $game_map.priorities[tile_id] > 1
+          tile = RPG::Cache.tile($game_map.tileset_name, tile_id, 0)
+          if tile_id < 384
+            @arrow.visible = true
+          else
+            for i in 0...32
+              for j in 0...32
+                unless tile.get_pixel(i, j).alpha == 0
+                  @arrow.visible = true
+                  break
+                end
+              end
+            end
+          end
+        end
+      end
+      if @arrow_mode
+        @arrow.oy += 1
+        @arrow_mode = (@arrow.oy < 4)
+      else
+        @arrow.oy -= 1
+        @arrow_mode = (@arrow.oy <= -4)
+      end
+    end
+  end
+  
+  alias disp_arrow_over_player_later dispose
+  def dispose
+    disp_arrow_over_player_later
+    @arrow.dispose if $game_system.ARROW_OVER_PLAYER
+  end
+  
+end
+
+#==============================================================================
+# Animated Battle Background by Blizzard
+# Version: 1.1b
+# Type: Game Graphic Design Improvement
+# Date: 12.3.2007
+# Date v1.1b: 12.8.2007
+# 
+# new in 1.1b
+#   - shorter code, increased performance and increased compatiblity
+# 
+# 
+# Explanation:
+# 
+#   This will animate battle backgrounds. To animate them, you MUST HAVE the
+#   appropriate picture files. You can name them however you like, but you need
+#   to give them numbers. Every other frame than the first has to have a number
+#   higher than the one before. If one number is skipped, the animation will
+#   loop until it reaches the highest number available before the skipped
+#   number.
+# 
+# Examples:
+# 
+#   1)
+#   Temple.png
+#   Temple1.png
+#   Temple2.png
+#   Temple3.png
+#   - all frames will be shown
+# 
+#   2)
+#   Temple.png
+#   Temple1.png
+#   Temple3.png
+#   Temple4.png
+#   - only the 1st and 2nd frame will be shown
+# 
+#   3)
+#   Temple.png
+#   Temple3.png
+#   Temple4.png
+#   Temple5.png
+#   - no animation at all
+#==============================================================================
+
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+# START Configuration
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+# how many REAL frames that should be skipped before updating the background,
+# note that using anything below 8 is not recommended and that using low values
+# can increase lag dramatically
+SPEED = 8
+
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+# END Configuration
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+#==============================================================================
+# Spriteset_Battle
+#==============================================================================
+
+class Spriteset_Battle
+  
+  alias init_animated_battle_background_later initialize
+  def initialize
+    if $game_system.ANIMATED_BATTLE_BACKGROUND &&
+        !$game_system.MAP_AS_BATTLEBACK
+      setup_battleback
+    end
+    init_animated_battle_background_later
+  end
+  
+  alias upd_animated_battle_background_later update
+  def update
+    if $game_system.ANIMATED_BATTLE_BACKGROUND &&
+        !$game_system.MAP_AS_BATTLEBACK
+      setup_battleback if @origin_name != $game_temp.battleback_name
+      @frame = (@frame + 1) % @max_frame if Graphics.frame_count % SPEED == 0
+      $game_temp.battleback_name = @origin_name + (@frame > 0 ? @frame.to_s : '')
+      upd_animated_battle_background_later
+      $game_temp.battleback_name = @origin_name
+    else
+      upd_animated_battle_background_later
+    end
+  end
+  
+  def setup_battleback
+    @origin_name = $game_temp.battleback_name
+    @frame = 0
+    @max_frame = 1
+    loop do
+      name = @origin_name + @max_frame.to_s
+      if FileTest.exist?("Graphics/Battlebacks/#{name}.jpg") ||
+         FileTest.exist?("Graphics/Battlebacks/#{name}.png")
+        @max_frame += 1
+      else
+        break
+      end
+    end
+  end
+
+end
+
+#==============================================================================
+# Map as Battleback by Blizzard
+# Version: 1.5b
+# Type: Game Design Alteration
+# Date: 11.3.2007
+# Date v1.5b: 12.8.2007
+# 
+# 
+# new in 1.5b:
+#   - shortened code and increased performance
+# 
+# Explanation:
+# 
+#   This will make the map to be the battle background. Note that this add-on
+#   will automatically turn off Animated Battle Backgrounds.
+#==============================================================================
+
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+# START Configuration
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+# include any class definitions which you don't want to see on the background
+REMOVE_CLASSES = [Game_Player, Game_Member]
+
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+# END Configuration
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+#==============================================================================
+# Spriteset_Map
+#==============================================================================
+
+class Spriteset_Map
+
+  def delete_characters
+    for i in 0...@character_sprites.size
+      if REMOVE_CLASSES.include?(@character_sprites[i].character.class)
+        @character_sprites[i].dispose
+        @character_sprites[i] = nil
+      end
+    end
+    @character_sprites.compact!
+  end
+  
+end
+
+#==============================================================================
+# Spriteset_Battle
+#==============================================================================
+
+class Spriteset_Battle
+  
+  alias init_map_as_battleback_later initialize
+  def initialize
+    if $game_system.MAP_AS_BATTLEBACK
+      @map_battleback = Spriteset_Map.new
+      @map_battleback.delete_characters if REMOVE_CLASSES.size > 0
+      init_map_as_battleback_later
+      @battleback_sprite.dispose
+      @battleback_sprite = nil
+    else
+      init_map_as_battleback_later
+    end
+  end
+  
+  alias disp_map_as_battleback_later dispose
+  def dispose
+    @battleback_sprite = Sprite.new if @battleback_sprite == nil
+    @map_battleback.dispose if @map_battleback != nil
+    disp_map_as_battleback_later
+  end
+  
+end
+
+#==============================================================================
+# Facesets for Default Status Screen (DSS) by Zan
+# Version: 1.01
+# Type: Menu Layout Alteration
+# Date: 2.4.2007
+# 
+# This works just like Simple Facesets, except it applies to the status screen.
+# In case you didn't look at that section, here are the incredibly complicated
+# rules:
+# Ready?
+# You have to have pictures in your "Characters" folder for each of your
+# characters. The pictures have to have the same name as the character's
+# spriteset, with "_face" added on. That's it.
+# 
+# Note:
+# This script is currently set for *my* pictures, which are 108x108 pixels. To
+# change it around for different-sized pictures, change the value of FACE_X and
+# FACE_Y in the Config settings.
+# 
+# Another note:
+# Not compatible with any CMS that changes drastically the status scene or does
+# not use the default status window.
+#==============================================================================
+ 
+#==============================================================================
+# Config
+#==============================================================================
+
+FACE_X = 15 # set the x coordinate offset (higher value -> righter position)
+FACE_Y = -30 # set the y coordinate offset (higher value -> lower position)
+ 
+FACE_HUE = false # set it to true to apply the same hue as the spriteset
+ 
+#==============================================================================
+# Window_Base
+#==============================================================================
+ 
+class Window_Status < Window_Base
+  
+  alias draw_actor_graphic_faces_when draw_actor_graphic
+  def draw_actor_graphic(actor, x, y)
+    if $game_system.FACESETS_DSS && self.is_a?(Window_Status)
+      if actor != nil && actor.character_name != ''
+        draw_actor_face(actor, x, y)
+      end
+    else
+      draw_actor_graphic_faces_when(actor, x, y)
+    end
+  end
+  
+  def draw_actor_face(actor, x, y)
+    hue = (FACE_HUE ? actor.character_hue : 0)
+    bitmap = RPG::Cache.character("#{actor.character_name}_face", hue)
+    src_rect = Rect.new(0, 0, bitmap.width, bitmap.height)
+    self.contents.blt((x-bitmap.width/2)+FACE_X, (y-bitmap.height/2)+FACE_Y,
+        bitmap, src_rect)
+  end
+ 
+end
+
+#==============================================================================
+# Status Effects as Icons by Blizzard
+# Version: 1.0
+# Type: Game Design Improvement
+# Date: 30.4.2007
+# 
+# 
+#   This add-on will modify your game so no status text is displayed, but icons
+#   instead. Note that you need to use default icon size of 24x24. Import the
+#   icons into the default icon folder and name them like the status effects
+#   with "stat_" before and type everything in lowcase.
+#   In SPECIAL_EFFECTS include all the IDs from status effects that will
+#   override the usual icon display and force the display of their name in the
+#   default way of displaying.
+# 
+# Example:
+# 
+#   status effect name: "Painful Distortion"
+#   icon file name:     "stat_painful distortion.png"
+#==============================================================================
+ 
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+# START Configuration
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+SPECIAL_EFFECTS = []
+
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+# END Configuration
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+ 
+#==============================================================================
+# Window_Base
+#==============================================================================
+ 
+class Window_Base < Window
+  
+  alias draw_actor_state_icons_later draw_actor_state
+  def draw_actor_state(actor, x, y, width = 120)
+    if $game_system.STATUS_ICONS
+      if actor != nil
+        for state in actor.states
+          if SPECIAL_EFFECTS.include?(state)
+            text = "[#{$data_states[state].name}]"
+            self.contents.font.color = actor.dead? ? knockout_color : normal_color
+            self.contents.draw_text(x, y, width, 32, text)
+            return
+          end
+        end
+        for i in 0...actor.states.size
+          w = i * 28
+          break if w > width
+          icon = RPG::Cache.icon("stat_#{$data_states[actor.states[i]].name.downcase}")
+          self.contents.blt(x + 2 + w, y + 4, icon, Rect.new(0, 0, 24, 24))
+        end
+      end
+    else
+      draw_actor_state_icons_later(actor, x, y, width)
+    end
+  end
+  
+end
+
+#==============================================================================
+# Window_Help
+#==============================================================================
+ 
+class Window_Help < Window_Base
+  
+  alias set_enemy_state_icons_later set_enemy
+  def set_enemy(enemy)
+    if !$game_system.STATUS_ICONS || $game_system.ENEMY_STATUS
+      set_enemy_state_icons_later(enemy)
+      return
+    end
+    text = enemy.name
+    if enemy.states.size > 0
+      w = self.contents.text_size(text).width
+      if enemy.states.size * 28 + w > self.contents.width
+        width = self.contents.width/self.contents.text_size(' ').width
+      else
+        width = enemy.states.size*28/self.contents.text_size(' ').width
+      end
+      for i in 0...width
+        text += " "
+      end
+      if @text != text || @align != 1
+        for state in enemy.states
+          if SPECIAL_EFFECTS.include?(state)
+            text = "#{enemy.name}  [#{$data_states[state].name}]"
+            set_text(text, 1)
+            return
+          end
+        end
+        set_text(text, 1)
+        x = self.contents.width/2 - w/2
+        for i in 0...enemy.states.size
+          w = i * 28
+          break if x + 2 + w > self.contents.width
+          icon = RPG::Cache.icon("stat_#{$data_states[enemy.states[i]].name.downcase}")
+          self.contents.blt(x + 2 + w, 4, icon, Rect.new(0, 0, 24, 24))
+        end
+      end
+    else
+      set_text(text, 1)
+    end
+  end
+
+end
+
+#==============================================================================
+# Animated Battlers for Non-Action BS by Blizzard
+# Version: 1.3b
+# Type: Battle Graphic Improvement
+# Date: 5.5.2007
+# Date v1.3b: 13.8.2007
+# 
+# 
+# new in 1.3b:
+#   - fixed the flicking glitch that appeared when a battler was dying
+#   - improved coding, now executed over Sprite_Battler instead of
+#     Spriteset_Battle and due to that increased compatibility and shorter code
+# 
+# 
+# Compatibility:
+# 
+#   95% compatible with SDK v1.x. 70% compatible with SDK v2.x. Not compatible
+#   exotic action CBS-es that need special battler animation.
+# 
+# 
+# Explanation:
+# 
+#   This will animate battlers in the default battle system. To animate them,
+#   you MUST HAVE the appropriate picture files. You can name them however you
+#   like, but you need to give them numbers. Every other frame than the first
+#   has to have a number higher than the one before. If one number is skipped,
+#   the animation will loop until it reaches the highest number available
+#   before the skipped number. Not that this works for actors AND for enemies.
+# 
+# Examples:
+# 
+#   1)
+#   Arshes.png
+#   Arshes1.png
+#   Arshes2.png
+#   Arshes3.png
+#   - all frames will be shown
+# 
+#   2)
+#   Arshes.png
+#   Arshes1.png
+#   Arshes3.png
+#   Arshes4.png
+#   - only the 1st and 2nd frame will be shown
+# 
+#   3)
+#   Arshes.png
+#   Arshes3.png
+#   Arshes4.png
+#   Arshes5.png
+#   - no animation at all
+#==============================================================================
+
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+# START Configuration
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+# how many REAL frames that should be skipped before updating the battlers,
+# note that using anything below 2 is not recommended and that using low values
+# can increase lag dramatically
+B_SPEED = 4
+
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+# END Configuration
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+#==============================================================================
+# Game_Battler
+#==============================================================================
+
+class Game_Battler
+  
+  attr_accessor :frame
+  attr_accessor :max_frame
+  attr_accessor :origin_name
+  attr_accessor :battler_name
+  
+end
+
+#==============================================================================
+# Sprite_Battler
+#==============================================================================
+
+class Sprite_Battler < RPG::Sprite
+  
+  alias upd_animated_battlers_dbs_later update
+  def update
+    if $game_system.ANIMATED_BATTLERS_NON_ACTION_BS && @battler != nil
+      setup_battler if @battler.origin_name != @battler.battler_name
+      if Graphics.frame_count % B_SPEED == 0
+        @battler.frame = (@battler.frame + 1) % @battler.max_frame
+      end
+      if @frame != @battler.frame
+        @frame = @battler.frame
+        name = @battler.origin_name
+        name += @frame.to_s if @frame > 0
+        self.bitmap = RPG::Cache.battler(name, @battler.battler_hue)
+        @width = bitmap.width
+        @height = bitmap.height
+        self.ox = @width / 2
+        self.oy = @height
+      end
+    end
+    upd_animated_battlers_dbs_later
+  end
+  
+  def setup_battler
+    @battler.origin_name = @battler.battler_name
+    @battler.frame = @frame = 0
+    @battler.max_frame = 1
+    loop do
+      name = @battler.origin_name + @battler.max_frame.to_s
+      if FileTest.exist?("Graphics/Battlers/#{name}.jpg") ||
+         FileTest.exist?("Graphics/Battlers/#{name}.png")
+        @battler.max_frame += 1
+      else
+        break
+      end
+    end
+  end
+  
+end
+
+#:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::#
+#                                                                             #
+#                   #   # #####  #  #      #  ##### #   #                     #
+#                   #   #   #    #  #      #    #    # #                      #
+#                   #   #   #    #  #      #    #     #                       #
+#                   #   #   #    #  #      #    #     #                       #
+#                    ###    #    #  #####  #    #     #                       #
+#                                                                             #
+#:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::#
+
+#==============================================================================
+# FPS Modulator by Blizzard
+# Version: 1.0b
+# Type: Debug Utility
+# Date: 12.2.2006
+# 
+#   Holding SHIFT and pressing Q/W will allow you to speed up the game like in
+#   an emulator up to 3 times (sorry, RMXP doesn't allow more). Remove the
+#   triple commented lines (###) to allow this feature even in the normal game,
+#   not only the Debug mode.
+#==============================================================================
+
+#==============================================================================
+# Scene_Map
+#==============================================================================
+
+class Scene_Map
+  
+  alias update_fps_later update
+  def update
+    if $game_system.FPS_MODULATOR
+      if $DEBUG ### 
+        if Input.press?(Input::A) && Input.press?(Input::R)
+          Graphics.frame_rate += 40
+          return
+        elsif Input.press?(Input::A) && Input.trigger?(Input::L)
+          Graphics.frame_rate -= 40 unless Graphics.frame_rate == 40
+          return
+        end
+      end ###
+    end
+    update_fps_later
+  end
+
+end
+
+#==============================================================================
+# Speed Modulator by Blizzard
+# Version: 1.01b
+# Type: Debug Utility
+# Date: 12.2.2006
+# Date v1.01: 12.1.2007
+# 
+#   Pressing Q/W will allow you to speed up the main character. Pressing SHIFT
+#   will reset his speed immediately. Remove the triple commented lines (###)
+#   to allow this feature even in the normal game, not only the Debug mode.
+#==============================================================================
+
+#==============================================================================
+# Game_Player
+#==============================================================================
+
+class Game_Player
+  
+  alias upd_speed_later update
+  def update
+    if $game_system.SPEED_MODULATOR
+      if $DEBUG ###
+        if Input.trigger?(Input::A)
+          @move_speed = 4
+          return
+        elsif !Input.press?(Input::A) && !Input.press?(Input::X) &&
+            Input.trigger?(Input::R)
+          @move_speed += 1 unless @move_speed == 6
+          return
+        elsif !Input.press?(Input::A) && !Input.press?(Input::X) &&
+            Input.trigger?(Input::L)
+          @move_speed -= 1 unless @move_speed == 1
+          return
+        end
+      end ###
+    end
+    upd_speed_later
+  end
+  
+end
+
+#==============================================================================
+# FullScreen? by Blizzard
+# Version: 1.22b
+# Type: Game Experience Improvement
+# Date: 14.11.2006
+# Date v1.22b: 8.7.2006
+# 
+# new in v1.21b:
+#   - better code, easier to use
+# 
+# new in v1.22b:
+#   - fixes a conflict with SDK v2.2
+#==============================================================================
+
+#==============================================================================
+# Window_Command
+#==============================================================================
+
+class Window_FullScreen < Window_Selectable
+
+  def initialize(width, commands)
+    super(0, 0, width, commands.size * 32 + 64)
+    @item_max = commands.size
+    @commands = commands
+    self.contents = Bitmap.new(width - 32, @item_max * 32 + 32)
+    if $fontface != nil
+      self.contents.font.name = $fontface
+      self.contents.font.size = $fontsize
+    elsif $defaultfonttype != nil
+      self.contents.font.name = $defaultfonttype
+      self.contents.font.size = $defaultfontsize
+    end
+    refresh
+    self.index = 0
+  end
+
+  def refresh
+    self.contents.clear
+    qu = 'Switch to fullscreen?'
+    self.contents.draw_text(0, 0, width - 32, 32, qu, 1)
+    for i in 0...@item_max
+      draw_item(i, normal_color)
+    end
+  end
+
+  def draw_item(index, color)
+    rect = Rect.new(4, 32+32 * index, self.contents.width - 8, 32)
+    rect2 = Rect.new(4+1, 32+32 * index+1, self.contents.width - 8, 32)
+    self.contents.fill_rect(rect, Color.new(0, 0, 0, 0))
+    self.contents.font.color = color
+    self.contents.draw_text(rect, @commands[index], 1)
+  end
+  
+  def update_cursor_rect
+    if @index < 0
+      self.cursor_rect.empty
+      return
+    end
+    row = @index / @column_max
+    self.top_row = row if row < self.top_row
+    if row > self.top_row + (self.page_row_max - 1)
+      self.top_row = row - (self.page_row_max - 1)
+    end
+    cursor_width = 64
+    x = (self.contents.width - cursor_width) / 2
+    y = @index / @column_max * 32 - self.oy
+    self.cursor_rect.set(x, y + 32, cursor_width, 32)
+  end
+
+end
+  
+#==============================================================================
+# Scene_Title
+#==============================================================================
+
+class Scene_Title
+  
+  alias main_fullscreen? main
+  def main
+    if TONS_OF_ADDONS::FULLSCREEN
+      unless $game_started 
+        Graphics.freeze
+        $data_system = load_data('Data/System.rxdata')
+        $game_system = Game_System.new
+        @window = Window_FullScreen.new(320, ['Yes' ,'No'])
+        @window.x = 320 - @window.width / 2
+        @window.y = 240 - @window.height / 2
+        @window.opacity = 0
+        Graphics.transition(10)
+        loop do
+          Graphics.update
+          Input.update
+          @window.update
+          update_window
+          break if $game_started
+        end
+        Graphics.freeze
+        @window.dispose
+        @window = nil
+        Graphics.transition(10)
+        Graphics.freeze
+      end
+    else
+      $game_started = true
+    end
+    main_fullscreen?
+  end
+  
+  def update_window
+    if Input.trigger?(Input::C)
+      if @window.index == 0
+        $game_system.se_play($data_system.decision_se)
+        keybd = Win32API.new 'user32.dll', 'keybd_event', ['i', 'i', 'l', 'l'], 'v'
+        keybd.call 0xA4, 0, 0, 0
+        keybd.call 13, 0, 0, 0
+        keybd.call 13, 0, 2, 0
+        keybd.call 0xA4, 0, 2, 0
+      else
+        $game_system.se_play($data_system.cancel_se)
+      end
+      $game_started = true
+    elsif Input.trigger?(Input::B)
+      $game_system.se_play($data_system.cancel_se)
+      $game_started = true
+    end
+  end
+
+end
+
+#==============================================================================
+# Death Toll by Blizzard
+# Version: 1.3b
+# Type: Playing Statistics Addition
+# Date: 10.10.2006
+# Date v1.2b: 6.12.2006
+# Date v1.3b: 31.7.2007
+# 
+# 
+# Instructions:
+# 
+#   Set ID to the variable ID you want to use to store the number of killed
+#   enemies. To show the number just use in a message \v[X] where X is the same
+#   number as you set ID.
+# 
+# new in 1.2b:
+#   Counts now actor deaths, too. The numbers are stored in the variables with
+#   the ID "DT_ID + actor's ID", so i.e. for DT_ID = 26, variable number 26
+#   will contain killed enemies, number 27 will contain the deaths of actor
+#   with ID 1, number 28 will contain the deaths of actor with ID 2, etc.
+# 
+# new in 1.3b:
+#   Fixed a possible conflict with Chaos Rage Limit System.
+#==============================================================================
+
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+# START Configuration
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+DT_ID = 26 # variable ID
+
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+# END Configuration
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+#==============================================================================
+# Scene_Battle
+#==============================================================================
+
+class Scene_Battle
+
+  alias main_dt_later main
+  def main
+    @td_flag = 0
+    main_dt_later
+  end
+  
+  alias upd_dt_later update
+  def update
+    @td_flag = $game_troop.enemies.size if @td_flag == 0
+    upd_dt_later
+  end
+  
+  alias battle_end_td_later battle_end
+  def battle_end(result)
+    battle_end_td_later(result)
+    if $game_system.DEATH_TOLL
+      count = 0
+      for enemy in $game_troop.enemies
+        count += 1 unless enemy.exist? || enemy.hidden
+      end
+      $game_variables[DT_ID] += @td_flag - count
+    end
+  end
+
+end
+
+#==============================================================================
+# Game_Actor
+#==============================================================================
+
+class Game_Battler
+  
+  alias hp_is_equal_to_td_later hp=
+  def hp=(val)
+    hp_is_equal_to_td_later(val)
+    if val <= 0 && $game_system.DEATH_TOLL && self.is_a?(Game_Actor)
+      $game_variables[DT_ID + self.id] += 1
+    end
+  end
+  
+end
+    
+#==============================================================================
+# Window_BattleResult Add-on by Blizzard
+# Version: 1.1b
+# Type: Game Playability Improvement
+# Date: 27.8.2006
+# Date v1.1b: 11.3.2007
+# 
+# 
+# new in 1.1b:
+#   - now fully compatible with Easy LvlUp Notifier 1.3b and higher
+# 
+# 
+# Compatibility:
+# 
+#   99% compatible with SDK v1.x. 60% compatible with SDK v2.x. 99% chance of
+#   full compatibility with everything else.
+# 
+# 
+# Features:
+# 
+#   - instead of displaying each item seperatedly, it displays now item and
+#     quantity
+#==============================================================================
+
+#==============================================================================
+# Window_BattleResult
+#==============================================================================
+
+class Window_BattleResult < Window_Base
+
+  alias init_result_addon_later initialize
+  def initialize(exp, gold, treasures)
+    if $game_system.WINDOW_BATTLERESULT
+      @exp, @gold = exp, gold
+      set_treasures(treasures)
+      super(160, 0, 320, @treasures[0].size * 32 + 64)
+      self.contents = Bitmap.new(width - 32, height - 32)
+      if $fontface != nil
+        self.contents.font.name = $fontface
+      elsif $defaultfonttype != nil
+        self.contents.font.name = $defaultfonttype
+      end
+      self.y = 160 - height / 2
+      self.back_opacity = 160
+      self.visible = false
+      refresh
+    else
+      init_result_addon_later(exp, gold, treasures)
+    end
+  end
+  
+  alias refresh_result_addon_later refresh
+  def refresh
+    if $game_system.WINDOW_BATTLERESULT
+      self.contents.clear
+      x = 4
+      if $easy_lvlup_notifier
+        self.contents.font.color = system_color
+        cx = contents.text_size('Gained').width
+        self.contents.draw_text(x, 0, cx, 32, 'Gained')
+        x += cx + 4
+      else
+        self.contents.font.color = normal_color
+        cx = contents.text_size(@exp.to_s).width
+        self.contents.draw_text(x, 0, cx, 32, @exp.to_s)
+        x += cx + 4
+        self.contents.font.color = system_color
+        cx = contents.text_size('EXP').width
+        self.contents.draw_text(x, 0, 64, 32, 'EXP')
+        x += cx + 16
+      end
+      self.contents.font.color = normal_color
+      cx = contents.text_size(@gold.to_s).width
+      self.contents.draw_text(x, 0, cx, 32, @gold.to_s)
+      x += cx + 4
+      self.contents.font.color = system_color
+      self.contents.draw_text(x, 0, 128, 32, $data_system.words.gold)
+      for i in 0...@treasures.size
+        draw_item(@treasures[0][i], 4, (i+1)*32, @treasures[1][i])
+      end
+    else
+      refresh_result_addon_later
+    end
+  end
+  
+  def set_treasures(treasures)
+    items = []
+    weapons = []
+    armors = []
+    stuff = []
+    qua = []
+    for i in treasures
+      items.push(i.id) if i.is_a?(RPG::Item)
+      weapons.push(i.id) if i.is_a?(RPG::Weapon)
+      armors.push(i.id) if i.is_a?(RPG::Armor)
+    end
+    for id in items
+      if stuff.include?($data_items[id])
+        qua[stuff.index($data_items[id])] += 1
+      else
+        stuff.push($data_items[id])
+        qua.push(1)
+      end
+    end
+    for id in weapons
+      if stuff.include?($data_weapons[id])
+        qua[stuff.index($data_weapons[id])] += 1
+      else
+        stuff.push($data_weapons[id])
+        qua.push(1)
+      end
+    end
+    for id in armors
+      if stuff.include?($data_armors[id])
+        qua[stuff.index($data_armors[id])] += 1
+      else
+        stuff.push($data_armors[id])
+        qua.push(1)
+      end
+    end
+    @treasures = []
+    @treasures.push(stuff)
+    @treasures.push(qua)
+  end
+    
+  def draw_item(item, x, y, qua = 1)
+    if item != nil
+      w1 = self.contents.text_size('0').width
+      w2 = self.contents.text_size('x ').width
+      x += w1 + w2 + 4
+      bitmap = RPG::Cache.icon(item.icon_name)
+      self.contents.font.color = normal_color
+      self.contents.draw_text(4, y, w1, 32, qua.to_s, 2)
+      self.contents.font.color = system_color
+      self.contents.draw_text(w1 + 8, y, w2, 32, 'x')
+      self.contents.blt(x, y + 4, bitmap, Rect.new(0, 0, 24, 24))
+      self.contents.font.color = normal_color
+      self.contents.draw_text(x + 28, y, 212, 32, item.name)
+    end
+  end
+  
+end
+
+#==============================================================================
+# Unique Skill Commands by Blizzard
+# Version: 1.2b
+# Type: Actor Individuality Improvement
+# Date: 14.11.2006
+# 
+# new in 1.2b:
+#   Now corresponding to the Actor ID instead of the class ID && only
+#   refreshes the window if neccessary.
+#==============================================================================
+
+#==============================================================================
+# Window_Command
+#==============================================================================
+
+class Window_Command
+  
+  attr_accessor :actor
+  
+  def setup_command_name
+    if $game_system.UNIQUE_SKILL_COMMANDS && @actor != nil
+      old_command = @commands[1]
+      @commands[1] = case @actor.id
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+# START Database
+#
+# Just like usual in all of my scripts and add-on the template is:
+# when X then 'COMMAND'
+# X - class ID on the database
+# COMMAND - the unique skill command for the appropriate class
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+      when 1 then 'Technic'
+      when 2 then 'Lancetech'
+      when 3 then 'Powers'
+      when 4 then 'Skills'
+      when 5 then 'Arrowmagic'
+      when 6 then 'Ammo'
+      when 7 then 'White Magic'
+      when 8 then 'Magic'
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+# END Database
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+      end
+      refresh if old_command != @commands[1]
+    end
+  end
+  
+end
+
+#==============================================================================
+# Scene_Battle
+#==============================================================================
+
+class Scene_Battle
+  
+  alias phase3_setup_command_window_unique_command_later phase3_setup_command_window
+  def phase3_setup_command_window
+    phase3_setup_command_window_unique_command_later
+    @actor_command_window.actor = @active_battler
+    @actor_command_window.setup_command_name
+  end
+  
+end
+
+#==============================================================================
+# Ultimate Font Override by Blizzard
+# Version: 1.01b
+# Type: Project-Script Compatibility Improvement
+# Date: 19.10.2006
+# Date v1.01b: 30.7.2007
+# 
+#   You can change the font/fontsize with the "Call script" event command or
+#   directly through a script by using these methods:
+# 
+#     $game_system.fontname = "FONTNAME"
+#     $game_system.fontsize = FONTSIZE
+# 
+#   It will override the font from any RMXP version. It is also possible to
+#   change the font during the game. It will be saved, too.
+#==============================================================================
+
+#==============================================================================
+# Game_System
+#==============================================================================
+
+class Game_System
+  
+  attr_reader :fontname
+  attr_reader :fontsize
+  
+  alias init_ultimate_font_override_later initialize
+  def initialize
+    init_ultimate_font_override_later
+    self.fontname = 'Arial'
+    self.fontsize = 24
+  end
+  
+  def fontname=(name)
+    $defaultfonttype = $fontface = @fontname = name
+  end
+    
+  def fontsize=(size)
+    $defaultfontsize = $fontsize = @fontsize = size
+  end
+  
+end
+
+#==============================================================================
+# Bitmap
+#==============================================================================
+
+class Bitmap
+
+  alias init_font_override_later initialize
+  def initialize(w, h = nil)
+    if w.is_a?(Numeric) && h.is_a?(Numeric)
+      init_font_override_later(w, h)
+    else
+      init_font_override_later(w)
+    end
+    if TONS_OF_ADDONS::ULTIMATE_FONT_OVERRIDE
+      if $game_system != nil && $game_system.fontname != nil &&
+          !$scene.is_a?(Scene_Title)
+        self.font.name = $game_system.fontname
+        self.font.size = $game_system.fontsize
+      else
+        self.font.name = 'Arial'
+        self.font.size = 24
+      end
+    end
+  end
+  
+end
+
+#==============================================================================
+# Heal at LvlUp by Blizzard
+# Version: 1.0b
+# Type: Game Alteration
+# Date: 4.12.2006
+# 
+# 
+# Compatibility:
+# 
+#   90% compatible with SDK v1.x. 40% compatible with SDK v2.x. Might not work
+#   with exotic CBS-es or exotic Status displays during battle.
+#==============================================================================
+
+#==============================================================================
+# Window_BattleStatus
+#==============================================================================
+
+class Window_BattleStatus < Window_Base
+  
+  alias refesh_heal_at_lvlup_later refresh
+  def refresh
+    if $game_system.HEAL_AT_LVLUP
+      for i in 0...$game_party.actors.size
+        if @level_up_flags[i]
+          $game_party.actors[i].hp = $game_party.actors[i].maxhp
+          $game_party.actors[i].sp = $game_party.actors[i].maxsp
+        end
+      end
+    end
+    refesh_heal_at_lvlup_later
+  end
+  
+end
+
+#==============================================================================
+# Weapon/Armor HP/SP Plus by Blizzard
+# Version: 2.0b
+# Type: Weapon/Armor Attribute Alteration
+# Date: 18.8.2006
+# Date v1.01b: 12.3.2007
+# Date v2.0: 15.5.2007
+# Date v2.0b: 30.7.2007
+# 
+# 
+# Compatibility:
+# 
+#   95% compatible with SDK v1.x. 50% compatible with SDK v2.x. May cause
+#   slight incompatibility issues with CBS-es, but can be made compatible
+#   easily. Can cause imcompatibility issues with other weapon/armor changing
+#   scripts and custom equipments scripts.
+# 
+# 
+# Features:
+# 
+#   - uses static (i.e. 500 HP more) or dynamic (i.e. 30% HP more) increasements
+#   - easy to set up
+#   - does NOT change any rxdata files
+#   - this script comes UNDER SDK SCRIPTS if you use any
+# 
+# new in v2.0:
+#   - completely overworked and changed code for better compatibility
+# 
+# new in v2.0b:
+#   - fixed a bug that appeared because of a typing mistake
+# 
+# 
+# Instructions:
+# 
+# - Explanation:
+# 
+#   This script will add the option for Weapons/Armors to have HP/SP pluses
+#   while equipped just like the usual STR, DEX, INT etc. pluses.
+# 
+# - Configuration
+# 
+#   Find the phrase saying "START" (CTRL+F) to find the database parts. Use the
+#   following template to configure your database:
+# 
+#     when ID then return [EXPR, VAL]
+# 
+#   ID   - Weapon/Armor ID in the normal database
+#   EXPR - set to false if you want "static" increasement or true if you want
+#          "dynamic" increasement
+#   VAL  - if you use static increasement, set this value to any integer you
+#          want (i.e. 100, -500, 831 etc.) to increase the HP/SP, otherwise set
+#          it to any decimal value of the final HP/SP (i.e. 1.2 = 20% more,
+#          2.3 = 130% more, 0.7 = 30% less)
+# 
+#   VAL can be a signed integer (static increasement) OR a decimal number
+#   greater than 0 (dynamic increasement). Change MAX_HP and MAX_SP to
+#   different values if you use another max HP and/or max SP limit than 9999.
+# 
+# 
+# Side Note:
+# 
+#   It took more to write the instructions than to write and test script
+#   itself.
+# 
+# 
+# If you find any bugs, please report them here:
+# http://www.chaosproject.co.nr
+#==============================================================================
+
+MAX_HP = 9999 # change if needed, 9999 is standard
+MAX_SP = 9999 # change if needed, 9999 is standard
+
+#==============================================================================
+# Game_System
+#==============================================================================
+
+class Game_System
+  
+  def weapon_hp_plus(id)
+    case id
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+# START Weapon HP plus Configuration
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+    when 1 then return [false, 350]
+    when 5 then return [true, 1.2]
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+# END Weapon HP plus Configuration
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+    else
+      return [false, 0]
+    end
+  end
+  
+  def weapon_sp_plus(id)
+    case id
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+# START Weapon SP plus Configuration
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+    when 25 then return [false, 500]
+    when 29 then return [true, 1.5]
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+# END Weapon SP plus Configuration
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+    else
+      return [false, 0]
+    end
+  end
+  
+  def armor_hp_plus(id)
+    case id
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+# START Armor HP plus Configuration
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+    when 1 then return [true, 1.1]
+    when 5 then return [true, 0.5]
+    when 13 then return [false, 90]
+    when 17 then return [false, -450]
+    when 9 then return [true, 1.3]
+    when 21 then return [true, 1.3]
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+# END Armor HP plus Configuration
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+    else
+      return [false, 0]
+    end
+  end
+  
+  def armor_sp_plus(id)
+    case id
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+# START Armor SP plus Configuration
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+    when 9 then return [true, 1.3]
+    when 21 then return [true, 1.3]
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+# END Armor SP plus Configuration
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+    else
+      return [false, 0]
+    end
+  end
+  
+end
+
+#==============================================================================
+# Game_Battler
+#==============================================================================
+
+class Game_Battler
+  
+  alias maxsp_hpsp_add_on_later maxsp
+  def maxsp
+    val = [MAX_SP, maxsp_hpsp_add_on_later].min
+    @sp = val if @sp > val
+    return val
+  end
+  
+end
+
+#==============================================================================
+# Game_Actor
+#==============================================================================
+
+class Game_Actor < Game_Battler
+  
+  alias maxhp_hpsp_add_on_later maxhp
+  def maxhp
+    return maxhp_hpsp_add_on_later unless $game_system.HPSPPLUS
+    val = [MAX_HP, maxhp_hpsp_add_on_later].min
+    @hp = val if @hp > val
+    return val
+  end
+  
+  alias base_maxhp_hpsp_add_on_later base_maxhp
+  def base_maxhp
+    return base_maxhp_hpsp_add_on_later unless $game_system.HPSPPLUS
+    plus = 0
+    multi = 1.0
+    if @weapon_id != 0
+      result = $game_system.weapon_hp_plus(@weapon_id)
+      result[0] ? (multi *= result[1]) : (plus += result[1])
+    end
+    for id in [@armor1_id, @armor2_id, @armor3_id, @armor4_id]
+      if id != 0
+        result = $game_system.armor_hp_plus(id)
+        result[0] ? (multi *= result[1]) : (plus += result[1])
+      end
+    end
+    return (multi * (plus + base_maxhp_hpsp_add_on_later)).to_i
+  end
+  
+  alias base_maxsp_hpsp_add_on_later base_maxsp
+  def base_maxsp
+    return base_maxsp_hpsp_add_on_later unless $game_system.HPSPPLUS
+    plus = 0
+    multi = 1.0
+    if @weapon_id != 0
+      result = $game_system.weapon_sp_plus(@weapon_id)
+      result[0] ? (multi *= result[1]) : (plus += result[1])
+    end
+    for id in [@armor1_id, @armor2_id, @armor3_id, @armor4_id]
+      if id != 0
+        result = $game_system.armor_sp_plus(id)
+        result[0] ? (multi *= result[1]) : (plus += result[1])
+      end
+    end
+    return (multi * (plus + base_maxsp_hpsp_add_on_later)).to_i
+  end
+  
+end
+
+#==============================================================================
+# EQUAP Skills by Blizzard
+# Version: 3.02b
+# Type: Skill System
+# Date: 28.05.2006
+# Date v2.0: 13.06.2006
+# Date v2.02b: 16.1.2007
+# Date v3.0b: 19.2.2007
+# Date v3.02b: 7.3.2007
+# 
+# 
+# Explanation:
+# 
+#   This add-on will allow you to bound skills to equipment. Equip it and you
+#   learn the skill, unequip it and you will forget it. The AP system allows to
+#   gain AP for skills and learn the permanently if the max AP for the skill
+#   are gathered. (This system is a very similar one to FF9's AP Skill System.)
+# 
+# 
+# v2.0:
+#   - fixed bug, that appeared, when more equipment parts had the same skill
+#   - new multi-skill support
+# 
+# v2.02b:
+#   - improved coding a little bit
+# 
+# v3.0b:
+#   - completely overworked and added optional AP system (similar to FF9)
+#     (I want to mention here I made this especially for blazinhandle =) )
+# 
+# v3.02b:
+#   - fixed bugs
+# 
+# 
+# Compatibility:
+# 
+#   99% compatible with SDK v1.x. 60% compatible with SDK v2.x. WILL cause
+#   incompatibility with custom equipment scripts but there are instructions
+#   how to configure the script. Please note, that this script depends on the
+#   layout of your Equip Screen and needs to be put UNDER a CMS script if you
+#   are using one. Also there needs to be something changed if you are using
+#   another script, that uses dummy elements. Add your dummy element IDs to the
+#   triple commented array (###). WILL corrupt your old savegames. Might not
+#   work with some CMS-es.
+# 
+# 
+# Instructions:
+# 
+# - Configuration:
+# 
+#   Press CRTL+SHIFT+F and type into the window one of the following:
+# 
+#     Start EQ Database
+#     Start MAXAP Database
+#     Start GAINAP Database
+# 
+#   You can jump now to the database directly. There are more instructions.
+#   Also change EQUAP_ELEMENT = XXX, where XXX is the ID number of the dummy
+#   element, that determines, which skill is bound to the equipment. Be sure to
+#   give that element every EQ skill or the system WILL glitch.
+# 
+# - Merge with a Custom Equipment System:
+#   
+#   The lines, that need to be edited are double commented with ##. If you are no 
+#   at least a bit of experienced scripter, it may be better to ask somebody else
+#   to perform the edit for you. Please note, that the person, who is going to
+#   edit this script needs the custom equipment script for reference.
+# 
+# 
+# NOTE:
+# 
+#   DO NOT USE EQUAP SKILLS AS NORMAL SKILLS! THE SYSTEM WORKS WITH TEMPORARY
+#   LEARNING AND FORGETTING THE EQUAP SKILL. IF YOU LET YOUR CHARACTER LEARN AN
+#   EQUAP SKILL BY NORMAL MEANS, HE WILL FORGET IT AFTER HE UNEQUIPS THE
+#   APPROPRIATE EQUIPMENT!
+# 
+# 
+# If you find any bugs, please report them here:
+# http://www.chaosproject.co.nr/
+#==============================================================================
+
+if TONS_OF_ADDONS::EQUAP_SKILLS
+
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+# Start EQUAP General Configuration
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+$EQUAP_ELEMENT = 17 # your EQ element ID
+if $DUMMY_ELEMENTS == nil
+  $DUMMY_ELEMENTS = [$EQUAP_ELEMENT] ### add more dummy elements if you have any
+else
+  $DUMMY_ELEMENTS.push($EQUAP_ELEMENT)
+end
+DISPLAY_AP_GAIN = true # uses a modified Battle Result to display gained AP
+DISPLAY_AP_REQ = true # show CURRENT_AP/NEEDED_AP in the skill's name
+GAIN_DEAD = false # dead actor also gain AP, no matter what
+
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+# End EQUAP General Configuration
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+#==============================================================================
+# Game_System
+#==============================================================================
+
+class Game_System
+  
+  def maxap(id)
+    case id
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+# Start of MAXAP Database
+#
+#   Here you can define the APs needed to learn a skill. If you add no skills
+#   here the AP system is automatically disabled. Configure it like this
+#   template:
+# 
+#     when SKILL_ID then return MAXAP
+# 
+#   SKILL_ID - the ID of the skill that will be learned with AP
+#   MAXAP    - how many AP are required to learn the skill
+# 
+# Note:
+# 
+#   Don't forget to assign your AP skills to equipment in the EQ Database below.
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+    when 1 then return 0
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+# End of MAXAP Database
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+    end
+    return 0
+  end
+  
+  def gainap(id)
+    case id
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+# Start of GAINAP Database
+#
+#   Here you can define how many AP you will get from enemy troops. Configure
+#   it like this template:
+# 
+#     when TROOP_ID then return GAINAP
+# 
+#   TROOP_ID - the ID of the enemy troop
+#   GAINAP   - how many AP will the player get from this troop.
+# 
+# Note:
+# 
+#   This will automatically be disabled if there are no AP skills.
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+    when 1 then return 2
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+# End of MAXAP Database
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+    end
+    return 0
+  end
+  
+  def eq_database(ids)
+    skill_ids = []
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+# Start of EQ Database
+#
+#   This is your equipment database. To add one or more new EQUAP skills to a
+#   weapon is very simple. Add another "when"-branch in the script snipplet
+#   below (they have comments next to it). Configure it like this template:
+# 
+#     when WEAPON_ID
+#       @skill_ids.push(EQUAP_SKILL_ID1)
+#       @skill_ids.push(EQUAP_SKILL_ID2)
+# 
+#   The same works for armors:
+# 
+#     when ARMOR_ID
+#       @skill_ids.push(EQUAP_SKILL_ID1)
+#       @skill_ids.push(EQUAP_SKILL_ID2)
+# 
+#   Please note, that you need to configure this for every equipment part
+#   separately. That means you need to set it seperately for shields, armors,
+#   helmets and accessories. This also goes for custom equipment additions.
+# 
+#   The lines are commented below so you should have no problems with the script.
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+    case ids[0]
+    when 6 # weapon ID
+      skill_ids.push(10) # EQUAP skill ID
+      skill_ids.push(11) # EQUAP skill ID
+    when 10 # weapon ID
+      skill_ids.push(8) # EQUAP skill ID
+      skill_ids.push(12) # EQUAP skill ID
+    end
+    case ids[1]
+    when 1 # armor1 ID
+      skill_ids.push(1) # EQUAP skill ID
+      skill_ids.push(25) # EQUAP skill ID
+    when 19 # armor1 ID
+      skill_ids.push(25) # EQUAP skill ID
+    end
+    case ids[2]
+    when 5 # armor2 ID
+      skill_ids.push(15) # EQUAP skill ID
+    when 18 # armor2 ID
+      skill_ids.push(27) # EQUAP skill ID
+    end
+    case ids[3]
+    when 13 # armor3 ID
+      skill_ids.push(2) # EQUAP skill ID
+      skill_ids.push(25) # EQUAP skill ID
+    when 3 # armor3 ID
+      skill_ids.push(7) # EQUAP skill ID
+      skill_ids.push(4) # EQUAP skill ID
+    end
+    case ids[4] ## add more ids if you are using a custom number of equip parts
+    when 29 # armor4 ID
+      skill_ids.push(10) # EQUAP skill ID
+    when 8 # armor4 ID
+      skill_ids.push(32) # EQUAP skill ID
+      skill_ids.push(29) # EQUAP skill ID
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+# End of EQ Database
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+    end
+    return skill_ids
+  end
+    
+end
+  
+#==============================================================================
+# Game_Battler
+#==============================================================================
+
+class Game_Battler
+  
+  def elements_correct(elements)
+    multiplier = size = 0
+    for i in elements
+      unless $DUMMY_ELEMENTS.include?(i)
+        multiplier += self.element_rate(i)
+        size += 1
+      end
+    end
+    return (size == 0 ? 100 : multiplier/size)
+  end
+  
+end
+
+#==============================================================================
+# Game_Actor
+#==============================================================================
+
+class Game_Actor < Game_Battler
+  
+  alias setup_equap_later setup
+  def setup(id)
+    setup_equap_later(id)
+    if $ap_enabled
+      @ap = {}
+      for id in 1...$data_skills.size
+        @ap[id] = 0 if $game_system.maxap(id) != 0
+      end
+    end
+    test_equap
+  end
+  
+  def add_ap(val)
+    if $ap_enabled
+      for key in @ap.keys
+        if @skills.include?(key)
+          max = $game_system.maxap(key)
+          @ap[key] = self.ap(key) + val
+          @ap[key] = max if @ap[key] > max
+          @ap[key] = 0 if @ap[key] < 0
+        end
+      end
+    end
+  end
+  
+  def ap(id)
+    return (!$ap_enabled ? 0 : @ap[id] == nil ? 0 : @ap[id])
+  end
+  
+  alias equip_equap_later equip
+  def equip(equip_type, id)
+    equip_equap_later(equip_type, id)
+    test_equap
+  end
+  
+  def test_equap
+    ids = []
+    ids.push(@weapon_id) ## this part here needs to be edited if a custom
+    ids.push(@armor1_id) ## number of equipment parts is used. In that case it
+    ids.push(@armor2_id) ## is enough to add more of these commands here. Also
+    ids.push(@armor3_id) ## be sure to use the correct names for the IDs like
+    ids.push(@armor4_id) ## i.e. "armor3_id"
+    skill_ids = $game_system.eq_database(ids)
+    for id in 1...$data_skills.size
+      if $data_skills[id].element_set.include?($EQUAP_ELEMENT) &&
+          (!$ap_enabled || self.ap(id) < $game_system.maxap(id))
+        forget_skill(id)
+      end
+    end
+    for id in skill_ids
+      learn_skill(id)
+    end
+  end
+  
+end
+
+#==============================================================================
+# Game_Troop
+#==============================================================================
+
+class Game_Troop
+  
+  attr_reader :id
+  
+  alias setup_equap_later setup
+  def setup(troop_id)
+    setup_equap_later(troop_id)
+    @id = troop_id if $ap_enabled
+  end
+  
+end
+
+#==============================================================================
+# Window_BattleResult
+#==============================================================================
+
+class Window_BattleResult
+  
+  def refresh_extra(aps)
+    self.contents.fill_rect(0, 0, self.width, 32, Color.new(0, 0, 0, 0))
+    x = 4
+    self.contents.font.color = normal_color
+    cx = contents.text_size(@exp.to_s).width
+    self.contents.draw_text(x, 0, cx, 32, @exp.to_s)
+    x += cx + 4
+    self.contents.font.color = system_color
+    cx = contents.text_size('EXP').width
+    self.contents.draw_text(x, 0, 64, 32, 'EXP')
+    x += cx + 16
+    self.contents.font.color = normal_color
+    cx = contents.text_size(@gold.to_s).width
+    self.contents.draw_text(x, 0, cx, 32, @gold.to_s)
+    x += cx + 4
+    self.contents.font.color = system_color
+    cx = contents.text_size($data_system.words.gold).width
+    self.contents.draw_text(x, 0, 128, 32, $data_system.words.gold)
+    x += cx + 16
+    self.contents.font.color = normal_color
+    cx = contents.text_size(aps.to_s).width
+    self.contents.draw_text(x, 0, cx, 32, aps.to_s)
+    x += cx + 4
+    self.contents.font.color = system_color
+    self.contents.draw_text(x, 0, 128, 32, 'AP')
+  end
+
+end
+
+#==============================================================================
+# Window_Skill
+#==============================================================================
+
+class Window_Skill
+  
+  alias draw_item_equap_later draw_item
+  def draw_item(index)
+    skill = @data[index]
+    aps = $game_system.maxap(skill.id)
+    if DISPLAY_AP_REQ && aps != 0 && !$scene.is_a?(Scene_Battle)
+      if @actor.skill_can_use?(skill.id)
+        self.contents.font.color = normal_color
+      else
+        self.contents.font.color = disabled_color
+      end
+      x = 4 + index % 2 * (288 + 32)
+      y = index / 2 * 32
+      rect = Rect.new(x, y, self.width / @column_max - 32, 32)
+      self.contents.fill_rect(rect, Color.new(0, 0, 0, 0))
+      bitmap = RPG::Cache.icon(skill.icon_name)
+      opacity = self.contents.font.color == normal_color ? 255 : 128
+      self.contents.blt(x, y + 4, bitmap, Rect.new(0, 0, 24, 24), opacity)
+      text = "#{skill.name} (#{@actor.ap(skill.id)}/#{aps})"
+      self.contents.draw_text(x + 28, y, 204, 32, text, 0)
+      self.contents.draw_text(x + 232, y, 48, 32, skill.sp_cost.to_s, 2)
+    else    
+      draw_item_equap_later(index)
+    end
+  end
+  
+end
+
+#==============================================================================
+# Scene_Battle
+#==============================================================================
+
+class Scene_Battle
+  
+  alias start_phase5_equap_later start_phase5
+  def start_phase5
+    start_phase5_equap_later
+    if $ap_enabled && DISPLAY_AP_GAIN
+      aps = $game_system.gainap($game_troop.id)
+      @result_window.refresh_extra(aps)
+      for actor in $game_party.actors
+        actor.add_ap(aps) if GAIN_DEAD || !actor.dead?
+      end
+    end
+  end
+  
+end
+
+#==============================================================================
+# AP enabled test
+#==============================================================================
+
+sys = Game_System.new
+skills = load_data('Data/Skills.rxdata')
+skills.delete(nil)
+$ap_enabled = false
+for skill in skills
+  if sys.maxap(skill.id) != 0
+    $ap_enabled = true
+    break
+  end
+end
+sys = nil
+skills = nil
+
+end
+
+#==============================================================================
+# Picture Movie Scene by Blizzard
+# Version: 2.03b
+# Type: Scene Creation Utility
+# Date: 3.11.2006
+# 
+# 
+# Compatibility:
+# 
+#   100% compatible with SDK v1.x. 90% compatible with SDK v2.x.
+# 
+# Complexity:
+#   - very low
+# 
+# Special knowledge REQUIRED:
+#   - reading long and boring instructions
+#   - using the "Call script" event command
+# 
+# Special knowledge RECOMMENED:
+#   - REALLY using the "Call script" event command
+# 
+# 
+# Explanation:
+# 
+#   This script will allow you to create picture scenes for different purposes.
+#   You can create Credits, Intros or just picture (comic) movies.
+# 
+# 
+# Instructions:
+# 
+#   Use following syntax to call this script:
+# 
+#     $scene = Scene_Pictures.new('STRING', DELAY, BDELAY, EXIT, 'FILE', RETURN)
+# 
+#   STRING     - name of the pictures to be loaded
+#   DELAY      - time of displaying pictures
+#   BLACKDELAY - time delay of displaying between the pictures
+#   EXIT       - allow exiting (true by default) the scene by pressing ESC/ENTER
+#   FILE       - the name of the music file to be played (none by default)
+#   RETURN     - to which scene to return when done (Scene_Map is default)
+# 
+#   All your pictures must be named like STRING and put into a new folder
+#   called Scene inside the Pictures folder with the order number attached.
+# 
+# Examples:
+# 
+# 1)
+#   $scene = Scene_Pictures.new('animat', 5, 1, false)
+# 
+#   A scene will be created where the first picture is located in:
+#   Graphics/Pictures/Scene/animat1.png
+#   The next will be
+#   Graphics/Pictures/Scene/animat2.png
+#   It will display pictures as long as there are some.
+#   The scene can't be interrupted.
+# 
+# 2)
+#   $scene = Scene_Pictures.new('i_n_t_r_o_', 5, 1, true, nil, Scene_Title.new)
+# 
+#   Graphics/Pictures/Scene/i_n_t_r_o_1.png will be the first.
+#   Graphics/Pictures/Scene/i_n_t_r_o_2.png will be the next after that.
+#   It can be interrupted and will start the title scene after finishing.
+# 
+# 3)
+#   $scene = Scene_Pictures.new('credits', 5, 1)
+# 
+#   Graphics/Pictures/Scene/credits1.png will be the first.
+#   Graphics/Pictures/Scene/credits2.png will be the next after that.
+# 
+# 
+# Side notes:
+# 
+#   If you want to use this scene an intro before the Title, you have to apply
+#   the syntax mentioned above in the Main script. Just change the
+#   $scene = Scene_Title.new
+#   to the desired syntax and don't forget to set its returning to Scene_Title.
+#   All your BGMs should be in the Audio/BGM folder
+# 
+# 
+# If you find any bugs, please report them here:
+# http://www.chaosproject.co.nr
+#==============================================================================
+
+#==============================================================================
+# Scene_Pictures
+#==============================================================================
+
+class Scene_Pictures
+
+  def initialize(pics, del, hold, int = true, file = nil, scene = Scene_Map.new)
+    $game_system = Game_System.new if $game_system == nil
+    @names = pics
+    @delay = del
+    @hold = hold
+    @int = int
+    @file = file
+    @next_scene = scene
+  end
+
+  def main
+    $scene = @next_scene
+    @next_scene = nil
+    Graphics.transition
+    Graphics.freeze
+    delaying(true)
+    Audio.bgm_stop
+    if @file != nil
+      Audio.bgm_play("Audio/BGM/#{@file}", 100, 100)
+      @file = nil
+    end
+    i = 1
+    loop do
+      break if there_are_no_more_files(@names + i.to_s)
+      @pic = RPG::Sprite.new
+      @pic.bitmap = RPG::Cache.picture("Scene/#{@names}#{i}")
+      @pic.x = 320 - @pic.bitmap.width/2
+      @pic.y = 240 - @pic.bitmap.height/2
+      Graphics.transition(12)
+      break if delaying
+      Graphics.freeze
+      @pic.dispose
+      @pic = nil
+      Graphics.transition(12)
+      break if delaying(true)
+      Graphics.freeze
+      i += 1
+    end
+    unless @pic == nil || @pic.disposed?
+      @pic.dispose 
+      Graphics.transition(12)
+    else
+      Graphics.transition(4)
+    end
+    delaying(true)
+    Audio.bgm_fade(800)
+    Graphics.freeze
+  end
+
+  def delaying(just_hold = false)
+    for i in 0...(just_hold ? @hold : @delay)*40
+      Graphics.update
+      if @int
+        Input.update
+        return true if Input.press?(Input::C) || Input.press?(Input::B)
+      end
+    end
+    return false
+  end
+  
+  def there_are_no_more_files(name)
+    return (!FileTest.exist?("Graphics/Pictures/Scene/#{name}.png") &&
+            !FileTest.exist?("Graphics/Pictures/Scene/#{name}.jpg"))
+  end
+  
+end
+
+#==============================================================================
+# Target 'em all! by Blizzard
+# Version: 1.0b
+# Type: Skill Enhancement
+# Date: 27.9.2006
+# 
+# 
+#   This add-ons will allow you to create skills that can target all enemies
+#   and all party members. Include all such skill IDs in the FULL_TARGET_IDS
+#   array and separate them with commas. Note that you should make the skill
+#   target all enemies/all party members/etc. to avoid the cursor being
+#   displayed.
+#==============================================================================
+
+FULL_TARGET_IDS = []
+
+#==============================================================================
+# Scene_Battle
+#==============================================================================
+
+class Scene_Battle
+  
+  alias make_skill_action_result_target_all_later make_skill_action_result
+  def make_skill_action_result
+    if $game_system.TARGET_EM_ALL &&
+        FULL_TARGET_IDS.include?(@active_battler.current_action.skill_id)
+      @target_battlers = []
+      for enemy in $game_troop.enemies
+        @target_battlers.push(enemy) if enemy.exist?
+      end
+      for actor in $game_party.actors
+        @target_battlers.push(actor) unless actor.dead?
+      end
+    end
+    make_skill_action_result_target_all_later
+  end
+
+end
+
+#==============================================================================
+# Quick Passability Test by Blizzard
+# Version: 1.0b
+# Type: Debug Utility
+# Date: 7.2.2007
+# 
+# 
+# Important:
+# 
+#   This add-ons ONLY works in Debug mode/Testplay mode and is mainly
+#   considered for debugging maps faster.
+# 
+# 
+# Instructions:
+# 
+#   This will put a mask on your map that shows the passability. Trigger on/off
+#   the mask by pressing F6. You can define the color the passable part should
+#   have by changing the TILE_COLOR constant. Use this template:
+# 
+#   TILE_COLOR = Color.new(R, G, B, A)
+# 
+#   R - red
+#   G - green
+#   B - blue
+#   A - alpha (opacity)
+# 
+#   Every value needs to be set to a number between 0~255. Alpha over 128 is
+#   not recommended. This will only work with the map, events are not
+#   considered. This add-on will not work if the map's width * maps's height is
+#   bigger than 19200, because the sprite would take up too much RAM and your
+#   operating system would freeze and crash the game.
+#==============================================================================
+
+TILE_COLOR = Color.new(255, 64, 0, 96)
+
+#==============================================================================
+# Game_Map
+#==============================================================================
+
+$quick_pass = true
+
+class Game_Map
+  
+  attr_reader :passables
+  
+  alias setup_minimap_later setup
+  def setup(map_id)
+    setup_minimap_later(map_id)
+    setup_passability_net(true)
+  end
+  
+  def setup_passability_net(force_flag = false)
+    if @passables == nil || @passables == [] || force_flag
+      @passables = []
+      s1 = $game_system.minimap_w / $game_map.width
+      s2 = $game_system.minimap_h / $game_map.height
+      if $DEBUG && $game_system.QUICK_PASSABILITY_TEST &&
+          width * height <= 19200 || $game_system.MINIMAP && s1 != 0 && s2 != 0
+        for i in 0...$game_map.height
+          Graphics.update if $game_map.width * $game_map.height >= 19200
+          for j in 0...$game_map.width
+            if $game_map.virtual_passable?(j, i, 2) || $game_map.virtual_passable?(j, i, 4) ||
+                $game_map.virtual_passable?(j, i, 6) || $game_map.virtual_passable?(j, i, 8)
+              @passables.push([j, i])
+            end
+          end
+        end
+      end
+    end
+  end
+  
+  def virtual_passable?(x, y, d)
+    return false unless valid?(x, y)
+    bit = (1 << (d / 2 - 1)) & 0x0f
+    for i in [2, 1, 0]
+      tile_id = data[x, y, i]
+      if tile_id == nil then return false
+      elsif @passages[tile_id] & bit != 0 then return false
+      elsif @passages[tile_id] & 0x0f == 0x0f then return false
+      elsif @priorities[tile_id] == 0 then return true
+      end
+    end
+    return true
+  end
+  
+end
+
+#==============================================================================
+# Scene_Map
+#==============================================================================
+
+class Scene_Map
+  
+  alias main_quick_passability_later main
+  def main
+    main_quick_passability_later
+    @passable.dispose if @passable != nil
+  end
+  
+  alias upd_quick_passability_later update
+  def update
+    upd_quick_passability_later
+    if $DEBUG && $game_system.QUICK_PASSABILITY_TEST
+      if @passable != nil
+        if Input.trigger?(Input::F6)
+          @passable.dispose
+          @passable = nil
+        else
+          @passable.x = -$game_map.display_x/4
+          @passable.y = -$game_map.display_y/4
+        end
+      elsif Input.trigger?(Input::F6)
+        @passable = create_passable_help
+        unless @passable == nil
+          @passable.x = -$game_map.display_x/4
+          @passable.y = -$game_map.display_y/4
+        end
+      end
+    end
+  end
+  
+  def create_passable_help
+    coos = $game_map.passables
+    if coos != [] && $game_map.width * $game_map.height <= 19200
+      passable = RPG::Sprite.new
+      passable.bitmap = Bitmap.new($game_map.width*32, $game_map.height*32)
+      for i in 0...coos.size
+        passable.bitmap.fill_rect(coos[i][0]*32, coos[i][1]*32, 32, 32, TILE_COLOR)
+      end
+      passable.z = 10000
+      return passable
+    end
+  end
+  
+end
+
+#==============================================================================
+# Dynamic Passability Minimap by Blizzard
+# Version: 1.01b
+# Type: Game Playability Improvement
+# Date: 7.2.2007
+# 
+# 
+# Compatibility:
+# 
+#   95% compatible with SDK v1.x. 60% compatible with SDK v2.x. This add-on
+#   NEEDS "Quick Passability Test" by Blizzard. WILL corrupt your old
+#   savegames. Might not work with special map add-ons. Does NOT work with
+#   pixel-movement without changing the code.
+# 
+# 
+# Why this minimap script better is than any other (aka features):
+# 
+#   - simple display to avoid lag
+#   - custom size, position and opacity, changeable even during the game
+#   - no bitmaps, no pictures to import, only plain script
+# 
+# 
+# Explanation:
+# 
+#   This add-on will draw a real-time minimap on the specified X and Y
+#   coordinate on your screen. It will show the player, events that do NOT have
+#   a comment in their code that says "no_minimap", that are not parallel
+#   process and that are not auto-start and that are not erased yet. Events
+#   with a teleport/transfer player command will be shown in a different color.
+#   Any event with and comment with "special" in their code will be also
+#   displayed differently. Blizz-ABS disables this add-on automatically and
+#   uses the more enhanced built-in Blizz-ABS Minimap.
+# 
+# 
+# Instructions:
+# 
+#   You can trigger the minimap visible/invisible with F5 during the game.
+#   Set up the starting configuration below. The colors follow a template of:
+# 
+#     WHAT_COLOR = Color.new(R, G, B)
+# 
+#   R - red
+#   G - green
+#   B - blue
+# 
+#   Change the colors of the dots on the map as you prefer it.
+# 
+#   PLAYER_COLOR    - the player on the minimap
+#   EVENT_COLOR     - any event on the minimap that is not erased, is not
+#                     auto-start, is not parallel process and does not have a
+#                     comment in its code with the word "no_minimap"
+#   TELEPORT_COLOR  - any event like the one above, but that has a teleport/
+#                     transfer_player command
+#   SPECIAL_COLOR   - any event with a comment with the word "special"
+#   MINIMAP_X       - default X of the minimap on the screen
+#   MINIMAP_Y       - default Y of the minimap on the screen
+#   MINIMAP_WIDTH   - default maximal allowed width of the minimap
+#   MINIMAP_HEIGHT  - default maximal allowed height of the minimap
+#   MINIMAP_OPACITY - default opacity of the minimap on the screen
+# 
+#   You have the possibility to change the minimap's size, coordinates and
+#   opacity during the game process. The command you need to type in into a
+#   "Call Script" command window are:
+# 
+#     $game_system.mini_coos(X, Y)
+#     $game_system.mini_size(W, H)
+#     $game_system.mini_opaq(A)
+# 
+#   X - new X
+#   Y - new Y
+#   W - new width
+#   H - new height
+#   A - new opacity
+# 
+#   Any changes will be applied instantly. Note that you don't need to use ALL
+#   commands.
+# 
+# 
+# Note:
+# 
+#   Changing X, Y and opacity during the game will result in just moving the
+#   sprite. The minimap will not work if the maximal allowed size is smaller
+#   than the map size. (i.e. if your minimap is 160x120, maps like 170x130,
+#   180x15 or 20x140 will not work.)
+#==============================================================================
+
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+# Start Configuration
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+PLAYER_COLOR = Color.new(0, 255, 0)
+EVENT_COLOR = Color.new(0, 128, 255)
+TELEPORT_COLOR = Color.new(255, 255, 0)
+SPECIAL_COLOR = Color.new(255, 0, 0)
+MINIMAP_X = 0
+MINIMAP_Y = 0
+MINIMAP_WIDTH = 160
+MINIMAP_HEIGHT = 160
+MINIMAP_OPACITY = 160
+
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+# End Configuration
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+if $quick_pass != true
+  p 'Attention! Minimap is missing a vital add-on! Application will now close!'
+  exit
+end
+
+#==============================================================================
+# Game_System
+#==============================================================================
+
+class Game_System
+  
+  attr_reader   :minimap_x
+  attr_reader   :minimap_y
+  attr_reader   :minimap_w
+  attr_reader   :minimap_h
+  attr_reader   :minimap_a
+  attr_accessor :minimap_visible
+  
+  alias init_minimap_later initialize
+  def initialize
+    init_minimap_later
+    @minimap_visible = false
+    @minimap_x = [[MINIMAP_X, 0].max, 640].min
+    @minimap_y = [[MINIMAP_Y, 0].max, 480].min
+    @minimap_w = [[MINIMAP_WIDTH, 0].max, 640].min
+    @minimap_h = [[MINIMAP_HEIGHT, 0].max, 480].min
+    @minimap_a = [[MINIMAP_OPACITY, 0].max, 255].min
+  end
+  
+  def mini_coos(x, y)
+    @minimap_x = [[x, 0].max, 640].min
+    @minimap_y = [[y, 0].max, 480].min
+  end
+  
+  def mini_size(w, h)
+    @minimap_w = [[w, 0].max, 640].min
+    @minimap_h = [[h, 0].max, 480].min
+    $game_map.setup_passability_net
+  end
+  
+  def mini_opaq(a)
+    @minimap_a = [[a, 0].max, 255].min
+  end
+  
+end
+
+#==============================================================================
+# Game_Event
+#==============================================================================
+
+class Game_Event < Game_Character
+  
+  attr_reader :erased
+  
+  def conditions
+    for page in @event.pages.reverse
+      c = page.condition
+      next if c.switch1_valid && !$game_switches[c.switch1_id]
+      next if c.switch2_valid && !$game_switches[c.switch2_id]
+      if c.variable_valid
+        next if $game_variables[c.variable_id] < c.variable_value
+      end
+      if c.self_switch_valid
+        key = [@map_id, @event.id, c.self_switch_ch]
+        next if $game_self_switches[key] != true
+      end
+      return true
+    end
+    return false
+  end
+  
+end
+  
+#==============================================================================
+# Mini_Map
+#==============================================================================
+
+class Mini_Map < RPG::Sprite
+  
+  def initialize(viewport = nil)
+    super
+    self.z = 10100
+    create_minimap
+  end
+  
+  def create_minimap
+    coos = $game_map.passables
+    @w = $game_system.minimap_w
+    @h = $game_system.minimap_h
+    s = [@w / $game_map.width, @h / $game_map.height]
+    @size = (s[0] > s[1] ? s[1] : s[0])
+    if @size > 0
+      self.bitmap = Bitmap.new(@size*$game_map.width, @size*$game_map.height)
+      self.bitmap.fill_rect(0, 0, @w, @h, Color.new(0, 0, 0))
+      color = Color.new(128, 128, 128, 255)
+      for coo in coos
+        self.bitmap.fill_rect(coo[0]*@size, coo[1]*@size, @size, @size, color)
+      end
+      @events = get_events
+      create_sevents
+      update
+    else
+      self.dispose
+    end
+  end
+  
+  def update
+    super
+    ev = get_events
+    if ev != @events
+      @events = ev
+      destroy_sevents
+      create_sevents
+    end
+    self.x = $game_system.minimap_x
+    self.y = $game_system.minimap_y
+    self.opacity = $game_system.minimap_a
+    for i in 0...@sevents.size
+      @sevents[i].x = @events[i].x * @size + self.x
+      @sevents[i].y = @events[i].y * @size + self.y
+      @sevents[i].opacity = $game_system.minimap_a
+    end
+    if @w != $game_system.minimap_w || @h != $game_system.minimap_h
+      self.bitmap.dispose
+      destroy_sevents
+      create_minimap
+    end
+  end
+  
+  def create_sevents
+    @sevents = []
+    for i in 0...@events.size
+      sprite = RPG::Sprite.new
+      sprite.bitmap = Bitmap.new(@size, @size)
+      if @events[i].is_a?(Game_Player)
+        color = PLAYER_COLOR
+      elsif event_comment(@events[i], 'special')
+        color = SPECIAL_COLOR
+      elsif @events[i].list != nil
+        color = EVENT_COLOR
+        for j in @events[i].list
+          if j.code == 201
+            color = TELEPORT_COLOR
+            break
+          end
+        end
+      else
+        color = EVENT_COLOR
+      end
+      sprite.bitmap.fill_rect(0, 0, @size, @size, color)
+      sprite.z = 10200
+      @sevents.push(sprite)
+    end
+  end
+    
+  def destroy_sevents
+    @sevents.each {|i| i.dispose}
+    @sevents = nil
+  end
+  
+  def get_events
+    events = [$game_player]
+    for event in $game_map.events.values
+      if !event.erased && ![3, 4].include?(event.trigger) &&
+          !event_comment(event, 'no_minimap') && event.conditions
+        events.push(event)
+      end
+    end
+    return events
+  end
+  
+  def event_comment(event, comment)
+    return false unless event.list.is_a?(Array)
+    for command in event.list
+      return true if command.code == 108 && command.parameters[0] == comment
+    end
+    return false
+  end
+  
+  def dispose
+    destroy_sevents if @sevents != nil
+    super
+  end
+  
+end
+
+#==============================================================================
+# Scene_Map
+#==============================================================================
+
+class Scene_Map
+  
+  alias main_minimap_later main
+  def main
+    @minimap = Mini_Map.new if $game_system.minimap_visible
+    main_minimap_later
+    @minimap.dispose if @minimap != nil
+  end
+  
+  alias upd_minimap_later update
+  def update
+    upd_minimap_later
+    return if $BlizzABS && BlizzABS::VERSION >= 1.030
+    if $game_system.MINIMAP
+      if @minimap != nil
+        if Input.trigger?(Input::F5)
+          @minimap.dispose
+          @minimap = nil
+          $game_system.minimap_visible = false
+        else
+          @minimap.update
+        end
+      elsif Input.trigger?(Input::F5)
+        @minimap = Mini_Map.new
+        if @minimap.disposed?
+          $game_system.minimap_visible = false
+          @minimap = nil
+        else
+          $game_system.minimap_visible = true
+        end
+      end
+    end
+  end
+  
+  alias transfer_player_minimap_later transfer_player
+  def transfer_player
+    if $game_system.minimap_visible
+      @minimap.dispose
+      @minimap = nil
+    end
+    transfer_player_minimap_later
+    @minimap = Mini_Map.new if $game_system.minimap_visible
+    if @minimap != nil && @minimap.disposed?
+      @minimap = nil
+      $game_system.minimap_visible = false
+    end
+  end
+  
+end
+
+#==============================================================================
+# Enemy Status in Battle by Blizzard
+# Version: 1.0b
+# Type: Information Display Alteration
+# Date: 17.2.2007
+# 
+# 
+# Compatibility:
+# 
+#   99% compatible with SDK v1.x. 80% compatible with SDK v2.x. Might cause
+#   incompatibility issues with exotic CBS-es, CMS-es and custom enemy status
+#   displays.
+# 
+# 
+# Explanation:
+# 
+#   This add-on will not only show enemies' names, but even HP, SP and status
+#   in the help window during battle.
+#==============================================================================
+
+#==============================================================================
+# Window_Help
+#==============================================================================
+
+class Window_Help < Window_Base
+  
+  alias set_enemy_status_later set_enemy
+  def set_enemy(enemy)
+    $game_system.ENEMY_STATUS ? set_actor(enemy) : set_enemy_status_later(enemy)
+  end
+  
+end
+
+#==============================================================================
+# Skill Separation System (SSS) by Blizzard
+# Version: 1.0b
+# Type: Game Playability Improvement
+# Date: 22.3.2007
+# 
+# new in 1.0b:
+#   - beta release, it should work without bugs now
+# 
+# 
+# Explanation:
+# 
+#   Every of your skills will be categorized. You can put the same skill in
+#   more categories. You can define category names and element dummies below.
+#==============================================================================
+
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+# START Configuration
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+# your skill set dummy elements
+SKILL_SETS = [9, 10, 11, 12, 13, 14, 15, 16]
+# names of skill sets
+SKILL_SET_NAMES = ['White Magic', 'Black Magic', 'Blue Magic', 'Technic',
+                    'Special Attack', 'Psy', 'Magitech', 'Overlution']
+# the X offset of the drawing (try changing it to see what it does and adjust
+# it how you want it to be, of course you can use negative numbers)
+$x_off = 50
+
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+# END Configuration
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+if $DUMMY_ELEMENTS != nil
+  $DUMMY_ELEMENTS |= SKILL_SETS
+else
+  $DUMMY_ELEMENTS = SKILL_SETS.clone
+end
+
+#==============================================================================
+# Game_Battler
+#==============================================================================
+
+class Game_Battler
+  
+  def elements_correct(elements)
+    multiplier = size = 0
+    for i in elements
+      unless $DUMMY_ELEMENTS.include?(i)
+        multiplier += self.element_rate(i)
+        size += 1
+      end
+    end
+    return (size == 0 ? 100 : multiplier/size)
+  end
+  
+end
+
+#==============================================================================
+# Window_Skill
+#==============================================================================
+
+class Window_Skill < Window_Selectable
+  
+  alias init_sss_later initialize
+  def initialize(actor)
+    if $game_system.SKILL_SEPARATION
+      super(0, 128, 640, 384)
+      @skill_ids = []
+      SKILL_SETS.size.times{@skill_ids.push([0])}
+      @column_max = 1
+      @actor = actor
+      @index = 0
+      @alt_index = []
+      SKILL_SETS.size.times{@alt_index.push(0)}
+      refresh
+      if $game_temp.in_battle
+        self.y = 64
+        self.height = 256
+        self.back_opacity = 160
+      end
+    else
+      init_sss_later(actor)
+    end
+  end
+  
+  alias refresh_sss_later refresh
+  def refresh
+    if $game_system.SKILL_SEPARATION
+      if self.contents != nil
+        self.contents.dispose
+        self.contents = nil
+      end
+      if @actor != nil
+        for id in @actor.skills
+          for i in 0...SKILL_SETS.size
+            if $data_skills[id].element_set.include?(SKILL_SETS[i])
+              @skill_ids[i].push(id)
+            end
+          end
+        end
+        for i in 0...SKILL_SETS.size
+          @skill_ids[i].delete(0) if @skill_ids[i].size > 1
+        end
+        @item_max = SKILL_SETS.size
+        self.contents = Bitmap.new(width - 32, row_max * 32)
+        if $fontface != nil
+          self.contents.font.name = $fontface
+        elsif $defaultfonttype != nil
+          self.contents.font.name = $defaultfonttype
+        end
+        self.contents.font.size = 24
+        for i in 0...SKILL_SETS.size
+          draw_item(i)
+        end
+      end
+    else
+      refresh_sss_later
+    end
+  end
+  
+  alias draw_item_sss_later draw_item
+  def draw_item(index)
+    if $game_system.SKILL_SEPARATION
+      y = index * 32
+      rect = Rect.new(0, y, self.width / @column_max - 32, 32)
+      self.contents.fill_rect(rect, Color.new(0, 0, 0, 0))
+      id = @skill_ids[index][@alt_index[index]]
+      skill = $data_skills[id] if id != 0
+      if skill != nil
+        if @actor.skill_can_use?(skill.id)
+          self.contents.font.color = normal_color
+        else
+          self.contents.font.color = disabled_color
+        end
+        bitmap = RPG::Cache.icon(skill.icon_name)
+        opacity = self.contents.font.color == normal_color ? 255 : 128
+        self.contents.blt(200+$x_off, y+4, bitmap, Rect.new(0, 0, 24, 24), opacity)
+        self.contents.draw_text(228+$x_off, y, 204, 32, skill.name, 0)
+        self.contents.draw_text(516, y, 64, 32, skill.sp_cost.to_s, 2)
+        if @skill_ids[index].size > 1
+          self.contents.draw_text(184+$x_off, y, 32, 32, '«')
+          self.contents.draw_text(564, y, 32, 32, '»', 2)
+        end
+      else
+        self.contents.font.color = disabled_color
+        self.contents.draw_text(228+$x_off, y, 204, 32, 'not available')
+      end
+      if id == 0
+        color = disabled_color
+      elsif @actor.skill_can_use?(id)
+        color = normal_color
+      else
+        color = disabled_color
+      end
+      if SKILL_SET_NAMES[index] == nil
+        self.contents.draw_text(4, y, 288, 32, "Undefined name #{index}")
+      else
+        self.contents.draw_text(4, y, 288, 32, SKILL_SET_NAMES[index])
+      end
+    else
+      draw_item_sss_later(index)
+    end
+  end
+  
+  alias upd_sss_later update
+  def update
+    upd_sss_later
+    if $game_system.SKILL_SEPARATION
+      size, old_index = @skill_ids[@index].size, @alt_index[@index]
+      if Input.repeat?(Input::RIGHT)
+        @alt_index[@index] = (@alt_index[@index] + 1) % size
+        if old_index != @alt_index[@index]
+          $game_system.se_play($data_system.cursor_se)
+          draw_item(@index)
+        else
+          $game_system.se_play($data_system.buzzer_se)
+        end
+      elsif Input.repeat?(Input::LEFT)
+        @alt_index[@index] = (@alt_index[@index] + size - 1) % size
+        if old_index != @alt_index[@index]
+          $game_system.se_play($data_system.cursor_se)
+          draw_item(@index)
+        else
+          $game_system.se_play($data_system.buzzer_se)
+        end
+      end
+    end
+  end
+  
+  alias skill_sss_later skill
+  def skill
+    return skill_sss_later unless $game_system.SKILL_SEPARATION
+    id = @skill_ids[@index][@alt_index[@index]]
+    return $data_skills[id] if id != 0
+  end
+  
+end
+
+#==============================================================================
+# Multi-Hit by Blizzard
+# Version: 1.0
+# Type: Weapon/Skill/Enemy Enhancement
+# Date: 12.8.2007
+# 
+# 
+# Compatibility:
+# 
+#   90% compatible with SDK 1.x. 60% compatible with SDK 2.x. Might be
+#   incompatible with exotic skills and/or CBS-es. Compatible with CRLS 5.1b or
+#   higher.
+# 
+# 
+# Explanation:
+# 
+#   This add-on will allow that skills and weapons attack more than once.
+# 
+# 
+# Configuration:
+# 
+#   There are 3 configurations. Configuration 1 is for weapons, Configuration 2
+#   is for skills and Configuration 3 is for normal enemy attacks. Use
+#   following template to set up how many hits should be done:
+# 
+#     when ID then return HITS
+# 
+#   ID   - ID of weapon, skill or enemy, depending on the configuration number
+#   HITS - number of hits
+#==============================================================================
+
+#==============================================================================
+# Game_System
+#==============================================================================
+
+class Game_System
+  
+  def weapon_hits(id)
+    case id
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+# START Configuration 1
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+    when 1 then return 3
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+# END Configuration 1
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+    end
+    return 1
+  end
+  
+  def skill_hits(id)
+    case id
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+# START Configuration 2
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+    when 58 then return 2
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+# END Configuration 2
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+    end
+    return 1
+  end
+  
+  def enemy_hits(id)
+    case id
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+# START Configuration 3
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+    when 1 then return 3
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+# END Configuration 3
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+    end
+    return 1
+  end
+  
+end
+
+#==============================================================================
+# Scene_Battle
+#==============================================================================
+
+class Scene_Battle
+  
+  alias update_phase4_step1_multi_hit_later update_phase4_step1
+  def update_phase4_step1
+    update_phase4_step1_multi_hit_later
+    @repeat = [1, 1, 0]
+    if $game_system.MULTI_HIT
+      @skill_use_flag = false
+      if @active_battler != nil
+        if @active_battler.current_action.kind == 0
+          if @active_battler.current_action.basic == 0
+            if @active_battler.is_a?(Game_Actor)
+              hits = $game_system.weapon_hits(@active_battler.weapon_id)
+            elsif @active_battler.is_a?(Game_Enemy)
+              hits = $game_system.enemy_hits(@active_battler.id)
+            end
+            @repeat = [1, 1, 2]
+          end
+        else
+          @repeat[2] = 3
+        end
+      end
+    end
+  end
+  
+  alias update_phase4_step2_multi_hit_later update_phase4_step2
+  def update_phase4_step2
+    update_phase4_step2_multi_hit_later
+    if $game_system.MULTI_HIT && @repeat[2] == 3
+      hits = $game_system.skill_hits(@skill.id)
+      @repeat = [hits, hits+1, 4]
+    end
+  end
+  
+  alias update_phase4_step5_multi_hit_later update_phase4_step5
+  def update_phase4_step5
+    update_phase4_step5_multi_hit_later
+    if $game_system.MULTI_HIT
+      @phase4_step = 2 if @repeat[0] > 1 && @repeat[2] > 0
+      @repeat[0] -= 1
+    end
+  end
+  
+  alias make_skill_action_result_multi_hit_later make_skill_action_result
+  def make_skill_action_result
+    make_skill_action_result_multi_hit_later
+    if @repeat[0] != @repeat[1] || @repeat[2] != 3
+      if $game_system._1_SP && @active_battler.states.include?(ONE_SP_ID)
+        @active_battler.sp += [1, @skill.sp_cost].min
+      elsif $game_system.HALF_SP && @active_battler.states.include?(HALF_SP_ID)
+        @active_battler.sp += (@skill.sp_cost/2.0).ceil
+      else
+        @active_battler.sp += @skill.sp_cost
+      end
+      @status_window.refresh
+    end
+  end
+  
+end
+
+#:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::#
+#                                                                             #
+#  ##### #####  ###  ##### #   # #####    ##### ##### ##### #####  ###  ##### #
+#  #       #   #   #   #   #   # #        #     #     #     #     #   #   #   #
+#  #####   #   #   #   #   #   # #####    ####  ####  ####  ####  #       #   #
+#      #   #   #####   #   #   #     #    #     #     #     #     #   #   #   #
+#  #####   #   #   #   #    ###  #####    ##### #     #     #####  ###    #   #
+#                                                                             #
+#:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::#
+
+#==============================================================================
+# Zombie Status Effect by Blizzard
+# Version: 1.1b
+# Type: Game Experience Improvement
+# Date: 26.9.2006
+# Date v1.1b: 18.3.2007
+# 
+# new in 1.1b:
+#   - working itself without you needing to do anything except the
+#     configuration
+#   - actual code
+#   - works with attacks and items now as well
+# 
+# 
+# Configuration:
+# 
+#   ZOMBIE_ID        - the ID of the Zombie status effect
+#   LIGHT_ELEMENT_ID - the ID of the light element
+#   ZOMBIE_POWER     - how much stronger should light attacks be
+#==============================================================================
+
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+# START Configuration
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+ZOMBIE_ID = 23
+LIGHT_ELEMENT_ID = 7
+ZOMBIE_POWER = 1.5
+
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+# END Configuration
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+#==============================================================================
+# Game_Battler
+#==============================================================================
+
+class Game_Battler
+  
+  alias skill_effect_zombie_later skill_effect
+  def skill_effect(user, skill)
+    last_hp = self.hp
+    last_sr = self.sr if $crls && self.is_a?(Game_Actor)
+    result = skill_effect_zombie_later(user, skill)
+    if $game_system.ZOMBIE_STATUS && result && @states.include?(ZOMBIE_ID)
+      self.sr = last_sr if $crls && self.is_a?(Game_Actor)
+      if self.damage.is_a?(Numeric) && self.damage < 0
+        self.damage = -self.damage 
+        self.hp = last_hp - self.damage
+      end
+      if skill.element_set.include?(LIGHT_ELEMENT_ID)
+        self.damage = (self.damage * ZOMBIE_POWER).to_i
+        self.hp = last_hp - self.damage
+      end
+    end
+    return result
+  end
+  
+  alias attack_effect_zombie_later attack_effect
+  def attack_effect(attacker)
+    last_hp = self.hp
+    last_sr = self.sr if $crls && self.is_a?(Game_Actor)
+    result = attack_effect_zombie_later(attacker)
+    if $game_system.ZOMBIE_STATUS && result && @states.include?(ZOMBIE_ID)
+      self.sr = last_sr if $crls && self.is_a?(Game_Actor)
+      if self.damage.is_a?(Numeric) && self.damage < 0
+        self.damage = -self.damage 
+        self.hp = last_hp - self.damage
+      end
+      if skill.element_set.include?(LIGHT_ELEMENT_ID)
+        self.damage = (self.damage * ZOMBIE_POWER).to_i
+        self.hp = last_hp - self.damage
+      end
+    end
+    return result
+  end
+  
+  alias item_effect_zombie_later item_effect
+  def item_effect(item)
+    last_hp = self.hp
+    last_sr = self.sr if $crls && self.is_a?(Game_Actor)
+    result = item_effect_zombie_later(item)
+    if $game_system.ZOMBIE_STATUS && result && @states.include?(ZOMBIE_ID)
+      self.sr = last_sr if $crls && self.is_a?(Game_Actor)
+      if self.damage.is_a?(Numeric) && self.damage < 0
+        self.damage = -self.damage 
+        self.hp = last_hp - self.damage
+      end
+      if skill.element_set.include?(LIGHT_ELEMENT_ID)
+        self.damage = (self.damage * ZOMBIE_POWER).to_i
+        self.hp = last_hp - self.damage
+      end
+    end
+    return result
+  end
+  
+end
+
+#==============================================================================
+# Regen Status Effect by Blizzard
+# Version: 1.1b
+# Type: Game Experience Improvement
+# Date: 4.5.2006
+# Date v1.1b: 12.1.2007
+# 
+# new in 1.1b:
+#   - fixed glitches, improved code and made it possible to have Regen and
+#     Poison at the same time (they nullificate each other on the map, but not
+#     in battle)
+#==============================================================================
+
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+# START Configuration
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+REGEN_ID = 18 # set this to the status effect ID that will be Regen
+
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+# END Configuration
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+#==============================================================================
+# Game_Party
+#==============================================================================
+
+class Game_Party
+  
+  alias check_map_slip_damage_regen_later check_map_slip_damage
+  def check_map_slip_damage
+    check_map_slip_damage_regen_later
+    if $game_system.REGEN_STATUS
+      for actor in @actors
+        if actor.hp > 0 && actor.states.include?(REGEN_ID)
+          actor.hp += [actor.maxhp / 100, 1].max
+        end
+      end
+    end
+  end
+  
+end
+
+#==============================================================================
+# Game_Battler
+#==============================================================================
+
+class Game_Battler
+
+  alias slip_damage_regen_later? slip_damage?
+  def slip_damage?
+    if $game_system.REGEN_STATUS
+      return true if @states.include?(REGEN_ID) && !$scene.is_a?(Scene_Map)
+    end
+    return slip_damage_regen_later?
+  end
+  
+  alias slip_damage_effect_regen_later slip_damage_effect
+  def slip_damage_effect
+    if $game_system.REGEN_STATUS
+      if !@states.include?(REGEN_ID) && slip_damage?
+        slip_damage_effect_regen_later
+      elsif @states.include?(REGEN_ID)
+        dam = -self.maxhp / 10
+        if dam.abs > 0
+          amp = [dam.abs * 15 / 100, 1].max
+          dam -= rand(amp+1) + rand(amp+1) - amp
+        end
+        self.hp -= dam
+        self.damage = 0 if self.damage == nil
+        self.damage += dam
+      end
+    else
+      slip_damage_effect_regen_later
+    end
+  end
+
+end
+
+#==============================================================================
+# Auto-Revive by Blizzard
+# Version: 1.21b
+# Type: Game Experience Improvement
+# Date: 5.6.2006
+# Date v1.2b: 14.11.2006
+# Date v1.21b: 12.1.2007
+# 
+# new in 1.2b
+#   - less and better code, much more compatible, easier to use
+# 
+# new in 1.21b
+#   - removed an obsolete constant
+#==============================================================================
+
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+# START Configuration
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+AUTO_REVIVE_ID = 19 # ID of the status effect
+REVIVE_ANIMATION_ID = 25 # ID of the Revive animation
+REVIVE_TEXT = 'Auto-Revive!' # Text displayed
+
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+# END Configuration
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+#==============================================================================
+# Game_Party
+#==============================================================================
+
+class Game_Party
+
+  alias all_dead_autorevive_later? all_dead?
+  def all_dead?
+    return all_dead_autorevive_later? unless $game_system.AUTO_REVIVE
+    for actor in @actors
+      return false if actor.states.include?(AUTO_REVIVE_ID)
+    end
+    return all_dead_autorevive_later?
+  end
+
+end
+
+#==============================================================================
+# Sprite
+#==============================================================================
+
+class RPG::Sprite
+  
+  alias damage_regen_later damage
+  def damage(damage, critical)
+    if damage == REVIVE_TEXT
+      dispose_damage
+      bitmap = Bitmap.new(160, 48)
+      bitmap.font.name = 'Arial Black'
+      bitmap.font.size = 32
+      bitmap.font.color.set(0, 0, 0) 
+      bitmap.draw_text(-1, 12-1, 160, 36, REVIVE_TEXT, 1)
+      bitmap.draw_text(-1, 12+1, 160, 36, REVIVE_TEXT, 1)
+      bitmap.draw_text(1, 12-1, 160, 36, REVIVE_TEXT, 1)
+      bitmap.draw_text(1, 12+1, 160, 36, REVIVE_TEXT, 1)
+      bitmap.font.color.set(0, 192, 255)
+      bitmap.font.size = 32
+      bitmap.draw_text(0, 12, 160, 36, REVIVE_TEXT, 1)
+      @_damage_sprite = ::Sprite.new(self.viewport) 
+      @_damage_sprite.bitmap = bitmap 
+      @_damage_sprite.ox = 80 
+      @_damage_sprite.oy = 20 
+      @_damage_sprite.x = self.x 
+      @_damage_sprite.y = self.y - self.oy / 2 
+      @_damage_sprite.z = 3000 
+      @_damage_duration = 40 
+    else
+      damage_regen_later(damage, critical)
+    end
+  end 
+
+end
+
+#==============================================================================
+# Scene_Battle
+#==============================================================================
+
+class Scene_Battle
+
+  alias judge_autorevive_later judge
+  def judge
+    if $game_system.AUTO_REVIVE
+      for actor in $game_party.actors
+        if actor.states.include?(AUTO_REVIVE_ID) && actor.hp == 0
+          actor.hp += actor.maxhp / 5
+          actor.remove_state(AUTO_REVIVE_ID)
+          actor.remove_state(1)
+          actor.animation_id = REVIVE_ANIMATION_ID
+          actor.damage = REVIVE_TEXT
+          actor.damage_pop = true
+          @status_window.refresh
+        end
+      end
+    end
+    return judge_autorevive_later
+  end
+
+end
+
+#==============================================================================
+# Fury Status by Blizzard
+# Version: 1.0b
+# Type: Game Experience Improvement
+# Date: 10.10.2006
+# 
+# 
+# Compatibility:
+# 
+#   99% compatible with SDK v1.x. 70% compatible with SDK v2.x. Could cause
+#   problems with exotic CBS-es.
+# 
+# 
+# Instructions:
+# 
+# - Explanation:
+# 
+#   This add-on will make specific characters get inflicted with the status
+#   effect called "Fury" if another specific character gets killed during battle.
+#   Also make the status effect end after the battle is over.
+# 
+# - Configuration:
+# 
+#   Configure your database further below like this template:
+# 
+#     when X then return Y
+# 
+#   X - ID of the dead character
+#   Y - ID of the character who will inflicted with Fury.
+#   
+#   Set FURY_ID to the status effect ID.
+# 
+# If you find any bugs, please report them here:
+# http://www.chaosproject.co.nr/
+#==============================================================================
+
+FURY_ID = 23
+
+#==============================================================================
+# Scene_Battle
+#==============================================================================
+
+class Scene_Battle
+  
+  alias upd_fury_later update
+  def update
+    if $game_system.FURY_STATUS
+      ids = []
+      for actor in $game_party.actors
+        ids.push(database(actor.id)) if actor.dead?
+      end
+      for actor in $game_party.actors
+        actor.remove_state(FURY_ID)
+      end
+      for id in ids
+        if $game_actors[id] != nil && $game_party.actors.include?($game_actors[id])
+          $game_actors[id].add_state(FURY_ID) unless $game_actors[id].dead?
+        end
+      end
+    end
+    upd_fury_later
+  end
+  
+  def database(id)
+    case id
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+# START Fury Database
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+    when 1 then return 2
+    when 2 then return 7
+    when 7 then return 8
+    when 8 then return 1
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+# END Fury Database
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+    else
+      return 0
+    end
+  end
+  
+end
+  
+#==============================================================================
+# Invincible Status by Blizzard
+# Version: 1.0b
+# Type: Game Experience Improvement
+# Date: 4.12.2006
+# 
+# 
+# Compatibility:
+# 
+#   99% compatible with SDK v1.x. 70% compatible with SDK v2.x. Could cause
+#   problems with exotic CBS-es.
+# 
+# 
+# Instructions:
+# 
+# - Explanation:
+# 
+#   This add-on will allow having a status effect that makes a character
+#   invincible. Set INVINCIBLE_ID to the status effect ID.
+#==============================================================================
+
+INVINCIBLE_ID = 17
+
+#==============================================================================
+# Game_Battler
+#==============================================================================
+
+class Game_Battler
+
+  alias hp_actor_invincible_later hp=
+  def hp=(val)
+    if $game_system.INVINCIBLE_STATUS
+      return if @states.include?(INVINCIBLE_ID) && val < @hp
+    end
+    hp_actor_invincible_later(val)
+  end
+  
+  def damage=(val)
+    @damage = val
+    if $game_system.INVINCIBLE_STATUS && val.is_a?(Numeric)
+      @damage = 0 if @states.include?(INVINCIBLE_ID) && val > 0
+    end
+  end
+
+end
+
+#==============================================================================
+# Half SP by Blizzard
+# Version: 1.4b
+# Type: Game Experience Improvement
+# Date: 8.4.2006
+# Date v1.3b: 13.12.2006
+# Date v1.31b: 12.3.2007
+# Date v1.4b: 24.3.2007
+# 
+# new in v1.3b:
+#   - totally overworked and improved code
+# 
+# new in v1.31b:
+#   - fixed a glitch
+# 
+# new in 1.4b:
+#   - compatible with Skill Separation System
+# 
+# 
+# Compatibility:
+# 
+#   99% compatible with SDK v1.x. 70% compatible with SDK v2.x. Should be 100%
+#   compatible with everything else. Can cause incompatibility issues with
+#   exotic CBS-es and exotic CMS-es, but only if different Skills Windows are
+#   used. There is a high chance that this problem can be solved by renaming
+#   the defined class "Window_Skill" just below into the name of the class your
+#   CBS/CMS is using. The exact line is triple commented with ###. To avoid
+#   problems with manual setting the SP, use negative value of the maximum
+#   possible SP and to set it to zero and afterwards increase it to the desired
+#   value. (sp = -maxsp; sp = X)
+# 
+# 
+# Explanation:
+# 
+#   This add-on will allow having a status effect that halves SP consumption
+#   during usage of skills. Set HALF_SP_ID to the status effect ID.
+#==============================================================================
+
+HALF_SP_ID = 22
+
+#==============================================================================
+# Game_Battler
+#==============================================================================
+
+class Game_Battler
+  
+  alias sp_actor_halfsp_later sp=
+  def sp=(val)
+    if val < self.sp && $game_system.HALF_SP && @states.include?(HALF_SP_ID)
+      val += (self.sp - val) / 2
+    end
+    sp_actor_halfsp_later(val)
+  end
+  
+  alias skill_can_use_halfsp_later? skill_can_use?
+  def skill_can_use?(skill_id)
+    if $game_system.HALF_SP && self.states.include?(HALF_SP_ID)
+      return false if ($data_skills[skill_id].sp_cost/2.0).ceil > self.sp
+    end
+    return skill_can_use_halfsp_later?(skill_id)
+  end
+  
+end
+
+#==============================================================================
+# Window_Skill
+#==============================================================================
+
+class Window_Skill < Window_Selectable ###
+  
+  alias draw_item_halfsp_later draw_item
+  def draw_item(index)
+    draw_item_halfsp_later(index)
+    if $game_system.HALF_SP && @actor.states.include?(HALF_SP_ID)
+      if $game_system.SKILL_SEPARATION
+        y = index * 32
+        rect = Rect.new(0, y, self.width / @column_max - 32, 32)
+        self.contents.fill_rect(rect, Color.new(0, 0, 0, 0))
+        id = @skill_ids[index][@alt_index[index]]
+        skill = $data_skills[id] if id != 0
+        if skill != nil
+          if @actor.skill_can_use?(skill.id)
+            self.contents.font.color = normal_color
+          else
+            self.contents.font.color = disabled_color
+          end
+          bitmap = RPG::Cache.icon(skill.icon_name)
+          opacity = self.contents.font.color == normal_color ? 255 : 128
+          self.contents.blt(200+$x_off, y+4, bitmap, Rect.new(0, 0, 24, 24), opacity)
+          self.contents.draw_text(228+$x_off, y, 204, 32, skill.name, 0)
+          self.contents.draw_text(516, y, 64, 32, (skill.sp_cost/2.0).ceil.to_s, 2)
+          if @skill_ids[index].size > 1
+            self.contents.draw_text(184+$x_off, y, 32, 32, '«')
+            self.contents.draw_text(564, y, 32, 32, '»', 2)
+          end
+        else
+          self.contents.font.color = disabled_color
+          self.contents.draw_text(228+$x_off, y, 204, 32, 'not available')
+        end
+        if id == 0
+          color = disabled_color
+        elsif @actor.skill_can_use?(id)
+          color = normal_color
+        else
+          color = disabled_color
+        end
+        if SKILL_SET_NAMES[index] == nil
+          self.contents.draw_text(4, y, 288, 32, 'Undefined name')
+        else
+          self.contents.draw_text(4, y, 288, 32, SKILL_SET_NAMES[index])
+        end
+      else
+        skill = @data[index]
+        if @actor.skill_can_use?(skill.id)
+          self.contents.font.color = normal_color
+        else
+          self.contents.font.color = disabled_color
+        end
+        sp_cost = (skill.sp_cost / 2.0).ceil
+        x = 4 + index % 2 * (288 + 32)
+        y = index / 2 * 32
+        rect = Rect.new(x + 232, y, 48, 32)
+        self.contents.fill_rect(rect, Color.new(0, 0, 0, 0))
+        self.contents.draw_text(x + 232, y, 48, 32, sp_cost.to_s, 2)
+      end
+    end
+  end
+
+end
+
+#==============================================================================
+# 1 SP by Blizzard
+# Version: 1.11b
+# Type: Game Experience Improvement
+# Date: 12.3.2007
+# Date v1.1b: 24.3.2007
+# Date v1.11b: 26.8.2007
+# 
+# new in 1.1b:
+#   - compatible with Skill Separation System
+# 
+# new in 1.11b:
+#   - fixed bug where 0-SP skills couldn't be used if 1 SP was on
+# 
+# 
+# Compatibility:
+# 
+#   99% compatible with SDK v1.x. 70% compatible with SDK v2.x. Should be 100%
+#   compatible with everything else. Can cause incompatibility issues with
+#   exotic CBS-es and exotic CMS-es, but only if different Skills Windows are
+#   used. There is a high chance that this problem can be solved by renaming
+#   the defined class "Window_Skill" just below into the name of the class your
+#   CBS/CMS is using. The exact line is triple commented with ###. To avoid
+#   problems with manual setting the SP, use any negative value to set it to
+#   zero and afterwards increase it to the desired value. (sp = -1; sp = X)
+# 
+# 
+# Explanation:
+# 
+#   This add-on will allow having a status effect that sets SP consumption to 1
+#   during usage of skills. Set ONE_SP_ID to the status effect ID.
+#==============================================================================
+
+ONE_SP_ID = 20
+
+#==============================================================================
+# Game_Battler
+#==============================================================================
+
+class Game_Battler
+  
+  alias sp_actor_1_sp_later sp=
+  def sp=(val)
+    if $game_system._1_SP && val >= 0
+      val = self.sp - 1 if val < self.sp && @states.include?(ONE_SP_ID)
+    end
+    sp_actor_1_sp_later(val)
+  end
+  
+  alias skill_can_use_1_sp_later? skill_can_use?
+  def skill_can_use?(skill_id)
+    if $game_system._1_SP && self.states.include?(ONE_SP_ID)
+      return false if self.sp == 0 && $data_skills.sp_cost > 0
+    end
+    return skill_can_use_1_sp_later?(skill_id)
+  end
+  
+end
+
+#==============================================================================
+# Window_Skill
+#==============================================================================
+
+class Window_Skill < Window_Selectable ###
+  
+  alias draw_item_1_sp_later draw_item
+  def draw_item(index)
+    draw_item_1_sp_later(index)
+    if $game_system._1_SP && @actor.states.include?(ONE_SP_ID)
+      if $game_system.SKILL_SEPARATION
+        y = index * 32
+        rect = Rect.new(0, y, self.width / @column_max - 32, 32)
+        self.contents.fill_rect(rect, Color.new(0, 0, 0, 0))
+        id = @skill_ids[index][@alt_index[index]]
+        skill = $data_skills[id] if id != 0
+        if skill != nil
+          if @actor.skill_can_use?(skill.id)
+            self.contents.font.color = normal_color
+          else
+            self.contents.font.color = disabled_color
+          end
+          bitmap = RPG::Cache.icon(skill.icon_name)
+          opacity = self.contents.font.color == normal_color ? 255 : 128
+          self.contents.blt(200+$x_off, y+4, bitmap, Rect.new(0, 0, 24, 24), opacity)
+          self.contents.draw_text(228+$x_off, y, 204, 32, skill.name, 0)
+          self.contents.draw_text(516, y, 64, 32, [1, skill.sp_cost].min.to_s, 2)
+          if @skill_ids[index].size > 1
+            self.contents.draw_text(184+$x_off, y, 32, 32, '«')
+            self.contents.draw_text(564, y, 32, 32, '»', 2)
+          end
+        else
+          self.contents.font.color = disabled_color
+          self.contents.draw_text(228+$x_off, y, 204, 32, 'not available')
+        end
+        if id == 0
+          color = disabled_color
+        elsif @actor.skill_can_use?(id)
+          color = normal_color
+        else
+          color = disabled_color
+        end
+        if SKILL_SET_NAMES[index] == nil
+          self.contents.draw_text(4, y, 288, 32, 'Undefined name')
+        else
+          self.contents.draw_text(4, y, 288, 32, SKILL_SET_NAMES[index])
+        end
+      else
+        skill = @data[index]
+        if @actor.skill_can_use?(skill.id)
+          self.contents.font.color = normal_color
+        else
+          self.contents.font.color = disabled_color
+        end
+        x = 4 + index % 2 * (288 + 32)
+        y = index / 2 * 32
+        rect = Rect.new(x + 232, y, 48, 32)
+        self.contents.fill_rect(rect, Color.new(0, 0, 0, 0))
+        self.contents.draw_text(x + 232, y, 48, 32, [1, skill.sp_cost].min.to_s, 2)
+      end
+    end
+  end
+
+end
+
+#:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::#
+#                                                                             #
+#                         ##### #   #  #  #     #                             #
+#                         #     #  #   #  #     #                             #
+#                         ##### ###    #  #     #                             #
+#                             # #  #   #  #     #                             #
+#                         ##### #   #  #  ##### #####                         #
+#                                                                             #
+#:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::#
+
+#==============================================================================
+# Absorbing SP and HP by Blizzard
+# Version: 1.7b
+# Type: Enhanced Skill
+# Date: 8.5.2006
+# Date v1.7b: 14.11.2006
+# 
+# new in v1.7b:
+#   - overworked code, fixed bugs and glitches, added "undead SP"
+# 
+#   Just include all the skill IDs that are supposed to steal HP/SP. You can
+#   also define undead enemies who will (due to common belief...) revert the HP
+#   absorb effect. Also you may add any IDs of enemies who use the same undead
+#   effect, but on SP, add the IDs into UNDEAD_SP. Note that you can make
+#   enemies who only are "undead" for HP stealing, SP stealing or even both.
+#==============================================================================
+
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+# START Configuration
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+SKILL_IDS_HP = [90] # add any Skill IDs and separate them with commas
+SKILL_IDS_SP = [91] # add any Skill IDs and separate them with commas
+UNDEAD_IDS = [1] # add IDS and separate them with commas
+UNDEAD_SP = [32] # add IDS and separate them with commas
+
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+# END Configuration
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+#==============================================================================
+# Game_Battler
+#==============================================================================
+
+class Game_Battler
+  
+  alias skill_effect_hpsp_absorb_later skill_effect
+  def skill_effect(user, skill)
+    @flag = false
+    last_hp = self.hp
+    last_sr = self.sr if $crls && self.is_a?(Game_Actor)
+    result = skill_effect_hpsp_absorb_later(user, skill)
+    if $game_system.ABSORB_HP_SP
+      if SKILL_IDS_SP.include?(skill.id) && self.damage.is_a?(Numeric)
+        self.hp = last_hp
+        self.sr = last_sr if $crls && self.is_a?(Game_Actor)
+        if self.is_a?(Game_Enemy) && UNDEAD_SP.include?(self.id)
+          self.damage = -self.damage
+        end
+        if self.sp >= self.damage
+          self.sp -= self.damage
+        else
+          self.damage = self.sp
+          self.sp = 0
+        end
+      elsif SKILL_IDS_HP.include?(skill.id) && self.damage.is_a?(Numeric)
+        self.hp = last_hp
+        self.sr = last_sr if $crls && self.is_a?(Game_Actor)
+        if self.is_a?(Game_Enemy) && UNDEAD_IDS.include?(self.id)
+          self.damage = -self.damage
+        end
+        if self.hp >= self.damage
+          self.hp -= self.damage
+        else
+          self.damage = self.hp
+          self.hp = 0
+        end
+      end
+    end
+    return result
+  end
+  
+end
+
+#==============================================================================
+# Scene_Battle
+#==============================================================================
+
+class Scene_Battle
+
+  alias update_phase4_step5_hpsp_absorb_later update_phase4_step5
+  def update_phase4_step5
+    if $game_system.ABSORB_HP_SP
+      @help_window.visible = false
+      @status_window.refresh
+      damages = 0
+      for target in @target_battlers
+        if target.damage != nil
+          target.damage_pop = true
+          damages += target.damage if target.damage.is_a?(Numeric)
+        end
+      end
+      @status_window.refresh if check_absorb(@active_battler, 
+          @active_battler.current_action.skill_id, damages)
+      @skill = nil
+      @phase4_step = 6
+    else
+      update_phase4_step5_hpsp_absorb_later
+    end
+  end
+
+  def check_absorb(user, id, damage)
+    if (SKILL_IDS_HP | SKILL_IDS_SP).include?(id)
+      user.hp += damage if SKILL_IDS_HP.include?(id)
+      user.sp += damage if SKILL_IDS_SP.include?(id)
+      user.damage = -damage
+      user.damage_pop = true
+      return true
+    end
+    return false
+  end
+    
+end
+
+#==============================================================================
+# Full Reflection System by Blizzard
+# Version: 2.0b
+# Type: Game Experience Improvement
+# Date: 5.9.2006
+# Date v1.4: 16.1.2007
+# Date v2.0b: 12.3.2007
+# 
+# 
+# new in v1.4:
+# 
+#   - overworked code and fixed all the glitches
+#   - the power comes back X times stronger if it is reflected from X battlers
+#     (ie. like in the Final Fantasy series)
+#   - spells now get reflected to anybody from the enemy party, not only the
+#     user (makes it possible to split damage from the FF feature mentioned
+#     above)
+#   - added a fix so it works with HP/SP Absorb
+# 
+# new in v2.0b:
+# 
+#   - completely overworked and fixed
+# 
+# 
+# Compatibility:
+# 
+#   97% compatible with SDK v1.x. 60% compatible with SDK v2.x. You might
+#   experience problems with exotic CBS-es.
+# 
+# 
+# Configuration:
+# 
+#   Make a status effect and call it "Reflect". Remember the ID number. Now
+#   make an animation that should be displayed when reflecting magic.
+# 
+#     REFLECT_ID        - the ID of the reflect status
+#     REFLECT_ANIMATION - the ID of animation displayed when magic is being
+#                         reflecting
+#     BREAK_REFLECT     - IDs of skills that go through Reflection no matter
+#                         what
+#     MISS_DAMAGE       - what is displayed in your game if somebody gets
+#                         missed (usually 'Miss')
+# 
+# Note:
+# 
+#   A magical skill is considered a skill that has a either INT-F greater than
+#   zero or MDEF-F greater than zero. Please note that skills that can disable
+#   the reflection status break through the reflection automatically.
+# 
+# 
+# Important note:
+# 
+#   It is better if you don't use sounds and screen/target flashing in the
+#   animation for the reflecting effect.
+#==============================================================================
+
+REFLECT_ID = 21
+REFLECT_ANIMATION = 103
+BREAK_REFLECT = []
+MISS_DAMAGE = 'Miss'
+
+#==============================================================================
+# Game_Battler
+#==============================================================================
+
+class Game_Battler
+  
+  alias skill_effect_reflect_later skill_effect
+  def skill_effect(user, skill, reflect = false)
+    if !$game_system.REFLECT || reflect || !test_reflection(skill)
+      return skill_effect_reflect_later(user, skill)
+    end
+    return false
+  end
+  
+  def test_reflection(skill)
+    return ((skill.int_f > 0 || skill.mdef_f > 0) &&
+        @states.include?(REFLECT_ID) && !BREAK_REFLECT.include?(skill.id) &&
+        !skill.minus_state_set.include?(REFLECT_ID))
+  end
+  
+end
+
+#==============================================================================
+# Scene_Battle
+#==============================================================================
+
+class Scene_Battle
+  
+  alias main_reflect_later main
+  def main
+    @old_targets = []
+    main_reflect_later
+  end
+  
+  alias set_target_battlers_reflect_later set_target_battlers
+  def set_target_battlers(scope, override = false)
+    if $game_system.REFLECT && !BREAK_REFLECT.include?(@skill.id) &&
+        !override && @active_battler.current_action.kind == 1
+      return []
+    end
+    return set_target_battlers_reflect_later(scope)
+  end
+  
+  alias make_skill_action_result_reflect_later make_skill_action_result
+  def make_skill_action_result
+    make_skill_action_result_reflect_later
+    if $game_system.REFLECT && !BREAK_REFLECT.include?(@skill.id)
+      set_target_battlers(@skill.scope, true)
+      for i in 0...@target_battlers.size
+        if @skill != nil && @active_battler.current_action.kind == 1 &&
+            @target_battlers[i].test_reflection(@skill)
+          new_target = swap_targets(@target_battlers[i], @active_battler)
+          if @target_battlers[i] != new_target
+            @old_targets.push(@target_battlers[i])
+            @target_battlers[i] = new_target
+          end
+        end
+      end
+      for target in @target_battlers
+        dam = (target.damage.is_a?(Numeric) ? target.damage : 0)
+        target.skill_effect(@active_battler, @skill, true)
+        target.damage += dam if target.damage.is_a?(Numeric)
+        target.animation_hit = (target.damage != MISS_DAMAGE)
+      end
+    end
+  end
+  
+  alias update_phase4_step4_reflect_later update_phase4_step4
+  def update_phase4_step4
+    if $game_system.REFLECT
+      for target in @old_targets
+        target.animation_id = REFLECT_ANIMATION
+      end
+      @old_targets = []
+    end
+    update_phase4_step4_reflect_later
+  end
+  
+  def swap_targets(battler1, battler2)
+    if battler1.is_a?(Game_Enemy) && battler2.is_a?(Game_Enemy)
+      actors = []
+      for actor in $game_party.actors
+        actors.push(actor) if actor.exist?
+      end
+      battler3 = actors[rand(actors.size)]
+    elsif battler1.is_a?(Game_Actor) && battler2.is_a?(Game_Actor)
+      enemies = []
+      for enemy in $game_troop.enemies
+        enemies.push(enemy) if enemy.exist?
+      end
+      battler3 = enemies[rand(enemies.size)]
+    elsif battler1.is_a?(Game_Enemy) && battler2.is_a?(Game_Actor)
+      actors = []
+      for actor in $game_party.actors
+        actors.push(actor) if actor.exist?
+      end
+      battler3 = actors[rand(actors.size)]
+    elsif battler1.is_a?(Game_Actor) && battler2.is_a?(Game_Enemy)
+      enemies = []
+      for enemy in $game_troop.enemies
+        enemies.push(enemy) if enemy.exist?
+      end
+      battler3 = enemies[rand(enemies.size)]
+    else
+      battler3 = battler2
+    end
+    if SKILL_IDS_HP != nil && SKILL_IDS_SP != nil &&
+        SKILL_IDS_HP.include?(@skill) || SKILL_IDS_SP.include?(@skill)
+      loop do
+        break if battler2 != battler3
+        if battler2.is_a?(Game_Actor)
+          actors = []
+          for actor in $game_party.actors
+            actors.push(actor) if actor.exist?
+          end
+          battler3 = actors[rand(actors.size)]
+        elsif battler2.is_a?(Game_Enemy)
+          enemies = []
+          for enemy in $game_troop.enemies
+            enemies.push(enemy) if enemy.exist?
+          end
+          battler3 = enemies[rand(enemies.size)]
+        end
+      end
+    end
+    return battler3
+  end
+  
+end
+
+#==============================================================================
+# Death Roulette by Blizzard
+# Version: 1.0
+# Type: Enhanced Skill
+# Date: 7.8.2006
+# 
+# 
+#   This skill will kill a random target: hero or enemy. To make somebody
+#   immune to this skill, just set the immunity to the Death Status effect to
+#   F. Make the skill target nobody.
+#==============================================================================
+
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+# START Configuration
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+DEATH_ROULETTE_IDS = [666] # add any Skill IDs and separate them with commas
+DEAD_ID = 1 # the Status effect ID of the "dead" Status effect
+
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+# END Configuration
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+#==============================================================================
+# Scene_Battle
+#==============================================================================
+
+class Scene_Battle
+  
+  alias make_skill_action_result_death_roulette_later make_skill_action_result
+  def make_skill_action_result
+    if $game_system.DEATH_ROULETTE &&
+        DEATH_ROULETTE_IDS.include?(@active_battler.current_action.skill_id)
+      roulette = []
+      for enemy in $game_troop.enemies
+        roulette.push(enemy) if enemy.exist?
+      end
+      for actor in $game_party.actors
+        roulette.push(actor) unless actor.dead?
+      end
+      @target_battlers = [roulette[rand(roulette.size)]]
+      @target_battlers = [$game_party.actors[0]]
+      make_skill_action_result_death_roulette_later
+      immune = @target_battlers[0].state_ranks[DEAD_ID]
+      if [0, 6].include?(immune)
+        @target_battlers[0].damage = 'Can\'t kill'
+      else
+        @target_battlers[0].hp = 0
+        @target_battlers[0].damage = 'Dead!'
+      end
+    else
+      make_skill_action_result_death_roulette_later
+    end
+  end
+    
+end
+
+#==============================================================================
+# Blue Magic via skill by Blizzard
+# Version: 1.0
+# Type: Enhanced Skill
+# Date: 14.11.2006
+# 
+# 
+#   This actor will learn one of the enemy's skills. Making this skill target
+#   all enemies, ONLY ONE SKILL WILL BE LEARNED FROM A RANDOM ENEMY! Make the
+#   skill do no damage to the enemy and use the hit rate to determine the
+#   success chance of the skill.
+#==============================================================================
+
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+# START Configuration
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+BLUE_MAGIC_IDS = [92] # add any Skill IDs and separate them with commas
+
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+# END Configuration
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+#==============================================================================
+# Scene_Battle
+#==============================================================================
+
+class Scene_Battle
+  
+  alias make_skill_action_result_blue_later make_skill_action_result
+  def make_skill_action_result
+    make_skill_action_result_blue_later
+    if $game_system.BLUE_MAGIC_SKILL
+      if BLUE_MAGIC_IDS.include?(@active_battler.current_action.skill_id)
+        @target_battlers.each {|target| target.damage = nil}
+        target = @target_battlers[rand(@target_battlers.size)]
+        if target.is_a?(Game_Enemy)
+          if rand(100) < $data_skills[@active_battler.current_action.skill_id].hit
+            ids = []
+            for action in target.actions
+              ids.push(action.skill_id) if action.kind == 1
+            end
+            if ids.size > 0
+              skill = $data_skills[ids[rand(ids.size)]]
+              if @active_battler.skills.include?(skill.id)
+                target.damage = "#{skill.name} known"
+              else
+                @active_battler.learn_skill(skill.id)
+                target.damage = "#{skill.name} learned"
+              end
+            else
+              target.damage = 'None available'
+            end
+          else
+            target.damage = 'Miss'
+          end
+        end
+      end
+    end
+  end
+    
+end
+
+#==============================================================================
+# EMP Skill by Blizzard
+# Version: 1.01b
+# Type: Enhanced Skill
+# Date: 7.3.2007
+# Date v1.01b: 12.3.2007
+# 
+# new in v1.01b:
+#   - fixed an incompatiblity bug with Reflect
+# 
+# 
+# Explanation:
+# 
+#   This skill paralyzes all enemies that are machines. 
+# 
+# 
+# Configuration:
+# 
+#   Give your enemies the element with ID $MACHINE_ELEMENT and set it to "A" if
+#   you want the skill to affect that enemy. Set the PARA_ID to the Status
+#   element ID you want to inflict (basically it's paralyze, but you don't have
+#   to use paralyze...). Set EMP_ID to the skill ID. Set EMP_DAMAGE to the text
+#   displayed when an enemy is shut down (set it to "" for none).
+#==============================================================================
+
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+# START Configuration
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+EMP_ID = 95
+PARA_ID = 8
+EMP_DAMAGE = 'Shut Down!'
+$MACHINE_ELEMENT = 10
+if $DUMMY_ELEMENTS == nil
+  $DUMMY_ELEMENTS = [$MACHINE_ELEMENT] ### add more dummy elements if you have any
+else
+  $DUMMY_ELEMENTS.push($MACHINE_ELEMENT)
+end
+
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+# END Configuration
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+#==============================================================================
+# Game_Battler
+#==============================================================================
+
+class Game_Battler
+  
+  def elements_correct(elements)
+    multiplier = size = 0
+    for i in elements
+      unless $DUMMY_ELEMENTS.include?(i)
+        multiplier += self.element_rate(i)
+        size += 1
+      end
+    end
+    return (size == 0 ? 100 : multiplier/size)
+  end
+  
+end
+
+#==============================================================================
+# Game_Enemy
+#==============================================================================
+
+class Game_Enemy < Game_Battler
+  
+  alias skill_effect_emp_skill_later skill_effect
+  def skill_effect(user, skill, flag = false)
+    if $game_system.EMP_SKILL && skill.id == EMP_ID && self.is_a?(Game_Enemy) &&
+        $data_enemies[self.id].element_ranks[$MACHINE_ELEMENT] == 1
+      self.add_state(PARA_ID)
+      self.damage = EMP_DAMAGE
+      return true
+    end
+    return skill_effect_emp_skill_later(user, skill, flag)
+  end
+  
+end
+
+#==============================================================================
+# Demi Skill by Blizzard
+# Version: 1.0b
+# Type: Enhanced Skill
+# Date: 12.7.2007
+# 
+# 
+# Explanation:
+# 
+#   This skill deals damage equal to a percentage of the remaining HP.
+# 
+# 
+# Configuration:
+# 
+#   Scroll down to START Demi Database and create Demi skills. This system work
+#   on both sides, both enemies and actors can use it.
+#==============================================================================
+
+#==============================================================================
+# Game_System
+#==============================================================================
+
+class Game_System
+  
+  def demi_database(id)
+    case id
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+# START Demi Database
+# 
+#   Use following template to create Demi skills:
+# 
+#     when ID then return RATE
+# 
+#   ID   - ID of the skill in the database
+#   RATE - percentage of how much of the remaining HP should be taken away
+# 
+# Example:
+# 
+#   when 88 then return 25
+#   Skill with ID 88 will do damage equal to 25% of the enemies' remaining HP.
+# 
+#   Note that using values equal to or greater than 100 will kill instantly.
+#   Negative values will heal instead.
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+    when 88 then return 25
+    when 89 then return 50
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+# END Demi Database
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+    end
+    return 0
+  end
+  
+end
+
+#==============================================================================
+# Game_Battler
+#==============================================================================
+
+class Game_Enemy < Game_Battler
+  
+  alias skill_effect_demi_skill_later skill_effect
+  def skill_effect(user, skill, flag = false)
+    last_hp = self.hp
+    last_sr = self.sr if $crls && self.is_a?(Game_Actor)
+    result = skill_effect_demi_skill_later(user, skill, flag)
+    if $game_system.DEMI_SKILL
+      rate = $game_system.demi_database(skill.id)
+      if result && rate > 0
+        self.sr = last_sr if $crls && self.is_a?(Game_Actor)
+        self.damage = last_hp * rate / 100
+        self.hp = last_hp - self.damage
+      end
+    end
+    return result
+  end
+  
+end
+
+#:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=
+# StormTronics CMS by Blizzard
+# Version: 5.0b - Hybrid Edition
+# Type: Enhanced Custom Menu System
+# Date v5.0: 27.8.2007
+# Date v5.0b: unreleased
+#:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=
+# 
+# Compatibility:
+# 
+#   97% compatible with SDK v1.x. 80% compatible with SDK v2.x. Glitchs with
+#   Fukuyama's Caterpillar script (but not with mine). Designed only for 8
+#   elements. WILL corrupt old savegames.
+# 
+# 
+# Features:
+# 
+#   - completely animated and graphically optimized (lag-free)
+#   - own set of windowskins, fonts and icons for every status change and
+#     element
+#   - saves all changed options together with the savefile
+#   - menu commands "Item", "Equipment", "Skill", "Equip", "Status", "Options",
+#     "Save", "Load", "Exit"
+#   - Item submenu: "Items", "Sort" (by quantity or by alphabet), "Quest Items"
+#   - Equipment submenu shows information about equippable items for the chosen
+#     character, switch the character with LEFT and RIGHT
+#   - Skill submenu shows available skills for use for the chosen character,
+#     switch character with L and R, menu status window in background shows the
+#     chosen character
+#   - Equip submenu shows complete information about Status resistance/attack,
+#     Element resistance/attack and complete character stat changing (has
+#     even "max HP" and "max SP" available if you are using "Weapon/Armor HP/SP
+#     Plus")
+#   - Status screen with overall information about character status
+#   - Options submenu with "BGM Volume", "SFX Volume", "Battle BGM",
+#     "Battle Cam" (if using KGC's Pseudo 3D Battle Camera with my add-on for
+#     disabling), "Bar Style", "Bar Opacity" (if you are using Gradient Bar
+#     Styler), "Font" and "Windowskin" (both with preview)
+#   - Standard Save, Load and Exit commands
+#   - uses "Ultimate Font Override", so the font changes will affect RPG Maker
+#     XP versions 1.00, 1.01, 1.02 and 1.03 (including Dyna Edition and
+#     Postality Knights Edition Enhanced) and the font even gets saved with the
+#     savedata
+# 
+# new in Hybrid Edition:
+#   - supports either windowskin background or custom images:
+#                >>>  All StormTronics CMS Editions in one!  <<<
+#   - compatible with all my scripts (even DREAM v4.0)
+#   - draws SR in the menu if CLRS was detected
+#   - supports any number of party members
+#   - removed some special add-ons, please get Tons of Add-ons if you want to
+#     continue using them, ST CMS will recognize Tons v4.98b and higher
+#   - more than 1500 code lines less than Nemesis Edition and almost 2000
+#     code lines less than Metal-Plate Edition
+#   - removes options from Options menu that are not / cannot being used at all
+#   - possibility to use a different equip system
+#   - doesn't need skin icons anymore, the icon is drawn from the skin directly
+#   - improved windowskins from "The Legend of Lexima™ IV - Chaos Project"
+# 
+# 
+# Instructions:
+# 
+#   Copy your character faces into a the folder called "Characters". The
+#   facesets MUST have the same names as the character spritesets with a _face
+#   added at the end. Also copy the windowskins and the icons. Don't forget to
+#   include the font files used by the game in your game folder. Also change
+#   the variable ID in the conditional branches if you use another variable
+#   than 49.
+# 
+# 
+# Configuration:
+# 
+#   CAM_AVAILABLE       - set to true if you use KGC 3DPBC
+#   FACESETS            - set to true if you want to use facesets
+#   BGM_Variable        - ID number of the variable for the Battle BGM changer
+#   BGM_Lock            - ID number of the switch used to temporarily disable
+#                         the option of changing the Battle BGM, for that, just
+#                         turn the switch on and off to disable and enable this
+#                         option
+#   WEAPONS_AND_ARMORS  - set to false to not show weapons and armors in the
+#                         Item screen
+#   $quest_items        - add any item IDs that are supposed to be quest items,
+#                         so the CMS can separate them
+#   BATTLE_BGMS         - add any battle BGMs you are using
+#   SKINS               - add any skin name you are using
+#   SKINS               - add any font name you are using, be sure to include
+#                         the font install files in your game release as some
+#                         people may not have those fonts installed
+#   SAVE_NAME           - name of your savefiles (usually "Save")
+#   SAVE_EXTENSION      - extension of your savefiles (usually "rxdata")
+#   SAVE_FILES_NUMBER   - number of savefiles you are using (usually 4)
+#   MAP_BACKGROUND      - set to true to show map as background, otherwise
+#                         if CMS_EDITION is not nil or false the
+#                         "CMSFullscreen" image will be displayed
+#   CUSTOM_EQUIP_SCENE  - set this to true if you want to use a different equip
+#                         scene and make this CMS compatible even with exotic
+#                         Equipment Systems
+#   FONT_BACKGROUND_FIX - set this to true if you want dark font colors to be
+#                         used in the menu, this comes in handy when the
+#                         custom background images you use are bright
+#   MIRROR              - flips all horizontal window positions
+#   CMS_EDITION         - set this to false or nil if you want to use Nemesis
+#                         Edition, set to folder name where in the Pictures/CMS
+#                         the images should be loaded from if you want to use
+#                         custom images as background
+# 
+#   The syntax $game_system.get_cam can be used by an event (Call script
+#   command) to restore the user's setting of the KGC 3DPBC if a forced cam
+#   control was initiated during an event.
+# 
+#   You can use $game_system.reset_battle_bgm to reset the battle BGM to the
+#   player's menu setting if you have changed it for i.e. a boss fight via
+#   event.
+# 
+# 
+# FAQ:
+# 
+# - Problem:
+#   I get an error that some icons can't be found. how do I solve this?
+# 
+# - Solution:
+#   Copy the icons from the demo or download them and place the into the Icons
+#   folder into another folder called "CMS". Done.
+# 
+# - Problem:
+#   I still get an error.
+# 
+# - Solution:
+#   Rename the icons. If your elements were renamed and don't have the standard
+#   names, your icons need to be renamed as well. Same goes for status effects.
+#   Also be sure to add new icons with new names if you have more than the
+#   basic 8 elements and/or more than the basic 16 status effects in your
+#   database.
+# 
+# - Question:
+#   Can I use my own skins, icons, fonts, battle BGMs, etc...?
+# 
+# - Answer:
+#   Of course. Only be sure to change the appropriate options in the script and
+#   to use the appropriate names, so everything can function normally after
+#   that.
+# 
+# - Question:
+#   Can this CMS be connected with other scripts? If yes, how and how much work
+#   is it?
+# 
+# - Answer:
+#   Yes, it can. A little bit of scripting and enhancing the functions of the
+#   CMS are needed if it is going to be connected with other scripts. How much
+#   of additional work it can cause only depends how big the script merge is. A
+#   simple changing of the battle menu to display status effects in icons
+#   should take between 15~30 minutes of scripting and testing. Adding another
+#   option into the Options menu should also take only 15~30 minutes of
+#   scripting and testing. Even adding an entire series of new windows or
+#   implementing another Scene into the menu also won't take more than 30
+#   minutes, because the menu itself works with the "sub-scene" system, saving
+#   this way RAM and CPU.
+# 
+# - Question:
+#   What is the "sub-scene" system? Also I have tried other animated CMS-es.
+#   Why is this one so lag-free?
+# 
+# - Answer:
+#   It is lag-free just because of the "sub-scene" system. This system is also
+#   used in the "Scene_Battle". It only creates windows and handels them when
+#   they are needed or used, otherwise they get disposed or not created at all.
+#   In this script this method is being used to a possible maximum.
+# 
+# - Question:
+#   Is this for real? This CMS doesn't even have 3000 lines of code!
+# 
+# - Answer:
+#   Actually not even 2500 if you don't count the instructions.
+# 
+# - Question:
+#   How is such a large collection of features possible with so relatively few
+#   lines of code?!
+# 
+# - Answer:
+#   Smart coding. =P
+# 
+# 
+# Additional scripts/snipplets/add-ons:
+# 
+#   - Ultimate Font Override v1.0b (by Blizzard)
+#   - BGM/SFX Volume Control with volume correction v1.0b (by Blizzard)
+#   - Map Name/Location v1.0b (by Blizzard)
+#   - Elemental Vulnerability Graph v1.0b (by Blizzard)
+#   - Battle BGM control v2.0b (by Blizzard)
+#   - Options control layout and funcionality v4.0b (by Blizzard)
+#   - CMS layout/funcionality v5.0b (by Blizzard)
+#   - optimized code and delagged by "sub-scene" window handling (by Blizzard)
+# 
+#   If you experience the "Stack level too deep" error, you may already have
+#   one of the scripts listed above and it conflicts with itself, because of
+#   aliased recursive calling. Try removing script by script and testing
+#   everything. Don't forget to backup you Scripts.rxdata before doing so.
+#   Scripts.rxdata is a file that contains your current scripts and is located
+#   in the Data folder of your game folder.
+# 
+# 
+# If you find any bugs, please report them here:
+# http://www.chaosproject.co.nr
+#:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=
+
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+# START Configuration
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+# basic config
+CAM_AVAILABLE = false
+FACESETS = false
+BGM_Variable = 49
+BGM_Lock = 49
+WEAPONS_AND_ARMORS = true
+$quest_items = [5, 6, 7, 8, 11, 12, 13]
+# custom game configs
+BATTLE_BGMS = [
+#             ['BGM_NAME', VOLUME, PITCH, 'DISPLAY_NAME']
+              ['001-Battle01', 100, 100, 'BGM 1'],
+              ['002-Battle02', 100, 100, 'BGM 2'],
+              ['003-Battle03', 100, 100, 'BGM 3'],
+              ['004-Battle04', 100, 100, 'BGM 4']
+              ]
+SKINS = ['Original', 'Heavy Gold', 'Hell Breath', 'Liquid Water',
+         'Violent Violet', 'Ice Cool', 'Fatal Venom', 'Perfect Chaos',
+         'Blizzard Master']
+FONTS = ['Arial', 'Future', 'Comic Sans MS', 'Brush Script', 'Tahoma',
+         'Times New Roman']
+# save file options
+SAVE_NAME = 'Save'
+SAVE_EXTENSION = 'rxdata'
+SAVE_FILES_NUMBER = 4
+# extra options
+MAP_BACKGROUND = true
+CUSTOM_EQUIP_SCENE = false
+FONT_BACKGROUND_FIX = false
+MIRROR = true
+CMS_EDITION = false # 'Metal-Plate'
+
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+# END Configuration
+#::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+CAM_Variable = 25 if CAM_AVAILABLE # change only if changed in the 3DPBC script
+
+#==============================================================================
+# Game_System
+#==============================================================================
+
+class Game_System
+  
+  attr_accessor :bgm_volume
+  attr_accessor :sfx_volume
+  attr_accessor :cam
+  attr_reader   :fontname
+  attr_reader   :fontsize
+  
+  alias init_storm_cms_later initialize
+  def initialize
+    init_storm_cms_later
+    @bgm_volume = @sfx_volume = 100
+    @cam = 0
+    self.fontname = 'Arial'
+    self.fontsize = 24
+  end
+  
+  def fontname=(name)
+    Font.default_name = $defaultfonttype = $fontface = @fontname = name
+  end
+    
+  def fontsize=(size)
+    Font.default_size = $defaultfontsize = $fontsize = @fontsize = size
+  end
+  
+  def get_cam
+    $game_variables[CAM_Variable] = @cam
+    return # if an event calls this method the "return" is HIGHLY neccesary!
+  end
+    
+  def reset_battle_bgm
+    bgm = BATTLE_BGMS[$game_variables[BGM_Variable]]
+    $game_system.battle_bgm = RPG::AudioFile.new(bgm[0], bgm[1], bgm[2])
+    return # if an event calls this method the "return" is HIGHLY neccesary!
+  end
+  
+  if $dream_music
+  def bgm_play(bgm)
+    @playing_bgm = bgm
+    if bgm != nil && bgm.name != ''
+      vol = correction(@bgm_volume)
+      dream_ed = bgm.clone
+      dream_ed.volume = dream_ed.volume * vol / 100
+      DREAM.play_encrypted_audio('Audio/BGM/', dream_ed, 0)
+    else
+      Audio.bgm_stop
+    end
+    Graphics.frame_reset
+  end
+  
+  def bgs_play(bgs)
+    @playing_bgs = bgs
+    if bgs != nil && bgs.name != ''
+      vol = correction(@sfx_volume)
+      dream_ed = bgs.clone
+      dream_ed.volume = dream_ed.volume * vol / 100
+      DREAM.play_encrypted_audio('Audio/BGS/', dream_ed, 1)
+    else
+      Audio.bgs_stop
+    end
+    Graphics.frame_reset
+  end
+  
+  def me_play(me)
+    if me != nil && me.name != ''
+      vol = correction(@bgm_volume)
+      dream_ed = me.clone
+      dream_ed.volume = dream_ed.volume * vol / 100
+      DREAM.play_encrypted_audio('Audio/ME/', dream_ed, 2)
+    else
+      Audio.me_stop
+    end
+    Graphics.frame_reset
+  end
+  
+  def se_play(se)
+    if se != nil && se.name != ''
+      vol = correction(@sfx_volume)
+      dream_ed = se.clone
+      dream_ed.volume = dream_ed.volume * vol / 100
+      DREAM.play_encrypted_audio('Audio/SE/', dream_ed, 3)
+    end
+  end
+  else
+  def bgm_play(bgm)
+    @playing_bgm = bgm
+    if bgm != nil && bgm.name != ''
+      vol = correction(@bgm_volume)
+      Audio.bgm_play('Audio/BGM/' + bgm.name , bgm.volume * vol / 100, bgm.pitch)
+    else
+      Audio.bgm_stop
+    end
+    Graphics.frame_reset
+  end
+  
+  def bgs_play(bgs)
+    @playing_bgs = bgs
+    if bgs != nil && bgs.name != ''
+      vol = correction(@sfx_volume)
+      Audio.bgs_play('Audio/BGS/' + bgs.name, bgs.volume * vol / 100, bgs.pitch)
+    else
+      Audio.bgs_stop
+    end
+    Graphics.frame_reset
+  end
+  
+  def me_play(me)
+    if me != nil && me.name != ''
+      vol = correction(@bgm_volume)
+      Audio.me_play('Audio/ME/' + me.name, me.volume * vol / 100, me.pitch)
+    else
+      Audio.me_stop
+    end
+    Graphics.frame_reset
+  end
+
+  def se_play(se)
+    if se != nil && se.name != ''
+      vol = correction(@sfx_volume)
+      Audio.se_play('Audio/SE/' + se.name, se.volume * vol / 100, se.pitch)
+    end
+  end
+  end
+  
+  def correction(volume)
+    case volume
+    when 100 then return 100
+    when 95 then return 97
+    when 90 then return 95
+    when 85 then return 92
+    when 80 then return 90
+    when 75 then return 87
+    when 70 then return 85
+    when 65 then return 82
+    when 60 then return 80
+    when 55 then return 77
+    when 50 then return 75
+    when 45 then return 72
+    when 40 then return 70
+    when 35 then return 65
+    when 30 then return 60
+    when 25 then return 55
+    when 20 then return 50
+    when 15 then return 40
+    when 10 then return 35
+    when 5 then return 25
+    end
+    return 0
+  end
+  
+end
+
+#============================================================================== 
+# Game_Actor 
+#============================================================================== 
+
+class Game_Actor < Game_Battler 
+  
+  def now_exp 
+    return (@exp-@exp_list[@level])
+  end 
+  
+  def next_exp 
+    return (@exp_list[@level+1] > 0 ? @exp_list[@level+1]-@exp_list[@level] : 0)
+  end 
+  
+  def test_equip(equip_type, id)
+    case equip_type
+    when 0 then old_id, @weapon_id = @weapon_id, id
+    when 1 then old_id, @armor1_id = @armor1_id, id
+    when 2 then old_id, @armor2_id = @armor2_id, id
+    when 3 then old_id, @armor3_id = @armor3_id, id
+    when 4 then old_id, @armor4_id = @armor4_id, id
+    end
+    tested = [self.maxhp, self.maxsp, self.atk, self.pdef, self.mdef, self.str,
+              self.dex, self.agi, self.int, self.eva]
+    case equip_type
+    when 0 then @weapon_id = old_id
+    when 1 then @armor1_id = old_id
+    when 2 then @armor2_id = old_id
+    when 3 then @armor3_id = old_id
+    when 4 then @armor4_id = old_id
+    end
+    return tested
+  end
+  
+end 
+
+#============================================================================== 
+# Scene_Title
+#============================================================================== 
+
+class Scene_Title
+
+  alias main_storm_cms_later main
+  def main
+    $map_infos = load_data('Data/MapInfos.rxdata')
+    $map_infos.keys.each {|key| $map_infos[key] = $map_infos[key].name}
+    main_storm_cms_later
+  end
+  
+end
+
+#============================================================================== 
+# Game_Map 
+#============================================================================== 
+
+class Game_Map
+        
+  def name
+    return $map_infos[@map_id]
+  end
+   
+end
+
+#==============================================================================
+# Bitmap
+#==============================================================================
+
+class Bitmap
+
+  if $tons_version == nil || $tons_version < 3.71
+  alias init_ultimate_font_override_later initialize
+  def initialize(w, h = nil)
+    if w.is_a?(Numeric) && h.is_a?(Numeric)
+      init_ultimate_font_override_later(w, h)
+    else
+      init_ultimate_font_override_later(w)
+    end
+    if $game_system != nil && $game_system.fontname != nil &&
+        !$scene.is_a?(Scene_Title)
+      self.font.name = $game_system.fontname
+      self.font.size = $game_system.fontsize
+    else
+      self.font.name = 'Arial'
+      self.font.size = 24
+    end
+  end
+  
+  if !$crls || !BAR_STYLES
+  def gradient_bar(x, y, w, color1, color2, color3, rate)
+    offset = 5
+    x += offset
+    y += 26
+    (0...offset+3).each {|i| fill_rect(x-i, y+i-2, w+3, 1, Color.new(0, 0, 0))}
+    (0...offset+1).each {|i| fill_rect(x-i, y+i-1, w+1, 1, Color.new(255, 255, 255))}
+    (0...w+offset).each {|i|
+        red = color3.red * i / (w + offset)
+        green = color3.green * i / (w + offset)
+        blue = color3.blue * i / (w + offset)
+        oy = i < offset ? offset-i : 0
+        off = i < offset ? i : i > w ? w+offset-i : offset
+        fill_rect(x+i-offset+1, y+oy-1, 1, off, Color.new(red, green, blue))}
+    if (w*rate).to_i >= offset
+      (0...(w*rate).to_i+offset).each {|i|
+          red = color1.red + (color2.red-color1.red)*i/((w+offset)*rate)
+          green = color1.green + (color2.green-color1.green)*i/((w+offset)*rate)
+          blue = color1.blue + (color2.blue-color1.blue)*i/((w+offset)*rate)
+          oy = i < offset ? offset-i : 0
+          off = i < offset ? i : i > w*rate ? (w*rate).to_i+offset-i : offset
+          fill_rect(x+i-offset+1, y+oy-1, 1, off, Color.new(red, green, blue))}
+    else
+      (0...(w*rate).to_i).each {|i|
+          (0...offset-1).each {|j|
+              red = color1.red + (color2.red-color1.red) * i / (w * rate)
+              green = color1.green + (color2.green-color1.green) * i / (w * rate)
+              blue = color1.blue + (color2.blue-color1.blue) * i / (w * rate)
+              set_pixel(x+i-j+1, y+j-1, Color.new(red, green, blue))}}
+    end
+  end
+  end
+  end
+  
+end
+
+#============================================================================== 
+# Window_Base 
+#============================================================================== 
+
+class Window_Base < Window
+  
+  alias st_cms_hybrid_hack_init initialize
+  def initialize(xx, yy, w, h)
+    st_cms_hybrid_hack_init(xx, yy, w, h)
+    if CMS_EDITION && @background != nil
+      @backsprite = Sprite.new
+      @backsprite.bitmap = RPG::Cache.picture("CMS/#{CMS_EDITION}/#{@background}")
+      self.opacity, @backsprite.x, @backsprite.y = 0, self.x, self.y
+    end
+  end
+  
+  alias st_cms_hybrid_hack_x_ x=
+  def x=(xx)
+    st_cms_hybrid_hack_x_($scene.is_a?(Scene_Menu) && MIRROR ? 640-width-xx : xx)
+    @backsprite.x = xx unless @backsprite == nil || @backsprite.disposed?
+  end
+  
+  alias st_cms_hybrid_hack_y_ y=
+  def y=(yy)
+    st_cms_hybrid_hack_y_(yy)
+    @backsprite.y = yy unless @backsprite == nil || @backsprite.disposed?
+  end
+  
+  alias st_cms_hybrid_hack_x x
+  def x
+    xx = st_cms_hybrid_hack_x
+    return ($scene.is_a?(Scene_Menu) && MIRROR ? 640-width-xx : xx)
+  end
+  
+  alias st_cms_hybrid_hack_z z=
+  def z=(z)
+    st_cms_hybrid_hack_z(z)
+    @backsprite.z = z unless @backsprite == nil || @backsprite.disposed?
+  end
+  
+  alias st_cms_hybrid_hack_width width=
+  def width=(w)
+    self.x += w-width if $scene.is_a?(Scene_Menu) && MIRROR
+    st_cms_hybrid_hack_width(w)
+  end
+  
+  alias st_cms_hybrid_hack_visible visible=
+  def visible=(expr)
+    st_cms_hybrid_hack_visible(expr)
+    @backsprite.visible = expr unless @backsprite == nil || @backsprite.disposed?
+  end
+  
+  alias disp_sprite_later dispose
+  def dispose
+    @backsprite.dispose unless @backsprite == nil || @backsprite.disposed?
+    disp_sprite_later
+  end
+  
+  alias st_cms_hybrid_hack_normal_color normal_color
+  def normal_color
+    if $scene.is_a?(Scene_Menu) && FONT_BACKGROUND_FIX
+      return Color.new(0, 0, 0)
+    else
+      return st_cms_hybrid_hack_normal_color
+    end
+  end
+
+  alias st_cms_hybrid_hack_system_color system_color
+  def system_color
+    if $scene.is_a?(Scene_Menu) && FONT_BACKGROUND_FIX
+      return Color.new(160, 0, 255)
+    else
+      return st_cms_hybrid_hack_system_color
+    end
+  end
+
+  alias st_cms_hybrid_hack_disabled_color disabled_color
+  def disabled_color
+    if $scene.is_a?(Scene_Menu) && FONT_BACKGROUND_FIX
+      return Color.new(96, 96, 96)
+    else
+      return st_cms_hybrid_hack_disabled_color
+    end
+  end
+  
+  alias st_cms_hybrid_hack_crisis_color crisis_color
+  def crisis_color
+    if $scene.is_a?(Scene_Menu) && FONT_BACKGROUND_FIX
+      return Color.new(192, 192, 0)
+    else
+      return st_cms_hybrid_hack_crisis_color
+    end
+  end
+  
+  alias draw_actor_graphic_st_cms_later draw_actor_graphic
+  def draw_actor_graphic(actor, x, y)
+    if actor != nil && actor.character_name != ''
+      if self.is_a?(Window_CMSMenuStatus) && FACESETS
+        bitmap = RPG::Cache.character("#{actor.character_name}_face", actor.character_hue)
+        x -= bitmap.width / 2
+        y -= bitmap.height
+        draw_actor_face_st_cms(actor, x, y)
+      else
+        draw_actor_graphic_st_cms_later(actor, x, y)
+      end
+    end
+  end
+
+  def draw_actor_face_st_cms(actor, x, y)
+    if $tons_version == nil || $tons_version < 3.71 || !FACE_HUE
+      hue = 0
+    else
+      hue = (FACE_HUE ? actor.character_hue : 0)
+    end
+    bitmap = RPG::Cache.character("#{actor.character_name}_face", hue)
+    src_rect = Rect.new(0, 0, bitmap.width, bitmap.height)
+    self.contents.blt(x, y, bitmap, src_rect)
+  end
+  
+  def draw_actor_battler(actor, x, y)
+    if actor != nil && actor.battler_name != ''
+      bitmap = RPG::Cache.battler(actor.battler_name, actor.battler_hue)
+      cw = bitmap.width
+      ch = bitmap.height
+      src_rect = Rect.new(0, 0, cw,ch)
+      self.contents.blt(x - cw / 2, y - ch, bitmap, src_rect)
+    end
+  end
+  
+  def draw_actor_exp(actor, x, y, width = 144)
+    self.contents.font.color = system_color
+    self.contents.draw_text(x, y, 48, 32, 'EXP')
+    if actor.exp_s.to_i > 999999
+      w = self.contents.text_size('999999').width
+    else
+      w = self.contents.text_size(actor.exp_s).width
+    end
+    if actor.next_exp_s.to_i > 999999
+      w2 = self.contents.text_size('999999').width
+    else
+      w2 = self.contents.text_size(actor.next_exp_s).width
+    end
+    self.contents.font.color = normal_color
+    self.contents.draw_text(x + 108 - w2, y, w2, 32, actor.exp_s, 2)
+    self.contents.draw_text(x + 108, y, 12, 32, '/', 1)
+    self.contents.draw_text(x + 120, y, w2, 32, actor.next_exp_s)
+  end
+  
+  def draw_actor_exp_alt(actor, x, y)
+    self.contents.font.color = system_color
+    self.contents.draw_text(x, y, 64, 32, 'next')
+    self.contents.font.color = normal_color
+    self.contents.draw_text(x + 56, y, 84, 32, actor.next_rest_exp_s, 2)
+  end
+
+  def draw_actor_name2(actor, x, y, w, a)
+    self.contents.font.color = normal_color
+    self.contents.draw_text(x, y, w, 32, actor.name, a)
+  end
+  
+  def up_color
+    return Color.new(0, 255, 0)
+  end
+ 
+  def down_color
+    return Color.new(255, 0, 0)
+  end
+  
+  alias draw_actor_parameter_st_cms_later draw_actor_parameter
+  def draw_actor_parameter(actor, x, y, type)
+    if type == 7
+      self.contents.font.color = system_color
+      self.contents.draw_text(x, y, 120, 32, 'Evasion')
+      self.contents.font.color = normal_color
+      self.contents.draw_text(x + 120, y, 36, 32, actor.eva.to_s, 2)
+    else
+      draw_actor_parameter_st_cms_later(actor, x, y, type)
+    end
+  end
+  
+  if $Blizz_Art
+  alias draw_actor_exp_blizzart_later draw_actor_exp
+  def draw_actor_exp(actor, x, y, w = 148)
+    if $game_system.BARS
+      w -= 12
+      rate = (actor.next_exp != 0 ? actor.now_exp.to_f / actor.next_exp : 1)
+      if rate < 0.5
+        color1 = Color.new(20 * rate, 60, 80, 192) 
+        color2 = Color.new(60 * rate, 180, 240, 192) 
+      elsif rate >= 0.5
+        color1 = Color.new(20 + 120 * (rate-0.5), 60 + 40 * (rate-0.5), 80, 192)
+        color2 = Color.new(60 + 360 * (rate-0.5), 180 + 120 * (rate-0.5), 240, 192)
+      end
+      color3 = Color.new(80, 80, 80, 192) 
+      self.contents.gradient_bar(x, y, w, color1, color2, color3, rate)
+    end
+    draw_actor_exp_blizzart_later(actor, x, y)
+  end
+  
+  alias draw_actor_exp_new2 draw_actor_exp_alt
+  def draw_actor_exp_alt(actor, x, y, w = 148)
+    w -= 12
+    rate = (actor.next_exp != 0 ? actor.now_exp.to_f / actor.next_exp : 1)
+    if rate < 0.5
+      color1 = Color.new(20 * rate, 60, 80)
+      color2 = Color.new(60 * rate, 180, 240)
+    elsif rate >= 0.5
+      color1 = Color.new(20 + 120 * (rate-0.5), 60 + 40 * (rate-0.5), 80)
+      color2 = Color.new(60 + 360 * (rate-0.5), 180 + 120 * (rate-0.5), 240)
+    end
+    color3 = Color.new(80, 80, 80, 192)
+    self.contents.gradient_bar(x, y, w, color1, color2, color3, rate)
+    draw_actor_exp_new2(actor, x, y)
+  end
+  end
+
+end
+
+#==============================================================================
+# Window_CMSCommand
+#==============================================================================
+
+class Window_CMSCommand < Window_Command
+  
+  attr_reader :continue
+  
+  def initialize(index, continue)
+    @background = 'CMSCommand'
+    commands = [$data_system.words.item, 'Equipment', $data_system.words.equip,
+        $data_system.words.skill, 'Status', 'Options', 'Save', 'Load', 'Exit']
+    super(180, commands)
+    @continue, self.index, self.x, self.y, self.z = continue, index, 972, 0, 999
+  end
+  
+  def draw_item(i, color)
+    self.contents.fill_rect(0, i*32, 148, 32, Color.new(0, 0, 0, 0))
+    bitmap = RPG::Cache.icon("CMS/commandmenu#{i}")
+    opacity = (color == normal_color ? 255 : 128)
+    self.contents.blt(4, 4 + i*32, bitmap, Rect.new(0, 0, 24, 24), opacity)
+    self.contents.font.color = color
+    self.contents.draw_text(32, i*32, 148, 32, @commands[i])
+  end
+  
+end
+
+#==============================================================================
+# Window_CMSChooseItem
+#==============================================================================
+
+class Window_CMSChooseItem < Window_Selectable
+  
+  def initialize
+    @background = 'CMSHelp'
+    super(0, -576, 640, 64)
+    @commands = ['Items', 'Sort', 'Quest Items']
+    @item_max = @column_max = @commands.size
+    self.contents = Bitmap.new(width - 32, 32)
+    refresh
+    self.active, self.z, self.index = true, 2900, 0
+  end
+  
+  def refresh
+    self.contents.clear
+    (0...@item_max).each {|i| draw_item(i, normal_color)}
+  end
+  
+  def draw_item(i, color)
+    self.contents.font.color = color
+    self.contents.fill_rect(8 + 212*i, 0, 164, 32, Color.new(0, 0, 0, 0))
+    self.contents.draw_text(8 + 212*i, 0, 164, 32, @commands[i], 1)
+  end
+  
+end
+
+#==============================================================================
+# Window_CMSOptions
+#==============================================================================
+
+class Window_CMSOptions < Window_Selectable
+
+  attr_accessor :current_font
+  attr_reader   :current_skin
+  attr_reader   :skin_name
+  attr_reader   :font_name
+  
+  def initialize
+    @background = 'CMSFullscreen'
+    super(0, 512, 640, 480)
+    @commands = ['BGM Volume', 'SFX Volume']
+    self.contents = Bitmap.new(width - 32, height - 32)
+    self.z, self.index = 2999, 0
+    @item_max = @commands.size
+    refresh
+  end
+  
+  def get_option
+    return @commands[index]
+  end
+  
+  def refresh
+    self.contents.clear
+    self.contents.font.name = $game_system.fontname
+    (0...@item_max).each {|i|
+        self.contents.font.color = normal_color
+        self.contents.fill_rect(24, 16 + i*36, 192, 32, Color.new(0, 0, 0, 0))
+        self.contents.draw_text(24, 16 + i*36, 192, 32, @commands[i])
+        draw_arrows(288, 4 + i*36)
+        case @commands[i]
+        when 'BGM Volume' then draw_volume(288, 4 + i*36)
+        when 'SFX Volume' then draw_volume(288, 4 + i*36, true)
+        end}
+  end
+      
+  def draw_arrows(x, y)
+    self.contents.draw_text(x - 32, y + 13, 32, 32, '<<')
+    self.contents.draw_text(x + 249, y + 13, 32, 32, '>>')
+  end
+  
+  def draw_volume(x, y, mode = false, width = 224)
+    volume = (mode ? $game_system.sfx_volume.to_f : $game_system.bgm_volume.to_f)
+    vol = volume.to_f / 100
+    color1 = Color.new(20, 40, 80, 192)
+    color2 = Color.new(60, 120, 240, 192)
+    color3 = Color.new(0, 0, 80, 192)
+    if $Blizz_Art 
+      old = $game_system.bar_opacity
+      $game_system.bar_opacity = 255
+    end
+    self.contents.gradient_bar(x, y, width, color1, color2, color3, vol)
+    $game_system.bar_opacity = old if $Blizz_Art
+  end
+  
+  def update_cursor_rect
+    if self.index < 0
+      self.cursor_rect.empty
+    else
+      self.cursor_rect.set(16, @index*36 + 16, 128, 32)
+    end
+  end
+  
+end
+
+#==============================================================================
+# Window_CMSTarget
+#==============================================================================
+
+class Window_CMSTarget < Window_Base
+  
+  attr_reader :index
+  attr_reader :actor
+  attr_reader :dir
+  
+  def initialize(actor, mode = false)
+    @background = 'CMSTarget'
+    super(-304, 64, 256, 104)
+    self.contents = Bitmap.new(width - 32, height - 32)
+    @actor, @item_max = actor, 1
+    self.y += actor.index*104 unless mode
+    self.z = 3999
+    self.index = -1
+    refresh
+  end
+  
+  def index=(i)
+    @index = i
+    update_cursor_rect
+  end
+  
+  def refresh
+    self.contents.clear
+    draw_actor_name(@actor, 4, -4)
+    draw_actor_state(@actor, 100, -4, 112)
+    draw_actor_hp(@actor, 44, 16)
+    draw_actor_sp(@actor, 44, 38)
+  end
+  
+  def update_actor(actor)
+    @actor = actor
+    refresh
+  end
+  
+  def dir=(val)
+    self.y -= val*40
+    @dir = val
+  end
+  
+  def update(i = @actor.index - 1)
+    unless self.index == -2
+      if @actor.index == i
+        self.index = 0 if self.index == -1
+      else
+        self.index = -1 if self.index == 0
+      end
+    end
+    self.y = 64+@actor.index*104 unless self.active
+    @dir = 0 if (self.y-64) / 104 * 104 == self.y-64
+    super()
+    update_cursor_rect
+  end
+  
+  def update_cursor_rect
+    if !self.active || self.index == -1
+      self.cursor_rect.empty
+    elsif self.index >= 0
+      self.cursor_rect.set(0, @index * 96, 224, 72)
+    elsif self.index == -2
+      self.cursor_rect.set(0, 0, 224, 72)
+    end
+  end
+  
+end
+
+#==============================================================================
+# Window_Help
+#==============================================================================
+
+class Window_Help < Window_Base
+  
+  alias init_storm_cms_later initialize
+  def initialize
+    @background = 'CMSHelp' if $scene.is_a?(Scene_Menu)
+    init_storm_cms_later
+    refresh
+  end
+  
+  def refresh
+    self.contents.font.name = $game_system.fontname
+  end
+  
+end
+
+#==============================================================================
+# Window_CMSItem
+#==============================================================================
+
+class Window_CMSItem < Window_Selectable
+
+  def initialize
+    @background = 'CMSItem'
+    super(256, -512, 384, 416)
+    self.active, self.visible, self.z, self.index = false, false, 2999, -1
+    refresh
+  end
+
+  def data
+    return @data[self.index]
+  end
+  
+  def draw_item(i)
+    number = case @data[i]
+    when RPG::Item then $game_party.item_number(@data[i].id)
+    when RPG::Weapon then $game_party.weapon_number(@data[i].id)
+    when RPG::Armor then $game_party.armor_number(@data[i].id)
+    end
+    if @data[i].is_a?(RPG::Item) && $game_party.item_can_use?(@data[i].id) ||
+        @mode == nil
+      self.contents.font.color = normal_color
+    else
+      self.contents.font.color = disabled_color
+    end
+    self.contents.fill_rect(4, i*32, 352, 32, Color.new(0, 0, 0, 0))
+    bitmap = RPG::Cache.icon(@data[i].icon_name)
+    opacity = self.contents.font.color == normal_color ? 255 : 128
+    self.contents.blt(4, i*32 + 4, bitmap, Rect.new(0, 0, 24, 24), opacity)
+    self.contents.draw_text(32, i*32, 212, 32, @data[i].name, 0)
+    self.contents.draw_text(308, i*32, 16, 32, ':', 1)
+    self.contents.draw_text(324, i*32, 24, 32, number.to_s, 2)
+  end
+
+  def update_help
+    @help_window.set_text(data == nil ? '' : data.description)
+  end
+  
+end
+
+#==============================================================================
+# Window_NormalItem
+#==============================================================================
+
+class Window_NormalItem < Window_CMSItem
+  
+  attr_accessor :mode
+  
+  def initialize
+    @mode = 0
+    super
+    self.visible = true
+  end
+  
+  def refresh
+    if self.contents != nil
+      self.contents.dispose
+      self.contents = nil
+    end
+    data1, data2, data3 = [], [], []
+    (1...$data_items.size).each {|i|
+        if $game_party.item_number(i) > 0 && !$quest_items.include?(i)
+          data1.push($data_items[i])
+        end}
+    if WEAPONS_AND_ARMORS
+      (1...$data_weapons.size).each {|i|
+          data2.push($data_weapons[i]) if $game_party.weapon_number(i) > 0}
+      (1...$data_armors.size).each {|i|
+          data3.push($data_armors[i]) if $game_party.armor_number(i) > 0}
+    end
+    if [1, 2].include?(@mode)
+      data1.sort! {|a, b|
+          $game_party.item_number(a.id) <=> $game_party.item_number(b.id)}
+      data2.sort! {|a, b|
+          $game_party.weapon_number(a.id) <=> $game_party.weapon_number(b.id)}
+      data3.sort! {|a, b|
+          $game_party.armor_number(a.id) <=> $game_party.armor_number(b.id)}
+      [data1, data2, data3].each {|ary| ary.reverse!} if @mode == 2
+    elsif [3, 4].include?(@mode)
+      [data1, data2, data3].each {|ary| ary.sort! {|a, b| a.name <=> b.name}}
+      [data1, data2, data3].each {|ary| ary.reverse!} if @mode == 4
+    end
+    @data = data1 + data2 + data3  
+    @item_max = @data.size
+    self.contents = Bitmap.new(width - 32, @item_max * 32) if @item_max > 0
+    (0...@item_max).each {|i| draw_item(i)}
+  end
+  
+end
+
+#==============================================================================
+# Window_QuestItem
+#==============================================================================
+
+class Window_QuestItem < Window_CMSItem
+  
+  def refresh
+    if self.contents != nil
+      self.contents.dispose
+      self.contents = nil
+    end
+    @data = []
+    (1...$data_items.size).each {|i|
+        if $game_party.item_number(i) > 0 && $quest_items.include?(i)
+          @data.push($data_items[i])
+        end}
+    @item_max = @data.size
+    self.contents = Bitmap.new(width - 32, @item_max * 32) if @item_max > 0
+    (0...@item_max).each {|i| draw_item(i)}
+  end
+
+end
+
+#==============================================================================
+# Window_EquipmentItem
+#==============================================================================
+
+class Window_EquipmentItem < Window_CMSItem
+
+  attr_accessor :item_max
+  
+  def initialize(actor)
+    @actor = actor
+    super()
+    self.x, self.y, self.z, self.index = 256, -548, 2999, 0
+    self.active = self.visible = true
+  end
+
+  def update_actor(actor)
+    @actor = actor
+    refresh
+  end
+  
+  def refresh
+    if self.contents != nil
+      self.contents.dispose
+      self.contents = nil
+    end
+    @data = []
+    (1...$data_weapons.size).each {|i|
+        @data.push($data_weapons[i]) if $game_party.weapon_number(i) > 0}
+    (1...$data_armors.size).each {|i|
+        @data.push($data_armors[i]) if $game_party.armor_number(i) > 0}
+    @item_max = @data.size
+    self.contents = Bitmap.new(width - 32, @item_max * 32) if @item_max > 0
+    (0...@item_max).each {|i| draw_item(i)}
+  end
+
+  def draw_item(i)
+    case @data[i]
+    when RPG::Weapon
+      if @actor.equippable?($data_weapons[@data[i].id])
+        self.contents.font.color = normal_color
+      else
+        self.contents.font.color = disabled_color
+      end
+      number = $game_party.weapon_number(@data[i].id)
+    when RPG::Armor
+      if @actor.equippable?($data_armors[@data[i].id])
+        self.contents.font.color = normal_color
+      else
+        self.contents.font.color = disabled_color
+      end
+      number = $game_party.armor_number(@data[i].id)
+    end
+    self.contents.fill_rect(4, i*32, 352, 32, Color.new(0, 0, 0, 0))
+    bitmap = RPG::Cache.icon(@data[i].icon_name)
+    opacity = self.contents.font.color == normal_color ? 255 : 128
+    self.contents.blt(4, 4 + i*32, bitmap, Rect.new(0, 0, 24, 24), opacity)
+    self.contents.draw_text(32, i*32, 212, 32, @data[i].name, 0)
+    self.contents.draw_text(308, i*32, 16, 32, ':', 1)
+    self.contents.draw_text(324, i*32, 24, 32, number.to_s, 2)
+  end
+
+end
+
+#==============================================================================
+# Window_CMSSkill
+#==============================================================================
+
+class Window_CMSSkill < Window_CMSItem
+  
+  def initialize(actor)
+    @actor = actor
+    super()
+    self.x, self.y, self.z, self.index = -512, 64, 2999, 0
+    self.active = self.visible = true
+  end
+
+  def update_actor(actor)
+    @actor = actor
+    refresh
+  end
+
+  def refresh
+    if self.contents != nil
+      self.contents.dispose
+      self.contents = nil
+    end
+    @data = []
+    @actor.skills.each {|id| @data.push($data_skills[id])}
+    @item_max = @data.size
+    self.contents = Bitmap.new(width - 32, @item_max * 32) if @item_max > 0
+    (0...@item_max).each {|i| draw_item(i)}
+  end
+
+  def draw_item(i)
+    self.contents.fill_rect(4, i*32, 352, 32, Color.new(0, 0, 0, 0))
+    if @actor.skill_can_use?(@data[i].id)
+      self.contents.font.color = normal_color
+    else
+      self.contents.font.color = disabled_color
+    end
+    bitmap = RPG::Cache.icon(@data[i].icon_name)
+    opacity = self.contents.font.color == normal_color ? 255 : 128
+    self.contents.blt(4, 4 + i*32, bitmap, Rect.new(0, 0, 24, 24), opacity)
+    self.contents.draw_text(32, i*32, 204, 32, @data[i].name, 0)
+    if @data[i].sp_cost > 0
+      if $tons_version != nil && $tons_version >= 4.98
+        if $game_system._1_SP && @actor.states.include?(ONE_SP_ID)
+          sp_cost = 1
+        elsif $game_system.HALF_SP && @actor.states.include?(HALF_SP_ID)
+          sp_cost = (@data[i].sp_cost/2.0).ceil
+        end
+      end
+      sp_cost = @data[i].sp_cost if sp_cost == nil
+      self.contents.draw_text(292, i*32, 48, 32, sp_cost.to_s, 2)
+    end
+  end
+
+end
+
+#==============================================================================
+# Window_CMSEquipLeft
+#==============================================================================
+
+class Window_CMSEquipLeft < Window_Base
+  
+  attr_accessor :mode
+  attr_accessor :current
+  attr_accessor :changed
+  
+  def initialize(actor)
+    @background = 'CMSEquipLeft'
+    super(640, 64, 288, 416)
+    self.contents = Bitmap.new(width - 32, height - 32)
+    @current = @changed = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    @elements, @states, @actor, @mode, self.z = [], [], actor, 0, 2999
+    refresh
+  end
+  
+  def update_actor(actor)
+    @actor = actor
+    refresh
+  end
+  
+  def draw_actor_hp(actor, x, y, width = 144)
+    self.contents.font.color = system_color
+    self.contents.draw_text(x, y, 96, 32, "max #{$data_system.words.hp}")
+    self.contents.font.color = normal_color
+    self.contents.draw_text(x + 108, y, 48, 32, actor.maxhp.to_s, 2)
+  end
+    
+  def draw_actor_sp(actor, x, y, width = 144)
+    self.contents.font.color = system_color
+    self.contents.draw_text(x, y, 96, 32, "max #{$data_system.words.sp}")
+    self.contents.font.color = normal_color
+    self.contents.draw_text(x + 108, y, 48, 32, actor.maxsp.to_s, 2)
+  end
+    
+  def refresh
+    self.contents.clear
+    draw_actor_name(@actor, 4, 0)
+    draw_actor_level(@actor, 180, 0)
+    draw_actor_hp(@actor, 4, 28)
+    draw_actor_sp(@actor, 4, 52)
+    (0..7).each {|i| draw_actor_parameter(@actor, 4, 76 + i*24, i)}
+    if @mode == 0
+      self.contents.font.color = up_color
+      self.contents.draw_text(4, 276, 200, 32, 'Elemental attack:')
+      self.contents.draw_text(4, 324, 200, 32, 'Status attack:')
+    elsif @mode == 1
+      self.contents.font.color = up_color
+      self.contents.draw_text(4, 276, 200, 32, 'Elemental resistance:')
+      self.contents.draw_text(4, 324, 200, 32, 'Status resistance:')
+    end
+    self.contents.font.color = normal_color
+    draw_elements(4, 300)
+    draw_states(4, 348)
+    @current.each_index {|i|
+        val = @current[i] - @changed[i]
+        if val != 0
+          self.contents.font.color = system_color
+          self.contents.draw_text(162, 28+i*24, 40, 32, '»»', 1)
+          self.contents.font.color = (val > 0 ? down_color : up_color)
+          self.contents.draw_text(204, 28+i*24, 48, 32, @changed[i].abs.to_s, 2)
+        end}
+  end
+  
+  def set_new_parameters(elements, states)
+    @elements, @states = elements, states
+    refresh
+  end
+  
+  def draw_elements(x, y)
+    @elements.each_index {|i|
+        icon = RPG::Cache.icon("CMS/elm_#{$data_system.elements[@elements[i]].downcase}")
+        self.contents.blt(x + i*28, y + 4, icon, Rect.new(0, 0, 24, 24))}
+  end
+  
+  def draw_states(x, y)
+    @states.each_index {|i|
+        icon = RPG::Cache.icon("CMS/stat_#{$data_states[@states[i]].name.downcase}")
+        self.contents.blt(x + i*28, y + 4, icon, Rect.new(0, 0, 24, 24))}
+  end
+  
+end
+  
+#==============================================================================
+# Window_CMSEquipRight
+#==============================================================================
+
+class Window_CMSEquipRight < Window_Selectable
+
+  def initialize(actor)
+    @background = 'CMSEquipRight'
+    super(928, 64, 352, 192)
+    self.contents = Bitmap.new(width - 32, height - 32)
+    @actor, self.active, self.z, self.index = actor, true, 2999, 0
+    refresh
+  end
+
+  def data
+    return @data[self.index]
+  end
+  
+  def update_actor(actor)
+    @actor = actor
+    refresh
+  end
+
+  def refresh
+    self.contents.clear
+    @data = []
+    @data.push($data_weapons[@actor.weapon_id])
+    @data.push($data_armors[@actor.armor1_id])
+    @data.push($data_armors[@actor.armor2_id])
+    @data.push($data_armors[@actor.armor3_id])
+    @data.push($data_armors[@actor.armor4_id])
+    @item_max = @data.size
+    self.contents.font.color = system_color
+    self.contents.draw_text(4, 32 * 0, 120, 32, $data_system.words.weapon)
+    self.contents.draw_text(4, 32 * 1, 120, 32, $data_system.words.armor1)
+    self.contents.draw_text(4, 32 * 2, 120, 32, $data_system.words.armor2)
+    self.contents.draw_text(4, 32 * 3, 120, 32, $data_system.words.armor3)
+    self.contents.draw_text(4, 32 * 4, 120, 32, $data_system.words.armor4)
+    (0...5).each {|i| draw_item_name(@data[i], 120, 32 * i)}
+  end
+
+  def update_help
+    @help_window.set_text(data == nil ? '' : data.description)
+  end
+  
+end
+
+#==============================================================================
+# Window_CMSEquipItem
+#==============================================================================
+
+class Window_CMSEquipItem < Window_Selectable
+
+  def initialize(actor, equip_type)
+    @background = 'CMSEquipItem'
+    super(928, 256, 352, 224)
+    self.active = self.visible = false
+    @actor, @equip_type, self.z, self.index = actor, equip_type, 3000, -1
+    refresh
+  end
+
+  def data
+    return @data[self.index]
+  end
+
+  def update_actor(actor, equip_type)
+   @actor = actor
+   @equip_type = equip_type
+   refresh
+ end
+  
+  def refresh
+    if self.contents != nil
+      self.contents.dispose
+      self.contents = nil
+    end
+    @data = []
+    if @equip_type == 0
+      weapon_set = $data_classes[@actor.class_id].weapon_set
+      (1...$data_weapons.size).each {|i|
+          if $game_party.weapon_number(i) > 0 && weapon_set.include?(i)
+            @data.push($data_weapons[i])
+          end}
+    else
+      armor_set = $data_classes[@actor.class_id].armor_set
+      (1...$data_armors.size).each {|i|
+          if $game_party.armor_number(i) > 0 && armor_set.include?(i)
+            @data.push($data_armors[i]) if $data_armors[i].kind == @equip_type-1
+          end}
+    end
+    @data.push(nil)
+    @item_max = @data.size
+    self.contents = Bitmap.new(width - 32, @item_max * 32)
+    (0...@item_max-1).each {|i| draw_item(i)}
+    self.contents.font.color = system_color
+    self.contents.draw_text(4, (@item_max-1)*32, 100, 32, '[Unequip]')
+  end
+
+  def draw_item(i)
+    number = case @data[i]
+    when RPG::Weapon then $game_party.weapon_number(@data[i].id)
+    when RPG::Armor then $game_party.armor_number(@data[i].id)
+    end
+    self.contents.font.color = normal_color
+    bitmap = RPG::Cache.icon(@data[i].icon_name)
+    self.contents.blt(4, 4 + i*32, bitmap, Rect.new(0, 0, 24, 24))
+    self.contents.draw_text(32, i*32, 212, 32, @data[i].name, 0)
+    self.contents.draw_text(212, i*32, 16, 32, ':', 1)
+    self.contents.draw_text(228, i*32, 24, 32, number.to_s, 2)
+  end
+
+  def update_help
+    @help_window.set_text(data == nil ? '' : data.description)
+  end
+  
+end
+
+#==============================================================================
+# Window_CMSStatus
+#==============================================================================
+
+class Window_CMSStatus < Window_Base
+
+  def initialize(actor)
+    @background = 'CMSFullscreen'
+    super(0, 512, 640, 480)
+    self.contents = Bitmap.new(width - 32, height - 32)
+    @actor, self.active, self.z = actor, true, 2999
+    refresh
+  end
+
+  def refresh
+    self.contents.clear
+    self.contents.font.color = normal_color
+    self.contents.draw_text(224, 0, 120, 32, @actor.name, 1)
+    draw_actor_battler(@actor, 284, 232)
+    draw_actor_class(@actor, 400, 32)
+    draw_actor_level(@actor, 400, 0)
+    draw_actor_state(@actor, 400, 64, 168)
+    draw_actor_hp(@actor, 400, 92, 172)
+    draw_actor_sp(@actor, 400, 122, 172)
+    if $crls
+      if DRAW_BAR
+        draw_actor_sr_with_bar(@actor, 400, 152, 172)
+      else
+        draw_actor_sr(@actor, 400, 152, 172)
+      end
+      draw_actor_exp(@actor, 400, 182, 172)
+    else
+      draw_actor_exp(@actor, 400, 152, 172)
+    end
+    (0..7).each {|i| draw_actor_parameter(@actor, 4, i*28, i)}
+    self.contents.font.color = system_color
+    self.contents.draw_text(84, 244, 96, 32, 'Equipment')
+    self.contents.draw_text(4, 276, 96, 32, $data_system.words.weapon)
+    self.contents.draw_text(4, 308, 96, 32, $data_system.words.armor1)
+    self.contents.draw_text(4, 340, 96, 32, $data_system.words.armor2)
+    self.contents.draw_text(4, 372, 96, 32, $data_system.words.armor3)
+    self.contents.draw_text(4, 404, 96, 32, $data_system.words.armor4)
+    equips = [$data_weapons[@actor.weapon_id], $data_armors[@actor.armor1_id],
+        $data_armors[@actor.armor2_id], $data_armors[@actor.armor3_id],
+        $data_armors[@actor.armor4_id]]
+    equips.each_index {|i|
+        if @actor.equippable?(equips[i])
+          draw_item_name(equips[i], 108, 276 + i*32)
+        else
+          self.contents.font.color = (i == 0 ? knockout_color : crisis_color)
+          self.contents.draw_text(108, 276 + i*32, 192, 32, 'Nothing equipped')
+        end}
+  end
+  
+  def update_actor(actor)
+    @actor = actor
+    refresh
+  end
+  
+end
+
+#==============================================================================
+# Window_CMSSortCommand
+#==============================================================================
+
+class Window_CMSSortCommand < Window_Command
+
+  def initialize
+    @background = 'CMSMini'
+    super(180, ['Standard', 'by quantity', 'by alphabet'])
+    self.x, self.y, self.z = 224, -128, 9999
+  end
+  
+end
+
+#==============================================================================
+# Window_CMSEndCommand
+#==============================================================================
+
+class Window_CMSEndCommand < Window_Command
+
+  def initialize
+    @background = 'CMSMini'
+    super(180, ['Back to game', 'Back to title', 'Exit game'])
+    self.x, self.y, self.z = 460, 524, 3999
+  end
+  
+end
+
+#==============================================================================
+# Window_CMSInfo
+#==============================================================================
+
+class Window_CMSInfo < Window_Base
+
+  def initialize
+    @background = 'CMSInfo'
+    super(0, 0, 180, 160)
+    self.contents = Bitmap.new(width - 32, height - 32)
+    self.active, self.x, self.y, self.z = false, 460, 832, 1999
+    refresh
+  end
+
+  def refresh
+    self.contents.clear
+    self.contents.font.name = $game_system.fontname
+    @double_sec = Graphics.frame_count * 2 / Graphics.frame_rate
+    total_sec = @double_sec / 2
+    hour, min, sec = total_sec / 60 / 60, total_sec / 60 % 60, total_sec % 60
+    if @double_sec % 2 == 1
+      text = sprintf('%02d %02d %02d', hour, min, sec)
+    else
+      text = sprintf('%02d:%02d:%02d', hour, min, sec)
+    end
+    self.contents.font.color = system_color
+    cx = contents.text_size($data_system.words.gold).width
+    self.contents.draw_text(148-cx, 32, cx, 32, $data_system.words.gold, 2)
+    self.contents.draw_text(0, 64, 148, 32, 'Location:')
+    self.contents.font.color = normal_color
+    self.contents.draw_text(0, 0, 148, 32, text, 1)
+    self.contents.draw_text(0, 32, 144-cx, 32, $game_party.gold.to_s, 2)
+    self.contents.draw_text(0, 96, 148, 32, $game_map.name, 2)
+  end
+  
+  def update
+    super
+    refresh if Graphics.frame_count * 2 / Graphics.frame_rate != @double_sec
+  end
+  
+end
+
+#==============================================================================
+# Window_CMSMenuStatus
+#==============================================================================
+
+class Window_CMSMenuStatus < Window_Base
+  
+  attr_reader :index
+  attr_reader :actor
+  attr_reader :dir
+  
+  def initialize(actor)
+    @background = 'CMSMenuStatus'
+    super(0, 0, 460, 120)
+    self.contents = Bitmap.new(width - 32, height - 32)
+    @actor = actor
+    @dir = 0
+    refresh
+    self.active = false
+    self.index = -1
+    self.x, self.y, self.z = -512, @actor.index * 120, 999
+  end
+  
+  def index=(i)
+    @index = i
+    update_cursor_rect
+  end
+  
+  def refresh
+    self.contents.clear
+    self.contents.font.name = $game_system.fontname
+    self.contents.font.color = normal_color
+    draw_actor_graphic(@actor, 56, 80)
+    draw_actor_name2(@actor, 8, 0, 88, 1)
+    draw_actor_level(@actor, 104, 0)
+    draw_actor_state(@actor, 168, 0, 252)
+    draw_actor_hp(@actor, 104, 28)
+    draw_actor_sp(@actor, 272, 28)
+    draw_actor_exp_alt(@actor, 272, 56)
+    if $crls
+      if DRAW_BAR
+        draw_actor_sr_with_bar(@actor, 104, 56)
+      else
+        draw_actor_sr(@actor, 104, 56)
+      end
+    end
+  end
+  
+  def dir=(val)
+    self.y -= val*56
+    @dir = val
+  end
+  
+  def update(i = @actor.index - 1)
+    if @actor.index == i
+      self.index = 0 if self.index == -1
+    else
+      self.index = -1 if self.index == 0
+    end
+    self.y = @actor.index*120 unless self.active
+    @dir = 0 if self.y / 120 * 120 == self.y
+    super()
+  end
+  
+  def update_cursor_rect
+    if @index < 0
+      self.cursor_rect.empty
+    else
+      self.cursor_rect.set(0, 0, width - 32, height - 32)
+    end
+  end
+  
+end
+
+#==============================================================================
+# Scene_Menu
+#==============================================================================
+
+class Scene_Menu
+  
+  def initialize(menu_index = 0)
+    @menu_index = menu_index
+    @actor_index = @target_index = -1
+    @viewport1 = Viewport.new(0, 0, 640, 480)
+    @moved = false
+  end
+
+  def main
+    if MAP_BACKGROUND
+      @spriteset = Spriteset_Map.new
+    elsif CMS_EDITION
+      @spriteset = Sprite.new
+      @spriteset.bitmap = RPG::Cache.picture("CMS/#{CMS_EDITION}/CMSFullscreen")
+    end
+    continue = false
+    (1..SAVE_FILES_NUMBER).each {|i| 
+        continue = true if FileTest.exist?("#{SAVE_NAME}#{i}.#{SAVE_EXTENSION}")}
+    @command_window = Window_CMSCommand.new(@menu_index, continue)
+    (0...5).each {|i| @command_window.disable_item(i)} if $game_party.actors.size == 0
+    @command_window.disable_item(6) if $game_system.save_disabled
+    @command_window.disable_item(7) unless @command_window.continue
+    @info_window = Window_CMSInfo.new
+    @status_windows, @target_windows = [], []
+    $game_party.actors.each {|actor|
+        @status_windows.push(Window_CMSMenuStatus.new(actor))}
+    @help_window = Window_Help.new
+    @help_window.x, @help_window.y, @help_window.z = 0, -368, 9999
+    Graphics.transition
+    loop do
+      Graphics.update
+      Input.update
+      update
+      break if @scene != nil || $scene != self
+    end
+    loop do
+      Graphics.update
+      (@status_windows + [@command_window, @info_window]).each {|win| win.update}
+      move_da_outro
+      break if @status_windows[0].x <= - 512
+    end
+    Graphics.freeze
+    (@status_windows + @target_windows + [@command_window, @info_window,
+        @help_window, @spriteset]).each {|obj| obj.dispose if obj != nil}
+    del_sort if @sort_window != nil
+    del_status if @playerstatus_window != nil
+    del_equip if @left_window != nil
+    del_skill if @skill_window != nil
+    del_end if @end_window != nil
+    del_items if @item_choose_window != nil
+    del_items if @equips_window != nil
+    del_options if @options_window != nil
+    if @scene.is_a?(Scene_Title)
+      Graphics.transition(25)
+      Graphics.freeze
+    end
+    $scene = @scene
+  end
+  
+  def equip_refresh
+    if @item_window.active
+      item = @item_window.data
+      last_hp = @actor.hp
+      last_sp = @actor.sp
+      @left_window.current = [@actor.maxhp, @actor.maxsp, @actor.atk,
+          @actor.pdef, @actor.mdef, @actor.str, @actor.dex, @actor.agi,
+          @actor.int, @actor.eva]
+      @left_window.changed = @actor.test_equip(@right_window.index, item == nil ? 0 : item.id)
+      elements = (item.is_a?(RPG::Weapon) ? item.element_set :
+          (item.is_a?(RPG::Armor) ? item.guard_element_set : []))
+      states = (item.is_a?(RPG::Weapon) ? item.plus_state_set :
+          (item.is_a?(RPG::Armor) ? item.guard_state_set : []))
+      @actor.hp = last_hp
+      @actor.sp = last_sp
+      @left_window.set_new_parameters(elements, states)
+    else
+      @left_window.current = @left_window.changed = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+      @left_window.set_new_parameters([], [])
+    end
+  end
+  
+  def del_sort
+    @sort_window.dispose
+    @sort_window = nil
+  end
+  
+  def del_status
+    @playerstatus_window.dispose
+    @playerstatus_window = nil
+  end
+  
+  def del_equip
+    @left_window.dispose
+    @right_window.dispose
+    @item_windows.each {|win| win.dispose}
+    @left_window = @right_window = @item_window = @item_windows = nil
+  end
+  
+  def del_skill
+    @skill_window.dispose
+    @skill_window = nil
+  end
+  
+  def del_target
+    @target_windows.each {|win| win.dispose}
+    @target_windows = []
+  end
+
+  def del_end
+    @end_window.dispose
+    @end_window = nil
+  end
+  
+  def del_items
+    @items_window1.dispose
+    @items_window1 = nil
+    @items_window2.dispose
+    @items_window2 = nil
+    @item_choose_window.dispose
+    @item_choose_window = nil
+  end
+  
+  def del_equipment
+    @equips_window.dispose
+    @equips_window = nil
+    del_target
+  end
+  
+  def del_options
+    @options_window.dispose
+    @options_window = nil
+  end
+  
+  def update
+    @status_windows.each {|win| win.update(@actor_index)}
+    @target_windows.each {|win| win.update(@target_index)}
+    @info_window.update
+    unless @status_windows[0].x < 0 || @status_windows[0].dir != 0 ||
+        @target_windows[0] != nil && @target_windows[0].dir != 0
+      @command_window.update# if @command_window.active
+      [@help_window, @equips_window, @item_choose_window, @sort_window,
+      @skill_window, @left_window, @right_window, @playerstatus_window,
+      @options_window, @end_window].each {|win| win.update if win != nil}
+    end
+    move_da_main if @status_windows[0].x < 0
+    move_da_selection if @status_windows[0].dir != 0
+    move_da_targeting if @target_windows[0] != nil && @target_windows[0].dir != 0
+    move_da_status if @playerstatus_window != nil && @playerstatus_window.y > 0
+    move_da_equip if @left_window != nil && @left_window.x > 0
+    move_da_skill if @skill_window != nil && @skill_window.x < 256
+    move_da_target if @target_windows[0] != nil && @target_windows[0].x < 0
+    move_da_items if @item_choose_window != nil && @item_choose_window.y < 0
+    move_da_sort if @sort_window != nil && @sort_window.y < 64
+    move_da_equipment if @equips_window != nil && @equips_window.y < 64
+    move_da_options if @options_window != nil && @options_window.y > 0
+    move_da_end if @end_window != nil && @end_window.y > 336
+    if @moved
+      @moved = false
+      return
+    end
+    if @equips_window != nil
+      update_equipment
+    elsif @command_window.active
+      update_command
+    elsif @status_windows[0].active
+      update_status
+    elsif @item_choose_window != nil
+      if @item_choose_window.active
+        items_refresh
+        update_items_choose
+      elsif @sort_window != nil && @sort_window.active
+        update_sort
+      elsif @items_window1 != nil && @items_window1.active
+        @items_window1.update
+        update_item
+      elsif @items_window2 != nil && @items_window2.active
+        @items_window2.update
+        update_item
+      elsif @target_windows[0] != nil && @target_windows[0].active
+        update_item_target
+      end
+    elsif @skill_window != nil && @skill_window.active
+      update_skill
+    elsif @target_windows[0] != nil && @target_windows[0].active
+      update_skill_target
+    elsif @right_window != nil
+      if @right_window.active
+        update_right_equip
+      elsif @item_window != nil && @item_window.active
+        @item_window.update
+        update_eitem
+      end
+    elsif @playerstatus_window != nil && @playerstatus_window.active
+      update_playerstatus
+    elsif @options_window != nil && @options_window.active
+      update_options
+    elsif @end_window != nil
+      update_end
+    end
+  end
+  
+  def move_windows(wins, border, mdiff, lead, xy, acc = false)
+    if acc
+      diff = [[((xy ? lead.x : lead.y)-border).abs, mdiff].min, 1].max
+    else
+      diff = [[((xy ? lead.x : lead.y)-border).abs/2, mdiff].min, 1].max
+    end
+    wins[0].each {|win| win.x += diff if win != nil}
+    wins[1].each {|win| win.x -= diff if win != nil}
+    wins[2].each {|win| win.y += diff if win != nil}
+    wins[3].each {|win| win.y -= diff if win != nil}
+    @moved = true
+  end
+  
+  def move_da_main
+    lead = @status_windows[0]
+    x_plus = @status_windows
+    x_minus = [@command_window]
+    y_minus = [@info_window]
+    move_windows([x_plus, x_minus, [], y_minus], 0, 128, lead, true)
+  end
+  
+  def move_da_outro
+    lead = @status_windows[0]
+    x_plus = [@command_window]
+    x_minus = @status_windows + @target_windows + [@skill_window, @help_window]
+    y_plus = [@info_window]
+    y_minus = [@item_choose_window, @items_window1, @items_window2, @help_window]
+    move_windows([x_plus, x_minus, y_plus, y_minus], 0, 128, lead, true, true)
+  end
+  
+  def move_da_selection(lead = @status_windows[@actor_index])
+    if lead.dir == 1
+      move_windows([[], [], [], @status_windows], 360, 32, lead, false)
+    else
+      move_windows([[], [], @status_windows, []], 0, 32, lead, false)
+    end
+  end
+  
+  def move_da_targeting(lead = @target_windows[@target_index])
+    if lead.dir == 1
+      move_windows([[], [], [], @target_windows], 376, 32, lead, false)
+    else
+      move_windows([[], [], @target_windows, []], 64, 32, lead, false)
+    end
+  end
+  
+  def move_da_sort(win = @sort_window)
+    move_windows([[], [], [win], []], 64, 32, win, false)
+  end
+  
+  def move_da_status(win = @playerstatus_window)
+    move_windows([[], [], [], [win]], 0, 64, win, false)
+  end
+
+  def move_da_equip(win = @left_window)
+    x_minus = [@left_window, @right_window, @help_window] + @item_windows
+    move_windows([[], x_minus, [], []], 0, 64, win, true)
+  end  
+    
+  def move_da_skill(win = @skill_window)
+    x_plus = [@skill_window, @help_window]
+    move_windows([x_plus, [], [], []], 256, 64, win, true)
+  end
+  
+  def move_da_target(win = @target_windows[0])
+    move_windows([@target_windows, [], [], []], 0, 32, win, true)
+  end
+  
+  def move_da_items(win = @item_choose_window)
+    y_plus = [@item_choose_window, @items_window1, @items_window2, @help_window]
+    move_windows([[], [], y_plus, []], 0, 64, win, false)
+  end
+  
+  def move_da_equipment(win = @equips_window)
+    y_plus = [@equips_window, @help_window]
+    move_windows([[], [], y_plus, []], 64, 64, win, false)
+  end
+  
+  def move_da_options(win = @options_window)
+    move_windows([[], [], [], [win]], 0, 64, win, false)
+  end
+  
+  def move_da_end(win = @end_window)
+    move_windows([[], [], [], [win]], 336, 64, win, false)
+  end
+  
+  def update_command
+    if Input.trigger?(Input::B)
+      $game_system.se_play($data_system.cancel_se)
+      @scene = Scene_Map.new
+    elsif Input.trigger?(Input::C)
+      if $game_party.actors.size == 0 && @command_window.index < 5
+        $game_system.se_play($data_system.buzzer_se)
+        return
+      end
+      case @command_window.index
+      when 0
+        $game_system.se_play($data_system.decision_se)
+        @item_choose_window = Window_CMSChooseItem.new
+        @items_window1 = Window_NormalItem.new
+        @items_window2 = Window_QuestItem.new
+        @items_window1.help_window = @items_window2.help_window = @help_window
+        @command_window.active = false
+        @help_window.x, @help_window.y = 0, -576
+        @help_window.set_text('')
+        @help_window.visible = false
+        items_refresh
+      when 1..4
+        $game_system.se_play($data_system.decision_se)
+        @command_window.active = false
+        @status_windows.each {|win| win.active = true}
+        @actor_index = 0
+      when 5
+        $game_system.se_play($data_system.decision_se)
+        @options_window = Window_CMSOptions.new
+        @command_window.active = false
+      when 6
+        if $game_system.save_disabled
+          $game_system.se_play($data_system.buzzer_se)
+        else
+          $game_system.se_play($data_system.decision_se)
+          @scene = Scene_CMSSave.new
+          Graphics.transition(0)
+        end
+      when 7
+        if @command_window.continue
+          $game_system.se_play($data_system.decision_se)
+          @scene = Scene_CMSLoad.new
+          Graphics.transition(0)
+        else
+          $game_system.se_play($data_system.buzzer_se)
+        end
+      when 8
+        $game_system.se_play($data_system.decision_se)
+        @command_window.active = false
+        @end_window = Window_CMSEndCommand.new
+      end
+    end
+  end
+  
+  def update_status
+    @actor = $game_party.actors[@actor_index]
+    if Input.trigger?(Input::B)
+      $game_system.se_play($data_system.cancel_se)
+      @status_windows.each {|win| win.active, win.index = false, -1}
+      @actor_index = -1
+      @command_window.active = true
+    elsif Input.trigger?(Input::C)
+      case @command_window.index
+      when 1
+        $game_system.se_play($data_system.decision_se)
+        @equips_window = Window_EquipmentItem.new(@actor)
+        @equips_window.help_window = @help_window
+        @target_windows.push(Window_CMSTarget.new(@actor, true))
+        @status_windows.each {|win| win.active = false}
+        @help_window.visible = true
+        @help_window.x, @help_window.y = 0, -612
+      when 2
+        $game_system.se_play($data_system.decision_se)
+        if CUSTOM_EQUIP_SCENE
+          @scene = Scene_Equip.new(@actor_index)
+        else
+          @left_window = Window_CMSEquipLeft.new(@actor)
+          @right_window = Window_CMSEquipRight.new(@actor)
+          @right_window.help_window = @help_window
+          @item_windows = []
+          (0..4).each {|i| win = Window_CMSEquipItem.new(@actor, 4-i)
+              win.help_window = @help_window
+              @item_windows.unshift(win)}
+          @item_windows[0].visible = @help_window.visible = true
+          @help_window.x, @help_window.y = 640, 0
+          @status_windows.each {|win| win.active = false}
+        end
+      when 3
+        if @actor.restriction >= 2
+          $game_system.se_play($data_system.buzzer_se)
+        else
+          $game_system.se_play($data_system.decision_se)
+          @skill_window = Window_CMSSkill.new(@actor)
+          @skill_window.help_window = @help_window
+          @help_window.visible = true
+          @help_window.x, @help_window.y = -768, 0
+          @status_windows.each {|win| win.active = false}
+        end
+      when 4
+        $game_system.se_play($data_system.decision_se)
+        @playerstatus_window = Window_CMSStatus.new(@actor)
+        @status_windows.each {|win| win.active = false}
+      end
+    elsif Input.repeat?(Input::DOWN)
+      $game_system.se_play($data_system.cursor_se)
+      @actor_index = (@actor_index+1) % $game_party.actors.size
+      if @status_windows[@actor_index].y < 0
+        @status_windows.each {|win| win.y += ($game_party.actors.size-4)*120}
+      elsif @status_windows[@actor_index].y >= 480
+        @status_windows.each {|win| win.dir = 1}
+      end
+    elsif Input.repeat?(Input::UP)
+      $game_system.se_play($data_system.cursor_se)
+      @actor_index += $game_party.actors.size-1
+      @actor_index %= $game_party.actors.size
+      if @status_windows[@actor_index].y < 0
+        @status_windows.each {|win| win.dir = -1}
+      elsif @status_windows[@actor_index].y >= 480
+        @status_windows.each {|win| win.y -= ($game_party.actors.size-4)*120}
+      end
+    end
+  end
+  
+  def update_items_choose
+    if Input.trigger?(Input::B)
+      del_items
+      $game_system.se_play($data_system.cancel_se)
+      @command_window.active, @help_window.x, @help_window.y = true, 0, -612
+    elsif Input.trigger?(Input::C)
+      items_refresh
+      @item_choose_window.active = false
+      $game_system.se_play($data_system.decision_se)
+      case @item_choose_window.index
+      when 0
+        @items_window1.active = @help_window.visible = true
+        @items_window1.index = 0
+      when 1
+        @sort_window = Window_CMSSortCommand.new
+      when 2
+        @items_window2.active = @help_window.visible = true
+        @items_window2.index = 0
+      end
+    end
+  end
+  
+  def update_sort
+    if Input.trigger?(Input::B)
+      del_sort
+      @item_choose_window.active = true
+      $game_system.se_play($data_system.cancel_se)
+    elsif Input.trigger?(Input::C)
+      $game_system.se_play($data_system.decision_se)
+      @items_window1.mode = case @sort_window.index
+      when 0 then @sort_window.index
+      when 1 then @items_window1.mode == 1 ? 2 : 1
+      when 2 then @items_window1.mode == 3 ? 4 : 3
+      end
+      @items_window1.refresh
+    end
+  end
+  
+  def items_refresh
+    index = @item_choose_window.index
+    @items_window1.visible = [0, 1].include?(index)
+    @items_window2.visible = (index == 2)
+  end
+    
+  def update_equipment
+    if Input.trigger?(Input::B)
+      del_equipment
+      $game_system.se_play($data_system.cancel_se)
+      @actor_index = -1
+      @command_window.active = true
+      @help_window.visible = false
+      @help_window.x, @help_window.y = 0, -612
+    elsif Input.trigger?(Input::RIGHT) || Input.trigger?(Input::LEFT)
+      $game_system.se_play($data_system.cursor_se)
+      if Input.trigger?(Input::RIGHT)
+        @actor_index = (@actor_index+1) % $game_party.actors.size
+      elsif Input.trigger?(Input::LEFT)
+        @actor_index += $game_party.actors.size-1
+        @actor_index %= $game_party.actors.size
+      end
+      @target_windows[0].update_actor($game_party.actors[@actor_index])
+      @equips_window.update_actor($game_party.actors[@actor_index])
+      unless @equips_window.item_max > @equips_window.index
+        @equips_window.index = 0
+      end
+    end
+  end
+  
+  def update_item
+    if Input.trigger?(Input::B)
+      $game_system.se_play($data_system.cancel_se)
+      @item_choose_window.active = true
+      @help_window.set_text('')
+      @items_window1.active = @items_window2.active = @help_window.visible = false
+      @items_window1.index = @items_window2.index = -1
+    elsif Input.trigger?(Input::C)
+      win = (@item_choose_window.index == 0 ? @items_window1 : @items_window2)
+      @item = win.data
+      unless @item.is_a?(RPG::Item) && $game_party.item_can_use?(@item.id)
+        $game_system.se_play($data_system.buzzer_se)
+        return
+      end
+      $game_party.actors.each_index {|i|
+          @target_windows.push(Window_CMSTarget.new($game_party.actors[i]))}
+      @target_index = 0
+      $game_system.se_play($data_system.decision_se)
+      if @item.scope.between?(3, 6)
+        win.active = false
+        @target_windows.each {|win| win.active = true}
+        if [4, 6].include?(@item.scope)
+          @target_windows.each {|win| win.index = -2}
+        else
+          @target_windows[@target_index].index = 0
+        end
+      elsif @item.common_event_id > 0
+        $game_temp.common_event_id = @item.common_event_id
+        $game_system.se_play(@item.menu_se)
+        if @item.consumable
+          $game_party.lose_item(@item.id, 1)
+          win.draw_item(win.index)
+        end
+        (@status_windows + @target_windows).each {|win| win.refresh}
+        @items_window1.refresh
+        @items_window2.refresh
+        @scene = Scene_Map.new
+      elsif @skill.scope == 7
+        $game_system.se_play($data_system.buzzer_se)
+      end
+    end
+  end
+  
+  def update_item_target
+    if Input.trigger?(Input::B)
+      del_target
+      $game_system.se_play($data_system.cancel_se)
+      @target_index = -1
+      @items_window1.refresh unless $game_party.item_can_use?(@item.id)
+      @items_window1.active = true
+    elsif Input.trigger?(Input::C)
+      if $game_party.item_number(@item.id) == 0
+        $game_system.se_play($data_system.buzzer_se)
+        return
+      end
+      if @target_windows[0].index == -2
+        used = false
+        $game_party.actors.each {|actor| used |= actor.item_effect(@item)}
+      elsif @target_index >= 0
+        used = $game_party.actors[@target_index].item_effect(@item)
+      end
+      if used
+        $game_system.se_play(@item.menu_se)
+        if @item.consumable
+          $game_party.lose_item(@item.id, 1)
+          @items_window1.draw_item(@items_window1.index)
+        end
+        (@status_windows + @target_windows).each {|win| win.refresh}
+        if $game_party.all_dead?
+          @scene = Scene_Gameover.new
+        elsif @item.common_event_id > 0
+          $game_temp.common_event_id = @item.common_event_id
+          @scene = Scene_Map.new
+        end
+      else
+        $game_system.se_play($data_system.buzzer_se)
+      end
+    else
+      update_target
+    end
+  end
+  
+  def update_target
+    return if @target_windows[0] == nil || @target_windows[0].index == -2
+    if Input.repeat?(Input::DOWN)
+      $game_system.se_play($data_system.cursor_se)
+      @target_index = (@target_index+1) % $game_party.actors.size
+      if @target_windows[@target_index].y < 64
+        @target_windows.each {|win| win.y += ($game_party.actors.size-4)*104}
+      elsif @target_windows[@target_index].y >= 480
+        @target_windows.each {|win| win.dir = 1}
+      end
+    elsif Input.repeat?(Input::UP)
+      $game_system.se_play($data_system.cursor_se)
+      @target_index += $game_party.actors.size-1
+      @target_index %= $game_party.actors.size
+      if @target_windows[@target_index].y < 64
+        @target_windows.each {|win| win.dir = -1}
+      elsif @target_windows[@target_index].y >= 480
+        @target_windows.each {|win| win.y -= ($game_party.actors.size-4)*104}
+      end
+    end
+  end
+
+  def update_skill
+    if Input.trigger?(Input::B)
+      del_skill
+      $game_system.se_play($data_system.cancel_se)
+      @help_window.x, @help_window.y = 0, -768
+      @help_window.visible = false
+      @command_window.active = true
+      @actor_index = @target_index = -1
+    elsif Input.trigger?(Input::C)
+      @skill = @skill_window.data
+      if @skill == nil || !@actor.skill_can_use?(@skill.id)
+        $game_system.se_play($data_system.buzzer_se)
+        return
+      end
+      $game_party.actors.each_index {|i|
+          @target_windows.push(Window_CMSTarget.new($game_party.actors[i]))}
+      @target_index = 0
+      $game_system.se_play($data_system.decision_se)
+      if @skill.scope.between?(3, 6)
+        @skill_window.active = false
+        @target_windows.each {|win| win.visible = win.active = true}
+        if [4, 6].include?(@skill.scope)
+          @target_windows.each {|win| win.index = -2}
+        else
+          @target_windows[@target_index].index = 0
+        end
+      elsif @skill.common_event_id > 0
+        $game_temp.common_event_id = @skill.common_event_id
+        $game_system.se_play(@skill.menu_se)
+        @actor.sp -= @skill.sp_cost
+        (@status_windows + @target_windows).each {|win| win.refresh}
+        @skill_window.refresh
+        @scene = Scene_Map.new
+      elsif @skill.scope == 7
+        $game_system.se_play($data_system.buzzer_se)
+      end
+    elsif Input.trigger?(Input::R) || Input.trigger?(Input::L)
+      $game_system.se_play($data_system.cursor_se)
+      if Input.trigger?(Input::R)
+        @actor_index = (@actor_index+1) % $game_party.actors.size
+      elsif Input.trigger?(Input::L)
+        @actor_index += $game_party.actors.size-1
+        @actor_index %= $game_party.actors.size
+      end
+      @actor = $game_party.actors[@actor_index]
+      @skill_window.update_actor(@actor)
+      @skill_window.index = 0
+    end
+  end
+  
+  def update_skill_target
+    if Input.trigger?(Input::B)
+      del_target
+      $game_system.se_play($data_system.cancel_se)
+      @skill_window.active = true
+      @target_index = -1
+    elsif Input.trigger?(Input::C)
+      unless @actor.skill_can_use?(@skill.id)
+        $game_system.se_play($data_system.buzzer_se)
+        return
+      end
+      if @target_windows[0].index == -2
+        used = false
+        $game_party.actors.each {|actor| used |= actor.skill_effect(@actor, @skill)}
+      else
+        used = $game_party.actors[@target_index].skill_effect(@actor, @skill)
+      end
+      if used
+        $game_system.se_play(@skill.menu_se)
+        @actor.sp -= @skill.sp_cost
+        (@status_windows + @target_windows).each {|win| win.refresh}
+        @skill_window.refresh
+        if $game_party.all_dead?
+          @scene = Scene_Gameover.new
+        elsif @skill.common_event_id > 0
+          $game_temp.common_event_id = @skill.common_event_id
+          @scene = Scene_Map.new
+        end
+      else
+        $game_system.se_play($data_system.buzzer_se)
+      end
+    else
+      update_target
+    end
+  end
+  
+  def update_right_equip
+    @item_windows.each_index {|i|
+        @item_windows[i].visible = (@right_window.index == i)}
+    @item_window = @item_windows[@right_window.index]
+    newmode = [@right_window.index, 1].min
+    if newmode != @left_window.mode
+      @left_window.mode = newmode
+      @left_window.refresh
+    end
+    if Input.trigger?(Input::B)
+      del_equip
+      $game_system.se_play($data_system.cancel_se)
+      @help_window.x, @help_window.y = 660, 0
+      @command_window.active = true
+      @actor_index = -1
+    elsif Input.trigger?(Input::C)
+      if @actor.equip_fix?(@right_window.index)
+        $game_system.se_play($data_system.buzzer_se)
+      else
+        $game_system.se_play($data_system.decision_se)
+        @right_window.active = false
+        @item_window.active, @item_window.index = true, 0
+        equip_refresh
+      end
+    elsif Input.trigger?(Input::R) || Input.trigger?(Input::L)
+      $game_system.se_play($data_system.cursor_se)
+      if Input.trigger?(Input::R)
+        @actor_index = (@actor_index+1) % $game_party.actors.size
+      elsif Input.trigger?(Input::L)
+        @actor_index += $game_party.actors.size-1
+        @actor_index %= $game_party.actors.size
+      end
+      @actor = $game_party.actors[@actor_index]
+      @right_window.update_actor(@actor)
+      @left_window.update_actor(@actor)
+      @item_windows.each_index {|i| @item_windows[i].update_actor(@actor, i)}
+    end
+  end
+
+  def update_eitem
+    if Input.trigger?(Input::B)
+      $game_system.se_play($data_system.cancel_se)
+      @right_window.active = true
+      @item_window.active, @item_window.index = false, -1
+      equip_refresh
+    elsif Input.trigger?(Input::C)
+      $game_system.se_play($data_system.equip_se)
+      item = @item_window.data
+      @actor.equip(@right_window.index, item == nil ? 0 : item.id)
+      @right_window.active = true
+      @item_window.active, @item_window.index = false, -1
+      @right_window.refresh
+      @item_window.refresh
+      (@item_windows + @status_windows).each {|win| win.refresh}
+      equip_refresh
+    elsif Input.repeat?(Input::UP) || Input.repeat?(Input::DOWN) ||
+        Input.repeat?(Input::R) || Input.repeat?(Input::L)
+      equip_refresh
+    end
+  end
+  
+  def update_playerstatus
+    if Input.trigger?(Input::B)
+      $game_system.se_play($data_system.cancel_se)
+      @command_window.active = true
+      @actor_index = -1
+      del_status
+    elsif Input.trigger?(Input::R) || Input.trigger?(Input::RIGHT) ||
+        Input.trigger?(Input::L) || Input.trigger?(Input::LEFT)
+      $game_system.se_play($data_system.cursor_se)
+      if Input.trigger?(Input::R) || Input.trigger?(Input::RIGHT)
+        @actor_index = (@actor_index+1) % $game_party.actors.size
+      elsif Input.trigger?(Input::L) || Input.trigger?(Input::LEFT)
+        @actor_index += $game_party.actors.size-1
+        @actor_index %= $game_party.actors.size
+      end
+      @actor = $game_party.actors[@actor_index]
+      @playerstatus_window.update_actor(@actor)
+    end
+  end
+  
+  def update_options
+    if Input.trigger?(Input::B)
+      del_options
+      $game_system.se_play($data_system.cancel_se)
+      @command_window.active = true
+      return
+    end
+    case @options_window.get_option
+    when 'BGM Volume'
+      if Input.repeat?(Input::RIGHT)
+        $game_system.bgm_volume += 5
+        $game_system.bgm_volume = 100 if $game_system.bgm_volume > 100
+        $game_system.bgm_play($game_system.bgm_memorize)
+        @options_window.refresh
+      elsif Input.repeat?(Input::LEFT)
+        $game_system.bgm_volume -= 5
+        $game_system.bgm_volume = 0 if $game_system.bgm_volume < 0
+        $game_system.bgm_play($game_system.bgm_memorize)
+        @options_window.refresh
+      end
+    when 'SFX Volume'
+      if Input.repeat?(Input::RIGHT)
+        $game_system.sfx_volume += 5
+        if $game_system.sfx_volume > 100
+          $game_system.sfx_volume = 100
+        else
+          $game_system.se_play($data_system.cursor_se)
+        end
+        @options_window.refresh
+      elsif Input.repeat?(Input::LEFT)
+        $game_system.sfx_volume -= 5
+        $game_system.sfx_volume = 0 if $game_system.sfx_volume < 0
+        $game_system.se_play($data_system.cursor_se)
+        @options_window.refresh
+      end
+    when 'Battle BGM'
+      if Input.repeat?(Input::LEFT) || Input.repeat?(Input::RIGHT) ||
+          Input.repeat?(Input::C)
+        if $game_switches[BGM_Lock] || BATTLE_BGMS.size <= 1
+          $game_system.se_play($data_system.buzzer_se)
+        else
+          $game_system.se_play($data_system.decision_se)
+          ind = $game_variables[BGM_Variable]
+          if Input.repeat?(Input::RIGHT) || Input.repeat?(Input::C)
+            ind = (ind+1) % BATTLE_BGMS.size
+          elsif Input.repeat?(Input::LEFT)
+            ind = (ind+BATTLE_BGMS.size-1) % BATTLE_BGMS.size
+          end
+          $game_variables[BGM_Variable] = ind
+          $game_system.reset_battle_bgm
+          @options_window.refresh
+        end
+      end
+    when 'Battle Cam'
+      if Input.repeat?(Input::LEFT) || Input.repeat?(Input::RIGHT) ||
+          Input.repeat?(Input::C)
+        if CAM_AVAILABLE
+          $game_system.se_play($data_system.decision_se)
+          $game_system.cam = ($game_system.cam+1) % 2
+          $game_system.get_cam
+          @options_window.refresh
+        else
+          $game_system.se_play($data_system.buzzer_se)
+        end
+      end
+    when 'Bar Style'
+      if Input.repeat?(Input::RIGHT)
+        if $game_system.bar_opacity == 0
+          $game_system.se_play($data_system.buzzer_se)
+        else
+          $game_system.bar_style = ($game_system.bar_style + 1) % 7
+          $game_system.se_play($data_system.decision_se)
+          @options_window.refresh
+          @status_windows.each {|win| win.refresh}
+        end
+      elsif Input.repeat?(Input::LEFT)
+        if $game_system.bar_opacity == 0
+          $game_system.se_play($data_system.buzzer_se)
+        else
+          $game_system.bar_style = ($game_system.bar_style + 6) % 7
+          $game_system.se_play($data_system.decision_se)
+          @options_window.refresh
+          @status_windows.each {|win| win.refresh}
+        end
+      end
+    when 'Bar Opacity'
+      if Input.repeat?(Input::LEFT) || Input.repeat?(Input::RIGHT)
+        $game_system.se_play($data_system.decision_se)
+        $game_system.bar_opacity += (Input.repeat?(Input::RIGHT) ? 64 : -64)
+        @options_window.refresh
+        @status_windows.each {|win| win.refresh}
+      end
+    when 'Font'
+      if Input.repeat?(Input::RIGHT)
+        $game_system.se_play($data_system.decision_se)
+        @options_window.current_font += 1
+        @options_window.current_font %= FONTS.size
+        @options_window.refresh
+      elsif Input.repeat?(Input::LEFT)
+        $game_system.se_play($data_system.decision_se)
+        @options_window.current_font += FONTS.size - 1
+        @options_window.current_font %= FONTS.size
+        @options_window.refresh
+      elsif Input.repeat?(Input::C)
+        $game_system.se_play($data_system.decision_se)
+        $game_system.fontname = @options_window.font_name
+        @command_window.refresh
+        @info_window.refresh
+        @status_windows.each {|win| win.refresh}
+        @help_window.refresh
+        @options_window.refresh
+        (0...5).each {|i| @command_window.disable_item(i)} if $game_party.actors.size == 0
+        @command_window.disable_item(6) if $game_system.save_disabled
+        @command_window.disable_item(7) unless @command_window.continue
+      end
+    when 'Windowskin'
+      if Input.repeat?(Input::RIGHT)
+        $game_system.se_play($data_system.decision_se)
+        @options_window.current_skin += 1
+        @options_window.current_skin %= SKINS.size
+        @options_window.refresh
+      elsif Input.repeat?(Input::LEFT)
+        $game_system.se_play($data_system.decision_se)
+        @options_window.current_skin += SKINS.size - 1
+        @options_window.current_skin %= SKINS.size
+        @options_window.refresh
+      elsif Input.repeat?(Input::C)
+        $game_system.se_play($data_system.decision_se)
+        $game_system.windowskin_name = @options_window.skin_name
+      end
+    end
+  end
+  
+  def update_end
+    if Input.trigger?(Input::B) || Input.trigger?(Input::C) &&
+        @end_window.index == 0
+      $game_system.se_play($data_system.cancel_se)
+      @command_window.active = true
+      del_end
+    elsif Input.trigger?(Input::C)
+      Graphics.freeze
+      $game_system.se_play($data_system.decision_se)
+      Audio.bgm_fade(800)
+      Audio.bgs_fade(800)
+      Audio.me_fade(800)
+      @end_window.index == 1 ? @scene = Scene_Title.new : $scene = nil
+      del_end
+    end
+  end
+
+end
+
+#==============================================================================
+# Scene_CMSSave
+#==============================================================================
+
+class Scene_CMSSave < Scene_Save
+  
+  def on_cancel
+    $game_system.se_play($data_system.cancel_se)
+    $scene = Scene_Menu.new(6)
+  end
+  
+end
+
+#==============================================================================
+# Scene_CMSLoad
+#==============================================================================
+
+class Scene_CMSLoad < Scene_Load
+  
+  def on_cancel
+    $game_system.se_play($data_system.cancel_se)
+    $scene = Scene_Menu.new(7)
+  end
+  
 end
 
 
+#:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=
+# Blizz-ABS by Blizzard
+# Version: 1.0.9.3
+# Type: Advanced Action Battle System
+# Date 1.0.0.0: 19.04.2007
+# Date 1.0.0.1: 30.04.2007
+# Date 1.0.0.2: 17.07.2007
+# Date 1.0.0.4: 25.07.2007
+# Date 1.0.0.9: 25.07.2007
+# Date 1.0.3.0: 29.07.2007
+# Date 1.0.3.3: 30.07.2007
+# Date 1.0.3.4: 05.08.2007
+# Date 1.0.9.0: 05.09.2007
+# Date 1.0.9.1: 06.09.2007
+# Date 1.0.9.2: 07.09.2007
+# Date 1.0.9.3: 11.09.2007
+#:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=
+# 
+# Explanation:
+# 
+#   This script will allow you to create games with an Action Battle System
+#   (ABS) (i.e. Zelda). Action Battle System means real time battle on the map.
+# 
+#   If you don't read the Manual, you will not be able to use many of the great
+#   features this ABS supports.
+# 
+#   You didn't get a Manual with the Blizz-ABS? Please e-mail me, tell me where
+#   you got this script from and I will give you a download link to the manual.
+#   Here is my e-mail:
+#   boris_blizzard@yahoo.de
+# 
+# 
+# Compatibility:
+# 
+#   80% compatible with SDK 1.x. 40% compatible with SDK 2.x. Compatible with
+#   any CMS. Mostly is not compatible with any battle add-ons for the normal
+#   turn based battle system. WILL corrupt your old save games. Incompatible
+#   with the RGSS100J.dll.
+# 
+# 
+# IMPORTANT:
+# 
+#   Any CMS is being overriden, so put this script UNDER the CMS script if you
+#   are using a CMS script (CMS = Custom Menu System). This script overrides
+#   Tons of Add-ons and goes under it.
+# 
+# 
+# Special Thanks for testing to:
+# 
+#   - Leonharts
+#   - modern algebra
+#   - NAMKCOR
+#   - Rune
+#   - Irockman1
+#   - blazinhandling
+#   - Zeph
+# 
+# 
+# If you find any bugs, please report them here:
+# http://www.chaosproject.co.nr
+#:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=:=
 
+#==============================================================================
+# BlizzABS
+#------------------------------------------------------------------------------
+#  This is the master control, configuration, utility and battle process
+#  module for Blizz-ABS.
+#==============================================================================
+
+module BlizzABS
+  
+  #============================================================================
+  # BlizzABS::Control
+  #----------------------------------------------------------------------------
+  #  This module provides in-game control configurations.
+  #============================================================================
+  
+  module Control
+    
+    # using other controls instead of arrow keys
+    CUSTOM_CONTROLS = false
+    # RMXP default controls will be replaced completely with Blizz-ABS controls
+    DISABLE_DEFAULT = true
+    # you can skip this if you have set CUSTOM_CONTROLS to false
+    # setup the controls as array, but with prefix and suffix "
+    # i.e.: Let T and R be for cancel => CANCEL = "[Let['T'], Let['R']]"
+    # for more info about read 1.1.1. of the manual
+    UP       = "[Let['W']]" # move up
+    LEFT     = "[Let['A']]" # move left
+    DOWN     = "[Let['S']]" # move down
+    RIGHT    = "[Let['D']]" # move right
+    PREVPAGE = "[Let['Q']]" # previous page
+    NEXTPAGE = "[Let['E']]" # next page
+    CONFIRM  = "[Let['H']]" # confirm selections / pick up items
+    CANCEL   = "[Let['F']]" # cancel selections
+    ATTACK   = "[Let['K']]" # attacking
+    DEFEND   = "[Let['L']]" # defending (hold)
+    SKILL    = "[Let['J']]" # use skill
+    ITEM     = "[Let['I']]" # use item
+    SELECT   = "[Let['O']]" # change leader
+    HUD      = "[Let['Z']]" # HUD on/off if enabled
+    HOTKEY   = "[Let['X']]" # hotkey display on/off if enabled
+    MINIMAP  = "[Let['C']]" # toggle minimap mode if enabled
+    RUN      = "[Let['M']]" # running (hold)
+    SNEAK    = "[Dot]"      # sneaking (hold)
+    JUMP     = "[Comma]"    # jumping
+    TURN     = "[Let['U']]" # turning around without moving (hold)
+  end
+  
+  #::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+  # BlizzABS::Config
+  #----------------------------------------------------------------------------
+  #  This module provides Blizz-ABS configurations.
+  #::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+  
+  module Config
+    
+    # should party members follow the leader on the map
+    CATERPILLAR = true
+    # how many party member do you use
+    MAX_PARTY = 1
+    # include all actor IDs who are animated when standing
+    ANIMATED_IDS = []
+    # 0 -> 32 pixel tiles, 1 -> 16,  2 -> 8, 3 -> 4, 4 -> 2, 5 -> 1
+    # careful anything higher than 1 will limit the max speed of char movement
+    # 0 - max: 6, 1 - max: 6, 2 - max: 5, 3 - max: 4, 4 - max: 3, 5 - max: 2
+    # I recommend using 2 if you have allies else you can use 3
+    # note that this can also cause problems with running and sneaking
+    PIXEL_MOVEMENT_RATE = 2
+    # will make the force movement command ALWAYS work for 32 pixel tiles
+    REPAIR_MOVEMENT = true
+    # enable or disable moving in all 8 directions
+    EIGHT_WAY_MOVEMENT = true
+    # the normal moving speed (4 is default)
+    NORMAL_SPEED = 4
+    # the speed of running (set to 0 to disable)
+    RUN_SPEED = 5
+    # the speed of sneaking (set to 0 to disable)
+    SNEAK_SPEED = 3
+    # how many squares should the player jump (set to 0 to disable)
+    JUMPING = 2
+    # the terrain tag of tiles where the player can't jump over
+    JUMP_TAG = 8
+    # measured in map squares
+    PERCEPTION_RANGE = 5
+    # the terrain tag of "walls" (enemies can't see through walls, only hear)
+    WALL_TAG = 8
+    # turns HUD on or off
+    HUD_ENABLED = true
+    # 0, 1, or 2 (slightly different drawing method of the bars)
+    HUD_TYPE = 0
+    # 0 = upper left corner, 1 = upper right corner
+    HUD_POSITION = 0
+    # enables minimap
+    MINIMAP = true
+    # enables intelligent minimap to save map loading time
+    INTELLIGENT_PASSABILTY = true
+    # how much time will pass until an enemy respawns (0 for no respawn)
+    RESPAWN_TIME = 0
+    # the terrain tag of tiles where enemies can't respawn
+    NO_ENEMY_TAG = 8
+    # how many seconds will dropped stuff stay (0xFFFF for "infinite")
+    ITEM_TIME = 60
+    # sound played when picking up items ("NAME", VOLUME, PITCH)
+    ITEM_PICKUP_SOUND_FILE = RPG::AudioFile.new('056-Right02', 80, 100)
+    # makes enemies drop gold, specify an icon for display here
+    DROP_GOLD = ''
+    # map IDs where ABSEAL is disabled
+    DISABLE_ANTI_LAG_IDS = []
+    # strength of delag (1 is most powerful and not recommended)
+    FACTOR = 2
+    # stops update of events with no spriteset
+    ABSEAL_AUTOKILL = true
+    # restores the character's HP/SP/Status on Level Up
+    HEAL_ON_LVLUP = true
+    # displays LvUp on Level Up
+    DISPLAY_LVLUP = true
+    # animation ID of the animation shown when a player levels up
+    LVLUP_ANIMATION_ID = 0
+    # animation ID of the animation shown when an enemy is on the run
+    FLEE_LOOP_ANIMATION_ID = 48
+    # shows attack/skill/item animation
+    ANIMATIONS = true
+    # enables or disables the sprites during action of for actors
+    ACTOR_ACTION_SPRITES = true
+    # enables or disables the sprites during action of enemies
+    ENEMY_ACTION_SPRITES = true
+    # enables or disables the extra sprites for each weapon (actors only)
+    WEAPON_SPRITES = true
+    # enables or disables the sprites during running (player and allies)
+    RUNNING_SPRITES = false
+    # enables or disables the sprites during sneaking (player and allies)
+    SNEAKING_SPRITES = false
+    # enables or disables the sprites during sneaking (player and allies)
+    JUMPING_SPRITES = false
+    # small animations (set to true to size animations down to 50%)
+    SMALL_ANIMATIONS = true
+    # use also different tint colors for the pre-menu
+    MENU_COLOR_TINT = 0
+    # attack sprite (for actors), first row y offset if necessary
+    ACTOR_SPRITE_Y_OFFSET = 112
+    # attack sprite (for enemies), first row y offset if necessary
+    ENEMY_SPRITE_Y_OFFSET = 0
+    # 0 = never, 1 = no enemies, 2 = enemies dead, 3 = enemies within ABSEAL dead
+    DISABLE_ABS_MODE = 1
+    # [type, range], 0 = no data, 1 = in name, 2 = in description
+    WEAPON_DATA_MODE = [2, 1]
+    # [type, explode range, range] 0 = no data, 1 = in name, 2 = in description
+    SKILL_DATA_MODE = [2, 2, 1]
+    # [type, explode range, range] 0 = no data, 1 = in name, 2 = in description
+    ITEM_DATA_MODE = [2, 2, 1]
+  end
+  
+  #============================================================================
+  # BlizzABS::Weapons
+  #----------------------------------------------------------------------------
+  #  This module provides weapon configurations.
+  #============================================================================
+  
+  module Weapons
+    
+    #--------------------------------------------------------------------------
+    # type
+    #  id - weapon ID
+    #  This method serves as database for weapon types.
+    #  0 = sword / axe / claws / unarmed / etc. (damages in close front)
+    #  1 = spear / lance (damages only in front)
+    #  2 = flail (distant weapon, does not damage close enemies, front)
+    #  3 = boomerang (returning projectile weapon, front)
+    #  4 = bow and arrows / gun / shuriken (non-returning projectile, NO consumption)
+    #  5 = bow and arrows / gun (non-returning projectile, consumes AMMUNITION)
+    #  6 = shuriken (non-returning projectile, consumes ITSELF)
+    #-------------------------------------------------------------------------- 
+    def self.type(id)
+      case id
+      # START set up weapon types (when ID then return TYPE)
+      when 1 then return 0 ## Rubber Sword
+      when 2 then return 0 ## Leet Blade
+      when 3 then return 3 ## Banana
+      when 4 then return 5 ## Link's Bow
+      when 5 then return 2 ## Rose Flail
+      when 6 then return 6 ## Icicles
+      # END
+      end
+      return 0
+    end
+    #--------------------------------------------------------------------------
+    # range
+    #  id - weapon ID
+    #  This method serves as database for weapon ranges. All ranges are
+    #  measured in map squares. Any decimal value WILL have its effect if
+    #  pixel movement is being used.
+    #-------------------------------------------------------------------------- 
+    def self.range(id)
+      case id
+      # START set up weapon ranges (when ID then return RANGE)
+      when 1 then return 1
+      when 2 then return 1.2
+      when 3 then return 4.5
+      when 4 then return 5.7
+      when 5 then return 4
+      when 6 then return 5
+      # END
+      end
+      return 1.0
+    end
+    #--------------------------------------------------------------------------
+    # consume
+    #  id - weapon ID
+    #  Lets your weapons consume items to work. You must have the item assigned
+    #  as your hot item for the weapon to work. One weapon can consumes
+    #  different items. If you don't have any items left, the attack will fail.
+    #  Allies' items for usage can be set up directly or over the AI menu.
+    #-------------------------------------------------------------------------- 
+    def self.consume(id)
+      case id
+      # START set up ammo consumption (when ID then return ID_ARRAY)
+      when 4 then return [9, 10] ## can consume LOS Fork and/or Fire Arrows
+      # END
+      end
+      return []
+    end
+  end
+  
+  #============================================================================
+  # BlizzABS::Skills
+  #----------------------------------------------------------------------------
+  #  This module provides skill configurations.
+  #============================================================================
+  
+  module Skills
+    
+    #--------------------------------------------------------------------------
+    # type
+    #  id - skill ID
+    #  Lets you define how skills will be executed.
+    #   0 = shooting skill (projectile skill, hits first target it encounters)
+    #   1 = homing skill (projectile skill, finds a target you specify)
+    #   2 = direct skill (hits the target instantly, you select the target)
+    #   3 = beam skill (hits every target it goes through instantly)
+    #  If a skill targets all enemies/allies, the skill will turn into:
+    #   0 => thrusting skill (projectile skill, hits every target it goes through)
+    #   1 => super homing skill (projectiles hit all targets in range)
+    #   2 => shockwave skill (circular shockwave hits all targets in range)
+    #   3 => fullscreen skill (targets all allies/enemies on the screen)
+    #  Set the exploding range to 0 if you don't want anybody around to be
+    #  affected by this skill. A skill explosion does not differ between ally
+    #  and enemy. The animation ID can be skipped if no explosion range was
+    #  defined.
+    #-------------------------------------------------------------------------- 
+    def self.type(id)
+      case id
+      # START set up skill types (when ID then return [TYPE, EXPLODING_RANGE, ANIMATION_ID])
+      when 1 then return [2, 0]       ## Vitaly
+      when 2 then return [0, 0]       ## Kugelblitz
+      when 3 then return [0, 0]       ## Burner
+      when 4 then return [1, 1.5, 24] ## Homing Fireball
+      when 5 then return [2, 0]       ## Thor's Hammer
+      when 6 then return [3, 0]       ## Holy Beam
+      when 7 then return [0, 0]       ## Icicle
+      when 8 then return [2, 0]       ## Raining Icicles
+      when 9 then return [0, 0]       ## Stingshot
+      when 10 then return [2, 0]      ## Evil Ghosts
+      when 11 then return [3, 0]      ## Leet Skill
+      # END
+      end
+      return [2, 0]
+    end
+    #--------------------------------------------------------------------------
+    # range
+    #  id - skill ID
+    #  This method serves as database for skill ranges. All ranges are
+    #  measured in map squares. Any decimal value WILL have its effect if
+    #  pixel movement is being used. If the skill is a summon skill, this will
+    #  define the time in seconds how long the summoned ally will prevail.
+    #-------------------------------------------------------------------------- 
+    def self.range(id)
+      case id
+      # START set up skill ranges (when ID then return RANGE)
+      when 1 then return 2.5
+      when 2 then return 5.5
+      when 3 then return 6.5
+      when 4 then return 5.5
+      when 5 then return 6
+      when 6 then return 4.5
+      when 7 then return 6.5
+      when 8 then return 2.5
+      when 9 then return 2.5
+      # END
+      end
+      return 1.0
+    end
+  end
+  
+  #============================================================================
+  # BlizzABS::Items
+  #----------------------------------------------------------------------------
+  #  This module provides item configurations.
+  #============================================================================
+  
+  module Items
+    
+    #--------------------------------------------------------------------------
+    # type
+    #  id - item ID
+    #   0 = shooting item (projectile item, hits first target it encounters)
+    #   1 = homing item (projectile item, finds a target you specify)
+    #   2 = direct item (hits the target instantly, you select the target)
+    #   3 = beam item (hits every target it goes through instantly)
+    #  If a item targets all enemies/allies, the item will turn into:
+    #   0 => thrusting item (projectile item, hits every target it goes through)
+    #   1 => super homing item (projectiles hit all targets in range)
+    #   2 => shockwave item (circular shockwave hits all targets in range)
+    #   3 => fullscreen item (targets all allies/enemies on the screen)
+    #  Set the exploding range to 0 if you don't want anybody around to be
+    #  affected by this item. An item explosion does not differ between ally
+    #  and enemy.
+    #-------------------------------------------------------------------------- 
+    def self.type(id)
+      case id
+      # START set up skill types (when ID then return [TYPE, EXPLODING_RANGE, ANIMATION_ID])
+      when 1 then return [2, 0] ## actually all items are direct
+      # END
+      end
+      return [2, 0]
+    end
+    #--------------------------------------------------------------------------
+    # range
+    #  id - item ID
+    #  This method serves as database for item ranges. All ranges are
+    #  measured in map squares. Any decimal value WILL have its effect if
+    #  pixel movement is being used. If the item is a summon item, this will
+    #  define the time in seconds how long the summoned ally will prevail.
+    #-------------------------------------------------------------------------- 
+    def self.range(id)
+      case id
+      # START set up item ranges (when ID then return RANGE)
+      when 1 then return 5.5
+      # END
+      end
+      return 5.5
+    end
+  end
+  
+  #============================================================================
+  # BlizzABS::Enemies
+  #----------------------------------------------------------------------------
+  #  This module provides special enemy configurations.
+  #============================================================================
+  
+  module Enemies
+    
+    #--------------------------------------------------------------------------
+    # type
+    #  id - enemy ID
+    #  This method serves as database for enemy attack types.
+    #  0 = damages in close front
+    #  1 = damages only in front
+    #  2 = distant weapon, does not damage close enemies, front
+    #  3 = returning projectile weapon, front
+    #  4 = projectile weapon
+    #-------------------------------------------------------------------------- 
+    def self.type(id)
+      case id
+      # START set up enemy attack types (when ID then return TYPE)
+      when 1 then return 1  ## Zinger      - spear type
+      when 2 then return 4  ## Cold Lunch  - shooter type
+      when 5 then return 1  ## Batman      - spear type
+      when 6 then return 3  ## Hot Lady    - boomerang type
+      when 8 then return 1  ## Third Head  - spear type
+      when 10 then return 1 ## Killerbunny - spear type
+      when 11 then return 4 ## Lord Flamer - shooter type
+      # END
+      end
+      return 0
+    end
+    #--------------------------------------------------------------------------
+    # range
+    #  id - enemy ID
+    #  This method serves as database for enemy attack ranges. All ranges are
+    #  measured in map squares. Any decimal value WILL have its effect if
+    #  pixel movement is being used.
+    #-------------------------------------------------------------------------- 
+    def self.range(id)
+      case id
+      # START set up enemy attack ranges (when ID then return RANGE)
+      when 2 then return 4.5
+      when 6 then return 3.5
+      when 8 then return 2.5
+      when 9 then return 2.5
+      when 11 then return 5.5
+      # END
+      end
+      return 1.5
+    end
+    #--------------------------------------------------------------------------
+    # enemy_set
+    #  id - enemy ID
+    #  Specify spritesets for enemy projectile attacks. Spritesets are
+    #  auto-animated all the time.
+    #-------------------------------------------------------------------------- 
+    def self.enemy_set(id)
+      case id
+      # START set up enemy attack spritesets (when ID then return SPRITESET_NAME)
+      when 2 then return 'icicle'       ## Cold Lunch shoots icicles
+      when 6 then return 'flame'        ## Hot Lady throws a red boomerang
+      when 11 then return 'fire burst'  ## Flamer throws those huge fireballs
+      # END
+      end
+      return ''
+    end
+  end
+  
+  #============================================================================
+  # BlizzABS::Cache
+  #----------------------------------------------------------------------------
+  #  This module holds a few bitmaps, so they don't need to be drawn each time
+  #  which improves speed and reduces lag. It also holds damage sprites and
+  #  Projectile Characters.
+  #============================================================================
+  
+  module Cache
+    
+    #--------------------------------------------------------------------------
+    # load
+    #  Loads the cache images.
+    #-------------------------------------------------------------------------- 
+    def self.load
+      # initialize
+      @data = []
+      # add image
+      @data.push(self._green_arrow)
+      # prevent "Script is hanging" error
+      Graphics.update
+      # add image
+      @data.push(self._white_arrow)
+      # prevent "Script is hanging" error
+      Graphics.update
+      # add image
+      @data.push(self._arrow)
+      # prevent "Script is hanging" error
+      Graphics.update
+      # add image
+      @data.push(self._minimap_autotile)
+      # prevent "Script is hanging" error
+      Graphics.update
+      # create damage sprite buffer and projectile buffer
+      @damages, @projectiles = [], []
+    end
+    #--------------------------------------------------------------------------
+    # damages
+    #  Returns all currently displayed damage sprites.
+    #--------------------------------------------------------------------------
+    def self.damages
+      return @damages
+    end
+    #--------------------------------------------------------------------------
+    # projectiles
+    #  Returns all currently active projectiles.
+    #--------------------------------------------------------------------------
+    def self.projectiles
+      return @projectiles
+    end
+    #--------------------------------------------------------------------------
+    # clean
+    #  Cleans the cache from projectiles and damage sprites.
+    #--------------------------------------------------------------------------
+    def self.clean
+      # disposes all damage sprites
+      @damages.each {|ary| ary[0].dispose}
+      # create new damage sprite buffer and new projectile buffer
+      @damages, @projectiles = [], []
+      # unfreeze all actor's actions
+      BlizzABS.player.actors.each {|actor| actor.freeze_action = false}
+    end
+    #--------------------------------------------------------------------------
+    # image
+    #  index - index of the image in the cache
+    #  Returns a copy of the image.
+    #--------------------------------------------------------------------------
+    def self.image(index)
+      return @data[index].clone
+    end
+    #--------------------------------------------------------------------------
+    # _green_arrow
+    #  Creates the minimap icon for events.
+    #--------------------------------------------------------------------------
+    def self._green_arrow
+      b = Bitmap.new(56, 14)
+      c1 = Color.new(0, 0, 0)
+      c2 = Color.new(255, 255, 255)
+      c3 = Color.new(0, 255, 0)
+      b.set_pixel(23, 0, c1)
+      b.set_pixel(32, 0, c1)
+      b.set_pixel(22, 1, c1)
+      b.fill_rect(23, 1, 1, 12, c3)
+      b.fill_rect(24, 1, 1, 12, c1)
+      b.fill_rect(31, 1, 1, 12, c1)
+      b.fill_rect(32, 1, 1, 12, c3)
+      b.set_pixel(33, 1, c1)
+      b.set_pixel(21, 2, c1)
+      b.fill_rect(22, 2, 1, 10, c3)
+      b.fill_rect(33, 2, 1, 10, c3)
+      b.set_pixel(34, 2, c1)
+      b.fill_rect(1, 3, 12, 1, c1)
+      b.set_pixel(20, 3, c1)
+      b.fill_rect(21, 3, 1, 8, c3)
+      b.fill_rect(34, 3, 1, 8, c3)
+      b.set_pixel(35, 3, c1)
+      b.fill_rect(48, 3, 2, 1, c1)
+      b.set_pixel(0, 4, c1)
+      b.fill_rect(1, 4, 12, 1, c3)
+      b.set_pixel(13, 4, c1)
+      b.set_pixel(19, 4, c1)
+      b.fill_rect(20, 4, 1, 6, c3)
+      b.fill_rect(35, 4, 1, 6, c3)
+      b.set_pixel(36, 4, c1)
+      b.set_pixel(47, 4, c1)
+      b.fill_rect(48, 4, 2, 6, c3)
+      b.set_pixel(50, 4, c1)
+      b.set_pixel(1, 5, c1)
+      b.fill_rect(2, 5, 10, 1, c3)
+      b.set_pixel(12, 5, c1)
+      b.set_pixel(18, 5, c1)
+      b.fill_rect(19, 5, 1, 4, c3)
+      b.fill_rect(36, 5, 1, 4, c3)
+      b.set_pixel(37, 5, c1)
+      b.set_pixel(46, 5, c1)
+      b.fill_rect(47, 5, 1, 5, c3)
+      b.fill_rect(50, 5, 1, 5, c3)
+      b.set_pixel(51, 5, c1)
+      b.set_pixel(2, 6, c1)
+      b.fill_rect(3, 6, 8, 1, c3)
+      b.set_pixel(11, 6, c1)
+      b.fill_rect(17, 6, 1, 2, c1)
+      b.fill_rect(18, 6, 1, 2, c3)
+      b.fill_rect(37, 6, 1, 2, c3)
+      b.fill_rect(38, 6, 1, 2, c1)
+      b.set_pixel(45, 6, c1)
+      b.fill_rect(46, 6, 1, 4, c3)
+      b.fill_rect(51, 6, 1, 4, c3)
+      b.set_pixel(52, 6, c1)
+      b.set_pixel(3, 7, c1)
+      b.fill_rect(4, 7, 6, 1, c3)
+      b.set_pixel(10, 7, c1)
+      b.set_pixel(44, 7, c1)
+      b.fill_rect(45, 7, 1, 3, c3)
+      b.fill_rect(52, 7, 1, 3, c3)
+      b.set_pixel(53, 7, c1)
+      b.set_pixel(4, 8, c1)
+      b.fill_rect(5, 8, 4, 1, c3)
+      b.set_pixel(9, 8, c1)
+      b.set_pixel(18, 8, c1)
+      b.set_pixel(37, 8, c1)
+      b.set_pixel(43, 8, c1)
+      b.fill_rect(44, 8, 1, 2, c3)
+      b.fill_rect(53, 8, 1, 2, c3)
+      b.set_pixel(54, 8, c1)
+      b.set_pixel(5, 9, c1)
+      b.fill_rect(6, 9, 2, 1, c3)
+      b.set_pixel(8, 9, c1)
+      b.set_pixel(19, 9, c1)
+      b.set_pixel(36, 9, c1)
+      b.set_pixel(42, 9, c1)
+      b.set_pixel(43, 9, c3)
+      b.set_pixel(54, 9, c3)
+      b.set_pixel(55, 9, c1)
+      b.fill_rect(6, 10, 2, 1, c1)
+      b.set_pixel(20, 10, c1)
+      b.set_pixel(35, 10, c1)
+      b.fill_rect(43, 10, 12, 1, c1)
+      b.set_pixel(21, 11, c1)
+      b.set_pixel(34, 11, c1)
+      b.set_pixel(22, 12, c1)
+      b.set_pixel(33, 12, c1)
+      b.set_pixel(23, 13, c1)
+      b.set_pixel(32, 13, c1)
+      return b
+    end
+    #--------------------------------------------------------------------------
+    # _white_arrow
+    #  Creates the minimap icon for other events.
+    #--------------------------------------------------------------------------
+    def self._white_arrow
+      b = Bitmap.new(56, 14)
+      c1 = Color.new(0, 0, 0)
+      c2 = Color.new(255, 255, 255)
+      b.set_pixel(23, 0, c1)
+      b.set_pixel(32, 0, c1)
+      b.set_pixel(22, 1, c1)
+      b.fill_rect(23, 1, 1, 12, c2)
+      b.fill_rect(24, 1, 1, 12, c1)
+      b.fill_rect(31, 1, 1, 12, c1)
+      b.fill_rect(32, 1, 1, 12, c2)
+      b.set_pixel(33, 1, c1)
+      b.set_pixel(21, 2, c1)
+      b.fill_rect(22, 2, 1, 10, c2)
+      b.fill_rect(33, 2, 1, 10, c2)
+      b.set_pixel(34, 2, c1)
+      b.fill_rect(1, 3, 12, 1, c1)
+      b.set_pixel(20, 3, c1)
+      b.fill_rect(21, 3, 1, 8, c2)
+      b.fill_rect(34, 3, 1, 8, c2)
+      b.set_pixel(35, 3, c1)
+      b.fill_rect(48, 3, 2, 1, c1)
+      b.set_pixel(0, 4, c1)
+      b.fill_rect(1, 4, 12, 1, c2)
+      b.set_pixel(13, 4, c1)
+      b.set_pixel(19, 4, c1)
+      b.fill_rect(20, 4, 1, 6, c2)
+      b.fill_rect(35, 4, 1, 6, c2)
+      b.set_pixel(36, 4, c1)
+      b.set_pixel(47, 4, c1)
+      b.fill_rect(48, 4, 2, 6, c2)
+      b.set_pixel(50, 4, c1)
+      b.set_pixel(1, 5, c1)
+      b.fill_rect(2, 5, 10, 1, c2)
+      b.set_pixel(12, 5, c1)
+      b.set_pixel(18, 5, c1)
+      b.fill_rect(19, 5, 1, 4, c2)
+      b.fill_rect(36, 5, 1, 4, c2)
+      b.set_pixel(37, 5, c1)
+      b.set_pixel(46, 5, c1)
+      b.fill_rect(47, 5, 1, 5, c2)
+      b.fill_rect(50, 5, 1, 5, c2)
+      b.set_pixel(51, 5, c1)
+      b.set_pixel(2, 6, c1)
+      b.fill_rect(3, 6, 8, 1, c2)
+      b.set_pixel(11, 6, c1)
+      b.fill_rect(17, 6, 1, 2, c1)
+      b.fill_rect(18, 6, 1, 2, c2)
+      b.fill_rect(37, 6, 1, 2, c2)
+      b.fill_rect(38, 6, 1, 2, c1)
+      b.set_pixel(45, 6, c1)
+      b.fill_rect(46, 6, 1, 4, c2)
+      b.fill_rect(51, 6, 1, 4, c2)
+      b.set_pixel(52, 6, c1)
+      b.set_pixel(3, 7, c1)
+      b.fill_rect(4, 7, 6, 1, c2)
+      b.set_pixel(10, 7, c1)
+      b.set_pixel(44, 7, c1)
+      b.fill_rect(45, 7, 1, 3, c2)
+      b.fill_rect(52, 7, 1, 3, c2)
+      b.set_pixel(53, 7, c1)
+      b.set_pixel(4, 8, c1)
+      b.fill_rect(5, 8, 4, 1, c2)
+      b.set_pixel(9, 8, c1)
+      b.set_pixel(18, 8, c1)
+      b.set_pixel(37, 8, c1)
+      b.set_pixel(43, 8, c1)
+      b.fill_rect(44, 8, 1, 2, c2)
+      b.fill_rect(53, 8, 1, 2, c2)
+      b.set_pixel(54, 8, c1)
+      b.set_pixel(5, 9, c1)
+      b.fill_rect(6, 9, 2, 1, c2)
+      b.set_pixel(8, 9, c1)
+      b.set_pixel(19, 9, c1)
+      b.set_pixel(36, 9, c1)
+      b.set_pixel(42, 9, c1)
+      b.set_pixel(43, 9, c2)
+      b.set_pixel(54, 9, c2)
+      b.set_pixel(55, 9, c1)
+      b.fill_rect(6, 10, 2, 1, c1)
+      b.set_pixel(20, 10, c1)
+      b.set_pixel(35, 10, c1)
+      b.fill_rect(43, 10, 12, 1, c1)
+      b.set_pixel(21, 11, c1)
+      b.set_pixel(34, 11, c1)
+      b.set_pixel(22, 12, c1)
+      b.set_pixel(33, 12, c1)
+      b.set_pixel(23, 13, c1)
+      b.set_pixel(32, 13, c1)
+      return b
+    end
+    #--------------------------------------------------------------------------
+    # _arrow
+    #  Creates the arrow displayed in the hotkey assignment menu.
+    #--------------------------------------------------------------------------
+    def self._arrow
+      b = Bitmap.new(16, 9)
+      c1 = Color.new(0, 0, 0)
+      c2 = Color.new(255, 255, 255)
+      c3 = Color.new(127, 127, 127)
+      b.fill_rect(7, 0, 2, 1, c2)
+      b.set_pixel(6, 1, c2)
+      b.fill_rect(7, 1, 1, 7, c3)
+      b.fill_rect(8, 1, 1, 7, c1)
+      b.set_pixel(9, 1, c2)
+      b.set_pixel(5, 2, c2)
+      b.fill_rect(6, 2, 1, 6, c3)
+      b.fill_rect(9, 2, 1, 6, c1)
+      b.set_pixel(10, 2, c2)
+      b.set_pixel(4, 3, c2)
+      b.fill_rect(5, 3, 1, 5, c3)
+      b.fill_rect(10, 3, 1, 5, c1)
+      b.set_pixel(11, 3, c2)
+      b.set_pixel(3, 4, c2)
+      b.fill_rect(4, 4, 1, 4, c3)
+      b.fill_rect(11, 4, 1, 4, c1)
+      b.set_pixel(12, 4, c2)
+      b.set_pixel(2, 5, c2)
+      b.fill_rect(3, 5, 1, 3, c3)
+      b.fill_rect(12, 5, 1, 3, c1)
+      b.set_pixel(13, 5, c2)
+      b.set_pixel(1, 6, c2)
+      b.fill_rect(2, 6, 1, 2, c3)
+      b.fill_rect(13, 6, 1, 2, c1)
+      b.set_pixel(14, 6, c2)
+      b.set_pixel(0, 7, c2)
+      b.set_pixel(1, 7, c3)
+      b.set_pixel(14, 7, c1)
+      b.set_pixel(15, 7, c2)
+      b.fill_rect(1, 8, 14, 1, c2)
+      return b
+    end
+    #--------------------------------------------------------------------------
+    # _minimap_autotile
+    #  Creates the minimap autotile for passability.
+    #--------------------------------------------------------------------------
+    def self._minimap_autotile
+      b = Bitmap.new(24, 32)
+      c1 = Color.new(191, 191, 191)
+      c2 = Color.new(255, 255, 255)
+      b.fill_rect(2, 0, 4, 1, c2)
+      b.set_pixel(1, 1, c2)
+      b.fill_rect(2, 1, 4, 6, c1)
+      b.set_pixel(6, 1, c2)
+      b.fill_rect(0, 2, 1, 4, c2)
+      b.fill_rect(1, 2, 1, 4, c1)
+      b.fill_rect(6, 2, 1, 4, c1)
+      b.fill_rect(7, 2, 1, 4, c2)
+      b.set_pixel(1, 6, c2)
+      b.set_pixel(6, 6, c2)
+      b.fill_rect(2, 7, 4, 1, c2)
+      b.fill_rect(7, 8, 10, 1, c2)
+      b.set_pixel(6, 9, c2)
+      b.fill_rect(7, 9, 10, 22, c1)
+      b.set_pixel(17, 9, c2)
+      b.set_pixel(5, 10, c2)
+      b.fill_rect(6, 10, 1, 20, c1)
+      b.fill_rect(17, 10, 1, 20, c1)
+      b.set_pixel(18, 10, c2)
+      b.set_pixel(4, 11, c2)
+      b.fill_rect(5, 11, 1, 18, c1)
+      b.fill_rect(18, 11, 1, 18, c1)
+      b.set_pixel(19, 11, c2)
+      b.set_pixel(3, 12, c2)
+      b.fill_rect(4, 12, 1, 16, c1)
+      b.fill_rect(19, 12, 1, 16, c1)
+      b.set_pixel(20, 12, c2)
+      b.set_pixel(2, 13, c2)
+      b.fill_rect(3, 13, 1, 14, c1)
+      b.fill_rect(20, 13, 1, 14, c1)
+      b.set_pixel(21, 13, c2)
+      b.set_pixel(1, 14, c2)
+      b.fill_rect(2, 14, 1, 12, c1)
+      b.fill_rect(21, 14, 1, 12, c1)
+      b.set_pixel(22, 14, c2)
+      b.fill_rect(0, 15, 1, 10, c2)
+      b.fill_rect(1, 15, 1, 10, c1)
+      b.fill_rect(22, 15, 1, 10, c1)
+      b.fill_rect(23, 15, 1, 10, c2)
+      b.set_pixel(1, 25, c2)
+      b.set_pixel(22, 25, c2)
+      b.set_pixel(2, 26, c2)
+      b.set_pixel(21, 26, c2)
+      b.set_pixel(3, 27, c2)
+      b.set_pixel(20, 27, c2)
+      b.set_pixel(4, 28, c2)
+      b.set_pixel(19, 28, c2)
+      b.set_pixel(5, 29, c2)
+      b.set_pixel(18, 29, c2)
+      b.set_pixel(6, 30, c2)
+      b.set_pixel(17, 30, c2)
+      b.fill_rect(7, 31, 10, 1, c2)
+      return b
+    end
+  end
+  
+  #============================================================================
+  # Player_Controller
+  #----------------------------------------------------------------------------
+  #  This class is a special controller that controls the party leader.
+  #============================================================================
+  
+  class Player_Controller
+    
+    # Center screen x-coordinate * 4
+    CX = (320 - 16) * 4
+    # Center screen y-coordinate * 4
+    CY = (240 - 16) * 4
+    
+    # set all accessable variables
+    attr_accessor :normal_speed
+    attr_accessor :actors
+    #--------------------------------------------------------------------------
+    # Initialization
+    #--------------------------------------------------------------------------
+    def initialize
+      # set event trigger escape counter
+      @evented = 0
+      # set actor characters
+      @actors = []
+      # set memory jump
+      @memory_jump = false
+      # set normal speed
+      @normal_speed = BlizzABS::Config::NORMAL_SPEED
+    end
+    #--------------------------------------------------------------------------
+    # player
+    #  This method is used to make the code easier to read.
+    #--------------------------------------------------------------------------
+    def player
+      return @actors[0]
+    end
+    #--------------------------------------------------------------------------
+    # update_control
+    #  Processes player control.
+    #--------------------------------------------------------------------------
+    def update_control
+      # get pixel movement rate
+      pix = BlizzABS.pixel
+      # reset move speed
+      player.move_speed = @normal_speed
+      # reset spriteset name
+      player.character_name = player.character_name_org
+      # if allowed to change speed
+      unless $game_system.map_interpreter.running? ||
+          player.move_route_forcing || $game_temp.message_window_showing
+        # if run button works and running
+        if Input.press?(Input::Run) && BlizzABS::Config::RUN_SPEED != 0
+          # set running speed
+          player.move_speed = BlizzABS::Config::RUN_SPEED
+        # if sneak button works and sneaking
+        elsif Input.press?(Input::Sneak) && BlizzABS::Config::SNEAK_SPEED != 0
+          # set sneaking speed
+          player.move_speed = BlizzABS::Config::SNEAK_SPEED
+        end
+      end
+      # if battler exists and either dead or select triggered
+      if player.battler != nil && (Input.trigger?(Input::Select) ||
+          player.battler.dead?)
+        # iterate "number of party members" times
+        $game_party.actors.size.times {
+            # change party leader
+            $game_party.add_actor($game_party.actors.shift.id)
+            # until finding one who's not dead
+            break if $game_party.actors[0] != nil && !$game_party.actors[0].dead?}
+        # center screen display on new player controlled character
+        center(player.x, player.y, true)
+        # enforce emptying moving buffer and add special command
+        update_buffer(false)
+      end 
+      # update spriteset animation
+      player.sprite_update
+      # decrease event trigger escape counter if no interpreter running
+      @evented -= 1 if @evented > 0 && !$game_system.map_interpreter.running?
+      # if allowed to turn and pressed turning button or defending
+      if ((player.defending && player.attacked == 0 &&
+            player.in_action == 0) || Input.press?(Input::Turn)) &&
+            !player.moving? && !$game_system.map_interpreter.running? &&
+            !player.move_route_forcing && !$game_temp.message_window_showing
+        # straighten
+        player.straighten
+        # depending on input turn
+        case Input.dir4
+        when 2 then player.turn_down
+        when 4 then player.turn_left
+        when 6 then player.turn_right
+        when 8 then player.turn_up
+        end
+        # updates any attack action
+        player.update_attacked
+        # abort method
+        return nil
+      end
+      # updates any attack action
+      player.update_attacked
+      # if acting
+      if player.in_action > 0
+        # decrease action counter if in_action is greater than 0
+        player.in_action -= 1 if player.in_action > 0
+        # return data
+        return [player.moving?, player.real_x, player.real_y]
+      end
+      # if allowed to move
+      unless $game_system.map_interpreter.running? ||
+          player.move_route_forcing || $game_temp.message_window_showing
+        # if jump button was pressed and not already jumping
+        @memory_jump = true if Input.trigger?(Input::Jump) && !player.jumping?
+        # if not moving
+        unless player.moving?
+          # get jumping range
+          range = BlizzABS::Config::JUMPING
+          # if jumping turned on and not jumping and jumped
+          if range > 0 && !player.jumping? && @memory_jump
+            # if sneaking or running is possible
+            if BlizzABS::Config::RUN_SPEED > 0 || BlizzABS::Config::SNEAK_SPEED > 0
+              # get difference between current speed and normal speed
+              dplus = player.move_speed - @normal_speed
+            else
+              # difference is 0
+              dplus = 0
+            end
+            # check input
+            direction = ($game_system._8_way ? Input.dir8 : Input.dir4)
+            # set jumping direction
+            case direction
+            when 1 then x, y = -1, 1
+            when 2 then x, y = 0, 1
+            when 3 then x, y = 1, 1
+            when 4 then x, y = -1, 0
+            when 6 then x, y = 1, 0
+            when 7 then x, y = -1, -1
+            when 8 then x, y = 0, -1
+            when 9 then x, y = 1, -1
+            else
+              x, y = 0, 0
+            end
+            # jump into direction with considering running/sneaking
+            player.jump(x*range + x*dplus, y*range + y*dplus, direction)
+          elsif !player.jumping?
+            # check input and attempt to move
+            case ($game_system._8_way ? Input.dir8 : Input.dir4)
+            when 1 then move(4) if !move(1) && !move(2)
+            when 2 then move(2)
+            when 3 then move(6) if !move(3) && !move(2)
+            when 4 then move(4)
+            when 6 then move(6)
+            when 7 then move(4) if !move(7) && !move(8)
+            when 8 then move(8)
+            when 9 then move(6) if !move(9) && !move(8)
+            end
+          end
+          # not jumping anymore
+          @memory_jump = false
+        end
+      end
+      # return data
+      return [player.moving?, player.real_x, player.real_y]
+    end
+    #--------------------------------------------------------------------------
+    # move
+    #  dir - direction
+    #  This method is used to make the code easier to read. It moves the player
+    #--------------------------------------------------------------------------
+    def move(dir)
+      return case dir
+      when 1 then player.move_lower_left
+      when 2 then player.move_down
+      when 3 then player.move_lower_right
+      when 4 then player.move_left
+      when 6 then player.move_right
+      when 7 then player.move_upper_left
+      when 8 then player.move_up
+      when 9 then player.move_upper_right
+      end
+    end
+    #--------------------------------------------------------------------------
+    # update_move
+    #  Processes player control.
+    #--------------------------------------------------------------------------
+    def update_move(data)
+      # if control update was not aborted
+      if data != nil
+        # if moved down
+        if player.real_y > data[2] && player.real_y - $game_map.display_y > CY
+          # scroll screen down
+          $game_map.scroll_down(player.real_y - data[2])
+        end
+        # if moved left
+        if player.real_x < data[1] && player.real_x - $game_map.display_x < CX
+          # scroll screen left
+          $game_map.scroll_left(data[1] - player.real_x)
+        end
+        # if moved right
+        if player.real_x > data[1] && player.real_x - $game_map.display_x > CX
+          # scroll screen right
+          $game_map.scroll_right(player.real_x - data[1])
+        end
+        # if moved up
+        if player.real_y < data[2] && player.real_y - $game_map.display_y < CY
+          # scroll screen up
+          $game_map.scroll_up(data[2] - player.real_y)
+        end
+        # if not moving
+        unless player.moving?
+          # if was moving before and event escape expired and event not triggered
+          if data[0] && @evented == 0 && check_event_trigger_here([1, 2])
+            # set event trigger escape counter to one second
+            @evented = 40
+          end
+          # if pressed C button
+          if Input.trigger?(Input::C)
+            # check event here
+            check_event_trigger_here([0])
+            # check event there
+            check_event_trigger_there([0, 1, 2])
+          end
+        end
+      end
+      # update actors' characters
+      update_actors
+      # update ABS controls
+      $game_system.controls.update
+    end
+    #--------------------------------------------------------------------------
+    # update_buffer
+    #  move - new command
+    #  Updates the buffer of the last moving commands.
+    #--------------------------------------------------------------------------
+    def update_buffer(move)
+      # empty each actor's buffer if new command requires so
+      @actors.each {|actor| actor.buffer = []} if [nil, false].include?(move)
+      # add new command or enforce emptying whether move is reset for each actor
+      @actors.each {|actor| actor.update_buffer(move == 'reset' ? nil : move)}
+    end
+    #--------------------------------------------------------------------------
+    # update_actors
+    #  Updates all the actors on the map.
+    #--------------------------------------------------------------------------
+    def update_actors
+      # update each other actor except the player
+      @actors[1, @actors.size-1].each {|actor| actor.update}
+      # set stopped animation flag if player's character is animated
+      @step_anime = true if BlizzABS::Config::ANIMATED_IDS.include?(player.battler.id)
+    end
+    #--------------------------------------------------------------------------
+    # refresh
+    #  Refreshes the character.
+    #--------------------------------------------------------------------------
+    def refresh
+      # test on changes in the inner structure of $game_party.actors
+      if @actors.any? {|actor|
+          actor.battler == nil && $game_party.actors[actor.index] != nil ||
+          actor.battler != $game_party.actors[actor.index]}
+        # store old array
+        old = @actors
+        # create new array
+        @actors = []
+        # add all characters with battlers
+        old.each {|a| @actors[a.battler.index] = a unless a.battler == nil}
+        # add all characters without battlers
+        old.each {|a| @actors.push(a) if a.battler == nil}
+        #  for each actor
+        @actors.each {|a|
+            # if no battler assigned, but in the party is a battler
+            if a.battler == nil && $game_party.actors[a.index] != nil
+              # assign battler
+              a.battler = $game_party.actors[a.index]
+            end}
+      end
+      # refresh each actor's character
+      @actors.each {|actor| actor.refresh(true)}
+      # set new $game_player character
+      $game_player = player
+    end
+    #--------------------------------------------------------------------------
+    # moveto
+    #  x - x-coordinate
+    #  y - y-coordinate
+    #  Moves the player instantly to a postion, moves all actors and centers
+    #  the screen upon the player.
+    #--------------------------------------------------------------------------
+    def moveto(x, y)
+      # center screen upon player
+      center(x, y)
+      # empty movement command buffer
+      update_buffer(nil)
+      # move each actor to the same position
+      (@actors - [player]).each {|actor| actor.moveto(x, y)}
+    end
+    #--------------------------------------------------------------------------
+    # center
+    #  x - x-coordinate
+    #  y - y-coordinate
+    #  Centers the screen upon the player. (pixel movement)
+    #--------------------------------------------------------------------------
+    def center(x, y, flag = false)
+      # if flag or game was loaded
+      if flag
+        # resize coordinates
+        x, y = x * 128 / BlizzABS.pixel, y * 128 / BlizzABS.pixel
+      else
+        # resize coordinates
+        x, y = x * 128, y * 128
+      end
+      # get maximum coordinates of map
+      max_x = ($game_map.width - 20) * 128
+      max_y = ($game_map.height - 15) * 128
+      # set new display coordinates
+      $game_map.display_x = [0, [x - CX, max_x].min].max
+      $game_map.display_y = [0, [y - CY, max_y].min].max
+    end
+    #--------------------------------------------------------------------------
+    # check_event_trigger_here
+    #  triggers - possible event triggers
+    #  Checks if there are events to be triggered. (pixel movement)
+    #--------------------------------------------------------------------------
+    def check_event_trigger_here(triggers)
+      # not started if already running
+      return false if $game_system.map_interpreter.running?
+      # get pixel movement rate
+      pix = BlizzABS.pixel
+      # initialize result
+      result = false
+      # iterate through all events
+      $game_map.enemies(true).each {|event|
+          # if coordinates fit and can be triggered and not jumping
+          if event.x == (player.x+pix/2)/pix &&
+             event.y == (player.y+pix/2)/pix &&
+              triggers.include?(event.trigger) && !event.jumping? &&
+              event.over_trigger?
+            # start event
+            event.start
+            # events were started
+            result = true
+          end}
+      # return result
+      return result
+    end
+    #--------------------------------------------------------------------------
+    # check_event_trigger_there
+    #  triggers - possible event triggers
+    #  Checks if there are events to be triggered. (pixel movement)
+    #--------------------------------------------------------------------------
+    def check_event_trigger_there(triggers)
+      # not started if already running
+      return false if $game_system.map_interpreter.running?
+      # get pixel movement rate
+      pix = BlizzABS.pixel
+      # calculate new coordinates
+      nx = player.x + (player.direction == 6 ? 1 : player.direction == 4 ? -1 : 0)*pix
+      ny = player.y + (player.direction == 2 ? 1 : player.direction == 8 ? -1 : 0)*pix
+      # initialize result
+      result = false
+      # iterate through all events
+      $game_map.enemies(true).each {|event|
+          # if coordinates fit and can be triggered and not jumping
+          if event.x >= nx/pix && event.x <= (nx+pix-1)/pix &&
+              event.y >= ny/pix && event.y <= (ny+pix-1)/pix &&
+              triggers.include?(event.trigger) && !event.jumping? &&
+              !event.over_trigger?
+            # start event
+            event.start
+            # events were started
+            result = true
+          end}
+      # if event was not started and counter
+      if !result && $game_map.pixel_counter?(nx, ny)
+        # change new coordinates
+        nx += (direction == 6 ? 1 : direction == 4 ? -1 : 0)*pix
+        ny += (direction == 2 ? 1 : direction == 8 ? -1 : 0)*pix
+        # iterate through all events
+        $game_map.enemies(true).each {|event|
+            # if coordinates fit and can be triggered and not jumping
+            if event.x >= nx/pix && event.x <= (nx+pix-1)/pix &&
+                event.y >= ny/pix && event.y <= (ny+pix-1)/pix &&
+                triggers.include?(event.trigger) && !event.jumping? &&
+                !event.over_trigger?
+              # start event
+              event.start
+              # events were started
+              result = true
+            end}
+      end
+      # return result
+      return result
+    end
+    #--------------------------------------------------------------------------
+    # check_event_trigger_touch
+    #  x - x-coordinate
+    #  y - y-coordinate
+    #  Checks if there are events that were triggered by touch. (pixel movement)
+    #--------------------------------------------------------------------------
+    def check_event_trigger_touch(x, y)
+      # not started if already running
+      return false if $game_system.map_interpreter.running?
+      # get pixel movement rate
+      pix = BlizzABS.pixel
+      # initialize result
+      result = false
+      # iterate through all events
+      $game_map.enemies(true).each {|event|
+          # if coordinates fit and can be triggered and not jumping
+          if event.x >= x/pix && event.x <= (x+pix-1)/pix &&
+              event.y >= y/pix && event.y <= (y+pix-1)/pix &&
+              [1, 2].include?(event.trigger) && !event.jumping? &&
+              !event.over_trigger?
+            # start event
+            event.start
+            # events were started
+            result = true
+          end}
+      # return result
+      return result
+    end
+    
+  end
+  
+  # version of Blizz-ABS
+  VERSION = 1.093
+  # edition of Blizz-ABS
+  EDITION = 'Normal'
+  # load player controller
+  @player = BlizzABS::Player_Controller.new
+  # create Blizz-ABS Cache
+  BlizzABS::Cache.load
+  # ensures compatibility with plugins (aka test if Blizz-ABS is there)
+  $BlizzABS = true
+  
+  #--------------------------------------------------------------------------
+  # player
+  #  Returns the player controller instance.
+  #-------------------------------------------------------------------------- 
+  def self.player
+    return @player
+  end
+  #--------------------------------------------------------------------------
+  # pixel
+  #  Safe method to retreive the pixel movement rate.
+  #-------------------------------------------------------------------------- 
+  def self.pixel
+    return $game_system == nil ? 1 : 2 ** $game_system.pixel_rate
+  end
+  #--------------------------------------------------------------------------
+  # animations_size_down
+  #  Sizes down all the animations to 50%.
+  #-------------------------------------------------------------------------- 
+  def self.animations_size_down
+    # iterate through all animations
+    $data_animations[1, $data_animations.size-1].each {|animation|
+      # iterate through all frames
+      animation.frames.each {|frame|
+        # iterate through all cells
+        (0...frame.cell_data.xsize).each {|i|
+            # if cell contains image
+            if frame.cell_data[i, 0] != nil && frame.cell_data[i, 0] != -1
+              # size down x position, y position and zoom by half
+              (1..3).each {|j| frame.cell_data[i, j] /= 2}
+            end}}}
+  end
+  #--------------------------------------------------------------------------
+  # setup_minimap
+  #  map - database map
+  #  Returns a data hash with coordinates for the minimap drawing.
+  #-------------------------------------------------------------------------- 
+  def self.setup_passability(map)
+    # set map for further use
+    @map = map
+    # initialize
+    result = Table.new(@map.width, @map.height)
+    # iterate through each element in the given in each horizontal lines
+    (0...@map.height).each {|y| (0...@map.width).each {|x|
+        # initialize value
+        val = 0x00
+        # add to value if virtually passable in each direction
+        val |= 0x01 if self.passable?(x, y, 2) && self.passable?(x, y+1, 8)
+        val |= 0x02 if self.passable?(x, y, 4) && self.passable?(x-1, y, 6)
+        val |= 0x04 if self.passable?(x, y, 6) && self.passable?(x+1, y, 4)
+        val |= 0x08 if self.passable?(x, y, 8) && self.passable?(x, y-1, 2)
+        # add coordinate if passable anyhow
+        result[x, y] = val if val != 0x00}}
+    # remove map from memory
+    @map = nil
+    # return passable coordinates
+    return result
+  end
+  #----------------------------------------------------------------------------
+  # passable?
+  #  x - x-coordinate
+  #  y - y-coordinate
+  #  d - direction
+  #  Checks virtual passability for the minimap.
+  #----------------------------------------------------------------------------
+  def self.passable?(x, y, d)
+    # "passable" if out of map border
+    return true if x < 0 || x >= @map.width || y < 0 || y >= @map.height
+    # set bit
+    bit = (1 << (d / 2 - 1)) & 0x0f
+    # iterate through all layers
+    for i in [2, 1, 0]
+      # get tile ID
+      tile_id = @map.data[x, y, i]
+      # if tile ID not valid
+      if tile_id == nil
+        # impassable
+        return false
+      # if obstacle bit is set
+      elsif $data_tilesets[@map.tileset_id].passages[tile_id] & bit != 0
+        # impassable
+        return false
+      # if obstacle bit is set in all directions
+      elsif $data_tilesets[@map.tileset_id].passages[tile_id] & 0x0F == 0x0F
+        # impassable
+        return false
+      # if priority is 0
+      elsif $data_tilesets[@map.tileset_id].priorities[tile_id] == 0
+        # passable
+        return true
+      end
+    end
+    # passable
+    return true
+  end
+  #----------------------------------------------------------------------------
+  # init_caterpillar
+  #  This method serves for initialization of the caterpillar.
+  #----------------------------------------------------------------------------
+  def self.init_caterpillar
+    # add player controlled character
+    @player.actors = [$game_player]
+    # if CATERPILLAR is active
+    if Config::CATERPILLAR
+      # MAX-PARTY size - 1 times create actor
+      (1...Config::MAX_PARTY).each {|i| @player.actors.push(Map_Actor.new(i))}
+    end
+    # refresh the player's battler
+    $game_player.battler = $game_party.actors[0]
+    # if not very beginning of the game
+    if $game_map.map_id != nil && $game_map.map_id > 0
+      # move all actors to the player's position
+      $game_player.moveto($game_player.x/BlizzABS.pixel, $game_player.y/BlizzABS.pixel)
+    end
+  end
+  #----------------------------------------------------------------------------
+  # attack_process
+  #  ch - the character in action
+  #  Processes ABS attack setup and handling for actors and enemies.
+  #----------------------------------------------------------------------------
+  def self.attack_process(ch)
+    # determine whether actor or enemy for easier reference
+    classe = (ch.is_a?(Map_Actor) ? Map_Enemy : Map_Actor)
+    # get and correct attack range
+    d = [(classe == Map_Enemy ? Weapons.range(ch.battler.weapon_id) :
+        Enemies.range(ch.battler.id)), 1].max
+    # temporary variable depending on whether actor or enemy
+    type = (classe == Map_Enemy ? Weapons.type(ch.battler.weapon_id) :
+        Enemies.type(ch.battler.id))
+    # create affection area depending on attack type
+    case type
+    # sword attack
+    when 0
+      range = [ch.real_x + 64, ch.real_y + 64, d*128, ch.direction]
+    # lance attack
+    when 1
+      # create affection area rectangle
+      range = case ch.direction
+      when 2 then Rect.new(ch.real_x, ch.real_y+64, 128, d*128)
+      when 4 then Rect.new(ch.real_x+64-d*128, ch.real_y, d*128, 128)
+      when 6 then Rect.new(ch.real_x+64, ch.real_y, d*128, 128)
+      when 8 then Rect.new(ch.real_x, ch.real_y+64-d*128, 128, d*128)
+      end
+    # flail attack
+    when 2
+      # create affection area rectangle
+      range = case ch.direction
+      when 2 then Rect.new(ch.real_x, ch.real_y+64+d*64, 128, d*64)
+      when 4 then Rect.new(ch.real_x+64-d*128, ch.real_y, d*64, 128)
+      when 6 then Rect.new(ch.real_x+64+d*64, ch.real_y, d*64, 128)
+      when 8 then Rect.new(ch.real_x, ch.real_y+64-d*128, 128, d*64)
+      end
+    # returning projectile attack
+    when 3
+      # if attacker is actor
+      if classe == Map_Enemy
+        # create returning projectile based on actor's weapon ID
+        proj = Projectile.new($data_weapons[ch.battler.weapon_id].icon_name, ch,
+            0, d, 0, classe, true)
+      else
+        # create returning projectile based on enemy's ID
+        proj = Projectile.new(Enemies.enemy_set(ch.battler.id), ch, 0, d, 0,
+            classe, true)
+      end
+    # projectile attack
+    when 4
+      # if attacker is actor
+      if classe == Map_Enemy
+        # create projectile based on actor's weapon ID
+        proj = Projectile.new($data_weapons[ch.battler.weapon_id].icon_name, ch,
+            0, d, 2, classe, true)
+      else
+        # create projectile based on enemy's ID
+        proj = Projectile.new(Enemies.enemy_set(ch.battler.id), ch, 0, d, 2,
+            classe, true)
+      end
+    # item consuming projectile
+    when 5
+      # temporary variable
+      ids = Weapons.consume(ch.battler.weapon_id)
+      # if currently equipped item can be consumed and item in inventory
+      if ids.include?(ch.battler.item) &&
+          $game_party.item_number(ch.battler.item) > 0
+        # remove one item from inventory
+        $game_party.lose_item(ch.battler.item, 1)
+        # temporary variable
+        item = $data_items[ch.battler.item]
+        # create projectile from item with weapon attack effect
+        proj = Projectile.new(item.icon_name, ch, item.id, d, 3, classe, true)
+      else
+        # ignore attack
+        return false
+      end
+    # self consuming weapon
+    when 6
+      # temporary variable
+      weapon = $data_weapons[ch.battler.weapon_id]
+      # unequip last weapon if no more weapons in inventory
+      ch.battler.equip(0, 0) if $game_party.weapon_number(weapon.id) == 0
+      # remove one weapon from inventory
+      $game_party.lose_weapon(weapon.id, 1)
+      # self shooting weapon, create projectile from weapon
+      proj = Projectile.new(weapon.icon_name, ch, weapon.id, d, 4, classe, true)
+    end
+    # if projectile fired
+    if proj != nil
+      # add projectile to buffer
+      BlizzABS::Cache.projectiles.push(proj)
+      # no enemies were directly attacked
+      return false
+    end
+    # iterate through all battlers
+    ($game_map.enemies + BlizzABS.player.actors).each {|battler|
+        # if target can be hit considering all conditions
+        if battler.is_a?(classe) && battler.battler != nil &&
+            !battler.battler.dead? && self.intersection(range,
+            Rect.new(battler.real_x, battler.real_y, 128, 128))
+          # execute attack
+          battler.attack_effect(ch, ch.battler)
+        end}
+    # enemies were attacked
+    return true
+  end
+  #----------------------------------------------------------------------------
+  # skillitem_process
+  #  ch - the skill/item using character
+  #  object - the skill or item that is being used
+  #  Processes skill and item use in Blizz-ABS on the map. One method is used
+  #  for both since the process is almost identical for both objects.
+  #----------------------------------------------------------------------------
+  def self.skillitem_process(ch, object)
+    # determine whether skill or item for easier reference
+    skill = (object.is_a?(RPG::Skill))
+    # get and correct range
+    d = [(skill ? Skills.range(object.id) : Items.range(object.id)), 1].max
+    # determine skill/item type
+    type = (skill ? Skills.type(object.id) : Items.type(object.id))
+    # skill/item used (can happen to be a common event call) if no target scope
+    return true if object.scope == 0
+    # not used if summoning skill/item (this type is N/A in 1.0.9.x)
+    return false if type[0] == 4
+    # if targeting self
+    if object.scope == 7
+      # if skill
+      if skill
+        # execute skill upon user
+        ch.skill_effect(ch, ch.battler, object)
+      else
+        # execute item upon user
+        ch.item_effect(ch, ch.battler, object)
+      end
+      # skill/item used
+      return true
+    end
+    # check scope and determine target class, ndead flag and all flag
+    case object.scope
+    when 1
+      classe, ndead = (ch.is_a?(Map_Enemy) ? Map_Actor : Map_Enemy), true
+      all = false
+    when 2
+      classe, ndead = (ch.is_a?(Map_Enemy) ? Map_Actor : Map_Enemy), true
+      all = true
+    when 3 then classe, ndead, all = ch.class, true, false
+    when 4 then classe, ndead, all = ch.class, true, true
+    when 5 then classe, ndead, all = ch.class, false, false
+    when 6 then classe, ndead, all = ch.class, false, true
+    end
+    # selection only if player using selectable skill/item
+    if ch == $game_player && ([1, 2].include?(type[0]) || type[0] == 3 &&
+        [2, 4, 6].include?(object.scope))
+      # temporary variable, selection skill/item
+      handling = 0
+    else
+      # temporary variable, projectile skill/item or direct skill/item
+      handling = (type[0] < 2 ? 1 : 2)
+    end
+    # execute preparations for skill/item use depending on handling
+    case handling
+    # selection
+    when 0
+      # create circle shape data
+      range = [ch.real_x+64, ch.real_y+64, d*128, 0]
+      # create fullscreen rectangle
+      screen = Rect.new($game_map.display_x, $game_map.display_y, 2560, 1920)
+      # initialize array for targets, available for selection
+      available = []
+      # iterate through all character sprites
+      $scene.spriteset.character_sprites.each {|sprite|
+          # temporary variable
+          battler = sprite.character
+          # if target can be hit
+          if battler.is_a?(classe) && battler.battler != nil &&
+              ndead ^ battler.battler.dead? && self.intersection(screen,
+              Rect.new(battler.real_x+60, battler.real_y+60, 8, 8)) &&
+              (type[0] == 3 && all || self.intersection(range,
+              Rect.new(battler.real_x, battler.real_y, 128, 128)))
+            # add sprite to selectable
+            available.push(sprite)
+          end}
+      # no use if no selectable targets
+      return false if available.size == 0
+      # sort selectable targets by coordinates
+      available.sort {|a, b| b.y > a.y ? 1 : b.y < a.y ? -1 : (b.x <=> a.x)}
+      # setup select interuption
+      $game_temp.select_data = [ch, object, available]
+      # don't use skill/item yet
+      return false
+    # projectile
+    when 1
+      # decide process branch depending on skill type
+      case type[0]
+      # set normal or break-through projectile data
+      when 0
+        projectype, targets = (all ? (skill ? 6 : 10) : (skill ? 5 : 9)), [d]
+      # direct skill/item
+      when 1
+        # create circle shape data
+        range = [ch.real_x+64, ch.real_y+64, d*128, 0]
+        # initialize targets
+        targets = []
+        # create fullscreen rectangle
+        screen = Rect.new($game_map.display_x, $game_map.display_y, 2560, 1920)
+        # iterate through all battlers
+        ($game_map.enemies + BlizzABS.player.actors).each {|battler|
+            # if target can be hit
+            if battler.is_a?(classe) && battler.battler != nil &&
+                ndead ^ battler.battler.dead? && self.intersection(screen,
+                Rect.new(battler.real_x+60, battler.real_y+60, 8, 8)) &&
+                self.intersection(range,
+                Rect.new(battler.real_x, battler.real_y, 128, 128))
+              # add to targets
+              targets.push(battler)
+            end}
+        # set homing projectile type
+        projectype = (skill ? 7 : 11)
+      end
+    # direct
+    when 2
+      # if direct skill or shockwave skill
+      if type[0] == 2
+        # create circle shape data
+        range = [ch.real_x+64, ch.real_y+64, d*128, 0]
+      # if beam skill
+      elsif !all
+        # determine affection area depending on facing direction for beam
+        range = case ch.direction
+        when 2 then Rect.new(ch.real_x, ch.real_y+64, 128, d*128)
+        when 4 then Rect.new(ch.real_x+64-d*128, ch.real_y, d*128, 128)
+        when 6 then Rect.new(ch.real_x+64, ch.real_y, d*128, 128)
+        when 8 then Rect.new(ch.real_x, ch.real_y+64-d*128, 128, d*128)
+        end
+      end
+      # create fullscreen rectangle
+      screen = Rect.new($game_map.display_x, $game_map.display_y, 2560, 1920)
+      # initialize targets
+      targets = []
+      # iterate through all battlers
+      ($game_map.enemies + BlizzABS.player.actors).each {|battler|
+          # if target can be hit
+          if battler.is_a?(classe) && battler.battler != nil &&
+              ndead ^ battler.battler.dead? && self.intersection(screen,
+              Rect.new(battler.real_x+60, battler.real_y+60, 8, 8)) &&
+              (type[0] == 3 && all || self.intersection(range,
+              Rect.new(battler.real_x, battler.real_y, 128, 128)))
+            # add to targets
+            targets.push(battler)
+          end}
+    end
+    # no use if no selectable targets
+    return false if targets.size == 0
+    # get a random target from all targets if not targeting all
+    targets = [targets[rand(targets.size)]] unless all
+    # if projectile data is available and projectile should be created
+    if projectype != nil
+      # iterate through all targets
+      targets.each {|target|
+          # create exploding projectile with provided data
+          if type[1] > 0
+            proj = Projectile.new(object.icon_name, ch, object.id, target,
+                projectype, classe, ndead, type[1, 2])
+          # create projectile with provided data
+          else
+            proj = Projectile.new(object.icon_name, ch, object.id, target,
+                projectype, classe, ndead)
+          end
+          # add projectile to buffer
+          BlizzABS::Cache.projectiles.push(proj)}
+    # if skill
+    elsif skill
+      # execute skill effect upon all targets
+      targets.each {|target| target.skill_effect(ch, ch.battler, object)}
+    else
+      # execute item effect upon all targets
+      targets.each {|target| target.item_effect(ch, ch.battler, object)}
+    end
+    # skill/item use successful
+    return true
+  end
+  #----------------------------------------------------------------------------
+  # selectable
+  #  battler - the map battler to be tested
+  #  ndead   - ndead flag
+  #  range   - range definition
+  #  Serves the simplification of the code because of encapsulation of repeated
+  #  condition checking.
+  #----------------------------------------------------------------------------
+  def self.selectable(battler, ndead, range, type)
+    return ()
+  end
+  #----------------------------------------------------------------------------
+  # intersection
+  #  shape - either rectangle or a data array with circle data
+  #  rect  - rectangle
+  #  This method processes and test intersection of rectangles, a rectangle
+  #  with a full circle and a rectangle with a fourth of a circle in which the
+  #  user of an attack/skill/item is facing. The shapes get tested on whether
+  #  at least one point of the rectangle is within the shape and if not, then
+  #  this method checks whether the shape's characteristic lines determined by
+  #  the center points and a few point on the borders intersect with the
+  #  rectangle. This polygon intersection determination is a simplified
+  #  version, sufficient for Blizz-ABS that needs less CPU time than a full
+  #  determination algorithm.
+  #----------------------------------------------------------------------------
+  def self.intersection(shape, rect)
+    # if both are rectangles return rectangle intersection result
+    return self.rect_intersection(shape, rect) if shape.is_a?(Rect)
+    # temporary variables
+    x, y, r, d = shape
+    # iterate through all of rectangle's points
+    [rect.x, rect.x+rect.width-1].each {|i| [rect.y, rect.y+rect.height-1].each {|j|
+        # if within special circle radius
+        if Math.hypot(x-i, y-j) < r || Math.hypot(x-i-1, y-j) < r ||
+            Math.hypot(x-i, y-j-1) < r || Math.hypot(x-i-1, y-j-1) < r
+          case d
+          when 2 then return true if j-y >= 0 && i-x <= j-y && x-i-1 <= j-y
+          when 4 then return true if x-i-1 >= 0 && j-y <= x-i-1 && y-j-1 <= x-i-1
+          when 6 then return true if i-x >= 0 && j-y <= i-x && y-j-1 <= i-x
+          when 8 then return true if y-j-1 >= 0 && i-x <= y-j-1 && x-i-1 <= y-j-1
+          else
+            # full circle, intersection exists
+            return true
+          end
+        end}}
+    # initialize arrays
+    rects, coos = [], []
+    # radius line end coordinates and rectangles depending on which circle part
+    case d
+    when 2
+      coos.push([x-1-(r/Math.sqrt(2)).to_i, y+(r/Math.sqrt(2)).to_i])
+      coos.push([2*x-coos[0][0]-1, coos[0][1]])
+      rects.push(Rect.new(x-1, y, 2, r))
+    when 4
+      coos.push([x-1-(r/Math.sqrt(2)).to_i, y-1-(r/Math.sqrt(2)).to_i])
+      coos.push([coos[0][0], 2*y-coos[0][1]-1])
+      rects.push(Rect.new(x-r-1, y-1, r, 2))
+    when 6
+      coos.push([x+(r/Math.sqrt(2)).to_i, y-1-(r/Math.sqrt(2)).to_i])
+      coos.push([coos[0][0], 2*y-coos[0][1]-1])
+      rects.push(Rect.new(x, y-1, r, 2))
+    when 8
+      coos.push([x-1-(r/Math.sqrt(2)).to_i, y-1-(r/Math.sqrt(2)).to_i])
+      coos.push([2*x-coos[0][0]-1, coos[0][1]])
+      rects.push(Rect.new(x-1, y-r-1, 2, r))
+    else
+      rects.push(Rect.new(x-1, y, 2, r), Rect.new(x-r-1, y-1, r, 2),
+          Rect.new(x, y-1, r, 2), Rect.new(x-1, y-r-1, 2, r))
+    end
+    # intersection exists if intersecting with any of the radius rectangles
+    return true if rects.any? {|rec| self.rect_intersection(rect, rec)}
+    # iterate through rectangle's border lines
+    [[rect.x, rect.y], [rect.x+rect.width-1, rect.y+rect.height-1]].each {|i|
+      [[rect.x, rect.y+rect.height-1], [rect.x+rect.width-1, rect.y]].each {|j|
+        # iterate through the characteristic lines
+        coos.each {|c|
+            # if borderline of rectangle intersects with diagonal radius line
+            if self.line_intersection(i[0], i[1], j[0], j[1], c[0], c[1], x, y)
+              # intersection exists
+              return true
+            end}}}
+    # intersection does not exist
+    return false
+  end
+  #----------------------------------------------------------------------------
+  # rect_intersection
+  #  r1 - first rectangle
+  #  r2 - second rectangle
+  #  This method quickly determines intersection of two rectangles. It is
+  #  faster than the algorithm to determine line intersection as both
+  #  rectangles are always rectangles with a rotation angle of 0, 90, 180 or
+  #  270.
+  #----------------------------------------------------------------------------
+  def self.rect_intersection(r1, r2)
+    return (r1.x + r1.width > r2.x && r1.x < r2.x + r2.width &&
+            r1.y + r1.height > r2.y && r1.y < r2.y + r2.height)
+  end
+  #----------------------------------------------------------------------------
+  # line_intersection
+  #  x1 - x coordinate of the first line's first point
+  #  y1 - y coordinate of the first line's first point
+  #  x1 - x coordinate of the first line's second point
+  #  y1 - y coordinate of the first line's second point
+  #  x1 - x coordinate of the second line's first point
+  #  y1 - y coordinate of the second line's first point
+  #  x1 - x coordinate of the second line's second point
+  #  y1 - y coordinate of the second line's second point
+  #  This method uses a quick algorithm to test whether two lines intersect.
+  #----------------------------------------------------------------------------
+  def self.line_intersection(x1, y1, x2, y2, x3, y3, x4, y4)
+    # calculate vector products
+    d1 = (x3-x1)*(y4-y1) - (x4-x1)*(y3-y1)
+    d2 = (x3-x2)*(y4-y2) - (x4-x2)*(y3-y2)
+    d3 = (x1-x3)*(y2-y3) - (x2-x3)*(y1-y3)
+    d4 = (x1-x4)*(y2-y4) - (x2-x4)*(y1-y4)
+    # check vector product results
+    if (d1 > 0 && d2 < 0 || d1 < 0 && d2 > 0) &&
+        (d3 > 0 && d4 < 0 || d3 < 0 && d4 > 0)
+      # intersection exists
+      return true
+    # if at least one point of one line lies on the other line
+    elsif d1 == 0 && [x3, x4].min <= x1 && x1 <= [x3, x4].max &&
+          [y3, y4].min <= y1 && y1 <= [y3, y4].max ||
+          d2 == 0 && [x3, x4].min <= x2 && x2 <= [x3, x4].max &&
+          [y3, y4].min <= y2 && y2 <= [y3, y4].max ||
+          d3 == 0 && [x1, x2].min <= x3 && x3 <= [x1, x2].max &&
+          [y1, y2].min <= y3 && y3 <= [y1, y2].max ||
+          d4 == 0 && [x1, x2].min <= x4 && x4 <= [x1, x2].max &&
+          [y1, y2].min <= y4 && y4 <= [y1, y2].max
+      # intersection exists
+      return true
+    end
+    # intersection does not exist
+    return false
+  end
+      
+end
+
+# if using intelligent minimap mode
+if BlizzABS::Config::INTELLIGENT_PASSABILTY && $DEBUG
+  # load tileset data
+  $data_tilesets = load_data('Data/Tilesets.rxdata')
+  # get current map states
+  new_data = load_data('Data/MapInfos.rxdata')
+  # if first time intelligent passability is being used
+  if !File.exist?('Data/Map_Data.abs')
+    # initialize
+    data, dates = {}, {}
+    # all map IDs
+    ids = new_data.keys.sort
+  else
+    # get passability data and "modified time" data from old data file
+    data, dates = load_data('Data/Map_Data.abs')
+    # iterate through all current map IDs
+    new_data.keys.sort.each {|id|
+        # if game not encrypted
+        if File.exist?(sprintf('Data/Map%03d.rxdata', id))
+          # open map file for reading
+          file = File.open(sprintf('Data/Map%03d.rxdata', id), 'r')
+          # remove map ID if map was edited
+          [data, dates].each {|_hash| _hash.delete(id)} if dates[id] != file.mtime
+          # close file
+          file.close
+        end}
+    # iterate through all map IDs that were deleted
+    (data.keys-new_data.keys).sort.each {|id|
+        # remove map ID
+        [data, dates].each {|hash| hash.delete(id)}}
+    # get all map IDs that need to be updated
+    ids = (new_data.keys-data.keys).sort
+  end
+  # open new file
+  file = File.open('Data/Map_Data.abs', 'wb')
+  # iterate through all IDs
+  ids.each {|id|
+      # load map
+      map = load_data(sprintf('Data/Map%03d.rxdata', id))
+      # create one map data pack
+      data[id] = BlizzABS.setup_passability(map)
+      # if game not encrypted
+      if File.exist?(sprintf('Data/Map%03d.rxdata', id))
+        # open map file for reading
+        f = File.open(sprintf('Data/Map%03d.rxdata', id), 'r')
+        # get map file modified time
+        dates[id] = f.mtime
+        # close file
+        f.close
+      end
+      # prevent "Script is hanging" error
+      Graphics.update}
+  # save all data to file
+  Marshal.dump([data, dates], file)
+  # save and close file
+  file.close
+  # remove variables from memory completely
+  file = f = data = map = $data_tilesets = nil
+end
+
+#==============================================================================
+# Enhanced module Input
+#------------------------------------------------------------------------------
+#  This module handles Blizz-ABS input.
+#==============================================================================
+
+module Input
+  #----------------------------------------------------------------------------
+  # Setup of Controls (ASCII)
+  #----------------------------------------------------------------------------
+  LMB, RMB, MMB, Backspace, Tab, Enter, Shift, Ctrl, Alt, Esc, D_Down, D_Left,
+  D_Right, D_Up, Space = 1, 2, 4, 8, 9, 13, 16, 17, 18, 27, 40, 37, 39, 38, 32
+  NumKeys = [48, 49, 50, 51, 52, 53, 54, 55, 56, 57]
+  NumPad = [45, 35, 40, 34, 37, 12, 39, 36, 38, 33]
+  Let = {'A' => 65, 'B' => 66, 'C' => 67, 'D' => 68, 'E' => 69, 'F' => 70, 
+         'G' => 71, 'H' => 72, 'I' => 73, 'J' => 74, 'K' => 75, 'L' => 76, 
+         'M' => 77, 'N' => 78, 'O' => 79, 'P' => 80, 'Q' => 81, 'R' => 82, 
+         'S' => 83, 'T' => 84, 'U' => 85, 'V' => 86, 'W' => 87, 'X' => 88, 
+         'Y' => 89, 'Z' => 90}
+  Fkeys = [-1, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123]
+  Collon, Equal, Comma, Underscore, Dot, Backslash, Lb, Rb, Quote = 186, 187,
+  188, 189, 190, 191, 219, 221, 222
+  # dll call
+  State = Win32API.new('user32.dll', 'GetKeyState', ['i'], 'i')
+  Key = Win32API.new('user32.dll', 'GetAsyncKeyState', ['i'], 'i')
+  # All ASCII keys
+  All_keys = 0..255
+  @repeating = []
+  256.times{@repeating.push(-1)}
+  # Blizz-ABS control setup
+  if BlizzABS::Control::CUSTOM_CONTROLS
+    eval("Up       = #{BlizzABS::Control::UP}")
+    eval("Left     = #{BlizzABS::Control::LEFT}")
+    eval("Down     = #{BlizzABS::Control::DOWN}")
+    eval("Right    = #{BlizzABS::Control::RIGHT}")
+    eval("Prevpage = #{BlizzABS::Control::PREVPAGE}")
+    eval("Nextpage = #{BlizzABS::Control::NEXTPAGE}")
+    eval("Confirm  = #{BlizzABS::Control::CONFIRM}")
+    eval("Cancel   = #{BlizzABS::Control::CANCEL}")
+    eval("Attack   = #{BlizzABS::Control::ATTACK}")
+    eval("Defend   = #{BlizzABS::Control::DEFEND}")
+    eval("Skill    = #{BlizzABS::Control::SKILL}")
+    eval("Item     = #{BlizzABS::Control::ITEM}")
+    eval("Select   = #{BlizzABS::Control::SELECT}")
+    eval("Hud      = #{BlizzABS::Control::HUD}")
+    eval("Hotkey   = #{BlizzABS::Control::HOTKEY}")
+    eval("Minimap  = #{BlizzABS::Control::MINIMAP}")
+    eval("Run      = #{BlizzABS::Control::RUN}")
+    eval("Sneak    = #{BlizzABS::Control::SNEAK}")
+    eval("Jump     = #{BlizzABS::Control::JUMP}")
+    eval("Turn     = #{BlizzABS::Control::TURN}")
+  # default controls
+  else
+    Up       = [Let['W']]
+    Left     = [Let['A']]
+    Down     = [Let['S']]
+    Right    = [Let['D']]
+    Prevpage = [Let['Q']]
+    Nextpage = [Let['E']]
+    Confirm  = [Let['H']]
+    Cancel   = [Let['F']]
+    Attack   = [Let['K']]
+    Defend   = [Let['L']]
+    Skill    = [Let['J']]
+    Item     = [Let['I']]
+    Select   = [Let['O']]
+    Hud      = [Let['Z']]
+    Hotkey   = [Let['X']]
+    Minimap  = [Let['C']]
+    Run      = [Let['M']]
+    Sneak    = [Dot]
+    Jump     = [Comma]
+    Turn     = [Let['U']]
+  end
+  #--------------------------------------------------------------------------
+  # get_current_state
+  #  key - the ASCII number of the key
+  #  This method checks if the key is being pressed.
+  #-------------------------------------------------------------------------- 
+  def Input.get_current_state(key)
+    return State.call(key).between?(0, 1)
+  end
+  #--------------------------------------------------------------------------
+  # test_key
+  #  key - the ASCII number of the key
+  #  This method checks if the key was pressed.
+  #-------------------------------------------------------------------------- 
+  def Input.test_key(key)
+    Key.call(key) & 0x01 == 1
+  end
+  #--------------------------------------------------------------------------
+  # get_symbol
+  #  sym - the given symbol
+  #  Transforms given number into ASCII character.
+  #-------------------------------------------------------------------------- 
+  def Input.get_symbol(sym)
+    return ((sym != 0 && sym != nil) ? sym.chr : '')
+  end
+  #--------------------------------------------------------------------------
+  # update
+  #  Updates input.
+  #-------------------------------------------------------------------------- 
+  def Input.update
+    # storing old keys
+    @_keys = (@_keys == nil ? [] : @_keys) | (@keys == nil ? [] : @keys.clone)
+    # empty current keys
+    @keys, @pressed = [], []
+    # checking through all possible keys
+    All_keys.each {|key|
+        # key is triggered if not triggered before
+        @keys.push(key) if Input.test_key(key) && !@_keys.include?(key)
+        # if key is not being hold
+        if Input.get_current_state(key)
+          # remove from helping array
+          @_keys.delete(key)
+          # remove repeat? flag
+          @repeating[key] = 0
+        else
+          # push into pressed array
+          @pressed.push(key)
+          # needed for repeat? and repeated?
+          if @repeating[key] > 0
+            @repeating[key] < 17 ? @repeating[key] += 1 : @repeating[key] = 14
+          else
+            @repeating[key] = 1
+          end
+        end}
+  end
+  #--------------------------------------------------------------------------
+  # triggered?
+  #  Internal method to check the trigger state.
+  #-------------------------------------------------------------------------- 
+  def Input.triggered?(key)
+    return (@keys.include?(key) && !@_keys.include?(key))
+  end
+  #--------------------------------------------------------------------------
+  # pressed?
+  #  Internal method to check the pressed state.
+  #-------------------------------------------------------------------------- 
+  def Input.pressed?(key)
+    return (@pressed.include?(key))
+  end
+  #--------------------------------------------------------------------------
+  # repeated?
+  #  Internal method to check the pressed state for repeat?.
+  #-------------------------------------------------------------------------- 
+  def Input.repeated?(key)
+    return ([1, 16].include?(@repeating[key]))
+  end
+  #--------------------------------------------------------------------------
+  # dir4
+  #  4 direction check.
+  #-------------------------------------------------------------------------- 
+  def Input.dir4
+    return 2 if Input.press?(Down)
+    return 4 if Input.press?(Left)
+    return 6 if Input.press?(Right)
+    return 8 if Input.press?(Up)
+    return 0
+  end
+  #--------------------------------------------------------------------------
+  # dir8
+  #  8 direction check.
+  #-------------------------------------------------------------------------- 
+  def Input.dir8
+    return 1 if Input.press?(Down) && Input.press?(Left)
+    return 3 if Input.press?(Down) && Input.press?(Right)
+    return 7 if Input.press?(Up) && Input.press?(Left)
+    return 9 if Input.press?(Up) && Input.press?(Right)
+    return 2 if Input.press?(Down)
+    return 4 if Input.press?(Left)
+    return 6 if Input.press?(Right)
+    return 8 if Input.press?(Up)
+    return 0
+  end
+  #--------------------------------------------------------------------------
+  # trigger?
+  #  Test if key was triggered once.
+  #-------------------------------------------------------------------------- 
+  def Input.trigger?(keys)
+    if keys.is_a?(Array)
+      keys.each {|key| Input.check_old_keys(key).each {|k|
+          return true if Input.triggered?(k)}}
+    else
+      Input.check_old_keys(keys).each {|k| return true if Input.triggered?(k)}
+    end
+    return false
+  end
+  #--------------------------------------------------------------------------
+  # press?
+  #  Test if key is being pressed.
+  #-------------------------------------------------------------------------- 
+  def Input.press?(keys)
+    if keys.is_a?(Array)
+      keys.each {|key| Input.check_old_keys(key).each {|k|
+          return true if Input.pressed?(k)}}
+    else
+      Input.check_old_keys(keys).each {|k| return true if Input.pressed?(k)}
+    end
+    return false
+  end     
+  #--------------------------------------------------------------------------
+  # repeat?
+  #  Test if key is being pressed for repeating.
+  #-------------------------------------------------------------------------- 
+  def Input.repeat?(keys)
+    if keys.is_a?(Array)
+      keys.each {|key| Input.check_old_keys(key).each {|k|
+          return true if Input.repeated?(k)}}
+    else
+      Input.check_old_keys(keys).each {|k| return true if Input.repeated?(k)}
+    end
+    return false
+  end
+  #--------------------------------------------------------------------------
+  # check_old_keys
+  #  Converts all the old keys into the new format if not overriding RMXP's
+  #  controls.
+  #-------------------------------------------------------------------------- 
+  def Input.check_old_keys(key)
+    if BlizzABS::Control::DISABLE_DEFAULT
+      case key
+      when UP then return Up
+      when LEFT then return Left
+      when DOWN then return Down
+      when RIGHT then return Right
+      when B then return Cancel
+      when C then return Confirm
+      when L then return Prevpage
+      when R then return Nextpage
+      when F9 then return [Fkeys[9]]
+      when CTRL then return [Ctrl]
+      end
+    else
+      case key
+      when UP then return Up
+      when LEFT then return Left
+      when DOWN then return Down
+      when RIGHT then return Right
+      when A then return [Shift]
+      when B then return ([Esc, NumPad[0]] | Cancel)
+      when C then return ([Space, Enter] | Confirm)
+      when X then return [Let['A']]
+      when Y then return [Let['S']]
+      when Z then return [Let['D']]
+      when L then return ([Let['Q']] | Prevpage)
+      when R then return ([Let['W']] | Nextpage)
+      when F5 then return [Fkeys[5]]
+      when F6 then return [Fkeys[6]]
+      when F7 then return [Fkeys[7]]
+      when F8 then return [Fkeys[8]]
+      when F9 then return [Fkeys[9]]
+      when SHIFT then return [Shift]
+      when CTRL then return [Ctrl]
+      when ALT then return [Alt]
+      end
+    end
+    return (key.is_a?(Array) ? key : [key])
+  end
+  #--------------------------------------------------------------------------
+  # Anykey
+  #  Checks if ANY key was pressed.
+  #-------------------------------------------------------------------------- 
+  def Input.Anykey
+    return (@keys != [])
+  end
+  
+end
+
+#==============================================================================
+# Numeric
+#------------------------------------------------------------------------------
+#  This class serves as superclass for all numbers.
+#==============================================================================
+
+class Numeric
+  
+  #--------------------------------------------------------------------------
+  # sgn
+  #  Returns the sign of the number or 0 if the number is 0.
+  #-------------------------------------------------------------------------- 
+  def sgn
+    return (self == 0 ? 0 : self / self.abs)
+  end
+  
+end
+
+#==============================================================================
+# Array
+#------------------------------------------------------------------------------
+#  This class handles array data structures.
+#==============================================================================
+
+class Array
+  
+  #----------------------------------------------------------------------------
+  # sum
+  #  Sums up all the numeric values of the array.
+  #----------------------------------------------------------------------------
+  def sum
+    # first sum is 0
+    sum = 0
+    # add each element that's a number to sum
+    self.each {|i| sum += i if i.is_a?(Numeric)}
+    # return sum as float
+    return sum.to_f
+  end
+  
+end
+
+#==============================================================================
+# Sprite
+#------------------------------------------------------------------------------
+#  This class was enhanced with quick color access, a critical animation flag
+#  and special viewport coordinate calculation that is used by all HUD
+#  elements.
+#==============================================================================
+
+class Sprite
+  
+  # setting all accessable variables
+  attr_accessor :critical
+  #----------------------------------------------------------------------------
+  # system_color
+  #  Returns the system color.
+  #----------------------------------------------------------------------------
+  def system_color
+    return Color.new(192, 224, 255)
+  end
+  #----------------------------------------------------------------------------
+  # normal_color
+  #  Returns the normal color.
+  #----------------------------------------------------------------------------
+  def normal_color
+    return Color.new(255, 255, 255)
+  end
+  #----------------------------------------------------------------------------
+  # disabled_color
+  #  Returns the disabled color.
+  #----------------------------------------------------------------------------
+  def disabled_color
+    return Color.new(255, 255, 255, 128)
+  end
+  #----------------------------------------------------------------------------
+  # crisis_color
+  #  Returns the crisis color.
+  #----------------------------------------------------------------------------
+  def crisis_color
+    return Color.new(255, 255, 64)
+  end
+  #----------------------------------------------------------------------------
+  # knockout_color
+  #  Returns the knockout color.
+  #----------------------------------------------------------------------------
+  def knockout_color
+    return Color.new(255, 64, 0)
+  end
+  #----------------------------------------------------------------------------
+  # vx
+  #  Returns the x position on the screen.
+  #----------------------------------------------------------------------------
+  def vx
+    return (self.x + (viewport == nil ? 0 : viewport.rect.x))
+  end
+  #----------------------------------------------------------------------------
+  # vy
+  #  Returns the y position on the screen.
+  #----------------------------------------------------------------------------
+  def vy
+    return (self.y + (viewport == nil ? 0 : viewport.rect.y))
+  end
+  #----------------------------------------------------------------------------
+  # vw
+  #  Returns the width visible on the screen.
+  #----------------------------------------------------------------------------
+  def vw
+    return (viewport == nil ? self.bitmap.width : viewport.rect.width)
+  end
+  #----------------------------------------------------------------------------
+  # vh
+  #  Returns the height visible on the screen.
+  #----------------------------------------------------------------------------
+  def vh
+    return (viewport == nil ? self.bitmap.height : viewport.rect.height)
+  end
+  #----------------------------------------------------------------------------
+  # in_screen?
+  #  Checks if the sprite is visible on the screen.
+  #----------------------------------------------------------------------------
+  def in_screen?
+    return (self.x.between?(0, 639) && (self.y-16).between?(0, 479))
+  end
+  
+end
+
+#==============================================================================
+# RPG::Weapon
+#------------------------------------------------------------------------------
+#  This class was enhanced with optional data drawing either in name or in
+#  description.
+#==============================================================================
+
+class RPG::Weapon
+  
+  #----------------------------------------------------------------------------
+  # name
+  #  Encapsulation of the name variable to provide the possibility of
+  #  additional display.
+  #----------------------------------------------------------------------------
+  def name
+    # if range is 0 or the option isn't used for names
+    if BlizzABS::Weapons.range(@id) == 0 ||
+        BlizzABS::Config::WEAPON_DATA_MODE.all? {|v| v != 1}
+      # return normal name
+      return @name
+    end
+    # set up result
+    text = @name
+    # iterate through configuration
+    BlizzABS::Config::WEAPON_DATA_MODE.each_index {|i|
+        # if current option was set up for names
+        if BlizzABS::Config::WEAPON_DATA_MODE[i] == 1
+          # add extra information to result text
+          case i
+          when 0
+            text += case BlizzABS::Weapons.type(@id)
+            when 0 then ' (Melee)'
+            when 1 then ' (Thrusting)'
+            when 2 then ' (Flail)'
+            when 3 then ' (Returning Projectile)'
+            when 4 then ' (Projectile)'
+            when 5 then ' (Shooter)'
+            when 6 then ' (Throwing)'
+            end
+          when 1 then text += " R: #{[BlizzABS::Weapons.range(@id), 1].max}"
+          end
+        end}
+    # return result text
+    return text
+  end
+  #----------------------------------------------------------------------------
+  # description
+  #  Encapsulation of the description variable to provide the possibility of
+  #  additional display.
+  #----------------------------------------------------------------------------
+  def description
+    # if range is 0 or the option isn't used for descriptions
+    if BlizzABS::Weapons.range(@id) == 0 ||
+        BlizzABS::Config::WEAPON_DATA_MODE.all? {|v| v != 2}
+      # return normal description
+      return @description
+    end
+    # set up result
+    text = @description
+    # iterate through configuration
+    BlizzABS::Config::WEAPON_DATA_MODE.each_index {|i|
+        # if current option was set up for descriptions
+        if BlizzABS::Config::WEAPON_DATA_MODE[i] == 2
+          # add extra information to result text
+          case i
+          when 0
+            text += case BlizzABS::Weapons.type(@id)
+            when 0 then ' (Melee)'
+            when 1 then ' (Thrusting)'
+            when 2 then ' (Flail)'
+            when 3 then ' (Returning Projectile)'
+            when 4 then ' (Projectile)'
+            when 5 then ' (Shooter)'
+            when 6 then ' (Throwing)'
+            end
+          when 1 then text += " R: #{[BlizzABS::Weapons.range(@id), 1].max}"
+          end
+        end}
+    # return result text
+    return text
+  end
+  
+end
+
+#==============================================================================
+# RPG::Skill
+#------------------------------------------------------------------------------
+#  This class was enhanced with optional data drawing either in name or in
+#  description.
+#==============================================================================
+
+class RPG::Skill
+  
+  #----------------------------------------------------------------------------
+  # name
+  #  Encapsulation of the name variable to provide the possibility of
+  #  additional display.
+  #----------------------------------------------------------------------------
+  def name
+    # if range is 0 or the option isn't used for names
+    if BlizzABS::Skills.range(@id) == 0 ||
+        BlizzABS::Config::SKILL_DATA_MODE.all? {|v| v != 1}
+      # return normal name
+      return @name
+    end
+    # set up result
+    text = @name
+    # iterate through configuration
+    BlizzABS::Config::SKILL_DATA_MODE.each_index {|i|
+        # if current option was set up for names
+        if BlizzABS::Config::SKILL_DATA_MODE[i] == 1
+          # add extra information to result text
+          case i
+          when 0
+            next if [0, 7].include?(@scope)
+            text += case BlizzABS::Skills.type(@id)[0]
+            when 0 then [1, 3, 5].include?(@scope) ? ' (Shooter)' : ' (Thruster)'
+            when 1 then [1, 3, 5].include?(@scope) ? ' (Homing)' : ' (S. Homing)'
+            when 2 then [1, 3, 5].include?(@scope) ? ' (Selecter)' : ' (Shockwave)'
+            when 3 then [1, 3, 5].include?(@scope) ? ' (Beam)' : ' (Fullscreen)'
+            when 4 then ' (Summoner)'
+            end
+          when 1 then text += ' (explodes)' if BlizzABS::Skills.type(@id)[1] > 0
+          when 2 then text += " R: #{[BlizzABS::Skills.range(@id), 1].max}"
+          end
+        end}
+    # return result text
+    return text
+  end
+  #----------------------------------------------------------------------------
+  # description
+  #  Encapsulation of the description variable to provide the possibility of
+  #  additional display.
+  #----------------------------------------------------------------------------
+  def description
+    # if range is 0 or the option isn't used for descriptions
+    if BlizzABS::Skills.range(@id) == 0 ||
+        BlizzABS::Config::SKILL_DATA_MODE.all? {|v| v != 2}
+      # return normal description
+      return @description
+    end
+    # set up result
+    text = @description
+    # iterate through configuration
+    BlizzABS::Config::SKILL_DATA_MODE.each_index {|i|
+        # if current option was set up for descriptions
+        if BlizzABS::Config::SKILL_DATA_MODE[i] == 2
+          # add extra information to result text
+          case i
+          when 0
+            next if [0, 7].include?(@scope)
+            text += case BlizzABS::Skills.type(@id)[0]
+            when 0 then [1, 3, 5].include?(@scope) ? ' (Shooter)' : ' (Thruster)'
+            when 1 then [1, 3, 5].include?(@scope) ? ' (Homing)' : ' (S. Homing)'
+            when 2 then [1, 3, 5].include?(@scope) ? ' (Selecter)' : ' (Shockwave)'
+            when 3 then [1, 3, 5].include?(@scope) ? ' (Beam)' : ' (Fullscreen)'
+            when 4 then ' (Summoner)'
+            end
+          when 1 then text += ' (explodes)' if BlizzABS::Skills.type(@id)[1] > 0
+          when 2 then text += " R: #{[BlizzABS::Skills.range(@id), 1].max}"
+          end
+        end}
+    # return result text
+    return text
+  end
+  
+end
+
+#==============================================================================
+# RPG::Item
+#------------------------------------------------------------------------------
+#  This class was enhanced with optional data drawing either in name or in
+#  description.
+#==============================================================================
+
+class RPG::Item
+  
+  #----------------------------------------------------------------------------
+  # name
+  #  Encapsulation of the name variable to provide the possibility of
+  #  additional display.
+  #----------------------------------------------------------------------------
+  def name
+    # if range is 0 or the option isn't used for names
+    if BlizzABS::Items.range(@id) == 0 ||
+        BlizzABS::Config::ITEM_DATA_MODE.all? {|v| v != 1}
+      # return normal name
+      return @name
+    end
+    # set up result
+    text = @name
+    # iterate through configuration
+    BlizzABS::Config::ITEM_DATA_MODE.each_index {|i|
+        # if current option was set up for names
+        if BlizzABS::Config::ITEM_DATA_MODE[i] == 1
+          # add extra information to result text
+          case i
+          when 0
+            next if [0, 7].include?(@scope)
+            text += case BlizzABS::Items.type(@id)[0]
+            when 0 then [1, 3, 5].include?(@scope) ? ' (Shooter)' : ' (Thruster)'
+            when 1 then [1, 3, 5].include?(@scope) ? ' (Homing)' : ' (S. Homing)'
+            when 2 then [1, 3, 5].include?(@scope) ? ' (Selecter)' : ' (Shockwave)'
+            when 3 then [1, 3, 5].include?(@scope) ? ' (Beam)' : ' (Fullscreen)'
+            when 4 then ' (Summoner)'
+            end
+          when 1 then text += ' (explodes)' if BlizzABS::Items.type(@id)[1] > 0
+          when 2 then text += " R: #{[BlizzABS::Items.range(@id), 1].max}"
+          end
+        end}
+    # return result text
+    return text
+  end
+  #----------------------------------------------------------------------------
+  # description
+  #  Encapsulation of the description variable to provide the possibility of
+  #  additional display.
+  #----------------------------------------------------------------------------
+  def description
+    # if range is 0 or the option isn't used for descriptions
+    if BlizzABS::Items.range(@id) == 0 ||
+        BlizzABS::Config::ITEM_DATA_MODE.all? {|v| v != 2}
+      # return normal description
+      return @description
+    end
+    # set up result
+    text = @description
+    # iterate through configuration
+    BlizzABS::Config::ITEM_DATA_MODE.each_index {|i|
+        # if current option was set up for descriptions
+        if BlizzABS::Config::ITEM_DATA_MODE[i] == 2
+          # add extra information to result text
+          case i
+          when 0
+            next if [0, 7].include?(@scope)
+            text += case BlizzABS::Items.type(@id)[0]
+            when 0 then [1, 3, 5].include?(@scope) ? ' (Shooter)' : ' (Thruster)'
+            when 1 then [1, 3, 5].include?(@scope) ? ' (Homing)' : ' (S. Homing)'
+            when 2 then [1, 3, 5].include?(@scope) ? ' (Selecter)' : ' (Shockwave)'
+            when 3 then [1, 3, 5].include?(@scope) ? ' (Beam)' : ' (Fullscreen)'
+            when 4 then ' (Summoner)'
+            end
+          when 1 then text += ' (explodes)' if BlizzABS::Items.type(@id)[1] > 0
+          when 2 then text += " R: #{[BlizzABS::Items.range(@id), 1].max}"
+          end
+        end}
+    # return result text
+    return text
+  end
+  
+end
+
+#==============================================================================
+# AI_Data
+#------------------------------------------------------------------------------
+#  This class serves as superclass for AI_Data classes.
+#==============================================================================
+
+class AI_Data
+  
+  # setting all accessable variables
+  attr_accessor :state
+  attr_accessor :in_action
+  attr_accessor :attacked
+  attr_accessor :aggressive
+  attr_accessor :find_x
+  attr_accessor :find_y
+  attr_accessor :last_x
+  attr_accessor :last_y
+  attr_accessor :dmg
+  attr_accessor :fear
+  attr_accessor :boss
+  attr_accessor :damage
+  attr_accessor :memory
+  attr_accessor :stay_count
+  attr_reader   :origin_aggressive
+  #----------------------------------------------------------------------------
+  # AI initialization
+  #----------------------------------------------------------------------------
+  def initialize
+    # last x and y of the player when lost out of sight
+    @find_x = @find_y = -1
+  end
+  #----------------------------------------------------------------------------
+  # judge
+  #  Defines if the enemy has lost enough energy in an enough short period of
+  #  time to flee.
+  #----------------------------------------------------------------------------
+  def judge
+    # calculating the result
+    result = (@dmg.sum * 100 / @maxhp > 100.0 - @coward)
+    # set new fear factor if result is true
+    @fear = ((@coward.to_f ** (1/4) + 1) * 20).to_i if result
+    # return result
+    return result
+  end
+  #----------------------------------------------------------------------------
+  # refresh
+  #  Removes the least recent damage accumulation, used by judge.
+  #----------------------------------------------------------------------------
+  def refresh
+    # remove damage accumulation if damage was accumulated and escaping
+    @dmg.shift unless @dmg.size == 0 && @fear > 0
+  end
+  
+end
+
+#==============================================================================
+# AI_Data_Map_Enemy
+#------------------------------------------------------------------------------
+#  This class holds all data important for the enemy AI.
+#==============================================================================
+
+class AI_Data_Map_Enemy < AI_Data
+  
+  #----------------------------------------------------------------------------
+  # AI initialization
+  #----------------------------------------------------------------------------
+  def initialize(id, maxhp, eva, aggressive, boss)
+    # call superclass method
+    super()
+    # the ID of the enemy in the database, can be used for enhancement and
+    # unique enemy AIs for every enemy in the future
+    @id = id
+    # possible AI states:
+    # 0 - idle movement
+    # 1 - move
+    # 2 - attack
+    # 3 - skill
+    # 4 - defend
+    # 5 - run away
+    # 6 - exception
+    # 7 - memorized position
+    # 8 - dying
+    # 9 - in action
+    # 10 - idle, map interpreter is running
+    @state = 0
+    # enemy's max HP
+    @maxhp = maxhp
+    # how likely is the enemy to flee
+    @coward = eva.to_f
+    # collection of last damages to test if the player is stronger
+    @dmg = []
+    # memory flag
+    @memory = false
+    # fear shock count
+    @fear = 0
+    # boss flag
+    @boss = boss
+    # determines if enemy has an aggressive nature or a passive nature
+    @origin_aggressive = @aggressive = aggressive
+    # counter if enemy lost out of sight
+    @stay_count = 0
+  end
+  
+end
+
+#==============================================================================
+# AI_Data_Ally
+#------------------------------------------------------------------------------
+#  This class holds all data important for the actor AI.
+#==============================================================================
+
+class AI_Data_Ally < AI_Data
+  
+  #----------------------------------------------------------------------------
+  # AI initialization
+  #----------------------------------------------------------------------------
+  def initialize(id)
+    # call superclass method
+    super()
+    # own ID
+    @id = id
+    # possible AI states:
+    # 0 - follow player
+    # 1 - engage enemy
+    ## 2 - attack
+    ## 3 - skill
+    ## 4 - defend
+    # 5 - return to player
+    ## 6 - exception
+    ## 7 - memorized position
+    ## 8 - dying
+    ## 9 - in action
+    ## 10 - idle, map interpreter is running
+    @state = 0
+  end
+  
+end
+
+#==============================================================================
+# AI
+#------------------------------------------------------------------------------
+#  This module processes Map_Enemy AI based upon AI Data, character position
+#  and battler status.
+#==============================================================================
+
+module AI
+  
+  #============================================================================
+  # AI::Boss_AI
+  #----------------------------------------------------------------------------
+  #  This class serves the processing of Boss behaviour.
+  #============================================================================
+  
+  class Boss_AI
+    
+    #--------------------------------------------------------------------------
+    # Initialization
+    #  id    - unique Boss AI ID
+    #  owner - the Map_Enemy instance using this AI
+    #--------------------------------------------------------------------------
+    def initialize(id, owner)
+      @id, @owner = id, owner
+    end
+    #--------------------------------------------------------------------------
+    # behaviour
+    #  This method is empty, so plugins can alias it.
+    #--------------------------------------------------------------------------
+    def behaviour
+    end
+    
+  end
+  
+  # create empty Boss AI data hash
+  BOSS_AI = {}
+  #----------------------------------------------------------------------------
+  # log_AI
+  #  name - x-coordinate
+  #  id   - unique Boss AI ID
+  #  This method allows Boss AI plug-ins to be tested on ID conflicts.
+  #----------------------------------------------------------------------------
+  def self.log_AI(name, id)
+    # if AI with this ID already exists
+    if BOSS_AI[id] != nil && BOSS_AI[id] != name
+      # print text
+      p 'Blizz-ABS detected an ID conflict with unique Boss AI IDs. ' +
+        "RMXP will now close.   AI 1: #{name}   AI 2: #{BOSS_AI[id]}" +
+        "   ID number: #{id}"
+      # close RMXP
+      exit
+    end
+    # log new AI under new ID
+    BOSS_AI[id] = name
+  end
+  #----------------------------------------------------------------------------
+  # behaviour(x, y, dir, enemy)
+  #  x     - x-coordinate
+  #  y     - y-coordinate
+  #  dir   - facing direction
+  #  enemy - the actual battler
+  #  Sets the enemy's behaviour depending on the fact if the player is inside
+  #  a specific range.
+  #----------------------------------------------------------------------------
+  def self.behaviour(enemy)
+    # temporary variables
+    x, y = enemy.x, enemy.y
+    # if event code is running
+    if $game_system.map_interpreter.running?
+      # set state
+      enemy.AI_data.state = 10
+      # return speed
+      return 3
+    end
+    # if enemy was attacked
+    if enemy.attacked > 0
+      # decrease shock count
+      enemy.attacked -= 1
+      # cancel the attack
+      enemy.in_action = 0
+      # set state
+      enemy.AI_data.state = 6
+      # return speed
+      return 5
+    end
+    # if enemy attacked the player
+    if enemy.in_action > 0
+      # decrease shock count if not freeze action
+      enemy.in_action -= 1 unless enemy.freeze_action || enemy.current_sprite != ''
+      # set state
+      enemy.AI_data.state = (enemy.AI_data.state == 4 ? 4 : 9)
+      # return speed
+      return 4
+    end
+    # if enemy should flee or already fleeing
+    if enemy.AI_data.fear > 0 || enemy.AI_data.judge
+      # decrease the fear count
+      enemy.AI_data.fear -= 1
+      # set state
+      enemy.AI_data.state = 5
+      # return speed
+      return 4
+    end
+    # calculates the distance
+    d = Math.hypot($game_player.x-x, $game_player.y-y)
+    # get pixel movement rate
+    pix = BlizzABS.pixel
+    # get direction
+    dir = enemy.direction
+    # if player is within range and either seen/heard or already 
+    # memorized by the enemy or making noise and aggressive
+    if d <= BlizzABS::Config::PERCEPTION_RANGE.to_f * pix &&
+        enemy.AI_data.aggressive && (enemy.AI_data.memory ||
+        $game_player.in_action > 0 ||
+        (AI.can_perceive_enemy?(x, y, dir) && !AI.wall(x, y)))
+      # player sighted, remembers that
+      enemy.AI_data.memory = true
+      # set the last coordinates of the player
+      enemy.AI_data.find_x, enemy.AI_data.find_y = $game_player.x, $game_player.y
+      # calculate own attack range
+      max = BlizzABS::Enemies.range(enemy.battler.id)
+      min = (BlizzABS::Enemies.type(enemy.battler.id) == 2 ? max/2 : 0)
+      # player within attack range and positioning correct
+      if ($game_player.x-x).abs.between?(min*pix, max*pix) &&
+          ($game_player.y-y).abs < pix/2 || ($game_player.x-x).abs < pix/2 &&
+          ($game_player.y-y).abs.between?(min*pix, max*pix)
+        # create action
+        enemy.battler.make_action
+        # if basic action type
+        if enemy.battler.current_action.kind == 0
+          # set state depending on which type
+          enemy.AI_data.state = case enemy.battler.current_action.basic
+          when 0 then 2
+          when 1 then 4
+          when 2..3 then 1
+          end
+        else
+          # set state
+          enemy.AI_data.state = 3
+        end
+      # too close if flail attack type, so back off a bit
+      elsif ($game_player.x-x).abs < min*pix &&
+          ($game_player.y-y).abs < pix/2 || ($game_player.x-x).abs < pix/2 &&
+          ($game_player.y-y).abs < min*pix
+        # set state
+        enemy.AI_data.state = 5
+        # return speed
+        return 4
+      else
+        # set state
+        enemy.AI_data.state = 1
+      end
+      # return speed
+      return 4
+    # has lost player out of sight, but remembers last position
+    elsif enemy.AI_data.memory
+      # set last x and last y
+      enemy.AI_data.last_x, enemy.AI_data.last_y = x, y
+      # if not moving
+      if enemy.AI_data.last_x == x && enemy.AI_data.last_y == y
+        # increase counter
+        enemy.AI_data.stay_count += 1
+      else
+        # reset counter
+        enemy.AI_data.stay_count = 0
+      end
+      # difference between coordinates
+      dx = x - enemy.AI_data.find_x
+      dy = y - enemy.AI_data.find_y
+      # if the enemy has reached x and y OR not moving for 2.5 seconds or more
+      if dx.abs <= pix * 3.0 / 2 && dy.abs <= pix * 3.0 / 2 ||
+          enemy.AI_data.stay_count >= 100
+        # reset counter
+        enemy.AI_data.stay_count = 0
+        # player lost out of sight
+        enemy.AI_data.memory = false
+        # set idle state
+        enemy.AI_data.state = 0
+        # return speed
+        return 3
+      end
+      # set state
+      enemy.AI_data.state = 7
+      # return speed
+      return 4
+    # otherwise player is not in sight, be "idle"
+    else
+      # is passive again if passive enemy
+      enemy.AI_data.aggressive = false unless enemy.AI_data.origin_aggressive
+      # set idle state
+      enemy.AI_data.state = 0
+      # return speed
+      return 3
+    end
+  end
+  #----------------------------------------------------------------------------
+  # wall
+  #  x - x-coordinate
+  #  y - y-coordinate
+  #  Checks if between the enemy and the player is a "wall".
+  #----------------------------------------------------------------------------
+  def self.wall(x, y)
+    # get pixel movement rate
+    pix = BlizzABS.pixel
+    # difference between coordinates
+    dx, dy = $game_player.x - x, $game_player.y - y
+    # if x difference is not 0
+    if dx != 0
+      # line coefficient
+      k = dy/dx
+      # virtual graph drawing
+      (1...dx.abs).each {|i|
+          # if wall lies on the graph line
+          if $game_map.terrain_tag((x+i)/pix, (y+k*i)/pix) ==
+              BlizzABS::Config::WALL_TAG
+            # wall is between
+            return true
+          end}
+    # if y difference is not 0
+    elsif dy != 0
+      # line coefficient
+      k = dx/dy
+      # virtual graph drawing
+      (1...dy.abs).each {|i|
+          # if wall lies on the graph line
+          if $game_map.terrain_tag((x+k*i)/pix, (y+i)/pix) ==
+              BlizzABS::Config::WALL_TAG
+            # wall is between
+            return true
+          end}
+    end
+    # no wall between
+    return false
+  end
+  #----------------------------------------------------------------------------
+  # can_perceive_enemy?(x, y, dir)
+  #  x   - x-coordinate
+  #  y   - y-coordinate
+  #  dir - facing direction
+  #  Checks if the player can be heard or seen.
+  #----------------------------------------------------------------------------
+  def self.can_perceive_enemy?(x, y, dir)
+    # get pixel movement rate
+    pix = BlizzABS.pixel
+    # calculate differences of x and y
+    dx = $game_player.x - x
+    dy = $game_player.y - y
+    # check facing direction and return true if the player is inside the
+    # seeing/hearing area of the enemy
+    return case dir
+    when 2
+      (dy < 0 && (dx.abs < dy.abs || dx.abs <= pix*2 && dy.abs <= pix*2))
+    when 4
+      (dx < 0 && (dx.abs > dy.abs || dx.abs <= pix*2 && dy.abs <= pix*2))
+    when 6
+      (dx > 0 && (dx.abs > dy.abs || dx.abs <= pix*2 && dy.abs <= pix*2))
+    when 8
+      (dy > 0 && (dx.abs < dy.abs || dx.abs <= pix*2 && dy.abs <= pix*2))
+    else
+      false
+    end
+  end
+  
+end
+
+#==============================================================================
+# Game_Temp
+#------------------------------------------------------------------------------
+#  This class was enhanced with a data pack that holds everything needed for
+#  the character selection exception handling.
+#==============================================================================
+
+class Game_Temp
+  
+  attr_accessor :select_data
+  
+end
+
+#==============================================================================
+# Game_System
+#------------------------------------------------------------------------------
+#  This class was enhanced with Blizz-ABS system settings, enemy creation and
+#  destruction process handling.
+#==============================================================================
+
+class Game_System
+  
+  # setting all accessable variables
+  attr_accessor :controls
+  attr_accessor :killed
+  attr_accessor :hud
+  attr_accessor :minimap
+  attr_accessor :assignment
+  attr_accessor :move_fix
+  attr_accessor :_8_way
+  attr_accessor :bar_style
+  attr_accessor :blizzabs
+  attr_reader   :pixel_rate
+  attr_reader   :bar_opacity
+  attr_reader   :enemy_number
+  #----------------------------------------------------------------------------
+  # override initiliaze
+  #----------------------------------------------------------------------------
+  alias init_blizzabs_later initialize
+  def initialize
+    # call original method
+    init_blizzabs_later
+    # set input controller
+    @controls = Game_Controls.new
+    # set array of killed enemies
+    @killed = []
+    # turn HUD on
+    @hud = true
+    # turn Minimap off
+    @minimap = 0
+    # turn Hotkey display off
+    @assignment = false
+    # set movement fix
+    @move_fix = BlizzABS::Config::REPAIR_MOVEMENT
+    # set 8-way movement
+    @_8_way = BlizzABS::Config::EIGHT_WAY_MOVEMENT
+    # set pixel movement rate
+    self.pixel_rate = BlizzABS::Config::PIXEL_MOVEMENT_RATE
+  end
+  #----------------------------------------------------------------------------
+  # override update
+  #----------------------------------------------------------------------------
+  alias upd_blizzabs_later update
+  def update
+    # call original method
+    upd_blizzabs_later
+    # iterate through all party members
+    $game_party.actors.each {|actor|
+        # remove set skill for use if actor didn't learn skill
+        actor.skill = 0 unless actor.skill_learn?(actor.skill)}
+    # return except if scene is Scene_Map
+    return unless $scene.is_a?(Scene_Map)
+    # iterate through all killed
+    @killed.clone.each {|killed|
+        # decrease respawn counter
+        killed[1] -= 1
+        # if dead enemy has event code to be executed
+        if killed[0].execute
+          # update interpreter
+          killed[0].update
+        # if respawn counter reached 0
+        elsif killed[1] <= 0
+          # remove from map
+          $game_map.events.delete(killed[0].event_id)
+          # if respawning available
+          if BlizzABS::Config::RESPAWN_TIME > 0
+            # create a new enemy on the old one's template
+            new_enemy = respawn_enemy(killed[0])
+            # add new enemy on old enemy's place
+            $game_map.events[new_enemy.event_id] = new_enemy
+          end
+          # this enemy is not "killed" anymore
+          @killed.delete(killed)
+        end}
+    # remove all nil values from killed
+    @killed.compact!
+    # iterate through all events on the map
+    $game_map.events.each_value {|event|
+        # if event is Map_Enemy
+        if event.is_a?(Map_Enemy)
+          # start removing the enemy if he's dead
+          remove_enemy(event) if event.dead?
+          # if enemy spriteset missing and not meeting preconditions
+          if event.character_name == '' && event.precondition
+            # remove completely
+            $game_map.events.delete(event.event_id)
+          end
+        # if event is dropped item and either item taken or stay time expired
+        elsif event.is_a?(Drop_Event) && event.terminate
+          # remove completely
+          $game_map.events.delete(event.id)
+        end}
+  end
+  #----------------------------------------------------------------------------
+  # enemies_refresh
+  #  Replaces correctly named events with Blizz-ABS Enemies.
+  #----------------------------------------------------------------------------
+  def enemies_refresh
+    # set original enemy count to 0
+    @enemy_number = 0
+    # reset the killed array
+    @killed = []
+    # temporary variable for map
+    map = $game_map.map
+    # iterate through all events
+    map.events.each_key {|i|
+        # if the current event exists
+        if map.events[i] != nil
+          # initialize
+          enemy = 0
+          attributes = 0x0000
+          id_check = []
+          # set intern variable to ID
+          map.events[i].name.clone.gsub!(/\\[Ee]\[([0-9]+)\]/) {"#[$1]"}
+          # temporary variable for ID
+          id = $1.to_i
+          # if passive flag exists
+          if map.events[i].name.clone.gsub!(/\\[Pp]\[([0-9]+)\]/) {"\001[#{$1}]"}
+            # set random passive attribute
+            id_check.push($1.to_i)
+          else
+            # don't set random passive attribute
+            id_check.push(nil)
+          end
+          # if boss flag exists
+          if map.events[i].name.clone.gsub!(/\\[Bb]/) {''}
+            # set boss attribute
+            id_check.push(true)
+          else
+            # don't set boss attribute
+            id_check.push(nil)
+          end
+          # iterate through all attributes
+          id_check.each_index {|j|
+              # if current attibute is valid
+              if id_check[j]
+                # which one
+                case j
+                when 0 # passive
+                  # set passive with X% chance
+                  attributes |= 0x0001 if (rand(100) < id_check[j])
+                when 1 # boss
+                  # set boss
+                  attributes |= 0x0002
+                end
+              end}
+          # if id is valid and enemy exists in database
+          if id != nil && $data_enemies[id] != nil
+            # create the enemy event
+            enemy = Map_Enemy.new($game_map.map_id, map.events[i], id, i, attributes)
+            # replace the real event with the enemy
+            $game_map.events[i] = enemy
+            # increase original enemy count
+            @enemy_number += 1
+          end
+          # reset ID for next enemy
+          id = nil
+        end}
+  end
+  #----------------------------------------------------------------------------
+  # remove_enemy
+  #  enemy - the killed enemy event
+  #  Processes the after-death period of enemies.
+  #----------------------------------------------------------------------------
+  def remove_enemy(enemy)
+    # except if enemy event code is to be executed or enemy is erased
+    unless enemy.execute || enemy.erased
+      # if getting and item
+      if rand(100) < enemy.battler.treasure_prob
+        # if enemy drops item
+        if enemy.battler.item_id > 0
+          # set ID 
+          item = $data_items[enemy.battler.item_id]
+        # if enemy drops weapon
+        elsif enemy.battler.weapon_id > 0
+          # set ID
+          item = $data_weapons[enemy.battler.weapon_id]
+        # if enemy drops armor
+        elsif enemy.battler.armor_id > 0
+          # set ID
+          item = $data_armors[enemy.battler.armor_id]
+        end
+      end
+      # start event code if there is some
+      enemy.start if enemy.list != nil
+      # remove except if code needs to be executed
+      $game_map.events.delete(enemy.event_id) unless enemy.execute
+      # create a dropped item on the map if item exists
+      Drop_Event.new(item, enemy.x, enemy.y) if item != nil
+      # iterate through all party members
+      $game_party.actors.each {|actor|
+          # increase EXP except if actor can't get EXP
+          actor.exp += enemy.exp unless actor.cant_get_exp?}
+      # if enemy drops gold
+      if enemy.gold != 0
+        # if using drop gold mode
+        if BlizzABS::Config::DROP_GOLD != ''
+          # create dropped gold on the map
+          Drop_Event.new(enemy.gold, enemy.x, enemy.y)
+        else
+          # just increase gold
+          $game_party.gain_gold(enemy.gold)
+        end
+      end
+    end
+  end
+  #----------------------------------------------------------------------------
+  # enemies_in_range
+  #  Checks how many alive enemies are within ABSEAL range.
+  #----------------------------------------------------------------------------
+  def enemies_in_range
+    # initialize
+    result = 0
+    # increase counter if not dead and within ABSEAL range for all enemies
+    $game_map.enemies.each {|enemy| result += 1 if !enemy.dead? && enemy.update?}
+    # return number
+    return result
+  end
+  #----------------------------------------------------------------------------
+  # respawn_enemy
+  #  enemy - the killed enemy event
+  #  Processes the respawn of a dead enemy.
+  #----------------------------------------------------------------------------
+  def respawn_enemy(enemy)
+    # create new enemy on old enemy's template
+    new_enemy = Map_Enemy.new($game_map.map_id, enemy)
+    # get virtual map passability
+    v_map = $game_map.virtual_passability
+    # passable
+    passables = []
+    # find all passable tiles
+    (0...v_map.xsize).each {|x| (0...v_map.ysize).each {|y|
+        # if passable and enemy may respawn and no event on position
+        if v_map[x, y] != 0x00 &&
+            $game_map.terrain_tag(x, y) != BlizzABS::Config::NO_ENEMY_TAG &&
+            $game_map.event_passable?(x, y)
+          passables.push([x, y])
+        end}}
+    # get coordinates on the map
+    x, y = passables[rand(passables.size)]
+    # move enemy to x, y coordinate
+    new_enemy.moveto(x, y)
+    # create sprite for respawned enemy
+    sprite = Sprite_Character.new($scene.spriteset.viewport1, new_enemy)
+    # set fade_in flag
+    sprite.fade_in = true
+    # add new sprite into spriteset
+    $scene.spriteset.character_sprites.push(sprite)
+    # enemy is invisible at first
+    new_enemy.opacity = 0
+    # return new enemy
+    return new_enemy
+  end
+  #----------------------------------------------------------------------------
+  # pixel_rate=
+  #  val - new pixel movement rate
+  #  Changes the pixel movement rate is necessary.
+  #----------------------------------------------------------------------------
+  def pixel_rate=(val)
+    @pixel_rate = [[val, 0].max, 5].min
+  end
+  
+end
+
+#==============================================================================
+# Game_Battler
+#------------------------------------------------------------------------------
+#  This class was enhanced with helping variables and methods.
+#==============================================================================
+
+class Game_Battler
+  
+  # setting all accessable variables
+  attr_reader :hpdamage
+  attr_reader :spdamage
+  #----------------------------------------------------------------------------
+  # override hp=
+  #----------------------------------------------------------------------------
+  alias hp_is_blizzabs_later hp=
+  def hp=(val)
+    # store difference
+    @hpdamage = @hp-val
+    # call original method
+    hp_is_blizzabs_later(val)
+  end
+  #----------------------------------------------------------------------------
+  # override sp=
+  #----------------------------------------------------------------------------
+  alias sp_is_blizzabs_later sp=
+  def sp=(val)
+    # store difference
+    @spdamage = @sp-val
+    # call original method
+    sp_is_blizzabs_later(val)
+  end
+  #----------------------------------------------------------------------------
+  # eva
+  #  Overrides the real Evasion value.
+  #----------------------------------------------------------------------------
+  def eva
+    return 0
+  end
+  
+end
+
+#==============================================================================
+# Game_BattleAction
+#------------------------------------------------------------------------------
+#  This class was modified to prevent a bug where deciding a random target
+#  for an enemy would cause the action to be cleared.
+#==============================================================================
+
+class Game_BattleAction
+  
+  #--------------------------------------------------------------------------
+  # decide_random_target_for_enemy
+  #  Dummy method.
+  #--------------------------------------------------------------------------
+  def decide_random_target_for_enemy
+  end
+  
+end
+
+#============================================================================== 
+# Game_Actor
+#------------------------------------------------------------------------------
+#  This class was enhanced with helping variables and methods.
+#============================================================================== 
+
+class Game_Actor < Game_Battler
+  
+  # setting all accessable variables
+  attr_accessor :item
+  attr_accessor :skill
+  #----------------------------------------------------------------------------
+  # override setup
+  #----------------------------------------------------------------------------
+  alias setup_blizzabs_later setup
+  def setup(id)
+    setup_blizzabs_later(id)
+    # skill and item IDs on hotkeys
+    @skill, @item = 0, 0
+    # last known level
+    @old_level = @level
+  end
+  #----------------------------------------------------------------------------
+  # now_exp
+  #  Returns the current EXP as number.
+  #----------------------------------------------------------------------------
+  def now_exp
+    return (@exp - @exp_list[@level])
+  end 
+  #----------------------------------------------------------------------------
+  # next_exp
+  #  Returns the EXP needed to level up or 0 is there are no more levels.
+  #----------------------------------------------------------------------------
+  def next_exp
+    return (@exp_list[@level+1] > 0 ? @exp_list[@level+1]-@exp_list[@level] : 0)
+  end
+  #----------------------------------------------------------------------------
+  # full_next_exp
+  #  Returns the EXP needed to reach the next level.
+  #----------------------------------------------------------------------------
+  def full_next_exp
+    return (@exp_list[@level+1] > 0 ? @exp_list[@level+1] : 0)
+  end
+  #----------------------------------------------------------------------------
+  # level_up?
+  #  Compares current level to lastly known level and returns a level up.
+  #----------------------------------------------------------------------------
+  def level_up?
+    # result of level up
+    result = (@old_level < @level)
+    # current level is now last known level
+    @old_level = @level
+    # return result
+    return result
+  end
+  
+end
+
+#==============================================================================
+# Game_Enemy
+#------------------------------------------------------------------------------
+#  This class was enhanced with helping variables.
+#==============================================================================
+
+class Game_Enemy < Game_Battler
+  
+  #----------------------------------------------------------------------------
+  # Changed Initialization
+  #  enemy - enemy in the database
+  #----------------------------------------------------------------------------
+  def initialize(enemy)
+    # call superclass method
+    super()
+    # the enemy ID
+    @enemy_id = enemy.id
+    # battler spriteset name
+    @battler_name = enemy.battler_name
+    # battler spriteset hue
+    @battler_hue = enemy.battler_hue
+    # current HP and SP
+    @hp, @sp = maxhp, maxsp
+    # no troop and not member in troop
+    @troop_id, @member_index = 0, 0
+    # not hidden
+    @hidden = false
+    # not immortal
+    @immortal = false
+  end
+  
+end
+
+#==============================================================================
+# Game_Map
+#------------------------------------------------------------------------------
+#  This class was redefined by large parts for pixel movement handling and
+#  quick minimap passability access.
+#==============================================================================
+
+class Game_Map
+  
+  # setting all accessable variables
+  attr_reader :virtual_passability
+  attr_reader :map
+  #----------------------------------------------------------------------------
+  # override setup
+  #----------------------------------------------------------------------------
+  alias setup_blizzabs_later setup
+  def setup(map_id)
+    # call original method
+    setup_blizzabs_later(map_id)
+    # setup enemies on the map
+    $game_system.enemies_refresh
+    # if using the intelligent minimap system
+    if BlizzABS::Config::INTELLIGENT_PASSABILTY
+      # load virtual passability map from file
+      @virtual_passability = load_data('Data/Map_Data.abs')[0][map_id]
+    else
+      # create virtual passability map
+      @virtual_passability = BlizzABS.setup_passability(@map)
+    end
+    # reset projectiles and damage sprites
+    BlizzABS::Cache.clean
+  end
+  #----------------------------------------------------------------------------
+  # enemies
+  #  flag - flag to determine whether to return all enemies or everything else
+  #  Returns an array of all enemy events or an array of all events that are
+  #  not enemies.
+  #----------------------------------------------------------------------------
+  def enemies(flag = false)
+    # initialize
+    result = []
+    # add all enemies or everything else to result
+    @events.each_value {|e| result.push(e) if flag ^ e.is_a?(Map_Enemy)}
+    # return result
+    return result
+  end
+  #----------------------------------------------------------------------------
+  # self_valid?
+  #  x - x-coordinate
+  #  y - y-coordinate
+  #  Checks if coordinates are valid. (pixel movement)
+  #----------------------------------------------------------------------------
+  def self_valid?(x, y)
+    # get pixel movement rate
+    pix = BlizzABS.pixel
+    # checks if coordinates are valid
+    return (x >= 0 && x < width*pix-pix+1 && y >= 0 && y < height*pix-pix+1)
+  end
+  #----------------------------------------------------------------------------
+  # direction_valid?
+  #  x - x-coordinate
+  #  y - y-coordinate
+  #  Checks if coordinates are valid. (pixel movement)
+  #----------------------------------------------------------------------------
+  def direction_valid?(x, y)
+    # get pixel movement rate
+    pix = BlizzABS.pixel
+    # checks if coordinates are valid
+    return (x >= 0 && x < width * pix && y >= 0 && y < height * pix)
+  end
+  #----------------------------------------------------------------------------
+  # self_passable?
+  #  x          - x-coordinate
+  #  y          - y-coordinate
+  #  d          - direction
+  #  self_event - self event
+  #  Checks if passable. (pixel movement)
+  #----------------------------------------------------------------------------
+  def self_passable?(x, y, d, self_event)
+    # get pixel movement rate
+    pix = BlizzABS.pixel
+    # set bit
+    bit = (1 << (d / 2 - 1)) & 0x0F
+    # if not in horizontal center of 32x32 pixel tile
+    if x != x/pix*pix
+      # if current two tiles are impassable from one to another
+      unless direction_passable?(x/pix*pix, y, 6) &&
+          direction_passable?((x+pix)/pix*pix, y, 4)
+        # impassable
+        return false
+      end
+    end
+    # if not in vertical center of 32x32 pixel tile
+    if y != y/pix*pix
+      # if current two tiles are impassable from one to another
+      unless direction_passable?(x, y/pix*pix, 2) &&
+          direction_passable?(x, (y+pix)/pix*pix, 8)
+        # impassable
+        return false
+      end
+    end
+    # if jumping
+    if d == 0
+      # return passability in any direction
+      return (direction_passable?(x, y+pix-1, 2) ||
+          direction_passable?(x, y, 4) ||
+          direction_passable?(x+pix-1, y, 6) ||
+          direction_passable?(x, y, 8))
+    end
+    # if exception works
+    if exception(x, y, d)
+      # iterate through all corners
+      (0...4).each {|i|
+          # gets coordinates to check
+          xr, yr = x + (pix-1)*(i%2), y + (pix-1)*(i/2)
+          # unless checking event and checking tile
+          unless event_check(xr, yr, bit, self_event) && tile_check(xr, yr, d)
+            # impassable
+            return false
+          end}
+      # passable
+      return true
+    end
+    # impassable
+    return false
+  end
+  #----------------------------------------------------------------------------
+  # direction_passable?
+  #  x          - x-coordinate
+  #  y          - y-coordinate
+  #  d          - direction
+  #  self_event - self event
+  #  Checks if passable. (pixel movement)
+  #----------------------------------------------------------------------------
+  def direction_passable?(x, y, d)
+    # impassable if coordinates not valid
+    return false unless direction_valid?(x, y)
+    # set bit
+    bit = (1 << (d / 2 - 1)) & 0x0F
+    # return event check and tile check result
+    return (event_check(x, y, bit) && tile_check(x, y, d))
+  end
+  #----------------------------------------------------------------------------
+  # event_check
+  #  x          - x-coordinate
+  #  y          - y-coordinate
+  #  bit        - passability attributes
+  #  self_event - self event
+  #  Checks if passable events. (pixel movement)
+  #----------------------------------------------------------------------------
+  def event_check(x, y, bit, self_event = nil)
+    # get pixel movement rate
+    pix = BlizzABS.pixel
+    # iterate trough all events
+    self.enemies(true).each {|event|
+        # if there's an event that's not through
+        if event != self_event && event.x == x/pix && event.y == y/pix &&
+            !event.through
+          # if obstacle bit is set
+          if @passages[event.tile_id] & bit != 0
+            # impassable in the given direction
+            return false
+          # if obstacle bit is set in all directions
+          elsif @passages[event.tile_id] & 0x0F == 0x0F
+            # impassable tile in the given direction
+            return false
+          # if priority is 0
+          elsif @priorities[event.tile_id] == 0
+            # passable in the given direction
+            return true
+          end
+        end}
+    # passable
+    return true
+  end
+  #----------------------------------------------------------------------------
+  # tile_check
+  #  x - x-coordinate
+  #  y - y-coordinate
+  #  d - direction
+  #  Checks if passable tile. (pixel movement)
+  #----------------------------------------------------------------------------
+  def tile_check(x, y, d)
+    # get pixel movement rate
+    pix = BlizzABS.pixel
+    # set bit
+    bit = (1 << (d / 2 - 1)) & 0x0F
+    # get virtual passability
+    v_map = $game_map.virtual_passability
+    # get x and y of next tile
+    case d
+    when 2 then nx, ny = x/pix, (y+1)/pix
+    when 4 then nx, ny = (x-1)/pix, y/pix
+    when 6 then nx, ny = (x+1)/pix, y/pix
+    when 8 then nx, ny = x/pix, (y-1)/pix
+    else
+      nx = ny = nil
+    end
+    # return true whether still on the same tile or next tile is passable
+    return (x/pix == nx && y/pix == ny || v_map[x/pix, y/pix] & bit != 0x00)
+  end
+  #----------------------------------------------------------------------------
+  # exception
+  #  x - x-coordinate
+  #  y - y-coordinate
+  #  d - direction
+  #  Checks if passable when changing tiles. (pixel movement)
+  #----------------------------------------------------------------------------
+  def exception(x, y, d)
+    # get pixel movement rate
+    pix = BlizzABS.pixel
+    # if not changing the tile (up/down)
+    if (y/pix != (y+pix-1)/pix || x/pix == (x+pix-1)/pix) && [2, 8].include?(d)
+      # passable
+      return true
+    end
+    # if not changing the tile (left/right)
+    if (x/pix != (x+pix-1)/pix || y/pix == (y+pix-1)/pix) && [4, 6].include?(d)
+      # passable 
+      return true
+    end
+    # check direction and return passability depending on direction
+    return case d
+    when 2
+      ($game_map.virtual_passability[x/pix, (y+pix)/pix] & 0x04 == 0x04) &&
+      ($game_map.virtual_passability[(x+pix)/pix, (y+pix)/pix] & 0x02 == 0x02)
+    when 4
+      ($game_map.virtual_passability[(x-pix)/pix, y/pix] & 0x01 == 0x01) &&
+      ($game_map.virtual_passability[(x-pix)/pix, (y+pix)/pix] & 0x08 == 0x08)
+    when 6
+      ($game_map.virtual_passability[(x+pix)/pix, y/pix] & 0x01 == 0x01) &&
+      ($game_map.virtual_passability[(x+pix)/pix, (y+pix)/pix] & 0x08 == 0x08)
+    when 8
+      ($game_map.virtual_passability[x/pix, (y-pix)/pix] & 0x04 == 0x04) &&
+      ($game_map.virtual_passability[(x+pix)/pix, (y-pix)/pix] & 0x02 == 0x02)
+    end
+  end
+  #----------------------------------------------------------------------------
+  # pixel_counter?
+  #  x - x-coordinate
+  #  y - y-coordinate
+  #  Checks if counter. (pixel movement)
+  #----------------------------------------------------------------------------
+  def pixel_counter?(x, y)
+    # if map ID is value
+    if @map_id != 0
+      # get pixel movement rate
+      pix = BlizzABS.pixel
+      # initialize result
+      result = false
+      # iterate through all layers and check each modified tile (pixel movement)
+      [2, 1, 0].each {|i| (0...pix).each {|j| (0...pix).each {|k|
+                # if tile is not valid ID
+                if data[(x+j)/pix, (y+k)/pix, i] == nil
+                  # no counter
+                  return false
+                # if counter bit is set
+                elsif @passages[data[(x+j)/pix, (y+k)/pix, i]] & 0x80 == 0x80
+                  # counter
+                  result = true
+                else
+                  # no counter
+                  return false
+                end}}
+            # return the result
+            return result}
+    end
+    # no counter
+    return false
+  end
+  #----------------------------------------------------------------------------
+  # pixel_bush?
+  #  x - x-coordinate
+  #  y - y-coordinate
+  #  Checks if bush. (pixel movement)
+  #----------------------------------------------------------------------------
+  def pixel_bush?(x, y)
+    # if map ID valid
+    if @map_id != 0
+      # get pixel movement rate
+      pix = BlizzABS.pixel
+      # iterate through all layers
+      [2, 1, 0].each {|i|
+          # if tile ID not valid
+          if data[(x+pix/2)/pix, (y+pix/2)/pix, i] == nil
+            # no bush
+            return false
+          # if bush bit is set
+          elsif @passages[data[(x+pix/2)/pix, (y+pix/2)/pix, i]] & 0x40 == 0x40
+            # bush
+            return true
+          end}
+    end
+    # no bush
+    return false
+  end
+  #----------------------------------------------------------------------------
+  # jump_passable?
+  #  x  - x-coordinate
+  #  y  - y-coordinate
+  #  nx - new x-coordinate
+  #  ny - new y-coordinate
+  #  Checks if there is a tile with JUMP_TAG or WALL_TAG tag, so jumping isn't
+  #  possible.
+  #----------------------------------------------------------------------------
+  def jump_passable?(x, y, nx, ny)
+    # if tags are not being used at all (to save process time)
+    unless (0..6).include?(BlizzABS::Config::JUMP_TAG) ||
+        (0..6).include?(BlizzABS::Config::WALL_TAG)
+      # passable
+      return true
+    end
+    # get pixel movement rate
+    pix = BlizzABS.pixel
+    # get jump direction
+    xdir, ydir = (nx-x).sgn, (ny-y).sgn
+    # temporary variable
+    tags = [BlizzABS::Config::JUMP_TAG, BlizzABS::Config::WALL_TAG]
+    # iterate
+    loop do
+      # passable if all tiles are passable
+      return true if x == nx && y == ny
+      # impassable if tile has one of the terrain tags
+      return false if tags.include?(terrain_tag(x/pix, y/pix))
+      # next tile
+      x += xdir*pix
+      y += ydir*pix
+    end
+  end
+  #----------------------------------------------------------------------------
+  # event_passable?
+  #  x - x-coordinate
+  #  y - y-coordinate
+  #  Checks if the given tile is passable in any direction right now.
+  #----------------------------------------------------------------------------
+  def event_passable?(x, y)
+    # get pixel movement rate
+    pix = BlizzABS.pixel
+    # iterate trough all events
+    self.enemies(true).each {|event|
+        # if there's an event that's no enemy/actor/dropped item and not through
+        if event.tile_id >= 0 && event.x == x/pix && event.y == y/pix &&
+            !event.through
+          # if obstacle bit is set
+          if @passages[event.tile_id] & 0x0F == 0x0F
+            # impassable tile in the given direction
+            return false
+          # if priority is 0
+          elsif @priorities[event.tile_id] == 0
+            # passable in the given direction
+            return true
+          end
+        end}
+    # passable
+    return true
+  end
+  
+end
+  
+#==============================================================================
+# Game_Party
+#------------------------------------------------------------------------------
+#  This class was redefined to create characters used by the caterpillar and to
+#  delete all projectiles when a saved game was loaded.
+#==============================================================================
+
+class Game_Party
+  
+  #----------------------------------------------------------------------------
+  # override setup_starting_members
+  #----------------------------------------------------------------------------
+  alias setup_starting_members_blizzabs_later setup_starting_members
+  def setup_starting_members
+    # call original method
+    setup_starting_members_blizzabs_later
+    # initialize caterpillar
+    BlizzABS.init_caterpillar
+  end
+  #----------------------------------------------------------------------------
+  # override refresh
+  #----------------------------------------------------------------------------
+  alias refresh_blizzabs_later refresh
+  def refresh
+    # call original method
+    refresh_blizzabs_later
+    # reset projectiles and damage sprites
+    BlizzABS::Cache.clean
+    # reinitialize caterpillar
+    BlizzABS.init_caterpillar
+  end
+  
+end
+
+#==============================================================================
+# Game_Character
+#------------------------------------------------------------------------------
+#  This class was redefined to support name event command input, looping
+#  animations and ABSEAL update limitation.
+#==============================================================================
+
+class Game_Character
+  
+  # setting all accessable variables
+  attr_accessor :erased
+  attr_accessor :loop_animation_id
+  attr_accessor :terminate
+  attr_accessor :teleport
+  #----------------------------------------------------------------------------
+  # override initialize
+  #----------------------------------------------------------------------------
+  alias init_blizzabs_later initialize
+  def initialize
+    # call original method
+    init_blizzabs_later
+    # set loop animation
+    @loop_animation_id = 0
+  end
+  #----------------------------------------------------------------------------
+  # update?
+  #  Checks if the event is within update range of ABSEAL.
+  #----------------------------------------------------------------------------
+  def update?
+    # if this map has ABSEAL disabled or it's the player or an actor
+    if self.is_a?(Map_Actor) ||
+        BlizzABS::Config::DISABLE_ANTI_LAG_IDS.include?($game_map.map_id)
+      # update
+      return true
+    end
+    # if auto-start or parallel process or excluded from ABSEAL
+    if [3, 4].include?(self.trigger) || self.name.clone.gsub!('\eal') {''}
+      # update
+      return true
+    end
+    # if autokiller is on and no character sprite and no tile sprite
+    if BlizzABS::Config::ABSEAL_AUTOKILL && @character_name == '' &&
+        @tile_id < 384 && !@teleport
+      # don't update
+      return false
+    end
+    # correct value out of range for ABSEAL factor
+    factor = BlizzABS::Config::FACTOR < 1 ? 1 : BlizzABS::Config::FACTOR.to_i
+    # don't update if outside of screen (left)
+    return false if @real_x < $game_map.display_x - factor * 128
+    # don't update if outside of screen (up)
+    return false if @real_y < $game_map.display_y - factor * 128
+    # don't update if outside of screen (right)
+    return false if @real_x >= $game_map.display_x + 2560 + factor * 128
+    # don't update if outside of screen (down)
+    return false if @real_y >= $game_map.display_y + 1920 + factor * 128
+    # update
+    return true
+  end
+  #----------------------------------------------------------------------------
+  # name
+  #  Returns the event's name if the is one.
+  #----------------------------------------------------------------------------
+  def name
+    return (@event != nil ? @event.name : '')
+  end
+  
+end
+
+#==============================================================================
+# Game_Event
+#------------------------------------------------------------------------------
+#  This class was redefined as non-pixel movement character to support pixel
+#  movement from other character types and ABSEAL update limitation in case
+#  Tons of Add-ons is not available.
+#==============================================================================
+
+class Game_Event < Game_Character
+  
+  #----------------------------------------------------------------------------
+  # override update
+  #----------------------------------------------------------------------------
+  # if Tons is not there or version too low
+  if $tons_version == nil || $tons_version < 4.7
+    alias upd_player_blizzabs_later update
+    def update
+      # call original method if within ABSEAL range
+      upd_player_blizzabs_later if update?
+    end
+  end
+  #----------------------------------------------------------------------------
+  # refresh
+  #  A flag addition was added to this method.
+  #----------------------------------------------------------------------------
+  alias refresh_blizzabs_later refresh
+  def refresh
+    # call original method
+    refresh_blizzabs_later
+    # test command list on teleport command if command list exists
+    @teleport = (@list != nil && @list.any? {|i| i.code == 201})
+  end
+  #----------------------------------------------------------------------------
+  # passable?
+  #  x - x-coordinate
+  #  y - y-coordinate
+  #  d - facing direction
+  #  Checks if the tile is passable.
+  #----------------------------------------------------------------------------
+  def passable?(x, y, d)
+    # get new coordinates
+    nx, ny = x+(d == 6 ? 1 : d == 4 ? -1 : 0), y+(d == 2 ? 1 : d == 8 ? -1 : 0)
+    # not passable if coordinates are outside of map
+    return false unless $game_map.valid?(nx, ny)
+    # passable if through is ON
+    return true if @through
+    # not passable if unable to leave current tile in designated direction
+    return false unless $game_map.passable?(x, y, d, self)
+    # not passable if unable to enter move tile in designated direction
+    return false unless $game_map.passable?(nx, ny, 10 - d)
+    # impassable if any event on new position and not through
+    return false if $game_map.enemies(true).any? {|event|
+        !event.through && event.x == nx && event.y == ny}
+    # get pixel movement rate
+    pix = BlizzABS.pixel
+    # return actor coordinate consistency with move destination
+    return (@character_name != '' && !BlizzABS.player.actors.any?{|actor|
+        actor.x/pix <= nx && (actor.x+pix-1)/pix >= nx && actor.y/pix <= ny &&
+        (actor.y+pix-1)/pix >= ny && !actor.through && actor.character_name != ''})
+  end
+  #----------------------------------------------------------------------------
+  # move_toward_player
+  #  Moves towards the player. (pixel movement)
+  #----------------------------------------------------------------------------
+  def move_toward_player
+    # get pixel movement rate
+    pix = BlizzABS.pixel
+    # calculates differences in x and y
+    dx, dy = @x - ($game_player.x+pix/2)/pix, @y - ($game_player.y+pix*3/4)/pix
+    # determines where to move according to the x and y differences
+    if dx > 0 && dy > 0 # player is up left
+      move_left if !move_upper_left && !move_up
+    elsif dx > 0 && dy < 0 # player is down left
+      move_left if !move_lower_left && !move_down
+    elsif dx < 0 && dy > 0 # player is up right
+      move_right if !move_upper_right && !move_up
+    elsif dx < 0 && dy < 0 # player is down right
+      move_right if !move_lower_right && !move_down
+    elsif dx < 0 && dy == 0 # player is right
+      move_right
+    elsif dx > 0 && dy == 0 # player is left
+      move_left
+    elsif dx == 0 && dy < 0 # player is down
+      move_down
+    elsif dx == 0 && dy > 0 # player is up
+      move_up
+    end
+  end
+  #----------------------------------------------------------------------------
+  # move_away_from_player
+  #  Moves away from the player. (pixel movement)
+  #----------------------------------------------------------------------------
+  def move_away_from_player
+    # get pixel movement rate
+    pix = BlizzABS.pixel
+    # calculates differences in x and y
+    dx, dy = @x - ($game_player.x+pix/2)/pix, @y - ($game_player.y+pix*3/4)/pix
+    # determines where to move according to the x and y differences
+    if dx > 0 && dy > 0 # player is up left
+      move_right if !move_lower_right && !move_down
+    elsif dx > 0 && dy < 0 # player is down left
+      move_right if !move_upper_right && !move_up
+    elsif dx < 0 && dy > 0 # player is up right
+      move_left if !move_lower_left && !move_down
+    elsif dx < 0 && dy < 0 # player is down right
+      move_left if !move_upper_left && !move_up
+    elsif dx < 0 && dy == 0 # player is right
+      move_left
+    elsif dx > 0 && dy == 0 # player is left
+      move_right
+    elsif dx == 0 && dy < 0 # player is down
+      move_up
+    elsif dx == 0 && dy > 0 # player is up
+      move_down
+    end
+  end
+  #----------------------------------------------------------------------------
+  # turn_toward_player
+  #  Turn towards the player. (pixel movement)
+  #----------------------------------------------------------------------------
+  def turn_toward_player
+    # get pixel movement rate
+    pix = BlizzABS.pixel
+    # calculates differences in x and y
+    dx, dy = @x - ($game_player.x+pix/2)/pix, @y - ($game_player.y+pix*3/4)/pix
+    # determines where to turn according to the x and y differences
+    if dx < 0 && dx.abs >= dy.abs # player is right
+      turn_right
+    elsif dx > 0 && dx.abs >= dy.abs # player is left
+      turn_left
+    elsif dy < 0 # player is down
+      turn_down
+    elsif dy > 0 # player is up
+      turn_up
+    end
+  end
+  #----------------------------------------------------------------------------
+  # turn_away_from_player
+  #  Turn away from the player. (pixel movement)
+  #----------------------------------------------------------------------------
+  def turn_away_from_player
+    # get pixel movement rate
+    pix = BlizzABS.pixel
+    # calculates differences in x and y
+    dx, dy = @x - ($game_player.x+pix/2)/pix, @y - ($game_player.y+pix*3/4)/pix
+    # determines where to turn according to the x and y differences
+    if dx < 0 && dx.abs >= dy.abs # player is right
+      turn_left
+    elsif dx > 0 && dx.abs >= dy.abs # player is left
+      turn_right
+    elsif dy < 0 # player is down
+      turn_up
+    elsif dy > 0 # player is up
+      turn_down
+    end
+  end
+  #----------------------------------------------------------------------------
+  # check_event_trigger_touch
+  #  x - x-coordinate
+  #  y - y-coordinate
+  #  Check event if was triggered by touch. (pixel movement)
+  #----------------------------------------------------------------------------
+  def check_event_trigger_touch(x, y)
+    # get pixel movement rate
+    pix = BlizzABS.pixel
+    # stop check if map interpreter is already running
+    return if $game_system.map_interpreter.running?
+    # if player touched this event
+    if @trigger == 2 && x >= $game_player.x/pix &&
+        x <= ($game_player.x+pix-1)/pix && y >= $game_player.y/pix &&
+        y <= ($game_player.y+pix-1)/pix
+      # start except if jumping or over_trigger
+      start unless jumping? || over_trigger?
+    end
+  end
+  #----------------------------------------------------------------------------
+  # check_event_trigger_auto
+  #  x - x-coordinate
+  #  y - y-coordinate
+  #  Check event if was triggered automaticactor. (pixel movement)
+  #----------------------------------------------------------------------------
+  def check_event_trigger_auto
+    # get pixel movement rate
+    pix = BlizzABS.pixel
+    # if player touched this event
+    if @trigger == 2 && x >= $game_player.x/pix &&
+        x <= ($game_player.x+pix-1)/pix && y >= $game_player.y/pix &&
+        y <= ($game_player.y+pix-1)/pix
+      # start except if jumping or over_trigger
+      start unless jumping? || over_trigger?
+    end
+    # start if auto-start
+    start if @trigger == 3
+  end
+  
+end
+
+#==============================================================================
+# Map_Battler
+#------------------------------------------------------------------------------
+#  This class serves as superclass for characters that fight on the map and
+#  can use pixel movement.
+#==============================================================================
+    
+class Map_Battler < Game_Character
+  
+  # setting all accessable variables
+  attr_accessor :in_action
+  attr_accessor :defending
+  attr_accessor :s_count
+  attr_accessor :current_sprite
+  attr_accessor :weapon_sprite
+  attr_accessor :freeze_action
+  attr_accessor :fade_out
+  attr_accessor :blend_type
+  attr_accessor :opacity
+  attr_accessor :battler
+  attr_reader   :attacked
+  #----------------------------------------------------------------------------
+  # Initialization
+  #----------------------------------------------------------------------------
+  def initialize
+    # call superclass method
+    super
+    # sprite animation name add-on and weapon sprite animation name add-on
+    @current_sprite = @weapon_sprite = ''
+    # sprite animation counter, penalty counter and action penalty counter
+    @s_count = @attacked = @in_action = 0
+    # action freezing flag
+    @freeze_action = false
+    # pixel rate setting
+    @pixel_rate = $game_system.pixel_rate
+    # set original character name
+    @character_name_org = @character_name
+  end
+  #----------------------------------------------------------------------------
+  # update
+  #  Checks if everything is ok with the pixel rate.
+  #----------------------------------------------------------------------------
+  def update
+    # if pixel movement rate different than the stored one
+    if @pixel_rate != $game_system.pixel_rate
+      # refresh coordinates
+      @x *= 2 ** ($game_system.pixel_rate - @pixel_rate)
+      @y *= 2 ** ($game_system.pixel_rate - @pixel_rate)
+      # store new pixel movement rate
+      @pixel_rate = $game_system.pixel_rate
+    end
+    # call superclass method
+    super
+  end
+  #----------------------------------------------------------------------------
+  # set_action
+  #  rate - penalty rate in seconds
+  #  Set frame penalty counter.
+  #----------------------------------------------------------------------------
+  def set_action(rate)
+    @in_action = (rate*20).to_i
+  end
+  #----------------------------------------------------------------------------
+  # use_attack
+  #  Processes using an attack.
+  #----------------------------------------------------------------------------
+  def use_attack
+    # sets everything up for attack sprites
+    setup_sprites('_atk')
+    # set frame penalty
+    set_action(self.is_a?(Map_Actor) ? 0.8 : 1.6)
+    # set animation ID if ANIMATIONS is turned on
+    @animation_id = battler.animation1_id if BlizzABS::Config::ANIMATIONS
+    # execute attack process and return result
+    return (BlizzABS.attack_process(self))
+  end
+  #----------------------------------------------------------------------------
+  # use_skill
+  #  skill - the skill to be used
+  #  Processes using a skill.
+  #----------------------------------------------------------------------------
+  def use_skill(skill)
+    # set animation ID if ANIMATIONS is turned on
+    @animation_id = skill.animation1_id if BlizzABS::Config::ANIMATIONS
+    # if battler can use the skill and skill data was processes with success
+    if @battler.skill_can_use?(skill.id) &&
+        BlizzABS.skillitem_process(self, skill)
+      # setup sprite extension
+      setup_sprites('_skl')
+      # set extended frame penalty depending on whether actor or enemy
+      set_action(self.is_a?(Map_Actor) ? 1.6 : 3.2)
+      # SP consumption
+      @battler.sp -= skill.sp_cost 
+      # if skill calls common event
+      if skill.common_event_id > 0
+        # temporary variable
+        common_event = $data_common_events[skill.common_event_id]
+        # setup common event execution
+        $game_system.map_interpreter.setup(common_event.list, 0)
+      end
+      # used
+      return true
+    end
+    # reset animation ID, since not used
+    @animation_id = 0
+    # not used
+    return false
+  end
+  #----------------------------------------------------------------------------
+  # use_item
+  #  item - the skill to be used
+  #  Processes using an item.
+  #----------------------------------------------------------------------------
+  def use_item(item)
+    # set animation ID if ANIMATIONS is turned on
+    @animation_id = item.animation1_id if BlizzABS::Config::ANIMATIONS
+    # if party can use the item and item data was processes with success
+    if $game_party.item_can_use?(item.id) &&
+        BlizzABS.skillitem_process(self, item)
+      # setup sprite extension
+      setup_sprites('_itm')
+      # set extended frame penalty depending on whether actor or enemy
+      set_action(self.is_a?(Map_Actor) ? 1.6 : 3.2)
+      # item consumption if item can be consumed
+      $game_party.lose_item(item.id, 1) if item.consumable
+      # if item calls common event
+      if item.common_event_id > 0
+        # temporary variable
+        common_event = $data_common_events[item.common_event_id]
+        # setup common event execution
+        $game_system.map_interpreter.setup(common_event.list, 0)
+      end
+      # used
+      return true
+    end
+    # reset animation ID, since not used
+    @animation_id = 0
+    # not used
+    return false
+  end
+  #----------------------------------------------------------------------------
+  # attack_effect
+  #  character - the character that holds attack data (can be projectile)
+  #  _battler  - the attacking battler
+  #  This method executes attack upon a map character.
+  #----------------------------------------------------------------------------
+  def attack_effect(character, _battler)
+    # stop attack if no battler assigned or still invincible
+    return false if @battler == nil || @blinking != nil && @blinking > 0
+    # stop attack if pressing CTRL in debug mode
+    return false if $DEBUG && self.is_a?(Map_Actor) && Input.press?(Input::CTRL)
+    # if defending
+    if self.defending
+      # set attacked counter
+      self.attacked = BlizzABS.pixel
+      # set damage to 0
+      @battler.damage = 0
+      # turn towards attacker
+      turn_toward(character)
+      # not executed
+      return false
+    end
+    # remove last hpdamage and spdamage values
+    @battler.hp, @battler.sp = @battler.hp, @battler.sp
+    # if effect processing was executed
+    if @battler.attack_effect(_battler) || @battler.hpdamage != 0 ||
+        @battler.spdamage != 0
+      # if damage dealt
+      if @battler.hpdamage > 0 || @battler.spdamage > 0
+        # set attacked counter
+        self.attacked = BlizzABS.pixel
+      end
+      # turn towards attacker
+      turn_toward(character)
+      # set attacking enemy animation ID if ANIMATIONS is turned on
+      @animation_id = _battler.animation2_id if BlizzABS::Config::ANIMATIONS
+      # attack was executed
+      result = true
+    end
+    # if no numeric damage and SP were changed
+    unless @battler.damage.is_a?(Numeric) || @battler.spdamage == 0
+      # manipulate damage text with spdamage
+      @battler.damage = "#{@battler.spdamage.abs} #{$data_system.words.sp}"
+    end
+    # determine execution
+    return (result == true)
+  end
+  #----------------------------------------------------------------------------
+  # skill_effect
+  #  character - the character that holds skill use (can be projectile)
+  #  _battler  - the skill using battler
+  #  skill     - the skill
+  #  This method executes skill use upon a map character.
+  #----------------------------------------------------------------------------
+  def skill_effect(character, _battler, skill)
+    # stop skill if no battler assigned
+    return false if @battler == nil
+    # stop skill if pressing CTRL in debug mode
+    return false if $DEBUG && self.is_a?(Map_Actor) && Input.press?(Input::CTRL)
+    # remove last hpdamage and spdamage values
+    @battler.hp, @battler.sp = @battler.hp, @battler.sp
+    # if effect processing was executed
+    if @battler.skill_effect(_battler, skill)  || @battler.hpdamage != 0 ||
+        @battler.spdamage != 0
+      # if damage dealt
+      if @battler.hpdamage > 0 || @battler.spdamage > 0
+        # set attacked counter
+        self.attacked = BlizzABS.pixel
+      end
+      # turn towards attacker
+      turn_toward(character)
+      # set attacked enemy animation ID if ANIMATIONS is turned on
+      @animation_id = skill.animation2_id if BlizzABS::Config::ANIMATIONS
+      # attack was executed
+      result = true
+    end
+    # if no numeric damage and SP were changed
+    unless @battler.damage.is_a?(Numeric) || @battler.spdamage == 0
+      # manipulate damage text with spdamage
+      @battler.damage = "#{@battler.spdamage.abs} #{$data_system.words.sp}"
+    end
+    # determine execution
+    return (result == true)
+  end
+  #----------------------------------------------------------------------------
+  # item_effect
+  #  character - the character that holds item use (can be projectile)
+  #  item      - the item
+  #  This method executes item use upon a map character.
+  #----------------------------------------------------------------------------
+  def item_effect(character, item)
+    # stop item if no battler assigned
+    return false if @battler == nil 
+    # stop item if pressing CTRL in debug mode
+    return false if $DEBUG && self.is_a?(Map_Actor) && Input.press?(Input::CTRL)
+    # remove last hpdamage and spdamage values
+    @battler.hp, @battler.sp = @battler.hp, @battler.sp
+    # if effect processing was executed
+    if @battler.item_effect(item) || @battler.hpdamage != 0 ||
+        @battler.spdamage != 0
+      # if damage dealt
+      if @battler.hpdamage > 0 || @battler.spdamage > 0
+        # set attacked counter
+        self.attacked = BlizzABS.pixel
+      end
+      # turn towards attacker
+      turn_toward(character)
+      # set attacked enemy animation ID if ANIMATIONS is turned on
+      @animation_id = item.animation2_id if BlizzABS::Config::ANIMATIONS
+      # attack was executed
+      result = true
+    end
+    # if no numeric damage and SP were changed
+    unless @battler.damage.is_a?(Numeric) || @battler.spdamage == 0
+      # manipulate damage text with spdamage
+      @battler.damage = "#{@battler.spdamage.abs} #{$data_system.words.sp}"
+    end
+    # determine execution
+    return (result == true)
+  end
+  #----------------------------------------------------------------------------
+  # pattern
+  #  Overriding method for accessing the pattern number of the spriteset.
+  #----------------------------------------------------------------------------
+  def pattern
+    # return animated forced pattern or last forced pattern if in action
+    return (in_action <= 0 ? @pattern : (@s_count > 0 ? (12-@s_count)/3 : 0))
+  end
+  #----------------------------------------------------------------------------
+  # turn_toward
+  #  character - a character
+  #  Same as turn_towards_player, but working with any pixel movement
+  #  character.
+  #----------------------------------------------------------------------------
+  def turn_toward(character)
+    # calculate the differences
+    dx, dy = @x - character.x, @y - character.y
+    # check the differences
+    if dx < 0 && dx.abs >= dy.abs # target is right
+      turn_right
+    elsif dx > 0 && dx.abs >= dy.abs # target is left
+      turn_left
+    elsif dy < 0 # target is down
+      turn_down
+    elsif dy > 0 # target is up
+      turn_up
+    end
+  end
+  #----------------------------------------------------------------------------
+  # sprite_update
+  #  Processes the sprite-animation timing.
+  #----------------------------------------------------------------------------
+  def sprite_update
+    # return if scene not Scene_Map or spriteset doesn't exist
+    return if !$scene.is_a?(Scene_Map) || $scene.spriteset == nil
+    # set spriteset name
+    @character_name = @character_name_org + @current_sprite
+    # if defending
+    if self.defending
+      # spriteset name add-on _def
+      @current_sprite = '_def'
+    # spriteset name add-on not '' and not _def
+    elsif @current_sprite != '' && @current_sprite != '_def'
+      # decrease animation counter
+      @s_count -= 1
+      # if counter reached 0
+      if @s_count <= 0
+        # reset spriteset name
+        @character_name = @character_name_org
+        # reset animation counter
+        @s_count = 0
+        # reset spriteset name add-ons
+        @current_sprite = @weapon_sprite = ''
+      end
+    else
+      # reset spriteset name
+      @character_name = @character_name_org
+      # reset spriteset name add-on
+      @current_sprite = ''
+    end
+  end
+  #----------------------------------------------------------------------------
+  # setup_sprites
+  #  type - the spriteset extension
+  #  Sets up everything used for skill sprite combination.
+  #----------------------------------------------------------------------------
+  def setup_sprites(type)
+    # straighten
+    straighten
+    # set sprite count
+    @s_count = 12
+    # if this character holds an actor
+    if self.battler.is_a?(Game_Actor)
+      # if active
+      if BlizzABS::Config::ACTOR_ACTION_SPRITES
+        # set current sprite extension
+        @current_sprite = type 
+        # if attack sprites
+        if type == '_atk'
+          # add weapon type number
+          @current_sprite += BlizzABS::Weapons.type(self.battler.weapon_id).to_s
+          # if weapon sprite active
+          if BlizzABS::Config::WEAPON_SPRITES && self.battler.weapon_id > 0
+            # set up the weapon sprite name
+            @weapon_sprite = "_#{$data_weapons[self.battler.weapon_id].icon_name}"
+          end
+        end
+      end
+    else
+      # set current sprite extension if active
+      @current_sprite = type if BlizzABS::Config::ENEMY_ACTION_SPRITES
+    end
+  end
+  #----------------------------------------------------------------------------
+  # attacked=
+  #  val - number
+  #  Sets the attacked counter and resets all sprites.
+  #----------------------------------------------------------------------------
+  def attacked=(val)
+    # reset sprites
+    @current_sprite = @weapon_sprite = ''
+    # set attacked counter and reset sprite counter
+    @attacked, @s_count = val, 0
+  end
+  #----------------------------------------------------------------------------
+  # moving?
+  #  Determines if the character is moving.
+  #----------------------------------------------------------------------------
+  def moving?
+    # get pixel movement rate
+    pix = BlizzABS.pixel
+    # return if player is moving
+    return (@real_x != @x * 128 / pix || @real_y != @y * 128 / pix)
+  end
+  #----------------------------------------------------------------------------
+  # moveto
+  #  x - x-coordinate
+  #  y - y-coordinate
+  #  Instant moving.
+  #----------------------------------------------------------------------------
+  def moveto(x, y)
+    # get pixel movement rate
+    pix = BlizzABS.pixel
+    # calculate new coordinates
+    @x = (x * pix) % ($game_map.width * pix)
+    @y = (y * pix) % ($game_map.height * pix)
+    @real_x = @x * 128 / pix
+    @real_y = @y * 128 / pix
+    # reset pre-lock direction
+    @prelock_direction = 0
+  end
+  #--------------------------------------------------------------------------
+  # move_down
+  #  turn_enabled - flag that determines whether to turn in moving direction
+  #  Moves. (pixel movement)
+  #--------------------------------------------------------------------------
+  def move_down(turn_enabled = true)
+    # turn if turn enabled
+    turn_down if turn_enabled
+    # if passable (if pixel movement is on, allow corner skip)
+    if passable?(@x, @y, 2)
+      # set new coordinates
+      @y += 1
+      # increase steps
+      increase_steps
+      # moved
+      return true
+    end
+    # check touched events
+    check_event_trigger_touch(@x, @y+1)
+    # not moved
+    return false
+  end
+  #--------------------------------------------------------------------------
+  # move_left
+  #  turn_enabled - flag that determines whether to turn in moving direction
+  #  Moves. (pixel movement)
+  #--------------------------------------------------------------------------
+  def move_left(turn_enabled = true)
+    # turn if turn enabled
+    turn_left if turn_enabled
+    # if passable (if pixel movement is on, allow corner skip)
+    if passable?(@x, @y, 4)
+      # set new coordinates
+      @x -= 1
+      # increase steps
+      increase_steps
+      # moved
+      return true
+    end
+    # check touched events
+    check_event_trigger_touch(@x-1, @y)
+    # not moved
+    return false
+  end
+  #--------------------------------------------------------------------------
+  # move_right
+  #  turn_enabled - flag that determines whether to turn in moving direction
+  #  Moves. (pixel movement)
+  #--------------------------------------------------------------------------
+  def move_right(turn_enabled = true)
+    # turn if turn enabled
+    turn_right if turn_enabled
+    # if passable (if pixel movement is on, allow corner skip)
+    if passable?(@x, @y, 6)
+      # set new coordinates
+      @x += 1
+      # increase steps
+      increase_steps
+      # moved
+      return true
+    end
+    # check touched events
+    check_event_trigger_touch(@x+1, @y)
+    # not moved
+    return false
+  end
+  #--------------------------------------------------------------------------
+  # move_up
+  #  turn_enabled - flag that determines whether to turn in moving direction
+  #  Moves. (pixel movement)
+  #--------------------------------------------------------------------------
+  def move_up(turn_enabled = true)
+    # turn if turn enabled
+    turn_up if turn_enabled
+    # if passable (if pixel movement is on, allow corner skip)
+    if passable?(@x, @y, 8)
+      # set new coordinates
+      @y -= 1
+      # increase steps
+      increase_steps
+      # moved
+      return true
+    end
+    # check touched events
+    check_event_trigger_touch(@x, @y-1)
+    # not moved
+    return false
+  end
+  #----------------------------------------------------------------------------
+  # move_lower_left
+  #  Moves. (pixel movement)
+  #----------------------------------------------------------------------------
+  def move_lower_left
+    # if not direction fixed
+    unless @direction_fix
+      # set direction
+      @direction = (@direction == 6 ? 4 : @direction == 8 ? 2 : @direction)
+    end
+    # if passable (if pixel movement is on, allow corner skip)
+    if BlizzABS.pixel > 1 &&
+       (passable?(@x, @y, 2) && passable?(@x, @y + 1, 4) ||
+        passable?(@x, @y, 4) && passable?(@x - 1, @y, 2)) ||
+        passable?(@x, @y, 2) && passable?(@x, @y + 1, 4) &&
+        passable?(@x, @y, 4) && passable?(@x - 1, @y, 2)
+      # set new coordinates
+      @x -= 1
+      @y += 1
+      # increase steps
+      increase_steps
+      # moved
+      return true
+    end
+    # check touched events
+    check_event_trigger_touch(@x-1, @y+1)
+    # not moved
+    return false
+  end
+  #----------------------------------------------------------------------------
+  # move_lower_right
+  #  Moves. (pixel movement)
+  #----------------------------------------------------------------------------
+  def move_lower_right
+    # if not direction fixed
+    unless @direction_fix
+      # set direction
+      @direction = (@direction == 4 ? 6 : @direction == 8 ? 2 : @direction)
+    end
+    # if passable (if pixel movement is on, allow corner skip)
+    if BlizzABS.pixel > 1 &&
+       (passable?(@x, @y, 2) && passable?(@x, @y + 1, 6) ||
+        passable?(@x, @y, 6) && passable?(@x + 1, @y, 2)) ||
+        passable?(@x, @y, 2) && passable?(@x, @y + 1, 6) &&
+        passable?(@x, @y, 6) && passable?(@x + 1, @y, 2)
+      # set new coordinates
+      @x += 1
+      @y += 1
+      # increase steps
+      increase_steps
+      # moved
+      return true
+    end
+    # check touched events
+    check_event_trigger_touch(@x+1, @y+1)
+    # not moved
+    return false
+  end
+  #----------------------------------------------------------------------------
+  # move_upper_left
+  #  Moves. (pixel movement)
+  #----------------------------------------------------------------------------
+  def move_upper_left
+    # if not direction fixed
+    unless @direction_fix
+      # set direction
+      @direction = (@direction == 6 ? 4 : @direction == 2 ? 8 : @direction)
+    end
+    # if passable (if pixel movement is on, allow corner skip)
+    if BlizzABS.pixel > 1 &&
+       (passable?(@x, @y, 8) && passable?(@x, @y - 1, 4) ||
+        passable?(@x, @y, 4) && passable?(@x - 1, @y, 8)) ||
+        passable?(@x, @y, 8) && passable?(@x, @y - 1, 4) &&
+        passable?(@x, @y, 4) && passable?(@x - 1, @y, 8)
+      # set new coordinates
+      @x -= 1
+      @y -= 1
+      # increase steps
+      increase_steps
+      # moved
+      return true
+    end
+    # check touched events
+    check_event_trigger_touch(@x-1, @y-1)
+    # not moved
+    return false
+  end
+  #----------------------------------------------------------------------------
+  # move_upper_right
+  #  Moves. (pixel movement)
+  #----------------------------------------------------------------------------
+  def move_upper_right
+    # if not direction fixed
+    unless @direction_fix
+      # set direction
+      @direction = (@direction == 4 ? 6 : @direction == 2 ? 8 : @direction)
+    end
+    # if passable (if pixel movement is on, allow corner skip)
+    if BlizzABS.pixel > 1 &&
+       (passable?(@x, @y, 8) && passable?(@x, @y - 1, 6) ||
+        passable?(@x, @y, 6) && passable?(@x + 1, @y, 8)) ||
+        passable?(@x, @y, 8) && passable?(@x, @y - 1, 6) &&
+        passable?(@x, @y, 6) && passable?(@x + 1, @y, 8)
+      # set new coordinates
+      @x += 1
+      @y -= 1
+      # increase steps
+      increase_steps
+      # moved
+      return true
+    end
+    # check touched events
+    check_event_trigger_touch(@x+1, @y-1)
+    # not moved
+    return false
+  end
+  #----------------------------------------------------------------------------
+  # update_move
+  #  Processes moving progress. (pixel movement)
+  #----------------------------------------------------------------------------
+  def update_move
+    # get pixel movement rate
+    pix = BlizzABS.pixel
+    # moving distance
+    distance = 2 ** @move_speed
+    # set new coordinates
+    @real_y = [@real_y + distance, @y * 128/pix].min if @y * 128/pix > @real_y
+    @real_x = [@real_x - distance, @x * 128/pix].max if @x * 128/pix < @real_x
+    @real_x = [@real_x + distance, @x * 128/pix].min if @x * 128/pix > @real_x
+    @real_y = [@real_y - distance, @y * 128/pix].max if @y * 128/pix < @real_y
+    # if walking
+    if @walk_anime
+      # increase anime_count
+      @anime_count += 1.5
+    # if standing
+    elsif @step_anime
+      # increase anime_count
+      @anime_count += 1
+    end
+  end
+  #----------------------------------------------------------------------------
+  # update_jump
+  #  Processes jumping progress. (pixel movement)
+  #----------------------------------------------------------------------------
+  def update_jump
+    # get pixel movement rate
+    pix = BlizzABS.pixel
+    # decrease jump count
+    @jump_count -= 1
+    # set new coordinates
+    @real_x = (@real_x * @jump_count + @x * 128 / pix) / (@jump_count + 1)
+    @real_y = (@real_y * @jump_count + @y * 128 / pix) / (@jump_count + 1)
+  end
+  #----------------------------------------------------------------------------
+  # jump
+  #  x - x-coordinate
+  #  y - y-coordinate
+  #  Jumps. (pixel movement)
+  #----------------------------------------------------------------------------
+  def jump(x_plus, y_plus, d = nil)
+    # get pixel movement rate
+    pix = BlizzABS.pixel
+    # if jumping onto another tile
+    if x_plus != 0 or y_plus != 0
+      # if horizontal distance is longer
+      if x_plus.abs > y_plus.abs
+        # turn left or right
+        x_plus < 0 ? turn_left : turn_right
+      else
+        # turn up or down
+        y_plus < 0 ? turn_up : turn_down
+      end
+    end
+    # if direction unknown
+    if d == nil
+      # determine direction depending plus values
+      if x_plus > 0 and y_plus > 0 # jumping down right
+        d = 3
+      elsif x_plus > 0 and y_plus < 0 # jumping up left
+        d = 9
+      elsif x_plus < 0 and y_plus > 0 # jumping down right
+        d = 1
+      elsif x_plus < 0 and y_plus < 0 # jumping up left
+        d = 7
+      elsif x_plus < 0 and y_plus == 0 # jumping left
+        d = 4
+      elsif x_plus > 0 and y_plus == 0 # jumping right
+        d = 6
+      elsif x_plus == 0 and y_plus < 0 # jumping up
+        d = 8
+      elsif x_plus == 0 and y_plus > 0 # jumping down
+        d = 2
+      end
+    end
+    # straighten
+    straighten
+    # find new coordinates
+    nx, ny = @x + x_plus*pix, @y + y_plus*pix
+    # if can't jump to new location
+    if jump_passable?(nx, ny, d) && $game_map.jump_passable?(@x, @y, nx, ny)
+      # set new coordinates
+      @x, @y = nx, ny
+    else
+      # reset coordinates
+      x_plus = y_plus = 0
+    end
+    # set jump peak
+    @jump_peak = 10 + Math.hypot(x_plus, y_plus).round - @move_speed
+    # set jump count
+    @jump_count = @jump_peak * 2
+    # set stop count
+    @stop_count = 0
+    # jumped if x and y plus are 0
+    return (x_plus != 0 || y_plus != 0)
+  end
+  #----------------------------------------------------------------------------
+  # bush_depth
+  #  Checks the bush depth. (pixel movement)
+  #----------------------------------------------------------------------------
+  def bush_depth
+    # return 0 tile exists and not on bottom and not bush, else 12
+    return ((@jump_count == 0 && $game_map.pixel_bush?(@x, @y) &&
+        @tile_id == 0 && !@always_on_top) ? 12 : 0)
+  end
+  #----------------------------------------------------------------------------
+  # terrain_tag
+  #  Checks the terrain tag. (pixel movement)
+  #----------------------------------------------------------------------------
+  def terrain_tag
+    # get pixel movement rate
+    pix = BlizzABS.pixel
+    # return terrain tag at the character's center
+    return $game_map.terrain_tag((@x+pix/2)/pix, (@y+pix/2)/pix)
+  end
+  #----------------------------------------------------------------------------
+  # running?
+  #  Dummy method.
+  #----------------------------------------------------------------------------
+  def running?
+    return false
+  end
+  #----------------------------------------------------------------------------
+  # sneaking?
+  #  Dummy method.
+  #----------------------------------------------------------------------------
+  def sneaking?
+    return false
+  end
+  
+end
+
+#==============================================================================
+# Map_Actor
+#------------------------------------------------------------------------------
+#  This class serves as character class for any actor on the map.
+#  Player_Controller controls that instance of this class which has the first
+#  party member as battler.
+#==============================================================================
+
+class Map_Actor < Map_Battler
+
+  # setting all accessable variables
+  attr_accessor :cindex
+  attr_accessor :buffer
+  attr_accessor :move_speed
+  attr_accessor :character_name
+  attr_accessor :character_name_org
+  attr_accessor :encounter_count
+  #----------------------------------------------------------------------------
+  # Initialization
+  #----------------------------------------------------------------------------
+  def initialize(index)
+    # call superclass method
+    super()
+    # store battler
+    @battler = $game_party.actors[index]
+    # set blinking counter
+    @blinking = 0
+    # save index in caterpillar
+    @cindex = index
+    # enforce the next force_movement from the buffer
+    @force_movement = 0
+    # set movement buffer
+    @buffer = []
+    # create actor AI data pack
+    @AI_data = AI_Data_Ally.new(@id)
+    # dummy
+    @encounter_count = 1
+  end
+  #----------------------------------------------------------------------------
+  # update
+  #  Processes all the data.
+  #----------------------------------------------------------------------------
+  def update
+    # if this character is being controlled by the player
+    if BlizzABS.player.player == self
+      # update player control over this character
+      result = BlizzABS.player.update_control
+      # call superclass method
+      super
+      # call post update process
+      BlizzABS.player.update_move(result)
+      # exit method
+      return
+    end
+    # if pixel movement rate different than the stored one
+    if @pixel_rate != $game_system.pixel_rate
+      # stores old buffer
+      tmp = @buffer
+      # clears buffer
+      @buffer = []
+      # while there is still data in the old buffer
+      while tmp.size > 0
+        # if instant jump command
+        if tmp[0].is_a?(Array)
+          # directly add into new buffer
+          @buffer.push(tmp.shift)
+        else
+          # get current command
+          move = tmp.shift
+          # remove the rest of the commands depending on old pixel movement
+          (2**@pixel_rate-1).times {tmp.shift}
+          # add into new buffer depending on new pixel movement
+          (2**$game_system.pixel_rate).times {@buffer.push(move)}
+        end
+      end
+    end
+    # reset spriteset name
+    @character_name = @character_name_org
+    # if battler exists
+    if battler != nil
+      # update spriteset animation 
+      sprite_update 
+      # if battler is dead
+      if battler != nil && battler.dead?
+        # make a ghost animation using opacity
+        @opacity = 64 + 192 * (Graphics.frame_count%4/2).abs
+      # if defending and not attacking and not in action
+      elsif @defending && @attacked == 0 && self.in_action == 0
+        # straighten
+        straighten
+        # exit method
+        return
+      end
+      # updates any attack action
+      update_attacked
+    end
+    # if in action
+    if self.in_action > 0
+      # decrease counter
+      @in_action -= 1 if @in_action > 0
+      # call superclass method
+      super
+      # set stopped animation flag if actor's character is animated
+      @step_anime = true if BlizzABS::Config::ANIMATED_IDS.include?(battler.id)
+      # exit method
+    end
+    # transparent flag inheritance from player
+    @transparent = $game_player.transparent
+    # through flag inheritance from player
+    @through = $game_player.through
+    # set blendtype to "ghost" if dead, otherwise to normal
+    @blend_type = dead? ? 1 : 0
+    # get pixel movement rate
+    pix = BlizzABS.pixel
+    # test the AI state
+    case @AI_data.state
+    when 0
+      # if far enough from the player
+      if Math.hypot(@real_x-$game_player.real_x,
+          @real_y-$game_player.real_y) > (@cindex+2)*128
+        # remove from caterpillar
+        update_ci(nil)
+        # empty movement buffer
+        @buffer = []
+        # set to return state
+        @AI_data.state = 5
+      else
+        # set speed to the player's move speed
+        @move_speed = $game_player.move_speed
+        # if not moving and buffer not empty and either forced or buffer full
+        if !moving? && @buffer.size > 0 && (@buffer.size > @cindex * pix ||
+            @force_movement > 0)
+          # get next command
+          move = @buffer.shift
+          # if command is complex
+          if move.is_a?(Array)
+            # check command and decide jump direction
+            case move[0]
+            when 1 then x, y = -1, 1
+            when 2 then x, y = 0, 1
+            when 3 then x, y = 1, 1
+            when 4 then x, y = -1, 0
+            when 6 then x, y = 1, 0
+            when 7 then x, y = -1, -1
+            when 8 then x, y = 0, -1
+            when 9 then x, y = 1, -1
+            else
+              x, y = 0, 0
+            end
+            # get jumping range
+            range = BlizzABS::Config::JUMPING
+            # jump into direction with considering running/sneaking
+            jump(x*range + x*move[1], y*range + y*move[1], move[0])
+          else
+            # check command and move
+            case move
+            when 1 then move_lower_left
+            when 2 then move_down(true)
+            when 3 then move_lower_right
+            when 4 then move_left(true)
+            when 6 then move_right(true)
+            when 7 then move_upper_left
+            when 8 then move_up(true)
+            when 9 then move_upper_right
+            when false
+              # remove from caterpillar
+              update_ci(nil)
+              # empty movement buffer
+              @buffer = []
+              # set to return state
+              @AI_data.state = 5
+              # remove force counter
+              @force_movement = 0
+            end
+          end
+          # decrease counter if counter is active
+          @force_movement -= 1 if @force_movement > 0
+        end
+      end
+    when 5
+      # if not moving already
+      unless moving?
+        # get current index
+        ind = self.index
+        # iterate through all actors in front of self
+        (0...ind).each {|i|
+            # decrease @cindex each time an actor is missing in the caterpillar
+            ind -= 1 if BlizzABS.player.actors[i].cindex == nil}
+        # if not at correct position depending on player
+        if (@x-$game_player.x).abs > ind*pix ||
+            (@y-$game_player.y).abs > ind*pix
+          # move towards player
+          move_toward($game_player)
+          # turn towards the player
+          turn_toward_player
+        else
+          # integrate back into caterpillar
+          update_ci(self.index)
+          # calculate movement buffer commands depending on player's position
+          calc_movement
+          # set to follow mode
+          @AI_data.state = 0
+        end
+      end
+    end
+    # call superclass method
+    super
+    # set stopped animation flag if actor's character is animated
+    @step_anime = true if BlizzABS::Config::ANIMATED_IDS.include?(battler.id)
+  end
+  #----------------------------------------------------------------------------
+  # calc_movement
+  #  This method calculates a movement pattern to the player's current position
+  #  when integrating back into the caterpillar, so this characeter doesn't
+  #  need to go to the player's position, but can stay as far as possible.
+  #----------------------------------------------------------------------------
+  def calc_movement
+    # get differences
+    dx, dy = @x - $game_player.x, @y - $game_player.y
+    # while differences exist
+    while dx.abs > 0 || dy.abs > 0
+      # add move command into direction to player
+      if dx > 0 and dy > 0 # up left
+        @buffer.push(7)
+      elsif dx > 0 and dy < 0 # down right
+        @buffer.push(1)
+      elsif dx < 0 and dy > 0 # up left
+        @buffer.push(9)
+      elsif dx < 0 and dy < 0 # down right
+        @buffer.push(3)
+      elsif dx < 0 and dy == 0 # right
+        @buffer.push(6)
+      elsif dx > 0 and dy == 0 # left
+        @buffer.push(4)
+      elsif dx == 0 and dy < 0 # down
+        @buffer.push(2)
+      elsif dx == 0 and dy > 0 # up
+        @buffer.push(8)
+      end
+      # decrease difference
+      dx -= dx.sgn unless dx == 0
+      dy -= dy.sgn unless dy == 0
+    end
+  end
+  #----------------------------------------------------------------------------
+  # update_attacked
+  #  Processes being attacked and blinking animation.
+  #----------------------------------------------------------------------------
+  def update_attacked
+    # if blinking
+    if @blinking > 0
+      # set blink opacity
+      @opacity = 128 + 128 * ((@blinking+2)%4/2).abs
+      # decrease blinking counter
+      @blinking -= 1
+    end
+    # if attacked
+    if @attacked > 0
+      # decrease attacked counter
+      @attacked -= 1
+      # get thrown back
+      move_backward
+    end
+  end
+  #----------------------------------------------------------------------------
+  # sprite_update
+  #  Enhanced with movement system sprite handling.
+  #----------------------------------------------------------------------------
+  def sprite_update
+    # update action spriteset animation if enabled
+    super if BlizzABS::Config::ACTOR_ACTION_SPRITES
+    # if no sprite extension
+    if @current_sprite == ''
+      # if jumping and turned on JUMPING_SPRTES
+      if self.jumping? && BlizzABS::Config::JUMPING_SPRITES
+        # set spriteset name
+        @character_name = @character_name_org + '_jmp'
+      # if running and turned on RUNNING_SPRTES
+      elsif self.running? && BlizzABS::Config::RUNNING_SPRITES
+        # set spriteset name
+        @character_name = @character_name_org + '_run'
+      # if sneaking and turned on SNEAKING_SPRTES
+      elsif self.sneaking? && BlizzABS::Config::SNEAKING_SPRITES
+        # set spriteset name
+        @character_name = @character_name_org + '_snk'
+      end
+    end
+  end
+  #----------------------------------------------------------------------------
+  # refresh
+  #  Refreshes the character.
+  #----------------------------------------------------------------------------
+  def refresh(flag = false)
+    # refresh all actors if self is controlled by player and not calling again
+    BlizzABS.player.refresh if !flag && BlizzABS.player.player == self
+    # if battler exists
+    if battler == nil
+      # set spriteset name
+      @character_name_org = @character_name = ''
+      # set spriteset hue
+      @character_hue = 0
+      # exit method
+      return
+    end
+    # set spriteset name
+    @character_name_org = @character_name = battler.character_name
+    # set spriteset hue
+    @character_hue = battler.character_hue
+    # set opacity to full
+    @opacity = 255
+    # set blend type to normal
+    @blend_type = 0
+  end
+  #----------------------------------------------------------------------------
+  # update_ci
+  #  index - new caterpillar index
+  #  Integrates back into the caterpillar by setting up @cindex.
+  #----------------------------------------------------------------------------
+  def update_ci(ind = (@cindex == nil ? nil : self.index))
+    # set new @cindex
+    @cindex = ind
+    # if index isn't removing from caterpillar
+    if ind != nil
+      # iterate through all actors in front of self
+      (0...index).each {|i|
+          # decrease @cindex each time an actor is missing in the caterpillar
+          @cindex -= 1 if BlizzABS.player.actors[i].cindex == nil}
+    end
+    # update the @cindex of the actor behind if he exists
+    BlizzABS.player.actors[index+1].update_ci if BlizzABS.player.actors[index+1] != nil
+  end
+  #----------------------------------------------------------------------------
+  # update_buffer
+  #  move - new command added into the buffer
+  #  Handles the movement command delay system for caterpillar movement.
+  #----------------------------------------------------------------------------
+  def update_buffer(move)
+    # exit if removed from caterpillar
+    return if @cindex == nil || move == nil
+    # if enforce emptying buffer command
+    if move == nil
+      # set enforcement to the current buffer size
+      @force_movement = @buffer.size
+    else
+      # add new command into buffer
+      @buffer.push(move)
+      # set enforcement to the current buffer size if command is jumping
+      @force_movement = @buffer.size if move.is_a?(Array) || move == false
+    end
+  end
+  #----------------------------------------------------------------------------
+  # passable?
+  #  x - x-coordinate
+  #  y - y-coordinate
+  #  d - direction
+  #  Checks the passability. (pixel movement)
+  #----------------------------------------------------------------------------
+  def passable?(x, y, d)
+    # calculate new coordinates
+    nx = x + (d == 6 ? 1 : d == 4 ? -1 : 0)
+    ny = y + (d == 2 ? 1 : d == 8 ? -1 : 0)
+    # impassable if new coordinates not valid
+    return false unless $game_map.self_valid?(nx, ny)
+    # passable through or pressing CTRL in DEBUG mode
+    return true if $DEBUG && Input.press?(Input::CTRL) || @through
+    # impassable if standing on impassable tile
+    return false unless $game_map.self_passable?(x, y, d, self)
+    # get pixel movement rate
+    pix = BlizzABS.pixel
+    # if impassable in all directions
+    unless $game_map.direction_passable?(nx, ny, 10 - d) &&
+        $game_map.direction_passable?(nx, ny+pix-1, 10 - d) &&
+        $game_map.direction_passable?(nx+pix-1, ny, 10 - d) &&
+        $game_map.direction_passable?(nx+pix-1, ny+pix-1, 10 - d)
+      # impassable
+      return false
+    end
+    # impassable if any event is in the way
+    return (self != $game_player || !$game_map.enemies(true).any? {|event|
+        event.x >= nx/pix && event.x <= (nx+pix-1)/pix && event.y >= ny/pix &&
+        event.y <= (ny+pix-1)/pix && !event.through && event.character_name != ''})
+  end
+  #----------------------------------------------------------------------------
+  # jump_passable?
+  #  x  - x-coordinate
+  #  y  - y-coordinate
+  #  nx - new x-coordinate
+  #  ny - new y-coordinate
+  #  Checks if there is a tile with JUMP_TAG tag so jumping isn't possible.
+  #----------------------------------------------------------------------------
+  def jump_passable?(x, y, d)
+    # impassable if new coordinates not valid
+    return false unless $game_map.self_valid?(x, y)
+    # passable through or pressing CTRL in DEBUG mode
+    return true if $DEBUG && Input.press?(Input::CTRL) || @through
+    # passable if landing tile passable
+    return ($game_map.self_passable?(x, y, 0, self))
+  end
+  #----------------------------------------------------------------------------
+  # move_down
+  #  turn_enabled - turning flag
+  #  Moves. (pixel movement)
+  #----------------------------------------------------------------------------
+  def move_down(turn_enabled = true)
+    # call superclass method and store result
+    result = super
+    # update buffer if self is controlled by player
+    BlizzABS.player.update_buffer(2) if BlizzABS.player.player == self && result
+    # return result
+    return result
+  end
+  #----------------------------------------------------------------------------
+  # move_left
+  #  turn_enabled - turning flag
+  #  Moves. (pixel movement)
+  #----------------------------------------------------------------------------
+  def move_left(turn_enabled = true)
+    # call superclass method and store result
+    result = super
+    # update buffer if self is controlled by player
+    BlizzABS.player.update_buffer(4) if BlizzABS.player.player == self && result
+    # return result
+    return result
+  end
+  #----------------------------------------------------------------------------
+  # move_right
+  #  turn_enabled - turning flag
+  #  Moves. (pixel movement)
+  #----------------------------------------------------------------------------
+  def move_right(turn_enabled = true)
+    # call superclass method and store result
+    result = super
+    # update buffer if self is controlled by player
+    BlizzABS.player.update_buffer(6) if BlizzABS.player.player == self && result
+    # return result
+    return result
+  end
+  #----------------------------------------------------------------------------
+  # move_up
+  #  turn_enabled - turning flag
+  #  Moves. (pixel movement)
+  #----------------------------------------------------------------------------
+  def move_up(turn_enabled = true)
+    # call superclass method and store result
+    result = super
+    # update buffer if self is controlled by player
+    BlizzABS.player.update_buffer(8) if BlizzABS.player.player == self && result
+    # return result
+    return result
+  end
+  #----------------------------------------------------------------------------
+  # move_lower_left
+  #  Moves. (pixel movement)
+  #----------------------------------------------------------------------------
+  def move_lower_left
+    # call superclass method and store result
+    result = super
+    # update buffer if self is controlled by player
+    BlizzABS.player.update_buffer(1) if BlizzABS.player.player == self && result
+    # return result
+    return result
+  end
+  #----------------------------------------------------------------------------
+  # move_lower_right
+  #  Moves. (pixel movement)
+  #----------------------------------------------------------------------------
+  def move_lower_right
+    # call superclass method and store result
+    result = super
+    # update buffer if self is controlled by player
+    BlizzABS.player.update_buffer(3) if BlizzABS.player.player == self && result
+    # return result
+    return result
+  end
+  #----------------------------------------------------------------------------
+  # move_upper_left
+  #  Moves. (pixel movement)
+  #----------------------------------------------------------------------------
+  def move_upper_left
+    # call superclass method and store result
+    result = super
+    # update buffer if self is controlled by player
+    BlizzABS.player.update_buffer(7) if BlizzABS.player.player == self && result
+    # return result
+    return result
+  end
+  #----------------------------------------------------------------------------
+  # move_upper_right
+  #  Moves. (pixel movement)
+  #----------------------------------------------------------------------------
+  def move_upper_right
+    # call superclass method and store result
+    result = super
+    # update buffer if self is controlled by player
+    BlizzABS.player.update_buffer(9) if BlizzABS.player.player == self && result
+    # return result
+    return result
+  end
+  #----------------------------------------------------------------------------
+  # jump
+  #  x - x-coordinate
+  #  y - y-coordinate
+  #  Jumps. (pixel movement)
+  #----------------------------------------------------------------------------
+  def jump(x_plus, y_plus, d = nil)
+    # if direction is unknown
+    if d == nil
+      # determines direction
+      if x_plus > 0 and y_plus > 0 # jumping down right
+        d = 3
+      elsif x_plus > 0 and y_plus < 0 # jumping up left
+        d = 9
+      elsif x_plus < 0 and y_plus > 0 # jumping down right
+        d = 1
+      elsif x_plus < 0 and y_plus < 0 # jumping up left
+        d = 7
+      elsif x_plus < 0 and y_plus == 0 # jumping left
+        d = 4
+      elsif x_plus > 0 and y_plus == 0 # jumping right
+        d = 6
+      elsif x_plus == 0 and y_plus < 0 # jumping up
+        d = 8
+      elsif x_plus == 0 and y_plus > 0 # jumping down
+        d = 2
+      end
+    end
+    # if jumped
+    if super
+      # if self is controlled by player
+      if BlizzABS.player.player == self
+        # update buffer
+        BlizzABS.player.update_buffer([d, @move_speed - BlizzABS.player.normal_speed])
+      end
+      # jumped
+      return true
+    end
+    # not jumped
+    return false
+  end
+  #----------------------------------------------------------------------------
+  # moveto
+  #  x - x-coordinate
+  #  y - y-coordinate
+  #  Moves the player instantly to a postion, moves all actors and centers the
+  #  screen upon the player.
+  #----------------------------------------------------------------------------
+  def moveto(x, y)
+    # call superclass method 
+    super
+    # call controller method if self is controlled by player
+    BlizzABS.player.moveto(x, y) if BlizzABS.player.player == self
+  end
+  #----------------------------------------------------------------------------
+  # center
+  #  x - x-coordinate
+  #  y - y-coordinate
+  #  Centers the screen upon the player's character if the character is
+  #  controlled by the player.
+  #----------------------------------------------------------------------------
+  def center(x, y)
+    BlizzABS.player.center(x, y, flag) if BlizzABS.player.player == self
+  end
+  #----------------------------------------------------------------------------
+  # overriding move_type_custom
+  #----------------------------------------------------------------------------
+  alias move_type_custom_blizzabs_later move_type_custom
+  def move_type_custom
+    # call original method
+    move_type_custom_blizzabs_later
+    # if self is controlled by player and current command is "Set move speed"
+    if BlizzABS.player.player == self && @move_route != nil &&
+        @move_route_index < @move_route.list.size &&
+        @move_route.list[@move_route_index].code == 29
+      # set new normal speed
+      BlizzABS.player.normal_speed = @move_speed
+    end
+  end
+  #----------------------------------------------------------------------------
+  # move_toward
+  #  character - next actor in the line
+  #  Moves towards a character.
+  #----------------------------------------------------------------------------
+  def move_toward(character)
+    # get pixelmovement rate
+    pix = BlizzABS.pixel
+    # get x and y differences
+    dx = @real_x - character.real_x
+    dy = @real_y - character.real_y
+    # exit if already same position
+    return if dx == 0 && dy == 0
+    # determines where to move according to the x and y differences
+    if dx > 0 && dy > 0 # character is up left
+      move_left if !move_upper_left && !move_up
+    elsif dx > 0 && dy < 0 # character is down left
+      move_left if !move_lower_left && !move_down
+    elsif dx < 0 && dy > 0 # character is up right
+      move_right if !move_upper_right && !move_up
+    elsif dx < 0 && dy < 0 # character is down right
+      move_right if !move_lower_right && !move_down
+    elsif dx < 0 && dy == 0 # character is right
+      move_right
+    elsif dx > 0 && dy == 0 # character is left
+      move_left
+    elsif dx == 0 && dy < 0 # character is down
+      move_down
+    elsif dx == 0 && dy > 0 # character is up
+      move_up
+    end
+  end
+  #----------------------------------------------------------------------------
+  # dead?
+  #  Checks if the assigned battler is dead if existent.
+  #----------------------------------------------------------------------------
+  def dead?
+    return (battler == nil || battler.dead?)
+  end
+  #----------------------------------------------------------------------------
+  # attacked=
+  #  val - number
+  #  Sets the attacked counter and blinking value.
+  #----------------------------------------------------------------------------
+  def attacked=(val)
+    # call superclass method
+    super
+    # set blinking counter if not defending
+    @blinking = val * 8 unless @defending
+  end
+  #----------------------------------------------------------------------------
+  # pattern
+  #  Overriding method for accessing the pattern number of the spriteset.
+  #----------------------------------------------------------------------------
+  def pattern
+    # if not in action and jumping and turned on JUMPING_SPRITES
+    if self.in_action == 0 && jumping? && BlizzABS::Config::JUMPING_SPRITES
+      # pattern 1 if jumping up, 3 if falling down again else 2
+      return (@jump_count > @jump_peak + 1 ? 1 :
+          (@jump_count < @jump_peak - 1 ? 3 : 2))
+    end
+    # call superclass method
+    return super
+  end
+  #----------------------------------------------------------------------------
+  # check_event_trigger_touch
+  #  Checks event touching if self is controlled by player.
+  #----------------------------------------------------------------------------
+  def check_event_trigger_touch(x, y)
+    BlizzABS.player.check_event_trigger_touch(x, y) if BlizzABS.player.player == self
+  end
+  #----------------------------------------------------------------------------
+  # index
+  #  Returns own position in actor array.
+  #----------------------------------------------------------------------------
+  def index
+    return BlizzABS.player.actors.index(self)
+  end
+  #----------------------------------------------------------------------------
+  # running?
+  #  Checks if the player is running.
+  #----------------------------------------------------------------------------
+  def running?
+    return (BlizzABS::Config::RUN_SPEED == @move_speed)
+  end
+  #----------------------------------------------------------------------------
+  # sneaking?
+  #  Checks if the player is sneaking.
+  #----------------------------------------------------------------------------
+  def sneaking?
+    return (BlizzABS::Config::SNEAK_SPEED == @move_speed)
+  end
+  #----------------------------------------------------------------------------
+  # atk_offset
+  #  Gets an offset if necessary.
+  #----------------------------------------------------------------------------
+  def atk_offset
+    return ((@current_sprite[0, 4] == '_atk' && @direction == 2 &&
+        @s_count < 12) ? BlizzABS::Config::ACTOR_SPRITE_Y_OFFSET : 0)
+  end
+  #----------------------------------------------------------------------------
+  # screen_z
+  #  height - height on the screen
+  #  Gets character's z-coordinate.
+  #----------------------------------------------------------------------------
+  def screen_z(height = 0)
+    return (super - (index == nil ? BlizzABS::Config::MAX_PARTY : index))
+  end
+
+end
+
+#==============================================================================
+# Game_Player
+#------------------------------------------------------------------------------
+#  This class serves as override, so a Map_Actor class is loaded as current
+#  player.
+#==============================================================================
+
+Object.send(:remove_const, :Game_Player)
+class Game_Player < Map_Actor
+  
+  #----------------------------------------------------------------------------
+  # Initialization
+  #----------------------------------------------------------------------------
+  def initialize
+    # call superclass method for first actor
+    super(0)
+  end
+  
+end
+
+#==============================================================================
+# Map_Enemy
+#------------------------------------------------------------------------------
+#  This class handles a map enemy character. It supports pixel movement,
+#  complete AI handling, advanced sprite handling and battle handling.
+#==============================================================================
+
+class Map_Enemy < Map_Battler
+  
+  # setting all accessable variables
+  attr_accessor :event_id
+  attr_reader   :AI_data
+  attr_reader   :event
+  attr_reader   :trigger
+  attr_reader   :list
+  attr_reader   :page
+  attr_reader   :starting
+  attr_reader   :execute
+  attr_reader   :force_move
+  attr_reader   :precondition
+  #----------------------------------------------------------------------------
+  # Initialization
+  #----------------------------------------------------------------------------
+  def initialize(map_id, event, id = 0, event_id = 0, attributes = 0x0000)
+    # if respawning system active
+    if event.is_a?(Map_Enemy)
+      # get aggression of earlier enemy
+      aggr = event.AI_data.origin_aggressive
+      # get boss flag of earlier enemy
+      boss = event.boss
+      # get event ID of earlier enemy
+      event_id = event.event_id
+      # get own ID of earlier enemy
+      id = event.id
+      # get event of earlier enemy
+      event = event.event
+    else
+      # get aggression from attribute
+      aggr = (attributes & 0x0001 != 0x0001)
+      # get boss flag from attribute
+      boss = (attributes & 0x0002 == 0x0002)
+    end
+    # give the enemy all attributes of a DX character
+    super()
+    # set map ID
+    @map_id = map_id
+    # @event is needed for respawn
+    @event = event
+    # move to starting position
+    moveto(@event.x, @event.y)
+    # set erased flag
+    @erased = false
+    # set starting flag
+    @starting = false
+    # set execute flag
+    @execute = false
+    # set through flag
+    @through = true
+    # set precondition flag
+    @precondition = false
+    # set character spriteset name
+    @character_name_org = @character_name = ''
+    # refresh
+    refresh
+    # the database enemy
+    @enemy = $data_enemies[id]
+    # the battler
+    @battler = Game_Enemy.new(@enemy)
+    # create AI Data
+    @AI_data = AI_Data_Map_Enemy.new(id, @enemy.maxhp, @enemy.eva, aggr, boss)
+    # own ID
+    @id = id
+    # own event ID
+    @event_id = event_id
+    # create array of moving commands
+    @force_move = []
+    # set turning flag
+    @turn_flag = false
+  end
+  #----------------------------------------------------------------------------
+  # boss
+  #  Quick access to the boss flag.
+  #----------------------------------------------------------------------------
+  def boss
+    return @AI_data.boss
+  end
+  #----------------------------------------------------------------------------
+  # agressive
+  #  Quick access to the aggressive flag.
+  #----------------------------------------------------------------------------
+  def aggressive
+    return @AI_data.aggressive
+  end
+  #----------------------------------------------------------------------------
+  # in_action
+  #  Overriding method needed for sprite animation.
+  #----------------------------------------------------------------------------
+  def in_action
+    # in action if sprite add-on is there
+    return (@current_sprite != '' ? 1 : @in_action)
+  end
+  #----------------------------------------------------------------------------
+  # clear_starting
+  #  Clears the starting flag
+  #----------------------------------------------------------------------------
+  def clear_starting
+    @starting = false
+  end
+  #----------------------------------------------------------------------------
+  # start
+  #  Setups the starting event code.
+  #----------------------------------------------------------------------------
+  def start
+    # event code exists
+    if @list.size > 1
+      # store interpreter
+      @interpreter = $game_system.map_interpreter
+      # setup code
+      @interpreter.setup(@list, @event_id)
+      # start
+      @interpreter.setup_starting_event
+      # set execute flag
+      @execute = true
+    end
+  end
+  #----------------------------------------------------------------------------
+  # erase
+  #  Dummy method.
+  #----------------------------------------------------------------------------
+  def erase
+  end
+  #----------------------------------------------------------------------------
+  # over_trigger?
+  #  Dummy method.
+  #----------------------------------------------------------------------------
+  def over_trigger?
+    return false
+  end
+  #--------------------------------------------------------------------------
+  # refresh
+  #  Refreshes the character.
+  #--------------------------------------------------------------------------
+  def refresh
+    # initialize
+    new_page = nil
+    # if not erased
+    unless @erased
+      # iterate through all pages in reverse order
+      @event.pages.reverse.each {|page|
+          # temporary variable
+          c = page.condition
+          # switch 1 condition test
+          next if c.switch1_valid && !$game_switches[c.switch1_id]
+          # switch 2 condition test
+          next if c.switch2_valid && !$game_switches[c.switch2_id]
+          # variable condition test
+          if c.variable_valid
+            # next page if condition not fulfilled
+            next if $game_variables[c.variable_id] < c.variable_value
+          end
+          # self switch condition test
+          if c.self_switch_valid
+            # temporary variable
+            key = [@map_id, @event.id, c.self_switch_ch]
+            # next page if condition not fulfilled
+            next unless $game_self_switches[key]
+          end
+          # set local variable
+          new_page = page
+          # stop looping
+          break}
+    end
+    # end method if event page is the same as last time
+    return if new_page == @page
+    # set as current event page
+    @page = new_page
+    # if no page fulfills conditions
+    if @page == nil
+      # set up variables
+      @tile_id = 0
+      @character_name_org = @character_name = ''
+      @character_hue = 0
+      @move_type = 0
+      @through = true
+      @trigger = nil
+      @list = nil
+      @interpreter = nil
+      @precondition = false
+      # exit method
+      return
+    end
+    # set up variables
+    @tile_id = @page.graphic.tile_id
+    @character_name_org = @character_name = @page.graphic.character_name
+    @character_hue = @page.graphic.character_hue
+    # if direction is different
+    if @original_direction != @page.graphic.direction
+      @direction = @page.graphic.direction
+      @original_direction = @direction
+      @prelock_direction = 0
+    end
+    # if pattern is different
+    if @original_pattern != @page.graphic.pattern
+      @pattern = @page.graphic.pattern
+      @original_pattern = @pattern
+    end
+    @opacity = @page.graphic.opacity
+    @blend_type = @page.graphic.blend_type
+    @move_type = @page.move_type
+    @move_speed = @page.move_speed
+    @move_frequency = @page.move_frequency
+    @move_route = @page.move_route
+    @move_route_index = 0
+    @move_route_forcing = false
+    @walk_anime = @page.walk_anime
+    @step_anime = @page.step_anime
+    @direction_fix = @page.direction_fix
+    @through = @page.through
+    @always_on_top = @page.always_on_top
+    @trigger = @page.trigger
+    @list = @page.list
+    # set precondtion flag
+    @precondition = true
+  end
+  #----------------------------------------------------------------------------
+  # update
+  #  Executes the enemy behaviour according to the AI.
+  #----------------------------------------------------------------------------
+  def update
+    # don't update if outside of ABSEAL range
+    return unless self.update?
+    # reset loop animation
+    @loop_animation_id = 0
+    # reset spriteset name
+    @character_name = @character_name_org
+    # update spriteset animation if enabled
+    sprite_update if BlizzABS::Config::ENEMY_ACTION_SPRITES
+    # if interpreter exists
+    if @interpreter != nil
+      # if running
+      if @interpreter.running?
+        # update
+        @interpreter.update
+        # exit method
+        return
+      # if opacity is 0
+      elsif @opacity == 0
+        # set execute flag
+        @execute = false
+        # set erased flag
+        @erased = true
+        # refresh
+        refresh
+      end
+    end
+    # return if page doesn't exist
+    return if @page == nil
+    # calcuation of the update pattern number
+    factor = ((Graphics.frame_rate*2+@id)%(rand(11)+45)+1) * (rand(2)+1)
+    # refreshes the AI after a certain ammount of time
+    @AI_data.refresh if Graphics.frame_count % (factor*3.7).to_i == 0
+    # defines the current move speed and sets new AI behaviour
+    @move_speed = AI.behaviour(self)
+    # if no move route commands
+    if @force_move == []
+      # set turning flag
+      @turn_flag = false
+    else
+      # get next moving command and execute special movement override
+      case @force_move.shift
+      when 1 then move_lower_left(11)
+      when 2 then move_down(11, @turn_flag)
+      when 3 then move_lower_right(11)
+      when 4 then move_left(11, @turn_flag)
+      when 6 then move_right(11, @turn_flag)
+      when 7 then move_upper_left(11)
+      when 8 then move_up(11, @turn_flag)
+      when 9 then move_upper_right(11)
+      end
+    end
+    # if already moving or special state
+    if moving? && ![5, 6].include?(@AI_data.state)
+      # update the event with the superclass method
+      super
+      # exit method
+      return
+    end
+    # reset defending
+    self.defending = false
+    # test the AI state
+    case @AI_data.state
+    # idle
+    when 0
+      # after a certain ammount of time
+      if Graphics.frame_count % factor == 0
+        # either turn random (33% chance) or move random (67% chance)
+        rand(3) == 0 ? turn_random : move_random
+      end
+    # seen/heard the player
+    when 1
+      # turn toward the player no matter what (follows the player's movement)
+      turn_toward_player
+      # moves toward the player
+      move_toward_player
+      # set frame penalty
+      set_action(0.8)
+    # in_action the player
+    when 2
+      # turn toward the player no matter what (follows the player's movement)
+      turn_toward_player
+      # attacks the player
+      use_attack
+    # in_action with a skill
+    when 3
+      # turn toward the player no matter what (follows the player's movement)
+      turn_toward_player
+      # attacks the player with a skill
+      use_skill($data_skills[@battler.current_action.skill_id])
+    # defend
+    when 4
+      # turn toward the player no matter what (follows the player's movement)
+      turn_toward_player
+      # defending is true
+      self.defending = true
+      # set defend time unless already defending
+      set_action(rand(3)*1.0+1) unless self.in_action > 0
+    # run away
+    when 5
+      # turn away from player no matter what (follows the player's movement)
+      turn_away_from_player
+      # move away from player
+      move_away_from_player
+      # if really running away out of fear
+      if @AI_data.fear > 0
+        # set loop animation
+        @loop_animation_id = BlizzABS::Config::FLEE_LOOP_ANIMATION_ID
+      end
+    # attack shock state
+    when 6
+      # turns toward the player
+      turn_toward_player
+      # freezes the direction
+      @turn_flag = true
+      # simulation of getting thrown back
+      move_away_from_player
+    # memory
+    when 7
+      # turns toward the player's last coordinate
+      turn_toward_player(false)
+      # moves toward the player's last coordinate
+      move_toward_player(false)
+      # set penalty flag
+      set_action(0.8)
+    end
+    # update the event with the superclass method
+    super
+  end
+  #----------------------------------------------------------------------------
+  # attack_effect
+  #  character - the character that holds attack data (can be projectile)
+  #  _battler  - the attacking battler
+  #  This method executes additional attack processing upon the enemy.
+  #----------------------------------------------------------------------------
+  def attack_effect(character, _battler)
+    # store last HP
+    last_hp = @battler.hp
+    # call superclass method and store result
+    result = super
+    # call additional process if damage done to HP
+    damage_test(last_hp-@battler.hp) if result && last_hp > @battler.hp
+    # return original result
+    return result
+  end
+  #----------------------------------------------------------------------------
+  # skill_effect
+  #  character - the character that holds skill use (can be projectile)
+  #  _battler  - the skill using battler
+  #  skill     - the skill
+  #  This method executes additional skill processing upon the enemy.
+  #----------------------------------------------------------------------------
+  def skill_effect(character, _battler, skill)
+    # store last HP
+    last_hp = @battler.hp
+    # call superclass method and store result
+    result = super
+    # call additional process if damage done to HP
+    damage_test(last_hp-@battler.hp) if result && last_hp > @battler.hp
+    # return original result
+    return result
+  end
+  #----------------------------------------------------------------------------
+  # item_effect
+  #  character - the character that holds item use (can be projectile)
+  #  item      - the item
+  #  This method executes additional item processing upon the enemy.
+  #----------------------------------------------------------------------------
+  def item_effect(character, item)
+    # store last HP
+    last_hp = @battler.hp
+    # call superclass method and store result
+    result = super
+    # call additional process if damage done to HP
+    damage_test(last_hp-@battler.hp) if result && last_hp > @battler.hp
+    # return original result
+    return result
+  end
+  #----------------------------------------------------------------------------
+  # damage_test
+  #  This method executes the actual additional damage effect used by the AI.
+  #----------------------------------------------------------------------------
+  def damage_test(damage)
+    # accumulate damage 
+    @AI_data.dmg.push(damage)
+    # set to aggressive
+    @AI_data.aggressive = true
+  end
+  #----------------------------------------------------------------------------
+  # dead?
+  #  Checks if the enemy is dead.
+  #----------------------------------------------------------------------------
+  def dead?
+    return (@battler == nil || @battler.dead?)
+  end
+  #----------------------------------------------------------------------------
+  # exp
+  #  Returns the experience.
+  #----------------------------------------------------------------------------
+  def exp
+    return @battler.exp
+  end
+  #----------------------------------------------------------------------------
+  # gold
+  #  Returns the gold.
+  #----------------------------------------------------------------------------
+  def gold
+    return @battler.gold
+  end
+  #----------------------------------------------------------------------------
+  # move_random
+  #  Moves into a random direction. (8-way)
+  #----------------------------------------------------------------------------
+  def move_random
+    case rand(8)
+    when 0 then move_down(0)
+    when 1 then move_left(0)
+    when 2 then move_right(0)
+    when 3 then move_up(0)
+    when 4 then move_lower_left
+    when 5 then move_upper_left
+    when 6 then move_lower_right
+    when 7 then move_upper_right
+    end
+  end
+  #----------------------------------------------------------------------------
+  # move_down
+  #  mode  - flag for overriding
+  #  check - turning flag
+  #  Moves. (pixel movement)
+  #----------------------------------------------------------------------------
+  def move_down(mode = true, check = true)
+    # get pixel movement rate
+    pix = BlizzABS.pixel
+    # which type of moving
+    case mode
+    # override and set moving route
+    when 0 then rand(pix*2).times{@force_move.push(2)}
+    # move
+    when 11 then super(check)
+    # re-routing the method
+    else
+      # set moving route
+      pix.times{@force_move.push(2)}
+      # set turning flag
+      @turn_flag = mode
+    end
+  end
+  #----------------------------------------------------------------------------
+  # move_left
+  #  mode  - flag for overriding
+  #  check - turning flag
+  #  Moves. (pixel movement)
+  #----------------------------------------------------------------------------
+  def move_left(mode = true, check = false)
+    # get pixel movement rate
+    pix = BlizzABS.pixel
+    # which type of moving
+    case mode
+    # override and set moving route
+    when 0 then rand(pix*2).times{@force_move.push(4)}
+    # move
+    when 11 then super((!check))
+    # re-routing the method
+    else
+      # set moving route
+      pix.times{@force_move.push(4)}
+      # set turning flag
+      @turn_flag = mode
+    end
+  end
+  #----------------------------------------------------------------------------
+  # move_right
+  #  mode  - flag for overriding
+  #  check - turning flag
+  #  Moves. (pixel movement)
+  #----------------------------------------------------------------------------
+  def move_right(mode = true, check = false)
+    # get pixel movement rate
+    pix = BlizzABS.pixel
+    # which type of moving
+    case mode
+    # override and set moving route
+    when 0 then rand(pix*2).times{@force_move.push(6)}
+    # move
+    when 11 then super((!check))
+    # re-routing the method
+    else
+      # set moving route
+      pix.times{@force_move.push(6)}
+      # set turning flag
+      @turn_flag = mode
+    end
+  end
+  #----------------------------------------------------------------------------
+  # move_up
+  #  mode  - flag for overriding
+  #  check - turning flag
+  #  Moves. (pixel movement)
+  #----------------------------------------------------------------------------
+  def move_up(mode = true, check = false)
+    # get pixel movement rate
+    pix = BlizzABS.pixel
+    # which type of moving
+    case mode
+    # override and set moving route
+    when 0 then rand(pix*2).times{@force_move.push(4)}
+    # move
+    when 11 then super((!check))
+    # re-routing the method
+    else
+      # set moving route
+      pix.times{@force_move.push(4)}
+      # set turning flag
+      @turn_flag = mode
+    end
+  end
+  #----------------------------------------------------------------------------
+  # move_lower_left
+  #  mode - overriding flag
+  #  Moves diagonal. (pixel movement)
+  #----------------------------------------------------------------------------
+  def move_lower_left(mode = 0)
+    # get pixel movement rate
+    pix = BlizzABS.pixel
+    # which type of moving
+    case mode
+    # override and set moving route
+    when 0 then rand(pix*2).times{@force_move.push(1)}
+    # move
+    when 11 then super()
+    end
+  end
+  #----------------------------------------------------------------------------
+  # move_lower_right
+  #  mode - overriding flag
+  #  Moves diagonal. (pixel movement)
+  #----------------------------------------------------------------------------
+  def move_lower_right(mode = 0)
+    # get pixel movement rate
+    pix = BlizzABS.pixel
+    # which type of moving
+    case mode
+    # override and set moving route
+    when 0 then rand(pix*2).times{@force_move.push(3)}
+    # move
+    when 11 then super()
+    end
+  end
+  #----------------------------------------------------------------------------
+  # move_upper_left
+  #  mode - overriding flag
+  #  Moves diagonal. (pixel movement)
+  #----------------------------------------------------------------------------
+  def move_upper_left(mode = 0)
+    # get pixel movement rate
+    pix = BlizzABS.pixel
+    # which type of moving
+    case mode
+    # override and set moving route
+    when 0 then rand(pix*2).times{@force_move.push(7)}
+    # move
+    when 11 then super()
+    end
+  end
+  #----------------------------------------------------------------------------
+  # move_upper_right
+  #  mode - overriding flag
+  #  Moves diagonal. (pixel movement)
+  #----------------------------------------------------------------------------
+  def move_upper_right(mode = 0)
+    # get pixel movement rate
+    pix = BlizzABS.pixel
+    # which type of moving
+    case mode
+    # override and set moving route
+    when 0 then rand(pix*2).times{@force_move.push(9)}
+    # move
+    when 11 then super()
+    end
+  end
+  #----------------------------------------------------------------------------
+  # overriding move_type_custom
+  #----------------------------------------------------------------------------
+  alias move_type_custom_blizzabs_later move_type_custom
+  def move_type_custom
+    # call original method
+    move_type_custom_blizzabs_later
+    # exit method if jumping or moving
+    return if jumping? || moving?
+    # if move route exists and basic movement command
+    if @move_route_index < @move_route.list.size &&
+        @move_route.list[@move_route_index].code <= 14
+      # increase move_route_index
+      @move_route_index += 1
+    end
+  end
+  #----------------------------------------------------------------------------
+  # passable?
+  #  x - x-coordinate
+  #  y - y-coordinate
+  #  d - facing direction
+  #  Checks the passability.
+  #----------------------------------------------------------------------------
+  def passable?(x, y, d)
+    # get pixel movement rate
+    pix = BlizzABS.pixel
+    # get new coordinates
+    nx = x + (d == 6 ? 1 : d == 4 ? -1 : 0)
+    ny = y + (d == 2 ? 1 : d == 8 ? -1 : 0)
+    # impassable if new coordinates not valid
+    return false unless $game_map.self_valid?(nx, ny)
+    # impassable if current tile is impassable
+    return false unless $game_map.self_passable?(x, y, d, self)
+    # if all directions impassable
+    unless $game_map.direction_passable?(nx, ny, 10 - d) &&
+        $game_map.direction_passable?(nx, ny+pix-1, 10 - d) &&
+        $game_map.direction_passable?(nx+pix-1, ny, 10 - d) &&
+        $game_map.direction_passable?(nx+pix-1, ny+pix-1, 10 - d)
+      # impassable
+      return false
+    end
+    # impassable if any event is in the way
+    return (!$game_map.enemies(true).any? {|event|
+        event.x >= nx/pix && event.x <= (nx+pix-1)/pix &&
+        event.y >= ny/pix && event.y <= (ny+pix-1)/pix &&
+        !event.through && event.character_name != ''})
+  end
+  #----------------------------------------------------------------------------
+  # move_toward_player
+  #  is_player - moving toward the player or his remembered last position
+  #  Processes moving toward the player or his last remembered postion.
+  #----------------------------------------------------------------------------
+  def move_toward_player(is_player = true)
+    # get pixel movement rate
+    pix = BlizzABS.pixel
+    # is it the player
+    if is_player
+      # calculate differences in x and y
+      dx, dy = @x - $game_player.x, @y - $game_player.y
+    else # or only his remembered position
+      # calculate differences in x and y
+      dx = @AI_data.find_x > 0 ? @x - @AI_data.find_x : 0
+      dy = @AI_data.find_y > 0 ? @y - @AI_data.find_y : 0
+    end
+    # determines where to move according to the x and y differences
+    if dx < 0 && dy.abs <= pix*3.0/2 # player is right
+      rand(pix*2).times {@force_move.push(6)}
+    elsif dx > 0 && dy.abs <= pix*3.0/2 # player is left
+      rand(pix*2).times {@force_move.push(4)}
+    elsif dx.abs <= pix*3.0/2 && dy < 0 # player is down
+      rand(pix*2).times {@force_move.push(2)}
+    elsif dx.abs <= pix*3.0/2 && dy > 0 # player is up
+      rand(pix*2).times {@force_move.push(8)}
+    elsif dx > 0 && dy > 0 # player is up left
+      rand(pix*2).times {@force_move.push(7)}
+    elsif dx > 0 && dy < 0 # player is down left
+      rand(pix*2).times {@force_move.push(1)}
+    elsif dx < 0 && dy > 0 # player is up right
+      rand(pix*2).times {@force_move.push(9)}
+    elsif dx < 0 && dy < 0 # player is down right
+      rand(pix*2).times {@force_move.push(3)}
+    end
+  end
+  #----------------------------------------------------------------------------
+  # move_away_from_player
+  #  Moves away from the player. (pixel movement)
+  #----------------------------------------------------------------------------
+  def move_away_from_player
+    # get pixel movement rate
+    pix = BlizzABS.pixel
+    # calculates differences in x and y
+    dx, dy = @x - $game_player.x, @y - $game_player.y
+    # sets movement route depending on the x and y differences
+    if dx < 0 && dy.abs <= pix/2 # player is right
+      @force_move.push(4)
+    elsif dx > 0 && dy.abs <= pix/2 # player is left
+      @force_move.push(6)
+    elsif dx.abs <= pix/2 && dy < 0 # player is down
+      @force_move.push(8)
+    elsif dx.abs <= pix/2 && dy > 0 # player is up
+      @force_move.push(2)
+    elsif dx > 0 && dy > 0 # player is up left
+      @force_move.push(3)
+    elsif dx > 0 && dy < 0 # player is down left
+      @force_move.push(9)
+    elsif dx < 0 && dy > 0 # player is up right
+      @force_move.push(1)
+    elsif dx < 0 && dy < 0 # player is down right
+      @force_move.push(7)
+    end
+  end
+  #----------------------------------------------------------------------------
+  # turn_toward_player
+  #  is_player - turning toward the player or his remembered last position
+  #  Processes turning toward the player or his last remembered postion.
+  #----------------------------------------------------------------------------
+  def turn_toward_player(is_player = true)
+    # is it the player
+    if is_player
+      # calculates differences in x and y
+      dx, dy = @x - $game_player.x, @y - $game_player.y
+    # or only his remembered position
+    else
+      # calculates differences in x and y
+      dx = @AI_data.find_x > 0 ? @x - @AI_data.find_x : 0
+      dy = @AI_data.find_y > 0 ? @y - @AI_data.find_y : 0
+    end
+    # determines where to turn according to the x and y differences
+    if dx < 0 && dx.abs >= dy.abs # player is right
+      turn_right
+    elsif dx > 0 && dx.abs >= dy.abs # player is left
+      turn_left
+    elsif dy < 0 # player is down
+      turn_down
+    elsif dy > 0 # player is up
+      turn_up
+    end
+  end
+  #----------------------------------------------------------------------------
+  # turn_away_from_player
+  #  Moves away from the player. (pixel movement)
+  #----------------------------------------------------------------------------
+  def turn_away_from_player
+    # calculates differences in x and y
+    dx, dy = @x - $game_player.x, @y - $game_player.y
+    # determines where to turn according to the x and y differences
+    if dx < 0 && dx.abs >= dy.abs # player is right
+      turn_left
+    elsif dx > 0 && dx.abs >= dy.abs # player is left
+      turn_right
+    elsif dy < 0 # player is down
+      turn_up
+    elsif dy > 0 # player is up
+      turn_down
+    end
+  end
+  #----------------------------------------------------------------------------
+  # check_event_trigger_touch
+  #  Dummy method.
+  #----------------------------------------------------------------------------
+  def check_event_trigger_touch(x, y)
+  end
+  #----------------------------------------------------------------------------
+  # atk_offset
+  #  Gets an offset if necessary.
+  #----------------------------------------------------------------------------
+  def atk_offset
+    return ((@current_sprite[0, 4] == '_atk' && @direction == 2 &&
+        @s_count < 12) ? BlizzABS::Config::ENEMY_SPRITE_Y_OFFSET : 0)
+  end
+  
+end
+
+#==============================================================================
+# Projectile
+#------------------------------------------------------------------------------
+#  This class handles projectiles used in battle. It supports pixel movement
+#  and deals attack/skill/item according to the battler's state when the
+#  projectile was created.
+#==============================================================================
+
+class Projectile < Map_Battler
+  
+  #----------------------------------------------------------------------------
+  # Initialization
+  #  character_name - spriteset file name
+  #  creator        - character that created the projectile or item
+  #  id             - skill id
+  #  direction      - initial facing direction
+  #  target         - data pack to determine movement and target
+  #----------------------------------------------------------------------------
+  def initialize(character_name, creator, id, distance, type, target_class,
+                 dead_type, explode = nil)
+    # call superclass method without arguments
+    super()
+    # id of weapon/skill/item
+    @id = id
+    # defines whether exploding or not
+    @explode = explode
+    # set type
+    @type = type
+    # target class
+    @classe = target_class
+    # targetting dead or alive targets
+    @dead_type = dead_type
+    # a number of projectile appear instantly while other need a moment
+    @request_time = ([0, 5, 6, 7, 9, 10, 11].include?(type) ? 4 : 10)
+    # set character_name
+    @character_name = character_name
+    # set coordinates to the same a the creator
+    @real_x, @real_y = creator.real_x, creator.real_y
+    # move in creator's facing direction slightly
+    case creator.direction
+    when 2 then @real_y += 64
+    when 4 then @real_x -= 64
+    when 6 then @real_x += 64
+    when 8 then @real_y -= 64
+    end
+    # if distance is a fixed target
+    if distance.is_a?(Game_Character)
+      # set target, speed and projectile range
+      @target, @move_speed, d = distance, 3, 2
+    else
+      # set target, speed and projectile range
+      @target, @move_speed, d = nil, 5, (distance-1) * BlizzABS.pixel
+    end
+    # set map coordinates to real coordinates, taking pixel movement into account
+    @x, @y = @real_x * BlizzABS.pixel / 128, @real_y * BlizzABS.pixel / 128
+    # set up final position depending on creator's facing direction
+    case creator.direction
+    when 2 then @y += d
+    when 4 then @x -= d
+    when 6 then @x += d
+    when 8 then @y -= d
+    end
+    # set opacity
+    @opacity = 255
+    # create a copy of the battler
+    @battler_copy = creator.battler.clone
+    # store the creator
+    @creator = creator
+    # create array of already hit targets
+    @hit = []
+    # set direction to the same as the creator's
+    @direction = creator.direction
+    # set termination flag
+    @terminate = false
+    # animate and goes through anything
+    @walk_anime = @step_anime = @through = true
+    # freeze player's action in case of returning projectile
+    @creator.freeze_action = (@type == 0)
+    # helping variable
+    @accelerate = 0
+  end
+  #----------------------------------------------------------------------------
+  # create
+  #  After creation time delay expires, the sprite is being created.
+  #----------------------------------------------------------------------------
+  def create
+    # create own sprite
+    sprite = Sprite_Character.new($scene.spriteset.viewport1, self)
+    # update sprite once
+    sprite.update
+    # add to spriteset
+    $scene.spriteset.character_sprites.push(sprite)
+  end
+  #----------------------------------------------------------------------------
+  # update?
+  #  Overrides ABSEAL as it gets terminated as soon as it goes out of the
+  #  screen anyway, so some process time is being saved.
+  #----------------------------------------------------------------------------
+  def update?
+    return true
+  end
+  #----------------------------------------------------------------------------
+  # execute
+  #  Executes the projectile's effect.
+  #----------------------------------------------------------------------------
+  def execute(target = @target)
+    # if item
+    if @type >= 9
+      # execute item
+      target.item_effect(self, $data_items[@id])
+    # if skill
+    elsif @type >= 5
+      # execute skill
+      target.skill_effect(self, @battler_copy, $data_skills[@id])
+    else
+      # execute attack
+      target.attack_effect(self, @battler_copy)
+      # if shot item
+      if @type == 3
+        # store damage
+        dmg = target.battler.damage
+        # execute item
+        target.item_effect(self, $data_items[@id])
+        # if damage is a number and any damage done
+        if target.battler.damage.is_a?(Numeric) &&
+          (target.battler.hpdamage > 0 || target.battler.spdamage > 0)
+          # add attack damage if attack damage was a number
+          target.battler.damage += dmg if dmg.is_a?(Numeric)
+        # if no damage done with item
+        elsif target.battler.hpdamage == 0 && target.battler.spdamage == 0
+          # set back to attack damage
+          target.battler.damage = dmg
+        end
+      end
+    end
+    # add to already hit targets
+    @hit.push(target)
+    # sets flag for self-termination if necessary
+    @terminate = true unless [0, 1, 6, 10].include?(@type)
+  end
+  #--------------------------------------------------------------------------
+  # update
+  #  Processes projectile movement.
+  #--------------------------------------------------------------------------
+  def update
+    # if projectile creation request hasn't expired yet
+    if @request_time > 0
+      # decrease counter
+      @request_time -= 1
+      # abort method or create whether projectile creation request has expired
+      @request_time == 0 ? create : return
+    end
+    # if accelerating counter
+    if @accelerate > 0
+      # decrease accelerating counter
+      @accelerate -= 1
+      # accelerate if accelerating counter expired
+      @move_speed = 5 if @accelerate == 0
+    end
+    # additional stop animation updates depending on speed
+    ([@move_speed - 2, 3].min).times {update_stop}
+    # find target or return to creator depending on the type
+    case @type
+    when 1 then @x, @y = @creator.x, @creator.y
+    when 8, 12 then @x, @y = @target.x, @target.y
+    end
+    # turn toward the target position
+    turn_toward_target
+    # get pixel movement rate
+    pix = BlizzABS.pixel
+    # if not moving or out of screen hitting a wall
+    if !moving? || out_of_screen(128) ||
+        $game_map.terrain_tag(@real_x*pix/128, @real_y*pix/128) ==
+        BlizzABS::Config::WALL_TAG
+      # which internal type of projectile
+      case @type
+      when 0
+        # returning projectil returns now
+        @type = 1
+        # set coordinates to creator's
+        @x, @y = @creator.x, @creator.y
+        # slow down
+        @move_speed = 4
+        # set acceleration count
+        @accelerate = 5
+      # homing projectile ready for pursuit
+      when 7, 11 then @type, @move_speed, @accelerate = @type + 1, 4, 9
+      # homing projectile hit the target
+      when 8, 12 then execute
+      else
+        # set termination flag
+        @terminate = true
+        # unfreeze creator action
+        @creator.freeze_action = false
+        # depending on type, drop a weapon/item
+        case @type
+        when 3, 9, 10 then Drop_Event.new($data_items[@id], @x.to_i, @y.to_i)
+        when 4 then Drop_Event.new($data_weapons[@id], @x.to_i, @y.to_i)
+        end
+      end
+    end
+    # if homing projetile that is pursuing a target
+    if [7, 8, 11, 12].include?(@type)
+      # create rectangle
+      rect = Rect.new(@target.real_x, @target.real_y, 128, 128)
+      # execute action if target's and projectile's rectangles intersect
+      execute if BlizzABS.intersection(rect, Rect.new(@real_x+32, @real_y+32, 64, 64))
+    # if not out of screen at all
+    elsif !out_of_screen(0)
+      # if moving and not returning projectile and close to final position
+      if moving? && ![1, 7, 8, 11, 12].include?(@type) &&
+         (@real_x-@x*128/pix).abs < 128 && (@real_y-@y*128/pix).abs < 128
+        # slow down
+        @move_speed = 4
+        # start fade out animation if skill
+        @fade_out = true if [5, 6].include?(@type)
+      end
+      # iterate through all battlers
+      ($game_map.enemies + BlizzABS.player.actors).each {|battler|
+          rect = Rect.new(battler.real_x, battler.real_y, 128, 128)
+          # if battler can be hit and battler and projectile intersect
+          if battler.battler != nil && battler.is_a?(@classe) &&
+              @dead_type ^ battler.battler.dead? &&
+              BlizzABS.intersection(rect, Rect.new(@real_x+32, @real_y+32, 64, 64))
+            # execute action unless already hit
+            execute(battler) unless @hit.include?(battler)
+            # if exploding skill/item
+            if @explode
+              # iterate through all map battlers
+              ($game_map.enemies + BlizzABS.player.actors).each {|ch|
+                  # get differences in coordinates
+                  dx, dy = ch.real_x-battler.real_x, ch.real_y-battler.real_y
+                  # create affection area shape
+                  r = [battler.real_x+64, battler.real_y+64, @explode[0]*128, 0]
+                  # create target position rectangle
+                  rect = Rect.new(ch.real_x, ch.real_y, 128, 128)
+                  # if target can be hit adn not already hit
+                  if ch.battler != nil && @dead_type ^ ch.battler.dead? &&
+                      self.intersection(r, rect) && !@hit.include?(ch)
+                    # execute action
+                    execute(ch)
+                    # override with explosion animation if using animations
+                    ch.animation_id = @explode[1] if BlizzABS::Config::ANIMATIONS
+                  end}
+            end
+            # stop iteration
+            break
+          end}
+    end
+    # call superclass method
+    super
+  end
+  #----------------------------------------------------------------------------
+  # turn_toward_target
+  #  Same as turn_towards_player, but turning toward the destination.
+  #----------------------------------------------------------------------------
+  def turn_toward_target
+    # get pixel movement rate
+    pix = BlizzABS.pixel
+    # calculate the differences
+    dx, dy = @real_x*pix/128-@x, @real_y*pix/128-@y
+    # check the differences
+    if dx < 0 && dx.abs >= dy.abs # target is right
+      turn_right
+    elsif dx > 0 && dx.abs >= dy.abs # target is left
+      turn_left
+    elsif dy < 0 # target is down
+      turn_down
+    elsif dy > 0 # target is up
+      turn_up
+    end
+  end
+  #----------------------------------------------------------------------------
+  # out_of_screen
+  #  add - how much extra out of the screen is allowed.
+  #  Quick test if the projectile is out of the visible screen.
+  #----------------------------------------------------------------------------
+  def out_of_screen(add)
+    return (self.real_x - $game_map.display_x + add < 0 ||
+            self.real_x - $game_map.display_x + add > 2560 ||
+            self.real_y - $game_map.display_y + add < 0 ||
+            self.real_y - $game_map.display_y + add > 1920)
+  end
+  
+end
+
+#==============================================================================
+# Drop_Event
+#------------------------------------------------------------------------------
+#  This class creates an event that is specificactor designed to add weapons,
+#  armors, items and gold to the party. It integrates itself into a Game_Map
+#  instance as normal event.
+#==============================================================================
+
+class Drop_Event < Game_Event
+  
+  # setting all accessable variables
+  attr_accessor :name
+  #----------------------------------------------------------------------------
+  # Initialization
+  #----------------------------------------------------------------------------
+  def initialize(item, x, y)
+    # call superclass method
+    super($game_map.map_id, RPG::Event.new(0, 0))
+    # 0th page
+    @page = 0
+    # loop
+    loop do
+      # create item ID number
+      id = rand(9999000) + 1000
+      # if no object with this ID exists
+      if $game_map.events[id] == nil
+        # set new ID
+        @id = id
+        # add into map events
+        $game_map.events[id] = self
+        # stop looping
+        break
+      end
+    end
+    # set own event name DROP + ID
+    self.name = "DROP#{@id}"
+    # create 3 event commands
+    3.times {@list.push(RPG::EventCommand.new)}
+    # first event command
+    case item
+    # what is the dropped item
+    when Numeric
+      # which event command
+      @list[0].code = 125
+      # increase quantity by number command
+      @list[0].parameters = [0, 0, item]
+      # set icon name to display dropped gold
+      @character_name = BlizzABS::Config::DROP_GOLD
+    when RPG::Item, RPG::Weapon, RPG::Armor
+      # which event command
+      case item
+      when RPG::Item then @list[0].code = 126
+      when RPG::Weapon then @list[0].code = 127
+      when RPG::Armor then @list[0].code = 128
+      end
+      # increase quantity by 1 command
+      @list[0].parameters = [item.id, 0, 0, 1]
+      # set icon name to display dropped item
+      @character_name = item.icon_name
+    end
+    # play sound effect
+    @list[1].code = 250
+    # if ITEM_PICKUP_SOUND_FILE exists
+    if BlizzABS::Config::ITEM_PICKUP_SOUND_FILE.name != ''
+      # set file to be played
+      @list[1].parameters = [BlizzABS::Config::ITEM_PICKUP_SOUND_FILE]
+    end
+    # erase event command
+    @list[2].code = 116
+    # get pixel movement rate
+    pix = BlizzABS.pixel
+    # move to correct position
+    moveto((x+pix/2)/pix, (y+pix/2)/pix)
+    # set through
+    @through = true
+    # dummy settings that are not used anyway, but they are necessary
+    @prelock_direction = @tile_id = @character_hue = @blend_type =
+    @animation_id = @move_type = @move_speed = @move_frequency = 
+    @move_route_index = @original_move_route_index = @anime_count =
+    @stop_count = @jump_count = @jump_peak = @wait_count = @prelock_direction =
+    @pattern = @original_pattern = 0
+    @original_direction = @direction = 2
+    @opacity = 255
+    @walk_anime = true
+    @move_route_forcing = @transparent = @step_anime = @direction_fix =
+    @always_on_top = @locked = false
+    @move_route = @original_move_route = nil
+    # create own sprite
+    sprite = Sprite_Character.new($scene.spriteset.viewport1, self)
+    # set sprite to blinking
+    sprite.select = 2
+    # add to spriteset handler
+    $scene.spriteset.character_sprites.push(sprite)
+    # set dieance counter
+    @count = BlizzABS::Config::ITEM_TIME * 20
+  end
+  #----------------------------------------------------------------------------
+  # update
+  #  Processes basic update and decreased expire counter.
+  #----------------------------------------------------------------------------
+  def update
+    # call superclass method
+    super
+    # decrease stay time if stay time is greater than 0
+    @count -= 1 if @count > 0
+    # set deletion flag if item taken or stay time expired
+    @terminate = true if @count <= 0
+  end
+  #----------------------------------------------------------------------------
+  # erase
+  #  Usually used to temporary erase the event, here used to completely
+  #  terminate the event.
+  #----------------------------------------------------------------------------
+  def erase
+    @terminate = true
+  end
+  
+end
+
+#==============================================================================
+# Game_Controls
+#------------------------------------------------------------------------------
+#  This class handling player input for battle.
+#==============================================================================
+
+class Game_Controls
+  
+  # setting all accessable variables
+  attr_accessor :hotkeys
+  attr_accessor :skills
+  attr_accessor :items
+  attr_accessor :skill
+  attr_accessor :defend
+  attr_writer   :projectiles
+  #----------------------------------------------------------------------------
+  # Initialization
+  #----------------------------------------------------------------------------
+  def initialize
+    # skills -> skill ID on key index
+    @skills = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    # items -> item ID on key index
+    @items = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+  end
+  #----------------------------------------------------------------------------
+  # update
+  #  Processes the player's input.
+  #----------------------------------------------------------------------------
+  def update
+    # update each projectile
+    BlizzABS::Cache.projectiles.each {|projectile| projectile.update}
+    # if not allowed to act
+    if !$game_temp.in_battle || $game_player.jumping? ||
+        $game_player.freeze_action || $game_player.move_route_forcing ||
+        $game_player.in_action > 0 || $game_player.battler == nil
+      # freeze battle controls
+      return
+    end
+    # if defend button pressed
+    if Input.press?(Input::Defend)
+      # player defends
+      $game_player.defending = true
+      # exit method
+      return
+    end
+    # doesn't defend
+    $game_player.defending = false
+    # if attack button is pressed and equipped weapon
+    if Input.trigger?(Input::Attack) && $game_player.battler.weapon_id > 0
+      # attack
+      $game_player.use_attack
+    # if pressed main skill hotkey
+    elsif Input.trigger?(Input::Skill)
+      # if skill not assigned or skill use process not executed and no selection
+      if $game_player.battler.skill == 0 ||
+          !$game_player.use_skill($data_skills[$game_player.battler.skill]) &&
+          $game_temp.select_data == nil
+        # play buzzer, can't use
+        $game_system.se_play($data_system.buzzer_se)
+      end
+    # if pressed main item hotkey
+    elsif Input.trigger?(Input::Item)
+      # if item not assigned or item use process not executed and no selection
+      if $game_player.battler.item == 0 ||
+          !$game_player.use_item($data_items[$game_player.battler.item]) &&
+          $game_temp.select_data == nil
+        # play buzzer, can't use
+        $game_system.se_play($data_system.buzzer_se)
+      end
+    end
+  end
+  
+end
+
+#==============================================================================
+# Bitmap
+#------------------------------------------------------------------------------
+#  This class was enhanced with methods to support the drawing of gradient bars
+#  and outlined text.
+#==============================================================================
+
+class Bitmap
+  
+  #----------------------------------------------------------------------------
+  # gradient_bar_hud
+  #  x      - x-coordinate
+  #  y      - y-coordinate
+  #  w      - width
+  #  color1 - the inner, brighter color
+  #  color2 - the outer, darker color
+  #  rate   - fill rate
+  #  Draws the HUD gradient bar.
+  #----------------------------------------------------------------------------
+  def gradient_bar_hud(x, y, w, color1, color2, rate)
+    # draw extra stuff depending on HUD style
+    case BlizzABS::Config::HUD_TYPE
+    when 0 then fill_rect(x + 1, y, w + 2, 14, Color.new(255, 255, 255, 192))
+    when 1 then fill_rect(x + 1, y, w + 2, 14, Color.new(255, 255, 255, 0))
+    end
+    # iterate through 6 lines
+    (1..6).each {|i|
+        # 1st color
+        color = Color.new(color2.red*i/6, color2.green*i/6, color2.blue*i/6, 255)
+        # fill smaller (only height) becoming rectangle with 1st color (background)
+        fill_rect(x + 2, y + i, w, 14 - i * 2, color)
+        # 2nd color
+        color = Color.new(color1.red*i/6, color1.green*i/6, color1.blue*i/6, 255)
+        # fill smaller (only height) becoming rectangle with 1st color (bars)
+        fill_rect(x + 2, y + i, w * rate, 14 - i * 2, color)}
+  end
+  #----------------------------------------------------------------------------
+  # draw_circle
+  #  x     - x-coordinate
+  #  y     - y-coordinate
+  #  rad   - radius of the circle
+  #  color - fill color
+  #  Draws a circle.
+  #----------------------------------------------------------------------------
+  def draw_circle(x, y, rad, color)
+    # iterate from center to right border
+    (0...rad).each {|r|
+        # calculate y coordinate from x coordinate via trigonometric functions
+        h = (rad * Math.sin(Math.acos(r/rad.to_f))).to_i
+        # draw vertical bar
+        fill_rect(x+rad-r-1, y+rad-h, 1, h*2+1, color)
+        # draw identical vertical bar on the left side
+        fill_rect(x+rad+r, y+rad-h, 1, h*2+1, color)}
+  end
+  #----------------------------------------------------------------------------
+  # draw_text_full
+  # x2    - x-coordinate
+  # y2    - y-coordinate
+  # w2    - width
+  # h2    - height
+  # text2 - text
+  # a2    - align
+  #  Uses an aliased version of draw_text to draw outlined text.
+  #----------------------------------------------------------------------------
+  # if method not aliased already
+  if $tons_version == nil || $tons_version < 1.6
+    # alias original method
+    alias draw_text_shaded_text_later draw_text
+  end
+  def draw_text_full(x2, y2, w2 = 0, h2 = 0, text2 = '', a2 = 0)
+    # if x2 is a rectangle
+    if x2.is_a?(Rect)
+      # set temporary variables
+      x, y, w, h, text, a = x2.x, x2.y, x2.width, x2.height, y2, w2
+    else
+      # set temporary variables
+      x, y, w, h, text, a = x2, y2, w2, h2, text2, a2
+    end
+    # save old font color
+    save_color = self.font.color.clone
+    # set new font color (black)
+    self.font.color = Color.new(0, 0, 0)
+    # draw text with offsets in all directions
+    [x-1, x+1].each {|xx| [y-1, y+1].each {|yy|
+            draw_text_shaded_text_later(xx, yy, w, h, text, a)}}
+    # restore original color
+    self.font.color = save_color
+    # drw text at normal postion
+    draw_text_shaded_text_later(x, y, w, h, text, a)
+  end
+  
+end
+
+#==============================================================================
+# Sprite_Character
+#------------------------------------------------------------------------------
+#  This class was modified to support animation sprites and dropped item icon
+#  display.
+#==============================================================================
+
+class Sprite_Character
+  
+  #----------------------------------------------------------------------------
+  # override initialize
+  #----------------------------------------------------------------------------
+  alias init_blizzabs_later initialize
+  def initialize(viewport, character = nil)
+    # set spriteset add-on names
+    @weapon_sprite = @current_sprite = ''
+    # call original method
+    init_blizzabs_later(viewport, character)
+  end
+  #----------------------------------------------------------------------------
+  # override update
+  #----------------------------------------------------------------------------
+  alias upd_player_blizzabs_later update
+  def update
+    # if not dropped event
+    if !@character.is_a?(Drop_Event)
+      # if animation ID is different than current one
+      if @character.loop_animation_id != @loop_animation_id
+        # store new ID
+        @loop_animation_id = @character.loop_animation_id
+        # show animation loop
+        loop_animation($data_animations[@loop_animation_id])
+      end
+      # save old bitmap
+      b = self.bitmap
+      # call original method
+      upd_player_blizzabs_later
+      # if Map_Battler, another bitmap and weapon_sprite
+      if @character.is_a?(Map_Battler) && b != self.bitmap &&
+          @weapon_sprite != @character.weapon_sprite
+        # store current weapon_sprite
+        @weapon_sprite = @character.weapon_sprite
+        # get display rectangle
+        rect = self.src_rect.clone
+        # cache bitmap again, but this time use a copy
+        self.bitmap = RPG::Cache.character(@character_name, @character_hue).clone
+        # cache weapon bitmap
+        b = RPG::Cache.character(@character_name + @weapon_sprite, 0)
+        # draw weapon onto character copied bitmap
+        self.bitmap.blt(0, 0, b, Rect.new(0, 0, b.width, b.height))
+        # reset source rectangle
+        self.src_rect = rect
+      end
+      # if Map_Actor or Map_Enemy
+      if (@character.is_a?(Map_Actor) || @character.is_a?(Map_Enemy))
+        # add to offset for special attack condition
+        self.oy = self.bitmap.height/4 - @character.atk_offset
+      end
+    else
+      # call superclass method
+      super
+      # if bitmap is empty
+      if self.bitmap == nil
+        # cache new icon bitmap
+        self.bitmap = RPG::Cache.icon(@character.character_name)
+        # set x and y position offset
+        self.ox, self.oy = self.bitmap.width / 2, self.bitmap.height
+      end
+      # set x and y position
+      self.x, self.y = @character.screen_x, @character.screen_y
+      # set z position
+      self.z = @character.screen_z(self.bitmap.height / 4) + 31
+    end
+  end
+  
+end
+  
+#==============================================================================
+# Control_Sprite_Character
+#------------------------------------------------------------------------------
+#  This class is an interception class for Sprite_Character. It substitutes its
+#  instances everywhere and handles them. It provides ABSEAL limitation
+#  control, damage sprite control and enemy fade_in/dying animations.
+#  It disposes sprites out of the ABSEAL range immediately.
+#==============================================================================
+
+class Control_Sprite_Character
+  
+  # setting all accessable variables
+  attr_accessor :fade_in
+  attr_accessor :dying
+  attr_accessor :fade_out
+  attr_accessor :select
+  attr_reader   :character
+  attr_reader   :damage
+  #----------------------------------------------------------------------------
+  # Initialization
+  #  viewport  - a viewport
+  #  character - the character to observe and display
+  #----------------------------------------------------------------------------
+  def initialize(viewport, character = nil)
+    # set all flags
+    @fade_in = @dying = @fade_out = false
+    # set select animation mode
+    @select = 0
+    # store character
+    self.character = character
+    # store viewport
+    @viewport = viewport
+  end
+  #----------------------------------------------------------------------------
+  # character=
+  #  char - the new character to observe and display
+  #  This method gives the character to the sprite as well if it exists.
+  #----------------------------------------------------------------------------
+  def character=(char)
+    # store character
+    @character = char
+    # give character to sprite if sprite exists
+    @sprite.character = char unless @sprite == nil
+  end
+  #----------------------------------------------------------------------------
+  # update
+  #  Processes sprite update if the sprite exists. If not, it tests if the
+  #  character is within ABSEAL range and creates a sprite. Every sprite
+  #  which's character is outside of ABSEAL gets disposed.
+  #----------------------------------------------------------------------------
+  def update
+    # if character within ABSEAL range or special character
+    if (@character.is_a?(Game_Event) || @character.is_a?(Map_Enemy)) &&
+        @character.update? || !@character.is_a?(Map_Enemy) &&
+        @character.is_a?(Map_Battler)|| @character.is_a?(Drop_Event)
+      # if sprite doesn't exists yet
+      if @sprite == nil || @sprite.disposed?
+        # create a sprite
+        @sprite = Sprite_Character_ABSEAL_ed.new(@viewport, @character)
+      else
+        # update the sprite itself
+        @sprite.update
+        # update selection animation
+        update_select
+        # update damage animation if the observed character is a map battler
+        damage_update if @character.is_a?(Map_Battler)
+      end
+    # if sprite exists
+    elsif @sprite != nil
+      # delete sprite
+      @sprite.dispose unless @sprite.disposed?
+      @sprite = nil
+    end
+  end
+  #----------------------------------------------------------------------------
+  # update_select
+  #  Updates the animation when selecting a map battler.
+  #----------------------------------------------------------------------------
+  def update_select
+    # if normal blink should be processed
+    if @select == 2
+      # set blink
+      @sprite.blink_on
+    # if selected right now
+    elsif @select == 1
+      # set color with new alpha
+      @sprite.color.set(0, 255, 0, (8-Graphics.frame_count%16).abs*24)
+    else
+      # set to no color
+      @sprite.color.set(0, 0, 0, 0)
+    end
+  end
+  #----------------------------------------------------------------------------
+  # damage_update
+  #  Creates a damage sprite if the map battler has damage to be shown.
+  #----------------------------------------------------------------------------
+  def damage_update
+    # if player/actor/enemy and battler exists and damage exists
+    if @character.is_a?(Map_Battler) && @character.battler != nil &&
+        @character.battler.damage != nil
+      # create sprite
+      dmg = Sprite.new
+      # create damage text bitmap
+      damage(dmg, @character.battler)
+      # set coordinates
+      dmg.x, dmg.y, dmg.z, dmg.ox, dmg.oy = @sprite.x, @sprite.y, 1, 80, 64
+      # add to buffer array
+      BlizzABS::Cache.damages.push([dmg, $game_map.display_x,
+          $game_map.display_y])
+    end
+  end
+  #----------------------------------------------------------------------------
+  # in_screen
+  #  Tests the sprite if inside the screen if it exists.
+  #----------------------------------------------------------------------------
+  def in_screen?
+    return (@sprite != nil && @sprite.in_screen?)
+  end
+  #----------------------------------------------------------------------------
+  # x
+  #  Returns the sprite's x coordinate.
+  #----------------------------------------------------------------------------
+  def x
+    return (@sprite != nil ? @sprite.x : 0)
+  end
+  #----------------------------------------------------------------------------
+  # y
+  #  Returns the sprite's y coordinate.
+  #----------------------------------------------------------------------------
+  def y
+    return (@sprite != nil ? @sprite.y : 0)
+  end
+  #----------------------------------------------------------------------------
+  # z
+  #  Returns the sprite's z coordinate.
+  #----------------------------------------------------------------------------
+  def z
+    return (@sprite != nil ? @sprite.z : 0)
+  end
+  #----------------------------------------------------------------------------
+  # z
+  #  Returns the sprite's z coordinate.
+  #----------------------------------------------------------------------------
+  def z=(val)
+    @sprite.z = val if @sprite != nil
+  end
+  #----------------------------------------------------------------------------
+  # update_die
+  #  Processes a special 18-frame fading out animation that is used to display
+  #  dying enemies.
+  #----------------------------------------------------------------------------
+  def update_die
+    # if normal blending
+    if @character.blend_type == 0
+      # set blending to positive
+      @character.blend_type = 1
+      # play collapse sound effect
+      $game_system.se_play($data_system.enemy_collapse_se)
+    end
+    # if still fading out
+    if @character.opacity > 0
+      # decrease opacity
+      @character.opacity -= 15
+    else
+      # set blend type to normal
+      @character.blend_type = 0
+      # set terminate flag
+      @character.terminate = true
+    end
+  end
+  #----------------------------------------------------------------------------
+  # update_fade_in
+  #  Processes an 18-frame fading in animation.
+  #----------------------------------------------------------------------------
+  def update_fade_in
+    # if still fading in
+    if @character.opacity < 255
+      # increase opacity
+      @character.opacity += 15
+    # if opacity is 255
+    elsif @character.opacity == 255
+      # set fade_in flag
+      @fade_in = false
+    end
+  end
+  #----------------------------------------------------------------------------
+  # update_fade_out
+  #  Processes a 5-frame fading out animation.
+  #----------------------------------------------------------------------------
+  def update_fade_out
+    # if still fading out
+    if @character.opacity > 0
+      # decrease opacity
+      @character.opacity -= 64
+    else
+      # reset fade_out flag
+      @character.fade_out = false
+    end
+  end
+  #----------------------------------------------------------------------------
+  # damage
+  #  battler - the battler with the damage
+  #  last_hp - the battler's last hp
+  #  last_sp - the battler's last sp
+  #  Creates damage text.
+  #----------------------------------------------------------------------------
+  def damage(dmg, battler)
+    # is damage is a number
+    if battler.damage.is_a?(Numeric)
+      # create a text
+      damage_string = battler.damage.abs.to_s
+    else
+      # convert to text if possible somehow
+      damage_string = battler.damage.to_s
+    end
+    # create bitmap
+    dmg.bitmap = Bitmap.new(160, 48)
+    # set font
+    dmg.bitmap.font.name = 'Arial Black'
+    # set font size
+    dmg.bitmap.font.size = 24
+    # set font color
+    dmg.bitmap.font.color.set(0, 0, 0)
+    # draw text with offsets in all directions
+    dmg.bitmap.draw_text_shaded_text_later(-1, 11, 160, 36, damage_string, 1)
+    dmg.bitmap.draw_text_shaded_text_later(2, 14, 160, 36, damage_string, 1)
+    dmg.bitmap.draw_text_shaded_text_later(2, 11, 160, 36, damage_string, 1)
+    dmg.bitmap.draw_text_shaded_text_later(-1, 14, 160, 36, damage_string, 1)
+    # if damage is number and less than 0
+    if battler.damage.is_a?(Numeric) && battler.damage < 0
+      # set color to cyan blueish
+      dmg.bitmap.font.color.set(0, 192, 255)
+    # if damage is "LvUp"
+    elsif battler.damage == 'LvUp'
+      # set color to violet
+      dmg.bitmap.font.color.set(160, 0, 255)
+    # if damage is Miss or damage is 0
+    elsif battler.damage == 'Miss' || battler.damage == 0
+      # set color to bright grey
+      dmg.bitmap.font.color.set(192, 192, 192)
+    # if damage is critical
+    elsif battler.critical
+      # set color to red
+      dmg.bitmap.font.color.set(255, 0, 0)
+      # set critical flag
+      dmg.critical = true
+    # if HP increased
+    elsif battler.hpdamage > 0
+      # set color to cyan blueish
+      dmg.bitmap.font.color.set(255, 0, 0)
+    # if HP increased
+    elsif battler.hpdamage < 0
+      # set color to cyan blueish
+      dmg.bitmap.font.color.set(0, 192, 255)
+    # if SP increased
+    elsif battler.spdamage < 0
+      # set color to green
+      dmg.bitmap.font.color.set(0, 255, 64)
+    # if SP decreased
+    elsif battler.spdamage > 0
+      # set color to yellow
+      dmg.bitmap.font.color.set(255, 255, 0)
+    else
+      # set font color to white
+      dmg.bitmap.font.color.set(255, 255, 255)
+    end
+    # draw damage string
+    dmg.bitmap.draw_text_shaded_text_later(0, 12, 160, 36, damage_string, 1)
+    # reset damage
+    battler.damage = nil
+  end 
+  #----------------------------------------------------------------------------
+  # dispose
+  #  Deletes and removes sprite from memory.
+  #----------------------------------------------------------------------------
+  def dispose
+    # if sprite exists and not freed yet
+    unless @sprite == nil || @sprite.disposed?
+      # delete sprite
+      @sprite.dispose
+      @sprite = nil
+    end
+  end
+  
+end
+
+#==============================================================================
+# Sprite_Character_ABSEAL_ed
+#------------------------------------------------------------------------------
+#  This class serves as alias for the original Sprite_Character.
+#==============================================================================
+
+class Sprite_Character_ABSEAL_ed < Sprite_Character
+end
+
+#==============================================================================
+# Sprite_Character
+#------------------------------------------------------------------------------
+#  Here is where the class substitution occurs.
+#==============================================================================
+
+Object.send(:remove_const, :Sprite_Character)
+class Sprite_Character < Control_Sprite_Character
+end
+
+#==============================================================================
+# Hud
+#------------------------------------------------------------------------------
+#  This class creates and processes the HUD system and is more efficient than
+#  the Window class. It also handles the hotkey assignment display and minimap.
+#==============================================================================
+
+Object.send(:remove_const, :Hud)
+class Hud < Sprite
+  
+  # setting all accessable variables
+  attr_reader :assignment
+  #----------------------------------------------------------------------------
+  # Initialization
+  #  viewport - the viewport for the sprite
+  #----------------------------------------------------------------------------
+  def initialize(viewport = nil)
+    # call superclass method
+    super
+    # create bitmap
+    self.bitmap = Bitmap.new(156, 112)
+    # set font
+    self.bitmap.font.name = 'Arial'
+    # set font size
+    self.bitmap.font.size = 16
+    # set font to bold
+    self.bitmap.font.bold = true
+    # set x and y coordinate depending on which HUD mode
+    case BlizzABS::Config::HUD_POSITION
+    when 0 then self.x, self.y = 4, 4
+    when 1 then self.x, self.y = 480, 4
+    when 2 then self.x, self.y = 4, 364
+    end
+    # set z coordinate
+    self.z = 1000
+    # create Minimap if available
+    @mini_map = Mini_Map.new if $game_system.minimap > 0
+    # if assignment display available
+    if $game_system.assignment
+      # create hotkey assignment display
+      @assignment = Hotkey_Assignment.new
+      # set z coordinate of hotkey assignment display
+      @assignment.z = self.z + 100
+    end
+    # draw basic HUD
+    draw_basic
+    # refresh actor display
+    test_changes
+    # update
+    update
+  end
+  #----------------------------------------------------------------------------
+  # draw_basic
+  #  Draws the HUD template.
+  #----------------------------------------------------------------------------
+  def draw_basic
+    # fill with grey rectangle
+    self.bitmap.fill_rect(0, 0, 156, 112, Color.new(0, 0, 0, 128))
+    # set font color
+    self.bitmap.font.color = system_color
+    # draw "LV"
+    self.bitmap.draw_text_full(108, 1, 20, 20, 'LV')
+    # draw "Skill:"
+    self.bitmap.draw_text_full(4, 80, 48, 20, 'Skill:')
+    # draw "Item:"
+    self.bitmap.draw_text_full(80, 80, 48, 20, 'Item:')
+    # draw "HP"
+    self.bitmap.draw_text_full(4, 17, 32, 20, $data_system.words.hp)
+    # draw "SP"
+    self.bitmap.draw_text_full(4, 33, 32, 20, $data_system.words.sp)
+    # draw "next"
+    self.bitmap.draw_text_full(4, 49, 80, 20, 'next')
+    # set font color
+    self.bitmap.font.color = Color.new(255, 255, 0)
+    # draw the first letter of the word used for the game currency
+    self.bitmap.draw_text_full(96, 64, 56, 20, $data_system.words.gold[0, 1], 2)
+  end
+  #----------------------------------------------------------------------------
+  # draw_empty
+  #  Draws the HP, SP and EXP display when actor doesn't exist.
+  #----------------------------------------------------------------------------
+  def draw_empty
+    # set colors
+    c = [Color.new(0, 80, 0, 192), Color.new(0, 0, 80, 192), Color.new(80, 80, 80, 192)]
+    # draw emtpy bars
+    (0..2).each {|i| self.bitmap.gradient_bar_hud(36, 20+i*16, 112, c[i], c[i], 0)}
+    # set font color
+    self.bitmap.font.color = disabled_color
+    # draw first "0"s
+    (0..2).each {|i| self.bitmap.draw_text_full(42+i/2*54, 17+i*16, 48, 20, '0', 2)}
+    # draw "/"s
+    (0..1).each {|i| self.bitmap.draw_text_full(90, 17+i*16, 12, 20, '/', 1)}
+    # draw last "0"s
+    (0..1).each {|i| self.bitmap.draw_text_full(102, 17+i*16, 48, 20, '0')}
+    # reset all flag variables
+    @name = @level = @hp = @sp = @exp = @states = @skill =
+        @skills_left = @item = @items_left = @gold = nil
+  end
+  #----------------------------------------------------------------------------
+  # draw_name
+  #  Draws the name display.
+  #----------------------------------------------------------------------------
+  def draw_name
+    # set current variable
+    @name = actor.name
+    # remove old display
+    self.bitmap.fill_rect(4, 1, 104, 20, Color.new(0, 0, 0, 128))
+    # set font color
+    self.bitmap.font.color = Color.new(0, 255, 0)
+    # draw actor's name
+    self.bitmap.draw_text_full(4, 1, 104, 20, @name)
+  end
+  #----------------------------------------------------------------------------
+  # draw_level
+  #  Draws the level display.
+  #----------------------------------------------------------------------------
+  def draw_level
+    # set current variable
+    @level = actor.level
+    # remove old display
+    self.bitmap.fill_rect(128, 1, 24, 20, Color.new(0, 0, 0, 128))
+    # set font color
+    self.bitmap.font.color = normal_color
+    # draw actor's level
+    self.bitmap.draw_text_full(128, 1, 24, 20, @level.to_s, 2)
+  end
+  #----------------------------------------------------------------------------
+  # draw_hp
+  #  Draws the HP display.
+  #----------------------------------------------------------------------------
+  def draw_hp
+    # set current variable
+    @hp = actor.hp
+    # set fill rate
+    rate = (actor.maxhp > 0 ? actor.hp.to_f / actor.maxhp : 0)
+    # if filled more than 60%
+    if rate > 0.6
+      # get color1
+      color1 = Color.new(240 - 450 * (rate-0.6), 240, 150 * (rate-0.6), 192) 
+    # if filled between 20% and 60%
+    elsif rate > 0.2 && rate <= 0.6
+      # get color1
+      color1 = Color.new(240, 600 * (rate-0.2), 0, 192) 
+    # if filled equal or less than 20%
+    elsif rate <= 0.2
+      # get color1
+      color1 = Color.new(240, 0, 0, 192)
+    end
+    # get color2
+    color2 = Color.new(0, 80, 0, 192)
+    # draw gradient bar
+    self.bitmap.gradient_bar_hud(36, 20, 112, color1, color2, rate)
+    # set font color depending on how many HP left
+    self.bitmap.font.color = actor.hp == 0 ? knockout_color :
+        actor.hp <= actor.maxhp / 4 ? crisis_color : normal_color
+    # draw HP
+    self.bitmap.draw_text_full(42, 17, 48, 20, actor.hp.to_s, 2)
+    # set color
+    self.bitmap.font.color = normal_color
+    # draw "/"
+    self.bitmap.draw_text_full(90, 17, 12, 20, '/', 1)
+    # draw max HP
+    self.bitmap.draw_text_full(102, 17, 48, 20, actor.maxhp.to_s)
+  end
+  #----------------------------------------------------------------------------
+  # draw_sp
+  #  Draws the SP display.
+  #----------------------------------------------------------------------------
+  def draw_sp
+    # set current variable
+    @sp = actor.sp
+    # set fill rate
+    rate = (actor.maxsp > 0 ? actor.sp.to_f / actor.maxsp : 0)
+    # if filled more than 40%
+    if rate > 0.4
+      # get color1
+      color1 = Color.new(180 - 200 * (rate-0.4), 60, 240, 192) 
+    # if filled less than 40%
+    elsif rate <= 0.4
+      # get color1
+      color1 = Color.new(60 + 300 * rate, 150 * rate, 80 + 400 * rate, 192) 
+    end
+    # get color2
+    color2 = Color.new(0, 0, 80, 192)
+    # draw gradient bar
+    self.bitmap.gradient_bar_hud(36, 36, 112, color1, color2, rate)
+    # set font color depending on how many SP left
+    self.bitmap.font.color = actor.sp == 0 ? knockout_color :
+        actor.sp <= actor.maxsp / 4 ? crisis_color : normal_color
+    # draw SP
+    self.bitmap.draw_text_full(42, 33, 48, 20, actor.sp.to_s, 2)
+    # set font color
+    self.bitmap.font.color = normal_color
+    # draw "/"
+    self.bitmap.draw_text_full(90, 33, 12, 20, '/', 1)
+    # draw max SP
+    self.bitmap.draw_text_full(102, 33, 48, 20, actor.maxsp.to_s)
+  end
+  #----------------------------------------------------------------------------
+  # draw_exp
+  #  Draws the EXP display.
+  #----------------------------------------------------------------------------
+  def draw_exp
+    # set current variable
+    @exp = actor.exp
+    # set fill rate
+    rate = (actor.next_exp != 0 ? actor.now_exp.to_f / actor.next_exp  : 1)
+    # if filled less than 50%
+    if rate < 0.5
+      # set color1
+      color1 = Color.new(60 * rate, 180, 240, 192) 
+    # if filled more than 50%
+    elsif rate >= 0.5
+      # set color1
+      color1 = Color.new(60 + 360 * (rate-0.5), 180 + 120 * (rate-0.5), 240, 192) 
+    end
+    # set color2
+    color2 = Color.new(80, 80, 80, 192)
+    # draw gradient bar
+    self.bitmap.gradient_bar_hud(36, 52, 112, color1, color2, rate)
+    # set font color
+    self.bitmap.font.color = normal_color
+    # draw EXP required for next level
+    self.bitmap.draw_text_full(60, 49, 84, 20, actor.next_rest_exp_s, 2)
+  end
+  #----------------------------------------------------------------------------
+  # draw_state
+  #  Draws the state display.
+  #----------------------------------------------------------------------------
+  def draw_state
+    # set current variable
+    @states = actor.states.clone
+    # remove old display
+    self.bitmap.fill_rect(4, 68, 80, 16, Color.new(0, 0, 0, 128))
+    # create dummy wondow
+    win = Window_Base.new(0, 0, 33, 33)
+    # create bitmap
+    win.contents = Bitmap.new(1, 1)
+    # create state text
+    state = win.make_battler_state_text(actor, 80, true)
+    # remove window
+    win.dispose
+    # draw state text
+    self.bitmap.draw_text_full(4, 64, 80, 20, state)
+  end
+  #----------------------------------------------------------------------------
+  # draw_gold
+  #  Draws the gold display.
+  #----------------------------------------------------------------------------
+  def draw_gold
+    # set current variable
+    @gold = $game_party.gold
+    # remove old display
+    self.bitmap.fill_rect(84, 68, 56, 16, Color.new(0, 0, 0, 128))
+    # set font color
+    self.bitmap.font.color = normal_color
+    # draw ammount of gold
+    self.bitmap.draw_text_full(84, 64, 56, 20, @gold.to_s, 2)
+  end
+  #----------------------------------------------------------------------------
+  # draw_hskill
+  #  Draws the hot skill display.
+  #----------------------------------------------------------------------------
+  def draw_hskill
+    # set current variable
+    @skill = actor.skill
+    # remove old display
+    self.bitmap.fill_rect(52, 84, 24, 24, Color.new(0, 0, 0, 128))
+    # if skill hot skill exists
+    if actor.skill != 0
+      # load bitmap
+      bitmap = RPG::Cache.icon($data_skills[@skill].icon_name)
+      # draw bitmap
+      self.bitmap.blt(52, 84, bitmap, Rect.new(0, 0, 24, 24), 255)
+    else
+      # removes skills left to use display
+      draw_lskill
+    end
+  end
+  #----------------------------------------------------------------------------
+  # draw_lskill
+  #  Draws the skills left to use display.
+  #----------------------------------------------------------------------------
+  def draw_lskill
+    # remove old display
+    self.bitmap.fill_rect(4, 98, 20, 16, Color.new(0, 0, 0, 128))
+    # if skill hot skill exists
+    if @skill != nil && @skill > 0
+      # if SP cost is zero
+      if $data_skills[@skill].sp_cost == 0
+        # set flag
+        @skills_left = -1
+      else
+        # calculate skills left to use
+        @skills_left = @sp / $data_skills[@skill].sp_cost
+      end
+      # if SP cost is zero
+      if @skills_left == -1
+        # set font color
+        self.bitmap.font.color = Color.new(0, 255, 0)
+        # increase font size
+        self.bitmap.font.size += 4
+        # draw "∞" skill uses left
+        self.bitmap.draw_text_full(4, 94, 20, 20, '∞', 2)
+        # decrease font size
+        self.bitmap.font.size -= 4
+      else
+        # if not enough sp to use
+        if @skills_left == 0
+          # set font color
+          self.bitmap.font.color = Color.new(255, 0, 0)
+        # if enough SP for 5 or less skill uses
+        elsif @skills_left <= 5
+          # set font color
+          self.bitmap.font.color = Color.new(255, 255, 0)
+        else
+          # set font color
+          self.bitmap.font.color = normal_color
+        end
+        # decrease font color
+        self.bitmap.font.size -= 2
+        # draw number how many skills left to use
+        self.bitmap.draw_text_full(4, 94, 20, 20, @skills_left.to_s, 2)
+        # increase font size
+        self.bitmap.font.size += 2
+      end
+    end
+  end
+  #----------------------------------------------------------------------------
+  # draw_hitem
+  #  Draws the hot item display.
+  #----------------------------------------------------------------------------
+  def draw_hitem
+    # set current variable
+    @item = actor.item
+    # remove old display
+    self.bitmap.fill_rect(128, 84, 24, 24, Color.new(0, 0, 0, 128))
+    # if hot item exists
+    if actor.item != 0
+      # load bitmap
+      bitmap = RPG::Cache.icon($data_items[@item].icon_name)
+      # draw bitmap
+      self.bitmap.blt(128, 84, bitmap, Rect.new(0, 0, 24, 24), 255)
+    else
+      # removes items left to use display
+      draw_litem
+    end
+  end
+  #----------------------------------------------------------------------------
+  # draw_litem
+  #  Draws the items left to use display.
+  #----------------------------------------------------------------------------
+  def draw_litem
+    # set current variable
+    @items_left = $game_party.item_number(@item)
+    # remove old display
+    self.bitmap.fill_rect(80, 98, 20, 16, Color.new(0, 0, 0, 128))
+    # if hot item exists
+    if @item != nil && @item > 0
+      # if item exists and cannot be consumed
+      if $data_items[@item] != nil && !$data_items[@item].consumable
+        # set font color
+        self.bitmap.font.color = Color.new(0, 255, 0)
+        # increase font size
+        self.bitmap.font.size += 4
+        # draw "∞" items left
+        self.bitmap.draw_text_full(80, 94, 20, 20, '∞', 2)
+        # decrease font size
+        self.bitmap.font.size -= 4
+      else
+        # if no items left
+        if @items_left == 0
+          # set font color
+          self.bitmap.font.color = Color.new(255, 0, 0)
+        # if equal or less items left
+        elsif @items_left <= 10
+          # set font color
+          self.bitmap.font.color = Color.new(255, 255, 0)
+        else
+          # set font color
+          self.bitmap.font.color = normal_color
+        end
+        # decrease font color
+        self.bitmap.font.size -= 2
+        # draw number how many items left to use
+        self.bitmap.draw_text_full(80, 94, 20, 20, @items_left.to_s, 2)
+        # increase font size
+        self.bitmap.font.size += 2
+      end
+    end
+  end
+  #----------------------------------------------------------------------------
+  # test_changes
+  #  Checks if HUD needs refreshing.
+  #----------------------------------------------------------------------------
+  def test_changes
+    # if actor doesn't exist
+    if actor == nil
+      # unless already drawn empty HUD
+      unless @drawn
+        # draw HUD template
+        draw_basic
+        # draw empty HP, SP and EXP bars
+        draw_empty
+        # empty HUD was drawn
+        @drawn = true
+      end
+    else
+      # draw new name if name has changed
+      draw_name if actor.name != @name
+      # draw new level if level has changed
+      draw_level if actor.level != @level
+      # draw new HP if HP have changed
+      draw_hp if actor.hp != @hp
+      # draw new SP if SP have changed
+      draw_sp if actor.sp != @sp
+      # draw new EXP if EXP have changed
+      draw_exp if actor.exp != @exp
+      # draw new state if state has changed
+      draw_state if actor.states != @states
+      # draw new skill icon if assigned skill has changed
+      draw_hskill if actor.skill != @skill
+      # if skill exists
+      if @skill != 0
+        # if SP cost greater than zero
+        if $data_skills[@skill].sp_cost > 0
+          # draw how many skills left to use if this number has changed
+          draw_lskill if @sp / $data_skills[@skill].sp_cost != @skills_left
+        else
+          # draw how many skills left if it wasn't drawn yet
+          draw_lskill if @skills_left != -1
+        end
+      end
+      # draw new item icon if assigned item has changed
+      draw_hitem if actor.item != @item
+      # draw how many items left to use if this number has changed
+      draw_litem if $game_party.item_number(@item) != @items_left
+      # draw new gold if gold has changed
+      draw_gold if $game_party.gold != @gold
+      # empty HUD wasn't drawn
+      @drawn = false
+    end
+  end
+  #----------------------------------------------------------------------------
+  # actor
+  #  Returns the party leader's battler.
+  #----------------------------------------------------------------------------
+  def actor
+    return $game_player.battler
+  end
+  #----------------------------------------------------------------------------
+  # update
+  #  Processing all HUD information.
+  #----------------------------------------------------------------------------
+  def update
+    # redraw if there are any changes
+    test_changes
+    # iterate through all the HUD sprites
+    [self, @mini_map, @assignment].each {|sprite|
+        # if sprite exists
+        if sprite != nil
+          # if player is on the same position as one of the sprites on the screen
+          if $game_player.screen_x < sprite.vx + sprite.vw + 16 &&
+              $game_player.screen_y < sprite.vy + sprite.vh + 48 &&
+              $game_player.screen_x > sprite.vx &&
+              $game_player.screen_y > sprite.vy &&
+              ((sprite == @mini_map) ? ($game_system.minimap < 2) : true)
+            # decrease opacity quickly if critical opacity not reached
+            sprite.opacity -= 25 if sprite.opacity > 80
+          # if not full opacity
+          elsif sprite.opacity <= 255
+            # increase opacity quickly if critical opacity not reached
+            sprite.opacity += 25
+          end
+        end}
+    # if minimap display off and minimap still exists
+    if $game_system.minimap == 0 && @mini_map != nil
+      # delete minimap
+      @mini_map.dispose
+      @mini_map = nil
+    # if minimap display on and minimap doesn't exist yet
+    elsif $game_system.minimap == 1 && @mini_map == nil
+      # create minimap
+      @mini_map = Mini_Map.new
+    # if minimap display is in fullscreen mode
+    elsif $game_system.minimap == 2
+      # unless fullscreen already initialized and no new map
+      unless @mini_map.viewport.rect.width == 640 &&
+          @mini_map.map_id == $game_map.map_id
+        # set display rectangle
+        @mini_map.viewport.rect.set(0, 0, 640, 480)
+        # update the offset
+        @mini_map.update(true)
+      end
+      # if pressed turning button
+      if Input.press?(Input::Turn) && !$game_system.map_interpreter.running? &&
+          !@move_route_forcing && !$game_temp.message_window_showing
+        # if map width out of screen width
+        if @mini_map.bitmap.width > 640
+          # if holding right
+          if Input.repeat?(Input::RIGHT)
+            # if map not out of screen yet
+            if @mini_map.ox + 640 < @mini_map.bitmap.width
+              # play cursor sound
+              $game_system.se_play($data_system.cursor_se)
+              # move minimap
+              @mini_map.ox += 32
+              # move minimap
+            else
+              # play buzzer sound
+              $game_system.se_play($data_system.buzzer_se)
+            end
+          elsif Input.repeat?(Input::LEFT)
+            if @mini_map.ox > 0
+              # play cursor sound
+              $game_system.se_play($data_system.cursor_se)
+              # move minimap
+              @mini_map.ox -= 32
+            else
+              # play buzzer sound
+              $game_system.se_play($data_system.buzzer_se)
+            end
+          end
+        end
+        if @mini_map.bitmap.height > 480
+          if Input.repeat?(Input::DOWN)
+            if @mini_map.oy + 480 < @mini_map.bitmap.height
+              # play cursor sound
+              $game_system.se_play($data_system.cursor_se)
+              # move minimap
+              @mini_map.oy += 32
+            else
+              # play buzzer sound
+              $game_system.se_play($data_system.buzzer_se)
+            end
+          elsif Input.repeat?(Input::UP)
+            if @mini_map.oy > 0
+              # play cursor sound
+              $game_system.se_play($data_system.cursor_se)
+              # move minimap
+              @mini_map.oy -= 32
+            else
+              # play buzzer sound
+              $game_system.se_play($data_system.buzzer_se)
+            end
+          end
+        end
+      end
+    end
+    # if hotkey display off and hotkey display exists
+    if !$game_system.assignment && @assignment != nil
+      # delete hotkey display
+      @assignment.dispose
+      @assignment = nil
+    # if hotkey display on and hotkey display doesn't exist
+    elsif $game_system.assignment && @assignment == nil
+      # create hotkey display
+      @assignment = Hotkey_Assignment.new
+      # set z position
+      @assignment.z = self.z + 100
+    end
+    # update minimap if minimap is turned on
+    @mini_map.update if $game_system.minimap > 0
+    # iterate through all number keys
+    (0..9).each {|i|
+        # if number key i was triggered
+        if Input.trigger?(Input::NumKeys[i])
+          # if hotkey is valid for this skill
+          if $game_system.controls.skills[i] != 0
+            # if actor learned this skill
+            if actor.skill_learn?($game_system.controls.skills[i])
+              # set this skill as the hot skill
+              actor.skill = $game_system.controls.skills[i]
+            else
+              # play buzzer sound
+              $game_system.se_play($data_system.buzzer_se)
+            end
+          # if hotkey is valid for this item
+          elsif $game_system.controls.items[i] != 0
+            # set this item as hot item
+            actor.item = $game_system.controls.items[i]
+          else
+            # reset hot skill and hot item
+            actor.skill = actor.item = 0
+          end
+        end}
+  end
+  #----------------------------------------------------------------------------
+  # dispose
+  #  Removes HUD from screen and memory.
+  #----------------------------------------------------------------------------
+  def dispose
+    # delete hotkey display if it exists
+    @assignment.dispose unless @assignment == nil
+    # if minimap exists
+    unless @mini_map == nil
+      # delete minimap
+      @mini_map.dispose
+      @mini_map = nil
+    end
+    # call superclass method
+    super
+  end
+  
+end
+
+#==============================================================================
+# Hotkey_Assignment
+#------------------------------------------------------------------------------
+#  This class creates and display currently assigned hotkeys and is more
+#  effiecient than the Window class.
+#==============================================================================
+
+class Hotkey_Assignment < Sprite
+  
+  #----------------------------------------------------------------------------
+  # Initialization
+  #  viewport - the viewport for the sprite
+  #----------------------------------------------------------------------------
+  def initialize(viewport = nil)
+    # call superclass
+    super
+    # create bitmap
+    self.bitmap = Bitmap.new(320, 32)
+    # set font to bold
+    self.bitmap.font.bold = true
+    # decrease font size
+    self.bitmap.font.size -= 8
+    # set font color
+    self.bitmap.font.color = system_color
+    # set x and y position
+    self.x, self.y = 160, 0
+    # item IDs on hotkeys
+    @items = [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1]
+    # skill IDs on hotkeys
+    @skills = [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1]
+    # draw the display
+    draw
+  end
+  #----------------------------------------------------------------------------
+  # draw
+  #  Draws the hotkey display.
+  #----------------------------------------------------------------------------
+  def draw
+    # iterate through all hotkeys
+    (1..10).each {|i|
+        # if any change applied (10 is used for 0)
+        if @items[i%10] != $game_system.controls.items[i%10] ||
+            @skills[i%10] != $game_system.controls.skills[i%10]
+          # remove this icon
+          self.bitmap.fill_rect(32*(i-1), 0, 32, 32, Color.new(0, 0, 0, 0))
+          # fill icon bachground
+          self.bitmap.fill_rect(32*(i-1)+4, 4, 24, 24, Color.new(0, 0, 0, 128))
+          # if hotkey is skill hotkey
+          if $game_system.controls.skills[i%10] != 0
+            # temporary object
+            object = $data_skills[$game_system.controls.skills[i%10]]
+          # if hotkey is item hotkey
+          elsif $game_system.controls.items[i%10] != 0
+            # temporary object
+            object = $data_items[$game_system.controls.items[i%10]]
+          end
+          # if object exists
+          if object != nil
+            # load bitmap
+            bitmap = RPG::Cache.icon(object.icon_name)
+            # draw bitmap
+            self.bitmap.blt(32*(i-1)+4, 4, bitmap, Rect.new(0, 0, 24, 24), 255)
+          end
+          # draw hotkey number
+          self.bitmap.draw_text_full(32*(i-1), 10, 30, 32, (i%10).to_s, 2)
+        end}
+    # set new items
+    @items = $game_system.controls.items.clone
+    # set new skills
+    @skills = $game_system.controls.skills.clone
+  end
+  
+end
+
+#==============================================================================
+# Mini_Map
+#------------------------------------------------------------------------------
+#  This class creates and handels the minimap/fullscreen map display and is
+#  more efficient than the Window class.
+#==============================================================================
+
+Object.send(:remove_const, :Mini_Map)
+class Mini_Map < Sprite
+  
+  # setting all accessable variables
+  attr_reader :map_id
+  #----------------------------------------------------------------------------
+  # Initialization
+  #----------------------------------------------------------------------------
+  def initialize
+    # call superclass method
+    super(Viewport.new(476, 356, 160, 120))
+    # get autotile image from Blizz-ABS Cache
+    @autotile = BlizzABS::Cache.image(3)
+    # creates the passable floor map
+    create_passable_floor
+    # set x and y position
+    self.x = self.y = 0
+    # set z position
+    viewport.z = 5000
+    # store events
+    @events, @names = check_events
+    # create sprites for events
+    create_sevents
+    # set all sprites visible
+    self.visible = true
+  end
+  #----------------------------------------------------------------------------
+  # create_passable_floor
+  #  Creates the passable floor map on the bitmap.
+  #----------------------------------------------------------------------------
+  def create_passable_floor
+    # delete bitmap if bitmap exists
+    self.bitmap.dispose if self.bitmap != nil
+    # store new map ID
+    @map_id = $game_map.map_id
+    # temporary width and height
+    w, h = $game_map.width, $game_map.height
+    # create bitmap
+    self.bitmap = Bitmap.new(8*w, 8*h)
+    # fill rectangle
+    self.bitmap.fill_rect(0, 0, 8*w, 8*h, Color.new(0, 0, 0, 128))
+    # get passability data
+    v_map = $game_map.virtual_passability
+    # iterate through all tiles
+    (0...v_map.xsize).each {|x| (0...v_map.ysize).each {|y|
+        # depending on passable direction, draw the path using the autotile
+        case v_map[x, y]
+        when 0x01 #    D
+          self.bitmap.blt(x*8, y*8+4, @autotile, Rect.new(0, 0, 8, 4), 128)
+        when 0x02 #   L
+          self.bitmap.blt(x*8, y*8, @autotile, Rect.new(4, 0, 4, 8), 128)
+        when 0x03 #   LD
+          self.bitmap.blt(x*8, y*8, @autotile, Rect.new(16, 8, 8, 8), 128)
+        when 0x04 #  R
+          self.bitmap.blt(x*8+4, y*8, @autotile, Rect.new(0, 0, 4, 8), 128)
+        when 0x05 #  R D
+          self.bitmap.blt(x*8, y*8, @autotile, Rect.new(0, 8, 8, 8), 128)
+        when 0x06 #  RL
+          self.bitmap.blt(x*8, y*8, @autotile, Rect.new(8, 8, 8, 4), 128)
+          self.bitmap.blt(x*8, y*8+4, @autotile, Rect.new(8, 28, 8, 4), 128)
+        when 0x07 #  RLD
+          self.bitmap.blt(x*8, y*8, @autotile, Rect.new(8, 8, 8, 8), 128)
+        when 0x08 # U
+          self.bitmap.blt(x*8, y*8, @autotile, Rect.new(0, 4, 8, 4), 128)
+        when 0x09 # U  D
+          self.bitmap.blt(x*8, y*8, @autotile, Rect.new(0, 16, 4, 8), 128)
+          self.bitmap.blt(x*8+4, y*8, @autotile, Rect.new(20, 16, 4, 8), 128)
+        when 0x0A # U L
+          self.bitmap.blt(x*8, y*8, @autotile, Rect.new(16, 24, 8, 8), 128)
+        when 0x0B # U LD
+          self.bitmap.blt(x*8, y*8, @autotile, Rect.new(16, 16, 8, 8), 128)
+        when 0x0C # UR
+          self.bitmap.blt(x*8, y*8, @autotile, Rect.new(0, 24, 8, 8), 128)
+        when 0x0D # UR D
+          self.bitmap.blt(x*8, y*8, @autotile, Rect.new(0, 16, 8, 8), 128)
+        when 0x0E # URL
+          self.bitmap.blt(x*8, y*8, @autotile, Rect.new(8, 24, 8, 8), 128)
+        when 0x0F # URLD
+          self.bitmap.blt(x*8, y*8, @autotile, Rect.new(8, 16, 8, 8), 128)
+        end}}
+  end
+  #----------------------------------------------------------------------------
+  # update
+  #  Updates the minimap and sprite movement on the minimap.
+  #----------------------------------------------------------------------------
+  def update(override = false)
+    # creates the passable floor map if new map entered
+    create_passable_floor if @map_id != $game_map.map_id
+    # get events
+    ev = check_events
+    # if events or names changed
+    if [@events, @names] != ev
+      # store new events and names
+      @events, @names = ev
+      # delete sprites of events
+      destroy_sevents
+      # create sprites of events
+      create_sevents
+    end
+    # if minimap not in fullscreen mode
+    if $game_system.minimap < 2
+      # set offset display
+      self.ox, self.oy = $game_map.display_x / 16, $game_map.display_y / 16
+    # if not pressed the turn button to scroll map around
+    elsif !Input.press?(Input::Turn) || override
+      # if map can be scrolled horizontally
+      if self.bitmap.width > 640
+        # get left border
+        border = [0, -320 + $game_player.real_x/16].max
+        # get right border and set offset
+        self.ox = [border, -640 + self.bitmap.width].min
+      else
+        # center map display horizontally
+        self.ox = -320 + self.bitmap.width/2
+      end
+      # if map can be scrolled vertically
+      if self.bitmap.height > 480
+        # get upper border
+        border = [0, -240 + $game_player.real_y/16].max
+        # get lower border and set offset
+        self.oy = [border, -480 + self.bitmap.height].min
+      else
+        # center map display vertically
+        self.oy = -240 + self.bitmap.height/2
+      end
+    end
+    # iterate through all sprites
+    @sevents.each_index {|i|
+        # if minimap is not in fullscreen mode and within the range of ABSEAL
+        if $game_system.minimap == 2 || @events[i].update?
+          # set new coordinates
+          @sevents[i].x = self.x + @events[i].real_x / 16
+          @sevents[i].y = self.y + @events[i].real_y / 16
+          # set offsets
+          @sevents[i].ox, @sevents[i].oy = self.ox, self.oy
+          # if event has a spriteset
+          if @names[i] != '' &&
+              (@events[i].is_a?(Map_Actor) ||
+              (!@events[i].name.clone.gsub!('\box') {''}))
+            # depending on the facing direction of the event
+            @sevents[i].src_rect.set((@events[i].direction-2)*7, 0, 14, 14)
+            # change offsets
+            @sevents[i].ox += 3
+            @sevents[i].oy += 3
+          end
+        end}
+  end
+  #----------------------------------------------------------------------------
+  # check_events
+  #  Checks all events.
+  #----------------------------------------------------------------------------
+  def check_events
+    # events and names arrays
+    events, names = [], []
+    # iterate through all actors
+    BlizzABS.player.actors.each {|actor|
+        # if not dead
+        unless actor.dead?
+          # add event and spriteset name
+          events.push(actor)
+          names.push(actor.character_name)
+        end}
+    # iterate through all events
+    $game_map.events.each_value {|event|
+        # skip if defined to skip
+        next if event.name.clone.gsub!('\map') {''}
+        # if should be displayed
+        if defined?(event.dead?) && !event.dead? ||
+            event.is_a?(Game_Event) && !event.erased && (event.teleport ||
+            event.is_a?(Drop_Event) || event.name.clone.gsub!('\spc') {''})
+          # add enemy and spriteset name
+          events.push(event)
+          names.push(event.character_name)
+        end}
+    # return result
+    return events, names
+  end
+  #----------------------------------------------------------------------------
+  # create_sevents
+  #  Creates for each event on the map a sprite on the minimap.
+  #----------------------------------------------------------------------------
+  def create_sevents
+    # set empty array
+    @sevents = []
+    # ierate through all events on the minimap
+    @events.each_index {|i|
+        # create sprite
+        sprite = Sprite.new(viewport)
+        # temporary variable
+        rect = Rect.new(0, 0, 56, 14)
+        # if event is player
+        if @events[i].class == Game_Player 
+          # if player has spriteset
+          if @names[i] != ''
+            # create bitmap
+            sprite.bitmap = Bitmap.new(56, 14)
+            # get green arrow
+            sprite.bitmap.blt(0, 0, BlizzABS::Cache.image(0), rect, 128)
+          end
+          # highest sprite
+          sprite.z = 100
+        # if event is actor
+        elsif @events[i].class == Map_Actor
+          # if actor has spriteset
+          if @names[i] != ''
+            # create bitmap
+            sprite.bitmap = Bitmap.new(56, 14)
+            # get green arrow
+            sprite.bitmap.blt(0, 0, BlizzABS::Cache.image(0), rect, 128)
+            # change arrow to blue
+            sprite.bitmap.hue_change(120)
+          end
+          # 2nd highest sprite
+          sprite.z = 80
+        # if event is enemy
+        elsif @events[i].class == Map_Enemy
+          # if event without spriteset or "boxdraw" enforcing
+          if @names[i] == '' || @events[i].name.clone.gsub!('\box') {''}
+            # create bitmap
+            sprite.bitmap = Bitmap.new(8, 8)
+            # fill rectangle with black color
+            sprite.bitmap.fill_rect(0, 0, 8, 8, Color.new(0, 0, 0, 128))
+            # fill rectangle with red color
+            sprite.bitmap.fill_rect(1, 1, 6, 6, Color.new(255, 0, 0, 128))
+          else
+            # create bitmap
+            sprite.bitmap = Bitmap.new(56, 14)
+            # get green arrow
+            sprite.bitmap.blt(0, 0, BlizzABS::Cache.image(0), rect, 128)
+            # change arrow to red
+            sprite.bitmap.hue_change(-120)
+          end
+          # 5th highest sprite
+          sprite.z = 50
+        # if event is dropped item
+        elsif @events[i].class == Drop_Event
+          # create bitmap
+          sprite.bitmap = Bitmap.new(8, 8)
+          # fill rectangle with black color
+          sprite.bitmap.fill_rect(0, 0, 8, 8, Color.new(0, 0, 0, 128))
+          # fill rectangle with cyan color
+          sprite.bitmap.fill_rect(1, 1, 6, 6, Color.new(0, 255, 255, 128))
+          # 3rd highest sprite
+          sprite.z = 70
+        # if event is normal event
+        elsif @events[i].class == Game_Event
+          # if event has spc command
+          if @events[i].name.clone.gsub!('\spc') {''}
+            # temporary variables
+            color, hue = Color.new(255, 255, 0, 128), -60
+            # 4th highest sprite
+            sprite.z = 60
+          # if event code exists and te
+          elsif @events[i].teleport
+            # temporary variables
+            color, hue = Color.new(128, 0, 255, 128), 150
+            # 6th highest sprite
+            sprite.z = 40
+          end
+          # if event without spriteset or "boxdraw" enforcing
+          if @names[i] == '' || @events[i].name.clone.gsub!('\box') {''}
+            # create bitmap
+            sprite.bitmap = Bitmap.new(8, 8)
+            # fill rectangle with black color
+            sprite.bitmap.fill_rect(0, 0, 8, 8, Color.new(0, 0, 0, 128))
+            # fill rectangle with yellow color
+            sprite.bitmap.fill_rect(1, 1, 6, 6, color)
+          else
+            # create bitmap
+            sprite.bitmap = Bitmap.new(56, 14)
+            # get green arrow
+            sprite.bitmap.blt(0, 0, BlizzABS::Cache.image(0), rect, 128)
+            # change arrow to yellow
+            sprite.bitmap.hue_change(hue)
+          end
+        # if event without spriteset or "boxdraw" enforcing
+        elsif @names[i] == '' || @events[i].name.clone.gsub!('\box') {''}
+          # create bitmap
+          sprite.bitmap = Bitmap.new(8, 8)
+          # fill rectangle with black color
+          sprite.bitmap.fill_rect(0, 0, 8, 8, Color.new(0, 0, 0, 128))
+          # fill rectangle with default white color
+          sprite.bitmap.fill_rect(1, 1, 6, 6, Color.new(255, 255, 255, 128))
+        else
+          # create bitmap
+          sprite.bitmap = Bitmap.new(56, 14)
+          # get white arrow
+          sprite.bitmap.blt(0, 0, BlizzABS::Cache.image(1), Rect.new(0, 0, 56, 14), 128)
+        end
+        # get sprite out of map screen so ABSEAL can work correctly
+        sprite.ox = sprite.oy = 64
+        # if event has a spriteset
+        if sprite.bitmap.width != 8
+          # depending on the facing direction of the event
+          sprite.src_rect.set((@events[i].direction-2)*7, 0, 14, 14)
+        end
+        # add sprite
+        @sevents.push(sprite)}
+  end
+  #----------------------------------------------------------------------------
+  # destroy_sevents
+  #  Deletes all sprites.
+  #----------------------------------------------------------------------------
+  def destroy_sevents
+    @sevents.each {|i| i.dispose}
+    @sevents = nil
+  end
+  #----------------------------------------------------------------------------
+  # visible=
+  #  expr - true of false
+  #  Overriding the original method so the events sprites also get affected.
+  #----------------------------------------------------------------------------
+  def visible=(expr)
+    # call superclass method
+    super
+    # set each sprite's visiblity
+    @sevents.each {|sprite| sprite.visible = expr}
+  end
+  #----------------------------------------------------------------------------
+  # dispose
+  #  Removes Minimap from screen and memory.
+  #----------------------------------------------------------------------------
+  def dispose
+    # delete sprites
+    destroy_sevents
+    # call superclass method
+    super
+  end
+  
+end
+
+#==============================================================================
+# Spriteset_Map
+#------------------------------------------------------------------------------
+#  This class was enhanced to create and handle caterpillar characters and to
+#  take over and handle damage sprites upon their host's termination.
+#==============================================================================
+
+class Spriteset_Map
+  
+  # setting all accessable variables
+  attr_accessor :viewport1
+  attr_accessor :character_sprites
+  #----------------------------------------------------------------------------
+  # override Initialization
+  #----------------------------------------------------------------------------
+  alias init_blizzabs_later initialize
+  def initialize
+    # call original method
+    init_blizzabs_later
+    # iterate through all active projectiles and all actors except player
+    (BlizzABS::Cache.projectiles + BlizzABS.player.actors -
+        [BlizzABS.player.player]).each {|character|
+        # create sprite
+        sprite = Sprite_Character.new(@viewport1, character)
+        # update sprite
+        sprite.update
+        # add sprite to character_sprites
+        @character_sprites.push(sprite)}
+    # set damage update flag
+    @dmg_update = ($scene.is_a?(Scene_Map))
+  end
+  #----------------------------------------------------------------------------
+  # override update
+  #----------------------------------------------------------------------------
+  alias upd_blizzabs_later update
+  def update
+    # iterate through all damage sprites
+    BlizzABS::Cache.damages.each_index {|i|
+        # temporary variable
+        dmg = BlizzABS::Cache.damages[i]
+        # if damage sprite opacity is 0
+        if dmg[0].opacity == 0
+          # delete damage sprite
+          dmg[0].dispose
+          # remove deleted damage sprite
+          BlizzABS::Cache.damages[i] = nil
+        # if damage sprites allowed to be updated
+        elsif @dmg_update
+          # calculate offset if map display position has changed
+          dmg[0].x += (dmg[1] - $game_map.display_x) / 4
+          dmg[0].y += (dmg[2] - $game_map.display_y) / 4
+          # store new map display position
+          BlizzABS::Cache.damages[i][1] = $game_map.display_x
+          BlizzABS::Cache.damages[i][2] = $game_map.display_y
+          # increased y position offset
+          dmg[0].oy += 2
+          # decrease opacity if over critical height
+          dmg[0].opacity -= 15 if dmg[0].oy > 88
+          # change hue if critical and each second frame
+          if dmg[0].critical && Graphics.frame_count % 2 == 0
+            # make hue change animation
+            dmg[0].bitmap.hue_change(60)
+          end
+        end}
+    # iterate through all character sprites
+    @character_sprites.clone.each {|sprite|
+        # if character which the sprite observes is a dead enemy
+        if sprite.character.is_a?(Map_Enemy) && sprite.character.dead?
+          # set dying flag
+          sprite.dying = true
+        # if character which the sprite observes is a skill projectile
+        elsif sprite.character.is_a?(Projectile) && sprite.character.fade_out
+          # set fade out flag
+          sprite.fade_out = true
+        end
+        # if dying
+        if sprite.dying
+          # update die
+          sprite.update_die
+        # if fading in
+        elsif sprite.fade_in
+          # update fade in
+          sprite.update_fade_in
+        # if fading out
+        elsif sprite.fade_out
+          # update fadeinance
+          sprite.update_fade_out
+        end
+        # if sprite died and ready for deletion or expired character
+        if sprite.character.terminate
+          # if character is projectile and projectile expired
+          if sprite.character.is_a?(Projectile)
+            # remove projectile from active projectiles
+            BlizzABS::Cache.projectiles.delete(sprite.character)
+          # if character which the sprite observes is enemy and not a boss
+          elsif sprite.character.is_a?(Map_Enemy) && !sprite.character.boss
+            # push into killed array and set respawn time
+            $game_system.killed.push([sprite.character, BlizzABS::Config::RESPAWN_TIME*20])
+          end
+          # dispose sprite
+          sprite.dispose
+          # remove sprite from spriteset
+          @character_sprites.delete(sprite)
+        end}
+    # remove all nil values from damages
+    BlizzABS::Cache.damages.compact!
+    # call original method
+    upd_blizzabs_later
+  end
+  
+end
+
+#==============================================================================
+# Interpreter
+#------------------------------------------------------------------------------
+#  This class was enhanced to support pixel movement for the force move command
+#  in case the player is affected. It was also enhanced to support Blizz-ABS
+#  battle handling and ABSEAL limitation.
+#==============================================================================
+
+class Interpreter
+  
+  #----------------------------------------------------------------------------
+  # override command_end
+  #----------------------------------------------------------------------------
+  alias cmd_end_blizzabs_later command_end
+  def command_end
+    # delete event code
+    @list = nil
+    # call original method if event exists and return result or return true
+    return ($game_map.events[@event_id] != nil ? cmd_end_blizzabs_later : true)
+  end
+  #----------------------------------------------------------------------------
+  # override command_201
+  #----------------------------------------------------------------------------
+  alias cmd_201_blizzabs_later command_201
+  def command_201
+    # set in_battle flag if on the map
+    $game_temp.in_battle = false
+    # call original method
+    return cmd_201_blizzabs_later
+  end
+  #----------------------------------------------------------------------------
+  # override command_209
+  #----------------------------------------------------------------------------
+  alias cmd_209_blizzabs_later command_209
+  def command_209
+    # call original method
+    result = cmd_209_blizzabs_later
+    # if REPAIR_MOVEMENT is turned on and character is player
+    if $game_system.move_fix && get_character(@parameters[0]) == $game_player
+      # create command list duplicate
+      old_list = @parameters[1].list.clone
+      # remove original command list
+      @parameters[1].list = []
+      # iterate through all commands
+      old_list.each {|command|
+          # add command to command list
+          @parameters[1].list.push(command)
+          # if one of the movement commands
+          if command.code >= 1 && command.code <= 13
+            # add pixel movement rate - 1 times to correct movement
+            (BlizzABS.pixel-1).times{@parameters[1].list.push(command)}
+          end}
+    end
+    # return result
+    return result
+  end
+  
+end
+
+#==============================================================================
+# Scene_Title
+#------------------------------------------------------------------------------
+#  This class was enhanced to size down the animations upon loading.
+#==============================================================================
+
+class Scene_Title
+  
+  #----------------------------------------------------------------------------
+  # override main
+  #----------------------------------------------------------------------------
+  alias main_blizzabs_later main
+  def main
+    # call original method
+    main_blizzabs_later
+    # if SMAlL_ANIMATIONS is turned on and scene exists
+    if BlizzABS::Config::SMALL_ANIMATIONS && $scene != nil
+      # size down animations
+      BlizzABS.animations_size_down
+    end
+  end
+  
+end
+
+#==============================================================================
+# Scene_Map
+#------------------------------------------------------------------------------
+#  This class was enhanced to support HUD control and creation system and
+#  Blizz-ABS battle handling and level up text display.
+#==============================================================================
+
+class Scene_Map
+  
+  # setting all accessable variables
+  attr_accessor :spriteset
+  #----------------------------------------------------------------------------
+  # override main
+  #----------------------------------------------------------------------------
+  alias main_blizzabs_later main
+  def main
+    # create HUD if HUD_ENABLED is turned on and HUD active
+    @hud = Hud.new if BlizzABS::Config::HUD_ENABLED && $game_system.hud
+    # tests and sets the in_battle flag
+    test_in_battle
+    # call original method
+    main_blizzabs_later
+    # set in_battle flag
+    $game_temp.in_battle = false
+    # delete HUD if HUD exists
+    @hud.dispose if @hud != nil
+  end
+  #----------------------------------------------------------------------------
+  # test_in_battle
+  #  Sets the in_battle flag to control game flow.
+  #----------------------------------------------------------------------------
+  def test_in_battle
+    # if master override is being used
+    if $game_system.blizzabs != nil
+      # enforce user's setting
+      $game_temp.in_battle = $game_system.blizzabs
+    else
+      # if event code is being executed or message window is being displayed
+      if $game_system.map_interpreter.running? || $game_temp.message_window_showing
+        # disable Blizz-ABS controls
+        $game_temp.in_battle = false
+      else
+        # depending on chosen DISABLE_ABS_MODE in battle or not in battle
+        $game_temp.in_battle = case BlizzABS::Config::DISABLE_ABS_MODE
+        when 0 then true
+        when 1 then ($game_system.enemy_number > 0)
+        when 2 then ($game_map.enemies.size > 0)
+        when 3 then ($game_system.enemies_in_range > 0)
+        end
+      end
+    end
+  end
+  #----------------------------------------------------------------------------
+  # override update
+  #----------------------------------------------------------------------------
+  alias upd_blizzabs_later update
+  def update
+    # if temporary character selection
+    if $game_temp.select_data != nil
+      # call selection update
+      update_selection
+      # abort scene
+      return
+    end
+    # tests and sets the in_battle flag
+    test_in_battle
+    # needed to prevent a glitch
+    $game_temp.battle_turn = 1
+    # if minimap button is pressed
+    if Input.trigger?(Input::Minimap)
+      # trigger minimap active
+      $game_system.minimap = ($game_system.minimap + 1) % 3
+    end
+    # force minimap off if MINIMAP is turned off
+    $game_system.minimap = 0 unless BlizzABS::Config::MINIMAP
+    # if hotkey display button is pressed
+    if Input.trigger?(Input::Hotkey)
+      # trigger hotkey display active
+      $game_system.assignment = (!$game_system.assignment)
+    end
+    # trigger HUD active if HUD button is pressed
+    $game_system.hud = (!$game_system.hud) if Input.trigger?(Input::Hud)
+    # if HUD not active and HUD exists
+    if !$game_system.hud && @hud != nil
+      # delete HUD
+      @hud.dispose
+      @hud = nil
+    # if HUD_ENABLED is turned on and HUD active and HUD doesn't exist
+    elsif BlizzABS::Config::HUD_ENABLED && $game_system.hud && @hud == nil
+      # create HUD
+      @hud = Hud.new
+    end
+    # update HUD if HUD exists
+    @hud.update if @hud != nil
+    # game over if all actors are dead
+    $game_temp.gameover = $game_party.actors.all? {|actor| actor.dead?}
+    # if game over
+    if $game_temp.gameover
+      # play collapse sound effect
+      $game_system.se_play($data_system.actor_collapse_se)
+      # call original method
+      upd_blizzabs_later
+      # reset projectiles and damage sprites
+      BlizzABS::Cache.clean
+      # exit method
+      return
+    end
+    # iterate through all actors
+    $game_party.actors.each {|actor|
+        # if leveled up
+        if actor.level_up?
+          # recover if HEAL_ON_LVLUP is turned on
+          actor.recover_all if BlizzABS::Config::HEAL_ON_LVLUP
+          # set damage text to "LvUp" if DISPLAY_LVLUP is turned on
+          actor.damage = 'LvUp' if BlizzABS::Config::DISPLAY_LVLUP
+          # if ANIMATIONS is turned on
+          if BlizzABS::Config::ANIMATIONS
+            # if first actor
+            if actor.index == 0
+              # set animation ID if LVLUP_ANIMATION_ID is turned on
+              $game_player.animation_id = BlizzABS::Config::LVLUP_ANIMATION_ID
+            # if CATERPILLAR is turned on
+            elsif BlizzABS::Config::CATERPILLAR
+              # set animation ID
+              BlizzABS.player.actors[actor.index].animation_id =
+                  BlizzABS::Config::LVLUP_ANIMATION_ID
+            end
+          end
+        end}
+    # call original method
+    upd_blizzabs_later
+  end
+  #----------------------------------------------------------------------------
+  # update_selection
+  #  This method overrides everything else in the map scene to allow the player
+  #  to select an opponent to be attacked.
+  #----------------------------------------------------------------------------
+  def update_selection
+    # if not initialized select interruption
+    if @index == nil
+      # increase z coordinate of all targets
+      $game_temp.select_data[2].each {|sprite| sprite.z += 1000000}
+      # initialized select interruption
+      @index = 0
+      # freeze screen display
+      Graphics.freeze
+      # temporary variable
+      tone = $game_screen.tone
+      # make screen slightly darker
+      $scene.spriteset.viewport1.tone = Tone.new(tone.red-32, tone.green-32,
+          tone.blue-32, tone.gray)
+      # temporary variable
+      user = $game_temp.select_data[0]
+      # play decision sound
+      $game_system.se_play($data_system.decision_se)
+      # create help window
+      @win = Window_Help.new
+      # make partially transparent and set z coordinate
+      @win.z, @win.opacity = 10000, 192
+      # gets range display radius
+      r = [BlizzABS::Skills.range($game_temp.select_data[1].id)*32, 32].max
+      # create 2 sprite
+      @range1 = Sprite.new(@spriteset.viewport1)
+      @range2 = Sprite.new(@spriteset.viewport1)
+      # set z coordinate
+      @range1.z = @range2.z = 950000
+      # if targeting all targets and fullscreen skill
+      if BlizzABS::Skills.type($game_temp.select_data[1].id)[0] == 3 &&
+          [2, 4, 6].include?($game_temp.select_data[1].scope)
+        # create 2 bitmaps for the sprites
+        @range1.bitmap = Bitmap.new(640, 480)
+        @range2.bitmap = Bitmap.new(638, 478)
+        # draw big yellow rectangle
+        @range1.bitmap.fill_rect(0, 0, 640, 480, Color.new(255, 255, 0, 160))
+        # remove inner rectangle area
+        @range1.bitmap.fill_rect(1, 1, 638, 478, Color.new(0, 0, 0, 0))
+        # set x and y coordinate
+        @range2.x = @range2.y = 1
+        # if selecting an enemy
+        if $game_temp.select_data[1].scope < 3
+          # draw slightly smaller red circle
+          @range2.bitmap.fill_rect(0, 0, 638, 478, Color.new(255, 0, 0, 96))
+        else
+          # draw slightly smaller blue circle
+          @range2.bitmap.fill_rect(0, 0, 638, 478, Color.new(0, 128, 255, 96))
+        end
+      else
+        # create 2 bitmaps for the sprites
+        @range1.bitmap = Bitmap.new(r*2+32, r*2+32)
+        @range2.bitmap = Bitmap.new(r*2+32, r*2+32)
+        # set sprite position
+        @range1.x, @range1.y = user.screen_x, user.screen_y
+        @range2.x, @range2.y = user.screen_x, user.screen_y
+        # set sprite position offset
+        @range1.ox, @range1.oy = r+16, r+32
+        @range2.ox, @range2.oy = r+16, r+32
+        # draw big yellow circle
+        @range1.bitmap.draw_circle(0, 0, r.to_i+16, Color.new(255, 255, 0, 160))
+        # remove area that is smaller by radius of 1
+        @range1.bitmap.draw_circle(1, 1, r.to_i+15, Color.new(0, 0, 0, 0))
+        # if selecting an enemy
+        if $game_temp.select_data[1].scope < 3
+          # draw slightly smaller red circle
+          @range2.bitmap.draw_circle(1, 1, r.to_i+15, Color.new(255, 0, 0, 96))
+        else
+          # draw slightly smaller blue circle
+          @range2.bitmap.draw_circle(1, 1, r.to_i+15, Color.new(0, 128, 255, 96))
+        end
+      end
+      # if targeting all targets
+      if [2, 4, 6].include?($game_temp.select_data[1].scope)
+        # all targets are selected
+        $game_temp.select_data[2].each {|sprite| sprite.select = 1}
+        # display "All" in help window
+        @win.set_text('All', 1)
+      else
+        # first target is selected
+        $game_temp.select_data[2][0].select = 1
+        # display target's name in help window
+        @win.set_text($game_temp.select_data[2][0].character.battler.name, 1)
+      end
+      # set current yellow blinking of sprite
+      @range2.color.set(255, 255, 0, (16-Graphics.frame_count%32).abs * 8)
+      # make screen transition
+      Graphics.transition
+    end
+    # animate yellow blinking of sprite
+    @range2.color.set(255, 255, 0, (16-Graphics.frame_count%32).abs * 8)
+    # update select animation for all selectable sprites
+    $game_temp.select_data[2].each {|sprite| sprite.update_select}
+    # if not targeting all target
+    unless [2, 4, 6].include?($game_temp.select_data[1].scope)
+      # display target's name in help window
+      @win.set_text($game_temp.select_data[2][@index].character.battler.name, 1)
+    end
+    # if not targeting all enemies
+    if [1, 3, 5].include?($game_temp.select_data[1].scope)
+      # if pressed left or up
+      if Input.repeat?(Input::LEFT) || Input.repeat?(Input::UP)
+        # play cursor sound
+        $game_system.se_play($data_system.cursor_se)
+        # deselect currently selected sprite
+        $game_temp.select_data[2][@index].select = 0
+        # change selection index
+        @index = (@index+1) % $game_temp.select_data[2].size
+        # select currently selected sprite
+        $game_temp.select_data[2][@index].select = 1
+      # if pressed right or down
+      elsif Input.repeat?(Input::RIGHT) || Input.repeat?(Input::DOWN)
+        # play cursor sound
+        $game_system.se_play($data_system.cursor_se)
+        # deselect currently selected sprite
+        $game_temp.select_data[2][@index].select = 0
+        # change selection index
+        @index = (@index+$game_temp.select_data[2].size-1) %
+            $game_temp.select_data[2].size
+        # select currently selected sprite
+        $game_temp.select_data[2][@index].select = 1
+      end
+    end
+    if Input.repeat?(Input::B)
+      # play cancel sound
+      $game_system.se_play($data_system.cancel_se)
+      # cancelled
+      targets = false
+    elsif Input.repeat?(Input::C)
+      # play decision sound
+      $game_system.se_play($data_system.decision_se)
+      # if targeting all enemies
+      if [2, 4, 6].include?($game_temp.select_data[1].scope)
+        # initialize array
+        targets = []
+        # add all targets
+        $game_temp.select_data[2].each {|sprite| targets.push(sprite.character)}
+      else
+        # decided target
+        targets = [$game_temp.select_data[2][@index].character]
+      end
+    end
+    # if target exists or cancelled
+    if targets != nil
+      # freeze screen display
+      Graphics.freeze
+      # iterate through all target sprites
+      $game_temp.select_data[2].each {|sprite|
+          # deselect sprite
+          sprite.select = 0
+          # remove selection animation completely
+          sprite.update_select
+          # reset z coordinate
+          sprite.z -= 1000000}
+      # reset screen tint
+      $scene.spriteset.viewport1.tone = $game_screen.tone
+      # temporary variables
+      ch = $game_temp.select_data[0]
+      object = $game_temp.select_data[1]
+      # if not cancelled
+      if targets
+        # determine reference variable skill and skill/item type
+        case object
+        when RPG::Skill then skill, type = true, BlizzABS::Skills.type(object.id)
+        when RPG::Item then skill, type = false, BlizzABS::Items.type(object.id)
+        end
+        # set animation ID if ANIMATIONS is turned on
+        ch.animation_id = object.animation1_id if BlizzABS::Config::ANIMATIONS
+        # if skill/item is projectile
+        if type[0] == 1
+          # if skill
+          if skill
+            # set projectile type to either homing skill or homing item
+            projectype = 7
+            # SP consumption
+            ch.battler.sp -= object.sp_cost
+          else
+            # set projectile type to either homing skill or homing item
+            projectype = 11
+            # item consumption
+            $game_party.lose_item(object.id, 1)
+          end
+          # iterate through all targets
+          targets.each {|target|
+              # if exploding skill/item
+              if type[1] > 0
+                # create exploding projectile
+                proj = Projectile.new(object.icon_name, ch, object.id, target,
+                    projectype, Map_Enemy, ![5, 6].include?(object.scope),
+                    type[1, 2])
+              else
+                # create projectile
+                proj = Projectile.new(object.icon_name, ch, object.id, target,
+                    projectype, Map_Enemy, ![5, 6].include?(object.scope))
+              end
+              # add projectile to buffer
+              BlizzABS::Cache.projectiles.push(proj)}
+        # if skill
+        elsif skill
+          # use skill instantly
+          targets.each {|t| t.skill_effect(ch, ch.battler, object)}
+          # SP consumption
+          ch.battler.sp -= object.sp_cost
+        else
+          # use item instantly
+          targets.each {|target| target.item_effect(ch, object)}
+          # item consumption
+          $game_party.lose_item(object.id, 1)
+        end
+        # setup sprite extension whether skill or item
+        ch.setup_sprites(skill ? '_skl' : '_itm')
+        # set extended frame penalty
+        ch.set_action(1.6)
+        # if skill calls common event
+        if object.common_event_id > 0
+          # temporary variable
+          common_event = $data_common_events[object.common_event_id]
+          # setup common event execution
+          $game_system.map_interpreter.setup(common_event.list, 0)
+        end
+      end
+      # delete range sprites and help window
+      @range1.dispose
+      @range2.dispose
+      @win.dispose
+      # remove all temporary select interuption data from memory
+      @range1 = @range2 = @index = @tone = @win = $game_temp.select_data = nil
+      # make screen transition
+      Graphics.transition
+    end
+  end
+  #----------------------------------------------------------------------------
+  # override call_menu
+  #----------------------------------------------------------------------------
+  alias call_menu_blizzabs_later call_menu
+  def call_menu
+    # call original method if player not in action
+    call_menu_blizzabs_later unless $game_player.in_action > 0
+  end
+  
+end
+
+#==============================================================================
+# Window_Skill_Hotkey
+#------------------------------------------------------------------------------
+#  This class serves as display for skills that can be hotkeyed.
+#==============================================================================
+
+class Window_Skill_Hotkey < Window_Skill
+  
+  # setting all accessable variables
+  attr_reader :item_max
+  #----------------------------------------------------------------------------
+  # Initialization
+  #  actor - actor
+  #----------------------------------------------------------------------------
+  def initialize(actor)
+    # call superclass method
+    super
+    # set max column number
+    @column_max = 1
+    # set width and height
+    self.width, self.height = 320, 416
+    # create bitmap
+    self.contents = Bitmap.new(width - 32, height - 32)
+    # set y position
+    self.y = 64
+    # remove cursor display
+    self.cursor_rect.empty
+    # set to not active
+    self.active = false
+    # set z position
+    self.z = 21000
+    # refresh display
+    refresh
+  end
+  #----------------------------------------------------------------------------
+  # update
+  #  Updates only if window is active.
+  #----------------------------------------------------------------------------
+  def update
+    super if self.active
+  end
+  #----------------------------------------------------------------------------
+  # switch_actor
+  #  Switch to next actor.
+  #----------------------------------------------------------------------------
+  def switch_actor
+    # get next actor in line
+    @actor = $game_party.actors[(@actor.index+1)%$game_party.actors.size]
+    # refresh display
+    refresh
+    # if previous actor had more skills than the current one
+    if @index >= @item_max
+      # set cursor to last skill
+      @index = @item_max - 1
+      # update cursor
+      update_cursor_rect
+    end
+  end
+  #----------------------------------------------------------------------------
+  # refresh
+  #  Draws the data on the window.
+  #----------------------------------------------------------------------------
+  def refresh
+    # if bitmap exists
+    if self.contents != nil
+      # delete bitmap
+      self.contents.dispose
+      self.contents = nil
+    end
+    # create array
+    @data = []
+    # add all learned skills
+    @actor.skills.each {|id| @data.push($data_skills[id])}
+    # add nil
+    @data.push(nil)
+    # set size
+    @item_max = @data.size
+    # create bitmap
+    self.contents = Bitmap.new(width - 32, @item_max * 32)
+    # draw each skill
+    (0...@item_max).each {|i| draw_item(i)}
+  end
+  #----------------------------------------------------------------------------
+  # draw_item
+  #  index - skill index
+  #  Draws one complete skill.
+  #----------------------------------------------------------------------------
+  def draw_item(i)
+    # if skill is nil
+    if @data[i] == nil
+      # draw "<Remove>"
+      self.contents.draw_text(32, i*32, 204, 32, '<Remove>', 0)
+    else
+      # if skill can be used
+      if @actor.skill_can_use?(@data[i].id)
+        # set font color
+        self.contents.font.color = normal_color
+      else
+        # set font color
+        self.contents.font.color = disabled_color
+      end
+      # clean this display
+      self.contents.fill_rect(Rect.new(4, i*32, 288, 32), Color.new(0, 0, 0, 0))
+      # get icon bitmap
+      bitmap = RPG::Cache.icon(@data[i].icon_name)
+      # get opacity
+      opacity = self.contents.font.color == normal_color ? 255 : 128
+      # draw icon bitmap
+      self.contents.blt(4, 4+i*32, bitmap, Rect.new(0, 0, 24, 24), opacity)
+      # draw skill name
+      self.contents.draw_text(32, i*32, 204, 32, @data[i].name, 0)
+      # draw skill SP cost
+      self.contents.draw_text(236, i*32, 48, 32, @data[i].sp_cost.to_s, 2)
+    end
+  end
+  
+end
+
+#==============================================================================
+# Window_Item_Hotkey
+#------------------------------------------------------------------------------
+#  This class serves as display for items that can be hotkeyed.
+#==============================================================================
+
+class Window_Item_Hotkey < Window_Item
+  
+  # setting all accessable variables
+  attr_reader :item_max
+  #----------------------------------------------------------------------------
+  # Initialization
+  #  actor - actor
+  #----------------------------------------------------------------------------
+  def initialize
+    # call superclass method
+    super
+    # set max column number
+    @column_max = 1
+    # set width and
+    self.width, self.height = 320, 416
+    # create bitmap
+    self.contents = Bitmap.new(width - 32, height - 32)
+    # set x and y position
+    self.x, self.y = 320, 64
+    # remove cursor display
+    self.cursor_rect.empty
+    # set to not active
+    self.active = false
+    # set z position
+    self.z = 21000
+    # refresh display
+    refresh
+  end
+  #----------------------------------------------------------------------------
+  # update
+  #  Updates only if window is active
+  #----------------------------------------------------------------------------
+  def update
+    # update only if actove
+    super if self.active
+  end
+  #----------------------------------------------------------------------------
+  # refresh
+  #  Draws the data on the window.
+  #----------------------------------------------------------------------------
+  def refresh
+    # if bitmap exists
+    if self.contents != nil
+      # delete bitmap
+      self.contents.dispose
+      self.contents = nil
+    end
+    # create array
+    @data = []
+    # iterate through all items
+    (1...$data_items.size).each {|i|
+        # add item if number of items in possesion greater than 0
+        @data.push($data_items[i]) if $game_party.item_number(i) > 0}
+    # add nil
+    @data.push(nil)
+    # set size
+    @item_max = @data.size
+    # create bitmap
+    self.contents = Bitmap.new(width - 32, @item_max * 32)
+    # draw each item
+    (0...@item_max).each {|i| draw_item(i)}
+  end
+  #----------------------------------------------------------------------------
+  # draw_item
+  #  index - item index
+  #  Draws one complete item.
+  #----------------------------------------------------------------------------
+  def draw_item(i)
+    # if item is nil
+    if @data[i] == nil
+      # draw "<Remove>"
+      self.contents.draw_text(32, i*32, 212, 32, '<Remove>', 0)
+    else
+      # get number of items
+      number = $game_party.item_number(@data[i].id)
+      # if item can be used
+      if $game_party.item_can_use?(@data[i].id)
+        # set font color
+        self.contents.font.color = normal_color
+      else
+        # set font color
+        self.contents.font.color = disabled_color
+      end
+      # clean this display
+      self.contents.fill_rect(Rect.new(4, i*32, 288, 32), Color.new(0, 0, 0, 0))
+      # get icon bitmap
+      bitmap = RPG::Cache.icon(@data[i].icon_name)
+      # get opacity
+      opacity = self.contents.font.color == normal_color ? 255 : 128
+      # draw icon bitmap
+      self.contents.blt(4, 4+i*32, bitmap, Rect.new(0, 0, 24, 24), opacity)
+      # draw item name
+      self.contents.draw_text(32, i*32, 212, 32, @data[i].name, 0)
+      # draw ":"
+      self.contents.draw_text(244, i*32, 16, 32, ':', 1)
+      # draw number of items left
+      self.contents.draw_text(260, i*32, 24, 32, number.to_s, 2)
+    end
+  end
+  
+end
+
+#==============================================================================
+# Window_Message
+#------------------------------------------------------------------------------
+#  This class was modified to override Blizz-ABS battle handling for correct
+#  window position display.
+#==============================================================================
+
+class Window_Message < Window_Selectable
+  
+  #----------------------------------------------------------------------------
+  # override reset_window
+  #----------------------------------------------------------------------------
+  alias reset_window_blizzabs_later reset_window
+  def reset_window
+    # store in_battle flag
+    tmp = $game_temp.in_battle
+    # set in_battle flag
+    $game_temp.in_battle = false
+    # call original method
+    reset_window_blizzabs_later
+    # restore in_battle flag
+    $game_temp.in_battle = tmp
+  end
+  
+end
+
+#==============================================================================
+# Scene_Menu
+#------------------------------------------------------------------------------
+#  This class was modified to infilitrate the real menu with the Blizz-ABS
+#  Pre-Menu.
+#==============================================================================
+
+class Scene_Menu
+  
+  #----------------------------------------------------------------------------
+  # override Initialization
+  #  index - the cursor index
+  #----------------------------------------------------------------------------
+  alias init_blizzabs_later initialize
+  def initialize(index = nil)
+    # set index flag
+    @index_flag = index
+    # call original method with either 0 or the current index
+    init_blizzabs_later(index == nil ? 0 : index)
+  end
+  #----------------------------------------------------------------------------
+  # override main
+  #----------------------------------------------------------------------------
+  alias main_blizzabs_later main
+  def main
+    # if index flag does not exist
+    if @index_flag == nil
+      # set in_battle flag
+      $game_temp.in_battle = true
+      # create HUD if HUD_ENABLED is turned on and HUD active
+      @hud = Hud.new if BlizzABS::Config::HUD_ENABLED && $game_system.hud
+      # create options window
+      @window = Window_Command.new(192, ['Menu', 'AI Setup', 'Controls', 'Cancel'])
+      # disable second option (not available yet)
+      @window.disable_item(1)
+      # set x and y position
+      @window.x, @window.y = 320 - @window.width/2, 240 - @window.height/2
+      # set z position
+      @window.z = 21000
+      # set back opacity
+      @window.back_opacity = 160
+      # create spriteset
+      @spriteset = Spriteset_Map.new
+      # create viewport
+      @view = Viewport.new(0, 0, 640, 480)
+      # tint viewport
+      @view.tone = case BlizzABS::Config::MENU_COLOR_TINT
+      when 0
+        # a random tint
+        case rand(8)
+        # darker tint
+        when 0 then Tone.new(-60, -60, -60, 0)
+        # blue tint
+        when 1 then Tone.new(-255, -255, 0, 255)
+        # green tint
+        when 2 then Tone.new(-255, 0, -255, 255)
+        # red tint
+        when 3 then Tone.new(0, -255, -255, 255)
+        # yellow tint
+        when 4 then Tone.new(0, 0, -255, 255)
+        # mangenta tint
+        when 5 then Tone.new(0, -255, 0, 255)
+        # cyan tint
+        when 6 then Tone.new(-255, 0, 0, 255)
+        # black-white tint
+        when 7 then Tone.new(-40, -40, -40, 255)
+        end
+      # blue tint
+      when 1 then Tone.new(-255, -255, 0, 255)
+      # green tint
+      when 2 then Tone.new(-255, 0, -255, 255)
+      # red tint
+      when 3 then Tone.new(0, -255, -255, 255)
+      # yellow tint
+      when 4 then Tone.new(0, 0, -255, 255)
+      # mangenta tint
+      when 5 then Tone.new(0, -255, 0, 255)
+      # cyan tint
+      when 6 then Tone.new(-255, 0, 0, 255)
+      # black-white tint
+      when 7 then Tone.new(-40, -40, -40, 255)
+      # darker tint
+      when 8 then Tone.new(-60, -60, -60, 0)
+      end
+      # transition
+      Graphics.transition(10)
+      # loop
+      loop do
+        # update game screen
+        Graphics.update
+        # update input
+        Input.update
+        # stop if frame update
+        break if update_before_main
+      end
+      # freeze screen
+      Graphics.freeze
+      # delete HUD if HUD exists
+      @hud.dispose if @hud != nil
+      # delete window
+      @window.dispose
+      # delete spriteset
+      @spriteset.dispose
+      # delete viewport (screen tint) if new scene is still the menu or map
+      @view.dispose if $scene.is_a?(Scene_Menu) || $scene.is_a?(Scene_Map)
+    end
+    # call original method if scene is still the menu
+    main_blizzabs_later if $scene.is_a?(Scene_Menu)
+  end
+  #----------------------------------------------------------------------------
+  # update_before_main
+  #  Processes the pre-menu.
+  #----------------------------------------------------------------------------
+  def update_before_main
+    # update window
+    @window.update
+    # if window is active
+    if @window.active
+      # if B is pressed
+      if Input.trigger?(Input::B)
+        # play cancel sound
+        $game_system.se_play($data_system.cancel_se)
+        # create map scene
+        $scene = Scene_Map.new
+        # exit this scene
+        return true
+      # if C is pressed
+      elsif Input.trigger?(Input::C)
+        # which option
+        case @window.index
+        when 0
+          # play sound
+          $game_system.se_play($data_system.decision_se)
+          # set in_battle flag
+          $game_temp.in_battle = false
+        when 1
+          # play buzzer sound effect
+          $game_system.se_play($data_system.buzzer_se)
+          # don't exit this scene
+          return false
+        when 2
+          # play sound
+          $game_system.se_play($data_system.decision_se)
+          # create hotkey assignment scene with the current screen tint
+          $scene = Scene_Controls.new(@view.tone)
+        when 3
+          # play sound
+          $game_system.se_play($data_system.decision_se)
+          # create map scene
+          $scene = Scene_Map.new
+        end
+        # exit this scene
+        return true
+      end
+    end
+    # don't exit this scene
+    return false
+  end
+  
+end
+
+#==============================================================================
+# Scene_Controls
+#------------------------------------------------------------------------------
+#  This class handles the skill/item hotkey processing.
+#==============================================================================
+
+class Scene_Controls
+  
+  #----------------------------------------------------------------------------
+  # Initialization
+  #  tone - screen background tone
+  #----------------------------------------------------------------------------
+  def initialize(tone)
+    # store current screen tint
+    @tone = tone
+  end
+  #----------------------------------------------------------------------------
+  # main
+  #  The main processing method.
+  #----------------------------------------------------------------------------
+  def main
+    # create spriteset
+    @spriteset = Spriteset_Map.new
+    # create viewport
+    @view = Viewport.new(0, 0, 640, 480)
+    # set tone to current screen tone
+    @view.tone = @tone.clone
+    # creat HUD if HUD_ENABLED is turned on and HUD active
+    @hud = Hud.new if BlizzABS::Config::HUD_ENABLED && $game_system.hud
+    # if hotkey display is turned off
+    unless $game_system.assignment
+      # create hotkey display
+      @hotkeys = Hotkey_Assignment.new
+      # set z position
+      @hotkeys.z = 5000
+    end
+    # create sprite
+    @choice = Sprite.new
+    # create bitmap
+    @choice.bitmap = Bitmap.new(16, 9)
+    # draw arrow image from BlizzABS Cache
+    @choice.bitmap.blt(0, 0, BlizzABS::Cache.image(2), Rect.new(0, 0, 16, 9), 128)
+    # set x, y and z positions
+    @choice.x, @choice.y, @choice.z = 160, 40, 500
+    # set x position offset
+    @choice.ox = -8
+    # set active flag
+    @active = true
+    # set index
+    @index = 0
+    # set up mode flag
+    @up_mode = true
+    # create modified skill window
+    @skill_window = Window_Skill_Hotkey.new($game_player.battler)
+    # create modified item window
+    @item_window = Window_Item_Hotkey.new
+    # set last active
+    @last_active = true
+    # transtition
+    Graphics.transition
+    # loop
+    loop do
+      # update game screen
+      Graphics.update
+      # update input
+      Input.update
+      # frame update
+      update
+      # stop if chosen an option
+      break if $scene != self
+    end
+    # freeze screen
+    Graphics.freeze
+    # delet spriteset
+    @spriteset.dispose
+    # delete HUD if HUD exists
+    @hud.dispose if @hud != nil
+    # delete hotkey display if not hotkey display active
+    @hotkeys.dispose unless $game_system.assignment
+    # delete choice sprite
+    @choice.dispose
+    # delete skill window
+    @skill_window.dispose
+    # delete item window
+    @item_window.dispose
+    # delete viewport
+    @view.dispose
+  end
+  #----------------------------------------------------------------------------
+  # update
+  #  The update processing method.
+  #----------------------------------------------------------------------------
+  def update
+    # update choice sprite
+    @choice.update
+    # update skill window
+    @skill_window.update
+    # update item window
+    @item_window.update
+    # move by 2 or 1 whether active in direction depending on @up_mode
+    @choice.oy += (@up_mode ? (@active ? 2 : 1) : (@active ? -2 : -1))
+    # set new @up_mode if necesseray depending on @up_mode
+    @up_mode = (@up_mode ? (@choice.oy < 8) : (@choice.oy <= -8))
+    # if select button pressed
+    if Input.trigger?(Input::Select)
+      # switch to next actor
+      @skill_window.switch_actor
+    # if active
+    elsif @active
+      # set choice offset always to a number dividable with 2
+      @choice.oy = @choice.oy / 2 * 2
+      # update hotkey selection
+      update_choice
+    # if skill window is active
+    elsif @skill_window.active
+      # update skill selection
+      update_skill
+    # if item window is active
+    elsif @item_window.active
+      # update item selection
+      update_item
+    end
+  end
+  #----------------------------------------------------------------------------
+  # update_choice
+  #  Updates input during the hotkey selection.
+  #----------------------------------------------------------------------------
+  def update_choice
+    # set x position
+    @choice.x = 160 + @index * 32
+    # if pressed B
+    if Input.trigger?(Input::B)
+      # play cancel sound
+      $game_system.se_play($data_system.cancel_se)
+      # create map scene
+      $scene = Scene_Map.new
+    # if C is pressed
+    elsif Input.trigger?(Input::C)
+      # play sound
+      $game_system.se_play($data_system.decision_se)
+      # not active
+      @active = false
+      # the one that was active the last time is now active
+      @skill_window.active = @last_active
+      @item_window.active = (!@last_active)
+    # if RIGHT is being pressed
+    elsif Input.repeat?(Input::RIGHT)
+      # if RIGHT is pressed or index is less than 9
+      if Input.trigger?(Input::RIGHT) || @index < 9
+        # play sound
+        $game_system.se_play($data_system.cursor_se)
+        # set new index
+        @index = (@index + 1) % 10
+      end
+    # if LEFT is being pressed
+    elsif Input.repeat?(Input::LEFT)
+      # if LEFT is pressed or index is equal or greater than 1
+      if Input.trigger?(Input::LEFT) || @index >= 1
+        # play sound
+        $game_system.se_play($data_system.cursor_se)
+        # set new index
+        @index = (@index + 9) % 10
+      end
+    end
+  end
+  #----------------------------------------------------------------------------
+  # update_skill
+  #  Updates input during the skill selection.
+  #----------------------------------------------------------------------------
+  def update_skill
+    # set last active
+    @last_active = true
+    # if B is pressed
+    if Input.trigger?(Input::B)
+      # play cancel sound
+      $game_system.se_play($data_system.cancel_se)
+      # set active
+      @active = true
+      # skill window is not active
+      @skill_window.active = false
+      # delete cursor
+      @skill_window.cursor_rect.empty
+    # if C is pressd
+    elsif Input.trigger?(Input::C)
+      # play sound
+      $game_system.se_play($data_system.decision_se)
+      # if last position
+      if @skill_window.index == @skill_window.item_max - 1
+        # remove hotkey assigmnent from skill
+        $game_system.controls.skills[(@index+1)%10] = 0
+        # remove hotkey assigmnent from item
+        $game_system.controls.items[(@index+1)%10] = 0
+      else
+        # set skill to hotkey
+        $game_system.controls.skills[(@index+1)%10] = @skill_window.skill.id
+        # remove hotkey assigmnent from item
+        $game_system.controls.items[(@index+1)%10] = 0
+      end
+      # if hotkey display exists
+      if @hotkeys != nil
+        # draw hotkey display
+        @hotkeys.draw
+      # if HUD_ENABLED is turned on and HUD is active
+      elsif BlizzABS::Config::HUD_ENABLED && $game_system.hud
+        # draw hotkey display within the HUD
+        @hud.assignment.draw
+      end
+      # set active
+      @active = true
+      # skill window is not active
+      @skill_window.active = false
+      # delete cursor
+      @skill_window.cursor_rect.empty
+    # if RIGHT or LEFT is pressed
+    elsif Input.trigger?(Input::RIGHT) || Input.trigger?(Input::LEFT)
+      # play sound
+      $game_system.se_play($data_system.cursor_se)
+      # item window is active
+      @item_window.active = true
+      # skill window is not active
+      @skill_window.active = false
+      # delete cursor
+      @skill_window.cursor_rect.empty
+    end
+  end
+  #----------------------------------------------------------------------------
+  # update_item
+  #  Updates input during the item selection.
+  #----------------------------------------------------------------------------
+  def update_item
+    # set last active
+    @last_active = false
+    # if B is pressed
+    if Input.trigger?(Input::B)
+      # play cancel cound
+      $game_system.se_play($data_system.cancel_se)
+      # set active
+      @active = true
+      # item window is not active
+      @item_window.active = false
+      # delete cursor
+      @item_window.cursor_rect.empty
+    # if C is pressed
+    elsif Input.trigger?(Input::C)
+      # play sound
+      $game_system.se_play($data_system.decision_se)
+      # if last position
+      if @item_window.index == @item_window.item_max - 1
+        # remove hotkey assigmnent from item
+        $game_system.controls.items[(@index+1)%10] = 0
+        # remove hotkey assigmnent from skill
+        $game_system.controls.skills[(@index+1)%10] = 0
+      else
+        # set item to hotkey
+        $game_system.controls.items[(@index+1)%10] = @item_window.item.id
+        # remove hotkey assigmnent from skill
+        $game_system.controls.skills[(@index+1)%10] = 0
+      end
+      # if hotkey display exists
+      if @hotkeys != nil
+        # draw hotkey display
+        @hotkeys.draw
+      # if HUD_ENABLED is turned on and HUD is active
+      elsif BlizzABS::Config::HUD_ENABLED && $game_system.hud
+        # draw hotkey display within the HUD
+        @hud.assignment.draw
+      end
+      # set active
+      @active = true
+      # item window is not active
+      @item_window.active = false
+      # delete cursor
+      @item_window.cursor_rect.empty
+    # if RIGHT or LEFT is pressed
+    elsif Input.trigger?(Input::RIGHT) || Input.trigger?(Input::LEFT)
+      # play sound
+      $game_system.se_play($data_system.cursor_se)
+      # skill window is active
+      @skill_window.active = true
+      # item window is not active
+      @item_window.active = false
+      # delete cursor
+      @item_window.cursor_rect.empty
+    end
+  end
+  
+end
+
+#==============================================================================
+# Scene_AI_Setup
+#------------------------------------------------------------------------------
+#  This class doesn't do anything yet. It is planned that it will serve for
+#  actor AI setup.
+#==============================================================================
+
+class Scene_AI_Setup
+  
+  #----------------------------------------------------------------------------
+  # Initialization
+  #  tone - screen background tone
+  #----------------------------------------------------------------------------
+  def initialize(tone)
+    # store current screen tint
+    @tone = tone
+  end
+  #----------------------------------------------------------------------------
+  # main
+  #  The main processing method.
+  #----------------------------------------------------------------------------
+  def main
+    # create viewport
+    @view = Viewport.new(0, 0, 640, 480)
+    # set screen tint
+    @view.tone = @tone
+    # create map scene
+    $scene = Scene_Map.new
+    # delete viewport
+    @view.dispose
+  end
+  #----------------------------------------------------------------------------
+  # update
+  #  The update processing method.
+  #----------------------------------------------------------------------------
+  def update
+  end
+  
+end
+
+
+#==============================================================================
+# ** Main
+#------------------------------------------------------------------------------
+#  Runs the entire system.
+#==============================================================================
+
+ERROR_LOG_FILE = 'Error.log' # leave empty for no log
+
+def mod_error(error)
+  # load scripts
+  scripts = load_data('Data/Scripts.rxdata')
+  bt = error.backtrace.clone
+  # change backtrace display to show script names
+  bt.each_index {|i| bt[i] = bt[i].sub(/\ASection(\d+)/) {scripts[$1.to_i][1]} + "\n"}
+  # new error message
+  message = error.message + "\n" + bt.join('')
+  # write to file if file defined
+  if ERROR_LOG_FILE != ''
+    File.open(ERROR_LOG_FILE, 'a') {|f| f.write("#{Time.now.to_s}:\n#{message}\n")}
+  end
+  return message
+end
+
+begin
+  # loading game data
+  $data_actors        = load_data('Data/Actors.rxdata')
+  $data_classes       = load_data('Data/Classes.rxdata')
+  $data_skills        = load_data('Data/Skills.rxdata')
+  $data_items         = load_data('Data/Items.rxdata')
+  $data_weapons       = load_data('Data/Weapons.rxdata')
+  $data_armors        = load_data('Data/Armors.rxdata')
+  $data_enemies       = load_data('Data/Enemies.rxdata')
+  $data_troops        = load_data('Data/Troops.rxdata')
+  $data_states        = load_data('Data/States.rxdata')
+  $data_animations    = load_data('Data/Animations.rxdata')
+  $data_tilesets      = load_data('Data/Tilesets.rxdata')
+  $data_common_events = load_data('Data/CommonEvents.rxdata')
+  $data_system        = load_data('Data/System.rxdata')
+  # prepare for transition
+  Graphics.freeze
+  # active connection scene
+  $scene = Scene_Title.new
+  # call main for active scene
+  $scene.main while $scene != nil
+  # fade out
+  Graphics.transition(20)
+  Graphics.update
+rescue SyntaxError
+  $!.message.sub!($!.message, mod_error($!))
+  raise
+rescue
+  $!.message.sub!($!.message, mod_error($!))
+  raise
+end

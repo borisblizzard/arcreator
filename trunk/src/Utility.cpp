@@ -31,6 +31,7 @@ namespace arc
 #endif
 		hdir::create(arc::path);
 		arc::path += "/";
+		hfile::create_new(arc::path + "log.txt");
 	}
 
 	void log(chstr message)

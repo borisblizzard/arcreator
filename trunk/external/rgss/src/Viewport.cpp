@@ -203,7 +203,7 @@ namespace rgss
 		RB_SELF2CPP(Viewport, viewport);
 		if (viewport->disposed)
 		{
-			rb_raise(rb_eRGSSError, "disposed viewport");
+			//rb_raise(rb_eRGSSError, "disposed viewport");
 		}
 		return viewport->rb_color;
 	}
@@ -213,7 +213,7 @@ namespace rgss
 		RB_GENERATE_SETTER(Viewport, sprite, Color, color);
 		if (sprite->disposed)
 		{
-			rb_raise(rb_eRGSSError, "disposed viewport");
+			//rb_raise(rb_eRGSSError, "disposed viewport");
 		}
 		return value;
 	}
@@ -223,7 +223,7 @@ namespace rgss
 		RB_SELF2CPP(Viewport, viewport);
 		if (viewport->disposed)
 		{
-			rb_raise(rb_eRGSSError, "disposed viewport");
+			//rb_raise(rb_eRGSSError, "disposed viewport");
 		}
 		return viewport->rb_rect;
 	}
@@ -233,7 +233,7 @@ namespace rgss
 		RB_GENERATE_SETTER(Viewport, sprite, Rect, rect);
 		if (sprite->disposed)
 		{
-			rb_raise(rb_eRGSSError, "disposed viewport");
+			//rb_raise(rb_eRGSSError, "disposed viewport");
 		}
 		return value;
 	}
@@ -243,7 +243,7 @@ namespace rgss
 		RB_SELF2CPP(Viewport, viewport);
 		if (viewport->disposed)
 		{
-			rb_raise(rb_eRGSSError, "disposed viewport");
+			//rb_raise(rb_eRGSSError, "disposed viewport");
 		}
 		return viewport->rb_tone;
 	}
@@ -253,7 +253,7 @@ namespace rgss
 		RB_GENERATE_SETTER(Viewport, sprite, Tone, tone);
 		if (sprite->disposed)
 		{
-			rb_raise(rb_eRGSSError, "disposed sprite");
+			//rb_raise(rb_eRGSSError, "disposed sprite");
 		}
 		return value;
 	}
@@ -271,7 +271,7 @@ namespace rgss
 		RB_SELF2CPP(Viewport, viewport);
 		if (viewport->disposed)
 		{
-			rb_raise(rb_eRGSSError, "disposed viewport");
+			//rb_raise(rb_eRGSSError, "disposed viewport");
 		}
 		/// @todo implement
 		return Qnil;
@@ -282,7 +282,7 @@ namespace rgss
 		RB_SELF2CPP(Viewport, viewport);
 		if (viewport->disposed)
 		{
-			rb_raise(rb_eRGSSError, "disposed viewport");
+			//rb_raise(rb_eRGSSError, "disposed viewport");
 		}
 		/// @todo implement
 		return Qnil;

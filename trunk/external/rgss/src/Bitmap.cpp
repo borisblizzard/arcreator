@@ -165,8 +165,13 @@ namespace rgss
 		}
 		/// @todo This works but is very slow, improve it
 		//*
+		hstr name = this->font->getName();
+		if (!atres::hasFont(name))
+		{
+			name = atres::getFont("")->getName(); // default font
+		}
+		name = "Graphics/Fonts/" + name;
 		// creating a bitmap to blit from
-		hstr name = "Graphics/Fonts/" + this->font->getName();
 		Bitmap* bitmap;
 		if (fontCache.has_key(name))
 		{
@@ -198,6 +203,10 @@ namespace rgss
 	{
 		hstr result = this->font->getName();
 		int h = this->font->getSize();
+		if (!atres::hasFont(result))
+		{
+			result = atres::getFont("")->getName(); // default font
+		}
 		float fontHeight = atres::getFontHeight(result);
 		if (h != fontHeight)
 		{
@@ -342,7 +351,7 @@ namespace rgss
 		RB_SELF2CPP(Bitmap, bitmap);
 		if (bitmap->disposed)
 		{
-			rb_raise(rb_eRGSSError, "disposed bitmap");
+			//rb_raise(rb_eRGSSError, "disposed bitmap");
 		}
 		RB_VAR2CPP(original, Bitmap, other);
 		bitmap->imageSource = april::createEmptyImage(other->imageSource->w, other->imageSource->h);
@@ -356,7 +365,7 @@ namespace rgss
 		RB_SELF2CPP(Bitmap, bitmap);
 		if (bitmap->disposed)
 		{
-			rb_raise(rb_eRGSSError, "disposed bitmap");
+			//rb_raise(rb_eRGSSError, "disposed bitmap");
 		}
 		bitmap->dispose();
 		return Qnil;
@@ -378,7 +387,7 @@ namespace rgss
 		RB_SELF2CPP(Bitmap, bitmap);
 		if (bitmap->disposed)
 		{
-			rb_raise(rb_eRGSSError, "disposed bitmap");
+			//rb_raise(rb_eRGSSError, "disposed bitmap");
 		}
 		return INT2FIX(bitmap->getWidth());
 	}
@@ -388,7 +397,7 @@ namespace rgss
 		RB_SELF2CPP(Bitmap, bitmap);
 		if (bitmap->disposed)
 		{
-			rb_raise(rb_eRGSSError, "disposed bitmap");
+			//rb_raise(rb_eRGSSError, "disposed bitmap");
 		}
 		return INT2FIX(bitmap->getHeight());
 	}
@@ -398,7 +407,7 @@ namespace rgss
 		RB_SELF2CPP(Bitmap, bitmap);
 		if (bitmap->disposed)
 		{
-			rb_raise(rb_eRGSSError, "disposed bitmap");
+			//rb_raise(rb_eRGSSError, "disposed bitmap");
 		}
 		return Rect::create(INT2FIX(0), INT2FIX(0), INT2FIX(bitmap->getWidth()), INT2FIX(bitmap->getHeight()));
 	}
@@ -408,7 +417,7 @@ namespace rgss
 		RB_SELF2CPP(Bitmap, bitmap);
 		if (bitmap->disposed)
 		{
-			rb_raise(rb_eRGSSError, "disposed bitmap");
+			//rb_raise(rb_eRGSSError, "disposed bitmap");
 		}
 		return bitmap->rb_font;
 	}
@@ -418,7 +427,7 @@ namespace rgss
 		RB_GENERATE_SETTER(Bitmap, bitmap, Font, font);
 		if (bitmap->disposed)
 		{
-			rb_raise(rb_eRGSSError, "disposed bitmap");
+			//rb_raise(rb_eRGSSError, "disposed bitmap");
 		}
 		return value;
 	}
@@ -438,7 +447,7 @@ namespace rgss
 		RB_SELF2CPP(Bitmap, bitmap);
 		if (bitmap->disposed)
 		{
-			rb_raise(rb_eRGSSError, "disposed bitmap");
+			//rb_raise(rb_eRGSSError, "disposed bitmap");
 		}
 		april::Color color = bitmap->imageSource->getPixel(NUM2INT(x), NUM2INT(y));
 		VALUE argv[4] = {INT2FIX(color.r), INT2FIX(color.g), INT2FIX(color.b), INT2FIX(color.a)};
@@ -450,7 +459,7 @@ namespace rgss
 		RB_SELF2CPP(Bitmap, bitmap);
 		if (bitmap->disposed)
 		{
-			rb_raise(rb_eRGSSError, "disposed bitmap");
+			//rb_raise(rb_eRGSSError, "disposed bitmap");
 		}
 		RB_VAR2CPP(color, Color, cColor);
 		bitmap->imageSource->setPixel(NUM2INT(x), NUM2INT(y), cColor->toAColor());
@@ -468,7 +477,7 @@ namespace rgss
 		RB_SELF2CPP(Bitmap, bitmap);
 		if (bitmap->disposed)
 		{
-			rb_raise(rb_eRGSSError, "disposed bitmap");
+			//rb_raise(rb_eRGSSError, "disposed bitmap");
 		}
 		int x, y, w, h;
 		VALUE arg1, arg2, arg3, arg4, color;
@@ -500,7 +509,7 @@ namespace rgss
 		RB_SELF2CPP(Bitmap, bitmap);
 		if (bitmap->disposed)
 		{
-			rb_raise(rb_eRGSSError, "disposed bitmap");
+			//rb_raise(rb_eRGSSError, "disposed bitmap");
 		}
 		bitmap->imageSource->clear();
 		bitmap->textureNeedsUpdate = true;
@@ -512,7 +521,7 @@ namespace rgss
 		RB_SELF2CPP(Bitmap, bitmap);
 		if (bitmap->disposed)
 		{
-			rb_raise(rb_eRGSSError, "disposed bitmap");
+			//rb_raise(rb_eRGSSError, "disposed bitmap");
 		}
 		VALUE arg1, arg2, arg3, arg4, arg5;
 		rb_scan_args(argc, argv, "41", &arg1, &arg2, &arg3, &arg4, &arg5);
@@ -538,7 +547,7 @@ namespace rgss
 		RB_SELF2CPP(Bitmap, bitmap);
 		if (bitmap->disposed)
 		{
-			rb_raise(rb_eRGSSError, "disposed bitmap");
+			//rb_raise(rb_eRGSSError, "disposed bitmap");
 		}
 		VALUE arg1, arg2, arg3, arg4;
 		rb_scan_args(argc, argv, "31", &arg1, &arg2, &arg3, &arg4);
@@ -574,7 +583,7 @@ namespace rgss
 		RB_SELF2CPP(Bitmap, bitmap);
 		if (bitmap->disposed)
 		{
-			rb_raise(rb_eRGSSError, "disposed bitmap");
+			//rb_raise(rb_eRGSSError, "disposed bitmap");
 		}
 		int x, y, w, h;
 		hstr text;
@@ -609,7 +618,7 @@ namespace rgss
 		RB_SELF2CPP(Bitmap, bitmap);
 		if (bitmap->disposed)
 		{
-			rb_raise(rb_eRGSSError, "disposed bitmap");
+			//rb_raise(rb_eRGSSError, "disposed bitmap");
 		}
 		return Qnil;
 	}
@@ -620,7 +629,7 @@ namespace rgss
 		RB_SELF2CPP(Bitmap, bitmap);
 		if (bitmap->disposed)
 		{
-			rb_raise(rb_eRGSSError, "disposed bitmap");
+			//rb_raise(rb_eRGSSError, "disposed bitmap");
 		}
 		hstr text = StringValuePtr(string);
 		hstr fontName = bitmap->_getAFontName();

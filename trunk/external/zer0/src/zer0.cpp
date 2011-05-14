@@ -134,6 +134,15 @@ namespace zer0
 		return Qnil;
 	}
 
+	void displayRubyError()
+	{
+		VALUE error = rb_gv_get("$!");
+		VALUE message = rb_funcall(error, rb_intern("message"), 0, NULL);
+		hstr title = april::rendersys->getWindow()->getWindowTitle();
+		hstr text = StringValuePtr(message);
+		april::messageBox(title, text, april::AMSGBTN_OK, april::AMSGSTYLE_WARNING);
+	}
+
 	int enterMainLoop(int argc, char** argv)
 	{
 		// initialization of all Ruby related parts
@@ -156,6 +165,10 @@ namespace zer0
 		Init_api();
 		// running everything
 		rb_protect(embedded, Qnil, &state);
+		if (state != 0)
+		{
+			displayRubyError();
+		}
 		return ruby_cleanup(state);
 	}
 

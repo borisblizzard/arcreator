@@ -178,7 +178,7 @@ namespace rgss
 		RB_SELF2CPP(Sprite, sprite);
 		if (sprite->disposed)
 		{
-			rb_raise(rb_eRGSSError, "disposed sprite");
+			//rb_raise(rb_eRGSSError, "disposed sprite");
 		}
 		if (sprite->bitmap != NULL && !sprite->bitmap->isDisposed())
 		{
@@ -192,7 +192,7 @@ namespace rgss
 		RB_SELF2CPP(Sprite, sprite);
 		if (sprite->disposed)
 		{
-			rb_raise(rb_eRGSSError, "disposed sprite");
+			//rb_raise(rb_eRGSSError, "disposed sprite");
 		}
 		return rb_float_new(sprite->angle);
 	}
@@ -202,7 +202,7 @@ namespace rgss
 		RB_SELF2CPP(Sprite, sprite);
 		if (sprite->disposed)
 		{
-			rb_raise(rb_eRGSSError, "disposed sprite");
+			//rb_raise(rb_eRGSSError, "disposed sprite");
 		}
 		sprite->angle = (float)NUM2DBL(value);
 		return value;
@@ -213,7 +213,7 @@ namespace rgss
 		RB_SELF2CPP(Sprite, sprite);
 		if (sprite->disposed)
 		{
-			rb_raise(rb_eRGSSError, "disposed sprite");
+			//rb_raise(rb_eRGSSError, "disposed sprite");
 		}
 		return (sprite->mirror ? Qtrue : Qfalse);
 	}
@@ -223,7 +223,7 @@ namespace rgss
 		RB_SELF2CPP(Sprite, sprite);
 		if (sprite->disposed)
 		{
-			rb_raise(rb_eRGSSError, "disposed sprite");
+			//rb_raise(rb_eRGSSError, "disposed sprite");
 		}
 		sprite->mirror = (bool)RTEST(value);
 		return value;
@@ -234,7 +234,7 @@ namespace rgss
 		RB_SELF2CPP(Sprite, sprite);
 		if (sprite->disposed)
 		{
-			rb_raise(rb_eRGSSError, "disposed sprite");
+			//rb_raise(rb_eRGSSError, "disposed sprite");
 		}
 		return INT2NUM(sprite->bushDepth);
 	}
@@ -244,7 +244,7 @@ namespace rgss
 		RB_SELF2CPP(Sprite, sprite);
 		if (sprite->disposed)
 		{
-			rb_raise(rb_eRGSSError, "disposed sprite");
+			//rb_raise(rb_eRGSSError, "disposed sprite");
 		}
 		sprite->bushDepth = NUM2INT(value);
 		return value;
@@ -255,7 +255,7 @@ namespace rgss
 		RB_SELF2CPP(Sprite, sprite);
 		if (sprite->disposed)
 		{
-			rb_raise(rb_eRGSSError, "disposed sprite");
+			//rb_raise(rb_eRGSSError, "disposed sprite");
 		}
 		return sprite->rb_srcRect;
 	}
@@ -265,7 +265,7 @@ namespace rgss
 		RB_GENERATE_SETTER(Sprite, sprite, Rect, srcRect);
 		if (sprite->disposed)
 		{
-			rb_raise(rb_eRGSSError, "disposed sprite");
+			//rb_raise(rb_eRGSSError, "disposed sprite");
 		}
 		return value;
 	}

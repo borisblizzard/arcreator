@@ -276,7 +276,7 @@ namespace rgss
 			RB_SELF2CPP(Tilemap, tilemap);
 			if (tilemap->disposed)
 			{
-				rb_raise(rb_eRGSSError, "disposed sprite");
+				//rb_raise(rb_eRGSSError, "disposed sprite");
 			}
 			tilemap->_updateTileSprites();
 		}
@@ -292,7 +292,7 @@ namespace rgss
 			RB_SELF2CPP(Tilemap, tilemap);
 			if (tilemap->disposed)
 			{
-				rb_raise(rb_eRGSSError, "disposed sprite");
+				//rb_raise(rb_eRGSSError, "disposed sprite");
 			}
 			tilemap->_updateTileSprites();
 		}
@@ -308,7 +308,7 @@ namespace rgss
 			RB_SELF2CPP(Tilemap, tilemap);
 			if (tilemap->disposed)
 			{
-				rb_raise(rb_eRGSSError, "disposed sprite");
+				//rb_raise(rb_eRGSSError, "disposed sprite");
 			}
 			tilemap->_updateTileSprites();
 		}
@@ -330,7 +330,7 @@ namespace rgss
 		RB_SELF2CPP(Tilemap, tilemap);
 		if (tilemap->disposed)
 		{
-			rb_raise(rb_eRGSSError, "disposed sprite");
+			//rb_raise(rb_eRGSSError, "disposed sprite");
 		}
 		return tilemap->rb_mapData;
 	}
@@ -341,7 +341,7 @@ namespace rgss
 		RB_GENERATE_SETTER(Tilemap, tilemap, Table, mapData);
 		if (tilemap->disposed)
 		{
-			rb_raise(rb_eRGSSError, "disposed sprite");
+			//rb_raise(rb_eRGSSError, "disposed sprite");
 		}
 		if (value != rb_mapData)
 		{
@@ -355,7 +355,7 @@ namespace rgss
 		RB_SELF2CPP(Tilemap, tilemap);
 		if (tilemap->disposed)
 		{
-			rb_raise(rb_eRGSSError, "disposed sprite");
+			//rb_raise(rb_eRGSSError, "disposed sprite");
 		}
 		return tilemap->rb_priorities;
 	}
@@ -366,7 +366,7 @@ namespace rgss
 		RB_GENERATE_SETTER(Tilemap, tilemap, Table, priorities);
 		if (tilemap->disposed)
 		{
-			rb_raise(rb_eRGSSError, "disposed sprite");
+			//rb_raise(rb_eRGSSError, "disposed sprite");
 		}
 		if (value != rb_priorities)
 		{
@@ -380,7 +380,7 @@ namespace rgss
 		RB_SELF2CPP(Tilemap, tilemap);
 		if (tilemap->disposed)
 		{
-			rb_raise(rb_eRGSSError, "disposed sprite");
+			//rb_raise(rb_eRGSSError, "disposed sprite");
 		}
 		return tilemap->rb_flashData;
 	}
@@ -391,7 +391,7 @@ namespace rgss
 		RB_GENERATE_SETTER(Tilemap, tilemap, Table, flashData);
 		if (tilemap->disposed)
 		{
-			rb_raise(rb_eRGSSError, "disposed sprite");
+			//rb_raise(rb_eRGSSError, "disposed sprite");
 		}
 		if (value != rb_flashData)
 		{
@@ -409,7 +409,7 @@ namespace rgss
 		RB_SELF2CPP(Tilemap, tilemap);
 		if (tilemap->disposed)
 		{
-			rb_raise(rb_eRGSSError, "disposed sprite");
+			//rb_raise(rb_eRGSSError, "disposed sprite");
 		}
 		return Qnil;
 	}
