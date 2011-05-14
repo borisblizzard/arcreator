@@ -41,6 +41,9 @@ namespace rgss
 		/// @note Arguments are "[viewport]".
 		static VALUE rb_initialize(int argc, VALUE* argv, VALUE self);
 
+		/// @brief Sets the visible flag.
+		/// @param[in] value The visible flag.
+		static VALUE rb_setVisible(VALUE self, VALUE value);
 		/// @brief Sets the bitmap.
 		/// @param[in] value The bitmap.
 		static VALUE rb_setBitmap(VALUE self, VALUE value);
