@@ -14,7 +14,7 @@
 #define VER_VERSION VERSION_MAJOR,VERSION_MINOR,VERSION_REVISION,VERSION_BUILD
 #define VER_VERSION_STR VERSION_STRING
 #define VER_COMPANYNAME_STR "Chaos Project"
-#define VER_FILEDESCRIPTION_STR "Main Executable for Advanced RPG Creator"
+#define VER_FILEDESCRIPTION_STR "Game.exe"
 #define VER_LEGALCOPYRIGHT_STR "© Chaos Project"
 #define VER_PRODUCTNAME_STR "Advanced RPG Creator Executable"
 

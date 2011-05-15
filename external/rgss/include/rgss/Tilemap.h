@@ -76,8 +76,12 @@ namespace rgss
 		static VALUE rb_update(VALUE self);
 
 	protected:
-		/// @brief Autotile bitmaps.
+		/// @brief Original autotile bitmaps.
 		VALUE rb_autotiles;
+		/// @brief Current autotile bitmaps.
+		VALUE rb_currentAutotiles;
+		/// @brief Generated bitmaps.
+		VALUE rb_generatedAutotiles;
 		/// @brief Map data.
 		Table* mapData;
 		/// @brief Ruby object of map data.
@@ -105,6 +109,8 @@ namespace rgss
 
 		/// @brief Updates tile sprites.
 		void _updateTileSprites();
+		/// @brief Updates autotile bitmaps.
+		void _updateAutotiles();
 
 	};
 
