@@ -46,5 +46,70 @@
 	{ \
 		this->name = NULL; \
 	}
+/// @brief Automatically does a type check (and throw an exception if failed) with 1 acceptable type.
+/// @param[in] var Variable that needs to be type-checked.
+/// @param[in] type1 First acceptable class.
+#define RB_CHECK_TYPE_1(var, type1) \
+	if (!rb_obj_is_kind_of(var, type1)) \
+	{ \
+		VALUE varClass = rb_funcall(rb_class_of(var), rb_intern("name"), 0, NULL); \
+		VALUE class1 = rb_funcall(type1, rb_intern("name"), 0, NULL); \
+		hstr message = hsprintf("cannot convert %s into %s", StringValuePtr(varClass), \
+			StringValuePtr(class1)); \
+		rb_raise(rb_eTypeError, message.c_str()); \
+	}
+/// @brief Automatically does a type check (and throw an exception if failed) with 1 acceptable type.
+/// @param[in] var Variable that needs to be type-checked.
+/// @param[in] type1 First acceptable class.
+/// @param[in] type2 Second acceptable class.
+#define RB_CHECK_TYPE_2(var, type1, type2) \
+	if (!rb_obj_is_kind_of(var, type1) && !rb_obj_is_kind_of(var, type2)) \
+	{ \
+		VALUE varClass = rb_funcall(rb_class_of(var), rb_intern("name"), 0, NULL); \
+		VALUE class1 = rb_funcall(type1, rb_intern("name"), 0, NULL); \
+		VALUE class2 = rb_funcall(type2, rb_intern("name"), 0, NULL); \
+		hstr message = hsprintf("cannot convert %s into %s or %s", StringValuePtr(varClass), \
+			StringValuePtr(class1), StringValuePtr(class2)); \
+		rb_raise(rb_eTypeError, message.c_str()); \
+	}
+/// @brief Automatically does a type check (and throw an exception if failed) with 1 acceptable type.
+/// @param[in] var Variable that needs to be type-checked.
+/// @param[in] type1 First acceptable class.
+/// @param[in] type2 Second acceptable class.
+/// @param[in] type3 Third acceptable class.
+#define RB_CHECK_TYPE_3(var, type1, type2, type3) \
+	if (!rb_obj_is_kind_of(var, type1) && !rb_obj_is_kind_of(var, type2) && \
+		!rb_obj_is_kind_of(var, type3)) \
+	{ \
+		VALUE varClass = rb_funcall(rb_class_of(var), rb_intern("name"), 0, NULL); \
+		VALUE class1 = rb_funcall(type1, rb_intern("name"), 0, NULL); \
+		VALUE class2 = rb_funcall(type2, rb_intern("name"), 0, NULL); \
+		VALUE class3 = rb_funcall(type3, rb_intern("name"), 0, NULL); \
+		hstr message = hsprintf("cannot convert %s into %s, %s or %s", StringValuePtr(varClass), \
+			StringValuePtr(class1), StringValuePtr(class2), StringValuePtr(class3)); \
+		rb_raise(rb_eTypeError, message.c_str()); \
+	}
+/// @brief Automatically does a type check (and throw an exception if failed) with 1 acceptable type.
+/// @param[in] var Variable that needs to be type-checked.
+/// @param[in] type1 First acceptable class.
+/// @param[in] type2 Second acceptable class.
+/// @param[in] type3 Third acceptable class.
+/// @param[in] type4 Fourth acceptable class.
+#define RB_CHECK_TYPE_4(var, type1, type2, type3, type4) \
+	if (!rb_obj_is_kind_of(var, type1) && !rb_obj_is_kind_of(var, type2) && \
+		!rb_obj_is_kind_of(var, type3) && !rb_obj_is_kind_of(var, type4)) \
+	{ \
+		VALUE varClass = rb_funcall(rb_class_of(var), rb_intern("name"), 0, NULL); \
+		VALUE class1 = rb_funcall(type1, rb_intern("name"), 0, NULL); \
+		VALUE class2 = rb_funcall(type2, rb_intern("name"), 0, NULL); \
+		VALUE class3 = rb_funcall(type3, rb_intern("name"), 0, NULL); \
+		VALUE class4 = rb_funcall(type4, rb_intern("name"), 0, NULL); \
+		hstr message = hsprintf("cannot convert %s into %s, %s, %s or %s", StringValuePtr(varClass), \
+			StringValuePtr(class1), StringValuePtr(class2), StringValuePtr(class3), StringValuePtr(class4)); \
+		rb_raise(rb_eTypeError, message.c_str()); \
+	}
+
 
 #endif
+
+	
