@@ -100,6 +100,8 @@ namespace rgss
 		int height;
 		/// @brief Depth tile sprite count.
 		int depth;
+		/// @brief Autotile update counter.
+		int autotileCount;
 		/// @brief Tile sprites.
 		/// @note Ruby does not initialize the superclass when it creates an instance of a C++ class so this variable has to be created manually.
 		harray<Sprite*>* tileSprites;
