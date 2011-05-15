@@ -57,13 +57,13 @@ namespace rgss
 	void Viewport::_render()
 	{
 		//*
-		april::rendersys->setRenderTarget(this->texture);
+		//april::rendersys->setRenderTarget(this->texture);
 		april::rendersys->setBlendMode(april::ALPHA_BLEND);
 		//*/
 		this->renderQueue->draw();
-		//*
-		april::rendersys->setRenderTarget(NULL);
+		//april::rendersys->setRenderTarget(NULL);
 		april::rendersys->setBlendMode(april::DEFAULT);
+		/*
 		april::rendersys->setTexture(this->texture);
 		grect drawRect(0.0f, 0.0f, (float)this->rect->width, (float)this->rect->height);
 		grect srcRect(0.0f, 0.0f, 1.0f, 1.0f);

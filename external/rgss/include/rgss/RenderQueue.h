@@ -8,6 +8,7 @@
 namespace rgss
 {
 	class Renderable;
+	class Tilemap;
 
 	/// @brief Represents a render queue to organize renderable objects by Z order and creation order and make functionality of RGSS's Viewport class easier to implement.
 	class rgssExport RenderQueue
@@ -30,9 +31,14 @@ namespace rgss
 		/// @param[in] renderable The renderable object that has changed.
 		void update(Renderable* renderable);
 
+		void addCollection(Tilemap* collection);
+		void removeCollection(Tilemap* collection);
+
 	protected:
-		/// @brief Contains all renderable objects;
+		/// @brief Contains all renderable objects.
 		harray<Renderable*> renderables;
+		/// @brief Contains all collection objects.
+		harray<Renderable*> collections;
 		/// @brief Needs-Sorting flag.
 		bool needsSorting;
 

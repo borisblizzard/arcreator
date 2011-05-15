@@ -20,6 +20,8 @@ namespace rgss
 	class rgssExport Tilemap : public SourceRenderer
 	{
 	public:
+		/// @brief Makes sure all sprites are up to date.
+		void update();
 		/// @brief Disposes this instance.
 		void dispose();
 
@@ -102,6 +104,8 @@ namespace rgss
 		int depth;
 		/// @brief Autotile update counter.
 		int autotileCount;
+		/// @brief Updating flag.
+		int needsUpdate;
 		/// @brief Tile sprites.
 		/// @note Ruby does not initialize the superclass when it creates an instance of a C++ class so this variable has to be created manually.
 		harray<Sprite*>* tileSprites;
