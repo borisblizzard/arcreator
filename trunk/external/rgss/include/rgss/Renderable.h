@@ -28,6 +28,9 @@ namespace rgss
 		/// @brief Initializes the basic Renderable object.
 		void initializeRenderable(RenderQueue* renderQueue);
 
+		/// @brief Gets the type ID.
+		/// @return value The type DI.
+		Type getType() { return this->type; }
 		/// @brief Sets the visible flag.
 		/// @param[in] value The visible flag.
 		void setVisible(bool value) { this->visible = value; }
@@ -52,6 +55,8 @@ namespace rgss
 
 		/// @brief Draws this renderable on the screen.
 		void draw();
+		/// @brief Updates this renderable on the screen.
+		void update();
 		/// @brief Disposed this renderable.
 		void dispose();
 

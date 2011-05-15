@@ -63,6 +63,16 @@ namespace rgss
 		this->tileSprites = NULL;
 	}
 
+	void Tilemap::update()
+	{
+		if (this->needsUpdate)
+		{
+			
+			this->needsUpdate = false;
+		}
+		this->_updateTileSprites();
+	}
+
 	void Tilemap::_updateAutotiles()
 	{
 		VALUE rb_autotile;
@@ -321,7 +331,6 @@ namespace rgss
 			{
 				//rb_raise(rb_eRGSSError, "disposed sprite");
 			}
-			tilemap->_updateTileSprites();
 		}
 		return value;
 	}
@@ -337,7 +346,7 @@ namespace rgss
 			{
 				//rb_raise(rb_eRGSSError, "disposed sprite");
 			}
-			tilemap->_updateTileSprites();
+			tilemap->needsUpdate = true;
 		}
 		return value;
 	}
@@ -353,18 +362,15 @@ namespace rgss
 			{
 				//rb_raise(rb_eRGSSError, "disposed sprite");
 			}
-			tilemap->_updateTileSprites();
+			tilemap->needsUpdate = true;
 		}
 		return value;
 	}
 
 	VALUE Tilemap::rb_getAutotiles(VALUE self)
 	{
-		/* @note Not sure how RGSSError should be handled here. RMXP still allows for the 
-		   referencing of the autotiles after the Tilemap is disposed. Our method, which
-		   disposes the autotiles, would still cause an error here.
-		*/
 		RB_SELF2CPP(Tilemap, tilemap);
+		tilemap->needsUpdate = true;
 		return tilemap->rb_autotiles;
 	}
 
@@ -388,7 +394,7 @@ namespace rgss
 		}
 		if (value != rb_mapData)
 		{
-			tilemap->_updateTileSprites();
+			tilemap->needsUpdate = true;
 		}
 		return value;
 	}
@@ -413,7 +419,7 @@ namespace rgss
 		}
 		if (value != rb_priorities)
 		{
-			tilemap->_updateTileSprites();
+			tilemap->needsUpdate = true;
 		}
 		return value;
 	}
@@ -438,7 +444,7 @@ namespace rgss
 		}
 		if (value != rb_flashData)
 		{
-			tilemap->_updateTileSprites();
+			tilemap->needsUpdate = true;
 		}
 		return value;
 	}
@@ -455,7 +461,10 @@ namespace rgss
 			//rb_raise(rb_eRGSSError, "disposed sprite");
 		}
 		tilemap->autotileCount++;
-		tilemap->_updateTileSprites();
+		if (tilemap->autotileCount % 15 == 0)
+		{
+			tilemap->needsUpdate = true;
+		}
 		return Qnil;
 	}
 	

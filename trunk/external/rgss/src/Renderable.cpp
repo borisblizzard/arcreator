@@ -21,6 +21,7 @@ namespace rgss
 	{
 		this->disposed = false;
 		this->visible = true;
+		this->z = 0;
 		VALUE argv[3] = {INT2FIX(255), INT2FIX(255), INT2FIX(255)};
 		this->rb_color = Color::create(3, argv);
 		RB_VAR2CPP(this->rb_color, Color, color);
@@ -62,6 +63,20 @@ namespace rgss
 			break;
 		case TYPE_WINDOW:
 			((Window*)this)->draw();
+			break;
+		}
+	}
+
+	void Renderable::update()
+	{
+		if (!this->visible || this->isDisposed())
+		{
+			return;
+		}
+		switch (this->type)
+		{
+		case TYPE_TILEMAP:
+			((Tilemap*)this)->update();
 			break;
 		}
 	}
