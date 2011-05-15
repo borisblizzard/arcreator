@@ -40,10 +40,12 @@ namespace rgss
 		{{37, 38, 43, 44}, {37,  6, 43, 44}, {13, 18, 19, 24}, {13, 14, 43, 44},
 		 {37, 42, 43, 48}, {17, 18, 47, 48}, {13, 18, 43, 48}, { 1,  2,  7,  8}}
 	};
-
+	
 	void Tilemap::dispose()
 	{
 		this->rb_autotiles = Qnil;
+		this->rb_currentAutotiles = Qnil;
+		this->rb_generatedAutotiles = Qnil;
 		this->rb_mapData = Qnil;
 		this->mapData = NULL;
 		this->rb_priorities = Qnil;
@@ -61,6 +63,54 @@ namespace rgss
 		this->tileSprites = NULL;
 	}
 
+	void Tilemap::_updateAutotiles()
+	{
+		VALUE rb_autotile;
+		VALUE rb_generated;
+		VALUE argv1[2] = {INT2FIX(256), INT2FIX(192)};
+		VALUE argv2[2] = {INT2FIX(256), INT2FIX(768)};
+		int position;
+		bool animated = false;
+		for_iter (i, 0, 7)
+		{
+			rb_autotile = rb_ary_entry(this->rb_autotiles, i);
+			if (rb_autotile != rb_ary_entry(this->rb_currentAutotiles, i))
+			{
+				rb_ary_store(this->rb_currentAutotiles, i, rb_autotile);
+				if (NIL_P(rb_autotile))
+				{
+					rb_ary_store(this->rb_generatedAutotiles, i, Qnil);
+					continue;
+				}
+				rb_generated = rb_ary_entry(this->rb_generatedAutotiles, i);
+				animated = (NUM2INT(Bitmap::rb_getWidth(rb_autotile)) > 96);
+				if (NIL_P(rb_generated))
+				{
+					rb_generated = Bitmap::create(2, (!animated ? argv1 : argv2));
+					rb_ary_store(this->rb_generatedAutotiles, i, rb_generated);
+				}
+				else
+				{
+					Bitmap::rb_clear(rb_generated);
+				}
+				RB_VAR2CPP(rb_autotile, Bitmap, autotile);
+				RB_VAR2CPP(rb_generated, Bitmap, generated);
+				for_iter (y, 0, 6)
+				{
+					for_iter (x, 0, 8)
+					{
+						for_iter (j, 0, 4)
+						{
+							position = autotiles[y][x][j] - 1;
+							generated->blt(x * 32 + j % 2 * 16, y * 32 + j / 2 * 16, autotile,
+								position % 6 * 16, position / 6 * 16, 16, 16);
+						}
+					}
+				}
+			}
+		}
+	}
+
 	void Tilemap::_updateTileSprites()
 	{
 		if (NIL_P(this->rb_mapData) || NIL_P(this->rb_priorities) || NIL_P(this->rb_bitmap))
@@ -74,6 +124,7 @@ namespace rgss
 			this->tileSprites->clear();
 			return;
 		}
+		this->_updateAutotiles();
 		this->depth = this->mapData->getZSize();
 		Sprite* tileSprite;
 		VALUE rb_tileSprite;
@@ -95,13 +146,7 @@ namespace rgss
 			}
 		}
 		int tileId;
-		/*
-		int pattern;
-		int* list;
-		int position;
-		VALUE bitmapArgs[2] = {INT2FIX(TILE_SIZE), INT2FIX(TILE_SIZE)};
-		VALUE rb_bitmap;
-		*/
+		VALUE rb_autotile;
 		Rect* rect;
 		for_iter (k, 0, this->depth)
 		{
@@ -122,43 +167,19 @@ namespace rgss
 					else
 					{
 						tileSprite->setVisible(true);
+						rect = tileSprite->getSrcRect();
 						if (tileId >= 384)
 						{
 							SourceRenderer::rb_setBitmap(rb_tileSprite, this->rb_bitmap);
-							rect = tileSprite->getSrcRect();
 							rect->x = (tileId - 384) % 8 * TILE_SIZE;
 							rect->y = (tileId - 384) / 8 * TILE_SIZE;
 						}
 						else
 						{
-							tileSprite->setVisible(false);
-							/*
-							pattern = tileId % 48;
-							list = autotiles[pattern / 8][pattern % 8];
-							VALUE rb_autotile = rb_ary_entry(this->rb_autotiles, (tileId / 48) - 1);
-							if (!NIL_P(rb_autotile))
-							{
-								rb_bitmap = Sprite::rb_getBitmap(rb_tileSprite);
-								if (rb_bitmap == this->rb_bitmap)
-								{
-									rb_bitmap = Bitmap::create(2, bitmapArgs);
-									SourceRenderer::rb_setBitmap(rb_tileSprite, rb_bitmap);
-									RB_VAR2CPP(rb_autotile, Bitmap, autotile);
-									RB_VAR2CPP(rb_bitmap, Bitmap, bitmap);
-									for_iter (i, 0, 4)
-									{
-										position = list[i] - 1;
-										bitmap->blt(i % 2 * 16, i / 2 + 16, autotile,
-											position % 6 * 16, position / 6 * 16, 16, 16);
-									}
-								}
-							}
-							else
-							{
-								SourceRenderer::rb_setBitmap(rb_tileSprite, Qnil);
-								tileSprite->setVisible(false);
-							}
-							*/
+							rb_autotile = rb_ary_entry(this->rb_generatedAutotiles, (tileId / 48) - 1);
+							SourceRenderer::rb_setBitmap(rb_tileSprite, rb_autotile);
+							rect->x = tileId % 8 * TILE_SIZE;
+							rect->y = (tileId % 48) / 8 * TILE_SIZE;
 						}
 					}
 					tileSprite->setZ(tileSprite->getY() + (this->priorities->getData(tileId) + 1) * TILE_SIZE);
@@ -209,6 +230,8 @@ namespace rgss
 	void Tilemap::gc_mark(Tilemap* tilemap)
 	{
 		rb_gc_mark(tilemap->rb_autotiles);
+		rb_gc_mark(tilemap->rb_currentAutotiles);
+		rb_gc_mark(tilemap->rb_generatedAutotiles);
 		if (!NIL_P(tilemap->rb_mapData))
 		{
 			rb_gc_mark(tilemap->rb_mapData);
@@ -249,6 +272,8 @@ namespace rgss
 		rb_scan_args(argc, argv, "01", &viewport);
 		tilemap->initializeSourceRenderer(viewport);
 		tilemap->rb_autotiles = rb_ary_new3(7, Qnil, Qnil, Qnil, Qnil, Qnil, Qnil, Qnil);
+		tilemap->rb_currentAutotiles = rb_ary_new3(7, Qnil, Qnil, Qnil, Qnil, Qnil, Qnil, Qnil);
+		tilemap->rb_generatedAutotiles = rb_ary_new3(7, Qnil, Qnil, Qnil, Qnil, Qnil, Qnil, Qnil);
 		tilemap->width = (Graphics::getWidth() + TILE_SIZE - 1) / TILE_SIZE + 1;
 		tilemap->height = (Graphics::getHeight() + TILE_SIZE - 1) / TILE_SIZE + 1;
 		tilemap->depth = 0;
