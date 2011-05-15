@@ -70,7 +70,11 @@ namespace rgss
 		VALUE argv1[2] = {INT2FIX(256), INT2FIX(192)};
 		VALUE argv2[2] = {INT2FIX(256), INT2FIX(768)};
 		int position;
-		bool animated = false;
+		int sx;
+		int sy;
+		int tx;
+		int ty;
+		bool animated;
 		for_iter (i, 0, 7)
 		{
 			rb_autotile = rb_ary_entry(this->rb_autotiles, i);
@@ -102,8 +106,17 @@ namespace rgss
 						for_iter (j, 0, 4)
 						{
 							position = autotiles[y][x][j] - 1;
-							generated->blt(x * 32 + j % 2 * 16, y * 32 + j / 2 * 16, autotile,
-								position % 6 * 16, position / 6 * 16, 16, 16);
+							tx = x * 32 + j % 2 * 16;
+							ty = y * 32 + j / 2 * 16;
+							sx = position % 6 * 16;
+							sy = position / 6 * 16;
+							generated->blt(tx, ty, autotile, sx, sy, 16, 16);
+							if (animated)
+							{
+								generated->blt(tx, ty + 192, autotile, sx + 96, sy, 16, 16);
+								generated->blt(tx, ty + 384, autotile, sx + 192, sy, 16, 16);
+								generated->blt(tx, ty + 576, autotile, sx + 288, sy, 16, 16);
+							}
 						}
 					}
 				}
@@ -180,6 +193,10 @@ namespace rgss
 							SourceRenderer::rb_setBitmap(rb_tileSprite, rb_autotile);
 							rect->x = tileId % 8 * TILE_SIZE;
 							rect->y = (tileId % 48) / 8 * TILE_SIZE;
+							if (NUM2INT(Bitmap::rb_getHeight(rb_autotile)) > 192)
+							{
+								rect->y += (this->autotileCount % 60) / 15 * 192;
+							}
 						}
 					}
 					tileSprite->setZ(tileSprite->getY() + (this->priorities->getData(tileId) + 1) * TILE_SIZE);
@@ -277,6 +294,7 @@ namespace rgss
 		tilemap->width = (Graphics::getWidth() + TILE_SIZE - 1) / TILE_SIZE + 1;
 		tilemap->height = (Graphics::getHeight() + TILE_SIZE - 1) / TILE_SIZE + 1;
 		tilemap->depth = 0;
+		tilemap->autotileCount = 0;
 		tilemap->rb_mapData = Qnil;
 		tilemap->mapData = NULL;
 		tilemap->rb_priorities = Qnil;
@@ -436,6 +454,8 @@ namespace rgss
 		{
 			//rb_raise(rb_eRGSSError, "disposed sprite");
 		}
+		tilemap->autotileCount++;
+		tilemap->_updateTileSprites();
 		return Qnil;
 	}
 	
