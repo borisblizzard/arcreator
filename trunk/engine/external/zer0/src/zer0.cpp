@@ -27,6 +27,7 @@ namespace zer0
 {
 	bool result;
 	grect drawRect;
+	bool debugMode;
 	void (*g_logFunction)(chstr);
 	
 	void setLogFunction(void (*function)(chstr))
@@ -38,9 +39,20 @@ namespace zer0
 	{
 		g_logFunction(prefix + message);
 	}
+
+	bool isDebugMode()
+	{
+		return debugMode;
+	}
+	
+	void setDebugMode(bool value)
+	{
+		debugMode = value;
+	}
 	
 	bool init(int width, int height, bool fullscreen, chstr name, chstr path, void (*logFunction)(chstr))
 	{
+		debugMode = false;
 		bool result = true;
 		srand((unsigned int)time(NULL));
 		try
@@ -163,6 +175,7 @@ namespace zer0
 #endif
 		{
 			rb_eval_string("$DEBUG = true");
+			zer0::setDebugMode(true);
 		}
 		// initializing statically linked Ruby extensions
 		Init_api();

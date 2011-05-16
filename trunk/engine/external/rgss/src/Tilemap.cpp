@@ -205,7 +205,7 @@ namespace rgss
 							rect->y = (tileId % 48) / 8 * TILE_SIZE;
 							if (NUM2INT(Bitmap::rb_getHeight(rb_autotile)) > 192)
 							{
-								rect->y += (this->autotileCount % 60) / 15 * 192;
+								rect->y += this->autotileCount / 16 * 192;
 							}
 						}
 					}
@@ -305,6 +305,7 @@ namespace rgss
 		tilemap->height = (Graphics::getHeight() + TILE_SIZE - 1) / TILE_SIZE + 1;
 		tilemap->depth = 0;
 		tilemap->autotileCount = 0;
+		tilemap->needsUpdate = true;
 		tilemap->rb_mapData = Qnil;
 		tilemap->mapData = NULL;
 		tilemap->rb_priorities = Qnil;
@@ -460,8 +461,8 @@ namespace rgss
 		{
 			//rb_raise(rb_eRGSSError, "disposed sprite");
 		}
-		tilemap->autotileCount++;
-		if (tilemap->autotileCount % 15 == 0)
+		tilemap->autotileCount = (tilemap->autotileCount + 1) % 64;
+		if (tilemap->autotileCount == 0)
 		{
 			tilemap->needsUpdate = true;
 		}

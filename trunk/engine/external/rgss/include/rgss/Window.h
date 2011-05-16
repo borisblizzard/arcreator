@@ -119,10 +119,14 @@ namespace rgss
 		int contentsOpacity;
 		/// @brief Active flag.
 		bool active;
-		/// @brief pause flag.
+		/// @brief Pause flag.
 		bool pause;
 		/// @brief Stretch flag.
 		bool stretch;
+		/// @brief Pause animation counter.
+		int pauseCount;
+		/// @brief Cursor animation counter.
+		int cursorCount;
 		/// @brief Cursor rectangle.
 		Rect* cursorRect;
 		/// @brief Ruby object of cursor rectangle.
@@ -140,14 +144,22 @@ namespace rgss
 		Bitmap* windowskinVerticalBorders;
 		/// @brief Windowskin corners bitmap.
 		Bitmap* windowskinCorners;
-		/// @brief Windowskin cursor Sprite.
-		Sprite* cursorSprite;
-		/// @brief Ruby object of cursor sprite.
-		VALUE rb_cursorSprite;
 		/// @brief Contents sprite.
 		Sprite* contentsSprite;
 		/// @brief Ruby object of contents sprite.
 		VALUE rb_contentsSprite;
+		/// @brief Windowskin cursor Sprite.
+		Sprite* cursorSprite;
+		/// @brief Ruby object of cursor sprite.
+		VALUE rb_cursorSprite;
+		/// @brief Pause sprite.
+		Sprite* pauseSprite;
+		/// @brief Ruby object of pause sprite.
+		VALUE rb_pauseSprite;
+		/// @brief Bitmap border sprites.
+		Sprite* borderSprites[4];
+		/// @brief Ruby objects of bitmap border sprites.
+		VALUE rb_borderSprites[4];
 		
 		/// @brief Renders the actual texture.
 		void _render();
@@ -159,10 +171,14 @@ namespace rgss
 		void _renderWindowskinCorners();
 		/// @brief Updates all windowskin components.
 		void _updateWindowskin();
-		/// @brief Updates the cursor sprite.
-		void _updateCursorSprite();
 		/// @brief Updates the contents sprite.
 		void _updateContentsSprite();
+		/// @brief Updates the cursor sprite.
+		void _updateCursorSprite();
+		/// @brief Updates the pause sprite.
+		void _updatePauseSprite();
+		/// @brief Updates the bitmap border sprites.
+		void _updateBorderSprites();
 
 	};
 

@@ -12,6 +12,8 @@ namespace zer0
 	zer0FnExport void setLogFunction(void (*fnptr)(chstr));
 	zer0FnExport void log(chstr message, chstr prefix = "[zer0] ");
 	zer0FnExport int enterMainLoop(int argc, char** argv);
+	zer0FnExport bool isDebugMode();
+	zer0FnExport void setDebugMode(bool value);
 
 }
 
