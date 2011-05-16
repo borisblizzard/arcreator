@@ -15,6 +15,7 @@ scripts.each {|script|
 }
 
 file = File.open('./Scripts.rb', 'w')
+file.write("\xEF\xBB\xBF") # UTF-8 identifier
 file.write(decrypted.join("\n"))
 file.close
 
