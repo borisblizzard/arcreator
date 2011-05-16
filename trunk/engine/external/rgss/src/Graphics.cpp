@@ -10,6 +10,7 @@
 #include <hltypes/util.h>
 #include <xal/AudioManager.h>
 
+#include "ApplicationExitException.h"
 #include "CodeSnippets.h"
 #include "Graphics.h"
 #include "Renderable.h"
@@ -113,7 +114,7 @@ namespace rgss
 	{
 		if (!running)
 		{
-			rb_exit(0);
+			throw ApplicationExitException();
 			return Qnil;
 		}
 		april::rendersys->getWindow()->doEvents();

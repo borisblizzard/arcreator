@@ -138,8 +138,11 @@ namespace zer0
 	{
 		VALUE error = rb_gv_get("$!");
 		VALUE message = rb_funcall(error, rb_intern("message"), 0, NULL);
+		VALUE backtrace = rb_funcall(error, rb_intern("backtrace"), 0, NULL);
+		VALUE backtraceMessage = rb_funcall(backtrace, rb_intern("join"), 1, "\n");
 		hstr title = april::rendersys->getWindow()->getWindowTitle();
-		hstr text = StringValuePtr(message);
+		hstr text = StringValuePtr(message) + hstr("\n") + StringValuePtr(backtraceMessage);
+		zer0::log(text);
 		april::messageBox(title, text, april::AMSGBTN_OK, april::AMSGSTYLE_WARNING);
 	}
 
@@ -164,12 +167,24 @@ namespace zer0
 		// initializing statically linked Ruby extensions
 		Init_api();
 		// running everything
-		rb_protect(embedded, Qnil, &state);
-		if (state != 0)
+		try
 		{
-			displayRubyError();
+			rb_protect(embedded, Qnil, &state);
+			if (state != 0)
+			{
+				displayRubyError();
+			}
+			ruby_cleanup(state);
 		}
-		return ruby_cleanup(state);
+		catch (hltypes::exception e)
+		{
+			zer0::log(e.message());
+		}
+		catch (hstr e)
+		{
+			zer0::log(e);
+		}
+		return 0;
 	}
 
 }

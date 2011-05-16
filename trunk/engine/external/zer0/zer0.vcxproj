@@ -113,6 +113,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\zer0\ApplicationExitException.h" />
     <ClInclude Include="include\zer0\Context.h" />
     <ClInclude Include="include\zer0\System.h" />
     <ClInclude Include="include\zer0\TransitionManager.h" />
@@ -122,6 +123,7 @@
     <ClInclude Include="src\Constants.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\ApplicationExitException.cpp" />
     <ClCompile Include="src\Context.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='win32_Debug|Win32'">$(IntDir)%(RelativeDir)%(Filename).obj</ObjectFileName>
     </ClCompile>
