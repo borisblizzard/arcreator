@@ -117,6 +117,7 @@
     <ResourceCompile Include="fileproperties.rc" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\ApplicationExitException.cpp" />
     <ClCompile Include="src\Audio.cpp" />
     <ClCompile Include="src\Bitmap.cpp" />
     <ClCompile Include="src\Color.cpp" />
@@ -139,6 +140,7 @@
     <ClCompile Include="src\Zoomable.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\rgss\ApplicationExitException.h" />
     <ClInclude Include="include\rgss\Audio.h" />
     <ClInclude Include="include\rgss\Bitmap.h" />
     <ClInclude Include="include\rgss\BlendType.h" />
