@@ -55,15 +55,16 @@ namespace rgss
 		{
 			april::rendersys->setBlendMode(april::ADD);
 		}
-		grect drawRect((float)this->ox, (float)this->oy,
-			(float)this->srcRect->width, (float)this->srcRect->height);
-		float w = (float)this->bitmap->getWidth();
-		float h = (float)this->bitmap->getHeight();
+		int dw = hmin(this->srcRect->width, this->bitmap->getWidth());
+		int dh = hmin(this->srcRect->height, this->bitmap->getHeight());
+		grect drawRect((float)this->ox, (float)this->oy, (float)dw, (float)dh);
+		float sw = (float)this->bitmap->getWidth();
+		float sh = (float)this->bitmap->getHeight();
 		grect srcRect;
-		srcRect.x = this->srcRect->x / w;
-		srcRect.y = this->srcRect->y / h;
-		srcRect.w = hmin(this->srcRect->width / w, 1.0f - srcRect.x);
-		srcRect.h = hmin(this->srcRect->height / h, 1.0f - srcRect.y);
+		srcRect.x = this->srcRect->x / sw;
+		srcRect.y = this->srcRect->y / sh;
+		srcRect.w = hmin(this->srcRect->width / sw, 1.0f - srcRect.x);
+		srcRect.h = hmin(this->srcRect->height / sh, 1.0f - srcRect.y);
 		april::rendersys->drawTexturedQuad(drawRect, srcRect,
 			april::Color(APRIL_COLOR_WHITE, (unsigned char)this->opacity));
 		april::rendersys->setBlendMode(april::DEFAULT);

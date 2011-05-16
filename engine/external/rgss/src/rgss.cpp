@@ -33,6 +33,9 @@ namespace rgss
 	void init(void (*logFunction)(chstr))
 	{
 		g_logFunction = logFunction;
+#ifdef _DEBUG
+		rgss::log("initializing Zer0 RGSS");
+#endif
 		// creating Ruby interfaces of C++ classes created for Ruby
 		Audio::createRubyInterface();
 		Bitmap::createRubyInterface();
@@ -65,9 +68,6 @@ namespace rgss
 		Tone::init();
 		Viewport::init();
 		Window::init();
-#ifdef _DEBUG
-		rgss::log("initializing Zer0 RGSS");
-#endif
 	}
 
 	void destroy()
@@ -75,6 +75,23 @@ namespace rgss
 #ifdef _DEBUG
 		rgss::log("destroying Zer0 RGSS");
 #endif
+		/*
+		Audio::destroy();
+		Bitmap::destroy();
+		Color::destroy();
+		Font::destroy();
+		Graphics::destroy();
+		Input::destroy();
+		Plane::destroy();
+		Rect::destroy();
+		RGSSError::destroy();
+		Sprite::destroy();
+		Table::destroy();
+		Tilemap::destroy();
+		Tone::destroy();
+		Viewport::destroy();
+		Window::destroy();
+		*/
 	}
 
 }
