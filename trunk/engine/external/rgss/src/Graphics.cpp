@@ -220,6 +220,12 @@ namespace rgss
 			april::rendersys->drawTexturedQuad(drawRect, srcRect, color);
 			april::rendersys->presentFrame();
 			_waitForFrameSync();
+			frameCount++;
+			/// @todo - more often, less often?
+			if (frameCount % 200 == 0)
+			{
+				rb_eval_string("GC.start");
+			}
 #ifdef _NO_THREADED_UPDATE
 			xal::mgr->update(1000.0f / frameRate);
 #endif
