@@ -129,8 +129,6 @@ namespace rgss
 		}
 		_waitForFrameSync();
 		frameCount++;
-		/// @todo - remove once threaded XAL works 100% fine
-		xal::mgr->update(1000.0f / frameRate);
 		/// @todo - more often, less often?
 		if (frameCount % 200 == 0)
 		{
@@ -189,8 +187,6 @@ namespace rgss
 			*/
 			april::rendersys->presentFrame();
 			_waitForFrameSync();
-			/// @todo - remove once threaded XAL works 100% fine
-			xal::mgr->update(1000.0f / frameRate);
 		}
 		/*
 		delete texture;
@@ -216,8 +212,6 @@ namespace rgss
 			*/
 			april::rendersys->presentFrame();
 			_waitForFrameSync();
-			/// @todo - remove once threaded XAL works 100% fine
-			xal::mgr->update(1000.0f / frameRate);
 		}
 		//delete texture;
 		active = true;
