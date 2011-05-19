@@ -48,6 +48,14 @@ namespace rgss
 		bgsPitch = 100;
 	}
 
+	void Audio::destroy()
+	{
+		rb_bgmStop(rb_mAudio);
+		rb_bgsStop(rb_mAudio);
+		rb_meStop(rb_mAudio);
+		rb_seStop(rb_mAudio);
+	}
+
 	void Audio::createRubyInterface()
 	{
 		rb_mAudio = rb_define_module("Audio");
