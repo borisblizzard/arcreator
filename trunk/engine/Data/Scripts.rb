@@ -31375,7 +31375,6 @@ end
 #  player.
 #==============================================================================
 
-Object.send(:remove_const, :Game_Player)
 class Game_Player < Map_Actor
   
   #----------------------------------------------------------------------------
@@ -33120,7 +33119,6 @@ end
 #  Here is where the class substitution occurs.
 #==============================================================================
 
-Object.send(:remove_const, :Sprite_Character)
 class Sprite_Character < Control_Sprite_Character
 end
 
@@ -33131,7 +33129,6 @@ end
 #  the Window class. It also handles the hotkey assignment display and minimap.
 #==============================================================================
 
-Object.send(:remove_const, :Hud)
 class Hud < Sprite
   
   # setting all accessable variables
@@ -33811,7 +33808,6 @@ end
 #  more efficient than the Window class.
 #==============================================================================
 
-Object.send(:remove_const, :Mini_Map)
 class Mini_Map < Sprite
   
   # setting all accessable variables

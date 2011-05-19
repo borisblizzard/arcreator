@@ -23,7 +23,7 @@ end
 
 # RMXP's data loader from the RGSSAD archive
 def load_data(filename)
-	file = File.open(filename)
+	file = File.open(filename, 'rb')
 	data = Marshal.load(file)
 	file.close()
 	return data
