@@ -306,7 +306,7 @@ namespace rgss
 		return result;
 	}
 
-	VALUE Bitmap::rb_initialize(int argc, VALUE* argv, VALUE self) 
+	VALUE Bitmap::rb_initialize(int argc, VALUE* argv, VALUE self)
 	{
 		RB_SELF2CPP(Bitmap, bitmap);
 		bitmap->disposed = false;
@@ -349,13 +349,10 @@ namespace rgss
 	VALUE Bitmap::rb_initialize_copy(VALUE self, VALUE original)
 	{
 		RB_SELF2CPP(Bitmap, bitmap);
-		if (bitmap->disposed)
-		{
-			//rb_raise(rb_eRGSSError, "disposed bitmap");
-		}
 		RB_VAR2CPP(original, Bitmap, other);
 		bitmap->imageSource = april::createEmptyImage(other->imageSource->w, other->imageSource->h);
 		bitmap->imageSource->copyImage(other->imageSource);
+		Bitmap::rb_setFont(self, rb_funcall(other->rb_font, rb_intern("clone"), 0, NULL));
 		bitmap->textureNeedsUpdate = true;
 		return self;
 	}
@@ -363,7 +360,7 @@ namespace rgss
 	VALUE Bitmap::rb_dispose(VALUE self)
 	{
 		RB_SELF2CPP(Bitmap, bitmap);
-		if (bitmap->disposed)
+		if (!bitmap->disposed)
 		{
 			//rb_raise(rb_eRGSSError, "disposed bitmap");
 		}
