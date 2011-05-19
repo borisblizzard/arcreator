@@ -16,6 +16,8 @@ namespace rgss
 	public:
 		/// @brief Initializes the module.
 		static void init();
+		/// @brief Destroys the module.
+		static void destroy();
 		/// @brief Exposes this class to Ruby.
 		static void createRubyInterface();
 		/// @brief Starts BGM playback.

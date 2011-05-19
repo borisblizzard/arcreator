@@ -47,7 +47,7 @@ namespace rgss
 		float waitTime = 1000.0f / frameRate - hmax(difference, 16.66667f);
 		if (waitTime > 0.0f)
 		{
-			hthread::sleep(waitTime);
+			//hthread::sleep(waitTime);
 		}
 	}
 

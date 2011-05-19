@@ -75,9 +75,9 @@ namespace rgss
 #ifdef _DEBUG
 		rgss::log("destroying Zer0 RGSS");
 #endif
-		/*
 		Audio::destroy();
 		Bitmap::destroy();
+		/*
 		Color::destroy();
 		Font::destroy();
 		Graphics::destroy();

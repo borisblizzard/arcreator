@@ -12,6 +12,7 @@
 #include <hltypes/hfile.h>
 #include <hltypes/hstring.h>
 #include <hltypes/util.h>
+#include <rgss/ApplicationExitException.h>
 #include <rgss/rgss.h>
 #include <xal/AudioManager.h>
 #include <xal/xal.h>
@@ -150,10 +151,11 @@ namespace zer0
 	{
 		VALUE error = rb_gv_get("$!");
 		VALUE message = rb_funcall(error, rb_intern("message"), 0, NULL);
+		hstr text = StringValuePtr(message);
 		VALUE backtrace = rb_funcall(error, rb_intern("backtrace"), 0, NULL);
 		VALUE backtraceMessage = rb_funcall(backtrace, rb_intern("join"), 1, "\n");
 		hstr title = april::rendersys->getWindow()->getWindowTitle();
-		hstr text = StringValuePtr(message) + hstr("\n") + StringValuePtr(backtraceMessage);
+		text += hstr("\n") + StringValuePtr(backtraceMessage);
 		zer0::log(text);
 		april::messageBox(title, text, april::AMSGBTN_OK, april::AMSGSTYLE_WARNING);
 	}
@@ -188,6 +190,9 @@ namespace zer0
 				displayRubyError();
 			}
 			ruby_cleanup(state);
+		}
+		catch (rgss::ApplicationExitException e)
+		{
 		}
 		catch (hltypes::exception e)
 		{

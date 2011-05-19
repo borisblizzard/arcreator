@@ -256,6 +256,15 @@ namespace rgss
 		fontCache = hmap<hstr, Bitmap*>();
 	}
 
+	void Bitmap::destroy()
+	{
+		foreach_m (Bitmap*, it, fontCache)
+		{
+			delete it->second;
+		}
+		fontCache.clear();
+	}
+
 	void Bitmap::createRubyInterface()
 	{
 		rb_cBitmap = rb_define_class("Bitmap", rb_cObject);
@@ -350,6 +359,7 @@ namespace rgss
 	{
 		RB_SELF2CPP(Bitmap, bitmap);
 		RB_VAR2CPP(original, Bitmap, other);
+		bitmap->disposed = false;
 		bitmap->imageSource = april::createEmptyImage(other->imageSource->w, other->imageSource->h);
 		bitmap->imageSource->copyImage(other->imageSource);
 		Bitmap::rb_setFont(self, rb_funcall(other->rb_font, rb_intern("clone"), 0, NULL));
