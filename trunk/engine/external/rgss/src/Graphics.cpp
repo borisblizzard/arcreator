@@ -32,6 +32,7 @@ namespace rgss
 	unsigned int Graphics::frameRate;
 	bool Graphics::running;
 	april::Timer* Graphics::timer;
+	float time;
 	RenderQueue* Graphics::renderQueue;
 
 	/****************************************************************************************
@@ -40,8 +41,10 @@ namespace rgss
 	
 	void Graphics::_waitForFrameSync()
 	{
-		float time = timer->diff();
-		float waitTime = 1000.0f / frameRate - hmax(time, 16.66667f);
+		float t = timer->getTime();
+		float difference = t - time;
+		time = t;
+		float waitTime = 1000.0f / frameRate - hmax(difference, 16.66667f);
 		if (waitTime > 0.0f)
 		{
 			hthread::sleep(waitTime);
@@ -63,7 +66,7 @@ namespace rgss
 		running = true;
 		renderQueue = new RenderQueue();
 		timer = new april::Timer();
-		timer->diff();
+		time = timer->getTime();
 		Renderable::CounterProgress = 0;
 	}
 
