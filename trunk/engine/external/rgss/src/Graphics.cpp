@@ -118,14 +118,19 @@ namespace rgss
 		if (!running)
 		{
 			throw ApplicationExitException();
-			return Qnil;
 		}
-		while (!focused)
+		if (focused)
 		{
 			april::rendersys->getWindow()->doEvents();
-			hthread::sleep(40);
 		}
-		april::rendersys->getWindow()->doEvents();
+		else
+		{
+			while (!focused)
+			{
+				april::rendersys->getWindow()->doEvents();
+				hthread::sleep(40);
+			}
+		}
 		if (active)
 		{
 			april::rendersys->clear();
@@ -162,6 +167,11 @@ namespace rgss
 		VALUE arg1, arg2, arg3;
 		rb_scan_args(argc, argv, "03", &arg1, &arg2, &arg3);
 		int duration = (NIL_P(arg1) ? 8 : NUM2INT(arg1));
+		if (duration == 0)
+		{
+			active = true;
+			return Qnil;
+		}
 		hstr filename = (NIL_P(arg2) ? "" : StringValuePtr(arg2));
 		if (filename != "")
 		{
@@ -170,64 +180,52 @@ namespace rgss
 		}
 		/// @todo Int or float?
 		int vague = (NIL_P(arg3) ? 0 : NUM2INT(arg3));
-		///*
 		grect drawRect(0.0f, 0.0f, (float)width, (float)height);
 		grect srcRect(0.0f, 0.0f, 1.0f, 1.0f);
-		april::Color color = APRIL_COLOR_BLACK;
-		april::ImageSource* screenshot = april::rendersys->grabScreenshot();
-		april::ImageSource* imageSource = april::createEmptyImage(width, height);
-		imageSource->copyImage(screenshot, 4);
-		delete screenshot;
-		april::Texture* texture = april::rendersys->createTextureFromMemory(imageSource->data, width, height);
+		april::Color color = APRIL_COLOR_WHITE;
+		// capture old screen
+		april::ImageSource* imageSource = april::rendersys->grabScreenshot(4);
+		april::Texture* oldScreen = april::rendersys->createTextureFromMemory(imageSource->data, width, height);
 		delete imageSource;
-		//*/
-		int duration0 = duration / 2;
-		int duration1 = duration - duration / 2;
-		for_iter (i, 0, duration0)
-		{
-			april::rendersys->getWindow()->doEvents();
-			//april::rendersys->clear();
-			/*
-			april::rendersys->setTexture(texture);
-			april::rendersys->drawTexturedQuad(drawRect, srcRect);
-			color.a = i * 255 / duration0;
-			april::rendersys->drawColoredQuad(drawRect, color);
-			//*/
-			april::rendersys->presentFrame();
-			_waitForFrameSync();
-#ifdef _NO_THREADED_UPDATE
-			xal::mgr->update(1000.0f / frameRate);
-#endif
-		}
-		//*
-		delete texture;
+		// capture new screen
 		april::rendersys->clear();
 		renderQueue->draw();
-		screenshot = april::rendersys->grabScreenshot();
-		april::rendersys->clear();
-		imageSource = april::createEmptyImage(width, height);
-		imageSource->copyImage(screenshot, 4);
-		delete screenshot;
-		texture = april::rendersys->createTextureFromMemory(imageSource->data, width, height);
+		imageSource = april::rendersys->grabScreenshot(4);
+		april::Texture* newScreen = april::rendersys->createTextureFromMemory(imageSource->data, width, height);
 		delete imageSource;
-		//*/
-		for_iter (i, 0, duration1)
+		// fade between old and new screen
+		for_iter (i, 0, duration)
 		{
-			april::rendersys->getWindow()->doEvents();
-			//april::rendersys->clear();
-			/*
-			april::rendersys->setTexture(texture);
+			if (!running)
+			{
+				throw ApplicationExitException();
+			}
+			if (focused)
+			{
+				april::rendersys->getWindow()->doEvents();
+			}
+			else
+			{
+				while (!focused)
+				{
+					april::rendersys->getWindow()->doEvents();
+					hthread::sleep(40);
+				}
+			}
+			april::rendersys->clear();
+			april::rendersys->setTexture(oldScreen);
 			april::rendersys->drawTexturedQuad(drawRect, srcRect);
-			color.a = (duration1 - i) * 255 / duration1;
-			april::rendersys->drawColoredQuad(drawRect, color);
-			//*/
+			april::rendersys->setTexture(newScreen);
+			color.a = (i + 1) * 255 / duration;
+			april::rendersys->drawTexturedQuad(drawRect, srcRect, color);
 			april::rendersys->presentFrame();
 			_waitForFrameSync();
 #ifdef _NO_THREADED_UPDATE
 			xal::mgr->update(1000.0f / frameRate);
 #endif
 		}
-		//delete texture;
+		delete oldScreen;
+		delete newScreen;
 		active = true;
 		return Qnil;
 	}
