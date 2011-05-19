@@ -9,7 +9,6 @@
 [list]
 [li]Eric "ForeverZer0" Freed[/li]
 [li]Boris "Blizzard" Mikiæ[/li]
-[li]Ronnie "game_guy" Mooney III[/li]
 [li]Benjamin "Ryex" Powers[/li]
 [/list]
 
