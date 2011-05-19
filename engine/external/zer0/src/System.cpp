@@ -51,6 +51,7 @@ namespace zer0
 	void System::onFocusChange(bool focused)
 	{
 		zer0::system->Focused = focused;
+		rgss::Graphics::setFocused(focused);
 	}
 
 }
