@@ -362,6 +362,7 @@ namespace rgss
 		bitmap->disposed = false;
 		bitmap->imageSource = april::createEmptyImage(other->imageSource->w, other->imageSource->h);
 		bitmap->imageSource->copyImage(other->imageSource);
+		// TODO - should be changed to call an actual clone method for convenience
 		Bitmap::rb_setFont(self, rb_funcall(other->rb_font, rb_intern("clone"), 0, NULL));
 		bitmap->textureNeedsUpdate = true;
 		return self;

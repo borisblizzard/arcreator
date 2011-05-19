@@ -4,7 +4,7 @@
 #define VERSION_MAJOR (1)
 #define VERSION_MINOR (0)
 #define VERSION_REVISION (0)
-#define VERSION_BUILD (248)
+#define VERSION_BUILD (256)
 
 #define cstr(s) #s
 #define cstr2(s) cstr(s)
@@ -14,7 +14,7 @@
 #define VER_VERSION VERSION_MAJOR,VERSION_MINOR,VERSION_REVISION,VERSION_BUILD
 #define VER_VERSION_STR VERSION_STRING
 #define VER_COMPANYNAME_STR "Chaos Project"
-#define VER_FILEDESCRIPTION_STR "Game.exe"
+#define VER_FILEDESCRIPTION_STR "ARC Executable"
 #define VER_LEGALCOPYRIGHT_STR "© Chaos Project"
 #define VER_PRODUCTNAME_STR "Advanced RPG Creator Executable"
 
