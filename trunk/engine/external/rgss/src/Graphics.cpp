@@ -31,8 +31,8 @@ namespace rgss
 	unsigned int Graphics::frameCount;
 	unsigned int Graphics::frameRate;
 	bool Graphics::running;
+	bool Graphics::focused;
 	april::Timer* Graphics::timer;
-	float time;
 	RenderQueue* Graphics::renderQueue;
 
 	/****************************************************************************************
@@ -41,14 +41,13 @@ namespace rgss
 	
 	void Graphics::_waitForFrameSync()
 	{
-		float t = timer->getTime();
-		float difference = t - time;
-		time = t;
-		float waitTime = 1000.0f / frameRate - hmax(difference, 16.66667f);
+#ifndef _DEBUG
+		float waitTime = 1000.0f / frameRate - timer->diff();
 		if (waitTime > 0.0f)
 		{
-			//hthread::sleep(waitTime);
+			hthread::sleep(waitTime);
 		}
+#endif
 	}
 
 	/****************************************************************************************
@@ -64,9 +63,10 @@ namespace rgss
 		frameCount = 0;
 		frameRate = 40;
 		running = true;
+		focused = true;
 		renderQueue = new RenderQueue();
 		timer = new april::Timer();
-		time = timer->getTime();
+		timer->diff();
 		Renderable::CounterProgress = 0;
 	}
 
@@ -120,6 +120,11 @@ namespace rgss
 			throw ApplicationExitException();
 			return Qnil;
 		}
+		while (!focused)
+		{
+			april::rendersys->getWindow()->doEvents();
+			hthread::sleep(40);
+		}
 		april::rendersys->getWindow()->doEvents();
 		if (active)
 		{
@@ -129,6 +134,9 @@ namespace rgss
 		}
 		_waitForFrameSync();
 		frameCount++;
+#ifdef _NO_THREADED_UPDATE
+		xal::mgr->update(1000.0f / frameRate);
+#endif
 		/// @todo - more often, less often?
 		if (frameCount % 200 == 0)
 		{
@@ -162,7 +170,7 @@ namespace rgss
 		}
 		/// @todo Int or float?
 		int vague = (NIL_P(arg3) ? 0 : NUM2INT(arg3));
-		/*
+		///*
 		grect drawRect(0.0f, 0.0f, (float)width, (float)height);
 		grect srcRect(0.0f, 0.0f, 1.0f, 1.0f);
 		april::Color color = APRIL_COLOR_BLACK;
@@ -172,23 +180,26 @@ namespace rgss
 		delete screenshot;
 		april::Texture* texture = april::rendersys->createTextureFromMemory(imageSource->data, width, height);
 		delete imageSource;
-		*/
+		//*/
 		int duration0 = duration / 2;
 		int duration1 = duration - duration / 2;
 		for_iter (i, 0, duration0)
 		{
 			april::rendersys->getWindow()->doEvents();
-			april::rendersys->clear();
+			//april::rendersys->clear();
 			/*
 			april::rendersys->setTexture(texture);
 			april::rendersys->drawTexturedQuad(drawRect, srcRect);
 			color.a = i * 255 / duration0;
 			april::rendersys->drawColoredQuad(drawRect, color);
-			*/
+			//*/
 			april::rendersys->presentFrame();
 			_waitForFrameSync();
+#ifdef _NO_THREADED_UPDATE
+			xal::mgr->update(1000.0f / frameRate);
+#endif
 		}
-		/*
+		//*
 		delete texture;
 		april::rendersys->clear();
 		renderQueue->draw();
@@ -199,19 +210,22 @@ namespace rgss
 		delete screenshot;
 		texture = april::rendersys->createTextureFromMemory(imageSource->data, width, height);
 		delete imageSource;
-		*/
+		//*/
 		for_iter (i, 0, duration1)
 		{
 			april::rendersys->getWindow()->doEvents();
-			april::rendersys->clear();
+			//april::rendersys->clear();
 			/*
 			april::rendersys->setTexture(texture);
 			april::rendersys->drawTexturedQuad(drawRect, srcRect);
 			color.a = (duration1 - i) * 255 / duration1;
 			april::rendersys->drawColoredQuad(drawRect, color);
-			*/
+			//*/
 			april::rendersys->presentFrame();
 			_waitForFrameSync();
+#ifdef _NO_THREADED_UPDATE
+			xal::mgr->update(1000.0f / frameRate);
+#endif
 		}
 		//delete texture;
 		active = true;

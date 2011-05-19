@@ -32,6 +32,9 @@ namespace rgss
 		/// @brief Sets whether Graphics is still running.
 		/// @param[in] value The new value.
 		static void setRunning(bool value) { running = value; }
+		/// @brief Sets whether the window is in focus.
+		/// @param[in] value The new value.
+		static void setFocused(bool value) { focused = value; }
 
 		/// @brief Initializes the module.
 		static void init();
@@ -76,7 +79,9 @@ namespace rgss
 		static unsigned int frameRate;
 		/// @brief Flag whether it is still running.
 		static bool running;
-		/// @brief Timer for FPS normalization.
+		/// @brief Flag whether window is in focus.
+		static bool focused;
+		/// @brief Timer for frame limiation.
 		static april::Timer* timer;
 			
 		/// @brief Waits for the frame sync for FPS limitation.

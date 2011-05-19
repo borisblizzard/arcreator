@@ -89,6 +89,7 @@ namespace zer0
 			april::rendersys->getWindow()->setKeyboardCallbacks(
 				zer0::Context::onKeyDown, zer0::Context::onKeyUp, zer0::Context::onChar);
 			april::rendersys->getWindow()->setQuitCallback(&System::onQuit);
+			april::rendersys->getWindow()->setWindowFocusCallback(&System::onFocusChange);
 			// zer0 related data
 			zer0::log("initializing Zer0 Division Engine");
 			zer0::system = new zer0::System(path);
