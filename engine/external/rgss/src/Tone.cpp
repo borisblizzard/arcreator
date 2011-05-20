@@ -60,6 +60,8 @@ namespace rgss
 
 	VALUE Tone::rb_initialize(int argc, VALUE* argv, VALUE self)
 	{
+		VALUE r, g, b, a;
+		rb_scan_args(argc, argv, "31", &r, &g, &b, &a);
 		Tone::rb_set(argc, argv, self);
 		return self;
 	}

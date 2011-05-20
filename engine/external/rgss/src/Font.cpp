@@ -85,6 +85,8 @@ namespace rgss
 
 	VALUE Font::rb_initialize(int argc, VALUE* argv, VALUE self)
 	{
+		VALUE name, size;
+		rb_scan_args(argc, argv, "11", &name, &size);
 		RB_SELF2CPP(Font, font);
 		font->name = defaultName;
 		font->size = defaultSize;

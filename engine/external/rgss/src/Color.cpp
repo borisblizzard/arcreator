@@ -74,6 +74,9 @@ namespace rgss
 
 	VALUE Color::rb_initialize(int argc, VALUE* argv, VALUE self)
 	{
+		// TODO Is this needed since rb_set function checks the same values?
+		VALUE r, g, b, a;
+		rb_scan_args(argc, argv, "31", &r, &g, &b, &a);
 		Color::rb_set(argc, argv, self);
 		return self;
 	}
