@@ -86,10 +86,10 @@ namespace rgss
 	VALUE Font::rb_initialize(int argc, VALUE* argv, VALUE self)
 	{
 		VALUE name, size;
-		rb_scan_args(argc, argv, "11", &name, &size);
+		rb_scan_args(argc, argv, "02", &name, &size);
 		RB_SELF2CPP(Font, font);
-		font->name = defaultName;
-		font->size = defaultSize;
+		font->name = (!NIL_P(name) ? StringValuePtr(name) : defaultName);
+		font->size = (!NIL_P(name) ? NUM2INT(size) : defaultSize);
 		font->bold = defaultBold;
 		font->italic = defaultItalic;
 		VALUE argv2[4] = {INT2FIX(defaultColor->red), INT2FIX(defaultColor->green),
