@@ -69,11 +69,7 @@ namespace zer0
 			atres::init();
 			aprilui::init();
 #ifndef _NOSOUND
-#ifndef _NO_THREADED_SOUND
 			xal::init(XAL_AS_DEFAULT, (unsigned long)april::rendersys->getWindow()->getIDFromBackend(), true);
-#else
-			xal::init(XAL_AS_DEFAULT, (unsigned long)april::rendersys->getWindow()->getIDFromBackend(), false);
-#endif
 #else
 			xal::init(XAL_AS_DISABLED, (unsigned long)april::rendersys->getWindow()->getIDFromBackend(), false);
 #endif
