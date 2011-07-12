@@ -139,9 +139,6 @@ namespace rgss
 		}
 		_waitForFrameSync();
 		frameCount++;
-#ifdef _NO_THREADED_UPDATE
-		xal::mgr->update(1000.0f / frameRate);
-#endif
 		/// @todo - more often, less often?
 		if (frameCount % 200 == 0)
 		{
@@ -226,9 +223,6 @@ namespace rgss
 			{
 				rb_eval_string("GC.start");
 			}
-#ifdef _NO_THREADED_UPDATE
-			xal::mgr->update(1000.0f / frameRate);
-#endif
 		}
 		delete oldScreen;
 		delete newScreen;
