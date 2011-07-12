@@ -4,7 +4,8 @@
 #include <april/RenderSystem.h>
 #include <april/Texture.h>
 #include <atres/atres.h>
-#include <atres/Font.h>
+#include <atres/FontResourceBitmap.h>
+#include <atres/Renderer.h>
 #include <gtypes/Rectangle.h>
 #include <gtypes/Vector2.h>
 #include <hltypes/exception.h>
@@ -93,7 +94,7 @@ namespace rgss
 
 	void Bitmap::stretchBlt(int x, int y, int w, int h, Bitmap* source, int sx, int sy, int sw, int sh)
 	{
-		this->imageSource->stretch_blit(x, y, w, h, source->imageSource, sx, sy, sw, sh);
+		this->imageSource->stretchBlit(x, y, w, h, source->imageSource, sx, sy, sw, sh);
 		this->textureNeedsUpdate = true;
 	}
 
@@ -153,8 +154,8 @@ namespace rgss
 				tags += tag;
 			}
 			*/
-			harray<atres::RenderLine> lines = atres::createRenderLines(drawRect, text, tags, horizontal, vertical);
-			sequences = atres::createRenderSequences(drawRect, lines, tags);
+			harray<atres::RenderLine> lines = atres::renderer->createRenderLines(drawRect, text, tags, horizontal, vertical);
+			sequences = atres::renderer->createRenderSequences(drawRect, lines, tags);
 			if (text.size() <= 1)
 			{
 				entry.fontName = fontName;
@@ -166,9 +167,9 @@ namespace rgss
 		/// @todo This works but is very slow, improve it
 		//*
 		hstr name = this->font->getName();
-		if (!atres::hasFont(name))
+		if (!atres::renderer->hasFont(name))
 		{
-			name = atres::getFont("")->getName(); // default font
+			name = atres::renderer->getFontResource("")->getName(); // default font
 		}
 		name = "Graphics/Fonts/" + name;
 		// creating a bitmap to blit from
@@ -203,11 +204,11 @@ namespace rgss
 	{
 		hstr result = this->font->getName();
 		int h = this->font->getSize();
-		if (!atres::hasFont(result))
+		if (!atres::renderer->hasFont(result))
 		{
-			result = atres::getFont("")->getName(); // default font
+			result = atres::renderer->getFontResource("")->getName(); // default font
 		}
-		float fontHeight = atres::getFontHeight(result);
+		float fontHeight = atres::renderer->getFontHeight(result);
 		if (h != fontHeight)
 		{
 			result += hsprintf(":%f", h / fontHeight);
@@ -564,12 +565,12 @@ namespace rgss
 		RB_VAR2CPP(arg3, Rect, src_rect);
 		if (NIL_P(arg4))
 		{
-			bitmap->imageSource->stretch_blit(dest_rect->x, dest_rect->y, dest_rect->width, dest_rect->height,
+			bitmap->imageSource->stretchBlit(dest_rect->x, dest_rect->y, dest_rect->width, dest_rect->height,
 				source->imageSource, src_rect->x, src_rect->y, src_rect->width, src_rect->height);
 		}
 		else
 		{
-			bitmap->imageSource->stretch_blit(dest_rect->x, dest_rect->y, dest_rect->width, dest_rect->height,
+			bitmap->imageSource->stretchBlit(dest_rect->x, dest_rect->y, dest_rect->width, dest_rect->height,
 				source->imageSource, src_rect->x, src_rect->y, src_rect->width, src_rect->height,
 				(unsigned char)NUM2INT(arg4));
 		}
@@ -641,7 +642,7 @@ namespace rgss
 		}
 		hstr text = StringValuePtr(string);
 		hstr fontName = bitmap->_getAFontName();
-		float w = atres::getTextWidthUnformatted(fontName, text);
+		float w = atres::renderer->getTextWidthUnformatted(fontName, text);
 		int h = bitmap->getHeight();
 		return Rect::create(INT2FIX(0), INT2FIX(0), INT2FIX((int)ceil(w)), INT2FIX(h));
 	}

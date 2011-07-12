@@ -7,6 +7,8 @@
 #include <april/RenderSystem.h>
 #include <april/Window.h>
 #include <atres/atres.h>
+#include <atres/FontResourceBitmap.h>
+#include <atres/Renderer.h>
 #include <aprilui/aprilui.h>
 #include <hltypes/exception.h>
 #include <hltypes/hfile.h>
@@ -80,8 +82,8 @@ namespace zer0
 #else
 			april::rendersys->setIdleTextureUnloadTime(0);
 #endif
-			atres::setGlobalOffsets(true);
-			atres::loadFont("Graphics/Fonts/Arial.font");
+			atres::renderer->setGlobalOffsets(true);
+			atres::renderer->registerFontResource(new atres::FontResourceBitmap("Graphics/Fonts/Arial.font"));
 			aprilui::setLimitCursorToViewport(false);
 			aprilui::setViewport(grect(0.0f, 0.0f, (float)width, (float)height));
 			aprilui::setScreenViewport(aprilui::getViewport());
