@@ -65,7 +65,9 @@ namespace zer0
 			atres::setLogFunction(logFunction);
 			aprilui::setLogFunction(logFunction);
 			xal::setLogFunction(logFunction);
-			april::init("arc", width, height, fullscreen, name);
+			april::init();
+			april::createRenderSystem("");
+			april::createRenderTarget(width, height, fullscreen, name);
 			atres::init();
 			aprilui::init();
 #ifndef _NOSOUND
