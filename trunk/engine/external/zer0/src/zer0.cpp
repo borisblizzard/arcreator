@@ -61,35 +61,40 @@ namespace zer0
 		try
 		{
 			g_logFunction = logFunction;
+			// april
 			april::setLogFunction(logFunction);
-			atres::setLogFunction(logFunction);
-			aprilui::setLogFunction(logFunction);
-			xal::setLogFunction(logFunction);
 			april::init();
 			april::createRenderSystem("");
 			april::createRenderTarget(width, height, fullscreen, name);
-			atres::init();
-			aprilui::init();
-#ifndef _NOSOUND
-			xal::init(XAL_AS_DEFAULT, (unsigned long)april::rendersys->getWindow()->getIDFromBackend(), true);
-#else
-			xal::init(XAL_AS_DISABLED, (unsigned long)april::rendersys->getWindow()->getIDFromBackend(), false);
-#endif
 #ifndef __BIG_ENDIAN__
 			april::rendersys->setIdleTextureUnloadTime(TEXTURE_UNLOAD_TIME);
 #else
 			april::rendersys->setIdleTextureUnloadTime(0);
 #endif
-			atres::renderer->setGlobalOffsets(true);
-			atres::renderer->registerFontResource(new atres::FontResourceBitmap("Graphics/Fonts/Arial.font"));
-			aprilui::setLimitCursorToViewport(false);
-			aprilui::setViewport(grect(0.0f, 0.0f, (float)width, (float)height));
-			aprilui::setScreenViewport(aprilui::getViewport());
-			april::rendersys->setOrthoProjection(aprilui::getViewport());
+			grect viewport(0.0f, 0.0f, (float)width, (float)height);
+			april::rendersys->setOrthoProjection(viewport);
 			april::rendersys->getWindow()->setKeyboardCallbacks(
 				zer0::Context::onKeyDown, zer0::Context::onKeyUp, zer0::Context::onChar);
 			april::rendersys->getWindow()->setQuitCallback(&System::onQuit);
 			april::rendersys->getWindow()->setWindowFocusCallback(&System::onFocusChange);
+			// atres
+			atres::setLogFunction(logFunction);
+			atres::init();
+			atres::renderer->setGlobalOffsets(true);
+			atres::renderer->registerFontResource(new atres::FontResourceBitmap("Graphics/Fonts/Arial.font"));
+			// aprilui
+			aprilui::init();
+			aprilui::setLogFunction(logFunction);
+			aprilui::setLimitCursorToViewport(false);
+			aprilui::setViewport(viewport);
+			aprilui::setScreenViewport(aprilui::getViewport());
+			// xal
+			xal::setLogFunction(logFunction);
+#ifndef _NOSOUND
+			xal::init(XAL_AS_DEFAULT, (unsigned long)april::rendersys->getWindow()->getIDFromBackend(), true);
+#else
+			xal::init(XAL_AS_DISABLED, (unsigned long)april::rendersys->getWindow()->getIDFromBackend(), false);
+#endif
 			// zer0 related data
 			zer0::log("initializing Zer0 Division Engine");
 			zer0::system = new zer0::System(path);
