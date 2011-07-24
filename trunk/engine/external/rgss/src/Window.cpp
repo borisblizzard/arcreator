@@ -204,24 +204,20 @@ namespace rgss
 		// windowskin background
 		this->windowskinBackground = new Bitmap(127, 127);
 		this->windowskinBackground->blt(0, 0, this->windowskin, 0, 0, 127, 127);
-		this->windowskinBackground->updateTexture();
 		// windowskin horizontal borders
 		this->windowskinHorizontalBorders = new Bitmap(32, 32);
 		this->windowskinHorizontalBorders->blt(0, 0, this->windowskin, 144, 0, 32, 16);
 		this->windowskinHorizontalBorders->blt(0, 16, this->windowskin, 144, 48, 32, 16);
-		this->windowskinHorizontalBorders->updateTexture();
 		// windowskin vertical borders
 		this->windowskinVerticalBorders = new Bitmap(32, 32);
 		this->windowskinVerticalBorders->blt(0, 0, this->windowskin, 128, 16, 16, 32);
 		this->windowskinVerticalBorders->blt(16, 0, this->windowskin, 176, 16, 16, 32);
-		this->windowskinVerticalBorders->updateTexture();
 		// corners
 		this->windowskinCorners = new Bitmap(32, 32);
 		this->windowskinCorners->blt(0, 0, this->windowskin, 128, 0, 16, 16);
 		this->windowskinCorners->blt(16, 0, this->windowskin, 176, 0, 16, 16);
 		this->windowskinCorners->blt(0, 16, this->windowskin, 128, 48, 16, 16);
 		this->windowskinCorners->blt(16, 16, this->windowskin, 176, 48, 16, 16);
-		this->windowskinCorners->updateTexture();
 	}
 
 	void Window::_updateContentsSprite()
@@ -295,7 +291,6 @@ namespace rgss
 		{
 			bitmap->stretchBlt(2, 2, w, h, this->windowskin, 130, 66, 28, 28);
 		}
-		bitmap->updateTexture();
 	}
 
 	void Window::_updatePauseSprite()

@@ -40,7 +40,7 @@ namespace rgss
 
 		/// @brief Converts this instance into april::Color.
 		/// @return april::Color representation.
-		april::Color toAColor();
+		april::Color toAprilColor();
 
 		/// @brief Initializes the module.
 		static void init();

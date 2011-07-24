@@ -39,7 +39,6 @@ namespace rgss
 
 	void Plane::_render()
 	{
-		this->bitmap->updateTexture();
 		april::rendersys->setTexture(this->bitmap->getTexture());
 		switch (this->blendType)
 		{

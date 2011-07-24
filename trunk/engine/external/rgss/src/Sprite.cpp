@@ -49,7 +49,6 @@ namespace rgss
 
 	void Sprite::_render()
 	{
-		this->bitmap->updateTexture();
 		april::rendersys->setTexture(this->bitmap->getTexture());
 		if (this->blendType == Positive)
 		{
