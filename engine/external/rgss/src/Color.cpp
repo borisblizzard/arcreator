@@ -30,7 +30,7 @@ namespace rgss
 		this->alpha = (float)color.a;
 	}
 
-	april::Color Color::toAColor()
+	april::Color Color::toAprilColor()
 	{
 		return april::Color((unsigned char)this->red, (unsigned char)this->green,
 			(unsigned char)this->blue, (unsigned char)this->alpha);

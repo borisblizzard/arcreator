@@ -1,6 +1,5 @@
 #include <ruby.h>
 
-#include <april/ImageSource.h>
 #include <april/RenderSystem.h>
 #include <april/Texture.h>
 #include <atres/atres.h>
@@ -32,8 +31,7 @@ namespace rgss
 
 	Bitmap::Bitmap(int width, int height) : texture(NULL)
 	{
-		this->imageSource = april::createEmptyImage(width, height);
-		this->textureNeedsUpdate = true;
+		this->texture = april::rendersys->createEmptyTexture(width, height, april::AT_ARGB);
 		this->disposed = false;
 	}
 
@@ -47,14 +45,7 @@ namespace rgss
 			hstr evalString = "raise Errno::ENOENT.new(\"" + filename + "\")";
 			rb_eval_string(evalString.c_str());
 		}
-		this->imageSource = april::loadImage(fullFilename);
-		if (this->imageSource->bpp != 4)
-		{
-			april::ImageSource* imageSource = this->imageSource;
-			this->imageSource = april::createEmptyImage(imageSource->w, imageSource->h);
-			this->imageSource->copyImage(imageSource, 4);
-		}
-		this->textureNeedsUpdate = true;
+		this->_loadTexture(fullFilename);
 		this->disposed = false;
 	}
 
@@ -67,35 +58,28 @@ namespace rgss
 				delete this->texture;
 				this->texture = NULL;
 			}
-			if (this->imageSource != NULL)
-			{
-				delete this->imageSource;
-				this->imageSource = NULL;
-			}
 			this->disposed = true;
 		}
 	}
 
 	int Bitmap::getWidth()
 	{
-		return this->imageSource->w;
+		return this->texture->getWidth();
 	}
 
 	int Bitmap::getHeight()
 	{
-		return this->imageSource->h;
+		return this->texture->getHeight();
 	}
 
 	void Bitmap::blt(int x, int y, Bitmap* source, int sx, int sy, int sw, int sh)
 	{
-		this->imageSource->blit(x, y, source->imageSource, sx, sy, sw, sh);
-		this->textureNeedsUpdate = true;
+		this->texture->blit(x, y, source->texture, sx, sy, sw, sh);
 	}
 
 	void Bitmap::stretchBlt(int x, int y, int w, int h, Bitmap* source, int sx, int sy, int sw, int sh)
 	{
-		this->imageSource->stretchBlit(x, y, w, h, source->imageSource, sx, sy, sw, sh);
-		this->textureNeedsUpdate = true;
+		this->texture->stretchBlit(x, y, w, h, source->texture, sx, sy, sw, sh);
 	}
 
 	void Bitmap::_drawText(int x, int y, int w, int h, chstr text, int align)
@@ -115,8 +99,8 @@ namespace rgss
 		}
 		atres::Alignment vertical = atres::CENTER;
 		grect rect((float)x, (float)y, (float)w, (float)h);
-		april::Color color = this->font->getColor()->toAColor();
-		hstr fontName = this->_getAFontName();
+		april::Color color = this->font->getColor()->toAprilColor();
+		hstr fontName = this->_getAtresFontName();
 
 		// pure Atres code
 		bool needCache = !characterCache.has_key(text);
@@ -144,13 +128,13 @@ namespace rgss
 			if (this->font->getBold())
 			{
 				tag.type = atres::FORMAT_BOLD;
-				tag.data = this->_getAFontName();
+				tag.data = this->_getAtresFontName();
 				tags += tag;
 			}
 			if (this->font->getItalic())
 			{
 				tag.type = atres::FORMAT_ITALIC;
-				tag.data = this->_getAFontName();
+				tag.data = this->_getAtresFontName();
 				tags += tag;
 			}
 			*/
@@ -197,10 +181,9 @@ namespace rgss
 			}
 		}
 		//*/
-		this->textureNeedsUpdate = true;
 	}
 
-	hstr Bitmap::_getAFontName()
+	hstr Bitmap::_getAtresFontName()
 	{
 		hstr result = this->font->getName();
 		int h = this->font->getSize();
@@ -216,17 +199,16 @@ namespace rgss
 		return result;
 	}
 
-	void Bitmap::updateTexture()
+	void Bitmap::_loadTexture(chstr filename)
 	{
-		if (this->textureNeedsUpdate)
+		this->texture = april::rendersys->loadTexture(filename);
+		if (this->texture->getBpp() != 4)
 		{
-			this->textureNeedsUpdate = false;
-			if (this->texture != NULL)
-			{
-				delete this->texture;
-			}
-			this->texture = april::rendersys->createTextureFromMemory(
-				this->imageSource->data, this->imageSource->w, this->imageSource->h);
+			april::Texture* loadTexture = this->texture;
+			this->texture = april::rendersys->createEmptyTexture(loadTexture->getWidth(),
+				loadTexture->getHeight(), april::AT_ARGB);
+			this->texture->blit(0, 0, loadTexture, 0, 0, loadTexture->getWidth(), loadTexture->getHeight());
+			delete loadTexture;
 		}
 	}
 
@@ -238,11 +220,6 @@ namespace rgss
 			{
 				delete this->texture;
 				this->texture = NULL;
-			}
-			if (this->imageSource != NULL)
-			{
-				delete this->imageSource;
-				this->imageSource = NULL;
 			}
 			this->disposed = true;
 		}
@@ -333,13 +310,7 @@ namespace rgss
 				hstr evalString = "raise Errno::ENOENT.new(\"" + filename + "\")";
 				rb_eval_string(evalString.c_str());
 			}
-			bitmap->imageSource = april::loadImage(fullFilename);
-			if (bitmap->imageSource->bpp != 4)
-			{
-				april::ImageSource* imageSource = bitmap->imageSource;
-				bitmap->imageSource = april::createEmptyImage(imageSource->w, imageSource->h);
-				bitmap->imageSource->copyImage(imageSource, 4);
-			}
+			bitmap->_loadTexture(fullFilename);
 		}
 		else
 		{
@@ -349,10 +320,9 @@ namespace rgss
 			{
 				rb_raise(rb_eRGSSError, "failed to create bitmap");
 			}
-			bitmap->imageSource = april::createEmptyImage(w, h);
+			bitmap->texture = april::rendersys->createEmptyTexture(w, h, april::AT_ARGB);
 		}
 		Bitmap::rb_setFont(self, Font::create(0, NULL));
-		bitmap->textureNeedsUpdate = true;
 		return self;
 	}
 
@@ -361,11 +331,12 @@ namespace rgss
 		RB_SELF2CPP(Bitmap, bitmap);
 		RB_VAR2CPP(original, Bitmap, other);
 		bitmap->disposed = false;
-		bitmap->imageSource = april::createEmptyImage(other->imageSource->w, other->imageSource->h);
-		bitmap->imageSource->copyImage(other->imageSource);
+		bitmap->texture = april::rendersys->createEmptyTexture(other->texture->getWidth(),
+			other->texture->getHeight(), april::AT_ARGB);
+		bitmap->texture->blit(0, 0, other->texture, 0, 0, other->texture->getWidth(),
+			other->texture->getHeight());
 		// TODO - should be changed to call an actual clone method for convenience
 		Bitmap::rb_setFont(self, rb_funcall(other->rb_font, rb_intern("clone"), 0, NULL));
-		bitmap->textureNeedsUpdate = true;
 		return self;
 	}
 
@@ -458,7 +429,7 @@ namespace rgss
 		{
 			//rb_raise(rb_eRGSSError, "disposed bitmap");
 		}
-		april::Color color = bitmap->imageSource->getPixel(NUM2INT(x), NUM2INT(y));
+		april::Color color = bitmap->texture->getPixel(NUM2INT(x), NUM2INT(y));
 		VALUE argv[4] = {INT2FIX(color.r), INT2FIX(color.g), INT2FIX(color.b), INT2FIX(color.a)};
 		return Color::create(4, argv);
 	}
@@ -471,8 +442,7 @@ namespace rgss
 			//rb_raise(rb_eRGSSError, "disposed bitmap");
 		}
 		RB_VAR2CPP(color, Color, cColor);
-		bitmap->imageSource->setPixel(NUM2INT(x), NUM2INT(y), cColor->toAColor());
-		bitmap->textureNeedsUpdate = true;
+		bitmap->texture->setPixel(NUM2INT(x), NUM2INT(y), cColor->toAprilColor());
 		return Qnil;
 	}
 
@@ -508,8 +478,7 @@ namespace rgss
 			h = NUM2INT(arg4);
 		}
 		RB_VAR2CPP(color, Color, cColor);
-		bitmap->imageSource->setPixels(x, y, w, h, cColor->toAColor());
-		bitmap->textureNeedsUpdate = true;
+		bitmap->texture->fillRect(x, y, w, h, cColor->toAprilColor());
 		return Qnil;
 	}
 
@@ -520,8 +489,7 @@ namespace rgss
 		{
 			//rb_raise(rb_eRGSSError, "disposed bitmap");
 		}
-		bitmap->imageSource->clear();
-		bitmap->textureNeedsUpdate = true;
+		bitmap->texture->clear();
 		return Qnil;
 	}
 
@@ -540,14 +508,13 @@ namespace rgss
 		RB_VAR2CPP(arg4, Rect, rect);
 		if (NIL_P(arg5))
 		{
-			bitmap->imageSource->blit(x, y, source->imageSource, rect->x, rect->y, rect->width, rect->height);
+			bitmap->texture->blit(x, y, source->texture, rect->x, rect->y, rect->width, rect->height);
 		}
 		else
 		{
-			bitmap->imageSource->blit(x, y, source->imageSource, rect->x, rect->y, rect->width, rect->height,
+			bitmap->texture->blit(x, y, source->texture, rect->x, rect->y, rect->width, rect->height,
 				(unsigned char)NUM2INT(arg5));
 		}
-		bitmap->textureNeedsUpdate = true;
 		return Qnil;
 	}
 
@@ -565,16 +532,15 @@ namespace rgss
 		RB_VAR2CPP(arg3, Rect, src_rect);
 		if (NIL_P(arg4))
 		{
-			bitmap->imageSource->stretchBlit(dest_rect->x, dest_rect->y, dest_rect->width, dest_rect->height,
-				source->imageSource, src_rect->x, src_rect->y, src_rect->width, src_rect->height);
+			bitmap->texture->stretchBlit(dest_rect->x, dest_rect->y, dest_rect->width, dest_rect->height,
+				source->texture, src_rect->x, src_rect->y, src_rect->width, src_rect->height);
 		}
 		else
 		{
-			bitmap->imageSource->stretchBlit(dest_rect->x, dest_rect->y, dest_rect->width, dest_rect->height,
-				source->imageSource, src_rect->x, src_rect->y, src_rect->width, src_rect->height,
+			bitmap->texture->stretchBlit(dest_rect->x, dest_rect->y, dest_rect->width, dest_rect->height,
+				source->texture, src_rect->x, src_rect->y, src_rect->width, src_rect->height,
 				(unsigned char)NUM2INT(arg4));
 		}
-		bitmap->textureNeedsUpdate = true;
 		return Qnil;
 	}
 
@@ -618,7 +584,6 @@ namespace rgss
 		}
 		int align = (NIL_P(arg3) ? 0 : NUM2INT(arg3));
 		bitmap->_drawText(x, y, w, h, text, align);
-		bitmap->textureNeedsUpdate = true;
 		return Qnil;
 	}
 
@@ -641,7 +606,7 @@ namespace rgss
 			//rb_raise(rb_eRGSSError, "disposed bitmap");
 		}
 		hstr text = StringValuePtr(string);
-		hstr fontName = bitmap->_getAFontName();
+		hstr fontName = bitmap->_getAtresFontName();
 		float w = atres::renderer->getTextWidthUnformatted(fontName, text);
 		int h = bitmap->getHeight();
 		return Rect::create(INT2FIX(0), INT2FIX(0), INT2FIX((int)ceil(w)), INT2FIX(h));

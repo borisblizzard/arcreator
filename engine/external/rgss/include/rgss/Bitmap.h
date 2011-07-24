@@ -12,7 +12,6 @@
 
 namespace april
 {
-	class ImageSource;
 	class Texture;
 }
 
@@ -46,8 +45,6 @@ namespace rgss
 		/// @return The disposed flag.
 		bool isDisposed() { return this->disposed; }
 
-		/// @brief Updates the texture on the graphic card if necessary.
-		void updateTexture();
 		/// @brief Blits rect from source bitmap to this one.
 		/// @param[in] x X coordinate.
 		/// @param[in] y Y coordinate.
@@ -166,17 +163,16 @@ namespace rgss
 	protected:
 		/// @brief Disposed flag.
 		bool disposed;
-		/// @brief Update flag for texture recreation when imageSource has changed to re-upload it on the GFX card.
-		bool textureNeedsUpdate;
 		/// @brief Underlying rendering system texture.
 		april::Texture* texture;
-		/// @brief Actual Image Source.
-		april::ImageSource* imageSource;
 		/// @brief The Font used to draw text.
 		Font* font;
 		/// @brief Ruby object of the Font used to draw text.
 		VALUE rb_font;
 
+		/// @brief Gets the Atres font name.
+		/// @return Atres font name.
+		hstr _getAtresFontName();
 		/// @brief Draws text onto this bitmap;
 		/// @param[in] x X coordinate.
 		/// @param[in] y Y coordinate.
@@ -186,9 +182,9 @@ namespace rgss
 		/// @param[in] align Alignment.
 		/// @note The alignments are: 0 = left; 1 = center; 1 = right
 		void _drawText(int x, int y, int w, int h, chstr text, int align);
-		/// @brief Gets the Atres font name.
-		/// @return Atres font name.
-		hstr _getAFontName();
+		/// @brief Loads a texture in the right bpp.
+		/// @param[in] filename Filename of the texture to load.
+		void _loadTexture(chstr filename);
 
 	};
 }
