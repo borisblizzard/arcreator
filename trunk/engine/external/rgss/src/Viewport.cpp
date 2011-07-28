@@ -26,11 +26,6 @@ namespace rgss
 	/// @todo Still needs to be implemented fully.
 	void Viewport::draw()
 	{
-		gmat4 viewMatrix = april::rendersys->getModelviewMatrix();
-		if (this->rect->x != 0 || this->rect->y != 0)
-		{
-			april::rendersys->translate((float)this->rect->x, (float)this->rect->y);
-		}
 		bool needsTextureUpdate = false;
 		if (this->texture == NULL)
 		{
@@ -44,31 +39,50 @@ namespace rgss
 		}
 		if (needsTextureUpdate)
 		{
-			int size = this->rect->width * this->rect->height * 4;
-			unsigned char* data = new unsigned char[size];
-			memset(data, 0, size);
-			this->texture = april::rendersys->createTextureFromMemory(data, this->rect->width, this->rect->height);
-			delete data;
+			this->texture = april::rendersys->createEmptyTexture(this->rect->width,
+				this->rect->height, april::AT_ARGB, april::AT_RENDER_TARGET);
+		}
+		// rendering
+		gmat4 viewMatrix = april::rendersys->getModelviewMatrix();
+		this->_renderToTexture();
+		april::rendersys->setModelviewMatrix(viewMatrix);
+		if (this->rect->x != 0 || this->rect->y != 0)
+		{
+			april::rendersys->translate((float)this->rect->x, (float)this->rect->y);
 		}
 		this->_render();
 		april::rendersys->setModelviewMatrix(viewMatrix);
 	}
 
+	void Viewport::_renderToTexture()
+	{
+		gmat4 projectionMatrix = april::rendersys->getProjectionMatrix();
+		april::rendersys->setRenderTarget(this->texture);
+		//april::rendersys->clear();
+		april::rendersys->setOrthoProjection(grect(0.0f, 0.0f, (float)this->rect->width, (float)this->rect->height));
+		this->renderQueue->draw();
+		april::rendersys->setRenderTarget(NULL);
+		april::rendersys->setProjectionMatrix(projectionMatrix);
+	}
+
 	void Viewport::_render()
 	{
-		//*
-		//april::rendersys->setRenderTarget(this->texture);
-		april::rendersys->setBlendMode(april::ALPHA_BLEND);
-		//*/
-		this->renderQueue->draw();
-		//april::rendersys->setRenderTarget(NULL);
 		april::rendersys->setBlendMode(april::DEFAULT);
-		/*
 		april::rendersys->setTexture(this->texture);
 		grect drawRect(0.0f, 0.0f, (float)this->rect->width, (float)this->rect->height);
 		grect srcRect(0.0f, 0.0f, 1.0f, 1.0f);
 		april::rendersys->drawTexturedQuad(drawRect, srcRect);
-		//*/
+		april::Color color = this->color->toAprilColor();
+		/*
+		if (color == APRIL_COLOR_WHITE)
+		{
+			april::rendersys->drawTexturedQuad(drawRect, srcRect);
+		}
+		else
+		{
+			april::rendersys->drawTexturedQuad(drawRect, srcRect, color);
+		}
+		*/
 	}
 
 	void Viewport::dispose()

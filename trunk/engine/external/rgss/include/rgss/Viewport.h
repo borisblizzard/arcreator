@@ -98,6 +98,8 @@ namespace rgss
 		/// @brief Rendering texture.
 		april::Texture* texture;
 
+		/// @brief Renders everything in the viewport onto a texture first.
+		void _renderToTexture();
 		/// @brief Renders the actual texture.
 		void _render();
 

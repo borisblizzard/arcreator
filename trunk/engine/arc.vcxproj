@@ -78,6 +78,7 @@
     <PostBuildEvent>
       <Command>copy external\gtypes\bin\win32_Debug\libgtypes.dll bin\$(Configuration)
 copy external\hltypes\bin\win32_Debug\libhltypes.dll bin\$(Configuration)
+copy external\hltypes\bin\hlxml\win32_Debug\libhlxml.dll bin\$(Configuration)
 copy external\april\bin\libapril.dll bin\$(Configuration)
 copy external\april\bin\libaprilutil.dll bin\$(Configuration)
 copy external\atres\bin\win32_Debug\libatres.dll bin\$(Configuration)
@@ -132,6 +133,7 @@ copy external\lib\msvc100\*.dll bin\$(Configuration)
     <PostBuildEvent>
       <Command>copy external\gtypes\bin\win32_Release\libgtypes.dll bin\$(Configuration)
 copy external\hltypes\bin\win32_Release\libhltypes.dll bin\$(Configuration)
+copy external\hltypes\bin\hlxml\win32_Release\libhlxml.dll bin\$(Configuration)
 copy external\april\bin\libapril.dll bin\$(Configuration)
 copy external\april\bin\libaprilutil.dll bin\$(Configuration)
 copy external\atres\bin\win32_Release\libatres.dll bin\$(Configuration)
