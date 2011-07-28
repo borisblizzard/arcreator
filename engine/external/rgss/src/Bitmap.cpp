@@ -594,6 +594,7 @@ namespace rgss
 		{
 			//rb_raise(rb_eRGSSError, "disposed bitmap");
 		}
+		bitmap->texture->rotateHue(NUM2DBL((float)hue));
 		return Qnil;
 	}
 
