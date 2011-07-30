@@ -97,10 +97,29 @@ namespace rgss
 			horizontal = atres::LEFT;
 			break;
 		}
+		/*
+		//gmat4 viewMatrix = april::rendersys->getModelviewMatrix();
+		gmat4 projectionMatrix = april::rendersys->getProjectionMatrix();
+		april::Texture* texture = april::rendersys->createEmptyTexture(w, h, april::AT_ARGB, april::AT_RENDER_TARGET);
+		april::rendersys->setRenderTarget(texture);
+		grect drawRect(0.0f, 0.0f, (float)w, (float)h);
+		april::rendersys->setOrthoProjection(drawRect);
+		atres::renderer->drawText(this->_getAtresFontName(), drawRect, text, horizontal,
+			atres::TOP);//, this->font->getColor()->toAprilColor());
+		april::rendersys->setRenderTarget(NULL);
+		this->texture->blit(x, y, texture, 0, 0, w, h);
+		//delete texture;
+		//april::rendersys->setModelviewMatrix(viewMatrix);
+		april::rendersys->setProjectionMatrix(projectionMatrix);
+		april::rendersys->setTexture(texture);
+		april::rendersys->drawTexturedQuad(grect(x, y, (float)w, (float)h), grect(0, 0, 1, 1));
+		delete texture;
+		//*/
+		//*
 		atres::Alignment vertical = atres::CENTER;
 		grect rect((float)x, (float)y, (float)w, (float)h);
-		april::Color color = this->font->getColor()->toAprilColor();
 		hstr fontName = this->_getAtresFontName();
+		april::Color color = this->font->getColor()->toAprilColor();
 
 		// pure Atres code
 		bool needCache = !characterCache.has_key(text);
@@ -123,6 +142,7 @@ namespace rgss
 			tag.type = atres::FORMAT_FONT;
 			tag.data = fontName;
 			tags.push_front(tag);
+			//*/
 			/// @todo Possibly to be added later.
 			/*
 			if (this->font->getBold())
@@ -138,6 +158,7 @@ namespace rgss
 				tags += tag;
 			}
 			*/
+			//*
 			harray<atres::RenderLine> lines = atres::renderer->createRenderLines(drawRect, text, tags, horizontal, vertical);
 			sequences = atres::renderer->createRenderSequences(drawRect, lines, tags);
 			if (text.size() <= 1)
@@ -149,12 +170,13 @@ namespace rgss
 			}
 		}
 		/// @todo This works but is very slow, improve it
-		//*
 		hstr name = this->font->getName();
+		atres::FontResource* font = atres::renderer->getFontResource(name);
 		if (!atres::renderer->hasFont(name))
 		{
-			name = atres::renderer->getFontResource("")->getName(); // default font
+			//name = font->getName(); // default font
 		}
+		/*
 		name = "Graphics/Fonts/" + name;
 		// creating a bitmap to blit from
 		Bitmap* bitmap;
@@ -167,6 +189,7 @@ namespace rgss
 			bitmap = new Bitmap(name);
 			fontCache[name] = bitmap;
 		}
+		*/
 		// blit every character manually
 		foreach (atres::RenderSequence, it, sequences)
 		{
@@ -174,8 +197,8 @@ namespace rgss
 			{
 				foreach (atres::RenderRectangle, it2, (*it).rectangles)
 				{
-					this->stretchBlt((int)((*it2).dest.x + rect.x), (int)((*it2).dest.y + rect.y),
-						(int)(*it2).dest.w, (int)(*it2).dest.h, bitmap, (int)(*it2).src.x,
+					this->texture->stretchBlit((int)((*it2).dest.x + rect.x), (int)((*it2).dest.y + rect.y),
+						(int)(*it2).dest.w, (int)(*it2).dest.h, font->getTexture(32), (int)(*it2).src.x,
 						(int)(*it2).src.y, (int)(*it2).src.w, (int)(*it2).src.h);
 				}
 			}
@@ -594,7 +617,7 @@ namespace rgss
 		{
 			//rb_raise(rb_eRGSSError, "disposed bitmap");
 		}
-		bitmap->texture->rotateHue(NUM2DBL((float)hue));
+		bitmap->texture->rotateHue((float)NUM2DBL(hue));
 		return Qnil;
 	}
 
