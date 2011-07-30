@@ -41,30 +41,35 @@ namespace rgss
 		{
 			this->texture = april::rendersys->createEmptyTexture(this->rect->width,
 				this->rect->height, april::AT_ARGB, april::AT_RENDER_TARGET);
+			this->texture->setTextureWrapping(false);
 		}
 		// rendering
+		this->_renderToTexture();
 		gmat4 viewMatrix = april::rendersys->getModelviewMatrix();
 		gmat4 projectionMatrix = april::rendersys->getProjectionMatrix();
-		this->_renderToTexture();
-		april::rendersys->setProjectionMatrix(projectionMatrix);
-		april::rendersys->setModelviewMatrix(viewMatrix);
 		if (this->rect->x != 0 || this->rect->y != 0)
 		{
 			april::rendersys->translate((float)this->rect->x, (float)this->rect->y);
 		}
 		this->_render();
+		april::rendersys->setProjectionMatrix(projectionMatrix);
 		april::rendersys->setModelviewMatrix(viewMatrix);
 	}
 
 	void Viewport::_renderToTexture()
 	{
+		gmat4 viewMatrix = april::rendersys->getModelviewMatrix();
+		gmat4 projectionMatrix = april::rendersys->getProjectionMatrix();
 		april::rendersys->setRenderTarget(this->texture);
-		// TODO - fix the alpha channel problem
-		//april::rendersys->clear();
 		april::rendersys->setIdentityTransform();
-		april::rendersys->setOrthoProjection(grect(0.0f, 0.0f, (float)this->rect->width, (float)this->rect->height));
+		// TODO - fix the alpha channel problem
+		april::rendersys->setOrthoProjection(
+			grect(0.0f, 0.0f, (float)this->texture->getWidth(), (float)this->texture->getHeight()));
+		april::rendersys->clear();
 		this->renderQueue->draw();
 		april::rendersys->setRenderTarget(NULL);
+		april::rendersys->setProjectionMatrix(projectionMatrix);
+		april::rendersys->setModelviewMatrix(viewMatrix);
 	}
 
 	void Viewport::_render()

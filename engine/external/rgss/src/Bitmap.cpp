@@ -31,7 +31,8 @@ namespace rgss
 
 	Bitmap::Bitmap(int width, int height) : texture(NULL)
 	{
-		this->texture = april::rendersys->createEmptyTexture(width, height, april::AT_ARGB);
+		this->texture = april::rendersys->createEmptyTexture(width, height, april::AT_ARGB, april::AT_RENDER_TARGET);
+		this->texture->setTextureWrapping(false);
 		this->disposed = false;
 	}
 
@@ -74,12 +75,12 @@ namespace rgss
 
 	void Bitmap::blt(int x, int y, Bitmap* source, int sx, int sy, int sw, int sh)
 	{
-		this->texture->blit(x, y, source->texture, sx, sy, sw, sh);
+		this->_renderToTexture(x, y, source->texture, sx, sy, sw, sh);
 	}
 
 	void Bitmap::stretchBlt(int x, int y, int w, int h, Bitmap* source, int sx, int sy, int sw, int sh)
 	{
-		this->texture->stretchBlit(x, y, w, h, source->texture, sx, sy, sw, sh);
+		this->_renderToTexture(x, y, w, h, source->texture, sx, sy, sw, sh);
 	}
 
 	void Bitmap::_drawText(int x, int y, int w, int h, chstr text, int align)
@@ -97,113 +98,20 @@ namespace rgss
 			horizontal = atres::LEFT;
 			break;
 		}
-		/*
-		//gmat4 viewMatrix = april::rendersys->getModelviewMatrix();
+		//*
+		gmat4 viewMatrix = april::rendersys->getModelviewMatrix();
 		gmat4 projectionMatrix = april::rendersys->getProjectionMatrix();
-		april::Texture* texture = april::rendersys->createEmptyTexture(w, h, april::AT_ARGB, april::AT_RENDER_TARGET);
-		april::rendersys->setRenderTarget(texture);
-		grect drawRect(0.0f, 0.0f, (float)w, (float)h);
-		april::rendersys->setOrthoProjection(drawRect);
-		atres::renderer->drawText(this->_getAtresFontName(), drawRect, text, horizontal,
+		april::rendersys->setRenderTarget(this->texture);
+		april::rendersys->setIdentityTransform();
+		april::rendersys->setOrthoProjection(grect(0.0f, 0.0f,
+			(float)this->texture->getWidth(), (float)this->texture->getHeight()));
+		grect destRect((float)x, (float)y, (float)w, (float)h);
+		// TODO - allow usage of color
+		atres::renderer->drawText(this->_getAtresFontName(), destRect, text, horizontal,
 			atres::TOP);//, this->font->getColor()->toAprilColor());
 		april::rendersys->setRenderTarget(NULL);
-		this->texture->blit(x, y, texture, 0, 0, w, h);
-		//delete texture;
-		//april::rendersys->setModelviewMatrix(viewMatrix);
 		april::rendersys->setProjectionMatrix(projectionMatrix);
-		april::rendersys->setTexture(texture);
-		april::rendersys->drawTexturedQuad(grect(x, y, (float)w, (float)h), grect(0, 0, 1, 1));
-		delete texture;
-		//*/
-		//*
-		atres::Alignment vertical = atres::CENTER;
-		grect rect((float)x, (float)y, (float)w, (float)h);
-		hstr fontName = this->_getAtresFontName();
-		april::Color color = this->font->getColor()->toAprilColor();
-
-		// pure Atres code
-		bool needCache = !characterCache.has_key(text);
-		atres::CacheEntry entry;
-		grect drawRect = grect(0.0f, 0.0f, rect.getSize());
-		harray<atres::RenderSequence> sequences;
-		if (!needCache)
-		{
-			entry = characterCache[text];
-			needCache = (entry.fontName != fontName || entry.size.x != drawRect.w || entry.size.y != drawRect.h);
-			sequences = entry.sequences;
-		}
-		if (needCache)
-		{
-			harray<atres::FormatTag> tags;
-			atres::FormatTag tag;
-			tag.type = atres::FORMAT_COLOR;
-			tag.data = color.hex();
-			tags.push_front(tag);
-			tag.type = atres::FORMAT_FONT;
-			tag.data = fontName;
-			tags.push_front(tag);
-			//*/
-			/// @todo Possibly to be added later.
-			/*
-			if (this->font->getBold())
-			{
-				tag.type = atres::FORMAT_BOLD;
-				tag.data = this->_getAtresFontName();
-				tags += tag;
-			}
-			if (this->font->getItalic())
-			{
-				tag.type = atres::FORMAT_ITALIC;
-				tag.data = this->_getAtresFontName();
-				tags += tag;
-			}
-			*/
-			//*
-			harray<atres::RenderLine> lines = atres::renderer->createRenderLines(drawRect, text, tags, horizontal, vertical);
-			sequences = atres::renderer->createRenderSequences(drawRect, lines, tags);
-			if (text.size() <= 1)
-			{
-				entry.fontName = fontName;
-				entry.size = rect.getSize();
-				entry.sequences = sequences;
-				characterCache[text] = entry;
-			}
-		}
-		/// @todo This works but is very slow, improve it
-		hstr name = this->font->getName();
-		atres::FontResource* font = atres::renderer->getFontResource(name);
-		if (!atres::renderer->hasFont(name))
-		{
-			//name = font->getName(); // default font
-		}
-		/*
-		name = "Graphics/Fonts/" + name;
-		// creating a bitmap to blit from
-		Bitmap* bitmap;
-		if (fontCache.has_key(name))
-		{
-			bitmap = fontCache[name];
-		}
-		else
-		{
-			bitmap = new Bitmap(name);
-			fontCache[name] = bitmap;
-		}
-		*/
-		// blit every character manually
-		foreach (atres::RenderSequence, it, sequences)
-		{
-			if ((*it).rectangles.size() > 0)
-			{
-				foreach (atres::RenderRectangle, it2, (*it).rectangles)
-				{
-					this->texture->stretchBlit((int)((*it2).dest.x + rect.x), (int)((*it2).dest.y + rect.y),
-						(int)(*it2).dest.w, (int)(*it2).dest.h, font->getTexture(32), (int)(*it2).src.x,
-						(int)(*it2).src.y, (int)(*it2).src.w, (int)(*it2).src.h);
-				}
-			}
-		}
-		//*/
+		april::rendersys->setModelviewMatrix(viewMatrix);
 	}
 
 	hstr Bitmap::_getAtresFontName()
@@ -224,15 +132,91 @@ namespace rgss
 
 	void Bitmap::_loadTexture(chstr filename)
 	{
-		this->texture = april::rendersys->loadTexture(filename);
-		if (this->texture->getBpp() != 4)
+		april::Texture* loadTexture = april::rendersys->loadTexture(filename);
+		loadTexture->setTextureWrapping(false);
+		int w = loadTexture->getWidth();
+		int h = loadTexture->getHeight();
+		this->texture = april::rendersys->createEmptyTexture(w, h, april::AT_ARGB, april::AT_RENDER_TARGET);
+		this->texture->setTextureWrapping(false);
+		this->_renderToTexture(0, 0, loadTexture, 0, 0, w, h);
+		delete loadTexture;
+	}
+
+	void Bitmap::_renderToTexture(int x, int y, april::Texture* source, int sx, int sy, int sw, int sh, unsigned char alpha)
+	{
+		gmat4 viewMatrix = april::rendersys->getModelviewMatrix();
+		gmat4 projectionMatrix = april::rendersys->getProjectionMatrix();
+		april::TextureFilter filter = source->getTextureFilter();
+		source->setTextureFilter(april::Nearest);
+		april::rendersys->setRenderTarget(this->texture);
+		april::rendersys->setTexture(source);
+		april::rendersys->setIdentityTransform();
+		april::rendersys->setOrthoProjection(grect(0.0f, 0.0f,
+			(float)this->texture->getWidth(), (float)this->texture->getHeight()));
+		float width = (float)source->getWidth();
+		float height = (float)source->getHeight();
+		grect destRect((float)x, (float)y, (float)sw, (float)sh);
+		grect srcRect(sx / width, sy / height, sw / width, sh / height);
+		if (alpha == 255)
 		{
-			april::Texture* loadTexture = this->texture;
-			this->texture = april::rendersys->createEmptyTexture(loadTexture->getWidth(),
-				loadTexture->getHeight(), april::AT_ARGB);
-			this->texture->blit(0, 0, loadTexture, 0, 0, loadTexture->getWidth(), loadTexture->getHeight());
-			delete loadTexture;
+			april::rendersys->drawTexturedQuad(destRect, srcRect);
 		}
+		else
+		{
+			april::rendersys->drawTexturedQuad(destRect, srcRect, april::Color(APRIL_COLOR_WHITE, alpha));
+		}
+		april::rendersys->setRenderTarget(NULL);
+		source->setTextureFilter(filter);
+		april::rendersys->setProjectionMatrix(projectionMatrix);
+		april::rendersys->setModelviewMatrix(viewMatrix);
+	}
+
+	void Bitmap::_renderToTexture(int x, int y, int w, int h, april::Texture* source, int sx, int sy, int sw, int sh, unsigned char alpha)
+	{
+		if (w == sw && h == sh)
+		{
+			this->_renderToTexture(x, y, source, sx, sy, sw, sh, alpha);
+			return;
+		}
+		gmat4 viewMatrix = april::rendersys->getModelviewMatrix();
+		gmat4 projectionMatrix = april::rendersys->getProjectionMatrix();
+		april::TextureFilter filter = source->getTextureFilter();
+		source->setTextureFilter(april::Linear);
+		april::rendersys->setRenderTarget(this->texture);
+		april::rendersys->setIdentityTransform();
+		april::rendersys->setOrthoProjection(grect(0.0f, 0.0f,
+			(float)this->texture->getWidth(), (float)this->texture->getHeight()));
+		april::rendersys->setTexture(source);
+		float width = (float)source->getWidth();
+		float height = (float)source->getHeight();
+		grect destRect((float)x, (float)y, (float)w, (float)h);
+		grect srcRect(sx / width, sy / height, sw / width, sh / height);
+		if (alpha == 255)
+		{
+			april::rendersys->drawTexturedQuad(destRect, srcRect);
+		}
+		else
+		{
+			april::rendersys->drawTexturedQuad(destRect, srcRect, april::Color(APRIL_COLOR_WHITE, alpha));
+		}
+		april::rendersys->setRenderTarget(NULL);
+		source->setTextureFilter(filter);
+		april::rendersys->setProjectionMatrix(projectionMatrix);
+		april::rendersys->setModelviewMatrix(viewMatrix);
+	}
+
+	void Bitmap::_renderColor(grect rect, april::Color color)
+	{
+		gmat4 viewMatrix = april::rendersys->getModelviewMatrix();
+		gmat4 projectionMatrix = april::rendersys->getProjectionMatrix();
+		april::rendersys->setRenderTarget(this->texture);
+		april::rendersys->setIdentityTransform();
+		april::rendersys->setOrthoProjection(grect(0.0f, 0.0f,
+			(float)this->texture->getWidth(), (float)this->texture->getHeight()));
+		april::rendersys->drawColoredQuad(rect, color);
+		april::rendersys->setRenderTarget(NULL);
+		april::rendersys->setProjectionMatrix(projectionMatrix);
+		april::rendersys->setModelviewMatrix(viewMatrix);
 	}
 
 	void Bitmap::dispose()
@@ -343,7 +327,8 @@ namespace rgss
 			{
 				rb_raise(rb_eRGSSError, "failed to create bitmap");
 			}
-			bitmap->texture = april::rendersys->createEmptyTexture(w, h, april::AT_ARGB);
+			bitmap->texture = april::rendersys->createEmptyTexture(w, h, april::AT_ARGB, april::AT_RENDER_TARGET);
+			bitmap->texture->setTextureWrapping(false);
 		}
 		Bitmap::rb_setFont(self, Font::create(0, NULL));
 		return self;
@@ -354,10 +339,11 @@ namespace rgss
 		RB_SELF2CPP(Bitmap, bitmap);
 		RB_VAR2CPP(original, Bitmap, other);
 		bitmap->disposed = false;
-		bitmap->texture = april::rendersys->createEmptyTexture(other->texture->getWidth(),
-			other->texture->getHeight(), april::AT_ARGB);
-		bitmap->texture->blit(0, 0, other->texture, 0, 0, other->texture->getWidth(),
-			other->texture->getHeight());
+		int w = other->texture->getWidth();
+		int h = other->texture->getHeight();
+		bitmap->texture = april::rendersys->createEmptyTexture(w, h, april::AT_ARGB, april::AT_RENDER_TARGET);
+		bitmap->texture->setTextureWrapping(false);
+		bitmap->_renderToTexture(0, 0, other->texture, 0, 0, w, h);
 		// TODO - should be changed to call an actual clone method for convenience
 		Bitmap::rb_setFont(self, rb_funcall(other->rb_font, rb_intern("clone"), 0, NULL));
 		return self;
@@ -465,7 +451,7 @@ namespace rgss
 			//rb_raise(rb_eRGSSError, "disposed bitmap");
 		}
 		RB_VAR2CPP(color, Color, cColor);
-		bitmap->texture->setPixel(NUM2INT(x), NUM2INT(y), cColor->toAprilColor());
+		bitmap->_renderColor(grect(0.0f, 0.0f, 1.0f, 1.0f), cColor->toAprilColor());
 		return Qnil;
 	}
 
@@ -501,7 +487,7 @@ namespace rgss
 			h = NUM2INT(arg4);
 		}
 		RB_VAR2CPP(color, Color, cColor);
-		bitmap->texture->fillRect(x, y, w, h, cColor->toAprilColor());
+		bitmap->_renderColor(grect((float)x, (float)y, (float)w, (float)h), cColor->toAprilColor());
 		return Qnil;
 	}
 
@@ -531,11 +517,11 @@ namespace rgss
 		RB_VAR2CPP(arg4, Rect, rect);
 		if (NIL_P(arg5))
 		{
-			bitmap->texture->blit(x, y, source->texture, rect->x, rect->y, rect->width, rect->height);
+			bitmap->_renderToTexture(x, y, source->texture, rect->x, rect->y, rect->width, rect->height);
 		}
 		else
 		{
-			bitmap->texture->blit(x, y, source->texture, rect->x, rect->y, rect->width, rect->height,
+			bitmap->_renderToTexture(x, y, source->texture, rect->x, rect->y, rect->width, rect->height,
 				(unsigned char)NUM2INT(arg5));
 		}
 		return Qnil;
@@ -555,12 +541,12 @@ namespace rgss
 		RB_VAR2CPP(arg3, Rect, src_rect);
 		if (NIL_P(arg4))
 		{
-			bitmap->texture->stretchBlit(dest_rect->x, dest_rect->y, dest_rect->width, dest_rect->height,
+			bitmap->_renderToTexture(dest_rect->x, dest_rect->y, dest_rect->width, dest_rect->height,
 				source->texture, src_rect->x, src_rect->y, src_rect->width, src_rect->height);
 		}
 		else
 		{
-			bitmap->texture->stretchBlit(dest_rect->x, dest_rect->y, dest_rect->width, dest_rect->height,
+			bitmap->_renderToTexture(dest_rect->x, dest_rect->y, dest_rect->width, dest_rect->height,
 				source->texture, src_rect->x, src_rect->y, src_rect->width, src_rect->height,
 				(unsigned char)NUM2INT(arg4));
 		}

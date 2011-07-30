@@ -31,6 +31,7 @@ namespace rgss
 			return;
 		}
 		gmat4 viewMatrix = april::rendersys->getModelviewMatrix();
+		gmat4 projectionMatrix = april::rendersys->getProjectionMatrix();
 		if (this->x != 0 || this->y != 0) 
 		{
 			april::rendersys->translate((float)this->x, (float)this->y);
@@ -44,6 +45,7 @@ namespace rgss
 			april::rendersys->scale(this->zoomX, this->zoomY, 1.0f);
 		}
 		this->_render();
+		april::rendersys->setProjectionMatrix(projectionMatrix);
 		april::rendersys->setModelviewMatrix(viewMatrix);
 	}
 
