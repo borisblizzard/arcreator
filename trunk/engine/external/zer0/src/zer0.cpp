@@ -7,8 +7,9 @@
 #include <april/RenderSystem.h>
 #include <april/Window.h>
 #include <atres/atres.h>
-#include <atres/FontResourceBitmap.h>
 #include <atres/Renderer.h>
+#include <atresttf/atresttf.h>
+#include <atresttf/FontResourceTtf.h>
 #include <aprilui/aprilui.h>
 #include <hltypes/exception.h>
 #include <hltypes/hfile.h>
@@ -80,8 +81,9 @@ namespace zer0
 			// atres
 			atres::setLogFunction(logFunction);
 			atres::init();
+			atresttf::init();
 			atres::renderer->setGlobalOffsets(true);
-			atres::renderer->registerFontResource(new atres::FontResourceBitmap("Graphics/Fonts/Arial.font"));
+			atres::renderer->registerFontResource(new atresttf::FontResourceTtf("Graphics/Fonts/Arial.ttfdef"));
 			// aprilui
 			aprilui::init();
 			aprilui::setLogFunction(logFunction);
@@ -125,6 +127,7 @@ namespace zer0
 			delete zer0::transitionManager;
 			xal::destroy();
 			aprilui::destroy();
+			atresttf::destroy();
 			atres::destroy();
 			april::destroy();
 		}
