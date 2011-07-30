@@ -26,11 +26,13 @@ namespace rgss
 	void Window::draw()
 	{
 		gmat4 viewMatrix = april::rendersys->getModelviewMatrix();
+		gmat4 projectionMatrix = april::rendersys->getProjectionMatrix();
 		if (this->x != 0 || this->y != 0)
 		{
 			april::rendersys->translate((float)this->x, (float)this->y);
 		}
 		this->_render();
+		april::rendersys->setProjectionMatrix(projectionMatrix);
 		april::rendersys->setModelviewMatrix(viewMatrix);
 	}
 

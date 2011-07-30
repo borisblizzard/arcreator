@@ -46,8 +46,8 @@ namespace rgss
 		bool isDisposed() { return this->disposed; }
 
 		/// @brief Blits rect from source bitmap to this one.
-		/// @param[in] x X coordinate.
-		/// @param[in] y Y coordinate.
+		/// @param[in] x Destination X coordinate.
+		/// @param[in] y Destination Y coordinate.
 		/// @param[in] source Source Bitmap.
 		/// @param[in] sx Source X coordinate.
 		/// @param[in] sy Source Y coordinate.
@@ -55,8 +55,8 @@ namespace rgss
 		/// @param[in] sh Source height.
 		void blt(int x, int y, Bitmap* source, int sx, int sy, int sw, int sh);
 		/// @brief Blits rect from source bitmap to this one.
-		/// @param[in] x X coordinate.
-		/// @param[in] y Y coordinate.
+		/// @param[in] x Destination X coordinate.
+		/// @param[in] y Destination Y coordinate.
 		/// @param[in] w Destination width.
 		/// @param[in] h Destination height.
 		/// @param[in] source Source Bitmap.
@@ -185,6 +185,30 @@ namespace rgss
 		/// @brief Loads a texture in the right bpp.
 		/// @param[in] filename Filename of the texture to load.
 		void _loadTexture(chstr filename);
+		/// @brief Blits rect from source bitmap to this one.
+		/// @param[in] x Destination X coordinate.
+		/// @param[in] y Destination Y coordinate.
+		/// @param[in] source Source Texture.
+		/// @param[in] sx Source X coordinate.
+		/// @param[in] sy Source Y coordinate.
+		/// @param[in] sw Source width.
+		/// @param[in] sh Source height.
+		void _renderToTexture(int x, int y, april::Texture* source, int sx, int sy, int sw, int sh, unsigned char alpha = 255);
+		/// @brief Blits rect from source bitmap to this one.
+		/// @param[in] x Destination X coordinate.
+		/// @param[in] y Destination Y coordinate.
+		/// @param[in] w Destination width.
+		/// @param[in] h Destination height.
+		/// @param[in] source Source Texture.
+		/// @param[in] sx Source X coordinate.
+		/// @param[in] sy Source Y coordinate.
+		/// @param[in] sw Source width.
+		/// @param[in] sh Source height.
+		void _renderToTexture(int x, int y, int w, int h, april::Texture* source, int sx, int sy, int sw, int sh, unsigned char alpha = 255);
+		/// @brief Renders a color quad to texture of this bitmap.
+		/// @param[in] rect Destination rectangle.
+		/// @param[in] color Color.
+		void _renderColor(grect rect, april::Color color);
 
 	};
 }
