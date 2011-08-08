@@ -213,7 +213,7 @@ namespace rgss
 		april::rendersys->setIdentityTransform();
 		april::rendersys->setOrthoProjection(grect(0.0f, 0.0f,
 			(float)this->texture->getWidth(), (float)this->texture->getHeight()));
-		april::rendersys->drawColoredQuad(rect, color);
+		april::rendersys->clear(true, false, rect, color);
 		april::rendersys->setRenderTarget(NULL);
 		april::rendersys->setProjectionMatrix(projectionMatrix);
 		april::rendersys->setModelviewMatrix(viewMatrix);
@@ -498,7 +498,8 @@ namespace rgss
 		{
 			//rb_raise(rb_eRGSSError, "disposed bitmap");
 		}
-		bitmap->texture->clear();
+		bitmap->_renderColor(grect(0.0f, 0.0f, (float)bitmap->texture->getWidth(),
+			(float)bitmap->texture->getHeight()), APRIL_COLOR_CLEAR);
 		return Qnil;
 	}
 
