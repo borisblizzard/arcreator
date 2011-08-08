@@ -3,8 +3,8 @@
 
 #define VERSION_MAJOR (0)
 #define VERSION_MINOR (1)
-#define VERSION_REVISION (0)
-#define VERSION_BUILD (269)
+#define VERSION_REVISION (1)
+#define VERSION_BUILD (273)
 
 #define cstr(s) #s
 #define cstr2(s) cstr(s)
@@ -14,7 +14,7 @@
 #define VER_VERSION VERSION_MAJOR,VERSION_MINOR,VERSION_REVISION,VERSION_BUILD
 #define VER_VERSION_STR VERSION_STRING
 #define VER_COMPANYNAME_STR "Chaos Project"
-#define VER_FILEDESCRIPTION_STR "Dynamic Link Library for Zer0 Division Engine"
+#define VER_FILEDESCRIPTION_STR "Zer0 Division Engine"
 #define VER_LEGALCOPYRIGHT_STR "© Chaos Project"
 #define VER_PRODUCTNAME_STR "Zer0 Division Engine"
 

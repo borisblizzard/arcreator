@@ -451,7 +451,7 @@ namespace rgss
 			//rb_raise(rb_eRGSSError, "disposed bitmap");
 		}
 		RB_VAR2CPP(color, Color, cColor);
-		bitmap->_renderColor(grect(0.0f, 0.0f, 1.0f, 1.0f), cColor->toAprilColor());
+		bitmap->_renderColor(grect((float)NUM2INT(x), (float)NUM2INT(y), 1.0f, 1.0f), cColor->toAprilColor());
 		return Qnil;
 	}
 

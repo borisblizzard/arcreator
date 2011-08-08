@@ -3,6 +3,7 @@
 
 // iterator macro
 #define for_iter(name, min, max) for (int name = min; name < max; name++)
+#define for_iter_step(name, min, max, step) for (int name = min; name < max; name += step)
 
 /// @brief Converts a VALUE to a pointer of type and name
 /// @param[in] value The Ruby VALUE.
