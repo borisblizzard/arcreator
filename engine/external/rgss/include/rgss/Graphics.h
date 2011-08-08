@@ -86,6 +86,8 @@ namespace rgss
 			
 		/// @brief Waits for the frame sync for FPS limitation.
 		static void _waitForFrameSync();
+		/// @brief Handles focus change and application finish.
+		static void _handleFocusChange();
 
 	};
 

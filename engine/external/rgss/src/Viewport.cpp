@@ -65,7 +65,8 @@ namespace rgss
 		// TODO - fix the alpha channel problem
 		april::rendersys->setOrthoProjection(
 			grect(0.0f, 0.0f, (float)this->texture->getWidth(), (float)this->texture->getHeight()));
-		april::rendersys->clear();
+		//april::rendersys->clear();
+		april::rendersys->setBlendMode(april::DEFAULT);
 		this->renderQueue->draw();
 		april::rendersys->setRenderTarget(NULL);
 		april::rendersys->setProjectionMatrix(projectionMatrix);
@@ -78,10 +79,11 @@ namespace rgss
 		april::rendersys->setTexture(this->texture);
 		grect drawRect(0.0f, 0.0f, (float)this->rect->width, (float)this->rect->height);
 		grect srcRect(0.0f, 0.0f, 1.0f, 1.0f);
-		april::rendersys->drawTexturedQuad(drawRect, srcRect);
 		april::Color color = this->color->toAprilColor();
+		april::rendersys->drawTexturedQuad(drawRect, srcRect);
+		
 		/*
-		if (color == APRIL_COLOR_WHITE)
+		if (color == APRIL_COLOR_CLEAR)
 		{
 			april::rendersys->drawTexturedQuad(drawRect, srcRect);
 		}
@@ -89,7 +91,7 @@ namespace rgss
 		{
 			april::rendersys->drawTexturedQuad(drawRect, srcRect, color);
 		}
-		*/
+		//*/
 	}
 
 	void Viewport::dispose()

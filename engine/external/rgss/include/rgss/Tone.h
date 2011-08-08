@@ -13,11 +13,6 @@ namespace rgss
 	class rgssExport Tone
 	{
 	public:
-		/// @todo Dummy for now, needs to be removed later.
-		Tone() { }
-		/// @todo Dummy for now, needs to be removed later.
-		~Tone() { }
-
 		/// @brief Red component.
 		float red;
 		/// @brief Green component.

@@ -11,6 +11,7 @@
 #include <xal/AudioManager.h>
 
 #include "ApplicationExitException.h"
+#include "Bitmap.h"
 #include "CodeSnippets.h"
 #include "Graphics.h"
 #include "Renderable.h"
@@ -48,6 +49,26 @@ namespace rgss
 			hthread::sleep(waitTime);
 		}
 #endif
+	}
+
+	void Graphics::_handleFocusChange()
+	{
+		if (!running)
+		{
+			throw ApplicationExitException();
+		}
+		if (focused)
+		{
+			april::rendersys->getWindow()->doEvents();
+		}
+		else
+		{
+			while (!focused)
+			{
+				april::rendersys->getWindow()->doEvents();
+				hthread::sleep(40);
+			}
+		}
 	}
 
 	/****************************************************************************************
@@ -115,22 +136,7 @@ namespace rgss
 
 	VALUE Graphics::rb_update(VALUE self)
 	{
-		if (!running)
-		{
-			throw ApplicationExitException();
-		}
-		if (focused)
-		{
-			april::rendersys->getWindow()->doEvents();
-		}
-		else
-		{
-			while (!focused)
-			{
-				april::rendersys->getWindow()->doEvents();
-				hthread::sleep(40);
-			}
-		}
+		Graphics::_handleFocusChange();
 		if (active)
 		{
 			april::rendersys->clear();
@@ -163,20 +169,15 @@ namespace rgss
 	{
 		VALUE arg1, arg2, arg3;
 		rb_scan_args(argc, argv, "03", &arg1, &arg2, &arg3);
-		int duration = (NIL_P(arg1) ? 8 : NUM2INT(arg1));
+		int duration = hmax((NIL_P(arg1) ? 8 : NUM2INT(arg1)), 0);
 		if (duration == 0)
 		{
 			active = true;
-			return Qnil;
+			return Graphics::rb_update(self);
 		}
 		hstr filename = (NIL_P(arg2) ? "" : StringValuePtr(arg2));
-		if (filename != "")
-		{
-			hstr fullFilename = april::rendersys->findTextureFile(filename);
-			/// @todo Implement bitmap loading and usage for transition
-		}
 		/// @todo Int or float?
-		int vague = (NIL_P(arg3) ? 0 : NUM2INT(arg3));
+		int vague = (NIL_P(arg3) ? 40 : NUM2INT(arg3));
 		grect drawRect(0.0f, 0.0f, (float)width, (float)height);
 		grect srcRect(0.0f, 0.0f, 1.0f, 1.0f);
 		april::Color color = APRIL_COLOR_WHITE;
@@ -190,39 +191,57 @@ namespace rgss
 		imageSource = april::rendersys->grabScreenshot(4);
 		april::Texture* newScreen = april::rendersys->createTextureFromMemory(imageSource->data, width, height);
 		delete imageSource;
-		// fade between old and new screen
-		for_iter (i, 0, duration)
+		if (filename == "")
 		{
-			if (!running)
+			// fade between old and new screen
+			for_iter (i, 0, duration)
 			{
-				throw ApplicationExitException();
-			}
-			if (focused)
-			{
-				april::rendersys->getWindow()->doEvents();
-			}
-			else
-			{
-				while (!focused)
+				Graphics::_handleFocusChange();
+				april::rendersys->clear();
+				april::rendersys->setTexture(oldScreen);
+				april::rendersys->drawTexturedQuad(drawRect, srcRect);
+				april::rendersys->setTexture(newScreen);
+				color.a = (i + 1) * 255 / duration;
+				april::rendersys->drawTexturedQuad(drawRect, srcRect, color);
+				april::rendersys->presentFrame();
+				_waitForFrameSync();
+				frameCount++;
+				/// @todo - more often, less often?
+				if (frameCount % 200 == 0)
 				{
-					april::rendersys->getWindow()->doEvents();
-					hthread::sleep(40);
+					rb_eval_string("GC.start");
 				}
 			}
-			april::rendersys->clear();
-			april::rendersys->setTexture(oldScreen);
-			april::rendersys->drawTexturedQuad(drawRect, srcRect);
-			april::rendersys->setTexture(newScreen);
-			color.a = (i + 1) * 255 / duration;
-			april::rendersys->drawTexturedQuad(drawRect, srcRect, color);
-			april::rendersys->presentFrame();
-			_waitForFrameSync();
-			frameCount++;
-			/// @todo - more often, less often?
-			if (frameCount % 200 == 0)
+		}
+		else if (vague >= 0) // skip if vague is not 0 or greater
+		{
+			// small hack to make use of the safe texture loading code in Bitmap class
+			Bitmap* bitmap = new Bitmap(filename);
+			april::Texture* transition = bitmap->getTexture();
+			bitmap->setTexture(NULL);
+			delete bitmap;
+			april::rendersys->setBlendMode(april::DEFAULT);
+			int ambiguity = vague * 2;
+			// fade between old and new screen
+			for_iter (i, 0, duration)
 			{
-				rb_eval_string("GC.start");
+				Graphics::_handleFocusChange();
+				april::rendersys->clear();
+				april::rendersys->setTexture(oldScreen);
+				april::rendersys->drawTexturedQuad(drawRect, srcRect);
+				newScreen->insertAsAlphaMap(transition, (i + 1) * 255 / duration, ambiguity);
+				april::rendersys->setTexture(newScreen);
+				april::rendersys->drawTexturedQuad(drawRect, srcRect);
+				april::rendersys->presentFrame();
+				_waitForFrameSync();
+				frameCount++;
+				/// @todo - more often, less often?
+				if (frameCount % 200 == 0)
+				{
+					rb_eval_string("GC.start");
+				}
 			}
+			delete transition;
 		}
 		delete oldScreen;
 		delete newScreen;

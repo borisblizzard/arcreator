@@ -35,6 +35,9 @@ namespace rgss
 		/// @brief Gets the april::Texture.
 		/// @return april::Texture used to draw.
 		april::Texture* getTexture() { return this->texture; }
+		/// @brief Sets the april::Texture.
+		/// @param[in] value april::Texture used to draw.
+		void setTexture(april::Texture* value) { this->texture = value; }
 		/// @brief Gets the width.
 		/// @return The width.
 		int getWidth();
