@@ -214,6 +214,7 @@ namespace rgss
 		void _renderColor(grect rect, april::Color color);
 
 	};
+
 }
 #endif
 

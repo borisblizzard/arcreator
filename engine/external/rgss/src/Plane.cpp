@@ -51,7 +51,7 @@ namespace rgss
 			april::rendersys->setBlendMode(april::ADD);
 			break;
 		case Negative:
-			//april::rendersys->setBlendMode(april::NEGATIVE);
+			april::rendersys->setBlendMode(april::SUBTRACT);
 			break;
 		default:
 			april::rendersys->setBlendMode(april::DEFAULT);

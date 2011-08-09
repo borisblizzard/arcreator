@@ -48,7 +48,7 @@ namespace rgss
 		static void createRubyInterface();
 		/// @brief Ruby allocation of an instance.
 		static VALUE rb_new(VALUE classe);
-		/// @brief Sets the color to the specified value.
+		/// @brief Initializes this object.
 		/// @param[in] argc Number of arguments.
 		/// @param[in] argv Pointer to first argument.
 		/// @note Arguments are "r, g, b[, a]".
