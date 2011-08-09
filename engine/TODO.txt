@@ -10,3 +10,4 @@
 - implement toning for Renderable
 - implement negative blend mode in APRIL
 - Bitmap::fillRect doesn't seem to work well- change Color::toAprilColor to take into account negative values
+- Window cursor is drawn slightly off (problem with texture filtering?)
