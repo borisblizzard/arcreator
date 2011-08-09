@@ -1,6 +1,6 @@
 - implement FLAC support in XAL
 - implement MIDI support in XAL
-- refactor Font::defaultColor- fix bug with text rendering where text does not use a specific color for the font- fix bug with alpha blending on a render target where the rendered area would be too transparent
+- fix bug with alpha blending on a render target where the rendered area would be too transparent
 - implement reading data from INI file
 - throw Errno::ENOENT without using eval() at several places
 - test Bitmap::rb_textSize
@@ -8,4 +8,5 @@
 - implement Viewport::rb_flash
 - implement coloring for Renderable
 - implement toning for Renderable
-- implement negative blend mode in APRIL
+- implement negative blend mode in APRIL
+- Bitmap::fillRect doesn't seem to work well- change Color::toAprilColor to take into account negative values

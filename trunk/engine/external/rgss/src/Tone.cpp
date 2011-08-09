@@ -49,7 +49,6 @@ namespace rgss
 		rb_define_method(rb_cTone, "gray=", RUBY_METHOD_FUNC(&Tone::rb_setGray), 1);
 		// all other methods
 		rb_define_method(rb_cTone, "set", RUBY_METHOD_FUNC(&Tone::rb_set), -1);
-		// static methods
 	}
 
 	VALUE Tone::rb_new(VALUE classe)

@@ -29,6 +29,9 @@ namespace rgss
 		defaultSize = 22;
 		defaultBold = false;
 		defaultItalic = false;
+		rb_defaultColor = Qnil;
+		defaultColor = NULL;
+		rb_gc_register_address(&rb_defaultColor);
 		VALUE argv[3] = {INT2FIX(255), INT2FIX(255), INT2FIX(255)};
 		Font::rb_setDefaultColor(rb_cFont, Color::create(3, argv));
 	}
@@ -228,8 +231,16 @@ namespace rgss
 
 	VALUE Font::rb_setDefaultColor(VALUE classe, VALUE value)
 	{
-		RB_VAR2CPP(value, Color, color);
-		defaultColor = color;
+		rb_defaultColor = value;
+		if (!NIL_P(value))
+		{
+			RB_VAR2CPP(value, Color, color);
+			defaultColor = color;
+		}
+		else
+		{
+			defaultColor = NULL;
+		}
 		return value;
 	}
 	

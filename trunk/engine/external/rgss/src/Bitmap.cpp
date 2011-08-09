@@ -26,8 +26,6 @@ namespace rgss
 	 ****************************************************************************************/
 	
 	VALUE rb_cBitmap;
-	hmap<hstr, Bitmap*> fontCache;
-	hmap<hstr, atres::CacheEntry> characterCache;
 
 	Bitmap::Bitmap(int width, int height) : texture(NULL)
 	{
@@ -52,15 +50,7 @@ namespace rgss
 
 	Bitmap::~Bitmap()
 	{
-		if (!this->disposed)
-		{
-			if (this->texture != NULL)
-			{
-				delete this->texture;
-				this->texture = NULL;
-			}
-			this->disposed = true;
-		}
+		this->dispose();
 	}
 
 	int Bitmap::getWidth()
@@ -98,7 +88,6 @@ namespace rgss
 			horizontal = atres::LEFT;
 			break;
 		}
-		//*
 		gmat4 viewMatrix = april::rendersys->getModelviewMatrix();
 		gmat4 projectionMatrix = april::rendersys->getProjectionMatrix();
 		april::rendersys->setRenderTarget(this->texture);
@@ -106,9 +95,8 @@ namespace rgss
 		april::rendersys->setOrthoProjection(grect(0.0f, 0.0f,
 			(float)this->texture->getWidth(), (float)this->texture->getHeight()));
 		grect destRect((float)x, (float)y, (float)w, (float)h);
-		// TODO - allow usage of color
 		atres::renderer->drawText(this->_getAtresFontName(), destRect, text, horizontal,
-			atres::TOP);//, this->font->getColor()->toAprilColor());
+			atres::TOP, this->font->getColor()->toAprilColor());
 		april::rendersys->setRenderTarget(NULL);
 		april::rendersys->setProjectionMatrix(projectionMatrix);
 		april::rendersys->setModelviewMatrix(viewMatrix);
@@ -238,16 +226,10 @@ namespace rgss
 	
 	void Bitmap::init()
 	{
-		fontCache = hmap<hstr, Bitmap*>();
 	}
 
 	void Bitmap::destroy()
 	{
-		foreach_m (Bitmap*, it, fontCache)
-		{
-			delete it->second;
-		}
-		fontCache.clear();
 	}
 
 	void Bitmap::createRubyInterface()
@@ -270,7 +252,7 @@ namespace rgss
 		rb_define_method(rb_cBitmap, "clear", RUBY_METHOD_FUNC(&Bitmap::rb_clear), 0); 
 		rb_define_method(rb_cBitmap, "blt", RUBY_METHOD_FUNC(&Bitmap::rb_blt), -1); 
 		rb_define_method(rb_cBitmap, "stretch_blt", RUBY_METHOD_FUNC(&Bitmap::rb_stretchBlt), -1); 
-		// not implemented yet
+		// TODO - not implemented yet
 			
 		rb_define_method(rb_cBitmap, "dispose", RUBY_METHOD_FUNC(&Bitmap::rb_dispose), 0); 
 		rb_define_method(rb_cBitmap, "disposed?", RUBY_METHOD_FUNC(&Bitmap::rb_isDisposed), 0); 
@@ -619,7 +601,7 @@ namespace rgss
 		hstr text = StringValuePtr(string);
 		hstr fontName = bitmap->_getAtresFontName();
 		float w = atres::renderer->getTextWidthUnformatted(fontName, text);
-		int h = bitmap->getHeight();
+		int h = bitmap->font->getSize();
 		return Rect::create(INT2FIX(0), INT2FIX(0), INT2FIX((int)ceil(w)), INT2FIX(h));
 	}
 

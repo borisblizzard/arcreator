@@ -83,7 +83,7 @@ namespace rgss
 		static bool focused;
 		/// @brief Timer for frame limiation.
 		static april::Timer* timer;
-			
+		
 		/// @brief Waits for the frame sync for FPS limitation.
 		static void _waitForFrameSync();
 		/// @brief Handles focus change and application finish.

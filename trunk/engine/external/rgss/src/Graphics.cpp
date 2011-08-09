@@ -26,6 +26,7 @@ namespace rgss
 
 	VALUE rb_mGraphics;
 
+	RenderQueue* Graphics::renderQueue;
 	int Graphics::width;
 	int Graphics::height;
 	bool Graphics::active;
@@ -34,7 +35,6 @@ namespace rgss
 	bool Graphics::running;
 	bool Graphics::focused;
 	april::Timer* Graphics::timer;
-	RenderQueue* Graphics::renderQueue;
 
 	/****************************************************************************************
 	 * Pure C++ code
