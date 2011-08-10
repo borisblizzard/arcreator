@@ -30,7 +30,6 @@ namespace rgss
 	Bitmap::Bitmap(int width, int height) : texture(NULL)
 	{
 		this->texture = april::rendersys->createEmptyTexture(width, height, april::AT_ARGB, april::AT_RENDER_TARGET);
-		this->texture->setTextureWrapping(false);
 		this->texture->setTextureFilter(april::Nearest);
 		this->disposed = false;
 	}
@@ -127,11 +126,9 @@ namespace rgss
 	void Bitmap::_loadTexture(chstr filename)
 	{
 		april::Texture* loadTexture = april::rendersys->loadTexture(filename);
-		loadTexture->setTextureWrapping(false);
 		int w = loadTexture->getWidth();
 		int h = loadTexture->getHeight();
 		this->texture = april::rendersys->createEmptyTexture(w, h, april::AT_ARGB, april::AT_RENDER_TARGET);
-		this->texture->setTextureWrapping(false);
 		this->texture->setTextureFilter(april::Nearest);
 		this->_renderToTexture(0, 0, loadTexture, 0, 0, w, h);
 		delete loadTexture;
@@ -262,11 +259,9 @@ namespace rgss
 		rb_define_method(rb_cBitmap, "clear", RUBY_METHOD_FUNC(&Bitmap::rb_clear), 0); 
 		rb_define_method(rb_cBitmap, "blt", RUBY_METHOD_FUNC(&Bitmap::rb_blt), -1); 
 		rb_define_method(rb_cBitmap, "stretch_blt", RUBY_METHOD_FUNC(&Bitmap::rb_stretchBlt), -1); 
-		// TODO - not implemented yet
-			
+		rb_define_method(rb_cBitmap, "draw_text", RUBY_METHOD_FUNC(&Bitmap::rb_drawText), -1); 
 		rb_define_method(rb_cBitmap, "dispose", RUBY_METHOD_FUNC(&Bitmap::rb_dispose), 0); 
 		rb_define_method(rb_cBitmap, "disposed?", RUBY_METHOD_FUNC(&Bitmap::rb_isDisposed), 0); 
-		rb_define_method(rb_cBitmap, "draw_text", RUBY_METHOD_FUNC(&Bitmap::rb_drawText), -1); 
 		rb_define_method(rb_cBitmap, "hue_change", RUBY_METHOD_FUNC(&Bitmap::rb_changeHue), 1); 
 		rb_define_method(rb_cBitmap, "text_size", RUBY_METHOD_FUNC(&Bitmap::rb_textSize), 1); 
 	}
@@ -320,7 +315,6 @@ namespace rgss
 				rb_raise(rb_eRGSSError, "failed to create bitmap");
 			}
 			bitmap->texture = april::rendersys->createEmptyTexture(w, h, april::AT_ARGB, april::AT_RENDER_TARGET);
-			bitmap->texture->setTextureWrapping(false);
 			bitmap->texture->setTextureFilter(april::Nearest);
 		}
 		Bitmap::rb_setFont(self, Font::create(0, NULL));
@@ -335,7 +329,6 @@ namespace rgss
 		int w = other->texture->getWidth();
 		int h = other->texture->getHeight();
 		bitmap->texture = april::rendersys->createEmptyTexture(w, h, april::AT_ARGB, april::AT_RENDER_TARGET);
-		bitmap->texture->setTextureWrapping(false);
 		bitmap->texture->setTextureFilter(april::Nearest);
 		bitmap->_renderToTexture(0, 0, other->texture, 0, 0, w, h);
 		// TODO - should be changed to call an actual clone method for convenience

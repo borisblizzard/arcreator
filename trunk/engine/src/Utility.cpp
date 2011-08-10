@@ -54,6 +54,12 @@ namespace arc
 		{
 			hfile f(filename);
 			harray<hstr> lines = f.read_lines();
+			f.close();
+			// ignore file header. utf-8 encoded text files have 2-3 char markers
+			while (lines[0].size() > 0 && lines[0][0] < 0)
+			{
+				lines[0] = lines[0](1, lines[0].size() - 1);
+			}
 			harray<hstr> data;
 			foreach (hstr, it, lines)
 			{
