@@ -23,7 +23,6 @@ namespace rgss
 
 	VALUE rb_cViewport;
 
-	/// @todo Still needs to be implemented fully.
 	void Viewport::draw()
 	{
 		bool needsTextureUpdate = false;
@@ -42,6 +41,7 @@ namespace rgss
 			this->texture = april::rendersys->createEmptyTexture(this->rect->width,
 				this->rect->height, april::AT_ARGB, april::AT_RENDER_TARGET);
 			this->texture->setTextureWrapping(false);
+			this->texture->setTextureFilter(april::Nearest);
 		}
 		// rendering
 		this->_renderToTexture();
@@ -60,15 +60,16 @@ namespace rgss
 	{
 		gmat4 viewMatrix = april::rendersys->getModelviewMatrix();
 		gmat4 projectionMatrix = april::rendersys->getProjectionMatrix();
+		april::Texture* target = april::rendersys->getRenderTarget();
 		april::rendersys->setRenderTarget(this->texture);
 		april::rendersys->setIdentityTransform();
 		// TODO - fix the alpha channel problem
 		april::rendersys->setOrthoProjection(
 			grect(0.0f, 0.0f, (float)this->texture->getWidth(), (float)this->texture->getHeight()));
-		//april::rendersys->clear();
+		april::rendersys->clear();
 		april::rendersys->setBlendMode(april::DEFAULT);
 		this->renderQueue->draw();
-		april::rendersys->setRenderTarget(NULL);
+		april::rendersys->setRenderTarget(target);
 		april::rendersys->setProjectionMatrix(projectionMatrix);
 		april::rendersys->setModelviewMatrix(viewMatrix);
 	}
@@ -81,7 +82,6 @@ namespace rgss
 		grect srcRect(0.0f, 0.0f, 1.0f, 1.0f);
 		april::Color color = this->color->toAprilColor();
 		april::rendersys->drawTexturedQuad(drawRect, srcRect);
-		
 		/*
 		if (color == APRIL_COLOR_CLEAR)
 		{

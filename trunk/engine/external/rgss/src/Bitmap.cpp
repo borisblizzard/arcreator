@@ -31,6 +31,7 @@ namespace rgss
 	{
 		this->texture = april::rendersys->createEmptyTexture(width, height, april::AT_ARGB, april::AT_RENDER_TARGET);
 		this->texture->setTextureWrapping(false);
+		this->texture->setTextureFilter(april::Nearest);
 		this->disposed = false;
 	}
 
@@ -90,14 +91,19 @@ namespace rgss
 		}
 		gmat4 viewMatrix = april::rendersys->getModelviewMatrix();
 		gmat4 projectionMatrix = april::rendersys->getProjectionMatrix();
+		april::TextureFilter filter = this->texture->getTextureFilter();
+		this->texture->setTextureFilter(april::Linear);
+		april::Texture* target = april::rendersys->getRenderTarget();
 		april::rendersys->setRenderTarget(this->texture);
 		april::rendersys->setIdentityTransform();
 		april::rendersys->setOrthoProjection(grect(0.0f, 0.0f,
 			(float)this->texture->getWidth(), (float)this->texture->getHeight()));
-		grect destRect((float)x, (float)y, (float)w, (float)h);
-		atres::renderer->drawText(this->_getAtresFontName(), destRect, text, horizontal,
-			atres::TOP, this->font->getColor()->toAprilColor());
-		april::rendersys->setRenderTarget(NULL);
+		hstr fontName = this->_getAtresFontName();
+		grect destRect((float)x, (float)y, (float)w, atres::renderer->getFontResource(fontName)->getLineHeight());
+		atres::renderer->drawText(fontName, destRect, text, horizontal,
+			atres::BOTTOM, this->font->getColor()->toAprilColor());
+		april::rendersys->setRenderTarget(target);
+		this->texture->setTextureFilter(filter);
 		april::rendersys->setProjectionMatrix(projectionMatrix);
 		april::rendersys->setModelviewMatrix(viewMatrix);
 	}
@@ -126,6 +132,7 @@ namespace rgss
 		int h = loadTexture->getHeight();
 		this->texture = april::rendersys->createEmptyTexture(w, h, april::AT_ARGB, april::AT_RENDER_TARGET);
 		this->texture->setTextureWrapping(false);
+		this->texture->setTextureFilter(april::Nearest);
 		this->_renderToTexture(0, 0, loadTexture, 0, 0, w, h);
 		delete loadTexture;
 	}
@@ -136,6 +143,7 @@ namespace rgss
 		gmat4 projectionMatrix = april::rendersys->getProjectionMatrix();
 		april::TextureFilter filter = source->getTextureFilter();
 		source->setTextureFilter(april::Nearest);
+		april::Texture* target = april::rendersys->getRenderTarget();
 		april::rendersys->setRenderTarget(this->texture);
 		april::rendersys->setTexture(source);
 		april::rendersys->setIdentityTransform();
@@ -153,7 +161,7 @@ namespace rgss
 		{
 			april::rendersys->drawTexturedQuad(destRect, srcRect, april::Color(APRIL_COLOR_WHITE, alpha));
 		}
-		april::rendersys->setRenderTarget(NULL);
+		april::rendersys->setRenderTarget(target);
 		source->setTextureFilter(filter);
 		april::rendersys->setProjectionMatrix(projectionMatrix);
 		april::rendersys->setModelviewMatrix(viewMatrix);
@@ -170,6 +178,7 @@ namespace rgss
 		gmat4 projectionMatrix = april::rendersys->getProjectionMatrix();
 		april::TextureFilter filter = source->getTextureFilter();
 		source->setTextureFilter(april::Linear);
+		april::Texture* target = april::rendersys->getRenderTarget();
 		april::rendersys->setRenderTarget(this->texture);
 		april::rendersys->setIdentityTransform();
 		april::rendersys->setOrthoProjection(grect(0.0f, 0.0f,
@@ -187,7 +196,7 @@ namespace rgss
 		{
 			april::rendersys->drawTexturedQuad(destRect, srcRect, april::Color(APRIL_COLOR_WHITE, alpha));
 		}
-		april::rendersys->setRenderTarget(NULL);
+		april::rendersys->setRenderTarget(target);
 		source->setTextureFilter(filter);
 		april::rendersys->setProjectionMatrix(projectionMatrix);
 		april::rendersys->setModelviewMatrix(viewMatrix);
@@ -197,12 +206,13 @@ namespace rgss
 	{
 		gmat4 viewMatrix = april::rendersys->getModelviewMatrix();
 		gmat4 projectionMatrix = april::rendersys->getProjectionMatrix();
+		april::Texture* target = april::rendersys->getRenderTarget();
 		april::rendersys->setRenderTarget(this->texture);
 		april::rendersys->setIdentityTransform();
 		april::rendersys->setOrthoProjection(grect(0.0f, 0.0f,
 			(float)this->texture->getWidth(), (float)this->texture->getHeight()));
 		april::rendersys->clear(true, false, rect, color);
-		april::rendersys->setRenderTarget(NULL);
+		april::rendersys->setRenderTarget(target);
 		april::rendersys->setProjectionMatrix(projectionMatrix);
 		april::rendersys->setModelviewMatrix(viewMatrix);
 	}
@@ -311,6 +321,7 @@ namespace rgss
 			}
 			bitmap->texture = april::rendersys->createEmptyTexture(w, h, april::AT_ARGB, april::AT_RENDER_TARGET);
 			bitmap->texture->setTextureWrapping(false);
+			bitmap->texture->setTextureFilter(april::Nearest);
 		}
 		Bitmap::rb_setFont(self, Font::create(0, NULL));
 		return self;
@@ -325,6 +336,7 @@ namespace rgss
 		int h = other->texture->getHeight();
 		bitmap->texture = april::rendersys->createEmptyTexture(w, h, april::AT_ARGB, april::AT_RENDER_TARGET);
 		bitmap->texture->setTextureWrapping(false);
+		bitmap->texture->setTextureFilter(april::Nearest);
 		bitmap->_renderToTexture(0, 0, other->texture, 0, 0, w, h);
 		// TODO - should be changed to call an actual clone method for convenience
 		Bitmap::rb_setFont(self, rb_funcall(other->rb_font, rb_intern("clone"), 0, NULL));

@@ -18,4 +18,8 @@
 #define VER_LEGALCOPYRIGHT_STR "© Chaos Project"
 #define VER_PRODUCTNAME_STR "Advanced RPG Creator Executable"
 
+#define CFG_TITLE "Title"
+#define CFG_RESOLUTION "Resolution"
+#define CFG_FULLSCREEN "Fullscreen"
+
 #endif
