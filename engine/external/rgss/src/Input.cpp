@@ -18,6 +18,7 @@ namespace rgss
 	harray<unsigned int> controlKeys;
 	bool triggered[MAX_KEYS];
 	bool pressed[MAX_KEYS];
+	int repeated[MAX_KEYS];
 	bool released[MAX_KEYS];
 	bool keys[MAX_KEYS];
 
@@ -97,6 +98,10 @@ namespace rgss
 		}
 		controlKeys.removed_duplicates();
 		controlKeys.sort();
+		for_iter (i, 0, MAX_KEYS)
+		{
+			repeated[i] = 0;
+		}
 	}
 
 	void Input::createRubyInterface()
@@ -147,10 +152,12 @@ namespace rgss
 				{
                     triggered[*it] = false;
 				}
+				repeated[*it] < 17 ? repeated[*it] += 1 : repeated[*it] = 15;
 			}
             else if (!released[*it])
 			{
                 triggered[*it] = false;
+				repeated[*it] = 0;
                 if (pressed[*it])
 				{
                     pressed[*it] = false;
@@ -274,7 +281,6 @@ namespace rgss
 		return false;
 	}
 
-	/// @todo pressed array shouldn't be used here
 	bool Input::isRepeated(unsigned char keycode)
 	{
 		if (!conversions.has_key(keycode))
@@ -283,8 +289,7 @@ namespace rgss
 		}
 		foreach (unsigned int, it, conversions[keycode])
 		{
-			//if (repeated[*it])
-			if (triggered[*it])
+			if (repeated[*it] == 1 || repeated[*it] == 16)
 			{
 				return true;
 			}

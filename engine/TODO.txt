@@ -1,6 +1,7 @@
 - implement FLAC support in XAL
 - implement MIDI support in XAL
 - fix bug with alpha blending on a render target where the rendered area would be too transparent
+- fix bug where Bitmap#get_pixel does not work with some textures (possibly related to bug above)
 - throw Errno::ENOENT without using eval() at several places
 - test Bitmap::rb_textSize
 - implement proper Input::isRepeated check- implement Sprite::rb_update- implement Sprite::rb_flash- implement Viewport::rb_update
@@ -13,3 +14,7 @@
 - change implementation of p to show a window
 - change implementation of print to write to the log file
 - implement font caching for atrestff
+- implement FPS display
+- fix problem with D3DX9 device reset
+- check for Bitmap related memory leaks
+- change implementeation of DirectX texture rotateHue to work on render targets

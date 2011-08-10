@@ -40,7 +40,6 @@ namespace rgss
 		{
 			this->texture = april::rendersys->createEmptyTexture(this->rect->width,
 				this->rect->height, april::AT_ARGB, april::AT_RENDER_TARGET);
-			this->texture->setTextureWrapping(false);
 			this->texture->setTextureFilter(april::Nearest);
 		}
 		// rendering
