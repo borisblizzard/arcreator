@@ -67,7 +67,6 @@ namespace rgss
 	{
 		if (this->needsUpdate)
 		{
-			
 			this->needsUpdate = false;
 		}
 		this->_updateTileSprites();

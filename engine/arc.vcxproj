@@ -89,6 +89,7 @@ copy external\rgss\bin\win32_Debug\zer0rgss.dll bin\$(Configuration)
 copy external\zer0\bin\win32_Debug\zer0division.dll bin\$(Configuration)
 copy external\lib\msvc90\*.dll bin\$(Configuration)
 copy external\lib\msvc100\*.dll bin\$(Configuration)
+copy arc.cfg bin\$(Configuration)
 </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -148,6 +149,7 @@ copy external\lib\msvc90\libvorbis.dll bin\$(Configuration)
 copy external\lib\msvc90\libvorbisfile.dll bin\$(Configuration)
 copy external\lib\msvc90\libxml2.dll bin\$(Configuration)
 copy external\lib\msvc100\msvcr100-ruby192.dll bin\$(Configuration)
+copy arc.cfg bin\$(Configuration)
 del bin\$(Configuration)\*.obj
 del bin\$(Configuration)\*.res
 del bin\$(Configuration)\*.tlog

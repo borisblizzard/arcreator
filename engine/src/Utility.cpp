@@ -1,6 +1,7 @@
 #include <hltypes/harray.h>
 #include <hltypes/hdir.h>
 #include <hltypes/hfile.h>
+#include <hltypes/hmap.h>
 #include <hltypes/hstring.h>
 
 #include "Constants.h"
@@ -41,6 +42,33 @@ namespace arc
 #endif
 		hfile file((arc::path + "log.txt"), hfile::APPEND);
 		file.writef("%s\n", message.c_str());
+	}
+
+	hmap<hstr, hstr> readCfgFile(chstr filename)
+	{
+		hmap<hstr, hstr> result;
+		result[CFG_TITLE] = "Example Game";
+		result[CFG_RESOLUTION] = "640x480";
+		result[CFG_FULLSCREEN] = "false";
+		if (hfile::exists(filename))
+		{
+			hfile f(filename);
+			harray<hstr> lines = f.read_lines();
+			harray<hstr> data;
+			foreach (hstr, it, lines)
+			{
+				data = (*it).split(":", 1);
+				if (data.size() == 2)
+				{
+					result[data[0]] = data[1];
+				}
+			}
+			if (result[CFG_RESOLUTION].split("x").size() != 2)
+			{
+				result[CFG_RESOLUTION] = "640x480";
+			}
+		}
+		return result;
 	}
 	
 }

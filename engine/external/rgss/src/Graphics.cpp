@@ -176,7 +176,6 @@ namespace rgss
 			return Graphics::rb_update(self);
 		}
 		hstr filename = (NIL_P(arg2) ? "" : StringValuePtr(arg2));
-		/// @todo Int or float?
 		int vague = (NIL_P(arg3) ? 40 : NUM2INT(arg3));
 		grect drawRect(0.0f, 0.0f, (float)width, (float)height);
 		grect srcRect(0.0f, 0.0f, 1.0f, 1.0f);

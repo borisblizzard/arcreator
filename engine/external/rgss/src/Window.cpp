@@ -56,7 +56,10 @@ namespace rgss
 		{
 			return;
 		}
-		april::rendersys->setTexture(this->windowskinBackground->getTexture());
+		april::Texture* texture = this->windowskinBackground->getTexture();
+		april::TextureFilter filter = texture->getTextureFilter();
+		texture->setTextureFilter(april::Linear);
+		april::rendersys->setTexture(texture);
 		grect drawRect(2.0f, 2.0f, this->width - 4.0f, this->height - 4.0f);
 		grect srcRect(0.0f, 0.0f, 1.0f, 1.0f);
 		if (!this->stretch)
@@ -73,6 +76,7 @@ namespace rgss
 			april::Color color(APRIL_COLOR_WHITE, (unsigned char)(this->opacity * this->backOpacity / 255));
 			april::rendersys->drawTexturedQuad(drawRect, srcRect, color);
 		}
+		texture->setTextureFilter(filter);
 	}
 
 	void Window::_renderWindowskinBorders()
@@ -271,28 +275,32 @@ namespace rgss
 		Sprite::rb_setBitmap(this->rb_cursorSprite, rb_bitmap);
 		// set the srcRect of the cursor Sprite
 		srcRect->set(0, 0, this->cursorRect->width, this->cursorRect->height);
+		// requires a temp bitmap to avoid artifacts
+		Bitmap* cursorWindowkinBitmap = new Bitmap(32, 32);
+		cursorWindowkinBitmap->blt(0, 0, this->windowskin, 128, 64, 32, 32);
 		// blit cursor image onto new bitmap
 		RB_VAR2CPP(rb_bitmap, Bitmap, bitmap);
 		int w = hmax(this->cursorRect->width - 4, 0);
 		int h = hmax(this->cursorRect->height - 4, 0);
-		bitmap->blt(0, 0, this->windowskin, 128, 64, 2, 2);
-		bitmap->blt(w + 2, 0, this->windowskin, 158, 64, 2, 2);
-		bitmap->blt(0, h + 2, this->windowskin, 128, 94, 2, 2);
-		bitmap->blt(w + 2, h + 2, this->windowskin, 158, 94, 2, 2);
+		bitmap->blt(0, 0, cursorWindowkinBitmap, 0, 0, 2, 2);
+		bitmap->blt(w + 2, 0, cursorWindowkinBitmap, 30, 0, 2, 2);
+		bitmap->blt(0, h + 2, cursorWindowkinBitmap, 0, 30, 2, 2);
+		bitmap->blt(w + 2, h + 2, cursorWindowkinBitmap, 30, 30, 2, 2);
 		if (w > 0)
 		{
-			bitmap->stretchBlt(2, 0, w, 2, this->windowskin, 130, 64, 28, 2);
-			bitmap->stretchBlt(2, h + 2, w, 2, this->windowskin, 130, 94, 28, 2);
+			bitmap->stretchBlt(2, 0, w, 2, cursorWindowkinBitmap, 2, 0, 28, 2);
+			bitmap->stretchBlt(2, h + 2, w, 2, cursorWindowkinBitmap, 2, 30, 28, 2);
 		}
 		if (h > 0)
 		{
-			bitmap->stretchBlt(0, 2, 2, h, this->windowskin, 128, 66, 2, 28);
-			bitmap->stretchBlt(w + 2, 2, 2, h, this->windowskin, 158, 66, 2, 28);
+			bitmap->stretchBlt(0, 2, 2, h, cursorWindowkinBitmap, 0, 2, 2, 28);
+			bitmap->stretchBlt(w + 2, 2, 2, h, cursorWindowkinBitmap, 30, 2, 2, 28);
 		}
 		if (w > 0 && h > 0)
 		{
-			bitmap->stretchBlt(2, 2, w, h, this->windowskin, 130, 66, 28, 28);
+			bitmap->stretchBlt(2, 2, w, h, cursorWindowkinBitmap, 2, 2, 28, 28);
 		}
+		delete cursorBitmap;
 	}
 
 	void Window::_updatePauseSprite()

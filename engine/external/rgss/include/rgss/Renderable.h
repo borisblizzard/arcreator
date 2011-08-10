@@ -113,8 +113,6 @@ namespace rgss
 		static VALUE rb_setTone(VALUE self, VALUE value);
 
 	protected:
-		/// @brief The RenderQueue this renderable belongs to.
-		RenderQueue* renderQueue;
 		/// @brief Disposed flag.
 		bool disposed;
 		/// @brief Visible flag.
@@ -138,6 +136,10 @@ namespace rgss
 		Type type;
 		/// @brief Renderable counter Id.
 		unsigned int counterId;
+
+	private:
+		/// @brief The RenderQueue this renderable belongs to.
+		RenderQueue* renderQueue;
 
 	};
 

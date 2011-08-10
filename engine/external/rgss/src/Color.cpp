@@ -50,6 +50,7 @@ namespace rgss
 		rb_define_alloc_func(rb_cColor, &Color::rb_new);
 		// initialize
 		rb_define_method(rb_cColor, "initialize", RUBY_METHOD_FUNC(&Color::rb_initialize), -1);
+		rb_define_method(rb_cColor, "initialize_copy", RUBY_METHOD_FUNC(&Color::rb_initialize_copy), 1);
 		rb_define_method(rb_cColor, "inspect", RUBY_METHOD_FUNC(&Color::rb_inspect), 0);
 		rb_define_method(rb_cColor, "_dump", RUBY_METHOD_FUNC(&Color::rb_dump), -1);
 		rb_define_singleton_method(rb_cColor, "_load", RUBY_METHOD_FUNC(&Color::rb_load), 1);
@@ -75,6 +76,17 @@ namespace rgss
 	VALUE Color::rb_initialize(int argc, VALUE* argv, VALUE self)
 	{
 		Color::rb_set(argc, argv, self);
+		return self;
+	}
+
+	VALUE Color::rb_initialize_copy(VALUE self, VALUE original)
+	{
+		RB_SELF2CPP(Color, color);
+		RB_VAR2CPP(original, Color, other);
+		color->red = other->red;
+		color->green = other->green;
+		color->blue = other->blue;
+		color->alpha = other->alpha;
 		return self;
 	}
 

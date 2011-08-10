@@ -83,7 +83,10 @@ namespace zer0
 			atres::init();
 			atresttf::init();
 			atres::renderer->setGlobalOffsets(true);
-			atres::renderer->registerFontResource(new atresttf::FontResourceTtf("Graphics/Fonts/Arial.ttfdef"));
+			atres::renderer->registerFontResource(new atresttf::FontResourceTtf(
+				"Graphics/Fonts/arial_1.ttf", "Arial", 48.0f, 1.0f, 56.0f));
+			atres::renderer->registerFontResource(new atresttf::FontResourceTtf(
+				"Graphics/Fonts/ariblk.ttf", "Arial Black", 64.0f, 1.0f));
 			// aprilui
 			aprilui::init();
 			aprilui::setLogFunction(logFunction);

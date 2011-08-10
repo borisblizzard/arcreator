@@ -1,7 +1,6 @@
 - implement FLAC support in XAL
 - implement MIDI support in XAL
 - fix bug with alpha blending on a render target where the rendered area would be too transparent
-- implement reading data from INI file
 - throw Errno::ENOENT without using eval() at several places
 - test Bitmap::rb_textSize
 - implement proper Input::isRepeated check- implement Sprite::rb_update- implement Sprite::rb_flash- implement Viewport::rb_update
@@ -10,4 +9,7 @@
 - implement toning for Renderable
 - implement negative blend mode in APRIL
 - Bitmap::fillRect doesn't seem to work well- change Color::toAprilColor to take into account negative values
-- Window cursor is drawn slightly off (problem with texture filtering?)
+- allow change off fullscreen mode in APRIL
+- change implementation of p to show a window
+- change implementation of print to write to the log file
+- implement font caching for atrestff
