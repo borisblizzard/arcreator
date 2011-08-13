@@ -1,5 +1,6 @@
 #include <ruby.h>
 
+#include <hltypes/harray.h>
 #include <hltypes/exception.h>
 #include <hltypes/util.h>
 #include <xal/AudioManager.h>
@@ -31,6 +32,8 @@ namespace rgss
 	int bgmPitch;
 	xal::Player* bgsPlayer;
 	int bgsPitch;
+	xal::Player* mePlayer;
+	harray<xal::Player*> sePlayers;
 	
 	void Audio::init()
 	{
@@ -46,6 +49,7 @@ namespace rgss
 		bgmPitch = 100;
 		bgsPlayer = NULL;
 		bgsPitch = 100;
+		mePlayer = NULL;
 	}
 
 	void Audio::destroy()
@@ -109,7 +113,10 @@ namespace rgss
 
 	VALUE Audio::rb_bgmFade(VALUE self, VALUE time)
 	{
-		xal::mgr->stopCategory(CATEGORY_BGM, (float)NUM2DBL(time) / 1000.f);
+		if (bgmPlayer != NULL)
+		{
+			bgmPlayer->stop((float)NUM2DBL(time) / 1000.f);
+		}
 		return Qnil;
 	}
 
@@ -157,7 +164,10 @@ namespace rgss
 
 	VALUE Audio::rb_bgsFade(VALUE self, VALUE time)
 	{
-		xal::mgr->stopCategory(CATEGORY_BGS, (float)NUM2DBL(time) / 1000.f);
+		if (bgsPlayer != NULL)
+		{
+			bgsPlayer->stop((float)NUM2DBL(time) / 1000.f);
+		}
 		return Qnil;
 	}
 
@@ -181,9 +191,18 @@ namespace rgss
 		int pitch = hclamp((NIL_P(arg3) ? 100 : NUM2INT(arg3)), 50, 150); // unsupported now
 		try
 		{
-			if (filename != "")
+			if (mePlayer != NULL && (!mePlayer->isPlaying() || mePlayer->getName() != filename))
 			{
-				xal::mgr->play(filename, 0.0f, false, volume / 100.0f);
+				Audio::rb_bgsStop(self);
+			}
+			if (mePlayer == NULL && filename != "")
+			{
+				mePlayer = xal::mgr->createPlayer(filename);
+				mePlayer->play();
+			}
+			if (mePlayer != NULL)
+			{
+				mePlayer->setGain(volume / 100.0f);
 			}
 		}
 		catch (hltypes::exception e)
@@ -196,13 +215,21 @@ namespace rgss
 
 	VALUE Audio::rb_meFade(VALUE self, VALUE time)
 	{
-		xal::mgr->stopCategory(CATEGORY_ME, (float)NUM2DBL(time) / 1000.f);
+		if (mePlayer != NULL)
+		{
+			mePlayer->stop((float)NUM2DBL(time) / 1000.f);
+		}
 		return Qnil;
 	}
 
 	VALUE Audio::rb_meStop(VALUE self)
 	{
-		xal::mgr->stopCategory(CATEGORY_ME);
+		if (mePlayer != NULL)
+		{
+			mePlayer->stop();
+			xal::mgr->destroyPlayer(mePlayer);
+			mePlayer = NULL;
+		}
 		return Qnil;
 	}
 
@@ -213,12 +240,22 @@ namespace rgss
 		hstr filename = StringValuePtr(arg1);
 		int volume = hclamp((NIL_P(arg2) ? 100 : NUM2INT(arg2)), 0, 100);
 		int pitch = hclamp((NIL_P(arg3) ? 100 : NUM2INT(arg3)), 50, 150); // unsupported now
+		// first remove inished players
+		harray<xal::Player*> players = sePlayers;
+		foreach (xal::Player*, it, players)
+		{
+			if (!(*it)->isPlaying())
+			{
+				xal::mgr->destroyPlayer(*it);
+				sePlayers -= (*it);
+			}
+		}
 		try
 		{
-			if (filename != "")
-			{
-				xal::mgr->play(filename, 0.0f, false, volume / 100.0f);
-			}
+			xal::Player* player = xal::mgr->createPlayer(filename);
+			player->play();
+			player->setGain(volume / 100.0f);
+			sePlayers += player;
 		}
 		catch (hltypes::exception e)
 		{
@@ -230,7 +267,12 @@ namespace rgss
 
 	VALUE Audio::rb_seStop(VALUE self)
 	{
-		xal::mgr->stopCategory(CATEGORY_SE);
+		foreach (xal::Player*, it, sePlayers)
+		{
+			(*it)->stop();
+			xal::mgr->destroyPlayer(*it);
+		}
+		sePlayers.clear();
 		return Qnil;
 	}
 	
