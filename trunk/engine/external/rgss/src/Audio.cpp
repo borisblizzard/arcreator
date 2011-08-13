@@ -64,12 +64,18 @@ namespace rgss
 	{
 		rb_mAudio = rb_define_module("Audio");
 		rb_define_module_function(rb_mAudio, "bgm_play", RUBY_METHOD_FUNC(&Audio::rb_bgmPlay), -1);
+		rb_define_module_function(rb_mAudio, "bgm_pause", RUBY_METHOD_FUNC(&Audio::rb_bgmPause), 0);
+		rb_define_module_function(rb_mAudio, "bgm_resume", RUBY_METHOD_FUNC(&Audio::rb_bgmResume), 0);
 		rb_define_module_function(rb_mAudio, "bgm_fade", RUBY_METHOD_FUNC(&Audio::rb_bgmFade), 1);
 		rb_define_module_function(rb_mAudio, "bgm_stop", RUBY_METHOD_FUNC(&Audio::rb_bgmStop), 0);
 		rb_define_module_function(rb_mAudio, "bgs_play", RUBY_METHOD_FUNC(&Audio::rb_bgsPlay), -1);
+		rb_define_module_function(rb_mAudio, "bgs_pause", RUBY_METHOD_FUNC(&Audio::rb_bgsPause), 0);
+		rb_define_module_function(rb_mAudio, "bgs_resume", RUBY_METHOD_FUNC(&Audio::rb_bgsResume), 0);
 		rb_define_module_function(rb_mAudio, "bgs_fade", RUBY_METHOD_FUNC(&Audio::rb_bgsFade), 1);
 		rb_define_module_function(rb_mAudio, "bgs_stop", RUBY_METHOD_FUNC(&Audio::rb_bgsStop), 0);
 		rb_define_module_function(rb_mAudio, "me_play", RUBY_METHOD_FUNC(&Audio::rb_mePlay), -1);
+		rb_define_module_function(rb_mAudio, "me_pause", RUBY_METHOD_FUNC(&Audio::rb_mePause), 0);
+		rb_define_module_function(rb_mAudio, "me_resume", RUBY_METHOD_FUNC(&Audio::rb_meResume), 0);
 		rb_define_module_function(rb_mAudio, "me_fade", RUBY_METHOD_FUNC(&Audio::rb_meFade), 1);
 		rb_define_module_function(rb_mAudio, "me_stop", RUBY_METHOD_FUNC(&Audio::rb_meStop), 0);
 		rb_define_module_function(rb_mAudio, "se_play", RUBY_METHOD_FUNC(&Audio::rb_sePlay), -1);
@@ -107,6 +113,24 @@ namespace rgss
 		{
 			rgss::log(hsprintf("file %s could not be played", filename.c_str()));
 			rgss::log(e.message());
+		}
+		return Qnil;
+	}
+
+	VALUE Audio::rb_bgmPause(VALUE self)
+	{
+		if (bgmPlayer != NULL && !bgmPlayer->isPaused())
+		{
+			bgmPlayer->pause();
+		}
+		return Qnil;
+	}
+
+	VALUE Audio::rb_bgmResume(VALUE self)
+	{
+		if (bgmPlayer != NULL && bgmPlayer->isPaused())
+		{
+			bgmPlayer->play();
 		}
 		return Qnil;
 	}
@@ -162,6 +186,24 @@ namespace rgss
 		return Qnil;
 	}
 
+	VALUE Audio::rb_bgsPause(VALUE self)
+	{
+		if (bgsPlayer != NULL && !bgsPlayer->isPaused())
+		{
+			bgsPlayer->pause();
+		}
+		return Qnil;
+	}
+
+	VALUE Audio::rb_bgsResume(VALUE self)
+	{
+		if (bgsPlayer != NULL && bgsPlayer->isPaused())
+		{
+			bgsPlayer->play();
+		}
+		return Qnil;
+	}
+
 	VALUE Audio::rb_bgsFade(VALUE self, VALUE time)
 	{
 		if (bgsPlayer != NULL)
@@ -209,6 +251,24 @@ namespace rgss
 		{
 			rgss::log(hsprintf("file %s could not be played", filename.c_str()));
 			rgss::log(e.message());
+		}
+		return Qnil;
+	}
+
+	VALUE Audio::rb_mePause(VALUE self)
+	{
+		if (mePlayer != NULL && !mePlayer->isPaused())
+		{
+			mePlayer->pause();
+		}
+		return Qnil;
+	}
+
+	VALUE Audio::rb_meResume(VALUE self)
+	{
+		if (mePlayer != NULL && mePlayer->isPaused())
+		{
+			mePlayer->play();
 		}
 		return Qnil;
 	}
