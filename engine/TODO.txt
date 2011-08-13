@@ -1,5 +1,6 @@
 - implement FLAC support in XAL
 - implement MIDI support in XAL
+- implement pitch for audio in XAL
 - fix bug with alpha blending on a render target where the rendered area would be too transparent
 - fix bug where Bitmap#get_pixel does not work with some textures (possibly related to bug above)
 - throw Errno::ENOENT without using eval() at several places
