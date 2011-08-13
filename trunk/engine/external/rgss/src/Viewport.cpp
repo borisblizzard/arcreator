@@ -224,60 +224,42 @@ namespace rgss
 	VALUE Viewport::rb_getColor(VALUE self)
 	{
 		RB_SELF2CPP(Viewport, viewport);
-		if (viewport->disposed)
-		{
-			//rb_raise(rb_eRGSSError, ("disposed " + viewport->typeName).c_str());
-		}
+		RB_CHECK_DISPOSED_1(viewport);
 		return viewport->rb_color;
 	}
 
 	VALUE Viewport::rb_setColor(VALUE self, VALUE value)
 	{
 		RB_GENERATE_SETTER(Viewport, sprite, Color, color);
-		if (sprite->disposed)
-		{
-			//rb_raise(rb_eRGSSError, ("disposed " + viewport->typeName).c_str());
-		}
+		RB_CHECK_DISPOSED_1(viewport);
 		return value;
 	}
 
 	VALUE Viewport::rb_getRect(VALUE self)
 	{
 		RB_SELF2CPP(Viewport, viewport);
-		if (viewport->disposed)
-		{
-			//rb_raise(rb_eRGSSError, ("disposed " + viewport->typeName).c_str());
-		}
+		RB_CHECK_DISPOSED_1(viewport);
 		return viewport->rb_rect;
 	}
 
 	VALUE Viewport::rb_setRect(VALUE self, VALUE value)
 	{
 		RB_GENERATE_SETTER(Viewport, sprite, Rect, rect);
-		if (sprite->disposed)
-		{
-			//rb_raise(rb_eRGSSError, ("disposed " + viewport->typeName).c_str());
-		}
+		RB_CHECK_DISPOSED_1(viewport);
 		return value;
 	}
 
 	VALUE Viewport::rb_getTone(VALUE self)
 	{
 		RB_SELF2CPP(Viewport, viewport);
-		if (viewport->disposed)
-		{
-			//rb_raise(rb_eRGSSError, ("disposed " + viewport->typeName).c_str());
-		}
+		RB_CHECK_DISPOSED_1(viewport);
 		return viewport->rb_tone;
 	}
 
 	VALUE Viewport::rb_setTone(VALUE self, VALUE value)
 	{
 		RB_GENERATE_SETTER(Viewport, sprite, Tone, tone);
-		if (sprite->disposed)
-		{
-			//rb_raise(rb_eRGSSError, "disposed sprite");
-		}
+		RB_CHECK_DISPOSED_1(viewport);
 		return value;
 	}
 
@@ -288,6 +270,7 @@ namespace rgss
 	VALUE Viewport::rb_update(VALUE self)
 	{
 		RB_SELF2CPP(Viewport, viewport);
+		RB_CHECK_DISPOSED_1(viewport);
 		viewport->updateFlash();
 		return Qnil;
 	}

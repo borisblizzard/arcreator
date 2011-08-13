@@ -578,10 +578,7 @@ namespace rgss
 	{
 		SourceRenderer::rb_setVisible(self, value);
 		RB_SELF2CPP(Window, window);
-		if (window->disposed)
-		{
-			//rb_raise(rb_eRGSSError, ("disposed " + window->typeName).c_str());
-		}
+		RB_CHECK_DISPOSED_1(window);
 		Sprite::rb_setVisible(window->rb_contentsSprite, value);
 		Sprite::rb_setVisible(window->rb_cursorSprite, value);
 		Sprite::rb_setVisible(window->rb_pauseSprite, value);
@@ -596,10 +593,7 @@ namespace rgss
 	{
 		SourceRenderer::rb_setBitmap(self, value);
 		RB_SELF2CPP(Window, window);
-		if (window->disposed)
-		{
-			//rb_raise(rb_eRGSSError, ("disposed " + window->typeName).c_str());
-		}
+		RB_CHECK_DISPOSED_1(window);
 		Sprite::rb_setBitmap(window->rb_contentsSprite, value);
 		return value;
 	}
@@ -608,10 +602,7 @@ namespace rgss
 	{
 		SourceRenderer::rb_setZ(self, value);
 		RB_SELF2CPP(Window, window);
-		if (window->disposed)
-		{
-			//rb_raise(rb_eRGSSError, ("disposed " + window->typeName).c_str());
-		}
+		RB_CHECK_DISPOSED_1(window);
 		window->cursorSprite->setZ(window->z + 2);
 		window->contentsSprite->setZ(window->z + 2);
 		window->pauseSprite->setZ(window->z + 2);
@@ -625,20 +616,14 @@ namespace rgss
 	VALUE Window::rb_getWidth(VALUE self)
 	{
 		RB_SELF2CPP(Window, window);
-		if (window->disposed)
-		{
-			//rb_raise(rb_eRGSSError, ("disposed " + window->typeName).c_str());
-		}
+		RB_CHECK_DISPOSED_1(window);
 		return INT2NUM(window->width);
 	}
 
 	VALUE Window::rb_setWidth(VALUE self, VALUE value)
 	{
 		RB_SELF2CPP(Window, window);
-		if (window->disposed)
-		{
-			//rb_raise(rb_eRGSSError, ("disposed " + window->typeName).c_str());
-		}
+		RB_CHECK_DISPOSED_1(window);
 		window->width = NUM2INT(value);
 		return value;
 	}
@@ -646,20 +631,14 @@ namespace rgss
 	VALUE Window::rb_getHeight(VALUE self)
 	{
 		RB_SELF2CPP(Window, window);
-		if (window->disposed)
-		{
-			//rb_raise(rb_eRGSSError, ("disposed " + window->typeName).c_str());
-		}
+		RB_CHECK_DISPOSED_1(window);
 		return INT2NUM(window->height);
 	}
 
 	VALUE Window::rb_setHeight(VALUE self, VALUE value)
 	{
 		RB_SELF2CPP(Window, window);
-		if (window->disposed)
-		{
-			//rb_raise(rb_eRGSSError, ("disposed " + window->typeName).c_str());
-		}
+		RB_CHECK_DISPOSED_1(window);
 		window->height = NUM2INT(value);
 		return value;
 	}
@@ -667,20 +646,14 @@ namespace rgss
 	VALUE Window::rb_getActive(VALUE self)
 	{
 		RB_SELF2CPP(Window, window);
-		if (window->disposed)
-		{
-			//rb_raise(rb_eRGSSError, ("disposed " + window->typeName).c_str());
-		}
+		RB_CHECK_DISPOSED_1(window);
 		return (window->active ? Qtrue : Qfalse);
 	}
 
 	VALUE Window::rb_setActive(VALUE self, VALUE value)
 	{
 		RB_SELF2CPP(Window, window);
-		if (window->disposed)
-		{
-			//rb_raise(rb_eRGSSError, ("disposed " + window->typeName).c_str());
-		}
+		RB_CHECK_DISPOSED_1(window);
 		window->active = (bool)RTEST(value);
 		return value;
 	}
@@ -688,20 +661,14 @@ namespace rgss
 	VALUE Window::rb_getPause(VALUE self)
 	{
 		RB_SELF2CPP(Window, window);
-		if (window->disposed)
-		{
-			//rb_raise(rb_eRGSSError, ("disposed " + window->typeName).c_str());
-		}
+		RB_CHECK_DISPOSED_1(window);
 		return (window->pause ? Qtrue : Qfalse);
 	}
 
 	VALUE Window::rb_setPause(VALUE self, VALUE value)
 	{
 		RB_SELF2CPP(Window, window);
-		if (window->disposed)
-		{
-			//rb_raise(rb_eRGSSError, ("disposed " + window->typeName).c_str());
-		}
+		RB_CHECK_DISPOSED_1(window);
 		bool pause = (bool)RTEST(value);
 		if (window->pause != pause)
 		{
@@ -714,20 +681,14 @@ namespace rgss
 	VALUE Window::rb_getStretch(VALUE self)
 	{
 		RB_SELF2CPP(Window, window);
-		if (window->disposed)
-		{
-			//rb_raise(rb_eRGSSError, ("disposed " + window->typeName).c_str());
-		}
+		RB_CHECK_DISPOSED_1(window);
 		return (window->stretch ? Qtrue : Qfalse);
 	}
 
 	VALUE Window::rb_setStretch(VALUE self, VALUE value)
 	{
 		RB_SELF2CPP(Window, window);
-		if (window->disposed)
-		{
-			//rb_raise(rb_eRGSSError, ("disposed " + window->typeName).c_str());
-		}
+		RB_CHECK_DISPOSED_1(window);
 		window->stretch = (bool)RTEST(value);
 		return value;
 	}
@@ -735,20 +696,14 @@ namespace rgss
 	VALUE Window::rb_getBackOpacity(VALUE self)
 	{
 		RB_SELF2CPP(Window, window);
-		if (window->disposed)
-		{
-			//rb_raise(rb_eRGSSError, ("disposed " + window->typeName).c_str());
-		}
+		RB_CHECK_DISPOSED_1(window);
 		return INT2NUM(window->backOpacity);
 	}
 
 	VALUE Window::rb_setBackOpacity(VALUE self, VALUE value)
 	{
 		RB_SELF2CPP(Window, window);
-		if (window->disposed)
-		{
-			//rb_raise(rb_eRGSSError, ("disposed " + window->typeName).c_str());
-		}
+		RB_CHECK_DISPOSED_1(window);
 		window->backOpacity = hclamp(NUM2INT(value), 0, 255);
 		return value;
 	}
@@ -756,20 +711,14 @@ namespace rgss
 	VALUE Window::rb_getContentsOpacity(VALUE self)
 	{
 		RB_SELF2CPP(Window, window);
-		if (window->disposed)
-		{
-			//rb_raise(rb_eRGSSError, ("disposed " + window->typeName).c_str());
-		}
+		RB_CHECK_DISPOSED_1(window);
 		return INT2NUM(window->contentsOpacity);
 	}
 
 	VALUE Window::rb_setContentsOpacity(VALUE self, VALUE value)
 	{
 		RB_SELF2CPP(Window, window);
-		if (window->disposed)
-		{
-			//rb_raise(rb_eRGSSError, ("disposed " + window->typeName).c_str());
-		}
+		RB_CHECK_DISPOSED_1(window);
 		window->contentsOpacity = hclamp(NUM2INT(value), 0, 255);
 		return value;
 	}
@@ -777,30 +726,21 @@ namespace rgss
 	VALUE Window::rb_getCursorRect(VALUE self)
 	{
 		RB_SELF2CPP(Window, window);
-		if (window->disposed)
-		{
-			//rb_raise(rb_eRGSSError, ("disposed " + window->typeName).c_str());
-		}
+		RB_CHECK_DISPOSED_1(window);
 		return window->rb_cursorRect;
 	}
 
 	VALUE Window::rb_setCursorRect(VALUE self, VALUE value)
 	{
 		RB_GENERATE_SETTER(Window, window, Rect, cursorRect);
-		if (window->disposed)
-		{
-			//rb_raise(rb_eRGSSError, ("disposed " + window->typeName).c_str());
-		}
+		RB_CHECK_DISPOSED_1(window);
 		return value;
 	}
 
 	VALUE Window::rb_getWindowskin(VALUE self)
 	{
 		RB_SELF2CPP(Window, window);
-		if (window->disposed)
-		{
-			//rb_raise(rb_eRGSSError, ("disposed " + window->typeName).c_str());
-		}
+		RB_CHECK_DISPOSED_1(window);
 		return window->rb_windowskin;
 	}
 
@@ -808,10 +748,7 @@ namespace rgss
 	{
 		VALUE rb_oldWindowskin = Window::rb_getWindowskin(self);
 		RB_GENERATE_SETTER(Window, window, Bitmap, windowskin);
-		if (window->disposed)
-		{
-			//rb_raise(rb_eRGSSError, ("disposed " + window->typeName).c_str());
-		}
+		RB_CHECK_DISPOSED_1(window);
 		if (rb_oldWindowskin != value)
 		{
 			window->_updateWindowskin();
@@ -829,10 +766,7 @@ namespace rgss
 	VALUE Window::rb_update(VALUE self)
 	{
 		RB_SELF2CPP(Window, window);
-		if (window->disposed)
-		{
-			//rb_raise(rb_eRGSSError, ("disposed " + window->typeName).c_str());
-		}
+		RB_CHECK_DISPOSED_1(window);
 		window->pause ? window->pauseCount++ : window->pauseCount--;
 		if (window->active)
 		{
