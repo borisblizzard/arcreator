@@ -5,12 +5,10 @@
 - fix bug where Bitmap#get_pixel does not work with some textures (possibly related to bug above)
 - throw Errno::ENOENT without using eval() at several places
 - test Bitmap::rb_textSize
-- implement proper Input::isRepeated check- implement Sprite::rb_update- implement Sprite::rb_flash- implement Viewport::rb_update
-- implement Viewport::rb_flash
-- implement coloring for Renderable
-- implement toning for Renderable
-- implement negative blend mode in APRIL
-- Bitmap::fillRect doesn't seem to work well- change Color::toAprilColor to take into account negative values
+- implement proper Renderable color modification
+- implement proper Viewport tone modification
+- implement and test proper positive/negative blend mode in APRIL
+- Bitmap::fillRect and Bitmap::setPixel don't seem to work well- change Color::toAprilColor to take into account negative values
 - allow change off fullscreen mode in APRIL
 - change implementation of p to show a window
 - change implementation of print to write to the log file

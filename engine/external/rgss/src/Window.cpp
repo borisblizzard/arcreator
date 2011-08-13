@@ -521,6 +521,7 @@ namespace rgss
 		VALUE result = Data_Make_Struct(classe, Window, Window::gc_mark, Window::gc_free, window);
 		window->disposed = true;
 		window->type = TYPE_WINDOW;
+		window->typeName = "window";
 		return result;
 	}
 
@@ -579,7 +580,7 @@ namespace rgss
 		RB_SELF2CPP(Window, window);
 		if (window->disposed)
 		{
-			//rb_raise(rb_eRGSSError, "disposed window");
+			//rb_raise(rb_eRGSSError, ("disposed " + window->typeName).c_str());
 		}
 		Sprite::rb_setVisible(window->rb_contentsSprite, value);
 		Sprite::rb_setVisible(window->rb_cursorSprite, value);
@@ -597,7 +598,7 @@ namespace rgss
 		RB_SELF2CPP(Window, window);
 		if (window->disposed)
 		{
-			//rb_raise(rb_eRGSSError, "disposed window");
+			//rb_raise(rb_eRGSSError, ("disposed " + window->typeName).c_str());
 		}
 		Sprite::rb_setBitmap(window->rb_contentsSprite, value);
 		return value;
@@ -609,7 +610,7 @@ namespace rgss
 		RB_SELF2CPP(Window, window);
 		if (window->disposed)
 		{
-			//rb_raise(rb_eRGSSError, "disposed window");
+			//rb_raise(rb_eRGSSError, ("disposed " + window->typeName).c_str());
 		}
 		window->cursorSprite->setZ(window->z + 2);
 		window->contentsSprite->setZ(window->z + 2);
@@ -626,7 +627,7 @@ namespace rgss
 		RB_SELF2CPP(Window, window);
 		if (window->disposed)
 		{
-			//rb_raise(rb_eRGSSError, "disposed window");
+			//rb_raise(rb_eRGSSError, ("disposed " + window->typeName).c_str());
 		}
 		return INT2NUM(window->width);
 	}
@@ -636,7 +637,7 @@ namespace rgss
 		RB_SELF2CPP(Window, window);
 		if (window->disposed)
 		{
-			//rb_raise(rb_eRGSSError, "disposed window");
+			//rb_raise(rb_eRGSSError, ("disposed " + window->typeName).c_str());
 		}
 		window->width = NUM2INT(value);
 		return value;
@@ -647,7 +648,7 @@ namespace rgss
 		RB_SELF2CPP(Window, window);
 		if (window->disposed)
 		{
-			//rb_raise(rb_eRGSSError, "disposed window");
+			//rb_raise(rb_eRGSSError, ("disposed " + window->typeName).c_str());
 		}
 		return INT2NUM(window->height);
 	}
@@ -657,7 +658,7 @@ namespace rgss
 		RB_SELF2CPP(Window, window);
 		if (window->disposed)
 		{
-			//rb_raise(rb_eRGSSError, "disposed window");
+			//rb_raise(rb_eRGSSError, ("disposed " + window->typeName).c_str());
 		}
 		window->height = NUM2INT(value);
 		return value;
@@ -668,7 +669,7 @@ namespace rgss
 		RB_SELF2CPP(Window, window);
 		if (window->disposed)
 		{
-			//rb_raise(rb_eRGSSError, "disposed window");
+			//rb_raise(rb_eRGSSError, ("disposed " + window->typeName).c_str());
 		}
 		return (window->active ? Qtrue : Qfalse);
 	}
@@ -678,7 +679,7 @@ namespace rgss
 		RB_SELF2CPP(Window, window);
 		if (window->disposed)
 		{
-			//rb_raise(rb_eRGSSError, "disposed window");
+			//rb_raise(rb_eRGSSError, ("disposed " + window->typeName).c_str());
 		}
 		window->active = (bool)RTEST(value);
 		return value;
@@ -689,7 +690,7 @@ namespace rgss
 		RB_SELF2CPP(Window, window);
 		if (window->disposed)
 		{
-			//rb_raise(rb_eRGSSError, "disposed window");
+			//rb_raise(rb_eRGSSError, ("disposed " + window->typeName).c_str());
 		}
 		return (window->pause ? Qtrue : Qfalse);
 	}
@@ -699,7 +700,7 @@ namespace rgss
 		RB_SELF2CPP(Window, window);
 		if (window->disposed)
 		{
-			//rb_raise(rb_eRGSSError, "disposed window");
+			//rb_raise(rb_eRGSSError, ("disposed " + window->typeName).c_str());
 		}
 		bool pause = (bool)RTEST(value);
 		if (window->pause != pause)
@@ -715,7 +716,7 @@ namespace rgss
 		RB_SELF2CPP(Window, window);
 		if (window->disposed)
 		{
-			//rb_raise(rb_eRGSSError, "disposed window");
+			//rb_raise(rb_eRGSSError, ("disposed " + window->typeName).c_str());
 		}
 		return (window->stretch ? Qtrue : Qfalse);
 	}
@@ -725,7 +726,7 @@ namespace rgss
 		RB_SELF2CPP(Window, window);
 		if (window->disposed)
 		{
-			//rb_raise(rb_eRGSSError, "disposed window");
+			//rb_raise(rb_eRGSSError, ("disposed " + window->typeName).c_str());
 		}
 		window->stretch = (bool)RTEST(value);
 		return value;
@@ -736,7 +737,7 @@ namespace rgss
 		RB_SELF2CPP(Window, window);
 		if (window->disposed)
 		{
-			//rb_raise(rb_eRGSSError, "disposed window");
+			//rb_raise(rb_eRGSSError, ("disposed " + window->typeName).c_str());
 		}
 		return INT2NUM(window->backOpacity);
 	}
@@ -746,7 +747,7 @@ namespace rgss
 		RB_SELF2CPP(Window, window);
 		if (window->disposed)
 		{
-			//rb_raise(rb_eRGSSError, "disposed window");
+			//rb_raise(rb_eRGSSError, ("disposed " + window->typeName).c_str());
 		}
 		window->backOpacity = hclamp(NUM2INT(value), 0, 255);
 		return value;
@@ -757,7 +758,7 @@ namespace rgss
 		RB_SELF2CPP(Window, window);
 		if (window->disposed)
 		{
-			//rb_raise(rb_eRGSSError, "disposed window");
+			//rb_raise(rb_eRGSSError, ("disposed " + window->typeName).c_str());
 		}
 		return INT2NUM(window->contentsOpacity);
 	}
@@ -767,7 +768,7 @@ namespace rgss
 		RB_SELF2CPP(Window, window);
 		if (window->disposed)
 		{
-			//rb_raise(rb_eRGSSError, "disposed window");
+			//rb_raise(rb_eRGSSError, ("disposed " + window->typeName).c_str());
 		}
 		window->contentsOpacity = hclamp(NUM2INT(value), 0, 255);
 		return value;
@@ -778,7 +779,7 @@ namespace rgss
 		RB_SELF2CPP(Window, window);
 		if (window->disposed)
 		{
-			//rb_raise(rb_eRGSSError, "disposed window");
+			//rb_raise(rb_eRGSSError, ("disposed " + window->typeName).c_str());
 		}
 		return window->rb_cursorRect;
 	}
@@ -788,7 +789,7 @@ namespace rgss
 		RB_GENERATE_SETTER(Window, window, Rect, cursorRect);
 		if (window->disposed)
 		{
-			//rb_raise(rb_eRGSSError, "disposed window");
+			//rb_raise(rb_eRGSSError, ("disposed " + window->typeName).c_str());
 		}
 		return value;
 	}
@@ -798,7 +799,7 @@ namespace rgss
 		RB_SELF2CPP(Window, window);
 		if (window->disposed)
 		{
-			//rb_raise(rb_eRGSSError, "disposed window");
+			//rb_raise(rb_eRGSSError, ("disposed " + window->typeName).c_str());
 		}
 		return window->rb_windowskin;
 	}
@@ -809,7 +810,7 @@ namespace rgss
 		RB_GENERATE_SETTER(Window, window, Bitmap, windowskin);
 		if (window->disposed)
 		{
-			//rb_raise(rb_eRGSSError, "disposed window");
+			//rb_raise(rb_eRGSSError, ("disposed " + window->typeName).c_str());
 		}
 		if (rb_oldWindowskin != value)
 		{
@@ -830,7 +831,7 @@ namespace rgss
 		RB_SELF2CPP(Window, window);
 		if (window->disposed)
 		{
-			//rb_raise(rb_eRGSSError, "disposed window");
+			//rb_raise(rb_eRGSSError, ("disposed " + window->typeName).c_str());
 		}
 		window->pause ? window->pauseCount++ : window->pauseCount--;
 		if (window->active)

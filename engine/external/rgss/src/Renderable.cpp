@@ -29,6 +29,10 @@ namespace rgss
 		this->rb_tone = Tone::create(3, argv);
 		RB_VAR2CPP(this->rb_tone, Tone, tone);
 		this->tone = tone;
+		this->rb_flashColor = Qnil;
+		this->flashColor = NULL;
+		this->flashDuration = 0;
+		this->flashTimer = 0;
 		this->counterId = CounterProgress;
 		CounterProgress++;
 		this->renderQueue = renderQueue;
@@ -69,7 +73,7 @@ namespace rgss
 
 	void Renderable::update()
 	{
-		if (!this->visible || this->isDisposed())
+		if (this->isDisposed() || !this->visible)
 		{
 			return;
 		}
@@ -78,6 +82,16 @@ namespace rgss
 		case TYPE_TILEMAP:
 			((Tilemap*)this)->update();
 			break;
+		}
+	}
+
+	void Renderable::updateFlash()
+	{
+		this->flashTimer++;
+		if (this->flashTimer >= this->flashDuration && this->flashColor != NULL)
+		{
+			this->rb_flashColor = Qnil;
+			this->flashColor = NULL;
 		}
 	}
 
@@ -103,6 +117,17 @@ namespace rgss
 		}
 	}
 
+	april::Color Renderable::_getRenderColor()
+	{
+		april::Color result = this->color->toAprilColor();
+		if (this->flashTimer < this->flashDuration)
+		{
+			float ratio = (float)this->flashTimer / this->flashDuration;
+			result = result * ratio + this->flashColor->toAprilColor() * (1.0f - ratio);
+		}
+		return result;
+	}
+
 	/****************************************************************************************
 	 * Ruby Interfacing, Creation, Destruction, Systematics
 	 ****************************************************************************************/
@@ -116,6 +141,10 @@ namespace rgss
 		if (!NIL_P(renderable->rb_tone))
 		{
 			rb_gc_mark(renderable->rb_tone);
+		}
+		if (!NIL_P(renderable->rb_flashColor))
+		{
+			rb_gc_mark(renderable->rb_flashColor);
 		}
 	}
 
@@ -215,6 +244,34 @@ namespace rgss
 	{
 		RB_GENERATE_SETTER(Renderable, renderable, Tone, tone);
 		return value;
+	}
+
+	/****************************************************************************************
+	 * Ruby Methods
+	 ****************************************************************************************/
+
+	VALUE Renderable::rb_flash(VALUE self, VALUE color, VALUE duration)
+	{
+		RB_SELF2CPP(Renderable, renderable);
+		if (renderable->disposed)
+		{
+			//rb_raise(rb_eRGSSError, ("disposed " + renderable->typeName).c_str());
+		}
+		renderable->flashTimer = 0;
+		renderable->flashDuration = hmax(NUM2INT(duration), 0);
+		renderable->rb_flashColor = color;
+		if (!NIL_P(color) && renderable->flashDuration > 0)
+		{
+			renderable->rb_flashColor = color;
+			RB_VAR2CPP(color, Color, flashColor);
+			renderable->flashColor = flashColor;
+		}
+		else
+		{
+			renderable->rb_flashColor = Qnil;
+			renderable->flashColor = NULL;
+		}
+		return Qnil;
 	}
 
 }
