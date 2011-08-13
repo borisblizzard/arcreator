@@ -79,7 +79,7 @@ namespace rgss
 		april::rendersys->setTexture(this->texture);
 		grect drawRect(0.0f, 0.0f, (float)this->rect->width, (float)this->rect->height);
 		grect srcRect(0.0f, 0.0f, 1.0f, 1.0f);
-		april::Color color = this->color->toAprilColor();
+		april::Color color = this->_getRenderColor();
 		april::rendersys->drawTexturedQuad(drawRect, srcRect);
 		/*
 		if (color == APRIL_COLOR_CLEAR)
@@ -178,6 +178,7 @@ namespace rgss
 		VALUE result = Data_Make_Struct(classe, Viewport, Viewport::gc_mark, Viewport::gc_free, viewport);
 		viewport->disposed = true;
 		viewport->type = TYPE_VIEWPORT;
+		viewport->typeName = "viewport";
 		return result;
 	}
 
@@ -225,7 +226,7 @@ namespace rgss
 		RB_SELF2CPP(Viewport, viewport);
 		if (viewport->disposed)
 		{
-			//rb_raise(rb_eRGSSError, "disposed viewport");
+			//rb_raise(rb_eRGSSError, ("disposed " + viewport->typeName).c_str());
 		}
 		return viewport->rb_color;
 	}
@@ -235,7 +236,7 @@ namespace rgss
 		RB_GENERATE_SETTER(Viewport, sprite, Color, color);
 		if (sprite->disposed)
 		{
-			//rb_raise(rb_eRGSSError, "disposed viewport");
+			//rb_raise(rb_eRGSSError, ("disposed " + viewport->typeName).c_str());
 		}
 		return value;
 	}
@@ -245,7 +246,7 @@ namespace rgss
 		RB_SELF2CPP(Viewport, viewport);
 		if (viewport->disposed)
 		{
-			//rb_raise(rb_eRGSSError, "disposed viewport");
+			//rb_raise(rb_eRGSSError, ("disposed " + viewport->typeName).c_str());
 		}
 		return viewport->rb_rect;
 	}
@@ -255,7 +256,7 @@ namespace rgss
 		RB_GENERATE_SETTER(Viewport, sprite, Rect, rect);
 		if (sprite->disposed)
 		{
-			//rb_raise(rb_eRGSSError, "disposed viewport");
+			//rb_raise(rb_eRGSSError, ("disposed " + viewport->typeName).c_str());
 		}
 		return value;
 	}
@@ -265,7 +266,7 @@ namespace rgss
 		RB_SELF2CPP(Viewport, viewport);
 		if (viewport->disposed)
 		{
-			//rb_raise(rb_eRGSSError, "disposed viewport");
+			//rb_raise(rb_eRGSSError, ("disposed " + viewport->typeName).c_str());
 		}
 		return viewport->rb_tone;
 	}
@@ -284,29 +285,10 @@ namespace rgss
 	 * Ruby Methods
 	 ****************************************************************************************/
 
-	/****************************************************************************************
-	 * TODO
-	 ****************************************************************************************/
-
-	VALUE Viewport::rb_flash(VALUE self, VALUE color, VALUE duration)
-	{
-		RB_SELF2CPP(Viewport, viewport);
-		if (viewport->disposed)
-		{
-			//rb_raise(rb_eRGSSError, "disposed viewport");
-		}
-		/// @todo implement
-		return Qnil;
-	}
-
 	VALUE Viewport::rb_update(VALUE self)
 	{
 		RB_SELF2CPP(Viewport, viewport);
-		if (viewport->disposed)
-		{
-			//rb_raise(rb_eRGSSError, "disposed viewport");
-		}
-		/// @todo implement
+		viewport->updateFlash();
 		return Qnil;
 	}
 

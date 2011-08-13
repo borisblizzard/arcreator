@@ -94,10 +94,6 @@ namespace rgss
 		/// @param[in] value Sets the Sprite's source RGSS::Rect object.
 		static VALUE rb_setSrcRect(VALUE self, VALUE value);
 
-		/// @brief Mixes a color with the sprite for a short duration.
-		/// @param[in] color Color component.
-		/// @param[in] duration Number of frames.
-		static VALUE rb_flash(VALUE self, VALUE color, VALUE duration);
 		/// @brief Invokes the update method.
 		static VALUE rb_update(VALUE self);
 

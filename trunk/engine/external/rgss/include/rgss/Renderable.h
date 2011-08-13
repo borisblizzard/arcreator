@@ -3,6 +3,8 @@
 
 #include <ruby.h>
 
+#include <april/Color.h>
+
 #include "rgssExport.h"
 
 namespace rgss
@@ -59,6 +61,8 @@ namespace rgss
 		void update();
 		/// @brief Disposed this renderable.
 		void dispose();
+		/// @brief Updates the flash effect.
+		void updateFlash();
 
 		/// @brief Sprite counter.
 		static unsigned int CounterProgress;
@@ -112,6 +116,11 @@ namespace rgss
 		/// @param[in] value The tone.
 		static VALUE rb_setTone(VALUE self, VALUE value);
 
+		/// @brief Mixes a color with this renderable for a short duration.
+		/// @param[in] color Color component.
+		/// @param[in] duration Number of frames.
+		static VALUE rb_flash(VALUE self, VALUE color, VALUE duration);
+
 	protected:
 		/// @brief Disposed flag.
 		bool disposed;
@@ -131,11 +140,25 @@ namespace rgss
 		Tone* tone;
 		/// @brief Ruby object of the tone.
 		VALUE rb_tone;
+		/// @brief The flash color.
+		Color* flashColor;
+		/// @brief Ruby object of the flash color.
+		VALUE rb_flashColor;
+		/// @brief The maximum duration of the flash.
+		int flashDuration;
+		/// @brief The current value of the flash timer.
+		int flashTimer;
 		/// @brief Used for determining which Renderable subclass it actually is.
 		/// @note This is a necessity because objects created through Ruby don't have a virtual function pointer table.
 		Type type;
+		/// @brief Used for error prints.
+		hstr typeName;
 		/// @brief Renderable counter Id.
 		unsigned int counterId;
+
+		/// @brief Calculates the color for rendering.
+		/// @return april::Color to use for rendering.
+		april::Color _getRenderColor();
 
 	private:
 		/// @brief The RenderQueue this renderable belongs to.

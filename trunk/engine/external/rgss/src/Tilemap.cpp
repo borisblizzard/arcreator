@@ -288,6 +288,7 @@ namespace rgss
 		VALUE result = Data_Make_Struct(classe, Tilemap, Tilemap::gc_mark, Tilemap::gc_free, tilemap);
 		tilemap->disposed = true;
 		tilemap->type = TYPE_TILEMAP;
+		tilemap->typeName = "tilemap";
 		return result;
 	}
 

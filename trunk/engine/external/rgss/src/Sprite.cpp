@@ -52,9 +52,14 @@ namespace rgss
 	void Sprite::_render()
 	{
 		april::rendersys->setTexture(this->bitmap->getTexture());
-		if (this->blendType == Positive)
+		switch (this->blendType)
 		{
+		case Positive:
 			april::rendersys->setBlendMode(april::ADD);
+			break;
+		case Negative:
+			april::rendersys->setBlendMode(april::SUBTRACT);
+			break;
 		}
 		int dw = hmin(this->srcRect->width, this->bitmap->getWidth());
 		int dh = hmin(this->srcRect->height, this->bitmap->getHeight());
@@ -66,8 +71,27 @@ namespace rgss
 		srcRect.y = this->srcRect->y / sh;
 		srcRect.w = hmin(this->srcRect->width / sw, 1.0f - srcRect.x);
 		srcRect.h = hmin(this->srcRect->height / sh, 1.0f - srcRect.y);
+		// @todo
+		/*
+		april::Color color = this->_getRenderColor();
+		if (this->opacity < 255)
+		{
+			color.a = color.a * this->opacity / 255;
+		}
+		april::rendersys->drawTexturedQuad(drawRect, srcRect, color);
+		*/
 		april::rendersys->drawTexturedQuad(drawRect, srcRect,
 			april::Color(APRIL_COLOR_WHITE, (unsigned char)this->opacity));
+		/*
+		if (color == APRIL_COLOR_CLEAR)
+		{
+			april::rendersys->drawTexturedQuad(drawRect, srcRect);
+		}
+		else
+		{
+			april::rendersys->drawTexturedQuad(drawRect, srcRect, color);
+		}
+		//*/
 		april::rendersys->setBlendMode(april::DEFAULT);
 	}
 
@@ -150,6 +174,7 @@ namespace rgss
 		VALUE result = Data_Make_Struct(classe, Sprite, Sprite::gc_mark, Sprite::gc_free, sprite);
 		sprite->disposed = true;
 		sprite->type = TYPE_SPRITE;
+		sprite->typeName = "sprite";
 		return result;
 	}
 
@@ -180,7 +205,7 @@ namespace rgss
 		RB_SELF2CPP(Sprite, sprite);
 		if (sprite->disposed)
 		{
-			//rb_raise(rb_eRGSSError, "disposed sprite");
+			//rb_raise(rb_eRGSSError, ("disposed " + sprite->typeName).c_str());
 		}
 		if (sprite->bitmap != NULL && !sprite->bitmap->isDisposed())
 		{
@@ -194,7 +219,7 @@ namespace rgss
 		RB_SELF2CPP(Sprite, sprite);
 		if (sprite->disposed)
 		{
-			//rb_raise(rb_eRGSSError, "disposed sprite");
+			//rb_raise(rb_eRGSSError, ("disposed " + sprite->typeName).c_str());
 		}
 		return rb_float_new(sprite->angle);
 	}
@@ -204,7 +229,7 @@ namespace rgss
 		RB_SELF2CPP(Sprite, sprite);
 		if (sprite->disposed)
 		{
-			//rb_raise(rb_eRGSSError, "disposed sprite");
+			//rb_raise(rb_eRGSSError, ("disposed " + sprite->typeName).c_str());
 		}
 		sprite->angle = (float)NUM2DBL(value);
 		return value;
@@ -215,7 +240,7 @@ namespace rgss
 		RB_SELF2CPP(Sprite, sprite);
 		if (sprite->disposed)
 		{
-			//rb_raise(rb_eRGSSError, "disposed sprite");
+			//rb_raise(rb_eRGSSError, ("disposed " + sprite->typeName).c_str());
 		}
 		return (sprite->mirror ? Qtrue : Qfalse);
 	}
@@ -225,7 +250,7 @@ namespace rgss
 		RB_SELF2CPP(Sprite, sprite);
 		if (sprite->disposed)
 		{
-			//rb_raise(rb_eRGSSError, "disposed sprite");
+			//rb_raise(rb_eRGSSError, ("disposed " + sprite->typeName).c_str());
 		}
 		sprite->mirror = (bool)RTEST(value);
 		return value;
@@ -236,7 +261,7 @@ namespace rgss
 		RB_SELF2CPP(Sprite, sprite);
 		if (sprite->disposed)
 		{
-			//rb_raise(rb_eRGSSError, "disposed sprite");
+			//rb_raise(rb_eRGSSError, ("disposed " + sprite->typeName).c_str());
 		}
 		return INT2NUM(sprite->bushDepth);
 	}
@@ -246,7 +271,7 @@ namespace rgss
 		RB_SELF2CPP(Sprite, sprite);
 		if (sprite->disposed)
 		{
-			//rb_raise(rb_eRGSSError, "disposed sprite");
+			//rb_raise(rb_eRGSSError, ("disposed " + sprite->typeName).c_str());
 		}
 		sprite->bushDepth = NUM2INT(value);
 		return value;
@@ -257,7 +282,7 @@ namespace rgss
 		RB_SELF2CPP(Sprite, sprite);
 		if (sprite->disposed)
 		{
-			//rb_raise(rb_eRGSSError, "disposed sprite");
+			//rb_raise(rb_eRGSSError, ("disposed " + sprite->typeName).c_str());
 		}
 		return sprite->rb_srcRect;
 	}
@@ -267,7 +292,7 @@ namespace rgss
 		RB_GENERATE_SETTER(Sprite, sprite, Rect, srcRect);
 		if (sprite->disposed)
 		{
-			//rb_raise(rb_eRGSSError, "disposed sprite");
+			//rb_raise(rb_eRGSSError, ("disposed " + sprite->typeName).c_str());
 		}
 		return value;
 	}
@@ -276,19 +301,10 @@ namespace rgss
 	 * Ruby Methods
 	 ****************************************************************************************/
 
-	/****************************************************************************************
-	 * TODO
-	 ****************************************************************************************/
-
-	VALUE Sprite::rb_flash(VALUE self, VALUE color, VALUE duration)
-	{
-		/// @todo implement
-		return Qnil;
-	}
-
 	VALUE Sprite::rb_update(VALUE self)
 	{
-		/// @todo implement
+		RB_SELF2CPP(Sprite, sprite);
+		sprite->updateFlash();
 		return Qnil;
 	}
 

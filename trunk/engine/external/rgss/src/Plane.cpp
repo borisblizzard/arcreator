@@ -145,6 +145,7 @@ namespace rgss
 		VALUE result = Data_Make_Struct(classe, Plane, Plane::gc_mark, Plane::gc_free, plane);
 		plane->disposed = true;
 		plane->type = TYPE_PLANE;
+		plane->typeName = "plane";
 		return result;
 	}
 
