@@ -28,6 +28,7 @@
 [li]Boris "Blizzard" Mikiæ (icons, windowskins, characters, animations, misc graphics)[/li]
 [li]Ilya "Agckuu Coceg" Suprunenko (2 characters)[/li]
 [li]Tim "Pacman" Barker (large contribution of BGM and ME)[/li]
+[li]"Taiine" (several tileset trees)[/li]
 [/list]
 
 [size=14pt][b]Special Thanks:[/b][/size]
