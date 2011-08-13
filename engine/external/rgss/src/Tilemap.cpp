@@ -328,10 +328,6 @@ namespace rgss
 		if (value != rb_ox)
 		{
 			RB_SELF2CPP(Tilemap, tilemap);
-			if (tilemap->disposed)
-			{
-				//rb_raise(rb_eRGSSError, "disposed sprite");
-			}
 		}
 		return value;
 	}
@@ -343,10 +339,6 @@ namespace rgss
 		if (value != rb_oy)
 		{
 			RB_SELF2CPP(Tilemap, tilemap);
-			if (tilemap->disposed)
-			{
-				//rb_raise(rb_eRGSSError, "disposed sprite");
-			}
 			tilemap->needsUpdate = true;
 		}
 		return value;
@@ -359,10 +351,6 @@ namespace rgss
 		if (value != rb_visible)
 		{
 			RB_SELF2CPP(Tilemap, tilemap);
-			if (tilemap->disposed)
-			{
-				//rb_raise(rb_eRGSSError, "disposed sprite");
-			}
 			tilemap->needsUpdate = true;
 		}
 		return value;
@@ -378,10 +366,7 @@ namespace rgss
 	VALUE Tilemap::rb_getMapData(VALUE self)
 	{
 		RB_SELF2CPP(Tilemap, tilemap);
-		if (tilemap->disposed)
-		{
-			//rb_raise(rb_eRGSSError, "disposed sprite");
-		}
+		RB_CHECK_DISPOSED_2(tilemap);
 		return tilemap->rb_mapData;
 	}
 
@@ -389,10 +374,7 @@ namespace rgss
 	{
 		VALUE rb_mapData = Tilemap::rb_getMapData(self);
 		RB_GENERATE_SETTER(Tilemap, tilemap, Table, mapData);
-		if (tilemap->disposed)
-		{
-			//rb_raise(rb_eRGSSError, "disposed sprite");
-		}
+		RB_CHECK_DISPOSED_2(tilemap);
 		if (value != rb_mapData)
 		{
 			tilemap->needsUpdate = true;
@@ -403,10 +385,7 @@ namespace rgss
 	VALUE Tilemap::rb_getPriorities(VALUE self)
 	{
 		RB_SELF2CPP(Tilemap, tilemap);
-		if (tilemap->disposed)
-		{
-			//rb_raise(rb_eRGSSError, "disposed sprite");
-		}
+		RB_CHECK_DISPOSED_2(tilemap);
 		return tilemap->rb_priorities;
 	}
 
@@ -414,10 +393,7 @@ namespace rgss
 	{
 		VALUE rb_priorities = Tilemap::rb_getPriorities(self);
 		RB_GENERATE_SETTER(Tilemap, tilemap, Table, priorities);
-		if (tilemap->disposed)
-		{
-			//rb_raise(rb_eRGSSError, "disposed sprite");
-		}
+		RB_CHECK_DISPOSED_2(tilemap);
 		if (value != rb_priorities)
 		{
 			tilemap->needsUpdate = true;
@@ -428,10 +404,7 @@ namespace rgss
 	VALUE Tilemap::rb_getFlashData(VALUE self)
 	{
 		RB_SELF2CPP(Tilemap, tilemap);
-		if (tilemap->disposed)
-		{
-			//rb_raise(rb_eRGSSError, "disposed sprite");
-		}
+		RB_CHECK_DISPOSED_2(tilemap);
 		return tilemap->rb_flashData;
 	}
 
@@ -439,10 +412,7 @@ namespace rgss
 	{
 		VALUE rb_flashData = Tilemap::rb_getFlashData(self);
 		RB_GENERATE_SETTER(Tilemap, tilemap, Table, flashData);
-		if (tilemap->disposed)
-		{
-			//rb_raise(rb_eRGSSError, "disposed sprite");
-		}
+		RB_CHECK_DISPOSED_2(tilemap);
 		if (value != rb_flashData)
 		{
 			tilemap->needsUpdate = true;
@@ -451,16 +421,13 @@ namespace rgss
 	}
 
 	/****************************************************************************************
-	 * TODO
+	 * Methods
 	 ****************************************************************************************/
 
 	VALUE Tilemap::rb_update(VALUE self)
 	{
 		RB_SELF2CPP(Tilemap, tilemap);
-		if (tilemap->disposed)
-		{
-			//rb_raise(rb_eRGSSError, "disposed sprite");
-		}
+		RB_CHECK_DISPOSED_2(tilemap);
 		tilemap->autotileCount = (tilemap->autotileCount + 1) % 64;
 		if (tilemap->autotileCount == 0)
 		{

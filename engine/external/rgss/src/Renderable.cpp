@@ -253,10 +253,7 @@ namespace rgss
 	VALUE Renderable::rb_flash(VALUE self, VALUE color, VALUE duration)
 	{
 		RB_SELF2CPP(Renderable, renderable);
-		if (renderable->disposed)
-		{
-			//rb_raise(rb_eRGSSError, ("disposed " + renderable->typeName).c_str());
-		}
+		RB_CHECK_DISPOSED_1(renderable);
 		renderable->flashTimer = 0;
 		renderable->flashDuration = hmax(NUM2INT(duration), 0);
 		renderable->rb_flashColor = color;
