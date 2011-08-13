@@ -59,7 +59,7 @@
 			StringValuePtr(class1)); \
 		rb_raise(rb_eTypeError, message.c_str()); \
 	}
-/// @brief Automatically does a type check (and throw an exception if failed) with 1 acceptable type.
+/// @brief Automatically does a type check (and throw an exception if failed) with 2 acceptable types.
 /// @param[in] var Variable that needs to be type-checked.
 /// @param[in] type1 First acceptable class.
 /// @param[in] type2 Second acceptable class.
@@ -73,7 +73,7 @@
 			StringValuePtr(class1), StringValuePtr(class2)); \
 		rb_raise(rb_eTypeError, message.c_str()); \
 	}
-/// @brief Automatically does a type check (and throw an exception if failed) with 1 acceptable type.
+/// @brief Automatically does a type check (and throw an exception if failed) with 3 acceptable types.
 /// @param[in] var Variable that needs to be type-checked.
 /// @param[in] type1 First acceptable class.
 /// @param[in] type2 Second acceptable class.
@@ -90,7 +90,7 @@
 			StringValuePtr(class1), StringValuePtr(class2), StringValuePtr(class3)); \
 		rb_raise(rb_eTypeError, message.c_str()); \
 	}
-/// @brief Automatically does a type check (and throw an exception if failed) with 1 acceptable type.
+/// @brief Automatically does a type check (and throw an exception if failed) with 4 acceptable types.
 /// @param[in] var Variable that needs to be type-checked.
 /// @param[in] type1 First acceptable class.
 /// @param[in] type2 Second acceptable class.
