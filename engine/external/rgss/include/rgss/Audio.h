@@ -25,6 +25,11 @@ namespace rgss
 		/// @param[in] argv Pointer to first argument.
 		/// @note Arguments are "filename[, volume[, pitch]]".
 		static VALUE rb_bgmPlay(int argc, VALUE* argv, VALUE self);
+		/// @brief Pauses BGM playback.
+		static VALUE rb_bgmPause(VALUE self);
+		/// @brief Resumes paused BGM playback.
+		/// @note Works only if a BGM has been paused previously.
+		static VALUE rb_bgmResume(VALUE self);
 		/// @brief Starts BGM fadeout.
 		/// @param[in] time The fadeout time in miliseconds.
 		static VALUE rb_bgmFade(VALUE self, VALUE time);
@@ -35,6 +40,11 @@ namespace rgss
 		/// @param[in] argv Pointer to first argument.
 		/// @note Arguments are "filename[, volume[, pitch]]".
 		static VALUE rb_bgsPlay(int argc, VALUE* argv, VALUE self);
+		/// @brief Pauses BGS playback.
+		static VALUE rb_bgsPause(VALUE self);
+		/// @brief Resumes paused BGS playback.
+		/// @note Works only if a BGS has been paused previously.
+		static VALUE rb_bgsResume(VALUE self);
 		/// @brief Starts BGS fadeout.
 		/// @param[in] time The fadeout time in miliseconds.
 		static VALUE rb_bgsFade(VALUE self, VALUE time);
@@ -45,6 +55,11 @@ namespace rgss
 		/// @param[in] argv Pointer to first argument.
 		/// @note Arguments are "filename[, volume[, pitch]]".
 		static VALUE rb_mePlay(int argc, VALUE* argv, VALUE self);
+		/// @brief Pauses ME playback.
+		static VALUE rb_mePause(VALUE self);
+		/// @brief Resumes paused ME playback.
+		/// @note Works only if a ME has been paused previously.
+		static VALUE rb_meResume(VALUE self);
 		/// @brief Starts ME fadeout.
 		/// @param[in] time The fadeout time in miliseconds.
 		static VALUE rb_meFade(VALUE self, VALUE time);
