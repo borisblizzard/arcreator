@@ -2,18 +2,18 @@
 - implement MIDI support in XAL
 - implement pitch for audio in XAL
 - fix bug with alpha blending on a render target where the rendered area would be too transparent
-- fix bug where Bitmap#get_pixel does not work with some textures (possibly related to bug above)
 - throw Errno::ENOENT without using eval() at several places
 - test Bitmap::rb_textSize
 - implement proper Renderable color modification
 - implement proper Viewport tone modification
-- implement and test proper positive/negative blend mode in APRIL
-- Bitmap::fillRect and Bitmap::setPixel don't seem to work well- change Color::toAprilColor to take into account negative values
+- test proper positive/negative blend mode in APRIL
+- change Color::toAprilColor to take into account negative values
 - allow change off fullscreen mode in APRIL
 - change implementation of p to show a window
 - change implementation of print to write to the log file
 - implement font caching for atrestff
 - implement FPS display
-- fix problem with D3DX9 device reset
+- fix problem with D3DX9 device reset after CTRL+ALT+Delete
 - check for Bitmap related memory leaks
 - change implementeation of DirectX texture rotateHue to work on render targets
+- add text squishing when the text rect is not wide enough?
