@@ -54,11 +54,17 @@ namespace rgss
 		april::rendersys->setTexture(this->bitmap->getTexture());
 		switch (this->blendType)
 		{
+		case Normal:
+			april::rendersys->setBlendMode(april::DEFAULT);
+			break;
 		case Positive:
-			april::rendersys->setBlendMode(april::ADD);
+			april::rendersys->setBlendMode(april::POSITIVE);
 			break;
 		case Negative:
-			april::rendersys->setBlendMode(april::SUBTRACT);
+			april::rendersys->setBlendMode(april::NEGATIVE);
+			break;
+		default:
+			april::rendersys->setBlendMode(april::DEFAULT);
 			break;
 		}
 		int dw = hmin(this->srcRect->width, this->bitmap->getWidth());

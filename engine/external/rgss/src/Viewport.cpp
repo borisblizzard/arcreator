@@ -63,8 +63,8 @@ namespace rgss
 		april::rendersys->setRenderTarget(this->texture);
 		april::rendersys->setIdentityTransform();
 		// TODO - fix the alpha channel problem
-		april::rendersys->setOrthoProjection(
-			grect(0.0f, 0.0f, (float)this->texture->getWidth(), (float)this->texture->getHeight()));
+		april::rendersys->setOrthoProjection(grect(0.0f, 0.0f,
+			(float)this->texture->getWidth(), (float)this->texture->getHeight()));
 		april::rendersys->clear();
 		april::rendersys->setBlendMode(april::DEFAULT);
 		this->renderQueue->draw();

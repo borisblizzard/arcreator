@@ -309,7 +309,7 @@ namespace rgss
 		else
 		{
 			int w = NUM2INT(arg1);
-			int h = NUM2INT(arg2);
+			int h = abs(NUM2INT(arg2)); // abs() is required because the original RGSS has that bug
 			if (w < 1 || h < 1)
 			{
 				rb_raise(rb_eRGSSError, "failed to create bitmap");
