@@ -17,3 +17,4 @@
 - check for Bitmap related memory leaks
 - change implementeation of DirectX texture rotateHue to work on render targets
 - add text squishing when the text rect is not wide enough?
+- check Ruby bug "can't add a new key into hash during iteration" (appeared in line 32488, 32480)
