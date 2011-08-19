@@ -27,7 +27,7 @@
 [li]MetalRenard (several background music tracks)[/li]
 [li]Boris "Blizzard" Mikiæ (icons, windowskins, characters, animations, misc graphics)[/li]
 [li]Ilya "Agckuu Coceg" Suprunenko (2 characters)[/li]
-[li]Tim "Pacman" Barker (large contribution of BGM and ME)[/li]
+[li]Tim "AngryPacman" Barker (large contribution of Music and Sound)[/li]
 [li]"Taiine" (several tileset trees)[/li]
 [/list]
 
