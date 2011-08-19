@@ -205,6 +205,7 @@ namespace zer0
 		}
 		catch (rgss::ApplicationExitException e)
 		{
+			// ALT+F4 exit or window close button exit
 		}
 		catch (hltypes::exception e)
 		{
