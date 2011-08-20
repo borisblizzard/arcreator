@@ -48,13 +48,10 @@ namespace rgss
 			april::rendersys->setBlendMode(april::DEFAULT);
 			break;
 		case Positive:
-			april::rendersys->setBlendMode(april::POSITIVE);
+			april::rendersys->setBlendMode(april::ADD);
 			break;
 		case Negative:
-			april::rendersys->setBlendMode(april::NEGATIVE);
-			break;
-		default:
-			april::rendersys->setBlendMode(april::DEFAULT);
+			april::rendersys->setBlendMode(april::SUBTRACT);
 			break;
 		}
 		grect drawRect = this->_getRenderRect().toGRect();

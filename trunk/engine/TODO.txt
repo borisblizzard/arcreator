@@ -5,7 +5,6 @@
 - test Bitmap::rb_textSize
 - implement proper Renderable color modification
 - implement proper Viewport tone modification
-- test proper positive/negative blend mode in APRIL
 - change Color::toAprilColor to take into account negative values
 - allow change off fullscreen mode in APRIL
 - change implementation of p to show a window
