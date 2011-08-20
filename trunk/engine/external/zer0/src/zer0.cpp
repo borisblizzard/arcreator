@@ -256,6 +256,7 @@ namespace zer0
 		{
 			rb_eval_string("$DEBUG = true");
 			zer0::setDebugMode(true);
+			rgss::setDebugMode(true);
 		}
 		// initializing statically linked Ruby extensions
 		Init_api();
