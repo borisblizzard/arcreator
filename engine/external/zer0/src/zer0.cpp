@@ -62,8 +62,13 @@ namespace zer0
 		try
 		{
 			g_logFunction = logFunction;
-			// april
+#ifdef _DEBUG
 			april::setLogFunction(logFunction);
+			atres::setLogFunction(logFunction);
+			aprilui::setLogFunction(logFunction);
+			xal::setLogFunction(logFunction);
+#endif
+			// april
 			april::init();
 			april::createRenderSystem("");
 			april::createRenderTarget(width, height, fullscreen, name);
@@ -79,7 +84,6 @@ namespace zer0
 			april::rendersys->getWindow()->setQuitCallback(&System::onQuit);
 			april::rendersys->getWindow()->setWindowFocusCallback(&System::onFocusChange);
 			// atres
-			atres::setLogFunction(logFunction);
 			atres::init();
 			atresttf::init();
 			atres::renderer->setGlobalOffsets(true);
@@ -89,12 +93,10 @@ namespace zer0
 				"Graphics/Fonts/ariblk.ttf", "Arial Black", 64.0f, 1.0f));
 			// aprilui
 			aprilui::init();
-			aprilui::setLogFunction(logFunction);
 			aprilui::setLimitCursorToViewport(false);
 			aprilui::setViewport(viewport);
 			aprilui::setScreenViewport(aprilui::getViewport());
 			// xal
-			xal::setLogFunction(logFunction);
 #ifndef _NOSOUND
 			xal::init(XAL_AS_DEFAULT, (unsigned long)april::rendersys->getWindow()->getIDFromBackend(), true);
 #else

@@ -1,23 +1,4 @@
-﻿=begin
-file = File.open("result.csv", "wb")
-b = Bitmap.new(1, 1)
-bl = Bitmap.new(1, 1)
-c = Color.new(192, 192, 192, 0)
-pixel = nil
-black = Color.new(64, 64, 64, 1)
-256.times {|i|
-    c.alpha = i
-    b.fill_rect(0, 0, 1, 1, black)
-    bl.fill_rect(0, 0, 1, 1, c)
-    b.blt(0, 0, bl, Rect.new(0, 0, 1, 1))
-    pixel = b.get_pixel(0, 0)
-    file.write(sprintf("%d;%d;%d;%d;%d;%d\n", black.alpha, black.red, c.alpha, c.red, pixel.alpha, pixel.red))
-}
-file.close
-exit
-=end
-
-if $game_exists
+﻿if $game_exists
   Thread.new {system('Game')}
   exit
 end

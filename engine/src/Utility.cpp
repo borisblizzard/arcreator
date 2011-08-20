@@ -37,11 +37,13 @@ namespace arc
 
 	void log(chstr message)
 	{
+#ifdef _DEBUG
 #ifdef _CONSOLE
 		printf("%s\n", message.c_str());
 #endif
 		hfile file((arc::path + "log.txt"), hfile::APPEND);
 		file.writef("%s\n", message.c_str());
+#endif
 	}
 
 	hmap<hstr, hstr> readCfgFile(chstr filename)
