@@ -63,14 +63,18 @@ namespace rgss
 		return this->texture->getHeight();
 	}
 
-	void Bitmap::blt(int x, int y, Bitmap* source, int sx, int sy, int sw, int sh)
+	void Bitmap::bltOver(int x, int y, Bitmap* source, int sx, int sy, int sw, int sh)
 	{
+		april::rendersys->setBlendMode(april::OVERWRITE);
 		this->_renderToTexture(x, y, source->texture, sx, sy, sw, sh);
+		april::rendersys->setBlendMode(april::DEFAULT);
 	}
 
-	void Bitmap::stretchBlt(int x, int y, int w, int h, Bitmap* source, int sx, int sy, int sw, int sh)
+	void Bitmap::stretchBltOver(int x, int y, int w, int h, Bitmap* source, int sx, int sy, int sw, int sh)
 	{
+		april::rendersys->setBlendMode(april::OVERWRITE);
 		this->_renderToTexture(x, y, w, h, source->texture, sx, sy, sw, sh);
+		april::rendersys->setBlendMode(april::DEFAULT);
 	}
 
 	void Bitmap::_drawText(int x, int y, int w, int h, chstr text, int align)

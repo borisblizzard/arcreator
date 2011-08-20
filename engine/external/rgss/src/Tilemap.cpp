@@ -119,12 +119,12 @@ namespace rgss
 							ty = y * 32 + j / 2 * 16;
 							sx = position % 6 * 16;
 							sy = position / 6 * 16;
-							generated->blt(tx, ty, autotile, sx, sy, 16, 16);
+							generated->bltOver(tx, ty, autotile, sx, sy, 16, 16);
 							if (animated)
 							{
-								generated->blt(tx, ty + 192, autotile, sx + 96, sy, 16, 16);
-								generated->blt(tx, ty + 384, autotile, sx + 192, sy, 16, 16);
-								generated->blt(tx, ty + 576, autotile, sx + 288, sy, 16, 16);
+								generated->bltOver(tx, ty + 192, autotile, sx + 96, sy, 16, 16);
+								generated->bltOver(tx, ty + 384, autotile, sx + 192, sy, 16, 16);
+								generated->bltOver(tx, ty + 576, autotile, sx + 288, sy, 16, 16);
 							}
 						}
 					}
