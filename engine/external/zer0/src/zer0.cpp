@@ -30,6 +30,7 @@
 namespace zer0
 {
 	bool result;
+	hstr name;
 	grect drawRect;
 	bool debugMode;
 	void (*g_logFunction)(chstr);
@@ -44,6 +45,80 @@ namespace zer0
 		g_logFunction(prefix + message);
 	}
 
+	void displayRubyError()
+	{
+		VALUE error = rb_gv_get("$!");
+		VALUE message = rb_funcall(error, rb_intern("message"), 0, NULL);
+		hstr text = StringValuePtr(message);
+		VALUE backtrace = rb_funcall(error, rb_intern("backtrace"), 0, NULL);
+		VALUE backtraceMessage = rb_funcall(backtrace, rb_intern("join"), 1, "\n");
+		hstr title = april::rendersys->getWindow()->getWindowTitle();
+		text += hstr("\n") + StringValuePtr(backtraceMessage);
+		zer0::log(text);
+		april::messageBox(title, text, april::AMSGBTN_OK, april::AMSGSTYLE_WARNING);
+	}
+
+	VALUE rb_Kernel_print(int argc, VALUE* argv, VALUE self)
+	{
+		VALUE arg1 = Qnil;
+		VALUE args = Qnil;
+		rb_scan_args(argc, argv, "1*", &arg1, &args);
+		if (NIL_P(args))
+		{
+			args = rb_ary_new();
+		}
+		rb_ary_unshift(args, arg1);
+		VALUE rb_delimiter = rb_gv_get("$,");
+		hstr delimiter = (NIL_P(rb_delimiter) ? ", " : StringValuePtr(rb_delimiter));
+		harray<hstr> data;
+		VALUE string;
+		for_iter (i, 0, argc)
+		{
+			string = rb_ary_shift(args);
+			if (!rb_obj_is_instance_of(string, rb_cString))
+			{
+				string = rb_funcall(string, rb_intern("to_s"), 0, NULL);
+			}
+			data += StringValuePtr(string);
+		}
+		hstr text = data.join(delimiter);
+		zer0::log(text, "");
+		return Qnil;
+	}
+	
+	VALUE rb_Kernel_p(int argc, VALUE* argv, VALUE self)
+	{
+		VALUE result = Qnil;
+		VALUE args = Qnil;
+		rb_scan_args(argc, argv, "0*", &args);
+		hstr text = "nil";
+		if (argc > 0)
+		{
+			if (argc == 1)
+			{
+				result = rb_ary_entry(args, 0);
+			}
+			else
+			{
+				result = rb_funcall(args, rb_intern("clone"), 0, NULL);
+			}
+			VALUE rb_delimiter = rb_gv_get("$,");
+			hstr delimiter = (NIL_P(rb_delimiter) ? ", " : StringValuePtr(rb_delimiter));
+			harray<hstr> data;
+			VALUE string;
+			for_iter (i, 0, argc)
+			{
+				string = rb_ary_shift(args);
+				string = rb_funcall(string, rb_intern("inspect"), 0, NULL);
+				data += StringValuePtr(string);
+			}
+			text = data.join(delimiter);
+		}
+		zer0::log(text, "");
+		april::messageBox(zer0::name, text, april::AMSGBTN_OK, april::AMSGSTYLE_INFORMATION);
+		return result;
+	}
+	
 	bool isDebugMode()
 	{
 		return debugMode;
@@ -53,11 +128,12 @@ namespace zer0
 	{
 		debugMode = value;
 	}
-	
+
 	bool init(int width, int height, bool fullscreen, chstr name, chstr path, void (*logFunction)(chstr))
 	{
 		debugMode = false;
 		bool result = true;
+		zer0::name = name;
 		srand((unsigned int)time(NULL));
 		try
 		{
@@ -151,6 +227,7 @@ namespace zer0
 	
 	VALUE embedded(VALUE ignore)
 	{
+		// running RGSS
 		rgss::init(g_logFunction);
 		// running the Ruby scripts
 		//rb_require("./test.rb");
@@ -159,19 +236,6 @@ namespace zer0
 		rb_load(rb_str_new2("./Data/Scripts.rb"), 0);
 		rgss::destroy();
 		return Qnil;
-	}
-
-	void displayRubyError()
-	{
-		VALUE error = rb_gv_get("$!");
-		VALUE message = rb_funcall(error, rb_intern("message"), 0, NULL);
-		hstr text = StringValuePtr(message);
-		VALUE backtrace = rb_funcall(error, rb_intern("backtrace"), 0, NULL);
-		VALUE backtraceMessage = rb_funcall(backtrace, rb_intern("join"), 1, "\n");
-		hstr title = april::rendersys->getWindow()->getWindowTitle();
-		text += hstr("\n") + StringValuePtr(backtraceMessage);
-		zer0::log(text);
-		april::messageBox(title, text, april::AMSGBTN_OK, april::AMSGSTYLE_WARNING);
 	}
 
 	int enterMainLoop(int argc, char** argv)
@@ -195,6 +259,10 @@ namespace zer0
 		}
 		// initializing statically linked Ruby extensions
 		Init_api();
+		// additional Ruby stuff
+		rb_define_method(rb_mKernel, "print", RUBY_METHOD_FUNC(&rb_Kernel_print), -1);
+		rb_define_method(rb_mKernel, "puts", RUBY_METHOD_FUNC(&rb_Kernel_print), -1);
+		rb_define_method(rb_mKernel, "p", RUBY_METHOD_FUNC(&rb_Kernel_p), -1);
 		// running everything
 		try
 		{
