@@ -44,6 +44,9 @@ namespace rgss
 		/// @note Tone values will be clamped between -255 and 255.
 		/// @note Gray is clamped between 0 and 255.
 		static VALUE rb_initialize(int argc, VALUE* argv, VALUE self);
+		/// @brief Used for clone and dup.
+		/// @param[in] original The original.
+		static VALUE rb_initialize_copy(VALUE self, VALUE original);
 		/// @brief Gets a string representation of the instance.
 		/// @return value The string representation of the instance.
 		static VALUE rb_inspect(VALUE self);

@@ -26,7 +26,7 @@ int main(int argc, char** argv)
 		return 1;
 	}
 #if !defined(_CONSOLE) && defined(_WIN32)
-	int result = zer0::enterMainLoop(0, NULL); // needs to be changed?
+	int result = zer0::enterMainLoop(0, NULL); // needs to be changed
 #else
 	int result = zer0::enterMainLoop(argc, argv);
 #endif

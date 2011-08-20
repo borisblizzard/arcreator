@@ -91,8 +91,7 @@ namespace rgss
 		/// @note Arguments are "[filename]" or "[width, height]".
 		static VALUE rb_initialize(int argc, VALUE* argv, VALUE self);
 		/// @brief Used for clone and dup.
-		/// @param[in] original The original Bitmap.
-		/// @return Copy of original Bitmap.
+		/// @param[in] original The original.
 		static VALUE rb_initialize_copy(VALUE self, VALUE original);
 		/// @brief Disposes the object.
 		static VALUE rb_dispose(VALUE self);

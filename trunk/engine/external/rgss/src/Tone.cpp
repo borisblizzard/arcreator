@@ -35,6 +35,7 @@ namespace rgss
 		rb_define_alloc_func(rb_cTone, &Tone::rb_new);
 		// initialize
 		rb_define_method(rb_cTone, "initialize", RUBY_METHOD_FUNC(&Tone::rb_initialize), -1);
+		rb_define_method(rb_cTone, "initialize_copy", RUBY_METHOD_FUNC(&Tone::rb_initialize_copy), 1);
 		rb_define_method(rb_cTone, "inspect", RUBY_METHOD_FUNC(&Tone::rb_inspect), 0);
 		rb_define_method(rb_cTone, "_dump", RUBY_METHOD_FUNC(&Tone::rb_dump), -1);
 		rb_define_singleton_method(rb_cTone, "_load", RUBY_METHOD_FUNC(&Tone::rb_load), 1);
@@ -62,6 +63,17 @@ namespace rgss
 		VALUE r, g, b, a;
 		rb_scan_args(argc, argv, "31", &r, &g, &b, &a);
 		Tone::rb_set(argc, argv, self);
+		return self;
+	}
+
+	VALUE Tone::rb_initialize_copy(VALUE self, VALUE original)
+	{
+		RB_SELF2CPP(Tone, tone);
+		RB_VAR2CPP(original, Tone, other);
+		tone->red = other->red;
+		tone->green = other->green;
+		tone->blue = other->blue;
+		tone->gray = other->gray;
 		return self;
 	}
 

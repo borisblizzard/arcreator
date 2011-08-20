@@ -59,6 +59,12 @@ namespace rgss
 		/// @param[in] argv Pointer to first argument.
 		/// @note Arguments are "[viewport]".
 		static VALUE rb_initialize(int argc, VALUE* argv, VALUE self);
+		/// @brief Used to prevent for cloning.
+		/// @param[in] original The original.
+		static VALUE rb_initialize_clone(VALUE self, VALUE original);
+		/// @brief Used to prevent for duping.
+		/// @param[in] original The original.
+		static VALUE rb_initialize_dup(VALUE self, VALUE original);
 
 		/// @brief Creates a C++ version of this class.
 		/// @param[in] argc Number of arguments.

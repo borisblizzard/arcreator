@@ -120,6 +120,8 @@ namespace rgss
 		rb_define_alloc_func(rb_cViewport, &Viewport::rb_new);
 		// initialize
 		rb_define_method(rb_cViewport, "initialize", RUBY_METHOD_FUNC(&Viewport::rb_initialize), -1);
+		rb_define_method(rb_cViewport, "initialize_clone", RUBY_METHOD_FUNC(&Viewport::rb_initialize_clone), 1);
+		rb_define_method(rb_cViewport, "initialize_dup", RUBY_METHOD_FUNC(&Viewport::rb_initialize_dup), 1);
 		rb_define_method(rb_cViewport, "dispose", RUBY_METHOD_FUNC(&Viewport::rb_dispose), 0);
 		// getters and setters (Renderable)
 		rb_define_method(rb_cViewport, "disposed?", RUBY_METHOD_FUNC(&Viewport::rb_isDisposed), 0);
@@ -209,10 +211,24 @@ namespace rgss
 		return self;
 	}
 
+	VALUE Viewport::rb_initialize_clone(VALUE self, VALUE original)
+	{
+		RB_SELF2CPP(Viewport, viewport);
+		RB_CANT_CLONE_ERROR(viewport);
+		return self;
+	}
+
+	VALUE Viewport::rb_initialize_dup(VALUE self, VALUE original)
+	{
+		RB_SELF2CPP(Viewport, viewport);
+		RB_CANT_DUP_ERROR(viewport);
+		return self;
+	}
+
 	VALUE Viewport::rb_inspect(VALUE self)
 	{
 		RB_SELF2CPP(Viewport, viewport);
-		/// @note Should we add a branch here if the viewport has been disposed to return Qnil?
+		RB_CHECK_DISPOSED_1(viewport);
 		return Color::rb_inspect(viewport->rb_color);
 	}
 

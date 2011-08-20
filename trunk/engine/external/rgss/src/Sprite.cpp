@@ -115,6 +115,8 @@ namespace rgss
 		rb_define_alloc_func(rb_cSprite, &Sprite::rb_new);
 		// initialize
 		rb_define_method(rb_cSprite, "initialize", RUBY_METHOD_FUNC(&Sprite::rb_initialize), -1);
+		rb_define_method(rb_cSprite, "initialize_clone", RUBY_METHOD_FUNC(&Sprite::rb_initialize_clone), 1);
+		rb_define_method(rb_cSprite, "initialize_dup", RUBY_METHOD_FUNC(&Sprite::rb_initialize_dup), 1);
 		rb_define_method(rb_cSprite, "dispose", RUBY_METHOD_FUNC(&Sprite::rb_dispose), 0);
 		// getters and setters (Renderable)
 		rb_define_method(rb_cSprite, "visible", RUBY_METHOD_FUNC(&Sprite::rb_getVisible), 0);
@@ -191,6 +193,20 @@ namespace rgss
 		rb_scan_args(argc, argv, "01", &viewport);
 		sprite->initializeZoomable(viewport);
 		Sprite::rb_setSrcRect(self, Rect::create(INT2FIX(0), INT2FIX(0), INT2FIX(0), INT2FIX(0)));
+		return self;
+	}
+
+	VALUE Sprite::rb_initialize_clone(VALUE self, VALUE original)
+	{
+		RB_SELF2CPP(Sprite, sprite);
+		RB_CANT_CLONE_ERROR(sprite);
+		return self;
+	}
+
+	VALUE Sprite::rb_initialize_dup(VALUE self, VALUE original)
+	{
+		RB_SELF2CPP(Sprite, sprite);
+		RB_CANT_DUP_ERROR(sprite);
 		return self;
 	}
 

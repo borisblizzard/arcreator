@@ -434,6 +434,8 @@ namespace rgss
 		rb_define_alloc_func(rb_cWindow, &Window::rb_new);
 		// initialize
 		rb_define_method(rb_cWindow, "initialize", RUBY_METHOD_FUNC(&Window::rb_initialize), -1);
+		rb_define_method(rb_cWindow, "initialize_clone", RUBY_METHOD_FUNC(&Window::rb_initialize_clone), 1);
+		rb_define_method(rb_cWindow, "initialize_dup", RUBY_METHOD_FUNC(&Window::rb_initialize_dup), 1);
 		rb_define_method(rb_cWindow, "dispose", RUBY_METHOD_FUNC(&Window::rb_dispose), 0);
 		// getters and setters (Renderable)
 		rb_define_method(rb_cWindow, "visible", RUBY_METHOD_FUNC(&Window::rb_getVisible), 0);
@@ -567,6 +569,20 @@ namespace rgss
 		window->pauseSprite->setZ(window->z + 2);
 		Window::rb_setCursorRect(self, Rect::create(INT2FIX(0), INT2FIX(0), INT2FIX(0), INT2FIX(0)));
 		Window::rb_setWindowskin(self, Qnil);
+		return self;
+	}
+
+	VALUE Window::rb_initialize_clone(VALUE self, VALUE original)
+	{
+		RB_SELF2CPP(Window, window);
+		RB_CANT_CLONE_ERROR(window);
+		return self;
+	}
+
+	VALUE Window::rb_initialize_dup(VALUE self, VALUE original)
+	{
+		RB_SELF2CPP(Window, window);
+		RB_CANT_DUP_ERROR(window);
 		return self;
 	}
 

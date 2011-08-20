@@ -228,6 +228,8 @@ namespace rgss
 		rb_define_alloc_func(rb_cTilemap, &Tilemap::rb_new);
 		// initialize
 		rb_define_method(rb_cTilemap, "initialize", RUBY_METHOD_FUNC(&Tilemap::rb_initialize), -1);
+		rb_define_method(rb_cTilemap, "initialize_clone", RUBY_METHOD_FUNC(&Tilemap::rb_initialize_clone), 1);
+		rb_define_method(rb_cTilemap, "initialize_dup", RUBY_METHOD_FUNC(&Tilemap::rb_initialize_dup), 1);
 		rb_define_method(rb_cTilemap, "dispose", RUBY_METHOD_FUNC(&Tilemap::rb_dispose), 0);
 		// getters and setters (Renderable) (except "z" and "z=")
 		rb_define_method(rb_cTilemap, "visible", RUBY_METHOD_FUNC(&Tilemap::rb_getVisible), 0);
@@ -314,6 +316,20 @@ namespace rgss
 		tilemap->flashData = NULL;
 		tilemap->rb_tileSprites = new harray<VALUE>();
 		tilemap->tileSprites = new harray<Sprite*>();
+		return self;
+	}
+
+	VALUE Tilemap::rb_initialize_clone(VALUE self, VALUE original)
+	{
+		RB_SELF2CPP(Tilemap, tilemap);
+		RB_CANT_CLONE_ERROR(tilemap);
+		return self;
+	}
+
+	VALUE Tilemap::rb_initialize_dup(VALUE self, VALUE original)
+	{
+		RB_SELF2CPP(Tilemap, tilemap);
+		RB_CANT_DUP_ERROR(tilemap);
 		return self;
 	}
 

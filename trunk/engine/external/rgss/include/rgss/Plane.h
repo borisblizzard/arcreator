@@ -36,7 +36,13 @@ namespace rgss
 		/// @param[in] argv Pointer to first argument.
 		/// @note Arguments are "[viewport]".
 		static VALUE rb_initialize(int argc, VALUE* argv, VALUE self);
-			
+		/// @brief Used to prevent for cloning.
+		/// @param[in] original The original.
+		static VALUE rb_initialize_clone(VALUE self, VALUE original);
+		/// @brief Used to prevent for duping.
+		/// @param[in] original The original.
+		static VALUE rb_initialize_dup(VALUE self, VALUE original);
+		
 	protected:
 		/// @brief Gets the render area rectangle.
 		/// @return The render area rectangle.

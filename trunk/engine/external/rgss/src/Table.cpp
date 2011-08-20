@@ -86,6 +86,7 @@ namespace rgss
 		rb_define_alloc_func(rb_cTable, &Table::rb_new);
 		// initialize
 		rb_define_method(rb_cTable, "initialize", RUBY_METHOD_FUNC(&Table::rb_initialize), -1);
+		rb_define_method(rb_cTable, "initialize_copy", RUBY_METHOD_FUNC(&Table::rb_initialize_copy), 1);
 		rb_define_method(rb_cTable, "_dump", RUBY_METHOD_FUNC(&Table::rb_dump), -1);
 		rb_define_singleton_method(rb_cTable, "_load", RUBY_METHOD_FUNC(&Table::rb_load), 1);
 		// getters and setters
@@ -122,6 +123,18 @@ namespace rgss
 		table->ySize = hmax(NIL_P(arg2) ? 1 : NUM2INT(arg2), 1);
 		table->zSize = hmax(NIL_P(arg3) ? 1 : NUM2INT(arg3), 1);
 		table->data = table->_createData(table->xSize, table->ySize, table->zSize);
+		return self;
+	}
+
+	VALUE Table::rb_initialize_copy(VALUE self, VALUE original)
+	{
+		RB_SELF2CPP(Table, table);
+		RB_VAR2CPP(original, Table, other);
+		table->xSize = other->xSize;
+		table->ySize = other->ySize;
+		table->zSize = other->zSize;
+		table->data = table->_createData(table->xSize, table->ySize, table->zSize);
+		memcpy(table->data, other->data, table->xSize * table->ySize * table->zSize * sizeof(short));
 		return self;
 	}
 

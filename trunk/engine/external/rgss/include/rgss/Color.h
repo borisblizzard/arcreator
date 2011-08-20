@@ -55,8 +55,8 @@ namespace rgss
 		/// @note Color values will be clamped between -255 and 255.
 		/// @note Alpha is clamped between 0 and 255.
 		static VALUE rb_initialize(int argc, VALUE* argv, VALUE self);
-		/// @brief Initializes the clone object.
-		/// @param[in] original The object to copy.
+		/// @brief Used for clone and dup.
+		/// @param[in] original The original.
 		static VALUE rb_initialize_copy(VALUE self, VALUE original);
 		/// @brief Gets a string representation of the instance.
 		/// @return String String representation of the instance.
