@@ -35,11 +35,32 @@ namespace rgss
 	bool Graphics::running;
 	bool Graphics::focused;
 	april::Timer* Graphics::timer;
+	bool Graphics::fpsDisplay;
+	april::Timer* Graphics::fpsTimer;
+	float Graphics::fpsTime;
+	int Graphics::fpsCount;
+	hstr Graphics::windowTitle;
 
 	/****************************************************************************************
 	 * Pure C++ code
 	 ****************************************************************************************/
 	
+	void Graphics::toggleFpsDisplay()
+	{
+		if (rgss::isDebugMode())
+		{
+			fpsDisplay = !fpsDisplay;
+			if (fpsDisplay)
+			{
+				april::rendersys->getWindow()->setWindowTitle(windowTitle + " [FPS:0]");
+			}
+			else
+			{
+				april::rendersys->getWindow()->setWindowTitle(windowTitle);
+			}
+		}
+	}
+
 	void Graphics::_waitForFrameSync()
 	{
 #ifndef _DEBUG
@@ -71,6 +92,23 @@ namespace rgss
 		}
 	}
 
+	void Graphics::_updateFpsCounter(float time)
+	{
+		if (fpsDisplay)
+		{
+			if (time - fpsTime > 1000.0f)
+			{
+				april::rendersys->getWindow()->setWindowTitle(hsprintf("%s [FPS:%d]", windowTitle.c_str(), fpsCount));
+				fpsCount = 0;
+				fpsTime = time;
+			}
+			else
+			{
+				fpsCount++;
+			}
+		}
+	}
+
 	/****************************************************************************************
 	 * Ruby Interfacing, Creation, Destruction, Systematics
 	 ****************************************************************************************/
@@ -88,6 +126,11 @@ namespace rgss
 		renderQueue = new RenderQueue();
 		timer = new april::Timer();
 		timer->diff();
+		fpsDisplay = false;
+		fpsTimer = new april::Timer();
+		fpsTime = fpsTimer->getTime();
+		fpsCount = 0;
+		windowTitle = window->getWindowTitle();
 		Renderable::CounterProgress = 0;
 	}
 
@@ -136,20 +179,21 @@ namespace rgss
 
 	VALUE Graphics::rb_update(VALUE self)
 	{
-		Graphics::_handleFocusChange();
+		_handleFocusChange();
+		float time = fpsTimer->getTime();
 		if (active)
 		{
 			april::rendersys->clear();
 			renderQueue->draw();
 			april::rendersys->presentFrame();
 		}
-		_waitForFrameSync();
 		frameCount++;
-		/// @todo - more often, less often?
 		if (frameCount % 200 == 0)
 		{
 			rb_eval_string("GC.start");
 		}
+		_updateFpsCounter(time);
+		_waitForFrameSync();
 		return Qnil;
 	}
 
@@ -173,7 +217,7 @@ namespace rgss
 		if (duration == 0)
 		{
 			active = true;
-			return Graphics::rb_update(self);
+			return rb_update(self);
 		}
 		hstr filename = (NIL_P(arg2) ? "" : StringValuePtr(arg2));
 		int vague = (NIL_P(arg3) ? 40 : NUM2INT(arg3));
@@ -190,12 +234,14 @@ namespace rgss
 		imageSource = april::rendersys->grabScreenshot(4);
 		april::Texture* newScreen = april::rendersys->createTextureFromMemory(imageSource->data, width, height);
 		delete imageSource;
+		float time;
 		if (filename == "")
 		{
 			// fade between old and new screen
 			for_iter (i, 0, duration)
 			{
-				Graphics::_handleFocusChange();
+				time = fpsTimer->getTime();
+				_handleFocusChange();
 				april::rendersys->clear();
 				april::rendersys->setTexture(oldScreen);
 				april::rendersys->drawTexturedQuad(drawRect, srcRect);
@@ -203,13 +249,13 @@ namespace rgss
 				color.a = (i + 1) * 255 / duration;
 				april::rendersys->drawTexturedQuad(drawRect, srcRect, color);
 				april::rendersys->presentFrame();
-				_waitForFrameSync();
 				frameCount++;
-				/// @todo - more often, less often?
 				if (frameCount % 200 == 0)
 				{
 					rb_eval_string("GC.start");
 				}
+				_waitForFrameSync();
+				_updateFpsCounter(time);
 			}
 		}
 		else if (vague >= 0) // skip if vague is not 0 or greater
@@ -224,7 +270,8 @@ namespace rgss
 			// fade between old and new screen
 			for_iter (i, 0, duration)
 			{
-				Graphics::_handleFocusChange();
+				time = fpsTimer->getTime();
+				_handleFocusChange();
 				april::rendersys->clear();
 				april::rendersys->setTexture(oldScreen);
 				april::rendersys->drawTexturedQuad(drawRect, srcRect);
@@ -232,13 +279,13 @@ namespace rgss
 				april::rendersys->setTexture(newScreen);
 				april::rendersys->drawTexturedQuad(drawRect, srcRect);
 				april::rendersys->presentFrame();
-				_waitForFrameSync();
 				frameCount++;
-				/// @todo - more often, less often?
 				if (frameCount % 200 == 0)
 				{
 					rb_eval_string("GC.start");
 				}
+				_waitForFrameSync();
+				_updateFpsCounter(time);
 			}
 			delete transition;
 		}

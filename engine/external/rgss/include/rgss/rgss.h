@@ -11,6 +11,8 @@ namespace rgss
 	rgssFnExport void destroy();
 	rgssFnExport void setLogFunction(void (*fnptr)(chstr));
 	rgssFnExport void log(chstr message, chstr prefix = "[rgss] ");
+	rgssFnExport bool isDebugMode();
+	rgssFnExport void setDebugMode(bool value);
 
 }
 

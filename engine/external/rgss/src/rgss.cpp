@@ -18,6 +18,7 @@
 
 namespace rgss
 {
+	bool debugMode;
 	void (*g_logFunction)(chstr);
 	
 	void setLogFunction(void (*function)(chstr))
@@ -28,6 +29,16 @@ namespace rgss
 	void log(chstr message, chstr prefix)
 	{
 		g_logFunction(prefix + message);
+	}
+
+	bool isDebugMode()
+	{
+		return debugMode;
+	}
+	
+	void setDebugMode(bool value)
+	{
+		debugMode = value;
 	}
 
 	void init(void (*logFunction)(chstr))

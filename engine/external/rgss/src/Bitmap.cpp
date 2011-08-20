@@ -134,7 +134,9 @@ namespace rgss
 		int h = loadTexture->getHeight();
 		this->texture = april::rendersys->createEmptyTexture(w, h, april::AT_ARGB, april::AT_RENDER_TARGET);
 		this->texture->setTextureFilter(april::Nearest);
+		april::rendersys->setBlendMode(april::OVERWRITE);
 		this->_renderToTexture(0, 0, loadTexture, 0, 0, w, h);
+		april::rendersys->setBlendMode(april::DEFAULT);
 		delete loadTexture;
 	}
 
@@ -313,10 +315,10 @@ namespace rgss
 		else
 		{
 			int w = NUM2INT(arg1);
-			int h = abs(NUM2INT(arg2)); // abs() is required because the original RGSS has that bug
+			int h = NUM2INT(arg2);
 			if (w < 1 || h < 1)
 			{
-				rb_raise(rb_eRGSSError, "failed to create bitmap");
+				rb_raise(rb_eRGSSError, hsprintf("failed to create Bitmap, dimensions: %d, %d", w, h).c_str());
 			}
 			bitmap->texture = april::rendersys->createEmptyTexture(w, h, april::AT_ARGB, april::AT_RENDER_TARGET);
 			bitmap->texture->setTextureFilter(april::Nearest);
@@ -334,8 +336,7 @@ namespace rgss
 		int h = other->texture->getHeight();
 		bitmap->texture = april::rendersys->createEmptyTexture(w, h, april::AT_ARGB, april::AT_RENDER_TARGET);
 		bitmap->texture->setTextureFilter(april::Nearest);
-		bitmap->_renderToTexture(0, 0, other->texture, 0, 0, w, h);
-		// TODO - should be changed to call an actual clone method for convenience
+		bitmap->bltOver(0, 0, other, 0, 0, w, h);
 		Bitmap::rb_setFont(self, rb_funcall(other->rb_font, rb_intern("clone"), 0, NULL));
 		return self;
 	}

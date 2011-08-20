@@ -7,6 +7,7 @@
 #include <hltypes/hmap.h>
 
 #include "CodeSnippets.h"
+#include "Graphics.h"
 #include "Input.h"
 
 namespace rgss
@@ -300,6 +301,10 @@ namespace rgss
 	void Input::onKeyDown(unsigned int keycode)
 	{
 		keys[keycode] = true;
+		if (keycode == april::AK_F2)
+		{
+			Graphics::toggleFpsDisplay();
+		}
 	}
 
 	void Input::onKeyUp(unsigned int keycode)

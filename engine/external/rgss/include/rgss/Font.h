@@ -42,7 +42,6 @@ namespace rgss
 		/// @brief Default Italic flag.
 		static bool defaultItalic;
 		/// @brief Default Font Color.
-		/// @todo This will cause memory problems if changed via Ruby, needs to be refactored.
 		static Color* defaultColor;
 		/// @brief Default Font Color.
 		static VALUE rb_defaultColor;

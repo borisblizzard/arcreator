@@ -36,6 +36,9 @@ namespace rgss
 		/// @param[in] value The new value.
 		static void setFocused(bool value) { focused = value; }
 
+		/// @brief Toggles the FPS display.
+		static void toggleFpsDisplay();
+
 		/// @brief Initializes the module.
 		static void init();
 		/// @brief Exposes this class to Ruby.
@@ -83,11 +86,23 @@ namespace rgss
 		static bool focused;
 		/// @brief Timer for frame limiation.
 		static april::Timer* timer;
+		/// @brief FPS display flag.
+		static bool fpsDisplay;
+		/// @brief Timer for FPS counting.
+		static april::Timer* fpsTimer;
+		/// @brief FPS time;
+		static float fpsTime;
+		/// @brief FPS count.
+		static int fpsCount;
+		/// @brief Window title;
+		static hstr windowTitle;
 		
 		/// @brief Waits for the frame sync for FPS limitation.
 		static void _waitForFrameSync();
 		/// @brief Handles focus change and application finish.
 		static void _handleFocusChange();
+		/// @brief Updates FPS counter.
+		static void _updateFpsCounter(float time);
 
 	};
 
