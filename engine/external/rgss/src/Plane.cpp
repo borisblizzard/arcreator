@@ -96,6 +96,8 @@ namespace rgss
 		rb_define_alloc_func(rb_cPlane, &Plane::rb_new);
 		// initialize
 		rb_define_method(rb_cPlane, "initialize", RUBY_METHOD_FUNC(&Plane::rb_initialize), -1);
+		rb_define_method(rb_cPlane, "initialize_clone", RUBY_METHOD_FUNC(&Plane::rb_initialize_clone), 1);
+		rb_define_method(rb_cPlane, "initialize_dup", RUBY_METHOD_FUNC(&Plane::rb_initialize_dup), 1);
 		rb_define_method(rb_cPlane, "dispose", RUBY_METHOD_FUNC(&Plane::rb_dispose), 0);
 		// getters and setters (Renderable)
 		rb_define_method(rb_cPlane, "disposed?", RUBY_METHOD_FUNC(&Plane::rb_isDisposed), 0);
@@ -152,6 +154,20 @@ namespace rgss
 		VALUE viewport;
 		rb_scan_args(argc, argv, "01", &viewport);
 		plane->initializeZoomable(viewport);
+		return self;
+	}
+
+	VALUE Plane::rb_initialize_clone(VALUE self, VALUE original)
+	{
+		RB_SELF2CPP(Plane, plane);
+		RB_CANT_CLONE_ERROR(plane);
+		return self;
+	}
+
+	VALUE Plane::rb_initialize_dup(VALUE self, VALUE original)
+	{
+		RB_SELF2CPP(Plane, plane);
+		RB_CANT_DUP_ERROR(plane);
 		return self;
 	}
 

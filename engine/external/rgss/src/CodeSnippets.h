@@ -14,6 +14,7 @@
 /// @param[in] type Type of the C++ variable.
 /// @param[in] name Name of the C++ variable.
 #define RB_SELF2CPP(type, name) type* name; Data_Get_Struct(self, type, name);
+
 /// @brief Generates an entire Ruby setter method in C++.
 /// @param[in] type1 Type of the C++ variable.
 /// @param[in] name1 Name of the C++ variable.
@@ -47,6 +48,16 @@
 	{ \
 		this->name = NULL; \
 	}
+
+/// @brief Throws a cloning error.
+/// @param[in] value Value that can't be cloned.
+#define RB_CANT_CLONE_ERROR(value) \
+	rb_raise(rb_eTypeError, ("can't clone " + value->typeName).c_str());
+/// @brief Throws a duping error.
+/// @param[in] value Value that can't be duplicated.
+#define RB_CANT_DUP_ERROR(value) \
+	rb_raise(rb_eTypeError, ("can't dup " + value->typeName).c_str());
+
 /// @brief Automatically does a disposed check.
 /// @param[in] value Value to check.
 #define RB_CHECK_DISPOSED_1(value) \
@@ -67,6 +78,7 @@
 		rb_raise(rb_eRGSSError, "disposed " #value); \
 	}
 	*/
+
 /// @brief Automatically does a type check (and throw an exception if failed) with 1 acceptable type.
 /// @param[in] var Variable that needs to be type-checked.
 /// @param[in] type1 First acceptable class.

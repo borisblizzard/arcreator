@@ -52,6 +52,12 @@ namespace rgss
 		/// @param[in] argv Pointer to first argument.
 		/// @note Arguments are "x, y, w, h" or "rect".
 		static VALUE rb_initialize(int argc, VALUE* argv, VALUE self);
+		/// @brief Used to prevent for cloning.
+		/// @param[in] original The original.
+		static VALUE rb_initialize_clone(VALUE self, VALUE original);
+		/// @brief Used to prevent for duping.
+		/// @param[in] original The original.
+		static VALUE rb_initialize_dup(VALUE self, VALUE original);
 		/// @brief Gets a string representation of the instance.
 		/// @return value The string representation of the instance.
 		static VALUE rb_inspect(VALUE self);

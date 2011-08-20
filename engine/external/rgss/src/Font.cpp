@@ -42,6 +42,7 @@ namespace rgss
 		rb_define_alloc_func(rb_cFont, &Font::rb_new);
 		// initialize
 		rb_define_method(rb_cFont, "initialize", RUBY_METHOD_FUNC(&Font::rb_initialize), -1);
+		rb_define_method(rb_cFont, "initialize_copy", RUBY_METHOD_FUNC(&Font::rb_initialize_copy), 1);
 		// getters and setters
 		rb_define_method(rb_cFont, "name", RUBY_METHOD_FUNC(&Font::rb_getName), 0);
 		rb_define_method(rb_cFont, "name=", RUBY_METHOD_FUNC(&Font::rb_setName), 1);
@@ -95,9 +96,20 @@ namespace rgss
 		font->size = (!NIL_P(name) ? NUM2INT(size) : defaultSize);
 		font->bold = defaultBold;
 		font->italic = defaultItalic;
-		VALUE argv2[4] = {INT2FIX(defaultColor->red), INT2FIX(defaultColor->green),
-			INT2FIX(defaultColor->blue), INT2FIX(defaultColor->alpha)};
-		Font::rb_setColor(self, Color::create(4, argv2));
+		Font::rb_setColor(self, rb_funcall(rb_defaultColor, rb_intern("clone"), 0, NULL));
+		return self;
+	}
+
+	VALUE Font::rb_initialize_copy(VALUE self, VALUE original)
+	{
+		RB_SELF2CPP(Font, font);
+		RB_VAR2CPP(original, Font, other);
+
+		font->name = other->name;
+		font->size = other->size;
+		font->bold = other->bold;
+		font->italic = other->italic;
+		Font::rb_setColor(self, rb_funcall(other->rb_color, rb_intern("clone"), 0, NULL));
 		return self;
 	}
 

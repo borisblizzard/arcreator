@@ -41,6 +41,7 @@ namespace rgss
 		rb_define_alloc_func(rb_cRect, &Rect::rb_new);
 		// initialize
 		rb_define_method(rb_cRect, "initialize", RUBY_METHOD_FUNC(&Rect::rb_initialize), 4);
+		rb_define_method(rb_cRect, "initialize_copy", RUBY_METHOD_FUNC(&Rect::rb_initialize_copy), 1);
 		rb_define_method(rb_cRect, "inspect", RUBY_METHOD_FUNC(&Rect::rb_inspect), 0);
 		rb_define_method(rb_cRect, "_dump", RUBY_METHOD_FUNC(&Rect::rb_dump), -1);
 		rb_define_singleton_method(rb_cRect, "_load", RUBY_METHOD_FUNC(&Rect::rb_load), 1);
@@ -67,6 +68,17 @@ namespace rgss
 	VALUE Rect::rb_initialize(VALUE self, VALUE x, VALUE y, VALUE width, VALUE height)
 	{
 		Rect::rb_set(self, x, y, width, height);
+		return self;
+	}
+
+	VALUE Rect::rb_initialize_copy(VALUE self, VALUE original)
+	{
+		RB_SELF2CPP(Rect, rect);
+		RB_VAR2CPP(original, Rect, other);
+		rect->x = other->x;
+		rect->y = other->y;
+		rect->width = other->width;
+		rect->height = other->height;
 		return self;
 	}
 

@@ -51,11 +51,10 @@ namespace zer0
 		VALUE message = rb_funcall(error, rb_intern("message"), 0, NULL);
 		hstr text = StringValuePtr(message);
 		VALUE backtrace = rb_funcall(error, rb_intern("backtrace"), 0, NULL);
-		VALUE backtraceMessage = rb_funcall(backtrace, rb_intern("join"), 1, "\n");
-		hstr title = april::rendersys->getWindow()->getWindowTitle();
+		VALUE backtraceMessage = rb_funcall(backtrace, rb_intern("join"), 1, rb_str_new2("\n"));
 		text += hstr("\n") + StringValuePtr(backtraceMessage);
-		zer0::log(text);
-		april::messageBox(title, text, april::AMSGBTN_OK, april::AMSGSTYLE_WARNING);
+		zer0::log(text, "");
+		april::messageBox(zer0::name, text, april::AMSGBTN_OK, april::AMSGSTYLE_WARNING);
 	}
 
 	VALUE rb_Kernel_print(int argc, VALUE* argv, VALUE self)

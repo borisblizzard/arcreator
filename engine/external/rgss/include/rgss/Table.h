@@ -45,6 +45,9 @@ namespace rgss
 		/// @param[in] argv Pointer to first argument.
 		/// @note Arguments are "xsize,[ysize [, zsize]]"
 		static VALUE rb_initialize(int argc, VALUE* argv, VALUE self);
+		/// @brief Used for clone and dup.
+		/// @param[in] original The original.
+		static VALUE rb_initialize_copy(VALUE self, VALUE original);
 
 		/// @brief Creates a C++ version of this class.
 		/// @param[in] argc Number of arguments.

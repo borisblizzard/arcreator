@@ -47,6 +47,9 @@ namespace rgss
 		/// @param[in] width The width.
 		/// @param[in] height The height.
 		static VALUE rb_initialize(VALUE self, VALUE x, VALUE y, VALUE width, VALUE height);
+		/// @brief Used for clone and dup.
+		/// @param[in] original The original.
+		static VALUE rb_initialize_copy(VALUE self, VALUE original);
 		/// @brief Gets a string representation of the instance.
 		/// @return value String representation of the instance.
 		static VALUE rb_inspect(VALUE self);
