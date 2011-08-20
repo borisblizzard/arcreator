@@ -209,21 +209,21 @@ namespace rgss
 		}
 		// windowskin background
 		this->windowskinBackground = new Bitmap(127, 127);
-		this->windowskinBackground->blt(0, 0, this->windowskin, 0, 0, 127, 127);
+		this->windowskinBackground->bltOver(0, 0, this->windowskin, 0, 0, 127, 127);
 		// windowskin horizontal borders
 		this->windowskinHorizontalBorders = new Bitmap(32, 32);
-		this->windowskinHorizontalBorders->blt(0, 0, this->windowskin, 144, 0, 32, 16);
-		this->windowskinHorizontalBorders->blt(0, 16, this->windowskin, 144, 48, 32, 16);
+		this->windowskinHorizontalBorders->bltOver(0, 0, this->windowskin, 144, 0, 32, 16);
+		this->windowskinHorizontalBorders->bltOver(0, 16, this->windowskin, 144, 48, 32, 16);
 		// windowskin vertical borders
 		this->windowskinVerticalBorders = new Bitmap(32, 32);
-		this->windowskinVerticalBorders->blt(0, 0, this->windowskin, 128, 16, 16, 32);
-		this->windowskinVerticalBorders->blt(16, 0, this->windowskin, 176, 16, 16, 32);
+		this->windowskinVerticalBorders->bltOver(0, 0, this->windowskin, 128, 16, 16, 32);
+		this->windowskinVerticalBorders->bltOver(16, 0, this->windowskin, 176, 16, 16, 32);
 		// corners
 		this->windowskinCorners = new Bitmap(32, 32);
-		this->windowskinCorners->blt(0, 0, this->windowskin, 128, 0, 16, 16);
-		this->windowskinCorners->blt(16, 0, this->windowskin, 176, 0, 16, 16);
-		this->windowskinCorners->blt(0, 16, this->windowskin, 128, 48, 16, 16);
-		this->windowskinCorners->blt(16, 16, this->windowskin, 176, 48, 16, 16);
+		this->windowskinCorners->bltOver(0, 0, this->windowskin, 128, 0, 16, 16);
+		this->windowskinCorners->bltOver(16, 0, this->windowskin, 176, 0, 16, 16);
+		this->windowskinCorners->bltOver(0, 16, this->windowskin, 128, 48, 16, 16);
+		this->windowskinCorners->bltOver(16, 16, this->windowskin, 176, 48, 16, 16);
 	}
 
 	void Window::_updateContentsSprite()
@@ -277,28 +277,28 @@ namespace rgss
 		srcRect->set(0, 0, this->cursorRect->width, this->cursorRect->height);
 		// requires a temp bitmap to avoid artifacts
 		Bitmap* cursorWindowkinBitmap = new Bitmap(32, 32);
-		cursorWindowkinBitmap->blt(0, 0, this->windowskin, 128, 64, 32, 32);
+		cursorWindowkinBitmap->bltOver(0, 0, this->windowskin, 128, 64, 32, 32);
 		// blit cursor image onto new bitmap
 		RB_VAR2CPP(rb_bitmap, Bitmap, bitmap);
 		int w = hmax(this->cursorRect->width - 4, 0);
 		int h = hmax(this->cursorRect->height - 4, 0);
-		bitmap->blt(0, 0, cursorWindowkinBitmap, 0, 0, 2, 2);
-		bitmap->blt(w + 2, 0, cursorWindowkinBitmap, 30, 0, 2, 2);
-		bitmap->blt(0, h + 2, cursorWindowkinBitmap, 0, 30, 2, 2);
-		bitmap->blt(w + 2, h + 2, cursorWindowkinBitmap, 30, 30, 2, 2);
+		bitmap->bltOver(0, 0, cursorWindowkinBitmap, 0, 0, 2, 2);
+		bitmap->bltOver(w + 2, 0, cursorWindowkinBitmap, 30, 0, 2, 2);
+		bitmap->bltOver(0, h + 2, cursorWindowkinBitmap, 0, 30, 2, 2);
+		bitmap->bltOver(w + 2, h + 2, cursorWindowkinBitmap, 30, 30, 2, 2);
 		if (w > 0)
 		{
-			bitmap->stretchBlt(2, 0, w, 2, cursorWindowkinBitmap, 2, 0, 28, 2);
-			bitmap->stretchBlt(2, h + 2, w, 2, cursorWindowkinBitmap, 2, 30, 28, 2);
+			bitmap->stretchBltOver(2, 0, w, 2, cursorWindowkinBitmap, 2, 0, 28, 2);
+			bitmap->stretchBltOver(2, h + 2, w, 2, cursorWindowkinBitmap, 2, 30, 28, 2);
 		}
 		if (h > 0)
 		{
-			bitmap->stretchBlt(0, 2, 2, h, cursorWindowkinBitmap, 0, 2, 2, 28);
-			bitmap->stretchBlt(w + 2, 2, 2, h, cursorWindowkinBitmap, 30, 2, 2, 28);
+			bitmap->stretchBltOver(0, 2, 2, h, cursorWindowkinBitmap, 0, 2, 2, 28);
+			bitmap->stretchBltOver(w + 2, 2, 2, h, cursorWindowkinBitmap, 30, 2, 2, 28);
 		}
 		if (w > 0 && h > 0)
 		{
-			bitmap->stretchBlt(2, 2, w, h, cursorWindowkinBitmap, 2, 2, 28, 28);
+			bitmap->stretchBltOver(2, 2, w, h, cursorWindowkinBitmap, 2, 2, 28, 28);
 		}
 		delete cursorBitmap;
 	}

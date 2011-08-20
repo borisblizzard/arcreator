@@ -1,7 +1,6 @@
 - implement FLAC support in XAL
 - implement MIDI support in XAL
 - implement pitch for audio in XAL
-- fix bug with alpha blending on a render target where the rendered area would be too transparent
 - throw Errno::ENOENT without using eval() at several places
 - test Bitmap::rb_textSize
 - implement proper Renderable color modification
@@ -14,7 +13,8 @@
 - implement font caching for atrestff
 - implement FPS display
 - fix problem with D3DX9 device reset after CTRL+ALT+Delete
-- check for Bitmap related memory leaks
 - change implementeation of DirectX texture rotateHue to work on render targets
-- add text squishing when the text rect is not wide enough?
+- using "exit" crashes the game
 - check Ruby bug "can't add a new key into hash during iteration" (appeared in line 32488, 32480)
+- fix vertical draw_text offset
+- add text squishing when the text rect is not wide enough?

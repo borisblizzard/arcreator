@@ -48,7 +48,7 @@ namespace rgss
 		/// @return The disposed flag.
 		bool isDisposed() { return this->disposed; }
 
-		/// @brief Blits rect from source bitmap to this one.
+		/// @brief Blits rect from source bitmap to this one and overwrites data below.
 		/// @param[in] x Destination X coordinate.
 		/// @param[in] y Destination Y coordinate.
 		/// @param[in] source Source Bitmap.
@@ -56,8 +56,8 @@ namespace rgss
 		/// @param[in] sy Source Y coordinate.
 		/// @param[in] sw Source width.
 		/// @param[in] sh Source height.
-		void blt(int x, int y, Bitmap* source, int sx, int sy, int sw, int sh);
-		/// @brief Blits rect from source bitmap to this one.
+		void bltOver(int x, int y, Bitmap* source, int sx, int sy, int sw, int sh);
+		/// @brief Blits rect from source bitmap to this one and overwrites data below.
 		/// @param[in] x Destination X coordinate.
 		/// @param[in] y Destination Y coordinate.
 		/// @param[in] w Destination width.
@@ -67,7 +67,7 @@ namespace rgss
 		/// @param[in] sy Source Y coordinate.
 		/// @param[in] sw Source width.
 		/// @param[in] sh Source height.
-		void stretchBlt(int x, int y, int w, int h, Bitmap* source, int sx, int sy, int sw, int sh);
+		void stretchBltOver(int x, int y, int w, int h, Bitmap* source, int sx, int sy, int sw, int sh);
 		/// @brief Disposes this renderable.
 		void dispose();
 
@@ -149,8 +149,6 @@ namespace rgss
 		/// @param[in] argv Pointer to first argument.
 		/// @note Arguments are "dest_rect, src_bitmap, src_rect[, opacity]"
 		static VALUE rb_stretchBlt(int argc, VALUE* argv, VALUE self);
-
-
 		/// @brief Sets the color to the specified value.
 		/// @param[in] argc Number of arguments.
 		/// @param[in] argv Pointer to first argument.
