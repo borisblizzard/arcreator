@@ -31,7 +31,7 @@ MainToolbar = Type("MainToolbar")
 MapEditorWindow = Type("MapEditorWindow")
 MainMapTreeCtrl = Type("MainMapTreeCtrl")
 
-#-------------------------------- layouts --------------------------------
+#-------------------------------- layouts ------------------------------------
 EditorMainWindowLayout = Type("EditorMainWindowLayout")
 ARCModeLayout = Type("ARCModeLayout")
     
@@ -45,10 +45,11 @@ PluginMenuItem = Type("PluginMenuItem")
 NewProjectDialog = Type("NewProjectDialog")
 
 
+
 #=============================================================================
 # * register Types
 #=============================================================================
-#------------------------------- functions -----------------------------------)
+#------------------------------- functions -----------------------------------
 
 #------------------------------ data handlers --------------------------------
 Manager.register_types(NewProjectHandler, OpenProjectHandler, SaveProjectHandler, 
@@ -69,6 +70,7 @@ Manager.register_types(MainMenuBar, MainStatusBar, ProjectMenuItems,
 
 #-------------------------------- dialogs ------------------------------------
 Manager.register_types(NewProjectDialog)
+
 
 #=============================================================================
 # * RMXP SuperType Declaration
@@ -131,6 +133,13 @@ class RMXPType(SuperType):
         #---------------------------- dialogs --------------------------------
         self.add_types(self.DialogImportProject, self.DialogExportProject)
 
+#=============================================================================
+# * PanelManager SuperType Declaration
+#=============================================================================
+class PanelManagerType(SuperType):
+    
+    def __init__(self):
+        SuperType.__init__(self, "PanelManagerType")
 
 #=============================================================================
 # * Package Declaration
@@ -143,7 +152,7 @@ class CorePackage(Package):
         #=====================================================================
         # * add the types
         #=====================================================================
-        self.add_types(RMXPType())
+        self.add_types(RMXPType(), PanelManagerType())
 
         #=====================================================================
         # * add components (main components)
