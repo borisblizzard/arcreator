@@ -53,8 +53,7 @@ module ARC_dump
   def self.build_object_table
     load_string = @@io.read()
     objects = MessagePack.unpack(load_string)
-    key = 0
-    objects.each {|item|
+    objects.each {|key, item|
       @@symbols[key] = item 
       case item[0]
       when 0..4 #False, True, Nil, String, Numeric
@@ -94,7 +93,7 @@ module ARC_dump
           when 0
             new_array.push(item[1])
           when 1
-            new_array.push(@@symbols[item[1][1][0])
+            new_array.push(@@symbols[item[1][1][0]])
           end
         }
       when 6
@@ -102,15 +101,15 @@ module ARC_dump
         obj[1][1].each {|pair|
           case pair[0][0]
           when 0
-            key = pair[0][1])
+            key = pair[0][1]
           when 1
-            key = @@symbols[pair[0][1][1][0])
+            key = @@symbols[pair[0][1][1][0]]
           end
           case pair[1][0]
           when 0
-            value = pair[1][1])
+            value = pair[1][1]
           when 1
-            value = @@symbols[pair[1][1][1][0])
+            value = @@symbols[pair[1][1][1][0]]
           end
           new_hash[key] = value
         }
@@ -120,9 +119,9 @@ module ARC_dump
           variable = pair[0]
           case pair[1][0]
           when 0
-            value = pair[1][1])
+            value = pair[1][1]
           when 1
-            value = @@symbols[pair[1][1][1][0])
+            value = @@symbols[pair[1][1][1][0]]
           end
           klass_obj.instance_variable_set(variable.to_sym, value)
         }
@@ -244,7 +243,7 @@ module ARC_dump
   end
   
   def self.dump_array_object(obj)
-    dump_array = @@symbols[obj.object_id][2]
+    dump_array = @@symbols[obj.object_id][1]
     obj.each {|value| 
       dump_array[1][1].push(self.queue_dump_object(value))
     }
@@ -260,7 +259,7 @@ module ARC_dump
   end
  
   def self.dump_hash_object(obj)
-    dump_array = @@symbols[obj.object_id][2]
+    dump_array = @@symbols[obj.object_id][1]
     obj.each_pair {|key, value|
       pair = [self.queue_dump_object(key), self.queue_dump_object(value)]
       dump_array[1][1].push(pair)
@@ -277,13 +276,13 @@ module ARC_dump
   end
   
   def self.dump_nonstandard_object(obj)
-    dump_array = @@symbols[obj.object_id][2]
+    dump_array = @@symbols[obj.object_id][1]
     if obj.class.method_defined?("_arc_dump")
       dump_array[1][1] = obj._arc_dump
     else
       instance_variables = obj.instance_variables
       instance_variables.each {|value|
-        pair = [value, self.queue_dump_object(obj.instance_variable_get(value)))]
+        pair = [value, self.queue_dump_object(obj.instance_variable_get(value))]
         dump_array[1][1].push(pair)
       }
     end
