@@ -187,7 +187,6 @@ begin
       system = arc_load_data(frompath + "/Data/System.arc")
       map_infos = arc_load_data(frompath + "/Data/MapInfos.arc")
       scripts = arc_load_data(frompath + "/Data/Scripts.arc")
-      p actors
       maps = []
       for key in map_infos.keys()
         _map = arc_load_data(frompath + "/Data/Map%03d.arc" % key)
