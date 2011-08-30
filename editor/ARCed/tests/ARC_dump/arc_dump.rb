@@ -6,6 +6,7 @@ module ARC_dump
   @@io = nil
   @@symbols = {}
   @@strings = {}
+  @@ids = {}
   @@stack = []
   @@finaldump = {}
   @@sym_count = 0
@@ -42,7 +43,7 @@ module ARC_dump
     when 0..4 #False, True, Nil, String, Numeric
       return_obj = object[1]
     when 5..7 #Array, Hash, Class
-      return_obj = return_obj = object[1][0]
+      return_obj = object[1][0]
     else
       return_obj = nil
     end
@@ -90,26 +91,32 @@ module ARC_dump
         new_array = obj[1][0]
         obj[1][1].each {|item|
           case item[0]
-          when 0
+          when 0 #actualy object
             new_array.push(item[1])
-          when 1
-            new_array.push(@@symbols[item[1][1][0]])
+          when 1 #link to array, hash, or user object
+            new_array.push(@@symbols[item[1]][1][0])
+          when 2 #string
+            new_array.push(@@symbols[item[1]][1])
           end
         }
       when 6
         new_hash = obj[1][0]
         obj[1][1].each {|pair|
           case pair[0][0]
-          when 0
+          when 0 #actualy object
             key = pair[0][1]
-          when 1
-            key = @@symbols[pair[0][1][1][0]]
+          when 1 #link to array, hash, or user object
+            key = @@symbols[pair[0][1]][1][0]
+          when 2 #string
+            key = @@symbols[pair[0][1]][1]
           end
           case pair[1][0]
-          when 0
+          when 0 #actualy object
             value = pair[1][1]
-          when 1
-            value = @@symbols[pair[1][1][1][0]]
+          when 1 #link to array, hash, or user object
+            value = @@symbols[pair[1][1]][1][0]
+          when 2 #string
+            value = @@symbols[pair[1][0]][1]
           end
           new_hash[key] = value
         }
@@ -118,10 +125,12 @@ module ARC_dump
         obj[1][1].each {|pair|
           variable = pair[0]
           case pair[1][0]
-          when 0
+          when 0 #actualy object
             value = pair[1][1]
-          when 1
-            value = @@symbols[pair[1][1][1][0]]
+          when 1 #link to array, hash, or user object
+            value = @@symbols[pair[1][1]][1][0]
+          when 2 #string
+            value = @@symbols[pair[1][1]][1]
           end
           klass_obj.instance_variable_set(variable.to_sym, value)
         }
@@ -133,6 +142,7 @@ module ARC_dump
     @@io = nil
     @@symbols = {}
     @@strings = {}
+    @@ids = {}
     @@stack = []
     @@finaldump = {}
     @@sym_count = 0
@@ -168,10 +178,10 @@ module ARC_dump
       result = self.dump_true_object(obj)
     elsif obj.is_a?(NilClass)
       result = self.dump_nil_object(obj)
-    elsif obj.is_a?(String)
-      result = self.dump_string_object(obj)
     elsif obj.is_a?(Numeric)
       result = self.dump_numeric_object(obj)
+    elsif obj.is_a?(String)
+      result = self.dump_string_object(obj)
     elsif obj.is_a?(Array)
       result = self.queue_dump_array_object(obj)
     elsif obj.is_a?(Hash)
@@ -193,44 +203,28 @@ module ARC_dump
   end
   
   def self.dump_true_object(obj)
-    if !@@symbols.has_key?(obj.object_id)
-      dump_array = self.enter_obj(obj)
-      dump_array[0], dump_array[1] = 1, true
-    end
     return [0, true]
   end
   
   def self.dump_false_object(obj)
-    if !@@symbols.has_key?(obj.object_id)
-      dump_array = self.enter_obj(obj)
-      dump_array[0], dump_array[1] = 0, false
-    end
     return [0, false]
   end
   
   def self.dump_nil_object(obj)
-    if !@@symbols.has_key?(obj.object_id)
-      dump_array = self.enter_obj(obj)
-      dump_array[0], dump_array[1] = 2, nil
-    end
     return [0, nil]
+  end
+  
+  def self.dump_numeric_object(obj)
+    return [0, obj]
   end
   
   def self.dump_string_object(obj)
     if !@@strings.has_key?(obj)
       @@strings[obj] = obj.object_id
       dump_array = self.enter_obj(obj)
-      dump_array[0], dump_array[1] = 3, obj
-    end
-    return [1, @@strings[obj]]
-  end
-  
-  def self.dump_numeric_object(obj)
-    if !@@symbols.has_key?(obj.object_id)
-      dump_array = self.enter_obj(obj)
       dump_array[0], dump_array[1] = 4, obj
     end
-    return [0, obj]
+    return [2, @@ids[@@strings[obj]]]
   end
   
   def self.queue_dump_array_object(obj)
@@ -239,7 +233,7 @@ module ARC_dump
       dump_array = self.enter_obj(obj)
       dump_array[0], dump_array[1] = 5, [[],[]]
     end
-    return [1, obj.object_id]
+    return [1, @@ids[obj.object_id]]
   end
   
   def self.dump_array_object(obj)
@@ -255,7 +249,7 @@ module ARC_dump
       dump_array = self.enter_obj(obj)
       dump_array[0], dump_array[1] = 6, [{}, []]
     end
-    return [1, obj.object_id]
+    return [1, @@ids[obj.object_id]]
   end
  
   def self.dump_hash_object(obj)
@@ -272,7 +266,7 @@ module ARC_dump
       dump_array = self.enter_obj(obj)
       dump_array[0], dump_array[1] = 7, [obj.class.to_s,[]]
     end
-    return [1, obj.object_id]
+    return [1, @@ids[obj.object_id]]
   end
   
   def self.dump_nonstandard_object(obj)
@@ -292,6 +286,7 @@ module ARC_dump
     key = obj.object_id
     dump_array = [nil,nil]
     @@symbols[key] = [obj, dump_array]
+    @@ids[key] = @@sym_count
     @@finaldump[@@sym_count] = dump_array
     @@sym_count += 1
     return dump_array
