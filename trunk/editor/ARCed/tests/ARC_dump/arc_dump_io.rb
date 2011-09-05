@@ -11,14 +11,19 @@ else
 end
 #the next few lines are here only for script compialation
 #import test
-#mode = 'import' if mode == nil
-#frompath = '.' if frompath == nil
-#topath = './import' if topath == nil
+# mode = 'import' if mode == nil
+# frompath = '.' if frompath == nil
+# topath = './import' if topath == nil
 
 #export test
+# mode = 'export' if mode == nil
+# frompath = './import' if frompath == nil
+# topath = './export' if topath == nil
+
+#python test
 mode = 'export' if mode == nil
-frompath = './import' if frompath == nil
-topath = './export' if topath == nil
+frompath = './python_export' if frompath == nil
+topath = './ruby_python_export' if topath == nil
 #END script compialation nil handleing
 
 require './data'
@@ -35,7 +40,7 @@ end
 def arc_load_data(filename)
   puts "- Loading ARC #{filename}..."
   f = open(filename, 'rb')
-  data = ARC_dump.load(f)
+  data = ARC_Dump.load(f)
   f.close()
   return data
 end
@@ -50,14 +55,13 @@ end
 def arc_dump_data(filename, data)
   puts "- Dumping ARC #{filename}..."
   f = open(filename, 'wb')
-  ARC_dump.dump(data, f)
+  ARC_Dump.dump(data, f)
   f.close()
 end
 
 success = false
 
 filename = "ARC_DUMP_IO.log"
-time_now = Time.now
 begin
   unless File.directory?(topath)
       Dir.mkdir(topath)
@@ -97,6 +101,7 @@ begin
       end
     else
       #load /Data
+      time_now = Time.now
       actors = load_data(frompath + "/Data/Actors.rxdata")
       classes = load_data(frompath + "/Data/Classes.rxdata")
       skills = load_data(frompath + "/Data/Skills.rxdata")
@@ -117,6 +122,10 @@ begin
         _map = load_data(frompath + "/Data/Map%03d.rxdata" % key)
         maps.push(_map)
       end
+      puts ""
+      puts "Compleated Loading in: #{Time.now - time_now} Seconds"
+      puts ""
+      time_now = Time.now
       #dump /Data
       arc_dump_data(topath + "/Data/Actors.arc", actors)
       arc_dump_data(topath + "/Data/Classes.arc", classes)
@@ -138,6 +147,9 @@ begin
         arc_dump_data(topath + "/Data/Map%03d.arc" % key, maps[i])
         i += 1
       end
+      puts ""
+      puts "Compleated Dumping in: #{Time.now - time_now} Seconds"
+      puts ""
     end
     puts "Done"
     success = true
@@ -172,6 +184,7 @@ begin
       end
     else
       #load /Data
+      time_now = Time.now
       actors = arc_load_data(frompath + "/Data/Actors.arc")
       classes = arc_load_data(frompath + "/Data/Classes.arc")
       skills = arc_load_data(frompath + "/Data/Skills.arc")
@@ -192,6 +205,10 @@ begin
         _map = arc_load_data(frompath + "/Data/Map%03d.arc" % key)
         maps.push(_map)
       end
+      puts ""
+      puts "Compleated Loading in: #{Time.now - time_now} Seconds"
+      puts ""
+      time_now = Time.now
       #dump Data
       dump_data(topath + "/Data/Actors.rxdata", actors)
       dump_data(topath + "/Data/Classes.rxdata", classes)
@@ -213,6 +230,9 @@ begin
         dump_data(topath + "/Data/Map%03d.rxdata" % key, maps[i])
         i += 1
       end
+      puts ""
+      puts "Compleated Dumping in: #{Time.now - time_now} Seconds"
+      puts ""
     end
     puts "Done"
     success = true
@@ -234,4 +254,3 @@ ensure
   end
   f.close()
 end
-print "Compleated in: #{Time.now - time_now} Seconds"

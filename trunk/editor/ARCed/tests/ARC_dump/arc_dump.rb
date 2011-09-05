@@ -1,7 +1,7 @@
 load 'data.rb'
 require 'msgpack'
 
-module ARC_dump
+module ARC_Dump
 
   @@io = nil
   @@symbols = {}
@@ -10,23 +10,12 @@ module ARC_dump
   @@stack = []
   @@finaldump = {}
   @@sym_count = 0
-  @@good_objects = [FalseClass, TrueClass, NilClass, String, Numeric, Array] + 
-                   [Hash, RPG::Actor, RPG::Class, RPG::Class::Learning] +
-                   [RPG::Skill, RPG::Item, RPG::EventCommand, RPG::Weapon] +
-                   [RPG::Armor, RPG::Enemy, RPG::Enemy::Action, RPG::Troop] +
-                   [RPG::Troop::Member, RPG::Troop::Page] + 
-                   [RPG::Troop::Page::Condition, RPG::State] +
-                   [RPG::Animation, RPG::Animation::Frame] +
-                   [RPG::Animation::Timing, RPG::Tileset, RPG::CommonEvent] +
-                   [RPG::System, RPG::System::Words, RPG::System::TestBattler] +
-                   [RPG::AudioFile,RPG::Map, RPG::MapInfo, RPG::Event] +
-                   [RPG::Event::Page, RPG::Event::Page::Condition] +
-                   [RPG::Event::Page::Graphic, RPG::MoveRoute] +
-                   [RPG::MoveCommand, Table, Color, Tone]
   @@pending_objects = []
-  @@top_object_key = 0
+  @@post_load_objects = []
+  @@class_path_redirects = {}
 
-  def self.dump(obj, io)
+  def self.dump(obj, io, redirects = {})
+    @@class_path_redirects = redirects
     @@io = io
     self.queue_dump_object(obj)
     self.start_dump
@@ -34,10 +23,12 @@ module ARC_dump
     self.reset
   end
   
-  def self.load(io)
+  def self.load(io, redirects = {})
+    @@class_path_redirects = redirects
     @@io = io
     self.build_object_table
     self.link_objects
+    self.call_arc_post_load
     object = @@symbols[0]
     case object[0]
     when 0..4 #False, True, Nil, String, Numeric
@@ -62,7 +53,12 @@ module ARC_dump
       when 5..6 #Array, Hash
         @@pending_objects.push(key) if !item[1].empty?
       when 7    #Class
-        klasses = item[1][0].split("::")
+        if @@class_path_redirects.has_key?(item[1][0])
+          klass_path = item[1][0]
+        else
+          klass_path = item[1][0]
+        end
+        klasses = klass_path.split("::")
         if Kernel.const_defined?(klasses[0].to_sym)
           klass = Kernel.const_get(klasses[0].to_sym)
         else
@@ -122,19 +118,32 @@ module ARC_dump
         }
       when 7
         klass_obj = obj[1][0]
-        obj[1][1].each {|pair|
-          variable = pair[0]
-          case pair[1][0]
-          when 0 #actualy object
-            value = pair[1][1]
-          when 1 #link to array, hash, or user object
-            value = @@symbols[pair[1][1]][1][0]
-          when 2 #string
-            value = @@symbols[pair[1][1]][1]
-          end
-          klass_obj.instance_variable_set(variable.to_sym, value)
-        }
+        if klass_obj.class.method_defined?("_arc_load")
+          klass_obj._arc_load(obj[1][1])
+        else
+          obj[1][1].each {|pair|
+            variable = pair[0]
+            case pair[1][0]
+            when 0 #actualy object
+              value = pair[1][1]
+            when 1 #link to array, hash, or user object
+              value = @@symbols[pair[1][1]][1][0]
+            when 2 #string
+              value = @@symbols[pair[1][1]][1]
+            end
+            klass_obj.instance_variable_set(("@" + variable.strip).to_sym, value)
+          }
+        end
+        if klass_obj.class.method_defined?("_post_arc_load")
+          @@post_load_objects.push(klass_obj)
+        end
       end
+    }
+  end
+  
+  def self.call_arc_post_load
+    @@post_load_objects.each {|obj|
+      obj._post_arc_load
     }
   end
   
@@ -147,7 +156,7 @@ module ARC_dump
     @@finaldump = {}
     @@sym_count = 0
     @@pending_objects = []
-    @@top_object_key = 0
+    @@class_path_redirects = {}
   end
   
   def self.start_dump
@@ -162,16 +171,6 @@ module ARC_dump
   end
   
   def self.queue_dump_object(obj)
-    flag = false
-    for klass in @@good_objects
-      if obj.is_a?(klass)
-        flag = true
-        break
-      end
-    end
-    if !flag
-      raise TypeError, "Can't dump #{obj.class.to_s}"
-    end
     if obj.is_a?(FalseClass)
       result = self.dump_false_object(obj)
     elsif obj.is_a?(TrueClass)
@@ -264,19 +263,34 @@ module ARC_dump
     if !@@symbols.has_key?(obj.object_id)
       @@stack.push(obj)
       dump_array = self.enter_obj(obj)
-      dump_array[0], dump_array[1] = 7, [obj.class.to_s,[]]
+      if @@class_path_redirects.has_key?(obj.class.to_s)
+        klass_path = @@class_path_redirects[obj.class.to_s]
+      else
+        klass_path = obj.class.to_s
+      end
+      dump_array[0], dump_array[1] = 7, [klass_path,[]]
     end
     return [1, @@ids[obj.object_id]]
   end
   
   def self.dump_nonstandard_object(obj)
     dump_array = @@symbols[obj.object_id][1]
+    if obj.class.method_defined?("_prep_arc_dump")
+      obj._prep_arc_dump
+    end
     if obj.class.method_defined?("_arc_dump")
       dump_array[1][1] = obj._arc_dump
     else
+      if obj.class.method_defined?("_arc_exclude")
+        excludes = obj._arc_exclude
+      else
+        excludes = []
+      end
       instance_variables = obj.instance_variables
       instance_variables.each {|value|
-        pair = [value, self.queue_dump_object(obj.instance_variable_get(value))]
+        name = value.to_s.gsub("@", "")
+        next if excludes.include?(name)
+        pair = [name, self.queue_dump_object(obj.instance_variable_get(value))]
         dump_array[1][1].push(pair)
       }
     end
