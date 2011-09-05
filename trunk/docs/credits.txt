@@ -29,6 +29,7 @@
 [li]Ilya "Agckuu Coceg" Suprunenko (2 characters)[/li]
 [li]Tim "AngryPacman" Barker (large contribution of Music and Sound)[/li]
 [li]"Taiine" (several tileset trees)[/li]
+[li]"teatro" (one game over graphic)[/li]
 [/list]
 
 [size=14pt][b]Special Thanks:[/b][/size]
