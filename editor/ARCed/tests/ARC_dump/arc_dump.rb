@@ -54,7 +54,7 @@ module ARC_Dump
         @@pending_objects.push(key) if !item[1].empty?
       when 7    #Class
         if @@class_path_redirects.has_key?(item[1][0])
-          klass_path = item[1][0]
+          klass_path = @@class_path_redirects[item[1][0]]
         else
           klass_path = item[1][0]
         end
@@ -112,7 +112,7 @@ module ARC_Dump
           when 1 #link to array, hash, or user object
             value = @@symbols[pair[1][1]][1][0]
           when 2 #string
-            value = @@symbols[pair[1][0]][1]
+            value = @@symbols[pair[1][1]][1]
           end
           new_hash[key] = value
         }
