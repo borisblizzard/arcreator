@@ -1,0 +1,8 @@
+If your screenshot files do not appear here, they are located at the following
+location depending on your operating system.
+
+Windows XP:
+%ALLUSERSPROFILE%\Application Data\Stormtronics\Lexima Legends IV - Chaos Project\Screenshots\
+
+Windows Vista / Windows 7:
+%ALLUSERSPROFILE%\Stormtronics\Lexima Legends IV - Chaos Project\%USERNAME%\Screenshots\

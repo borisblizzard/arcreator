@@ -1,0 +1,206 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="win32_Debug|Win32">
+      <Configuration>win32_Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="win32_Release|Win32">
+      <Configuration>win32_Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{E981D4B9-155F-496E-9C5D-3A6595A35CB8}</ProjectGuid>
+    <RootNamespace>sbearer</RootNamespace>
+    <ProjectName>arc</ProjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='win32_Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <CLRSupport>false</CLRSupport>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='win32_Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='win32_Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='win32_Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='win32_Debug|Win32'">bin\$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='win32_Debug|Win32'">bin\$(Configuration)\</IntDir>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='win32_Debug|Win32'">true</GenerateManifest>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='win32_Release|Win32'">bin\$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='win32_Release|Win32'">bin\$(Configuration)\</IntDir>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='win32_Release|Win32'">true</GenerateManifest>
+    <EmbedManifest Condition="'$(Configuration)|$(Platform)'=='win32_Release|Win32'">true</EmbedManifest>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='win32_Release|Win32'">Game</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='win32_Debug|Win32'">Game</TargetName>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='win32_Debug|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>src;external/include;external/hltypes/include;external/april/include;external/zer0/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_WIN32;_DESKTOP;_DEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>true</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <DisableSpecificWarnings>4251</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>libhltypes.lib;libapril.lib;zer0division.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>bin\$(Configuration)\$(TargetName)$(TargetExt)</OutputFile>
+      <AdditionalLibraryDirectories>external/hltypes/bin/win32_Debug;external/april/bin;external/zer0/bin/win32_Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalManifestDependencies>%(AdditionalManifestDependencies)</AdditionalManifestDependencies>
+      <UACExecutionLevel>AsInvoker</UACExecutionLevel>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Console</SubSystem>
+      <ImportLibrary>
+      </ImportLibrary>
+      <TargetMachine>MachineX86</TargetMachine>
+      <UACUIAccess>false</UACUIAccess>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </Link>
+    <PostBuildEvent>
+      <Command>copy external\gtypes\bin\win32_Debug\libgtypes.dll bin\$(Configuration)
+copy external\hltypes\bin\win32_Debug\libhltypes.dll bin\$(Configuration)
+copy external\hltypes\bin\hlxml\win32_Debug\libhlxml.dll bin\$(Configuration)
+copy external\april\bin\libapril.dll bin\$(Configuration)
+copy external\april\bin\libaprilutil.dll bin\$(Configuration)
+copy external\atres\bin\win32_Debug\libatres.dll bin\$(Configuration)
+copy external\atres\bin\atresttf\win32_Debug\libatresttf.dll bin\$(Configuration)
+copy external\aprilui\bin\win32_Debug\libaprilui.dll bin\$(Configuration)
+copy external\xal\bin\libxal.dll bin\$(Configuration)
+copy external\rgss\bin\win32_Debug\zer0rgss.dll bin\$(Configuration)
+copy external\zer0\bin\win32_Debug\zer0division.dll bin\$(Configuration)
+copy external\lib\msvc90\*.dll bin\$(Configuration)
+copy external\lib\msvc100\*.dll bin\$(Configuration)
+copy arc.cfg bin\$(Configuration)
+</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='win32_Release|Win32'">
+    <BuildLog>
+      <Path>$(IntDir)\$(MSBuildProjectName).log</Path>
+    </BuildLog>
+    <ClCompile>
+      <Optimization>Full</Optimization>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <AdditionalIncludeDirectories>src;external/include;external/hltypes/include;external/april/include;external/zer0/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_WIN32;_DESKTOP;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DisableSpecificWarnings>4251</DisableSpecificWarnings>
+      <UseFullPaths>false</UseFullPaths>
+      <OmitDefaultLibName>false</OmitDefaultLibName>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>libhltypes.lib;libapril.lib;zer0division.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>bin\$(Configuration)\$(TargetName)$(TargetExt)</OutputFile>
+      <AdditionalLibraryDirectories>external/hltypes/bin/win32_Release;external/april/bin;external/zer0/bin/win32_Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalManifestDependencies>%(AdditionalManifestDependencies)</AdditionalManifestDependencies>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <ImportLibrary>
+      </ImportLibrary>
+      <TargetMachine>MachineX86</TargetMachine>
+      <SetChecksum>true</SetChecksum>
+      <UACUIAccess>false</UACUIAccess>
+    </Link>
+    <Manifest>
+      <AdditionalManifestFiles>
+      </AdditionalManifestFiles>
+    </Manifest>
+    <PostBuildEvent>
+      <Command>copy external\gtypes\bin\win32_Release\libgtypes.dll bin\$(Configuration)
+copy external\hltypes\bin\win32_Release\libhltypes.dll bin\$(Configuration)
+copy external\hltypes\bin\hlxml\win32_Release\libhlxml.dll bin\$(Configuration)
+copy external\april\bin\libapril.dll bin\$(Configuration)
+copy external\april\bin\libaprilutil.dll bin\$(Configuration)
+copy external\atres\bin\win32_Release\libatres.dll bin\$(Configuration)
+copy external\atres\bin\atresttf\win32_Release\libatresttf.dll bin\$(Configuration)
+copy external\aprilui\bin\win32_Release\libaprilui.dll bin\$(Configuration)
+copy external\xal\bin\libxal.dll bin\$(Configuration)
+copy external\rgss\bin\win32_Release\zer0rgss.dll bin\$(Configuration)
+copy external\zer0\bin\win32_Release\zer0division.dll bin\$(Configuration)
+copy external\lib\msvc90\DevIL.dll bin\$(Configuration)
+copy external\lib\msvc90\libogg.dll bin\$(Configuration)
+copy external\lib\msvc90\libvorbis.dll bin\$(Configuration)
+copy external\lib\msvc90\libvorbisfile.dll bin\$(Configuration)
+copy external\lib\msvc90\libxml2.dll bin\$(Configuration)
+copy external\lib\msvc100\msvcr100-ruby192.dll bin\$(Configuration)
+copy arc.cfg bin\$(Configuration)
+del bin\$(Configuration)\*.obj
+del bin\$(Configuration)\*.res
+del bin\$(Configuration)\*.tlog
+del bin\$(Configuration)\*.lastbuildstate
+del bin\$(Configuration)\*.pdb
+del bin\$(Configuration)\*.manifest
+</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ResourceCompile Include="fileproperties.rc" />
+    <ResourceCompile Include="resources.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\main.cpp">
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='win32_Debug|Win32'">$(IntDir)%(RelativeDir)%(Filename).obj</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='win32_Release|Win32'">$(IntDir)%(RelativeDir)%(Filename).obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="src\Utility.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="external\april\aprilutil\libaprilutil.vcxproj">
+      <Project>{2d053cda-686c-4b36-80eb-1da5f0cef8f9}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="external\april\libapril.vcxproj">
+      <Project>{2d053cda-686b-4b36-80eb-1da5f0cef8f9}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="external\atres\libatres.vcxproj">
+      <Project>{a1e808a0-fe36-47fe-9e3b-cf195ea31f0a}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="external\gtypes\libgtypes.vcxproj">
+      <Project>{9c043b29-db40-48d5-97d8-1bc44128e3ba}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="external\hltypes\libhltypes.vcxproj">
+      <Project>{e4d373bf-e227-48b9-99e6-84987e8674ec}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="external\xal\libxal.vcxproj">
+      <Project>{6b6c070b-7dd7-41b9-8dd7-12afbf0f6c08}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\Constants.h" />
+    <ClInclude Include="src\Utility.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
