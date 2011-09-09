@@ -247,8 +247,6 @@ namespace rgss
 			d = INT2FIX(0);
 		}
 		RB_SELF2CPP(Table, table);
-		// get the method id
-		ID pack_id = rb_intern("pack");
 
 		int size = table->xSize * table->ySize * table->zSize;
 		// store sizes
@@ -266,18 +264,15 @@ namespace rgss
 		// convert data array into data stream
 		hstr format = "LLLLL" + hstr('S', size);
 		VALUE data_fmt = rb_str_new2(format.c_str());
-		VALUE byte_string = rb_funcall(data, pack_id, 1, data_fmt);
+		VALUE byte_string = rb_funcall_1(data, "pack", data_fmt);
 		return byte_string;
 	}
 
 	VALUE Table::rb_load(VALUE self, VALUE value)
 	{
-		// get the method ids
-		ID unpack_id = rb_intern("unpack");
-		ID slice_id = rb_intern("[]");
 		// load Table size data
-		VALUE sliced_string = rb_funcall(value, slice_id, 2, INT2FIX(4), INT2FIX(12));
-		VALUE data = rb_funcall(sliced_string, unpack_id, 1, rb_str_new2("LLL"));
+		VALUE sliced_string = rb_funcall_2(value, "[]", INT2FIX(4), INT2FIX(12));
+		VALUE data = rb_funcall_1(sliced_string, "unpack", rb_str_new2("LLL"));
 		VALUE rb_xSize = rb_ary_shift(data);
 		VALUE rb_ySize = rb_ary_shift(data);
 		VALUE rb_zSize = rb_ary_shift(data);
@@ -288,8 +283,8 @@ namespace rgss
 		RB_VAR2CPP(rb_table, Table, table);
 		// loading data entries
 		VALUE data_fmt = rb_str_new2(hstr('S', size).c_str());
-		sliced_string = rb_funcall(value, slice_id, 2, INT2FIX(20), INT2FIX(size * 2));
-		data = rb_funcall(sliced_string, unpack_id, 1, data_fmt);
+		sliced_string = rb_funcall_2(value, "[]", INT2FIX(20), INT2FIX(size * 2));
+		data = rb_funcall_1(sliced_string, "unpack", data_fmt);
 		for_iter (i, 0, size)
 		{
 			table->data[i] = (short)NUM2INT(rb_ary_shift(data));

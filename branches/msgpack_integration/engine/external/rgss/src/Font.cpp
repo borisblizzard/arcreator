@@ -96,7 +96,7 @@ namespace rgss
 		font->size = (!NIL_P(name) ? NUM2INT(size) : defaultSize);
 		font->bold = defaultBold;
 		font->italic = defaultItalic;
-		Font::rb_setColor(self, rb_funcall(rb_defaultColor, rb_intern("clone"), 0, NULL));
+		Font::rb_setColor(self, rb_f_clone(rb_defaultColor));
 		return self;
 	}
 
@@ -109,7 +109,7 @@ namespace rgss
 		font->size = other->size;
 		font->bold = other->bold;
 		font->italic = other->italic;
-		Font::rb_setColor(self, rb_funcall(other->rb_color, rb_intern("clone"), 0, NULL));
+		Font::rb_setColor(self, rb_f_clone(other->rb_color));
 		return self;
 	}
 

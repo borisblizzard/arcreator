@@ -57,7 +57,7 @@
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <DisableSpecificWarnings>4251</DisableSpecificWarnings>
-      <AdditionalIncludeDirectories>src;include/rgss;../gtypes/include;../hltypes/include;../atres/include;../atres/atresttf/include;../april/include;../xal/include;../include;../include/ruby192;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;include/rgss;../gtypes/include;../hltypes/include;../atres/include;../atres/atresttf/include;../april/include;../xal/include;../include;../include/ruby192;../include/msgpack;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <AdditionalDependencies>msvcr100-ruby192.lib;libgtypes.lib;libhltypes.lib;libapril.lib;libatres.lib;libatresttf.lib;libxal.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -82,7 +82,7 @@
       <DisableSpecificWarnings>4251</DisableSpecificWarnings>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <MinimalRebuild>false</MinimalRebuild>
-      <AdditionalIncludeDirectories>src;include/rgss;../gtypes/include;../hltypes/include;../atres/include;../atres/atresttf/include;../april/include;../xal/include;../include;../include/ruby192;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;include/rgss;../gtypes/include;../hltypes/include;../atres/include;../atres/atresttf/include;../april/include;../xal/include;../include;../include/ruby192;../include/msgpack;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <AdditionalDependencies>msvcr100-ruby192.lib;libgtypes.lib;libhltypes.lib;libapril.lib;libatres.lib;libatresttf.lib;libxal.lib;%(AdditionalDependencies)</AdditionalDependencies>

@@ -24,6 +24,7 @@
 #ifndef _WIN32
 #include <sys/uio.h>
 #else
+#define _IOVEC_DEFINED
 struct iovec {
 	void  *iov_base;
 	size_t iov_len;
