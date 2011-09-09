@@ -134,7 +134,7 @@ class Component(object):
         '''initializes a Kernel.Component object
         
         object - the extension object
-        should use the Kerne.Function class
+        should use the Kernel.Function class
         type - a Type object holds the type of the extension, used to group 
         the object for retrieval
         name - a string that uniquely identifies the extension, used for 
