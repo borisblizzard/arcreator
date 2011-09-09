@@ -121,7 +121,7 @@ def link_objects():
                 elif pair[1][0] == 1: #link to array, hash, or user object
                     value = __symbols[pair[1][1]][1][0]
                 elif pair[1][0] == 2: #string
-                    value = __symbols[pair[1][0]][1]
+                    value = __symbols[pair[1][1]][1]
                 new_hash[key] = value    
         elif obj[0] == 7: #nonstandard object
             klass_obj = obj[1][0]
