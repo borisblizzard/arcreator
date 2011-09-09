@@ -204,10 +204,13 @@ struct timezone;
 #define isascii __isascii
 #endif
 
+#ifndef _IOVEC_DEFINED
+#define _IOVEC_DEFINED
 struct iovec {
     void *iov_base;
     size_t iov_len;
 };
+#endif
 struct msghdr {
     void *msg_name;
     int msg_namelen;
