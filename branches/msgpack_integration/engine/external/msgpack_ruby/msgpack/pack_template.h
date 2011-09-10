@@ -634,19 +634,19 @@ if(sizeof(unsigned long long) == 2) {
 
 msgpack_pack_inline_func(_float)(msgpack_pack_user x, float d)
 {
-	float f = d;
-	uint32_t i;
+	union { float f; uint32_t i; } mem;
+	mem.f = d;
 	unsigned char buf[5];
-	buf[0] = 0xca; _msgpack_store32(&buf[1], i);
+	buf[0] = 0xca; _msgpack_store32(&buf[1], mem.i);
 	msgpack_pack_append_buffer(x, buf, 5);
 }
 
 msgpack_pack_inline_func(_double)(msgpack_pack_user x, double d)
 {
-	double f = d;
-	uint64_t i;
+	union { double f; uint64_t i; } mem;
+	mem.f = d;
 	unsigned char buf[9];
-	buf[0] = 0xcb; _msgpack_store64(&buf[1], i);
+	buf[0] = 0xcb; _msgpack_store64(&buf[1], mem.i);
 	msgpack_pack_append_buffer(x, buf, 9);
 }
 

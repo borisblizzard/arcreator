@@ -96,7 +96,7 @@ msgpack_unpack_func(msgpack_unpack_object, _data)(msgpack_unpack_struct(_context
 
 msgpack_unpack_func(int, _execute)(msgpack_unpack_struct(_context)* ctx, const char* data, size_t len, size_t* off)
 {
-	//assert(len >= *off);
+	assert(len >= *off);
 
 	const unsigned char* p = (unsigned char*)data + *off;
 	const unsigned char* const pe = (unsigned char*)data + len;
