@@ -18,8 +18,6 @@ namespace rgss
 	harray<VALUE> MsgPack::pending_objects;
 	harray<VALUE> MsgPack::post_load_objects;
 
-	unsigned char* MsgPack::stream;
-
 	/****************************************************************************************
 	 * Ruby Interfacing, Creation, Destruction, Systematics
 	 ****************************************************************************************/
@@ -116,7 +114,7 @@ namespace rgss
 			}
 			else if (type == 7) // Class
 			{
-				VALUE pair = rb_ary_entry(it->second, 1);
+				pair = rb_ary_entry(it->second, 1);
 				VALUE class_path = rb_ary_entry(pair, 0);
 				hstr class_name = StringValuePtr(class_path);
 				harray<hstr> classes = class_name.split("::");
@@ -127,9 +125,9 @@ namespace rgss
 					rb_raise(rb_eTypeError, "Class not defined: %s", class_name.c_str());
 				}
 				VALUE classe = rb_funcall_1(rb_mKernel, "const_get", class_symbol);
-				foreach (hstr, it, classes)
+				foreach (hstr, it2, classes)
 				{
-					class_symbol = rb_f_to_sym(rb_str_new2((*it).c_str()));
+					class_symbol = rb_f_to_sym(rb_str_new2((*it2).c_str()));
 					classe = rb_funcall_1(classe, "const_get", class_symbol);
 				}
 				VALUE class_obj = rb_funcall_0(classe, "allocate");

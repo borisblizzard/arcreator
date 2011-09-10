@@ -15,10 +15,10 @@
 #define READ_ENDIANESS_8(data) READ_ENDIANESS_4(data) // we use a 32-bit "long"
 #endif
 
-#define CHECK_BITS(data, value) (((data) & (value)) == (value))
-
 namespace rgss
 {
+	unsigned char* MsgPack::stream;
+
 	/****************************************************************************************
 	 * Utility
 	 ****************************************************************************************/
@@ -73,11 +73,11 @@ namespace rgss
 	VALUE MsgPack::_unpack_object()
 	{
 		unsigned char type = MsgPack::__read_stream();
-		if (CHECK_BITS(type, 0x80))
+		if ((type & 0x80) == 0)
 		{
 			return MsgPack::_unpack_pint8(type);
 		}
-		if (CHECK_BITS(type, 0xE0))
+		if ((type & 0xE0) == 0xE0)
 		{
 			return MsgPack::_unpack_nint8(type);
 		}
@@ -133,7 +133,7 @@ namespace rgss
 		{
 			return MsgPack::_unpack_double();
 		}
-		if (CHECK_BITS(type, 0xA0))
+		if ((type & 0xA0) == 0xA0)
 		{
 			return MsgPack::_unpack_raw((type & 0x1F));
 		}
@@ -145,7 +145,7 @@ namespace rgss
 		{
 			return MsgPack::_unpack_raw(MsgPack::__read_uint32());
 		}
-		if (CHECK_BITS(type, 0x90))
+		if ((type & 0x90) == 0x90)
 		{
 			return MsgPack::_unpack_array(type & 0x0F);
 		}
@@ -157,7 +157,7 @@ namespace rgss
 		{
 			return MsgPack::_unpack_array(MsgPack::__read_uint32());
 		}
-		if (CHECK_BITS(type, 0x80))
+		if ((type, 0x80) == 0x80)
 		{
 			return MsgPack::_unpack_map(type & 0x0F);
 		}
