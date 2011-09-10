@@ -82,7 +82,7 @@ begin
           domaps = true
         else
           data = load_data(frompath + "/Data/#{file}.rxdata")
-          arc_dump_data(topath + "Data/acotrs")
+          arc_dump_data(topath + "Data/actors")
         end
       end
       if domaps
@@ -127,24 +127,24 @@ begin
       puts ""
       time_now = Time.now
       #dump /Data
-      arc_dump_data(topath + "/Data/Actors.arc", actors)
-      arc_dump_data(topath + "/Data/Classes.arc", classes)
-      arc_dump_data(topath + "/Data/Skills.arc", skills)
-      arc_dump_data(topath + "/Data/Items.arc", items)
-      arc_dump_data(topath + "/Data/Weapons.arc", weapons)
-      arc_dump_data(topath + "/Data/Armors.arc", armors)
-      arc_dump_data(topath + "/Data/Enemies.arc", enemies)
-      arc_dump_data(topath + "/Data/Troops.arc", troops)
-      arc_dump_data(topath + "/Data/States.arc", states)
-      arc_dump_data(topath + "/Data/Animations.arc", animations)
-      arc_dump_data(topath + "/Data/Tilesets.arc", tilesets)
-      arc_dump_data(topath + "/Data/CommonEvents.arc", common_events)
-      arc_dump_data(topath + "/Data/System.arc", system)
-      arc_dump_data(topath + "/Data/MapInfos.arc", map_infos)
-      arc_dump_data(topath + "/Data/Scripts.arc", scripts)
+      arc_dump_data(topath + "/Data/Actors.rxdata", actors)
+      arc_dump_data(topath + "/Data/Classes.rxdata", classes)
+      arc_dump_data(topath + "/Data/Skills.rxdata", skills)
+      arc_dump_data(topath + "/Data/Items.rxdata", items)
+      arc_dump_data(topath + "/Data/Weapons.rxdata", weapons)
+      arc_dump_data(topath + "/Data/Armors.rxdata", armors)
+      arc_dump_data(topath + "/Data/Enemies.rxdata", enemies)
+      arc_dump_data(topath + "/Data/Troops.rxdata", troops)
+      arc_dump_data(topath + "/Data/States.rxdata", states)
+      arc_dump_data(topath + "/Data/Animations.rxdata", animations)
+      arc_dump_data(topath + "/Data/Tilesets.rxdata", tilesets)
+      arc_dump_data(topath + "/Data/CommonEvents.rxdata", common_events)
+      arc_dump_data(topath + "/Data/System.rxdata", system)
+      arc_dump_data(topath + "/Data/MapInfos.rxdata", map_infos)
+      arc_dump_data(topath + "/Data/Scripts.rxdata", scripts)
       i = 0
       for key in map_infos.keys()
-        arc_dump_data(topath + "/Data/Map%03d.arc" % key, maps[i])
+        arc_dump_data(topath + "/Data/Map%03d.rxdata" % key, maps[i])
         i += 1
       end
       puts ""
