@@ -4,6 +4,7 @@
 #include "Font.h"
 #include "Graphics.h"
 #include "Input.h"
+#include "MsgPack.h"
 #include "Plane.h"
 #include "Rect.h"
 #include "RGSSError.h"
@@ -54,6 +55,7 @@ namespace rgss
 		Font::createRubyInterface();
 		Graphics::createRubyInterface();
 		Input::createRubyInterface();
+		MsgPack::createRubyInterface();
 		Plane::createRubyInterface();
 		Rect::createRubyInterface();
 		RGSSError::createRubyInterface();
@@ -70,6 +72,7 @@ namespace rgss
 		Font::init();
 		Graphics::init();
 		Input::init();
+		MsgPack::init();
 		Plane::init();
 		Rect::init();
 		RGSSError::init();
