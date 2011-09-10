@@ -51,6 +51,38 @@ namespace rgss
 		/// @brief
 		static harray<VALUE> post_load_objects;
 
+		static unsigned char* stream;
+
+		static unsigned char __read_stream();
+		static unsigned char* __read_stream(unsigned int bytes);
+		static unsigned char __read_uint8();
+		static unsigned short __read_uint16();
+		static unsigned int __read_uint32();
+		static unsigned long __read_uint64();
+
+		static VALUE _unpack(unsigned char* data);
+		static VALUE _unpack_object();
+
+		static VALUE _unpack_pint8(unsigned char data);
+		static VALUE _unpack_nint8(unsigned char data);
+		static VALUE _unpack_uint8();
+		static VALUE _unpack_uint16();
+		static VALUE _unpack_uint32();
+		static VALUE _unpack_uint64();
+		static VALUE _unpack_int8();
+		static VALUE _unpack_int16();
+		static VALUE _unpack_int32();
+		static VALUE _unpack_int64();
+		static VALUE _unpack_nil();
+		static VALUE _unpack_true();
+		static VALUE _unpack_false();
+		static VALUE _unpack_float();
+		static VALUE _unpack_double();
+		static VALUE _unpack_raw(unsigned int size);
+		static VALUE _unpack_array(unsigned int size);
+		static VALUE _unpack_map(unsigned int size);
+
+
 		static void _build_object_table();
 		static void _link_objects();
 		static void _call_arc_post_load();

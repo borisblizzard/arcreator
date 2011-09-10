@@ -97,6 +97,12 @@
     <ClCompile Include="src\MsgPack.cpp">
       <Filter>Source Files\System</Filter>
     </ClCompile>
+    <ClCompile Include="src\MsgPack_pack.cpp">
+      <Filter>Source Files\System</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MsgPack_unpack.cpp">
+      <Filter>Source Files\System</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\CodeSnippets.h">

@@ -1,4 +1,3 @@
-#include <msgpack.hpp>
 #include <ruby.h>
 
 #include <hltypes/harray.h>
@@ -18,6 +17,8 @@ namespace rgss
 	int MsgPack::sym_count;
 	harray<VALUE> MsgPack::pending_objects;
 	harray<VALUE> MsgPack::post_load_objects;
+
+	unsigned char* MsgPack::stream;
 
 	/****************************************************************************************
 	 * Ruby Interfacing, Creation, Destruction, Systematics
@@ -86,10 +87,8 @@ namespace rgss
 	void MsgPack::_build_object_table()
 	{
 		VALUE load_string = rb_funcall_0(io, "read");
-		const char* data = StringValuePtr(load_string);
-		int size = NUM2INT(rb_str_size(load_string));
-		VALUE MessagePack = rb_intern("MessagePack");
-		VALUE values = rb_funcall_1(MessagePack, "unpack", load_string);
+		unsigned char* data = (unsigned char*)StringValuePtr(load_string);
+		VALUE values = MsgPack::_unpack(data);
 		VALUE keys = rb_funcall_0(values, "keys");
 		hmap<VALUE, VALUE> objects;
 		VALUE key;
@@ -99,6 +98,7 @@ namespace rgss
 			objects[key] = rb_hash_aref(values, key);
 		}
 		int type;
+		VALUE pair;
 		foreach_map (VALUE, VALUE, it, objects)
 		{
 			symbols[it->first] = it->second;
@@ -107,7 +107,7 @@ namespace rgss
 			{
 				continue;
 			}
-			else if (is_between(type, 6, 6)) // Array, Hash
+			else if (is_between(type, 5, 6)) // Array, Hash
 			{
 				if (NUM2INT(rb_ary_size(rb_ary_entry(it->second, 1))) > 0)
 				{
@@ -116,28 +116,25 @@ namespace rgss
 			}
 			else if (type == 7) // Class
 			{
-				/*
-				if @@class_path_redirects.has_key?(item[1][0])
-					klass_path = class_path_redirects[item[1][0]]
-				else
-					klass_path = item[1][0]
-				end
-				klasses = klass_path.split("::")
-				if Kernel.const_defined?(klasses[0].to_sym)
-					klass = Kernel.const_get(klasses[0].to_sym)
-				else
-					raise TypeError, "No class defined: #{klasses[0]} "
-				end
-				if klasses.size > 1
-					klasses.each_index {|index|
-					next if index == 0
-					klass = klass.const_get(klasses[index].to_sym)
-					}
-				end
-				klass_obj = klass.allocate()
-				item[1][0] = klass_obj
-				@@pending_objects.push(key)
-				*/
+				VALUE pair = rb_ary_entry(it->second, 1);
+				VALUE class_path = rb_ary_entry(pair, 0);
+				hstr class_name = StringValuePtr(class_path);
+				harray<hstr> classes = class_name.split("::");
+				class_name = classes.pop(0);
+				VALUE class_symbol = rb_f_to_sym(rb_str_new2(class_name.c_str()));
+				if (!RTEST(rb_funcall_1(rb_mKernel, "const_defined?", class_symbol)))
+				{
+					rb_raise(rb_eTypeError, "Class not defined: %s", class_name.c_str());
+				}
+				VALUE classe = rb_funcall_1(rb_mKernel, "const_get", class_symbol);
+				foreach (hstr, it, classes)
+				{
+					class_symbol = rb_f_to_sym(rb_str_new2((*it).c_str()));
+					classe = rb_funcall_1(classe, "const_get", class_symbol);
+				}
+				VALUE class_obj = rb_funcall_0(classe, "allocate");
+				rb_ary_store(pair, 0, class_obj);
+				pending_objects += it->first;
 			}
 			else
 			{
@@ -295,22 +292,26 @@ namespace rgss
   
 	void MsgPack::_write_dump()
 	{
+		return;
+
 		/*
 		msgpack::sbuffer buffer;
 		msgpack::pack(buffer, (std::map<VALUE, VALUE>)finaldump);
 		*/
+		/*
 		VALUE map = rb_hash_new();
 		foreach_map (VALUE, VALUE, it, finaldump)
 		{
 			rb_hash_aset(map, it->first, it->second);
 		}
+		*/
 		/*
 		VALUE MessagePack = rb_intern("MessagePack");
 		rb_funcall(MessagePack, "pack", 
 		*/
-		VALUE dump_string = rb_funcall_0(map, "to_msgpack");
+		//VALUE dump_string = rb_funcall_0(map, "to_msgpack");
 		//VALUE dump_string = rb_str_new2(buffer.data());
-		rb_funcall_1(io, "write", dump_string);
+		//rb_funcall_1(io, "write", dump_string);
 	}
 
 	VALUE MsgPack::_queue_dump_object(VALUE obj)

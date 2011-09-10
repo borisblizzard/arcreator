@@ -125,6 +125,8 @@
     <ClCompile Include="src\Graphics.cpp" />
     <ClCompile Include="src\Input.cpp" />
     <ClCompile Include="src\MsgPack.cpp" />
+    <ClCompile Include="src\MsgPack_pack.cpp" />
+    <ClCompile Include="src\MsgPack_unpack.cpp" />
     <ClCompile Include="src\Plane.cpp" />
     <ClCompile Include="src\Rect.cpp" />
     <ClCompile Include="src\Renderable.cpp" />
