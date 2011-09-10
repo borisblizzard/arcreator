@@ -59,7 +59,7 @@ static ID s_append;
 	else \
 	{ \
 		rb_raise(rb_eArgError, "wrong number of arguments (%d for 0)", argc); \
-	};
+	}
 
 
 /*
