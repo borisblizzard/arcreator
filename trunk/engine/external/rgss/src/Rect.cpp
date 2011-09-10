@@ -189,24 +189,16 @@ namespace rgss
 		rb_ary_push(arr, INT2FIX(rect->y));
 		rb_ary_push(arr, INT2FIX(rect->width));
 		rb_ary_push(arr, INT2FIX(rect->height));
-		// get the method id
-		ID pack_id = rb_intern("pack");
-		// create the ruby pack format string 
-		VALUE format_str = rb_str_new2("l4");
 		// call the pack method
-		VALUE byte_string = rb_funcall(arr, pack_id, 1, format_str);
+		VALUE byte_string = rb_funcall_1(arr, "pack", rb_str_new2("l4"));
 		return byte_string;
 
 	}
 
 	VALUE Rect::rb_load(VALUE self, VALUE value)
 	{
-		// get the method id
-		ID unpack_id = rb_intern("unpack");
-		// create the ruby pack format string 
-		VALUE format_str = rb_str_new2("l4");
 		// call the unpack function
-		VALUE arr = rb_funcall(value, unpack_id, 1, format_str);
+		VALUE arr = rb_funcall_1(value, "unpack", rb_str_new2("l4"));
 		VALUE x = rb_ary_shift(arr);
 		VALUE y = rb_ary_shift(arr);
 		VALUE width = rb_ary_shift(arr);

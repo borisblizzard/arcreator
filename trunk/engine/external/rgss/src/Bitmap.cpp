@@ -337,7 +337,7 @@ namespace rgss
 		bitmap->texture = april::rendersys->createEmptyTexture(w, h, april::AT_ARGB, april::AT_RENDER_TARGET);
 		bitmap->texture->setTextureFilter(april::Nearest);
 		bitmap->bltOver(0, 0, other, 0, 0, w, h);
-		Bitmap::rb_setFont(self, rb_funcall(other->rb_font, rb_intern("clone"), 0, NULL));
+		Bitmap::rb_setFont(self, rb_f_clone(other->rb_font));
 		return self;
 	}
 
