@@ -60,7 +60,7 @@ inline packer<Stream>& operator<< (packer<Stream>& o, const double& v)
 inline void operator<< (object& o, float v)
 {
 	o.type = type::DOUBLE;
-	o.via.dec = v;
+	o.via.dec = (double)v;
 }
 
 inline void operator<< (object& o, double v)

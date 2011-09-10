@@ -406,7 +406,7 @@ packer<Stream>& operator<< (packer<Stream>& o, const object& v)
 
 }  // namespace msgpack
 
-#include "msgpack/type/type.hpp"
+#include "msgpack/type.hpp"
 
 #endif /* msgpack/object.hpp */
 
