@@ -40,10 +40,7 @@ extern "C" {
 } while (0)
 
 #define ENCODING_GET_INLINED(obj) (int)((RBASIC(obj)->flags & ENCODING_MASK)>>ENCODING_SHIFT)
-#define ENCODING_GET(obj) \
-    (ENCODING_GET_INLINED(obj) != ENCODING_INLINE_MAX ? \
-     ENCODING_GET_INLINED(obj) : \
-     rb_enc_get_index(obj))
+#define ENCODING_GET(obj) (ENCODING_GET_INLINED(obj) != ENCODING_INLINE_MAX ? ENCODING_GET_INLINED(obj) : rb_enc_get_index(obj))
 
 #define ENCODING_IS_ASCII8BIT(obj) (ENCODING_GET_INLINED(obj) == 0)
 

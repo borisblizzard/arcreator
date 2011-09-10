@@ -9,6 +9,9 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
     </Filter>
+    <Filter Include="Header Files\msgpack">
+      <UniqueIdentifier>{c2999cb5-ad44-4269-bece-840535fd6f95}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="compat.h">
@@ -19,6 +22,21 @@
     </ClInclude>
     <ClInclude Include="unpack.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="msgpack\pack_define.h">
+      <Filter>Header Files\msgpack</Filter>
+    </ClInclude>
+    <ClInclude Include="msgpack\pack_template.h">
+      <Filter>Header Files\msgpack</Filter>
+    </ClInclude>
+    <ClInclude Include="msgpack\sysdep.h">
+      <Filter>Header Files\msgpack</Filter>
+    </ClInclude>
+    <ClInclude Include="msgpack\unpack_define.h">
+      <Filter>Header Files\msgpack</Filter>
+    </ClInclude>
+    <ClInclude Include="msgpack\unpack_template.h">
+      <Filter>Header Files\msgpack</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
