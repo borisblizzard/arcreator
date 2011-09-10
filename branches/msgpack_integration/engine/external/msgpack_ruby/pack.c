@@ -21,6 +21,7 @@
 #include "msgpack/pack_define.h"
 
 static ID s_to_msgpack;
+static ID s_size;
 static ID s_append;
 
 #define msgpack_pack_inline_func(name) \
@@ -33,10 +34,12 @@ static ID s_append;
 
 #define msgpack_pack_append_buffer(user, buf, len) \
 	((TYPE(user) == T_STRING) ? \
-		rb_str_buf_cat(user, (const void*)buf, len) : \
-		rb_funcall(user, s_append, 1, rb_str_new((const void*)buf,len)))
+		rb_str_buf_cat(user, (const char*)buf, len) : \
+		rb_funcall(user, s_append, 1, rb_str_new((const char*)buf,len)))
 
 #include "msgpack/pack_template.h"
+
+
 
 
 #ifndef RUBY_VM
@@ -45,13 +48,18 @@ static ID s_append;
 
 #define ARG_BUFFER(name, argc, argv) \
 	VALUE name; \
-	if(argc == 1) { \
+	if (argc == 1) \
+	{ \
 		name = argv[0]; \
-	} else if(argc == 0) { \
-		name = rb_str_buf_new(0); \
-	} else { \
+	} \
+	else if (argc == 0) \
+	{ \
+		name = Qnil; \
+	} \
+	else \
+	{ \
 		rb_raise(rb_eArgError, "wrong number of arguments (%d for 0)", argc); \
-	}
+	};
 
 
 /*
@@ -219,11 +227,11 @@ static VALUE MessagePack_Array_to_msgpack(int argc, VALUE *argv, VALUE self)
 {
 	ARG_BUFFER(out, argc, argv);
 	// FIXME check sizeof(long) > sizeof(unsigned int) && RARRAY_LEN(self) > UINT_MAX
-	msgpack_pack_array(out, (unsigned int)RARRAY_LEN(self));
-	VALUE* p = RARRAY_PTR(self);
-	VALUE* const pend = p + RARRAY_LEN(self);
-	for(;p != pend; ++p) {
-		rb_funcall(*p, s_to_msgpack, 1, out);
+	int size = NUM2INT(rb_funcall(self, s_size, 0));
+	msgpack_pack_array(out, (unsigned int)size);
+	for (int i = 0; i < size; i++)
+	{
+		rb_funcall(rb_ary_entry(self, i), s_to_msgpack, 1, out);
 	}
 	return out;
 }
@@ -288,6 +296,7 @@ static VALUE MessagePack_pack(int argc, VALUE* argv, VALUE self)
 void Init_msgpack_pack(VALUE mMessagePack)
 {
 	s_to_msgpack = rb_intern("to_msgpack");
+	s_size = rb_intern("size");
 	s_append = rb_intern("<<");
 
 	rb_define_method(rb_cNilClass,   "to_msgpack", MessagePack_NilClass_to_msgpack, -1);

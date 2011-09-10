@@ -187,7 +187,7 @@ static int template_execute_wrap(msgpack_unpack_t* mp,
 		(VALUE)from,
 	};
 
-	// FIXME execute実行中はmp->topが更新されないのでGC markが機能しない
+	// FIXME execute
 	rb_gc_disable();
 
 	mp->user.source = str;
@@ -210,7 +210,7 @@ static int template_execute_wrap_each(msgpack_unpack_t* mp,
 		(VALUE)from,
 	};
 
-	// FIXME execute実行中はmp->topが更新されないのでGC markが機能しない
+	// FIXME execute
 	rb_gc_disable();
 
 	mp->user.source = Qnil;

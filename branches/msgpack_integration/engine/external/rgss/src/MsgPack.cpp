@@ -9,6 +9,16 @@
 
 namespace rgss
 {
+	VALUE MsgPack::io;
+	hmap<VALUE, VALUE> MsgPack::symbols;
+	hmap<VALUE, VALUE> MsgPack::strings;
+	hmap<VALUE, VALUE> MsgPack::ids;
+	harray<VALUE> MsgPack::stack;
+	hmap<VALUE, VALUE> MsgPack::finaldump;
+	int MsgPack::sym_count;
+	harray<VALUE> MsgPack::pending_objects;
+	harray<VALUE> MsgPack::post_load_objects;
+
 	/****************************************************************************************
 	 * Ruby Interfacing, Creation, Destruction, Systematics
 	 ****************************************************************************************/
@@ -78,16 +88,15 @@ namespace rgss
 		VALUE load_string = rb_funcall_0(io, "read");
 		const char* data = StringValuePtr(load_string);
 		int size = NUM2INT(rb_str_size(load_string));
-		std::map<VALUE, VALUE> values;
-		msgpack::unpacked msg;
-		/*
-		msgpack::unpack(&msg, data, size);
-		msg.get().convert(&values);
-		*/
+		VALUE MessagePack = rb_intern("MessagePack");
+		VALUE values = rb_funcall_1(MessagePack, "unpack", load_string);
+		VALUE keys = rb_funcall_0(values, "keys");
 		hmap<VALUE, VALUE> objects;
-		foreach_map (VALUE, VALUE, it, values)
+		VALUE key;
+		rb_ary_each_index (keys, i)
 		{
-			values[it->first] = it->second;
+			key = rb_ary_entry(keys, i);
+			objects[key] = rb_hash_aref(values, key);
 		}
 		int type;
 		foreach_map (VALUE, VALUE, it, objects)
@@ -286,9 +295,21 @@ namespace rgss
   
 	void MsgPack::_write_dump()
 	{
+		/*
 		msgpack::sbuffer buffer;
 		msgpack::pack(buffer, (std::map<VALUE, VALUE>)finaldump);
-		VALUE dump_string = rb_str_new2(buffer.data());
+		*/
+		VALUE map = rb_hash_new();
+		foreach_map (VALUE, VALUE, it, finaldump)
+		{
+			rb_hash_aset(map, it->first, it->second);
+		}
+		/*
+		VALUE MessagePack = rb_intern("MessagePack");
+		rb_funcall(MessagePack, "pack", 
+		*/
+		VALUE dump_string = rb_funcall_0(map, "to_msgpack");
+		//VALUE dump_string = rb_str_new2(buffer.data());
 		rb_funcall_1(io, "write", dump_string);
 	}
 
