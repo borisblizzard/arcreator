@@ -48,10 +48,10 @@ namespace zer0
 	void displayRubyError()
 	{
 		VALUE error = rb_gv_get("$!");
-		VALUE message = rb_funcall(error, rb_intern("message"), 0, NULL);
+		VALUE message = rb_funcall_0(error, "message");
 		hstr text = StringValuePtr(message);
-		VALUE backtrace = rb_funcall(error, rb_intern("backtrace"), 0, NULL);
-		VALUE backtraceMessage = rb_funcall(backtrace, rb_intern("join"), 1, rb_str_new2("\n"));
+		VALUE backtrace = rb_funcall_0(error, "backtrace");
+		VALUE backtraceMessage = rb_funcall_1(backtrace, "join", rb_str_new2("\n"));
 		text += hstr("\n") + StringValuePtr(backtraceMessage);
 		zer0::log(text, "");
 		april::messageBox(zer0::name, text, april::AMSGBTN_OK, april::AMSGSTYLE_WARNING);
@@ -76,7 +76,7 @@ namespace zer0
 			string = rb_ary_shift(args);
 			if (!rb_obj_is_instance_of(string, rb_cString))
 			{
-				string = rb_funcall(string, rb_intern("to_s"), 0, NULL);
+				string = rb_f_to_s(string);
 			}
 			data += StringValuePtr(string);
 		}
@@ -99,7 +99,7 @@ namespace zer0
 			}
 			else
 			{
-				result = rb_funcall(args, rb_intern("clone"), 0, NULL);
+				result = rb_f_clone(args);
 			}
 			VALUE rb_delimiter = rb_gv_get("$,");
 			hstr delimiter = (NIL_P(rb_delimiter) ? ", " : StringValuePtr(rb_delimiter));
@@ -108,7 +108,7 @@ namespace zer0
 			for_iter (i, 0, argc)
 			{
 				string = rb_ary_shift(args);
-				string = rb_funcall(string, rb_intern("inspect"), 0, NULL);
+				string = rb_f_inspect(string);
 				data += StringValuePtr(string);
 			}
 			text = data.join(delimiter);

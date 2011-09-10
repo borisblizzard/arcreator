@@ -179,24 +179,16 @@ namespace rgss
 		rb_ary_push(arr, rb_float_new(tone->green));
 		rb_ary_push(arr, rb_float_new(tone->blue));
 		rb_ary_push(arr, rb_float_new(tone->gray));
-		// get the method id
-		ID pack_id = rb_intern("pack");
-		// create the ruby pack format string 
-		VALUE format_str = rb_str_new2("d4");
 		// call the pack method
-		VALUE byte_string = rb_funcall(arr, pack_id, 1, format_str);
+		VALUE byte_string = rb_funcall_1(arr, "pack", rb_str_new2("d4"));
 		return byte_string;
 
 	}
 
 	VALUE Tone::rb_load(VALUE self, VALUE value)
 	{
-		// get the method id
-		ID unpack_id = rb_intern("unpack");
-		// create the ruby pack format string 
-		VALUE format_str = rb_str_new2("d4");
 		// call the unpack function
-		VALUE arr = rb_funcall(value, unpack_id, 1, format_str);
+		VALUE arr = rb_funcall_1(value, "unpack", rb_str_new2("d4"));
 		VALUE c_arr[4];
 		c_arr[0] = rb_ary_shift(arr);
 		c_arr[1] = rb_ary_shift(arr);
