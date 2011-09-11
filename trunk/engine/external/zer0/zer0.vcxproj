@@ -114,6 +114,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\zer0\ApplicationExitException.h" />
+    <ClInclude Include="include\zer0\ARC.h" />
+    <ClInclude Include="include\zer0\ARC_Data.h" />
+    <ClInclude Include="include\zer0\ARC_Error.h" />
     <ClInclude Include="include\zer0\Context.h" />
     <ClInclude Include="include\zer0\System.h" />
     <ClInclude Include="include\zer0\TransitionManager.h" />
@@ -124,6 +127,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\ApplicationExitException.cpp" />
+    <ClCompile Include="src\ARC.cpp" />
+    <ClCompile Include="src\ARC_Data.cpp" />
+    <ClCompile Include="src\ARC_Error.cpp" />
     <ClCompile Include="src\Context.cpp">
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='win32_Debug|Win32'">$(IntDir)%(RelativeDir)%(Filename).obj</ObjectFileName>
     </ClCompile>

@@ -1,15 +1,15 @@
-#ifndef RGSS_RGSS_ERROR_H
-#define RGSS_RGSS_ERROR_H
+#ifndef ZER0_ARC_ERROR_H
+#define ZER0_ARC_ERROR_H
 
 #include <ruby.h>
 
-#include "rgssExport.h"
+#include "zer0Export.h"
 
-namespace rgss
+namespace zer0
 {
-	extern VALUE rb_eRGSSError;
+	extern VALUE rb_eARC_Error;
 
-	class rgssExport RGSSError
+	class zer0Export ARC_Error
 	{
 	public:
 		/// @brief Initializes.

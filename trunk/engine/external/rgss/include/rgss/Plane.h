@@ -19,8 +19,10 @@ namespace rgss
 		/// @brief Draws this sprite on the screen.
 		void draw();
 
-		/// @brief Initializes the module.
+		/// @brief Initializes.
 		static void init();
+		/// @brief Destroys.
+		static void destroy();
 		/// @brief Exposes this class to Ruby.
 		static void createRubyInterface();
 		/// @brief Marks referenced values of Plane for garbage collection.

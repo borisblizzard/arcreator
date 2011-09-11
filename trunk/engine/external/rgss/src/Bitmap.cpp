@@ -21,12 +21,12 @@
 
 namespace rgss
 {
+	VALUE rb_cBitmap;
+
 	/****************************************************************************************
 	 * Pure C++ code
 	 ****************************************************************************************/
 	
-	VALUE rb_cBitmap;
-
 	Bitmap::Bitmap(int width, int height) : texture(NULL)
 	{
 		this->texture = april::rendersys->createEmptyTexture(width, height, april::AT_ARGB, april::AT_RENDER_TARGET);

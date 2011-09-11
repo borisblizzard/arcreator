@@ -6,11 +6,11 @@
 
 namespace rgss
 {
+	VALUE rb_cFont;
+
 	/****************************************************************************************
 	 * Pure C++ code
 	 ****************************************************************************************/
-
-	VALUE rb_cFont;
 
 	hstr Font::defaultName;
 	int Font::defaultSize;
@@ -34,6 +34,12 @@ namespace rgss
 		rb_gc_register_address(&rb_defaultColor);
 		VALUE argv[3] = {INT2FIX(255), INT2FIX(255), INT2FIX(255)};
 		Font::rb_setDefaultColor(rb_cFont, Color::create(3, argv));
+	}
+
+	void Font::destroy()
+	{
+		rb_defaultColor = Qnil;
+		rb_gc_unregister_address(&rb_defaultColor);
 	}
 
 	void Font::createRubyInterface()

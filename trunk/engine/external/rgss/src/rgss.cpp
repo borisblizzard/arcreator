@@ -4,7 +4,6 @@
 #include "Font.h"
 #include "Graphics.h"
 #include "Input.h"
-#include "MsgPack.h"
 #include "Plane.h"
 #include "Rect.h"
 #include "RGSSError.h"
@@ -55,7 +54,6 @@ namespace rgss
 		Font::createRubyInterface();
 		Graphics::createRubyInterface();
 		Input::createRubyInterface();
-		MsgPack::createRubyInterface();
 		Plane::createRubyInterface();
 		Rect::createRubyInterface();
 		RGSSError::createRubyInterface();
@@ -65,14 +63,13 @@ namespace rgss
 		Tone::createRubyInterface();
 		Viewport::createRubyInterface();
 		Window::createRubyInterface();
-		// initialization of RGSS classes
+		// initialization of Ruby classes
 		Audio::init();
 		Bitmap::init();
 		Color::init();
 		Font::init();
 		Graphics::init();
 		Input::init();
-		MsgPack::init();
 		Plane::init();
 		Rect::init();
 		RGSSError::init();
@@ -91,7 +88,6 @@ namespace rgss
 #endif
 		Audio::destroy();
 		Bitmap::destroy();
-		/*
 		Color::destroy();
 		Font::destroy();
 		Graphics::destroy();
@@ -105,7 +101,6 @@ namespace rgss
 		Tone::destroy();
 		Viewport::destroy();
 		Window::destroy();
-		*/
 	}
 
 }

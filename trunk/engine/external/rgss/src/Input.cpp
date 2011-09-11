@@ -14,8 +14,11 @@ namespace rgss
 {
 	VALUE rb_mInput;
 
-	hmap<int, harray<unsigned int>> conversions;
+	/****************************************************************************************
+	 * Pure C++ code
+	 ****************************************************************************************/
 
+	hmap<int, harray<unsigned int>> conversions;
 	harray<unsigned int> controlKeys;
 	bool triggered[MAX_KEYS];
 	bool pressed[MAX_KEYS];
@@ -23,6 +26,76 @@ namespace rgss
 	bool released[MAX_KEYS];
 	bool keys[MAX_KEYS];
 
+	/****************************************************************************************
+	 * Pure C++ code
+	 ****************************************************************************************/
+
+	bool Input::isTriggered(unsigned char keycode)
+	{
+		if (!conversions.has_key(keycode))
+		{
+			return false;
+		}
+		foreach (unsigned int, it, conversions[keycode])
+		{
+			if (triggered[*it])
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+
+	bool Input::isPressed(unsigned char keycode)
+	{
+		if (!conversions.has_key(keycode))
+		{
+			return false;
+		}
+		foreach (unsigned int, it, conversions[keycode])
+		{
+			if (pressed[*it])
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+
+	bool Input::isRepeated(unsigned char keycode)
+	{
+		if (!conversions.has_key(keycode))
+		{
+			return false;
+		}
+		foreach (unsigned int, it, conversions[keycode])
+		{
+			if (repeated[*it] == 1 || repeated[*it] == 16)
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+
+	void Input::onKeyDown(unsigned int keycode)
+	{
+		keys[keycode] = true;
+		if (keycode == april::AK_F2)
+		{
+			Graphics::toggleFpsDisplay();
+		}
+	}
+
+	void Input::onKeyUp(unsigned int keycode)
+	{
+		keys[keycode] = false;
+	}
+
+	/****************************************************************************************
+	 * Ruby Interfacing, Creation, Destruction, Systematics
+	 ****************************************************************************************/
+	
 	void Input::init()
 	{
 		harray<unsigned int> keys;
@@ -105,6 +178,10 @@ namespace rgss
 		}
 	}
 
+	void Input::destroy()
+	{
+	}
+
 	void Input::createRubyInterface()
 	{
 		rb_mInput = rb_define_module("Input");
@@ -135,6 +212,10 @@ namespace rgss
 		rb_define_const(rb_mInput, "F8", INT2FIX(Input::F8));
 		rb_define_const(rb_mInput, "F9", INT2FIX(Input::F9));
 	}
+
+	/****************************************************************************************
+	 * Ruby Methods
+	 ****************************************************************************************/
 
 	VALUE Input::rb_update(VALUE self)
 	{
@@ -248,68 +329,6 @@ namespace rgss
 	VALUE Input::rb_repeat(VALUE self, VALUE keycode)
 	{
 		return (Input::isRepeated((unsigned char)NUM2UINT(keycode)) ? Qtrue : Qfalse);
-	}
-
-	bool Input::isTriggered(unsigned char keycode)
-	{
-		if (!conversions.has_key(keycode))
-		{
-			return false;
-		}
-		foreach (unsigned int, it, conversions[keycode])
-		{
-			if (triggered[*it])
-			{
-				return true;
-			}
-		}
-		return false;
-	}
-
-	bool Input::isPressed(unsigned char keycode)
-	{
-		if (!conversions.has_key(keycode))
-		{
-			return false;
-		}
-		foreach (unsigned int, it, conversions[keycode])
-		{
-			if (pressed[*it])
-			{
-				return true;
-			}
-		}
-		return false;
-	}
-
-	bool Input::isRepeated(unsigned char keycode)
-	{
-		if (!conversions.has_key(keycode))
-		{
-			return false;
-		}
-		foreach (unsigned int, it, conversions[keycode])
-		{
-			if (repeated[*it] == 1 || repeated[*it] == 16)
-			{
-				return true;
-			}
-		}
-		return false;
-	}
-
-	void Input::onKeyDown(unsigned int keycode)
-	{
-		keys[keycode] = true;
-		if (keycode == april::AK_F2)
-		{
-			Graphics::toggleFpsDisplay();
-		}
-	}
-
-	void Input::onKeyUp(unsigned int keycode)
-	{
-		keys[keycode] = false;
 	}
 
 }

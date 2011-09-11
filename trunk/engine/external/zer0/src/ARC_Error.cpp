@@ -1,26 +1,27 @@
 #include <ruby.h>
 
-#include "RGSSError.h"
+#include "ARC.h"
+#include "ARC_Error.h"
 
-namespace rgss
+namespace zer0
 {
-	VALUE rb_eRGSSError;
+	VALUE rb_eARC_Error;
 
 	/****************************************************************************************
 	 * Ruby Interfacing, Creation, Destruction, Systematics
 	 ****************************************************************************************/
 
-	void RGSSError::init()
+	void ARC_Error::init()
 	{
 	}
 
-	void RGSSError::destroy()
+	void ARC_Error::destroy()
 	{
 	}
 
-	void RGSSError::createRubyInterface()
+	void ARC_Error::createRubyInterface()
 	{
-		rb_eRGSSError = rb_define_class("RGSSError", rb_eStandardError);
+		rb_eARC_Error = rb_define_class_under(rb_mARC, "Error", rb_eStandardError);
 	}
 
 }

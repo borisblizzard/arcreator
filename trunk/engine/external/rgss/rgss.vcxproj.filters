@@ -94,15 +94,6 @@
     <ClCompile Include="src\ApplicationExitException.cpp">
       <Filter>Source Files\System</Filter>
     </ClCompile>
-    <ClCompile Include="src\MsgPack.cpp">
-      <Filter>Source Files\System</Filter>
-    </ClCompile>
-    <ClCompile Include="src\MsgPack_pack.cpp">
-      <Filter>Source Files\System</Filter>
-    </ClCompile>
-    <ClCompile Include="src\MsgPack_unpack.cpp">
-      <Filter>Source Files\System</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\CodeSnippets.h">
@@ -178,9 +169,6 @@
       <Filter>Header Files\Support</Filter>
     </ClInclude>
     <ClInclude Include="include\rgss\ApplicationExitException.h">
-      <Filter>Header Files\System</Filter>
-    </ClInclude>
-    <ClInclude Include="include\rgss\MsgPack.h">
       <Filter>Header Files\System</Filter>
     </ClInclude>
   </ItemGroup>

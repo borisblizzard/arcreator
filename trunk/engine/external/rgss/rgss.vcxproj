@@ -124,9 +124,6 @@
     <ClCompile Include="src\Font.cpp" />
     <ClCompile Include="src\Graphics.cpp" />
     <ClCompile Include="src\Input.cpp" />
-    <ClCompile Include="src\MsgPack.cpp" />
-    <ClCompile Include="src\MsgPack_pack.cpp" />
-    <ClCompile Include="src\MsgPack_unpack.cpp" />
     <ClCompile Include="src\Plane.cpp" />
     <ClCompile Include="src\Rect.cpp" />
     <ClCompile Include="src\Renderable.cpp" />
@@ -151,7 +148,6 @@
     <ClInclude Include="include\rgss\Font.h" />
     <ClInclude Include="include\rgss\Graphics.h" />
     <ClInclude Include="include\rgss\Input.h" />
-    <ClInclude Include="include\rgss\MsgPack.h" />
     <ClInclude Include="include\rgss\Plane.h" />
     <ClInclude Include="include\rgss\Rect.h" />
     <ClInclude Include="include\rgss\Renderable.h" />
