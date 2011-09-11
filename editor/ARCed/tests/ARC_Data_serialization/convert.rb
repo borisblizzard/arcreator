@@ -1,3 +1,14 @@
+$frompath = ARGV[0]
+$topath = ARGV[1]
+changed_files = ARGV[2]
+$static_mode = false
+$files = []
+if changed_files != nil && changed_files != 'all'
+	$files = changed_files.split("|")
+else
+	$static_mode = true
+end
+
 require './data'
 require './arc_data_dump'
 
