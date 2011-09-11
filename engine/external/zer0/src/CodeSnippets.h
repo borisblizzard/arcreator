@@ -5,6 +5,8 @@
 #define for_iter(name, min, max) for (int name = min; name < max; name++)
 #define for_iter_step(name, min, max, step) for (int name = min; name < max; name += step)
 
+#define rb_ary_each_index(ary, name) for (int name = 0; name < NUM2INT(rb_ary_size(ary)); name++)
+
 // missing C functions for commonly used classes
 
 /// @brief Gets string size.
@@ -13,6 +15,9 @@
 /// @brief Gets array size.
 /// @param[in] ary Array to check.
 #define rb_ary_size(ary) rb_funcall(ary, rb_intern("size"), 0)
+/// @brief Gets hash size.
+/// @param[in] ary Hash to check.
+#define rb_hash_size(ary) rb_funcall(ary, rb_intern("size"), 0)
 /// @brief Calls method with name.
 /// @param[in] obj Object to call the method.
 /// @param[in] name Name of the method.
