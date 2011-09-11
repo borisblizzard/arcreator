@@ -119,7 +119,7 @@ module ARC
 			when TYPES[Hash] then return self._load_hash
 			when TYPES[Object] then return self._load_object
 			end
-			raise sprintf("Error: Unknown type 0x%02X detected!", type.ord)
+			raise "Error: Unknown type 0x%02X detected!" % type.ord
 		end
 		
 		def self._dump_nil(obj)
@@ -237,7 +237,7 @@ module ARC
 				id = self.__load_int32
 				return "" if id == 0
 				obj = self.__find_mapped_object(id)
-				return obj if obj != nil
+				return obj.clone if obj != nil
 			end
 			size = self.__load_int32
 			obj = @@io.read(size)
