@@ -11,10 +11,8 @@ else
 	static_mode = true
 end
 
-#python test
 frompath = './RMXP_original' if frompath == nil
 topath = './ARC_imported' if topath == nil
-#END script compialation nil handleing
 
 filename = "convert.log"
 begin
@@ -49,7 +47,7 @@ begin
 			end
 		end
 	else
-		#load /Data
+		# load ./Data
 		time_now = Time.now
 		actors = load_data(frompath + "/Data/Actors.rxdata")
 		classes = load_data(frompath + "/Data/Classes.rxdata")
@@ -65,7 +63,6 @@ begin
 		common_events = load_data(frompath + "/Data/CommonEvents.rxdata")
 		system = load_data(frompath + "/Data/System.rxdata")
 		map_infos = load_data(frompath + "/Data/MapInfos.rxdata")
-		scripts = load_data(frompath + "/Data/Scripts.rxdata")
 		maps = []
 		for key in map_infos.keys
 			_map = load_data(frompath + "/Data/Map%03d.rxdata" % key)
@@ -75,8 +72,7 @@ begin
 		puts "Completed Loading in: #{Time.now - time_now} Seconds"
 		puts ""
 		time_now = Time.now
-		#dump /Data
-=begin
+		# dump ./Data
 		arc_dump_data(topath + "/Data/Actors.arc", actors)
 		arc_dump_data(topath + "/Data/Classes.arc", classes)
 		arc_dump_data(topath + "/Data/Skills.arc", skills)
@@ -89,13 +85,11 @@ begin
 		arc_dump_data(topath + "/Data/Animations.arc", animations)
 		arc_dump_data(topath + "/Data/Tilesets.arc", tilesets)
 		arc_dump_data(topath + "/Data/CommonEvents.arc", common_events)
-=end
 		arc_dump_data(topath + "/Data/System.arc", system)
-		#arc_dump_data(topath + "/Data/MapInfos.arc", map_infos)
-		#arc_dump_data(topath + "/Data/Scripts.arc", scripts)
+		arc_dump_data(topath + "/Data/MapInfos.arc", map_infos)
 		i = 0
 		for key in map_infos.keys
-			#arc_dump_data(topath + "/Data/Map%03d.arc" % key, maps[i])
+			arc_dump_data(topath + "/Data/Map%03d.arc" % key, maps[i])
 			i += 1
 		end
 		puts ""
