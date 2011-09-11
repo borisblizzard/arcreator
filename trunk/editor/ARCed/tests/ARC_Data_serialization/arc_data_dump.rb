@@ -8,7 +8,6 @@ module ARC
 		
 		ENABLE_OBJECT_MAPPING = true
 		ENABLE_STRING_MAPPING = true
-		ENABLE_REFERENCE_MAPPING = false
 		
 		TYPES = {
 			NilClass => 0x10.chr,
@@ -26,22 +25,11 @@ module ARC
 		@@io = nil
 		@@objects = [nil]
 		@@class_path_redirects = {}
-		@@object_mapping = ENABLE_OBJECT_MAPPING
-		@@string_mapping = ENABLE_STRING_MAPPING
-		@@reference_mapping = ENABLE_REFERENCE_MAPPING
 		
 		def self.dump(io, obj, redirects = {})
 			@@class_path_redirects = redirects
-			@@object_mapping = ENABLE_OBJECT_MAPPING
-			@@string_mapping = ENABLE_STRING_MAPPING
-			@@reference_mapping = ENABLE_REFERENCE_MAPPING
 			@@io = io
 			@@io.write(VERSION)
-			flags = 0x00
-			flags |= 0x01 if @@object_mapping
-			flags |= 0x02 if @@string_mapping
-			flags |= 0x04 if @@reference_mapping
-			@@io.write(flags.chr)
 			begin
 				self._dump(obj)
 			rescue
@@ -56,10 +44,6 @@ module ARC
 			@@io = io
 			version = @@io.read(2)
 			raise "Error: #{self} version mismatch! Expected: #{VERSION.inspect} Found: #{version.inspect}" if VERSION != version
-			flags = @@io.read(1).ord
-			@@object_mapping = (flags & 0x01 == 0x01)
-			@@string_mapping = (flags & 0x02 == 0x02)
-			@@reference_mapping = (flags & 0x04 == 0x04)
 			begin
 				data = self._load
 			rescue
@@ -80,6 +64,21 @@ module ARC
 			return (@@class_path_redirects.has_key?(name) ? @@class_path_redirects[name] : name)
 		end
 		
+		def self.__get_class_object(class_path)
+			classes = class_path.split("::")
+			if !Kernel.const_defined?(classes[0].to_sym)
+				raise TypeError, "Class not defined: #{classes[0]}"
+			end
+			classe = Kernel.const_get(classes.shift.to_sym)
+			classes.each {|c|
+				if !classe.const_defined?(c.to_sym)
+					raise TypeError, "Class not defined: #{c}"
+				end
+				classe = classe.const_get(c.to_sym)
+			}
+			return classe
+		end
+
 		def self.__try_map_object(obj)
 			index = @@objects.index(obj)
 			if index == nil
@@ -106,7 +105,7 @@ module ARC
 		def self.__load_int32
 			return @@io.read(4).unpack("V")[0]
 		end
-
+		
 		def self._dump(obj)
 			return self._dump_nil(obj) if obj.is_a?(NilClass)
 			return self._dump_false(obj) if obj.is_a?(FalseClass)
@@ -168,9 +167,7 @@ module ARC
 		def self._dump_string(obj)
 			@@io.write(TYPES[String])
 			if obj.size > 0
-				if @@object_mapping && @@string_mapping
-					return if !self.__try_map_object(obj) # abort if object has already been mapped
-				end
+				return if !self.__try_map_object(obj) # abort if object has already been mapped
 				self.__dump_int32(obj.size)
 				@@io.write(obj)
 			else
@@ -181,9 +178,7 @@ module ARC
 		def self._dump_array(obj)
 			@@io.write(TYPES[Array])
 			if obj.size > 0
-				if @@object_mapping
-					return if !self.__try_map_object(obj) # abort if object has already been mapped
-				end
+				return if !self.__try_map_object(obj) # abort if object has already been mapped
 				self.__dump_int32(obj.size)
 				obj.each {|value| self._dump(value)}
 			else
@@ -194,9 +189,7 @@ module ARC
 		def self._dump_hash(obj)
 			@@io.write(TYPES[Hash])
 			if obj.size > 0
-				if @@object_mapping
-					return if !self.__try_map_object(obj) # abort if object has already been mapped
-				end
+				return if !self.__try_map_object(obj) # abort if object has already been mapped
 				self.__dump_int32(obj.size)
 				obj.each_pair {|key, value| self._dump(key); self._dump(value)}
 			else
@@ -207,9 +200,7 @@ module ARC
 		def self._dump_object(obj)
 			@@io.write(TYPES[Object])
 			self._dump_string(self.__get_class_path(obj.class.name)) # first the string path because this is required to load the object
-			if @@object_mapping
-				return if !self.__try_map_object(obj) # abort if object has already been mapped
-			end
+			return if !self.__try_map_object(obj) # abort if object has already been mapped
 			if obj.respond_to?("_arc_dump")
 				data = obj._arc_dump
 				self.__dump_int32(data.size)
@@ -249,83 +240,59 @@ module ARC
 		end
 		
 		def self._load_string
-			if @@object_mapping && @@string_mapping
-				id = self.__load_int32
-				return "" if id == 0
-				obj = self.__find_mapped_object(id)
-				return obj.clone if obj != nil
-			end
+			id = self.__load_int32
+			return "" if id == 0
+			obj = self.__find_mapped_object(id)
+			return obj.clone if obj != nil
 			size = self.__load_int32
 			obj = @@io.read(size)
-			if @@object_mapping && @@string_mapping
-				self.__map_object(obj)
-			end
+			self.__map_object(obj)
 			return obj
 		end
 		
 		def self._load_array
-			if @@object_mapping
-				id = self.__load_int32
-				return [] if id == 0
-				obj = self.__find_mapped_object(id)
-				return obj if obj != nil
-			end
+			id = self.__load_int32
+			return [] if id == 0
+			obj = self.__find_mapped_object(id)
+			return obj if obj != nil
 			size = self.__load_int32
 			obj = []
-			if @@object_mapping
-				self.__map_object(obj)
-			end
+			self.__map_object(obj)
 			size.times {obj.push(self._load)}
 			return obj
 		end
 		
 		def self._load_hash
-			if @@object_mapping
-				id = self.__load_int32
-				return {} if id == 0
-				obj = self.__find_mapped_object(id)
-				return obj if obj != nil
-			end
+			id = self.__load_int32
+			return {} if id == 0
+			obj = self.__find_mapped_object(id)
+			return obj if obj != nil
 			size = self.__load_int32
 			obj = {}
-			if @@object_mapping
-				self.__map_object(obj)
-			end
+			self.__map_object(obj)
 			size.times {key = self._load; obj[key] = self._load} # making sure key is always loaded first
 			return obj
 		end
 		
 		def self._load_object
 			class_path = self._load
-			if @@object_mapping
-				obj = self.__find_mapped_object(self.__load_int32)
-				return obj if obj != nil
-			end
-			classes = class_path.split("::")
-			if !Kernel.const_defined?(classes[0].to_sym)
-				raise TypeError, "Class not defined: #{classes[0]}"
-			end
-			classe = Kernel.const_get(classes.shift.to_sym)
-			classes.each {|c|
-				if !classe.const_defined?(c.to_sym)
-					raise TypeError, "Class not defined: #{c}"
-				end
-				classe = classe.const_get(c.to_sym)
-			}
+			obj = self.__find_mapped_object(self.__load_int32)
+			return obj if obj != nil
+			classe = self.__get_class_object(class_path)
 			size = self.__load_int32
 			if classe.respond_to?("_arc_load")
 				obj = classe._arc_load(@@io.read(size))
-				if @@object_mapping
-					self.__map_object(obj)
-				end
+				self.__map_object(obj)
 				return obj
 			end
 			obj = classe.allocate
-			if @@object_mapping
-				self.__map_object(obj)
-			end
+			self.__map_object(obj)
 			size.times {obj.instance_variable_set(("@" + self._load).to_sym, self._load)}
 			return obj
+		end
+		
+		def self._load_reference
+			return self.__find_mapped_object(self.__load_int32)
 		end
 		
 	end
