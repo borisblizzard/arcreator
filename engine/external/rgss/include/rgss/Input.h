@@ -14,8 +14,10 @@ namespace rgss
 	class rgssExport Input
 	{
 	public:
-		/// @brief Initializes the module.
+		/// @brief Initializes.
 		static void init();
+		/// @brief Destroys.
+		static void destroy();
 		/// @brief Exposes this class to Ruby.
 		static void createRubyInterface();
 

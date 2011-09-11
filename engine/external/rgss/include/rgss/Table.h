@@ -31,8 +31,10 @@ namespace rgss
 		/// @return The table entry at a specific position.
 		short getCircularData(int x, int y = 0, int z = 0);
 
-		/// @brief Initializes the module.
+		/// @brief Initializes.
 		static void init();
+		/// @brief Destroys.
+		static void destroy();
 		/// @brief Exposes this class to Ruby.
 		static void createRubyInterface();
 		/// @brief Frees allocated memory.

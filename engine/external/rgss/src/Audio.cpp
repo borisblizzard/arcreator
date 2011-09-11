@@ -22,11 +22,11 @@
 
 namespace rgss
 {
-	/****************************************************************************************
-	 * Ruby Interfacing, Creation, Destruction, Systematics
-	 ****************************************************************************************/
-
 	VALUE rb_mAudio;
+
+	/****************************************************************************************
+	 * Pure C++ code
+	 ****************************************************************************************/
 
 	xal::Player* bgmPlayer;
 	int bgmPitch;
@@ -35,6 +35,10 @@ namespace rgss
 	xal::Player* mePlayer;
 	harray<xal::Player*> sePlayers;
 	
+	/****************************************************************************************
+	 * Ruby Interfacing, Creation, Destruction, Systematics
+	 ****************************************************************************************/
+
 	void Audio::init()
 	{
 		xal::mgr->createCategory(CATEGORY_BGM, xal::STREAMED, xal::STREAMED);

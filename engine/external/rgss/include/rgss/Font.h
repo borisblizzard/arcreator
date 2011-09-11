@@ -46,8 +46,10 @@ namespace rgss
 		/// @brief Default Font Color.
 		static VALUE rb_defaultColor;
 
-		/// @brief Initializes the module.
+		/// @brief Initializes.
 		static void init();
+		/// @brief Destroys.
+		static void destroy();
 		/// @brief Exposes this class to Ruby.
 		static void createRubyInterface();
 		/// @brief Marks referenced values of font for garbage collection.

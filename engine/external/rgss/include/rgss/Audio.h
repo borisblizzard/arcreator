@@ -14,9 +14,9 @@ namespace rgss
 	class rgssExport Audio
 	{
 	public:
-		/// @brief Initializes the module.
+		/// @brief Initializes.
 		static void init();
-		/// @brief Destroys the module.
+		/// @brief Destroys.
 		static void destroy();
 		/// @brief Exposes this class to Ruby.
 		static void createRubyInterface();

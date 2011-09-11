@@ -20,6 +20,9 @@
 #include <xal/AudioManager.h>
 #include <xal/xal.h>
 
+#include "ARC.h"
+#include "ARC_Data.h"
+#include "ARC_Error.h"
 #include "CodeSnippets.h"
 #include "Constants.h"
 #include "Context.h"
@@ -182,6 +185,13 @@ namespace zer0
 			zer0::system = new zer0::System(path);
 			zer0::context = new zer0::Context();
 			zer0::transitionManager = new zer0::TransitionManager();
+			// creating Ruby interfaces of C++ classes created for Ruby
+			ARC::createRubyInterface();
+			ARC_Data::createRubyInterface();
+			// initialization of Ruby classes
+			ARC::init();
+			ARC_Data::init();
+			ARC_Error::init();
 		}
 		catch (hltypes::exception e)
 		{
@@ -202,6 +212,10 @@ namespace zer0
 		try
 		{
 			zer0::log("destroying Zer0 Division Engine");
+			// destroy Ruby stuff
+			ARC::destroy();
+			ARC_Data::destroy();
+			// destroy other
 			delete zer0::system;
 			delete zer0::context;
 			delete zer0::transitionManager;

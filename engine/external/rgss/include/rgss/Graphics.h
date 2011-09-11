@@ -39,8 +39,10 @@ namespace rgss
 		/// @brief Toggles the FPS display.
 		static void toggleFpsDisplay();
 
-		/// @brief Initializes the module.
+		/// @brief Initializes.
 		static void init();
+		/// @brief Destroys.
+		static void destroy();
 		/// @brief Exposes this class to Ruby.
 		static void createRubyInterface();
 

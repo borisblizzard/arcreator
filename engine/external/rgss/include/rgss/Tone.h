@@ -31,8 +31,10 @@ namespace rgss
 		/// @note Gray is clamped between 0 and 255.
 		void set(float r, float g, float b, float gr = 0.0f);
 
-		/// @brief Initializes the module.
+		/// @brief Initializes.
 		static void init();
+		/// @brief Destroys.
+		static void destroy();
 		/// @brief Exposes this class to Ruby.
 		static void createRubyInterface();
 		/// @brief Ruby allocation of an instance.

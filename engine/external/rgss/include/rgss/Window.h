@@ -23,8 +23,10 @@ namespace rgss
 		/// @brief Disposed this instance.
 		void dispose();
 
-		/// @brief Initializes the module.
+		/// @brief Initializes.
 		static void init();
+		/// @brief Destroys.
+		static void destroy();
 		/// @brief Exposes this class to Ruby.
 		static void createRubyInterface();
 		/// @brief Marks referenced values of window for garbage collection.

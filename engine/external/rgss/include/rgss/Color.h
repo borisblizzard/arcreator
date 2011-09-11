@@ -42,8 +42,10 @@ namespace rgss
 		/// @return april::Color representation.
 		april::Color toAprilColor();
 
-		/// @brief Initializes the module.
+		/// @brief Initializes.
 		static void init();
+		/// @brief Destroys.
+		static void destroy();
 		/// @brief Exposes this class to Ruby.
 		static void createRubyInterface();
 		/// @brief Ruby allocation of an instance.

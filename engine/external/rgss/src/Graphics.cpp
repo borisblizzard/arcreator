@@ -20,11 +20,11 @@
 
 namespace rgss
 {
+	VALUE rb_mGraphics;
+
 	/****************************************************************************************
 	 * Pure C++ code
 	 ****************************************************************************************/
-
-	VALUE rb_mGraphics;
 
 	RenderQueue* Graphics::renderQueue;
 	int Graphics::width;
@@ -132,6 +132,13 @@ namespace rgss
 		fpsCount = 0;
 		windowTitle = window->getWindowTitle();
 		Renderable::CounterProgress = 0;
+	}
+
+	void Graphics::destroy()
+	{
+		delete renderQueue;
+		delete timer;
+		delete fpsTimer;
 	}
 
 	void Graphics::createRubyInterface()
