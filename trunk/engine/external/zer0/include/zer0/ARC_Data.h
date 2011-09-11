@@ -82,10 +82,71 @@ namespace zer0
 		
 		/// @brief Dumps the object.
 		/// @param[in] obj Object to dump.
-		static void ARC_Data::_dump(VALUE obj);
+		static void _dump(VALUE obj);
 		/// @brief Loads the dumped object.
 		/// @return Loaded object.
-		static VALUE ARC_Data::_load();
+		static VALUE _load();
+
+		/// @brief Dumps nil.
+		/// @param[in] obj nil to dump.
+		static void _dump_nil(VALUE obj);
+		/// @brief Dumps false.
+		/// @param[in] obj false to dump.
+		static void _dump_false(VALUE obj);
+		/// @brief Dumps true.
+		/// @param[in] obj true to dump.
+		static void _dump_true(VALUE obj);
+		/// @brief Dumps a Fixnum.
+		/// @param[in] obj Fixnum to dump.
+		static void _dump_fixnum(VALUE obj);
+		/// @brief Dumps a Bignum.
+		/// @param[in] obj Bignum to dump.
+		static void _dump_bignum(VALUE obj);
+		/// @brief Dumps a Float.
+		/// @param[in] obj Float to dump.
+		static void _dump_float(VALUE obj);
+		/// @brief Dumps a string.
+		/// @param[in] obj String to dump.
+		static void _dump_string(VALUE obj);
+		/// @brief Dumps an array.
+		/// @param[in] obj Array to dump.
+		static void _dump_array(VALUE obj);
+		/// @brief Dumps a hash.
+		/// @param[in] obj Hash to dump.
+		static void _dump_hash(VALUE obj);
+		/// @brief Dumps the actual object.
+		/// @param[in] obj Object to dump.
+		static void _dump_object(VALUE obj);
+		/// @brief Loads the dumped nil.
+		/// @return Loaded nil.
+		static VALUE _load_nil();
+		/// @brief Loads the dumped false.
+		/// @return Loaded false.
+		static VALUE _load_false();
+		/// @brief Loads the dumped true.
+		/// @return Loaded true.
+		static VALUE _load_true();
+		/// @brief Loads the dumped Fixnum.
+		/// @return Loaded Fixnum.
+		static VALUE _load_fixnum();
+		/// @brief Loads the dumped Bignum.
+		/// @return Loaded Bignum.
+		static VALUE _load_bignum();
+		/// @brief Loads the dumped Float.
+		/// @return Loaded Float.
+		static VALUE _load_float();
+		/// @brief Loads the dumped string.
+		/// @return Loaded string.
+		static VALUE _load_string();
+		/// @brief Loads the dumped array.
+		/// @return Loaded array.
+		static VALUE _load_array();
+		/// @brief Loads the dumped hash.
+		/// @return Loaded hash.
+		static VALUE _load_hash();
+		/// @brief Loads the actual dumped object.
+		/// @return Loaded object.
+		static VALUE _load_object();
 
 	};
 

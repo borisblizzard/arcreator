@@ -15,6 +15,9 @@
 /// @brief Gets array size.
 /// @param[in] ary Array to check.
 #define rb_ary_size(ary) rb_funcall(ary, rb_intern("size"), 0)
+/// @brief Gets hash size.
+/// @param[in] ary Hash to check.
+#define rb_hash_size(ary) rb_funcall(ary, rb_intern("size"), 0)
 /// @brief Calls method with name.
 /// @param[in] obj Object to call the method.
 /// @param[in] name Name of the method.
