@@ -6,8 +6,9 @@ module ARC
 	
 		VERSION = "\x01\x00"
 		
-		DEBUG_DISABLE_STRING_MAPPING = false
-		DEBUG_DISABLE_OBJECT_MAPPING = false
+		ENABLE_OBJECT_MAPPING = true
+		ENABLE_STRING_MAPPING = true
+		ENABLE_REFERENCE_MAPPING = false
 		
 		TYPES = {
 			NilClass => 0x10.chr,
@@ -25,11 +26,22 @@ module ARC
 		@@io = nil
 		@@objects = [nil]
 		@@class_path_redirects = {}
+		@@object_mapping = ENABLE_OBJECT_MAPPING
+		@@string_mapping = ENABLE_STRING_MAPPING
+		@@reference_mapping = ENABLE_REFERENCE_MAPPING
 		
 		def self.dump(io, obj, redirects = {})
 			@@class_path_redirects = redirects
+			@@object_mapping = ENABLE_OBJECT_MAPPING
+			@@string_mapping = ENABLE_STRING_MAPPING
+			@@reference_mapping = ENABLE_REFERENCE_MAPPING
 			@@io = io
 			@@io.write(VERSION)
+			flags = 0x00
+			flags |= 0x01 if @@object_mapping
+			flags |= 0x02 if @@string_mapping
+			flags |= 0x04 if @@reference_mapping
+			@@io.write(flags.chr)
 			begin
 				self._dump(obj)
 			rescue
@@ -44,6 +56,10 @@ module ARC
 			@@io = io
 			version = @@io.read(2)
 			raise "Error: #{self} version mismatch! Expected: #{VERSION.inspect} Found: #{version.inspect}" if VERSION != version
+			flags = @@io.read(1).ord
+			@@object_mapping = (flags & 0x01 == 0x01)
+			@@string_mapping = (flags & 0x02 == 0x02)
+			@@reference_mapping = (flags & 0x04 == 0x04)
 			begin
 				data = self._load
 			rescue
@@ -152,7 +168,7 @@ module ARC
 		def self._dump_string(obj)
 			@@io.write(TYPES[String])
 			if obj.size > 0
-				if !DEBUG_DISABLE_STRING_MAPPING && !DEBUG_DISABLE_OBJECT_MAPPING
+				if @@object_mapping && @@string_mapping
 					return if !self.__try_map_object(obj) # abort if object has already been mapped
 				end
 				self.__dump_int32(obj.size)
@@ -165,7 +181,7 @@ module ARC
 		def self._dump_array(obj)
 			@@io.write(TYPES[Array])
 			if obj.size > 0
-				if !DEBUG_DISABLE_OBJECT_MAPPING
+				if @@object_mapping
 					return if !self.__try_map_object(obj) # abort if object has already been mapped
 				end
 				self.__dump_int32(obj.size)
@@ -178,7 +194,7 @@ module ARC
 		def self._dump_hash(obj)
 			@@io.write(TYPES[Hash])
 			if obj.size > 0
-				if !DEBUG_DISABLE_OBJECT_MAPPING
+				if @@object_mapping
 					return if !self.__try_map_object(obj) # abort if object has already been mapped
 				end
 				self.__dump_int32(obj.size)
@@ -191,7 +207,7 @@ module ARC
 		def self._dump_object(obj)
 			@@io.write(TYPES[Object])
 			self._dump_string(self.__get_class_path(obj.class.name)) # first the string path because this is required to load the object
-			if !DEBUG_DISABLE_OBJECT_MAPPING
+			if @@object_mapping
 				return if !self.__try_map_object(obj) # abort if object has already been mapped
 			end
 			if obj.respond_to?("_arc_dump")
@@ -233,7 +249,7 @@ module ARC
 		end
 		
 		def self._load_string
-			if !DEBUG_DISABLE_STRING_MAPPING && !DEBUG_DISABLE_OBJECT_MAPPING
+			if @@object_mapping && @@string_mapping
 				id = self.__load_int32
 				return "" if id == 0
 				obj = self.__find_mapped_object(id)
@@ -241,14 +257,14 @@ module ARC
 			end
 			size = self.__load_int32
 			obj = @@io.read(size)
-			if !DEBUG_DISABLE_STRING_MAPPING && !DEBUG_DISABLE_OBJECT_MAPPING
+			if @@object_mapping && @@string_mapping
 				self.__map_object(obj)
 			end
 			return obj
 		end
 		
 		def self._load_array
-			if !DEBUG_DISABLE_OBJECT_MAPPING
+			if @@object_mapping
 				id = self.__load_int32
 				return [] if id == 0
 				obj = self.__find_mapped_object(id)
@@ -256,7 +272,7 @@ module ARC
 			end
 			size = self.__load_int32
 			obj = []
-			if !DEBUG_DISABLE_OBJECT_MAPPING
+			if @@object_mapping
 				self.__map_object(obj)
 			end
 			size.times {obj.push(self._load)}
@@ -264,7 +280,7 @@ module ARC
 		end
 		
 		def self._load_hash
-			if !DEBUG_DISABLE_OBJECT_MAPPING
+			if @@object_mapping
 				id = self.__load_int32
 				return {} if id == 0
 				obj = self.__find_mapped_object(id)
@@ -272,7 +288,7 @@ module ARC
 			end
 			size = self.__load_int32
 			obj = {}
-			if !DEBUG_DISABLE_OBJECT_MAPPING
+			if @@object_mapping
 				self.__map_object(obj)
 			end
 			size.times {key = self._load; obj[key] = self._load} # making sure key is always loaded first
@@ -281,7 +297,7 @@ module ARC
 		
 		def self._load_object
 			class_path = self._load
-			if !DEBUG_DISABLE_OBJECT_MAPPING
+			if @@object_mapping
 				obj = self.__find_mapped_object(self.__load_int32)
 				return obj if obj != nil
 			end
@@ -299,13 +315,13 @@ module ARC
 			size = self.__load_int32
 			if classe.respond_to?("_arc_load")
 				obj = classe._arc_load(@@io.read(size))
-				if !DEBUG_DISABLE_OBJECT_MAPPING
+				if @@object_mapping
 					self.__map_object(obj)
 				end
 				return obj
 			end
 			obj = classe.allocate
-			if !DEBUG_DISABLE_OBJECT_MAPPING
+			if @@object_mapping
 				self.__map_object(obj)
 			end
 			size.times {obj.instance_variable_set(("@" + self._load).to_sym, self._load)}
