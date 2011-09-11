@@ -4,7 +4,7 @@ module ARC
 
 	module Data
 	
-		VERSION = "\x01\x00"
+		VERSION = "\x01\x00" # 1.0
 		
 		TYPES = {
 			NilClass => 0x10.chr,
