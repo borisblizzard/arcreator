@@ -82,80 +82,23 @@ module ARC
 			return classe
 		end
 
-		def self.__try_map_string(obj)
-			index = @@strings.index(obj)
+		def self.__try_map(data, obj)
+			index = data.index(obj)
 			if index == nil
-				self.__dump_int32(@@strings.size)
-				@@strings.push(obj)
+				self.__dump_int32(data.size)
+				data.push(obj)
 				return true
 			end
 			self.__dump_int32(index)
 			return false
 		end
 
-		def self.__map_string(obj)
-			@@strings.push(obj)
+		def self.__map(data, obj)
+			data.push(obj)
 		end
 
-		def self.__find_mapped_string(id)
-			return (id < @@strings.size ? @@strings[id] : nil)
-		end
-		
-		def self.__try_map_array(obj)
-			index = @@arrays.index(obj)
-			if index == nil
-				self.__dump_int32(@@arrays.size)
-				@@arrays.push(obj)
-				return true
-			end
-			self.__dump_int32(index)
-			return false
-		end
-
-		def self.__map_array(obj)
-			@@arrays.push(obj)
-		end
-
-		def self.__find_mapped_array(id)
-			return (id < @@arrays.size ? @@arrays[id] : nil)
-		end
-		
-		def self.__try_map_hash(obj)
-			index = @@hashes.index(obj)
-			if index == nil
-				self.__dump_int32(@@hashes.size)
-				@@hashes.push(obj)
-				return true
-			end
-			self.__dump_int32(index)
-			return false
-		end
-
-		def self.__map_hash(obj)
-			@@hashes.push(obj)
-		end
-
-		def self.__find_mapped_hash(id)
-			return (id < @@hashes.size ? @@hashes[id] : nil)
-		end
-		
-		def self.__try_map_object(obj)
-			index = @@objects.index(obj)
-			if index == nil
-				self.__dump_int32(@@objects.size)
-				@@objects.push(obj)
-				return true
-			end
-			self.__dump_int32(index)
-			return false
-		end
-
-		def self.__map_object(obj)
-			@@objects.push(obj)
-		end
-
-		def self.__find_mapped_object(id)
-			return (id < @@objects.size ? @@objects[id] : nil)
+		def self.__find_mapped(data, id)
+			return (id < data.size ? data[id] : nil)
 		end
 		
 		def self.__dump_int32(obj)
@@ -227,7 +170,7 @@ module ARC
 		def self._dump_string(obj)
 			@@io.write(TYPES[String])
 			if obj.size > 0
-				return if !self.__try_map_string(obj) # abort if object has already been mapped
+				return if !self.__try_map(@@strings, obj) # abort if object has already been mapped
 				self.__dump_int32(obj.size)
 				@@io.write(obj)
 			else
@@ -238,7 +181,7 @@ module ARC
 		def self._dump_array(obj)
 			@@io.write(TYPES[Array])
 			if obj.size > 0
-				return if !self.__try_map_array(obj) # abort if object has already been mapped
+				return if !self.__try_map(@@arrays, obj) # abort if object has already been mapped
 				self.__dump_int32(obj.size)
 				obj.each {|value| self._dump(value)}
 			else
@@ -249,7 +192,7 @@ module ARC
 		def self._dump_hash(obj)
 			@@io.write(TYPES[Hash])
 			if obj.size > 0
-				return if !self.__try_map_hash(obj) # abort if object has already been mapped
+				return if !self.__try_map(@@hashes, obj) # abort if object has already been mapped
 				self.__dump_int32(obj.size)
 				obj.each_pair {|key, value| self._dump(key); self._dump(value)}
 			else
@@ -260,7 +203,7 @@ module ARC
 		def self._dump_object(obj)
 			@@io.write(TYPES[Object])
 			self._dump_string(self.__get_class_path(obj.class.name)) # first the string path because this is required to load the object
-			return if !self.__try_map_object(obj) # abort if object has already been mapped
+			return if !self.__try_map(@@objects, obj) # abort if object has already been mapped
 			if obj.respond_to?("_arc_dump")
 				data = obj._arc_dump
 				self.__dump_int32(data.size)
@@ -302,22 +245,22 @@ module ARC
 		def self._load_string
 			id = self.__load_int32
 			return "" if id == 0
-			obj = self.__find_mapped_string(id)
+			obj = self.__find_mapped(@@strings, id)
 			return obj.clone if obj != nil
 			size = self.__load_int32
 			obj = @@io.read(size)
-			self.__map_string(obj)
+			self.__map(@@strings, obj)
 			return obj
 		end
 		
 		def self._load_array
 			id = self.__load_int32
 			return [] if id == 0
-			obj = self.__find_mapped_array(id)
+			obj = self.__find_mapped(@@arrays, id)
 			return obj if obj != nil
 			size = self.__load_int32
 			obj = []
-			self.__map_array(obj)
+			self.__map(@@arrays, obj)
 			size.times {obj.push(self._load)}
 			return obj
 		end
@@ -325,28 +268,28 @@ module ARC
 		def self._load_hash
 			id = self.__load_int32
 			return {} if id == 0
-			obj = self.__find_mapped_hash(id)
+			obj = self.__find_mapped(@@hashes, id)
 			return obj if obj != nil
 			size = self.__load_int32
 			obj = {}
-			self.__map_hash(obj)
+			self.__map(@@hashes, obj)
 			size.times {key = self._load; obj[key] = self._load} # making sure key is always loaded first
 			return obj
 		end
 		
 		def self._load_object
 			class_path = self._load
-			obj = self.__find_mapped_object(self.__load_int32)
+			obj = self.__find_mapped(@@objects, self.__load_int32)
 			return obj if obj != nil
 			classe = self.__get_class_object(class_path)
 			size = self.__load_int32
 			if classe.respond_to?("_arc_load")
 				obj = classe._arc_load(@@io.read(size))
-				self.__map_object(obj)
+				self.__map(@@objects, obj)
 				return obj
 			end
 			obj = classe.allocate
-			self.__map_object(obj)
+			self.__map(@@objects, obj)
 			size.times {obj.instance_variable_set(("@" + self._load).to_sym, self._load)}
 			return obj
 		end
