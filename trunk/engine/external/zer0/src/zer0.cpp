@@ -185,13 +185,6 @@ namespace zer0
 			zer0::system = new zer0::System(path);
 			zer0::context = new zer0::Context();
 			zer0::transitionManager = new zer0::TransitionManager();
-			// creating Ruby interfaces of C++ classes created for Ruby
-			ARC::createRubyInterface();
-			ARC_Data::createRubyInterface();
-			// initialization of Ruby classes
-			ARC::init();
-			ARC_Data::init();
-			ARC_Error::init();
 		}
 		catch (hltypes::exception e)
 		{
@@ -215,6 +208,7 @@ namespace zer0
 			// destroy Ruby stuff
 			ARC::destroy();
 			ARC_Data::destroy();
+			ARC_Error::destroy();
 			// destroy other
 			delete zer0::system;
 			delete zer0::context;
@@ -240,6 +234,14 @@ namespace zer0
 	
 	VALUE embedded(VALUE ignore)
 	{
+		// creating Ruby interfaces of C++ classes created for Ruby
+		ARC::createRubyInterface();
+		ARC_Data::createRubyInterface();
+		ARC_Error::createRubyInterface();
+		// initialization of Ruby classes
+		ARC::init();
+		ARC_Data::init();
+		ARC_Error::init();
 		// running RGSS
 		rgss::init(g_logFunction);
 		// running the Ruby scripts

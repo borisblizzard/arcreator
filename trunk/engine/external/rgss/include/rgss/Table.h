@@ -66,38 +66,35 @@ namespace rgss
 		/// @brief Gets the Z dimension size.
 		/// @return The Z dimension size.
 		static VALUE rb_getZSize(VALUE self);
-
 		/// @brief Gets the value of an entry at a specific position in the table.
 		/// @param[in] argc Number of arguments.
 		/// @param[in] argv Pointer to first argument.
 		/// @note Arguments are "x[, y[, z]]".
 		/// @return value The value at position.
 		static VALUE rb_getData(int argc, VALUE* argv, VALUE self);
-
 		/// @brief Sets the value of an entry at a specific position in the table.
 		/// @param[in] argc Number of arguments.
 		/// @param[in] argv Pointer to first argument.
 		/// @note Arguments are "x[, y[, z]], value".
 		static VALUE rb_setData(int argc, VALUE* argv, VALUE self);
-			
 		/// @brief Resizes the Table to a new size.
 		/// @param[in] argc Number of arguments.
 		/// @param[in] argv Pointer to first argument.
 		/// @note Arguments are "xsize[, ysize[, zsize]]".
 		static VALUE rb_resize(int argc, VALUE* argv, VALUE self);
-
 		/// @brief Returns a byte string containing data needed to reconstruct the Tone object.
 		/// @param[in] argc Number of arguments.
 		/// @param[in] argv Pointer to first argument.
 		/// @note Only one argument d, it defaults to 0 and is used for object depth.
 		/// @return value A byte string.
 		static VALUE rb_dump(int argc, VALUE* argv, VALUE self);
-
 		/// @brief Returns an RGSS::Tone object constructed from a byte string.
 		/// @param[in] value The byte string from which to load the object.
 		static VALUE rb_load(VALUE self, VALUE value);
 
 	protected:
+		/// @brief Number of dimensions
+		int dimensions;
 		/// @brief X dimension size.
 		int xSize;
 		/// @brief Y dimension size.
@@ -116,10 +113,19 @@ namespace rgss
 
 		/// @brief Resizes the Table to a new size.
 		/// @param xSize New X dimension size.
+		/// @note Entries at intersecting positions will remain in the table.
+		void _resize(int xSize);
+		/// @brief Resizes the Table to a new size.
+		/// @param xSize New X dimension size.
+		/// @param ySize New Y dimension size.
+		/// @note Entries at intersecting positions will remain in the table.
+		void _resize(int xSize, int ySize);
+		/// @brief Resizes the Table to a new size.
+		/// @param xSize New X dimension size.
 		/// @param ySize New Y dimension size.
 		/// @param zSize New Z dimension size.
 		/// @note Entries at intersecting positions will remain in the table.
-		void _resize(int xSize, int ySize = 1, int zSize = 1);
+		void _resize(int xSize, int ySize, int zSize);
 			
 	};
 

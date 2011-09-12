@@ -30,6 +30,18 @@ namespace rgss
 		return this->data[x + this->xSize * (y + this->ySize * z)];
 	}
 
+	void Table::_resize(int xSize)
+	{
+		this->_resize(xSize, 1, 1);
+		this->dimensions = 1;
+	}
+	
+	void Table::_resize(int xSize, int ySize)
+	{
+		this->_resize(xSize, ySize, 1);
+		this->dimensions = 2;
+	}
+	
 	void Table::_resize(int xSize, int ySize, int zSize)
 	{
 		int oldXSize = this->xSize;
@@ -61,6 +73,7 @@ namespace rgss
 		delete [] this->data;
 		// set the new data
 		this->data = newData;
+		this->dimensions = 3;
 	}
 	
 	short* Table::_createData(int xSize, int ySize, int zSize) const
@@ -127,6 +140,7 @@ namespace rgss
 		table->ySize = hmax(NIL_P(arg2) ? 1 : NUM2INT(arg2), 1);
 		table->zSize = hmax(NIL_P(arg3) ? 1 : NUM2INT(arg3), 1);
 		table->data = table->_createData(table->xSize, table->ySize, table->zSize);
+		table->dimensions = argc;
 		return self;
 	}
 
@@ -138,6 +152,7 @@ namespace rgss
 		table->ySize = other->ySize;
 		table->zSize = other->zSize;
 		table->data = table->_createData(table->xSize, table->ySize, table->zSize);
+		table->dimensions = other->dimensions;
 		memcpy(table->data, other->data, table->xSize * table->ySize * table->zSize * sizeof(short));
 		return self;
 	}
@@ -177,18 +192,7 @@ namespace rgss
 		VALUE arg1 = Qnil;
 		VALUE arg2 = Qnil;
 		VALUE arg3 = Qnil;
-		if (table->zSize > 1)
-		{
-			rb_scan_args(argc, argv, "3", &arg1, &arg2, &arg3);
-		}
-		else if (table->ySize > 1)
-		{
-			rb_scan_args(argc, argv, "2", &arg1, &arg2);
-		}
-		else
-		{
-			rb_scan_args(argc, argv, "1", &arg1);
-		}
+		rb_scan_args(argc, argv, hstr(table->dimensions).c_str(), &arg1, &arg2, &arg3);
 		int x = NUM2INT(arg1);
 		int y = (NIL_P(arg2) ? 0 : NUM2INT(arg2));
 		int z = (NIL_P(arg3) ? 0 : NUM2INT(arg3));
@@ -206,18 +210,7 @@ namespace rgss
 		VALUE arg2 = Qnil;
 		VALUE arg3 = Qnil;
 		VALUE arg4 = Qnil;
-		if (table->zSize > 1)
-		{
-			rb_scan_args(argc, argv, "4", &arg1, &arg2, &arg3, &arg4);
-		}
-		else if (table->ySize > 1)
-		{
-			rb_scan_args(argc, argv, "3", &arg1, &arg2, &arg4);
-		}
-		else
-		{
-			rb_scan_args(argc, argv, "2", &arg1, &arg4);
-		}
+		rb_scan_args(argc, argv, hstr(table->dimensions + 1).c_str(), &arg1, &arg2, &arg3, &arg4);
 		int x = NUM2INT(arg1);
 		int y = (NIL_P(arg2) ? 0 : NUM2INT(arg2));
 		int z = (NIL_P(arg3) ? 0 : NUM2INT(arg3));
@@ -225,7 +218,7 @@ namespace rgss
 		{
 			return Qnil;
 		}
-		int value = (short)hclamp(NUM2INT(arg4), -32768, 32767);
+		int value = (short)hclamp(NUM2INT(argc == 2 ? arg2 : (argc == 3 ? arg3 : arg4)), -32768, 32767);
 		table->data[x + table->xSize * (y + table->ySize * z)] = value;
 		return Qnil;
 	}
@@ -233,12 +226,13 @@ namespace rgss
 	VALUE Table::rb_resize(int argc, VALUE* argv, VALUE self)
 	{
 		RB_SELF2CPP(Table, table);
-		VALUE xSize, ySize, zSize;
-		rb_scan_args(argc, argv, "12", &xSize, &ySize, &zSize);
-		table->xSize = hmax(NUM2INT(xSize), 1);
-		table->ySize = hmax(NIL_P(ySize) ? 1 : NUM2INT(ySize), 1);
-		table->zSize = hmax(NIL_P(zSize) ? 1 : NUM2INT(zSize), 1);
-		table->_resize(NUM2INT(xSize), NUM2INT(ySize), NUM2INT(zSize));
+		VALUE rb_xSize, rb_ySize, rb_zSize;
+		rb_scan_args(argc, argv, "12", &rb_xSize, &rb_ySize, &rb_zSize);
+		int xSize = hmax(NUM2INT(rb_xSize), 1);
+		int ySize = hmax(NIL_P(rb_ySize) ? 1 : NUM2INT(rb_ySize), 1);
+		int zSize = hmax(NIL_P(rb_zSize) ? 1 : NUM2INT(rb_zSize), 1);
+		table->_resize(xSize, ySize, zSize);
+		table->dimensions = argc;
 		return Qnil;
 	}
 
@@ -251,11 +245,10 @@ namespace rgss
 			d = INT2FIX(0);
 		}
 		RB_SELF2CPP(Table, table);
-
 		int size = table->xSize * table->ySize * table->zSize;
 		// store sizes
 		VALUE data = rb_ary_new();
-		rb_ary_push(data, INT2FIX(2));
+		rb_ary_push(data, INT2FIX(table->dimensions));
 		rb_ary_push(data, INT2FIX(table->xSize));
 		rb_ary_push(data, INT2FIX(table->ySize));
 		rb_ary_push(data, INT2FIX(table->zSize));
@@ -275,15 +268,29 @@ namespace rgss
 	VALUE Table::rb_load(VALUE self, VALUE value)
 	{
 		// load Table size data
-		VALUE sliced_string = rb_funcall_2(value, "[]", INT2FIX(4), INT2FIX(12));
-		VALUE data = rb_funcall_1(sliced_string, "unpack", rb_str_new2("LLL"));
+		VALUE sliced_string = rb_funcall_2(value, "[]", INT2FIX(0), INT2FIX(20));
+		VALUE data = rb_funcall_1(sliced_string, "unpack", rb_str_new2("LLLLL"));
+		int dimensions = NUM2INT(rb_ary_shift(data));
 		VALUE rb_xSize = rb_ary_shift(data);
 		VALUE rb_ySize = rb_ary_shift(data);
 		VALUE rb_zSize = rb_ary_shift(data);
 		int size = NUM2INT(rb_xSize) * NUM2INT(rb_ySize) * NUM2INT(rb_zSize);
 		// create the table
-		VALUE argv[3] = {rb_xSize, rb_ySize, rb_zSize};
-		VALUE rb_table = Table::create(3, argv);
+		VALUE rb_table;
+		if (dimensions == 1)
+		{
+			rb_table = Table::create(1, &rb_xSize);
+		}
+		else if (dimensions == 2)
+		{
+			VALUE argv[2] = {rb_xSize, rb_ySize};
+			rb_table = Table::create(2, argv);
+		}
+		else
+		{
+			VALUE argv[3] = {rb_xSize, rb_ySize, rb_zSize};
+			rb_table = Table::create(3, argv);
+		}
 		RB_VAR2CPP(rb_table, Table, table);
 		// loading data entries
 		VALUE data_fmt = rb_str_new2(hstr('S', size).c_str());
