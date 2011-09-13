@@ -24,7 +24,6 @@ import re
 
 class Global(object):
     
-    Project = None
     ProjectOpen = False
     FileHistory = None
     CurrentProjectDir = ""
@@ -42,7 +41,7 @@ class Global(object):
 
 class GlobalObjects(object):
 
-    objects = {}
+    objects = {"PROJECT":None}
 
     @staticmethod
     def add(obj, name):
