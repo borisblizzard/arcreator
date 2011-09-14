@@ -1,4 +1,19 @@
-﻿if $game_exists
+﻿load_data("Data/MapInfos.arc")
+load_data("Data/Actors.arc")
+load_data("Data/Classes.arc")
+load_data("Data/Skills.arc")
+load_data("Data/Items.arc")
+load_data("Data/Weapons.arc")
+load_data("Data/Armors.arc")
+load_data("Data/Enemies.arc")
+load_data("Data/Troops.arc")
+load_data("Data/States.arc")
+load_data("Data/Animations.arc")
+load_data("Data/Tilesets.arc")
+load_data("Data/CommonEvents.arc")
+load_data("Data/System.arc")
+
+if $game_exists
   Thread.new {system('Game')}
   exit
 end
