@@ -91,7 +91,7 @@ namespace zer0
 		foreach (hstr, it, classes)
 		{
 			symbol = rb_f_to_sym(rb_str_new2((*it).c_str()));
-			if (!RTEST(rb_funcall_1(classe, "const_defined", symbol)))
+			if (!RTEST(rb_funcall_1(classe, "const_defined?", symbol)))
 			{
 				rb_raise(rb_eARC_Error, ("Class not defined " + (*it)).c_str());
 			}

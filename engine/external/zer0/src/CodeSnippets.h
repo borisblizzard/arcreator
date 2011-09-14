@@ -44,7 +44,7 @@
 #define rb_f_to_s(obj) rb_funcall(obj, rb_intern("to_s"), 0)
 /// @brief Calls rb_to_sym.
 /// @param[in] obj Object to use.
-#define rb_f_to_sym(obj) rb_funcall(obj, rb_intern("rb_to_sym"), 0)
+#define rb_f_to_sym(obj) rb_funcall(obj, rb_intern("to_sym"), 0)
 /// @brief Calls inspect.
 /// @param[in] obj Object to use.
 #define rb_f_inspect(obj) rb_funcall(obj, rb_intern("inspect"), 0)

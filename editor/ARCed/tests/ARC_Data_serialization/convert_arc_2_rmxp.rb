@@ -16,7 +16,7 @@ begin
 				domaps = true
 			else
 				data = arc_load_data($frompath + "/Data/#{file}.rxdata")
-				arc_dump_data($topath + "Data/#{file}.arc")
+				dump_data($topath + "/Data/#{file}.rxdata")
 			end
 		end
 		if domaps

@@ -121,6 +121,18 @@ namespace zer0
 		return result;
 	}
 	
+	VALUE rb_Kernel_loadData(VALUE self, VALUE filename)
+	{
+		/// @todo - ARC_Data::rb_load has to be fixed before this can be uncommented
+		/// return ARC_Data::rb_load(rb_mARC_Data, filename);
+		rb_funcall_2(filename, "gsub!", rb_str_new2(".arc"), rb_str_new2(".rxdata"));
+		VALUE file = rb_funcall_2(rb_cFile, "open", filename, rb_str_new2("rb"));
+		VALUE rb_mMarshal = rb_funcall_1(rb_mKernel, "const_get", rb_f_to_sym(rb_str_new2("Marshal")));
+		VALUE data = rb_funcall_1(rb_mMarshal, "load", file);
+		rb_funcall_0(file, "close");
+		return data;
+	}
+	
 	bool isDebugMode()
 	{
 		return debugMode;
@@ -279,6 +291,7 @@ namespace zer0
 		rb_define_method(rb_mKernel, "print", RUBY_METHOD_FUNC(&rb_Kernel_print), -1);
 		rb_define_method(rb_mKernel, "puts", RUBY_METHOD_FUNC(&rb_Kernel_print), -1);
 		rb_define_method(rb_mKernel, "p", RUBY_METHOD_FUNC(&rb_Kernel_p), -1);
+		rb_define_method(rb_mKernel, "load_data", RUBY_METHOD_FUNC(&rb_Kernel_loadData), 1);
 		// running everything
 		try
 		{
