@@ -3274,7 +3274,7 @@ class Game_Map
     # Put map ID in @map_id memory
     @map_id = map_id
     # Load map from file and set @map
-    @map = load_data(sprintf("Data/Map%03d.rxdata", @map_id))
+    @map = load_data(sprintf("Data/Map%03d.arc", @map_id))
     # set tile set information in opening instance variables
     tileset = $data_tilesets[@map.tileset_id]
     @tileset_name = tileset.tileset_name
@@ -7319,7 +7319,7 @@ class Window_SaveFile < Window_Base
     super(0, 64 + file_index % 4 * 104, 640, 104)
     self.contents = Bitmap.new(width - 32, height - 32)
     @file_index = file_index
-    @filename = "Save#{@file_index + 1}.rxdata"
+    @filename = "Save#{@file_index + 1}.sav"
     @time_stamp = Time.at(0)
     @file_exist = FileTest.exist?(@filename)
     if @file_exist
@@ -11334,19 +11334,19 @@ class Scene_Title
     @ver.z = 150
     @count = false
     # Load database
-    $data_actors        = load_data("Data/Actors.rxdata")
-    $data_classes       = load_data("Data/Classes.rxdata")
-    $data_skills        = load_data("Data/Skills.rxdata")
-    $data_items         = load_data("Data/Items.rxdata")
-    $data_weapons       = load_data("Data/Weapons.rxdata")
-    $data_armors        = load_data("Data/Armors.rxdata")
-    $data_enemies       = load_data("Data/Enemies.rxdata")
-    $data_troops        = load_data("Data/Troops.rxdata")
-    $data_states        = load_data("Data/States.rxdata")
-    $data_animations    = load_data("Data/Animations.rxdata")
-    $data_tilesets      = load_data("Data/Tilesets.rxdata")
-    $data_common_events = load_data("Data/CommonEvents.rxdata")
-    $data_system        = load_data("Data/System.rxdata")
+    $data_actors        = load_data("Data/Actors.arc")
+    $data_classes       = load_data("Data/Classes.arc")
+    $data_skills        = load_data("Data/Skills.arc")
+    $data_items         = load_data("Data/Items.arc")
+    $data_weapons       = load_data("Data/Weapons.arc")
+    $data_armors        = load_data("Data/Armors.arc")
+    $data_enemies       = load_data("Data/Enemies.arc")
+    $data_troops        = load_data("Data/Troops.arc")
+    $data_states        = load_data("Data/States.arc")
+    $data_animations    = load_data("Data/Animations.arc")
+    $data_tilesets      = load_data("Data/Tilesets.arc")
+    $data_common_events = load_data("Data/CommonEvents.arc")
+    $data_system        = load_data("Data/System.arc")
     # Make system object
     $game_system = Game_System.new
     # Make title graphic
@@ -11369,7 +11369,7 @@ class Scene_Title
     # If enabled, make @continue_enabled true; if disabled, make it false
     @continue_enabled = false
     for i in 0..3
-      @continue_enabled = true if FileTest.exist?("Save#{i+1}.rxdata")
+      @continue_enabled = true if FileTest.exist?("Save#{i+1}.sav")
     end
     # If continue is enabled, move cursor to "Continue"
     # If disabled, display "Continue" text in gray
@@ -11527,19 +11527,19 @@ class Scene_Title
   #--------------------------------------------------------------------------
   def battle_test
     # Load database (for battle test)
-    $data_actors        = load_data("Data/BT_Actors.rxdata")
-    $data_classes       = load_data("Data/BT_Classes.rxdata")
-    $data_skills        = load_data("Data/BT_Skills.rxdata")
-    $data_items         = load_data("Data/BT_Items.rxdata")
-    $data_weapons       = load_data("Data/BT_Weapons.rxdata")
-    $data_armors        = load_data("Data/BT_Armors.rxdata")
-    $data_enemies       = load_data("Data/BT_Enemies.rxdata")
-    $data_troops        = load_data("Data/BT_Troops.rxdata")
-    $data_states        = load_data("Data/BT_States.rxdata")
-    $data_animations    = load_data("Data/BT_Animations.rxdata")
-    $data_tilesets      = load_data("Data/BT_Tilesets.rxdata")
-    $data_common_events = load_data("Data/BT_CommonEvents.rxdata")
-    $data_system        = load_data("Data/BT_System.rxdata")
+    $data_actors        = load_data("Data/BT_Actors.arc")
+    $data_classes       = load_data("Data/BT_Classes.arc")
+    $data_skills        = load_data("Data/BT_Skills.arc")
+    $data_items         = load_data("Data/BT_Items.arc")
+    $data_weapons       = load_data("Data/BT_Weapons.arc")
+    $data_armors        = load_data("Data/BT_Armors.arc")
+    $data_enemies       = load_data("Data/BT_Enemies.arc")
+    $data_troops        = load_data("Data/BT_Troops.arc")
+    $data_states        = load_data("Data/BT_States.arc")
+    $data_animations    = load_data("Data/BT_Animations.arc")
+    $data_tilesets      = load_data("Data/BT_Tilesets.arc")
+    $data_common_events = load_data("Data/BT_CommonEvents.arc")
+    $data_system        = load_data("Data/BT_System.arc")
     # Reset frame count for measuring play time
     Graphics.frame_count = 0
     # Make each game object
@@ -12919,7 +12919,7 @@ class Scene_File
   #     file_index : save file index (0-3)
   #--------------------------------------------------------------------------
   def make_filename(file_index)
-    return "Save#{file_index + 1}.rxdata"
+    return "Save#{file_index + 1}.sav"
   end
 end
 
@@ -15494,7 +15494,7 @@ PREVENT_CRASH = true
 SHOW_ERROR = true
 # if you are using a custom save system
 SAVE_NAME = 'Save'
-SAVE_EXTENSION = 'rxdata'
+SAVE_EXTENSION = 'sav'
 SAVE_FILES_NUMBER = 4
 
 #::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
@@ -16013,7 +16013,7 @@ class Window_DebugList < Window_Selectable
       @status_window = other
       @status_window.refresh
     when 6
-      @map_data = load_data('Data/MapInfos.rxdata')
+      @map_data = load_data('Data/MapInfos.arc')
       @commands = ['Map doesn\'t exist']
       @commands.push('X coordinate', 'Y coordinate') if TELEPORT_POSITION
       @map = [0, 0, 0]
@@ -16147,7 +16147,7 @@ class Window_DebugList < Window_Selectable
         if old_map != @map[0]
           $game_system.se_play($data_system.cursor_se)
           if @map_data.keys.include?(@map[0])
-            @loaded = load_data(sprintf('Data/Map%03d.rxdata', @map[0]))
+            @loaded = load_data(sprintf('Data/Map%03d.arc', @map[0]))
             @commands[0] = @map_data[@map[0]].name
             draw_map(0)
             if TELEPORT_POSITION
@@ -16493,7 +16493,7 @@ class SceneSub_Debug
           $game_temp.player_new_x = @control_window.map[1]
           $game_temp.player_new_y = @control_window.map[2]
         else
-          map = load_data(sprintf('Data/Map%03d.rxdata', @control_window.map[0]))
+          map = load_data(sprintf('Data/Map%03d.arc', @control_window.map[0]))
           $game_temp.player_new_x = map.width/2
           $game_temp.player_new_y = map.height/2
         end
@@ -16589,7 +16589,7 @@ class SceneSub_Debug
           if DEBUG_ROOM_ID != 0
             $game_system.se_play($data_system.decision_se)
             @abort = true
-            map = load_data(sprintf('Data/Map%03d.rxdata', DEBUG_ROOM_ID))
+            map = load_data(sprintf('Data/Map%03d.arc', DEBUG_ROOM_ID))
             $game_temp.player_new_map_id = DEBUG_ROOM_ID
             $game_temp.player_new_x = map.width/2
             $game_temp.player_new_y = map.height/2
@@ -18144,7 +18144,7 @@ class Scene_Title
 
   alias main_location_later main
   def main
-    $map_infos = load_data('Data/MapInfos.rxdata')
+    $map_infos = load_data('Data/MapInfos.arc')
     for key in $map_infos.keys
       $map_infos[key] = $map_infos[key].name
     end
@@ -20008,7 +20008,7 @@ class Scene_Title
     if TONS_OF_ADDONS::FULLSCREEN
       unless $game_started 
         Graphics.freeze
-        $data_system = load_data('Data/System.rxdata')
+        $data_system = load_data('Data/System.arc')
         $game_system = Game_System.new
         @window = Window_FullScreen.new(320, ['Yes' ,'No'])
         @window.x = 320 - @window.width / 2
@@ -21077,7 +21077,7 @@ end
 #==============================================================================
 
 sys = Game_System.new
-skills = load_data('Data/Skills.rxdata')
+skills = load_data('Data/Skills.arc')
 skills.delete(nil)
 $ap_enabled = false
 for skill in skills
@@ -23641,7 +23641,7 @@ FONTS = ['Arial', 'Future', 'Comic Sans MS', 'Brush Script', 'Tahoma',
          'Times New Roman']
 # save file options
 SAVE_NAME = 'Save'
-SAVE_EXTENSION = 'rxdata'
+SAVE_EXTENSION = 'sav'
 SAVE_FILES_NUMBER = 4
 # extra options
 MAP_BACKGROUND = true
@@ -23856,7 +23856,7 @@ class Scene_Title
 
   alias main_storm_cms_later main
   def main
-    $map_infos = load_data('Data/MapInfos.rxdata')
+    $map_infos = load_data('Data/MapInfos.arc')
     $map_infos.keys.each {|key| $map_infos[key] = $map_infos[key].name}
     main_storm_cms_later
   end
@@ -27751,9 +27751,9 @@ end
 # if using intelligent minimap mode
 if BlizzABS::Config::INTELLIGENT_PASSABILTY && $DEBUG
   # load tileset data
-  $data_tilesets = load_data('Data/Tilesets.rxdata')
+  $data_tilesets = load_data('Data/Tilesets.arc')
   # get current map states
-  new_data = load_data('Data/MapInfos.rxdata')
+  new_data = load_data('Data/MapInfos.arc')
   # if first time intelligent passability is being used
   if !File.exist?('Data/Map_Data.abs')
     # initialize
@@ -27766,9 +27766,9 @@ if BlizzABS::Config::INTELLIGENT_PASSABILTY && $DEBUG
     # iterate through all current map IDs
     new_data.keys.sort.each {|id|
         # if game not encrypted
-        if File.exist?(sprintf('Data/Map%03d.rxdata', id))
+        if File.exist?(sprintf('Data/Map%03d.arc', id))
           # open map file for reading
-          file = File.open(sprintf('Data/Map%03d.rxdata', id), 'r')
+          file = File.open(sprintf('Data/Map%03d.arc', id), 'r')
           # remove map ID if map was edited
           [data, dates].each {|_hash| _hash.delete(id)} if dates[id] != file.mtime
           # close file
@@ -27786,13 +27786,13 @@ if BlizzABS::Config::INTELLIGENT_PASSABILTY && $DEBUG
   # iterate through all IDs
   ids.each {|id|
       # load map
-      map = load_data(sprintf('Data/Map%03d.rxdata', id))
+      map = load_data(sprintf('Data/Map%03d.arc', id))
       # create one map data pack
       data[id] = BlizzABS.setup_passability(map)
       # if game not encrypted
-      if File.exist?(sprintf('Data/Map%03d.rxdata', id))
+      if File.exist?(sprintf('Data/Map%03d.arc', id))
         # open map file for reading
-        f = File.open(sprintf('Data/Map%03d.rxdata', id), 'r')
+        f = File.open(sprintf('Data/Map%03d.arc', id), 'r')
         # get map file modified time
         dates[id] = f.mtime
         # close file
@@ -35465,7 +35465,7 @@ ERROR_LOG_FILE = 'Error.log' # leave empty for no log
 
 def mod_error(error)
   # load scripts
-  scripts = load_data('Data/Scripts.rxdata')
+  scripts = load_data('Data/Scripts.arc')
   bt = error.backtrace.clone
   # change backtrace display to show script names
   bt.each_index {|i| bt[i] = bt[i].sub(/\ASection(\d+)/) {scripts[$1.to_i][1]} + "\n"}
@@ -35480,19 +35480,19 @@ end
 
 begin
   # loading game data
-  $data_actors        = load_data('Data/Actors.rxdata')
-  $data_classes       = load_data('Data/Classes.rxdata')
-  $data_skills        = load_data('Data/Skills.rxdata')
-  $data_items         = load_data('Data/Items.rxdata')
-  $data_weapons       = load_data('Data/Weapons.rxdata')
-  $data_armors        = load_data('Data/Armors.rxdata')
-  $data_enemies       = load_data('Data/Enemies.rxdata')
-  $data_troops        = load_data('Data/Troops.rxdata')
-  $data_states        = load_data('Data/States.rxdata')
-  $data_animations    = load_data('Data/Animations.rxdata')
-  $data_tilesets      = load_data('Data/Tilesets.rxdata')
-  $data_common_events = load_data('Data/CommonEvents.rxdata')
-  $data_system        = load_data('Data/System.rxdata')
+  $data_actors        = load_data('Data/Actors.arc')
+  $data_classes       = load_data('Data/Classes.arc')
+  $data_skills        = load_data('Data/Skills.arc')
+  $data_items         = load_data('Data/Items.arc')
+  $data_weapons       = load_data('Data/Weapons.arc')
+  $data_armors        = load_data('Data/Armors.arc')
+  $data_enemies       = load_data('Data/Enemies.arc')
+  $data_troops        = load_data('Data/Troops.arc')
+  $data_states        = load_data('Data/States.arc')
+  $data_animations    = load_data('Data/Animations.arc')
+  $data_tilesets      = load_data('Data/Tilesets.arc')
+  $data_common_events = load_data('Data/CommonEvents.arc')
+  $data_system        = load_data('Data/System.arc')
   # prepare for transition
   Graphics.freeze
   # active connection scene
