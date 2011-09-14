@@ -145,6 +145,8 @@ namespace rgss
 	{
 		rb_mGraphics = rb_define_module("Graphics");
 		rb_define_module_function(rb_mGraphics, "update", RUBY_METHOD_FUNC(&Graphics::rb_update), 0);
+		rb_define_module_function(rb_mGraphics, "width", RUBY_METHOD_FUNC(&Graphics::rb_getWidth), 0);
+		rb_define_module_function(rb_mGraphics, "height", RUBY_METHOD_FUNC(&Graphics::rb_getHeight), 0);
 		rb_define_module_function(rb_mGraphics, "frame_count", RUBY_METHOD_FUNC(&Graphics::rb_getFrameCount), 0);
 		rb_define_module_function(rb_mGraphics, "frame_count=", RUBY_METHOD_FUNC(&Graphics::rb_setFrameCount), 1);
 		rb_define_module_function(rb_mGraphics, "frame_rate", RUBY_METHOD_FUNC(&Graphics::rb_getFrameRate), 0);
@@ -157,6 +159,16 @@ namespace rgss
 	/****************************************************************************************
 	 * Ruby Getters/Setters
 	 ****************************************************************************************/
+
+	VALUE Graphics::rb_getWidth(VALUE self)
+	{
+		return INT2NUM(width);
+	}
+
+	VALUE Graphics::rb_getHeight(VALUE self)
+	{
+		return INT2NUM(height);
+	}
 
 	VALUE Graphics::rb_getFrameCount(VALUE self)
 	{
@@ -214,6 +226,18 @@ namespace rgss
 	{
 		active = false;
 		return Qnil;
+	}
+
+	VALUE Graphics::rb_capture(VALUE self)
+	{
+		VALUE argv[2] = {INT2FIX(width), INT2FIX(height)};
+		VALUE rb_bitmap = Bitmap::create(2, argv);
+		RB_VAR2CPP(rb_bitmap, Bitmap, bitmap);
+		april::ImageSource* imageSource = april::rendersys->grabScreenshot(4);
+		delete bitmap->getTexture();
+		bitmap->setTexture(april::rendersys->createTextureFromMemory(imageSource->data, width, height));
+		delete imageSource;
+		return rb_bitmap;
 	}
 
 	VALUE Graphics::rb_transition(int argc, VALUE* argv, VALUE self)
