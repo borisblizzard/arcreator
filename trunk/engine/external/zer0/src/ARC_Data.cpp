@@ -100,7 +100,7 @@ namespace zer0
 		return classe;
 	}
 
-	bool ARC_Data::__try_map(harray<VALUE> data, VALUE obj)
+	bool ARC_Data::__try_map(harray<VALUE>& data, VALUE obj)
 	{
 		int index = data.index_of(obj);
 		if (index < 0)
@@ -113,24 +113,24 @@ namespace zer0
 		return false;
 	}
 
-	void ARC_Data::__map(harray<VALUE> data, VALUE obj)
+	void ARC_Data::__map(harray<VALUE>& data, VALUE obj)
 	{
 		data += obj;
 	}
 
-	VALUE ARC_Data::__find_mapped(harray<VALUE> data, int id)
+	VALUE ARC_Data::__find_mapped(harray<VALUE>& data, int id)
 	{
 		return (id < data.size() ? data[id] : Qnil);
 	}
 	
 	void ARC_Data::__dump_int32(int obj)
 	{
-		file.dump(NUM2INT(obj));
+		file.dump(obj);
 	}
 
 	int ARC_Data::__load_int32()
 	{
-		return INT2FIX(file.load_int());
+		return file.load_int();
 	}
 
 	void ARC_Data::_dump(VALUE obj)
@@ -335,7 +335,8 @@ namespace zer0
 		{
 			return rb_f_clone(obj);
 		}
-		obj = rb_str_new2(file.load_hstr().c_str());
+		hstr value = file.load_hstr();
+		obj = rb_str_new2(value.c_str());
 		ARC_Data::__map(strings, obj);
 		return obj;
 	}
@@ -396,14 +397,13 @@ namespace zer0
 		}
 		VALUE classe = ARC_Data::__get_class_object(hstr(StringValuePtr(class_path)));
 		int size = ARC_Data::__load_int32();
-		if (rb_funcall_1(classe, "respond_to?", "_arc_load"))
+		if (rb_funcall_1(classe, "respond_to?", rb_str_new2("_arc_load")))
 		{
-			int size = file.load_int();
 			unsigned char* data = new unsigned char[size];
 			file.read_raw(data, size);
-			obj = rb_funcall_1(classe, "_arc_load", data);
-			delete data;
+			obj = rb_funcall_1(classe, "_arc_load", rb_str_new2((const char*)data));
 			ARC_Data::__map(objects, obj);
+			delete data;
 			return obj;
 		}
 		obj = rb_funcall_0(classe, "allocate");

@@ -124,13 +124,19 @@ namespace zer0
 	VALUE rb_Kernel_loadData(VALUE self, VALUE filename)
 	{
 		/// @todo - ARC_Data::rb_load has to be fixed before this can be uncommented
-		/// return ARC_Data::rb_load(rb_mARC_Data, filename);
+		/*
+		log(StringValuePtr(filename));
+		//return rb_eval_string(("begin;data = ARC::Data.load('" + hstr(StringValuePtr(filename)) + "');rescue;data=nil;end;data").c_str());
+		return ARC_Data::rb_load(rb_mARC_Data, filename);
+		//*/
+		//*
 		rb_funcall_2(filename, "gsub!", rb_str_new2(".arc"), rb_str_new2(".rxdata"));
 		VALUE file = rb_funcall_2(rb_cFile, "open", filename, rb_str_new2("rb"));
 		VALUE rb_mMarshal = rb_funcall_1(rb_mKernel, "const_get", rb_f_to_sym(rb_str_new2("Marshal")));
 		VALUE data = rb_funcall_1(rb_mMarshal, "load", file);
 		rb_funcall_0(file, "close");
 		return data;
+		//*/
 	}
 	
 	bool isDebugMode()
