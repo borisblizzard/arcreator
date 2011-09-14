@@ -46,14 +46,20 @@ namespace rgss
 		/// @brief Exposes this class to Ruby.
 		static void createRubyInterface();
 
+		/// @brief Gets the window width.
+		/// @return Window width.
+		static VALUE rb_getWidth(VALUE self);
+		/// @brief Gets the window height.
+		/// @return Window height.
+		static VALUE rb_getHeight(VALUE self);
 		/// @brief Gets the frame count.
-		/// @return int Returns the frame-count.
+		/// @return The frame-count.
 		static VALUE rb_getFrameCount(VALUE self);
 		/// @brief Sets the frame count.
 		/// @param[in] value The new frame count.
 		static VALUE rb_setFrameCount(VALUE self, VALUE value);
 		/// @brief Gets the frame rate.
-		/// @return int Returns the frame rate.
+		/// @return The frame rate.
 		static VALUE rb_getFrameRate(VALUE self);
 		/// @brief Sets the frame rate.
 		/// @param[in] value The new frame rate.
@@ -65,6 +71,9 @@ namespace rgss
 		static VALUE rb_frameReset(VALUE self);
 		/// @brief Fixes the current screen in preparation for transitions.
 		static VALUE rb_freeze(VALUE self);
+		/// @brief Captures current screen display.
+		/// @return Bitmap instance with the captured screen.
+		static VALUE rb_capture(VALUE self);
 		/// @brief Carries out a transition from the screen fixed in Graphics.freeze to the current screen.
 		/// @param[in] argc Number of arguments.
 		/// @param[in] argv Pointer to first argument.

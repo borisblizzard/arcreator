@@ -82,11 +82,26 @@ namespace rgss
 		atres::Alignment horizontal;
 		switch (align)
 		{
+		case 0:
+			horizontal = atres::LEFT;
+			break;
 		case 1:
 			horizontal = atres::CENTER;
 			break;
 		case 2:
 			horizontal = atres::RIGHT;
+			break;
+		case 3:
+			horizontal = atres::LEFT_WRAPPED;
+			break;
+		case 4:
+			horizontal = atres::CENTER_WRAPPED;
+			break;
+		case 5:
+			horizontal = atres::RIGHT_WRAPPED;
+			break;
+		case 6:
+			horizontal = atres::JUSTIFIED;
 			break;
 		default:
 			horizontal = atres::LEFT;
@@ -102,9 +117,10 @@ namespace rgss
 		april::rendersys->setOrthoProjection(grect(0.0f, 0.0f,
 			(float)this->texture->getWidth(), (float)this->texture->getHeight()));
 		hstr fontName = this->_getAtresFontName();
-		grect destRect((float)x, (float)y, (float)w, atres::renderer->getFontResource(fontName)->getLineHeight());
+		grect destRect((float)x, (float)y, (float)w,
+			hmax((float)h, atres::renderer->getFontResource(fontName)->getLineHeight()));
 		atres::renderer->drawText(fontName, destRect, text, horizontal,
-			atres::BOTTOM, this->font->getColor()->toAprilColor());
+			atres::CENTER, this->font->getColor()->toAprilColor());
 		april::rendersys->setRenderTarget(target);
 		this->texture->setTextureFilter(filter);
 		april::rendersys->setProjectionMatrix(projectionMatrix);
