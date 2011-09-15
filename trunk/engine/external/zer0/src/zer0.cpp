@@ -12,6 +12,7 @@
 #include <atresttf/FontResourceTtf.h>
 #include <aprilui/aprilui.h>
 #include <hltypes/exception.h>
+#include <hltypes/hdir.h>
 #include <hltypes/hfile.h>
 #include <hltypes/hstring.h>
 #include <hltypes/util.h>
@@ -265,10 +266,24 @@ namespace zer0
 		// running RGSS
 		rgss::init(g_logFunction);
 		// running the Ruby scripts
-		//rb_require("./test.rb");
+		harray<hstr> files = hdir::files("./Data/Scripts");
+		harray<hstr> scripts;
+		harray<hstr> parts;
+		foreach (hstr, it, files)
+		{
+			parts = (*it).split("-", 1, true);
+			if (parts.size() == 2 && parts[0].size() == 4 && parts[0].is_number() && parts[1].ends_with(".rb"))
+			{
+				scripts += "./Data/Scripts/" + (*it);
+			}
+		}
+		scripts.sort();
 		rb_load(rb_str_new2("./Data/RMXP.rb"), 0);
 		rb_load(rb_str_new2("./Data/System.rb"), 0);
-		rb_load(rb_str_new2("./Data/Scripts.rb"), 0);
+		foreach (hstr, it, scripts)
+		{
+			rb_load(rb_str_new2((*it).c_str()), 0);
+		}
 		rgss::destroy();
 		return Qnil;
 	}

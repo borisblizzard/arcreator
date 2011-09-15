@@ -444,7 +444,7 @@ class Scene_Title
 
   alias main_storm_cms_later main
   def main
-    $map_infos = load_data('Data/MapInfos.rxdata')
+    $map_infos = ARC::Data.load('Data/MapInfos.arc')
     $map_infos.keys.each {|key| $map_infos[key] = $map_infos[key].name}
     main_storm_cms_later
   end

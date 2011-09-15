@@ -1223,7 +1223,7 @@ class Scene_Title
 
   alias main_location_later main
   def main
-    $map_infos = load_data('Data/MapInfos.rxdata')
+    $map_infos = ARC::Data.load('Data/MapInfos.arc')
     for key in $map_infos.keys
       $map_infos[key] = $map_infos[key].name
     end
@@ -3087,7 +3087,7 @@ class Scene_Title
     if TONS_OF_ADDONS::FULLSCREEN
       unless $game_started 
         Graphics.freeze
-        $data_system = load_data('Data/System.rxdata')
+        $data_system = ARC::Data.load('Data/System.arc')
         $game_system = Game_System.new
         @window = Window_FullScreen.new(320, ['Yes' ,'No'])
         @window.x = 320 - @window.width / 2
@@ -4156,7 +4156,7 @@ end
 #==============================================================================
 
 sys = Game_System.new
-skills = load_data('Data/Skills.rxdata')
+skills = ARC::Data.load('Data/Skills.arc')
 skills.delete(nil)
 $ap_enabled = false
 for skill in skills

@@ -1807,9 +1807,9 @@ end
 # if using intelligent minimap mode
 if BlizzABS::Config::INTELLIGENT_PASSABILTY && $DEBUG
   # load tileset data
-  $data_tilesets = load_data('Data/Tilesets.rxdata')
+  $data_tilesets = ARC::Data.load('Data/Tilesets.arc')
   # get current map states
-  new_data = load_data('Data/MapInfos.rxdata')
+  new_data = ARC::Data.load('Data/MapInfos.arc')
   # if first time intelligent passability is being used
   if !File.exist?('Data/Map_Data.abs')
     # initialize
@@ -1822,9 +1822,9 @@ if BlizzABS::Config::INTELLIGENT_PASSABILTY && $DEBUG
     # iterate through all current map IDs
     new_data.keys.sort.each {|id|
         # if game not encrypted
-        if File.exist?(sprintf('Data/Map%03d.rxdata', id))
+        if File.exist?(sprintf('Data/Map%03d.arc', id))
           # open map file for reading
-          file = File.open(sprintf('Data/Map%03d.rxdata', id), 'r')
+          file = File.open(sprintf('Data/Map%03d.arc', id), 'r')
           # remove map ID if map was edited
           [data, dates].each {|_hash| _hash.delete(id)} if dates[id] != file.mtime
           # close file
@@ -1842,13 +1842,13 @@ if BlizzABS::Config::INTELLIGENT_PASSABILTY && $DEBUG
   # iterate through all IDs
   ids.each {|id|
       # load map
-      map = load_data(sprintf('Data/Map%03d.rxdata', id))
+      map = ARC::Data.load(sprintf('Data/Map%03d.arc', id))
       # create one map data pack
       data[id] = BlizzABS.setup_passability(map)
       # if game not encrypted
-      if File.exist?(sprintf('Data/Map%03d.rxdata', id))
+      if File.exist?(sprintf('Data/Map%03d.arc', id))
         # open map file for reading
-        f = File.open(sprintf('Data/Map%03d.rxdata', id), 'r')
+        f = File.open(sprintf('Data/Map%03d.arc', id), 'r')
         # get map file modified time
         dates[id] = f.mtime
         # close file
