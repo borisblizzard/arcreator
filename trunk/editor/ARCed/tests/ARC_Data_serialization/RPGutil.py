@@ -6,7 +6,7 @@ contains classes and functions that are used through out the project
 Classes in this module
 -----------------------
 Table - three dimensional table
-Color - contains RGB color data
+Color - contains RGBA color data
 Tone - contains RGBGr tone data 
 
 """
