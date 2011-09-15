@@ -47,7 +47,7 @@ class Game_Map
     # Put map ID in @map_id memory
     @map_id = map_id
     # Load map from file and set @map
-    @map = load_data(sprintf("Data/Map%03d.rxdata", @map_id))
+    @map = ARC::Data.load(sprintf("Data/Map%03d.arc", @map_id))
     # set tile set information in opening instance variables
     tileset = $data_tilesets[@map.tileset_id]
     @tileset_name = tileset.tileset_name

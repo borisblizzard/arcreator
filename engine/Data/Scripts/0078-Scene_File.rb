@@ -106,6 +106,6 @@ class Scene_File
   #     file_index : save file index (0-3)
   #--------------------------------------------------------------------------
   def make_filename(file_index)
-    return "Save#{file_index + 1}.rxdata"
+    return "Save#{file_index + 1}.dat"
   end
 end

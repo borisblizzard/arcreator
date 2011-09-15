@@ -37,19 +37,19 @@ class Scene_Title
     @ver.z = 150
     @count = false
     # Load database
-    $data_actors        = load_data("Data/Actors.rxdata")
-    $data_classes       = load_data("Data/Classes.rxdata")
-    $data_skills        = load_data("Data/Skills.rxdata")
-    $data_items         = load_data("Data/Items.rxdata")
-    $data_weapons       = load_data("Data/Weapons.rxdata")
-    $data_armors        = load_data("Data/Armors.rxdata")
-    $data_enemies       = load_data("Data/Enemies.rxdata")
-    $data_troops        = load_data("Data/Troops.rxdata")
-    $data_states        = load_data("Data/States.rxdata")
-    $data_animations    = load_data("Data/Animations.rxdata")
-    $data_tilesets      = load_data("Data/Tilesets.rxdata")
-    $data_common_events = load_data("Data/CommonEvents.rxdata")
-    $data_system        = load_data("Data/System.rxdata")
+    $data_actors        = ARC::Data.load("Data/Actors.arc")
+    $data_classes       = ARC::Data.load("Data/Classes.arc")
+    $data_skills        = ARC::Data.load("Data/Skills.arc")
+    $data_items         = ARC::Data.load("Data/Items.arc")
+    $data_weapons       = ARC::Data.load("Data/Weapons.arc")
+    $data_armors        = ARC::Data.load("Data/Armors.arc")
+    $data_enemies       = ARC::Data.load("Data/Enemies.arc")
+    $data_troops        = ARC::Data.load("Data/Troops.arc")
+    $data_states        = ARC::Data.load("Data/States.arc")
+    $data_animations    = ARC::Data.load("Data/Animations.arc")
+    $data_tilesets      = ARC::Data.load("Data/Tilesets.arc")
+    $data_common_events = ARC::Data.load("Data/CommonEvents.arc")
+    $data_system        = ARC::Data.load("Data/System.arc")
     # Make system object
     $game_system = Game_System.new
     # Make title graphic
@@ -72,7 +72,7 @@ class Scene_Title
     # If enabled, make @continue_enabled true; if disabled, make it false
     @continue_enabled = false
     for i in 0..3
-      @continue_enabled = true if FileTest.exist?("Save#{i+1}.rxdata")
+      @continue_enabled = true if FileTest.exist?("Save#{i+1}.dat")
     end
     # If continue is enabled, move cursor to "Continue"
     # If disabled, display "Continue" text in gray
@@ -230,19 +230,19 @@ class Scene_Title
   #--------------------------------------------------------------------------
   def battle_test
     # Load database (for battle test)
-    $data_actors        = load_data("Data/BT_Actors.rxdata")
-    $data_classes       = load_data("Data/BT_Classes.rxdata")
-    $data_skills        = load_data("Data/BT_Skills.rxdata")
-    $data_items         = load_data("Data/BT_Items.rxdata")
-    $data_weapons       = load_data("Data/BT_Weapons.rxdata")
-    $data_armors        = load_data("Data/BT_Armors.rxdata")
-    $data_enemies       = load_data("Data/BT_Enemies.rxdata")
-    $data_troops        = load_data("Data/BT_Troops.rxdata")
-    $data_states        = load_data("Data/BT_States.rxdata")
-    $data_animations    = load_data("Data/BT_Animations.rxdata")
-    $data_tilesets      = load_data("Data/BT_Tilesets.rxdata")
-    $data_common_events = load_data("Data/BT_CommonEvents.rxdata")
-    $data_system        = load_data("Data/BT_System.rxdata")
+    $data_actors        = ARC::Data.load("Data/BT_Actors.arc")
+    $data_classes       = ARC::Data.load("Data/BT_Classes.arc")
+    $data_skills        = ARC::Data.load("Data/BT_Skills.arc")
+    $data_items         = ARC::Data.load("Data/BT_Items.arc")
+    $data_weapons       = ARC::Data.load("Data/BT_Weapons.arc")
+    $data_armors        = ARC::Data.load("Data/BT_Armors.arc")
+    $data_enemies       = ARC::Data.load("Data/BT_Enemies.arc")
+    $data_troops        = ARC::Data.load("Data/BT_Troops.arc")
+    $data_states        = ARC::Data.load("Data/BT_States.arc")
+    $data_animations    = ARC::Data.load("Data/BT_Animations.arc")
+    $data_tilesets      = ARC::Data.load("Data/BT_Tilesets.arc")
+    $data_common_events = ARC::Data.load("Data/BT_CommonEvents.arc")
+    $data_system        = ARC::Data.load("Data/BT_System.arc")
     # Reset frame count for measuring play time
     Graphics.frame_count = 0
     # Make each game object

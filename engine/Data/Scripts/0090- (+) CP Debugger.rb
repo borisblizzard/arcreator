@@ -688,7 +688,7 @@ class Window_DebugList < Window_Selectable
       @status_window = other
       @status_window.refresh
     when 6
-      @map_data = load_data('Data/MapInfos.rxdata')
+      @map_data = ARC::Data.load('Data/MapInfos.arc')
       @commands = ['Map doesn\'t exist']
       @commands.push('X coordinate', 'Y coordinate') if TELEPORT_POSITION
       @map = [0, 0, 0]
@@ -822,7 +822,7 @@ class Window_DebugList < Window_Selectable
         if old_map != @map[0]
           $game_system.se_play($data_system.cursor_se)
           if @map_data.keys.include?(@map[0])
-            @loaded = load_data(sprintf('Data/Map%03d.rxdata', @map[0]))
+            @loaded = ARC::Data.load(sprintf('Data/Map%03d.arc', @map[0]))
             @commands[0] = @map_data[@map[0]].name
             draw_map(0)
             if TELEPORT_POSITION
@@ -1168,7 +1168,7 @@ class SceneSub_Debug
           $game_temp.player_new_x = @control_window.map[1]
           $game_temp.player_new_y = @control_window.map[2]
         else
-          map = load_data(sprintf('Data/Map%03d.rxdata', @control_window.map[0]))
+          map = ARC::Data.load(sprintf('Data/Map%03d.arc', @control_window.map[0]))
           $game_temp.player_new_x = map.width/2
           $game_temp.player_new_y = map.height/2
         end
@@ -1264,7 +1264,7 @@ class SceneSub_Debug
           if DEBUG_ROOM_ID != 0
             $game_system.se_play($data_system.decision_se)
             @abort = true
-            map = load_data(sprintf('Data/Map%03d.rxdata', DEBUG_ROOM_ID))
+            map = ARC::Data.load(sprintf('Data/Map%03d.arc', DEBUG_ROOM_ID))
             $game_temp.player_new_map_id = DEBUG_ROOM_ID
             $game_temp.player_new_x = map.width/2
             $game_temp.player_new_y = map.height/2
