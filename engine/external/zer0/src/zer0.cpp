@@ -128,11 +128,13 @@ namespace zer0
 		log(StringValuePtr(filename));
 		//return rb_eval_string(("begin;data = ARC::Data.load('" + hstr(StringValuePtr(filename)) + "');rescue;data=nil;end;data").c_str());
 		return ARC_Data::rb_load(rb_mARC_Data, filename);
+		//return data;
 		//*/
 		//*
+		// TODO - unsafe, should be done with a rb_protect block
 		rb_funcall_2(filename, "gsub!", rb_str_new2(".arc"), rb_str_new2(".rxdata"));
-		VALUE file = rb_funcall_2(rb_cFile, "open", filename, rb_str_new2("rb"));
 		VALUE rb_mMarshal = rb_funcall_1(rb_mKernel, "const_get", rb_f_to_sym(rb_str_new2("Marshal")));
+		VALUE file = rb_funcall_2(rb_cFile, "open", filename, rb_str_new2("rb"));
 		VALUE data = rb_funcall_1(rb_mMarshal, "load", file);
 		rb_funcall_0(file, "close");
 		return data;

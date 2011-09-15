@@ -13,3 +13,4 @@
 - implement -debug argument
 - add script files as internally embedded resources
 - check autotiles for disposal bugs during transitions
+- add list of classes that are forbidden to be _arc_dump-ed

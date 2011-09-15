@@ -87,10 +87,10 @@ namespace rgss
 		/// @param[in] argv Pointer to first argument.
 		/// @note Only one argument d, it defaults to 0 and is used for object depth.
 		/// @return value A byte string.
-		static VALUE rb_dump(int argc, VALUE* argv, VALUE self);
+		static VALUE rb_arcDump(int argc, VALUE* argv, VALUE self);
 		/// @brief Returns an RGSS::Tone object constructed from a byte string.
 		/// @param[in] value The byte string from which to load the object.
-		static VALUE rb_load(VALUE self, VALUE value);
+		static VALUE rb_arcLoad(VALUE self, VALUE value);
 
 	protected:
 		/// @brief Number of dimensions

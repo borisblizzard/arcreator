@@ -56,8 +56,10 @@ namespace rgss
 		rb_define_method(rb_cColor, "initialize", RUBY_METHOD_FUNC(&Color::rb_initialize), -1);
 		rb_define_method(rb_cColor, "initialize_copy", RUBY_METHOD_FUNC(&Color::rb_initialize_copy), 1);
 		rb_define_method(rb_cColor, "inspect", RUBY_METHOD_FUNC(&Color::rb_inspect), 0);
-		rb_define_method(rb_cColor, "_dump", RUBY_METHOD_FUNC(&Color::rb_dump), -1);
-		rb_define_singleton_method(rb_cColor, "_load", RUBY_METHOD_FUNC(&Color::rb_load), 1);
+		rb_define_method(rb_cColor, "_arc_dump", RUBY_METHOD_FUNC(&Color::rb_arcDump), -1);
+		rb_define_singleton_method(rb_cColor, "_arc_load", RUBY_METHOD_FUNC(&Color::rb_arcLoad), 1);
+		rb_define_method(rb_cColor, "_dump", RUBY_METHOD_FUNC(&Color::rb_arcDump), -1);
+		rb_define_singleton_method(rb_cColor, "_load", RUBY_METHOD_FUNC(&Color::rb_arcLoad), 1);
 		// getters and setters
 		rb_define_method(rb_cColor, "red", RUBY_METHOD_FUNC(&Color::rb_getRed), 0);
 		rb_define_method(rb_cColor, "red=", RUBY_METHOD_FUNC(&Color::rb_setRed), 1);
@@ -180,7 +182,7 @@ namespace rgss
 		return Qnil;
 	}
 
-	VALUE Color::rb_dump(int argc, VALUE* argv, VALUE self)
+	VALUE Color::rb_arcDump(int argc, VALUE* argv, VALUE self)
 	{
 		VALUE d;
 		rb_scan_args(argc, argv, "01", &d);
@@ -201,7 +203,7 @@ namespace rgss
 		return byte_string;
 	}
 
-	VALUE Color::rb_load(VALUE self, VALUE value)
+	VALUE Color::rb_arcLoad(VALUE self, VALUE value)
 	{
 		// call the unpack function
 		VALUE arr = rb_funcall_1(value, "unpack", rb_str_new2("d4"));

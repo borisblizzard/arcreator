@@ -41,8 +41,10 @@ namespace rgss
 		rb_define_method(rb_cTone, "initialize", RUBY_METHOD_FUNC(&Tone::rb_initialize), -1);
 		rb_define_method(rb_cTone, "initialize_copy", RUBY_METHOD_FUNC(&Tone::rb_initialize_copy), 1);
 		rb_define_method(rb_cTone, "inspect", RUBY_METHOD_FUNC(&Tone::rb_inspect), 0);
-		rb_define_method(rb_cTone, "_dump", RUBY_METHOD_FUNC(&Tone::rb_dump), -1);
-		rb_define_singleton_method(rb_cTone, "_load", RUBY_METHOD_FUNC(&Tone::rb_load), 1);
+		rb_define_method(rb_cTone, "_arc_dump", RUBY_METHOD_FUNC(&Tone::rb_arcDump), -1);
+		rb_define_singleton_method(rb_cTone, "_arc_load", RUBY_METHOD_FUNC(&Tone::rb_arcLoad), 1);
+		rb_define_method(rb_cTone, "_dump", RUBY_METHOD_FUNC(&Tone::rb_arcDump), -1);
+		rb_define_singleton_method(rb_cTone, "_load", RUBY_METHOD_FUNC(&Tone::rb_arcLoad), 1);
 		// getters and setters
 		rb_define_method(rb_cTone, "red", RUBY_METHOD_FUNC(&Tone::rb_getRed), 0);
 		rb_define_method(rb_cTone, "red=", RUBY_METHOD_FUNC(&Tone::rb_setRed), 1);
@@ -167,7 +169,7 @@ namespace rgss
 		return Qnil;
 	}
 
-	VALUE Tone::rb_dump(int argc, VALUE* argv, VALUE self)
+	VALUE Tone::rb_arcDump(int argc, VALUE* argv, VALUE self)
 	{
 		VALUE d;
 		rb_scan_args(argc, argv, "01", &d);
@@ -177,7 +179,7 @@ namespace rgss
 		}
 		RB_SELF2CPP(Tone, tone);
 		// create array
-		VALUE arr = rb_ary_new();
+		VALUE arr = rb_ary_new3(4);
 		// populate array
 		rb_ary_push(arr, rb_float_new(tone->red));
 		rb_ary_push(arr, rb_float_new(tone->green));
@@ -189,7 +191,7 @@ namespace rgss
 
 	}
 
-	VALUE Tone::rb_load(VALUE self, VALUE value)
+	VALUE Tone::rb_arcLoad(VALUE self, VALUE value)
 	{
 		// call the unpack function
 		VALUE arr = rb_funcall_1(value, "unpack", rb_str_new2("d4"));
