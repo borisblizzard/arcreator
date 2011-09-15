@@ -1,13 +1,4 @@
-﻿#=begin
-$map_infos = ARC::Data.load('Data/MapInfos.arc')
-for key in $map_infos.keys
-  ARC::Data.load(sprintf('Data/Map%03d.arc', key))
-end
-#=end
-#ARC::Data.load('Data/Map027.arc')
-#ARC::Data.load('Data/Map023.arc')
-
-if $game_exists
+﻿if $game_exists
   Thread.new {system('Game')}
   exit
 end

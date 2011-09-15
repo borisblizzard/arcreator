@@ -22,6 +22,7 @@ namespace zer0
 	hstr ARC_Data::Version;
 	hmap<VALUE, unsigned char> ARC_Data::Types;
 	hfile ARC_Data::file;
+	
 	harray<VALUE> ARC_Data::strings;
 	harray<VALUE> ARC_Data::arrays;
 	harray<VALUE> ARC_Data::hashes;
@@ -334,7 +335,7 @@ namespace zer0
 		VALUE obj = ARC_Data::__find_mapped(strings, id);
 		if (!NIL_P(obj))
 		{
-			return rb_f_clone(obj);
+			return rb_str_new2(StringValuePtr(obj));
 		}
 		hstr value = file.load_hstr();
 		obj = rb_str_new2(value.c_str());
@@ -411,14 +412,13 @@ namespace zer0
 		ARC_Data::__map(objects, obj);
 		VALUE variable;
 		VALUE symbol;
-		zer0::log(hstr(StringValuePtr(class_path)) + "  " + hstr(file.position()));
+		VALUE value;
 		for_iter (i, 0, size)
 		{
 			variable = ARC_Data::_load();
 			symbol = rb_f_to_sym(rb_str_new2(("@" + hstr(StringValuePtr(variable))).c_str()));
-			rb_funcall_2(obj, "instance_variable_set", symbol, ARC_Data::_load());
-			//zer0::log(hstr(StringValuePtr(class_path)) + "  @" + hstr(StringValuePtr(variable)) +
-			//	"  " + hstr(i) + "  " + hstr(file.position()));
+			value = ARC_Data::_load();
+			rb_funcall_2(obj, "instance_variable_set", symbol, value);
 		}
 		return obj;
 	}
@@ -429,6 +429,7 @@ namespace zer0
 
 	VALUE ARC_Data::rb_dump(VALUE self, VALUE filename, VALUE obj)
 	{
+		rb_funcall_0(rb_mGC, "disable"); // to prevent GC destroying temp data
 		// TODO - unsafe, should be done with a rb_protect block to reset the serializer in the end
 		file.open(StringValuePtr(filename));
 		harray<hstr> versions = Version.split(".");
@@ -436,14 +437,15 @@ namespace zer0
 		file.dump((unsigned char)(int)versions[1]);
 		ARC_Data::_dump(obj);
 		ARC_Data::_resetSerializer();
+		rb_funcall_0(rb_mGC, "enable");
 		return Qnil;
 	}
 
 	VALUE ARC_Data::rb_load(VALUE self, VALUE filename)
 	{
+		rb_funcall_0(rb_mGC, "disable"); // to prevent GC destroying temp data
 		// TODO - unsafe, should be done with a rb_protect block to reset the serializer in the end
 		file.open(StringValuePtr(filename));
-		rb_eval_string(("print '" + hstr(StringValuePtr(filename)) + "'").c_str());
 		unsigned major = file.load_uchar();
 		unsigned minor = file.load_uchar();
 		hstr version = hstr((int)major) + "." + hstr((int)minor);
@@ -454,6 +456,7 @@ namespace zer0
 		}
 		VALUE data = ARC_Data::_load();
 		ARC_Data::_resetSerializer();
+		rb_funcall_0(rb_mGC, "enable");
 		return data;
 	}
 
