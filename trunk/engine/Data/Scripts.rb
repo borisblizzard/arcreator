@@ -1,17 +1,11 @@
-﻿load_data("Data/MapInfos.arc")
-load_data("Data/Actors.arc")
-load_data("Data/Classes.arc")
-load_data("Data/Skills.arc")
-load_data("Data/Items.arc")
-load_data("Data/Weapons.arc")
-load_data("Data/Armors.arc")
-load_data("Data/Enemies.arc")
-load_data("Data/Troops.arc")
-load_data("Data/States.arc")
-load_data("Data/Animations.arc")
-load_data("Data/Tilesets.arc")
-load_data("Data/CommonEvents.arc")
-load_data("Data/System.arc")
+﻿#=begin
+$map_infos = ARC::Data.load('Data/MapInfos.arc')
+for key in $map_infos.keys
+  ARC::Data.load(sprintf('Data/Map%03d.arc', key))
+end
+#=end
+#ARC::Data.load('Data/Map027.arc')
+#ARC::Data.load('Data/Map023.arc')
 
 if $game_exists
   Thread.new {system('Game')}
@@ -3289,7 +3283,7 @@ class Game_Map
     # Put map ID in @map_id memory
     @map_id = map_id
     # Load map from file and set @map
-    @map = load_data(sprintf("Data/Map%03d.arc", @map_id))
+    @map = ARC::Data.load(sprintf("Data/Map%03d.arc", @map_id))
     # set tile set information in opening instance variables
     tileset = $data_tilesets[@map.tileset_id]
     @tileset_name = tileset.tileset_name
@@ -11349,19 +11343,19 @@ class Scene_Title
     @ver.z = 150
     @count = false
     # Load database
-    $data_actors        = load_data("Data/Actors.arc")
-    $data_classes       = load_data("Data/Classes.arc")
-    $data_skills        = load_data("Data/Skills.arc")
-    $data_items         = load_data("Data/Items.arc")
-    $data_weapons       = load_data("Data/Weapons.arc")
-    $data_armors        = load_data("Data/Armors.arc")
-    $data_enemies       = load_data("Data/Enemies.arc")
-    $data_troops        = load_data("Data/Troops.arc")
-    $data_states        = load_data("Data/States.arc")
-    $data_animations    = load_data("Data/Animations.arc")
-    $data_tilesets      = load_data("Data/Tilesets.arc")
-    $data_common_events = load_data("Data/CommonEvents.arc")
-    $data_system        = load_data("Data/System.arc")
+    $data_actors        = ARC::Data.load("Data/Actors.arc")
+    $data_classes       = ARC::Data.load("Data/Classes.arc")
+    $data_skills        = ARC::Data.load("Data/Skills.arc")
+    $data_items         = ARC::Data.load("Data/Items.arc")
+    $data_weapons       = ARC::Data.load("Data/Weapons.arc")
+    $data_armors        = ARC::Data.load("Data/Armors.arc")
+    $data_enemies       = ARC::Data.load("Data/Enemies.arc")
+    $data_troops        = ARC::Data.load("Data/Troops.arc")
+    $data_states        = ARC::Data.load("Data/States.arc")
+    $data_animations    = ARC::Data.load("Data/Animations.arc")
+    $data_tilesets      = ARC::Data.load("Data/Tilesets.arc")
+    $data_common_events = ARC::Data.load("Data/CommonEvents.arc")
+    $data_system        = ARC::Data.load("Data/System.arc")
     # Make system object
     $game_system = Game_System.new
     # Make title graphic
@@ -11542,19 +11536,19 @@ class Scene_Title
   #--------------------------------------------------------------------------
   def battle_test
     # Load database (for battle test)
-    $data_actors        = load_data("Data/BT_Actors.arc")
-    $data_classes       = load_data("Data/BT_Classes.arc")
-    $data_skills        = load_data("Data/BT_Skills.arc")
-    $data_items         = load_data("Data/BT_Items.arc")
-    $data_weapons       = load_data("Data/BT_Weapons.arc")
-    $data_armors        = load_data("Data/BT_Armors.arc")
-    $data_enemies       = load_data("Data/BT_Enemies.arc")
-    $data_troops        = load_data("Data/BT_Troops.arc")
-    $data_states        = load_data("Data/BT_States.arc")
-    $data_animations    = load_data("Data/BT_Animations.arc")
-    $data_tilesets      = load_data("Data/BT_Tilesets.arc")
-    $data_common_events = load_data("Data/BT_CommonEvents.arc")
-    $data_system        = load_data("Data/BT_System.arc")
+    $data_actors        = ARC::Data.load("Data/BT_Actors.arc")
+    $data_classes       = ARC::Data.load("Data/BT_Classes.arc")
+    $data_skills        = ARC::Data.load("Data/BT_Skills.arc")
+    $data_items         = ARC::Data.load("Data/BT_Items.arc")
+    $data_weapons       = ARC::Data.load("Data/BT_Weapons.arc")
+    $data_armors        = ARC::Data.load("Data/BT_Armors.arc")
+    $data_enemies       = ARC::Data.load("Data/BT_Enemies.arc")
+    $data_troops        = ARC::Data.load("Data/BT_Troops.arc")
+    $data_states        = ARC::Data.load("Data/BT_States.arc")
+    $data_animations    = ARC::Data.load("Data/BT_Animations.arc")
+    $data_tilesets      = ARC::Data.load("Data/BT_Tilesets.arc")
+    $data_common_events = ARC::Data.load("Data/BT_CommonEvents.arc")
+    $data_system        = ARC::Data.load("Data/BT_System.arc")
     # Reset frame count for measuring play time
     Graphics.frame_count = 0
     # Make each game object
@@ -16028,7 +16022,7 @@ class Window_DebugList < Window_Selectable
       @status_window = other
       @status_window.refresh
     when 6
-      @map_data = load_data('Data/MapInfos.arc')
+      @map_data = ARC::Data.load('Data/MapInfos.arc')
       @commands = ['Map doesn\'t exist']
       @commands.push('X coordinate', 'Y coordinate') if TELEPORT_POSITION
       @map = [0, 0, 0]
@@ -16162,7 +16156,7 @@ class Window_DebugList < Window_Selectable
         if old_map != @map[0]
           $game_system.se_play($data_system.cursor_se)
           if @map_data.keys.include?(@map[0])
-            @loaded = load_data(sprintf('Data/Map%03d.arc', @map[0]))
+            @loaded = ARC::Data.load(sprintf('Data/Map%03d.arc', @map[0]))
             @commands[0] = @map_data[@map[0]].name
             draw_map(0)
             if TELEPORT_POSITION
@@ -16508,7 +16502,7 @@ class SceneSub_Debug
           $game_temp.player_new_x = @control_window.map[1]
           $game_temp.player_new_y = @control_window.map[2]
         else
-          map = load_data(sprintf('Data/Map%03d.arc', @control_window.map[0]))
+          map = ARC::Data.load(sprintf('Data/Map%03d.arc', @control_window.map[0]))
           $game_temp.player_new_x = map.width/2
           $game_temp.player_new_y = map.height/2
         end
@@ -16604,7 +16598,7 @@ class SceneSub_Debug
           if DEBUG_ROOM_ID != 0
             $game_system.se_play($data_system.decision_se)
             @abort = true
-            map = load_data(sprintf('Data/Map%03d.arc', DEBUG_ROOM_ID))
+            map = ARC::Data.load(sprintf('Data/Map%03d.arc', DEBUG_ROOM_ID))
             $game_temp.player_new_map_id = DEBUG_ROOM_ID
             $game_temp.player_new_x = map.width/2
             $game_temp.player_new_y = map.height/2
@@ -18159,7 +18153,7 @@ class Scene_Title
 
   alias main_location_later main
   def main
-    $map_infos = load_data('Data/MapInfos.arc')
+    $map_infos = ARC::Data.load('Data/MapInfos.arc')
     for key in $map_infos.keys
       $map_infos[key] = $map_infos[key].name
     end
@@ -20023,7 +20017,7 @@ class Scene_Title
     if TONS_OF_ADDONS::FULLSCREEN
       unless $game_started 
         Graphics.freeze
-        $data_system = load_data('Data/System.arc')
+        $data_system = ARC::Data.load('Data/System.arc')
         $game_system = Game_System.new
         @window = Window_FullScreen.new(320, ['Yes' ,'No'])
         @window.x = 320 - @window.width / 2
@@ -21092,7 +21086,7 @@ end
 #==============================================================================
 
 sys = Game_System.new
-skills = load_data('Data/Skills.arc')
+skills = ARC::Data.load('Data/Skills.arc')
 skills.delete(nil)
 $ap_enabled = false
 for skill in skills
@@ -23871,7 +23865,7 @@ class Scene_Title
 
   alias main_storm_cms_later main
   def main
-    $map_infos = load_data('Data/MapInfos.arc')
+    $map_infos = ARC::Data.load('Data/MapInfos.arc')
     $map_infos.keys.each {|key| $map_infos[key] = $map_infos[key].name}
     main_storm_cms_later
   end
@@ -27766,9 +27760,9 @@ end
 # if using intelligent minimap mode
 if BlizzABS::Config::INTELLIGENT_PASSABILTY && $DEBUG
   # load tileset data
-  $data_tilesets = load_data('Data/Tilesets.arc')
+  $data_tilesets = ARC::Data.load('Data/Tilesets.arc')
   # get current map states
-  new_data = load_data('Data/MapInfos.arc')
+  new_data = ARC::Data.load('Data/MapInfos.arc')
   # if first time intelligent passability is being used
   if !File.exist?('Data/Map_Data.abs')
     # initialize
@@ -27796,25 +27790,25 @@ if BlizzABS::Config::INTELLIGENT_PASSABILTY && $DEBUG
     # get all map IDs that need to be updated
     ids = (new_data.keys-data.keys).sort
   end
-  # open new file
-  file = File.open('Data/Map_Data.abs', 'wb')
   # iterate through all IDs
   ids.each {|id|
       # load map
-      map = load_data(sprintf('Data/Map%03d.arc', id))
-      # create one map data pack
+	  map = ARC::Data.load(sprintf('Data/Map%03d.arc', id))
+	  # create one map data pack
       data[id] = BlizzABS.setup_passability(map)
-      # if game not encrypted
+	  # if game not encrypted
       if File.exist?(sprintf('Data/Map%03d.arc', id))
-        # open map file for reading
+	    # open map file for reading
         f = File.open(sprintf('Data/Map%03d.arc', id), 'r')
-        # get map file modified time
+	    # get map file modified time
         dates[id] = f.mtime
-        # close file
+	    # close file
         f.close
-      end
+	  end
       # prevent "Script is hanging" error
       Graphics.update}
+  # open new file
+  file = File.open('Data/Map_Data.abs', 'wb')
   # save all data to file
   Marshal.dump([data, dates], file)
   # save and close file
@@ -35476,38 +35470,21 @@ end
 #  Runs the entire system.
 #==============================================================================
 
-ERROR_LOG_FILE = 'Error.log' # leave empty for no log
-
-def mod_error(error)
-  # load scripts
-  scripts = load_data('Data/Scripts.arc')
-  bt = error.backtrace.clone
-  # change backtrace display to show script names
-  bt.each_index {|i| bt[i] = bt[i].sub(/\ASection(\d+)/) {scripts[$1.to_i][1]} + "\n"}
-  # new error message
-  message = error.message + "\n" + bt.join('')
-  # write to file if file defined
-  if ERROR_LOG_FILE != ''
-    File.open(ERROR_LOG_FILE, 'a') {|f| f.write("#{Time.now.to_s}:\n#{message}\n")}
-  end
-  return message
-end
-
 begin
   # loading game data
-  $data_actors        = load_data('Data/Actors.arc')
-  $data_classes       = load_data('Data/Classes.arc')
-  $data_skills        = load_data('Data/Skills.arc')
-  $data_items         = load_data('Data/Items.arc')
-  $data_weapons       = load_data('Data/Weapons.arc')
-  $data_armors        = load_data('Data/Armors.arc')
-  $data_enemies       = load_data('Data/Enemies.arc')
-  $data_troops        = load_data('Data/Troops.arc')
-  $data_states        = load_data('Data/States.arc')
-  $data_animations    = load_data('Data/Animations.arc')
-  $data_tilesets      = load_data('Data/Tilesets.arc')
-  $data_common_events = load_data('Data/CommonEvents.arc')
-  $data_system        = load_data('Data/System.arc')
+  $data_actors        = ARC::Data.load('Data/Actors.arc')
+  $data_classes       = ARC::Data.load('Data/Classes.arc')
+  $data_skills        = ARC::Data.load('Data/Skills.arc')
+  $data_items         = ARC::Data.load('Data/Items.arc')
+  $data_weapons       = ARC::Data.load('Data/Weapons.arc')
+  $data_armors        = ARC::Data.load('Data/Armors.arc')
+  $data_enemies       = ARC::Data.load('Data/Enemies.arc')
+  $data_troops        = ARC::Data.load('Data/Troops.arc')
+  $data_states        = ARC::Data.load('Data/States.arc')
+  $data_animations    = ARC::Data.load('Data/Animations.arc')
+  $data_tilesets      = ARC::Data.load('Data/Tilesets.arc')
+  $data_common_events = ARC::Data.load('Data/CommonEvents.arc')
+  $data_system        = ARC::Data.load('Data/System.arc')
   # prepare for transition
   Graphics.freeze
   # active connection scene
@@ -35518,9 +35495,9 @@ begin
   Graphics.transition(20)
   Graphics.update
 rescue SyntaxError
-  $!.message.sub!($!.message, mod_error($!))
+  #$!.message.sub!($!.message, mod_error($!))
   raise
 rescue
-  $!.message.sub!($!.message, mod_error($!))
+  #$!.message.sub!($!.message, mod_error($!))
   raise
 end

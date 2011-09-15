@@ -108,17 +108,17 @@ namespace rgss
 		/// @note Alpha is clamped between 0 and 255.
 		static VALUE rb_set(int argc, VALUE* argv, VALUE self);
 
-		/// @brief returns a byte string containing data needed to reconstruct the Color object
+		/// @brief returns a byte string containing data needed to reconstruct the Color object.
 		/// @param[in] argc Number of arguments.
 		/// @param[in] argv Pointer to first argument.
 		/// @note only one argument d, it defaults to 0 and is used for object depth
 		/// @return byte string.
-		static VALUE rb_dump(int argc, VALUE* argv, VALUE self);
+		static VALUE rb_arcDump(int argc, VALUE* argv, VALUE self);
 
 		/// @brief Returns a Color object constructed form a byte string
 		/// @param[in] value the byte string from which to load the object
 		/// @return Color A Color object.
-		static VALUE rb_load(VALUE self, VALUE value);
+		static VALUE rb_arcLoad(VALUE self, VALUE value);
 
 	};
 	

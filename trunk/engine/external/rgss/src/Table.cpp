@@ -104,8 +104,10 @@ namespace rgss
 		// initialize
 		rb_define_method(rb_cTable, "initialize", RUBY_METHOD_FUNC(&Table::rb_initialize), -1);
 		rb_define_method(rb_cTable, "initialize_copy", RUBY_METHOD_FUNC(&Table::rb_initialize_copy), 1);
-		rb_define_method(rb_cTable, "_dump", RUBY_METHOD_FUNC(&Table::rb_dump), -1);
-		rb_define_singleton_method(rb_cTable, "_load", RUBY_METHOD_FUNC(&Table::rb_load), 1);
+		rb_define_method(rb_cTable, "_arc_dump", RUBY_METHOD_FUNC(&Table::rb_arcDump), -1);
+		rb_define_singleton_method(rb_cTable, "_arc_load", RUBY_METHOD_FUNC(&Table::rb_arcLoad), 1);
+		rb_define_method(rb_cTable, "_dump", RUBY_METHOD_FUNC(&Table::rb_arcDump), -1);
+		rb_define_singleton_method(rb_cTable, "_load", RUBY_METHOD_FUNC(&Table::rb_arcLoad), 1);
 		// getters and setters
 		rb_define_method(rb_cTable, "xsize", RUBY_METHOD_FUNC(&Table::rb_getXSize), 0);
 		rb_define_method(rb_cTable, "ysize", RUBY_METHOD_FUNC(&Table::rb_getYSize), 0);
@@ -236,7 +238,7 @@ namespace rgss
 		return Qnil;
 	}
 
-	VALUE Table::rb_dump(int argc, VALUE* argv, VALUE self)
+	VALUE Table::rb_arcDump(int argc, VALUE* argv, VALUE self)
 	{
 		VALUE d;
 		rb_scan_args(argc, argv, "01", &d);
@@ -265,7 +267,7 @@ namespace rgss
 		return byte_string;
 	}
 
-	VALUE Table::rb_load(VALUE self, VALUE value)
+	VALUE Table::rb_arcLoad(VALUE self, VALUE value)
 	{
 		// load Table size data
 		VALUE sliced_string = rb_funcall_2(value, "[]", INT2FIX(0), INT2FIX(20));

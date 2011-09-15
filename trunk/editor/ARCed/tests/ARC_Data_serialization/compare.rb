@@ -20,7 +20,7 @@ begin
 	# check data
 	time_now = Time.now
 	puts "not matching: Actors.rxdata" if !check_data("/Data/Actors.rxdata")
-	puts "not matching: Ckasses.rxdata" if !check_data("/Data/Classes.rxdata")
+	puts "not matching: Classes.rxdata" if !check_data("/Data/Classes.rxdata")
 	puts "not matching: Skills.rxdata" if !check_data("/Data/Skills.rxdata")
 	puts "not matching: Items.rxdata" if !check_data("/Data/Items.rxdata")
 	puts "not matching: Weapons.rxdata" if !check_data("/Data/Weapons.rxdata")

@@ -9,6 +9,7 @@
 #include "ARC_Data.h"
 #include "ARC_Error.h"
 #include "CodeSnippets.h"
+#include "zer0.h"
 
 namespace zer0
 {
@@ -401,7 +402,7 @@ namespace zer0
 		{
 			unsigned char* data = new unsigned char[size];
 			file.read_raw(data, size);
-			obj = rb_funcall_1(classe, "_arc_load", rb_str_new2((const char*)data));
+			obj = rb_funcall_1(classe, "_arc_load", rb_str_new((const char*)data, size));
 			ARC_Data::__map(objects, obj);
 			delete data;
 			return obj;
@@ -410,11 +411,14 @@ namespace zer0
 		ARC_Data::__map(objects, obj);
 		VALUE variable;
 		VALUE symbol;
+		zer0::log(hstr(StringValuePtr(class_path)) + "  " + hstr(file.position()));
 		for_iter (i, 0, size)
 		{
 			variable = ARC_Data::_load();
 			symbol = rb_f_to_sym(rb_str_new2(("@" + hstr(StringValuePtr(variable))).c_str()));
 			rb_funcall_2(obj, "instance_variable_set", symbol, ARC_Data::_load());
+			//zer0::log(hstr(StringValuePtr(class_path)) + "  @" + hstr(StringValuePtr(variable)) +
+			//	"  " + hstr(i) + "  " + hstr(file.position()));
 		}
 		return obj;
 	}
@@ -425,6 +429,7 @@ namespace zer0
 
 	VALUE ARC_Data::rb_dump(VALUE self, VALUE filename, VALUE obj)
 	{
+		// TODO - unsafe, should be done with a rb_protect block to reset the serializer in the end
 		file.open(StringValuePtr(filename));
 		harray<hstr> versions = Version.split(".");
 		file.dump((unsigned char)(int)versions[0]);
@@ -436,7 +441,9 @@ namespace zer0
 
 	VALUE ARC_Data::rb_load(VALUE self, VALUE filename)
 	{
+		// TODO - unsafe, should be done with a rb_protect block to reset the serializer in the end
 		file.open(StringValuePtr(filename));
+		rb_eval_string(("print '" + hstr(StringValuePtr(filename)) + "'").c_str());
 		unsigned major = file.load_uchar();
 		unsigned minor = file.load_uchar();
 		hstr version = hstr((int)major) + "." + hstr((int)minor);
