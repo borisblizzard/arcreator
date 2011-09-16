@@ -12,6 +12,8 @@ Tone - contains RGBGr tone data
 """
 import os
 import numpy
+from struct import pack, unpack
+from numpy.oldnumeric.random_array import ArgumentError
 
 #import pygame
 
@@ -19,57 +21,117 @@ import numpy
 
 class Table(object):
     """a three dimensional table object"""
-    __class_path__ = "Table"
-    __instance_variables__ = ['xsize', 'ysize', 'zsize', 'data']
-    def __init__(self, xsize=1, ysize=1, zsize=1):
-        self.xsize = xsize
-        self.ysize = ysize
-        self.zsize = zsize
-        self.data = [0] * (xsize * ysize * zsize)
-        self._data = numpy.zeros((xsize, ysize, zsize))
+    _arc_class_path = "Table"
+    
+    def __init__(self, *args):
+        if len(args) != 1 and len(args) != 2 and len(args) != 3:
+            raise ArgumentError("wrong number of arguments (%d for 1, 2 or 3)" % args.size)
+        self.dim = args.size
+        self.xsize = args[0]
+        if len(args) > 2:
+            self.ysize = args[1]
+        else:
+            self.ysize = 1
+        if len(args) > 3:
+            self.zsize = args[2] 
+        else:
+            self.zsize = 1
+        self._data = numpy.zeros((self.xsize, self.ysize, self.zsize))
         self._data = numpy.reshape(self._data, (self.xsize, self.ysize,
                                    self.zsize), order='F')
-
-    def _prep_rmpy_dump(self):
-        self.data = self._data.ravel(order='F').tolist()
-
-    def _post_rmpy_load(self):
-        self._data = numpy.array(self.data)
-        self._data.resize(self.xsize * self.ysize * self.zsize)
-        self._data = numpy.reshape(self._data, (self.xsize, self.ysize,
-                                   self.zsize), order='F')
-
 
     def __getitem__(self, key):
+        if len(key) != self.dim:
+            raise ArgumentError("wrong number of arguments (%d for %d)" % (len(key), self.dim))
         return self._data[key]
 
     def __setitem__(self, key, value):
+        if len(key) != self.dim + 1:
+            raise ArgumentError("wrong number of arguments (%d for %d)" % (len(key), self.dim + 1))
         self._data[key] = value
 
-    def resize(self, xsize=1, ysize=1, zsize=1):
+    def resize(self, *args):
         # should work to increase and decrease the table size
-        newdata = numpy.zeros((xsize, ysize, zsize))
+        if len(args) != 1 and len(args) != 2 and len(args) != 3:
+            raise ArgumentError("wrong number of arguments (%d for 1, 2 or 3)" % args.size)
+        self.dim = args.size
+        self.xsize = args[0]
+        if len(args) > 2:
+            self.ysize = args[1]
+        else:
+            self.ysize = 1
+        if len(args) > 3:
+            self.zsize = args[2] 
+        else:
+            self.zsize = 1
+        newdata = numpy.zeros((self.xsize, self.ysize, self.zsize))
         shape = self._data.shape
         mask = [0, 0, 0]
-        if xsize >= shape[0]:
+        if self.xsize >= shape[0]:
             mask[0] = shape[0]
         else:
-            mask[0] = xsize
-        if ysize >= shape[1]:
+            mask[0] = self.xsize
+        if self.ysize >= shape[1]:
             mask[1] = shape[1]
         else:
-            mask[1] = ysize
-        if ysize >= shape[2]:
+            mask[1] = self.ysize
+        if self.ysize >= shape[2]:
             mask[2] = shape[2]
         else:
-            mask[2] = zsize  
+            mask[2] = self.zsize  
         newdata[:mask[0], :mask[1], :mask[2]] = self._data[:mask[0], :mask[1], :mask[2]]
         self._data = newdata
+        
+    def _arc_dump(self, d=0):
+        s = pack("I", self.dim)
+        s += pack("I", self.xsize) + pack("I", self.ysize) + pack("I", self.zsize)
+        s += pack("I", self.xsize * self.ysize * self.zsize)
+        for z in xrange(self.zsize):
+            for y in xrange(self.ysize):
+                for x in xrange(self.xsize):
+                    s += pack("H", self[x, y, z])
+        return s
+
+    @staticmethod
+    def _arc_load(s):
+        dim = unpack("I", s[0:4])
+        nx = unpack("I", s[4:8])
+        ny = unpack("I", s[8:12])
+        nz = unpack("I", s[12:16])
+        size = unpack("I", s[16:20])
+        data = []
+        pointer = 20
+        while True:
+            data.append(unpack('H', s[pointer:pointer+2]))
+            pointer += 2
+            if pointer > len(s - 1):
+                break 
+        if dim == 3:
+            t = Table(nx, ny, nz)
+            n = 0
+            for z in range(nz):
+                for y in range(ny):
+                    for x in range(nx):
+                        t[x, y, z] = data[n]
+                        n += 1
+        elif dim == 2:
+            t = Table(nx, nz)
+            n = 0
+            for y in range(ny):
+                for x in range(nx):
+                    t[x, y] = data[n]
+                    n += 1
+        elif dim == 1:
+            t = Table(nx)
+            for x in xrange(nx):
+                t[x] = data[x]
+        return t
+
 
 class Color(object):
     """a bare bones color object"""
-    __class_path__ = "Color"
-    __instance_variables__ = ['red', 'green', 'blue', 'alpha']
+    _arc_class_path = "Color"
+
     def __init__(self, red, green, blue, alpha=255):
         if red > 255:
             red = 255
@@ -113,11 +175,19 @@ class Color(object):
         self.green = green
         self.blue = blue
         self.alpha = alpha
+        
+    def _arc_dump(self, d = 0):
+        return pack("dddd", self.red, self.green, self.blue, self.alpha)
+
+    @staticmethod
+    def _arc_load(s):
+        return Color(*unpack('dddd', s))
+
 
 class Tone(object):
     """a bare bones tone class"""
-    __class_path__ = "Tone"
-    __instance_variables__ = ['red', 'green', 'blue', 'gray']
+    _arc_class_path = "Tone"
+
     def __init__(self, red, green, blue, gray=0):
         if red > 255:
             red = 255
@@ -162,5 +232,11 @@ class Tone(object):
         self.blue = blue
         self.gray = gray
 
+    def _arc_dump(self, d = 0):
+        return pack("dddd", self.red, self.green, self.blue, self.gray)
+
+    @staticmethod
+    def _arc_load(s):
+        return Tone(*unpack('dddd', s))
 
 

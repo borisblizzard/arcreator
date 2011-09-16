@@ -22,38 +22,73 @@ import re
 # Global Object Storage
 #==============================================================================
 
-class Global(object):
-    
-    ProjectOpen = False
-    FileHistory = None
-    CurrentProjectDir = ""
-    Program_Dir = os.path.dirname(os.path.abspath(__file__))
-    Title = ""
-    Mode = ""
-    config = None
-    ARCconfig = None
-    programconfig = None
-
-    LoadedComponentDefaultsTemplate = None
-
-    ProjectModes = {}
-    ProjectCreators = {}
-
 class GlobalObjects(object):
+    '''
+    a storage for global objects where a key is mapped to a list where the first value is a name that represents what created the key and the 
+    second value is an object
+    '''
 
-    objects = {"PROJECT":None}
+    _objects = {"PROJECT":["CORE", None],
+               "ProjectOpen":["CORE", False],
+               "FileHistory":["CORE", None],
+               "CurrentProjectDir":["CORE", ""],
+               "Program_Dir":["CORE", os.path.dirname(os.path.abspath(__file__))],
+               "Title":["CORE", ""],
+               "Mode":["CORE", ""],
+               "config":["CORE", None],
+               "ARCconfig":["CORE", None],
+               "programconfig":["CORE", None],
+               "LoadedComponentDefaultsTemplate":["CORE", None],
+               "ProjectModes":["CORE", {}],
+               "ProjectCreators":["CORE", {}],
+               }
 
     @staticmethod
-    def add(obj, name):
-        GlobalObjects.objects[name] = obj
+    def request_new_key(key, name="PLUGIN", value=None):
+        '''
+        find out if a key exits if it does it return a tuple of (False, name) where name is an id for what 
+        made the key. if it is made by a CORE component the name is "CORE"
+        if the key didn't already exist it makes it and store the provided name and value then returns a tuple (True, name)
+        '''
+        if GlobalObjects._objects.has_key(key):
+            return (False, GlobalObjects._objects[key][0])
+        else:
+            GlobalObjects._objects[key] = [name, value]
+            return (True, name)
 
     @staticmethod
-    def get(name):
-        return GlobalObjects.objects[name]
+    def get_name(key):
+        '''
+        gets a name stored with a key key if a key exists other wise returns None
+        '''
+        if GlobalObjects._objects.has_key(key):
+            return GlobalObjects._objects[key][0]
+        else:
+            return None
+        
+    @staticmethod
+    def get_value(key):
+        '''
+        gets a value stored with a key if a key exists
+        '''
+        if GlobalObjects._objects.has_key(key):
+            return GlobalObjects._objects[key][1]
+        
+    @staticmethod
+    def set_value(key, value):
+        '''
+        sets a vlaue stored with a key if a key exists
+        '''
+        if GlobalObjects._objects.has_key(key):
+            GlobalObjects._objects[key][1] = value
 
     @staticmethod
-    def remove(name):
-        del GlobalObjects.objects[name]
+    def remove_key(key):
+        '''
+        removes a key if it exists
+        '''
+        if GlobalObjects._objects.has_key(key):
+            del GlobalObjects._objects[key]
 
 
 #==============================================================================
@@ -65,13 +100,14 @@ class Manager(object):
 
     types = {}
     events = {}
+    packages = {}
 
     @staticmethod
     def register_types(*args):
         '''add passed types to the 'types' dict mapped to their name'''
-        for type in args:
-            if not Manager.types.has_key(str(type.name)):
-                Manager.types[str(type.name)] = type
+        for type_obj in args:
+            if not Manager.types.has_key(str(type_obj.name)):
+                Manager.types[str(type_obj.name)] = type_obj
 
     @staticmethod
     def register_events(*args):
@@ -86,22 +122,25 @@ class Manager(object):
         Manager.events[str(name)].call(*args, **kwargs)
 
     @staticmethod
-    def get_type(type, super=None):
+    def get_type(name, super_name=None):
         '''gets a type object'''
         try:
             if super:
-                return Manager.types[str(super)].get_type(str(type))
+                return Manager.types[str(super_name)].get_type(str(type))
             else:
-                return Manager.types[str(type)]
+                return Manager.types[str(name)]
         except KeyError, AttributeError:
             return None
 
     @staticmethod
-    def get_event(type):
-        return Manager.events[str(type)]
+    def get_event(name):
+        try:
+            return Manager.events[str(name)]
+        except KeyError, AttributeError:
+            return None
 
     @staticmethod
-    def get_component(type, supertype=None, name=None, author=None,
+    def get_component(type_name, supertype=None, name=None, author=None,
                       version=None, package=None):
         '''
         get a component, if no optional parameters are provided (other than 
@@ -110,7 +149,7 @@ class Manager(object):
         package  
         returns a Kernel.Component object
         
-        @param type: string type name
+        @param name: string type name
         @param supertype: string super type name. use if the type is under a 
         super type
         @param name: string name of the component
@@ -121,24 +160,35 @@ class Manager(object):
         default = (name == None and author == None and version == None and
                        package == None)
         if default:
-            return (Manager.get_type(type, supertype).get_default_component())
+            return (Manager.get_type(type_name, supertype).get_default_component())
         else:
-            return (Manager.get_type(type, supertype).get_component(name, author, version))
+            return (Manager.get_type(type_name, supertype).get_component(name, author, version))
+        
+    @staticmethod
+    def add_package(package):
+        Manager.packages[(package.name, package.author)] = package
+        
+    @staticmethod
+    def enable_packages(*args):
+        for package_name in args:
+            Manager.packages[package_name].register()
+        
 
 class Component(object):
     '''A data class that holds a registered extension'''
 
-    def __init__(self, object, type, super=None, name="", author="", version=0,
+    def __init__(self, obj, type_obj, super_obj=None, name="", author="", version=0,
                  package=None):
-        '''initializes a Kernel.Component object
+        '''
+        initializes a Kernel.Component object
         
-        object - the extension object
-        should use the Kernel.Function class
-        type - a Type object holds the type of the extension, used to group 
-        the object for retrieval
-        name - a string that uniquely identifies the extension, used for 
-        retrieving the extension on request
-        package - a package object that is used for grouping of extensions
+        @param obj: the extension object
+        @param type_obj: a Type object holds the type of the extension, used to group the object for retrieval
+        @param super_obj: a SuperType object that the type of this component is grouped under
+        @param name: a string that uniquely identifies the extension, used for retrieving the extension on request
+        @param author: a string containing the name of the author of this component
+        @param version: a number that is this component version
+        @param package: a Package object that is used for grouping of extensions
         '''
         self.object = object
         self.type = type
@@ -154,10 +204,11 @@ class Component(object):
         self.dependencies.extend(args)
 
 class Dependency(object):
-    '''A data class that holds data on a dependency of a component or 
-    package'''
-    def __init__(self, type=None, name="", author="", version=0):
-        self.type = type
+    '''
+    A data class that holds data on a dependency of a component or package
+    '''
+    def __init__(self, type_name=None, name="", author="", version=0):
+        self.type = type_name
         self.name = name
         self.author = author
         self.version = version
@@ -211,13 +262,13 @@ class SuperType(object):
 
     def add_types(self, *types):
         '''adds a type to the self.types dict mapped to name'''
-        for type in types:
-            type.super = self.name
-            self.types[str(type.name)] = type
+        for type_obj in types:
+            type_obj.super = self.name
+            self.types[str(type_obj.name)] = type_obj
 
-    def get_type(self, type):
+    def get_type(self, type_name):
         try:
-            return self.types[type]
+            return self.types[type_name]
         except KeyError:
             return None
 
@@ -307,15 +358,18 @@ class Package(object):
 
     __manager = Manager
 
-    def __init__(self, name):
+    def __init__(self, name, author):
         '''
         initializes a Kernel.Plugin object
         
         @param name: a string that uniquely identifies the package
         '''
         self.name = name
+        self.author = author
         self.components = []
         self.types = []
+        self.events = []
+        self.event_hooks = []
         self.dependencies = []
 
     def register(self):
@@ -324,18 +378,23 @@ class Package(object):
         package to the Kernel
         '''
         self.__manager.register_types(*self.types)
+        self.__manager.register_events(*self.events)
         for component in self.components:
             (Package.__manager.get_type(component.type,
              component.super).add_component(component, self))
+        for event_hook in self.event_hooks:
+            event = self.__manager.get_event(event_hook[0])
+            if event is not None:
+                event.register(event_hook[1],event_hook[2])
 
     def add_types(self, *types):
         '''
         adds a Kernal.Type or kernal.SuperType object to the types list the 
         type is not registered to the Kernel
         '''
-        for type in types:
-            if isinstance(type, (Type, SuperType)):
-                self.types.append(type)
+        for type_obj in types:
+            if isinstance(type_obj, (Type, SuperType)):
+                self.types.append(type_obj)
 
     def add_component(self, component):
         '''
@@ -347,6 +406,12 @@ class Package(object):
         '''
         if isinstance(component, Component):
             self.components.append(component)
+            
+    def add_event_hook(self, name, function, master=None):
+        '''
+        set up a function to be registered to an event when the package is registered
+        '''
+        self.event_hooks.append((name, function, master))
 
     def add_dependencies(self, *args):
         '''
@@ -364,13 +429,13 @@ class ConfigTemplate(object):
 
         self.types = {}
 
-    def add_type(self, type):
+    def add_type(self, type_obj):
         '''
         adds the ConfigType object to the types dict mapped the the type's name
         
         @param type: ConfigType object
         '''
-        self.types[type.name] = type
+        self.types[type_obj.name] = type_obj
 
     def remove_type(self, name):
         '''
@@ -408,13 +473,13 @@ class ConfigSuperType(object):
         self.super = True
         self.types = {}
 
-    def add_type(self, type):
+    def add_type(self, type_obj):
         '''
         adds the ConfigType object to the types dict mapped the the type's name
         
         @param type: ConfigType object
         '''
-        self.types[type.name] = type
+        self.types[type_obj.name] = type_obj
 
     def remove_type(self, name):
         '''
@@ -444,7 +509,7 @@ class ConfigDefault(object):
         self.version = version
         self.package = package
 
-    def set(self, name=None, author=None, version=None, package=None):
+    def set_default(self, name=None, author=None, version=None, package=None):
         '''
         sets the default, calling with no arguments clears the values, 
         calling with one or more arguments sets those values but leaves the others alone
@@ -477,9 +542,9 @@ class ConfigLoader(object):
         
         @param template: a ConfigTemplate object to load the defaults from
         '''
-        for typename, type in template.types.iteritems():
-            if type.super:
-                for subtypename, subtype in type.types.iteritems():
+        for typename, type_obj in template.types.iteritems():
+            if type_obj.super:
+                for subtypename, subtype in type_obj.types.iteritems():
                     typeobj = Manager.get_type(subtypename, typename)
                     result = typeobj.set_default_component(subtype.default.name,
                                                            subtype.default.author,
@@ -513,26 +578,26 @@ class ConfigLoader(object):
             #see if the section is in the supertype::subtupe pattern
             match = re.search("(.+)::(.+)", str(section))
             if match:
-                #yep supertype::subtupe pattern
+                #yep supertype::subtype pattern
                 supertype = match.group(1)
-                type = match.group(2)
+                type_name = match.group(2)
                 if template.has_type(supertype):
                     supertypeobj = template.get_type(supertype)
                 else:
                     supertypeobj = ConfigSuperType(supertype)
                     template.add_type(supertypeobj)
-                if supertypeobj.has_type(type):
-                    typeobj = supertypeobj.get_type(type)
+                if supertypeobj.has_type(type_name):
+                    typeobj = supertypeobj.get_type(type_name)
                 else:
-                    typeobj = ConfigType(type)
+                    typeobj = ConfigType(type_name)
                     supertypeobj.add_type(typeobj)
             else:
                 #nope just a normal type name
-                type = section
-                if template.has_type(type):
-                    typeobj = template.get_type(type)
+                type_name = section
+                if template.has_type(type_name):
+                    typeobj = template.get_type(type_name)
                 else:
-                    typeobj = ConfigType(type)
+                    typeobj = ConfigType(type_name)
                     template.add_type(typeobj)
             #now that everything is linked properly be can fill in the default
             #config for this type
@@ -587,9 +652,9 @@ class ConfigLoader(object):
         @param filename: the path to the configuration file
         '''
         config = ConfigParser.ConfigParser()
-        for typename, type in template.types:
-            if type.super:
-                for subtypename, subtype in type.types:
+        for typename, type_obj in template.types:
+            if type_obj.super:
+                for subtypename, subtype in type_obj.types:
                     section = str(typename) + "::" + str(subtypename)
                     config.add_section(section)
                     config.set(section, "Name", str(subtype.default.name))
@@ -599,13 +664,13 @@ class ConfigLoader(object):
             else:
                 section = str(typename)
                 config.add_section(section)
-                config.set(section, "Name", str(type.default.name))
-                config.set(section, "Author", str(type.default.author))
-                config.set(section, "Version", str(type.default.version))
-                config.set(section, "Package", str(type.default.package))
-        file = open(filename, "wb")
+                config.set(section, "Name", str(type_obj.default.name))
+                config.set(section, "Author", str(type_obj.default.author))
+                config.set(section, "Version", str(type_obj.default.version))
+                config.set(section, "Package", str(type_obj.default.package))
+        f = open(filename, "wb")
         config.write(file)
-        file.close()
+        f.close()
 
 
 
