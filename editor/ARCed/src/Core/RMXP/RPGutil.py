@@ -83,29 +83,15 @@ class Table(object):
         self._data = newdata
         
     def _arc_dump(self, d=0):
-        s = pack("I", self.dim)
-        s += pack("I", self.xsize) + pack("I", self.ysize) + pack("I", self.zsize)
-        s += pack("I", self.xsize * self.ysize * self.zsize)
-        for z in xrange(self.zsize):
-            for y in xrange(self.ysize):
-                for x in xrange(self.xsize):
-                    s += pack("H", self[x, y, z])
+        s = pack("IIIII", self.dim, self.xsize, self.ysize, self.zsize, self.xsize * self.ysize * self.zsize)
+        data = self._data.flatten('F').tolist() 
+        s += pack("H" * (self.xsize * self.ysize * self.zsize), *data)
         return s
 
     @staticmethod
     def _arc_load(s):
-        dim = unpack("I", s[0:4])
-        nx = unpack("I", s[4:8])
-        ny = unpack("I", s[8:12])
-        nz = unpack("I", s[12:16])
-        size = unpack("I", s[16:20])
-        data = []
-        pointer = 20
-        while True:
-            data.append(unpack('H', s[pointer:pointer+2]))
-            pointer += 2
-            if pointer > len(s - 1):
-                break 
+        dim, nx, ny, nz, size = unpack("IIIII", s[0:20])
+        data = unpack('H' * size, s[20:size * 2])
         if dim == 3:
             t = Table(nx, ny, nz)
             n = 0
