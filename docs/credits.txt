@@ -25,12 +25,14 @@
 [list]
 [li]Lee Spencer "legacyblade" Conrad (icons graphics, final editing of characters)[/li]
 [li]Naoise "The Niche" McHugh (1 character)[/li]
-[li]MetalRenard (several background music tracks)[/li]
+[li]"MetalRenard" (several background music tracks)[/li]
 [li]Boris "Blizzard" Mikiæ (icons, windowskins, characters, animations, misc graphics)[/li]
 [li]Ilya "Agckuu Coceg" Suprunenko (2 characters)[/li]
 [li]Tim "AngryPacman" Barker (large contribution of Music and Sound)[/li]
 [li]"Taiine" (several tileset trees)[/li]
 [li]"teatro" (one game over graphic)[/li]
+[li]"MarkHest" (various audio, 1 windowskin)[/li]
+[li]"Aqua" (various tiles and autotiles)[/li]
 [/list]
 
 [size=14pt][b]Special Thanks:[/b][/size]
@@ -44,6 +46,12 @@
 [size=14pt][b]Other Work:[/b][/size]
 
 [list]
+[li]High Level C++ Types (HLTypes), licensed under BSD license, http://sourceforge.net/projects/libhltypes[/li]
+[li]C++ Geometry Types (GTypes), licensed under BSD license, http://sourceforge.net/projects/libgtypes[/li]
+[li]Awesome Portable Rendering Interface (APRIL), http://sourceforge.net/projects/libapril[/li]
+[li]Advanced Text Rendering System (ATRES), licensed under BSD license, http://sourceforge.net/projects/libatres[/li]
+[li]APRIL User Interface (APRILUI), licensed under BSD license, http://sourceforge.net/projects/libaprilui[/li]
+[li]Kresimir Spes Audio Library (XAL), licensed under BSD license, http://code.google.com/p/libxal[/li]
 [li]Win32-API Ruby extension, licensed under Artistic License 2.0, (C) Daniel J. Berger, Park Heesob, All rights reserved[/li]
 [/list]
 
