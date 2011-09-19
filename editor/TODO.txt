@@ -1,0 +1,35 @@
+- finished project interface (almost finished)
+	- loading projects
+	- acessing data
+	- saving projects
+	- creating new projects
+	
+- Action framework (not started)
+	- template actions
+	- undo, redo calls
+	- menu hooks
+
+- Writing database actions (requires framework to be finished)
+	- action to write data to project for all panels
+	- can combine individual items into one action
+	
+- interfface panels (requiers action fram work and actions for that panel to be done)
+	- make it so that editing data in a panel generates an action and applys it
+	
+- brush frame work (requires action framework)
+	- three brush source modes (paint form tileset selection, brush, or from map selection)
+	- tools
+	- action to apply the changes to the project
+	
+- event editor (requiers action framework0
+	 - write the control
+	 - write actions
+	 - interface
+	 
+- random custome controls
+	- the nonstandered controlls in the data base panels need to be written
+	
+- splash screen
+
+- icons
+- genral testing to make sure we got everything
