@@ -1831,14 +1831,12 @@ if BlizzABS::Config::INTELLIGENT_PASSABILTY && $DEBUG
           file.close
         end}
     # iterate through all map IDs that were deleted
-    (data.keys-new_data.keys).sort.each {|id|
+    (data.keys - new_data.keys).sort.each {|id|
         # remove map ID
         [data, dates].each {|hash| hash.delete(id)}}
     # get all map IDs that need to be updated
     ids = (new_data.keys-data.keys).sort
   end
-  # open new file
-  file = File.open('Data/Map_Data.abs', 'wb')
   # iterate through all IDs
   ids.each {|id|
       # load map
@@ -1856,6 +1854,8 @@ if BlizzABS::Config::INTELLIGENT_PASSABILTY && $DEBUG
       end
       # prevent "Script is hanging" error
       Graphics.update}
+  # open new file
+  file = File.open('Data/Map_Data.abs', 'wb')
   # save all data to file
   Marshal.dump([data, dates], file)
   # save and close file

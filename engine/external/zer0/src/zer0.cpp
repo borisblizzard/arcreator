@@ -133,7 +133,6 @@ namespace zer0
 		//*/
 		//*
 		// TODO - unsafe, should be done with a rb_protect block
-		rb_funcall_2(filename, "gsub!", rb_str_new2(".arc"), rb_str_new2(".rxdata"));
 		VALUE rb_mMarshal = rb_funcall_1(rb_mKernel, "const_get", rb_f_to_sym(rb_str_new2("Marshal")));
 		VALUE file = rb_funcall_2(rb_cFile, "open", filename, rb_str_new2("rb"));
 		VALUE data = rb_funcall_1(rb_mMarshal, "load", file);
@@ -278,8 +277,8 @@ namespace zer0
 			}
 		}
 		scripts.sort();
-		rb_load(rb_str_new2("./Data/RMXP.rb"), 0);
-		rb_load(rb_str_new2("./Data/System.rb"), 0);
+		rb_load(rb_str_new2("./Data/RMXP.rb"), 0); // TODO - will be removed later
+		rb_load(rb_str_new2("./Data/System.rb"), 0); // TODO - will be removed later
 		foreach (hstr, it, scripts)
 		{
 			rb_load(rb_str_new2((*it).c_str()), 0);
