@@ -58,8 +58,8 @@ begin
 		puts ""
 		puts "Completed Loading in: #{Time.now - time_now} Seconds"
 		puts ""
-		time_now = Time.now
 		# dump ./Data
+		time_now = Time.now
 		arc_dump_data($topath + "/Data/Actors.arc", actors)
 		arc_dump_data($topath + "/Data/Classes.arc", classes)
 		arc_dump_data($topath + "/Data/Skills.arc", skills)

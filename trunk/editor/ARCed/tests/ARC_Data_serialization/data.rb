@@ -953,12 +953,25 @@ class Table
      return t
   end
   
-  def _arc_dump(d = 0)
-    return self._dump(d)
+  def _arc_dump
+    s = [@dim, @xsize, @ysize, @zsize].pack('VVVV')
+    s += @data.pack('v' * (@xsize * @ysize * @zsize))
+    return s
   end
   
   def self._arc_load(s)
-    return self._load(s)
+    dim, nx, ny, nz, size = s[0, 16].unpack('VVVV')
+	size = nx * nz * ny
+    data = s[16, size * 2].unpack('v' * size)
+    if dim == 1
+      t = Table.new(nx)
+    elsif dim == 2
+      t = Table.new(nx, ny)
+    elsif dim == 3
+      t = Table.new(nx, ny, nz)
+    end
+    t.data = data
+    return t
   end
   
 end
@@ -986,11 +999,12 @@ class Color
      Color.new(*s.unpack('d4'))
   end
   attr_accessor(:red, :green, :blue, :alpha)
-  def _arc_dump(d = 0)
-    return self._dump(d)
+  def _arc_dump
+    return [@red, @green, @blue, @alpha].pack('eeee')
   end
   def self._arc_load(s)
-    return self._load(s)
+    red, green, blue, alpha = s.unpack('eeee')
+    return Color.new(red, green, blue, alpha)
   end
 end
 
@@ -1017,10 +1031,11 @@ class Tone
      Tone.new(*s.unpack('d4'))
   end
   attr_accessor(:red, :green, :blue, :gray)
-  def _arc_dump(d = 0)
-    return self._dump(d)
+  def _arc_dump
+    return [@red, @green, @blue, @gray].pack('eeee')
   end
   def self._arc_load(s)
-    return self._load(s)
+    red, green, blue, gray = s.unpack('eeee')
+    return Color.new(red, green, blue, gray)
   end
 end
