@@ -169,7 +169,7 @@ PREVENT_CRASH = true
 SHOW_ERROR = true
 # if you are using a custom save system
 SAVE_NAME = 'Save'
-SAVE_EXTENSION = 'rxdata'
+SAVE_EXTENSION = 'dat'
 SAVE_FILES_NUMBER = 4
 
 #::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::

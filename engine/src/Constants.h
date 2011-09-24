@@ -4,7 +4,7 @@
 #define VERSION_MAJOR (1)
 #define VERSION_MINOR (0)
 #define VERSION_REVISION (0)
-#define VERSION_BUILD (372)
+#define VERSION_BUILD (373)
 
 #define cstr(s) #s
 #define cstr2(s) cstr(s)

@@ -229,7 +229,7 @@ FONTS = ['Arial', 'Future', 'Comic Sans MS', 'Brush Script', 'Tahoma',
          'Times New Roman']
 # save file options
 SAVE_NAME = 'Save'
-SAVE_EXTENSION = 'rxdata'
+SAVE_EXTENSION = 'dat'
 SAVE_FILES_NUMBER = 4
 # extra options
 MAP_BACKGROUND = true
