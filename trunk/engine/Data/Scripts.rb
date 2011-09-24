@@ -7319,7 +7319,7 @@ class Window_SaveFile < Window_Base
     super(0, 64 + file_index % 4 * 104, 640, 104)
     self.contents = Bitmap.new(width - 32, height - 32)
     @file_index = file_index
-    @filename = "Save#{@file_index + 1}.sav"
+    @filename = "Save#{@file_index + 1}.dat"
     @time_stamp = Time.at(0)
     @file_exist = FileTest.exist?(@filename)
     if @file_exist
@@ -11369,7 +11369,7 @@ class Scene_Title
     # If enabled, make @continue_enabled true; if disabled, make it false
     @continue_enabled = false
     for i in 0..3
-      @continue_enabled = true if FileTest.exist?("Save#{i+1}.sav")
+      @continue_enabled = true if FileTest.exist?("Save#{i+1}.dat")
     end
     # If continue is enabled, move cursor to "Continue"
     # If disabled, display "Continue" text in gray
@@ -12919,7 +12919,7 @@ class Scene_File
   #     file_index : save file index (0-3)
   #--------------------------------------------------------------------------
   def make_filename(file_index)
-    return "Save#{file_index + 1}.sav"
+    return "Save#{file_index + 1}.dat"
   end
 end
 
@@ -15494,7 +15494,7 @@ PREVENT_CRASH = true
 SHOW_ERROR = true
 # if you are using a custom save system
 SAVE_NAME = 'Save'
-SAVE_EXTENSION = 'sav'
+SAVE_EXTENSION = 'dat'
 SAVE_FILES_NUMBER = 4
 
 #::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
@@ -23641,7 +23641,7 @@ FONTS = ['Arial', 'Future', 'Comic Sans MS', 'Brush Script', 'Tahoma',
          'Times New Roman']
 # save file options
 SAVE_NAME = 'Save'
-SAVE_EXTENSION = 'sav'
+SAVE_EXTENSION = 'dat'
 SAVE_FILES_NUMBER = 4
 # extra options
 MAP_BACKGROUND = true
@@ -35462,20 +35462,6 @@ end
 #==============================================================================
 
 begin
-  # loading game data
-  $data_actors        = ARC::Data.load('Data/Actors.arc')
-  $data_classes       = ARC::Data.load('Data/Classes.arc')
-  $data_skills        = ARC::Data.load('Data/Skills.arc')
-  $data_items         = ARC::Data.load('Data/Items.arc')
-  $data_weapons       = ARC::Data.load('Data/Weapons.arc')
-  $data_armors        = ARC::Data.load('Data/Armors.arc')
-  $data_enemies       = ARC::Data.load('Data/Enemies.arc')
-  $data_troops        = ARC::Data.load('Data/Troops.arc')
-  $data_states        = ARC::Data.load('Data/States.arc')
-  $data_animations    = ARC::Data.load('Data/Animations.arc')
-  $data_tilesets      = ARC::Data.load('Data/Tilesets.arc')
-  $data_common_events = ARC::Data.load('Data/CommonEvents.arc')
-  $data_system        = ARC::Data.load('Data/System.arc')
   # prepare for transition
   Graphics.freeze
   # active connection scene

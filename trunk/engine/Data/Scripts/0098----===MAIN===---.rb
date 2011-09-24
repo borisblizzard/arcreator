@@ -10,9 +10,7 @@ begin
   # Make scene object (title screen)
   $scene = Scene_Title.new
   # Call main method as long as $scene is effective
-  while $scene != nil
-    $scene.main
-  end
+  $scene.main while $scene != nil
   # Fade out
   Graphics.transition(20)
 rescue Errno::ENOENT

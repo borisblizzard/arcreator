@@ -108,17 +108,22 @@ namespace rgss
 		/// @note Alpha is clamped between 0 and 255.
 		static VALUE rb_set(int argc, VALUE* argv, VALUE self);
 
-		/// @brief returns a byte string containing data needed to reconstruct the Color object.
+		/// @brief Returns a byte stream containing serialization data for Marshal.
 		/// @param[in] argc Number of arguments.
 		/// @param[in] argv Pointer to first argument.
-		/// @note only one argument d, it defaults to 0 and is used for object depth
-		/// @return byte string.
-		static VALUE rb_arcDump(int argc, VALUE* argv, VALUE self);
+		/// @note Arguments are "[depth = -1]".
+		/// @return Data byte stream.
+		static VALUE rb_dump(int argc, VALUE* argv, VALUE self);
+		/// @brief Returns an RGSS::Color object constructed from a serialized Marshal byte stream.
+		/// @param[in] stream The byte stream from which to load the object.
+		static VALUE rb_load(VALUE self, VALUE stream);
 
-		/// @brief Returns a Color object constructed form a byte string
-		/// @param[in] value the byte string from which to load the object
-		/// @return Color A Color object.
-		static VALUE rb_arcLoad(VALUE self, VALUE value);
+		/// @brief Returns a byte stream containing serialization data.
+		/// @return Data byte stream.
+		static VALUE rb_arcDump(VALUE self);
+		/// @brief Returns an RGSS::Color object constructed from a serialized byte stream.
+		/// @param[in] stream The byte stream from which to load the object.
+		static VALUE rb_arcLoad(VALUE self, VALUE stream);
 
 	};
 	

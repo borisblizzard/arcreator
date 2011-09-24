@@ -432,9 +432,9 @@ namespace zer0
 		rb_funcall_0(rb_mGC, "disable"); // to prevent GC destroying temp data
 		// TODO - unsafe, should be done with a rb_protect block to reset the serializer in the end
 		file.open(StringValuePtr(filename));
-		harray<hstr> versions = Version.split(".");
-		file.dump((unsigned char)(int)versions[0]);
-		file.dump((unsigned char)(int)versions[1]);
+		harray<unsigned char> versions = Version.split(".").cast<int>().cast<unsigned char>();
+		file.dump(versions[0]);
+		file.dump(versions[1]);
 		ARC_Data::_dump(obj);
 		ARC_Data::_resetSerializer();
 		rb_funcall_0(rb_mGC, "enable");
@@ -446,8 +446,8 @@ namespace zer0
 		rb_funcall_0(rb_mGC, "disable"); // to prevent GC destroying temp data
 		// TODO - unsafe, should be done with a rb_protect block to reset the serializer in the end
 		file.open(StringValuePtr(filename));
-		unsigned major = file.load_uchar();
-		unsigned minor = file.load_uchar();
+		unsigned char major = file.load_uchar();
+		unsigned char minor = file.load_uchar();
 		hstr version = hstr((int)major) + "." + hstr((int)minor);
 		if (Version != version)
 		{

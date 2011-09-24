@@ -78,10 +78,10 @@ namespace rgss
 	
 	short* Table::_createData(int xSize, int ySize, int zSize) const
 	{
-		// allocate space for the table
-		short* data = new short[xSize * ySize * zSize];
-		// zero the data
-		memset(data, 0, xSize * ySize * zSize * sizeof(short));
+		// allocate table space filled with 0
+		int size = xSize * ySize * zSize;
+		short* data = new short[size];
+		memset(data, 0, size * sizeof(short));
 		return data;
 	}
 
@@ -104,10 +104,10 @@ namespace rgss
 		// initialize
 		rb_define_method(rb_cTable, "initialize", RUBY_METHOD_FUNC(&Table::rb_initialize), -1);
 		rb_define_method(rb_cTable, "initialize_copy", RUBY_METHOD_FUNC(&Table::rb_initialize_copy), 1);
-		rb_define_method(rb_cTable, "_arc_dump", RUBY_METHOD_FUNC(&Table::rb_arcDump), -1);
+		rb_define_method(rb_cTable, "_dump", RUBY_METHOD_FUNC(&Table::rb_dump), -1);
+		rb_define_singleton_method(rb_cTable, "_load", RUBY_METHOD_FUNC(&Table::rb_load), 1);
+		rb_define_method(rb_cTable, "_arc_dump", RUBY_METHOD_FUNC(&Table::rb_arcDump), 0);
 		rb_define_singleton_method(rb_cTable, "_arc_load", RUBY_METHOD_FUNC(&Table::rb_arcLoad), 1);
-		rb_define_method(rb_cTable, "_dump", RUBY_METHOD_FUNC(&Table::rb_arcDump), -1);
-		rb_define_singleton_method(rb_cTable, "_load", RUBY_METHOD_FUNC(&Table::rb_arcLoad), 1);
 		// getters and setters
 		rb_define_method(rb_cTable, "xsize", RUBY_METHOD_FUNC(&Table::rb_getXSize), 0);
 		rb_define_method(rb_cTable, "ysize", RUBY_METHOD_FUNC(&Table::rb_getYSize), 0);
@@ -214,14 +214,29 @@ namespace rgss
 		VALUE arg4 = Qnil;
 		rb_scan_args(argc, argv, hstr(table->dimensions + 1).c_str(), &arg1, &arg2, &arg3, &arg4);
 		int x = NUM2INT(arg1);
-		int y = (NIL_P(arg2) ? 0 : NUM2INT(arg2));
-		int z = (NIL_P(arg3) ? 0 : NUM2INT(arg3));
+		int y = 0;
+		int z = 0;
+		int value = 0;
+		if (table->dimensions == 1)
+		{
+			value = NUM2INT(arg2);
+		}
+		else if (table->dimensions == 2)
+		{
+			y = NUM2INT(arg2);
+			value = NUM2INT(arg3);
+		}
+		else
+		{
+			y = NUM2INT(arg2);
+			z = NUM2INT(arg3);
+			value = NUM2INT(arg4);
+		}
 		if (!is_between(x, 0, table->xSize - 1) || !is_between(y, 0, table->ySize - 1) || !is_between(z, 0, table->zSize - 1))
 		{
 			return Qnil;
 		}
-		int value = (short)hclamp(NUM2INT(argc == 2 ? arg2 : (argc == 3 ? arg3 : arg4)), -32768, 32767);
-		table->data[x + table->xSize * (y + table->ySize * z)] = value;
+		table->data[x + table->xSize * (y + table->ySize * z)] = (short)hclamp(value, -32768, 32767);
 		return Qnil;
 	}
 		
@@ -238,13 +253,17 @@ namespace rgss
 		return Qnil;
 	}
 
-	VALUE Table::rb_arcDump(int argc, VALUE* argv, VALUE self)
+	/****************************************************************************************
+	 * Serialization
+	 ****************************************************************************************/
+
+	VALUE Table::rb_dump(int argc, VALUE* argv, VALUE self)
 	{
 		VALUE d;
 		rb_scan_args(argc, argv, "01", &d);
 		if (NIL_P(d))
 		{
-			d = INT2FIX(0);
+			d = INT2FIX(-1);
 		}
 		RB_SELF2CPP(Table, table);
 		int size = table->xSize * table->ySize * table->zSize;
@@ -267,7 +286,7 @@ namespace rgss
 		return byte_string;
 	}
 
-	VALUE Table::rb_arcLoad(VALUE self, VALUE value)
+	VALUE Table::rb_load(VALUE self, VALUE value)
 	{
 		// load Table size data
 		VALUE sliced_string = rb_funcall_2(value, "[]", INT2FIX(0), INT2FIX(20));
@@ -297,6 +316,52 @@ namespace rgss
 		// loading data entries
 		VALUE data_fmt = rb_str_new2(hstr('S', size).c_str());
 		sliced_string = rb_funcall_2(value, "[]", INT2FIX(20), INT2FIX(size * 2));
+		data = rb_funcall_1(sliced_string, "unpack", data_fmt);
+		for_iter (i, 0, size)
+		{
+			table->data[i] = (short)NUM2INT(rb_ary_shift(data));
+		}
+		return rb_table;
+	}
+	
+	VALUE Table::rb_arcDump(VALUE self)
+	{
+		RB_SELF2CPP(Table, table);
+		// store sizes
+		VALUE data = rb_ary_new();
+		rb_ary_push(data, INT2FIX(table->dimensions));
+		rb_ary_push(data, INT2FIX(table->xSize));
+		rb_ary_push(data, INT2FIX(table->ySize));
+		rb_ary_push(data, INT2FIX(table->zSize));
+		// store data
+		int size = table->xSize * table->ySize * table->zSize;
+		for_iter (i, 0, size)
+		{
+			rb_ary_push(data, INT2FIX(table->data[i]));
+		}
+		// convert data array into data stream
+		VALUE data_fmt = rb_str_new2(("VVVV" + hstr('v', size)).c_str());
+		VALUE byte_string = rb_funcall_1(data, "pack", data_fmt);
+		return byte_string;
+	}
+
+	VALUE Table::rb_arcLoad(VALUE self, VALUE value)
+	{
+		// load Table size data
+		VALUE sliced_string = rb_funcall_2(value, "[]", INT2FIX(0), INT2FIX(16));
+		VALUE data = rb_funcall_1(sliced_string, "unpack", rb_str_new2("VVVV"));
+		int dimensions = NUM2INT(rb_ary_shift(data));
+		VALUE rb_xSize = rb_ary_shift(data);
+		VALUE rb_ySize = rb_ary_shift(data);
+		VALUE rb_zSize = rb_ary_shift(data);
+		int size = NUM2INT(rb_xSize) * NUM2INT(rb_ySize) * NUM2INT(rb_zSize);
+		// create the table
+		VALUE argv[3] = {rb_xSize, rb_ySize, rb_zSize};
+		VALUE rb_table = Table::create(dimensions, argv);
+		RB_VAR2CPP(rb_table, Table, table);
+		// loading data entries
+		VALUE data_fmt = rb_str_new2(hstr('v', size).c_str());
+		sliced_string = rb_funcall_2(value, "[]", INT2FIX(16), INT2FIX(size * 2));
 		data = rb_funcall_1(sliced_string, "unpack", data_fmt);
 		for_iter (i, 0, size)
 		{

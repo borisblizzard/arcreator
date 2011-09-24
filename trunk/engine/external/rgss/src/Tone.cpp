@@ -41,10 +41,10 @@ namespace rgss
 		rb_define_method(rb_cTone, "initialize", RUBY_METHOD_FUNC(&Tone::rb_initialize), -1);
 		rb_define_method(rb_cTone, "initialize_copy", RUBY_METHOD_FUNC(&Tone::rb_initialize_copy), 1);
 		rb_define_method(rb_cTone, "inspect", RUBY_METHOD_FUNC(&Tone::rb_inspect), 0);
-		rb_define_method(rb_cTone, "_arc_dump", RUBY_METHOD_FUNC(&Tone::rb_arcDump), -1);
+		rb_define_method(rb_cTone, "_dump", RUBY_METHOD_FUNC(&Tone::rb_dump), -1);
+		rb_define_singleton_method(rb_cTone, "_load", RUBY_METHOD_FUNC(&Tone::rb_load), 1);
+		rb_define_method(rb_cTone, "_arc_dump", RUBY_METHOD_FUNC(&Tone::rb_arcDump), 0);
 		rb_define_singleton_method(rb_cTone, "_arc_load", RUBY_METHOD_FUNC(&Tone::rb_arcLoad), 1);
-		rb_define_method(rb_cTone, "_dump", RUBY_METHOD_FUNC(&Tone::rb_arcDump), -1);
-		rb_define_singleton_method(rb_cTone, "_load", RUBY_METHOD_FUNC(&Tone::rb_arcLoad), 1);
 		// getters and setters
 		rb_define_method(rb_cTone, "red", RUBY_METHOD_FUNC(&Tone::rb_getRed), 0);
 		rb_define_method(rb_cTone, "red=", RUBY_METHOD_FUNC(&Tone::rb_setRed), 1);
@@ -169,31 +169,27 @@ namespace rgss
 		return Qnil;
 	}
 
-	VALUE Tone::rb_arcDump(int argc, VALUE* argv, VALUE self)
+	/****************************************************************************************
+	 * Serialization
+	 ****************************************************************************************/
+
+	VALUE Tone::rb_dump(int argc, VALUE* argv, VALUE self)
 	{
 		VALUE d;
 		rb_scan_args(argc, argv, "01", &d);
 		if (NIL_P(d))
 		{
-			d = INT2FIX(0);
+			d = INT2FIX(-1);
 		}
 		RB_SELF2CPP(Tone, tone);
-		// create array
-		VALUE arr = rb_ary_new3(4);
-		// populate array
-		rb_ary_push(arr, rb_float_new(tone->red));
-		rb_ary_push(arr, rb_float_new(tone->green));
-		rb_ary_push(arr, rb_float_new(tone->blue));
-		rb_ary_push(arr, rb_float_new(tone->gray));
-		// call the pack method
+		VALUE arr = rb_ary_new3(4, rb_float_new(tone->red), rb_float_new(tone->green),
+			rb_float_new(tone->blue), rb_float_new(tone->gray));
 		VALUE byte_string = rb_funcall_1(arr, "pack", rb_str_new2("d4"));
 		return byte_string;
-
 	}
 
-	VALUE Tone::rb_arcLoad(VALUE self, VALUE value)
+	VALUE Tone::rb_load(VALUE self, VALUE value)
 	{
-		// call the unpack function
 		VALUE arr = rb_funcall_1(value, "unpack", rb_str_new2("d4"));
 		VALUE c_arr[4];
 		c_arr[0] = rb_ary_shift(arr);
@@ -202,4 +198,25 @@ namespace rgss
 		c_arr[3] = rb_ary_shift(arr);
 		return Tone::create(4, c_arr);
 	}
+
+	VALUE Tone::rb_arcDump(VALUE self)
+	{
+		RB_SELF2CPP(Tone, tone);
+		VALUE arr = rb_ary_new3(4, rb_float_new(tone->red), rb_float_new(tone->green),
+			rb_float_new(tone->blue), rb_float_new(tone->gray));
+		VALUE byte_string = rb_funcall_1(arr, "pack", rb_str_new2("eeee"));
+		return byte_string;
+	}
+
+	VALUE Tone::rb_arcLoad(VALUE self, VALUE value)
+	{
+		VALUE arr = rb_funcall_1(value, "unpack", rb_str_new2("eeee"));
+		VALUE c_arr[4];
+		c_arr[0] = rb_ary_shift(arr);
+		c_arr[1] = rb_ary_shift(arr);
+		c_arr[2] = rb_ary_shift(arr);
+		c_arr[3] = rb_ary_shift(arr);
+		return Tone::create(4, c_arr);
+	}
+
 }

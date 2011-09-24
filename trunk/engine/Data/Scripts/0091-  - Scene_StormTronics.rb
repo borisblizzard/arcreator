@@ -306,6 +306,7 @@ class Scene_StormTronics
     # last transition
     Graphics.transition
     delay(2)
+    Audio.me_stop
   end
 
 end
