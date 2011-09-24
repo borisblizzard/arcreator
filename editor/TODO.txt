@@ -28,6 +28,11 @@
 	 
 - random custome controls
 	- the nonstandered controlls in the data base panels need to be written
+		- elements 5-way checkbox
+		- common event panel (will use the normal event editor as a base)
+		- tileset panel (setting piority and pasibility data)
+		- animation panal
+		- troops panel
 	
 - splash screen
 
