@@ -34,7 +34,6 @@ begin
 			end
 		end
 	else
-		#enemies = arc_load_data($frompath + "/Data/Enemies.arc")
 		# load ./Data
 		time_now = Time.now
 		actors = arc_load_data($frompath + "/Data/Actors.arc")
@@ -59,8 +58,8 @@ begin
 		puts ""
 		puts "Completed Loading in: #{Time.now - time_now} Seconds"
 		puts ""
-		time_now = Time.now
 		# dump ./Data
+		time_now = Time.now
 		dump_data($topath + "/Data/Actors.rxdata", actors)
 		dump_data($topath + "/Data/Classes.rxdata", classes)
 		dump_data($topath + "/Data/Skills.rxdata", skills)

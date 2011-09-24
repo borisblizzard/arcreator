@@ -68,7 +68,7 @@ module ARC
 		end
 		
 		def self.__get_class_object(class_path)
-			classes = class_path.split("::")
+			classes = class_path.split('::')
 			if !Kernel.const_defined?(classes[0].to_sym)
 				raise TypeError, "Class not defined: #{classes[0]}"
 			end
@@ -102,11 +102,11 @@ module ARC
 		end
 		
 		def self.__dump_int32(obj)
-			@@io.write([obj].pack("V"))
+			@@io.write([obj].pack('V'))
 		end
 
 		def self.__load_int32
-			return @@io.read(4).unpack("V")[0]
+			return @@io.read(4).unpack('V')[0]
 		end
 		
 		def self._dump(obj)
@@ -164,7 +164,7 @@ module ARC
 		
 		def self._dump_float(obj)
 			@@io.write(TYPES[Float])
-			@@io.write([obj].pack("e"))
+			@@io.write([obj].pack('e'))
 		end
 		
 		def self._dump_string(obj)
@@ -204,7 +204,7 @@ module ARC
 			@@io.write(TYPES[Object])
 			self._dump_string(self.__get_class_path(obj.class.name)) # first the string path because this is required to load the object
 			return if !self.__try_map(@@objects, obj) # abort if object has already been mapped
-			if obj.respond_to?("_arc_dump")
+			if obj.respond_to?(:_arc_dump)
 				data = obj._arc_dump
 				self.__dump_int32(data.size)
 				@@io.write(data)
@@ -212,7 +212,7 @@ module ARC
 				variables = obj.instance_variables
 				self.__dump_int32(variables.size)
 				variables.each {|variable|
-					self._dump_string(variable.to_s.gsub("@", ""))
+					self._dump_string(variable.to_s.gsub('@', ''))
 					self._dump(obj.instance_variable_get(variable))
 				}
 			end
@@ -239,12 +239,12 @@ module ARC
 		end
 		
 		def self._load_float
-			return @@io.read(4).unpack("e")[0]
+			return @@io.read(4).unpack('e')[0]
 		end
 		
 		def self._load_string
 			id = self.__load_int32
-			return "" if id == 0
+			return '' if id == 0
 			obj = self.__find_mapped(@@strings, id)
 			return obj.clone if obj != nil
 			size = self.__load_int32
@@ -273,7 +273,8 @@ module ARC
 			size = self.__load_int32
 			obj = {}
 			self.__map(@@hashes, obj)
-			size.times {key = self._load; obj[key] = self._load} # making sure key is always loaded first
+			# obj[key] can be evaluate after the second self._load, this makes sure the key is loaded first
+			size.times {key = self._load; obj[key] = self._load}
 			return obj
 		end
 		
@@ -283,14 +284,14 @@ module ARC
 			return obj if obj != nil
 			classe = self.__get_class_object(class_path)
 			size = self.__load_int32
-			if classe.respond_to?("_arc_load")
+			if classe.respond_to?(:_arc_load)
 				obj = classe._arc_load(@@io.read(size))
 				self.__map(@@objects, obj)
 				return obj
 			end
 			obj = classe.allocate
 			self.__map(@@objects, obj)
-			size.times {obj.instance_variable_set(("@" + self._load).to_sym, self._load)}
+			size.times {obj.instance_variable_set(('@' + self._load), self._load)}
 			return obj
 		end
 		
