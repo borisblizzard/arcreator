@@ -10,11 +10,10 @@ begin
   # Make scene object (title screen)
   $scene = Scene_Title.new
   # Call main method as long as $scene is effective
-  while $scene != nil
-    $scene.main
-  end
+  $scene.main while $scene != nil
   # Fade out
   Graphics.transition(20)
+  Graphics.update
 rescue Errno::ENOENT
   # Supplement Errno::ENOENT exception
   # If unable to open file, display message and end
