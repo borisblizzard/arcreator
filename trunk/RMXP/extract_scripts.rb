@@ -17,7 +17,7 @@ scripts.each {|script|
 Dir.mkdir('Scripts') rescue nil
 
 keys.each_index {|i|
-	file = File.open("./Scripts/#{"%04d" % i}-#{keys[i].gsub(">", "").gsub("<", "").gsub("*", "+")}.rb", 'w')
+	file = File.open("./Scripts/#{"%04d" % i}-#{keys[i].gsub('>', '').gsub('<', '').gsub('*', '+').gsub(':', '-').gsub('?', '!').gsub('/', '-')}.rb", 'wb')
 	file.write("\xEF\xBB\xBF") # UTF-8 identifier
 	file.write(decrypted[i])
 	file.close
