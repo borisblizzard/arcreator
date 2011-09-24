@@ -20,21 +20,6 @@
 [li]Benjamin "Ryex" Powers[/li]
 [/list]
 
-[size=14pt][b]Run Time Package:[/b][/size]
-
-[list]
-[li]Lee Spencer "legacyblade" Conrad (icons graphics, final editing of characters)[/li]
-[li]Naoise "The Niche" McHugh (1 character)[/li]
-[li]"MetalRenard" (several background music tracks)[/li]
-[li]Boris "Blizzard" Mikiæ (icons, windowskins, characters, animations, misc graphics)[/li]
-[li]Ilya "Agckuu Coceg" Suprunenko (2 characters)[/li]
-[li]Tim "AngryPacman" Barker (large contribution of Music and Sound)[/li]
-[li]"Taiine" (several tileset trees)[/li]
-[li]"teatro" (one game over graphic)[/li]
-[li]"MarkHest" (various audio, 1 windowskin)[/li]
-[li]"Aqua" (various tiles and autotiles)[/li]
-[/list]
-
 [size=14pt][b]Special Thanks:[/b][/size]
 
 [list]
