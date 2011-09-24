@@ -3,11 +3,11 @@ require './convert.rb'
 $frompath = './RMXP_original' if $frompath == nil
 $topath = './RMXP_imported' if $topath == nil
 
-def check_data(file)
-	file = File.open($frompath + "/Data/Actors.rxdata")
+def check_data(filename)
+	file = File.open($frompath + filename, 'rb')
 	data1 = file.read
 	file.close
-	file = File.open($topath + "/Data/Actors.rxdata")
+	file = File.open($topath + filename, 'rb')
 	data2 = file.read
 	file.close
 	return (data1 == data2)
@@ -20,7 +20,7 @@ begin
 	# check data
 	time_now = Time.now
 	puts "not matching: Actors.rxdata" if !check_data("/Data/Actors.rxdata")
-	puts "not matching: Classes.rxdata" if !check_data("/Data/Classes.rxdata")
+	puts "not matching: Ckasses.rxdata" if !check_data("/Data/Classes.rxdata")
 	puts "not matching: Skills.rxdata" if !check_data("/Data/Skills.rxdata")
 	puts "not matching: Items.rxdata" if !check_data("/Data/Items.rxdata")
 	puts "not matching: Weapons.rxdata" if !check_data("/Data/Weapons.rxdata")
