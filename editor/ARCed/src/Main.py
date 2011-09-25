@@ -45,7 +45,27 @@ class ARC_App(wx.App):
         config = ConfigParser.ConfigParser()
         path = os.path.join(dirName, "ARC.cfg")
         config.read(path)
-        Kernel.Global.ARCconfig = config
+        Kernel.GlobalObjects.set_value("ARCconfig", config)
+        
+    def LoadPlugins(self):
+        local_path  = Kernel.GlobalObjects.get_value("Program_Dir")
+        plugin_path = os.path.join(local_path, "plugins")
+        if not os.path.exists(plugin_path) and not os.path.isdir(plugin_path):
+            os.mkdir(plugin_path)
+        names = os.listdir(plugin_path)
+        for name in names:
+            try:
+                if os.path.exists(name):
+                    if os.path.isdir(name):
+                        if os.path.exists(os.path.join(name, "__init__.py")) and not os.path.isdir(os.path.join(name, "__init__.py")):
+                            execfile(os.path.join(name, "__init__.py"), globals())
+                    else:
+                        execfile(os.path.join(name, "__init__.py"), globals())
+            except Exception:
+                self.HandelErrorLoadingPlugin(name, plugin_path)
+            
+    def HandelErrorLoadingPlugin(self, name, plugin_path):
+        pass
 
     def LoadConponentDefaults(self):
         template = Kernel.ConfigLoader.build_from_file(os.path.join(dirName,
@@ -54,7 +74,7 @@ class ARC_App(wx.App):
                                                       "userdefaults.ini"),
                                                       template)
         Kernel.ConfigLoader.load(template)
-        Kernel.Global.LoadedComponentDefaultsTemplate = template
+        Kernel.GlobalObjects.set_value("LoadedComponentDefaultsTemplate", template)
 
 
 if __name__ == '__main__':

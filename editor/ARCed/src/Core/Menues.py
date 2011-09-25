@@ -29,12 +29,24 @@ class FileMenu(wx.Menu):
 
     def __init__(self, mainwindow):
         wx.Menu.__init__(self)
+        
         self.filehistory = wx.FileHistory(5)
-        self.config = wx.Config("ARC", style=wx.CONFIG_USE_LOCAL_FILE)
+        
+        self.config = wx.FileConfig(appName="ARCed", vendorName="arc@chaos-project.com", 
+                                    localFilename="ARCed.cfg" , style=wx.CONFIG_USE_LOCAL_FILE)
+        self.config.SetPath(Kernel.GlobalObjects.get_value("Program_Dir"))
+        
         self.filehistory.Load(self.config)
 
-        Kernel.Global.FileHistory = self.filehistory
-        Kernel.Global.programconfig = self.config
+        if Kernel.GlobalObjects.has_key("FileHistory"):
+            Kernel.GlobalObjects.set_value("FileHistory", self.filehistory)
+        else:
+            Kernel.GlobalObjects.request_new_key("FileHistory", "CORE", self.filehistory)
+        if Kernel.GlobalObjects.has_key("programconfig"):
+            Kernel.GlobalObjects.set_value("programconfig", self.config)
+        else:
+            Kernel.GlobalObjects.request_new_key("programconfig", "CORE", self.config)
+            
         self.mainwindow = mainwindow
 
         self.AddMenuItems()
@@ -94,7 +106,7 @@ class FileMenu(wx.Menu):
         openproject(self.mainwindow, self.filehistory, path)
 
     def update(self, event):
-        if Kernel.Global.ProjectOpen:
+        if Kernel.GlobalObjects.has_key("ProjectOpen") and (Kernel.GlobalObjects.get_value("ProjectOpen") == True):
             event.Enable(True)
         else:
             event.Enable(False)

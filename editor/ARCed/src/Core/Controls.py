@@ -97,13 +97,13 @@ class MainToolbar(object):
 
     def OnOpen(self, event):
         openproject = KM.get_component("OpenProjectHandler").object
-        openproject(self.mainwindow, Kernel.Global.FileHistory)
-        Kernel.Global.FileHistory.Save(Kernel.Global.programconfig) #@UndefinedVariable
+        openproject(self.mainwindow, Kernel.GlobalObjects.get_value("FileHistory"))
+        Kernel.GlobalObjects.get_value("FileHistory").Save(Kernel.GlobalObjects.get_value("programconfig")) #@UndefinedVariable
 
     def OnSave(self, event):
         saveproject = KM.get_component("SaveProjectHandler").object
         saveproject(self.mainwindow)
-        Kernel.Global.FileHistory.Save(Kernel.Global.programconfig) #@UndefinedVariable
+        Kernel.GlobalObjects.get_value("FileHistory").Save(Kernel.GlobalObjects.get_value("programconfig")) #@UndefinedVariable
 
     def OnUndo(self, event):
         pass
@@ -121,7 +121,7 @@ class MainToolbar(object):
         pass
 
     def uiupdate(self, event):
-        if Kernel.Global.ProjectOpen:
+        if Kernel.GlobalObjects.has_key("ProjectOpen") and (Kernel.GlobalObjects.get_value("ProjectOpen") == True):
             event.Enable(True)
         else:
             event.Enable(False)
@@ -134,7 +134,7 @@ class RMXPMapTreeCtrl(wx.TreeCtrl):
     def __init__(self, parent, id, pos, size, style):
         wx.TreeCtrl.__init__(self, parent, id, pos, size, style)
         self.parent = parent
-        KM.events["EventRefreshProject"].register(self.Refresh_Map_List, self)
+        KM.get_event("CoreEventRefreshProject").register(self.Refresh_Map_List, self)
 
         imglist = wx.ImageList(16, 16, True, 2)
         imglist.Add(wx.ArtProvider.GetBitmap(wx.ART_FOLDER, wx.ART_OTHER,
@@ -181,7 +181,7 @@ class RMXPMapTreeCtrl(wx.TreeCtrl):
         self.Expand(root)
 
     def onClose(self, event):
-        KM.events["EventRefreshProject"].unregister(self.Refresh_Map_List, self)
+        KM.get_event("CoreEventRefreshProject").unregister(self.Refresh_Map_List, self)
         event.Skip()
 
 class RMXPMapTreePanel(wx.Panel):

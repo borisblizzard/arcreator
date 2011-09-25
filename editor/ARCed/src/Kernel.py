@@ -14,6 +14,8 @@ Manager - the main processor of the Kernel
 '''
 import os
 import sys
+import time
+import traceback
 
 import ConfigParser
 import re
@@ -42,6 +44,12 @@ class GlobalObjects(object):
                "ProjectModes":["CORE", {}],
                "ProjectCreators":["CORE", {}],
                }
+    
+    @staticmethod
+    def has_key(key):
+        if GlobalObjects._objects.has_key(key):
+            return True
+        return False
 
     @staticmethod
     def request_new_key(key, name="PLUGIN", value=None):
@@ -125,8 +133,8 @@ class Manager(object):
     def get_type(name, super_name=None):
         '''gets a type object'''
         try:
-            if super:
-                return Manager.types[str(super_name)].get_type(str(type))
+            if super_name:
+                return Manager.types[str(super_name)].get_type(str(name))
             else:
                 return Manager.types[str(name)]
         except KeyError, AttributeError:
@@ -166,13 +174,24 @@ class Manager(object):
         
     @staticmethod
     def add_package(package):
+        '''
+        @param package: a Kernel.Package object 
+        @return: returns a 2-Tupel of the package's name and author used as a key to enable the package like so ("name", "author")
+        '''
         Manager.packages[(package.name, package.author)] = package
+        return (package.name, package.author)
         
     @staticmethod
     def enable_packages(*args):
-        for package_name in args:
-            Manager.packages[package_name].register()
+        '''
+        @param args: any number of 2-Tupels containing the  package's name and author as strings like so ("name", "author")
+        '''
+        for package in args:
+            Manager.packages[package].register()
         
+    @staticmethod
+    def set_default_components_from_config(package):
+        pass
 
 class Component(object):
     '''A data class that holds a registered extension'''
@@ -190,9 +209,9 @@ class Component(object):
         @param version: a number that is this component version
         @param package: a Package object that is used for grouping of extensions
         '''
-        self.object = object
-        self.type = type
-        self.super = super
+        self.object = obj
+        self.type = type_obj
+        self.super = super_obj
         self.name = name
         self.author = author
         self.version = version
@@ -306,7 +325,7 @@ class Type(object):
         @param version: version number converted to string with str()
         @param package: either a string or a Package object
         '''
-        pack= ""
+        pack = ""
         if isinstance(package, Package):
             pack = str(package.name)
         elif package is not None:
@@ -380,21 +399,29 @@ class Package(object):
         self.__manager.register_types(*self.types)
         self.__manager.register_events(*self.events)
         for component in self.components:
-            (Package.__manager.get_type(component.type,
-             component.super).add_component(component, self))
+            Package.__manager.get_type(component.type, component.super).add_component(component, self)
         for event_hook in self.event_hooks:
             event = self.__manager.get_event(event_hook[0])
             if event is not None:
-                event.register(event_hook[1],event_hook[2])
+                event.register(event_hook[1], event_hook[2])
 
     def add_types(self, *types):
         '''
-        adds a Kernal.Type or kernal.SuperType object to the types list the 
+        adds a Kernal.Type or Kernal.SuperType object to the types list the 
         type is not registered to the Kernel
         '''
         for type_obj in types:
             if isinstance(type_obj, (Type, SuperType)):
                 self.types.append(type_obj)
+                
+    def add_events(self, *events):
+        '''
+        adds a Kernel.Event object to the event list
+        the event is not registered to the Kernel
+        '''
+        for event_obj in events:
+            if isinstance(event_obj, Event):
+                self.events.append(event_obj)
 
     def add_component(self, component):
         '''
@@ -552,10 +579,10 @@ class ConfigLoader(object):
                                                            subtype.default.package)
             else:
                 typeobj = Manager.get_type(typename)
-                result = typeobj.set_default_component(type.default.name,
-                                                       type.default.author,
-                                                       type.default.version,
-                                                       type.default.package)
+                result = typeobj.set_default_component(type_obj.default.name,
+                                                       type_obj.default.author,
+                                                       type_obj.default.version,
+                                                       type_obj.default.package)
 
     @staticmethod
     def build_from_file(filename, template=None):
@@ -673,6 +700,18 @@ class ConfigLoader(object):
         f.close()
 
 
+
+def Log(message, prefix="[Kernel] ", error=False):
+    '''
+    time stamps a message and writes it to a log file, it can also attach a trace back of the latest error. 
+    always adds a new line at the end of the message
+    '''
+    f = open(os.path.join(GlobalObjects.get_name("Program_Dir"), "error.log"), "ab")
+    time_str = time.strftime("%a %d %b %Y %H:%M:%S [%Z] ")
+    if error:
+        message += "[Error] " + traceback.format_exc()
+    f.write(time_str + prefix + message + "\n")
+    f.close
 
 #=======================================================================
 # NOTE: the below is for testing purposes only
