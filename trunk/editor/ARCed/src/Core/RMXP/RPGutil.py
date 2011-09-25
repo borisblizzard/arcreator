@@ -83,34 +83,24 @@ class Table(object):
         self._data = newdata
         
     def _arc_dump(self, d=0):
-        s = pack("IIIII", self.dim, self.xsize, self.ysize, self.zsize, self.xsize * self.ysize * self.zsize)
+        s = pack("<IIIII", self.dim, self.xsize, self.ysize, self.zsize, self.xsize * self.ysize * self.zsize)
         data = self._data.flatten('F').tolist() 
-        s += pack("H" * (self.xsize * self.ysize * self.zsize), *data)
+        s += pack("<" + ("H" * (self.xsize * self.ysize * self.zsize)), *data)
         return s
 
     @staticmethod
     def _arc_load(s):
-        dim, nx, ny, nz, size = unpack("IIIII", s[0:20])
-        data = unpack('H' * size, s[20:size * 2])
+        dim, nx, ny, nz, size = unpack("<IIIII", s[0:20])
+        data = numpy.array(unpack("<" + ("H" * size), s[20:size * 2]))
+        data.resize(size)
+        data = numpy.reshape(data, (nx, ny, nz),  order="F")
         if dim == 3:
             t = Table(nx, ny, nz)
-            n = 0
-            for z in range(nz):
-                for y in range(ny):
-                    for x in range(nx):
-                        t[x, y, z] = data[n]
-                        n += 1
         elif dim == 2:
             t = Table(nx, nz)
-            n = 0
-            for y in range(ny):
-                for x in range(nx):
-                    t[x, y] = data[n]
-                    n += 1
         elif dim == 1:
             t = Table(nx)
-            for x in xrange(nx):
-                t[x] = data[x]
+        t._data = data
         return t
 
 
@@ -163,11 +153,11 @@ class Color(object):
         self.alpha = alpha
         
     def _arc_dump(self, d = 0):
-        return pack("dddd", self.red, self.green, self.blue, self.alpha)
+        return pack("<ffff", self.red, self.green, self.blue, self.alpha)
 
     @staticmethod
     def _arc_load(s):
-        return Color(*unpack('dddd', s))
+        return Color(*unpack("<ffff", s))
 
 
 class Tone(object):
@@ -219,10 +209,10 @@ class Tone(object):
         self.gray = gray
 
     def _arc_dump(self, d = 0):
-        return pack("dddd", self.red, self.green, self.blue, self.gray)
+        return pack("<ffff", self.red, self.green, self.blue, self.gray)
 
     @staticmethod
     def _arc_load(s):
-        return Tone(*unpack('dddd', s))
+        return Tone(*unpack("<ffff", s))
 
 
