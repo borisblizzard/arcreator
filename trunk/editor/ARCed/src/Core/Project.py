@@ -7,6 +7,10 @@ Contains data for a open project
 import os
 import sys
 import ConfigParser
+import ARC_Data
+
+import Kernel
+from Kernel import Manager as KM
 
 class Project(object):
     
@@ -42,8 +46,8 @@ class Project(object):
         filelist = ""
         files = self._data.keys()
         i = 0
-        for file in files:
-            filelist += str(file)
+        for file_name in files:
+            filelist += str(file_name)
             if i >= (len(files) - 1):
                 filelist += "|"
             i += 1
@@ -62,6 +66,54 @@ class Project(object):
             self.setInfo(info[0], info[1])
         filelist = config.get("Files", "List")
         files = filelist.split("|")
-        for file in files:
-            if file != "":
-                self.setData(file, load_func(os.path.dirname(path), file))
+        for file_name in files:
+            if file_name != "":
+                self.setData(file_name, load_func(os.path.dirname(path), file_name))
+                
+class ARCProjectCreator(object):
+    
+    def __init__(self):
+        self.project = None
+        
+    def Create(self, path, title, saveas=False):
+        self.project = KM.get_component("ARCProjectHolder").object()
+        self.project.setInfo("Title", title)
+        self.project.setData("Actors", [])
+        self.project.setData("Classes", [])
+        self.project.setData("Skills", [])
+        self.project.setData("Items", [])
+        self.project.setData("Weapons", [])
+        self.project.setData("Armors", [])
+        self.project.setData("Troops", [])
+        self.project.setData("Tilesets", [])
+        self.project.setData("CommonEvents", [])
+        self.project.setData("System", [])
+        self.project.setData("MapInfos", [])
+        if Kernel.GlobalObjects.has_key("PROJECT"):
+            Kernel.GlobalObjects.set_value("PROJECT", self.project)
+        else:
+            Kernel.GlobalObjects.request_new_key("PROJECT", "CORE", self.project)
+        self.project.saveProject(path, KM.get_component("ARCProjectSaveFunction"))
+        if not saveas:
+            KM.raise_event("CoreEventRefreshProject")
+            
+            
+def ARCProjectSaveFunction(dir_name, filename, obj):
+    path = os.path.join(dir_name, "Data", filename + ".arc")
+    f = open(path, "wb")
+    redirects = {}
+    KM.raise_event("CoreEventARCRedirectClassPathsOnSave", redirects)
+    ARC_Data.ARC_Data.dump(f, obj, redirects)
+    f.close()
+    
+def ARCProjectLoadFunction(dir_name, filename):
+    path = os.path.join(dir_name, "Data", filename + ".arc")
+    f = open(path, "rb")
+    redirects = {}
+    KM.raise_event("CoreEventARCRedirectClassPathsOnSave", redirects)
+    extended_namespace = {}
+    KM.raise_event("CoreEventARCExtendNamespaceOnLoad", extended_namespace)
+    obj = ARC_Data.ARC_Data.load(f, redirects, extended_namespace)
+    f.close()
+    return obj
+    

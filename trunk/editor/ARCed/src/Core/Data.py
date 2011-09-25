@@ -16,18 +16,26 @@ def NewProject(mainwindow):
     dlg = KM.get_component("NewProjectDialog").object(mainwindow)
     result = dlg.ShowModal()
     if result == wx.ID_OK:
-        mode, name, path = dlg.getdata()
-        Kernel.Global.Mode = mode
-        Kernel.Global.Title = name
+        name, path = dlg.getdata()
+        if Kernel.GlobalObjects.has_key("Title"):
+            Kernel.GlobalObjects.set_value("Title", name)
+        else:
+            Kernel.GlobalObjects.request_new_key("Title", "CORE", name)
         KM.raise_event("EventMode")
-        projectcreator = KM.get_component(*Kernel.Global.ProjectCreators[mode]).object()
+        projectcreator = KM.get_component(*Kernel.Global.ProjectCreators[0]).object()
         projectcreator.Create(path, name)
-        Kernel.Global.CurrentProjectDir = path
-        Kernel.Global.ProjectOpen = True
+        if Kernel.GlobalObjects.has_key("CurrentProjectDir"):
+            Kernel.GlobalObjects.set_value("CurrentProjectDir", path)
+        else:
+            Kernel.GlobalObjects.request_new_key("CurrentProjectDir", "CORE", path)
+        if Kernel.GlobalObjects.has_key("ProjectOpen"):
+            Kernel.GlobalObjects.set_value("ProjectOpen", True)
+        else:
+            Kernel.GlobalObjects.request_new_key("ProjectOpen", "CORE", True)
     dlg.Destroy()
 
 def OpenProject(mainwindow, filehistory, path=""):
-    if Kernel.Global.ProjectOpen:
+    if Kernel.GlobalObjects.has_key("ProjectOpen") and (Kernel.GlobalObjects.get_value("ProjectOpen") == True):
         message = "Do you want to save the currently open project?"
         caption = "There is already an open project"
         dlg = wx.MessageDialog(mainwindow, message, caption, style=wx.YES_NO |
@@ -94,38 +102,5 @@ def SaveProjectAS(mainwindow, filehistory):
         saver = KM.get_component("ProjectCreator", Kernel.Global.Mode).object()
         saver.Create(location, Kernel.Global.Title, saveas=True)
 
-class ARCProjectCreator(object):
-    
-    def __init__(self):
-        self.project = None
-        
-    def Create(self, path, title, saveas=False):
-        config = ConfigParser.ConfigParser()
-        config.add_section("Project")
-        config.set("Project", "title", title)
-        config.set("Project", "type", "ARC")
-        filename = os.path.join(path, "Project.arcproj")
-        f = open(filename, 'w')
-        config.write(f)
-        f.close()
-        Kernel.Global.Project = self.project
-        saver = ARCProjectSaver()
-        saver.Save(path)
-        if not saveas:
-            KM.raise_event("EventRefreshProject")
+
             
-class ARCProjectSaver(object):
-    def __init__(self):
-        self.project = Kernel.Global.Project
-
-    def Save(self, path):
-        dirpath = os.path.join(path, "Data")
-        if not os.path.exists(dirpath) and not os.path.isdir(dirpath):
-            os.mkdir(dirpath)
-        #TODO Finish after data struture is decided
-
-
-    def dump_data(self, data, filename):
-        f = open(filename, 'wb')
-        cPickle.dump(data, f, protocol= -1)
-        f.close()

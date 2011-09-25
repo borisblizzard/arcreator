@@ -6,70 +6,7 @@ exports all the core components to the kernel
 import Kernel
 from Kernel import Manager, Type, SuperType, Component, Package, Event
 import RMXP
-import Frames, Menues, Dialogs, Controls, Layouts, Data
-
-
-
-#=============================================================================
-# * Type Declaration 
-#=============================================================================
-#------------------------------ functions ------------------------------------
-
-
-#---------------------------- Data handlers ----------------------------------
-NewProjectHandler = Type("NewProjectHandler")
-OpenProjectHandler = Type("OpenProjectHandler")
-SaveProjectHandler = Type("SaveProjectHandler")
-SaveAsProjectHandler = Type("SaveAsProjectHandler")
-ARCProjectCreator = Type("ARCProjectCreator")
-
-#------------------------------- frames --------------------------------------
-EditorMainWindow = Type("EditorMainWindow")
-
-#-------------------------------- ctrls --------------------------------------
-MainToolbar = Type("MainToolbar")
-MapEditorWindow = Type("MapEditorWindow")
-MainMapTreeCtrl = Type("MainMapTreeCtrl")
-
-#-------------------------------- layouts ------------------------------------
-EditorMainWindowLayout = Type("EditorMainWindowLayout")
-ARCModeLayout = Type("ARCModeLayout")
-    
-#-------------------------------- menus --------------------------------------
-MainMenuBar = Type("MainMenuBar")
-MainStatusBar = Type("MainStatusBar")
-ProjectMenuItems = Type("ProjectMenuItems")
-PluginMenuItem = Type("PluginMenuItem")
-
-#------------------------------- dialogs -------------------------------------
-NewProjectDialog = Type("NewProjectDialog")
-
-
-
-#=============================================================================
-# * register Types
-#=============================================================================
-#------------------------------- functions -----------------------------------
-
-#------------------------------ data handlers --------------------------------
-Manager.register_types(NewProjectHandler, OpenProjectHandler, SaveProjectHandler, 
-                       SaveAsProjectHandler, ARCProjectCreator)
-
-#-------------------------------- frames -------------------------------------
-Manager.register_types(EditorMainWindow)
-
-#-------------------------------- ctrls --------------------------------------
-Manager.register_types(MainToolbar, MapEditorWindow, MainMapTreeCtrl)
-
-#-------------------------------- layouts --------------------------------
-Manager.register_types(EditorMainWindowLayout, ARCModeLayout)
-
-#-------------------------------- menus --------------------------------------
-Manager.register_types(MainMenuBar, MainStatusBar, ProjectMenuItems,
-                       PluginMenuItem)
-
-#-------------------------------- dialogs ------------------------------------
-Manager.register_types(NewProjectDialog)
+import Frames, Menues, Dialogs, Controls, Layouts, Data, Project
 
 
 #=============================================================================
@@ -147,18 +84,109 @@ class PanelManagerType(SuperType):
 
 class CorePackage(Package):
     def __init__(self):
-        Package.__init__(self, "CORE")
+        Package.__init__(self, "CORE", "CORE")
+        self.setup_types()
+        self.setup_events()
+        self.setup_components()
+        
+
+    def setup_types(self):
+        #=============================================================================
+        # * Type Declaration 
+        #=============================================================================
+        #------------------------------ functions ------------------------------------
+        ARCProjectSaveFunction = Type("ARCProjectSaveFunction")
+        ARCProjectLoadFunction = Type("ARCProjectLoadFunction")
+        
+        #---------------------------- Data handlers ----------------------------------
+        NewProjectHandler = Type("NewProjectHandler")
+        OpenProjectHandler = Type("OpenProjectHandler")
+        SaveProjectHandler = Type("SaveProjectHandler")
+        SaveAsProjectHandler = Type("SaveAsProjectHandler")
+        ARCProjectCreator = Type("ARCProjectCreator")
+        ARCProjectHolder = Type("ARCProjectHolder")
+        
+        #------------------------------- frames --------------------------------------
+        EditorMainWindow = Type("EditorMainWindow")
+        
+        #-------------------------------- ctrls --------------------------------------
+        MainToolbar = Type("MainToolbar")
+        MapEditorWindow = Type("MapEditorWindow")
+        MainMapTreeCtrl = Type("MainMapTreeCtrl")
+        
+        #-------------------------------- layouts ------------------------------------
+        EditorMainWindowLayout = Type("EditorMainWindowLayout")
+        ARCModeLayout = Type("ARCModeLayout")
+            
+        #-------------------------------- menus --------------------------------------
+        MainMenuBar = Type("MainMenuBar")
+        MainStatusBar = Type("MainStatusBar")
+        ProjectMenuItems = Type("ProjectMenuItems")
+        PluginMenuItem = Type("PluginMenuItem")
+        
+        #------------------------------- dialogs -------------------------------------
+        NewProjectDialog = Type("NewProjectDialog")
 
         #=====================================================================
-        # * add the types
+        # * add the types to be registered 
         #=====================================================================
+        #------------------------------ super types ----------------------------------
         self.add_types(RMXPType(), PanelManagerType())
+        #------------------------------- functions -----------------------------------
+        self.add_types(ARCProjectSaveFunction, ARCProjectLoadFunction)
+        
+        #------------------------------ data handlers --------------------------------
+        self.add_types(NewProjectHandler, OpenProjectHandler, SaveProjectHandler, 
+                               SaveAsProjectHandler, ARCProjectCreator)
+        
+        #-------------------------------- frames -------------------------------------
+        self.add_types(EditorMainWindow)
+        
+        #-------------------------------- ctrls --------------------------------------
+        self.add_types(MainToolbar, MapEditorWindow, MainMapTreeCtrl)
+        
+        #-------------------------------- layouts --------------------------------
+        self.add_types(EditorMainWindowLayout, ARCModeLayout)
+        
+        #-------------------------------- menus --------------------------------------
+        self.add_types(MainMenuBar, MainStatusBar, ProjectMenuItems,
+                               PluginMenuItem)
+        
+        #-------------------------------- dialogs ------------------------------------
+        self.add_types(NewProjectDialog)
+        
+    def setup_events(self):
+        #=============================================================================
+        # * events
+        #=============================================================================
+        
+        CoreEventOpenProject = Event("CoreEventOpenProject")
+        CoreEventRefreshProject = Event("CoreEventRefreshProject")
+        CoreEventUpdateProjectMenu = Event("CoreEventUpdateProjectMenu")
+        CoreEventARCRedirectClassPathsOnSave = Event("CoreEventARCRedirectClassPathsOnSave")
+        CoreEventARCRedirectClassPathsOnLoad = Event("CoreEventARCRedirectClassPathsOnSave")
+        CoreEventARCExtendNamespaceOnLoad = Event("CoreEventARCExtendNamespaceOnLoad")
+        
+        #=====================================================================
+        # * add the events to be registered 
+        #=====================================================================
+        
+        self.add_events(CoreEventOpenProject, CoreEventRefreshProject, CoreEventUpdateProjectMenu,
+                        CoreEventARCRedirectClassPathsOnSave, CoreEventARCRedirectClassPathsOnLoad,
+                        CoreEventARCExtendNamespaceOnLoad)
 
+    def setup_components(self):
         #=====================================================================
         # * add components (main components)
         #=====================================================================
 
         #--------------------------- functions -------------------------------
+        self.add_component(Component(Project.ARCProjectSaveFunction, "ARCProjectSaveFunction", 
+                                     None, "CoreARCProjctSaveFunction", "CORE", 
+                                     1.0, "CORE"))
+        self.add_component(Component(Project.ARCProjectLoadFunction, "ARCProjectLoadFunction", 
+                                     None, "CoreARCProjectLoadFunction", "CORE", 
+                                     1.0, "CORE"))
 
         #-------------------------- data Handler -----------------------------
         self.add_component(Component(Data.NewProject, "NewProjectHandler",
@@ -173,8 +201,11 @@ class CorePackage(Package):
         self.add_component(Component(Data.SaveProjectAS, "SaveAsProjectHandler",
                                      None, "CoreSaveAsProjectHandler", "CORE",
                                      1.0, self))
-        self.add_component(Component(Data.ARCProjectCreator, "ARCProjectCreator",
+        self.add_component(Component(Project.ARCProjectCreator, "ARCProjectCreator",
                                      None, "CoreARCProjectCreator", "CORE",
+                                     1.0, self))
+        self.add_component(Component(Project.Project, "ARCProjectHolder",
+                                     None, "CoreARCProjectHolder", "CORE",
                                      1.0, self))
 
 
@@ -191,12 +222,6 @@ class CorePackage(Package):
         self.add_component(Component(Controls.WxRMXPMapPanel,
                                      "MapEditorWindow", None,
                                      "WxRMXPMapWindow", "CORE", 1.0, self))
-        #pygame
-        #=======================================================================
-        # self.add_component(Component(Controls.PyGameRMXPMapPanel,
-        #                             "MapEditorWindow", None,
-        #                             "PyGameRMXPMapWindow", "CORE", 1.0, self))
-        #=======================================================================
         self.add_component(Component(Controls.RMXPMapTreePanel,
                                      "MainMapTreeCtrl", None,
                                      "RMXPMapTreeCtrl", "CORE", 1.0,
@@ -229,58 +254,20 @@ class CorePackage(Package):
         # * add components (RMXP)
         #=====================================================================
         #-------------------------- functions --------------------------------
-        #pygame
-        #=======================================================================
-        # self.add_component(Component(RMXP.RPGutil.PySurfaceFunctions.change_hue,
-        #                             "HueRotationOperator", "RMXP",
-        #                             "RMXPHueRotationOperator", "CORE", 1.0,
-        #                             self))
-        # self.add_component(Component(RMXP.RPGutil.PySurfaceFunctions.adjust_alpha,
-        #                             "AdjustAlphaOperator", "RMXP",
-        #                             "RMXPAdjustAlphaOperator", "CORE", 1.0,
-        #                             self))
-        #=======================================================================
+
         #------------------------- data holders ------------------------------
         self.add_component(Component(RMXP.RGSS1_RPG.RPG, "RPG", "RMXP",
                                      "RGSS1_RPG", "CORE", 1.0, self))
         self.add_component(Component(RMXP.RPGutil.Table, "Table", "RMXP",
                                      "RMXPTable", "CORE", 1.0, self))
-        self.add_component(Component(RMXP.Project.Project, "Project",
+        self.add_component(Component(Project.Project, "Project",
                                      "RMXP", "CoreRMXPProject", "CORE", 1.0,
                                      self))
         self.add_component(Component(RMXP.Cache.WxCache, "WxCache", "RMXP",
                                      "RMXPWxCache", "CORE", 1.0, self))
-        #pygame
-        #=======================================================================
-        # self.add_component(Component(RMXP.Cache.PyGameCache, "PyGameCache",
-        #                             "RMXP",
-        #                             "RMXPPyGameCache", "CORE", 1.0, self))
-        #=======================================================================
 
         #-------------------------- data handlers ----------------------------
-        self.add_component(Component(RMXP.Data.RMXPProjectLoader,
-                                     "ProjectLoader", "RMXP",
-                                     "RMXPProjectLoader", "CORE", 1.0, self))
-        self.add_component(Component(RMXP.Data.RMXPProjectSaver,
-                                     "ProjectSaver", "RMXP",
-                                     "RMXPProjectSaver", "CORE", 1.0, self))
-        self.add_component(Component(RMXP.Data.RMXPProjectImporter,
-                                     "ProjectImporter", "RMXP",
-                                     "RMXPProjectImporter", "CORE", 1.0, self))
-        self.add_component(Component(RMXP.Data.RMXPProjectExporter,
-                                     "ProjectExporter", "RMXP",
-                                     "RMXPProjectExporter", "CORE", 1.0, self))
-        self.add_component(Component(RMXP.Data.RMXPProjectCreator,
-                                     "ProjectCreator", "RMXP",
-                                     "RMXPProjectCreator", "CORE", 1.0, self))
-        self.add_component(Component(RMXP.Data.ImportRMXPProject,
-                                     "ProjectImportHandler", "RMXP",
-                                     "RMXPProjectImportHandler", "CORE",
-                                     1.0, self))
-        self.add_component(Component(RMXP.Data.ExportRMXPProject,
-                                     "ProjectExportHandler", "RMXP",
-                                     "RMXPProjectExportHandler", "CORE",
-                                     1.0, self))
+
 
         #----------------------------- ctrls ---------------------------------
         
@@ -294,45 +281,15 @@ class CorePackage(Package):
                                      "DialogExportProject", "RMXP",
                                      "RMXPDialogExportProject", "CORE",
                                      1.0, self))
-
-
-        #=====================================================================
-        # * register
-        #=====================================================================
-        self.register()
-
-#=============================================================================
-# * init package
-#=============================================================================
-
+        
 package = CorePackage()
+key = Manager.add_package(package)
 
-#=============================================================================
-# * events
-#=============================================================================
+# this line is only here because it is the core and should be enabled by default, 
+# if it was a normal plug-in it would be enabled else where
+Manager.enable_packages(key)
 
-EventOpenProject = Event("EventOpenProject")
-EventRefreshProject = Event("EventRefreshProject")
-EventMode = Event("EventMode")
-EventUpdateProjectMenu = Event("EventUpdateProjectMenu")
 
-#=============================================================================
-# * register events
-#=============================================================================
 
-Manager.register_events(EventOpenProject, EventRefreshProject, EventMode,
-                        EventUpdateProjectMenu)
 
-#=============================================================================
-# * register functions to events
-#=============================================================================
 
-EventOpenProject.register(RMXP.Data.Call_RMXP_Import)
-
-#=============================================================================
-# * Add the Project modes
-#=============================================================================
-
-# [ModeName] = ("ComponentTypeName", "SuperTypeName")
-Kernel.Global.ProjectModes["ARC"] = ("ARCModeLayout",)
-Kernel.Global.ProjectCreators["ARC"] = ("ProjectCreator", "RMXP")

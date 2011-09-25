@@ -57,7 +57,7 @@ class CoreEditorMainWindow(wx.Frame):
 
     def CallLayout(self):
         self.ClearLayout()
-        mode = Kernel.Global.Mode
+        mode = "ARC"
         #get the layout component
         layout = KM.get_component("EditorMainWindowLayout").object
         self.layout_mgr = layout(self, mode)
@@ -65,12 +65,18 @@ class CoreEditorMainWindow(wx.Frame):
     def CreateMenuBar(self):
         self.menubar = KM.get_component("MainMenuBar").object(self)
         self.SetMenuBar(self.menubar) #Adding the MenuBar to the Frame.
-        Kernel.GlobalObjects.add(self.menubar, "MainMenuBar")
+        if Kernel.GlobalObjects.has_key("MainMenuBar"):
+            Kernel.GlobalObjects.set_value("MainMenuBar", self.menubar)
+        else:
+            Kernel.GlobalObjects.request_new_key("MainMenuBar", "CORE", self.menubar)
 
     def CreateStatusBar(self):
         self.statusbar = (KM.get_component("MainStatusBar").object(self))
         self.SetStatusBar(self.statusbar)
-        Kernel.GlobalObjects.add(self.statusbar, "MainStatusBar")
+        if Kernel.GlobalObjects.has_key("MainStatusBar"):
+            Kernel.GlobalObjects.set_value("MainStatusBar", self.menubar)
+        else:
+            Kernel.GlobalObjects.request_new_key("MainStatusBar", "CORE", self.statusbar)
 
     def CreateToolbar(self):
         self.toolbar = aui.AuiToolBar(self, style=wx.TB_FLAT | wx.TB_HORIZONTAL)
