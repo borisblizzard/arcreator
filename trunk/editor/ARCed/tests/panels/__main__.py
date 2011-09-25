@@ -5,7 +5,7 @@ class MyApp(wx.App):
 
 	def __init__(self, redirect=False, filename=None):
 	
-		_test_panel = 3
+		_test_panel = 1
 		# Set the value of _test_panel to the appropriate integer below
 		# ACTORS = 1
 		# CLASSES = 2
