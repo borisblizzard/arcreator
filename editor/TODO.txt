@@ -22,9 +22,17 @@
 	- action to apply the changes to the project
 	
 - event editor (requiers action framework0
-	 - write the control
-	 - write actions
-	 - interface
+	- write the control
+	- write actions
+	- interface
+	 
+- script editor (requires action framework)
+	- styles text controll
+	- auto indent
+	easy script ordering
+	
+- map list viewer
+	- easy map oardering and nameing / genral properties changes
 	 
 - random custome controls
 	- the nonstandered controlls in the data base panels need to be written
@@ -37,4 +45,5 @@
 - splash screen
 
 - icons
+
 - genral testing to make sure we got everything

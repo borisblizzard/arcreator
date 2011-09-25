@@ -138,7 +138,7 @@ class Data(object):
 
     @staticmethod
     def __load_int32():
-        return _io.read(4).unpack("V")[0]
+        return unpack("<I", _io.read(4))
     
     
     @staticmethod
