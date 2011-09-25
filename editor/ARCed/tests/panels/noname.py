@@ -4150,7 +4150,7 @@ class System_Panel ( wx.Panel ):
 class ChangeMaximum_Dialog ( wx.Dialog ):
 	
 	def __init__( self, parent ):
-		wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Change Maximum...", pos = wx.DefaultPosition, size = wx.Size( 176,95 ), style = wx.DEFAULT_DIALOG_STYLE )
+		wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Change Maximum...", pos = wx.DefaultPosition, size = wx.Size( 181,115 ), style = wx.DEFAULT_DIALOG_STYLE )
 		
 		self.SetSizeHintsSz( wx.DefaultSize, wx.Size( -1,-1 ) )
 		
