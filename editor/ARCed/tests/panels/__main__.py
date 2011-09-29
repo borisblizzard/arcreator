@@ -5,7 +5,7 @@ class MyApp(wx.App):
 
 	def __init__(self, redirect=False, filename=None):
 	
-		_test_panel = 1
+		_test_panel = 8
 		# Set the value of _test_panel to the appropriate integer below
 		# ACTORS = 1
 		# CLASSES = 2
@@ -18,7 +18,7 @@ class MyApp(wx.App):
 		# STATES = 9
 		# ANIMATIONS = 10
 		# TILESETS = 11
-		# COMMON EVENETS = 12
+		# COMMON EVENTS = 12
 		# SYSTEM = 13
 	
 		wx.App.__init__(self, redirect, filename)
