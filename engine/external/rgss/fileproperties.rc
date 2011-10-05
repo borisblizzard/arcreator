@@ -1,27 +1,29 @@
-#include <windows.h>
-
-#include "src/Constants.h"
-#define VER_VERSION VERSION_MAJOR,VERSION_MINOR,VERSION_REVISION,VERSION_BUILD
+#define VER_VERSION 0,9,3,389
+#define VER_VERSION_STR "0.9.3 r389\0"
+#define VER_COMPANYNAME_STR "Chaos Project\0"
+#define VER_FILEDESCRIPTION_STR "Zer0 Division Engine RGSS\0"
+#define VER_LEGALCOPYRIGHT_STR "© Chaos Project\0"
+#define VER_PRODUCTNAME_STR "Zer0 Division Engine Ruby Game Scripting System\0"
 
 1 VERSIONINFO
 FILEVERSION    	VER_VERSION
 PRODUCTVERSION 	VER_VERSION
-FILEFLAGSMASK  	0
-FILEFLAGS      	0
-FILEOS         	VOS_NT_WINDOWS32
-FILETYPE       	VFT_UNKNOWN
-FILESUBTYPE    	VFT2_UNKNOWN
+FILETYPE       	0x2
 BEGIN
     BLOCK "StringFileInfo"
     BEGIN
         BLOCK "040904E4"
         BEGIN
-            VALUE "CompanyName",      VER_COMPANYNAME_STR
-            VALUE "FileDescription",  VER_FILEDESCRIPTION_STR
-            VALUE "FileVersion",      VER_VERSION_STR
-            VALUE "LegalCopyright",   VER_LEGALCOPYRIGHT_STR
-            VALUE "ProductName",      VER_PRODUCTNAME_STR
-            VALUE "ProductVersion",   VER_VERSION_STR
+			VALUE "CompanyName",		VER_COMPANYNAME_STR
+			VALUE "FileDescription",	VER_FILEDESCRIPTION_STR
+			VALUE "LegalCopyright",		VER_LEGALCOPYRIGHT_STR
+			VALUE "ProductName",		VER_PRODUCTNAME_STR
+			VALUE "ProductVersion",		VER_VERSION_STR
         END
     END
+	BLOCK "VarFileInfo"
+	BEGIN
+		VALUE "Translation", 0x409, 0x4E4
+	END
 END
+ 
