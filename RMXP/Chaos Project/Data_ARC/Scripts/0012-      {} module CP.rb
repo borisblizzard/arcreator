@@ -1,4 +1,4 @@
-﻿$version = 1.210
+﻿$version = 1.220
 $release = 'Full Game'
 
 INIT_PASSABLE = false
@@ -1546,8 +1546,10 @@ module CP
   
 end
 
-if !FINAL
-require File.expand_path('modules.rb') if File.exist?('modules.rb')
+if $CP
+  if File.exist?('../tools/require/modules.rb')
+    require File.expand_path('../tools/require/modules.rb')
+  end
 end
 
 # Game Initialization
@@ -1559,11 +1561,11 @@ $english = true
 
 $unlocks, $controls = [0], CP::Controls.new
 CP.data_load
-if !FINAL
-if GENERATE_DAMAGE && File.exist?('generate_damage.rb')
-  require File.expand_path('generate_damage.rb')
-  CP::Cache.generate_damage
-end
+if $CP
+  if GENERATE_DAMAGE && File.exist?('../tools/require/generate_damage.rb')
+    require File.expand_path('../tools/require/generate_damage.rb')
+    CP::Cache.generate_damage
+  end
 end
 CP::Cache.load
 if @unlocks == true || $unlocks == false

@@ -66,7 +66,7 @@ class Window_Battle < Window_Selectable
         @index = -1
       elsif self.height <= 16
         self.width = @wn
-        self.x = 320 - self.width/2
+        self.x = 320 - self.width / 2
         self.opacity = 0
       else
         self.height -= 16
@@ -161,14 +161,12 @@ class Window_Battle < Window_Selectable
       @item_max = 1
       @text = 'Engaging into combat!'
     end
-    if self.height > 32
-      bitmap = Bitmap.new(self.width - 32, self.height - 32)
-      bitmap.font.name = $fontface
-      bitmap.font.size = $fontsize
-      self.width = @wn = bitmap.text_size(@text).width + 48
-      self.x = 320 - self.width/2
-      bitmap.dispose
-    end
+    bitmap = Bitmap.new(self.width - 32, (self.height - 32).abs)
+    bitmap.font.name = $fontface
+    bitmap.font.size = $fontsize
+    self.width = @wn = bitmap.text_size(@text).width + 48
+    self.x = 320 - self.width / 2
+    bitmap.dispose
   end
   
 end
