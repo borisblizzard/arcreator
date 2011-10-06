@@ -1,4 +1,8 @@
-﻿if !FINAL
-require File.expand_path('absmap.rb') if File.exist?('absmap.rb')
-require File.expand_path('beta.rb') if File.exist?('beta.rb')
+﻿if $CP
+  if File.exist?('../tools/require/absmap.rb')
+    require File.expand_path('../tools/require/absmap.rb')
+  end
+  if File.exist?('../tools/require/beta.rb')
+    require File.expand_path('../tools/require/beta.rb')
+  end
 end

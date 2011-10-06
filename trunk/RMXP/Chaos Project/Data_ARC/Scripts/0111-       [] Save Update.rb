@@ -166,11 +166,11 @@ class Scene_Update
     ver = update_fg_2(ver) if ver < 1.020
     ver = update_fg_3(ver) if ver < 1.103
     ver = update_fg_4(ver) if ver < 1.200
-    ver = update_fg_5(ver) if ver < 1.210
+    ver = update_fg_5(ver) if ver < 1.220
   end
   
   def update_fg_5(tver)
-    vver = 1.210
+    vver = 1.220
     nver, cver = CP.ver(vver), CP.ver(tver)
     @update_window.refresh('Finished', cver, nver, 1000, 'Version Update')
     screen
