@@ -687,6 +687,10 @@ class RPG(object):
     CommonEvent = CommonEvent
     Class = Class
     Class.Learning = Learning
+    
+def extend_namespace(self, namespace):
+    namespace.update(self.__dict__)
+        
 
 
 

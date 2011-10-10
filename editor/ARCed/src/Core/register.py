@@ -6,7 +6,7 @@ exports all the core components to the kernel
 import Kernel
 from Kernel import Manager, Type, SuperType, Component, Package, Event
 import RMXP
-import Frames, Menues, Dialogs, Controls, Layouts, Data, Project
+import Frames, Menues, Dialogs, Controls, Layouts, Data, Project, ARC_Data, Actions
 
 
 #=============================================================================
@@ -95,6 +95,8 @@ class CorePackage(Package):
         # * Type Declaration 
         #=============================================================================
         #------------------------------ functions ------------------------------------
+        ARCDataDumpFunction = Type("ARCDataDumpFunction")
+        ARCDataLoadFunction = Type("ARCDataLoadFunction")
         ARCProjectSaveFunction = Type("ARCProjectSaveFunction")
         ARCProjectLoadFunction = Type("ARCProjectLoadFunction")
         
@@ -126,14 +128,20 @@ class CorePackage(Package):
         
         #------------------------------- dialogs -------------------------------------
         NewProjectDialog = Type("NewProjectDialog")
+        
+        #-------------------------------actions---------------------------------------
+        ActionManager = Type("ActionManager")
+        ActionTemplate = Type("ActionTemplate")
 
         #=====================================================================
         # * add the types to be registered 
         #=====================================================================
         #------------------------------ super types ----------------------------------
         self.add_types(RMXPType(), PanelManagerType())
+        
         #------------------------------- functions -----------------------------------
-        self.add_types(ARCProjectSaveFunction, ARCProjectLoadFunction)
+        self.add_types(ARCDataDumpFunction, ARCDataLoadFunction, ARCProjectSaveFunction, 
+                       ARCProjectLoadFunction)
         
         #------------------------------ data handlers --------------------------------
         self.add_types(NewProjectHandler, OpenProjectHandler, SaveProjectHandler, 
@@ -155,6 +163,9 @@ class CorePackage(Package):
         #-------------------------------- dialogs ------------------------------------
         self.add_types(NewProjectDialog)
         
+        #-------------------------------actions---------------------------------------
+        self.add_types(ActionManager, ActionTemplate)
+        
     def setup_events(self):
         #=============================================================================
         # * events
@@ -174,6 +185,11 @@ class CorePackage(Package):
         self.add_events(CoreEventOpenProject, CoreEventRefreshProject, CoreEventUpdateProjectMenu,
                         CoreEventARCRedirectClassPathsOnSave, CoreEventARCRedirectClassPathsOnLoad,
                         CoreEventARCExtendNamespaceOnLoad)
+        
+        #=====================================================================
+        # * add even hooks to be registered
+        #=====================================================================
+        self.add_event_hook("CoreEventARCExtendNamespaceOnLoad", RMXP.RGSS1_RPG.extend_namespace,  RMXP.RGSS1_RPG)
 
     def setup_components(self):
         #=====================================================================
@@ -181,6 +197,12 @@ class CorePackage(Package):
         #=====================================================================
 
         #--------------------------- functions -------------------------------
+        self.add_component(Component(ARC_Data.ARC_Data.dump, "ARCDataDumpFunction",
+                                     None, "CoreARCDataDumpFunction", "CORE",
+                                     1.0, "CORE"))
+        self.add_component(Component(ARC_Data.ARC_Data.load, "ARCDataLoadFunction",
+                                     None, "CoreARCDataLoadFunction", "CORE",
+                                     1.0, "CORE"))
         self.add_component(Component(Project.ARCProjectSaveFunction, "ARCProjectSaveFunction", 
                                      None, "CoreARCProjctSaveFunction", "CORE", 
                                      1.0, "CORE"))
@@ -261,7 +283,7 @@ class CorePackage(Package):
         self.add_component(Component(RMXP.RPGutil.Table, "Table", "RMXP",
                                      "RMXPTable", "CORE", 1.0, self))
         self.add_component(Component(Project.Project, "Project",
-                                     "RMXP", "CoreRMXPProject", "CORE", 1.0,
+                                     None, "CoreRMXPProject", "CORE", 1.0,
                                      self))
         self.add_component(Component(RMXP.Cache.WxCache, "WxCache", "RMXP",
                                      "RMXPWxCache", "CORE", 1.0, self))
@@ -273,14 +295,12 @@ class CorePackage(Package):
         
 
         #----------------------------- Dialogs -------------------------------
-        self.add_component(Component(RMXP.Dialogs.ImportRMXPProjectDialog,
-                                     "DialogImportProject", "RMXP",
-                                     "RMXPDialogImportProject", "CORE",
-                                     1.0, self))
-        self.add_component(Component(RMXP.Dialogs.ExportRMXPProjectDialog,
-                                     "DialogExportProject", "RMXP",
-                                     "RMXPDialogExportProject", "CORE",
-                                     1.0, self))
+
+        #-------------------------------actions---------------------------------------
+        self.add_component(Component(Actions.ActionManager, "ActionManager",
+                                     None, "CoreActionManager", "CORE", 1.0, self))
+        self.add_component(Component(Actions.ActionTemplate, "ActionTemplate",
+                                     None, "CoreActionTemplate", "CORE", 1.0, self))
         
 package = CorePackage()
 key = Manager.add_package(package)
