@@ -1,11 +1,11 @@
 import wx
-import noname
+import ARCed
 
 class MyApp(wx.App):
 
 	def __init__(self, redirect=False, filename=None):
 	
-		_test_panel = 8
+		_test_panel = 1
 		# Set the value of _test_panel to the appropriate integer below
 		# ACTORS = 1
 		# CLASSES = 2
@@ -23,23 +23,23 @@ class MyApp(wx.App):
 	
 		wx.App.__init__(self, redirect, filename)
 		self.frame = wx.Frame(None, wx.ID_ANY, title='Database Panel Test')
-		panels = {1 : noname.Actors_Panel,
-				2 : noname.Classes_Panel,
-				3 : noname.Skills_Panel,
-				4 : noname.Items_Panel,
-				5 : noname.Weapons_Panel,
-				6 : noname.Armors_Panel,
-				7 : noname.Enemies_Panel,
-				8 : noname.Troops_Panel,
-				9 : noname.States_Panel,
-				10 : noname.Animations_Panel,
-				11 : noname.Tilesets_Panel,
-				12 : noname.CommonEvents_Panel,
-				13 : noname.System_Panel
+		panels = {1 : ARCed.Actors_Panel,
+				2 : ARCed.Classes_Panel,
+				3 : ARCed.Skills_Panel,
+				4 : ARCed.Items_Panel,
+				5 : ARCed.Weapons_Panel,
+				6 : ARCed.Armors_Panel,
+				7 : ARCed.Enemies_Panel,
+				8 : ARCed.Troops_Panel,
+				9 : ARCed.States_Panel,
+				10 : ARCed.Animations_Panel,
+				11 : ARCed.Tilesets_Panel,
+				12 : ARCed.CommonEvents_Panel,
+				13 : ARCed.System_Panel
 			}
 		self.panel = panels[_test_panel](self.frame)
 		self.frame.Show()
 
 if __name__ == '__main__':
-   app = MyApp()
-   app.MainLoop()
+	app = MyApp()
+	app.MainLoop()
