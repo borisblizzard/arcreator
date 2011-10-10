@@ -7,7 +7,6 @@ Contains data for a open project
 import os
 import sys
 import ConfigParser
-import ARC_Data
 
 import Kernel
 from Kernel import Manager as KM
@@ -16,32 +15,115 @@ class Project(object):
     
     def __init__(self):
         self._data = {}
+        self._deferred_data = {}
         self._info = {}
+        self.project_path = ""
+        self.load_func = None
+        self.save_func = None
         
-    def setData(self, key, value):
-        self._data[key] = value
+    def setLoadFunc(self, func):
+        self.load_func = func
+    
+    def setSaveFunc(self, func):
+        self.save_func = func
+        
+    def setProjectPath(self, path):
+        self.project_path = path
+        
+    def setData(self, key, value, changed=True):
+        if self._data.has_key(key):
+            self._data[key][0] = changed
+            self._data[key][1] = value
+        else:
+            self._data[key] = [changed, value]
     
     def getData(self, key):
         if self._data.has_key(key):
-            return self._data[key]
+            return self._data[key][1]
         else:
+            Kernel.Log("Warning: data key %s does not exist. Returned None" % key, "[Project]")
             return None
+        
+    def setDeferredData(self, key, value, changed=True):
+        if self._deferred_data.has_key(key):
+            self._deferred_data[key][0] = changed
+            self._deferred_data[key][1] = value
+        else:
+            self._deferred_data[key] = [changed, value]
+            
+    def getDeferredData(self, key):
+        if self._deferred_data.has_key(key):
+            return self._deferred_data[key][1]
+        else:
+            self._deferred_data[key] = [False, self.load_func(os.path.dirname(self.project_path), key)]
     
     def setInfo(self, key, value):
-        self._info[key] = value
+        if self._info.has_key(key):
+            self._info[key][1] = value
+        else:
+            self._info = [True, value]
         
     def getInfo(self, key):
         if self._info.has_key(key):
-            return self._info[key]
+            return self._info[key][1]
         else:
+            Kernel.Log("Warning: info key %s does not exist. Returned None" % key, "[Project]")
             return None
+        
+    def setChangedInfo(self, key, value):
+        if self._info.has_key(key):
+            self._info[key][0] = value
+        else:
+            Kernel.Log("Info key %s does not exist. change flag not set" % key, "[Project]")
+    
+    def getChangedInfo(self, key):
+        if self._info.has_key(key):
+            return self._info[0]
+        else:
+            return False
+        
+    def setChangedData(self, key, value):
+        if self._data.has_key(key):
+            self._data[0] = value
+        else:
+            Kernel.Log("Data key %s does not exist. changed flag not set" % key, "[Project]")
+        
+    def getChangedData(self, key):
+        if self._data.has_key(key):
+            return self._data[0]
+        else:
+            return False
+        
+    def setChangedDeferredData(self, key, value):
+        if self._deferred_data.has_key(key):
+            self._deferred_data[0] = value
+        else:
+            Kernel.Log("Deferred data key %s does not exist. changed flag not set" % key, "[Project]")
+            
+    def getChangedDeferredData(self, key):
+        if self._deferred_data.has_key(key):
+            return self._deferred_data[0]
+        else:
+            return False
+        
+    def getMapData(self, id_num):
+        return self.getDeferredData("Map%03d" % id_num)
+    
+    def setMapData(self, id_num, value, changed=True):
+        self.setDeferredData("Map%03d" % id_num, value, changed)
+        
+    def getChangedMapData(self, id_num):
+        self.getChangedDeferredData("Map%03d" % id_num)
+        
+    def setChangedMapData(self, id_num, value):
+        self.setChangedDeferredData("Map%03d" % id_num, value)
 
-    def saveProject(self, path, save_func):
+    def saveProject(self):
         config = ConfigParser.ConfigParser()
         config.add_section("Project")
         for key, value in self._info.items():
             config.set("Project", str(key), str(value))
-        filename = os.path.normpath(path)
+        filename = os.path.normpath(self.project_path)
         config.add_section("Files")
         filelist = ""
         files = self._data.keys()
@@ -55,20 +137,31 @@ class Project(object):
         f = open(filename, 'wb')
         config.write(f)
         f.close()
-        for key, value in self._data.items():
-            save_func(os.path.dirname(path), key, value)
+        if (self.savefunc is not None) and callable(self.savefunc):
+            for key, value in self._data.items():
+                self.savefunc(os.path.dirname(self.project_path), key, value)
+        else:
+            Kernel.Log("Warning: no save function set for project. Data files NOT saved", "[Project]")
+            
     
-    def loadProject(self, path, load_func):
-        config = ConfigParser.ConfigParser()
-        config.read(os.path.normpath(path))
-        infos = config.items("Project")
-        for info in infos:
-            self.setInfo(info[0], info[1])
-        filelist = config.get("Files", "List")
-        files = filelist.split("|")
-        for file_name in files:
-            if file_name != "":
-                self.setData(file_name, load_func(os.path.dirname(path), file_name))
+    def loadProject(self):
+        if os.path.exists(self.project_path):
+            config = ConfigParser.ConfigParser()
+            config.read(os.path.normpath(self.project_path))
+            infos = config.items("Project")
+            for info in infos:
+                self.setInfo(info[0], info[1])
+            filelist = config.get("Files", "List")
+            files = filelist.split("|")
+            for file_name in files:
+                if file_name != "":
+                    if (self.load_func is not None) and callable(self.load_func):
+                        self.setData(file_name, self.load_func(os.path.dirname(self.project_path), file_name))
+                    else:
+                        self.setData(file_name, None)
+                        Kernel.Log("Warning: no load function set for project. Data for %s set to None" % file_name, "[Project]")
+        else:
+            Kernel.Log("Warning: project path %s does not exist. Project not loaded." % self.project_path, "[Project]")
                 
 class ARCProjectCreator(object):
     
@@ -76,7 +169,9 @@ class ARCProjectCreator(object):
         self.project = None
         
     def Create(self, path, title, saveas=False):
+        #create a project object
         self.project = KM.get_component("ARCProjectHolder").object()
+        #set initial info
         self.project.setInfo("Title", title)
         self.project.setData("Actors", [])
         self.project.setData("Classes", [])
@@ -89,31 +184,54 @@ class ARCProjectCreator(object):
         self.project.setData("CommonEvents", [])
         self.project.setData("System", [])
         self.project.setData("MapInfos", [])
+        #place the project in the global namespace
         if Kernel.GlobalObjects.has_key("PROJECT"):
             Kernel.GlobalObjects.set_value("PROJECT", self.project)
         else:
             Kernel.GlobalObjects.request_new_key("PROJECT", "CORE", self.project)
-        self.project.saveProject(path, KM.get_component("ARCProjectSaveFunction"))
+        #set the save function
+        self.project.setSaveFunc(KM.get_component("ARCProjectSaveFunction"))
+        #set the project path
+        self.project.setProjectPath(path)
+        #save the project
+        self.project.saveProject()
         if not saveas:
             KM.raise_event("CoreEventRefreshProject")
             
             
 def ARCProjectSaveFunction(dir_name, filename, obj):
-    path = os.path.join(dir_name, "Data", filename + ".arc")
-    f = open(path, "wb")
-    redirects = {}
-    KM.raise_event("CoreEventARCRedirectClassPathsOnSave", redirects)
-    ARC_Data.ARC_Data.dump(f, obj, redirects)
-    f.close()
+    dir_path = os.path.join(dir_name, "Data")
+    path = os.path.join(dir_path, filename + ".arc")
+    if (not os.path.exists(dir_path)) or (not os.path.isdir(dir_path)):
+        os.makedirs(dir_path)
+    try:
+        f = open(path, "wb")
+        redirects = {}
+        KM.raise_event("CoreEventARCRedirectClassPathsOnSave", redirects)
+        save_func = KM.get_component("ARCDataDumpFunction").object
+        save_func(f, obj, redirects)
+        f.close()
+    except IOError:
+        Kernel.Log("IO Error encountered Saving file %s" % path, "[ARC Save Function]", True)
     
 def ARCProjectLoadFunction(dir_name, filename):
     path = os.path.join(dir_name, "Data", filename + ".arc")
-    f = open(path, "rb")
-    redirects = {}
-    KM.raise_event("CoreEventARCRedirectClassPathsOnSave", redirects)
-    extended_namespace = {}
-    KM.raise_event("CoreEventARCExtendNamespaceOnLoad", extended_namespace)
-    obj = ARC_Data.ARC_Data.load(f, redirects, extended_namespace)
-    f.close()
-    return obj
+    if os.path.exists(path) and (not os.path.isdir(path)):
+        try:
+            f = open(path, "rb")
+            redirects = {}
+            KM.raise_event("CoreEventARCRedirectClassPathsOnLoad", redirects)
+            extended_namespace = {}
+            KM.raise_event("CoreEventARCExtendNamespaceOnLoad", extended_namespace)
+            load_func = KM.get_component("ARCDataLoadFunction").object
+            obj = load_func(f, redirects, extended_namespace)
+            f.close()
+            return obj
+        except IOError:
+            Kernel.Log("IO Error encountered Loading file %s Returned None" % path, "[ARC Load Function]", True)
+            return None
+        
+    else:
+        Kernel.Log("Warning: file %s does not exist. Returned None" % path, "[ARC Load Function]")
+        return None
     

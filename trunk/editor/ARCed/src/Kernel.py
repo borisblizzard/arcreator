@@ -701,16 +701,19 @@ class ConfigLoader(object):
 
 
 
-def Log(message, prefix="[Kernel] ", error=False):
+def Log(message=None, prefix="[Kernel]", error=False):
     '''
     time stamps a message and writes it to a log file, it can also attach a trace back of the latest error. 
     always adds a new line at the end of the message
     '''
-    f = open(os.path.join(GlobalObjects.get_name("Program_Dir"), "error.log"), "ab")
+    if message is None:
+        error = True
+        message = ""
+    f = open(os.path.join(GlobalObjects.get_name("Program_Dir"), "ARCed.log"), "ab")
     time_str = time.strftime("%a %d %b %Y %H:%M:%S [%Z] ")
     if error:
-        message += "[Error] " + traceback.format_exc()
-    f.write(time_str + prefix + message + "\n")
+        message += " [Error] " + traceback.format_exc()
+    f.write(time_str + prefix + " " + message + "\n")
     f.close
 
 #=======================================================================
