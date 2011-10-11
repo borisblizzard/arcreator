@@ -270,8 +270,7 @@ class ARCedActorParameters_Dialog( ARCed_Templates.ActorParameters_Dialog ):
 		pass
 	
 	def buttonOK_Clicked( self, event ):
-		# TODO: Implement buttonOK_Clicked
-		pass
+		self.EndModal(wx.ID_OK)
 	
 	def buttonCancel_Clicked( self, event ):
 		# TODO: Implement buttonCancel_Clicked
