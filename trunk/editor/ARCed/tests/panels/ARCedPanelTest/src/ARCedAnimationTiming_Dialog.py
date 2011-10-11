@@ -73,4 +73,12 @@ class ARCedAnimationTiming_Dialog( ARCed_Templates.AnimationTiming_Dialog ):
 		# TODO: Implement spinCtrlDurationFrames_ValueChanged
 		pass
 	
+	def buttonOK_Clicked( self, event ):
+		# TODO: Implement buttonOK_Clicked
+		pass
+	
+	def buttonCancel_Clicked( self, event ):
+		# TODO: Implement buttonCancel_Clicked
+		pass
+	
 	

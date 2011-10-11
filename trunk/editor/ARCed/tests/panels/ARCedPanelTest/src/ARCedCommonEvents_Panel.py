@@ -29,6 +29,10 @@ class ARCedCommonEvents_Panel( ARCed_Templates.CommonEvents_Panel ):
 		# TODO: Implement comboBoxCondition_Clicked
 		pass
 	
+	def listBoxEvents_DoubleClicked( self, event ):
+		# TODO: Implement listBoxEvents_DoubleClicked
+		pass
+	
 	def listBoxPage_SelectionChanged( self, event ):
 		# TODO: Implement listBoxPage_SelectionChanged
 		pass

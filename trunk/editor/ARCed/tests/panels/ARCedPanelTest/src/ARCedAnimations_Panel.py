@@ -33,6 +33,10 @@ class ARCedAnimations_Panel( ARCed_Templates.Animations_Panel ):
 		# TODO: Implement comboBoxFrames_Clicked
 		pass
 	
+	def listControlTiming_DoubleClicked( self, event ):
+		# TODO: Implement listControlTiming_DoubleClicked
+		pass
+	
 	def buttonBack_Clicked( self, event ):
 		# TODO: Implement buttonBack_Clicked
 		pass

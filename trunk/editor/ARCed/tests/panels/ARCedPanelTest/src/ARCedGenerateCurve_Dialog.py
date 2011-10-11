@@ -9,6 +9,10 @@ class ARCedGenerateCurve_Dialog( ARCed_Templates.GenerateCurve_Dialog ):
 		ARCed_Templates.GenerateCurve_Dialog.__init__( self, parent )
 	
 	# Handlers for GenerateCurve_Dialog events.
+	def spinCtrlMaxLevel_ValueChanged( self, event ):
+		# TODO: Implement spinCtrlMaxLevel_ValueChanged
+		pass
+	
 	def buttonOK_Clicked( self, event ):
 		# TODO: Implement buttonOK_Clicked
 		pass

@@ -9,6 +9,22 @@ class ARCedForceAction_Dialog( ARCed_Templates.ForceAction_Dialog ):
 		ARCed_Templates.ForceAction_Dialog.__init__( self, parent )
 	
 	# Handlers for ForceAction_Dialog events.
+	def radioButtonEnemy_CheckChanged( self, event ):
+		# TODO: Implement radioButtonEnemy_CheckChanged
+		pass
+	
+	def radioButtonActor_CheckChanged( self, event ):
+		# TODO: Implement radioButtonActor_CheckChanged
+		pass
+	
+	def radioButtonBasic_CheckChanged( self, event ):
+		# TODO: Implement radioButtonBasic_CheckChanged
+		pass
+	
+	def radioButtonSkill_CheckChanged( self, event ):
+		# TODO: Implement radioButtonSkill_CheckChanged
+		pass
+	
 	def buttonOK_Clicked( self, event ):
 		# TODO: Implement buttonOK_Clicked
 		pass

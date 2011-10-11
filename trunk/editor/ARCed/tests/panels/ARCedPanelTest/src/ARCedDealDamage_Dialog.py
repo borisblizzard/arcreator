@@ -9,6 +9,22 @@ class ARCedDealDamage_Dialog( ARCed_Templates.DealDamage_Dialog ):
 		ARCed_Templates.DealDamage_Dialog.__init__( self, parent )
 	
 	# Handlers for DealDamage_Dialog events.
+	def radioButtonEnemy_CheckChanged( self, event ):
+		# TODO: Implement radioButtonEnemy_CheckChanged
+		pass
+	
+	def radioButtonActor_CheckChanged( self, event ):
+		# TODO: Implement radioButtonActor_CheckChanged
+		pass
+	
+	def radioButtonConstant_CheckChanged( self, event ):
+		# TODO: Implement radioButtonConstant_CheckChanged
+		pass
+	
+	def radioButtonVariable_CheckChanged( self, event ):
+		# TODO: Implement radioButtonVariable_CheckChanged
+		pass
+	
 	def comboBoxVariable_Clicked( self, event ):
 		# TODO: Implement comboBoxVariable_Clicked
 		pass

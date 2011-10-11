@@ -9,6 +9,14 @@ class ARCedMovePicture_Dialog( ARCed_Templates.MovePicture_Dialog ):
 		ARCed_Templates.MovePicture_Dialog.__init__( self, parent )
 	
 	# Handlers for MovePicture_Dialog events.
+	def radioButtonConstant_CheckChanged( self, event ):
+		# TODO: Implement radioButtonConstant_CheckChanged
+		pass
+	
+	def radioButtonVariable_CheckChanged( self, event ):
+		# TODO: Implement radioButtonVariable_CheckChanged
+		pass
+	
 	def buttonOK_Clicked( self, event ):
 		# TODO: Implement buttonOK_Clicked
 		pass

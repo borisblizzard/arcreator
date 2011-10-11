@@ -9,12 +9,32 @@ class ARCedSetEventLocation_Dialog( ARCed_Templates.SetEventLocation_Dialog ):
 		ARCed_Templates.SetEventLocation_Dialog.__init__( self, parent )
 	
 	# Handlers for SetEventLocation_Dialog events.
+	def radioButtonDirect_CheckChanged( self, event ):
+		# TODO: Implement radioButtonDirect_CheckChanged
+		pass
+	
 	def comboBoxDirectAppointment_Clicked( self, event ):
 		# TODO: Implement comboBoxDirectAppointment_Clicked
 		pass
 	
-	def comboBoxVaribleAppointment_Clicked( self, event ):
-		# TODO: Implement comboBoxVaribleAppointment_Clicked
+	def radioButtonVariable_CheckChanged( self, event ):
+		# TODO: Implement radioButtonVariable_CheckChanged
+		pass
+	
+	def comboBoxMapID_Clicked( self, event ):
+		# TODO: Implement comboBoxMapID_Clicked
+		pass
+	
+	def comboBoxMapX_Clicked( self, event ):
+		# TODO: Implement comboBoxMapX_Clicked
+		pass
+	
+	def comboBoxMapY_Clicked( self, event ):
+		# TODO: Implement comboBoxMapY_Clicked
+		pass
+	
+	def radioButtonExchange_CheckChanged( self, event ):
+		# TODO: Implement radioButtonExchange_CheckChanged
 		pass
 	
 	def buttonOK_Clicked( self, event ):

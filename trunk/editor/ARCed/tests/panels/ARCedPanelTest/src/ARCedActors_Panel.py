@@ -81,16 +81,12 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 		# TODO: Implement comboBoxHelmet_SelectionChanged
 		pass
 	
-	def comboBoxBodyArmor_SelectionChanged( self, event ):
-		# TODO: Implement comboBoxBodyArmor_SelectionChanged
+	def comboBoxBodyArmor( self, event ):
+		# TODO: Implement comboBoxBodyArmor
 		pass
 	
-	def comboBoxAccessory1_SelectionChanged( self, event ):
-		# TODO: Implement comboBoxAccessory1_SelectionChanged
-		pass
-	
-	def comboBoxAccessory2_SelectionChanged( self, event ):
-		# TODO: Implement comboBoxAccessory2_SelectionChanged
+	def comboBoxAccessory_SelectionChanged( self, event ):
+		# TODO: Implement comboBoxAccessory_SelectionChanged
 		pass
 	
 	def checkBoxWeapon_CheckChanged( self, event ):
@@ -109,12 +105,8 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 		# TODO: Implement checkBoxBodyArmor_CheckChanged
 		pass
 	
-	def checkBoxAccessory1_CheckChanged( self, event ):
-		# TODO: Implement checkBoxAccessory1_CheckChanged
-		pass
-	
-	def checkBoxAccessory2_CheckChanged( self, event ):
-		# TODO: Implement checkBoxAccessory2_CheckChanged
+	def checkBoxAccessory_CheckChanged( self, event ):
+		# TODO: Implement checkBoxAccessory_CheckChanged
 		pass
 	
 	

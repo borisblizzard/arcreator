@@ -17,6 +17,38 @@ class ARCedControlVariables_Dialog( ARCed_Templates.ControlVariables_Dialog ):
 		# TODO: Implement spinCtrlBatchEnd_ValueChanged
 		pass
 	
+	def radioButtonConstant_CheckChanged( self, event ):
+		# TODO: Implement radioButtonConstant_CheckChanged
+		pass
+	
+	def radioButtonVariable_CheckChanged( self, event ):
+		# TODO: Implement radioButtonVariable_CheckChanged
+		pass
+	
+	def radioButtonRandom_CheckChanged( self, event ):
+		# TODO: Implement radioButtonRandom_CheckChanged
+		pass
+	
+	def radioButtonItem_CheckChanged( self, event ):
+		# TODO: Implement radioButtonItem_CheckChanged
+		pass
+	
+	def radioButtonActor_CheckChanged( self, event ):
+		# TODO: Implement radioButtonActor_CheckChanged
+		pass
+	
+	def radioButtonEnemy_CheckChanged( self, event ):
+		# TODO: Implement radioButtonEnemy_CheckChanged
+		pass
+	
+	def radioButtonCharacter_CheckChanged( self, event ):
+		# TODO: Implement radioButtonCharacter_CheckChanged
+		pass
+	
+	def radioButtonOther_CheckChanged( self, event ):
+		# TODO: Implement radioButtonOther_CheckChanged
+		pass
+	
 	def buttonOK_Clicked( self, event ):
 		# TODO: Implement buttonOK_Clicked
 		pass

@@ -13,6 +13,14 @@ class ARCedShowPicture_Dialog( ARCed_Templates.ShowPicture_Dialog ):
 		# TODO: Implement comboBoxPictureGraphic_Clicked
 		pass
 	
+	def radioButtonConstant_CheckChanged( self, event ):
+		# TODO: Implement radioButtonConstant_CheckChanged
+		pass
+	
+	def radioButtonVariable_CheckChanged( self, event ):
+		# TODO: Implement radioButtonVariable_CheckChanged
+		pass
+	
 	def buttonOK_Clicked( self, event ):
 		# TODO: Implement buttonOK_Clicked
 		pass

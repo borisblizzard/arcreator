@@ -7,13 +7,14 @@ import ARCed_Templates
 class ARCedChangeMaximum_Dialog( ARCed_Templates.ChangeMaximum_Dialog ):
 	def __init__( self, parent ):
 		ARCed_Templates.ChangeMaximum_Dialog.__init__( self, parent )
-
+	
 	# Handlers for ChangeMaximum_Dialog events.
 	def buttonOK_Clicked( self, event ):
-		self.EndModal(wx.ID_OK)
-
+		# TODO: Implement buttonOK_Clicked
+		pass
+	
 	def buttonCancel_Clicked( self, event ):
-		self.EndModal(wx.ID_CANCEL)
-
-
-
+		# TODO: Implement buttonCancel_Clicked
+		pass
+	
+	
