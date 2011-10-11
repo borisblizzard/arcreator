@@ -1,0 +1,115 @@
+import sys
+sys.path.append( "C:/Users/Eric/Desktop/ARC/editor/Windows" )
+
+import wx
+import ARCed
+import ActorParameters_Dialog
+import Actors_Panel
+import AnimationCellBatch_Dialog
+import AnimationCellProperties_Dialog
+import AnimationEntireSlide_Dialog
+import Animations_Panel
+import AnimationTiming_Dialog
+import AnimationTweening_Dialog
+import ARced_Templates
+import Armors_Panel
+import BattleAnimation_Dialog
+import BattleProcessing_Dialog
+import ButonProcessing_Dialog
+import CallCommonEvent_Dialog
+import ChangeAccess_Dialog
+import ChangeActorClass_Dialog
+import ChangeActorGraphic_Dialog
+import ChangeActorName_Dialog
+import ChangeBlending_Dialog
+import ChangeEquipment_Dialog
+import ChangeFogOpacity_Dialog
+import ChangeFrequency_Dialog
+import ChangeHP_Dialog
+import ChangelGold_Dialog
+import ChangelPartyEquipment_Dialog
+import ChangeMapSettings_Dialog
+import ChangeMaximum_Dialog
+import ChangeParameters_Dialog
+import ChangePartyMember_Dialog
+import ChangePictureColorTone_Dialog
+import ChangeSkills_Dialog
+import ChangeSpeed_Dialog
+import ChangeState_Dialog
+import ChangeStat_Dialog
+import ChangeTextOptions_Dialog
+import ChangeTone_Dialog
+import ChooseActor_Dialog
+import ChooseAudio_Dialog
+import ChooseFogGraphic_Dialog
+import ChooseGraphic_Dialog
+import ChooseSwitchVariable_Dialog
+import ChooseTreasure_Dialog
+import Classes_Panel
+import Comment_Dialog
+import CommonEvents_Panel
+import ConditionalBranch_Dialog
+import ControlSelfSwitches_Dialog
+import ControlSwitches_Dialog
+import ControlTimer_Dialog
+import ControlVariables_Dialog
+import DealDamage_Dialog
+import Enemies_Panel
+import EnemyAction_Dialog
+import EnemyAppearance_Dialog
+import EnemyTransform_Dialog
+import ErasePicture_Dialog
+import EventCommands1_Panel
+import EventCommands2_Panel
+import EventCommands3_Panel
+import EventCondition_Dialog
+import EventEditor_Panel
+import EventPage_Panel
+import ExpCurve_Dialog
+import FadeOutAudio_Dialog
+import ForceAction_Dialog
+import GenerateCurve_Dialog
+import InputNumber_Dialog
+import Items_Panel
+import Jump_Dialog
+import Label_Dialog
+import MovePicture_Dialog
+import MoveRoute_Dialog
+import NameProcessing_Dialog
+import RecoverAll_Dialog
+import RotatePicture_Dialog
+import ScreenShake_Dialog
+import ScriptCall_Dialog
+import ScrollMap_Dialog
+import SetEventLocation_Dialog
+import ShopGoods_Dialog
+import ShopProcessing_Dialog
+import ShowAnimation_Dialog
+import ShowChoices_Dialog
+import ShowPicture_Dialog
+import ShowText_Dialog
+import Skills_Panel
+import Skill_Dialog
+import States_Panel
+import System_Panel
+import Tilesets_Panel
+import TransferEventTilemap_Dialog
+import TransferPlayerTilemap_Dialog
+import TransferPlayer_Dialog
+import TransparentFlag_Dialog
+import Troops_Panel
+import Wait_Dialog
+import Weapons_Panel
+import WeatherEffects_Dialog
+
+class MyApp(wx.App):
+
+	def __init__(self, redirect=False, filename=None):
+		wx.App.__init__(self, redirect, filename)
+		self.frame = wx.Frame(None, wx.ID_ANY, title='Database Panel Test')
+		self.panel = Actors_Panel(self.frame)
+		self.frame.Show()
+
+if __name__ == '__main__':
+	app = MyApp()
+	app.MainLoop()
