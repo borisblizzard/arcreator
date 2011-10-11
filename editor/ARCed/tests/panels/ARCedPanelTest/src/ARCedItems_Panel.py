@@ -21,8 +21,8 @@ class ARCedItems_Panel( ARCed_Templates.Items_Panel ):
 		# TODO: Implement textCtrlName_TextChanged
 		pass
 	
-	def comboBoxIcon_SelectionChanged( self, event ):
-		# TODO: Implement comboBoxIcon_SelectionChanged
+	def comboBoxIcon_Clicked( self, event ):
+		# TODO: Implement comboBoxIcon_Clicked
 		pass
 	
 	def textCtrlDescription_TextChange( self, event ):

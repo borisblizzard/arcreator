@@ -9,12 +9,28 @@ class ARCedTransferPlayer_Dialog( ARCed_Templates.TransferPlayer_Dialog ):
 		ARCed_Templates.TransferPlayer_Dialog.__init__( self, parent )
 	
 	# Handlers for TransferPlayer_Dialog events.
+	def radioButtonDirect_CheckChanged( self, event ):
+		# TODO: Implement radioButtonDirect_CheckChanged
+		pass
+	
 	def comboBoxDirectAppointment_Clicked( self, event ):
 		# TODO: Implement comboBoxDirectAppointment_Clicked
 		pass
 	
-	def comboBoxVaribleAppointment_Clicked( self, event ):
-		# TODO: Implement comboBoxVaribleAppointment_Clicked
+	def radioButtonVariables_CheckChanged( self, event ):
+		# TODO: Implement radioButtonVariables_CheckChanged
+		pass
+	
+	def comboBoxMapID_Clicked( self, event ):
+		# TODO: Implement comboBoxMapID_Clicked
+		pass
+	
+	def comboBoxMapX_Clicked( self, event ):
+		# TODO: Implement comboBoxMapX_Clicked
+		pass
+	
+	def comboBoxMapY_Clicked( self, event ):
+		# TODO: Implement comboBoxMapY_Clicked
 		pass
 	
 	def buttonOK_Clicked( self, event ):

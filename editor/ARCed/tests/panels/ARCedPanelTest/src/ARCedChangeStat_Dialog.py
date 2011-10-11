@@ -9,6 +9,14 @@ class ARCedChangeStat_Dialog( ARCed_Templates.ChangeStat_Dialog ):
 		ARCed_Templates.ChangeStat_Dialog.__init__( self, parent )
 	
 	# Handlers for ChangeStat_Dialog events.
+	def radioButtonConstant_CheckChanged( self, event ):
+		# TODO: Implement radioButtonConstant_CheckChanged
+		pass
+	
+	def radioButtonVariable_CheckChanged( self, event ):
+		# TODO: Implement radioButtonVariable_CheckChanged
+		pass
+	
 	def comboBoxVariable_Clicked( self, event ):
 		# TODO: Implement comboBoxVariable_Clicked
 		pass

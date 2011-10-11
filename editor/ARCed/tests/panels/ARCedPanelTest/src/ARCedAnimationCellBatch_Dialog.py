@@ -9,6 +9,22 @@ class ARCedAnimationCellBatch_Dialog( ARCed_Templates.AnimationCellBatch_Dialog 
 		ARCed_Templates.AnimationCellBatch_Dialog.__init__( self, parent )
 	
 	# Handlers for AnimationCellBatch_Dialog events.
+	def spinCtrlFramesStart_ValueChanged( self, event ):
+		# TODO: Implement spinCtrlFramesStart_ValueChanged
+		pass
+	
+	def spinCtrlFramesEnd_ValueChanged( self, event ):
+		# TODO: Implement spinCtrlFramesEnd_ValueChanged
+		pass
+	
+	def spinCtrlCellsStart_ValueChanged( self, event ):
+		# TODO: Implement spinCtrlCellsStart_ValueChanged
+		pass
+	
+	def spinCtrlCellsEnd_ValueChanged( self, event ):
+		# TODO: Implement spinCtrlCellsEnd_ValueChanged
+		pass
+	
 	def checkBoxPattern_CheckChanged( self, event ):
 		# TODO: Implement checkBoxPattern_CheckChanged
 		pass

@@ -17,4 +17,48 @@ class ARCedClasses_Panel( ARCed_Templates.Classes_Panel ):
 		# TODO: Implement buttonMaximum_Clicked
 		pass
 	
+	def textCtrlName_TextChanged( self, event ):
+		# TODO: Implement textCtrlName_TextChanged
+		pass
+	
+	def checkListWeapons_CheckChanged( self, event ):
+		# TODO: Implement checkListWeapons_CheckChanged
+		pass
+	
+	def buttonWeaponAll_Clicked( self, event ):
+		# TODO: Implement buttonWeaponAll_Clicked
+		pass
+	
+	def buttonWeaponNone_Clicked( self, event ):
+		# TODO: Implement buttonWeaponNone_Clicked
+		pass
+	
+	def comboBoxPosition_SelectionChanged( self, event ):
+		# TODO: Implement comboBoxPosition_SelectionChanged
+		pass
+	
+	def checkListArmors_CheckChanged( self, event ):
+		# TODO: Implement checkListArmors_CheckChanged
+		pass
+	
+	def buttonArmorAll_Clicked( self, event ):
+		# TODO: Implement buttonArmorAll_Clicked
+		pass
+	
+	def buttonArmorNone_Clicked( self, event ):
+		# TODO: Implement buttonArmorNone_Clicked
+		pass
+	
+	def checkListElements_CheckChanged( self, event ):
+		# TODO: Implement checkListElements_CheckChanged
+		pass
+	
+	def checkListStates_ChceckChanged( self, event ):
+		# TODO: Implement checkListStates_ChceckChanged
+		pass
+	
+	def listBoxSkills_DoubleClick( self, event ):
+		# TODO: Implement listBoxSkills_DoubleClick
+		pass
+	
 	

@@ -9,6 +9,18 @@ class ARCedShopGoods_Dialog( ARCed_Templates.ShopGoods_Dialog ):
 		ARCed_Templates.ShopGoods_Dialog.__init__( self, parent )
 	
 	# Handlers for ShopGoods_Dialog events.
+	def radioButtonItem_CheckChanged( self, event ):
+		# TODO: Implement radioButtonItem_CheckChanged
+		pass
+	
+	def radioButtonWeapon_CheckChanged( self, event ):
+		# TODO: Implement radioButtonWeapon_CheckChanged
+		pass
+	
+	def radioButtonArmor_CheckChanged( self, event ):
+		# TODO: Implement radioButtonArmor_CheckChanged
+		pass
+	
 	def buttonOK_Clicked( self, event ):
 		# TODO: Implement buttonOK_Clicked
 		pass
