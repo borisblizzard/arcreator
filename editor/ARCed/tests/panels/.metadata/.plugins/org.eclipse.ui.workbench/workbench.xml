@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<workbench progressCount="19" version="2.0">
+<workbench progressCount="20" version="2.0">
 <workbenchAdvisor/>
 <window height="728" maximized="true" width="1024" x="241" y="222">
 <fastViewData fastViewLocation="1024"/>
@@ -28,21 +28,56 @@
 <part id="0"/>
 <part id="1"/>
 <part id="2"/>
+<part id="3"/>
+<part id="4"/>
+<part id="5"/>
+<part id="6"/>
+<part id="7"/>
+<part id="8"/>
+<part id="9"/>
 </presentation>
 </folder>
 </info>
 </editorArea>
 <editor id="org.python.pydev.editor.PythonEditor" name="__main__.py" partName="__main__.py" path="C:/Users/Eric/Desktop/ARC/editor/ARCed/tests/panels/ARCedPanelTest/src/__main__.py" title="__main__.py" tooltip="ARCedPanelTest/src/__main__.py" workbook="DefaultEditorWorkbook">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/ARCedPanelTest/src/__main__.py"/>
-<editorState selectionHPixel="0" selectionLength="0" selectionOffset="209"/>
+<editorState selectionHPixel="0" selectionLength="0" selectionOffset="1135"/>
 </editor>
-<editor activePart="true" focus="true" id="org.python.pydev.editor.PythonEditor" name="ARCedTroops_Panel.py" partName="ARCedTroops_Panel.py" path="C:/Users/Eric/Desktop/ARC/editor/ARCed/tests/panels/ARCedPanelTest/src/ARCedTroops_Panel.py" title="ARCedTroops_Panel.py" tooltip="ARCedPanelTest/src/ARCedTroops_Panel.py" workbook="DefaultEditorWorkbook">
+<editor id="org.python.pydev.editor.PythonEditor" name="ARCedTroops_Panel.py" partName="ARCedTroops_Panel.py" path="C:/Users/Eric/Desktop/ARC/editor/ARCed/tests/panels/ARCedPanelTest/src/ARCedTroops_Panel.py" title="ARCedTroops_Panel.py" tooltip="ARCedPanelTest/src/ARCedTroops_Panel.py" workbook="DefaultEditorWorkbook">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/ARCedPanelTest/src/ARCedTroops_Panel.py"/>
-<editorState selectionHPixel="7" selectionLength="0" selectionOffset="628"/>
+<editorState selectionHPixel="0" selectionLength="0" selectionOffset="650"/>
 </editor>
 <editor id="org.python.pydev.editor.PythonEditor" name="ARCedChangeMaximum_Dialog.py" partName="ARCedChangeMaximum_Dialog.py" path="C:/Users/Eric/Desktop/ARC/editor/ARCed/tests/panels/ARCedPanelTest/src/ARCedChangeMaximum_Dialog.py" title="ARCedChangeMaximum_Dialog.py" tooltip="ARCedPanelTest/src/ARCedChangeMaximum_Dialog.py" workbook="DefaultEditorWorkbook">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/ARCedPanelTest/src/ARCedChangeMaximum_Dialog.py"/>
 <editorState selectionHPixel="0" selectionLength="0" selectionOffset="519"/>
+</editor>
+<editor id="org.python.pydev.editor.PythonEditor" name="ARCedChooseGraphic_Dialog.py" partName="ARCedChooseGraphic_Dialog.py" path="C:/Users/Eric/Desktop/ARC/editor/ARCed/tests/panels/ARCedPanelTest/src/ARCedChooseGraphic_Dialog.py" title="ARCedChooseGraphic_Dialog.py" tooltip="ARCedPanelTest/src/ARCedChooseGraphic_Dialog.py" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/ARCedPanelTest/src/ARCedChooseGraphic_Dialog.py"/>
+<editorState selectionHPixel="0" selectionLength="0" selectionOffset="579"/>
+</editor>
+<editor id="org.python.pydev.editor.PythonEditor" name="ARCedActorParameters_Dialog.py" partName="ARCedActorParameters_Dialog.py" path="C:/Users/Eric/Desktop/ARC/editor/ARCed/tests/panels/ARCedPanelTest/src/ARCedActorParameters_Dialog.py" title="ARCedActorParameters_Dialog.py" tooltip="ARCedPanelTest/src/ARCedActorParameters_Dialog.py" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/ARCedPanelTest/src/ARCedActorParameters_Dialog.py"/>
+<editorState selectionHPixel="0" selectionLength="23" selectionOffset="7301"/>
+</editor>
+<editor id="org.python.pydev.editor.PythonEditor" name="ARCedAnimationCellBatch_Dialog.py" partName="ARCedAnimationCellBatch_Dialog.py" path="C:/Users/Eric/Desktop/ARC/editor/ARCed/tests/panels/ARCedPanelTest/src/ARCedAnimationCellBatch_Dialog.py" title="ARCedAnimationCellBatch_Dialog.py" tooltip="ARCedPanelTest/src/ARCedAnimationCellBatch_Dialog.py" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/ARCedPanelTest/src/ARCedAnimationCellBatch_Dialog.py"/>
+<editorState selectionHPixel="0" selectionLength="0" selectionOffset="1317"/>
+</editor>
+<editor id="org.python.pydev.editor.PythonEditor" name="ARCedAnimationCellProperties_Dialog.py" partName="ARCedAnimationCellProperties_Dialog.py" path="C:/Users/Eric/Desktop/ARC/editor/ARCed/tests/panels/ARCedPanelTest/src/ARCedAnimationCellProperties_Dialog.py" title="ARCedAnimationCellProperties_Dialog.py" tooltip="ARCedPanelTest/src/ARCedAnimationCellProperties_Dialog.py" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/ARCedPanelTest/src/ARCedAnimationCellProperties_Dialog.py"/>
+<editorState selectionHPixel="0" selectionLength="0" selectionOffset="497"/>
+</editor>
+<editor id="org.python.pydev.editor.PythonEditor" name="ARCedAnimationEntireSlide_Dialog.py" partName="ARCedAnimationEntireSlide_Dialog.py" path="C:/Users/Eric/Desktop/ARC/editor/ARCed/tests/panels/ARCedPanelTest/src/ARCedAnimationEntireSlide_Dialog.py" title="ARCedAnimationEntireSlide_Dialog.py" tooltip="ARCedPanelTest/src/ARCedAnimationEntireSlide_Dialog.py" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/ARCedPanelTest/src/ARCedAnimationEntireSlide_Dialog.py"/>
+<editorState selectionHPixel="0" selectionLength="0" selectionOffset="477"/>
+</editor>
+<editor id="org.python.pydev.editor.PythonEditor" name="ARCedAnimationTiming_Dialog.py" partName="ARCedAnimationTiming_Dialog.py" path="C:/Users/Eric/Desktop/ARC/editor/ARCed/tests/panels/ARCedPanelTest/src/ARCedAnimationTiming_Dialog.py" title="ARCedAnimationTiming_Dialog.py" tooltip="ARCedPanelTest/src/ARCedAnimationTiming_Dialog.py" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/ARCedPanelTest/src/ARCedAnimationTiming_Dialog.py"/>
+<editorState selectionHPixel="0" selectionLength="0" selectionOffset="0"/>
+</editor>
+<editor activePart="true" focus="true" id="org.python.pydev.editor.PythonEditor" name="ARCedAnimationTweening_Dialog.py" partName="ARCedAnimationTweening_Dialog.py" path="C:/Users/Eric/Desktop/ARC/editor/ARCed/tests/panels/ARCedPanelTest/src/ARCedAnimationTweening_Dialog.py" title="ARCedAnimationTweening_Dialog.py" tooltip="ARCedPanelTest/src/ARCedAnimationTweening_Dialog.py" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/ARCedPanelTest/src/ARCedAnimationTweening_Dialog.py"/>
+<editorState selectionHPixel="0" selectionLength="0" selectionOffset="0"/>
 </editor>
 </editors>
 <views>
@@ -50,7 +85,8 @@
 <viewState CommonNavigator.LINKING_ENABLED="0" org.eclipse.ui.navigator.resources.workingSets.showTopLevelWorkingSets="0">
 <expanded IMemento.internal.id="C:/Users/Eric/Desktop/ARC/editor/ARCed/tests/panels/ARCedPanelTest"/>
 <expanded IMemento.internal.id="C:/Users/Eric/Desktop/ARC/editor/ARCed/tests/panels/ARCedPanelTest/src"/>
-<selected IMemento.internal.id="C:/Users/Eric/Desktop/ARC/editor/ARCed/tests/panels/ARCedPanelTest/src/ARCedChangeMaximum_Dialog.py"/>
+<expanded IMemento.internal.id="C:/Users/Eric/Desktop/ARC/editor/ARCed/tests/panels/ARCedPanelTest/src/ARCedChangeMaximum_Dialog.py"/>
+<selected IMemento.internal.id="C:/Users/Eric/Desktop/ARC/editor/ARCed/tests/panels/ARCedPanelTest/src/ARCedAnimationTweening_Dialog.py"/>
 </viewState>
 </view>
 <view id="org.eclipse.ui.views.TaskList" partName="Tasks">
@@ -69,12 +105,6 @@
 </view>
 <view id="org.eclipse.ui.views.ContentOutline" partName="Outline">
 <viewState/>
-</view>
-<view id="org.eclipse.ui.internal.introview" partName="Welcome">
-<viewState>
-<presentation currentPage="root" restore="true"/>
-<standbyPart/>
-</viewState>
 </view>
 <view id="org.eclipse.ui.navigator.ProjectExplorer" partName="Project Explorer">
 <viewState CommonNavigator.LINKING_ENABLED="0" org.eclipse.ui.navigator.resources.workingSets.showTopLevelWorkingSets="0"/>
@@ -117,50 +147,36 @@
 <view id="org.eclipse.ui.views.TaskList"/>
 <view id="org.eclipse.ui.internal.introview"/>
 <fastViewBars/>
-<layout>
-<mainWindow>
-<info folder="true" part="topLeft">
-<folder activePageID="org.eclipse.ui.navigator.ProjectExplorer" appearance="2" expanded="2">
-<page content="org.eclipse.ui.navigator.ProjectExplorer" label="Project Explorer"/>
+<layout>&#x0A;<mainWindow>&#x0A;<info folder="true" part="topLeft">&#x0A;<folder activePageID="org.eclipse.ui.navigator.ProjectExplorer" appearance="2" expanded="2">&#x0A;<page content="org.eclipse.ui.navigator.ProjectExplorer" label="Project Explorer"/>
 <page content="org.eclipse.ui.views.BookmarkView" label="LabelNotFound"/>
 <page content="org.eclipse.ui.views.ResourceNavigator" label="LabelNotFound"/>
 <page content="org.eclipse.team.ccvs.ui.RepositoriesView" label="LabelNotFound"/>
 <page content="org.eclipse.team.ccvs.ui.AnnotateView" label="LabelNotFound"/>
 <page content="org.tigris.subversion.subclipse.ui.repository.RepositoriesView" label="LabelNotFound"/>
 <page content="org.tigris.subversion.subclipse.ui.annotations.AnnotateView" label="LabelNotFound"/>
-<presentation id="org.eclipse.ui.internal.presentations.r33.WorkbenchPresentationFactory_33">
-<part id="0"/>
+<presentation id="org.eclipse.ui.internal.presentations.r33.WorkbenchPresentationFactory_33">&#x0A;<part id="0"/>
 </presentation>
 </folder>
 </info>
-<info folder="true" part="org.eclipse.ui.internal.ViewStack@158c3b7" ratio="0.75" ratioLeft="756" ratioRight="252" relationship="2" relative="topLeft">
-<folder activePageID="org.eclipse.ui.internal.introview" appearance="2" expanded="1">
-<page content="org.eclipse.ui.internal.introview" label="Welcome"/>
+<info folder="true" part="org.eclipse.ui.internal.ViewStack@158c3b7" ratio="0.75" ratioLeft="756" ratioRight="252" relationship="2" relative="topLeft">&#x0A;<folder activePageID="org.eclipse.ui.internal.introview" appearance="2" expanded="1">&#x0A;<page content="org.eclipse.ui.internal.introview" label="Welcome"/>
 <page content="org.eclipse.help.ui.HelpView" label="LabelNotFound"/>
 <page content="org.eclipse.ui.cheatsheets.views.CheatSheetView" label="LabelNotFound"/>
-<presentation id="org.eclipse.ui.internal.presentations.r33.WorkbenchPresentationFactory_33">
-<part id="0"/>
+<presentation id="org.eclipse.ui.internal.presentations.r33.WorkbenchPresentationFactory_33">&#x0A;<part id="0"/>
 </presentation>
 </folder>
 </info>
 <info part="org.eclipse.gef.ui.palette_view" ratio="0.25992063" ratioLeft="262" ratioRight="746" relationship="2" relative="topLeft"/>
-<info folder="true" part="bottomRight" ratio="0.65970147" ratioLeft="442" ratioRight="228" relationship="4" relative="org.eclipse.gef.ui.palette_view">
-<folder activePageID="org.eclipse.ui.views.TaskList" appearance="2" expanded="2">
-<page content="org.eclipse.ui.views.TaskList" label="Tasks"/>
+<info folder="true" part="bottomRight" ratio="0.65970147" ratioLeft="442" ratioRight="228" relationship="4" relative="org.eclipse.gef.ui.palette_view">&#x0A;<folder activePageID="org.eclipse.ui.views.TaskList" appearance="2" expanded="2">&#x0A;<page content="org.eclipse.ui.views.TaskList" label="Tasks"/>
 <page content="org.eclipse.team.ui.GenericHistoryView" label="LabelNotFound"/>
 <page content="org.tigris.subversion.subclipse.ui.history.HistoryView" label="LabelNotFound"/>
-<presentation id="org.eclipse.ui.internal.presentations.r33.WorkbenchPresentationFactory_33">
-<part id="0"/>
+<presentation id="org.eclipse.ui.internal.presentations.r33.WorkbenchPresentationFactory_33">&#x0A;<part id="0"/>
 </presentation>
 </folder>
 </info>
 <info part="org.eclipse.ui.editorss" ratio="0.15951742" ratioLeft="119" ratioRight="627" relationship="2" relative="org.eclipse.gef.ui.palette_view"/>
-<info folder="true" part="bottomLeft" ratio="0.5" ratioLeft="335" ratioRight="335" relationship="4" relative="topLeft">
-<folder activePageID="org.eclipse.ui.views.ContentOutline" appearance="2" expanded="2">
-<page content="org.eclipse.ui.views.ContentOutline" label="Outline"/>
+<info folder="true" part="bottomLeft" ratio="0.5" ratioLeft="335" ratioRight="335" relationship="4" relative="topLeft">&#x0A;<folder activePageID="org.eclipse.ui.views.ContentOutline" appearance="2" expanded="2">&#x0A;<page content="org.eclipse.ui.views.ContentOutline" label="Outline"/>
 <page content="org.eclipse.ant.ui.views.AntView" label="LabelNotFound"/>
-<presentation id="org.eclipse.ui.internal.presentations.r33.WorkbenchPresentationFactory_33">
-<part id="0"/>
+<presentation id="org.eclipse.ui.internal.presentations.r33.WorkbenchPresentationFactory_33">&#x0A;<part id="0"/>
 </presentation>
 </folder>
 </info>
@@ -201,7 +217,6 @@
 <new_wizard_action id="org.eclipse.ui.editors.wizards.UntitledTextFileWizard"/>
 <view id="org.eclipse.ui.console.ConsoleView"/>
 <view id="org.python.pydev.navigator.view"/>
-<view id="org.eclipse.ui.views.ContentOutline"/>
 <fastViewBars/>
 <layout>
 <mainWindow>
@@ -233,12 +248,10 @@
 <info part="org.eclipse.ui.views.BookmarkView" ratio="0.5" ratioLeft="126" ratioRight="126" relationship="2" relative="org.eclipse.ui.internal.ViewStack@bb02e3"/>
 <info part="org.eclipse.ui.views.ProgressView" ratio="0.5" ratioLeft="126" ratioRight="126" relationship="2" relative="org.eclipse.ui.internal.ViewStack@bb02e3"/>
 <info part="org.eclipse.ui.editorss" ratio="0.25992063" ratioLeft="262" ratioRight="746" relationship="2" relative="topLeft"/>
-<info folder="true" part="org.eclipse.ui.internal.ViewStack@1a5e310" ratio="0.81322956" ratioLeft="627" ratioRight="144" relationship="2" relative="org.eclipse.ui.editorss">
-<folder activePageID="org.eclipse.ui.views.ContentOutline" appearance="2" expanded="2">
-<page content="org.eclipse.ui.views.ContentOutline" label="Outline"/>
-<presentation id="org.eclipse.ui.internal.presentations.r33.WorkbenchPresentationFactory_33">
-<part id="0"/>
-</presentation>
+<info folder="true" part="org.eclipse.ui.internal.ViewStack@1a5e310" ratio="0.8625162" ratioLeft="665" ratioRight="106" relationship="2" relative="org.eclipse.ui.editorss">
+<folder appearance="2" expanded="2">
+<page content="org.eclipse.ui.views.ContentOutline" label="LabelNotFound"/>
+<presentation id="org.eclipse.ui.internal.presentations.r33.WorkbenchPresentationFactory_33"/>
 </folder>
 </info>
 <info folder="true" part="org.eclipse.ui.internal.ViewStack@4cd88f" ratio="0.7496013" ratioLeft="470" ratioRight="157" relationship="4" relative="org.eclipse.ui.editorss">
@@ -257,71 +270,20 @@
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.python.pydev.editor.PythonEditor" path="/ARCedPanelTest/src/Actors_Panel.py"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.python.pydev.editor.PythonEditor" path="/ARCedPanelTest/src/ARced_Templates.py"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.python.pydev.editor.PythonEditor" path="/ARCedPanelTest/src/__main__.py"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.python.pydev.editor.PythonEditor" path="/ARCedPanelTest/src/Animations_Panel.py"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.python.pydev.editor.PythonEditor" path="/ARCedPanelTest/src/DatabaseMain_Panel.py"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.python.pydev.editor.PythonEditor" path="/ARCedPanelTest/src/ARCedActorParameters_Dialog.py"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.python.pydev.editor.PythonEditor" path="/ARCedPanelTest/src/ActorParameters_Dialog.py"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.python.pydev.editor.PythonEditor" path="/ARCedPanelTest/src/AnimationCellBatch_Dialog.py"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.python.pydev.editor.PythonEditor" path="/ARCedPanelTest/src/AnimationCellProperties_Dialog.py"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.python.pydev.editor.PythonEditor" path="/ARCedPanelTest/src/Troops_Panel.py"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.python.pydev.editor.PythonEditor" path="/ARCedPanelTest/src/ARCedTroops_Panel.py"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.python.pydev.editor.PythonEditor" path="/ARCedPanelTest/src/ARCedChangeMaximum_Dialog.py"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.python.pydev.editor.PythonEditor" path="/ARCedPanelTest/src/ARCedChooseGraphic_Dialog.py"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.python.pydev.editor.PythonEditor" path="/ARCedPanelTest/src/__main__.py"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.python.pydev.editor.PythonEditor" path="/ARCedPanelTest/src/ARCedActorParameters_Dialog.py"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.python.pydev.editor.PythonEditor" path="/ARCedPanelTest/src/ARCedAnimationCellBatch_Dialog.py"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.python.pydev.editor.PythonEditor" path="/ARCedPanelTest/src/ARCedAnimationCellProperties_Dialog.py"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.python.pydev.editor.PythonEditor" path="/ARCedPanelTest/src/ARCedAnimationEntireSlide_Dialog.py"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.python.pydev.editor.PythonEditor" path="/ARCedPanelTest/src/ARCedAnimationTiming_Dialog.py"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.python.pydev.editor.PythonEditor" path="/ARCedPanelTest/src/ARCedAnimationTweening_Dialog.py"/>
 </editors>
-<item historyLabel="DatabaseMain_Panel.py" index="4">
-<position info="not_deleted" x="517" y="0"/>
-</item>
-<item historyLabel="ARced_Templates.py" index="1">
-<position info="not_deleted" x="587879" y="0"/>
-</item>
-<item historyLabel="__main__.py" index="2">
-<position info="not_deleted" x="3723" y="0"/>
-</item>
-<item historyLabel="ARCedActorParameters_Dialog.py" index="5">
-<position/>
-</item>
-<item historyLabel="__main__.py" index="2">
-<position info="not_deleted" x="3723" y="0"/>
-</item>
-<item historyLabel="ARCedActorParameters_Dialog.py" index="5">
-<position/>
-</item>
-<item historyLabel="ActorParameters_Dialog.py" index="6">
-<position/>
-</item>
-<item historyLabel="AnimationCellBatch_Dialog.py" index="7">
-<position/>
-</item>
-<item historyLabel="ActorParameters_Dialog.py" index="6">
-<position/>
-</item>
-<item historyLabel="__main__.py" index="2">
-<position info="not_deleted" x="3064" y="0"/>
-</item>
-<item historyLabel="ARCedActorParameters_Dialog.py" index="5">
-<position/>
-</item>
-<item historyLabel="AnimationCellProperties_Dialog.py" index="8">
-<position/>
-</item>
-<item historyLabel="ARCedActorParameters_Dialog.py" index="5">
-<position/>
-</item>
-<item historyLabel="ActorParameters_Dialog.py" index="6">
-<position/>
-</item>
-<item historyLabel="ARCedActorParameters_Dialog.py" index="5">
-<position/>
-</item>
-<item historyLabel="__main__.py" index="2">
-<position info="not_deleted" x="3064" y="0"/>
-</item>
-<item historyLabel="Animations_Panel.py" index="3">
-<position info="not_deleted" x="109" y="0"/>
-</item>
-<item historyLabel="__main__.py" index="2">
-<position info="not_deleted" x="3064" y="0"/>
-</item>
-<item historyLabel="DatabaseMain_Panel.py" index="4">
+<item historyLabel="DatabaseMain_Panel.py" index="3">
 <position info="not_deleted" x="517" y="0"/>
 </item>
 <item historyLabel="__main__.py" index="2">
@@ -354,7 +316,7 @@
 <item historyLabel="ARced_Templates.py" index="1">
 <position info="not_deleted" x="334" y="0"/>
 </item>
-<item historyLabel="Troops_Panel.py" index="9">
+<item historyLabel="Troops_Panel.py" index="4">
 <position/>
 </item>
 <item historyLabel="ARced_Templates.py" index="1">
@@ -363,59 +325,113 @@
 <item historyLabel="__main__.py" index="2">
 <position info="not_deleted" x="3725" y="0"/>
 </item>
-<item historyLabel="ARCedTroops_Panel.py" index="10">
+<item historyLabel="ARCedTroops_Panel.py" index="5">
 <position/>
 </item>
 <item historyLabel="__main__.py" index="2">
 <position info="not_deleted" x="3350" y="52"/>
 </item>
-<item historyLabel="ARCedTroops_Panel.py" index="10">
+<item historyLabel="ARCedTroops_Panel.py" index="5">
 <position info="not_deleted" x="280" y="0"/>
 </item>
 <item historyLabel="__main__.py" index="2">
 <position info="not_deleted" x="3116" y="0"/>
 </item>
-<item historyLabel="ARCedTroops_Panel.py" index="10">
+<item historyLabel="ARCedTroops_Panel.py" index="5">
 <position info="not_deleted" x="472" y="0"/>
 </item>
 <item historyLabel="__main__.py" index="2">
 <position info="not_deleted" x="3116" y="0"/>
 </item>
-<item historyLabel="ARCedTroops_Panel.py" index="10">
+<item historyLabel="ARCedTroops_Panel.py" index="5">
 <position info="not_deleted" x="628" y="0"/>
 </item>
 <item historyLabel="__main__.py" index="2">
 <position info="not_deleted" x="3324" y="0"/>
 </item>
-<item historyLabel="ARCedChangeMaximum_Dialog.py" index="11">
+<item historyLabel="ARCedChangeMaximum_Dialog.py" index="6">
 <position info="not_deleted" x="501" y="0"/>
 </item>
 <item historyLabel="__main__.py" index="2">
 <position info="not_deleted" x="3324" y="0"/>
 </item>
-<item historyLabel="ARCedChangeMaximum_Dialog.py" index="11">
+<item historyLabel="ARCedChangeMaximum_Dialog.py" index="6">
 <position info="not_deleted" x="521" y="0"/>
 </item>
 <item historyLabel="__main__.py" index="2">
 <position info="not_deleted" x="3170" y="0"/>
 </item>
-<item historyLabel="ARCedChangeMaximum_Dialog.py" index="11">
+<item historyLabel="ARCedChangeMaximum_Dialog.py" index="6">
 <position info="not_deleted" x="521" y="0"/>
 </item>
 <item historyLabel="__main__.py" index="2">
 <position info="not_deleted" x="3170" y="0"/>
 </item>
-<item historyLabel="ARCedChangeMaximum_Dialog.py" index="11">
+<item historyLabel="ARCedChangeMaximum_Dialog.py" index="6">
 <position info="not_deleted" x="519" y="0"/>
 </item>
 <item historyLabel="__main__.py" index="2">
 <position info="not_deleted" x="209" y="0"/>
 </item>
-<item historyLabel="ARCedChangeMaximum_Dialog.py" index="11">
+<item historyLabel="ARCedChangeMaximum_Dialog.py" index="6">
 <position info="not_deleted" x="519" y="0"/>
 </item>
-<item active="true" historyLabel="ARCedTroops_Panel.py" index="10">
+<item historyLabel="ARCedTroops_Panel.py" index="5">
 <position info="not_deleted" x="628" y="0"/>
+</item>
+<item historyLabel="ARCedChooseGraphic_Dialog.py" index="7">
+<position/>
+</item>
+<item historyLabel="__main__.py" index="8">
+<position info="not_deleted" x="209" y="0"/>
+</item>
+<item historyLabel="ARCedTroops_Panel.py" index="5">
+<position info="not_deleted" x="1140" y="0"/>
+</item>
+<item historyLabel="__main__.py" index="8">
+<position info="not_deleted" x="209" y="0"/>
+</item>
+<item historyLabel="ARCedTroops_Panel.py" index="5">
+<position info="not_deleted" x="1140" y="0"/>
+</item>
+<item historyLabel="__main__.py" index="8">
+<position info="not_deleted" x="583" y="0"/>
+</item>
+<item historyLabel="ARCedTroops_Panel.py" index="5">
+<position info="not_deleted" x="1087" y="0"/>
+</item>
+<item historyLabel="__main__.py" index="8">
+<position info="not_deleted" x="583" y="0"/>
+</item>
+<item historyLabel="ARCedChooseGraphic_Dialog.py" index="7">
+<position info="not_deleted" x="579" y="0"/>
+</item>
+<item historyLabel="ARCedTroops_Panel.py" index="5">
+<position info="not_deleted" x="1114" y="0"/>
+</item>
+<item historyLabel="__main__.py" index="8">
+<position info="not_deleted" x="1135" y="0"/>
+</item>
+<item historyLabel="ARCedTroops_Panel.py" index="5">
+<position info="not_deleted" x="650" y="0"/>
+</item>
+<item historyLabel="ARCedActorParameters_Dialog.py" index="9">
+<position/>
+</item>
+<item historyLabel="ARCedAnimationCellBatch_Dialog.py" index="10">
+<position/>
+</item>
+<item historyLabel="ARCedAnimationCellProperties_Dialog.py" index="11">
+<position/>
+</item>
+<item historyLabel="ARCedAnimationEntireSlide_Dialog.py" index="12">
+<position/>
+</item>
+<item historyLabel="ARCedAnimationTiming_Dialog.py" index="13">
+<position/>
+</item>
+<item active="true" historyLabel="ARCedAnimationTweening_Dialog.py" index="14">
+<position/>
 </item>
 </navigationHistory>
 <input factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/" type="8"/>
@@ -423,13 +439,6 @@
 <workbenchWindowAdvisor/>
 <actionBarAdvisor/>
 <trimLayout>
-<trimArea IMemento.internal.id="16384">
-<trimItem IMemento.internal.id="topLeft"/>
-</trimArea>
-<trimArea IMemento.internal.id="131072">
-<trimItem IMemento.internal.id="org.eclipse.ui.internal.ViewStack@1a5e310"/>
-<trimItem IMemento.internal.id="org.eclipse.ui.internal.ViewStack@b98e7f"/>
-</trimArea>
 <trimArea IMemento.internal.id="128">
 <trimItem IMemento.internal.id="org.eclipse.ui.internal.WorkbenchWindow.topBar"/>
 </trimArea>
@@ -441,6 +450,27 @@
 </trimLayout>
 </window>
 <mruList>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.python.pydev.editor.PythonEditor" name="ARCedAnimationTweening_Dialog.py" tooltip="ARCedPanelTest/src/ARCedAnimationTweening_Dialog.py">
+<persistable path="/ARCedPanelTest/src/ARCedAnimationTweening_Dialog.py"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.python.pydev.editor.PythonEditor" name="ARCedAnimationTiming_Dialog.py" tooltip="ARCedPanelTest/src/ARCedAnimationTiming_Dialog.py">
+<persistable path="/ARCedPanelTest/src/ARCedAnimationTiming_Dialog.py"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.python.pydev.editor.PythonEditor" name="ARCedAnimationEntireSlide_Dialog.py" tooltip="ARCedPanelTest/src/ARCedAnimationEntireSlide_Dialog.py">
+<persistable path="/ARCedPanelTest/src/ARCedAnimationEntireSlide_Dialog.py"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.python.pydev.editor.PythonEditor" name="ARCedAnimationCellProperties_Dialog.py" tooltip="ARCedPanelTest/src/ARCedAnimationCellProperties_Dialog.py">
+<persistable path="/ARCedPanelTest/src/ARCedAnimationCellProperties_Dialog.py"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.python.pydev.editor.PythonEditor" name="ARCedAnimationCellBatch_Dialog.py" tooltip="ARCedPanelTest/src/ARCedAnimationCellBatch_Dialog.py">
+<persistable path="/ARCedPanelTest/src/ARCedAnimationCellBatch_Dialog.py"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.python.pydev.editor.PythonEditor" name="ARCedActorParameters_Dialog.py" tooltip="ARCedPanelTest/src/ARCedActorParameters_Dialog.py">
+<persistable path="/ARCedPanelTest/src/ARCedActorParameters_Dialog.py"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.python.pydev.editor.PythonEditor" name="ARCedChooseGraphic_Dialog.py" tooltip="ARCedPanelTest/src/ARCedChooseGraphic_Dialog.py">
+<persistable path="/ARCedPanelTest/src/ARCedChooseGraphic_Dialog.py"/>
+</file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.python.pydev.editor.PythonEditor" name="ARCedChangeMaximum_Dialog.py" tooltip="ARCedPanelTest/src/ARCedChangeMaximum_Dialog.py">
 <persistable path="/ARCedPanelTest/src/ARCedChangeMaximum_Dialog.py"/>
 </file>
@@ -459,23 +489,11 @@
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.python.pydev.editor.PythonEditor" name="ActorParameters_Dialog.py" tooltip="ARCedPanelTest/src/ActorParameters_Dialog.py">
 <persistable path="/ARCedPanelTest/src/ActorParameters_Dialog.py"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.python.pydev.editor.PythonEditor" name="ARCedActorParameters_Dialog.py" tooltip="ARCedPanelTest/src/ARCedActorParameters_Dialog.py">
-<persistable path="/ARCedPanelTest/src/ARCedActorParameters_Dialog.py"/>
-</file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.python.pydev.editor.PythonEditor" name="DatabaseMain_Panel.py" tooltip="ARCedPanelTest/src/DatabaseMain_Panel.py">
 <persistable path="/ARCedPanelTest/src/DatabaseMain_Panel.py"/>
 </file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.python.pydev.editor.PythonEditor" name="Animations_Panel.py" tooltip="ARCedPanelTest/src/Animations_Panel.py">
 <persistable path="/ARCedPanelTest/src/Animations_Panel.py"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.python.pydev.editor.PythonEditor" name="__main__.py" tooltip="ARCedPanelTest/src/__main__.py">
-<persistable path="/ARCedPanelTest/src/__main__.py"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.python.pydev.editor.PythonEditor" name="ARced_Templates.py" tooltip="ARCedPanelTest/src/ARced_Templates.py">
-<persistable path="/ARCedPanelTest/src/ARced_Templates.py"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.python.pydev.editor.PythonEditor" name="Actors_Panel.py" tooltip="ARCedPanelTest/src/Actors_Panel.py">
-<persistable path="/ARCedPanelTest/src/Actors_Panel.py"/>
 </file>
 </mruList>
 </workbench>
