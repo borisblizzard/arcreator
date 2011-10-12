@@ -104,15 +104,27 @@ import ARCedWait_Dialog
 import ARCedWeapons_Panel
 import ARCedWeatherEffects_Dialog
 
-
 class ARCedTest(wx.App):
 
 	def __init__(self, redirect=False, filename=None):
 		wx.App.__init__(self, redirect, filename)
-		self.frame = wx.Frame(None, wx.ID_ANY, title='Database Panel Test')
-		self.panel = ARCedTroops_Panel.ARCedTroops_Panel(self.frame)
+		self.frame = wx.Frame(None, wx.ID_ANY, title='ARCed Panel Test', size=(800, 600))
+		nb = wx.Notebook(self.frame, wx.ID_ANY)
+		tabs = ('Actors', 'Classes', 'Skills', 'Items', 'Weapons', 'Armors',
+				'Enemies', 'Troops', 'States', 'Animations', 'Tilesets',
+				'Common Events', 'System')
+		pages = (ARCedActors_Panel.ARCedActors_Panel, ARCedClasses_Panel.ARCedClasses_Panel,
+				 ARCedSkills_Panel.ARCedSkills_Panel, ARCedItems_Panel.ARCedItems_Panel,
+				 ARCedWeapons_Panel.ARCedWeapons_Panel, ARCedArmors_Panel.ARCedArmors_Panel,
+				 ARCedEnemies_Panel.ARCedEnemies_Panel, ARCedTroops_Panel.ARCedTroops_Panel,
+				 ARCedStates_Panel.ARCedStates_Panel, ARCedAnimations_Panel.ARCedAnimations_Panel,
+				 ARCedTilesets_Panel.ARCedTilesets_Panel, ARCedCommonEvents_Panel.ARCedCommonEvents_Panel,
+				 ARCedSystem_Panel.ARCedSystem_Panel)
+		for i in range(len(pages)):
+			nb.AddPage(pages[i](nb), tabs[i], False, i)
 		self.frame.Show()
 
 if __name__ == '__main__':
 	app = ARCedTest()
 	app.MainLoop()
+	app.Destroy()

@@ -81,8 +81,8 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 		# TODO: Implement comboBoxHelmet_SelectionChanged
 		pass
 	
-	def comboBoxBodyArmor( self, event ):
-		# TODO: Implement comboBoxBodyArmor
+	def comboBoxBodyArmor_SelectionChanged( self, event ):
+		# TODO: Implement comboBoxBodyArmor_SelectionChanged
 		pass
 	
 	def comboBoxAccessory_SelectionChanged( self, event ):

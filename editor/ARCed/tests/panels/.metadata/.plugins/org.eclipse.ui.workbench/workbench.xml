@@ -35,6 +35,7 @@
 <part id="7"/>
 <part id="8"/>
 <part id="9"/>
+<part id="10"/>
 </presentation>
 </folder>
 </info>
@@ -75,9 +76,13 @@
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/ARCedPanelTest/src/ARCedAnimationTiming_Dialog.py"/>
 <editorState selectionHPixel="0" selectionLength="0" selectionOffset="0"/>
 </editor>
-<editor activePart="true" focus="true" id="org.python.pydev.editor.PythonEditor" name="ARCedAnimationTweening_Dialog.py" partName="ARCedAnimationTweening_Dialog.py" path="C:/Users/Eric/Desktop/ARC/editor/ARCed/tests/panels/ARCedPanelTest/src/ARCedAnimationTweening_Dialog.py" title="ARCedAnimationTweening_Dialog.py" tooltip="ARCedPanelTest/src/ARCedAnimationTweening_Dialog.py" workbook="DefaultEditorWorkbook">
+<editor id="org.python.pydev.editor.PythonEditor" name="ARCedAnimationTweening_Dialog.py" partName="ARCedAnimationTweening_Dialog.py" path="C:/Users/Eric/Desktop/ARC/editor/ARCed/tests/panels/ARCedPanelTest/src/ARCedAnimationTweening_Dialog.py" title="ARCedAnimationTweening_Dialog.py" tooltip="ARCedPanelTest/src/ARCedAnimationTweening_Dialog.py" workbook="DefaultEditorWorkbook">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/ARCedPanelTest/src/ARCedAnimationTweening_Dialog.py"/>
 <editorState selectionHPixel="0" selectionLength="0" selectionOffset="0"/>
+</editor>
+<editor activePart="true" focus="true" id="org.python.pydev.editor.PythonEditor" name="ARCedBattleAnimation_Dialog.py" partName="ARCedBattleAnimation_Dialog.py" path="C:/Users/Eric/Desktop/ARC/editor/ARCed/tests/panels/ARCedPanelTest/src/ARCedBattleAnimation_Dialog.py" title="ARCedBattleAnimation_Dialog.py" tooltip="ARCedPanelTest/src/ARCedBattleAnimation_Dialog.py" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/ARCedPanelTest/src/ARCedBattleAnimation_Dialog.py"/>
+<editorState selectionHPixel="0" selectionLength="0" selectionOffset="487"/>
 </editor>
 </editors>
 <views>
@@ -85,8 +90,9 @@
 <viewState CommonNavigator.LINKING_ENABLED="0" org.eclipse.ui.navigator.resources.workingSets.showTopLevelWorkingSets="0">
 <expanded IMemento.internal.id="C:/Users/Eric/Desktop/ARC/editor/ARCed/tests/panels/ARCedPanelTest"/>
 <expanded IMemento.internal.id="C:/Users/Eric/Desktop/ARC/editor/ARCed/tests/panels/ARCedPanelTest/src"/>
+<expanded IMemento.internal.id="C:/Users/Eric/Desktop/ARC/editor/ARCed/tests/panels/ARCedPanelTest/src/ARCedAnimationTweening_Dialog.py"/>
+<expanded IMemento.internal.id="C:/Users/Eric/Desktop/ARC/editor/ARCed/tests/panels/ARCedPanelTest/src/ARCedBattleAnimation_Dialog.py"/>
 <expanded IMemento.internal.id="C:/Users/Eric/Desktop/ARC/editor/ARCed/tests/panels/ARCedPanelTest/src/ARCedChangeMaximum_Dialog.py"/>
-<selected IMemento.internal.id="C:/Users/Eric/Desktop/ARC/editor/ARCed/tests/panels/ARCedPanelTest/src/ARCedAnimationTweening_Dialog.py"/>
 </viewState>
 </view>
 <view id="org.eclipse.ui.views.TaskList" partName="Tasks">
@@ -270,7 +276,6 @@
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.python.pydev.editor.PythonEditor" path="/ARCedPanelTest/src/Actors_Panel.py"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.python.pydev.editor.PythonEditor" path="/ARCedPanelTest/src/ARced_Templates.py"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.python.pydev.editor.PythonEditor" path="/ARCedPanelTest/src/__main__.py"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.python.pydev.editor.PythonEditor" path="/ARCedPanelTest/src/DatabaseMain_Panel.py"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.python.pydev.editor.PythonEditor" path="/ARCedPanelTest/src/Troops_Panel.py"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.python.pydev.editor.PythonEditor" path="/ARCedPanelTest/src/ARCedTroops_Panel.py"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.python.pydev.editor.PythonEditor" path="/ARCedPanelTest/src/ARCedChangeMaximum_Dialog.py"/>
@@ -282,13 +287,8 @@
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.python.pydev.editor.PythonEditor" path="/ARCedPanelTest/src/ARCedAnimationEntireSlide_Dialog.py"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.python.pydev.editor.PythonEditor" path="/ARCedPanelTest/src/ARCedAnimationTiming_Dialog.py"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.python.pydev.editor.PythonEditor" path="/ARCedPanelTest/src/ARCedAnimationTweening_Dialog.py"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.python.pydev.editor.PythonEditor" path="/ARCedPanelTest/src/ARCedBattleAnimation_Dialog.py"/>
 </editors>
-<item historyLabel="DatabaseMain_Panel.py" index="3">
-<position info="not_deleted" x="517" y="0"/>
-</item>
-<item historyLabel="__main__.py" index="2">
-<position info="not_deleted" x="3064" y="0"/>
-</item>
 <item historyLabel="ARced_Templates.py" index="1">
 <position info="not_deleted" x="587879" y="0"/>
 </item>
@@ -316,7 +316,7 @@
 <item historyLabel="ARced_Templates.py" index="1">
 <position info="not_deleted" x="334" y="0"/>
 </item>
-<item historyLabel="Troops_Panel.py" index="4">
+<item historyLabel="Troops_Panel.py" index="3">
 <position/>
 </item>
 <item historyLabel="ARced_Templates.py" index="1">
@@ -325,113 +325,119 @@
 <item historyLabel="__main__.py" index="2">
 <position info="not_deleted" x="3725" y="0"/>
 </item>
-<item historyLabel="ARCedTroops_Panel.py" index="5">
+<item historyLabel="ARCedTroops_Panel.py" index="4">
 <position/>
 </item>
 <item historyLabel="__main__.py" index="2">
 <position info="not_deleted" x="3350" y="52"/>
 </item>
-<item historyLabel="ARCedTroops_Panel.py" index="5">
+<item historyLabel="ARCedTroops_Panel.py" index="4">
 <position info="not_deleted" x="280" y="0"/>
 </item>
 <item historyLabel="__main__.py" index="2">
 <position info="not_deleted" x="3116" y="0"/>
 </item>
-<item historyLabel="ARCedTroops_Panel.py" index="5">
+<item historyLabel="ARCedTroops_Panel.py" index="4">
 <position info="not_deleted" x="472" y="0"/>
 </item>
 <item historyLabel="__main__.py" index="2">
 <position info="not_deleted" x="3116" y="0"/>
 </item>
-<item historyLabel="ARCedTroops_Panel.py" index="5">
+<item historyLabel="ARCedTroops_Panel.py" index="4">
 <position info="not_deleted" x="628" y="0"/>
 </item>
 <item historyLabel="__main__.py" index="2">
 <position info="not_deleted" x="3324" y="0"/>
 </item>
-<item historyLabel="ARCedChangeMaximum_Dialog.py" index="6">
+<item historyLabel="ARCedChangeMaximum_Dialog.py" index="5">
 <position info="not_deleted" x="501" y="0"/>
 </item>
 <item historyLabel="__main__.py" index="2">
 <position info="not_deleted" x="3324" y="0"/>
 </item>
-<item historyLabel="ARCedChangeMaximum_Dialog.py" index="6">
+<item historyLabel="ARCedChangeMaximum_Dialog.py" index="5">
 <position info="not_deleted" x="521" y="0"/>
 </item>
 <item historyLabel="__main__.py" index="2">
 <position info="not_deleted" x="3170" y="0"/>
 </item>
-<item historyLabel="ARCedChangeMaximum_Dialog.py" index="6">
+<item historyLabel="ARCedChangeMaximum_Dialog.py" index="5">
 <position info="not_deleted" x="521" y="0"/>
 </item>
 <item historyLabel="__main__.py" index="2">
 <position info="not_deleted" x="3170" y="0"/>
 </item>
-<item historyLabel="ARCedChangeMaximum_Dialog.py" index="6">
+<item historyLabel="ARCedChangeMaximum_Dialog.py" index="5">
 <position info="not_deleted" x="519" y="0"/>
 </item>
 <item historyLabel="__main__.py" index="2">
 <position info="not_deleted" x="209" y="0"/>
 </item>
-<item historyLabel="ARCedChangeMaximum_Dialog.py" index="6">
+<item historyLabel="ARCedChangeMaximum_Dialog.py" index="5">
 <position info="not_deleted" x="519" y="0"/>
 </item>
-<item historyLabel="ARCedTroops_Panel.py" index="5">
+<item historyLabel="ARCedTroops_Panel.py" index="4">
 <position info="not_deleted" x="628" y="0"/>
 </item>
-<item historyLabel="ARCedChooseGraphic_Dialog.py" index="7">
+<item historyLabel="ARCedChooseGraphic_Dialog.py" index="6">
 <position/>
 </item>
-<item historyLabel="__main__.py" index="8">
+<item historyLabel="__main__.py" index="7">
 <position info="not_deleted" x="209" y="0"/>
 </item>
-<item historyLabel="ARCedTroops_Panel.py" index="5">
+<item historyLabel="ARCedTroops_Panel.py" index="4">
 <position info="not_deleted" x="1140" y="0"/>
 </item>
-<item historyLabel="__main__.py" index="8">
+<item historyLabel="__main__.py" index="7">
 <position info="not_deleted" x="209" y="0"/>
 </item>
-<item historyLabel="ARCedTroops_Panel.py" index="5">
+<item historyLabel="ARCedTroops_Panel.py" index="4">
 <position info="not_deleted" x="1140" y="0"/>
 </item>
-<item historyLabel="__main__.py" index="8">
+<item historyLabel="__main__.py" index="7">
 <position info="not_deleted" x="583" y="0"/>
 </item>
-<item historyLabel="ARCedTroops_Panel.py" index="5">
+<item historyLabel="ARCedTroops_Panel.py" index="4">
 <position info="not_deleted" x="1087" y="0"/>
 </item>
-<item historyLabel="__main__.py" index="8">
+<item historyLabel="__main__.py" index="7">
 <position info="not_deleted" x="583" y="0"/>
 </item>
-<item historyLabel="ARCedChooseGraphic_Dialog.py" index="7">
+<item historyLabel="ARCedChooseGraphic_Dialog.py" index="6">
 <position info="not_deleted" x="579" y="0"/>
 </item>
-<item historyLabel="ARCedTroops_Panel.py" index="5">
+<item historyLabel="ARCedTroops_Panel.py" index="4">
 <position info="not_deleted" x="1114" y="0"/>
 </item>
-<item historyLabel="__main__.py" index="8">
+<item historyLabel="__main__.py" index="7">
 <position info="not_deleted" x="1135" y="0"/>
 </item>
-<item historyLabel="ARCedTroops_Panel.py" index="5">
+<item historyLabel="ARCedTroops_Panel.py" index="4">
 <position info="not_deleted" x="650" y="0"/>
 </item>
-<item historyLabel="ARCedActorParameters_Dialog.py" index="9">
+<item historyLabel="ARCedActorParameters_Dialog.py" index="8">
 <position/>
 </item>
-<item historyLabel="ARCedAnimationCellBatch_Dialog.py" index="10">
+<item historyLabel="ARCedAnimationCellBatch_Dialog.py" index="9">
 <position/>
 </item>
-<item historyLabel="ARCedAnimationCellProperties_Dialog.py" index="11">
+<item historyLabel="ARCedAnimationCellProperties_Dialog.py" index="10">
 <position/>
 </item>
-<item historyLabel="ARCedAnimationEntireSlide_Dialog.py" index="12">
+<item historyLabel="ARCedAnimationEntireSlide_Dialog.py" index="11">
 <position/>
 </item>
-<item historyLabel="ARCedAnimationTiming_Dialog.py" index="13">
+<item historyLabel="ARCedAnimationTiming_Dialog.py" index="12">
 <position/>
 </item>
-<item active="true" historyLabel="ARCedAnimationTweening_Dialog.py" index="14">
+<item historyLabel="ARCedAnimationTweening_Dialog.py" index="13">
 <position/>
+</item>
+<item historyLabel="ARCedBattleAnimation_Dialog.py" index="14">
+<position info="not_deleted" x="619" y="0"/>
+</item>
+<item active="true" historyLabel="ARCedBattleAnimation_Dialog.py" index="14">
+<position info="not_deleted" x="707" y="0"/>
 </item>
 </navigationHistory>
 <input factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/" type="8"/>
@@ -450,6 +456,9 @@
 </trimLayout>
 </window>
 <mruList>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.python.pydev.editor.PythonEditor" name="ARCedBattleAnimation_Dialog.py" tooltip="ARCedPanelTest/src/ARCedBattleAnimation_Dialog.py">
+<persistable path="/ARCedPanelTest/src/ARCedBattleAnimation_Dialog.py"/>
+</file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.python.pydev.editor.PythonEditor" name="ARCedAnimationTweening_Dialog.py" tooltip="ARCedPanelTest/src/ARCedAnimationTweening_Dialog.py">
 <persistable path="/ARCedPanelTest/src/ARCedAnimationTweening_Dialog.py"/>
 </file>
@@ -491,9 +500,6 @@
 </file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.python.pydev.editor.PythonEditor" name="DatabaseMain_Panel.py" tooltip="ARCedPanelTest/src/DatabaseMain_Panel.py">
 <persistable path="/ARCedPanelTest/src/DatabaseMain_Panel.py"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.python.pydev.editor.PythonEditor" name="Animations_Panel.py" tooltip="ARCedPanelTest/src/Animations_Panel.py">
-<persistable path="/ARCedPanelTest/src/Animations_Panel.py"/>
 </file>
 </mruList>
 </workbench>
