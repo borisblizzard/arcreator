@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<launchConfiguration type="org.python.pydev.debug.regularLaunchConfigurationType">
-<stringAttribute key="org.eclipse.ui.externaltools.ATTR_LOCATION" value="C:/Users/Eric/Desktop/ARC/editor/ARCed/tests/panels/ARCedPanelTest/src/DatabaseMain_Panel.py"/>
-<stringAttribute key="org.eclipse.ui.externaltools.ATTR_TOOL_ARGUMENTS" value=""/>
-<stringAttribute key="org.eclipse.ui.externaltools.ATTR_WORKING_DIRECTORY" value="C:/Users/Eric/Desktop/ARC/editor/ARCed/tests/panels/ARCedPanelTest/src"/>
-<stringAttribute key="org.python.pydev.debug.ATTR_INTERPRETER" value="__default"/>
-<stringAttribute key="org.python.pydev.debug.ATTR_PROJECT" value="ARCedPanelTest"/>
-<intAttribute key="org.python.pydev.debug.ATTR_RESOURCE_TYPE" value="1"/>
-</launchConfiguration>
