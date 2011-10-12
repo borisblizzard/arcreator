@@ -9,12 +9,16 @@ class ARCedDatabaseMain_Panel( ARCed_Templates.DatabaseMain_Panel ):
 		ARCed_Templates.DatabaseMain_Panel.__init__( self, parent )
 	
 	# Handlers for DatabaseMain_Panel events.
-	def buttonOK_Clicked( self, event ):
-		# TODO: Implement buttonOK_Clicked
+	def buttonMainOK_Clicked( self, event ):
+		# TODO: Implement buttonMainOK_Clicked
 		pass
 	
-	def buttonCancel( self, event ):
-		# TODO: Implement buttonCancel
+	def buttonMainCancel_Clicked( self, event ):
+		# TODO: Implement buttonMainCancel_Clicked
+		pass
+	
+	def buttonMainApply_Clicked( self, event ):
+		# TODO: Implement buttonMainApply_Clicked
 		pass
 	
 	
