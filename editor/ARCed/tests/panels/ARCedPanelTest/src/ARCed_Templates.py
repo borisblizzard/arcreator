@@ -12,59 +12,6 @@ import wx.xrc
 import wx.combo
 
 ###########################################################################
-## Class DatabaseMain_Panel
-###########################################################################
-
-class DatabaseMain_Panel ( wx.Panel ):
-	
-	def __init__( self, parent ):
-		wx.Panel.__init__ ( self, parent, id = wx.ID_ANY, pos = wx.DefaultPosition, size = wx.Size( 500,300 ), style = wx.TAB_TRAVERSAL )
-		
-		MainSizer = wx.BoxSizer( wx.VERTICAL )
-		
-		self.noteBookMain = wx.Notebook( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.panelDummyTab = wx.Panel( self.noteBookMain, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
-		self.noteBookMain.AddPage( self.panelDummyTab, u"Actors", False )
-		
-		MainSizer.Add( self.noteBookMain, 1, wx.EXPAND |wx.ALL, 5 )
-		
-		bSizer637 = wx.BoxSizer( wx.HORIZONTAL )
-		
-		self.buttonMainOK = wx.Button( self, wx.ID_ANY, u"OK", wx.DefaultPosition, wx.DefaultSize, 0 )
-		bSizer637.Add( self.buttonMainOK, 0, wx.ALL, 5 )
-		
-		self.buttonMainCancel = wx.Button( self, wx.ID_ANY, u"Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
-		bSizer637.Add( self.buttonMainCancel, 0, wx.ALL, 5 )
-		
-		self.buttonMainApply = wx.Button( self, wx.ID_ANY, u"Apply", wx.DefaultPosition, wx.DefaultSize, 0 )
-		bSizer637.Add( self.buttonMainApply, 0, wx.ALL, 5 )
-		
-		MainSizer.Add( bSizer637, 0, wx.ALIGN_RIGHT, 5 )
-		
-		self.SetSizer( MainSizer )
-		self.Layout()
-		
-		# Connect Events
-		self.buttonMainOK.Bind( wx.EVT_BUTTON, self.buttonMainOK_Clicked )
-		self.buttonMainCancel.Bind( wx.EVT_BUTTON, self.buttonMainCancel_Clicked )
-		self.buttonMainApply.Bind( wx.EVT_BUTTON, self.buttonMainApply_Clicked )
-	
-	def __del__( self ):
-		pass
-	
-	
-	# Virtual event handlers, overide them in your derived class
-	def buttonMainOK_Clicked( self, event ):
-		pass
-	
-	def buttonMainCancel_Clicked( self, event ):
-		pass
-	
-	def buttonMainApply_Clicked( self, event ):
-		pass
-	
-
-###########################################################################
 ## Class Actors_Panel
 ###########################################################################
 
@@ -8470,10 +8417,10 @@ class ChangeTextOptions_Dialog ( wx.Dialog ):
 	
 
 ###########################################################################
-## Class ButonProcessing_Dialog
+## Class ButtonProcessing_Dialog
 ###########################################################################
 
-class ButonProcessing_Dialog ( wx.Dialog ):
+class ButtonProcessing_Dialog ( wx.Dialog ):
 	
 	def __init__( self, parent ):
 		wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Button Input Processing", pos = wx.DefaultPosition, size = wx.Size( 274,97 ), style = wx.DEFAULT_DIALOG_STYLE )
