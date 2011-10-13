@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{d772c392-e7b6-4c18-8c5f-49bac2a1e237}</ProjectGuid>
+    <ProjectHome>.</ProjectHome>
+    <StartupFile>src\Main.py</StartupFile>
+    <SearchPath>
+    </SearchPath>
+    <WorkingDirectory>.</WorkingDirectory>
+    <AssemblyName>ARCed</AssemblyName>
+    <Name>ARCed</Name>
+    <RootNamespace>ARCed</RootNamespace>
+    <SccProjectName>Svn</SccProjectName>
+    <SccProvider>SubversionScc</SccProvider>
+    <SccAuxPath>Svn</SccAuxPath>
+    <SccLocalPath>Svn</SccLocalPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DebugSymbols>true</DebugSymbols>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DebugSymbols>true</DebugSymbols>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+  </PropertyGroup>
+  <ItemGroup>
+    <Content Include=".project" />
+    <Content Include=".pydevproject" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="EditorIcons\" />
+    <Folder Include="src\" />
+    <Folder Include="src\Core\" />
+    <Folder Include="src\Core\RMXP\" />
+    <Folder Include="tests\" />
+    <Folder Include="tests\Core\" />
+    <Folder Include="tests\Core\RMXP\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="src\Core\Actions.py" />
+    <Compile Include="src\Core\ARC_Data.py" />
+    <Compile Include="src\Core\Controls.py" />
+    <Compile Include="src\Core\Data.py" />
+    <Compile Include="src\Core\Dialogs.py" />
+    <Compile Include="src\Core\Frames.py" />
+    <Compile Include="src\Core\Layouts.py" />
+    <Compile Include="src\Core\Menues.py" />
+    <Compile Include="src\Core\PanelManager.py" />
+    <Compile Include="src\Core\Project.py" />
+    <Compile Include="src\Core\register.py" />
+    <Compile Include="src\Core\RMXP\Cache.py" />
+    <Compile Include="src\Core\RMXP\Dialogs.py" />
+    <Compile Include="src\Core\RMXP\RGSS1_RPG.py" />
+    <Compile Include="src\Core\RMXP\RPGutil.py" />
+    <Compile Include="src\Core\RMXP\__init__.py" />
+    <Compile Include="src\Core\__init__.py" />
+    <Compile Include="src\Kernel.py" />
+    <Compile Include="src\Main.py" />
+    <Compile Include="tests\cache.py" />
+    <Compile Include="tests\Core\RMXP\RGSS1_RPG.py" />
+    <Compile Include="tests\Core\RMXP\RMXPProject.py" />
+    <Compile Include="tests\Core\RMXP\RPGutil.py" />
+    <Compile Include="tests\Core\RMXP\__init__.py" />
+    <Compile Include="tests\Core\__init__.py" />
+    <Compile Include="tests\pygletwx.py" />
+    <Compile Include="tests\RPGutil.py" />
+    <Compile Include="tests\wxgltest.py" />
+  </ItemGroup>
+</Project>
