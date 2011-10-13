@@ -133,7 +133,7 @@ class Manager(object):
     def get_type(name, super_name=None):
         '''gets a type object'''
         try:
-            if super_name:
+            if super_name is not None:
                 return Manager.types[str(super_name)].get_type(str(name))
             else:
                 return Manager.types[str(name)]
