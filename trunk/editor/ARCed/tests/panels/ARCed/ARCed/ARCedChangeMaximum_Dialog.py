@@ -5,16 +5,15 @@ import ARCed_Templates
 
 # Implementing ChangeMaximum_Dialog
 class ARCedChangeMaximum_Dialog( ARCed_Templates.ChangeMaximum_Dialog ):
-	def __init__( self, parent ):
+	def __init__( self, parent, currentMaximum ):
 		ARCed_Templates.ChangeMaximum_Dialog.__init__( self, parent )
-	
+		self.spinCtrlMaximum.SetValue(currentMaximum)
+
 	# Handlers for ChangeMaximum_Dialog events.
 	def buttonOK_Clicked( self, event ):
-		# TODO: Implement buttonOK_Clicked
-		pass
-	
+		self.EndModal(wx.ID_OK)
+
 	def buttonCancel_Clicked( self, event ):
-		# TODO: Implement buttonCancel_Clicked
-		pass
-	
-	
+		self.EndModal(wx.ID_CANCEL)
+
+
