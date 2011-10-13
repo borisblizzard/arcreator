@@ -21,7 +21,6 @@ class RMXPType(SuperType):
     #---------------------------- data holder --------------------------------
     RPG = Type("RPG")
     Table = Type("Table")
-    Project = Type("Project")
     WxCache = Type("WxCache")
     #PyGameCache = Type("PyGameCache")
 
@@ -54,7 +53,7 @@ class RMXPType(SuperType):
         #self.add_types(self.HueRotationOperator, self.AdjustAlphaOperator)
 
         #------------------------- data holder -------------------------------
-        self.add_types(self.RPG, self.Table, self.Project, self.WxCache)
+        self.add_types(self.RPG, self.Table, self.WxCache)
         #, self.PyGameCache)
 
         #------------------------ data handlers ------------------------------
@@ -101,6 +100,7 @@ class CorePackage(Package):
         ARCProjectLoadFunction = Type("ARCProjectLoadFunction")
         
         #---------------------------- Data handlers ----------------------------------
+        Project = Type("Project")
         NewProjectHandler = Type("NewProjectHandler")
         OpenProjectHandler = Type("OpenProjectHandler")
         SaveProjectHandler = Type("SaveProjectHandler")
@@ -144,8 +144,8 @@ class CorePackage(Package):
                        ARCProjectLoadFunction)
         
         #------------------------------ data handlers --------------------------------
-        self.add_types(NewProjectHandler, OpenProjectHandler, SaveProjectHandler, 
-                               SaveAsProjectHandler, ARCProjectCreator)
+        self.add_types(Project, NewProjectHandler, OpenProjectHandler, SaveProjectHandler, 
+                               SaveAsProjectHandler, ARCProjectCreator, ARCProjectHolder)
         
         #-------------------------------- frames -------------------------------------
         self.add_types(EditorMainWindow)
@@ -282,9 +282,6 @@ class CorePackage(Package):
                                      "RGSS1_RPG", "CORE", 1.0, self))
         self.add_component(Component(RMXP.RPGutil.Table, "Table", "RMXP",
                                      "RMXPTable", "CORE", 1.0, self))
-        self.add_component(Component(Project.Project, "Project",
-                                     None, "CoreRMXPProject", "CORE", 1.0,
-                                     self))
         self.add_component(Component(RMXP.Cache.WxCache, "WxCache", "RMXP",
                                      "RMXPWxCache", "CORE", 1.0, self))
 
