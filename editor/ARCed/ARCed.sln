@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "ARCed", "ARCed.pyproj", "{D772C392-E7B6-4C18-8C5F-49BAC2A1E237}"
+EndProject
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "ARCed Panel Tests", "tests\panels\ARCed\ARCed\ARCed Panel Tests.pyproj", "{F304F521-45D6-462E-BC94-0BF96259A23B}"
+EndProject
+Global
+	GlobalSection(SubversionScc) = preSolution
+		Svn-Managed = True
+		Manager = AnkhSVN - Subversion Support for Visual Studio
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D772C392-E7B6-4C18-8C5F-49BAC2A1E237}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D772C392-E7B6-4C18-8C5F-49BAC2A1E237}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F304F521-45D6-462E-BC94-0BF96259A23B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F304F521-45D6-462E-BC94-0BF96259A23B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

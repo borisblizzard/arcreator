@@ -24,7 +24,6 @@ from Kernel import Manager as KM
 import Core
 
 
-
 class ARC_App(wx.App):
 
     def OnInit(self):

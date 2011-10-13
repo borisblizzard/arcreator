@@ -3,5 +3,4 @@ import Cache
 import Data
 import Dialogs
 import RGSS1_RPG
-import RMPY
 import RPGutil

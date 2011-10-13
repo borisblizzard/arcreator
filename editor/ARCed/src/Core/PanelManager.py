@@ -71,7 +71,7 @@ class PanelManager(object):
             self.dispached[id].Destroy()
             del self.dispached[id]
     
-    def generate_info(self, info, data={}, info=None):
+    def generate_info(self, info, data={}, info_obj=None):
         '''
         generates a AuiPaneInfo object from the info string and data dict. 
         if an existing AuiPaneInfo object is provided it is extended with the information in the info string and data dict.
@@ -84,209 +84,209 @@ class PanelManager(object):
             are a sequence of parameters that could be expanded to provide the arguments for the methods 
             those names would call on the AuiPaneInfo object
             
-        @param info: a AuiPaneInfo object to be extended
+        @param info_obj: a AuiPaneInfo object to be extended
         '''
-        if info is None:
-            info = aui.AuiPaneInfo()
+        if info_obj is None:
+            info_obj = aui.AuiPaneInfo()
         if "Caption" in info:
             if data.has_key("Caption"):
-                info.Caption(data["Caption"])
+                info_obj.Caption(data["Caption"])
         if "Center" in info:
-            info.Center()
+            info_obj.Center()
         if "CenterP" in info:
-            info.CenterPane()
+            info_obj.CenterPane()
         if "CaptionV" in info:
             if data.has_key("CaptionV"):
-                info.CaptionVisible(*data["CaptionV"])
+                info_obj.CaptionVisible(*data["CaptionV"])
             else:
-                info.CaptionVisible(True)
+                info_obj.CaptionVisible(True)
         if "BestS" in info:
             if data.has_key("BestS"):
-                info.BestSize(*data["BestS"])
+                info_obj.BestSize(*data["BestS"])
         if "CloseB" in info:
             if data.has_key("CloseB"):
-                info.CloseButton(data["CloseB"])
+                info_obj.CloseButton(data["CloseB"])
             else:
-                info.CloseButton(True)
+                info_obj.CloseButton(True)
         if "Bottom" in info:
-            info.Bottom()
+            info_obj.Bottom()
         if "BottomD" in info:
             if data.has_key("BottomD"):
-                info.BottomDockable(data["BottomD"])
+                info_obj.BottomDockable(data["BottomD"])
             else:
-                info.BottomDockable(True)
+                info_obj.BottomDockable(True)
         if "BottomS" in info:
             if data.has_key("BottomS"):
-                info.BottomSnappable(data["BottomS"])
+                info_obj.BottomSnappable(data["BottomS"])
             else:
-                info.BottomSnappable(True)
+                info_obj.BottomSnappable(True)
         if "DefaultP" in info:
-            info.DefaultPane()
+            info_obj.DefaultPane()
         if "DestroyOC" in info:
             if data.has_key("DestroyOC"):
-                info.DestroyOnClose(data["DestroyOC"])
+                info_obj.DestroyOnClose(data["DestroyOC"])
             else:
-                info.DestroyOnClose(True)
+                info_obj.DestroyOnClose(True)
         if "Dock" in info:
-            info.Dock()
+            info_obj.Dock()
         if "DockF" in info:
             if data.has_key("DockF"):
-                info.DockFixed(data["DockF"])
+                info_obj.DockFixed(data["DockF"])
             else:
-                info.DockFixed(True)
+                info_obj.DockFixed(True)
         if "Dockable" in info:
             if data.has_key("Dockable"):
-                info.Dockable(data["Dockable"])
+                info_obj.Dockable(data["Dockable"])
             else:
-                info.Dockable(True)
+                info_obj.Dockable(True)
         if "Fixed" in info:
-            info.Fixed()
+            info_obj.Fixed()
         if "Float" in info:
-            info.Float()
+            info_obj.Float()
         if "Floatable" in info:
             if data.has_key("Floatable"):
-                info.Floatable(data["Floatable"])
+                info_obj.Floatable(data["Floatable"])
             else:
-                info.Floatable(True)
+                info_obj.Floatable(True)
         if "FloatingP" in info:
             if data.has_key("FloatingP"):
-                info.FloatingPosition(data["FloatingP"])
+                info_obj.FloatingPosition(data["FloatingP"])
         if "FloatingS" in info:
             if data.has_key("FloatingS"):
-                info.FloatingSize(data["FloatingS"])
+                info_obj.FloatingSize(data["FloatingS"])
         if "FlyOut" in info:
             if data.has_key("FlyOut"):
-                info.FlyOut(data["FlyOut"])
+                info_obj.FlyOut(data["FlyOut"])
             else:
-                info.FlyOut(True)
+                info_obj.FlyOut(True)
         if "Gripper" in info:
             if data.has_key("Gripper"):
-                info.Gripper(data["Gripper"])
+                info_obj.Gripper(data["Gripper"])
             else:
-                info.Gripper()
+                info_obj.Gripper()
         if "GripperT" in info:
             if data.has_key("GripperT"):
-                info.GripperTop(data["GripperT"])
+                info_obj.GripperTop(data["GripperT"])
             else:
-                info.GripperTop(True)
+                info_obj.GripperTop(True)
         if "Hide" in info:
-            info.Hide()
+            info_obj.Hide()
         if "Icon" in info:
             if data.has_key("Icon"):
-                info.Icon(data["Icon"])
+                info_obj.Icon(data["Icon"])
         if "Layer" in info:
             if data.has_key("Layer"):
-                info.Layer(data["Layer"])
+                info_obj.Layer(data["Layer"])
         if "Left" in info:
-            info.Left()
+            info_obj.Left()
         if "LeftD" in info:
             if data.has_key("LeftD"):
-                info.LeftDockable(data["LeftD"])
+                info_obj.LeftDockable(data["LeftD"])
             else:
-                info.LeftDockable(True)
+                info_obj.LeftDockable(True)
         if "LeftS" in info:
             if data.has_key("LeftS"):
-                info.LeftSnappable(data["LeftS"])
+                info_obj.LeftSnappable(data["LeftS"])
             else:
-                info.LeftSnappable(True)
+                info_obj.LeftSnappable(True)
         if "MaxS" in info:
             if data.has_key("MaxS"):
-                info.MaxSize(*data["MaxS"])
+                info_obj.MaxSize(*data["MaxS"])
         if "Maximize" in info:
-            info.Maximize()
+            info_obj.Maximize()
         if "MaximizeB" in info:
             if data.has_key("MaximizeB"):
-                info.MaximizeButton(data["MaximizeB"])
+                info_obj.MaximizeButton(data["MaximizeB"])
             else:
-                info.MaximizeButton(True)
+                info_obj.MaximizeButton(True)
         if "MinS" in info:
             if data.has_key("MinS"):
-                info.MinSize(*data["MinS"])
+                info_obj.MinSize(*data["MinS"])
         if "Minimize" in info:
-            info.Minimize()
+            info_obj.Minimize()
         if "MinimizeB" in info:
             if data.has_key("MinimizeB"):
-                info.MinimizeButton(data["MinimizeB"])
+                info_obj.MinimizeButton(data["MinimizeB"])
             else:
-                info.MinimizeButton(True)
+                info_obj.MinimizeButton(True)
         if "MinimizeM" in info:
             if data.has_key("MinimizeM"):
                 mode = 0
                 for flag in data["MinimizeM"]:
                     mode |= self.minmodes[flag]
-                info.MinimizeMode(mode)
+                info_obj.MinimizeMode(mode)
         if "Movable" in info:
             if data.has_key("Movable"):
-                info.Movable(data["Movable"])
+                info_obj.Movable(data["Movable"])
             else:
-                info.Movable(True)
+                info_obj.Movable(True)
         if "Name" in info:
             if data.has_key("Name"):
-                info.Name(data["Name"])
+                info_obj.Name(data["Name"])
         if "NotebookC" in info:
             if data.has_key("NotebookC"):
-                info.NotebookControl(data["NotebookC"])
+                info_obj.NotebookControl(data["NotebookC"])
         if "NotebookD" in info:
             if data.has_key("NotebookD"):
-                info.NotebookDockable(data["NotebookD"])
+                info_obj.NotebookDockable(data["NotebookD"])
             else:
-                info.NotebookDockable(True)
+                info_obj.NotebookDockable(True)
         if "NotebookP" in info:
             if data.has_key("NotebookP"):
-                info.NotebookPage(*data["NotebookP"])
+                info_obj.NotebookPage(*data["NotebookP"])
         if "PaneB" in info:
             if data.has_key("PaneB"):
-                info.PaneBorder(data["PaneB"])
+                info_obj.PaneBorder(data["PaneB"])
             else:
-                info.PaneBorder(True)
+                info_obj.PaneBorder(True)
         if "PinB" in info:
             if data.has_key("PinB"):
-                info.PinButton(data["PinB"])
+                info_obj.PinButton(data["PinB"])
             else:
-                info.PinButton(True)
+                info_obj.PinButton(True)
         if "Resizable" in info:
             if data.has_key("Resizable"):
-                info.Resizable(data["Resizable"])
+                info_obj.Resizable(data["Resizable"])
             else:
-                info.Resizable(True)
+                info_obj.Resizable(True)
         if "Right" in info:
-            info.Right()
+            info_obj.Right()
         if "RightD" in info:
             if data.has_key("RightD"):
-                info.RightDockable(data["RightD"])
+                info_obj.RightDockable(data["RightD"])
             else:
-                info.RightDockable(True)
+                info_obj.RightDockable(True)
         if "RightS" in info:
             if data.has_key("RightS"):
-                info.RightSnappable(data["RightS"])
+                info_obj.RightSnappable(data["RightS"])
             else:
-                info.RightSnappable(True)
+                info_obj.RightSnappable(True)
         if "Row" in info:
             if data.has_key("Row"):
-                info.Row(data["Row"])
+                info_obj.Row(data["Row"])
         if "Show" in info:
-            info.Show(True)
+            info_obj.Show(True)
         if "Snappable" in info:
             if data.has_key("Snappable"):
-                info.Snappable(data["Snappable"])
+                info_obj.Snappable(data["Snappable"])
             else:
-                info.Snappable(True)
+                info_obj.Snappable(True)
         if "ToolbarPane" in info:
-            info.ToolbarPane()
+            info_obj.ToolbarPane()
         if "Top" in info:
-            info.Top()
+            info_obj.Top()
         if "TopD" in info:
             if data.has_key("TopD"):
-                info.TopDockable(data["TopD"])
+                info_obj.TopDockable(data["TopD"])
             else:
-                info.TopDockable(True)
+                info_obj.TopDockable(True)
         if "TopS" in info:
             if data.has_key("TopS"):
-                info.TopSnappable(data["TopS"])
+                info_obj.TopSnappable(data["TopS"])
             else:
-                info.TopSnappable(True)
+                info_obj.TopSnappable(True)
         if "Transparent" in info:
             if data.has_key("Transparent"):
-                info.Transparent(data["Transparent"])
-        return info
+                info_obj.Transparent(data["Transparent"])
+        return info_obj
     
