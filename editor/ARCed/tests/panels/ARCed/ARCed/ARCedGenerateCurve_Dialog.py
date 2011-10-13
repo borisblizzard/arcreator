@@ -7,22 +7,19 @@ import ARCed_Templates
 class ARCedGenerateCurve_Dialog( ARCed_Templates.GenerateCurve_Dialog ):
 	def __init__( self, parent ):
 		ARCed_Templates.GenerateCurve_Dialog.__init__( self, parent )
-	
+
 	# Handlers for GenerateCurve_Dialog events.
 	def spinCtrlMaxLevel_ValueChanged( self, event ):
 		# TODO: Implement spinCtrlMaxLevel_ValueChanged
 		pass
-	
+
 	def buttonOK_Clicked( self, event ):
-		# TODO: Implement buttonOK_Clicked
-		pass
-	
+		self.EndModal(wx.ID_OK)
+
 	def buttonCancel_Clicked( self, event ):
-		# TODO: Implement buttonCancel_Clicked
-		pass
-	
+		self.EndModal(wx.ID_CANCEL)
+
 	def sliderCurve_Scrolled( self, event ):
 		# TODO: Implement sliderCurve_Scrolled
 		pass
-	
-	
+

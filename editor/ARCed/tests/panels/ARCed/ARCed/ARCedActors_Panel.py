@@ -18,8 +18,15 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 		pass
 
 	def buttonMaximum_Clicked( self, event ):
-		# TODO: Implement buttonMaximum_Clicked
-		pass
+		# TODO: Change '32' to actual value
+		dlgMax = ARCedChangeMaximum_Dialog.ARCedChangeMaximum_Dialog(self, 32)
+		if dlgMax.ShowModal() == wx.ID_OK:
+			newValue = dlgMax.spinCtrlMaximum.GetValue()
+			if newValue != 32: #!
+				# TODO: Implement setting of new value
+				print 'Value of ' + str(newValue) + ' has been set'
+		dlgMax.Destroy()
+
 
 	def textBoxName_TextChanged( self, event ):
 		# TODO: Implement textBoxName_TextChanged
@@ -50,28 +57,30 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 		pass
 
 	def bitmapMaxHP_Click( self, event ):
-		# TODO: Implement bitmapMaxHP_Click
-		pass
+		self.showActorParametersDialog(0)
 
 	def bitmapStr_Click( self, event ):
-		# TODO: Implement bitmapStr_Click
-		pass
+		self.showActorParametersDialog(2)
 
 	def bitmapAgi_Click( self, event ):
-		# TODO: Implement bitmapAgi_Click
-		pass
+		self.showActorParametersDialog(4)
 
 	def bitmapMaxSP_Click( self, event ):
-		# TODO: Implement bitmapMaxSP_Click
-		pass
+		self.showActorParametersDialog(1)
 
 	def bitmapDex_Click( self, event ):
-		# TODO: Implement bitmapDex_Click
-		pass
+		self.showActorParametersDialog(3)
 
 	def bitmapInt_Click( self, event ):
-		# TODO: Implement bitmapInt_Click
-		pass
+		self.showActorParametersDialog(5)
+
+	def showActorParametersDialog(self, index):
+		dlg = ARCedActorParameters_Dialog.ARCedActorParameters_Dialog(self) # ACTOR argument
+		dlg.noteBookExperienceCurve.ChangeSelection(index)
+		if dlg.ShowModal() == wx.ID_OK:
+			# TODO: IMPLEMENT
+			print 'Change Values'
+		dlg.Destroy()
 
 	def comboBoxWeapon_SelectionChanged( self, event ):
 		# TODO: Implement comboBoxWeapon_SelectionChanged
