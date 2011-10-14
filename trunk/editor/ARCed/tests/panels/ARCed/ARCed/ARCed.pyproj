@@ -1,0 +1,139 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{f304f521-45d6-462e-bc94-0bf96259a23b}</ProjectGuid>
+    <ProjectHome>.</ProjectHome>
+    <StartupFile>__main__.py</StartupFile>
+    <SearchPath>
+    </SearchPath>
+    <WorkingDirectory>.</WorkingDirectory>
+    <AssemblyName>ARCed</AssemblyName>
+    <Name>ARCed</Name>
+    <RootNamespace>ARCed</RootNamespace>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DebugSymbols>true</DebugSymbols>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DebugSymbols>true</DebugSymbols>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+  </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="images" />
+    <Folder Include="ini" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ARCedActorParameters_Dialog.py" />
+    <Compile Include="ARCedActors_Panel.py" />
+    <Compile Include="ARCedAnimationCellBatch_Dialog.py" />
+    <Compile Include="ARCedAnimationCellProperties_Dialog.py" />
+    <Compile Include="ARCedAnimationEntireSlide_Dialog.py" />
+    <Compile Include="ARCedAnimations_Panel.py" />
+    <Compile Include="ARCedAnimationTiming_Dialog.py" />
+    <Compile Include="ARCedAnimationTweening_Dialog.py" />
+    <Compile Include="ARCedArmors_Panel.py" />
+    <Compile Include="ARCedBattleAnimation_Dialog.py" />
+    <Compile Include="ARCedBattleProcessing_Dialog.py" />
+    <Compile Include="ARCedBattleTestActor_Panel.py" />
+    <Compile Include="ARCedBattleTest_Dialog.py" />
+    <Compile Include="ARCedButonProcessing_Dialog.py" />
+    <Compile Include="ARCedButtonProcessing_Dialog.py" />
+    <Compile Include="ARCedCallCommonEvent_Dialog.py" />
+    <Compile Include="ARCedChangeAccess_Dialog.py" />
+    <Compile Include="ARCedChangeActorClass_Dialog.py" />
+    <Compile Include="ARCedChangeActorGraphic_Dialog.py" />
+    <Compile Include="ARCedChangeActorName_Dialog.py" />
+    <Compile Include="ARCedChangeBlending_Dialog.py" />
+    <Compile Include="ARCedChangeEquipment_Dialog.py" />
+    <Compile Include="ARCedChangeFogOpacity_Dialog.py" />
+    <Compile Include="ARCedChangeFrequency_Dialog.py" />
+    <Compile Include="ARCedChangeHP_Dialog.py" />
+    <Compile Include="ARCedChangelGold_Dialog.py" />
+    <Compile Include="ARCedChangelPartyEquipment_Dialog.py" />
+    <Compile Include="ARCedChangeMapSettings_Dialog.py" />
+    <Compile Include="ARCedChangeMaximum_Dialog.py" />
+    <Compile Include="ARCedChangeParameters_Dialog.py" />
+    <Compile Include="ARCedChangePartyMember_Dialog.py" />
+    <Compile Include="ARCedChangePictureColorTone_Dialog.py" />
+    <Compile Include="ARCedChangeSkills_Dialog.py" />
+    <Compile Include="ARCedChangeSpeed_Dialog.py" />
+    <Compile Include="ARCedChangeState_Dialog.py" />
+    <Compile Include="ARCedChangeStat_Dialog.py" />
+    <Compile Include="ARCedChangeTextOptions_Dialog.py" />
+    <Compile Include="ARCedChangeTone_Dialog.py" />
+    <Compile Include="ARCedChooseActor_Dialog.py" />
+    <Compile Include="ARCedChooseAudio_Dialog.py" />
+    <Compile Include="ARCedChooseFogGraphic_Dialog.py" />
+    <Compile Include="ARCedChooseGraphic_Dialog.py" />
+    <Compile Include="ARCedChooseSwitchVariable_Dialog.py" />
+    <Compile Include="ARCedChooseTreasure_Dialog.py" />
+    <Compile Include="ARCedClasses_Panel.py" />
+    <Compile Include="ARCedComment_Dialog.py" />
+    <Compile Include="ARCedCommonEvents_Panel.py" />
+    <Compile Include="ARCedConditionalBranch_Dialog.py" />
+    <Compile Include="ARCedControlSelfSwitches_Dialog.py" />
+    <Compile Include="ARCedControlSwitches_Dialog.py" />
+    <Compile Include="ARCedControlTimer_Dialog.py" />
+    <Compile Include="ARCedControlVariables_Dialog.py" />
+    <Compile Include="ARCedDealDamage_Dialog.py" />
+    <Compile Include="ARCedEnemies_Panel.py" />
+    <Compile Include="ARCedEnemyAction_Dialog.py" />
+    <Compile Include="ARCedEnemyAppearance_Dialog.py" />
+    <Compile Include="ARCedEnemyTransform_Dialog.py" />
+    <Compile Include="ARCedErasePicture_Dialog.py" />
+    <Compile Include="ARCedEventCommands1_Panel.py" />
+    <Compile Include="ARCedEventCommands2_Panel.py" />
+    <Compile Include="ARCedEventCommands3_Panel.py" />
+    <Compile Include="ARCedEventCondition_Dialog.py" />
+    <Compile Include="ARCedEventEditor_Panel.py" />
+    <Compile Include="ARCedEventPage_Panel.py" />
+    <Compile Include="ARCedExpCurve_Dialog.py" />
+    <Compile Include="ARCedFadeOutAudio_Dialog.py" />
+    <Compile Include="ARCedForceAction_Dialog.py" />
+    <Compile Include="ARCedGenerateCurve_Dialog.py" />
+    <Compile Include="ARCedInputNumber_Dialog.py" />
+    <Compile Include="ARCedItems_Panel.py" />
+    <Compile Include="ARCedJump_Dialog.py" />
+    <Compile Include="ARCedLabel_Dialog.py" />
+    <Compile Include="ARCedMovePicture_Dialog.py" />
+    <Compile Include="ARCedMoveRoute_Dialog.py" />
+    <Compile Include="ARCedNameProcessing_Dialog.py" />
+    <Compile Include="ARCedRecoverAll_Dialog.py" />
+    <Compile Include="ARCedRotatePicture_Dialog.py" />
+    <Compile Include="ARCedScreenShake_Dialog.py" />
+    <Compile Include="ARCedScriptCall_Dialog.py" />
+    <Compile Include="ARCedScrollMap_Dialog.py" />
+    <Compile Include="ARCedSetEventLocation_Dialog.py" />
+    <Compile Include="ARCedShopGoods_Dialog.py" />
+    <Compile Include="ARCedShopProcessing_Dialog.py" />
+    <Compile Include="ARCedShowAnimation_Dialog.py" />
+    <Compile Include="ARCedShowChoices_Dialog.py" />
+    <Compile Include="ARCedShowPicture_Dialog.py" />
+    <Compile Include="ARCedShowText_Dialog.py" />
+    <Compile Include="ARCedSkills_Panel.py" />
+    <Compile Include="ARCedSkill_Dialog.py" />
+    <Compile Include="ARCedStates_Panel.py" />
+    <Compile Include="ARCedSystem_Panel.py" />
+    <Compile Include="ARCedTilesets_Panel.py" />
+    <Compile Include="ARCedTransferEventTilemap_Dialog.py" />
+    <Compile Include="ARCedTransferPlayerTilemap_Dialog.py" />
+    <Compile Include="ARCedTransferPlayer_Dialog.py" />
+    <Compile Include="ARCedTransparentFlag_Dialog.py" />
+    <Compile Include="ARCedTroops_Panel.py" />
+    <Compile Include="ARCedWait_Dialog.py" />
+    <Compile Include="ARCedWeapons_Panel.py" />
+    <Compile Include="ARCedWeatherEffects_Dialog.py" />
+    <Compile Include="ARCed_Templates.py" />
+    <Compile Include="RGSS1_RPG.py" />
+    <Compile Include="RMXPProject.py" />
+    <Compile Include="RPGutil.py" />
+    <Compile Include="TEST.py" />
+    <Compile Include="__main__.py" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ini\DatabaseTabs.ini" />
+  </ItemGroup>
+</Project>

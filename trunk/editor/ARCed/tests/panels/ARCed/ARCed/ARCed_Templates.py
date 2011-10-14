@@ -5550,7 +5550,7 @@ class ChangeMaximum_Dialog ( wx.Dialog ):
 		self.labelMaximum.Wrap( -1 )
 		MainSizer.Add( self.labelMaximum, 0, wx.ALL, 5 )
 		
-		self.spinCtrlMaximum = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( -1,-1 ), wx.SP_ARROW_KEYS|wx.SP_WRAP, 0, 65535, 0 )
+		self.spinCtrlMaximum = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( -1,-1 ), wx.SP_ARROW_KEYS|wx.SP_WRAP, 1, 9999, 0 )
 		MainSizer.Add( self.spinCtrlMaximum, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
 		
 		sizerOKCancel = wx.BoxSizer( wx.HORIZONTAL )
