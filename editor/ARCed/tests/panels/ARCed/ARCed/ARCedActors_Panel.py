@@ -1,3 +1,7 @@
+import TEST
+import RGSS1_RPG as RPG
+from RGSS1_RPG import Actor
+from RMXPProject import Project
 import wx
 import ARCed_Templates
 import ARCedChangeMaximum_Dialog
@@ -5,23 +9,29 @@ import ARCedExpCurve_Dialog
 import ARCedChooseGraphic_Dialog
 import ARCedActorParameters_Dialog
 
-# Dummy class for now
-class Actor():
-	def __init__(self, name, index):
-		self.Name = name
-		self.Index = index
-
 # Implementing Actors_Panel
 class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 	def __init__( self, parent ):
 		ARCed_Templates.Actors_Panel.__init__( self, parent )
-		global Actors
-		Actors = {}
+		for i in range(20):
+			Project.Data_weapons.append(RPG.Weapon())
+			Project.Data_armors.append(RPG.Armor())
+			Project.Data_actors.append(RPG.Actor())
+			Project.Data_classes.append(RPG.Class())
+
+		self.comboBoxClass.Clear()
+		self.listBoxActors.Clear()
+		for klass in Project.Data_classes:
+			self.comboBoxClass.Append(klass.name)
+		i = 0
+		for actor in Project.Data_actors:
+			text = format(1 + i, '04d') + ': ' + actor.name
+			self.listBoxActors.Append(text)
+
 
 	# Handlers for Actors_Panel events.
 	def listBoxActors_SelectionChanged( self, event ):
-		# TODO: Implement listBoxActors_SelectionChanged
-		pass
+		self.textCtrlName.SetValue(self.SelectedActor().name)
 
 	def buttonMaximum_Clicked( self, event ):
 		# Shows dialog for changing the list capacity
@@ -31,32 +41,28 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 		if dlg.ShowModal() == wx.ID_OK:
 			newMax = dlg.spinCtrlMaximum.GetValue()
 			if newMax != currentMax: 
-				listItems = []
 				if newMax > currentMax:
-					listItems = items
+					# Insert new items to the end of the list
 					for i in range(newMax - currentMax):
-						numStr = format(1 + i + currentMax, '04d') + ': '
-						# TODO: Add names of object to the string before adding to list
-						# TODO: Implement initialization of objects to populate empty spots
-						listItems.append(numStr)
+						self.listBoxActors.Append(format(1 + currentMax + i, '04d') + ': ')
+						Project.Data_actors.append(Actor())
 				else:
-					for i in range(newMax):
-						listItems.append(items[i])
-					# TODO: Implement deletion of objects defined outside the new capacity
-				self.listBoxActors.Set(listItems)
-				print 'List capacity has been set to ' + str(newMax)
+					for i in reversed(range(currentMax)):
+						# Remove all items whose index is greater than or equal to the new max
+						if i >= newMax:
+							self.listBoxActors.Delete(i)
+							Project.Data_actors.pop()
+						else:
+							break;
 		dlg.Destroy()
 
 
 	def textBoxName_TextChanged( self, event ):
-		items = self.listBoxActors.GetItems()
-		selected = self.listBoxActors.GetSelections()
-		if (len(items) != 0) and (len(selected) != 0):
-			
-			print 0
-
-
-		
+		index = self.listBoxActors.GetSelection()
+		if index >= 0:
+			name = self.textCtrlName.GetLineText(0)
+			self.SelectedActor().name = name
+			self.listBoxActors.SetString(index, format(1 + index, '04d') + ': ' + name)
 
 	def comboBoxClass_SelectionChanged( self, event ):
 		# TODO: Implement comboBoxClass_SelectionChanged
@@ -151,4 +157,5 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 		# TODO: Implement checkBoxAccessory_CheckChanged
 		pass
 
-
+	def SelectedActor(self):
+		return Project.Data_actors[self.listBoxActors.GetSelection()]
