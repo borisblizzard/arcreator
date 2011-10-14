@@ -1,13 +1,13 @@
-- finished project interface (almost finished)
-	- loading projects
-	- acessing data
-	- saving projects
-	- creating new projects
+- finished project interface[DONE] (with error)
+	- loading projects[DONE] (with error) ARC format isn't being read properly
+	- acessing data [DONE]
+	- saving projects [DONE]
+	- creating new projects [DONE]
 	
-- Action framework (not started)
-	- template actions
-	- undo, redo calls
-	- menu hooks
+- Action framework [2/3 DONE]
+	- template actions [DONE]
+	- undo, redo calls [DONE]
+	- menu hooks [Not DONE]
 
 - Writing database actions (requires framework to be finished)
 	- action to write data to project for all panels

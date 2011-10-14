@@ -29,6 +29,9 @@ class Project(object):
         
     def setProjectPath(self, path):
         self.project_path = path
+
+    def getProjectPath(self):
+        return self.project_path
         
     def setData(self, key, value, changed=True):
         if self._data.has_key(key):
@@ -61,7 +64,7 @@ class Project(object):
         if self._info.has_key(key):
             self._info[key][1] = value
         else:
-            self._info = [True, value]
+            self._info[key] = [True, value]
         
     def getInfo(self, key):
         if self._info.has_key(key):
@@ -78,31 +81,31 @@ class Project(object):
     
     def getChangedInfo(self, key):
         if self._info.has_key(key):
-            return self._info[0]
+            return self._info[key][0]
         else:
             return False
         
     def setChangedData(self, key, value):
         if self._data.has_key(key):
-            self._data[0] = value
+            self._data[key][0] = value
         else:
             Kernel.Log("Data key %s does not exist. changed flag not set" % key, "[Project]")
         
     def getChangedData(self, key):
         if self._data.has_key(key):
-            return self._data[0]
+            return self._data[key][0]
         else:
             return False
         
     def setChangedDeferredData(self, key, value):
         if self._deferred_data.has_key(key):
-            self._deferred_data[0] = value
+            self._deferred_data[key][0] = value
         else:
             Kernel.Log("Deferred data key %s does not exist. changed flag not set" % key, "[Project]")
             
     def getChangedDeferredData(self, key):
         if self._deferred_data.has_key(key):
-            return self._deferred_data[0]
+            return self._deferred_data[key][0]
         else:
             return False
         
@@ -118,11 +121,28 @@ class Project(object):
     def setChangedMapData(self, id_num, value):
         self.setChangedDeferredData("Map%03d" % id_num, value)
 
+    def hasDataChanged(self):
+        changed_flag = False
+        for key, value in self._data.items():
+            if value[0]:
+                changed_flag = True
+        for key, vlaue in self._deferred_data.items():
+            if value[0]:
+                changed_flag = True
+        return changed_flag
+
+    def hasInfoChanged(self):
+        changed_flag = False
+        for key, value in self._info.items():
+            if value[0]:
+                changed_flag = True
+        return changed_flag
+
     def saveProject(self):
         config = ConfigParser.ConfigParser()
         config.add_section("Project")
         for key, value in self._info.items():
-            config.set("Project", str(key), str(value))
+            config.set("Project", str(key), str(value[1]))
         filename = os.path.normpath(self.project_path)
         config.add_section("Files")
         filelist = ""
@@ -130,16 +150,18 @@ class Project(object):
         i = 0
         for file_name in files:
             filelist += str(file_name)
-            if i >= (len(files) - 1):
+            if not (i >= (len(files) - 1)):
                 filelist += "|"
             i += 1
         config.set("Files", "List", filelist)
         f = open(filename, 'wb')
         config.write(f)
         f.close()
-        if (self.savefunc is not None) and callable(self.savefunc):
+        if (self.save_func is not None) and callable(self.save_func):
             for key, value in self._data.items():
-                self.savefunc(os.path.dirname(self.project_path), key, value)
+                self.save_func(os.path.dirname(self.project_path), key, value[1])
+            for key, value in self._deferred_data.items():
+                self.save_func(os.path.dirname(self.project_path), key, value[1])
         else:
             Kernel.Log("Warning: no save function set for project. Data files NOT saved", "[Project]")
             
@@ -157,8 +179,10 @@ class Project(object):
                 if file_name != "":
                     if (self.load_func is not None) and callable(self.load_func):
                         self.setData(file_name, self.load_func(os.path.dirname(self.project_path), file_name))
+                        self.setChangedData(file_name, False)
                     else:
                         self.setData(file_name, None)
+                        self.setChangedData(file_name, False)
                         Kernel.Log("Warning: no load function set for project. Data for %s set to None" % file_name, "[Project]")
         else:
             Kernel.Log("Warning: project path %s does not exist. Project not loaded." % self.project_path, "[Project]")
@@ -168,37 +192,47 @@ class ARCProjectCreator(object):
     def __init__(self):
         self.project = None
         
-    def Create(self, path, title, saveas=False):
+    def Create(self, path, title):
         #create a project object
         self.project = KM.get_component("ARCProjectHolder").object()
         #set initial info
         self.project.setInfo("Title", title)
+        self.project.setChangedInfo("Title", False)
         self.project.setData("Actors", [])
+        self.project.setChangedData("Actors", False)
         self.project.setData("Classes", [])
+        self.project.setChangedData("Classes", False)
         self.project.setData("Skills", [])
+        self.project.setChangedData("Skills", False)
         self.project.setData("Items", [])
+        self.project.setChangedData("Items", False)
         self.project.setData("Weapons", [])
+        self.project.setChangedData("Weapons", False)
         self.project.setData("Armors", [])
+        self.project.setChangedData("Armors", False)
         self.project.setData("Troops", [])
+        self.project.setChangedData("Troops", False)
         self.project.setData("Tilesets", [])
+        self.project.setChangedData("Tilesets", False)
         self.project.setData("CommonEvents", [])
+        self.project.setChangedData("CommonEvents", False)
         self.project.setData("System", [])
-        self.project.setData("MapInfos", [])
-        #place the project in the global namespace
-        if Kernel.GlobalObjects.has_key("PROJECT"):
-            Kernel.GlobalObjects.set_value("PROJECT", self.project)
-        else:
-            Kernel.GlobalObjects.request_new_key("PROJECT", "CORE", self.project)
+        self.project.setChangedData("System", False)
+        self.project.setData("MapInfos", {})
+        self.project.setChangedData("MapInfos", False)
         #set the save function
-        self.project.setSaveFunc(KM.get_component("ARCProjectSaveFunction"))
+        self.project.setSaveFunc(KM.get_component("ARCProjectSaveFunction").object)
         #set the project path
         self.project.setProjectPath(path)
         #save the project
         self.project.saveProject()
-        if not saveas:
-            KM.raise_event("CoreEventRefreshProject")
-            
-            
+
+    def getProject(self):
+        return self.project
+
+    def setProject(self, project):
+        self.project = project
+                   
 def ARCProjectSaveFunction(dir_name, filename, obj):
     dir_path = os.path.join(dir_name, "Data")
     path = os.path.join(dir_path, filename + ".arc")
@@ -235,3 +269,38 @@ def ARCProjectLoadFunction(dir_name, filename):
         Kernel.Log("Warning: file %s does not exist. Returned None" % path, "[ARC Load Function]")
         return None
     
+
+class ARCProjectSaver(object):
+
+    def __init__(self, project):
+        self.project = project
+
+    def save(self, path=""):
+        if not path == "":
+            self.project.setProjectPath(path)
+        self.project.setSaveFunc(KM.get_component("ARCProjectSaveFunction").object)
+        self.project.saveProject()
+
+    def getProject(self):
+        return self.project
+
+    def setProject(self, project):
+        self.project = project
+
+class ARCProjectLoader(object):
+
+    def __init__(self):
+        self.project = KM.get_component("ARCProjectHolder").object()
+
+    def load(self, path):
+        self.project.setProjectPath(path)
+        self.project.setLoadFunc(KM.get_component("ARCProjectLoadFunction").object)
+        self.project.loadProject()
+        
+
+    def getProject(self):
+        return self.project
+
+    def setProject(self, project):
+        self.project = project
+

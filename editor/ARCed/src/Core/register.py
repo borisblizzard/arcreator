@@ -25,13 +25,6 @@ class RMXPType(SuperType):
     #PyGameCache = Type("PyGameCache")
 
     #---------------------------- data handlers ------------------------------
-    ProjectLoader = Type("ProjectLoader")
-    ProjectSaver = Type("ProjectSaver")
-    ProjectImporter = Type("ProjectImporter")
-    ProjectExporter = Type("ProjectExporter")
-    ProjectCreator = Type("ProjectCreator")
-    ProjectImportHandler = Type("ProjectImportHandler")
-    ProjectExportHandler = Type("ProjectExportHandler")
 
     #------------------------------- ctrls -----------------------------------
     
@@ -57,10 +50,6 @@ class RMXPType(SuperType):
         #, self.PyGameCache)
 
         #------------------------ data handlers ------------------------------
-        self.add_types(self.ProjectLoader, self.ProjectSaver,
-                       self.ProjectExporter, self.ProjectImporter,
-                       self.ProjectCreator, self.ProjectImportHandler,
-                       self.ProjectExportHandler)
 
         #---------------------------- ctrls ----------------------------------
 
@@ -107,6 +96,8 @@ class CorePackage(Package):
         SaveAsProjectHandler = Type("SaveAsProjectHandler")
         ARCProjectCreator = Type("ARCProjectCreator")
         ARCProjectHolder = Type("ARCProjectHolder")
+        ARCProjectSaver = Type("ARCProjectSaver")
+        ARCProjectLoader = Type("ARCProjectLoader")
         
         #------------------------------- frames --------------------------------------
         EditorMainWindow = Type("EditorMainWindow")
@@ -145,7 +136,8 @@ class CorePackage(Package):
         
         #------------------------------ data handlers --------------------------------
         self.add_types(Project, NewProjectHandler, OpenProjectHandler, SaveProjectHandler, 
-                               SaveAsProjectHandler, ARCProjectCreator, ARCProjectHolder)
+                               SaveAsProjectHandler, ARCProjectCreator, ARCProjectHolder,
+                               ARCProjectSaver, ARCProjectLoader)
         
         #-------------------------------- frames -------------------------------------
         self.add_types(EditorMainWindow)
@@ -175,7 +167,7 @@ class CorePackage(Package):
         CoreEventRefreshProject = Event("CoreEventRefreshProject")
         CoreEventUpdateProjectMenu = Event("CoreEventUpdateProjectMenu")
         CoreEventARCRedirectClassPathsOnSave = Event("CoreEventARCRedirectClassPathsOnSave")
-        CoreEventARCRedirectClassPathsOnLoad = Event("CoreEventARCRedirectClassPathsOnSave")
+        CoreEventARCRedirectClassPathsOnLoad = Event("CoreEventARCRedirectClassPathsOnLoad")
         CoreEventARCExtendNamespaceOnLoad = Event("CoreEventARCExtendNamespaceOnLoad")
         
         #=====================================================================
@@ -228,6 +220,12 @@ class CorePackage(Package):
                                      1.0, self))
         self.add_component(Component(Project.Project, "ARCProjectHolder",
                                      None, "CoreARCProjectHolder", "CORE",
+                                     1.0, self))
+        self.add_component(Component(Project.ARCProjectSaver, "ARCProjectSaver",
+                                     None, "CoreARCProjectSaver", "CORE",
+                                     1.0, self))
+        self.add_component(Component(Project.ARCProjectLoader, "ARCProjectLoader",
+                                     None, "CoreARCProjectLoader", "CORE",
                                      1.0, self))
 
 

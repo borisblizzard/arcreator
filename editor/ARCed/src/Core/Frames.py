@@ -48,8 +48,7 @@ class CoreEditorMainWindow(wx.Frame):
 
         self.SetMinSize(wx.Size(1000, 500))
 
-        #TODO: replace EventMode
-        #KM.get_event("EventMode").register(self.CallLayout)
+        KM.get_event("CoreEventRefreshProject").register(self.CallLayout)
 
         self._mgr.Update()
 
