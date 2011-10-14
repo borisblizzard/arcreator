@@ -56,27 +56,6 @@ class NewProjectDialog(wx.Dialog):
 
         TopSizer = wx.BoxSizer(wx.HORIZONTAL)
 
-        #typeSizer = wx.BoxSizer(wx.VERTICAL)
-        #
-        #typeSizer.SetMinSize((100, 50))
-        #self.typeText = wx.StaticText(self, wx.ID_ANY, u"Project Type:",
-        #                              wx.DefaultPosition, wx.DefaultSize, 0)
-        #self.typeText.Wrap(-1)
-        #self.typeText.SetHelpText(u"The type of project, RMXP? RMVX? Somthing \
-        #                          else?")
-        #
-        #typeSizer.Add(self.typeText, 0, wx.ALL, 5)
-        #
-        #typeChoiceChoices = Kernel.Global.ProjectModes.keys()
-        #self.typeChoice = wx.Choice(self, wx.ID_ANY, wx.DefaultPosition,
-        #                            wx.DefaultSize, typeChoiceChoices, 0)
-        #self.typeChoice.SetSelection(0)
-        #self.typeChoice.SetHelpText(u"The type of project.")
-        #
-        #typeSizer.Add(self.typeChoice, 1, wx.ALL | wx.EXPAND, 5)
-        #
-        #TopSizer.Add(typeSizer, 2, wx.EXPAND, 5)
-
         nameSizer = wx.BoxSizer(wx.VERTICAL)
 
         self.nameText = wx.StaticText(self, wx.ID_ANY, u"Project Name:",
@@ -175,7 +154,6 @@ class NewProjectDialog(wx.Dialog):
         self.Bind(wx.EVT_TEXT, self.NameChanged, self.nameTextCtrl)
         self.Bind(wx.EVT_TEXT, self.LocationChanged, self.locationTextCtrl)
         self.Bind(wx.EVT_TEXT, self.FolderChanged, self.folderTextCtrl)
-        #self.Bind(wx.EVT_CHOICE, self.TypeChanged, self.typeChoice)
         self.Bind(wx.EVT_BUTTON, self.OnOk, self.ButtonOK)
         self.Bind(wx.EVT_BUTTON, self.OnFolder, self.folderBtn)
 
@@ -216,9 +194,6 @@ class NewProjectDialog(wx.Dialog):
             self.internaltextchange = False
         dlg.Destroy()
 
-#    def TypeChanged(self, event):
-#        self.type = event.GetString()
-
     def OnOk(self, event):
         result = self.checkdata()
         if result:
@@ -236,26 +211,6 @@ class NewProjectDialog(wx.Dialog):
                                    | wx.ICON_EXCLAMATION)
             dlg.ShowModal()
             return False
-        #if self.type.strip() == "":
-        #    types = self.typeChoice.GetItems()
-        #    if len(types) == 0:
-        #        caption = "ARCed"
-        #        message = '''There are no project types available'''
-        #        dlg = wx.MessageDialog(self, message, caption,
-        #                           style=wx.OK | wx.CENTRE
-        #                           | wx.ICON_EXCLAMATION)
-        #        dlg.ShowModal()
-        #        return False
-        #    elif len(types) > 1:
-        #        caption = "ARCed"
-        #        message = '''Please select a project type'''
-        #        dlg = wx.MessageDialog(self, message, caption,
-        #                           style=wx.OK | wx.CENTRE
-        #                           | wx.ICON_EXCLAMATION)
-        #        dlg.ShowModal()
-        #        return False
-        #    else:
-        #        self.type = types[0]
         string = os.path.split(os.path.expandvars(self.location))[0]
         if not os.path.exists(string) and not os.path.isdir(string):
             caption = "ARCed"

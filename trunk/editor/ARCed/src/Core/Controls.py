@@ -93,17 +93,17 @@ class MainToolbar(object):
     def OnNew(self, event):
         newproject = KM.get_component("NewProjectHandler").object
         newproject(self.mainwindow)
-        Kernel.Global.FileHistory.Save(Kernel.Global.programconfig) #@UndefinedVariable
+        Kernel.GlobalObjects.get_value("FileHistory").Save(Kernel.GlobalObjects.get_value("programconfig"))
 
     def OnOpen(self, event):
         openproject = KM.get_component("OpenProjectHandler").object
         openproject(self.mainwindow, Kernel.GlobalObjects.get_value("FileHistory"))
-        Kernel.GlobalObjects.get_value("FileHistory").Save(Kernel.GlobalObjects.get_value("programconfig")) #@UndefinedVariable
+        Kernel.GlobalObjects.get_value("FileHistory").Save(Kernel.GlobalObjects.get_value("programconfig"))
 
     def OnSave(self, event):
         saveproject = KM.get_component("SaveProjectHandler").object
-        saveproject(self.mainwindow)
-        Kernel.GlobalObjects.get_value("FileHistory").Save(Kernel.GlobalObjects.get_value("programconfig")) #@UndefinedVariable
+        saveproject()
+        Kernel.GlobalObjects.get_value("FileHistory").Save(Kernel.GlobalObjects.get_value("programconfig"))
 
     def OnUndo(self, event):
         pass
@@ -134,7 +134,7 @@ class RMXPMapTreeCtrl(wx.TreeCtrl):
     def __init__(self, parent, id, pos, size, style):
         wx.TreeCtrl.__init__(self, parent, id, pos, size, style)
         self.parent = parent
-        KM.get_event("CoreEventRefreshProject").register(self.Refresh_Map_List, self)
+        KM.get_event("CoreEventRefreshProject").register(self.Refresh_Map_List)
 
         imglist = wx.ImageList(16, 16, True, 2)
         imglist.Add(wx.ArtProvider.GetBitmap(wx.ART_FOLDER, wx.ART_OTHER,
@@ -152,10 +152,10 @@ class RMXPMapTreeCtrl(wx.TreeCtrl):
         self.Bind(wx.EVT_WINDOW_DESTROY, self.onClose, self)
 
     def Refresh_Map_List(self):
-        project = Kernel.Global.Project
-        mapinfos = project.Map_infos
+        project = Kernel.GlobalObjects.get_value("PROJECT")
+        mapinfos = project.getData("MapInfos")
         self.DeleteAllItems()
-        root = self.AddRoot(Kernel.Global.Title, 0)
+        root = self.AddRoot(Kernel.GlobalObjects.get_value("Title"), 0)
         stack = []
         for key, value in mapinfos.iteritems():
             if value.parent_id == 0:
@@ -181,7 +181,7 @@ class RMXPMapTreeCtrl(wx.TreeCtrl):
         self.Expand(root)
 
     def onClose(self, event):
-        KM.get_event("CoreEventRefreshProject").unregister(self.Refresh_Map_List, self)
+        KM.get_event("CoreEventRefreshProject").unregister(self.Refresh_Map_List)
         event.Skip()
 
 class RMXPMapTreePanel(wx.Panel):

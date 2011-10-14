@@ -19,10 +19,10 @@ class MainWindowLayout(object):
     def __init__(self, parent, mode):
 
         self.parent = parent
-        self.mode_layout = KM.get_component(*Kernel.Global.ProjectModes[mode]).object(parent)
+        self.layout = KM.get_component("ARCModeLayout").object(parent)
         
     def ClearLayout(self):
-        self.mode_layout.ClearLayout()
+        self.layout.ClearLayout()
         
 class ARCModeLayout(object):
     

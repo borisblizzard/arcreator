@@ -265,7 +265,7 @@ class Event(object):
         call'''
         for function in self.registered:
             if function[1] != None:
-                function[0](*args, **kwargs)
+                function[0](function[1], *args, **kwargs)
             else:
                 function[0](*args, **kwargs)
 

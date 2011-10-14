@@ -50,12 +50,13 @@ class ARC_Data(object):
         global _io
         global _extended_namespace
         _class_path_redirects = redirects
-        _extended_namespace = dict(extended_namespace.update(globals()))
+        _extended_namespace = dict(extended_namespace)
+        _extended_namespace.update(globals())
         extended_namespace = {}
         _io = io
         version = _io.read(2)
         if ARC_Data._VERSION != version:
-            raise "Error: version mismatch! Expected: %s Found: %s" %(repr(ARC_Data._VERSION), repr(version))
+            raise TypeError("Error: version mismatch! Expected: %s Found: %s" %(repr(ARC_Data._VERSION), repr(version)))
         try:
             data = ARC_Data._load()
         except Exception:
@@ -189,7 +190,7 @@ class ARC_Data(object):
         elif type_id is ARC_Data._TYPES["Object"]:
             return ARC_Data._load_object()
         
-        raise "Error: Unknown type 0x%02X detected!" % ord(type_id)
+        raise TypeError("Error: Unknown type 0x%02X detected!" % ord(type_id))
     
     
     @staticmethod
@@ -228,7 +229,7 @@ class ARC_Data(object):
     @staticmethod
     def _dump_string(obj):
         _io.write(ARC_Data._TYPES["String"])
-        if obj.size > 0:
+        if len(obj) > 0:
             if not ARC_Data.__try_map(_strings, obj): # abort if object has already been mapped
                 return
             ARC_Data.__dump_int32(len(obj))
@@ -241,7 +242,7 @@ class ARC_Data(object):
     @staticmethod
     def _dump_array(obj):
         _io.write(ARC_Data._TYPES["Array"])
-        if obj.size > 0:
+        if len(obj) > 0:
             if not ARC_Data.__try_map(_arrays, obj): # abort if object has already been mapped
                 return 
             ARC_Data.__dump_int32(len(obj))
@@ -255,7 +256,7 @@ class ARC_Data(object):
     @staticmethod
     def _dump_hash(obj):
         _io.write(ARC_Data._TYPES["Hash"])
-        if obj.size > 0:
+        if len(obj) > 0:
             if not ARC_Data.__try_map(_hashes, obj): # abort if object has already been mapped
                 return 
             ARC_Data.__dump_int32(len(obj))
