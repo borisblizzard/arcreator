@@ -2,6 +2,8 @@
 
 import wx
 import ARCed_Templates
+import ARCedExpCurve_Dialog
+import ARCedGenerateCurve_Dialog
 
 # Implementing ActorParameters_Dialog
 class ARCedActorParameters_Dialog( ARCed_Templates.ActorParameters_Dialog ):
@@ -38,8 +40,7 @@ class ARCedActorParameters_Dialog( ARCed_Templates.ActorParameters_Dialog ):
 		pass
 	
 	def buttonGenerateMaxHP_Clicked( self, event ):
-		# TODO: Implement buttonGenerateMaxHP_Clicked
-		pass
+		self.generateCurve(0)
 	
 	def bitmapGraphMaxHP_LeftClick( self, event ):
 		# TODO: Implement bitmapGraphMaxHP_LeftClick
@@ -82,8 +83,7 @@ class ARCedActorParameters_Dialog( ARCed_Templates.ActorParameters_Dialog ):
 		pass
 	
 	def buttonGenerateMaxSP_Clicked( self, event ):
-		# TODO: Implement buttonGenerateMaxSP_Clicked
-		pass
+		self.generateCurve(1)
 	
 	def bitmapGraphMaxSP_LeftClick( self, event ):
 		# TODO: Implement bitmapGraphMaxSP_LeftClick
@@ -126,8 +126,8 @@ class ARCedActorParameters_Dialog( ARCed_Templates.ActorParameters_Dialog ):
 		pass
 	
 	def buttonGenerateStr_Clicked( self, event ):
-		# TODO: Implement buttonGenerateStr_Clicked
-		pass
+		self.generateCurve(2)
+
 	
 	def bitmapGraphStr_LeftClick( self, event ):
 		# TODO: Implement bitmapGraphStr_LeftClick
@@ -170,8 +170,7 @@ class ARCedActorParameters_Dialog( ARCed_Templates.ActorParameters_Dialog ):
 		pass
 	
 	def buttonGenerateDex_Clicked( self, event ):
-		# TODO: Implement buttonGenerateDex_Clicked
-		pass
+		self.generateCurve(3)
 	
 	def bitmapGraphDex_LeftClick( self, event ):
 		# TODO: Implement bitmapGraphDex_LeftClick
@@ -214,8 +213,7 @@ class ARCedActorParameters_Dialog( ARCed_Templates.ActorParameters_Dialog ):
 		pass
 	
 	def buttonGenerateAgi_Clicked( self, event ):
-		# TODO: Implement buttonGenerateAgi_Clicked
-		pass
+		self.generateCurve(4)
 	
 	def bitmapGraphAgi_LeftClick( self, event ):
 		# TODO: Implement bitmapGraphAgi_LeftClick
@@ -254,8 +252,7 @@ class ARCedActorParameters_Dialog( ARCed_Templates.ActorParameters_Dialog ):
 		pass
 	
 	def buttonGenerateInt_Clicked( self, event ):
-		# TODO: Implement buttonGenerateInt_Clicked
-		pass
+		self.generateCurve(5)
 	
 	def bitmapGraphInt_LeftClick( self, event ):
 		# TODO: Implement bitmapGraphInt_LeftClick
@@ -270,10 +267,20 @@ class ARCedActorParameters_Dialog( ARCed_Templates.ActorParameters_Dialog ):
 		pass
 	
 	def buttonOK_Clicked( self, event ):
+		# End the dialog and return ID_OK
 		self.EndModal(wx.ID_OK)
 	
 	def buttonCancel_Clicked( self, event ):
-		# TODO: Implement buttonCancel_Clicked
-		pass
+		# End the dialog and return ID_CANCEL
+		self.EndModal(wx.ID_CANCEL)
+
+	def generateCurve(self, parameterIndex):
+		# Create the experience curve dialog, using the passed index to determine which parameter
+		dlg = ARCedGenerateCurve_Dialog.ARCedGenerateCurve_Dialog(self, parameterIndex)
+		if dlg.ShowModal() == wx.ID_OK:
+			# TODO: Implement curve modification
+			print 'New Curve Generated'
+		dlg.Destroy()
+
 	
 	
