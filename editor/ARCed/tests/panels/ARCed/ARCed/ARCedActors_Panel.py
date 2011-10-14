@@ -5,10 +5,18 @@ import ARCedExpCurve_Dialog
 import ARCedChooseGraphic_Dialog
 import ARCedActorParameters_Dialog
 
+# Dummy class for now
+class Actor():
+	def __init__(self, name, index):
+		self.Name = name
+		self.Index = index
+
 # Implementing Actors_Panel
 class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 	def __init__( self, parent ):
 		ARCed_Templates.Actors_Panel.__init__( self, parent )
+		global Actors
+		Actors = {}
 
 	# Handlers for Actors_Panel events.
 	def listBoxActors_SelectionChanged( self, event ):
