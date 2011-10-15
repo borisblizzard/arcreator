@@ -17,11 +17,11 @@ import ARCedWeapons_Panel
 
 class DatabasePage():
 
+	# Dummy class for now, this will not be used in the release version
 	def __init__(self, title, page, index):
 		self.Title = title
 		self.Page = page
 		self.DisplayOrder = index
-
 
 class ARCedTest(wx.App):
 

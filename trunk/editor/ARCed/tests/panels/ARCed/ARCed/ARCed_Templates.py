@@ -198,20 +198,20 @@ class Actors_Panel ( wx.Panel ):
 		
 		sizer10 = wx.BoxSizer( wx.VERTICAL )
 		
-		self.labelFixedWeapon = wx.CheckBox( self, wx.ID_ANY, u"Fixed", wx.DefaultPosition, wx.DefaultSize, 0 )
-		sizer10.Add( self.labelFixedWeapon, 1, wx.ALL|wx.EXPAND, 5 )
+		self.checkBoxWeapon = wx.CheckBox( self, wx.ID_ANY, u"Fixed", wx.DefaultPosition, wx.DefaultSize, 0 )
+		sizer10.Add( self.checkBoxWeapon, 1, wx.ALL|wx.EXPAND, 5 )
 		
-		self.labelFixedShield = wx.CheckBox( self, wx.ID_ANY, u"Fixed", wx.DefaultPosition, wx.DefaultSize, 0 )
-		sizer10.Add( self.labelFixedShield, 1, wx.ALL|wx.EXPAND, 5 )
+		self.checkBoxShield = wx.CheckBox( self, wx.ID_ANY, u"Fixed", wx.DefaultPosition, wx.DefaultSize, 0 )
+		sizer10.Add( self.checkBoxShield, 1, wx.ALL|wx.EXPAND, 5 )
 		
-		self.labelFixedHelmet = wx.CheckBox( self, wx.ID_ANY, u"Fixed", wx.DefaultPosition, wx.DefaultSize, 0 )
-		sizer10.Add( self.labelFixedHelmet, 1, wx.ALL|wx.EXPAND, 5 )
+		self.checkBoxHelmet = wx.CheckBox( self, wx.ID_ANY, u"Fixed", wx.DefaultPosition, wx.DefaultSize, 0 )
+		sizer10.Add( self.checkBoxHelmet, 1, wx.ALL|wx.EXPAND, 5 )
 		
-		self.labelFixedBodyArmor = wx.CheckBox( self, wx.ID_ANY, u"Fixed", wx.DefaultPosition, wx.DefaultSize, 0 )
-		sizer10.Add( self.labelFixedBodyArmor, 1, wx.ALL|wx.EXPAND, 5 )
+		self.checkBoxBodyArmor = wx.CheckBox( self, wx.ID_ANY, u"Fixed", wx.DefaultPosition, wx.DefaultSize, 0 )
+		sizer10.Add( self.checkBoxBodyArmor, 1, wx.ALL|wx.EXPAND, 5 )
 		
-		self.labelFixedAccessory1 = wx.CheckBox( self, wx.ID_ANY, u"Fixed", wx.DefaultPosition, wx.DefaultSize, 0 )
-		sizer10.Add( self.labelFixedAccessory1, 1, wx.ALL|wx.EXPAND, 5 )
+		self.checkBoxAccessory = wx.CheckBox( self, wx.ID_ANY, u"Fixed", wx.DefaultPosition, wx.DefaultSize, 0 )
+		sizer10.Add( self.checkBoxAccessory, 1, wx.ALL|wx.EXPAND, 5 )
 		
 		sizerStartEquipment.Add( sizer10, 0, wx.EXPAND, 5 )
 		
@@ -246,17 +246,17 @@ class Actors_Panel ( wx.Panel ):
 		self.comboBoxHelmet.Bind( wx.EVT_CHOICE, self.comboBoxHelmet_SelectionChanged )
 		self.comboBoxBodyArmor.Bind( wx.EVT_CHOICE, self.comboBoxBodyArmor_SelectionChanged )
 		self.comboBoxAccessory.Bind( wx.EVT_CHOICE, self.comboBoxAccessory_SelectionChanged )
-		self.labelFixedWeapon.Bind( wx.EVT_CHECKBOX, self.checkBoxWeapon_CheckChanged )
-		self.labelFixedShield.Bind( wx.EVT_CHECKBOX, self.checkBoxShield_CheckChanged )
-		self.labelFixedHelmet.Bind( wx.EVT_CHECKBOX, self.checkBoxHelmet_CheckChanged )
-		self.labelFixedBodyArmor.Bind( wx.EVT_CHECKBOX, self.checkBoxBodyArmor_CheckChanged )
-		self.labelFixedAccessory1.Bind( wx.EVT_CHECKBOX, self.checkBoxAccessory_CheckChanged )
+		self.checkBoxWeapon.Bind( wx.EVT_CHECKBOX, self.checkBoxWeapon_CheckChanged )
+		self.checkBoxShield.Bind( wx.EVT_CHECKBOX, self.checkBoxShield_CheckChanged )
+		self.checkBoxHelmet.Bind( wx.EVT_CHECKBOX, self.checkBoxHelmet_CheckChanged )
+		self.checkBoxBodyArmor.Bind( wx.EVT_CHECKBOX, self.checkBoxBodyArmor_CheckChanged )
+		self.checkBoxAccessory.Bind( wx.EVT_CHECKBOX, self.checkBoxAccessory_CheckChanged )
 	
 	def __del__( self ):
 		pass
 	
 	
-	# Virtual event handlers, override them in your derived class
+	# Virtual event handlers, overide them in your derived class
 	def listBoxActors_SelectionChanged( self, event ):
 		pass
 	
@@ -5550,7 +5550,7 @@ class ChangeMaximum_Dialog ( wx.Dialog ):
 		self.labelMaximum.Wrap( -1 )
 		MainSizer.Add( self.labelMaximum, 0, wx.ALL, 5 )
 		
-		self.spinCtrlMaximum = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( -1,-1 ), wx.SP_ARROW_KEYS|wx.SP_WRAP, 1, 9999, 0 )
+		self.spinCtrlMaximum = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( -1,-1 ), wx.SP_ARROW_KEYS|wx.SP_WRAP, 0, 65535, 0 )
 		MainSizer.Add( self.spinCtrlMaximum, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
 		
 		sizerOKCancel = wx.BoxSizer( wx.HORIZONTAL )
