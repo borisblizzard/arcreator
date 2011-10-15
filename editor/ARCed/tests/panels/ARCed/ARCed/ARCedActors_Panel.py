@@ -8,6 +8,7 @@ import ARCedChangeMaximum_Dialog
 import ARCedExpCurve_Dialog
 import ARCedChooseGraphic_Dialog
 import ARCedActorParameters_Dialog
+import time
 
 # Implementing Actors_Panel
 class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
@@ -85,6 +86,8 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 	# Handlers for Actors_Panel events.
 	def listBoxActors_SelectionChanged( self, event ):
 		""" Changes the data on the panel to reflect the values of the selected actor """
+		if Project.Data_actors[self.listBoxActors.GetSelection()] == None:
+			Project.Data_actors[self.listBoxActors.GetSelection()] = Actor()
 		self.textCtrlName.SetValue(self.SelectedActor().name)
 
 	def buttonMaximum_Clicked( self, event ):
@@ -96,14 +99,18 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 			newMax = dlg.spinCtrlMaximum.GetValue()
 			if newMax != currentMax: 
 				if newMax > currentMax:
-					for i in range(newMax - currentMax):
-						self.listBoxActors.Append(format(1 + currentMax + i, '04d') + ': ')
-						Project.Data_actors.append(Actor())
+					#newActors = [Actor() for i in range(newMax - currentMax)]
+					newActors = [None for i in range(newMax - currentMax)]
+					newLabels = [format(1 + currentMax + i, '04d') + ': ' for i in range(newMax - currentMax)]
+					Project.Data_actors.extend(newActors)
+					self.listBoxActors.InsertItems(newLabels, currentMax)
 				else:
+					if self.listBoxActors.GetSelection() >= newMax:
+						self.listBoxActors.Select(newMax - 1)
+					del Project.Data_actors[newMax:currentMax]
 					for i in reversed(range(currentMax)):
 						if i >= newMax:
 							self.listBoxActors.Delete(i)
-							Project.Data_actors.pop()
 						else:
 							break;
 		dlg.Destroy()
@@ -165,8 +172,9 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 	def bitmapCharacterGraphic_Click( self, event ):
 		# TEST ONLY
 		path = 'C:/Users/Eric/Desktop/ARC/editor/ARCed/tests/panels/ARCed/ARCed/images'
-		current = ''
-		dlg = ARCedChooseGraphic_Dialog.ARCedChooseGraphic_Dialog(self, path, current)
+		name = self.SelectedActor().character_name
+		hue = self.SelectedActor().character_hue
+		dlg = ARCedChooseGraphic_Dialog.ARCedChooseGraphic_Dialog(self, path, name, hue)
 		if dlg.ShowModal() == wx.ID_OK:
 			index = dlg.listBoxGraphics.GetSelection()
 			self.SelectedActor().character_name = dlg.listBoxGraphics.GetString(index)
@@ -176,8 +184,15 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 		dlg.Destroy()
 
 	def bitmapBattlerGraphic_Click( self, event ):
-		# TODO: Implement bitmapBattlerGraphic_Click
-		pass
+		""" Opens dialog to change the battler graphic """
+
+		dlg = ARCedChooseGraphic_Dialog.ARCedChooseGraphic_Dialog(self, path, current)
+		if dlg.ShowModal() == wx.ID_OK:
+			index = dlg.listBoxGraphics.GetSelection()
+			self.SelectedActor().character_name = dlg.listBoxGraphics.GetString(index)
+			self.SelectedActor().character_hue = dlg.sliderHue.GetValue()
+			self.bitmapCharacterGraphic.SetBitmap(wx.Bitmap(dlg.Images[index]))
+		dlg.Destroy()
 
 	def bitmapMaxHP_Click( self, event ):
 		""" Opens the actor parameters dialog with the MaxHP tab focused """
