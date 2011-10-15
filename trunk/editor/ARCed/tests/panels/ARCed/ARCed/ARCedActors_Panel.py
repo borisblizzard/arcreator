@@ -91,7 +91,7 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 		""" Shows dialog for changing the list capacity """
 		items = self.listBoxActors.GetItems()
 		currentMax = len(items)
-		dlg = ARCedChangeMaximum_Dialog.ARCedChangeMaximum_Dialog(self, currentMax)
+		dlg = ARCedChangeMaximum_Dialog.ARCedChangeMaximum_Dialog(self, currentMax, 1, 9999)
 		if dlg.ShowModal() == wx.ID_OK:
 			newMax = dlg.spinCtrlMaximum.GetValue()
 			if newMax != currentMax: 
