@@ -203,7 +203,7 @@ class WxCache(object):
 #                tiles = PyGameCache.Autotiles[int(pattern) / 8][int(pattern) % 8]
 #                PyGameCache._Cache[key] = pygame.Surface((32, 32),
 #                                                        pygame.SRCALPHA, 32)
-#                for i in range(4):
+#                for i in xrange(4):
 #                    tile_position = tiles[i] - 1
 #                    rect = (tile_position % 6 * 16, tile_position / 6 * 16, 16, 16)
 #                    PyGameCache._Cache[key].blit(autotile, (i % 2 * 16, i / 2 * 16), rect)

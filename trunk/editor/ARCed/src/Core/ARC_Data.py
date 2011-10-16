@@ -110,8 +110,11 @@ class ARC_Data(object):
 
     @staticmethod
     def __try_map(data, obj):
-        index = data.index(obj)
-        if index is None:
+        if obj in data:
+            index = data.index(obj)
+        else:
+            index = None
+        if index == None:
             ARC_Data.__dump_int32(len(data))
             data.append(obj)
             return True
@@ -139,16 +142,16 @@ class ARC_Data(object):
 
     @staticmethod
     def __load_int32():
-        return unpack("<I", _io.read(4))
+        return unpack("<I", _io.read(4))[0]
     
     
     @staticmethod
     def _dump(obj):
-        if obj is None:
+        if obj == None:
             return ARC_Data._dump_none(obj)
-        if obj is False:
+        if obj == False:
             return ARC_Data._dump_false(obj) 
-        if obj is True:
+        if obj == True:
             return ARC_Data._dump_true(obj)
         if isinstance(obj, types.IntType):
             return ARC_Data._dump_fixnum(obj)
@@ -169,25 +172,25 @@ class ARC_Data(object):
     @staticmethod
     def _load():
         type_id = _io.read(1)
-        if type_id is ARC_Data._TYPES["NoneClass"]:
+        if type_id == ARC_Data._TYPES["NoneClass"]:
             return ARC_Data._load_none()
-        elif type_id is ARC_Data._TYPES["FalseClass"]:
+        elif type_id == ARC_Data._TYPES["FalseClass"]:
             return ARC_Data._load_false()
-        elif type_id is ARC_Data._TYPES["TrueClass"]:
+        elif type_id == ARC_Data._TYPES["TrueClass"]:
             return ARC_Data._load_true()
-        elif type_id is ARC_Data._TYPES["Fixnum"]:
+        elif type_id == ARC_Data._TYPES["Fixnum"]:
             return ARC_Data._load_fixnum()
-        elif type_id is ARC_Data._TYPES["Bignum"]:
+        elif type_id == ARC_Data._TYPES["Bignum"]:
             return ARC_Data._load_bignum()
-        elif type_id is ARC_Data._TYPES["Float"]:
+        elif type_id == ARC_Data._TYPES["Float"]:
             return ARC_Data._load_float()
-        elif type_id is ARC_Data._TYPES["String"]:
+        elif type_id == ARC_Data._TYPES["String"]:
             return ARC_Data._load_string()
-        elif type_id is ARC_Data._TYPES["Array"]:
+        elif type_id == ARC_Data._TYPES["Array"]:
             return ARC_Data._load_array()
-        elif type_id is ARC_Data._TYPES["Hash"]:
+        elif type_id == ARC_Data._TYPES["Hash"]:
             return ARC_Data._load_hash()
-        elif type_id is ARC_Data._TYPES["Object"]:
+        elif type_id == ARC_Data._TYPES["Object"]:
             return ARC_Data._load_object()
         
         raise TypeError("Error: Unknown type 0x%02X detected!" % ord(type_id))
@@ -274,7 +277,7 @@ class ARC_Data(object):
         else:
             l = []
             for key, value in obj.__dict__.items():
-                if key[0] is not "_":
+                if key[0] != "_":
                     if not isinstance(value, (types.FunctionType, types.ClassType, types.MethodType, 
                                               types.ModuleType, types.SliceType, types.LambdaType, 
                                               types.GeneratorType)):
@@ -287,7 +290,13 @@ class ARC_Data(object):
         if hasattr(obj, "_arc_class_path"):
             klass_path = obj._arc_class_path
         else:
-            klass_path = "%s::%s" % (obj.__class__.__module__, obj.__class__.__name__)
+            mod_names = obj.__class__.__module__.split(".")
+            mod_name =  mod_names[0]
+            if len(mod_names) > 1:
+                for name in mod_names[1:]:
+                    mod_name += "::"
+                    mod_name += name
+            klass_path = "%s::%s" % (mod_name, obj.__class__.__name__)
         ARC_Data._dump_string(ARC_Data.__get_class_path(klass_path)) # first the string path because this is required to load the object
         if not ARC_Data.__try_map(_objects, obj): # abort if object has already been mapped
             return
@@ -363,7 +372,7 @@ class ARC_Data(object):
         size = ARC_Data.__load_int32()
         obj = []
         ARC_Data.__map(_arrays, obj)
-        for i in range(size):
+        for i in xrange(size):
             obj.append(ARC_Data._load())
         return obj
     
@@ -379,7 +388,7 @@ class ARC_Data(object):
         size = ARC_Data.__load_int32()
         obj = {}
         ARC_Data.__map(_hashes, obj)
-        for i in range(size):
+        for i in xrange(size):
             key = ARC_Data._load() # making sure key is always loaded first
             obj[key] = ARC_Data._load()
         return obj
@@ -399,7 +408,7 @@ class ARC_Data(object):
             return obj
         obj = classe.__new__(classe)
         ARC_Data.__map(_objects, obj)
-        for i in range(size):
+        for i in xrange(size):
             setattr(obj, ARC_Data._load(), ARC_Data._load())
         return obj
     

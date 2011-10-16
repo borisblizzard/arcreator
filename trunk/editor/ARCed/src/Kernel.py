@@ -133,7 +133,7 @@ class Manager(object):
     def get_type(name, super_name=None):
         '''gets a type object'''
         try:
-            if super_name is not None:
+            if super_name != None:
                 return Manager.types[str(super_name)].get_type(str(name))
             else:
                 return Manager.types[str(name)]
@@ -328,7 +328,7 @@ class Type(object):
         pack = ""
         if isinstance(package, Package):
             pack = str(package.name)
-        elif package is not None:
+        elif package != None:
             pack = str(package)
         return (str(pack), str(name), str(author), str(version))
 
@@ -353,7 +353,7 @@ class Type(object):
         gets the default component or the first component added if it has 
         not been set
         '''
-        if self.default is not None:
+        if self.default != None:
             return self.default
         else:
             return self.components.values()[0]
@@ -402,7 +402,7 @@ class Package(object):
             Package.__manager.get_type(component.type, component.super).add_component(component, self)
         for event_hook in self.event_hooks:
             event = self.__manager.get_event(event_hook[0])
-            if event is not None:
+            if event != None:
                 event.register(event_hook[1], event_hook[2])
 
     def add_types(self, *types):
@@ -542,13 +542,13 @@ class ConfigDefault(object):
         calling with one or more arguments sets those values but leaves the others alone
         '''
         flag = nflag = aflag = vflag = pflag = False
-        if name is not None:
+        if name != None:
             flag = nflag = True
-        if author is not None:
+        if author != None:
             flag = aflag = True
-        if version is not None:
+        if version != None:
             flag = vflag = True
-        if package is not None:
+        if package != None:
             flag = pflag = True
         if flag:
             if nflag:
@@ -597,7 +597,7 @@ class ConfigLoader(object):
         @return: ConfigTemplate
         '''
 
-        if template is None:
+        if template == None:
             template = ConfigTemplate()
         config = ConfigParser.ConfigParser()
         config.read(filename)
@@ -706,7 +706,7 @@ def Log(message=None, prefix="[Kernel]", error=False):
     time stamps a message and writes it to a log file, it can also attach a trace back of the latest error. 
     always adds a new line at the end of the message
     '''
-    if message is None:
+    if message == None:
         error = True
         message = ""
     f = open(os.path.join(GlobalObjects.get_name("Program_Dir"), "ARCed.log"), "ab")

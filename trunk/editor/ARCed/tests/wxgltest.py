@@ -98,7 +98,7 @@ class EventGrid(object):
             
         xpos = event.x * 32
         ypos = ((self.map.height - event.y) * 32) - 32
-        if not self.sprites.has_key(key) or self.sprites[key][0] is None:
+        if not self.sprites.has_key(key) or self.sprites[key][0] == None:
             sprite = None
             if bitmap: 
                sprite = pyglet.sprite.Sprite(image, x=xpos, y=ypos, batch=self.renderingBatch, group=self.spriteGroup)
@@ -137,7 +137,7 @@ class EventGrid(object):
             xpos = event.x * 32
             ypos = ((self.map.height - event.y) * 32) - 32
             if self.sprites.has_key(key):
-                if self.sprites[key][0] is not None:
+                if self.sprites[key][0] != None:
                     if self.sprites[key][0].x != xpos or self.sprites[key][0].y != ypos:
                         self.sprites[key][0].set_position(xpos, ypos)
                     if self.sprites[key][1].x != xpos or self.sprites[key][1].y != ypos:
@@ -169,7 +169,7 @@ class EventGrid(object):
         removed = list(set(self.events.keys()) - set(self.map.events.keys()))
         for key in removed:
             for sprite in self.events[key]:
-                if sprite is not None:
+                if sprite != None:
                     sprite.delete()
             del self.events[key]
         for key in self.map.events.iterkeys():
@@ -193,7 +193,7 @@ class EventGrid(object):
         '''
         for group in self.sprites.itervalues():
             for sprite in group:
-                if sprite is not None:
+                if sprite != None:
                     sprite.delete()
 
 class TileGrid(object):
@@ -228,8 +228,8 @@ class TileGrid(object):
         '''
         shape = (self.map.width, self.map.height)
         sprites = numpy.empty(shape, dtype=object)
-        for x in range(shape[0]):
-            for y in range(shape[1]):
+        for x in xrange(shape[0]):
+            for y in xrange(shape[1]):
                 sprite = self.makeSprite(x, y)
                 sprites[x, y] = sprite
         return sprites
@@ -287,9 +287,9 @@ class TileGrid(object):
         newdata[:mask[0], :mask[1]] = self.sprites[:mask[0], :mask[1]]
         self.sprites = newdata
         shape = self.sprites.shape
-        for x in range(shape[0]):
-            for y in range(shape[1]):
-                if self.sprites[x, y] is None:
+        for x in xrange(shape[0]):
+            for y in xrange(shape[1]):
+                if self.sprites[x, y] == None:
                     self.sprites[x, y] = self.makeSprite(x, y)
                 else:
                     xpos = x * 32
@@ -316,7 +316,7 @@ class Tilemap(object):
         self.autotile_names = autotiles
         self.tileset_name = tileset
         self.ordered_groups = []
-        for i in range(self.table._data.shape[2]):
+        for i in xrange(self.table._data.shape[2]):
             self.ordered_groups.append(pyglet.graphics.OrderedGroup(i))
             self.renderingBatches.append(pyglet.graphics.Batch())
         self.tiles = self.createTilemap()
@@ -327,7 +327,7 @@ class Tilemap(object):
         if width != self.dimmingSpriteWidth or height != self.dimmingSpriteHeight or scale != self.dimmingSprite.scale:
             self.dimmingSpriteWidth = width
             self.dimmingSpriteHeight = height
-            if self.dimmingImagePatteren is None:
+            if self.dimmingImagePatteren == None:
                 self.dimmingImagePatteren = pyglet.image.SolidColorImagePattern((0, 0, 0, 255))
             self.dimmingImage = self.dimmingImagePatteren.create_image(width, height).get_texture()
             self.dimmingSprite = pyglet.sprite.Sprite(self.dimmingImage, 0, 0)
@@ -337,7 +337,7 @@ class Tilemap(object):
     def setDimXY(self, x, y):
         '''
         '''
-        if self.dimmingSprite is not None:
+        if self.dimmingSprite != None:
             self.dimmingSprite.set_position(x, y)
             
     def createTilemap(self):
@@ -345,9 +345,9 @@ class Tilemap(object):
         '''
         shape = self.table._data.shape
         sprites = numpy.empty(shape, dtype=object)
-        for x in range(shape[0]):
-            for y in range(shape[1]):
-                for z in range(shape[2]):
+        for x in xrange(shape[0]):
+            for y in xrange(shape[1]):
+                for z in xrange(shape[2]):
                     sprite = self.makeSprite(x, y, z)
                     sprites[x, y, z] = sprite
         return sprites
@@ -378,7 +378,7 @@ class Tilemap(object):
         '''
         tile = self.tiles[index]
         #if for some reason the sprite does not exist (ie. the map was resized) make it
-        if tile is None:
+        if tile == None:
             x, y, z = index
             tile = self.makeSprite(x, y, z)
             self.tiles[index] = tile
@@ -433,11 +433,11 @@ class Tilemap(object):
         '''
         self.activeLayer = layer
         if layer == (self.table._data.shape[2] + 1):
-            for z in range(self.table._data.shape[2]):
+            for z in xrange(self.table._data.shape[2]):
                 self.SetLayerOpacity(z, 255)
         else:
             if self.LayerDimming:
-                for z in range(self.table._data.shape[2]):
+                for z in xrange(self.table._data.shape[2]):
                     if z <= self.activeLayer:
                         self.SetLayerOpacity(z, 255)
                     else:
@@ -448,21 +448,21 @@ class Tilemap(object):
         '''
         self.LayerDimming = bool
         if self.LayerDimming:
-            for z in range(self.table._data.shape[2]):
+            for z in xrange(self.table._data.shape[2]):
                 if z <= self.activeLayer:
                     self.SetLayerOpacity(z, 255)
                 else:
                     self.SetLayerOpacity(z, 80)
         else:
-            for z in range(self.table._data.shape[2]):
+            for z in xrange(self.table._data.shape[2]):
                 self.SetLayerOpacity(z, 255)
         
     def Draw(self):
         '''
         '''
-        for z in range(len(self.renderingBatches)):
+        for z in xrange(len(self.renderingBatches)):
             if z == self.activeLayer and self.LayerDimming: #and z != 0
-                if self.dimmingSprite is not None:
+                if self.dimmingSprite != None:
                     self.dimmingSprite.draw()
             self.renderingBatches[z].draw()
             
@@ -498,10 +498,10 @@ class Tilemap(object):
         newdata[:mask[0], :mask[1], :mask[2]] = self.tiles[:mask[0], :mask[1], :mask[2]]
         self.tiles = newdata
         shape = self.tiles.shape
-        for x in range(shape[0]):
-            for y in range(shape[1]):
-                for z in range(shape[2]):
-                    if self.tiles[x, y, z] is not None:
+        for x in xrange(shape[0]):
+            for y in xrange(shape[1]):
+                for z in xrange(shape[2]):
+                    if self.tiles[x, y, z] != None:
                         xpos = x * 32
                         ypos = ((self.map.height - y) * 32) - 32
                         self.tiles[x, y, z].set_position(xpos, ypos)
@@ -671,7 +671,7 @@ class MouseSprite(object):
         self.singleTileSprite = pyglet.sprite.Sprite(self.singleImage, -1, -1)
         self.sprites.append(self.singleTileSprite)
         #make corner sprites
-        for type in range(4): 
+        for type in xrange(4): 
             self.cornerSprites.append(self.makeSprite(type))
         #add a striate sprite for each side, the lists will expand or contract as needed
         #self.topRowSprites.append(self.makeSprite(4))
@@ -754,7 +754,7 @@ class MouseSprite(object):
 #                self.sprites.remove(sprite)
             #make sure that there is the right number of top row sprites
             if len(self.topRowSprites) < abs(width) - 1:
-                for i in range(abs(width) - 1 - len(self.topRowSprites)):
+                for i in xrange(abs(width) - 1 - len(self.topRowSprites)):
                     self.topRowSprites.append(self.makeSprite(4))
             else:
                 sprites = self.topRowSprites
@@ -764,7 +764,7 @@ class MouseSprite(object):
                     self.sprites.remove(sprite)
             #make sure that there is the right number of bottom row sprites
             if len(self.bottomRowSprites) < abs(width) - 1:
-                for i in range(abs(width) - 1 - len(self.bottomRowSprites)):
+                for i in xrange(abs(width) - 1 - len(self.bottomRowSprites)):
                     self.bottomRowSprites.append(self.makeSprite(5))
             else:
                 sprites = self.bottomRowSprites
@@ -773,7 +773,7 @@ class MouseSprite(object):
                     sprite.delete()
                     self.sprites.remove(sprite)
             #update the positions of the horizontal sprites
-            for x in range(len(self.topRowSprites)):
+            for x in xrange(len(self.topRowSprites)):
                 self.topRowSprites[x].set_position((TLx + x + 1) * 32, (TLy * 32) - 32)
                 self.bottomRowSprites[x].set_position((TLx + x + 1) * 32, (BRy * 32) - 32)          
         if verticalFlag:
@@ -789,7 +789,7 @@ class MouseSprite(object):
 #                self.sprites.remove(sprite)
             #make sure that there is the right number of left row sprites
             if len(self.leftRowSprites) < abs(height) - 1:
-                for i in range(abs(height) - 1 - len(self.leftRowSprites)):
+                for i in xrange(abs(height) - 1 - len(self.leftRowSprites)):
                     self.leftRowSprites.append(self.makeSprite(6))
             else:
                 sprites = self.leftRowSprites
@@ -799,7 +799,7 @@ class MouseSprite(object):
                     self.sprites.remove(sprite)
             #make sure that there is the right number of right row sprites
             if len(self.rightRowSprites) < abs(height) - 1:
-                for i in range(abs(height) - 1 - len(self.rightRowSprites)):
+                for i in xrange(abs(height) - 1 - len(self.rightRowSprites)):
                     self.rightRowSprites.append(self.makeSprite(7))
             else:
                 sprites = self.rightRowSprites
@@ -808,7 +808,7 @@ class MouseSprite(object):
                     sprite.delete()
                     self.sprites.remove(sprite)
             #update the positions vertical sprites
-            for y in range(len(self.leftRowSprites)):
+            for y in xrange(len(self.leftRowSprites)):
                 self.leftRowSprites[y].set_position(TLx * 32, ((TLy - y - 1) * 32) - 32)
                 self.rightRowSprites[y].set_position(BRx * 32, ((TLy - y - 1) * 32) - 32)
         if TBFlag:
@@ -891,7 +891,7 @@ class MouseSprite(object):
         delete all the sprites
         '''
         for sprite in self.sprites:
-            if sprite is not None:
+            if sprite != None:
                 sprite.delete()
 
 class MouseManager(object):
@@ -912,7 +912,7 @@ class MouseManager(object):
             self.topLeft[0] = x
             self.topLeft[1] = y
             self.mapPanel.NeedRedraw = True
-            if self.sprite is not None:
+            if self.sprite != None:
                 self.sprite.setTopLeft(x, y)
     
     def setBottomRight(self, x, y):
@@ -920,11 +920,11 @@ class MouseManager(object):
             self.bottomRight[0] = x
             self.bottomRight[1] = y
             self.mapPanel.NeedRedraw = True
-            if self.sprite is not None:
+            if self.sprite != None:
                 self.sprite.setBottomRight(x, y)
     
     def setSingleMode(self, value):
-        if self.sprite is not None:
+        if self.sprite != None:
             self.sprite.singleMode = value
         
 class TilemapPanel(pygletwx.GLPanel):
@@ -1122,13 +1122,13 @@ class TilemapPanel(pygletwx.GLPanel):
         size = self.GetVirtualSizeTuple()
         if orient == wx.HORIZONTAL:
             thumb = size[0]
-            range = self.map.width * 32 * self.zoom
+            range_s = self.map.width * 32 * self.zoom
         elif orient == wx.VERTICAL:
             thumb = size[1]
-            range = self.map.height * 32 * self.zoom
+            range_s = self.map.height * 32 * self.zoom
         self.SetOrigin()
         self.OnDraw()
-        self.SetScrollbar(orient, pos, thumb, range, refresh=True)
+        self.SetScrollbar(orient, pos, thumb, range_s, refresh=True)
         
     def SetActiveLayer(self, layer, init=False):
         #if the selected layer is the event layer
@@ -1220,7 +1220,7 @@ class MapToolbar(wx.ToolBar):
     def GenLayerChoices(self):
         choices = []
         self.layerChoiceIDs = {}
-        for z in range(self.map.data._data.shape[2]):
+        for z in xrange(self.map.data._data.shape[2]):
             choice = "Layer %s" % (z + 1)
             self.layerChoiceIDs[choice] = z
             choices.append(choice)
@@ -1260,19 +1260,19 @@ class MapToolbar(wx.ToolBar):
         self.SelectID = 9
                 
     def OnDimLayersChoice(self, event):
-        if self.mapwin is not None:
+        if self.mapwin != None:
             self.mapwin.SetLayerDimming(event.IsChecked())
     
     def OnLayerChoice(self, event):
         self.layerSet = False
-        if self.mapwin is not None:
+        if self.mapwin != None:
             self.layerSet = True
             layer = self.layerChoiceIDs[self.layerChoice.GetItems()[self.layerChoice.GetSelection()]]
             self.mapwin.SetActiveLayer(layer)
     
     def OnZoomChoice(self, event):
         self.zoomSet = False
-        if self.mapwin is not None:
+        if self.mapwin != None:
             self.zoomSet = True
             zoom = self.zoomChoiceIDs[self.zoomChoice.GetItems()[self.zoomChoice.GetSelection()]]
             self.mapwin.SetZoom(zoom)
@@ -1282,7 +1282,7 @@ class MapToolbar(wx.ToolBar):
             self.layers = self.map.data._data.shape[2]
             choices = self.GenLayerChoices()
             self.layerChoice.SetItems(choices)
-        if (self.mapwin is not None) and (not self.layerSet):
+        if (self.mapwin != None) and (not self.layerSet):
             self.layerSet = True
             selection = self.layerChoice.GetSelection()
             items = self.layerChoice.GetItems()
@@ -1290,7 +1290,7 @@ class MapToolbar(wx.ToolBar):
             self.mapwin.SetActiveLayer(layer) 
             
     def UpdateZoomChoice(self, event): 
-        if (self.mapwin is not None) and (not self.zoomSet):
+        if (self.mapwin != None) and (not self.zoomSet):
             self.zoomSet = True
             selection = self.zoomChoice.GetSelection()
             items = self.zoomChoice.GetItems()

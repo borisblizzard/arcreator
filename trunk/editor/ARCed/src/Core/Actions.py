@@ -29,7 +29,7 @@ class ActionManager(object):
         if reverse_flag:
             actions.reverse()
         for action in actions:
-            if action is not None:
+            if action != None:
                 if direction == 0:
                     action.undo()
                 elif direction == 1:

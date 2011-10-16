@@ -125,7 +125,7 @@ def OpenProject(mainwindow, filehistory, path=""):
 
 
 def SaveProject():
-    if Kernel.GlobalObjects.has_key("PROJECT") and (Kernel.GlobalObjects.get_value("PROJECT") is not None):
+    if Kernel.GlobalObjects.has_key("PROJECT") and (Kernel.GlobalObjects.get_value("PROJECT") != None):
         project = Kernel.GlobalObjects.get_value("PROJECT")
         if Kernel.GlobalObjects.has_key("CurrentProjectDir") and not (Kernel.GlobalObjects.get_value("CurrentProjectDir") == ""):
             path = Kernel.GlobalObjects.get_value("CurrentProjectDir")
@@ -138,7 +138,7 @@ def SaveProject():
         Kernel.Log("No current project, project not saved", "[Save Project Handeler]")
     
 def SaveProjectAS(mainwindow, filehistory):
-    if Kernel.GlobalObjects.has_key("PROJECT") and (Kernel.GlobalObjects.get_value("PROJECT") is not None):
+    if Kernel.GlobalObjects.has_key("PROJECT") and (Kernel.GlobalObjects.get_value("PROJECT") != None):
         project = Kernel.GlobalObjects.get_value("PROJECT")
         defaultpath = (os.path.join(wx.StandardPaths.Get().GetDocumentsDir(),
                                     "ARC"))

@@ -198,7 +198,7 @@ class PILCache(object):
                 # Collects Auto-Tile Tile Layout
                 tiles = PILCache.Autotiles[int(pattern) / 8][int(pattern) % 8]
                 PILCache._Cache[key] = Image.new('RGBA', (32, 32), (0, 0, 0, 0))
-                for i in range(4):
+                for i in xrange(4):
                     tile_position = tiles[i] - 1
                     x = tile_position % 6 * 16
                     y = tile_position / 6 * 16
@@ -307,7 +307,7 @@ class PygletCache(object):
         key = (folder_name, filename, loc, hue)
         if not self._Cache.has_key(key) or not self._Cache[key]:
             image = PILCache.Load_bitmap(folder_name, filename, hue, loc)
-            if image is not None:
+            if image != None:
                 pygletimage = pyglet.image.create(*image.size).get_image_data()
                 pitch = -len('RGBA') * pygletimage.width
                 data = image.tostring()
@@ -330,7 +330,7 @@ class PygletCache(object):
         key = (loc + filename, pattern, 0)
         if not self._Cache.has_key(key) or not self._Cache[key]:
             image = PILCache.AutotilePattern(filename, pattern, loc)
-            if image is not None:
+            if image != None:
                 pygletimage = pyglet.image.create(*image.size).get_image_data()
                 pitch = -len('RGBA') * pygletimage.width
                 data = image.tostring()
@@ -378,7 +378,7 @@ class PygletCache(object):
         key = (loc + filename, int(tile_id), hue)
         if not self._Cache.has_key(key) or not self._Cache[key]:
             image = PILCache.Tile(filename, tile_id, hue, loc)
-            if image is not None:
+            if image != None:
                 pygletimage = pyglet.image.create(*image.size).get_image_data()
                 pitch = -len('RGBA') * pygletimage.width
                 data = image.tostring()

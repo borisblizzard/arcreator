@@ -32,22 +32,22 @@ class ARCedExpCurve_Dialog( ARCed_Templates.ExpCurve_Dialog ):
 		expDigits = len(str(max(expList)))
 		strings = []
 		if self.noteBookExpList.GetSelection() == 1:
-			for i in range(1, FinalLevel + 1):
+			for i in xrange(1, FinalLevel + 1):
 				strings.append('L' + str(i).rjust(levelDigits) + ': ' + str(expList[i] - expList[i - 1]).rjust(expDigits))
 			lines = ["    ".join(row) for row in self.columnSplit(strings, 4)]
 			self.textCtrlNext.ChangeValue("\n".join(lines))
-			for y in range(len(lines)):
-				for c in range(4):
+			for y in xrange(len(lines)):
+				for c in xrange(4):
 					start = self.textCtrlNext.XYToPosition(0, y)
 					pos = (start + levelDigits + 3) + ((levelDigits + 7 + expDigits) * c)
 					self.textCtrlNext.SetStyle(pos, pos + expDigits, StyleNext)
 		else:
-			for i in range(1, FinalLevel + 1):
+			for i in xrange(1, FinalLevel + 1):
 				strings.append('L' + str(i).rjust(levelDigits) + ': ' + str(expList[i]).rjust(expDigits))
 			lines = ["    ".join(row) for row in self.columnSplit(strings, 4)]
 			self.textCtrlTotal.ChangeValue("\n".join(lines))
-			for y in range(len(lines)):
-				for c in range(4):
+			for y in xrange(len(lines)):
+				for c in xrange(4):
 					start = self.textCtrlTotal.XYToPosition(0, y)
 					pos = (start + levelDigits + 3) + ((levelDigits + 7 + expDigits) * c)
 					self.textCtrlTotal.SetStyle(pos, pos + expDigits, StyleTotal)
@@ -57,7 +57,7 @@ class ARCedExpCurve_Dialog( ARCed_Templates.ExpCurve_Dialog ):
 		rows = len(list) / columns
 		if len(list) % columns:
 			rows += 1
-		return [list[i::rows] for i in range(rows)]
+		return [list[i::rows] for i in xrange(rows)]
 
 	def generateExpList(self):
 		""" Calculates the experience list based on the basis and inflation, then returns it """
@@ -65,7 +65,7 @@ class ARCedExpCurve_Dialog( ARCed_Templates.ExpCurve_Dialog ):
 		basis = self.spinCtrlBasis.GetValue()
 		inflation = self.spinCtrlInflation.GetValue()
 		pow_i = 2.4 + inflation / 100.0 # TODO: Maybe add editor setting for 'pow_i' ???
-		for i in range(2, MaxLevel + 1):
+		for i in xrange(2, MaxLevel + 1):
 			if i > FinalLevel:
 				expList.append(0)
 			else:

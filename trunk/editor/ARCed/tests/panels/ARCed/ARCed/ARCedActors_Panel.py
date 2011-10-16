@@ -20,7 +20,7 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 		DigitMax = len(str(self.Limits.Actors['maxactors']))
 
 		# TODO: Remove this
-		for i in range(20):
+		for i in xrange(20):
 			Project.Data_weapons.append(RPG.Weapon())
 			Project.Data_armors.append(RPG.Armor())
 			Project.Data_actors.append(RPG.Actor())
@@ -115,15 +115,15 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 			newMax = dlg.spinCtrlMaximum.GetValue()
 			if newMax != currentMax: 
 				if newMax > currentMax:
-					newActors = [None for i in range(newMax - currentMax)]
-					newLabels = [str(1 + currentMax + i).zfill(DigitMax) + ': ' for i in range(newMax - currentMax)]
+					newActors = [None for i in xrange(newMax - currentMax)]
+					newLabels = [str(1 + currentMax + i).zfill(DigitMax) + ': ' for i in xrange(newMax - currentMax)]
 					Project.Data_actors.extend(newActors)
 					self.listBoxActors.InsertItems(newLabels, currentMax)
 				else:
 					if self.listBoxActors.GetSelection() >= newMax:
 						self.listBoxActors.Select(newMax - 1)
 					del Project.Data_actors[newMax:currentMax]
-					for i in reversed(range(currentMax)):
+					for i in reversed(xrange(currentMax)):
 						if i >= newMax:
 							self.listBoxActors.Delete(i)
 						else:
