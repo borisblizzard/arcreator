@@ -127,6 +127,7 @@
     <Compile Include="ARCedWeapons_Panel.py" />
     <Compile Include="ARCedWeatherEffects_Dialog.py" />
     <Compile Include="ARCed_Templates.py" />
+    <Compile Include="maxvalues.py" />
     <Compile Include="RGSS1_RPG.py" />
     <Compile Include="RMXPProject.py" />
     <Compile Include="RPGutil.py" />
@@ -134,6 +135,7 @@
     <Compile Include="__main__.py" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="ini\DatabaseLimits.ini" />
     <Content Include="ini\DatabaseTabs.ini" />
   </ItemGroup>
 </Project>
