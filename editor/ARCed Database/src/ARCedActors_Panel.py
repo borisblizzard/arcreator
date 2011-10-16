@@ -1,7 +1,7 @@
-import RGSS1_RPG as RPG # Remove after testing
+import RGSS1_RPG as RPG					# Remove after testing
 from RGSS1_RPG import Actor
 from RMXPProject import Project
-import maxvalues # TEST for now, will be stored in Kernel later
+import maxvalues						# TEST for now, will be stored in the core later
 import wx
 import ARCed_Templates
 import ARCedChangeMaximum_Dialog

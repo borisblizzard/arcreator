@@ -24,7 +24,7 @@ class Actors_Panel ( wx.Panel ):
 		
 		ActorListSizer = wx.BoxSizer( wx.VERTICAL )
 		
-		self.bitmapActors = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( u"../../../../../Database Panel Images/Actors.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.Size( 150,26 ), wx.CLIP_CHILDREN|wx.FULL_REPAINT_ON_RESIZE )
+		self.bitmapActors = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( u"images/Actors.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.Size( 150,26 ), wx.CLIP_CHILDREN|wx.FULL_REPAINT_ON_RESIZE )
 		self.bitmapActors.SetMinSize( wx.Size( 150,26 ) )
 		self.bitmapActors.SetMaxSize( wx.Size( 150,26 ) )
 		
@@ -95,14 +95,14 @@ class Actors_Panel ( wx.Panel ):
 		self.labelCharacterGraphic.Wrap( -1 )
 		sizer3.Add( self.labelCharacterGraphic, 0, wx.ALL, 5 )
 		
-		self.bitmapCharacterGraphic = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( u"../../../../../Database Panel Images/Character.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.DefaultSize, wx.SUNKEN_BORDER )
+		self.bitmapCharacterGraphic = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( u"images/Character.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.DefaultSize, wx.SUNKEN_BORDER )
 		sizer3.Add( self.bitmapCharacterGraphic, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
 		
 		self.labelBattlerGraphic = wx.StaticText( self, wx.ID_ANY, u"Battler Graphic:", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.labelBattlerGraphic.Wrap( -1 )
 		sizer3.Add( self.labelBattlerGraphic, 0, wx.ALL, 5 )
 		
-		self.bitmapBattlerGraphic = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( u"../../../../../Database Panel Images/Battler.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.DefaultSize, wx.SUNKEN_BORDER )
+		self.bitmapBattlerGraphic = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( u"images/Battler.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.DefaultSize, wx.SUNKEN_BORDER )
 		sizer3.Add( self.bitmapBattlerGraphic, 0, wx.ALL, 5 )
 		
 		sizer1.Add( sizer3, 25, wx.EXPAND, 5 )
@@ -115,26 +115,26 @@ class Actors_Panel ( wx.Panel ):
 		
 		sizer6 = wx.BoxSizer( wx.VERTICAL )
 		
-		self.bitmapMaxHP = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( u"../../../../../Database Panel Images/MaxHP.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.DefaultSize, wx.SUNKEN_BORDER )
+		self.bitmapMaxHP = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( u"images/MaxHP.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.DefaultSize, wx.SUNKEN_BORDER )
 		sizer6.Add( self.bitmapMaxHP, 1, wx.ALL|wx.EXPAND, 5 )
 		
-		self.bitmapSTR = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( u"../../../../../Database Panel Images/Str.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.DefaultSize, wx.SUNKEN_BORDER )
+		self.bitmapSTR = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( u"images/Str.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.DefaultSize, wx.SUNKEN_BORDER )
 		sizer6.Add( self.bitmapSTR, 1, wx.ALL|wx.EXPAND, 5 )
 		
-		self.bitmapAGI = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( u"../../../../../Database Panel Images/Agi.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.DefaultSize, wx.SUNKEN_BORDER )
+		self.bitmapAGI = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( u"images/Agi.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.DefaultSize, wx.SUNKEN_BORDER )
 		sizer6.Add( self.bitmapAGI, 1, wx.ALL|wx.EXPAND, 5 )
 		
 		sizerParameters.Add( sizer6, 1, wx.EXPAND, 5 )
 		
 		sizer7 = wx.BoxSizer( wx.VERTICAL )
 		
-		self.bitmapMaxSP = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( u"../../../../../Database Panel Images/MaxSP.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.DefaultSize, wx.SUNKEN_BORDER )
+		self.bitmapMaxSP = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( u"images/MaxSP.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.DefaultSize, wx.SUNKEN_BORDER )
 		sizer7.Add( self.bitmapMaxSP, 1, wx.ALL|wx.EXPAND, 5 )
 		
-		self.bitmapDEX = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( u"../../../../../Database Panel Images/Dex.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.DefaultSize, wx.SUNKEN_BORDER )
+		self.bitmapDEX = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( u"images/Dex.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.DefaultSize, wx.SUNKEN_BORDER )
 		sizer7.Add( self.bitmapDEX, 1, wx.ALL|wx.EXPAND, 5 )
 		
-		self.bitmapINT = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( u"../../../../../Database Panel Images/Int.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.DefaultSize, wx.SUNKEN_BORDER )
+		self.bitmapINT = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( u"images/Int.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.DefaultSize, wx.SUNKEN_BORDER )
 		sizer7.Add( self.bitmapINT, 1, wx.ALL|wx.EXPAND, 5 )
 		
 		sizerParameters.Add( sizer7, 1, wx.EXPAND, 5 )
@@ -347,7 +347,7 @@ class Classes_Panel ( wx.Panel ):
 		
 		ClassListSizer = wx.BoxSizer( wx.VERTICAL )
 		
-		self.bitmapClasses = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( u"../../../../../Database Panel Images/Classes.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.Size( 150,26 ), wx.CLIP_CHILDREN|wx.FULL_REPAINT_ON_RESIZE )
+		self.bitmapClasses = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( u"images/Classes.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.Size( 150,26 ), wx.CLIP_CHILDREN|wx.FULL_REPAINT_ON_RESIZE )
 		self.bitmapClasses.SetMinSize( wx.Size( 150,26 ) )
 		self.bitmapClasses.SetMaxSize( wx.Size( 150,26 ) )
 		
@@ -545,7 +545,7 @@ class Skills_Panel ( wx.Panel ):
 		
 		SkillListSizer = wx.BoxSizer( wx.VERTICAL )
 		
-		self.bitmapSkills = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( u"../../../../../Database Panel Images/Skills.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.Size( 150,26 ), wx.CLIP_CHILDREN|wx.FULL_REPAINT_ON_RESIZE )
+		self.bitmapSkills = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( u"images/Skills.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.Size( 150,26 ), wx.CLIP_CHILDREN|wx.FULL_REPAINT_ON_RESIZE )
 		self.bitmapSkills.SetMinSize( wx.Size( 150,26 ) )
 		self.bitmapSkills.SetMaxSize( wx.Size( 150,26 ) )
 		
@@ -978,7 +978,7 @@ class Items_Panel ( wx.Panel ):
 		
 		ItemListSizer = wx.BoxSizer( wx.VERTICAL )
 		
-		self.bitmapItems = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( u"../../../../../Database Panel Images/Items.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.Size( 150,26 ), wx.CLIP_CHILDREN|wx.FULL_REPAINT_ON_RESIZE )
+		self.bitmapItems = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( u"images/Items.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.Size( 150,26 ), wx.CLIP_CHILDREN|wx.FULL_REPAINT_ON_RESIZE )
 		self.bitmapItems.SetMinSize( wx.Size( 150,26 ) )
 		self.bitmapItems.SetMaxSize( wx.Size( 150,26 ) )
 		
@@ -1419,7 +1419,7 @@ class Armors_Panel ( wx.Panel ):
 		
 		ArmorsListSizer = wx.BoxSizer( wx.VERTICAL )
 		
-		self.bitmapArmors = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( u"../../../../../Database Panel Images/Armors.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.Size( 150,26 ), wx.CLIP_CHILDREN|wx.FULL_REPAINT_ON_RESIZE )
+		self.bitmapArmors = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( u"images/Armors.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.Size( 150,26 ), wx.CLIP_CHILDREN|wx.FULL_REPAINT_ON_RESIZE )
 		self.bitmapArmors.SetMinSize( wx.Size( 150,26 ) )
 		self.bitmapArmors.SetMaxSize( wx.Size( 150,26 ) )
 		
@@ -1745,7 +1745,7 @@ class Weapons_Panel ( wx.Panel ):
 		
 		WeaponsListSizer = wx.BoxSizer( wx.VERTICAL )
 		
-		self.bitmapWeapons = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( u"../../../../../Database Panel Images/Weapons.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.Size( 150,26 ), wx.CLIP_CHILDREN|wx.FULL_REPAINT_ON_RESIZE )
+		self.bitmapWeapons = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( u"images/Weapons.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.Size( 150,26 ), wx.CLIP_CHILDREN|wx.FULL_REPAINT_ON_RESIZE )
 		self.bitmapWeapons.SetMinSize( wx.Size( 150,26 ) )
 		self.bitmapWeapons.SetMaxSize( wx.Size( 150,26 ) )
 		
@@ -2071,7 +2071,7 @@ class Enemies_Panel ( wx.Panel ):
 		
 		EnemiesListSizer = wx.BoxSizer( wx.VERTICAL )
 		
-		self.bitmapEnemies = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( u"../../../../../Database Panel Images/Enemies.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.Size( 150,26 ), wx.CLIP_CHILDREN|wx.FULL_REPAINT_ON_RESIZE )
+		self.bitmapEnemies = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( u"images/Enemies.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.Size( 150,26 ), wx.CLIP_CHILDREN|wx.FULL_REPAINT_ON_RESIZE )
 		self.bitmapEnemies.SetMinSize( wx.Size( 150,26 ) )
 		self.bitmapEnemies.SetMaxSize( wx.Size( 150,26 ) )
 		
@@ -2107,7 +2107,7 @@ class Enemies_Panel ( wx.Panel ):
 		self.labelBattlerGraphic.Wrap( -1 )
 		sizer2.Add( self.labelBattlerGraphic, 0, wx.ALL, 5 )
 		
-		self.bitmapBattlerGraphic = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( u"../../../../../Database Panel Images/Ghost.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.DefaultSize, wx.STATIC_BORDER )
+		self.bitmapBattlerGraphic = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( u"images/Ghost.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.DefaultSize, wx.STATIC_BORDER )
 		sizer2.Add( self.bitmapBattlerGraphic, 1, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
 		
 		self.labelAttackAnimation = wx.StaticText( self, wx.ID_ANY, u"Attack Animation:", wx.DefaultPosition, wx.DefaultSize, 0 )
@@ -2410,7 +2410,7 @@ class Troops_Panel ( wx.Panel ):
 		
 		TroopsListSizer = wx.BoxSizer( wx.VERTICAL )
 		
-		self.bitmapTroops = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( u"../../../../../Database Panel Images/Troops.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.Size( 150,26 ), wx.CLIP_CHILDREN|wx.FULL_REPAINT_ON_RESIZE )
+		self.bitmapTroops = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( u"images/Troops.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.Size( 150,26 ), wx.CLIP_CHILDREN|wx.FULL_REPAINT_ON_RESIZE )
 		self.bitmapTroops.SetMinSize( wx.Size( 150,26 ) )
 		self.bitmapTroops.SetMaxSize( wx.Size( 150,26 ) )
 		
@@ -2453,7 +2453,7 @@ class Troops_Panel ( wx.Panel ):
 		
 		sizer2 = wx.BoxSizer( wx.HORIZONTAL )
 		
-		self.bitmapTroopLayout = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( u"../../../../../Database Panel Images/Battleback.jpg", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.DefaultSize, wx.SUNKEN_BORDER )
+		self.bitmapTroopLayout = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( u"images/Battleback.jpg", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.DefaultSize, wx.SUNKEN_BORDER )
 		sizer2.Add( self.bitmapTroopLayout, 70, wx.ALL|wx.EXPAND, 5 )
 		
 		sizer4 = wx.BoxSizer( wx.VERTICAL )
@@ -2645,7 +2645,7 @@ class States_Panel ( wx.Panel ):
 		
 		StatesListSizer = wx.BoxSizer( wx.VERTICAL )
 		
-		self.bitmapStates = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( u"../../../../../Database Panel Images/States.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.Size( 150,26 ), wx.CLIP_CHILDREN|wx.FULL_REPAINT_ON_RESIZE )
+		self.bitmapStates = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( u"images/States.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.Size( 150,26 ), wx.CLIP_CHILDREN|wx.FULL_REPAINT_ON_RESIZE )
 		self.bitmapStates.SetMinSize( wx.Size( 150,26 ) )
 		self.bitmapStates.SetMaxSize( wx.Size( 150,26 ) )
 		
@@ -3036,7 +3036,7 @@ class Animations_Panel ( wx.Panel ):
 		
 		AnimationsListSizer = wx.BoxSizer( wx.VERTICAL )
 		
-		self.bitmapAnimations = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( u"../../../../../Database Panel Images/Animations.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.Size( 150,26 ), wx.CLIP_CHILDREN|wx.FULL_REPAINT_ON_RESIZE )
+		self.bitmapAnimations = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( u"images/Animations.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.Size( 150,26 ), wx.CLIP_CHILDREN|wx.FULL_REPAINT_ON_RESIZE )
 		self.bitmapAnimations.SetMinSize( wx.Size( 150,26 ) )
 		self.bitmapAnimations.SetMaxSize( wx.Size( 150,26 ) )
 		
@@ -3124,7 +3124,7 @@ class Animations_Panel ( wx.Panel ):
 		
 		sizer2.Add( sizer5, 0, wx.EXPAND, 5 )
 		
-		self.bitmapPallette = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( u"../../../../../Database Panel Images/AnimationSample1.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.DefaultSize, wx.SUNKEN_BORDER )
+		self.bitmapPallette = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( u"images/AnimationSample1.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.DefaultSize, wx.SUNKEN_BORDER )
 		sizer2.Add( self.bitmapPallette, 1, wx.ALL|wx.EXPAND, 5 )
 		
 		sizer6 = wx.BoxSizer( wx.VERTICAL )
@@ -3167,7 +3167,7 @@ class Animations_Panel ( wx.Panel ):
 		self.m_scrolledWindow3.SetScrollRate( 5, 5 )
 		bSizer196 = wx.BoxSizer( wx.HORIZONTAL )
 		
-		self.bitmapAnimationFrames = wx.StaticBitmap( self.m_scrolledWindow3, wx.ID_ANY, wx.Bitmap( u"../../../../../Database Panel Images/AnimationSample2.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.bitmapAnimationFrames = wx.StaticBitmap( self.m_scrolledWindow3, wx.ID_ANY, wx.Bitmap( u"images/AnimationSample2.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.DefaultSize, 0 )
 		bSizer196.Add( self.bitmapAnimationFrames, 0, wx.ALL, 5 )
 		
 		self.m_scrolledWindow3.SetSizer( bSizer196 )
@@ -3283,7 +3283,7 @@ class Tilesets_Panel ( wx.Panel ):
 		
 		TilesetsListSizer = wx.BoxSizer( wx.VERTICAL )
 		
-		self.bitmapTilesets = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( u"../../../../../Database Panel Images/Tilesets.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.Size( 150,26 ), wx.CLIP_CHILDREN|wx.FULL_REPAINT_ON_RESIZE )
+		self.bitmapTilesets = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( u"images/Tilesets.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.Size( 150,26 ), wx.CLIP_CHILDREN|wx.FULL_REPAINT_ON_RESIZE )
 		self.bitmapTilesets.SetMinSize( wx.Size( 150,26 ) )
 		self.bitmapTilesets.SetMaxSize( wx.Size( 150,26 ) )
 		
@@ -3377,7 +3377,7 @@ class Tilesets_Panel ( wx.Panel ):
 		
 		sizer3 = wx.BoxSizer( wx.VERTICAL )
 		
-		self.m_bitmap36 = wx.StaticBitmap( self.m_scrolledWindow4, wx.ID_ANY, wx.Bitmap( u"../../../../../Database Panel Images/TilesetSample.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.Size( 256,-1 ), 0 )
+		self.m_bitmap36 = wx.StaticBitmap( self.m_scrolledWindow4, wx.ID_ANY, wx.Bitmap( u"images/TilesetSample.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.Size( 256,-1 ), 0 )
 		self.m_bitmap36.SetMinSize( wx.Size( 256,-1 ) )
 		self.m_bitmap36.SetMaxSize( wx.Size( 256,-1 ) )
 		
@@ -3540,7 +3540,7 @@ class CommonEvents_Panel ( wx.Panel ):
 		
 		CommonEventsListSizer = wx.BoxSizer( wx.VERTICAL )
 		
-		self.bitmapCommonEvents = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( u"../../../../../Database Panel Images/CommonEvents.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.Size( 150,26 ), wx.CLIP_CHILDREN|wx.FULL_REPAINT_ON_RESIZE )
+		self.bitmapCommonEvents = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( u"images/CommonEvents.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.Size( 150,26 ), wx.CLIP_CHILDREN|wx.FULL_REPAINT_ON_RESIZE )
 		self.bitmapCommonEvents.SetMinSize( wx.Size( 150,26 ) )
 		self.bitmapCommonEvents.SetMaxSize( wx.Size( 150,26 ) )
 		
@@ -5758,17 +5758,17 @@ class ActorParameters_Dialog ( wx.Dialog ):
 		
 		MainSizerParamter.Add( sizerConrolsParameter, 0, wx.EXPAND, 5 )
 		
-		self.bitmapGraph = wx.StaticBitmap( self.panelParameter, wx.ID_ANY, wx.Bitmap( u"../../../../../Database Panel Images/MaxHP.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.Size( 448,224 ), wx.SIMPLE_BORDER )
+		self.bitmapGraph = wx.StaticBitmap( self.panelParameter, wx.ID_ANY, wx.Bitmap( u"images/MaxHP.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.Size( 448,224 ), wx.SIMPLE_BORDER )
 		MainSizerParamter.Add( self.bitmapGraph, 0, wx.EXPAND|wx.ALL, 5 )
 		
 		self.panelParameter.SetSizer( MainSizerParamter )
 		self.panelParameter.Layout()
 		MainSizerParamter.Fit( self.panelParameter )
-		self.noteBookActorParameters.AddPage( self.panelParameter, u"MaxHP", False )
+		self.noteBookActorParameters.AddPage( self.panelParameter, u"MaxHP", True )
 		self.panelMaxSP = wx.Panel( self.noteBookActorParameters, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
 		self.noteBookActorParameters.AddPage( self.panelMaxSP, u"MaxSP", False )
 		self.panelStr = wx.Panel( self.noteBookActorParameters, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
-		self.noteBookActorParameters.AddPage( self.panelStr, u"STR", True )
+		self.noteBookActorParameters.AddPage( self.panelStr, u"STR", False )
 		self.panelDex = wx.Panel( self.noteBookActorParameters, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
 		self.noteBookActorParameters.AddPage( self.panelDex, u"DEX", False )
 		self.panelAgi = wx.Panel( self.noteBookActorParameters, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
@@ -5848,600 +5848,6 @@ class ActorParameters_Dialog ( wx.Dialog ):
 		pass
 	
 	def bitmapGraphMaxHP_LeftUp( self, event ):
-		pass
-	
-	def buttonOK_Clicked( self, event ):
-		pass
-	
-	def buttonCancel_Clicked( self, event ):
-		pass
-	
-
-###########################################################################
-## Class DUMMY_ERASE_ME
-###########################################################################
-
-class DUMMY_ERASE_ME ( wx.Dialog ):
-	
-	def __init__( self, parent ):
-		wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Parameters", pos = wx.DefaultPosition, size = wx.Size( 478,366 ), style = wx.DEFAULT_DIALOG_STYLE )
-		
-		self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
-		
-		MainSizer = wx.BoxSizer( wx.VERTICAL )
-		
-		self.noteBookActorParameters = wx.Notebook( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.panelMaxHP = wx.Panel( self.noteBookActorParameters, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
-		MainSizerMaxHP = wx.BoxSizer( wx.VERTICAL )
-		
-		sizerConrolsMaxHP = wx.BoxSizer( wx.HORIZONTAL )
-		
-		sizerQuickSettingsMaxHP = wx.StaticBoxSizer( wx.StaticBox( self.panelMaxHP, wx.ID_ANY, u"Quick Settings" ), wx.HORIZONTAL )
-		
-		self.buttonQuickAMaxHP = wx.Button( self.panelMaxHP, wx.ID_ANY, u"A", wx.DefaultPosition, wx.Size( 23,23 ), 0 )
-		sizerQuickSettingsMaxHP.Add( self.buttonQuickAMaxHP, 0, wx.ALL, 5 )
-		
-		self.buttonQuickBMaxHP = wx.Button( self.panelMaxHP, wx.ID_ANY, u"B", wx.DefaultPosition, wx.Size( 23,23 ), 0 )
-		sizerQuickSettingsMaxHP.Add( self.buttonQuickBMaxHP, 0, wx.TOP|wx.BOTTOM|wx.RIGHT, 5 )
-		
-		self.buttonQuickCMaxHP = wx.Button( self.panelMaxHP, wx.ID_ANY, u"C", wx.DefaultPosition, wx.Size( 23,23 ), 0 )
-		sizerQuickSettingsMaxHP.Add( self.buttonQuickCMaxHP, 0, wx.TOP|wx.BOTTOM|wx.RIGHT, 5 )
-		
-		self.buttonQuickDMaxHP = wx.Button( self.panelMaxHP, wx.ID_ANY, u"D", wx.DefaultPosition, wx.Size( 23,23 ), 0 )
-		sizerQuickSettingsMaxHP.Add( self.buttonQuickDMaxHP, 0, wx.TOP|wx.BOTTOM|wx.RIGHT, 5 )
-		
-		self.buttonQuickEMaxHP = wx.Button( self.panelMaxHP, wx.ID_ANY, u"E", wx.DefaultPosition, wx.Size( 23,23 ), 0 )
-		sizerQuickSettingsMaxHP.Add( self.buttonQuickEMaxHP, 0, wx.TOP|wx.BOTTOM|wx.RIGHT, 5 )
-		
-		sizerConrolsMaxHP.Add( sizerQuickSettingsMaxHP, 0, wx.ALL, 5 )
-		
-		sizer1 = wx.BoxSizer( wx.VERTICAL )
-		
-		self.labelLevelMaxHP = wx.StaticText( self.panelMaxHP, wx.ID_ANY, u"Level:", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.labelLevelMaxHP.Wrap( -1 )
-		sizer1.Add( self.labelLevelMaxHP, 0, wx.ALL|wx.EXPAND, 5 )
-		
-		self.spinCtrlLevelMaxHP = wx.SpinCtrl( self.panelMaxHP, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 999, 1 )
-		sizer1.Add( self.spinCtrlLevelMaxHP, 0, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
-		
-		sizerConrolsMaxHP.Add( sizer1, 1, wx.ALIGN_CENTER_VERTICAL, 5 )
-		
-		sizer2 = wx.BoxSizer( wx.VERTICAL )
-		
-		self.labelValueMaxHP = wx.StaticText( self.panelMaxHP, wx.ID_ANY, u"Value:", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.labelValueMaxHP.Wrap( -1 )
-		sizer2.Add( self.labelValueMaxHP, 0, wx.ALL|wx.EXPAND, 5 )
-		
-		self.spinCtrlValueMaxHP = wx.SpinCtrl( self.panelMaxHP, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0 )
-		sizer2.Add( self.spinCtrlValueMaxHP, 0, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
-		
-		sizerConrolsMaxHP.Add( sizer2, 1, wx.ALIGN_CENTER_VERTICAL, 5 )
-		
-		self.buttonGenerateMaxHP = wx.Button( self.panelMaxHP, wx.ID_ANY, u"Generate Curve...", wx.DefaultPosition, wx.DefaultSize, 0 )
-		sizerConrolsMaxHP.Add( self.buttonGenerateMaxHP, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
-		
-		MainSizerMaxHP.Add( sizerConrolsMaxHP, 0, wx.EXPAND, 5 )
-		
-		self.bitmapGraphMaxHP = wx.StaticBitmap( self.panelMaxHP, wx.ID_ANY, wx.Bitmap( u"../../../../../Database Panel Images/MaxHP.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.Size( 448,224 ), wx.SIMPLE_BORDER )
-		MainSizerMaxHP.Add( self.bitmapGraphMaxHP, 0, wx.EXPAND|wx.ALL, 5 )
-		
-		self.panelMaxHP.SetSizer( MainSizerMaxHP )
-		self.panelMaxHP.Layout()
-		MainSizerMaxHP.Fit( self.panelMaxHP )
-		self.noteBookActorParameters.AddPage( self.panelMaxHP, u"MaxHP", False )
-		self.panelMaxSP = wx.Panel( self.noteBookActorParameters, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
-		MainSizerMaxSP = wx.BoxSizer( wx.VERTICAL )
-		
-		sizerConrolsMaxSP = wx.BoxSizer( wx.HORIZONTAL )
-		
-		sizerQuickSettingsMaxSP = wx.StaticBoxSizer( wx.StaticBox( self.panelMaxSP, wx.ID_ANY, u"Quick Settings" ), wx.HORIZONTAL )
-		
-		self.buttonQuickAMaxSP = wx.Button( self.panelMaxSP, wx.ID_ANY, u"A", wx.DefaultPosition, wx.Size( 23,23 ), 0 )
-		sizerQuickSettingsMaxSP.Add( self.buttonQuickAMaxSP, 0, wx.ALL, 5 )
-		
-		self.buttonQuickBMaxSP = wx.Button( self.panelMaxSP, wx.ID_ANY, u"B", wx.DefaultPosition, wx.Size( 23,23 ), 0 )
-		sizerQuickSettingsMaxSP.Add( self.buttonQuickBMaxSP, 0, wx.TOP|wx.BOTTOM|wx.RIGHT, 5 )
-		
-		self.buttonQuickCMaxSP = wx.Button( self.panelMaxSP, wx.ID_ANY, u"C", wx.DefaultPosition, wx.Size( 23,23 ), 0 )
-		sizerQuickSettingsMaxSP.Add( self.buttonQuickCMaxSP, 0, wx.TOP|wx.BOTTOM|wx.RIGHT, 5 )
-		
-		self.buttonQuickDMaxSP = wx.Button( self.panelMaxSP, wx.ID_ANY, u"D", wx.DefaultPosition, wx.Size( 23,23 ), 0 )
-		sizerQuickSettingsMaxSP.Add( self.buttonQuickDMaxSP, 0, wx.TOP|wx.BOTTOM|wx.RIGHT, 5 )
-		
-		self.buttonQuickEMaxSP = wx.Button( self.panelMaxSP, wx.ID_ANY, u"E", wx.DefaultPosition, wx.Size( 23,23 ), 0 )
-		sizerQuickSettingsMaxSP.Add( self.buttonQuickEMaxSP, 0, wx.TOP|wx.BOTTOM|wx.RIGHT, 5 )
-		
-		sizerConrolsMaxSP.Add( sizerQuickSettingsMaxSP, 0, wx.ALL, 5 )
-		
-		sizer3 = wx.BoxSizer( wx.VERTICAL )
-		
-		self.labelLevelMaxSP = wx.StaticText( self.panelMaxSP, wx.ID_ANY, u"Level:", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.labelLevelMaxSP.Wrap( -1 )
-		sizer3.Add( self.labelLevelMaxSP, 0, wx.ALL|wx.EXPAND, 5 )
-		
-		self.spinCtrlLevelMaxSP = wx.SpinCtrl( self.panelMaxSP, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 999, 1 )
-		sizer3.Add( self.spinCtrlLevelMaxSP, 0, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
-		
-		sizerConrolsMaxSP.Add( sizer3, 1, wx.ALIGN_CENTER_VERTICAL, 5 )
-		
-		sizer4 = wx.BoxSizer( wx.VERTICAL )
-		
-		self.labelValueMaxSP = wx.StaticText( self.panelMaxSP, wx.ID_ANY, u"Value:", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.labelValueMaxSP.Wrap( -1 )
-		sizer4.Add( self.labelValueMaxSP, 0, wx.ALL|wx.EXPAND, 5 )
-		
-		self.spinCtrlValueMaxSP = wx.SpinCtrl( self.panelMaxSP, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0 )
-		sizer4.Add( self.spinCtrlValueMaxSP, 0, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
-		
-		sizerConrolsMaxSP.Add( sizer4, 1, wx.ALIGN_CENTER_VERTICAL, 5 )
-		
-		self.buttonGenerateMaxSP = wx.Button( self.panelMaxSP, wx.ID_ANY, u"Generate Curve...", wx.DefaultPosition, wx.DefaultSize, 0 )
-		sizerConrolsMaxSP.Add( self.buttonGenerateMaxSP, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
-		
-		MainSizerMaxSP.Add( sizerConrolsMaxSP, 0, wx.EXPAND, 5 )
-		
-		self.bitmapGraphMaxSP = wx.StaticBitmap( self.panelMaxSP, wx.ID_ANY, wx.Bitmap( u"../../../../../Database Panel Images/MaxSP.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.Size( 448,224 ), wx.SIMPLE_BORDER )
-		MainSizerMaxSP.Add( self.bitmapGraphMaxSP, 0, wx.EXPAND|wx.ALL, 5 )
-		
-		self.panelMaxSP.SetSizer( MainSizerMaxSP )
-		self.panelMaxSP.Layout()
-		MainSizerMaxSP.Fit( self.panelMaxSP )
-		self.noteBookActorParameters.AddPage( self.panelMaxSP, u"MaxSP", False )
-		self.panelStr = wx.Panel( self.noteBookActorParameters, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
-		MainSizerStr = wx.BoxSizer( wx.VERTICAL )
-		
-		sizerConrolsStr = wx.BoxSizer( wx.HORIZONTAL )
-		
-		sizerQuickSettingsStr = wx.StaticBoxSizer( wx.StaticBox( self.panelStr, wx.ID_ANY, u"Quick Settings" ), wx.HORIZONTAL )
-		
-		self.buttonQuickAStr = wx.Button( self.panelStr, wx.ID_ANY, u"A", wx.DefaultPosition, wx.Size( 23,23 ), 0 )
-		sizerQuickSettingsStr.Add( self.buttonQuickAStr, 0, wx.ALL, 5 )
-		
-		self.buttonQuickBStr = wx.Button( self.panelStr, wx.ID_ANY, u"B", wx.DefaultPosition, wx.Size( 23,23 ), 0 )
-		sizerQuickSettingsStr.Add( self.buttonQuickBStr, 0, wx.TOP|wx.BOTTOM|wx.RIGHT, 5 )
-		
-		self.buttonQuickCStr = wx.Button( self.panelStr, wx.ID_ANY, u"C", wx.DefaultPosition, wx.Size( 23,23 ), 0 )
-		sizerQuickSettingsStr.Add( self.buttonQuickCStr, 0, wx.TOP|wx.BOTTOM|wx.RIGHT, 5 )
-		
-		self.buttonQuickDStr = wx.Button( self.panelStr, wx.ID_ANY, u"D", wx.DefaultPosition, wx.Size( 23,23 ), 0 )
-		sizerQuickSettingsStr.Add( self.buttonQuickDStr, 0, wx.TOP|wx.BOTTOM|wx.RIGHT, 5 )
-		
-		self.buttonQuickEStr = wx.Button( self.panelStr, wx.ID_ANY, u"E", wx.DefaultPosition, wx.Size( 23,23 ), 0 )
-		sizerQuickSettingsStr.Add( self.buttonQuickEStr, 0, wx.TOP|wx.BOTTOM|wx.RIGHT, 5 )
-		
-		sizerConrolsStr.Add( sizerQuickSettingsStr, 0, wx.ALL, 5 )
-		
-		sizer5 = wx.BoxSizer( wx.VERTICAL )
-		
-		self.labelLevelStr = wx.StaticText( self.panelStr, wx.ID_ANY, u"Level:", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.labelLevelStr.Wrap( -1 )
-		sizer5.Add( self.labelLevelStr, 0, wx.ALL|wx.EXPAND, 5 )
-		
-		self.spinCtrlLevelStr = wx.SpinCtrl( self.panelStr, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 999, 1 )
-		sizer5.Add( self.spinCtrlLevelStr, 0, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
-		
-		sizerConrolsStr.Add( sizer5, 1, wx.ALIGN_CENTER_VERTICAL, 5 )
-		
-		sizer6 = wx.BoxSizer( wx.VERTICAL )
-		
-		self.labelValueStr = wx.StaticText( self.panelStr, wx.ID_ANY, u"Value:", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.labelValueStr.Wrap( -1 )
-		sizer6.Add( self.labelValueStr, 0, wx.ALL|wx.EXPAND, 5 )
-		
-		self.spinCtrlValueStr = wx.SpinCtrl( self.panelStr, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0 )
-		sizer6.Add( self.spinCtrlValueStr, 0, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
-		
-		sizerConrolsStr.Add( sizer6, 1, wx.ALIGN_CENTER_VERTICAL, 5 )
-		
-		self.buttonGenerateStr = wx.Button( self.panelStr, wx.ID_ANY, u"Generate Curve...", wx.DefaultPosition, wx.DefaultSize, 0 )
-		sizerConrolsStr.Add( self.buttonGenerateStr, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
-		
-		MainSizerStr.Add( sizerConrolsStr, 0, wx.EXPAND, 5 )
-		
-		self.bitmapGraphStr = wx.StaticBitmap( self.panelStr, wx.ID_ANY, wx.Bitmap( u"../../../../../Database Panel Images/Str.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.Size( 448,224 ), wx.SIMPLE_BORDER )
-		MainSizerStr.Add( self.bitmapGraphStr, 0, wx.EXPAND|wx.ALL, 5 )
-		
-		self.panelStr.SetSizer( MainSizerStr )
-		self.panelStr.Layout()
-		MainSizerStr.Fit( self.panelStr )
-		self.noteBookActorParameters.AddPage( self.panelStr, u"STR", True )
-		self.panelDex = wx.Panel( self.noteBookActorParameters, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
-		MainSizerDex = wx.BoxSizer( wx.VERTICAL )
-		
-		sizerConrolsDex = wx.BoxSizer( wx.HORIZONTAL )
-		
-		sizerQuickSettingsDex = wx.StaticBoxSizer( wx.StaticBox( self.panelDex, wx.ID_ANY, u"Quick Settings" ), wx.HORIZONTAL )
-		
-		self.buttonQuickADex = wx.Button( self.panelDex, wx.ID_ANY, u"A", wx.DefaultPosition, wx.Size( 23,23 ), 0 )
-		sizerQuickSettingsDex.Add( self.buttonQuickADex, 0, wx.ALL, 5 )
-		
-		self.buttonQuickBDex = wx.Button( self.panelDex, wx.ID_ANY, u"B", wx.DefaultPosition, wx.Size( 23,23 ), 0 )
-		sizerQuickSettingsDex.Add( self.buttonQuickBDex, 0, wx.TOP|wx.BOTTOM|wx.RIGHT, 5 )
-		
-		self.buttonQuickCDex = wx.Button( self.panelDex, wx.ID_ANY, u"C", wx.DefaultPosition, wx.Size( 23,23 ), 0 )
-		sizerQuickSettingsDex.Add( self.buttonQuickCDex, 0, wx.TOP|wx.BOTTOM|wx.RIGHT, 5 )
-		
-		self.buttonQuickDDex = wx.Button( self.panelDex, wx.ID_ANY, u"D", wx.DefaultPosition, wx.Size( 23,23 ), 0 )
-		sizerQuickSettingsDex.Add( self.buttonQuickDDex, 0, wx.TOP|wx.BOTTOM|wx.RIGHT, 5 )
-		
-		self.buttonQuickEDex = wx.Button( self.panelDex, wx.ID_ANY, u"E", wx.DefaultPosition, wx.Size( 23,23 ), 0 )
-		sizerQuickSettingsDex.Add( self.buttonQuickEDex, 0, wx.TOP|wx.BOTTOM|wx.RIGHT, 5 )
-		
-		sizerConrolsDex.Add( sizerQuickSettingsDex, 0, wx.ALL, 5 )
-		
-		sizer7 = wx.BoxSizer( wx.VERTICAL )
-		
-		self.labelLevelDex = wx.StaticText( self.panelDex, wx.ID_ANY, u"Level:", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.labelLevelDex.Wrap( -1 )
-		sizer7.Add( self.labelLevelDex, 0, wx.ALL|wx.EXPAND, 5 )
-		
-		self.spinCtrlLevelDex = wx.SpinCtrl( self.panelDex, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 999, 1 )
-		sizer7.Add( self.spinCtrlLevelDex, 0, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
-		
-		sizerConrolsDex.Add( sizer7, 1, wx.ALIGN_CENTER_VERTICAL, 5 )
-		
-		sizer8 = wx.BoxSizer( wx.VERTICAL )
-		
-		self.labelValueDex = wx.StaticText( self.panelDex, wx.ID_ANY, u"Value:", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.labelValueDex.Wrap( -1 )
-		sizer8.Add( self.labelValueDex, 0, wx.ALL|wx.EXPAND, 5 )
-		
-		self.spinCtrlValueDex = wx.SpinCtrl( self.panelDex, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0 )
-		sizer8.Add( self.spinCtrlValueDex, 0, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
-		
-		sizerConrolsDex.Add( sizer8, 1, wx.ALIGN_CENTER_VERTICAL, 5 )
-		
-		self.buttonGenerateDex = wx.Button( self.panelDex, wx.ID_ANY, u"Generate Curve...", wx.DefaultPosition, wx.DefaultSize, 0 )
-		sizerConrolsDex.Add( self.buttonGenerateDex, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
-		
-		MainSizerDex.Add( sizerConrolsDex, 0, wx.EXPAND, 5 )
-		
-		self.bitmapGraphDex = wx.StaticBitmap( self.panelDex, wx.ID_ANY, wx.Bitmap( u"../../../../../Database Panel Images/Dex.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.Size( 448,224 ), wx.SIMPLE_BORDER )
-		MainSizerDex.Add( self.bitmapGraphDex, 0, wx.EXPAND|wx.ALL, 5 )
-		
-		self.panelDex.SetSizer( MainSizerDex )
-		self.panelDex.Layout()
-		MainSizerDex.Fit( self.panelDex )
-		self.noteBookActorParameters.AddPage( self.panelDex, u"DEX", False )
-		self.panelAgi = wx.Panel( self.noteBookActorParameters, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
-		MainSizerAgi = wx.BoxSizer( wx.VERTICAL )
-		
-		sizerConrolsAgi = wx.BoxSizer( wx.HORIZONTAL )
-		
-		sizerQuickSettingsAgi = wx.StaticBoxSizer( wx.StaticBox( self.panelAgi, wx.ID_ANY, u"Quick Settings" ), wx.HORIZONTAL )
-		
-		self.buttonQuickAAgi = wx.Button( self.panelAgi, wx.ID_ANY, u"A", wx.DefaultPosition, wx.Size( 23,23 ), 0 )
-		sizerQuickSettingsAgi.Add( self.buttonQuickAAgi, 0, wx.ALL, 5 )
-		
-		self.buttonQuickBAgi = wx.Button( self.panelAgi, wx.ID_ANY, u"B", wx.DefaultPosition, wx.Size( 23,23 ), 0 )
-		sizerQuickSettingsAgi.Add( self.buttonQuickBAgi, 0, wx.TOP|wx.BOTTOM|wx.RIGHT, 5 )
-		
-		self.buttonQuickCAgi = wx.Button( self.panelAgi, wx.ID_ANY, u"C", wx.DefaultPosition, wx.Size( 23,23 ), 0 )
-		sizerQuickSettingsAgi.Add( self.buttonQuickCAgi, 0, wx.TOP|wx.BOTTOM|wx.RIGHT, 5 )
-		
-		self.buttonQuickDAgi = wx.Button( self.panelAgi, wx.ID_ANY, u"D", wx.DefaultPosition, wx.Size( 23,23 ), 0 )
-		sizerQuickSettingsAgi.Add( self.buttonQuickDAgi, 0, wx.TOP|wx.BOTTOM|wx.RIGHT, 5 )
-		
-		self.buttonQuickEAgi = wx.Button( self.panelAgi, wx.ID_ANY, u"E", wx.DefaultPosition, wx.Size( 23,23 ), 0 )
-		sizerQuickSettingsAgi.Add( self.buttonQuickEAgi, 0, wx.TOP|wx.BOTTOM|wx.RIGHT, 5 )
-		
-		sizerConrolsAgi.Add( sizerQuickSettingsAgi, 0, wx.ALL, 5 )
-		
-		sizer9 = wx.BoxSizer( wx.VERTICAL )
-		
-		self.labelLevelAgi = wx.StaticText( self.panelAgi, wx.ID_ANY, u"Level:", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.labelLevelAgi.Wrap( -1 )
-		sizer9.Add( self.labelLevelAgi, 0, wx.ALL|wx.EXPAND, 5 )
-		
-		self.spinCtrlLevelAgi = wx.SpinCtrl( self.panelAgi, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 999, 2 )
-		sizer9.Add( self.spinCtrlLevelAgi, 0, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
-		
-		sizerConrolsAgi.Add( sizer9, 1, wx.ALIGN_CENTER_VERTICAL, 5 )
-		
-		sizer10 = wx.BoxSizer( wx.VERTICAL )
-		
-		self.labelValueAgi = wx.StaticText( self.panelAgi, wx.ID_ANY, u"Value:", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.labelValueAgi.Wrap( -1 )
-		sizer10.Add( self.labelValueAgi, 0, wx.ALL|wx.EXPAND, 5 )
-		
-		self.spinCtrlValueAgi = wx.SpinCtrl( self.panelAgi, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0 )
-		sizer10.Add( self.spinCtrlValueAgi, 0, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
-		
-		sizerConrolsAgi.Add( sizer10, 1, wx.ALIGN_CENTER_VERTICAL, 5 )
-		
-		self.buttonGenerateAgi = wx.Button( self.panelAgi, wx.ID_ANY, u"Generate Curve...", wx.DefaultPosition, wx.DefaultSize, 0 )
-		sizerConrolsAgi.Add( self.buttonGenerateAgi, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
-		
-		MainSizerAgi.Add( sizerConrolsAgi, 0, wx.EXPAND, 5 )
-		
-		self.bitmapGraphAgi = wx.StaticBitmap( self.panelAgi, wx.ID_ANY, wx.Bitmap( u"../../../../../Database Panel Images/Agi.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.Size( 448,224 ), wx.SIMPLE_BORDER )
-		MainSizerAgi.Add( self.bitmapGraphAgi, 0, wx.EXPAND|wx.ALL, 5 )
-		
-		self.panelAgi.SetSizer( MainSizerAgi )
-		self.panelAgi.Layout()
-		MainSizerAgi.Fit( self.panelAgi )
-		self.noteBookActorParameters.AddPage( self.panelAgi, u"AGI", False )
-		self.panelInt = wx.Panel( self.noteBookActorParameters, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
-		MainSizerInt = wx.BoxSizer( wx.VERTICAL )
-		
-		sizerConrolsInt = wx.BoxSizer( wx.HORIZONTAL )
-		
-		sizerQuickSettingsInt = wx.StaticBoxSizer( wx.StaticBox( self.panelInt, wx.ID_ANY, u"Quick Settings" ), wx.HORIZONTAL )
-		
-		self.buttonQuickAInt = wx.Button( self.panelInt, wx.ID_ANY, u"A", wx.DefaultPosition, wx.Size( 23,23 ), 0 )
-		sizerQuickSettingsInt.Add( self.buttonQuickAInt, 0, wx.ALL, 5 )
-		
-		self.buttonQuickBInt = wx.Button( self.panelInt, wx.ID_ANY, u"B", wx.DefaultPosition, wx.Size( 23,23 ), 0 )
-		sizerQuickSettingsInt.Add( self.buttonQuickBInt, 0, wx.TOP|wx.BOTTOM|wx.RIGHT, 5 )
-		
-		self.buttonQuickCInt = wx.Button( self.panelInt, wx.ID_ANY, u"C", wx.DefaultPosition, wx.Size( 23,23 ), 0 )
-		sizerQuickSettingsInt.Add( self.buttonQuickCInt, 0, wx.TOP|wx.BOTTOM|wx.RIGHT, 5 )
-		
-		self.buttonQuickDInt = wx.Button( self.panelInt, wx.ID_ANY, u"D", wx.DefaultPosition, wx.Size( 23,23 ), 0 )
-		sizerQuickSettingsInt.Add( self.buttonQuickDInt, 0, wx.TOP|wx.BOTTOM|wx.RIGHT, 5 )
-		
-		self.buttonQuickEInt = wx.Button( self.panelInt, wx.ID_ANY, u"E", wx.DefaultPosition, wx.Size( 23,23 ), 0 )
-		sizerQuickSettingsInt.Add( self.buttonQuickEInt, 0, wx.TOP|wx.BOTTOM|wx.RIGHT, 5 )
-		
-		sizerConrolsInt.Add( sizerQuickSettingsInt, 0, wx.ALL, 5 )
-		
-		sizer11 = wx.BoxSizer( wx.VERTICAL )
-		
-		self.labelLevelInt = wx.StaticText( self.panelInt, wx.ID_ANY, u"Level:", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.labelLevelInt.Wrap( -1 )
-		sizer11.Add( self.labelLevelInt, 0, wx.ALL|wx.EXPAND, 5 )
-		
-		self.spinCtrlLevelInt = wx.SpinCtrl( self.panelInt, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 999, 1 )
-		sizer11.Add( self.spinCtrlLevelInt, 0, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
-		
-		sizerConrolsInt.Add( sizer11, 1, wx.ALIGN_CENTER_VERTICAL, 5 )
-		
-		sizer12 = wx.BoxSizer( wx.VERTICAL )
-		
-		self.labelValueInt = wx.StaticText( self.panelInt, wx.ID_ANY, u"Value:", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.labelValueInt.Wrap( -1 )
-		sizer12.Add( self.labelValueInt, 0, wx.ALL|wx.EXPAND, 5 )
-		
-		self.spinCtrlValueInt = wx.SpinCtrl( self.panelInt, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0 )
-		sizer12.Add( self.spinCtrlValueInt, 0, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
-		
-		sizerConrolsInt.Add( sizer12, 1, wx.ALIGN_CENTER_VERTICAL, 5 )
-		
-		self.buttonGenerateInt = wx.Button( self.panelInt, wx.ID_ANY, u"Generate Curve...", wx.DefaultPosition, wx.DefaultSize, 0 )
-		sizerConrolsInt.Add( self.buttonGenerateInt, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
-		
-		MainSizerInt.Add( sizerConrolsInt, 0, wx.EXPAND, 5 )
-		
-		self.bitmapGraphInt = wx.StaticBitmap( self.panelInt, wx.ID_ANY, wx.Bitmap( u"../../../../../Database Panel Images/Int.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.Size( 448,224 ), wx.SIMPLE_BORDER )
-		MainSizerInt.Add( self.bitmapGraphInt, 0, wx.EXPAND|wx.ALL, 5 )
-		
-		self.panelInt.SetSizer( MainSizerInt )
-		self.panelInt.Layout()
-		MainSizerInt.Fit( self.panelInt )
-		self.noteBookActorParameters.AddPage( self.panelInt, u"INT", False )
-		
-		MainSizer.Add( self.noteBookActorParameters, 1, wx.EXPAND |wx.ALL, 5 )
-		
-		sizerOKCancel = wx.BoxSizer( wx.HORIZONTAL )
-		
-		self.buttonOK = wx.Button( self, wx.ID_ANY, u"OK", wx.DefaultPosition, wx.DefaultSize, 0 )
-		sizerOKCancel.Add( self.buttonOK, 0, wx.ALL, 5 )
-		
-		self.buttonCancel = wx.Button( self, wx.ID_ANY, u"Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
-		sizerOKCancel.Add( self.buttonCancel, 0, wx.ALL, 5 )
-		
-		MainSizer.Add( sizerOKCancel, 0, wx.ALIGN_RIGHT, 5 )
-		
-		self.SetSizer( MainSizer )
-		self.Layout()
-		
-		self.Centre( wx.BOTH )
-		
-		# Connect Events
-		self.noteBookActorParameters.Bind( wx.EVT_NOTEBOOK_PAGE_CHANGED, self.noteBookParameters_PageChanged )
-		self.buttonQuickAMaxHP.Bind( wx.EVT_BUTTON, self.buttonQuickA_Clicked )
-		self.buttonQuickBMaxHP.Bind( wx.EVT_BUTTON, self.buttonQuickB_Clicked )
-		self.buttonQuickCMaxHP.Bind( wx.EVT_BUTTON, self.buttonQuickC_Clicked )
-		self.buttonQuickDMaxHP.Bind( wx.EVT_BUTTON, self.buttonQuickD_Clicked )
-		self.buttonQuickEMaxHP.Bind( wx.EVT_BUTTON, self.buttonQuickE_Clicked )
-		self.spinCtrlLevelMaxHP.Bind( wx.EVT_SPINCTRL, self.changeLevel )
-		self.spinCtrlValueMaxHP.Bind( wx.EVT_SPINCTRL, self.spinCtrlValueMaxHP_ValueChanged )
-		self.buttonGenerateMaxHP.Bind( wx.EVT_BUTTON, self.buttonGenerateCurve_Clicked )
-		self.bitmapGraphMaxHP.Bind( wx.EVT_LEFT_DCLICK, self.bitmapGraphMaxHP_LeftClick )
-		self.bitmapGraphMaxHP.Bind( wx.EVT_LEFT_DOWN, self.bitmapGraphMaxHP_LeftDown )
-		self.bitmapGraphMaxHP.Bind( wx.EVT_LEFT_UP, self.bitmapGraphMaxHP_LeftUp )
-		self.buttonQuickAMaxSP.Bind( wx.EVT_BUTTON, self.buttonQuickA_Clicked )
-		self.buttonQuickBMaxSP.Bind( wx.EVT_BUTTON, self.buttonQuickB_Clicked )
-		self.buttonQuickCMaxSP.Bind( wx.EVT_BUTTON, self.buttonQuickC_Clicked )
-		self.buttonQuickDMaxSP.Bind( wx.EVT_BUTTON, self.buttonQuickD_Clicked )
-		self.buttonQuickEMaxSP.Bind( wx.EVT_BUTTON, self.buttonQuickE_Clicked )
-		self.spinCtrlLevelMaxSP.Bind( wx.EVT_SPINCTRL, self.changeLevel )
-		self.spinCtrlValueMaxSP.Bind( wx.EVT_SPINCTRL, self.spinCtrlValueMaxSP_ValueChanged )
-		self.buttonGenerateMaxSP.Bind( wx.EVT_BUTTON, self.buttonGenerateCurve_Clicked )
-		self.bitmapGraphMaxSP.Bind( wx.EVT_LEFT_DCLICK, self.bitmapGraphMaxSP_LeftClick )
-		self.bitmapGraphMaxSP.Bind( wx.EVT_LEFT_DOWN, self.bitmapGraphMaxSP_LeftDown )
-		self.bitmapGraphMaxSP.Bind( wx.EVT_LEFT_UP, self.bitmapGraphMaxSP_LeftUp )
-		self.buttonQuickAStr.Bind( wx.EVT_BUTTON, self.buttonQuickA_Clicked )
-		self.buttonQuickBStr.Bind( wx.EVT_BUTTON, self.buttonQuickB_Clicked )
-		self.buttonQuickCStr.Bind( wx.EVT_BUTTON, self.buttonQuickC_Clicked )
-		self.buttonQuickDStr.Bind( wx.EVT_BUTTON, self.buttonQuickD_Clicked )
-		self.buttonQuickEStr.Bind( wx.EVT_BUTTON, self.buttonQuickE_Clicked )
-		self.spinCtrlLevelStr.Bind( wx.EVT_SPINCTRL, self.changeLevel )
-		self.spinCtrlValueStr.Bind( wx.EVT_SPINCTRL, self.spinCtrlValueStr_ValueChanged )
-		self.buttonGenerateStr.Bind( wx.EVT_BUTTON, self.buttonGenerateCurve_Clicked )
-		self.bitmapGraphStr.Bind( wx.EVT_LEFT_DCLICK, self.bitmapGraphStr_LeftClick )
-		self.bitmapGraphStr.Bind( wx.EVT_LEFT_DOWN, self.bitmapGraphStr_LeftDown )
-		self.bitmapGraphStr.Bind( wx.EVT_LEFT_UP, self.bitmapGraphStr_LeftUp )
-		self.buttonQuickADex.Bind( wx.EVT_BUTTON, self.buttonQuickA_Clicked )
-		self.buttonQuickBDex.Bind( wx.EVT_BUTTON, self.buttonQuickB_Clicked )
-		self.buttonQuickCDex.Bind( wx.EVT_BUTTON, self.buttonQuickC_Clicked )
-		self.buttonQuickDDex.Bind( wx.EVT_BUTTON, self.buttonQuickD_Clicked )
-		self.buttonQuickEDex.Bind( wx.EVT_BUTTON, self.buttonQuickE_Clicked )
-		self.spinCtrlLevelDex.Bind( wx.EVT_SPINCTRL, self.changeLevel )
-		self.spinCtrlValueDex.Bind( wx.EVT_SPINCTRL, self.spinCtrlValueDex_ValueChanged )
-		self.buttonGenerateDex.Bind( wx.EVT_BUTTON, self.buttonGenerateCurve_Clicked )
-		self.bitmapGraphDex.Bind( wx.EVT_LEFT_DCLICK, self.bitmapGraphDex_LeftClick )
-		self.bitmapGraphDex.Bind( wx.EVT_LEFT_DOWN, self.bitmapGraphDex_LeftDown )
-		self.bitmapGraphDex.Bind( wx.EVT_LEFT_UP, self.bitmapGraphDex_LeftUp )
-		self.buttonQuickAAgi.Bind( wx.EVT_BUTTON, self.buttonQuickA_Clicked )
-		self.buttonQuickBAgi.Bind( wx.EVT_BUTTON, self.buttonQuickB_Clicked )
-		self.buttonQuickCAgi.Bind( wx.EVT_BUTTON, self.buttonQuickC_Clicked )
-		self.buttonQuickDAgi.Bind( wx.EVT_BUTTON, self.buttonQuickD_Clicked )
-		self.buttonQuickEAgi.Bind( wx.EVT_BUTTON, self.buttonQuickE_Clicked )
-		self.spinCtrlLevelAgi.Bind( wx.EVT_SPINCTRL, self.changeLevel )
-		self.spinCtrlValueAgi.Bind( wx.EVT_SPINCTRL, self.spinCtrlValueAgi_ValueChanged )
-		self.buttonGenerateAgi.Bind( wx.EVT_BUTTON, self.buttonGenerateCurve_Clicked )
-		self.bitmapGraphAgi.Bind( wx.EVT_LEFT_DCLICK, self.bitmapGraphAgi_LeftClick )
-		self.bitmapGraphAgi.Bind( wx.EVT_LEFT_DOWN, self.bitmapGraphAgi_LeftDown )
-		self.bitmapGraphAgi.Bind( wx.EVT_LEFT_UP, self.bitmapGraphAgi_LeftUp )
-		self.buttonQuickAInt.Bind( wx.EVT_BUTTON, self.buttonQuickA_Clicked )
-		self.buttonQuickBInt.Bind( wx.EVT_BUTTON, self.buttonQuickB_Clicked )
-		self.buttonQuickCInt.Bind( wx.EVT_BUTTON, self.buttonQuickC_Clicked )
-		self.buttonQuickDInt.Bind( wx.EVT_BUTTON, self.buttonQuickD_Clicked )
-		self.buttonQuickEInt.Bind( wx.EVT_BUTTON, self.buttonQuickE_Clicked )
-		self.spinCtrlLevelInt.Bind( wx.EVT_SPINCTRL, self.changeLevel )
-		self.spinCtrlValueInt.Bind( wx.EVT_SPINCTRL, self.spinCtrlValueInt_ValueChanged )
-		self.buttonGenerateInt.Bind( wx.EVT_BUTTON, self.buttonGenerateCurve_Clicked )
-		self.bitmapGraphInt.Bind( wx.EVT_LEFT_DCLICK, self.bitmapGraphInt_LeftClick )
-		self.bitmapGraphInt.Bind( wx.EVT_LEFT_DOWN, self.bitmapGraphInt_LeftDown )
-		self.bitmapGraphInt.Bind( wx.EVT_LEFT_UP, self.bitmapGraphInt_LeftUp )
-		self.buttonOK.Bind( wx.EVT_BUTTON, self.buttonOK_Clicked )
-		self.buttonCancel.Bind( wx.EVT_BUTTON, self.buttonCancel_Clicked )
-	
-	def __del__( self ):
-		pass
-	
-	
-	# Virtual event handlers, overide them in your derived class
-	def noteBookParameters_PageChanged( self, event ):
-		pass
-	
-	def buttonQuickA_Clicked( self, event ):
-		pass
-	
-	def buttonQuickB_Clicked( self, event ):
-		pass
-	
-	def buttonQuickC_Clicked( self, event ):
-		pass
-	
-	def buttonQuickD_Clicked( self, event ):
-		pass
-	
-	def buttonQuickE_Clicked( self, event ):
-		pass
-	
-	def changeLevel( self, event ):
-		pass
-	
-	def spinCtrlValueMaxHP_ValueChanged( self, event ):
-		pass
-	
-	def buttonGenerateCurve_Clicked( self, event ):
-		pass
-	
-	def bitmapGraphMaxHP_LeftClick( self, event ):
-		pass
-	
-	def bitmapGraphMaxHP_LeftDown( self, event ):
-		pass
-	
-	def bitmapGraphMaxHP_LeftUp( self, event ):
-		pass
-	
-	
-	
-	
-	
-	
-	
-	def spinCtrlValueMaxSP_ValueChanged( self, event ):
-		pass
-	
-	
-	def bitmapGraphMaxSP_LeftClick( self, event ):
-		pass
-	
-	def bitmapGraphMaxSP_LeftDown( self, event ):
-		pass
-	
-	def bitmapGraphMaxSP_LeftUp( self, event ):
-		pass
-	
-	
-	
-	
-	
-	
-	
-	def spinCtrlValueStr_ValueChanged( self, event ):
-		pass
-	
-	
-	def bitmapGraphStr_LeftClick( self, event ):
-		pass
-	
-	def bitmapGraphStr_LeftDown( self, event ):
-		pass
-	
-	def bitmapGraphStr_LeftUp( self, event ):
-		pass
-	
-	
-	
-	
-	
-	
-	
-	def spinCtrlValueDex_ValueChanged( self, event ):
-		pass
-	
-	
-	def bitmapGraphDex_LeftClick( self, event ):
-		pass
-	
-	def bitmapGraphDex_LeftDown( self, event ):
-		pass
-	
-	def bitmapGraphDex_LeftUp( self, event ):
-		pass
-	
-	
-	
-	
-	
-	
-	
-	def spinCtrlValueAgi_ValueChanged( self, event ):
-		pass
-	
-	
-	def bitmapGraphAgi_LeftClick( self, event ):
-		pass
-	
-	def bitmapGraphAgi_LeftDown( self, event ):
-		pass
-	
-	def bitmapGraphAgi_LeftUp( self, event ):
-		pass
-	
-	
-	
-	
-	
-	
-	
-	def spinCtrlValueInt_ValueChanged( self, event ):
-		pass
-	
-	
-	def bitmapGraphInt_LeftClick( self, event ):
-		pass
-	
-	def bitmapGraphInt_LeftDown( self, event ):
-		pass
-	
-	def bitmapGraphInt_LeftUp( self, event ):
 		pass
 	
 	def buttonOK_Clicked( self, event ):
@@ -8171,7 +7577,7 @@ class ChooseSwitchVariable_Dialog ( wx.Dialog ):
 		
 		sizerGroup = wx.BoxSizer( wx.VERTICAL )
 		
-		self.bitmapHeader = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( u"../../../../../Database Panel Images/Switch.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.bitmapHeader = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( u"../Database Panel Images/Switch.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.DefaultSize, 0 )
 		sizerGroup.Add( self.bitmapHeader, 0, wx.ALL|wx.EXPAND, 5 )
 		
 		listBoxGroupChoices = []
