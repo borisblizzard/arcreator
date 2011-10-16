@@ -5601,8 +5601,8 @@ class ExpCurve_Dialog ( wx.Dialog ):
 		self.panelNextLevel = wx.Panel( self.noteBookExpList, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
 		panelSizerNextLevel = wx.BoxSizer( wx.VERTICAL )
 		
-		self.textCtrlNextLevel = wx.TextCtrl( self.panelNextLevel, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.TE_MULTILINE|wx.TE_READONLY )
-		panelSizerNextLevel.Add( self.textCtrlNextLevel, 1, wx.EXPAND, 5 )
+		self.textCtrlNext = wx.TextCtrl( self.panelNextLevel, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.TE_MULTILINE|wx.TE_READONLY|wx.TE_RICH2 )
+		panelSizerNextLevel.Add( self.textCtrlNext, 1, wx.EXPAND, 5 )
 		
 		self.panelNextLevel.SetSizer( panelSizerNextLevel )
 		self.panelNextLevel.Layout()
@@ -5611,7 +5611,7 @@ class ExpCurve_Dialog ( wx.Dialog ):
 		self.panelTotal = wx.Panel( self.noteBookExpList, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
 		panelSizerTotal = wx.BoxSizer( wx.VERTICAL )
 		
-		self.textCtrlTotal = wx.TextCtrl( self.panelTotal, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.TE_MULTILINE|wx.TE_READONLY )
+		self.textCtrlTotal = wx.TextCtrl( self.panelTotal, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.TE_MULTILINE|wx.TE_READONLY|wx.TE_RICH2 )
 		panelSizerTotal.Add( self.textCtrlTotal, 1, wx.EXPAND, 5 )
 		
 		self.panelTotal.SetSizer( panelSizerTotal )
@@ -5705,8 +5705,8 @@ class ActorParameters_Dialog ( wx.Dialog ):
 		
 		MainSizer = wx.BoxSizer( wx.VERTICAL )
 		
-		self.noteBookExperienceCurve = wx.Notebook( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.panelMaxHP = wx.Panel( self.noteBookExperienceCurve, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
+		self.noteBookActorParameters = wx.Notebook( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.panelMaxHP = wx.Panel( self.noteBookActorParameters, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
 		MainSizerMaxHP = wx.BoxSizer( wx.VERTICAL )
 		
 		sizerConrolsMaxHP = wx.BoxSizer( wx.HORIZONTAL )
@@ -5763,8 +5763,8 @@ class ActorParameters_Dialog ( wx.Dialog ):
 		self.panelMaxHP.SetSizer( MainSizerMaxHP )
 		self.panelMaxHP.Layout()
 		MainSizerMaxHP.Fit( self.panelMaxHP )
-		self.noteBookExperienceCurve.AddPage( self.panelMaxHP, u"MaxHP", True )
-		self.panelMaxSP = wx.Panel( self.noteBookExperienceCurve, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
+		self.noteBookActorParameters.AddPage( self.panelMaxHP, u"MaxHP", False )
+		self.panelMaxSP = wx.Panel( self.noteBookActorParameters, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
 		MainSizerMaxSP = wx.BoxSizer( wx.VERTICAL )
 		
 		sizerConrolsMaxSP = wx.BoxSizer( wx.HORIZONTAL )
@@ -5821,8 +5821,8 @@ class ActorParameters_Dialog ( wx.Dialog ):
 		self.panelMaxSP.SetSizer( MainSizerMaxSP )
 		self.panelMaxSP.Layout()
 		MainSizerMaxSP.Fit( self.panelMaxSP )
-		self.noteBookExperienceCurve.AddPage( self.panelMaxSP, u"MaxSP", False )
-		self.panelStr = wx.Panel( self.noteBookExperienceCurve, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
+		self.noteBookActorParameters.AddPage( self.panelMaxSP, u"MaxSP", False )
+		self.panelStr = wx.Panel( self.noteBookActorParameters, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
 		MainSizerStr = wx.BoxSizer( wx.VERTICAL )
 		
 		sizerConrolsStr = wx.BoxSizer( wx.HORIZONTAL )
@@ -5879,8 +5879,8 @@ class ActorParameters_Dialog ( wx.Dialog ):
 		self.panelStr.SetSizer( MainSizerStr )
 		self.panelStr.Layout()
 		MainSizerStr.Fit( self.panelStr )
-		self.noteBookExperienceCurve.AddPage( self.panelStr, u"STR", False )
-		self.panelDex = wx.Panel( self.noteBookExperienceCurve, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
+		self.noteBookActorParameters.AddPage( self.panelStr, u"STR", False )
+		self.panelDex = wx.Panel( self.noteBookActorParameters, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
 		MainSizerDex = wx.BoxSizer( wx.VERTICAL )
 		
 		sizerConrolsDex = wx.BoxSizer( wx.HORIZONTAL )
@@ -5937,8 +5937,8 @@ class ActorParameters_Dialog ( wx.Dialog ):
 		self.panelDex.SetSizer( MainSizerDex )
 		self.panelDex.Layout()
 		MainSizerDex.Fit( self.panelDex )
-		self.noteBookExperienceCurve.AddPage( self.panelDex, u"DEX", False )
-		self.panelAgi = wx.Panel( self.noteBookExperienceCurve, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
+		self.noteBookActorParameters.AddPage( self.panelDex, u"DEX", False )
+		self.panelAgi = wx.Panel( self.noteBookActorParameters, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
 		MainSizerAgi = wx.BoxSizer( wx.VERTICAL )
 		
 		sizerConrolsAgi = wx.BoxSizer( wx.HORIZONTAL )
@@ -5968,7 +5968,7 @@ class ActorParameters_Dialog ( wx.Dialog ):
 		self.labelLevelAgi.Wrap( -1 )
 		sizer9.Add( self.labelLevelAgi, 0, wx.ALL|wx.EXPAND, 5 )
 		
-		self.spinCtrlLevelAgi = wx.SpinCtrl( self.panelAgi, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 999, 1 )
+		self.spinCtrlLevelAgi = wx.SpinCtrl( self.panelAgi, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 999, 2 )
 		sizer9.Add( self.spinCtrlLevelAgi, 0, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
 		
 		sizerConrolsAgi.Add( sizer9, 1, wx.ALIGN_CENTER_VERTICAL, 5 )
@@ -5995,8 +5995,8 @@ class ActorParameters_Dialog ( wx.Dialog ):
 		self.panelAgi.SetSizer( MainSizerAgi )
 		self.panelAgi.Layout()
 		MainSizerAgi.Fit( self.panelAgi )
-		self.noteBookExperienceCurve.AddPage( self.panelAgi, u"AGI", False )
-		self.panelInt = wx.Panel( self.noteBookExperienceCurve, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
+		self.noteBookActorParameters.AddPage( self.panelAgi, u"AGI", False )
+		self.panelInt = wx.Panel( self.noteBookActorParameters, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
 		MainSizerInt = wx.BoxSizer( wx.VERTICAL )
 		
 		sizerConrolsInt = wx.BoxSizer( wx.HORIZONTAL )
@@ -6053,9 +6053,9 @@ class ActorParameters_Dialog ( wx.Dialog ):
 		self.panelInt.SetSizer( MainSizerInt )
 		self.panelInt.Layout()
 		MainSizerInt.Fit( self.panelInt )
-		self.noteBookExperienceCurve.AddPage( self.panelInt, u"INT", False )
+		self.noteBookActorParameters.AddPage( self.panelInt, u"INT", True )
 		
-		MainSizer.Add( self.noteBookExperienceCurve, 1, wx.EXPAND |wx.ALL, 5 )
+		MainSizer.Add( self.noteBookActorParameters, 1, wx.EXPAND |wx.ALL, 5 )
 		
 		sizerOKCancel = wx.BoxSizer( wx.HORIZONTAL )
 		
@@ -6073,67 +6073,67 @@ class ActorParameters_Dialog ( wx.Dialog ):
 		self.Centre( wx.BOTH )
 		
 		# Connect Events
-		self.buttonQuickAMaxHP.Bind( wx.EVT_BUTTON, self.buttonQuickAMaxHP_Clicked )
-		self.buttonQuickBMaxHP.Bind( wx.EVT_BUTTON, self.buttonQuickBMaxHP_Clicked )
-		self.buttonQuickCMaxHP.Bind( wx.EVT_BUTTON, self.buttonQuickCMaxHP_Clicked )
-		self.buttonQuickDMaxHP.Bind( wx.EVT_BUTTON, self.buttonQuickDMaxHP_Clicked )
-		self.buttonQuickEMaxHP.Bind( wx.EVT_BUTTON, self.buttonQuickEMaxHP_Clicked )
-		self.spinCtrlLevelMaxHP.Bind( wx.EVT_SPINCTRL, self.spinCtrlLevelMaxHP_ValueChanged )
+		self.buttonQuickAMaxHP.Bind( wx.EVT_BUTTON, self.buttonQuickA_Clicked )
+		self.buttonQuickBMaxHP.Bind( wx.EVT_BUTTON, self.buttonQuickB_Clicked )
+		self.buttonQuickCMaxHP.Bind( wx.EVT_BUTTON, self.buttonQuickC_Clicked )
+		self.buttonQuickDMaxHP.Bind( wx.EVT_BUTTON, self.buttonQuickD_Clicked )
+		self.buttonQuickEMaxHP.Bind( wx.EVT_BUTTON, self.buttonQuickE_Clicked )
+		self.spinCtrlLevelMaxHP.Bind( wx.EVT_SPINCTRL, self.changeLevel )
 		self.spinCtrlValueMaxHP.Bind( wx.EVT_SPINCTRL, self.spinCtrlValueMaxHP_ValueChanged )
 		self.buttonGenerateMaxHP.Bind( wx.EVT_BUTTON, self.buttonGenerateMaxHP_Clicked )
 		self.bitmapGraphMaxHP.Bind( wx.EVT_LEFT_DCLICK, self.bitmapGraphMaxHP_LeftClick )
 		self.bitmapGraphMaxHP.Bind( wx.EVT_LEFT_DOWN, self.bitmapGraphMaxHP_LeftDown )
 		self.bitmapGraphMaxHP.Bind( wx.EVT_LEFT_UP, self.bitmapGraphMaxHP_LeftUp )
-		self.buttonQuickAMaxSP.Bind( wx.EVT_BUTTON, self.buttonQuickAMaxSP_Clicked )
-		self.buttonQuickBMaxSP.Bind( wx.EVT_BUTTON, self.buttonQuickBMaxSP_Clicked )
-		self.buttonQuickCMaxSP.Bind( wx.EVT_BUTTON, self.buttonQuickCMaxSP_Clicked )
-		self.buttonQuickDMaxSP.Bind( wx.EVT_BUTTON, self.buttonQuickDMaxSP_Clicked )
-		self.buttonQuickEMaxSP.Bind( wx.EVT_BUTTON, self.buttonQuickEMaxSP_Clicked )
-		self.spinCtrlLevelMaxSP.Bind( wx.EVT_SPINCTRL, self.spinCtrlLevelMaxSP_ValueChanged )
+		self.buttonQuickAMaxSP.Bind( wx.EVT_BUTTON, self.buttonQuickA_Clicked )
+		self.buttonQuickBMaxSP.Bind( wx.EVT_BUTTON, self.buttonQuickB_Clicked )
+		self.buttonQuickCMaxSP.Bind( wx.EVT_BUTTON, self.buttonQuickC_Clicked )
+		self.buttonQuickDMaxSP.Bind( wx.EVT_BUTTON, self.buttonQuickD_Clicked )
+		self.buttonQuickEMaxSP.Bind( wx.EVT_BUTTON, self.buttonQuickE_Clicked )
+		self.spinCtrlLevelMaxSP.Bind( wx.EVT_SPINCTRL, self.changeLevel )
 		self.spinCtrlValueMaxSP.Bind( wx.EVT_SPINCTRL, self.spinCtrlValueMaxSP_ValueChanged )
 		self.buttonGenerateMaxSP.Bind( wx.EVT_BUTTON, self.buttonGenerateMaxSP_Clicked )
 		self.bitmapGraphMaxSP.Bind( wx.EVT_LEFT_DCLICK, self.bitmapGraphMaxSP_LeftClick )
 		self.bitmapGraphMaxSP.Bind( wx.EVT_LEFT_DOWN, self.bitmapGraphMaxSP_LeftDown )
 		self.bitmapGraphMaxSP.Bind( wx.EVT_LEFT_UP, self.bitmapGraphMaxSP_LeftUp )
-		self.buttonQuickAStr.Bind( wx.EVT_BUTTON, self.buttonQuickAStr_Clicked )
-		self.buttonQuickBStr.Bind( wx.EVT_BUTTON, self.buttonQuickBStr_Clicked )
-		self.buttonQuickCStr.Bind( wx.EVT_BUTTON, self.buttonQuickCStr_Clicked )
-		self.buttonQuickDStr.Bind( wx.EVT_BUTTON, self.buttonQuickDStr_Clicked )
-		self.buttonQuickEStr.Bind( wx.EVT_BUTTON, self.buttonQuickEStr_Clicked )
-		self.spinCtrlLevelStr.Bind( wx.EVT_SPINCTRL, self.spinCtrlLevelStr_ValueChanged )
+		self.buttonQuickAStr.Bind( wx.EVT_BUTTON, self.buttonQuickA_Clicked )
+		self.buttonQuickBStr.Bind( wx.EVT_BUTTON, self.buttonQuickB_Clicked )
+		self.buttonQuickCStr.Bind( wx.EVT_BUTTON, self.buttonQuickC_Clicked )
+		self.buttonQuickDStr.Bind( wx.EVT_BUTTON, self.buttonQuickD_Clicked )
+		self.buttonQuickEStr.Bind( wx.EVT_BUTTON, self.buttonQuickE_Clicked )
+		self.spinCtrlLevelStr.Bind( wx.EVT_SPINCTRL, self.changeLevel )
 		self.spinCtrlValueStr.Bind( wx.EVT_SPINCTRL, self.spinCtrlValueStr_ValueChanged )
 		self.buttonGenerateStr.Bind( wx.EVT_BUTTON, self.buttonGenerateStr_Clicked )
 		self.bitmapGraphStr.Bind( wx.EVT_LEFT_DCLICK, self.bitmapGraphStr_LeftClick )
 		self.bitmapGraphStr.Bind( wx.EVT_LEFT_DOWN, self.bitmapGraphStr_LeftDown )
 		self.bitmapGraphStr.Bind( wx.EVT_LEFT_UP, self.bitmapGraphStr_LeftUp )
-		self.buttonQuickADex.Bind( wx.EVT_BUTTON, self.buttonQuickADex_Clicked )
-		self.buttonQuickBDex.Bind( wx.EVT_BUTTON, self.buttonQuickBDex_Clicked )
-		self.buttonQuickCDex.Bind( wx.EVT_BUTTON, self.buttonQuickCDex_Clicked )
-		self.buttonQuickDDex.Bind( wx.EVT_BUTTON, self.buttonQuickDDex_Clicked )
-		self.buttonQuickEDex.Bind( wx.EVT_BUTTON, self.buttonQuickEDex_Clicked )
-		self.spinCtrlLevelDex.Bind( wx.EVT_SPINCTRL, self.spinCtrlLevelDex_ValueChanged )
+		self.buttonQuickADex.Bind( wx.EVT_BUTTON, self.buttonQuickA_Clicked )
+		self.buttonQuickBDex.Bind( wx.EVT_BUTTON, self.buttonQuickB_Clicked )
+		self.buttonQuickCDex.Bind( wx.EVT_BUTTON, self.buttonQuickC_Clicked )
+		self.buttonQuickDDex.Bind( wx.EVT_BUTTON, self.buttonQuickD_Clicked )
+		self.buttonQuickEDex.Bind( wx.EVT_BUTTON, self.buttonQuickE_Clicked )
+		self.spinCtrlLevelDex.Bind( wx.EVT_SPINCTRL, self.changeLevel )
 		self.spinCtrlValueDex.Bind( wx.EVT_SPINCTRL, self.spinCtrlValueDex_ValueChanged )
 		self.buttonGenerateDex.Bind( wx.EVT_BUTTON, self.buttonGenerateDex_Clicked )
 		self.bitmapGraphDex.Bind( wx.EVT_LEFT_DCLICK, self.bitmapGraphDex_LeftClick )
 		self.bitmapGraphDex.Bind( wx.EVT_LEFT_DOWN, self.bitmapGraphDex_LeftDown )
 		self.bitmapGraphDex.Bind( wx.EVT_LEFT_UP, self.bitmapGraphDex_LeftUp )
-		self.buttonQuickAAgi.Bind( wx.EVT_BUTTON, self.buttonQuickAAgi_Clicked )
-		self.buttonQuickBAgi.Bind( wx.EVT_BUTTON, self.buttonQuickBAgi_Clicked )
-		self.buttonQuickCAgi.Bind( wx.EVT_BUTTON, self.buttonQuickCAgi_Clicked )
-		self.buttonQuickDAgi.Bind( wx.EVT_BUTTON, self.buttonQuickDAgi_Clicked )
-		self.buttonQuickEAgi.Bind( wx.EVT_BUTTON, self.buttonQuickEAgi_Clicked )
-		self.spinCtrlLevelAgi.Bind( wx.EVT_SPINCTRL, self.spinCtrlLevelAgi_ValueChanged )
+		self.buttonQuickAAgi.Bind( wx.EVT_BUTTON, self.buttonQuickA_Clicked )
+		self.buttonQuickBAgi.Bind( wx.EVT_BUTTON, self.buttonQuickB_Clicked )
+		self.buttonQuickCAgi.Bind( wx.EVT_BUTTON, self.buttonQuickC_Clicked )
+		self.buttonQuickDAgi.Bind( wx.EVT_BUTTON, self.buttonQuickD_Clicked )
+		self.buttonQuickEAgi.Bind( wx.EVT_BUTTON, self.buttonQuickE_Clicked )
+		self.spinCtrlLevelAgi.Bind( wx.EVT_SPINCTRL, self.changeLevel )
 		self.spinCtrlValueAgi.Bind( wx.EVT_SPINCTRL, self.spinCtrlValueAgi_ValueChanged )
 		self.buttonGenerateAgi.Bind( wx.EVT_BUTTON, self.buttonGenerateAgi_Clicked )
 		self.bitmapGraphAgi.Bind( wx.EVT_LEFT_DCLICK, self.bitmapGraphAgi_LeftClick )
 		self.bitmapGraphAgi.Bind( wx.EVT_LEFT_DOWN, self.bitmapGraphAgi_LeftDown )
 		self.bitmapGraphAgi.Bind( wx.EVT_LEFT_UP, self.bitmapGraphAgi_LeftUp )
-		self.buttonQuickAInt.Bind( wx.EVT_BUTTON, self.buttonQuickAInt_Clicked )
-		self.buttonQuickBInt.Bind( wx.EVT_BUTTON, self.buttonQuickBMaxHP_Clicked )
-		self.buttonQuickCInt.Bind( wx.EVT_BUTTON, self.buttonQuickCInt_Clicked )
-		self.buttonQuickDInt.Bind( wx.EVT_BUTTON, self.buttonQuickDInt_Clicked )
-		self.buttonQuickEInt.Bind( wx.EVT_BUTTON, self.buttonQuickEInt_Clicked )
-		self.spinCtrlLevelInt.Bind( wx.EVT_SPINCTRL, self.spinCtrlLevelInt_ValueChanged )
+		self.buttonQuickAInt.Bind( wx.EVT_BUTTON, self.buttonQuickA_Clicked )
+		self.buttonQuickBInt.Bind( wx.EVT_BUTTON, self.buttonQuickB_Clicked )
+		self.buttonQuickCInt.Bind( wx.EVT_BUTTON, self.buttonQuickC_Clicked )
+		self.buttonQuickDInt.Bind( wx.EVT_BUTTON, self.buttonQuickD_Clicked )
+		self.buttonQuickEInt.Bind( wx.EVT_BUTTON, self.buttonQuickE_Clicked )
+		self.spinCtrlLevelInt.Bind( wx.EVT_SPINCTRL, self.changeLevel )
 		self.spinCtrlValueInt.Bind( wx.EVT_SPINCTRL, self.spinCtrlValueInt_ValueChanged )
 		self.buttonGenerateInt.Bind( wx.EVT_BUTTON, self.buttonGenerateInt_Clicked )
 		self.bitmapGraphInt.Bind( wx.EVT_LEFT_DCLICK, self.bitmapGraphInt_LeftClick )
@@ -6147,22 +6147,22 @@ class ActorParameters_Dialog ( wx.Dialog ):
 	
 	
 	# Virtual event handlers, overide them in your derived class
-	def buttonQuickAMaxHP_Clicked( self, event ):
+	def buttonQuickA_Clicked( self, event ):
 		pass
 	
-	def buttonQuickBMaxHP_Clicked( self, event ):
+	def buttonQuickB_Clicked( self, event ):
 		pass
 	
-	def buttonQuickCMaxHP_Clicked( self, event ):
+	def buttonQuickC_Clicked( self, event ):
 		pass
 	
-	def buttonQuickDMaxHP_Clicked( self, event ):
+	def buttonQuickD_Clicked( self, event ):
 		pass
 	
-	def buttonQuickEMaxHP_Clicked( self, event ):
+	def buttonQuickE_Clicked( self, event ):
 		pass
 	
-	def spinCtrlLevelMaxHP_ValueChanged( self, event ):
+	def changeLevel( self, event ):
 		pass
 	
 	def spinCtrlValueMaxHP_ValueChanged( self, event ):
@@ -6180,23 +6180,11 @@ class ActorParameters_Dialog ( wx.Dialog ):
 	def bitmapGraphMaxHP_LeftUp( self, event ):
 		pass
 	
-	def buttonQuickAMaxSP_Clicked( self, event ):
-		pass
 	
-	def buttonQuickBMaxSP_Clicked( self, event ):
-		pass
 	
-	def buttonQuickCMaxSP_Clicked( self, event ):
-		pass
 	
-	def buttonQuickDMaxSP_Clicked( self, event ):
-		pass
 	
-	def buttonQuickEMaxSP_Clicked( self, event ):
-		pass
 	
-	def spinCtrlLevelMaxSP_ValueChanged( self, event ):
-		pass
 	
 	def spinCtrlValueMaxSP_ValueChanged( self, event ):
 		pass
@@ -6213,23 +6201,11 @@ class ActorParameters_Dialog ( wx.Dialog ):
 	def bitmapGraphMaxSP_LeftUp( self, event ):
 		pass
 	
-	def buttonQuickAStr_Clicked( self, event ):
-		pass
 	
-	def buttonQuickBStr_Clicked( self, event ):
-		pass
 	
-	def buttonQuickCStr_Clicked( self, event ):
-		pass
 	
-	def buttonQuickDStr_Clicked( self, event ):
-		pass
 	
-	def buttonQuickEStr_Clicked( self, event ):
-		pass
 	
-	def spinCtrlLevelStr_ValueChanged( self, event ):
-		pass
 	
 	def spinCtrlValueStr_ValueChanged( self, event ):
 		pass
@@ -6246,23 +6222,11 @@ class ActorParameters_Dialog ( wx.Dialog ):
 	def bitmapGraphStr_LeftUp( self, event ):
 		pass
 	
-	def buttonQuickADex_Clicked( self, event ):
-		pass
 	
-	def buttonQuickBDex_Clicked( self, event ):
-		pass
 	
-	def buttonQuickCDex_Clicked( self, event ):
-		pass
 	
-	def buttonQuickDDex_Clicked( self, event ):
-		pass
 	
-	def buttonQuickEDex_Clicked( self, event ):
-		pass
 	
-	def spinCtrlLevelDex_ValueChanged( self, event ):
-		pass
 	
 	def spinCtrlValueDex_ValueChanged( self, event ):
 		pass
@@ -6279,23 +6243,11 @@ class ActorParameters_Dialog ( wx.Dialog ):
 	def bitmapGraphDex_LeftUp( self, event ):
 		pass
 	
-	def buttonQuickAAgi_Clicked( self, event ):
-		pass
 	
-	def buttonQuickBAgi_Clicked( self, event ):
-		pass
 	
-	def buttonQuickCAgi_Clicked( self, event ):
-		pass
 	
-	def buttonQuickDAgi_Clicked( self, event ):
-		pass
 	
-	def buttonQuickEAgi_Clicked( self, event ):
-		pass
 	
-	def spinCtrlLevelAgi_ValueChanged( self, event ):
-		pass
 	
 	def spinCtrlValueAgi_ValueChanged( self, event ):
 		pass
@@ -6312,21 +6264,11 @@ class ActorParameters_Dialog ( wx.Dialog ):
 	def bitmapGraphAgi_LeftUp( self, event ):
 		pass
 	
-	def buttonQuickAInt_Clicked( self, event ):
-		pass
 	
 	
-	def buttonQuickCInt_Clicked( self, event ):
-		pass
 	
-	def buttonQuickDInt_Clicked( self, event ):
-		pass
 	
-	def buttonQuickEInt_Clicked( self, event ):
-		pass
 	
-	def spinCtrlLevelInt_ValueChanged( self, event ):
-		pass
 	
 	def spinCtrlValueInt_ValueChanged( self, event ):
 		pass
