@@ -31,7 +31,7 @@ class ARCedExpCurve_Dialog( ARCed_Templates.ExpCurve_Dialog ):
 		levelDigits = len(str(FinalLevel))
 		expDigits = len(str(max(expList)))
 		strings = []
-		print self.PageIndex
+		# I apologize ahead of time before you read the following code. 
 		if self.PageIndex == 0:
 			for i in range(1, FinalLevel + 1):
 				strings.append('L' + str(i).rjust(levelDigits) + ': ' + str(expList[i] - expList[i - 1]).rjust(expDigits))
