@@ -87,11 +87,11 @@ class CoreEditorMainWindow(wx.Frame):
                           ToolbarPane().Top().Row(1).CloseButton(False))
 
     def ClearLayout(self):
-        if self.initpanel is not None:
+        if self.initpanel != None:
             self._mgr.DetachPane(self.initpanel)
             self.initpanel.Destroy()
             self.initpanel = None
-        if self.layout_mgr is not None:
+        if self.layout_mgr != None:
             self.layout_mgr.ClearLayout
         self._mgr.Update()
 

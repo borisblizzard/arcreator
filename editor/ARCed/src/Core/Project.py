@@ -157,7 +157,7 @@ class Project(object):
         f = open(filename, 'wb')
         config.write(f)
         f.close()
-        if (self.save_func is not None) and callable(self.save_func):
+        if (self.save_func != None) and callable(self.save_func):
             for key, value in self._data.items():
                 self.save_func(os.path.dirname(self.project_path), key, value[1])
             for key, value in self._deferred_data.items():
@@ -177,7 +177,7 @@ class Project(object):
             files = filelist.split("|")
             for file_name in files:
                 if file_name != "":
-                    if (self.load_func is not None) and callable(self.load_func):
+                    if (self.load_func != None) and callable(self.load_func):
                         self.setData(file_name, self.load_func(os.path.dirname(self.project_path), file_name))
                         self.setChangedData(file_name, False)
                     else:

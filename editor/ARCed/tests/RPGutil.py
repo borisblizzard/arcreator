@@ -167,8 +167,8 @@ class PySurfaceFunctions(object):
     @staticmethod
     def change_hue(surface, hue):
         surface.lock()
-        for x in range(surface.get_width()):
-            for y in range(surface.get_height()):
+        for x in xrange(surface.get_width()):
+            for y in xrange(surface.get_height()):
                 color = pygame.Color(*surface.get_at((x, y)))
                 hsva = list(color.hsva)
                 hsva[0] = (hsva[0] + float(hue)) % 360.0

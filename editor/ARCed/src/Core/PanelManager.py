@@ -66,7 +66,7 @@ class PanelManager(object):
         removes the panel mapped to id from the AUI manager and destroys it
         then removed id from the dispatched dict
         '''
-        if (self.dispached.has_key(id)) and (self.dispached[id] is not None):
+        if (self.dispached.has_key(id)) and (self.dispached[id] != None):
             self.manager.DetachPane(self.dispached[id])
             self.dispached[id].Destroy()
             del self.dispached[id]
@@ -86,7 +86,7 @@ class PanelManager(object):
             
         @param info_obj: a AuiPaneInfo object to be extended
         '''
-        if info_obj is None:
+        if info_obj == None:
             info_obj = aui.AuiPaneInfo()
         if "Caption" in info:
             if data.has_key("Caption"):
