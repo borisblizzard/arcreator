@@ -28,16 +28,14 @@ class ARC_Data(object):
     
     @staticmethod
     def dump(io, obj, redirects={}):
-        global _class_path_redirects
-        global _io
-        _class_path_redirects = redirects
-        _io = io
-        _io.write(ARC_Data._VERSION)
+        ARC_Data._class_path_redirects = redirects
+        ARC_Data._io = io
+        ARC_Data._io.write(ARC_Data._VERSION)
         try:
             ARC_Data._dump(obj)
         except Exception:
             try:
-                print "stream position: %s" % _io.tell()
+                print "stream position: %s" % ARC_Data._io.tell()
             except Exception:
                 pass
             raise
@@ -46,22 +44,19 @@ class ARC_Data(object):
     
     @staticmethod
     def load(io, redirects={}, extended_namespace={}):
-        global _class_path_redirects
-        global _io
-        global _extended_namespace
-        _class_path_redirects = redirects
-        _extended_namespace = dict(extended_namespace)
-        _extended_namespace.update(globals())
+        ARC_Data._class_path_redirects = redirects
+        ARC_Data._extended_namespace = dict(extended_namespace)
+        ARC_Data._extended_namespace.update(globals())
         extended_namespace = {}
-        _io = io
-        version = _io.read(2)
+        ARC_Data._io = io
+        version = ARC_Data._io.read(2)
         if ARC_Data._VERSION != version:
             raise TypeError("Error: version mismatch! Expected: %s Found: %s" %(repr(ARC_Data._VERSION), repr(version)))
         try:
             data = ARC_Data._load()
         except Exception:
             try:
-                print "stream position: %s" % _io.tell()
+                print "stream position: %s" % ARC_Data._io.tell()
             except Exception:
                 pass
             raise
@@ -71,26 +66,19 @@ class ARC_Data(object):
     
     @staticmethod
     def _reset():
-        global _io
-        global _strings
-        global _arrays
-        global _hashes
-        global _objects
-        global _class_path_redirects
-        global _extended_namespace
-        _io = None
-        _strings = [None]
-        _arrays = [None]
-        _hashes = [None]
-        _objects = [None]
-        _class_path_redirects = {}
-        _extended_namespace = {}
+        ARC_Data._io = None
+        ARC_Data._strings = [None]
+        ARC_Data._arrays = [None]
+        ARC_Data._hashes = [None]
+        ARC_Data._objects = [None]
+        ARC_Data._class_path_redirects = {}
+        ARC_Data._extended_namespace = {}
     
 
     @staticmethod
     def __get_class_path(name):
-        if _class_path_redirects.has_key(name):
-            return _class_path_redirects[name]
+        if ARC_Data._class_path_redirects.has_key(name):
+            return ARC_Data._class_path_redirects[name]
         else: 
             return name
     
@@ -98,9 +86,9 @@ class ARC_Data(object):
     @staticmethod
     def __get_class_object(class_path):
         classes = class_path.split("::")
-        if not _extended_namespace.has_key(classes[0]):
+        if not ARC_Data._extended_namespace.has_key(classes[0]):
             raise TypeError("Class not defined: %s" % classes[0])    
-        classe = _extended_namespace[classes.pop(0)]
+        classe = ARC_Data._extended_namespace[classes.pop(0)]
         for c in classes:
             if not classe.__dict__.has_key(c):
                 raise TypeError("Class not defined: %s" % c)
@@ -137,12 +125,12 @@ class ARC_Data(object):
     
     @staticmethod
     def __dump_int32(obj):
-        _io.write(pack("<I", obj))
+        ARC_Data._io.write(pack("<I", obj))
     
 
     @staticmethod
     def __load_int32():
-        return unpack("<I", _io.read(4))[0]
+        return unpack("<I", ARC_Data._io.read(4))[0]
     
     
     @staticmethod
@@ -171,7 +159,7 @@ class ARC_Data(object):
     
     @staticmethod
     def _load():
-        type_id = _io.read(1)
+        type_id = ARC_Data._io.read(1)
         if type_id == ARC_Data._TYPES["NoneClass"]:
             return ARC_Data._load_none()
         elif type_id == ARC_Data._TYPES["FalseClass"]:
@@ -198,45 +186,45 @@ class ARC_Data(object):
     
     @staticmethod
     def _dump_none(obj):
-        _io.write(ARC_Data._TYPES["NoneClass"])
+        ARC_Data._io.write(ARC_Data._TYPES["NoneClass"])
     
 
     @staticmethod
     def _dump_false(obj):
-        _io.write(ARC_Data._TYPES["FalseClass"])
+        ARC_Data._io.write(ARC_Data._TYPES["FalseClass"])
     
 
     @staticmethod
     def _dump_true(obj):
-        _io.write(ARC_Data._TYPES["TrueClass"])
+        ARC_Data._io.write(ARC_Data._TYPES["TrueClass"])
     
     
     @staticmethod
     def _dump_fixnum(obj):
-        _io.write(ARC_Data._TYPES["Fixnum"])
+        ARC_Data._io.write(ARC_Data._TYPES["Fixnum"])
         ARC_Data.__dump_int32(obj)
     
     
     @staticmethod
     def _dump_bignum(obj):
-        _io.write(ARC_Data._TYPES["Bignum"])
+        ARC_Data._io.write(ARC_Data._TYPES["Bignum"])
         ARC_Data.__dump_int32(obj) # our C++ implementation uses a "long" of 32 bit
     
     
     @staticmethod
     def _dump_float(obj):
-        _io.write(ARC_Data._TYPES["Float"])
-        _io.write(pack("<f", obj))
+        ARC_Data._io.write(ARC_Data._TYPES["Float"])
+        ARC_Data._io.write(pack("<f", obj))
     
     
     @staticmethod
     def _dump_string(obj):
-        _io.write(ARC_Data._TYPES["String"])
+        ARC_Data._io.write(ARC_Data._TYPES["String"])
         if len(obj) > 0:
-            if not ARC_Data.__try_map(_strings, obj): # abort if object has already been mapped
+            if not ARC_Data.__try_map(ARC_Data._strings, obj): # abort if object has already been mapped
                 return
             ARC_Data.__dump_int32(len(obj))
-            _io.write(obj)
+            ARC_Data._io.write(obj)
         else:
             ARC_Data.__dump_int32(0)
         
@@ -244,9 +232,9 @@ class ARC_Data(object):
     
     @staticmethod
     def _dump_array(obj):
-        _io.write(ARC_Data._TYPES["Array"])
+        ARC_Data._io.write(ARC_Data._TYPES["Array"])
         if len(obj) > 0:
-            if not ARC_Data.__try_map(_arrays, obj): # abort if object has already been mapped
+            if not ARC_Data.__try_map(ARC_Data._arrays, obj): # abort if object has already been mapped
                 return 
             ARC_Data.__dump_int32(len(obj))
             for value in obj:
@@ -258,9 +246,9 @@ class ARC_Data(object):
     
     @staticmethod
     def _dump_hash(obj):
-        _io.write(ARC_Data._TYPES["Hash"])
+        ARC_Data._io.write(ARC_Data._TYPES["Hash"])
         if len(obj) > 0:
-            if not ARC_Data.__try_map(_hashes, obj): # abort if object has already been mapped
+            if not ARC_Data.__try_map(ARC_Data._hashes, obj): # abort if object has already been mapped
                 return 
             ARC_Data.__dump_int32(len(obj))
             for key, value in obj.items():
@@ -286,7 +274,7 @@ class ARC_Data(object):
     
     @staticmethod
     def _dump_object(obj):
-        _io.write(ARC_Data._TYPES["Object"])
+        ARC_Data._io.write(ARC_Data._TYPES["Object"])
         if hasattr(obj, "_arc_class_path"):
             klass_path = obj._arc_class_path
         else:
@@ -298,12 +286,12 @@ class ARC_Data(object):
                     mod_name += name
             klass_path = "%s::%s" % (mod_name, obj.__class__.__name__)
         ARC_Data._dump_string(ARC_Data.__get_class_path(klass_path)) # first the string path because this is required to load the object
-        if not ARC_Data.__try_map(_objects, obj): # abort if object has already been mapped
+        if not ARC_Data.__try_map(ARC_Data._objects, obj): # abort if object has already been mapped
             return
         if hasattr(obj, "_arc_dump"):
             data = obj._arc_dump()
             ARC_Data.__dump_int32(len(data))
-            _io.write(data)
+            ARC_Data._io.write(data)
         else:
             if hasattr(obj, "_arc_exclude"):
                 excludes = obj._arc_exclude
@@ -344,7 +332,7 @@ class ARC_Data(object):
     
     @staticmethod
     def _load_float():
-        return unpack("<f", _io.read(4))
+        return unpack("<f", ARC_Data._io.read(4))
     
     
     @staticmethod
@@ -352,12 +340,12 @@ class ARC_Data(object):
         id_num = ARC_Data.__load_int32()
         if id_num == 0:
             return ""
-        obj = ARC_Data.__find_mapped(_strings, id_num)
+        obj = ARC_Data.__find_mapped(ARC_Data._strings, id_num)
         if obj != None:
             return obj.clone
         size = ARC_Data.__load_int32()
-        obj = _io.read(size)
-        ARC_Data.__map(_strings, obj)
+        obj = ARC_Data._io.read(size)
+        ARC_Data.__map(ARC_Data._strings, obj)
         return obj
     
     
@@ -366,12 +354,12 @@ class ARC_Data(object):
         id_num = ARC_Data.__load_int32()
         if id_num == 0:
             return []
-        obj = ARC_Data.__find_mapped(_arrays, id_num)
+        obj = ARC_Data.__find_mapped(ARC_Data._arrays, id_num)
         if obj != None:
             return obj
         size = ARC_Data.__load_int32()
         obj = []
-        ARC_Data.__map(_arrays, obj)
+        ARC_Data.__map(ARC_Data._arrays, obj)
         for i in xrange(size):
             obj.append(ARC_Data._load())
         return obj
@@ -382,12 +370,12 @@ class ARC_Data(object):
         id_num = ARC_Data.__load_int32()
         if id_num == 0:
             return {}
-        obj = ARC_Data.__find_mapped(_hashes, id_num)
+        obj = ARC_Data.__find_mapped(ARC_Data._hashes, id_num)
         if obj != None:
             return obj
         size = ARC_Data.__load_int32()
         obj = {}
-        ARC_Data.__map(_hashes, obj)
+        ARC_Data.__map(ARC_Data._hashes, obj)
         for i in xrange(size):
             key = ARC_Data._load() # making sure key is always loaded first
             obj[key] = ARC_Data._load()
@@ -397,17 +385,17 @@ class ARC_Data(object):
     @staticmethod
     def _load_object():
         class_path = ARC_Data._load()
-        obj = ARC_Data.__find_mapped(_objects, ARC_Data.__load_int32())
+        obj = ARC_Data.__find_mapped(ARC_Data._objects, ARC_Data.__load_int32())
         if obj != None:
             return obj
         classe = ARC_Data.__get_class_object(class_path)
         size = ARC_Data.__load_int32()
         if hasattr(classe, "_arc_load"):
-            obj = classe._arc_load(_io.read(size))
-            ARC_Data.__map(_objects, obj)
+            obj = classe._arc_load(ARC_Data._io.read(size))
+            ARC_Data.__map(ARC_Data._objects, obj)
             return obj
         obj = classe.__new__(classe)
-        ARC_Data.__map(_objects, obj)
+        ARC_Data.__map(ARC_Data._objects, obj)
         for i in xrange(size):
             setattr(obj, ARC_Data._load(), ARC_Data._load())
         return obj

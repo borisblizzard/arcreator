@@ -51,6 +51,7 @@
     <Compile Include="src\Core\Frames.py" />
     <Compile Include="src\Core\Layouts.py" />
     <Compile Include="src\Core\Menues.py" />
+    <Compile Include="src\Core\DatabaseActions.py" />
     <Compile Include="src\Core\PanelManager.py" />
     <Compile Include="src\Core\Project.py" />
     <Compile Include="src\Core\register.py" />
