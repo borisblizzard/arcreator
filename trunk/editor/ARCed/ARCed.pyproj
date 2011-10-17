@@ -39,8 +39,6 @@
     <Folder Include="src\Core\" />
     <Folder Include="src\Core\RMXP\" />
     <Folder Include="tests\" />
-    <Folder Include="tests\Core\" />
-    <Folder Include="tests\Core\RMXP\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="src\Core\Actions.py" />
@@ -63,11 +61,6 @@
     <Compile Include="src\Kernel.py" />
     <Compile Include="src\Main.py" />
     <Compile Include="tests\cache.py" />
-    <Compile Include="tests\Core\RMXP\RGSS1_RPG.py" />
-    <Compile Include="tests\Core\RMXP\RMXPProject.py" />
-    <Compile Include="tests\Core\RMXP\RPGutil.py" />
-    <Compile Include="tests\Core\RMXP\__init__.py" />
-    <Compile Include="tests\Core\__init__.py" />
     <Compile Include="tests\pygletwx.py" />
     <Compile Include="tests\RPGutil.py" />
     <Compile Include="tests\wxgltest.py" />
