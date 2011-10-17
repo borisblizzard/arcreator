@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "ARCed", "ARCed.pyproj", "{D772C392-E7B6-4C18-8C5F-49BAC2A1E237}"
 EndProject
-Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "ARCed Database", "..\ARCed Database\ARCed Database.pyproj", "{ACB5E8A5-EC45-446E-B426-AD15BE86400A}"
-EndProject
 Global
+	GlobalSection(SubversionScc) = preSolution
+		Svn-Managed = True
+		Manager = AnkhSVN - Subversion Support for Visual Studio
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
@@ -13,14 +15,8 @@ Global
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{D772C392-E7B6-4C18-8C5F-49BAC2A1E237}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D772C392-E7B6-4C18-8C5F-49BAC2A1E237}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{ACB5E8A5-EC45-446E-B426-AD15BE86400A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{ACB5E8A5-EC45-446E-B426-AD15BE86400A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(SubversionScc) = preSolution
-		Svn-Managed = True
-		Manager = AnkhSVN - Subversion Support for Visual Studio
 	EndGlobalSection
 EndGlobal

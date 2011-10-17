@@ -2,6 +2,7 @@
 Created on Oct 10, 2011
 
 '''
+import Kernel
 
 class ActionManager(object):
     
@@ -28,17 +29,30 @@ class ActionManager(object):
         actions = ActionManager._action_stack[args[0]:args[1]]
         if reverse_flag:
             actions.reverse()
+        i = 0
+        success = False
         for action in actions:
             if action != None:
                 if direction == 0:
-                    action.undo()
+                   success = action.undo()
                 elif direction == 1:
-                    action.apply()
-        ActionManager._current_action = end
+                   success = action.apply()
+                if not success:
+                    break
+                i += 1  
+        if direction == 0:
+            end_action = start - i
+        elif direction == 1:
+            end_action = start + i
+        else:
+            end_action = ActionManager._current_action
+        ActionManager._current_action = end_action
         if ActionManager._current_action < 0:
             ActionManager._current_action = 0
         if ActionManager._current_action >= len(ActionManager._action_stack):
             ActionManager._current_action = len(ActionManager._action_stack) - 1
+        if not success:
+            Kernel.log("Warning: Action(s) not compleated secessful", "[Action Framwork]")
         
     @staticmethod
     def AddActions(*actions):
@@ -56,24 +70,33 @@ class ActionTemplate(object):
     def apply(self):
         if not self._applyed:
             updatecurrentactionflag = False
-            if not self.in_stack():
-                updatecurrentactionflag = True
-                self._AM.AddActions(self)
-            self.do_apply()
-            self._applyed = True
-            if updatecurrentactionflag:
-                self._AM._current_action = len(self._AM._action_stack) - 1
+            success = self.do_apply()
+            if success:
+                if not self.in_stack():
+                    updatecurrentactionflag = True
+                    self._AM.AddActions(self)
+            
+                self._applyed = True
+                if updatecurrentactionflag:
+                    self._AM._current_action = len(self._AM._action_stack) - 1
+            return success
+        else:
+            return False
     
     def do_apply(self):
-        pass
+        return False
         
     def undo(self):
         if self._applyed:
-            self.do_undo()
-            self._applyed = False
-        
+            success = self.do_undo()
+            if success:
+                self._applyed = False
+            return success
+        else:
+            return False
+                
     def do_undo(self):
-        pass
+        return False
         
     def in_stack(self):
         return self in self._AM._action_stack

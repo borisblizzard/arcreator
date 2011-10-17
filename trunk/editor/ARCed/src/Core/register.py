@@ -6,7 +6,7 @@ exports all the core components to the kernel
 import Kernel
 from Kernel import Manager, Type, SuperType, Component, Package, Event
 import RMXP
-import Frames, Menues, Dialogs, Controls, Layouts, Data, Project, ARC_Data, Actions
+import Frames, Menues, Dialogs, Controls, Layouts, Data, Project, ARC_Data, Actions, DatabaseActions
 
 
 #=============================================================================
@@ -98,7 +98,7 @@ class CorePackage(Package):
         ARCProjectHolder = Type("ARCProjectHolder")
         ARCProjectSaver = Type("ARCProjectSaver")
         ARCProjectLoader = Type("ARCProjectLoader")
-        
+      
         #------------------------------- frames --------------------------------------
         EditorMainWindow = Type("EditorMainWindow")
         
@@ -123,6 +123,8 @@ class CorePackage(Package):
         #-------------------------------actions---------------------------------------
         ActionManager = Type("ActionManager")
         ActionTemplate = Type("ActionTemplate")
+
+        ARCActorEditAction = Type("ARCActorEditAction")
 
         #=====================================================================
         # * add the types to be registered 
@@ -157,6 +159,8 @@ class CorePackage(Package):
         
         #-------------------------------actions---------------------------------------
         self.add_types(ActionManager, ActionTemplate)
+
+        self.add_types(ARCActorEditAction)
         
     def setup_events(self):
         #=============================================================================
@@ -296,6 +300,9 @@ class CorePackage(Package):
                                      None, "CoreActionManager", "CORE", 1.0, self))
         self.add_component(Component(Actions.ActionTemplate, "ActionTemplate",
                                      None, "CoreActionTemplate", "CORE", 1.0, self))
+        
+        self.add_component(Component(DatabaseActions.ActorEditAction, "ARCActorEditAction",
+                                     None, "CoreARCActorEditAction", "CORE", 1.0, self))
         
 package = CorePackage()
 key = Manager.add_package(package)
