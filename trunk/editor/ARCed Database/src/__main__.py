@@ -1,3 +1,5 @@
+import Kernel
+import maxvalues
 import wx
 import ConfigParser
 import ARCed_Templates
@@ -26,6 +28,7 @@ class DatabasePage():
 class ARCedTest(wx.App):
 
 	def __init__(self, redirect=False, filename=None):
+
 		# Initialize global dictionary that contains the pages
 		global DatabasePages
 		DatabasePages = {}

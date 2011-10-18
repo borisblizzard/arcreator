@@ -12,10 +12,14 @@
     <AssemblyName>ARCed</AssemblyName>
     <Name>ARCed</Name>
     <RootNamespace>ARCed</RootNamespace>
-    <SccProjectName>Svn</SccProjectName>
-    <SccProvider>SubversionScc</SccProvider>
-    <SccAuxPath>Svn</SccAuxPath>
-    <SccLocalPath>Svn</SccLocalPath>
+    <SccProjectName>
+    </SccProjectName>
+    <SccProvider>
+    </SccProvider>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccLocalPath>
+    </SccLocalPath>
     <IsWindowsApplication>False</IsWindowsApplication>
     <InterpreterId>2af0f10d-7135-4994-9156-5d01c9c11b7e</InterpreterId>
     <InterpreterVersion>2.6</InterpreterVersion>

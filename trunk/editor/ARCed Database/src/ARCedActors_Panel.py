@@ -1,24 +1,26 @@
-import RGSS1_RPG as RPG					# Remove after testing
-from RGSS1_RPG import Actor
-from RMXPProject import Project
-import maxvalues						# TEST for now, will be stored in the core later
+from Kernel import GlobalObjects
+import DatabaseActions#, DatabasePackage
 import wx
 import ARCed_Templates
-import ARCedChangeMaximum_Dialog
-import ARCedExpCurve_Dialog
-import ARCedChooseGraphic_Dialog
-import ARCedActorParameters_Dialog
+import ARCedChangeMaximum_Dialog, ARCedExpCurve_Dialog
+import ARCedChooseGraphic_Dialog, ARCedActorParameters_Dialog
 
-# Implementing Actors_Panel
+import RGSS1_RPG as RPG					# Remove after testing
+import maxvalues						# TEST for now
+from RMXPProject import Project
+
 class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 	def __init__( self, parent, actorIndex=0 ):
 		""" Initializes the Actors panel """
 		ARCed_Templates.Actors_Panel.__init__( self, parent )
-		self.Limits = maxvalues.DatabaseLimits('ini/DatabaseLimits.ini')
-		self.spinCtrlFinalLevel.SetRange(1, self.Limits.Actors['finallevel'])
-		global DigitMax
-		DigitMax = len(str(self.Limits.Actors['maxactors']))
-
+		if not GlobalObjects.has_key('DatabaseConfiguration'):
+			config = maxvalues.DatabaseLimits('ini/DatabaseLimits.ini')
+			GlobalObjects.request_new_key('DatabaseConfiguration', 'CORE', config)
+		global Limits, DigitMax
+		Limits = GlobalObjects.get_value('DatabaseConfiguration').Actors
+		DigitMax = len(str(Limits['maxactors']))
+		self.spinCtrlFinalLevel.SetRange(1, Limits['finallevel'])
+		
 		# TODO: Remove this
 		for i in range(20):
 			Project.Data_weapons.append(RPG.Weapon())
@@ -34,7 +36,7 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 		index = self.listBoxActors.GetSelection()
 		if Project.Data_actors[index] == None:
 			# This is probably not needed, but just in case...
-			Project.Data_actors[index] = Actor()
+			Project.Data_actors[index] = RPG.Actor()
 		return Project.Data_actors[index]
 
 	def refreshActorList(self):
@@ -101,21 +103,21 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 	def listBoxActors_SelectionChanged( self, event ):
 		""" Changes the data on the panel to reflect the values of the selected actor """
 		if Project.Data_actors[self.listBoxActors.GetSelection()] == None:
-			Project.Data_actors[self.listBoxActors.GetSelection()] = Actor()
+			Project.Data_actors[self.listBoxActors.GetSelection()] = RPG.Actor()
 		self.textCtrlName.SetValue(self.SelectedActor().name)
 
 	def buttonMaximum_Clicked( self, event ):
 		""" Shows dialog for changing the list capacity """
 		items = self.listBoxActors.GetItems()
 		currentMax = len(items)
-		maxActors = self.Limits.Actors['maxactors']
+		maxActors = Limits['maxactors']
 		dlg = ARCedChangeMaximum_Dialog.ARCedChangeMaximum_Dialog(self, currentMax, 1, maxActors)
 		if dlg.ShowModal() == wx.ID_OK:
 			newMax = dlg.spinCtrlMaximum.GetValue()
 			if newMax != currentMax: 
 				if newMax > currentMax:
-					newActors = [None for i in range(newMax - currentMax)]
-					newLabels = [str(1 + currentMax + i).zfill(DigitMax) + ': ' for i in range(newMax - currentMax)]
+					newActors = [None for i in xrange(newMax - currentMax)]
+					newLabels = [str(1 + currentMax + i).zfill(DigitMax) + ': ' for i in xrange(newMax - currentMax)]
 					Project.Data_actors.extend(newActors)
 					self.listBoxActors.InsertItems(newLabels, currentMax)
 				else:
@@ -179,7 +181,7 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 	def comboBoxExperience_Click( self, event ):
 		""" Opens window to generate experience tables """
 		actor = self.SelectedActor()
-		dlg = ARCedExpCurve_Dialog.ARCedExpCurve_Dialog(self, actor, self.Limits.Actors)
+		dlg = ARCedExpCurve_Dialog.ARCedExpCurve_Dialog(self, actor, Limits)
 		if dlg.ShowModal() == wx.ID_OK:
 			actor.exp_basis = dlg.Basis
 			actor.exp_inflation = dlg.Inflation
@@ -214,6 +216,16 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 			self.bitmapBattlerGraphic.SetBitmap(wx.Bitmap(dlg.Images[index]))
 		dlg.Destroy()
 
+	def showActorParametersDialog(self, index):
+		""" Initializes the dialog to set actor parameters, using the selected actor """
+		dlg = ARCedActorParameters_Dialog.ARCedActorParameters_Dialog(self, self.SelectedActor(), Limits)
+		dlg.noteBookActorParameters.ChangeSelection(index)
+		if dlg.ShowModal() == wx.ID_OK:
+			# TODO: Need to change this to work differently since this won't be a dialog
+			#       and GetSelection() may be different than what is was when initialized
+			Project.Data_actors[self.listBoxActors.GetSelection()].parameters = dlg.ParameterTable
+		dlg.Destroy()
+
 	def bitmapMaxHP_Click( self, event ):
 		""" Opens the actor parameters dialog with the MaxHP tab focused """
 		self.showActorParametersDialog(0)
@@ -237,16 +249,6 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 	def bitmapInt_Click( self, event ):
 		""" Opens the actor parameters dialog with the Int tab focused """
 		self.showActorParametersDialog(5)
-
-	def showActorParametersDialog(self, index):
-		""" Initializes the dialog to set actor parameters, using the selected actor """
-		limits = self.Limits.Actors
-		dlg = ARCedActorParameters_Dialog.ARCedActorParameters_Dialog(self, self.SelectedActor(), limits)
-		dlg.noteBookActorParameters.ChangeSelection(index)
-		if dlg.ShowModal() == wx.ID_OK:
-			# TODO: Need to change this to work differently since this won't be a dialog
-			Project.Data_actors[self.listBoxActors.GetSelection()].parameters = dlg.ParameterTable
-		dlg.Destroy()
 
 	def comboBoxWeapon_SelectionChanged( self, event ):
 		""" Changes the value for the selected actor's initial weapon_id """
