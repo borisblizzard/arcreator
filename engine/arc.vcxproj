@@ -38,11 +38,11 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
     <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='win32_Debug|Win32'">bin\$(Configuration)\</OutDir>
-    <IntDir Condition="'$(Configuration)|$(Platform)'=='win32_Debug|Win32'">bin\$(Configuration)\</IntDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='win32_Debug|Win32'">$(SolutionDir)bin\$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='win32_Debug|Win32'">$(SolutionDir)bin\$(Configuration)\</IntDir>
     <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='win32_Debug|Win32'">true</GenerateManifest>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='win32_Release|Win32'">bin\$(Configuration)\</OutDir>
-    <IntDir Condition="'$(Configuration)|$(Platform)'=='win32_Release|Win32'">bin\$(Configuration)\</IntDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='win32_Release|Win32'">$(SolutionDir)bin\$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='win32_Release|Win32'">$(SolutionDir)bin\$(Configuration)\</IntDir>
     <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='win32_Release|Win32'">true</GenerateManifest>
     <EmbedManifest Condition="'$(Configuration)|$(Platform)'=='win32_Release|Win32'">true</EmbedManifest>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='win32_Release|Win32'">Game</TargetName>
@@ -63,8 +63,8 @@
     </ClCompile>
     <Link>
       <AdditionalDependencies>libhltypes.lib;libapril.lib;zer0division.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <OutputFile>bin\$(Configuration)\$(TargetName)$(TargetExt)</OutputFile>
-      <AdditionalLibraryDirectories>external/hltypes/bin/win32_Debug;external/april/bin;external/zer0/bin/win32_Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <OutputFile>$(SolutionDir)bin\$(TargetName)$(TargetExt)</OutputFile>
+      <AdditionalLibraryDirectories>..\lib\msvc100;$(SolutionDir)bin;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalManifestDependencies>%(AdditionalManifestDependencies)</AdditionalManifestDependencies>
       <UACExecutionLevel>AsInvoker</UACExecutionLevel>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -76,20 +76,9 @@
       <SuppressStartupBanner>true</SuppressStartupBanner>
     </Link>
     <PostBuildEvent>
-      <Command>copy external\gtypes\bin\win32_Debug\libgtypes.dll bin\$(Configuration)
-copy external\hltypes\bin\win32_Debug\libhltypes.dll bin\$(Configuration)
-copy external\hltypes\bin\hlxml\win32_Debug\libhlxml.dll bin\$(Configuration)
-copy external\april\bin\libapril.dll bin\$(Configuration)
-copy external\april\bin\libaprilutil.dll bin\$(Configuration)
-copy external\atres\bin\win32_Debug\libatres.dll bin\$(Configuration)
-copy external\atres\bin\atresttf\win32_Debug\libatresttf.dll bin\$(Configuration)
-copy external\aprilui\bin\win32_Debug\libaprilui.dll bin\$(Configuration)
-copy external\xal\bin\libxal.dll bin\$(Configuration)
-copy external\rgss\bin\win32_Debug\zer0rgss.dll bin\$(Configuration)
-copy external\zer0\bin\win32_Debug\zer0division.dll bin\$(Configuration)
-copy external\lib\msvc90\*.dll bin\$(Configuration)
-copy external\lib\msvc100\*.dll bin\$(Configuration)
-copy arc.cfg bin\$(Configuration)
+      <Command>xcopy external\lib\msvc90\*.dll $(SolutionDir)bin /y /s /e
+xcopy external\lib\msvc100\*.dll $(SolutionDir)bin /y /s /e
+copy arc.cfg $(SolutionDir)bin
 </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -114,8 +103,8 @@ copy arc.cfg bin\$(Configuration)
     </ClCompile>
     <Link>
       <AdditionalDependencies>libhltypes.lib;libapril.lib;zer0division.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <OutputFile>bin\$(Configuration)\$(TargetName)$(TargetExt)</OutputFile>
-      <AdditionalLibraryDirectories>external/hltypes/bin/win32_Release;external/april/bin;external/zer0/bin/win32_Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <OutputFile>$(SolutionDir)bin\$(TargetName)$(TargetExt)</OutputFile>
+      <AdditionalLibraryDirectories>..\lib\msvc100;$(SolutionDir)bin;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalManifestDependencies>%(AdditionalManifestDependencies)</AdditionalManifestDependencies>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
@@ -132,30 +121,17 @@ copy arc.cfg bin\$(Configuration)
       </AdditionalManifestFiles>
     </Manifest>
     <PostBuildEvent>
-      <Command>copy external\gtypes\bin\win32_Release\libgtypes.dll bin\$(Configuration)
-copy external\hltypes\bin\win32_Release\libhltypes.dll bin\$(Configuration)
-copy external\hltypes\bin\hlxml\win32_Release\libhlxml.dll bin\$(Configuration)
-copy external\april\bin\libapril.dll bin\$(Configuration)
-copy external\april\bin\libaprilutil.dll bin\$(Configuration)
-copy external\atres\bin\win32_Release\libatres.dll bin\$(Configuration)
-copy external\atres\bin\atresttf\win32_Release\libatresttf.dll bin\$(Configuration)
-copy external\aprilui\bin\win32_Release\libaprilui.dll bin\$(Configuration)
-copy external\xal\bin\libxal.dll bin\$(Configuration)
-copy external\rgss\bin\win32_Release\zer0rgss.dll bin\$(Configuration)
-copy external\zer0\bin\win32_Release\zer0division.dll bin\$(Configuration)
-copy external\lib\msvc90\DevIL.dll bin\$(Configuration)
-copy external\lib\msvc90\libogg.dll bin\$(Configuration)
-copy external\lib\msvc90\libvorbis.dll bin\$(Configuration)
-copy external\lib\msvc90\libvorbisfile.dll bin\$(Configuration)
-copy external\lib\msvc90\libxml2.dll bin\$(Configuration)
-copy external\lib\msvc100\msvcr100-ruby192.dll bin\$(Configuration)
-copy arc.cfg bin\$(Configuration)
-del bin\$(Configuration)\*.obj
-del bin\$(Configuration)\*.res
-del bin\$(Configuration)\*.tlog
-del bin\$(Configuration)\*.lastbuildstate
-del bin\$(Configuration)\*.pdb
-del bin\$(Configuration)\*.manifest
+      <Command>xcopy external\lib\msvc90\*.dll $(SolutionDir)bin /y /s /e /d
+xcopy external\lib\msvc100\*.dll $(SolutionDir)bin /y /s /e /d
+
+rmdir $(SolutionDir)bin\ARC_$(Configuration) /s /q
+mkdir $(SolutionDir)bin\ARC_$(Configuration)
+mkdir $(SolutionDir)bin\ARC_$(Configuration)\Microsoft.VC90.CRT
+xcopy external\lib\msvc90\Microsoft.VC90.CRT\*.dll $(SolutionDir)bin\ARC_$(Configuration)\Microsoft.VC90.CRT /d /y
+xcopy external\lib\msvc100\Microsoft.VC100.CRT\*.dll $(SolutionDir)bin\ARC_$(Configuration) /d /y
+xcopy $(SolutionDir)bin\*.exe $(SolutionDir)bin\ARC_$(Configuration) /y
+xcopy $(SolutionDir)bin\*.dll $(SolutionDir)bin\ARC_$(Configuration) /y
+xcopy arc.cfg $(SolutionDir)bin\ARC_$(Configuration) /y
 </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>

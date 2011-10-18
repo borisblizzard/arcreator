@@ -126,14 +126,6 @@ namespace zer0
 	
 	VALUE rb_Kernel_loadData(VALUE self, VALUE filename)
 	{
-		/// @todo - ARC_Data::rb_load has to be fixed before this can be uncommented
-		/*
-		log(StringValuePtr(filename));
-		//return rb_eval_string(("begin;data = ARC::Data.load('" + hstr(StringValuePtr(filename)) + "');rescue;data=nil;end;data").c_str());
-		return ARC_Data::rb_load(rb_mARC_Data, filename);
-		//return data;
-		//*/
-		//*
 		// TODO - unsafe, should be done with a rb_protect block
 		VALUE rb_mMarshal = rb_funcall_1(rb_mKernel, "const_get", rb_f_to_sym(rb_str_new2("Marshal")));
 		VALUE file = rb_funcall_2(rb_cFile, "open", filename, rb_str_new2("rb"));
@@ -227,10 +219,6 @@ namespace zer0
 		try
 		{
 			zer0::log("destroying Zer0 Division Engine");
-			// destroy Ruby stuff
-			ARC::destroy();
-			ARC_Data::destroy();
-			ARC_Error::destroy();
 			// destroy other
 			delete zer0::system;
 			delete zer0::context;
@@ -286,6 +274,9 @@ namespace zer0
 			rb_load(rb_str_new2((*it).c_str()), 0);
 		}
 		rgss::destroy();
+		ARC::destroy();
+		ARC_Data::destroy();
+		ARC_Error::destroy();
 		return Qnil;
 	}
 
