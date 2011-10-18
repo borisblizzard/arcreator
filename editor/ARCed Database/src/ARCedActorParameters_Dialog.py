@@ -7,12 +7,11 @@ class ARCedActorParameters_Dialog( ARCed_Templates.ActorParameters_Dialog ):
 	def __init__( self, parent, actor, limits ):
 		""" Initializes window using passed Actor argument to set values """
 		ARCed_Templates.ActorParameters_Dialog.__init__( self, parent )
-		global Actor
-		Actor = actor
+		global Actor, Limits
+		Actor, Limits = actor, limits
 		self.ParameterTable = Actor.parameters
 		self.PageIndex = 0
-		self.Limits = limits
-		self.spinCtrlLevel.SetRange(1, self.Limits['finallevel'])
+		self.spinCtrlLevel.SetRange(1, Limits['finallevel'])
 		self.setValueRange()
 		self.refreshValues(1)
 
@@ -29,30 +28,20 @@ class ARCedActorParameters_Dialog( ARCed_Templates.ActorParameters_Dialog ):
 		
 	def setValueRange( self ):
 		if self.PageIndex == 0:
-			self.spinCtrlValue.SetRange(0, self.Limits['maxhp'])
+			self.spinCtrlValue.SetRange(0, Limits['maxhp'])
 		elif self.PageIndex == 1:
-			self.spinCtrlValue.SetRange(0, self.Limits['maxsp'])
+			self.spinCtrlValue.SetRange(0, Limits['maxsp'])
 		elif self.PageIndex == 2:
-			self.spinCtrlValue.SetRange(0, self.Limits['maxstr'])
+			self.spinCtrlValue.SetRange(0, Limits['maxstr'])
 		elif self.PageIndex == 3:
-			self.spinCtrlValue.SetRange(0, self.Limits['maxdex'])
+			self.spinCtrlValue.SetRange(0, Limits['maxdex'])
 		elif self.PageIndex == 4:
-			self.spinCtrlValue.SetRange(0, self.Limits['maxagi'])
+			self.spinCtrlValue.SetRange(0, Limits['maxagi'])
 		elif self.PageIndex == 5:
-			self.spinCtrlValue.SetRange(0, self.Limits['maxint'])
+			self.spinCtrlValue.SetRange(0, Limits['maxint'])
 
 	def drawCurve( self, parameterList, text ):
-		size = self.bitmapGraph.GetSize()
-		bitmap = wx.Bitmap(size.GetWidth, size.GetHeight)
-		step = size.GetWidth() / actor.final_level
 
-		brush = wx.Brush(wx.RED, step)
-		
-		for value in xrange(1, len(actor.final_level), step):
-			
-
-
-			pass
 		pass
 
 
@@ -73,7 +62,7 @@ class ARCedActorParameters_Dialog( ARCed_Templates.ActorParameters_Dialog ):
 		dlg = ARCedGenerateCurve_Dialog.ARCedGenerateCurve_Dialog(self, self.PageIndex)
 		if dlg.ShowModal() == wx.ID_OK:
 			# TODO: Implement curve modification
-			print 'New Curve Generated'
+			pass
 		dlg.Destroy()
 
 	def noteBookParameters_PageChanged( self, event ):
