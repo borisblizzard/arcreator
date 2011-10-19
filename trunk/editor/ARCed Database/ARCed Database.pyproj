@@ -128,10 +128,6 @@
     <Compile Include="src\ARCed_Templates.py" />
     <Compile Include="src\DatabasePackage.py" />
     <Compile Include="src\maxvalues.py" />
-    <Compile Include="src\RGSS1_RPG.py" />
-    <Compile Include="src\RMXPProject.py" />
-    <Compile Include="src\RPGutil.py" />
-    <Compile Include="src\TEST.py" />
     <Compile Include="src\__main__.py" />
   </ItemGroup>
   <ItemGroup>

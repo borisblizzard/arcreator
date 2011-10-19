@@ -7,6 +7,8 @@ import maxvalues
 from RMXPProject import Project
 import RGSS1_RPG as RPG
 
+import time
+
 # Implementing Classes_Panel
 class ARCedClasses_Panel( ARCed_Templates.Classes_Panel ):
 	def __init__( self, parent ):
@@ -15,8 +17,8 @@ class ARCedClasses_Panel( ARCed_Templates.Classes_Panel ):
 			config = maxvalues.DatabaseLimits('ini/DatabaseLimits.ini')
 			GlobalObjects.request_new_key('DatabaseConfiguration', 'CORE', config)
 		global Limits, DigitMax
-		Limits = GlobalObjects.get_value('DatabaseConfiguration').Classes
-		DigitMax = len(str(Limits['maxclasses']))
+		Limits = GlobalObjects.get_value('DatabaseConfiguration').GameObjects
+		DigitMax = len(str(Limits['classes']))
 
 		for i in range(20):
 			Project.Data_classes.append(RPG.Class())
@@ -26,12 +28,19 @@ class ARCedClasses_Panel( ARCed_Templates.Classes_Panel ):
 		self.listBoxClasses.Select(0)
 		
 	
+	def benchMark(self, iterations, method, *args):
+		total = 0
+		for i in xrange(iterations):
+			start = time.time()
+			method(*args)
+			total += (time.time() - start)
+		print total / iterations
+
 	def refreshClassList( self ):
-		i = 0
-		for klass in Project.Data_classes:
-			i += 1
-			self.listBoxClasses.Append(str(i).zfill(DigitMax) + ': ' + klass.name)
-	
+		self.listBoxClasses.Clear()
+		for i, klass in enumerate(Project.Data_classes): 
+			self.listBoxClasses.Append(str(i + 1).zfill(DigitMax) + ': ' + klass.name)
+
 	# Handlers for Classes_Panel events.
 	def listBoxClasses_SelectionChanged( self, event ):
 		i = self.listBoxClasses.GetSelection() + 1
@@ -39,12 +48,11 @@ class ARCedClasses_Panel( ARCed_Templates.Classes_Panel ):
 			Project.Data_classes[i] = RPG.Class()
 		self.textCtrlName.SetValue(Project.Data_classes[i].name)
 
-
 	def buttonMaximum_Clicked( self, event ):
 		""" Shows dialog for changing the list capacity """
 		items = self.listBoxClasses.GetItems()
 		currentMax = len(items)
-		maxsClasses = Limits['maxclasses']
+		maxsClasses = Limits['classes']
 		dlg = ARCedChangeMaximum_Dialog.ARCedChangeMaximum_Dialog(self, currentMax, 1, maxClasses)
 		if dlg.ShowModal() == wx.ID_OK:
 			newMax = dlg.spinCtrlMaximum.GetValue()

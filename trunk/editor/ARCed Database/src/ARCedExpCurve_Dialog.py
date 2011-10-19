@@ -22,7 +22,7 @@ class ARCedExpCurve_Dialog( ARCed_Templates.ExpCurve_Dialog ):
 		FinalLevel = actor.final_level
 		StyleNext = wx.TextAttr(wx.Color(0, 128, 0))
 		StyleTotal = wx.TextAttr(wx.Color(128, 0, 0))
-		self.PageIndex = 0
+		PageIndex = 0
 		self.refreshExpTable()
 
 	def refreshExpTable(self):
@@ -32,7 +32,7 @@ class ARCedExpCurve_Dialog( ARCed_Templates.ExpCurve_Dialog ):
 		expDigits = len(str(max(expList)))
 		strings = []
 		# I apologize ahead of time before you read the following code. 
-		if self.PageIndex == 0:
+		if PageIndex == 0:
 			for i in range(1, FinalLevel + 1):
 				strings.append('L' + str(i).rjust(levelDigits) + ': ' + str(expList[i] - expList[i - 1]).rjust(expDigits))
 			lines = ["    ".join(row) for row in self.columnSplit(strings, 4)]
@@ -42,7 +42,7 @@ class ARCedExpCurve_Dialog( ARCed_Templates.ExpCurve_Dialog ):
 					start = self.textCtrlExpList.XYToPosition(0, y)
 					pos = (start + levelDigits + 3) + ((levelDigits + 7 + expDigits) * c)
 					self.textCtrlExpList.SetStyle(pos, pos + expDigits, StyleNext)
-		elif self.PageIndex == 1:
+		elif PageIndex == 1:
 			for i in range(1, FinalLevel + 1):
 				strings.append('L' + str(i).rjust(levelDigits) + ': ' + str(expList[i]).rjust(expDigits))
 			lines = ["    ".join(row) for row in self.columnSplit(strings, 4)]
@@ -95,7 +95,7 @@ class ARCedExpCurve_Dialog( ARCed_Templates.ExpCurve_Dialog ):
 		self.refreshExpTable()
 
 	def noteBookExpCurve_PageChanged( self, event ):
-		self.PageIndex = event.GetSelection()
+		PageIndex = event.GetSelection()
 		""" Refreshes the page that was switched to since only the visible page is being refreshed normally """
 		self.refreshExpTable()
 	

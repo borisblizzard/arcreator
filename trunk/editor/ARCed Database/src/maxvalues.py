@@ -1,5 +1,4 @@
 import ConfigParser
-import RPGutil as util
 
 class DatabaseLimits():
 
@@ -9,7 +8,7 @@ class DatabaseLimits():
 		whose keys are the options and values are the corresponding integers
 		"""
 		config = ConfigParser.SafeConfigParser()
-		config.read(util.opj(iniPath))
+		config.read(iniPath)
 		for section in config.sections():
 			data = {}
 			for option in config.options(section):

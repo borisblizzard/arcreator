@@ -35,6 +35,7 @@ class ARCedTest(wx.App):
 		# Create the application and main frame
 		wx.App.__init__(self, redirect, filename)
 		self.frame = wx.Frame(None, wx.ID_ANY, title='ARCed Panel Test', size=(800, 600))
+		self.frame.SetExtraStyle(wx.FRAME_EX_CONTEXTHELP)
 		self.frame.CenterOnScreen()
 		# Read and parse the .ini file to determine what tabs will be available
 		Config = ConfigParser.SafeConfigParser()
@@ -54,6 +55,8 @@ class ARCedTest(wx.App):
 
 # Create window and execute the main loop
 if __name__ == '__main__':
+	provider = wx.SimpleHelpProvider()
+	wx.HelpProvider.Set(provider)
 	app = ARCedTest()
 	app.MainLoop()
 	app.Destroy()
