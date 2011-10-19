@@ -54,13 +54,13 @@ class Table(object):
         # should work to increase and decrease the table size
         if len(args) != 1 and len(args) != 2 and len(args) != 3:
             raise ArgumentError("wrong number of arguments (%d for 1, 2 or 3)" % args.size)
-        self.dim = args.size
+        self.dim = len(args)
         self.xsize = args[0]
-        if len(args) > 2:
+        if len(args) >= 2:
             self.ysize = args[1]
         else:
             self.ysize = 1
-        if len(args) > 3:
+        if len(args) >= 3:
             self.zsize = args[2] 
         else:
             self.zsize = 1
