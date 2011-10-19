@@ -7,6 +7,7 @@ import ARCedChooseGraphic_Dialog, ARCedActorParameters_Dialog
 
 import RGSS1_RPG as RPG					# Remove after testing
 import maxvalues						# TEST for now
+from RPGutil import Table
 from RMXPProject import Project
 
 RGSS_COMPATIBLE = False#True
@@ -20,11 +21,12 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 			GlobalObjects.request_new_key('DatabaseConfiguration', 'CORE', config)
 
 
+		v = Table(4)
+		print v[0]
+
 		if RGSS_COMPATIBLE:
 			self.buttonAddParameter.Enabled = False
 			
-		
-
 		global Limits, ActorLimits
 		Limits = GlobalObjects.get_value('DatabaseConfiguration').GameObjects
 		ActorLimits = GlobalObjects.get_value('DatabaseConfiguration').Actors
@@ -188,7 +190,7 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 
 	def spinCtrlInitialLevel_ValueChanged( self, event ):
 		""" Sets the selected actor's initial level to the value of the wxSpinCtrl """
-		SelectedActor().initial_level = self.spinCtrlInitialLevel.GetValue()
+		self.SelectedActor().initial_level = self.spinCtrlInitialLevel.GetValue()
 
 	def spinCtrlFinalLevel_ValueChanged( self, event ):
 		""" Sets the selected actor's final level to the value of the wxSpinCtrl """
