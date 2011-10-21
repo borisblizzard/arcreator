@@ -6,7 +6,7 @@
     <ProjectGuid>{acb5e8a5-ec45-446e-b426-ad15be86400a}</ProjectGuid>
     <ProjectHome>.</ProjectHome>
     <StartupFile>src\__main__.py</StartupFile>
-    <SearchPath>C:\Users\Eric\Desktop\ARC\editor\ARCed Database\src\;C:\Users\Eric\Desktop\ARC\editor\ARCed\src\;C:\Users\Eric\Desktop\ARC\editor\ARCed\src\Core\RMXP\;C:\Users\Eric\Desktop\ARC\editor\ARCed\src\Core\;C:\Users\Eric\Desktop\ARC\editor\ARCed Database\registers</SearchPath>
+    <SearchPath>C:\Users\Eric\Desktop\ARC\editor\ARCed\src\Core\RMXP\;C:\Users\Eric\Desktop\ARC\editor\ARCed\src\Core\;C:\Users\Eric\Desktop\ARC\editor\ARCed\src\;C:\Users\Eric\Desktop\ARC\editor\ARCed Database\src</SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
     <AssemblyName>ARCed Database</AssemblyName>
     <Name>ARCed Database</Name>
@@ -14,6 +14,10 @@
     <IsWindowsApplication>False</IsWindowsApplication>
     <InterpreterId>2af0f10d-7135-4994-9156-5d01c9c11b7e</InterpreterId>
     <InterpreterVersion>2.6</InterpreterVersion>
+    <LaunchProvider>Standard Python launcher</LaunchProvider>
+    <CommandLineArguments />
+    <InterpreterPath />
+    <InterpreterArguments />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
@@ -133,6 +137,7 @@
   <ItemGroup>
     <Folder Include="ini" />
     <Folder Include="images" />
+    <Folder Include="ini\images\" />
     <Folder Include="registers" />
     <Folder Include="src" />
   </ItemGroup>
@@ -164,5 +169,31 @@
     <Content Include="images\Weapons.png" />
     <Content Include="ini\DatabaseLimits.ini" />
     <Content Include="ini\DatabaseTabs.ini" />
+    <Content Include="ini\images\Actors.png" />
+    <Content Include="ini\images\Agi.png" />
+    <Content Include="ini\images\Animations.png" />
+    <Content Include="ini\images\AnimationSample1.png" />
+    <Content Include="ini\images\AnimationSample2.png" />
+    <Content Include="ini\images\Armors.png" />
+    <Content Include="ini\images\Battleback.jpg" />
+    <Content Include="ini\images\Battler.png" />
+    <Content Include="ini\images\Character.png" />
+    <Content Include="ini\images\Classes.png" />
+    <Content Include="ini\images\CommonEvents.png" />
+    <Content Include="ini\images\Dex.png" />
+    <Content Include="ini\images\Enemies.png" />
+    <Content Include="ini\images\Ghost.png" />
+    <Content Include="ini\images\Int.png" />
+    <Content Include="ini\images\Items.png" />
+    <Content Include="ini\images\MaxHP.png" />
+    <Content Include="ini\images\MaxSP.png" />
+    <Content Include="ini\images\Skills.png" />
+    <Content Include="ini\images\States.png" />
+    <Content Include="ini\images\Str.png" />
+    <Content Include="ini\images\Tilesets.png" />
+    <Content Include="ini\images\TilesetSample.png" />
+    <Content Include="ini\images\Troops.png" />
+    <Content Include="ini\images\Weapons.png" />
+    <Content Include="src\Project.pyc" />
   </ItemGroup>
 </Project>

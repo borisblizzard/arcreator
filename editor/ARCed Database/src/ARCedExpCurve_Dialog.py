@@ -17,7 +17,7 @@ class ARCedExpCurve_Dialog( ARCed_Templates.ExpCurve_Dialog ):
 		if not font.SetFaceName('Consolas'):
 			font.SetFaceName('Courier New')
 		self.textCtrlExpList.SetFont(font)
-		global MaxLevel, FinalLevel, StyleNext, StyleTotal, StyleNormal
+		global MaxLevel, FinalLevel, StyleNext, StyleTotal, StyleNormal, PageIndex
 		MaxLevel = limits['finallevel']
 		FinalLevel = actor.final_level
 		StyleNext = wx.TextAttr(wx.Color(0, 128, 0))
