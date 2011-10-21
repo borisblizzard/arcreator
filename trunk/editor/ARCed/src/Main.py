@@ -81,5 +81,12 @@ if __name__ == '__main__':
     provider = wx.SimpleHelpProvider()
     wx.HelpProvider.Set(provider)
 
-    app = ARC_App(False)
+    
+    redirect = not "-DEBUG" in sys.argv
+    
+    app = ARC_App(redirect)
+    #dlg = wx.MessageDialog(None, "test", "test2",
+    #                               style=wx.OK | wx.CENTRE
+    #                               | wx.ICON_EXCLAMATION)
+    #dlg.ShowModal()
     app.MainLoop()
