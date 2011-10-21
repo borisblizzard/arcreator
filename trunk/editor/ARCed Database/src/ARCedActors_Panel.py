@@ -20,10 +20,6 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 			config = maxvalues.DatabaseLimits('ini/DatabaseLimits.ini')
 			GlobalObjects.request_new_key('DatabaseConfiguration', 'CORE', config)
 
-
-		v = Table(4)
-		print v[0]
-
 		if RGSS_COMPATIBLE:
 			self.buttonAddParameter.Enabled = False
 			
@@ -122,7 +118,10 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 		""" Changes the data on the panel to reflect the values of the selected actor """
 		if Project.Data_actors[self.listBoxActors.GetSelection()] == None:
 			Project.Data_actors[self.listBoxActors.GetSelection()] = RPG.Actor()
-		self.refreshAll()
+		self.refreshWeapons()
+		self.refreshArmors()
+
+
 
 	def buttonMaximum_Clicked( self, event ):
 		""" Shows dialog for changing the list capacity """
