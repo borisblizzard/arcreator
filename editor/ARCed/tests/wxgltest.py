@@ -316,9 +316,6 @@ class Tilemap(object):
         self.autotile_names = autotiles
         self.tileset_name = tileset
         self.ordered_groups = []
-        for i in xrange(self.table._data.shape[2]):
-            self.ordered_groups.append(pyglet.graphics.OrderedGroup(i))
-            self.renderingBatches.append(pyglet.graphics.Batch())
         self.tiles = self.createTilemap()
     
     def UpdateDimmingSprite(self, width, height, scale):
@@ -351,16 +348,31 @@ class Tilemap(object):
                     sprite = self.makeSprite(x, y, z)
                     sprites[x, y, z] = sprite
         return sprites
+
+    def get_rendering_batch(self, z):
+        if len(self.renderingBatches) < z:
+            for i in xrange(len(self.renderingBatches), z + 1):
+                self.renderingBatches.append(pyglet.graphics.Batch())
+        return self.renderingBatches[z]
+
+    def get_ordered_groups(self, z):
+        if len(self.ordered_groups) < z:
+            for i in xrange(len(self.ordered_groups), z + 1):
+                self.ordered_groups.append(pyglet.graphics.OrderedGroup(i))
+        return self.ordered_groups[z]
+
+
     
     def makeSprite(self, x, y, z):
         xpos = x * 32
         ypos = ((self.table._data.shape[1] - y) * 32) - 32
         sprite = pyglet.sprite.Sprite(self.blank_tile, xpos, ypos, 
-                                      batch=self.renderingBatches[z], group=self.ordered_groups[z])
+                                      batch=self.get_rendering_batch(z), group=self.get_ordered_groups(z))
         return sprite
                        
     def update(self):
         '''
+        checks for change in tile ids and updates the tilemap
         '''
         #if the arn't the same size
         if self.tile_ids.shape != self.table._data.shape:
@@ -456,6 +468,15 @@ class Tilemap(object):
         else:
             for z in xrange(self.table._data.shape[2]):
                 self.SetLayerOpacity(z, 255)
+
+    def HideOffScreenSprites(self, x, y, width, height):
+        #get tiles on screen
+        on_screen = set(self.tiles[x:x + width, y:y + height].flatten())
+        not_on_screen = [x for x in self.tiles.flatten() if x not in on_screen]
+        for tile in on_screen:
+            tile.visable = True
+        for tile in not_onscren:
+            tile.visable = False
         
     def Draw(self):
         '''

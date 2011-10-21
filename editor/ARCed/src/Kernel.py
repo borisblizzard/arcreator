@@ -20,6 +20,8 @@ import traceback
 import ConfigParser
 import re
 
+import wx
+
 #==============================================================================
 # Global Object Storage
 #==============================================================================
@@ -709,7 +711,7 @@ def Log(message=None, prefix="[Kernel]", error=False):
     if message == None:
         error = True
         message = ""
-    f = open(os.path.join(GlobalObjects.get_name("Program_Dir"), "ARCed.log"), "ab")
+    f = open(os.path.join(wx.StandardPaths.Get().GetConfigDir(), "ARCed.log"), "ab")
     time_str = time.strftime("%a %d %b %Y %H:%M:%S [%Z] ")
     if error:
         message += " [Error] " + traceback.format_exc()
