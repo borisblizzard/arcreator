@@ -5687,7 +5687,7 @@ class ExpCurve_Dialog ( wx.Dialog ):
 		
 		MainSizer = wx.BoxSizer( wx.VERTICAL )
 		
-		self.noteBookExpList = wx.Notebook( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.noteBookExpList = wx.Notebook( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, 0, style = wx.TAB_TRAVERSAL)
 		self.panelNextLevel = wx.Panel( self.noteBookExpList, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
 		panelSizerNextLevel = wx.BoxSizer( wx.VERTICAL )
 		
