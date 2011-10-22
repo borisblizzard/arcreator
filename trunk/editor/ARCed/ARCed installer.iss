@@ -6,6 +6,12 @@
 #define MyAppPublisher "ARC Developers"
 #define MyAppURL "http://www.chaos-project.com/"
 #define MyAppExeName "ARCed.exe"
+; file association
+#define FileAssoName "ARC.Project"
+#define FileAssoExt ".arcproj"
+#define FileAssoDefaultIconPos "1"
+; files
+#define ARCMainExe "C:\Users\Ben\Desktop\ARC\editor\ARCed\build\dist\ARCed.exe"
 
 [Setup]
 ; NOTE: The value of AppId uniquely identifies this application.
@@ -29,6 +35,7 @@ OutputBaseFilename=ARCed-setup
 SetupIconFile=C:\Users\Ben\Desktop\ARC\editor\ARCed\icon.ico
 Compression=lzma
 SolidCompression=yes
+ChangesAssociations=yes
 
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl"
@@ -38,7 +45,7 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 Name: "quicklaunchicon"; Description: "{cm:CreateQuickLaunchIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked; OnlyBelowVersion: 0,6.1
 
 [Files]
-Source: "C:\Users\Ben\Desktop\ARC\editor\ARCed\build\dist\ARCed.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "{#ARCMainExe}"; DestDir: "{app}"; Flags: ignoreversion
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
@@ -46,6 +53,16 @@ Name: "{group}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"
 Name: "{group}\{cm:UninstallProgram,{#MyAppName}}"; Filename: "{uninstallexe}"
 Name: "{commondesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Tasks: desktopicon
 Name: "{userappdata}\Microsoft\Internet Explorer\Quick Launch\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Tasks: quicklaunchicon
+
+[Registry]
+; file association
+Root: HKCR; Subkey: "{#FileAssoExt}"; ValueType: string; ValueName: ""; ValueData: "{#FileAssoName}"; Flags: uninsdeletevalue
+Root: HKCR; Subkey: "{#FileAssoName}"; ValueType: string; ValueName: ""; ValueData: "ARC Project File"; Flags: uninsdeletekey
+Root: HKCR; Subkey: "{#FileAssoName}\DefaultIcon"; ValueType: string; ValueName: ""; ValueData: "{app}\{#MyAppName},{#FileAssoDefaultIconPos}"
+Root: HKCR; Subkey: "{#FileAssoName}\shell\open\command"; ValueType: string; ValueName: ""; ValueData: """{app}\{#MyAppName}"" ""%1"""
+; set compatability mode
+Root: HKLM; Subkey: "Software\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers"; ValueType: string; ValueName: "{app}\{#MyAppExeName}"; ValueData: "WINXPSP2"; Flags: uninsdeletekey;  MinVersion: 0,6.0.6000
+
 
 [Run]
 Filename: "{app}\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, "&", "&&")}}"; Flags: nowait postinstall skipifsilent
