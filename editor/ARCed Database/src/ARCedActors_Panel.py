@@ -50,10 +50,7 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 		self.SelectedActor().parameters[param, level] = value
 
 	def GetParameterValue( self, index, level ):
-		print 'INDEX = ' + str(index)
-		print 'X-SIZE = ' + str(self.SelectedActor().parameters.xsize)
 		if self.SelectedActor().parameters.xsize <= index:
-			print 'RESIZED'
 			for actor in Project.Data_actors:
 				actor.parameters.resize(index + 1, ActorLimits['finallevel'])
 		return self.SelectedActor().parameters[index, level]
@@ -120,8 +117,6 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 			Project.Data_actors[self.listBoxActors.GetSelection()] = RPG.Actor()
 		self.refreshWeapons()
 		self.refreshArmors()
-
-
 
 	def buttonMaximum_Clicked( self, event ):
 		""" Shows dialog for changing the list capacity """
