@@ -1,6 +1,4 @@
-import maxvalues
 import wx
-import ConfigParser
 import ARCed_Templates
 import ARCedActors_Panel
 import ARCedArmors_Panel
@@ -16,9 +14,14 @@ import ARCedTilesets_Panel
 import ARCedTroops_Panel
 import ARCedWeapons_Panel
 
+import os
+import ConfigParser
+import maxvalues
 import Kernel
 from Kernel import Manager as KM
 import Core
+
+TEST_PATH = path = 'ARC TestProject\ARC Test Project.arcproj'
 
 class DatabasePage():
 
@@ -31,18 +34,24 @@ class DatabasePage():
 class ARCedTest(wx.App):
 
 	def __init__(self, redirect=False, filename=None):
-
+		# TEST
 		# Initialize global dictionary that contains the pages
 		global DatabasePages
 		DatabasePages = {}
 		# Create the application and main frame
 		wx.App.__init__(self, redirect, filename)
+		self.load_project()
 		self.frame = wx.Frame(None, wx.ID_ANY, title='ARCed Panel Test', size=(800, 600))
 		self.frame.SetExtraStyle(wx.FRAME_EX_CONTEXTHELP)
 		self.frame.CenterOnScreen()
+
+	def create_panels(self):
 		# Read and parse the .ini file to determine what tabs will be available
 		Config = ConfigParser.SafeConfigParser()
 		Config.read('ini\DatabaseTabs.ini')
+		if not Kernel.GlobalObjects.has_key('DatabaseConfiguration'):
+			config = maxvalues.DatabaseLimits('ini/DatabaseLimits.ini')
+			Kernel.GlobalObjects.request_new_key('DatabaseConfiguration', 'CORE', config)
 		# Create Notebook control, and dynamically add the defined controls to it
 		nb = wx.Notebook(self.frame, wx.ID_ANY)
 		for tabName in Config.sections():
@@ -55,39 +64,40 @@ class ARCedTest(wx.App):
 		for i in sorted(DatabasePages.keys()):
 			nb.AddPage(DatabasePages[i].Page, DatabasePages[i].Title)
 		self.frame.Show()
-        
-    def load_project(self):
-        if Kernel.GlobalObjects.has_key("CurrentProjectDir"):
-            Kernel.GlobalObjects.set_value("CurrentProjectDir", 'C:/Users/Eric/Documents/ARC/Project1/New Project.arcproj')
-        #get a project loader
-        projectloader = KM.get_component("ARCProjectLoader").object()
-        projectloader.load('C:/Users/Eric/Documents/ARC/Project1/New Project.arcproj')
-        #place the project in the global namespace
-        if Kernel.GlobalObjects.has_key("PROJECT"):
-            Kernel.GlobalObjects.set_value("PROJECT", projectloader.getProject())
-        else:
-            Kernel.GlobalObjects.request_new_key("PROJECT", "CORE", projectloader.getProject())
-        #set the Project Title
-        if Kernel.GlobalObjects.has_key("Title"):
-            Kernel.GlobalObjects.set_value("Title", projectloader.getProject().getInfo("Title"))
-        else:
-            Kernel.GlobalObjects.request_new_key("Title", "CORE", projectloader.getProject().getInfo("Title"))
-        #set the current project directory
-        if Kernel.GlobalObjects.has_key("CurrentProjectDir"):
-            Kernel.GlobalObjects.set_value("CurrentProjectDir", os.path.dirname(path))
-        else:
-            Kernel.GlobalObjects.request_new_key("CurrentProjectDir", "CORE", os.path.dirname(path))
-        #set that there is an open project
-        if Kernel.GlobalObjects.has_key("ProjectOpen"):
-            Kernel.GlobalObjects.set_value("ProjectOpen", True)
-        else:
-            Kernel.GlobalObjects.request_new_key("ProjectOpen", "CORE", True)
+
+	def load_project(self):
+		if Kernel.GlobalObjects.has_key("CurrentProjectDir"):
+			Kernel.GlobalObjects.set_value("CurrentProjectDir", TEST_PATH)
+		#get a project loader
+		projectloader = KM.get_component("ARCProjectLoader").object()
+		projectloader.load(TEST_PATH)
+		#place the project in the global namespace
+		if Kernel.GlobalObjects.has_key("PROJECT"):
+			Kernel.GlobalObjects.set_value("PROJECT", projectloader.getProject())
+		else:
+			Kernel.GlobalObjects.request_new_key("PROJECT", "CORE", projectloader.getProject())
+		#set the Project Title
+		if Kernel.GlobalObjects.has_key("Title"):
+			Kernel.GlobalObjects.set_value("Title", projectloader.getProject().getInfo("Title"))
+		else:
+			Kernel.GlobalObjects.request_new_key("Title", "CORE", projectloader.getProject().getInfo("Title"))
+		#set the current project directory
+		if Kernel.GlobalObjects.has_key("CurrentProjectDir"):
+			Kernel.GlobalObjects.set_value("CurrentProjectDir", os.path.dirname(TEST_PATH))
+		else:
+			Kernel.GlobalObjects.request_new_key("CurrentProjectDir", "CORE", os.path.dirname(TEST_PATH))
+		#set that there is an open project
+		if Kernel.GlobalObjects.has_key("ProjectOpen"):
+			Kernel.GlobalObjects.set_value("ProjectOpen", True)
+		else:
+			Kernel.GlobalObjects.request_new_key("ProjectOpen", "CORE", True)
 
 # Create window and execute the main loop
 if __name__ == '__main__':
 	provider = wx.SimpleHelpProvider()
 	wx.HelpProvider.Set(provider)
 	app = ARCedTest()
+	app.create_panels()
 	app.MainLoop()
-    app.load_project()
+	app.load_project()
 	app.Destroy()
