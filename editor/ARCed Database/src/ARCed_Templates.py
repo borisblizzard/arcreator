@@ -173,6 +173,8 @@ class Actors_Panel ( wx.Panel ):
 		bSizer613.Add( self.buttonAddParameter, 0, wx.TOP|wx.BOTTOM|wx.LEFT, 5 )
 		
 		self.buttonRemoveParameter = wx.Button( self.panelMaxHP, wx.ID_ANY, u"Remove", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.buttonRemoveParameter.Enable( False )
+		
 		bSizer613.Add( self.buttonRemoveParameter, 0, wx.TOP|wx.BOTTOM|wx.RIGHT, 5 )
 		
 		self.buttonGenerate = wx.Button( self.panelMaxHP, wx.ID_ANY, u"Generate Curve...", wx.DefaultPosition, wx.DefaultSize, 0 )

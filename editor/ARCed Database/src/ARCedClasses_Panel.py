@@ -1,29 +1,25 @@
-from Kernel import GlobalObjects
+import Kernel 
+from Kernel import Manager as KM
+
 import DatabaseActions#, DatabasePackage
 import wx
 import ARCed_Templates
 import ARCedChangeMaximum_Dialog, ARCedSkill_Dialog
 import maxvalues
 import RGSS1_RPG as RPG
-
+#from RMXPProject import Project
 import time
-
-Project = GlobalObjects.get_value('PROJECT')
 
 # Implementing Classes_Panel
 class ARCedClasses_Panel( ARCed_Templates.Classes_Panel ):
 	def __init__( self, parent ):
 		ARCed_Templates.Classes_Panel.__init__( self, parent )
-		if not GlobalObjects.has_key('DatabaseConfiguration'):
-			config = maxvalues.DatabaseLimits('ini/DatabaseLimits.ini')
-			GlobalObjects.request_new_key('DatabaseConfiguration', 'CORE', config)
-		global Limits, DigitMax
-		Limits = GlobalObjects.get_value('DatabaseConfiguration').GameObjects
+		global Limits, DigitMax, Project
+		Project = Kernel.GlobalObjects.get_value('PROJECT')
+		Limits = Kernel.GlobalObjects.get_value('DatabaseConfiguration').GameObjects
 		DigitMax = len(str(Limits['classes']))
-
 		self.refreshClassList()
 		self.listBoxClasses.Select(0)
-		
 	
 	def benchMark(self, iterations, method, *args):
 		total = 0
