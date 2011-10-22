@@ -155,7 +155,7 @@ class RMXPMapTreeCtrl(wx.TreeCtrl):
         project = Kernel.GlobalObjects.get_value("PROJECT")
         mapinfos = project.getData("MapInfos")
         self.DeleteAllItems()
-        root = self.AddRoot(Kernel.GlobalObjects.get_value("Title"), 0)
+        root = self.AddRoot(str(project.getInfo("Title")), 0)
         stack = []
         for key, value in mapinfos.iteritems():
             if value.parent_id == 0:

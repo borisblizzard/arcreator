@@ -711,7 +711,10 @@ def Log(message=None, prefix="[Kernel]", error=False):
     if message == None:
         error = True
         message = ""
-    f = open(os.path.join(wx.StandardPaths.Get().GetConfigDir(), "ARCed.log"), "ab")
+    logdir = wx.StandardPaths.Get().GetConfigDir()
+    if (not os.path.exists(logdir)) or (not os.path.isdir(logdir)):
+        os.makedirs(logdir)
+    f = open(os.path.join(logdir, "ARCed.log"), "ab")
     time_str = time.strftime("%a %d %b %Y %H:%M:%S [%Z] ")
     if error:
         message += " [Error] " + traceback.format_exc()

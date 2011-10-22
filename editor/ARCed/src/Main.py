@@ -27,6 +27,7 @@ import Core
 class ARC_App(wx.App):
 
     def OnInit(self):
+        self.SetAppName("ARCed")
         self.SetupData()
         self.LoadConponentDefaults()
         global MainWindow
@@ -82,7 +83,7 @@ if __name__ == '__main__':
     wx.HelpProvider.Set(provider)
 
     
-    redirect = not "-DEBUG" in sys.argv
+    redirect = True
     
     app = ARC_App(redirect)
     #dlg = wx.MessageDialog(None, "test", "test2",
