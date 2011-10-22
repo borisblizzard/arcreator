@@ -92,7 +92,7 @@ class ARC_Data(object):
         for c in classes:
             if not classe.__dict__.has_key(c):
                 raise TypeError("Class not defined: %s" % c)
-            classe = classe.const_get(c.to_sym)
+            classe = classe.__dict__[c]
         return classe
     
 
@@ -342,7 +342,7 @@ class ARC_Data(object):
             return ""
         obj = ARC_Data.__find_mapped(ARC_Data._strings, id_num)
         if obj != None:
-            return obj.clone
+            return obj
         size = ARC_Data.__load_int32()
         obj = ARC_Data._io.read(size)
         ARC_Data.__map(ARC_Data._strings, obj)

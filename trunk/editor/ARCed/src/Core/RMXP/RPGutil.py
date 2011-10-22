@@ -83,15 +83,16 @@ class Table(object):
         self._data = newdata
         
     def _arc_dump(self, d=0):
-        s = pack("<IIIII", self.dim, self.xsize, self.ysize, self.zsize, self.xsize * self.ysize * self.zsize)
+        s = pack("<IIII", self.dim, self.xsize, self.ysize, self.zsize)
         data = self._data.flatten('F').tolist() 
         s += pack("<" + ("H" * (self.xsize * self.ysize * self.zsize)), *data)
         return s
 
     @staticmethod
     def _arc_load(s):
-        dim, nx, ny, nz, size = unpack("<IIIII", s[0:20])
-        data = numpy.array(unpack("<" + ("H" * size), s[20:size * 2]))
+        dim, nx, ny, nz = unpack("<IIII", s[0:16])
+        size = nx * ny * nz
+        data = numpy.array(unpack("<" + ("H" * size), s[16:16 + size * 2]))
         data.resize(size)
         data = numpy.reshape(data, (nx, ny, nz),  order="F")
         if dim == 3:

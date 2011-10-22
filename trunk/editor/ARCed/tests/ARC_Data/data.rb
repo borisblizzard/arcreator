@@ -960,7 +960,7 @@ class Table
   end
   
   def self._arc_load(s)
-    dim, nx, ny, nz, size = s[0, 16].unpack('VVVV')
+    dim, nx, ny, nz = s[0, 16].unpack('VVVV')
 	size = nx * nz * ny
     data = s[16, size * 2].unpack('v' * size)
     if dim == 1
