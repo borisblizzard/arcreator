@@ -16,6 +16,31 @@ require './arc_data_dump'
 
 class ConverterFrame < Wx::Frame
   
+<<<<<<< .mine
+  def initialize
+    super(nil,
+      :title => 'RMXP to ARC Project Converter',
+      :pos => Wx::DEFAULT_POSITION,
+      :size => Wx::Size.new(600, 480)
+      )
+    #set our inital paths
+    @rmxp_path = ""
+    if (ARGV[0] != nil)
+      path = File.basename(ARGV[0])
+      ext = File.extname(path)
+      if ext == ".rxproj"
+        @rmxp_path = path
+      end
+    end
+    @arc_path = find_next_project_folder(File.expand_path(File.join(Dir.home, "Documents", "ARC")))
+    @project_title = ""
+    @convertionrunning = false
+    @copyresourcefiles = true
+    @log = ""
+    @graphicscopyed = false
+    @audiocopyed = false
+    @errors = false
+=======
     def initialize
         super(nil,
             :title => 'RMXP to ARC Project Converter',
@@ -133,6 +158,7 @@ class ConverterFrame < Wx::Frame
         @audiocopyed = false
         @errors = false
     end
+>>>>>>> .r448
     
     def restButtonClick(event)
         if @convertionrunning && @convertionfinushed
@@ -140,12 +166,95 @@ class ConverterFrame < Wx::Frame
         end
     end
     
+<<<<<<< .mine
+    
+    # create the panel
+    @panel = Wx::Panel.new(self)
+    # create the layout
+   
+    #create sizers
+    @panel_sizer = Wx::BoxSizer.new(Wx::VERTICAL)
+    @rmxp_project_sizer = Wx::BoxSizer.new(Wx::HORIZONTAL)
+    @arc_project_sizer = Wx::BoxSizer.new(Wx::HORIZONTAL)
+    
+    #get project location
+    @rmxp_box_sizer = Wx::StaticBoxSizer.new(Wx::VERTICAL, @panel, "RMXP Project to Convert")
+    @project_location_tb = Wx::TextCtrl.new(@panel, -1, @rmxp_path)
+    @project_location_bt = Wx::Button.new(@panel, -1, "Browse")
+    
+    #get project create location
+    @arc_box_sizer = Wx::StaticBoxSizer.new(Wx::VERTICAL, @panel, "Location to Save ARC Project")
+    @arc_project_location_tb = Wx::TextCtrl.new(@panel, -1, "")
+    @arc_project_location_bt = Wx::Button.new(@panel, -1, "Browse")
+    
+    #run button
+    @converter_box_sizer = Wx::StaticBoxSizer.new(Wx::HORIZONTAL, @panel, "Convert Project")
+    @copy_resources_cb = Wx::CheckBox.new(@panel, -1,  "Copy Grapics and Audio to Arc project folder")
+    @copy_resources_cb.set_value(true)
+    @run_convertion_bt = Wx::Button.new(@panel, -1, "Run Converter")
+    
+    
+    #output
+    @output_tb = Wx::TextCtrl.new(@panel, -1, "", Wx::DEFAULT_POSITION, Wx::DEFAULT_SIZE,
+      Wx::TE_READONLY|Wx::TE_MULTILINE|Wx::TE_WORDWRAP)
+    
+    # add to sizers
+    @rmxp_project_sizer.add(@project_location_tb, 2, Wx::GROW|Wx::ALL, 2)
+    @rmxp_project_sizer.add(@project_location_bt, 0, Wx::GROW|Wx::ALL, 2)
+    @rmxp_box_sizer.add(@rmxp_project_sizer, 0, Wx::GROW|Wx::ALL, 2)
+    @arc_project_sizer.add(@arc_project_location_tb, 2, Wx::GROW|Wx::ALL, 2)
+    @arc_project_sizer.add(@arc_project_location_bt, 0, Wx::GROW|Wx::ALL, 2)
+    @arc_box_sizer.add(@arc_project_sizer, 0, Wx::GROW|Wx::ALL, 2)
+    @converter_box_sizer.add(@copy_resources_cb, 0, Wx::GROW|Wx::ALL, 2)
+    @converter_box_sizer.add(@run_convertion_bt, 1, Wx::GROW|Wx::ALL, 2)
+    @panel_sizer.add(@rmxp_box_sizer, 0, Wx::GROW|Wx::ALL, 2)
+    @panel_sizer.add(@arc_box_sizer, 0, Wx::GROW|Wx::ALL, 2)
+    @panel_sizer.add(@converter_box_sizer, 0, Wx::GROW|Wx::ALL, 2)
+    @panel_sizer.add(@output_tb, 1, Wx::GROW|Wx::ALL|Wx::EXPAND, 2)
+   
+    #set the frame sizer
+    @panel.set_sizer(@panel_sizer)
+     
+    #p Wx::StandardPaths.get_config_dir
+    #p Wx::StandardPaths.get_data_dir
+    #p Wx::StandardPaths.get_local_data_dir
+    #p Wx::StandardPaths.get_plugins_dir
+    #p Wx::StandardPaths.get_user_config_dir
+    #p Wx::StandardPaths.get_user_data_dir
+    #p Wx::StandardPaths.get_user_local_data_dir
+    
+    #set up events
+    #button events
+    evt_button(@project_location_bt.get_id) {|event| rmxpFileBrowse(event)}
+    evt_button(@arc_project_location_bt.get_id) {|event| arcFileBrowse(event)}
+    evt_button(@run_convertion_bt.get_id) {|event| runConverter(event)}
+      
+    #text events
+    evt_text(@project_location_tb.get_id) {|event| textEventprojectLocationTB(event)}
+    evt_text(@arc_project_location_tb.get_id) {|event| textEventarcprojectLocationTB(event)}
+        
+    #update ui events
+    evt_update_ui(@project_location_tb.get_id) {|event| projectLocationTBUpdate(event)}
+    evt_update_ui(@arc_project_location_tb.get_id) {|event| arcprojectLocationTBUpdate(event)}
+    evt_update_ui(@output_tb.get_id){|event| updateOutputUIUpdate(event)}  
+    evt_update_ui(@copy_resources_cb.get_id) {|event| copyResoucesCBUpdate(event)} 
+      
+    #cb events
+    evt_checkbox(@copy_resources_cb.get_id) {|event| copyResourcesCBChecked(event)}
+      
+      
+    #show the frame
+    show
+    
+  end
+=======
     def log(text)
         @log << text << "\n"
         @output_tb.set_value(@log)
         @output_tb.set_insertion_point_end
         Wx::get_app.yield(true)
     end
+>>>>>>> .r448
   
     def rmxpFileBrowse(event)
         if !@convertionrunning
