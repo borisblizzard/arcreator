@@ -31,6 +31,7 @@
     <Compile Include="registers\database_registers.py" />
     <Compile Include="src\ARCedActorParameters_Dialog.py" />
     <Compile Include="src\ARCedActors_Panel.py" />
+    <Compile Include="src\ARCedAddParameter_Dialog.py" />
     <Compile Include="src\ARCedAnimationCellBatch_Dialog.py" />
     <Compile Include="src\ARCedAnimationCellProperties_Dialog.py" />
     <Compile Include="src\ARCedAnimationEntireSlide_Dialog.py" />
@@ -133,6 +134,7 @@
     <Compile Include="src\DatabasePackage.py" />
     <Compile Include="src\maxvalues.py" />
     <Compile Include="src\__main__.py" />
+    <Compile Include="src\__test__.py" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ini" />

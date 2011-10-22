@@ -20,10 +20,6 @@ class ARCedClasses_Panel( ARCed_Templates.Classes_Panel ):
 		Limits = GlobalObjects.get_value('DatabaseConfiguration').GameObjects
 		DigitMax = len(str(Limits['classes']))
 
-		for i in range(20):
-			Project.Data_classes.append(RPG.Class())
-			Project.Data_skills.append(RPG.Skill())
-
 		self.refreshClassList()
 		self.listBoxClasses.Select(0)
 		
