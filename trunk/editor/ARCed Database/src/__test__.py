@@ -1,12 +1,28 @@
-from RMXPProject import Project
-import RGSS1_RPG as RPG	
+import Kernel
+from Kernel import Manager as KM
 
-for i in xrange(10):
-	Project.Data_actors.append(RPG.Actor())
-	Project.Data_classes.append(RPG.Class())
-	Project.Data_skills.append(RPG.Item())
-	Project.Data_items.append(RPG.Item())
-	Project.Data_weapons.append(RPG.Weapon())
-	Project.Data_armors.append(RPG.Armor())
-	
-	
+if Kernel.GlobalObjects.has_key("CurrentProjectDir"):
+    Kernel.GlobalObjects.set_value("CurrentProjectDir", 'C:/Users/Eric/Documents/ARC/Project1/New Project.arcproj')
+#get a project loader
+projectloader = KM.get_component("ARCProjectLoader").object()
+projectloader.load('C:/Users/Eric/Documents/ARC/Project1/New Project.arcproj')
+#place the project in the global namespace
+if Kernel.GlobalObjects.has_key("PROJECT"):
+    Kernel.GlobalObjects.set_value("PROJECT", projectloader.getProject())
+else:
+    Kernel.GlobalObjects.request_new_key("PROJECT", "CORE", projectloader.getProject())
+#set the Project Title
+if Kernel.GlobalObjects.has_key("Title"):
+    Kernel.GlobalObjects.set_value("Title", projectloader.getProject().getInfo("Title"))
+else:
+    Kernel.GlobalObjects.request_new_key("Title", "CORE", projectloader.getProject().getInfo("Title"))
+#set the current project directory
+if Kernel.GlobalObjects.has_key("CurrentProjectDir"):
+    Kernel.GlobalObjects.set_value("CurrentProjectDir", os.path.dirname(path))
+else:
+    Kernel.GlobalObjects.request_new_key("CurrentProjectDir", "CORE", os.path.dirname(path))
+#set that there is an open project
+if Kernel.GlobalObjects.has_key("ProjectOpen"):
+    Kernel.GlobalObjects.set_value("ProjectOpen", True)
+else:
+    Kernel.GlobalObjects.request_new_key("ProjectOpen", "CORE", True)
