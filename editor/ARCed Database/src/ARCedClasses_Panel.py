@@ -4,10 +4,11 @@ import wx
 import ARCed_Templates
 import ARCedChangeMaximum_Dialog, ARCedSkill_Dialog
 import maxvalues
-from RMXPProject import Project
 import RGSS1_RPG as RPG
 
 import time
+
+Project = GlobalObjects.get_value('PROJECT')
 
 # Implementing Classes_Panel
 class ARCedClasses_Panel( ARCed_Templates.Classes_Panel ):
