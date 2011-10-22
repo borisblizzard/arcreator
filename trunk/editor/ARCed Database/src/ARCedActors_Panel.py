@@ -1,12 +1,12 @@
 from Kernel import GlobalObjects
-import DatabaseActions#, DatabasePackage
+import DatabaseActions#, DatabasePackage # Import once Kernel registration actually works
 import wx
 import ARCed_Templates
-import ARCedChangeMaximum_Dialog, ARCedExpCurve_Dialog
-import ARCedChooseGraphic_Dialog, ARCedActorParameters_Dialog
+import ARCedChangeMaximum_Dialog, ARCedExpCurve_Dialog, ARCedGenerateCurve_Dialog
+import ARCedChooseGraphic_Dialog, ARCedActorParameters_Dialog, ARCedAddParameter_Dialog
 
 import RGSS1_RPG as RPG					# Remove after testing
-import maxvalues						# TEST for now
+import maxvalues						# Change Later
 from RPGutil import Table
 from RMXPProject import Project
 
@@ -19,41 +19,27 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 		if not GlobalObjects.has_key('DatabaseConfiguration'):
 			config = maxvalues.DatabaseLimits('ini/DatabaseLimits.ini')
 			GlobalObjects.request_new_key('DatabaseConfiguration', 'CORE', config)
-
-		if RGSS_COMPATIBLE:
-			self.buttonAddParameter.Enabled = False
-			
-		global Limits, ActorLimits
+		global Limits, ActorLimits, SelectedActor
+		self.buttonRemoveParameter.Enabled = False
 		Limits = GlobalObjects.get_value('DatabaseConfiguration').GameObjects
 		ActorLimits = GlobalObjects.get_value('DatabaseConfiguration').Actors
 		self.ParamTab = 0
 		self.spinCtrlFinalLevel.SetRange(1, ActorLimits['finallevel'])
-		
-		for i in range(20):
-			Project.Data_weapons.append(RPG.Weapon())
-			Project.Data_armors.append(RPG.Armor())
-			Project.Data_actors.append(RPG.Actor())
-			Project.Data_classes.append(RPG.Class())
-
+		SelectedActor = Project.Data_actors[0]
 		self.refreshAll()
-		self.listBoxActors.Select(actorIndex)
-
-	def SelectedActor(self):
-		""" Returns the actor object associated with the selected item in the list """
-		index = self.listBoxActors.GetSelection()
-		if Project.Data_actors[index] == None:
-			# This is probably not needed, but just in case...
-			Project.Data_actors[index] = RPG.Actor()
-		return Project.Data_actors[index]
 
 	def SetParameterValue(self, param, level, value):
-		self.SelectedActor().parameters[param, level] = value
+		""" Sets the newly defined value for the selected actor's parameter """
+		SelectedActor.parameters[param, level] = value
 
 	def GetParameterValue( self, index, level ):
-		if self.SelectedActor().parameters.xsize <= index:
+		""" Retrieves the value of the current actor's selected parameter for the defined level """
+		if SelectedActor.parameters.xsize <= index:
 			for actor in Project.Data_actors:
 				actor.parameters.resize(index + 1, ActorLimits['finallevel'])
-		return self.SelectedActor().parameters[index, level]
+				for i in xrange(1, ActorLimits['finallevel']):
+					actor.parameters[index, i] = 50 + 5 * i
+		return SelectedActor.parameters[index, level]
 
 	def refreshActorList(self):
 		""" Refreshes the values in the actor wxListBox control """
@@ -67,54 +53,71 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 		self.comboBoxClass.Clear()
 		for i, klass in enumerate(Project.Data_classes):
 			self.comboBoxClass.Append(str(i + 1).zfill(len(str(Limits['classes']))) + ': ' + klass.name)
+		self.comboBoxClass.Select(SelectedActor.class_id - 1)
 
 	def refreshWeapons(self):
 		""" Refreshes the values in the weapon wxChoice control """
 		self.comboBoxWeapon.Clear()
 		self.comboBoxWeapon.Append('(None)')
-		weapon_set = Project.Data_classes[self.SelectedActor().class_id].weapon_set
-		for i in Project.Data_weapons:
+		weapon_set = Project.Data_classes[SelectedActor.class_id].weapon_set
+		wpnIndex = 0
+		for weapon, i in enumerate(Project.Data_weapons):
 			if i not in weapon_set:
 				continue
 			self.comboBoxWeapon.Append(str(i).zfill(len(str(Limits['weapons']))) + ': ' + weapon.name)
+			if SelectedActor.weapon_id == i:
+				wpnIndex = self.comboBoxWeapon.GetCount()
+		self.comboBoxWeapon.Select(wpnIndex)
 
 	def refreshArmors(self):
-		""" Refreshes the values in the wxChoice controls for shield, helmet,  armor, and accessory """ 
-		self.comboBoxShield.Clear()
-		self.comboBoxHelmet.Clear()
-		self.comboBoxBodyArmor.Clear()
-		self.comboBoxAccessory.Clear()
-		self.comboBoxShield.Append('(None)')
-		self.comboBoxHelmet.Append('(None)')
-		self.comboBoxBodyArmor.Append('(None)')
-		self.comboBoxAccessory.Append('(None)')
-		armor_set = Project.Data_classes[self.SelectedActor().class_id].armor_set
-		for i in Project.Data_armors:
+		""" Refreshes the values in the wxChoice controls for shield, helmet,  armor, and accessory """
+		# This needs massively improved, and needs to be modular, but works for now  
+
+		# Create this dynamically instead of like this
+		armorBoxes = [self.comboBoxShield, self.comboBoxHelmet, 
+				self.comboBoxBodyArmor, self.comboBoxAccessory]
+		armorFixChecks = [self.checkBoxShield, self.checkBoxHelmet,
+				self.checkBoxBodyArmor, self.checkBoxAccessory]
+		armorFixes = [SelectedActor.armor1_fix, SelectedActor.armor2_fix,
+				SelectedActor.armor3_fix, SelectedActor.armor4_fix]
+		currentArmor = [SelectedActor.armor1_id, SelectedActor.armor2_id,
+				SelectedActor.armor3_id, SelectedActor.armor4_id]
+		armorIndices = []
+		armor_set = Project.Data_classes[SelectedActor.class_id].armor_set
+
+		for i in xrange(len(armorBoxes)):
+			armorBoxes[i].Clear()
+			armorBoxes[i].Append('(None)')
+			armorIndices.append(0)
+			armorFixChecks[i].SetValue(armorFixes[i])
+			
+		for armor, i in enumerate(Project.Data_armors):
 			if i not in armor_set:
 				continue
 			text = str(i).zfill(len(str(Limits['armors']))) + ': ' + armor.name
-			if armor.kind == 0:
-				self.comboBoxShield.Append(text)
-			if armor.kind == 1:
-				self.comboBoxHelemt.Append(text)
-			if armor.kind == 2:
-				self.comboBoxBodyArmor.Append(text)
-			if armor.kind == 3:
-				self.comboBoxAccessory.Append(text)
+			armorBoxes[armor.kind].Append(text)
+			if currentArmor[armor.kind] == i:
+				armorIndices[armor.kind] = armorBoxes[armor.kind].GetCount() - 1
+
+		for i in xrange(len(armorBoxes)):
+			armorFixChecks[i].SetValue(armorFixes[i])
+			armorBoxes[i].Select(armorIndices[i])
+
 
 	def refreshAll(self):
 		""" Refreshes all the controls that contain game object values """
-		self.textCtrlName.SetValue(self.SelectedActor().name)
+		self.textCtrlName.SetValue(SelectedActor.name)
 		self.refreshActorList()
 		self.refreshClasses()
 		self.refreshWeapons()
 		self.refreshArmors()
-		#self.refreshParameter()
 
 	def listBoxActors_SelectionChanged( self, event ):
 		""" Changes the data on the panel to reflect the values of the selected actor """
-		if Project.Data_actors[self.listBoxActors.GetSelection()] == None:
-			Project.Data_actors[self.listBoxActors.GetSelection()] = RPG.Actor()
+		index = self.listBoxActors.GetSelection()
+		if Project.Data_actors[index] == None:
+			Project.Data_actors[index] = RPG.Actor()
+		SelectedActor = Project.Data_actors[index]
 		self.refreshWeapons()
 		self.refreshArmors()
 
@@ -148,7 +151,7 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 		index = self.listBoxActors.GetSelection()
 		if index >= 0:
 			name = self.textCtrlName.GetLineText(0)
-			self.SelectedActor().name = name
+			SelectedActor.name = name
 			self.listBoxActors.SetString(index, str(1 + index).zfill(len(str(Limits['actors']))) + 
 				': ' + name)
 
@@ -164,35 +167,35 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 				]
 		if wpn_index not in Project.Data_classes[class_index].weapon_set:
 			self.comboBoxWeapon.SetSelection(0)
-			self.SelectedActor().weapon_id = 0
+			SelectedActor.weapon_id = 0
 		for armor_index in armor_indices:
 			if armor_index not in Project.Data_classes[class_index].armor_set:
 				if Project.Data_armors[armor_index].kind == 0: # Shield
 					self.comboBoxShield.SetSelection(0)
-					self.SelectedActor().armor1_id = 0
+					SelectedActor.armor1_id = 0
 				elif Project.Data_armors[armor_index].kind == 1: # Helmet
 					self.comboBoxHelmet.SetSelection(0)
-					self.SelectedActor().armor2_id = 0
+					SelectedActor.armor2_id = 0
 				elif Project.Data_armors[armor_index].kind == 2: # Body Armor
 					self.comboBoxBodyArmor.SetSelection(0)
-					self.SelectedActor().armor3_id = 0
+					SelectedActor.armor3_id = 0
 				elif Project.Data_armors[armor_index].kind == 3: # Accessory
 					self.comboBoxAccessory.SetSelection(0)
-					self.SelectedActor().armor4_id = 0
+					SelectedActor.armor4_id = 0
 		self.refreshWeapons()
 		self.refreshArmors()
 
 	def spinCtrlInitialLevel_ValueChanged( self, event ):
 		""" Sets the selected actor's initial level to the value of the wxSpinCtrl """
-		self.SelectedActor().initial_level = self.spinCtrlInitialLevel.GetValue()
+		SelectedActor.initial_level = self.spinCtrlInitialLevel.GetValue()
 
 	def spinCtrlFinalLevel_ValueChanged( self, event ):
 		""" Sets the selected actor's final level to the value of the wxSpinCtrl """
-		self.SelectedActor().final_level = self.spinCtrlFinalLevel.GetValue()
+		SelectedActor.final_level = self.spinCtrlFinalLevel.GetValue()
 
 	def comboBoxExperience_Click( self, event ):
 		""" Opens window to generate experience tables """
-		actor = self.SelectedActor()
+		actor = SelectedActor
 		dlg = ARCedExpCurve_Dialog.ARCedExpCurve_Dialog(self, actor, ActorLimits)
 		if dlg.ShowModal() == wx.ID_OK:
 			actor.exp_basis = dlg.Basis
@@ -203,13 +206,13 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 		""" Opens dialog to change the character graphic """
 		# TODO: Have 'path' set to projects character graphics folder
 		path = 'images'
-		name = self.SelectedActor().character_name
-		hue = self.SelectedActor().character_hue
+		name = SelectedActor.character_name
+		hue = SelectedActor.character_hue
 		dlg = ARCedChooseGraphic_Dialog.ARCedChooseGraphic_Dialog(self, path, name, hue)
 		if dlg.ShowModal() == wx.ID_OK:
 			index = dlg.listBoxGraphics.GetSelection()
-			self.SelectedActor().character_name = dlg.listBoxGraphics.GetString(index)
-			self.SelectedActor().character_hue = dlg.sliderHue.GetValue()
+			SelectedActor.character_name = dlg.listBoxGraphics.GetString(index)
+			SelectedActor.character_hue = dlg.sliderHue.GetValue()
 			# TODO: Implement splitting to show only single frame of character graphic
 			self.bitmapCharacterGraphic.SetBitmap(wx.Bitmap(dlg.Images[index]))
 		dlg.Destroy()
@@ -218,55 +221,55 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 		""" Opens dialog to change the battler graphic """
 		# TODO: Have 'path' set to projects battler graphics folder
 		path = 'images'
-		name = self.SelectedActor().battler_name
-		hue = self.SelectedActor().battler_hue
+		name = SelectedActor.battler_name
+		hue = SelectedActor.battler_hue
 		dlg = ARCedChooseGraphic_Dialog.ARCedChooseGraphic_Dialog(self, path, name, hue)
 		if dlg.ShowModal() == wx.ID_OK:
 			index = dlg.listBoxGraphics.GetSelection()
-			self.SelectedActor().battler_name = dlg.listBoxGraphics.GetString(index)
-			self.SelectedActor().battler_hue = dlg.sliderHue.GetValue()
+			SelectedActor.battler_name = dlg.listBoxGraphics.GetString(index)
+			SelectedActor.battler_hue = dlg.sliderHue.GetValue()
 			self.bitmapBattlerGraphic.SetBitmap(wx.Bitmap(dlg.Images[index]))
 		dlg.Destroy()
 
 	def comboBoxWeapon_SelectionChanged( self, event ):
 		""" Changes the value for the selected actor's initial weapon_id """
-		self.SelectedActor().weapon_id = self.comboBoxWeapon.GetSelection()
+		SelectedActor.weapon_id = self.comboBoxWeapon.GetSelection()
 
 	def comboBoxShield_SelectionChanged( self, event ):
 		""" Changes the value for the selected actor's initial armor1_id """
-		self.SelectedActor().armor1_id = self.comboBoxShield.GetSelection()
+		SelectedActor.armor1_id = self.comboBoxShield.GetSelection()
 
 	def comboBoxHelmet_SelectionChanged( self, event ):
 		""" Changes the value for the selected actor's initial armor2_id """
-		self.SelectedActor().armor2_id = self.comboBoxHelmet.GetSelection()
+		SelectedActor.armor2_id = self.comboBoxHelmet.GetSelection()
 
 	def comboBoxBodyArmor_SelectionChanged( self, event ):
 		""" Changes the value for the selected actor's initial armor3_id """
-		self.SelectedActor().armor3_id = self.comboBoxBodyArmor.GetSelection()
+		SelectedActor.armor3_id = self.comboBoxBodyArmor.GetSelection()
 
 	def comboBoxAccessory_SelectionChanged( self, event ):
 		""" Changes the value for the selected actor's initial armor4_id """
-		self.SelectedActor().armor4_id = self.comboBoxAccessory.GetSelection()
+		SelectedActor.armor4_id = self.comboBoxAccessory.GetSelection()
 
 	def checkBoxWeapon_CheckChanged( self, event ):
 		""" Toggles the "fixed" state of the actor's weapon """
-		self.SelectedActor().weapon_fix = self.checkBoxWeapon.GetValue()
+		SelectedActor.weapon_fix = self.checkBoxWeapon.GetValue()
 
 	def checkBoxShield_CheckChanged( self, event ):
 		""" Toggles the "fixed" state of the actor's shield """
-		self.SelectedActor().armor1_fix = self.checkBoxShield.GetValue()
+		SelectedActor.armor1_fix = self.checkBoxShield.GetValue()
 
 	def checkBoxHelmet_CheckChanged( self, event ):
 		""" Toggles the "fixed" state of the actor's helmet """
-		self.SelectedActor().armor2_fix = self.checkBoxHelmet.GetValue()
+		SelectedActor.armor2_fix = self.checkBoxHelmet.GetValue()
 
 	def checkBoxBodyArmor_CheckChanged( self, event ):
 		""" Toggles the "fixed" state of the actor's body armor """
-		self.SelectedActor().armor3_fix = self.checkBoxBodyArmor.GetValue()
+		SelectedActor.armor3_fix = self.checkBoxBodyArmor.GetValue()
 
 	def checkBoxAccessory_CheckChanged( self, event ):
 		""" Toggles the "fixed" state of the actor's accessory """
-		self.SelectedActor().armor4_fix = self.checkBoxAccessory.GetValue()
+		SelectedActor.armor4_fix = self.checkBoxAccessory.GetValue()
 
 	def changeLevel( self, event ):
 		""" Update the controls on each page when the level is changed """
@@ -321,7 +324,7 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 
 	def noteBookParameters_PageChanged( self, event ):
 		""" Sets the index of the page when the tab is traversed """
-		# Fix for Windows. Using wxNotebook#GetSelection() returns inconsistent results, while reading
+		# Fix for Windows. Using wxNotebook#GetSelection() can return inconsistent results, while reading
 		# it from the wxNoteBookEvent#GetSelection() is accurate
 		self.ParamTab = event.GetSelection()
 		self.buttonRemoveParameter.Enabled = (self.ParamTab > 5)
@@ -343,11 +346,19 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 		print 'E'
 
 	def buttonAddParameter_Clicked( self, event ):
-		tab = wx.Panel(self.noteBookActorParameters)
-		self.noteBookActorParameters.AddPage(tab, "RND")
+		""" Opens dialog for the user to create a custom parameter """
+		dialog = ARCedAddParameter_Dialog.ARCedAddParameter_Dialog(self)
+		if (dialog.ShowModal() == wx.ID_OK):
+			paramName = dialog.textCtrlParameterName.GetLineText(0)
+			tab = wx.Panel(self.noteBookActorParameters)
+			self.noteBookActorParameters.AddPage(tab, paramName)
 
 	def buttonRemoveParameter_Clicked( self, event ):
-		pass
+		""" Removes the selected page from the tab control and resizes the actors' parameter tables """
+		if self.ParamTab > 5:
+			# TODO: Implement
+			print 'Delete page, resize parameters table...'
+			pass
 
 	@staticmethod
 	def FixedIndex(index):

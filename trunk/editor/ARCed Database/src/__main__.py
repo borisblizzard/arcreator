@@ -16,6 +16,7 @@ import ARCedSystem_Panel
 import ARCedTilesets_Panel
 import ARCedTroops_Panel
 import ARCedWeapons_Panel
+import __test__
 
 class DatabasePage():
 

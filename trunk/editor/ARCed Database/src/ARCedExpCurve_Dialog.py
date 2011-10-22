@@ -17,12 +17,12 @@ class ARCedExpCurve_Dialog( ARCed_Templates.ExpCurve_Dialog ):
 		if not font.SetFaceName('Consolas'):
 			font.SetFaceName('Courier New')
 		self.textCtrlExpList.SetFont(font)
-		global MaxLevel, FinalLevel, StyleNext, StyleTotal, StyleNormal, PageIndex
+		global MaxLevel, FinalLevel, StyleNext, StyleTotal, StyleNormal
 		MaxLevel = limits['finallevel']
 		FinalLevel = actor.final_level
 		StyleNext = wx.TextAttr(wx.Color(0, 128, 0))
 		StyleTotal = wx.TextAttr(wx.Color(128, 0, 0))
-		PageIndex = 0
+		self.PageIndex = 0
 		self.refreshExpTable()
 
 	def refreshExpTable(self):
@@ -32,8 +32,8 @@ class ARCedExpCurve_Dialog( ARCed_Templates.ExpCurve_Dialog ):
 		expDigits = len(str(max(expList)))
 		strings = []
 		# I apologize ahead of time before you read the following code. 
-		if PageIndex == 0:
-			for i in range(1, FinalLevel + 1):
+		if self.PageIndex == 0:
+			for i in xrange(1, FinalLevel + 1):
 				strings.append('L' + str(i).rjust(levelDigits) + ': ' + str(expList[i] - expList[i - 1]).rjust(expDigits))
 			lines = ["    ".join(row) for row in self.columnSplit(strings, 4)]
 			self.textCtrlExpList.ChangeValue("\n".join(lines))
@@ -42,8 +42,8 @@ class ARCedExpCurve_Dialog( ARCed_Templates.ExpCurve_Dialog ):
 					start = self.textCtrlExpList.XYToPosition(0, y)
 					pos = (start + levelDigits + 3) + ((levelDigits + 7 + expDigits) * c)
 					self.textCtrlExpList.SetStyle(pos, pos + expDigits, StyleNext)
-		elif PageIndex == 1:
-			for i in range(1, FinalLevel + 1):
+		elif self.PageIndex == 1:
+			for i in xrange(1, FinalLevel + 1):
 				strings.append('L' + str(i).rjust(levelDigits) + ': ' + str(expList[i]).rjust(expDigits))
 			lines = ["    ".join(row) for row in self.columnSplit(strings, 4)]
 			self.textCtrlExpList.ChangeValue("\n".join(lines))
@@ -58,7 +58,7 @@ class ARCedExpCurve_Dialog( ARCed_Templates.ExpCurve_Dialog ):
 		rows = len(list) / columns
 		if len(list) % columns:
 			rows += 1
-		return [list[i::rows] for i in range(rows)]
+		return [list[i::rows] for i in xrange(rows)]
 
 	def generateExpList(self):
 		""" Calculates the experience list based on the basis and inflation, then returns it """
@@ -95,7 +95,7 @@ class ARCedExpCurve_Dialog( ARCed_Templates.ExpCurve_Dialog ):
 		self.refreshExpTable()
 
 	def noteBookExpCurve_PageChanged( self, event ):
-		PageIndex = event.GetSelection()
+		self.PageIndex = event.GetSelection()
 		""" Refreshes the page that was switched to since only the visible page is being refreshed normally """
 		self.refreshExpTable()
 	
@@ -104,5 +104,5 @@ class ARCedExpCurve_Dialog( ARCed_Templates.ExpCurve_Dialog ):
 		self.EndModal(wx.ID_OK)
 	
 	def buttonCancel_Clicked( self, event ):
-		""" End the dialog and return ID_CANCEL """
+		""" End the dialog and return wx.ID_CANCEL """
 		self.EndModal(wx.ID_CANCEL)

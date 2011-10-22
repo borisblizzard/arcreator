@@ -18,7 +18,7 @@ import wx.combo
 class Actors_Panel ( wx.Panel ):
 	
 	def __init__( self, parent ):
-		wx.Panel.__init__ ( self, parent, id = wx.ID_ANY, pos = wx.DefaultPosition, size = wx.Size( 742,559 ), style = wx.TAB_TRAVERSAL )
+		wx.Panel.__init__ ( self, parent, id = wx.ID_ANY, pos = wx.DefaultPosition, size = wx.Size( 742,559 ), style = wx.CLIP_CHILDREN|wx.TAB_TRAVERSAL )
 		
 		MainSizer = wx.BoxSizer( wx.HORIZONTAL )
 		
@@ -97,15 +97,15 @@ class Actors_Panel ( wx.Panel ):
 		self.labelCharacterGraphic.Wrap( -1 )
 		sizer3.Add( self.labelCharacterGraphic, 0, wx.ALL, 5 )
 		
-		self.bitmapCharacterGraphic = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( u"images/Character.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.DefaultSize, wx.SUNKEN_BORDER )
-		sizer3.Add( self.bitmapCharacterGraphic, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
+		self.bitmapCharacterGraphic = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( u"images/Character.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.DefaultSize, wx.CLIP_CHILDREN|wx.SUNKEN_BORDER )
+		sizer3.Add( self.bitmapCharacterGraphic, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
 		
 		self.labelBattlerGraphic = wx.StaticText( self, wx.ID_ANY, u"Battler Graphic:", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.labelBattlerGraphic.Wrap( -1 )
 		sizer3.Add( self.labelBattlerGraphic, 0, wx.ALL, 5 )
 		
-		self.bitmapBattlerGraphic = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( u"images/Battler.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.DefaultSize, wx.SUNKEN_BORDER )
-		sizer3.Add( self.bitmapBattlerGraphic, 0, wx.ALL, 5 )
+		self.bitmapBattlerGraphic = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( u"images/Battler.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.DefaultSize, wx.CLIP_CHILDREN|wx.SUNKEN_BORDER )
+		sizer3.Add( self.bitmapBattlerGraphic, 1, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
 		
 		sizer1.Add( sizer3, 25, wx.EXPAND, 5 )
 		
@@ -164,7 +164,7 @@ class Actors_Panel ( wx.Panel ):
 		
 		MainSizerParamter.Add( sizerConrolsParameter, 0, wx.EXPAND, 5 )
 		
-		self.bitmapGraph = wx.StaticBitmap( self.panelMaxHP, wx.ID_ANY, wx.Bitmap( u"images/MaxHP.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.Size( 448,224 ), wx.SIMPLE_BORDER )
+		self.bitmapGraph = wx.StaticBitmap( self.panelMaxHP, wx.ID_ANY, wx.Bitmap( u"images/MaxHP.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.Size( 448,224 ), wx.CLIP_CHILDREN|wx.SIMPLE_BORDER )
 		MainSizerParamter.Add( self.bitmapGraph, 1, wx.ALL|wx.EXPAND, 5 )
 		
 		bSizer613 = wx.BoxSizer( wx.HORIZONTAL )
@@ -228,27 +228,27 @@ class Actors_Panel ( wx.Panel ):
 		sizer9 = wx.BoxSizer( wx.VERTICAL )
 		
 		comboBoxWeaponChoices = []
-		self.comboBoxWeapon = wx.Choice( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxWeaponChoices, 0 )
+		self.comboBoxWeapon = wx.Choice( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxWeaponChoices, wx.CLIP_CHILDREN )
 		self.comboBoxWeapon.SetSelection( 0 )
 		sizer9.Add( self.comboBoxWeapon, 0, wx.ALL|wx.EXPAND, 5 )
 		
 		comboBoxShieldChoices = []
-		self.comboBoxShield = wx.Choice( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxShieldChoices, 0 )
+		self.comboBoxShield = wx.Choice( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxShieldChoices, wx.CLIP_CHILDREN )
 		self.comboBoxShield.SetSelection( 0 )
 		sizer9.Add( self.comboBoxShield, 0, wx.ALL|wx.EXPAND, 5 )
 		
 		comboBoxHelmetChoices = []
-		self.comboBoxHelmet = wx.Choice( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxHelmetChoices, 0 )
+		self.comboBoxHelmet = wx.Choice( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxHelmetChoices, wx.CLIP_CHILDREN )
 		self.comboBoxHelmet.SetSelection( 0 )
 		sizer9.Add( self.comboBoxHelmet, 0, wx.ALL|wx.EXPAND, 5 )
 		
 		comboBoxBodyArmorChoices = []
-		self.comboBoxBodyArmor = wx.Choice( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxBodyArmorChoices, 0 )
+		self.comboBoxBodyArmor = wx.Choice( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxBodyArmorChoices, wx.CLIP_CHILDREN )
 		self.comboBoxBodyArmor.SetSelection( 0 )
 		sizer9.Add( self.comboBoxBodyArmor, 0, wx.ALL|wx.EXPAND, 5 )
 		
 		comboBoxAccessoryChoices = []
-		self.comboBoxAccessory = wx.Choice( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxAccessoryChoices, 0 )
+		self.comboBoxAccessory = wx.Choice( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxAccessoryChoices, wx.CLIP_CHILDREN )
 		self.comboBoxAccessory.SetSelection( 0 )
 		sizer9.Add( self.comboBoxAccessory, 0, wx.ALL|wx.EXPAND, 5 )
 		
@@ -5681,13 +5681,13 @@ class ChangeMaximum_Dialog ( wx.Dialog ):
 class ExpCurve_Dialog ( wx.Dialog ):
 	
 	def __init__( self, parent ):
-		wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Experience Curve", pos = wx.DefaultPosition, size = wx.Size( 549,393 ), style = wx.DEFAULT_DIALOG_STYLE|wx.RESIZE_BORDER )
+		wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Experience Curve", pos = wx.DefaultPosition, size = wx.Size( 549,460 ), style = wx.DEFAULT_DIALOG_STYLE|wx.RESIZE_BORDER )
 		
 		self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
 		
 		MainSizer = wx.BoxSizer( wx.VERTICAL )
 		
-		self.noteBookExpList = wx.Notebook( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, 0, style = wx.TAB_TRAVERSAL)
+		self.noteBookExpList = wx.Notebook( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.panelNextLevel = wx.Panel( self.noteBookExpList, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
 		panelSizerNextLevel = wx.BoxSizer( wx.VERTICAL )
 		
@@ -5854,9 +5854,9 @@ class ActorParameters_Dialog ( wx.Dialog ):
 		self.panelParameter.SetSizer( MainSizerParamter )
 		self.panelParameter.Layout()
 		MainSizerParamter.Fit( self.panelParameter )
-		self.noteBookActorParameters.AddPage( self.panelParameter, u"MaxHP", True )
+		self.noteBookActorParameters.AddPage( self.panelParameter, u"MaxHP", False )
 		self.panelMaxSP = wx.Panel( self.noteBookActorParameters, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
-		self.noteBookActorParameters.AddPage( self.panelMaxSP, u"MaxSP", False )
+		self.noteBookActorParameters.AddPage( self.panelMaxSP, u"MaxSP", True )
 		self.panelStr = wx.Panel( self.noteBookActorParameters, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
 		self.noteBookActorParameters.AddPage( self.panelStr, u"STR", False )
 		self.panelDex = wx.Panel( self.noteBookActorParameters, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
@@ -14043,6 +14043,57 @@ class BattleTest_Dialog ( wx.Dialog ):
 		
 		# Connect Events
 		self.bittonOK.Bind( wx.EVT_BUTTON, self.buttonOK_Clicked )
+		self.buttonCancel.Bind( wx.EVT_BUTTON, self.buttonCancel_Clicked )
+	
+	def __del__( self ):
+		pass
+	
+	
+	# Virtual event handlers, overide them in your derived class
+	def buttonOK_Clicked( self, event ):
+		pass
+	
+	def buttonCancel_Clicked( self, event ):
+		pass
+	
+
+###########################################################################
+## Class AddParameter_Dialog
+###########################################################################
+
+class AddParameter_Dialog ( wx.Dialog ):
+	
+	def __init__( self, parent ):
+		wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Add Parameter", pos = wx.DefaultPosition, size = wx.Size( 257,110 ), style = wx.DEFAULT_DIALOG_STYLE )
+		
+		self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
+		
+		MainSizer = wx.BoxSizer( wx.VERTICAL )
+		
+		self.labelParameterName = wx.StaticText( self, wx.ID_ANY, u"Parameter Name:", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.labelParameterName.Wrap( -1 )
+		MainSizer.Add( self.labelParameterName, 0, wx.ALL, 5 )
+		
+		self.textCtrlParameterName = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+		MainSizer.Add( self.textCtrlParameterName, 0, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
+		
+		sizerOKCancel = wx.BoxSizer( wx.HORIZONTAL )
+		
+		self.buttonOK = wx.Button( self, wx.ID_ANY, u"OK", wx.DefaultPosition, wx.DefaultSize, 0 )
+		sizerOKCancel.Add( self.buttonOK, 0, wx.TOP|wx.BOTTOM|wx.LEFT, 5 )
+		
+		self.buttonCancel = wx.Button( self, wx.ID_ANY, u"Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
+		sizerOKCancel.Add( self.buttonCancel, 0, wx.ALL, 5 )
+		
+		MainSizer.Add( sizerOKCancel, 0, wx.ALIGN_RIGHT, 5 )
+		
+		self.SetSizer( MainSizer )
+		self.Layout()
+		
+		self.Centre( wx.BOTH )
+		
+		# Connect Events
+		self.buttonOK.Bind( wx.EVT_BUTTON, self.buttonOK_Clicked )
 		self.buttonCancel.Bind( wx.EVT_BUTTON, self.buttonCancel_Clicked )
 	
 	def __del__( self ):
