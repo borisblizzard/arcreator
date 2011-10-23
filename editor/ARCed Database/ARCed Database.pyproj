@@ -131,6 +131,7 @@
     <Compile Include="src\ARCedWeapons_Panel.py" />
     <Compile Include="src\ARCedWeatherEffects_Dialog.py" />
     <Compile Include="src\ARCed_Templates.py" />
+    <Compile Include="src\CheckMarks.py" />
     <Compile Include="src\DatabasePackage.py" />
     <Compile Include="src\maxvalues.py" />
     <Compile Include="src\__main__.py" />

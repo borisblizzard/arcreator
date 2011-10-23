@@ -1,38 +1,72 @@
+'''
+Contains the functionality of all the events raised on the Classes Database panel
+
+'''
+import wx
+import ARCed_Templates
+import ARCedChangeMaximum_Dialog
+import ARCedSkill_Dialog
+
+import RGSS1_RPG as RPG
+import maxvalues
+import DatabaseActions
+#import DatabasePackage
 import Kernel 
 from Kernel import Manager as KM
 
-import DatabaseActions#, DatabasePackage
-import wx
-import ARCed_Templates
-import ARCedChangeMaximum_Dialog, ARCedSkill_Dialog
-import maxvalues
-import RGSS1_RPG as RPG
-#from RMXPProject import Project
-import time
+# TEST STUFF
+ARC_FORMAT = False
 
-# Implementing Classes_Panel
 class ARCedClasses_Panel( ARCed_Templates.Classes_Panel ):
 	def __init__( self, parent ):
+		''' Constructor for the Classes panel '''
 		ARCed_Templates.Classes_Panel.__init__( self, parent )
-		global Limits, DigitMax, Project
-		Project = Kernel.GlobalObjects.get_value('PROJECT')
+		proj = Kernel.GlobalObjects.get_value('PROJECT')
+		global DataClasses, DataWeapons, DataArmors, DataStates, DataElements, DataSkills, Limits
+		try:
+			DataClasses = proj.getData('Classes')
+			DataWeapons = proj.getData('Weapons')
+			DataArmors = proj.getData('Armors')
+			DataStates = proj.getData('States')
+			DataElements = proj.getData('System').elements
+			DataSkills = proj.getData('Skills')
+		except NameError:
+			Kernel.Log('Database opened before Project has been initialized', '[Database:CLASSES]', True)
+			self.Destroy()
 		Limits = Kernel.GlobalObjects.get_value('DatabaseConfiguration').GameObjects
-		DigitMax = len(str(Limits['classes']))
-		self.refreshClassList()
-		self.listBoxClasses.Select(0)
-	
-	def benchMark(self, iterations, method, *args):
-		total = 0
-		for i in xrange(iterations):
-			start = time.time()
-			method(*args)
-			total += (time.time() - start)
-		print total / iterations
+		self.SelectedClass = DataClasses[self.FixedIndex(0)]
+		self.refreshAll()
 
-	def refreshClassList( self ):
+	def refreshAll(self):
+		self.refreshClassList()
+		self.refreshWeapons()
+		self.refreshArmors()
+		self.refreshStates()
+		self.refreshElements()
+		self.refreshSkills()
+
+	def refreshClassList(self):
+		''' Refreshes the values in the class wxListBox control '''
 		self.listBoxClasses.Clear()
-		for i, klass in enumerate(Project.Data_classes): 
-			self.listBoxClasses.Append(str(i + 1).zfill(DigitMax) + ': ' + klass.name)
+		for i, klass in enumerate(DataClasses):
+			if not ARC_FORMAT and i == 0:
+				continue
+			self.listBoxClasses.Append(str(i).zfill(len(str(Limits['actors']))) + ': ' + klass.name)
+
+	def refreshWeapons(self):
+		pass
+
+	def refreshArmors(self):
+		pass
+
+	def refreshStates(self):
+		pass
+
+	def refreshElements(self):
+		pass
+
+	def refreshSkills(self):
+		pass
 
 	# Handlers for Classes_Panel events.
 	def listBoxClasses_SelectionChanged( self, event ):
@@ -111,3 +145,10 @@ class ARCedClasses_Panel( ARCed_Templates.Classes_Panel ):
 		pass
 
 
+	@staticmethod
+	def FixedIndex(index):
+		''' Returns the correct starting index for game data structure depending on the current format '''
+		if ARC_FORMAT:
+			return index
+		else:
+			return index + 1
