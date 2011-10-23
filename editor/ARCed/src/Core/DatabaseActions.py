@@ -226,7 +226,7 @@ class ActorEditAction(Actions.ActionTemplate):
                             self.old_data["battler_hue"] = actor.battler_hue
                             actor.battler_hue = self.data["battler_hue"]
                         if self.data.has_key("parameters"):
-                            self.parameters_action = KM.get_component("TableEditAction").object(self.data["parameters"], sub_action=True)
+                            self.parameters_action = KM.get_component("TableEditAction").object(actor.parameters, self.data["parameters"], sub_action=True)
                             self.parameters_action.apply()
                         if self.data.has_key("weapon_id"):
                             self.old_data["weapon_id"] = actor.weapon_id
