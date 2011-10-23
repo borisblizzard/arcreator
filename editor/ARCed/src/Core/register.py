@@ -311,7 +311,7 @@ class CorePackage(Package):
         self.add_component(Component(Actions.ActionTemplate, "ActionTemplate",
                                      None, "CoreActionTemplate", "CORE", 1.0, self))
         
-        self.add_component(Component(Actions.TableEditAction, "TableEditAction",
+        self.add_component(Component(DatabaseActions.TableEditAction, "TableEditAction",
                                      None, "CoreTableEditAction", "CORE", 1.0, self))
 
         self.add_component(Component(DatabaseActions.ActorEditAction, "ARCActorEditAction",

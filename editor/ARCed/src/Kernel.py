@@ -16,15 +16,22 @@ import os
 import sys
 import time
 import traceback
+import inspect
 
 import ConfigParser
 import re
 
 import wx
 
-#==============================================================================
+#====================================================================================
+# * ARC Constants
+#====================================================================================
+
+VERSION = "0.0.1"
+
+#====================================================================================
 # Global Object Storage
-#==============================================================================
+#====================================================================================
 
 class GlobalObjects(object):
     '''
@@ -101,9 +108,9 @@ class GlobalObjects(object):
             del GlobalObjects._objects[key]
 
 
-#==============================================================================
+#====================================================================================
 # Kernel classes
-#==============================================================================
+#====================================================================================
 
 class Manager(object):
     '''The main Kernel processor'''
@@ -451,9 +458,9 @@ class Package(object):
         '''
         self.dependencies.extend(args)
 
-#==========================================================================
-# Configuration classes (loader and data structure
-#==========================================================================
+#====================================================================================
+# Configuration classes (loader and data structure)
+#====================================================================================
 
 class ConfigTemplate(object):
 
@@ -704,9 +711,44 @@ class ConfigLoader(object):
         config.write(file)
         f.close()
 
+#====================================================================================
+# * Protect (a class to wrap wround functions like event handelers to ceatch errors)
+#====================================================================================
+
+class Protect(object):
+     def __init__(self, fn):
+         self.fn = fn
+
+     def __call__(self, *args, **kwargs):
+        try:
+            self.fn(*args, **kwargs)
+        except Exception, excp:
+            if inspect.ismethod(self.fn):
+                messege = "Exception in protected method  %s bound to class %s" % (self.fn.__name__, self.fn.im_self.__class__.__name__ )
+            elif inspect.isfunction(self.fn):
+                message = "Exception in protected function %s" % self.fn.__name__
+            else:
+                message = "Exception in protected call"
+            Log(message="message", inform=True, error=True)
+
+#====================================================================================
+# * Kernel Functions
+#====================================================================================
+def GetConfigFolder():
+    if sys.platform.startswith('win32'):
+        path = os.path.expandvars(os.path.join("%ALLUSERSPROFILE%", "ARCed"))
+    elif sys.platform.startswith('lynix'):
+        path = os.path.join("", "etc", "ARCed")
+    elif sys.platform.startswith('darwin'):
+        path = os.path.join("", "Library", "Preferences", "ARCed")
+    else:
+        path = os.path.join("", "ARCed")
+    if not os.path.exists(path):
+        os.makedirs(path)
+    return path
 
 
-def Log(message=None, prefix="[Kernel]", error=False):
+def Log(message=None, prefix="[Kernel]", inform=False, error=False):
     '''
     time stamps a message and writes it to a log file, it can also attach a trace back of the latest error. 
     always adds a new line at the end of the message
@@ -714,7 +756,7 @@ def Log(message=None, prefix="[Kernel]", error=False):
     if message == None:
         error = True
         message = ""
-    logdir = wx.StandardPaths.Get().GetConfigDir()
+    logdir = GetConfigFolder()
     if (not os.path.exists(logdir)) or (not os.path.isdir(logdir)):
         os.makedirs(logdir)
     f = open(os.path.join(logdir, "ARCed.log"), "ab")
@@ -723,6 +765,18 @@ def Log(message=None, prefix="[Kernel]", error=False):
         message += " [Error] " + traceback.format_exc()
     f.write(time_str + prefix + " " + message + "\n")
     f.close
+    if inform:
+        Inform(prefix, message, error)
+
+def Inform(title, message, error=False):
+    if wx.GetApp() is not None:
+        if error:
+            style = wx.OK|wx.STAY_ON_TOP|wx.ICON_INFORMATION
+        else:
+            style = wx.OK|wx.STAY_ON_TOP|wx.ICON_ERROR
+        dlg = wx.MessageDialog(None, message, caption=title, style=style)
+        dlg.ShowModal()
+
 
 #=======================================================================
 # NOTE: the below is for testing purposes only

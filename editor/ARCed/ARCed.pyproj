@@ -45,6 +45,7 @@
     <Folder Include="tests\" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="src\Logo.py" />
     <Compile Include="src\Core\Actions.py" />
     <Compile Include="src\Core\ARC_Data.py" />
     <Compile Include="src\Core\Controls.py" />

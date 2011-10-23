@@ -28,7 +28,7 @@ class TableEditAction(Actions.ActionTemplate):
 
 class ArmorEditAction(Actions.ActionTemplate):
 
-    def __init__(self, id, data={}, sub_action=Flase):
+    def __init__(self, id, data={}, sub_action=False):
         super(ArmorEditAction, self).__init__(sub_action)
         if not isinstance(data, types.DictType):
             raise TypeError("Error: Expected dict type for 'data'")
@@ -351,7 +351,7 @@ class ActorEditAction(Actions.ActionTemplate):
                 return False
                                                
 class ClassEditAction(Actions.ActionTemplate):
-    def __init__(self, id, data={}, sub_action=Flase):
+    def __init__(self, id, data={}, sub_action=False):
         super(ClassEditAction, self).__init__(sub_action)
         if not isinstance(data, types.DictType):
             raise TypeError("Error: Expected dict type for 'data'")
@@ -443,7 +443,7 @@ class ClassEditAction(Actions.ActionTemplate):
                 return False
                                
 class WeaponEditAction(Actions.ActionTemplate):
-    def __init(self, id, data={}, sub_action=Flase):
+    def __init(self, id, data={}, sub_action=False):
         super(ClassEditAction, self).__init__(sub_action)
         if not isinstance(data, types.DictType):
             raise TypeError("Error: Expected dict type for 'data'")

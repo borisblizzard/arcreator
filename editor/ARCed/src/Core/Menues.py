@@ -31,22 +31,13 @@ class FileMenu(wx.Menu):
         wx.Menu.__init__(self)
         
         self.filehistory = wx.FileHistory(5)
-        
-        self.config = wx.FileConfig(appName="ARCed", vendorName="arc@chaos-project.com", 
-                                    localFilename="ARCed.cfg" , style=wx.CONFIG_USE_LOCAL_FILE)
-        self.config.SetPath(Kernel.GlobalObjects.get_value("Program_Dir"))
-        
-        self.filehistory.Load(self.config)
+        self.filehistory.Load(Kernel.GlobalObjects.get_value("programconfig"))
 
         if Kernel.GlobalObjects.has_key("FileHistory"):
             Kernel.GlobalObjects.set_value("FileHistory", self.filehistory)
         else:
             Kernel.GlobalObjects.request_new_key("FileHistory", "CORE", self.filehistory)
-        if Kernel.GlobalObjects.has_key("programconfig"):
-            Kernel.GlobalObjects.set_value("programconfig", self.config)
-        else:
-            Kernel.GlobalObjects.request_new_key("programconfig", "CORE", self.config)
-            
+          
         self.mainwindow = mainwindow
 
         self.AddMenuItems()
@@ -80,28 +71,33 @@ class FileMenu(wx.Menu):
     def NewProject(self, event):
         newproject = KM.get_component("NewProjectHandler").object
         newproject(self.mainwindow)
-        self.filehistory.Save(self.config)
+        self.filehistory.Save(Kernel.GlobalObjects.get_value("programconfig"))
+        Kernel.GlobalObjects.get_value("programconfig").Flush()
 
     def OpenProject(self, event):
         openproject = KM.get_component("OpenProjectHandler").object
         openproject(self.mainwindow, self.filehistory)
-        self.filehistory.Save(self.config)
+        self.filehistory.Save(Kernel.GlobalObjects.get_value("programconfig"))
+        Kernel.GlobalObjects.get_value("programconfig").Flush()
 
     def SaveProject(self, event):
         saveproject = KM.get_component("SaveProjectHandler").object
         saveproject(self.mainwindow)
-        self.filehistory.Save(self.config)
+        self.filehistory.Save(Kernel.GlobalObjects.get_value("programconfig"))
+        Kernel.GlobalObjects.get_value("programconfig").Flush()
 
     def SaveProjectAs(self, event):
         saveprojectas = KM.get_component("SaveAsProjectHandler").object
         saveprojectas(self.mainwindow, self.filehistory)
-        self.filehistory.Save(self.config)
+        self.filehistory.Save(Kernel.GlobalObjects.get_value("programconfig"))
+        Kernel.GlobalObjects.get_value("programconfig").Flush()
 
     def on_file_history(self, event):
         fileNum = event.GetId() - wx.ID_FILE1
         path = self.filehistory.GetHistoryFile(fileNum)
         self.filehistory.AddFileToHistory(path)
-        self.filehistory.Save(self.config)
+        self.filehistory.Save(Kernel.GlobalObjects.get_value("programconfig"))
+        Kernel.GlobalObjects.get_value("programconfig").Flush()
         openproject = KM.get_component("OpenProjectHandler").object
         openproject(self.mainwindow, self.filehistory, path)
 
