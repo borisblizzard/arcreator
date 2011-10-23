@@ -20,7 +20,6 @@ class RMXPType(SuperType):
 
     #---------------------------- data holder --------------------------------
     RPG = Type("RPG")
-    Table = Type("Table")
     WxCache = Type("WxCache")
     #PyGameCache = Type("PyGameCache")
 
@@ -46,7 +45,7 @@ class RMXPType(SuperType):
         #self.add_types(self.HueRotationOperator, self.AdjustAlphaOperator)
 
         #------------------------- data holder -------------------------------
-        self.add_types(self.RPG, self.Table, self.WxCache)
+        self.add_types(self.RPG, self.WxCache)
         #, self.PyGameCache)
 
         #------------------------ data handlers ------------------------------
@@ -98,6 +97,9 @@ class CorePackage(Package):
         ARCProjectHolder = Type("ARCProjectHolder")
         ARCProjectSaver = Type("ARCProjectSaver")
         ARCProjectLoader = Type("ARCProjectLoader")
+
+        #------------------------- data holders ------------------------------
+        Table = Type("Table")
       
         #------------------------------- frames --------------------------------------
         EditorMainWindow = Type("EditorMainWindow")
@@ -124,6 +126,7 @@ class CorePackage(Package):
         ActionManager = Type("ActionManager")
         ActionTemplate = Type("ActionTemplate")
 
+        TableEditAction = Type("TableEditAction")
         ARCActorEditAction = Type("ARCActorEditAction")
 
         #=====================================================================
@@ -140,6 +143,9 @@ class CorePackage(Package):
         self.add_types(Project, NewProjectHandler, OpenProjectHandler, SaveProjectHandler, 
                                SaveAsProjectHandler, ARCProjectCreator, ARCProjectHolder,
                                ARCProjectSaver, ARCProjectLoader)
+
+        #------------------------- data holders ------------------------------
+        self.add_types(Table)
         
         #-------------------------------- frames -------------------------------------
         self.add_types(EditorMainWindow)
@@ -159,6 +165,8 @@ class CorePackage(Package):
         
         #-------------------------------actions---------------------------------------
         self.add_types(ActionManager, ActionTemplate)
+
+        self.add_types(TableEditAction)
 
         self.add_types(ARCActorEditAction)
         
@@ -205,6 +213,10 @@ class CorePackage(Package):
         self.add_component(Component(Project.ARCProjectLoadFunction, "ARCProjectLoadFunction", 
                                      None, "CoreARCProjectLoadFunction", "CORE", 
                                      1.0, "CORE"))
+
+        #------------------------- data holders ------------------------------
+        self.add_component(Component(RMXP.RPGutil.Table, "Table", None,
+                                     "CoreTable", "CORE", 1.0, self))
 
         #-------------------------- data Handler -----------------------------
         self.add_component(Component(Data.NewProject, "NewProjectHandler",
@@ -282,8 +294,6 @@ class CorePackage(Package):
         #------------------------- data holders ------------------------------
         self.add_component(Component(RMXP.RGSS1_RPG.RPG, "RPG", "RMXP",
                                      "RGSS1_RPG", "CORE", 1.0, self))
-        self.add_component(Component(RMXP.RPGutil.Table, "Table", "RMXP",
-                                     "RMXPTable", "CORE", 1.0, self))
         self.add_component(Component(RMXP.Cache.WxCache, "WxCache", "RMXP",
                                      "RMXPWxCache", "CORE", 1.0, self))
 
@@ -301,6 +311,9 @@ class CorePackage(Package):
         self.add_component(Component(Actions.ActionTemplate, "ActionTemplate",
                                      None, "CoreActionTemplate", "CORE", 1.0, self))
         
+        self.add_component(Component(Actions.TableEditAction, "TableEditAction",
+                                     None, "CoreTableEditAction", "CORE", 1.0, self))
+
         self.add_component(Component(DatabaseActions.ActorEditAction, "ARCActorEditAction",
                                      None, "CoreARCActorEditAction", "CORE", 1.0, self))
         

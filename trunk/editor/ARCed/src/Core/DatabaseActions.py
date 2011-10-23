@@ -4,11 +4,32 @@ import Kernel
 from Kernel import Manager as KM
 
 import Actions
+from RMXP import RPGutil
+
+class TableEditAction(Actions.ActionTemplate):
+
+    def __init__(self, table, data={}, sub_action=False):
+        super(TableEditAction, self).__init__(sub_action)
+        if not isinstance(data, types.DictType):
+            raise TypeError("Error: Expected dict type for 'data'")
+        table_class = KM.get_component("Table").object
+        if not isinstance(table, table_class):
+            raise TypeError("Error: Expected %s type for 'table'" % table_class)
+        self.table = table
+        self.data = data
+
+    def do_apply(self):
+        #TODO: implament this function
+        pass
+
+    def do_undo(self):
+        #TODO: implament this function
+        pass
 
 class ArmorEditAction(Actions.ActionTemplate):
 
-    def __init__(self, id, data={}):
-        super(ArmorEditAction, self).__init__()
+    def __init__(self, id, data={}, sub_action=Flase):
+        super(ArmorEditAction, self).__init__(sub_action)
         if not isinstance(data, types.DictType):
             raise TypeError("Error: Expected dict type for 'data'")
         elif not isinstance(id, types.IntType):
@@ -154,8 +175,8 @@ class ArmorEditAction(Actions.ActionTemplate):
                      
 class ActorEditAction(Actions.ActionTemplate):
 
-    def __init__(self, id, data={}):
-        super(ActorEditAction, self).__init__()
+    def __init__(self, id, data={}, sub_action=False):
+        super(ActorEditAction, self).__init__(sub_action)
         if not isinstance(data, types.DictType):
             raise TypeError("Error: Expected dict type for 'data'")
         elif not isinstance(id, types.IntType):
@@ -164,6 +185,7 @@ class ActorEditAction(Actions.ActionTemplate):
             self.id = id
             self.data = data
             self.old_data = {}
+            self.parameters_action = None
 
     def do_apply(self):
         if Kernel.GlobalObjects.has_key("PROJECT"):
@@ -203,12 +225,9 @@ class ActorEditAction(Actions.ActionTemplate):
                         if self.data.has_key("battler_hue"):
                             self.old_data["battler_hue"] = actor.battler_hue
                             actor.battler_hue = self.data["battler_hue"]
-                        #==================================================================
-                        #TODO: This needs to be expanded to work off slices not replace the entire Table
                         if self.data.has_key("parameters"):
-                            self.old_data["parameters"] = actor.parameters
-                            actor.parameters = self.data["parameters"]
-                        #==================================================================
+                            self.parameters_action = KM.get_component("TableEditAction").object(self.data["parameters"], sub_action=True)
+                            self.parameters_action.apply()
                         if self.data.has_key("weapon_id"):
                             self.old_data["weapon_id"] = actor.weapon_id
                             actor.weapon_id = self.data["weapon_id"]
@@ -288,12 +307,8 @@ class ActorEditAction(Actions.ActionTemplate):
                         if self.old_data.has_key("battler_hue"):
                             self.data["battler_hue"] = actor.battler_hue
                             actor.battler_hue = self.old_data["battler_hue"]
-                        #==================================================================
-                        #TODO: This needs to be expanded to work off slices not replace the entire Table
-                        if self.old_data.has_key("parameters"):
-                            self.data["parameters"] = actor.parameters
-                            actor.parameters = self.old_data["parameters"]
-                        #==================================================================
+                        if self.parameters_action is not None:
+                            self.parameters_action.undo()
                         if self.old_data.has_key("weapon_id"):
                             self.data["weapon_id"] = actor.weapon_id
                             actor.weapon_id = self.old_data["weapon_id"]
@@ -334,12 +349,10 @@ class ActorEditAction(Actions.ActionTemplate):
             else:
                 Kernel.log("Warning: ActorEditAction undo not compleated secessful, Project is None", "[ActorEditAction]")
                 return False
-                
-                
-                
+                                               
 class ClassEditAction(Actions.ActionTemplate):
-    def __init__(self, id, data={}):
-        super(ClassEditAction, self).__init__()
+    def __init__(self, id, data={}, sub_action=Flase):
+        super(ClassEditAction, self).__init__(sub_action)
         if not isinstance(data, types.DictType):
             raise TypeError("Error: Expected dict type for 'data'")
         elif not isinstance(id, types.IntType):
@@ -428,11 +441,10 @@ class ClassEditAction(Actions.ActionTemplate):
                     return False
             else:
                 return False
-                
-                
+                               
 class WeaponEditAction(Actions.ActionTemplate):
-    def __init(self, id, data={}):
-        super(ClassEditAction, self).__init__()
+    def __init(self, id, data={}, sub_action=Flase):
+        super(ClassEditAction, self).__init__(sub_action)
         if not isinstance(data, types.DictType):
             raise TypeError("Error: Expected dict type for 'data'")
         elif not isinstance(id, types.IntType):

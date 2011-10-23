@@ -59,8 +59,8 @@
     <Compile Include="src\Core\register.py" />
     <Compile Include="src\Core\RMXP\Cache.py" />
     <Compile Include="src\Core\RMXP\RGSS1_RPG.py" />
-    <Compile Include="src\Core\RMXP\RPGutil.py" />
     <Compile Include="src\Core\RMXP\__init__.py" />
+    <Compile Include="src\Core\RPGutil.py" />
     <Compile Include="src\Core\__init__.py" />
     <Compile Include="src\Kernel.py" />
     <Compile Include="src\Main.py" />

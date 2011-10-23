@@ -104,7 +104,6 @@ class Table(object):
         t._data = data
         return t
 
-
 class Color(object):
     """a bare bones color object"""
     _arc_class_path = "Color"
@@ -159,7 +158,6 @@ class Color(object):
     @staticmethod
     def _arc_load(s):
         return Color(*unpack("<ffff", s))
-
 
 class Tone(object):
     """a bare bones tone class"""

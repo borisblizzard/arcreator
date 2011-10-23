@@ -140,14 +140,14 @@ class Manager(object):
             else:
                 return Manager.types[str(name)]
         except KeyError, AttributeError:
-            return None
+            return Type("None")
 
     @staticmethod
     def get_event(name):
         try:
             return Manager.events[str(name)]
         except KeyError, AttributeError:
-            return None
+            return Event("None")
 
     @staticmethod
     def get_component(type_name, supertype=None, name=None, author=None,
@@ -198,22 +198,22 @@ class Manager(object):
 class Component(object):
     '''A data class that holds a registered extension'''
 
-    def __init__(self, obj, type_obj, super_obj=None, name="", author="", version=0,
+    def __init__(self, obj, type_name, super_name=None, name="", author="", version=0,
                  package=None):
         '''
         initializes a Kernel.Component object
         
         @param obj: the extension object
-        @param type_obj: a Type object holds the type of the extension, used to group the object for retrieval
-        @param super_obj: a SuperType object that the type of this component is grouped under
+        @param type_name: a string identifing a Type name, used to group the object for retrieval
+        @param super_name: a string identifing the SuperType this component is grouped under
         @param name: a string that uniquely identifies the extension, used for retrieving the extension on request
         @param author: a string containing the name of the author of this component
         @param version: a number that is this component version
         @param package: a Package object that is used for grouping of extensions
         '''
         self.object = obj
-        self.type = type_obj
-        self.super = super_obj
+        self.type = type_name
+        self.super = super_name
         self.name = name
         self.author = author
         self.version = version
@@ -291,7 +291,7 @@ class SuperType(object):
         try:
             return self.types[type_name]
         except KeyError:
-            return None
+            return Type("None")
 
 class Type(object):
     '''a data class that is used for the grouping of extensions that do the 
@@ -358,7 +358,10 @@ class Type(object):
         if self.default != None:
             return self.default
         else:
-            return self.components.values()[0]
+            try:
+                return self.components.values()[0]
+            except IndexError:
+                return Component(None, "None")
 
     def get_component(self, name, author, version, package=None):
         '''
