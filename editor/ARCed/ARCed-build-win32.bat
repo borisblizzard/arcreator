@@ -11,7 +11,7 @@ set "src_path=%working%src\"
 set version="0.0.1"
 set author="ARC Developers"
 set "icon=%working%icon.ico"
-set "out_path=%working%build\"
+set "out_path=%working%bin\"
 set "py_installer=%working%pyinstaller-1.5.1\"
 
 ::get if we want to build in optimised pyhton (important for speed up of opengl)
@@ -102,6 +102,6 @@ echo to build optimised properly.
 echo if you don't know how to do this select no on the next question
 echo. 
 pause
-goto AFTER_EDIT
+goto AFTER_EDIT_O
 
 :EOF
