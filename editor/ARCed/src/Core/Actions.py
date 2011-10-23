@@ -64,20 +64,21 @@ class ActionTemplate(object):
     
     _AM = ActionManager
     
-    def __init__(self):
+    def __init__(self, sub_action=False):
         self._applyed = False
+        self.sub_action = sub_action
         
     def apply(self):
         if not self._applyed:
             updatecurrentactionflag = False
             success = self.do_apply()
             if success:
-                if not self.in_stack():
+                if not self.sub_action or not self.in_stack():
                     updatecurrentactionflag = True
                     self._AM.AddActions(self)
             
                 self._applyed = True
-                if updatecurrentactionflag:
+                if not self.sub_action and updatecurrentactionflag:
                     self._AM._current_action = len(self._AM._action_stack) - 1
             return success
         else:
