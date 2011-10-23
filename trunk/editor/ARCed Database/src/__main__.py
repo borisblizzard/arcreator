@@ -34,7 +34,6 @@ class DatabasePage():
 class ARCedTest(wx.App):
 
 	def __init__(self, redirect=False, filename=None):
-		# TEST
 		# Initialize global dictionary that contains the pages
 		global DatabasePages
 		DatabasePages = {}

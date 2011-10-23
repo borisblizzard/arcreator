@@ -2,9 +2,6 @@
 Contains the functionality of all the events raised on the Actors Database panel
 
 '''
-#----------------------------------------------------------------------
-# Import the panel templates and child panels/dialogs
-#-----------------------------------------------------------------------
 import wx
 import ARCed_Templates
 import ARCedChangeMaximum_Dialog 
@@ -14,17 +11,23 @@ import ARCedChooseGraphic_Dialog
 import ARCedActorParameters_Dialog
 import ARCedAddParameter_Dialog
 
-#-----------------------------------------------------------------------
-# Import the ActionFramework, Kernel, and other system modules
-#-----------------------------------------------------------------------
-import DatabaseActions
+#from DatabaseAction import 
 # import DatabasePackage
-from RGSS1_RPG import RPG			   
-import maxvalues						# Change Later
+
+import PIL.Image
+from RGSS1_RPG import RPG	   						
 import Kernel
 from Kernel import Manager as KM
 
+#---------------------------------------------------------------------------
+# TEST STUFF
+#---------------------------------------------------------------------------
+import maxvalues
 ARC_FORMAT = False
+import os
+GraphicsDir = os.path.abspath(os.environ['COMMONPROGRAMFILES'] + 
+							  '\\Enterbrain\RGSS\Standard\\Graphics')
+
 
 class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 	def __init__( self, parent, actorIndex=0 ):
@@ -33,10 +36,14 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 		proj = Kernel.GlobalObjects.get_value('PROJECT')
 		global Limits, ActorLimits
 		global DataActors, DataClasses, DataWeapons, DataArmors
-		DataActors = proj.getData('Actors')
-		DataClasses = proj.getData('Classes')
-		DataWeapons = proj.getData('Weapons')
-		DataArmors = proj.getData('Armors')
+		try:
+			DataActors = proj.getData('Actors')
+			DataClasses = proj.getData('Classes')
+			DataWeapons = proj.getData('Weapons')
+			DataArmors = proj.getData('Armors')
+		except NameError:
+			Kernel.Log('Database opened before Project has been initialized', '[Database:ACTOR]', True)
+			self.Destroy()
 		Limits = Kernel.GlobalObjects.get_value('DatabaseConfiguration').GameObjects
 		ActorLimits = Kernel.GlobalObjects.get_value('DatabaseConfiguration').Actors
 		self.ParamTab = 0
@@ -62,7 +69,6 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 	def refreshActorList(self):
 		''' Refreshes the values in the actor wxListBox control '''
 		self.listBoxActors.Clear()
-		index = self.listBoxActors.GetSelection()
 		for i, actor in enumerate(DataActors):
 			if not ARC_FORMAT and i == 0:
 				continue
@@ -93,8 +99,8 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 
 	def refreshArmors(self):
 		''' Refreshes the values in the wxChoice controls for shield, helmet,  armor, and accessory '''
-		# This needs massively improved, and needs to be modular, but works for now  
-
+		# TODO: This needs massively improved, and needs to be more modular, but works for now  
+		# Use a ListCtrl?
 		# Create this dynamically instead of like this
 		armorBoxes = [self.comboBoxShield, self.comboBoxHelmet, 
 				self.comboBoxBodyArmor, self.comboBoxAccessory]
@@ -128,7 +134,54 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 	def refreshParameters(self):
 		self.textCtrlName.ChangeValue(self.SelectedActor.name)
 		self.comboBoxClass.Select(self.SelectedActor.class_id - 1)
+		basis = str(self.SelectedActor.exp_basis)
+		inflation = str(self.SelectedActor.exp_inflation)
+		text = 'Basis: ' + basis + ', Inflation: ' + inflation
+		self.comboBoxExpCurve.SetValue(text)
 		self.refreshValues()
+
+
+	def getFilePath(self, root, filename):
+		path = None
+		for entry in os.listdir(root):
+			if os.path.splitext(entry)[0] == filename:
+				path = root + '\\' + entry
+				break
+		return path
+
+	def BitmapFromFile(self, imgFilename ) :
+		pilImg = PIL.Image.open( imgFilename )
+		
+		wxImg = wx.EmptyImage( *pilImg.size )      
+		print wxImg
+		if pilImg.mode[-1] == 'A':
+			pilRgbStr = pilImg.convert( 'RGB').tostring()
+			wxImg.SetData( pilRgbStr )
+			pilImgStr = pilImg.convert( 'RGBA' ).tostring() 
+			wxImg.SetAlphaData( pilImgStr[3::4]  )
+		wxBmap = wxImg.ConvertToBitmap()
+		return wxBmap
+
+	def refreshGraphics(self, image=-1):
+		if image == -1 or image == 0:
+			path = self.getFilePath(GraphicsDir + '\\Characters', self.SelectedActor.character_name )
+			bitmap = wx.EmptyBitmap(1, 1)
+			bitmap.LoadFile(path, wx.BITMAP_TYPE_ANY)
+			self.bitmapCharacterGraphic.SetBitmap(bitmap)
+		if image == -1 or image == 1:
+			path = self.getFilePath(GraphicsDir + '\\Battlers', self.SelectedActor.battler_name )
+			bitmap = wx.EmptyBitmap(1, 1)
+			bitmap.LoadFile(path, wx.BITMAP_TYPE_ANY)
+			self.bitmapBattlerGraphic.SetBitmap(bitmap)
+			
+	def bitmapBox_OnPaint(self, event):
+		sender = event.GetEventObject()
+		color = sender.GetBackgroundColour()
+		dc = wx.PaintDC(sender) 
+		dc.SetBackground(wx.Brush(color, wx.SOLID))
+		dc.Clear() 
+		image =  sender.GetBitmap()
+		dc.DrawBitmap(image, 0, 0, True)
 
 	def refreshAll(self):
 		''' Refreshes all the controls that contain game object values '''
@@ -137,6 +190,7 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 		self.refreshWeapons()
 		self.refreshArmors()
 		self.refreshParameters()
+		self.refreshGraphics()
 
 	def listBoxActors_SelectionChanged( self, event ):
 		''' Changes the data on the panel to reflect the values of the selected actor '''
@@ -144,10 +198,10 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 		if DataActors[index] == None:
 			DataActors[index] = RPG.Actor()
 		self.SelectedActor = DataActors[index]
-		print self.SelectedActor.name
 		self.refreshWeapons()
 		self.refreshArmors()
 		self.refreshParameters()
+		self.refreshGraphics()
 
 	def buttonMaximum_Clicked( self, event ):
 		''' Shows dialog for changing the list capacity '''
@@ -183,6 +237,7 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 			': ' + name)
 
 	def comboBoxClass_SelectionChanged( self, event ):
+		# TODO: Improve this...
 		''' Removes any initial equipment that may be equipped if the chosen class does not permit '''
 		class_index = self.FixedIndex(self.comboBoxClass.GetSelection())
 		wpn_index = self.comboBoxWeapon.GetSelection()
@@ -222,17 +277,19 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 
 	def comboBoxExperience_Click( self, event ):
 		''' Opens window to generate experience tables '''
-		actor = self.SelectedActor
-		dlg = ARCedExpCurve_Dialog.ARCedExpCurve_Dialog(self, actor, ActorLimits)
+		# TODO: Create and use custom control instead of relying on focus changes
+		self.bitmapCharacterGraphic.SetFocus()
+		dlg = ARCedExpCurve_Dialog.ARCedExpCurve_Dialog(self, self.SelectedActor, ActorLimits)
 		if dlg.ShowModal() == wx.ID_OK:
-			actor.exp_basis = dlg.Basis
-			actor.exp_inflation = dlg.Inflation
+			actor.exp_basis = dlg.spinCtrlBasis.GetValue()
+			actor.exp_inflation = dlg.spinCtrlInflation.GetValue()
 		dlg.Destroy()
+		self.refreshParameters()
 
 	def bitmapCharacterGraphic_Click( self, event ):
 		''' Opens dialog to change the character graphic '''
-		# TODO: Have 'path' set to projects character graphics folder
-		path = 'images'
+		# TODO: Change how the 'path' is read
+		path = GraphicsDir + '/Characters'
 		name = self.SelectedActor.character_name
 		hue = self.SelectedActor.character_hue
 		dlg = ARCedChooseGraphic_Dialog.ARCedChooseGraphic_Dialog(self, path, name, hue)
@@ -240,14 +297,13 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 			index = dlg.listBoxGraphics.GetSelection()
 			self.SelectedActor.character_name = dlg.listBoxGraphics.GetString(index)
 			self.SelectedActor.character_hue = dlg.sliderHue.GetValue()
-			# TODO: Implement splitting to show only single frame of character graphic
-			self.bitmapCharacterGraphic.SetBitmap(wx.Bitmap(dlg.Images[index]))
+			self.refreshGraphics(0)
 		dlg.Destroy()
 
 	def bitmapBattlerGraphic_Click( self, event ):
 		''' Opens dialog to change the battler graphic '''
-		# TODO: Have 'path' set to projects battler graphics folder
-		path = 'images'
+		# TODO: Change how the 'path' is read
+		path = GraphicsDir + '/Battlers'
 		name = self.SelectedActor.battler_name
 		hue = self.SelectedActor.battler_hue
 		dlg = ARCedChooseGraphic_Dialog.ARCedChooseGraphic_Dialog(self, path, name, hue)
@@ -255,7 +311,7 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 			index = dlg.listBoxGraphics.GetSelection()
 			self.SelectedActor.battler_name = dlg.listBoxGraphics.GetString(index)
 			self.SelectedActor.battler_hue = dlg.sliderHue.GetValue()
-			self.bitmapBattlerGraphic.SetBitmap(wx.Bitmap(dlg.Images[index]))
+			self.refreshGraphics(1)
 		dlg.Destroy()
 
 	def getArmorSet(self, class_id, armor_kind):
@@ -271,7 +327,6 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 		wpnSet = DataClasses[self.SelectedActor.class_id].weapon_set
 		if wpnSet[0] != 0:
 			wpnSet.insert(0, 0)
-		print wpnSet
 		self.SelectedActor.weapon_id = wpnSet[self.comboBoxWeapon.GetSelection()]
 
 	def comboBoxShield_SelectionChanged( self, event ):
@@ -314,7 +369,7 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 		''' Toggles the "fixed" state of the actor's accessory '''
 		self.SelectedActor.armor4_fix = self.checkBoxAccessory.GetValue()
 
-	def changeLevel( self, event ):
+	def spinCtrlParamLevel_ValueChanged( self, event ):
 		''' Update the controls on each page when the level is changed '''
 		self.refreshValues(self.spinCtrlLevel.GetValue())
 
@@ -370,7 +425,10 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 		# Fix for Windows. Using wxNotebook#GetSelection() can return inconsistent results, while reading
 		# it from the wxNoteBookEvent#GetSelection() is accurate
 		self.ParamTab = event.GetSelection()
-		self.buttonRemoveParameter.Enabled = (self.ParamTab > 5)
+		if not ARC_FORMAT:
+			self.buttonRemoveParameter.Enabled = (self.ParamTab > 5)
+		else:
+			self.buttonRemoveParameter.Enabled = self.noteBookActorParameters.GetPageCount >= 1
 		self.refreshValues()
 
 	def buttonQuickA_Clicked( self, event ):
@@ -398,9 +456,21 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 
 	def buttonRemoveParameter_Clicked( self, event ):
 		''' Removes the selected page from the tab control and resizes the actors' parameter tables '''
-		if self.ParamTab > 5:
-			# TODO: Implement
-			print 'Delete page, resize parameters table...'
+		params = self.SelectedActor.parameters
+		for i in xrange(self.ParamTab, params.xsize - 1):
+			params[i, :] = params[i + 1, :]
+		params.resize(params.xsize - 1, 100)
+		try:
+			self.noteBookActorParameters.RemovePage(self.ParamTab)
+		except wx.PyAssertionError:
+			# There is a strange bug with wx on Windows that raises this exception when a page is
+			# deleted. Removing the page works fine, but it throws the exception regardless, so
+			# this little empty catch is required... :P
+			pass
+		if self.ParamTab >= self.noteBookActorParameters.GetPageCount():
+			self.ParamTab -= 1
+		self.noteBookActorParameters.SetSelection(self.ParamTab)
+
 
 	@staticmethod
 	def FixedIndex(index):
