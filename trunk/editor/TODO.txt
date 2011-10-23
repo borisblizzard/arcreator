@@ -47,3 +47,7 @@
 - icons
 
 - genral testing to make sure we got everything
+
+- Fix spelling error of the word "Audio" in the Converter
+- Add icon to the frame
+- Center the main frame for the editor when it starts up
