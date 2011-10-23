@@ -26,6 +26,107 @@ class TableEditAction(Actions.ActionTemplate):
         #TODO: implament this function
         pass
 
+class LearningEditAction(Actions.ActionTemplate):
+    def __init__(self, id, index, data={}, sub_action=False):
+        super(LearningEditAction, self).__init__(sub_action)
+        if not isinstance(data, types.DictType):
+            raise TypeError("Error: Expected dict type for 'data'")
+        elif not isinstance(id, types.IntType):
+            raise TypeError("Error: Expected int type for 'id'")
+        else:
+            self.id = id
+            self.index = index
+            self.data = data
+            self.old_data = {}
+            
+            
+    def do_apply(self):
+        if Kernel.GlobalObjects.has_key("PROJECT"):
+            project = Kernel.GlobalObjects.get_value("PROJECT")
+            if project is not None:
+                klass = project.getData("Classes")[self.id]
+                if klass is not None:
+                    if self.data.has_key("level"):
+                        self.old_data["level"] = klass.learnings[self.index].level
+                        klass.learnings[self.index].level = self.data["level"]
+                    if self.data.has_key("skill_id"):
+                        self.old_data["skill_id"] = klass.learnings[self.index].skill_id
+                        klass.learnings[self.index].level = self.data["skill_id"]
+                    return True
+                else:
+                    return False
+            else:
+                return False
+                
+                
+    def do_undo(self):
+        if Kernel.GlobalObjects.has_key("PROJECT"):
+            project = Kernel.GlobalObjects.get_value("PROJECT")
+            if project is not None:
+                klass = project.getData("Classes")[self.id]
+                if klass is not None:
+                    if self.old_data.has_key("level"):
+                        self.data["level"] = klass.learnings[self.index].level
+                        klass.learnings[self.index].level = self.old_data["level"]
+                    if self.old_data.has_key("skill_id"):
+                        self.data["skill_id"] = klass.learnings[self.index].skill_id
+                        klass.learnings[self.index].level = self.old_data["skill_id"]
+                    return True
+                else:
+                    return False
+            else:
+                return False
+                
+class LearningsEditAction(Actions.ActionTemplate):
+
+    def __init__(self, id, data={}, sub_action=False):
+        super(LearningsEditAction, self).__init__(sub_action)
+        if not isinstance(data, types.DictType):
+            raise TypeError("Error: Expected dict type for 'data'")
+        elif not isinstance(id, types.IntType):
+            raise TypeError("Error: Expected int type for 'id'")
+        else:
+            self.id = id
+            self.data = data
+            self.old_data = {}
+            self.learning_actions = []
+    
+    def do_apply(self):
+        if Kernel.GlobalObjects.has_key("PROJECT"):
+            project = Kernel.GlobalObjects.get_value("PROJECT")
+            if project is not None:
+                klass = project.getData("Classes")[self.id]
+                if klass is not None:
+                    if self.data.has_key("learnings"):
+                        self.old_data = klass.learnings
+                        for i in range(len(self.data["learnings"])):
+                            learning = {"level" : self.data["learnings"][i].level, "skill_id" : self.data["learnings"][i].skill_id}
+                            self.learning_actions[i] = LearningEditAction(self.id, i, learning, sub_action=True)
+                            self.learning_actions[i].apply();
+                    return True
+                else:
+                    return False
+            else:
+                return False
+                        
+                        
+    def do_undo(self):
+        if Kernel.GlobalObjects.has_key("PROJECT"):
+            project = Kernel.GlobalObjects.get_value("PROJECT")
+            if project is not None:
+                klass = project.getData("Classes")[self.id]
+                if klass is not None:
+                    if self.old_data.has_key("learnings"):
+                        self.data = klass.learnings
+                        for i in range(len(self.old_data["learnings"])):
+                            if self.learning_actions[i] is not None:
+                                self.learning_actions[i].undo()
+                    return True
+                else:
+                    return False
+            else:
+                return False
+            
 class ArmorEditAction(Actions.ActionTemplate):
 
     def __init__(self, id, data={}, sub_action=False):
@@ -361,6 +462,9 @@ class ClassEditAction(Actions.ActionTemplate):
             self.id = id
             self.data = data
             self.old_data = {}
+            self.element_ranks_action = None
+            self.state_ranks_action = None
+            self.learnings_action = None
             
     def do_apply(self):
         if Kernel.GlobalObjects.has_key("PROJECT"):
@@ -386,14 +490,14 @@ class ClassEditAction(Actions.ActionTemplate):
                             self.old_data["armor_set"] = klass.armor_set
                             klass.armor_set = self.data["armor_set"]
                         if self.data.has_key("learnings"):
-                            self.old_data["learnings"] = klass.learnings
-                            klass.learnings = self.data["learnings"]
+                            self.learnings_action = LearningsEditAction(self.id, data={"learnings" : self.data["learnings"]}, sub_action=True)
+                            self.learnings_action.apply()
                         if self.data.has_key("element_ranks"):
-                            self.old_data["element_ranks"] = klass.element_ranks
-                            klass.element_ranks = self.data["element_ranks"]
+                            self.element_ranks_action = TableEditAction(actor.element_ranks, self.data["element_ranks"], sub_action = True)
+                            self.element_ranks_action.apply()
                         if self.data.has_key("state_ranks"):
-                            self.old_data["state_ranks"] = klass.state_ranks
-                            klass.state_ranks = self.data["state_ranks"]
+                            self.state_ranks_action = TableEditAction(actor.state_ranks, self.data["state_ranks"], sub_action = True)
+                            self.state_ranks_action.apply()
                         return True
                     else:
                         return False
@@ -419,21 +523,18 @@ class ClassEditAction(Actions.ActionTemplate):
                         if self.old_data.has_key("position"):
                             self.data["position"] = klass.position
                             klass.position = self.old_data["position"]
-                        if self.old_data.has_key("learnings"):
-                            self.data["learnings"] = klass.learnings
-                            klass.learnings = self.old_data["learnings"]
+                        if self.learnings_action is not None:
+                            self.learnings_action.undo()
                         if self.old_data.has_key("weapon_set"):
                             self.data["weapon_set"] = klass.weapon_set
                             klass.weapon_set = self.old_data["weapon_set"]
                         if self.old_data.has_key("armor_set"):
                             self.data["armor_set"] = klass.armor_set
                             klass.armor_set = self.old_data["armor_set"]
-                        if self.old_data.has_key("element_ranks"):
-                            self.data["element_ranks"] = klass.element_ranks
-                            klass.element_ranks = self.old_data["element_ranks"]
-                        if self.old_data.has_key("state_ranks"):
-                            self.data["state_ranks"] = klass.state_ranks
-                            klass.state_ranks = self.old_data["state_ranks"]
+                        if self.state_ranks_action is not None:
+                            self.state_ranks_action.undo()
+                        if self.element_ranks_action is not None:
+                            self.element_ranks_action.undo()
                         return True
                     else:
                         return False
