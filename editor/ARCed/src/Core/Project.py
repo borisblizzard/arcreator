@@ -60,28 +60,29 @@ class Project(object):
         else:
             self._deferred_data[key] = [False, self.load_func(os.path.dirname(self.project_path), key)]
     
-    def setInfo(self, key, value):
-        if self._info.has_key(key):
-            self._info[key][1] = value
+    def setInfo(self, key, value, changed=True):
+        if self._info.has_key(key.lower()):
+            self._info[key.lower()][0] = changed
+            self._info[key.lower()][1] = value
         else:
-            self._info[key] = [True, value]
+            self._info[key.lower()] = [changed, value]
         
     def getInfo(self, key):
-        if self._info.has_key(key):
-            return self._info[key][1]
+        if self._info.has_key(key.lower()):
+            return self._info[key.lower()][1]
         else:
             Kernel.Log("Warning: info key %s does not exist. Returned None" % key, "[Project]")
             return None
         
     def setChangedInfo(self, key, value):
-        if self._info.has_key(key):
-            self._info[key][0] = value
+        if self._info.has_key(key.lower()):
+            self._info[keykey.lower()][0] = value
         else:
             Kernel.Log("Info key %s does not exist. change flag not set" % key, "[Project]")
     
     def getChangedInfo(self, key):
-        if self._info.has_key(key):
-            return self._info[key][0]
+        if self._info.has_key(key.lower()):
+            return self._info[key.lower()][0]
         else:
             return False
         
@@ -172,17 +173,15 @@ class Project(object):
             config.read(os.path.normpath(self.project_path))
             infos = config.items("Project")
             for info in infos:
-                self.setInfo(info[0], info[1])
+                self.setInfo(info[0], info[1], False)
             filelist = config.get("Files", "List")
             files = filelist.split("|")
             for file_name in files:
                 if file_name != "":
                     if (self.load_func != None) and callable(self.load_func):
-                        self.setData(file_name, self.load_func(os.path.dirname(self.project_path), file_name))
-                        self.setChangedData(file_name, False)
+                        self.setData(file_name, self.load_func(os.path.dirname(self.project_path), file_name), False)
                     else:
-                        self.setData(file_name, None)
-                        self.setChangedData(file_name, False)
+                        self.setData(file_name, None, False)
                         Kernel.Log("Warning: no load function set for project. Data for %s set to None" % file_name, "[Project]")
         else:
             Kernel.Log("Warning: project path %s does not exist. Project not loaded." % self.project_path, "[Project]")

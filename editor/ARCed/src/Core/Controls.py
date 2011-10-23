@@ -39,15 +39,17 @@ class MainToolbar(object):
 
         self.toolbar.SetToolBitmapSize(wx.Size(16, 16))
 
+
+        IconManager = KM.get_component("IconManager").object
         #get bitmaps
-        newbmp = wx.ArtProvider.GetBitmap(wx.ART_NEW, wx.ART_TOOLBAR, (16, 16))
-        openbmp = wx.ArtProvider.GetBitmap(wx.ART_FILE_OPEN, wx.ART_TOOLBAR, (16, 16))
-        savebmp = wx.ArtProvider.GetBitmap(wx.ART_FILE_SAVE, wx.ART_TOOLBAR, (16, 16))
-        undobmp = wx.ArtProvider.GetBitmap(wx.ART_UNDO, wx.ART_TOOLBAR, (16, 16))
-        redobmp = wx.ArtProvider.GetBitmap(wx.ART_REDO, wx.ART_TOOLBAR, (16, 16))
-        copybmp = wx.ArtProvider.GetBitmap(wx.ART_COPY, wx.ART_TOOLBAR, (16, 16))
-        cutbmp = wx.ArtProvider.GetBitmap(wx.ART_CUT, wx.ART_TOOLBAR, (16, 16))
-        pastebmp = wx.ArtProvider.GetBitmap(wx.ART_PASTE, wx.ART_TOOLBAR, (16, 16))
+        newbmp = IconManager.getBitmap("newicon")
+        openbmp = IconManager.getBitmap("openicon")
+        savebmp = IconManager.getBitmap("saveicon")
+        undobmp = IconManager.getBitmap("undoicon")
+        redobmp = IconManager.getBitmap("redoicon")
+        copybmp = IconManager.getBitmap("copyicon")
+        cutbmp = IconManager.getBitmap("cuticon")
+        pastebmp = IconManager.getBitmap("pasteicon")
         #set up ids
         self.newid = wx.NewId()
         self.openid = wx.NewId()
