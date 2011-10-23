@@ -11,9 +11,14 @@ ouputFile = os.path.join(dirName, "images.py")
     
 entries = os.listdir(dirName)
 imgFileExts = ["png", "gif", "jpg", "bmp"]
+i = 0
 for entry in entries:
     if os.path.exists(entry) and os.path.isfile(entry):
         split_name = os.path.basename(entry).split(".")
         img_name = "".join(split_name[0:-1])
         if split_name[-1] in imgFileExts:
-            img2py(entry, ouputFile, True, True, None, img_name, True, True)
+            if i > 0:
+                img2py(entry, ouputFile, True, True, None, img_name, True, True)
+            else:
+                img2py(entry, ouputFile, False, True, None, img_name, True, True)
+            i += 1

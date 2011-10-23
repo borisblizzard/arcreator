@@ -30,6 +30,15 @@ class CoreEditorMainWindow(wx.Frame):
 
         wx.Frame.__init__(self, parent, id, title, pos, size, style)
 
+        #center the frame
+        self.CenterOnScreen()
+
+        self.main_title = title
+
+        #set the frame icon
+        IconManager = KM.get_component("IconManager").object
+        self.SetIcon(IconManager.getIcon("arcicon"))
+
         self._mgr = aui.AuiManager()
         # tell AuiManager to manage this frame
         self._mgr.SetManagedWindow(self)
@@ -51,6 +60,8 @@ class CoreEditorMainWindow(wx.Frame):
         KM.get_event("CoreEventRefreshProject").register(self.CallLayout)
 
         self._mgr.Update()
+
+        self.Bind(wx.EVT_UPDATE_UI, self.UpdateUI)
 
         #show the window
         self.Show(True)
@@ -95,5 +106,13 @@ class CoreEditorMainWindow(wx.Frame):
             self.layout_mgr.ClearLayout
         self._mgr.Update()
 
-
+    def UpdateUI(self, event):
+        if Kernel.GlobalObjects.has_key("Title"):
+            if Kernel.GlobalObjects.get_value("Title") != "":
+                title = self.main_title + " - " + Kernel.GlobalObjects.get_value("Title")
+                if self.GetTitle() !=  title:
+                    self.SetTitle(title)
+            else:
+                if self.GetTitle() !=  self.main_title:
+                    self.SetTitle(self.main_title)
 

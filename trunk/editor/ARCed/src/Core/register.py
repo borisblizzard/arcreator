@@ -6,7 +6,7 @@ exports all the core components to the kernel
 import Kernel
 from Kernel import Manager, Type, SuperType, Component, Package, Event
 import RMXP
-import Frames, Menues, Dialogs, Controls, Layouts, Data, Project, ARC_Data, Actions, DatabaseActions
+import Frames, Menues, Dialogs, Controls, Layouts, Data, Project, ARC_Data, Actions, DatabaseActions, RPGutil, Icons
 
 
 #=============================================================================
@@ -100,6 +100,7 @@ class CorePackage(Package):
 
         #------------------------- data holders ------------------------------
         Table = Type("Table")
+        IconManager = Type("IconManager")
       
         #------------------------------- frames --------------------------------------
         EditorMainWindow = Type("EditorMainWindow")
@@ -145,7 +146,7 @@ class CorePackage(Package):
                                ARCProjectSaver, ARCProjectLoader)
 
         #------------------------- data holders ------------------------------
-        self.add_types(Table)
+        self.add_types(Table, IconManager)
         
         #-------------------------------- frames -------------------------------------
         self.add_types(EditorMainWindow)
@@ -214,10 +215,6 @@ class CorePackage(Package):
                                      None, "CoreARCProjectLoadFunction", "CORE", 
                                      1.0, "CORE"))
 
-        #------------------------- data holders ------------------------------
-        self.add_component(Component(RMXP.RPGutil.Table, "Table", None,
-                                     "CoreTable", "CORE", 1.0, self))
-
         #-------------------------- data Handler -----------------------------
         self.add_component(Component(Data.NewProject, "NewProjectHandler",
                                      None, "CoreNewProjectHandler", "CORE",
@@ -244,6 +241,11 @@ class CorePackage(Package):
                                      None, "CoreARCProjectLoader", "CORE",
                                      1.0, self))
 
+        #------------------------- data holders ------------------------------
+        self.add_component(Component(RPGutil.Table, "Table", None,
+                                     "CoreTable", "CORE", 1.0, self))
+        self.add_component(Component(Icons.IconManager, "IconManager", None,
+                                     "CoreIconManager", "CORE", 1.0, self))
 
         #---------------------------- frames ---------------------------------
         self.add_component(Component(Frames.CoreEditorMainWindow,

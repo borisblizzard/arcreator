@@ -47,7 +47,7 @@ class ARCSplashScreen(AS.AdvancedSplash):
         self.LoadConponentDefaults()
         #self.LoadPlugins()
         self.ShowMain()
-        self.fc = wx.FutureCall(2000, self.Close)
+        self.fc = wx.FutureCall(1000, self.Close)
 
     def Close(self):
         self.Hide()
@@ -125,8 +125,4 @@ if __name__ == '__main__':
     redirect = False
     
     app = ARC_App(redirect)
-    #dlg = wx.MessageDialog(None, "test", "test2",
-    #                               style=wx.OK | wx.CENTRE
-    #                               | wx.ICON_EXCLAMATION)
-    #dlg.ShowModal()
     app.MainLoop()
