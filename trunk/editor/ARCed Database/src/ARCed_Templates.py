@@ -97,14 +97,14 @@ class Actors_Panel ( wx.Panel ):
 		self.labelCharacterGraphic.Wrap( -1 )
 		sizer3.Add( self.labelCharacterGraphic, 0, wx.ALL, 5 )
 		
-		self.bitmapCharacterGraphic = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( u"../images/Character.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.DefaultSize, wx.CLIP_CHILDREN|wx.SUNKEN_BORDER )
-		sizer3.Add( self.bitmapCharacterGraphic, 1, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
+		self.bitmapCharacterGraphic = wx.StaticBitmap( self, wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.DefaultSize, wx.SUNKEN_BORDER )
+		sizer3.Add( self.bitmapCharacterGraphic, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
 		
 		self.labelBattlerGraphic = wx.StaticText( self, wx.ID_ANY, u"Battler Graphic:", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.labelBattlerGraphic.Wrap( -1 )
 		sizer3.Add( self.labelBattlerGraphic, 0, wx.ALL, 5 )
 		
-		self.bitmapBattlerGraphic = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( u"../images/Battler.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.DefaultSize, wx.CLIP_CHILDREN|wx.SUNKEN_BORDER )
+		self.bitmapBattlerGraphic = wx.StaticBitmap( self, wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.DefaultSize, wx.CLIP_CHILDREN|wx.SUNKEN_BORDER )
 		sizer3.Add( self.bitmapBattlerGraphic, 1, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
 		
 		sizer1.Add( sizer3, 25, wx.EXPAND, 5 )
@@ -14133,10 +14133,51 @@ class ParameterGraph_Panel ( wx.Panel ):
 		
 		MainSizer = wx.BoxSizer( wx.VERTICAL )
 		
-		sizerGraph = wx.BoxSizer( wx.VERTICAL )
+		sizerLabels = wx.BoxSizer( wx.HORIZONTAL )
 		
-		self.canvas_Panel = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
-		sizerGraph.Add( self.canvas_Panel, 1, wx.EXPAND |wx.ALL, 5 )
+		self.labelVertex = wx.StaticText( self, wx.ID_ANY, u"Vertex:", wx.DefaultPosition, wx.Size( 64,-1 ), 0 )
+		self.labelVertex.Wrap( -1 )
+		sizerLabels.Add( self.labelVertex, 0, wx.ALL, 5 )
+		
+		self.labelLevel = wx.StaticText( self, wx.ID_ANY, u"Level:", wx.DefaultPosition, wx.Size( 96,-1 ), 0 )
+		self.labelLevel.Wrap( -1 )
+		sizerLabels.Add( self.labelLevel, 0, wx.ALL, 5 )
+		
+		self.labelValue = wx.StaticText( self, wx.ID_ANY, u"Value:", wx.DefaultPosition, wx.Size( 96,-1 ), 0 )
+		self.labelValue.Wrap( -1 )
+		sizerLabels.Add( self.labelValue, 0, wx.ALL, 5 )
+		
+		MainSizer.Add( sizerLabels, 0, wx.EXPAND, 5 )
+		
+		sizerControls = wx.BoxSizer( wx.HORIZONTAL )
+		
+		self.spinCtrlVertex = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( 64,-1 ), wx.SP_ARROW_KEYS, 0, 10, 0 )
+		sizerControls.Add( self.spinCtrlVertex, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
+		
+		self.spinCtrlLevel = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( 96,-1 ), wx.SP_ARROW_KEYS, 0, 10, 0 )
+		sizerControls.Add( self.spinCtrlLevel, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
+		
+		self.spinCtrlValue = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( 96,-1 ), wx.SP_ARROW_KEYS, 0, 10, 0 )
+		sizerControls.Add( self.spinCtrlValue, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
+		
+		self.labelDummy = wx.StaticText( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.labelDummy.Wrap( -1 )
+		sizerControls.Add( self.labelDummy, 1, wx.ALL, 5 )
+		
+		self.labelLevel = wx.StaticText( self, wx.ID_ANY, u"Level:", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.labelLevel.Wrap( -1 )
+		sizerControls.Add( self.labelLevel, 0, wx.ALL, 5 )
+		
+		self.labelValue = wx.StaticText( self, wx.ID_ANY, u"Value:", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.labelValue.Wrap( -1 )
+		sizerControls.Add( self.labelValue, 0, wx.ALL, 5 )
+		
+		MainSizer.Add( sizerControls, 0, wx.EXPAND, 5 )
+		
+		sizerGraph = wx.BoxSizer( wx.HORIZONTAL )
+		
+		self.graphPanel = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.SUNKEN_BORDER|wx.TAB_TRAVERSAL )
+		sizerGraph.Add( self.graphPanel, 1, wx.EXPAND |wx.ALL, 5 )
 		
 		MainSizer.Add( sizerGraph, 1, wx.EXPAND, 5 )
 		
@@ -14154,6 +14195,10 @@ class ParameterGraph_Panel ( wx.Panel ):
 		self.Layout()
 		
 		# Connect Events
+		self.spinCtrlVertex.Bind( wx.EVT_SPINCTRL, self.spinCtrlVertex_ValueChanged )
+		self.spinCtrlLevel.Bind( wx.EVT_SPINCTRL, self.spinCtrlLevel_ValueChanged )
+		self.spinCtrlValue.Bind( wx.EVT_SPINCTRL, self.spinCtrlValue_ValueChanged )
+		self.graphPanel.Bind( wx.EVT_SIZE, self.graphPanel_OnSize )
 		self.buttonOK.Bind( wx.EVT_BUTTON, self.buttonOK_Clicked )
 		self.buttonCancel.Bind( wx.EVT_BUTTON, self.buttonCancel_Clicked )
 	
@@ -14162,6 +14207,18 @@ class ParameterGraph_Panel ( wx.Panel ):
 	
 	
 	# Virtual event handlers, overide them in your derived class
+	def spinCtrlVertex_ValueChanged( self, event ):
+		pass
+	
+	def spinCtrlLevel_ValueChanged( self, event ):
+		pass
+	
+	def spinCtrlValue_ValueChanged( self, event ):
+		pass
+	
+	def graphPanel_OnSize( self, event ):
+		pass
+	
 	def buttonOK_Clicked( self, event ):
 		pass
 	

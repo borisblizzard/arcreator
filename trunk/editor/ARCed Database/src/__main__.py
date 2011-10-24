@@ -14,6 +14,7 @@ import ARCedTilesets_Panel
 import ARCedTroops_Panel
 import ARCedWeapons_Panel
 
+import DatabasePackage
 import os
 import ConfigParser
 import maxvalues

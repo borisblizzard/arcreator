@@ -2,13 +2,46 @@
 
 import wx
 import ARCed_Templates
+from __test__ import ParameterGraph_Panel as test
+
+import matplotlib
+import numpy as np
+import matplotlib.path as mpath
+import matplotlib.patches as mpatches
+import matplotlib.pyplot as plt
+import matplotlib.mlab as mlab
+
 
 # Implementing ParameterGraph_Panel
 class ARCedParameterGraph_Panel( ARCed_Templates.ParameterGraph_Panel ):
 	def __init__( self, parent ):
 		ARCed_Templates.ParameterGraph_Panel.__init__( self, parent )
-	
+		from matplotlib.backends.backend_wxagg import FigureCanvasWxAgg
+		from matplotlib.figure import Figure
+		self.Graph = test(self.graphPanel)
+
+
+
+	def graphPanel_OnSize( self, event ):
+		pixels = tuple( self.graphPanel.GetClientSize() )
+		self.Graph.SetSize( pixels )
+		self.Graph.canvas.SetSize( pixels )
+		self.Graph.figure.set_size_inches( float( pixels[0] )/self.figure.get_dpi(),
+										float( pixels[1] )/self.figure.get_dpi() )
+
 	# Handlers for ParameterGraph_Panel events.
+	def spinCtrlVertex_ValueChanged( self, event ):
+		# TODO: Implement spinCtrlVertex_ValueChanged
+		pass
+	
+	def spinCtrlLevel_ValueChanged( self, event ):
+		# TODO: Implement spinCtrlLevel_ValueChanged
+		pass
+	
+	def spinCtrlValue_ValueChanged( self, event ):
+		# TODO: Implement spinCtrlValue_ValueChanged
+		pass
+	
 	def buttonOK_Clicked( self, event ):
 		# TODO: Implement buttonOK_Clicked
 		pass
@@ -17,4 +50,9 @@ class ARCedParameterGraph_Panel( ARCed_Templates.ParameterGraph_Panel ):
 		# TODO: Implement buttonCancel_Clicked
 		pass
 	
-	
+app = wx.PySimpleApp( 0 )
+frame = wx.Frame( None, wx.ID_ANY, 'Parameter Curve', size=(640,480) )
+panel = ARCedParameterGraph_Panel( frame )
+frame.CenterOnScreen()
+frame.Show()
+app.MainLoop()
