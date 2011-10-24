@@ -24,14 +24,17 @@ import Kernel
 from Kernel import Manager as KM
 
 
+MinEditorSize = (1000, 500)
+
 class CoreEditorMainWindow(wx.Frame):
     def __init__(self, parent, id=wx.ID_ANY, title="", pos=wx.DefaultPosition,
-                 size=wx.Size(1000, 500), style=wx.DEFAULT_FRAME_STYLE | wx.SUNKEN_BORDER):
+                 size=MinEditorSize, style=wx.DEFAULT_FRAME_STYLE | wx.SUNKEN_BORDER):
 
         wx.Frame.__init__(self, parent, id, title, pos, size, style)
 
         #center the frame
         self.CenterOnScreen()
+        self.SetMinSize(MinEditorSize)
 
         self.main_title = title
 
@@ -68,10 +71,9 @@ class CoreEditorMainWindow(wx.Frame):
 
     def CallLayout(self):
         self.ClearLayout()
-        mode = "ARC"
         #get the layout component
         layout = KM.get_component("EditorMainWindowLayout").object
-        self.layout_mgr = layout(self, mode)
+        self.layout_mgr = layout(self, self._mgr)
 
     def CreateMenuBar(self):
         self.menubar = KM.get_component("MainMenuBar").object(self)

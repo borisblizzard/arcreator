@@ -30,10 +30,12 @@ class PanelManager(object):
     minmodes["CAPT_HORZ"]  = aui.AUI_MINIMIZE_CAPT_HORZ
     minmodes["CAPT_MASK"]  = aui.AUI_MINIMIZE_CAPT_MASK
     
-    def __init__(self, manager, parent):
-        
-        self.manager = manager
+    def __init__(self, parent, manager):
+        '''
+        sets up the Panel Manager
+        '''
         self.parent = parent
+        self.manager = manager
         self.dispached = {}
     
     def get_panel_object(self, type_name):
@@ -49,16 +51,19 @@ class PanelManager(object):
         '''
         panel = self.get_panel_object(type)
         panel_instance = panel(self.parent, *arguments)
-        info_obj = self.generate_info(info, data)
+        info_obj = None
         if hasattr(panel, "_arc_panel_info_string"):
             if hasattr(panel, "_arc_panel_info_data"):
                 info_obj = self.generate_info(panel._arc_panel_info_string, panel._arc_panel_info_data, info_obj)
             else:
                 info_obj = self.generate_info(panel._arc_panel_info_string, info=info_obj)
+        info_obj = self.generate_info(info, data, info_obj)
         if self.dispached.has_key(id):
             self.remove_panel(id)
         self.dispached[id] = panel_instance
         self.manager.AddPane(panel_instance, info_obj)
+        return panel_instance
+        
             
     
     def remove_panel(self, id):
@@ -70,6 +75,13 @@ class PanelManager(object):
             self.manager.DetachPane(self.dispached[id])
             self.dispached[id].Destroy()
             del self.dispached[id]
+        
+
+    def Update(self):
+        '''
+        Updates the AUI Manager to reflect changes
+        '''
+        self.manager.Update()
     
     def generate_info(self, info, data={}, info_obj=None):
         '''
@@ -102,7 +114,7 @@ class PanelManager(object):
                 info_obj.CaptionVisible(True)
         if "BestS" in info:
             if data.has_key("BestS"):
-                info_obj.BestSize(*data["BestS"])
+                info_obj.BestSize(data["BestS"])
         if "CloseB" in info:
             if data.has_key("CloseB"):
                 info_obj.CloseButton(data["CloseB"])
@@ -191,7 +203,7 @@ class PanelManager(object):
                 info_obj.LeftSnappable(True)
         if "MaxS" in info:
             if data.has_key("MaxS"):
-                info_obj.MaxSize(*data["MaxS"])
+                info_obj.MaxSize(data["MaxS"])
         if "Maximize" in info:
             info_obj.Maximize()
         if "MaximizeB" in info:

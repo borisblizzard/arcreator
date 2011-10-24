@@ -33,6 +33,7 @@ import Menues
 #O
 #P
 import PanelManager
+import Panels
 import Project
 #Q
 #R

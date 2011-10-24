@@ -9,10 +9,8 @@ import copy
 
 import wx
 
-try:
-    from agw import aui
-except ImportError: # if it's not there locally, try the wxPython lib.
-    import wx.lib.agw.aui as aui
+
+import wx.lib.agw.aui as aui
     
 import  wx.lib.scrolledpanel as scrolled
     
@@ -132,7 +130,7 @@ class MainStatusBar(wx.StatusBar):
     def __init__(self, parent):
         wx.StatusBar.__init__(self, parent, -1)
 
-class RMXPMapTreeCtrl(wx.TreeCtrl):
+class MapTreeCtrl(wx.TreeCtrl):
     def __init__(self, parent, id, pos, size, style):
         wx.TreeCtrl.__init__(self, parent, id, pos, size, style)
         self.parent = parent
@@ -186,35 +184,6 @@ class RMXPMapTreeCtrl(wx.TreeCtrl):
         KM.get_event("CoreEventRefreshProject").unregister(self.Refresh_Map_List)
         event.Skip()
 
-class RMXPMapTreePanel(wx.Panel):
-    def __init__(self, parent, mapEditerPanel=None):
-        wx.Panel.__init__(self, parent)
-
-        self.mapEditerPanel = mapEditerPanel
-
-        #set up Sizer
-        box = wx.BoxSizer(wx.VERTICAL)
-        #set up tree
-        self.treectrl = RMXPMapTreeCtrl(self, -1, wx.Point(0, 0),
-                                        wx.Size(160, 250),
-                                        wx.TR_DEFAULT_STYLE | wx.NO_BORDER)
-        #add ctrls to sizer
-        box.Add(self.treectrl, 1, wx.ALL | wx.EXPAND)
-        #set sizer
-        self.SetSizerAndFit(box)
-
-        #bind events
-        self.treectrl.Bind(wx.EVT_LEFT_DCLICK, self.TreeLeftDClick)
-
-    def TreeLeftDClick(self, event):
-        pt = event.GetPosition();
-        item, flags = self.treectrl.HitTest(pt)
-        if item:
-            data = self.treectrl.GetItemData(item).GetData()
-            if data:
-                map_id, name = data
-                self.mapEditerPanel.add_page(map_id, name)
-        event.Skip()
 
 # TODO: Redo the MapWindow ctrl for pygame
 class WxRMXPMapWindow(wx.ScrolledWindow):

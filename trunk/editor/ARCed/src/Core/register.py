@@ -6,7 +6,8 @@ exports all the core components to the kernel
 import Kernel
 from Kernel import Manager, Type, SuperType, Component, Package, Event
 import RMXP
-import Frames, Menues, Dialogs, Controls, Layouts, Data, Project, ARC_Data, Actions, DatabaseActions, RPGutil, Icons
+import Frames, Menues, Dialogs, Controls, Layouts, Data, Project, ARC_Data, Actions
+import DatabaseActions, RPGutil, Icons, PanelManager, Panels
 
 
 #=============================================================================
@@ -61,9 +62,17 @@ class RMXPType(SuperType):
 # * PanelManager SuperType Declaration
 #=============================================================================
 class PanelManagerType(SuperType):
+
+    #----------------------------- Panels ------------------------------------
+    StartPanel = Type("StartPanel")
+    TilesetPanel = Type("TilesetPanel")
+    MapTreePanel = Type("MapTreePanel")
     
     def __init__(self):
         SuperType.__init__(self, "PanelManagerType")
+
+        #----------------------------- Panels --------------------------------
+        self.add_types(self.StartPanel, self.TilesetPanel, self.MapTreePanel)
 
 #=============================================================================
 # * Package Declaration
@@ -108,11 +117,12 @@ class CorePackage(Package):
         #-------------------------------- ctrls --------------------------------------
         MainToolbar = Type("MainToolbar")
         MapEditorWindow = Type("MapEditorWindow")
-        MainMapTreeCtrl = Type("MainMapTreeCtrl")
+        MapTreeCtrl = Type("MapTreeCtrl")
         
         #-------------------------------- layouts ------------------------------------
         EditorMainWindowLayout = Type("EditorMainWindowLayout")
         ARCModeLayout = Type("ARCModeLayout")
+        PanelManager = Type("PanelManager")
             
         #-------------------------------- menus --------------------------------------
         MainMenuBar = Type("MainMenuBar")
@@ -152,10 +162,10 @@ class CorePackage(Package):
         self.add_types(EditorMainWindow)
         
         #-------------------------------- ctrls --------------------------------------
-        self.add_types(MainToolbar, MapEditorWindow, MainMapTreeCtrl)
+        self.add_types(MainToolbar, MapEditorWindow, MapTreeCtrl)
         
         #-------------------------------- layouts --------------------------------
-        self.add_types(EditorMainWindowLayout, ARCModeLayout)
+        self.add_types(EditorMainWindowLayout, ARCModeLayout, PanelManager)
         
         #-------------------------------- menus --------------------------------------
         self.add_types(MainMenuBar, MainStatusBar, ProjectMenuItems,
@@ -260,18 +270,21 @@ class CorePackage(Package):
         self.add_component(Component(Controls.WxRMXPMapPanel,
                                      "MapEditorWindow", None,
                                      "WxRMXPMapWindow", "CORE", 1.0, self))
-        self.add_component(Component(Controls.RMXPMapTreePanel,
-                                     "MainMapTreeCtrl", None,
-                                     "RMXPMapTreeCtrl", "CORE", 1.0,
+        self.add_component(Component(Controls.MapTreeCtrl,
+                                     "MapTreeCtrl", None,
+                                     "CoreMapTreeCtrl", "CORE", 1.0,
                                      self))
 
         #----------------------------- layouts -------------------------------
         self.add_component(Component(Layouts.MainWindowLayout,
                                      "EditorMainWindowLayout", None,
-                                     "COREEditorMainWindowLayout", "CORE", 1.0, self))
+                                     "CoreEditorMainWindowLayout", "CORE", 1.0, self))
         self.add_component(Component(Layouts.ARCModeLayout,
                                      "ARCModeLayout", None,
-                                     "COREARCModeLayout", "CORE", 1.0, self))
+                                     "CoreARCModeLayout", "CORE", 1.0, self))
+        self.add_component(Component(PanelManager.PanelManager,
+                                     "PanelManager", None,
+                                     "CorePanelManager", "CORE", 1.0, self))
 
         #----------------------------- menus ---------------------------------
         self.add_component(Component(Menues.CoreMainMenuBar, "MainMenuBar",
@@ -288,6 +301,19 @@ class CorePackage(Package):
         self.add_component(Component(Dialogs.NewProjectDialog,
                                      "NewProjectDialog", None,
                                      "CoreNewProjectDialog", "CORE", 1.0, self))
+
+        #-------------------------------actions---------------------------------------
+        self.add_component(Component(Actions.ActionManager, "ActionManager",
+                                     None, "CoreActionManager", "CORE", 1.0, self))
+        self.add_component(Component(Actions.ActionTemplate, "ActionTemplate",
+                                     None, "CoreActionTemplate", "CORE", 1.0, self))
+        
+        self.add_component(Component(DatabaseActions.TableEditAction, "TableEditAction",
+                                     None, "CoreTableEditAction", "CORE", 1.0, self))
+
+        self.add_component(Component(DatabaseActions.ActorEditAction, "ARCActorEditAction",
+                                     None, "CoreARCActorEditAction", "CORE", 1.0, self))
+
         #=====================================================================
         # * add components (RMXP)
         #=====================================================================
@@ -307,17 +333,15 @@ class CorePackage(Package):
 
         #----------------------------- Dialogs -------------------------------
 
-        #-------------------------------actions---------------------------------------
-        self.add_component(Component(Actions.ActionManager, "ActionManager",
-                                     None, "CoreActionManager", "CORE", 1.0, self))
-        self.add_component(Component(Actions.ActionTemplate, "ActionTemplate",
-                                     None, "CoreActionTemplate", "CORE", 1.0, self))
-        
-        self.add_component(Component(DatabaseActions.TableEditAction, "TableEditAction",
-                                     None, "CoreTableEditAction", "CORE", 1.0, self))
-
-        self.add_component(Component(DatabaseActions.ActorEditAction, "ARCActorEditAction",
-                                     None, "CoreARCActorEditAction", "CORE", 1.0, self))
+        #=====================================================================
+        # * add components (PanelManager)
+        #=====================================================================
+        self.add_component(Component(Panels.StartPanel, "StartPanel", "PanelManagerType",
+                                     "CoreStartPanel", "CORE", 1.0, self))
+        self.add_component(Component(Panels.TilesetPanel, "TilesetPanel", "PanelManagerType",
+                                     "CoreTilesetPanel", "CORE", 1.0, self))
+        self.add_component(Component(Panels.MapTreePanel, "MapTreePanel", "PanelManagerType",
+                                     "CoreMapTreePanel", "CORE", 1.0, self))
         
 package = CorePackage()
 key = Manager.add_package(package)
