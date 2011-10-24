@@ -12,13 +12,9 @@ import ARCedActorParameters_Dialog
 import ARCedAddParameter_Dialog
 
 #from DatabaseAction import 
-# import DatabasePackage
-
-import PIL.Image
 from RGSS1_RPG import RPG	   						
 import Kernel
 from Kernel import Manager as KM
-
 #---------------------------------------------------------------------------
 # TEST STUFF
 #---------------------------------------------------------------------------
@@ -57,11 +53,12 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 
 	def GetParameterValue( self, index, level ):
 		''' Retrieves the value of the current actor's selected parameter for the defined level '''
-		if self.SelectedActor.parameters.xsize <= index:
+		if self.SelectedActor.parameters.xsize <= index or self.SelectedActor.parameters.ysize < level:
+			print "RESIZE"
 			for actor in DataActors:
 				if actor == None:
 					continue
-				actor.parameters.resize(index + 1, ActorLimits['finallevel'])
+				actor.parameters.resize(index + 1, ActorLimits['finallevel'] + 1)
 				for i in xrange(1, ActorLimits['finallevel']):
 					actor.parameters[index, i] = 50 + 5 * i
 		return self.SelectedActor.parameters[index, level]
@@ -149,39 +146,30 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 				break
 		return path
 
-	def BitmapFromFile(self, imgFilename ) :
-		pilImg = PIL.Image.open( imgFilename )
-		
-		wxImg = wx.EmptyImage( *pilImg.size )      
-		print wxImg
-		if pilImg.mode[-1] == 'A':
-			pilRgbStr = pilImg.convert( 'RGB').tostring()
-			wxImg.SetData( pilRgbStr )
-			pilImgStr = pilImg.convert( 'RGBA' ).tostring() 
-			wxImg.SetAlphaData( pilImgStr[3::4]  )
-		wxBmap = wxImg.ConvertToBitmap()
-		return wxBmap
-
 	def refreshGraphics(self, image=-1):
-		if image == -1 or image == 0:
-			path = self.getFilePath(GraphicsDir + '\\Characters', self.SelectedActor.character_name )
-			bitmap = wx.EmptyBitmap(1, 1)
-			bitmap.LoadFile(path, wx.BITMAP_TYPE_ANY)
-			self.bitmapCharacterGraphic.SetBitmap(bitmap)
-		if image == -1 or image == 1:
-			path = self.getFilePath(GraphicsDir + '\\Battlers', self.SelectedActor.battler_name )
-			bitmap = wx.EmptyBitmap(1, 1)
-			bitmap.LoadFile(path, wx.BITMAP_TYPE_ANY)
-			self.bitmapBattlerGraphic.SetBitmap(bitmap)
+		try:
+			if image == -1 or image == 0:
+				path = self.getFilePath(GraphicsDir + '\\Characters', self.SelectedActor.character_name )
+				bitmap = wx.EmptyBitmap(1, 1)
+				bitmap.LoadFile(path, wx.BITMAP_TYPE_ANY)
+				self.bitmapCharacterGraphic.SetBitmap(bitmap)
+			if image == -1 or image == 1:
+				path = self.getFilePath(GraphicsDir + '\\Battlers', self.SelectedActor.battler_name )
+				bitmap = wx.EmptyBitmap(1, 1)
+				bitmap.LoadFile(path, wx.BITMAP_TYPE_ANY)
+				self.bitmapBattlerGraphic.SetBitmap(bitmap)
+		except wx.PyAssertionError:
+			Kernel.Log('Failed to load Graphic resource', '[Database:ACTOR]', True)
 			
 	def bitmapBox_OnPaint(self, event):
 		sender = event.GetEventObject()
 		color = sender.GetBackgroundColour()
-		dc = wx.PaintDC(sender) 
+		dc = wx.PaintDC(sender)
 		dc.SetBackground(wx.Brush(color, wx.SOLID))
-		dc.Clear() 
-		image =  sender.GetBitmap()
-		dc.DrawBitmap(image, 0, 0, True)
+		dc.Clear()
+		dc.BeginDrawing()
+		dc.DrawBitmap(sender.GetBitmap(), 0, 0, True)
+		dc.EndDrawing()
 
 	def refreshAll(self):
 		''' Refreshes all the controls that contain game object values '''
@@ -239,29 +227,29 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 	def comboBoxClass_SelectionChanged( self, event ):
 		# TODO: Improve this...
 		''' Removes any initial equipment that may be equipped if the chosen class does not permit '''
-		class_index = self.FixedIndex(self.comboBoxClass.GetSelection())
-		wpn_index = self.comboBoxWeapon.GetSelection()
-		armor_indices = [
-				   self.comboBoxShield.GetSelection(),
-				   self.comboBoxHelmet.GetSelection(),
-				   self.comboBoxBodyArmor.GetSelection(),
-				   self.comboBoxAccessory.GetSelection()
-				]
-		if wpn_index not in DataClasses[class_index].weapon_set:
+		self.SelectedActor.class_id = self.FixedIndex(self.comboBoxClass.GetSelection())
+		wpn_id = self.comboBoxWeapon.GetSelection()
+		armor_ids = [
+			   self.SelectedActor.armor1_id, self.SelectedActor.armor2_id,
+			   self.SelectedActor.armor3_id, self.SelectedActor.armor4_id
+			]
+		if wpn_id not in DataClasses[self.SelectedActor.class_id].weapon_set:
 			self.comboBoxWeapon.SetSelection(0)
 			self.SelectedActor.weapon_id = 0
-		for armor_index in armor_indices:
-			if armor_index not in DataClasses[class_index].armor_set:
-				if DataArmors[armor_index].kind == 0: # Shield
+		for armor_id in armor_ids:
+			if armor_id not in DataClasses[self.SelectedActor.class_id].armor_set:
+				if armor_id == 0:
+					continue 
+				if DataArmors[armor_id].kind == 0: # Shield
 					self.comboBoxShield.SetSelection(0)
 					self.SelectedActor.armor1_id = 0
-				elif DataArmors[armor_index].kind == 1: # Helmet
+				elif DataArmors[armor_id].kind == 1: # Helmet
 					self.comboBoxHelmet.SetSelection(0)
 					self.SelectedActor.armor2_id = 0
-				elif DataArmors[armor_index].kind == 2: # Body Armor
+				elif DataArmors[armor_id].kind == 2: # Body Armor
 					self.comboBoxBodyArmor.SetSelection(0)
 					self.SelectedActor.armor3_id = 0
-				elif DataArmors[armor_index].kind == 3: # Accessory
+				elif DataArmors[armor_id].kind == 3: # Accessory
 					self.comboBoxAccessory.SetSelection(0)
 					self.SelectedActor.armor4_id = 0
 		self.refreshWeapons()
@@ -459,7 +447,7 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 		params = self.SelectedActor.parameters
 		for i in xrange(self.ParamTab, params.xsize - 1):
 			params[i, :] = params[i + 1, :]
-		params.resize(params.xsize - 1, 100)
+		params.resize(params.xsize - 1, ActorLimits['finallevel'] + 1)
 		try:
 			self.noteBookActorParameters.RemovePage(self.ParamTab)
 		except wx.PyAssertionError:

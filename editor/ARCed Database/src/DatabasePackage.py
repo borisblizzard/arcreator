@@ -1,15 +1,22 @@
 '''
-Created on Dec 20, 2010
-
-exports all the core components to the kernel
+Exports all the core components of the Database to the kernel
 '''
+from ARCedActors_Panel import ARCedActors_Panel
+from ARCedClasses_Panel import ARCedClasses_Panel
+from ARCedSkills_Panel import ARCedSkills_Panel
+from ARCedItems_Panel import ARCedItems_Panel
+from ARCedWeapons_Panel import ARCedWeapons_Panel
+from ARCedArmors_Panel import ARCedArmors_Panel
+from ARCedEnemies_Panel import ARCedEnemies_Panel
+from ARCedTroops_Panel import ARCedTroops_Panel
+from ARCedStates_Panel import ARCedStates_Panel
+from ARCedAnimations_Panel import ARCedAnimations_Panel
+from ARCedTilesets_Panel import ARCedTilesets_Panel
+from ARCedCommonEvents_Panel import ARCedCommonEvents_Panel
+from ARCedSystem_Panel import ARCedSystem_Panel
+
 import Kernel
 from Kernel import Manager, Type, SuperType, Component, Package, Event
-
-import ARCedActors_Panel, ARCedClasses_Panel, ARCedSkills_Panel, ARCedItems_Panel, ARCedWeapons_Panel
-import ARCedArmors_Panel, ARCedEnemies_Panel, ARCedTroops_Panel, ARCedStates_Panel, ARCedAnimations_Panel
-import ARCedTilesets_Panel, ARCedCommonEvents_Panel, ARCedSystem_Panel
-
 
 #=============================================================================
 # * Package Declaration
@@ -126,31 +133,31 @@ class DatabasePackage(Package):
 
 		#----------------------------- layouts -------------------------------
 		
-		self.add_component(Component(ARCedActors_Panel.ARCedActors_Panel, "MainActorsLayout", 
+		self.add_component(Component(ARCedActors_Panel, "MainActorsLayout", 
 							   None, "COREMainActorsLayout", "CORE", 1.0, self))
-		self.add_component(Component(ARCedClasses_Panel.ARCedClasses_Panel, "MainClassesLayout", 
+		self.add_component(Component(ARCedClasses_Panel, "MainClassesLayout", 
 							   None, "COREMainClassesLayout", "CORE", 1.0, self))
-		self.add_component(Component(ARCedSkills_Panel.ARCedSkills_Panel, "MainSkillsLayout", 
+		self.add_component(Component(ARCedSkills_Panel, "MainSkillsLayout", 
 							   None, "COREMainSkillsLayout", "CORE", 1.0, self))
-		self.add_component(Component(ARCedItems_Panel.ARCedItems_Panel, "MainItemsLayout", 
+		self.add_component(Component(ARCedItems_Panel, "MainItemsLayout", 
 							   None, "COREMainItemsLayout", "CORE", 1.0, self))
-		self.add_component(Component(ARCedWeapons_Panel.ARCedWeapons_Panel, "MainWeaponsLayout", 
+		self.add_component(Component(ARCedWeapons_Panel, "MainWeaponsLayout", 
 							   None, "COREMainWeaponsLayout", "CORE", 1.0, self))
-		self.add_component(Component(ARCedArmors_Panel.ARCedArmors_Panel, "MainArmorsLayout", 
+		self.add_component(Component(ARCedArmors_Panel, "MainArmorsLayout", 
 							   None, "COREMainArmorsLayout", "CORE", 1.0, self))
-		self.add_component(Component(ARCedEnemies_Panel.ARCedEnemies_Panel, "MainEnemiesLayout", 
+		self.add_component(Component(ARCedEnemies_Panel, "MainEnemiesLayout", 
 							   None, "COREMainEnemiesLayout", "CORE", 1.0, self))
-		self.add_component(Component(ARCedTroops_Panel.ARCedTroops_Panel, "MainTroopsLayout", 
+		self.add_component(Component(ARCedTroops_Panel, "MainTroopsLayout", 
 							   None, "COREMainTroopsLayout", "CORE", 1.0, self))
-		self.add_component(Component(ARCedStates_Panel.ARCedStates_Panel, "MainStatesLayout", 
+		self.add_component(Component(ARCedStates_Panel, "MainStatesLayout", 
 							   None, "COREMainStatesLayout", "CORE", 1.0, self))
-		self.add_component(Component(ARCedAnimations_Panel.ARCedAnimations_Panel, "MainAnimationsLayout", 
+		self.add_component(Component(ARCedAnimations_Panel, "MainAnimationsLayout", 
 							   None, "COREMainAnimationsLayout", "CORE", 1.0, self))
-		self.add_component(Component(ARCedTilesets_Panel.ARCedTilesets_Panel, "MainTilesetsLayout", 
+		self.add_component(Component(ARCedTilesets_Panel, "MainTilesetsLayout", 
 							   None, "COREMainTilesetsLayout", "CORE", 1.0, self))
-		self.add_component(Component(ARCedCommonEvents_Panel.ARCedCommonEvents_Panel, "MainCommonEventsLayout", 
+		self.add_component(Component(ARCedCommonEvents_Panel, "MainCommonEventsLayout", 
 							   None, "COREMainCommonEventsLayout", "CORE", 1.0, self))
-		self.add_component(Component(ARCedSystem_Panel.ARCedSystem_Panel, "MainSystemLayout", 
+		self.add_component(Component(ARCedSystem_Panel, "MainSystemLayout", 
 							   None, "COREMainSystemLayout", "CORE", 1.0, self))
 
 		#----------------------------- menus ---------------------------------

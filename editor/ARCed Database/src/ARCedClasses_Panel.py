@@ -10,7 +10,6 @@ import ARCedSkill_Dialog
 import RGSS1_RPG as RPG
 import maxvalues
 import DatabaseActions
-#import DatabasePackage
 import Kernel 
 from Kernel import Manager as KM
 
