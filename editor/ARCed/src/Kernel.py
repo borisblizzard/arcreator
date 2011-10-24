@@ -52,6 +52,7 @@ class GlobalObjects(object):
                "LoadedComponentDefaultsTemplate":["CORE", None],
                "ProjectModes":["CORE", {}],
                "ProjectCreators":["CORE", {}],
+               "PanelManager": ["CORE", None],
                }
     
     @staticmethod

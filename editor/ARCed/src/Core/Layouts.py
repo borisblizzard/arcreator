@@ -16,89 +16,72 @@ from Kernel import Manager as KM
 
 class MainWindowLayout(object):
 
-    def __init__(self, parent, mode):
+    def __init__(self, parent, aui_mgr):
 
         self.parent = parent
-        self.layout = KM.get_component("ARCModeLayout").object(parent)
+        self.aui_mgr = aui_mgr
+        self.PanelManager = KM.get_component("PanelManager").object(self.parent, self.aui_mgr)
+        if Kernel.GlobalObjects.has_key("PanelManager"):
+            Kernel.GlobalObjects.set_value("PanelManager", self.PanelManager)
+        else:
+            Kernel.GlobalObjects.request_new_key("PanelManager", "CORE", self.PanelManager)
+        self.layout = KM.get_component("ARCModeLayout").object()
         
     def ClearLayout(self):
         self.layout.ClearLayout()
         
 class ARCModeLayout(object):
     
-    def __init__(self, parent):
+    def __init__(self):
 
-        self.parent = parent
-        self._mgr = self.parent._mgr
+        if Kernel.GlobalObjects.has_key("PanelManager"):
+            self.mgr = Kernel.GlobalObjects.get_value("PanelManager")
+        else:
+            raise RuntimeError("The Panel Manager hasn't been created yet")
         self.windows = []
         self.BuildPanes()
 
 
     def BuildPanes(self):
-
-        self.parent.SetMinSize(wx.Size(1000, 500))
-        self.CreateMapEditor()
+        self.CreateStartPanel()
         self.CreateTilesetView()
         self.CreateTreeCtrl()
+        #self.regesterParts()
+        # "commit" all changes made to PanelManager
+        self.mgr.Update()
 
-        self.regesterParts()
+    #def regesterParts(self):
+    #    pluginmenuitem = KM.get_component("PluginMenuItem").object
+    #    self.importmenuitem = pluginmenuitem(self.OnImportMenu,
+    #                                         "Import RMXP Data...")
+    #    self.importmenuitem.add_to_menu()
+    #    self.exportmenuitem = pluginmenuitem(self.OnExportMenu,
+    #                                         "Export RMXP Data...")
+    #    self.exportmenuitem.add_to_menu()
 
-        # "commit" all changes made to AuiManager
-        self.parent._mgr.Update()
+    #def OnImportMenu(self, event):
+    #    function = KM.get_component("ProjectImportHandler", "RMXP").object
+    #    function(self.parent)
 
-    def regesterParts(self):
-        pluginmenuitem = KM.get_component("PluginMenuItem").object
-        self.importmenuitem = pluginmenuitem(self.OnImportMenu,
-                                             "Import RMXP Data...")
-        self.importmenuitem.add_to_menu()
-        self.exportmenuitem = pluginmenuitem(self.OnExportMenu,
-                                             "Export RMXP Data...")
-        self.exportmenuitem.add_to_menu()
+    #def OnExportMenu(self, event):
+    #    function = KM.get_component("ProjectExportHandler", "RMXP").object
+    #    function(self.parent)
 
-    def OnImportMenu(self, event):
-        function = KM.get_component("ProjectImportHandler", "RMXP").object
-        function(self.parent)
-
-    def OnExportMenu(self, event):
-        function = KM.get_component("ProjectExportHandler", "RMXP").object
-        function(self.parent)
-
-    def CreateMapEditor(self):
-        mappanel = KM.get_component("MapEditorWindow").object
-        self.parent.mapEditerPanel = mappanel(self.parent,
-                                              self.parent._notebook_style)
-        self._mgr.AddPane(self.parent.mapEditerPanel, aui.AuiPaneInfo().
-                                 Name("Map Editor").Caption("Map Editor").
-                                 CenterPane().MinimizeButton(True).
-                                 CaptionVisible(True).
-                                 BestSize(wx.Size(32 * 24, 32 * 18)))
-        self.windows.append(self.parent.mapEditerPanel)
+    def CreateStartPanel(self):
+        self.startPanel = self.mgr.dispatch_panel("StartPanel", "Start Panel")
+        self.windows.append("Start Panel")
 
     def CreateTilesetView(self):
-        self.parent.tilesetscroll = wx.ScrolledWindow(self.parent, wx.ID_ANY)
-        self.parent.tilesetpanel = wx.Panel(self.parent.tilesetscroll, wx.ID_ANY)
-        self.parent.tilesetscroll.SetScrollbars(32, 32, 8, 50)
-        self._mgr.AddPane(self.parent.tilesetscroll, aui.AuiPaneInfo().
-                          Name("Tileset").Caption("Tileset").
-                          Left().Layer(1).Position(1).
-                          MinimizeButton(True).
-                          CloseButton(False).
-                          BestSize(wx.Size(32 * 8, 32 * 12)))
-        self.windows.append(self.parent.tilesetscroll)
+        self.tilesetPanel = self.mgr.dispatch_panel("TilesetPanel", "Tileset Panel")
+        self.windows.append("Tileset Panel")
 
     def CreateTreeCtrl(self):
-        treectrl = KM.get_component("MainMapTreeCtrl").object
-        self.parent.maptree = treectrl(self.parent, self.parent.mapEditerPanel)
-        self._mgr.AddPane(self.parent.maptree, aui.
-                          AuiPaneInfo().Name("Maps").Caption("Maps").
-                          Left().Layer(1).Position(1).
-                          MinimizeButton(True).CloseButton(False).
-                          BestSize(wx.Size(32 * 8, 32 * 4)))
-        self.windows.append(self.parent.maptree)
+        self.tilesetPanel = self.mgr.dispatch_panel("MapTreePanel", "Map Tree Panel")
+        self.windows.append("Map Tree Panel")
 
     def ClearLayout(self):
         for window in self.windows:
-            self.parent._mgr.DetachPane(window)
-            window.Destroy()
-        self.importmenuitem.remove_from_menu()
-        self.exportmenuitem.remove_from_menu()
+            self.mgr.remove_panel(window)
+        #self.importmenuitem.remove_from_menu()
+        #self.exportmenuitem.remove_from_menu()
+        self.mgr.Update()

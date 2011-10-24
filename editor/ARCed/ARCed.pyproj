@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="src\Core\Icons.py" />
+    <Compile Include="src\Core\Panels.py" />
     <Compile Include="src\Logo.py" />
     <Compile Include="src\Core\Actions.py" />
     <Compile Include="src\Core\ARC_Data.py" />
