@@ -20,14 +20,17 @@ class ARCedParameterGraph_Panel( ARCed_Templates.ParameterGraph_Panel ):
 		from matplotlib.figure import Figure
 		self.Graph = test(self.graphPanel)
 
+		
+
+
 
 
 	def graphPanel_OnSize( self, event ):
 		pixels = tuple( self.graphPanel.GetClientSize() )
 		self.Graph.SetSize( pixels )
 		self.Graph.canvas.SetSize( pixels )
-		self.Graph.figure.set_size_inches( float( pixels[0] )/self.figure.get_dpi(),
-										float( pixels[1] )/self.figure.get_dpi() )
+		self.Graph.figure.set_size_inches( float( pixels[0] )/self.Graph.figure.get_dpi(),
+										float( pixels[1] )/self.Graph.figure.get_dpi() )
 
 	# Handlers for ParameterGraph_Panel events.
 	def spinCtrlVertex_ValueChanged( self, event ):

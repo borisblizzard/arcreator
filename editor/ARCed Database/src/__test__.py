@@ -26,6 +26,8 @@ class ParameterGraph_Panel ( wx.Panel ):
         sizerGraph.Add( self.canvas, 1, wx.EXPAND |wx.GROW, 5 )
         MainSizer.Add( sizerGraph, 1, wx.EXPAND, 5 )
 
+
+
         self.Interactive = interactive
 
         if False:#self.Interactive:
@@ -39,13 +41,14 @@ class ParameterGraph_Panel ( wx.Panel ):
             self.buttonOK.Bind( wx.EVT_BUTTON, self.buttonOK_Clicked )
             self.buttonCancel.Bind( wx.EVT_BUTTON, self.buttonCancel_Clicked )
 
-        self.canvas.mpl_connect('button_press_event', self.graph_MouseMove)
-        self.canvas.mpl_connect('key_press_event', self.key_press_callback)
-        self.canvas.mpl_connect('button_release_event', self.graph_MouseUp)
-        self.canvas.mpl_connect('motion_notify_event', self.graph_VertexMoved)
-        self.canvas.mpl_connect('draw_event', self.draw_callback)
-        self.SetSizer( MainSizer )
-        self.Layout()
+        if self.Interactive:
+            self.canvas.mpl_connect('button_press_event', self.graph_MouseMove)
+            self.canvas.mpl_connect('key_press_event', self.key_press_callback)
+            self.canvas.mpl_connect('button_release_event', self.graph_MouseUp)
+            self.canvas.mpl_connect('motion_notify_event', self.graph_VertexMoved)
+            self.canvas.mpl_connect('draw_event', self.draw_callback)
+            self.SetSizer( MainSizer )
+            self.Layout()
         
         
         self.RawData = data

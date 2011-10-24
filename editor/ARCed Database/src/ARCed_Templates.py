@@ -24,7 +24,7 @@ class Actors_Panel ( wx.Panel ):
 		
 		ActorListSizer = wx.BoxSizer( wx.VERTICAL )
 		
-		self.bitmapActors = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( u"../images/Actors.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.Size( 150,26 ), wx.CLIP_CHILDREN|wx.FULL_REPAINT_ON_RESIZE )
+		self.bitmapActors = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( u"images/Actors.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.Size( 150,26 ), wx.CLIP_CHILDREN|wx.FULL_REPAINT_ON_RESIZE )
 		self.bitmapActors.SetMinSize( wx.Size( 150,26 ) )
 		self.bitmapActors.SetMaxSize( wx.Size( 150,26 ) )
 		
@@ -164,7 +164,7 @@ class Actors_Panel ( wx.Panel ):
 		
 		MainSizerParamter.Add( sizerConrolsParameter, 0, wx.EXPAND, 5 )
 		
-		self.bitmapGraph = wx.StaticBitmap( self.panelMaxHP, wx.ID_ANY, wx.Bitmap( u"../images/MaxHP.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.Size( 448,224 ), wx.CLIP_CHILDREN|wx.SIMPLE_BORDER )
+		self.bitmapGraph = wx.StaticBitmap( self.panelMaxHP, wx.ID_ANY, wx.Bitmap( u"images/MaxHP.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.Size( 448,224 ), wx.CLIP_CHILDREN|wx.SIMPLE_BORDER )
 		MainSizerParamter.Add( self.bitmapGraph, 1, wx.ALL|wx.EXPAND, 5 )
 		
 		bSizer613 = wx.BoxSizer( wx.HORIZONTAL )
@@ -451,7 +451,7 @@ class Classes_Panel ( wx.Panel ):
 		
 		ClassListSizer = wx.BoxSizer( wx.VERTICAL )
 		
-		self.bitmapClasses = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( u"../images/Classes.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.Size( 150,26 ), wx.CLIP_CHILDREN|wx.FULL_REPAINT_ON_RESIZE )
+		self.bitmapClasses = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( u"images/Classes.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.Size( 150,26 ), wx.CLIP_CHILDREN|wx.FULL_REPAINT_ON_RESIZE )
 		self.bitmapClasses.SetMinSize( wx.Size( 150,26 ) )
 		self.bitmapClasses.SetMaxSize( wx.Size( 150,26 ) )
 		
@@ -649,7 +649,7 @@ class Skills_Panel ( wx.Panel ):
 		
 		SkillListSizer = wx.BoxSizer( wx.VERTICAL )
 		
-		self.bitmapSkills = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( u"../images/Skills.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.Size( 150,26 ), wx.CLIP_CHILDREN|wx.FULL_REPAINT_ON_RESIZE )
+		self.bitmapSkills = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( u"images/Skills.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.Size( 150,26 ), wx.CLIP_CHILDREN|wx.FULL_REPAINT_ON_RESIZE )
 		self.bitmapSkills.SetMinSize( wx.Size( 150,26 ) )
 		self.bitmapSkills.SetMaxSize( wx.Size( 150,26 ) )
 		
@@ -1082,7 +1082,7 @@ class Items_Panel ( wx.Panel ):
 		
 		ItemListSizer = wx.BoxSizer( wx.VERTICAL )
 		
-		self.bitmapItems = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( u"../images/Items.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.Size( 150,26 ), wx.CLIP_CHILDREN|wx.FULL_REPAINT_ON_RESIZE )
+		self.bitmapItems = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( u"images/Items.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.Size( 150,26 ), wx.CLIP_CHILDREN|wx.FULL_REPAINT_ON_RESIZE )
 		self.bitmapItems.SetMinSize( wx.Size( 150,26 ) )
 		self.bitmapItems.SetMaxSize( wx.Size( 150,26 ) )
 		
@@ -1523,7 +1523,7 @@ class Armors_Panel ( wx.Panel ):
 		
 		ArmorsListSizer = wx.BoxSizer( wx.VERTICAL )
 		
-		self.bitmapArmors = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( u"../images/Armors.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.Size( 150,26 ), wx.CLIP_CHILDREN|wx.FULL_REPAINT_ON_RESIZE )
+		self.bitmapArmors = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( u"images/Armors.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.Size( 150,26 ), wx.CLIP_CHILDREN|wx.FULL_REPAINT_ON_RESIZE )
 		self.bitmapArmors.SetMinSize( wx.Size( 150,26 ) )
 		self.bitmapArmors.SetMaxSize( wx.Size( 150,26 ) )
 		
@@ -1849,7 +1849,7 @@ class Weapons_Panel ( wx.Panel ):
 		
 		WeaponsListSizer = wx.BoxSizer( wx.VERTICAL )
 		
-		self.bitmapWeapons = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( u"../images/Weapons.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.Size( 150,26 ), wx.CLIP_CHILDREN|wx.FULL_REPAINT_ON_RESIZE )
+		self.bitmapWeapons = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( u"images/Weapons.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.Size( 150,26 ), wx.CLIP_CHILDREN|wx.FULL_REPAINT_ON_RESIZE )
 		self.bitmapWeapons.SetMinSize( wx.Size( 150,26 ) )
 		self.bitmapWeapons.SetMaxSize( wx.Size( 150,26 ) )
 		
@@ -2175,7 +2175,7 @@ class Enemies_Panel ( wx.Panel ):
 		
 		EnemiesListSizer = wx.BoxSizer( wx.VERTICAL )
 		
-		self.bitmapEnemies = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( u"../images/Enemies.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.Size( 150,26 ), wx.CLIP_CHILDREN|wx.FULL_REPAINT_ON_RESIZE )
+		self.bitmapEnemies = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( u"images/Enemies.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.Size( 150,26 ), wx.CLIP_CHILDREN|wx.FULL_REPAINT_ON_RESIZE )
 		self.bitmapEnemies.SetMinSize( wx.Size( 150,26 ) )
 		self.bitmapEnemies.SetMaxSize( wx.Size( 150,26 ) )
 		
@@ -2211,7 +2211,7 @@ class Enemies_Panel ( wx.Panel ):
 		self.labelBattlerGraphic.Wrap( -1 )
 		sizer2.Add( self.labelBattlerGraphic, 0, wx.ALL, 5 )
 		
-		self.bitmapBattlerGraphic = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( u"../images/Ghost.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.DefaultSize, wx.STATIC_BORDER )
+		self.bitmapBattlerGraphic = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( u"images/Ghost.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.DefaultSize, wx.STATIC_BORDER )
 		sizer2.Add( self.bitmapBattlerGraphic, 1, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
 		
 		self.labelAttackAnimation = wx.StaticText( self, wx.ID_ANY, u"Attack Animation:", wx.DefaultPosition, wx.DefaultSize, 0 )
@@ -2514,7 +2514,7 @@ class Troops_Panel ( wx.Panel ):
 		
 		TroopsListSizer = wx.BoxSizer( wx.VERTICAL )
 		
-		self.bitmapTroops = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( u"../images/Troops.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.Size( 150,26 ), wx.CLIP_CHILDREN|wx.FULL_REPAINT_ON_RESIZE )
+		self.bitmapTroops = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( u"images/Troops.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.Size( 150,26 ), wx.CLIP_CHILDREN|wx.FULL_REPAINT_ON_RESIZE )
 		self.bitmapTroops.SetMinSize( wx.Size( 150,26 ) )
 		self.bitmapTroops.SetMaxSize( wx.Size( 150,26 ) )
 		
@@ -2557,7 +2557,7 @@ class Troops_Panel ( wx.Panel ):
 		
 		sizer2 = wx.BoxSizer( wx.HORIZONTAL )
 		
-		self.bitmapTroopLayout = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( u"../images/Battleback.jpg", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.DefaultSize, wx.SUNKEN_BORDER )
+		self.bitmapTroopLayout = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( u"images/Battleback.jpg", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.DefaultSize, wx.SUNKEN_BORDER )
 		sizer2.Add( self.bitmapTroopLayout, 70, wx.ALL|wx.EXPAND, 5 )
 		
 		sizer4 = wx.BoxSizer( wx.VERTICAL )
@@ -2749,7 +2749,7 @@ class States_Panel ( wx.Panel ):
 		
 		StatesListSizer = wx.BoxSizer( wx.VERTICAL )
 		
-		self.bitmapStates = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( u"../images/States.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.Size( 150,26 ), wx.CLIP_CHILDREN|wx.FULL_REPAINT_ON_RESIZE )
+		self.bitmapStates = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( u"images/States.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.Size( 150,26 ), wx.CLIP_CHILDREN|wx.FULL_REPAINT_ON_RESIZE )
 		self.bitmapStates.SetMinSize( wx.Size( 150,26 ) )
 		self.bitmapStates.SetMaxSize( wx.Size( 150,26 ) )
 		
@@ -3140,7 +3140,7 @@ class Animations_Panel ( wx.Panel ):
 		
 		AnimationsListSizer = wx.BoxSizer( wx.VERTICAL )
 		
-		self.bitmapAnimations = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( u"../images/Animations.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.Size( 150,26 ), wx.CLIP_CHILDREN|wx.FULL_REPAINT_ON_RESIZE )
+		self.bitmapAnimations = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( u"images/Animations.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.Size( 150,26 ), wx.CLIP_CHILDREN|wx.FULL_REPAINT_ON_RESIZE )
 		self.bitmapAnimations.SetMinSize( wx.Size( 150,26 ) )
 		self.bitmapAnimations.SetMaxSize( wx.Size( 150,26 ) )
 		
@@ -3228,7 +3228,7 @@ class Animations_Panel ( wx.Panel ):
 		
 		sizer2.Add( sizer5, 0, wx.EXPAND, 5 )
 		
-		self.bitmapPallette = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( u"../images/AnimationSample1.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.DefaultSize, wx.SUNKEN_BORDER )
+		self.bitmapPallette = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( u"images/AnimationSample1.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.DefaultSize, wx.SUNKEN_BORDER )
 		sizer2.Add( self.bitmapPallette, 1, wx.ALL|wx.EXPAND, 5 )
 		
 		sizer6 = wx.BoxSizer( wx.VERTICAL )
@@ -3271,7 +3271,7 @@ class Animations_Panel ( wx.Panel ):
 		self.m_scrolledWindow3.SetScrollRate( 5, 5 )
 		bSizer196 = wx.BoxSizer( wx.HORIZONTAL )
 		
-		self.bitmapAnimationFrames = wx.StaticBitmap( self.m_scrolledWindow3, wx.ID_ANY, wx.Bitmap( u"../images/AnimationSample2.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.bitmapAnimationFrames = wx.StaticBitmap( self.m_scrolledWindow3, wx.ID_ANY, wx.Bitmap( u"images/AnimationSample2.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.DefaultSize, 0 )
 		bSizer196.Add( self.bitmapAnimationFrames, 0, wx.ALL, 5 )
 		
 		self.m_scrolledWindow3.SetSizer( bSizer196 )
@@ -3387,7 +3387,7 @@ class Tilesets_Panel ( wx.Panel ):
 		
 		TilesetsListSizer = wx.BoxSizer( wx.VERTICAL )
 		
-		self.bitmapTilesets = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( u"../images/Tilesets.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.Size( 150,26 ), wx.CLIP_CHILDREN|wx.FULL_REPAINT_ON_RESIZE )
+		self.bitmapTilesets = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( u"images/Tilesets.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.Size( 150,26 ), wx.CLIP_CHILDREN|wx.FULL_REPAINT_ON_RESIZE )
 		self.bitmapTilesets.SetMinSize( wx.Size( 150,26 ) )
 		self.bitmapTilesets.SetMaxSize( wx.Size( 150,26 ) )
 		
@@ -3481,7 +3481,7 @@ class Tilesets_Panel ( wx.Panel ):
 		
 		sizer3 = wx.BoxSizer( wx.VERTICAL )
 		
-		self.m_bitmap36 = wx.StaticBitmap( self.m_scrolledWindow4, wx.ID_ANY, wx.Bitmap( u"../images/TilesetSample.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.Size( 256,-1 ), 0 )
+		self.m_bitmap36 = wx.StaticBitmap( self.m_scrolledWindow4, wx.ID_ANY, wx.Bitmap( u"images/TilesetSample.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.Size( 256,-1 ), 0 )
 		self.m_bitmap36.SetMinSize( wx.Size( 256,-1 ) )
 		self.m_bitmap36.SetMaxSize( wx.Size( 256,-1 ) )
 		
@@ -3644,7 +3644,7 @@ class CommonEvents_Panel ( wx.Panel ):
 		
 		CommonEventsListSizer = wx.BoxSizer( wx.VERTICAL )
 		
-		self.bitmapCommonEvents = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( u"../images/CommonEvents.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.Size( 150,26 ), wx.CLIP_CHILDREN|wx.FULL_REPAINT_ON_RESIZE )
+		self.bitmapCommonEvents = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( u"images/CommonEvents.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.Size( 150,26 ), wx.CLIP_CHILDREN|wx.FULL_REPAINT_ON_RESIZE )
 		self.bitmapCommonEvents.SetMinSize( wx.Size( 150,26 ) )
 		self.bitmapCommonEvents.SetMaxSize( wx.Size( 150,26 ) )
 		
@@ -5862,7 +5862,7 @@ class ActorParameters_Dialog ( wx.Dialog ):
 		
 		MainSizerParamter.Add( sizerConrolsParameter, 0, wx.EXPAND, 5 )
 		
-		self.bitmapGraph = wx.StaticBitmap( self.panelParameter, wx.ID_ANY, wx.Bitmap( u"../images/MaxHP.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.Size( 448,224 ), wx.SIMPLE_BORDER )
+		self.bitmapGraph = wx.StaticBitmap( self.panelParameter, wx.ID_ANY, wx.Bitmap( u"images/MaxHP.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.Size( 448,224 ), wx.SIMPLE_BORDER )
 		MainSizerParamter.Add( self.bitmapGraph, 0, wx.EXPAND|wx.ALL, 5 )
 		
 		self.panelParameter.SetSizer( MainSizerParamter )
