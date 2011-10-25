@@ -2,7 +2,11 @@
 
 import wx
 import ARCed_Templates
-from __test__ import ParameterGraph_Panel as test
+import ARCedChangeMaximum_Dialog
+import ARCedActors_Panel as actPanel
+
+
+from __test__ import ParameterGraph as test # TODO: Uh, change this from "test"
 
 import matplotlib
 import numpy as np
@@ -10,20 +14,28 @@ import matplotlib.path as mpath
 import matplotlib.patches as mpatches
 import matplotlib.pyplot as plt
 import matplotlib.mlab as mlab
+from matplotlib.backends.backend_wxagg import FigureCanvasWxAgg
+from matplotlib.figure import Figure
 
+import Kernel
+from Kernel import Manager as KM
 
 # Implementing ParameterGraph_Panel
 class ARCedParameterGraph_Panel( ARCed_Templates.ParameterGraph_Panel ):
-	def __init__( self, parent ):
+	def __init__( self, parent, actor, data=None, param_index=0, maxValue=9999):
 		ARCed_Templates.ParameterGraph_Panel.__init__( self, parent )
-		from matplotlib.backends.backend_wxagg import FigureCanvasWxAgg
-		from matplotlib.figure import Figure
-		self.Graph = test(self.graphPanel)
 
-		
+		self.Actor = actor
+		range = [1, maxValue]
+		data = self.Actor.parameters[param_index, :]
+		print data
+		self.Graph = test(self.graphPanel, data, range, color='#BD6DFF')
 
+		self.Graph.canvas.mpl_connect('motion_notify_event', self.graphPanel_MouseMotion)
 
-
+		self.spinCtrlLevel.SetRange(1, self.Actor.final_level)
+		self.spinCtrlValue.SetRange(1, maxValue)
+		self.spinCtrlVertex.SetRange(0, self.Graph.PointMax)
 
 	def graphPanel_OnSize( self, event ):
 		pixels = tuple( self.graphPanel.GetClientSize() )
@@ -32,30 +44,67 @@ class ARCedParameterGraph_Panel( ARCed_Templates.ParameterGraph_Panel ):
 		self.Graph.figure.set_size_inches( float( pixels[0] )/self.Graph.figure.get_dpi(),
 										float( pixels[1] )/self.Graph.figure.get_dpi() )
 
-	# Handlers for ParameterGraph_Panel events.
 	def spinCtrlVertex_ValueChanged( self, event ):
-		# TODO: Implement spinCtrlVertex_ValueChanged
-		pass
+		''' Selects vertexes and updates the controls to reflect the values '''
+		x, y = self.Graph.GetPoints()[event.GetInt()]
+		self.spinCtrlLevel.SetValue(int(x))
+		self.spinCtrlValue.SetValue(int(y))
+		print y
 	
 	def spinCtrlLevel_ValueChanged( self, event ):
-		# TODO: Implement spinCtrlLevel_ValueChanged
 		pass
 	
 	def spinCtrlValue_ValueChanged( self, event ):
-		# TODO: Implement spinCtrlValue_ValueChanged
-		pass
-	
+		print "FIRED"
+		point = self.spinCtrlVertex.GetValue()
+		vertices = self.Graph.GetPoints()
+		vertices[point][1] = event.GetInt()
+		for i in xrange(len(vertices)):
+			if i < point and vertices[i][1] > vertices[point][1]:
+				vertices[i][1] = vertices[point][1]
+			elif i > point and vertices[i][1] < vertices[point][1]:
+				vertices[i][1] = vertices[point][1]
+		self.Graph.setVertices(vertices)
+		self.Graph.Colorize()
+
+
+	def buttonChangeMax_Clicked( self, event ):
+		max = self.Actor.final_level
+		current = self.Graph.PointMax
+		dlg = ARCedChangeMaximum_Dialog.ARCedChangeMaximum_Dialog(self, current, 1, max)
+		if dlg.ShowModal() == wx.ID_OK:
+			self.Graph.SetRawData(pointmax=dlg.spinCtrlMaximum.GetValue())
+			self.spinCtrlVertex.SetRange(0, self.Graph.PointMax)
+		dlg.Destroy()
+
+	def checkBoxPoints_CheckChanged( self, event ):
+		self.Graph.ShowVerts = self.checkBoxPoints.GetValue()
+		self.Graph.line.set_visible(self.Graph.ShowVerts)
+		if not self.Graph.ShowVerts: 
+			self.Graph._ind = None
+		self.Graph.canvas.draw()
+
 	def buttonOK_Clicked( self, event ):
-		# TODO: Implement buttonOK_Clicked
-		pass
+		print 'OK'
 	
 	def buttonCancel_Clicked( self, event ):
-		# TODO: Implement buttonCancel_Clicked
-		pass
+		print 'CANCEL'
 	
+	def graphPanel_MouseMotion( self, event ):
+		self.labelLevel.SetLabel('Level: ' + str(self.Graph.MouseX))
+		self.labelValue.SetLabel('Value: ' + str(self.Graph.MouseY))
+
+	def setRanges(self):
+
+
+
+		pass
+
+from RGSS1_RPG import RPG
 app = wx.PySimpleApp( 0 )
 frame = wx.Frame( None, wx.ID_ANY, 'Parameter Curve', size=(640,480) )
-panel = ARCedParameterGraph_Panel( frame )
+panel = ARCedParameterGraph_Panel( frame, RPG.Actor() )
 frame.CenterOnScreen()
 frame.Show()
 app.MainLoop()
+
