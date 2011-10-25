@@ -1,6 +1,10 @@
 '''
 Created on May 30, 2011
 
+PanelManger
+
+TODO: create show and hide methods
+
 '''
 import wx
 
