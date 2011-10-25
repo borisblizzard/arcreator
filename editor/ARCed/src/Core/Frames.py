@@ -13,12 +13,8 @@ import sys
 
 import wx
 
-try:
-    from agw import aui
-    from agw.aui import aui_switcherdialog as ASD
-except ImportError: # if it's not there locally, try the wxPython lib.
-    import wx.lib.agw.aui as aui
-    from wx.lib.agw.aui import aui_switcherdialog as ASD
+import wx.lib.agw.aui as aui
+from wx.lib.agw.aui import aui_switcherdialog as ASD
 
 import Kernel
 from Kernel import Manager as KM
@@ -45,24 +41,16 @@ class CoreEditorMainWindow(wx.Frame):
         self._mgr = aui.AuiManager()
         # tell AuiManager to manage this frame
         self._mgr.SetManagedWindow(self)
-        # set up default notebook style
-        self._notebook_style = aui.AUI_NB_DEFAULT_STYLE | aui.AUI_NB_TAB_EXTERNAL_MOVE | wx.NO_BORDER
-        self._notebook_theme = 0
-        self._notebook_style ^= aui.AUI_NB_DRAW_DND_TAB
         self.layout_mgr = None
-        self.initpanel = wx.Panel(self)
-        self._mgr.AddPane(self.initpanel, aui.AuiPaneInfo().CenterPane())
 
         #add a status bar and menubar
         self.CreateStatusBar()
         self.CreateMenuBar()
-        self.CreateToolbar()
-
+        self.CallLayout()
+        
         self.SetMinSize(wx.Size(1000, 500))
 
         KM.get_event("CoreEventRefreshProject").register(self.CallLayout)
-
-        self._mgr.Update()
 
         self.Bind(wx.EVT_UPDATE_UI, self.UpdateUI)
 
@@ -70,10 +58,12 @@ class CoreEditorMainWindow(wx.Frame):
         self.Show(True)
 
     def CallLayout(self):
-        self.ClearLayout()
-        #get the layout component
-        layout = KM.get_component("EditorMainWindowLayout").object
-        self.layout_mgr = layout(self, self._mgr)
+        if self.layout_mgr is not None:
+            self.layout_mgr.Refresh()
+        else:
+            #get the layout component
+            layout = KM.get_component("EditorMainWindowLayout").object
+            self.layout_mgr = layout(self, self._mgr)
 
     def CreateMenuBar(self):
         self.menubar = KM.get_component("MainMenuBar").object(self)
@@ -91,19 +81,9 @@ class CoreEditorMainWindow(wx.Frame):
         else:
             Kernel.GlobalObjects.request_new_key("MainStatusBar", "CORE", self.statusbar)
 
-    def CreateToolbar(self):
-        self.toolbar = aui.AuiToolBar(self, style=wx.TB_FLAT | wx.TB_HORIZONTAL)
-        toolbarlayout = KM.get_component("MainToolbar").object
-        self.toolbarlayout = toolbarlayout(self.toolbar, self)
-        self._mgr.AddPane(self.toolbar, aui.AuiPaneInfo().
-                          Name("Toolbar").Caption("Main Tool Bar").
-                          ToolbarPane().Top().Row(1).CloseButton(False))
+    
 
     def ClearLayout(self):
-        if self.initpanel != None:
-            self._mgr.DetachPane(self.initpanel)
-            self.initpanel.Destroy()
-            self.initpanel = None
         if self.layout_mgr != None:
             self.layout_mgr.ClearLayout
         self._mgr.Update()

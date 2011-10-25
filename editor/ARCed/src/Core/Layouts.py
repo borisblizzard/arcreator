@@ -20,15 +20,30 @@ class MainWindowLayout(object):
 
         self.parent = parent
         self.aui_mgr = aui_mgr
-        self.PanelManager = KM.get_component("PanelManager").object(self.parent, self.aui_mgr)
+        self.mgr = KM.get_component("PanelManager").object(self.parent, self.aui_mgr)
         if Kernel.GlobalObjects.has_key("PanelManager"):
-            Kernel.GlobalObjects.set_value("PanelManager", self.PanelManager)
+            Kernel.GlobalObjects.set_value("PanelManager", self.mgr)
         else:
-            Kernel.GlobalObjects.request_new_key("PanelManager", "CORE", self.PanelManager)
+            Kernel.GlobalObjects.request_new_key("PanelManager", "CORE", self.mgr)
+
+        self.CreateToolbar()
+        self.CreateStartPanel()
         self.layout = KM.get_component("ARCModeLayout").object()
         
+
+    def CreateToolbar(self):
+        self.toolbar = self.mgr.dispatch_panel("MainToolbar", "Main Tool bar")
+
+    def CreateStartPanel(self):
+        self.startPanel = self.mgr.dispatch_panel("StartPanel", "Start Panel")
+
     def ClearLayout(self):
+        self.mgr.remove_panel("Main Tool bar")
+        self.mgr.remove_panel("Start Panel")
         self.layout.ClearLayout()
+
+    def Refresh(self):
+        self.layout.Refresh()
         
 class ARCModeLayout(object):
     
@@ -43,10 +58,10 @@ class ARCModeLayout(object):
 
 
     def BuildPanes(self):
-        self.CreateStartPanel()
-        self.CreateTilesetView()
-        self.CreateTreeCtrl()
-        #self.regesterParts()
+        if Kernel.GlobalObjects.has_key("ProjectOpen") and (Kernel.GlobalObjects.get_value("ProjectOpen") == True) and Kernel.GlobalObjects.has_key("PROJECT"):
+            self.CreateTilesetView()
+            self.CreateTreeCtrl()
+            #self.regesterParts()
         # "commit" all changes made to PanelManager
         self.mgr.Update()
 
@@ -67,9 +82,9 @@ class ARCModeLayout(object):
     #    function = KM.get_component("ProjectExportHandler", "RMXP").object
     #    function(self.parent)
 
-    def CreateStartPanel(self):
-        self.startPanel = self.mgr.dispatch_panel("StartPanel", "Start Panel")
-        self.windows.append("Start Panel")
+    def Refresh(self):
+        self.ClearLayout()
+        self.BuildPanes()
 
     def CreateTilesetView(self):
         self.tilesetPanel = self.mgr.dispatch_panel("TilesetPanel", "Tileset Panel")

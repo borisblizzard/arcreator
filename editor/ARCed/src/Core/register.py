@@ -67,12 +67,13 @@ class PanelManagerType(SuperType):
     StartPanel = Type("StartPanel")
     TilesetPanel = Type("TilesetPanel")
     MapTreePanel = Type("MapTreePanel")
+    MainToolbar = Type("MainToolbar")
     
     def __init__(self):
         SuperType.__init__(self, "PanelManagerType")
 
         #----------------------------- Panels --------------------------------
-        self.add_types(self.StartPanel, self.TilesetPanel, self.MapTreePanel)
+        self.add_types(self.StartPanel, self.TilesetPanel, self.MapTreePanel, self.MainToolbar)
 
 #=============================================================================
 # * Package Declaration
@@ -264,9 +265,6 @@ class CorePackage(Package):
                                      1.0, self))
 
         #----------------------------- ctrls ---------------------------------
-        self.add_component(Component(Controls.MainToolbar,
-                                     "MainToolbar", None, "CoreMainToolbar",
-                                     "CORE", 1.0, self))
         self.add_component(Component(Controls.WxRMXPMapPanel,
                                      "MapEditorWindow", None,
                                      "WxRMXPMapWindow", "CORE", 1.0, self))
@@ -342,6 +340,9 @@ class CorePackage(Package):
                                      "CoreTilesetPanel", "CORE", 1.0, self))
         self.add_component(Component(Panels.MapTreePanel, "MapTreePanel", "PanelManagerType",
                                      "CoreMapTreePanel", "CORE", 1.0, self))
+        self.add_component(Component(Panels.MainToolbar, "MainToolbar", "PanelManagerType",
+                                     "CoreMainToolbar", "CORE", 1.0, self))
+        
         
 package = CorePackage()
 key = Manager.add_package(package)
