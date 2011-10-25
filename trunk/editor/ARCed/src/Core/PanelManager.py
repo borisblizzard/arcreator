@@ -104,209 +104,239 @@ class PanelManager(object):
             info_obj = aui.AuiPaneInfo()
         words = info.split(" ")
         for word in words:
-            print word
-            if "Caption" in word:
-                if data.has_key("Caption"):
-                    info_obj.Caption(data["Caption"])
-            if "Center" in word:
-                info_obj.Center()
+            #center
             if "CenterP" in word:
                 info_obj.CenterPane()
+            elif "Center" in word:
+                info_obj.Center()
+            #caption
             if "CaptionV" in word:
                 if data.has_key("CaptionV"):
                     info_obj.CaptionVisible(*data["CaptionV"])
                 else:
                     info_obj.CaptionVisible(True)
+            elif "Caption" in word:
+                if data.has_key("Caption"):
+                    info_obj.Caption(data["Caption"])
+            #best size
             if "BestS" in word:
                 if data.has_key("BestS"):
                     info_obj.BestSize(data["BestS"])
+            #close button
             if "CloseB" in word:
                 if data.has_key("CloseB"):
                     info_obj.CloseButton(data["CloseB"])
                 else:
                     info_obj.CloseButton(True)
-            if "Bottom" in word:
-                info_obj.Bottom()
+            #bottom
             if "BottomD" in word:
                 if data.has_key("BottomD"):
                     info_obj.BottomDockable(data["BottomD"])
                 else:
                     info_obj.BottomDockable(True)
-            if "BottomS" in word:
+            elif "BottomS" in word:
                 if data.has_key("BottomS"):
                     info_obj.BottomSnappable(data["BottomS"])
                 else:
                     info_obj.BottomSnappable(True)
+            elif "Bottom" in word:
+                info_obj.Bottom()
+            #default
             if "DefaultP" in word:
                 info_obj.DefaultPane()
+            #destroy on close
             if "DestroyOC" in word:
                 if data.has_key("DestroyOC"):
                     info_obj.DestroyOnClose(data["DestroyOC"])
                 else:
                     info_obj.DestroyOnClose(True)
-            if "Dock" in word:
-                info_obj.Dock()
+            #dock
             if "DockF" in word:
                 if data.has_key("DockF"):
                     info_obj.DockFixed(data["DockF"])
                 else:
                     info_obj.DockFixed(True)
-            if "Dockable" in word:
+            elif "Dockable" in word:
                 if data.has_key("Dockable"):
                     info_obj.Dockable(data["Dockable"])
                 else:
                     info_obj.Dockable(True)
+            elif "Dock" in word:
+                info_obj.Dock()
+            #fixed
             if "Fixed" in word:
                 info_obj.Fixed()
-            if "Float" in word:
-                info_obj.Float()
+            #float
             if "Floatable" in word:
                 if data.has_key("Floatable"):
                     info_obj.Floatable(data["Floatable"])
                 else:
                     info_obj.Floatable(True)
-            if "FloatingP" in word:
+            elif "FloatingP" in word:
                 if data.has_key("FloatingP"):
                     info_obj.FloatingPosition(data["FloatingP"])
-            if "FloatingS" in word:
+            elif "FloatingS" in word:
                 if data.has_key("FloatingS"):
                     info_obj.FloatingSize(data["FloatingS"])
+            elif "Float" in word:
+                info_obj.Float()
+            #flyout
             if "FlyOut" in word:
                 if data.has_key("FlyOut"):
                     info_obj.FlyOut(data["FlyOut"])
                 else:
                     info_obj.FlyOut(True)
-            if "Gripper" in word:
-                if data.has_key("Gripper"):
-                    info_obj.Gripper(data["Gripper"])
-                else:
-                    info_obj.Gripper()
+            #gripper
             if "GripperT" in word:
                 if data.has_key("GripperT"):
                     info_obj.GripperTop(data["GripperT"])
                 else:
                     info_obj.GripperTop(True)
+            elif "Gripper" in word:
+                if data.has_key("Gripper"):
+                    info_obj.Gripper(data["Gripper"])
+                else:
+                    info_obj.Gripper()
+            #hide
             if "Hide" in word:
                 info_obj.Hide()
+            #icon
             if "Icon" in word:
                 if data.has_key("Icon"):
                     info_obj.Icon(data["Icon"])
+            #layer
             if "Layer" in word:
                 if data.has_key("Layer"):
                     info_obj.Layer(data["Layer"])
-            if "Left" in word:
-                info_obj.Left()
+            #left
             if "LeftD" in word:
                 if data.has_key("LeftD"):
                     info_obj.LeftDockable(data["LeftD"])
                 else:
                     info_obj.LeftDockable(True)
-            if "LeftS" in word:
+            elif "LeftS" in word:
                 if data.has_key("LeftS"):
                     info_obj.LeftSnappable(data["LeftS"])
                 else:
                     info_obj.LeftSnappable(True)
+            elif "Left" in word:
+                info_obj.Left()
+            #max size
             if "MaxS" in word:
                 if data.has_key("MaxS"):
                     info_obj.MaxSize(data["MaxS"])
-            if "Maximize" in word:
-                info_obj.Maximize()
+            #maximize
             if "MaximizeB" in word:
                 if data.has_key("MaximizeB"):
                     info_obj.MaximizeButton(data["MaximizeB"])
                 else:
                     info_obj.MaximizeButton(True)
+            elif "Maximize" in word:
+                info_obj.Maximize()
+            #min size
             if "MinS" in word:
                 if data.has_key("MinS"):
                     info_obj.MinSize(*data["MinS"])
-            if "Minimize" in word:
-                info_obj.Minimize()
+            #minimize
             if "MinimizeB" in word:
-                print "MinimizeB O"
                 if data.has_key("MinimizeB"):
-                    print "MinimizeB %s" % data["MinimizeB"]
                     info_obj.MinimizeButton(data["MinimizeB"])
                 else:
-                    print "MinimizeB O T"
                     info_obj.MinimizeButton(True)
-            if "MinimizeM" in word:
+            elif "MinimizeM" in word:
                 if data.has_key("MinimizeM"):
                     mode = 0
                     for flag in data["MinimizeM"]:
                         mode |= self.minmodes[flag]
                     info_obj.MinimizeMode(mode)
+            elif "Minimize" in word:
+                info_obj.Minimize()
+            #movable
             if "Movable" in word:
                 if data.has_key("Movable"):
                     info_obj.Movable(data["Movable"])
                 else:
                     info_obj.Movable(True)
+            #name
             if "Name" in word:
                 if data.has_key("Name"):
                     info_obj.Name(data["Name"])
+            #notebook
             if "NotebookC" in word:
                 if data.has_key("NotebookC"):
                     info_obj.NotebookControl(data["NotebookC"])
-            if "NotebookD" in word:
+            elif "NotebookD" in word:
                 if data.has_key("NotebookD"):
                     info_obj.NotebookDockable(data["NotebookD"])
                 else:
                     info_obj.NotebookDockable(True)
-            if "NotebookP" in word:
+            elif "NotebookP" in word:
                 if data.has_key("NotebookP"):
                     info_obj.NotebookPage(*data["NotebookP"])
+            #pane border
             if "PaneB" in word:
                 if data.has_key("PaneB"):
                     info_obj.PaneBorder(data["PaneB"])
                 else:
                     info_obj.PaneBorder(True)
+            #pin
             if "PinB" in word:
                 if data.has_key("PinB"):
                     info_obj.PinButton(data["PinB"])
                 else:
                     info_obj.PinButton(True)
+            #resizeable
             if "Resizable" in word:
                 if data.has_key("Resizable"):
                     info_obj.Resizable(data["Resizable"])
                 else:
                     info_obj.Resizable(True)
-            if "Right" in word:
-                info_obj.Right()
+            #right
             if "RightD" in word:
                 if data.has_key("RightD"):
                     info_obj.RightDockable(data["RightD"])
                 else:
                     info_obj.RightDockable(True)
-            if "RightS" in word:
+            elif "RightS" in word:
                 if data.has_key("RightS"):
                     info_obj.RightSnappable(data["RightS"])
                 else:
                     info_obj.RightSnappable(True)
+            elif "Right" in word:
+                info_obj.Right()
+            #row
             if "Row" in word:
                 if data.has_key("Row"):
                     info_obj.Row(data["Row"])
+            #show
             if "Show" in word:
                 info_obj.Show(True)
+            #snappable
             if "Snappable" in word:
                 if data.has_key("Snappable"):
                     info_obj.Snappable(data["Snappable"])
                 else:
                     info_obj.Snappable(True)
+            #toolbar
             if "ToolbarP" in word:
                 info_obj.ToolbarPane()
-            if "Top" in word:
-                info_obj.Top()
+            #top
             if "TopD" in word:
                 if data.has_key("TopD"):
                     info_obj.TopDockable(data["TopD"])
                 else:
                     info_obj.TopDockable(True)
-            if "TopS" in word:
+            elif "TopS" in word:
                 if data.has_key("TopS"):
                     info_obj.TopSnappable(data["TopS"])
                 else:
                     info_obj.TopSnappable(True)
+            elif "Top" in word:
+                info_obj.Top()
+            #Transparent
             if "Transparent" in word:
                 if data.has_key("Transparent"):
                     info_obj.Transparent(data["Transparent"])
+
         return info_obj
     

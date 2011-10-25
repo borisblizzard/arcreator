@@ -113,7 +113,7 @@ class MainToolbar(aui.AuiToolBar):
 
 class StartPanel(wx.Panel):
 
-    _arc_panel_info_string = "Name Caption CenterP CloseB CaptionV BestS MinimizeM Layer MinimizeB"
+    _arc_panel_info_string = "Name Caption Center CloseB CaptionV BestS MinimizeM Layer MinimizeB"
     _arc_panel_info_data = {"Name": "Start Panel", "Caption": "Start Panel", "BestS": (32 * 24, 32 * 18), "MinimizeM": ["POS_SMART", "CAPT_SMART",], "Layer": 1, "MinimizeB": True, "CloseB": True,}
     
     def __init__(self, parent):
