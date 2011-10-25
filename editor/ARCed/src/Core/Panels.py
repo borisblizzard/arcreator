@@ -1,3 +1,9 @@
+'''
+Panels 
+
+Containes the panel classes dispatched by the Panel Manager
+'''
+
 import os
 import sys
 import copy
