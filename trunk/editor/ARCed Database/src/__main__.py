@@ -14,7 +14,7 @@ import ARCedTilesets_Panel
 import ARCedTroops_Panel
 import ARCedWeapons_Panel
 
-import DatabasePackage
+#import DatabasePackage
 import os
 import ConfigParser
 import maxvalues
@@ -92,6 +92,7 @@ class ARCedTest(wx.App):
 		else:
 			Kernel.GlobalObjects.request_new_key("ProjectOpen", "CORE", True)
 
+
 # Create window and execute the main loop
 if __name__ == '__main__':
 	provider = wx.SimpleHelpProvider()
@@ -99,5 +100,4 @@ if __name__ == '__main__':
 	app = ARCedTest()
 	app.create_panels()
 	app.MainLoop()
-	app.load_project()
 	app.Destroy()

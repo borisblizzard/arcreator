@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{acb5e8a5-ec45-446e-b426-ad15be86400a}</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>src\__main__.py</StartupFile>
+    <StartupFile>src\ARCedParameterGraph_Panel.py</StartupFile>
     <SearchPath>C:\Users\Eric\Desktop\ARC\editor\ARCed\src\Core\RMXP\;C:\Users\Eric\Desktop\ARC\editor\ARCed\src\Core\;C:\Users\Eric\Desktop\ARC\editor\ARCed\src\;C:\Users\Eric\Desktop\ARC\editor\ARCed Database\src</SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
     <AssemblyName>ARCed Database</AssemblyName>

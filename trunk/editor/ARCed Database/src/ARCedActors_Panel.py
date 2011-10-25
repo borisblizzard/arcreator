@@ -366,23 +366,23 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 		if level == None:
 			level = self.spinCtrlLevel.GetValue()
 		self.spinCtrlValue.SetValue(self.GetParameterValue(self.ParamTab, level))
-		self.setValueRange()
+		self.spinCtrlValue.SetRange(0, self.setValueRange(self.ParamTab))
 		
-	def setValueRange( self ):
-		if self.ParamTab == 0:
-			self.spinCtrlValue.SetRange(0, ActorLimits['maxhp'])
-		elif self.ParamTab == 1:
-			self.spinCtrlValue.SetRange(0, ActorLimits['maxsp'])
-		elif self.ParamTab == 2:
-			self.spinCtrlValue.SetRange(0, ActorLimits['maxstr'])
-		elif self.ParamTab == 3:
-			self.spinCtrlValue.SetRange(0, ActorLimits['maxdex'])
-		elif self.ParamTab == 4:
-			self.spinCtrlValue.SetRange(0, ActorLimits['maxagi'])
-		elif self.ParamTab == 5:
-			self.spinCtrlValue.SetRange(0, ActorLimits['maxint'])
+	def GetValueMax( param_index ):
+		if param_index == 0:
+			return ActorLimits['maxhp']
+		elif param_index == 1:
+			return ActorLimits['maxsp']
+		elif param_index == 2:
+			return ActorLimits['maxstr']
+		elif param_index == 3:
+			return ActorLimits['maxdex']
+		elif param_index == 4:
+			return ActorLimits['maxagi']
+		elif param_index == 5:
+			return ActorLimits['maxint']
 		else:
-		    self.spinCtrlValue.SetRange(0, ActorLimits['maxextra'])
+		    return ActorLimits['maxextra']
 
 	def drawCurve( self, parameterList, text ):
 
