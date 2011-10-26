@@ -9,6 +9,32 @@ Dir.chdir(File.dirname(__FILE__))
 
 require "./ini_file"
 
+ARCIcon = ("" +
+"iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABHNCSVQICAgIfAhkiAAABKVJ" +
+"REFUWIXtlXtQVFUcx7/n7r0r+wAWVmV9IVqpDEqo+KAME2PUFJ3saRpjICbOiO6gyJgWYuhk" +
+"xsQ0iuBEpqKJ6UghpuM4vMwkH5SLigSBjCDy2rsP93HvPbc/lOQ1/Wl/tJ+Z88c5v9f39ztz" +
+"5gAePHj4v0MGOjwZNWrU8E15QyMWRF8byH4xa2d48ZY5hu69AiJU0TH2zGVVVy3vBln7+vvr" +
+"Ug3GoDUv8rUt3NMY4MaIZR39BBQF1Y8sOTi2ShIFv0zT3KVkQ1lhT/v7wh79iEvGejtPfGT5" +
+"SRcEUCplUI6xbjwhbgjM4fIAINlYzcw8lL+7LD9tPSSWFYWneVi1DMPivCSmr4COti9THTZR" +
+"77QSZmukKcNmfLuXz8LBbSmOR7KPJFBQ8fGSBAqHXYbLLHnveZMemE2tMwDg1TPln5QdSU92" +
+"2xjW7XjqL1MK3iXdaz4Rnsv2TD41q8JQPnZKvNBJAQBCU0sIPyQqBkAhADjcF0mi6TDPdyRm" +
+"wLtHIAtwXK2OaS6KU/NK1RJhXWx6Qtzdw4tjU8QuCrMkdCmfW3pYsAdaQQFWC0yIu1S6o+aW" +
+"q5eAJcvzk6uLpno53QJESZI0LlaRNrNuc7cAlTJKBrCz79S6+eh6jMpsKo4z/VIWFKn0nW0z" +
+"E5VddMrD1q1akGs7d2WgmH8EzGkco796avcayeZCO3SXVfrQKsKXJzpqaiL+SDs6OzQtsbTh" +
+"ZjY5nfHViM6zfbKogJWX4vUpVz6NcJrdsGjVlorC3NG2YAEOVnUn11YwYPFeAiY530mqbrdr" +
+"XRRwzm/NCFp7oLpxoXWVhlFw28fvSAVQ+nmBVlM/+UITG9L/8Vw+xoBKKyCwDli8Pz5ba2r3" +
+"dewPBOujEfo594ABgPDomz6mY2vWUd6MjjZ6vXLK3eLjlVsbnAg9Qh1WdNwunde6Qwpru/UQ" +
+"TpsDjyyWfkvkzXDZrWhsHnQ+UzH/aN39WXWSzQrXg/qQYb9mj/vXCbz22YHEK9+/5+cSAQWX" +
+"sPe0dX5ykW0LCg7tdTXWdoKhbpI0LnwzSoITMPplUImiqYUrJyKxQMFArbFPG+wtDVWwXti0" +
+"jd8XZZguFrx1rmyXv5bXeYm+E05FXkio2pA9MSjACkqftM7ht86oeyRMPK7Wr/evp86HAQ94" +
+"nSkicuUPf5my0yDaeymVOT9pbboxfO+2zBuEyHj9pGVySntsFQCEbr8xg635s8RX5fQiSr3Z" +
+"64Oc6cUvFdYGx2k3+uPgF0rY0Rc3NGj1+W4FMX7jl1R5PjVLlCis4orVetWpXVQw6wG5z2UN" +
+"gq//pHy+6/ZyQggWZ2VNTgloquo2j3+j60Nfsj+PU0hQeQ+vPvf81Ahxi80WPLdzt3bQNaNW" +
+"zSgInnRPGLRbtKaJ8T+FkbAYObqt5ccAympp7Lz4iiM/50RC6q8YAHRDXhDMfCsHSUJOQeuZ" +
+"RaNju3raA2c1LJKc13VQarBq5cjK7atD7gLAKzG3x9R1WqYR130lAEDhBUNg0e/XTuy7SSpm" +
+"5KdLHXafbnHPDAaQ9RoLWfh1swy74hlXf4yklsDeKWn4lnE/8MZ/MAKRM/T7OT148ODhmfM3" +
+"b4ogByEpKFQAAAAASUVORK5CYII=")
+
 #get RMXP data
 require './data'
 require './arc_data_dump'
@@ -40,6 +66,9 @@ class ConverterFrame < Wx::Frame
       :pos => Wx::DEFAULT_POSITION,
       :size => Wx::Size.new(600, 480)
       )
+    #set the fraem icon
+    icon = Wx::Icon.new("icon.ico")
+    set_icon(icon)
     # set our inital paths
     @rmxp_path = ""
     if (ARGV[0] != nil)

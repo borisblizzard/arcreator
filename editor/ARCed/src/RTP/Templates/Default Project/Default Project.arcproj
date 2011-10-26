@@ -1,0 +1,4 @@
+[Project]
+Title=Default Project
+[Files]
+list=Troops|Skills|Items|System|Weapons|Armors|Classes|Actors|Tilesets|CommonEvents|MapInfos
