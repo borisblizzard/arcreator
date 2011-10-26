@@ -735,7 +735,7 @@ class Protect(object):
 #====================================================================================
 # * Kernel Functions
 #====================================================================================
-def GetConfigFolder():
+def GetDataFolder():
     if sys.platform.startswith('win32'):
         path = os.path.expandvars(os.path.join("%ALLUSERSPROFILE%", "ARCed"))
     elif sys.platform.startswith('lynix'):
@@ -744,10 +744,30 @@ def GetConfigFolder():
         path = os.path.join("", "Library", "Preferences", "ARCed")
     else:
         path = os.path.join("", "ARCed")
-    if not os.path.exists(path):
+    if not os.path.exists(path) or not os.path.isdir(path):
         os.makedirs(path)
     return path
 
+def GetConfigFolder():
+    path = GetDataFolder()
+    path = os.path.join(path, "Config")
+    if not os.path.exists(path) or not os.path.isdir(path):
+        os.makedirs(path)
+    return path
+
+def GetLogFolder():
+    path = GetDataFolder()
+    path = os.path.join(path, "Logs")
+    if not os.path.exists(path) or not os.path.isdir(path):
+        os.makedirs(path)
+    return path
+
+def GetPluginFolder():
+    path = GetDataFolder()
+    path = os.path.join(path, "Plugins")
+    if not os.path.exists(path) or not os.path.isdir(path):
+        os.makedirs(path)
+    return path
 
 def Log(message=None, prefix="[Kernel]", inform=False, error=False):
     '''
@@ -757,9 +777,7 @@ def Log(message=None, prefix="[Kernel]", inform=False, error=False):
     if message == None:
         error = True
         message = ""
-    logdir = GetConfigFolder()
-    if (not os.path.exists(logdir)) or (not os.path.isdir(logdir)):
-        os.makedirs(logdir)
+    logdir = GetLogFolder()
     f = open(os.path.join(logdir, "ARCed.log"), "ab")
     time_str = time.strftime("%a %d %b %Y %H:%M:%S [%Z] ")
     if error:
