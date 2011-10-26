@@ -15,10 +15,14 @@ import ConfigParser
 import wx
 from wx.lib.embeddedimage import PyEmbeddedImage
 import wx.lib.agw.advancedsplash as AS
-try:
-    dirName = os.path.dirname(os.path.abspath(__file__))
-except:
-    dirName = os.path.dirname(os.path.abspath(sys.argv[0]))
+
+if hasattr(sys, 'frozen'): 
+    dirName = sys.executable
+else:
+    try:
+        dirName = os.path.dirname(os.path.abspath(__file__))
+    except:
+        dirName = os.path.dirname(os.path.abspath(sys.argv[0]))
 sys.path.append(os.path.split(dirName)[0])
 
 import Kernel
@@ -108,7 +112,7 @@ class ARC_App(wx.App):
 
         self.SplashScreen = ARCSplashScreen()
         self.SplashScreen.Show()
-        self.fc = wx.FutureCall(10, self.SplashScreen.Do_Setup)
+        self.fc = wx.FutureCall(10, Kernel.Protect(self.SplashScreen.Do_Setup))
 
         self.keepGoing = True
         return True
