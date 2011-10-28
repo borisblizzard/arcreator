@@ -1,9 +1,10 @@
-
-+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-* STILL NEED TO DO
-+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+- finished project interface[DONE] (with error)
+	- loading projects[DONE] (with error) ARC format isn't being read properly
+	- acessing data [DONE]
+	- saving projects [DONE]
+	- creating new projects [DONE]
 	
-- Action framework [2/3]
+- Action framework [2/3 DONE]
 	- template actions [DONE]
 	- undo, redo calls [DONE]
 	- menu hooks [Not DONE]
@@ -35,32 +36,17 @@
 	 
 - random custome controls
 	- the nonstandered controlls in the data base panels need to be written
-		- elements 5-way checkbox
 		- common event panel (will use the normal event editor as a base)
 		- tileset panel (setting piority and pasibility data)
 		- animation panal
 		- troops panel
 	
+- splash screen
+
+- icons
+
 - genral testing to make sure we got everything
 
 - Fix spelling error of the word "Audio" in the Converter
-
-
-
-------------------------------------------------------------------
-* FINISHED
-------------------------------------------------------------------
-
-- finished project interface[DONE]
-	- loading projects[DONE]
-	- acessing data [DONE]
-	- saving projects [DONE]
-	- creating new projects [DONE]
-
-- splash screen [Done]
-
-- icons [Done]
-
-- Add icon to the frame [Done]
-
-- Center the main frame for the editor when it starts up [Done]
+- Add icon to the frame
+- Center the main frame for the editor when it starts up
