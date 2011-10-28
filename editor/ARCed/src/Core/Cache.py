@@ -136,14 +136,15 @@ class RTPFunctions(Object):
 
     @staticmethod
     def FindFile(name):
-        rtps = Kernel.GlobalObjects.get_value("")
-        for ext in PILCache._image_ext:
-            path = os.path.abspath(os.path.normpath(loc + "/" + folder_name +
-                                        filename + ext))
-            if os.path.exists(path) and os.path.isfile(path):
-                break
-        if not os.path.exists(path) or not os.path.isfile(path):
-            return None
+        rtps = Kernel.GlobalObjects.get_value("ARCed_config")["RTPs"]
+        for path in rtps.values():
+            for ext in PILCache._image_ext:
+                path = os.path.abspath(os.path.normpath(loc + "/" + folder_name +
+                                            filename + ext))
+                if os.path.exists(path) and os.path.isfile(path):
+                    break
+            if not os.path.exists(path) or not os.path.isfile(path):
+                return None
 
 
 class PILCache(object):
