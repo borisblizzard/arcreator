@@ -186,13 +186,14 @@ class CorePackage(Package):
         #=============================================================================
         # * events
         #=============================================================================
-        
+       
         CoreEventOpenProject = Event("CoreEventOpenProject")
         CoreEventRefreshProject = Event("CoreEventRefreshProject")
         CoreEventUpdateProjectMenu = Event("CoreEventUpdateProjectMenu")
         CoreEventARCRedirectClassPathsOnSave = Event("CoreEventARCRedirectClassPathsOnSave")
         CoreEventARCRedirectClassPathsOnLoad = Event("CoreEventARCRedirectClassPathsOnLoad")
         CoreEventARCExtendNamespaceOnLoad = Event("CoreEventARCExtendNamespaceOnLoad")
+        CoreExitMainWindow = Event("CoreExitMainWindow") 
         
         #=====================================================================
         # * add the events to be registered 
@@ -200,7 +201,7 @@ class CorePackage(Package):
         
         self.add_events(CoreEventOpenProject, CoreEventRefreshProject, CoreEventUpdateProjectMenu,
                         CoreEventARCRedirectClassPathsOnSave, CoreEventARCRedirectClassPathsOnLoad,
-                        CoreEventARCExtendNamespaceOnLoad)
+                        CoreEventARCExtendNamespaceOnLoad, CoreExitMainWindow)
         
         #=====================================================================
         # * add even hooks to be registered
@@ -345,7 +346,7 @@ class CorePackage(Package):
         
         
 package = CorePackage()
-key = Manager.add_package(package)
+key = package.add_to_kernel()
 
 # this line is only here because it is the core and should be enabled by default, 
 # if it was a normal plug-in it would be enabled else where

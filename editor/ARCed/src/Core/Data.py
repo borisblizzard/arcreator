@@ -99,7 +99,11 @@ def OpenProject(mainwindow, filehistory, path=""):
         Kernel.GlobalObjects.set_value("CurrentProjectDir", path)
     #get a project loader
     projectloader = KM.get_component("ARCProjectLoader").object()
+    #this might take a while lets say we busy
+    wx.BeginBusyCursor()
     projectloader.load(path)
+    #ok done loading, that was the longest part of it
+    wx.EndBusyCursor()
     #place the project in the global namespace
     if Kernel.GlobalObjects.has_key("PROJECT"):
         Kernel.GlobalObjects.set_value("PROJECT", projectloader.getProject())
@@ -133,7 +137,11 @@ def SaveProject():
             path = os.path.join(wx.StandardPaths.Get().GetDocumentsDir(),
                                     "ARC", "TEMP_No_project_dirrectory_save")
         projectsaver = KM.get_component("ARCProjectSaver").object(project)
+        #this might take a while lets say we busy
+        wx.BeginBusyCursor()
         projectsaver.save(path)
+        #ok done saving, that was the longest part of it
+        wx.EndBusyCursor()
     else:
         Kernel.Log("No current project, project not saved", "[Save Project Handeler]")
     
@@ -151,7 +159,11 @@ def SaveProjectAS(mainwindow, filehistory):
             path = os.path.join(location, "Project.arcproj")
             filehistory.AddFileToHistory(path)
             projectsaver = KM.get_component("ARCProjectSaver").object()
+            #this might take a while lets say we busy
+            wx.BeginBusyCursor()
             projectsaver.save(path)
+            #ok done saving, that was the longest part of it
+            wx.EndBusyCursor()
             #set the current project directory
             if Kernel.GlobalObjects.has_key("CurrentProjectDir"):
                 Kernel.GlobalObjects.set_value("CurrentProjectDir", os.path.dirname(path))

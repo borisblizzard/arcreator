@@ -23,6 +23,7 @@ from Kernel import Manager as KM
 MinEditorSize = (1000, 500)
 
 class CoreEditorMainWindow(wx.Frame):
+    
     def __init__(self, parent, id=wx.ID_ANY, title="", pos=wx.DefaultPosition,
                  size=MinEditorSize, style=wx.DEFAULT_FRAME_STYLE | wx.SUNKEN_BORDER):
 
@@ -53,6 +54,7 @@ class CoreEditorMainWindow(wx.Frame):
         KM.get_event("CoreEventRefreshProject").register(self.CallLayout)
 
         self.Bind(wx.EVT_UPDATE_UI, self.UpdateUI)
+        self.Bind(wx.EVT_CLOSE, self.OnClose, self)
 
         #show the window
         self.Show(True)
@@ -81,8 +83,6 @@ class CoreEditorMainWindow(wx.Frame):
         else:
             Kernel.GlobalObjects.request_new_key("MainStatusBar", "CORE", self.statusbar)
 
-    
-
     def ClearLayout(self):
         if self.layout_mgr != None:
             self.layout_mgr.ClearLayout
@@ -97,4 +97,38 @@ class CoreEditorMainWindow(wx.Frame):
             else:
                 if self.GetTitle() !=  self.main_title:
                     self.SetTitle(self.main_title)
+
+    def OnClose(self, event):
+        dlg = wx.MessageDialog(self, 
+            "Do you really want to close ARCed?",
+            "Confirm ARCed Exit", wx.YES_NO|wx.NO_DEFAULT|wx.ICON_QUESTION)
+        result = dlg.ShowModal()
+        dlg.Destroy()
+        if event.CanVeto():
+            if result == wx.YES:
+                self.ProcessClose()
+                self.Destroy()
+            else:
+                event.Veto()
+                event.Skip()
+        else:
+            self.ProcessClose()
+            self.Destroy()
+            event.Skip()
+
+    def ProcessClose(self):
+        #handle an open project
+        if Kernel.GlobalObjects.has_key("ProjectOpen") and (Kernel.GlobalObjects.get_value("ProjectOpen") == True) and Kernel.GlobalObjects.has_key("PROJECT"):
+            current_project = Kernel.GlobalObjects.get_value("PROJECT")
+            if current_project.hasDataChanged() or current_project.hasInfoChanged():
+                message = "There are unsaved changes in the currently open project Do you want to save these chagnes?"
+            else:
+                message = "Do you want to save the currently open project?"
+            caption = "There is an open project"
+            dlg = wx.MessageDialog(self, message, caption, style=wx.YES_NO |
+                                   wx.YES_DEFAULT)
+            result = dlg.ShowModal()
+            dlg.Destroy()
+            if result == wx.YES:
+                KM.get_component("SaveProjectHandler").object()
 

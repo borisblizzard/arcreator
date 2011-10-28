@@ -84,17 +84,20 @@ class MainToolbar(aui.AuiToolBar):
     def OnNew(self, event):
         newproject = KM.get_component("NewProjectHandler").object
         newproject(self.parent)
-        Kernel.GlobalObjects.get_value("FileHistory").Save(Kernel.GlobalObjects.get_value("programconfig"))
+        Kernel.GlobalObjects.get_value("FileHistory").Save(Kernel.GlobalObjects.get_value("WX_config"))
+        Kernel.GlobalObjects.get_value("WX_config").Flush()
 
     def OnOpen(self, event):
         openproject = KM.get_component("OpenProjectHandler").object
         openproject(self.parent, Kernel.GlobalObjects.get_value("FileHistory"))
-        Kernel.GlobalObjects.get_value("FileHistory").Save(Kernel.GlobalObjects.get_value("programconfig"))
+        Kernel.GlobalObjects.get_value("FileHistory").Save(Kernel.GlobalObjects.get_value("WX_config"))
+        Kernel.GlobalObjects.get_value("WX_config").Flush()
 
     def OnSave(self, event):
         saveproject = KM.get_component("SaveProjectHandler").object
         saveproject()
-        Kernel.GlobalObjects.get_value("FileHistory").Save(Kernel.GlobalObjects.get_value("programconfig"))
+        Kernel.GlobalObjects.get_value("FileHistory").Save(Kernel.GlobalObjects.get_value("WX_config"))
+        Kernel.GlobalObjects.get_value("WX_config").Flush()
 
     def OnUndo(self, event):
         pass
