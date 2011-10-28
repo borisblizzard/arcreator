@@ -67,7 +67,6 @@
     <Compile Include="src\Core\__init__.py" />
     <Compile Include="src\Kernel.py" />
     <Compile Include="src\Main.py" />
-    <Compile Include="src\module1.py" />
     <Compile Include="src\setup.py" />
     <Compile Include="tests\cache.py" />
     <Compile Include="tests\pygletwx.py" />

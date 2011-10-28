@@ -29,9 +29,13 @@ class FileMenu(wx.Menu):
 
     def __init__(self, mainwindow):
         wx.Menu.__init__(self)
-        
-        self.filehistory = wx.FileHistory(5)
-        self.filehistory.Load(Kernel.GlobalObjects.get_value("programconfig"))
+        try:
+            file_history_length = int(Kernel.GlobalObjects.get_value("ARCed_config")["Main"]["filehistory"])
+        except:
+            file_history_length = 5
+            Kernel.Log("Invalid setting for filehistory length", "[FileHistory]")
+        self.filehistory = wx.FileHistory(file_history_length)
+        self.filehistory.Load(Kernel.GlobalObjects.get_value("WX_config"))
 
         if Kernel.GlobalObjects.has_key("FileHistory"):
             Kernel.GlobalObjects.set_value("FileHistory", self.filehistory)
@@ -71,26 +75,26 @@ class FileMenu(wx.Menu):
     def NewProject(self, event):
         newproject = KM.get_component("NewProjectHandler").object
         newproject(self.mainwindow)
-        self.filehistory.Save(Kernel.GlobalObjects.get_value("programconfig"))
-        Kernel.GlobalObjects.get_value("programconfig").Flush()
+        self.filehistory.Save(Kernel.GlobalObjects.get_value("WX_config"))
+        Kernel.GlobalObjects.get_value("WX_config").Flush()
 
     def OpenProject(self, event):
         openproject = KM.get_component("OpenProjectHandler").object
         openproject(self.mainwindow, self.filehistory)
-        self.filehistory.Save(Kernel.GlobalObjects.get_value("programconfig"))
-        Kernel.GlobalObjects.get_value("programconfig").Flush()
+        self.filehistory.Save(Kernel.GlobalObjects.get_value("WX_config"))
+        Kernel.GlobalObjects.get_value("WX_config").Flush()
 
     def SaveProject(self, event):
         saveproject = KM.get_component("SaveProjectHandler").object
         saveproject(self.mainwindow)
-        self.filehistory.Save(Kernel.GlobalObjects.get_value("programconfig"))
-        Kernel.GlobalObjects.get_value("programconfig").Flush()
+        self.filehistory.Save(Kernel.GlobalObjects.get_value("WX_config"))
+        Kernel.GlobalObjects.get_value("WX_config").Flush()
 
     def SaveProjectAs(self, event):
         saveprojectas = KM.get_component("SaveAsProjectHandler").object
         saveprojectas(self.mainwindow, self.filehistory)
-        self.filehistory.Save(Kernel.GlobalObjects.get_value("programconfig"))
-        Kernel.GlobalObjects.get_value("programconfig").Flush()
+        self.filehistory.Save(Kernel.GlobalObjects.get_value("WX_config"))
+        Kernel.GlobalObjects.get_value("WX_config").Flush()
 
     def on_file_history(self, event):
         fileNum = event.GetId() - wx.ID_FILE1

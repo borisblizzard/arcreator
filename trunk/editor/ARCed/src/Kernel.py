@@ -22,12 +22,13 @@ import ConfigParser
 import re
 
 import wx
+import wx.lib.agw.pycollapsiblepane as PCP
 
 #====================================================================================
 # * ARC Constants
 #====================================================================================
 
-VERSION = "0.0.1"
+VERSION = "0.6.1.469"
 
 #====================================================================================
 # Global Object Storage
@@ -46,10 +47,10 @@ class GlobalObjects(object):
                "Program_Dir":["CORE", os.path.dirname(os.path.abspath(__file__))],
                "Title":["CORE", ""],
                "Mode":["CORE", ""],
-               "config":["CORE", None],
-               "ARCconfig":["CORE", None],
-               "programconfig":["CORE", None],
-               "LoadedComponentDefaultsTemplate":["CORE", None],
+               "Components_config":["CORE", None],
+               "ARCed_config":["CORE", None],
+               "WX_config":["CORE", None],
+               "DefaultComponentTemplate":["CORE", None],
                "ProjectModes":["CORE", {}],
                "ProjectCreators":["CORE", {}],
                "PanelManager": ["CORE", None],
@@ -337,10 +338,12 @@ class Type(object):
         '''
         pack = ""
         if isinstance(package, Package):
-            pack = str(package.name)
-        elif package != None:
-            pack = str(package)
-        return (str(pack), str(name), str(author), str(version))
+            pack = (package.name, package.author)
+        elif isinstance(package, tuple):
+            pack = package
+        else:
+            pack = (None, None)
+        return (pack, str(name), str(author), str(version))
 
     def set_default_component(self, name, author, version, package=None):
         '''sets the default component
@@ -404,6 +407,9 @@ class Package(object):
         self.event_hooks = []
         self.dependencies = []
 
+    def add_to_kernel(self):
+        return self.__manager.add_package(self)
+
     def register(self):
         '''
         register both the types and the components contained in the 
@@ -459,6 +465,9 @@ class Package(object):
         '''
         self.dependencies.extend(args)
 
+
+Manager.packages[(None, None)] = Package("","")
+
 #====================================================================================
 # Configuration classes (loader and data structure)
 #====================================================================================
@@ -505,6 +514,10 @@ class ConfigType(object):
         self.super = False
         self.default = None
 
+    def set_default(self, default):
+        if isinstence(default, ConfigDefault):
+            self.default = default
+
 class ConfigSuperType(object):
 
     def __init__(self, name=""):
@@ -543,13 +556,15 @@ class ConfigSuperType(object):
 
 class ConfigDefault(object):
 
-    def __init__(self, name="", author="", version=0, package=None):
+    def __init__(self, name="", author="", version=0, package=None, package_name="", package_author=""):
         self.name = name
         self.author = author
         self.version = version
         self.package = package
+        self.package_name = package_name
+        self.package_author = package_author
 
-    def set_default(self, name=None, author=None, version=None, package=None):
+    def set_default(self, name=None, author=None, version=None, package=None, package_name="", package_author=""):
         '''
         sets the default, calling with no arguments clears the values, 
         calling with one or more arguments sets those values but leaves the others alone
@@ -572,8 +587,10 @@ class ConfigDefault(object):
                 self.version = version
             if pflag:
                 self.package = package
+                self.package_name = package_name
+                self.package_author = package_author
 
-class ConfigLoader(object):
+class KernelConfig(object):
 
     @staticmethod
     def load(template):
@@ -589,13 +606,13 @@ class ConfigLoader(object):
                     result = typeobj.set_default_component(subtype.default.name,
                                                            subtype.default.author,
                                                            subtype.default.version,
-                                                           subtype.default.package)
+                                                           (subtype.default.package_name, subtype.default.package_author))
             else:
                 typeobj = Manager.get_type(typename)
                 result = typeobj.set_default_component(type_obj.default.name,
                                                        type_obj.default.author,
                                                        type_obj.default.version,
-                                                       type_obj.default.package)
+                                                       (type_obj.default.package_name, type_obj.default.package_author))
 
     @staticmethod
     def build_from_file(filename, template=None):
@@ -643,26 +660,37 @@ class ConfigLoader(object):
             #config for this type
             default = ConfigDefault()
             for item, value in config.items(section):
-                if item == "name" or item == "Name" or item == "NAME":
+                if str(item).lower() == "name":
                     if value == "None":
                         default.name = None
                     else:
                         default.name = value
-                if item == "author" or item == "Author" or item == "AUTHOR":
+                if str(item).lower() == "author":
                     if value == "None":
                         default.name = None
                     else:
                         default.author = value
-                if item == "version" or item == "Version" or item == "VERSION":
+                if str(item).lower() == "version":
                     if value == "None":
                         default.name = None
                     else:
                         default.version = float(value)
-                if item == "package" or item == "Package" or item == "PACKAGE":
+                if str(item).lower() == "package":
                     if value == "None":
                         default.name = None
                     else:
                         default.package = value
+                if str(item).lower() == "package_name":
+                    if value == "None":
+                        default.package_name = None
+                    else:
+                        default.package_name = value
+                if str(item).lower() == "package_author":
+                    if value == "None":
+                        default.package_author = None
+                    else:
+                        default.package_author = value
+
             typeobj.default = default
         #ok we've built the template lets return it
         return template
@@ -697,21 +725,83 @@ class ConfigLoader(object):
                 for subtypename, subtype in type_obj.types:
                     section = str(typename) + "::" + str(subtypename)
                     config.add_section(section)
-                    config.set(section, "Name", str(subtype.default.name))
-                    config.set(section, "Author", str(subtype.default.author))
-                    config.set(section, "Version", str(subtype.default.version))
-                    config.set(section, "Package", str(subtype.default.package))
+                    config.set(section, "name", str(subtype.default.name))
+                    config.set(section, "author", str(subtype.default.author))
+                    config.set(section, "version", str(subtype.default.version))
+                    config.set(section, "package", str(subtype.default.package))
+                    config.set(section, "package_name", str(subtype.default.package_name))
+                    config.set(section, "package_author", str(subtype.default.package_author))
             else:
                 section = str(typename)
                 config.add_section(section)
-                config.set(section, "Name", str(type_obj.default.name))
-                config.set(section, "Author", str(type_obj.default.author))
-                config.set(section, "Version", str(type_obj.default.version))
-                config.set(section, "Package", str(type_obj.default.package))
+                config.set(section, "name", str(type_obj.default.name))
+                config.set(section, "author", str(type_obj.default.author))
+                config.set(section, "version", str(type_obj.default.version))
+                config.set(section, "package", str(type_obj.default.package))
+                config.set(section, "package_name", str(type_obj.default.package_name))
+                config.set(section, "package_author", str(type_obj.default.package_author))
         f = open(filename, "wb")
-        config.write(file)
+        config.write(f)
         f.close()
 
+    @staticmethod
+    def BuildFromKernel():
+        '''
+        builds a template form the curent state of the Kernel
+        '''
+        template = ConfigTemplate()
+        for type_name, type in Manager.types.iteritems():
+            if isinstance(type, SuperType):
+                super_type_config = ConfigSuperType(type_name)
+                for sub_type_name, sub_type in type.iteritems():
+                    type_config = ConfigType(sub_type_name)
+                    super_type_config.add_type(type_config)
+                    component = sub_type.get_default_component()
+                    if component.package is not None:
+                        default = ConfigDefault(component.name, component.author, component.version, component.package, component.package.name, component.package.author)
+                    else:
+                        default = ConfigDefault(component.name, component.author, component.version, component.package)
+                    type_config.set_default(default)
+                template.add_type(super_type_config)
+            elif isinstance(type, Type):
+                type_config = ConfigType(type_name)
+                if component.package is not None:
+                    default = ConfigDefault(component.name, component.author, component.version, component.package, component.package.name, component.package.author)
+                else:
+                    default = ConfigDefault(component.name, component.author, component.version, component.package)
+                type_config.set_default(default)
+                template.add_type(type_config)
+        return template
+
+    def BuildFromPackage(package, template=None):
+        '''
+        builds a template form a Kernel.Package object
+        '''
+        if template == None:
+            template = ConfigTemplate()
+        if isinstance(package, Package):
+            for type_name, type in package.types.iteritems():
+                if isinstance(type, SuperType):
+                    super_type_config = ConfigSuperType(type_name)
+                    for sub_type_name, sub_type in type.iteritems():
+                        type_config = ConfigType(sub_type_name)
+                        super_type_config.add_type(type_config)
+                        component = sub_type.get_default_component()
+                        if component.package is not None:
+                            default = ConfigDefault(component.name, component.author, component.version, component.package, component.package.name, component.package.author)
+                        else:
+                            default = ConfigDefault(component.name, component.author, component.version, component.package)
+                        type_config.set_default(default)
+                    template.add_type(super_type_config)
+                elif isinstance(type, Type):
+                    type_config = ConfigType(type_name)
+                    if component.package is not None:
+                        default = ConfigDefault(component.name, component.author, component.version, component.package, component.package.name, component.package.author)
+                    else:
+                        default = ConfigDefault(component.name, component.author, component.version, component.package)
+                    type_config.set_default(default)
+                    template.add_type(type_config)
+        return template
 #====================================================================================
 # * Protect (a class to wrap wround functions like event handelers to ceatch errors)
 #====================================================================================
@@ -725,12 +815,12 @@ class Protect(object):
             self.fn(*args, **kwargs)
         except Exception, excp:
             if inspect.ismethod(self.fn):
-                messege = "Exception in protected method  %s bound to class %s" % (self.fn.__name__, self.fn.im_self.__class__.__name__ )
+                message = "Exception in protected method  '%s' bound to class '%s'" % (self.fn.__name__, self.fn.im_self.__class__.__name__ )
             elif inspect.isfunction(self.fn):
                 message = "Exception in protected function %s" % self.fn.__name__
             else:
                 message = "Exception in protected call"
-            Log(message="message", inform=True, error=True)
+            Log(message, inform=True, error=True)
 
 #====================================================================================
 # * Kernel Functions
@@ -781,20 +871,83 @@ def Log(message=None, prefix="[Kernel]", inform=False, error=False):
     f = open(os.path.join(logdir, "ARCed.log"), "ab")
     time_str = time.strftime("%a %d %b %Y %H:%M:%S [%Z] ")
     if error:
-        message += " [Error] " + traceback.format_exc()
-    f.write(time_str + prefix + " " + message + "\n")
-    f.close
+        error_text = " [Error] " + traceback.format_exc()
+    else:
+        error_text = ""
+    f.write(time_str + prefix + " " + message + error_text + "\n")
+    f.close()
     if inform:
         Inform(prefix, message, error)
+
+
+class ErrorDialog (wx.Dialog):
+    
+    def __init__(self, prefix, message, error_text):
+        wx.Dialog.__init__ (self, None, -1, "ARCed Error " + str(prefix), wx.DefaultPosition, (480, -1), wx.DEFAULT_DIALOG_STYLE)
+
+        mainsizer = wx.BoxSizer(wx.VERTICAL)
+        message_sizer = wx.BoxSizer(wx.HORIZONTAL)
+        
+        self.cp = cp = PCP.PyCollapsiblePane(self, label="Details",
+                                             agwStyle= wx.CP_NO_TLW_RESIZE|wx.CP_USE_STATICBOX)
+        self.btn = wx.Button(self.cp, -1, "Details")
+        self.cp.SetButton(self.btn)
+        self.Bind(wx.EVT_COLLAPSIBLEPANE_CHANGED, self.OnPaneChanged, self.cp)
+
+        self.error_bmp = wx.StaticBitmap(self, wx.ID_ANY, wx.ArtProvider.GetBitmap(wx.ART_ERROR, wx.ART_OTHER), wx.DefaultPosition, wx.DefaultSize, 0)
+        message_sizer.Add(self.error_bmp, 0, wx.ALL, 5)
+        
+        self.message = wx.StaticText(self, wx.ID_ANY, str(message), wx.DefaultPosition, wx.DefaultSize, 0)
+        self.message.Wrap(-1)
+        message_sizer.Add(self.message, 1, wx.ALL|wx.EXPAND|wx.ALIGN_CENTER_VERTICAL, 16)
+        
+        mainsizer.Add(message_sizer, 0, wx.EXPAND, 5)
+        
+        self.details_tb = wx.TextCtrl(self.cp.GetPane(), wx.ID_ANY, str(error_text), wx.DefaultPosition, wx.DefaultSize, wx.TE_MULTILINE|wx.TE_READONLY|wx.TE_WORDWRAP )
+       
+        details_sizer = wx.BoxSizer(wx.VERTICAL)
+        details_sizer.Add(self.details_tb, 1, wx.EXPAND|wx.ALL, 2)
+        self.cp.GetPane().SetSizer(details_sizer)
+
+        mainsizer.Add(self.cp, 1, wx.ALL|wx.EXPAND, 5)
+        
+        dilg_btn_sizer = wx.StdDialogButtonSizer()
+        self.dilg_btn_sizerOK = wx.Button(self, wx.ID_OK)
+        dilg_btn_sizer.AddButton(self.dilg_btn_sizerOK)
+        dilg_btn_sizer.Realize();
+        mainsizer.Add(dilg_btn_sizer, 0, wx.EXPAND, 5)
+        
+        self.SetSizer(mainsizer)
+        self.Layout()
+        
+        self.Centre(wx.BOTH)
+
+    def OnPaneChanged(self, event=None):
+
+        # redo the layout
+        self.Layout()
+        
+        # and also change the labels
+        if self.cp.IsExpanded():
+            self.cp.SetLabel("Details <<")
+            self.btn.SetLabel("Details <<")
+        else:
+            self.cp.SetLabel("Details >>")
+            self.btn.SetLabel("Details >>")
+            
+        self.btn.SetInitialSize()
 
 def Inform(title, message, error=False):
     if wx.GetApp() is not None:
         if error:
-            style = wx.OK|wx.STAY_ON_TOP|wx.ICON_INFORMATION
+            dlg = ErrorDialog(title, message, traceback.format_exc())
+            dlg.ShowModal()
         else:
-            style = wx.OK|wx.STAY_ON_TOP|wx.ICON_ERROR
-        dlg = wx.MessageDialog(None, message, caption=title, style=style)
-        dlg.ShowModal()
+            style = wx.OK|wx.STAY_ON_TOP|wx.ICON_INFORMATION
+            dlg = wx.MessageDialog(None, message, caption="ARCed "+ title, style=style)
+            dlg.ShowModal()
+            
+        
 
 
 #=======================================================================
