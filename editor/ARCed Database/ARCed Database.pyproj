@@ -135,6 +135,7 @@
     <Compile Include="src\CheckMarks.py" />
     <Compile Include="src\DatabasePackage.py" />
     <Compile Include="src\maxvalues.py" />
+    <Compile Include="src\__example__.py" />
     <Compile Include="src\__main__.py" />
     <Compile Include="src\__test__.py" />
   </ItemGroup>

@@ -14133,32 +14133,10 @@ class ParameterGraph_Panel ( wx.Panel ):
 		
 		MainSizer = wx.BoxSizer( wx.VERTICAL )
 		
-		sizerLabels = wx.BoxSizer( wx.HORIZONTAL )
-		
-		self.labelVertex = wx.StaticText( self, wx.ID_ANY, u"Vertex:", wx.DefaultPosition, wx.Size( 64,-1 ), 0 )
-		self.labelVertex.Wrap( -1 )
-		sizerLabels.Add( self.labelVertex, 0, wx.ALL, 5 )
-		
-		self.labelLevel = wx.StaticText( self, wx.ID_ANY, u"Level:", wx.DefaultPosition, wx.Size( 96,-1 ), 0 )
-		self.labelLevel.Wrap( -1 )
-		sizerLabels.Add( self.labelLevel, 0, wx.ALL, 5 )
-		
-		self.labelValue = wx.StaticText( self, wx.ID_ANY, u"Value:", wx.DefaultPosition, wx.Size( 96,-1 ), 0 )
-		self.labelValue.Wrap( -1 )
-		sizerLabels.Add( self.labelValue, 0, wx.ALL, 5 )
-		
-		MainSizer.Add( sizerLabels, 0, wx.EXPAND, 5 )
-		
 		sizerControls = wx.BoxSizer( wx.HORIZONTAL )
 		
-		self.spinCtrlVertex = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( 64,-1 ), wx.SP_ARROW_KEYS|wx.SP_WRAP, 0, 10, 0 )
-		sizerControls.Add( self.spinCtrlVertex, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
-		
-		self.spinCtrlLevel = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( 96,-1 ), wx.SP_ARROW_KEYS|wx.SP_WRAP, 0, 10, 1 )
-		sizerControls.Add( self.spinCtrlLevel, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
-		
-		self.spinCtrlValue = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( 96,-1 ), wx.SP_ARROW_KEYS|wx.SP_WRAP, 0, 10, 1 )
-		sizerControls.Add( self.spinCtrlValue, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
+		self.spinCtrlSomething = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( 64,-1 ), wx.SP_ARROW_KEYS|wx.SP_WRAP, 0, 10, 0 )
+		sizerControls.Add( self.spinCtrlSomething, 0, wx.ALL, 5 )
 		
 		self.labelDummy = wx.StaticText( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.labelDummy.Wrap( -1 )
@@ -14166,11 +14144,11 @@ class ParameterGraph_Panel ( wx.Panel ):
 		
 		self.labelLevel = wx.StaticText( self, wx.ID_ANY, u"Level:", wx.DefaultPosition, wx.DefaultSize, wx.ALIGN_RIGHT|wx.ST_NO_AUTORESIZE )
 		self.labelLevel.Wrap( -1 )
-		sizerControls.Add( self.labelLevel, 1, wx.ALL, 5 )
+		sizerControls.Add( self.labelLevel, 1, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
 		
 		self.labelValue = wx.StaticText( self, wx.ID_ANY, u"Value:", wx.DefaultPosition, wx.DefaultSize, wx.ALIGN_LEFT )
 		self.labelValue.Wrap( -1 )
-		sizerControls.Add( self.labelValue, 1, wx.ALL, 5 )
+		sizerControls.Add( self.labelValue, 1, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
 		
 		MainSizer.Add( sizerControls, 0, wx.EXPAND, 5 )
 		
@@ -14210,9 +14188,6 @@ class ParameterGraph_Panel ( wx.Panel ):
 		self.Layout()
 		
 		# Connect Events
-		self.spinCtrlVertex.Bind( wx.EVT_SPINCTRL, self.spinCtrlVertex_ValueChanged )
-		self.spinCtrlLevel.Bind( wx.EVT_SPINCTRL, self.spinCtrlLevel_ValueChanged )
-		self.spinCtrlValue.Bind( wx.EVT_SPINCTRL, self.spinCtrlValue_ValueChanged )
 		self.graphPanel.Bind( wx.EVT_SIZE, self.graphPanel_OnSize )
 		self.buttonChangeMaximum.Bind( wx.EVT_BUTTON, self.buttonChangeMax_Clicked )
 		self.checkBoxPoints.Bind( wx.EVT_CHECKBOX, self.checkBoxPoints_CheckChanged )
@@ -14224,15 +14199,6 @@ class ParameterGraph_Panel ( wx.Panel ):
 	
 	
 	# Virtual event handlers, overide them in your derived class
-	def spinCtrlVertex_ValueChanged( self, event ):
-		pass
-	
-	def spinCtrlLevel_ValueChanged( self, event ):
-		pass
-	
-	def spinCtrlValue_ValueChanged( self, event ):
-		pass
-	
 	def graphPanel_OnSize( self, event ):
 		pass
 	
