@@ -39,7 +39,7 @@ class ConfigManager(object):
         #main Config
         local_arced_path = os.path.join(dirName, "ARCed.cfg")
         user_arced_path = os.path.join(Kernel.GetConfigFolder(), "ARCed.cfg")
-        arced_cfg = ConfigManager.PhraseCFGFile(local_arced_path)
+        arced_cfg = ConfigManager.PhraseCFGFile(local_arced_path, dict={"INSTALLDIR": dirName, "PROGRAMFILES": "%PROGRAMFILES%"})
         arced_cfg = ConfigManager.PhraseCFGFile(user_arced_path, arced_cfg)
         if Kernel.GlobalObjects.has_key("ARCed_config"):
             Kernel.GlobalObjects.set_value("ARCed_config", arced_cfg)
@@ -73,7 +73,7 @@ class ConfigManager(object):
         Kernel.KernelConfig.save_to_file(Kernel.KernelConfig.BuildFromKernel(), user_defaults_path)
     
     @staticmethod    
-    def PhraseCFGFile(file_path, hash=None):
+    def PhraseCFGFile(file_path, hash=None, dict=None):
         if hash is None:
             hash = {}
         extend_hash = {}
@@ -81,8 +81,11 @@ class ConfigManager(object):
         config.read(file_path)
         for section in config.sections():
             section_hash = {}
-            for item, value in config.items(section):
-                section_hash[str(item)] = value
+            for item, value in config.items(section, True):
+                if dict is None:
+                    section_hash[str(item)] = value
+                else:
+                    section_hash[str(item)] = value % dict
             extend_hash[str(section)] = section_hash
         hash.update(extend_hash)
         return hash
