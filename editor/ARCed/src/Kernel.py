@@ -149,6 +149,7 @@ class Manager(object):
             else:
                 return Manager.types[str(name)]
         except KeyError, AttributeError:
+            Log("Type '%s' not registered with Kernel under '%s' SuperType" % (name, super_name))
             return Type("None")
 
     @staticmethod
@@ -156,6 +157,7 @@ class Manager(object):
         try:
             return Manager.events[str(name)]
         except KeyError, AttributeError:
+            Log("Event '%s' not registered with Kernel" % name)
             return Event("None")
 
     @staticmethod
@@ -300,6 +302,7 @@ class SuperType(object):
         try:
             return self.types[type_name]
         except KeyError:
+            Log("SuperType '%s' does not have subtype '%s'" % (self.name, type_name))
             return Type("None")
 
 class Type(object):
@@ -372,6 +375,7 @@ class Type(object):
             try:
                 return self.components.values()[0]
             except IndexError:
+                Log("Type '%s' has no registered components" % self.name)
                 return Component(None, "None")
 
     def get_component(self, name, author, version, package=None):
@@ -515,7 +519,7 @@ class ConfigType(object):
         self.default = None
 
     def set_default(self, default):
-        if isinstence(default, ConfigDefault):
+        if isinstance(default, ConfigDefault):
             self.default = default
 
 class ConfigSuperType(object):
@@ -720,26 +724,74 @@ class KernelConfig(object):
         @param filename: the path to the configuration file
         '''
         config = ConfigParser.ConfigParser()
-        for typename, type_obj in template.types:
-            if type_obj.super:
-                for subtypename, subtype in type_obj.types:
+        for typename, type_obj in template.types.iteritems():
+            if isinstance(type_obj, ConfigSuperType):
+                for subtypename, subtype in type_obj.types.iteritems():
                     section = str(typename) + "::" + str(subtypename)
                     config.add_section(section)
-                    config.set(section, "name", str(subtype.default.name))
-                    config.set(section, "author", str(subtype.default.author))
-                    config.set(section, "version", str(subtype.default.version))
-                    config.set(section, "package", str(subtype.default.package))
-                    config.set(section, "package_name", str(subtype.default.package_name))
-                    config.set(section, "package_author", str(subtype.default.package_author))
+                    if subtype.default.name == "":
+                        name = None
+                    else:
+                        name = subtype.default.name
+                    config.set(section, "name", str(name))
+                    if subtype.default.author == "":
+                        author = None
+                    else:
+                        author = subtype.default.author
+                    config.set(section, "author", str(author))
+                    if subtype.default.version == "":
+                        version = None
+                    else:
+                        version = subtype.default.version
+                    config.set(section, "version", str(version))
+                    if subtype.default.package is not None:
+                        package = True
+                    else:
+                        package = subtype.default.package
+                    config.set(section, "package", str(package))
+                    if subtype.default.package_name == "":
+                        package_name = None
+                    else:
+                        package_name = subtype.default.package_name
+                    config.set(section, "package_name", str(package_name))
+                    if subtype.default.package_author == "":
+                        package_author = None
+                    else:
+                        package_author = subtype.default.package_author
+                    config.set(section, "package_author", str(package_author))
             else:
                 section = str(typename)
                 config.add_section(section)
-                config.set(section, "name", str(type_obj.default.name))
-                config.set(section, "author", str(type_obj.default.author))
-                config.set(section, "version", str(type_obj.default.version))
-                config.set(section, "package", str(type_obj.default.package))
-                config.set(section, "package_name", str(type_obj.default.package_name))
-                config.set(section, "package_author", str(type_obj.default.package_author))
+                if type_obj.default.name == "":
+                    name = None
+                else:
+                    name = type_obj.default.name
+                config.set(section, "name", str(name))
+                if type_obj.default.author == "":
+                    author = None
+                else:
+                    author = type_obj.default.author
+                config.set(section, "author", str(author))
+                if type_obj.default.version == "":
+                    version = None
+                else:
+                    version = type_obj.default.version
+                config.set(section, "version", str(version))
+                if type_obj.default.package is not None:
+                    package = True
+                else:
+                    package = type_obj.default.package
+                config.set(section, "package", str(package))
+                if type_obj.default.package_name == "":
+                    package_name = None
+                else:
+                    package_name = type_obj.default.package_name
+                config.set(section, "package_name", str(package_name))
+                if type_obj.default.package_author == "":
+                    package_author = None
+                else:
+                    package_author = type_obj.default.package_author
+                config.set(section, "package_author", str(package_author))
         f = open(filename, "wb")
         config.write(f)
         f.close()
@@ -753,7 +805,7 @@ class KernelConfig(object):
         for type_name, type in Manager.types.iteritems():
             if isinstance(type, SuperType):
                 super_type_config = ConfigSuperType(type_name)
-                for sub_type_name, sub_type in type.iteritems():
+                for sub_type_name, sub_type in type.types.iteritems():
                     type_config = ConfigType(sub_type_name)
                     super_type_config.add_type(type_config)
                     component = sub_type.get_default_component()
@@ -765,6 +817,7 @@ class KernelConfig(object):
                 template.add_type(super_type_config)
             elif isinstance(type, Type):
                 type_config = ConfigType(type_name)
+                component = type.get_default_component()
                 if component.package is not None:
                     default = ConfigDefault(component.name, component.author, component.version, component.package, component.package.name, component.package.author)
                 else:

@@ -70,7 +70,7 @@ class ConfigManager(object):
         ConfigManager.SaveCFGFile(user_arced_path, Kernel.GlobalObjects.get_value("ARCed_config"))
         Kernel.GlobalObjects.get_value("WX_config").Flush()
         user_defaults_path = os.path.join(Kernel.GetConfigFolder(), "user_defaults.ini")
-        Kernel.KernelConfig.save_to_file( Kernel.GlobalObjects.get_value("DefaultComponentTemplate"), user_defaults_path)
+        Kernel.KernelConfig.save_to_file(Kernel.KernelConfig.BuildFromKernel(), user_defaults_path)
     
     @staticmethod    
     def PhraseCFGFile(file_path, hash=None):

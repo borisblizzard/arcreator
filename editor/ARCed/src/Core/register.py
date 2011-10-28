@@ -216,16 +216,16 @@ class CorePackage(Package):
         #--------------------------- functions -------------------------------
         self.add_component(Component(ARC_Data.ARC_Data.dump, "ARCDataDumpFunction",
                                      None, "CoreARCDataDumpFunction", "CORE",
-                                     1.0, "CORE"))
+                                     1.0, self))
         self.add_component(Component(ARC_Data.ARC_Data.load, "ARCDataLoadFunction",
                                      None, "CoreARCDataLoadFunction", "CORE",
-                                     1.0, "CORE"))
+                                     1.0, self))
         self.add_component(Component(Project.ARCProjectSaveFunction, "ARCProjectSaveFunction", 
                                      None, "CoreARCProjctSaveFunction", "CORE", 
-                                     1.0, "CORE"))
+                                     1.0, self))
         self.add_component(Component(Project.ARCProjectLoadFunction, "ARCProjectLoadFunction", 
                                      None, "CoreARCProjectLoadFunction", "CORE", 
-                                     1.0, "CORE"))
+                                     1.0, self))
 
         #-------------------------- data Handler -----------------------------
         self.add_component(Component(Data.NewProject, "NewProjectHandler",
