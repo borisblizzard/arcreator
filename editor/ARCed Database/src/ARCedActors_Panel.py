@@ -366,9 +366,9 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 		if level == None:
 			level = self.spinCtrlLevel.GetValue()
 		self.spinCtrlValue.SetValue(self.GetParameterValue(self.ParamTab, level))
-		self.spinCtrlValue.SetRange(0, self.setValueRange(self.ParamTab))
+		self.spinCtrlValue.SetRange(1, self.GetValueMax(self.ParamTab))
 		
-	def GetValueMax( param_index ):
+	def GetValueMax( self, param_index ):
 		if param_index == 0:
 			return ActorLimits['maxhp']
 		elif param_index == 1:
@@ -383,10 +383,6 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 			return ActorLimits['maxint']
 		else:
 		    return ActorLimits['maxextra']
-
-	def drawCurve( self, parameterList, text ):
-
-		pass
 
 	def bitmapGraph_LeftClick( self, event ):
 		print 'CLICKED'
@@ -410,8 +406,6 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 
 	def noteBookParameters_PageChanged( self, event ):
 		''' Sets the index of the page when the tab is traversed '''
-		# Fix for Windows. Using wxNotebook#GetSelection() can return inconsistent results, while reading
-		# it from the wxNoteBookEvent#GetSelection() is accurate
 		self.ParamTab = event.GetSelection()
 		if not ARC_FORMAT:
 			self.buttonRemoveParameter.Enabled = (self.ParamTab > 5)

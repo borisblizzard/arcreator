@@ -52,7 +52,7 @@ class ActionManager(object):
         if ActionManager._current_action >= len(ActionManager._action_stack):
             ActionManager._current_action = len(ActionManager._action_stack) - 1
         if not success:
-            Kernel.log("Warning: Action(s) not compleated secessful", "[Action Framwork]")
+            Kernel.log("Warning: Action(s) not completed successfully", "[Action Framwork]")
         
     @staticmethod
     def AddActions(*actions):

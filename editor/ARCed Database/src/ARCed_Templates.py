@@ -488,10 +488,10 @@ class Classes_Panel ( wx.Panel ):
 		bSizer68 = wx.BoxSizer( wx.HORIZONTAL )
 		
 		self.buttonWeaponAll = wx.Button( self, wx.ID_ANY, u"All", wx.DefaultPosition, wx.DefaultSize, 0 )
-		bSizer68.Add( self.buttonWeaponAll, 1, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
+		bSizer68.Add( self.buttonWeaponAll, 1, wx.EXPAND|wx.BOTTOM|wx.LEFT, 5 )
 		
 		self.buttonWeaponNone = wx.Button( self, wx.ID_ANY, u"None", wx.DefaultPosition, wx.DefaultSize, 0 )
-		bSizer68.Add( self.buttonWeaponNone, 1, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
+		bSizer68.Add( self.buttonWeaponNone, 1, wx.EXPAND|wx.BOTTOM|wx.RIGHT, 5 )
 		
 		bSizer65.Add( bSizer68, 0, wx.EXPAND, 5 )
 		
@@ -505,7 +505,7 @@ class Classes_Panel ( wx.Panel ):
 		self.labelPosition.Wrap( -1 )
 		bSizer651.Add( self.labelPosition, 0, wx.ALL|wx.EXPAND, 5 )
 		
-		comboBoxPositionChoices = []
+		comboBoxPositionChoices = [ u"Front", u"Middle", u"Rear" ]
 		self.comboBoxPosition = wx.Choice( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxPositionChoices, 0 )
 		self.comboBoxPosition.SetSelection( 0 )
 		bSizer651.Add( self.comboBoxPosition, 0, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
@@ -521,10 +521,10 @@ class Classes_Panel ( wx.Panel ):
 		bSizer681 = wx.BoxSizer( wx.HORIZONTAL )
 		
 		self.buttonArmorAll = wx.Button( self, wx.ID_ANY, u"All", wx.DefaultPosition, wx.DefaultSize, 0 )
-		bSizer681.Add( self.buttonArmorAll, 1, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
+		bSizer681.Add( self.buttonArmorAll, 1, wx.EXPAND|wx.BOTTOM|wx.LEFT, 5 )
 		
 		self.buttonArmorNone = wx.Button( self, wx.ID_ANY, u"None", wx.DefaultPosition, wx.DefaultSize, 0 )
-		bSizer681.Add( self.buttonArmorNone, 1, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
+		bSizer681.Add( self.buttonArmorNone, 1, wx.EXPAND|wx.BOTTOM|wx.RIGHT, 5 )
 		
 		bSizer651.Add( bSizer681, 0, wx.EXPAND, 5 )
 		
@@ -548,26 +548,41 @@ class Classes_Panel ( wx.Panel ):
 		
 		bSizer75 = wx.BoxSizer( wx.HORIZONTAL )
 		
-		checkListElementsChoices = []
-		self.checkListElements = wx.CheckListBox( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, checkListElementsChoices, wx.LB_HSCROLL|wx.LB_MULTIPLE|wx.LB_NEEDED_SB )
-		bSizer75.Add( self.checkListElements, 1, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
+		lixtBoxElementsChoices = []
+		self.lixtBoxElements = wx.ListBox( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, lixtBoxElementsChoices, 0 )
+		bSizer75.Add( self.lixtBoxElements, 1, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
 		
-		checkListStatesChoices = []
-		self.checkListStates = wx.CheckListBox( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, checkListStatesChoices, wx.LB_HSCROLL|wx.LB_MULTIPLE|wx.LB_NEEDED_SB )
-		bSizer75.Add( self.checkListStates, 1, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
+		listBoxStatesChoices = []
+		self.listBoxStates = wx.ListBox( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, listBoxStatesChoices, 0 )
+		bSizer75.Add( self.listBoxStates, 1, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
 		
-		bSizer67.Add( bSizer75, 60, wx.EXPAND, 5 )
+		bSizer67.Add( bSizer75, 45, wx.EXPAND, 5 )
 		
-		bSizer76 = wx.BoxSizer( wx.VERTICAL )
+		bSizer617 = wx.BoxSizer( wx.HORIZONTAL )
+		
+		self.m_spinCtrl191 = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0 )
+		bSizer617.Add( self.m_spinCtrl191, 1, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
+		
+		self.m_spinCtrl192 = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0 )
+		bSizer617.Add( self.m_spinCtrl192, 1, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
+		
+		bSizer67.Add( bSizer617, 0, wx.EXPAND, 5 )
 		
 		self.labelSkills = wx.StaticText( self, wx.ID_ANY, u"Skills to Learn:", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.labelSkills.Wrap( -1 )
-		bSizer76.Add( self.labelSkills, 0, wx.ALL, 5 )
+		bSizer67.Add( self.labelSkills, 0, wx.ALL, 5 )
 		
 		self.listCtrlSkills = wx.ListCtrl( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.LC_HRULES|wx.LC_REPORT|wx.LC_SINGLE_SEL|wx.LC_VIRTUAL|wx.LC_VRULES )
-		bSizer76.Add( self.listCtrlSkills, 1, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
+		bSizer67.Add( self.listCtrlSkills, 30, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
 		
-		bSizer67.Add( bSizer76, 40, wx.EXPAND, 5 )
+		self.labelNotes = wx.StaticText( self, wx.ID_ANY, u"Notes:", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.labelNotes.Wrap( -1 )
+		bSizer67.Add( self.labelNotes, 0, wx.ALL, 5 )
+		
+		self.textCtrlNotes = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.TE_MULTILINE|wx.CLIP_CHILDREN )
+		self.textCtrlNotes.SetToolTipString( u"Any user notes for this item. These notes can also be referenced via scripts." )
+		
+		bSizer67.Add( self.textCtrlNotes, 25, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
 		
 		staticSizerClasses.Add( bSizer67, 40, wx.EXPAND, 5 )
 		
@@ -587,9 +602,12 @@ class Classes_Panel ( wx.Panel ):
 		self.checkListArmors.Bind( wx.EVT_CHECKLISTBOX, self.checkListArmors_CheckChanged )
 		self.buttonArmorAll.Bind( wx.EVT_BUTTON, self.buttonArmorAll_Clicked )
 		self.buttonArmorNone.Bind( wx.EVT_BUTTON, self.buttonArmorNone_Clicked )
-		self.checkListElements.Bind( wx.EVT_CHECKLISTBOX, self.checkListElements_CheckChanged )
-		self.checkListStates.Bind( wx.EVT_CHECKLISTBOX, self.checkListStates_ChceckChanged )
+		self.lixtBoxElements.Bind( wx.EVT_LISTBOX, self.listBoxElements_SelectionChanged )
+		self.listBoxStates.Bind( wx.EVT_LISTBOX, self.listBoxStates_SelectionChanged )
+		self.m_spinCtrl191.Bind( wx.EVT_SPINCTRL, self.spinCtrlElements_ValueChanged )
+		self.m_spinCtrl192.Bind( wx.EVT_SPINCTRL, self.spinCtrlStates_ValueChanged )
 		self.listCtrlSkills.Bind( wx.EVT_LEFT_DCLICK, self.listBoxSkills_DoubleClick )
+		self.textCtrlNotes.Bind( wx.EVT_TEXT, self.textCtrlNotes_TextChanged )
 	
 	def __del__( self ):
 		pass
@@ -626,13 +644,22 @@ class Classes_Panel ( wx.Panel ):
 	def buttonArmorNone_Clicked( self, event ):
 		pass
 	
-	def checkListElements_CheckChanged( self, event ):
+	def listBoxElements_SelectionChanged( self, event ):
 		pass
 	
-	def checkListStates_ChceckChanged( self, event ):
+	def listBoxStates_SelectionChanged( self, event ):
+		pass
+	
+	def spinCtrlElements_ValueChanged( self, event ):
+		pass
+	
+	def spinCtrlStates_ValueChanged( self, event ):
 		pass
 	
 	def listBoxSkills_DoubleClick( self, event ):
+		pass
+	
+	def textCtrlNotes_TextChanged( self, event ):
 		pass
 	
 
@@ -14135,6 +14162,11 @@ class ParameterGraph_Panel ( wx.Panel ):
 		
 		sizerControls = wx.BoxSizer( wx.HORIZONTAL )
 		
+		radioBoxCurveChoices = [ u"Cubic", u"Linear" ]
+		self.radioBoxCurve = wx.RadioBox( self, wx.ID_ANY, u"Curve Type", wx.DefaultPosition, wx.DefaultSize, radioBoxCurveChoices, 1, wx.RA_SPECIFY_ROWS )
+		self.radioBoxCurve.SetSelection( 0 )
+		sizerControls.Add( self.radioBoxCurve, 0, wx.ALL, 5 )
+		
 		self.spinCtrlSomething = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( 64,-1 ), wx.SP_ARROW_KEYS|wx.SP_WRAP, 0, 10, 0 )
 		sizerControls.Add( self.spinCtrlSomething, 0, wx.ALL, 5 )
 		
@@ -14188,6 +14220,7 @@ class ParameterGraph_Panel ( wx.Panel ):
 		self.Layout()
 		
 		# Connect Events
+		self.radioBoxCurve.Bind( wx.EVT_RADIOBOX, self.radioBoxCurve_SelectionChanged )
 		self.graphPanel.Bind( wx.EVT_SIZE, self.graphPanel_OnSize )
 		self.buttonChangeMaximum.Bind( wx.EVT_BUTTON, self.buttonChangeMax_Clicked )
 		self.checkBoxPoints.Bind( wx.EVT_CHECKBOX, self.checkBoxPoints_CheckChanged )
@@ -14199,6 +14232,9 @@ class ParameterGraph_Panel ( wx.Panel ):
 	
 	
 	# Virtual event handlers, overide them in your derived class
+	def radioBoxCurve_SelectionChanged( self, event ):
+		pass
+	
 	def graphPanel_OnSize( self, event ):
 		pass
 	

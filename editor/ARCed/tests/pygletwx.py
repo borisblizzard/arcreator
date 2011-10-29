@@ -138,7 +138,7 @@ class GLPanel(wx.Panel):
         self.SwapBuffers()
             
     #==========================================================================
-    # To be implamented by a sub class
+    # To be implemented by a sub class
     #==========================================================================
    
     def create_objects(self):
@@ -146,7 +146,7 @@ class GLPanel(wx.Panel):
         pass
         
     def update_object_resize(self, width, height):
-        '''called when the window recieves only if opengl is initialized'''
+        '''called when the window receives only if opengl is initialized'''
         pass
         
     def draw_objects(self):
