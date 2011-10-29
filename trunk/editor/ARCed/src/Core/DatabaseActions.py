@@ -19,11 +19,11 @@ class TableEditAction(Actions.ActionTemplate):
         self.data = data
 
     def do_apply(self):
-        #TODO: implament this function
+        #TODO: implement this function
         pass
 
     def do_undo(self):
-        #TODO: implament this function
+        #TODO: implement this function
         pass
 
 class LearningEditAction(Actions.ActionTemplate):
@@ -198,13 +198,13 @@ class ArmorEditAction(Actions.ActionTemplate):
                             armor.guard_state_set = self.data["guard_state_set"]
                         return True
                     else:
-                        Kernel.log("Warning: ArmorEditAction apply not compleated secessful, Armor ID %s is none" % self.id, "[ArmorEditAction]")
+                        Kernel.log("Warning: ArmorEditAction apply not completed successfully, Armor ID %s is none" % self.id, "[ArmorEditAction]")
                         return False
                 else:
-                     Kernel.log("Warning: ArmorEditAction apply not compleated secessful, Armors array from project is none", "[ArmorEditAction]")
+                     Kernel.log("Warning: ArmorEditAction apply not completed successfully, Armors array from project is none", "[ArmorEditAction]")
                      return False
             else:
-                Kernel.log("Warning: ArmorEditAction apply not compleated secessful, Project is None", "[ArmorEditAction]")
+                Kernel.log("Warning: ArmorEditAction apply not completed successfully, Project is None", "[ArmorEditAction]")
                 return False
     
     def do_undo(self):
@@ -265,13 +265,13 @@ class ArmorEditAction(Actions.ActionTemplate):
                             armor.guard_state_set = self.old_data["guard_state_set"]
                         return True
                     else:
-                        Kernel.log("Warning: ArmorEditAction apply not compleated secessful, Armor ID %s is none" % self.id, "[ArmorEditAction]")
+                        Kernel.log("Warning: ArmorEditAction apply not completed successfully, Armor ID %s is none" % self.id, "[ArmorEditAction]")
                         return False
                 else:
-                     Kernel.log("Warning: ArmorEditAction apply not compleated secessful, Armors array from project is none", "[ArmorEditAction]")
+                     Kernel.log("Warning: ArmorEditAction apply not completed successfully, Armors array from project is none", "[ArmorEditAction]")
                      return False
             else:
-                Kernel.log("Warning: ArmorEditAction apply not compleated secessful, Project is None", "[ArmorEditAction]")
+                Kernel.log("Warning: ArmorEditAction apply not completed successfully, Project is None", "[ArmorEditAction]")
                 return False
                      
 class ActorEditAction(Actions.ActionTemplate):
@@ -361,13 +361,13 @@ class ActorEditAction(Actions.ActionTemplate):
                             actor.armor4_fix = self.data["armor4_fix"]
                         return True
                     else:
-                        Kernel.log("Warning: ActorEditAction apply not compleated secessful, Actor ID %s is none" % self.id, "[ActorEditAction]")
+                        Kernel.log("Warning: ActorEditAction apply not completed successfully, Actor ID %s is none" % self.id, "[ActorEditAction]")
                         return False
                 else:
-                     Kernel.log("Warning: ActorEditAction apply not compleated secessful, Actors array from project is none", "[ActorEditAction]")
+                     Kernel.log("Warning: ActorEditAction apply not completed successfully, Actors array from project is none", "[ActorEditAction]")
                      return False
             else:
-                Kernel.log("Warning: ActorEditAction apply not compleated secessful, Project is None", "[ActorEditAction]")
+                Kernel.log("Warning: ActorEditAction apply not completed successfully, Project is None", "[ActorEditAction]")
                 return False
 
     def do_undo(self):
@@ -442,13 +442,13 @@ class ActorEditAction(Actions.ActionTemplate):
                             actor.armor4_fix = self.old_data["armor4_fix"]
                         return True
                     else:
-                        Kernel.log("Warning: ActorEditAction undo not compleated secessful, Actor ID %s is none" % self.id, "[ActorEditAction]")
+                        Kernel.log("Warning: ActorEditAction undo not completed successfully, Actor ID %s is none" % self.id, "[ActorEditAction]")
                         return False
                 else:
-                     Kernel.log("Warning: ActorEditAction undo not compleated secessful, Actors array from project is none", "[ActorEditAction]")
+                     Kernel.log("Warning: ActorEditAction undo not completed successfully, Actors array from project is none", "[ActorEditAction]")
                      return False
             else:
-                Kernel.log("Warning: ActorEditAction undo not compleated secessful, Project is None", "[ActorEditAction]")
+                Kernel.log("Warning: ActorEditAction undo not completed successfully, Project is None", "[ActorEditAction]")
                 return False
                                                
 class ClassEditAction(Actions.ActionTemplate):

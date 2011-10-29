@@ -56,7 +56,7 @@ class EventGrid(object):
         
     def setupOutline(self):
         '''
-        draws an outline for the event adn stores it so that it can be uses in sprites later
+        draws an outline for the event and stores it so that it can be uses in sprites later
         '''
         outlineEdgePattern = pyglet.image.SolidColorImagePattern((255, 255, 255, 255))
         eventOutline = outlineEdgePattern.create_image(24, 24).get_texture()
@@ -1063,7 +1063,7 @@ class TilemapPanel(pygletwx.GLPanel):
         self.SetActiveLayer(self.activeLayer, True)
         
     def update_object_resize(self, width, height):
-        '''called when the window recieves only if opengl is initialized'''
+        '''called when the window receives only if opengl is initialized'''
         #update the scrollbar widths
         self.SetOrigin()
                

@@ -27,6 +27,7 @@ class ARCedClasses_Panel( ARCed_Templates.Classes_Panel ):
 			DataWeapons = proj.getData('Weapons')
 			DataArmors = proj.getData('Armors')
 			DataStates = proj.getData('States')
+			print DataStates
 			DataElements = proj.getData('System').elements
 			DataSkills = proj.getData('Skills')
 		except NameError:
@@ -50,19 +51,33 @@ class ARCedClasses_Panel( ARCed_Templates.Classes_Panel ):
 		for i, klass in enumerate(DataClasses):
 			if not ARC_FORMAT and i == 0:
 				continue
-			self.listBoxClasses.Append(str(i).zfill(len(str(Limits['actors']))) + ': ' + klass.name)
+			text = "".join([str(i).zfill(len(str(Limits['actors']))), ': ', klass.name])
+			self.listBoxClasses.Append(text)
 
 	def refreshWeapons(self):
-		pass
+		self.checkListWeapons.Clear()
+		start = self.FixedIndex(0)
+		names = [DataWeapons[i].name for i in xrange(start, len(DataWeapons))]
+		self.checkListWeapons.InsertItems(names, 0)
+
 
 	def refreshArmors(self):
-		pass
+		self.checkListArmors.Clear()
+		start = self.FixedIndex(0)
+		names = [DataArmors[i].name for i in xrange(start, len(DataArmors))]
+		self.checkListArmors.InsertItems(names, 0)
 
 	def refreshStates(self):
-		pass
+		self.listBoxStates.Clear()
+		start = self.FixedIndex(0)
+		names = [DataStates[i].name for i in xrange(start, len(DataStates))]
+		self.listBoxStates.InsertItems(names, 0)
 
 	def refreshElements(self):
-		pass
+		self.listBoxElements.Clear()
+		start = self.FixedIndex(0)
+		names = [DataElements[i].name for i in xrange(start, len(DataElements))]
+		self.listBoxElements.InsertItems(0, names)
 
 	def refreshSkills(self):
 		pass
@@ -85,7 +100,8 @@ class ARCedClasses_Panel( ARCed_Templates.Classes_Panel ):
 			if newMax != currentMax: 
 				if newMax > currentMax:
 					newClasses = [None for i in xrange(newMax - currentMax)]
-					newLabels = [str(1 + currentMax + i).zfill(DigitMax) + ': ' for i in xrange(newMax - currentMax)]
+					newLabels = [
+						"".join([str(1 + currentMax + i).zfill(DigitMax), ': ']) for i in xrange(newMax - currentMax)]
 					Project.Data_classes.extend(newClasses)
 					self.listBoxClasses.InsertItems(newLabels, currentMax)
 				else:
@@ -104,43 +120,70 @@ class ARCedClasses_Panel( ARCed_Templates.Classes_Panel ):
 		pass
 
 	def checkListWeapons_CheckChanged( self, event ):
-		# TODO: Implement checkListWeapons_CheckChanged
-		pass
+		''' Adds/Removes the weapon from the class weapon set as needed '''
+		index = event.GetInt()
+		if self.checkListWeapons.IsChecked(index):
+			self.SelectedClass.weapon_set.append(self.FixedIndex(index))
+		else:
+			self.SelectedClass.weapon_set.remove(self.FixedIndex(index))
 
 	def buttonWeaponAll_Clicked( self, event ):
-		# TODO: Implement buttonWeaponAll_Clicked
-		pass
+		''' Checks all weapons and adds each weapon's ID to the class weapon set '''
+		for i in xrange(self.checkListWeapons.GetCount()):
+			self.checkListWeapons.Check(i, True)
+		ids = [i for i in xrange(self.FixedIndex(0), len(DataWeapons))]
+		self.SelectedClass.weapon_set = ids
 
 	def buttonWeaponNone_Clicked( self, event ):
-		# TODO: Implement buttonWeaponNone_Clicked
-		pass
+		''' Unchecks all weapons and clears the class weapon set '''
+		for i in xrange(self.checkListWeapons.GetCount()):
+			self.checkListWeapons.Check(i, False)
+		self.SelectedClass.weapon_set = []
 
 	def comboBoxPosition_SelectionChanged( self, event ):
-		# TODO: Implement comboBoxPosition_SelectionChanged
-		pass
+		''' Sets the position of the selected class to the index of the combo box '''
+		self.SelectedClass.position = event.GetInt()
 
 	def checkListArmors_CheckChanged( self, event ):
-		# TODO: Implement checkListArmors_CheckChanged
-		pass
+		''' Adds/Removes the armor from the class armor set as needed '''
+		index = event.GetInt()
+		if self.checkListArmors.IsChecked(index):
+			self.SelectedClass.armor_set.append(self.FixedIndex(index))
+		else:
+			self.SelectedClass.armor_set.remove(self.FixedIndex(index))
 
 	def buttonArmorAll_Clicked( self, event ):
-		# TODO: Implement buttonArmorAll_Clicked
-		pass
+		''' Checks all armors and adds each armor's ID to the class armor set '''
+		for i in xrange(self.checkListArmors.GetCount()):
+			self.checkListArmors.Check(i, True)
+		ids = [i for i in xrange(self.FixedIndex(0), len(DataArmors))]
+		self.SelectedClass.armor_set = ids
 
 	def buttonArmorNone_Clicked( self, event ):
-		# TODO: Implement buttonArmorNone_Clicked
-		pass
+		''' Unchecks all armors and clears the class armor set '''
+		for i in xrange(self.checkListArmors.GetCount()):
+			self.checkListArmors.Check(i, False)
+		self.SelectedClass.armor_set = []
 
-	def checkListElements_CheckChanged( self, event ):
+	def listBoxElements_SelectionChanged( self, event ):
 		# TODO: Implement checkListElements_CheckChanged
 		pass
 
-	def checkListStates_ChceckChanged( self, event ):
+	def listBoxStates_SelectionChanged( self, event ):
 		# TODO: Implement checkListStates_ChceckChanged
+		pass
+
+	def spinCtrlElements_ValueChanged( self, event ):
+		pass
+
+	def spinCtrlStates_ValueChanged( self, event ):
 		pass
 
 	def listBoxSkills_DoubleClick( self, event ):
 		# TODO: Implement listBoxSkills_DoubleClick
+		pass
+
+	def textCtrlNotes_TextChanged( self, event ):
 		pass
 
 

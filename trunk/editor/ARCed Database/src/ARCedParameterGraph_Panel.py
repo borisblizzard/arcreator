@@ -32,7 +32,7 @@ class ARCedParameterGraph_Panel( ARCed_Templates.ParameterGraph_Panel ):
 		for ary in self.Actor.parameters[param_index, :]:
 			data.append(ary[0])
 		self.Graph = test(self.graphPanel, data, maxValue) #!
-		#self.Graph.Canvas.mpl_connect('motion_notify_event', self.graphPanel_MouseMotion)
+		self.Graph.Canvas.mpl_connect('motion_notify_event', self.graphPanel_MouseMotion)
 
 
 	def graphPanel_OnSize( self, event ):
@@ -56,10 +56,10 @@ class ARCedParameterGraph_Panel( ARCed_Templates.ParameterGraph_Panel ):
 
 	def checkBoxPoints_CheckChanged( self, event ):
 		self.Graph.ShowVerts = self.checkBoxPoints.GetValue()
-		self.Graph.Line.set_visible(self.Graph.ShowVerts)
+		self.Graph.Lines[0].set_visible(self.Graph.ShowVerts)
 		if not self.Graph.ShowVerts: 
 			self.Graph.ActivePoint = None
-		#self.Graph.Canvas.draw()
+		self.Graph.Canvas.draw()
 
 	def buttonOK_Clicked( self, event ):
 		print 'OK'
@@ -68,9 +68,23 @@ class ARCedParameterGraph_Panel( ARCed_Templates.ParameterGraph_Panel ):
 		print 'CANCEL'
 	
 	def graphPanel_MouseMotion( self, event ):
-		pass
-		#self.labelLevel.SetLabel('Level: ' + str(self.Graph.MouseX))
-		#self.labelValue.SetLabel('Value: ' + str(self.Graph.MouseY))
+		self.labelLevel.SetLabel('Level: ' + str(self.Graph.MouseX))
+		self.labelValue.SetLabel('Value: ' + str(self.Graph.MouseY))
+
+	def radioBoxCurve_SelectionChanged( self, event ):
+		
+		self.Graph.DisplayLine = self.radioBoxCurve.GetSelection() + 1
+		print self.Graph.DisplayLine
+		'''
+		if self.Graph.DisplayLine == 1:
+			self.Graph.Lines[2].set_visible(False)
+			self.Graph.Lines[1].set_visible(True)
+		elif self.Graph.DisplayLine == 2:
+			self.Graph.Lines[1].set_visible(False)
+			self.Graph.Lines[2].set_visible(True)
+			'''
+		self.Graph.Lines[1].update(visible=False)
+		#self.Graph.Lines[2].update()
 
 from RGSS1_RPG import RPG
 app = wx.PySimpleApp( 0 )
