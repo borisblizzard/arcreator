@@ -9,6 +9,7 @@ ARC_App - main application class
 '''
 import os
 import sys
+import types
 
 import ConfigParser
 
@@ -31,6 +32,64 @@ from Kernel import Manager as KM
 
 import Logo
 
+
+class Config(object):
+
+    def __init__(self):
+        self.sections = {}
+
+    def has_section(self, key):
+        return self.sections.has_key(str(key).lower())
+
+    def add_section(self, key):
+        if not self.has_section(key):
+            self.sections[str(key).lower()] = ConfigSection()
+        else:
+            Kernel.Log("Config Section '%s' already exists" % key, "[Config]")
+
+    def get_section(self, key):
+        if self.has_section(key):
+            return self.sections[str(key).lower()]
+        else:
+            Kernel.Log("No config section '%s'" % key, "[Config]")
+            return  ConfigSection()
+
+    def get(self, key, item):
+        if self.has_section(key):
+            return self.get_section(key).get(item)
+        else:
+            return None
+
+    def set(self, key, item, value):
+        if self.has_section(key):
+            self.get_section(key).set(item, value)
+
+    def itersections(self):
+        for section in self.sections:
+            yield section, self.sections[section]
+
+
+
+class ConfigSection(object):
+
+    def __init__(self):
+        self.items = {}
+
+    def has_item(self, key):
+        return self.items.has_key(str(key).lower())
+
+    def set(self, key, value):
+        self.itmes[str(key).lower()] = str(value)
+
+    def get(self, key):
+        if self.has_item(key):
+            return self.items[str(key).lower()]
+        else:
+            return None
+
+    def iteritems(self):
+        for item in self.itmes:
+            yield item, self.itmes[item]
 
 class ConfigManager(object):
 
@@ -73,30 +132,28 @@ class ConfigManager(object):
         Kernel.KernelConfig.save_to_file(Kernel.KernelConfig.BuildFromKernel(), user_defaults_path)
     
     @staticmethod    
-    def PhraseCFGFile(file_path, hash=None, dict=None):
-        if hash is None:
-            hash = {}
-        extend_hash = {}
+    def PhraseCFGFile(file_path, config=None, dict=None):
+        if config is None:
+            config = Config()
         config = ConfigParser.ConfigParser()
         config.read(file_path)
         for section in config.sections():
-            section_hash = {}
+            if not config.has_section(section):
+                config.add_section(section)
             for item, value in config.items(section, True):
                 if dict is None:
-                    section_hash[str(item)] = value
+                    config.set(section, item, value)
                 else:
-                    section_hash[str(item)] = value % dict
-            extend_hash[str(section)] = section_hash
-        hash.update(extend_hash)
-        return hash
+                    config.set(section, item, value % dict)
+        return config
 
     @staticmethod
-    def SaveCFGFile(file_path, hash):
+    def SaveCFGFile(file_path, config_obj):
         config = ConfigParser.ConfigParser()
-        for section, items in hash.iteritems():
-            config.add_section(str(section))
-            for name, value in items.iteritems():
-                config.set(str(section), str(name), str(value))
+        for section_name, section in config_obj.itersections():
+            config.add_section(str(section_name))
+            for name, value in section.iteritems():
+                config.set(str(section_name), str(name), str(value))
         f = open(file_path, "wb")
         config.write(f)
         f.close()

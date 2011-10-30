@@ -7,7 +7,7 @@ import Kernel
 from Kernel import Manager, Type, SuperType, Component, Package, Event
 import RMXP
 import Frames, Menues, Dialogs, Controls, Layouts, Data, Project, ARC_Data, Actions
-import DatabaseActions, RPGutil, Icons, PanelManager, Panels
+import DatabaseActions, RPGutil, Icons, PanelManager, Panels, Cache
 
 
 #=============================================================================
@@ -21,7 +21,6 @@ class RMXPType(SuperType):
 
     #---------------------------- data holder --------------------------------
     RPG = Type("RPG")
-    WxCache = Type("WxCache")
     #PyGameCache = Type("PyGameCache")
 
     #---------------------------- data handlers ------------------------------
@@ -31,8 +30,6 @@ class RMXPType(SuperType):
     #-------------------------------- layouts --------------------------------
 
     #------------------------------- dialogs ---------------------------------
-    DialogImportProject = Type("DialogImportProject")
-    DialogExportProject = Type("DialogExportProject")
 
 
     def __init__(self):
@@ -46,7 +43,7 @@ class RMXPType(SuperType):
         #self.add_types(self.HueRotationOperator, self.AdjustAlphaOperator)
 
         #------------------------- data holder -------------------------------
-        self.add_types(self.RPG, self.WxCache)
+        self.add_types(self.RPG)
         #, self.PyGameCache)
 
         #------------------------ data handlers ------------------------------
@@ -56,7 +53,6 @@ class RMXPType(SuperType):
         #---------------------------- layouts --------------------------------
 
         #---------------------------- dialogs --------------------------------
-        self.add_types(self.DialogImportProject, self.DialogExportProject)
 
 #=============================================================================
 # * PanelManager SuperType Declaration
@@ -96,7 +92,10 @@ class CorePackage(Package):
         ARCDataLoadFunction = Type("ARCDataLoadFunction")
         ARCProjectSaveFunction = Type("ARCProjectSaveFunction")
         ARCProjectLoadFunction = Type("ARCProjectLoadFunction")
-        
+
+        ARCImageFunctions = Type("ARCImageFunctions")
+        ARCRTPFunctions = Type("ARCRTPFunctions")
+
         #---------------------------- Data handlers ----------------------------------
         Project = Type("Project")
         NewProjectHandler = Type("NewProjectHandler")
@@ -111,6 +110,8 @@ class CorePackage(Package):
         #------------------------- data holders ------------------------------
         Table = Type("Table")
         IconManager = Type("IconManager")
+        RTPCache = Type("RTPCache")
+        RTPPygletCache = Type("RTPPygletCache")
       
         #------------------------------- frames --------------------------------------
         EditorMainWindow = Type("EditorMainWindow")
@@ -149,7 +150,7 @@ class CorePackage(Package):
         
         #------------------------------- functions -----------------------------------
         self.add_types(ARCDataDumpFunction, ARCDataLoadFunction, ARCProjectSaveFunction, 
-                       ARCProjectLoadFunction)
+                       ARCProjectLoadFunction, ARCImageFunctions, ARCRTPFunctions)
         
         #------------------------------ data handlers --------------------------------
         self.add_types(Project, NewProjectHandler, OpenProjectHandler, SaveProjectHandler, 
@@ -157,7 +158,7 @@ class CorePackage(Package):
                                ARCProjectSaver, ARCProjectLoader)
 
         #------------------------- data holders ------------------------------
-        self.add_types(Table, IconManager)
+        self.add_types(Table, IconManager, RTPCache, RTPPygletCache)
         
         #-------------------------------- frames -------------------------------------
         self.add_types(EditorMainWindow)
@@ -226,6 +227,12 @@ class CorePackage(Package):
         self.add_component(Component(Project.ARCProjectLoadFunction, "ARCProjectLoadFunction", 
                                      None, "CoreARCProjectLoadFunction", "CORE", 
                                      1.0, self))
+        self.add_component(Component(Cache.ImageFunctions, "ARCImageFunctions", 
+                                     None, "CoreARCImageFunctions", "CORE", 
+                                     1.0, self))
+        self.add_component(Component(Cache.RTPFunctions, "ARCRTPFunctions", 
+                                     None, "CoreARCRTPFunctions", "CORE",
+                                     1.0, self))
 
         #-------------------------- data Handler -----------------------------
         self.add_component(Component(Data.NewProject, "NewProjectHandler",
@@ -254,10 +261,18 @@ class CorePackage(Package):
                                      1.0, self))
 
         #------------------------- data holders ------------------------------
-        self.add_component(Component(RPGutil.Table, "Table", None,
-                                     "CoreTable", "CORE", 1.0, self))
-        self.add_component(Component(Icons.IconManager, "IconManager", None,
-                                     "CoreIconManager", "CORE", 1.0, self))
+        self.add_component(Component(RPGutil.Table, "Table", 
+                                     None, "CoreTable", "CORE", 
+                                     1.0, self))
+        self.add_component(Component(Icons.IconManager, "IconManager",
+                                     None, "CoreIconManager", "CORE", 
+                                     1.0, self))
+        self.add_component(Component(Cache.PILCache, "RTPCache",
+                                     None, "CoreRTPCache", "CORE",
+                                     1.0, self))
+        self.add_component(Component(Cache.PygletCache, "RTPPygletCache",
+                                     None, "CoreRTPPygletCache", "CORE",
+                                     1.0, self))
 
         #---------------------------- frames ---------------------------------
         self.add_component(Component(Frames.CoreEditorMainWindow,
