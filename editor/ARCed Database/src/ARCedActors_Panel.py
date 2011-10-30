@@ -12,7 +12,7 @@ import ARCedActorParameters_Dialog
 import ARCedAddParameter_Dialog
 
 #from DatabaseAction import 
-from RGSS1_RPG import RPG	   						
+from Core.RMXP import RGSS1_RPG as RPG	   						
 import Kernel
 from Kernel import Manager as KM
 #---------------------------------------------------------------------------
