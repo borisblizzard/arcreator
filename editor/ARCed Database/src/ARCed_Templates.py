@@ -548,9 +548,9 @@ class Classes_Panel ( wx.Panel ):
 		
 		bSizer75 = wx.BoxSizer( wx.HORIZONTAL )
 		
-		lixtBoxElementsChoices = []
-		self.lixtBoxElements = wx.ListBox( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, lixtBoxElementsChoices, 0 )
-		bSizer75.Add( self.lixtBoxElements, 1, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
+		listBoxElementsChoices = []
+		self.listBoxElements = wx.ListBox( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, listBoxElementsChoices, 0 )
+		bSizer75.Add( self.listBoxElements, 1, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
 		
 		listBoxStatesChoices = []
 		self.listBoxStates = wx.ListBox( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, listBoxStatesChoices, 0 )
@@ -560,11 +560,11 @@ class Classes_Panel ( wx.Panel ):
 		
 		bSizer617 = wx.BoxSizer( wx.HORIZONTAL )
 		
-		self.m_spinCtrl191 = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0 )
-		bSizer617.Add( self.m_spinCtrl191, 1, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
+		self.spinCtrlElements = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0 )
+		bSizer617.Add( self.spinCtrlElements, 1, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
 		
-		self.m_spinCtrl192 = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0 )
-		bSizer617.Add( self.m_spinCtrl192, 1, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
+		self.spinCtrlStates = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0 )
+		bSizer617.Add( self.spinCtrlStates, 1, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
 		
 		bSizer67.Add( bSizer617, 0, wx.EXPAND, 5 )
 		
@@ -572,7 +572,7 @@ class Classes_Panel ( wx.Panel ):
 		self.labelSkills.Wrap( -1 )
 		bSizer67.Add( self.labelSkills, 0, wx.ALL, 5 )
 		
-		self.listCtrlSkills = wx.ListCtrl( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.LC_HRULES|wx.LC_REPORT|wx.LC_SINGLE_SEL|wx.LC_VIRTUAL|wx.LC_VRULES )
+		self.listCtrlSkills = wx.ListCtrl( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.LC_HRULES|wx.LC_REPORT|wx.LC_SINGLE_SEL|wx.LC_VRULES )
 		bSizer67.Add( self.listCtrlSkills, 30, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
 		
 		self.labelNotes = wx.StaticText( self, wx.ID_ANY, u"Notes:", wx.DefaultPosition, wx.DefaultSize, 0 )
@@ -592,7 +592,7 @@ class Classes_Panel ( wx.Panel ):
 		self.Layout()
 		
 		# Connect Events
-		self.listBoxClasses.Bind( wx.EVT_LISTBOX, self.listBoxActors_SelectionChanged )
+		self.listBoxClasses.Bind( wx.EVT_LISTBOX, self.listBoxClasses_SelectionChanged )
 		self.buttonMaximum.Bind( wx.EVT_BUTTON, self.buttonMaximum_Clicked )
 		self.textCtrlName.Bind( wx.EVT_TEXT, self.textCtrlName_TextChanged )
 		self.checkListWeapons.Bind( wx.EVT_CHECKLISTBOX, self.checkListWeapons_CheckChanged )
@@ -602,10 +602,10 @@ class Classes_Panel ( wx.Panel ):
 		self.checkListArmors.Bind( wx.EVT_CHECKLISTBOX, self.checkListArmors_CheckChanged )
 		self.buttonArmorAll.Bind( wx.EVT_BUTTON, self.buttonArmorAll_Clicked )
 		self.buttonArmorNone.Bind( wx.EVT_BUTTON, self.buttonArmorNone_Clicked )
-		self.lixtBoxElements.Bind( wx.EVT_LISTBOX, self.listBoxElements_SelectionChanged )
+		self.listBoxElements.Bind( wx.EVT_LISTBOX, self.listBoxElements_SelectionChanged )
 		self.listBoxStates.Bind( wx.EVT_LISTBOX, self.listBoxStates_SelectionChanged )
-		self.m_spinCtrl191.Bind( wx.EVT_SPINCTRL, self.spinCtrlElements_ValueChanged )
-		self.m_spinCtrl192.Bind( wx.EVT_SPINCTRL, self.spinCtrlStates_ValueChanged )
+		self.spinCtrlElements.Bind( wx.EVT_SPINCTRL, self.spinCtrlElements_ValueChanged )
+		self.spinCtrlStates.Bind( wx.EVT_SPINCTRL, self.spinCtrlStates_ValueChanged )
 		self.listCtrlSkills.Bind( wx.EVT_LEFT_DCLICK, self.listBoxSkills_DoubleClick )
 		self.textCtrlNotes.Bind( wx.EVT_TEXT, self.textCtrlNotes_TextChanged )
 	
@@ -614,7 +614,7 @@ class Classes_Panel ( wx.Panel ):
 	
 	
 	# Virtual event handlers, overide them in your derived class
-	def listBoxActors_SelectionChanged( self, event ):
+	def listBoxClasses_SelectionChanged( self, event ):
 		pass
 	
 	def buttonMaximum_Clicked( self, event ):
