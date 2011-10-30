@@ -4,7 +4,6 @@ import Kernel
 from Kernel import Manager as KM
 
 import Actions
-from RMXP import RPGutil
 
 class TableEditAction(Actions.ActionTemplate):
 

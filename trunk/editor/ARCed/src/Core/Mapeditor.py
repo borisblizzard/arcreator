@@ -6,6 +6,8 @@ from wx import glcanvas
 import pyglet
 from pyglet import gl
 
+import rabbyt
+
 import numpy
 
 import Kernel
@@ -21,7 +23,7 @@ class PygletGLPanel(wx.Panel):
         # Forcing a no full repaint to stop flickering
         style = style | wx.NO_FULL_REPAINT_ON_RESIZE
         #call super function
-        super(GLPanel, self).__init__(parent, id, pos, size, style)
+        super(PygletGLPanel, self).__init__(parent, id, pos, size, style)
 
         #init gl canvas data
         self.GLinitialized = False
@@ -438,12 +440,12 @@ class TileGrid(object):
 
 class Tilemap(object):
     
-    def __init__(self, table, tileset="", autotiles=[]):
+    def __init__(self, cache, table, tileset="", autotiles=[]):
         #get the cache
-        self.cache = KM.get_component("RTPPygletCache").object()
+        self.cache = cache
 
         self.table = table
-        self.tile_ids = numpy.zeros(self.table._data.shape)
+        self.tile_ids = numpy.zeros(self.table.getShape())
         self.blank_tile = pyglet.image.create(32, 32)
 
         #diming image
@@ -463,7 +465,7 @@ class Tilemap(object):
 
         # autotile names
         self.autotile_names = autotiles
-        #tileset name
+        # tileset name
         self.tileset_name = tileset
 
         self.tiles = self.createTilemap()
@@ -498,29 +500,56 @@ class Tilemap(object):
         for x in xrange(shape[0]):
             for y in xrange(shape[1]):
                 for z in xrange(shape[2]):
-                    sprite = self.makeSprite(x, y, z)
-                    sprites[x, y, z] = sprite
+                    sprites[x, y, z] = self.makeSprite(x, y, z)
         return sprites
 
-    def get_rendering_batch(self, z):
-        if len(self.renderingBatches) < z:
-            for i in xrange(len(self.renderingBatches), z + 1):
-                self.renderingBatches.append(pyglet.graphics.Batch())
-        return self.renderingBatches[z]
+    def resizeTilemap(self, tiles, shape):
+        newtiles = numpy.empty(shape, dtype=object)
+        mask = [0, 0, 0]
+        tileshape = tiles.shape
+        if  shape[0] >= tileshape[0]:
+            mask[0] = tileshape[0]
+        else:
+            mask[0] = shape[0]
+        if shape[1] >= tileshape[1]:
+            mask[1] = tileshape[1]
+        else:
+            mask[1] = shape[1]
+        if shape[2] >= tileshape[2]:
+            mask[2] = tileshape[2]
+        else:
+            mask[2] = shape[2]
+        newtiles[:mask[0], :mask[1], :mask[2]] = tiles[:mask[0], :mask[1], :mask[2]]
+        indexes = numpy.argwhere(newtiles == numpy.array([None]))
+        for x, y, z in indexes:
+            newtiles[x, y, z] = self.makeSprite(x, y, z)
+        return newtiles
 
-    def get_ordered_groups(self, z):
-        if len(self.ordered_groups) < z:
-            for i in xrange(len(self.ordered_groups), z + 1):
-                self.ordered_groups.append(pyglet.graphics.OrderedGroup(i))
-        return self.ordered_groups[z]
+    def resizeTileIDs(self, newshape):
+        newids = numpy.zeros(newshape, dtype=numpy.int16)
+        shape = self.tile_ids.shape
+        mask = [0, 0, 0]
+        if newshape[0] >= shape[0]:
+            mask[0] = shape[0]
+        else:
+            mask[0] = newshape[0]
+        if newshape[1] >= shape[1]:
+            mask[1] = shape[1]
+        else:
+            mask[1] = newshape[1]
+        if newshape[2] >= shape[2]:
+            mask[2] = shape[2]
+        else:
+            mask[2] = newshape[2]  
+        newids[:mask[0], :mask[1], :mask[2]] = self.tile_ids[:mask[0], :mask[1], :mask[2]]
+        self.tile_ids = newids   
 
-
-    
-    def makeSprite(self, x, y, z):
+    def makeSprite(self, x, y, z, texture=None):
         xpos = x * 32
-        ypos = ((self.table._data.shape[1] - y) * 32) - 32
-        sprite = pyglet.sprite.Sprite(self.blank_tile, xpos, ypos, 
-                                      batch=self.get_rendering_batch(z), group=self.get_ordered_groups(z))
+        ypos = ((self.table.getShape()[1] - y) * 32) - 32
+        if texture == None:
+            texture = self.blank_tile.get_texture()
+        sprite = rabbyt.Sprite(texture, x=xpos, y=ypos)
         return sprite
                        
     def update(self):
@@ -528,8 +557,8 @@ class Tilemap(object):
         checks for change in tile ids and updates the tilemap
         '''
         #if the arn't the same size
-        if self.tile_ids.shape != self.table._data.shape:
-            self.resize(*self.table._data.shape)
+        if self.tile_ids.shape != self.table.getShape():
+            self.resize(*self.table.getShape())
         #find the tiles who's ids have changed
         indexes = numpy.argwhere(self.table._data != self.tile_ids)
         #we have the idexes of the tiles we need to update so copy 
@@ -540,13 +569,12 @@ class Tilemap(object):
          
     def set_image(self, index, id):
         '''
+        change the bitmap of a tile (by making a new sprite)
         '''
-        tile = self.tiles[index]
         #if for some reason the sprite does not exist (ie. the map was resized) make it
-        if tile == None:
-            x, y, z = index
-            tile = self.makeSprite(x, y, z)
-            self.tiles[index] = tile
+        x, y, z = index
+        if self.tiles[index] == None: 
+            self.tiles[index] = self.makeSprite(x, y, z)
             
         flag = False
         #get the tile bitmap
@@ -560,9 +588,9 @@ class Tilemap(object):
                 pattern = id % 48
                 #collect the tile form the cache checking the local project folder
                 #and the system RTP folder
-                bitmap = self.cache.AutotilePattern(autotile, pattern, RTP_Location)
+                bitmap = self.cache.AutotilePattern(autotile, pattern)
                 if not bitmap:
-                    bitmap = self.cache.AutotilePattern(autotile, pattern, RTP_Location)
+                    bitmap = self.cache.AutotilePattern(autotile, pattern)
                 if not bitmap:
                     flag = True
                     print "could not get autotile"
@@ -570,39 +598,35 @@ class Tilemap(object):
         #normal tile
         else:
             #get the tile bitmap
-            bitmap = self.cache.Tile(self.tileset_name, id, 0, RTP_Location)
+            bitmap = self.cache.Tile(self.tileset_name, id, 0)
             if not bitmap:
-                bitmap = self.cache.Tile(self.tileset_name, id, 0, RTP_Location)
+                bitmap = self.cache.Tile(self.tileset_name, id, 0)
             if not bitmap:
                 flag = True
                 print "could not get tile"
                 bitmap = self.blank_tile
         #draw the tile to the surface
-        tile.image = bitmap
-        
-    def translate(self, x, y):
-        '''
-        '''
-        for sprite in self.tiles.flatten():
-            sprite.set_position(sprite.x + x, sprite.y + y)
+        self.tiles[index] = self.makeSprite(x, y, z, bitmap.get_texture())
             
     def SetLayerOpacity(self, layer, opacity):
         '''
+        sets the alpha of all the sprite in a layer
         '''
         layer = self.tiles[:, :, layer]
         for sprite in layer.flatten():
-            sprite.opacity = opacity
+            sprite.alpha = opacity
             
     def SetActiveLayer(self, layer):
         '''
+        sets the active layer, diming or changing alpha as needed
         '''
         self.activeLayer = layer
-        if layer == (self.table._data.shape[2] + 1):
-            for z in xrange(self.table._data.shape[2]):
+        if layer == (self.table.getShape()[2] + 1):
+            for z in xrange(self.table.getShape()[2]):
                 self.SetLayerOpacity(z, 255)
         else:
             if self.LayerDimming:
-                for z in xrange(self.table._data.shape[2]):
+                for z in xrange(self.table.getShape()[2]):
                     if z <= self.activeLayer:
                         self.SetLayerOpacity(z, 255)
                     else:
@@ -610,93 +634,30 @@ class Tilemap(object):
     
     def SetLayerDimming(self, bool):
         '''
+        turns layer diming on and off, setting the alpha of the layes as needed
         '''
         self.LayerDimming = bool
         if self.LayerDimming:
-            for z in xrange(self.table._data.shape[2]):
+            for z in xrange(self.table.getShape()[2]):
                 if z <= self.activeLayer:
                     self.SetLayerOpacity(z, 255)
                 else:
                     self.SetLayerOpacity(z, 80)
         else:
-            for z in xrange(self.table._data.shape[2]):
+            for z in xrange(self.table.getShape()[2]):
                 self.SetLayerOpacity(z, 255)
-
-    def HideOffScreenSprites(self, x, y, width, height):
-        #get tiles on screen
-        on_screen = set(self.tiles[x:x + width, y:y + height].flatten())
-        not_on_screen = [x for x in self.tiles.flatten() if x not in on_screen]
-        for tile in on_screen:
-            tile.visable = True
-        for tile in not_onscren:
-            tile.visable = False
         
-    def Draw(self):
+    def Draw(self, x, y, width, height):
         '''
+        draw the layers of the map
         '''
-        for z in xrange(len(self.renderingBatches)):
-            if z == self.activeLayer and self.LayerDimming: #and z != 0
+        on_screen = self.tiles[x:x + width, y:y + height]
+        for z in xrange(len(on_screen)):
+            if z == self.activeLayer and self.LayerDimming and z != 0:
                 if self.dimmingSprite != None:
                     self.dimmingSprite.draw()
-            self.renderingBatches[z].draw()
-            
-    def  __del__(self):
-        '''
-        '''
-        self.destroy()
-        
-    def destroy(self):
-        '''
-        '''
-        for sprite in self.tiles.flatten():
-            sprite.delete()  
-        
-    def resize(self, xsize=1, ysize=1, zsize=1):
-        '''
-        '''
-        newdata = numpy.empty((xsize, ysize, zsize), dtype=object)
-        shape = self.tiles.shape
-        mask = [0, 0, 0]
-        if xsize >= shape[0]:
-            mask[0] = shape[0]
-        else:
-            mask[0] = xsize
-        if ysize >= shape[1]:
-            mask[1] = shape[1]
-        else:
-            mask[1] = ysize
-        if zsize >= shape[2]:
-            mask[2] = shape[2]
-        else:
-            mask[2] = zsize  
-        newdata[:mask[0], :mask[1], :mask[2]] = self.tiles[:mask[0], :mask[1], :mask[2]]
-        self.tiles = newdata
-        shape = self.tiles.shape
-        for x in xrange(shape[0]):
-            for y in xrange(shape[1]):
-                for z in xrange(shape[2]):
-                    if self.tiles[x, y, z] != None:
-                        xpos = x * 32
-                        ypos = ((self.map.height - y) * 32) - 32
-                        self.tiles[x, y, z].set_position(xpos, ypos)
-        newdata = numpy.zeros((xsize, ysize, zsize))
-        shape = self.tile_ids.shape
-        mask = [0, 0, 0]
-        if xsize >= shape[0]:
-            mask[0] = shape[0]
-        else:
-            mask[0] = xsize
-        if ysize >= shape[1]:
-            mask[1] = shape[1]
-        else:
-            mask[1] = ysize
-        if ysize >= shape[2]:
-            mask[2] = shape[2]
-        else:
-            mask[2] = zsize  
-        newdata[:mask[0], :mask[1], :mask[2]] = self.tile_ids[:mask[0], :mask[1], :mask[2]]
-        self.tile_ids = newdata     
-               
+            rabbyt.render_unsorted(on_screen[z].flatten())            
+                         
 class MouseSprite(object):
     
     def __init__(self, map):
@@ -1003,8 +964,7 @@ class MouseSprite(object):
             self.cornerSprites[2].set_position(TLx * 32, BRy * 32 - 32)
             # BR
             self.cornerSprites[3].set_position(BRx * 32, BRy * 32 - 32)
-           
-                        
+                                
     def Draw(self):
         '''
         draws the rendering batchs to render the mouse sprites to the screen 
@@ -1101,7 +1061,7 @@ class MouseManager(object):
         if self.sprite != None:
             self.sprite.singleMode = value
         
-class TilemapPanel(pygletwx.GLPanel):
+class TilemapPanel(PygletGLPanel):
 
     def __init__(self, parent, map, tilesets, toolbar, id=wx.ID_ANY):
         super(TilemapPanel, self).__init__(parent, id, wx.DefaultPosition, wx.Size(800, 600), 
@@ -1116,6 +1076,8 @@ class TilemapPanel(pygletwx.GLPanel):
         self.toolbar.mapwin = self
         self.translateX = 0
         self.translateY = 0
+        self.onscreenwidth = 0
+        self.onscreenheight = 0
         self.zoom = 1.0
         self.drawing = False
         self.ToolMouseMode = False
@@ -1146,7 +1108,7 @@ class TilemapPanel(pygletwx.GLPanel):
         self.Bind(wx.EVT_UPDATE_UI, self.Update) 
 
     def OnLeftButtonEvent(self, event):
-        onEventLayer = (self.activeLayer == (self.map.data._data.shape[2] + 1))
+        onEventLayer = (self.activeLayer == (self.map.data.getShape()[2] + 1))
         if not onEventLayer:
             if not self.drawing:
                 self.SetTopLeftXY(event)
@@ -1199,16 +1161,17 @@ class TilemapPanel(pygletwx.GLPanel):
         gl.glTranslatef(x, y, 0)
         self.translateX = x
         self.translateY = y
+        self.onscreenwidth = int(size.width / self.zoom)
+        self.onscreenheight = int(size.height / self.zoom)
         self.tilemap.setDimXY(-x, -y)
         gl.glMatrixMode(gl.GL_MODELVIEW)
         
-    
     def create_objects(self):
         '''create opengl objects when opengl is initialized'''
         table = self.map.data
+        self.cache = KM.get_component("RTPPygletCache").object()
         tileset = self.tilesets[self.map.tileset_id]
-        self.cache = Cache()
-        self.tilemap = Tilemap(table, self.cache, tileset.tileset_name, tileset.autotile_names)
+        self.tilemap = Tilemap(self.cache, table, tileset.tileset_name, tileset.autotile_names)
         self.tileGrid = TileGrid(self.map)
         self.eventGrid = EventGrid(self.map, self.cache, tileset.tileset_name)
         self.mouseSprite = MouseSprite(self.map)
@@ -1223,8 +1186,8 @@ class TilemapPanel(pygletwx.GLPanel):
     def draw_objects(self):
         '''called in the middle of ondraw after the buffer has been cleared'''
         self.tilemap.update()
-        self.tilemap.Draw()
-        if self.activeLayer == (self.map.data._data.shape[2] + 1):
+        self.tilemap.Draw(self.translateX / 32, self.translateY / 32, self.onscreenwidth / 32, self.onscreenheight / 32)
+        if self.activeLayer == (self.map.data.getShape()[2] + 1):
             self.tileGrid.Draw()
             self.eventGrid.update()
             self.eventGrid.Draw()
@@ -1309,7 +1272,7 @@ class TilemapPanel(pygletwx.GLPanel):
         self.tilemap.setDimXY(-self.translateX, -self.translateY)
         self.activeLayer = layer
         self.tilemap.SetActiveLayer(layer)
-        if layer == (self.map.data._data.shape[2] + 1):
+        if layer == (self.map.data.getShape()[2] + 1):
             self.MouseManager.setSingleMode(True)
         else:
             self.MouseManager.setSingleMode(self.ToolMouseMode)
@@ -1358,7 +1321,7 @@ class MapToolbar(wx.ToolBar):
         
         self.map = map
         self.mapwin = None
-        self.layers = self.map.data._data.shape[2]
+        self.layers = self.map.data.getShape()[2]
         self.layerChoiceIDs = {}
         self.layerSet = False
         self.zoomSet = False
@@ -1394,11 +1357,11 @@ class MapToolbar(wx.ToolBar):
     def GenLayerChoices(self):
         choices = []
         self.layerChoiceIDs = {}
-        for z in xrange(self.map.data._data.shape[2]):
+        for z in xrange(self.map.data.getShape()[2]):
             choice = "Layer %s" % (z + 1)
             self.layerChoiceIDs[choice] = z
             choices.append(choice)
-        self.layerChoiceIDs["Event Layer"] = self.map.data._data.shape[2] + 1
+        self.layerChoiceIDs["Event Layer"] = self.map.data.getShape()[2] + 1
         choices.append("Event Layer")
         return choices
     
@@ -1452,8 +1415,8 @@ class MapToolbar(wx.ToolBar):
             self.mapwin.SetZoom(zoom)
     
     def UpdateLayerChoices(self, event): 
-        if not(self.layers == self.map.data._data.shape[2]):
-            self.layers = self.map.data._data.shape[2]
+        if not(self.layers == self.map.data.getShape()[2]):
+            self.layers = self.map.data.getShape()[2]
             choices = self.GenLayerChoices()
             self.layerChoice.SetItems(choices)
         if (self.mapwin != None) and (not self.layerSet):
@@ -1470,3 +1433,75 @@ class MapToolbar(wx.ToolBar):
             items = self.zoomChoice.GetItems()
             layer = self.zoomChoiceIDs[items[selection]]
             self.mapwin.SetZoom(layer) 
+
+
+if __name__ == '__main__':
+
+    import Core
+
+    import Main
+    Main.ConfigManager.LoadConfig()
+
+    class TestFrame(wx.Frame):
+        '''A simple class for using OpenGL with wxPython.'''
+
+        def __init__(self, parent, id, title, pos=wx.DefaultPosition,
+                     size=wx.Size(800, 600), style=wx.DEFAULT_FRAME_STYLE,
+                     name='frame'):
+            super(TestFrame, self).__init__(parent, id, title, pos, size, style, name)
+        
+            self.mainsizer = wx.BoxSizer(wx.HORIZONTAL)
+            #self.GLPanel1 = TestGlPanel(self)
+            #self.mainsizer.Add(self.GLPanel1, 1, wx.EXPAND, 5)
+            #self.GLPanel2 = TestGlPanel(self, wx.ID_ANY, (20, 20))
+            #self.mainsizer.Add(self.GLPanel2, 1, wx.EXPAND, 5)
+            
+            self.load_project()
+            project = Kernel.GlobalObjects.get_value("PROJECT")
+            self.map = project.getMapData(1)
+            print self.map
+            self.tilesets = project.getData("Tilesets")
+        
+            self.MapEditorPanel = MapPanel(self, self.map, self.tilesets)
+            self.mainsizer.Add(self.MapEditorPanel, 1, wx.EXPAND, 5)
+        
+            self.SetSizer(self.mainsizer)
+            self.Layout()
+
+        
+        def load_project(self):
+            config = Kernel.GlobalObjects.get_value("ARCed_config")
+            path = config.get("RTPs", "core")
+            TEST_PATH = os.path.join(path, "Templates", "Default Project", "Default Project.arcproj")
+            #get a project loader
+            projectloader = KM.get_component("ARCProjectLoader").object()
+            projectloader.load(TEST_PATH)
+            #place the project in the global namespace
+            if Kernel.GlobalObjects.has_key("PROJECT"):
+                Kernel.GlobalObjects.set_value("PROJECT", projectloader.getProject())
+            else:
+                Kernel.GlobalObjects.request_new_key("PROJECT", "CORE", projectloader.getProject())
+            #set the Project Title
+            if Kernel.GlobalObjects.has_key("Title"):
+                Kernel.GlobalObjects.set_value("Title", projectloader.getProject().getInfo("Title"))
+            else:
+                Kernel.GlobalObjects.request_new_key("Title", "CORE", projectloader.getProject().getInfo("Title"))
+            #set the current project directory
+            if Kernel.GlobalObjects.has_key("CurrentProjectDir"):
+                Kernel.GlobalObjects.set_value("CurrentProjectDir", os.path.dirname(TEST_PATH))
+            else:
+                Kernel.GlobalObjects.request_new_key("CurrentProjectDir", "CORE", os.path.dirname(TEST_PATH))
+            #set that there is an open project
+            if Kernel.GlobalObjects.has_key("ProjectOpen"):
+                Kernel.GlobalObjects.set_value("ProjectOpen", True)
+            else:
+                Kernel.GlobalObjects.request_new_key("ProjectOpen", "CORE", True)
+
+    
+
+    app = wx.App(redirect=False)
+    frame = TestFrame(None, wx.ID_ANY, 'GL Window')
+    frame.Show()
+
+    app.MainLoop()
+    app.Destroy()

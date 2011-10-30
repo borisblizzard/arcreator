@@ -59,6 +59,7 @@ class Project(object):
             return self._deferred_data[key][1]
         else:
             self._deferred_data[key] = [False, self.load_func(os.path.dirname(self.project_path), key)]
+            return self._deferred_data[key][1]
     
     def setInfo(self, key, value, changed=True):
         if self._info.has_key(key.lower()):
