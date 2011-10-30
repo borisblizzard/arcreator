@@ -156,18 +156,27 @@ class RTPFunctions(object):
 
     @staticmethod
     def FindFile(folder_name, name):
-        rtps = Kernel.GlobalObjects.get_value("ARCed_config").get_section("RTPs")
         flag = False
-        for rtp_name, path in rtps.iteritems():
-            for ext in RTPFunctions._image_ext:
-                testpath = os.path.normpath(os.path.expandvars(os.path.join(path, folder_name, name + ext)))
-                if os.path.exists(testpath) and os.path.isfile(testpath):
-                    flag = True
-                    break
+        flag, testpath = RTPFunctions.TestFiles(Kernel.GlobalObjects.get_value("CurrentProjectDir"), folder_name, name)
         if flag:
             return testpath
         else:
-            return ""
+            rtps = Kernel.GlobalObjects.get_value("ARCed_config").get_section("RTPs")
+        
+            for rtp_name, path in rtps.iteritems():
+                flag, testpath = RTPFunctions.TestFiles(path, folder_name, name)
+            if flag:
+                return testpath
+            else:
+                return ""
+            
+    @staticmethod
+    def TestFiles(path, folder_name, name):
+        for ext in RTPFunctions._image_ext:
+            testpath = os.path.normpath(os.path.expandvars(os.path.join(path, folder_name, name + ext)))
+            if os.path.exists(testpath) and os.path.isfile(testpath):
+                return True, testpath
+        return False, ""
 
 class PILCache(object):
 
@@ -384,7 +393,7 @@ class PygletCache(object):
                 self._Cache.popitem()
         
     def Load_bitmap(self, folder_name, filename, hue=0):
-        key = (folder_name, filename, loc, hue)
+        key = (folder_name, filename, hue)
         try:
             return self._Cache[key]
         except KeyError:

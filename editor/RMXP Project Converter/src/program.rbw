@@ -400,7 +400,7 @@ class ConverterFrame < Wx::Frame
       i = 0
       for script in scripts
         script_name = "%04d" % i
-        script_name += "-#{script[1]}"
+        script_name += "-#{script[1].gsub(/[\x00\/\\:\*\?\"<>\|]/, '_')}"
         script_file_path = File.join(scripts_folder, script_name) + ".rb"
         log("        - Writing #{script_file_path} ...")
         write_script(script_file_path, script[2])   
