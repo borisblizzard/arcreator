@@ -30,7 +30,7 @@ import wx
 import os
 import gc
 
-from Core.RPGutil import Table, Color
+from Core.RPGutil import Table, Color, Tone
 
 class Actor(object):
     __class_path__ = "RPG::Actor"
