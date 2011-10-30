@@ -25,6 +25,7 @@ else:
     except:
         dirName = os.path.dirname(os.path.abspath(sys.argv[0]))
 sys.path.append(os.path.split(dirName)[0])
+print dirName
 
 import Kernel
 from Kernel import Manager as KM
@@ -79,7 +80,7 @@ class ConfigSection(object):
         return self.items.has_key(str(key).lower())
 
     def set(self, key, value):
-        self.itmes[str(key).lower()] = str(value)
+        self.items[str(key).lower()] = str(value)
 
     def get(self, key):
         if self.has_item(key):
@@ -88,8 +89,8 @@ class ConfigSection(object):
             return None
 
     def iteritems(self):
-        for item in self.itmes:
-            yield item, self.itmes[item]
+        for item in self.items:
+            yield item, self.items[item]
 
 class ConfigManager(object):
 
@@ -135,12 +136,12 @@ class ConfigManager(object):
     def PhraseCFGFile(file_path, config=None, dict=None):
         if config is None:
             config = Config()
-        config = ConfigParser.ConfigParser()
-        config.read(file_path)
-        for section in config.sections():
+        configphraser = ConfigParser.ConfigParser()
+        configphraser.read(file_path)
+        for section in configphraser.sections():
             if not config.has_section(section):
                 config.add_section(section)
-            for item, value in config.items(section, True):
+            for item, value in configphraser.items(section, True):
                 if dict is None:
                     config.set(section, item, value)
                 else:

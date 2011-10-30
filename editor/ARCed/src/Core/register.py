@@ -336,8 +336,6 @@ class CorePackage(Package):
         #------------------------- data holders ------------------------------
         self.add_component(Component(RMXP.RGSS1_RPG.RPG, "RPG", "RMXP",
                                      "RGSS1_RPG", "CORE", 1.0, self))
-        self.add_component(Component(RMXP.Cache.WxCache, "WxCache", "RMXP",
-                                     "RMXPWxCache", "CORE", 1.0, self))
 
         #-------------------------- data handlers ----------------------------
 

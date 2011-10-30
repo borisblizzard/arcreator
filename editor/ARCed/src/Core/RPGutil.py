@@ -104,16 +104,15 @@ class Table(object):
         dim, nx, ny, nz = unpack("<IIII", s[0:16])
         size = nx * ny * nz
         data = numpy.array(unpack("<" + ("H" * size), s[16:16 + size * 2]), dtype=numpy.int16)
-        data.resize(size)
         if dim == 3:
             t = Table(nx, ny, nz)
             shape = (nx, ny, nz)
         elif dim == 2:
-            t = Table(nx, nz)
+            t = Table(nx, ny)
             shape = (nx, ny)
         elif dim == 1:
             t = Table(nx)
-            shape = (ny,)
+            shape = (nx,)
         data = numpy.reshape(data, shape,  order="F")
         t._data = data
         return t

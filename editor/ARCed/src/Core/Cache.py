@@ -159,13 +159,13 @@ class RTPFunctions(object):
         rtps = Kernel.GlobalObjects.get_value("ARCed_config").get_section("RTPs")
         flag = False
         for rtp_name, path in rtps.iteritems():
-            for ext in PILCache._image_ext:
-                path = os.path.abspath(os.path.normpath("".joint([loc, "/", folder_name, name, ext])))
-                if os.path.exists(path) and os.path.isfile(path):
+            for ext in RTPFunctions._image_ext:
+                testpath = os.path.normpath(os.path.expandvars(os.path.join(path, folder_name, name + ext)))
+                if os.path.exists(testpath) and os.path.isfile(testpath):
                     flag = True
                     break
         if flag:
-            return path
+            return testpath
         else:
             return ""
 
@@ -259,8 +259,8 @@ class PILCache(object):
                 if hue != 0:
                     image = PILCache.changeHue(image, hue)
             
-                PILCache._Cache[key] = image
-                return PILCache._Cache[key]
+                PILCache._NormalCache[key] = image
+                return PILCache._NormalCache[key]
             else:
                 return None          
 
