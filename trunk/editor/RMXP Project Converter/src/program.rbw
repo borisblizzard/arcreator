@@ -343,7 +343,7 @@ class ConverterFrame < Wx::Frame
       filename = File.join(arc_path, title.gsub(/[\x00\/\\:\*\?\"<>\|]/, '_')) + ".arcproj"
       arc_ini = Ini.new(filename)
       arc_ini["Project"] = {"Title" => title}
-      arc_ini["Files"] =  {"list" => "Troops|Skills|Items|System|Weapons|Armors|Classes|Actors|Tilesets|CommonEvents|MapInfos"}
+      arc_ini["Files"] =  {"list" => "Actors|Classes|Skills|Items|Weapons|Armors|Enemies|Troops|States|Animations|Tilesets|CommonEvents|System|MapInfos"}
       arc_ini.update
     rescue
       log("Error writing project file: #{$!.message}")

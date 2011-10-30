@@ -130,29 +130,73 @@ class ImageFunctions(object):
         finishedimage = Image.merge('RGBA', (red, green, blue, Alpha))
         return finishedimage
 
-class RTPFunctions(Object):
+    @staticmethod
+    def PilImageToWxImage(pilImage, copyAlpha=True):
+
+        hasAlpha = pilImage.mode[-1] == 'A'
+        if copyAlpha and hasAlpha:  # Make sure there is an alpha layer copy.
+            wxImage = wx.EmptyImage(*pilImage.size)
+            pilImageCopyRGBA = pilImage.copy()
+            pilImageCopyRGB = pilImageCopyRGBA.convert('RGB')    # RGBA --> RGB
+            pilImageRgbData = pilImageCopyRGB.tostring()
+            wxImage.SetData(pilImageRgbData)
+            wxImage.SetAlphaData(pilImageCopyRGBA.tostring()[3::4])  # Create layer and insert alpha values.
+        else:    # The resulting image will not have alpha.
+            wxImage = wx.EmptyImage(*pilImage.size)
+            pilImageCopy = pilImage.copy()
+            pilImageCopyRGB = pilImageCopy.convert('RGB')    # Discard any alpha from the PIL image.
+            pilImageRgbData = pilImageCopyRGB.tostring()
+            wxImage.SetData(pilImageRgbData)
+
+        return wxImage
+
+class RTPFunctions(object):
 
     _image_ext = ["", ".png", ".gif", ".jpg", ".bmp"]
 
     @staticmethod
-    def FindFile(name):
-        rtps = Kernel.GlobalObjects.get_value("ARCed_config")["RTPs"]
-        for path in rtps.values():
+    def FindFile(folder_name, name):
+        rtps = Kernel.GlobalObjects.get_value("ARCed_config").get_section("RTPs")
+        flag = False
+        for rtp_name, path in rtps.iteritems():
             for ext in PILCache._image_ext:
-                path = os.path.abspath(os.path.normpath(loc + "/" + folder_name +
-                                            filename + ext))
+                path = os.path.abspath(os.path.normpath("".joint([loc, "/", folder_name, name, ext])))
                 if os.path.exists(path) and os.path.isfile(path):
+                    flag = True
                     break
-            if not os.path.exists(path) or not os.path.isfile(path):
-                return None
-
+        if flag:
+            return path
+        else:
+            return ""
 
 class PILCache(object):
 
-    _Cache = {}
-    
+    _NormalCache = {}
+    _TileCache = {}
+    _AutoTileCache = {}
+
+    _normal_limit = 1000
+    _tile_limit = 200
+    _autotile_limit = 500
+
     
 
+    try:
+        config = Kernel.GlobalObjects.get_value("ARCed_config")
+        if config.has_section("Cache"):
+            section = config.get_section("Cache")
+            if section.has_item("normal_limit"):
+                _normal_limit = int(config.get("Cache", "normal_limit"))
+            if section.has_item("tile_limit"):
+                _tile_limit = int(config.get("Cache", "tile_limit"))
+            if section.has_item("autotile_limit"):
+                _autotile_limit = int(config.get("Cache", "autotile_limit"))
+            del section
+
+        del config
+    except:
+        Kernel.Log("Error setting PIL Cache Config", "[Cache]", error=True)
+    
     Autotiles = [
                [[27, 28, 33, 34], [5, 28, 33, 34], [27, 6, 33, 34],
                 [5, 6, 33, 34], [27, 28, 33, 12], [5, 28, 33, 12],
@@ -178,46 +222,67 @@ class PILCache(object):
     def changeHue(image, hue):
         roatedImage = ImageFunctions.change_hue_PIL(image, hue)
         return roatedImage
+
+    @staticmethod
+    def NormalCacheLimit():
+        if len(PILCache._NormalCache) > PILCache._normal_limit:
+            for i in xrange(len(PILCache._NormalCache) - PILCache._normal_limit):
+                PILCache._NormalCache.popitem()
+
+    @staticmethod
+    def TileCacheLimit():
+        if len(PILCache._TileCache) > PILCache._tile_limit:
+            for i in xrange(len(PILCache._TileCache) - PILCache._tile_limit):
+                PILCache._TileCache.popitem()
+
+    @staticmethod
+    def AutotileCacheLimit():
+        if len(PILCache._AutoTileCache) > PILCache._autotile_limit:
+            for i in xrange(len(PILCache._AutoTileCache) - PILCache._autotile_limit):
+                PILCache._AutoTileCache.popitem()
+
+    @staticmethod
+    def CacheLimit():
+        PILCache.NormalCacheLimit()
+        PILCache.TileCacheLimit()
+        PILCache.AutotileCacheLimit()
       
     @staticmethod  
-    def Load_bitmap(folder_name, filename, hue=0, loc=""):
-        key = (folder_name, filename, loc, hue)
-        if not PILCache._Cache.has_key(key) or not PILCache._Cache[key]:
-            for ext in PILCache._image_ext:
-                path = os.path.abspath(os.path.normpath(loc + "/" + folder_name +
-                                            filename + ext))
-                if os.path.exists(path) and os.path.isfile(path):
-                    break
-            if not os.path.exists(path) or not os.path.isfile(path):
-                return None
-            if filename != "":
+    def Load_bitmap(folder_name, filename, hue=0):
+        key = (folder_name, filename, hue)
+        try:
+            return PILCache._NormalCache[key]
+        except KeyError:
+            path = RTPFunctions.FindFile(folder_name, filename)
+            if path != "":
                 image = Image.open(path).convert('RGBA')
                 if hue != 0:
                     image = PILCache.changeHue(image, hue)
+            
                 PILCache._Cache[key] = image
+                return PILCache._Cache[key]
             else:
-                return None
-            return PILCache._Cache[key]
-        else:
-            return PILCache._Cache[key]
+                return None          
 
     @staticmethod
-    def Animation(filename, hue, loc=""):
-        return PILCache.Load_bitmap("Graphics/Animations/", filename, hue, loc)
+    def Animation(filename, hue):
+        return PILCache.Load_bitmap("Graphics/Animations/", filename, hue)
     
     @staticmethod
-    def Autotile(filename, loc=""):
-        return PILCache.Load_bitmap("Graphics/Autotiles/", filename, 0, loc)
+    def Autotile(filename):
+        return PILCache.Load_bitmap("Graphics/Autotiles/", filename, 0)
 
     @staticmethod
-    def AutotilePattern(filename, pattern, loc=""):
-        key = (loc + filename, pattern, 0)
-        if not PILCache._Cache.has_key(key) or not PILCache._Cache[key]:
-            autotile = PILCache.Autotile(filename, loc)
+    def AutotilePattern(filename, pattern):
+        key = (filename, pattern, 0)
+        try:
+            return PILCache._AutoTileCache[key]
+        except KeyError:
+            autotile = PILCache.Autotile(filename)
             if autotile:
                 # Collects Auto-Tile Tile Layout
                 tiles = PILCache.Autotiles[int(pattern) / 8][int(pattern) % 8]
-                PILCache._Cache[key] = Image.new('RGBA', (32, 32), (0, 0, 0, 0))
+                PILCache._AutoTileCache[key] = Image.new('RGBA', (32, 32), (0, 0, 0, 0))
                 for i in xrange(4):
                     tile_position = tiles[i] - 1
                     x = tile_position % 6 * 16
@@ -225,131 +290,105 @@ class PILCache(object):
                     autotile_part = autotile.crop((x, y, x + 16, y + 16))
                     tile_x = (i % 2 * 16)
                     tile_y = (i / 2 * 16)
-                    PILCache._Cache[key].paste(autotile_part, (tile_x, tile_y))
+                    PILCache._AutoTileCache[key].paste(autotile_part, (tile_x, tile_y))
+                return PILCache._AutoTileCache[key]
             else:
                 return None
-        return PILCache._Cache[key]
+        
 
     @staticmethod
-    def Battleback(filename, loc=""):
-        return PILCache.Load_bitmap("Graphics/Battlebacks/", filename, 0, loc)
+    def Battleback(filename):
+        return PILCache.Load_bitmap("Graphics/Battlebacks/", filename, 0)
 
     @staticmethod
-    def Battler(filename, hue, loc=""):
-        return PILCache.Load_bitmap("Graphics/Battlers/", filename, hue, loc)
+    def Battler(filename, hue):
+        return PILCache.Load_bitmap("Graphics/Battlers/", filename, hue)
 
     @staticmethod
-    def Character(filename, hue, loc=""):
-        return PILCache.Load_bitmap("Graphics/Characters/", filename, hue, loc)
+    def Character(filename, hue):
+        return PILCache.Load_bitmap("Graphics/Characters/", filename, hue)
 
     @staticmethod
-    def Fog(filename, hue, loc=""):
-        return PILCache.Load_bitmap("Graphics/Fogs/", filename, hue, loc)
+    def Fog(filename, hue):
+        return PILCache.Load_bitmap("Graphics/Fogs/", filename, hue)
 
     @staticmethod
-    def Gameover(filename, loc=""):
-        return PILCache.Load_bitmap("Graphics/Gameovers/", filename, 0, loc)
+    def Gameover(filename):
+        return PILCache.Load_bitmap("Graphics/Gameovers/", filename, 0)
 
     @staticmethod
-    def Icon(filename, loc=""):
-        return PILCache.Load_bitmap("Graphics/Icons/", filename, 0, loc)
+    def Icon(filename):
+        return PILCache.Load_bitmap("Graphics/Icons/", filename, 0)
 
     @staticmethod
-    def Panorama(filename, hue, loc=""):
-        return PILCache.Load_bitmap("Graphics/Panoramas/", filename, hue, loc)
+    def Panorama(filename, hue):
+        return PILCache.Load_bitmap("Graphics/Panoramas/", filename, hue)
 
     @staticmethod
-    def Picture(filename, loc=""):
-        return PILCache.Load_bitmap("Graphics/Pictures/", filename, 0, loc)
+    def Picture(filename):
+        return PILCache.Load_bitmap("Graphics/Pictures/", filename, 0)
 
     @staticmethod
-    def Tileset(filename, loc=""):
-        return PILCache.Load_bitmap("Graphics/Tilesets/", filename, 0, loc)
+    def Tileset(filename):
+        return PILCache.Load_bitmap("Graphics/Tilesets/", filename, 0)
 
     @staticmethod
-    def Title(filename, loc=""):
-        return PILCache.Load_bitmap("Graphics/Titles/", filename, 0, loc)
+    def Title(filename):
+        return PILCache.Load_bitmap("Graphics/Titles/", filename, 0)
 
     @staticmethod
-    def Windowskin(filename, loc=""):
-        return PILCache.Load_bitmap("Graphics/Windowskins/", filename, 0, loc)
+    def Windowskin(filename):
+        return PILCache.Load_bitmap("Graphics/Windowskins/", filename, 0)
 
     @staticmethod
-    def Tile(filename, tile_id, hue, loc=""):
-        key = (loc + filename, int(tile_id), hue)
-        if not PILCache._Cache.has_key(key) or not PILCache._Cache[key]:
-            tileset = PILCache.Tileset(filename, loc)
+    def Tile(filename, tile_id, hue):
+        key = (filename, int(tile_id), hue)
+        try:
+            return PILCache._TileCache[key]
+        except KeyError:
+            tileset = PILCache.Tileset(filename)
             if tileset:
                 id = int(tile_id) - 384
                 x = id % 8 * 32
                 y = id / 8 * 32
-                PILCache._Cache[key] = tileset.crop((x, y, x + 32, y + 32))
+                PILCache._TileCache[key] = tileset.crop((x, y, x + 32, y + 32))
+                return PILCache._TileCache[key]
             else:
                 return None
-        return PILCache._Cache[key]
+        
 
     @staticmethod
     def Clear():
-        PILCache._Cache = {}
+        PILCache._NormalCache = {}
+        PILCache._TileCache = {}
+        PILCache._AutoTileCache = {}
         gc.collect()
 
 class PygletCache(object):
 
-    
-    _image_ext = ["", ".png", ".gif", ".jpg", ".bmp"]
-
-    Autotiles = [
-               [[27, 28, 33, 34], [5, 28, 33, 34], [27, 6, 33, 34],
-                [5, 6, 33, 34], [27, 28, 33, 12], [5, 28, 33, 12],
-                [27, 6, 33, 12], [5, 6, 33, 12] ],
-               [[27, 28, 11, 34], [5, 28, 11, 34], [27, 6, 11, 34],
-                [5, 6, 11, 34], [27, 28, 11, 12], [5, 28, 11, 12],
-                [27, 6, 11, 12], [5, 6, 11, 12] ],
-               [[25, 26, 31, 32], [25, 6, 31, 32], [25, 26, 31, 12],
-                [25, 6, 31, 12], [15, 16, 21, 22], [15, 16, 21, 12],
-                [15, 16, 11, 22], [15, 16, 11, 12] ],
-               [[29, 30, 35, 36], [29, 30, 11, 36], [5, 30, 35, 36],
-                [5, 30, 11, 36], [39, 40, 45, 46], [5, 40, 45, 46],
-                [39, 6, 45, 46], [5, 6, 45, 46] ],
-               [[25, 30, 31, 36], [15, 16, 45, 46], [13, 14, 19, 20],
-                [13, 14, 19, 12], [17, 18, 23, 24], [17, 18, 11, 24],
-                [41, 42, 47, 48], [5, 42, 47, 48] ],
-               [[37, 38, 43, 44], [37, 6, 43, 44], [13, 18, 19, 24],
-                [13, 14, 43, 44], [37, 42, 43, 48], [17, 18, 47, 48],
-                [13, 18, 43, 48], [1, 2, 7, 8] ]
-               ]
-
-
     def __init__(self):
         self._Cache = {}
+        self.limit = 400
+        try:
+            config = Kernel.GlobalObjects.get_value("ARCed_config")
+            if config.has_section("Cache"):
+                section = config.get_section("Cache")
+                if section.has_item("pyglet_limit"):
+                    self.limit = section.get("pyglet_limit")
+        except:
+            Kernel.Log("Error setting pyglet Cache Config", "[Cache]", error=True)
+
+    def LimitCache(self):
+        if len(self._Cache) > self.limit:
+            for i in xrange(len(self._Cache) - self.limit):
+                self._Cache.popitem()
         
-    def Load_bitmap(self, folder_name, filename, hue=0, loc=""):
+    def Load_bitmap(self, folder_name, filename, hue=0):
         key = (folder_name, filename, loc, hue)
-        if not self._Cache.has_key(key) or not self._Cache[key]:
-            image = PILCache.Load_bitmap(folder_name, filename, hue, loc)
-            if image != None:
-                pygletimage = pyglet.image.create(*image.size).get_image_data()
-                pitch = -len('RGBA') * pygletimage.width
-                data = image.tostring()
-                pygletimage.set_data('RGBA', pitch, data)
-                self._Cache[key] = pygletimage
-                return self._Cache[key]
-            else:
-                return None
-        else:
+        try:
             return self._Cache[key]
-
-
-    def Animation(self, filename, hue, loc=""):
-        return self.Load_bitmap("Graphics/Animations/", filename, hue, loc)
-
-    def Autotile(self, filename, loc=""):
-        return self.Load_bitmap("Graphics/Autotiles/", filename, 0, loc)
-
-    def AutotilePattern(self, filename, pattern, loc=""):
-        key = (loc + filename, pattern, 0)
-        if not self._Cache.has_key(key) or not self._Cache[key]:
-            image = PILCache.AutotilePattern(filename, pattern, loc)
+        except KeyError:
+            image = PILCache.Load_bitmap(folder_name, filename, hue)
             if image != None:
                 pygletimage = pyglet.image.create(*image.size).get_image_data()
                 pitch = -len('RGBA') * pygletimage.width
@@ -359,45 +398,19 @@ class PygletCache(object):
                 return self._Cache[key]
             else:
                 return None
-        return self._Cache[key]
+            
+    def Animation(self, filename, hue):
+        return self.Load_bitmap("Graphics/Animations/", filename, hue)
 
-    def Battleback(self, filename, loc=""):
-        return self.Load_bitmap("Graphics/Battlebacks/", filename, 0, loc)
+    def Autotile(self, filename):
+        return self.Load_bitmap("Graphics/Autotiles/", filename, 0)
 
-    def Battler(self, filename, hue, loc=""):
-        return self.Load_bitmap("Graphics/Battlers/", filename, hue, loc)
-
-    def Character(self, filename, hue, loc=""):
-        return self.Load_bitmap("Graphics/Characters/", filename, hue, loc)
-
-    def Fog(self, filename, hue, loc=""):
-        return self.Load_bitmap("Graphics/Fogs/", filename, hue, loc)
-
-    def Gameover(self, filename, loc=""):
-        return self.Load_bitmap("Graphics/Gameovers/", filename, 0, loc)
-
-    def Icon(self, filename, loc=""):
-        return self.Load_bitmap("Graphics/Icons/", filename, 0, loc)
-
-    def Panorama(self, filename, hue, loc=""):
-        return self.Load_bitmap("Graphics/Panoramas/", filename, hue, loc)
-
-    def Picture(self, filename, loc=""):
-        return self.Load_bitmap("Graphics/Pictures/", filename, 0, loc)
-
-    def Tileset(self, filename, loc=""):
-        return self.Load_bitmap("Graphics/Tilesets/", filename, 0, loc)
-
-    def Title(self, filename, loc=""):
-        return self.Load_bitmap("Graphics/Titles/", filename, 0, loc)
-
-    def Windowskin(self, filename, loc=""):
-        return self.Load_bitmap("Graphics/Windowskins/", filename, 0, loc)
-
-    def Tile(self, filename, tile_id, hue, loc=""):
-        key = (loc + filename, int(tile_id), hue)
-        if not self._Cache.has_key(key) or not self._Cache[key]:
-            image = PILCache.Tile(filename, tile_id, hue, loc)
+    def AutotilePattern(self, filename, pattern):
+        key = (filename, pattern, 0)
+        try:
+            return self._Cache[key]
+        except KeyError:
+            image = PILCache.AutotilePattern(filename, pattern)
             if image != None:
                 pygletimage = pyglet.image.create(*image.size).get_image_data()
                 pitch = -len('RGBA') * pygletimage.width
@@ -407,7 +420,55 @@ class PygletCache(object):
                 return self._Cache[key]
             else:
                 return None
-        return self._Cache[key]
+
+    def Battleback(self, filename):
+        return self.Load_bitmap("Graphics/Battlebacks/", filename, 0)
+
+    def Battler(self, filename, hue):
+        return self.Load_bitmap("Graphics/Battlers/", filename, hue)
+
+    def Character(self, filename, hue):
+        return self.Load_bitmap("Graphics/Characters/", filename, hue)
+
+    def Fog(self, filename, hue):
+        return self.Load_bitmap("Graphics/Fogs/", filename, hue)
+
+    def Gameover(self, filename):
+        return self.Load_bitmap("Graphics/Gameovers/", filename, 0)
+
+    def Icon(self, filename):
+        return self.Load_bitmap("Graphics/Icons/", filename, 0)
+
+    def Panorama(self, filename, hue):
+        return self.Load_bitmap("Graphics/Panoramas/", filename, hue)
+
+    def Picture(self, filename):
+        return self.Load_bitmap("Graphics/Pictures/", filename, 0)
+
+    def Tileset(self, filename):
+        return self.Load_bitmap("Graphics/Tilesets/", filename, 0)
+
+    def Title(self, filename):
+        return self.Load_bitmap("Graphics/Titles/", filename, 0)
+
+    def Windowskin(self, filename):
+        return self.Load_bitmap("Graphics/Windowskins/", filename, 0)
+
+    def Tile(self, filename, tile_id, hue):
+        key = (filename, int(tile_id), hue)
+        try:
+            return self._Cache[key]
+        except KeyError:
+            image = PILCache.Tile(filename, tile_id, hue)
+            if image != None:
+                pygletimage = pyglet.image.create(*image.size).get_image_data()
+                pitch = -len('RGBA') * pygletimage.width
+                data = image.tostring()
+                pygletimage.set_data('RGBA', pitch, data)
+                self._Cache[key] = pygletimage
+                return self._Cache[key]
+            else:
+                return None
 
     def Clear(self):
         self._Cache = {}

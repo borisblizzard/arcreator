@@ -36,17 +36,28 @@ class Table(object):
             self.zsize = args[2] 
         else:
             self.zsize = 1
-        self._data = numpy.zeros((self.xsize, self.ysize, self.zsize))
-        self._data = numpy.reshape(self._data, (self.xsize, self.ysize,
-                                   self.zsize), order='F')
+        if self.dim == 3:
+            shape = (self.xsize, self.ysize, self.zsize)
+        elif self.dim == 2:
+            shape = (self.xsize, self.zsize)
+        else:
+            shape = (self.xsize,)
+        self._data = numpy.zeros(shape, dtype=numpy.int16)
+        self._data = numpy.reshape(self._data, shape, order='F')
 
     def __getitem__(self, key):
-        if len(key) != self.dim:
+        if isinstance(key, int):
+            if self.dim > 1:
+                raise ArgumentError("wrong number of arguments (%d for %d)" % (1, self.dim))
+        elif len(key) != self.dim:
             raise ArgumentError("wrong number of arguments (%d for %d)" % (len(key), self.dim))
         return self._data[key]
 
     def __setitem__(self, key, value):
-        if len(key) != self.dim:
+        if isinstance(key, int):
+            if self.dim > 1:
+                raise ArgumentError("wrong number of arguments (%d for %d)" % (1, self.dim))
+        elif len(key) != self.dim:
             raise ArgumentError("wrong number of arguments (%d for %d)" % (len(key), self.dim))
         self._data[key] = value
 
@@ -64,7 +75,7 @@ class Table(object):
             self.zsize = args[2] 
         else:
             self.zsize = 1
-        newdata = numpy.zeros((self.xsize, self.ysize, self.zsize))
+        newdata = numpy.zeros(self.getShape(), dtype=numpy.int16)
         shape = self._data.shape
         mask = [0, 0, 0]
         if self.xsize >= shape[0]:
@@ -92,17 +103,29 @@ class Table(object):
     def _arc_load(s):
         dim, nx, ny, nz = unpack("<IIII", s[0:16])
         size = nx * ny * nz
-        data = numpy.array(unpack("<" + ("H" * size), s[16:16 + size * 2]))
+        data = numpy.array(unpack("<" + ("H" * size), s[16:16 + size * 2]), dtype=numpy.int16)
         data.resize(size)
-        data = numpy.reshape(data, (nx, ny, nz),  order="F")
         if dim == 3:
             t = Table(nx, ny, nz)
+            shape = (nx, ny, nz)
         elif dim == 2:
             t = Table(nx, nz)
+            shape = (nx, ny)
         elif dim == 1:
             t = Table(nx)
+            shape = (ny,)
+        data = numpy.reshape(data, shape,  order="F")
         t._data = data
         return t
+
+    def getShape(self):
+        if self.dim == 3:
+            shape = (self.xsize, self.ysize, self.zsize)
+        elif self.dim == 2:
+            shape = (self.xsize, self.ysize)
+        else:
+            shape = (self.xsize,)
+        return shape
 
 class Color(object):
     """a bare bones color object"""

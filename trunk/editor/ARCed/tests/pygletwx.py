@@ -10,7 +10,7 @@ import numpy
 
 class GLPanel(wx.Panel):
 
-    '''A simple class for using OpenGL with wxPython.'''
+    '''A simple class for using pyglet OpenGL with wxPython.'''
 
     def __init__(self, parent, id, pos=wx.DefaultPosition,
                  size=wx.DefaultSize, style=0):

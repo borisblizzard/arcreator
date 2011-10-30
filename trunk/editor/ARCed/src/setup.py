@@ -91,7 +91,7 @@ GUI2Exe_Target_1 = Target(
     other_resources = other_resources,
     dest_base = "ARCed",
     version = "0.6.1.469",
-    company_name = "ARC Dvevlopers",
+    company_name = "ARC Developers",
     copyright = "© 2011 ARC Developers arc@chaos-project.com",
     name = "ARCed (Advanced RPG Creater Editor)"
     )
