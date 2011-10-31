@@ -60,6 +60,18 @@ class Config(object):
         else:
             return None
 
+    def getint(self, key, item):
+        if self.has_section(key):
+            return int(self.get_section(key).get(item))
+        else:
+            return None
+
+    def getlist(self, key, item, separator='|'):
+        if self.has_section(key):
+            return self.get_section(key).get(item).split(separator)
+        else:
+            return None
+
     def set(self, key, item, value):
         if self.has_section(key):
             self.get_section(key).set(item, value)
