@@ -26,8 +26,6 @@ import os
 GraphicsDir = os.path.abspath(os.environ['COMMONPROGRAMFILES'] + 
 							  '\\Enterbrain\RGSS\Standard\\Graphics')
 
-
-
 class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 	def __init__( self, parent, actorIndex=0 ):
 		''' Initializes the Actors panel '''
