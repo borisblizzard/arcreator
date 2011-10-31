@@ -621,7 +621,7 @@ class Tilemap(object):
         draw the layers of the map
         '''
         on_screen = self.tiles[x:x + width, y:y + height]
-        if not self.LayerDimming:
+        if not self.LayerDimming or self.activeLayer > on_screen.shape[2]:
             #draw the dimlayer first
             self.dimmingSprite.render()
         for z in xrange(on_screen.shape[2]):
@@ -1106,8 +1106,8 @@ class TilemapPanel(PygletGLPanel):
         x = (-self.GetScrollPos(wx.HORIZONTAL)) / self.zoom
         y = ((-(self.map.height * 32) + size.height / self.zoom) + self.GetScrollPos(wx.VERTICAL) / self.zoom)
         gl.glTranslatef(x, y, 0)
-        self.translateX = -x + size.width / 2
-        self.translateY = -y + size.height / 2
+        self.translateX = -x + size.width / 2 / self.zoom
+        self.translateY = -y + size.height / 2 / self.zoom
         self.onscreenwidth = int(size.width / self.zoom)
         self.onscreenheight = int(size.height / self.zoom)
         self.tilemap.setDimXY(self.translateX, self.translateY )
@@ -1350,10 +1350,7 @@ class MapToolbar(wx.ToolBar):
         self.Bind(wx.EVT_UPDATE_UI, self.UpdateZoomChoice, self.zoomChoice)
     
     def SetupToolIDs(self):
-        self.layer1ID = 1
-        self.layer2ID = 2
-        self.layer3ID = 3
-        self.layer4ID = 4
+        self.EventLayerID = 4
         self.PenID = 5
         self.RecID = 6
         self.ElipID = 7
