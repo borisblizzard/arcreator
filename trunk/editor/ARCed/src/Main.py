@@ -98,7 +98,7 @@ class ConfigManager(object):
         #main Config
         local_arced_path = os.path.join(dirName, "ARCed.cfg")
         user_arced_path = os.path.join(Kernel.GetConfigFolder(), "ARCed.cfg")
-        arced_cfg = ConfigManager.PhraseCFGFile(local_arced_path, dict={"INSTALLDIR": dirName, "PROGRAMFILES": "%PROGRAMFILES%"})
+        arced_cfg = ConfigManager.PhraseCFGFile(local_arced_path, dict={"INSTALLDIR": dirName, "COMMONPROGRAMFILES": "%COMMONPROGRAMFILES%"})
         arced_cfg = ConfigManager.PhraseCFGFile(user_arced_path, arced_cfg)
         if Kernel.GlobalObjects.has_key("ARCed_config"):
             Kernel.GlobalObjects.set_value("ARCed_config", arced_cfg)
