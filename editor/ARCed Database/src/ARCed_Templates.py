@@ -24,7 +24,7 @@ class Actors_Panel ( wx.Panel ):
 		
 		ActorListSizer = wx.BoxSizer( wx.VERTICAL )
 		
-		self.bitmapActors = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( u"../images/Actors.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.Size( 150,26 ), wx.CLIP_CHILDREN|wx.FULL_REPAINT_ON_RESIZE )
+		self.bitmapActors = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( u"images/Actors.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.Size( 150,26 ), wx.CLIP_CHILDREN|wx.FULL_REPAINT_ON_RESIZE )
 		self.bitmapActors.SetMinSize( wx.Size( 150,26 ) )
 		self.bitmapActors.SetMaxSize( wx.Size( 150,26 ) )
 		
@@ -113,7 +113,7 @@ class Actors_Panel ( wx.Panel ):
 		
 		sizer2 = wx.BoxSizer( wx.VERTICAL )
 		
-		bSizer612 = wx.BoxSizer( wx.VERTICAL )
+		sizerEquipment = wx.BoxSizer( wx.VERTICAL )
 		
 		self.noteBookActorParameters = wx.Notebook( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, 0|wx.TAB_TRAVERSAL )
 		self.panelMaxHP = wx.Panel( self.noteBookActorParameters, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
@@ -164,7 +164,7 @@ class Actors_Panel ( wx.Panel ):
 		
 		MainSizerParamter.Add( sizerConrolsParameter, 0, wx.EXPAND, 5 )
 		
-		self.bitmapGraph = wx.StaticBitmap( self.panelMaxHP, wx.ID_ANY, wx.Bitmap( u"../images/MaxHP.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.Size( 448,224 ), wx.CLIP_CHILDREN|wx.SIMPLE_BORDER )
+		self.bitmapGraph = wx.StaticBitmap( self.panelMaxHP, wx.ID_ANY, wx.Bitmap( u"images/MaxHP.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.Size( 448,224 ), wx.CLIP_CHILDREN|wx.SIMPLE_BORDER )
 		MainSizerParamter.Add( self.bitmapGraph, 1, wx.ALL|wx.EXPAND, 5 )
 		
 		bSizer613 = wx.BoxSizer( wx.HORIZONTAL )
@@ -197,87 +197,31 @@ class Actors_Panel ( wx.Panel ):
 		self.panelInt = wx.Panel( self.noteBookActorParameters, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
 		self.noteBookActorParameters.AddPage( self.panelInt, u"INT", False )
 		
-		bSizer612.Add( self.noteBookActorParameters, 1, wx.EXPAND |wx.ALL, 5 )
+		sizerEquipment.Add( self.noteBookActorParameters, 1, wx.EXPAND |wx.ALL, 5 )
 		
-		sizer2.Add( bSizer612, 1, wx.EXPAND, 5 )
+		sizer2.Add( sizerEquipment, 55, wx.EXPAND, 5 )
 		
-		sizerStartEquipment = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Initial Equipment" ), wx.HORIZONTAL )
+		sizerInitialEquipment = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Initial Equipment" ), wx.VERTICAL )
 		
-		sizer8 = wx.BoxSizer( wx.VERTICAL )
+		self.scrolledWindowEquipment = wx.ScrolledWindow( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.HSCROLL|wx.VSCROLL )
+		self.scrolledWindowEquipment.SetScrollRate( 5, 5 )
+		scrolledWindowMainSizer = wx.BoxSizer( wx.VERTICAL )
 		
-		self.labelWeapon = wx.StaticText( self, wx.ID_ANY, u"Weapon:", wx.DefaultPosition, wx.DefaultSize, wx.ALIGN_RIGHT )
-		self.labelWeapon.Wrap( -1 )
-		sizer8.Add( self.labelWeapon, 1, wx.ALL|wx.EXPAND, 5 )
+		self.scrolledWindowEquipment.SetSizer( scrolledWindowMainSizer )
+		self.scrolledWindowEquipment.Layout()
+		scrolledWindowMainSizer.Fit( self.scrolledWindowEquipment )
+		sizerInitialEquipment.Add( self.scrolledWindowEquipment, 1, wx.EXPAND, 5 )
 		
-		self.labelShield = wx.StaticText( self, wx.ID_ANY, u"Shield:", wx.DefaultPosition, wx.DefaultSize, wx.ALIGN_RIGHT )
-		self.labelShield.Wrap( -1 )
-		sizer8.Add( self.labelShield, 1, wx.ALL|wx.EXPAND, 5 )
+		sizer2.Add( sizerInitialEquipment, 25, wx.EXPAND|wx.ALL, 5 )
 		
-		self.labelHelmet = wx.StaticText( self, wx.ID_ANY, u"Helmet:", wx.DefaultPosition, wx.DefaultSize, wx.ALIGN_RIGHT )
-		self.labelHelmet.Wrap( -1 )
-		sizer8.Add( self.labelHelmet, 1, wx.ALL|wx.EXPAND, 5 )
+		self.labelNotes = wx.StaticText( self, wx.ID_ANY, u"Notes:", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.labelNotes.Wrap( -1 )
+		sizer2.Add( self.labelNotes, 0, wx.ALL, 5 )
 		
-		self.labelBodyArmor = wx.StaticText( self, wx.ID_ANY, u"Body Armor:", wx.DefaultPosition, wx.DefaultSize, wx.ALIGN_RIGHT )
-		self.labelBodyArmor.Wrap( -1 )
-		sizer8.Add( self.labelBodyArmor, 1, wx.ALL|wx.EXPAND, 5 )
+		self.textCtrlNotes = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+		sizer2.Add( self.textCtrlNotes, 20, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
 		
-		self.labelAccessory = wx.StaticText( self, wx.ID_ANY, u"Accessory:", wx.DefaultPosition, wx.DefaultSize, wx.ALIGN_RIGHT )
-		self.labelAccessory.Wrap( -1 )
-		sizer8.Add( self.labelAccessory, 1, wx.ALL|wx.EXPAND, 5 )
-		
-		sizerStartEquipment.Add( sizer8, 0, wx.EXPAND, 5 )
-		
-		sizer9 = wx.BoxSizer( wx.VERTICAL )
-		
-		comboBoxWeaponChoices = []
-		self.comboBoxWeapon = wx.Choice( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxWeaponChoices, wx.CLIP_CHILDREN )
-		self.comboBoxWeapon.SetSelection( 0 )
-		sizer9.Add( self.comboBoxWeapon, 0, wx.ALL|wx.EXPAND, 5 )
-		
-		comboBoxShieldChoices = []
-		self.comboBoxShield = wx.Choice( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxShieldChoices, wx.CLIP_CHILDREN )
-		self.comboBoxShield.SetSelection( 0 )
-		sizer9.Add( self.comboBoxShield, 0, wx.ALL|wx.EXPAND, 5 )
-		
-		comboBoxHelmetChoices = []
-		self.comboBoxHelmet = wx.Choice( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxHelmetChoices, wx.CLIP_CHILDREN )
-		self.comboBoxHelmet.SetSelection( 0 )
-		sizer9.Add( self.comboBoxHelmet, 0, wx.ALL|wx.EXPAND, 5 )
-		
-		comboBoxBodyArmorChoices = []
-		self.comboBoxBodyArmor = wx.Choice( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxBodyArmorChoices, wx.CLIP_CHILDREN )
-		self.comboBoxBodyArmor.SetSelection( 0 )
-		sizer9.Add( self.comboBoxBodyArmor, 0, wx.ALL|wx.EXPAND, 5 )
-		
-		comboBoxAccessoryChoices = []
-		self.comboBoxAccessory = wx.Choice( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxAccessoryChoices, wx.CLIP_CHILDREN )
-		self.comboBoxAccessory.SetSelection( 0 )
-		sizer9.Add( self.comboBoxAccessory, 0, wx.ALL|wx.EXPAND, 5 )
-		
-		sizerStartEquipment.Add( sizer9, 1, wx.EXPAND, 5 )
-		
-		sizer10 = wx.BoxSizer( wx.VERTICAL )
-		
-		self.checkBoxWeapon = wx.CheckBox( self, wx.ID_ANY, u"Fixed", wx.DefaultPosition, wx.DefaultSize, 0 )
-		sizer10.Add( self.checkBoxWeapon, 1, wx.ALL|wx.EXPAND, 5 )
-		
-		self.checkBoxShield = wx.CheckBox( self, wx.ID_ANY, u"Fixed", wx.DefaultPosition, wx.DefaultSize, 0 )
-		sizer10.Add( self.checkBoxShield, 1, wx.ALL|wx.EXPAND, 5 )
-		
-		self.checkBoxHelmet = wx.CheckBox( self, wx.ID_ANY, u"Fixed", wx.DefaultPosition, wx.DefaultSize, 0 )
-		sizer10.Add( self.checkBoxHelmet, 1, wx.ALL|wx.EXPAND, 5 )
-		
-		self.checkBoxBodyArmor = wx.CheckBox( self, wx.ID_ANY, u"Fixed", wx.DefaultPosition, wx.DefaultSize, 0 )
-		sizer10.Add( self.checkBoxBodyArmor, 1, wx.ALL|wx.EXPAND, 5 )
-		
-		self.checkBoxAccessory = wx.CheckBox( self, wx.ID_ANY, u"Fixed", wx.DefaultPosition, wx.DefaultSize, 0 )
-		sizer10.Add( self.checkBoxAccessory, 1, wx.ALL|wx.EXPAND, 5 )
-		
-		sizerStartEquipment.Add( sizer10, 0, wx.EXPAND, 5 )
-		
-		sizer2.Add( sizerStartEquipment, 0, wx.ALL|wx.EXPAND, 5 )
-		
-		staticSizerActors.Add( sizer2, 75, wx.EXPAND, 5 )
+		staticSizerActors.Add( sizer2, 65, wx.EXPAND, 5 )
 		
 		MainSizer.Add( staticSizerActors, 75, wx.EXPAND|wx.ALL, 5 )
 		
@@ -314,16 +258,6 @@ class Actors_Panel ( wx.Panel ):
 		self.buttonAddParameter.Bind( wx.EVT_BUTTON, self.buttonAddParameter_Clicked )
 		self.buttonRemoveParameter.Bind( wx.EVT_BUTTON, self.buttonRemoveParameter_Clicked )
 		self.buttonGenerate.Bind( wx.EVT_BUTTON, self.buttonGenerateCurve_Clicked )
-		self.comboBoxWeapon.Bind( wx.EVT_CHOICE, self.comboBoxWeapon_SelectionChanged )
-		self.comboBoxShield.Bind( wx.EVT_CHOICE, self.comboBoxShield_SelectionChanged )
-		self.comboBoxHelmet.Bind( wx.EVT_CHOICE, self.comboBoxHelmet_SelectionChanged )
-		self.comboBoxBodyArmor.Bind( wx.EVT_CHOICE, self.comboBoxBodyArmor_SelectionChanged )
-		self.comboBoxAccessory.Bind( wx.EVT_CHOICE, self.comboBoxAccessory_SelectionChanged )
-		self.checkBoxWeapon.Bind( wx.EVT_CHECKBOX, self.checkBoxWeapon_CheckChanged )
-		self.checkBoxShield.Bind( wx.EVT_CHECKBOX, self.checkBoxShield_CheckChanged )
-		self.checkBoxHelmet.Bind( wx.EVT_CHECKBOX, self.checkBoxHelmet_CheckChanged )
-		self.checkBoxBodyArmor.Bind( wx.EVT_CHECKBOX, self.checkBoxBodyArmor_CheckChanged )
-		self.checkBoxAccessory.Bind( wx.EVT_CHECKBOX, self.checkBoxAccessory_CheckChanged )
 	
 	def __del__( self ):
 		pass
@@ -407,36 +341,6 @@ class Actors_Panel ( wx.Panel ):
 	def buttonGenerateCurve_Clicked( self, event ):
 		pass
 	
-	def comboBoxWeapon_SelectionChanged( self, event ):
-		pass
-	
-	def comboBoxShield_SelectionChanged( self, event ):
-		pass
-	
-	def comboBoxHelmet_SelectionChanged( self, event ):
-		pass
-	
-	def comboBoxBodyArmor_SelectionChanged( self, event ):
-		pass
-	
-	def comboBoxAccessory_SelectionChanged( self, event ):
-		pass
-	
-	def checkBoxWeapon_CheckChanged( self, event ):
-		pass
-	
-	def checkBoxShield_CheckChanged( self, event ):
-		pass
-	
-	def checkBoxHelmet_CheckChanged( self, event ):
-		pass
-	
-	def checkBoxBodyArmor_CheckChanged( self, event ):
-		pass
-	
-	def checkBoxAccessory_CheckChanged( self, event ):
-		pass
-	
 
 ###########################################################################
 ## Class Classes_Panel
@@ -451,15 +355,15 @@ class Classes_Panel ( wx.Panel ):
 		
 		ClassListSizer = wx.BoxSizer( wx.VERTICAL )
 		
-		self.bitmapClasses = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( u"../images/Classes.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.Size( 150,26 ), wx.CLIP_CHILDREN|wx.FULL_REPAINT_ON_RESIZE )
+		self.bitmapClasses = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( u"images/Classes.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.Size( 150,26 ), wx.CLIP_CHILDREN|wx.FULL_REPAINT_ON_RESIZE )
 		self.bitmapClasses.SetMinSize( wx.Size( 150,26 ) )
 		self.bitmapClasses.SetMaxSize( wx.Size( 150,26 ) )
 		
 		ClassListSizer.Add( self.bitmapClasses, 0, wx.ALL|wx.EXPAND, 5 )
 		
 		listBoxClassesChoices = []
-		self.listBoxClasses = wx.ListBox( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, listBoxClassesChoices, wx.LB_SINGLE|wx.CLIP_CHILDREN )
-		ClassListSizer.Add( self.listBoxClasses, 1, wx.EXPAND|wx.RIGHT|wx.LEFT, 5 )
+		self.listBoxClasses = wx.ListBox( self, wx.ID_ANY, wx.DefaultPosition, wx.Size( -1,-1 ), listBoxClassesChoices, wx.LB_SINGLE|wx.CLIP_CHILDREN )
+		ClassListSizer.Add( self.listBoxClasses, 1, wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
 		
 		self.buttonMaximum = wx.Button( self, wx.ID_ANY, u"Change Maximum...", wx.DefaultPosition, wx.Size( 150,-1 ), 0 )
 		ClassListSizer.Add( self.buttonMaximum, 0, wx.ALL|wx.EXPAND, 5 )
@@ -467,6 +371,10 @@ class Classes_Panel ( wx.Panel ):
 		MainSizer.Add( ClassListSizer, 25, wx.EXPAND, 5 )
 		
 		staticSizerClasses = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, wx.EmptyString ), wx.HORIZONTAL )
+		
+		bSizer616 = wx.BoxSizer( wx.VERTICAL )
+		
+		bSizer6171 = wx.BoxSizer( wx.HORIZONTAL )
 		
 		bSizer65 = wx.BoxSizer( wx.VERTICAL )
 		
@@ -487,15 +395,15 @@ class Classes_Panel ( wx.Panel ):
 		
 		bSizer68 = wx.BoxSizer( wx.HORIZONTAL )
 		
-		self.buttonWeaponAll = wx.Button( self, wx.ID_ANY, u"All", wx.DefaultPosition, wx.DefaultSize, 0 )
-		bSizer68.Add( self.buttonWeaponAll, 1, wx.EXPAND|wx.BOTTOM|wx.LEFT, 5 )
+		self.buttonWeaponAll = wx.Button( self, wx.ID_ANY, u"All", wx.DefaultPosition, wx.Size( -1,19 ), 0 )
+		bSizer68.Add( self.buttonWeaponAll, 1, wx.BOTTOM|wx.LEFT|wx.EXPAND, 5 )
 		
-		self.buttonWeaponNone = wx.Button( self, wx.ID_ANY, u"None", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.buttonWeaponNone = wx.Button( self, wx.ID_ANY, u"None", wx.DefaultPosition, wx.Size( -1,19 ), 0 )
 		bSizer68.Add( self.buttonWeaponNone, 1, wx.EXPAND|wx.BOTTOM|wx.RIGHT, 5 )
 		
 		bSizer65.Add( bSizer68, 0, wx.EXPAND, 5 )
 		
-		staticSizerClasses.Add( bSizer65, 30, wx.EXPAND, 5 )
+		bSizer6171.Add( bSizer65, 27, wx.EXPAND, 5 )
 		
 		bSizer66 = wx.BoxSizer( wx.VERTICAL )
 		
@@ -505,7 +413,7 @@ class Classes_Panel ( wx.Panel ):
 		self.labelPosition.Wrap( -1 )
 		bSizer651.Add( self.labelPosition, 0, wx.ALL|wx.EXPAND, 5 )
 		
-		comboBoxPositionChoices = [ u"Front", u"Middle", u"Rear" ]
+		comboBoxPositionChoices = []
 		self.comboBoxPosition = wx.Choice( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxPositionChoices, 0 )
 		self.comboBoxPosition.SetSelection( 0 )
 		bSizer651.Add( self.comboBoxPosition, 0, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
@@ -518,19 +426,32 @@ class Classes_Panel ( wx.Panel ):
 		self.checkListArmors = wx.CheckListBox( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, checkListArmorsChoices, 0 )
 		bSizer651.Add( self.checkListArmors, 1, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
 		
-		bSizer681 = wx.BoxSizer( wx.HORIZONTAL )
+		sizerOKRemove = wx.BoxSizer( wx.HORIZONTAL )
 		
-		self.buttonArmorAll = wx.Button( self, wx.ID_ANY, u"All", wx.DefaultPosition, wx.DefaultSize, 0 )
-		bSizer681.Add( self.buttonArmorAll, 1, wx.EXPAND|wx.BOTTOM|wx.LEFT, 5 )
+		self.buttonArmorAll = wx.Button( self, wx.ID_ANY, u"All", wx.DefaultPosition, wx.Size( -1,19 ), 0 )
+		sizerOKRemove.Add( self.buttonArmorAll, 1, wx.EXPAND|wx.BOTTOM|wx.LEFT, 5 )
 		
-		self.buttonArmorNone = wx.Button( self, wx.ID_ANY, u"None", wx.DefaultPosition, wx.DefaultSize, 0 )
-		bSizer681.Add( self.buttonArmorNone, 1, wx.EXPAND|wx.BOTTOM|wx.RIGHT, 5 )
+		self.buttonArmorNone = wx.Button( self, wx.ID_ANY, u"None", wx.DefaultPosition, wx.Size( -1,19 ), 0 )
+		sizerOKRemove.Add( self.buttonArmorNone, 1, wx.EXPAND|wx.BOTTOM|wx.RIGHT, 5 )
 		
-		bSizer651.Add( bSizer681, 0, wx.EXPAND, 5 )
+		bSizer651.Add( sizerOKRemove, 0, wx.EXPAND, 5 )
 		
 		bSizer66.Add( bSizer651, 1, wx.EXPAND, 5 )
 		
-		staticSizerClasses.Add( bSizer66, 30, wx.EXPAND, 5 )
+		bSizer6171.Add( bSizer66, 27, wx.EXPAND, 5 )
+		
+		bSizer616.Add( bSizer6171, 75, wx.EXPAND, 5 )
+		
+		self.labelNotes = wx.StaticText( self, wx.ID_ANY, u"Notes:", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.labelNotes.Wrap( -1 )
+		bSizer616.Add( self.labelNotes, 0, wx.ALL, 5 )
+		
+		self.textCtrlNotes = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.TE_MULTILINE|wx.TE_PROCESS_ENTER|wx.TE_PROCESS_TAB|wx.CLIP_CHILDREN )
+		self.textCtrlNotes.SetToolTipString( u"Any user notes for this item. These notes can also be referenced via scripts." )
+		
+		bSizer616.Add( self.textCtrlNotes, 25, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
+		
+		staticSizerClasses.Add( bSizer616, 54, wx.EXPAND, 5 )
 		
 		bSizer67 = wx.BoxSizer( wx.VERTICAL )
 		
@@ -556,14 +477,14 @@ class Classes_Panel ( wx.Panel ):
 		self.listBoxStates = wx.ListBox( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, listBoxStatesChoices, 0 )
 		bSizer75.Add( self.listBoxStates, 1, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
 		
-		bSizer67.Add( bSizer75, 45, wx.EXPAND, 5 )
+		bSizer67.Add( bSizer75, 30, wx.EXPAND, 5 )
 		
 		bSizer617 = wx.BoxSizer( wx.HORIZONTAL )
 		
-		self.spinCtrlElements = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0 )
+		self.spinCtrlElements = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS|wx.SP_WRAP, 0, 10, 0 )
 		bSizer617.Add( self.spinCtrlElements, 1, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
 		
-		self.spinCtrlStates = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0 )
+		self.spinCtrlStates = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS|wx.SP_WRAP, 0, 10, 0 )
 		bSizer617.Add( self.spinCtrlStates, 1, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
 		
 		bSizer67.Add( bSizer617, 0, wx.EXPAND, 5 )
@@ -572,19 +493,20 @@ class Classes_Panel ( wx.Panel ):
 		self.labelSkills.Wrap( -1 )
 		bSizer67.Add( self.labelSkills, 0, wx.ALL, 5 )
 		
-		self.listCtrlSkills = wx.ListCtrl( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.LC_HRULES|wx.LC_REPORT|wx.LC_SINGLE_SEL|wx.LC_VRULES )
-		bSizer67.Add( self.listCtrlSkills, 30, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
+		self.listCtrlSkills = wx.ListCtrl( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.LC_REPORT|wx.LC_SINGLE_SEL )
+		bSizer67.Add( self.listCtrlSkills, 35, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
 		
-		self.labelNotes = wx.StaticText( self, wx.ID_ANY, u"Notes:", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.labelNotes.Wrap( -1 )
-		bSizer67.Add( self.labelNotes, 0, wx.ALL, 5 )
+		bSizer618 = wx.BoxSizer( wx.HORIZONTAL )
 		
-		self.textCtrlNotes = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.TE_MULTILINE|wx.CLIP_CHILDREN )
-		self.textCtrlNotes.SetToolTipString( u"Any user notes for this item. These notes can also be referenced via scripts." )
+		self.buttonSkillAdd = wx.Button( self, wx.ID_ANY, u"Add", wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer618.Add( self.buttonSkillAdd, 0, wx.BOTTOM|wx.LEFT, 5 )
 		
-		bSizer67.Add( self.textCtrlNotes, 25, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
+		self.buttonSkillRemove = wx.Button( self, wx.ID_ANY, u"Remove", wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer618.Add( self.buttonSkillRemove, 0, wx.BOTTOM|wx.RIGHT, 5 )
 		
-		staticSizerClasses.Add( bSizer67, 40, wx.EXPAND, 5 )
+		bSizer67.Add( bSizer618, 0, wx.ALIGN_RIGHT, 5 )
+		
+		staticSizerClasses.Add( bSizer67, 44, wx.EXPAND, 5 )
 		
 		MainSizer.Add( staticSizerClasses, 75, wx.EXPAND|wx.ALL, 5 )
 		
@@ -602,12 +524,15 @@ class Classes_Panel ( wx.Panel ):
 		self.checkListArmors.Bind( wx.EVT_CHECKLISTBOX, self.checkListArmors_CheckChanged )
 		self.buttonArmorAll.Bind( wx.EVT_BUTTON, self.buttonArmorAll_Clicked )
 		self.buttonArmorNone.Bind( wx.EVT_BUTTON, self.buttonArmorNone_Clicked )
+		self.textCtrlNotes.Bind( wx.EVT_TEXT, self.textCtrlNotes_TextChanged )
 		self.listBoxElements.Bind( wx.EVT_LISTBOX, self.listBoxElements_SelectionChanged )
 		self.listBoxStates.Bind( wx.EVT_LISTBOX, self.listBoxStates_SelectionChanged )
 		self.spinCtrlElements.Bind( wx.EVT_SPINCTRL, self.spinCtrlElements_ValueChanged )
 		self.spinCtrlStates.Bind( wx.EVT_SPINCTRL, self.spinCtrlStates_ValueChanged )
-		self.listCtrlSkills.Bind( wx.EVT_LEFT_DCLICK, self.listBoxSkills_DoubleClick )
-		self.textCtrlNotes.Bind( wx.EVT_TEXT, self.textCtrlNotes_TextChanged )
+		self.listCtrlSkills.Bind( wx.EVT_KEY_DOWN, self.listCtrlSkills_KeyDown )
+		self.listCtrlSkills.Bind( wx.EVT_LEFT_DCLICK, self.listCtrlSkills_DoubleClick )
+		self.buttonSkillAdd.Bind( wx.EVT_BUTTON, self.buttonSkillAdd_Clicked )
+		self.buttonSkillRemove.Bind( wx.EVT_BUTTON, self.buttonSkillRemove_Clicked )
 	
 	def __del__( self ):
 		pass
@@ -644,6 +569,9 @@ class Classes_Panel ( wx.Panel ):
 	def buttonArmorNone_Clicked( self, event ):
 		pass
 	
+	def textCtrlNotes_TextChanged( self, event ):
+		pass
+	
 	def listBoxElements_SelectionChanged( self, event ):
 		pass
 	
@@ -656,10 +584,16 @@ class Classes_Panel ( wx.Panel ):
 	def spinCtrlStates_ValueChanged( self, event ):
 		pass
 	
-	def listBoxSkills_DoubleClick( self, event ):
+	def listCtrlSkills_KeyDown( self, event ):
 		pass
 	
-	def textCtrlNotes_TextChanged( self, event ):
+	def listCtrlSkills_DoubleClick( self, event ):
+		pass
+	
+	def buttonSkillAdd_Clicked( self, event ):
+		pass
+	
+	def buttonSkillRemove_Clicked( self, event ):
 		pass
 	
 
@@ -676,7 +610,7 @@ class Skills_Panel ( wx.Panel ):
 		
 		SkillListSizer = wx.BoxSizer( wx.VERTICAL )
 		
-		self.bitmapSkills = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( u"../images/Skills.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.Size( 150,26 ), wx.CLIP_CHILDREN|wx.FULL_REPAINT_ON_RESIZE )
+		self.bitmapSkills = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( u"images/Skills.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.Size( 150,26 ), wx.CLIP_CHILDREN|wx.FULL_REPAINT_ON_RESIZE )
 		self.bitmapSkills.SetMinSize( wx.Size( 150,26 ) )
 		self.bitmapSkills.SetMaxSize( wx.Size( 150,26 ) )
 		
@@ -725,10 +659,6 @@ class Skills_Panel ( wx.Panel ):
 		sizer4.Add( self.comboBoxIcon, 1, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
 		
 		sizer1.Add( sizer4, 0, wx.EXPAND, 5 )
-		
-		self.labelDescription = wx.StaticText( self, wx.ID_ANY, u"Description:", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.labelDescription.Wrap( -1 )
-		sizer1.Add( self.labelDescription, 0, wx.ALL|wx.EXPAND, 5 )
 		
 		self.textCtrlDescription = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.textCtrlDescription.SetToolTipString( u"Comment displayed when the item is selected" )
@@ -1109,7 +1039,7 @@ class Items_Panel ( wx.Panel ):
 		
 		ItemListSizer = wx.BoxSizer( wx.VERTICAL )
 		
-		self.bitmapItems = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( u"../images/Items.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.Size( 150,26 ), wx.CLIP_CHILDREN|wx.FULL_REPAINT_ON_RESIZE )
+		self.bitmapItems = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( u"images/Items.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.Size( 150,26 ), wx.CLIP_CHILDREN|wx.FULL_REPAINT_ON_RESIZE )
 		self.bitmapItems.SetMinSize( wx.Size( 150,26 ) )
 		self.bitmapItems.SetMaxSize( wx.Size( 150,26 ) )
 		
@@ -1550,7 +1480,7 @@ class Armors_Panel ( wx.Panel ):
 		
 		ArmorsListSizer = wx.BoxSizer( wx.VERTICAL )
 		
-		self.bitmapArmors = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( u"../images/Armors.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.Size( 150,26 ), wx.CLIP_CHILDREN|wx.FULL_REPAINT_ON_RESIZE )
+		self.bitmapArmors = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( u"images/Armors.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.Size( 150,26 ), wx.CLIP_CHILDREN|wx.FULL_REPAINT_ON_RESIZE )
 		self.bitmapArmors.SetMinSize( wx.Size( 150,26 ) )
 		self.bitmapArmors.SetMaxSize( wx.Size( 150,26 ) )
 		
@@ -1876,7 +1806,7 @@ class Weapons_Panel ( wx.Panel ):
 		
 		WeaponsListSizer = wx.BoxSizer( wx.VERTICAL )
 		
-		self.bitmapWeapons = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( u"../images/Weapons.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.Size( 150,26 ), wx.CLIP_CHILDREN|wx.FULL_REPAINT_ON_RESIZE )
+		self.bitmapWeapons = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( u"images/Weapons.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.Size( 150,26 ), wx.CLIP_CHILDREN|wx.FULL_REPAINT_ON_RESIZE )
 		self.bitmapWeapons.SetMinSize( wx.Size( 150,26 ) )
 		self.bitmapWeapons.SetMaxSize( wx.Size( 150,26 ) )
 		
@@ -2202,7 +2132,7 @@ class Enemies_Panel ( wx.Panel ):
 		
 		EnemiesListSizer = wx.BoxSizer( wx.VERTICAL )
 		
-		self.bitmapEnemies = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( u"../images/Enemies.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.Size( 150,26 ), wx.CLIP_CHILDREN|wx.FULL_REPAINT_ON_RESIZE )
+		self.bitmapEnemies = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( u"images/Enemies.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.Size( 150,26 ), wx.CLIP_CHILDREN|wx.FULL_REPAINT_ON_RESIZE )
 		self.bitmapEnemies.SetMinSize( wx.Size( 150,26 ) )
 		self.bitmapEnemies.SetMaxSize( wx.Size( 150,26 ) )
 		
@@ -2238,7 +2168,7 @@ class Enemies_Panel ( wx.Panel ):
 		self.labelBattlerGraphic.Wrap( -1 )
 		sizer2.Add( self.labelBattlerGraphic, 0, wx.ALL, 5 )
 		
-		self.bitmapBattlerGraphic = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( u"../images/Ghost.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.DefaultSize, wx.STATIC_BORDER )
+		self.bitmapBattlerGraphic = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( u"images/Ghost.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.DefaultSize, wx.STATIC_BORDER )
 		sizer2.Add( self.bitmapBattlerGraphic, 1, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
 		
 		self.labelAttackAnimation = wx.StaticText( self, wx.ID_ANY, u"Attack Animation:", wx.DefaultPosition, wx.DefaultSize, 0 )
@@ -2541,7 +2471,7 @@ class Troops_Panel ( wx.Panel ):
 		
 		TroopsListSizer = wx.BoxSizer( wx.VERTICAL )
 		
-		self.bitmapTroops = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( u"../images/Troops.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.Size( 150,26 ), wx.CLIP_CHILDREN|wx.FULL_REPAINT_ON_RESIZE )
+		self.bitmapTroops = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( u"images/Troops.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.Size( 150,26 ), wx.CLIP_CHILDREN|wx.FULL_REPAINT_ON_RESIZE )
 		self.bitmapTroops.SetMinSize( wx.Size( 150,26 ) )
 		self.bitmapTroops.SetMaxSize( wx.Size( 150,26 ) )
 		
@@ -2584,7 +2514,7 @@ class Troops_Panel ( wx.Panel ):
 		
 		sizer2 = wx.BoxSizer( wx.HORIZONTAL )
 		
-		self.bitmapTroopLayout = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( u"../images/Battleback.jpg", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.DefaultSize, wx.SUNKEN_BORDER )
+		self.bitmapTroopLayout = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( u"images/Battleback.jpg", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.DefaultSize, wx.SUNKEN_BORDER )
 		sizer2.Add( self.bitmapTroopLayout, 70, wx.ALL|wx.EXPAND, 5 )
 		
 		sizer4 = wx.BoxSizer( wx.VERTICAL )
@@ -2776,7 +2706,7 @@ class States_Panel ( wx.Panel ):
 		
 		StatesListSizer = wx.BoxSizer( wx.VERTICAL )
 		
-		self.bitmapStates = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( u"../images/States.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.Size( 150,26 ), wx.CLIP_CHILDREN|wx.FULL_REPAINT_ON_RESIZE )
+		self.bitmapStates = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( u"images/States.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.Size( 150,26 ), wx.CLIP_CHILDREN|wx.FULL_REPAINT_ON_RESIZE )
 		self.bitmapStates.SetMinSize( wx.Size( 150,26 ) )
 		self.bitmapStates.SetMaxSize( wx.Size( 150,26 ) )
 		
@@ -3167,7 +3097,7 @@ class Animations_Panel ( wx.Panel ):
 		
 		AnimationsListSizer = wx.BoxSizer( wx.VERTICAL )
 		
-		self.bitmapAnimations = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( u"../images/Animations.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.Size( 150,26 ), wx.CLIP_CHILDREN|wx.FULL_REPAINT_ON_RESIZE )
+		self.bitmapAnimations = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( u"images/Animations.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.Size( 150,26 ), wx.CLIP_CHILDREN|wx.FULL_REPAINT_ON_RESIZE )
 		self.bitmapAnimations.SetMinSize( wx.Size( 150,26 ) )
 		self.bitmapAnimations.SetMaxSize( wx.Size( 150,26 ) )
 		
@@ -3255,7 +3185,7 @@ class Animations_Panel ( wx.Panel ):
 		
 		sizer2.Add( sizer5, 0, wx.EXPAND, 5 )
 		
-		self.bitmapPallette = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( u"../images/AnimationSample1.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.DefaultSize, wx.SUNKEN_BORDER )
+		self.bitmapPallette = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( u"images/AnimationSample1.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.DefaultSize, wx.SUNKEN_BORDER )
 		sizer2.Add( self.bitmapPallette, 1, wx.ALL|wx.EXPAND, 5 )
 		
 		sizer6 = wx.BoxSizer( wx.VERTICAL )
@@ -3298,7 +3228,7 @@ class Animations_Panel ( wx.Panel ):
 		self.m_scrolledWindow3.SetScrollRate( 5, 5 )
 		bSizer196 = wx.BoxSizer( wx.HORIZONTAL )
 		
-		self.bitmapAnimationFrames = wx.StaticBitmap( self.m_scrolledWindow3, wx.ID_ANY, wx.Bitmap( u"../images/AnimationSample2.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.bitmapAnimationFrames = wx.StaticBitmap( self.m_scrolledWindow3, wx.ID_ANY, wx.Bitmap( u"images/AnimationSample2.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.DefaultSize, 0 )
 		bSizer196.Add( self.bitmapAnimationFrames, 0, wx.ALL, 5 )
 		
 		self.m_scrolledWindow3.SetSizer( bSizer196 )
@@ -3414,7 +3344,7 @@ class Tilesets_Panel ( wx.Panel ):
 		
 		TilesetsListSizer = wx.BoxSizer( wx.VERTICAL )
 		
-		self.bitmapTilesets = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( u"../images/Tilesets.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.Size( 150,26 ), wx.CLIP_CHILDREN|wx.FULL_REPAINT_ON_RESIZE )
+		self.bitmapTilesets = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( u"images/Tilesets.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.Size( 150,26 ), wx.CLIP_CHILDREN|wx.FULL_REPAINT_ON_RESIZE )
 		self.bitmapTilesets.SetMinSize( wx.Size( 150,26 ) )
 		self.bitmapTilesets.SetMaxSize( wx.Size( 150,26 ) )
 		
@@ -3508,7 +3438,7 @@ class Tilesets_Panel ( wx.Panel ):
 		
 		sizer3 = wx.BoxSizer( wx.VERTICAL )
 		
-		self.m_bitmap36 = wx.StaticBitmap( self.m_scrolledWindow4, wx.ID_ANY, wx.Bitmap( u"../images/TilesetSample.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.Size( 256,-1 ), 0 )
+		self.m_bitmap36 = wx.StaticBitmap( self.m_scrolledWindow4, wx.ID_ANY, wx.Bitmap( u"images/TilesetSample.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.Size( 256,-1 ), 0 )
 		self.m_bitmap36.SetMinSize( wx.Size( 256,-1 ) )
 		self.m_bitmap36.SetMaxSize( wx.Size( 256,-1 ) )
 		
@@ -3671,7 +3601,7 @@ class CommonEvents_Panel ( wx.Panel ):
 		
 		CommonEventsListSizer = wx.BoxSizer( wx.VERTICAL )
 		
-		self.bitmapCommonEvents = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( u"../images/CommonEvents.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.Size( 150,26 ), wx.CLIP_CHILDREN|wx.FULL_REPAINT_ON_RESIZE )
+		self.bitmapCommonEvents = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( u"images/CommonEvents.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.Size( 150,26 ), wx.CLIP_CHILDREN|wx.FULL_REPAINT_ON_RESIZE )
 		self.bitmapCommonEvents.SetMinSize( wx.Size( 150,26 ) )
 		self.bitmapCommonEvents.SetMaxSize( wx.Size( 150,26 ) )
 		
@@ -5722,7 +5652,7 @@ class ChangeMaximum_Dialog ( wx.Dialog ):
 class ExpCurve_Dialog ( wx.Dialog ):
 	
 	def __init__( self, parent ):
-		wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Experience Curve", pos = wx.DefaultPosition, size = wx.Size( 549,460 ), style = wx.DEFAULT_DIALOG_STYLE|wx.RESIZE_BORDER )
+		wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Experience Curve", pos = wx.DefaultPosition, size = wx.Size( 449,460 ), style = wx.DEFAULT_DIALOG_STYLE|wx.RESIZE_BORDER )
 		
 		self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
 		
@@ -5753,7 +5683,7 @@ class ExpCurve_Dialog ( wx.Dialog ):
 		
 		sizerBasis = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Basis" ), wx.HORIZONTAL )
 		
-		self.sliderBasis = wx.Slider( self, wx.ID_ANY, 35, 10, 50, wx.DefaultPosition, wx.DefaultSize, wx.SL_AUTOTICKS|wx.SL_HORIZONTAL )
+		self.sliderBasis = wx.Slider( self, wx.ID_ANY, 35, 10, 50, wx.DefaultPosition, wx.DefaultSize, wx.SL_HORIZONTAL )
 		sizerBasis.Add( self.sliderBasis, 1, wx.ALL, 5 )
 		
 		self.spinCtrlBasis = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( 60,-1 ), wx.SP_ARROW_KEYS, 10, 50, 35 )
@@ -5763,7 +5693,7 @@ class ExpCurve_Dialog ( wx.Dialog ):
 		
 		sizerInflation = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Inflation" ), wx.HORIZONTAL )
 		
-		self.sliderInflation = wx.Slider( self, wx.ID_ANY, 35, 10, 50, wx.DefaultPosition, wx.DefaultSize, wx.SL_AUTOTICKS|wx.SL_HORIZONTAL )
+		self.sliderInflation = wx.Slider( self, wx.ID_ANY, 35, 10, 50, wx.DefaultPosition, wx.DefaultSize, wx.SL_HORIZONTAL )
 		sizerInflation.Add( self.sliderInflation, 1, wx.ALL, 5 )
 		
 		self.spinCtrlInflation = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( 60,-1 ), wx.SP_ARROW_KEYS, 10, 50, 35 )
@@ -5889,7 +5819,7 @@ class ActorParameters_Dialog ( wx.Dialog ):
 		
 		MainSizerParamter.Add( sizerConrolsParameter, 0, wx.EXPAND, 5 )
 		
-		self.bitmapGraph = wx.StaticBitmap( self.panelParameter, wx.ID_ANY, wx.Bitmap( u"../images/MaxHP.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.Size( 448,224 ), wx.SIMPLE_BORDER )
+		self.bitmapGraph = wx.StaticBitmap( self.panelParameter, wx.ID_ANY, wx.Bitmap( u"images/MaxHP.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.Size( 448,224 ), wx.SIMPLE_BORDER )
 		MainSizerParamter.Add( self.bitmapGraph, 0, wx.EXPAND|wx.ALL, 5 )
 		
 		self.panelParameter.SetSizer( MainSizerParamter )
@@ -14248,6 +14178,61 @@ class ParameterGraph_Panel ( wx.Panel ):
 		pass
 	
 	def buttonCancel_Clicked( self, event ):
+		pass
+	
+
+###########################################################################
+## Class TESTPANEL
+###########################################################################
+
+class TESTPANEL ( wx.Panel ):
+	
+	def __init__( self, parent ):
+		wx.Panel.__init__ ( self, parent, id = wx.ID_ANY, pos = wx.DefaultPosition, size = wx.Size( 325,242 ), style = wx.TAB_TRAVERSAL )
+		
+		MainSizer = wx.BoxSizer( wx.HORIZONTAL )
+		
+		self.scrolledWindowEquipment = wx.ScrolledWindow( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.HSCROLL|wx.VSCROLL )
+		self.scrolledWindowEquipment.SetScrollRate( 5, 5 )
+		sizerEquipment = wx.BoxSizer( wx.VERTICAL )
+		
+		bSizer624 = wx.BoxSizer( wx.HORIZONTAL )
+		
+		self.labelEquipment = wx.StaticText( self.scrolledWindowEquipment, wx.ID_ANY, u"EquipmentName", wx.DefaultPosition, wx.Size( 96,-1 ), wx.ALIGN_LEFT )
+		self.labelEquipment.Wrap( -1 )
+		bSizer624.Add( self.labelEquipment, 0, wx.ALL, 5 )
+		
+		comboBoxEquipmentChoices = []
+		self.comboBoxEquipment = wx.Choice( self.scrolledWindowEquipment, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxEquipmentChoices, 0 )
+		self.comboBoxEquipment.SetSelection( 0 )
+		bSizer624.Add( self.comboBoxEquipment, 1, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
+		
+		self.checkBoxFixed = wx.CheckBox( self.scrolledWindowEquipment, wx.ID_ANY, u"Fixed", wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer624.Add( self.checkBoxFixed, 0, wx.ALL, 5 )
+		
+		sizerEquipment.Add( bSizer624, 1, wx.EXPAND, 5 )
+		
+		self.scrolledWindowEquipment.SetSizer( sizerEquipment )
+		self.scrolledWindowEquipment.Layout()
+		sizerEquipment.Fit( self.scrolledWindowEquipment )
+		MainSizer.Add( self.scrolledWindowEquipment, 1, wx.EXPAND |wx.ALL, 5 )
+		
+		self.SetSizer( MainSizer )
+		self.Layout()
+		
+		# Connect Events
+		self.comboBoxEquipment.Bind( wx.EVT_CHOICE, self.comboBoxEquipment_SelectionChanged )
+		self.checkBoxFixed.Bind( wx.EVT_CHECKBOX, self.checkBoxFixed_OnCheck )
+	
+	def __del__( self ):
+		pass
+	
+	
+	# Virtual event handlers, overide them in your derived class
+	def comboBoxEquipment_SelectionChanged( self, event ):
+		pass
+	
+	def checkBoxFixed_OnCheck( self, event ):
 		pass
 	
 

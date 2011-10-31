@@ -1,26 +1,14 @@
 import wx
-import ARCed_Templates
-import ARCedActors_Panel
-import ARCedArmors_Panel
-import ARCedAnimations_Panel
-import ARCedClasses_Panel
-import ARCedCommonEvents_Panel
-import ARCedEnemies_Panel
-import ARCedItems_Panel
-import ARCedSkills_Panel
-import ARCedStates_Panel
-import ARCedSystem_Panel
-import ARCedTilesets_Panel
-import ARCedTroops_Panel
-import ARCedWeapons_Panel
-
-#import DatabasePackage
+import DatabasePackage
 import os
 import ConfigParser
 import maxvalues
 import Kernel
 from Kernel import Manager as KM
 import Core
+import Main
+
+Main.ConfigManager.LoadConfig()
 
 TEST_PATH = path = 'ARC TestProject\ARC Test Project.arcproj'
 
@@ -49,21 +37,26 @@ class ARCedTest(wx.App):
 		# Read and parse the .ini file to determine what tabs will be available
 		Config = ConfigParser.SafeConfigParser()
 		Config.read('ini\DatabaseTabs.ini')
+
+		# REMOVE -----------------------------------------------------------------------
 		if not Kernel.GlobalObjects.has_key('DatabaseConfiguration'):
 			config = maxvalues.DatabaseLimits('ini/DatabaseLimits.ini')
 			Kernel.GlobalObjects.request_new_key('DatabaseConfiguration', 'CORE', config)
+		#------------------------------------------------------------------------------
+
 		# Create Notebook control, and dynamically add the defined controls to it
 		nb = wx.Notebook(self.frame, wx.ID_ANY)
 		for tabName in Config.sections():
 			file = Config.get(tabName, 'file')
 			klass = Config.get(tabName, 'class')
 			index = Config.getint(tabName, 'index')
+			exec('import ' + file)
 			exec('page = ' + file + '.' + klass + '(nb)')
 			DatabasePages[index] = DatabasePage(tabName, page, index)
 		# Sort the list and add each page to the control
 		for i in sorted(DatabasePages.keys()):
 			nb.AddPage(DatabasePages[i].Page, DatabasePages[i].Title)
-		nb.SetSelection(1)
+		nb.SetSelection(0)
 		self.frame.Show()
 
 	def load_project(self):
