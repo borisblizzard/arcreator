@@ -218,7 +218,9 @@ class Actors_Panel ( wx.Panel ):
 		self.labelNotes.Wrap( -1 )
 		sizer2.Add( self.labelNotes, 0, wx.ALL, 5 )
 		
-		self.textCtrlNotes = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.textCtrlNotes = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.TE_MULTILINE|wx.TE_PROCESS_ENTER|wx.TE_PROCESS_TAB|wx.CLIP_CHILDREN )
+		self.textCtrlNotes.SetToolTipString( u"Any user notes for this item. These notes can also be referenced via scripts." )
+		
 		sizer2.Add( self.textCtrlNotes, 20, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
 		
 		staticSizerActors.Add( sizer2, 65, wx.EXPAND, 5 )
@@ -252,12 +254,10 @@ class Actors_Panel ( wx.Panel ):
 		self.spinCtrlLevel.Bind( wx.EVT_TEXT, self.spinCtrlParamLevel_ValueChanged )
 		self.spinCtrlValue.Bind( wx.EVT_SPINCTRL, self.spinCtrlValue_ValueChanged )
 		self.spinCtrlValue.Bind( wx.EVT_TEXT, self.spinCtrlValue_ValueChanged )
-		self.bitmapGraph.Bind( wx.EVT_LEFT_DCLICK, self.bitmapGraphMaxHP_LeftClick )
-		self.bitmapGraph.Bind( wx.EVT_LEFT_DOWN, self.bitmapGraphMaxHP_LeftDown )
-		self.bitmapGraph.Bind( wx.EVT_LEFT_UP, self.bitmapGraphMaxHP_LeftUp )
 		self.buttonAddParameter.Bind( wx.EVT_BUTTON, self.buttonAddParameter_Clicked )
 		self.buttonRemoveParameter.Bind( wx.EVT_BUTTON, self.buttonRemoveParameter_Clicked )
 		self.buttonGenerate.Bind( wx.EVT_BUTTON, self.buttonGenerateCurve_Clicked )
+		self.textCtrlNotes.Bind( wx.EVT_TEXT, self.textCtrlNotes_TextChanged )
 	
 	def __del__( self ):
 		pass
@@ -323,15 +323,6 @@ class Actors_Panel ( wx.Panel ):
 		pass
 	
 	
-	def bitmapGraphMaxHP_LeftClick( self, event ):
-		pass
-	
-	def bitmapGraphMaxHP_LeftDown( self, event ):
-		pass
-	
-	def bitmapGraphMaxHP_LeftUp( self, event ):
-		pass
-	
 	def buttonAddParameter_Clicked( self, event ):
 		pass
 	
@@ -339,6 +330,9 @@ class Actors_Panel ( wx.Panel ):
 		pass
 	
 	def buttonGenerateCurve_Clicked( self, event ):
+		pass
+	
+	def textCtrlNotes_TextChanged( self, event ):
 		pass
 	
 
