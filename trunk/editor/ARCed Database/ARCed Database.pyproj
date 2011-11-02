@@ -133,6 +133,7 @@
     <Compile Include="src\ARCedWeatherEffects_Dialog.py" />
     <Compile Include="src\ARCed_Templates.py" />
     <Compile Include="src\CheckMarks.py" />
+    <Compile Include="src\Configuration_Panel.py" />
     <Compile Include="src\DatabasePackage.py" />
     <Compile Include="src\wxImagePanel.py" />
     <Compile Include="src\__example__.py" />

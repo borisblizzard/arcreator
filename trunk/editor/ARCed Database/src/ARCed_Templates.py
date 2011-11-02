@@ -14182,51 +14182,104 @@ class ParameterGraph_Panel ( wx.Panel ):
 class TESTPANEL ( wx.Panel ):
 	
 	def __init__( self, parent ):
-		wx.Panel.__init__ ( self, parent, id = wx.ID_ANY, pos = wx.DefaultPosition, size = wx.Size( 325,242 ), style = wx.TAB_TRAVERSAL )
+		wx.Panel.__init__ ( self, parent, id = wx.ID_ANY, pos = wx.DefaultPosition, size = wx.Size( 517,364 ), style = wx.TAB_TRAVERSAL )
 		
-		MainSizer = wx.BoxSizer( wx.HORIZONTAL )
+		MainSizer = wx.BoxSizer( wx.VERTICAL )
 		
-		self.scrolledWindowEquipment = wx.ScrolledWindow( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.HSCROLL|wx.VSCROLL )
+		self.scrolledWindowEquipment = wx.ScrolledWindow( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.CLIP_CHILDREN|wx.HSCROLL|wx.SIMPLE_BORDER|wx.VSCROLL )
 		self.scrolledWindowEquipment.SetScrollRate( 5, 5 )
 		sizerEquipment = wx.BoxSizer( wx.VERTICAL )
 		
-		bSizer624 = wx.BoxSizer( wx.HORIZONTAL )
+		self.staticSectionLine = wx.StaticLine( self.scrolledWindowEquipment, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.LI_HORIZONTAL )
+		sizerEquipment.Add( self.staticSectionLine, 0, wx.EXPAND |wx.ALL, 5 )
 		
-		self.labelEquipment = wx.StaticText( self.scrolledWindowEquipment, wx.ID_ANY, u"EquipmentName", wx.DefaultPosition, wx.Size( 96,-1 ), wx.ALIGN_LEFT )
-		self.labelEquipment.Wrap( -1 )
-		bSizer624.Add( self.labelEquipment, 0, wx.ALL, 5 )
+		self.labelSectionHeader = wx.StaticText( self.scrolledWindowEquipment, wx.ID_ANY, u"MyLabel", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.labelSectionHeader.Wrap( -1 )
+		sizerEquipment.Add( self.labelSectionHeader, 0, wx.ALL, 5 )
 		
-		comboBoxEquipmentChoices = []
-		self.comboBoxEquipment = wx.Choice( self.scrolledWindowEquipment, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxEquipmentChoices, 0 )
-		self.comboBoxEquipment.SetSelection( 0 )
-		bSizer624.Add( self.comboBoxEquipment, 1, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
+		option1sizer = wx.BoxSizer( wx.HORIZONTAL )
 		
-		self.checkBoxFixed = wx.CheckBox( self.scrolledWindowEquipment, wx.ID_ANY, u"Fixed", wx.DefaultPosition, wx.DefaultSize, 0 )
-		bSizer624.Add( self.checkBoxFixed, 0, wx.ALL, 5 )
+		self.labelOption1 = wx.StaticText( self.scrolledWindowEquipment, wx.ID_ANY, u"MyLabel", wx.DefaultPosition, wx.Size( 96,-1 ), 0 )
+		self.labelOption1.Wrap( -1 )
+		option1sizer.Add( self.labelOption1, 0, wx.ALL, 5 )
 		
-		sizerEquipment.Add( bSizer624, 1, wx.EXPAND, 5 )
+		self.textBox1 = wx.TextCtrl( self.scrolledWindowEquipment, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+		option1sizer.Add( self.textBox1, 1, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
+		
+		self.labelChanged1 = wx.StaticText( self.scrolledWindowEquipment, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( 8,-1 ), wx.ALIGN_CENTRE )
+		self.labelChanged1.Wrap( -1 )
+		option1sizer.Add( self.labelChanged1, 0, wx.ALL, 5 )
+		
+		sizerEquipment.Add( option1sizer, 0, wx.EXPAND, 5 )
+		
+		option2sizer = wx.BoxSizer( wx.HORIZONTAL )
+		
+		self.labelOption2 = wx.StaticText( self.scrolledWindowEquipment, wx.ID_ANY, u"MyLabel", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.labelOption2.Wrap( -1 )
+		option2sizer.Add( self.labelOption2, 0, wx.ALL, 5 )
+		
+		self.textBox2 = wx.TextCtrl( self.scrolledWindowEquipment, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+		option2sizer.Add( self.textBox2, 1, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
+		
+		self.labelChanged2 = wx.StaticText( self.scrolledWindowEquipment, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( 8,-1 ), wx.ALIGN_CENTRE )
+		self.labelChanged2.Wrap( -1 )
+		option2sizer.Add( self.labelChanged2, 0, wx.ALL, 5 )
+		
+		sizerEquipment.Add( option2sizer, 0, wx.EXPAND, 5 )
+		
+		option3sizer = wx.BoxSizer( wx.HORIZONTAL )
+		
+		self.labelOption3 = wx.StaticText( self.scrolledWindowEquipment, wx.ID_ANY, u"MyLabel", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.labelOption3.Wrap( -1 )
+		option3sizer.Add( self.labelOption3, 0, wx.ALL, 5 )
+		
+		self.textBox3 = wx.TextCtrl( self.scrolledWindowEquipment, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+		option3sizer.Add( self.textBox3, 1, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
+		
+		self.labelChanged3 = wx.StaticText( self.scrolledWindowEquipment, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( 8,-1 ), wx.ALIGN_CENTRE )
+		self.labelChanged3.Wrap( -1 )
+		option3sizer.Add( self.labelChanged3, 0, wx.ALL, 5 )
+		
+		sizerEquipment.Add( option3sizer, 0, wx.EXPAND, 5 )
+		
+		self.m_staticline4 = wx.StaticLine( self.scrolledWindowEquipment, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.LI_HORIZONTAL )
+		sizerEquipment.Add( self.m_staticline4, 0, wx.EXPAND |wx.ALL, 5 )
 		
 		self.scrolledWindowEquipment.SetSizer( sizerEquipment )
 		self.scrolledWindowEquipment.Layout()
 		sizerEquipment.Fit( self.scrolledWindowEquipment )
 		MainSizer.Add( self.scrolledWindowEquipment, 1, wx.EXPAND |wx.ALL, 5 )
 		
+		sizerButtons = wx.BoxSizer( wx.HORIZONTAL )
+		
+		self.buttonOK = wx.Button( self, wx.ID_ANY, u"OK", wx.DefaultPosition, wx.DefaultSize, 0 )
+		sizerButtons.Add( self.buttonOK, 0, wx.TOP|wx.BOTTOM|wx.LEFT, 5 )
+		
+		self.buttonCancel = wx.Button( self, wx.ID_ANY, u"Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
+		sizerButtons.Add( self.buttonCancel, 0, wx.TOP|wx.BOTTOM|wx.RIGHT, 5 )
+		
+		MainSizer.Add( sizerButtons, 0, wx.ALIGN_RIGHT, 5 )
+		
 		self.SetSizer( MainSizer )
 		self.Layout()
 		
 		# Connect Events
-		self.comboBoxEquipment.Bind( wx.EVT_CHOICE, self.comboBoxEquipment_SelectionChanged )
-		self.checkBoxFixed.Bind( wx.EVT_CHECKBOX, self.checkBoxFixed_OnCheck )
+		self.textBox1.Bind( wx.EVT_TEXT, self.textBox_DataChanged )
+		self.buttonOK.Bind( wx.EVT_BUTTON, self.buttonOK_Clicked )
+		self.buttonCancel.Bind( wx.EVT_BUTTON, self.buttonCancel_Clicked )
 	
 	def __del__( self ):
 		pass
 	
 	
 	# Virtual event handlers, overide them in your derived class
-	def comboBoxEquipment_SelectionChanged( self, event ):
+	def textBox_DataChanged( self, event ):
 		pass
 	
-	def checkBoxFixed_OnCheck( self, event ):
+	def buttonOK_Clicked( self, event ):
+		pass
+	
+	def buttonCancel_Clicked( self, event ):
 		pass
 	
 

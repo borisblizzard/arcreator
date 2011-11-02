@@ -4,7 +4,7 @@ Contains the functionality of all the events raised on the Actors Database panel
 '''
 import wx
 import ARCed_Templates
-import ARCedChangeMaximum_Dialog 
+import ARCedChangeMaximum_Dialog
 import ARCedExpCurve_Dialog
 import ARCedGenerateCurve_Dialog
 import ARCedChooseGraphic_Dialog 
@@ -40,22 +40,18 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 		except NameError:
 			Kernel.Log('Database opened before Project was initialized', '[Database:ACTOR]', True)
 			self.Destroy()
-
 		# Set font for the note control
 		font = wx.Font(8, wx.FONTFAMILY_TELETYPE, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL)
 		font.SetFaceName(Config.get('Misc', 'NoteFont')) 
 		self.textCtrlNotes.SetFont(font)
-
 		# Set the ranges for initial and final level spin controls
 		max = Config.getint('Actors', 'MaxLevel')
 		self.spinCtrlInitialLevel.SetRange(1, max)
 		self.spinCtrlFinalLevel.SetRange(1, max)
-
 		# Initialize the selected actor attribute
 		if actorIndex >= len(DataActors):
 			actorIndex = 0
 		self.SelectedActor = DataActors[self.FixedIndex(actorIndex)]
-
 		# Create the controls for the equipment and set the values for all the controls
 		self.CreateEquipmentControls()
 		self.comboBoxExpCurve.SetCursor(wx.STANDARD_CURSOR)
@@ -63,42 +59,6 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 		self.refreshAll()
 		# Set the initial selection of the list control 
 		self.listBoxActors.SetSelection(actorIndex)
-		
-
-	def SetParameterValue(self, param, level, value):
-		''' Sets the newly defined value for the selected actor's parameter '''
-		self.SelectedActor.parameters[param, level] = value
-
-	def GetParameterValue( self, index, level ):
-		''' Retrieves the value of the current actor's selected parameter for the defined level '''
-		if self.SelectedActor.parameters.xsize <= index or self.SelectedActor.parameters.ysize < level:
-			maxlevel = Config.getint('Actors', 'MaxLevel')
-			for actor in DataActors:
-				if actor == None:
-					actor = RPG.Actor()
-				actor.parameters.resize(index + 1, maxlevel + 1)
-				for j in xrange(1, maxlevel):
-					actor.parameters[index, j] = 50 + 5 * j
-		return self.SelectedActor.parameters[index, level]
-
-	def refreshActorList( self ):
-		''' Refreshes the values in the actor wxListBox control '''
-		self.listBoxActors.Clear()
-		digits = len(Config.get('GameObjects', 'Actors'))
-		for i, actor in enumerate(DataActors):
-			if not ARC_FORMAT and i == 0:
-				continue
-			self.listBoxActors.Append("".join([str(i).zfill(digits), ': ', actor.name]))
-
-	def refreshClasses( self ):
-		''' Refreshes the values in the class wxChoice control '''
-		self.comboBoxClass.Clear()
-		digits = len(Config.get('GameObjects', 'Classes'))
-		for i, klass in enumerate(DataClasses):
-			if not ARC_FORMAT and i == 0:
-				continue
-			self.comboBoxClass.Append(str(i).zfill(digits) + ': ' + klass.name)
-		self.comboBoxClass.Select(self.SelectedActor.class_id - 1)
 
 	def CreateEquipmentControls( self ):
 		''' Creates the controls for each equipment type defined in the configuration '''
@@ -133,6 +93,25 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 		self.scrolledWindowEquipment.Layout()
 		sizerEquipment.Fit( self.scrolledWindowEquipment )
 
+	def refreshActorList( self ):
+		''' Refreshes the values in the actor wxListBox control '''
+		self.listBoxActors.Clear()
+		digits = len(Config.get('GameObjects', 'Actors'))
+		for i, actor in enumerate(DataActors):
+			if not ARC_FORMAT and i == 0:
+				continue
+			self.listBoxActors.Append("".join([str(i).zfill(digits), ': ', actor.name]))
+
+	def refreshClasses( self ):
+		''' Refreshes the values in the class wxChoice control '''
+		self.comboBoxClass.Clear()
+		digits = len(Config.get('GameObjects', 'Classes'))
+		for i, klass in enumerate(DataClasses):
+			if not ARC_FORMAT and i == 0:
+				continue
+			self.comboBoxClass.Append(str(i).zfill(digits) + ': ' + klass.name)
+		self.comboBoxClass.Select(self.SelectedActor.class_id - 1)
+		
 	def refreshWeapons( self ):
 		''' Sets the weapon combobox(s) data determined by the actor's class '''
 		weaponSlots = len(Config.getlist('Actors', 'WeaponSlots'))
@@ -200,14 +179,6 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 			self.FixedCheckBoxes[3].SetValue(actor.armor3_fix)
 			self.FixedCheckBoxes[4].SetValue(actor.armor4_fix)
 
-	def getFilePath(self, root, filename):
-		path = None
-		for entry in os.listdir(root):
-			if os.path.splitext(entry)[0] == filename:
-				path = root + '\\' + entry
-				break
-		return path
-
 	def refreshGraphics(self, image=-1):
 		try:
 			if image == -1 or image == 0:
@@ -222,16 +193,6 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 				self.bitmapBattlerGraphic.SetBitmap(bitmap)
 		except wx.PyAssertionError:
 			Kernel.Log('Failed to load Graphic resource', '[Database:ACTOR]', True)
-			
-	def bitmapBox_OnPaint(self, event):
-		sender = event.GetEventObject()
-		color = sender.GetBackgroundColour()
-		dc = wx.PaintDC(sender)
-		dc.SetBackground(wx.Brush(color, wx.SOLID))
-		dc.Clear()
-		dc.BeginDrawing()
-		dc.DrawBitmap(sender.GetBitmap(), 0, 0, True)
-		dc.EndDrawing()
 
 	def refreshAll( self ):
 		''' Refreshes all the controls that contain game object values '''
@@ -246,7 +207,7 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 	def listBoxActors_SelectionChanged( self, event ):
 		''' Changes the data on the panel to reflect the values of the selected actor '''
 		index = self.FixedIndex(event.GetSelection())
-		if DataActors[index] == None:
+		if DataActors[index] is None:
 			DataActors[index] = RPG.Actor()
 		self.SelectedActor = DataActors[index]
 		self.refreshWeapons()
@@ -254,6 +215,62 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 		self.refreshFixedEquipment()
 		self.refreshParameters()
 		self.refreshGraphics()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	def SetParameterValue(self, param, level, value):
+		''' Sets the newly defined value for the selected actor's parameter '''
+		self.SelectedActor.parameters[param, level] = value
+
+	def GetParameterValue( self, index, level ):
+		''' Retrieves the value of the current actor's selected parameter for the defined level '''
+		if self.SelectedActor.parameters.xsize <= index or self.SelectedActor.parameters.ysize < level:
+			maxlevel = Config.getint('Actors', 'MaxLevel')
+			for actor in DataActors:
+				if actor == None:
+					actor = RPG.Actor()
+				actor.parameters.resize(index + 1, maxlevel + 1)
+				for j in xrange(1, maxlevel):
+					actor.parameters[index, j] = 50 + 5 * j
+		return self.SelectedActor.parameters[index, level]
+
+	def getFilePath(self, root, filename):
+		path = None
+		for entry in os.listdir(root):
+			if os.path.splitext(entry)[0] == filename:
+				path = root + '\\' + entry
+				break
+		return path
+			
+	def bitmapBox_OnPaint(self, event):
+		sender = event.GetEventObject()
+		color = sender.GetBackgroundColour()
+		dc = wx.PaintDC(sender)
+		dc.SetBackground(wx.Brush(color, wx.SOLID))
+		dc.Clear()
+		dc.BeginDrawing()
+		dc.DrawBitmap(sender.GetBitmap(), 0, 0, True)
+		dc.EndDrawing()
 
 	def buttonMaximum_Clicked( self, event ):
 		''' Shows dialog for changing the list capacity '''
@@ -495,7 +512,5 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 	@staticmethod
 	def FixedIndex(index):
 		''' Returns the correct starting index for game data structure depending on the current format '''
-		if ARC_FORMAT:
-			return index
-		else:
-			return index + 1
+		if ARC_FORMAT: return index
+		return index + 1
