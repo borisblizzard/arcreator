@@ -78,25 +78,25 @@ namespace rgss
 		/// @param[in] value The bitmap.
 		static VALUE rb_setBitmap(VALUE self, VALUE value);
 		/// @brief Gets the rotation angle.
-		/// @return value The rotation angle.
+		/// @return The rotation angle.
 		static VALUE rb_getAngle(VALUE self);
 		/// @brief Sets the rotation angle.
 		/// @param[in] value The rotation angle.
 		static VALUE rb_setAngle(VALUE self, VALUE value);
 		/// @brief Gets the mirror flag.
-		/// @return value The mirror flag.
+		/// @return The mirror flag.
 		static VALUE rb_getMirror(VALUE self);
 		/// @brief Sets the mirror flag.
 		/// @param[in] value The mirror flag.
 		static VALUE rb_setMirror(VALUE self, VALUE value);
 		/// @brief Gets the bush depth.
-		/// @return value The bush depth.
+		/// @return The bush depth.
 		static VALUE rb_getBushDepth(VALUE self);
 		/// @brief Sets the bush depth.
 		/// @param[in] value The bush depth.
 		static VALUE rb_setBushDepth(VALUE self, VALUE value);
 		/// @brief Gets the source rectangle.
-		/// @return value Returns the Sprite's source RGSS::Rect object.
+		/// @return Returns the Sprite's source RGSS::Rect object.
 		static VALUE rb_getSrcRect(VALUE self);
 		/// @brief Sets the source rectangle.
 		/// @param[in] value Sets the Sprite's source RGSS::Rect object.

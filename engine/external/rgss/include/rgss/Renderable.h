@@ -31,7 +31,7 @@ namespace rgss
 		void initializeRenderable(RenderQueue* renderQueue);
 
 		/// @brief Gets the type ID.
-		/// @return value The type DI.
+		/// @return The type DI.
 		Type getType() { return this->type; }
 		/// @brief Sets the visible flag.
 		/// @param[in] value The visible flag.
@@ -104,7 +104,7 @@ namespace rgss
 		/// @param[in] value Offset Y coordinate.
 		static VALUE rb_setOY(VALUE self, VALUE value);
 		/// @brief Gets the color.
-		/// @return value The color.
+		/// @return The color.
 		static VALUE rb_getColor(VALUE self);
 		/// @brief Sets the color.
 		/// @param[in] value The color.
@@ -120,6 +120,9 @@ namespace rgss
 		/// @param[in] color Color component.
 		/// @param[in] duration Number of frames.
 		static VALUE rb_flash(VALUE self, VALUE color, VALUE duration);
+
+		/// @brief Mimics a dumping method to prevent dumping of this class.
+		static VALUE rb_arcDump(VALUE self);
 
 	protected:
 		/// @brief Disposed flag.

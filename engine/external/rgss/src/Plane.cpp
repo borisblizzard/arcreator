@@ -103,6 +103,7 @@ namespace rgss
 		rb_define_method(rb_cPlane, "initialize_clone", RUBY_METHOD_FUNC(&Plane::rb_initialize_clone), 1);
 		rb_define_method(rb_cPlane, "initialize_dup", RUBY_METHOD_FUNC(&Plane::rb_initialize_dup), 1);
 		rb_define_method(rb_cPlane, "dispose", RUBY_METHOD_FUNC(&Plane::rb_dispose), 0);
+		rb_define_method(rb_cPlane, "_arc_dump", RUBY_METHOD_FUNC(&Plane::rb_arcDump), 0);
 		// getters and setters (Renderable)
 		rb_define_method(rb_cPlane, "disposed?", RUBY_METHOD_FUNC(&Plane::rb_isDisposed), 0);
 		rb_define_method(rb_cPlane, "visible", RUBY_METHOD_FUNC(&Plane::rb_getVisible), 0);

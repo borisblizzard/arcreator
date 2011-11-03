@@ -25,19 +25,19 @@ namespace rgss
 		static void gc_free(Zoomable* zoomable);
 
 		/// @brief Gets the X zoom.
-		/// @return value The X zoom.
+		/// @return The X zoom.
 		static VALUE rb_getZoomX(VALUE self);
 		/// @brief Sets the X zoom.
 		/// @param[in] value The X zoom.
 		static VALUE rb_setZoomX(VALUE self, VALUE value);
 		/// @brief Gets the Y zoom.
-		/// @return value The Y zoom.
+		/// @return The Y zoom.
 		static VALUE rb_getZoomY(VALUE self);
 		/// @brief Sets the Y zoom.
 		/// @param[in] value The Y zoom.
 		static VALUE rb_setZoomY(VALUE self, VALUE value);
 		/// @brief Gets the blend type.
-		/// @return value The blend type.
+		/// @return The blend type.
 		static VALUE rb_getBlendType(VALUE self);
 		/// @brief Sets the blend type.
 		/// @param[in] value The blend type.

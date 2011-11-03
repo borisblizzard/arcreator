@@ -47,8 +47,7 @@ namespace rgss
 		rb_define_method(rb_cRect, "initialize", RUBY_METHOD_FUNC(&Rect::rb_initialize), 4);
 		rb_define_method(rb_cRect, "initialize_copy", RUBY_METHOD_FUNC(&Rect::rb_initialize_copy), 1);
 		rb_define_method(rb_cRect, "inspect", RUBY_METHOD_FUNC(&Rect::rb_inspect), 0);
-		rb_define_method(rb_cRect, "_dump", RUBY_METHOD_FUNC(&Rect::rb_dump), -1);
-		rb_define_singleton_method(rb_cRect, "_load", RUBY_METHOD_FUNC(&Rect::rb_load), 1);
+		rb_define_method(rb_cRect, "_arc_dump", RUBY_METHOD_FUNC(&Rect::rb_arcDump), 0);
 		// getters and setters
 		rb_define_method(rb_cRect, "x", RUBY_METHOD_FUNC(&Rect::rb_getX), 0);
 		rb_define_method(rb_cRect, "x=", RUBY_METHOD_FUNC(&Rect::rb_setX), 1);
@@ -177,37 +176,10 @@ namespace rgss
 		return Qnil;
 	}
 
-	VALUE Rect::rb_dump(int argc, VALUE* argv, VALUE self)
+	VALUE Rect::rb_arcDump(VALUE self)
 	{
-		VALUE d;
-		rb_scan_args(argc, argv, "01", &d);
-		if (NIL_P(d))
-		{
-			d = INT2FIX(0);
-		}
-		RB_SELF2CPP(Rect, rect);
-		// create array
-		VALUE arr = rb_ary_new();
-		// populate array
-		rb_ary_push(arr, INT2FIX(rect->x));
-		rb_ary_push(arr, INT2FIX(rect->y));
-		rb_ary_push(arr, INT2FIX(rect->width));
-		rb_ary_push(arr, INT2FIX(rect->height));
-		// call the pack method
-		VALUE byte_string = rb_funcall_1(arr, "pack", rb_str_new2("l4"));
-		return byte_string;
-
-	}
-
-	VALUE Rect::rb_load(VALUE self, VALUE value)
-	{
-		// call the unpack function
-		VALUE arr = rb_funcall_1(value, "unpack", rb_str_new2("l4"));
-		VALUE x = rb_ary_shift(arr);
-		VALUE y = rb_ary_shift(arr);
-		VALUE width = rb_ary_shift(arr);
-		VALUE height = rb_ary_shift(arr);
-		return Rect::create(x, y, width, height);
+		rb_raise(rb_eTypeError, "can't arc-dump Rect");
+		return Qnil;
 	}
 
 }

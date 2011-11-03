@@ -59,49 +59,49 @@ namespace rgss
 		/// @param[in] value The Z coordinate.
 		static VALUE rb_setZ(VALUE self, VALUE value);
 		/// @brief Gets the width.
-		/// @return value The width.
+		/// @return The width.
 		static VALUE rb_getWidth(VALUE self);
 		/// @brief Sets the width.
 		/// @param[in] value The width.
 		static VALUE rb_setWidth(VALUE self, VALUE value);
 		/// @brief Gets the height.
-		/// @return value The height.
+		/// @return The height.
 		static VALUE rb_getHeight(VALUE self);
 		/// @brief Sets the height.
 		/// @param[in] value The height.
 		static VALUE rb_setHeight(VALUE self, VALUE value);
 		/// @brief Gets the Active flag.
-		/// @return value The Active flag.
+		/// @return The Active flag.
 		static VALUE rb_getActive(VALUE self);
 		/// @brief Sets the Active flag.
 		/// @param[in] value The Active flag.
 		static VALUE rb_setActive(VALUE self, VALUE value);
 		/// @brief Gets the Pause flag.
-		/// @return value The Pause flag.
+		/// @return The Pause flag.
 		static VALUE rb_getPause(VALUE self);
 		/// @brief Sets the Pause flag.
 		/// @param[in] value The Pause flag.
 		static VALUE rb_setPause(VALUE self, VALUE value);
 		/// @brief Gets the Stretch flag.
-		/// @return value The Stretch flag.
+		/// @return The Stretch flag.
 		static VALUE rb_getStretch(VALUE self);
 		/// @brief Sets the Stretch flag.
 		/// @param[in] value The Stretch flag.
 		static VALUE rb_setStretch(VALUE self, VALUE value);
 		/// @brief Gets the backOpacity.
-		/// @return value The backOpacity.
+		/// @return The backOpacity.
 		static VALUE rb_getBackOpacity(VALUE self);
 		/// @brief Sets the backOpacity.
 		/// @param[in] value The backOpacity.
 		static VALUE rb_setBackOpacity(VALUE self, VALUE value);
 		/// @brief Gets the contentsOpacity.
-		/// @return value The contentsOpacity.
+		/// @return The contentsOpacity.
 		static VALUE rb_getContentsOpacity(VALUE self);
 		/// @brief Sets the contentsOpacity.
 		/// @param[in] value The contentsOpacity.
 		static VALUE rb_setContentsOpacity(VALUE self, VALUE value);
 		/// @brief Gets the cursor rectangle.
-		/// @return value The cursor rectangle.
+		/// @return The cursor rectangle.
 		static VALUE rb_getCursorRect(VALUE self);
 		/// @brief Sets the cursor rectangle.
 		/// @param[in] value The cursor rectangle.

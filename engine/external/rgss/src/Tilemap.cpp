@@ -235,6 +235,7 @@ namespace rgss
 		rb_define_method(rb_cTilemap, "initialize_clone", RUBY_METHOD_FUNC(&Tilemap::rb_initialize_clone), 1);
 		rb_define_method(rb_cTilemap, "initialize_dup", RUBY_METHOD_FUNC(&Tilemap::rb_initialize_dup), 1);
 		rb_define_method(rb_cTilemap, "dispose", RUBY_METHOD_FUNC(&Tilemap::rb_dispose), 0);
+		rb_define_method(rb_cTilemap, "_arc_dump", RUBY_METHOD_FUNC(&Tilemap::rb_arcDump), 0);
 		// getters and setters (Renderable) (except "z" and "z=")
 		rb_define_method(rb_cTilemap, "visible", RUBY_METHOD_FUNC(&Tilemap::rb_getVisible), 0);
 		rb_define_method(rb_cTilemap, "visible=", RUBY_METHOD_FUNC(&Tilemap::rb_setVisible), 1);

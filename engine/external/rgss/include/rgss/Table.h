@@ -70,7 +70,7 @@ namespace rgss
 		/// @param[in] argc Number of arguments.
 		/// @param[in] argv Pointer to first argument.
 		/// @note Arguments are "x[, y[, z]]".
-		/// @return value The value at position.
+		/// @return The value at position.
 		static VALUE rb_getData(int argc, VALUE* argv, VALUE self);
 		/// @brief Sets the value of an entry at a specific position in the table.
 		/// @param[in] argc Number of arguments.

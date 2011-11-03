@@ -49,6 +49,7 @@ namespace rgss
 		// initialize
 		rb_define_method(rb_cFont, "initialize", RUBY_METHOD_FUNC(&Font::rb_initialize), -1);
 		rb_define_method(rb_cFont, "initialize_copy", RUBY_METHOD_FUNC(&Font::rb_initialize_copy), 1);
+		rb_define_method(rb_cFont, "_arc_dump", RUBY_METHOD_FUNC(&Font::rb_arcDump), 0);
 		// getters and setters
 		rb_define_method(rb_cFont, "name", RUBY_METHOD_FUNC(&Font::rb_getName), 0);
 		rb_define_method(rb_cFont, "name=", RUBY_METHOD_FUNC(&Font::rb_setName), 1);
@@ -262,4 +263,10 @@ namespace rgss
 		return value;
 	}
 	
+	VALUE Font::rb_arcDump(VALUE self)
+	{
+		rb_raise(rb_eTypeError, "can't arc-dump Font");
+		return Qnil;
+	}
+
 }

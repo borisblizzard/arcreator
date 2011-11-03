@@ -268,6 +268,7 @@ namespace rgss
 		// initialize
 		rb_define_method(rb_cBitmap, "initialize", RUBY_METHOD_FUNC(&Bitmap::rb_initialize), -1);
 		rb_define_method(rb_cBitmap, "initialize_copy", RUBY_METHOD_FUNC(&Bitmap::rb_initialize_copy), 1);
+		rb_define_method(rb_cBitmap, "_arc_dump", RUBY_METHOD_FUNC(&Bitmap::rb_arcDump), 0);
 		// getters and setters
 		rb_define_method(rb_cBitmap, "width", RUBY_METHOD_FUNC(&Bitmap::rb_getWidth), 0);
 		rb_define_method(rb_cBitmap, "height", RUBY_METHOD_FUNC(&Bitmap::rb_getHeight), 0);
@@ -580,6 +581,12 @@ namespace rgss
 		float w = atres::renderer->getTextWidthUnformatted(fontName, text);
 		int h = bitmap->font->getSize();
 		return Rect::create(INT2FIX(0), INT2FIX(0), INT2FIX((int)ceil(w)), INT2FIX(h));
+	}
+
+	VALUE Bitmap::rb_arcDump(VALUE self)
+	{
+		rb_raise(rb_eTypeError, "can't arc-dump Bitmap");
+		return Qnil;
 	}
 
 }

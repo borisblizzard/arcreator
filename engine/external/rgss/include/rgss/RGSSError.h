@@ -19,6 +19,9 @@ namespace rgss
 		/// @brief Exposes this class to Ruby.
 		static void createRubyInterface();
 
+		/// @brief Mimics a dumping method to prevent dumping of this class.
+		static VALUE rb_arcDump(VALUE self);
+
 	};
 	
 }

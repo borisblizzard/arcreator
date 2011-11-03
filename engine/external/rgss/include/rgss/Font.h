@@ -73,13 +73,13 @@ namespace rgss
 		static VALUE create(int argc, VALUE* argv);
 
 		/// @brief Gets the font's name.
-		/// @return value Name of the font.
+		/// @return Name of the font.
 		static VALUE rb_getName(VALUE self);
 		/// @brief Sets the font's name.
 		/// @param[in] value Name of the font.
 		static VALUE rb_setName(VALUE self, VALUE value);
 		/// @brief Gets the font's size.
-		/// @return value Value of the font's size.
+		/// @return Value of the font's size.
 		static VALUE rb_getSize(VALUE self);
 		/// @brief Sets the font's size.
 		/// @param[in] value Value of the font's size.
@@ -97,14 +97,14 @@ namespace rgss
 		/// @param[in] bool Value of italic parameter.
 		static VALUE rb_setItalic(VALUE self, VALUE value);
 		/// @brief Gets the font's color.
-		/// @return value The Color value used for the font.
+		/// @return The Color value used for the font.
 		static VALUE rb_getColor(VALUE self);
 		/// @brief Sets the font's color.
 		/// @param[in] value The Color used for the font.
 		static VALUE rb_setColor(VALUE self, VALUE value);
 
 		/// @brief Gets the font's name.
-		/// @return value Default name of the font.
+		/// @return Default name of the font.
 		static VALUE rb_getDefaultName(VALUE classe);
 		/// @brief Sets the font's name.
 		/// @param[in] value Default name of the font.
@@ -134,6 +134,9 @@ namespace rgss
 		/// @param[in] value Default Color used for the font.
 		static VALUE rb_setDefaultColor(VALUE classe, VALUE value);
 
+		/// @brief Mimics a dumping method to prevent dumping of this class.
+		static VALUE rb_arcDump(VALUE self);
+
 	protected:
 		/// @brief Font name.
 		hstr name;
@@ -147,6 +150,7 @@ namespace rgss
 		Color* color;
 		/// @brief Ruby object of font Color.
 		VALUE rb_color;
+
 	};
 }
 #endif

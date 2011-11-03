@@ -53,7 +53,7 @@ namespace rgss
 		/// @param[in] original The original.
 		static VALUE rb_initialize_copy(VALUE self, VALUE original);
 		/// @brief Gets a string representation of the instance.
-		/// @return value String representation of the instance.
+		/// @return String representation of the instance.
 		static VALUE rb_inspect(VALUE self);
 		/// @brief Creates a C++ version of this class.
 		/// @param[in] x X coordinate.
@@ -63,7 +63,7 @@ namespace rgss
 		static VALUE create(VALUE x, VALUE y, VALUE width, VALUE height);
 
 		/// @brief Gets the x coordinate.
-		/// @return value The X coordinate.
+		/// @return The X coordinate.
 		static VALUE rb_getX(VALUE self);
 		/// @brief Sets the x coordinate.
 		/// @param[in] value The X coordinate.
@@ -75,13 +75,13 @@ namespace rgss
 		/// @param[in] value The Y coordinate.
 		static VALUE rb_setY(VALUE self, VALUE value);
 		/// @brief Gets the width.
-		/// @return value The width.
+		/// @return The width.
 		static VALUE rb_getWidth(VALUE self);
 		/// @brief Sets the width.
 		/// @param[in] value The width.
 		static VALUE rb_setWidth(VALUE self, VALUE value);
 		/// @brief Gets the height.
-		/// @return value The height.
+		/// @return The height.
 		static VALUE rb_getHeight(VALUE self);
 		/// @brief Sets the height.
 		/// @param[in] value The height.
@@ -96,16 +96,8 @@ namespace rgss
 		/// @brief Resets the Rect.
 		static VALUE rb_empty(VALUE self);
 
-		/// @brief Returns a byte string containing data needed to reconstruct the Rect object.
-		/// @param[in] argc Number of arguments.
-		/// @param[in] argv Pointer to first argument.
-		/// @note Only one argument d, it defaults to 0 and is used for object depth.
-		/// @return value The byte string.
-		static VALUE rb_dump(int argc, VALUE* argv, VALUE self);
-
-		/// @brief Returns a Rect object constructed from a byte string.
-		/// @param[in] value The byte string from which to load the object.
-		static VALUE rb_load(VALUE self, VALUE value);
+		/// @brief Mimics a dumping method to prevent dumping of this class.
+		static VALUE rb_arcDump(VALUE self);
 
 	};
 	

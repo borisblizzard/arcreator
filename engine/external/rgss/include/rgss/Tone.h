@@ -50,7 +50,7 @@ namespace rgss
 		/// @param[in] original The original.
 		static VALUE rb_initialize_copy(VALUE self, VALUE original);
 		/// @brief Gets a string representation of the instance.
-		/// @return value The string representation of the instance.
+		/// @return The string representation of the instance.
 		static VALUE rb_inspect(VALUE self);
 
 		/// @brief Creates a C++ version of this class.
@@ -62,28 +62,28 @@ namespace rgss
 		static VALUE create(int argc, VALUE* argv);
 
 		/// @brief Gets the red component.
-		/// @return value The red component.
+		/// @return The red component.
 		static VALUE rb_getRed(VALUE self);
 		/// @brief Sets the red component.
 		/// @param[in] value The red component.
 		/// @note The value will be clamped between -255 and 255.
 		static VALUE rb_setRed(VALUE self, VALUE value);
 		/// @brief Gets the green component.
-		/// @return value The green component.
+		/// @return The green component.
 		static VALUE rb_getGreen(VALUE self);
 		/// @brief Sets the green component.
 		/// @param[in] value Green component.
 		/// @note The value will be clamped between -255 and 255.
 		static VALUE rb_setGreen(VALUE self, VALUE value);
 		/// @brief Gets the blue component.
-		/// @return value The blue component.
+		/// @return The blue component.
 		static VALUE rb_getBlue(VALUE self);
 		/// @brief Sets the blue component.
 		/// @param[in] value The blue component.
 		/// @note The value will be clamped between -255 and 255.
 		static VALUE rb_setBlue(VALUE self, VALUE value);
 		/// @brief Gets the gray component.
-		/// @return value The gray component.
+		/// @return The gray component.
 		static VALUE rb_getGray(VALUE self);
 		/// @brief Sets the gray component.
 		/// @param[in] value The gray component.
