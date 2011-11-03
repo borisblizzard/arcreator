@@ -37,13 +37,13 @@ namespace rgss
 		/// @param[in] value Viewport.
 		static VALUE rb_setViewport(VALUE self, VALUE value);
 		/// @brief Gets the X coordinate.
-		/// @return value The X coordinate.
+		/// @return The X coordinate.
 		static VALUE rb_getX(VALUE self);
 		/// @brief Sets the X coordinate.
 		/// @param[in] value The X coordinate.
 		static VALUE rb_setX(VALUE self, VALUE value);
 		/// @brief Gets the Y coordinate.
-		/// @return value The Y coordinate.
+		/// @return The Y coordinate.
 		static VALUE rb_getY(VALUE self);
 		/// @brief Sets the Y coordinate.
 		/// @param[in] value The Y coordinate.

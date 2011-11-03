@@ -61,22 +61,22 @@ namespace rgss
 		/// @param[in] value The visible flag.
 		static VALUE rb_setVisible(VALUE self, VALUE value);
 		/// @brief Gets the tilemap's autotiles.
-		/// @return value Array of pointers to autotile bitmaps.
+		/// @return Array of pointers to autotile bitmaps.
 		static VALUE rb_getAutotiles(VALUE self);
 		/// @brief Gets the map data.
-		/// @return value The map data.
+		/// @return The map data.
 		static VALUE rb_getMapData(VALUE self);
 		/// @brief Sets the map data.
 		/// @param[in] value The map data.
 		static VALUE rb_setMapData(VALUE self, VALUE value);
 		/// @brief Gets the priority data.
-		/// @return value The priority data.
+		/// @return The priority data.
 		static VALUE rb_getPriorities(VALUE self);
 		/// @brief Sets the priority data.
 		/// @param[in] value The priority data.
 		static VALUE rb_setPriorities(VALUE self, VALUE value);
 		/// @brief Gets the flash data.
-		/// @return value The flash data.
+		/// @return The flash data.
 		static VALUE rb_getFlashData(VALUE self);
 		/// @brief Sets the flash data.
 		/// @param[in] value The flash data.

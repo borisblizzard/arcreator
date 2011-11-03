@@ -72,28 +72,28 @@ namespace rgss
 		static VALUE create(int argc, VALUE* argv);
 
 		/// @brief Gets the red component.
-		/// @return value Red component.
+		/// @return Red component.
 		static VALUE rb_getRed(VALUE self);
 		/// @brief Sets the red component.
 		/// @param[in] value Red component.
 		/// @note The value will be clamped between -255 and 255.
 		static VALUE rb_setRed(VALUE self, VALUE value);
 		/// @brief Gets the green component.
-		/// @return value Green component.
+		/// @return Green component.
 		static VALUE rb_getGreen(VALUE self);
 		/// @brief Sets the green component.
 		/// @param[in] value Green component.
 		/// @note The value will be clamped between -255 and 255.
 		static VALUE rb_setGreen(VALUE self, VALUE value);
 		/// @brief Gets the blue component.
-		/// @return value Blue component.
+		/// @return Blue component.
 		static VALUE rb_getBlue(VALUE self);
 		/// @brief Sets the blue component.
 		/// @param[in] value Blue component.
 		/// @note The value will be clamped between -255 and 255.
 		static VALUE rb_setBlue(VALUE self, VALUE value);
 		/// @brief Gets the alpha component.
-		/// @return value Alpha component.
+		/// @return Alpha component.
 		static VALUE rb_getAlpha(VALUE self);
 		/// @brief Sets the alpha component.
 		/// @param[in] value Alpha component.

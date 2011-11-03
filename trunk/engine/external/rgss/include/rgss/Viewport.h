@@ -61,7 +61,7 @@ namespace rgss
 		/// @param[in] original The original.
 		static VALUE rb_initialize_dup(VALUE self, VALUE original);
 		/// @brief Gets a string representation of the instance.
-		/// @return value The string representation of the instance.
+		/// @return The string representation of the instance.
 		static VALUE rb_inspect(VALUE self);
 
 		/// @brief Gets the color.

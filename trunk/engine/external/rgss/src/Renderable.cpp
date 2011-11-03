@@ -271,4 +271,11 @@ namespace rgss
 		return Qnil;
 	}
 
+	VALUE Renderable::rb_arcDump(VALUE self)
+	{
+		RB_SELF2CPP(Renderable, renderable);
+		rb_raise(rb_eTypeError, ("can't arc-dump " + renderable->typeName).c_str());
+		return Qnil;
+	}
+
 }

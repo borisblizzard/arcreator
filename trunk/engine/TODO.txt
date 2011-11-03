@@ -3,7 +3,7 @@
 - throw Errno::ENOENT without using eval() at several places
 - test Bitmap::rb_textSize
 - change Color::toAprilColor to take into account negative values
-- allow change off fullscreen mode in APRIL
+- allow change of fullscreen mode in APRIL
 - implement font caching for atrestff
 - fix problem with D3DX9 device reset after CTRL+ALT+Delete
 - using "exit" crashes the game
@@ -13,5 +13,4 @@
 - implement -debug argument
 - add script files as internally embedded resources
 - check autotiles for disposal bugs during transitions
-- add list of classes that are forbidden to be _arc_dump-ed
 - implement SHA-1 in C++

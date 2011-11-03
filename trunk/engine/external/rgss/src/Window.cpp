@@ -441,6 +441,7 @@ namespace rgss
 		rb_define_method(rb_cWindow, "initialize_clone", RUBY_METHOD_FUNC(&Window::rb_initialize_clone), 1);
 		rb_define_method(rb_cWindow, "initialize_dup", RUBY_METHOD_FUNC(&Window::rb_initialize_dup), 1);
 		rb_define_method(rb_cWindow, "dispose", RUBY_METHOD_FUNC(&Window::rb_dispose), 0);
+		rb_define_method(rb_cWindow, "_arc_dump", RUBY_METHOD_FUNC(&Window::rb_arcDump), 0);
 		// getters and setters (Renderable)
 		rb_define_method(rb_cWindow, "visible", RUBY_METHOD_FUNC(&Window::rb_getVisible), 0);
 		rb_define_method(rb_cWindow, "visible=", RUBY_METHOD_FUNC(&Window::rb_setVisible), 1);

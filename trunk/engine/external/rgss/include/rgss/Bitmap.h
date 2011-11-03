@@ -157,8 +157,11 @@ namespace rgss
 		/// @param[in] hue Degrees to rotate the hue
 		static VALUE rb_changeHue(VALUE self, VALUE hue);
 		/// @brief Gets the rect needed to draw a string of text.
-		/// @return value The rectangle needed to draw a string of text.
+		/// @return The rectangle needed to draw a string of text.
 		static VALUE rb_textSize(VALUE self, VALUE string);
+
+		/// @brief Mimics a dumping method to prevent dumping of this class.
+		static VALUE rb_arcDump(VALUE self);
 
 	protected:
 		/// @brief Disposed flag.
