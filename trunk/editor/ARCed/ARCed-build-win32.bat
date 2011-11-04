@@ -79,7 +79,7 @@ echo =====================================
 echo **          Building Exe           **
 echo =====================================
 echo.
-python %optimize% "%py_installer%Build.py" "%out_path%%name%.spec"
+python %optimize% "%py_installer%Build.py" "%out_path%\%name%.spec"
 
 echo.
 echo ========= Building Compleate =========

@@ -83,13 +83,26 @@ other_resources = []
 other_resources = [(24, 1, MANIFEST_TEMPLATE % dict(prog="ARCed", version="0.0.0.1"))]
 
 
-GUI2Exe_Target_1 = Target(
+ARCedTarget = Target(
     # what to build
     script = "Main.py",
     icon_resources = icon_resources,
     bitmap_resources = bitmap_resources,
     other_resources = other_resources,
     dest_base = "ARCed",
+    version = "0.6.1.469",
+    company_name = "ARC Developers",
+    copyright = "© 2011 ARC Developers arc@chaos-project.com",
+    name = "ARCed (Advanced RPG Creater Editor)"
+    )
+
+maptestTargert = Target(
+    # what to build
+    script = "Mapeditor.py",
+    icon_resources = icon_resources,
+    bitmap_resources = bitmap_resources,
+    other_resources = other_resources,
+    dest_base = "maptest",
     version = "0.6.1.469",
     company_name = "ARC Developers",
     copyright = "© 2011 ARC Developers arc@chaos-project.com",
@@ -117,5 +130,5 @@ setup(
 
     zipfile = None,
     console = [],
-    windows = [GUI2Exe_Target_1]
+    windows = [ARCedTarget, maptestTargert]
     )

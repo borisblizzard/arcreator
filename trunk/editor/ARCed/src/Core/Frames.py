@@ -99,18 +99,18 @@ class CoreEditorMainWindow(wx.Frame):
                     self.SetTitle(self.main_title)
 
     def OnClose(self, event):
-        dlg = wx.MessageDialog(self, 
-            "Do you really want to close ARCed?",
-            "Confirm ARCed Exit", wx.YES_NO|wx.NO_DEFAULT|wx.ICON_QUESTION)
-        result = dlg.ShowModal()
-        dlg.Destroy()
         if event.CanVeto():
-            if result == wx.YES:
+            dlg = wx.MessageDialog(self, 
+                "Do you really want to close ARCed?",
+                "Confirm ARCed Exit", wx.YES_NO|wx.NO_DEFAULT|wx.ICON_QUESTION)
+            result = dlg.ShowModal()
+            dlg.Destroy()
+            if result == wx.ID_YES:
                 self.ProcessClose()
                 self.Destroy()
+                event.Skip()
             else:
                 event.Veto()
-                event.Skip()
         else:
             self.ProcessClose()
             self.Destroy()
