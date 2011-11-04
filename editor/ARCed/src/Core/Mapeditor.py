@@ -1,10 +1,22 @@
+#!/usr/bin/env python
 import os
+import sys
 import math
+
+if hasattr(sys, 'frozen'): 
+    dirName = sys.executable
+else:
+    try:
+        dirName = os.path.dirname(os.path.abspath(__file__))
+    except:
+        dirName = os.path.dirname(os.path.abspath(sys.argv[0]))
+sys.path.append(os.path.split(dirName)[0])
 
 import wx
 from wx import glcanvas
 
 import pyglet
+pyglet.options['shadow_window'] = False
 from pyglet import gl
 
 import rabbyt
@@ -25,12 +37,11 @@ class PygletGLPanel(wx.Panel):
         style = style | wx.NO_FULL_REPAINT_ON_RESIZE
         #call super function
         super(PygletGLPanel, self).__init__(parent, id, pos, size, style)
-
         #init gl canvas data
         self.GLinitialized = False
         attribList = (glcanvas.WX_GL_RGBA, # RGBA
                       glcanvas.WX_GL_DOUBLEBUFFER, # Double Buffered
-                      glcanvas.WX_GL_DEPTH_SIZE, 32) # 24 bit
+                      glcanvas.WX_GL_DEPTH_SIZE, 24) # 24 bit
         # Create the canvas
         self.sizer = wx.BoxSizer(wx.HORIZONTAL)
         self.canvas = glcanvas.GLCanvas(self, attribList=attribList)
@@ -562,7 +573,6 @@ class Tilemap(object):
                     bitmap = self.cache.AutotilePattern(autotile, pattern)
                 if not bitmap:
                     flag = True
-                    print "could not get autotile"
                     bitmap = self.blank_tile
         #normal tile
         else:
@@ -572,7 +582,6 @@ class Tilemap(object):
                 bitmap = self.cache.Tile(self.tileset_name, id, 0)
             if not bitmap:
                 flag = True
-                print "could not get tile"
                 bitmap = self.blank_tile
         #draw the tile to the surface
         self.tiles[index].texture = bitmap.get_texture()
@@ -1431,7 +1440,7 @@ if __name__ == '__main__':
         
         def load_project(self):
             config = Kernel.GlobalObjects.get_value("ARCed_config")
-            path = config.get("RTPs", "core")
+            path = "RTP"
             TEST_PATH = os.path.join(path, "Templates", "Chonicles of Sir Lag-A-Lot", "Chronicles of Sir Lag-A-Lot.arcproj")
             #get a project loader
             projectloader = KM.get_component("ARCProjectLoader").object()
