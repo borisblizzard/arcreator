@@ -1,4 +1,5 @@
 import types
+import numpy
 
 import Kernel
 from Kernel import Manager as KM
@@ -16,14 +17,142 @@ class TableEditAction(Actions.ActionTemplate):
             raise TypeError("Error: Expected %s type for 'table'" % table_class)
         self.table = table
         self.data = data
+        self.oldvalue = None
 
     def do_apply(self):
         #TODO: implement this function
-        pass
+        # data = { "dim": 1-3, "index": a tuple of list of len dim that looks like so (x, y, z), "value": the python list or preferably numpy array /value to set the table too
+        # for a slice ((x1,x2), (y1,y2), (z1,z2))) or for a slice with a step ((x1,x2,xstep), (y1,y2,ystep), (z1,z2,zstep)) 
+        # the values in a slice may be none just like in real slice notation ie.
+        # [::2, 0, 0] (every other value in the array) would look like ((None,None,2), 0, 0) 
+        # remember Tables are basically a dimension limited numpy array of of dtype int17 use numpy. they indexing so look at the numpy documentation for more information
+        # note that unlike full numpy arrays you can't use less indexes than the dim of the table so you must explicitly slice the remaining dimensions
+        # ie a index of [0:2, 0:3] on a 3d numpy would implicitly slice the missing dim but in the table you must state it explicitly or you'll get dim errors
+        # so use this index instead [0:2, 0:3, :] in the tuple syntax for the data hash it would look like so ((0,2), (0,3), (None, None))
+        # if your doing a slice on a id table you need to put the slice tupel or list in a tuple or list like so ((0,2),) 
+        # note the , after the inside tupel this is to force the creation of the outer tupel. you could also do a list for the outer tuple instead in which case you don;t need the ,
+        # [(0,2)] or [[0,2]]
+        dim = self.data['dim']
+        index = self.data['index']
+        value = self.data['value']
+        if dim > 3:
+            raise ArgumentError("dim can't be less than 0")
+        if dim < 0:
+            raise ArgumentError("dim can't be greater than 3 or less than 0")
+        if isinstance(index, int):
+            if dim > 1:
+                raise ArgumentError("wrong number of arguments (%d for %d)" % (1, dim))
+            else:
+                self.oldvalue = numpy.copy(self.table[index])
+                self.table[index] = value
+        elif len(index) != dim:
+            raise ArgumentError("wrong number of arguments (%d for %d)" % (len(index), dim))
+        if len(index) == 1:
+            # 1D slice
+            s = slice(*index[0])
+            self.oldvalue = numpy.copy(self.table[index])
+            self.table[s] = value
+        elif len(index) == 2:
+            #2D index
+            if isinstance(index[0], int):
+                x = index[0]
+            elif isinstance(index[0], (tuple, list)):
+                x = slice(*index[0])
+            else:
+                raise TypeError("Error: %s is not an int, tuple or list" % index[0])
+            if isinstance(index[1], int):
+                y = index[1]
+            elif isinstance(index[1], (tuple, list)):
+                y = slice(*index[1])
+            else:
+                raise TypeError("Error: %s is not an int, tuple or list" % index[0])
+            self.oldvalue = numpy.copy(self.table[x, y])
+            self.table[x, y] = value
+        elif len(index) == 3:
+            #2D index
+            if isinstance(index[0], int):
+                x = index[0]
+            elif isinstance(index[0], (tuple, list)):
+                x = slice(*index[0])
+            else:
+                raise TypeError("Error: %s is not an int, tuple or list" % index[0])
+            if isinstance(index[1], int):
+                y = index[1]
+            elif isinstance(index[1], (tuple, list)):
+                y = slice(*index[1])
+            else:
+                raise TypeError("Error: %s is not an int, tuple or list" % index[1])
+            if isinstance(index[2], int):
+                z = index[2]
+            elif isinstance(index[2], (tuple, list)):
+                z = slice(*index[2])
+            else:
+                raise TypeError("Error: %s is not an int, tuple or list" % index[2])
+            self.oldvalue = numpy.copy(self.table[x, y, z])
+            self.table[x, y, z] = value
+        else:
+            raise ArgumentError("wrong number of arguments (%d for %d)" % (len(index), dim))
 
     def do_undo(self):
-        #TODO: implement this function
-        pass
+        dim = self.data['dim']
+        index = self.data['index']
+        if dim > 3:
+            raise ArgumentError("dim can't be less than 0")
+        if dim < 0:
+            raise ArgumentError("dim can't be greater than 3 or less than 0")
+        if isinstance(index, int):
+            if dim > 1:
+                raise ArgumentError("wrong number of arguments (%d for %d)" % (1, dim))
+            else:
+                self.data['value'] = self.table[index]
+                self.table[index] = self.oldvalue
+        elif len(index) != dim:
+            raise ArgumentError("wrong number of arguments (%d for %d)" % (len(index), dim))
+        if len(index) == 1:
+            # 1D slice
+            s = slice(*index[0])
+            self.data['value'] = self.table[index]
+            self.table[index] = self.oldvalue
+        elif len(index) == 2:
+            #2D index
+            if isinstance(index[0], int):
+                x = index[0]
+            elif isinstance(index[0], (tuple, list)):
+                x = slice(*index[0])
+            else:
+                raise TypeError("Error: %s is not an int, tuple or list" % index[0])
+            if isinstance(index[1], int):
+                y = index[1]
+            elif isinstance(index[1], (tuple, list)):
+                y = slice(*index[1])
+            else:
+                raise TypeError("Error: %s is not an int, tuple or list" % index[0])
+            self.data['value'] = self.table[x, y]
+            self.table[x, y] = self.oldvalue
+        elif len(index) == 3:
+            #2D index
+            if isinstance(index[0], int):
+                x = index[0]
+            elif isinstance(index[0], (tuple, list)):
+                x = slice(*index[0])
+            else:
+                raise TypeError("Error: %s is not an int, tuple or list" % index[0])
+            if isinstance(index[1], int):
+                y = index[1]
+            elif isinstance(index[1], (tuple, list)):
+                y = slice(*index[1])
+            else:
+                raise TypeError("Error: %s is not an int, tuple or list" % index[1])
+            if isinstance(index[2], int):
+                z = index[2]
+            elif isinstance(index[2], (tuple, list)):
+                z = slice(*index[2])
+            else:
+                raise TypeError("Error: %s is not an int, tuple or list" % index[2])
+            self.data['value'] = self.table[x, y, z]
+            self.table[x, y, z] = self.oldvalue
+        else:
+            raise ArgumentError("wrong number of arguments (%d for %d)" % (len(index), dim))
 
 class LearningEditAction(Actions.ActionTemplate):
     def __init__(self, id, index, data={}, sub_action=False):

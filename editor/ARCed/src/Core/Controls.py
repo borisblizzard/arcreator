@@ -60,6 +60,7 @@ class MapTreeCtrl(wx.TreeCtrl):
         project = Kernel.GlobalObjects.get_value("PROJECT")
         mapinfos = project.getData("MapInfos")
         self.DeleteAllItems()
+        self.maps = {}
         root = self.AddRoot(str(project.getInfo("Title")), 0)
         stack = []
         for key, value in mapinfos.iteritems():
@@ -75,10 +76,10 @@ class MapTreeCtrl(wx.TreeCtrl):
                     stack.append([key, value])
         i = 0
         while len(stack) > 0:
-            key, value = stack[i]
+            key, value = stack.pop()
             if self.maps.has_key(value.parent_id):
                 data = wx.TreeItemData([key, value.name])
-                self.maps[key] = self.AppendItem(self.maps[key], value.name, 1,
+                self.maps[key] = self.AppendItem(self.maps[value.parent_id], value.name, 1,
                                                  data=data)
             else:
                 stack.append([key, value])

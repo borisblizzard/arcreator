@@ -880,11 +880,11 @@ class Protect(object):
 #====================================================================================
 def GetDataFolder():
     if sys.platform.startswith('win32'):
-        path = os.path.expandvars(os.path.join("%ALLUSERSPROFILE%", "ARCed"))
+        path = os.path.expandvars(os.path.join("%APPDATA%", "ARCed"))
     elif sys.platform.startswith('lynix'):
         path = os.path.join("", "etc", "ARCed")
     elif sys.platform.startswith('darwin'):
-        path = os.path.join("", "Library", "Preferences", "ARCed")
+        path = os.path.expandvars(os.path.join("~", "Library", "ARCed"))
     else:
         path = os.path.join("", "ARCed")
     if not os.path.exists(path) or not os.path.isdir(path):
