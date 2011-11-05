@@ -1,6 +1,5 @@
 import wx
 import Kernel
-from Kernel import Manager as KM
 
 class Configuration_Panel ( wx.Panel ):
 	
@@ -21,13 +20,13 @@ class Configuration_Panel ( wx.Panel ):
 		self.scrolledWindowEquipment.SetScrollRate( 5, 5 )
 		sizerConfig = wx.BoxSizer( wx.VERTICAL )
 		text = wx.StaticText( self.scrolledWindowEquipment, wx.ID_ANY, 
-					'* Some settings may not have effect until after restart')
+			'* Some settings may not take effect until after restart')
 		font = text.GetFont()
 		font.SetWeight(wx.BOLD)
 		text.SetFont(font)
-		sizerConfig.Add( text, 0, wx.EXPAND |wx.ALL, 5 )
+		sizerConfig.Add( text, 0, wx.EXPAND|wx.ALL, 5 )
 		self.staticSectionLine = wx.StaticLine( self.scrolledWindowEquipment, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.LI_HORIZONTAL )
-		sizerConfig.Add( self.staticSectionLine, 0, wx.EXPAND |wx.ALL, 5 )
+		sizerConfig.Add( self.staticSectionLine, 0, wx.EXPAND|wx.ALL, 5 )
 		# Iterate through each section
 		for section in Config.itersections():
 			sectionheader = wx.StaticText( self.scrolledWindowEquipment, wx.ID_ANY, 
@@ -64,22 +63,10 @@ class Configuration_Panel ( wx.Panel ):
 		self.scrolledWindowEquipment.Layout()
 		sizerConfig.Fit( self.scrolledWindowEquipment )
 		MainSizer.Add( self.scrolledWindowEquipment, 1, wx.EXPAND |wx.ALL, 5 )
-		'''
-		# Create buttons
-		sizerButtons = wx.BoxSizer( wx.HORIZONTAL )
-		self.buttonSave = wx.Button( self, wx.ID_ANY, u"Save", wx.DefaultPosition, wx.DefaultSize, 0 )
-		sizerButtons.Add( self.buttonSave, 0, wx.TOP|wx.BOTTOM|wx.LEFT, 5 )
-		self.buttonCancel = wx.Button( self, wx.ID_ANY, u"Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
-		sizerButtons.Add( self.buttonCancel, 0, wx.TOP|wx.BOTTOM|wx.RIGHT, 5 )
-		MainSizer.Add( sizerButtons, 0, wx.ALIGN_RIGHT, 5 )
-		'''
 		# Layout panel
 		self.SetSizer( MainSizer )
 		self.Layout()
-		# Connect Events
-		textCtrl.Bind( wx.EVT_TEXT, self.textBox_DataChanged )
-		#self.buttonSave.Bind( wx.EVT_BUTTON, Kernel.Protect(self.buttonSave_Clicked) )
-		#self.buttonCancel.Bind( wx.EVT_BUTTON, Kernel.Protect(self.buttonCancel_Clicked) )
+
 	
 	def __del__( self ):
 		pass
@@ -90,22 +77,9 @@ class Configuration_Panel ( wx.Panel ):
 		data[2].SetLabel('*')
 		Config.set(data[0], data[1], event.GetString())
 '''
-	def buttonSave_Clicked( self, event ):
-		
-		msg = wx.MessageBox(u"Settings have been saved, but will not take effect until the editor has been restarted.\n\r\nWould you like to restart now?",
-			'Restart Required', wx.YES_NO|wx.ICON_QUESTION)
-		if msg == wx.YES:
-			# TODO: Implement restart
-			pass
-		self.Destroy()
-
-	def buttonCancel_Clicked( self, event ):
-		self.Destroy()
-
-
 app = wx.PySimpleApp( 0 )
 frame = wx.Frame( None, wx.ID_ANY, 'Configuration Manager', size=(400,300) )
-panel = Configuration_Panel( frame, 'C:/Users/Eric/Desktop/ARC/editor/ARCed/src/ARCed.cfg' )
+panel = Configuration_Panel( frame )
 frame.CenterOnScreen()
 frame.Show()
 app.MainLoop()

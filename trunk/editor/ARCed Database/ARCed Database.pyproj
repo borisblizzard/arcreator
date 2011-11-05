@@ -6,17 +6,18 @@
     <ProjectGuid>{acb5e8a5-ec45-446e-b426-ad15be86400a}</ProjectGuid>
     <ProjectHome>.</ProjectHome>
     <StartupFile>src\__main__.py</StartupFile>
-    <SearchPath>C:\Users\Eric\Desktop\ARC\editor\ARCed\src\Core\;C:\Users\Eric\Desktop\ARC\editor\ARCed\src\;C:\Users\Eric\Desktop\ARC\editor\ARCed Database\src\</SearchPath>
-    <WorkingDirectory>.</WorkingDirectory>
+    <SearchPath>C:\Users\Eric\Desktop\ARC\editor\ARCed\src\Core\;C:\Users\Eric\Desktop\ARC\editor\ARCed\src\;C:\Users\Eric\Desktop\ARC\editor\ARCed Database\src\;C:\Users\Eric\Desktop\ARC\editor\ARCed Database\src</SearchPath>
+    <WorkingDirectory>
+    </WorkingDirectory>
     <AssemblyName>ARCed Database</AssemblyName>
     <Name>ARCed Database</Name>
     <RootNamespace>ARCed Database</RootNamespace>
     <IsWindowsApplication>False</IsWindowsApplication>
     <InterpreterId>2af0f10d-7135-4994-9156-5d01c9c11b7e</InterpreterId>
-    <InterpreterVersion>2.6</InterpreterVersion>
+    <InterpreterVersion>2.7</InterpreterVersion>
     <LaunchProvider>Standard Python launcher</LaunchProvider>
     <CommandLineArguments />
-    <InterpreterPath />
+    <InterpreterPath>C:\Python27\python.exe</InterpreterPath>
     <InterpreterArguments />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">

@@ -212,6 +212,8 @@ class ARCProjectCreator(object):
         self.project.setChangedData("Armors", False)
         self.project.setData("States", [])
         self.project.setChangedData("States", False)
+        self.project.setData("Animations", [])
+        self.project.setChangedData("Animations", False)
         self.project.setData("Troops", [])
         self.project.setChangedData("Troops", False)
         self.project.setData("Tilesets", [])

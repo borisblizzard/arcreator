@@ -1,7 +1,3 @@
-'''
-Contains the functionality of all the events raised on the Classes Database panel
-
-'''
 import wx
 import ARCed_Templates
 from ARCedChangeMaximum_Dialog import ARCedChangeMaximum_Dialog
@@ -9,10 +5,8 @@ from ARCedSkill_Dialog import ARCedSkill_Dialog
 
 from Core.RMXP import RGSS1_RPG as RPG	
 import Core.RPGutil as util
-import maxvalues
 import DatabaseActions
 import Kernel 
-from Kernel import Manager as KM
 
 # TEST STUFF
 ARC_FORMAT = False
@@ -135,6 +129,7 @@ class ARCedClasses_Panel( ARCed_Templates.Classes_Panel ):
 		state = self.SelectedClass.state_ranks[state]
 		self.spinCtrlElements.SetValue(element)
 		self.spinCtrlStates.SetValue(state)
+		self.refreshSkills()
 
 	def listBoxClasses_SelectionChanged( self, event ):
 		''' Ensures the class is not None, then refreshes the controls '''
@@ -273,7 +268,7 @@ class ARCedClasses_Panel( ARCed_Templates.Classes_Panel ):
 		if edit:
 			lvl = self.SelectedClass.learnings[index].level
 			skill_id = self.SelectedClass.learnings[index].skill_id
-		maxlvl = Kernel.GlobalObjects.get_value('DatabaseConfiguration').Actors['finallevel']
+		maxlvl = Config.getint('Actors', 'MaxLevel')
 		dialog = ARCedSkill_Dialog(self, DataSkills, maxlvl, lvl, skill_id)
 		if dialog.ShowModal() == wx.ID_OK:
 			if edit: del (self.SelectedClass.learnings[index])
