@@ -28,6 +28,7 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 	def __init__( self, parent, actorIndex=0 ):
 		''' Basic constructor for the Actors panel '''
 		ARCed_Templates.Actors_Panel.__init__( self, parent )
+
 		# Load the project's game objects into this module's scope
 		project = Kernel.GlobalObjects.get_value('PROJECT')
 		global Config, DataActors, DataClasses, DataWeapons, DataArmors
@@ -48,6 +49,8 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 		max = Config.getint('Actors', 'MaxLevel')
 		self.spinCtrlInitialLevel.SetRange(1, max)
 		self.spinCtrlFinalLevel.SetRange(1, max)
+		self.spinCtrlLevel.SetRange(1, max)
+
 		# Initialize the selected actor attribute
 		if actorIndex >= len(DataActors):
 			actorIndex = 0
@@ -180,19 +183,31 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 			self.FixedCheckBoxes[4].SetValue(actor.armor4_fix)
 
 	def refreshGraphics(self, image=-1):
+		return
+		path = self.getFilePath(GraphicsDir + '\\Characters', self.SelectedActor.character_name )
+		self.bitmapCharacterGraphic.SetImagepath(path)
+
+		'''
 		try:
 			if image == -1 or image == 0:
 				path = self.getFilePath(GraphicsDir + '\\Characters', self.SelectedActor.character_name )
 				bitmap = wx.EmptyBitmap(1, 1)
-				bitmap.LoadFile(path, wx.BITMAP_TYPE_ANY)
+				try:
+					bitmap.LoadFile(path, wx.BITMAP_TYPE_ANY)
+				except:
+					pass
 				self.bitmapCharacterGraphic.SetBitmap(bitmap)
 			if image == -1 or image == 1:
 				path = self.getFilePath(GraphicsDir + '\\Battlers', self.SelectedActor.battler_name )
 				bitmap = wx.EmptyBitmap(1, 1)
-				bitmap.LoadFile(path, wx.BITMAP_TYPE_ANY)
+				try:
+					bitmap.LoadFile(path, wx.BITMAP_TYPE_ANY)
+				except:
+					pass
 				self.bitmapBattlerGraphic.SetBitmap(bitmap)
 		except wx.PyAssertionError:
 			Kernel.Log('Failed to load Graphic resource', '[Database:ACTOR]', True)
+			'''
 
 	def refreshAll( self ):
 		''' Refreshes all the controls that contain game object values '''
@@ -249,6 +264,7 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 			for actor in DataActors:
 				if actor == None:
 					actor = RPG.Actor()
+				print index + 1, maxlevel + 1
 				actor.parameters.resize(index + 1, maxlevel + 1)
 				for j in xrange(1, maxlevel):
 					actor.parameters[index, j] = 50 + 5 * j
@@ -261,16 +277,6 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 				path = root + '\\' + entry
 				break
 		return path
-			
-	def bitmapBox_OnPaint(self, event):
-		sender = event.GetEventObject()
-		color = sender.GetBackgroundColour()
-		dc = wx.PaintDC(sender)
-		dc.SetBackground(wx.Brush(color, wx.SOLID))
-		dc.Clear()
-		dc.BeginDrawing()
-		dc.DrawBitmap(sender.GetBitmap(), 0, 0, True)
-		dc.EndDrawing()
 
 	def buttonMaximum_Clicked( self, event ):
 		''' Shows dialog for changing the list capacity '''

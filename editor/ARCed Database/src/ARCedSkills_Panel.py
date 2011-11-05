@@ -6,15 +6,116 @@ import ARCedChangeMaximum_Dialog
 import ARCedChooseGraphic_Dialog
 import ARCedChooseAudio_Dialog
 
-# Implementing Skills_Panel
+import Kernel
+
+# TEST
+ARC_FORMAT = False
+
 class ARCedSkills_Panel( ARCed_Templates.Skills_Panel ):
 	def __init__( self, parent ):
 		ARCed_Templates.Skills_Panel.__init__( self, parent )
+		global Config, DataSkills, DataAnimations, DataElements
+		global DataStates, DataCommonEvents
+		Config = Kernel.GlobalObjects.get_value('ARCed_config')
+		try:
+			proj = Kernel.GlobalObjects.get_value('PROJECT')
+			DataSkills = proj.getData('Skills')
+			DataAnimations = proj.getData('Animations')
+			DataStates = proj.getData('States')
+			DataElements = proj.getData('System').elements
+			DataCommonEvents = proj.getData('Common Events')
+		except NameError:
+			Kernel.Log('Database opened before Project has been initialized', '[Database:SKILLS]', True)
+			self.Destroy()
+		self.setRanges()
+		self.SelectedSkill = DataSkills[self.FixedIndex(0)]
+		self.refreshAll()
+		self.listBoxSkills.SetSelection(0)
 
-	# Handlers for Skills_Panel events.
+	def refreshSkillList( self ):
+		''' Refreshes the values in the class wxListBox control '''
+		self.listBoxSkills.Clear()
+		for i, skill in enumerate(DataSkills):
+			if not ARC_FORMAT and i == 0:
+				continue
+			digits = len(Config.get('GameObjects', 'Skills'))
+			self.listBoxSkills.Append("".join([str(i).zfill(digits), ': ', skill.name]))
+		self.listBoxSkills.SetSelection(0)
+
+	def refreshAnimations( self ):
+		self.comboBoxTargetAnimation.Clear()
+		self.comboBoxUserAnimation.Clear()
+		digits = len(Config.get('GameObjects', 'Animations'))
+		animations = [
+			''.join([str(i).zfill(digits), ': ', DataAnimations[i].name]) for i in xrange(1, len(DataAnimations))]
+		animations.insert(0, '(None)')
+		self.comboBoxTargetAnimation.AppendItems(animations)
+		self.comboBoxUserAnimation.AppendItems(animations)
+
+	def refreshElements( self ):
+		''' Clears and refreshes the list of elements in the checklist '''
+		self.listBoxElements.Clear()
+		start = self.FixedIndex(0)
+		names = DataElements[start:]
+		self.listBoxElements.InsertItems(names, 0)
+		self.listBoxElements.SetSelection(0)
+
+	def refreshStates( self ):
+		''' Clears and refreshes the list of states in the checklist '''
+		self.listBoxStates.Clear()
+		start = self.FixedIndex(0)
+		names = [DataStates[i].name for i in xrange(start, len(DataStates))]
+		self.listBoxStates.InsertItems(names, 0)
+		self.listBoxStates.SetSelection(0)
+
+	def refreshValues(self ):
+
+		# TODO: Implement adding controls for user-parameters
+
+		''' Resets the values of all the controls to reflect the selected skill '''
+		self.textCtrlName.ChangeValue(self.SelectedSkill.name)
+		self.textCtrlDescription.ChangeValue(self.SelectedSkill.description)
+		self.comboBoxIcon.SetValue(self.SelectedSkill.icon_name)
+		self.comboBoxUserAnimation.SetSelection(self.SelectedSkill.animation1_id)
+		self.comboBoxTargetAnimation.SetSelection(self.SelectedSkill.animation2_id)
+
+		self.spinCtrlSPCost.SetValue(self.SelectedSkill.sp_cost)
+		print self.SelectedSkill.power # wtf?
+		#self.spinCtrlPower.SetValue(self.SelectedSkill.power) ############################### ????????
+		self.spinCtrlAtkF.SetValue(self.SelectedSkill.atk_f)
+		self.spinCtrlEvaF.SetValue(self.SelectedSkill.eva_f)
+		self.spinCtrlStrF.SetValue(self.SelectedSkill.str_f)
+		self.spinCtrlDexF.SetValue(self.SelectedSkill.dex_f)
+		self.spinCtrlAgiF.SetValue(self.SelectedSkill.agi_f)
+		self.spinCtrlIntF.SetValue(self.SelectedSkill.int_f)
+		self.spinCtrlPDEF.SetValue(self.SelectedSkill.pdef_f)
+		self.spinCtrlMDEF.SetValue(self.SelectedSkill.mdef_f)
+		self.spinCtrlHitRate.SetValue(self.SelectedSkill.hit)
+		self.spinCtrlVariance.SetValue(self.SelectedSkill.variance)
+
+	def refreshAll( self ):
+		self.refreshSkillList()
+		self.refreshAnimations()
+		self.refreshStates()
+		self.refreshElements()
+		self.refreshValues()
+
+
+	def setRanges( self ):
+		self.spinCtrlSPCost.SetRange(0, Config.getint('Skills', 'spcost'))
+		self.spinCtrlPower.SetRange(0, Config.getint('Skills', 'power'))
+		self.spinCtrlAtkF.SetRange(0, Config.getint('Skills', 'atkf'))
+		self.spinCtrlEvaF.SetRange(0, Config.getint('Skills', 'evaf'))
+		self.spinCtrlStrF.SetRange(0, Config.getint('Skills', 'strf'))
+		self.spinCtrlDexF.SetRange(0, Config.getint('Skills', 'dexf'))
+		self.spinCtrlAgiF.SetRange(0, Config.getint('Skills', 'agif'))
+		self.spinCtrlIntF.SetRange(0, Config.getint('Skills', 'intf'))
+		self.spinCtrlPDEF.SetRange(0, Config.getint('Skills', 'pdeff'))
+		self.spinCtrlMDEF.SetRange(0, Config.getint('Skills', 'mdeff'))
+
 	def listBoxSkills_SelectionChanged( self, event ):
-		# TODO: Implement listBoxSkills_SelectionChanged
-		pass
+		self.SelectedSkill = DataSkills[self.FixedIndex(event.GetSelection())]
+		self.refreshValues()
 
 	def buttonMaximum_Clicked( self, event ):
 		# TODO: Implement buttonMaximum_Clicked
@@ -104,12 +205,16 @@ class ARCedSkills_Panel( ARCed_Templates.Skills_Panel ):
 		# TODO: Implement spinCtrlVariance_ValueChanged
 		pass
 
-	def checkListElements_CheckChanged( self, event ):
-		# TODO: Implement checkListElements_CheckChanged
+	def listBoxElements_SelectionChanged( self, event ):
 		pass
 
-	def checkListStates_CheckChanged( self, event ):
-		# TODO: Implement checkListStates_CheckChanged
+	def listBoxStates_SelectionChanged( self, event ):
+		pass
+
+	def spinCtrlElements_Changed( self, event ):
+		pass
+
+	def spinCtrlStates_ValueChanged( self, event ):
 		pass
 
 	def textCtrlNotes_TextChanged( self, event ):
@@ -117,3 +222,10 @@ class ARCedSkills_Panel( ARCed_Templates.Skills_Panel ):
 		pass
 
 
+	@staticmethod
+	def FixedIndex(index):
+		''' Returns the correct starting index for game data structure depending on the current format '''
+		if ARC_FORMAT:
+			return index
+		else:
+			return index + 1

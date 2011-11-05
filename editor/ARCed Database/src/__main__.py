@@ -2,7 +2,6 @@ import wx
 import DatabasePackage
 import os
 import ConfigParser
-import maxvalues
 import Kernel
 from Kernel import Manager as KM
 import Core
@@ -37,13 +36,6 @@ class ARCedTest(wx.App):
 		# Read and parse the .ini file to determine what tabs will be available
 		Config = ConfigParser.SafeConfigParser()
 		Config.read('ini\DatabaseTabs.ini')
-
-		# REMOVE -----------------------------------------------------------------------
-		if not Kernel.GlobalObjects.has_key('DatabaseConfiguration'):
-			config = maxvalues.DatabaseLimits('ini/DatabaseLimits.ini')
-			Kernel.GlobalObjects.request_new_key('DatabaseConfiguration', 'CORE', config)
-		#------------------------------------------------------------------------------
-
 		# Create Notebook control, and dynamically add the defined controls to it
 		nb = wx.Notebook(self.frame, wx.ID_ANY)
 		for tabName in Config.sections():
@@ -56,7 +48,7 @@ class ARCedTest(wx.App):
 		# Sort the list and add each page to the control
 		for i in sorted(DatabasePages.keys()):
 			nb.AddPage(DatabasePages[i].Page, DatabasePages[i].Title)
-		nb.SetSelection(0)
+		nb.SetSelection(2)
 		self.frame.Show()
 
 	def load_project(self):

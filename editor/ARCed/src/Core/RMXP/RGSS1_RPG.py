@@ -53,19 +53,14 @@ class Actor(object):
 		self.character_hue = 0
 		self.battler_name = ""
 		self.battler_hue = 0
-		print 'READY TO CREATE'
 		self.parameters = Table(6, 100)
-		print 'CREATED'
 		for i in xrange(1, 100):
-			print 'READY TO SET LEVEL', i
 			self.parameters[0, i] = 500 + i * 50
 			self.parameters[1, i] = 500 + i * 50
 			self.parameters[2, i] = 50 + i * 5
 			self.parameters[3, i] = 50 + i * 5
 			self.parameters[4, i] = 50 + i * 5
 			self.parameters[5, i] = 50 + i * 5
-			print 'DONE SETTING LEVEL', i
-		print 'DONE'
 		self.weapon_id = 0
 		self.armor1_id = 0
 		self.armor2_id = 0
