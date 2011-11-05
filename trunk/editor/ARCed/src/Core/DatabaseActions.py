@@ -32,6 +32,22 @@ class TableEditAction(Actions.ActionTemplate):
         # if your doing a slice on a id table you need to put the slice tupel or list in a tuple or list like so ((0,2),) 
         # note the , after the inside tupel this is to force the creation of the outer tupel. you could also do a list for the outer tuple instead in which case you don;t need the ,
         # [(0,2)] or [[0,2]]
+        if self.data.has_key('resize'):
+            if self.data['resize']:
+                return self.resize_apply()
+            else:
+                return self.normal_apply()
+        else:
+            return self.normal_apply()
+        
+    def resize_apply(self):
+        shape = self.data['shape']
+        if len(shape) != len(self.table.getShape()):
+            raise ArgumentError("new dimension and table old dimension must be the same (%d for %d)" % (len(shape), len(self.table.getShape())))
+        self.oldvalue = numpy.copy(self.table._data)
+        self.table.resize(*shape)
+
+    def normal_apply(self):
         dim = self.data['dim']
         index = self.data['index']
         value = self.data['value']
@@ -92,8 +108,24 @@ class TableEditAction(Actions.ActionTemplate):
             self.table[x, y, z] = value
         else:
             raise ArgumentError("wrong number of arguments (%d for %d)" % (len(index), dim))
-
+        return True
+        
     def do_undo(self):
+        if self.data.has_key('resize'):
+            if self.data['resize']:
+                return self.resize_undo()
+            else:
+                return self.normal_undo()
+        else:
+            return self.normal_undo()
+
+    def resize_undo(self):
+        shape = self.data['shape']
+        if len(shape) != len(self.table.getShape()):
+            raise ArgumentError("new dimension and table old dimension must be the same (%d for %d)" % (len(shape), len(self.table.getShape())))
+        self.table._data[:] = self.oldvalue[:]
+
+    def normal_undo(self):
         dim = self.data['dim']
         index = self.data['index']
         if dim > 3:
@@ -153,6 +185,7 @@ class TableEditAction(Actions.ActionTemplate):
             self.table[x, y, z] = self.oldvalue
         else:
             raise ArgumentError("wrong number of arguments (%d for %d)" % (len(index), dim))
+        return True
 
 class LearningEditAction(Actions.ActionTemplate):
     def __init__(self, id, index, data={}, sub_action=False):
