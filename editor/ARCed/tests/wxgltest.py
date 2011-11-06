@@ -13,7 +13,7 @@ import pygletwx
 from cache import PygletCache as Cache
 
 #Set up some global strings
-rtppath = "%PROGRAMFILES%/Common Files/Enterbrain/RGSS/Standard"
+rtppath = "%COMMONPROGRAMFILES%/Enterbrain/RGSS/Standard"
 RTP_Location = os.path.normpath(os.path.expandvars(rtppath))
 Project_Location = ""
 

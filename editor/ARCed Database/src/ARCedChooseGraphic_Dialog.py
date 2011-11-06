@@ -1,11 +1,13 @@
 import os
 import wx
 import ARCed_Templates
+from Core import Cache
+import Kernel
 
 # Implementing ChooseGraphic_Dialog
 class ARCedChooseGraphic_Dialog( ARCed_Templates.ChooseGraphic_Dialog ):
 	def __init__( self, parent, path, current, hue=0 ):
-		""" Initializes control using passed "path" argument to populate the list """
+		''' Initializes control using passed "path" argument to populate the list '''
 		ARCed_Templates.ChooseGraphic_Dialog.__init__( self, parent )
 		self.Images = []
 		# TODO: Add method to search nested directories as well, as well as RTP

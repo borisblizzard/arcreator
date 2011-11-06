@@ -496,3 +496,29 @@ cuticon = PyEmbeddedImage(
     "AJoB1/gqUCiWRm+uYLsDEGYWZnbd7YdqhmgFFtZ19AMbQYSnBb3Os/D1UrgNV8Fd2Am0/oFz"
     "KvgCzbu/HzwNSBEAAAAASUVORK5CYII=")
 IconManager._catalog['cuticon'] = cuticon
+
+#----------------------------------------------------------------------
+checkEmpty = PyEmbeddedImage(
+    "iVBORw0KGgoAAAANSUhEUgAAAA4AAAAMCAYAAABSgIzaAAAABGdBTUEAALGPC/xhBQAAAAlw"
+    "SFlzAAAOwgAADsIBFShKgAAAABp0RVh0U29mdHdhcmUAUGFpbnQuTkVUIHYzLjUuMTAw9HKh"
+    "AAAAKklEQVQoU2M4cODAf1Lw////GUCYAaTpz58/RGGQ2lGNOAJrRAYOOUkOAChoYZeQ/clq"
+    "AAAAAElFTkSuQmCC")
+IconManager._catalog['checkempty'] = checkEmpty
+
+#----------------------------------------------------------------------
+checkPlus = PyEmbeddedImage(
+    "iVBORw0KGgoAAAANSUhEUgAAAA4AAAAMCAYAAABSgIzaAAAABGdBTUEAALGPC/xhBQAAAAlw"
+    "SFlzAAAOwgAADsIBFShKgAAAABp0RVh0U29mdHdhcmUAUGFpbnQuTkVUIHYzLjUuMTAw9HKh"
+    "AAAAbElEQVQoU83SwQ2AIAwFUEZhe9foUCIihZJv0oSAInry0HDhteUHQ0TypkTEoAwQM08V"
+    "7g7hYq2g2oY/gbre3en9dobYvfEJhrBfwzoIbeLcKpgEFOMxD2uUEs9DnQSUcx7Ddj1FSKUL"
+    "58uXK/39J5g8lhAaAAAAAElFTkSuQmCC")
+IconManager._catalog['checkplus'] = checkPlus
+
+#----------------------------------------------------------------------
+checkMinus = PyEmbeddedImage(
+    "iVBORw0KGgoAAAANSUhEUgAAAA4AAAAMCAYAAABSgIzaAAAABGdBTUEAALGPC/xhBQAAAAlw"
+    "SFlzAAAOwgAADsIBFShKgAAAABp0RVh0U29mdHdhcmUAUGFpbnQuTkVUIHYzLjUuMTAw9HKh"
+    "AAAAXklEQVQoU2M4cODAf1Lw////GUCYAaTpz58/RGGQ2qGsUcFh+X98+Pv3b+BAxPAjIY0/"
+    "f/7ArhFXyIJsAmn6/fsX8RqRNf39+4c4jeia/v37R1gjNk2gUMEIHHKSHAACM0JQInLrmgAA"
+    "AABJRU5ErkJggg==")
+IconManager._catalog['checkminus'] = checkMinus

@@ -97,15 +97,9 @@ class Actors_Panel ( wx.Panel ):
 		self.labelCharacterGraphic.Wrap( -1 )
 		sizer3.Add( self.labelCharacterGraphic, 0, wx.ALL, 5 )
 		
-		self.bitmapCharacterGraphic = wx.StaticBitmap( self, wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.DefaultSize, wx.SUNKEN_BORDER )
-		sizer3.Add( self.bitmapCharacterGraphic, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
-		
 		self.labelBattlerGraphic = wx.StaticText( self, wx.ID_ANY, u"Battler Graphic:", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.labelBattlerGraphic.Wrap( -1 )
 		sizer3.Add( self.labelBattlerGraphic, 0, wx.ALL, 5 )
-		
-		self.bitmapBattlerGraphic = wx.StaticBitmap( self, wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.DefaultSize, wx.CLIP_CHILDREN|wx.SUNKEN_BORDER )
-		sizer3.Add( self.bitmapBattlerGraphic, 1, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
 		
 		sizer1.Add( sizer3, 25, wx.EXPAND, 5 )
 		
@@ -113,95 +107,95 @@ class Actors_Panel ( wx.Panel ):
 		
 		sizer2 = wx.BoxSizer( wx.VERTICAL )
 		
-		sizerEquipment = wx.BoxSizer( wx.VERTICAL )
+		sizerParameters = wx.BoxSizer( wx.VERTICAL )
 		
 		self.noteBookActorParameters = wx.Notebook( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, 0|wx.TAB_TRAVERSAL )
-		self.panelMaxHP = wx.Panel( self.noteBookActorParameters, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
+		self.pageParameters = wx.Panel( self.noteBookActorParameters, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
 		MainSizerParamter = wx.BoxSizer( wx.VERTICAL )
 		
 		sizerConrolsParameter = wx.BoxSizer( wx.HORIZONTAL )
 		
-		sizerQuickSettings = wx.StaticBoxSizer( wx.StaticBox( self.panelMaxHP, wx.ID_ANY, u"Quick Settings" ), wx.HORIZONTAL )
+		sizerQuickSettings = wx.StaticBoxSizer( wx.StaticBox( self.pageParameters, wx.ID_ANY, u"Quick Settings" ), wx.HORIZONTAL )
 		
-		self.buttonQuickA = wx.Button( self.panelMaxHP, wx.ID_ANY, u"A", wx.DefaultPosition, wx.Size( 23,23 ), 0 )
+		self.buttonQuickA = wx.Button( self.pageParameters, wx.ID_ANY, u"A", wx.DefaultPosition, wx.Size( 23,23 ), 0 )
 		sizerQuickSettings.Add( self.buttonQuickA, 0, wx.ALL, 5 )
 		
-		self.buttonQuickB = wx.Button( self.panelMaxHP, wx.ID_ANY, u"B", wx.DefaultPosition, wx.Size( 23,23 ), 0 )
+		self.buttonQuickB = wx.Button( self.pageParameters, wx.ID_ANY, u"B", wx.DefaultPosition, wx.Size( 23,23 ), 0 )
 		sizerQuickSettings.Add( self.buttonQuickB, 0, wx.TOP|wx.BOTTOM|wx.RIGHT, 5 )
 		
-		self.buttonQuickC = wx.Button( self.panelMaxHP, wx.ID_ANY, u"C", wx.DefaultPosition, wx.Size( 23,23 ), 0 )
+		self.buttonQuickC = wx.Button( self.pageParameters, wx.ID_ANY, u"C", wx.DefaultPosition, wx.Size( 23,23 ), 0 )
 		sizerQuickSettings.Add( self.buttonQuickC, 0, wx.TOP|wx.BOTTOM|wx.RIGHT, 5 )
 		
-		self.buttonQuickD = wx.Button( self.panelMaxHP, wx.ID_ANY, u"D", wx.DefaultPosition, wx.Size( 23,23 ), 0 )
+		self.buttonQuickD = wx.Button( self.pageParameters, wx.ID_ANY, u"D", wx.DefaultPosition, wx.Size( 23,23 ), 0 )
 		sizerQuickSettings.Add( self.buttonQuickD, 0, wx.TOP|wx.BOTTOM|wx.RIGHT, 5 )
 		
-		self.buttonQuickE = wx.Button( self.panelMaxHP, wx.ID_ANY, u"E", wx.DefaultPosition, wx.Size( 23,23 ), 0 )
+		self.buttonQuickE = wx.Button( self.pageParameters, wx.ID_ANY, u"E", wx.DefaultPosition, wx.Size( 23,23 ), 0 )
 		sizerQuickSettings.Add( self.buttonQuickE, 0, wx.TOP|wx.BOTTOM|wx.RIGHT, 5 )
 		
 		sizerConrolsParameter.Add( sizerQuickSettings, 0, wx.ALL, 5 )
 		
 		sizerLevel = wx.BoxSizer( wx.VERTICAL )
 		
-		self.labelLevel = wx.StaticText( self.panelMaxHP, wx.ID_ANY, u"Level:", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.labelLevel = wx.StaticText( self.pageParameters, wx.ID_ANY, u"Level:", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.labelLevel.Wrap( -1 )
 		sizerLevel.Add( self.labelLevel, 0, wx.ALL|wx.EXPAND, 5 )
 		
-		self.spinCtrlLevel = wx.SpinCtrl( self.panelMaxHP, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS|wx.SP_WRAP, 0, 999, 1 )
+		self.spinCtrlLevel = wx.SpinCtrl( self.pageParameters, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS|wx.SP_WRAP, 0, 999, 1 )
 		sizerLevel.Add( self.spinCtrlLevel, 0, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
 		
 		sizerConrolsParameter.Add( sizerLevel, 1, wx.ALIGN_CENTER_VERTICAL, 5 )
 		
 		sizerValue = wx.BoxSizer( wx.VERTICAL )
 		
-		self.labelValue = wx.StaticText( self.panelMaxHP, wx.ID_ANY, u"Value:", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.labelValue = wx.StaticText( self.pageParameters, wx.ID_ANY, u"Value:", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.labelValue.Wrap( -1 )
 		sizerValue.Add( self.labelValue, 0, wx.ALL|wx.EXPAND, 5 )
 		
-		self.spinCtrlValue = wx.SpinCtrl( self.panelMaxHP, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS|wx.SP_WRAP, 0, 10, 0 )
+		self.spinCtrlValue = wx.SpinCtrl( self.pageParameters, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS|wx.SP_WRAP, 0, 10, 0 )
 		sizerValue.Add( self.spinCtrlValue, 0, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
 		
 		sizerConrolsParameter.Add( sizerValue, 1, wx.ALIGN_CENTER_VERTICAL, 5 )
 		
 		MainSizerParamter.Add( sizerConrolsParameter, 0, wx.EXPAND, 5 )
 		
-		self.bitmapGraph = wx.StaticBitmap( self.panelMaxHP, wx.ID_ANY, wx.Bitmap( u"../images/MaxHP.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.Size( 448,224 ), wx.CLIP_CHILDREN|wx.SIMPLE_BORDER )
-		MainSizerParamter.Add( self.bitmapGraph, 1, wx.ALL|wx.EXPAND, 5 )
-		
 		bSizer613 = wx.BoxSizer( wx.HORIZONTAL )
 		
-		self.buttonAddParameter = wx.Button( self.panelMaxHP, wx.ID_ANY, u"Add...", wx.DefaultPosition, wx.DefaultSize, 0 )
-		bSizer613.Add( self.buttonAddParameter, 0, wx.TOP|wx.BOTTOM|wx.LEFT, 5 )
+		self.bitmapGraph = wx.StaticBitmap( self.pageParameters, wx.ID_ANY, wx.Bitmap( u"../images/MaxHP.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.Size( -1,-1 ), wx.CLIP_CHILDREN|wx.SIMPLE_BORDER )
+		bSizer613.Add( self.bitmapGraph, 1, wx.ALL|wx.EXPAND, 5 )
 		
-		self.buttonRemoveParameter = wx.Button( self.panelMaxHP, wx.ID_ANY, u"Remove", wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer640 = wx.BoxSizer( wx.VERTICAL )
+		
+		self.buttonAddParameter = wx.Button( self.pageParameters, wx.ID_ANY, u"Add...", wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer640.Add( self.buttonAddParameter, 0, wx.TOP|wx.RIGHT|wx.LEFT, 5 )
+		
+		self.buttonRemoveParameter = wx.Button( self.pageParameters, wx.ID_ANY, u"Remove", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.buttonRemoveParameter.Enable( False )
 		
-		bSizer613.Add( self.buttonRemoveParameter, 0, wx.TOP|wx.BOTTOM|wx.RIGHT, 5 )
+		bSizer640.Add( self.buttonRemoveParameter, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
 		
-		self.buttonGenerate = wx.Button( self.panelMaxHP, wx.ID_ANY, u"Generate Curve...", wx.DefaultPosition, wx.DefaultSize, 0 )
-		bSizer613.Add( self.buttonGenerate, 1, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
+		bSizer641 = wx.BoxSizer( wx.HORIZONTAL )
 		
-		MainSizerParamter.Add( bSizer613, 0, wx.EXPAND, 5 )
+		self.buttonGenerate = wx.Button( self.pageParameters, wx.ID_ANY, u"Generate...", wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer641.Add( self.buttonGenerate, 0, wx.ALL|wx.ALIGN_BOTTOM, 5 )
 		
-		self.panelMaxHP.SetSizer( MainSizerParamter )
-		self.panelMaxHP.Layout()
-		MainSizerParamter.Fit( self.panelMaxHP )
-		self.noteBookActorParameters.AddPage( self.panelMaxHP, u"MaxHP", True )
-		self.panelMaxSP = wx.Panel( self.noteBookActorParameters, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
-		self.noteBookActorParameters.AddPage( self.panelMaxSP, u"MaxSP", False )
-		self.panelStr = wx.Panel( self.noteBookActorParameters, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
-		self.noteBookActorParameters.AddPage( self.panelStr, u"STR", False )
-		self.panelDex = wx.Panel( self.noteBookActorParameters, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
-		self.noteBookActorParameters.AddPage( self.panelDex, u"DEX", False )
-		self.panelAgi = wx.Panel( self.noteBookActorParameters, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
-		self.noteBookActorParameters.AddPage( self.panelAgi, u"AGI", False )
-		self.panelInt = wx.Panel( self.noteBookActorParameters, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
-		self.noteBookActorParameters.AddPage( self.panelInt, u"INT", False )
+		bSizer640.Add( bSizer641, 1, wx.ALIGN_RIGHT, 5 )
 		
-		sizerEquipment.Add( self.noteBookActorParameters, 1, wx.EXPAND |wx.ALL, 5 )
+		bSizer613.Add( bSizer640, 0, wx.EXPAND, 5 )
 		
-		sizer2.Add( sizerEquipment, 55, wx.EXPAND, 5 )
+		MainSizerParamter.Add( bSizer613, 1, wx.EXPAND, 5 )
 		
-		sizerInitialEquipment = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Initial Equipment" ), wx.VERTICAL )
+		self.pageParameters.SetSizer( MainSizerParamter )
+		self.pageParameters.Layout()
+		MainSizerParamter.Fit( self.pageParameters )
+		self.noteBookActorParameters.AddPage( self.pageParameters, u"MaxHP", False )
+		self.pageSP = wx.Panel( self.noteBookActorParameters, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
+		self.noteBookActorParameters.AddPage( self.pageSP, u"MaxSP", False )
+		
+		sizerParameters.Add( self.noteBookActorParameters, 1, wx.EXPAND |wx.ALL, 5 )
+		
+		sizer2.Add( sizerParameters, 45, wx.EXPAND, 5 )
+		
+		sizerEquipment = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Initial Equipment" ), wx.VERTICAL )
 		
 		self.scrolledWindowEquipment = wx.ScrolledWindow( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.HSCROLL|wx.VSCROLL )
 		self.scrolledWindowEquipment.SetScrollRate( 5, 5 )
@@ -210,9 +204,9 @@ class Actors_Panel ( wx.Panel ):
 		self.scrolledWindowEquipment.SetSizer( scrolledWindowMainSizer )
 		self.scrolledWindowEquipment.Layout()
 		scrolledWindowMainSizer.Fit( self.scrolledWindowEquipment )
-		sizerInitialEquipment.Add( self.scrolledWindowEquipment, 1, wx.EXPAND, 5 )
+		sizerEquipment.Add( self.scrolledWindowEquipment, 1, wx.EXPAND, 5 )
 		
-		sizer2.Add( sizerInitialEquipment, 25, wx.EXPAND|wx.ALL, 5 )
+		sizer2.Add( sizerEquipment, 35, wx.EXPAND|wx.ALL, 5 )
 		
 		self.labelNotes = wx.StaticText( self, wx.ID_ANY, u"Notes:", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.labelNotes.Wrap( -1 )
@@ -239,11 +233,6 @@ class Actors_Panel ( wx.Panel ):
 		self.spinCtrlFinalLevel.Bind( wx.EVT_SPINCTRL, self.spinCtrlFinalLevel_ValueChanged )
 		self.comboBoxExpCurve.Bind( wx.EVT_LEFT_DOWN, self.comboBoxExperience_Click )
 		self.comboBoxExpCurve.Bind( wx.EVT_SET_FOCUS, self.comboBoxExperience_Click )
-		self.comboBoxExpCurve.Bind( wx.EVT_TEXT_ENTER, self.comboBoxExperience_Click )
-		self.bitmapCharacterGraphic.Bind( wx.EVT_LEFT_DCLICK, self.bitmapCharacterGraphic_Click )
-		self.bitmapCharacterGraphic.Bind( wx.EVT_PAINT, self.bitmapBox_OnPaint )
-		self.bitmapBattlerGraphic.Bind( wx.EVT_LEFT_DCLICK, self.bitmapBattlerGraphic_Click )
-		self.bitmapBattlerGraphic.Bind( wx.EVT_PAINT, self.bitmapBox_OnPaint )
 		self.noteBookActorParameters.Bind( wx.EVT_NOTEBOOK_PAGE_CHANGED, self.noteBookParameters_PageChanged )
 		self.buttonQuickA.Bind( wx.EVT_BUTTON, self.buttonQuickA_Clicked )
 		self.buttonQuickB.Bind( wx.EVT_BUTTON, self.buttonQuickB_Clicked )
@@ -283,17 +272,6 @@ class Actors_Panel ( wx.Panel ):
 		pass
 	
 	def comboBoxExperience_Click( self, event ):
-		pass
-	
-	
-	
-	def bitmapCharacterGraphic_Click( self, event ):
-		pass
-	
-	def bitmapBox_OnPaint( self, event ):
-		pass
-	
-	def bitmapBattlerGraphic_Click( self, event ):
 		pass
 	
 	
@@ -612,7 +590,7 @@ class Skills_Panel ( wx.Panel ):
 		
 		listBoxSkillsChoices = []
 		self.listBoxSkills = wx.ListBox( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, listBoxSkillsChoices, wx.LB_SINGLE|wx.CLIP_CHILDREN )
-		self.listBoxSkills.SetToolTipString( u"Select the item to edit" )
+		self.listBoxSkills.SetToolTipString( u"Deals fire damage on one enemy." )
 		
 		SkillListSizer.Add( self.listBoxSkills, 1, wx.EXPAND|wx.RIGHT|wx.LEFT, 5 )
 		
@@ -736,129 +714,95 @@ class Skills_Panel ( wx.Panel ):
 		
 		sizer1.Add( sizer6, 0, wx.EXPAND, 5 )
 		
-		sizer7 = wx.BoxSizer( wx.HORIZONTAL )
+		sizerParameters = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Parameters" ), wx.VERTICAL )
 		
-		sizer10 = wx.BoxSizer( wx.VERTICAL )
+		self.panelParameters = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
+		panelParametersSizer = wx.BoxSizer( wx.VERTICAL )
 		
-		self.labelSPCost = wx.StaticText( self, wx.ID_ANY, u"SP Cost:", wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer643 = wx.BoxSizer( wx.HORIZONTAL )
+		
+		self.labelSPCost = wx.StaticText( self.panelParameters, wx.ID_ANY, u"SP Cost:", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.labelSPCost.Wrap( -1 )
-		sizer10.Add( self.labelSPCost, 0, wx.ALL|wx.EXPAND, 5 )
+		bSizer643.Add( self.labelSPCost, 1, wx.ALL, 5 )
 		
-		self.spinCtrlSPCost = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS|wx.SP_WRAP, 0, 999999999, 999999999 )
+		self.labelPower = wx.StaticText( self.panelParameters, wx.ID_ANY, u"Power:", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.labelPower.Wrap( -1 )
+		bSizer643.Add( self.labelPower, 1, wx.ALL, 5 )
+		
+		self.labelVariance = wx.StaticText( self.panelParameters, wx.ID_ANY, u"Variance:", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.labelVariance.Wrap( -1 )
+		bSizer643.Add( self.labelVariance, 1, wx.ALL, 5 )
+		
+		self.labelHitRate = wx.StaticText( self.panelParameters, wx.ID_ANY, u"Hit Rate:", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.labelHitRate.Wrap( -1 )
+		bSizer643.Add( self.labelHitRate, 1, wx.ALL, 5 )
+		
+		panelParametersSizer.Add( bSizer643, 0, wx.EXPAND, 5 )
+		
+		bSizer644 = wx.BoxSizer( wx.HORIZONTAL )
+		
+		self.spinCtrlSPCost = wx.SpinCtrl( self.panelParameters, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS|wx.SP_WRAP, 0, 999999999, 0 )
 		self.spinCtrlSPCost.SetToolTipString( u"The price of the item in shops. Set to 0 to make item unsellable." )
 		
-		sizer10.Add( self.spinCtrlSPCost, 0, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
+		bSizer644.Add( self.spinCtrlSPCost, 1, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
 		
-		self.labelStrF = wx.StaticText( self, wx.ID_ANY, u"STR-F:", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.labelStrF.Wrap( -1 )
-		sizer10.Add( self.labelStrF, 0, wx.ALL|wx.EXPAND, 5 )
+		self.spinCtrlPower = wx.SpinCtrl( self.panelParameters, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS|wx.SP_WRAP, -999999999, 999999999, 0 )
+		bSizer644.Add( self.spinCtrlPower, 1, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
 		
-		self.spinCtrlStrF = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS|wx.SP_WRAP, 0, 10000, 0 )
-		self.spinCtrlStrF.SetToolTipString( u"Recovered HP, as percentage of max HP" )
-		
-		sizer10.Add( self.spinCtrlStrF, 0, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
-		
-		self.labelHitRate = wx.StaticText( self, wx.ID_ANY, u"Hit Rate:", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.labelHitRate.Wrap( -1 )
-		sizer10.Add( self.labelHitRate, 0, wx.ALL|wx.EXPAND, 5 )
-		
-		self.spinCtrlHitRate = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS|wx.SP_WRAP, 0, 100, 100 )
-		self.spinCtrlHitRate.SetToolTipString( u"Success rate in percentage of item use, not affected by target's parameters." )
-		
-		sizer10.Add( self.spinCtrlHitRate, 0, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
-		
-		sizer7.Add( sizer10, 1, wx.EXPAND, 5 )
-		
-		sizer11 = wx.BoxSizer( wx.VERTICAL )
-		
-		self.labelPower = wx.StaticText( self, wx.ID_ANY, u"Power:", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.labelPower.Wrap( -1 )
-		sizer11.Add( self.labelPower, 0, wx.ALL|wx.EXPAND, 5 )
-		
-		self.spinCtrlPower = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS|wx.SP_WRAP, -999999999, 999999999, 0 )
-		sizer11.Add( self.spinCtrlPower, 0, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
-		
-		self.labelDexF = wx.StaticText( self, wx.ID_ANY, u"DEX-F:", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.labelDexF.Wrap( -1 )
-		sizer11.Add( self.labelDexF, 0, wx.ALL|wx.EXPAND, 5 )
-		
-		self.spinCtrlDexF = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS|wx.SP_WRAP, 0, 10000, 0 )
-		self.spinCtrlDexF.SetToolTipString( u"Amount of recovered HP. An odd value allows for creation of an attack item." )
-		
-		sizer11.Add( self.spinCtrlDexF, 0, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
-		
-		self.labelPDEF = wx.StaticText( self, wx.ID_ANY, u"PDEF-F:", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.labelPDEF.Wrap( -1 )
-		sizer11.Add( self.labelPDEF, 0, wx.ALL|wx.EXPAND, 5 )
-		
-		self.spinCtrlPDEF = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS|wx.SP_WRAP, 0, 10000, 0 )
-		self.spinCtrlPDEF.SetToolTipString( u"Coefficient indicating how much of the target's physical defense influences the effects. Set high for physical attack items." )
-		
-		sizer11.Add( self.spinCtrlPDEF, 0, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
-		
-		sizer7.Add( sizer11, 1, wx.EXPAND, 5 )
-		
-		sizer12 = wx.BoxSizer( wx.VERTICAL )
-		
-		self.labelAtkF = wx.StaticText( self, wx.ID_ANY, u"ATK-F:", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.labelAtkF.Wrap( -1 )
-		sizer12.Add( self.labelAtkF, 0, wx.ALL|wx.EXPAND, 5 )
-		
-		self.spinCtrlAtkF = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS|wx.SP_WRAP, 0, 10000, 0 )
-		sizer12.Add( self.spinCtrlAtkF, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
-		
-		self.labeAgiF = wx.StaticText( self, wx.ID_ANY, u"AGI-F:", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.labeAgiF.Wrap( -1 )
-		sizer12.Add( self.labeAgiF, 0, wx.ALL|wx.EXPAND, 5 )
-		
-		self.spinCtrlAgiF = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS|wx.SP_WRAP, 0, 10000, 0 )
-		self.spinCtrlAgiF.SetToolTipString( u"Recovered SP, as percentage of max SP" )
-		
-		sizer12.Add( self.spinCtrlAgiF, 0, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
-		
-		self.labelMDEF = wx.StaticText( self, wx.ID_ANY, u"MDEF-F:", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.labelMDEF.Wrap( -1 )
-		sizer12.Add( self.labelMDEF, 0, wx.ALL|wx.EXPAND, 5 )
-		
-		self.spinCtrlMDEF = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS|wx.SP_WRAP, 0, 10000, 0 )
-		self.spinCtrlMDEF.SetToolTipString( u"Coefficient indicating how much of the target's magic defense influences the effects. Set high for magical attack items." )
-		
-		sizer12.Add( self.spinCtrlMDEF, 0, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
-		
-		sizer7.Add( sizer12, 1, wx.EXPAND, 5 )
-		
-		sizer13 = wx.BoxSizer( wx.VERTICAL )
-		
-		self.labelEvaF = wx.StaticText( self, wx.ID_ANY, u"EVA-F:", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.labelEvaF.Wrap( -1 )
-		sizer13.Add( self.labelEvaF, 0, wx.ALL|wx.EXPAND, 5 )
-		
-		self.spinCtrlEvaF = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS|wx.SP_WRAP, 0, 10000, 0 )
-		self.spinCtrlEvaF.SetToolTipString( u"Value of the parameter to increase by." )
-		
-		sizer13.Add( self.spinCtrlEvaF, 0, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
-		
-		self.labelIntF = wx.StaticText( self, wx.ID_ANY, u"INT-F:", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.labelIntF.Wrap( -1 )
-		sizer13.Add( self.labelIntF, 0, wx.ALL|wx.EXPAND, 5 )
-		
-		self.spinCtrlIntF = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS|wx.SP_WRAP, 0, 10000, 0 )
-		self.spinCtrlIntF.SetToolTipString( u"Amount of recovered SP. An odd value allows for creation of an attack item." )
-		
-		sizer13.Add( self.spinCtrlIntF, 0, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
-		
-		self.labelVariance = wx.StaticText( self, wx.ID_ANY, u"Variance:", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.labelVariance.Wrap( -1 )
-		sizer13.Add( self.labelVariance, 0, wx.ALL|wx.EXPAND, 5 )
-		
-		self.spinCtrlVariance = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS|wx.SP_WRAP, 0, 100, 15 )
+		self.spinCtrlVariance = wx.SpinCtrl( self.panelParameters, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS|wx.SP_WRAP, 0, 100, 15 )
 		self.spinCtrlVariance.SetToolTipString( u"Degree of fluctuation in final effect strength. The effect strength value varies only by this percentage. 15 is average." )
 		
-		sizer13.Add( self.spinCtrlVariance, 0, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
+		bSizer644.Add( self.spinCtrlVariance, 1, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
 		
-		sizer7.Add( sizer13, 1, wx.EXPAND, 5 )
+		self.spinCtrlHitRate = wx.SpinCtrl( self.panelParameters, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS|wx.SP_WRAP, 0, 100, 100 )
+		self.spinCtrlHitRate.SetToolTipString( u"Success rate in percentage of item use, not affected by target's parameters." )
 		
-		sizer1.Add( sizer7, 1, wx.EXPAND, 5 )
+		bSizer644.Add( self.spinCtrlHitRate, 1, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
+		
+		panelParametersSizer.Add( bSizer644, 0, wx.EXPAND, 5 )
+		
+		bSizer646 = wx.BoxSizer( wx.HORIZONTAL )
+		
+		self.labelATkF = wx.StaticText( self.panelParameters, wx.ID_ANY, u"ATK-F:", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.labelATkF.Wrap( -1 )
+		bSizer646.Add( self.labelATkF, 1, wx.ALL, 5 )
+		
+		self.labelPdefF = wx.StaticText( self.panelParameters, wx.ID_ANY, u"PDEF-F:", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.labelPdefF.Wrap( -1 )
+		bSizer646.Add( self.labelPdefF, 1, wx.ALL, 5 )
+		
+		self.labelMdefF = wx.StaticText( self.panelParameters, wx.ID_ANY, u"MDEF-F:", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.labelMdefF.Wrap( -1 )
+		bSizer646.Add( self.labelMdefF, 1, wx.ALL, 5 )
+		
+		self.labelEvaF = wx.StaticText( self.panelParameters, wx.ID_ANY, u"EVA-F:", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.labelEvaF.Wrap( -1 )
+		bSizer646.Add( self.labelEvaF, 1, wx.ALL, 5 )
+		
+		panelParametersSizer.Add( bSizer646, 0, wx.EXPAND, 5 )
+		
+		bSizer647 = wx.BoxSizer( wx.HORIZONTAL )
+		
+		self.spinCtrlAtkF = wx.SpinCtrl( self.panelParameters, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0 )
+		bSizer647.Add( self.spinCtrlAtkF, 1, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
+		
+		self.spinCtrlPdefF = wx.SpinCtrl( self.panelParameters, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0 )
+		bSizer647.Add( self.spinCtrlPdefF, 1, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
+		
+		self.spinCtrlMdefF = wx.SpinCtrl( self.panelParameters, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0 )
+		bSizer647.Add( self.spinCtrlMdefF, 1, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
+		
+		self.spinCtrlEvaF = wx.SpinCtrl( self.panelParameters, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0 )
+		bSizer647.Add( self.spinCtrlEvaF, 1, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
+		
+		panelParametersSizer.Add( bSizer647, 0, wx.EXPAND, 5 )
+		
+		self.panelParameters.SetSizer( panelParametersSizer )
+		self.panelParameters.Layout()
+		panelParametersSizer.Fit( self.panelParameters )
+		sizerParameters.Add( self.panelParameters, 1, wx.EXPAND |wx.ALL, 5 )
+		
+		sizer1.Add( sizerParameters, 0, wx.ALL|wx.EXPAND, 5 )
 		
 		staticSizerItems.Add( sizer1, 60, wx.EXPAND, 5 )
 		
@@ -872,12 +816,9 @@ class Skills_Panel ( wx.Panel ):
 		self.labelElements.Wrap( -1 )
 		sizerElements.Add( self.labelElements, 0, wx.ALL|wx.EXPAND, 5 )
 		
-		listBoxElementsChoices = []
-		self.listBoxElements = wx.ListBox( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, listBoxElementsChoices, wx.LB_NEEDED_SB|wx.LB_SINGLE )
-		sizerElements.Add( self.listBoxElements, 1, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
-		
-		self.spinCtrlElements = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS|wx.SP_WRAP, 0, 10, 0 )
-		sizerElements.Add( self.spinCtrlElements, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
+		checkListElementsChoices = []
+		self.checkListElements = wx.CheckListBox( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, checkListElementsChoices, wx.LB_NEEDED_SB|wx.LB_SINGLE )
+		sizerElements.Add( self.checkListElements, 1, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
 		
 		sizerEfficiency.Add( sizerElements, 1, wx.EXPAND, 5 )
 		
@@ -887,12 +828,8 @@ class Skills_Panel ( wx.Panel ):
 		self.labelStates.Wrap( -1 )
 		sizerStates.Add( self.labelStates, 0, wx.ALL|wx.EXPAND, 5 )
 		
-		listBoxStatesChoices = []
-		self.listBoxStates = wx.ListBox( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, listBoxStatesChoices, 0 )
-		sizerStates.Add( self.listBoxStates, 1, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
-		
-		self.spinCtrlStates = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS|wx.SP_WRAP, 0, 10, 0 )
-		sizerStates.Add( self.spinCtrlStates, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
+		self.listCtrlStates = wx.ListCtrl( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.LC_NO_HEADER|wx.LC_REPORT )
+		sizerStates.Add( self.listCtrlStates, 1, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
 		
 		sizerEfficiency.Add( sizerStates, 1, wx.EXPAND, 5 )
 		
@@ -918,30 +855,27 @@ class Skills_Panel ( wx.Panel ):
 		self.listBoxSkills.Bind( wx.EVT_LISTBOX, self.listBoxSkills_SelectionChanged )
 		self.buttonMaximum.Bind( wx.EVT_BUTTON, self.buttonMaximum_Clicked )
 		self.textCtrlName.Bind( wx.EVT_TEXT, self.textCtrlName_TextChanged )
-		self.comboBoxIcon.Bind( wx.EVT_COMBOBOX, self.comboBoxIcon_SelectionChanged )
+		self.comboBoxIcon.Bind( wx.EVT_LEFT_DOWN, self.comboBoxIcon_LeftClicked )
+		self.comboBoxIcon.Bind( wx.EVT_SET_FOCUS, self.comboBoxIcon_LeftClicked )
 		self.textCtrlDescription.Bind( wx.EVT_TEXT, self.textCtrlDescription_TextChange )
 		self.comboBoxScope.Bind( wx.EVT_CHOICE, self.comboBoxScope_SelectionChanged )
 		self.comboBoxUserAnimation.Bind( wx.EVT_CHOICE, self.comboBoxUserAnimation_SelectionChanged )
 		self.comboBoxMenuSE.Bind( wx.EVT_LEFT_DOWN, self.comboBoxMenuSE_Clicked )
+		self.comboBoxMenuSE.Bind( wx.EVT_SET_FOCUS, self.comboBoxMenuSE_Clicked )
 		self.comboBoxOccasion.Bind( wx.EVT_CHOICE, self.comboBoxOccasion_SelectionChanged )
 		self.comboBoxTargetAnimation.Bind( wx.EVT_CHOICE, self.comboBoxTargetAnimation_SelectionChanged )
 		self.comboBoxCommonEvent.Bind( wx.EVT_CHOICE, self.comboBoxCommonEvent_SelectionChanged )
 		self.spinCtrlSPCost.Bind( wx.EVT_SPINCTRL, self.spinCtrlSPCost_ValueChanged )
-		self.spinCtrlStrF.Bind( wx.EVT_SPINCTRL, self.spinCtrlStrF_ValueChanged )
-		self.spinCtrlHitRate.Bind( wx.EVT_SPINCTRL, self.spinCtrlHitRate_ValueChanged )
 		self.spinCtrlPower.Bind( wx.EVT_SPINCTRL, self.spinCtrlPower_ValueChanged )
-		self.spinCtrlDexF.Bind( wx.EVT_SPINCTRL, self.spinCtrlDexF_ValueChanged )
-		self.spinCtrlPDEF.Bind( wx.EVT_SPINCTRL, self.spinCtrlPDEF_ValueChanged )
-		self.spinCtrlAtkF.Bind( wx.EVT_SPINCTRL, self.spinCtrlAtkF_ValueChanged )
-		self.spinCtrlAgiF.Bind( wx.EVT_SPINCTRL, self.spinCtrlAgiF_ValueChanged )
-		self.spinCtrlMDEF.Bind( wx.EVT_SPINCTRL, self.spinCtrlMDEF_ValueChanged )
-		self.spinCtrlEvaF.Bind( wx.EVT_SPINCTRL, self.spinCtrlEvaF_ValueChanged )
-		self.spinCtrlIntF.Bind( wx.EVT_SPINCTRL, self.spinCtrlIntF_ValueChanged )
 		self.spinCtrlVariance.Bind( wx.EVT_SPINCTRL, self.spinCtrlVariance_ValueChanged )
-		self.listBoxElements.Bind( wx.EVT_LISTBOX, self.listBoxElements_SelectionChanged )
-		self.spinCtrlElements.Bind( wx.EVT_SPINCTRL, self.spinCtrlElements_Changed )
-		self.listBoxStates.Bind( wx.EVT_LISTBOX, self.listBoxStates_SelectionChanged )
-		self.spinCtrlStates.Bind( wx.EVT_SPINCTRL, self.spinCtrlStates_ValueChanged )
+		self.spinCtrlHitRate.Bind( wx.EVT_SPINCTRL, self.spinCtrlHitRate_ValueChanged )
+		self.spinCtrlAtkF.Bind( wx.EVT_SPINCTRL, self.spinCtrlParameter_ValueChanged )
+		self.spinCtrlPdefF.Bind( wx.EVT_SPINCTRL, self.spinCtrlParameter_ValueChanged )
+		self.spinCtrlMdefF.Bind( wx.EVT_SPINCTRL, self.spinCtrlParameter_ValueChanged )
+		self.spinCtrlEvaF.Bind( wx.EVT_SPINCTRL, self.spinCtrlParameter_ValueChanged )
+		self.checkListElements.Bind( wx.EVT_CHECKLISTBOX, self.checkListElements_CheckChanged )
+		self.listCtrlStates.Bind( wx.EVT_LEFT_DOWN, self.listCtrlStates_LeftClicked )
+		self.listCtrlStates.Bind( wx.EVT_RIGHT_DOWN, self.listCtrlStates_RightClicked )
 		self.textCtrlNotes.Bind( wx.EVT_TEXT, self.textCtrlNotes_TextChanged )
 	
 	def __del__( self ):
@@ -958,8 +892,9 @@ class Skills_Panel ( wx.Panel ):
 	def textCtrlName_TextChanged( self, event ):
 		pass
 	
-	def comboBoxIcon_SelectionChanged( self, event ):
+	def comboBoxIcon_LeftClicked( self, event ):
 		pass
+	
 	
 	def textCtrlDescription_TextChange( self, event ):
 		pass
@@ -973,6 +908,7 @@ class Skills_Panel ( wx.Panel ):
 	def comboBoxMenuSE_Clicked( self, event ):
 		pass
 	
+	
 	def comboBoxOccasion_SelectionChanged( self, event ):
 		pass
 	
@@ -985,49 +921,28 @@ class Skills_Panel ( wx.Panel ):
 	def spinCtrlSPCost_ValueChanged( self, event ):
 		pass
 	
-	def spinCtrlStrF_ValueChanged( self, event ):
-		pass
-	
-	def spinCtrlHitRate_ValueChanged( self, event ):
-		pass
-	
 	def spinCtrlPower_ValueChanged( self, event ):
-		pass
-	
-	def spinCtrlDexF_ValueChanged( self, event ):
-		pass
-	
-	def spinCtrlPDEF_ValueChanged( self, event ):
-		pass
-	
-	def spinCtrlAtkF_ValueChanged( self, event ):
-		pass
-	
-	def spinCtrlAgiF_ValueChanged( self, event ):
-		pass
-	
-	def spinCtrlMDEF_ValueChanged( self, event ):
-		pass
-	
-	def spinCtrlEvaF_ValueChanged( self, event ):
-		pass
-	
-	def spinCtrlIntF_ValueChanged( self, event ):
 		pass
 	
 	def spinCtrlVariance_ValueChanged( self, event ):
 		pass
 	
-	def listBoxElements_SelectionChanged( self, event ):
+	def spinCtrlHitRate_ValueChanged( self, event ):
 		pass
 	
-	def spinCtrlElements_Changed( self, event ):
+	def spinCtrlParameter_ValueChanged( self, event ):
 		pass
 	
-	def listBoxStates_SelectionChanged( self, event ):
+	
+	
+	
+	def checkListElements_CheckChanged( self, event ):
 		pass
 	
-	def spinCtrlStates_ValueChanged( self, event ):
+	def listCtrlStates_LeftClicked( self, event ):
+		pass
+	
+	def listCtrlStates_RightClicked( self, event ):
 		pass
 	
 	def textCtrlNotes_TextChanged( self, event ):
@@ -6157,8 +6072,8 @@ class ChooseAudio_Dialog ( wx.Dialog ):
 		
 		sizerMainControls = wx.BoxSizer( wx.HORIZONTAL )
 		
-		listBoxAudioChoices = []
-		self.listBoxAudio = wx.ListBox( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, listBoxAudioChoices, 0 )
+		listBoxAudioChoices = [ u"(None)" ]
+		self.listBoxAudio = wx.ListBox( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, listBoxAudioChoices, wx.LB_NEEDED_SB|wx.LB_SINGLE|wx.LB_SORT )
 		sizerMainControls.Add( self.listBoxAudio, 1, wx.ALL|wx.EXPAND, 5 )
 		
 		sizerControls = wx.BoxSizer( wx.VERTICAL )
@@ -6203,6 +6118,7 @@ class ChooseAudio_Dialog ( wx.Dialog ):
 		self.Centre( wx.BOTH )
 		
 		# Connect Events
+		self.listBoxAudio.Bind( wx.EVT_LISTBOX_DCLICK, self.buttonPlay_Clicked )
 		self.buttonPlay.Bind( wx.EVT_BUTTON, self.buttonPlay_Clicked )
 		self.buttonStop.Bind( wx.EVT_BUTTON, self.buttonStop_Clicked )
 		self.buttonOK.Bind( wx.EVT_BUTTON, self.buttonOK_Clicked )
@@ -6215,6 +6131,7 @@ class ChooseAudio_Dialog ( wx.Dialog ):
 	# Virtual event handlers, overide them in your derived class
 	def buttonPlay_Clicked( self, event ):
 		pass
+	
 	
 	def buttonStop_Clicked( self, event ):
 		pass

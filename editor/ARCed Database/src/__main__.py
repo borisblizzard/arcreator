@@ -4,7 +4,7 @@ import os
 import ConfigParser
 import Kernel
 from Kernel import Manager as KM
-import Core
+#import Core
 import Main
 
 Main.ConfigManager.LoadConfig()
