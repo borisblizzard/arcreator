@@ -14,7 +14,6 @@ import ARCedAddParameter_Dialog
 #from DatabaseAction import 
 from Core.RMXP import RGSS1_RPG as RPG	   						
 import Kernel
-from Kernel import Manager as KM
 
 #---------------------------------------------------------------------------
 # TEST STUFF
@@ -45,23 +44,39 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 		font = wx.Font(8, wx.FONTFAMILY_TELETYPE, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL)
 		font.SetFaceName(Config.get('Misc', 'NoteFont')) 
 		self.textCtrlNotes.SetFont(font)
+		self.ParamTab = 0
 		# Set the ranges for initial and final level spin controls
 		max = Config.getint('Actors', 'MaxLevel')
 		self.spinCtrlInitialLevel.SetRange(1, max)
 		self.spinCtrlFinalLevel.SetRange(1, max)
-		self.spinCtrlLevel.SetRange(1, max)
-
 		# Initialize the selected actor attribute
 		if actorIndex >= len(DataActors):
 			actorIndex = 0
 		self.SelectedActor = DataActors[self.FixedIndex(actorIndex)]
 		# Create the controls for the equipment and set the values for all the controls
 		self.CreateEquipmentControls()
+		for param in Config.getlist('Misc', 'Parameters'):
+			self.AddParameterPage(param)
+		self.noteBookActorParameters.ChangeSelection(0)
 		self.comboBoxExpCurve.SetCursor(wx.STANDARD_CURSOR)
-		self.ParamTab = 0
+		
 		self.refreshAll()
 		# Set the initial selection of the list control 
 		self.listBoxActors.SetSelection(actorIndex)
+
+
+	def AddParameterPage( self, title, activate=False ):
+		''' Creates a page and adds it to the notebook control '''
+		page = wx.Panel( self.noteBookActorParameters )
+		self.noteBookActorParameters.AddPage(page, title)
+		if activate:
+			index = self.noteBookActorParameters.GetPageCount() - 1
+			self.noteBookActorParameters.SetSelection(index)
+
+	def bitmapParameterGraph_Clicked( self, event ):
+		pass
+
+
 
 	def CreateEquipmentControls( self ):
 		''' Creates the controls for each equipment type defined in the configuration '''
@@ -182,33 +197,6 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 			self.FixedCheckBoxes[3].SetValue(actor.armor3_fix)
 			self.FixedCheckBoxes[4].SetValue(actor.armor4_fix)
 
-	def refreshGraphics(self, image=-1):
-		return
-		path = self.getFilePath(GraphicsDir + '\\Characters', self.SelectedActor.character_name )
-		self.bitmapCharacterGraphic.SetImagepath(path)
-
-		'''
-		try:
-			if image == -1 or image == 0:
-				path = self.getFilePath(GraphicsDir + '\\Characters', self.SelectedActor.character_name )
-				bitmap = wx.EmptyBitmap(1, 1)
-				try:
-					bitmap.LoadFile(path, wx.BITMAP_TYPE_ANY)
-				except:
-					pass
-				self.bitmapCharacterGraphic.SetBitmap(bitmap)
-			if image == -1 or image == 1:
-				path = self.getFilePath(GraphicsDir + '\\Battlers', self.SelectedActor.battler_name )
-				bitmap = wx.EmptyBitmap(1, 1)
-				try:
-					bitmap.LoadFile(path, wx.BITMAP_TYPE_ANY)
-				except:
-					pass
-				self.bitmapBattlerGraphic.SetBitmap(bitmap)
-		except wx.PyAssertionError:
-			Kernel.Log('Failed to load Graphic resource', '[Database:ACTOR]', True)
-			'''
-
 	def refreshAll( self ):
 		''' Refreshes all the controls that contain game object values '''
 		self.refreshActorList()
@@ -217,7 +205,6 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 		self.refreshArmors()
 		self.refreshFixedEquipment()
 		self.refreshParameters()
-		self.refreshGraphics()
 
 	def listBoxActors_SelectionChanged( self, event ):
 		''' Changes the data on the panel to reflect the values of the selected actor '''
@@ -229,7 +216,7 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 		self.refreshArmors()
 		self.refreshFixedEquipment()
 		self.refreshParameters()
-		self.refreshGraphics()
+		#self.refreshGraphics()
 
 
 
@@ -358,9 +345,10 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 	def comboBoxExperience_Click( self, event ):
 		''' Opens window to generate experience tables '''
 		# TODO: Create and use custom control instead of relying on focus changes
-		self.bitmapCharacterGraphic.SetFocus()
+		self.listBoxActors.SetFocus()
 		dlg = ARCedExpCurve_Dialog.ARCedExpCurve_Dialog(self, self.SelectedActor)
 		if dlg.ShowModal() == wx.ID_OK:
+			# TODO: Fix 'actor' which errors out
 			actor.exp_basis = dlg.spinCtrlBasis.GetValue()
 			actor.exp_inflation = dlg.spinCtrlInflation.GetValue()
 		dlg.Destroy()
@@ -413,6 +401,8 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 
 	def checkBoxFixedEquipment_CheckChanged( self, event ):
 		ctrlIndex = self.FixedCheckBoxes.index(event.GetEventObject())
+
+
 		if ARC_FORMAT:
 			# TODO: Implement
 			weaponSlots = len(Config.getlist('Actors', 'WeaponSlots'))
@@ -443,18 +433,11 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 			return Config.getint('Actors', 'MaxHP')
 		elif param_index == 1:
 			return Config.getint('Actors', 'MaxSP')
-		elif param_index == 2:
-			return Config.getint('Actors', 'MaxStr')
-		elif param_index == 3:
-			return Config.getint('Actors', 'MaxDex')
-		elif param_index == 4:
-			return Config.getint('Actors', 'MaxAgi')
-		elif param_index == 5:
-			return Config.getint('Actors', 'MaxInt')
 		else:
-		    return Config.getint('Actors', 'MaxExtra')
+			return Config.getint('Actors', 'MaxParameter')
 	
 	def spinCtrlValue_ValueChanged( self, event ):
+		''' '''
 		self.SetParameterValue(self.ParamTab, self.spinCtrlLevel.GetValue(), self.spinCtrlValue.GetValue())
 
 	def buttonGenerateCurve_Clicked( self, event):
@@ -494,8 +477,7 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 		dialog = ARCedAddParameter_Dialog.ARCedAddParameter_Dialog( self )
 		if (dialog.ShowModal() == wx.ID_OK):
 			paramName = dialog.textCtrlParameterName.GetLineText(0)
-			tab = wx.Panel(self.noteBookActorParameters)
-			self.noteBookActorParameters.AddPage(tab, paramName)
+			self.AddParameterPage(paramName)
 
 	def buttonRemoveParameter_Clicked( self, event ):
 		''' Removes the selected page from the tab control and resizes the actors' parameter tables '''

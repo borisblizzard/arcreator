@@ -107,6 +107,7 @@
     <Compile Include="src\ARCedMoveRoute_Dialog.py" />
     <Compile Include="src\ARCedNameProcessing_Dialog.py" />
     <Compile Include="src\ARCedParameterGraph_Panel.py" />
+    <Compile Include="src\ARCedParameter_Panel.py" />
     <Compile Include="src\ARCedRecoverAll_Dialog.py" />
     <Compile Include="src\ARCedRotatePicture_Dialog.py" />
     <Compile Include="src\ARCedScreenShake_Dialog.py" />
@@ -136,8 +137,6 @@
     <Compile Include="src\CheckMarks.py" />
     <Compile Include="src\Configuration_Panel.py" />
     <Compile Include="src\DatabasePackage.py" />
-    <Compile Include="src\wxImagePanel.py" />
-    <Compile Include="src\__example__.py" />
     <Compile Include="src\__main__.py" />
     <Compile Include="src\__test__.py" />
   </ItemGroup>
