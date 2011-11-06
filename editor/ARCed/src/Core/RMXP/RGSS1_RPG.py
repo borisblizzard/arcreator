@@ -40,7 +40,7 @@ class Actor(object):
 							  'battler_name', 'battler_hue', 'parameters',
 							  'weapon_id', 'armor1_id', 'armor2_id',
 							  'armor3_id', 'armor4_id', 'armor1_fix',
-							  'armor2_fix', 'armor3_fix', 'armor4_fix']
+							  'armor2_fix', 'armor3_fix', 'armor4_fix', 'note']
 	def __init__(self):
 		self.id = 0
 		self.name = ""
@@ -71,6 +71,7 @@ class Actor(object):
 		self.armor2_fix = False
 		self.armor3_fix = False
 		self.armor4_fix = False
+		self.note = ''
 
 class Animation(object):
 	__class_path__ = "RPG::Animation"
@@ -114,7 +115,7 @@ class Armor(object):
 							  'kind', 'auto_state_id', 'price', 'pdef',
 							  'mdef', 'eva', 'str_plus', 'dex_plus',
 							  'agi_plus', 'int_plus', 'guard_element_set',
-							  'guard_state_set']
+							  'guard_state_set', 'note']
 	def __init__(self):
 		self.id = 0
 		self.name = ""
@@ -132,6 +133,7 @@ class Armor(object):
 		self.int_plus = 0
 		self.guard_element_set = []
 		self.guard_state_set = []
+		self.note = ''
 
 class AudioFile(object):
 	__class_path__ = "RPG::AudioFile"
@@ -145,7 +147,7 @@ class Class(object):
 	__class_path__ = "RPG::Class"
 	__instance_variables__ = ['id', 'name', 'position', 'weapon_set',
 							 'armor_set', 'element_ranks', 'state_ranks',
-							 'learnings']
+							 'learnings', 'note']
 	def __init__(self):
 		self.id = 0
 		self.name = ""
@@ -155,6 +157,7 @@ class Class(object):
 		self.element_ranks = Table(1)
 		self.state_ranks = Table(1)
 		self.learnings = []
+		self.note = ''
 
 class Learning(object):
 	__class_path__ = "RPG::Class::Learning"
@@ -181,7 +184,7 @@ class Enemy(object):
 							 'animation2_id', 'element_ranks',
 							 'state_ranks', 'actions', 'exp', 'gold',
 							 'item_id', 'weapon_id', 'armor_id',
-							 'treasure_prob']
+							 'treasure_prob', 'note']
 	def __init__(self):
 		self.id = 0
 		self.name = ""
@@ -208,6 +211,7 @@ class Enemy(object):
 		self.weapon_id = 0
 		self.armor_id = 0
 		self.treasure_prob = 100
+		self.note = ''
 
 class Action(object):
 	__class_path__ = "RPG::Enemy::Action"
@@ -308,7 +312,7 @@ class Item(object):
 							 'recover_hp', 'recover_sp_rate', 'recover_sp',
 							 'hit', 'pdef_f', 'mdef_f', 'variance',
 							 'element_set', 'plus_state_set',
-							 'minus_state_set']
+							 'minus_state_set', 'note']
 	def __init__(self):
 		self.id = 0
 		self.name = ""
@@ -335,6 +339,7 @@ class Item(object):
 		self.element_set = []
 		self.plus_state_set = []
 		self.minus_state_set = []
+		self.note = ''
 
 class Map(object):
 	__class_path__ = "RPG::Map"
@@ -389,7 +394,7 @@ class Skill(object):
 							 'sp_cost', 'power', 'atk_f', 'eva_f', 'str_f',
 							 'dex_f', 'agi_f', 'int_f', 'hit', 'pdef_f',
 							 'mdef_f', 'variance', 'element_set',
-							 'plus_state_set', 'minus_state_set']
+							 'plus_state_set', 'minus_state_set', 'note']
 	def __init__(self):
 		self.id = 0
 		self.name = ""
@@ -416,6 +421,7 @@ class Skill(object):
 		self.element_set = []
 		self.plus_state_set = []
 		self.minus_state_set = []
+		self.note = ''
 
 class State(object):
 	__class_path__ = "RPG::State"
@@ -428,7 +434,7 @@ class State(object):
 							 'battle_only', 'hold_turn',
 							 'auto_release_prob', 'shock_release_prob',
 							 'guard_element_set', 'plus_state_set',
-							 'minus_state_set']
+							 'minus_state_set', 'note']
 	def __init__(self):
 		self.id = 0
 		self.name = ""
@@ -458,6 +464,7 @@ class State(object):
 		self.guard_element_set = []
 		self.plus_state_set = []
 		self.minus_state_set = []
+		self.note = ''
 
 class System(object):
 	__class_path__ = "RPG::System"
@@ -582,12 +589,13 @@ class Tileset(object):
 
 class Troop(object):
 	__class_path__ = "RPG::Troop"
-	__instance_variables__ = ['id', 'name', 'members', 'pages']
+	__instance_variables__ = ['id', 'name', 'members', 'pages', 'note']
 	def __init__(self):
 		self.id = 0
 		self.name = ""
 		self.members = []
 		self.pages = [RPG.Troop.Page()]
+		self.note = ''
 
 class TroopPage(object):
 	__class_path__ = "RPG::Troop::Page"
@@ -633,7 +641,7 @@ class Weapon(object):
 							 'animation1_id', 'animation2_id', 'price',
 							 'atk', 'pdef', 'mdef', 'str_plus', 'dex_plus',
 							 'agi_plus', 'int_plus', 'element_set',
-							 'plus_state_set', 'minus_state_set']
+							 'plus_state_set', 'minus_state_set', 'note']
 	def __init__(self):
 		self.id = 0
 		self.name = ""
@@ -652,6 +660,7 @@ class Weapon(object):
 		self.element_set = []
 		self.plus_state_set = []
 		self.minus_state_set = []
+		self.note = ''
 
 class RPG(object):
 	__class_path__ = "RPG"
