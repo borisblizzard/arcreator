@@ -10,24 +10,17 @@ import ARCedGenerateCurve_Dialog
 import ARCedChooseGraphic_Dialog 
 import ARCedActorParameters_Dialog
 import ARCedAddParameter_Dialog
+from DatabaseUtil import DatabaseUtil as util
 
 #from DatabaseAction import 
 from Core.RMXP import RGSS1_RPG as RPG	   						
 import Kernel
-
-#---------------------------------------------------------------------------
-# TEST STUFF
-#---------------------------------------------------------------------------
-ARC_FORMAT = False
-import os
-GraphicsDir = os.path.abspath(os.environ['COMMONPROGRAMFILES'] + '\Enterbrain\RGSS\Standard\Graphics')
 
 class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 
 	def __init__( self, parent, actorIndex=0 ):
 		''' Basic constructor for the Actors panel '''
 		ARCed_Templates.Actors_Panel.__init__( self, parent )
-
 		# Load the project's game objects into this module's scope
 		project = Kernel.GlobalObjects.get_value('PROJECT')
 		global Config, DataActors, DataClasses, DataWeapons, DataArmors
@@ -52,18 +45,17 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 		# Initialize the selected actor attribute
 		if actorIndex >= len(DataActors):
 			actorIndex = 0
-		self.SelectedActor = DataActors[self.FixedIndex(actorIndex)]
+		self.SelectedActor = DataActors[util.FixedIndex(actorIndex)]
 		# Create the controls for the equipment and set the values for all the controls
 		self.CreateEquipmentControls()
 		for param in Config.getlist('Misc', 'Parameters'):
 			self.AddParameterPage(param)
 		self.noteBookActorParameters.ChangeSelection(0)
 		self.comboBoxExpCurve.SetCursor(wx.STANDARD_CURSOR)
-		
 		self.refreshAll()
+		util.DrawHeaderBitmap(self.bitmapActors, 'Actors')
 		# Set the initial selection of the list control 
 		self.listBoxActors.SetSelection(actorIndex)
-
 
 	def AddParameterPage( self, title, activate=False ):
 		''' Creates a page and adds it to the notebook control '''
@@ -77,10 +69,9 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 		pass
 
 
-
 	def CreateEquipmentControls( self ):
 		''' Creates the controls for each equipment type defined in the configuration '''
-		if ARC_FORMAT:
+		if util.ARC_FORMAT:
 			equipment = Config.getlist('Actors', 'WeaponSlots')
 			equipment.extend(Config.getlist('Actors', 'ArmorSlots'))
 		else:
@@ -116,7 +107,7 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 		self.listBoxActors.Clear()
 		digits = len(Config.get('GameObjects', 'Actors'))
 		for i, actor in enumerate(DataActors):
-			if not ARC_FORMAT and i == 0:
+			if not util.ARC_FORMAT and i == 0:
 				continue
 			self.listBoxActors.Append("".join([str(i).zfill(digits), ': ', actor.name]))
 
@@ -125,7 +116,7 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 		self.comboBoxClass.Clear()
 		digits = len(Config.get('GameObjects', 'Classes'))
 		for i, klass in enumerate(DataClasses):
-			if not ARC_FORMAT and i == 0:
+			if not util.ARC_FORMAT and i == 0:
 				continue
 			self.comboBoxClass.Append(str(i).zfill(digits) + ': ' + klass.name)
 		self.comboBoxClass.Select(self.SelectedActor.class_id - 1)
@@ -143,7 +134,7 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 			self.EquipmentBoxes[i].Clear()
 			for d in data:
 				self.EquipmentBoxes[i].Append(d[0], d[1])
-		if ARC_FORMAT:
+		if util.ARC_FORMAT:
 			# TODO: Implement
 			pass
 		else:
@@ -186,7 +177,7 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 		self.refreshValues()
 
 	def refreshFixedEquipment( self ):
-		if ARC_FORMAT:
+		if util.ARC_FORMAT:
 			# TODO: Implement
 			pass
 		else:
@@ -208,7 +199,7 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 
 	def listBoxActors_SelectionChanged( self, event ):
 		''' Changes the data on the panel to reflect the values of the selected actor '''
-		index = self.FixedIndex(event.GetSelection())
+		index = util.FixedIndex(event.GetSelection())
 		if DataActors[index] is None:
 			DataActors[index] = RPG.Actor()
 		self.SelectedActor = DataActors[index]
@@ -220,9 +211,10 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 
 
 
-
-
-
+		util.DrawBitmap(self.bitmapCharacter, self.SelectedActor.character_name, 0, 
+			'character', 4, 4)
+		util.DrawBitmap(self.bitmapBattler, self.SelectedActor.battler_name, 0, 
+			'battler', 1, 1)
 
 
 
@@ -282,7 +274,7 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 					DataActors.extend(newActors)
 					self.listBoxActors.InsertItems(newLabels, currentMax)
 				else:
-					if self.FixedIndex(self.listBoxActors.GetSelection()) >= newMax:
+					if util.FixedIndex(self.listBoxActors.GetSelection()) >= newMax:
 						self.listBoxActors.Select(newMax - 1)
 					del DataActors[newMax:currentMax]
 					for i in reversed(range(currentMax)):
@@ -299,11 +291,11 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 		self.SelectedActor.name = name
 		digits = len(Config.get('GameObjects', 'Actors'))
 		self.listBoxActors.SetString(index, 
-			''.join([str(self.FixedIndex(index)).zfill(digits), ': ', name]))
+			''.join([str(util.FixedIndex(index)).zfill(digits), ': ', name]))
 
 	def comboBoxClass_SelectionChanged( self, event ):
 		''' Removes any initial equipment that may be equipped if the chosen class does not permit '''
-		self.SelectedActor.class_id = self.FixedIndex(self.comboBoxClass.GetSelection())
+		self.SelectedActor.class_id = util.FixedIndex(self.comboBoxClass.GetSelection())
 
 		weaponSlots = len(Config.getlist('Actors', 'WeaponSlots'))
 		ids = [c.GetClientData(c.GetSelection()) for c in self.EquipmentBoxes]
@@ -314,14 +306,14 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 
 		for i in xrange(len(weaponIds)):
 			if weaponIds[i] not in weaponSet:
-				if ARC_FORMAT:
+				if util.ARC_FORMAT:
 					# TODO: Implement 
 					pass
 				else:
 					self.SelectedActor.weapon_id = 0
 		for i in xrange(len(armorIds)):
 			if armorIds[i] not in armorSet:
-				if ARC_FORMAT:
+				if util.ARC_FORMAT:
 					# TODO: Implement 
 					pass
 				else:
@@ -385,7 +377,7 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 	def comboBoxEquipment_SelectionChanged( self, event ):
 		''' Updates the weapon/armor id for the selected type for the actor '''
 		ctrlIndex = self.EquipmentBoxes.index(event.GetEventObject())
-		if ARC_FORMAT:
+		if util.ARC_FORMAT:
 			# TODO: Implement
 			weaponSlots = len(Config.getlist('Actors', 'WeaponSlots'))
 			if ctrlIndex < weaponSlots:
@@ -400,10 +392,9 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 					'_id = event.GetClientData()']))
 
 	def checkBoxFixedEquipment_CheckChanged( self, event ):
+		''' Updates the "fixed" states for the selected actor's equipment '''
 		ctrlIndex = self.FixedCheckBoxes.index(event.GetEventObject())
-
-
-		if ARC_FORMAT:
+		if util.ARC_FORMAT:
 			# TODO: Implement
 			weaponSlots = len(Config.getlist('Actors', 'WeaponSlots'))
 			if ctrlIndex < weaponSlots:
@@ -437,7 +428,7 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 			return Config.getint('Actors', 'MaxParameter')
 	
 	def spinCtrlValue_ValueChanged( self, event ):
-		''' '''
+		''' Updates the actors parameter table with the value '''
 		self.SetParameterValue(self.ParamTab, self.spinCtrlLevel.GetValue(), self.spinCtrlValue.GetValue())
 
 	def buttonGenerateCurve_Clicked( self, event):
@@ -451,7 +442,7 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 	def noteBookParameters_PageChanged( self, event ):
 		''' Sets the index of the page when the tab is traversed '''
 		self.ParamTab = event.GetSelection()
-		if not ARC_FORMAT:
+		if not util.ARC_FORMAT:
 			self.buttonRemoveParameter.Enabled = (self.ParamTab > 5)
 		else:
 			self.buttonRemoveParameter.Enabled = self.noteBookActorParameters.GetPageCount >= 1
@@ -495,10 +486,3 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 		if self.ParamTab >= self.noteBookActorParameters.GetPageCount():
 			self.ParamTab -= 1
 		self.noteBookActorParameters.SetSelection(self.ParamTab)
-
-
-	@staticmethod
-	def FixedIndex(index):
-		''' Returns the correct starting index for game data structure depending on the current format '''
-		if ARC_FORMAT: return index
-		return index + 1

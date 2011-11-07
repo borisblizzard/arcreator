@@ -12,12 +12,15 @@ import ARCedAnimationTweening_Dialog
 import ARCedAnimationCellBatch_Dialog
 import ARCedAnimationCellProperties_Dialog
 import ARCedAnimationEntireSlide_Dialog
+from DatabaseUtil import DatabaseUtil as util
 
 
 # Implementing Animations_Panel
 class ARCedAnimations_Panel( ARCed_Templates.Animations_Panel ):
 	def __init__( self, parent ):
 		ARCed_Templates.Animations_Panel.__init__( self, parent )
+
+		util.DrawHeaderBitmap(self.bitmapAnimations, 'Animations')
 
 	# Handlers for Animations_Panel events.
 	def listBoxAnimations_SelectionChanged( self, event ):

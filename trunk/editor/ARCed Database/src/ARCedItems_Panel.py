@@ -5,11 +5,15 @@ import ARCed_Templates
 import ARCedChangeMaximum_Dialog
 import ARCedChooseGraphic_Dialog
 import ARCedChooseAudio_Dialog
+from DatabaseUtil import DatabaseUtil as util
 
 # Implementing Items_Panel
 class ARCedItems_Panel( ARCed_Templates.Items_Panel ):
 	def __init__( self, parent ):
 		ARCed_Templates.Items_Panel.__init__( self, parent )
+
+
+		util.DrawHeaderBitmap(self.bitmapItems, 'Items')
 
 	# Handlers for Items_Panel events.
 	def listBoxItems_SelectionChanged( self, event ):

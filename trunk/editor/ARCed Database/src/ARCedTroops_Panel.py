@@ -10,10 +10,15 @@ import ARCedEventCommands2_Panel
 import ARCedEventCommands3_Panel
 import ARCedEventCondition_Dialog
 
+from DatabaseUtil import DatabaseUtil as util
+
 # Implementing Troops_Panel
 class ARCedTroops_Panel( ARCed_Templates.Troops_Panel ):
 	def __init__( self, parent ):
 		ARCed_Templates.Troops_Panel.__init__( self, parent )
+
+
+		util.DrawHeaderBitmap(self.bitmapTroops, 'Troops')
 
 	# Handlers for Troops_Panel events.
 	def listBoxTroops_SelectionChanged( self, event ):

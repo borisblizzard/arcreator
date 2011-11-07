@@ -6,11 +6,15 @@ import ARCedChangeMaximum_Dialog
 import ARCedChooseGraphic_Dialog
 import ARCedChooseTreasure_Dialog
 import ARCedEnemyAction_Dialog
+from DatabaseUtil import DatabaseUtil as util
 
 # Implementing Enemies_Panel
 class ARCedEnemies_Panel( ARCed_Templates.Enemies_Panel ):
 	def __init__( self, parent ):
 		ARCed_Templates.Enemies_Panel.__init__( self, parent )
+
+
+		util.DrawHeaderBitmap(self.bitmapEnemies, 'Enemies')
 
 	# Handlers for Enemies_Panel events.
 	def listBoxEnemies_SelectionChanged( self, event ):

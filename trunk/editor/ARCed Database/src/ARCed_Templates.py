@@ -24,14 +24,14 @@ class Actors_Panel ( wx.Panel ):
 		
 		ActorListSizer = wx.BoxSizer( wx.VERTICAL )
 		
-		self.bitmapActors = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( u"../images/Actors.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.Size( 150,26 ), wx.CLIP_CHILDREN|wx.FULL_REPAINT_ON_RESIZE )
+		self.bitmapActors = wx.StaticBitmap( self, wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.Size( 150,26 ), wx.CLIP_CHILDREN|wx.FULL_REPAINT_ON_RESIZE )
 		self.bitmapActors.SetMinSize( wx.Size( 150,26 ) )
 		self.bitmapActors.SetMaxSize( wx.Size( 150,26 ) )
 		
 		ActorListSizer.Add( self.bitmapActors, 0, wx.ALL|wx.EXPAND, 5 )
 		
 		listBoxActorsChoices = []
-		self.listBoxActors = wx.ListBox( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, listBoxActorsChoices, wx.LB_SINGLE|wx.CLIP_CHILDREN )
+		self.listBoxActors = wx.ListBox( self, wx.ID_ANY, wx.DefaultPosition, wx.Size( 184,-1 ), listBoxActorsChoices, wx.LB_SINGLE|wx.CLIP_CHILDREN )
 		self.listBoxActors.SetHelpText( u"TEST HELP STRING" )
 		
 		ActorListSizer.Add( self.listBoxActors, 1, wx.EXPAND|wx.RIGHT|wx.LEFT, 5 )
@@ -39,7 +39,7 @@ class Actors_Panel ( wx.Panel ):
 		self.buttonMaximum = wx.Button( self, wx.ID_ANY, u"Change Maximum...", wx.DefaultPosition, wx.Size( 150,-1 ), 0 )
 		ActorListSizer.Add( self.buttonMaximum, 0, wx.ALL|wx.EXPAND, 5 )
 		
-		MainSizer.Add( ActorListSizer, 25, wx.EXPAND, 5 )
+		MainSizer.Add( ActorListSizer, 0, wx.EXPAND, 5 )
 		
 		staticSizerActors = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, wx.EmptyString ), wx.HORIZONTAL )
 		
@@ -97,9 +97,19 @@ class Actors_Panel ( wx.Panel ):
 		self.labelCharacterGraphic.Wrap( -1 )
 		sizer3.Add( self.labelCharacterGraphic, 0, wx.ALL, 5 )
 		
+		self.bitmapCharacter = wx.StaticBitmap( self, wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.DefaultSize, wx.SIMPLE_BORDER )
+		self.bitmapCharacter.SetMinSize( wx.Size( 48,64 ) )
+		
+		sizer3.Add( self.bitmapCharacter, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
+		
 		self.labelBattlerGraphic = wx.StaticText( self, wx.ID_ANY, u"Battler Graphic:", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.labelBattlerGraphic.Wrap( -1 )
 		sizer3.Add( self.labelBattlerGraphic, 0, wx.ALL, 5 )
+		
+		self.bitmapBattler = wx.StaticBitmap( self, wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.DefaultSize, wx.SIMPLE_BORDER )
+		self.bitmapBattler.SetMinSize( wx.Size( 96,128 ) )
+		
+		sizer3.Add( self.bitmapBattler, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
 		
 		sizer1.Add( sizer3, 25, wx.EXPAND, 5 )
 		
@@ -327,20 +337,20 @@ class Classes_Panel ( wx.Panel ):
 		
 		ClassListSizer = wx.BoxSizer( wx.VERTICAL )
 		
-		self.bitmapClasses = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( u"../images/Classes.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.Size( 150,26 ), wx.CLIP_CHILDREN|wx.FULL_REPAINT_ON_RESIZE )
+		self.bitmapClasses = wx.StaticBitmap( self, wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.Size( 150,26 ), wx.CLIP_CHILDREN|wx.FULL_REPAINT_ON_RESIZE )
 		self.bitmapClasses.SetMinSize( wx.Size( 150,26 ) )
 		self.bitmapClasses.SetMaxSize( wx.Size( 150,26 ) )
 		
 		ClassListSizer.Add( self.bitmapClasses, 0, wx.ALL|wx.EXPAND, 5 )
 		
 		listBoxClassesChoices = []
-		self.listBoxClasses = wx.ListBox( self, wx.ID_ANY, wx.DefaultPosition, wx.Size( -1,-1 ), listBoxClassesChoices, wx.LB_SINGLE|wx.CLIP_CHILDREN )
+		self.listBoxClasses = wx.ListBox( self, wx.ID_ANY, wx.DefaultPosition, wx.Size( 184,-1 ), listBoxClassesChoices, wx.LB_SINGLE|wx.CLIP_CHILDREN )
 		ClassListSizer.Add( self.listBoxClasses, 1, wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
 		
 		self.buttonMaximum = wx.Button( self, wx.ID_ANY, u"Change Maximum...", wx.DefaultPosition, wx.Size( 150,-1 ), 0 )
 		ClassListSizer.Add( self.buttonMaximum, 0, wx.ALL|wx.EXPAND, 5 )
 		
-		MainSizer.Add( ClassListSizer, 25, wx.EXPAND, 5 )
+		MainSizer.Add( ClassListSizer, 0, wx.EXPAND, 5 )
 		
 		staticSizerClasses = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, wx.EmptyString ), wx.HORIZONTAL )
 		
@@ -582,24 +592,24 @@ class Skills_Panel ( wx.Panel ):
 		
 		SkillListSizer = wx.BoxSizer( wx.VERTICAL )
 		
-		self.bitmapSkills = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( u"../images/Skills.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.Size( 150,26 ), wx.CLIP_CHILDREN|wx.FULL_REPAINT_ON_RESIZE )
+		self.bitmapSkills = wx.StaticBitmap( self, wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.Size( 150,26 ), wx.CLIP_CHILDREN|wx.FULL_REPAINT_ON_RESIZE )
 		self.bitmapSkills.SetMinSize( wx.Size( 150,26 ) )
 		self.bitmapSkills.SetMaxSize( wx.Size( 150,26 ) )
 		
 		SkillListSizer.Add( self.bitmapSkills, 0, wx.ALL|wx.EXPAND, 5 )
 		
 		listBoxSkillsChoices = []
-		self.listBoxSkills = wx.ListBox( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, listBoxSkillsChoices, wx.LB_SINGLE|wx.CLIP_CHILDREN )
+		self.listBoxSkills = wx.ListBox( self, wx.ID_ANY, wx.DefaultPosition, wx.Size( 184,-1 ), listBoxSkillsChoices, wx.LB_SINGLE|wx.CLIP_CHILDREN )
 		self.listBoxSkills.SetToolTipString( u"Deals fire damage on one enemy." )
 		
-		SkillListSizer.Add( self.listBoxSkills, 1, wx.EXPAND|wx.RIGHT|wx.LEFT, 5 )
+		SkillListSizer.Add( self.listBoxSkills, 100, wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
 		
 		self.buttonMaximum = wx.Button( self, wx.ID_ANY, u"Change Maximum...", wx.DefaultPosition, wx.Size( 150,-1 ), 0 )
 		self.buttonMaximum.SetToolTipString( u"Change the maximum of available items" )
 		
 		SkillListSizer.Add( self.buttonMaximum, 0, wx.ALL|wx.EXPAND, 5 )
 		
-		MainSizer.Add( SkillListSizer, 25, wx.EXPAND, 5 )
+		MainSizer.Add( SkillListSizer, 0, wx.EXPAND, 5 )
 		
 		staticSizerItems = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, wx.EmptyString ), wx.HORIZONTAL )
 		
@@ -962,14 +972,14 @@ class Items_Panel ( wx.Panel ):
 		
 		ItemListSizer = wx.BoxSizer( wx.VERTICAL )
 		
-		self.bitmapItems = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( u"../images/Items.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.Size( 150,26 ), wx.CLIP_CHILDREN|wx.FULL_REPAINT_ON_RESIZE )
+		self.bitmapItems = wx.StaticBitmap( self, wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.Size( 150,26 ), wx.CLIP_CHILDREN|wx.FULL_REPAINT_ON_RESIZE )
 		self.bitmapItems.SetMinSize( wx.Size( 150,26 ) )
 		self.bitmapItems.SetMaxSize( wx.Size( 150,26 ) )
 		
 		ItemListSizer.Add( self.bitmapItems, 0, wx.ALL|wx.EXPAND, 5 )
 		
 		listBoxItemsChoices = []
-		self.listBoxItems = wx.ListBox( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, listBoxItemsChoices, wx.LB_SINGLE|wx.CLIP_CHILDREN )
+		self.listBoxItems = wx.ListBox( self, wx.ID_ANY, wx.DefaultPosition, wx.Size( 184,-1 ), listBoxItemsChoices, wx.LB_SINGLE|wx.CLIP_CHILDREN )
 		self.listBoxItems.SetToolTipString( u"Select the item to edit" )
 		
 		ItemListSizer.Add( self.listBoxItems, 1, wx.EXPAND|wx.RIGHT|wx.LEFT, 5 )
@@ -979,7 +989,7 @@ class Items_Panel ( wx.Panel ):
 		
 		ItemListSizer.Add( self.buttonMaximum, 0, wx.ALL|wx.EXPAND, 5 )
 		
-		MainSizer.Add( ItemListSizer, 25, wx.EXPAND, 5 )
+		MainSizer.Add( ItemListSizer, 0, wx.EXPAND, 5 )
 		
 		staticSizerItems = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, wx.EmptyString ), wx.HORIZONTAL )
 		
@@ -1403,14 +1413,14 @@ class Armors_Panel ( wx.Panel ):
 		
 		ArmorsListSizer = wx.BoxSizer( wx.VERTICAL )
 		
-		self.bitmapArmors = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( u"../images/Armors.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.Size( 150,26 ), wx.CLIP_CHILDREN|wx.FULL_REPAINT_ON_RESIZE )
+		self.bitmapArmors = wx.StaticBitmap( self, wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.Size( 150,26 ), wx.CLIP_CHILDREN|wx.FULL_REPAINT_ON_RESIZE )
 		self.bitmapArmors.SetMinSize( wx.Size( 150,26 ) )
 		self.bitmapArmors.SetMaxSize( wx.Size( 150,26 ) )
 		
 		ArmorsListSizer.Add( self.bitmapArmors, 0, wx.ALL|wx.EXPAND, 5 )
 		
 		listBoxArmorsChoices = []
-		self.listBoxArmors = wx.ListBox( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, listBoxArmorsChoices, wx.LB_SINGLE|wx.CLIP_CHILDREN )
+		self.listBoxArmors = wx.ListBox( self, wx.ID_ANY, wx.DefaultPosition, wx.Size( 184,-1 ), listBoxArmorsChoices, wx.LB_SINGLE|wx.CLIP_CHILDREN )
 		self.listBoxArmors.SetToolTipString( u"Select the item to edit" )
 		
 		ArmorsListSizer.Add( self.listBoxArmors, 1, wx.EXPAND|wx.RIGHT|wx.LEFT, 5 )
@@ -1420,7 +1430,7 @@ class Armors_Panel ( wx.Panel ):
 		
 		ArmorsListSizer.Add( self.buttonMaximum, 0, wx.ALL|wx.EXPAND, 5 )
 		
-		MainSizer.Add( ArmorsListSizer, 25, wx.EXPAND, 5 )
+		MainSizer.Add( ArmorsListSizer, 0, wx.EXPAND, 5 )
 		
 		staticSizerArmors = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, wx.EmptyString ), wx.HORIZONTAL )
 		
@@ -1729,14 +1739,14 @@ class Weapons_Panel ( wx.Panel ):
 		
 		WeaponsListSizer = wx.BoxSizer( wx.VERTICAL )
 		
-		self.bitmapWeapons = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( u"../images/Weapons.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.Size( 150,26 ), wx.CLIP_CHILDREN|wx.FULL_REPAINT_ON_RESIZE )
+		self.bitmapWeapons = wx.StaticBitmap( self, wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.Size( 150,26 ), wx.CLIP_CHILDREN|wx.FULL_REPAINT_ON_RESIZE )
 		self.bitmapWeapons.SetMinSize( wx.Size( 150,26 ) )
 		self.bitmapWeapons.SetMaxSize( wx.Size( 150,26 ) )
 		
 		WeaponsListSizer.Add( self.bitmapWeapons, 0, wx.ALL|wx.EXPAND, 5 )
 		
 		listBoxWeaponsChoices = []
-		self.listBoxWeapons = wx.ListBox( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, listBoxWeaponsChoices, wx.LB_SINGLE|wx.CLIP_CHILDREN )
+		self.listBoxWeapons = wx.ListBox( self, wx.ID_ANY, wx.DefaultPosition, wx.Size( 184,-1 ), listBoxWeaponsChoices, wx.LB_SINGLE|wx.CLIP_CHILDREN )
 		self.listBoxWeapons.SetToolTipString( u"Select the item to edit" )
 		
 		WeaponsListSizer.Add( self.listBoxWeapons, 1, wx.EXPAND|wx.RIGHT|wx.LEFT, 5 )
@@ -1746,7 +1756,7 @@ class Weapons_Panel ( wx.Panel ):
 		
 		WeaponsListSizer.Add( self.buttonMaximum, 0, wx.ALL|wx.EXPAND, 5 )
 		
-		MainSizer.Add( WeaponsListSizer, 25, wx.EXPAND, 5 )
+		MainSizer.Add( WeaponsListSizer, 0, wx.EXPAND, 5 )
 		
 		staticSizerWeapons = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, wx.EmptyString ), wx.HORIZONTAL )
 		
@@ -2055,14 +2065,14 @@ class Enemies_Panel ( wx.Panel ):
 		
 		EnemiesListSizer = wx.BoxSizer( wx.VERTICAL )
 		
-		self.bitmapEnemies = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( u"../images/Enemies.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.Size( 150,26 ), wx.CLIP_CHILDREN|wx.FULL_REPAINT_ON_RESIZE )
+		self.bitmapEnemies = wx.StaticBitmap( self, wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.Size( 150,26 ), wx.CLIP_CHILDREN|wx.FULL_REPAINT_ON_RESIZE )
 		self.bitmapEnemies.SetMinSize( wx.Size( 150,26 ) )
 		self.bitmapEnemies.SetMaxSize( wx.Size( 150,26 ) )
 		
 		EnemiesListSizer.Add( self.bitmapEnemies, 0, wx.ALL|wx.EXPAND, 5 )
 		
 		listBoxEnemiesChoices = []
-		self.listBoxEnemies = wx.ListBox( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, listBoxEnemiesChoices, wx.LB_SINGLE|wx.CLIP_CHILDREN )
+		self.listBoxEnemies = wx.ListBox( self, wx.ID_ANY, wx.DefaultPosition, wx.Size( 184,-1 ), listBoxEnemiesChoices, wx.LB_SINGLE|wx.CLIP_CHILDREN )
 		self.listBoxEnemies.SetToolTipString( u"Select the item to edit" )
 		
 		EnemiesListSizer.Add( self.listBoxEnemies, 1, wx.EXPAND|wx.RIGHT|wx.LEFT, 5 )
@@ -2072,7 +2082,7 @@ class Enemies_Panel ( wx.Panel ):
 		
 		EnemiesListSizer.Add( self.buttonMaximum, 0, wx.ALL|wx.EXPAND, 5 )
 		
-		MainSizer.Add( EnemiesListSizer, 25, wx.EXPAND, 5 )
+		MainSizer.Add( EnemiesListSizer, 0, wx.EXPAND, 5 )
 		
 		staticSizerEnemies = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, wx.EmptyString ), wx.VERTICAL )
 		
@@ -2394,14 +2404,14 @@ class Troops_Panel ( wx.Panel ):
 		
 		TroopsListSizer = wx.BoxSizer( wx.VERTICAL )
 		
-		self.bitmapTroops = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( u"../images/Troops.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.Size( 150,26 ), wx.CLIP_CHILDREN|wx.FULL_REPAINT_ON_RESIZE )
+		self.bitmapTroops = wx.StaticBitmap( self, wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.Size( 150,26 ), wx.CLIP_CHILDREN|wx.FULL_REPAINT_ON_RESIZE )
 		self.bitmapTroops.SetMinSize( wx.Size( 150,26 ) )
 		self.bitmapTroops.SetMaxSize( wx.Size( 150,26 ) )
 		
 		TroopsListSizer.Add( self.bitmapTroops, 0, wx.ALL|wx.EXPAND, 5 )
 		
 		listBoxTroopsChoices = []
-		self.listBoxTroops = wx.ListBox( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, listBoxTroopsChoices, wx.LB_SINGLE|wx.CLIP_CHILDREN )
+		self.listBoxTroops = wx.ListBox( self, wx.ID_ANY, wx.DefaultPosition, wx.Size( 184,-1 ), listBoxTroopsChoices, wx.LB_SINGLE|wx.CLIP_CHILDREN )
 		self.listBoxTroops.SetToolTipString( u"Select the item to edit" )
 		
 		TroopsListSizer.Add( self.listBoxTroops, 1, wx.EXPAND|wx.RIGHT|wx.LEFT, 5 )
@@ -2411,7 +2421,7 @@ class Troops_Panel ( wx.Panel ):
 		
 		TroopsListSizer.Add( self.buttonMaximum, 0, wx.ALL|wx.EXPAND, 5 )
 		
-		MainSizer.Add( TroopsListSizer, 25, wx.EXPAND, 5 )
+		MainSizer.Add( TroopsListSizer, 0, wx.EXPAND, 5 )
 		
 		staticSizerEnemies = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, wx.EmptyString ), wx.VERTICAL )
 		
@@ -2629,14 +2639,14 @@ class States_Panel ( wx.Panel ):
 		
 		StatesListSizer = wx.BoxSizer( wx.VERTICAL )
 		
-		self.bitmapStates = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( u"../images/States.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.Size( 150,26 ), wx.CLIP_CHILDREN|wx.FULL_REPAINT_ON_RESIZE )
+		self.bitmapStates = wx.StaticBitmap( self, wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.Size( 150,26 ), wx.CLIP_CHILDREN|wx.FULL_REPAINT_ON_RESIZE )
 		self.bitmapStates.SetMinSize( wx.Size( 150,26 ) )
 		self.bitmapStates.SetMaxSize( wx.Size( 150,26 ) )
 		
 		StatesListSizer.Add( self.bitmapStates, 0, wx.ALL|wx.EXPAND, 5 )
 		
 		listBoxStatesChoices = []
-		self.listBoxStates = wx.ListBox( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, listBoxStatesChoices, wx.LB_SINGLE|wx.CLIP_CHILDREN )
+		self.listBoxStates = wx.ListBox( self, wx.ID_ANY, wx.DefaultPosition, wx.Size( 184,-1 ), listBoxStatesChoices, wx.LB_SINGLE|wx.CLIP_CHILDREN )
 		self.listBoxStates.SetToolTipString( u"Select the item to edit" )
 		
 		StatesListSizer.Add( self.listBoxStates, 1, wx.EXPAND|wx.RIGHT|wx.LEFT, 5 )
@@ -2646,7 +2656,7 @@ class States_Panel ( wx.Panel ):
 		
 		StatesListSizer.Add( self.buttonMaximum, 0, wx.ALL|wx.EXPAND, 5 )
 		
-		MainSizer.Add( StatesListSizer, 25, wx.EXPAND, 5 )
+		MainSizer.Add( StatesListSizer, 0, wx.EXPAND, 5 )
 		
 		staticSizerStates = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, wx.EmptyString ), wx.HORIZONTAL )
 		
@@ -3020,14 +3030,14 @@ class Animations_Panel ( wx.Panel ):
 		
 		AnimationsListSizer = wx.BoxSizer( wx.VERTICAL )
 		
-		self.bitmapAnimations = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( u"../images/Animations.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.Size( 150,26 ), wx.CLIP_CHILDREN|wx.FULL_REPAINT_ON_RESIZE )
+		self.bitmapAnimations = wx.StaticBitmap( self, wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.Size( 150,26 ), wx.CLIP_CHILDREN|wx.FULL_REPAINT_ON_RESIZE )
 		self.bitmapAnimations.SetMinSize( wx.Size( 150,26 ) )
 		self.bitmapAnimations.SetMaxSize( wx.Size( 150,26 ) )
 		
 		AnimationsListSizer.Add( self.bitmapAnimations, 0, wx.ALL|wx.EXPAND, 5 )
 		
 		listBoxAnimationsChoices = []
-		self.listBoxAnimations = wx.ListBox( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, listBoxAnimationsChoices, wx.LB_SINGLE|wx.CLIP_CHILDREN )
+		self.listBoxAnimations = wx.ListBox( self, wx.ID_ANY, wx.DefaultPosition, wx.Size( 184,-1 ), listBoxAnimationsChoices, wx.LB_SINGLE|wx.CLIP_CHILDREN )
 		self.listBoxAnimations.SetToolTipString( u"Select the item to edit" )
 		
 		AnimationsListSizer.Add( self.listBoxAnimations, 1, wx.EXPAND|wx.RIGHT|wx.LEFT, 5 )
@@ -3037,7 +3047,7 @@ class Animations_Panel ( wx.Panel ):
 		
 		AnimationsListSizer.Add( self.buttonMaximum, 0, wx.ALL|wx.EXPAND, 5 )
 		
-		MainSizer.Add( AnimationsListSizer, 25, wx.EXPAND, 5 )
+		MainSizer.Add( AnimationsListSizer, 0, wx.EXPAND, 5 )
 		
 		staticSizerAnimations = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, wx.EmptyString ), wx.VERTICAL )
 		
@@ -3267,14 +3277,14 @@ class Tilesets_Panel ( wx.Panel ):
 		
 		TilesetsListSizer = wx.BoxSizer( wx.VERTICAL )
 		
-		self.bitmapTilesets = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( u"../images/Tilesets.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.Size( 150,26 ), wx.CLIP_CHILDREN|wx.FULL_REPAINT_ON_RESIZE )
+		self.bitmapTilesets = wx.StaticBitmap( self, wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.Size( 150,26 ), wx.CLIP_CHILDREN|wx.FULL_REPAINT_ON_RESIZE )
 		self.bitmapTilesets.SetMinSize( wx.Size( 150,26 ) )
 		self.bitmapTilesets.SetMaxSize( wx.Size( 150,26 ) )
 		
 		TilesetsListSizer.Add( self.bitmapTilesets, 0, wx.ALL|wx.EXPAND, 5 )
 		
 		listBoxTilesetsChoices = []
-		self.listBoxTilesets = wx.ListBox( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, listBoxTilesetsChoices, wx.LB_SINGLE|wx.CLIP_CHILDREN )
+		self.listBoxTilesets = wx.ListBox( self, wx.ID_ANY, wx.DefaultPosition, wx.Size( 184,-1 ), listBoxTilesetsChoices, wx.LB_SINGLE|wx.CLIP_CHILDREN )
 		self.listBoxTilesets.SetToolTipString( u"Select the item to edit" )
 		
 		TilesetsListSizer.Add( self.listBoxTilesets, 1, wx.EXPAND|wx.RIGHT|wx.LEFT, 5 )
@@ -3284,7 +3294,7 @@ class Tilesets_Panel ( wx.Panel ):
 		
 		TilesetsListSizer.Add( self.buttonMaximum, 0, wx.ALL|wx.EXPAND, 5 )
 		
-		MainSizer.Add( TilesetsListSizer, 25, wx.EXPAND, 5 )
+		MainSizer.Add( TilesetsListSizer, 0, wx.EXPAND, 5 )
 		
 		staticSizerTilesets = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, wx.EmptyString ), wx.HORIZONTAL )
 		
@@ -3524,14 +3534,14 @@ class CommonEvents_Panel ( wx.Panel ):
 		
 		CommonEventsListSizer = wx.BoxSizer( wx.VERTICAL )
 		
-		self.bitmapCommonEvents = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( u"../images/CommonEvents.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.Size( 150,26 ), wx.CLIP_CHILDREN|wx.FULL_REPAINT_ON_RESIZE )
+		self.bitmapCommonEvents = wx.StaticBitmap( self, wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.Size( 150,26 ), wx.CLIP_CHILDREN|wx.FULL_REPAINT_ON_RESIZE )
 		self.bitmapCommonEvents.SetMinSize( wx.Size( 150,26 ) )
 		self.bitmapCommonEvents.SetMaxSize( wx.Size( 150,26 ) )
 		
 		CommonEventsListSizer.Add( self.bitmapCommonEvents, 0, wx.ALL|wx.EXPAND, 5 )
 		
 		listBoxCommonEventsChoices = []
-		self.listBoxCommonEvents = wx.ListBox( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, listBoxCommonEventsChoices, wx.LB_SINGLE|wx.CLIP_CHILDREN )
+		self.listBoxCommonEvents = wx.ListBox( self, wx.ID_ANY, wx.DefaultPosition, wx.Size( 184,-1 ), listBoxCommonEventsChoices, wx.LB_SINGLE|wx.CLIP_CHILDREN )
 		self.listBoxCommonEvents.SetToolTipString( u"Select the item to edit" )
 		
 		CommonEventsListSizer.Add( self.listBoxCommonEvents, 1, wx.EXPAND|wx.RIGHT|wx.LEFT, 5 )
@@ -3541,7 +3551,7 @@ class CommonEvents_Panel ( wx.Panel ):
 		
 		CommonEventsListSizer.Add( self.buttonMaximum, 0, wx.ALL|wx.EXPAND, 5 )
 		
-		MainSizer.Add( CommonEventsListSizer, 25, wx.EXPAND, 5 )
+		MainSizer.Add( CommonEventsListSizer, 0, wx.EXPAND, 5 )
 		
 		staticSizerCommonEvents = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, wx.EmptyString ), wx.VERTICAL )
 		
@@ -5585,7 +5595,7 @@ class ExpCurve_Dialog ( wx.Dialog ):
 		self.panelNextLevel = wx.Panel( self.noteBookExpList, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
 		panelSizerNextLevel = wx.BoxSizer( wx.VERTICAL )
 		
-		self.textCtrlExpList = wx.TextCtrl( self.panelNextLevel, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.TE_MULTILINE|wx.TE_READONLY|wx.TE_RICH2 )
+		self.textCtrlExpList = wx.TextCtrl( self.panelNextLevel, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.TE_DONTWRAP|wx.TE_MULTILINE|wx.TE_READONLY|wx.TE_RICH2 )
 		panelSizerNextLevel.Add( self.textCtrlExpList, 1, wx.EXPAND, 5 )
 		
 		self.panelNextLevel.SetSizer( panelSizerNextLevel )

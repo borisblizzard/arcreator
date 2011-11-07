@@ -48,7 +48,7 @@ class ARCedTest(wx.App):
 		# Sort the list and add each page to the control
 		for i in sorted(DatabasePages.keys()):
 			nb.AddPage(DatabasePages[i].Page, DatabasePages[i].Title)
-		nb.SetSelection(2)
+		nb.SetSelection(0)
 		self.frame.Show()
 
 	def load_project(self):
