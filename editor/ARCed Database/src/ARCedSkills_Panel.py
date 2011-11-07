@@ -6,11 +6,9 @@ from ARCedChangeMaximum_Dialog import ARCedChangeMaximum_Dialog
 from ARCedChooseGraphic_Dialog import ARCedChooseGraphic_Dialog
 from ARCedChooseAudio_Dialog import ARCedChooseAudio_Dialog
 from Core.RMXP import RGSS1_RPG as RPG
+from DatabaseUtil import DatabaseUtil as util
 import Kernel
 from Kernel import Manager as KM
-
-# TEST
-ARC_FORMAT = False
 
 class ARCedSkills_Panel( ARCed_Templates.Skills_Panel ):
 	def __init__( self, parent ):
@@ -39,22 +37,23 @@ class ARCedSkills_Panel( ARCed_Templates.Skills_Panel ):
 		self.textCtrlNotes.SetFont(font)
 		self.comboBoxIcon.SetCursor(wx.STANDARD_CURSOR)
 		self.comboBoxMenuSE.SetCursor(wx.STANDARD_CURSOR)
-		self.CreateControls()
+		if util.ARC_FORMAT:
+			params = Config.getlist('Misc', 'Parameters')
+		else:
+			params = ['STR', 'DEX', 'AGI', 'INT']
+		self.CreateControls(params)
 		self.setRanges()
-		self.SelectedSkill = DataSkills[self.FixedIndex(0)]
+		self.SelectedSkill = DataSkills[util.FixedIndex(0)]
 		self.refreshAll()
 		self.listBoxSkills.SetSelection(0)
+		util.DrawHeaderBitmap(self.bitmapSkills, 'Skills')
 
-	def CreateControls( self ):
+	def CreateControls( self, params ):
 		self.ParameterControls = [
 			self.spinCtrlAtkF, self.spinCtrlPdefF,
 			self.spinCtrlMdefF, self.spinCtrlEvaF ]
 		# Get main sizer to add to, and split parameters into rows of 4 each
 		mainsizer = self.panelParameters.GetSizer()
-		if ARC_FORMAT:
-			params = Config.getlist('Misc', 'Parameters')
-		else:
-			params = ['STR', 'DEX', 'AGI', 'INT']
 		rows = [params[i:i+4] for i in xrange(0, len(params), 4)]
 		# Iterate through each of the rows and create the controls
 		for row in rows:
@@ -88,7 +87,7 @@ class ARCedSkills_Panel( ARCed_Templates.Skills_Panel ):
 		''' Refreshes the values in the class wxListBox control '''
 		self.listBoxSkills.Clear()
 		for i, skill in enumerate(DataSkills):
-			if not ARC_FORMAT and i == 0:
+			if not util.ARC_FORMAT and i == 0:
 				continue
 			digits = len(Config.get('GameObjects', 'Skills'))
 			self.listBoxSkills.Append("".join([str(i).zfill(digits), ': ', skill.name]))
@@ -98,7 +97,7 @@ class ARCedSkills_Panel( ARCed_Templates.Skills_Panel ):
 		self.comboBoxTargetAnimation.Clear()
 		self.comboBoxUserAnimation.Clear()
 		digits = len(Config.get('GameObjects', 'Animations'))
-		start = self.FixedIndex(0)
+		start = util.FixedIndex(0)
 		animations = [
 			''.join([str(i).zfill(digits), ': ', DataAnimations[i].name]) for i in xrange(start, len(DataAnimations))]
 		animations.insert(0, '(None)')
@@ -108,7 +107,7 @@ class ARCedSkills_Panel( ARCed_Templates.Skills_Panel ):
 	def refreshElements( self ):
 		''' Clears and refreshes the list of elements in the checklist '''
 		self.checkListElements.Clear()
-		start = self.FixedIndex(0)
+		start = util.FixedIndex(0)
 		names = DataElements[start:]
 		self.checkListElements.InsertItems(names, 0)
 		self.checkListElements.SetSelection(0)
@@ -116,14 +115,11 @@ class ARCedSkills_Panel( ARCed_Templates.Skills_Panel ):
 	def refreshStates( self ):
 		''' Clears and refreshes the list of states in the checklist '''
 		self.listCtrlStates.DeleteAllItems()
-		start = self.FixedIndex(0)
+		start = util.FixedIndex(0)
 		names = [DataStates[i].name for i in xrange(start, len(DataStates))]
 		self.listCtrlStates.InsertColumn(0, '')
-
 		for i in xrange(len(names)):
 			self.listCtrlStates.InsertStringItem(i, names[i], 0)
-
-		#self.ColorizeStates()
 
 	def refreshValues(self ):
 		''' Resets the values of all the controls to reflect the selected skill '''
@@ -139,7 +135,7 @@ class ARCedSkills_Panel( ARCed_Templates.Skills_Panel ):
 		self.comboBoxMenuSE.SetValue(skill.menu_se.name)
 
 
-		# TODO: Remove this. Something got screwed up converting
+		# TODO: Remove this. Something got screwed up with the conversion
 		if skill.power > 2147483647:
 			skill.power = 0
 
@@ -147,11 +143,11 @@ class ARCedSkills_Panel( ARCed_Templates.Skills_Panel ):
 		self.spinCtrlPower.SetValue(skill.power) 
 		self.spinCtrlHitRate.SetValue(skill.hit)
 		self.spinCtrlVariance.SetValue(skill.variance)
-		if ARC_FORMAT:
+		if util.ARC_FORMAT:
 			# TODO: Implement
 			pass
 		else:
-			# TEMP METHOD
+			# TODO: Fix this
 			self.ParameterControls[0].SetValue(skill.atk_f)
 			self.ParameterControls[1].SetValue(skill.pdef_f)
 			self.ParameterControls[2].SetValue(skill.mdef_f)
@@ -160,13 +156,14 @@ class ARCedSkills_Panel( ARCed_Templates.Skills_Panel ):
 			self.ParameterControls[5].SetValue(skill.dex_f)
 			self.ParameterControls[6].SetValue(skill.agi_f)
 			self.ParameterControls[7].SetValue(skill.int_f)
+		# Update elements
 		for i in xrange(self.checkListElements.GetCount()):
 			checked = skill.element_set
-			if not ARC_FORMAT:
+			if not util.ARC_FORMAT:
 				checked = [i - 1 for i in checked]
 			self.checkListElements.SetChecked(checked)
-
-		if ARC_FORMAT:
+		# Update plus/minus states
+		if util.ARC_FORMAT:
 			addstates = self.SelectedSkill.plus_state_set
 			minusstates = self.SelectedSkill.minus_state_set
 		else:
@@ -179,6 +176,10 @@ class ARCedSkills_Panel( ARCed_Templates.Skills_Panel ):
 				self.listCtrlStates.SetItemImage(i, 2)
 			else:
 				self.listCtrlStates.SetItemImage(i, 0)
+		# RMXP Compatibility
+		if not hasattr(skill, 'note'):
+			setattr(skill, 'note', '')
+		self.textCtrlNotes.ChangeValue(skill.note)
 
 	def refreshAll( self ):
 		self.refreshSkillList()
@@ -195,7 +196,7 @@ class ARCedSkills_Panel( ARCed_Templates.Skills_Panel ):
 			spinctrl.SetRange(0, max)
 
 	def listBoxSkills_SelectionChanged( self, event ):
-		index = self.FixedIndex(event.GetSelection())
+		index = util.FixedIndex(event.GetSelection())
 		if DataSkills[index] == None:
 			DataSkills[index] = RPG.Skill()
 		self.SelectedSkill = DataSkills[index]
@@ -214,7 +215,7 @@ class ARCedSkills_Panel( ARCed_Templates.Skills_Panel ):
 					newSkills = [None for i in xrange(newMax - currentMax)]
 					digits = len(Config.get('GameObjects', 'Skills'))
 					newLabels = [
-						"".join([str(1 + currentMax + i).zfill(digits), 
+						''.join([str(1 + currentMax + i).zfill(digits), 
 						': ']) for i in xrange(newMax - currentMax)]
 					DataSkills.extend(newSkills)
 					self.listBoxSkills.InsertItems(newLabels, currentMax)
@@ -230,7 +231,6 @@ class ARCedSkills_Panel( ARCed_Templates.Skills_Panel ):
 		dlg.Destroy()	
 
 	def textCtrlName_TextChanged( self, event ):
-		# TODO: Implement textCtrlName_TextChanged
 		pass
 
 	def comboBoxIcon_LeftClicked( self, event ):
@@ -295,7 +295,7 @@ class ARCedSkills_Panel( ARCed_Templates.Skills_Panel ):
 
 	def spinCtrlParameter_ValueChanged( self, event ):
 		index = self.ParameterControls.index(event.GetEventObject())
-		if ARC_FORMAT:
+		if util.ARC_FORMAT:
 			# TODO: Implement
 			pass
 		else:
@@ -311,25 +311,25 @@ class ARCedSkills_Panel( ARCed_Templates.Skills_Panel ):
 
 	def checkListElements_CheckChanged( self, event ):
 		''' Sets the IDs that are in the selected skills element set '''
-		ids = [self.FixedIndex(id) for id in self.checkListElements.GetChecked()]
+		ids = [util.FixedIndex(id) for id in self.checkListElements.GetChecked()]
 		self.SelectedSkill.element_set = ids
 
 	def listCtrlStates_LeftClicked( self, event ):
-		''' '''
+		''' Cycles the State change up one '''
 		self.ChangeSkillStates(event, 1)
 
 	def listCtrlStates_RightClicked( self, event ):
-		''' '''
+		''' Cycles the State change down one '''
 		self.ChangeSkillStates(event, -1)
 
 	def ChangeSkillStates( self, event, increment ):
-		''' '''
+		''' Changes the skill's add/remove state, and updates the checkbox '''
 		id = self.listCtrlStates.HitTest(event.GetPosition())[0]
 		if id >= 0:
 			imgIndex = self.listCtrlStates.GetItem(id).GetImage()
 			imgIndex = (imgIndex + increment) % 3
 			self.listCtrlStates.SetItemImage(id, imgIndex)
-			state_id = self.FixedIndex(id)
+			state_id = util.FixedIndex(id)
 			if imgIndex == 0:
 				if state_id in self.SelectedSkill.minus_state_set: 
 					self.SelectedSkill.minus_state_set.remove(state_id)
@@ -345,14 +345,5 @@ class ARCedSkills_Panel( ARCed_Templates.Skills_Panel ):
 				self.SelectedSkill.minus_state_set.append(state_id)
 
 	def textCtrlNotes_TextChanged( self, event ):
-		# TODO: Implement textCtrlNotes_TextChanged
-		pass
-
-
-	@staticmethod
-	def FixedIndex(index):
-		''' Returns the correct starting index for game data structure depending on the current format '''
-		if ARC_FORMAT:
-			return index
-		else:
-			return index + 1
+		''' Sets the note for the selected skill '''
+		self.SelectedSkill.note = event.GetString()

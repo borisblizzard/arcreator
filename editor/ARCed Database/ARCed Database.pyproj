@@ -29,7 +29,6 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="registers\database_registers.py" />
     <Compile Include="src\ARCedActorParameters_Dialog.py" />
     <Compile Include="src\ARCedActors_Panel.py" />
     <Compile Include="src\ARCedAddParameter_Dialog.py" />
@@ -134,9 +133,9 @@
     <Compile Include="src\ARCedWeapons_Panel.py" />
     <Compile Include="src\ARCedWeatherEffects_Dialog.py" />
     <Compile Include="src\ARCed_Templates.py" />
-    <Compile Include="src\CheckMarks.py" />
     <Compile Include="src\Configuration_Panel.py" />
     <Compile Include="src\DatabasePackage.py" />
+    <Compile Include="src\DatabaseUtil.py" />
     <Compile Include="src\__main__.py" />
     <Compile Include="src\__test__.py" />
   </ItemGroup>
@@ -146,10 +145,9 @@
     <Folder Include="ARC TestProject\Graphics" />
     <Folder Include="ARC TestProject\Data" />
     <Folder Include="ini" />
-    <Folder Include="images" />
     <Folder Include="ARC TestProject" />
-    <Folder Include="registers" />
     <Folder Include="src" />
+    <Folder Include="C:\Users\Eric\Desktop\ARC\editor\ARCed Database\src\images" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="ARC TestProject\ARC Test Project.arcproj" />
@@ -258,32 +256,19 @@
     <Content Include="ARC TestProject\Data\Tilesets.arc" />
     <Content Include="ARC TestProject\Data\Troops.arc" />
     <Content Include="ARC TestProject\Data\Weapons.arc" />
-    <Content Include="images\Actors.png" />
-    <Content Include="images\Agi.png" />
-    <Content Include="images\Animations.png" />
-    <Content Include="images\AnimationSample1.png" />
-    <Content Include="images\AnimationSample2.png" />
-    <Content Include="images\Armors.png" />
-    <Content Include="images\Battleback.jpg" />
-    <Content Include="images\Battler.png" />
-    <Content Include="images\Character.png" />
-    <Content Include="images\Classes.png" />
-    <Content Include="images\CommonEvents.png" />
-    <Content Include="images\Dex.png" />
-    <Content Include="images\Enemies.png" />
-    <Content Include="images\Ghost.png" />
-    <Content Include="images\Int.png" />
-    <Content Include="images\Items.png" />
-    <Content Include="images\MaxHP.png" />
-    <Content Include="images\MaxSP.png" />
-    <Content Include="images\Skills.png" />
-    <Content Include="images\States.png" />
-    <Content Include="images\Str.png" />
-    <Content Include="images\Tilesets.png" />
-    <Content Include="images\TilesetSample.png" />
-    <Content Include="images\Troops.png" />
-    <Content Include="images\Weapons.png" />
-    <Content Include="ini\DatabaseLimits.ini" />
     <Content Include="ini\DatabaseTabs.ini" />
+    <Content Include="src\images\Agi.png" />
+    <Content Include="src\images\AnimationSample1.png" />
+    <Content Include="src\images\AnimationSample2.png" />
+    <Content Include="src\images\Battleback.jpg" />
+    <Content Include="src\images\Battler.png" />
+    <Content Include="src\images\Character.png" />
+    <Content Include="src\images\Dex.png" />
+    <Content Include="src\images\Ghost.png" />
+    <Content Include="src\images\Int.png" />
+    <Content Include="src\images\MaxHP.png" />
+    <Content Include="src\images\MaxSP.png" />
+    <Content Include="src\images\Str.png" />
+    <Content Include="src\images\TilesetSample.png" />
   </ItemGroup>
 </Project>
