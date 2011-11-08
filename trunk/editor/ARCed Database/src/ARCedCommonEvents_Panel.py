@@ -6,14 +6,14 @@ import ARCedEventCommands1_Panel
 import ARCedEventCommands2_Panel
 import ARCedEventCommands3_Panel
 import ARCedChooseSwitchVariable_Dialog
-from DatabaseUtil import DatabaseUtil as util
+from DatabaseManager import DatabaseManager as DM
 
 # Implementing CommonEvents_Panel
 class ARCedCommonEvents_Panel( ARCed_Templates.CommonEvents_Panel ):
 	def __init__( self, parent ):
 		ARCed_Templates.CommonEvents_Panel.__init__( self, parent )
 
-		util.DrawHeaderBitmap(self.bitmapCommonEvents, 'Common Events')
+		DM.DrawHeaderBitmap(self.bitmapCommonEvents, 'Common Events')
 
 	# Handlers for CommonEvents_Panel events.
 	def listBoxCommonEvents_SelectionChanged( self, event ):

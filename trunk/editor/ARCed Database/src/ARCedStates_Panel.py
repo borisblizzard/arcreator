@@ -3,14 +3,14 @@
 import wx
 import ARCed_Templates
 import ARCedChangeMaximum_Dialog
-from DatabaseUtil import DatabaseUtil as util
+from DatabaseManager import DatabaseManager as DM
 
 # Implementing States_Panel
 class ARCedStates_Panel( ARCed_Templates.States_Panel ):
 	def __init__( self, parent ):
 		ARCed_Templates.States_Panel.__init__( self, parent )
 
-		util.DrawHeaderBitmap(self.bitmapStates, 'States')
+		DM.DrawHeaderBitmap(self.bitmapStates, 'States')
 
 	# Handlers for States_Panel events.
 	def listBoxStates_SelectionChanged( self, event ):

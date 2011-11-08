@@ -634,8 +634,8 @@ class Skills_Panel ( wx.Panel ):
 		
 		sizer4.Add( self.textCtrlName, 1, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
 		
-		comboBoxIconChoices = [ u"(None)" ]
-		self.comboBoxIcon = wx.ComboBox( self, wx.ID_ANY, u"(None)", wx.DefaultPosition, wx.DefaultSize, comboBoxIconChoices, 0 )
+		comboBoxIconChoices = []
+		self.comboBoxIcon = wx.ComboBox( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, comboBoxIconChoices, 0 )
 		self.comboBoxIcon.SetToolTipString( u"The icon associated with the item" )
 		
 		sizer4.Add( self.comboBoxIcon, 1, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
@@ -838,7 +838,7 @@ class Skills_Panel ( wx.Panel ):
 		self.labelStates.Wrap( -1 )
 		sizerStates.Add( self.labelStates, 0, wx.ALL|wx.EXPAND, 5 )
 		
-		self.listCtrlStates = wx.ListCtrl( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.LC_NO_HEADER|wx.LC_REPORT )
+		self.listCtrlStates = wx.ListCtrl( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.LC_NO_HEADER|wx.LC_REPORT|wx.LC_SINGLE_SEL )
 		sizerStates.Add( self.listCtrlStates, 1, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
 		
 		sizerEfficiency.Add( sizerStates, 1, wx.EXPAND, 5 )
@@ -1014,8 +1014,8 @@ class Items_Panel ( wx.Panel ):
 		
 		sizer4.Add( self.textCtrlName, 1, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
 		
-		comboBoxIconChoices = [ u"(None)" ]
-		self.comboBoxIcon = wx.ComboBox( self, wx.ID_ANY, u"(None)", wx.DefaultPosition, wx.DefaultSize, comboBoxIconChoices, 0 )
+		comboBoxIconChoices = []
+		self.comboBoxIcon = wx.ComboBox( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, comboBoxIconChoices, 0 )
 		self.comboBoxIcon.SetToolTipString( u"The icon associated with the item" )
 		
 		sizer4.Add( self.comboBoxIcon, 1, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
@@ -1062,7 +1062,7 @@ class Items_Panel ( wx.Panel ):
 		sizer8.Add( self.labelMenuSE, 0, wx.ALL|wx.EXPAND, 5 )
 		
 		comboBoxMenuSEChoices = []
-		self.comboBoxMenuSE = wx.ComboBox( self, wx.ID_ANY, u"Combo!", wx.DefaultPosition, wx.DefaultSize, comboBoxMenuSEChoices, 0 )
+		self.comboBoxMenuSE = wx.ComboBox( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, comboBoxMenuSEChoices, 0 )
 		self.comboBoxMenuSE.SetToolTipString( u"Sound effect played when using this item on the menu screen" )
 		
 		sizer8.Add( self.comboBoxMenuSE, 1, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
@@ -1264,11 +1264,8 @@ class Items_Panel ( wx.Panel ):
 		
 		sizer15.Add( self.checkListElements, 1, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
 		
-		checkListStatesChoices = []
-		self.checkListStates = wx.CheckListBox( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, checkListStatesChoices, wx.LB_NEEDED_SB|wx.CLIP_CHILDREN )
-		self.checkListStates.SetToolTipString( u"Indicates the item's states set [+] and cleared [-] on the target. The success rate is determined by the target's strengths/weaknesses." )
-		
-		sizer15.Add( self.checkListStates, 1, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
+		self.listCtrlStates = wx.ListCtrl( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.LC_NO_HEADER|wx.LC_REPORT|wx.LC_SINGLE_SEL )
+		sizer15.Add( self.listCtrlStates, 1, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
 		
 		sizer2.Add( sizer15, 1, wx.EXPAND, 5 )
 		
@@ -1313,7 +1310,8 @@ class Items_Panel ( wx.Panel ):
 		self.spinCtrlRecrSP.Bind( wx.EVT_SPINCTRL, self.spinCtrlRecrSP_ValueChanged )
 		self.spinCtrlVariance.Bind( wx.EVT_SPINCTRL, self.spinCtrlVariance_ValueChanged )
 		self.checkListElements.Bind( wx.EVT_CHECKLISTBOX, self.checkListElements_CheckChanged )
-		self.checkListStates.Bind( wx.EVT_CHECKLISTBOX, self.checkListStates_CheckChanged )
+		self.listCtrlStates.Bind( wx.EVT_LEFT_DOWN, self.listCtrlStates_LeftClicked )
+		self.listCtrlStates.Bind( wx.EVT_RIGHT_DOWN, self.listCtrlStates_RightClicked )
 		self.textCtrlNotes.Bind( wx.EVT_TEXT, self.textCtrlNotes_TextChanged )
 	
 	def __del__( self ):
@@ -1393,7 +1391,10 @@ class Items_Panel ( wx.Panel ):
 	def checkListElements_CheckChanged( self, event ):
 		pass
 	
-	def checkListStates_CheckChanged( self, event ):
+	def listCtrlStates_LeftClicked( self, event ):
+		pass
+	
+	def listCtrlStates_RightClicked( self, event ):
 		pass
 	
 	def textCtrlNotes_TextChanged( self, event ):
@@ -1455,8 +1456,8 @@ class Armors_Panel ( wx.Panel ):
 		
 		sizer4.Add( self.textCtrlName, 1, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
 		
-		comboBoxIconChoices = [ u"(None)" ]
-		self.comboBoxIcon = wx.ComboBox( self, wx.ID_ANY, u"(None)", wx.DefaultPosition, wx.DefaultSize, comboBoxIconChoices, 0 )
+		comboBoxIconChoices = []
+		self.comboBoxIcon = wx.ComboBox( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, comboBoxIconChoices, 0 )
 		self.comboBoxIcon.SetToolTipString( u"The icon associated with the item" )
 		
 		sizer4.Add( self.comboBoxIcon, 1, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
@@ -1781,8 +1782,8 @@ class Weapons_Panel ( wx.Panel ):
 		
 		sizer4.Add( self.textCtrlName, 1, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
 		
-		comboBoxIconChoices = [ u"(None)" ]
-		self.comboBoxIcon = wx.ComboBox( self, wx.ID_ANY, u"(None)", wx.DefaultPosition, wx.DefaultSize, comboBoxIconChoices, 0 )
+		comboBoxIconChoices = []
+		self.comboBoxIcon = wx.ComboBox( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, comboBoxIconChoices, 0 )
 		self.comboBoxIcon.SetToolTipString( u"The icon associated with the item" )
 		
 		sizer4.Add( self.comboBoxIcon, 1, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )

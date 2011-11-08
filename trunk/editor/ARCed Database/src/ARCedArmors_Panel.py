@@ -4,7 +4,7 @@ import wx
 import ARCed_Templates
 import ARCedChangeMaximum_Dialog
 import ARCedChooseGraphic_Dialog
-from DatabaseUtil import DatabaseUtil as util
+from DatabaseManager import DatabaseManager as DM
 
 # Implementing Armors_Panel
 class ARCedArmors_Panel( ARCed_Templates.Armors_Panel ):
@@ -12,7 +12,7 @@ class ARCedArmors_Panel( ARCed_Templates.Armors_Panel ):
 		ARCed_Templates.Armors_Panel.__init__( self, parent )
 
 
-		util.DrawHeaderBitmap(self.bitmapArmors, 'Armors')
+		DM.DrawHeaderBitmap(self.bitmapArmors, 'Armors')
 
 	# Handlers for Armors_Panel events.
 	def listBoxWeapons_SelectionChanged( self, event ):

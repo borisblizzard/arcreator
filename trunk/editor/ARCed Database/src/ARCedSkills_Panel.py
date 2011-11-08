@@ -6,12 +6,12 @@ from ARCedChangeMaximum_Dialog import ARCedChangeMaximum_Dialog
 from ARCedChooseGraphic_Dialog import ARCedChooseGraphic_Dialog
 from ARCedChooseAudio_Dialog import ARCedChooseAudio_Dialog
 from Core.RMXP import RGSS1_RPG as RPG
-from DatabaseUtil import DatabaseUtil as util
+from DatabaseManager import DatabaseManager as DM
 import Kernel
 from Kernel import Manager as KM
 
 class ARCedSkills_Panel( ARCed_Templates.Skills_Panel ):
-	def __init__( self, parent ):
+	def __init__( self, parent, skill_index=0 ):
 		ARCed_Templates.Skills_Panel.__init__( self, parent )
 		global Config, DataSkills, DataAnimations, DataElements
 		global DataStates, DataCommonEvents
@@ -22,31 +22,26 @@ class ARCedSkills_Panel( ARCed_Templates.Skills_Panel ):
 			DataAnimations = proj.getData('Animations')
 			DataStates = proj.getData('States')
 			DataElements = proj.getData('System').elements
-			DataCommonEvents = proj.getData('Common Events')
+			DataCommonEvents = proj.getData('CommonEvents')
 		except NameError:
 			Kernel.Log('Database opened before Project has been initialized', '[Database:SKILLS]', True)
 			self.Destroy()
-		icons = KM.get_component('IconManager').object
-		imageList = wx.ImageList(14, 12)
-		imageList.Add(icons.getBitmap('checkempty'))
-		imageList.Add(icons.getBitmap('checkplus'))
-		imageList.Add(icons.getBitmap('checkminus'))
-		self.listCtrlStates.AssignImageList(imageList, wx.IMAGE_LIST_SMALL)
+		self.listCtrlStates.AssignImageList(DM.GetAddSubImageList(), wx.IMAGE_LIST_SMALL)
 		font = wx.Font(8, wx.FONTFAMILY_TELETYPE, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL)
 		font.SetFaceName(Config.get('Misc', 'NoteFont')) 
 		self.textCtrlNotes.SetFont(font)
 		self.comboBoxIcon.SetCursor(wx.STANDARD_CURSOR)
 		self.comboBoxMenuSE.SetCursor(wx.STANDARD_CURSOR)
-		if util.ARC_FORMAT:
+		if DM.ARC_FORMAT:
 			params = Config.getlist('Misc', 'Parameters')
 		else:
 			params = ['STR', 'DEX', 'AGI', 'INT']
 		self.CreateControls(params)
 		self.setRanges()
-		self.SelectedSkill = DataSkills[util.FixedIndex(0)]
+		self.SelectedSkill = DataSkills[DM.FixedIndex(skill_index)]
 		self.refreshAll()
-		self.listBoxSkills.SetSelection(0)
-		util.DrawHeaderBitmap(self.bitmapSkills, 'Skills')
+		self.listBoxSkills.SetSelection(skill_index)
+		DM.DrawHeaderBitmap(self.bitmapSkills, 'Skills')
 
 	def CreateControls( self, params ):
 		self.ParameterControls = [
@@ -81,33 +76,31 @@ class ARCedSkills_Panel( ARCed_Templates.Skills_Panel ):
 			mainsizer.Add( labelsizer, 0, wx.EXPAND, 5 )
 			mainsizer.Add( spinsizer, 0, wx.EXPAND, 5 )
 
-
-
 	def refreshSkillList( self ):
-		''' Refreshes the values in the class wxListBox control '''
+		''' Refreshes the values in the skill wxListBox control '''
 		self.listBoxSkills.Clear()
 		for i, skill in enumerate(DataSkills):
-			if not util.ARC_FORMAT and i == 0:
+			if not DM.ARC_FORMAT and i == 0:
 				continue
 			digits = len(Config.get('GameObjects', 'Skills'))
 			self.listBoxSkills.Append("".join([str(i).zfill(digits), ': ', skill.name]))
-		self.listBoxSkills.SetSelection(0)
 
 	def refreshAnimations( self ):
+		''' Refreshes the choices in the user and target animation controls '''
 		self.comboBoxTargetAnimation.Clear()
 		self.comboBoxUserAnimation.Clear()
 		digits = len(Config.get('GameObjects', 'Animations'))
-		start = util.FixedIndex(0)
-		animations = [
-			''.join([str(i).zfill(digits), ': ', DataAnimations[i].name]) for i in xrange(start, len(DataAnimations))]
-		animations.insert(0, '(None)')
+		start = DM.FixedIndex(0)
+		animations = ['(None)']
+		animations.extend([''.join([str(i).zfill(digits), ': ',
+		    DataAnimations[i].name]) for i in xrange(start, len(DataAnimations))])
 		self.comboBoxTargetAnimation.AppendItems(animations)
 		self.comboBoxUserAnimation.AppendItems(animations)
 
 	def refreshElements( self ):
 		''' Clears and refreshes the list of elements in the checklist '''
 		self.checkListElements.Clear()
-		start = util.FixedIndex(0)
+		start = DM.FixedIndex(0)
 		names = DataElements[start:]
 		self.checkListElements.InsertItems(names, 0)
 		self.checkListElements.SetSelection(0)
@@ -115,11 +108,22 @@ class ARCedSkills_Panel( ARCed_Templates.Skills_Panel ):
 	def refreshStates( self ):
 		''' Clears and refreshes the list of states in the checklist '''
 		self.listCtrlStates.DeleteAllItems()
-		start = util.FixedIndex(0)
+		start = DM.FixedIndex(0)
 		names = [DataStates[i].name for i in xrange(start, len(DataStates))]
 		self.listCtrlStates.InsertColumn(0, '')
 		for i in xrange(len(names)):
 			self.listCtrlStates.InsertStringItem(i, names[i], 0)
+
+	def refreshCommonEvents( self ):
+		''' Refreshes the common events in the combo box '''
+		self.comboBoxCommonEvent.Clear()
+		digits = len(Config.get('GameObjects', 'CommonEvents'))
+		start = DM.FixedIndex(0)
+		events = ['(None)']
+		events.extend([
+			''.join([str(i).zfill(digits), ': ',
+		    DataCommonEvents[i].name]) for i in xrange(start, len(DataCommonEvents))])
+		self.comboBoxCommonEvent.AppendItems(events)
 
 	def refreshValues(self ):
 		''' Resets the values of all the controls to reflect the selected skill '''
@@ -143,7 +147,7 @@ class ARCedSkills_Panel( ARCed_Templates.Skills_Panel ):
 		self.spinCtrlPower.SetValue(skill.power) 
 		self.spinCtrlHitRate.SetValue(skill.hit)
 		self.spinCtrlVariance.SetValue(skill.variance)
-		if util.ARC_FORMAT:
+		if DM.ARC_FORMAT:
 			# TODO: Implement
 			pass
 		else:
@@ -159,11 +163,11 @@ class ARCedSkills_Panel( ARCed_Templates.Skills_Panel ):
 		# Update elements
 		for i in xrange(self.checkListElements.GetCount()):
 			checked = skill.element_set
-			if not util.ARC_FORMAT:
+			if not DM.ARC_FORMAT:
 				checked = [i - 1 for i in checked]
 			self.checkListElements.SetChecked(checked)
 		# Update plus/minus states
-		if util.ARC_FORMAT:
+		if DM.ARC_FORMAT:
 			addstates = self.SelectedSkill.plus_state_set
 			minusstates = self.SelectedSkill.minus_state_set
 		else:
@@ -186,6 +190,7 @@ class ARCedSkills_Panel( ARCed_Templates.Skills_Panel ):
 		self.refreshAnimations()
 		self.refreshStates()
 		self.refreshElements()
+		self.refreshCommonEvents()
 		self.refreshValues()
 
 	def setRanges( self ):
@@ -196,7 +201,7 @@ class ARCedSkills_Panel( ARCed_Templates.Skills_Panel ):
 			spinctrl.SetRange(0, max)
 
 	def listBoxSkills_SelectionChanged( self, event ):
-		index = util.FixedIndex(event.GetSelection())
+		index = DM.FixedIndex(event.GetSelection())
 		if DataSkills[index] == None:
 			DataSkills[index] = RPG.Skill()
 		self.SelectedSkill = DataSkills[index]
@@ -295,7 +300,7 @@ class ARCedSkills_Panel( ARCed_Templates.Skills_Panel ):
 
 	def spinCtrlParameter_ValueChanged( self, event ):
 		index = self.ParameterControls.index(event.GetEventObject())
-		if util.ARC_FORMAT:
+		if DM.ARC_FORMAT:
 			# TODO: Implement
 			pass
 		else:
@@ -311,7 +316,7 @@ class ARCedSkills_Panel( ARCed_Templates.Skills_Panel ):
 
 	def checkListElements_CheckChanged( self, event ):
 		''' Sets the IDs that are in the selected skills element set '''
-		ids = [util.FixedIndex(id) for id in self.checkListElements.GetChecked()]
+		ids = [DM.FixedIndex(id) for id in self.checkListElements.GetChecked()]
 		self.SelectedSkill.element_set = ids
 
 	def listCtrlStates_LeftClicked( self, event ):
@@ -329,7 +334,7 @@ class ARCedSkills_Panel( ARCed_Templates.Skills_Panel ):
 			imgIndex = self.listCtrlStates.GetItem(id).GetImage()
 			imgIndex = (imgIndex + increment) % 3
 			self.listCtrlStates.SetItemImage(id, imgIndex)
-			state_id = util.FixedIndex(id)
+			state_id = DM.FixedIndex(id)
 			if imgIndex == 0:
 				if state_id in self.SelectedSkill.minus_state_set: 
 					self.SelectedSkill.minus_state_set.remove(state_id)

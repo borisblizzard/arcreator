@@ -3,7 +3,7 @@ import ARCed_Templates
 from ARCedChangeMaximum_Dialog import ARCedChangeMaximum_Dialog
 from ARCedSkill_Dialog import ARCedSkill_Dialog
 
-from DatabaseUtil import DatabaseUtil as util
+from DatabaseManager import DatabaseManager as DM
 from Core.RMXP import RGSS1_RPG as RPG	
 from Core import RPGutil
 import DatabaseActions
@@ -11,7 +11,7 @@ import Kernel
 
 
 class ARCedClasses_Panel( ARCed_Templates.Classes_Panel ):
-	def __init__( self, parent ):
+	def __init__( self, parent, class_index=0 ):
 		''' Basic constructor for the Classes panel '''
 		ARCed_Templates.Classes_Panel.__init__( self, parent )
 		global Config
@@ -30,7 +30,7 @@ class ARCedClasses_Panel( ARCed_Templates.Classes_Panel ):
 			self.Destroy()
 		self.listCtrlSkills.InsertColumn(0, "Level", width=64)
 		self.listCtrlSkills.InsertColumn(1, "Skill", width=160)		
-		if util.ARC_FORMAT:
+		if DM.ARC_FORMAT:
 			self.spinCtrlElements.SetRange(Config.getint('Classes', 'MinElemEfficiency'), 
 				Config.getint('Classes', 'MaxElemEfficiency'))
 			self.spinCtrlStates.SetRange(Config.getint('Classes', 'MinStateEfficiency'), 
@@ -43,9 +43,10 @@ class ARCedClasses_Panel( ARCed_Templates.Classes_Panel ):
 		font = wx.Font(8, wx.FONTFAMILY_TELETYPE, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL)
 		font.SetFaceName(Config.get('Misc', 'NoteFont')) 
 		self.textCtrlNotes.SetFont(font)
-		self.SelectedClass = DataClasses[util.FixedIndex(0)]
+		self.SelectedClass = DataClasses[DM.FixedIndex(class_index)]
 		self.refreshAll()
-		util.DrawHeaderBitmap(self.bitmapClasses, 'Classes')
+		self.listBoxClasses.SetSelection(class_index)
+		DM.DrawHeaderBitmap(self.bitmapClasses, 'Classes')
 
 	def refreshAll( self ):
 		''' Refreshes all child controls of the panel '''
@@ -60,31 +61,31 @@ class ARCedClasses_Panel( ARCed_Templates.Classes_Panel ):
 	def refreshClassList( self ):
 		''' Refreshes the values in the class wxListBox control '''
 		self.listBoxClasses.Clear()
-		for i, klass in enumerate(DataClasses):
-			if not util.ARC_FORMAT and i == 0:
-				continue
-			digits = len(Config.get('GameObjects', 'Classes'))
-			self.listBoxClasses.Append("".join([str(i).zfill(digits), ': ', klass.name]))
-		self.listBoxClasses.SetSelection(0)
+		start = DM.FixedIndex(0)
+		digits = len(Config.get('GameObjects', 'Classes'))
+		klasses = [
+		   ''.join([str(i).zfill(digits), ': ', 
+			  DataClasses[i].name]) for i in xrange(start, len(DataClasses))]
+		self.listBoxClasses.AppendItems(klasses)
 
 	def refreshWeapons( self ):
 		''' Clears and refreshes the list of weapons in the checklist '''
 		self.checkListWeapons.Clear()
-		start = util.FixedIndex(0)
+		start = DM.FixedIndex(0)
 		names = [DataWeapons[i].name for i in xrange(start, len(DataWeapons))]
 		self.checkListWeapons.InsertItems(names, 0)
 
 	def refreshArmors( self ):
 		''' Clears and refreshes the list of armors in the checklist '''
 		self.checkListArmors.Clear()
-		start = util.FixedIndex(0)
+		start = DM.FixedIndex(0)
 		names = [DataArmors[i].name for i in xrange(start, len(DataArmors))]
 		self.checkListArmors.InsertItems(names, 0)
 
 	def refreshStates( self ):
 		''' Clears and refreshes the list of states in the checklist '''
 		self.listBoxStates.Clear()
-		start = util.FixedIndex(0)
+		start = DM.FixedIndex(0)
 		names = [DataStates[i].name for i in xrange(start, len(DataStates))]
 		self.listBoxStates.InsertItems(names, 0)
 		self.listBoxStates.SetSelection(0)
@@ -92,7 +93,7 @@ class ARCedClasses_Panel( ARCed_Templates.Classes_Panel ):
 	def refreshElements( self ):
 		''' Clears and refreshes the list of elements in the checklist '''
 		self.listBoxElements.Clear()
-		start = util.FixedIndex(0)
+		start = DM.FixedIndex(0)
 		names = DataElements[start:]
 		self.listBoxElements.InsertItems(names, 0)
 		self.listBoxElements.SetSelection(0)
@@ -102,7 +103,7 @@ class ARCedClasses_Panel( ARCed_Templates.Classes_Panel ):
 		self.listCtrlSkills.DeleteAllItems()
 		self.SelectedClass.learnings = sorted(self.SelectedClass.learnings, cmp=self.LearningsSort)
 		for i, skill in enumerate(self.SelectedClass.learnings):
-			if not util.ARC_FORMAT and i == 0:
+			if not DM.ARC_FORMAT and i == 0:
 				pass
 			self.listCtrlSkills.InsertStringItem(i, "".join(['Lv. ', str(skill.level)]))
 			digits = len(Config.get('GameObjects', 'Skills'))
@@ -117,28 +118,32 @@ class ARCedClasses_Panel( ARCed_Templates.Classes_Panel ):
 
 	def refreshValues( self ):
 		''' Updates the values of all the controls to reflect the selected Class '''
-		self.textCtrlName.ChangeValue(self.SelectedClass.name)
-		if self.SelectedClass.position >= self.comboBoxPosition.GetCount():
-			self.SelectedClass.position = 0
-		self.comboBoxPosition.SetSelection(self.SelectedClass.position)
-		self.checkListWeapons.SetChecked([id - 1 for id in self.SelectedClass.weapon_set])
-		self.checkListArmors.SetChecked([id - 1 for id in self.SelectedClass.armor_set])
-		element = util.FixedIndex(self.listBoxElements.GetSelection())
-		state = util.FixedIndex(self.listBoxStates.GetSelection())
-		element = self.SelectedClass.element_ranks[element]
-		state = self.SelectedClass.state_ranks[state]
+		klass = self.SelectedClass
+		self.textCtrlName.ChangeValue(klass.name)
+		if klass.position >= self.comboBoxPosition.GetCount():
+			klass.position = 0
+		self.comboBoxPosition.SetSelection(klass.position)
+		self.checkListWeapons.SetChecked([id - 1 for id in klass.weapon_set])
+		self.checkListArmors.SetChecked([id - 1 for id in klass.armor_set])
+		element = DM.FixedIndex(self.listBoxElements.GetSelection())
+		state = DM.FixedIndex(self.listBoxStates.GetSelection())
+		element = klass.element_ranks[element]
+		state = klass.state_ranks[state]
 		self.spinCtrlElements.SetValue(element)
 		self.spinCtrlStates.SetValue(state)
 		self.refreshSkills()
+		if not hasattr(klass, 'note'):
+			setattr(klass, 'note', '')
+		self.textCtrlNotes.ChangeValue(klass.note)
 
 	def listBoxClasses_SelectionChanged( self, event ):
 		''' Ensures the class is not None, then refreshes the controls '''
-		index = util.FixedIndex(event.GetInt())
+		index = DM.FixedIndex(event.GetInt())
 		if DataClasses[index] == None:
 			klass = RPG.Class()
-			start = util.FixedIndex(0)
+			start = DM.FixedIndex(0)
 			default = 3
-			if util.ARC_FORMAT: data = 100
+			if DM.ARC_FORMAT: data = 100
 			klass.element_ranks = RPGutil.Table(len(DataElements))
 			klass.state_ranks = RPGutil.Table(len(DataStates))
 			for i in xrange(start, len(DataElements)):
@@ -184,21 +189,21 @@ class ARCedClasses_Panel( ARCed_Templates.Classes_Panel ):
 		self.SelectedClass.name = name
 		digits = len(Config.get('GameObjects', 'Classes'))
 		self.listBoxClasses.SetString(index, 
-			"".join([str(util.FixedIndex(index)).zfill(digits), ': ', name]))
+			"".join([str(DM.FixedIndex(index)).zfill(digits), ': ', name]))
 
 	def checkListWeapons_CheckChanged( self, event ):
 		''' Adds/Removes the weapon from the class weapon set as needed '''
 		index = event.GetInt()
 		if self.checkListWeapons.IsChecked(index):
-			self.SelectedClass.weapon_set.append(util.FixedIndex(index))
+			self.SelectedClass.weapon_set.append(DM.FixedIndex(index))
 		else:
-			self.SelectedClass.weapon_set.remove(util.FixedIndex(index))
+			self.SelectedClass.weapon_set.remove(DM.FixedIndex(index))
 
 	def buttonWeaponAll_Clicked( self, event ):
 		''' Checks all weapons and adds each weapon's ID to the class weapon set '''
 		for i in xrange(self.checkListWeapons.GetCount()):
 			self.checkListWeapons.Check(i, True)
-		ids = [i for i in xrange(util.FixedIndex(0), len(DataWeapons))]
+		ids = [i for i in xrange(DM.FixedIndex(0), len(DataWeapons))]
 		self.SelectedClass.weapon_set = ids
 
 	def buttonWeaponNone_Clicked( self, event ):
@@ -215,15 +220,15 @@ class ARCedClasses_Panel( ARCed_Templates.Classes_Panel ):
 		''' Adds/Removes the armor from the class armor set as needed '''
 		index = event.GetInt()
 		if self.checkListArmors.IsChecked(index):
-			self.SelectedClass.armor_set.append(util.FixedIndex(index))
+			self.SelectedClass.armor_set.append(DM.FixedIndex(index))
 		else:
-			self.SelectedClass.armor_set.remove(util.FixedIndex(index))
+			self.SelectedClass.armor_set.remove(DM.FixedIndex(index))
 
 	def buttonArmorAll_Clicked( self, event ):
 		''' Checks all armors and adds each armor's ID to the class armor set '''
 		for i in xrange(self.checkListArmors.GetCount()):
 			self.checkListArmors.Check(i, True)
-		ids = [i for i in xrange(util.FixedIndex(0), len(DataArmors))]
+		ids = [i for i in xrange(DM.FixedIndex(0), len(DataArmors))]
 		self.SelectedClass.armor_set = ids
 
 	def buttonArmorNone_Clicked( self, event ):
@@ -234,25 +239,25 @@ class ARCedClasses_Panel( ARCed_Templates.Classes_Panel ):
 
 	def listBoxElements_SelectionChanged( self, event ):
 		''' Sets the value of the spin control to reflect the value of the element rank '''
-		index = util.FixedIndex(event.GetInt())
+		index = DM.FixedIndex(event.GetInt())
 		value = self.SelectedClass.element_ranks[index]
 		self.spinCtrlElements.SetValue(value)
 
 	def listBoxStates_SelectionChanged( self, event ):
 		''' Sets the value of the spin control to reflect the value of the state rank '''
-		index = util.FixedIndex(event.GetInt())
+		index = DM.FixedIndex(event.GetInt())
 		value = self.SelectedClass.state_ranks[index]
 		self.spinCtrlStates.SetValue(value)
 
 	def spinCtrlElements_ValueChanged( self, event ):
 		''' Sets the selected element rank for the class '''
-		index = util.FixedIndex(self.listBoxElements.GetSelection())
+		index = DM.FixedIndex(self.listBoxElements.GetSelection())
 		self.SelectedClass.element_ranks[index] = event.GetInt()
 		print self.SelectedClass.element_ranks[index]
 
 	def spinCtrlStates_ValueChanged( self, event ):
 		''' Sets the selected state rank for the class '''
-		index = util.FixedIndex(self.listBoxStates.GetSelection())
+		index = DM.FixedIndex(self.listBoxStates.GetSelection())
 		self.SelectedClass.state_ranks[index] = event.GetInt()
 
 	def GetSkillIndex( self ):
@@ -300,4 +305,5 @@ class ARCedClasses_Panel( ARCed_Templates.Classes_Panel ):
 			self.StartSkillDialog(-1)
 
 	def textCtrlNotes_TextChanged( self, event ):
-		print self.SelectedClass.element_ranks[1]
+		''' Updates the the value of the selected class's note '''
+		self.SelectedClass.note = event.GetString()
