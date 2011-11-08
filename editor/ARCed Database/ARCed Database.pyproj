@@ -135,7 +135,7 @@
     <Compile Include="src\ARCed_Templates.py" />
     <Compile Include="src\Configuration_Panel.py" />
     <Compile Include="src\DatabasePackage.py" />
-    <Compile Include="src\DatabaseUtil.py" />
+    <Compile Include="src\DatabaseManager.py" />
     <Compile Include="src\__main__.py" />
     <Compile Include="src\__test__.py" />
   </ItemGroup>
@@ -148,6 +148,7 @@
     <Folder Include="ARC TestProject" />
     <Folder Include="src" />
     <Folder Include="C:\Users\Eric\Desktop\ARC\editor\ARCed Database\src\images" />
+    <Folder Include="src\images\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="ARC TestProject\ARC Test Project.arcproj" />

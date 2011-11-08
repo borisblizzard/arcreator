@@ -6,14 +6,14 @@ import ARCedChangeMaximum_Dialog
 import ARCedChooseGraphic_Dialog
 import ARCedChooseFogGraphic_Dialog
 
-from DatabaseUtil import DatabaseUtil as util
+from DatabaseManager import DatabaseManager as DM
 
 # Implementing Tilesets_Panel
 class ARCedTilesets_Panel( ARCed_Templates.Tilesets_Panel ):
 	def __init__( self, parent ):
 		ARCed_Templates.Tilesets_Panel.__init__( self, parent )
 
-		util.DrawHeaderBitmap(self.bitmapTilesets, 'Tilesets')
+		DM.DrawHeaderBitmap(self.bitmapTilesets, 'Tilesets')
 
 	# Handlers for Tilesets_Panel events.
 	def listBoxTilesets_SelectionChanged( self, event ):

@@ -5,20 +5,127 @@ import ARCed_Templates
 import ARCedChangeMaximum_Dialog
 import ARCedChooseGraphic_Dialog
 import ARCedChooseAudio_Dialog
-from DatabaseUtil import DatabaseUtil as util
+
+from Core.RMXP import RGSS1_RPG as RPG	
+from DatabaseManager import DatabaseManager as DM
+import Kernel
 
 # Implementing Items_Panel
 class ARCedItems_Panel( ARCed_Templates.Items_Panel ):
-	def __init__( self, parent ):
+	def __init__( self, parent, item_index=0 ):
 		ARCed_Templates.Items_Panel.__init__( self, parent )
+		global Config
+		global DataItems, DataStates, DataElements, DataCommonEvents, DataAnimations
+		Config = Kernel.GlobalObjects.get_value('ARCed_config')
+		try:
+			proj = Kernel.GlobalObjects.get_value('PROJECT')
+			DataItems = proj.getData('Items')
+			DataStates = proj.getData('States')
+			DataElements = proj.getData('System').elements
+			DataAnimations = proj.getData('Animations')
+			DataCommonEvents = proj.getData('CommonEvents')
+		except NameError:
+			Kernel.Log('Database opened before Project has been initialized', '[Database:ITEMS]', True)
+			self.Destroy()
+		self.listCtrlStates.AssignImageList(DM.GetAddSubImageList(), wx.IMAGE_LIST_SMALL)
+		font = wx.Font(8, wx.FONTFAMILY_TELETYPE, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL)
+		font.SetFaceName(Config.get('Misc', 'NoteFont')) 
+		self.textCtrlNotes.SetFont(font)
+		self.comboBoxIcon.SetCursor(wx.STANDARD_CURSOR)
+		self.comboBoxMenuSE.SetCursor(wx.STANDARD_CURSOR)
+		self.SelectedItem = DataItems[DM.FixedIndex(item_index)]
+		self.refreshAll()
+		self.listBoxItems.SetSelection(item_index)
+		DM.DrawHeaderBitmap(self.bitmapItems, 'Items')
+
+	def refreshItems( self ):
+		''' Refreshes the values in the item wxListBox control '''
+		self.listBoxItems.Clear()
+		start = DM.FixedIndex(0)
+		digits = len(Config.get('GameObjects', 'Items'))
+		items = [
+		   ''.join([str(i).zfill(digits), ': ', 
+			  DataItems[i].name]) for i in xrange(start, len(DataItems))]
+		self.listBoxItems.AppendItems(items)
+
+	def refreshElements( self ):
+		''' Clears and refreshes the list of elements in the checklist '''
+		self.checkListElements.Clear()
+		start = DM.FixedIndex(0)
+		names = DataElements[start:]
+		self.checkListElements.InsertItems(names, 0)
+		self.checkListElements.SetSelection(0)
+
+	def refreshStates( self ):
+		''' Clears and refreshes the list of states in the checklist '''
+		self.listCtrlStates.DeleteAllItems()
+		start = DM.FixedIndex(0)
+		names = [DataStates[i].name for i in xrange(start, len(DataStates))]
+		self.listCtrlStates.InsertColumn(0, '')
+		for i in xrange(len(names)):
+			self.listCtrlStates.InsertStringItem(i, names[i], 0)
+
+	def refreshParameters( self ):
+		''' Refreshes the defined parameters '''
+		self.comboBoxParameter.Clear()
+		params = ['(None)', 'MaxHP', 'MaxSP']
+		if DM.ARC_FORMAT:
+			params.extend(Config.getlist('Misc', 'Parameters'))
+		else:
+			params.extend(['STR', 'DEX', 'AGI', 'INT'])
+		self.comboBoxParameter.AppendItems(params)
+
+	def refreshAnimations( self ):
+		''' Refreshes the choices in the user and target animation controls '''
+		self.comboBoxTargetAnimation.Clear()
+		self.comboBoxUserAnimation.Clear()
+		digits = len(Config.get('GameObjects', 'Animations'))
+		start = DM.FixedIndex(0)
+		animations = ['(None)']
+		animations.extend([''.join([str(i).zfill(digits), ': ',
+		    DataAnimations[i].name]) for i in xrange(start, len(DataAnimations))])
+		self.comboBoxTargetAnimation.AppendItems(animations)
+		self.comboBoxUserAnimation.AppendItems(animations)
+
+	def refreshCommonEvents( self ):
+		''' Refreshes the common events in the combo box '''
+		self.comboBoxCommonEvent.Clear()
+		digits = len(Config.get('GameObjects', 'CommonEvents'))
+		start = DM.FixedIndex(0)
+		events = ['(None)']
+		events.extend([
+			''.join([str(i).zfill(digits), ': ',
+		    DataCommonEvents[i].name]) for i in xrange(start, len(DataCommonEvents))])
+		self.comboBoxCommonEvent.AppendItems(events)
+
+	def refreshValues( self ):
+		item = self.SelectedItem
 
 
-		util.DrawHeaderBitmap(self.bitmapItems, 'Items')
+		if not hasattr(item, 'note'):
+			setattr(item, 'note', '')
+		self.textCtrlNotes.ChangeValue(item.note)
+
+
+
+	def refreshAll( self ):
+		''' Refreshes all the controls on the panel ''' 
+		self.refreshItems()
+		self.refreshElements()
+		self.refreshStates()
+		self.refreshParameters()
+		self.refreshAnimations()
+		self.refreshCommonEvents()
+		self.refreshValues()
 
 	# Handlers for Items_Panel events.
 	def listBoxItems_SelectionChanged( self, event ):
-		# TODO: Implement listBoxItems_SelectionChanged
-		pass
+		''' Changes the selected item '''
+		index = DM.FixedIndex(event.GetInt())
+		if DataItems[index] == None:
+			DataItems[index] = RPG.Item() 
+		self.SelectedItem = DataItems[index]
+		self.refreshValues()
 
 	def buttonMaximum_Clicked( self, event ):
 		# TODO: Implement buttonMaximum_Clicked
@@ -112,12 +219,14 @@ class ARCedItems_Panel( ARCed_Templates.Items_Panel ):
 		# TODO: Implement checkListElements_CheckChanged
 		pass
 
-	def checkListStates_CheckChanged( self, event ):
-		# TODO: Implement checkListStates_CheckChanged
+	def listCtrlStates_LeftClicked( self, event ):
+		pass
+
+	def listCtrlStates_RightClicked( self, event ):
 		pass
 
 	def textCtrlNotes_TextChanged( self, event ):
-		# TODO: Implement textCtrlNotes_TextChanged
-		pass
+		''' Sets the note for the selected skill '''
+		self.SelectedItem.note = event.GetString()
 
 
