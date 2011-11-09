@@ -8,13 +8,13 @@ import Kernel
 # Implementing ChooseAudio_Dialog
 class ARCedChooseAudio_Dialog( ARCed_Templates.ChooseAudio_Dialog ):
 	def __init__( self, parent, rtpfolder, loopcount, audiofile=None ):
-		''' 
+		"""
 		Basic constructor for the ChooseAudio dialog
 			@parent - The parent wx.Window instance
 			@rtpfolder - The path relative to the root RTP folder
 			@loopcount - The number of times to loop when played. Use -1 to make it continuous
 			@audiofile - (optional) The RPG.AudioFile instance to have selected
-		'''
+		"""
 		ARCed_Templates.ChooseAudio_Dialog.__init__( self, parent )
 		Mixer.init()
 		global LoopCount
@@ -56,15 +56,15 @@ class ARCedChooseAudio_Dialog( ARCed_Templates.ChooseAudio_Dialog ):
 		return AudioFile('', 50, 100)
 
 	def buttonStop_Clicked( self, event ):
-		''' Stops any playing sound on all channels '''
+		"""Stops any playing sound on all channels"""
 		Mixer.stop()
 	
 	def buttonOK_Clicked( self, event ):
-		''' Ends dialog and returns an ID of wx.ID_OK '''
+		"""Ends dialog and returns an ID of wx.ID_OK"""
 		self.EndModal(wx.ID_OK)
 	
 	def buttonCancel_Clicked( self, event ):
-		''' Ends dialog and returns an ID of wx.ID_CANCEL '''
+		"""Ends dialog and returns an ID of wx.ID_CANCEL"""
 		self.EndModal(wx.ID_CANCEL)
 	
 	

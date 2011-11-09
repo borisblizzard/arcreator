@@ -5,7 +5,7 @@ from Kernel import Manager as KM
 
 class ARCedExpCurve_Dialog( ARCed_Templates.ExpCurve_Dialog ):
 	def __init__( self, parent, actor ):
-		''' Basic constructor for the Experience Curve Dialog '''
+		"""Basic constructor for the Experience Curve Dialog"""
 		ARCed_Templates.ExpCurve_Dialog.__init__( self, parent )
 		Config = Kernel.GlobalObjects.get_value('ARCed_config')
 		minBasis = Config.getint('Actors', 'MinExpBasis')
@@ -31,7 +31,7 @@ class ARCedExpCurve_Dialog( ARCed_Templates.ExpCurve_Dialog ):
 		self.refreshExpTable()
 
 	def refreshExpTable(self):
-		''' Refreshes the text on the screen to display the experience table using the defined values '''
+		"""Refreshes the text on the screen to display the experience table using the defined values"""
 		expList = self.generateExpList()
 		levelDigits = len(str(FinalLevel))
 		expDigits = len(str(max(expList)))
@@ -57,14 +57,14 @@ class ARCedExpCurve_Dialog( ARCed_Templates.ExpCurve_Dialog ):
 					self.textCtrlExpList.SetStyle(pos, pos + expDigits, StyleTotal)
 
 	def columnSplit(self, list, columns):
-		''' Splits a list into column lists and returns a list of rows '''
+		"""Splits a list into column lists and returns a list of rows"""
 		rows = len(list) / columns
 		if len(list) % columns:
 			rows += 1
 		return [list[i::rows] for i in xrange(rows)]
 
 	def generateExpList(self):
-		''' Calculates the experience list based on the basis and inflation, then returns it '''
+		"""Calculates the experience list based on the basis and inflation, then returns it"""
 		expList = [0, 0]
 		basis = self.spinCtrlBasis.GetValue()
 		inflation = self.spinCtrlInflation.GetValue()
@@ -78,34 +78,34 @@ class ARCedExpCurve_Dialog( ARCed_Templates.ExpCurve_Dialog ):
 		return expList
 	
 	def sliderBasis_Scrolled( self, event ):
-		''' Sync the spin control and refresh the experience list '''
+		"""Sync the spin control and refresh the experience list"""
 		self.spinCtrlBasis.SetValue(self.sliderBasis.GetValue())
 		self.refreshExpTable()
 	
 	def spinCtrlBasis__ValueChanged( self, event ):
-		''' Sync the slider control and refresh the table '''
+		"""Sync the slider control and refresh the table"""
 		self.sliderBasis.SetValue(self.spinCtrlBasis.GetValue())
 		self.refreshExpTable()
 	
 	def sliderInflation_Scrolled( self, event ):
-		''' Sync the spin control and refresh the experience list '''
+		"""Sync the spin control and refresh the experience list"""
 		self.spinCtrlInflation.SetValue(self.sliderInflation.GetValue())
 		self.refreshExpTable()
 	
 	def spinCtrlInflation_ValueChanged( self, event ):
-		''' Sync the slider control and refresh the table '''
+		"""Sync the slider control and refresh the table"""
 		self.sliderInflation.SetValue(self.spinCtrlInflation.GetValue())
 		self.refreshExpTable()
 
 	def noteBookExpCurve_PageChanged( self, event ):
 		self.PageIndex = event.GetSelection()
-		''' Refreshes the page that was switched to since only the visible page is being refreshed normally '''
+		"""Refreshes the page that was switched to since only the visible page is being refreshed normally"""
 		self.refreshExpTable()
 	
 	def buttonOK_Clicked( self, event ):
-		''' End the dialog and return wx.ID_OK '''
+		"""End the dialog and return wx.ID_OK"""
 		self.EndModal(wx.ID_OK)
 	
 	def buttonCancel_Clicked( self, event ):
-		''' End the dialog and return wx.ID_CANCEL '''
+		"""End the dialog and return wx.ID_CANCEL"""
 		self.EndModal(wx.ID_CANCEL)

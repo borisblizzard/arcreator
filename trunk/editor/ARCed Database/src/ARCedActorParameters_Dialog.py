@@ -5,7 +5,7 @@ import ARCedGenerateCurve_Dialog
 
 class ARCedActorParameters_Dialog( ARCed_Templates.ActorParameters_Dialog ):
 	def __init__( self, parent, actor, limits ):
-		""" Initializes window using passed Actor argument to set values """
+		"""Initializes window using passed Actor argument to set values"""
 		ARCed_Templates.ActorParameters_Dialog.__init__( self, parent )
 		global Actor, Limits
 		Actor, Limits = actor, limits

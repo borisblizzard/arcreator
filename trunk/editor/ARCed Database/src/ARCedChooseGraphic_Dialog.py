@@ -4,10 +4,10 @@ import ARCed_Templates
 from Core import Cache
 import Kernel
 
-# Implementing ChooseGraphic_Dialog
-class ARCedChooseGraphic_Dialog( ARCed_Templates.ChooseGraphic_Dialog ):
+class ARCedChooseGraphic_Dialog( ARCed_Templates.ChooseGraphic_Dialog):
+
 	def __init__( self, parent, path, current, hue=0 ):
-		''' Initializes control using passed "path" argument to populate the list '''
+		"""Initializes control using passed "path" argument to populate the list"""
 		ARCed_Templates.ChooseGraphic_Dialog.__init__( self, parent )
 		self.Images = []
 		# TODO: Add method to search nested directories as well, as well as RTP
@@ -31,21 +31,21 @@ class ARCedChooseGraphic_Dialog( ARCed_Templates.ChooseGraphic_Dialog ):
 			pass
 	
 	def listBoxGraphics_SelectionChanged( self, event ):
-		""" Refreshes the bitmap to display the image associated with the current selection """
+		"""Refreshes the bitmap to display the image associated with the current selection"""
 		index = self.listBoxGraphics.GetSelection()
 		self.bitmapGraphic.SetBitmap(wx.Bitmap(self.Images[index]))
 	
 	def sliderHue_Scrolled( self, event ):
-		""" Applies hue change to sample displayed bitmap """
+		"""Applies hue change to sample displayed bitmap"""
 		# TODO: Implement sliderHue_Scrolled 
 		pass
 	
 	def buttonOK_Clicked( self, event ):
-		""" Closes the dialog and returns wxID_OK """
+		"""Closes the dialog and returns wxID_OK"""
 		self.EndModal(wx.ID_OK)
 	
 	def buttonCancel_Clicked( self, event ):
-		""" Closes the dialog and returns wxID_CANCEL """
+		"""Closes the dialog and returns wxID_CANCEL"""
 		self.EndModal(wx.ID_CANCEL)
 	
 	

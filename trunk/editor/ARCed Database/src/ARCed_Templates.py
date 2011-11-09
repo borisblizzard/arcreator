@@ -1026,10 +1026,10 @@ class Items_Panel ( wx.Panel ):
 		self.labelDescription.Wrap( -1 )
 		sizer1.Add( self.labelDescription, 0, wx.ALL|wx.EXPAND, 5 )
 		
-		self.extCtrlDescription = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.extCtrlDescription.SetToolTipString( u"Comment displayed when the item is selected" )
+		self.textCtrlDescription = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.textCtrlDescription.SetToolTipString( u"Comment displayed when the item is selected" )
 		
-		sizer1.Add( self.extCtrlDescription, 0, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
+		sizer1.Add( self.textCtrlDescription, 0, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
 		
 		sizer6 = wx.BoxSizer( wx.HORIZONTAL )
 		
@@ -1125,10 +1125,10 @@ class Items_Panel ( wx.Panel ):
 		self.labelRecrHPPercent.Wrap( -1 )
 		sizer10.Add( self.labelRecrHPPercent, 0, wx.ALL|wx.EXPAND, 5 )
 		
-		self.spinCtrlRecrHP = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, -10000, 10000, 0 )
-		self.spinCtrlRecrHP.SetToolTipString( u"Recovered HP, as percentage of max HP" )
+		self.spinCtrlRecrHPRate = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, -10000, 10000, 0 )
+		self.spinCtrlRecrHPRate.SetToolTipString( u"Recovered HP, as percentage of max HP" )
 		
-		sizer10.Add( self.spinCtrlRecrHP, 0, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
+		sizer10.Add( self.spinCtrlRecrHPRate, 0, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
 		
 		self.labelHitRate = wx.StaticText( self, wx.ID_ANY, u"Hit Rate:", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.labelHitRate.Wrap( -1 )
@@ -1191,10 +1191,10 @@ class Items_Panel ( wx.Panel ):
 		self.labelRecrSPPercent.Wrap( -1 )
 		sizer12.Add( self.labelRecrSPPercent, 0, wx.ALL|wx.EXPAND, 5 )
 		
-		self.spinCtrlRecrSP = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 100, 0 )
-		self.spinCtrlRecrSP.SetToolTipString( u"Recovered SP, as percentage of max SP" )
+		self.spinCtrlRecrSPRate = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 100, 0 )
+		self.spinCtrlRecrSPRate.SetToolTipString( u"Recovered SP, as percentage of max SP" )
 		
-		sizer12.Add( self.spinCtrlRecrSP, 0, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
+		sizer12.Add( self.spinCtrlRecrSPRate, 0, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
 		
 		self.labelMDEF = wx.StaticText( self, wx.ID_ANY, u"MDEF-F:", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.labelMDEF.Wrap( -1 )
@@ -1290,21 +1290,23 @@ class Items_Panel ( wx.Panel ):
 		self.buttonMaximum.Bind( wx.EVT_BUTTON, self.buttonMaximum_Clicked )
 		self.textCtrlName.Bind( wx.EVT_TEXT, self.textCtrlName_TextChanged )
 		self.comboBoxIcon.Bind( wx.EVT_LEFT_DCLICK, self.comboBoxIcon_Clicked )
-		self.extCtrlDescription.Bind( wx.EVT_TEXT, self.textCtrlDescription_TextChange )
+		self.comboBoxIcon.Bind( wx.EVT_SET_FOCUS, self.comboBoxIcon_Clicked )
+		self.textCtrlDescription.Bind( wx.EVT_TEXT, self.textCtrlDescription_TextChange )
 		self.comboBoxScope.Bind( wx.EVT_CHOICE, self.comboBoxScope_SelectionChanged )
 		self.comboBoxUserAnimation.Bind( wx.EVT_CHOICE, self.comboBoxUserAnimation_SelectionChanged )
-		self.comboBoxMenuSE.Bind( wx.EVT_COMBOBOX, self.comboBoxMenuSE_SelectionChanged )
+		self.comboBoxMenuSE.Bind( wx.EVT_LEFT_DOWN, self.comboBoxMenuSE_Clicked )
+		self.comboBoxMenuSE.Bind( wx.EVT_SET_FOCUS, self.comboBoxMenuSE_Clicked )
 		self.comboBoxOccasion.Bind( wx.EVT_CHOICE, self.comboBoxOccasion_SelectionChanged )
 		self.comboBoxTargetAnimation.Bind( wx.EVT_CHOICE, self.comboBoxTargetAnimation_SelectionChanged )
 		self.comboBoxCommonEvent.Bind( wx.EVT_CHOICE, self.comboBoxCommonEvent_SelectionChanged )
 		self.spinCtrlPrice.Bind( wx.EVT_SPINCTRL, self.spinCtrlPrice_ValueChanged )
-		self.spinCtrlRecrHP.Bind( wx.EVT_SPINCTRL, self.spinCtrlRecrHPPercent_ValueChanged )
+		self.spinCtrlRecrHPRate.Bind( wx.EVT_SPINCTRL, self.spinCtrlRecrHPPercent_ValueChanged )
 		self.spinCtrlHitRate.Bind( wx.EVT_SPINCTRL, self.spinCtrlHitRate_ValueChanged )
 		self.comboBoxConsumable.Bind( wx.EVT_CHOICE, self.comboBoxConsumable_SelectionChanged )
 		self.spinCtrlRecrHP.Bind( wx.EVT_SPINCTRL, self.spinCtrlRecrHP_ValueChanged )
 		self.spinCtrlPDEF.Bind( wx.EVT_SPINCTRL, self.spinCtrlPDEF_ValueChanged )
 		self.comboBoxParameter.Bind( wx.EVT_CHOICE, self.comboBoxParameter_SelectionChanged )
-		self.spinCtrlRecrSP.Bind( wx.EVT_SPINCTRL, self.spinCtrlRecrSPPercent_ValueChanged )
+		self.spinCtrlRecrSPRate.Bind( wx.EVT_SPINCTRL, self.spinCtrlRecrSPPercent_ValueChanged )
 		self.spinCtrlMDEF.Bind( wx.EVT_SPINCTRL, self.spinCtrlMDEF_ValueChanged )
 		self.spinCtrlParameterInc.Bind( wx.EVT_SPINCTRL, self.spinCtrlParameterInc_ValueChanged )
 		self.spinCtrlRecrSP.Bind( wx.EVT_SPINCTRL, self.spinCtrlRecrSP_ValueChanged )
@@ -1331,6 +1333,7 @@ class Items_Panel ( wx.Panel ):
 	def comboBoxIcon_Clicked( self, event ):
 		pass
 	
+	
 	def textCtrlDescription_TextChange( self, event ):
 		pass
 	
@@ -1340,8 +1343,9 @@ class Items_Panel ( wx.Panel ):
 	def comboBoxUserAnimation_SelectionChanged( self, event ):
 		pass
 	
-	def comboBoxMenuSE_SelectionChanged( self, event ):
+	def comboBoxMenuSE_Clicked( self, event ):
 		pass
+	
 	
 	def comboBoxOccasion_SelectionChanged( self, event ):
 		pass

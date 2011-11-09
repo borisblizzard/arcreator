@@ -9,7 +9,7 @@ ARC_FORMAT = False # TEST
 
 class ARCedSkill_Dialog( ARCed_Templates.Skill_Dialog ):
 	def __init__( self, parent, skills, maxlevel, level=1, skill_id=1 ):
-		''' Basic constructor for the skills dialog '''
+		""".Basic constructor for the skills dialog."""
 		ARCed_Templates.Skill_Dialog.__init__( self, parent )
 		self.spinCtrlLevel.SetRange(1, maxlevel)
 		self.spinCtrlLevel.SetValue(level)
@@ -27,7 +27,7 @@ class ARCedSkill_Dialog( ARCed_Templates.Skill_Dialog ):
 		self.comboBoxSkills.SetSelection(skill_id)
 	
 	def GetLearning( self ):
-		''' Creates a RPG.Class.Learning instance from the data and returns it '''
+		"""Creates a RPG.Class.Learning instance from the data and returns it"""
 		learning = RPG.Class.Learning()
 		learning.level = self.spinCtrlLevel.GetValue()
 		learning.skill_id = self.comboBoxSkills.GetSelection()
@@ -36,10 +36,10 @@ class ARCedSkill_Dialog( ARCed_Templates.Skill_Dialog ):
 		return learning
 	
 	def buttonOK_Clicked( self, event ):
-		''' Closes the dialog with a result of wx.ID_OK '''
+		"""Closes the dialog with a result of wx.ID_OK"""
 		self.EndModal(wx.ID_OK)
 	
 	def buttonCancel_Clicked( self, event ):
-		''' Closes the dialog with a result of wx.ID_CANCEL '''
+		"""Closes the dialog with a result of wx.ID_CANCEL"""
 		self.EndModal(wx.ID_CANCEL)
 	

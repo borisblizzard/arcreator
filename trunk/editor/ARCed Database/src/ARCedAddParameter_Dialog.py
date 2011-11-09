@@ -9,11 +9,11 @@ class ARCedAddParameter_Dialog( ARCed_Templates.AddParameter_Dialog ):
 		ARCed_Templates.AddParameter_Dialog.__init__( self, parent )
 	
 	def buttonOK_Clicked( self, event ):
-		""" End the dialog and return wx.ID_OK """
+		"""End the dialog and return wx.ID_OK"""
 		self.EndModal(wx.ID_OK)
 	
 	def buttonCancel_Clicked( self, event ):
-		""" End the dialog and return wx.ID_CANCEL """
+		"""End the dialog and return wx.ID_CANCEL"""
 		self.EndModal(wx.ID_CANCEL)
 	
 	
