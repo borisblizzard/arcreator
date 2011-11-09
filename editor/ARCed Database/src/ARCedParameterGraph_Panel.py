@@ -8,7 +8,7 @@ from __test__ import ParameterGraph as test # TODO: Uh, change this from "test"
 import Kernel
 from Kernel import Manager as KM
 
-'''
+"""
 TODO:
 - Create ini config for colors, and read from that (also line color, marker color, marker style, line style?)
 - Implement creating the ticks dynamically depending on the min/max values
@@ -18,7 +18,7 @@ TODO:
 - Implement elastic points
 - Remove flicker on resize by waiting until panel is completely done, then re-draw graph 
 - Make the last 3 connecting points/line segments invisible and unclickable
-'''
+"""
 
 
 # Implementing ParameterGraph_Panel 
@@ -36,7 +36,7 @@ class ARCedParameterGraph_Panel( ARCed_Templates.ParameterGraph_Panel ):
 
 
 	def graphPanel_OnSize( self, event ):
-		''' Resizes the graph to match the size of the control '''
+		"""Resizes the graph to match the size of the control"""
 		pixels = tuple( self.graphPanel.GetClientSize() )
 		# This is basically a hack to interface wx with matplotlib
 		# Cause problems on PC's with non-standard resolutions?
@@ -75,14 +75,14 @@ class ARCedParameterGraph_Panel( ARCed_Templates.ParameterGraph_Panel ):
 		
 		self.Graph.DisplayLine = self.radioBoxCurve.GetSelection() + 1
 		print self.Graph.DisplayLine
-		'''
+		"""
 		if self.Graph.DisplayLine == 1:
 			self.Graph.Lines[2].set_visible(False)
 			self.Graph.Lines[1].set_visible(True)
 		elif self.Graph.DisplayLine == 2:
 			self.Graph.Lines[1].set_visible(False)
 			self.Graph.Lines[2].set_visible(True)
-			'''
+			"""
 		self.Graph.Lines[1].update(visible=False)
 		#self.Graph.Lines[2].update()
 

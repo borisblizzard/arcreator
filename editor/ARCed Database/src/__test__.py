@@ -9,7 +9,7 @@ class ParameterGraph ( wx.Panel ):
 
 	def __init__( self, parent, data=[], maxvalue=9999, pointmax=24, 
 				 interactive=True, curvecolor='g', linearcolor='r', display = 2):
-		''' Basic constructor for the Graph panel '''
+		"""Basic constructor for the Graph panel"""
 		wx.Panel.__init__ ( self, parent, id = wx.ID_ANY, pos = wx.DefaultPosition, 
 					 size = wx.Size( 566,428 ), style = wx.GROW|wx.EXPAND)
 		from matplotlib.pyplot import Figure
@@ -73,7 +73,7 @@ class ParameterGraph ( wx.Panel ):
 		#	self.Data[int(xdata[i])] = int(ydata[i])
 
 	def SetPointMax( self, max ):
-		''' Ensures the maximum number of points is valid, then sets it '''
+		"""Ensures the maximum number of points is valid, then sets it"""
 		pts = max
 		while pts >= len(self.Data): pts -= 1
 		self.PointMax = pts

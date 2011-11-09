@@ -1,6 +1,3 @@
-'''
-Exports all the core components of the Database to the kernel
-'''
 from ARCedActors_Panel import ARCedActors_Panel
 from ARCedClasses_Panel import ARCedClasses_Panel
 from ARCedSkills_Panel import ARCedSkills_Panel

@@ -4,7 +4,7 @@ import Kernel
 class Configuration_Panel ( wx.Panel ):
 	
 	def __init__( self, parent ):
-		''' Basic constructor for the Configurator Panel '''
+		"""Basic constructor for the Configurator Panel"""
 		wx.Panel.__init__ ( self, parent, id = wx.ID_ANY, pos = wx.DefaultPosition, size = wx.Size( 517,364 ), style = wx.TAB_TRAVERSAL )
 		global Config
 		Config = Kernel.GlobalObjects.get_value('ARCed_config')
@@ -72,15 +72,15 @@ class Configuration_Panel ( wx.Panel ):
 		pass
 	
 	def textBox_DataChanged( self, event ):
-		''' Sets the value in the configuration '''
+		"""Sets the value in the configuration"""
 		data = self.Dictionary[event.GetEventObject()]
 		data[2].SetLabel('*')
 		Config.set(data[0], data[1], event.GetString())
-'''
+"""
 app = wx.PySimpleApp( 0 )
 frame = wx.Frame( None, wx.ID_ANY, 'Configuration Manager', size=(400,300) )
 panel = Configuration_Panel( frame )
 frame.CenterOnScreen()
 frame.Show()
 app.MainLoop()
-'''
+"""

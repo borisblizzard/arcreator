@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-'''
+"""
 Created on Sep 11, 2010
 
 the main program module. load the wx libary and runs the application
@@ -7,7 +7,7 @@ the main program module. load the wx libary and runs the application
 Classes in this module
 -----------------------
 ARC_App - main application class
-'''
+"""
 import os
 import sys
 import types

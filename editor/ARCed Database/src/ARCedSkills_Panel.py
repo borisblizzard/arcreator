@@ -2,9 +2,7 @@
 
 import wx
 import ARCed_Templates 
-from ARCedChangeMaximum_Dialog import ARCedChangeMaximum_Dialog
 from ARCedChooseGraphic_Dialog import ARCedChooseGraphic_Dialog
-from ARCedChooseAudio_Dialog import ARCedChooseAudio_Dialog
 from Core.RMXP import RGSS1_RPG as RPG
 from DatabaseManager import DatabaseManager as DM
 import Kernel
@@ -77,36 +75,23 @@ class ARCedSkills_Panel( ARCed_Templates.Skills_Panel ):
 			mainsizer.Add( spinsizer, 0, wx.EXPAND, 5 )
 
 	def refreshSkillList( self ):
-		''' Refreshes the values in the skill wxListBox control '''
-		self.listBoxSkills.Clear()
-		for i, skill in enumerate(DataSkills):
-			if not DM.ARC_FORMAT and i == 0:
-				continue
-			digits = len(Config.get('GameObjects', 'Skills'))
-			self.listBoxSkills.Append("".join([str(i).zfill(digits), ': ', skill.name]))
+		"""Refreshes the values in the skill wxListBox control"""
+		digits = len(Config.get('GameObjects', 'Skills'))
+		DM.FillControl(self.listBoxSkills, DataSkills, digits, [])
 
 	def refreshAnimations( self ):
-		''' Refreshes the choices in the user and target animation controls '''
-		self.comboBoxTargetAnimation.Clear()
-		self.comboBoxUserAnimation.Clear()
+		"""Refreshes the choices in the user and target animation controls"""
 		digits = len(Config.get('GameObjects', 'Animations'))
-		start = DM.FixedIndex(0)
-		animations = ['(None)']
-		animations.extend([''.join([str(i).zfill(digits), ': ',
-		    DataAnimations[i].name]) for i in xrange(start, len(DataAnimations))])
-		self.comboBoxTargetAnimation.AppendItems(animations)
-		self.comboBoxUserAnimation.AppendItems(animations)
+		DM.FillControl(self.comboBoxTargetAnimation, DataAnimations, digits, ['(None)'])
+		DM.FillControl(self.comboBoxUserAnimation, DataAnimations, digits, ['(None)'])
 
 	def refreshElements( self ):
-		''' Clears and refreshes the list of elements in the checklist '''
+		"""Clears and refreshes the list of elements in the checklist"""
 		self.checkListElements.Clear()
-		start = DM.FixedIndex(0)
-		names = DataElements[start:]
-		self.checkListElements.InsertItems(names, 0)
-		self.checkListElements.SetSelection(0)
+		self.checkListElements.AppendItems(DataElements[DM.FixedIndex(0):])
 
 	def refreshStates( self ):
-		''' Clears and refreshes the list of states in the checklist '''
+		"""Clears and refreshes the list of states in the checklist"""
 		self.listCtrlStates.DeleteAllItems()
 		start = DM.FixedIndex(0)
 		names = [DataStates[i].name for i in xrange(start, len(DataStates))]
@@ -115,18 +100,12 @@ class ARCedSkills_Panel( ARCed_Templates.Skills_Panel ):
 			self.listCtrlStates.InsertStringItem(i, names[i], 0)
 
 	def refreshCommonEvents( self ):
-		''' Refreshes the common events in the combo box '''
-		self.comboBoxCommonEvent.Clear()
+		"""Refreshes the common events in the combo box"""
 		digits = len(Config.get('GameObjects', 'CommonEvents'))
-		start = DM.FixedIndex(0)
-		events = ['(None)']
-		events.extend([
-			''.join([str(i).zfill(digits), ': ',
-		    DataCommonEvents[i].name]) for i in xrange(start, len(DataCommonEvents))])
-		self.comboBoxCommonEvent.AppendItems(events)
+		DM.FillControl(self.comboBoxCommonEvent, DataCommonEvents, digits, ['(None)'])
 
 	def refreshValues(self ):
-		''' Resets the values of all the controls to reflect the selected skill '''
+		"""Resets the values of all the controls to reflect the selected skill"""
 		skill = self.SelectedSkill
 		self.textCtrlName.ChangeValue(skill.name)
 		self.textCtrlDescription.ChangeValue(skill.description)
@@ -168,11 +147,11 @@ class ARCedSkills_Panel( ARCed_Templates.Skills_Panel ):
 			self.checkListElements.SetChecked(checked)
 		# Update plus/minus states
 		if DM.ARC_FORMAT:
-			addstates = self.SelectedSkill.plus_state_set
-			minusstates = self.SelectedSkill.minus_state_set
+			addstates = skill.plus_state_set
+			minusstates = skill.minus_state_set
 		else:
-			addstates = [id - 1 for id in self.SelectedSkill.plus_state_set]
-			minusstates = [id - 1 for id in self.SelectedSkill.minus_state_set]
+			addstates = [id - 1 for id in skill.plus_state_set]
+			minusstates = [id - 1 for id in skill.minus_state_set]
 		for i in xrange(self.listCtrlStates.GetItemCount()):
 			if i in addstates:
 				self.listCtrlStates.SetItemImage(i, 1)
@@ -186,6 +165,7 @@ class ARCedSkills_Panel( ARCed_Templates.Skills_Panel ):
 		self.textCtrlNotes.ChangeValue(skill.note)
 
 	def refreshAll( self ):
+		"""Refreshes all child controls of the panel"""
 		self.refreshSkillList()
 		self.refreshAnimations()
 		self.refreshStates()
@@ -208,38 +188,17 @@ class ARCedSkills_Panel( ARCed_Templates.Skills_Panel ):
 		self.refreshValues()
 
 	def buttonMaximum_Clicked( self, event ):
-		''' Shows dialog for changing the list capacity '''
-		items = self.listBoxSkills.GetItems()
-		currentMax = len(items)
-		maxClasses = Config.getint('GameObjects', 'Skills')
-		dlg = ARCedChangeMaximum_Dialog(self, currentMax, 1, maxClasses)
-		if dlg.ShowModal() == wx.ID_OK:
-			newMax = dlg.spinCtrlMaximum.GetValue()
-			if newMax != currentMax: 
-				if newMax > currentMax:
-					newSkills = [None for i in xrange(newMax - currentMax)]
-					digits = len(Config.get('GameObjects', 'Skills'))
-					newLabels = [
-						''.join([str(1 + currentMax + i).zfill(digits), 
-						': ']) for i in xrange(newMax - currentMax)]
-					DataSkills.extend(newSkills)
-					self.listBoxSkills.InsertItems(newLabels, currentMax)
-				else:
-					if self.listBoxSkills.GetSelection() >= newMax:
-						self.listBoxSkills.Select(newMax - 1)
-					del DataSkills[newMax:currentMax]
-					for i in reversed(range(currentMax)):
-						if i >= newMax:
-							self.listBoxSkills.Delete(i)
-						else:
-							break;
-		dlg.Destroy()	
+		"""Starts the Change Maximum dialog"""
+		max = Config.getint('GameObjects', 'Skills')
+		DM.ChangeDataCapacity(self, self.listBoxSkills, DataSkills, max)
 
 	def textCtrlName_TextChanged( self, event ):
-		pass
+		"""Updates the selected skill's name"""
+		DM.UpdateObjectName(self.SelectedSkill, event.GetString(),
+			self.listBoxSkills, len(Config.get('GameObjects', 'Skills')))
 
 	def comboBoxIcon_LeftClicked( self, event ):
-		''' Opens dialog to select an icon for the selected skill '''
+		"""Opens dialog to select an icon for the selected skill"""
 		self.listBoxSkills.SetFocus()
 		icon = self.SelectedSkill.icon_name
 		dlg = ARCedChooseGraphic_Dialog(self, 'Graphics/Icons', icon)
@@ -250,52 +209,50 @@ class ARCedSkills_Panel( ARCed_Templates.Skills_Panel ):
 		dlg.Destroy()
 
 	def textCtrlDescription_TextChange( self, event ):
-		''' Set the selected skill's description '''
+		"""Set the selected skill's description"""
 		self.SelectedSkill.description = event.GetString()
 
 	def comboBoxScope_SelectionChanged( self, event ):
-		''' Set the selected skill's scope '''
+		"""Set the selected skill's scope"""
 		self.SelectedSkill.scope = event.GetInt()
 
 	def comboBoxUserAnimation_SelectionChanged( self, event ):
-		''' Set the selected skill's user animation ID '''
+		"""Set the selected skill's user animation ID"""
 		self.SelectedSkill.animation1_id = event.GetInt()
 
 	def comboBoxMenuSE_Clicked( self, event ):
-		''' Opens the dialog for selecting the audio file to use '''
+		"""Opens the dialog for selecting the audio file to use"""
 		self.listBoxSkills.SetFocus()
-		dlg = ARCedChooseAudio_Dialog(self, 'Audio/SE/', 0, self.SelectedSkill.menu_se)
-		if dlg.ShowModal() == wx.ID_OK:
-			self.SelectedSkill.menu_se = dlg.GetAudio()
-			self.comboBoxMenuSE.SetValue(self.SelectedSkill.menu_se.name)
-		dlg.Destroy()
+		audio = DM.ChooseAudio(self, 'Audio/SE/', self.SelectedSkill.menu_se, 0)
+		self.SelectedSkill.menu_se = audio
+		self.comboBoxMenuSE.SetValue(audio.name)
 
 	def comboBoxOccasion_SelectionChanged( self, event ):
-		''' Set the selected skill's occasion '''
+		"""Set the selected skill's occasion"""
 		self.SelectedSkill.occasion = event.GetInt()
 
 	def comboBoxTargetAnimation_SelectionChanged( self, event ):
-		''' Set the selected skill's target animation ID '''
+		"""Set the selected skill's target animation ID"""
 		self.SelectedSkill.animation2_id = event.GetInt()
 
 	def comboBoxCommonEvent_SelectionChanged( self, event ):
-		''' Set the selected skill's SP cost '''
+		"""Set the selected skill's SP cost"""
 		self.SelectedSkill.common_event_id = event.GetInt()
 
 	def spinCtrlSPCost_ValueChanged( self, event ):
-		''' Set the selected skill's SP cost '''
+		"""Set the selected skill's SP cost"""
 		self.SelectedSkill.sp_cost = event.GetInt()
 
 	def spinCtrlHitRate_ValueChanged( self, event ):
-		''' Set the selected skill's hit rate '''
+		"""Set the selected skill's hit rate"""
 		self.SelectedSkill.hit = event.GetInt()
 
 	def spinCtrlPower_ValueChanged( self, event ):
-		''' Set the selected skill's power '''
+		"""Set the selected skill's power"""
 		self.SelectedSkill.power = event.GetInt()
 
 	def spinCtrlVariance_ValueChanged( self, event ):
-		''' Set the selected skill's variance '''
+		"""Set the selected skill's variance"""
 		self.SelectedSkill.variance = event.GetInt()
 
 	def spinCtrlParameter_ValueChanged( self, event ):
@@ -315,40 +272,18 @@ class ARCedSkills_Panel( ARCed_Templates.Skills_Panel ):
 			elif index == 7: self.SelectedSkill.int_f = value
 
 	def checkListElements_CheckChanged( self, event ):
-		''' Sets the IDs that are in the selected skills element set '''
+		"""Sets the IDs that are in the selected skills element set"""
 		ids = [DM.FixedIndex(id) for id in self.checkListElements.GetChecked()]
 		self.SelectedSkill.element_set = ids
 
 	def listCtrlStates_LeftClicked( self, event ):
-		''' Cycles the State change up one '''
-		self.ChangeSkillStates(event, 1)
+		"""Cycles the State change up one"""
+		DM.ChangeSkillStates(self.listCtrlStates, self.SelectedSkill, event, 1)
 
 	def listCtrlStates_RightClicked( self, event ):
-		''' Cycles the State change down one '''
-		self.ChangeSkillStates(event, -1)
-
-	def ChangeSkillStates( self, event, increment ):
-		''' Changes the skill's add/remove state, and updates the checkbox '''
-		id = self.listCtrlStates.HitTest(event.GetPosition())[0]
-		if id >= 0:
-			imgIndex = self.listCtrlStates.GetItem(id).GetImage()
-			imgIndex = (imgIndex + increment) % 3
-			self.listCtrlStates.SetItemImage(id, imgIndex)
-			state_id = DM.FixedIndex(id)
-			if imgIndex == 0:
-				if state_id in self.SelectedSkill.minus_state_set: 
-					self.SelectedSkill.minus_state_set.remove(state_id)
-				elif state_id in self.SelectedSkill.plus_state_set: 
-					self.SelectedSkill.plus_state_set.remove(state_id)
-			if imgIndex == 1:
-				if state_id in self.SelectedSkill.minus_state_set: 
-					self.SelectedSkill.minus_state_set.remove(state_id)
-				self.SelectedSkill.plus_state_set.append(state_id)
-			if imgIndex == 2:
-				if state_id in self.SelectedSkill.plus_state_set: 
-					self.SelectedSkill.plus_state_set.remove(state_id)
-				self.SelectedSkill.minus_state_set.append(state_id)
+		"""Cycles the State change down one"""
+		DM.ChangeSkillStates(self.listCtrlStates, self.SelectedSkill, event, -1)
 
 	def textCtrlNotes_TextChanged( self, event ):
-		''' Sets the note for the selected skill '''
+		"""Sets the note for the selected skill"""
 		self.SelectedSkill.note = event.GetString()

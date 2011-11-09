@@ -1,6 +1,6 @@
-'''
+"""
 Contains the functionality of all the events raised on the Actors Database panel
-'''
+"""
 import wx
 import ARCed_Templates
 import ARCedChangeMaximum_Dialog
@@ -18,7 +18,7 @@ import Kernel
 class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 
 	def __init__( self, parent, actorIndex=0 ):
-		''' Basic constructor for the Actors panel '''
+		"""Basic constructor for the Actors panel"""
 		ARCed_Templates.Actors_Panel.__init__( self, parent )
 		# Load the project's game objects into this module's scope
 		project = Kernel.GlobalObjects.get_value('PROJECT')
@@ -58,7 +58,7 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 		self.listBoxActors.SetSelection(actorIndex)
 
 	def AddParameterPage( self, title, activate=False ):
-		''' Creates a page and adds it to the notebook control '''
+		"""Creates a page and adds it to the notebook control"""
 		page = wx.Panel( self.noteBookActorParameters )
 		self.noteBookActorParameters.AddPage(page, title)
 		if activate:
@@ -70,7 +70,7 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 
 
 	def CreateEquipmentControls( self ):
-		''' Creates the controls for each equipment type defined in the configuration '''
+		"""Creates the controls for each equipment type defined in the configuration"""
 		if DM.ARC_FORMAT:
 			equipment = Config.getlist('Actors', 'WeaponSlots')
 			equipment.extend(Config.getlist('Actors', 'ArmorSlots'))
@@ -103,32 +103,24 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 		sizerEquipment.Fit( self.scrolledWindowEquipment )
 
 	def refreshActorList( self ):
-		''' Refreshes the values in the actor wxListBox control '''
-		self.listBoxActors.Clear()
+		"""Refreshes the values in the actor wxListBox control"""
 		digits = len(Config.get('GameObjects', 'Actors'))
-		for i, actor in enumerate(DataActors):
-			if not DM.ARC_FORMAT and i == 0:
-				continue
-			self.listBoxActors.Append("".join([str(i).zfill(digits), ': ', actor.name]))
+		DM.FillControl(self.listBoxActors, DataActors, digits)
 
 	def refreshClasses( self ):
-		''' Refreshes the values in the class wxChoice control '''
-		self.comboBoxClass.Clear()
+		"""Refreshes the values in the class wxChoice control"""
 		digits = len(Config.get('GameObjects', 'Classes'))
-		for i, klass in enumerate(DataClasses):
-			if not DM.ARC_FORMAT and i == 0:
-				continue
-			self.comboBoxClass.Append(str(i).zfill(digits) + ': ' + klass.name)
-		self.comboBoxClass.Select(self.SelectedActor.class_id - 1)
+		DM.FillControl(self.comboBoxClass, DataClasses, digits)
+
 		
 	def refreshWeapons( self ):
-		''' Sets the weapon combobox(s) data determined by the actor's class '''
+		"""Sets the weapon combobox(s) data determined by the actor's class"""
 		weaponSlots = len(Config.getlist('Actors', 'WeaponSlots'))
 		digits = len(Config.get('GameObjects', 'Weapons'))
 		data = [('(None)', 0)]
 		for id in DataClasses[self.SelectedActor.class_id].weapon_set:
 			if DataWeapons[id] == None: DataWeapons[id] = RPG.Weapon()
-			data.append(("".join([str(DataWeapons[id].id).zfill(digits), ': ', 
+			data.append((''.join([str(DataWeapons[id].id).zfill(digits), ': ', 
 				DataWeapons[id].name]), DataWeapons[id].id))
 		for i in xrange(weaponSlots):
 			self.EquipmentBoxes[i].Clear()
@@ -145,7 +137,7 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 					break
 
 	def refreshArmors( self ):
-		''' Sets the armor comboboxes data determined by the actor's class '''
+		"""Sets the armor comboboxes data determined by the actor's class"""
 		weaponSlots = len(Config.getlist('Actors', 'WeaponSlots'))
 		digits = len(Config.get('GameObjects', 'Armors'))
 		kinds = [int(k) for k in Config.getlist('Actors', 'ArmorSlotKinds')]
@@ -167,7 +159,7 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 					break
 
 	def refreshParameters( self ):
-		''' Refreshes the data values on the control '''
+		"""Refreshes the data values on the control"""
 		self.textCtrlName.ChangeValue(self.SelectedActor.name)
 		self.comboBoxClass.Select(self.SelectedActor.class_id - 1)
 		basis = str(self.SelectedActor.exp_basis)
@@ -190,14 +182,14 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 			self.FixedCheckBoxes[4].SetValue(actor.armor4_fix)
 
 	def refreshGraphics( self ):
-		''' Refreshes the character and battler graphic for the actor '''
+		"""Refreshes the character and battler graphic for the actor"""
 		DM.DrawBitmap(self.bitmapCharacter, self.SelectedActor.character_name, 
 			self.SelectedActor.character_hue, 'character', 4, 4)
 		DM.DrawBitmap(self.bitmapBattler, self.SelectedActor.battler_name, 
 			self.SelectedActor.battler_hue, 'battler', 1, 1)
 
 	def refreshAll( self ):
-		''' Refreshes all the controls that contain game object values '''
+		"""Refreshes all the controls that contain game object values"""
 		self.refreshActorList()
 		self.refreshClasses()
 		self.refreshWeapons()
@@ -207,7 +199,7 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 		self.refreshGraphics()
 
 	def listBoxActors_SelectionChanged( self, event ):
-		''' Changes the data on the panel to reflect the values of the selected actor '''
+		"""Changes the data on the panel to reflect the values of the selected actor"""
 		index = DM.FixedIndex(event.GetSelection())
 		if DataActors[index] is None:
 			DataActors[index] = RPG.Actor()
@@ -219,11 +211,11 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 		self.refreshGraphics()
 
 	def SetParameterValue(self, param, level, value):
-		''' Sets the newly defined value for the selected actor's parameter '''
+		"""Sets the newly defined value for the selected actor's parameter"""
 		self.SelectedActor.parameters[param, level] = value
 
 	def GetParameterValue( self, index, level ):
-		''' Retrieves the value of the current actor's selected parameter for the defined level '''
+		"""Retrieves the value of the current actor's selected parameter for the defined level"""
 		if self.SelectedActor.parameters.xsize <= index or self.SelectedActor.parameters.ysize < level:
 			maxlevel = Config.getint('Actors', 'MaxLevel')
 			for actor in DataActors:
@@ -235,52 +227,18 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 					actor.parameters[index, j] = 50 + 5 * j
 		return self.SelectedActor.parameters[index, level]
 
-	def getFilePath(self, root, filename):
-		path = None
-		for entry in os.listdir(root):
-			if os.path.splitext(entry)[0] == filename:
-				path = root + '\\' + entry
-				break
-		return path
-
 	def buttonMaximum_Clicked( self, event ):
-		''' Shows dialog for changing the list capacity '''
-		items = self.listBoxActors.GetItems()
-		currentMax = len(items)
-		maxAllowed = Config.getint('GameObjects', 'Actors')
-		dlg = ARCedChangeMaximum_Dialog.ARCedChangeMaximum_Dialog(self, currentMax, 1, maxAllowed)
-		if dlg.ShowModal() == wx.ID_OK:
-			newMax = dlg.spinCtrlMaximum.GetValue()
-			if newMax != currentMax: 
-				if newMax > currentMax:
-					digits = len(Config.get('GameObjects', 'Actors'))
-					newActors = [None for i in xrange(newMax - currentMax)]
-					newLabels = [str(1 + currentMax + i).zfill(digits) + 
-						': ' for i in xrange(newMax - currentMax)]
-					DataActors.extend(newActors)
-					self.listBoxActors.InsertItems(newLabels, currentMax)
-				else:
-					if DM.FixedIndex(self.listBoxActors.GetSelection()) >= newMax:
-						self.listBoxActors.Select(newMax - 1)
-					del DataActors[newMax:currentMax]
-					for i in reversed(range(currentMax)):
-						if i >= newMax:
-							self.listBoxActors.Delete(i)
-						else:
-							break;
-		dlg.Destroy()
+		"""Starts the Change Maximum dialog"""
+		max = Config.getint('GameObjects', 'Actors')
+		DM.ChangeDataCapacity(self, self.listBoxActors, DataActors, max)
 
 	def textBoxName_TextChanged( self, event ):
-		''' Renames the selected actor and syncs text with the ListBox control '''
-		index = self.listBoxActors.GetSelection()
-		name = self.textCtrlName.GetLineText(0)
-		self.SelectedActor.name = name
-		digits = len(Config.get('GameObjects', 'Actors'))
-		self.listBoxActors.SetString(index, 
-			''.join([str(DM.FixedIndex(index)).zfill(digits), ': ', name]))
+		"""Updates the selected actor's name"""
+		DM.UpdateObjectName(self.SelectedActor, event.GetString(),
+			self.listBoxActors, len(Config.get('GameObjects', 'Actors')))
 
 	def comboBoxClass_SelectionChanged( self, event ):
-		''' Removes any initial equipment that may be equipped if the chosen class does not permit '''
+		"""Removes any initial equipment that may be equipped if the chosen class does not permit"""
 		self.SelectedActor.class_id = DM.FixedIndex(self.comboBoxClass.GetSelection())
 
 		weaponSlots = len(Config.getlist('Actors', 'WeaponSlots'))
@@ -311,19 +269,19 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 
 
 	def spinCtrlInitialLevel_ValueChanged( self, event ):
-		''' Sets the selected actor's initial level to the value of the wxSpinCtrl '''
+		"""Sets the selected actor's initial level to the value of the wxSpinCtrl"""
 		self.spinCtrlInitialLevel.SetRange(1, self.spinCtrlFinalLevel.GetValue())
 		self.SelectedActor.initial_level = self.spinCtrlInitialLevel.GetValue()
 
 	def spinCtrlFinalLevel_ValueChanged( self, event ):
-		''' Sets the selected actor's final level to the value of the wxSpinCtrl '''
+		"""Sets the selected actor's final level to the value of the wxSpinCtrl"""
 		final = event.GetInt()
 		self.spinCtrlInitialLevel.SetRange(1, final)
 		self.spinCtrlLevel.SetRange(1, final)
 		self.SelectedActor.final_level = final
 
 	def comboBoxExperience_Click( self, event ):
-		''' Opens window to generate experience tables '''
+		"""Opens window to generate experience tables"""
 		# TODO: Create and use custom control instead of relying on focus changes
 		self.listBoxActors.SetFocus()
 		dlg = ARCedExpCurve_Dialog.ARCedExpCurve_Dialog(self, self.SelectedActor)
@@ -335,7 +293,7 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 		self.refreshParameters()
 
 	def bitmapCharacterGraphic_Click( self, event ):
-		''' Opens dialog to change the character graphic '''
+		"""Opens dialog to change the character graphic"""
 		# TODO: Change how the 'path' is read
 		path = GraphicsDir + '/Characters'
 		name = self.SelectedActor.character_name
@@ -349,7 +307,7 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 		dlg.Destroy()
 
 	def bitmapBattlerGraphic_Click( self, event ):
-		''' Opens dialog to change the battler graphic '''
+		"""Opens dialog to change the battler graphic"""
 		# TODO: Change how the 'path' is read
 		path = GraphicsDir + '/Battlers'
 		name = self.SelectedActor.battler_name
@@ -363,7 +321,7 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 		dlg.Destroy()
 
 	def comboBoxEquipment_SelectionChanged( self, event ):
-		''' Updates the weapon/armor id for the selected type for the actor '''
+		"""Updates the weapon/armor id for the selected type for the actor"""
 		ctrlIndex = self.EquipmentBoxes.index(event.GetEventObject())
 		if DM.ARC_FORMAT:
 			# TODO: Implement
@@ -380,7 +338,7 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 					'_id = event.GetClientData()']))
 
 	def checkBoxFixedEquipment_CheckChanged( self, event ):
-		''' Updates the "fixed" states for the selected actor's equipment '''
+		"""Updates the "fixed" states for the selected actor's equipment"""
 		ctrlIndex = self.FixedCheckBoxes.index(event.GetEventObject())
 		if DM.ARC_FORMAT:
 			# TODO: Implement
@@ -397,11 +355,11 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 					'_fix = event.Checked()']))
 
 	def spinCtrlParamLevel_ValueChanged( self, event ):
-		''' Update the controls on each page when the level is changed '''
+		"""Update the controls on each page when the level is changed"""
 		self.refreshValues(self.spinCtrlLevel.GetValue())
 
 	def refreshValues( self, level=None ):
-		''' Applies the limits defined for the selected parameter, and updates the value '''
+		"""Applies the limits defined for the selected parameter, and updates the value"""
 		if level == None:
 			level = self.spinCtrlLevel.GetValue()
 		self.spinCtrlValue.SetValue(self.GetParameterValue(self.ParamTab, level))
@@ -411,19 +369,17 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 		self.textCtrlNotes.ChangeValue(self.SelectedActor.note)
 		
 	def GetValueMax( self, param_index ):
-		if param_index == 0:
-			return Config.getint('Actors', 'MaxHP')
-		elif param_index == 1:
-			return Config.getint('Actors', 'MaxSP')
-		else:
-			return Config.getint('Actors', 'MaxParameter')
+		""" """
+		if param_index == 0: return Config.getint('Actors', 'MaxHP')
+		elif param_index == 1: return Config.getint('Actors', 'MaxSP')
+		else: return Config.getint('Actors', 'MaxParameter')
 	
 	def spinCtrlValue_ValueChanged( self, event ):
-		''' Updates the actors parameter table with the value '''
+		"""Updates the actors parameter table with the value"""
 		self.SetParameterValue(self.ParamTab, self.spinCtrlLevel.GetValue(), self.spinCtrlValue.GetValue())
 
 	def buttonGenerateCurve_Clicked( self, event):
-		''' Create the parameter curve dialog, using the passed index to determine the parameter '''
+		"""Create the parameter curve dialog, using the passed index to determine the parameter"""
 		dlg = ARCedGenerateCurve_Dialog.ARCedGenerateCurve_Dialog(self, self.ParamTab)
 		if dlg.ShowModal() == wx.ID_OK:
 			# TODO: Implement curve modification
@@ -431,7 +387,7 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 		dlg.Destroy()
 
 	def noteBookParameters_PageChanged( self, event ):
-		''' Sets the index of the page when the tab is traversed '''
+		"""Sets the index of the page when the tab is traversed"""
 		self.ParamTab = event.GetSelection()
 		if not DM.ARC_FORMAT:
 			self.buttonRemoveParameter.Enabled = (self.ParamTab > 5)
@@ -455,14 +411,14 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 		print 'E'
 
 	def buttonAddParameter_Clicked( self, event ):
-		''' Opens dialog for the user to create a custom parameter '''
+		"""Opens dialog for the user to create a custom parameter"""
 		dialog = ARCedAddParameter_Dialog.ARCedAddParameter_Dialog( self )
 		if (dialog.ShowModal() == wx.ID_OK):
 			paramName = dialog.textCtrlParameterName.GetLineText(0)
 			self.AddParameterPage(paramName)
 
 	def buttonRemoveParameter_Clicked( self, event ):
-		''' Removes the selected page from the tab control and resizes the actors' parameter tables '''
+		"""Removes the selected page from the tab control and resizes the actors' parameter tables"""
 		params = self.SelectedActor.parameters
 		for i in xrange(self.ParamTab, params.xsize - 1):
 			params[i, :] = params[i + 1, :]
@@ -479,5 +435,5 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 		self.noteBookActorParameters.SetSelection(self.ParamTab)
 
 	def textCtrlNotes_TextChanged( self, event ):
-		''' Updates the notes for the selected actor '''
+		"""Updates the notes for the selected actor"""
 		self.SelectedActor.note = event.GetString()
