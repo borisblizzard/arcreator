@@ -522,3 +522,17 @@ checkMinus = PyEmbeddedImage(
     "f/7ArhFXyIJsAmn6/fsX8RqRNf39+4c4jeia/v37R1gjNk2gUMEIHHKSHAACM0JQInLrmgAA"
     "AABJRU5ErkJggg==")
 IconManager._catalog['checkminus'] = checkMinus
+
+#----------------------------------------------------------------------
+play_button = PyEmbeddedImage(
+    "iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1B"
+    "AACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAadEVYdFNvZnR3YXJlAFBhaW50Lk5F"
+    "VCB2My41LjEwMPRyoQAAAXhJREFUOE/Nkb9LAnEYxs9LRfL0NH+kWCekZ2rS5VKEkiFKIYZW"
+    "WoY6RBhR0NRWS1ERRmVLDUVqmZEhBU6OQdDWvxEtQX/B01lLBKJCQ+/2wvt5ng/fL0H8q9HM"
+    "6p70C4Z3QkKmeDFBy3LsNgvPswvcaT+kdlmVD2BaCrFsWOCtuuCruOEtudAdZT4IcQs21jUL"
+    "/GU3xm9HESj6MVEIYnhzBBSrbM7GvmpF4NqP4FUQofw0prJziGaTmLyIwRSxNrZxrAwglPsG"
+    "I9kEZi4TiBXjiJfiSJYT8B74QNLC/brvwi0NfYFjZ0Fwx04Y00Zo99RQHynRldOhL+MASQnv"
+    "6gb0LjrQkzaB3pJDvkOBPpSCPpei44ZGe1QGQigo8LCybgAV58FdHsxIochSUD3I0Xmihtgs"
+    "eeWhcMMvpVIyKPIUNBUatkcG+nktBCKy1qpqCNcOVOtKDL6Y4bnnILfJmmv9mcyEdW/OZRak"
+    "qK351l9qBn7nmtL9q6NPOwWIjQURzaEAAAAASUVORK5CYII=")
+IconManager._catalog['play_button'] = play_button
