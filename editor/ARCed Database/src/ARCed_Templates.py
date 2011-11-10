@@ -1569,10 +1569,10 @@ class Weapons_Panel ( wx.Panel ):
 		self.textCtrlDescription.Bind( wx.EVT_TEXT, self.textCtrlDescription_TextChange )
 		self.comboBoxUserAnimation.Bind( wx.EVT_CHOICE, self.comboBoxUserAnimation_SelectionChanged )
 		self.comboBoxTargetAnimation.Bind( wx.EVT_CHOICE, self.comboBoxTargetAnimation_SelectionChanged )
-		self.spinCtrlPrice.Bind( wx.EVT_SPINCTRL, self.spinCtrlPrice_ValueChanged )
-		self.spinCtrlAtk.Bind( wx.EVT_SPINCTRL, self.spinCtrlAtk_ValueChanged )
-		self.spinCtrlPdef.Bind( wx.EVT_SPINCTRL, self.spinCtrlPdef_ValueChanged )
-		self.spinCtrlMdef.Bind( wx.EVT_SPINCTRL, self.spinCtrlMdef_ValueChanged )
+		self.spinCtrlPrice.Bind( wx.EVT_SPINCTRL, self.spinCtrlParameter_ValueChanged )
+		self.spinCtrlAtk.Bind( wx.EVT_SPINCTRL, self.spinCtrlParameter_ValueChanged )
+		self.spinCtrlPdef.Bind( wx.EVT_SPINCTRL, self.spinCtrlParameter_ValueChanged )
+		self.spinCtrlMdef.Bind( wx.EVT_SPINCTRL, self.spinCtrlParameter_ValueChanged )
 		self.checkListElements.Bind( wx.EVT_CHECKLISTBOX, self.checkListElements_CheckChanged )
 		self.listCtrlStates.Bind( wx.EVT_LEFT_DOWN, self.listCtrlStates_LeftClicked )
 		self.listCtrlStates.Bind( wx.EVT_RIGHT_DOWN, self.listCtrlStates_RightClicked )
@@ -1604,17 +1604,11 @@ class Weapons_Panel ( wx.Panel ):
 	def comboBoxTargetAnimation_SelectionChanged( self, event ):
 		pass
 	
-	def spinCtrlPrice_ValueChanged( self, event ):
+	def spinCtrlParameter_ValueChanged( self, event ):
 		pass
 	
-	def spinCtrlAtk_ValueChanged( self, event ):
-		pass
 	
-	def spinCtrlPdef_ValueChanged( self, event ):
-		pass
 	
-	def spinCtrlMdef_ValueChanged( self, event ):
-		pass
 	
 	def checkListElements_CheckChanged( self, event ):
 		pass
@@ -1819,17 +1813,17 @@ class Armors_Panel ( wx.Panel ):
 		self.Layout()
 		
 		# Connect Events
-		self.listBoxArmors.Bind( wx.EVT_LISTBOX, self.listBoxWeapons_SelectionChanged )
+		self.listBoxArmors.Bind( wx.EVT_LISTBOX, self.listBoxArmors_SelectionChanged )
 		self.buttonMaximum.Bind( wx.EVT_BUTTON, self.buttonMaximum_Clicked )
 		self.textCtrlName.Bind( wx.EVT_TEXT, self.textCtrlName_TextChanged )
 		self.bitmapButtonIcon.Bind( wx.EVT_BUTTON, self.bitmapButtonIcon_Clicked )
 		self.textCtrlDescription.Bind( wx.EVT_TEXT, self.textCtrlDescription_TextChange )
 		self.comboBoxKind.Bind( wx.EVT_CHOICE, self.comboBoxKind_SelectionChanged )
 		self.comboBoxAutoState.Bind( wx.EVT_CHOICE, self.comboBoxAutoState_SelectionChanged )
-		self.spinCtrlPrice.Bind( wx.EVT_SPINCTRL, self.spinCtrlPrice_ValueChanged )
-		self.spinCtrlPdef.Bind( wx.EVT_SPINCTRL, self.spinCtrlPdef_ValueChanged )
-		self.spinCtrlMdef.Bind( wx.EVT_SPINCTRL, self.spinCtrlMdef_ValueChanged )
-		self.spinCtrlEva.Bind( wx.EVT_SPINCTRL, self.spinCtrlEva_ValueChanged )
+		self.spinCtrlPrice.Bind( wx.EVT_SPINCTRL, self.spinCtrlParameter_ValueChanged )
+		self.spinCtrlPdef.Bind( wx.EVT_SPINCTRL, self.spinCtrlParameter_ValueChanged )
+		self.spinCtrlMdef.Bind( wx.EVT_SPINCTRL, self.spinCtrlParameter_ValueChanged )
+		self.spinCtrlEva.Bind( wx.EVT_SPINCTRL, self.spinCtrlParameter_ValueChanged )
 		self.checkListElements.Bind( wx.EVT_CHECKLISTBOX, self.checkListElements_CheckChanged )
 		self.checkListStates.Bind( wx.EVT_CHECKLISTBOX, self.checkListStates_CheckChanged )
 		self.textCtrlNotes.Bind( wx.EVT_TEXT, self.textCtrlNotes_TextChanged )
@@ -1839,7 +1833,7 @@ class Armors_Panel ( wx.Panel ):
 	
 	
 	# Virtual event handlers, overide them in your derived class
-	def listBoxWeapons_SelectionChanged( self, event ):
+	def listBoxArmors_SelectionChanged( self, event ):
 		pass
 	
 	def buttonMaximum_Clicked( self, event ):
@@ -1860,17 +1854,11 @@ class Armors_Panel ( wx.Panel ):
 	def comboBoxAutoState_SelectionChanged( self, event ):
 		pass
 	
-	def spinCtrlPrice_ValueChanged( self, event ):
+	def spinCtrlParameter_ValueChanged( self, event ):
 		pass
 	
-	def spinCtrlPdef_ValueChanged( self, event ):
-		pass
 	
-	def spinCtrlMdef_ValueChanged( self, event ):
-		pass
 	
-	def spinCtrlEva_ValueChanged( self, event ):
-		pass
 	
 	def checkListElements_CheckChanged( self, event ):
 		pass

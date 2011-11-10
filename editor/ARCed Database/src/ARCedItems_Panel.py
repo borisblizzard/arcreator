@@ -8,6 +8,7 @@ import Kernel
 
 class ARCedItems_Panel( ARCed_Templates.Items_Panel ):
 	def __init__( self, parent, item_index=0 ):
+		"""Basic constructor for the Items panel"""
 		ARCed_Templates.Items_Panel.__init__( self, parent )
 		global Config
 		global DataItems, DataStates, DataElements, DataCommonEvents, DataAnimations

@@ -148,7 +148,6 @@
     <Folder Include="ARC TestProject" />
     <Folder Include="src" />
     <Folder Include="C:\Users\Eric\Desktop\ARC\editor\ARCed Database\src\images" />
-    <Folder Include="src\images\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="ARC TestProject\ARC Test Project.arcproj" />
@@ -258,18 +257,5 @@
     <Content Include="ARC TestProject\Data\Troops.arc" />
     <Content Include="ARC TestProject\Data\Weapons.arc" />
     <Content Include="ini\DatabaseTabs.ini" />
-    <Content Include="src\images\Agi.png" />
-    <Content Include="src\images\AnimationSample1.png" />
-    <Content Include="src\images\AnimationSample2.png" />
-    <Content Include="src\images\Battleback.jpg" />
-    <Content Include="src\images\Battler.png" />
-    <Content Include="src\images\Character.png" />
-    <Content Include="src\images\Dex.png" />
-    <Content Include="src\images\Ghost.png" />
-    <Content Include="src\images\Int.png" />
-    <Content Include="src\images\MaxHP.png" />
-    <Content Include="src\images\MaxSP.png" />
-    <Content Include="src\images\Str.png" />
-    <Content Include="src\images\TilesetSample.png" />
   </ItemGroup>
 </Project>
