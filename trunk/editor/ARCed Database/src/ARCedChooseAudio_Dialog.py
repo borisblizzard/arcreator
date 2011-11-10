@@ -32,9 +32,6 @@ class ARCedChooseAudio_Dialog( ARCed_Templates.ChooseAudio_Dialog ):
 			self.sliderPitch.SetValue(audiofile.volume)
 		else:
 			self.listBoxAudio.SetSelection(0)
-		
-
-
 
 	# Handlers for ChooseAudio_Dialog events.
 	def buttonPlay_Clicked( self, event ):

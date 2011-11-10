@@ -28,51 +28,18 @@ class ARCedSkills_Panel( ARCed_Templates.Skills_Panel ):
 		font = wx.Font(8, wx.FONTFAMILY_TELETYPE, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL)
 		font.SetFaceName(Config.get('Misc', 'NoteFont')) 
 		self.textCtrlNotes.SetFont(font)
-		self.comboBoxIcon.SetCursor(wx.STANDARD_CURSOR)
+		DM.DrawButtonIcon(self.bitmapButtonAudioTest, 'play_button', True)
 		self.comboBoxMenuSE.SetCursor(wx.STANDARD_CURSOR)
-		if DM.ARC_FORMAT:
-			params = Config.getlist('Misc', 'Parameters')
-		else:
-			params = ['STR', 'DEX', 'AGI', 'INT']
-		self.CreateControls(params)
+		self.ParameterControls = [
+			self.spinCtrlAtkF, self.spinCtrlPdefF,
+			self.spinCtrlMdefF, self.spinCtrlEvaF ]
+		self.ParameterControls.extend(DM.AddParameterSpinCtrls(self.panelParameters, 
+			self.spinCtrlParameter_ValueChanged, '-F:', 4))
 		self.setRanges()
 		self.SelectedSkill = DataSkills[DM.FixedIndex(skill_index)]
 		self.refreshAll()
 		self.listBoxSkills.SetSelection(skill_index)
 		DM.DrawHeaderBitmap(self.bitmapSkills, 'Skills')
-
-	def CreateControls( self, params ):
-		self.ParameterControls = [
-			self.spinCtrlAtkF, self.spinCtrlPdefF,
-			self.spinCtrlMdefF, self.spinCtrlEvaF ]
-		# Get main sizer to add to, and split parameters into rows of 4 each
-		mainsizer = self.panelParameters.GetSizer()
-		rows = [params[i:i+4] for i in xrange(0, len(params), 4)]
-		# Iterate through each of the rows and create the controls
-		for row in rows:
-			labelsizer = wx.BoxSizer(wx.HORIZONTAL)
-			spinsizer = wx.BoxSizer(wx.HORIZONTAL)
-			n = len(row)
-			if n < 4:
-				row.append(None)
-				proportion = 25 * (4 - n)
-			for param in row:
-				if param != None:
-					label = wx.StaticText( self.panelParameters, wx.ID_ANY, param + '-F:')
-					label.Wrap( -1 )
-					labelsizer.Add( label, 25, wx.ALL, 5 )
-					spinctrl = wx.SpinCtrl( self.panelParameters, wx.ID_ANY, wx.EmptyString, style=wx.SP_ARROW_KEYS|wx.SP_WRAP)
-					spinctrl.Bind(wx.EVT_SPINCTRL, Kernel.Protect(self.spinCtrlParameter_ValueChanged))
-					self.ParameterControls.append(spinctrl)
-					spinsizer.Add( spinctrl, 25, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
-				else:
-					# Create a dummy filler
-					dummy = wx.StaticText( self.panelParameters, wx.ID_ANY, '')
-					dummy.Wrap(-1)
-					labelsizer.Add(dummy, proportion, wx.ALL, 5)
-					spinsizer.Add(dummy, proportion, wx.ALL, 5)
-			mainsizer.Add( labelsizer, 0, wx.EXPAND, 5 )
-			mainsizer.Add( spinsizer, 0, wx.EXPAND, 5 )
 
 	def refreshSkillList( self ):
 		"""Refreshes the values in the skill wxListBox control"""
@@ -109,14 +76,14 @@ class ARCedSkills_Panel( ARCed_Templates.Skills_Panel ):
 		skill = self.SelectedSkill
 		self.textCtrlName.ChangeValue(skill.name)
 		self.textCtrlDescription.ChangeValue(skill.description)
-		self.comboBoxIcon.SetValue(skill.icon_name)
+		self.labelIconName.SetLabel(skill.icon_name)
+		DM.DrawButtonIcon(self.bitmapButtonIcon, skill.icon_name, False)
 		self.comboBoxScope.SetSelection(skill.scope)
 		self.comboBoxOccasion.SetSelection(skill.occasion)
 		self.comboBoxUserAnimation.SetSelection(skill.animation1_id)
 		self.comboBoxTargetAnimation.SetSelection(skill.animation2_id)
 		self.comboBoxCommonEvent.SetSelection(skill.common_event_id)
 		self.comboBoxMenuSE.SetValue(skill.menu_se.name)
-
 
 		# TODO: Remove this. Something got screwed up with the conversion
 		if skill.power > 2147483647:
@@ -130,7 +97,6 @@ class ARCedSkills_Panel( ARCed_Templates.Skills_Panel ):
 			# TODO: Implement
 			pass
 		else:
-			# TODO: Fix this
 			self.ParameterControls[0].SetValue(skill.atk_f)
 			self.ParameterControls[1].SetValue(skill.pdef_f)
 			self.ParameterControls[2].SetValue(skill.mdef_f)
@@ -181,6 +147,7 @@ class ARCedSkills_Panel( ARCed_Templates.Skills_Panel ):
 			spinctrl.SetRange(0, max)
 
 	def listBoxSkills_SelectionChanged( self, event ):
+		"""Changes the selected skill and update the values on the panel"""
 		index = DM.FixedIndex(event.GetSelection())
 		if DataSkills[index] == None:
 			DataSkills[index] = RPG.Skill()
@@ -197,16 +164,13 @@ class ARCedSkills_Panel( ARCed_Templates.Skills_Panel ):
 		DM.UpdateObjectName(self.SelectedSkill, event.GetString(),
 			self.listBoxSkills, len(Config.get('GameObjects', 'Skills')))
 
-	def comboBoxIcon_LeftClicked( self, event ):
+	def bitmapButtonIcon_Clicked( self, event ):
 		"""Opens dialog to select an icon for the selected skill"""
-		self.listBoxSkills.SetFocus()
-		icon = self.SelectedSkill.icon_name
-		dlg = ARCedChooseGraphic_Dialog(self, 'Graphics/Icons', icon)
-		if dlg.ShowModal() == wx.ID_OK:
-			
+		DM.ChooseGraphic('Graphics/Icon/', self.SelectedSkill.icon_name, 0, False)
 
-			self.comboBoxIcon.SetValue(self.SelectedSkill.icon_name)
-		dlg.Destroy()
+	def bitmapButtonAudioTest_Clicked( self, event ):
+		"""Plays the sound effect as a quick test without opening the dialog"""
+		DM.TestSFX(self.SelectedSkill.menu_se)
 
 	def textCtrlDescription_TextChange( self, event ):
 		"""Set the selected skill's description"""

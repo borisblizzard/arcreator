@@ -26,12 +26,15 @@ class ARCedItems_Panel( ARCed_Templates.Items_Panel ):
 		font = wx.Font(8, wx.FONTFAMILY_TELETYPE, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL)
 		font.SetFaceName(Config.get('Misc', 'NoteFont')) 
 		self.textCtrlNotes.SetFont(font)
-		self.comboBoxIcon.SetCursor(wx.STANDARD_CURSOR)
+		DM.DrawButtonIcon(self.bitmapButtonAudioTest, 'play_button', True)
 		self.comboBoxMenuSE.SetCursor(wx.STANDARD_CURSOR)
 		self.SelectedItem = DataItems[DM.FixedIndex(item_index)]
 		self.refreshAll()
 		self.listBoxItems.SetSelection(item_index)
 		DM.DrawHeaderBitmap(self.bitmapItems, 'Items')
+
+	def setRange( self ):
+		pass
 
 	def refreshItems( self ):
 		"""Refreshes the values in the item wxListBox control"""
@@ -78,7 +81,8 @@ class ARCedItems_Panel( ARCed_Templates.Items_Panel ):
 		item = self.SelectedItem
 		self.textCtrlName.ChangeValue(item.name)
 		self.textCtrlDescription.ChangeValue(item.description)
-		self.comboBoxIcon.SetValue(item.icon_name)
+		self.labelIconName.SetLabel(item.icon_name)
+		DM.DrawButtonIcon(self.bitmapButtonIcon, item.icon_name, False)
 		self.comboBoxScope.SetSelection(item.scope)
 		self.comboBoxOccasion.SetSelection(item.occasion)
 		self.comboBoxUserAnimation.SetSelection(item.animation1_id)
@@ -132,7 +136,6 @@ class ARCedItems_Panel( ARCed_Templates.Items_Panel ):
 		self.refreshCommonEvents()
 		self.refreshValues()
 
-	# Handlers for Items_Panel events.
 	def listBoxItems_SelectionChanged( self, event ):
 		"""Changes the selected item"""
 		index = DM.FixedIndex(event.GetInt())
@@ -151,9 +154,13 @@ class ARCedItems_Panel( ARCed_Templates.Items_Panel ):
 		DM.UpdateObjectName(self.SelectedItem, event.GetString(),
 			self.listBoxItems, len(Config.get('GameObjects', 'Items')))
 
-	def comboBoxIcon_Clicked( self, event ):
-		# TODO: Implement comboBoxIcon_Clicked
-		pass
+	def bitmapButtonIcon_Clicked( self, event ):
+		"""Opens dialog to select an icon for the selected skill"""
+		DM.ChooseGraphic('Graphics/Icon/', self.SelectedItem.icon_name, 0, False)
+
+	def bitmapButtonAudioTest_Clicked( self, event ):
+		"""Plays the sound effect as a quick test without opening the dialog"""
+		DM.TestSFX(self.SelectedItem.menu_se)
 
 	def textCtrlDescription_TextChange( self, event ):
 		"""Updates the selected item's description"""

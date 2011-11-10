@@ -2,89 +2,187 @@
 
 import wx
 import ARCed_Templates
-import ARCedChangeMaximum_Dialog
-import ARCedChooseGraphic_Dialog
+from Core.RMXP import RGSS1_RPG as RPG
+
 from DatabaseManager import DatabaseManager as DM
+import Kernel
 
 # Implementing Weapons_Panel
 class ARCedWeapons_Panel( ARCed_Templates.Weapons_Panel ):
-	def __init__( self, parent ):
+	def __init__( self, parent, weapon_index=0 ):
 		ARCed_Templates.Weapons_Panel.__init__( self, parent )
 
-
+		global Config, DataWeapons, DataStates, DataAnimations, DataElements
+		Config = Kernel.GlobalObjects.get_value('ARCed_config')
+		try:
+			proj = Kernel.GlobalObjects.get_value('PROJECT')
+			DataWeapons = proj.getData('Weapons')
+			DataAnimations = proj.getData('Animations')
+			DataStates = proj.getData('States')
+			DataElements = proj.getData('System').elements
+		except NameError:
+			Kernel.Log('Database opened before Project has been initialized', '[Database:SKILLS]', True)
+			self.Destroy()
+		self.listCtrlStates.AssignImageList(DM.GetAddSubImageList(), wx.IMAGE_LIST_SMALL)
+		font = wx.Font(8, wx.FONTFAMILY_TELETYPE, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL)
+		font.SetFaceName(Config.get('Misc', 'NoteFont')) 
+		self.textCtrlNotes.SetFont(font)
+		self.ParameterControls = [self.spinCtrlPrice, self.spinCtrlAtk,
+			self.spinCtrlPdef, self.spinCtrlMdef]
+		self.ParameterControls.extend(DM.AddParameterSpinCtrls(self.panelParameters, 
+			self.spinCtrlParameter_ValueChanged, '+:', 4))
+		self.SelectedWeapon = DataWeapons[DM.FixedIndex(weapon_index)]
+		self.refreshAll()
+		self.listBoxWeapons.SetSelection(weapon_index)
 		DM.DrawHeaderBitmap(self.bitmapWeapons, 'Weapons')
 
-	# Handlers for Weapons_Panel events.
+	def refreshAll( self ):
+		"""Refreshes all the controls on the panel"""
+		self.refreshWeaponList()
+		self.refreshElements()
+		self.refreshStates()
+		self.refreshAnimations()
+		self.refreshValues()
+
+	def refreshWeaponList( self ):
+		"""Refreshes the list of weapons"""
+		digits = len(Config.get('GameObjects', 'Weapons'))
+		DM.FillControl(self.listBoxWeapons, DataWeapons, digits, [])
+
+	def refreshElements( self ):
+		"""Refreshes the list of elements in the wxCheckListBox"""
+		self.checkListElements.Clear()
+		self.checkListElements.AppendItems(DataElements[DM.FixedIndex(0):])
+
+	def refreshStates( self ):
+		"""Clears and refreshes the list of states in the checklist"""
+		self.listCtrlStates.DeleteAllItems()
+		start = DM.FixedIndex(0)
+		names = [DataStates[i].name for i in xrange(start, len(DataStates))]
+		self.listCtrlStates.InsertColumn(0, '')
+		for i in xrange(len(names)):
+			self.listCtrlStates.InsertStringItem(i, names[i], 0)
+
+	def refreshAnimations( self ):
+		"""Refreshes the choices in the user and target animation controls"""
+		digits = len(Config.get('GameObjects', 'Animations'))
+		DM.FillControl(self.comboBoxUserAnimation, DataAnimations, digits, ['(None)'])
+		DM.FillControl(self.comboBoxTargetAnimation, DataAnimations, digits, ['(None)'])
+
+	def refreshValues( self ):
+		weapon = self.SelectedWeapon
+		self.textCtrlName.ChangeValue(weapon.name)
+		self.labelIconName.SetLabel(weapon.icon_name)
+		DM.DrawButtonIcon(self.bitmapButtonIcon, weapon.icon_name, False)
+		self.textCtrlDescription.ChangeValue(weapon.description)
+		self.comboBoxUserAnimation.SetSelection(weapon.animation1_id)
+		self.comboBoxTargetAnimation.SetSelection(weapon.animation2_id)
+		self.spinCtrlPrice.SetValue(weapon.price)
+		self.spinCtrlAtk.SetValue(weapon.atk)
+		self.spinCtrlPdef.SetValue (weapon.pdef)
+		self.spinCtrlMdef.SetValue(weapon.mdef)
+		if DM.ARC_FORMAT:
+			# TODO: Implement
+			addstates = skill.plus_state_set
+			minusstates = skill.minus_state_set
+			checked = weapon.element_set
+		else:
+			checked = [i - 1 for i in weapon.element_set]
+			addstates = [id - 1 for id in weapon.plus_state_set]
+			minusstates = [id - 1 for id in weapon.minus_state_set]
+			self.ParameterControls[0] = weapon.str_plus
+			self.ParameterControls[1] = weapon.dex_plus
+			self.ParameterControls[2] = weapon.agi_plus
+			self.ParameterControls[3] = weapon.int_plus
+		self.checkListElements.SetChecked(checked)
+		for i in xrange(self.listCtrlStates.GetItemCount()):
+			if i in addstates:
+				self.listCtrlStates.SetItemImage(i, 1)
+			elif i in minusstates:
+				self.listCtrlStates.SetItemImage(i, 2)
+			else:
+				self.listCtrlStates.SetItemImage(i, 0)
+		if not hasattr(weapon, 'note'):
+			setattr(weapon, 'note', '')
+		self.textCtrlNotes.ChangeValue(weapon.note)
+
+	def spinCtrlParameter_ValueChanged( self, event ):
+		index = self.ParameterControls.index(event.GetEventObject())
+		if DM.ARC_FORMAT:
+			# TODO: Implement
+			pass
+		else:
+			value = event.GetInt()
+			if index == 0: self.SelectedWeapon.str_plus = value
+			elif index == 1: self.SelectedWeapon.dex_plus = value
+			elif index == 2: self.SelectedWeapon.agi_plus = value
+			elif index == 3: self.SelectedWeapon.int_plus = value
+
 	def listBoxWeapons_SelectionChanged( self, event ):
-		# TODO: Implement listBoxWeapons_SelectionChanged
-		pass
-
+		"""Changes the selected weapon and update the values on the panel"""
+		index = DM.FixedIndex(event.GetSelection())
+		if DataWeapons[index] == None:
+			DataWeapons[index] = RPG.Weapon()
+		self.SelectedWeapon = DataWeapons[index]
+		self.refreshValues()
+	
 	def buttonMaximum_Clicked( self, event ):
-		# TODO: Implement buttonMaximum_Clicked
-		pass
-
+		"""Starts the Change Maximum dialog"""
+		max = Config.getint('GameObjects', 'Weapons')
+		DM.ChangeDataCapacity(self, self.listBoxWeapons, DataWeapons, max)
+	
 	def textCtrlName_TextChanged( self, event ):
-		# TODO: Implement textCtrlName_TextChanged
-		pass
-
-	def comboBoxIcon_Clicked( self, event ):
-		# TODO: Implement comboBoxIcon_Clicked
-		pass
-
+		"""Updates the selected weapon's name"""
+		DM.UpdateObjectName(self.SelectedWeapon, event.GetString(),
+			self.listBoxWeapons, len(Config.get('GameObjects', 'Weapons')))
+	
+	def bitmapButtonIcon_Clicked( self, event ):
+		"""Opens dialog to select an icon for the selected skill"""
+		DM.ChooseGraphic('Graphics/Icon/', self.SelectedWeapon.icon_name, 0, False)
+	
 	def textCtrlDescription_TextChange( self, event ):
-		# TODO: Implement textCtrlDescription_TextChange
-		pass
-
+		"""Set the selected weapon's description"""
+		self.SelectedWeapon.description = event.GetString()
+	
 	def comboBoxUserAnimation_SelectionChanged( self, event ):
-		# TODO: Implement comboBoxUserAnimation_SelectionChanged
-		pass
-
-	def comboBoxOccasion_SelectionChanged( self, event ):
-		# TODO: Implement comboBoxOccasion_SelectionChanged
-		pass
-
+		"""Set the selected weapon's user animation"""
+		self.SelectedWeapon.animation1_id = event.GetInt()
+	
+	def comboBoxTargetAnimation_SelectionChanged( self, event ):
+		"""Set the selected weapon's target animation"""
+		self.SelectedWeapon.animation2_id = event.GetInt()
+	
 	def spinCtrlPrice_ValueChanged( self, event ):
-		# TODO: Implement spinCtrlPrice_ValueChanged
-		pass
-
-	def spinCtrlStrPlus_ValueChanged( self, event ):
-		# TODO: Implement spinCtrlStrPlus_ValueChanged
-		pass
-
+		"""Set the selected weapon's price"""
+		self.SelectedWeapon.price = event.GetInt()
+	
 	def spinCtrlAtk_ValueChanged( self, event ):
-		# TODO: Implement spinCtrlAtk_ValueChanged
-		pass
-
-	def spinCtrlDexPlus_ValueChanged( self, event ):
-		# TODO: Implement spinCtrlDexPlus_ValueChanged
-		pass
-
+		"""Set the selected weapon's user attack"""
+		self.SelectedWeapon.atk = event.GetInt()
+	
 	def spinCtrlPdef_ValueChanged( self, event ):
-		# TODO: Implement spinCtrlPdef_ValueChanged
-		pass
-
-	def spinCtrlAgiPlus_ValueChanged( self, event ):
-		# TODO: Implement spinCtrlAgiPlus_ValueChanged
-		pass
-
+		"""Set the selected weapon's physical defense"""
+		self.SelectedWeapon.pdef = event.GetInt()
+	
 	def spinCtrlMdef_ValueChanged( self, event ):
-		# TODO: Implement spinCtrlMdef_ValueChanged
-		pass
-
-	def spinCtrlIntPlus_ValueChanged( self, event ):
-		# TODO: Implement spinCtrlIntPlus_ValueChanged
-		pass
-
+		"""Set the selected weapon's magical defense"""
+		self.SelectedWeapon.mdef = event.GetInt()
+	
 	def checkListElements_CheckChanged( self, event ):
-		# TODO: Implement checkListElements_CheckChanged
-		pass
+		"""Sets the IDs that are in the selected weapon's element set"""
+		ids = [DM.FixedIndex(id) for id in self.checkListElements.GetChecked()]
+		self.SelectedWeapon.element_set = ids
 
-	def checkListStates_CheckChanged( self, event ):
-		# TODO: Implement checkListStates_CheckChanged
-		pass
+	def listCtrlStates_LeftClicked( self, event ):
+		"""Cycles the State change up one"""
+		DM.ChangeSkillStates(self.listCtrlStates, self.SelectedWeapon, event, 1)
 
+	def listCtrlStates_RightClicked( self, event ):
+		"""Cycles the State change down one"""
+		DM.ChangeSkillStates(self.listCtrlStates, self.SelectedWeapon, event, -1)
+	
 	def textCtrlNotes_TextChanged( self, event ):
-		# TODO: Implement textCtrlNotes_TextChanged
-		pass
-
-
+		"""Set the selected weapon's magical defense"""
+		self.SelectedWeapon.note = event.GetString()
+	
+	

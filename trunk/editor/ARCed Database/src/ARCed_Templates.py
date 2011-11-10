@@ -170,7 +170,7 @@ class Actors_Panel ( wx.Panel ):
 		
 		bSizer613 = wx.BoxSizer( wx.HORIZONTAL )
 		
-		self.bitmapGraph = wx.StaticBitmap( self.pageParameters, wx.ID_ANY, wx.Bitmap( u"../images/MaxHP.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.Size( -1,-1 ), wx.CLIP_CHILDREN|wx.SIMPLE_BORDER )
+		self.bitmapGraph = wx.StaticBitmap( self.pageParameters, wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.Size( -1,-1 ), wx.CLIP_CHILDREN|wx.SIMPLE_BORDER )
 		bSizer613.Add( self.bitmapGraph, 1, wx.ALL|wx.EXPAND, 5 )
 		
 		bSizer640 = wx.BoxSizer( wx.VERTICAL )
@@ -197,7 +197,7 @@ class Actors_Panel ( wx.Panel ):
 		self.pageParameters.SetSizer( MainSizerParamter )
 		self.pageParameters.Layout()
 		MainSizerParamter.Fit( self.pageParameters )
-		self.noteBookActorParameters.AddPage( self.pageParameters, u"MaxHP", False )
+		self.noteBookActorParameters.AddPage( self.pageParameters, u"MaxHP", True )
 		self.pageSP = wx.Panel( self.noteBookActorParameters, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
 		self.noteBookActorParameters.AddPage( self.pageSP, u"MaxSP", False )
 		
@@ -223,8 +223,6 @@ class Actors_Panel ( wx.Panel ):
 		sizer2.Add( self.labelNotes, 0, wx.ALL, 5 )
 		
 		self.textCtrlNotes = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.TE_MULTILINE|wx.TE_PROCESS_ENTER|wx.TE_PROCESS_TAB|wx.CLIP_CHILDREN )
-		self.textCtrlNotes.SetToolTipString( u"Any user notes for this item. These notes can also be referenced via scripts." )
-		
 		sizer2.Add( self.textCtrlNotes, 20, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
 		
 		staticSizerActors.Add( sizer2, 65, wx.EXPAND, 5 )
@@ -429,8 +427,6 @@ class Classes_Panel ( wx.Panel ):
 		bSizer616.Add( self.labelNotes, 0, wx.ALL, 5 )
 		
 		self.textCtrlNotes = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.TE_MULTILINE|wx.TE_PROCESS_ENTER|wx.TE_PROCESS_TAB|wx.CLIP_CHILDREN )
-		self.textCtrlNotes.SetToolTipString( u"Any user notes for this item. These notes can also be referenced via scripts." )
-		
 		bSizer616.Add( self.textCtrlNotes, 25, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
 		
 		staticSizerClasses.Add( bSizer616, 54, wx.EXPAND, 5 )
@@ -600,13 +596,9 @@ class Skills_Panel ( wx.Panel ):
 		
 		listBoxSkillsChoices = []
 		self.listBoxSkills = wx.ListBox( self, wx.ID_ANY, wx.DefaultPosition, wx.Size( 184,-1 ), listBoxSkillsChoices, wx.LB_SINGLE|wx.CLIP_CHILDREN )
-		self.listBoxSkills.SetToolTipString( u"Deals fire damage on one enemy." )
-		
 		SkillListSizer.Add( self.listBoxSkills, 100, wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
 		
 		self.buttonMaximum = wx.Button( self, wx.ID_ANY, u"Change Maximum...", wx.DefaultPosition, wx.Size( 150,-1 ), 0 )
-		self.buttonMaximum.SetToolTipString( u"Change the maximum of available items" )
-		
 		SkillListSizer.Add( self.buttonMaximum, 0, wx.ALL|wx.EXPAND, 5 )
 		
 		MainSizer.Add( SkillListSizer, 0, wx.EXPAND, 5 )
@@ -615,36 +607,41 @@ class Skills_Panel ( wx.Panel ):
 		
 		sizer1 = wx.BoxSizer( wx.VERTICAL )
 		
-		sizer3 = wx.BoxSizer( wx.HORIZONTAL )
+		bSizer620 = wx.BoxSizer( wx.HORIZONTAL )
+		
+		bSizer621 = wx.BoxSizer( wx.VERTICAL )
 		
 		self.labelName = wx.StaticText( self, wx.ID_ANY, u"Name:", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.labelName.Wrap( -1 )
-		sizer3.Add( self.labelName, 1, wx.ALL, 5 )
+		bSizer621.Add( self.labelName, 0, wx.ALL|wx.EXPAND, 5 )
+		
+		self.textCtrlName = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer621.Add( self.textCtrlName, 1, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
+		
+		bSizer620.Add( bSizer621, 1, 0, 5 )
+		
+		bSizer622 = wx.BoxSizer( wx.VERTICAL )
 		
 		self.labelIcon = wx.StaticText( self, wx.ID_ANY, u"Icon:", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.labelIcon.Wrap( -1 )
-		sizer3.Add( self.labelIcon, 1, wx.ALL, 5 )
+		bSizer622.Add( self.labelIcon, 0, wx.ALL|wx.EXPAND, 5 )
 		
-		sizer1.Add( sizer3, 0, wx.EXPAND, 5 )
+		self.labelIconName = wx.StaticText( self, wx.ID_ANY, u"(Name of Icon)", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.labelIconName.Wrap( -1 )
+		bSizer622.Add( self.labelIconName, 0, wx.ALL, 5 )
 		
-		sizer4 = wx.BoxSizer( wx.HORIZONTAL )
+		bSizer620.Add( bSizer622, 0, 0, 5 )
 		
-		self.textCtrlName = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.textCtrlName.SetToolTipString( u"The item name." )
+		self.bitmapButtonIcon = wx.BitmapButton( self, wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.Size( 32,32 ), wx.BU_AUTODRAW )
+		bSizer620.Add( self.bitmapButtonIcon, 0, wx.ALIGN_BOTTOM|wx.ALL, 5 )
 		
-		sizer4.Add( self.textCtrlName, 1, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
+		sizer1.Add( bSizer620, 0, wx.EXPAND, 5 )
 		
-		comboBoxIconChoices = []
-		self.comboBoxIcon = wx.ComboBox( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, comboBoxIconChoices, 0 )
-		self.comboBoxIcon.SetToolTipString( u"The icon associated with the item" )
-		
-		sizer4.Add( self.comboBoxIcon, 1, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
-		
-		sizer1.Add( sizer4, 0, wx.EXPAND, 5 )
+		self.labelDescription = wx.StaticText( self, wx.ID_ANY, u"Description:", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.labelDescription.Wrap( -1 )
+		sizer1.Add( self.labelDescription, 0, wx.ALL|wx.EXPAND, 5 )
 		
 		self.textCtrlDescription = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.textCtrlDescription.SetToolTipString( u"Comment displayed when the item is selected" )
-		
 		sizer1.Add( self.textCtrlDescription, 0, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
 		
 		sizer6 = wx.BoxSizer( wx.HORIZONTAL )
@@ -658,8 +655,6 @@ class Skills_Panel ( wx.Panel ):
 		comboBoxScopeChoices = [ u"None", u"One Enemy", u"All Enemies", u"One Ally", u"All Allies", u"One Ally (HP 0)", u"All Allies (HP 0)", u"The User", u"One Ally or Enemy", u"Everyone" ]
 		self.comboBoxScope = wx.Choice( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxScopeChoices, 0 )
 		self.comboBoxScope.SetSelection( 0 )
-		self.comboBoxScope.SetToolTipString( u"Item's target area of influence." )
-		
 		sizer8.Add( self.comboBoxScope, 1, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
 		
 		self.labelUserAnimation = wx.StaticText( self, wx.ID_ANY, u"User Animation:", wx.DefaultPosition, wx.DefaultSize, 0 )
@@ -669,19 +664,26 @@ class Skills_Panel ( wx.Panel ):
 		comboBoxUserAnimationChoices = [ u"(None)" ]
 		self.comboBoxUserAnimation = wx.Choice( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxUserAnimationChoices, 0 )
 		self.comboBoxUserAnimation.SetSelection( 0 )
-		self.comboBoxUserAnimation.SetToolTipString( u"Animation displayed on the user when used in battle." )
-		
 		sizer8.Add( self.comboBoxUserAnimation, 1, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
+		
+		bSizer623 = wx.BoxSizer( wx.HORIZONTAL )
+		
+		bSizer624 = wx.BoxSizer( wx.VERTICAL )
 		
 		self.labelMenuSE = wx.StaticText( self, wx.ID_ANY, u"Menu Use SE:", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.labelMenuSE.Wrap( -1 )
-		sizer8.Add( self.labelMenuSE, 0, wx.ALL|wx.EXPAND, 5 )
+		bSizer624.Add( self.labelMenuSE, 0, wx.ALL|wx.EXPAND, 5 )
 		
 		comboBoxMenuSEChoices = []
 		self.comboBoxMenuSE = wx.ComboBox( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, comboBoxMenuSEChoices, 0 )
-		self.comboBoxMenuSE.SetToolTipString( u"Sound effect played when using this item on the menu screen" )
+		bSizer624.Add( self.comboBoxMenuSE, 1, wx.EXPAND|wx.BOTTOM|wx.LEFT, 5 )
 		
-		sizer8.Add( self.comboBoxMenuSE, 1, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
+		bSizer623.Add( bSizer624, 1, 0, 5 )
+		
+		self.bitmapButtonAudioTest = wx.BitmapButton( self, wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.DefaultSize, wx.BU_AUTODRAW )
+		bSizer623.Add( self.bitmapButtonAudioTest, 0, wx.ALL|wx.ALIGN_BOTTOM, 5 )
+		
+		sizer8.Add( bSizer623, 0, wx.EXPAND, 5 )
 		
 		sizer6.Add( sizer8, 1, wx.EXPAND, 5 )
 		
@@ -694,8 +696,6 @@ class Skills_Panel ( wx.Panel ):
 		comboBoxOccasionChoices = [ u"Always", u"Only in Battle", u"Only from Menu", u"Never" ]
 		self.comboBoxOccasion = wx.Choice( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxOccasionChoices, 0 )
 		self.comboBoxOccasion.SetSelection( 0 )
-		self.comboBoxOccasion.SetToolTipString( u"Screen(s) where the item can be used." )
-		
 		sizer9.Add( self.comboBoxOccasion, 1, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
 		
 		self.labelTargetAnimation = wx.StaticText( self, wx.ID_ANY, u"Target Animation:", wx.DefaultPosition, wx.DefaultSize, 0 )
@@ -705,8 +705,6 @@ class Skills_Panel ( wx.Panel ):
 		comboBoxTargetAnimationChoices = [ u"(None)" ]
 		self.comboBoxTargetAnimation = wx.Choice( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxTargetAnimationChoices, 0 )
 		self.comboBoxTargetAnimation.SetSelection( 0 )
-		self.comboBoxTargetAnimation.SetToolTipString( u"Animation displayed on the target when used in battle." )
-		
 		sizer9.Add( self.comboBoxTargetAnimation, 1, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
 		
 		self.labelCommonEvent = wx.StaticText( self, wx.ID_ANY, u"Common Event:", wx.DefaultPosition, wx.DefaultSize, 0 )
@@ -716,8 +714,6 @@ class Skills_Panel ( wx.Panel ):
 		comboBoxCommonEventChoices = [ u"(None)" ]
 		self.comboBoxCommonEvent = wx.Choice( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxCommonEventChoices, 0 )
 		self.comboBoxCommonEvent.SetSelection( 0 )
-		self.comboBoxCommonEvent.SetToolTipString( u"Common event called when item is used." )
-		
 		sizer9.Add( self.comboBoxCommonEvent, 1, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
 		
 		sizer6.Add( sizer9, 1, wx.EXPAND, 5 )
@@ -752,21 +748,15 @@ class Skills_Panel ( wx.Panel ):
 		bSizer644 = wx.BoxSizer( wx.HORIZONTAL )
 		
 		self.spinCtrlSPCost = wx.SpinCtrl( self.panelParameters, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS|wx.SP_WRAP, 0, 999999999, 0 )
-		self.spinCtrlSPCost.SetToolTipString( u"The price of the item in shops. Set to 0 to make item unsellable." )
-		
 		bSizer644.Add( self.spinCtrlSPCost, 1, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
 		
 		self.spinCtrlPower = wx.SpinCtrl( self.panelParameters, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS|wx.SP_WRAP, -999999999, 999999999, 0 )
 		bSizer644.Add( self.spinCtrlPower, 1, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
 		
 		self.spinCtrlVariance = wx.SpinCtrl( self.panelParameters, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS|wx.SP_WRAP, 0, 100, 15 )
-		self.spinCtrlVariance.SetToolTipString( u"Degree of fluctuation in final effect strength. The effect strength value varies only by this percentage. 15 is average." )
-		
 		bSizer644.Add( self.spinCtrlVariance, 1, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
 		
 		self.spinCtrlHitRate = wx.SpinCtrl( self.panelParameters, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS|wx.SP_WRAP, 0, 100, 100 )
-		self.spinCtrlHitRate.SetToolTipString( u"Success rate in percentage of item use, not affected by target's parameters." )
-		
 		bSizer644.Add( self.spinCtrlHitRate, 1, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
 		
 		panelParametersSizer.Add( bSizer644, 0, wx.EXPAND, 5 )
@@ -850,9 +840,7 @@ class Skills_Panel ( wx.Panel ):
 		sizer2.Add( self.labelNotes, 0, wx.ALL, 5 )
 		
 		self.textCtrlNotes = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.TE_MULTILINE|wx.TE_PROCESS_ENTER|wx.TE_PROCESS_TAB|wx.CLIP_CHILDREN )
-		self.textCtrlNotes.SetToolTipString( u"Any user notes for this item. These notes can also be referenced via scripts." )
-		
-		sizer2.Add( self.textCtrlNotes, 40, wx.ALL|wx.EXPAND, 5 )
+		sizer2.Add( self.textCtrlNotes, 40, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
 		
 		staticSizerItems.Add( sizer2, 40, wx.EXPAND, 5 )
 		
@@ -865,13 +853,13 @@ class Skills_Panel ( wx.Panel ):
 		self.listBoxSkills.Bind( wx.EVT_LISTBOX, self.listBoxSkills_SelectionChanged )
 		self.buttonMaximum.Bind( wx.EVT_BUTTON, self.buttonMaximum_Clicked )
 		self.textCtrlName.Bind( wx.EVT_TEXT, self.textCtrlName_TextChanged )
-		self.comboBoxIcon.Bind( wx.EVT_LEFT_DOWN, self.comboBoxIcon_LeftClicked )
-		self.comboBoxIcon.Bind( wx.EVT_SET_FOCUS, self.comboBoxIcon_LeftClicked )
+		self.bitmapButtonIcon.Bind( wx.EVT_BUTTON, self.bitmapButtonIcon_Clicked )
 		self.textCtrlDescription.Bind( wx.EVT_TEXT, self.textCtrlDescription_TextChange )
 		self.comboBoxScope.Bind( wx.EVT_CHOICE, self.comboBoxScope_SelectionChanged )
 		self.comboBoxUserAnimation.Bind( wx.EVT_CHOICE, self.comboBoxUserAnimation_SelectionChanged )
 		self.comboBoxMenuSE.Bind( wx.EVT_LEFT_DOWN, self.comboBoxMenuSE_Clicked )
 		self.comboBoxMenuSE.Bind( wx.EVT_SET_FOCUS, self.comboBoxMenuSE_Clicked )
+		self.bitmapButtonAudioTest.Bind( wx.EVT_BUTTON, self.bitmapButtonAudioTest_Clicked )
 		self.comboBoxOccasion.Bind( wx.EVT_CHOICE, self.comboBoxOccasion_SelectionChanged )
 		self.comboBoxTargetAnimation.Bind( wx.EVT_CHOICE, self.comboBoxTargetAnimation_SelectionChanged )
 		self.comboBoxCommonEvent.Bind( wx.EVT_CHOICE, self.comboBoxCommonEvent_SelectionChanged )
@@ -902,9 +890,8 @@ class Skills_Panel ( wx.Panel ):
 	def textCtrlName_TextChanged( self, event ):
 		pass
 	
-	def comboBoxIcon_LeftClicked( self, event ):
+	def bitmapButtonIcon_Clicked( self, event ):
 		pass
-	
 	
 	def textCtrlDescription_TextChange( self, event ):
 		pass
@@ -918,6 +905,9 @@ class Skills_Panel ( wx.Panel ):
 	def comboBoxMenuSE_Clicked( self, event ):
 		pass
 	
+	
+	def bitmapButtonAudioTest_Clicked( self, event ):
+		pass
 	
 	def comboBoxOccasion_SelectionChanged( self, event ):
 		pass
@@ -980,13 +970,9 @@ class Items_Panel ( wx.Panel ):
 		
 		listBoxItemsChoices = []
 		self.listBoxItems = wx.ListBox( self, wx.ID_ANY, wx.DefaultPosition, wx.Size( 184,-1 ), listBoxItemsChoices, wx.LB_SINGLE|wx.CLIP_CHILDREN )
-		self.listBoxItems.SetToolTipString( u"Select the item to edit" )
-		
 		ItemListSizer.Add( self.listBoxItems, 1, wx.EXPAND|wx.RIGHT|wx.LEFT, 5 )
 		
 		self.buttonMaximum = wx.Button( self, wx.ID_ANY, u"Change Maximum...", wx.DefaultPosition, wx.Size( 150,-1 ), 0 )
-		self.buttonMaximum.SetToolTipString( u"Change the maximum of available items" )
-		
 		ItemListSizer.Add( self.buttonMaximum, 0, wx.ALL|wx.EXPAND, 5 )
 		
 		MainSizer.Add( ItemListSizer, 0, wx.EXPAND, 5 )
@@ -995,40 +981,41 @@ class Items_Panel ( wx.Panel ):
 		
 		sizer1 = wx.BoxSizer( wx.VERTICAL )
 		
-		sizer3 = wx.BoxSizer( wx.HORIZONTAL )
+		bSizer620 = wx.BoxSizer( wx.HORIZONTAL )
+		
+		bSizer621 = wx.BoxSizer( wx.VERTICAL )
 		
 		self.labelName = wx.StaticText( self, wx.ID_ANY, u"Name:", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.labelName.Wrap( -1 )
-		sizer3.Add( self.labelName, 1, wx.ALL, 5 )
+		bSizer621.Add( self.labelName, 0, wx.ALL|wx.EXPAND, 5 )
+		
+		self.textCtrlName = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer621.Add( self.textCtrlName, 1, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
+		
+		bSizer620.Add( bSizer621, 1, 0, 5 )
+		
+		bSizer622 = wx.BoxSizer( wx.VERTICAL )
 		
 		self.labelIcon = wx.StaticText( self, wx.ID_ANY, u"Icon:", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.labelIcon.Wrap( -1 )
-		sizer3.Add( self.labelIcon, 1, wx.ALL, 5 )
+		bSizer622.Add( self.labelIcon, 0, wx.ALL|wx.EXPAND, 5 )
 		
-		sizer1.Add( sizer3, 0, wx.EXPAND, 5 )
+		self.labelIconName = wx.StaticText( self, wx.ID_ANY, u"(Name of Icon)", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.labelIconName.Wrap( -1 )
+		bSizer622.Add( self.labelIconName, 0, wx.ALL, 5 )
 		
-		sizer4 = wx.BoxSizer( wx.HORIZONTAL )
+		bSizer620.Add( bSizer622, 0, 0, 5 )
 		
-		self.textCtrlName = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.textCtrlName.SetToolTipString( u"The item name." )
+		self.bitmapButtonIcon = wx.BitmapButton( self, wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.Size( 32,32 ), wx.BU_AUTODRAW )
+		bSizer620.Add( self.bitmapButtonIcon, 0, wx.ALIGN_BOTTOM|wx.ALL, 5 )
 		
-		sizer4.Add( self.textCtrlName, 1, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
-		
-		comboBoxIconChoices = []
-		self.comboBoxIcon = wx.ComboBox( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, comboBoxIconChoices, 0 )
-		self.comboBoxIcon.SetToolTipString( u"The icon associated with the item" )
-		
-		sizer4.Add( self.comboBoxIcon, 1, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
-		
-		sizer1.Add( sizer4, 0, wx.EXPAND, 5 )
+		sizer1.Add( bSizer620, 0, wx.EXPAND, 5 )
 		
 		self.labelDescription = wx.StaticText( self, wx.ID_ANY, u"Description:", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.labelDescription.Wrap( -1 )
 		sizer1.Add( self.labelDescription, 0, wx.ALL|wx.EXPAND, 5 )
 		
 		self.textCtrlDescription = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.textCtrlDescription.SetToolTipString( u"Comment displayed when the item is selected" )
-		
 		sizer1.Add( self.textCtrlDescription, 0, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
 		
 		sizer6 = wx.BoxSizer( wx.HORIZONTAL )
@@ -1042,8 +1029,6 @@ class Items_Panel ( wx.Panel ):
 		comboBoxScopeChoices = [ u"None", u"One Enemy", u"All Enemies", u"One Ally", u"All Allies", u"One Ally (HP 0)", u"All Allies (HP 0)", u"The User", u"One Ally or Enemy", u"Everyone" ]
 		self.comboBoxScope = wx.Choice( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxScopeChoices, 0 )
 		self.comboBoxScope.SetSelection( 0 )
-		self.comboBoxScope.SetToolTipString( u"Item's target area of influence." )
-		
 		sizer8.Add( self.comboBoxScope, 1, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
 		
 		self.labelUserAnimation = wx.StaticText( self, wx.ID_ANY, u"User Animation:", wx.DefaultPosition, wx.DefaultSize, 0 )
@@ -1053,19 +1038,26 @@ class Items_Panel ( wx.Panel ):
 		comboBoxUserAnimationChoices = [ u"(None)" ]
 		self.comboBoxUserAnimation = wx.Choice( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxUserAnimationChoices, 0 )
 		self.comboBoxUserAnimation.SetSelection( 0 )
-		self.comboBoxUserAnimation.SetToolTipString( u"Animation displayed on the user when used in battle." )
-		
 		sizer8.Add( self.comboBoxUserAnimation, 1, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
+		
+		bSizer623 = wx.BoxSizer( wx.HORIZONTAL )
+		
+		bSizer624 = wx.BoxSizer( wx.VERTICAL )
 		
 		self.labelMenuSE = wx.StaticText( self, wx.ID_ANY, u"Menu Use SE:", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.labelMenuSE.Wrap( -1 )
-		sizer8.Add( self.labelMenuSE, 0, wx.ALL|wx.EXPAND, 5 )
+		bSizer624.Add( self.labelMenuSE, 0, wx.ALL|wx.EXPAND, 5 )
 		
 		comboBoxMenuSEChoices = []
 		self.comboBoxMenuSE = wx.ComboBox( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, comboBoxMenuSEChoices, 0 )
-		self.comboBoxMenuSE.SetToolTipString( u"Sound effect played when using this item on the menu screen" )
+		bSizer624.Add( self.comboBoxMenuSE, 1, wx.EXPAND|wx.BOTTOM|wx.LEFT, 5 )
 		
-		sizer8.Add( self.comboBoxMenuSE, 1, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
+		bSizer623.Add( bSizer624, 1, 0, 5 )
+		
+		self.bitmapButtonAudioTest = wx.BitmapButton( self, wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.DefaultSize, wx.BU_AUTODRAW )
+		bSizer623.Add( self.bitmapButtonAudioTest, 0, wx.ALL|wx.ALIGN_BOTTOM, 5 )
+		
+		sizer8.Add( bSizer623, 0, wx.EXPAND, 5 )
 		
 		sizer6.Add( sizer8, 1, wx.EXPAND, 5 )
 		
@@ -1078,8 +1070,6 @@ class Items_Panel ( wx.Panel ):
 		comboBoxOccasionChoices = [ u"Always", u"Only in Battle", u"Only from Menu", u"Never" ]
 		self.comboBoxOccasion = wx.Choice( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxOccasionChoices, 0 )
 		self.comboBoxOccasion.SetSelection( 0 )
-		self.comboBoxOccasion.SetToolTipString( u"Screen(s) where the item can be used." )
-		
 		sizer9.Add( self.comboBoxOccasion, 1, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
 		
 		self.labelTargetAnimation = wx.StaticText( self, wx.ID_ANY, u"Target Animation:", wx.DefaultPosition, wx.DefaultSize, 0 )
@@ -1089,8 +1079,6 @@ class Items_Panel ( wx.Panel ):
 		comboBoxTargetAnimationChoices = [ u"(None)" ]
 		self.comboBoxTargetAnimation = wx.Choice( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxTargetAnimationChoices, 0 )
 		self.comboBoxTargetAnimation.SetSelection( 0 )
-		self.comboBoxTargetAnimation.SetToolTipString( u"Animation displayed on the target when used in battle." )
-		
 		sizer9.Add( self.comboBoxTargetAnimation, 1, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
 		
 		self.labelCommonEvent = wx.StaticText( self, wx.ID_ANY, u"Common Event:", wx.DefaultPosition, wx.DefaultSize, 0 )
@@ -1100,145 +1088,127 @@ class Items_Panel ( wx.Panel ):
 		comboBoxCommonEventChoices = [ u"(None)" ]
 		self.comboBoxCommonEvent = wx.Choice( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxCommonEventChoices, 0 )
 		self.comboBoxCommonEvent.SetSelection( 0 )
-		self.comboBoxCommonEvent.SetToolTipString( u"Common event called when item is used." )
-		
 		sizer9.Add( self.comboBoxCommonEvent, 1, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
 		
 		sizer6.Add( sizer9, 1, wx.EXPAND, 5 )
 		
 		sizer1.Add( sizer6, 0, wx.EXPAND, 5 )
 		
-		sizer7 = wx.BoxSizer( wx.HORIZONTAL )
+		sizerParameters = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Parameters" ), wx.VERTICAL )
 		
-		sizer10 = wx.BoxSizer( wx.VERTICAL )
+		bSizer651 = wx.BoxSizer( wx.HORIZONTAL )
 		
 		self.labelPrice = wx.StaticText( self, wx.ID_ANY, u"Price:", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.labelPrice.Wrap( -1 )
-		sizer10.Add( self.labelPrice, 0, wx.ALL|wx.EXPAND, 5 )
-		
-		self.spinCtrlPrice = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 999999999, 0 )
-		self.spinCtrlPrice.SetToolTipString( u"The price of the item in shops. Set to 0 to make item unsellable." )
-		
-		sizer10.Add( self.spinCtrlPrice, 0, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
-		
-		self.labelRecrHPPercent = wx.StaticText( self, wx.ID_ANY, u"Recr HP %:", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.labelRecrHPPercent.Wrap( -1 )
-		sizer10.Add( self.labelRecrHPPercent, 0, wx.ALL|wx.EXPAND, 5 )
-		
-		self.spinCtrlRecrHPRate = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, -10000, 10000, 0 )
-		self.spinCtrlRecrHPRate.SetToolTipString( u"Recovered HP, as percentage of max HP" )
-		
-		sizer10.Add( self.spinCtrlRecrHPRate, 0, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
-		
-		self.labelHitRate = wx.StaticText( self, wx.ID_ANY, u"Hit Rate:", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.labelHitRate.Wrap( -1 )
-		sizer10.Add( self.labelHitRate, 0, wx.ALL|wx.EXPAND, 5 )
-		
-		self.spinCtrlHitRate = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 100, 100 )
-		self.spinCtrlHitRate.SetToolTipString( u"Success rate in percentage of item use, not affected by target's parameters." )
-		
-		sizer10.Add( self.spinCtrlHitRate, 0, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
-		
-		sizer7.Add( sizer10, 1, wx.EXPAND, 5 )
-		
-		sizer11 = wx.BoxSizer( wx.VERTICAL )
+		bSizer651.Add( self.labelPrice, 1, wx.ALL, 5 )
 		
 		self.labelConsumable = wx.StaticText( self, wx.ID_ANY, u"Consumable:", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.labelConsumable.Wrap( -1 )
-		sizer11.Add( self.labelConsumable, 0, wx.ALL|wx.EXPAND, 5 )
+		bSizer651.Add( self.labelConsumable, 1, wx.ALL, 5 )
+		
+		self.labelParameter = wx.StaticText( self, wx.ID_ANY, u"Parameter:", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.labelParameter.Wrap( -1 )
+		bSizer651.Add( self.labelParameter, 1, wx.ALL, 5 )
+		
+		self.labelParameterInc = wx.StaticText( self, wx.ID_ANY, u"Param Inc:", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.labelParameterInc.Wrap( -1 )
+		bSizer651.Add( self.labelParameterInc, 1, wx.ALL, 5 )
+		
+		sizerParameters.Add( bSizer651, 0, wx.EXPAND, 5 )
+		
+		bSizer652 = wx.BoxSizer( wx.HORIZONTAL )
+		
+		self.spinCtrlPrice = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 999999999, 0 )
+		bSizer652.Add( self.spinCtrlPrice, 1, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
 		
 		comboBoxConsumableChoices = [ u"Yes", u"No" ]
 		self.comboBoxConsumable = wx.Choice( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxConsumableChoices, 0 )
 		self.comboBoxConsumable.SetSelection( 0 )
-		self.comboBoxConsumable.SetToolTipString( u"Set to \"Yes\" to have item quantity deplete after using." )
-		
-		sizer11.Add( self.comboBoxConsumable, 0, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
-		
-		self.labelRecrHP = wx.StaticText( self, wx.ID_ANY, u"Recr HP:", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.labelRecrHP.Wrap( -1 )
-		sizer11.Add( self.labelRecrHP, 0, wx.ALL|wx.EXPAND, 5 )
-		
-		self.spinCtrlRecrHP = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0 )
-		self.spinCtrlRecrHP.SetToolTipString( u"Amount of recovered HP. An odd value allows for creation of an attack item." )
-		
-		sizer11.Add( self.spinCtrlRecrHP, 0, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
-		
-		self.labelPDEF = wx.StaticText( self, wx.ID_ANY, u"PDEF-F:", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.labelPDEF.Wrap( -1 )
-		sizer11.Add( self.labelPDEF, 0, wx.ALL|wx.EXPAND, 5 )
-		
-		self.spinCtrlPDEF = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0 )
-		self.spinCtrlPDEF.SetToolTipString( u"Coefficient indicating how much of the target's physical defense influences the effects. Set high for physical attack items." )
-		
-		sizer11.Add( self.spinCtrlPDEF, 0, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
-		
-		sizer7.Add( sizer11, 1, wx.EXPAND, 5 )
-		
-		sizer12 = wx.BoxSizer( wx.VERTICAL )
-		
-		self.labelParameter = wx.StaticText( self, wx.ID_ANY, u"Parameter:", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.labelParameter.Wrap( -1 )
-		sizer12.Add( self.labelParameter, 0, wx.ALL|wx.EXPAND, 5 )
+		bSizer652.Add( self.comboBoxConsumable, 1, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
 		
 		comboBoxParameterChoices = [ u"(None)", u"MaxHP", u"MaxSP", u"STR", u"DEX", u"AGI", u"INT" ]
 		self.comboBoxParameter = wx.Choice( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxParameterChoices, 0 )
 		self.comboBoxParameter.SetSelection( 0 )
-		self.comboBoxParameter.SetToolTipString( u"Type of parameter that can be increased permanently." )
-		
-		sizer12.Add( self.comboBoxParameter, 0, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
-		
-		self.labelRecrSPPercent = wx.StaticText( self, wx.ID_ANY, u"Recr SP %:", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.labelRecrSPPercent.Wrap( -1 )
-		sizer12.Add( self.labelRecrSPPercent, 0, wx.ALL|wx.EXPAND, 5 )
-		
-		self.spinCtrlRecrSPRate = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 100, 0 )
-		self.spinCtrlRecrSPRate.SetToolTipString( u"Recovered SP, as percentage of max SP" )
-		
-		sizer12.Add( self.spinCtrlRecrSPRate, 0, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
-		
-		self.labelMDEF = wx.StaticText( self, wx.ID_ANY, u"MDEF-F:", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.labelMDEF.Wrap( -1 )
-		sizer12.Add( self.labelMDEF, 0, wx.ALL|wx.EXPAND, 5 )
-		
-		self.spinCtrlMDEF = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0 )
-		self.spinCtrlMDEF.SetToolTipString( u"Coefficient indicating how much of the target's magic defense influences the effects. Set high for magical attack items." )
-		
-		sizer12.Add( self.spinCtrlMDEF, 0, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
-		
-		sizer7.Add( sizer12, 1, wx.EXPAND, 5 )
-		
-		sizer13 = wx.BoxSizer( wx.VERTICAL )
-		
-		self.labelParameterInc = wx.StaticText( self, wx.ID_ANY, u"Param Inc:", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.labelParameterInc.Wrap( -1 )
-		sizer13.Add( self.labelParameterInc, 0, wx.ALL|wx.EXPAND, 5 )
+		bSizer652.Add( self.comboBoxParameter, 1, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
 		
 		self.spinCtrlParameterInc = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0 )
-		self.spinCtrlParameterInc.SetToolTipString( u"Value of the parameter to increase by." )
+		bSizer652.Add( self.spinCtrlParameterInc, 1, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
 		
-		sizer13.Add( self.spinCtrlParameterInc, 0, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
+		sizerParameters.Add( bSizer652, 0, wx.EXPAND, 5 )
+		
+		bSizer653 = wx.BoxSizer( wx.HORIZONTAL )
+		
+		self.labelRecrHPPercent = wx.StaticText( self, wx.ID_ANY, u"Rcvr HP %:", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.labelRecrHPPercent.Wrap( -1 )
+		bSizer653.Add( self.labelRecrHPPercent, 1, wx.ALL, 5 )
+		
+		self.labelRecrHP = wx.StaticText( self, wx.ID_ANY, u"Rcvr HP:", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.labelRecrHP.Wrap( -1 )
+		bSizer653.Add( self.labelRecrHP, 1, wx.ALL, 5 )
+		
+		self.labelRcvrRate = wx.StaticText( self, wx.ID_ANY, u"Rcvr SP %:", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.labelRcvrRate.Wrap( -1 )
+		bSizer653.Add( self.labelRcvrRate, 1, wx.ALL, 5 )
 		
 		self.labelRecrSP = wx.StaticText( self, wx.ID_ANY, u"Recr SP:", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.labelRecrSP.Wrap( -1 )
-		sizer13.Add( self.labelRecrSP, 0, wx.ALL|wx.EXPAND, 5 )
+		bSizer653.Add( self.labelRecrSP, 1, wx.ALL, 5 )
+		
+		sizerParameters.Add( bSizer653, 0, wx.EXPAND, 5 )
+		
+		bSizer654 = wx.BoxSizer( wx.HORIZONTAL )
+		
+		self.spinCtrlRecrHPRate = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, -10000, 10000, 0 )
+		bSizer654.Add( self.spinCtrlRecrHPRate, 1, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
+		
+		self.spinCtrlRecrHP = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0 )
+		bSizer654.Add( self.spinCtrlRecrHP, 1, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
+		
+		self.spinCtrlRecrSPRate = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 100, 0 )
+		bSizer654.Add( self.spinCtrlRecrSPRate, 1, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
 		
 		self.spinCtrlRecrSP = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0 )
-		self.spinCtrlRecrSP.SetToolTipString( u"Amount of recovered SP. An odd value allows for creation of an attack item." )
+		bSizer654.Add( self.spinCtrlRecrSP, 1, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
 		
-		sizer13.Add( self.spinCtrlRecrSP, 0, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
+		sizerParameters.Add( bSizer654, 0, wx.EXPAND, 5 )
+		
+		bSizer655 = wx.BoxSizer( wx.HORIZONTAL )
+		
+		self.labelHitRate = wx.StaticText( self, wx.ID_ANY, u"Hit Rate:", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.labelHitRate.Wrap( -1 )
+		bSizer655.Add( self.labelHitRate, 1, wx.ALL, 5 )
+		
+		self.labelPDEF = wx.StaticText( self, wx.ID_ANY, u"PDEF-F:", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.labelPDEF.Wrap( -1 )
+		bSizer655.Add( self.labelPDEF, 1, wx.ALL, 5 )
+		
+		self.labelMDEF = wx.StaticText( self, wx.ID_ANY, u"MDEF-F:", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.labelMDEF.Wrap( -1 )
+		bSizer655.Add( self.labelMDEF, 1, wx.ALL, 5 )
 		
 		self.labelVariance = wx.StaticText( self, wx.ID_ANY, u"Variance:", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.labelVariance.Wrap( -1 )
-		sizer13.Add( self.labelVariance, 0, wx.ALL|wx.EXPAND, 5 )
+		bSizer655.Add( self.labelVariance, 1, wx.ALL, 5 )
+		
+		sizerParameters.Add( bSizer655, 0, wx.EXPAND, 5 )
+		
+		bSizer656 = wx.BoxSizer( wx.HORIZONTAL )
+		
+		self.spinCtrlHitRate = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 100, 100 )
+		bSizer656.Add( self.spinCtrlHitRate, 1, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
+		
+		self.spinCtrlPDEF = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0 )
+		bSizer656.Add( self.spinCtrlPDEF, 1, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
+		
+		self.spinCtrlMDEF = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0 )
+		bSizer656.Add( self.spinCtrlMDEF, 1, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
 		
 		self.spinCtrlVariance = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 100, 0 )
-		self.spinCtrlVariance.SetToolTipString( u"Degree of fluctuation in final effect strength. The effect strength value varies only by this percentage. 15 is average." )
+		bSizer656.Add( self.spinCtrlVariance, 1, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
 		
-		sizer13.Add( self.spinCtrlVariance, 0, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
+		sizerParameters.Add( bSizer656, 0, wx.EXPAND, 5 )
 		
-		sizer7.Add( sizer13, 1, wx.EXPAND, 5 )
-		
-		sizer1.Add( sizer7, 1, wx.EXPAND, 5 )
+		sizer1.Add( sizerParameters, 0, wx.EXPAND|wx.ALL, 5 )
 		
 		staticSizerItems.Add( sizer1, 60, wx.EXPAND, 5 )
 		
@@ -1260,8 +1230,6 @@ class Items_Panel ( wx.Panel ):
 		
 		checkListElementsChoices = []
 		self.checkListElements = wx.CheckListBox( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, checkListElementsChoices, wx.LB_HSCROLL|wx.LB_NEEDED_SB|wx.CLIP_CHILDREN )
-		self.checkListElements.SetToolTipString( u"Set the element attributes for the item. The effect strength varies according the their strengths/weaknesses." )
-		
 		sizer15.Add( self.checkListElements, 1, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
 		
 		self.listCtrlStates = wx.ListCtrl( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.LC_NO_HEADER|wx.LC_REPORT|wx.LC_SINGLE_SEL )
@@ -1274,8 +1242,6 @@ class Items_Panel ( wx.Panel ):
 		sizer2.Add( self.labelNotes, 0, wx.ALL, 5 )
 		
 		self.textCtrlNotes = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.TE_MULTILINE|wx.CLIP_CHILDREN )
-		self.textCtrlNotes.SetToolTipString( u"Any user notes for this item. These notes can also be referenced via scripts." )
-		
 		sizer2.Add( self.textCtrlNotes, 1, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
 		
 		staticSizerItems.Add( sizer2, 40, wx.EXPAND, 5 )
@@ -1289,27 +1255,27 @@ class Items_Panel ( wx.Panel ):
 		self.listBoxItems.Bind( wx.EVT_LISTBOX, self.listBoxItems_SelectionChanged )
 		self.buttonMaximum.Bind( wx.EVT_BUTTON, self.buttonMaximum_Clicked )
 		self.textCtrlName.Bind( wx.EVT_TEXT, self.textCtrlName_TextChanged )
-		self.comboBoxIcon.Bind( wx.EVT_LEFT_DCLICK, self.comboBoxIcon_Clicked )
-		self.comboBoxIcon.Bind( wx.EVT_SET_FOCUS, self.comboBoxIcon_Clicked )
+		self.bitmapButtonIcon.Bind( wx.EVT_BUTTON, self.bitmapButtonIcon_Clicked )
 		self.textCtrlDescription.Bind( wx.EVT_TEXT, self.textCtrlDescription_TextChange )
 		self.comboBoxScope.Bind( wx.EVT_CHOICE, self.comboBoxScope_SelectionChanged )
 		self.comboBoxUserAnimation.Bind( wx.EVT_CHOICE, self.comboBoxUserAnimation_SelectionChanged )
 		self.comboBoxMenuSE.Bind( wx.EVT_LEFT_DOWN, self.comboBoxMenuSE_Clicked )
 		self.comboBoxMenuSE.Bind( wx.EVT_SET_FOCUS, self.comboBoxMenuSE_Clicked )
+		self.bitmapButtonAudioTest.Bind( wx.EVT_BUTTON, self.bitmapButtonAudioTest_Clicked )
 		self.comboBoxOccasion.Bind( wx.EVT_CHOICE, self.comboBoxOccasion_SelectionChanged )
 		self.comboBoxTargetAnimation.Bind( wx.EVT_CHOICE, self.comboBoxTargetAnimation_SelectionChanged )
 		self.comboBoxCommonEvent.Bind( wx.EVT_CHOICE, self.comboBoxCommonEvent_SelectionChanged )
 		self.spinCtrlPrice.Bind( wx.EVT_SPINCTRL, self.spinCtrlPrice_ValueChanged )
-		self.spinCtrlRecrHPRate.Bind( wx.EVT_SPINCTRL, self.spinCtrlRecrHPPercent_ValueChanged )
-		self.spinCtrlHitRate.Bind( wx.EVT_SPINCTRL, self.spinCtrlHitRate_ValueChanged )
 		self.comboBoxConsumable.Bind( wx.EVT_CHOICE, self.comboBoxConsumable_SelectionChanged )
-		self.spinCtrlRecrHP.Bind( wx.EVT_SPINCTRL, self.spinCtrlRecrHP_ValueChanged )
-		self.spinCtrlPDEF.Bind( wx.EVT_SPINCTRL, self.spinCtrlPDEF_ValueChanged )
 		self.comboBoxParameter.Bind( wx.EVT_CHOICE, self.comboBoxParameter_SelectionChanged )
-		self.spinCtrlRecrSPRate.Bind( wx.EVT_SPINCTRL, self.spinCtrlRecrSPPercent_ValueChanged )
-		self.spinCtrlMDEF.Bind( wx.EVT_SPINCTRL, self.spinCtrlMDEF_ValueChanged )
 		self.spinCtrlParameterInc.Bind( wx.EVT_SPINCTRL, self.spinCtrlParameterInc_ValueChanged )
+		self.spinCtrlRecrHPRate.Bind( wx.EVT_SPINCTRL, self.spinCtrlRecrHPPercent_ValueChanged )
+		self.spinCtrlRecrHP.Bind( wx.EVT_SPINCTRL, self.spinCtrlRecrHP_ValueChanged )
+		self.spinCtrlRecrSPRate.Bind( wx.EVT_SPINCTRL, self.spinCtrlRecrSPPercent_ValueChanged )
 		self.spinCtrlRecrSP.Bind( wx.EVT_SPINCTRL, self.spinCtrlRecrSP_ValueChanged )
+		self.spinCtrlHitRate.Bind( wx.EVT_SPINCTRL, self.spinCtrlHitRate_ValueChanged )
+		self.spinCtrlPDEF.Bind( wx.EVT_SPINCTRL, self.spinCtrlPDEF_ValueChanged )
+		self.spinCtrlMDEF.Bind( wx.EVT_SPINCTRL, self.spinCtrlMDEF_ValueChanged )
 		self.spinCtrlVariance.Bind( wx.EVT_SPINCTRL, self.spinCtrlVariance_ValueChanged )
 		self.checkListElements.Bind( wx.EVT_CHECKLISTBOX, self.checkListElements_CheckChanged )
 		self.listCtrlStates.Bind( wx.EVT_LEFT_DOWN, self.listCtrlStates_LeftClicked )
@@ -1330,9 +1296,8 @@ class Items_Panel ( wx.Panel ):
 	def textCtrlName_TextChanged( self, event ):
 		pass
 	
-	def comboBoxIcon_Clicked( self, event ):
+	def bitmapButtonIcon_Clicked( self, event ):
 		pass
-	
 	
 	def textCtrlDescription_TextChange( self, event ):
 		pass
@@ -1347,6 +1312,9 @@ class Items_Panel ( wx.Panel ):
 		pass
 	
 	
+	def bitmapButtonAudioTest_Clicked( self, event ):
+		pass
+	
 	def comboBoxOccasion_SelectionChanged( self, event ):
 		pass
 	
@@ -1359,37 +1327,293 @@ class Items_Panel ( wx.Panel ):
 	def spinCtrlPrice_ValueChanged( self, event ):
 		pass
 	
-	def spinCtrlRecrHPPercent_ValueChanged( self, event ):
-		pass
-	
-	def spinCtrlHitRate_ValueChanged( self, event ):
-		pass
-	
 	def comboBoxConsumable_SelectionChanged( self, event ):
-		pass
-	
-	def spinCtrlRecrHP_ValueChanged( self, event ):
-		pass
-	
-	def spinCtrlPDEF_ValueChanged( self, event ):
 		pass
 	
 	def comboBoxParameter_SelectionChanged( self, event ):
 		pass
 	
-	def spinCtrlRecrSPPercent_ValueChanged( self, event ):
-		pass
-	
-	def spinCtrlMDEF_ValueChanged( self, event ):
-		pass
-	
 	def spinCtrlParameterInc_ValueChanged( self, event ):
+		pass
+	
+	def spinCtrlRecrHPPercent_ValueChanged( self, event ):
+		pass
+	
+	def spinCtrlRecrHP_ValueChanged( self, event ):
+		pass
+	
+	def spinCtrlRecrSPPercent_ValueChanged( self, event ):
 		pass
 	
 	def spinCtrlRecrSP_ValueChanged( self, event ):
 		pass
 	
+	def spinCtrlHitRate_ValueChanged( self, event ):
+		pass
+	
+	def spinCtrlPDEF_ValueChanged( self, event ):
+		pass
+	
+	def spinCtrlMDEF_ValueChanged( self, event ):
+		pass
+	
 	def spinCtrlVariance_ValueChanged( self, event ):
+		pass
+	
+	def checkListElements_CheckChanged( self, event ):
+		pass
+	
+	def listCtrlStates_LeftClicked( self, event ):
+		pass
+	
+	def listCtrlStates_RightClicked( self, event ):
+		pass
+	
+	def textCtrlNotes_TextChanged( self, event ):
+		pass
+	
+
+###########################################################################
+## Class Weapons_Panel
+###########################################################################
+
+class Weapons_Panel ( wx.Panel ):
+	
+	def __init__( self, parent ):
+		wx.Panel.__init__ ( self, parent, id = wx.ID_ANY, pos = wx.DefaultPosition, size = wx.Size( 800,600 ), style = wx.TAB_TRAVERSAL )
+		
+		MainSizer = wx.BoxSizer( wx.HORIZONTAL )
+		
+		WeaponsListSizer = wx.BoxSizer( wx.VERTICAL )
+		
+		self.bitmapWeapons = wx.StaticBitmap( self, wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.Size( 150,26 ), wx.CLIP_CHILDREN|wx.FULL_REPAINT_ON_RESIZE )
+		self.bitmapWeapons.SetMinSize( wx.Size( 150,26 ) )
+		self.bitmapWeapons.SetMaxSize( wx.Size( 150,26 ) )
+		
+		WeaponsListSizer.Add( self.bitmapWeapons, 0, wx.ALL|wx.EXPAND, 5 )
+		
+		listBoxWeaponsChoices = []
+		self.listBoxWeapons = wx.ListBox( self, wx.ID_ANY, wx.DefaultPosition, wx.Size( 184,-1 ), listBoxWeaponsChoices, wx.LB_SINGLE|wx.CLIP_CHILDREN )
+		WeaponsListSizer.Add( self.listBoxWeapons, 1, wx.EXPAND|wx.RIGHT|wx.LEFT, 5 )
+		
+		self.buttonMaximum = wx.Button( self, wx.ID_ANY, u"Change Maximum...", wx.DefaultPosition, wx.Size( 150,-1 ), 0 )
+		WeaponsListSizer.Add( self.buttonMaximum, 0, wx.ALL|wx.EXPAND, 5 )
+		
+		MainSizer.Add( WeaponsListSizer, 0, wx.EXPAND, 5 )
+		
+		staticSizerWeapons = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, wx.EmptyString ), wx.HORIZONTAL )
+		
+		sizer1 = wx.BoxSizer( wx.VERTICAL )
+		
+		bSizer620 = wx.BoxSizer( wx.HORIZONTAL )
+		
+		bSizer621 = wx.BoxSizer( wx.VERTICAL )
+		
+		self.labelName = wx.StaticText( self, wx.ID_ANY, u"Name:", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.labelName.Wrap( -1 )
+		bSizer621.Add( self.labelName, 0, wx.ALL|wx.EXPAND, 5 )
+		
+		self.textCtrlName = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer621.Add( self.textCtrlName, 1, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
+		
+		bSizer620.Add( bSizer621, 1, 0, 5 )
+		
+		bSizer622 = wx.BoxSizer( wx.VERTICAL )
+		
+		self.labelIcon = wx.StaticText( self, wx.ID_ANY, u"Icon:", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.labelIcon.Wrap( -1 )
+		bSizer622.Add( self.labelIcon, 0, wx.ALL|wx.EXPAND, 5 )
+		
+		self.labelIconName = wx.StaticText( self, wx.ID_ANY, u"(Name of Icon)", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.labelIconName.Wrap( -1 )
+		bSizer622.Add( self.labelIconName, 0, wx.ALL, 5 )
+		
+		bSizer620.Add( bSizer622, 0, 0, 5 )
+		
+		self.bitmapButtonIcon = wx.BitmapButton( self, wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.Size( 32,32 ), wx.BU_AUTODRAW )
+		bSizer620.Add( self.bitmapButtonIcon, 0, wx.ALIGN_BOTTOM|wx.ALL, 5 )
+		
+		sizer1.Add( bSizer620, 0, wx.EXPAND, 5 )
+		
+		self.labelDescription = wx.StaticText( self, wx.ID_ANY, u"Description:", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.labelDescription.Wrap( -1 )
+		sizer1.Add( self.labelDescription, 0, wx.ALL|wx.EXPAND, 5 )
+		
+		self.textCtrlDescription = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+		sizer1.Add( self.textCtrlDescription, 0, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
+		
+		sizer6 = wx.BoxSizer( wx.HORIZONTAL )
+		
+		sizer8 = wx.BoxSizer( wx.VERTICAL )
+		
+		self.labelUserAnimation = wx.StaticText( self, wx.ID_ANY, u"User Animation:", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.labelUserAnimation.Wrap( -1 )
+		sizer8.Add( self.labelUserAnimation, 0, wx.ALL|wx.EXPAND, 5 )
+		
+		comboBoxUserAnimationChoices = [ u"(None)" ]
+		self.comboBoxUserAnimation = wx.Choice( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxUserAnimationChoices, 0 )
+		self.comboBoxUserAnimation.SetSelection( 0 )
+		sizer8.Add( self.comboBoxUserAnimation, 1, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
+		
+		sizer6.Add( sizer8, 1, wx.EXPAND, 5 )
+		
+		sizer9 = wx.BoxSizer( wx.VERTICAL )
+		
+		self.labelTargetAnimation = wx.StaticText( self, wx.ID_ANY, u"Target Animation:", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.labelTargetAnimation.Wrap( -1 )
+		sizer9.Add( self.labelTargetAnimation, 0, wx.ALL|wx.EXPAND, 5 )
+		
+		comboBoxTargetAnimationChoices = [ u"(None)" ]
+		self.comboBoxTargetAnimation = wx.Choice( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxTargetAnimationChoices, 0 )
+		self.comboBoxTargetAnimation.SetSelection( 0 )
+		sizer9.Add( self.comboBoxTargetAnimation, 1, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
+		
+		sizer6.Add( sizer9, 1, wx.EXPAND, 5 )
+		
+		sizer1.Add( sizer6, 0, wx.EXPAND, 5 )
+		
+		sizerParameters = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Parameters" ), wx.VERTICAL )
+		
+		self.panelParameters = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
+		bSizer657 = wx.BoxSizer( wx.VERTICAL )
+		
+		bSizer658 = wx.BoxSizer( wx.HORIZONTAL )
+		
+		self.labelPrice = wx.StaticText( self.panelParameters, wx.ID_ANY, u"Price:", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.labelPrice.Wrap( -1 )
+		bSizer658.Add( self.labelPrice, 1, wx.ALL, 5 )
+		
+		self.labelAtk = wx.StaticText( self.panelParameters, wx.ID_ANY, u"ATK:", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.labelAtk.Wrap( -1 )
+		bSizer658.Add( self.labelAtk, 1, wx.ALL, 5 )
+		
+		self.labelPdef = wx.StaticText( self.panelParameters, wx.ID_ANY, u"PDEF:", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.labelPdef.Wrap( -1 )
+		bSizer658.Add( self.labelPdef, 1, wx.ALL, 5 )
+		
+		self.labelMdef = wx.StaticText( self.panelParameters, wx.ID_ANY, u"MDEF:", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.labelMdef.Wrap( -1 )
+		bSizer658.Add( self.labelMdef, 1, wx.ALL, 5 )
+		
+		bSizer657.Add( bSizer658, 0, wx.EXPAND, 5 )
+		
+		bSizer659 = wx.BoxSizer( wx.HORIZONTAL )
+		
+		self.spinCtrlPrice = wx.SpinCtrl( self.panelParameters, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 9999999, 0 )
+		bSizer659.Add( self.spinCtrlPrice, 1, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
+		
+		self.spinCtrlAtk = wx.SpinCtrl( self.panelParameters, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, -65535, 65535, 0 )
+		bSizer659.Add( self.spinCtrlAtk, 1, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
+		
+		self.spinCtrlPdef = wx.SpinCtrl( self.panelParameters, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, -65535, 65535, 0 )
+		bSizer659.Add( self.spinCtrlPdef, 1, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
+		
+		self.spinCtrlMdef = wx.SpinCtrl( self.panelParameters, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, -65535, 65535, 0 )
+		bSizer659.Add( self.spinCtrlMdef, 1, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
+		
+		bSizer657.Add( bSizer659, 0, wx.EXPAND, 5 )
+		
+		self.panelParameters.SetSizer( bSizer657 )
+		self.panelParameters.Layout()
+		bSizer657.Fit( self.panelParameters )
+		sizerParameters.Add( self.panelParameters, 1, wx.EXPAND |wx.ALL, 5 )
+		
+		sizer1.Add( sizerParameters, 0, wx.EXPAND|wx.ALL, 5 )
+		
+		staticSizerWeapons.Add( sizer1, 60, wx.EXPAND, 5 )
+		
+		sizer2 = wx.BoxSizer( wx.VERTICAL )
+		
+		sizer14 = wx.BoxSizer( wx.HORIZONTAL )
+		
+		self.labelElements = wx.StaticText( self, wx.ID_ANY, u"Element:", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.labelElements.Wrap( -1 )
+		sizer14.Add( self.labelElements, 1, wx.ALL|wx.EXPAND, 5 )
+		
+		self.labelStates = wx.StaticText( self, wx.ID_ANY, u"State Change:", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.labelStates.Wrap( -1 )
+		sizer14.Add( self.labelStates, 1, wx.ALL|wx.EXPAND, 5 )
+		
+		sizer2.Add( sizer14, 0, wx.EXPAND, 5 )
+		
+		sizer15 = wx.BoxSizer( wx.HORIZONTAL )
+		
+		checkListElementsChoices = []
+		self.checkListElements = wx.CheckListBox( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, checkListElementsChoices, wx.LB_HSCROLL|wx.LB_NEEDED_SB|wx.CLIP_CHILDREN )
+		sizer15.Add( self.checkListElements, 1, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
+		
+		self.listCtrlStates = wx.ListCtrl( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.LC_NO_HEADER|wx.LC_REPORT|wx.LC_SINGLE_SEL )
+		sizer15.Add( self.listCtrlStates, 1, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
+		
+		sizer2.Add( sizer15, 1, wx.EXPAND, 5 )
+		
+		self.labelNotes = wx.StaticText( self, wx.ID_ANY, u"Notes:", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.labelNotes.Wrap( -1 )
+		sizer2.Add( self.labelNotes, 0, wx.ALL, 5 )
+		
+		self.textCtrlNotes = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.TE_MULTILINE|wx.CLIP_CHILDREN )
+		sizer2.Add( self.textCtrlNotes, 1, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
+		
+		staticSizerWeapons.Add( sizer2, 40, wx.EXPAND, 5 )
+		
+		MainSizer.Add( staticSizerWeapons, 75, wx.EXPAND|wx.ALL, 5 )
+		
+		self.SetSizer( MainSizer )
+		self.Layout()
+		
+		# Connect Events
+		self.listBoxWeapons.Bind( wx.EVT_LISTBOX, self.listBoxWeapons_SelectionChanged )
+		self.buttonMaximum.Bind( wx.EVT_BUTTON, self.buttonMaximum_Clicked )
+		self.textCtrlName.Bind( wx.EVT_TEXT, self.textCtrlName_TextChanged )
+		self.bitmapButtonIcon.Bind( wx.EVT_BUTTON, self.bitmapButtonIcon_Clicked )
+		self.textCtrlDescription.Bind( wx.EVT_TEXT, self.textCtrlDescription_TextChange )
+		self.comboBoxUserAnimation.Bind( wx.EVT_CHOICE, self.comboBoxUserAnimation_SelectionChanged )
+		self.comboBoxTargetAnimation.Bind( wx.EVT_CHOICE, self.comboBoxTargetAnimation_SelectionChanged )
+		self.spinCtrlPrice.Bind( wx.EVT_SPINCTRL, self.spinCtrlPrice_ValueChanged )
+		self.spinCtrlAtk.Bind( wx.EVT_SPINCTRL, self.spinCtrlAtk_ValueChanged )
+		self.spinCtrlPdef.Bind( wx.EVT_SPINCTRL, self.spinCtrlPdef_ValueChanged )
+		self.spinCtrlMdef.Bind( wx.EVT_SPINCTRL, self.spinCtrlMdef_ValueChanged )
+		self.checkListElements.Bind( wx.EVT_CHECKLISTBOX, self.checkListElements_CheckChanged )
+		self.listCtrlStates.Bind( wx.EVT_LEFT_DOWN, self.listCtrlStates_LeftClicked )
+		self.listCtrlStates.Bind( wx.EVT_RIGHT_DOWN, self.listCtrlStates_RightClicked )
+		self.textCtrlNotes.Bind( wx.EVT_TEXT, self.textCtrlNotes_TextChanged )
+	
+	def __del__( self ):
+		pass
+	
+	
+	# Virtual event handlers, overide them in your derived class
+	def listBoxWeapons_SelectionChanged( self, event ):
+		pass
+	
+	def buttonMaximum_Clicked( self, event ):
+		pass
+	
+	def textCtrlName_TextChanged( self, event ):
+		pass
+	
+	def bitmapButtonIcon_Clicked( self, event ):
+		pass
+	
+	def textCtrlDescription_TextChange( self, event ):
+		pass
+	
+	def comboBoxUserAnimation_SelectionChanged( self, event ):
+		pass
+	
+	def comboBoxTargetAnimation_SelectionChanged( self, event ):
+		pass
+	
+	def spinCtrlPrice_ValueChanged( self, event ):
+		pass
+	
+	def spinCtrlAtk_ValueChanged( self, event ):
+		pass
+	
+	def spinCtrlPdef_ValueChanged( self, event ):
+		pass
+	
+	def spinCtrlMdef_ValueChanged( self, event ):
 		pass
 	
 	def checkListElements_CheckChanged( self, event ):
@@ -1426,13 +1650,9 @@ class Armors_Panel ( wx.Panel ):
 		
 		listBoxArmorsChoices = []
 		self.listBoxArmors = wx.ListBox( self, wx.ID_ANY, wx.DefaultPosition, wx.Size( 184,-1 ), listBoxArmorsChoices, wx.LB_SINGLE|wx.CLIP_CHILDREN )
-		self.listBoxArmors.SetToolTipString( u"Select the item to edit" )
-		
 		ArmorsListSizer.Add( self.listBoxArmors, 1, wx.EXPAND|wx.RIGHT|wx.LEFT, 5 )
 		
 		self.buttonMaximum = wx.Button( self, wx.ID_ANY, u"Change Maximum...", wx.DefaultPosition, wx.Size( 150,-1 ), 0 )
-		self.buttonMaximum.SetToolTipString( u"Change the maximum of available items" )
-		
 		ArmorsListSizer.Add( self.buttonMaximum, 0, wx.ALL|wx.EXPAND, 5 )
 		
 		MainSizer.Add( ArmorsListSizer, 0, wx.EXPAND, 5 )
@@ -1441,41 +1661,42 @@ class Armors_Panel ( wx.Panel ):
 		
 		sizer1 = wx.BoxSizer( wx.VERTICAL )
 		
-		sizer3 = wx.BoxSizer( wx.HORIZONTAL )
+		bSizer620 = wx.BoxSizer( wx.HORIZONTAL )
+		
+		bSizer621 = wx.BoxSizer( wx.VERTICAL )
 		
 		self.labelName = wx.StaticText( self, wx.ID_ANY, u"Name:", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.labelName.Wrap( -1 )
-		sizer3.Add( self.labelName, 1, wx.ALL, 5 )
+		bSizer621.Add( self.labelName, 0, wx.ALL|wx.EXPAND, 5 )
+		
+		self.textCtrlName = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer621.Add( self.textCtrlName, 1, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
+		
+		bSizer620.Add( bSizer621, 1, 0, 5 )
+		
+		bSizer622 = wx.BoxSizer( wx.VERTICAL )
 		
 		self.labelIcon = wx.StaticText( self, wx.ID_ANY, u"Icon:", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.labelIcon.Wrap( -1 )
-		sizer3.Add( self.labelIcon, 1, wx.ALL, 5 )
+		bSizer622.Add( self.labelIcon, 0, wx.ALL|wx.EXPAND, 5 )
 		
-		sizer1.Add( sizer3, 0, wx.EXPAND, 5 )
+		self.labelIconName = wx.StaticText( self, wx.ID_ANY, u"(Name of Icon)", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.labelIconName.Wrap( -1 )
+		bSizer622.Add( self.labelIconName, 0, wx.ALL, 5 )
 		
-		sizer4 = wx.BoxSizer( wx.HORIZONTAL )
+		bSizer620.Add( bSizer622, 0, 0, 5 )
 		
-		self.textCtrlName = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.textCtrlName.SetToolTipString( u"The item name." )
+		self.bitmapButtonIcon = wx.BitmapButton( self, wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.Size( 32,32 ), wx.BU_AUTODRAW )
+		bSizer620.Add( self.bitmapButtonIcon, 0, wx.ALIGN_BOTTOM|wx.ALL, 5 )
 		
-		sizer4.Add( self.textCtrlName, 1, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
-		
-		comboBoxIconChoices = []
-		self.comboBoxIcon = wx.ComboBox( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, comboBoxIconChoices, 0 )
-		self.comboBoxIcon.SetToolTipString( u"The icon associated with the item" )
-		
-		sizer4.Add( self.comboBoxIcon, 1, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
-		
-		sizer1.Add( sizer4, 0, wx.EXPAND, 5 )
+		sizer1.Add( bSizer620, 0, wx.EXPAND, 5 )
 		
 		self.labelDescription = wx.StaticText( self, wx.ID_ANY, u"Description:", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.labelDescription.Wrap( -1 )
 		sizer1.Add( self.labelDescription, 0, wx.ALL|wx.EXPAND, 5 )
 		
-		self.extCtrlDescription = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.extCtrlDescription.SetToolTipString( u"Comment displayed when the item is selected" )
-		
-		sizer1.Add( self.extCtrlDescription, 0, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
+		self.textCtrlDescription = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+		sizer1.Add( self.textCtrlDescription, 0, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
 		
 		sizer6 = wx.BoxSizer( wx.HORIZONTAL )
 		
@@ -1488,8 +1709,6 @@ class Armors_Panel ( wx.Panel ):
 		comboBoxKindChoices = [ u"Shield", u"Helmet", u"Body Armor", u"Accessory" ]
 		self.comboBoxKind = wx.Choice( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxKindChoices, 0 )
 		self.comboBoxKind.SetSelection( 0 )
-		self.comboBoxKind.SetToolTipString( u"Animation displayed on the user when used in battle." )
-		
 		sizer8.Add( self.comboBoxKind, 1, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
 		
 		sizer6.Add( sizer8, 1, wx.EXPAND, 5 )
@@ -1503,105 +1722,59 @@ class Armors_Panel ( wx.Panel ):
 		comboBoxAutoStateChoices = [ u"(None)" ]
 		self.comboBoxAutoState = wx.Choice( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxAutoStateChoices, 0 )
 		self.comboBoxAutoState.SetSelection( 0 )
-		self.comboBoxAutoState.SetToolTipString( u"Screen(s) where the item can be used." )
-		
 		sizer9.Add( self.comboBoxAutoState, 1, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
 		
 		sizer6.Add( sizer9, 1, wx.EXPAND, 5 )
 		
 		sizer1.Add( sizer6, 0, wx.EXPAND, 5 )
 		
-		sizer7 = wx.BoxSizer( wx.HORIZONTAL )
+		sizerParameters = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Parameters" ), wx.VERTICAL )
 		
-		sizer10 = wx.BoxSizer( wx.VERTICAL )
+		self.panelParameters = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
+		bSizer657 = wx.BoxSizer( wx.VERTICAL )
 		
-		self.labelPrice = wx.StaticText( self, wx.ID_ANY, u"Price:", wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer658 = wx.BoxSizer( wx.HORIZONTAL )
+		
+		self.labelPrice = wx.StaticText( self.panelParameters, wx.ID_ANY, u"Price:", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.labelPrice.Wrap( -1 )
-		sizer10.Add( self.labelPrice, 0, wx.ALL|wx.EXPAND, 5 )
+		bSizer658.Add( self.labelPrice, 1, wx.ALL, 5 )
 		
-		self.spinCtrlPrice = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 9999999, 0 )
-		self.spinCtrlPrice.SetToolTipString( u"Recovered HP, as percentage of max HP" )
-		
-		sizer10.Add( self.spinCtrlPrice, 0, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
-		
-		self.labelStrPlus = wx.StaticText( self, wx.ID_ANY, u"STR+:", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.labelStrPlus.Wrap( -1 )
-		sizer10.Add( self.labelStrPlus, 0, wx.ALL|wx.EXPAND, 5 )
-		
-		self.spinCtrlStrPlus = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, -65535, 65535, 0 )
-		self.spinCtrlStrPlus.SetToolTipString( u"Success rate in percentage of item use, not affected by target's parameters." )
-		
-		sizer10.Add( self.spinCtrlStrPlus, 0, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
-		
-		sizer7.Add( sizer10, 1, wx.EXPAND, 5 )
-		
-		sizer11 = wx.BoxSizer( wx.VERTICAL )
-		
-		self.labelPdef = wx.StaticText( self, wx.ID_ANY, u"PDEF:", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.labelPdef = wx.StaticText( self.panelParameters, wx.ID_ANY, u"PDEF:", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.labelPdef.Wrap( -1 )
-		sizer11.Add( self.labelPdef, 0, wx.ALL|wx.EXPAND, 5 )
+		bSizer658.Add( self.labelPdef, 1, wx.ALL, 5 )
 		
-		self.spinCtrlPdef = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, -65535, 65535, 0 )
-		self.spinCtrlPdef.SetToolTipString( u"Amount of recovered HP. An odd value allows for creation of an attack item." )
-		
-		sizer11.Add( self.spinCtrlPdef, 0, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
-		
-		self.labelDexPlus = wx.StaticText( self, wx.ID_ANY, u"DEX+:", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.labelDexPlus.Wrap( -1 )
-		sizer11.Add( self.labelDexPlus, 0, wx.ALL|wx.EXPAND, 5 )
-		
-		self.spinCtrlDexPlus = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, -65535, 65535, 0 )
-		self.spinCtrlDexPlus.SetToolTipString( u"Coefficient indicating how much of the target's physical defense influences the effects. Set high for physical attack items." )
-		
-		sizer11.Add( self.spinCtrlDexPlus, 0, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
-		
-		sizer7.Add( sizer11, 1, wx.EXPAND, 5 )
-		
-		sizer12 = wx.BoxSizer( wx.VERTICAL )
-		
-		self.labelMdef = wx.StaticText( self, wx.ID_ANY, u"MDEF:", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.labelMdef = wx.StaticText( self.panelParameters, wx.ID_ANY, u"MDEF:", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.labelMdef.Wrap( -1 )
-		sizer12.Add( self.labelMdef, 0, wx.ALL|wx.EXPAND, 5 )
+		bSizer658.Add( self.labelMdef, 1, wx.ALL, 5 )
 		
-		self.spinCtrlMdef = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, -65535, 65535, 0 )
-		self.spinCtrlMdef.SetToolTipString( u"Recovered SP, as percentage of max SP" )
-		
-		sizer12.Add( self.spinCtrlMdef, 0, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
-		
-		self.labelAgiPlus = wx.StaticText( self, wx.ID_ANY, u"AGI+:", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.labelAgiPlus.Wrap( -1 )
-		sizer12.Add( self.labelAgiPlus, 0, wx.ALL|wx.EXPAND, 5 )
-		
-		self.spinCtrlAgiPlus = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, -65535, 65535, 0 )
-		self.spinCtrlAgiPlus.SetToolTipString( u"Coefficient indicating how much of the target's magic defense influences the effects. Set high for magical attack items." )
-		
-		sizer12.Add( self.spinCtrlAgiPlus, 0, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
-		
-		sizer7.Add( sizer12, 1, wx.EXPAND, 5 )
-		
-		sizer13 = wx.BoxSizer( wx.VERTICAL )
-		
-		self.labelEva = wx.StaticText( self, wx.ID_ANY, u"EVA:", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.labelEva = wx.StaticText( self.panelParameters, wx.ID_ANY, u"EVA:", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.labelEva.Wrap( -1 )
-		sizer13.Add( self.labelEva, 0, wx.ALL|wx.EXPAND, 5 )
+		bSizer658.Add( self.labelEva, 1, wx.ALL, 5 )
 		
-		self.spinCtrlEva = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, -65535, 65535, 0 )
-		self.spinCtrlEva.SetToolTipString( u"Amount of recovered SP. An odd value allows for creation of an attack item." )
+		bSizer657.Add( bSizer658, 0, wx.EXPAND, 5 )
 		
-		sizer13.Add( self.spinCtrlEva, 0, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
+		bSizer659 = wx.BoxSizer( wx.HORIZONTAL )
 		
-		self.labelIntPlus = wx.StaticText( self, wx.ID_ANY, u"INT+:", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.labelIntPlus.Wrap( -1 )
-		sizer13.Add( self.labelIntPlus, 0, wx.ALL|wx.EXPAND, 5 )
+		self.spinCtrlPrice = wx.SpinCtrl( self.panelParameters, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 9999999, 0 )
+		bSizer659.Add( self.spinCtrlPrice, 1, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
 		
-		self.spinCtrlIntPlus = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, -65535, 65535, 0 )
-		self.spinCtrlIntPlus.SetToolTipString( u"Degree of fluctuation in final effect strength. The effect strength value varies only by this percentage. 15 is average." )
+		self.spinCtrlPdef = wx.SpinCtrl( self.panelParameters, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, -65535, 65535, 0 )
+		bSizer659.Add( self.spinCtrlPdef, 1, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
 		
-		sizer13.Add( self.spinCtrlIntPlus, 0, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
+		self.spinCtrlMdef = wx.SpinCtrl( self.panelParameters, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, -65535, 65535, 0 )
+		bSizer659.Add( self.spinCtrlMdef, 1, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
 		
-		sizer7.Add( sizer13, 1, wx.EXPAND, 5 )
+		self.spinCtrlEva = wx.SpinCtrl( self.panelParameters, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, -65535, 65535, 0 )
+		bSizer659.Add( self.spinCtrlEva, 1, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
 		
-		sizer1.Add( sizer7, 1, wx.EXPAND, 5 )
+		bSizer657.Add( bSizer659, 0, wx.EXPAND, 5 )
+		
+		self.panelParameters.SetSizer( bSizer657 )
+		self.panelParameters.Layout()
+		bSizer657.Fit( self.panelParameters )
+		sizerParameters.Add( self.panelParameters, 1, wx.EXPAND |wx.ALL, 5 )
+		
+		sizer1.Add( sizerParameters, 0, wx.EXPAND|wx.ALL, 5 )
 		
 		staticSizerArmors.Add( sizer1, 60, wx.EXPAND, 5 )
 		
@@ -1623,14 +1796,10 @@ class Armors_Panel ( wx.Panel ):
 		
 		checkListElementsChoices = []
 		self.checkListElements = wx.CheckListBox( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, checkListElementsChoices, wx.LB_HSCROLL|wx.LB_NEEDED_SB|wx.CLIP_CHILDREN )
-		self.checkListElements.SetToolTipString( u"Set the element attributes for the item. The effect strength varies according the their strengths/weaknesses." )
-		
 		sizer15.Add( self.checkListElements, 1, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
 		
 		checkListStatesChoices = []
 		self.checkListStates = wx.CheckListBox( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, checkListStatesChoices, wx.LB_NEEDED_SB|wx.CLIP_CHILDREN )
-		self.checkListStates.SetToolTipString( u"Indicates the item's states set [+] and cleared [-] on the target. The success rate is determined by the target's strengths/weaknesses." )
-		
 		sizer15.Add( self.checkListStates, 1, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
 		
 		sizer2.Add( sizer15, 1, wx.EXPAND, 5 )
@@ -1640,8 +1809,6 @@ class Armors_Panel ( wx.Panel ):
 		sizer2.Add( self.labelNotes, 0, wx.ALL, 5 )
 		
 		self.textCtrlNotes = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.TE_MULTILINE|wx.CLIP_CHILDREN )
-		self.textCtrlNotes.SetToolTipString( u"Any user notes for this item. These notes can also be referenced via scripts." )
-		
 		sizer2.Add( self.textCtrlNotes, 1, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
 		
 		staticSizerArmors.Add( sizer2, 40, wx.EXPAND, 5 )
@@ -1655,18 +1822,14 @@ class Armors_Panel ( wx.Panel ):
 		self.listBoxArmors.Bind( wx.EVT_LISTBOX, self.listBoxWeapons_SelectionChanged )
 		self.buttonMaximum.Bind( wx.EVT_BUTTON, self.buttonMaximum_Clicked )
 		self.textCtrlName.Bind( wx.EVT_TEXT, self.textCtrlName_TextChanged )
-		self.comboBoxIcon.Bind( wx.EVT_LEFT_DOWN, self.comboBoxIcon_Clicked )
-		self.extCtrlDescription.Bind( wx.EVT_TEXT, self.textCtrlDescription_TextChange )
+		self.bitmapButtonIcon.Bind( wx.EVT_BUTTON, self.bitmapButtonIcon_Clicked )
+		self.textCtrlDescription.Bind( wx.EVT_TEXT, self.textCtrlDescription_TextChange )
 		self.comboBoxKind.Bind( wx.EVT_CHOICE, self.comboBoxKind_SelectionChanged )
 		self.comboBoxAutoState.Bind( wx.EVT_CHOICE, self.comboBoxAutoState_SelectionChanged )
 		self.spinCtrlPrice.Bind( wx.EVT_SPINCTRL, self.spinCtrlPrice_ValueChanged )
-		self.spinCtrlStrPlus.Bind( wx.EVT_SPINCTRL, self.spinCtrlStrPlus_ValueChanged )
 		self.spinCtrlPdef.Bind( wx.EVT_SPINCTRL, self.spinCtrlPdef_ValueChanged )
-		self.spinCtrlDexPlus.Bind( wx.EVT_SPINCTRL, self.spinCtrlDexPlus_ValueChanged )
 		self.spinCtrlMdef.Bind( wx.EVT_SPINCTRL, self.spinCtrlMdef_ValueChanged )
-		self.spinCtrlAgiPlus.Bind( wx.EVT_SPINCTRL, self.spinCtrlAgiPlus_ValueChanged )
 		self.spinCtrlEva.Bind( wx.EVT_SPINCTRL, self.spinCtrlEva_ValueChanged )
-		self.spinCtrlIntPlus.Bind( wx.EVT_SPINCTRL, self.spinCtrlIntPlus_ValueChanged )
 		self.checkListElements.Bind( wx.EVT_CHECKLISTBOX, self.checkListElements_CheckChanged )
 		self.checkListStates.Bind( wx.EVT_CHECKLISTBOX, self.checkListStates_CheckChanged )
 		self.textCtrlNotes.Bind( wx.EVT_TEXT, self.textCtrlNotes_TextChanged )
@@ -1685,7 +1848,7 @@ class Armors_Panel ( wx.Panel ):
 	def textCtrlName_TextChanged( self, event ):
 		pass
 	
-	def comboBoxIcon_Clicked( self, event ):
+	def bitmapButtonIcon_Clicked( self, event ):
 		pass
 	
 	def textCtrlDescription_TextChange( self, event ):
@@ -1700,351 +1863,13 @@ class Armors_Panel ( wx.Panel ):
 	def spinCtrlPrice_ValueChanged( self, event ):
 		pass
 	
-	def spinCtrlStrPlus_ValueChanged( self, event ):
-		pass
-	
 	def spinCtrlPdef_ValueChanged( self, event ):
 		pass
 	
-	def spinCtrlDexPlus_ValueChanged( self, event ):
-		pass
-	
 	def spinCtrlMdef_ValueChanged( self, event ):
-		pass
-	
-	def spinCtrlAgiPlus_ValueChanged( self, event ):
 		pass
 	
 	def spinCtrlEva_ValueChanged( self, event ):
-		pass
-	
-	def spinCtrlIntPlus_ValueChanged( self, event ):
-		pass
-	
-	def checkListElements_CheckChanged( self, event ):
-		pass
-	
-	def checkListStates_CheckChanged( self, event ):
-		pass
-	
-	def textCtrlNotes_TextChanged( self, event ):
-		pass
-	
-
-###########################################################################
-## Class Weapons_Panel
-###########################################################################
-
-class Weapons_Panel ( wx.Panel ):
-	
-	def __init__( self, parent ):
-		wx.Panel.__init__ ( self, parent, id = wx.ID_ANY, pos = wx.DefaultPosition, size = wx.Size( 800,600 ), style = wx.TAB_TRAVERSAL )
-		
-		MainSizer = wx.BoxSizer( wx.HORIZONTAL )
-		
-		WeaponsListSizer = wx.BoxSizer( wx.VERTICAL )
-		
-		self.bitmapWeapons = wx.StaticBitmap( self, wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.Size( 150,26 ), wx.CLIP_CHILDREN|wx.FULL_REPAINT_ON_RESIZE )
-		self.bitmapWeapons.SetMinSize( wx.Size( 150,26 ) )
-		self.bitmapWeapons.SetMaxSize( wx.Size( 150,26 ) )
-		
-		WeaponsListSizer.Add( self.bitmapWeapons, 0, wx.ALL|wx.EXPAND, 5 )
-		
-		listBoxWeaponsChoices = []
-		self.listBoxWeapons = wx.ListBox( self, wx.ID_ANY, wx.DefaultPosition, wx.Size( 184,-1 ), listBoxWeaponsChoices, wx.LB_SINGLE|wx.CLIP_CHILDREN )
-		self.listBoxWeapons.SetToolTipString( u"Select the item to edit" )
-		
-		WeaponsListSizer.Add( self.listBoxWeapons, 1, wx.EXPAND|wx.RIGHT|wx.LEFT, 5 )
-		
-		self.buttonMaximum = wx.Button( self, wx.ID_ANY, u"Change Maximum...", wx.DefaultPosition, wx.Size( 150,-1 ), 0 )
-		self.buttonMaximum.SetToolTipString( u"Change the maximum of available items" )
-		
-		WeaponsListSizer.Add( self.buttonMaximum, 0, wx.ALL|wx.EXPAND, 5 )
-		
-		MainSizer.Add( WeaponsListSizer, 0, wx.EXPAND, 5 )
-		
-		staticSizerWeapons = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, wx.EmptyString ), wx.HORIZONTAL )
-		
-		sizer1 = wx.BoxSizer( wx.VERTICAL )
-		
-		sizer3 = wx.BoxSizer( wx.HORIZONTAL )
-		
-		self.labelName = wx.StaticText( self, wx.ID_ANY, u"Name:", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.labelName.Wrap( -1 )
-		sizer3.Add( self.labelName, 1, wx.ALL, 5 )
-		
-		self.labelIcon = wx.StaticText( self, wx.ID_ANY, u"Icon:", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.labelIcon.Wrap( -1 )
-		sizer3.Add( self.labelIcon, 1, wx.ALL, 5 )
-		
-		sizer1.Add( sizer3, 0, wx.EXPAND, 5 )
-		
-		sizer4 = wx.BoxSizer( wx.HORIZONTAL )
-		
-		self.textCtrlName = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.textCtrlName.SetToolTipString( u"The item name." )
-		
-		sizer4.Add( self.textCtrlName, 1, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
-		
-		comboBoxIconChoices = []
-		self.comboBoxIcon = wx.ComboBox( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, comboBoxIconChoices, 0 )
-		self.comboBoxIcon.SetToolTipString( u"The icon associated with the item" )
-		
-		sizer4.Add( self.comboBoxIcon, 1, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
-		
-		sizer1.Add( sizer4, 0, wx.EXPAND, 5 )
-		
-		self.labelDescription = wx.StaticText( self, wx.ID_ANY, u"Description:", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.labelDescription.Wrap( -1 )
-		sizer1.Add( self.labelDescription, 0, wx.ALL|wx.EXPAND, 5 )
-		
-		self.extCtrlDescription = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.extCtrlDescription.SetToolTipString( u"Comment displayed when the item is selected" )
-		
-		sizer1.Add( self.extCtrlDescription, 0, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
-		
-		sizer6 = wx.BoxSizer( wx.HORIZONTAL )
-		
-		sizer8 = wx.BoxSizer( wx.VERTICAL )
-		
-		self.labelUserAnimation = wx.StaticText( self, wx.ID_ANY, u"User Animation:", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.labelUserAnimation.Wrap( -1 )
-		sizer8.Add( self.labelUserAnimation, 0, wx.ALL|wx.EXPAND, 5 )
-		
-		comboBoxUserAnimationChoices = [ u"(None)" ]
-		self.comboBoxUserAnimation = wx.Choice( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxUserAnimationChoices, 0 )
-		self.comboBoxUserAnimation.SetSelection( 0 )
-		self.comboBoxUserAnimation.SetToolTipString( u"Animation displayed on the user when used in battle." )
-		
-		sizer8.Add( self.comboBoxUserAnimation, 1, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
-		
-		sizer6.Add( sizer8, 1, wx.EXPAND, 5 )
-		
-		sizer9 = wx.BoxSizer( wx.VERTICAL )
-		
-		self.labelTargetAnimation = wx.StaticText( self, wx.ID_ANY, u"Target Animation:", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.labelTargetAnimation.Wrap( -1 )
-		sizer9.Add( self.labelTargetAnimation, 0, wx.ALL|wx.EXPAND, 5 )
-		
-		comboBoxOccasionChoices = [ u"(None)" ]
-		self.comboBoxOccasion = wx.Choice( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxOccasionChoices, 0 )
-		self.comboBoxOccasion.SetSelection( 0 )
-		self.comboBoxOccasion.SetToolTipString( u"Screen(s) where the item can be used." )
-		
-		sizer9.Add( self.comboBoxOccasion, 1, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
-		
-		sizer6.Add( sizer9, 1, wx.EXPAND, 5 )
-		
-		sizer1.Add( sizer6, 0, wx.EXPAND, 5 )
-		
-		sizer7 = wx.BoxSizer( wx.HORIZONTAL )
-		
-		sizer10 = wx.BoxSizer( wx.VERTICAL )
-		
-		self.labelPrice = wx.StaticText( self, wx.ID_ANY, u"Price:", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.labelPrice.Wrap( -1 )
-		sizer10.Add( self.labelPrice, 0, wx.ALL|wx.EXPAND, 5 )
-		
-		self.spinCtrlPrice = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 9999999, 0 )
-		self.spinCtrlPrice.SetToolTipString( u"Recovered HP, as percentage of max HP" )
-		
-		sizer10.Add( self.spinCtrlPrice, 0, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
-		
-		self.labelStrPlus = wx.StaticText( self, wx.ID_ANY, u"STR+:", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.labelStrPlus.Wrap( -1 )
-		sizer10.Add( self.labelStrPlus, 0, wx.ALL|wx.EXPAND, 5 )
-		
-		self.spinCtrlStrPlus = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, -65535, 65535, 0 )
-		self.spinCtrlStrPlus.SetToolTipString( u"Success rate in percentage of item use, not affected by target's parameters." )
-		
-		sizer10.Add( self.spinCtrlStrPlus, 0, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
-		
-		sizer7.Add( sizer10, 1, wx.EXPAND, 5 )
-		
-		sizer11 = wx.BoxSizer( wx.VERTICAL )
-		
-		self.labelAtk = wx.StaticText( self, wx.ID_ANY, u"ATK:", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.labelAtk.Wrap( -1 )
-		sizer11.Add( self.labelAtk, 0, wx.ALL|wx.EXPAND, 5 )
-		
-		self.spinCtrlAtk = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, -65535, 65535, 0 )
-		self.spinCtrlAtk.SetToolTipString( u"Amount of recovered HP. An odd value allows for creation of an attack item." )
-		
-		sizer11.Add( self.spinCtrlAtk, 0, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
-		
-		self.labelDexPlus = wx.StaticText( self, wx.ID_ANY, u"DEX+:", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.labelDexPlus.Wrap( -1 )
-		sizer11.Add( self.labelDexPlus, 0, wx.ALL|wx.EXPAND, 5 )
-		
-		self.spinCtrlDexPlus = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, -65535, 65535, 0 )
-		self.spinCtrlDexPlus.SetToolTipString( u"Coefficient indicating how much of the target's physical defense influences the effects. Set high for physical attack items." )
-		
-		sizer11.Add( self.spinCtrlDexPlus, 0, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
-		
-		sizer7.Add( sizer11, 1, wx.EXPAND, 5 )
-		
-		sizer12 = wx.BoxSizer( wx.VERTICAL )
-		
-		self.labelPdef = wx.StaticText( self, wx.ID_ANY, u"PDEF:", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.labelPdef.Wrap( -1 )
-		sizer12.Add( self.labelPdef, 0, wx.ALL|wx.EXPAND, 5 )
-		
-		self.spinCtrlPdef = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, -65535, 65535, 0 )
-		self.spinCtrlPdef.SetToolTipString( u"Recovered SP, as percentage of max SP" )
-		
-		sizer12.Add( self.spinCtrlPdef, 0, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
-		
-		self.labelAgiPlus = wx.StaticText( self, wx.ID_ANY, u"AGI+:", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.labelAgiPlus.Wrap( -1 )
-		sizer12.Add( self.labelAgiPlus, 0, wx.ALL|wx.EXPAND, 5 )
-		
-		self.spinCtrlAgiPlus = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, -65535, 65535, 0 )
-		self.spinCtrlAgiPlus.SetToolTipString( u"Coefficient indicating how much of the target's magic defense influences the effects. Set high for magical attack items." )
-		
-		sizer12.Add( self.spinCtrlAgiPlus, 0, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
-		
-		sizer7.Add( sizer12, 1, wx.EXPAND, 5 )
-		
-		sizer13 = wx.BoxSizer( wx.VERTICAL )
-		
-		self.labelMdef = wx.StaticText( self, wx.ID_ANY, u"MDEF:", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.labelMdef.Wrap( -1 )
-		sizer13.Add( self.labelMdef, 0, wx.ALL|wx.EXPAND, 5 )
-		
-		self.spinCtrlMdef = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, -65535, 65535, 0 )
-		self.spinCtrlMdef.SetToolTipString( u"Amount of recovered SP. An odd value allows for creation of an attack item." )
-		
-		sizer13.Add( self.spinCtrlMdef, 0, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
-		
-		self.labelIntPlus = wx.StaticText( self, wx.ID_ANY, u"INT+:", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.labelIntPlus.Wrap( -1 )
-		sizer13.Add( self.labelIntPlus, 0, wx.ALL|wx.EXPAND, 5 )
-		
-		self.spinCtrlIntPlus = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, -65535, 65535, 0 )
-		self.spinCtrlIntPlus.SetToolTipString( u"Degree of fluctuation in final effect strength. The effect strength value varies only by this percentage. 15 is average." )
-		
-		sizer13.Add( self.spinCtrlIntPlus, 0, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
-		
-		sizer7.Add( sizer13, 1, wx.EXPAND, 5 )
-		
-		sizer1.Add( sizer7, 1, wx.EXPAND, 5 )
-		
-		staticSizerWeapons.Add( sizer1, 60, wx.EXPAND, 5 )
-		
-		sizer2 = wx.BoxSizer( wx.VERTICAL )
-		
-		sizer14 = wx.BoxSizer( wx.HORIZONTAL )
-		
-		self.labelElements = wx.StaticText( self, wx.ID_ANY, u"Element:", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.labelElements.Wrap( -1 )
-		sizer14.Add( self.labelElements, 1, wx.ALL|wx.EXPAND, 5 )
-		
-		self.labelStates = wx.StaticText( self, wx.ID_ANY, u"State Change:", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.labelStates.Wrap( -1 )
-		sizer14.Add( self.labelStates, 1, wx.ALL|wx.EXPAND, 5 )
-		
-		sizer2.Add( sizer14, 0, wx.EXPAND, 5 )
-		
-		sizer15 = wx.BoxSizer( wx.HORIZONTAL )
-		
-		checkListElementsChoices = []
-		self.checkListElements = wx.CheckListBox( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, checkListElementsChoices, wx.LB_HSCROLL|wx.LB_NEEDED_SB|wx.CLIP_CHILDREN )
-		self.checkListElements.SetToolTipString( u"Set the element attributes for the item. The effect strength varies according the their strengths/weaknesses." )
-		
-		sizer15.Add( self.checkListElements, 1, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
-		
-		checkListStatesChoices = []
-		self.checkListStates = wx.CheckListBox( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, checkListStatesChoices, wx.LB_NEEDED_SB|wx.CLIP_CHILDREN )
-		self.checkListStates.SetToolTipString( u"Indicates the item's states set [+] and cleared [-] on the target. The success rate is determined by the target's strengths/weaknesses." )
-		
-		sizer15.Add( self.checkListStates, 1, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
-		
-		sizer2.Add( sizer15, 1, wx.EXPAND, 5 )
-		
-		self.labelNotes = wx.StaticText( self, wx.ID_ANY, u"Notes:", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.labelNotes.Wrap( -1 )
-		sizer2.Add( self.labelNotes, 0, wx.ALL, 5 )
-		
-		self.textCtrlNotes = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.TE_MULTILINE|wx.CLIP_CHILDREN )
-		self.textCtrlNotes.SetToolTipString( u"Any user notes for this item. These notes can also be referenced via scripts." )
-		
-		sizer2.Add( self.textCtrlNotes, 1, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
-		
-		staticSizerWeapons.Add( sizer2, 40, wx.EXPAND, 5 )
-		
-		MainSizer.Add( staticSizerWeapons, 75, wx.EXPAND|wx.ALL, 5 )
-		
-		self.SetSizer( MainSizer )
-		self.Layout()
-		
-		# Connect Events
-		self.listBoxWeapons.Bind( wx.EVT_LISTBOX, self.listBoxWeapons_SelectionChanged )
-		self.buttonMaximum.Bind( wx.EVT_BUTTON, self.buttonMaximum_Clicked )
-		self.textCtrlName.Bind( wx.EVT_TEXT, self.textCtrlName_TextChanged )
-		self.comboBoxIcon.Bind( wx.EVT_LEFT_DOWN, self.comboBoxIcon_Clicked )
-		self.extCtrlDescription.Bind( wx.EVT_TEXT, self.textCtrlDescription_TextChange )
-		self.comboBoxUserAnimation.Bind( wx.EVT_CHOICE, self.comboBoxUserAnimation_SelectionChanged )
-		self.comboBoxOccasion.Bind( wx.EVT_CHOICE, self.comboBoxOccasion_SelectionChanged )
-		self.spinCtrlPrice.Bind( wx.EVT_SPINCTRL, self.spinCtrlPrice_ValueChanged )
-		self.spinCtrlStrPlus.Bind( wx.EVT_SPINCTRL, self.spinCtrlStrPlus_ValueChanged )
-		self.spinCtrlAtk.Bind( wx.EVT_SPINCTRL, self.spinCtrlAtk_ValueChanged )
-		self.spinCtrlDexPlus.Bind( wx.EVT_SPINCTRL, self.spinCtrlDexPlus_ValueChanged )
-		self.spinCtrlPdef.Bind( wx.EVT_SPINCTRL, self.spinCtrlPdef_ValueChanged )
-		self.spinCtrlAgiPlus.Bind( wx.EVT_SPINCTRL, self.spinCtrlAgiPlus_ValueChanged )
-		self.spinCtrlMdef.Bind( wx.EVT_SPINCTRL, self.spinCtrlMdef_ValueChanged )
-		self.spinCtrlIntPlus.Bind( wx.EVT_SPINCTRL, self.spinCtrlIntPlus_ValueChanged )
-		self.checkListElements.Bind( wx.EVT_CHECKLISTBOX, self.checkListElements_CheckChanged )
-		self.checkListStates.Bind( wx.EVT_CHECKLISTBOX, self.checkListStates_CheckChanged )
-		self.textCtrlNotes.Bind( wx.EVT_TEXT, self.textCtrlNotes_TextChanged )
-	
-	def __del__( self ):
-		pass
-	
-	
-	# Virtual event handlers, overide them in your derived class
-	def listBoxWeapons_SelectionChanged( self, event ):
-		pass
-	
-	def buttonMaximum_Clicked( self, event ):
-		pass
-	
-	def textCtrlName_TextChanged( self, event ):
-		pass
-	
-	def comboBoxIcon_Clicked( self, event ):
-		pass
-	
-	def textCtrlDescription_TextChange( self, event ):
-		pass
-	
-	def comboBoxUserAnimation_SelectionChanged( self, event ):
-		pass
-	
-	def comboBoxOccasion_SelectionChanged( self, event ):
-		pass
-	
-	def spinCtrlPrice_ValueChanged( self, event ):
-		pass
-	
-	def spinCtrlStrPlus_ValueChanged( self, event ):
-		pass
-	
-	def spinCtrlAtk_ValueChanged( self, event ):
-		pass
-	
-	def spinCtrlDexPlus_ValueChanged( self, event ):
-		pass
-	
-	def spinCtrlPdef_ValueChanged( self, event ):
-		pass
-	
-	def spinCtrlAgiPlus_ValueChanged( self, event ):
-		pass
-	
-	def spinCtrlMdef_ValueChanged( self, event ):
-		pass
-	
-	def spinCtrlIntPlus_ValueChanged( self, event ):
 		pass
 	
 	def checkListElements_CheckChanged( self, event ):
@@ -2078,13 +1903,9 @@ class Enemies_Panel ( wx.Panel ):
 		
 		listBoxEnemiesChoices = []
 		self.listBoxEnemies = wx.ListBox( self, wx.ID_ANY, wx.DefaultPosition, wx.Size( 184,-1 ), listBoxEnemiesChoices, wx.LB_SINGLE|wx.CLIP_CHILDREN )
-		self.listBoxEnemies.SetToolTipString( u"Select the item to edit" )
-		
 		EnemiesListSizer.Add( self.listBoxEnemies, 1, wx.EXPAND|wx.RIGHT|wx.LEFT, 5 )
 		
 		self.buttonMaximum = wx.Button( self, wx.ID_ANY, u"Change Maximum...", wx.DefaultPosition, wx.Size( 150,-1 ), 0 )
-		self.buttonMaximum.SetToolTipString( u"Change the maximum of available items" )
-		
 		EnemiesListSizer.Add( self.buttonMaximum, 0, wx.ALL|wx.EXPAND, 5 )
 		
 		MainSizer.Add( EnemiesListSizer, 0, wx.EXPAND, 5 )
@@ -2106,7 +1927,7 @@ class Enemies_Panel ( wx.Panel ):
 		self.labelBattlerGraphic.Wrap( -1 )
 		sizer2.Add( self.labelBattlerGraphic, 0, wx.ALL, 5 )
 		
-		self.bitmapBattlerGraphic = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( u"../images/Ghost.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.DefaultSize, wx.STATIC_BORDER )
+		self.bitmapBattlerGraphic = wx.StaticBitmap( self, wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.DefaultSize, wx.STATIC_BORDER )
 		sizer2.Add( self.bitmapBattlerGraphic, 1, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
 		
 		self.labelAttackAnimation = wx.StaticText( self, wx.ID_ANY, u"Attack Animation:", wx.DefaultPosition, wx.DefaultSize, 0 )
@@ -2417,13 +2238,9 @@ class Troops_Panel ( wx.Panel ):
 		
 		listBoxTroopsChoices = []
 		self.listBoxTroops = wx.ListBox( self, wx.ID_ANY, wx.DefaultPosition, wx.Size( 184,-1 ), listBoxTroopsChoices, wx.LB_SINGLE|wx.CLIP_CHILDREN )
-		self.listBoxTroops.SetToolTipString( u"Select the item to edit" )
-		
 		TroopsListSizer.Add( self.listBoxTroops, 1, wx.EXPAND|wx.RIGHT|wx.LEFT, 5 )
 		
 		self.buttonMaximum = wx.Button( self, wx.ID_ANY, u"Change Maximum...", wx.DefaultPosition, wx.Size( 150,-1 ), 0 )
-		self.buttonMaximum.SetToolTipString( u"Change the maximum of available items" )
-		
 		TroopsListSizer.Add( self.buttonMaximum, 0, wx.ALL|wx.EXPAND, 5 )
 		
 		MainSizer.Add( TroopsListSizer, 0, wx.EXPAND, 5 )
@@ -2452,7 +2269,7 @@ class Troops_Panel ( wx.Panel ):
 		
 		sizer2 = wx.BoxSizer( wx.HORIZONTAL )
 		
-		self.bitmapTroopLayout = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( u"../images/Battleback.jpg", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.DefaultSize, wx.SUNKEN_BORDER )
+		self.bitmapTroopLayout = wx.StaticBitmap( self, wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.DefaultSize, wx.SUNKEN_BORDER )
 		sizer2.Add( self.bitmapTroopLayout, 70, wx.ALL|wx.EXPAND, 5 )
 		
 		sizer4 = wx.BoxSizer( wx.VERTICAL )
@@ -2652,13 +2469,9 @@ class States_Panel ( wx.Panel ):
 		
 		listBoxStatesChoices = []
 		self.listBoxStates = wx.ListBox( self, wx.ID_ANY, wx.DefaultPosition, wx.Size( 184,-1 ), listBoxStatesChoices, wx.LB_SINGLE|wx.CLIP_CHILDREN )
-		self.listBoxStates.SetToolTipString( u"Select the item to edit" )
-		
 		StatesListSizer.Add( self.listBoxStates, 1, wx.EXPAND|wx.RIGHT|wx.LEFT, 5 )
 		
 		self.buttonMaximum = wx.Button( self, wx.ID_ANY, u"Change Maximum...", wx.DefaultPosition, wx.Size( 150,-1 ), 0 )
-		self.buttonMaximum.SetToolTipString( u"Change the maximum of available items" )
-		
 		StatesListSizer.Add( self.buttonMaximum, 0, wx.ALL|wx.EXPAND, 5 )
 		
 		MainSizer.Add( StatesListSizer, 0, wx.EXPAND, 5 )
@@ -3043,13 +2856,9 @@ class Animations_Panel ( wx.Panel ):
 		
 		listBoxAnimationsChoices = []
 		self.listBoxAnimations = wx.ListBox( self, wx.ID_ANY, wx.DefaultPosition, wx.Size( 184,-1 ), listBoxAnimationsChoices, wx.LB_SINGLE|wx.CLIP_CHILDREN )
-		self.listBoxAnimations.SetToolTipString( u"Select the item to edit" )
-		
 		AnimationsListSizer.Add( self.listBoxAnimations, 1, wx.EXPAND|wx.RIGHT|wx.LEFT, 5 )
 		
 		self.buttonMaximum = wx.Button( self, wx.ID_ANY, u"Change Maximum...", wx.DefaultPosition, wx.Size( 150,-1 ), 0 )
-		self.buttonMaximum.SetToolTipString( u"Change the maximum of available items" )
-		
 		AnimationsListSizer.Add( self.buttonMaximum, 0, wx.ALL|wx.EXPAND, 5 )
 		
 		MainSizer.Add( AnimationsListSizer, 0, wx.EXPAND, 5 )
@@ -3123,7 +2932,7 @@ class Animations_Panel ( wx.Panel ):
 		
 		sizer2.Add( sizer5, 0, wx.EXPAND, 5 )
 		
-		self.bitmapPallette = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( u"../images/AnimationSample1.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.DefaultSize, wx.SUNKEN_BORDER )
+		self.bitmapPallette = wx.StaticBitmap( self, wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.DefaultSize, wx.SUNKEN_BORDER )
 		sizer2.Add( self.bitmapPallette, 1, wx.ALL|wx.EXPAND, 5 )
 		
 		sizer6 = wx.BoxSizer( wx.VERTICAL )
@@ -3166,7 +2975,7 @@ class Animations_Panel ( wx.Panel ):
 		self.m_scrolledWindow3.SetScrollRate( 5, 5 )
 		bSizer196 = wx.BoxSizer( wx.HORIZONTAL )
 		
-		self.bitmapAnimationFrames = wx.StaticBitmap( self.m_scrolledWindow3, wx.ID_ANY, wx.Bitmap( u"../images/AnimationSample2.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.bitmapAnimationFrames = wx.StaticBitmap( self.m_scrolledWindow3, wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.DefaultSize, 0 )
 		bSizer196.Add( self.bitmapAnimationFrames, 0, wx.ALL, 5 )
 		
 		self.m_scrolledWindow3.SetSizer( bSizer196 )
@@ -3290,13 +3099,9 @@ class Tilesets_Panel ( wx.Panel ):
 		
 		listBoxTilesetsChoices = []
 		self.listBoxTilesets = wx.ListBox( self, wx.ID_ANY, wx.DefaultPosition, wx.Size( 184,-1 ), listBoxTilesetsChoices, wx.LB_SINGLE|wx.CLIP_CHILDREN )
-		self.listBoxTilesets.SetToolTipString( u"Select the item to edit" )
-		
 		TilesetsListSizer.Add( self.listBoxTilesets, 1, wx.EXPAND|wx.RIGHT|wx.LEFT, 5 )
 		
 		self.buttonMaximum = wx.Button( self, wx.ID_ANY, u"Change Maximum...", wx.DefaultPosition, wx.Size( 150,-1 ), 0 )
-		self.buttonMaximum.SetToolTipString( u"Change the maximum of available items" )
-		
 		TilesetsListSizer.Add( self.buttonMaximum, 0, wx.ALL|wx.EXPAND, 5 )
 		
 		MainSizer.Add( TilesetsListSizer, 0, wx.EXPAND, 5 )
@@ -3376,7 +3181,7 @@ class Tilesets_Panel ( wx.Panel ):
 		
 		sizer3 = wx.BoxSizer( wx.VERTICAL )
 		
-		self.m_bitmap36 = wx.StaticBitmap( self.m_scrolledWindow4, wx.ID_ANY, wx.Bitmap( u"../images/TilesetSample.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.Size( 256,-1 ), 0 )
+		self.m_bitmap36 = wx.StaticBitmap( self.m_scrolledWindow4, wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.Size( 256,-1 ), 0 )
 		self.m_bitmap36.SetMinSize( wx.Size( 256,-1 ) )
 		self.m_bitmap36.SetMaxSize( wx.Size( 256,-1 ) )
 		
@@ -3547,13 +3352,9 @@ class CommonEvents_Panel ( wx.Panel ):
 		
 		listBoxCommonEventsChoices = []
 		self.listBoxCommonEvents = wx.ListBox( self, wx.ID_ANY, wx.DefaultPosition, wx.Size( 184,-1 ), listBoxCommonEventsChoices, wx.LB_SINGLE|wx.CLIP_CHILDREN )
-		self.listBoxCommonEvents.SetToolTipString( u"Select the item to edit" )
-		
 		CommonEventsListSizer.Add( self.listBoxCommonEvents, 1, wx.EXPAND|wx.RIGHT|wx.LEFT, 5 )
 		
 		self.buttonMaximum = wx.Button( self, wx.ID_ANY, u"Change Maximum...", wx.DefaultPosition, wx.Size( 150,-1 ), 0 )
-		self.buttonMaximum.SetToolTipString( u"Change the maximum of available items" )
-		
 		CommonEventsListSizer.Add( self.buttonMaximum, 0, wx.ALL|wx.EXPAND, 5 )
 		
 		MainSizer.Add( CommonEventsListSizer, 0, wx.EXPAND, 5 )

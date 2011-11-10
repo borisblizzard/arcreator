@@ -15,8 +15,8 @@ class DatabaseManager(object):
 	_ALPHA_BRUSH = None
 
 	# TODO: Remove this. Use RTP path from Kernel via the Cache
-	xp_rtp = "%COMMONPROGRAMFILES%/Enterbrain/RGSS/Standard/Graphics"
-	GraphicsDir = os.path.normpath(os.path.expandvars(xp_rtp))
+	xp_rtp = "%COMMONPROGRAMFILES%/Enterbrain/RGSS/Standard"
+	RTPDir = os.path.normpath(os.path.expandvars(xp_rtp))
 
 	@staticmethod
 	def DrawBitmap( staticBitmap, filename, hue=0, type='battler', rows=1, columns=1, tile=(0,0)):
@@ -39,11 +39,11 @@ class DatabaseManager(object):
 			DatabaseManager._ALPHA_BRUSH = wx.Brush(wx.Color(228, 228, 228), wx.SOLID)
 		if type == 'character':
 			# TODO: Load data from cache
-			srcBmp = wx.Bitmap(DatabaseManager.GraphicsDir + '\\Characters\\' + filename + '.png')
+			srcBmp = wx.Bitmap(DatabaseManager.RTPDir + '/Graphics/Characters/' + filename + '.png')
 			#srcBmp = Cache.Character(filename, hue)
 		elif type == 'battler':
 			# TODO: Load data from cache
-			srcBmp = wx.Bitmap(DatabaseManager.GraphicsDir + '\\Battlers\\' + filename + '.png')
+			srcBmp = wx.Bitmap(DatabaseManager.RTPDir + '/Graphics/Battlers/' + filename + '.png')
 			#srcBmp = Cache.Battler(filename, hue)
 		tile_width = srcBmp.GetWidth() / columns
 		tile_height = srcBmp.GetHeight() / rows
@@ -316,3 +316,87 @@ class DatabaseManager(object):
 				if state_id in object.plus_state_set: 
 					object.plus_state_set.remove(state_id)
 				object.minus_state_set.append(state_id)
+
+	@staticmethod
+	def DrawButtonIcon(button, filename, from_resource):
+		"""Draws a bitmap on a button from an embedded resource or file
+
+		Arguments:
+		button -- A wxBitmapButton instance to draw on
+		filename -- Either the filename if a game icon or the embedded resource name
+		from_resource -- Bool flag to denote if bitmap loads from embedded resource
+
+		Returns:
+		None
+
+		"""
+		if from_resource:
+			icons = KM.get_component('IconManager').object
+			bitmap = icons.getBitmap(filename)
+		else:
+			# TODO: Use Cache instead
+			path = ''.join([DatabaseManager.RTPDir, '/Graphics/Icons/', filename, '.png'])
+			bitmap = wx.Bitmap(path)
+			#bitmap = Cache.Icon(filename)
+		button.SetBitmapLabel(bitmap)
+
+	@staticmethod
+	def TestSFX( audioFile ):
+		# TEMP METHOD
+		from pygame import mixer as Mixer
+		Mixer.init()
+		path = ''.join([DatabaseManager.RTPDir, '/Audio/SE/', audioFile.name, '.ogg'])
+		player = Mixer.Sound(path)
+		player.set_volume(audioFile.volume / 100.0)
+		player.play()
+
+	@staticmethod
+	def AddParameterSpinCtrls(parent, event, suffix, rowcount=4):
+		"""Creates spin controls for the passed parameters, adds them to the parent
+		control, and returns an array of the created wxSpinCtrl objects.
+
+		Arguments:
+		parent -- The parent control to add the spin controls to
+		event -- A function to bind to each control
+		suffix -- A string suffix to append to the names of each parameter
+		rowcount -- The number of controls to add to each row
+
+		Returns:
+		A list of wxSpinCtrl objects
+
+		"""
+		if DatabaseManager.ARC_FORMAT:
+			config = Kernel.GlobalObjects.get_value('ARCed_config')
+			parameters = config.getlist('Misc', 'Parameters')
+		else:
+			parameters = ['STR', 'DEX', 'AGI', 'INT']
+		objectList = []
+		mainsizer = parent.GetSizer()
+		rows = [parameters[i:i+rowcount] for i in xrange(0, len(parameters), rowcount)]
+		percent = 100 / rowcount
+		# Iterate through each of the rows and create the controls
+		for row in rows:
+			labelsizer = wx.BoxSizer(wx.HORIZONTAL)
+			spinsizer = wx.BoxSizer(wx.HORIZONTAL)
+			n = len(row)
+			if n < rowcount:
+				row.append(None)
+				proportion = percent * (rowcount - n)
+			for param in row:
+				if param != None:
+					label = wx.StaticText( parent, wx.ID_ANY, param + suffix)
+					label.Wrap( -1 )
+					labelsizer.Add( label, percent, wx.ALL, 5 )
+					spinctrl = wx.SpinCtrl( parent, wx.ID_ANY, wx.EmptyString, style=wx.SP_ARROW_KEYS|wx.SP_WRAP)
+					spinctrl.Bind(wx.EVT_SPINCTRL, Kernel.Protect(event))
+					objectList.append(spinctrl)
+					spinsizer.Add( spinctrl, percent, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
+				else:
+					# Create a dummy filler
+					dummy = wx.StaticText( parent, wx.ID_ANY, '')
+					dummy.Wrap(-1)
+					labelsizer.Add(dummy, proportion, wx.ALL, 5)
+					spinsizer.Add(dummy, proportion, wx.ALL, 5)
+			mainsizer.Add( labelsizer, 0, wx.EXPAND, 5 )
+			mainsizer.Add( spinsizer, 0, wx.EXPAND, 5 )
+		return objectList
