@@ -9,21 +9,15 @@ import Main
 Main.ConfigManager.LoadConfig()
 
 TEST_PATH = path = 'ARC TestProject\ARC Test Project.arcproj'
-
-class DatabasePage():
-
-	# Dummy class for now, this will not be used in the release version
-	def __init__(self, title, page, index):
-		self.Title = title
-		self.Page = page
-		self.DisplayOrder = index
+PAGE_INDEX = 4
 
 class ARCedTest(wx.App):
 
+	_tabindex = 4
+
 	def __init__(self, redirect=False, filename=None):
 		# Initialize global dictionary that contains the pages
-		global DatabasePages
-		DatabasePages = {}
+		global Panels
 		# Create the application and main frame
 		wx.App.__init__(self, redirect, filename)
 		self.load_project()
@@ -32,22 +26,29 @@ class ARCedTest(wx.App):
 		self.frame.CenterOnScreen()
 
 	def create_panels(self):
-		# Read and parse the .ini file to determine what tabs will be available
-		Config = ConfigParser.SafeConfigParser()
-		Config.read('ini\DatabaseTabs.ini')
-		# Create Notebook control, and dynamically add the defined controls to it
-		nb = wx.Notebook(self.frame, wx.ID_ANY)
-		for tabName in Config.sections():
-			file = Config.get(tabName, 'file')
-			klass = Config.get(tabName, 'class')
-			index = Config.getint(tabName, 'index')
-			exec('import ' + file)
-			exec('page = ' + file + '.' + klass + '(nb)')
-			DatabasePages[index] = DatabasePage(tabName, page, index)
-		# Sort the list and add each page to the control
-		for i in sorted(DatabasePages.keys()):
-			nb.AddPage(DatabasePages[i].Page, DatabasePages[i].Title)
-		nb.SetSelection(4)
+		
+		nb = wx.Notebook( self.frame )
+		Panels = [None for i in xrange(14)]
+		Panels[0] = ('Actors', 'ARCedActors_Panel')
+		Panels[1] = ('Classes', 'ARCedClasses_Panel')
+		Panels[2] = ('Skills', 'ARCedSkills_Panel')
+		Panels[3] = ('Items', 'ARCedItems_Panel')
+		Panels[4] = ('Weapons', 'ARCedWeapons_Panel')
+		Panels[5] = ('Armors', 'ARCedArmors_Panel')
+		Panels[6] = ('Enemies', 'ARCedEnemies_Panel')
+		Panels[7] = ('Troops', 'ARCedTroops_Panel')
+		Panels[8] = ('States', 'ARCedStates_Panel')
+		Panels[9] = ('Animations', 'ARCedAnimations_Panel')
+		Panels[10] = ('Tilesets', 'ARCedTilesets_Panel')
+		Panels[11] = ('Common Events', 'ARCedCommonEvents_Panel')
+		Panels[12] = ('System', 'ARCedSystem_Panel')
+		Panels[13] = ('Configuration', 'Configuration_Panel')
+
+		for data in Panels:
+			exec('from ' + data[1] + ' import ' + data[1])
+			exec('page = ' + data[1] + '(nb)')
+			nb.AddPage(page, data[0])
+		nb.SetSelection(PAGE_INDEX)
 		self.frame.Show()
 
 	def load_project(self):
