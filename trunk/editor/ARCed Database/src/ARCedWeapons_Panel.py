@@ -19,7 +19,6 @@ class ARCedWeapons_Panel( ARCed_Templates.Weapons_Panel ):
 		except NameError:
 			Kernel.Log('Database opened before Project has been initialized', '[Database:WEAPONS]', True)
 			self.Destroy()
-		self.listCtrlStates.AssignImageList(DM.GetAddSubImageList(), wx.IMAGE_LIST_SMALL)
 		font = wx.Font(8, wx.FONTFAMILY_TELETYPE, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL)
 		font.SetFaceName(Config.get('Misc', 'NoteFont')) 
 		self.textCtrlNotes.SetFont(font)
@@ -52,12 +51,9 @@ class ARCedWeapons_Panel( ARCed_Templates.Weapons_Panel ):
 
 	def refreshStates( self ):
 		"""Clears and refreshes the list of states in the checklist"""
-		self.listCtrlStates.DeleteAllItems()
-		start = DM.FixedIndex(0)
-		names = [DataStates[i].name for i in xrange(start, len(DataStates))]
-		self.listCtrlStates.InsertColumn(0, '')
-		for i in xrange(len(names)):
-			self.listCtrlStates.InsertStringItem(i, names[i], 0)
+		self.checkListStates.DeleteAllItems()
+		names = [DataStates[i].name for i in xrange(DM.FixedIndex(0), len(DataStates))]
+		self.checkListStates.AppendItems(names)
 
 	def refreshAnimations( self ):
 		"""Refreshes the choices in the user and target animation controls"""
@@ -95,13 +91,13 @@ class ARCedWeapons_Panel( ARCed_Templates.Weapons_Panel ):
 			self.ParameterControls[6].SetValue(weapon.agi_plus)
 			self.ParameterControls[7].SetValue(weapon.int_plus)
 		self.checkListElements.SetChecked(checked)
-		for i in xrange(self.listCtrlStates.GetItemCount()):
+		for i in xrange(self.checkListStates.GetItemCount()):
 			if i in addstates:
-				self.listCtrlStates.SetItemImage(i, 1)
+				self.checkListStates.SetItemImage(i, 1)
 			elif i in minusstates:
-				self.listCtrlStates.SetItemImage(i, 2)
+				self.checkListStates.SetItemImage(i, 2)
 			else:
-				self.listCtrlStates.SetItemImage(i, 0)
+				self.checkListStates.SetItemImage(i, 0)
 		if not hasattr(weapon, 'note'):
 			setattr(weapon, 'note', '')
 		self.textCtrlNotes.ChangeValue(weapon.note)
@@ -155,22 +151,27 @@ class ARCedWeapons_Panel( ARCed_Templates.Weapons_Panel ):
 	def comboBoxTargetAnimation_SelectionChanged( self, event ):
 		"""Set the selected weapon's target animation"""
 		self.SelectedWeapon.animation2_id = event.GetInt()
-	
-	def checkListElements_CheckChanged( self, event ):
-		"""Sets the IDs that are in the selected weapon's element set"""
-		ids = [DM.FixedIndex(id) for id in self.checkListElements.GetChecked()]
-		self.SelectedWeapon.element_set = ids
 
-	def listCtrlStates_LeftClicked( self, event ):
-		"""Cycles the State change up one"""
-		DM.ChangeSkillStates(self.listCtrlStates, self.SelectedWeapon, event, 1)
-
-	def listCtrlStates_RightClicked( self, event ):
-		"""Cycles the State change down one"""
-		DM.ChangeSkillStates(self.listCtrlStates, self.SelectedWeapon, event, -1)
-	
 	def textCtrlNotes_TextChanged( self, event ):
 		"""Set the selected weapon's magical defense"""
 		self.SelectedWeapon.note = event.GetString()
 	
-	
+	def checkListElements_Clicked( self, event ):
+		"""Updates the guard elements for the selected weapon"""
+		self.checkListElements.ChangeState(event, 1)
+		if DM.ARC_FORMAT:
+			# TODO: Implement
+			pass
+		else:
+			ids = [DM.FixedIndex(id) for id in self.checkListElements.GetChecked()]
+			self.SelectedWeapon.element_set = ids
+
+	def checkListStates_LeftClicked( self, event ):
+		"""Updates the plus/minus state set for the selected weapon"""
+		data = self.checkListStates.ChangeState(event, 1)
+		DM.ChangeSkillStates(self.SelectedWeapon, data[0], data[1])
+
+	def checkListStates_RigthClicked( self, event ):
+		"""Updates the plus/minus state set for the selected weapon"""
+		data = self.checkListStates.ChangeState(event, -1)
+		DM.ChangeSkillStates(self.SelectedWeapon, data[0], data[1])

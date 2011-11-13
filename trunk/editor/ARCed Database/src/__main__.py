@@ -8,12 +8,10 @@ import Main
 
 Main.ConfigManager.LoadConfig()
 
-TEST_PATH = path = 'ARC TestProject\ARC Test Project.arcproj'
-PAGE_INDEX = 4
+TEST_PATH = 'ARC TestProject\ARC Test Project.arcproj'
+PAGE_INDEX = 2
 
 class ARCedTest(wx.App):
-
-	_tabindex = 4
 
 	def __init__(self, redirect=False, filename=None):
 		# Initialize global dictionary that contains the pages

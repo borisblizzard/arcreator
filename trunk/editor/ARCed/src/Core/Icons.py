@@ -498,30 +498,30 @@ cuticon = PyEmbeddedImage(
 IconManager._catalog['cuticon'] = cuticon
 
 #----------------------------------------------------------------------
-checkEmpty = PyEmbeddedImage(
+check_empty = PyEmbeddedImage(
     "iVBORw0KGgoAAAANSUhEUgAAAA4AAAAMCAYAAABSgIzaAAAABGdBTUEAALGPC/xhBQAAAAlw"
     "SFlzAAAOwgAADsIBFShKgAAAABp0RVh0U29mdHdhcmUAUGFpbnQuTkVUIHYzLjUuMTAw9HKh"
     "AAAAKklEQVQoU2M4cODAf1Lw////GUCYAaTpz58/RGGQ2lGNOAJrRAYOOUkOAChoYZeQ/clq"
     "AAAAAElFTkSuQmCC")
-IconManager._catalog['checkempty'] = checkEmpty
+IconManager._catalog['check_empty'] = check_empty
 
 #----------------------------------------------------------------------
-checkPlus = PyEmbeddedImage(
+check_plus = PyEmbeddedImage(
     "iVBORw0KGgoAAAANSUhEUgAAAA4AAAAMCAYAAABSgIzaAAAABGdBTUEAALGPC/xhBQAAAAlw"
     "SFlzAAAOwgAADsIBFShKgAAAABp0RVh0U29mdHdhcmUAUGFpbnQuTkVUIHYzLjUuMTAw9HKh"
     "AAAAbElEQVQoU83SwQ2AIAwFUEZhe9foUCIihZJv0oSAInry0HDhteUHQ0TypkTEoAwQM08V"
     "7g7hYq2g2oY/gbre3en9dobYvfEJhrBfwzoIbeLcKpgEFOMxD2uUEs9DnQSUcx7Ddj1FSKUL"
     "58uXK/39J5g8lhAaAAAAAElFTkSuQmCC")
-IconManager._catalog['checkplus'] = checkPlus
+IconManager._catalog['check_plus'] = check_plus
 
 #----------------------------------------------------------------------
-checkMinus = PyEmbeddedImage(
+check_minus = PyEmbeddedImage(
     "iVBORw0KGgoAAAANSUhEUgAAAA4AAAAMCAYAAABSgIzaAAAABGdBTUEAALGPC/xhBQAAAAlw"
     "SFlzAAAOwgAADsIBFShKgAAAABp0RVh0U29mdHdhcmUAUGFpbnQuTkVUIHYzLjUuMTAw9HKh"
     "AAAAXklEQVQoU2M4cODAf1Lw////GUCYAaTpz58/RGGQ2qGsUcFh+X98+Pv3b+BAxPAjIY0/"
     "f/7ArhFXyIJsAmn6/fsX8RqRNf39+4c4jeia/v37R1gjNk2gUMEIHHKSHAACM0JQInLrmgAA"
     "AABJRU5ErkJggg==")
-IconManager._catalog['checkminus'] = checkMinus
+IconManager._catalog['check_minus'] = check_minus
 
 #----------------------------------------------------------------------
 play_button = PyEmbeddedImage(
@@ -536,3 +536,12 @@ play_button = PyEmbeddedImage(
     "eeWhcMMvpVIyKPIUNBUatkcG+nktBCKy1qpqCNcOVOtKDL6Y4bnnILfJmmv9mcyEdW/OZRak"
     "qK351l9qBn7nmtL9q6NPOwWIjQURzaEAAAAASUVORK5CYII=")
 IconManager._catalog['play_button'] = play_button
+
+#----------------------------------------------------------------------
+check_green = PyEmbeddedImage(
+    "iVBORw0KGgoAAAANSUhEUgAAAA4AAAAMCAYAAABSgIzaAAAAAXNSR0IArs4c6QAAAARnQU1B"
+    "AACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAadEVYdFNvZnR3YXJlAFBhaW50Lk5F"
+    "VCB2My41LjEwMPRyoQAAAFlJREFUKFO9kssJACAMQzuKq7tJBytUIgTEb/XgIbf3aAIVVfWb"
+    "uLsgAsnMQgH7R0w51UZXFyEdRQLcTCkkEuqlbdUWbiuywXbj7FJIBNRvDYurhxiqvrxcAcN6"
+    "Ngh8b3GxAAAAAElFTkSuQmCC")
+IconManager._catalog['check_green'] = check_green
