@@ -57,7 +57,7 @@ class ARCedItems_Panel( ARCed_Templates.Items_Panel ):
 		self.comboBoxParameter.Clear()
 		params = ['(None)', 'MaxHP', 'MaxSP']
 		if DM.ARC_FORMAT:
-			params.extend(Config.getlist('Misc', 'Parameters'))
+			params.extend(Config.getlist('GameSetup', 'Parameters'))
 		else:
 			params.extend(['STR', 'DEX', 'AGI', 'INT'])
 		self.comboBoxParameter.AppendItems(params)
@@ -171,7 +171,6 @@ class ARCedItems_Panel( ARCed_Templates.Items_Panel ):
 
 	def comboBoxMenuSE_Clicked( self, event ):
 		"""Opens the dialog for selecting the audio file to use"""
-		self.listBoxItems.SetFocus()
 		audio = DM.ChooseAudio(self, 'Audio/SE/', self.SelectedItem.menu_se, 0)
 		self.SelectedItem.menu_se = audio
 		self.comboBoxMenuSE.SetValue(audio.name)

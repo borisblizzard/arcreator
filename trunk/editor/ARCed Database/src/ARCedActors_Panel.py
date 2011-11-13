@@ -38,7 +38,7 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 		self.textCtrlNotes.SetFont(font)
 		self.ParamTab = 0
 		# Set the ranges for initial and final level spin controls
-		max = Config.getint('Actors', 'MaxLevel')
+		max = Config.getint('DatabaseLimits', 'ActorLevel')
 		self.spinCtrlInitialLevel.SetRange(1, max)
 		self.spinCtrlFinalLevel.SetRange(1, max)
 		self.spinCtrlLevel.SetRange(1, max)
@@ -48,7 +48,7 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 		self.SelectedActor = DataActors[DM.FixedIndex(actorIndex)]
 		# Create the controls for the equipment and set the values for all the controls
 		self.CreateEquipmentControls()
-		for param in Config.getlist('Misc', 'Parameters'):
+		for param in Config.getlist('GameSetup', 'Parameters'):
 			self.AddParameterPage(param)
 		self.noteBookActorParameters.ChangeSelection(0)
 		self.comboBoxExpCurve.SetCursor(wx.STANDARD_CURSOR)
@@ -72,8 +72,8 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 	def CreateEquipmentControls( self ):
 		"""Creates the controls for each equipment type defined in the configuration"""
 		if DM.ARC_FORMAT:
-			equipment = Config.getlist('Actors', 'WeaponSlots')
-			equipment.extend(Config.getlist('Actors', 'ArmorSlots'))
+			equipment = Config.getlist('GameSetup', 'WeaponSlots')
+			equipment.extend(Config.getlist('GameSetup', 'ArmorSlots'))
 		else:
 			equipment = ['Weapon', 'Shield', 'Helmet', 'Body Armor', 'Accessory']
 		sizerEquipment = wx.BoxSizer( wx.VERTICAL )
@@ -115,7 +115,7 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 		
 	def refreshWeapons( self ):
 		"""Sets the weapon combobox(s) data determined by the actor's class"""
-		weaponSlots = len(Config.getlist('Actors', 'WeaponSlots'))
+		weaponSlots = len(Config.getlist('GameSetup', 'WeaponSlots'))
 		digits = len(Config.get('GameObjects', 'Weapons'))
 		data = [('(None)', 0)]
 		for id in DataClasses[self.SelectedActor.class_id].weapon_set:
@@ -138,9 +138,9 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 
 	def refreshArmors( self ):
 		"""Sets the armor comboboxes data determined by the actor's class"""
-		weaponSlots = len(Config.getlist('Actors', 'WeaponSlots'))
+		weaponSlots = len(Config.getlist('GameSetup', 'WeaponSlots'))
 		digits = len(Config.get('GameObjects', 'Armors'))
-		kinds = [int(k) for k in Config.getlist('Actors', 'ArmorSlotKinds')]
+		kinds = [int(k) for k in Config.getlist('GameSetup', 'ArmorSlotKinds')]
 		data = []
 		for id in DataClasses[self.SelectedActor.class_id].armor_set:
 			if DataArmors[id] == None: DataArmors[id] = RPG.Armor()
@@ -217,7 +217,7 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 	def GetParameterValue( self, index, level ):
 		"""Retrieves the value of the current actor's selected parameter for the defined level"""
 		if self.SelectedActor.parameters.xsize <= index or self.SelectedActor.parameters.ysize < level:
-			maxlevel = Config.getint('Actors', 'MaxLevel')
+			maxlevel = Config.getint('DatabaseLimits', 'ActorLevel')
 			for actor in DataActors:
 				if actor == None:
 					actor = RPG.Actor()
@@ -241,7 +241,7 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 		"""Removes any initial equipment that may be equipped if the chosen class does not permit"""
 		self.SelectedActor.class_id = DM.FixedIndex(self.comboBoxClass.GetSelection())
 
-		weaponSlots = len(Config.getlist('Actors', 'WeaponSlots'))
+		weaponSlots = len(Config.getlist('GameSetup', 'WeaponSlots'))
 		ids = [c.GetClientData(c.GetSelection()) for c in self.EquipmentBoxes]
 		weaponIds = ids[:weaponSlots]
 		armorIds = ids[weaponSlots:]
@@ -282,9 +282,8 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 
 	def comboBoxExperience_Click( self, event ):
 		"""Opens window to generate experience tables"""
-		# TODO: Create and use custom control instead of relying on focus changes
-		self.listBoxActors.SetFocus()
-		dlg = ARCedExpCurve_Dialog.ARCedExpCurve_Dialog(self, self.SelectedActor)
+		actor = self.SelectedActor
+		dlg = ARCedExpCurve_Dialog.ARCedExpCurve_Dialog(self, actor)
 		if dlg.ShowModal() == wx.ID_OK:
 			# TODO: Fix 'actor' which errors out
 			actor.exp_basis = dlg.spinCtrlBasis.GetValue()
@@ -325,7 +324,7 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 		ctrlIndex = self.EquipmentBoxes.index(event.GetEventObject())
 		if DM.ARC_FORMAT:
 			# TODO: Implement
-			weaponSlots = len(Config.getlist('Actors', 'WeaponSlots'))
+			weaponSlots = len(Config.getlist('GameSetup', 'WeaponSlots'))
 			if ctrlIndex < weaponSlots:
 				pass
 			else:
@@ -342,7 +341,7 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 		ctrlIndex = self.FixedCheckBoxes.index(event.GetEventObject())
 		if DM.ARC_FORMAT:
 			# TODO: Implement
-			weaponSlots = len(Config.getlist('Actors', 'WeaponSlots'))
+			weaponSlots = len(Config.getlist('GameSetup', 'WeaponSlots'))
 			if ctrlIndex < weaponSlots:
 				pass
 			else:
@@ -370,9 +369,9 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 		
 	def GetValueMax( self, param_index ):
 		""" """
-		if param_index == 0: return Config.getint('Actors', 'MaxHP')
-		elif param_index == 1: return Config.getint('Actors', 'MaxSP')
-		else: return Config.getint('Actors', 'MaxParameter')
+		if param_index == 0: return Config.getint('DatabaseLimits', 'ActorHP')
+		elif param_index == 1: return Config.getint('DatabaseLimits', 'ActorSP')
+		else: return Config.getint('DatabaseLimits', 'ActorParameter')
 	
 	def spinCtrlValue_ValueChanged( self, event ):
 		"""Updates the actors parameter table with the value"""
@@ -422,7 +421,7 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 		params = self.SelectedActor.parameters
 		for i in xrange(self.ParamTab, params.xsize - 1):
 			params[i, :] = params[i + 1, :]
-		params.resize(params.xsize - 1, Config.getint('Actors', 'MaxLevel') + 1)
+		params.resize(params.xsize - 1, Config.getint('DatabaseLimits', 'ActorLevel') + 1)
 		try:
 			self.noteBookActorParameters.RemovePage(self.ParamTab)
 		except wx.PyAssertionError:

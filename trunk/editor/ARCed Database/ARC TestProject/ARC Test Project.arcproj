@@ -1,4 +1,4 @@
 [Project]
 Title=ARC Test Project
 [Files]
-list=Troops|Skills|Items|System|Weapons|Armors|Animations|Classes|States|Actors|Tilesets|CommonEvents|MapInfos
+list=Troops|Skills|Items|System|Enemies|Weapons|Armors|Animations|Classes|States|Actors|Tilesets|CommonEvents|MapInfos

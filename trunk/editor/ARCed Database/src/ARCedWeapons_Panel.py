@@ -22,14 +22,21 @@ class ARCedWeapons_Panel( ARCed_Templates.Weapons_Panel ):
 		font = wx.Font(8, wx.FONTFAMILY_TELETYPE, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL)
 		font.SetFaceName(Config.get('Misc', 'NoteFont')) 
 		self.textCtrlNotes.SetFont(font)
-		self.ParameterControls = [self.spinCtrlPrice, self.spinCtrlAtk,
-			self.spinCtrlPdef, self.spinCtrlMdef]
-		self.ParameterControls.extend(DM.AddParameterSpinCtrls(self.panelParameters, 
-			self.spinCtrlParameter_ValueChanged, '+:', 4))
+		default = ['Price:', 'ATK:', 'PDEF:', 'MDEF:']
+		self.ParameterControls = DM.CreateParameterControls(self.panelParameters, 
+			self.spinCtrlParameter_ValueChanged, '+:', 4, default)
 		self.SelectedWeapon = DataWeapons[DM.FixedIndex(weapon_index)]
+		self.setRanges()
 		self.refreshAll()
 		self.listBoxWeapons.SetSelection(weapon_index)
 		DM.DrawHeaderBitmap(self.bitmapWeapons, 'Weapons')
+
+	def setRanges( self ):
+		"""Applies the range of values allowed fir the controls on the panel"""
+		self.ParameterControls[0].SetRange(0, Config.getint('DatabaseLimits', 'Gold'))
+		max = Config.getint('DatabaseLimits', 'ActorParameter')
+		for i in xrange(1, len(self.ParameterControls)):
+			self.ParameterControls[i].SetRange(-max, max)
 
 	def refreshAll( self ):
 		"""Refreshes all the controls on the panel"""
@@ -69,10 +76,6 @@ class ARCedWeapons_Panel( ARCed_Templates.Weapons_Panel ):
 		self.textCtrlDescription.ChangeValue(weapon.description)
 		self.comboBoxUserAnimation.SetSelection(weapon.animation1_id)
 		self.comboBoxTargetAnimation.SetSelection(weapon.animation2_id)
-		self.spinCtrlPrice.SetValue(weapon.price)
-		self.spinCtrlAtk.SetValue(weapon.atk)
-		self.spinCtrlPdef.SetValue (weapon.pdef)
-		self.spinCtrlMdef.SetValue(weapon.mdef)
 		if DM.ARC_FORMAT:
 			# TODO: Implement
 			addstates = skill.plus_state_set
@@ -104,19 +107,21 @@ class ARCedWeapons_Panel( ARCed_Templates.Weapons_Panel ):
 
 	def spinCtrlParameter_ValueChanged( self, event ):
 		index = self.ParameterControls.index(event.GetEventObject())
+		weapon = self.SelectedWeapon
 		if DM.ARC_FORMAT:
 			# TODO: Implement
 			pass
 		else:
+			print index
 			value = event.GetInt()
-			if index == 0: self.SelectedWeapon.price = value
-			elif index == 1: self.SelectedWeapon.atk = value
-			elif index == 2: self.SelectedWeapon.pdef = value
-			elif index == 3: self.SelectedWeapon.mdef = value
-			elif index == 4: self.SelectedWeapon.str_plus = value
-			elif index == 5: self.SelectedWeapon.dex_plus = value
-			elif index == 6: self.SelectedWeapon.agi_plus = value
-			elif index == 7: self.SelectedWeapon.int_plus = value
+			if index == 0: weapon.price = value
+			elif index == 1: weapon.atk = value
+			elif index == 2: weapon.pdef = value
+			elif index == 3: weapon.mdef = value
+			elif index == 4: weapon.str_plus = value
+			elif index == 5: weapon.dex_plus = value
+			elif index == 6: weapon.agi_plus = value
+			elif index == 7: weapon.int_plus = value
 
 	def listBoxWeapons_SelectionChanged( self, event ):
 		"""Changes the selected weapon and update the values on the panel"""
