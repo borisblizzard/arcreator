@@ -89,8 +89,7 @@ class Actors_Panel ( wx.Panel ):
 		self.labelExpCurve.Wrap( -1 )
 		sizer3.Add( self.labelExpCurve, 0, wx.ALL, 5 )
 		
-		comboBoxExpCurveChoices = []
-		self.comboBoxExpCurve = wx.ComboBox( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, comboBoxExpCurveChoices, 0|wx.CLIP_CHILDREN )
+		self.comboBoxExpCurve = wx.combo.BitmapComboBox( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, "", 0|wx.CLIP_CHILDREN ) 
 		sizer3.Add( self.comboBoxExpCurve, 0, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
 		
 		self.labelCharacterGraphic = wx.StaticText( self, wx.ID_ANY, u"Character Graphic:", wx.DefaultPosition, wx.DefaultSize, 0 )
@@ -618,7 +617,7 @@ class Skills_Panel ( wx.Panel ):
 		self.textCtrlName = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
 		bSizer621.Add( self.textCtrlName, 1, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
 		
-		bSizer620.Add( bSizer621, 1, 0, 5 )
+		bSizer620.Add( bSizer621, 65, 0, 5 )
 		
 		bSizer622 = wx.BoxSizer( wx.VERTICAL )
 		
@@ -628,9 +627,9 @@ class Skills_Panel ( wx.Panel ):
 		
 		self.labelIconName = wx.StaticText( self, wx.ID_ANY, u"(Name of Icon)", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.labelIconName.Wrap( -1 )
-		bSizer622.Add( self.labelIconName, 0, wx.ALL, 5 )
+		bSizer622.Add( self.labelIconName, 0, wx.ALL|wx.EXPAND, 5 )
 		
-		bSizer620.Add( bSizer622, 0, 0, 5 )
+		bSizer620.Add( bSizer622, 35, wx.EXPAND, 5 )
 		
 		self.bitmapButtonIcon = wx.BitmapButton( self, wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.Size( 32,32 ), wx.BU_AUTODRAW )
 		bSizer620.Add( self.bitmapButtonIcon, 0, wx.ALIGN_BOTTOM|wx.ALL, 5 )
@@ -674,9 +673,8 @@ class Skills_Panel ( wx.Panel ):
 		self.labelMenuSE.Wrap( -1 )
 		bSizer624.Add( self.labelMenuSE, 0, wx.ALL|wx.EXPAND, 5 )
 		
-		comboBoxMenuSEChoices = []
-		self.comboBoxMenuSE = wx.ComboBox( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, comboBoxMenuSEChoices, 0 )
-		bSizer624.Add( self.comboBoxMenuSE, 1, wx.EXPAND|wx.BOTTOM|wx.LEFT, 5 )
+		self.comboBoxMenuSE = wx.combo.BitmapComboBox( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, "", 0|wx.CLIP_CHILDREN ) 
+		bSizer624.Add( self.comboBoxMenuSE, 1, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
 		
 		bSizer623.Add( bSizer624, 1, 0, 5 )
 		
@@ -816,8 +814,11 @@ class Skills_Panel ( wx.Panel ):
 		self.labelElements.Wrap( -1 )
 		sizerElements.Add( self.labelElements, 0, wx.ALL|wx.EXPAND, 5 )
 		
-		checkListElementsChoices = []
-		self.checkListElements = wx.CheckListBox( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, checkListElementsChoices, wx.LB_NEEDED_SB|wx.LB_SINGLE )
+		from ImageCheckList import ImageCheckList
+		from DatabaseManager import DatabaseManager as DM
+		states = [False, True]
+		images = DM.GetNormalCheckImageList()
+		self.checkListElements= ImageCheckList(self, states, images)
 		sizerElements.Add( self.checkListElements, 1, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
 		
 		sizerEfficiency.Add( sizerElements, 1, wx.EXPAND, 5 )
@@ -828,8 +829,10 @@ class Skills_Panel ( wx.Panel ):
 		self.labelStates.Wrap( -1 )
 		sizerStates.Add( self.labelStates, 0, wx.ALL|wx.EXPAND, 5 )
 		
-		self.listCtrlStates = wx.ListCtrl( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.LC_NO_HEADER|wx.LC_REPORT|wx.LC_SINGLE_SEL )
-		sizerStates.Add( self.listCtrlStates, 1, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
+		states = [0, 1, -1]
+		images = DM.GetAddSubImageList()
+		self.checkListStates= ImageCheckList(self, states, images)
+		sizerStates.Add( self.checkListStates, 1, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
 		
 		sizerEfficiency.Add( sizerStates, 1, wx.EXPAND, 5 )
 		
@@ -871,9 +874,10 @@ class Skills_Panel ( wx.Panel ):
 		self.spinCtrlPdefF.Bind( wx.EVT_SPINCTRL, self.spinCtrlParameter_ValueChanged )
 		self.spinCtrlMdefF.Bind( wx.EVT_SPINCTRL, self.spinCtrlParameter_ValueChanged )
 		self.spinCtrlEvaF.Bind( wx.EVT_SPINCTRL, self.spinCtrlParameter_ValueChanged )
-		self.checkListElements.Bind( wx.EVT_CHECKLISTBOX, self.checkListElements_CheckChanged )
-		self.listCtrlStates.Bind( wx.EVT_LEFT_DOWN, self.listCtrlStates_LeftClicked )
-		self.listCtrlStates.Bind( wx.EVT_RIGHT_DOWN, self.listCtrlStates_RightClicked )
+		self.checkListElements.Bind( wx.EVT_LEFT_DOWN, self.checkListElements_Clicked )
+		self.checkListElements.Bind( wx.EVT_RIGHT_DOWN, self.checkListElements_Clicked )
+		self.checkListStates.Bind( wx.EVT_LEFT_DOWN, self.checkListStates_LeftClicked )
+		self.checkListStates.Bind( wx.EVT_RIGHT_DOWN, self.checkListStates_RightClicked )
 		self.textCtrlNotes.Bind( wx.EVT_TEXT, self.textCtrlNotes_TextChanged )
 	
 	def __del__( self ):
@@ -936,13 +940,14 @@ class Skills_Panel ( wx.Panel ):
 	
 	
 	
-	def checkListElements_CheckChanged( self, event ):
+	def checkListElements_Clicked( self, event ):
 		pass
 	
-	def listCtrlStates_LeftClicked( self, event ):
+	
+	def checkListStates_LeftClicked( self, event ):
 		pass
 	
-	def listCtrlStates_RightClicked( self, event ):
+	def checkListStates_RightClicked( self, event ):
 		pass
 	
 	def textCtrlNotes_TextChanged( self, event ):
@@ -992,7 +997,7 @@ class Items_Panel ( wx.Panel ):
 		self.textCtrlName = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
 		bSizer621.Add( self.textCtrlName, 1, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
 		
-		bSizer620.Add( bSizer621, 1, 0, 5 )
+		bSizer620.Add( bSizer621, 65, 0, 5 )
 		
 		bSizer622 = wx.BoxSizer( wx.VERTICAL )
 		
@@ -1002,9 +1007,9 @@ class Items_Panel ( wx.Panel ):
 		
 		self.labelIconName = wx.StaticText( self, wx.ID_ANY, u"(Name of Icon)", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.labelIconName.Wrap( -1 )
-		bSizer622.Add( self.labelIconName, 0, wx.ALL, 5 )
+		bSizer622.Add( self.labelIconName, 0, wx.ALL|wx.EXPAND, 5 )
 		
-		bSizer620.Add( bSizer622, 0, 0, 5 )
+		bSizer620.Add( bSizer622, 35, 0, 5 )
 		
 		self.bitmapButtonIcon = wx.BitmapButton( self, wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.Size( 32,32 ), wx.BU_AUTODRAW )
 		bSizer620.Add( self.bitmapButtonIcon, 0, wx.ALIGN_BOTTOM|wx.ALL, 5 )
@@ -1228,12 +1233,17 @@ class Items_Panel ( wx.Panel ):
 		
 		sizer15 = wx.BoxSizer( wx.HORIZONTAL )
 		
-		checkListElementsChoices = []
-		self.checkListElements = wx.CheckListBox( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, checkListElementsChoices, wx.LB_HSCROLL|wx.LB_NEEDED_SB|wx.CLIP_CHILDREN )
+		from ImageCheckList import ImageCheckList
+		from DatabaseManager import DatabaseManager as DM
+		states = [False, True]
+		images = DM.GetNormalCheckImageList()
+		self.checkListElements= ImageCheckList(self, states, images)
 		sizer15.Add( self.checkListElements, 1, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
 		
-		self.listCtrlStates = wx.ListCtrl( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.LC_NO_HEADER|wx.LC_REPORT|wx.LC_SINGLE_SEL )
-		sizer15.Add( self.listCtrlStates, 1, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
+		states = [0, 1, -1]
+		images = DM.GetAddSubImageList()
+		self.checkListStates= ImageCheckList(self, states, images)
+		sizer15.Add( self.checkListStates, 1, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
 		
 		sizer2.Add( sizer15, 1, wx.EXPAND, 5 )
 		
@@ -1277,9 +1287,10 @@ class Items_Panel ( wx.Panel ):
 		self.spinCtrlPDEF.Bind( wx.EVT_SPINCTRL, self.spinCtrlPDEF_ValueChanged )
 		self.spinCtrlMDEF.Bind( wx.EVT_SPINCTRL, self.spinCtrlMDEF_ValueChanged )
 		self.spinCtrlVariance.Bind( wx.EVT_SPINCTRL, self.spinCtrlVariance_ValueChanged )
-		self.checkListElements.Bind( wx.EVT_CHECKLISTBOX, self.checkListElements_CheckChanged )
-		self.listCtrlStates.Bind( wx.EVT_LEFT_DOWN, self.listCtrlStates_LeftClicked )
-		self.listCtrlStates.Bind( wx.EVT_RIGHT_DOWN, self.listCtrlStates_RightClicked )
+		self.checkListElements.Bind( wx.EVT_LEFT_DOWN, self.checkListElements_Clicked )
+		self.checkListElements.Bind( wx.EVT_RIGHT_DOWN, self.checkListElements_Clicked )
+		self.checkListStates.Bind( wx.EVT_LEFT_DOWN, self.checkListStates_LeftClicked )
+		self.checkListStates.Bind( wx.EVT_RIGHT_DOWN, self.checkListStates_RightClicked )
 		self.textCtrlNotes.Bind( wx.EVT_TEXT, self.textCtrlNotes_TextChanged )
 	
 	def __del__( self ):
@@ -1360,13 +1371,14 @@ class Items_Panel ( wx.Panel ):
 	def spinCtrlVariance_ValueChanged( self, event ):
 		pass
 	
-	def checkListElements_CheckChanged( self, event ):
+	def checkListElements_Clicked( self, event ):
 		pass
 	
-	def listCtrlStates_LeftClicked( self, event ):
+	
+	def checkListStates_LeftClicked( self, event ):
 		pass
 	
-	def listCtrlStates_RightClicked( self, event ):
+	def checkListStates_RightClicked( self, event ):
 		pass
 	
 	def textCtrlNotes_TextChanged( self, event ):
@@ -1416,7 +1428,7 @@ class Weapons_Panel ( wx.Panel ):
 		self.textCtrlName = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
 		bSizer621.Add( self.textCtrlName, 1, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
 		
-		bSizer620.Add( bSizer621, 1, 0, 5 )
+		bSizer620.Add( bSizer621, 65, 0, 5 )
 		
 		bSizer622 = wx.BoxSizer( wx.VERTICAL )
 		
@@ -1426,9 +1438,9 @@ class Weapons_Panel ( wx.Panel ):
 		
 		self.labelIconName = wx.StaticText( self, wx.ID_ANY, u"(Name of Icon)", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.labelIconName.Wrap( -1 )
-		bSizer622.Add( self.labelIconName, 0, wx.ALL, 5 )
+		bSizer622.Add( self.labelIconName, 0, wx.ALL|wx.EXPAND, 5 )
 		
-		bSizer620.Add( bSizer622, 0, 0, 5 )
+		bSizer620.Add( bSizer622, 35, wx.EXPAND, 5 )
 		
 		self.bitmapButtonIcon = wx.BitmapButton( self, wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.Size( 32,32 ), wx.BU_AUTODRAW )
 		bSizer620.Add( self.bitmapButtonIcon, 0, wx.ALIGN_BOTTOM|wx.ALL, 5 )
@@ -1538,12 +1550,17 @@ class Weapons_Panel ( wx.Panel ):
 		
 		sizer15 = wx.BoxSizer( wx.HORIZONTAL )
 		
-		checkListElementsChoices = []
-		self.checkListElements = wx.CheckListBox( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, checkListElementsChoices, wx.LB_HSCROLL|wx.LB_NEEDED_SB|wx.CLIP_CHILDREN )
-		sizer15.Add( self.checkListElements, 1, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
+		from ImageCheckList import ImageCheckList
+		from DatabaseManager import DatabaseManager as DM
+		states = [False, True]
+		images = DM.GetNormalCheckImageList()
+		self.checkListElements= ImageCheckList(self, states, images)
+		sizer15.Add( self.checkListElements, 1, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
 		
-		self.listCtrlStates = wx.ListCtrl( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.LC_NO_HEADER|wx.LC_REPORT|wx.LC_SINGLE_SEL )
-		sizer15.Add( self.listCtrlStates, 1, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
+		states = [0, 1, -1]
+		images = DM.GetAddSubImageList()
+		self.checkListStates= ImageCheckList(self, states, images)
+		sizer15.Add( self.checkListStates, 1, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
 		
 		sizer2.Add( sizer15, 1, wx.EXPAND, 5 )
 		
@@ -1573,9 +1590,10 @@ class Weapons_Panel ( wx.Panel ):
 		self.spinCtrlAtk.Bind( wx.EVT_SPINCTRL, self.spinCtrlParameter_ValueChanged )
 		self.spinCtrlPdef.Bind( wx.EVT_SPINCTRL, self.spinCtrlParameter_ValueChanged )
 		self.spinCtrlMdef.Bind( wx.EVT_SPINCTRL, self.spinCtrlParameter_ValueChanged )
-		self.checkListElements.Bind( wx.EVT_CHECKLISTBOX, self.checkListElements_CheckChanged )
-		self.listCtrlStates.Bind( wx.EVT_LEFT_DOWN, self.listCtrlStates_LeftClicked )
-		self.listCtrlStates.Bind( wx.EVT_RIGHT_DOWN, self.listCtrlStates_RightClicked )
+		self.checkListElements.Bind( wx.EVT_LEFT_DOWN, self.checkListElements_Clicked )
+		self.checkListElements.Bind( wx.EVT_RIGHT_DOWN, self.checkListElements_Clicked )
+		self.checkListStates.Bind( wx.EVT_LEFT_DOWN, self.checkListStates_LeftClicked )
+		self.checkListStates.Bind( wx.EVT_RIGHT_DOWN, self.checkListStates_RightClicked )
 		self.textCtrlNotes.Bind( wx.EVT_TEXT, self.textCtrlNotes_TextChanged )
 	
 	def __del__( self ):
@@ -1610,13 +1628,14 @@ class Weapons_Panel ( wx.Panel ):
 	
 	
 	
-	def checkListElements_CheckChanged( self, event ):
+	def checkListElements_Clicked( self, event ):
 		pass
 	
-	def listCtrlStates_LeftClicked( self, event ):
+	
+	def checkListStates_LeftClicked( self, event ):
 		pass
 	
-	def listCtrlStates_RightClicked( self, event ):
+	def checkListStates_RightClicked( self, event ):
 		pass
 	
 	def textCtrlNotes_TextChanged( self, event ):
@@ -1666,7 +1685,7 @@ class Armors_Panel ( wx.Panel ):
 		self.textCtrlName = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
 		bSizer621.Add( self.textCtrlName, 1, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
 		
-		bSizer620.Add( bSizer621, 1, 0, 5 )
+		bSizer620.Add( bSizer621, 65, 0, 5 )
 		
 		bSizer622 = wx.BoxSizer( wx.VERTICAL )
 		
@@ -1676,14 +1695,14 @@ class Armors_Panel ( wx.Panel ):
 		
 		self.labelIconName = wx.StaticText( self, wx.ID_ANY, u"(Name of Icon)", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.labelIconName.Wrap( -1 )
-		bSizer622.Add( self.labelIconName, 0, wx.ALL, 5 )
+		bSizer622.Add( self.labelIconName, 0, wx.ALL|wx.EXPAND, 5 )
 		
-		bSizer620.Add( bSizer622, 0, 0, 5 )
+		bSizer620.Add( bSizer622, 35, wx.EXPAND, 5 )
 		
 		self.bitmapButtonIcon = wx.BitmapButton( self, wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.Size( 32,32 ), wx.BU_AUTODRAW )
 		bSizer620.Add( self.bitmapButtonIcon, 0, wx.ALIGN_BOTTOM|wx.ALL, 5 )
 		
-		sizer1.Add( bSizer620, 0, wx.EXPAND, 5 )
+		sizer1.Add( bSizer620, 0, wx.EXPAND|wx.ALIGN_RIGHT, 5 )
 		
 		self.labelDescription = wx.StaticText( self, wx.ID_ANY, u"Description:", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.labelDescription.Wrap( -1 )
@@ -1788,12 +1807,16 @@ class Armors_Panel ( wx.Panel ):
 		
 		sizer15 = wx.BoxSizer( wx.HORIZONTAL )
 		
-		checkListElementsChoices = []
-		self.checkListElements = wx.CheckListBox( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, checkListElementsChoices, wx.LB_HSCROLL|wx.LB_NEEDED_SB|wx.CLIP_CHILDREN )
+		from ImageCheckList import ImageCheckList
+		from DatabaseManager import DatabaseManager as DM
+		states = [False, True]
+		images = DM.GetNormalCheckImageList()
+		self.checkListElements= ImageCheckList(self, states, images)
 		sizer15.Add( self.checkListElements, 1, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
 		
-		checkListStatesChoices = []
-		self.checkListStates = wx.CheckListBox( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, checkListStatesChoices, wx.LB_NEEDED_SB|wx.CLIP_CHILDREN )
+		states = [0, 1, -1]
+		images = DM.GetAddSubImageList()
+		self.checkListStates= ImageCheckList(self, states, images)
 		sizer15.Add( self.checkListStates, 1, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
 		
 		sizer2.Add( sizer15, 1, wx.EXPAND, 5 )
@@ -1824,8 +1847,10 @@ class Armors_Panel ( wx.Panel ):
 		self.spinCtrlPdef.Bind( wx.EVT_SPINCTRL, self.spinCtrlParameter_ValueChanged )
 		self.spinCtrlMdef.Bind( wx.EVT_SPINCTRL, self.spinCtrlParameter_ValueChanged )
 		self.spinCtrlEva.Bind( wx.EVT_SPINCTRL, self.spinCtrlParameter_ValueChanged )
-		self.checkListElements.Bind( wx.EVT_CHECKLISTBOX, self.checkListElements_CheckChanged )
-		self.checkListStates.Bind( wx.EVT_CHECKLISTBOX, self.checkListStates_CheckChanged )
+		self.checkListElements.Bind( wx.EVT_LEFT_DOWN, self.checkListElements_Clicked )
+		self.checkListElements.Bind( wx.EVT_RIGHT_DOWN, self.checkListElements_Clicked )
+		self.checkListStates.Bind( wx.EVT_LEFT_DOWN, self.checkListStates_Clicked )
+		self.checkListStates.Bind( wx.EVT_RIGHT_DOWN, self.checkListStates_Clicked )
 		self.textCtrlNotes.Bind( wx.EVT_TEXT, self.textCtrlNotes_TextChanged )
 	
 	def __del__( self ):
@@ -1860,11 +1885,13 @@ class Armors_Panel ( wx.Panel ):
 	
 	
 	
-	def checkListElements_CheckChanged( self, event ):
+	def checkListElements_Clicked( self, event ):
 		pass
 	
-	def checkListStates_CheckChanged( self, event ):
+	
+	def checkListStates_Clicked( self, event ):
 		pass
+	
 	
 	def textCtrlNotes_TextChanged( self, event ):
 		pass

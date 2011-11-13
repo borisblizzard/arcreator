@@ -24,7 +24,6 @@ class ARCedSkills_Panel( ARCed_Templates.Skills_Panel ):
 		except NameError:
 			Kernel.Log('Database opened before Project has been initialized', '[Database:SKILLS]', True)
 			self.Destroy()
-		self.listCtrlStates.AssignImageList(DM.GetAddSubImageList(), wx.IMAGE_LIST_SMALL)
 		font = wx.Font(8, wx.FONTFAMILY_TELETYPE, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL)
 		font.SetFaceName(Config.get('Misc', 'NoteFont')) 
 		self.textCtrlNotes.SetFont(font)
@@ -59,12 +58,9 @@ class ARCedSkills_Panel( ARCed_Templates.Skills_Panel ):
 
 	def refreshStates( self ):
 		"""Clears and refreshes the list of states in the checklist"""
-		self.listCtrlStates.DeleteAllItems()
-		start = DM.FixedIndex(0)
-		names = [DataStates[i].name for i in xrange(start, len(DataStates))]
-		self.listCtrlStates.InsertColumn(0, '')
-		for i in xrange(len(names)):
-			self.listCtrlStates.InsertStringItem(i, names[i], 0)
+		self.checkListStates.DeleteAllItems()
+		names = [DataStates[i].name for i in xrange(DM.FixedIndex(0), len(DataStates))]
+		self.checkListStates.AppendItems(names)
 
 	def refreshCommonEvents( self ):
 		"""Refreshes the common events in the combo box"""
@@ -106,7 +102,7 @@ class ARCedSkills_Panel( ARCed_Templates.Skills_Panel ):
 			self.ParameterControls[6].SetValue(skill.agi_f)
 			self.ParameterControls[7].SetValue(skill.int_f)
 		# Update elements
-		for i in xrange(self.checkListElements.GetCount()):
+		for i in xrange(self.checkListElements.GetItemCount()):
 			checked = skill.element_set
 			if not DM.ARC_FORMAT:
 				checked = [i - 1 for i in checked]
@@ -118,13 +114,13 @@ class ARCedSkills_Panel( ARCed_Templates.Skills_Panel ):
 		else:
 			addstates = [id - 1 for id in skill.plus_state_set]
 			minusstates = [id - 1 for id in skill.minus_state_set]
-		for i in xrange(self.listCtrlStates.GetItemCount()):
+		for i in xrange(self.checkListStates.GetItemCount()):
 			if i in addstates:
-				self.listCtrlStates.SetItemImage(i, 1)
+				self.checkListStates.SetItemImage(i, 1)
 			elif i in minusstates:
-				self.listCtrlStates.SetItemImage(i, 2)
+				self.checkListStates.SetItemImage(i, 2)
 			else:
-				self.listCtrlStates.SetItemImage(i, 0)
+				self.checkListStates.SetItemImage(i, 0)
 		# RMXP Compatibility
 		if not hasattr(skill, 'note'):
 			setattr(skill, 'note', '')
@@ -235,19 +231,26 @@ class ARCedSkills_Panel( ARCed_Templates.Skills_Panel ):
 			elif index == 6: self.SelectedSkill.agi_f = value
 			elif index == 7: self.SelectedSkill.int_f = value
 
-	def checkListElements_CheckChanged( self, event ):
-		"""Sets the IDs that are in the selected skills element set"""
-		ids = [DM.FixedIndex(id) for id in self.checkListElements.GetChecked()]
-		self.SelectedSkill.element_set = ids
-
-	def listCtrlStates_LeftClicked( self, event ):
-		"""Cycles the State change up one"""
-		DM.ChangeSkillStates(self.listCtrlStates, self.SelectedSkill, event, 1)
-
-	def listCtrlStates_RightClicked( self, event ):
-		"""Cycles the State change down one"""
-		DM.ChangeSkillStates(self.listCtrlStates, self.SelectedSkill, event, -1)
-
 	def textCtrlNotes_TextChanged( self, event ):
 		"""Sets the note for the selected skill"""
 		self.SelectedSkill.note = event.GetString()
+
+	def checkListElements_Clicked( self, event ):
+		"""Updates the element set for the selected skill"""
+		self.checkListElements.ChangeState(event, 1)
+		if DM.ARC_FORMAT:
+			# TODO: Implement
+			pass
+		else:
+			ids = [DM.FixedIndex(id) for id in self.checkListElements.GetChecked()]
+			self.SelectedSkill.element_set = ids
+
+	def checkListStates_LeftClicked( self, event ):
+		"""Updates the plus/minus state set for the selected skill"""
+		data = self.checkListStates.ChangeState(event, 1)
+		DM.ChangeSkillStates(self.SelectedSkill, data[0], data[1])
+
+	def checkListStates_RigthClicked( self, event ):
+		"""Updates the plus/minus state set for the selected skill"""
+		data = self.checkListStates.ChangeState(event, -1)
+		DM.ChangeSkillStates(self.SelectedSkill, data[0], data[1])

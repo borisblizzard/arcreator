@@ -23,7 +23,6 @@ class ARCedItems_Panel( ARCed_Templates.Items_Panel ):
 		except NameError:
 			Kernel.Log('Database opened before Project has been initialized', '[Database:ITEMS]', True)
 			self.Destroy()
-		self.listCtrlStates.AssignImageList(DM.GetAddSubImageList(), wx.IMAGE_LIST_SMALL)
 		font = wx.Font(8, wx.FONTFAMILY_TELETYPE, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL)
 		font.SetFaceName(Config.get('Misc', 'NoteFont')) 
 		self.textCtrlNotes.SetFont(font)
@@ -49,12 +48,9 @@ class ARCedItems_Panel( ARCed_Templates.Items_Panel ):
 
 	def refreshStates( self ):
 		"""Clears and refreshes the list of states in the checklist"""
-		self.listCtrlStates.DeleteAllItems()
-		start = DM.FixedIndex(0)
-		names = [DataStates[i].name for i in xrange(start, len(DataStates))]
-		self.listCtrlStates.InsertColumn(0, '')
-		for i in xrange(len(names)):
-			self.listCtrlStates.InsertStringItem(i, names[i], 0)
+		self.checkListStates.DeleteAllItems()
+		names = [DataStates[i].name for i in xrange(DM.FixedIndex(0), len(DataStates))]
+		self.checkListStates.AppendItems(names)
 
 	def refreshParameters( self ):
 		"""Refreshes the defined parameters"""
@@ -78,7 +74,7 @@ class ARCedItems_Panel( ARCed_Templates.Items_Panel ):
 		DM.FillControl(self.comboBoxCommonEvent, DataCommonEvents, digits, ['(None)'])
 
 	def refreshValues( self ):
-		""" """
+		"""Refreshes all the values on the panel to reflect the selected item"""
 		item = self.SelectedItem
 		self.textCtrlName.ChangeValue(item.name)
 		self.textCtrlDescription.ChangeValue(item.description)
@@ -113,19 +109,17 @@ class ARCedItems_Panel( ARCed_Templates.Items_Panel ):
 			minusstates = [id - 1 for id in item.minus_state_set]
 			indices = [i - 1 for i in item.element_set]
 		self.checkListElements.SetChecked(indices)
-		for i in xrange(self.listCtrlStates.GetItemCount()):
+		for i in xrange(self.checkListStates.GetItemCount()):
 			if i in addstates:
-				self.listCtrlStates.SetItemImage(i, 1)
+				self.checkListStates.SetItemImage(i, 1)
 			elif i in minusstates:
-				self.listCtrlStates.SetItemImage(i, 2)
+				self.checkListStates.SetItemImage(i, 2)
 			else:
-				self.listCtrlStates.SetItemImage(i, 0)
+				self.checkListStates.SetItemImage(i, 0)
 
 		if not hasattr(item, 'note'):
 			setattr(item, 'note', '')
 		self.textCtrlNotes.ChangeValue(item.note)
-
-
 
 	def refreshAll( self ):
 		"""Refreshes all the controls on the panel"""
@@ -242,20 +236,27 @@ class ARCedItems_Panel( ARCed_Templates.Items_Panel ):
 		"""Updates the selected item's variance"""
 		self.SelectedItem.variance = event.GetInt()
 
-	def checkListElements_CheckChanged( self, event ):
-		"""Updates the selected item's element set"""
-		set = [DM.FixedIndex(i) for i in self.checkListElements.GetChecked()]
-		self.SelectedItem.element_set = set
-
-	def listCtrlStates_LeftClicked( self, event ):
-		"""Cycles the State change up one"""
-		DM.ChangeSkillStates(self.listCtrlStates, self.SelectedItem, event, 1)
-
-	def listCtrlStates_RightClicked( self, event ):
-		"""Cycles the State change down one"""
-		DM.ChangeSkillStates(self.listCtrlStates, self.SelectedItem, event, -1)
-
 	def textCtrlNotes_TextChanged( self, event ):
 		"""Sets the note for the selected skill"""
 		self.SelectedItem.note = event.GetString()
+
+	def checkListElements_Clicked( self, event ):
+		"""Updates the guard elements for the selected item"""
+		self.checkListElements.ChangeState(event, 1)
+		if DM.ARC_FORMAT:
+			# TODO: Implement
+			pass
+		else:
+			ids = [DM.FixedIndex(id) for id in self.checkListElements.GetChecked()]
+			self.SelectedItem.element_set = ids
+
+	def checkListStates_LeftClicked( self, event ):
+		"""Updates the plus/minus state set for the selected item"""
+		data = self.checkListStates.ChangeState(event, 1)
+		DM.ChangeSkillStates(self.SelectedItem, data[0], data[1])
+
+	def checkListStates_RigthClicked( self, event ):
+		"""Updates the plus/minus state set for the selected item"""
+		data = self.checkListStates.ChangeState(event, -1)
+		DM.ChangeSkillStates(self.SelectedItem, data[0], data[1])
 

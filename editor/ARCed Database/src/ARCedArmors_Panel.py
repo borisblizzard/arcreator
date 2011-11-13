@@ -1,13 +1,13 @@
 import wx
-import ARCed_Templates
+from ARCed_Templates import Armors_Panel 
 from Core.RMXP import RGSS1_RPG as RPG
 from DatabaseManager import DatabaseManager as DM
 import Kernel
 
-class ARCedArmors_Panel( ARCed_Templates.Armors_Panel ):
+class ARCedArmors_Panel( Armors_Panel ):
 	def __init__( self, parent, armor_index=0 ):
 		"""Basic constructor for the Armors panel"""
-		ARCed_Templates.Armors_Panel.__init__( self, parent )
+		Armors_Panel.__init__( self, parent )
 
 		global Config, DataArmors, DataStates, DataElements
 		Config = Kernel.GlobalObjects.get_value('ARCed_config')
@@ -19,6 +19,10 @@ class ARCedArmors_Panel( ARCed_Templates.Armors_Panel ):
 		except NameError:
 			Kernel.Log('Database opened before Project has been initialized', '[Database:ARMORS]', True)
 			self.Destroy()
+		if DM.ARC_FORMAT:
+			self.checkListStates.SetStates([0, 1, -1], DM.GetAddSubImageList())
+		else:
+			self.checkListStates.SetStates([False, True], DM.GetNormalCheckImageList())
 		font = wx.Font(8, wx.FONTFAMILY_TELETYPE, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL)
 		font.SetFaceName(Config.get('Misc', 'NoteFont')) 
 		self.textCtrlNotes.SetFont(font)
@@ -68,6 +72,7 @@ class ARCedArmors_Panel( ARCed_Templates.Armors_Panel ):
 		armor = self.SelectedArmor
 		self.textCtrlName.ChangeValue(armor.name)
 		self.labelIconName.SetLabel(armor.icon_name)
+		self.labelIconName.Wrap(-1)
 		DM.DrawButtonIcon(self.bitmapButtonIcon, armor.icon_name, False)
 		self.textCtrlDescription.ChangeValue(armor.description)
 		self.comboBoxKind.SetSelection(armor.kind)
@@ -145,12 +150,28 @@ class ARCedArmors_Panel( ARCed_Templates.Armors_Panel ):
 		"""Sets the IDs that are in the selected armor's element set"""
 		ids = [DM.FixedIndex(id) for id in self.checkListElements.GetChecked()]
 		self.SelectedArmor.guard_element_set = ids
-
-	def checkListStates_CheckChanged( self, event ):
-		"""Sets the IDs that are in the selected armor's element set"""
-		ids = [DM.FixedIndex(id) for id in self.checkListStates.GetChecked()]
-		self.SelectedArmor.guard_state_set = ids
 	
 	def textCtrlNotes_TextChanged( self, event ):
 		"""Set the selected armor's magical defense"""
 		self.SelectedArmor.note = event.GetString()
+
+	def checkListElements_Clicked( self, event ):
+		"""Updates the guard elements for the selected armor"""
+		self.checkListElements.ChangeState(event, 1)
+		if DM.ARC_FORMAT:
+			# TODO: Implement
+			pass
+		else:
+			ids = [DM.FixedIndex(id) for id in self.checkListElements.GetChecked()]
+			self.SelectedArmor.guard_element_set = ids
+
+	def checkListStates_Clicked( self, event ):
+		"""Updates the guard states for the selected armor"""
+		data = self.checkListStates.ChangeState(event, 1)
+		if DM.ARC_FORMAT:
+			# TODO: Implement
+			pass
+		else:
+			ids = [DM.FixedIndex(id) for id in self.checkListStates.GetChecked()]
+			self.SelectedArmor.guard_state_set = ids
+

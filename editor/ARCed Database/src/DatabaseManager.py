@@ -1,5 +1,6 @@
 import wx
 from Core.Cache import PILCache as Cache
+from Core.RMXP import RGSS1_RPG as RPG
 import os
 import Kernel
 from Kernel import Manager as KM
@@ -18,6 +19,7 @@ class DatabaseManager(object):
 	xp_rtp = "%COMMONPROGRAMFILES%/Enterbrain/RGSS/Standard"
 	RTPDir = os.path.normpath(os.path.expandvars(xp_rtp))
 
+	#----------------------------------------------------------------------------------
 	@staticmethod
 	def DrawBitmap( staticBitmap, filename, hue=0, type='battler', rows=1, columns=1, tile=(0,0)):
 		"""Draws the character/battler graphic to the static bitmap.
@@ -70,6 +72,7 @@ class DatabaseManager(object):
 		del (srcDC)
 		del (destBmp)
 
+	#----------------------------------------------------------------------------------
 	@staticmethod
 	def DrawHeaderBitmap( staticBitmap, text, font=None, textcolor=None, 
 			gradient1=None, gradient2=None ):
@@ -109,6 +112,7 @@ class DatabaseManager(object):
 		del (memDC)
 		del (bmp)
 
+	#----------------------------------------------------------------------------------
 	@staticmethod
 	def GetAddSubImageList():
 		""" Creates a wxImageList for a plus/minus/empty check box and returns it.
@@ -119,11 +123,21 @@ class DatabaseManager(object):
 		"""
 		icons = KM.get_component('IconManager').object
 		imageList = wx.ImageList(14, 12)
-		imageList.Add(icons.getBitmap('checkempty'))
-		imageList.Add(icons.getBitmap('checkplus'))
-		imageList.Add(icons.getBitmap('checkminus'))
+		imageList.Add(icons.getBitmap('check_empty'))
+		imageList.Add(icons.getBitmap('check_plus'))
+		imageList.Add(icons.getBitmap('check_minus'))
 		return imageList
 
+	#----------------------------------------------------------------------------------
+	@staticmethod
+	def GetNormalCheckImageList():
+		icons = KM.get_component('IconManager').object
+		imageList = wx.ImageList(14, 12)
+		imageList.Add(icons.getBitmap('check_empty'))
+		imageList.Add(icons.getBitmap('check_green'))
+		return imageList
+
+	#----------------------------------------------------------------------------------
 	@staticmethod
 	def FixedIndex( index ):
 		"""Returns the correct starting index for game data structure depending on the current format
@@ -138,6 +152,7 @@ class DatabaseManager(object):
 		if DatabaseManager.ARC_FORMAT: return index
 		else: return index + 1
 
+	#----------------------------------------------------------------------------------
 	@staticmethod
 	def FillControl(wxContainer, dataSource=[], digits=3, defaults=[], 
 			start=0, fixed=True, clear=True):
@@ -164,7 +179,8 @@ class DatabaseManager(object):
 			''.join([str(i).zfill(digits), ': ',
 		    dataSource[i].name]) for i in xrange(start, len(dataSource))])
 		wxContainer.AppendItems(defaults)
-
+	
+	#----------------------------------------------------------------------------------
 	@staticmethod
 	def FillWithoutNumber(wxContainer, dataSource=[], defaults=[],
 			start=0, fixed=True, clear=True):
@@ -189,6 +205,7 @@ class DatabaseManager(object):
 		defaults.extend([dataSource[i].name for i in xrange(start, len(dataSource))])
 		wxContainer.AppendItems(defaults)
 
+	#----------------------------------------------------------------------------------
 	@staticmethod
 	def ChangeDataCapacity(parent, wxList, data, maxAllowed ):
 		"""Creates the Change Maximum dialog and changes the capacity of data
@@ -226,6 +243,7 @@ class DatabaseManager(object):
 					wxList.SetSelection(index)
 		dialog.Destroy()
 
+	#----------------------------------------------------------------------------------
 	@staticmethod
 	def ChooseGraphic(folder, current, hue, huechange=True):
 		"""Creates the dialog for selecting a graphic
@@ -244,6 +262,7 @@ class DatabaseManager(object):
 		"""
 		pass
 
+	#----------------------------------------------------------------------------------
 	@staticmethod
 	def ChooseAudio(parent, folder, audio, loops=None):
 		"""Creates the Choose Audio dialog
@@ -263,6 +282,7 @@ class DatabaseManager(object):
 		dialog.Destroy()
 		return audio
 
+	#----------------------------------------------------------------------------------
 	@staticmethod
 	def UpdateObjectName(object, name, listbox, digits):
 		"""Updates the selected object's name and updates the associated wxListBox
@@ -282,41 +302,38 @@ class DatabaseManager(object):
 		listbox.SetString(index, 
 			''.join([str(DatabaseManager.FixedIndex(index)).zfill(digits), ': ', name]))
 
+	#----------------------------------------------------------------------------------
 	@staticmethod
-	def ChangeSkillStates( listctrl, object, event, increment ):
-		"""Changes the skill's add/remove state, and updates the wxListCtrl
-		
+	def ChangeSkillStates( object, index, value ):
+		"""Changes the skill's add/remove state, and updates the custom check list
+
 		Arguments:
-		listctrl -- A wxListCtrl instance associated with state changes
-		object -- The object to modify. Must respond to "minus_state_set"
-			and "plus_state_set"
-		event -- A wx.MouseEvent instance 
-		increment -- The increment to move the index (1 or -1)
+		object -- The RPG game object to change. Must respond to "minus_state_set" and "plus_state_set".
+		index -- The index of the state
+		value -- The values of the custom check list state
 
 		Returns:
 		None
 
 		"""
-		id = listctrl.HitTest(event.GetPosition())[0]
-		if id >= 0:
-			imgIndex = listctrl.GetItem(id).GetImage()
-			imgIndex = (imgIndex + increment) % 3
-			listctrl.SetItemImage(id, imgIndex)
-			state_id = DatabaseManager.FixedIndex(id)
-			if imgIndex == 0:
-				if state_id in object.minus_state_set: 
-					object.minus_state_set.remove(state_id)
-				elif state_id in object.plus_state_set: 
-					object.plus_state_set.remove(state_id)
-			if imgIndex == 1:
-				if state_id in object.minus_state_set: 
-					object.minus_state_set.remove(state_id)
-				object.plus_state_set.append(state_id)
-			if imgIndex == 2:
-				if state_id in object.plus_state_set: 
-					object.plus_state_set.remove(state_id)
-				object.minus_state_set.append(state_id)
+		if index is None:
+			return
+		state_id = DatabaseManager.FixedIndex(index)
+		if value == 0:
+			if state_id in object.minus_state_set: 
+				object.minus_state_set.remove(state_id)
+			elif state_id in object.plus_state_set: 
+				object.plus_state_set.remove(state_id)
+		if value == 1:
+			if state_id in object.minus_state_set: 
+				object.minus_state_set.remove(state_id)
+			object.plus_state_set.append(state_id)
+		if value == -1:
+			if state_id in object.plus_state_set: 
+				object.plus_state_set.remove(state_id)
+			object.minus_state_set.append(state_id)
 
+	#----------------------------------------------------------------------------------
 	@staticmethod
 	def DrawButtonIcon(button, filename, from_resource):
 		"""Draws a bitmap on a button from an embedded resource or file
@@ -340,6 +357,7 @@ class DatabaseManager(object):
 			#bitmap = Cache.Icon(filename)
 		button.SetBitmapLabel(bitmap)
 
+	#----------------------------------------------------------------------------------
 	@staticmethod
 	def TestSFX( audioFile ):
 		# TEMP METHOD
@@ -350,6 +368,7 @@ class DatabaseManager(object):
 		player.set_volume(audioFile.volume / 100.0)
 		player.play()
 
+	#----------------------------------------------------------------------------------
 	@staticmethod
 	def AddParameterSpinCtrls(parent, event, suffix, rowcount=4):
 		"""Creates spin controls for the passed parameters, adds them to the parent
