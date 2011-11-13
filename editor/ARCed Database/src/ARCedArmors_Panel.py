@@ -26,15 +26,23 @@ class ARCedArmors_Panel( Armors_Panel ):
 		font = wx.Font(8, wx.FONTFAMILY_TELETYPE, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL)
 		font.SetFaceName(Config.get('Misc', 'NoteFont')) 
 		self.textCtrlNotes.SetFont(font)
-		self.ParameterControls = [self.spinCtrlPrice, self.spinCtrlPdef, 
-			self.spinCtrlMdef, self.spinCtrlEva]
-		self.ParameterControls.extend(DM.AddParameterSpinCtrls(self.panelParameters, 
-			self.spinCtrlParameter_ValueChanged, '+:', 4))
+
+		default = ['Price:', 'PDEF:', 'MDEF:', 'EVA:']
+		self.ParameterControls = DM.CreateParameterControls(self.panelParameters, 
+			self.spinCtrlParameter_ValueChanged, '+:', 4, default)
+		self.setRanges()
 		self.SelectedArmor = DataArmors[DM.FixedIndex(armor_index)]
 		self.refreshAll()
 		self.listBoxArmors.SetSelection(armor_index)
 		DM.DrawHeaderBitmap(self.bitmapArmors, 'Armors')
 	
+	def setRanges( self ):
+		"""Applies the range of values allowed fir the controls on the panel"""
+		self.ParameterControls[0].SetRange(0, Config.getint('DatabaseLimits', 'Gold'))
+		max = Config.getint('DatabaseLimits', 'ActorParameter')
+		for i in xrange(1, len(self.ParameterControls)):
+			self.ParameterControls[i].SetRange(-max, max)
+
 	def refreshAll( self ):
 		"""Refreshes all the controls on the panel"""
 		self.refreshArmorList()
@@ -62,7 +70,7 @@ class ARCedArmors_Panel( Armors_Panel ):
 	def refreshKinds( self ):
 		"""Updates the armor kinds"""
 		if DM.ARC_FORMAT:
-			kinds = Config.getlist('Actors', 'ArmorSlots')
+			kinds = Config.getlist('GameSetup', 'ArmorSlots')
 		else:
 			kinds = ['Shield', 'Helmet', 'Body Armor', 'Accessory']
 		DM.FillWithoutNumber(self.comboBoxKind, [], kinds)
@@ -98,6 +106,7 @@ class ARCedArmors_Panel( Armors_Panel ):
 
 	def spinCtrlParameter_ValueChanged( self, event ):
 		index = self.ParameterControls.index(event.GetEventObject())
+
 		if DM.ARC_FORMAT:
 			# TODO: Implement
 			pass

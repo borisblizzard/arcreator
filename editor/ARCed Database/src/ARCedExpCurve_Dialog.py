@@ -8,10 +8,10 @@ class ARCedExpCurve_Dialog( ARCed_Templates.ExpCurve_Dialog ):
 		"""Basic constructor for the Experience Curve Dialog"""
 		ARCed_Templates.ExpCurve_Dialog.__init__( self, parent )
 		Config = Kernel.GlobalObjects.get_value('ARCed_config')
-		minBasis = Config.getint('Actors', 'MinExpBasis')
-		maxBasis = Config.getint('Actors', 'MaxExpBasis')
-		minInflation = Config.getint('Actors', 'MinExpInflation')
-		maxInflation = Config.getint('Actors', 'MaxExpInflation')
+		minBasis = Config.getint('DatabaseLimits', 'ExpBasisMin')
+		maxBasis = Config.getint('DatabaseLimits', 'ExpBasisMax')
+		minInflation = Config.getint('DatabaseLimits', 'ExpInflationMin')
+		maxInflation = Config.getint('DatabaseLimits', 'ExpInflationMax')
 		self.spinCtrlBasis.SetRange(minBasis, maxBasis)
 		self.spinCtrlInflation.SetRange(minInflation, maxInflation)
 		self.sliderBasis.SetRange(minBasis, maxBasis)
@@ -23,7 +23,7 @@ class ARCedExpCurve_Dialog( ARCed_Templates.ExpCurve_Dialog ):
 			font.SetFaceName('Courier New')
 		self.textCtrlExpList.SetFont(font)
 		global MaxLevel, FinalLevel, StyleNext, StyleTotal
-		MaxLevel = Config.getint('Actors', 'MaxLevel')
+		MaxLevel = Config.getint('DatabaseLimits', 'ActorLevel')
 		FinalLevel = actor.final_level
 		StyleNext = wx.TextAttr(wx.Color(0, 128, 0))
 		StyleTotal = wx.TextAttr(wx.Color(128, 0, 0))

@@ -179,6 +179,7 @@ class DatabaseManager(object):
 			''.join([str(i).zfill(digits), ': ',
 		    dataSource[i].name]) for i in xrange(start, len(dataSource))])
 		wxContainer.AppendItems(defaults)
+		wxContainer.SetDoubleBuffered(True)
 	
 	#----------------------------------------------------------------------------------
 	@staticmethod
@@ -204,6 +205,7 @@ class DatabaseManager(object):
 			start = DatabaseManager.FixedIndex(start)
 		defaults.extend([dataSource[i].name for i in xrange(start, len(dataSource))])
 		wxContainer.AppendItems(defaults)
+		wxContainer.SetDoubleBuffered(True)
 
 	#----------------------------------------------------------------------------------
 	@staticmethod
@@ -370,7 +372,7 @@ class DatabaseManager(object):
 
 	#----------------------------------------------------------------------------------
 	@staticmethod
-	def AddParameterSpinCtrls(parent, event, suffix, rowcount=4):
+	def CreateParameterControls(parent, event, suffix, rowcount=4, defaults=[]):
 		"""Creates spin controls for the passed parameters, adds them to the parent
 		control, and returns an array of the created wxSpinCtrl objects.
 
@@ -384,11 +386,14 @@ class DatabaseManager(object):
 		A list of wxSpinCtrl objects
 
 		"""
+		threshold = len(defaults)
+		count = 0
+		parameters = defaults
 		if DatabaseManager.ARC_FORMAT:
 			config = Kernel.GlobalObjects.get_value('ARCed_config')
-			parameters = config.getlist('Misc', 'Parameters')
+			parameters.extend(config.getlist('GameSetup', 'Parameters'))
 		else:
-			parameters = ['STR', 'DEX', 'AGI', 'INT']
+			parameters.extend(['STR', 'DEX', 'AGI', 'INT'])
 		objectList = []
 		mainsizer = parent.GetSizer()
 		rows = [parameters[i:i+rowcount] for i in xrange(0, len(parameters), rowcount)]
@@ -403,7 +408,11 @@ class DatabaseManager(object):
 				proportion = percent * (rowcount - n)
 			for param in row:
 				if param != None:
-					label = wx.StaticText( parent, wx.ID_ANY, param + suffix)
+					if count < threshold:
+						label = wx.StaticText( parent, wx.ID_ANY, param)
+					else:
+						label = wx.StaticText( parent, wx.ID_ANY, param + suffix)
+					count += 1
 					label.Wrap( -1 )
 					labelsizer.Add( label, percent, wx.ALL, 5 )
 					spinctrl = wx.SpinCtrl( parent, wx.ID_ANY, wx.EmptyString, style=wx.SP_ARROW_KEYS|wx.SP_WRAP)
@@ -418,4 +427,7 @@ class DatabaseManager(object):
 					spinsizer.Add(dummy, proportion, wx.ALL, 5)
 			mainsizer.Add( labelsizer, 0, wx.EXPAND, 5 )
 			mainsizer.Add( spinsizer, 0, wx.EXPAND, 5 )
+		#parent.Layout()
+		#parent.SetVirtualSizeHints(-1, -1, parent.GetClientSize().GetWidth() - 32)
+		#parent.SetSizer ( mainsizer )
 		return objectList

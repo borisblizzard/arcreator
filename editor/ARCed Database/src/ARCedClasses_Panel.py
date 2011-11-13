@@ -31,14 +31,13 @@ class ARCedClasses_Panel( ARCed_Templates.Classes_Panel ):
 		self.listCtrlSkills.InsertColumn(0, "Level", width=64)
 		self.listCtrlSkills.InsertColumn(1, "Skill", width=160)		
 		if DM.ARC_FORMAT:
-			self.spinCtrlElements.SetRange(Config.getint('Classes', 'MinElemEfficiency'), 
-				Config.getint('Classes', 'MaxElemEfficiency'))
-			self.spinCtrlStates.SetRange(Config.getint('Classes', 'MinStateEfficiency'), 
-				Config.getint('Classes', 'MaxStateEfficiency'))
+			max = Config.getint('DatabaseLimits', 'ParameterPercent')
+			self.spinCtrlElements.SetRange(-max, max)
+			self.spinCtrlStates.SetRange(-max, max)
 		else:
 			self.spinCtrlElements.SetRange(0, 5)
 			self.spinCtrlStates.SetRange(0, 5)
-		positions = Config.getlist('Classes', 'Positions')
+		positions = Config.getlist('GameSetup', 'Positions')
 		self.comboBoxPosition.AppendItems(positions)
 		font = wx.Font(8, wx.FONTFAMILY_TELETYPE, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL)
 		font.SetFaceName(Config.get('Misc', 'NoteFont')) 
@@ -219,7 +218,7 @@ class ARCedClasses_Panel( ARCed_Templates.Classes_Panel ):
 		if edit:
 			lvl = self.SelectedClass.learnings[index].level
 			skill_id = self.SelectedClass.learnings[index].skill_id
-		maxlvl = Config.getint('Actors', 'MaxLevel')
+		maxlvl = Config.getint('DatabaseLimits', 'ActorLevel')
 		dialog = ARCedSkill_Dialog(self, DataSkills, maxlvl, lvl, skill_id)
 		if dialog.ShowModal() == wx.ID_OK:
 			if edit: del (self.SelectedClass.learnings[index])

@@ -29,11 +29,12 @@ class ARCedSkills_Panel( ARCed_Templates.Skills_Panel ):
 		self.textCtrlNotes.SetFont(font)
 		DM.DrawButtonIcon(self.bitmapButtonAudioTest, 'play_button', True)
 		self.comboBoxMenuSE.SetCursor(wx.STANDARD_CURSOR)
-		self.ParameterControls = [
-			self.spinCtrlAtkF, self.spinCtrlPdefF,
-			self.spinCtrlMdefF, self.spinCtrlEvaF ]
-		self.ParameterControls.extend(DM.AddParameterSpinCtrls(self.panelParameters, 
-			self.spinCtrlParameter_ValueChanged, '-F:', 4))
+
+		default = ['SP Cost:', 'Power:', 'Variance:', 'Hit Rate:', 
+			'ATK-F:', 'PDEF-F:', 'MDEF-F:', 'EVA-F:']
+		self.ParameterControls = DM.CreateParameterControls(self.panelParameters, 
+			self.spinCtrlParameter_ValueChanged, '-F:', 4, default)
+
 		self.setRanges()
 		self.SelectedSkill = DataSkills[DM.FixedIndex(skill_index)]
 		self.refreshAll()
@@ -85,22 +86,22 @@ class ARCedSkills_Panel( ARCed_Templates.Skills_Panel ):
 		if skill.power > 2147483647:
 			skill.power = 0
 
-		self.spinCtrlSPCost.SetValue(skill.sp_cost)
-		self.spinCtrlPower.SetValue(skill.power) 
-		self.spinCtrlHitRate.SetValue(skill.hit)
-		self.spinCtrlVariance.SetValue(skill.variance)
 		if DM.ARC_FORMAT:
 			# TODO: Implement
 			pass
 		else:
-			self.ParameterControls[0].SetValue(skill.atk_f)
-			self.ParameterControls[1].SetValue(skill.pdef_f)
-			self.ParameterControls[2].SetValue(skill.mdef_f)
-			self.ParameterControls[3].SetValue(skill.eva_f)		
-			self.ParameterControls[4].SetValue(skill.str_f)
-			self.ParameterControls[5].SetValue(skill.dex_f)
-			self.ParameterControls[6].SetValue(skill.agi_f)
-			self.ParameterControls[7].SetValue(skill.int_f)
+			self.ParameterControls[0].SetValue(skill.sp_cost)
+			self.ParameterControls[1].SetValue(skill.power) 
+			self.ParameterControls[2].SetValue(skill.hit)
+			self.ParameterControls[3].SetValue(skill.variance)
+			self.ParameterControls[4].SetValue(skill.atk_f)
+			self.ParameterControls[5].SetValue(skill.pdef_f)
+			self.ParameterControls[6].SetValue(skill.mdef_f)
+			self.ParameterControls[7].SetValue(skill.eva_f)		
+			self.ParameterControls[8].SetValue(skill.str_f)
+			self.ParameterControls[9].SetValue(skill.dex_f)
+			self.ParameterControls[10].SetValue(skill.agi_f)
+			self.ParameterControls[11].SetValue(skill.int_f)
 		# Update elements
 		for i in xrange(self.checkListElements.GetItemCount()):
 			checked = skill.element_set
@@ -136,11 +137,11 @@ class ARCedSkills_Panel( ARCed_Templates.Skills_Panel ):
 		self.refreshValues()
 
 	def setRanges( self ):
-		self.spinCtrlSPCost.SetRange(0, Config.getint('Actors', 'MaxSP'))
-		max = Config.getint('Misc', 'MaxParamValue')
-		self.spinCtrlPower.SetRange(-max, max)
-		for spinctrl in self.ParameterControls:
-			spinctrl.SetRange(0, max)
+		self.ParameterControls[0].SetRange(0, Config.getint('DatabaseLimits', 'ActorSP'))
+		max = Config.getint('DatabaseLimits', 'ActorParameter')
+		self.ParameterControls[1].SetRange(-max, max)
+		for i in xrange(2, len(self.ParameterControls)):
+			self.ParameterControls[i].SetRange(0, max)
 
 	def listBoxSkills_SelectionChanged( self, event ):
 		"""Changes the selected skill and update the values on the panel"""
@@ -182,7 +183,6 @@ class ARCedSkills_Panel( ARCed_Templates.Skills_Panel ):
 
 	def comboBoxMenuSE_Clicked( self, event ):
 		"""Opens the dialog for selecting the audio file to use"""
-		self.listBoxSkills.SetFocus()
 		audio = DM.ChooseAudio(self, 'Audio/SE/', self.SelectedSkill.menu_se, 0)
 		self.SelectedSkill.menu_se = audio
 		self.comboBoxMenuSE.SetValue(audio.name)
@@ -199,37 +199,26 @@ class ARCedSkills_Panel( ARCed_Templates.Skills_Panel ):
 		"""Set the selected skill's SP cost"""
 		self.SelectedSkill.common_event_id = event.GetInt()
 
-	def spinCtrlSPCost_ValueChanged( self, event ):
-		"""Set the selected skill's SP cost"""
-		self.SelectedSkill.sp_cost = event.GetInt()
-
-	def spinCtrlHitRate_ValueChanged( self, event ):
-		"""Set the selected skill's hit rate"""
-		self.SelectedSkill.hit = event.GetInt()
-
-	def spinCtrlPower_ValueChanged( self, event ):
-		"""Set the selected skill's power"""
-		self.SelectedSkill.power = event.GetInt()
-
-	def spinCtrlVariance_ValueChanged( self, event ):
-		"""Set the selected skill's variance"""
-		self.SelectedSkill.variance = event.GetInt()
-
 	def spinCtrlParameter_ValueChanged( self, event ):
 		index = self.ParameterControls.index(event.GetEventObject())
+		skill = self.SelectedSkill
 		if DM.ARC_FORMAT:
 			# TODO: Implement
 			pass
 		else:
 			value = event.GetInt()
-			if index == 0: self.SelectedSkill.atk_f = value
-			elif index == 1: self.SelectedSkill.pdef_f = value
-			elif index == 2: self.SelectedSkill.mdef_f = value
-			elif index == 3: self.SelectedSkill.eva_f = value
-			elif index == 4: self.SelectedSkill.str_f = value
-			elif index == 5: self.SelectedSkill.dex_f = value
-			elif index == 6: self.SelectedSkill.agi_f = value
-			elif index == 7: self.SelectedSkill.int_f = value
+			if index == 0: skill.sp_cost = value
+			elif index == 1: skill.power = value
+			elif index == 2: skill.variance = value
+			elif index == 3: skill.hit_rate = value
+			elif index == 4: skill.atk_f = value
+			elif index == 5: skill.pdef_f = value
+			elif index == 6: skill.mdef_f = value
+			elif index == 7: skill.eva_f = value
+			elif index == 8: skill.str_f = value
+			elif index == 9: skill.dex_f = value
+			elif index == 10: skill.agi_f = value
+			elif index == 11: skill.int_f = value
 
 	def textCtrlNotes_TextChanged( self, event ):
 		"""Sets the note for the selected skill"""
