@@ -86,6 +86,7 @@
     <Compile Include="src\ARCedEnemies_Panel.py" />
     <Compile Include="src\ARCedEnemyAction_Dialog.py" />
     <Compile Include="src\ARCedEnemyAppearance_Dialog.py" />
+    <Compile Include="src\ARCedEnemyExpGold_Dialog.py" />
     <Compile Include="src\ARCedEnemyTransform_Dialog.py" />
     <Compile Include="src\ARCedErasePicture_Dialog.py" />
     <Compile Include="src\ARCedEventCommands1_Panel.py" />
@@ -136,6 +137,7 @@
     <Compile Include="src\Configuration_Panel.py" />
     <Compile Include="src\DatabasePackage.py" />
     <Compile Include="src\DatabaseManager.py" />
+    <Compile Include="src\CustomControls.py" />
     <Compile Include="src\__main__.py" />
     <Compile Include="src\__test__.py" />
   </ItemGroup>
@@ -147,7 +149,6 @@
     <Folder Include="ini" />
     <Folder Include="ARC TestProject" />
     <Folder Include="src" />
-    <Folder Include="C:\Users\Eric\Desktop\ARC\editor\ARCed Database\src\images" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="ARC TestProject\ARC Test Project.arcproj" />
@@ -256,6 +257,5 @@
     <Content Include="ARC TestProject\Data\Tilesets.arc" />
     <Content Include="ARC TestProject\Data\Troops.arc" />
     <Content Include="ARC TestProject\Data\Weapons.arc" />
-    <Content Include="ini\DatabaseTabs.ini" />
   </ItemGroup>
 </Project>
