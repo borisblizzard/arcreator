@@ -105,8 +105,8 @@ class ARCedArmors_Panel( Armors_Panel ):
 		self.textCtrlNotes.ChangeValue(armor.note)
 
 	def spinCtrlParameter_ValueChanged( self, event ):
+		"""Updates the selected armor's parameter"""
 		index = self.ParameterControls.index(event.GetEventObject())
-
 		if DM.ARC_FORMAT:
 			# TODO: Implement
 			pass

@@ -1726,8 +1726,8 @@ class Enemies_Panel ( wx.Panel ):
 		self.labelName.Wrap( -1 )
 		sizer2.Add( self.labelName, 0, wx.ALL, 5 )
 		
-		self.m_textCtrl21 = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
-		sizer2.Add( self.m_textCtrl21, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
+		self.textCtrlName = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+		sizer2.Add( self.textCtrlName, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
 		
 		self.labelBattlerGraphic = wx.StaticText( self, wx.ID_ANY, u"Battler Graphic:", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.labelBattlerGraphic.Wrap( -1 )
@@ -1757,6 +1757,13 @@ class Enemies_Panel ( wx.Panel ):
 		sizer1.Add( sizer2, 30, wx.EXPAND, 5 )
 		
 		sizer3 = wx.BoxSizer( wx.VERTICAL )
+		
+		self.labelDescription = wx.StaticText( self, wx.ID_ANY, u"Description:", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.labelDescription.Wrap( -1 )
+		sizer3.Add( self.labelDescription, 0, wx.ALL, 5 )
+		
+		self.textCtrlDescription = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+		sizer3.Add( self.textCtrlDescription, 0, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
 		
 		sizerParameters = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Parameters" ), wx.VERTICAL )
 		
@@ -1867,10 +1874,11 @@ class Enemies_Panel ( wx.Panel ):
 		# Connect Events
 		self.listBoxEnemies.Bind( wx.EVT_LISTBOX, self.listBoxEnemies_SelectionChanged )
 		self.buttonMaximum.Bind( wx.EVT_BUTTON, self.buttonMaximum_Clicked )
-		self.m_textCtrl21.Bind( wx.EVT_TEXT, self.textCtrlName_ValueChanged )
+		self.textCtrlName.Bind( wx.EVT_TEXT, self.textCtrlName_ValueChanged )
 		self.bitmapBattlerGraphic.Bind( wx.EVT_LEFT_DCLICK, self.bitmapGraphic_DoubleClick )
 		self.comboBoxAttackAnimation.Bind( wx.EVT_CHOICE, self.comboBoxAttackAnimation_SelectionChanged )
 		self.comboBoxTargetAnimation.Bind( wx.EVT_CHOICE, self.comboBoxTargetAnimation_ValueChanged )
+		self.textCtrlDescription.Bind( wx.EVT_TEXT, self.textCtrlDescription_TextChanged )
 		self.comboBoxExp.Bind( wx.EVT_LEFT_DOWN, self.comboBoxExp_Clicked )
 		self.comboBoxGold.Bind( wx.EVT_LEFT_DOWN, self.comboBoxGold_Clicked )
 		self.comboBoxTreasure.Bind( wx.EVT_LEFT_DOWN, self.comboBoxTreasure_Clicked )
@@ -1902,6 +1910,9 @@ class Enemies_Panel ( wx.Panel ):
 		pass
 	
 	def comboBoxTargetAnimation_ValueChanged( self, event ):
+		pass
+	
+	def textCtrlDescription_TextChanged( self, event ):
 		pass
 	
 	def comboBoxExp_Clicked( self, event ):
@@ -5860,65 +5871,103 @@ class EnemyAction_Dialog ( wx.Dialog ):
 class ChooseTreasure_Dialog ( wx.Dialog ):
 	
 	def __init__( self, parent ):
-		wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Treasure", pos = wx.DefaultPosition, size = wx.Size( 269,229 ), style = wx.DEFAULT_DIALOG_STYLE )
+		wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Treasure", pos = wx.DefaultPosition, size = wx.Size( 395,348 ), style = wx.DEFAULT_DIALOG_STYLE|wx.RESIZE_BORDER )
 		
 		self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
 		
 		MainSizer = wx.BoxSizer( wx.VERTICAL )
 		
-		self.radioBtn_None = wx.RadioButton( self, wx.ID_ANY, u"None", wx.DefaultPosition, wx.DefaultSize, 0 )
-		MainSizer.Add( self.radioBtn_None, 0, wx.ALL|wx.EXPAND, 5 )
+		self.listCtrlTreasure = wx.ListCtrl( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.LC_HRULES|wx.LC_REPORT|wx.LC_VRULES )
+		MainSizer.Add( self.listCtrlTreasure, 1, wx.ALL|wx.EXPAND, 5 )
+		
+		sizerTreasure = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Select Treasure" ), wx.HORIZONTAL )
+		
+		bSizer618 = wx.BoxSizer( wx.VERTICAL )
+		
+		bSizer623 = wx.BoxSizer( wx.HORIZONTAL )
+		
+		self.labelProbability = wx.StaticText( self, wx.ID_ANY, u"Probability:", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.labelProbability.Wrap( -1 )
+		bSizer623.Add( self.labelProbability, 0, wx.ALIGN_CENTER_VERTICAL|wx.TOP|wx.BOTTOM|wx.LEFT, 5 )
+		
+		self.spinCtrlProbability = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( 56,-1 ), wx.SP_ARROW_KEYS|wx.SP_WRAP, 0, 100, 50 )
+		self.spinCtrlProbability.Enable( False )
+		
+		bSizer623.Add( self.spinCtrlProbability, 0, wx.TOP|wx.BOTTOM|wx.RIGHT, 5 )
+		
+		self.labelQuantity = wx.StaticText( self, wx.ID_ANY, u"Quantity:", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.labelQuantity.Wrap( -1 )
+		bSizer623.Add( self.labelQuantity, 0, wx.ALIGN_CENTER_VERTICAL|wx.TOP|wx.BOTTOM|wx.LEFT, 5 )
+		
+		self.spinCtrlQuantity = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS|wx.SP_WRAP, 1, 10, 1 )
+		bSizer623.Add( self.spinCtrlQuantity, 1, wx.TOP|wx.BOTTOM|wx.RIGHT, 5 )
+		
+		bSizer618.Add( bSizer623, 1, wx.EXPAND, 5 )
 		
 		sizerItem = wx.BoxSizer( wx.HORIZONTAL )
 		
-		self.radioBtn_Item = wx.RadioButton( self, wx.ID_ANY, u"Item", wx.DefaultPosition, wx.Size( 80,-1 ), 0 )
-		sizerItem.Add( self.radioBtn_Item, 0, wx.ALL|wx.EXPAND, 5 )
+		self.radioBtnItem = wx.RadioButton( self, wx.ID_ANY, u"Item", wx.DefaultPosition, wx.Size( 80,-1 ), wx.RB_GROUP )
+		self.radioBtnItem.SetValue( True ) 
+		sizerItem.Add( self.radioBtnItem, 0, wx.ALL|wx.EXPAND, 5 )
 		
 		comboBoxItemChoices = []
 		self.comboBoxItem = wx.Choice( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxItemChoices, 0 )
 		self.comboBoxItem.SetSelection( 0 )
 		sizerItem.Add( self.comboBoxItem, 1, wx.ALL, 5 )
 		
-		MainSizer.Add( sizerItem, 0, wx.EXPAND, 5 )
+		bSizer618.Add( sizerItem, 0, wx.EXPAND, 5 )
 		
 		sizerWeapon = wx.BoxSizer( wx.HORIZONTAL )
 		
-		self.radioBtn_Weapon = wx.RadioButton( self, wx.ID_ANY, u"Weapon", wx.DefaultPosition, wx.Size( 80,-1 ), 0 )
-		sizerWeapon.Add( self.radioBtn_Weapon, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
+		self.radioBtnWeapon = wx.RadioButton( self, wx.ID_ANY, u"Weapon", wx.DefaultPosition, wx.Size( 80,-1 ), 0 )
+		sizerWeapon.Add( self.radioBtnWeapon, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
 		
 		comboBoxWeaponChoices = []
 		self.comboBoxWeapon = wx.Choice( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxWeaponChoices, 0 )
 		self.comboBoxWeapon.SetSelection( 0 )
+		self.comboBoxWeapon.Enable( False )
+		
 		sizerWeapon.Add( self.comboBoxWeapon, 1, wx.ALL, 5 )
 		
-		MainSizer.Add( sizerWeapon, 0, wx.EXPAND, 5 )
+		bSizer618.Add( sizerWeapon, 0, wx.EXPAND, 5 )
 		
 		sizerArmor = wx.BoxSizer( wx.HORIZONTAL )
 		
-		self.radioBtn_Armor = wx.RadioButton( self, wx.ID_ANY, u"Armor", wx.DefaultPosition, wx.Size( 80,-1 ), 0 )
-		sizerArmor.Add( self.radioBtn_Armor, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
+		self.radioBtnArmor = wx.RadioButton( self, wx.ID_ANY, u"Armor", wx.DefaultPosition, wx.Size( 80,-1 ), 0 )
+		sizerArmor.Add( self.radioBtnArmor, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
 		
 		comboBoxArmorChoices = []
 		self.comboBoxArmor = wx.Choice( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxArmorChoices, 0 )
 		self.comboBoxArmor.SetSelection( 0 )
+		self.comboBoxArmor.Enable( False )
+		
 		sizerArmor.Add( self.comboBoxArmor, 1, wx.ALL, 5 )
 		
-		MainSizer.Add( sizerArmor, 0, wx.EXPAND, 5 )
+		bSizer618.Add( sizerArmor, 0, wx.EXPAND, 5 )
 		
-		self.labelProbability = wx.StaticText( self, wx.ID_ANY, u"Probability:", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.labelProbability.Wrap( -1 )
-		MainSizer.Add( self.labelProbability, 0, wx.ALL, 5 )
+		sizerTreasure.Add( bSizer618, 1, wx.EXPAND, 5 )
 		
-		self.spinCtrlProbability = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( 80,-1 ), wx.SP_ARROW_KEYS, 0, 10, 0 )
-		MainSizer.Add( self.spinCtrlProbability, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
+		bSizer619 = wx.BoxSizer( wx.VERTICAL )
+		
+		self.buttonAdd = wx.Button( self, wx.ID_ANY, u"Add", wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer619.Add( self.buttonAdd, 0, wx.TOP|wx.RIGHT|wx.LEFT, 5 )
+		
+		self.buttonRemove = wx.Button( self, wx.ID_ANY, u"Remove", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.buttonRemove.Enable( False )
+		
+		bSizer619.Add( self.buttonRemove, 0, wx.ALL, 5 )
+		
+		sizerTreasure.Add( bSizer619, 0, wx.EXPAND, 5 )
+		
+		MainSizer.Add( sizerTreasure, 0, wx.ALL|wx.EXPAND, 5 )
 		
 		sizerOKCancel = wx.BoxSizer( wx.HORIZONTAL )
 		
 		self.buttonOK = wx.Button( self, wx.ID_ANY, u"OK", wx.DefaultPosition, wx.DefaultSize, 0 )
-		sizerOKCancel.Add( self.buttonOK, 0, wx.ALL, 5 )
+		sizerOKCancel.Add( self.buttonOK, 0, wx.TOP|wx.BOTTOM|wx.LEFT, 5 )
 		
 		self.buttonCancel = wx.Button( self, wx.ID_ANY, u"Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
-		sizerOKCancel.Add( self.buttonCancel, 0, wx.ALL, 5 )
+		sizerOKCancel.Add( self.buttonCancel, 0, wx.TOP|wx.BOTTOM|wx.RIGHT, 5 )
 		
 		MainSizer.Add( sizerOKCancel, 0, wx.ALIGN_RIGHT, 5 )
 		
@@ -5928,6 +5977,13 @@ class ChooseTreasure_Dialog ( wx.Dialog ):
 		self.Centre( wx.BOTH )
 		
 		# Connect Events
+		self.listCtrlTreasure.Bind( wx.EVT_KEY_DOWN, self.listCtrlTreasure_KeyPressed )
+		self.listCtrlTreasure.Bind( wx.EVT_LIST_ITEM_SELECTED, self.listCtrlTreasure_ItemSelected )
+		self.radioBtnItem.Bind( wx.EVT_RADIOBUTTON, self.radioButtonItem_Clicked )
+		self.radioBtnWeapon.Bind( wx.EVT_RADIOBUTTON, self.radioButtonWeapon_Clicked )
+		self.radioBtnArmor.Bind( wx.EVT_RADIOBUTTON, self.radioButtonArmor_Clicked )
+		self.buttonAdd.Bind( wx.EVT_BUTTON, self.buttonAdd_Clicked )
+		self.buttonRemove.Bind( wx.EVT_BUTTON, self.buttonRemove_Clicked )
 		self.buttonOK.Bind( wx.EVT_BUTTON, self.buttonOK_Clicked )
 		self.buttonCancel.Bind( wx.EVT_BUTTON, self.buttonCancel_Clicked )
 	
@@ -5936,6 +5992,27 @@ class ChooseTreasure_Dialog ( wx.Dialog ):
 	
 	
 	# Virtual event handlers, overide them in your derived class
+	def listCtrlTreasure_KeyPressed( self, event ):
+		pass
+	
+	def listCtrlTreasure_ItemSelected( self, event ):
+		pass
+	
+	def radioButtonItem_Clicked( self, event ):
+		pass
+	
+	def radioButtonWeapon_Clicked( self, event ):
+		pass
+	
+	def radioButtonArmor_Clicked( self, event ):
+		pass
+	
+	def buttonAdd_Clicked( self, event ):
+		pass
+	
+	def buttonRemove_Clicked( self, event ):
+		pass
+	
 	def buttonOK_Clicked( self, event ):
 		pass
 	
@@ -7601,6 +7678,63 @@ class Comment_Dialog ( wx.Dialog ):
 	
 
 ###########################################################################
+## Class CallCommonEvent_Dialog
+###########################################################################
+
+class CallCommonEvent_Dialog ( wx.Dialog ):
+	
+	def __init__( self, parent ):
+		wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Call Common Event", pos = wx.DefaultPosition, size = wx.Size( 290,94 ), style = wx.DEFAULT_DIALOG_STYLE )
+		
+		self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
+		
+		MainSizer = wx.BoxSizer( wx.HORIZONTAL )
+		
+		sizerCommonEvent = wx.BoxSizer( wx.VERTICAL )
+		
+		self.labelCommonEvent = wx.StaticText( self, wx.ID_ANY, u"Common Event:", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.labelCommonEvent.Wrap( -1 )
+		sizerCommonEvent.Add( self.labelCommonEvent, 0, wx.ALL, 5 )
+		
+		comboBoxCommonEventChoices = []
+		self.comboBoxCommonEvent = wx.Choice( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxCommonEventChoices, 0 )
+		self.comboBoxCommonEvent.SetSelection( 0 )
+		sizerCommonEvent.Add( self.comboBoxCommonEvent, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
+		
+		MainSizer.Add( sizerCommonEvent, 1, wx.ALIGN_CENTER_VERTICAL, 5 )
+		
+		sizerOKCancel = wx.BoxSizer( wx.VERTICAL )
+		
+		self.buttonOK = wx.Button( self, wx.ID_ANY, u"OK", wx.DefaultPosition, wx.DefaultSize, 0 )
+		sizerOKCancel.Add( self.buttonOK, 0, wx.ALL, 5 )
+		
+		self.buttonCancel = wx.Button( self, wx.ID_ANY, u"Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
+		sizerOKCancel.Add( self.buttonCancel, 0, wx.ALL, 5 )
+		
+		MainSizer.Add( sizerOKCancel, 0, 0, 5 )
+		
+		self.SetSizer( MainSizer )
+		self.Layout()
+		
+		self.Centre( wx.BOTH )
+		
+		# Connect Events
+		self.buttonOK.Bind( wx.EVT_BUTTON, self.buttonOK_Clicked )
+		self.buttonCancel.Bind( wx.EVT_BUTTON, self.buttonCancel_Clicked )
+	
+	def __del__( self ):
+		pass
+	
+	
+	# Virtual event handlers, overide them in your derived class
+	def buttonOK_Clicked( self, event ):
+		pass
+	
+	def buttonCancel_Clicked( self, event ):
+		pass
+	
+
+###########################################################################
 ## Class ConditionalBranch_Dialog
 ###########################################################################
 
@@ -8179,63 +8313,6 @@ class ConditionalBranch_Dialog ( wx.Dialog ):
 	def radioButtonScript_CheckChanged( self, event ):
 		pass
 	
-	def buttonOK_Clicked( self, event ):
-		pass
-	
-	def buttonCancel_Clicked( self, event ):
-		pass
-	
-
-###########################################################################
-## Class CallCommonEvent_Dialog
-###########################################################################
-
-class CallCommonEvent_Dialog ( wx.Dialog ):
-	
-	def __init__( self, parent ):
-		wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Call Common Event", pos = wx.DefaultPosition, size = wx.Size( 290,94 ), style = wx.DEFAULT_DIALOG_STYLE )
-		
-		self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
-		
-		MainSizer = wx.BoxSizer( wx.HORIZONTAL )
-		
-		sizerCommonEvent = wx.BoxSizer( wx.VERTICAL )
-		
-		self.labelCommonEvent = wx.StaticText( self, wx.ID_ANY, u"Common Event:", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.labelCommonEvent.Wrap( -1 )
-		sizerCommonEvent.Add( self.labelCommonEvent, 0, wx.ALL, 5 )
-		
-		comboBoxCommonEventChoices = []
-		self.comboBoxCommonEvent = wx.Choice( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxCommonEventChoices, 0 )
-		self.comboBoxCommonEvent.SetSelection( 0 )
-		sizerCommonEvent.Add( self.comboBoxCommonEvent, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
-		
-		MainSizer.Add( sizerCommonEvent, 1, wx.ALIGN_CENTER_VERTICAL, 5 )
-		
-		sizerOKCancel = wx.BoxSizer( wx.VERTICAL )
-		
-		self.buttonOK = wx.Button( self, wx.ID_ANY, u"OK", wx.DefaultPosition, wx.DefaultSize, 0 )
-		sizerOKCancel.Add( self.buttonOK, 0, wx.ALL, 5 )
-		
-		self.buttonCancel = wx.Button( self, wx.ID_ANY, u"Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
-		sizerOKCancel.Add( self.buttonCancel, 0, wx.ALL, 5 )
-		
-		MainSizer.Add( sizerOKCancel, 0, 0, 5 )
-		
-		self.SetSizer( MainSizer )
-		self.Layout()
-		
-		self.Centre( wx.BOTH )
-		
-		# Connect Events
-		self.buttonOK.Bind( wx.EVT_BUTTON, self.buttonOK_Clicked )
-		self.buttonCancel.Bind( wx.EVT_BUTTON, self.buttonCancel_Clicked )
-	
-	def __del__( self ):
-		pass
-	
-	
-	# Virtual event handlers, overide them in your derived class
 	def buttonOK_Clicked( self, event ):
 		pass
 	
@@ -13626,6 +13703,72 @@ class ParameterGraph_Panel ( wx.Panel ):
 	def checkBoxPoints_CheckChanged( self, event ):
 		pass
 	
+	def buttonOK_Clicked( self, event ):
+		pass
+	
+	def buttonCancel_Clicked( self, event ):
+		pass
+	
+
+###########################################################################
+## Class EnemyExpGold_Dialog
+###########################################################################
+
+class EnemyExpGold_Dialog ( wx.Dialog ):
+	
+	def __init__( self, parent ):
+		wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Enemy (Exp/Gold)", pos = wx.DefaultPosition, size = wx.Size( 280,112 ), style = wx.DEFAULT_DIALOG_STYLE )
+		
+		self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
+		
+		MainSizer = wx.BoxSizer( wx.VERTICAL )
+		
+		bSizer637 = wx.BoxSizer( wx.HORIZONTAL )
+		
+		self.labelType = wx.StaticText( self, wx.ID_ANY, u"(Gold/Experience):", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.labelType.Wrap( -1 )
+		bSizer637.Add( self.labelType, 70, wx.ALL, 5 )
+		
+		self.labelVariance = wx.StaticText( self, wx.ID_ANY, u"% Variance:", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.labelVariance.Wrap( -1 )
+		bSizer637.Add( self.labelVariance, 30, wx.ALL, 5 )
+		
+		MainSizer.Add( bSizer637, 0, wx.EXPAND, 5 )
+		
+		bSizer638 = wx.BoxSizer( wx.HORIZONTAL )
+		
+		self.spinCtrlValue = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS|wx.SP_WRAP, 0, 10, 0 )
+		bSizer638.Add( self.spinCtrlValue, 70, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
+		
+		self.spinCtrlVariance = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS|wx.SP_WRAP, 0, 100, 0 )
+		bSizer638.Add( self.spinCtrlVariance, 30, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
+		
+		MainSizer.Add( bSizer638, 0, wx.EXPAND, 5 )
+		
+		sizerOKCancel = wx.BoxSizer( wx.HORIZONTAL )
+		
+		self.buttonOK = wx.Button( self, wx.ID_ANY, u"OK", wx.DefaultPosition, wx.DefaultSize, 0 )
+		sizerOKCancel.Add( self.buttonOK, 0, wx.TOP|wx.BOTTOM|wx.LEFT, 5 )
+		
+		self.buttonCancel = wx.Button( self, wx.ID_ANY, u"Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
+		sizerOKCancel.Add( self.buttonCancel, 0, wx.ALL, 5 )
+		
+		MainSizer.Add( sizerOKCancel, 0, wx.ALIGN_RIGHT, 5 )
+		
+		self.SetSizer( MainSizer )
+		self.Layout()
+		
+		self.Centre( wx.BOTH )
+		
+		# Connect Events
+		self.buttonOK.Bind( wx.EVT_BUTTON, self.buttonOK_Clicked )
+		self.buttonCancel.Bind( wx.EVT_BUTTON, self.buttonCancel_Clicked )
+	
+	def __del__( self ):
+		pass
+	
+	
+	# Virtual event handlers, overide them in your derived class
 	def buttonOK_Clicked( self, event ):
 		pass
 	
