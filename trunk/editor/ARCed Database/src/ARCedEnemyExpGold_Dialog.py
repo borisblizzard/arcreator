@@ -7,11 +7,10 @@ class ARCedEnemyExpGold_Dialog( EnemyExpGold_Dialog ):
 		EnemyExpGold_Dialog.__init__( self, parent )
 		self.labelType.SetLabel(label)
 		self.spinCtrlValue.SetRange(0, max)
+		self.spinCtrlVariance.SetRange(0, max)
 		self.spinCtrlValue.SetValue(current)
-		if variance == None:
-			self.spinCtrlVariance.Disable()
-		else:
-			self.spinCtrlVariance.SetValue(variance)
+		if variance == None: self.spinCtrlVariance.Disable()
+		else: self.spinCtrlVariance.SetValue(variance)
 
 	def GetValues( self ):
 		"""Returns the value defined and the variance in a two element tuple"""

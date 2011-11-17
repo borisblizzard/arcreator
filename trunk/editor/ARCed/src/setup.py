@@ -93,7 +93,7 @@ ARCedTarget = Target(
     version = "0.6.1.469",
     company_name = "ARC Developers",
     copyright = "© 2011 ARC Developers arc@chaos-project.com",
-    name = "ARCed (Advanced RPG Creater Editor)"
+    name = "ARCed (Advanced RPG Creator Editor)"
     )
 
 maptestTargert = Target(
@@ -106,7 +106,7 @@ maptestTargert = Target(
     version = "0.6.1.469",
     company_name = "ARC Developers",
     copyright = "© 2011 ARC Developers arc@chaos-project.com",
-    name = "ARCed (Advanced RPG Creater Editor)"
+    name = "ARCed (Advanced RPG Creator Editor)"
     )
 
 setup(

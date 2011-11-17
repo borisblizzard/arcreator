@@ -92,23 +92,45 @@ class Actors_Panel ( wx.Panel ):
 		self.comboBoxExpCurve = wx.combo.BitmapComboBox( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, "", wx.CB_READONLY|wx.CLIP_CHILDREN ) 
 		sizer3.Add( self.comboBoxExpCurve, 0, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
 		
-		self.labelCharacterGraphic = wx.StaticText( self, wx.ID_ANY, u"Character Graphic:", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.splitterGraphics = wx.SplitterWindow( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.SP_3D )
+		self.splitterGraphics.SetSashGravity( 0.5 )
+		self.splitterGraphics.Bind( wx.EVT_IDLE, self.splitterGraphicsOnIdle )
+		
+		self.panelCharacter = wx.Panel( self.splitterGraphics, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
+		sizerCharacter = wx.BoxSizer( wx.VERTICAL )
+		
+		self.labelCharacterGraphic = wx.StaticText( self.panelCharacter, wx.ID_ANY, u"Character Graphic:", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.labelCharacterGraphic.Wrap( -1 )
-		sizer3.Add( self.labelCharacterGraphic, 0, wx.ALL, 5 )
+		sizerCharacter.Add( self.labelCharacterGraphic, 0, wx.ALL, 5 )
 		
-		self.bitmapCharacter = wx.StaticBitmap( self, wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.DefaultSize, wx.SIMPLE_BORDER )
-		self.bitmapCharacter.SetMinSize( wx.Size( 48,64 ) )
+		from ImageCanvas import EditorGLPanel
+		parent, id = self.panelCharacter, wx.ID_ANY
+		self.glCanvasCharacter = EditorGLPanel(parent, id, 4, 4, (0, 0,), 1)
+		self.glCanvasCharacter.SetHelpText( u"The graphic used for the actor on the map. Double-click to edit." )
 		
-		sizer3.Add( self.bitmapCharacter, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
+		sizerCharacter.Add( self.glCanvasCharacter, 1, wx.ALL|wx.EXPAND, 5 )
 		
-		self.labelBattlerGraphic = wx.StaticText( self, wx.ID_ANY, u"Battler Graphic:", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.panelCharacter.SetSizer( sizerCharacter )
+		self.panelCharacter.Layout()
+		sizerCharacter.Fit( self.panelCharacter )
+		self.panelBattler = wx.Panel( self.splitterGraphics, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
+		sizerBattler = wx.BoxSizer( wx.VERTICAL )
+		
+		self.labelBattlerGraphic = wx.StaticText( self.panelBattler, wx.ID_ANY, u"Battler Graphic:", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.labelBattlerGraphic.Wrap( -1 )
-		sizer3.Add( self.labelBattlerGraphic, 0, wx.ALL, 5 )
+		sizerBattler.Add( self.labelBattlerGraphic, 0, wx.ALL, 5 )
 		
-		self.bitmapBattler = wx.StaticBitmap( self, wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.DefaultSize, wx.SIMPLE_BORDER )
-		self.bitmapBattler.SetMinSize( wx.Size( 96,128 ) )
+		parent, id = self.panelBattler, wx.ID_ANY
+		self.glCanvasBattler = EditorGLPanel(parent, id, 1, 1, (0, 0,), 1)
+		self.glCanvasBattler.SetHelpText( u"The graphic used for the actor in battle. Double-click to edit." )
 		
-		sizer3.Add( self.bitmapBattler, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
+		sizerBattler.Add( self.glCanvasBattler, 1, wx.ALL|wx.EXPAND, 5 )
+		
+		self.panelBattler.SetSizer( sizerBattler )
+		self.panelBattler.Layout()
+		sizerBattler.Fit( self.panelBattler )
+		self.splitterGraphics.SplitHorizontally( self.panelCharacter, self.panelBattler, 0 )
+		sizer3.Add( self.splitterGraphics, 1, wx.EXPAND, 5 )
 		
 		sizer1.Add( sizer3, 25, wx.EXPAND, 5 )
 		
@@ -317,6 +339,10 @@ class Actors_Panel ( wx.Panel ):
 	
 	def textCtrlNotes_TextChanged( self, event ):
 		pass
+	
+	def splitterGraphicsOnIdle( self, event ):
+		self.splitterGraphics.SetSashPosition( 0 )
+		self.splitterGraphics.Unbind( wx.EVT_IDLE )
 	
 
 ###########################################################################
@@ -5891,8 +5917,6 @@ class ChooseTreasure_Dialog ( wx.Dialog ):
 		bSizer623.Add( self.labelProbability, 0, wx.ALIGN_CENTER_VERTICAL|wx.TOP|wx.BOTTOM|wx.LEFT, 5 )
 		
 		self.spinCtrlProbability = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( 56,-1 ), wx.SP_ARROW_KEYS|wx.SP_WRAP, 0, 100, 50 )
-		self.spinCtrlProbability.Enable( False )
-		
 		bSizer623.Add( self.spinCtrlProbability, 0, wx.TOP|wx.BOTTOM|wx.RIGHT, 5 )
 		
 		self.labelQuantity = wx.StaticText( self, wx.ID_ANY, u"Quantity:", wx.DefaultPosition, wx.DefaultSize, 0 )
@@ -5953,8 +5977,6 @@ class ChooseTreasure_Dialog ( wx.Dialog ):
 		bSizer619.Add( self.buttonAdd, 0, wx.TOP|wx.RIGHT|wx.LEFT, 5 )
 		
 		self.buttonRemove = wx.Button( self, wx.ID_ANY, u"Remove", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.buttonRemove.Enable( False )
-		
 		bSizer619.Add( self.buttonRemove, 0, wx.ALL, 5 )
 		
 		sizerTreasure.Add( bSizer619, 0, wx.EXPAND, 5 )
@@ -5978,7 +6000,6 @@ class ChooseTreasure_Dialog ( wx.Dialog ):
 		
 		# Connect Events
 		self.listCtrlTreasure.Bind( wx.EVT_KEY_DOWN, self.listCtrlTreasure_KeyPressed )
-		self.listCtrlTreasure.Bind( wx.EVT_LIST_ITEM_SELECTED, self.listCtrlTreasure_ItemSelected )
 		self.radioBtnItem.Bind( wx.EVT_RADIOBUTTON, self.radioButtonItem_Clicked )
 		self.radioBtnWeapon.Bind( wx.EVT_RADIOBUTTON, self.radioButtonWeapon_Clicked )
 		self.radioBtnArmor.Bind( wx.EVT_RADIOBUTTON, self.radioButtonArmor_Clicked )
@@ -5993,9 +6014,6 @@ class ChooseTreasure_Dialog ( wx.Dialog ):
 	
 	# Virtual event handlers, overide them in your derived class
 	def listCtrlTreasure_KeyPressed( self, event ):
-		pass
-	
-	def listCtrlTreasure_ItemSelected( self, event ):
 		pass
 	
 	def radioButtonItem_Clicked( self, event ):
@@ -13729,7 +13747,7 @@ class EnemyExpGold_Dialog ( wx.Dialog ):
 		self.labelType.Wrap( -1 )
 		bSizer637.Add( self.labelType, 70, wx.ALL, 5 )
 		
-		self.labelVariance = wx.StaticText( self, wx.ID_ANY, u"% Variance:", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.labelVariance = wx.StaticText( self, wx.ID_ANY, u"Variance:", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.labelVariance.Wrap( -1 )
 		bSizer637.Add( self.labelVariance, 30, wx.ALL, 5 )
 		

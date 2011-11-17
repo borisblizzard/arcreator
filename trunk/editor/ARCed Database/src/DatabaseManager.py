@@ -1,6 +1,7 @@
 import wx
 from Core.Cache import PILCache as Cache
 from Core.RMXP import RGSS1_RPG as RPG
+from PIL import Image
 import os
 import Kernel
 from Kernel import Manager as KM
@@ -20,57 +21,30 @@ class DatabaseManager(object):
 	RTPDir = os.path.normpath(os.path.expandvars(xp_rtp))
 
 	#----------------------------------------------------------------------------------
+
 	@staticmethod
-	def DrawBitmap( staticBitmap, filename, hue=0, type='battler', rows=1, columns=1, tile=(0,0)):
+	def RenderImage( glCanvas, filename, hue=0, type='battler'):
 		"""Draws the character/battler graphic to the static bitmap.
 		
 		Arguments:
-		staticBitmap -- The wxStaticBitmap that will be drawn on
+		glCanvas -- The wxStaticBitmap that will be drawn on
 		filename -- The string path to the image to use as the source
 		hue -- An integer that represents the degree of color displacement to use
 		type -- A string to denote the type of graphic to draw ('character' or 'battler')
-		rows -- The number of rows that the image uses
-		columns -- The number of columns the image uses
-		tile -- A two element tuple that defines the displayed tile that will be drawn
 
 		Returns:
 		None
 		
 		"""
-		if DatabaseManager._ALPHA_BRUSH is None:
-			DatabaseManager._ALPHA_BRUSH = wx.Brush(wx.Color(228, 228, 228), wx.SOLID)
-		if type == 'character':
-			# TODO: Load data from cache
-			srcBmp = wx.Bitmap(DatabaseManager.RTPDir + '/Graphics/Characters/' + filename + '.png')
-			#srcBmp = Cache.Character(filename, hue)
-		elif type == 'battler':
-			# TODO: Load data from cache
-			srcBmp = wx.Bitmap(DatabaseManager.RTPDir + '/Graphics/Battlers/' + filename + '.png')
-			#srcBmp = Cache.Battler(filename, hue)
-		tile_width = srcBmp.GetWidth() / columns
-		tile_height = srcBmp.GetHeight() / rows
-		srcDC = wx.MemoryDC()
-		srcDC.Clear()
-		srcDC.SelectObjectAsSource(srcBmp)
-		cSize = [48, 64]
-		if tile_width > cSize[0]: cSize[0] = tile_width + 8
-		if tile_height > cSize[1]: cSize[1] = tile_height + 8
-		destBmp = wx.EmptyBitmap(cSize[0], cSize[1])
-		destDC = wx.MemoryDC()
-		destDC.SelectObject(destBmp)
-		destDC.SetBackground(DatabaseManager._ALPHA_BRUSH)
-		destDC.Clear()
-		x = tile_width * tile[0]
-		y = tile_height * tile[1]
-		destX = (cSize[0] - tile_width) / 2
-		destY = (cSize[1] - tile_height) / 2
-		destDC.Blit(destX, destY, tile_width, tile_height, srcDC, x, y, wx.COPY, True)
-		destDC.SelectObject(wx.NullBitmap)
-		staticBitmap.SetSize(destBmp.GetSize())
-		staticBitmap.SetBitmap(destBmp)
-		del (destDC)
-		del (srcDC)
-		del (destBmp)
+		if type == 'character': folder = '/Graphics/Characters/'
+		elif type == 'battler': folder = '/Graphics/Battlers/'
+		# TODO: Load data from cache
+		src = ''.join([DatabaseManager.RTPDir, folder, filename, '.png'])
+		img = Image.open(src).convert('RGBA')
+		#img = Cache.Character(filename, hue)
+
+		glCanvas.ChangeImage(img)
+		
 
 	#----------------------------------------------------------------------------------
 	@staticmethod
