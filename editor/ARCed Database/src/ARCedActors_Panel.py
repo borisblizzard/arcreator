@@ -87,6 +87,7 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 			sizer.Add( label, 0, wx.TOP|wx.LEFT|wx.RIGHT, 5 )
 			comboBox = wx.Choice( self.scrolledWindowEquipment, wx.ID_ANY, 
 				wx.DefaultPosition, wx.DefaultSize, [], 0 )
+			comboBox.SetDoubleBuffered(True)
 			comboBox.Bind( wx.EVT_CHOICE, 
 				Kernel.Protect(self.comboBoxEquipment_SelectionChanged) )
 			self.EquipmentBoxes.append(comboBox)
@@ -105,13 +106,12 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 	def refreshActorList( self ):
 		"""Refreshes the values in the actor wxListBox control"""
 		digits = len(Config.get('GameObjects', 'Actors'))
-		DM.FillControl(self.listBoxActors, DataActors, digits)
+		DM.FillControl(self.listBoxActors, DataActors, digits, [])
 
 	def refreshClasses( self ):
 		"""Refreshes the values in the class wxChoice control"""
 		digits = len(Config.get('GameObjects', 'Classes'))
-		DM.FillControl(self.comboBoxClass, DataClasses, digits)
-
+		DM.FillControl(self.comboBoxClass, DataClasses, digits, [])
 		
 	def refreshWeapons( self ):
 		"""Sets the weapon combobox(s) data determined by the actor's class"""
@@ -160,14 +160,18 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 
 	def refreshParameters( self ):
 		"""Refreshes the data values on the control"""
-		self.textCtrlName.ChangeValue(self.SelectedActor.name)
-		self.comboBoxClass.Select(self.SelectedActor.class_id - 1)
-		basis = str(self.SelectedActor.exp_basis)
-		inflation = str(self.SelectedActor.exp_inflation)
+		actor = self.SelectedActor
+		self.textCtrlName.ChangeValue(actor.name)
+		self.comboBoxClass.Select(actor.class_id - 1)
+		basis = str(actor.exp_basis)
+		inflation = str(actor.exp_inflation)
 		text = 'Basis: ' + basis + ', Inflation: ' + inflation
 		self.comboBoxExpCurve.SetValue(text)
-		self.spinCtrlLevel.SetRange(1, self.SelectedActor.final_level )
+		self.spinCtrlLevel.SetRange(1, actor.final_level )
 		self.refreshValues()
+		self.spinCtrlLevel.SetValue(actor.initial_level)
+		self.spinCtrlFinalLevel.SetValue(actor.final_level)
+		self.spinCtrlInitialLevel.SetRange(1, actor.final_level)
 
 	def refreshFixedEquipment( self ):
 		if DM.ARC_FORMAT:
@@ -183,10 +187,10 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 
 	def refreshGraphics( self ):
 		"""Refreshes the character and battler graphic for the actor"""
-		DM.DrawBitmap(self.bitmapCharacter, self.SelectedActor.character_name, 
-			self.SelectedActor.character_hue, 'character', 4, 4)
-		DM.DrawBitmap(self.bitmapBattler, self.SelectedActor.battler_name, 
-			self.SelectedActor.battler_hue, 'battler', 1, 1)
+		DM.RenderImage(self.glCanvasCharacter, self.SelectedActor.character_name, 
+			self.SelectedActor.character_hue, 'character')
+		DM.RenderImage(self.glCanvasBattler, self.SelectedActor.battler_name, 
+			self.SelectedActor.battler_hue, 'battler')
 
 	def refreshAll( self ):
 		"""Refreshes all the controls that contain game object values"""
@@ -291,33 +295,13 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 		dlg.Destroy()
 		self.refreshParameters()
 
-	def bitmapCharacterGraphic_Click( self, event ):
+	def glCanvasCharacter_DoubleClick( self, event ):
 		"""Opens dialog to change the character graphic"""
-		# TODO: Change how the 'path' is read
-		path = GraphicsDir + '/Characters'
-		name = self.SelectedActor.character_name
-		hue = self.SelectedActor.character_hue
-		dlg = ARCedChooseGraphic_Dialog.ARCedChooseGraphic_Dialog(self, path, name, hue)
-		if dlg.ShowModal() == wx.ID_OK:
-			index = dlg.listBoxGraphics.GetSelection()
-			self.SelectedActor.character_name = dlg.listBoxGraphics.GetString(index)
-			self.SelectedActor.character_hue = dlg.sliderHue.GetValue()
-			self.refreshGraphics()
-		dlg.Destroy()
+		pass
 
-	def bitmapBattlerGraphic_Click( self, event ):
+	def glCanvasBattler_DoubleClick( self, event ):
 		"""Opens dialog to change the battler graphic"""
-		# TODO: Change how the 'path' is read
-		path = GraphicsDir + '/Battlers'
-		name = self.SelectedActor.battler_name
-		hue = self.SelectedActor.battler_hue
-		dlg = ARCedChooseGraphic_Dialog.ARCedChooseGraphic_Dialog(self, path, name, hue)
-		if dlg.ShowModal() == wx.ID_OK:
-			index = dlg.listBoxGraphics.GetSelection()
-			self.SelectedActor.battler_name = dlg.listBoxGraphics.GetString(index)
-			self.SelectedActor.battler_hue = dlg.sliderHue.GetValue()
-			self.refreshGraphics(1)
-		dlg.Destroy()
+		pass
 
 	def comboBoxEquipment_SelectionChanged( self, event ):
 		"""Updates the weapon/armor id for the selected type for the actor"""

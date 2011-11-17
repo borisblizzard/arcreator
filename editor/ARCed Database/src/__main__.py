@@ -9,7 +9,7 @@ import Main
 Main.ConfigManager.LoadConfig()
 
 TEST_PATH = 'ARC TestProject\ARC Test Project.arcproj'
-PAGE_INDEX = 6
+PAGE_INDEX = 0
 
 class ARCedTest(wx.App):
 

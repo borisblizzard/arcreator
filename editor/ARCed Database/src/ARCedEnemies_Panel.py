@@ -60,7 +60,8 @@ class ARCedEnemies_Panel( Enemies_Panel ):
 
 	def refreshGraphic( self ):
 		"""Refreshes the battler graphic"""
-		DM.DrawBitmap(self.bitmapBattlerGraphic, 
+		return
+		DM.RenderImage(self.bitmapBattlerGraphic, 
 			self.SelectedEnemy.battler_name, self.SelectedEnemy.battler_hue)
 
 	def refreshAnimations( self ):
