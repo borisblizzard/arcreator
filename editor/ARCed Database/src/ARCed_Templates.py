@@ -92,16 +92,17 @@ class Actors_Panel ( wx.Panel ):
 		self.comboBoxExpCurve = wx.combo.BitmapComboBox( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, "", wx.CB_READONLY|wx.CLIP_CHILDREN ) 
 		sizer3.Add( self.comboBoxExpCurve, 0, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
 		
-		self.splitterGraphics = wx.SplitterWindow( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.SP_3D )
+		self.labelGraphics = wx.StaticText( self, wx.ID_ANY, u"Actor Graphics:", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.labelGraphics.Wrap( -1 )
+		sizer3.Add( self.labelGraphics, 0, wx.ALL|wx.EXPAND, 5 )
+		
+		self.splitterGraphics = wx.SplitterWindow( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.SP_BORDER )
 		self.splitterGraphics.SetSashGravity( 0.5 )
 		self.splitterGraphics.Bind( wx.EVT_IDLE, self.splitterGraphicsOnIdle )
+		self.splitterGraphics.SetMinimumPaneSize( 1 )
 		
-		self.panelCharacter = wx.Panel( self.splitterGraphics, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
+		self.panelCharacter = wx.Panel( self.splitterGraphics, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.SUNKEN_BORDER|wx.TAB_TRAVERSAL )
 		sizerCharacter = wx.BoxSizer( wx.VERTICAL )
-		
-		self.labelCharacterGraphic = wx.StaticText( self.panelCharacter, wx.ID_ANY, u"Character Graphic:", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.labelCharacterGraphic.Wrap( -1 )
-		sizerCharacter.Add( self.labelCharacterGraphic, 0, wx.ALL, 5 )
 		
 		from ImageCanvas import EditorGLPanel
 		parent, id = self.panelCharacter, wx.ID_ANY
@@ -113,12 +114,8 @@ class Actors_Panel ( wx.Panel ):
 		self.panelCharacter.SetSizer( sizerCharacter )
 		self.panelCharacter.Layout()
 		sizerCharacter.Fit( self.panelCharacter )
-		self.panelBattler = wx.Panel( self.splitterGraphics, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
+		self.panelBattler = wx.Panel( self.splitterGraphics, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.SUNKEN_BORDER|wx.TAB_TRAVERSAL )
 		sizerBattler = wx.BoxSizer( wx.VERTICAL )
-		
-		self.labelBattlerGraphic = wx.StaticText( self.panelBattler, wx.ID_ANY, u"Battler Graphic:", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.labelBattlerGraphic.Wrap( -1 )
-		sizerBattler.Add( self.labelBattlerGraphic, 0, wx.ALL, 5 )
 		
 		parent, id = self.panelBattler, wx.ID_ANY
 		self.glCanvasBattler = EditorGLPanel(parent, id, 1, 1, (0, 0,), 1)
@@ -140,8 +137,8 @@ class Actors_Panel ( wx.Panel ):
 		
 		sizerParameters = wx.BoxSizer( wx.VERTICAL )
 		
-		self.noteBookActorParameters = wx.Notebook( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, 0|wx.TAB_TRAVERSAL )
-		self.pageParameters = wx.Panel( self.noteBookActorParameters, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
+		self.noteBookActorParameters = wx.Notebook( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, 0|wx.CLIP_CHILDREN|wx.TAB_TRAVERSAL )
+		self.pageParameters = wx.Panel( self.noteBookActorParameters, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.CLIP_CHILDREN|wx.TAB_TRAVERSAL )
 		MainSizerParamter = wx.BoxSizer( wx.VERTICAL )
 		
 		sizerConrolsParameter = wx.BoxSizer( wx.HORIZONTAL )
@@ -228,7 +225,7 @@ class Actors_Panel ( wx.Panel ):
 		
 		sizerEquipment = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Initial Equipment" ), wx.VERTICAL )
 		
-		self.scrolledWindowEquipment = wx.ScrolledWindow( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.HSCROLL|wx.VSCROLL )
+		self.scrolledWindowEquipment = wx.ScrolledWindow( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.CLIP_CHILDREN|wx.VSCROLL )
 		self.scrolledWindowEquipment.SetScrollRate( 5, 5 )
 		scrolledWindowMainSizer = wx.BoxSizer( wx.VERTICAL )
 		
@@ -258,8 +255,11 @@ class Actors_Panel ( wx.Panel ):
 		self.buttonMaximum.Bind( wx.EVT_BUTTON, self.buttonMaximum_Clicked )
 		self.textCtrlName.Bind( wx.EVT_TEXT, self.textBoxName_TextChanged )
 		self.comboBoxClass.Bind( wx.EVT_CHOICE, self.comboBoxClass_SelectionChanged )
+		self.spinCtrlInitialLevel.Bind( wx.EVT_ERASE_BACKGROUND, self.OnEraseBackground )
 		self.spinCtrlInitialLevel.Bind( wx.EVT_SPINCTRL, self.spinCtrlInitialLevel_ValueChanged )
+		self.spinCtrlFinalLevel.Bind( wx.EVT_ERASE_BACKGROUND, self.OnEraseBackground )
 		self.spinCtrlFinalLevel.Bind( wx.EVT_SPINCTRL, self.spinCtrlFinalLevel_ValueChanged )
+		self.comboBoxExpCurve.Bind( wx.EVT_ERASE_BACKGROUND, self.OnEraseBackground )
 		self.comboBoxExpCurve.Bind( wx.EVT_LEFT_DOWN, self.comboBoxExperience_Click )
 		self.noteBookActorParameters.Bind( wx.EVT_NOTEBOOK_PAGE_CHANGED, self.noteBookParameters_PageChanged )
 		self.buttonQuickA.Bind( wx.EVT_BUTTON, self.buttonQuickA_Clicked )
@@ -267,8 +267,10 @@ class Actors_Panel ( wx.Panel ):
 		self.buttonQuickC.Bind( wx.EVT_BUTTON, self.buttonQuickC_Clicked )
 		self.buttonQuickD.Bind( wx.EVT_BUTTON, self.buttonQuickD_Clicked )
 		self.buttonQuickE.Bind( wx.EVT_BUTTON, self.buttonQuickE_Clicked )
+		self.spinCtrlLevel.Bind( wx.EVT_ERASE_BACKGROUND, self.OnEraseBackground )
 		self.spinCtrlLevel.Bind( wx.EVT_SPINCTRL, self.spinCtrlParamLevel_ValueChanged )
 		self.spinCtrlLevel.Bind( wx.EVT_TEXT, self.spinCtrlParamLevel_ValueChanged )
+		self.spinCtrlValue.Bind( wx.EVT_ERASE_BACKGROUND, self.OnEraseBackground )
 		self.spinCtrlValue.Bind( wx.EVT_SPINCTRL, self.spinCtrlValue_ValueChanged )
 		self.spinCtrlValue.Bind( wx.EVT_TEXT, self.spinCtrlValue_ValueChanged )
 		self.buttonAddParameter.Bind( wx.EVT_BUTTON, self.buttonAddParameter_Clicked )
@@ -293,11 +295,16 @@ class Actors_Panel ( wx.Panel ):
 	def comboBoxClass_SelectionChanged( self, event ):
 		pass
 	
+	def OnEraseBackground( self, event ):
+		pass
+	
 	def spinCtrlInitialLevel_ValueChanged( self, event ):
 		pass
 	
+	
 	def spinCtrlFinalLevel_ValueChanged( self, event ):
 		pass
+	
 	
 	def comboBoxExperience_Click( self, event ):
 		pass
@@ -320,8 +327,10 @@ class Actors_Panel ( wx.Panel ):
 	def buttonQuickE_Clicked( self, event ):
 		pass
 	
+	
 	def spinCtrlParamLevel_ValueChanged( self, event ):
 		pass
+	
 	
 	
 	def spinCtrlValue_ValueChanged( self, event ):

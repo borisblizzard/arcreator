@@ -9,9 +9,6 @@ class EditorGLPanelContextMenu(wx.Menu):
 	def __init__(self, parent, id=wx.ID_ANY):
 		"""Basic constructor for the EditorGLPanelContextMenu"""
 
-
-
-
 class EditorGLPanel(PygletGLPanel):
 
 	def __init__(self, parent, id=wx.ID_ANY, rows=1, columns=1, coord=(0,0), drawmode=1):
@@ -93,6 +90,8 @@ class EditorGLPanel(PygletGLPanel):
 
 	def draw_objects( self ):
 
+
+		gl.glClearColor(0.93, 0.93, 0.93, 1)
 		if self._image is None:
 			return
 		# Convert PIL image to pyglet image
@@ -101,7 +100,6 @@ class EditorGLPanel(PygletGLPanel):
 		data = self._image.tostring()
 		srcImage.set_data('RGBA', pitch, data)
 		# Clear the canvas and calculate the region to draw
-		gl.glClear(gl.GL_COLOR_BUFFER_BIT)
 		tile_width = srcImage.width / self._rows
 		tile_height = srcImage.height / self._columns
 		x = self._coord[0] * tile_width
