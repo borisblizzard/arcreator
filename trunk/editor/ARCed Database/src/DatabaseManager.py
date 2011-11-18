@@ -38,14 +38,14 @@ class DatabaseManager(object):
 		"""
 		if type == 'character': folder = '/Graphics/Characters/'
 		elif type == 'battler': folder = '/Graphics/Battlers/'
-		# TODO: Load data from cache
-		src = ''.join([DatabaseManager.RTPDir, folder, filename, '.png'])
-		img = Image.open(src).convert('RGBA')
-		#img = Cache.Character(filename, hue)
-
+		try:
+			# TODO: Load data from cache
+			src = ''.join([DatabaseManager.RTPDir, folder, filename, '.png'])
+			img = Image.open(src).convert('RGBA')
+			#img = Cache.Character(filename, hue)
+		except:
+			img = None
 		glCanvas.ChangeImage(img)
-		
-
 	#----------------------------------------------------------------------------------
 	@staticmethod
 	def DrawHeaderBitmap( staticBitmap, text, font=None, textcolor=None, 
@@ -153,7 +153,8 @@ class DatabaseManager(object):
 			''.join([str(i).zfill(digits), ': ',
 		    dataSource[i].name]) for i in xrange(start, len(dataSource))])
 		wxContainer.AppendItems(defaults)
-		wxContainer.SetDoubleBuffered(True)
+
+		#wxContainer.SetDoubleBuffered(True)
 	
 	#----------------------------------------------------------------------------------
 	@staticmethod
@@ -179,7 +180,7 @@ class DatabaseManager(object):
 			start = DatabaseManager.FixedIndex(start)
 		defaults.extend([dataSource[i].name for i in xrange(start, len(dataSource))])
 		wxContainer.AppendItems(defaults)
-		wxContainer.SetDoubleBuffered(True)
+		#wxContainer.SetDoubleBuffered(True)
 
 	#----------------------------------------------------------------------------------
 	@staticmethod

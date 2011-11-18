@@ -90,18 +90,21 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 			comboBox.SetDoubleBuffered(True)
 			comboBox.Bind( wx.EVT_CHOICE, 
 				Kernel.Protect(self.comboBoxEquipment_SelectionChanged) )
+			comboBox.Bind( wx.EVT_ERASE_BACKGROUND, self.OnEraseBackground )
 			self.EquipmentBoxes.append(comboBox)
 			sizer.Add( comboBox, 1, wx.RIGHT|wx.LEFT, 5 )
 			checkBox = wx.CheckBox( self.scrolledWindowEquipment, wx.ID_ANY, u"Fixed", 
 				wx.DefaultPosition, wx.DefaultSize, 0 )
 			checkBox.Bind( wx.EVT_CHECKBOX, 
 				 Kernel.Protect(self.checkBoxFixedEquipment_CheckChanged) )
+			checkBox.Bind(wx.EVT_ERASE_BACKGROUND, self.OnEraseBackground)
 			self.FixedCheckBoxes.append(checkBox)
 			sizer.Add( checkBox, 0, wx.ALL, 5 )
 			sizerEquipment.Add( sizer, 1, wx.EXPAND, 5 )
 		self.scrolledWindowEquipment.SetSizer( sizerEquipment )
 		self.scrolledWindowEquipment.Layout()
 		sizerEquipment.Fit( self.scrolledWindowEquipment )
+		self.scrolledWindowEquipment.SetDoubleBuffered(True)
 
 	def refreshActorList( self ):
 		"""Refreshes the values in the actor wxListBox control"""
@@ -117,46 +120,63 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 		"""Sets the weapon combobox(s) data determined by the actor's class"""
 		weaponSlots = len(Config.getlist('GameSetup', 'WeaponSlots'))
 		digits = len(Config.get('GameObjects', 'Weapons'))
-		data = [('(None)', 0)]
-		for id in DataClasses[self.SelectedActor.class_id].weapon_set:
-			if DataWeapons[id] == None: DataWeapons[id] = RPG.Weapon()
-			data.append((''.join([str(DataWeapons[id].id).zfill(digits), ': ', 
-				DataWeapons[id].name]), DataWeapons[id].id))
 		for i in xrange(weaponSlots):
+			items = ['(None)']
+			ids = self.GetWeaponIDs()
+			for id in ids:
+				if DataWeapons[id] == None:
+					DataWeapons[id] = RPG.Weapon()
+			items.extend(
+				   [''.join([str(DataWeapons[id].id).zfill(digits), ': ',
+					DataWeapons[id].name]) for id in ids])
 			self.EquipmentBoxes[i].Clear()
-			for d in data:
-				self.EquipmentBoxes[i].Append(d[0], d[1])
-		if DM.ARC_FORMAT:
-			# TODO: Implement
-			pass
-		else:
-			id = self.SelectedActor.weapon_id
-			for i in xrange(self.EquipmentBoxes[0].GetCount()):
-				if self.EquipmentBoxes[0].GetClientData(i) == id:
-					self.EquipmentBoxes[0].SetSelection(i)
-					break
+			self.EquipmentBoxes[i].AppendItems(items)
+			if DM.ARC_FORMAT:
+				# TODO: Implement multiple weapon equip
+				pass
+			else:
+				id, index = self.SelectedActor.weapon_id, 0
+				if id != 0:
+					try:
+						index = self.GetWeaponIDs().index(id) + 1
+					except ValueError:
+						self.SelectedActor.weapon_id = 0
+				print id, index
+				self.EquipmentBoxes[0].SetSelection(index)
 
 	def refreshArmors( self ):
-		"""Sets the armor comboboxes data determined by the actor's class"""
+		"""Sets the armor combo box data determined by the actor's class"""
 		weaponSlots = len(Config.getlist('GameSetup', 'WeaponSlots'))
 		digits = len(Config.get('GameObjects', 'Armors'))
-		kinds = [int(k) for k in Config.getlist('GameSetup', 'ArmorSlotKinds')]
-		data = []
-		for id in DataClasses[self.SelectedActor.class_id].armor_set:
-			if DataArmors[id] == None: DataArmors[id] = RPG.Armor()
-			armor = DataArmors[id]
-			data.append(("".join([str(armor.id).zfill(digits), ': ', armor.name]), armor.id))
+		kinds = {}
+		cypher = [int(k) for k in Config.getlist('GameSetup', 'ArmorSlotKinds')]
+		for k in Config.getlist('GameSetup', 'ArmorSlotKinds'):
+			key = int(k)
+			if not kinds.has_key(key):
+				values = ['(None)']
+				ids = self.GetArmorIDs(key)
+				for id in ids:
+					if DataWeapons[id] == None:
+						DataWeapons[id] = RPG.Weapon()
+				values.extend(
+				  [''.join([str(id).zfill(digits), ': ', 
+					DataArmors[id].name]) for id in ids])
+				kinds[key] = values
 		for i in xrange(weaponSlots, len(self.EquipmentBoxes)):
+			kind = cypher[i - weaponSlots]
+			items = kinds[kind]
 			self.EquipmentBoxes[i].Clear()
-			self.EquipmentBoxes[i].Append('(None)', 0)
-			for d in data:
-				if DataArmors[d[1]].kind == kinds[i - weaponSlots]:
-					self.EquipmentBoxes[i].Append(d[0], d[1])
-			exec(''.join(['id = self.SelectedActor.armor', str(i), '_id']))
-			for j in xrange(self.EquipmentBoxes[i].GetCount()):
-				if self.EquipmentBoxes[i].GetClientData(j) == id:
-					self.EquipmentBoxes[i].SetSelection(j)
-					break
+			self.EquipmentBoxes[i].AppendItems(items)
+			index = 0
+			exec(''.join(['id = self.SelectedActor.armor', str(i + 1 - weaponSlots), '_id']))
+			if id != 0:
+				try:
+					index = self.GetArmorIDs(kind).index(id) + 1
+				except ValueError:
+					# If the class changes, the index() method no longer works
+					index = 0
+					exec(''.join(['self.SelectedActor.armor', str(i + 1 - weaponSlots), '_id = 0']))
+			self.EquipmentBoxes[i].SetSelection(index)
 
 	def refreshParameters( self ):
 		"""Refreshes the data values on the control"""
@@ -242,35 +262,10 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 			self.listBoxActors, len(Config.get('GameObjects', 'Actors')))
 
 	def comboBoxClass_SelectionChanged( self, event ):
-		"""Removes any initial equipment that may be equipped if the chosen class does not permit"""
+		"""Updates the actor's class ID and refreshes the equipment allowed by the class"""
 		self.SelectedActor.class_id = DM.FixedIndex(self.comboBoxClass.GetSelection())
-
-		weaponSlots = len(Config.getlist('GameSetup', 'WeaponSlots'))
-		ids = [c.GetClientData(c.GetSelection()) for c in self.EquipmentBoxes]
-		weaponIds = ids[:weaponSlots]
-		armorIds = ids[weaponSlots:]
-		weaponSet = DataClasses[self.SelectedActor.class_id].weapon_set
-		armorSet = DataClasses[self.SelectedActor.class_id].armor_set
-
-		for i in xrange(len(weaponIds)):
-			if weaponIds[i] not in weaponSet:
-				if DM.ARC_FORMAT:
-					# TODO: Implement 
-					pass
-				else:
-					self.SelectedActor.weapon_id = 0
-		for i in xrange(len(armorIds)):
-			if armorIds[i] not in armorSet:
-				if DM.ARC_FORMAT:
-					# TODO: Implement 
-					pass
-				else:
-					if armorIds[i] is not None:
-						kind = str(DataArmors[armorIds[i]].kind + 1)
-						exec(''.join(['self.SelectedActor.armor', kind, '_id = 0']))
 		self.refreshWeapons()
 		self.refreshArmors()
-
 
 	def spinCtrlInitialLevel_ValueChanged( self, event ):
 		"""Sets the selected actor's initial level to the value of the wxSpinCtrl"""
@@ -307,18 +302,27 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 		"""Updates the weapon/armor id for the selected type for the actor"""
 		ctrlIndex = self.EquipmentBoxes.index(event.GetEventObject())
 		if DM.ARC_FORMAT:
-			# TODO: Implement
 			weaponSlots = len(Config.getlist('GameSetup', 'WeaponSlots'))
-			if ctrlIndex < weaponSlots:
+		else:
+			weaponSlots = 1
+		selection = event.GetInt()
+		if ctrlIndex == 0:
+			# Weapon Changed
+			if DM.ARC_FORMAT:
+				# TODO: Implement multiple weapon slots
 				pass
 			else:
-				pass
-		else: # RMXP
-			if ctrlIndex == 0:
-				self.SelectedActor.weapon_id = event.GetClientData()
+				if selection == 0: self.SelectedActor.weapon_id = 0
+				else: self.SelectedActor.weapon_id = self.GetWeaponIDs()[selection - 1]
+		else:
+			# Armor Changed
+			if selection == 0:
+				exec(''.join(['self.SelectedActor.armor', str(ctrlIndex), '_id = 0']))
 			else:
-				exec(''.join(['self.SelectedActor.armor', str(ctrlIndex), 
-					'_id = event.GetClientData()']))
+				kinds = Config.getlist('GameSetup', 'ArmorSlotKinds')
+				kind = int(kinds[ctrlIndex - weaponSlots])
+				exec(''.join(['self.SelectedActor.armor', str(ctrlIndex), '_id = ',
+				  str(self.GetArmorIDs(kind)[selection - 1])]))
 
 	def checkBoxFixedEquipment_CheckChanged( self, event ):
 		"""Updates the "fixed" states for the selected actor's equipment"""
@@ -352,7 +356,7 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 		self.textCtrlNotes.ChangeValue(self.SelectedActor.note)
 		
 	def GetValueMax( self, param_index ):
-		""" """
+		"""Returns the max value for the parameter type"""
 		if param_index == 0: return Config.getint('DatabaseLimits', 'ActorHP')
 		elif param_index == 1: return Config.getint('DatabaseLimits', 'ActorSP')
 		else: return Config.getint('DatabaseLimits', 'ActorParameter')
@@ -420,3 +424,16 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 	def textCtrlNotes_TextChanged( self, event ):
 		"""Updates the notes for the selected actor"""
 		self.SelectedActor.note = event.GetString()
+
+	def GetWeaponIDs( self ):
+		"""Returns the ID of the weapon found at index in the actor's weapon set"""
+		return DataClasses[self.SelectedActor.class_id].weapon_set
+	
+	def GetArmorIDs( self, kind ):
+		"""Returns all actor armor IDs that are of type 'kind'"""
+		ids = DataClasses[self.SelectedActor.class_id].armor_set
+		filtered = []
+		for id in ids:
+			if DataArmors[id].kind == kind:
+				filtered.append(id)
+		return filtered
