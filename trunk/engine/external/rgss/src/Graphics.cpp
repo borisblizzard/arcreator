@@ -19,6 +19,12 @@
 #include "RenderQueue.h"
 #include "rgss.h"
 
+#define TRY_RUN_GC \
+	if (frameCount % 200 == 0) \
+	{ \
+		rb_funcall_0(rb_mGC, "start"); \
+	}
+
 namespace rgss
 {
 	VALUE rb_mGraphics;
@@ -208,10 +214,7 @@ namespace rgss
 			april::rendersys->presentFrame();
 		}
 		frameCount++;
-		if (frameCount % 200 == 0)
-		{
-			rb_eval_string("GC.start");
-		}
+		TRY_RUN_GC;
 		_updateFpsCounter(time);
 		_waitForFrameSync();
 		return Qnil;
@@ -225,6 +228,12 @@ namespace rgss
 
 	VALUE Graphics::rb_freeze(VALUE self)
 	{
+		if (active)
+		{
+			april::rendersys->clear();
+			renderQueue->draw();
+			april::rendersys->presentFrame();
+		}
 		active = false;
 		return Qnil;
 	}
@@ -287,12 +296,9 @@ namespace rgss
 				april::rendersys->drawTexturedQuad(drawRect, srcRect, color);
 				april::rendersys->presentFrame();
 				frameCount++;
-				if (frameCount % 200 == 0)
-				{
-					rb_eval_string("GC.start");
-				}
-				_waitForFrameSync();
+				TRY_RUN_GC;
 				_updateFpsCounter(time);
+				_waitForFrameSync();
 			}
 		}
 		else if (vague >= 0) // skip if vague is not 0 or greater
@@ -317,12 +323,9 @@ namespace rgss
 				april::rendersys->drawTexturedQuad(drawRect, srcRect);
 				april::rendersys->presentFrame();
 				frameCount++;
-				if (frameCount % 200 == 0)
-				{
-					rb_eval_string("GC.start");
-				}
-				_waitForFrameSync();
+				TRY_RUN_GC;
 				_updateFpsCounter(time);
+				_waitForFrameSync();
 			}
 			delete transition;
 		}

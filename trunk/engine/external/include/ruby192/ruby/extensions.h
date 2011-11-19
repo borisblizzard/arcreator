@@ -4,6 +4,9 @@
 extern "C"
 {
 	void Init_api();
+	void Init_socket();
+	void Init_zlib();
+
 }
 
 #endif

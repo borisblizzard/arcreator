@@ -2,21 +2,17 @@
 #include <windows.h>
 #endif
 
-#ifdef _DEBUG
 #include <hltypes/hfile.h>
-#endif
 #include <hltypes/hstring.h>
 #include <zer0/zer0.h>
 
 void log(chstr path, chstr message)
 {
-#ifdef _DEBUG
 #ifdef _CONSOLE
 	printf("%s\n", message.c_str());
 #endif
 	hfile file((path + "log.txt"), hfile::APPEND);
 	file.writef("%s\n", message.c_str());
-#endif
 }
 
 #if !defined(_CONSOLE) && defined(_WIN32)

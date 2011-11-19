@@ -157,10 +157,12 @@ namespace zer0
 		{
 #ifdef _DEBUG
 			april::setLogFunction(&zer0::logLib);
-			atres::setLogFunction(&zer0::logLib);
-			aprilui::setLogFunction(&zer0::logLib);
-			xal::setLogFunction(&zer0::logLib);
 #endif
+			atres::setLogFunction(&zer0::logLib);
+#ifndef LEGACY_ONLY
+			aprilui::setLogFunction(&zer0::logLib);
+#endif
+			xal::setLogFunction(&zer0::logLib);
 			// april
 			april::init();
 			april::createRenderSystem("");
@@ -309,6 +311,8 @@ namespace zer0
 		}
 		// initializing statically linked Ruby extensions
 		Init_api();
+		Init_socket();
+		Init_zlib();
 		// additional Ruby stuff
 		rb_define_method(rb_mKernel, "print", RUBY_METHOD_FUNC(&rb_Kernel_print), -1);
 		rb_define_method(rb_mKernel, "puts", RUBY_METHOD_FUNC(&rb_Kernel_print), -1);
