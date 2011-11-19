@@ -707,7 +707,7 @@ class Skills_Panel ( wx.Panel ):
 		bSizer624.Add( self.labelMenuSE, 0, wx.ALL|wx.EXPAND, 5 )
 		
 		self.comboBoxMenuSE = wx.combo.BitmapComboBox( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, "", wx.CB_READONLY|wx.CLIP_CHILDREN ) 
-		bSizer624.Add( self.comboBoxMenuSE, 1, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
+		bSizer624.Add( self.comboBoxMenuSE, 0, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
 		
 		bSizer623.Add( bSizer624, 1, 0, 5 )
 		
@@ -745,7 +745,7 @@ class Skills_Panel ( wx.Panel ):
 		comboBoxCommonEventChoices = [ u"(None)" ]
 		self.comboBoxCommonEvent = wx.Choice( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxCommonEventChoices, 0 )
 		self.comboBoxCommonEvent.SetSelection( 0 )
-		sizer9.Add( self.comboBoxCommonEvent, 1, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
+		sizer9.Add( self.comboBoxCommonEvent, 1, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
 		
 		sizer6.Add( sizer9, 1, wx.EXPAND, 5 )
 		
@@ -13800,6 +13800,136 @@ class EnemyExpGold_Dialog ( wx.Dialog ):
 		pass
 	
 	def buttonCancel_Clicked( self, event ):
+		pass
+	
+
+###########################################################################
+## Class AudioPlayer_Panel
+###########################################################################
+
+class AudioPlayer_Panel ( wx.Panel ):
+	
+	def __init__( self, parent ):
+		wx.Panel.__init__ ( self, parent, id = wx.ID_ANY, pos = wx.DefaultPosition, size = wx.Size( 450,220 ), style = wx.TAB_TRAVERSAL )
+		
+		MainSizer = wx.BoxSizer( wx.HORIZONTAL )
+		
+		bSizer626 = wx.BoxSizer( wx.VERTICAL )
+		
+		bSizer632 = wx.BoxSizer( wx.VERTICAL )
+		
+		self.labelFileName = wx.StaticText( self, wx.ID_ANY, u"FILENAME", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.labelFileName.Wrap( -1 )
+		bSizer632.Add( self.labelFileName, 0, wx.ALL|wx.EXPAND, 5 )
+		
+		self.panelSpectrograph = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.SUNKEN_BORDER|wx.TAB_TRAVERSAL )
+		bSizer632.Add( self.panelSpectrograph, 1, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
+		
+		bSizer630 = wx.BoxSizer( wx.VERTICAL )
+		
+		self.sliderPosition = wx.Slider( self, wx.ID_ANY, 0, 0, 100, wx.DefaultPosition, wx.DefaultSize, wx.SL_HORIZONTAL|wx.SL_LABELS )
+		bSizer630.Add( self.sliderPosition, 0, wx.ALL|wx.EXPAND, 5 )
+		
+		bSizer631 = wx.BoxSizer( wx.HORIZONTAL )
+		
+		self.checkBoxRepeat = wx.CheckBox( self, wx.ID_ANY, u"Repeat", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.checkBoxRepeat.SetValue(True) 
+		bSizer631.Add( self.checkBoxRepeat, 1, wx.ALL|wx.EXPAND, 5 )
+		
+		self.buttonPlay = wx.Button( self, wx.ID_ANY, u"Play", wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer631.Add( self.buttonPlay, 0, wx.TOP|wx.BOTTOM|wx.LEFT, 5 )
+		
+		self.buttonStop = wx.Button( self, wx.ID_ANY, u"Stop", wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer631.Add( self.buttonStop, 0, wx.TOP|wx.BOTTOM|wx.RIGHT, 5 )
+		
+		bSizer630.Add( bSizer631, 0, wx.ALIGN_RIGHT|wx.EXPAND, 5 )
+		
+		bSizer632.Add( bSizer630, 0, wx.EXPAND, 5 )
+		
+		bSizer626.Add( bSizer632, 1, wx.EXPAND, 5 )
+		
+		MainSizer.Add( bSizer626, 1, wx.EXPAND, 5 )
+		
+		sizerVolume = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Volume" ), wx.VERTICAL )
+		
+		self.sliderVolume = wx.Slider( self, wx.ID_ANY, 50, 0, 100, wx.DefaultPosition, wx.DefaultSize, wx.SL_INVERSE|wx.SL_LABELS|wx.SL_VERTICAL )
+		sizerVolume.Add( self.sliderVolume, 1, wx.ALL, 5 )
+		
+		self.spinCtrlVolume = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( 48,-1 ), wx.SP_ARROW_KEYS|wx.SP_WRAP, 0, 100, 50 )
+		sizerVolume.Add( self.spinCtrlVolume, 0, wx.ALL, 5 )
+		
+		MainSizer.Add( sizerVolume, 0, wx.EXPAND|wx.ALL, 5 )
+		
+		sizerPitch = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Pitch" ), wx.VERTICAL )
+		
+		self.sliderPitch = wx.Slider( self, wx.ID_ANY, 100, 50, 150, wx.DefaultPosition, wx.DefaultSize, wx.SL_INVERSE|wx.SL_LABELS|wx.SL_VERTICAL )
+		sizerPitch.Add( self.sliderPitch, 1, wx.ALL, 5 )
+		
+		self.spinCtrlPitch = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( 48,-1 ), wx.SP_ARROW_KEYS|wx.SP_WRAP, 50, 150, 100 )
+		sizerPitch.Add( self.spinCtrlPitch, 0, wx.ALL, 5 )
+		
+		MainSizer.Add( sizerPitch, 0, wx.EXPAND|wx.ALL, 5 )
+		
+		self.SetSizer( MainSizer )
+		self.Layout()
+		
+		# Connect Events
+		self.labelFileName.Bind( wx.EVT_ERASE_BACKGROUND, self.ControlOnEraseBackground )
+		self.sliderPosition.Bind( wx.EVT_ERASE_BACKGROUND, self.ControlOnEraseBackground )
+		self.sliderPosition.Bind( wx.EVT_SCROLL, self.sliderPosition_Scrolled )
+		self.checkBoxRepeat.Bind( wx.EVT_CHECKBOX, self.checkBoxRepeat_CheckChanged )
+		self.checkBoxRepeat.Bind( wx.EVT_ERASE_BACKGROUND, self.ControlOnEraseBackground )
+		self.buttonPlay.Bind( wx.EVT_BUTTON, self.buttonPlay_Clicked )
+		self.buttonPlay.Bind( wx.EVT_ERASE_BACKGROUND, self.ControlOnEraseBackground )
+		self.buttonStop.Bind( wx.EVT_BUTTON, self.buttonStop_Clicked )
+		self.buttonStop.Bind( wx.EVT_ERASE_BACKGROUND, self.ControlOnEraseBackground )
+		self.sliderVolume.Bind( wx.EVT_ERASE_BACKGROUND, self.ControlOnEraseBackground )
+		self.sliderVolume.Bind( wx.EVT_SCROLL, self.sliderVolume_Scrolled )
+		self.spinCtrlVolume.Bind( wx.EVT_ERASE_BACKGROUND, self.ControlOnEraseBackground )
+		self.spinCtrlVolume.Bind( wx.EVT_SPINCTRL, self.spinCtrlVolume_ValueChanged )
+		self.sliderPitch.Bind( wx.EVT_ERASE_BACKGROUND, self.ControlOnEraseBackground )
+		self.sliderPitch.Bind( wx.EVT_SCROLL, self.sliderPitch_Scrolled )
+		self.spinCtrlPitch.Bind( wx.EVT_ERASE_BACKGROUND, self.ControlOnEraseBackground )
+		self.spinCtrlPitch.Bind( wx.EVT_SPINCTRL, self.spinCtrlPitch_ValueChanged )
+	
+	def __del__( self ):
+		pass
+	
+	
+	# Virtual event handlers, overide them in your derived class
+	def ControlOnEraseBackground( self, event ):
+		pass
+	
+	
+	def sliderPosition_Scrolled( self, event ):
+		pass
+	
+	def checkBoxRepeat_CheckChanged( self, event ):
+		pass
+	
+	
+	def buttonPlay_Clicked( self, event ):
+		pass
+	
+	
+	def buttonStop_Clicked( self, event ):
+		pass
+	
+	
+	
+	def sliderVolume_Scrolled( self, event ):
+		pass
+	
+	
+	def spinCtrlVolume_ValueChanged( self, event ):
+		pass
+	
+	
+	def sliderPitch_Scrolled( self, event ):
+		pass
+	
+	
+	def spinCtrlPitch_ValueChanged( self, event ):
 		pass
 	
 
