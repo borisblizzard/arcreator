@@ -72,32 +72,34 @@
 /// @param[in] name2 Name of the C++ variable that is being set.
 #define RB_GENERATE_SETTER(type1, name1, type2, name2) \
 	RB_SELF2CPP(type1, name1); \
-	name1->rb_ ## name2 = value; \
 	if (!NIL_P(value)) \
 	{ \
+		RB_CHECK_TYPE_1(value, rb_c ## type2); \
 		RB_VAR2CPP(value, type2, name2); \
 		name1->name2 = name2; \
 	} \
 	else \
 	{ \
 		name1->name2 = NULL; \
-	}
+	} \
+	name1->rb_ ## name2 = value;
 /// @brief Generates an entire initializer for Ruby in C++.
 /// @param[in] type1 Type of the C++ variable.
 /// @param[in] name1 Name of the C++ variable.
 /// @param[in] type2 Type of the C++ variable that is being set.
 /// @param[in] name2 Name of the C++ variable that is being set.
 #define CPP_GENERATE_INITIALIZER(type, name) \
-	this->rb_ ## name = rb_ ## name; \
 	if (!NIL_P(rb_ ## name)) \
 	{ \
+		RB_CHECK_TYPE_1(rb_ ## name, rb_c ## type); \
 		RB_VAR2CPP(rb_ ## name, type, name); \
 		this->name = name; \
 	} \
 	else \
 	{ \
 		this->name = NULL; \
-	}
+	} \
+	this->rb_ ## name = rb_ ## name;
 
 /// @brief Throws a cloning error.
 /// @param[in] value Value that can't be cloned.
@@ -137,8 +139,8 @@
 	{ \
 		VALUE varClass = rb_funcall(rb_class_of(var), rb_intern("name"), 0, NULL); \
 		VALUE class1 = rb_funcall(type1, rb_intern("name"), 0, NULL); \
-		hstr message = hsprintf("cannot convert %s into %s", StringValuePtr(varClass), \
-			StringValuePtr(class1)); \
+		hstr message = hsprintf("cannot convert %s into %s", StringValueCStr(varClass), \
+			StringValueCStr(class1)); \
 		rb_raise(rb_eTypeError, message.c_str()); \
 	}
 /// @brief Automatically does a type check (and throw an exception if failed) with 2 acceptable types.
@@ -151,8 +153,8 @@
 		VALUE varClass = rb_funcall(rb_class_of(var), rb_intern("name"), 0, NULL); \
 		VALUE class1 = rb_funcall(type1, rb_intern("name"), 0, NULL); \
 		VALUE class2 = rb_funcall(type2, rb_intern("name"), 0, NULL); \
-		hstr message = hsprintf("cannot convert %s into %s or %s", StringValuePtr(varClass), \
-			StringValuePtr(class1), StringValuePtr(class2)); \
+		hstr message = hsprintf("cannot convert %s into %s or %s", StringValueCStr(varClass), \
+			StringValueCStr(class1), StringValueCStr(class2)); \
 		rb_raise(rb_eTypeError, message.c_str()); \
 	}
 /// @brief Automatically does a type check (and throw an exception if failed) with 3 acceptable types.
@@ -168,8 +170,8 @@
 		VALUE class1 = rb_funcall(type1, rb_intern("name"), 0, NULL); \
 		VALUE class2 = rb_funcall(type2, rb_intern("name"), 0, NULL); \
 		VALUE class3 = rb_funcall(type3, rb_intern("name"), 0, NULL); \
-		hstr message = hsprintf("cannot convert %s into %s, %s or %s", StringValuePtr(varClass), \
-			StringValuePtr(class1), StringValuePtr(class2), StringValuePtr(class3)); \
+		hstr message = hsprintf("cannot convert %s into %s, %s or %s", StringValueCStr(varClass), \
+			StringValueCStr(class1), StringValueCStr(class2), StringValueCStr(class3)); \
 		rb_raise(rb_eTypeError, message.c_str()); \
 	}
 /// @brief Automatically does a type check (and throw an exception if failed) with 4 acceptable types.
@@ -187,8 +189,8 @@
 		VALUE class2 = rb_funcall(type2, rb_intern("name"), 0, NULL); \
 		VALUE class3 = rb_funcall(type3, rb_intern("name"), 0, NULL); \
 		VALUE class4 = rb_funcall(type4, rb_intern("name"), 0, NULL); \
-		hstr message = hsprintf("cannot convert %s into %s, %s, %s or %s", StringValuePtr(varClass), \
-			StringValuePtr(class1), StringValuePtr(class2), StringValuePtr(class3), StringValuePtr(class4)); \
+		hstr message = hsprintf("cannot convert %s into %s, %s, %s or %s", StringValueCStr(varClass), \
+			StringValueCStr(class1), StringValueCStr(class2), StringValueCStr(class3), StringValueCStr(class4)); \
 		rb_raise(rb_eTypeError, message.c_str()); \
 	}
 

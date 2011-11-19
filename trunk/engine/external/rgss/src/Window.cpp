@@ -599,7 +599,6 @@ namespace rgss
 	{
 		SourceRenderer::rb_setVisible(self, value);
 		RB_SELF2CPP(Window, window);
-		RB_CHECK_DISPOSED_1(window);
 		Sprite::rb_setVisible(window->rb_contentsSprite, value);
 		Sprite::rb_setVisible(window->rb_cursorSprite, value);
 		Sprite::rb_setVisible(window->rb_pauseSprite, value);
@@ -614,7 +613,6 @@ namespace rgss
 	{
 		SourceRenderer::rb_setBitmap(self, value);
 		RB_SELF2CPP(Window, window);
-		RB_CHECK_DISPOSED_1(window);
 		Sprite::rb_setBitmap(window->rb_contentsSprite, value);
 		return value;
 	}

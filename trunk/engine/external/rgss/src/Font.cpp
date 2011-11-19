@@ -99,7 +99,7 @@ namespace rgss
 		VALUE name, size;
 		rb_scan_args(argc, argv, "02", &name, &size);
 		RB_SELF2CPP(Font, font);
-		font->name = (!NIL_P(name) ? StringValuePtr(name) : defaultName);
+		font->name = (!NIL_P(name) ? StringValueCStr(name) : defaultName);
 		font->size = (!NIL_P(name) ? NUM2INT(size) : defaultSize);
 		font->bold = defaultBold;
 		font->italic = defaultItalic;
@@ -140,7 +140,8 @@ namespace rgss
 	VALUE Font::rb_setName(VALUE self, VALUE value)
 	{
 		RB_SELF2CPP(Font, font);
-		font->name = StringValuePtr(value);
+		RB_CHECK_TYPE_1(value, rb_cString);
+		font->name = StringValueCStr(value);
 		return value;
 	}
 
@@ -166,7 +167,7 @@ namespace rgss
 	VALUE Font::rb_setBold(VALUE self, VALUE value)
 	{
 		RB_SELF2CPP(Font, font);
-		font->bold = RTEST(value);
+		font->bold = (bool)RTEST(value);
 		return value;
 	}
 
@@ -179,7 +180,7 @@ namespace rgss
 	VALUE Font::rb_setItalic(VALUE self, VALUE value)
 	{
 		RB_SELF2CPP(Font, font);
-		font->italic = RTEST(value);
+		font->italic = (bool)RTEST(value);
 		return value;
 	}
 
@@ -206,7 +207,8 @@ namespace rgss
 
 	VALUE Font::rb_setDefaultName(VALUE classe, VALUE value)
 	{
-		defaultName = StringValuePtr(value);
+		RB_CHECK_TYPE_1(value, rb_cString);
+		defaultName = StringValueCStr(value);
 		return value;
 	}
 
@@ -228,7 +230,7 @@ namespace rgss
 
 	VALUE Font::rb_setDefaultBold(VALUE classe, VALUE value)
 	{
-		defaultBold = RTEST(value);
+		defaultBold = (bool)RTEST(value);
 		return value;
 	}
 
@@ -239,7 +241,7 @@ namespace rgss
 
 	VALUE Font::rb_setDefaultItalic(VALUE classe, VALUE value)
 	{
-		defaultItalic = RTEST(value);
+		defaultItalic = (bool)RTEST(value);
 		return value;
 	}
 	
@@ -253,6 +255,7 @@ namespace rgss
 		rb_defaultColor = value;
 		if (!NIL_P(value))
 		{
+			RB_CHECK_TYPE_1(value, rb_cColor);
 			RB_VAR2CPP(value, Color, color);
 			defaultColor = color;
 		}

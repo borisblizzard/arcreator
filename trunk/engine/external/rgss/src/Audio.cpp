@@ -94,7 +94,8 @@ namespace rgss
 	{
 		VALUE arg1, arg2, arg3;
 		rb_scan_args(argc, argv, "12", &arg1, &arg2, &arg3);
-		hstr filename = StringValuePtr(arg1);
+		RB_CHECK_TYPE_1(arg1, rb_cString);
+		hstr filename = StringValueCStr(arg1);
 		int volume = hclamp((NIL_P(arg2) ? 100 : NUM2INT(arg2)), 0, 100);
 		int pitch = hclamp((NIL_P(arg3) ? 100 : NUM2INT(arg3)), 50, 150); // unsupported now
 		try
@@ -163,7 +164,8 @@ namespace rgss
 	{
 		VALUE arg1, arg2, arg3;
 		rb_scan_args(argc, argv, "12", &arg1, &arg2, &arg3);
-		hstr filename = StringValuePtr(arg1);
+		RB_CHECK_TYPE_1(arg1, rb_cString);
+		hstr filename = StringValueCStr(arg1);
 		int volume = hclamp((NIL_P(arg2) ? 100 : NUM2INT(arg2)), 0, 100);
 		int pitch = hclamp((NIL_P(arg3) ? 100 : NUM2INT(arg3)), 50, 150); // unsupported now
 		try
@@ -232,7 +234,8 @@ namespace rgss
 	{
 		VALUE arg1, arg2, arg3;
 		rb_scan_args(argc, argv, "12", &arg1, &arg2, &arg3);
-		hstr filename = StringValuePtr(arg1);
+		RB_CHECK_TYPE_1(arg1, rb_cString);
+		hstr filename = StringValueCStr(arg1);
 		int volume = hclamp((NIL_P(arg2) ? 100 : NUM2INT(arg2)), 0, 100);
 		int pitch = hclamp((NIL_P(arg3) ? 100 : NUM2INT(arg3)), 50, 150); // unsupported now
 		try
@@ -301,7 +304,8 @@ namespace rgss
 	{
 		VALUE arg1, arg2, arg3;
 		rb_scan_args(argc, argv, "12", &arg1, &arg2, &arg3);
-		hstr filename = StringValuePtr(arg1);
+		RB_CHECK_TYPE_1(arg1, rb_cString);
+		hstr filename = StringValueCStr(arg1);
 		int volume = hclamp((NIL_P(arg2) ? 100 : NUM2INT(arg2)), 0, 100);
 		int pitch = hclamp((NIL_P(arg3) ? 100 : NUM2INT(arg3)), 50, 150); // unsupported now
 		// first remove inished players
