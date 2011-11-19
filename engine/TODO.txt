@@ -11,3 +11,6 @@
 - add script files as internally embedded resources
 - implement SHA-1 in C++
 - recompile Ruby with zlib support
+- implement something like "getSystemPath" in ARC module
+- check input problem when being at the top/bottom of a menu (problem with trigger?/repeat?)
+- check input problem when holding two directional buttons pressed at the same time (problem with repeat?)

@@ -39,6 +39,14 @@ namespace rgss
 		harray<Renderable*> renderables;
 		/// @brief Contains all collection objects.
 		harray<Renderable*> collections;
+		/// @brief Contains all renderable objects that should be added at the next render.
+		harray<Renderable*> addedRenderables;
+		/// @brief Contains all collection objects that should be added at the next render.
+		harray<Renderable*> addedCollections;
+		/// @brief Contains all renderable objects that should be removed at the next render.
+		harray<Renderable*> removedRenderables;
+		/// @brief Contains all collection objects that should be removed at the next render.
+		harray<Renderable*> removedCollections;
 		/// @brief Needs-Sorting flag.
 		bool needsSorting;
 

@@ -3,6 +3,7 @@
 #include "CodeSnippets.h"
 #include "Renderable.h"
 #include "RenderQueue.h"
+#include "rgss.h"
 
 namespace rgss
 {
@@ -12,13 +13,10 @@ namespace rgss
 
 	RenderQueue::~RenderQueue()
 	{
-		while (this->collections.size() > 0)
+		harray<Renderable*> renderables = this->collections + this->addedCollections + this->renderables + this->addedRenderables;
+		foreach (Renderable*, it, renderables)
 		{
-			this->collections[0]->dispose();
-		}
-		while (this->renderables.size() > 0)
-		{
-			this->renderables[0]->dispose();
+			(*it)->dispose();
 		}
 	}
 
@@ -29,16 +27,36 @@ namespace rgss
 
 	void RenderQueue::draw()
 	{
+		if (this->addedCollections.size() > 0)
+		{
+			this->collections += this->addedCollections;
+			this->addedCollections.clear();
+		}
+		if (this->removedCollections.size() > 0)
+		{
+			this->collections -= this->removedCollections;
+			this->removedCollections.clear();
+		}
 		foreach (Renderable*, it, this->collections)
 		{
 			(*it)->update();
+		}
+		if (this->addedRenderables.size() > 0)
+		{
+			this->renderables += this->addedRenderables;
+			this->addedRenderables.clear();
+			this->needsSorting = true;
+		}
+		if (this->removedRenderables.size() > 0)
+		{
+			this->renderables -= this->removedRenderables;
+			this->removedRenderables.clear();
 		}
 		if (this->needsSorting)
 		{
 			this->renderables.sort(&compareFunction);
 			this->needsSorting = false;
 		}
-		//printf("    %d\n", this->renderables.size());
 		foreach (Renderable*, it, this->renderables)
 		{
 			(*it)->draw();
@@ -51,21 +69,11 @@ namespace rgss
 		// objects, but it makes the high level code simpler and a lot more consistent
 		if (renderable->getType() == Renderable::TYPE_TILEMAP)
 		{
-			this->collections += renderable;
+			this->addedCollections += renderable;
 			return;
 		}
 		// adding the renderable into the queue
-		for_iter (i, 0, this->renderables.size())
-		{
-			if (renderable->getZ() < this->renderables[i]->getZ() ||
-				renderable->getZ() == this->renderables[i]->getZ() &&
-				renderable->getCounterId() == this->renderables[i]->getCounterId())
-			{
-				this->renderables.insert_at(i, renderable);
-				return;
-			}
-		}
-		this->renderables += renderable;
+		this->addedRenderables += renderable;
 	}
 
 	void RenderQueue::remove(Renderable* renderable)
@@ -74,11 +82,11 @@ namespace rgss
 		// objects, but it makes the high level code simpler and a lot more consistent
 		if (renderable->getType() == Renderable::TYPE_TILEMAP)
 		{
-			this->collections -= renderable;
+			this->removedCollections += renderable;
 			return;
 		}
 		// removing the renderable from the queue
-		this->renderables -= renderable;
+		this->removedRenderables += renderable;
 	}
 
 	void RenderQueue::update(Renderable* renderable)
