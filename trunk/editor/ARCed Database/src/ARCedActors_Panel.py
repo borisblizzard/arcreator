@@ -42,6 +42,10 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 		self.spinCtrlInitialLevel.SetRange(1, max)
 		self.spinCtrlFinalLevel.SetRange(1, max)
 		self.spinCtrlLevel.SetRange(1, max)
+		self.glCanvasCharacter.canvas.Bind( wx.EVT_LEFT_DCLICK, 
+			Kernel.Protect(self.glCanvasCharacter_DoubleClick))
+		self.glCanvasBattler.canvas.Bind( wx.EVT_LEFT_DCLICK, 
+			Kernel.Protect(self.glCanvasBattler_DoubleClick))
 		# Initialize the selected actor attribute
 		if actorIndex >= len(DataActors):
 			actorIndex = 0
@@ -141,7 +145,6 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 						index = self.GetWeaponIDs().index(id) + 1
 					except ValueError:
 						self.SelectedActor.weapon_id = 0
-				print id, index
 				self.EquipmentBoxes[0].SetSelection(index)
 
 	def refreshArmors( self ):
@@ -245,7 +248,6 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 			for actor in DataActors:
 				if actor == None:
 					actor = RPG.Actor()
-				print index + 1, maxlevel + 1
 				actor.parameters.resize(index + 1, maxlevel + 1)
 				for j in xrange(1, maxlevel):
 					actor.parameters[index, j] = 50 + 5 * j
@@ -292,11 +294,13 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 
 	def glCanvasCharacter_DoubleClick( self, event ):
 		"""Opens dialog to change the character graphic"""
-		pass
+		DM.StartGraphicSelection(self.glCanvasCharacter, 'Graphics/Characters/',
+			self.SelectedActor.character_name, self.SelectedActor.character_hue)
 
 	def glCanvasBattler_DoubleClick( self, event ):
 		"""Opens dialog to change the battler graphic"""
-		pass
+		DM.StartGraphicSelection(self.glCanvasBattler, 'Graphics/Battler/',
+			self.SelectedActor.battler_name, self.SelectedActor.battler_hue)
 
 	def comboBoxEquipment_SelectionChanged( self, event ):
 		"""Updates the weapon/armor id for the selected type for the actor"""

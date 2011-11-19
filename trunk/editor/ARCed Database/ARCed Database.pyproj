@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{acb5e8a5-ec45-446e-b426-ad15be86400a}</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>src\__main__.py</StartupFile>
+    <StartupFile>src\ARCedAudioPlayer_Panel.py</StartupFile>
     <SearchPath>C:\Users\Eric\Desktop\ARC\editor\ARCed\src\Core\;C:\Users\Eric\Desktop\ARC\editor\ARCed\src\;C:\Users\Eric\Desktop\ARC\editor\ARCed Database\src\;C:\Users\Eric\Desktop\ARC\editor\ARCed Database\src</SearchPath>
     <WorkingDirectory>
     </WorkingDirectory>
@@ -39,6 +39,7 @@
     <Compile Include="src\ARCedAnimationTiming_Dialog.py" />
     <Compile Include="src\ARCedAnimationTweening_Dialog.py" />
     <Compile Include="src\ARCedArmors_Panel.py" />
+    <Compile Include="src\ARCedAudioPlayer_Panel.py" />
     <Compile Include="src\ARCedBattleAnimation_Dialog.py" />
     <Compile Include="src\ARCedBattleProcessing_Dialog.py" />
     <Compile Include="src\ARCedBattleTestActor_Panel.py" />

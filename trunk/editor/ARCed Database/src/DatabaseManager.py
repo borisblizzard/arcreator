@@ -1,7 +1,7 @@
 import wx
 from Core.Cache import PILCache as Cache
 from Core.RMXP import RGSS1_RPG as RPG
-from PIL import Image
+import PIL
 import os
 import Kernel
 from Kernel import Manager as KM
@@ -14,11 +14,18 @@ class DatabaseManager(object):
 	GRADIENT_LEFT = wx.Color(100, 100, 100)
 	GRADIENT_RIGHT = wx.Color(60, 60, 60)
 
-	_ALPHA_BRUSH = None
+	#----------------------------------------------------------------------------------
 
-	# TODO: Remove this. Use RTP path from Kernel via the Cache
-	xp_rtp = "%COMMONPROGRAMFILES%/Enterbrain/RGSS/Standard"
-	RTPDir = os.path.normpath(os.path.expandvars(xp_rtp))
+	@staticmethod
+	def StartGraphicSelection(glcanvas, folder, current=None, hue=None):
+
+		from ARCedChooseGraphic_Dialog import ARCedChooseGraphic_Dialog 
+		dlg = ARCedChooseGraphic_Dialog(glcanvas, folder, current, hue)
+
+		if dlg.ShowModal() == wx.ID_OK:
+			
+			print 'OK'
+			pass
 
 	#----------------------------------------------------------------------------------
 
@@ -36,13 +43,12 @@ class DatabaseManager(object):
 		None
 		
 		"""
-		if type == 'character': folder = '/Graphics/Characters/'
-		elif type == 'battler': folder = '/Graphics/Battlers/'
+		#if type == 'character': folder = '/Graphics/Characters/'
+		#elif type == 'battler': folder = '/Graphics/Battlers/'
+
 		try:
-			# TODO: Load data from cache
-			src = ''.join([DatabaseManager.RTPDir, folder, filename, '.png'])
-			img = Image.open(src).convert('RGBA')
-			#img = Cache.Character(filename, hue)
+			if type == 'character': img = Cache.Character(filename, hue)
+			elif type == 'battler': img = Cache.Battler(filename, hue)
 		except:
 			img = None
 		glCanvas.ChangeImage(img)
@@ -312,7 +318,7 @@ class DatabaseManager(object):
 
 	#----------------------------------------------------------------------------------
 	@staticmethod
-	def DrawButtonIcon(button, filename, from_resource):
+	def DrawButtonIcon( button, filename, from_resource ):
 		"""Draws a bitmap on a button from an embedded resource or file
 
 		Arguments:
@@ -328,12 +334,15 @@ class DatabaseManager(object):
 			icons = KM.get_component('IconManager').object
 			bitmap = icons.getBitmap(filename)
 		else:
-			# TODO: Use Cache instead
-			path = ''.join([DatabaseManager.RTPDir, '/Graphics/Icons/', filename, '.png'])
-			bitmap = wx.Bitmap(path)
-			#bitmap = Cache.Icon(filename)
+			pilImage = Cache.Icon(filename)
+			if pilImage is not None:
+				image = wx.EmptyImage(pilImage.size[0], pilImage.size[1])
+				image.SetData(pilImage.convert("RGB").tostring())
+				image.SetAlphaData(pilImage.convert("RGBA").tostring()[3::4])
+				bitmap = wx.BitmapFromImage(image)
+			else:
+				bitmap = wx.EmptyBitmap(1, 1)
 		button.SetBitmapLabel(bitmap)
-
 	#----------------------------------------------------------------------------------
 	@staticmethod
 	def TestSFX( audioFile ):
