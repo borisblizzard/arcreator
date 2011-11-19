@@ -4,6 +4,7 @@
 #include "Plane.h"
 #include "Renderable.h"
 #include "RenderQueue.h"
+#include "RGSSError.h"
 #include "Sprite.h"
 #include "Tilemap.h"
 #include "Viewport.h"
