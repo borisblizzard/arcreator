@@ -13,6 +13,7 @@
 #include "ApplicationExitException.h"
 #include "Bitmap.h"
 #include "CodeSnippets.h"
+#include "Constants.h"
 #include "Graphics.h"
 #include "Renderable.h"
 #include "RenderQueue.h"
@@ -120,7 +121,7 @@ namespace rgss
 		height = window->getHeight();
 		active = true;
 		frameCount = 0;
-		frameRate = 40;
+		frameRate = (rgss::parameters.has_key(CFG_FRAME_RATE) ? (int)rgss::parameters[CFG_FRAME_RATE] : 40);
 		running = true;
 		focused = true;
 		renderQueue = new RenderQueue();

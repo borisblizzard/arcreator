@@ -88,11 +88,11 @@
     <ClCompile Include="src\RenderQueue.cpp">
       <Filter>Source Files\System</Filter>
     </ClCompile>
-    <ClCompile Include="src\Zoomable.cpp">
-      <Filter>Source Files\Support</Filter>
-    </ClCompile>
     <ClCompile Include="src\ApplicationExitException.cpp">
       <Filter>Source Files\System</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Blendable.cpp">
+      <Filter>Source Files\Support</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -162,14 +162,14 @@
     <ClInclude Include="include\rgss\RenderQueue.h">
       <Filter>Header Files\System</Filter>
     </ClInclude>
-    <ClInclude Include="include\rgss\Zoomable.h">
-      <Filter>Header Files\Support</Filter>
-    </ClInclude>
     <ClInclude Include="include\rgss\BlendType.h">
       <Filter>Header Files\Support</Filter>
     </ClInclude>
     <ClInclude Include="include\rgss\ApplicationExitException.h">
       <Filter>Header Files\System</Filter>
+    </ClInclude>
+    <ClInclude Include="include\rgss\Blendable.h">
+      <Filter>Header Files\Support</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

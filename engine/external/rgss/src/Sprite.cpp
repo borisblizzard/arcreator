@@ -26,7 +26,7 @@ namespace rgss
 	void Sprite::draw()
 	{
 		if (this->bitmap == NULL || this->bitmap->isDisposed() || this->opacity == 0 || this->srcRect->width <= 0 ||
-			this->srcRect->height <= 0 || this->zoomX == 0.0f || this->zoomY == 0.0f)
+			this->srcRect->height <= 0 || this->zoom.x == 0.0f || this->zoom.y == 0.0f)
 		{
 			return;
 		}
@@ -40,9 +40,9 @@ namespace rgss
 		{
 			april::rendersys->rotate(this->angle);
 		}
-		if (this->zoomX != 1.0f || this->zoomY != 1.0f)
+		if (this->zoom.x != 1.0f || this->zoom.y != 1.0f)
 		{
-			april::rendersys->scale(this->zoomX, this->zoomY, 1.0f);
+			april::rendersys->scale(this->zoom.x, this->zoom.y, 1.0f);
 		}
 		this->_render();
 		april::rendersys->setProjectionMatrix(projectionMatrix);
@@ -124,6 +124,7 @@ namespace rgss
 		rb_define_method(rb_cSprite, "dispose", RUBY_METHOD_FUNC(&Sprite::rb_dispose), 0);
 		rb_define_method(rb_cSprite, "_arc_dump", RUBY_METHOD_FUNC(&Sprite::rb_arcDump), 0);
 		// getters and setters (Renderable)
+		rb_define_method(rb_cSprite, "disposed?", RUBY_METHOD_FUNC(&Sprite::rb_isDisposed), 0);
 		rb_define_method(rb_cSprite, "visible", RUBY_METHOD_FUNC(&Sprite::rb_getVisible), 0);
 		rb_define_method(rb_cSprite, "visible=", RUBY_METHOD_FUNC(&Sprite::rb_setVisible), 1);
 		rb_define_method(rb_cSprite, "z", RUBY_METHOD_FUNC(&Sprite::rb_getZ), 0);
@@ -132,7 +133,10 @@ namespace rgss
 		rb_define_method(rb_cSprite, "ox=", RUBY_METHOD_FUNC(&Sprite::rb_setOX), 1);
 		rb_define_method(rb_cSprite, "oy", RUBY_METHOD_FUNC(&Sprite::rb_getOY), 0);
 		rb_define_method(rb_cSprite, "oy=", RUBY_METHOD_FUNC(&Sprite::rb_setOY), 1);
-		rb_define_method(rb_cSprite, "disposed?", RUBY_METHOD_FUNC(&Sprite::rb_isDisposed), 0);
+		rb_define_method(rb_cSprite, "zoom_x", RUBY_METHOD_FUNC(&Sprite::rb_getZoomX), 0);
+		rb_define_method(rb_cSprite, "zoom_x=", RUBY_METHOD_FUNC(&Sprite::rb_setZoomX), 1);
+		rb_define_method(rb_cSprite, "zoom_y", RUBY_METHOD_FUNC(&Sprite::rb_getZoomY), 0);
+		rb_define_method(rb_cSprite, "zoom_y=", RUBY_METHOD_FUNC(&Sprite::rb_setZoomY), 1);
 		rb_define_method(rb_cSprite, "color", RUBY_METHOD_FUNC(&Sprite::rb_getColor), 0);
 		rb_define_method(rb_cSprite, "color=", RUBY_METHOD_FUNC(&Sprite::rb_setColor), 1);
 		rb_define_method(rb_cSprite, "tone", RUBY_METHOD_FUNC(&Sprite::rb_getTone), 0);
@@ -147,11 +151,7 @@ namespace rgss
 		rb_define_method(rb_cSprite, "opacity=", RUBY_METHOD_FUNC(&Sprite::rb_setOpacity), 1);
 		rb_define_method(rb_cSprite, "bitmap", RUBY_METHOD_FUNC(&Sprite::rb_getBitmap), 0);
 		rb_define_method(rb_cSprite, "bitmap=", RUBY_METHOD_FUNC(&Sprite::rb_setBitmap), 1);
-		// getters and setters (Zoomable)
-		rb_define_method(rb_cSprite, "zoom_x", RUBY_METHOD_FUNC(&Sprite::rb_getZoomX), 0);
-		rb_define_method(rb_cSprite, "zoom_x=", RUBY_METHOD_FUNC(&Sprite::rb_setZoomX), 1);
-		rb_define_method(rb_cSprite, "zoom_y", RUBY_METHOD_FUNC(&Sprite::rb_getZoomY), 0);
-		rb_define_method(rb_cSprite, "zoom_y=", RUBY_METHOD_FUNC(&Sprite::rb_setZoomY), 1);
+		// getters and setters (Blendable)
 		rb_define_method(rb_cSprite, "blend_type", RUBY_METHOD_FUNC(&Sprite::rb_getBlendType), 0);
 		rb_define_method(rb_cSprite, "blend_type=", RUBY_METHOD_FUNC(&Sprite::rb_setBlendType), 1);
 		// getters and setters
@@ -171,14 +171,14 @@ namespace rgss
 	void Sprite::gc_mark(Sprite* sprite)
 	{
 		rb_gc_mark(sprite->rb_srcRect);
-		Zoomable::gc_mark(sprite);
+		Blendable::gc_mark(sprite);
 	}
 
 	void Sprite::gc_free(Sprite* sprite)
 	{
 		sprite->rb_srcRect = Qnil;
 		sprite->srcRect = NULL;
-		Zoomable::gc_free(sprite);
+		Blendable::gc_free(sprite);
 	}
 
 	VALUE Sprite::rb_new(VALUE classe)
@@ -196,7 +196,7 @@ namespace rgss
 		RB_SELF2CPP(Sprite, sprite);
 		VALUE viewport;
 		rb_scan_args(argc, argv, "01", &viewport);
-		sprite->initializeZoomable(viewport);
+		sprite->initializeBlendable(viewport);
 		Sprite::rb_setSrcRect(self, Rect::create(INT2FIX(0), INT2FIX(0), INT2FIX(0), INT2FIX(0)));
 		return self;
 	}
@@ -228,7 +228,7 @@ namespace rgss
 
 	VALUE Sprite::rb_setBitmap(VALUE self, VALUE value)
 	{
-		Zoomable::rb_setBitmap(self, value);
+		Blendable::rb_setBitmap(self, value);
 		RB_SELF2CPP(Sprite, sprite);
 		RB_CHECK_DISPOSED_1(sprite);
 		if (sprite->bitmap != NULL && !sprite->bitmap->isDisposed())

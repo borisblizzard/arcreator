@@ -1145,7 +1145,7 @@ class Game_System
     # remove all nil values from killed
     @killed.compact!
     # iterate through all events on the map
-    $game_map.events.each_value {|event|
+    $game_map.events.values.each {|event|
         # if event is Map_Enemy
         if event.is_a?(Map_Enemy)
           # start removing the enemy if he's dead
@@ -1524,7 +1524,7 @@ class Game_Map
     # initialize
     result = []
     # add all enemies or everything else to result
-    @events.each_value {|e| result.push(e) if flag ^ e.is_a?(Map_Enemy)}
+    @events.values.each {|e| result.push(e) if flag ^ e.is_a?(Map_Enemy)}
     # return result
     return result
   end
@@ -6161,7 +6161,7 @@ class Mini_Map < Sprite
           names.push(actor.character_name)
         end}
     # iterate through all events
-    $game_map.events.each_value {|event|
+    $game_map.events.values.each {|event|
         # skip if defined to skip
         next if event.name.clone.gsub!('\map') {''}
         # if should be displayed

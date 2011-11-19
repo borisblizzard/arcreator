@@ -139,7 +139,7 @@
     <ClCompile Include="src\Tone.cpp" />
     <ClCompile Include="src\Viewport.cpp" />
     <ClCompile Include="src\Window.cpp" />
-    <ClCompile Include="src\Zoomable.cpp" />
+    <ClCompile Include="src\Blendable.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\rgss\ApplicationExitException.h" />
@@ -164,7 +164,7 @@
     <ClInclude Include="include\rgss\Window.h" />
     <ClInclude Include="include\rgss\rgss.h" />
     <ClInclude Include="include\rgss\rgssExport.h" />
-    <ClInclude Include="include\rgss\Zoomable.h" />
+    <ClInclude Include="include\rgss\Blendable.h" />
     <ClInclude Include="src\CodeSnippets.h" />
     <ClInclude Include="src\Constants.h" />
   </ItemGroup>

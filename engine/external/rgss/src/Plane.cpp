@@ -24,15 +24,15 @@ namespace rgss
 	void Plane::draw()
 	{
 		if (this->bitmap == NULL || this->bitmap->isDisposed() || this->opacity == 0 ||
-			this->zoomX == 0.0f || this->zoomY == 0.0f)
+			this->zoom.x == 0.0f || this->zoom.y == 0.0f)
 		{
 			return;
 		}
 		gmat4 viewMatrix = april::rendersys->getModelviewMatrix();
 		gmat4 projectionMatrix = april::rendersys->getProjectionMatrix();
-		if (this->zoomX != 1.0f || this->zoomY != 1.0f)
+		if (this->zoom.x != 1.0f || this->zoom.y != 1.0f)
 		{
-			april::rendersys->scale(this->zoomX, this->zoomY, 1.0f);
+			april::rendersys->scale(this->zoom.x, this->zoom.y, 1.0f);
 		}
 		this->_render();
 		april::rendersys->setProjectionMatrix(projectionMatrix);
@@ -53,13 +53,16 @@ namespace rgss
 		case Negative:
 			april::rendersys->setBlendMode(april::SUBTRACT);
 			break;
+		default:
+			april::rendersys->setBlendMode(april::DEFAULT);
+			break;
 		}
 		grect drawRect = this->_getRenderRect().toGRect();
 		float w = (float)this->bitmap->getWidth();
 		float h = (float)this->bitmap->getHeight();
 		grect srcRect;
-		srcRect.x = -this->ox / this->zoomX / w;
-		srcRect.y = -this->oy / this->zoomY / h;
+		srcRect.x = -this->ox / (this->zoom.x * w);
+		srcRect.y = -this->oy / (this->zoom.y * h);
 		srcRect.w = drawRect.w / w;
 		srcRect.h = drawRect.h / h;
 		april::rendersys->drawTexturedQuad(drawRect, srcRect,
@@ -114,6 +117,10 @@ namespace rgss
 		rb_define_method(rb_cPlane, "ox=", RUBY_METHOD_FUNC(&Plane::rb_setOX), 1);
 		rb_define_method(rb_cPlane, "oy", RUBY_METHOD_FUNC(&Plane::rb_getOY), 0);
 		rb_define_method(rb_cPlane, "oy=", RUBY_METHOD_FUNC(&Plane::rb_setOY), 1);
+		rb_define_method(rb_cPlane, "zoom_x", RUBY_METHOD_FUNC(&Plane::rb_getZoomX), 0);
+		rb_define_method(rb_cPlane, "zoom_x=", RUBY_METHOD_FUNC(&Plane::rb_setZoomX), 1);
+		rb_define_method(rb_cPlane, "zoom_y", RUBY_METHOD_FUNC(&Plane::rb_getZoomY), 0);
+		rb_define_method(rb_cPlane, "zoom_y=", RUBY_METHOD_FUNC(&Plane::rb_setZoomY), 1);
 		rb_define_method(rb_cPlane, "color", RUBY_METHOD_FUNC(&Plane::rb_getColor), 0);
 		rb_define_method(rb_cPlane, "color=", RUBY_METHOD_FUNC(&Plane::rb_setColor), 1);
 		rb_define_method(rb_cPlane, "tone", RUBY_METHOD_FUNC(&Plane::rb_getTone), 0);
@@ -124,23 +131,19 @@ namespace rgss
 		rb_define_method(rb_cPlane, "opacity=", RUBY_METHOD_FUNC(&Plane::rb_setOpacity), 1);
 		rb_define_method(rb_cPlane, "bitmap", RUBY_METHOD_FUNC(&Plane::rb_getBitmap), 0);
 		rb_define_method(rb_cPlane, "bitmap=", RUBY_METHOD_FUNC(&Plane::rb_setBitmap), 1);
-		// getters and setters (Zoomable)
-		rb_define_method(rb_cPlane, "zoom_x", RUBY_METHOD_FUNC(&Plane::rb_getZoomX), 0);
-		rb_define_method(rb_cPlane, "zoom_x=", RUBY_METHOD_FUNC(&Plane::rb_setZoomX), 1);
-		rb_define_method(rb_cPlane, "zoom_y", RUBY_METHOD_FUNC(&Plane::rb_getZoomY), 0);
-		rb_define_method(rb_cPlane, "zoom_y=", RUBY_METHOD_FUNC(&Plane::rb_setZoomY), 1);
+		// getters and setters (Blendable)
 		rb_define_method(rb_cPlane, "blend_type", RUBY_METHOD_FUNC(&Plane::rb_getBlendType), 0);
 		rb_define_method(rb_cPlane, "blend_type=", RUBY_METHOD_FUNC(&Plane::rb_setBlendType), 1);
 	}
 
 	void Plane::gc_mark(Plane* plane)
 	{
-		Zoomable::gc_mark(plane);
+		Blendable::gc_mark(plane);
 	}
 
 	void Plane::gc_free(Plane* plane)
 	{
-		Zoomable::gc_free(plane);
+		Blendable::gc_free(plane);
 	}
 
 	VALUE Plane::rb_new(VALUE classe)
@@ -158,7 +161,7 @@ namespace rgss
 		RB_SELF2CPP(Plane, plane);
 		VALUE viewport;
 		rb_scan_args(argc, argv, "01", &viewport);
-		plane->initializeZoomable(viewport);
+		plane->initializeBlendable(viewport);
 		return self;
 	}
 
