@@ -11,6 +11,4 @@
 - add text squishing when the text rect is not wide enough?
 - implement -debug argument
 - add script files as internally embedded resources
-- check autotiles for disposal bugs during transitions
 - implement SHA-1 in C++
-- implement proper disposed checks
