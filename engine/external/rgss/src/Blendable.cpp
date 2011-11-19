@@ -2,8 +2,9 @@
 
 #include <hltypes/util.h>
 
-#include "CodeSnippets.h"
 #include "Blendable.h"
+#include "CodeSnippets.h"
+#include "RGSSError.h"
 
 namespace rgss
 {

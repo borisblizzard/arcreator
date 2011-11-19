@@ -38,6 +38,7 @@ namespace rgss
 			this->renderables.sort(&compareFunction);
 			this->needsSorting = false;
 		}
+		//printf("    %d\n", this->renderables.size());
 		foreach (Renderable*, it, this->renderables)
 		{
 			(*it)->draw();

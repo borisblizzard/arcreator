@@ -260,7 +260,7 @@ namespace rgss
 
 	VALUE Viewport::rb_setColor(VALUE self, VALUE value)
 	{
-		RB_GENERATE_SETTER(Viewport, sprite, Color, color);
+		RB_GENERATE_SETTER(Viewport, viewport, Color, color);
 		RB_CHECK_DISPOSED_1(viewport);
 		return value;
 	}
@@ -274,7 +274,7 @@ namespace rgss
 
 	VALUE Viewport::rb_setRect(VALUE self, VALUE value)
 	{
-		RB_GENERATE_SETTER(Viewport, sprite, Rect, rect);
+		RB_GENERATE_SETTER(Viewport, viewport, Rect, rect);
 		RB_CHECK_DISPOSED_1(viewport);
 		return value;
 	}
@@ -288,7 +288,7 @@ namespace rgss
 
 	VALUE Viewport::rb_setTone(VALUE self, VALUE value)
 	{
-		RB_GENERATE_SETTER(Viewport, sprite, Tone, tone);
+		RB_GENERATE_SETTER(Viewport, viewport, Tone, tone);
 		RB_CHECK_DISPOSED_1(viewport);
 		return value;
 	}

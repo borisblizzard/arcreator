@@ -2,9 +2,10 @@
 
 #include <hltypes/util.h>
 
-#include "CodeSnippets.h"
 #include "Bitmap.h"
+#include "CodeSnippets.h"
 #include "Graphics.h"
+#include "RGSSError.h"
 #include "SourceRenderer.h"
 #include "Viewport.h"
 

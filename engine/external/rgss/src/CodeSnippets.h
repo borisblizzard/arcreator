@@ -113,23 +113,17 @@
 /// @brief Automatically does a disposed check.
 /// @param[in] value Value to check.
 #define RB_CHECK_DISPOSED_1(value) \
-	/// @todo - uncomment
-	/*
-	if (!value->disposed) \
+	if (value->disposed) \
 	{ \
 		rb_raise(rb_eRGSSError, ("disposed " + value->typeName).c_str()); \
 	}
-	*/
 /// @brief Automatically does a disposed check.
 /// @param[in] value Value to check.
 #define RB_CHECK_DISPOSED_2(value) \
-	/// @todo - uncomment
-	/*
-	if (!value->disposed) \
+	if (value->disposed) \
 	{ \
 		rb_raise(rb_eRGSSError, "disposed " #value); \
 	}
-	*/
 
 /// @brief Automatically does a type check (and throw an exception if failed) with 1 acceptable type.
 /// @param[in] var Variable that needs to be type-checked.
