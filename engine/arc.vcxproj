@@ -133,6 +133,7 @@ xcopy external\lib\msvc100\Microsoft.VC100.CRT\*dll $(SolutionDir)bin\ /d /y
 xcopy external\lib\msvc90\Microsoft.VC90.CRT\*dll $(SolutionDir)bin\Microsoft.VC90.CRT\ /d /y
 xcopy bin\*.dll $(SolutionDir)bin\$(Configuration)\ /d /y
 
+mkdir $(SolutionDir)bin\ARC_$(Configuration)
 copy $(SolutionDir)bin\$(Configuration)\Game.exe $(SolutionDir)bin\ARC_$(Configuration)
 copy $(SolutionDir)bin\*.dll $(SolutionDir)bin\ARC_$(Configuration)
 xcopy external\lib\msvc90\Microsoft.VC90.CRT\*dll $(SolutionDir)bin\ARC_$(Configuration)\Microsoft.VC90.CRT\ /d /y
