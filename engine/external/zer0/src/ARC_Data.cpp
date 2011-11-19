@@ -148,7 +148,7 @@ namespace zer0
 		if (rb_obj_is_instance_of(obj, rb_cHash)) return ARC_Data::_dump_hash(obj);
 		if (rb_obj_is_instance_of(obj, rb_cObject)) return ARC_Data::_dump_object(obj);
 		VALUE class_name = rb_class_name(obj);
-		rb_raise(rb_eARC_Error, hsprintf("Error: %s cannot be dumped!", StringValuePtr(class_name)).c_str());
+		rb_raise(rb_eARC_Error, hsprintf("Error: %s cannot be dumped!", StringValueCStr(class_name)).c_str());
 	}
 		
 	VALUE ARC_Data::_load()
@@ -208,7 +208,7 @@ namespace zer0
 		{
 			if (ARC_Data::__try_map(strings, obj))
 			{
-				file.dump(hstr(StringValuePtr(obj)));
+				file.dump(hstr(StringValueCStr(obj)));
 			}
 		}
 		else
@@ -268,7 +268,7 @@ namespace zer0
 		file.dump(Types[rb_cObject]);
 		// first the string path because this is required to load the object
 		VALUE class_name = rb_class_name(obj);
-		file.dump(hstr(StringValuePtr(class_name)));
+		file.dump(hstr(StringValueCStr(class_name)));
 		if (ARC_Data::__try_map(objects, obj))
 		{
 			if (RTEST(rb_funcall_1(obj, "respond_to?", rb_str_new2("_arc_dump"))))
@@ -276,7 +276,7 @@ namespace zer0
 				VALUE data = rb_funcall_0(obj, "_arc_dump");
 				int size = NUM2INT(rb_str_size(data));
 				ARC_Data::__dump_int32(size);
-				unsigned char* raw_data = (unsigned char*)StringValuePtr(data);
+				unsigned char* raw_data = (unsigned char*)StringValueCStr(data);
 				file.write_raw(raw_data, size);
 			}
 			else
@@ -335,7 +335,7 @@ namespace zer0
 		VALUE obj = ARC_Data::__find_mapped(strings, id);
 		if (!NIL_P(obj))
 		{
-			return rb_str_new2(StringValuePtr(obj));
+			return rb_str_new2(StringValueCStr(obj));
 		}
 		hstr value = file.load_hstr();
 		obj = rb_str_new2(value.c_str());
@@ -397,7 +397,7 @@ namespace zer0
 		{
 			return obj;
 		}
-		VALUE classe = ARC_Data::__get_class_object(hstr(StringValuePtr(class_path)));
+		VALUE classe = ARC_Data::__get_class_object(hstr(StringValueCStr(class_path)));
 		int size = ARC_Data::__load_int32();
 		if (rb_funcall_1(classe, "respond_to?", rb_str_new2("_arc_load")))
 		{
@@ -416,7 +416,7 @@ namespace zer0
 		for_iter (i, 0, size)
 		{
 			variable = ARC_Data::_load();
-			symbol = rb_f_to_sym(rb_str_new2(("@" + hstr(StringValuePtr(variable))).c_str()));
+			symbol = rb_f_to_sym(rb_str_new2(("@" + hstr(StringValueCStr(variable))).c_str()));
 			value = ARC_Data::_load();
 			rb_funcall_2(obj, "instance_variable_set", symbol, value);
 		}
@@ -431,7 +431,7 @@ namespace zer0
 	{
 		rb_funcall_0(rb_mGC, "disable"); // to prevent GC destroying temp data
 		// TODO - unsafe, should be done with a rb_protect block to reset the serializer in the end
-		file.open(StringValuePtr(filename));
+		file.open(StringValueCStr(filename));
 		harray<unsigned char> versions = Version.split(".").cast<int>().cast<unsigned char>();
 		file.dump(versions[0]);
 		file.dump(versions[1]);
@@ -445,7 +445,7 @@ namespace zer0
 	{
 		rb_funcall_0(rb_mGC, "disable"); // to prevent GC destroying temp data
 		// TODO - unsafe, should be done with a rb_protect block to reset the serializer in the end
-		file.open(StringValuePtr(filename));
+		file.open(StringValueCStr(filename));
 		unsigned char major = file.load_uchar();
 		unsigned char minor = file.load_uchar();
 		hstr version = hstr((int)major) + "." + hstr((int)minor);

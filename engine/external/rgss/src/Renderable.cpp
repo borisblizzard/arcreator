@@ -170,18 +170,21 @@ namespace rgss
 	VALUE Renderable::rb_isDisposed(VALUE self)
 	{
 		RB_SELF2CPP(Renderable, renderable);
+		RB_CHECK_DISPOSED_1(renderable);
 		return (renderable->disposed ? Qtrue : Qfalse);
 	}
 
 	VALUE Renderable::rb_getVisible(VALUE self)
 	{
 		RB_SELF2CPP(Renderable, renderable);
+		RB_CHECK_DISPOSED_1(renderable);
 		return (renderable->visible ? Qtrue : Qfalse);
 	}
 
 	VALUE Renderable::rb_setVisible(VALUE self, VALUE value)
 	{
 		RB_SELF2CPP(Renderable, renderable);
+		RB_CHECK_DISPOSED_1(renderable);
 		renderable->visible = (bool)RTEST(value);
 		return value;
 	}
@@ -189,12 +192,14 @@ namespace rgss
 	VALUE Renderable::rb_getZ(VALUE self)
 	{
 		RB_SELF2CPP(Renderable, renderable);
+		RB_CHECK_DISPOSED_1(renderable);
 		return INT2NUM(renderable->z);
 	}
 
 	VALUE Renderable::rb_setZ(VALUE self, VALUE value)
 	{
 		RB_SELF2CPP(Renderable, renderable);
+		RB_CHECK_DISPOSED_1(renderable);
 		renderable->setZ(NUM2INT(value));
 		return value;
 	}
@@ -202,12 +207,14 @@ namespace rgss
 	VALUE Renderable::rb_getOX(VALUE self)
 	{
 		RB_SELF2CPP(Renderable, renderable);
+		RB_CHECK_DISPOSED_1(renderable);
 		return INT2NUM(-renderable->ox);
 	}
 
 	VALUE Renderable::rb_setOX(VALUE self, VALUE value)
 	{
 		RB_SELF2CPP(Renderable, renderable);
+		RB_CHECK_DISPOSED_1(renderable);
 		renderable->ox = -NUM2INT(value);
 		return value;
 	}
@@ -215,12 +222,14 @@ namespace rgss
 	VALUE Renderable::rb_getOY(VALUE self)
 	{
 		RB_SELF2CPP(Renderable, renderable);
+		RB_CHECK_DISPOSED_1(renderable);
 		return INT2NUM(-renderable->oy);
 	}
 
 	VALUE Renderable::rb_setOY(VALUE self, VALUE value)
 	{
 		RB_SELF2CPP(Renderable, renderable);
+		RB_CHECK_DISPOSED_1(renderable);
 		renderable->oy = -NUM2INT(value);
 		return value;
 	}
@@ -228,12 +237,14 @@ namespace rgss
 	VALUE Renderable::rb_getZoomX(VALUE self)
 	{
 		RB_SELF2CPP(Renderable, renderable);
+		RB_CHECK_DISPOSED_1(renderable);
 		return rb_float_new(renderable->zoom.x);
 	}
 
 	VALUE Renderable::rb_setZoomX(VALUE self, VALUE value)
 	{
 		RB_SELF2CPP(Renderable, renderable);
+		RB_CHECK_DISPOSED_1(renderable);
 		renderable->zoom.x = (float)NUM2DBL(value);
 		return value;
 	}
@@ -241,12 +252,14 @@ namespace rgss
 	VALUE Renderable::rb_getZoomY(VALUE self)
 	{
 		RB_SELF2CPP(Renderable, renderable);
+		RB_CHECK_DISPOSED_1(renderable);
 		return rb_float_new(renderable->zoom.y);
 	}
 
 	VALUE Renderable::rb_setZoomY(VALUE self, VALUE value)
 	{
 		RB_SELF2CPP(Renderable, renderable);
+		RB_CHECK_DISPOSED_1(renderable);
 		renderable->zoom.y = (float)NUM2DBL(value);
 		return value;
 	}
@@ -254,24 +267,28 @@ namespace rgss
 	VALUE Renderable::rb_getColor(VALUE self)
 	{
 		RB_SELF2CPP(Renderable, renderable);
+		RB_CHECK_DISPOSED_1(renderable);
 		return renderable->rb_color;
 	}
 
 	VALUE Renderable::rb_setColor(VALUE self, VALUE value)
 	{
 		RB_GENERATE_SETTER(Renderable, renderable, Color, color);
+		RB_CHECK_DISPOSED_1(renderable);
 		return value;
 	}
 
 	VALUE Renderable::rb_getTone(VALUE self)
 	{
 		RB_SELF2CPP(Renderable, renderable);
+		RB_CHECK_DISPOSED_1(renderable);
 		return renderable->rb_tone;
 	}
 
 	VALUE Renderable::rb_setTone(VALUE self, VALUE value)
 	{
 		RB_GENERATE_SETTER(Renderable, renderable, Tone, tone);
+		RB_CHECK_DISPOSED_1(renderable);
 		return value;
 	}
 
@@ -283,11 +300,10 @@ namespace rgss
 	{
 		RB_SELF2CPP(Renderable, renderable);
 		RB_CHECK_DISPOSED_1(renderable);
-		renderable->flashTimer = 0;
-		renderable->flashDuration = hmax(NUM2INT(duration), 0);
-		renderable->rb_flashColor = color;
-		if (!NIL_P(color) && renderable->flashDuration > 0)
+		int flashDuration = hmax(NUM2INT(duration), 0);
+		if (!NIL_P(color) && flashDuration > 0)
 		{
+			RB_CHECK_TYPE_1(color, rb_cColor);
 			renderable->rb_flashColor = color;
 			RB_VAR2CPP(color, Color, flashColor);
 			renderable->flashColor = flashColor;
@@ -297,6 +313,9 @@ namespace rgss
 			renderable->rb_flashColor = Qnil;
 			renderable->flashColor = NULL;
 		}
+		renderable->flashTimer = 0;
+		renderable->flashDuration = flashDuration;
+		renderable->rb_flashColor = color;
 		return Qnil;
 	}
 

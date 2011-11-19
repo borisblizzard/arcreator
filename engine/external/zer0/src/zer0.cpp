@@ -52,12 +52,12 @@ namespace zer0
 	{
 		VALUE error = rb_gv_get("$!");
 		VALUE message = rb_funcall_0(error, "message");
-		hstr text = StringValuePtr(message);
+		hstr text = StringValueCStr(message);
 		VALUE backtrace = rb_funcall_0(error, "backtrace");
 		VALUE backtraceMessage = rb_funcall_1(backtrace, "join", rb_str_new2("\n"));
 		VALUE rb_mDir = rb_funcall_1(rb_mKernel, "const_get", rb_f_to_sym(rb_str_new2("Dir")));
 		rb_funcall_2(backtraceMessage, "gsub!", rb_funcall_0(rb_mDir, "pwd"), rb_str_new2(""));
-		text += hstr("\n") + StringValuePtr(backtraceMessage);
+		text += hstr("\n") + StringValueCStr(backtraceMessage);
 		zer0::log(text, "");
 		april::messageBox(zer0::system->Title, text, april::AMSGBTN_OK, april::AMSGSTYLE_WARNING);
 	}
@@ -73,7 +73,7 @@ namespace zer0
 		}
 		rb_ary_unshift(args, arg1);
 		VALUE rb_delimiter = rb_gv_get("$,");
-		hstr delimiter = (NIL_P(rb_delimiter) ? ", " : StringValuePtr(rb_delimiter));
+		hstr delimiter = (NIL_P(rb_delimiter) ? ", " : StringValueCStr(rb_delimiter));
 		harray<hstr> data;
 		VALUE string;
 		for_iter (i, 0, argc)
@@ -83,7 +83,7 @@ namespace zer0
 			{
 				string = rb_f_to_s(string);
 			}
-			data += StringValuePtr(string);
+			data += StringValueCStr(string);
 		}
 		hstr text = data.join(delimiter);
 		zer0::log(text, "");
@@ -107,14 +107,14 @@ namespace zer0
 				result = rb_f_clone(args);
 			}
 			VALUE rb_delimiter = rb_gv_get("$,");
-			hstr delimiter = (NIL_P(rb_delimiter) ? ", " : StringValuePtr(rb_delimiter));
+			hstr delimiter = (NIL_P(rb_delimiter) ? ", " : StringValueCStr(rb_delimiter));
 			harray<hstr> data;
 			VALUE string;
 			for_iter (i, 0, argc)
 			{
 				string = rb_ary_shift(args);
 				string = rb_f_inspect(string);
-				data += StringValuePtr(string);
+				data += StringValueCStr(string);
 			}
 			text = data.join(delimiter);
 		}

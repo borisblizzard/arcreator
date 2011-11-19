@@ -38,12 +38,14 @@ namespace rgss
 	VALUE Blendable::rb_getBlendType(VALUE self)
 	{
 		RB_SELF2CPP(Blendable, blendable);
+		RB_CHECK_DISPOSED_1(blendable);
 		return INT2NUM((int)blendable->blendType);
 	}
 
 	VALUE Blendable::rb_setBlendType(VALUE self, VALUE value)
 	{
 		RB_SELF2CPP(Blendable, blendable);
+		RB_CHECK_DISPOSED_1(blendable);
 		blendable->blendType = (BlendType)hclamp(NUM2INT(value), 0, 2);
 		return value;
 	}

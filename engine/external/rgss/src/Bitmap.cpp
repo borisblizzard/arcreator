@@ -318,7 +318,8 @@ namespace rgss
 		rb_scan_args(argc, argv, "11", &arg1, &arg2);
 		if (NIL_P(arg2))
 		{
-			hstr filename = StringValuePtr(arg1);
+			RB_CHECK_TYPE_1(arg1, rb_cString);
+			hstr filename = StringValueCStr(arg1);
 			hstr fullFilename = april::rendersys->findTextureFile(filename);
 			if (fullFilename == "")
 			{
@@ -435,6 +436,7 @@ namespace rgss
 	{
 		RB_SELF2CPP(Bitmap, bitmap);
 		RB_CHECK_DISPOSED_2(bitmap);
+		RB_CHECK_TYPE_1(color, rb_cColor);
 		RB_VAR2CPP(color, Color, cColor);
 		bitmap->_renderColor(grect((float)NUM2INT(x), (float)NUM2INT(y), 1.0f, 1.0f), cColor->toAprilColor());
 		return Qnil;
@@ -454,6 +456,7 @@ namespace rgss
 		rb_scan_args(argc, argv, "23", &arg1, &arg2, &arg3, &arg4, &color);
 		if (NIL_P(arg3) && NIL_P(arg4) && NIL_P(color))
 		{
+			RB_CHECK_TYPE_1(arg1, rb_cRect);
 			color = arg2;
 			RB_VAR2CPP(arg1, Rect, rect);
 			x = rect->x;
@@ -468,6 +471,7 @@ namespace rgss
 			w = NUM2INT(arg3);
 			h = NUM2INT(arg4);
 		}
+		RB_CHECK_TYPE_1(color, rb_cColor);
 		RB_VAR2CPP(color, Color, cColor);
 		bitmap->_renderColor(grect((float)x, (float)y, (float)w, (float)h), cColor->toAprilColor());
 		return Qnil;
@@ -490,6 +494,8 @@ namespace rgss
 		rb_scan_args(argc, argv, "41", &arg1, &arg2, &arg3, &arg4, &arg5);
 		int x = NUM2INT(arg1);
 		int y = NUM2INT(arg2);
+		RB_CHECK_TYPE_1(arg3, rb_cBitmap);
+		RB_CHECK_TYPE_1(arg4, rb_cRect);
 		RB_VAR2CPP(arg3, Bitmap, source);
 		RB_VAR2CPP(arg4, Rect, rect);
 		if (NIL_P(arg5))
@@ -510,6 +516,9 @@ namespace rgss
 		RB_CHECK_DISPOSED_2(bitmap);
 		VALUE arg1, arg2, arg3, arg4;
 		rb_scan_args(argc, argv, "31", &arg1, &arg2, &arg3, &arg4);
+		RB_CHECK_TYPE_1(arg1, rb_cRect);
+		RB_CHECK_TYPE_1(arg2, rb_cBitmap);
+		RB_CHECK_TYPE_1(arg3, rb_cRect);
 		RB_VAR2CPP(arg1, Rect, dest_rect);
 		RB_VAR2CPP(arg2, Bitmap, source);
 		RB_VAR2CPP(arg3, Rect, src_rect);
@@ -542,12 +551,14 @@ namespace rgss
 		rb_scan_args(argc, argv, "24", &arg1, &arg2, &arg3, &arg4, &arg5, &arg6);
 		if (NIL_P(arg4) && NIL_P(arg5) && NIL_P(arg6))
 		{
+			RB_CHECK_TYPE_1(arg1, rb_cRect);
 			RB_VAR2CPP(arg1, Rect, rect);
 			x = rect->x;
 			y = rect->y;
 			w = rect->width;
 			h = rect->height;
-			text = hstr(StringValuePtr(arg2));
+			RB_CHECK_TYPE_1(arg2, rb_cString);
+			text = hstr(StringValueCStr(arg2));
 		}
 		else
 		{
@@ -555,7 +566,8 @@ namespace rgss
 			y = NUM2INT(arg2);
 			w = NUM2INT(arg3);
 			h = NUM2INT(arg4);
-			text = hstr(StringValuePtr(arg5));
+			RB_CHECK_TYPE_1(arg5, rb_cString);
+			text = hstr(StringValueCStr(arg5));
 			arg3 = arg6;
 		}
 		int align = (NIL_P(arg3) ? 0 : NUM2INT(arg3));
@@ -576,9 +588,10 @@ namespace rgss
 		/// @todo Test this.
 		RB_SELF2CPP(Bitmap, bitmap);
 		RB_CHECK_DISPOSED_2(bitmap);
-		hstr text = StringValuePtr(string);
+		RB_CHECK_TYPE_1(string, rb_cString);
+		hstr text = StringValueCStr(string);
 		hstr fontName = bitmap->_getAtresFontName();
-		float w = atres::renderer->getTextWidthUnformatted(fontName, text);
+		float w = atres::renderer->getTextWidth(fontName, text);
 		int h = bitmap->font->getSize();
 		return Rect::create(INT2FIX(0), INT2FIX(0), INT2FIX((int)ceil(w)), INT2FIX(h));
 	}

@@ -18,7 +18,7 @@ namespace rgss
 	 * Pure C++ code
 	 ****************************************************************************************/
 
-	hmap<int, harray<unsigned int>> conversions;
+	hmap<int, harray<unsigned int> > conversions;
 	harray<unsigned int> controlKeys;
 	bool triggered[MAX_KEYS];
 	bool pressed[MAX_KEYS];

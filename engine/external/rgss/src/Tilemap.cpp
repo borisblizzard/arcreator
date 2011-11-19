@@ -380,6 +380,7 @@ namespace rgss
 	VALUE Tilemap::rb_getAutotiles(VALUE self)
 	{
 		RB_SELF2CPP(Tilemap, tilemap);
+		RB_CHECK_DISPOSED_2(tilemap);
 		tilemap->needsUpdate = true;
 		return tilemap->rb_autotiles;
 	}

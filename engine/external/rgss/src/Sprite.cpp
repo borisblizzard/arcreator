@@ -230,7 +230,6 @@ namespace rgss
 	{
 		Blendable::rb_setBitmap(self, value);
 		RB_SELF2CPP(Sprite, sprite);
-		RB_CHECK_DISPOSED_1(sprite);
 		if (sprite->bitmap != NULL && !sprite->bitmap->isDisposed())
 		{
 			sprite->getSrcRect()->set(0, 0, sprite->bitmap->getWidth(), sprite->bitmap->getHeight());

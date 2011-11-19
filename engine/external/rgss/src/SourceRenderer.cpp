@@ -61,12 +61,14 @@ namespace rgss
 	VALUE SourceRenderer::rb_getX(VALUE self)
 	{
 		RB_SELF2CPP(SourceRenderer, sourceRenderer);
+		RB_CHECK_DISPOSED_1(sourceRenderer);
 		return INT2NUM(sourceRenderer->x);
 	}
 
 	VALUE SourceRenderer::rb_setX(VALUE self, VALUE value)
 	{
 		RB_SELF2CPP(SourceRenderer, sourceRenderer);
+		RB_CHECK_DISPOSED_1(sourceRenderer);
 		sourceRenderer->x = NUM2INT(value);
 		return value;
 	}
@@ -74,12 +76,14 @@ namespace rgss
 	VALUE SourceRenderer::rb_getY(VALUE self)
 	{
 		RB_SELF2CPP(SourceRenderer, sourceRenderer);
+		RB_CHECK_DISPOSED_1(sourceRenderer);
 		return INT2NUM(sourceRenderer->y);
 	}
 
 	VALUE SourceRenderer::rb_setY(VALUE self, VALUE value)
 	{
 		RB_SELF2CPP(SourceRenderer, sourceRenderer);
+		RB_CHECK_DISPOSED_1(sourceRenderer);
 		sourceRenderer->y = NUM2INT(value);
 		return value;
 	}
@@ -99,12 +103,14 @@ namespace rgss
 	VALUE SourceRenderer::rb_getOpacity(VALUE self)
 	{
 		RB_SELF2CPP(SourceRenderer, sourceRenderer);
+		RB_CHECK_DISPOSED_1(sourceRenderer);
 		return INT2NUM(sourceRenderer->opacity);
 	}
 
 	VALUE SourceRenderer::rb_setOpacity(VALUE self, VALUE value)
 	{
 		RB_SELF2CPP(SourceRenderer, sourceRenderer);
+		RB_CHECK_DISPOSED_1(sourceRenderer);
 		sourceRenderer->opacity = hclamp(NUM2INT(value), 0, 255);
 		return value;
 	}
@@ -117,7 +123,19 @@ namespace rgss
 
 	VALUE SourceRenderer::rb_setBitmap(VALUE self, VALUE value)
 	{
-		RB_GENERATE_SETTER(SourceRenderer, sourceRenderer, Bitmap, bitmap);
+		RB_SELF2CPP(SourceRenderer, sourceRenderer);
+		RB_CHECK_DISPOSED_1(sourceRenderer);
+		if (!NIL_P(value))
+		{
+			RB_CHECK_TYPE_1(value, rb_cBitmap);
+			RB_VAR2CPP(value, Bitmap, bitmap);
+			sourceRenderer->bitmap = bitmap;
+		}
+		else
+		{
+			sourceRenderer->bitmap = NULL;
+		}
+		sourceRenderer->rb_bitmap = value;
 		return value;
 	}
 
