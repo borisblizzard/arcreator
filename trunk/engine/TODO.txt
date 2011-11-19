@@ -3,11 +3,10 @@
 - throw Errno::ENOENT without using eval() at several places
 - test Bitmap::rb_textSize
 - change Color::toAprilColor to take into account negative values
-- allow change of fullscreen mode in APRIL
+- allow change of fullscreen mode in APRIL?
 - implement font caching for atrestff
 - fix problem with D3DX9 device reset after CTRL+ALT+Delete
 - using "exit" crashes the game
-- check Ruby bug "can't add a new key into hash during iteration" (appeared in line 32488, 32480)
 - fix vertical draw_text offset
 - add text squishing when the text rect is not wide enough?
 - implement -debug argument

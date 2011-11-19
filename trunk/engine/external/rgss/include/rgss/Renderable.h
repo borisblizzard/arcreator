@@ -4,6 +4,7 @@
 #include <ruby.h>
 
 #include <april/Color.h>
+#include <gtypes/Vector2.h>
 
 #include "rgssExport.h"
 
@@ -103,6 +104,18 @@ namespace rgss
 		/// @brief Sets the offset Y coordinate.
 		/// @param[in] value Offset Y coordinate.
 		static VALUE rb_setOY(VALUE self, VALUE value);
+		/// @brief Gets the X zoom.
+		/// @return The X zoom.
+		static VALUE rb_getZoomX(VALUE self);
+		/// @brief Sets the X zoom.
+		/// @param[in] value The X zoom.
+		static VALUE rb_setZoomX(VALUE self, VALUE value);
+		/// @brief Gets the Y zoom.
+		/// @return The Y zoom.
+		static VALUE rb_getZoomY(VALUE self);
+		/// @brief Sets the Y zoom.
+		/// @param[in] value The Y zoom.
+		static VALUE rb_setZoomY(VALUE self, VALUE value);
 		/// @brief Gets the color.
 		/// @return The color.
 		static VALUE rb_getColor(VALUE self);
@@ -135,6 +148,8 @@ namespace rgss
 		int ox;
 		/// @brief Offset Y coordinate.
 		int oy;
+		/// @brief Zoom.
+		gvec2 zoom;
 		/// @brief The color.
 		Color* color;
 		/// @brief Ruby object of the color.

@@ -2,13 +2,22 @@
 #include <windows.h>
 #endif
 
+#ifdef _DEBUG
 #include <hltypes/hfile.h>
-#include <hltypes/hmap.h>
+#endif
 #include <hltypes/hstring.h>
 #include <zer0/zer0.h>
 
-#include "Constants.h"
-#include "Utility.h"
+void log(chstr path, chstr message)
+{
+#ifdef _DEBUG
+#ifdef _CONSOLE
+	printf("%s\n", message.c_str());
+#endif
+	hfile file((path + "log.txt"), hfile::APPEND);
+	file.writef("%s\n", message.c_str());
+#endif
+}
 
 #if !defined(_CONSOLE) && defined(_WIN32)
 int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
@@ -16,11 +25,7 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 int main(int argc, char** argv)
 #endif
 {
-	hmap<hstr, hstr> parameters = arc::readCfgFile("arc.cfg");
-	arc::setupSystemPath(parameters[CFG_TITLE]);
-	harray<int> resolution = parameters[CFG_RESOLUTION].split("x").cast<int>();
-	bool fullscreen = (bool)parameters[CFG_FULLSCREEN];
-	bool initialized = zer0::init(resolution[0], resolution[1], fullscreen, parameters[CFG_TITLE], arc::path, &arc::log);
+	bool initialized = zer0::init(&log);
 	if (!initialized)
 	{
 		return 1;

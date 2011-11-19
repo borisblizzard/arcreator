@@ -3,7 +3,7 @@
 
 #include <ruby.h>
 
-#include "Zoomable.h"
+#include "Blendable.h"
 #include "rgssExport.h"
 
 namespace rgss
@@ -14,7 +14,7 @@ namespace rgss
 	class Rect;
 
 	/// @brief Emulates RGSS's Sprite class.
-	class rgssExport Sprite : public Zoomable
+	class rgssExport Sprite : public Blendable
 	{
 	public:
 		/// @brief Gets the X coordinate.

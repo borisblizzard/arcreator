@@ -22,19 +22,82 @@
 namespace zer0
 {
 	System* system = NULL;
-	hstr path = "";
-
 	/****************************************************************************************
 	 * Construct/Destruct
 	 ****************************************************************************************/
 
-	System::System(chstr path) : Time(0.0f), Exiting(false), Focused(true)
+	System::System() : Time(0.0f), Exiting(false), Focused(true)
 	{
-		this->Path = path;
+		this->Parameters = this->_readCfgFile("arc.cfg");
+		this->Title = this->Parameters[CFG_TITLE];
+		this->Path = this->_setupSystemPath(this->Title);
 	}
 	
 	System::~System()
 	{
+	}
+	
+	/// @todo Add Linux and Mac variants.
+	hstr System::_setupSystemPath(chstr title)
+	{
+		hstr path;
+#ifdef _DEBUG
+		path = "log";
+#elif defined(_WIN32)
+		path = getenv("ALLUSERSPROFILE");
+		path = path.replace("\\", "/");
+		if (getenv("LOCALAPPDATA") == NULL) // Vista / 7
+		{
+			path += "/" + hstr(getenv("APPDATA")).split("\\").pop_back();
+		}
+		const wchar_t* name = _wgetenv(L"USERNAME");
+		hstr username;
+		for (int i = 0; name[i] != 0; i++)
+		{
+			username += (char)(name[i] > 0x80 ? 0x40 + (name[i] % 26) : name[i]);
+		}
+		path += hsprintf("/%s/%s/%s", "ARC", title.c_str(), username.c_str());
+#endif
+		hdir::create(path);
+		path += "/";
+		hfile::create_new(path + "log.txt");
+		return path;
+	}
+
+	hmap<hstr, hstr> System::_readCfgFile(chstr filename)
+	{
+		hmap<hstr, hstr> result;
+		result[CFG_TITLE] = "ARC Game";
+		result[CFG_RESOLUTION] = "640x480";
+		result[CFG_FULLSCREEN] = "false";
+		result[CFG_FRAME_RATE] = "60";
+		if (hfile::exists(filename))
+		{
+			hfile f(filename);
+			harray<hstr> lines = f.read_lines();
+			f.close();
+			// ignore file header. utf-8 encoded text files have 2-3 char markers
+			while (lines[0].size() > 0 && lines[0][0] < 0)
+			{
+				lines[0] = lines[0](1, lines[0].size() - 1);
+			}
+			harray<hstr> data;
+			foreach (hstr, it, lines)
+			{
+				data = (*it).split(":", 1);
+				if (data.size() == 2)
+				{
+					result[data[0]] = data[1];
+				}
+			}
+			// fixing some special variables
+			if (result[CFG_RESOLUTION].split("x").size() != 2)
+			{
+				result[CFG_RESOLUTION] = "640x480";
+			}
+			result[CFG_FULLSCREEN] = ((bool)result[CFG_FULLSCREEN] ? "true" : "false");
+		}
+		return result;
 	}
 	
 	/****************************************************************************************

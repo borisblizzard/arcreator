@@ -18,8 +18,14 @@
 
 namespace rgss
 {
+	hmap<hstr, hstr> parameters;
 	bool debugMode;
-	void (*g_logFunction)(chstr);
+	
+	void rgss_writelog(chstr message)
+	{
+	}
+
+	void (*g_logFunction)(chstr) = rgss_writelog;
 	
 	void setLogFunction(void (*function)(chstr))
 	{
@@ -41,12 +47,10 @@ namespace rgss
 		debugMode = value;
 	}
 
-	void init(void (*logFunction)(chstr))
+	void init(hmap<hstr, hstr> parameters)
 	{
-		g_logFunction = logFunction;
-#ifdef _DEBUG
+		rgss::parameters = parameters;
 		rgss::log("initializing Zer0 RGSS");
-#endif
 		// creating Ruby interfaces of C++ classes created for Ruby
 		Audio::createRubyInterface();
 		Bitmap::createRubyInterface();
@@ -83,9 +87,7 @@ namespace rgss
 
 	void destroy()
 	{
-#ifdef _DEBUG
 		rgss::log("destroying Zer0 RGSS");
-#endif
 		Audio::destroy();
 		Bitmap::destroy();
 		Color::destroy();

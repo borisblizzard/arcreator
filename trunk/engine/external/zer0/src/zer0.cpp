@@ -34,19 +34,18 @@
 namespace zer0
 {
 	bool result;
-	hstr name;
 	grect drawRect;
 	bool debugMode;
-	void (*g_logFunction)(chstr);
+	void (*g_logFunction)(chstr, chstr);
 	
-	void setLogFunction(void (*function)(chstr))
+	void logLib(chstr message)
 	{
-		g_logFunction = function;
+		g_logFunction(zer0::system->Path, message);
 	}
-	
+
 	void log(chstr message, chstr prefix)
 	{
-		g_logFunction(prefix + message);
+		g_logFunction(zer0::system->Path, prefix + message);
 	}
 
 	void displayRubyError()
@@ -60,7 +59,7 @@ namespace zer0
 		rb_funcall_2(backtraceMessage, "gsub!", rb_funcall_0(rb_mDir, "pwd"), rb_str_new2(""));
 		text += hstr("\n") + StringValuePtr(backtraceMessage);
 		zer0::log(text, "");
-		april::messageBox(zer0::name, text, april::AMSGBTN_OK, april::AMSGSTYLE_WARNING);
+		april::messageBox(zer0::system->Title, text, april::AMSGBTN_OK, april::AMSGSTYLE_WARNING);
 	}
 
 	VALUE rb_Kernel_print(int argc, VALUE* argv, VALUE self)
@@ -120,7 +119,7 @@ namespace zer0
 			text = data.join(delimiter);
 		}
 		zer0::log(text, "");
-		april::messageBox(zer0::name, text, april::AMSGBTN_OK, april::AMSGSTYLE_INFORMATION);
+		april::messageBox(zer0::system->Title, text, april::AMSGBTN_OK, april::AMSGSTYLE_INFORMATION);
 		return result;
 	}
 	
@@ -145,31 +144,33 @@ namespace zer0
 		debugMode = value;
 	}
 
-	bool init(int width, int height, bool fullscreen, chstr name, chstr path, void (*logFunction)(chstr))
+	bool init(void (*function)(chstr, chstr))
 	{
+		g_logFunction = function;
+		zer0::system = new zer0::System();
+		harray<int> resolution = zer0::system->Parameters[CFG_RESOLUTION].split("x").cast<int>();
+		bool fullscreen = (bool)zer0::system->Parameters[CFG_FULLSCREEN];
 		debugMode = false;
 		bool result = true;
-		zer0::name = name;
 		srand((unsigned int)time(NULL));
 		try
 		{
-			g_logFunction = logFunction;
 #ifdef _DEBUG
-			april::setLogFunction(logFunction);
-			atres::setLogFunction(logFunction);
-			aprilui::setLogFunction(logFunction);
-			xal::setLogFunction(logFunction);
+			april::setLogFunction(&zer0::logLib);
+			atres::setLogFunction(&zer0::logLib);
+			aprilui::setLogFunction(&zer0::logLib);
+			xal::setLogFunction(&zer0::logLib);
 #endif
 			// april
 			april::init();
 			april::createRenderSystem("");
-			april::createRenderTarget(width, height, fullscreen, name);
+			april::createRenderTarget(resolution[0], resolution[1], fullscreen, zer0::system->Title);
 #ifndef __BIG_ENDIAN__
 			april::rendersys->setIdleTextureUnloadTime(TEXTURE_UNLOAD_TIME);
 #else
 			april::rendersys->setIdleTextureUnloadTime(0);
 #endif
-			grect viewport(0.0f, 0.0f, (float)width, (float)height);
+			grect viewport(0.0f, 0.0f, (float)resolution[0], (float)resolution[1]);
 			april::rendersys->setOrthoProjection(viewport);
 			april::rendersys->getWindow()->setKeyboardCallbacks(
 				zer0::Context::onKeyDown, zer0::Context::onKeyUp, zer0::Context::onChar);
@@ -196,7 +197,6 @@ namespace zer0
 #endif
 			// zer0 related data
 			zer0::log("initializing Zer0 Division Engine");
-			zer0::system = new zer0::System(path);
 			zer0::context = new zer0::Context();
 			zer0::transitionManager = new zer0::TransitionManager();
 		}
@@ -220,7 +220,6 @@ namespace zer0
 		{
 			zer0::log("destroying Zer0 Division Engine");
 			// destroy other
-			delete zer0::system;
 			delete zer0::context;
 			delete zer0::transitionManager;
 			xal::destroy();
@@ -228,6 +227,7 @@ namespace zer0
 			atresttf::destroy();
 			atres::destroy();
 			april::destroy();
+			delete zer0::system;
 		}
 		catch (hltypes::exception e)
 		{
@@ -253,7 +253,10 @@ namespace zer0
 		ARC_Data::init();
 		ARC_Error::init();
 		// running RGSS
-		rgss::init(g_logFunction);
+#ifdef _DEBUG
+		rgss::setLogFunction(&zer0::logLib);
+#endif
+		rgss::init(zer0::system->Parameters);
 		// running the Ruby scripts
 		harray<hstr> files = hdir::files("./Data/Scripts");
 		harray<hstr> scripts;

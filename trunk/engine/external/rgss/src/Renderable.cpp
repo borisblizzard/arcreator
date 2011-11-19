@@ -22,6 +22,9 @@ namespace rgss
 		this->disposed = false;
 		this->visible = true;
 		this->z = 0;
+		this->ox = 0;
+		this->oy = 0;
+		this->zoom.set(1.0f, 1.0f);
 		VALUE argv[3] = {INT2FIX(255), INT2FIX(255), INT2FIX(255)};
 		this->rb_color = Color::create(3, argv);
 		RB_VAR2CPP(this->rb_color, Color, color);
@@ -219,6 +222,32 @@ namespace rgss
 	{
 		RB_SELF2CPP(Renderable, renderable);
 		renderable->oy = -NUM2INT(value);
+		return value;
+	}
+
+	VALUE Renderable::rb_getZoomX(VALUE self)
+	{
+		RB_SELF2CPP(Renderable, renderable);
+		return rb_float_new(renderable->zoom.x);
+	}
+
+	VALUE Renderable::rb_setZoomX(VALUE self, VALUE value)
+	{
+		RB_SELF2CPP(Renderable, renderable);
+		renderable->zoom.x = (float)NUM2DBL(value);
+		return value;
+	}
+
+	VALUE Renderable::rb_getZoomY(VALUE self)
+	{
+		RB_SELF2CPP(Renderable, renderable);
+		return rb_float_new(renderable->zoom.y);
+	}
+
+	VALUE Renderable::rb_setZoomY(VALUE self, VALUE value)
+	{
+		RB_SELF2CPP(Renderable, renderable);
+		renderable->zoom.y = (float)NUM2DBL(value);
 		return value;
 	}
 

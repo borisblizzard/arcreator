@@ -6,14 +6,14 @@
 #include "Color.h"
 #include "Rect.h"
 #include "Tone.h"
-#include "Zoomable.h"
+#include "Blendable.h"
 #include "rgssExport.h"
 
 namespace rgss
 {
 	extern VALUE rb_cPlane;
 
-	class rgssExport Plane : public Zoomable
+	class rgssExport Plane : public Blendable
 	{
 	public:
 		/// @brief Draws this sprite on the screen.

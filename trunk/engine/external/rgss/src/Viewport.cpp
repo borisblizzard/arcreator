@@ -62,10 +62,16 @@ namespace rgss
 		april::Texture* target = april::rendersys->getRenderTarget();
 		april::rendersys->setRenderTarget(this->texture);
 		april::rendersys->setIdentityTransform();
-		april::rendersys->setOrthoProjection(grect(0.0f, 0.0f,
-			(float)this->texture->getWidth(), (float)this->texture->getHeight()));
+		grect drawRect(0.0f, 0.0f,
+			(float)this->texture->getWidth(), (float)this->texture->getHeight());
+		april::rendersys->setOrthoProjection(drawRect);
 		april::rendersys->clear();
 		april::rendersys->setBlendMode(april::DEFAULT);
+		if (this->zoom.x != 1.0f || this->zoom.y != 1.0f)
+		{
+			april::rendersys->translate((float)this->ox, (float)this->oy);
+			april::rendersys->scale(this->zoom.x, this->zoom.y, 1.0f);
+		}
 		this->renderQueue->draw();
 		april::rendersys->setRenderTarget(target);
 		april::rendersys->setProjectionMatrix(projectionMatrix);
@@ -138,6 +144,10 @@ namespace rgss
 		rb_define_method(rb_cViewport, "ox=", RUBY_METHOD_FUNC(&Viewport::rb_setOX), 1);
 		rb_define_method(rb_cViewport, "oy", RUBY_METHOD_FUNC(&Viewport::rb_getOY), 0);
 		rb_define_method(rb_cViewport, "oy=", RUBY_METHOD_FUNC(&Viewport::rb_setOY), 1);
+		rb_define_method(rb_cViewport, "zoom_x", RUBY_METHOD_FUNC(&Viewport::rb_getZoomX), 0);
+		rb_define_method(rb_cViewport, "zoom_x=", RUBY_METHOD_FUNC(&Viewport::rb_setZoomX), 1);
+		rb_define_method(rb_cViewport, "zoom_y", RUBY_METHOD_FUNC(&Viewport::rb_getZoomY), 0);
+		rb_define_method(rb_cViewport, "zoom_y=", RUBY_METHOD_FUNC(&Viewport::rb_setZoomY), 1);
 		rb_define_method(rb_cViewport, "color", RUBY_METHOD_FUNC(&Viewport::rb_getColor), 0);
 		rb_define_method(rb_cViewport, "color=", RUBY_METHOD_FUNC(&Viewport::rb_setColor), 1);
 		rb_define_method(rb_cViewport, "tone", RUBY_METHOD_FUNC(&Viewport::rb_getTone), 0);
