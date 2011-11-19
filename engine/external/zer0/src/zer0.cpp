@@ -185,10 +185,12 @@ namespace zer0
 			atres::renderer->registerFontResource(new atresttf::FontResourceTtf(
 				"Graphics/Fonts/ariblk.ttf", "Arial Black", 64.0f, 1.0f));
 			// aprilui
+#ifndef LEGACY_ONLY
 			aprilui::init();
 			aprilui::setLimitCursorToViewport(false);
 			aprilui::setViewport(viewport);
 			aprilui::setScreenViewport(aprilui::getViewport());
+#endif
 			// xal
 #ifndef _NOSOUND
 			xal::init(XAL_AS_DEFAULT, (unsigned long)april::rendersys->getWindow()->getIDFromBackend(), true);
@@ -223,7 +225,9 @@ namespace zer0
 			delete zer0::context;
 			delete zer0::transitionManager;
 			xal::destroy();
+#ifndef LEGACY_ONLY
 			aprilui::destroy();
+#endif
 			atresttf::destroy();
 			atres::destroy();
 			april::destroy();
