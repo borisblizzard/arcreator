@@ -13810,11 +13810,58 @@ class EnemyExpGold_Dialog ( wx.Dialog ):
 class AudioPlayer_Panel ( wx.Panel ):
 	
 	def __init__( self, parent ):
-		wx.Panel.__init__ ( self, parent, id = wx.ID_ANY, pos = wx.DefaultPosition, size = wx.Size( 450,220 ), style = wx.TAB_TRAVERSAL )
+		wx.Panel.__init__ ( self, parent, id = wx.ID_ANY, pos = wx.DefaultPosition, size = wx.Size( 398,440 ), style = wx.TAB_TRAVERSAL )
 		
-		MainSizer = wx.BoxSizer( wx.HORIZONTAL )
+		MainSizer = wx.BoxSizer( wx.VERTICAL )
 		
-		bSizer626 = wx.BoxSizer( wx.VERTICAL )
+		sizerControls = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, wx.EmptyString ), wx.VERTICAL )
+		
+		sizerSelection = wx.BoxSizer( wx.HORIZONTAL )
+		
+		self.notebookAudio = wx.Notebook( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.panelBGM = wx.Panel( self.notebookAudio, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
+		bSizer6311 = wx.BoxSizer( wx.VERTICAL )
+		
+		listBoxAudioChoices = []
+		self.listBoxAudio = wx.ListBox( self.panelBGM, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, listBoxAudioChoices, wx.LB_SINGLE )
+		bSizer6311.Add( self.listBoxAudio, 1, wx.EXPAND, 5 )
+		
+		self.panelBGM.SetSizer( bSizer6311 )
+		self.panelBGM.Layout()
+		bSizer6311.Fit( self.panelBGM )
+		self.notebookAudio.AddPage( self.panelBGM, u"BGM", False )
+		self.panelBGS = wx.Panel( self.notebookAudio, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
+		self.notebookAudio.AddPage( self.panelBGS, u"BGS", False )
+		self.panelSE = wx.Panel( self.notebookAudio, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
+		self.notebookAudio.AddPage( self.panelSE, u"SE", False )
+		self.panelME = wx.Panel( self.notebookAudio, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
+		self.notebookAudio.AddPage( self.panelME, u"ME", False )
+		
+		sizerSelection.Add( self.notebookAudio, 1, wx.EXPAND|wx.TOP|wx.BOTTOM, 5 )
+		
+		sizerVolume = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Volume" ), wx.VERTICAL )
+		
+		self.sliderVolume = wx.Slider( self, wx.ID_ANY, 80, 0, 100, wx.DefaultPosition, wx.DefaultSize, wx.SL_INVERSE|wx.SL_LABELS|wx.SL_VERTICAL )
+		sizerVolume.Add( self.sliderVolume, 1, wx.ALL, 5 )
+		
+		self.spinCtrlVolume = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( 54,-1 ), wx.SP_ARROW_KEYS, 0, 100, 80 )
+		sizerVolume.Add( self.spinCtrlVolume, 0, wx.ALL, 5 )
+		
+		sizerSelection.Add( sizerVolume, 0, wx.ALL|wx.EXPAND, 5 )
+		
+		sizerPitch = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Pitch (Hz)" ), wx.VERTICAL )
+		
+		self.sliderPitch = wx.Slider( self, wx.ID_ANY, 100, 25, 200, wx.DefaultPosition, wx.DefaultSize, wx.SL_INVERSE|wx.SL_LABELS|wx.SL_VERTICAL )
+		sizerPitch.Add( self.sliderPitch, 1, wx.ALL, 5 )
+		
+		self.spinCtrlPitch = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( 48,-1 ), wx.SP_ARROW_KEYS, 25, 200, 100 )
+		sizerPitch.Add( self.spinCtrlPitch, 0, wx.ALL, 5 )
+		
+		sizerSelection.Add( sizerPitch, 0, wx.ALL|wx.EXPAND, 5 )
+		
+		sizerControls.Add( sizerSelection, 1, wx.EXPAND, 5 )
+		
+		sizerPlayback = wx.BoxSizer( wx.VERTICAL )
 		
 		bSizer632 = wx.BoxSizer( wx.VERTICAL )
 		
@@ -13822,67 +13869,70 @@ class AudioPlayer_Panel ( wx.Panel ):
 		self.labelFileName.Wrap( -1 )
 		bSizer632.Add( self.labelFileName, 0, wx.ALL|wx.EXPAND, 5 )
 		
-		self.panelSpectrograph = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.SUNKEN_BORDER|wx.TAB_TRAVERSAL )
-		bSizer632.Add( self.panelSpectrograph, 1, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
+		self.panelWaveParent = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.Size( -1,48 ), wx.TAB_TRAVERSAL )
+		bSizer635 = wx.BoxSizer( wx.VERTICAL )
 		
-		bSizer630 = wx.BoxSizer( wx.VERTICAL )
+		from WaveForm_Panel import WaveFormPanel
+		self.waveFormPanel = WaveFormPanel(self.panelWaveParent)
+		bSizer635.Add( self.waveFormPanel, 1, wx.EXPAND, 5 )
 		
-		self.sliderPosition = wx.Slider( self, wx.ID_ANY, 0, 0, 100, wx.DefaultPosition, wx.DefaultSize, wx.SL_HORIZONTAL|wx.SL_LABELS )
-		bSizer630.Add( self.sliderPosition, 0, wx.ALL|wx.EXPAND, 5 )
+		self.panelWaveParent.SetSizer( bSizer635 )
+		self.panelWaveParent.Layout()
+		bSizer632.Add( self.panelWaveParent, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.EXPAND, 0 )
+		
+		bSizer6301 = wx.BoxSizer( wx.VERTICAL )
+		
+		self.sliderPosition = wx.Slider( self, wx.ID_ANY, 0, 0, 100, wx.DefaultPosition, wx.DefaultSize, wx.SL_HORIZONTAL )
+		bSizer6301.Add( self.sliderPosition, 0, wx.ALL|wx.EXPAND, 5 )
 		
 		bSizer631 = wx.BoxSizer( wx.HORIZONTAL )
 		
 		self.checkBoxRepeat = wx.CheckBox( self, wx.ID_ANY, u"Repeat", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.checkBoxRepeat.SetValue(True) 
 		bSizer631.Add( self.checkBoxRepeat, 1, wx.ALL|wx.EXPAND, 5 )
 		
-		self.buttonPlay = wx.Button( self, wx.ID_ANY, u"Play", wx.DefaultPosition, wx.DefaultSize, 0 )
-		bSizer631.Add( self.buttonPlay, 0, wx.TOP|wx.BOTTOM|wx.LEFT, 5 )
+		self.buttonPlay = wx.BitmapButton( self, wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.DefaultSize, wx.BU_AUTODRAW )
+		bSizer631.Add( self.buttonPlay, 0, wx.ALL, 5 )
 		
-		self.buttonStop = wx.Button( self, wx.ID_ANY, u"Stop", wx.DefaultPosition, wx.DefaultSize, 0 )
-		bSizer631.Add( self.buttonStop, 0, wx.TOP|wx.BOTTOM|wx.RIGHT, 5 )
+		self.buttonPause = wx.BitmapButton( self, wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.DefaultSize, wx.BU_AUTODRAW )
+		bSizer631.Add( self.buttonPause, 0, wx.TOP|wx.BOTTOM, 5 )
 		
-		bSizer630.Add( bSizer631, 0, wx.ALIGN_RIGHT|wx.EXPAND, 5 )
+		self.buttonStop = wx.BitmapButton( self, wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.DefaultSize, wx.BU_AUTODRAW )
+		bSizer631.Add( self.buttonStop, 0, wx.ALL, 5 )
 		
-		bSizer632.Add( bSizer630, 0, wx.EXPAND, 5 )
+		bSizer6301.Add( bSizer631, 0, wx.ALIGN_RIGHT|wx.EXPAND, 5 )
 		
-		bSizer626.Add( bSizer632, 1, wx.EXPAND, 5 )
+		bSizer632.Add( bSizer6301, 0, wx.EXPAND, 5 )
 		
-		MainSizer.Add( bSizer626, 1, wx.EXPAND, 5 )
+		sizerPlayback.Add( bSizer632, 0, wx.EXPAND, 5 )
 		
-		sizerVolume = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Volume" ), wx.VERTICAL )
+		sizerControls.Add( sizerPlayback, 0, wx.EXPAND, 5 )
 		
-		self.sliderVolume = wx.Slider( self, wx.ID_ANY, 50, 0, 100, wx.DefaultPosition, wx.DefaultSize, wx.SL_INVERSE|wx.SL_LABELS|wx.SL_VERTICAL )
-		sizerVolume.Add( self.sliderVolume, 1, wx.ALL, 5 )
+		MainSizer.Add( sizerControls, 1, wx.EXPAND|wx.ALL, 5 )
 		
-		self.spinCtrlVolume = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( 48,-1 ), wx.SP_ARROW_KEYS|wx.SP_WRAP, 0, 100, 50 )
-		sizerVolume.Add( self.spinCtrlVolume, 0, wx.ALL, 5 )
+		sizerOKCancel = wx.BoxSizer( wx.HORIZONTAL )
 		
-		MainSizer.Add( sizerVolume, 0, wx.EXPAND|wx.ALL, 5 )
+		sizerStop = wx.BoxSizer( wx.HORIZONTAL )
 		
-		sizerPitch = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Pitch" ), wx.VERTICAL )
+		self.buttonStopAll = wx.Button( self, wx.ID_ANY, u"Stop All", wx.DefaultPosition, wx.DefaultSize, 0 )
+		sizerStop.Add( self.buttonStopAll, 0, wx.ALL, 5 )
 		
-		self.sliderPitch = wx.Slider( self, wx.ID_ANY, 100, 50, 150, wx.DefaultPosition, wx.DefaultSize, wx.SL_INVERSE|wx.SL_LABELS|wx.SL_VERTICAL )
-		sizerPitch.Add( self.sliderPitch, 1, wx.ALL, 5 )
+		sizerOKCancel.Add( sizerStop, 1, wx.EXPAND, 5 )
 		
-		self.spinCtrlPitch = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( 48,-1 ), wx.SP_ARROW_KEYS|wx.SP_WRAP, 50, 150, 100 )
-		sizerPitch.Add( self.spinCtrlPitch, 0, wx.ALL, 5 )
+		self.buttonOK = wx.Button( self, wx.ID_ANY, u"OK", wx.DefaultPosition, wx.DefaultSize, 0 )
+		sizerOKCancel.Add( self.buttonOK, 0, wx.TOP|wx.BOTTOM|wx.LEFT, 5 )
 		
-		MainSizer.Add( sizerPitch, 0, wx.EXPAND|wx.ALL, 5 )
+		self.buttonCancel = wx.Button( self, wx.ID_ANY, u"Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
+		sizerOKCancel.Add( self.buttonCancel, 0, wx.TOP|wx.BOTTOM|wx.RIGHT, 5 )
+		
+		MainSizer.Add( sizerOKCancel, 0, wx.ALIGN_RIGHT|wx.EXPAND, 5 )
 		
 		self.SetSizer( MainSizer )
 		self.Layout()
 		
 		# Connect Events
-		self.labelFileName.Bind( wx.EVT_ERASE_BACKGROUND, self.ControlOnEraseBackground )
-		self.sliderPosition.Bind( wx.EVT_ERASE_BACKGROUND, self.ControlOnEraseBackground )
-		self.sliderPosition.Bind( wx.EVT_SCROLL, self.sliderPosition_Scrolled )
-		self.checkBoxRepeat.Bind( wx.EVT_CHECKBOX, self.checkBoxRepeat_CheckChanged )
-		self.checkBoxRepeat.Bind( wx.EVT_ERASE_BACKGROUND, self.ControlOnEraseBackground )
-		self.buttonPlay.Bind( wx.EVT_BUTTON, self.buttonPlay_Clicked )
-		self.buttonPlay.Bind( wx.EVT_ERASE_BACKGROUND, self.ControlOnEraseBackground )
-		self.buttonStop.Bind( wx.EVT_BUTTON, self.buttonStop_Clicked )
-		self.buttonStop.Bind( wx.EVT_ERASE_BACKGROUND, self.ControlOnEraseBackground )
+		self.notebookAudio.Bind( wx.EVT_NOTEBOOK_PAGE_CHANGED, self.notebookAudio_PageChanged )
+		self.listBoxAudio.Bind( wx.EVT_LISTBOX, self.listBoxAudio_SelectionChanged )
+		self.listBoxAudio.Bind( wx.EVT_LISTBOX_DCLICK, self.listBoxAudio_DoubleClick )
 		self.sliderVolume.Bind( wx.EVT_ERASE_BACKGROUND, self.ControlOnEraseBackground )
 		self.sliderVolume.Bind( wx.EVT_SCROLL, self.sliderVolume_Scrolled )
 		self.spinCtrlVolume.Bind( wx.EVT_ERASE_BACKGROUND, self.ControlOnEraseBackground )
@@ -13891,31 +13941,34 @@ class AudioPlayer_Panel ( wx.Panel ):
 		self.sliderPitch.Bind( wx.EVT_SCROLL, self.sliderPitch_Scrolled )
 		self.spinCtrlPitch.Bind( wx.EVT_ERASE_BACKGROUND, self.ControlOnEraseBackground )
 		self.spinCtrlPitch.Bind( wx.EVT_SPINCTRL, self.spinCtrlPitch_ValueChanged )
+		self.labelFileName.Bind( wx.EVT_ERASE_BACKGROUND, self.ControlOnEraseBackground )
+		self.sliderPosition.Bind( wx.EVT_ERASE_BACKGROUND, self.ControlOnEraseBackground )
+		self.sliderPosition.Bind( wx.EVT_SCROLL, self.sliderPosition_Scrolled )
+		self.checkBoxRepeat.Bind( wx.EVT_CHECKBOX, self.checkBoxRepeat_CheckChanged )
+		self.checkBoxRepeat.Bind( wx.EVT_ERASE_BACKGROUND, self.ControlOnEraseBackground )
+		self.buttonPlay.Bind( wx.EVT_BUTTON, self.buttonPlay_Clicked )
+		self.buttonPause.Bind( wx.EVT_BUTTON, self.buttonPause_Clicked )
+		self.buttonStop.Bind( wx.EVT_BUTTON, self.buttonStop_Clicked )
+		self.buttonStopAll.Bind( wx.EVT_BUTTON, self.buttonStopAll_Clicked )
+		self.buttonOK.Bind( wx.EVT_BUTTON, self.buttonOK_Clicked )
+		self.buttonCancel.Bind( wx.EVT_BUTTON, self.buttonCancel_Clicked )
 	
 	def __del__( self ):
 		pass
 	
 	
 	# Virtual event handlers, overide them in your derived class
+	def notebookAudio_PageChanged( self, event ):
+		pass
+	
+	def listBoxAudio_SelectionChanged( self, event ):
+		pass
+	
+	def listBoxAudio_DoubleClick( self, event ):
+		pass
+	
 	def ControlOnEraseBackground( self, event ):
 		pass
-	
-	
-	def sliderPosition_Scrolled( self, event ):
-		pass
-	
-	def checkBoxRepeat_CheckChanged( self, event ):
-		pass
-	
-	
-	def buttonPlay_Clicked( self, event ):
-		pass
-	
-	
-	def buttonStop_Clicked( self, event ):
-		pass
-	
-	
 	
 	def sliderVolume_Scrolled( self, event ):
 		pass
@@ -13930,6 +13983,33 @@ class AudioPlayer_Panel ( wx.Panel ):
 	
 	
 	def spinCtrlPitch_ValueChanged( self, event ):
+		pass
+	
+	
+	
+	def sliderPosition_Scrolled( self, event ):
+		pass
+	
+	def checkBoxRepeat_CheckChanged( self, event ):
+		pass
+	
+	
+	def buttonPlay_Clicked( self, event ):
+		pass
+	
+	def buttonPause_Clicked( self, event ):
+		pass
+	
+	def buttonStop_Clicked( self, event ):
+		pass
+	
+	def buttonStopAll_Clicked( self, event ):
+		pass
+	
+	def buttonOK_Clicked( self, event ):
+		pass
+	
+	def buttonCancel_Clicked( self, event ):
 		pass
 	
 

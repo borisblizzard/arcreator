@@ -538,6 +538,33 @@ play_button = PyEmbeddedImage(
 IconManager._catalog['play_button'] = play_button
 
 #----------------------------------------------------------------------
+pause_button = PyEmbeddedImage(
+    "iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1B"
+    "AACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAadEVYdFNvZnR3YXJlAFBhaW50Lk5F"
+    "VCB2My41LjEwMPRyoQAAAhRJREFUOE/N099LU2EYB/DDhIocYYoQjGCbS7AgsB9grDGn+6XT"
+    "dIXhXT8u7cKG0fxxmkLpIrqL7mcejf6IOhcREdIPNxtZ5+TRprm5zkaenXl2ym+vEkfB410X"
+    "vfDAy/M+fHh4n/elqP9mXQpaRicZ78YE40Bs4gya3ZVJ0ty+sjLqxONHzjzDuPCEaQA9bFsn"
+    "+bZdjd+PnmWL6hX8LHVCLHoQHjCDFJnLD1JXC8VrkNTLyCt+fOLOb+ZHdgGj0eNsXmnFjzU3"
+    "0hk3boUsGpCT2yHKXqyKbsTfO/SBu/ds7GrOg+8pLxY++xC6sQ1kcgRNe/DtqxfTL536wMgd"
+    "G5ua92E+2QJuJoCbPTVaBynBA2HODz7eijcvmvSBodvHWD4RAPfhAkEuoq+3VgO4hI+g7eAT"
+    "nXj32q8PDPbVsnw8iMUvXUgvtyEcPqoBb58bMfPqAPhkNT7O1ukDdLiOXRI6sLJSg6xUgQG6"
+    "SgNmp8shcPuREY2YE0x73EHExGbESojrR7BWOgmatm7fQaoC2cJhMkYbhMWGPaYwVkXGaIVc"
+    "skMtdSEydEoDspKZoPVQ1ACWFrr1gbGolVXUFvxSrmOj0I/hwa0Hs/WQJNlF0G78lkNY5nv1"
+    "AVdj9bPJ8SY8jXVgKhaEw26SCHDIYKCaHz44janxADkLItJv3wR69P6gkSSdJBr/hmVHUf2O"
+    "/DmyN/yzT/wHUC0x8QGbNvUAAAAASUVORK5CYII=")
+IconManager._catalog['pause_button'] = pause_button
+
+#----------------------------------------------------------------------
+stop_button = PyEmbeddedImage(
+    "iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1B"
+    "AACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAadEVYdFNvZnR3YXJlAFBhaW50Lk5F"
+    "VCB2My41LjEwMPRyoQAAAKFJREFUOE9jYKAGSGJg+N/KzEwSTgPqgdvdysT0/3t9/f/vjY3E"
+    "4aam/308PKgGvElI+P8mMZE4nJT0v5eTE8kARsb/D+3s/j+0tyca97CxIQxoAfrnmpzc/6tE"
+    "YpDabmCYwcMAZMAZYDiQgruQAxFsABCfJgEPRwMuA/1/iUgMUtuNkhKBnIck4h50Az4CBUjB"
+    "vcgGgDJGH4k4G9kASnI0ACf6d6zwpE1cAAAAAElFTkSuQmCC")
+IconManager._catalog['stop_button'] = stop_button
+
+#----------------------------------------------------------------------
 check_green = PyEmbeddedImage(
     "iVBORw0KGgoAAAANSUhEUgAAAA4AAAAMCAYAAABSgIzaAAAAAXNSR0IArs4c6QAAAARnQU1B"
     "AACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAadEVYdFNvZnR3YXJlAFBhaW50Lk5F"

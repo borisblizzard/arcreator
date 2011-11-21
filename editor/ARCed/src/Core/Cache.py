@@ -153,6 +153,7 @@ class ImageFunctions(object):
 class RTPFunctions(object):
 
 	_image_ext = ["", ".png", ".gif", ".jpg", ".bmp"]
+	_audio_ext = ['', '.wav', '.ogg', '.mid']
 
 	@staticmethod
 	def FindFile(folder_name, name):
@@ -172,6 +173,29 @@ class RTPFunctions(object):
 	@staticmethod
 	def TestFiles(path, folder_name, name):
 		for ext in RTPFunctions._image_ext:
+			testpath = os.path.normpath(os.path.expandvars(os.path.join(path, folder_name, name + ext)))
+			if os.path.exists(testpath) and os.path.isfile(testpath):
+				return True, testpath
+		return False, ""
+
+	@staticmethod
+	def FindAudioFile(folder_name, name):
+		flag = False
+		flag, testpath = RTPFunctions.TestAudioFiles(Kernel.GlobalObjects.get_value("CurrentProjectDir"), folder_name, name)
+		if flag:
+			return testpath
+		else:
+			rtps = Kernel.GlobalObjects.get_value("ARCed_config").get_section("RTPs")
+			for rtp_name, path in rtps.iteritems():
+				flag, testpath = RTPFunctions.TestAudioFiles(path, folder_name, name)
+			if flag:
+				return testpath
+			else:
+				return ""
+
+	@staticmethod
+	def TestAudioFiles(path, folder_name, name):
+		for ext in RTPFunctions._audio_ext:
 			testpath = os.path.normpath(os.path.expandvars(os.path.join(path, folder_name, name + ext)))
 			if os.path.exists(testpath) and os.path.isfile(testpath):
 				return True, testpath
