@@ -77,7 +77,7 @@ namespace rgss
 		srcRect.y = this->srcRect->y / sh;
 		srcRect.w = hmin(this->srcRect->width / sw, 1.0f - srcRect.x);
 		srcRect.h = hmin(this->srcRect->height / sh, 1.0f - srcRect.y);
-		/// @todo
+		// TODO
 		/*
 		april::Color color = this->_getRenderColor();
 		if (this->opacity < 255)

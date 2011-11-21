@@ -21,6 +21,7 @@
 #include <xal/AudioManager.h>
 #include <xal/xal.h>
 
+#include "ApplicationExitException.h"
 #include "ARC.h"
 #include "ARC_Data.h"
 #include "ARC_Error.h"
@@ -123,15 +124,33 @@ namespace zer0
 		return result;
 	}
 	
+	VALUE _safe_loadData(VALUE file)
+	{
+		VALUE rb_mMarshal = rb_funcall_1(rb_mKernel, "const_get", rb_f_to_sym(rb_str_new2("Marshal")));
+		return rb_funcall_1(rb_mMarshal, "load", file);
+	}
+	
 	VALUE rb_Kernel_loadData(VALUE self, VALUE filename)
 	{
-		// TODO - unsafe, should be done with a rb_protect block
-		VALUE rb_mMarshal = rb_funcall_1(rb_mKernel, "const_get", rb_f_to_sym(rb_str_new2("Marshal")));
 		VALUE file = rb_funcall_2(rb_cFile, "open", filename, rb_str_new2("rb"));
-		VALUE data = rb_funcall_1(rb_mMarshal, "load", file);
+		int exception;
+		VALUE data = rb_protect(&_safe_loadData, file, &exception);
 		rb_funcall_0(file, "close");
+		if (exception != 0)
+		{
+			rb_jump_tag(exception);
+		}
 		return data;
-		//*/
+	}
+	
+	VALUE rb_Kernel_exit(int argc, VALUE* argv, VALUE self)
+	{
+		throw ApplicationExitException();
+	}
+	
+	VALUE rb_Kernel_exit1(VALUE self, VALUE args)
+	{
+		throw ApplicationExitException();
 	}
 	
 	bool isDebugMode()
@@ -248,7 +267,7 @@ namespace zer0
 		return result;
 	}
 	
-	VALUE embedded(VALUE ignore)
+	VALUE embedded(VALUE ignored)
 	{
 		// creating Ruby interfaces of C++ classes created for Ruby
 		ARC::createRubyInterface();
@@ -295,7 +314,7 @@ namespace zer0
 #ifdef HAVE_LOCALE_H
 	    setlocale(LC_CTYPE, "");
 #endif
-		int state;
+		int exception;
 		ruby_sysinit(&argc, &argv);
 		RUBY_INIT_STACK;
 		ruby_init();
@@ -318,15 +337,17 @@ namespace zer0
 		rb_define_method(rb_mKernel, "puts", RUBY_METHOD_FUNC(&rb_Kernel_print), -1);
 		rb_define_method(rb_mKernel, "p", RUBY_METHOD_FUNC(&rb_Kernel_p), -1);
 		rb_define_method(rb_mKernel, "load_data", RUBY_METHOD_FUNC(&rb_Kernel_loadData), 1);
+		rb_define_method(rb_mKernel, "exit", RUBY_METHOD_FUNC(&rb_Kernel_exit), -1);
+		rb_define_method(rb_mKernel, "exit!", RUBY_METHOD_FUNC(&rb_Kernel_exit), -1);
 		// running everything
 		try
 		{
-			rb_protect(embedded, Qnil, &state);
-			if (state != 0)
+			rb_protect(embedded, Qnil, &exception);
+			if (exception != 0)
 			{
 				displayRubyError();
 			}
-			ruby_cleanup(state);
+			ruby_cleanup(exception);
 		}
 		catch (rgss::ApplicationExitException e)
 		{

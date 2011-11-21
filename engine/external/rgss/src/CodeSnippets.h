@@ -64,6 +64,14 @@
 /// @param[in] type Type of the C++ variable.
 /// @param[in] name Name of the C++ variable.
 #define RB_SELF2CPP(type, name) type* name; Data_Get_Struct(self, type, name);
+/// @brief throws an Errno::ENOENT exception
+/// @param[in] filename Filename C-string.
+#define RB_RAISE_FILE_NOT_FOUND(filename) \
+	{ \
+		VALUE errnoModule = rb_funcall_1(rb_mKernel, "const_get", rb_f_to_sym(rb_str_new2("Errno"))); \
+		VALUE enoentClass = rb_funcall_1(errnoModule, "const_get", rb_f_to_sym(rb_str_new2("ENOENT"))); \
+		rb_raise(enoentClass, filename); \
+	}
 
 /// @brief Generates an entire Ruby setter method in C++.
 /// @param[in] type1 Type of the C++ variable.

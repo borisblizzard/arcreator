@@ -1,16 +1,13 @@
 - implement MIDI support in XAL
 - implement pitch for audio in XAL
-- throw Errno::ENOENT without using eval() at several places
 - test Bitmap::rb_textSize
 - change Color::toAprilColor to take into account negative values
-- implement font caching for atrestff
+- implement font caching for atrestff?
+- implement reading of font files from system directory
 - fix problem with D3DX9 device reset after CTRL+ALT+Delete
-- using "exit" crashes the game
 - fix vertical draw_text offset
 - implement -debug argument
 - add script files as internally embedded resources
 - implement SHA-1 in C++
-- recompile Ruby with zlib support
-- implement something like "getSystemPath" in ARC module
 - check input problem when being at the top/bottom of a menu (problem with trigger?/repeat?)
 - check input problem when holding two directional buttons pressed at the same time (problem with repeat?)
