@@ -27,9 +27,12 @@ namespace zer0
 		/// @brief Exposes this class to Ruby.
 		static void createRubyInterface();
 
-		/// @brief Does nothing.
-		/// @param[in] param Does nothing.
-		static VALUE rb_test(VALUE self, VALUE param);
+		/// @brief Returns User System Path used for logs, save games, etc.
+		/// @return System Path.
+		static VALUE rb_getSystemPath(VALUE self);
+		/// @brief Returns parameters from arc.cfg file.
+		/// @return Parameters from arc.cfg file.
+		static VALUE rb_getCfgParameters(VALUE self);
 
 	};
 

@@ -11,6 +11,11 @@
 #include "CodeSnippets.h"
 #include "zer0.h"
 
+#define __MAP(data, obj) (data += obj)
+#define __FIND_MAPPED(data, id) (id < data.size() ? data[id] : Qnil)
+#define __DUMP_INT32(obj) (file.dump(obj))
+#define __LOAD_INT32 (file.load_int())
+
 namespace zer0
 {
 	VALUE rb_mARC_Data;
@@ -107,32 +112,23 @@ namespace zer0
 		int index = data.index_of(obj);
 		if (index < 0)
 		{
-			ARC_Data::__dump_int32(data.size());
+			__DUMP_INT32(data.size());
 			data += obj;
 			return true;
 		}
-		ARC_Data::__dump_int32(index);
+		__DUMP_INT32(index);
 		return false;
 	}
 
-	void ARC_Data::__map(harray<VALUE>& data, VALUE obj)
+	VALUE ARC_Data::__safe_dump(VALUE obj)
 	{
-		data += obj;
+		ARC_Data::_dump(obj);
+		return Qnil;
 	}
 
-	VALUE ARC_Data::__find_mapped(harray<VALUE>& data, int id)
+	VALUE ARC_Data::__safe_load(VALUE ignored)
 	{
-		return (id < data.size() ? data[id] : Qnil);
-	}
-	
-	void ARC_Data::__dump_int32(int obj)
-	{
-		file.dump(obj);
-	}
-
-	int ARC_Data::__load_int32()
-	{
-		return file.load_int();
+		return ARC_Data::_load();
 	}
 
 	void ARC_Data::_dump(VALUE obj)
@@ -165,6 +161,7 @@ namespace zer0
 		if (type == Types[rb_cHash]) return ARC_Data::_load_hash();
 		if (type == Types[rb_cObject]) return ARC_Data::_load_object();
 		rb_raise(rb_eARC_Error, hsprintf("Error: Unknown type 0x%02X detected!", type).c_str());
+		return Qnil;
 	}
 
 	void ARC_Data::_dump_nil(VALUE obj)
@@ -185,13 +182,13 @@ namespace zer0
 	void ARC_Data::_dump_fixnum(VALUE obj)
 	{
 		file.dump(Types[rb_cFixnum]);
-		ARC_Data::__dump_int32(NUM2INT(obj));
+		__DUMP_INT32(NUM2INT(obj));
 	}
 		
 	void ARC_Data::_dump_bignum(VALUE obj)
 	{
 		file.dump(Types[rb_cBignum]);
-		ARC_Data::__dump_int32(NUM2INT(obj)); // the C++ implementation uses a "long" of 32 bit
+		__DUMP_INT32(NUM2INT(obj)); // the C++ implementation uses a "long" of 32 bit
 	}
 		
 	void ARC_Data::_dump_float(VALUE obj)
@@ -213,7 +210,7 @@ namespace zer0
 		}
 		else
 		{
-			ARC_Data::__dump_int32(0);
+			__DUMP_INT32(0);
 		}
 	}
 		
@@ -225,7 +222,7 @@ namespace zer0
 		{
 			if (ARC_Data::__try_map(arrays, obj))
 			{
-				ARC_Data::__dump_int32(size);
+				__DUMP_INT32(size);
 				rb_ary_each_index(obj, i)
 				{
 					ARC_Data::_dump(rb_ary_entry(obj, i));
@@ -234,7 +231,7 @@ namespace zer0
 		}
 		else
 		{
-			ARC_Data::__dump_int32(0);
+			__DUMP_INT32(0);
 		}
 	}
 		
@@ -246,7 +243,7 @@ namespace zer0
 		{
 			if (ARC_Data::__try_map(hashes, obj))
 			{
-				ARC_Data::__dump_int32(size);
+				__DUMP_INT32(size);
 				VALUE keys = rb_funcall_0(obj, "keys");
 				VALUE key;
 				rb_ary_each_index(keys, i)
@@ -259,7 +256,7 @@ namespace zer0
 		}
 		else
 		{
-			ARC_Data::__dump_int32(0);
+			__DUMP_INT32(0);
 		}
 	}
 		
@@ -275,7 +272,7 @@ namespace zer0
 			{
 				VALUE data = rb_funcall_0(obj, "_arc_dump");
 				int size = NUM2INT(rb_str_size(data));
-				ARC_Data::__dump_int32(size);
+				__DUMP_INT32(size);
 				unsigned char* raw_data = (unsigned char*)StringValueCStr(data);
 				file.write_raw(raw_data, size);
 			}
@@ -283,7 +280,7 @@ namespace zer0
 			{
 				VALUE variables = rb_funcall_0(obj, "instance_variables");
 				int size = NUM2INT(rb_ary_size(variables));
-				ARC_Data::__dump_int32(size);
+				__DUMP_INT32(size);
 				VALUE variable;
 				rb_ary_each_index(variables, i)
 				{
@@ -312,12 +309,12 @@ namespace zer0
 		
 	VALUE ARC_Data::_load_fixnum()
 	{
-		return INT2FIX(ARC_Data::__load_int32());
+		return INT2FIX(__LOAD_INT32);
 	}
 		
 	VALUE ARC_Data::_load_bignum()
 	{
-		return INT2FIX(ARC_Data::__load_int32()); // the C++ implementation uses a "long" of 32 bit
+		return INT2FIX(__LOAD_INT32); // the C++ implementation uses a "long" of 32 bit
 	}
 		
 	VALUE ARC_Data::_load_float()
@@ -327,37 +324,37 @@ namespace zer0
 	
 	VALUE ARC_Data::_load_string()
 	{
-		int id = ARC_Data::__load_int32();
+		int id = __LOAD_INT32;
 		if (id == 0)
 		{
 			return rb_str_new2("");
 		}
-		VALUE obj = ARC_Data::__find_mapped(strings, id);
+		VALUE obj = __FIND_MAPPED(strings, id);
 		if (!NIL_P(obj))
 		{
 			return rb_str_new2(StringValueCStr(obj));
 		}
 		hstr value = file.load_hstr();
 		obj = rb_str_new2(value.c_str());
-		ARC_Data::__map(strings, obj);
+		__MAP(strings, obj);
 		return obj;
 	}
 		
 	VALUE ARC_Data::_load_array()
 	{
-		int id = ARC_Data::__load_int32();
+		int id = __LOAD_INT32;
 		if (id == 0)
 		{
 			return rb_ary_new();
 		}
-		VALUE obj = ARC_Data::__find_mapped(arrays, id);
+		VALUE obj = __FIND_MAPPED(arrays, id);
 		if (!NIL_P(obj))
 		{
 			return obj;
 		}
-		int size = ARC_Data::__load_int32();
+		int size = __LOAD_INT32;
 		obj = rb_ary_new();
-		ARC_Data::__map(arrays, obj);
+		__MAP(arrays, obj);
 		for_iter (i, 0, size)
 		{
 			rb_ary_push(obj, ARC_Data::_load());
@@ -367,19 +364,19 @@ namespace zer0
 		
 	VALUE ARC_Data::_load_hash()
 	{
-		int id = ARC_Data::__load_int32();
+		int id = __LOAD_INT32;
 		if (id == 0)
 		{
 			return rb_hash_new();
 		}
-		VALUE obj = ARC_Data::__find_mapped(hashes, id);
+		VALUE obj = __FIND_MAPPED(hashes, id);
 		if (!NIL_P(obj))
 		{
 			return obj;
 		}
-		int size = ARC_Data::__load_int32();
+		int size = __LOAD_INT32;
 		obj = rb_hash_new();
-		ARC_Data::__map(hashes, obj);
+		__MAP(hashes, obj);
 		VALUE key;
 		for_iter (i, 0, size)
 		{
@@ -392,24 +389,25 @@ namespace zer0
 	VALUE ARC_Data::_load_object()
 	{
 		VALUE class_path = ARC_Data::_load();
-		VALUE obj = ARC_Data::__find_mapped(objects, ARC_Data::__load_int32());
+		int id = __LOAD_INT32;
+		VALUE obj = __FIND_MAPPED(objects, id);
 		if (!NIL_P(obj))
 		{
 			return obj;
 		}
 		VALUE classe = ARC_Data::__get_class_object(hstr(StringValueCStr(class_path)));
-		int size = ARC_Data::__load_int32();
+		int size = __LOAD_INT32;
 		if (rb_funcall_1(classe, "respond_to?", rb_str_new2("_arc_load")))
 		{
 			unsigned char* data = new unsigned char[size];
 			file.read_raw(data, size);
 			obj = rb_funcall_1(classe, "_arc_load", rb_str_new((const char*)data, size));
-			ARC_Data::__map(objects, obj);
+			__MAP(objects, obj);
 			delete data;
 			return obj;
 		}
 		obj = rb_funcall_0(classe, "allocate");
-		ARC_Data::__map(objects, obj);
+		__MAP(objects, obj);
 		VALUE variable;
 		VALUE symbol;
 		VALUE value;
@@ -429,34 +427,68 @@ namespace zer0
 
 	VALUE ARC_Data::rb_dump(VALUE self, VALUE filename, VALUE obj)
 	{
+		try
+		{
+			file.open(StringValueCStr(filename));
+		}
+		catch (hltypes::_file_not_found e)
+		{
+			RB_RAISE_FILE_NOT_FOUND(StringValueCStr(filename));
+		}
 		rb_funcall_0(rb_mGC, "disable"); // to prevent GC destroying temp data
-		// TODO - unsafe, should be done with a rb_protect block to reset the serializer in the end
-		file.open(StringValueCStr(filename));
 		harray<unsigned char> versions = Version.split(".").cast<int>().cast<unsigned char>();
 		file.dump(versions[0]);
 		file.dump(versions[1]);
-		ARC_Data::_dump(obj);
+		int exception;
+		rb_protect(&ARC_Data::__safe_dump, obj, &exception);
 		ARC_Data::_resetSerializer();
 		rb_funcall_0(rb_mGC, "enable");
+		if (exception != 0)
+		{
+			rb_jump_tag(exception);
+		}
 		return Qnil;
 	}
 
 	VALUE ARC_Data::rb_load(VALUE self, VALUE filename)
 	{
-		rb_funcall_0(rb_mGC, "disable"); // to prevent GC destroying temp data
-		// TODO - unsafe, should be done with a rb_protect block to reset the serializer in the end
-		file.open(StringValueCStr(filename));
-		unsigned char major = file.load_uchar();
-		unsigned char minor = file.load_uchar();
-		hstr version = hstr((int)major) + "." + hstr((int)minor);
-		if (Version != version)
+		try
 		{
+			file.open(StringValueCStr(filename));
+		}
+		catch (hltypes::_file_not_found e)
+		{
+			RB_RAISE_FILE_NOT_FOUND(StringValueCStr(filename));
+		}
+		rb_funcall_0(rb_mGC, "disable"); // to prevent GC destroying temp data
+		bool failed = (file.size() < 2);
+		unsigned char major;
+		unsigned char minor;
+		hstr version;
+		if (!failed)
+		{
+			major = file.load_uchar();
+			minor = file.load_uchar();
+			version = hstr((int)major) + "." + hstr((int)minor);
+			failed = (Version != version);
+		}
+		if (failed)
+		{
+			ARC_Data::_resetSerializer();
+			rb_funcall_0(rb_mGC, "enable");
 			rb_raise(rb_eARC_Error, hsprintf("Error: ARC::Data version mismatch! Excepted: %s Found: %s",
 				Version.c_str(), version.c_str()).c_str());
+			return Qnil;
 		}
-		VALUE data = ARC_Data::_load();
+		int exception;
+		VALUE data = rb_protect(&ARC_Data::__safe_load, Qnil, &exception);
 		ARC_Data::_resetSerializer();
 		rb_funcall_0(rb_mGC, "enable");
+		if (exception != 0)
+		{
+			rb_jump_tag(exception);
+			return Qnil;
+		}
 		return data;
 	}
 

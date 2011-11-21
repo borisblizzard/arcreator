@@ -62,23 +62,12 @@ namespace zer0
 		/// @param[in] obj The object to map.
 		/// @return True if object was mapped, false if object has been previously already mapped.
 		static bool __try_map(harray<VALUE>& data, VALUE obj);
-		/// @brief Map the object into the mapping.
-		/// @param[in] data The VALUE array.
-		/// @param[in] obj The object to map.
-		static void __map(harray<VALUE>& data, VALUE obj);
-		/// @brief Finds a mapped object by ID.
-		/// @param[in] data The VALUE array.
-		/// @param[in] id ID of the object to find.
-		/// @return Qnil if there is no object with the ID, otherwise the object mapped under the ID.
-		static VALUE __find_mapped(harray<VALUE>& data, int id);
-		/// @brief Dumps an int32.
-		/// @param[in] obj int32 to dump.
-		/// @todo Switch with a macro.
-		static void __dump_int32(int obj);
-		/// @brief Loads a dumped int32.
-		/// @return Loaded int32.
-		/// @todo Switch with a macro.
-		static int __load_int32();
+		/// @brief Used for rb_protect.
+		/// @param[in] obj Object to dump.
+		static VALUE __safe_dump(VALUE obj);
+		/// @brief Used for rb_protect.
+		/// @return Loaded object.
+		static VALUE __safe_load(VALUE ignored);
 		
 		/// @brief Dumps the object.
 		/// @param[in] obj Object to dump.

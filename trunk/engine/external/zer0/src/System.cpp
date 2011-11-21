@@ -37,7 +37,7 @@ namespace zer0
 	{
 	}
 	
-	/// @todo Add Linux and Mac variants.
+	// TODO Add Linux and Mac variants.
 	hstr System::_setupSystemPath(chstr title)
 	{
 		hstr path;

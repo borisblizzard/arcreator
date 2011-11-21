@@ -39,10 +39,7 @@ namespace rgss
 		hstr fullFilename = april::rendersys->findTextureFile(filename);
 		if (fullFilename == "")
 		{
-			/// @todo Has to throw Errno::ENOENT without using eval()
-			//rb_raise(rb_eENOENT, ("No such file or directory - " + filename).c_str());
-			hstr evalString = "raise Errno::ENOENT.new(\"" + filename + "\")";
-			rb_eval_string(evalString.c_str());
+			RB_RAISE_FILE_NOT_FOUND(filename.c_str());
 		}
 		this->_loadTexture(fullFilename);
 		this->disposed = false;
@@ -323,10 +320,7 @@ namespace rgss
 			hstr fullFilename = april::rendersys->findTextureFile(filename);
 			if (fullFilename == "")
 			{
-				/// @todo Has to throw Errno::ENOENT without using eval()
-				//rb_raise(rb_eENOENT, ("No such file or directory - " + filename).c_str());
-				hstr evalString = "raise Errno::ENOENT.new(\"" + filename + "\")";
-				rb_eval_string(evalString.c_str());
+				RB_RAISE_FILE_NOT_FOUND(filename.c_str());
 			}
 			bitmap->_loadTexture(fullFilename);
 		}
@@ -585,7 +579,7 @@ namespace rgss
 
 	VALUE Bitmap::rb_textSize(VALUE self, VALUE string)
 	{
-		/// @todo Test this.
+		// TODO - test this
 		RB_SELF2CPP(Bitmap, bitmap);
 		RB_CHECK_DISPOSED_2(bitmap);
 		RB_CHECK_TYPE_1(string, rb_cString);
