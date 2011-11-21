@@ -30,21 +30,22 @@ class ARCedTest(wx.App):
 	def create_panels(self):
 		
 		nb = wx.Notebook( self.frame )
-		Panels = [None for i in xrange(14)]
-		Panels[0] = ('Actors', 'ARCedActors_Panel')
-		Panels[1] = ('Classes', 'ARCedClasses_Panel')
-		Panels[2] = ('Skills', 'ARCedSkills_Panel')
-		Panels[3] = ('Items', 'ARCedItems_Panel')
-		Panels[4] = ('Weapons', 'ARCedWeapons_Panel')
-		Panels[5] = ('Armors', 'ARCedArmors_Panel')
-		Panels[6] = ('Enemies', 'ARCedEnemies_Panel')
-		Panels[7] = ('Troops', 'ARCedTroops_Panel')
-		Panels[8] = ('States', 'ARCedStates_Panel')
-		Panels[9] = ('Animations', 'ARCedAnimations_Panel')
-		Panels[10] = ('Tilesets', 'ARCedTilesets_Panel')
-		Panels[11] = ('Common Events', 'ARCedCommonEvents_Panel')
-		Panels[12] = ('System', 'ARCedSystem_Panel')
-		Panels[13] = ('Configuration', 'Configuration_Panel')
+		Panels = [None for i in xrange(1)]
+		Panels[0] = ('Audio', 'ARCedAudioPlayer_Panel')
+		#Panels[0] = ('Actors', 'ARCedActors_Panel')
+		#Panels[1] = ('Classes', 'ARCedClasses_Panel')
+		#Panels[2] = ('Skills', 'ARCedSkills_Panel')
+		#Panels[3] = ('Items', 'ARCedItems_Panel')
+		#Panels[4] = ('Weapons', 'ARCedWeapons_Panel')
+		#Panels[5] = ('Armors', 'ARCedArmors_Panel')
+		#Panels[6] = ('Enemies', 'ARCedEnemies_Panel')
+		#Panels[7] = ('Troops', 'ARCedTroops_Panel')
+		#Panels[8] = ('States', 'ARCedStates_Panel')
+		#Panels[9] = ('Animations', 'ARCedAnimations_Panel')
+		#Panels[10] = ('Tilesets', 'ARCedTilesets_Panel')
+		#Panels[11] = ('Common Events', 'ARCedCommonEvents_Panel')
+		#Panels[12] = ('System', 'ARCedSystem_Panel')
+		#Panels[13] = ('Configuration', 'Configuration_Panel')
 
 		for data in Panels:
 			exec('from ' + data[1] + ' import ' + data[1])

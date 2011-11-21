@@ -415,3 +415,28 @@ class DatabaseManager(object):
 		#parent.SetVirtualSizeHints(-1, -1, parent.GetClientSize().GetWidth() - 32)
 		#parent.SetSizer ( mainsizer )
 		return objectList
+
+	@staticmethod 
+	def gcd(num1, num2):
+		""" Calculates the greatest common denominator of two numbers"""
+		if num1 > num2:
+			for i in range(1, num2 + 1):
+				if num2 % i == 0:
+					if num1 % i == 0:
+						result = i
+			return result
+		elif num2 > num1:
+			for i in range(1, num1 + 1):
+				if num1 % i == 0:
+					if num2 % i == 0:
+						result = i
+			return result
+		else:
+			result = num1 * num2 / num1
+			return result
+
+	@staticmethod
+	def lcm(num1, num2):
+		"""Returns the lowest common multiple of two numbers"""
+		result = num1 * num2 / DatabaseManager.gcd(num1, num2)
+		return result
