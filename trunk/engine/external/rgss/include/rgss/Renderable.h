@@ -4,9 +4,15 @@
 #include <ruby.h>
 
 #include <april/Color.h>
+#include <gtypes/Rectangle.h>
 #include <gtypes/Vector2.h>
 
 #include "rgssExport.h"
+
+namespace april
+{
+	class Texture;
+}
 
 namespace rgss
 {
@@ -180,11 +186,13 @@ namespace rgss
 		/// @brief Renders this renderable using color and tone modifiers.
 		/// @param[in] drawRect Drawing area rectangle.
 		/// @param[in] drawRect Source area rectangle.
-		void _renderTexture(grect drawRect, grect srcRect);
+		void _renderTexture(grect drawRect, grect srcRect, april::Texture* texture, unsigned char opacity);
 
 	private:
 		/// @brief The RenderQueue this renderable belongs to.
 		RenderQueue* renderQueue;
+		/// @brief Texture used for temporary because of tone.
+		april::Texture* tempTexture;
 
 	};
 
