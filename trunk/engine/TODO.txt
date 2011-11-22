@@ -1,5 +1,8 @@
 - implement MIDI support in XAL
 - implement pitch for audio in XAL
+- implement seeking in xal::Player
+- implement a way to access raw audio data from a sound
+- change in XAL demo_simple to demo_test and add new demo_simple project
 - test Bitmap::rb_textSize
 - change Color::toAprilColor to take into account negative values
 - implement font caching for atrestff?
