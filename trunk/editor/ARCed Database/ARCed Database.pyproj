@@ -140,7 +140,6 @@
     <Compile Include="src\DatabaseManager.py" />
     <Compile Include="src\CustomControls.py" />
     <Compile Include="src\ImageCanvas.py" />
-    <Compile Include="src\WaveForm_Panel.py" />
     <Compile Include="src\__GL__.py" />
     <Compile Include="src\__main__.py" />
     <Compile Include="src\__test__.py" />
