@@ -177,6 +177,10 @@ namespace rgss
 		/// @brief Calculates the color for rendering.
 		/// @return april::Color to use for rendering.
 		april::Color _getRenderColor();
+		/// @brief Renders this renderable using color and tone modifiers.
+		/// @param[in] drawRect Drawing area rectangle.
+		/// @param[in] drawRect Source area rectangle.
+		void _renderTexture(grect drawRect, grect srcRect);
 
 	private:
 		/// @brief The RenderQueue this renderable belongs to.

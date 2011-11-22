@@ -57,6 +57,7 @@ namespace rgss
 			april::rendersys->setBlendMode(april::DEFAULT);
 			break;
 		}
+		april::rendersys->setColorMode(april::LERP, this->opacity);
 		grect drawRect = this->_getRenderRect().toGRect();
 		float w = (float)this->bitmap->getWidth();
 		float h = (float)this->bitmap->getHeight();
@@ -65,9 +66,9 @@ namespace rgss
 		srcRect.y = -this->oy / (this->zoom.y * h);
 		srcRect.w = drawRect.w / w;
 		srcRect.h = drawRect.h / h;
-		april::rendersys->drawTexturedQuad(drawRect, srcRect,
-			april::Color(APRIL_COLOR_WHITE, (unsigned char)this->opacity));
+		this->_renderTexture(drawRect, srcRect);
 		april::rendersys->setBlendMode(april::DEFAULT);
+		april::rendersys->setColorMode(april::NORMAL);
 	}
 
 	Rect Plane::_getRenderRect()

@@ -111,7 +111,6 @@ namespace rgss
 	{
 		RB_SELF2CPP(Font, font);
 		RB_VAR2CPP(original, Font, other);
-
 		font->name = other->name;
 		font->size = other->size;
 		font->bold = other->bold;

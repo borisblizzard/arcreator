@@ -81,21 +81,12 @@ namespace rgss
 	void Viewport::_render()
 	{
 		april::rendersys->setBlendMode(april::DEFAULT);
+		april::rendersys->setColorMode(april::LERP);
 		april::rendersys->setTexture(this->texture);
 		grect drawRect(0.0f, 0.0f, (float)this->rect->width, (float)this->rect->height);
 		grect srcRect(0.0f, 0.0f, 1.0f, 1.0f);
-		april::Color color = this->_getRenderColor();
-		april::rendersys->drawTexturedQuad(drawRect, srcRect);
-		/*
-		if (color == APRIL_COLOR_CLEAR)
-		{
-			april::rendersys->drawTexturedQuad(drawRect, srcRect);
-		}
-		else
-		{
-			april::rendersys->drawTexturedQuad(drawRect, srcRect, color);
-		}
-		//*/
+		this->_renderTexture(drawRect, srcRect);
+		april::rendersys->setColorMode(april::NORMAL);
 	}
 
 	void Viewport::dispose()
@@ -221,8 +212,7 @@ namespace rgss
 		}
 		VALUE argv2[4] = {INT2FIX(0), INT2FIX(0), INT2FIX(0), INT2FIX(0)};
 		Viewport::rb_setColor(self, Color::create(4, argv2));
-		VALUE argv3[4] = {INT2FIX(0), INT2FIX(0), INT2FIX(0), INT2FIX(0)};
-		Viewport::rb_setTone(self, Tone::create(4, argv3));
+		Viewport::rb_setTone(self, Tone::create(4, argv2));
 		return self;
 	}
 
