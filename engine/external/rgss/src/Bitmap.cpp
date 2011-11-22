@@ -155,6 +155,10 @@ namespace rgss
 
 	void Bitmap::_renderToTexture(int x, int y, april::Texture* source, int sx, int sy, int sw, int sh, unsigned char alpha)
 	{
+		if (alpha == 0)
+		{
+			return;
+		}
 		gmat4 viewMatrix = april::rendersys->getModelviewMatrix();
 		gmat4 projectionMatrix = april::rendersys->getProjectionMatrix();
 		april::TextureFilter filter = source->getTextureFilter();
@@ -185,6 +189,10 @@ namespace rgss
 
 	void Bitmap::_renderToTexture(int x, int y, int w, int h, april::Texture* source, int sx, int sy, int sw, int sh, unsigned char alpha)
 	{
+		if (alpha == 0)
+		{
+			return;
+		}
 		if (w == sw && h == sh)
 		{
 			this->_renderToTexture(x, y, source, sx, sy, sw, sh, alpha);

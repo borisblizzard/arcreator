@@ -1,5 +1,9 @@
 #include <ruby.h>
 
+#include <april/Color.h>
+#include <april/RenderSystem.h>
+#include <gtypes/Rectangle.h>
+
 #include "CodeSnippets.h"
 #include "Plane.h"
 #include "Renderable.h"
@@ -26,11 +30,11 @@ namespace rgss
 		this->ox = 0;
 		this->oy = 0;
 		this->zoom.set(1.0f, 1.0f);
-		VALUE argv[3] = {INT2FIX(255), INT2FIX(255), INT2FIX(255)};
-		this->rb_color = Color::create(3, argv);
+		VALUE argv[4] = {INT2FIX(0), INT2FIX(0), INT2FIX(0), INT2FIX(0)};
+		this->rb_color = Color::create(4, argv);
 		RB_VAR2CPP(this->rb_color, Color, color);
 		this->color = color;
-		this->rb_tone = Tone::create(3, argv);
+		this->rb_tone = Tone::create(4, argv);
 		RB_VAR2CPP(this->rb_tone, Tone, tone);
 		this->tone = tone;
 		this->rb_flashColor = Qnil;
@@ -130,6 +134,28 @@ namespace rgss
 			result = result * ratio + this->flashColor->toAprilColor() * (1.0f - ratio);
 		}
 		return result;
+	}
+
+	void Renderable::_renderTexture(grect drawRect, grect srcRect)
+	{
+		/*
+		if (_col.a != 0)
+		{
+			color.rgb = color.rgb * (1.0 - _col.a) + (_col.rgb * _col.a);
+		}
+		if (_tone.gr == 0)
+		{
+			color.rgb = color.rgb + _tone.rgb;
+		}
+		else
+		{
+			float grey = color.r * 0.299 + color.g * 0.587 + color.b * 0.114;
+			float factor = 1.0 - _tone.gr;
+			color.rgb = (color.rgb - grey) * factor + grey + _tone.rgb + 0.5;
+		}
+		*/
+		april::Color color = this->_getRenderColor();
+		april::rendersys->drawTexturedQuad(drawRect, srcRect, color);
 	}
 
 	/****************************************************************************************
