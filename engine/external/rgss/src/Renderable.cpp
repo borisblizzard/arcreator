@@ -6,11 +6,13 @@
 
 #include "CodeSnippets.h"
 #include "Plane.h"
+#include "Rect.h"
 #include "Renderable.h"
 #include "RenderQueue.h"
 #include "RGSSError.h"
 #include "Sprite.h"
 #include "Tilemap.h"
+#include "Tone.h"
 #include "Viewport.h"
 #include "Window.h"
 
@@ -41,6 +43,7 @@ namespace rgss
 		this->flashColor = NULL;
 		this->flashDuration = 0;
 		this->flashTimer = 0;
+		this->tempTexture = NULL;
 		this->counterId = CounterProgress;
 		CounterProgress++;
 		this->renderQueue = renderQueue;
@@ -111,6 +114,11 @@ namespace rgss
 		this->tone = NULL;
 		if (!this->disposed)
 		{
+			if (this->tempTexture != NULL)
+			{
+				delete this->tempTexture;
+				this->tempTexture = NULL;
+			}
 			this->disposed = true;
 			this->renderQueue->remove(this);
 			switch (this->type)
@@ -136,26 +144,139 @@ namespace rgss
 		return result;
 	}
 
-	void Renderable::_renderTexture(grect drawRect, grect srcRect)
+	void Renderable::_renderTexture(grect drawRect, grect srcRect, april::Texture* texture, unsigned char opacity)
 	{
-		/*
-		if (_col.a != 0)
+		if (this->tone->red == 0.0f && this->tone->green == 0.0f && this->tone->blue == 0.0f &&
+			this->tone->gray == 0.0f) // skip the whole slow mess down there if no tone is being used
 		{
-			color.rgb = color.rgb * (1.0 - _col.a) + (_col.rgb * _col.a);
+			if (this->tempTexture != NULL)
+			{
+				delete this->tempTexture;
+				this->tempTexture = NULL;
+			}
+			april::rendersys->setTexture(texture);
+			april::rendersys->setColorMode(april::LERP, opacity);
+			april::rendersys->drawTexturedQuad(drawRect, srcRect, this->_getRenderColor());
+			april::rendersys->setColorMode(april::NORMAL);
+			return;
 		}
-		if (_tone.gr == 0)
+		rgss::Rect rect;
+		rect.width = hround(drawRect.w);
+		rect.height = hround(drawRect.h);
+		bool needsTextureUpdate = false;
+		if (this->tempTexture == NULL)
 		{
-			color.rgb = color.rgb + _tone.rgb;
+			needsTextureUpdate = true;
+		}
+		else if (rect.width != this->tempTexture->getWidth() ||
+			rect.height != this->tempTexture->getHeight())
+		{
+			delete this->tempTexture;
+			needsTextureUpdate = true;
+		}
+		if (needsTextureUpdate)
+		{
+			this->tempTexture = april::rendersys->createEmptyTexture(rect.width,
+				rect.height, april::AT_ARGB, april::AT_RENDER_TARGET);
+			this->tempTexture->setTextureFilter(april::Nearest);
 		}
 		else
 		{
-			float grey = color.r * 0.299 + color.g * 0.587 + color.b * 0.114;
-			float factor = 1.0 - _tone.gr;
-			color.rgb = (color.rgb - grey) * factor + grey + _tone.rgb + 0.5;
+			this->tempTexture->clear();
 		}
-		*/
+		gmat4 viewMatrix = april::rendersys->getModelviewMatrix();
+		gmat4 projectionMatrix = april::rendersys->getProjectionMatrix();
+		april::Texture* target = april::rendersys->getRenderTarget();
+		april::rendersys->setRenderTarget(this->tempTexture);
+		april::rendersys->setTexture(texture);
+		april::rendersys->setIdentityTransform();
+		grect tempDrawRect(0.0f, 0.0f, drawRect.getSize());
+		april::rendersys->setOrthoProjection(tempDrawRect);
+		april::rendersys->setColorMode(april::LERP, opacity);
 		april::Color color = this->_getRenderColor();
-		april::rendersys->drawTexturedQuad(drawRect, srcRect, color);
+		april::rendersys->drawTexturedQuad(tempDrawRect, srcRect, color);
+		april::rendersys->setColorMode(april::NORMAL);
+		april::rendersys->setRenderTarget(target);
+		april::rendersys->setProjectionMatrix(projectionMatrix);
+		april::rendersys->setModelviewMatrix(viewMatrix);
+		if (this->tone->gray > 0.0f)
+		{
+			//this->tempTexture->saturate((255.0f - this->tone->gray) / 255.0f);
+		}
+		april::rendersys->setColorMode(april::ADDSIGNED);
+		april::rendersys->setTexture(this->tempTexture);
+		color = this->tone->toAprilColor();
+		april::rendersys->drawTexturedQuad(drawRect, grect(0.0f, 0.0f, 1.0f, 1.0f), color);
+		april::rendersys->setColorMode(april::NORMAL);
+		/*
+		april::rendersys->setTexture(texture);
+		april::rendersys->setColorMode(april::LERP, opacity);
+		april::rendersys->drawTexturedQuad(drawRect, srcRect, this->_getRenderColor());
+		april::rendersys->setColorMode(april::NORMAL);
+		/*
+		if (this->tone->red == 0.0f && this->tone->green == 0.0f && this->tone->blue == 0.0f &&
+			this->tone->gray == 0.0f) // skip the whole slow mess down there if no tone is being used
+		{
+			if (this->tempTexture != NULL)
+			{
+				delete this->tempTexture;
+				this->tempTexture = NULL;
+			}
+			april::rendersys->setTexture(texture);
+			april::rendersys->setColorMode(april::LERP, opacity);
+			april::rendersys->drawTexturedQuad(drawRect, srcRect, this->_getRenderColor());
+			april::rendersys->setColorMode(april::NORMAL);
+			return;
+		}
+		rgss::Rect rect;
+		rect.width = hround(drawRect.w);
+		rect.height = hround(drawRect.h);
+		bool needsTextureUpdate = false;
+		if (this->tempTexture == NULL)
+		{
+			needsTextureUpdate = true;
+		}
+		else if (rect.width != this->tempTexture->getWidth() ||
+			rect.height != this->tempTexture->getHeight())
+		{
+			delete this->tempTexture;
+			needsTextureUpdate = true;
+		}
+		if (needsTextureUpdate)
+		{
+			this->tempTexture = april::rendersys->createEmptyTexture(rect.width,
+				rect.height, april::AT_ARGB, april::AT_RENDER_TARGET);
+			this->tempTexture->setTextureFilter(april::Nearest);
+		}
+		else
+		{
+			this->tempTexture->clear();
+		}
+		gmat4 viewMatrix = april::rendersys->getModelviewMatrix();
+		gmat4 projectionMatrix = april::rendersys->getProjectionMatrix();
+		april::Texture* target = april::rendersys->getRenderTarget();
+		april::rendersys->setRenderTarget(this->tempTexture);
+		april::rendersys->setTexture(texture);
+		april::rendersys->setIdentityTransform();
+		grect tempDrawRect(0.0f, 0.0f, drawRect.getSize());
+		april::rendersys->setOrthoProjection(tempDrawRect);
+		april::rendersys->setColorMode(april::LERP, opacity);
+		april::Color color = this->_getRenderColor();
+		april::rendersys->drawTexturedQuad(tempDrawRect, srcRect, color);
+		april::rendersys->setColorMode(april::NORMAL);
+		april::rendersys->setRenderTarget(target);
+		april::rendersys->setProjectionMatrix(projectionMatrix);
+		april::rendersys->setModelviewMatrix(viewMatrix);
+		if (this->tone->gray > 0.0f)
+		{
+			this->tempTexture->saturate((255.0f - this->tone->gray) / 255.0f);
+		}
+		april::rendersys->setColorMode(april::ADDSIGNED);
+		april::rendersys->setTexture(this->tempTexture);
+		color = this->tone->toAprilColor();
+		april::rendersys->drawTexturedQuad(drawRect, grect(0.0f, 0.0f, 1.0f, 1.0f), color);
+		april::rendersys->setColorMode(april::NORMAL);
+		*/
 	}
 
 	/****************************************************************************************

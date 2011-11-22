@@ -15,11 +15,9 @@ namespace rgss
 {
 	extern VALUE rb_cViewport;
 
-	class Color;
 	class Rect;
 	class RenderQueue;
-	class Tone;
-
+	
 	/// @brief Emulates RGSS's Viewport class.
 	class rgssExport Viewport : public Renderable
 	{
@@ -64,48 +62,30 @@ namespace rgss
 		/// @return The string representation of the instance.
 		static VALUE rb_inspect(VALUE self);
 
-		/// @brief Gets the color.
-		/// @return The Viewport's RGSS::Color object.
-		static VALUE rb_getColor(VALUE self);
-		/// @brief Sets the color.
-		/// @param[in] value An RGSS::Color object.
-		static VALUE rb_setColor(VALUE self, VALUE value);
 		/// @brief Gets the display rectangle.
 		/// @return The Viewport's RGSS::Rect object.
 		static VALUE rb_getRect(VALUE self);
 		/// @brief Sets the display rectangle.
 		/// @param[in] value An RGSS::Rect object.
 		static VALUE rb_setRect(VALUE self, VALUE value);
-		/// @brief Gets the tone.
-		/// @return The Viewport's RGSS::Tone object.
-		static VALUE rb_getTone(VALUE self);
-		/// @brief Sets the tone.
-		/// @param[in] value A RGSS::Tone object.
-		static VALUE rb_setTone(VALUE self, VALUE value);
 
 		/// @brief Invokes the update method.
 		static VALUE rb_update(VALUE self);
 		
 	protected:
-		/// @brief Color.
-		Color* color;
-		/// @brief Ruby object of color.
-		VALUE rb_color;
 		/// @brief Display rectangle.
 		Rect* rect;
 		/// @brief Ruby object of display rectangle.
 		VALUE rb_rect;
-		/// @brief Tone.
-		Tone* tone;
-		/// @brief Ruby object of tone.
-		VALUE rb_tone;
-		/// @brief Rendering texture.
-		april::Texture* texture;
 
 		/// @brief Renders everything in the viewport onto a texture first.
 		void _renderToTexture();
 		/// @brief Renders the actual texture.
 		void _render();
+
+	private:
+		/// @brief Rendering texture.
+		april::Texture* texture;
 
 	};
 

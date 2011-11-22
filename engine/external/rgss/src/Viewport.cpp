@@ -81,12 +81,9 @@ namespace rgss
 	void Viewport::_render()
 	{
 		april::rendersys->setBlendMode(april::DEFAULT);
-		april::rendersys->setColorMode(april::LERP);
-		april::rendersys->setTexture(this->texture);
 		grect drawRect(0.0f, 0.0f, (float)this->rect->width, (float)this->rect->height);
 		grect srcRect(0.0f, 0.0f, 1.0f, 1.0f);
-		this->_renderTexture(drawRect, srcRect);
-		april::rendersys->setColorMode(april::NORMAL);
+		this->_renderTexture(drawRect, srcRect, this->texture, 255);
 	}
 
 	void Viewport::dispose()
@@ -241,20 +238,6 @@ namespace rgss
 	 * Ruby Getters/Setters
 	 ****************************************************************************************/
 
-	VALUE Viewport::rb_getColor(VALUE self)
-	{
-		RB_SELF2CPP(Viewport, viewport);
-		RB_CHECK_DISPOSED_1(viewport);
-		return viewport->rb_color;
-	}
-
-	VALUE Viewport::rb_setColor(VALUE self, VALUE value)
-	{
-		RB_GENERATE_SETTER(Viewport, viewport, Color, color);
-		RB_CHECK_DISPOSED_1(viewport);
-		return value;
-	}
-
 	VALUE Viewport::rb_getRect(VALUE self)
 	{
 		RB_SELF2CPP(Viewport, viewport);
@@ -265,20 +248,6 @@ namespace rgss
 	VALUE Viewport::rb_setRect(VALUE self, VALUE value)
 	{
 		RB_GENERATE_SETTER(Viewport, viewport, Rect, rect);
-		RB_CHECK_DISPOSED_1(viewport);
-		return value;
-	}
-
-	VALUE Viewport::rb_getTone(VALUE self)
-	{
-		RB_SELF2CPP(Viewport, viewport);
-		RB_CHECK_DISPOSED_1(viewport);
-		return viewport->rb_tone;
-	}
-
-	VALUE Viewport::rb_setTone(VALUE self, VALUE value)
-	{
-		RB_GENERATE_SETTER(Viewport, viewport, Tone, tone);
 		RB_CHECK_DISPOSED_1(viewport);
 		return value;
 	}

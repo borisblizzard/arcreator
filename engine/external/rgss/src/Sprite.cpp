@@ -51,7 +51,6 @@ namespace rgss
 
 	void Sprite::_render()
 	{
-		april::rendersys->setTexture(this->bitmap->getTexture());
 		switch (this->blendType)
 		{
 		case Normal:
@@ -67,7 +66,6 @@ namespace rgss
 			april::rendersys->setBlendMode(april::DEFAULT);
 			break;
 		}
-		april::rendersys->setColorMode(april::LERP, this->opacity);
 		int dw = hmin(this->srcRect->width, this->bitmap->getWidth());
 		int dh = hmin(this->srcRect->height, this->bitmap->getHeight());
 		grect drawRect((float)this->ox, (float)this->oy, (float)dw, (float)dh);
@@ -78,9 +76,8 @@ namespace rgss
 		srcRect.y = this->srcRect->y / sh;
 		srcRect.w = hmin(this->srcRect->width / sw, 1.0f - srcRect.x);
 		srcRect.h = hmin(this->srcRect->height / sh, 1.0f - srcRect.y);
-		this->_renderTexture(drawRect, srcRect);
+		this->_renderTexture(drawRect, srcRect, this->bitmap->getTexture(), this->opacity);
 		april::rendersys->setBlendMode(april::DEFAULT);
-		april::rendersys->setColorMode(april::NORMAL);
 	}
 
 	/****************************************************************************************
