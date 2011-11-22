@@ -30,9 +30,9 @@ class ARCedTest(wx.App):
 	def create_panels(self):
 		
 		nb = wx.Notebook( self.frame )
-		Panels = [None for i in xrange(1)]
-		Panels[0] = ('Audio', 'ARCedAudioPlayer_Panel')
-		#Panels[0] = ('Actors', 'ARCedActors_Panel')
+		Panels = [None for i in xrange(2)]
+		Panels[0] = ('Actors', 'ARCedActors_Panel')
+		Panels[1] = ('Audio', 'ARCedAudioPlayer_Panel')
 		#Panels[1] = ('Classes', 'ARCedClasses_Panel')
 		#Panels[2] = ('Skills', 'ARCedSkills_Panel')
 		#Panels[3] = ('Items', 'ARCedItems_Panel')

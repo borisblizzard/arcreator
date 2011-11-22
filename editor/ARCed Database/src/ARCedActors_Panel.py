@@ -2,6 +2,7 @@
 Contains the functionality of all the events raised on the Actors Database panel
 """
 import wx
+import wx.lib.plot as plot
 import ARCed_Templates
 import ARCedChangeMaximum_Dialog
 import ARCedExpCurve_Dialog
@@ -9,11 +10,29 @@ import ARCedGenerateCurve_Dialog
 import ARCedChooseGraphic_Dialog 
 import ARCedActorParameters_Dialog
 import ARCedAddParameter_Dialog
+import numpy as np
 from DatabaseManager import DatabaseManager as DM
 
 #from DatabaseAction import 
 from Core.RMXP import RGSS1_RPG as RPG	   						
 import Kernel
+
+
+GRAPH_COLORS = { 
+		0 : wx.Colour(200, 60, 120), 
+		1 : wx.Colour(60, 120, 200), 
+		2 : wx.Colour(200, 120, 60),
+		3 : wx.Colour(120, 200, 60),
+		4 : wx.Colour(56, 187, 112),
+		5 : wx.Colour(120, 60, 200),
+		6 : wx.Colour(60, 200, 120),
+		7 : wx.Colour(56, 112, 187),
+		8 : wx.Colour(112, 56, 187),
+		9 : wx.Colour(112, 187, 56),
+		10 : wx.Colour(187, 112, 56),
+		11 : wx.Colour(187, 56, 112),
+	}
+
 
 class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 
@@ -46,6 +65,8 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 			Kernel.Protect(self.glCanvasCharacter_DoubleClick))
 		self.glCanvasBattler.canvas.Bind( wx.EVT_LEFT_DCLICK, 
 			Kernel.Protect(self.glCanvasBattler_DoubleClick))
+		self.parameterGraph.canvas.Bind(wx.EVT_LEFT_DCLICK, 
+			Kernel.Protect(self.parameterGraph_DoubleClicked))
 		# Initialize the selected actor attribute
 		if actorIndex >= len(DataActors):
 			actorIndex = 0
@@ -65,13 +86,16 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 		"""Creates a page and adds it to the notebook control"""
 		page = wx.Panel( self.noteBookActorParameters )
 		self.noteBookActorParameters.AddPage(page, title)
+		index = self.noteBookActorParameters.GetPageCount() - 1
+		maxlevel = Config.getint('DatabaseLimits', 'ActorLevel')
+		for actor in DataActors:
+			if actor == None:
+				actor = RPG.Actor()
+			actor.parameters.resize(index + 1, maxlevel + 1)
+			for j in xrange(1, maxlevel):
+				actor.parameters[index, j] = 50 + 5 * j
 		if activate:
-			index = self.noteBookActorParameters.GetPageCount() - 1
 			self.noteBookActorParameters.SetSelection(index)
-
-	def bitmapParameterGraph_Clicked( self, event ):
-		pass
-
 
 	def CreateEquipmentControls( self ):
 		"""Creates the controls for each equipment type defined in the configuration"""
@@ -215,6 +239,27 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 		DM.RenderImage(self.glCanvasBattler, self.SelectedActor.battler_name, 
 			self.SelectedActor.battler_hue, 'battler')
 
+	def refreshValues( self, level=None ):
+		"""Applies the limits defined for the selected parameter, and updates the value"""
+		if level == None:
+			level = self.spinCtrlLevel.GetValue()
+		self.spinCtrlValue.SetValue(self.GetParameterValue(self.ParamTab, level))
+		self.spinCtrlValue.SetRange(1, self.GetValueMax(self.ParamTab))
+		if not hasattr(self.SelectedActor, 'note'):
+			setattr(self.SelectedActor, 'note', '')
+		self.textCtrlNotes.ChangeValue(self.SelectedActor.note)
+
+	def refreshGraph( self ):
+		"""Refreshes the graph to reflect the selected actor' values"""
+		name = self.noteBookActorParameters.GetPageText(self.ParamTab)
+		color = GRAPH_COLORS[self.ParamTab % len(GRAPH_COLORS)]
+		maxValue = None
+		if not self.checkBoxScaled.GetValue():
+			maxValue = self.GetValueMax(self.ParamTab)
+		self.parameterGraph.SetData(self.GetParameterData(), name, color,
+			maxvalue=maxValue, maxlevel=self.SelectedActor.final_level,
+			minlevel=self.SelectedActor.initial_level)
+
 	def refreshAll( self ):
 		"""Refreshes all the controls that contain game object values"""
 		self.refreshActorList()
@@ -224,6 +269,7 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 		self.refreshFixedEquipment()
 		self.refreshParameters()
 		self.refreshGraphics()
+		self.refreshGraph()
 
 	def listBoxActors_SelectionChanged( self, event ):
 		"""Changes the data on the panel to reflect the values of the selected actor"""
@@ -273,6 +319,7 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 		"""Sets the selected actor's initial level to the value of the wxSpinCtrl"""
 		self.spinCtrlInitialLevel.SetRange(1, self.spinCtrlFinalLevel.GetValue())
 		self.SelectedActor.initial_level = self.spinCtrlInitialLevel.GetValue()
+		self.refreshGraph()
 
 	def spinCtrlFinalLevel_ValueChanged( self, event ):
 		"""Sets the selected actor's final level to the value of the wxSpinCtrl"""
@@ -280,6 +327,7 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 		self.spinCtrlInitialLevel.SetRange(1, final)
 		self.spinCtrlLevel.SetRange(1, final)
 		self.SelectedActor.final_level = final
+		self.refreshGraph()
 
 	def comboBoxExperience_Click( self, event ):
 		"""Opens window to generate experience tables"""
@@ -348,16 +396,6 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 	def spinCtrlParamLevel_ValueChanged( self, event ):
 		"""Update the controls on each page when the level is changed"""
 		self.refreshValues(self.spinCtrlLevel.GetValue())
-
-	def refreshValues( self, level=None ):
-		"""Applies the limits defined for the selected parameter, and updates the value"""
-		if level == None:
-			level = self.spinCtrlLevel.GetValue()
-		self.spinCtrlValue.SetValue(self.GetParameterValue(self.ParamTab, level))
-		self.spinCtrlValue.SetRange(1, self.GetValueMax(self.ParamTab))
-		if not hasattr(self.SelectedActor, 'note'):
-			setattr(self.SelectedActor, 'note', '')
-		self.textCtrlNotes.ChangeValue(self.SelectedActor.note)
 		
 	def GetValueMax( self, param_index ):
 		"""Returns the max value for the parameter type"""
@@ -368,6 +406,7 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 	def spinCtrlValue_ValueChanged( self, event ):
 		"""Updates the actors parameter table with the value"""
 		self.SetParameterValue(self.ParamTab, self.spinCtrlLevel.GetValue(), self.spinCtrlValue.GetValue())
+		self.refreshGraph()
 
 	def buttonGenerateCurve_Clicked( self, event):
 		"""Create the parameter curve dialog, using the passed index to determine the parameter"""
@@ -384,7 +423,19 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 			self.buttonRemoveParameter.Enabled = (self.ParamTab > 5)
 		else:
 			self.buttonRemoveParameter.Enabled = self.noteBookActorParameters.GetPageCount >= 1
+		self.refreshGraph()
 		self.refreshValues()
+
+	def GetParameterData( self ):
+		"""Returns the parameter data in a format fit to graph"""
+		params = self.SelectedActor.parameters
+		x = [i for i in xrange(1, self.SelectedActor.final_level + 1)]
+		y = [params[self.ParamTab, i] for i in x]
+		return np.column_stack((x, y))
+
+	def checkBoxScaled_CheckChanged(self, event):
+		"""Refreshes the graph after changing state"""
+		self.refreshGraph()
 
 	def buttonQuickA_Clicked( self, event ):
 		print 'A'
@@ -400,6 +451,18 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 
 	def buttonQuickE_Clicked( self, event ):
 		print 'E'
+
+	def parameterGraph_DoubleClicked( self, event ):
+		"""Opens the larger graph panel for interactive editing"""
+		from ARCedParameterGraph_Panel import ARCedParameterGraph_Panel
+		tabs, data = [], self.SelectedActor.parameters
+		for i in xrange(2, self.noteBookActorParameters.GetPageCount()):
+			tabs.append(self.noteBookActorParameters.GetPageText(i))
+		dlg = wx.Dialog(self, size=(640,480))
+		panel = ARCedParameterGraph_Panel(dlg, self.SelectedActor, tabs, 
+			self.ParamTab, self.checkBoxScaled.GetValue())
+		if dlg.ShowModal() == wx.ID_OK:
+			self.refreshGraph()
 
 	def buttonAddParameter_Clicked( self, event ):
 		"""Opens dialog for the user to create a custom parameter"""
@@ -417,9 +480,9 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 		try:
 			self.noteBookActorParameters.RemovePage(self.ParamTab)
 		except wx.PyAssertionError:
-			# There is a strange bug with wx on Windows that raises this exception when a page is
-			# deleted. Removing the page works fine, but it throws the exception regardless, so
-			# this little empty catch is required... :P
+			# There is a strange bug with wx on Windows that raises this exception when 
+			# a page is deleted. Removing the page works fine, but it throws the 
+			# exception regardless, so this little empty catch is required... :P
 			pass
 		if self.ParamTab >= self.noteBookActorParameters.GetPageCount():
 			self.ParamTab -= 1
@@ -441,3 +504,68 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 			if DataArmors[id].kind == kind:
 				filtered.append(id)
 		return filtered
+
+#--------------------------------------------------------------------------------------
+# ParameterPlotGraphics
+#--------------------------------------------------------------------------------------
+
+class ParameterPlotGraphics(plot.PlotGraphics):
+
+	def __init__(self, *args, **kwargs):
+		"""Basic constructor for the ParameterPlotGraphics"""
+		self._yLim= kwargs.pop('YLimit', None)
+		self._xLim = kwargs.pop('XLimit', None)
+		plot.PlotGraphics.__init__(self, *args, **kwargs)
+
+	def boundingBox(self):
+		"""Calculates the bounds of the box, factoring in custom values"""
+		bounds = plot.PlotGraphics.boundingBox(self)
+		Min, Max = [bounds[0][0], bounds[1][0]], [bounds[0][1], bounds[1][1]]
+		if self._yLim is not None:
+			Min[1], Max[1] = self._yLim[0], self._yLim[1]
+		if self._xLim is not None:
+			Min[0], Max[0] = self._xLim[0], self._xLim[1]
+		return plot._Numeric.array(Min), plot._Numeric.array(Max)
+		
+#--------------------------------------------------------------------------------------
+# ParameterGraph
+#--------------------------------------------------------------------------------------
+
+class ParameterGraph(plot.PlotCanvas):
+
+	def __init__(self, parent, data=None, color='orange'):
+		"""Basic constructor for the ParameterGraph"""
+		super(ParameterGraph, self).__init__(parent, style=wx.SUNKEN_BORDER)
+		self.SetEnableTitle(False)
+		self.SetEnableLegend(False)
+		self.SetEnablePointLabel(False)
+		self.SetFontSizeAxis(6)
+		self.SetXSpec('min')
+		self.SetYSpec('min')
+		self.SetCursor(wx.StockCursor(wx.CURSOR_ARROW))
+		self.SetEnableAntiAliasing(True)
+		self.DrawColor = color
+		self.canvas.Bind(wx.EVT_ERASE_BACKGROUND, self.DoNothing)
+		if data is not None:
+			self.SetData(data)
+
+	def DoNothing( self, event ):
+		"""Prevent flickering on Windows"""
+		pass
+
+	def SetData(self, data=None, statName='', color=None, maxvalue=None, 
+			maxlevel=None, minlevel=1):
+		"""Sets the data to plot and draws the graph"""
+		if data is None:
+			data = [(0, 0), (1, 0)]
+		if color is not None:
+			self.DrawColor = color
+		line = plot.PolyLine(data, colour=self.DrawColor, width=3)
+		xLim = yLim = None
+		if maxvalue is not None:
+			yLim = [0, maxvalue]
+		if maxlevel is not None:
+			xLim = [minlevel, maxlevel]
+		gc = ParameterPlotGraphics([line], xLabel='Level', yLabel=statName,
+			XLimit=xLim, YLimit=yLim)
+		self.Draw(gc)

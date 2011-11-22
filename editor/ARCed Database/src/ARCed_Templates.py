@@ -188,8 +188,9 @@ class Actors_Panel ( wx.Panel ):
 		
 		bSizer613 = wx.BoxSizer( wx.HORIZONTAL )
 		
-		self.bitmapGraph = wx.StaticBitmap( self.pageParameters, wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.Size( -1,-1 ), wx.CLIP_CHILDREN|wx.SIMPLE_BORDER )
-		bSizer613.Add( self.bitmapGraph, 1, wx.ALL|wx.EXPAND, 5 )
+		from ARCedActors_Panel import ParameterGraph
+		self.parameterGraph = ParameterGraph(self.pageParameters)
+		bSizer613.Add( self.parameterGraph, 1, wx.EXPAND|wx.RIGHT|wx.LEFT, 5 )
 		
 		bSizer640 = wx.BoxSizer( wx.VERTICAL )
 		
@@ -201,7 +202,11 @@ class Actors_Panel ( wx.Panel ):
 		
 		bSizer640.Add( self.buttonRemoveParameter, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
 		
-		bSizer641 = wx.BoxSizer( wx.HORIZONTAL )
+		bSizer641 = wx.BoxSizer( wx.VERTICAL )
+		
+		self.checkBoxScaled = wx.CheckBox( self.pageParameters, wx.ID_ANY, u"Scaled", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.checkBoxScaled.SetValue(True) 
+		bSizer641.Add( self.checkBoxScaled, 1, wx.ALL|wx.ALIGN_RIGHT|wx.EXPAND, 5 )
 		
 		self.buttonGenerate = wx.Button( self.pageParameters, wx.ID_ANY, u"Generate...", wx.DefaultPosition, wx.DefaultSize, 0 )
 		bSizer641.Add( self.buttonGenerate, 0, wx.ALL|wx.ALIGN_BOTTOM, 5 )
@@ -273,8 +278,10 @@ class Actors_Panel ( wx.Panel ):
 		self.spinCtrlValue.Bind( wx.EVT_ERASE_BACKGROUND, self.OnEraseBackground )
 		self.spinCtrlValue.Bind( wx.EVT_SPINCTRL, self.spinCtrlValue_ValueChanged )
 		self.spinCtrlValue.Bind( wx.EVT_TEXT, self.spinCtrlValue_ValueChanged )
+		self.parameterGraph.Bind( wx.EVT_ERASE_BACKGROUND, self.ControlOnEraseBackground )
 		self.buttonAddParameter.Bind( wx.EVT_BUTTON, self.buttonAddParameter_Clicked )
 		self.buttonRemoveParameter.Bind( wx.EVT_BUTTON, self.buttonRemoveParameter_Clicked )
+		self.checkBoxScaled.Bind( wx.EVT_CHECKBOX, self.checkBoxScaled_CheckChanged )
 		self.buttonGenerate.Bind( wx.EVT_BUTTON, self.buttonGenerateCurve_Clicked )
 		self.textCtrlNotes.Bind( wx.EVT_TEXT, self.textCtrlNotes_TextChanged )
 	
@@ -337,10 +344,16 @@ class Actors_Panel ( wx.Panel ):
 		pass
 	
 	
+	def ControlOnEraseBackground( self, event ):
+		pass
+	
 	def buttonAddParameter_Clicked( self, event ):
 		pass
 	
 	def buttonRemoveParameter_Clicked( self, event ):
+		pass
+	
+	def checkBoxScaled_CheckChanged( self, event ):
 		pass
 	
 	def buttonGenerateCurve_Clicked( self, event ):
@@ -13646,94 +13659,103 @@ class ParameterGraph_Panel ( wx.Panel ):
 		
 		MainSizer = wx.BoxSizer( wx.VERTICAL )
 		
-		sizerControls = wx.BoxSizer( wx.HORIZONTAL )
+		sizerNoteBook = wx.BoxSizer( wx.VERTICAL )
 		
-		radioBoxCurveChoices = [ u"Cubic", u"Linear" ]
-		self.radioBoxCurve = wx.RadioBox( self, wx.ID_ANY, u"Curve Type", wx.DefaultPosition, wx.DefaultSize, radioBoxCurveChoices, 1, wx.RA_SPECIFY_ROWS )
-		self.radioBoxCurve.SetSelection( 0 )
-		sizerControls.Add( self.radioBoxCurve, 0, wx.ALL, 5 )
+		self.noteBookParameters = wx.Notebook( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.panelMaxHP = wx.Panel( self.noteBookParameters, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
+		sizerGraph = wx.BoxSizer( wx.VERTICAL )
 		
-		self.spinCtrlSomething = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( 64,-1 ), wx.SP_ARROW_KEYS|wx.SP_WRAP, 0, 10, 0 )
-		sizerControls.Add( self.spinCtrlSomething, 0, wx.ALL, 5 )
+		from ARCedActors_Panel import ParameterGraph
+		self.interactiveGraph = ParameterGraph(self.panelMaxHP)
+		sizerGraph.Add( self.interactiveGraph, 1, wx.EXPAND, 5 )
 		
-		self.labelDummy = wx.StaticText( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.labelDummy.Wrap( -1 )
-		sizerControls.Add( self.labelDummy, 1, wx.ALL, 5 )
+		self.panelMaxHP.SetSizer( sizerGraph )
+		self.panelMaxHP.Layout()
+		sizerGraph.Fit( self.panelMaxHP )
+		self.noteBookParameters.AddPage( self.panelMaxHP, u"MaxHP", False )
+		self.panelMaxSP = wx.Panel( self.noteBookParameters, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
+		self.noteBookParameters.AddPage( self.panelMaxSP, u"MaxSP", False )
 		
-		self.labelLevel = wx.StaticText( self, wx.ID_ANY, u"Level:", wx.DefaultPosition, wx.DefaultSize, wx.ALIGN_RIGHT|wx.ST_NO_AUTORESIZE )
-		self.labelLevel.Wrap( -1 )
-		sizerControls.Add( self.labelLevel, 1, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
+		sizerNoteBook.Add( self.noteBookParameters, 1, wx.EXPAND |wx.ALL, 5 )
 		
-		self.labelValue = wx.StaticText( self, wx.ID_ANY, u"Value:", wx.DefaultPosition, wx.DefaultSize, wx.ALIGN_LEFT )
-		self.labelValue.Wrap( -1 )
-		sizerControls.Add( self.labelValue, 1, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
+		MainSizer.Add( sizerNoteBook, 1, wx.EXPAND, 5 )
 		
-		MainSizer.Add( sizerControls, 0, wx.EXPAND, 5 )
+		sizerButtons = wx.BoxSizer( wx.HORIZONTAL )
 		
-		sizerGraph = wx.BoxSizer( wx.HORIZONTAL )
+		sizerGenerate = wx.BoxSizer( wx.HORIZONTAL )
 		
-		self.graphPanel = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.SUNKEN_BORDER|wx.TAB_TRAVERSAL )
-		sizerGraph.Add( self.graphPanel, 1, wx.EXPAND |wx.ALL, 5 )
+		self.buttonGenerate = wx.Button( self, wx.ID_ANY, u"Generate", wx.DefaultPosition, wx.DefaultSize, 0 )
+		sizerGenerate.Add( self.buttonGenerate, 0, wx.ALL, 5 )
 		
-		MainSizer.Add( sizerGraph, 1, wx.EXPAND, 5 )
+		self.checkBoxScaled = wx.CheckBox( self, wx.ID_ANY, u"Scaled", wx.DefaultPosition, wx.DefaultSize, 0 )
+		sizerGenerate.Add( self.checkBoxScaled, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
 		
-		sizerSettings = wx.BoxSizer( wx.HORIZONTAL )
+		bSizer639 = wx.BoxSizer( wx.HORIZONTAL )
 		
-		sizerPoints = wx.BoxSizer( wx.HORIZONTAL )
+		self.labelX = wx.StaticText( self, wx.ID_ANY, u"Level:", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.labelX.Wrap( -1 )
+		bSizer639.Add( self.labelX, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
 		
-		self.buttonChangeMaximum = wx.Button( self, wx.ID_ANY, u"Change Maximum...", wx.DefaultPosition, wx.Size( 128,-1 ), 0 )
-		sizerPoints.Add( self.buttonChangeMaximum, 0, wx.ALL, 5 )
+		self.labelValueX = wx.StaticText( self, wx.ID_ANY, u"VALUE_X", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.labelValueX.Wrap( -1 )
+		bSizer639.Add( self.labelValueX, 1, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
 		
-		self.checkBoxPoints = wx.CheckBox( self, wx.ID_ANY, u"Show Points", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.checkBoxPoints.SetValue(True) 
-		sizerPoints.Add( self.checkBoxPoints, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
+		sizerGenerate.Add( bSizer639, 1, wx.EXPAND, 5 )
 		
-		sizerSettings.Add( sizerPoints, 1, wx.EXPAND, 5 )
+		bSizer640 = wx.BoxSizer( wx.HORIZONTAL )
+		
+		self.labelY = wx.StaticText( self, wx.ID_ANY, u"Value:", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.labelY.Wrap( -1 )
+		bSizer640.Add( self.labelY, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
+		
+		self.labelValueY = wx.StaticText( self, wx.ID_ANY, u"VALUE_Y", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.labelValueY.Wrap( -1 )
+		bSizer640.Add( self.labelValueY, 1, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
+		
+		sizerGenerate.Add( bSizer640, 1, wx.EXPAND, 5 )
+		
+		sizerButtons.Add( sizerGenerate, 1, wx.EXPAND, 5 )
 		
 		sizerOKCancel = wx.BoxSizer( wx.HORIZONTAL )
 		
-		self.buttonOK = wx.Button( self, wx.ID_ANY, u"OK", wx.DefaultPosition, wx.DefaultSize, 0 )
-		sizerOKCancel.Add( self.buttonOK, 0, wx.TOP|wx.BOTTOM|wx.LEFT, 5 )
+		self.buttonApply = wx.Button( self, wx.ID_ANY, u"Apply", wx.DefaultPosition, wx.DefaultSize, 0 )
+		sizerOKCancel.Add( self.buttonApply, 0, wx.TOP|wx.BOTTOM|wx.LEFT, 5 )
 		
-		self.buttonCancel = wx.Button( self, wx.ID_ANY, u"Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
-		sizerOKCancel.Add( self.buttonCancel, 0, wx.TOP|wx.BOTTOM|wx.RIGHT, 5 )
+		self.buttonClose = wx.Button( self, wx.ID_ANY, u"Close", wx.DefaultPosition, wx.DefaultSize, 0 )
+		sizerOKCancel.Add( self.buttonClose, 0, wx.TOP|wx.BOTTOM|wx.RIGHT, 5 )
 		
-		sizerSettings.Add( sizerOKCancel, 0, wx.ALIGN_RIGHT, 5 )
+		sizerButtons.Add( sizerOKCancel, 0, wx.EXPAND, 5 )
 		
-		MainSizer.Add( sizerSettings, 0, wx.EXPAND, 5 )
+		MainSizer.Add( sizerButtons, 0, wx.EXPAND, 5 )
 		
 		self.SetSizer( MainSizer )
 		self.Layout()
 		
 		# Connect Events
-		self.radioBoxCurve.Bind( wx.EVT_RADIOBOX, self.radioBoxCurve_SelectionChanged )
-		self.graphPanel.Bind( wx.EVT_SIZE, self.graphPanel_OnSize )
-		self.buttonChangeMaximum.Bind( wx.EVT_BUTTON, self.buttonChangeMax_Clicked )
-		self.checkBoxPoints.Bind( wx.EVT_CHECKBOX, self.checkBoxPoints_CheckChanged )
-		self.buttonOK.Bind( wx.EVT_BUTTON, self.buttonOK_Clicked )
-		self.buttonCancel.Bind( wx.EVT_BUTTON, self.buttonCancel_Clicked )
+		self.noteBookParameters.Bind( wx.EVT_NOTEBOOK_PAGE_CHANGED, self.noteBookParameters_PageChanged )
+		self.buttonGenerate.Bind( wx.EVT_BUTTON, self.buttonGenerate_Clicked )
+		self.checkBoxScaled.Bind( wx.EVT_CHECKBOX, self.checkBoxScaled_CheckChanged )
+		self.buttonApply.Bind( wx.EVT_BUTTON, self.buttonApply_Clicked )
+		self.buttonClose.Bind( wx.EVT_BUTTON, self.buttonClose_Clicked )
 	
 	def __del__( self ):
 		pass
 	
 	
 	# Virtual event handlers, overide them in your derived class
-	def radioBoxCurve_SelectionChanged( self, event ):
+	def noteBookParameters_PageChanged( self, event ):
 		pass
 	
-	def graphPanel_OnSize( self, event ):
+	def buttonGenerate_Clicked( self, event ):
 		pass
 	
-	def buttonChangeMax_Clicked( self, event ):
+	def checkBoxScaled_CheckChanged( self, event ):
 		pass
 	
-	def checkBoxPoints_CheckChanged( self, event ):
+	def buttonApply_Clicked( self, event ):
 		pass
 	
-	def buttonOK_Clicked( self, event ):
-		pass
-	
-	def buttonCancel_Clicked( self, event ):
+	def buttonClose_Clicked( self, event ):
 		pass
 	
 
@@ -13823,7 +13845,7 @@ class AudioPlayer_Panel ( wx.Panel ):
 		bSizer6311 = wx.BoxSizer( wx.VERTICAL )
 		
 		listBoxAudioChoices = []
-		self.listBoxAudio = wx.ListBox( self.panelBGM, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, listBoxAudioChoices, wx.LB_SINGLE )
+		self.listBoxAudio = wx.ListBox( self.panelBGM, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, listBoxAudioChoices, wx.LB_SINGLE|wx.CLIP_CHILDREN )
 		bSizer6311.Add( self.listBoxAudio, 1, wx.EXPAND, 5 )
 		
 		self.panelBGM.SetSizer( bSizer6311 )
@@ -13869,20 +13891,16 @@ class AudioPlayer_Panel ( wx.Panel ):
 		self.labelFileName.Wrap( -1 )
 		bSizer632.Add( self.labelFileName, 0, wx.ALL|wx.EXPAND, 5 )
 		
-		self.panelWaveParent = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.Size( -1,48 ), wx.TAB_TRAVERSAL )
-		bSizer635 = wx.BoxSizer( wx.VERTICAL )
+		from ARCedAudioPlayer_Panel import WaveFormPanel
+		color = wx.Colour(100, 100, 220, 255)
+		self.waveFormPanel = WaveFormPanel(self, color=color)
+		self.waveFormPanel.SetMinSize( wx.Size( -1,64 ) )
 		
-		from WaveForm_Panel import WaveFormPanel
-		self.waveFormPanel = WaveFormPanel(self.panelWaveParent)
-		bSizer635.Add( self.waveFormPanel, 1, wx.EXPAND, 5 )
-		
-		self.panelWaveParent.SetSizer( bSizer635 )
-		self.panelWaveParent.Layout()
-		bSizer632.Add( self.panelWaveParent, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.EXPAND, 0 )
+		bSizer632.Add( self.waveFormPanel, 0, wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
 		
 		bSizer6301 = wx.BoxSizer( wx.VERTICAL )
 		
-		self.sliderPosition = wx.Slider( self, wx.ID_ANY, 0, 0, 100, wx.DefaultPosition, wx.DefaultSize, wx.SL_HORIZONTAL )
+		self.sliderPosition = wx.Slider( self, wx.ID_ANY, 0, 0, 10, wx.DefaultPosition, wx.DefaultSize, wx.SL_AUTOTICKS|wx.SL_HORIZONTAL )
 		bSizer6301.Add( self.sliderPosition, 0, wx.ALL|wx.EXPAND, 5 )
 		
 		bSizer631 = wx.BoxSizer( wx.HORIZONTAL )
@@ -13931,7 +13949,6 @@ class AudioPlayer_Panel ( wx.Panel ):
 		
 		# Connect Events
 		self.notebookAudio.Bind( wx.EVT_NOTEBOOK_PAGE_CHANGED, self.notebookAudio_PageChanged )
-		self.listBoxAudio.Bind( wx.EVT_LISTBOX, self.listBoxAudio_SelectionChanged )
 		self.listBoxAudio.Bind( wx.EVT_LISTBOX_DCLICK, self.listBoxAudio_DoubleClick )
 		self.sliderVolume.Bind( wx.EVT_ERASE_BACKGROUND, self.ControlOnEraseBackground )
 		self.sliderVolume.Bind( wx.EVT_SCROLL, self.sliderVolume_Scrolled )
@@ -13947,8 +13964,11 @@ class AudioPlayer_Panel ( wx.Panel ):
 		self.checkBoxRepeat.Bind( wx.EVT_CHECKBOX, self.checkBoxRepeat_CheckChanged )
 		self.checkBoxRepeat.Bind( wx.EVT_ERASE_BACKGROUND, self.ControlOnEraseBackground )
 		self.buttonPlay.Bind( wx.EVT_BUTTON, self.buttonPlay_Clicked )
+		self.buttonPlay.Bind( wx.EVT_ERASE_BACKGROUND, self.ControlOnEraseBackground )
 		self.buttonPause.Bind( wx.EVT_BUTTON, self.buttonPause_Clicked )
+		self.buttonPause.Bind( wx.EVT_ERASE_BACKGROUND, self.ControlOnEraseBackground )
 		self.buttonStop.Bind( wx.EVT_BUTTON, self.buttonStop_Clicked )
+		self.buttonStop.Bind( wx.EVT_ERASE_BACKGROUND, self.ControlOnEraseBackground )
 		self.buttonStopAll.Bind( wx.EVT_BUTTON, self.buttonStopAll_Clicked )
 		self.buttonOK.Bind( wx.EVT_BUTTON, self.buttonOK_Clicked )
 		self.buttonCancel.Bind( wx.EVT_BUTTON, self.buttonCancel_Clicked )
@@ -13959,9 +13979,6 @@ class AudioPlayer_Panel ( wx.Panel ):
 	
 	# Virtual event handlers, overide them in your derived class
 	def notebookAudio_PageChanged( self, event ):
-		pass
-	
-	def listBoxAudio_SelectionChanged( self, event ):
 		pass
 	
 	def listBoxAudio_DoubleClick( self, event ):
@@ -13997,11 +14014,14 @@ class AudioPlayer_Panel ( wx.Panel ):
 	def buttonPlay_Clicked( self, event ):
 		pass
 	
+	
 	def buttonPause_Clicked( self, event ):
 		pass
 	
+	
 	def buttonStop_Clicked( self, event ):
 		pass
+	
 	
 	def buttonStopAll_Clicked( self, event ):
 		pass
