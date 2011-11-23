@@ -42,6 +42,7 @@
     <Folder Include="EditorIcons\" />
     <Folder Include="src\" />
     <Folder Include="src\Core\" />
+    <Folder Include="src\Core\PyXAL" />
     <Folder Include="src\Core\RMXP\" />
     <Folder Include="tests\" />
   </ItemGroup>
@@ -50,6 +51,10 @@
     <Compile Include="src\Core\Icons.py" />
     <Compile Include="src\Core\Mapeditor.py" />
     <Compile Include="src\Core\Panels.py" />
+    <Compile Include="src\Core\PyXAL\hltypes.pxd" />
+    <Compile Include="src\Core\PyXAL\XAL.py" />
+    <Compile Include="src\Core\PyXAL\PyXAL.pyx" />
+    <Compile Include="src\Core\PyXAL\setup.py" />
     <Compile Include="src\Logo.py" />
     <Compile Include="src\Core\Actions.py" />
     <Compile Include="src\Core\ARC_Data.py" />
@@ -74,5 +79,9 @@
     <Compile Include="tests\pygletwx.py" />
     <Compile Include="tests\RPGutil.py" />
     <Compile Include="tests\wxgltest.py" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="src\Core\PyXAL\hltypes.pyx" />
+    <Content Include="src\Core\PyXAL\XAL.pxd" />
   </ItemGroup>
 </Project>
