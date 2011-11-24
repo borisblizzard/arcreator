@@ -29,45 +29,45 @@ cdef extern from "<xal/AudioManager.h>" namespace "xal":
         void init()
         void clear()
         
-        String getName()
-        bool isEnabled()
-        bool isPaused()
-        String getDeviceName()
-        float getUpdateTime()
-        float getGlobalGain()
-        void setGlobalGain(float value)
-        Array[Player*] getPlayers()
+        String getName() except +
+        bool isEnabled() except +
+        bool isPaused() except +
+        String getDeviceName() except +
+        float getUpdateTime() except +
+        float getGlobalGain() except +
+        void setGlobalGain(float value) except +
+        Array[Player*] getPlayers() except +
 
-        void update()
-        void update(float k)
+        void update() except +
+        void update(float k) except +
 
-        Category* createCategory(String& name, int loadMode, int decodeMode)
-        Category* getCategoryByName(String& name)
-        float getCategoryGain(String& category)
-        void setCategoryGain(String& category, float gain)
+        Category* createCategory(String& name, int loadMode, int decodeMode) except +
+        Category* getCategoryByName(String& name) except +
+        float getCategoryGain(String& category) except +
+        void setCategoryGain(String& category, float gain) except +
         
-        Sound* createSound(String& filename, String& categoryName, String& prefix)
-        Sound* getSound(String& name)
-        void destroySound(Sound* sound)
-        void destroySoundsWithPrefix(String& prefix)
-        Array[String] createSoundsFromPath(String& path, String& prefix)
-        Array[String] createSoundsFromPath(String& path, String& category, String& prefix)
+        Sound* createSound(String& filename, String& categoryName, String& prefix) except +
+        Sound* getSound(String& name) except +
+        void destroySound(Sound* sound) except +
+        void destroySoundsWithPrefix(String& prefix) except +
+        Array[String] createSoundsFromPath(String& path, String& prefix) except +
+        Array[String] createSoundsFromPath(String& path, String& category, String& prefix) except +
 
-        Player* createPlayer(String& name)
-        void destroyPlayer(Player* player)
-        Player* findPlayer(String& name)
+        Player* createPlayer(String& name) except +
+        void destroyPlayer(Player* player) except +
+        Player* findPlayer(String& name) except +
 
-        void play(String& name, float fadeTime, bool looping, float gain)
-        void stop(String& name, float fadeTime)
-        void stopFirst(String& name, float fadeTime)
-        void stopAll(float fadeTime)
-        void pauseAll(float fadeTime)
-        void resumeAll(float fadeTime)
-        void stopCategory(String& name, float fadeTime)
-        bool isAnyPlaying(String& name)
-        bool isAnyFading(String& name)
-        bool isAnyFadingIn(String& name)
-        bool isAnyFadingOut(String& name)
+        void play(String& name, float fadeTime, bool looping, float gain) except +
+        void stop(String& name, float fadeTime) except +
+        void stopFirst(String& name, float fadeTime) except +
+        void stopAll(float fadeTime) except +
+        void pauseAll(float fadeTime) except +
+        void resumeAll(float fadeTime) except +
+        void stopCategory(String& name, float fadeTime) except +
+        bool isAnyPlaying(String& name) except +
+        bool isAnyFading(String& name) except +
+        bool isAnyFadingIn(String& name) except +
+        bool isAnyFadingOut(String& name) except +
         
 cdef extern from "<xal/Sound.h>" namespace "xal":
 
@@ -75,19 +75,19 @@ cdef extern from "<xal/Sound.h>" namespace "xal":
     
         Sound(String& filename, Category* category, String& prefix)
 
-        String getName()
-        String getFilename()
-        String getRealFilename()
-        Category* getCategory()
-        Buffer* getBuffer()
+        String getName() except +
+        String getFilename() except +
+        String getRealFilename() except +
+        Category* getCategory() except +
+        Buffer* getBuffer() except +
 
-        int getSize()
-        int getChannels()
-        int getSamplingRate()
-        int getBitsPerSample()
-        float getDuration()
-        Format getFormat()
-        bool isStreamed()
+        int getSize() except +
+        int getChannels() except +
+        int getSamplingRate() except +
+        int getBitsPerSample() except +
+        float getDuration() except +
+        Format getFormat() except +
+        bool isStreamed() except +
         
 cdef extern from "<xal/Category.h>" namespace "xal":
 
@@ -95,12 +95,12 @@ cdef extern from "<xal/Category.h>" namespace "xal":
     
         Category(String& name, int loadMode, int decodeMode)
         
-        String getName()
-        float getGain()
-        void setGain(float value)
-        int getLoadMode()
-        int getDecodeMode()
-        bool isStreamed()
+        String getName() except +
+        float getGain() except +
+        void setGain(float value) except +
+        int getLoadMode() except +
+        int getDecodeMode() except +
+        bool isStreamed() except +
         
 cdef extern from "<xal/Player.h>" namespace "xal":
 
@@ -108,54 +108,54 @@ cdef extern from "<xal/Player.h>" namespace "xal":
     
         Player(Sound* sound, Buffer* buffer)
         
-        float getGain()
-        void setGain(float value)
-        float getOffset()
-        Sound* getSound()
-        String getName()
-        String getFilename()
-        String getRealFilename()
-        float getDuration()
-        int getSize()
+        float getGain() except +
+        void setGain(float value) except +
+        float getOffset() except +
+        Sound* getSound() except +
+        String getName() except +
+        String getFilename() except +
+        String getRealFilename() except +
+        float getDuration() except +
+        int getSize() except +
 
-        Category* getCategory()
+        Category* getCategory() except +
 
-        bool isPlaying()
-        bool isPaused()
-        bool isFading()
-        bool isFadingIn()
-        bool isFadingOut()
-        bool isLooping()
+        bool isPlaying() except +
+        bool isPaused() except +
+        bool isFading() except +
+        bool isFadingIn() except +
+        bool isFadingOut() except +
+        bool isLooping() except +
 
-        void play(float fadeTime, bool looping)
-        void stop(float fadeTime)
-        void pause(float fadeTime)
+        void play(float fadeTime, bool looping) except +
+        void stop(float fadeTime) except +
+        void pause(float fadeTime) except +
 
 cdef extern from "<xal/Buffer.h>" namespace "xal":
 
     cdef cppclass Buffer:
     
-        Buffer(String& filename, int loadMode, int decodeMode)
+        Buffer(String& filename, int loadMode, int decodeMode) except +
         
-        String& getFilename()
-        int getFileSize()
-        unsigned char* getStream()
-        Source* getSource()
+        String& getFilename() except +
+        int getFileSize() except +
+        unsigned char* getStream() except +
+        Source* getSource() except +
 
-        int getSize()
-        int getChannels()
-        int getSamplingRate()
-        int getBitsPerSample()
-        float getDuration()
-        Format getFormat()
-        bool isStreamed()
-        bool setOffset(int value)
+        int getSize() except +
+        int getChannels() except +
+        int getSamplingRate() except +
+        int getBitsPerSample() except +
+        float getDuration() except +
+        Format getFormat() except +
+        bool isStreamed() except +
+        bool setOffset(int value) except +
 
-        void prepare()
-        int load(bool looping, int size)
-        void release()
-        void free()
-        void rewind()
+        void prepare() except +
+        int load(bool looping, int size) except +
+        void release() except +
+        void free() except +
+        void rewind() except +
         
 cdef extern from "<xal/xal.h>" namespace "xal":
     DEF XAL_AS_DIRECTSOUND = "DirectSound"
@@ -166,10 +166,10 @@ cdef extern from "<xal/xal.h>" namespace "xal":
     DEF XAL_AS_DISABLED = "Disabled"
     DEF XAL_AS_DEFAULT = ""
     
-    void init(String& systemName, int backendId, bool threaded, float updateTime, String& deviceName)
-    void destroy()
-    void setLogFunction(void (*function)(String&))
-    void log(String& message, String& prefix)
-    bool hasAudioSystem(String& name)
+    void init(String& systemName, int backendId, bool threaded, float updateTime, String& deviceName) except +
+    void destroy() except +
+    void setLogFunction(void (*function)(String&)) except +
+    void log(String& message, String& prefix) except +
+    bool hasAudioSystem(String& name) except +
     
     AudioManager* mgr

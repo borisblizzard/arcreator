@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*- 
 
 import wx
+import os
 import PyXAL
 
 class XALTestFrame ( wx.Frame ):
@@ -52,28 +53,39 @@ class XALTestFrame ( wx.Frame ):
         self.file = None
         
 
-    def SetUpXAL(self):    
-        self.XALManager = PyXAL.XALManager("", self.GetHandle(), True)
+    def SetUpXAL(self): 
+        PyXAL.EnableLogging(True, os.path.abspath("log"))
+        PyXAL.Init(self.GetHandle(), True)
+        print "XAL Setup"
     
     def __del__( self ):
-        self.XALManager.DestroyXAL()
+        PyXAL.Destroy()
+        print "XAL Destroyed"
     
     def on_change_file( self, event ):
         self.file = str(self.filepicker.GetPath())
-        self.sound = self.XALManager.createSound(self.file)
-        self.player = self.XALManager.createPlayer(self.sound)
+        if self.sound is not None:
+            PyXAL.Mgr.destroySound(self.sound)
+        if self.player is not None:
+            PyXAL.Mgr.destroyPlayer(self.player)
+        self.sound = PyXAL.Mgr.createSound(self.file)
+        self.player = PyXAL.Mgr.createPlayer(self.sound)
+        print "XAL opened File"
     
     def on_play( self, event ):
         if (self.player is not None) and (self.sound is not None):
             self.player.play()
+            print "playing"
     
     def on_pause( self, event ):
         if (self.player is not None) and (self.sound is not None):
             self.player.pause()
+            print "pauseing"
         
     def on_stop( self, event):
         if (self.player is not None) and (self.sound is not None):
             self.player.stop()
+            print "stoping"
         
         
 if __name__ == '__main__':
