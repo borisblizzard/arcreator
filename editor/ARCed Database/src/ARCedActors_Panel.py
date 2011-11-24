@@ -6,7 +6,6 @@ import wx.lib.plot as plot
 import ARCed_Templates
 import ARCedChangeMaximum_Dialog
 import ARCedExpCurve_Dialog
-import ARCedGenerateCurve_Dialog
 import ARCedChooseGraphic_Dialog 
 import ARCedActorParameters_Dialog
 import ARCedAddParameter_Dialog
@@ -334,7 +333,7 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 		actor = self.SelectedActor
 		dlg = ARCedExpCurve_Dialog.ARCedExpCurve_Dialog(self, actor)
 		if dlg.ShowModal() == wx.ID_OK:
-			# TODO: Fix 'actor' which errors out
+			# TODO: Fix 'actor' which errors out. Pass the instance to window
 			actor.exp_basis = dlg.spinCtrlBasis.GetValue()
 			actor.exp_inflation = dlg.spinCtrlInflation.GetValue()
 		dlg.Destroy()
@@ -410,10 +409,18 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 
 	def buttonGenerateCurve_Clicked( self, event):
 		"""Create the parameter curve dialog, using the passed index to determine the parameter"""
-		dlg = ARCedGenerateCurve_Dialog.ARCedGenerateCurve_Dialog(self, self.ParamTab)
+		from ARCedGenerateCurve_Dialog import ARCedGenerateCurve_Dialog
+		actor, i = self.SelectedActor, self.ParamTab
+		vRange = (actor.parameters[i, 1], actor.parameters[i, actor.final_level])
+		lRange = (actor.initial_level, actor.final_level)
+		max = self.GetValueMax(i)
+		dlg = ARCedGenerateCurve_Dialog(self, vRange, lRange, max)
 		if dlg.ShowModal() == wx.ID_OK:
-			# TODO: Implement curve modification
-			pass
+			curve = dlg.GenerateCurve()
+			for j in xrange(len(curve)):
+				lvl = j + actor.initial_level
+				actor.parameters[i, j] = curve[j]
+			self.refreshGraph()
 		dlg.Destroy()
 
 	def noteBookParameters_PageChanged( self, event ):
@@ -429,7 +436,7 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 	def GetParameterData( self ):
 		"""Returns the parameter data in a format fit to graph"""
 		params = self.SelectedActor.parameters
-		x = [i for i in xrange(1, self.SelectedActor.final_level + 1)]
+		x = np.arange(1, self.SelectedActor.final_level + 1, dtype=int)
 		y = [params[self.ParamTab, i] for i in x]
 		return np.column_stack((x, y))
 
@@ -438,19 +445,39 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 		self.refreshGraph()
 
 	def buttonQuickA_Clicked( self, event ):
-		print 'A'
+		"""Generates a quick curve setting within a range"""
+		self.GenerateQuickCurve(0.75)
 
 	def buttonQuickB_Clicked( self, event ):
-		print 'B'
+		"""Generates a quick curve setting within a range"""
+		self.GenerateQuickCurve(0.65)
 
 	def buttonQuickC_Clicked( self, event ):
-		print 'C'
+		"""Generates a quick curve setting within a range"""
+		self.GenerateQuickCurve(0.55)
 
 	def buttonQuickD_Clicked( self, event ):
-		print 'D'
+		"""Generates a quick curve setting within a range"""
+		self.GenerateQuickCurve(0.45)
 
 	def buttonQuickE_Clicked( self, event ):
-		print 'E'
+		"""Generates a quick curve setting within a range"""
+		self.GenerateQuickCurve(0.35)
+
+	def GenerateQuickCurve(self, percent):
+		"""Generates a quick random curve, ensuring it falls within a range"""
+		from random import randint
+		actor, index = self.SelectedActor, self.ParamTab
+		limit = self.GetValueMax(index)
+		max, mod = int(limit * percent), int(limit * 0.05)
+		upper, min = randint(max - mod, max + mod), max / 10
+		mod /= 10
+		lower = randint(min - mod, min + mod)
+		init, final = actor.initial_level, actor.final_level
+		for i in np.arange(init, final + 1, dtype=int):
+			actor.parameters[index, i] = int(DM.CalculateParameter(lower, 
+				upper, 0, i, init, final))
+		self.refreshGraph()
 
 	def parameterGraph_DoubleClicked( self, event ):
 		"""Opens the larger graph panel for interactive editing"""
@@ -458,9 +485,15 @@ class ARCedActors_Panel( ARCed_Templates.Actors_Panel ):
 		tabs, data = [], self.SelectedActor.parameters
 		for i in xrange(2, self.noteBookActorParameters.GetPageCount()):
 			tabs.append(self.noteBookActorParameters.GetPageText(i))
-		dlg = wx.Dialog(self, size=(640,480))
+		dlg = wx.Dialog(self, title='Parameter Growth', size=(640,480), 
+			style=wx.DEFAULT_DIALOG_STYLE|wx.RESIZE_BORDER )
+		dlgSizer = wx.BoxSizer( wx.VERTICAL )
 		panel = ARCedParameterGraph_Panel(dlg, self.SelectedActor, tabs, 
 			self.ParamTab, self.checkBoxScaled.GetValue())
+		dlgSizer.Add( panel, 1, wx.EXPAND, 5)
+		dlg.SetSizer(dlgSizer)
+		dlg.Layout()
+		dlg.Centre( wx.BOTH )
 		if dlg.ShowModal() == wx.ID_OK:
 			self.refreshGraph()
 
@@ -569,3 +602,5 @@ class ParameterGraph(plot.PlotCanvas):
 		gc = ParameterPlotGraphics([line], xLabel='Level', yLabel=statName,
 			XLimit=xLim, YLimit=yLim)
 		self.Draw(gc)
+
+	

@@ -205,7 +205,6 @@ class Actors_Panel ( wx.Panel ):
 		bSizer641 = wx.BoxSizer( wx.VERTICAL )
 		
 		self.checkBoxScaled = wx.CheckBox( self.pageParameters, wx.ID_ANY, u"Scaled", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.checkBoxScaled.SetValue(True) 
 		bSizer641.Add( self.checkBoxScaled, 1, wx.ALL|wx.ALIGN_RIGHT|wx.EXPAND, 5 )
 		
 		self.buttonGenerate = wx.Button( self.pageParameters, wx.ID_ANY, u"Generate...", wx.DefaultPosition, wx.DefaultSize, 0 )
@@ -5434,50 +5433,55 @@ class ActorParameters_Dialog ( wx.Dialog ):
 class GenerateCurve_Dialog ( wx.Dialog ):
 	
 	def __init__( self, parent ):
-		wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Generate Curve", pos = wx.DefaultPosition, size = wx.Size( 275,143 ), style = wx.DEFAULT_DIALOG_STYLE )
+		wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Generate Curve", pos = wx.DefaultPosition, size = wx.Size( 275,177 ), style = wx.DEFAULT_DIALOG_STYLE )
 		
 		self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
 		
 		MainSizer = wx.BoxSizer( wx.VERTICAL )
 		
-		sizer1 = wx.BoxSizer( wx.HORIZONTAL )
-		
-		sizer2 = wx.BoxSizer( wx.VERTICAL )
+		sizerLabels = wx.BoxSizer( wx.HORIZONTAL )
 		
 		self.labelLevel1 = wx.StaticText( self, wx.ID_ANY, u"Level 1:", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.labelLevel1.Wrap( -1 )
-		sizer2.Add( self.labelLevel1, 0, wx.ALL|wx.EXPAND, 5 )
-		
-		self.m_spinCtrl101 = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0 )
-		sizer2.Add( self.m_spinCtrl101, 0, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
-		
-		sizer1.Add( sizer2, 1, 0, 5 )
-		
-		sizer3 = wx.BoxSizer( wx.VERTICAL )
+		sizerLabels.Add( self.labelLevel1, 1, wx.ALL, 5 )
 		
 		self.labelMaxLevel = wx.StaticText( self, wx.ID_ANY, u"Max Level:", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.labelMaxLevel.Wrap( -1 )
-		sizer3.Add( self.labelMaxLevel, 0, wx.ALL|wx.EXPAND, 5 )
+		sizerLabels.Add( self.labelMaxLevel, 1, wx.ALL, 5 )
 		
-		self.spinCtrlMaxLevel = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0 )
-		sizer3.Add( self.spinCtrlMaxLevel, 0, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
+		self.labelSpeed = wx.StaticText( self, wx.ID_ANY, u"Speed:", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.labelSpeed.Wrap( -1 )
+		sizerLabels.Add( self.labelSpeed, 1, wx.ALL, 5 )
 		
-		sizer1.Add( sizer3, 1, 0, 5 )
+		MainSizer.Add( sizerLabels, 0, wx.EXPAND, 5 )
 		
-		sizer4 = wx.BoxSizer( wx.VERTICAL )
+		sizerControls = wx.BoxSizer( wx.HORIZONTAL )
+		
+		self.spinCtrlInitial = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0 )
+		sizerControls.Add( self.spinCtrlInitial, 1, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
+		
+		self.spinCtrlFinal = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0 )
+		sizerControls.Add( self.spinCtrlFinal, 1, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
+		
+		from wx.lib.agw.floatspin import FloatSpin
+		self.spinCtrlSpeed = FloatSpin(self)
+		sizerControls.Add( self.spinCtrlSpeed, 1, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
+		
+		MainSizer.Add( sizerControls, 1, wx.EXPAND, 5 )
+		
+		self.sliderSpeed = wx.Slider( self, wx.ID_ANY, 0, -10, 10, wx.DefaultPosition, wx.DefaultSize, wx.SL_AUTOTICKS|wx.SL_HORIZONTAL|wx.SL_LABELS|wx.SL_TOP )
+		MainSizer.Add( self.sliderSpeed, 0, wx.ALL|wx.EXPAND, 5 )
+		
+		sizerOKCancel = wx.BoxSizer( wx.HORIZONTAL )
 		
 		self.buttonOK = wx.Button( self, wx.ID_ANY, u"OK", wx.DefaultPosition, wx.DefaultSize, 0 )
-		sizer4.Add( self.buttonOK, 0, wx.ALL, 5 )
+		self.buttonOK.SetDefault() 
+		sizerOKCancel.Add( self.buttonOK, 0, wx.TOP|wx.BOTTOM|wx.LEFT, 5 )
 		
 		self.buttonCancel = wx.Button( self, wx.ID_ANY, u"Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
-		sizer4.Add( self.buttonCancel, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
+		sizerOKCancel.Add( self.buttonCancel, 0, wx.TOP|wx.BOTTOM|wx.RIGHT, 5 )
 		
-		sizer1.Add( sizer4, 0, 0, 5 )
-		
-		MainSizer.Add( sizer1, 0, wx.EXPAND, 5 )
-		
-		self.sliderCurve = wx.Slider( self, wx.ID_ANY, 0, -25, 25, wx.DefaultPosition, wx.DefaultSize, wx.SL_AUTOTICKS|wx.SL_HORIZONTAL|wx.SL_LABELS|wx.SL_TOP )
-		MainSizer.Add( self.sliderCurve, 0, wx.ALL|wx.EXPAND, 5 )
+		MainSizer.Add( sizerOKCancel, 1, wx.ALIGN_RIGHT, 5 )
 		
 		self.SetSizer( MainSizer )
 		self.Layout()
@@ -5485,6 +5489,7 @@ class GenerateCurve_Dialog ( wx.Dialog ):
 		self.Centre( wx.BOTH )
 		
 		# Connect Events
+		self.sliderSpeed.Bind( wx.EVT_SCROLL, self.sliderSpeed_Scrolled )
 		self.buttonOK.Bind( wx.EVT_BUTTON, self.buttonOK_Clicked )
 		self.buttonCancel.Bind( wx.EVT_BUTTON, self.buttonCancel_Clicked )
 	
@@ -5493,6 +5498,9 @@ class GenerateCurve_Dialog ( wx.Dialog ):
 	
 	
 	# Virtual event handlers, overide them in your derived class
+	def sliderSpeed_Scrolled( self, event ):
+		pass
+	
 	def buttonOK_Clicked( self, event ):
 		pass
 	
@@ -13655,7 +13663,7 @@ class AddParameter_Dialog ( wx.Dialog ):
 class ParameterGraph_Panel ( wx.Panel ):
 	
 	def __init__( self, parent ):
-		wx.Panel.__init__ ( self, parent, id = wx.ID_ANY, pos = wx.DefaultPosition, size = wx.Size( 566,428 ), style = wx.FULL_REPAINT_ON_RESIZE|wx.TAB_TRAVERSAL )
+		wx.Panel.__init__ ( self, parent, id = wx.ID_ANY, pos = wx.DefaultPosition, size = wx.Size( 577,447 ), style = wx.FULL_REPAINT_ON_RESIZE|wx.TAB_TRAVERSAL )
 		
 		MainSizer = wx.BoxSizer( wx.VERTICAL )
 		
@@ -14030,6 +14038,31 @@ class AudioPlayer_Panel ( wx.Panel ):
 		pass
 	
 	def buttonCancel_Clicked( self, event ):
+		pass
+	
+
+###########################################################################
+## Class TEST_DIALOG
+###########################################################################
+
+class TEST_DIALOG ( wx.Dialog ):
+	
+	def __init__( self, parent ):
+		wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = wx.EmptyString, pos = wx.DefaultPosition, size = wx.Size( 405,311 ), style = wx.DEFAULT_DIALOG_STYLE|wx.RESIZE_BORDER )
+		
+		self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
+		
+		bSizer636 = wx.BoxSizer( wx.VERTICAL )
+		
+		self.m_panel27 = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
+		bSizer636.Add( self.m_panel27, 1, wx.EXPAND, 5 )
+		
+		self.SetSizer( bSizer636 )
+		self.Layout()
+		
+		self.Centre( wx.BOTH )
+	
+	def __del__( self ):
 		pass
 	
 

@@ -1,8 +1,8 @@
 import wx
 import ARCed_Templates
 from ARCedActors_Panel import GRAPH_COLORS
-from ARCedGenerateCurve_Dialog import ARCedGenerateCurve_Dialog
 import numpy as np
+from DatabaseManager import DatabaseManager as DM
 from copy import deepcopy
 import Kernel
 
@@ -37,12 +37,13 @@ class ARCedParameterGraph_Panel( ARCed_Templates.ParameterGraph_Panel ):
 
 	def MouseHover( self, event ):
 		"""Updates the coordinate display and changes values if MouseDown flag is present"""
+		maxValue = self.GetValueMax(self.PageIndex)
 		x, y = self.interactiveGraph.GetXY(event)
+		x = min(self.Actor.final_level, max(1, x))
+		y = min(maxValue, max(0, y))
 		self.labelValueX.SetLabel(str(int(x)))
 		self.labelValueY.SetLabel(str(int(y)))
 		if self.MouseDown:
-			if x > self.Actor.final_level: x = self.Actor.final_level
-			if y > self.GetValueMax(self.PageIndex): y = self.GetValueMax(self.PageIndex)
 			self.Data[self.PageIndex, x] = y
 			self.RefreshGraph()
 
@@ -62,7 +63,7 @@ class ARCedParameterGraph_Panel( ARCed_Templates.ParameterGraph_Panel ):
 
 	def GetData( self ):
 		"""Returns the parameter data in a format fit to graph"""
-		x = [i for i in xrange(1, self.Actor.final_level + 1)]
+		x = np.arange(1, self.Actor.final_level + 1, dtype=int)
 		y = [self.Data[self.PageIndex, i] for i in x]
 		return np.column_stack((x, y))
 
@@ -89,11 +90,20 @@ class ARCedParameterGraph_Panel( ARCed_Templates.ParameterGraph_Panel ):
 		self.RefreshGraph()
 	
 	def buttonGenerate_Clicked( self, event ):
-		"""Starts the dialog for generating a curve"""
-		dlg = ARCedGenerateCurve_Dialog(self, self.PageIndex)
+		"""Create the parameter curve dialog, using the passed index to determine the parameter"""
+		from ARCedGenerateCurve_Dialog import ARCedGenerateCurve_Dialog
+		actor, i = self.Actor, self.PageIndex
+		vRange = (self.Data[i, 1], self.Data[i, actor.final_level])
+		lRange = (actor.initial_level, actor.final_level)
+		max = self.GetValueMax(i)
+		dlg = ARCedGenerateCurve_Dialog(self, vRange, lRange, max)
 		if dlg.ShowModal() == wx.ID_OK:
-			# TODO: Implement 
-			pass
+			curve = dlg.GenerateCurve()
+			for j in xrange(len(curve)):
+				lvl = j + actor.initial_level
+				self.Data[i, j] = curve[j]
+			self.RefreshGraph()
+		dlg.Destroy()
 	
 	def buttonApply_Clicked( self, event ):
 		"""Sets the altered data to the actor's parameters"""
@@ -103,5 +113,5 @@ class ARCedParameterGraph_Panel( ARCed_Templates.ParameterGraph_Panel ):
 	
 	def buttonClose_Clicked( self, event ):
 		"""Closes the window without applying changes"""
-		# TODO: Will this be dialog
+		# TODO: Will this be dialog?
 		self.GetParent().EndModal(wx.ID_CANCEL)

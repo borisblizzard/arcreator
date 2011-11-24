@@ -1,6 +1,7 @@
 import wx
 from Core.Cache import PILCache as Cache
 from Core.RMXP import RGSS1_RPG as RPG
+from math import ceil
 import PIL
 import os
 import Kernel
@@ -343,16 +344,6 @@ class DatabaseManager(object):
 			else:
 				bitmap = wx.EmptyBitmap(1, 1)
 		button.SetBitmapLabel(bitmap)
-	#----------------------------------------------------------------------------------
-	@staticmethod
-	def TestSFX( audioFile ):
-		# TEMP METHOD
-		from pygame import mixer as Mixer
-		Mixer.init()
-		path = ''.join([DatabaseManager.RTPDir, '/Audio/SE/', audioFile.name, '.ogg'])
-		player = Mixer.Sound(path)
-		player.set_volume(audioFile.volume / 100.0)
-		player.play()
 
 	#----------------------------------------------------------------------------------
 	@staticmethod
@@ -416,27 +407,40 @@ class DatabaseManager(object):
 		#parent.SetSizer ( mainsizer )
 		return objectList
 
+	#----------------------------------------------------------------------------------
 	@staticmethod 
 	def gcd(num1, num2):
 		""" Calculates the greatest common denominator of two numbers"""
 		if num1 > num2:
 			for i in range(1, num2 + 1):
-				if num2 % i == 0:
-					if num1 % i == 0:
-						result = i
+				if num2 % i == 0 and num1 % i == 0:
+					result = i
 			return result
 		elif num2 > num1:
 			for i in range(1, num1 + 1):
-				if num1 % i == 0:
-					if num2 % i == 0:
-						result = i
+				if num1 % i == 0 and num2 % i == 0:
+					result = i
 			return result
 		else:
 			result = num1 * num2 / num1
 			return result
 
+	#----------------------------------------------------------------------------------
 	@staticmethod
 	def lcm(num1, num2):
 		"""Returns the lowest common multiple of two numbers"""
 		result = num1 * num2 / DatabaseManager.gcd(num1, num2)
 		return result
+
+	#----------------------------------------------------------------------------------
+	@staticmethod
+	def CalculateParameter(min, max, speed, level, initLvl, fnlLvl):
+		"""Calculates the parameter value of a curve at the passed level"""
+		p_range, l_range = max - min, float(fnlLvl - initLvl)
+		linear = ceil(min + p_range * ((level - initLvl) / l_range))
+		if speed == 0: return linear
+		if speed < 0:
+		  curve = ceil(min + p_range * (((level - initLvl) / l_range) ** 2))
+		else:
+		  curve = ceil(max - p_range * (((fnlLvl - level) / l_range) ** 2))
+		return ((curve * abs(speed) + linear * (10 - abs(speed))) / 10)

@@ -2,7 +2,6 @@ import wx
 import wx.lib.plot as plot
 import os
 import numpy as np
-
 import ARCed_Templates
 from DatabaseManager import DatabaseManager as DM
 from pygame import mixer, sndarray
@@ -187,7 +186,7 @@ class ARCedAudioPlayer_Panel( ARCed_Templates.AudioPlayer_Panel ):
 		length = len(y)
 		if length > 30000:
 			y = y[::length/30000]
-		x = [i for i in xrange(len(y))]
+		x = np.arange(len(y), dtype=int)
 		# SHorten the sample size for the graph if need be
 		if length > 16000:
 			data = np.column_stack((x[::4], y[::4]))
@@ -216,6 +215,7 @@ class ARCedAudioPlayer_Panel( ARCed_Templates.AudioPlayer_Panel ):
 class WaveFormPanel(plot.PlotCanvas):
 
 	def __init__(self, parent, sound_array=None, color=wx.BLUE):
+		"""Basic constructor for the WaveFormPanel"""
 		super(WaveFormPanel, self).__init__(parent, style=wx.SUNKEN_BORDER)
 		self.SetEnableTitle(False)
 		self.SetEnableLegend(False)
@@ -231,6 +231,7 @@ class WaveFormPanel(plot.PlotCanvas):
 			self.SetSoundArray(sound_array)
 		
 	def SetSoundArray(self, sndarray):
+		"""Sets the data array and redraws the data"""
 		if sndarray is None:
 			sndarray = [(0, 0), (1, 0)]
 		line = plot.PolyLine(sndarray, colour=self.DrawColor, width=1)

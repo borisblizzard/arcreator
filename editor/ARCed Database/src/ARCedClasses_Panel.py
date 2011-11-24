@@ -2,7 +2,7 @@ import wx
 import ARCed_Templates
 from ARCedChangeMaximum_Dialog import ARCedChangeMaximum_Dialog
 from ARCedSkill_Dialog import ARCedSkill_Dialog
-
+import numpy as np
 from DatabaseManager import DatabaseManager as DM
 from Core.RMXP import RGSS1_RPG as RPG	
 from Core import RPGutil
@@ -153,7 +153,7 @@ class ARCedClasses_Panel( ARCed_Templates.Classes_Panel ):
 		"""Checks all weapons and adds each weapon's ID to the class weapon set"""
 		for i in xrange(self.checkListWeapons.GetCount()):
 			self.checkListWeapons.Check(i, True)
-		ids = [i for i in xrange(DM.FixedIndex(0), len(DataWeapons))]
+		ids = np.arange(DM.FixedIndex(0), len(DataWeapons), dtype=int)
 		self.SelectedClass.weapon_set = ids
 
 	def buttonWeaponNone_Clicked( self, event ):
@@ -173,7 +173,7 @@ class ARCedClasses_Panel( ARCed_Templates.Classes_Panel ):
 
 	def buttonArmorAll_Clicked( self, event ):
 		"""Checks all armors and adds each armor's ID to the class armor set"""
-		indices = [i for i in xrange(self.checkListArmors.GetCount())]
+		indices = np.arange(self.checkListArmors.GetCount(), dtype=int)
 		self.checkListArmors.SetChecked(indices)
 
 	def buttonArmorNone_Clicked( self, event ):
