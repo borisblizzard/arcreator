@@ -9,6 +9,8 @@ import colorsys
 
 import time
 
+import collections
+
 import Kernel
 from Kernel import Manager as KM
 
@@ -220,9 +222,9 @@ class RTPFunctions(object):
 
 class PILCache(object):
 
-    _NormalCache = {}
-    _TileCache = {}
-    _AutoTileCache = {}
+    _NormalCache = collections.OrderedDict()
+    _TileCache = collections.OrderedDict()
+    _AutoTileCache = collections.OrderedDict()
 
     _normal_limit = 1000
     _tile_limit = 200
@@ -276,19 +278,19 @@ class PILCache(object):
     def NormalCacheLimit():
         if len(PILCache._NormalCache) > PILCache._normal_limit:
             for i in xrange(len(PILCache._NormalCache) - PILCache._normal_limit):
-                PILCache._NormalCache.popitem()
+                PILCache._NormalCache.popitem(False)
 
     @staticmethod
     def TileCacheLimit():
         if len(PILCache._TileCache) > PILCache._tile_limit:
             for i in xrange(len(PILCache._TileCache) - PILCache._tile_limit):
-                PILCache._TileCache.popitem()
+                PILCache._TileCache.popitem(False)
 
     @staticmethod
     def AutotileCacheLimit():
         if len(PILCache._AutoTileCache) > PILCache._autotile_limit:
             for i in xrange(len(PILCache._AutoTileCache) - PILCache._autotile_limit):
-                PILCache._AutoTileCache.popitem()
+                PILCache._AutoTileCache.popitem(False)
 
     @staticmethod
     def CacheLimit():
@@ -418,7 +420,7 @@ class PILCache(object):
 class PygletCache(object):
 
     def __init__(self):
-        self._Cache = {}
+        self._Cache = collections.OrderedDict()
         self.limit = 400
         try:
             config = Kernel.GlobalObjects.get_value("ARCed_config")
@@ -432,7 +434,7 @@ class PygletCache(object):
     def CacheLimit(self):
         if len(self._Cache) > self.limit:
             for i in xrange(len(self._Cache) - self.limit):
-                self._Cache.popitem()
+                self._Cache.popitem(False)
         
     def Load_bitmap(self, folder_name, filename, hue=0):
         key = (folder_name, filename, hue)
