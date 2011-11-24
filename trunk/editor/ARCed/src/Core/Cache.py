@@ -429,7 +429,7 @@ class PygletCache(object):
         except:
             Kernel.Log("Error setting pyglet Cache Config", "[Cache]", error=True)
 
-    def LimitCache(self):
+    def CacheLimit(self):
         if len(self._Cache) > self.limit:
             for i in xrange(len(self._Cache) - self.limit):
                 self._Cache.popitem()
