@@ -1780,8 +1780,9 @@ class Enemies_Panel ( wx.Panel ):
 		self.labelBattlerGraphic.Wrap( -1 )
 		sizer2.Add( self.labelBattlerGraphic, 0, wx.ALL, 5 )
 		
-		self.bitmapBattlerGraphic = wx.StaticBitmap( self, wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.DefaultSize, wx.STATIC_BORDER )
-		sizer2.Add( self.bitmapBattlerGraphic, 1, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
+		from ImageCanvas import EditorGLPanel
+		self.glCanvasEnemyGraphic = EditorGLPanel(self, -1, 4, 4, (0, 0,), 1)
+		sizer2.Add( self.glCanvasEnemyGraphic, 1, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
 		
 		self.labelAttackAnimation = wx.StaticText( self, wx.ID_ANY, u"Attack Animation:", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.labelAttackAnimation.Wrap( -1 )
@@ -1922,7 +1923,6 @@ class Enemies_Panel ( wx.Panel ):
 		self.listBoxEnemies.Bind( wx.EVT_LISTBOX, self.listBoxEnemies_SelectionChanged )
 		self.buttonMaximum.Bind( wx.EVT_BUTTON, self.buttonMaximum_Clicked )
 		self.textCtrlName.Bind( wx.EVT_TEXT, self.textCtrlName_ValueChanged )
-		self.bitmapBattlerGraphic.Bind( wx.EVT_LEFT_DCLICK, self.bitmapGraphic_DoubleClick )
 		self.comboBoxAttackAnimation.Bind( wx.EVT_CHOICE, self.comboBoxAttackAnimation_SelectionChanged )
 		self.comboBoxTargetAnimation.Bind( wx.EVT_CHOICE, self.comboBoxTargetAnimation_ValueChanged )
 		self.textCtrlDescription.Bind( wx.EVT_TEXT, self.textCtrlDescription_TextChanged )
@@ -1948,9 +1948,6 @@ class Enemies_Panel ( wx.Panel ):
 		pass
 	
 	def textCtrlName_ValueChanged( self, event ):
-		pass
-	
-	def bitmapGraphic_DoubleClick( self, event ):
 		pass
 	
 	def comboBoxAttackAnimation_SelectionChanged( self, event ):

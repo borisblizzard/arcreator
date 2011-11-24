@@ -26,9 +26,9 @@ GRAPH_COLORS = {
 		5 : wx.Colour(120, 60, 200),
 		6 : wx.Colour(60, 200, 120),
 		7 : wx.Colour(56, 112, 187),
-		8 : wx.Colour(112, 56, 187),
+		8 : wx.Colour(187, 112, 56),
 		9 : wx.Colour(112, 187, 56),
-		10 : wx.Colour(187, 112, 56),
+		10 : wx.Colour(112, 56, 187),
 		11 : wx.Colour(187, 56, 112),
 	}
 
