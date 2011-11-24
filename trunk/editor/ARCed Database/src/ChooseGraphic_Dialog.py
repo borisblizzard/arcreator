@@ -1,51 +1,66 @@
-import os
 import wx
 import ARCed_Templates
-from Core import Cache
+from Core.Cache import RTPFunctions, PILCache
+import PIL
+import os
 import Kernel
 
-class ChooseGraphic_Dialog(ARCed_Templates.ChooseGraphic_Dialog):
-
-	def __init__( self, parent, path, current, hue=0 ):
-		"""Initializes control using passed "path" argument to populate the list"""
+class ChooseGraphic_Dialog( ARCed_Templates.ChooseGraphic_Dialog ):
+	def __init__( self, parent, folder, current, hue ):
 		ARCed_Templates.ChooseGraphic_Dialog.__init__( self, parent )
-		self.Images = []
-		# TODO: Add method to search nested directories as well, as well as RTP
-		for fname in os.listdir(path):
-			name, ext = os.path.splitext(fname)
-			if ext in ['.png', '.jpg', '.bmp', '.gif']:  
-				self.listBoxGraphics.Append(name)
-				self.Images.append(path + '/' + fname)
-		if current in self.listBoxGraphics.GetStrings():
-			index = self.listBoxGraphics.FindString(current)
-			self.listBoxGraphics.Select(index)
-		elif self.listBoxGraphics.GetStrings().count > 0:
-			self.listBoxGraphics.Select(0)
+		self.glCanvasGraphic.canvas.Bind(wx.EVT_LEFT_DOWN, 
+			Kernel.Protect(self.glCanvas_LeftMouse))
+		#self.Centre( wx.BOTH )
+		self.glCanvasGraphic.SetDrawMode(5)
+		self.ImageList = ['(None)'] 
+		self.ImageList.extend(RTPFunctions.GetFileList(os.path.join('Graphics', folder)))
+		self.ImageIndex = 0
+		if folder == 'Characters': self.cache = PILCache.Character
+		elif folder == 'Battlers': self.cache = PILCache.Battler
+		# TODO: Implement the rest...
+		if current in self.ImageList: 
+			self.ImageIndex = self.ImageList.index(current)
+		self.listBoxGraphics.AppendItems(self.ImageList)
+		self.listBoxGraphics.SetSelection(self.ImageIndex)
+		self.RefreshCanvas()
+
+	def RefreshCanvas( self ):
+
+		if self.ImageIndex == 0:
+			image = PIL.Image.new('RGBA', (32, 32))
 		else:
-			self.buttonOK.Disable()
-		self.sliderHue.SetValue(hue)
-		# TODO: Test if the following is Windows compatible only
-		self.bitmapGraphic.SetBitmap(wx.Bitmap(self.Images[self.listBoxGraphics.GetSelection()]))
-		if hue != 0:
-			# TODO: Apply hue change if necessary
-			pass
-	
+			filename = self.ImageList[self.ImageIndex]
+			hue = self.sliderHue.GetValue()
+			image = self.cache(filename, hue)
+		self.glCanvasGraphic.ChangeImage(image)
+
+	def glCanvas_LeftMouse( self, event ):
+
+		print 'LEFT DOWN'
+
 	def listBoxGraphics_SelectionChanged( self, event ):
-		"""Refreshes the bitmap to display the image associated with the current selection"""
-		index = self.listBoxGraphics.GetSelection()
-		self.bitmapGraphic.SetBitmap(wx.Bitmap(self.Images[index]))
-	
+
+
+
+
+		self.ImageIndex = event.GetSelection()
+		self.RefreshCanvas()
+
 	def sliderHue_Scrolled( self, event ):
-		"""Applies hue change to sample displayed bitmap"""
-		# TODO: Implement sliderHue_Scrolled 
-		pass
+		self.RefreshCanvas()
+
+	def GetSelection( self ):
+		"""Returns the filename and hue that was selected by the user"""
+		if self.ImageIndex == 0:
+			return 0, 0
+		return self.ImageList[self.ImageIndex], self.sliderHue.GetValue()
 	
 	def buttonOK_Clicked( self, event ):
-		"""Closes the dialog and returns wxID_OK"""
+		"""End the dialog and return wx.ID_OK"""
 		self.EndModal(wx.ID_OK)
 	
 	def buttonCancel_Clicked( self, event ):
-		"""Closes the dialog and returns wxID_CANCEL"""
+		"""End the dialog and return wx.ID_CANCEL"""
 		self.EndModal(wx.ID_CANCEL)
 	
 	
