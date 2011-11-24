@@ -13,7 +13,7 @@ class Skills_Panel(ARCed_Templates.Skills_Panel ):
 		ARCed_Templates.Skills_Panel.__init__( self, parent )
 		global Config, DataSkills, DataAnimations, DataElements
 		global DataStates, DataCommonEvents
-		Config = Kernel.GlobalObjects.get_value('_config')
+		Config = Kernel.GlobalObjects.get_value('ARCed_config')
 		try:
 			proj = Kernel.GlobalObjects.get_value('PROJECT')
 			DataSkills = proj.getData('Skills')

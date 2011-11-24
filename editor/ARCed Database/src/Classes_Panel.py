@@ -15,7 +15,7 @@ class Classes_Panel(ARCed_Templates.Classes_Panel ):
 		"""Basic constructor for the Classes panel"""
 		ARCed_Templates.Classes_Panel.__init__( self, parent )
 		global Config
-		Config = Kernel.GlobalObjects.get_value('_config')
+		Config = Kernel.GlobalObjects.get_value('ARCed_config')
 		global DataClasses, DataWeapons, DataArmors, DataStates, DataElements, DataSkills
 		try:
 			proj = Kernel.GlobalObjects.get_value('PROJECT')

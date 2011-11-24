@@ -186,7 +186,7 @@ class RTPFunctions(object):
 		else: return files
 		directories = [Kernel.GlobalObjects.get_value('CurrentProjectDir')]
 		rtps = Kernel.GlobalObjects.get_value("ARCed_config").get_section("RTPs")
-		directories.extend([os.path.expandvars(path) for path in rtps.iteritems()])
+		directories.extend([os.path.expandvars(path[1]) for path in rtps.iteritems()])
 		for dir in directories:
 			entries.extend(os.listdir(os.path.join(dir, folder)))
 		for entry in entries:

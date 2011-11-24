@@ -7,7 +7,7 @@ class ExpCurve_Dialog(ARCed_Templates.ExpCurve_Dialog ):
 	def __init__( self, parent, actor ):
 		"""Basic constructor for the Experience Curve Dialog"""
 		ARCed_Templates.ExpCurve_Dialog.__init__( self, parent )
-		Config = Kernel.GlobalObjects.get_value('_config')
+		Config = Kernel.GlobalObjects.get_value('ARCed_config')
 		maxBasis = Config.getint('DatabaseLimits', 'ExpBasisMax')
 		maxInflation = Config.getint('DatabaseLimits', 'ExpInflationMax')
 		self.spinCtrlBasis.SetRange(1, maxBasis)

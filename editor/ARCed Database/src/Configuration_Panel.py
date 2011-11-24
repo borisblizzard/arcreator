@@ -7,7 +7,7 @@ class Configuration_Panel ( wx.Panel ):
 		"""Basic constructor for the Configurator Panel"""
 		wx.Panel.__init__ ( self, parent, id = wx.ID_ANY, pos = wx.DefaultPosition, size = wx.Size( 517,364 ), style = wx.TAB_TRAVERSAL )
 		global Config
-		Config = Kernel.GlobalObjects.get_value('_config')
+		Config = Kernel.GlobalObjects.get_value('ARCed_config')
 		self.Dictionary = {}
 		# Create the fonts
 		headerFont = wx.Font(12, wx.FONTFAMILY_DEFAULT, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL)

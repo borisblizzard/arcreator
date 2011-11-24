@@ -12,7 +12,7 @@ class Items_Panel(ARCed_Templates.Items_Panel ):
 		ARCed_Templates.Items_Panel.__init__( self, parent )
 		global Config
 		global DataItems, DataStates, DataElements, DataCommonEvents, DataAnimations
-		Config = Kernel.GlobalObjects.get_value('_config')
+		Config = Kernel.GlobalObjects.get_value('ARCed_config')
 		try:
 			proj = Kernel.GlobalObjects.get_value('PROJECT')
 			DataItems = proj.getData('Items')

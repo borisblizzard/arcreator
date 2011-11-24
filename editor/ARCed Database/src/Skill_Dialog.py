@@ -14,7 +14,7 @@ class Skill_Dialog(ARCed_Templates.Skill_Dialog ):
 		self.spinCtrlLevel.SetRange(1, maxlevel)
 		self.spinCtrlLevel.SetValue(level)
 
-		config = Kernel.GlobalObjects.get_value('_config')
+		config = Kernel.GlobalObjects.get_value('ARCed_config')
 		digits = len(config.get('GameObjects', 'Skills'))
 
 		if ARC_FORMAT: start = 0 

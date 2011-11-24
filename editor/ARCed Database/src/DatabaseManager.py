@@ -365,7 +365,7 @@ class DatabaseManager(object):
 		count = 0
 		parameters = defaults
 		if DatabaseManager.ARC_FORMAT:
-			config = Kernel.GlobalObjects.get_value('_config')
+			config = Kernel.GlobalObjects.get_value('ARCed_config')
 			parameters.extend(config.getlist('GameSetup', 'Parameters'))
 		else:
 			parameters.extend(['STR', 'DEX', 'AGI', 'INT'])
