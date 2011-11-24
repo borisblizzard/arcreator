@@ -109,7 +109,7 @@ class Actors_Panel ( wx.Panel ):
 		self.glCanvasCharacter = EditorGLPanel(parent, id, 4, 4, (0, 0,), 1)
 		self.glCanvasCharacter.SetHelpText( u"The graphic used for the actor on the map. Double-click to edit." )
 		
-		sizerCharacter.Add( self.glCanvasCharacter, 1, wx.ALL|wx.EXPAND, 5 )
+		sizerCharacter.Add( self.glCanvasCharacter, 1, wx.ALL|wx.EXPAND, 0 )
 		
 		self.panelCharacter.SetSizer( sizerCharacter )
 		self.panelCharacter.Layout()
@@ -121,7 +121,7 @@ class Actors_Panel ( wx.Panel ):
 		self.glCanvasBattler = EditorGLPanel(parent, id, 1, 1, (0, 0,), 1)
 		self.glCanvasBattler.SetHelpText( u"The graphic used for the actor in battle. Double-click to edit." )
 		
-		sizerBattler.Add( self.glCanvasBattler, 1, wx.ALL|wx.EXPAND, 5 )
+		sizerBattler.Add( self.glCanvasBattler, 1, wx.ALL|wx.EXPAND, 0 )
 		
 		self.panelBattler.SetSizer( sizerBattler )
 		self.panelBattler.Layout()
@@ -190,7 +190,7 @@ class Actors_Panel ( wx.Panel ):
 		
 		from Actors_Panel import ParameterGraph
 		self.parameterGraph = ParameterGraph(self.pageParameters)
-		bSizer613.Add( self.parameterGraph, 1, wx.EXPAND|wx.RIGHT|wx.LEFT, 5 )
+		bSizer613.Add( self.parameterGraph, 1, wx.EXPAND|wx.RIGHT|wx.LEFT, 0 )
 		
 		bSizer640 = wx.BoxSizer( wx.VERTICAL )
 		
@@ -1780,9 +1780,18 @@ class Enemies_Panel ( wx.Panel ):
 		self.labelBattlerGraphic.Wrap( -1 )
 		sizer2.Add( self.labelBattlerGraphic, 0, wx.ALL, 5 )
 		
+		self.panelEnemyGraphic = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.SUNKEN_BORDER|wx.TAB_TRAVERSAL )
+		sizerEnemyGraphic = wx.BoxSizer( wx.VERTICAL )
+		
 		from ImageCanvas import EditorGLPanel
-		self.glCanvasEnemyGraphic = EditorGLPanel(self, -1, 4, 4, (0, 0,), 1)
-		sizer2.Add( self.glCanvasEnemyGraphic, 1, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
+		parent = self.panelEnemyGraphic
+		self.glCanvasEnemyGraphic = EditorGLPanel(parent, -1, 1, 1, (0, 0,), 1)
+		sizerEnemyGraphic.Add( self.glCanvasEnemyGraphic, 1, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 0 )
+		
+		self.panelEnemyGraphic.SetSizer( sizerEnemyGraphic )
+		self.panelEnemyGraphic.Layout()
+		sizerEnemyGraphic.Fit( self.panelEnemyGraphic )
+		sizer2.Add( self.panelEnemyGraphic, 1, wx.EXPAND |wx.ALL, 5 )
 		
 		self.labelAttackAnimation = wx.StaticText( self, wx.ID_ANY, u"Attack Animation:", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.labelAttackAnimation.Wrap( -1 )
@@ -5210,13 +5219,20 @@ class ExpCurve_Dialog ( wx.Dialog ):
 		
 		sizerButtons = wx.BoxSizer( wx.HORIZONTAL )
 		
+		sizerGraphButton = wx.BoxSizer( wx.HORIZONTAL )
+		
+		self.buttonViewGraph = wx.Button( self, wx.ID_ANY, u"View Graph...", wx.DefaultPosition, wx.DefaultSize, 0 )
+		sizerGraphButton.Add( self.buttonViewGraph, 0, wx.ALL, 5 )
+		
+		sizerButtons.Add( sizerGraphButton, 1, 0, 5 )
+		
 		self.buttonOK = wx.Button( self, wx.ID_ANY, u"OK", wx.DefaultPosition, wx.DefaultSize, 0 )
 		sizerButtons.Add( self.buttonOK, 0, wx.ALL, 5 )
 		
 		self.buttonCancel = wx.Button( self, wx.ID_ANY, u"Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
 		sizerButtons.Add( self.buttonCancel, 0, wx.ALL, 5 )
 		
-		MainSizer.Add( sizerButtons, 0, wx.ALIGN_RIGHT, 5 )
+		MainSizer.Add( sizerButtons, 0, wx.ALIGN_RIGHT|wx.ALIGN_BOTTOM|wx.EXPAND, 5 )
 		
 		self.SetSizer( MainSizer )
 		self.Layout()
@@ -5229,6 +5245,7 @@ class ExpCurve_Dialog ( wx.Dialog ):
 		self.spinCtrlBasis.Bind( wx.EVT_SPINCTRL, self.spinCtrlBasis__ValueChanged )
 		self.sliderInflation.Bind( wx.EVT_SCROLL, self.sliderInflation_Scrolled )
 		self.spinCtrlInflation.Bind( wx.EVT_SPINCTRL, self.spinCtrlInflation_ValueChanged )
+		self.buttonViewGraph.Bind( wx.EVT_BUTTON, self.buttonViewGraph_Clicked )
 		self.buttonOK.Bind( wx.EVT_BUTTON, self.buttonOK_Clicked )
 		self.buttonCancel.Bind( wx.EVT_BUTTON, self.buttonCancel_Clicked )
 	
@@ -5252,168 +5269,7 @@ class ExpCurve_Dialog ( wx.Dialog ):
 	def spinCtrlInflation_ValueChanged( self, event ):
 		pass
 	
-	def buttonOK_Clicked( self, event ):
-		pass
-	
-	def buttonCancel_Clicked( self, event ):
-		pass
-	
-
-###########################################################################
-## Class ActorParameters_Dialog
-###########################################################################
-
-class ActorParameters_Dialog ( wx.Dialog ):
-	
-	def __init__( self, parent ):
-		wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Parameters", pos = wx.DefaultPosition, size = wx.Size( 478,366 ), style = wx.DEFAULT_DIALOG_STYLE )
-		
-		self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
-		
-		MainSizer = wx.BoxSizer( wx.VERTICAL )
-		
-		self.noteBookActorParameters = wx.Notebook( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.panelParameter = wx.Panel( self.noteBookActorParameters, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
-		MainSizerParamter = wx.BoxSizer( wx.VERTICAL )
-		
-		sizerConrolsParameter = wx.BoxSizer( wx.HORIZONTAL )
-		
-		sizerQuickSettings = wx.StaticBoxSizer( wx.StaticBox( self.panelParameter, wx.ID_ANY, u"Quick Settings" ), wx.HORIZONTAL )
-		
-		self.buttonQuickA = wx.Button( self.panelParameter, wx.ID_ANY, u"A", wx.DefaultPosition, wx.Size( 23,23 ), 0 )
-		sizerQuickSettings.Add( self.buttonQuickA, 0, wx.ALL, 5 )
-		
-		self.buttonQuickB = wx.Button( self.panelParameter, wx.ID_ANY, u"B", wx.DefaultPosition, wx.Size( 23,23 ), 0 )
-		sizerQuickSettings.Add( self.buttonQuickB, 0, wx.TOP|wx.BOTTOM|wx.RIGHT, 5 )
-		
-		self.buttonQuickC = wx.Button( self.panelParameter, wx.ID_ANY, u"C", wx.DefaultPosition, wx.Size( 23,23 ), 0 )
-		sizerQuickSettings.Add( self.buttonQuickC, 0, wx.TOP|wx.BOTTOM|wx.RIGHT, 5 )
-		
-		self.buttonQuickD = wx.Button( self.panelParameter, wx.ID_ANY, u"D", wx.DefaultPosition, wx.Size( 23,23 ), 0 )
-		sizerQuickSettings.Add( self.buttonQuickD, 0, wx.TOP|wx.BOTTOM|wx.RIGHT, 5 )
-		
-		self.buttonQuickE = wx.Button( self.panelParameter, wx.ID_ANY, u"E", wx.DefaultPosition, wx.Size( 23,23 ), 0 )
-		sizerQuickSettings.Add( self.buttonQuickE, 0, wx.TOP|wx.BOTTOM|wx.RIGHT, 5 )
-		
-		sizerConrolsParameter.Add( sizerQuickSettings, 0, wx.ALL, 5 )
-		
-		sizerLevel = wx.BoxSizer( wx.VERTICAL )
-		
-		self.labelLevel = wx.StaticText( self.panelParameter, wx.ID_ANY, u"Level:", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.labelLevel.Wrap( -1 )
-		sizerLevel.Add( self.labelLevel, 0, wx.ALL|wx.EXPAND, 5 )
-		
-		self.spinCtrlLevel = wx.SpinCtrl( self.panelParameter, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 999, 1 )
-		sizerLevel.Add( self.spinCtrlLevel, 0, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
-		
-		sizerConrolsParameter.Add( sizerLevel, 1, wx.ALIGN_CENTER_VERTICAL, 5 )
-		
-		sizerValue = wx.BoxSizer( wx.VERTICAL )
-		
-		self.labelValue = wx.StaticText( self.panelParameter, wx.ID_ANY, u"Value:", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.labelValue.Wrap( -1 )
-		sizerValue.Add( self.labelValue, 0, wx.ALL|wx.EXPAND, 5 )
-		
-		self.spinCtrlValue = wx.SpinCtrl( self.panelParameter, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0 )
-		sizerValue.Add( self.spinCtrlValue, 0, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
-		
-		sizerConrolsParameter.Add( sizerValue, 1, wx.ALIGN_CENTER_VERTICAL, 5 )
-		
-		self.buttonGenerate = wx.Button( self.panelParameter, wx.ID_ANY, u"Generate Curve...", wx.DefaultPosition, wx.DefaultSize, 0 )
-		sizerConrolsParameter.Add( self.buttonGenerate, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
-		
-		MainSizerParamter.Add( sizerConrolsParameter, 0, wx.EXPAND, 5 )
-		
-		self.bitmapGraph = wx.StaticBitmap( self.panelParameter, wx.ID_ANY, wx.Bitmap( u"../images/MaxHP.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.Size( 448,224 ), wx.SIMPLE_BORDER )
-		MainSizerParamter.Add( self.bitmapGraph, 0, wx.EXPAND|wx.ALL, 5 )
-		
-		self.panelParameter.SetSizer( MainSizerParamter )
-		self.panelParameter.Layout()
-		MainSizerParamter.Fit( self.panelParameter )
-		self.noteBookActorParameters.AddPage( self.panelParameter, u"MaxHP", False )
-		self.panelMaxSP = wx.Panel( self.noteBookActorParameters, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
-		self.noteBookActorParameters.AddPage( self.panelMaxSP, u"MaxSP", True )
-		self.panelStr = wx.Panel( self.noteBookActorParameters, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
-		self.noteBookActorParameters.AddPage( self.panelStr, u"STR", False )
-		self.panelDex = wx.Panel( self.noteBookActorParameters, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
-		self.noteBookActorParameters.AddPage( self.panelDex, u"DEX", False )
-		self.panelAgi = wx.Panel( self.noteBookActorParameters, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
-		self.noteBookActorParameters.AddPage( self.panelAgi, u"AGI", False )
-		self.panelInt = wx.Panel( self.noteBookActorParameters, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
-		self.noteBookActorParameters.AddPage( self.panelInt, u"INT", False )
-		
-		MainSizer.Add( self.noteBookActorParameters, 1, wx.EXPAND |wx.ALL, 5 )
-		
-		sizerOKCancel = wx.BoxSizer( wx.HORIZONTAL )
-		
-		self.buttonOK = wx.Button( self, wx.ID_ANY, u"OK", wx.DefaultPosition, wx.DefaultSize, 0 )
-		sizerOKCancel.Add( self.buttonOK, 0, wx.ALL, 5 )
-		
-		self.buttonCancel = wx.Button( self, wx.ID_ANY, u"Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
-		sizerOKCancel.Add( self.buttonCancel, 0, wx.ALL, 5 )
-		
-		MainSizer.Add( sizerOKCancel, 0, wx.ALIGN_RIGHT, 5 )
-		
-		self.SetSizer( MainSizer )
-		self.Layout()
-		
-		self.Centre( wx.BOTH )
-		
-		# Connect Events
-		self.noteBookActorParameters.Bind( wx.EVT_NOTEBOOK_PAGE_CHANGED, self.noteBookParameters_PageChanged )
-		self.buttonQuickA.Bind( wx.EVT_BUTTON, self.buttonQuickA_Clicked )
-		self.buttonQuickB.Bind( wx.EVT_BUTTON, self.buttonQuickB_Clicked )
-		self.buttonQuickC.Bind( wx.EVT_BUTTON, self.buttonQuickC_Clicked )
-		self.buttonQuickD.Bind( wx.EVT_BUTTON, self.buttonQuickD_Clicked )
-		self.buttonQuickE.Bind( wx.EVT_BUTTON, self.buttonQuickE_Clicked )
-		self.spinCtrlLevel.Bind( wx.EVT_SPINCTRL, self.changeLevel )
-		self.spinCtrlValue.Bind( wx.EVT_SPINCTRL, self.spinCtrlValue_ValueChanged )
-		self.buttonGenerate.Bind( wx.EVT_BUTTON, self.buttonGenerateCurve_Clicked )
-		self.bitmapGraph.Bind( wx.EVT_LEFT_DCLICK, self.bitmapGraphMaxHP_LeftClick )
-		self.bitmapGraph.Bind( wx.EVT_LEFT_DOWN, self.bitmapGraphMaxHP_LeftDown )
-		self.bitmapGraph.Bind( wx.EVT_LEFT_UP, self.bitmapGraphMaxHP_LeftUp )
-		self.buttonOK.Bind( wx.EVT_BUTTON, self.buttonOK_Clicked )
-		self.buttonCancel.Bind( wx.EVT_BUTTON, self.buttonCancel_Clicked )
-	
-	def __del__( self ):
-		pass
-	
-	
-	# Virtual event handlers, overide them in your derived class
-	def noteBookParameters_PageChanged( self, event ):
-		pass
-	
-	def buttonQuickA_Clicked( self, event ):
-		pass
-	
-	def buttonQuickB_Clicked( self, event ):
-		pass
-	
-	def buttonQuickC_Clicked( self, event ):
-		pass
-	
-	def buttonQuickD_Clicked( self, event ):
-		pass
-	
-	def buttonQuickE_Clicked( self, event ):
-		pass
-	
-	def changeLevel( self, event ):
-		pass
-	
-	def spinCtrlValue_ValueChanged( self, event ):
-		pass
-	
-	def buttonGenerateCurve_Clicked( self, event ):
-		pass
-	
-	def bitmapGraphMaxHP_LeftClick( self, event ):
-		pass
-	
-	def bitmapGraphMaxHP_LeftDown( self, event ):
-		pass
-	
-	def bitmapGraphMaxHP_LeftUp( self, event ):
+	def buttonViewGraph_Clicked( self, event ):
 		pass
 	
 	def buttonOK_Clicked( self, event ):
@@ -5512,7 +5368,7 @@ class GenerateCurve_Dialog ( wx.Dialog ):
 class ChooseGraphic_Dialog ( wx.Dialog ):
 	
 	def __init__( self, parent ):
-		wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Choose Graphic", pos = wx.DefaultPosition, size = wx.Size( 640,480 ), style = wx.DEFAULT_DIALOG_STYLE )
+		wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Choose Graphic", pos = wx.DefaultPosition, size = wx.Size( 640,480 ), style = wx.DEFAULT_DIALOG_STYLE|wx.RESIZE_BORDER )
 		
 		self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
 		
@@ -5526,8 +5382,19 @@ class ChooseGraphic_Dialog ( wx.Dialog ):
 		
 		sizerGraphic = wx.BoxSizer( wx.VERTICAL )
 		
-		self.bitmapGraphic = wx.StaticBitmap( self, wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.DefaultSize, wx.SUNKEN_BORDER )
-		sizerGraphic.Add( self.bitmapGraphic, 1, wx.EXPAND|wx.ALL, 5 )
+		self.panelGraphic = wx.ScrolledWindow( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.HSCROLL|wx.SUNKEN_BORDER|wx.VSCROLL )
+		self.panelGraphic.SetScrollRate( 5, 5 )
+		sizerGLGraphic = wx.BoxSizer( wx.VERTICAL )
+		
+		from ImageCanvas import EditorGLPanel
+		parent = self.panelGraphic
+		self.glCanvasGraphic = EditorGLPanel(parent, -1, 1, 1, (0, 0,), 1)
+		sizerGLGraphic.Add( self.glCanvasGraphic, 1, wx.ALL|wx.EXPAND, 0 )
+		
+		self.panelGraphic.SetSizer( sizerGLGraphic )
+		self.panelGraphic.Layout()
+		sizerGLGraphic.Fit( self.panelGraphic )
+		sizerGraphic.Add( self.panelGraphic, 1, wx.EXPAND |wx.ALL, 5 )
 		
 		sizerHue = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Hue" ), wx.VERTICAL )
 		
@@ -5557,7 +5424,7 @@ class ChooseGraphic_Dialog ( wx.Dialog ):
 		
 		# Connect Events
 		self.listBoxGraphics.Bind( wx.EVT_LISTBOX, self.listBoxGraphics_SelectionChanged )
-		self.sliderHue.Bind( wx.EVT_SCROLL, self.sliderHue_Scrolled )
+		self.sliderHue.Bind( wx.EVT_SCROLL_THUMBRELEASE, self.sliderHue_Scrolled )
 		self.buttonOK.Bind( wx.EVT_BUTTON, self.buttonOK_Clicked )
 		self.buttonCancel.Bind( wx.EVT_BUTTON, self.buttonCancel_Clicked )
 	
@@ -13672,7 +13539,7 @@ class ParameterGraph_Panel ( wx.Panel ):
 		
 		from Actors_Panel import ParameterGraph
 		self.interactiveGraph = ParameterGraph(self.panelMaxHP)
-		sizerGraph.Add( self.interactiveGraph, 1, wx.EXPAND, 5 )
+		sizerGraph.Add( self.interactiveGraph, 1, wx.EXPAND, 0 )
 		
 		self.panelMaxHP.SetSizer( sizerGraph )
 		self.panelMaxHP.Layout()

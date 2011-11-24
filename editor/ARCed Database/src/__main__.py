@@ -56,6 +56,7 @@ class Test(wx.App):
 	def load_project(self):
 		config = Kernel.GlobalObjects.get_value("ARCed_config")
 		TEST_PATH = os.path.join(editorDir, "RTP", "Templates", "Chonicles of Sir Lag-A-Lot", "Chronicles of Sir Lag-A-Lot.arcproj")
+		TEST_PATH = r"C:\Users\Eric\Desktop\ARC\editor\ARCed Database\ARC TestProject\ARC Test Project.arcproj"
 		#get a project loader
 		projectloader = KM.get_component("ARCProjectLoader").object()
 		projectloader.load(TEST_PATH)

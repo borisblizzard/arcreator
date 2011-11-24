@@ -34,7 +34,6 @@
     <Compile Include="Database\Dialogs.py" />
     <Compile Include="Database\MainPanels.py" />
     <Compile Include="Database\__init__.py" />
-    <Compile Include="src\ActorParameters_Dialog.py" />
     <Compile Include="src\Actors_Panel.py" />
     <Compile Include="src\AddParameter_Dialog.py" />
     <Compile Include="src\AnimationCellBatch_Dialog.py" />

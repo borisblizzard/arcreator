@@ -16,20 +16,6 @@ class DatabaseManager(object):
 	GRADIENT_RIGHT = wx.Color(60, 60, 60)
 
 	#----------------------------------------------------------------------------------
-
-	@staticmethod
-	def StartGraphicSelection(glcanvas, folder, current=None, hue=None):
-
-		from ChooseGraphic_Dialog import ChooseGraphic_Dialog 
-		dlg = ChooseGraphic_Dialog(glcanvas, folder, current, hue)
-
-		if dlg.ShowModal() == wx.ID_OK:
-			
-			print 'OK'
-			pass
-
-	#----------------------------------------------------------------------------------
-
 	@staticmethod
 	def RenderImage( glCanvas, filename, hue=0, type='battler'):
 		"""Draws the character/battler graphic to the static bitmap.
@@ -53,6 +39,7 @@ class DatabaseManager(object):
 		except:
 			img = None
 		glCanvas.ChangeImage(img)
+
 	#----------------------------------------------------------------------------------
 	@staticmethod
 	def DrawHeaderBitmap( staticBitmap, text, font=None, textcolor=None, 
@@ -160,8 +147,6 @@ class DatabaseManager(object):
 			''.join([str(i).zfill(digits), ': ',
 		    dataSource[i].name]) for i in xrange(start, len(dataSource))])
 		wxContainer.AppendItems(defaults)
-
-		#wxContainer.SetDoubleBuffered(True)
 	
 	#----------------------------------------------------------------------------------
 	@staticmethod
@@ -226,25 +211,6 @@ class DatabaseManager(object):
 						index = newMax - 1
 					wxList.SetSelection(index)
 		dialog.Destroy()
-
-	#----------------------------------------------------------------------------------
-	@staticmethod
-	def ChooseGraphic(folder, current, hue, huechange=True):
-		"""Creates the dialog for selecting a graphic
-		
-		Arguments:
-		folder -- The root directory that contains image files to populate the list.
-		current -- The string name of the currently chosen graphic
-		hue -- The hue of the current graphic (0...360)
-		huechange -- Bool to determine if changing the hue is permitted
-		
-		Returns:
-		Returns a three element tuple. The first and second element are the filename
-		and hue of the selected graphic, and the third is a bool flag denoting if
-		the values have been changed.
-		
-		"""
-		pass
 
 	#----------------------------------------------------------------------------------
 	@staticmethod

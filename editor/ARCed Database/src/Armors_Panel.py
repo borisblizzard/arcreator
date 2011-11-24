@@ -81,7 +81,7 @@ class Armors_Panel( ARCed_Templates.Armors_Panel ):
 		self.textCtrlName.ChangeValue(armor.name)
 		self.labelIconName.SetLabel(armor.icon_name)
 		self.labelIconName.Wrap(-1)
-		DM.DrawButtonIcon(self.bitmapButtonIcon, armor.icon_name, True)
+		DM.DrawButtonIcon(self.bitmapButtonIcon, armor.icon_name, False)
 		self.textCtrlDescription.ChangeValue(armor.description)
 		self.comboBoxKind.SetSelection(armor.kind)
 		self.comboBoxAutoState.SetSelection(armor.auto_state_id)

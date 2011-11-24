@@ -26,7 +26,7 @@ class EditorGLPanel(PygletGLPanel):
 			2: StretchAspect -- The image will be stretched to fill panel while maintaining aspect ratio
 			3: Cropped -- Oversized images too large for the panel will simply be cropped
 			4: Stretch -- The entire image is stretched, and aspect ratio is ignored
-
+			5: TopLeft -- Image is anchored to top left corner and cropped
 		Returns:
 		None
 
@@ -66,11 +66,14 @@ class EditorGLPanel(PygletGLPanel):
 		self._contextMenu.AppendItem( self.menuItemCrop )
 		self.menuItemStretch = wx.MenuItem( self._contextMenu, 4, u"Stretch", u"Image will be stretched to fill the window and ignore the aspect ratio", wx.ITEM_RADIO  )
 		self._contextMenu.AppendItem( self.menuItemStretch )
+		self.menuItemNone = wx.MenuItem( self._contextMenu, 5, u"None", u"No resizing, cropping, or centering will be performed", wx.ITEM_RADIO  )
+		self._contextMenu.AppendItem( self.menuItemNone )
 		self.Bind( wx.EVT_MENU, self.menuItem_SelectionChanged, id = self.menuItemCropAndShrink.GetId() )
 		self.Bind( wx.EVT_MENU, self.menuItem_SelectionChanged, id = self.menuItemShrink.GetId() )
 		self.Bind( wx.EVT_MENU, self.menuItem_SelectionChanged, id = self.menuItemStretchAspect.GetId() )
 		self.Bind( wx.EVT_MENU, self.menuItem_SelectionChanged, id = self.menuItemCrop.GetId() )
 		self.Bind( wx.EVT_MENU, self.menuItem_SelectionChanged, id = self.menuItemStretch.GetId() )
+		self.Bind( wx.EVT_MENU, self.menuItem_SelectionChanged, id = self.menuItemNone.GetId() )
 
 	def ChangeImage(self, pilImage):
 		"""Changes the displayed image"""
@@ -89,8 +92,7 @@ class EditorGLPanel(PygletGLPanel):
 		self.OnDraw()
 
 	def draw_objects( self ):
-
-
+		"""Draws the objects on the canvas"""
 		gl.glClearColor(0.93, 0.93, 0.93, 1)
 		if self._image is None:
 			return
@@ -112,7 +114,8 @@ class EditorGLPanel(PygletGLPanel):
 		elif self._drawmode == 1: self.Shrink(subimage)
 		elif self._drawmode == 2: self.StretchAspect(subimage)
 		elif self._drawmode == 3: self.Cropped(subimage)
-		else: self.Stretch(subimage)
+		elif self._drawmode == 4: self.Stretch(subimage)
+		else: self.TopLeft(subimage)
 
 	#---------------------------------------------------------------
 	# Draw Modes
@@ -165,3 +168,8 @@ class EditorGLPanel(PygletGLPanel):
 		"""The entire image is stretched, and aspect ratio is ignored"""
 		width, height = self.GetClientSize()
 		pygletimage.blit(0, 0, 0, width, height)
+
+	def TopLeft( self, pygletimage ):
+		"""Image is anchored to top left corner and cropped"""
+		y = self.GetClientSize()[1] - pygletimage.height
+		pygletimage.blit(0, y, 0, pygletimage.width, pygletimage.height)

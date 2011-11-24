@@ -4,18 +4,13 @@ Contains the functionality of all the events raised on the Actors Database panel
 import wx
 import wx.lib.plot as plot
 import ARCed_Templates
-import ChangeMaximum_Dialog
 import ExpCurve_Dialog
-import ChooseGraphic_Dialog 
-import ActorParameters_Dialog
-import AddParameter_Dialog
+from ChooseGraphic_Dialog import ChooseGraphic_Dialog 
 import numpy as np
 from DatabaseManager import DatabaseManager as DM
-
 #from DatabaseAction import 
 from Core.RMXP import RGSS1_RPG as RPG	   						
 import Kernel
-
 
 GRAPH_COLORS = { 
 		0 : wx.Colour(200, 60, 120), 
@@ -341,13 +336,23 @@ class Actors_Panel(ARCed_Templates.Actors_Panel ):
 
 	def glCanvasCharacter_DoubleClick( self, event ):
 		"""Opens dialog to change the character graphic"""
-		DM.StartGraphicSelection(self.glCanvasCharacter, 'Graphics/Characters/',
+		dlg = ChooseGraphic_Dialog(self, 'Characters',
 			self.SelectedActor.character_name, self.SelectedActor.character_hue)
+		if dlg.ShowModal() == wx.ID_OK:
+			filename, hue = dlg.GetSelection()
+			self.SelectedActor.character_name = filename
+			self.SelectedActor.character_hue = hue
+			self.refreshGraphics()
 
 	def glCanvasBattler_DoubleClick( self, event ):
 		"""Opens dialog to change the battler graphic"""
-		DM.StartGraphicSelection(self.glCanvasBattler, 'Graphics/Battler/',
+		dlg = ChooseGraphic_Dialog(self, 'Battlers',
 			self.SelectedActor.battler_name, self.SelectedActor.battler_hue)
+		if dlg.ShowModal() == wx.ID_OK:
+			filename, hue = dlg.GetSelection()
+			self.SelectedActor.battler_name = filename
+			self.SelectedActor.battler_hue = hue
+			self.refreshGraphics()
 
 	def comboBoxEquipment_SelectionChanged( self, event ):
 		"""Updates the weapon/armor id for the selected type for the actor"""
@@ -499,7 +504,8 @@ class Actors_Panel(ARCed_Templates.Actors_Panel ):
 
 	def buttonAddParameter_Clicked( self, event ):
 		"""Opens dialog for the user to create a custom parameter"""
-		dialog = AddParameter_Dialog.AddParameter_Dialog( self )
+		from AddParameter_Dialog import AddParameter_Dialog
+		dialog = AddParameter_Dialog( self )
 		if (dialog.ShowModal() == wx.ID_OK):
 			paramName = dialog.textCtrlParameterName.GetLineText(0)
 			self.AddParameterPage(paramName)
