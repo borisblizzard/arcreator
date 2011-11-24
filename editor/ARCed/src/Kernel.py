@@ -17,6 +17,7 @@ import sys
 import time
 import traceback
 import inspect
+import platform
 
 import ConfigParser
 import re
@@ -878,17 +879,21 @@ class Protect(object):
 #====================================================================================
 # * Kernel Functions
 #====================================================================================
-def GetDataFolder():
-    if sys.platform.startswith('win32'):
-        path = os.path.expandvars(os.path.join("%APPDATA%", "ARCed"))
-    elif sys.platform.startswith('lynix'):
-        path = os.path.join("", "etc", "ARCed")
-    elif sys.platform.startswith('darwin'):
-        path = os.path.expandvars(os.path.join("~", "Library", "ARCed"))
-    else:
-        path = os.path.join("", "ARCed")
-    if not os.path.exists(path) or not os.path.isdir(path):
-        os.makedirs(path)
+def GetDataFolder(): 
+    path = "" 
+    if sys.platform.startswith('win32'): 
+            path = os.path.expandvars("%ALLUSERSPROFILE%") 
+        if platform.release() == "XP": 
+            path += "\\" os.path.expandvars("%APPDATA%").split("\\", -1)[-1] 
+        path = os.path.join(path, "Chaos Project", "ARCed", os.path.expandvars("%USERNAME%"))) 
+    else: 
+        if sys.platform.startswith('lynix'): 
+            path = os.path.join("", "etc") 
+        elif sys.platform.startswith('darwin'): 
+            path = os.path.expandvars(os.path.join("~", "Library")) 
+        path = os.path.join(path, "Chaos Project", "ARCed") 
+    if path != "" and not os.path.exists(path) or not os.path.isdir(path): 
+        os.makedirs(path) 
     return path
 
 def GetConfigFolder():
