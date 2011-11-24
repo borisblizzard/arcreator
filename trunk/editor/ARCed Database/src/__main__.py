@@ -9,13 +9,14 @@ import Main
 import sys
 dirName = os.path.dirname(os.path.abspath(__file__))
 editorDir = os.path.split(os.path.split(dirName)[0])[0]
-editorDir = os.path.join(editorDir, 'ARCed', 'src')        
+editorDir = os.path.join(editorDir, 'ARCed', 'src')      
+print editorDir  
 
 Main.ConfigManager.LoadConfig()
 
 PAGE_INDEX = 0
 
-class ARCedTest(wx.App):
+class Test(wx.App):
 
 	def __init__(self, redirect=False, filename=None):
 		# Initialize global dictionary that contains the pages
@@ -23,7 +24,7 @@ class ARCedTest(wx.App):
 		# Create the application and main frame
 		wx.App.__init__(self, redirect, filename)
 		self.load_project()
-		self.frame = wx.Frame(None, wx.ID_ANY, title='ARCed Panel Test', size=(800, 600))
+		self.frame = wx.Frame(None, wx.ID_ANY, title=' Panel Test', size=(800, 600))
 		self.frame.SetExtraStyle(wx.FRAME_EX_CONTEXTHELP)
 		self.frame.CenterOnScreen()
 
@@ -31,20 +32,20 @@ class ARCedTest(wx.App):
 		
 		nb = wx.Notebook( self.frame )
 		Panels = [None for i in xrange(2)]
-		#Panels[0] = ('Actors', 'ARCedActors_Panel')
-		Panels[1] = ('Audio', 'ARCedAudioPlayer_Panel')
-		#Panels[1] = ('Classes', 'ARCedClasses_Panel')
-		#Panels[2] = ('Skills', 'ARCedSkills_Panel')
-		#Panels[3] = ('Items', 'ARCedItems_Panel')
-		#Panels[4] = ('Weapons', 'ARCedWeapons_Panel')
-		#Panels[5] = ('Armors', 'ARCedArmors_Panel')
-		Panels[0] = ('Enemies', 'ARCedEnemies_Panel')
-		#Panels[7] = ('Troops', 'ARCedTroops_Panel')
-		#Panels[8] = ('States', 'ARCedStates_Panel')
-		#Panels[9] = ('Animations', 'ARCedAnimations_Panel')
-		#Panels[10] = ('Tilesets', 'ARCedTilesets_Panel')
-		#Panels[11] = ('Common Events', 'ARCedCommonEvents_Panel')
-		#Panels[12] = ('System', 'ARCedSystem_Panel')
+		#Panels[0] = ('Actors', 'Actors_Panel')
+		Panels[1] = ('Audio', 'AudioPlayer_Panel')
+		#Panels[1] = ('Classes', 'Classes_Panel')
+		#Panels[2] = ('Skills', 'Skills_Panel')
+		#Panels[3] = ('Items', 'Items_Panel')
+		#Panels[4] = ('Weapons', 'Weapons_Panel')
+		#Panels[5] = ('Armors', 'Armors_Panel')
+		Panels[0] = ('Enemies', 'Enemies_Panel')
+		#Panels[7] = ('Troops', 'Troops_Panel')
+		#Panels[8] = ('States', 'States_Panel')
+		#Panels[9] = ('Animations', 'Animations_Panel')
+		#Panels[10] = ('Tilesets', 'Tilesets_Panel')
+		#Panels[11] = ('Common Events', 'CommonEvents_Panel')
+		#Panels[12] = ('System', 'System_Panel')
 		#Panels[13] = ('Configuration', 'Configuration_Panel')
 
 		for data in Panels:
@@ -55,9 +56,8 @@ class ARCedTest(wx.App):
 		self.frame.Show()
 
 	def load_project(self):
-		config = Kernel.GlobalObjects.get_value("ARCed_config")
+		config = Kernel.GlobalObjects.get_value("_config")
 		TEST_PATH = os.path.join(editorDir, "RTP", "Templates", "Chonicles of Sir Lag-A-Lot", "Chronicles of Sir Lag-A-Lot.arcproj")
-		TEST_PATH = os.path.join('ARC TestProject', 'ARC Test Project.arcproj')
 		#get a project loader
 		projectloader = KM.get_component("ARCProjectLoader").object()
 		projectloader.load(TEST_PATH)
@@ -87,7 +87,7 @@ class ARCedTest(wx.App):
 if __name__ == '__main__':
 	provider = wx.SimpleHelpProvider()
 	wx.HelpProvider.Set(provider)
-	app = ARCedTest()
+	app = Test()
 	app.create_panels()
 	app.MainLoop()
 	app.Destroy()

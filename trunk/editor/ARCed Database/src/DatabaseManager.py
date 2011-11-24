@@ -20,8 +20,8 @@ class DatabaseManager(object):
 	@staticmethod
 	def StartGraphicSelection(glcanvas, folder, current=None, hue=None):
 
-		from ARCedChooseGraphic_Dialog import ARCedChooseGraphic_Dialog 
-		dlg = ARCedChooseGraphic_Dialog(glcanvas, folder, current, hue)
+		from ChooseGraphic_Dialog import ChooseGraphic_Dialog 
+		dlg = ChooseGraphic_Dialog(glcanvas, folder, current, hue)
 
 		if dlg.ShowModal() == wx.ID_OK:
 			
@@ -204,10 +204,10 @@ class DatabaseManager(object):
 		None
 		
 		"""
-		from ARCedChangeMaximum_Dialog import ARCedChangeMaximum_Dialog
+		from ChangeMaximum_Dialog import ChangeMaximum_Dialog
 		currentMax = wxList.GetCount()
 		digits = len(str(maxAllowed))
-		dialog = ARCedChangeMaximum_Dialog(parent, currentMax, 1, maxAllowed)
+		dialog = ChangeMaximum_Dialog(parent, currentMax, 1, maxAllowed)
 		if dialog.ShowModal() == wx.ID_OK:
 			newMax = dialog.spinCtrlMaximum.GetValue()
 			if newMax != currentMax: 
@@ -259,8 +259,8 @@ class DatabaseManager(object):
 		Returns the chosen RPG.AudioFile
 
 		"""
-		from ARCedChooseAudio_Dialog import ARCedChooseAudio_Dialog
-		dialog = ARCedChooseAudio_Dialog(parent, folder, loops, audio)
+		from ChooseAudio_Dialog import ChooseAudio_Dialog
+		dialog = ChooseAudio_Dialog(parent, folder, loops, audio)
 		if dialog.ShowModal() == wx.ID_OK:
 			audio = dialog.GetAudio()
 		dialog.Destroy()
@@ -365,7 +365,7 @@ class DatabaseManager(object):
 		count = 0
 		parameters = defaults
 		if DatabaseManager.ARC_FORMAT:
-			config = Kernel.GlobalObjects.get_value('ARCed_config')
+			config = Kernel.GlobalObjects.get_value('_config')
 			parameters.extend(config.getlist('GameSetup', 'Parameters'))
 		else:
 			parameters.extend(['STR', 'DEX', 'AGI', 'INT'])

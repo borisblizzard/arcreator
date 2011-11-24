@@ -1,16 +1,16 @@
-from ARCedActors_Panel import ARCedActors_Panel
-from ARCedClasses_Panel import ARCedClasses_Panel
-from ARCedSkills_Panel import ARCedSkills_Panel
-from ARCedItems_Panel import ARCedItems_Panel
-from ARCedWeapons_Panel import ARCedWeapons_Panel
-from ARCedArmors_Panel import ARCedArmors_Panel
-from ARCedEnemies_Panel import ARCedEnemies_Panel
-from ARCedTroops_Panel import ARCedTroops_Panel
-from ARCedStates_Panel import ARCedStates_Panel
-from ARCedAnimations_Panel import ARCedAnimations_Panel
-from ARCedTilesets_Panel import ARCedTilesets_Panel
-from ARCedCommonEvents_Panel import ARCedCommonEvents_Panel
-from ARCedSystem_Panel import ARCedSystem_Panel
+from Actors_Panel import Actors_Panel
+from Classes_Panel import Classes_Panel
+from Skills_Panel import Skills_Panel
+from Items_Panel import Items_Panel
+from Weapons_Panel import Weapons_Panel
+from Armors_Panel import Armors_Panel
+from Enemies_Panel import Enemies_Panel
+from Troops_Panel import Troops_Panel
+from States_Panel import States_Panel
+from Animations_Panel import Animations_Panel
+from Tilesets_Panel import Tilesets_Panel
+from CommonEvents_Panel import CommonEvents_Panel
+from System_Panel import System_Panel
 
 import Kernel
 from Kernel import Manager, Type, SuperType, Component, Package, Event
@@ -130,31 +130,31 @@ class DatabasePackage(Package):
 
 		#----------------------------- layouts -------------------------------
 		
-		self.add_component(Component(ARCedActors_Panel, "MainActorsLayout", 
+		self.add_component(Component(Actors_Panel, "MainActorsLayout", 
 							   None, "COREMainActorsLayout", "CORE", 1.0, self))
-		self.add_component(Component(ARCedClasses_Panel, "MainClassesLayout", 
+		self.add_component(Component(Classes_Panel, "MainClassesLayout", 
 							   None, "COREMainClassesLayout", "CORE", 1.0, self))
-		self.add_component(Component(ARCedSkills_Panel, "MainSkillsLayout", 
+		self.add_component(Component(Skills_Panel, "MainSkillsLayout", 
 							   None, "COREMainSkillsLayout", "CORE", 1.0, self))
-		self.add_component(Component(ARCedItems_Panel, "MainItemsLayout", 
+		self.add_component(Component(Items_Panel, "MainItemsLayout", 
 							   None, "COREMainItemsLayout", "CORE", 1.0, self))
-		self.add_component(Component(ARCedWeapons_Panel, "MainWeaponsLayout", 
+		self.add_component(Component(Weapons_Panel, "MainWeaponsLayout", 
 							   None, "COREMainWeaponsLayout", "CORE", 1.0, self))
-		self.add_component(Component(ARCedArmors_Panel, "MainArmorsLayout", 
+		self.add_component(Component(Armors_Panel, "MainArmorsLayout", 
 							   None, "COREMainArmorsLayout", "CORE", 1.0, self))
-		self.add_component(Component(ARCedEnemies_Panel, "MainEnemiesLayout", 
+		self.add_component(Component(Enemies_Panel, "MainEnemiesLayout", 
 							   None, "COREMainEnemiesLayout", "CORE", 1.0, self))
-		self.add_component(Component(ARCedTroops_Panel, "MainTroopsLayout", 
+		self.add_component(Component(Troops_Panel, "MainTroopsLayout", 
 							   None, "COREMainTroopsLayout", "CORE", 1.0, self))
-		self.add_component(Component(ARCedStates_Panel, "MainStatesLayout", 
+		self.add_component(Component(States_Panel, "MainStatesLayout", 
 							   None, "COREMainStatesLayout", "CORE", 1.0, self))
-		self.add_component(Component(ARCedAnimations_Panel, "MainAnimationsLayout", 
+		self.add_component(Component(Animations_Panel, "MainAnimationsLayout", 
 							   None, "COREMainAnimationsLayout", "CORE", 1.0, self))
-		self.add_component(Component(ARCedTilesets_Panel, "MainTilesetsLayout", 
+		self.add_component(Component(Tilesets_Panel, "MainTilesetsLayout", 
 							   None, "COREMainTilesetsLayout", "CORE", 1.0, self))
-		self.add_component(Component(ARCedCommonEvents_Panel, "MainCommonEventsLayout", 
+		self.add_component(Component(CommonEvents_Panel, "MainCommonEventsLayout", 
 							   None, "COREMainCommonEventsLayout", "CORE", 1.0, self))
-		self.add_component(Component(ARCedSystem_Panel, "MainSystemLayout", 
+		self.add_component(Component(System_Panel, "MainSystemLayout", 
 							   None, "COREMainSystemLayout", "CORE", 1.0, self))
 
 		#----------------------------- menus ---------------------------------
