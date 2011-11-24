@@ -10,7 +10,7 @@ class Armors_Panel( ARCed_Templates.Armors_Panel ):
 		ARCed_Templates.Armors_Panel.__init__( self, parent )
 
 		global Config, DataArmors, DataStates, DataElements
-		Config = Kernel.GlobalObjects.get_value('_config')
+		Config = Kernel.GlobalObjects.get_value('ARCed_config')
 		try:
 			proj = Kernel.GlobalObjects.get_value('PROJECT')
 			DataArmors = proj.getData('Armors')

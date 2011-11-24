@@ -2,16 +2,14 @@ import wx
 import DatabasePackage
 import os
 import ConfigParser
+import Main
 import Kernel
 from Kernel import Manager as KM
-import Main
 
-import sys
 dirName = os.path.dirname(os.path.abspath(__file__))
 editorDir = os.path.split(os.path.split(dirName)[0])[0]
-editorDir = os.path.join(editorDir, 'ARCed', 'src')      
-print editorDir  
-
+editorDir = os.path.join(editorDir, 'ARCed', 'src')     
+ 
 Main.ConfigManager.LoadConfig()
 
 PAGE_INDEX = 0
@@ -24,29 +22,29 @@ class Test(wx.App):
 		# Create the application and main frame
 		wx.App.__init__(self, redirect, filename)
 		self.load_project()
-		self.frame = wx.Frame(None, wx.ID_ANY, title=' Panel Test', size=(800, 600))
+		self.frame = wx.Frame(None, wx.ID_ANY, title='ARCed Database', size=(800, 600))
 		self.frame.SetExtraStyle(wx.FRAME_EX_CONTEXTHELP)
 		self.frame.CenterOnScreen()
 
 	def create_panels(self):
 		
 		nb = wx.Notebook( self.frame )
-		Panels = [None for i in xrange(2)]
-		#Panels[0] = ('Actors', 'Actors_Panel')
-		Panels[1] = ('Audio', 'AudioPlayer_Panel')
-		#Panels[1] = ('Classes', 'Classes_Panel')
-		#Panels[2] = ('Skills', 'Skills_Panel')
-		#Panels[3] = ('Items', 'Items_Panel')
-		#Panels[4] = ('Weapons', 'Weapons_Panel')
-		#Panels[5] = ('Armors', 'Armors_Panel')
-		Panels[0] = ('Enemies', 'Enemies_Panel')
-		#Panels[7] = ('Troops', 'Troops_Panel')
-		#Panels[8] = ('States', 'States_Panel')
-		#Panels[9] = ('Animations', 'Animations_Panel')
-		#Panels[10] = ('Tilesets', 'Tilesets_Panel')
-		#Panels[11] = ('Common Events', 'CommonEvents_Panel')
-		#Panels[12] = ('System', 'System_Panel')
-		#Panels[13] = ('Configuration', 'Configuration_Panel')
+		Panels = [None for i in xrange(15)]
+		Panels[0] = ('Actors', 'Actors_Panel')
+		Panels[14] = ('Audio', 'AudioPlayer_Panel')
+		Panels[1] = ('Classes', 'Classes_Panel')
+		Panels[2] = ('Skills', 'Skills_Panel')
+		Panels[3] = ('Items', 'Items_Panel')
+		Panels[4] = ('Weapons', 'Weapons_Panel')
+		Panels[5] = ('Armors', 'Armors_Panel')
+		Panels[6] = ('Enemies', 'Enemies_Panel')
+		Panels[7] = ('Troops', 'Troops_Panel')
+		Panels[8] = ('States', 'States_Panel')
+		Panels[9] = ('Animations', 'Animations_Panel')
+		Panels[10] = ('Tilesets', 'Tilesets_Panel')
+		Panels[11] = ('Common Events', 'CommonEvents_Panel')
+		Panels[12] = ('System', 'System_Panel')
+		Panels[13] = ('Configuration', 'Configuration_Panel')
 
 		for data in Panels:
 			exec('from ' + data[1] + ' import ' + data[1])
@@ -56,7 +54,7 @@ class Test(wx.App):
 		self.frame.Show()
 
 	def load_project(self):
-		config = Kernel.GlobalObjects.get_value("_config")
+		config = Kernel.GlobalObjects.get_value("ARCed_config")
 		TEST_PATH = os.path.join(editorDir, "RTP", "Templates", "Chonicles of Sir Lag-A-Lot", "Chronicles of Sir Lag-A-Lot.arcproj")
 		#get a project loader
 		projectloader = KM.get_component("ARCProjectLoader").object()
@@ -82,6 +80,11 @@ class Test(wx.App):
 		else:
 			Kernel.GlobalObjects.request_new_key("ProjectOpen", "CORE", True)
 
+		# Add RMXP RTP for testing
+		common = os.path.expandvars('%COMMONPROGRAMFILES%')
+		rtpDir = os.path.join(common, 'Enterbrain', 'RGSS', 'Standard')
+		rtps = Kernel.GlobalObjects.get_value("ARCed_config").get_section("RTPs")
+		Kernel.GlobalObjects.get_value("ARCed_config").get_section("RTPs").set('RMXP', rtpDir)
 
 # Create window and execute the main loop
 if __name__ == '__main__':

@@ -41,7 +41,7 @@ class Actors_Panel(ARCed_Templates.Actors_Panel ):
 		# Load the project's game objects into this module's scope
 		project = Kernel.GlobalObjects.get_value('PROJECT')
 		global Config, DataActors, DataClasses, DataWeapons, DataArmors
-		Config = Kernel.GlobalObjects.get_value('_config')
+		Config = Kernel.GlobalObjects.get_value('ARCed_config')
 		try:
 			DataActors = project.getData('Actors')
 			DataClasses = project.getData('Classes')

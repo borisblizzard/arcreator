@@ -8,7 +8,7 @@ class ChooseTreasure_Dialog( ARCed_Templates.ChooseTreasure_Dialog ):
 		ARCed_Templates.ChooseTreasure_Dialog.__init__( self, parent )
 		proj = Kernel.GlobalObjects.get_value('PROJECT')
 		global Config, DataItems, DataWeapons, DataArmors
-		Config = Kernel.GlobalObjects.get_value('_config')
+		Config = Kernel.GlobalObjects.get_value('ARCed_config')
 		self._treasureIndex = 0
 		DataItems = proj.getData('Items')
 		DataWeapons = proj.getData('Weapons')

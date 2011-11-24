@@ -11,7 +11,7 @@ class ParameterGraph_Panel(ARCed_Templates.ParameterGraph_Panel ):
 		"""Basic constructor for the ParameterGraph_Panel"""
 		ARCed_Templates.ParameterGraph_Panel.__init__( self, parent )
 		global Config
-		Config = Kernel.GlobalObjects.get_value('_config')
+		Config = Kernel.GlobalObjects.get_value('ARCed_config')
 		self.Data = deepcopy(actor.parameters)
 		self.Actor = actor
 		self.TabNames = ['MaxHP', 'MaxSP']

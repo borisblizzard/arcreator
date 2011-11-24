@@ -9,7 +9,7 @@ class Weapons_Panel(ARCed_Templates.Weapons_Panel ):
 		"""Basic constructor for the Weapons panel"""
 		ARCed_Templates.Weapons_Panel.__init__( self, parent )
 		global Config, DataWeapons, DataStates, DataAnimations, DataElements
-		Config = Kernel.GlobalObjects.get_value('_config')
+		Config = Kernel.GlobalObjects.get_value('ARCed_config')
 		try:
 			proj = Kernel.GlobalObjects.get_value('PROJECT')
 			DataWeapons = proj.getData('Weapons')
