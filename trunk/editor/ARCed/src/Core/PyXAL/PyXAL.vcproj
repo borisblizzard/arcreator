@@ -187,6 +187,102 @@
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
+			<Filter
+				Name="xal"
+				>
+				<File
+					RelativePath=".\include\xal\AudioManager.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\xal\Buffer.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\xal\Category.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\xal\ExternalComponent.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\xal\Player.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\xal\Sound.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\xal\Source.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\xal\xal.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\xal\xalExport.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="hltypes"
+				>
+				<File
+					RelativePath=".\include\hltypes\exception.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\hltypes\harray.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\hltypes\hdeque.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\hltypes\hdir.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\hltypes\hfile.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\hltypes\hlist.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\hltypes\hltypesExport.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\hltypes\hmap.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\hltypes\hmutex.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\hltypes\hstring.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\hltypes\hthread.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\hltypes\msvc_dirent.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\hltypes\util.h"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Resource Files"
@@ -194,6 +290,18 @@
 			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
 			>
 		</Filter>
+		<File
+			RelativePath=".\hltypes.pxd"
+			>
+		</File>
+		<File
+			RelativePath=".\PyXAL.pyx"
+			>
+		</File>
+		<File
+			RelativePath=".\XAL.pxd"
+			>
+		</File>
 	</Files>
 	<Globals>
 	</Globals>

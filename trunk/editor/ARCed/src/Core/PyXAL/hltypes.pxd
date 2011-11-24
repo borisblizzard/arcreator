@@ -70,7 +70,7 @@ cdef extern from "<hltypes/hstring.h>" namespace "hltypes":
         # operator= not yet suported by cython
         #void operator=(float f)
         #void operator=(int i)
-        #void operator=(unsigned int i)
+        #void operator=(int i)
         #void operator=(bint b)
         #void operator=(stdstring& s) #can't get working
         #void operator=(char* s)
@@ -78,7 +78,7 @@ cdef extern from "<hltypes/hstring.h>" namespace "hltypes":
         # operator+= not yet suported by cython
         #void operator+=(float f)
         #void operator+=(int i)
-        #void operator+=(unsigned int i)
+        #void operator+=(int i)
         #void operator+=(bint b)
         #void operator+=(char c)
         #void operator+=(stdstring& s) #can't get working
@@ -100,6 +100,8 @@ cdef extern from "<hltypes/hstring.h>" namespace "hltypes":
         String operator()(int index)
         char& operator[](int index)
         char& operator[](int index)
+        
+        char* c_str()
 
 # Alias for simpler code.
 #ctypedef String hstr
@@ -262,22 +264,22 @@ cdef extern from "<hltypes/harray.h>" namespace "hltypes":
         Array[T]& operator<<(T& element)
         Array[T]& operator<<(Array[T]& other)
 
-		# operator+= not yet suported by cython
+        # operator+= not yet suported by cython
         #Array[T]& operator+=(T& element)
         #Array[T]& operator+=(Array[T]& other)
 
-		# operator-= not yet suported by cython
+        # operator-= not yet suported by cython
         #Array[T]& operator-=(T element)
         #Array[T]& operator-=(Array[T]& other)
 
-		# operator|= not yet suported by cython
+        # operator|= not yet suported by cython
         # Array[T]& operator|=(T& element)
         # Array[T]& operator|=(Array[T]& other)
 
-		# operator&= not yet suported by cython
+        # operator&= not yet suported by cython
         #Array[T]& operator&=(Array[T]& other)
 
-		# operator/= not yet suported by cython
+        # operator/= not yet suported by cython
         #Array[T]& operator/=(T& element)
         #Array[T]& operator/=(Array[T]& other)
 
