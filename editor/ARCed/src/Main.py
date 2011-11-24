@@ -110,9 +110,13 @@ class ConfigManager(object):
     def LoadConfig():
         #main Config
         local_arced_path = os.path.join(dirName, "ARCed.cfg")
-        user_arced_path = os.path.join(Kernel.GetConfigFolder(), "ARCed.cfg")
         arced_cfg = ConfigManager.PhraseCFGFile(local_arced_path, dict={"INSTALLDIR": dirName, "COMMONPROGRAMFILES": "%COMMONPROGRAMFILES%"})
-        arced_cfg = ConfigManager.PhraseCFGFile(user_arced_path, arced_cfg)
+        try:
+            user_arced_path = os.path.join(Kernel.GetConfigFolder(), "ARCed.cfg")
+            if os.path.exists(user_arced_path):
+                arced_cfg = ConfigManager.PhraseCFGFile(user_arced_path, arced_cfg)
+        except Exception:
+            Kernel.Log("Failed to load user config", "[Main]", error=True)
         if Kernel.GlobalObjects.has_key("ARCed_config"):
             Kernel.GlobalObjects.set_value("ARCed_config", arced_cfg)
         else:
@@ -126,11 +130,13 @@ class ConfigManager(object):
             Kernel.GlobalObjects.request_new_key("WX_config", "CORE", wx_config)
         #default component config
         local_defaults_path = os.path.join(dirName, "defaults.ini")
-        user_defaults_path = os.path.join(Kernel.GetConfigFolder(), "user_defaults.ini")
         template = Kernel.KernelConfig.build_from_file(local_defaults_path)
-        if os.path.exists(user_defaults_path):
-            template = Kernel.KernelConfig.build_from_file(user_defaults_path, template)
-        Kernel.KernelConfig.load(template)
+        try:
+            user_defaults_path = os.path.join(Kernel.GetConfigFolder(), "user_defaults.ini")
+            if os.path.exists(user_defaults_path):
+                template = Kernel.KernelConfig.build_from_file(user_defaults_path, template)
+        except Exception:
+            Kernel.Log("Failed to load user component defaults", "[Main]", error=True)
         if Kernel.GlobalObjects.has_key("DefaultComponentTemplate"):
             Kernel.GlobalObjects.set_value("DefaultComponentTemplate", template)
         else:
@@ -208,18 +214,31 @@ class ARCSplashScreen(AS.AdvancedSplash):
 
     def Do_Setup(self):
         #load up the editor
-        #import the core and regester it
-        try:
-            import Core
-        except:
-            Kernel.Log("Error Loading Core", "[Main]", True, True)
-            wx.Exit()
         #load the configuration
         try:
             ConfigManager.LoadConfig()
         except:
             Kernel.Log("Error Loading Configuration", "[Main]", True, True)
+            #sadly there is a tone of thing that won't work if the configuration didn't load properly so we have to exit
+            wx.Exit()
+        #import the core and register it
+        try:
+            import Core
+        except:
+            Kernel.Log("Error Loading Core", "[Main]", True, True)
+            #we can't recover from this so exit out
+            wx.Exit()
+        #load plugins
         #ConfigManager.LoadPlugins()
+        #apply the default component template
+        try:
+            template = Kernel.GlobalObjects.get_value("DefaultComponentTemplate")
+            Kernel.KernelConfig.load(template)
+        except:
+            #even if this fails we should be good to go, plugins probably won;t work though
+            Kernel.Log("Error Applying the Default Component Template, Plugins may not work", "[Main]", True, True)
+            
+        # ok were all set up. bring up the main window and close the splash screen
         self.ShowMain()
         self.fc = wx.FutureCall(1000, self.Close)
 
@@ -243,7 +262,7 @@ class ARC_App(wx.App):
 
         self.SplashScreen = ARCSplashScreen()
         self.SplashScreen.Show()
-        self.fc = wx.FutureCall(10, Kernel.Protect(self.SplashScreen.Do_Setup))
+        self.fc = wx.FutureCall(10, Kernel.Protect(self.SplashScreen.Do_Setup, exit_on_fail=True))
 
         self.keepGoing = True
         return True

@@ -36,6 +36,8 @@ import Menues
 import PanelManager
 import Panels
 import Project
+import PyXAL
+PyXAL = PyXAL._PyXAL
 #Q
 #R
 import RPGutil
