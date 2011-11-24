@@ -188,7 +188,7 @@ class Actors_Panel ( wx.Panel ):
 		
 		bSizer613 = wx.BoxSizer( wx.HORIZONTAL )
 		
-		from ARCedActors_Panel import ParameterGraph
+		from Actors_Panel import ParameterGraph
 		self.parameterGraph = ParameterGraph(self.pageParameters)
 		bSizer613.Add( self.parameterGraph, 1, wx.EXPAND|wx.RIGHT|wx.LEFT, 5 )
 		
@@ -13670,7 +13670,7 @@ class ParameterGraph_Panel ( wx.Panel ):
 		self.panelMaxHP = wx.Panel( self.noteBookParameters, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
 		sizerGraph = wx.BoxSizer( wx.VERTICAL )
 		
-		from ARCedActors_Panel import ParameterGraph
+		from Actors_Panel import ParameterGraph
 		self.interactiveGraph = ParameterGraph(self.panelMaxHP)
 		sizerGraph.Add( self.interactiveGraph, 1, wx.EXPAND, 5 )
 		
@@ -13896,7 +13896,7 @@ class AudioPlayer_Panel ( wx.Panel ):
 		self.labelFileName.Wrap( -1 )
 		bSizer632.Add( self.labelFileName, 0, wx.ALL|wx.EXPAND, 5 )
 		
-		from ARCedAudioPlayer_Panel import WaveFormPanel
+		from AudioPlayer_Panel import WaveFormPanel
 		color = wx.Colour(100, 100, 220, 255)
 		self.waveFormPanel = WaveFormPanel(self, color=color)
 		self.waveFormPanel.SetMinSize( wx.Size( -1,64 ) )
