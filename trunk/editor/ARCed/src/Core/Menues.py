@@ -29,11 +29,12 @@ class FileMenu(wx.Menu):
 
     def __init__(self, mainwindow):
         wx.Menu.__init__(self)
+        config = Kernel.GlobalObjects.get_value("ARCed_config")
         try:
-            file_history_length = int(Kernel.GlobalObjects.get_value("ARCed_config")["Main"]["filehistory"])
+            file_history_length = config.getint("Main", "filehistory")
         except:
             file_history_length = 5
-            Kernel.Log("Invalid setting for filehistory length", "[FileHistory]")
+            Kernel.Log("Invalid setting for filehistory length", "[FileHistory]", error=True)
         self.filehistory = wx.FileHistory(file_history_length)
         self.filehistory.Load(Kernel.GlobalObjects.get_value("WX_config"))
 

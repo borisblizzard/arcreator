@@ -861,8 +861,9 @@ class KernelConfig(object):
 #====================================================================================
 
 class Protect(object):
-     def __init__(self, fn):
+     def __init__(self, fn, exit_on_fail=False):
          self.fn = fn
+         self.exit_on_fail = exit_on_fail
 
      def __call__(self, *args, **kwargs):
         try:
@@ -875,6 +876,8 @@ class Protect(object):
             else:
                 message = "Exception in protected call"
             Log(message, inform=True, error=True)
+            if self.exit_on_fail:
+                wx.Exit()
 
 #====================================================================================
 # * Kernel Functions
@@ -882,10 +885,10 @@ class Protect(object):
 def GetDataFolder(): 
     path = "" 
     if sys.platform.startswith('win32'): 
-            path = os.path.expandvars("%ALLUSERSPROFILE%") 
+        path = os.path.expandvars("%ALLUSERSPROFILE%") 
         if platform.release() == "XP": 
-            path += "\\" os.path.expandvars("%APPDATA%").split("\\", -1)[-1] 
-        path = os.path.join(path, "Chaos Project", "ARCed", os.path.expandvars("%USERNAME%"))) 
+            path += "\\" + os.path.expandvars("%APPDATA%").split("\\", -1)[-1] 
+        path = os.path.join(path, "Chaos Project", "ARCed", os.path.expandvars("%USERNAME%")) 
     else: 
         if sys.platform.startswith('lynix'): 
             path = os.path.join("", "etc") 
@@ -922,21 +925,25 @@ def Log(message=None, prefix="[Kernel]", inform=False, error=False):
     time stamps a message and writes it to a log file, it can also attach a trace back of the latest error. 
     always adds a new line at the end of the message
     '''
-    if message == None:
-        error = True
-        message = ""
-    logdir = GetLogFolder()
-    f = open(os.path.join(logdir, "ARCed.log"), "ab")
-    time_str = time.strftime("%a %d %b %Y %H:%M:%S [%Z] ")
-    if error:
-        error_text = " [Error] " + traceback.format_exc()
-    else:
-        error_text = ""
-    f.write(time_str + prefix + " " + message + error_text + "\n")
-    f.close()
-    if inform:
-        Inform(prefix, message, error)
-
+    try:
+        if message == None:
+            error = True
+            message = ""
+        logdir = GetLogFolder()
+        f = open(os.path.join(logdir, "ARCed.log"), "ab")
+        time_str = time.strftime("%a %d %b %Y %H:%M:%S [%Z] ")
+        if error:
+            error_text = " [Error] " + traceback.format_exc()
+        else:
+            error_text = ""
+        f.write(time_str + prefix + " " + message + error_text + "\n")
+        f.close()
+        if inform:
+            Inform(prefix, message, error)
+    except Exception:
+        #if this failed then we have no choice but to print the exception and hope for the best. perhaps wx will cache it and print to it's stdout window
+        print "There has been an error"
+        print traceback.format_exc()
 
 class ErrorDialog (wx.Dialog):
     
@@ -996,14 +1003,18 @@ class ErrorDialog (wx.Dialog):
         self.btn.SetInitialSize()
 
 def Inform(title, message, error=False):
-    if wx.GetApp() is not None:
-        if error:
-            dlg = ErrorDialog(title, message, traceback.format_exc())
-            dlg.ShowModal()
-        else:
-            style = wx.OK|wx.STAY_ON_TOP|wx.ICON_INFORMATION
-            dlg = wx.MessageDialog(None, message, caption="ARCed "+ title, style=style)
-            dlg.ShowModal()
+    try:
+        if wx.GetApp() is not None:
+            if error:
+                dlg = ErrorDialog(title, message, traceback.format_exc())
+                dlg.ShowModal()
+            else:
+                style = wx.OK|wx.STAY_ON_TOP|wx.ICON_INFORMATION
+                dlg = wx.MessageDialog(None, message, caption="ARCed "+ title, style=style)
+                dlg.ShowModal()
+    except Exception:
+        #if this fails lets log it with out an inform
+        Log("Inform failed: [Message] %s  [Error?] %s" % (message, error), [Kernel_Infrom], error=True)
             
         
 

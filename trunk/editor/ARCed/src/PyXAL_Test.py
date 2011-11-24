@@ -2,7 +2,12 @@
 
 import wx
 import os
-import PyXAL
+import Kernel
+from Kernel import Manager as KM
+import Core
+
+
+PyXAL = KM.get_component("PyXAL").object
 
 class XALTestFrame ( wx.Frame ):
     

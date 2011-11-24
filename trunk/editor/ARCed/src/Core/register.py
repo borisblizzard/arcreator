@@ -6,8 +6,9 @@ exports all the core components to the kernel
 import Kernel
 from Kernel import Manager, Type, SuperType, Component, Package, Event
 import RMXP
-import Frames, Menues, Dialogs, Controls, Layouts, Data, Project, ARC_Data, Actions
-import DatabaseActions, RPGutil, Icons, PanelManager, Panels, Cache
+from Core import Frames, Menues, Dialogs, Controls, Layouts, Data, Project, ARC_Data, Actions
+from Core import DatabaseActions, RPGutil, Icons, PanelManager, Panels, Cache
+from Core import PyXAL
 
 
 #=============================================================================
@@ -142,6 +143,9 @@ class CorePackage(Package):
         TableEditAction = Type("TableEditAction")
         ARCActorEditAction = Type("ARCActorEditAction")
 
+        #------------------------------ utilities ------------------------------------
+        PyXAL = Type("PyXAL")
+
         #=====================================================================
         # * add the types to be registered 
         #=====================================================================
@@ -182,6 +186,9 @@ class CorePackage(Package):
         self.add_types(TableEditAction)
 
         self.add_types(ARCActorEditAction)
+
+        #------------------------------ utilities ------------------------------------
+        self.add_types(PyXAL)
         
     def setup_events(self):
         #=============================================================================
@@ -327,6 +334,9 @@ class CorePackage(Package):
 
         self.add_component(Component(DatabaseActions.ActorEditAction, "ARCActorEditAction",
                                      None, "CoreARCActorEditAction", "CORE", 1.0, self))
+
+        #------------------------------ utilities ------------------------------------
+        self.add_component(Component(PyXAL, "PyXAL", None, "CorePyXAL", "CORE", 1.0, self))
 
         #=====================================================================
         # * add components (RMXP)
