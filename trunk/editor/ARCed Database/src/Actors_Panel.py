@@ -609,4 +609,6 @@ class ParameterGraph(plot.PlotCanvas):
 			XLimit=xLim, YLimit=yLim)
 		self.Draw(gc)
 
+
+
 	

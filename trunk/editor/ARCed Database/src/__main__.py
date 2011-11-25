@@ -1,17 +1,14 @@
 import wx
-import DatabasePackage
 import os
-import ConfigParser
 import Main
 import Kernel
 from Kernel import Manager as KM
+Main.ConfigManager.LoadConfig()
+import DatabasePackage
 
 dirName = os.path.dirname(os.path.abspath(__file__))
 editorDir = os.path.split(os.path.split(dirName)[0])[0]
 editorDir = os.path.join(editorDir, 'ARCed', 'src')     
- 
-Main.ConfigManager.LoadConfig()
-
 PAGE_INDEX = 0
 
 class Test(wx.App):

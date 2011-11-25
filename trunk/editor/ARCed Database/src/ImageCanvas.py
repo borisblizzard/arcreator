@@ -4,11 +4,6 @@ import pyglet
 import pyglet.gl as gl
 from Core.Mapeditor import PygletGLPanel
 
-class EditorGLPanelContextMenu(wx.Menu):
-
-	def __init__(self, parent, id=wx.ID_ANY):
-		"""Basic constructor for the EditorGLPanelContextMenu"""
-
 class EditorGLPanel(PygletGLPanel):
 
 	def __init__(self, parent, id=wx.ID_ANY, rows=1, columns=1, coord=(0,0), drawmode=1):
@@ -78,6 +73,7 @@ class EditorGLPanel(PygletGLPanel):
 	def ChangeImage(self, pilImage):
 		"""Changes the displayed image"""
 		self._image = pilImage
+		del (pilImage)
 		self.PrepareGL()
 		self.OnDraw()
 
@@ -116,6 +112,8 @@ class EditorGLPanel(PygletGLPanel):
 		elif self._drawmode == 3: self.Cropped(subimage)
 		elif self._drawmode == 4: self.Stretch(subimage)
 		else: self.TopLeft(subimage)
+		del (subimage)
+		del (srcImage)
 
 	#---------------------------------------------------------------
 	# Draw Modes
@@ -131,6 +129,7 @@ class EditorGLPanel(PygletGLPanel):
 			pygletimage.blit(x / 2, y / 2, 0, w - diff_w, h - diff_h)
 		else:
 			pygletimage.blit(x, y, 0, w, h)
+		del (pygletimage)
 
 	def Shrink( self, pygletimage ):
 		"""Scales image down if too large, else the image is simply centered"""
@@ -141,6 +140,7 @@ class EditorGLPanel(PygletGLPanel):
 			self.StretchAspect( pygletimage )
 		else:
 			pygletimage.blit(x, y, 0, w, h)
+		del (pygletimage)
 
 	def StretchAspect( self, pygletimage ):
 		"""The image will be stretched to fill panel while maintaining aspect ratio"""
@@ -154,6 +154,7 @@ class EditorGLPanel(PygletGLPanel):
 		else:
 			cw = w * y_ratio
 			pygletimage.blit((width - cw) / 2, 0, 0, cw, height)
+		del (pygletimage)
 
 	def Cropped( self, pygletimage ):
 		"""Oversized images too large for the panel will simply be cropped"""
@@ -163,6 +164,7 @@ class EditorGLPanel(PygletGLPanel):
 		if w > width: x = (width - w) / 2
 		if h > height: y = (height - h) / 2
 		pygletimage.blit(x, y, 0, w, h)
+		del (pygletimage)
 
 	def Stretch( self, pygletimage ):
 		"""The entire image is stretched, and aspect ratio is ignored"""
@@ -173,3 +175,4 @@ class EditorGLPanel(PygletGLPanel):
 		"""Image is anchored to top left corner and cropped"""
 		y = self.GetClientSize()[1] - pygletimage.height
 		pygletimage.blit(0, y, 0, pygletimage.width, pygletimage.height)
+		del (pygletimage)

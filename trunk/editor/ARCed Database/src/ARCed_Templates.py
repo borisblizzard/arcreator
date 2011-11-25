@@ -5424,7 +5424,7 @@ class ChooseGraphic_Dialog ( wx.Dialog ):
 		
 		# Connect Events
 		self.listBoxGraphics.Bind( wx.EVT_LISTBOX, self.listBoxGraphics_SelectionChanged )
-		self.sliderHue.Bind( wx.EVT_SCROLL_THUMBRELEASE, self.sliderHue_Scrolled )
+		self.sliderHue.Bind( wx.EVT_SCROLL, self.sliderHue_Scrolled )
 		self.buttonOK.Bind( wx.EVT_BUTTON, self.buttonOK_Clicked )
 		self.buttonCancel.Bind( wx.EVT_BUTTON, self.buttonCancel_Clicked )
 	
@@ -13906,27 +13906,43 @@ class AudioPlayer_Panel ( wx.Panel ):
 	
 
 ###########################################################################
-## Class TEST_DIALOG
+## Class ExpGraph_Dialog
 ###########################################################################
 
-class TEST_DIALOG ( wx.Dialog ):
+class ExpGraph_Dialog ( wx.Dialog ):
 	
 	def __init__( self, parent ):
-		wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = wx.EmptyString, pos = wx.DefaultPosition, size = wx.Size( 405,311 ), style = wx.DEFAULT_DIALOG_STYLE|wx.RESIZE_BORDER )
+		wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Experience Graph", pos = wx.DefaultPosition, size = wx.Size( 405,311 ), style = wx.DEFAULT_DIALOG_STYLE|wx.RESIZE_BORDER )
 		
 		self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
 		
-		bSizer636 = wx.BoxSizer( wx.VERTICAL )
+		MainSizer = wx.BoxSizer( wx.VERTICAL )
 		
-		self.m_panel27 = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
-		bSizer636.Add( self.m_panel27, 1, wx.EXPAND, 5 )
+		from Actors_Panel import ParameterGraph
+		self.graphPanel = ParameterGraph(self)
+		MainSizer.Add( self.graphPanel, 1, wx.ALL|wx.EXPAND, 5 )
 		
-		self.SetSizer( bSizer636 )
+		sizerClose = wx.BoxSizer( wx.HORIZONTAL )
+		
+		self.buttonClose = wx.Button( self, wx.ID_ANY, u"Close", wx.DefaultPosition, wx.DefaultSize, 0 )
+		sizerClose.Add( self.buttonClose, 0, wx.ALL, 5 )
+		
+		MainSizer.Add( sizerClose, 0, wx.ALIGN_RIGHT, 5 )
+		
+		self.SetSizer( MainSizer )
 		self.Layout()
 		
 		self.Centre( wx.BOTH )
+		
+		# Connect Events
+		self.buttonClose.Bind( wx.EVT_BUTTON, self.buttonClose_Clicked )
 	
 	def __del__( self ):
+		pass
+	
+	
+	# Virtual event handlers, overide them in your derived class
+	def buttonClose_Clicked( self, event ):
 		pass
 	
 

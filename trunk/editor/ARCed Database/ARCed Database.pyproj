@@ -106,6 +106,7 @@
     <Compile Include="src\EventEditor_Panel.py" />
     <Compile Include="src\EventPage_Panel.py" />
     <Compile Include="src\ExpCurve_Dialog.py" />
+    <Compile Include="src\ExpGraph_Dialog.py" />
     <Compile Include="src\FadeOutAudio_Dialog.py" />
     <Compile Include="src\ForceAction_Dialog.py" />
     <Compile Include="src\GenerateCurve_Dialog.py" />
