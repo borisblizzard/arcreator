@@ -334,7 +334,7 @@ class PILCache(object):
                     image = PILCache.changeHue(image, hue)
             
                 PILCache._NormalCache[key][hue] = image
-                PILCache.HueCacheLimit(PILCache._NormalCache[key], hue)
+                PILCache.HueCacheLimit(PILCache._NormalCache[key], key)
                 return PILCache._NormalCache[key][hue]
             else:
                 return None          
@@ -429,7 +429,7 @@ class PILCache(object):
                 x = id % 8 * 32
                 y = id / 8 * 32
                 PILCache._TileCache[key][hue] = tileset.crop((x, y, x + 32, y + 32))
-                PILCache.HueCacheLimit(PILCache._TileCache, hue)
+                PILCache.HueCacheLimit(PILCache._TileCache, key)
                 return PILCache._TileCache[key][hue]
                 
             else:
