@@ -25,7 +25,7 @@
 #include "xalExport.h"
 
 #define STREAM_BUFFER_COUNT 8 // greater or equal to 2
-#define STREAM_BUFFER_SIZE 32768 // number like x^2
+#define STREAM_BUFFER_SIZE 32768 // equal to any power of 2
 #define STREAM_BUFFER (STREAM_BUFFER_COUNT * STREAM_BUFFER_SIZE)
 
 namespace xal
@@ -146,9 +146,8 @@ namespace xal
 		void _destroyPlayer(Player* player);
 		Player* _createManagedPlayer(chstr name);
 		void _destroyManagedPlayer(Player* player);
-		Buffer* _createBuffer(chstr filename, HandlingMode loadMode, HandlingMode decodeMode);
 
-		virtual Player* _createAudioPlayer(Sound* sound, Buffer* buffer);
+		virtual Player* _createPlayer(Sound* sound, Buffer* buffer);
 		virtual Source* _createSource(chstr filename, Format format);
 
 		virtual void _convertStream(Buffer* buffer, unsigned char** stream, int *streamSize) { }

@@ -297,6 +297,9 @@ namespace hltypes
 		/// @brief Same as size.
 		/// @see size
 		int length() const;
+		/// @brief Creates a string with characters converted using the %02X format.
+		/// @return String of hex values of the charcaters.
+		String to_hex() const;
 		/// @brief Creates a wchar string.
 		/// @note The wchar string has to be manually destroyed using delete [].
 		wchar_t* w_str() const;

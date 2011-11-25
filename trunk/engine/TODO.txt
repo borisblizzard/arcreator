@@ -12,7 +12,3 @@
 - check input problem when holding two directional buttons pressed at the same time (problem with repeat?)
 - add blend_type for Viewport
 - add opacity for Viewport
-
-- implement seeking in xal::Player
-- implement a way to access raw audio data from a sound
-- change in XAL demo_simple to demo_test and add new demo_simple project
