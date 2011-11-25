@@ -291,10 +291,16 @@ namespace hltypes
 	protected:
 		/// @brief Current filename.
 		hstr filename;
+		/// @brief File size, mostly used for optimization and faster eof detection.
+		long fileSize;
 		/// @brief OS file handle.
 		FILE* cfile;
 		/// @brief Byte value offset while reading/writing that serves as simple binary encryption.
 		unsigned char encryption_offset;
+
+		/// @brief Gets the internal file size from the file.
+		/// @return Internal file size from the file.
+		long _getFileSize();
 		
 	};
 }

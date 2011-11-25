@@ -44,6 +44,8 @@ namespace xal
 		Format getFormat();
 		bool isStreamed();
 
+		int readRawData(unsigned char** output);
+
 	protected:
 		hstr name;
 		hstr filename;
