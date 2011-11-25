@@ -308,12 +308,9 @@ class PILCache(object):
     def HueCacheLimit(cache, key):
         if cache.has_key(key):
             if len(cache[key]) > PILCache._hue_limit:
-                print "removing %s images" % (len(cache[key]) - PILCache._hue_limit)
                 for i in xrange(len(cache[key]) - PILCache._hue_limit):
                     item = cache[key].popitem(False)
                     del item
-                    print "removed image"
-                gc.collect()
 
     @staticmethod
     def CacheLimit():
@@ -336,7 +333,7 @@ class PILCache(object):
                     image = PILCache.changeHue(image, hue)
             
                 PILCache._NormalCache[key][hue] = image
-                PILCache.HueCacheLimit(PILCache._NormalCache[key], key)
+                PILCache.HueCacheLimit(PILCache._NormalCache, key)
                 del image
                 return PILCache._NormalCache[key][hue]
             else:
