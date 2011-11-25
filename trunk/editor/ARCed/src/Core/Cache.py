@@ -278,6 +278,7 @@ class PILCache(object):
     @staticmethod
     def changeHue(image, hue):
         roatedImage = ImageFunctions.change_hue_PIL(image, hue)
+        del image
         return roatedImage
 
     @staticmethod
@@ -286,7 +287,6 @@ class PILCache(object):
             for i in xrange(len(PILCache._NormalCache) - PILCache._normal_limit):
                 item = PILCache._NormalCache.popitem(False)
                 del item
-            gc.collect()
 
     @staticmethod
     def TileCacheLimit():
@@ -294,7 +294,6 @@ class PILCache(object):
             for i in xrange(len(PILCache._TileCache) - PILCache._tile_limit):
                 item = PILCache._TileCache.popitem(False)
                 del item
-            gc.collect()
 
     @staticmethod
     def AutotileCacheLimit():
@@ -302,7 +301,6 @@ class PILCache(object):
             for i in xrange(len(PILCache._AutoTileCache) - PILCache._autotile_limit):
                 item = PILCache._AutoTileCache.popitem(False)
                 del item
-            gc.collect()
 
     @staticmethod
     def HueCacheLimit(cache, key):
@@ -569,5 +567,5 @@ class PygletCache(object):
                 return None
 
     def Clear(self):
-        self._Cache = {}
+        self._Cache = collections.OrderedDict()
         gc.collect()
