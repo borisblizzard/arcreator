@@ -5,11 +5,21 @@ import Kernel
 from Kernel import Manager as KM
 Main.ConfigManager.LoadConfig()
 import DatabasePackage
+  
 
+#++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# TEST STUFF
+#++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+common = os.path.expandvars('%COMMONPROGRAMFILES%')
+rtpDir = os.path.join(common, 'Enterbrain', 'RGSS', 'Standard')
+Kernel.GlobalObjects.get_value("ARCed_config").get_section("RTPs").set('RMXP', rtpDir)
 dirName = os.path.dirname(os.path.abspath(__file__))
 editorDir = os.path.split(os.path.split(dirName)[0])[0]
-editorDir = os.path.join(editorDir, 'ARCed', 'src')     
+editorDir = os.path.join(editorDir, 'ARCed', 'src')  
+TEST_PATH = os.path.join(editorDir, "RTP", "Templates", "Default Project", "Default Project.arcproj")
+#TEST_PATH = r"C:\Users\Eric\Desktop\ARC\editor\ARCed Database\ARC TestProject\ARC Test Project.arcproj"
 PAGE_INDEX = 0
+#++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 class Test(wx.App):
 
@@ -51,9 +61,6 @@ class Test(wx.App):
 		self.frame.Show()
 
 	def load_project(self):
-		config = Kernel.GlobalObjects.get_value("ARCed_config")
-		TEST_PATH = os.path.join(editorDir, "RTP", "Templates", "Chonicles of Sir Lag-A-Lot", "Chronicles of Sir Lag-A-Lot.arcproj")
-		TEST_PATH = r"C:\Users\Eric\Desktop\ARC\editor\ARCed Database\ARC TestProject\ARC Test Project.arcproj"
 		#get a project loader
 		projectloader = KM.get_component("ARCProjectLoader").object()
 		projectloader.load(TEST_PATH)
@@ -77,12 +84,6 @@ class Test(wx.App):
 			Kernel.GlobalObjects.set_value("ProjectOpen", True)
 		else:
 			Kernel.GlobalObjects.request_new_key("ProjectOpen", "CORE", True)
-
-		# Add RMXP RTP for testing
-		common = os.path.expandvars('%COMMONPROGRAMFILES%')
-		rtpDir = os.path.join(common, 'Enterbrain', 'RGSS', 'Standard')
-		rtps = Kernel.GlobalObjects.get_value("ARCed_config").get_section("RTPs")
-		Kernel.GlobalObjects.get_value("ARCed_config").get_section("RTPs").set('RMXP', rtpDir)
 
 # Create window and execute the main loop
 if __name__ == '__main__':
