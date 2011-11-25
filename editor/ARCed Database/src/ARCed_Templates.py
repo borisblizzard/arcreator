@@ -10,6 +10,7 @@
 import wx
 import wx.xrc
 import wx.combo
+import wx.grid
 
 ###########################################################################
 ## Class Actors_Panel
@@ -13943,6 +13944,162 @@ class ExpGraph_Dialog ( wx.Dialog ):
 	
 	# Virtual event handlers, overide them in your derived class
 	def buttonClose_Clicked( self, event ):
+		pass
+	
+
+###########################################################################
+## Class ExpGrid_Dialog
+###########################################################################
+
+class ExpGrid_Dialog ( wx.Dialog ):
+	
+	def __init__( self, parent ):
+		wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Experience Curve", pos = wx.DefaultPosition, size = wx.Size( 449,460 ), style = wx.DEFAULT_DIALOG_STYLE|wx.RESIZE_BORDER )
+		
+		self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
+		
+		MainSizer = wx.BoxSizer( wx.VERTICAL )
+		
+		self.noteBookExpList = wx.Notebook( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.panelNextLevel = wx.Panel( self.noteBookExpList, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
+		panelSizerNextLevel = wx.BoxSizer( wx.VERTICAL )
+		
+		self.expGrid = wx.grid.Grid( self.panelNextLevel, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, 0 )
+		
+		# Grid
+		self.expGrid.CreateGrid( 0, 8 )
+		self.expGrid.EnableEditing( False )
+		self.expGrid.EnableGridLines( False )
+		self.expGrid.EnableDragGridSize( False )
+		self.expGrid.SetMargins( 0, 0 )
+		
+		# Columns
+		self.expGrid.EnableDragColMove( False )
+		self.expGrid.EnableDragColSize( False )
+		self.expGrid.SetColLabelSize( 0 )
+		self.expGrid.SetColLabelAlignment( wx.ALIGN_CENTRE, wx.ALIGN_CENTRE )
+		
+		# Rows
+		self.expGrid.EnableDragRowSize( False )
+		self.expGrid.SetRowLabelSize( 0 )
+		self.expGrid.SetRowLabelAlignment( wx.ALIGN_CENTRE, wx.ALIGN_CENTRE )
+		
+		# Label Appearance
+		self.expGrid.SetLabelFont( wx.Font( 8, 76, 90, 90, False, wx.EmptyString ) )
+		
+		# Cell Defaults
+		self.expGrid.SetDefaultCellFont( wx.Font( 8, 76, 90, 90, False, wx.EmptyString ) )
+		self.expGrid.SetDefaultCellAlignment( wx.ALIGN_RIGHT, wx.ALIGN_TOP )
+		panelSizerNextLevel.Add( self.expGrid, 1, wx.ALL|wx.EXPAND, 5 )
+		
+		self.panelNextLevel.SetSizer( panelSizerNextLevel )
+		self.panelNextLevel.Layout()
+		panelSizerNextLevel.Fit( self.panelNextLevel )
+		self.noteBookExpList.AddPage( self.panelNextLevel, u"To Next Level", True )
+		self.panelTotal = wx.Panel( self.noteBookExpList, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
+		panelSizerTotal = wx.BoxSizer( wx.VERTICAL )
+		
+		self.panelTotal.SetSizer( panelSizerTotal )
+		self.panelTotal.Layout()
+		panelSizerTotal.Fit( self.panelTotal )
+		self.noteBookExpList.AddPage( self.panelTotal, u"Total", False )
+		
+		MainSizer.Add( self.noteBookExpList, 1, wx.EXPAND |wx.ALL, 5 )
+		
+		sizerControls = wx.BoxSizer( wx.HORIZONTAL )
+		
+		sizerBasis = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Basis" ), wx.HORIZONTAL )
+		
+		self.sliderBasis = wx.Slider( self, wx.ID_ANY, 35, 10, 50, wx.DefaultPosition, wx.DefaultSize, wx.SL_HORIZONTAL )
+		sizerBasis.Add( self.sliderBasis, 1, wx.ALL, 5 )
+		
+		self.spinCtrlBasis = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( 60,-1 ), wx.SP_ARROW_KEYS, 10, 50, 35 )
+		sizerBasis.Add( self.spinCtrlBasis, 0, wx.ALL, 5 )
+		
+		sizerControls.Add( sizerBasis, 1, wx.ALL, 5 )
+		
+		sizerInflation = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Inflation" ), wx.HORIZONTAL )
+		
+		self.sliderInflation = wx.Slider( self, wx.ID_ANY, 35, 10, 50, wx.DefaultPosition, wx.DefaultSize, wx.SL_HORIZONTAL )
+		sizerInflation.Add( self.sliderInflation, 1, wx.ALL, 5 )
+		
+		self.spinCtrlInflation = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( 60,-1 ), wx.SP_ARROW_KEYS, 10, 50, 35 )
+		sizerInflation.Add( self.spinCtrlInflation, 0, wx.ALL, 5 )
+		
+		sizerControls.Add( sizerInflation, 1, wx.ALL, 5 )
+		
+		MainSizer.Add( sizerControls, 0, wx.EXPAND, 5 )
+		
+		sizerButtons = wx.BoxSizer( wx.HORIZONTAL )
+		
+		sizerGraphButton = wx.BoxSizer( wx.HORIZONTAL )
+		
+		self.buttonViewGraph = wx.Button( self, wx.ID_ANY, u"View Graph...", wx.DefaultPosition, wx.DefaultSize, 0 )
+		sizerGraphButton.Add( self.buttonViewGraph, 0, wx.ALL, 5 )
+		
+		self.labelSlope = wx.StaticText( self, wx.ID_ANY, u"Slope:", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.labelSlope.Wrap( -1 )
+		sizerGraphButton.Add( self.labelSlope, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
+		
+		self.spinCtrlSlope = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( 64,-1 ), wx.SP_ARROW_KEYS, 0, 30, 24 )
+		sizerGraphButton.Add( self.spinCtrlSlope, 0, wx.TOP|wx.BOTTOM|wx.RIGHT|wx.ALIGN_CENTER_VERTICAL, 5 )
+		
+		sizerButtons.Add( sizerGraphButton, 1, 0, 5 )
+		
+		self.buttonOK = wx.Button( self, wx.ID_ANY, u"OK", wx.DefaultPosition, wx.DefaultSize, 0 )
+		sizerButtons.Add( self.buttonOK, 0, wx.ALL, 5 )
+		
+		self.buttonCancel = wx.Button( self, wx.ID_ANY, u"Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
+		sizerButtons.Add( self.buttonCancel, 0, wx.ALL, 5 )
+		
+		MainSizer.Add( sizerButtons, 0, wx.ALIGN_RIGHT|wx.ALIGN_BOTTOM|wx.EXPAND, 5 )
+		
+		self.SetSizer( MainSizer )
+		self.Layout()
+		
+		self.Centre( wx.BOTH )
+		
+		# Connect Events
+		self.noteBookExpList.Bind( wx.EVT_NOTEBOOK_PAGE_CHANGED, self.noteBookExpCurve_PageChanged )
+		self.sliderBasis.Bind( wx.EVT_SCROLL, self.sliderBasis_Scrolled )
+		self.spinCtrlBasis.Bind( wx.EVT_SPINCTRL, self.spinCtrlBasis__ValueChanged )
+		self.sliderInflation.Bind( wx.EVT_SCROLL, self.sliderInflation_Scrolled )
+		self.spinCtrlInflation.Bind( wx.EVT_SPINCTRL, self.spinCtrlInflation_ValueChanged )
+		self.buttonViewGraph.Bind( wx.EVT_BUTTON, self.buttonViewGraph_Clicked )
+		self.spinCtrlSlope.Bind( wx.EVT_SPINCTRL, self.spinCtrlSlope_ValueChanged )
+		self.buttonOK.Bind( wx.EVT_BUTTON, self.buttonOK_Clicked )
+		self.buttonCancel.Bind( wx.EVT_BUTTON, self.buttonCancel_Clicked )
+	
+	def __del__( self ):
+		pass
+	
+	
+	# Virtual event handlers, overide them in your derived class
+	def noteBookExpCurve_PageChanged( self, event ):
+		pass
+	
+	def sliderBasis_Scrolled( self, event ):
+		pass
+	
+	def spinCtrlBasis__ValueChanged( self, event ):
+		pass
+	
+	def sliderInflation_Scrolled( self, event ):
+		pass
+	
+	def spinCtrlInflation_ValueChanged( self, event ):
+		pass
+	
+	def buttonViewGraph_Clicked( self, event ):
+		pass
+	
+	def spinCtrlSlope_ValueChanged( self, event ):
+		pass
+	
+	def buttonOK_Clicked( self, event ):
+		pass
+	
+	def buttonCancel_Clicked( self, event ):
 		pass
 	
 

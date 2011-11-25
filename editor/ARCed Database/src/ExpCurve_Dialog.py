@@ -21,8 +21,7 @@ class ExpCurve_Dialog(ARCed_Templates.ExpCurve_Dialog ):
 		if not font.SetFaceName('Consolas'):
 			font.SetFaceName('Courier New')
 		self.textCtrlExpList.SetFont(font)
-		global MaxLevel, InitialLevel, FinalLevel, StyleNext, StyleTotal
-		MaxLevel = Config.getint('DatabaseLimits', 'ActorLevel')
+		global InitialLevel, FinalLevel, StyleNext, StyleTotal
 		InitialLevel = actor.initial_level
 		FinalLevel = actor.final_level
 		StyleNext = wx.TextAttr(wx.Color(0, 128, 0))
@@ -65,16 +64,14 @@ class ExpCurve_Dialog(ARCed_Templates.ExpCurve_Dialog ):
 
 	def generateExpList(self):
 		"""Calculates the experience list based on the basis and inflation, then returns it"""
-		expList = [0, 0]
+		expList = np.zeros(FinalLevel + 1, dtype=int)
 		basis = self.spinCtrlBasis.GetValue()
 		inflation = self.spinCtrlInflation.GetValue()
 		pow_i = 2.4 + inflation / 100.0 # TODO: Maybe add editor setting for 'pow_i' ???
-		for i in xrange(2, MaxLevel + 1):
-			if i > FinalLevel:
-				expList.append(0)
-			else:
+		for i in xrange(2, FinalLevel + 1):
+			if i <= FinalLevel:
 				n = basis * ((i + 3) ** pow_i) / (5 ** pow_i)
-				expList.append(expList[i - 1] + int(n))
+				expList[i] = expList[i - 1] + int(n)
 		return expList
 	
 	def sliderBasis_Scrolled( self, event ):
@@ -98,8 +95,8 @@ class ExpCurve_Dialog(ARCed_Templates.ExpCurve_Dialog ):
 		self.refreshExpTable()
 
 	def noteBookExpCurve_PageChanged( self, event ):
+		"""Changes the page index and refreshes the table"""
 		self.PageIndex = event.GetSelection()
-		"""Refreshes the page that was switched to since only the visible page is being refreshed normally"""
 		self.refreshExpTable()
 	
 	def buttonOK_Clicked( self, event ):
@@ -112,15 +109,19 @@ class ExpCurve_Dialog(ARCed_Templates.ExpCurve_Dialog ):
 
 	def buttonViewGraph_Clicked( self, event ):
 		"""Opens the dialog to display a visual representation of the experience table"""
-		from ExpGraph_Dialog import ExpGraph_Dialog
-
 		expList = self.generateExpList()[InitialLevel:FinalLevel]
 		levels = np.arange(InitialLevel, FinalLevel, dtype=int)
-		data = np.column_stack((expList, levels))
-		coords = np.column_stack((expList, levels))
-		color = wx.Color(0, 0, 255)
-		max = InitialLevel
-		min = FinalLevel
-		dlg = ExpGraph_Dialog(self, data, 'Experience', color, min, max)
+		data = np.column_stack((levels, expList))
+		maxV, minL, maxL = max(expList), InitialLevel, FinalLevel
+		dlg = ExpGraph_Dialog(self, data, 'Experience', 'blue', maxV, maxL, minL)
 		dlg.ShowModal()
 		
+#--------------------------------------------------------------------------------------
+
+class ExpGraph_Dialog( ARCed_Templates.ExpGraph_Dialog ):
+	def __init__( self, parent, *args):
+		ARCed_Templates.ExpGraph_Dialog.__init__( self, parent )
+		self.graphPanel.SetData(*args)
+	
+	def buttonClose_Clicked( self, event ):
+		self.EndModal(wx.ID_CANCEL)
