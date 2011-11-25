@@ -1,5 +1,6 @@
 import wx
 import ARCed_Templates
+import numpy as np
 import Kernel
 from Kernel import Manager as KM
 
@@ -20,8 +21,9 @@ class ExpCurve_Dialog(ARCed_Templates.ExpCurve_Dialog ):
 		if not font.SetFaceName('Consolas'):
 			font.SetFaceName('Courier New')
 		self.textCtrlExpList.SetFont(font)
-		global MaxLevel, FinalLevel, StyleNext, StyleTotal
+		global MaxLevel, InitialLevel, FinalLevel, StyleNext, StyleTotal
 		MaxLevel = Config.getint('DatabaseLimits', 'ActorLevel')
+		InitialLevel = actor.initial_level
 		FinalLevel = actor.final_level
 		StyleNext = wx.TextAttr(wx.Color(0, 128, 0))
 		StyleTotal = wx.TextAttr(wx.Color(128, 0, 0))
@@ -107,3 +109,18 @@ class ExpCurve_Dialog(ARCed_Templates.ExpCurve_Dialog ):
 	def buttonCancel_Clicked( self, event ):
 		"""End the dialog and return wx.ID_CANCEL"""
 		self.EndModal(wx.ID_CANCEL)
+
+	def buttonViewGraph_Clicked( self, event ):
+		"""Opens the dialog to display a visual representation of the experience table"""
+		from ExpGraph_Dialog import ExpGraph_Dialog
+
+		expList = self.generateExpList()[InitialLevel:FinalLevel]
+		levels = np.arange(InitialLevel, FinalLevel, dtype=int)
+		data = np.column_stack((expList, levels))
+		coords = np.column_stack((expList, levels))
+		color = wx.Color(0, 0, 255)
+		max = InitialLevel
+		min = FinalLevel
+		dlg = ExpGraph_Dialog(self, data, 'Experience', color, min, max)
+		dlg.ShowModal()
+		

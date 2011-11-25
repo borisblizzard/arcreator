@@ -25,7 +25,6 @@ class ChooseGraphic_Dialog( ARCed_Templates.ChooseGraphic_Dialog ):
 		self.RefreshCanvas()
 
 	def RefreshCanvas( self ):
-
 		if self.ImageIndex == 0:
 			image = PIL.Image.new('RGBA', (32, 32))
 		else:
@@ -33,21 +32,21 @@ class ChooseGraphic_Dialog( ARCed_Templates.ChooseGraphic_Dialog ):
 			hue = self.sliderHue.GetValue()
 			image = self.cache(filename, hue)
 		self.glCanvasGraphic.ChangeImage(image)
+		del (image)
 
 	def glCanvas_LeftMouse( self, event ):
 
 		print 'LEFT DOWN'
 
 	def listBoxGraphics_SelectionChanged( self, event ):
-
-
-
-
+		"""Changes the image index and refreshes the canvas"""
 		self.ImageIndex = event.GetSelection()
 		self.RefreshCanvas()
 
 	def sliderHue_Scrolled( self, event ):
+		"""Refreshes the canvas and redraws with the selected hue rotation"""
 		self.RefreshCanvas()
+		#PILCache.CacheLimit()
 
 	def GetSelection( self ):
 		"""Returns the filename and hue that was selected by the user"""
