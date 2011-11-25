@@ -112,7 +112,6 @@ class EditorGLPanel(PygletGLPanel):
 		elif self._drawmode == 3: self.Cropped(subimage)
 		elif self._drawmode == 4: self.Stretch(subimage)
 		else: self.TopLeft(subimage)
-		del (subimage)
 		del (srcImage)
 
 	#---------------------------------------------------------------
@@ -129,7 +128,7 @@ class EditorGLPanel(PygletGLPanel):
 			pygletimage.blit(x / 2, y / 2, 0, w - diff_w, h - diff_h)
 		else:
 			pygletimage.blit(x, y, 0, w, h)
-		del (pygletimage)
+		pygletimage.delete()
 
 	def Shrink( self, pygletimage ):
 		"""Scales image down if too large, else the image is simply centered"""

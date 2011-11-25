@@ -17,12 +17,18 @@ class ChooseGraphic_Dialog( ARCed_Templates.ChooseGraphic_Dialog ):
 		self.ImageIndex = 0
 		if folder == 'Characters': self.cache = PILCache.Character
 		elif folder == 'Battlers': self.cache = PILCache.Battler
+		elif folder == 'Icons' : self.cache = PILCache.Icon
+		elif foler == 'Panoramas': PILCache.Panorama 
 		# TODO: Implement the rest...
 		if current in self.ImageList: 
 			self.ImageIndex = self.ImageList.index(current)
 		self.listBoxGraphics.AppendItems(self.ImageList)
 		self.listBoxGraphics.SetSelection(self.ImageIndex)
 		self.RefreshCanvas()
+
+		for i in xrange(0, 360):
+			PILCache.Character(current, i)
+			PILCache.CacheLimit()
 
 	def RefreshCanvas( self ):
 		if self.ImageIndex == 0:
@@ -46,7 +52,7 @@ class ChooseGraphic_Dialog( ARCed_Templates.ChooseGraphic_Dialog ):
 	def sliderHue_Scrolled( self, event ):
 		"""Refreshes the canvas and redraws with the selected hue rotation"""
 		self.RefreshCanvas()
-		#PILCache.CacheLimit()
+		PILCache.CacheLimit()
 
 	def GetSelection( self ):
 		"""Returns the filename and hue that was selected by the user"""

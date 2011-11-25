@@ -5,8 +5,7 @@ from Skill_Dialog import Skill_Dialog
 import numpy as np
 from DatabaseManager import DatabaseManager as DM
 from Core.RMXP import RGSS1_RPG as RPG	
-from Core import RPGutil
-import DatabaseActions
+from Core import RPGutil, DatabaseActions
 import Kernel 
 
 
