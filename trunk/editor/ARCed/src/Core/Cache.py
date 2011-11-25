@@ -308,9 +308,11 @@ class PILCache(object):
     def HueCacheLimit(cache, key):
         if cache.has_key(key):
             if len(cache[key]) > PILCache._hue_limit:
+                print "removing %s images" % (len(cache[key]) - PILCache._hue_limit)
                 for i in xrange(len(cache[key]) - PILCache._hue_limit):
                     item = cache[key].popitem(False)
                     del item
+                    print "removed image"
                 gc.collect()
 
     @staticmethod
@@ -335,6 +337,7 @@ class PILCache(object):
             
                 PILCache._NormalCache[key][hue] = image
                 PILCache.HueCacheLimit(PILCache._NormalCache[key], key)
+                del image
                 return PILCache._NormalCache[key][hue]
             else:
                 return None          
@@ -366,8 +369,12 @@ class PILCache(object):
                     tile_x = (i % 2 * 16)
                     tile_y = (i / 2 * 16)
                     PILCache._AutoTileCache[key].paste(autotile_part, (tile_x, tile_y))
+                    del autotile_part
+                del tiles
+                del autotile
                 return PILCache._AutoTileCache[key]
             else:
+                del autotile
                 return None
         
 
@@ -430,9 +437,11 @@ class PILCache(object):
                 y = id / 8 * 32
                 PILCache._TileCache[key][hue] = tileset.crop((x, y, x + 32, y + 32))
                 PILCache.HueCacheLimit(PILCache._TileCache, key)
+                del tileset
                 return PILCache._TileCache[key][hue]
                 
             else:
+                del tileset
                 return None
         
 
@@ -475,8 +484,12 @@ class PygletCache(object):
                 data = image.tostring()
                 pygletimage.set_data('RGBA', pitch, data)
                 self._Cache[key] = pygletimage
+                del pygletimage
+                del data
+                del image
                 return self._Cache[key]
             else:
+                del image
                 return None
             
     def Animation(self, filename, hue):
@@ -497,8 +510,12 @@ class PygletCache(object):
                 data = image.tostring()
                 pygletimage.set_data('RGBA', pitch, data)
                 self._Cache[key] = pygletimage
+                del image
+                del data
+                del pygletimage
                 return self._Cache[key]
             else:
+                del image
                 return None
 
     def Battleback(self, filename):
@@ -546,8 +563,12 @@ class PygletCache(object):
                 data = image.tostring()
                 pygletimage.set_data('RGBA', pitch, data)
                 self._Cache[key] = pygletimage
+                del image
+                del data
+                del pygletimage
                 return self._Cache[key]
             else:
+                del image
                 return None
 
     def Clear(self):
