@@ -38,6 +38,10 @@
 
 - add Redo and Undo menu hooks
 
+- call the Clear method for the cache when an open project even is raised
+
+- Wrap the rest of XAL when it is compleated
+
 
 ================== DONE =============================
 
