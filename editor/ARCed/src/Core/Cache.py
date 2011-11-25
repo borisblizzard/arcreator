@@ -226,10 +226,10 @@ class PILCache(object):
     _TileCache = collections.OrderedDict()
     _AutoTileCache = collections.OrderedDict()
 
-    _normal_limit = 1000
-    _tile_limit = 200
-    _autotile_limit = 500
-
+    _normal_limit = 200
+    _tile_limit = 100
+    _hue_limit = 5
+    _autotile_limit = 250
     
 
     try:
@@ -237,11 +237,17 @@ class PILCache(object):
         if config.has_section("Cache"):
             section = config.get_section("Cache")
             if section.has_item("normal_limit"):
-                _normal_limit = int(config.get("Cache", "normal_limit"))
+                _normal_limit = config.getint("Cache", "normal_limit")
+                if _normal_limit <= 1: _normal_limit = 2
             if section.has_item("tile_limit"):
-                _tile_limit = int(config.get("Cache", "tile_limit"))
+                _tile_limit = config.getint("Cache", "tile_limit")
+                if _tile_limit <= 1: _tile_limit = 2
             if section.has_item("autotile_limit"):
-                _autotile_limit = int(config.get("Cache", "autotile_limit"))
+                _autotile_limit = config.getint("Cache", "autotile_limit")
+                if _autotile_limit <= 1: _autotile_limit = 2
+            if section.has_item("hue_limit"):
+                _hue_limit = config.getint("Cache", "hue_limit")
+                if _hue_limit <= 1: _hue_limit = 2
             del section
 
         del config
@@ -278,19 +284,34 @@ class PILCache(object):
     def NormalCacheLimit():
         if len(PILCache._NormalCache) > PILCache._normal_limit:
             for i in xrange(len(PILCache._NormalCache) - PILCache._normal_limit):
-                PILCache._NormalCache.popitem(False)
+                item = PILCache._NormalCache.popitem(False)
+                del item
+            gc.collect()
 
     @staticmethod
     def TileCacheLimit():
         if len(PILCache._TileCache) > PILCache._tile_limit:
             for i in xrange(len(PILCache._TileCache) - PILCache._tile_limit):
-                PILCache._TileCache.popitem(False)
+                item = PILCache._TileCache.popitem(False)
+                del item
+            gc.collect()
 
     @staticmethod
     def AutotileCacheLimit():
         if len(PILCache._AutoTileCache) > PILCache._autotile_limit:
             for i in xrange(len(PILCache._AutoTileCache) - PILCache._autotile_limit):
-                PILCache._AutoTileCache.popitem(False)
+                item = PILCache._AutoTileCache.popitem(False)
+                del item
+            gc.collect()
+
+    @staticmethod
+    def HueCacheLimit(cache, key):
+        if cache.has_key(key):
+            if len(cache[key]) > PILCache._hue_limit:
+                for i in xrange(len(cache[key]) - PILCache._hue_limit):
+                    item = cache[key].popitem(False)
+                    del item
+                gc.collect()
 
     @staticmethod
     def CacheLimit():
@@ -300,20 +321,21 @@ class PILCache(object):
 
     @staticmethod  
     def Load_bitmap(folder_name, filename, hue=0):
-        key = (folder_name, filename, hue)
-        print key
+        key = (folder_name, filename)
+        if not PILCache._NormalCache.has_key(key):
+            PILCache._NormalCache[key] = collections.OrderedDict()
         try:
-            return PILCache._NormalCache[key]
+            return PILCache._NormalCache[key][hue]
         except KeyError:
             path = RTPFunctions.FindFile(folder_name, filename)
-            print path
             if path != "":
                 image = Image.open(path).convert('RGBA')
                 if hue != 0:
                     image = PILCache.changeHue(image, hue)
             
-                PILCache._NormalCache[key] = image
-                return PILCache._NormalCache[key]
+                PILCache._NormalCache[key][hue] = image
+                PILCache.HueCacheLimit(PILCache._NormalCache[key], hue)
+                return PILCache._NormalCache[key][hue]
             else:
                 return None          
 
@@ -395,46 +417,51 @@ class PILCache(object):
 
     @staticmethod
     def Tile(filename, tile_id, hue):
-        key = (filename, int(tile_id), hue)
+        key = (filename, int(tile_id))
+        if not PILCache._TileCache.has_key(key):
+            PILCache._TileCache[key] = collections.OrderedDict()
         try:
-            return PILCache._TileCache[key]
+            return PILCache._TileCache[key][hue]
         except KeyError:
             tileset = PILCache.Tileset(filename)
             if tileset:
                 id = int(tile_id) - 384
                 x = id % 8 * 32
                 y = id / 8 * 32
-                PILCache._TileCache[key] = tileset.crop((x, y, x + 32, y + 32))
-                return PILCache._TileCache[key]
+                PILCache._TileCache[key][hue] = tileset.crop((x, y, x + 32, y + 32))
+                PILCache.HueCacheLimit(PILCache._TileCache, hue)
+                return PILCache._TileCache[key][hue]
+                
             else:
                 return None
         
 
     @staticmethod
     def Clear():
-        PILCache._NormalCache = {}
-        PILCache._TileCache = {}
-        PILCache._AutoTileCache = {}
+        PILCache._NormalCache = collections.OrderedDict()
+        PILCache._TileCache = collections.OrderedDict()
+        PILCache._AutoTileCache = collections.OrderedDict()
         gc.collect()
 
 class PygletCache(object):
 
     def __init__(self):
         self._Cache = collections.OrderedDict()
-        self.limit = 400
+        self.limit = 200
         try:
             config = Kernel.GlobalObjects.get_value("ARCed_config")
             if config.has_section("Cache"):
                 section = config.get_section("Cache")
                 if section.has_item("pyglet_limit"):
-                    self.limit = section.get("pyglet_limit")
+                    self.limit = config.getint("Cache", "pyglet_limit")
         except:
             Kernel.Log("Error setting pyglet Cache Config", "[Cache]", error=True)
 
     def CacheLimit(self):
         if len(self._Cache) > self.limit:
             for i in xrange(len(self._Cache) - self.limit):
-                self._Cache.popitem(False)
+                item = self._Cache.popitem(False)
+                del item
         
     def Load_bitmap(self, folder_name, filename, hue=0):
         key = (folder_name, filename, hue)
