@@ -26,10 +26,6 @@ class ChooseGraphic_Dialog( ARCed_Templates.ChooseGraphic_Dialog ):
 		self.listBoxGraphics.SetSelection(self.ImageIndex)
 		self.RefreshCanvas()
 
-		for i in xrange(0, 360):
-			PILCache.Character(current, i)
-			PILCache.CacheLimit()
-
 	def RefreshCanvas( self ):
 		if self.ImageIndex == 0:
 			image = PIL.Image.new('RGBA', (32, 32))
