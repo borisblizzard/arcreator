@@ -857,7 +857,7 @@ class KernelConfig(object):
                     template.add_type(type_config)
         return template
 #====================================================================================
-# * Protect (a class to wrap wround functions like event handelers to ceatch errors)
+# * Protect (a class to wrap around functions like event handlers to catch errors)
 #====================================================================================
 
 class Protect(object):
