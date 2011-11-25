@@ -12,20 +12,20 @@ from DatabaseManager import DatabaseManager as DM
 from Core.RMXP import RGSS1_RPG as RPG	   						
 import Kernel
 
-GRAPH_COLORS = { 
-		0 : wx.Colour(200, 60, 120), 
-		1 : wx.Colour(60, 120, 200), 
-		2 : wx.Colour(200, 120, 60),
-		3 : wx.Colour(120, 200, 60),
-		4 : wx.Colour(56, 187, 112),
-		5 : wx.Colour(120, 60, 200),
-		6 : wx.Colour(60, 200, 120),
-		7 : wx.Colour(56, 112, 187),
-		8 : wx.Colour(187, 112, 56),
-		9 : wx.Colour(112, 187, 56),
-		10 : wx.Colour(112, 56, 187),
-		11 : wx.Colour(187, 56, 112),
-	}
+GRAPH_COLORS = [
+		wx.Colour(200, 60, 120), 
+		wx.Colour(60, 120, 200), 
+		wx.Colour(200, 120, 60),
+		wx.Colour(120, 200, 60),
+		wx.Colour(56, 187, 112),
+		wx.Colour(120, 60, 200),
+		wx.Colour(60, 200, 120),
+		wx.Colour(56, 112, 187),
+		wx.Colour(187, 112, 56),
+		wx.Colour(112, 187, 56),
+		wx.Colour(112, 56, 187),
+		wx.Colour(187, 56, 112),
+	]
 
 
 class Actors_Panel(ARCed_Templates.Actors_Panel ):
