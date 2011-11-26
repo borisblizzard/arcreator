@@ -1,5 +1,12 @@
-import wx
+
+import sys
 import os
+dirName = os.path.dirname(os.path.abspath(__file__))
+editorDir = os.path.split(os.path.split(dirName)[0])[0]
+editorDir = os.path.join(editorDir, 'ARCed', 'src')  
+sys.path.append(editorDir)
+
+import wx
 import Main
 import Kernel
 from Kernel import Manager as KM
@@ -13,11 +20,7 @@ import DatabasePackage
 common = os.path.expandvars('%COMMONPROGRAMFILES%')
 rtpDir = os.path.join(common, 'Enterbrain', 'RGSS', 'Standard')
 Kernel.GlobalObjects.get_value("ARCed_config").get_section("RTPs").set('RMXP', rtpDir)
-dirName = os.path.dirname(os.path.abspath(__file__))
-editorDir = os.path.split(os.path.split(dirName)[0])[0]
-editorDir = os.path.join(editorDir, 'ARCed', 'src')  
 TEST_PATH = os.path.join(editorDir, "RTP", "Templates", "Default Project", "Default Project.arcproj")
-#TEST_PATH = r"C:\Users\Eric\Desktop\ARC\editor\ARCed Database\ARC TestProject\ARC Test Project.arcproj"
 PAGE_INDEX = 0
 #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
