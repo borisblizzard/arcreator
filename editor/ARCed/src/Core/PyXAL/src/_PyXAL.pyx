@@ -337,7 +337,7 @@ cdef class PyPlayer:
             raise RuntimeError("XAL is not Initialized")
         if self.destroyed:
             raise RuntimeError("the C++ interface for this object has been destroyed")
-        cdef float offset = self._pointer.getOffset()
+        cdef float offset = self._pointer.getPitch()
         return offset
         
     def setPitch(self, float value):
