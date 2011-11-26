@@ -112,6 +112,8 @@ cdef extern from "<xal/Player.h>" namespace "xal":
         
         float getGain() except +
         void setGain(float value) except +
+        float getPitch() except +
+        void setPitch(float value) except +
         float getOffset() except +
         Sound* getSound() except +
         String getName() except +
