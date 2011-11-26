@@ -1,5 +1,4 @@
 - implement MIDI support in XAL
-- implement pitch for audio in XAL
 - test Bitmap::rb_textSize
 - implement font caching for atrestff?
 - implement reading of font files from system directory

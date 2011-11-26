@@ -37,6 +37,8 @@ namespace xal
 
 		float getGain() { return this->gain; }
 		void setGain(float value);
+		float getPitch() { return this->pitch; }
+		void setPitch(float value);
 		float getOffset() { return this->offset; }
 		Sound* getSound() { return this->sound; }
 		hstr getName();
@@ -60,6 +62,7 @@ namespace xal
 
 	protected:
 		float gain;
+		float pitch;
 		bool paused;
 		bool looping;
 		float fadeSpeed;
@@ -86,6 +89,7 @@ namespace xal
 		virtual void _systemPrepareBuffer() { }
 		virtual void _systemUpdateGain() { }
 		virtual void _systemUpdateFadeGain() { }
+		virtual void _systemUpdatePitch() { }
 		virtual void _systemPlay() { }
 		virtual void _systemStop() { }
 		virtual void _systemUpdateStream() { }
