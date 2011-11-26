@@ -19,6 +19,8 @@
 #include "System.h"
 #include "TransitionManager.h"
 
+#define SYSTEM_PATH_BASE "ARC"
+
 namespace zer0
 {
 	System* system = NULL;
@@ -56,7 +58,52 @@ namespace zer0
 		{
 			username += (char)(name[i] > 0x80 ? 0x40 + (name[i] % 26) : name[i]);
 		}
-		path += hsprintf("/%s/%s/%s", "ARC", title.c_str(), username.c_str());
+		path += hsprintf("/%s/%s/%s", SYSTEM_PATH_BASE, title.c_str(), username.c_str());
+#elif defined(__APPLE__)
+		{	// curly braces in order to localize variables
+#if !TARGET_OS_IPHONE
+			// mac
+			NSSearchPathDirectory destDir = NSApplicationSupportDirectory;
+#else
+			// iphone
+			NSSearchPathDirectory destDir = NSApplicationSupportDirectory; // game already released so we cant just move to NSDocumentDirectory
+#endif
+            NSAutoreleasePool *arp = [[NSAutoreleasePool alloc] init]; 
+
+			CFArrayRef destDirArr = (CFArrayRef)NSSearchPathForDirectoriesInDomains(destDir, NSUserDomainMask, YES);
+			CFStringRef destDirPath = (CFStringRef)CFArrayGetValueAtIndex(destDirArr, 0);
+			const char* cpath = NULL; // we will always use getmaximumsizeoffilesystemrepresentation //CFStringGetCStringPtr(destDirPath, kCFStringEncodingUTF8);
+			char* cpath_alloc = 0;
+			if (!cpath)
+			{
+				// CFStringGetCStringPtr is allowed to return NULL. bummer.
+				// we need to use CFStringGetCString instead.
+				int buffersize = CFStringGetMaximumSizeOfFileSystemRepresentation(destDirPath) + 1;
+				cpath_alloc = (char*)malloc(buffersize);
+				CFStringGetFileSystemRepresentation(destDirPath, cpath_alloc, buffersize);
+			}
+			else
+			{
+				// NEVER USED!
+				// even though it didn't return NULL, we still want to slice off bundle name.
+				cpath_alloc = (char*)malloc(strlen(cpath) + 1);
+				strcpy(cpath_alloc, cpath);
+			}
+			path = cpath_alloc;
+			free(cpath_alloc); // even if null, still ok
+			[arp release];
+			
+#ifdef XCODE_CONFIGURATION
+			hstr xcode_configuration(XCODE_CONFIGURATION);
+#else
+			hstr xcode_configuration;
+#endif
+			if (xcode_configuration != "App Store" || hdir::exists(hsprintf("%s/%s/%s", path.c_str(), SYSTEM_PATH_BASE, title.c_str()))
+			{
+				path += hsprintf("/%s", SYSTEM_PATH_BASE);
+			}
+			path += hsprintf("/%s", title.c_str());
+		}
 #endif
 		hdir::create(path);
 		path += "/";
@@ -94,6 +141,14 @@ namespace zer0
 			if (result[CFG_RESOLUTION].split("x").size() != 2)
 			{
 				result[CFG_RESOLUTION] = "640x480";
+			}
+			else
+			{
+				harray<int> resolution = result[CFG_RESOLUTION].split("x").cast<int>();
+				if (resolution[0] <= 0 || resolution[1] <= 0)
+				{
+					result[CFG_RESOLUTION] = "640x480";
+				}
 			}
 			result[CFG_FULLSCREEN] = ((bool)result[CFG_FULLSCREEN] ? "true" : "false");
 		}
