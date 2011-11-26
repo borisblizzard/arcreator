@@ -97,10 +97,11 @@ namespace rgss
 		RB_CHECK_TYPE_1(arg1, rb_cString);
 		hstr filename = StringValueCStr(arg1);
 		int volume = hclamp((NIL_P(arg2) ? 100 : NUM2INT(arg2)), 0, 100);
-		int pitch = hclamp((NIL_P(arg3) ? 100 : NUM2INT(arg3)), 50, 150); // unsupported now
+		int pitch = hclamp((NIL_P(arg3) ? 100 : NUM2INT(arg3)), 50, 150);
 		try
 		{
-			if (bgmPlayer != NULL && (!bgmPlayer->isPlaying() || bgmPlayer->getName() != filename))
+			if (bgmPlayer != NULL && (!bgmPlayer->isPlaying() ||
+				bgmPlayer->getName() != filename || bgmPitch != pitch))
 			{
 				Audio::rb_bgmStop(self);
 			}
@@ -112,6 +113,8 @@ namespace rgss
 			if (bgmPlayer != NULL)
 			{
 				bgmPlayer->setGain(volume / 100.0f);
+				bgmPlayer->setPitch(pitch / 100.0f);
+				bgmPitch = pitch;
 			}
 		}
 		catch (hltypes::exception e)
@@ -167,10 +170,11 @@ namespace rgss
 		RB_CHECK_TYPE_1(arg1, rb_cString);
 		hstr filename = StringValueCStr(arg1);
 		int volume = hclamp((NIL_P(arg2) ? 100 : NUM2INT(arg2)), 0, 100);
-		int pitch = hclamp((NIL_P(arg3) ? 100 : NUM2INT(arg3)), 50, 150); // unsupported now
+		int pitch = hclamp((NIL_P(arg3) ? 100 : NUM2INT(arg3)), 50, 150);
 		try
 		{
-			if (bgsPlayer != NULL && (!bgsPlayer->isPlaying() || bgsPlayer->getName() != filename))
+			if (bgsPlayer != NULL && (!bgsPlayer->isPlaying() ||
+				bgsPlayer->getName() != filename || bgsPitch != pitch))
 			{
 				Audio::rb_bgsStop(self);
 			}
@@ -182,6 +186,8 @@ namespace rgss
 			if (bgsPlayer != NULL)
 			{
 				bgsPlayer->setGain(volume / 100.0f);
+				bgsPlayer->setPitch(pitch / 100.0f);
+				bgsPitch = pitch;
 			}
 		}
 		catch (hltypes::exception e)
@@ -237,7 +243,7 @@ namespace rgss
 		RB_CHECK_TYPE_1(arg1, rb_cString);
 		hstr filename = StringValueCStr(arg1);
 		int volume = hclamp((NIL_P(arg2) ? 100 : NUM2INT(arg2)), 0, 100);
-		int pitch = hclamp((NIL_P(arg3) ? 100 : NUM2INT(arg3)), 50, 150); // unsupported now
+		int pitch = hclamp((NIL_P(arg3) ? 100 : NUM2INT(arg3)), 50, 150);
 		try
 		{
 			if (mePlayer != NULL && (!mePlayer->isPlaying() || mePlayer->getName() != filename))
@@ -252,6 +258,7 @@ namespace rgss
 			if (mePlayer != NULL)
 			{
 				mePlayer->setGain(volume / 100.0f);
+				mePlayer->setPitch(pitch / 100.0f);
 			}
 		}
 		catch (hltypes::exception e)
@@ -307,7 +314,7 @@ namespace rgss
 		RB_CHECK_TYPE_1(arg1, rb_cString);
 		hstr filename = StringValueCStr(arg1);
 		int volume = hclamp((NIL_P(arg2) ? 100 : NUM2INT(arg2)), 0, 100);
-		int pitch = hclamp((NIL_P(arg3) ? 100 : NUM2INT(arg3)), 50, 150); // unsupported now
+		int pitch = hclamp((NIL_P(arg3) ? 100 : NUM2INT(arg3)), 50, 150);
 		// first remove inished players
 		harray<xal::Player*> players = sePlayers;
 		foreach (xal::Player*, it, players)
@@ -323,6 +330,7 @@ namespace rgss
 			xal::Player* player = xal::mgr->createPlayer(filename);
 			player->play();
 			player->setGain(volume / 100.0f);
+			player->setPitch(pitch / 100.0f);
 			sePlayers += player;
 		}
 		catch (hltypes::exception e)
