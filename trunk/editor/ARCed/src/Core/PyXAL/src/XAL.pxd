@@ -89,6 +89,8 @@ cdef extern from "<xal/Sound.h>" namespace "xal":
         Format getFormat() except +
         bool isStreamed() except +
         
+        int readRawData(unsigned char** output) except +
+        
 cdef extern from "<xal/Category.h>" namespace "xal":
 
     cdef cppclass Category:

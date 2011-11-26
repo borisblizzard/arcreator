@@ -1,6 +1,7 @@
 from cython.operator cimport dereference as deref
 from libcpp cimport bool
 from hltypes cimport Array, String
+
 cimport XAL
 
 import os
@@ -20,6 +21,7 @@ cdef XAL.HandlingMode STREAMED = XAL.ON_DEMAND
 
 cdef extern from *:
     ctypedef char* const_char_ptr "const char*"
+    ctypedef unsigned char* const_unsigned_char_ptr "const unsigned char*"
     ctypedef String& chstr "chstr"
     
 cdef str LOG_PATH = ""
@@ -103,7 +105,62 @@ cdef class PySound:
         cdef const_char_ptr name = hl_name.c_str()
         return name
         
+    def getSize(self):
+        if not self.isXALInitialized():
+            raise RuntimeError("XAL is not Initialized")
+        cdef int size = self._pointer.getSize()
+        return size
         
+    def getChannels(self):
+        if not self.isXALInitialized():
+            raise RuntimeError("XAL is not Initialized")
+        cdef int channels = self._pointer.getChannels()
+        return channels
+        
+    def getSamplingRate(self):
+        if not self.isXALInitialized():
+            raise RuntimeError("XAL is not Initialized")
+        cdef int rate = self._pointer.getSamplingRate()
+        return rate
+        
+    def getBitsPerSample(self):
+        if not self.isXALInitialized():
+            raise RuntimeError("XAL is not Initialized")
+        cdef int rate = self._pointer.getBitsPerSample()
+        return rate
+    
+    def getDuration(self):
+        if not self.isXALInitialized():
+            raise RuntimeError("XAL is not Initialized")
+        cdef float duration = self._pointer.getDuration()
+        return duration
+    
+    def getFormat(self):
+        if not self.isXALInitialized():
+            raise RuntimeError("XAL is not Initialized")
+        cdef int format = self._pointer.getFormat()
+        return format
+        
+    def isStreamed(self):
+        if not self.isXALInitialized():
+            raise RuntimeError("XAL is not Initialized")
+        cdef bint streamed = self._pointer.isStreamed()
+        return streamed
+        
+    def readRawData(self):
+        if not self.isXALInitialized():
+            raise RuntimeError("XAL is not Initialized")
+        cdef unsigned char* raw_data
+        cdef int raw_size
+        raw_size = self._pointer.readRawData(&raw_data)
+        cdef char* c_data = ""
+        data = ""
+        if raw_size > 0:
+            c_data = <char*>raw_data
+            data = c_data[:raw_size]
+        return (raw_size, data)
+                
+                
 cdef class PyPlayer:
     
     cdef XAL.Player *_pointer
