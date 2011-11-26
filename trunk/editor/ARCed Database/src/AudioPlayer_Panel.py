@@ -1,212 +1,355 @@
+import os, sys
+import numpy as np
 import wx
 import wx.lib.plot as plot
-import os
-import numpy as np
 import ARCed_Templates
-from DatabaseManager import DatabaseManager as DM
-from pygame import mixer, sndarray
-from Core.RMXP import RGSS1_RPG as RPG
 from Core.Cache import RTPFunctions
-
+from DatabaseManager import DatabaseManager as DM
+from Core.RMXP import RGSS1_RPG as RPG
 import Kernel
+from Kernel import Manager as KM
 
-# Set dummy video driver to prevent malfunction on certain platforms
-os.environ['SDL_VIDEODRIVER'] = 'dummy'
+PyXAL = KM.get_component("PyXAL").object
 
-# List of audio directories that will be read from
+# Simple flag since currently pitch changing is only compatible with DirectSound
+PITCH_ENABLED = sys.platform == 'win32'
+
 if DM.ARC_FORMAT:
-	AUDIO_DIRS = ['BGM',  'BGS', 'Sound'] # or whatever...
+	AUDIO_DIRECTORIES = ['BGM', 'BGS', 'Sound'] # TODO: ?
 else:
-	AUDIO_DIRS = ['BGM',  'BGS', 'SE', 'ME']
+	AUDIO_DIRECTORIES = ['BGM', 'BGS', 'ME', 'SE']
 
-class AudioPlayer_Panel(ARCed_Templates.AudioPlayer_Panel ):
-	def __init__( self, parent, type='BGM', rpgAudio=None ):
+
+class AudioPlayer_Panel( ARCed_Templates.AudioPlayer_Panel ):
+	def __init__( self, parent, rpgfile=None, dir=None ):
+		"""Basic constructor for the AudioPlayer"""
 		ARCed_Templates.AudioPlayer_Panel.__init__( self, parent )
-		"""Basic constructor for the AudioPlayer_Panel"""
 		DM.DrawButtonIcon(self.buttonPlay, 'play_button', True)
 		DM.DrawButtonIcon(self.buttonPause, 'pause_button', True)
 		DM.DrawButtonIcon(self.buttonStop, 'stop_button', True)
-		self.waveFormPanel.canvas.Bind(wx.EVT_ERASE_BACKGROUND, 
-			Kernel.Protect(self.ControlOnEraseBackground))
-		self.SoundFiles = []
-		global dirCount
-		dirCount = len(AUDIO_DIRS)
-		for i in xrange(dirCount):
-			list = RTPFunctions.GetFileList(os.path.join('Audio', AUDIO_DIRS[i]), 'audio')
-			self.SoundFiles.append(SoundFile(AUDIO_DIRS[i], sorted(list)))
+		self.waveFormPanelLeft.canvas.Bind(wx.EVT_ERASE_BACKGROUND, self.ControlOnEraseBackground)
+		self.waveFormPanelRight.canvas.Bind(wx.EVT_ERASE_BACKGROUND, self.ControlOnEraseBackground)
+
+		for dir in AUDIO_DIRECTORIES[1:]:
+			self.notebookAudio.AddPage(wx.Panel(self.notebookAudio), dir)
+
+
+		self.sliderPitch.Enable(PITCH_ENABLED)
 		self.AudioIndex = 0
-		if type in AUDIO_DIRS:
-			self.AudioIndex = AUDIO_DIRS.index(type)
-			self.notebookAudio.SetSelection(self.AudioIndex)
-			if rpgAudio is not None:
-				self.SoundFiles[index].RPGFile = rpgAudio
-		self.RefreshLists()
-		if rpgAudio is not None:
-			self.SetSound(rpgAudio)
-		else:
-			self.DrawSound()
-		mixer.init()
-		mixer.set_num_channels(dirCount)
-		mixer.set_reserved(dirCount)
+		if dir is not None:
+			if dir in AUDIO_DIRECTORIES:
+				self.AudioIndex = 0
+			else:
+				message = str.format("Directory \"{}\" does not exist.", 
+					os.path.join('Audio', dir))
+				raise ValueError(message)
+		self.SetUpXAL()
+		self.Channels = [AudioChannel() for i in AUDIO_DIRECTORIES]
+		if rpgfile is not None:
+			self.Channels[self.AudioIndex]
 
-		self.Timer = wx.Timer(self)
-		self.Bind(wx.EVT_TIMER, self.Update, self.Timer)
-		self.Timer.Start()
 
-		self.StopWatch = wx.StopWatch()
 
-	def Update(self, event):
 
-		pos = self.SoundFiles[self.AudioIndex].GetPosition()
-		self.sliderPosition.SetValue(pos)
+		self.RefreshFileLists()
 		
 
-	def RefreshLists( self ):
-		"""Builds a list of all supported audio files from the local and RTP directories"""	
-		DM.FillWithoutNumber(self.listBoxAudio, [],
-			self.SoundFiles[self.AudioIndex].FileList)
+		
+		
 
-	def SetSound(self, rpgAudioFile ):
-		"""Initializes the mixer and syncs the controls with the settings"""
-		self.labelFileName.SetLabel(rpgAudioFile.name)
-		self.checkBoxRepeat.SetValue(self.SoundFiles[self.AudioIndex].Repeat)
-		self.spinCtrlPitch.SetValue(rpgAudioFile.pitch)
-		self.spinCtrlVolume.SetValue(rpgAudioFile.volume)
-		self.sliderPitch.SetValue(rpgAudioFile.pitch)
-		self.sliderVolume.SetValue(rpgAudioFile.volume)
 
-	def GetVolume( self ):
-		"""Returns the volume as a float in range of 0.0 and 1.0"""
-		return self.spinCtrlVolume.GetValue() / 100.0
+	def SetUpXAL(self): 
+		PyXAL.EnableLogging(True, os.path.abspath("log"))
+		PyXAL.Init(self.GetHandle(), True)
+		print "XAL Setup"
+	
+	def __del__( self ):
+		PyXAL.Destroy()
+		print "XAL Destroyed"
 
-	def GetPitch( self ):
-		"""Returns the pitch as a float in range of 0.5 and 1.5"""
-		return self.spinCtrlPitch.GetValue() / 100.0
+	def Update( self ):
+		print 'Updating'
 
-	def buttonPlay_Clicked( self, event ):
-		"""Begins playback on the selected channel"""
-		index = self.AudioIndex
-		self.SoundFiles[index].Timer.Resume()
-		if self.SoundFiles[self.AudioIndex].Timer.Time() > 0:
-			mixer.Channel(index).unpause()
-		else:
-			# Implement reloading file
-			print 'new'
-			sound = self.SoundFiles[index].Sound
-			if sound is None:
-				return
-			if self.SoundFiles[index].Repeat:
-				mixer.Channel(index).play(sound, -1)
-			else:
-				mixer.Channel(index).play(sound)
-			self.SoundFiles[index].Timer.Start(0)
+	def RefreshFileLists( self ):
+		"""Builds a list of filenames for each type of audio"""
+		self.files = []
+		for dir in AUDIO_DIRECTORIES:
+			folder = os.path.join('Audio', dir)
+			list = ['(None)']
+			list.extend(RTPFunctions.GetFileList(folder, 'audio'))
+			self.files.append(list)
 
-	def buttonPause_Clicked( self, event ):
-		"""Pauses current playback"""
-		mixer.Channel(self.AudioIndex).pause()
-		self.SoundFiles[self.AudioIndex].Timer.Pause()
+	def notebookAudio_PageChanged( self, event ):
+		"""Updates the controls on the page to display the current file, if any"""
+		self.AudioIndex = event.GetSelection()
+		chan = self.Channels[self.AudioIndex]
+		DM.FillWithoutNumber(self.listBoxAudio, [], self.files[self.AudioIndex])
+		if chan.rpgaudio.name != '':
+			index = self.files[self.AudioIndex].index(chan.rpgaudio.name)
+		else: 
+			index = 0
+		self.checkBoxRepeat.SetValue(chan.Repeat)
+		self.labelFileName.SetLabel(self.listBoxAudio.GetString(index))
+		self.listBoxAudio.SetSelection(index)
+		self.sliderVolume.SetValue(chan.rpgaudio.volume)
+		self.sliderPitch.SetValue(chan.rpgaudio.pitch)
+		self.spinCtrlVolume.SetValue(chan.rpgaudio.volume)
+		self.spinCtrlPitch.SetValue(chan.rpgaudio.pitch)
+		self.waveFormPanelLeft.SetSoundArray(chan.LeftChannel)
+		self.waveFormPanelRight.SetSoundArray(chan.RightChannel)
 
-	def buttonStop_Clicked( self, event ):
-		"""Stops playback on the selected channel"""
-		mixer.Channel(self.AudioIndex).stop()
-		self.SoundFiles[self.AudioIndex].Timer.Start(0)
-		self.SoundFiles[self.AudioIndex].Timer.Pause()
 
-	def sliderPosition_Scrolled( self, event ):
-		# TODO: Implement
+	def listBoxAudio_DoubleClick( self, event ):
+		"""Plays the selected file with current settings"""
+		self.PlayFile(event.GetInt())
+	
+	def PlayFile( self, index ):
+		"""Plays the currently selected file"""
+		chan = self.Channels[self.AudioIndex]
+		name = self.listBoxAudio.GetStringSelection()
+		if index == 0 or name not in self.files[self.AudioIndex]:
+			if chan.player is not None:
+				chan.SetFile(RPG.AudioFile(), '')
+			self.waveFormPanelLeft.SetSoundArray(None)
+			self.waveFormPanelRight.SetSoundArray(None)
+			return
+		volume = self.spinCtrlVolume.GetValue()
+		pitch = self.spinCtrlPitch.GetValue()
+		folder = os.path.join('Audio', AUDIO_DIRECTORIES[self.AudioIndex])
+		path = RTPFunctions.FindAudioFile(folder, name)
+		chan.SetFile(RPG.AudioFile(name, volume, pitch), path)
+		chan.Play(chan.Repeat)
+		self.waveFormPanelLeft.SetSoundArray(chan.LeftChannel)
+		self.waveFormPanelRight.SetSoundArray(chan.RightChannel)
+		self.labelFileName.SetLabel(name)
+		del (chan)
+
+	def ControlOnEraseBackground( self, event ):
+		"""Reduces flicker on MSW by doing nothing"""
 		pass
 	
 	def sliderVolume_Scrolled( self, event ):
-		"""Syncs the volume spin control"""
+		"""Sets the volume of the sound. Changes player volume if playing."""
 		self.spinCtrlVolume.SetValue(event.GetInt())
-		self.AdjustVolume()
+		self.Channels[self.AudioIndex].SetVolume(event.GetInt())
 	
 	def spinCtrlVolume_ValueChanged( self, event ):
-		"""Syncs the volume slide control"""
+		"""Sets the volume of the sound. Changes player volume if playing."""
 		self.sliderVolume.SetValue(event.GetInt())
-		self.AdjustVolume()
-
-	def AdjustVolume(self):
-		"""Adjusts volume on the current channel"""
-		volume = self.spinCtrlVolume.GetValue()
-		self.SoundFiles[self.AudioIndex].SetVolume(volume)
-		mixer.Channel(self.AudioIndex).set_volume(volume / 100.0)
+		self.Channels[self.AudioIndex].SetVolume(event.GetInt())
 	
 	def sliderPitch_Scrolled( self, event ):
-		"""Syncs the pitch spin control"""
-		self.spinCtrlPitch.SetValue(event.GetInt())
+		"""Changes the pitch of the sound if PITCH_ENABLED flag is present"""
+		pitch = event.GetInt()
+		self.spinCtrlPitch.SetValue(pitch)
+		self.Channels[self.AudioIndex].SetPitch(pitch)
 	
 	def spinCtrlPitch_ValueChanged( self, event ):
-		"""Syncs the pitch slide control"""
-		self.sliderPitch.SetValue(event.GetInt())
-
-	def notebookAudio_PageChanged( self, event ):
-		"""Updates the list control and the audio file, if any"""
-		self.AudioIndex = index = event.GetSelection()
-		DM.FillWithoutNumber(self.listBoxAudio, [], self.SoundFiles[index].FileList)
-		i = self.SoundFiles[index].GetIndex()
-		self.listBoxAudio.SetSelection(i)
-		self.SetSound(self.SoundFiles[index].RPGFile)
-		self.DrawSound()
-
-	def DrawSound( self ):
-		"""Updates the waveform on the control"""
-		self.waveFormPanel.SetSoundArray(self.SoundFiles[self.AudioIndex].SoundArray)
-
-	def checkBoxRepeat_CheckChanged( self, event ):
-		"""Sets the repeat action for this type of audio"""
-		self.SoundFiles[self.AudioIndex].Repeat = event.Checked()
-
+		"""Changes the pitch of the sound if PITCH_ENABLED flag is present"""
+		pitch = event.GetInt()
+		self.sliderPitch.SetValue(pitch)
+		self.Channels[self.AudioIndex].SetPitch(pitch)
+	
+	def sliderPosition_Scrolled( self, event ):
+		# TODO: Implement seek functions?
+		pass
+	
+	def buttonPlay_Clicked( self, event ):
+		"""Plays the selected file"""
+		index = self.listBoxAudio.GetSelection()
+		if index != -1:
+			self.PlayFile(index)
+	
+	def buttonPause_Clicked( self, event ):
+		"""Pauses playback on the current channel"""
+		chan = self.Channels[self.AudioIndex]
+		if chan.player is not None and chan.player.isPlaying():
+			chan.player.pause()
+	
+	def buttonStop_Clicked( self, event ):
+		"""Stops playback on the current channel"""
+		chan = self.Channels[self.AudioIndex]
+		if chan.player is not None:
+			chan.player.stop()
+	
 	def buttonStopAll_Clicked( self, event ):
 		"""Stops playback on all channels"""
-		mixer.stop()
+		for chan in self.Channels:
+			if chan.player is not None:
+				chan.player.stop()
 
+	def checkBoxRepeat_CheckChanged( self, event ):
+		"""Sets the repeat flag on the current channel"""
+		self.Channels[self.AudioIndex].Repeat = event.Checked()
+	
 	def buttonOK_Clicked( self, event ):
+		# TODO: Implement buttonOK_Clicked
 		pass
-
+	
 	def buttonCancel_Clicked( self, event ):
+		# TODO: Implement buttonCancel_Clicked
 		pass
 
-	def listBoxAudio_DoubleClick( self, event ):
-		"""Begins/restarts playback on the current channel using the selected file"""
-		index = self.AudioIndex
-		folder = os.path.join('Audio', AUDIO_DIRS[index])
-		path = RTPFunctions.FindAudioFile(folder, event.GetString())
-		rpgfile = RPG.AudioFile(event.GetString(), self.spinCtrlVolume.GetValue(),
-			self.spinCtrlPitch.GetValue())
-		self.SoundFiles[index].RPGFile = rpgfile
-		sound = mixer.Sound(path)
 
-		duration = sound.get_length()
-		self.sliderPosition.SetRange(0, duration)
-		self.SoundFiles[index].Duration = duration
-		self.sliderPosition.SetTickFreq(1, 0)
-		y = zip(*sndarray.array(sound))[1]
-		# Cut large files down to a max of 30,000 samples
+class AudioChannel(object):
+
+	def __init__(self):
+		self.player = None
+		self.sound = None
+		self.rpgaudio = RPG.AudioFile()
+		self.LeftChannel = None
+		self.RightChannel = None
+		self.file = None
+		self.Repeat = False
+	
+	def GetPosition( self ):
+		"""Returns the current playback position of the file (if any)"""
+		# TODO: Implement
+		return 0.
+
+	def SetFile( self, rpgfile, filepath ): 
+		self.rpgaudio = rpgfile
+		self.file = str(filepath)
+		if self.sound is not None:
+			PyXAL.Mgr.destroySound(self.sound)
+		if self.player is not None:
+			PyXAL.Mgr.destroyPlayer(self.player)
+		if filepath == '' or rpgfile.name == '':
+			self.sound = self.player = self.RightChannel = self.LeftChannel = None
+			return
+		self.sound = PyXAL.Mgr.createSound(self.file)
+		self.player = PyXAL.Mgr.createPlayer(self.sound)
+		array = self._getsoundarray(self.sound)
+		self.RightChannel = self._shorten_array(array[:, 0])
+		self.LeftChannel = self._shorten_array(array[:, 1])
+		del (array)
+
+	def SetVolume( self, volume ):
+		"""Sets the volume of the audio file"""
+		self.rpgaudio.volume = volume
+		if self.player is not None and self.player.isPlaying():
+			self.player.setGain(volume / 100.0)
+
+	def SetPitch( self, pitch):
+		"""Sets the pitch of the audio file"""
+		if not PITCH_ENABLED:
+			return
+		self.rpgaudio.pitch = pitch
+		if self.player is not None and self.player.isPlaying():
+			self.player.setPitch(pitch / 100.0)
+
+	def GetVolume( self ):
+		"""Returns the current setting for this file's volume"""
+		return self.rpgaudio.volume
+
+	def GetPitch( self ):
+		"""Returns the current setting for this file's pitch"""
+		return self.rpgaudio.pitch
+
+	def GetLength( self ):
+		"""Returns the length of the file, in bytes"""
+		return self._length
+
+	def GetDuration( self ):
+		"""Returns the duration of the current sound, if any"""
+		if self.sound is not None:
+			return self.sound.getDuration()
+		return 0
+
+	def GetChannels( self ):
+		"""Returns the number of channels the sound object has, if any"""
+		if self.sound is not None:
+			return self.sound.getChannels()
+		return 0
+
+	def GetSampleRate( self ):
+		"""Returns the sampling rate of the sound object, if any"""
+		if self.sound is not None:
+			return self.sound.getSamplingRate()
+		return 0
+
+	def _shorten_array(self, y):
+		"""Shortens the number of elements in the sound array if there are too many"""
 		length = len(y)
 		if length > 30000:
 			y = y[::length/30000]
 		x = np.arange(len(y), dtype=int)
-		# SHorten the sample size for the graph if need be
 		if length > 16000:
 			data = np.column_stack((x[::4], y[::4]))
 		elif length > 8000:
 			data = np.column_stack((x[::2], y[::2]))
 		else:
 			data = np.column_stack((x, y))
-		self.SoundFiles[index].SoundArray = data
-		
-		self.SetSound(rpgfile)
-		self.DrawSound()
-		if self.SoundFiles[index].Repeat:
-			mixer.Channel(index).play(sound, -1)
-		else:
-			mixer.Channel(index).play(sound)
-		self.SoundFiles[index].Timer.Start(0)
+		return data
 
-	def ControlOnEraseBackground( self, event ):
-		"""Dummy method to override erase event. Prevents flickering on Windows"""
-		pass
+	def _getsoundarray(self, sound):
+		"""Returns an array of data that represents the sound object"""
+		typecodes = { 8 : np.int8,   # AUDIO_S8
+					  16 : np.int16, # AUDIO_S16
+					  24 : np.int32  # 24 bit integers! oh god!
+					}
+		size, raw_data = self.sound.readRawData()
+		if size > 0:
+			typecode = typecodes[sound.getBitsPerSample()]
+			if sound.getBitsPerSample() == 24: 
+				source = np.fromstring(raw_data, np.int8)
+				if sound.getChannels() > 1: 
+					source = np.resize(source, (len(source)/2, sound.getChannels()))
+					new_size_right = int(len(source[:, 1]) * (1 + 1.0 / 3.0))
+					new_size_left = int(len(source[:, 0]) * (1 + 1.0 / 3.0))
+					target_right = np.zeros(new_size_right, np.int8)
+					target_left = np.zeros(new_size_left, np.int8)
+					target_right[::4] = source[0::3, 1]
+					target_right[1::4] = source[1::3, 1]
+					target_right[3::4] = source[2::3, 1]
+					target_left[::4] = source[0::3, 0]
+					target_left[1::4] = source[2::3, 0]
+					target_left[3::4] = source[1::3, 0]
+					string_right = target_right.tostring()
+					string_left = target_left.tostring()
+					del target_left
+					del target_right
+					del source
+					array_right = np.fromstring(string_right, typecode)
+					array_left = np.fromstring(string_left, typecode)
+					array = np.column_stack((array_right, array_left))
+				else:
+					new_size = int(len(source) * (1 + 1.0 / 3.0))
+					target = np.zeros(new_size, np.int8)
+					target[::4] = source[0::3, 0]
+					target[1::4] = source[2::3, 0]
+					target[3::4] = source[1::3, 0]
+					string = target.tostring()
+					del target
+					del source
+					array = np.fromstring(string, typecode)
+					array = np.column_stack((array, array))
+			else:
+				array = np.fromstring(raw_data, typecode)
+				if sound.getChannels() > 1: # Stereo
+					array = np.resize(array, (len(array)/2, sound.getChannels()))
+				else: # Mono
+					array = np.column_stack((array, array))
+		else: 
+			array = np.zeros((1, 2), dtype=np.int8)
+		del (size)
+		del (raw_data)
+		return array
+
+	def Play( self, loop=False ):
+		if (self.player is not None) and (self.sound is not None):
+			self.player.play(looping=loop)
+			self.player.setGain(self.rpgaudio.volume / 100.0)
+			if PITCH_ENABLED:
+				self.player.setPitch(self.rpgaudio.pitch / 100.0)
+
+	def Pause( self ):
+		if (self.player is not None) and (self.sound is not None):
+			self.player.pause()
+
+	def Stop( self ):
+		if (self.player is not None) and (self.sound is not None):
+			self.player.stop()
 
 #--------------------------------------------------------------------------------------
 # WaveFormPanel
@@ -237,51 +380,8 @@ class WaveFormPanel(plot.PlotCanvas):
 		line = plot.PolyLine(sndarray, colour=self.DrawColor, width=1)
 		gc = plot.PlotGraphics([line])
 		self.Draw(gc)
-
-#--------------------------------------------------------------------------------------
-# SoundFile
-#--------------------------------------------------------------------------------------
-
-class SoundFile(object):
-	def __init__(self, name, filelist):
-		"""Basic constructor for the SoundFile class"""
-		self.name = name
-		self.Repeat = True
-		self.SoundArray = None
-		self.RPGFile = RPG.AudioFile()
-		self.FileList = filelist
-		self.Duration = 0
-		self.Timer = wx.StopWatch()
-
-	def GetVolume( self ):
-		"""Returns the associates RPG.AudioFile's volume"""
-		return self.RPGFile.volume
-
-	def SetVolume( self, volume ):
-		"""Sets the associates RPG.AudioFile's volume"""
-		self.RPGFile.volume = volume
-
-	def GetPitch( self ):
-		"""Returns the associates RPG.AudioFile's pitch"""
-		return self.RPGFile.pitch
-
-	def SetPitch( self, pitch ):
-		"""Sets the associates RPG.AudioFile's pitch"""
-		self.RPGFile.pitch = pitch
-
-	def GetIndex( self, filename=None):
-		"""Returns the index of the associated file in the list"""
-		if filename is None:
-			filename = self.RPGFile.name
-		if filename in self.FileList:
-			return self.FileList.index(filename)
-		return -1
-
-	def GetPosition( self ):
-		"""Returns the position of the song if is playing, else 0"""
-		if self.Duration == 0:
-			return 0
-		if self.Timer.Time() > self.Duration * 1000:
-			self.Timer.Start(0)
-			return 0
-		return (self.Timer.Time() / 1000) % self.Duration
+		del (gc)
+		del (line)
+		del (sndarray)
+	
+	
