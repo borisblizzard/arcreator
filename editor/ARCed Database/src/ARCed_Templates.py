@@ -13925,8 +13925,12 @@ class ExpGraph_Dialog ( wx.Dialog ):
 		
 		sizerClose = wx.BoxSizer( wx.HORIZONTAL )
 		
-		self.buttonClose = wx.Button( self, wx.ID_ANY, u"Close", wx.DefaultPosition, wx.DefaultSize, 0 )
-		sizerClose.Add( self.buttonClose, 0, wx.ALL, 5 )
+		self.buttonOK = wx.Button( self, wx.ID_ANY, u"OK", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.buttonOK.SetDefault() 
+		sizerClose.Add( self.buttonOK, 0, wx.TOP|wx.BOTTOM|wx.LEFT, 5 )
+		
+		self.buttonCancel = wx.Button( self, wx.ID_ANY, u"Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
+		sizerClose.Add( self.buttonCancel, 0, wx.TOP|wx.BOTTOM|wx.RIGHT, 5 )
 		
 		MainSizer.Add( sizerClose, 0, wx.ALIGN_RIGHT, 5 )
 		
@@ -13936,14 +13940,18 @@ class ExpGraph_Dialog ( wx.Dialog ):
 		self.Centre( wx.BOTH )
 		
 		# Connect Events
-		self.buttonClose.Bind( wx.EVT_BUTTON, self.buttonClose_Clicked )
+		self.buttonOK.Bind( wx.EVT_BUTTON, self.buttonOK_Clicked )
+		self.buttonCancel.Bind( wx.EVT_BUTTON, self.buttonCancel_Clicked )
 	
 	def __del__( self ):
 		pass
 	
 	
 	# Virtual event handlers, overide them in your derived class
-	def buttonClose_Clicked( self, event ):
+	def buttonOK_Clicked( self, event ):
+		pass
+	
+	def buttonCancel_Clicked( self, event ):
 		pass
 	
 
@@ -13954,7 +13962,7 @@ class ExpGraph_Dialog ( wx.Dialog ):
 class ExpGrid_Dialog ( wx.Dialog ):
 	
 	def __init__( self, parent ):
-		wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Experience Curve", pos = wx.DefaultPosition, size = wx.Size( 449,460 ), style = wx.DEFAULT_DIALOG_STYLE|wx.RESIZE_BORDER )
+		wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Experience Curve", pos = wx.DefaultPosition, size = wx.Size( 540,496 ), style = wx.DEFAULT_DIALOG_STYLE|wx.RESIZE_BORDER )
 		
 		self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
 		
@@ -13964,10 +13972,10 @@ class ExpGrid_Dialog ( wx.Dialog ):
 		self.panelNextLevel = wx.Panel( self.noteBookExpList, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
 		panelSizerNextLevel = wx.BoxSizer( wx.VERTICAL )
 		
-		self.expGrid = wx.grid.Grid( self.panelNextLevel, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.expGrid = wx.grid.Grid( self.panelNextLevel, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.HSCROLL|wx.VSCROLL )
 		
 		# Grid
-		self.expGrid.CreateGrid( 0, 8 )
+		self.expGrid.CreateGrid( 0, 10 )
 		self.expGrid.EnableEditing( False )
 		self.expGrid.EnableGridLines( False )
 		self.expGrid.EnableDragGridSize( False )
@@ -14006,51 +14014,98 @@ class ExpGrid_Dialog ( wx.Dialog ):
 		
 		MainSizer.Add( self.noteBookExpList, 1, wx.EXPAND |wx.ALL, 5 )
 		
-		sizerControls = wx.BoxSizer( wx.HORIZONTAL )
+		bSizer638 = wx.BoxSizer( wx.HORIZONTAL )
+		
+		sizerControls = wx.BoxSizer( wx.VERTICAL )
 		
 		sizerBasis = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Basis" ), wx.HORIZONTAL )
 		
-		self.sliderBasis = wx.Slider( self, wx.ID_ANY, 35, 10, 50, wx.DefaultPosition, wx.DefaultSize, wx.SL_HORIZONTAL )
+		self.sliderBasis = wx.Slider( self, wx.ID_ANY, 35, 5, 50, wx.DefaultPosition, wx.DefaultSize, wx.SL_HORIZONTAL )
 		sizerBasis.Add( self.sliderBasis, 1, wx.ALL, 5 )
 		
-		self.spinCtrlBasis = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( 60,-1 ), wx.SP_ARROW_KEYS, 10, 50, 35 )
+		self.spinCtrlBasis = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( 60,-1 ), wx.SP_ARROW_KEYS, 5, 50, 35 )
 		sizerBasis.Add( self.spinCtrlBasis, 0, wx.ALL, 5 )
 		
-		sizerControls.Add( sizerBasis, 1, wx.ALL, 5 )
+		sizerControls.Add( sizerBasis, 1, wx.ALL|wx.EXPAND, 5 )
 		
 		sizerInflation = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Inflation" ), wx.HORIZONTAL )
 		
-		self.sliderInflation = wx.Slider( self, wx.ID_ANY, 35, 10, 50, wx.DefaultPosition, wx.DefaultSize, wx.SL_HORIZONTAL )
+		self.sliderInflation = wx.Slider( self, wx.ID_ANY, 35, 5, 50, wx.DefaultPosition, wx.DefaultSize, wx.SL_HORIZONTAL )
 		sizerInflation.Add( self.sliderInflation, 1, wx.ALL, 5 )
 		
-		self.spinCtrlInflation = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( 60,-1 ), wx.SP_ARROW_KEYS, 10, 50, 35 )
+		self.spinCtrlInflation = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( 60,-1 ), wx.SP_ARROW_KEYS, 5, 50, 35 )
 		sizerInflation.Add( self.spinCtrlInflation, 0, wx.ALL, 5 )
 		
-		sizerControls.Add( sizerInflation, 1, wx.ALL, 5 )
+		sizerControls.Add( sizerInflation, 1, wx.ALL|wx.EXPAND, 5 )
 		
-		MainSizer.Add( sizerControls, 0, wx.EXPAND, 5 )
+		bSizer638.Add( sizerControls, 50, wx.EXPAND, 5 )
+		
+		sizerCurveGeneration = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Curve Generation" ), wx.VERTICAL )
+		
+		sizerLabels = wx.BoxSizer( wx.HORIZONTAL )
+		
+		self.labelMinValue = wx.StaticText( self, wx.ID_ANY, u"First Level:", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.labelMinValue.Wrap( -1 )
+		sizerLabels.Add( self.labelMinValue, 30, wx.ALL, 5 )
+		
+		self.labelMaxLevel = wx.StaticText( self, wx.ID_ANY, u"Final Level:", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.labelMaxLevel.Wrap( -1 )
+		sizerLabels.Add( self.labelMaxLevel, 45, wx.ALL, 5 )
+		
+		self.labelSpeed = wx.StaticText( self, wx.ID_ANY, u"Speed:", wx.DefaultPosition, wx.Size( -1,-1 ), 0 )
+		self.labelSpeed.Wrap( -1 )
+		sizerLabels.Add( self.labelSpeed, 25, wx.ALL, 5 )
+		
+		sizerCurveGeneration.Add( sizerLabels, 0, wx.EXPAND, 5 )
+		
+		sizerControls1 = wx.BoxSizer( wx.HORIZONTAL )
+		
+		self.spinCtrlMinValue = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS|wx.SP_WRAP, 0, 2147483647, 0 )
+		self.spinCtrlMinValue.Enable( False )
+		
+		sizerControls1.Add( self.spinCtrlMinValue, 30, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
+		
+		self.spinCtrlMaxValue = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS|wx.SP_WRAP, 0, 2147483647, 0 )
+		self.spinCtrlMaxValue.Enable( False )
+		
+		sizerControls1.Add( self.spinCtrlMaxValue, 45, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
+		
+		from wx.lib.agw.floatspin import FloatSpin
+		self.spinCtrlSpeed = FloatSpin(self)
+		self.spinCtrlSpeed.Enable( False )
+		
+		sizerControls1.Add( self.spinCtrlSpeed, 25, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
+		
+		sizerCurveGeneration.Add( sizerControls1, 1, wx.EXPAND, 5 )
+		
+		self.sliderSpeed = wx.Slider( self, wx.ID_ANY, 0, -10, 10, wx.DefaultPosition, wx.DefaultSize, wx.SL_AUTOTICKS|wx.SL_HORIZONTAL|wx.SL_TOP )
+		self.sliderSpeed.Enable( False )
+		
+		sizerCurveGeneration.Add( self.sliderSpeed, 0, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
+		
+		self.buttonGraphEditor = wx.Button( self, wx.ID_ANY, u"Graph Editor...", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.buttonGraphEditor.Enable( False )
+		
+		sizerCurveGeneration.Add( self.buttonGraphEditor, 0, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
+		
+		bSizer638.Add( sizerCurveGeneration, 50, wx.EXPAND|wx.ALL, 5 )
+		
+		MainSizer.Add( bSizer638, 0, wx.EXPAND, 5 )
 		
 		sizerButtons = wx.BoxSizer( wx.HORIZONTAL )
 		
 		sizerGraphButton = wx.BoxSizer( wx.HORIZONTAL )
 		
-		self.buttonViewGraph = wx.Button( self, wx.ID_ANY, u"View Graph...", wx.DefaultPosition, wx.DefaultSize, 0 )
-		sizerGraphButton.Add( self.buttonViewGraph, 0, wx.ALL, 5 )
+		self.checkBoxCurveGeneration = wx.CheckBox( self, wx.ID_ANY, u"Use Curve Generation", wx.DefaultPosition, wx.DefaultSize, 0 )
+		sizerGraphButton.Add( self.checkBoxCurveGeneration, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
 		
-		self.labelSlope = wx.StaticText( self, wx.ID_ANY, u"Slope:", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.labelSlope.Wrap( -1 )
-		sizerGraphButton.Add( self.labelSlope, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
-		
-		self.spinCtrlSlope = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( 64,-1 ), wx.SP_ARROW_KEYS, 0, 30, 24 )
-		sizerGraphButton.Add( self.spinCtrlSlope, 0, wx.TOP|wx.BOTTOM|wx.RIGHT|wx.ALIGN_CENTER_VERTICAL, 5 )
-		
-		sizerButtons.Add( sizerGraphButton, 1, 0, 5 )
+		sizerButtons.Add( sizerGraphButton, 1, wx.EXPAND, 5 )
 		
 		self.buttonOK = wx.Button( self, wx.ID_ANY, u"OK", wx.DefaultPosition, wx.DefaultSize, 0 )
-		sizerButtons.Add( self.buttonOK, 0, wx.ALL, 5 )
+		sizerButtons.Add( self.buttonOK, 0, wx.TOP|wx.BOTTOM|wx.LEFT, 5 )
 		
 		self.buttonCancel = wx.Button( self, wx.ID_ANY, u"Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
-		sizerButtons.Add( self.buttonCancel, 0, wx.ALL, 5 )
+		sizerButtons.Add( self.buttonCancel, 0, wx.TOP|wx.BOTTOM|wx.RIGHT, 5 )
 		
 		MainSizer.Add( sizerButtons, 0, wx.ALIGN_RIGHT|wx.ALIGN_BOTTOM|wx.EXPAND, 5 )
 		
@@ -14065,8 +14120,11 @@ class ExpGrid_Dialog ( wx.Dialog ):
 		self.spinCtrlBasis.Bind( wx.EVT_SPINCTRL, self.spinCtrlBasis__ValueChanged )
 		self.sliderInflation.Bind( wx.EVT_SCROLL, self.sliderInflation_Scrolled )
 		self.spinCtrlInflation.Bind( wx.EVT_SPINCTRL, self.spinCtrlInflation_ValueChanged )
-		self.buttonViewGraph.Bind( wx.EVT_BUTTON, self.buttonViewGraph_Clicked )
-		self.spinCtrlSlope.Bind( wx.EVT_SPINCTRL, self.spinCtrlSlope_ValueChanged )
+		self.spinCtrlMinValue.Bind( wx.EVT_SPINCTRL, self.spinCtrlMinValue_ValueChanged )
+		self.spinCtrlMaxValue.Bind( wx.EVT_SPINCTRL, self.spinCtrlMaxValue_ValueChanged )
+		self.sliderSpeed.Bind( wx.EVT_SCROLL, self.sliderSpeed_Scrolled )
+		self.buttonGraphEditor.Bind( wx.EVT_BUTTON, self.buttonGraphEditor_Clicked )
+		self.checkBoxCurveGeneration.Bind( wx.EVT_CHECKBOX, self.checkBoxCurveGeneration_CheckChanged )
 		self.buttonOK.Bind( wx.EVT_BUTTON, self.buttonOK_Clicked )
 		self.buttonCancel.Bind( wx.EVT_BUTTON, self.buttonCancel_Clicked )
 	
@@ -14090,10 +14148,19 @@ class ExpGrid_Dialog ( wx.Dialog ):
 	def spinCtrlInflation_ValueChanged( self, event ):
 		pass
 	
-	def buttonViewGraph_Clicked( self, event ):
+	def spinCtrlMinValue_ValueChanged( self, event ):
 		pass
 	
-	def spinCtrlSlope_ValueChanged( self, event ):
+	def spinCtrlMaxValue_ValueChanged( self, event ):
+		pass
+	
+	def sliderSpeed_Scrolled( self, event ):
+		pass
+	
+	def buttonGraphEditor_Clicked( self, event ):
+		pass
+	
+	def checkBoxCurveGeneration_CheckChanged( self, event ):
 		pass
 	
 	def buttonOK_Clicked( self, event ):
