@@ -1,6 +1,5 @@
 
-import sys
-import os
+import sys, os
 dirName = os.path.dirname(os.path.abspath(__file__))
 editorDir = os.path.split(os.path.split(dirName)[0])[0]
 editorDir = os.path.join(editorDir, 'ARCed', 'src')  
@@ -13,7 +12,6 @@ from Kernel import Manager as KM
 Main.ConfigManager.LoadConfig()
 import DatabasePackage
   
-
 #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 # TEST STUFF
 #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -39,22 +37,25 @@ class Test(wx.App):
 	def create_panels(self):
 		
 		nb = wx.Notebook( self.frame )
-		Panels = [None for i in xrange(15)]
-		Panels[0] = ('Actors', 'Actors_Panel')
-		Panels[14] = ('Audio', 'AudioPlayer_Panel')
-		Panels[1] = ('Classes', 'Classes_Panel')
-		Panels[2] = ('Skills', 'Skills_Panel')
-		Panels[3] = ('Items', 'Items_Panel')
-		Panels[4] = ('Weapons', 'Weapons_Panel')
-		Panels[5] = ('Armors', 'Armors_Panel')
-		Panels[6] = ('Enemies', 'Enemies_Panel')
-		Panels[7] = ('Troops', 'Troops_Panel')
-		Panels[8] = ('States', 'States_Panel')
-		Panels[9] = ('Animations', 'Animations_Panel')
-		Panels[10] = ('Tilesets', 'Tilesets_Panel')
-		Panels[11] = ('Common Events', 'CommonEvents_Panel')
-		Panels[12] = ('System', 'System_Panel')
-		Panels[13] = ('Configuration', 'Configuration_Panel')
+
+		Panels = [('Audio', 'AudioPlayer_Panel')]
+
+		#Panels = [None for i in xrange(15)]
+		#Panels[0] = ('Actors', 'Actors_Panel')
+		#Panels[14] = ('Audio', 'AudioPlayer_Panel')
+		#Panels[1] = ('Classes', 'Classes_Panel')
+		#Panels[2] = ('Skills', 'Skills_Panel')
+		#Panels[3] = ('Items', 'Items_Panel')
+		#Panels[4] = ('Weapons', 'Weapons_Panel')
+		#Panels[5] = ('Armors', 'Armors_Panel')
+		#Panels[6] = ('Enemies', 'Enemies_Panel')
+		#Panels[7] = ('Troops', 'Troops_Panel')
+		#Panels[8] = ('States', 'States_Panel')
+		#Panels[9] = ('Animations', 'Animations_Panel')
+		#Panels[10] = ('Tilesets', 'Tilesets_Panel')
+		#Panels[11] = ('Common Events', 'CommonEvents_Panel')
+		#Panels[12] = ('System', 'System_Panel')
+		#Panels[13] = ('Configuration', 'Configuration_Panel')
 
 		for data in Panels:
 			exec('from ' + data[1] + ' import ' + data[1])
