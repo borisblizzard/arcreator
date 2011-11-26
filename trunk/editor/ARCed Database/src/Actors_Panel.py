@@ -4,7 +4,7 @@ Contains the functionality of all the events raised on the Actors Database panel
 import wx
 import wx.lib.plot as plot
 import ARCed_Templates
-import ExpCurve_Dialog
+from ExpGrid_Dialog import ExpGrid_Dialog
 from ChooseGraphic_Dialog import ChooseGraphic_Dialog 
 import numpy as np
 from DatabaseManager import DatabaseManager as DM
@@ -326,7 +326,7 @@ class Actors_Panel(ARCed_Templates.Actors_Panel ):
 	def comboBoxExperience_Click( self, event ):
 		"""Opens window to generate experience tables"""
 		actor = self.SelectedActor
-		dlg = ExpCurve_Dialog.ExpCurve_Dialog(self, actor)
+		dlg = ExpGrid_Dialog(self, actor)
 		if dlg.ShowModal() == wx.ID_OK:
 			# TODO: Fix 'actor' which errors out. Pass the instance to window
 			actor.exp_basis = dlg.spinCtrlBasis.GetValue()

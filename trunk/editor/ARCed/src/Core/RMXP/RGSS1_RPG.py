@@ -36,7 +36,7 @@ class Actor(object):
 	__class_path__ = "RPG::Actor"
 	__instance_variables__ = ['id', 'name', 'class_id', 'initial_level',
 							  'final_level', 'exp_basis', 'exp_inflation',
-							  'exp_slope', 'character_name', 'character_hue',
+							  'exp_list', 'character_name', 'character_hue',
 							  'battler_name', 'battler_hue', 'parameters',
 							  'weapon_id', 'armor1_id', 'armor2_id',
 							  'armor3_id', 'armor4_id', 'armor1_fix',
@@ -49,7 +49,7 @@ class Actor(object):
 		self.final_level = 99
 		self.exp_basis = 30
 		self.exp_inflation = 30
-		self.exp_slope = 24
+		self.exp_list = []
 		self.character_name = ""
 		self.character_hue = 0
 		self.battler_name = ""
