@@ -33,6 +33,10 @@ class AudioPlayer_Panel( ARCed_Templates.AudioPlayer_Panel ):
 		for dir in AUDIO_DIRECTORIES[1:]:
 			self.notebookAudio.AddPage(wx.Panel(self.notebookAudio), dir)
 
+		self.UpdateTimer = wx.Timer(self)
+		self.Bind(wx.EVT_TIMER, self.Update)
+		self.UpdateTimer.Start()
+
 
 		self.sliderPitch.Enable(PITCH_ENABLED)
 		self.AudioIndex = 0
@@ -98,7 +102,6 @@ class AudioPlayer_Panel( ARCed_Templates.AudioPlayer_Panel ):
 		self.waveFormPanelLeft.SetSoundArray(chan.LeftChannel)
 		self.waveFormPanelRight.SetSoundArray(chan.RightChannel)
 
-
 	def listBoxAudio_DoubleClick( self, event ):
 		"""Plays the selected file with current settings"""
 		self.PlayFile(event.GetInt())
@@ -123,10 +126,6 @@ class AudioPlayer_Panel( ARCed_Templates.AudioPlayer_Panel ):
 		self.waveFormPanelRight.SetSoundArray(chan.RightChannel)
 		self.labelFileName.SetLabel(name)
 		del (chan)
-
-	def ControlOnEraseBackground( self, event ):
-		"""Reduces flicker on MSW by doing nothing"""
-		pass
 	
 	def sliderVolume_Scrolled( self, event ):
 		"""Sets the volume of the sound. Changes player volume if playing."""
@@ -182,6 +181,10 @@ class AudioPlayer_Panel( ARCed_Templates.AudioPlayer_Panel ):
 		"""Sets the repeat flag on the current channel"""
 		self.Channels[self.AudioIndex].Repeat = event.Checked()
 	
+	def ControlOnEraseBackground( self, event ):
+		"""Reduces flicker on MSW by doing nothing"""
+		pass
+
 	def buttonOK_Clicked( self, event ):
 		# TODO: Implement buttonOK_Clicked
 		pass
