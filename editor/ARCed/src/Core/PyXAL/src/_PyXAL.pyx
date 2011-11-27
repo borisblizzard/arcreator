@@ -1,4 +1,5 @@
 from cython.operator cimport dereference as deref
+from libc.stdlib cimport free
 from libcpp cimport bool
 from hltypes cimport Array, String
 
@@ -73,13 +74,12 @@ cdef void Log(chstr logMessage):
     cdef const_char_ptr message
     cdef const_char_ptr line_end = "\n"
     message = logMessage.c_str()
-    s = message + line_end
-    message = s
+    pymessage = message + line_end
     if os.path.exists(LOG_PATH):
         try:
             path = os.path.join(LOG_PATH, "XAL.log")
             file = open(path, "ab")
-            file.write(message)
+            file.write(pymessage)
             file.close()
         except Exception:
             pass
@@ -266,12 +266,16 @@ cdef class PySound:
             raise RuntimeError("the C++ interface for this object has been destroyed")
         cdef unsigned char* raw_data
         cdef int raw_size
-        raw_size = self._pointer.readRawData(&raw_data)
         cdef char* c_data = ""
         data = ""
-        if raw_size > 0:
-            c_data = <char*>raw_data
-            data = c_data[:raw_size]
+        try:
+            raw_size = self._pointer.readRawData(&raw_data)
+            if raw_size > 0:
+                c_data = <char*>raw_data
+                data = c_data[:raw_size]
+        finally:
+            free(raw_data)
+            raw_data = NULL
         return (raw_size, data)
                 
                 
@@ -626,7 +630,6 @@ cdef class XALManager:
         clear the XAL interface and reset it to be like it was freshly initialized all current sounds and players become invalid
         '''
         if self.isXALInitialized():
-            print "clear XALManager"
             fade = 0.0
             XAL.mgr.stopAll(fade)
             XAL.mgr.clear()
@@ -662,7 +665,7 @@ cdef class XALManager:
     def createPlayer(self, PySound sound):
         '''
         create a player from a sound object
-        raises a runtime error if XAL failes to creat a player so be sure to put thsi call in a try except block
+        raises a runtime error if XAL fails to creat a player so be sure to put thsi call in a try except block
         
         @param sound: a PySound wrapper to a sound object
         @return: a PyPlayer wraper to the player object
