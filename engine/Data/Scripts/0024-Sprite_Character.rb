@@ -24,8 +24,6 @@ class Sprite_Character < RPG::Sprite
   # * Frame Update
   #--------------------------------------------------------------------------
   def update
-    self.color.set(255, 0, 0, 255)
-    self.tone.set(0, 0, -255, 0)
     super
     # If tile ID, file name, or hue are different from current ones
     if @tile_id != @character.tile_id or

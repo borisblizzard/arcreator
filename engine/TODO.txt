@@ -11,3 +11,5 @@
 - check input problem when holding two directional buttons pressed at the same time (problem with repeat?)
 - add blend_type for Viewport
 - add opacity for Viewport
+- implement xal::Player::getPosition()
+- hide xal::Player::getOffset()
