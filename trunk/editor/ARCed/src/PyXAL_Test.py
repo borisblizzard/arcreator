@@ -111,10 +111,10 @@ class XALTestFrame ( wx.Frame ):
     
     def on_change_file( self, event ):
         self.file = str(self.filepicker.GetPath())
-        if self.sound is not None:
-            PyXAL.Mgr.destroySound(self.sound)
         if self.player is not None:
             PyXAL.Mgr.destroyPlayer(self.player)
+        if self.sound is not None:
+            PyXAL.Mgr.destroySound(self.sound)
         self.sound = PyXAL.Mgr.createSound(self.file)
         self.player = PyXAL.Mgr.createPlayer(self.sound)
         print "XAL opened File"
