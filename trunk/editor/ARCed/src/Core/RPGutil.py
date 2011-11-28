@@ -13,7 +13,6 @@ Tone - contains RGBGr tone data
 import os
 import numpy
 from struct import pack, unpack
-from numpy.oldnumeric.random_array import ArgumentError
 
 #import pygame
 
@@ -25,7 +24,7 @@ class Table(object):
     
     def __init__(self, *args):
         if len(args) != 1 and len(args) != 2 and len(args) != 3:
-            raise ArgumentError("wrong number of arguments (%d for 1, 2 or 3)" % len(args))
+            raise TypeError("wrong number of arguments (%d for 1, 2 or 3)" % len(args))
         self.dim = len(args)
         self.xsize = args[0]
         if len(args) >= 2:
@@ -48,17 +47,17 @@ class Table(object):
     def __getitem__(self, key):
         if isinstance(key, int):
             if self.dim > 1:
-                raise ArgumentError("wrong number of arguments (%d for %d)" % (1, self.dim))
+                raise TypeError("wrong number of arguments (%d for %d)" % (1, self.dim))
         elif len(key) != self.dim:
-            raise ArgumentError("wrong number of arguments (%d for %d)" % (len(key), self.dim))
+            raise TypeError("wrong number of arguments (%d for %d)" % (len(key), self.dim))
         return self._data[key]
 
     def __setitem__(self, key, value):
         if isinstance(key, int):
             if self.dim > 1:
-                raise ArgumentError("wrong number of arguments (%d for %d)" % (1, self.dim))
+                raise TypeError("wrong number of arguments (%d for %d)" % (1, self.dim))
         elif len(key) != self.dim:
-            raise ArgumentError("wrong number of arguments (%d for %d)" % (len(key), self.dim))
+            raise TypeError("wrong number of arguments (%d for %d)" % (len(key), self.dim))
         try:
             self._data[key] = value
         except:
@@ -67,7 +66,7 @@ class Table(object):
     def resize(self, *args):
         # should work to increase and decrease the table size
         if len(args) != self.dim:
-            raise ArgumentError("wrong number of arguments (%d for %d)" % (len(args), self.dim))
+            raise TypeError("wrong number of arguments (%d for %d)" % (len(args), self.dim))
         self.xsize = args[0]
         if len(args) >= 2:
             self.ysize = args[1]

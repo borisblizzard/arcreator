@@ -6,7 +6,7 @@ echo **ARCed Build Operation for Windows**
 echo =====================================
 echo.
 
-python setup.py py2exe
+python build.py py2exe
 
 echo.
 echo ========= Building Compleate =========

@@ -66,6 +66,15 @@ class Target(object):
         self.__dict__.update(kw)
 
 
+def scandirfordll(dir, files=[], paths=[]):
+    for file in os.listdir(dir):
+        path = os.path.join(dir, file)
+        if os.path.isfile(path) and path.endswith(".dll"):
+            paths.append(os.path.abspath(path))
+            files.append(file)
+        elif os.path.isdir(path):
+            scandirfordll(path, files, paths)
+    return files, paths
 
 data_files = []
 
@@ -76,8 +85,11 @@ excludes = ['_gtkagg', '_tkagg', 'bsddb', 'curses', 'email', 'pywin.debugger',
 packages = []
 dll_excludes = ['libgdk-win32-2.0-0.dll', 'libgobject-2.0-0.dll', 'tcl84.dll',
                 'tk84.dll',
-                'MSVCP90.dll', 'mswsock.dll', 'powrprof.dll', 
-                'libhltypes.dll', 'libogg.dll', 'libvorbis.dll', 'libvorbisfile.dll', 'libxal.dll']
+                'MSVCP90.dll', 'mswsock.dll', 'powrprof.dll',]
+extra_dlls, extra_dll_paths = scandirfordll("Core")
+print extra_dlls
+dll_excludes.extend(extra_dlls)
+
 icon_resources = [(0, 'icon.ico')]
 bitmap_resources = []
 other_resources = []
@@ -146,3 +158,15 @@ setup(
     console = [PyXALTargert],
     windows = [ARCedTarget, maptestTargert, ]
     )
+    
+
+def movePaths(paths, dest):
+    for path in paths:
+        name = os.path.split(path)[1]
+        to = os.path.abspath(os.path.join(dest, name))
+        print "Moving %s  to => %s" % (path, to)
+        shutil.copyfile(path, to)
+
+print "======Moving extra dlls==========" 
+movePaths(extra_dll_paths, "dist")
+        

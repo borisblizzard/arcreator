@@ -41,6 +41,7 @@ class TableEditAction(Actions.ActionTemplate):
             return self.normal_apply()
         
     def resize_apply(self):
+        global ArgumentError
         shape = self.data['shape']
         if len(shape) != len(self.table.getShape()):
             raise ArgumentError("new dimension and table old dimension must be the same (%d for %d)" % (len(shape), len(self.table.getShape())))
@@ -311,7 +312,7 @@ class ArmorEditAction(Actions.ActionTemplate):
                     if armor is not None:
                         if self.data.has_key("id"):
                             self.old_data["id"] = armor.id
-                            actor.id = self.data["id"]
+                            armor.id = self.data["id"]
                         if self.data.has_key("name"):
                             self.old_data["name"] = armor.name
                             armor.name = self.data["name"]
@@ -373,12 +374,12 @@ class ArmorEditAction(Actions.ActionTemplate):
             project = Kernel.GlobalObjects.get_value("PROJECT")
             if project is not None:
                 armors = project.getData("Armors")
-                if classes is not None:
+                if armors is not None:
                     armor = armors[self.id]
                     if armor is not None:
                         if self.old_data.has_key("id"):
                             self.data["id"] = armor.id
-                            actor.id = self.old_data["id"]
+                            armor.id = self.old_data["id"]
                         if self.old_data.has_key("name"):
                             self.data["name"] = armor.name
                             armor.name = self.old_data["name"]
@@ -654,10 +655,10 @@ class ClassEditAction(Actions.ActionTemplate):
                             self.learnings_action = LearningsEditAction(self.id, data={"learnings" : self.data["learnings"]}, sub_action=True)
                             self.learnings_action.apply()
                         if self.data.has_key("element_ranks"):
-                            self.element_ranks_action = TableEditAction(actor.element_ranks, self.data["element_ranks"], sub_action = True)
+                            self.element_ranks_action = TableEditAction(klass.element_ranks, self.data["element_ranks"], sub_action = True)
                             self.element_ranks_action.apply()
                         if self.data.has_key("state_ranks"):
-                            self.state_ranks_action = TableEditAction(actor.state_ranks, self.data["state_ranks"], sub_action = True)
+                            self.state_ranks_action = TableEditAction(klass.state_ranks, self.data["state_ranks"], sub_action = True)
                             self.state_ranks_action.apply()
                         return True
                     else:

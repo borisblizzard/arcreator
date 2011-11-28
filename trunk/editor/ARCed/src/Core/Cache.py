@@ -134,7 +134,7 @@ class ImageFunctions(object):
 
     @staticmethod
     def PilImageToWxImage(pilImage, copyAlpha=True):
-
+        global wx
         hasAlpha = pilImage.mode[-1] == 'A'
         if copyAlpha and hasAlpha:  # Make sure there is an alpha layer copy.
             wxImage = wx.EmptyImage(*pilImage.size)

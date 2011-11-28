@@ -18,7 +18,7 @@ class NewProjectDialog(wx.Dialog):
         #(500, 170)
         pre = wx.PreDialog()
         pre.SetExtraStyle(wx.DIALOG_EX_CONTEXTHELP)
-        pre.Create(parent, title=u"New ARCed Project", size=wx.DefaultSize,
+        pre.Create(parent, title="New ARCed Project", size=wx.DefaultSize,
                    style=wx.CLOSE_BOX | wx.DEFAULT_DIALOG_STYLE)
         #post create
         self.PostCreate(pre)
@@ -58,16 +58,16 @@ class NewProjectDialog(wx.Dialog):
 
         nameSizer = wx.BoxSizer(wx.VERTICAL)
 
-        self.nameText = wx.StaticText(self, wx.ID_ANY, u"Project Name:",
+        self.nameText = wx.StaticText(self, wx.ID_ANY, "Project Name:",
                                       wx.DefaultPosition, wx.DefaultSize, 0)
         self.nameText.Wrap(-1)
-        self.nameText.SetHelpText(u"The name of the project.")
+        self.nameText.SetHelpText("The name of the project.")
 
         nameSizer.Add(self.nameText, 0, wx.ALL, 5)
 
         self.nameTextCtrl = wx.TextCtrl(self, wx.ID_ANY, wx.EmptyString,
                                         wx.DefaultPosition, (-1, -1), 0)
-        self.nameTextCtrl.SetHelpText(u"The name of the project.")
+        self.nameTextCtrl.SetHelpText("The name of the project.")
 
         nameSizer.Add(self.nameTextCtrl, 0, wx.ALL | wx.EXPAND, 5)
 
@@ -79,18 +79,18 @@ class NewProjectDialog(wx.Dialog):
 
         folderSizer = wx.BoxSizer(wx.VERTICAL)
 
-        self.folderText = wx.StaticText(self, wx.ID_ANY, u"Project Folder:",
+        self.folderText = wx.StaticText(self, wx.ID_ANY, "Project Folder:",
                                            wx.DefaultPosition, wx.DefaultSize,
                                            0)
         self.folderText.Wrap(-1)
-        self.folderText.SetHelpText(u"The name of the folder the project will " \
+        self.folderText.SetHelpText("The name of the folder the project will " \
                                       "be created in.")
 
         folderSizer.Add(self.folderText, 0, wx.ALL, 5)
 
         self.folderTextCtrl = wx.TextCtrl(self, wx.ID_ANY, wx.EmptyString,
                                             wx.DefaultPosition, wx.DefaultSize, 0)
-        self.folderTextCtrl.SetHelpText(u"The name of the folder the project will " \
+        self.folderTextCtrl.SetHelpText("The name of the folder the project will " \
                                       "be created in.")
         self.folderTextCtrl.SetValue(os.path.split(self.location)[1])
 
@@ -100,11 +100,11 @@ class NewProjectDialog(wx.Dialog):
 
         locationSizer = wx.BoxSizer(wx.VERTICAL)
 
-        self.locationText = wx.StaticText(self, wx.ID_ANY, u"Project Location:",
+        self.locationText = wx.StaticText(self, wx.ID_ANY, "Project Location:",
                                            wx.DefaultPosition, wx.DefaultSize,
                                            0)
         self.locationText.Wrap(-1)
-        self.locationText.SetHelpText(u"The location in which the project will " \
+        self.locationText.SetHelpText("The location in which the project will " \
                                       "be created.")
 
         locationSizer.Add(self.locationText, 0, wx.ALL, 5)
@@ -113,15 +113,15 @@ class NewProjectDialog(wx.Dialog):
 
         self.locationTextCtrl = wx.TextCtrl(self, wx.ID_ANY, wx.EmptyString,
                                             wx.DefaultPosition, (300, -1), 0)
-        self.locationTextCtrl.SetHelpText(u"The location in which the project " \
+        self.locationTextCtrl.SetHelpText("The location in which the project " \
                                          "will be created.")
         self.locationTextCtrl.SetValue(self.location)
 
         locationCtrlBtnSizer.Add(self.locationTextCtrl, 4, wx.ALL, 5)
 
-        self.folderBtn = wx.Button(self, wx.ID_ANY, u"...", wx.DefaultPosition,
+        self.folderBtn = wx.Button(self, wx.ID_ANY, "...", wx.DefaultPosition,
                                    (25, -1), 0)
-        self.folderBtn.SetHelpText(u"Open a dialog to select the folder.")
+        self.folderBtn.SetHelpText("Open a dialog to select the folder.")
 
         locationCtrlBtnSizer.Add(self.folderBtn, 0, wx.ALL, 5)
 

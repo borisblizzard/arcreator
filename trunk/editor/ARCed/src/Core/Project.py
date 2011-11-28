@@ -77,7 +77,7 @@ class Project(object):
         
     def setChangedInfo(self, key, value):
         if self._info.has_key(key.lower()):
-            self._info[keykey.lower()][0] = value
+            self._info[key.lower()][0] = value
         else:
             Kernel.Log("Info key %s does not exist. change flag not set" % key, "[Project]")
     

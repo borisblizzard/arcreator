@@ -39,7 +39,7 @@ def NewProject(mainwindow):
         if Kernel.GlobalObjects.has_key("PROJECT"):
             Kernel.GlobalObjects.set_value("PROJECT", projectcreator.getProject())
         else:
-            Kernel.GlobalObjects.request_new_key("PROJECT", "CORE", projectcreatorgetProject())
+            Kernel.GlobalObjects.request_new_key("PROJECT", "CORE", projectcreator.getProject())
         #set the project title
         if Kernel.GlobalObjects.has_key("Title"):
             Kernel.GlobalObjects.set_value("Title", name)
