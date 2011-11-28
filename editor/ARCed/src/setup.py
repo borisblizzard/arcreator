@@ -76,7 +76,8 @@ excludes = ['_gtkagg', '_tkagg', 'bsddb', 'curses', 'email', 'pywin.debugger',
 packages = []
 dll_excludes = ['libgdk-win32-2.0-0.dll', 'libgobject-2.0-0.dll', 'tcl84.dll',
                 'tk84.dll',
-                'MSVCP90.dll', 'mswsock.dll', 'powrprof.dll']
+                'MSVCP90.dll', 'mswsock.dll', 'powrprof.dll', 
+                'libhltypes.dll', 'libogg.dll', 'libvorbis.dll', 'libvorbisfile.dll', 'libxal.dll']
 icon_resources = [(0, 'icon.ico')]
 bitmap_resources = []
 other_resources = []
@@ -108,6 +109,19 @@ maptestTargert = Target(
     copyright = "© 2011 ARC Developers arc@chaos-project.com",
     name = "ARCed (Advanced RPG Creator Editor)"
     )
+    
+PyXALTargert = Target(
+    # what to build
+    script = "PyXAL_Test.py",
+    icon_resources = icon_resources,
+    bitmap_resources = bitmap_resources,
+    other_resources = other_resources,
+    dest_base = "PyXAL Test",
+    version = "0.6.1.469",
+    company_name = "ARC Developers",
+    copyright = "© 2011 ARC Developers arc@chaos-project.com",
+    name = "ARCed (Advanced RPG Creator Editor)"
+    )
 
 setup(
 
@@ -129,6 +143,6 @@ setup(
               },
 
     zipfile = None,
-    console = [],
-    windows = [ARCedTarget, maptestTargert]
+    console = [PyXALTargert],
+    windows = [ARCedTarget, maptestTargert, ]
     )
