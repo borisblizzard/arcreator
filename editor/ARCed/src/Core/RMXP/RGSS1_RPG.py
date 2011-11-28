@@ -32,9 +32,9 @@ import gc
 
 from Core.RPGutil import Table, Color, Tone
 
-class Actor(object):
-	__class_path__ = "RPG::Actor"
-	__instance_variables__ = ['id', 'name', 'class_id', 'initial_level',
+class _Actor(object):
+	_arc_class_path = "RPG::Actor"
+	_arc_instance_variables = ['id', 'name', 'class_id', 'initial_level',
 							  'final_level', 'exp_basis', 'exp_inflation',
 							  'exp_list', 'character_name', 'character_hue',
 							  'battler_name', 'battler_hue', 'parameters',
@@ -74,9 +74,9 @@ class Actor(object):
 		self.armor4_fix = False
 		self.note = ''
 
-class Animation(object):
-	__class_path__ = "RPG::Animation"
-	__instance_variables__ = ['id', 'name', 'animation_name',
+class _Animation(object):
+	_arc_class_path = "RPG::Animation"
+	_arc_instance_variables = ['id', 'name', 'animation_name',
 							  'animation_hue', 'position', 'frame_max',
 							  'frames', 'timings']
 
@@ -90,16 +90,16 @@ class Animation(object):
 		self.frames = [RPG.Animation.Frame()]
 		self.timings = []
 
-class Frame(object):
-	__class_path__ = "RPG::Animation::Frame"
-	__instance_variables__ = ['cell_max', 'cell_data']
+class _Frame(object):
+	_arc_class_path = "RPG::Animation::Frame"
+	_arc_instance_variables = ['cell_max', 'cell_data']
 	def __init__(self):
 		self.cell_max = 0
 		self.cell_data = Table(0, 0)
 
-class Timing(object):
-	__class_path__ = "RPG::Animation::Timing"
-	__instance_variables__ = ['frame', 'se', 'flash_scope',
+class _Timing(object):
+	_arc_class_path = "RPG::Animation::Timing"
+	_arc_instance_variables = ['frame', 'se', 'flash_scope',
 							 'flash_color', 'flash_duration',
 							 'condition']
 	def __init__(self):
@@ -110,9 +110,9 @@ class Timing(object):
 		self.flash_duration = 5
 		self.condition = 0
 
-class Armor(object):
-	__class_path__ = "RPG::Armor"
-	__instance_variables__ = ['id', 'name', 'icon_name', 'description',
+class _Armor(object):
+	_arc_class_path = "RPG::Armor"
+	_arc_instance_variables = ['id', 'name', 'icon_name', 'description',
 							  'kind', 'auto_state_id', 'price', 'pdef',
 							  'mdef', 'eva', 'str_plus', 'dex_plus',
 							  'agi_plus', 'int_plus', 'guard_element_set',
@@ -136,17 +136,17 @@ class Armor(object):
 		self.guard_state_set = []
 		self.note = ''
 
-class AudioFile(object):
-	__class_path__ = "RPG::AudioFile"
-	__instance_variables__ = ['name', 'volume', 'pitch']
+class _AudioFile(object):
+	_arc_class_path = "RPG::AudioFile"
+	_arc_instance_variables = ['name', 'volume', 'pitch']
 	def __init__(self, name="", volume=100, pitch=100):
 		self.name = name
 		self.volume = volume
 		self.pitch = pitch
 
-class Class(object):
-	__class_path__ = "RPG::Class"
-	__instance_variables__ = ['id', 'name', 'position', 'weapon_set',
+class _Class(object):
+	_arc_class_path = "RPG::Class"
+	_arc_instance_variables = ['id', 'name', 'position', 'weapon_set',
 							 'armor_set', 'element_ranks', 'state_ranks',
 							 'learnings', 'note']
 	def __init__(self):
@@ -160,16 +160,16 @@ class Class(object):
 		self.learnings = []
 		self.note = ''
 
-class Learning(object):
-	__class_path__ = "RPG::Class::Learning"
-	__instance_variables__ = ['level', 'skill_id']
+class _Learning(object):
+	_arc_class_path = "RPG::Class::Learning"
+	_arc_instance_variables = ['level', 'skill_id']
 	def __init__(self):
 		self.level = 1
 		self.skill_id = 1
 
-class CommonEvent(object):
-	__class_path__ = "RPG::CommonEvent"
-	__instance_variables__ = ['id', 'name', 'trigger', 'switch_id', 'list']
+class _CommonEvent(object):
+	_arc_class_path = "RPG::CommonEvent"
+	_arc_instance_variables = ['id', 'name', 'trigger', 'switch_id', 'list']
 	def __init__(self):
 		self.id = 0
 		self.name = ""
@@ -177,9 +177,9 @@ class CommonEvent(object):
 		self.switch_id = 1
 		self.list = [RPG.EventCommand()]
 
-class Enemy(object):
-	__class_path__ = "RPG::Enemy"
-	__instance_variables__ = ['id', 'name', 'battler_name', 'battler_hue',
+class _Enemy(object):
+	_arc_class_path = "RPG::Enemy"
+	_arc_instance_variables = ['id', 'name', 'battler_name', 'battler_hue',
 							 'maxhp', 'maxsp', 'str', 'dex', 'agi', 'int',
 							 'atk', 'pdef', 'mdef', 'eva', 'animation1_id',
 							 'animation2_id', 'element_ranks',
@@ -214,9 +214,9 @@ class Enemy(object):
 		self.treasure_prob = 100
 		self.note = ''
 
-class Action(object):
-	__class_path__ = "RPG::Enemy::Action"
-	__instance_variables__ = ['kind', 'basic', 'skill_id',
+class _Action(object):
+	_arc_class_path = "RPG::Enemy::Action"
+	_arc_instance_variables = ['kind', 'basic', 'skill_id',
 							 'condition_turn_a', 'condition_turn_b',
 							 'condition_hp', 'condition_level',
 							 'condition_switch_id', 'rating']
@@ -231,9 +231,9 @@ class Action(object):
 		self.condition_switch_id = 0
 		self.rating = 5
 
-class Event(object):
-	__class_path__ = "RPG::Event"
-	__instance_variables__ = ['id', 'name', 'x', 'y', 'pages']
+class _Event(object):
+	_arc_class_path = "RPG::Event"
+	_arc_instance_variables = ['id', 'name', 'x', 'y', 'pages']
 	def __init__(self, x=0, y=0):
 		self.id = 0
 		self.name = ""
@@ -241,9 +241,9 @@ class Event(object):
 		self.y = y
 		self.pages = [RPG.Event.Page()]
 
-class EventPage(object):
-	__class_path__ = "RPG::Event::Page"
-	__instance_variables__ = ['condition', 'graphic', 'move_type',
+class _EventPage(object):
+	_arc_class_path = "RPG::Event::Page"
+	_arc_instance_variables = ['condition', 'graphic', 'move_type',
 							 'move_speed', 'move_frequency',
 							 'move_route', 'walk_anime', 'step_anime',
 							 'direction_fix', 'through',
@@ -263,9 +263,9 @@ class EventPage(object):
 		self.trigger = 0
 		self.list = [RPG.EventCommand()]
 
-class EventCondition(object):
-	__class_path__ = "RPG::Event::Page::Condition"
-	__instance_variables__ = ['switch1_valid', 'switch2_valid',
+class _EventCondition(object):
+	_arc_class_path = "RPG::Event::Page::Condition"
+	_arc_instance_variables = ['switch1_valid', 'switch2_valid',
 							 'variable_valid', 'self_switch_valid',
 							 'switch1_id', 'switch2_id',
 							 'variable_id', 'variable_value',
@@ -281,9 +281,9 @@ class EventCondition(object):
 		self.variable_value = 0
 		self.self_switch_ch = "A"
 
-class EventGraphic(object):
-	__class_path__ = "RPG::Event::Page::Graphic"
-	__instance_variables__ = ['tile_id', 'character_name',
+class _EventGraphic(object):
+	_arc_class_path = "RPG::Event::Page::Graphic"
+	_arc_instance_variables = ['tile_id', 'character_name',
 							 'character_hue', 'direction',
 							 'pattern', 'opacity', 'blend_type']
 	def __init__(self):
@@ -295,17 +295,17 @@ class EventGraphic(object):
 		self.opacity = 255
 		self.blend_type = 0
 
-class EventCommand(object):
-	__class_path__ = "RPG::EventCommand"
-	__instance_variables__ = ['code', 'indent', 'parameters']
+class _EventCommand(object):
+	_arc_class_path = "RPG::EventCommand"
+	_arc_instance_variables = ['code', 'indent', 'parameters']
 	def __init__(self, code=0, indent=0, parameters=[]):
 		self.code = code
 		self.indent = indent
 		self.parameters = parameters
 
-class Item(object):
-	__class_path__ = "RPG::Item"
-	__instance_variables__ = ['id', 'name', 'icon_name', 'description',
+class _Item(object):
+	_arc_class_path = "RPG::Item"
+	_arc_instance_variables = ['id', 'name', 'icon_name', 'description',
 							 'scope', 'occasion', 'animation1_id',
 							 'animation2_id', 'menu_se', 'common_event_id',
 							 'price', 'consumable', 'parameter_type',
@@ -342,9 +342,9 @@ class Item(object):
 		self.minus_state_set = []
 		self.note = ''
 
-class Map(object):
-	__class_path__ = "RPG::Map"
-	__instance_variables__ = ['tileset_id', 'width', 'height',
+class _Map(object):
+	_arc_class_path = "RPG::Map"
+	_arc_instance_variables = ['tileset_id', 'width', 'height',
 							 'autoplay_bgm', 'bgs', 'encounter_list',
 							 'encounter_step', 'data', 'events']
 	def __init__(self, width=20, height=15):
@@ -360,9 +360,9 @@ class Map(object):
 		self.data = Table(width, height, 3)
 		self.events = {}
 
-class MapInfo(object):
-	__class_path__ = "RPG::MapInfo"
-	__instance_variables__ = ['name', 'parent_id', 'order', 'expanded',
+class _MapInfo(object):
+	_arc_class_path = "RPG::MapInfo"
+	_arc_instance_variables = ['name', 'parent_id', 'order', 'expanded',
 							 'scroll_x', 'scroll_y']
 	def __init__(self):
 		self.name = ""
@@ -372,24 +372,24 @@ class MapInfo(object):
 		self.scroll_x = 0
 		self.scroll_y = 0
 
-class MoveCommand(object):
-	__class_path__ = "RPG::MoveCommand"
-	__instance_variables__ = ['code', 'parameters']
+class _MoveCommand(object):
+	_arc_class_path = "RPG::MoveCommand"
+	_arc_instance_variables = ['code', 'parameters']
 	def __init__(self, code=0, parameters=[]):
 		self.code = code
 		self.parameters = parameters
 
-class MoveRoute(object):
-	__class_path__ = "RPG::MoveRoute"
-	__instance_variables__ = ['repeat', 'skippable', 'list']
+class _MoveRoute(object):
+	_arc_class_path = "RPG::MoveRoute"
+	_arc_instance_variables = ['repeat', 'skippable', 'list']
 	def __init__(self):
 		self.repeat = True
 		self.skippable = False
 		self.list = [RPG.MoveCommand()]
 
-class Skill(object):
-	__class_path__ = "RPG::Skill"
-	__instance_variables__ = ['id', 'name', 'icon_name', 'description',
+class _Skill(object):
+	_arc_class_path = "RPG::Skill"
+	_arc_instance_variables = ['id', 'name', 'icon_name', 'description',
 							 'scope', 'occasion', 'animation1_id',
 							 'animation2_id', 'menu_se', 'common_event_id',
 							 'sp_cost', 'power', 'atk_f', 'eva_f', 'str_f',
@@ -424,9 +424,9 @@ class Skill(object):
 		self.minus_state_set = []
 		self.note = ''
 
-class State(object):
-	__class_path__ = "RPG::State"
-	__instance_variables__ = ['id', 'name', 'animation_id', 'restriction',
+class _State(object):
+	_arc_class_path = "RPG::State"
+	_arc_instance_variables = ['id', 'name', 'animation_id', 'restriction',
 							 'nonresistance', 'zero_hp', 'cant_get_exp',
 							 'cant_evade', 'slip_damage', 'rating',
 							 'hit_rate', 'maxhp_rate', 'maxsp_rate',
@@ -467,9 +467,9 @@ class State(object):
 		self.minus_state_set = []
 		self.note = ''
 
-class System(object):
-	__class_path__ = "RPG::System"
-	__instance_variables__ = ['magic_number', 'party_members', 'elements',
+class _System(object):
+	_arc_class_path = "RPG::System"
+	_arc_instance_variables = ['magic_number', 'party_members', 'elements',
 							 'switches', 'variables', 'windowskin_name',
 							 'title_name', 'gameover_name',
 							 'battle_transition', 'title_bgm',
@@ -518,9 +518,9 @@ class System(object):
 		self.battler_hue = 0
 		self.edit_map_id = 1
 
-class TestBattler(object):
-	__class_path__ = "RPG::System::TestBattler"
-	__instance_variables__ = ['actor_id', 'level', 'weapon_id',
+class _TestBattler(object):
+	_arc_class_path = "RPG::System::TestBattler"
+	_arc_instance_variables = ['actor_id', 'level', 'weapon_id',
 						 'armor1_id', 'armor2_id', 'armor3_id',
 						 'armor4_id']
 	def __init__(self):
@@ -532,9 +532,9 @@ class TestBattler(object):
 		self.armor3_id = 0
 		self.armor4_id = 0
 
-class Words(object):
-	__class_path__ = "RPG::Words"
-	__instance_variables__ = ['gold', 'hp', 'sp', 'str', 'dex', 'agi',
+class _Words(object):
+	_arc_class_path = "RPG::Words"
+	_arc_instance_variables = ['gold', 'hp', 'sp', 'str', 'dex', 'agi',
 							'int', 'atk', 'pdef', 'mdef', 'weapon',
 							'armor1', 'armor2', 'armor3', 'armor4',
 							'attack', 'skill', 'guard', 'item', 'equip']
@@ -560,9 +560,9 @@ class Words(object):
 		self.item = ""
 		self.equip = ""
 
-class Tileset(object):
-	__class_path__ = "RPG::Tileset"
-	__instance_variables__ = ['id', 'name', 'tileset_name',
+class _Tileset(object):
+	_arc_class_path = "RPG::Tileset"
+	_arc_instance_variables = ['id', 'name', 'tileset_name',
 							 'autotile_names', 'panorama_name',
 							 'panorama_hue', 'fog_name', 'fog_hue',
 							 'fog_opacity', 'fog_blend_type', 'fog_zoom',
@@ -588,9 +588,9 @@ class Tileset(object):
 		self.priorities[0] = 5
 		self.terrain_tags = Table(384)
 
-class Troop(object):
-	__class_path__ = "RPG::Troop"
-	__instance_variables__ = ['id', 'name', 'members', 'pages', 'note']
+class _Troop(object):
+	_arc_class_path = "RPG::Troop"
+	_arc_instance_variables = ['id', 'name', 'members', 'pages', 'note']
 	def __init__(self):
 		self.id = 0
 		self.name = ""
@@ -598,17 +598,17 @@ class Troop(object):
 		self.pages = [RPG.Troop.Page()]
 		self.note = ''
 
-class TroopPage(object):
-	__class_path__ = "RPG::Troop::Page"
-	__instance_variables__ = ['span', 'list']
+class _TroopPage(object):
+	_arc_class_path = "RPG::Troop::Page"
+	_arc_instance_variables = ['span', 'list']
 	def __init__(self):
 		self.condition = RPG.Troop.Page.Condition()
 		self.span = 0
 		self.list = [RPG.EventCommand()]
 
-class TroopCondition(object):
-	__class_path__ = "RPG::Troop::Page::Condition"
-	__instance_variables__ = ['turn_valid', 'enemy_valid',
+class _TroopCondition(object):
+	_arc_class_path = "RPG::Troop::Page::Condition"
+	_arc_instance_variables = ['turn_valid', 'enemy_valid',
 							 'actor_valid', 'switch_valid',
 							 'turn_a', 'turn_b', 'enemy_index',
 							 'enemy_hp', 'actor_id', 'actor_hp',
@@ -626,9 +626,9 @@ class TroopCondition(object):
 		self.actor_hp = 50
 		self.switch_id = 1
 
-class Member(object):
-	__class_path__ = "RPG::Troop::Member"
-	__instance_variables__ = ['enemy_id', 'x', 'y', 'hidden', 'immortal']
+class _Member(object):
+	_arc_class_path = "RPG::Troop::Member"
+	_arc_instance_variables = ['enemy_id', 'x', 'y', 'hidden', 'immortal']
 	def __init__(self):
 		self.enemy_id = 1
 		self.x = 0
@@ -636,9 +636,9 @@ class Member(object):
 		self.hidden = False
 		self.immortal = False
 
-class Weapon(object):
-	__class_path__ = "RPG::Weapon"
-	__instance_variables__ = ['id', 'name', 'icon_name', 'description',
+class _Weapon(object):
+	_arc_class_path = "RPG::Weapon"
+	_arc_instance_variables = ['id', 'name', 'icon_name', 'description',
 							 'animation1_id', 'animation2_id', 'price',
 							 'atk', 'pdef', 'mdef', 'str_plus', 'dex_plus',
 							 'agi_plus', 'int_plus', 'element_set',
@@ -664,39 +664,39 @@ class Weapon(object):
 		self.note = ''
 
 class RPG(object):
-	__class_path__ = "RPG"
-	Actor = Actor
-	Animation = Animation
-	Animation.Frame = Frame
-	Animation.Timing = Timing
-	Armor = Armor
-	AudioFile = AudioFile
-	Weapon = Weapon
-	Troop = Troop
-	Troop.Member = Member
-	Troop.Page = TroopPage
-	Troop.Page.Condition = TroopCondition
-	Tileset = Tileset
-	System = System
-	System.TestBattler = TestBattler
-	System.Words = Words
-	State = State
-	Skill = Skill
-	MoveRoute = MoveRoute
-	MoveCommand = MoveCommand
-	MapInfo = MapInfo
-	Map = Map
-	Item = Item
-	EventCommand = EventCommand
-	Event = Event
-	Event.Page = EventPage
-	Event.Page.Graphic = EventGraphic
-	Event.Page.Condition = EventCondition
-	Enemy = Enemy
-	Enemy.Action = Action
-	CommonEvent = CommonEvent
-	Class = Class
-	Class.Learning = Learning
+	_arc_class_path = "RPG"
+	Actor = _Actor
+	Animation = _Animation
+	Animation.Frame = _Frame
+	Animation.Timing = _Timing
+	Armor = _Armor
+	AudioFile = _AudioFile
+	Weapon = _Weapon
+	Troop = _Troop
+	Troop.Member = _Member
+	Troop.Page = _TroopPage
+	Troop.Page.Condition = _TroopCondition
+	Tileset = _Tileset
+	System = _System
+	System.TestBattler = _TestBattler
+	System.Words = _Words
+	State = _State
+	Skill = _Skill
+	MoveRoute = _MoveRoute
+	MoveCommand = _MoveCommand
+	MapInfo = _MapInfo
+	Map = _Map
+	Item = _Item
+	EventCommand = _EventCommand
+	Event = _Event
+	Event.Page = _EventPage
+	Event.Page.Graphic = _EventGraphic
+	Event.Page.Condition = _EventCondition
+	Enemy = _Enemy
+	Enemy.Action = _Action
+	CommonEvent = _CommonEvent
+	Class = _Class
+	Class.Learning = _Learning
 	
 def extend_namespace(self, namespace):
 	namespace.update(self.__dict__)
