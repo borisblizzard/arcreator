@@ -2,7 +2,6 @@ import wx
 import ARCed_Templates
 from EnemyExpGold_Dialog import EnemyExpGold_Dialog
 from ChooseGraphic_Dialog import ChooseGraphic_Dialog
-import ChooseTreasure_Dialog
 import EnemyAction_Dialog
 from Core.RMXP import RGSS1_RPG as RPG
 from DatabaseManager import DatabaseManager as DM

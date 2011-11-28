@@ -13719,6 +13719,8 @@ class AudioPlayer_Panel ( wx.Panel ):
 		
 		listBoxAudioChoices = []
 		self.listBoxAudio = wx.ListBox( self.panelBGM, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, listBoxAudioChoices, wx.LB_SINGLE|wx.CLIP_CHILDREN )
+		self.listBoxAudio.SetHelpText( u"Select the file to play" )
+		
 		bSizer6311.Add( self.listBoxAudio, 1, wx.EXPAND, 5 )
 		
 		self.panelBGM.SetSizer( bSizer6311 )
@@ -13731,9 +13733,13 @@ class AudioPlayer_Panel ( wx.Panel ):
 		sizerVolume = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Volume" ), wx.VERTICAL )
 		
 		self.sliderVolume = wx.Slider( self, wx.ID_ANY, 80, 0, 100, wx.DefaultPosition, wx.DefaultSize, wx.SL_INVERSE|wx.SL_LABELS|wx.SL_VERTICAL )
+		self.sliderVolume.SetHelpText( u"Adjust the volume to play the sound at" )
+		
 		sizerVolume.Add( self.sliderVolume, 1, wx.ALL, 5 )
 		
 		self.spinCtrlVolume = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( 54,-1 ), wx.SP_ARROW_KEYS, 0, 100, 80 )
+		self.spinCtrlVolume.SetHelpText( u"Adjust the volume to play the sound at" )
+		
 		sizerVolume.Add( self.spinCtrlVolume, 0, wx.ALL, 5 )
 		
 		sizerSelection.Add( sizerVolume, 0, wx.ALL|wx.EXPAND, 5 )
@@ -13741,9 +13747,13 @@ class AudioPlayer_Panel ( wx.Panel ):
 		sizerPitch = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Pitch" ), wx.VERTICAL )
 		
 		self.sliderPitch = wx.Slider( self, wx.ID_ANY, 100, 25, 300, wx.DefaultPosition, wx.DefaultSize, wx.SL_INVERSE|wx.SL_LABELS|wx.SL_VERTICAL )
+		self.sliderPitch.SetHelpText( u"Adjust the pitch shift to apply to the sound" )
+		
 		sizerPitch.Add( self.sliderPitch, 1, wx.ALL, 5 )
 		
-		self.spinCtrlPitch = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( 48,-1 ), wx.SP_ARROW_KEYS, 25, 200, 100 )
+		self.spinCtrlPitch = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( 48,-1 ), wx.SP_ARROW_KEYS, 25, 300, 100 )
+		self.spinCtrlPitch.SetHelpText( u"Adjust the pitch shift to apply to the sound" )
+		
 		sizerPitch.Add( self.spinCtrlPitch, 0, wx.ALL, 5 )
 		
 		sizerSelection.Add( sizerPitch, 0, wx.ALL|wx.EXPAND, 5 )
@@ -13757,6 +13767,7 @@ class AudioPlayer_Panel ( wx.Panel ):
 		from AudioPlayer_Panel import WaveFormPanel
 		color = wx.Colour(100, 100, 220, 255)
 		self.waveFormPanelLeft = WaveFormPanel(self, color=color)
+		self.waveFormPanelLeft.SetHelpText( u"Visual representation of the left audio channel" )
 		self.waveFormPanelLeft.SetMinSize( wx.Size( -1,56 ) )
 		
 		bSizer632.Add( self.waveFormPanelLeft, 0, wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
@@ -13764,6 +13775,7 @@ class AudioPlayer_Panel ( wx.Panel ):
 		from AudioPlayer_Panel import WaveFormPanel
 		color = wx.Colour(220, 100, 100, 255)
 		self.waveFormPanelRight = WaveFormPanel(self, color=color)
+		self.waveFormPanelRight.SetHelpText( u"Visual representation of the right audio channel" )
 		self.waveFormPanelRight.SetMinSize( wx.Size( -1,56 ) )
 		
 		bSizer632.Add( self.waveFormPanelRight, 0, wx.EXPAND|wx.TOP|wx.RIGHT|wx.LEFT, 5 )
@@ -13772,25 +13784,46 @@ class AudioPlayer_Panel ( wx.Panel ):
 		
 		self.sliderPosition = wx.Slider( self, wx.ID_ANY, 0, 0, 10, wx.DefaultPosition, wx.DefaultSize, wx.SL_HORIZONTAL )
 		self.sliderPosition.Enable( False )
+		self.sliderPosition.SetHelpText( u"Adjust the offset that playback will begin from" )
 		
 		bSizer6301.Add( self.sliderPosition, 0, wx.ALL|wx.EXPAND, 5 )
 		
 		bSizer631 = wx.BoxSizer( wx.HORIZONTAL )
 		
 		self.checkBoxRepeat = wx.CheckBox( self, wx.ID_ANY, u"Repeat", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.checkBoxRepeat.SetHelpText( u"Check to loop playback when the end of the stream is reached" )
+		
 		bSizer631.Add( self.checkBoxRepeat, 0, wx.ALL|wx.EXPAND, 5 )
+		
+		sizerLabel = wx.BoxSizer( wx.VERTICAL )
 		
 		self.labelFileName = wx.StaticText( self, wx.ID_ANY, u"FILENAME", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.labelFileName.Wrap( -1 )
-		bSizer631.Add( self.labelFileName, 1, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
+		self.labelFileName.SetHelpText( u"The currently loaded file and duration of playback" )
+		
+		sizerLabel.Add( self.labelFileName, 0, wx.ALIGN_CENTER_VERTICAL|wx.EXPAND|wx.ALL, 5 )
+		
+		self.labelFileDuration = wx.StaticText( self, wx.ID_ANY, u"[0.00.00]", wx.DefaultPosition, wx.DefaultSize, wx.ALIGN_LEFT )
+		self.labelFileDuration.Wrap( -1 )
+		self.labelFileDuration.SetFont( wx.Font( wx.NORMAL_FONT.GetPointSize(), 76, 90, 90, False, wx.EmptyString ) )
+		
+		sizerLabel.Add( self.labelFileDuration, 0, wx.ALIGN_CENTER_VERTICAL|wx.EXPAND|wx.RIGHT|wx.LEFT, 5 )
+		
+		bSizer631.Add( sizerLabel, 1, 0, 5 )
 		
 		self.buttonPlay = wx.BitmapButton( self, wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.DefaultSize, wx.BU_AUTODRAW )
+		self.buttonPlay.SetHelpText( u"Play the sound on the current channel" )
+		
 		bSizer631.Add( self.buttonPlay, 0, wx.ALL, 5 )
 		
 		self.buttonPause = wx.BitmapButton( self, wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.DefaultSize, wx.BU_AUTODRAW )
+		self.buttonPause.SetHelpText( u"Pause playback on the current channel" )
+		
 		bSizer631.Add( self.buttonPause, 0, wx.TOP|wx.BOTTOM, 5 )
 		
 		self.buttonStop = wx.BitmapButton( self, wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.DefaultSize, wx.BU_AUTODRAW )
+		self.buttonStop.SetHelpText( u"Stop playback on the current channel" )
+		
 		bSizer631.Add( self.buttonStop, 0, wx.ALL, 5 )
 		
 		bSizer6301.Add( bSizer631, 0, wx.ALIGN_RIGHT|wx.EXPAND, 5 )
@@ -13808,14 +13841,25 @@ class AudioPlayer_Panel ( wx.Panel ):
 		sizerStop = wx.BoxSizer( wx.HORIZONTAL )
 		
 		self.buttonStopAll = wx.Button( self, wx.ID_ANY, u"Stop All", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.buttonStopAll.SetHelpText( u"Stop playback on all channels" )
+		
 		sizerStop.Add( self.buttonStopAll, 0, wx.ALL, 5 )
+		
+		self.checkBoxMicroseconds = wx.CheckBox( self, wx.ID_ANY, u"Display Microseconds", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.checkBoxMicroseconds.SetHelpText( u"Check to have microseconds displayed in the duration label" )
+		
+		sizerStop.Add( self.checkBoxMicroseconds, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
 		
 		sizerOKCancel.Add( sizerStop, 1, wx.EXPAND, 5 )
 		
 		self.buttonOK = wx.Button( self, wx.ID_ANY, u"OK", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.buttonOK.SetHelpText( u"Apply settings and close window" )
+		
 		sizerOKCancel.Add( self.buttonOK, 0, wx.TOP|wx.BOTTOM|wx.LEFT, 5 )
 		
 		self.buttonCancel = wx.Button( self, wx.ID_ANY, u"Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.buttonCancel.SetHelpText( u"Cancel settings and close window" )
+		
 		sizerOKCancel.Add( self.buttonCancel, 0, wx.TOP|wx.BOTTOM|wx.RIGHT, 5 )
 		
 		MainSizer.Add( sizerOKCancel, 0, wx.ALIGN_RIGHT|wx.EXPAND, 5 )
@@ -13846,6 +13890,7 @@ class AudioPlayer_Panel ( wx.Panel ):
 		self.buttonStop.Bind( wx.EVT_BUTTON, self.buttonStop_Clicked )
 		self.buttonStop.Bind( wx.EVT_ERASE_BACKGROUND, self.ControlOnEraseBackground )
 		self.buttonStopAll.Bind( wx.EVT_BUTTON, self.buttonStopAll_Clicked )
+		self.checkBoxMicroseconds.Bind( wx.EVT_CHECKBOX, self.checkBoxMicroseconds_CheckChanged )
 		self.buttonOK.Bind( wx.EVT_BUTTON, self.buttonOK_Clicked )
 		self.buttonCancel.Bind( wx.EVT_BUTTON, self.buttonCancel_Clicked )
 	
@@ -13900,6 +13945,9 @@ class AudioPlayer_Panel ( wx.Panel ):
 	
 	
 	def buttonStopAll_Clicked( self, event ):
+		pass
+	
+	def checkBoxMicroseconds_CheckChanged( self, event ):
 		pass
 	
 	def buttonOK_Clicked( self, event ):
@@ -14170,6 +14218,74 @@ class ExpGrid_Dialog ( wx.Dialog ):
 		pass
 	
 	def buttonCancel_Clicked( self, event ):
+		pass
+	
+
+###########################################################################
+## Class ScriptEditor_Panel
+###########################################################################
+
+class ScriptEditor_Panel ( wx.Panel ):
+	
+	def __init__( self, parent ):
+		wx.Panel.__init__ ( self, parent, id = wx.ID_ANY, pos = wx.DefaultPosition, size = wx.Size( 696,485 ), style = wx.TAB_TRAVERSAL )
+		
+		MainSizer = wx.BoxSizer( wx.VERTICAL )
+		
+		bSizer643 = wx.BoxSizer( wx.HORIZONTAL )
+		
+		sizerScriptList = wx.BoxSizer( wx.VERTICAL )
+		
+		self.bitmapScripts = wx.StaticBitmap( self, wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.Size( 150,26 ), wx.CLIP_CHILDREN|wx.FULL_REPAINT_ON_RESIZE )
+		self.bitmapScripts.SetMinSize( wx.Size( 150,26 ) )
+		self.bitmapScripts.SetMaxSize( wx.Size( 150,26 ) )
+		
+		sizerScriptList.Add( self.bitmapScripts, 0, wx.ALL|wx.EXPAND, 5 )
+		
+		listBoxScriptsChoices = []
+		self.listBoxScripts = wx.ListBox( self, wx.ID_ANY, wx.DefaultPosition, wx.Size( 184,-1 ), listBoxScriptsChoices, wx.LB_SINGLE|wx.CLIP_CHILDREN )
+		sizerScriptList.Add( self.listBoxScripts, 1, wx.EXPAND|wx.RIGHT|wx.LEFT, 5 )
+		
+		self.m_textCtrl60 = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+		sizerScriptList.Add( self.m_textCtrl60, 0, wx.ALL|wx.EXPAND, 5 )
+		
+		bSizer643.Add( sizerScriptList, 0, wx.EXPAND, 5 )
+		
+		sizerScriptControl = wx.BoxSizer( wx.VERTICAL )
+		
+		self.scriptControl = ScriptTextCtrl(self)
+		sizerScriptControl.Add( self.scriptControl, 1, wx.ALL|wx.EXPAND, 5 )
+		
+		bSizer643.Add( sizerScriptControl, 1, wx.EXPAND, 5 )
+		
+		MainSizer.Add( bSizer643, 1, wx.EXPAND, 5 )
+		
+		sizerButtons = wx.BoxSizer( wx.HORIZONTAL )
+		
+		self.buttonHelp = wx.Button( self, wx.ID_ANY, u"Help", wx.DefaultPosition, wx.DefaultSize, 0 )
+		sizerButtons.Add( self.buttonHelp, 0, wx.ALL, 5 )
+		
+		self.buttonOK = wx.Button( self, wx.ID_ANY, u"OK", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.buttonOK.SetDefault() 
+		sizerButtons.Add( self.buttonOK, 0, wx.TOP|wx.BOTTOM|wx.LEFT, 5 )
+		
+		self.buttonCancel = wx.Button( self, wx.ID_ANY, u"Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
+		sizerButtons.Add( self.buttonCancel, 0, wx.TOP|wx.BOTTOM|wx.RIGHT, 5 )
+		
+		MainSizer.Add( sizerButtons, 0, wx.ALIGN_RIGHT, 5 )
+		
+		self.SetSizer( MainSizer )
+		self.Layout()
+		
+		# Connect Events
+		self.listBoxScripts.Bind( wx.EVT_LISTBOX, self.listBoxScripts_SelectionChanged )
+	
+	def __del__( self ):
+		pass
+	
+	
+	# Virtual event handlers, overide them in your derived class
+	def listBoxScripts_SelectionChanged( self, event ):
 		pass
 	
 

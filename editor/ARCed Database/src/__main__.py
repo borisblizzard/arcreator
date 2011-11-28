@@ -38,26 +38,25 @@ class Test(wx.App):
 		
 		nb = wx.Notebook( self.frame )
 
-		Panels = [('Audio', 'AudioPlayer_Panel')]
-
-		#Panels = [None for i in xrange(15)]
-		#Panels[0] = ('Actors', 'Actors_Panel')
-		#Panels[14] = ('Audio', 'AudioPlayer_Panel')
-		#Panels[1] = ('Classes', 'Classes_Panel')
-		#Panels[2] = ('Skills', 'Skills_Panel')
-		#Panels[3] = ('Items', 'Items_Panel')
-		#Panels[4] = ('Weapons', 'Weapons_Panel')
-		#Panels[5] = ('Armors', 'Armors_Panel')
-		#Panels[6] = ('Enemies', 'Enemies_Panel')
-		#Panels[7] = ('Troops', 'Troops_Panel')
-		#Panels[8] = ('States', 'States_Panel')
-		#Panels[9] = ('Animations', 'Animations_Panel')
-		#Panels[10] = ('Tilesets', 'Tilesets_Panel')
-		#Panels[11] = ('Common Events', 'CommonEvents_Panel')
-		#Panels[12] = ('System', 'System_Panel')
-		#Panels[13] = ('Configuration', 'Configuration_Panel')
+		Panels = [None for i in xrange(14)]
+		Panels[0] = ('Actors', 'Actors_Panel')
+		Panels[1] = ('Classes', 'Classes_Panel')
+		Panels[2] = ('Skills', 'Skills_Panel')
+		Panels[3] = ('Items', 'Items_Panel')
+		Panels[4] = ('Weapons', 'Weapons_Panel')
+		Panels[5] = ('Armors', 'Armors_Panel')
+		Panels[6] = ('Enemies', 'Enemies_Panel')
+		Panels[7] = ('Troops', 'Troops_Panel')
+		Panels[8] = ('States', 'States_Panel')
+		Panels[9] = ('Animations', 'Animations_Panel')
+		Panels[10] = ('Tilesets', 'Tilesets_Panel')
+		Panels[11] = ('Common Events', 'CommonEvents_Panel')
+		Panels[12] = ('System', 'System_Panel')
+		Panels[13] = ('Configuration', 'Configuration_Panel')
 
 		for data in Panels:
+			if data is None:
+				continue
 			exec('from ' + data[1] + ' import ' + data[1])
 			exec('page = ' + data[1] + '(nb)')
 			nb.AddPage(page, data[0])

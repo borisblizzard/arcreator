@@ -2,10 +2,11 @@ import os, sys
 import numpy as np
 import wx
 import wx.lib.plot as plot
+from datetime import timedelta
 import ARCed_Templates
 from Core.Cache import RTPFunctions
-from DatabaseManager import DatabaseManager as DM
 from Core.RMXP import RGSS1_RPG as RPG
+from DatabaseManager import DatabaseManager as DM
 import Kernel
 from Kernel import Manager as KM
 
@@ -15,64 +16,62 @@ PyXAL = KM.get_component("PyXAL").object
 PITCH_ENABLED = sys.platform == 'win32'
 
 if DM.ARC_FORMAT:
-	AUDIO_DIRECTORIES = ['BGM', 'BGS', 'Sound'] # TODO: ?
+	AUDIO_DIRECTORIES = ['BGM', 'BGS', 'Sound'] # TODO: Sound?
 else:
 	AUDIO_DIRECTORIES = ['BGM', 'BGS', 'ME', 'SE']
 
+#--------------------------------------------------------------------------------------
+# AudioPlayer_Panel
+#--------------------------------------------------------------------------------------
 
 class AudioPlayer_Panel( ARCed_Templates.AudioPlayer_Panel ):
-	def __init__( self, parent, rpgfile=None, dir=None ):
+	def __init__( self, parent, rpgfile=None, directory=None ):
 		"""Basic constructor for the AudioPlayer"""
 		ARCed_Templates.AudioPlayer_Panel.__init__( self, parent )
+		# Set up the panel
+		self.AudioIndex = 0
+		if directory is not None:
+			if directory in AUDIO_DIRECTORIES:
+				self.AudioIndex = AUDIO_DIRECTORIES.index(directory)
+			else:
+				message = str.format("Directory \"{}\" does not exist.", 
+					os.path.join('Audio', directory))
+				raise ValueError(message)
 		DM.DrawButtonIcon(self.buttonPlay, 'play_button', True)
 		DM.DrawButtonIcon(self.buttonPause, 'pause_button', True)
 		DM.DrawButtonIcon(self.buttonStop, 'stop_button', True)
 		self.waveFormPanelLeft.canvas.Bind(wx.EVT_ERASE_BACKGROUND, self.ControlOnEraseBackground)
 		self.waveFormPanelRight.canvas.Bind(wx.EVT_ERASE_BACKGROUND, self.ControlOnEraseBackground)
-
 		for dir in AUDIO_DIRECTORIES[1:]:
 			self.notebookAudio.AddPage(wx.Panel(self.notebookAudio), dir)
-
+		self.RefreshFileLists()
+		# Setup the timer for updating the scroll bar
 		self.UpdateTimer = wx.Timer(self)
 		self.Bind(wx.EVT_TIMER, self.Update)
 		self.UpdateTimer.Start()
-
-
+		# Disable scroll function if pitch changing is not permitted
 		self.sliderPitch.Enable(PITCH_ENABLED)
-		self.AudioIndex = 0
-		if dir is not None:
-			if dir in AUDIO_DIRECTORIES:
-				self.AudioIndex = 0
-			else:
-				message = str.format("Directory \"{}\" does not exist.", 
-					os.path.join('Audio', dir))
-				raise ValueError(message)
-		self.SetUpXAL()
-		self.Channels = [AudioChannel() for i in AUDIO_DIRECTORIES]
-		if rpgfile is not None:
-			self.Channels[self.AudioIndex]
-
-
-
-
-		self.RefreshFileLists()
-		
-
-		
-		
-
-
-	def SetUpXAL(self): 
-		PyXAL.EnableLogging(True, os.path.abspath("log"))
+		# Set the passed audio file, if, any, as the current selection"""
 		PyXAL.Init(self.GetHandle(), True)
-		print "XAL Setup"
-	
-	def __del__( self ):
-		PyXAL.Destroy()
-		print "XAL Destroyed"
+		self.Channels = [AudioChannel() for i in AUDIO_DIRECTORIES]
+		if rpgfile is not None and dir is not None:
+			self.Channels[self.AudioIndex].rpgaudio = rpgfile
+		self.RefreshActivePage()
 
-	def Update( self ):
-		print 'Updating'
+	def GetAudio( self ):
+		# TODO: Implement
+		return RPG.AudioFile()
+
+	def __del__( self ):
+		"""Destroy PyXAL"""
+		PyXAL.Destroy()
+
+	def Update( self, event ):
+		"""Updates the scrolling for the position slide control"""
+		chan = self.Channels[self.AudioIndex]
+		if chan.player is not None and chan.player.isPlaying():
+			self.sliderPosition.SetValue(chan.GetOffset())
+		del (chan)
 
 	def RefreshFileLists( self ):
 		"""Builds a list of filenames for each type of audio"""
@@ -83,9 +82,8 @@ class AudioPlayer_Panel( ARCed_Templates.AudioPlayer_Panel ):
 			list.extend(RTPFunctions.GetFileList(folder, 'audio'))
 			self.files.append(list)
 
-	def notebookAudio_PageChanged( self, event ):
-		"""Updates the controls on the page to display the current file, if any"""
-		self.AudioIndex = event.GetSelection()
+	def RefreshActivePage( self ):
+		"""Refreshes all the controls on the tab to reflect the current channel"""
 		chan = self.Channels[self.AudioIndex]
 		DM.FillWithoutNumber(self.listBoxAudio, [], self.files[self.AudioIndex])
 		if chan.rpgaudio.name != '':
@@ -93,7 +91,7 @@ class AudioPlayer_Panel( ARCed_Templates.AudioPlayer_Panel ):
 		else: 
 			index = 0
 		self.checkBoxRepeat.SetValue(chan.Repeat)
-		self.labelFileName.SetLabel(self.listBoxAudio.GetString(index))
+		self.RefreshFileLabel(chan)
 		self.listBoxAudio.SetSelection(index)
 		self.sliderVolume.SetValue(chan.rpgaudio.volume)
 		self.sliderPitch.SetValue(chan.rpgaudio.pitch)
@@ -101,6 +99,28 @@ class AudioPlayer_Panel( ARCed_Templates.AudioPlayer_Panel ):
 		self.spinCtrlPitch.SetValue(chan.rpgaudio.pitch)
 		self.waveFormPanelLeft.SetSoundArray(chan.LeftChannel)
 		self.waveFormPanelRight.SetSoundArray(chan.RightChannel)
+
+	def RefreshFileLabel( self, channel ):
+		"""Refreshes the labels for the filename and the duration"""
+		if channel.player is None or channel.rpgaudio.name == '':
+			if self.checkBoxMicroseconds.GetValue():
+				labels = '(None)', '[0:00:00.000000]'
+			else:
+				labels = '(None)', '[0:00:00]'
+		else:
+			if self.checkBoxMicroseconds.GetValue():
+				labels = (channel.rpgaudio.name, 
+					str.format('[{}]', timedelta(seconds=channel.GetDuration())))
+			else:
+				labels = (channel.rpgaudio.name,
+					str.format('[{}]', timedelta(seconds=np.ceil(channel.GetDuration()))))
+		self.labelFileName.SetLabel(labels[0])
+		self.labelFileDuration.SetLabel(labels[1])
+
+	def notebookAudio_PageChanged( self, event ):
+		"""Updates the controls on the page to display the current file, if any"""
+		self.AudioIndex = event.GetSelection()
+		self.RefreshActivePage()
 
 	def listBoxAudio_DoubleClick( self, event ):
 		"""Plays the selected file with current settings"""
@@ -122,9 +142,10 @@ class AudioPlayer_Panel( ARCed_Templates.AudioPlayer_Panel ):
 		path = RTPFunctions.FindAudioFile(folder, name)
 		chan.SetFile(RPG.AudioFile(name, volume, pitch), path)
 		chan.Play(chan.Repeat)
+		self.sliderPosition.SetRange(0, chan.GetDuration())
 		self.waveFormPanelLeft.SetSoundArray(chan.LeftChannel)
 		self.waveFormPanelRight.SetSoundArray(chan.RightChannel)
-		self.labelFileName.SetLabel(name)
+		self.RefreshFileLabel(chan)
 		del (chan)
 	
 	def sliderVolume_Scrolled( self, event ):
@@ -185,18 +206,26 @@ class AudioPlayer_Panel( ARCed_Templates.AudioPlayer_Panel ):
 		"""Reduces flicker on MSW by doing nothing"""
 		pass
 
+	def checkBoxMicroseconds_CheckChanged( self, event ):
+		"""Changes flag to display microseconds in duration label"""
+		self.RefreshActivePage()
+
 	def buttonOK_Clicked( self, event ):
-		# TODO: Implement buttonOK_Clicked
-		pass
+		"""Closes the window and returns wx.ID_OK"""
+		self.GetParent().EndModal(wx.ID_OK)
 	
 	def buttonCancel_Clicked( self, event ):
-		# TODO: Implement buttonCancel_Clicked
-		pass
+		"""Closes the window and returns wx.ID_CANCEL"""
+		self.GetParent().EndModal(wx.ID_CANCEL)
 
+#--------------------------------------------------------------------------------------
+# AudioChannel
+#--------------------------------------------------------------------------------------
 
 class AudioChannel(object):
 
 	def __init__(self):
+		"""Basic constructor for an AudioChannel object"""
 		self.player = None
 		self.sound = None
 		self.rpgaudio = RPG.AudioFile()
@@ -204,19 +233,17 @@ class AudioChannel(object):
 		self.RightChannel = None
 		self.file = None
 		self.Repeat = False
-	
-	def GetPosition( self ):
-		"""Returns the current playback position of the file (if any)"""
-		# TODO: Implement
-		return 0.
 
 	def SetFile( self, rpgfile, filepath ): 
+		"""Sets the current player and sound"""
 		self.rpgaudio = rpgfile
 		self.file = str(filepath)
 		if self.sound is not None:
 			PyXAL.Mgr.destroySound(self.sound)
+			del (self.sound)
 		if self.player is not None:
 			PyXAL.Mgr.destroyPlayer(self.player)
+			del(self.player)
 		if filepath == '' or rpgfile.name == '':
 			self.sound = self.player = self.RightChannel = self.LeftChannel = None
 			return
@@ -257,6 +284,12 @@ class AudioChannel(object):
 		"""Returns the duration of the current sound, if any"""
 		if self.sound is not None:
 			return self.sound.getDuration()
+		return 0
+
+	def GetOffset( self ):
+		"""Returns the offset, if any, of the current sound"""
+		if self.player is not None:
+			return self.player.getOffset()
 		return 0
 
 	def GetChannels( self ):
@@ -340,6 +373,7 @@ class AudioChannel(object):
 		return array
 
 	def Play( self, loop=False ):
+		"""Starts playback of the current file and applies volume and pitch settings"""
 		if (self.player is not None) and (self.sound is not None):
 			self.player.play(looping=loop)
 			self.player.setGain(self.rpgaudio.volume / 100.0)
@@ -347,10 +381,12 @@ class AudioChannel(object):
 				self.player.setPitch(self.rpgaudio.pitch / 100.0)
 
 	def Pause( self ):
+		"""Pauses playback"""
 		if (self.player is not None) and (self.sound is not None):
 			self.player.pause()
 
 	def Stop( self ):
+		"""Stops playback"""
 		if (self.player is not None) and (self.sound is not None):
 			self.player.stop()
 
@@ -386,5 +422,3 @@ class WaveFormPanel(plot.PlotCanvas):
 		del (gc)
 		del (line)
 		del (sndarray)
-	
-	
