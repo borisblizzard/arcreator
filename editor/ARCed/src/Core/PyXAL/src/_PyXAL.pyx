@@ -552,11 +552,11 @@ class PySound(object):
         s = os.path.split(filename)[0]
         cdef char* path = s
         cdef char* cat_str = self.CATEGORY_STR
-        cdef String* file_str = new String(file)
-        cdef String* path_str = new String(path)
-        cdef String* category = new String(cat_str)
+        cdef String file_str = String(file)
+        cdef String path_str = String(path)
+        cdef String category = String(cat_str)
         cdef XAL.Sound* sound 
-        sound = XAL.mgr.createSound(file_str[0], category[0], path_str[0])
+        sound = XAL.mgr.createSound(file_str, category, path_str)
         if sound == NULL:
             raise RuntimeError("XAL Failed to load file %s" % filename)
         cdef SoundWrapper wrapper = SoundWrapper.__new__(SoundWrapper)
@@ -715,9 +715,9 @@ class PyPlayer(object):
             raise TypeError("Expected argument 1 to be of type PySound got %s" % type(sound))
         sound_name = sound.getName()
         cdef char* name = sound_name
-        cdef String* hl_name = new String(name)
+        cdef String hl_name = String(name)
         cdef XAL.Player* player 
-        player = XAL.mgr.createPlayer(hl_name[0])
+        player = XAL.mgr.createPlayer(hl_name)
         if player == NULL:
             raise RuntimeError("XAL Failed to create a player for %s" % sound_name)
         cdef PlayerWrapper wrapper = PlayerWrapper.__new__(PlayerWrapper)
@@ -995,10 +995,10 @@ cdef class XALManagerWrapper(object):
         if Mgr is not None:
             raise RuntimeError("Only one XALManager interface allowed at a time, use the one at PyXAL.Mgr")
         self.CATEGORY_STR = "default"
-        cdef String* name = new String(systemname)
-        cdef String* dname = new String(deviceName)
+        cdef String name = String(systemname)
+        cdef String dname = String(deviceName)
         self._destroyXAL()
-        XAL.init(name[0], backendId, threaded, updateTime, dname[0])
+        XAL.init(name, backendId, threaded, updateTime, dname)
         self.inited = True
         self.destroyed = False
         self.SetupXAL()
@@ -1024,8 +1024,8 @@ cdef class XALManagerWrapper(object):
         '''
         if not self.isXALInitialized():
             raise RuntimeError("XAL is not Initialized")
-        cdef String* category = new String(self.CATEGORY_STR)
-        self._category = XAL.mgr.createCategory(category[0], FULL, FULL)
+        cdef String category = String(self.CATEGORY_STR)
+        self._category = XAL.mgr.createCategory(category, FULL, FULL)
     
     def _destroyXAL(self):
         if XAL.mgr != NULL:
@@ -1177,8 +1177,8 @@ class XALManager(object):
         if not self.isXALInitialized():
             raise RuntimeError("XAL is not Initialized")
         cdef char* name_str = name
-        cdef String* hl_name = new String(name_str)
-        XAL.mgr.play(hl_name[0], fadeTime, looping, gain)
+        cdef String hl_name = String(name_str)
+        XAL.mgr.play(hl_name, fadeTime, looping, gain)
         
     def stop(self, bytes name, float fadeTime = 0.0):
         '''
@@ -1190,8 +1190,8 @@ class XALManager(object):
         if not self.isXALInitialized():
             raise RuntimeError("XAL is not Initialized")
         cdef char* name_str = name
-        cdef String* hl_name = new String(name_str)
-        XAL.mgr.stop(hl_name[0], fadeTime)
+        cdef String hl_name = String(name_str)
+        XAL.mgr.stop(hl_name, fadeTime)
     
     def stopFirst(self, bytes name, float fadeTime = 0.0):
         '''
@@ -1203,8 +1203,8 @@ class XALManager(object):
         if not self.isXALInitialized():
             raise RuntimeError("XAL is not Initialized")
         cdef char* name_str = name
-        cdef String* hl_name = new String(name_str)
-        XAL.mgr.stopFirst(hl_name[0], fadeTime)
+        cdef String hl_name = String(name_str)
+        XAL.mgr.stopFirst(hl_name, fadeTime)
     
     def stopAll(self, float fadeTime = 0.0):
         '''
@@ -1245,8 +1245,8 @@ class XALManager(object):
         if not self.isXALInitialized():
             raise RuntimeError("XAL is not Initialized")
         cdef char* name_str = name
-        cdef String* hl_name = new String(name_str)
-        cdef bint result = XAL.mgr.isAnyPlaying(hl_name[0])
+        cdef String hl_name = String(name_str)
+        cdef bint result = XAL.mgr.isAnyPlaying(hl_name)
         return result
         
     def isAnyFading(self, bytes name):
@@ -1257,8 +1257,8 @@ class XALManager(object):
         if not self.isXALInitialized():
             raise RuntimeError("XAL is not Initialized")
         cdef char* name_str = name
-        cdef String* hl_name = new String(name_str)
-        cdef bint result = XAL.mgr.isAnyFading(hl_name[0])
+        cdef String hl_name = String(name_str)
+        cdef bint result = XAL.mgr.isAnyFading(hl_name)
         return result
     
     def isAnyFadingIn(self, bytes name):
@@ -1269,8 +1269,8 @@ class XALManager(object):
         if not self.isXALInitialized():
             raise RuntimeError("XAL is not Initialized")
         cdef char* name_str = name
-        cdef String* hl_name = new String(name_str)
-        cdef bint result = XAL.mgr.isAnyFadingIn(hl_name[0])
+        cdef String hl_name = String(name_str)
+        cdef bint result = XAL.mgr.isAnyFadingIn(hl_name)
         return result
     
     def isAnyFadingOut(self, bytes name):
@@ -1281,8 +1281,8 @@ class XALManager(object):
         if not self.isXALInitialized():
             raise RuntimeError("XAL is not Initialized")
         cdef char* name_str = name
-        cdef String* hl_name = new String(name_str)
-        cdef bint result = XAL.mgr.isAnyFadingOut(hl_name[0])
+        cdef String hl_name = String(name_str)
+        cdef bint result = XAL.mgr.isAnyFadingOut(hl_name)
         return result
         
 def Init(int backendId, bint threaded = True):
