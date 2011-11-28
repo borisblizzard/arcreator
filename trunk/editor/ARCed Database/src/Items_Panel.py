@@ -155,7 +155,7 @@ class Items_Panel(ARCed_Templates.Items_Panel ):
 
 	def bitmapButtonAudioTest_Clicked( self, event ):
 		"""Plays the sound effect as a quick test without opening the dialog"""
-		DM.TestSFX(self.SelectedItem.menu_se)
+		DM.QuickPlay(self, self.SelectedItem.menu_se, 'SE')
 
 	def textCtrlDescription_TextChange( self, event ):
 		"""Updates the selected item's description"""
@@ -171,9 +171,9 @@ class Items_Panel(ARCed_Templates.Items_Panel ):
 
 	def comboBoxMenuSE_Clicked( self, event ):
 		"""Opens the dialog for selecting the audio file to use"""
-		audio = DM.ChooseAudio(self, 'Audio/SE/', self.SelectedItem.menu_se, 0)
-		self.SelectedItem.menu_se = audio
-		self.comboBoxMenuSE.SetValue(audio.name)
+		audio = DM.ChooseAudio(self, self.SelectedItem.menu_se, 'SE')
+		if audio is not None:
+			self.comboBoxMenuSE.SetValue(DM.GetAudioLabel(audio))
 
 	def comboBoxOccasion_SelectionChanged( self, event ):
 		"""Updates the selected item's occasion"""

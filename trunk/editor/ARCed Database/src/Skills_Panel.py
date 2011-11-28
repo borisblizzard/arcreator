@@ -183,7 +183,7 @@ class Skills_Panel(ARCed_Templates.Skills_Panel ):
 
 	def comboBoxMenuSE_Clicked( self, event ):
 		"""Opens the dialog for selecting the audio file to use"""
-		audio = DM.ChooseAudio(self, 'Audio/SE/', self.SelectedSkill.menu_se, 0)
+		audio = DM.ChooseAudio(self, self.SelectedSkill.menu_se, 'SE')
 		self.SelectedSkill.menu_se = audio
 		self.comboBoxMenuSE.SetValue(audio.name)
 

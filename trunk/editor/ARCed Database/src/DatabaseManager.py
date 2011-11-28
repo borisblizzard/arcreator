@@ -1,6 +1,7 @@
 import wx
-from Core.Cache import PILCache as Cache
+from Core.Cache import PILCache, RTPFunctions 
 from Core.RMXP import RGSS1_RPG as RPG
+from threading import Timer
 from math import ceil
 import PIL
 import os
@@ -30,14 +31,13 @@ class DatabaseManager(object):
 		None
 		
 		"""
-		#if type == 'character': folder = '/Graphics/Characters/'
-		#elif type == 'battler': folder = '/Graphics/Battlers/'
-
 		try:
-			if type == 'character': img = Cache.Character(filename, hue)
-			elif type == 'battler': img = Cache.Battler(filename, hue)
+			if type == 'character': img = PILCache.Character(filename, hue)
+			elif type == 'battler': img = PILCache.Battler(filename, hue)
 		except:
 			img = None
+			message = str.format('Image \"{}\" cannot be found', filename)
+			Kernel.Log(message, '[Cache]', True, False)
 		glCanvas.ChangeImage(img)
 
 	#----------------------------------------------------------------------------------
@@ -66,7 +66,7 @@ class DatabaseManager(object):
 		if textcolor == None: textcolor = DatabaseManager.TEXT_COLOR
 		if gradient1 == None: gradient1 = DatabaseManager.GRADIENT_LEFT
 		if gradient2 == None: gradient2 = DatabaseManager.GRADIENT_RIGHT
-		if font == None: font = wx.Font(10, wx.FONTFAMILY_TELETYPE, wx.FONTSTYLE_NORMAL, 
+		if font == None: font = wx.Font(10, wx.FONTFAMILY_MODERN, wx.FONTSTYLE_NORMAL, 
 					wx.FONTWEIGHT_NORMAL, faceName='Ethnocentric') # TODO: Change this?
 		memDC.SetFont(font)	
 		memDC.SetTextForeground(textcolor)
@@ -99,6 +99,12 @@ class DatabaseManager(object):
 	#----------------------------------------------------------------------------------
 	@staticmethod
 	def GetNormalCheckImageList():
+		"""Returns the icons for a "normal" checkbox
+		
+		Returns:
+		A two element ImageList of a an empty and checked checkbox
+		
+		"""
 		icons = KM.get_component('IconManager').object
 		imageList = wx.ImageList(14, 12)
 		imageList.Add(icons.getBitmap('check_empty'))
@@ -118,7 +124,7 @@ class DatabaseManager(object):
 		
 		"""
 		if DatabaseManager.ARC_FORMAT: return index
-		else: return index + 1
+		return index + 1
 
 	#----------------------------------------------------------------------------------
 	@staticmethod
@@ -172,7 +178,6 @@ class DatabaseManager(object):
 			start = DatabaseManager.FixedIndex(start)
 		defaults.extend([dataSource[i].name for i in xrange(start, len(dataSource))])
 		wxContainer.AppendItems(defaults)
-		#wxContainer.SetDoubleBuffered(True)
 
 	#----------------------------------------------------------------------------------
 	@staticmethod
@@ -214,7 +219,7 @@ class DatabaseManager(object):
 
 	#----------------------------------------------------------------------------------
 	@staticmethod
-	def ChooseAudio(parent, folder, audio, loops=None):
+	def ChooseAudio(parent, rpgfile=None, directory=None):
 		"""Creates the Choose Audio dialog
 		
 		Arguments:
@@ -225,12 +230,63 @@ class DatabaseManager(object):
 		Returns the chosen RPG.AudioFile
 
 		"""
-		from ChooseAudio_Dialog import ChooseAudio_Dialog
-		dialog = ChooseAudio_Dialog(parent, folder, loops, audio)
+		from AudioPlayer_Panel import AudioPlayer_Panel
+		dialog = wx.Dialog(parent, style = wx.DEFAULT_DIALOG_STYLE|wx.RESIZE_BORDER)
+		panel = AudioPlayer_Panel(dialog, rpgfile, directory)
+		panel.Layout()
+		dialog.Fit()
+		
 		if dialog.ShowModal() == wx.ID_OK:
-			audio = dialog.GetAudio()
+			return panel.GetAudio()
 		dialog.Destroy()
-		return audio
+
+	#----------------------------------------------------------------------------------
+	@staticmethod
+	def GetAudioLabel(rpgaudio):
+		"""Returns a formatted string for displaying the audio file
+		
+		Arguments:
+		rpgaudio -- An RPG.AudioFile instance
+
+		Returns:
+		String representation of the audio file
+		
+		"""
+		if rpgaudio.name == '':
+			label = '(None)'
+		else:
+			label = str.format('{0} (V:{1}, P:{2})', 
+				rpgaudio.name, rpgaudio.volume, rpgaudio.pitch)
+		return label
+
+	#----------------------------------------------------------------------------------
+	@staticmethod 
+	def QuickPlay(parent, rpgaudio, folder):
+		try:
+			path = RTPFunctions.FindAudioFile(os.path.join('Audio', folder), rpgaudio.name)
+			if path == '':
+				return
+			PyXAL = KM.get_component("PyXAL").object
+			PyXAL.Init(parent.GetHandle(), True)
+			sound = PyXAL.Mgr.createSound(path)
+			player = PyXAL.Mgr.createPlayer(sound)
+			player.play()
+			player.setPitch(rpgaudio.pitch / 100.0)
+			player.setGain(rpgaudio.volume / 100.0)
+			Timer(sound.getDuration(), DatabaseManager._DestroyQuickPlay, 
+				[PyXAL, player, sound]).start()
+		except:
+			Kernel.Log('QuickPlay failed to play sound file.', '[PyXAL]', False, False)
+
+	@staticmethod
+	def _DestroyQuickPlay(pyxal, player, sound):
+		"""Destroys the player and sound objects, and frees the PyXAL instance"""
+		pyxal.Mgr.destroySound(sound)
+		pyxal.Mgr.destroyPlayer(player)
+		pyxal.Destroy()
+		del (sound)
+		del (player)
+		del (pyxal)
 
 	#----------------------------------------------------------------------------------
 	@staticmethod
@@ -301,7 +357,7 @@ class DatabaseManager(object):
 			icons = KM.get_component('IconManager').object
 			bitmap = icons.getBitmap(filename)
 		else:
-			pilImage = Cache.Icon(filename)
+			pilImage = PILCache.Icon(filename)
 			if pilImage is not None:
 				image = wx.EmptyImage(pilImage.size[0], pilImage.size[1])
 				image.SetData(pilImage.convert("RGB").tostring())
@@ -356,7 +412,7 @@ class DatabaseManager(object):
 					count += 1
 					label.Wrap( -1 )
 					labelsizer.Add( label, percent, wx.ALL, 5 )
-					spinctrl = wx.SpinCtrl( parent, wx.ID_ANY, wx.EmptyString, style=wx.SP_ARROW_KEYS|wx.SP_WRAP)
+					spinctrl = wx.SpinCtrl( parent, -1, '', style=wx.SP_ARROW_KEYS|wx.SP_WRAP)
 					spinctrl.Bind(wx.EVT_SPINCTRL, Kernel.Protect(event))
 					objectList.append(spinctrl)
 					spinsizer.Add( spinctrl, percent, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
@@ -376,7 +432,16 @@ class DatabaseManager(object):
 	#----------------------------------------------------------------------------------
 	@staticmethod 
 	def gcd(num1, num2):
-		""" Calculates the greatest common denominator of two numbers"""
+		""" Calculates the greatest common denominator of two numbers
+		
+		Arguments:
+		num1 -- The first input number
+		num2 -- The second input number
+
+		Returns:
+		The greatest common denominator of the two numbers
+		
+		"""
 		if num1 > num2:
 			for i in range(1, num2 + 1):
 				if num2 % i == 0 and num1 % i == 0:
@@ -394,14 +459,36 @@ class DatabaseManager(object):
 	#----------------------------------------------------------------------------------
 	@staticmethod
 	def lcm(num1, num2):
-		"""Returns the lowest common multiple of two numbers"""
+		"""Returns the lowest common multiple of two numbers
+		
+		Arguments:
+		num1 -- The first input number
+		num2 -- The second input number
+
+		Returns:
+		The greatest lowest common multiple of the two numbers
+		
+		"""
 		result = num1 * num2 / DatabaseManager.gcd(num1, num2)
 		return result
 
 	#----------------------------------------------------------------------------------
 	@staticmethod
 	def CalculateParameter(min, max, speed, level, initLvl, fnlLvl):
-		"""Calculates the parameter value of a curve at the passed level"""
+		"""Calculates the parameter value of a curve at the passed level
+		
+		Arguments:
+		min -- The lowest value value at the starting point of the curve
+		max -- The greatest value at the end of the curve
+		speed -- The "pitch" of the curve
+		level -- The level to calculate the value for (x coordinate)
+		intiLvl -- The initial level that the curve begins generation
+		fnlLvl -- The final level that the curve ends generation
+
+		Returns:
+		The calculated value for the curve at the passed level
+		
+		"""
 		p_range, l_range = max - min, float(fnlLvl - initLvl)
 		linear = ceil(min + p_range * ((level - initLvl) / l_range))
 		if speed == 0: return linear
