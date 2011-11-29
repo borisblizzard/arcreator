@@ -1,6 +1,14 @@
 import wx
 from wxPython import stc	
 
+"""
+TODO:
+	- Consecutive keywords do not colorize, specifically "def self.WORD"
+	- The Ruby range operator ".." and "..." do not colorize properly. If the first 
+	  value is a number, the first dot inherits the color of a number as if it were
+	  a float
+"""
+
 # For now, this works. The finished product can load the fonts, etc. from the cfg file.
 
 if wx.Platform == '__WXMSW__':
@@ -24,6 +32,8 @@ else:
 TAB_WIDTH = 2
 INDENT_GUIDES = True
 AUTO_INDENT = True
+EDGE_COLUMN = 80
+FOLDING = True
 
 # Line Highlighting
 SHOW_CARET = True
@@ -48,8 +58,10 @@ GLOBAL_STYLES = {
 RUBY_STYLES = {
 				# Default
 				stc.wxSTC_RB_DEFAULT      : "fore:#000000,face:%(mono)s,size:%(size)d" % faces,
+				# Comment Block (No block comment for Ruby, but setting global works for it)
+				stc.wxSTC_ST_COMMENT      : "fore:#008000,face:%(other)s,size:%(size2)d" % faces,
 				# Comment
-				stc.wxSTC_RB_COMMENTLINE  : "fore:#008000,face:%(other)s,size:%(size)d" % faces,
+				stc.wxSTC_RB_COMMENTLINE  : "fore:#008000,face:%(other)s,size:%(size2)d" % faces,
 				# Numbers
 				stc.wxSTC_RB_NUMBER       : "fore:#800000,face:%(mono)s,size:%(size)d" % faces,
 				# Double-Quoted Strings
@@ -65,7 +77,7 @@ RUBY_STYLES = {
 				# Method/Function Name
 				stc.wxSTC_RB_DEFNAME      : "fore:#000000,bold,size:%(size)d" % faces,
 				# Operators
-				stc.wxSTC_RB_OPERATOR     : "fore:##2B91AF,bold,size:%(size)d" % faces,
+				stc.wxSTC_RB_OPERATOR     : "fore:#2B91AF,bold,size:%(size)d" % faces,
 				# Normal Text/Local Variables
 				stc.wxSTC_RB_IDENTIFIER   : "fore:#000000,face:%(mono)s,size:%(size)d" % faces,
 				# Global Variable
@@ -79,11 +91,11 @@ RUBY_STYLES = {
 				# Symbol
 				stc.wxSTC_RB_SYMBOL       : "fore:#000000,face:%(mono)s,size:%(size)d" % faces,
 				# Backticks
-				stc.wxSTC_RB_BACKTICKS    : "fore:#000000,face:%(mono)s,size:%(size)d" % faces,
+				stc.wxSTC_RB_BACKTICKS    : "fore:#808080,face:%(mono)s,size:%(size)d" % faces,
 				# Data Section
 				stc.wxSTC_RB_DATASECTION  : "fore:#000000,face:%(mono)s,size:%(size)d" % faces,
 				# Error
-				stc.wxSTC_RB_ERROR        : "fore:#FF0000,face:%(mono)s,bold,size:%(size)d" % faces,
+				stc.wxSTC_RB_ERROR        : "fore:#FF0000,face:%(mono)s,bold,size:%(size)d" % faces
 			  }
 
 #--------------------------------------------------------------------------------------
@@ -93,17 +105,18 @@ RUBY_STYLES = {
 class ScriptTextCtrl(stc.wxStyledTextCtrl):
 
 	def __init__(self, parent):
+		"""Basic constructor for the ScriptTextCtrl"""
 		super(ScriptTextCtrl, self).__init__(parent, 
 			style=stc.wxSTC_STYLE_LINENUMBER|stc.wxSTC_STYLE_INDENTGUIDE)
 		self.ApplyDefaults()
 		self.BindHotKeys()
 		self.Bind(wx.EVT_KEY_DOWN, self.KeyPressed)
-		
+		self.Bind(wx.EVT_TEXT_PASTE, self.CalculateLineNumberMargin)
 
 	def KeyPressed( self, event ):
 		"""Preprocess keystrokes before they are added to the Scintilla control"""
 		ch = event.GetKeyCode()
-		if ch == wx.WXK_RETURN:
+		if ch == wx.WXK_RETURN and AUTO_INDENT:
 			# Process auto-indentation if the return key was pressed
 			thisLine = self.GetCurrentLine()
 			nextLine = thisLine + 1
@@ -113,6 +126,7 @@ class ScriptTextCtrl(stc.wxStyledTextCtrl):
 			self.CmdKeyExecute(stc.wxSTC_CMD_NEWLINE)
 			self.SetLineIndentation(nextLine, indent)
 			self.GotoPos(self.GetLineEndPosition(nextLine))
+			self.CalculateLineNumberMargin()
 		else:
 			event.Skip()
 		
@@ -136,17 +150,19 @@ class ScriptTextCtrl(stc.wxStyledTextCtrl):
 			'ensure','unless', 'while', 'until', 'def', 'for', 'case', 'when']:
 			return tabWidth
 		return 0
+
+	def CalculateLineNumberMargin( self, event=None ):
+		"""Ensure the margin width is large enough to fit the maximum number"""
+		digits = len(str(self.GetLineCount()))
+		self.SetMarginWidth(2, digits * 4)
 		
 	def BindHotKeys( self ):
+		"""Binds hotkey commands to the script control"""
 		self.CmdKeyAssign(ord('Z'), stc.wxSTC_SCMOD_ALT, stc.wxSTC_CMD_ZOOMIN)
 		self.CmdKeyAssign(ord('X'), stc.wxSTC_SCMOD_ALT, stc.wxSTC_CMD_ZOOMOUT)
 
-		#self.CmdKeyAssign(ord('Q'), stc.wxSTC_SCMOD_CTRL, stc.w
-
-
-		
-
 	def ApplyDefaults( self ):
+		"""Applies default setting to the script control"""
 		self.SetLexer(stc.wxSTC_LEX_RUBY)
 		self.SetKeyWords(0, RUBY_KEYWORDS)
 		for key, value in GLOBAL_STYLES.iteritems():
@@ -159,20 +175,35 @@ class ScriptTextCtrl(stc.wxStyledTextCtrl):
 		self.SetCaretForeground(CARET_FORE)
 		self.SetCaretLineBackAlpha(CARET_ALPHA)
 		self.SetIndentationGuides(INDENT_GUIDES)
+		self.SetEdgeColumn(EDGE_COLUMN)
+		self.SetEdgeMode(stc.wxSTC_EDGE_LINE)
+		if FOLDING:
+			self.SetupMargins()
 
-
-
-
-	def ApplyAutoIndentation( self, event ):
-		print 'Char Added'
-		ch = chr(event.KeyCode)
-
-		if event.ControlDown():
-			print 'CTRL'
-
-		if event.AltDown():
-			print 'ALT'
-		print event.KeyCode, ch
+	def SetupMargins( self ):
+		"""Sets up the margins for folding"""
+		self.SetMarginType(2, stc.wxSTC_MARGIN_NUMBER)
+		self.SetMarginType(3, stc.wxSTC_MARGIN_SYMBOL)
+		self.SetMarginWidth(3, 16)
+		self.SetProperty("fold", "3")
+		self.SetMarginType(3, stc.wxSTC_MARGIN_SYMBOL)
+		self.SetMarginMask(3, stc.wxSTC_MASK_FOLDERS)
+		self.SetMarginSensitive(3, True)
+		self.SetMarginWidth(3, 12)
+		self.MarkerDefine(stc.wxSTC_MARKNUM_FOLDEROPEN, 
+			stc.wxSTC_MARK_BOXMINUS, "white", "#808080")
+		self.MarkerDefine(stc.wxSTC_MARKNUM_FOLDER,
+			stc.wxSTC_MARK_BOXPLUS, "white", "#808080")
+		self.MarkerDefine(stc.wxSTC_MARKNUM_FOLDEROPENMID,
+			stc.wxSTC_MARK_BOXMINUSCONNECTED, "white", "#808080")
+		self.MarkerDefine(stc.wxSTC_MARKNUM_FOLDEREND,
+			stc.wxSTC_MARK_BOXPLUSCONNECTED, "white", "#808080")
+		self.MarkerDefine(stc.wxSTC_MARKNUM_FOLDERTAIL,
+			stc.wxSTC_MARK_LCORNER, "white", "#808080")
+		self.MarkerDefine(stc.wxSTC_MARKNUM_FOLDERSUB,
+			stc.wxSTC_MARK_VLINE, "white", "#808080")
+		self.MarkerDefine(stc.wxSTC_MARKNUM_FOLDERMIDTAIL,
+			stc.wxSTC_MARK_VLINE, "white", "#808080")
 
 #--------------------------------------------------------------------------------------
 # ScriptEditor_Panel
@@ -182,33 +213,60 @@ class ScriptEditor_Panel ( wx.Panel ):
 	
 	def __init__( self, parent ):
 		wx.Panel.__init__ ( self, parent, id = wx.ID_ANY, pos = wx.DefaultPosition, size = wx.Size( 696,485 ), style = wx.TAB_TRAVERSAL )
+		
 		MainSizer = wx.BoxSizer( wx.VERTICAL )
+		
 		bSizer643 = wx.BoxSizer( wx.HORIZONTAL )
+		
 		sizerScriptList = wx.BoxSizer( wx.VERTICAL )
+		
 		self.bitmapScripts = wx.StaticBitmap( self, wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.Size( 150,26 ), wx.CLIP_CHILDREN|wx.FULL_REPAINT_ON_RESIZE )
 		self.bitmapScripts.SetMinSize( wx.Size( 150,26 ) )
 		self.bitmapScripts.SetMaxSize( wx.Size( 150,26 ) )
+		
 		sizerScriptList.Add( self.bitmapScripts, 0, wx.ALL|wx.EXPAND, 5 )
-		listBoxScriptsChoices = []
-		self.listBoxScripts = wx.ListBox( self, wx.ID_ANY, wx.DefaultPosition, wx.Size( 184,-1 ), listBoxScriptsChoices, wx.LB_SINGLE|wx.CLIP_CHILDREN )
-		sizerScriptList.Add( self.listBoxScripts, 1, wx.EXPAND|wx.RIGHT|wx.LEFT, 5 )
-		self.m_textCtrl60 = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
-		sizerScriptList.Add( self.m_textCtrl60, 0, wx.ALL|wx.EXPAND, 5 )
+		
+		self.treeCtrlScripts = wx.TreeCtrl( self, wx.ID_ANY, wx.DefaultPosition, wx.Size( 184,-1 ), wx.TR_DEFAULT_STYLE|wx.TR_EDIT_LABELS|wx.TR_HAS_BUTTONS|wx.TR_LINES_AT_ROOT|wx.TR_SINGLE )
+		sizerScriptList.Add( self.treeCtrlScripts, 1, wx.ALL|wx.EXPAND, 5 )
+
+		
+		root = self.treeCtrlScripts.AddRoot('Scripts')
+		internal = self.treeCtrlScripts.AppendItem(root, 'Internal Scripts')
+		generated = self.treeCtrlScripts.AppendItem(root, 'Generated Scripts')
+		rtp = self.treeCtrlScripts.AppendItem(root, 'RTP Scripts')
+		user = self.treeCtrlScripts.AppendItem(root, 'User Scripts')
+		main = self.treeCtrlScripts.AppendItem(root, 'Main')
+		self.treeCtrlScripts.AppendItem(main, 'Main')
+
+
+		self.textCtrlScriptName = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+		sizerScriptList.Add( self.textCtrlScriptName, 0, wx.ALL|wx.EXPAND, 5 )
+		
 		bSizer643.Add( sizerScriptList, 0, wx.EXPAND, 5 )
+		
 		sizerScriptControl = wx.BoxSizer( wx.VERTICAL )
+		
 		self.scriptControl = ScriptTextCtrl(self)
 		sizerScriptControl.Add( self.scriptControl, 1, wx.ALL|wx.EXPAND, 5 )
+		
 		bSizer643.Add( sizerScriptControl, 1, wx.EXPAND, 5 )
+		
 		MainSizer.Add( bSizer643, 1, wx.EXPAND, 5 )
+		
 		sizerButtons = wx.BoxSizer( wx.HORIZONTAL )
+		
 		self.buttonHelp = wx.Button( self, wx.ID_ANY, u"Help", wx.DefaultPosition, wx.DefaultSize, 0 )
 		sizerButtons.Add( self.buttonHelp, 0, wx.ALL, 5 )
+		
 		self.buttonOK = wx.Button( self, wx.ID_ANY, u"OK", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.buttonOK.SetDefault() 
 		sizerButtons.Add( self.buttonOK, 0, wx.TOP|wx.BOTTOM|wx.LEFT, 5 )
+		
 		self.buttonCancel = wx.Button( self, wx.ID_ANY, u"Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
 		sizerButtons.Add( self.buttonCancel, 0, wx.TOP|wx.BOTTOM|wx.RIGHT, 5 )
+		
 		MainSizer.Add( sizerButtons, 0, wx.ALIGN_RIGHT, 5 )
+		
 		self.SetSizer( MainSizer )
 		self.Layout()
 
@@ -221,7 +279,6 @@ frame = wx.Frame( None, wx.ID_ANY, 'ARCed Script Editor', size=(800,600) )
 panel = ScriptEditor_Panel( frame )
 
 try:
-	# I was testing in Ubuntu, and didn't want to copy the all the source files...
 	from DatabaseManager import DatabaseManager as DM
 	DM.DrawHeaderBitmap(panel.bitmapScripts, 'Scripts')
 except:
