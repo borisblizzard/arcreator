@@ -96,10 +96,7 @@ class ScriptTextCtrl(stc.wxStyledTextCtrl):
 		super(ScriptTextCtrl, self).__init__(parent, 
 			style=stc.wxSTC_STYLE_LINENUMBER|stc.wxSTC_STYLE_INDENTGUIDE)
 		self.ApplyDefaults()
-
 		self.BindHotKeys()
-
-		self.Bind(wx.EVT_CHAR, self.CharAdded)
 		self.Bind(wx.EVT_KEY_DOWN, self.KeyPressed)
 		
 
@@ -107,6 +104,7 @@ class ScriptTextCtrl(stc.wxStyledTextCtrl):
 		"""Preprocess keystrokes before they are added to the Scintilla control"""
 		ch = event.GetKeyCode()
 		if ch == wx.WXK_RETURN:
+			# Process auto-indentation if the return key was pressed
 			thisLine = self.GetCurrentLine()
 			nextLine = thisLine + 1
 			text = self.GetCurLine()[0]
@@ -118,31 +116,26 @@ class ScriptTextCtrl(stc.wxStyledTextCtrl):
 		else:
 			event.Skip()
 		
-
 	def DetermineIndentChange( self, text, previousLine, previousIndent ):
 		"""Calculates the value to change the indent level by, if at all"""
+		tabWidth = self.GetTabWidth()
 		currentWords = text.strip().split()
 		if len(currentWords) == 0: 
 			return 0
 		first, last = currentWords[0], currentWords[-1]
 		if last == 'end' or last == 'else' or first in ['elsif', 'rescue', 'ensure']:
-			indent = previousIndent - self.GetTabWidth()
-			self.SetLineIndentation(previousLine, indent)
-			if last == 'end' : return -self.GetTabWidth()
-			return 0 
+			prePreviousIndent = self.GetLineIndentation(previousLine - 1)
+			if previousIndent + tabWidth != prePreviousIndent:
+				indent = previousIndent - tabWidth
+				self.SetLineIndentation(previousLine, indent)
+			elif self.GetLineIndentation(previousLine + 1) == previousIndent + tabWidth:
+				return tabWidth
+			if last == 'end' : return -tabWidth
+			return 0
 		if first in ['class', 'module', 'if', 'elsif', 'else', 'begin', 'rescue', 
 			'ensure','unless', 'while', 'until', 'def', 'for', 'case', 'when']:
-			return self.GetTabWidth()
+			return tabWidth
 		return 0
-
-
-	def CharAdded( self, event ):
-		if AUTO_INDENT:
-			#if self.ApplyAutoIndentation(event): event.Skip()
-			event.Skip()
-		else:
-			event.Skip()
-
 		
 	def BindHotKeys( self ):
 		self.CmdKeyAssign(ord('Z'), stc.wxSTC_SCMOD_ALT, stc.wxSTC_CMD_ZOOMIN)
