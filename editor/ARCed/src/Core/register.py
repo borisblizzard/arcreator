@@ -8,7 +8,7 @@ from Kernel import Manager, Type, SuperType, Component, Package, Event
 import RMXP
 from Core import Frames, Menues, Dialogs, Controls, Layouts, Data, Project, ARC_Data, Actions
 from Core import DatabaseActions, RPGutil, Icons, PanelManager, Panels, Cache
-from Core import PyXAL
+from Core import PyXAL, MapEditor
 
 
 #=============================================================================
@@ -360,9 +360,9 @@ class CorePackage(Package):
         #=====================================================================
         self.add_component(Component(Panels.StartPanel, "StartPanel", "PanelManagerType",
                                      "CoreStartPanel", "CORE", 1.0, self))
-        self.add_component(Component(Panels.TilesetPanel, "TilesetPanel", "PanelManagerType",
+        self.add_component(Component(MapEditor.BrushPanels.TilesetPanel, "TilesetPanel", "PanelManagerType",
                                      "CoreTilesetPanel", "CORE", 1.0, self))
-        self.add_component(Component(Panels.MapTreePanel, "MapTreePanel", "PanelManagerType",
+        self.add_component(Component(MapEditor.BrushPanels.MapTreePanel, "MapTreePanel", "PanelManagerType",
                                      "CoreMapTreePanel", "CORE", 1.0, self))
         self.add_component(Component(Panels.MainToolbar, "MainToolbar", "PanelManagerType",
                                      "CoreMainToolbar", "CORE", 1.0, self))

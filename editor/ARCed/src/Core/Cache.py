@@ -14,15 +14,6 @@ import collections
 import Kernel
 from Kernel import Manager as KM
 
-#do stuff to use pygame with out a window
-#os.environ["SDL_VIDEODRIVER"] = "dummy"
-#if 1:
-#   #some platforms might need to init the display for some parts of pygame.
-#   import pygame
-#   pygame.init()
-#   screen = pygame.display.set_mode((1, 1))
-#   from pygame import surfarray
-
 class ImageFunctions(object):
 
     @staticmethod

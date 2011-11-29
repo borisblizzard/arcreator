@@ -4,12 +4,7 @@ Created on Dec 20, 2010
 core plugin module
 '''
 #preimport these so that they are there when the compiled copmponents try 
-import PIL 
-from PIL import Image
-import numpy as np
-import wx.lib.agw.aui as aui   
-import  wx.lib.scrolledpanel as scrolled
-from wx.lib.agw.aui import aui_switcherdialog as ASD
+import _ext
 
 
 import RMXP
@@ -37,6 +32,7 @@ import Icons
 #L
 import Layouts
 #M
+import MapEditor
 import Menues
 #N
 #O

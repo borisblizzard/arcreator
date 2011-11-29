@@ -45,7 +45,7 @@ class GlobalObjects(object):
                "ProjectOpen":["CORE", False],
                "FileHistory":["CORE", None],
                "CurrentProjectDir":["CORE", ""],
-               "Program_Dir":["CORE", os.path.dirname(os.path.abspath(__file__))],
+               "Program_Dir":["CORE", ""],
                "Title":["CORE", ""],
                "Mode":["CORE", ""],
                "Components_config":["CORE", None],
@@ -712,8 +712,8 @@ class KernelConfig(object):
         @return: ConfigTemplate
         '''
 
-        template = ConfigLoader.build_from_file(filename, template)
-        ConfigLoader.load(template)
+        template = KernelConfig.build_from_file(filename, template)
+        KernelConfig.load(template)
         return template
 
     @staticmethod
@@ -1014,48 +1014,4 @@ def Inform(title, message, error=False):
                 dlg.ShowModal()
     except Exception:
         #if this fails lets log it with out an inform
-        Log("Inform failed: [Message] %s  [Error?] %s" % (message, error), [Kernel_Infrom], error=True)
-            
-        
-
-
-#=======================================================================
-# NOTE: the below is for testing purposes only
-#=======================================================================
-
-if __name__ == '__main__':
-
-    test_type = Type("TEST")
-    test_type2 = Type("TEST2")
-    test_type3 = Type("TEST3")
-
-    Manager.register_types(test_type)
-    Manager.register_types(test_type2, test_type3)
-
-    class TestPackage(Package):
-        def __init__(self, manager):
-            super(TestPackage, self).__init__("TESTP")
-            self.add_component(Component(TestExtension, "TEST", "TESTE", "ME",
-                                         1.0, self))
-            self.register()
-
-
-    class TestExtension(object):
-        def __init__(self, name):
-            self.name = name
-
-        def say_name(self):
-            print self.name
-
-    package1 = TestPackage(Manager)
-
-    component = Manager.get_component("TEST")
-    print component.author
-    print component.name
-    print component.type
-    print component.version
-    initcomponent = component.object("bob")
-    initcomponent.say_name()
-
-
-
+        Log("Inform failed: [Message] %s  [Error?] %s" % (message, error), "[Kernel Inform]", error=True)
