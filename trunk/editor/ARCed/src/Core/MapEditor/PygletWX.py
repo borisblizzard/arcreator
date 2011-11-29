@@ -1,14 +1,16 @@
-import os
-
 import wx
 from wx import glcanvas
-
 import pyglet
+pyglet.options['shadow_window'] = False
 from pyglet import gl
-
+from pyglet.gl import GLException
 import numpy
+import rabbyt
 
-class GLPanel(wx.Panel):
+import Kernel
+from Kernel import Manager as KM
+
+class PygletGLPanel(wx.Panel):
 
     '''A simple class for using pyglet OpenGL with wxPython.'''
 
@@ -17,13 +19,12 @@ class GLPanel(wx.Panel):
         # Forcing a no full repaint to stop flickering
         style = style | wx.NO_FULL_REPAINT_ON_RESIZE
         #call super function
-        super(GLPanel, self).__init__(parent, id, pos, size, style)
-
+        super(PygletGLPanel, self).__init__(parent, id, pos, size, style)
         #init gl canvas data
         self.GLinitialized = False
         attribList = (glcanvas.WX_GL_RGBA, # RGBA
                       glcanvas.WX_GL_DOUBLEBUFFER, # Double Buffered
-                      glcanvas.WX_GL_DEPTH_SIZE, 32) # 24 bit
+                      glcanvas.WX_GL_DEPTH_SIZE, 24) # 24 bit
         # Create the canvas
         self.sizer = wx.BoxSizer(wx.HORIZONTAL)
         self.canvas = glcanvas.GLCanvas(self, attribList=attribList)
@@ -58,6 +59,7 @@ class GLPanel(wx.Panel):
 
     def processSizeEvent(self, event):
         '''Process the resize event.'''
+        self.PrepareGL()
         if self.canvas.GetContext():
             # Make sure the frame is shown before calling SetCurrent.
             self.Show()
@@ -65,6 +67,10 @@ class GLPanel(wx.Panel):
             size = self.GetGLExtents()
             self.winsize = (size.width, size.height)
             self.width, self.height = size.width, size.height
+            if self.width < 0:
+                self.width = 1
+            if self.height < 0:
+                self.height = 1
             self.OnReshape(size.width, size.height)
             self.canvas.Refresh(False)
         event.Skip()
@@ -77,6 +83,7 @@ class GLPanel(wx.Panel):
             self.OnInitGL()
             self.GLinitialized = True
             size = self.GetGLExtents()
+            self.OnReshape(size.width, size.height)
             
         self.pygletcontext.set_current()
     
@@ -151,5 +158,3 @@ class GLPanel(wx.Panel):
     def draw_objects(self):
         '''called in the middle of ondraw after the buffer has been cleared'''
         pass
-       
-        

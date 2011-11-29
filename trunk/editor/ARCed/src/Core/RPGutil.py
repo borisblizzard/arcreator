@@ -14,10 +14,6 @@ import os
 import numpy
 from struct import pack, unpack
 
-#import pygame
-
-#from pygame import surfarray
-
 class Table(object):
     """a three dimensional table object"""
     _arc_class_path = "Table"

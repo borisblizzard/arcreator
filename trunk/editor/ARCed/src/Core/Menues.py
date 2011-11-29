@@ -101,8 +101,8 @@ class FileMenu(wx.Menu):
         fileNum = event.GetId() - wx.ID_FILE1
         path = self.filehistory.GetHistoryFile(fileNum)
         self.filehistory.AddFileToHistory(path)
-        self.filehistory.Save(Kernel.GlobalObjects.get_value("programconfig"))
-        Kernel.GlobalObjects.get_value("programconfig").Flush()
+        self.filehistory.Save(Kernel.GlobalObjects.get_value("WX_config"))
+        Kernel.GlobalObjects.get_value("WX_config").Flush()
         openproject = KM.get_component("OpenProjectHandler").object
         openproject(self.mainwindow, self.filehistory, path)
 
