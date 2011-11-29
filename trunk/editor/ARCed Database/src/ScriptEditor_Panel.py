@@ -23,6 +23,7 @@ else:
 # Tabs/Indents
 TAB_WIDTH = 2
 INDENT_GUIDES = True
+AUTO_INDENT = True
 
 # Line Highlighting
 SHOW_CARET = True
@@ -96,6 +97,62 @@ class ScriptTextCtrl(stc.wxStyledTextCtrl):
 			style=stc.wxSTC_STYLE_LINENUMBER|stc.wxSTC_STYLE_INDENTGUIDE)
 		self.ApplyDefaults()
 
+		self.BindHotKeys()
+
+		self.Bind(wx.EVT_CHAR, self.CharAdded)
+		self.Bind(wx.EVT_KEY_DOWN, self.KeyPressed)
+		
+
+	def KeyPressed( self, event ):
+		"""Preprocess keystrokes before they are added to the Scintilla control"""
+		ch = event.GetKeyCode()
+		if ch == wx.WXK_RETURN:
+			thisLine = self.GetCurrentLine()
+			nextLine = thisLine + 1
+			text = self.GetCurLine()[0]
+			indent = self.GetLineIndentation(thisLine)
+			indent += self.DetermineIndentChange(text, thisLine, indent)
+			self.CmdKeyExecute(stc.wxSTC_CMD_NEWLINE)
+			self.SetLineIndentation(nextLine, indent)
+			self.GotoPos(self.GetLineEndPosition(nextLine))
+		else:
+			event.Skip()
+		
+
+	def DetermineIndentChange( self, text, previousLine, previousIndent ):
+		"""Calculates the value to change the indent level by, if at all"""
+		currentWords = text.strip().split()
+		if len(currentWords) == 0: 
+			return 0
+		first, last = currentWords[0], currentWords[-1]
+		if last == 'end' or last == 'else' or first in ['elsif', 'rescue', 'ensure']:
+			indent = previousIndent - self.GetTabWidth()
+			self.SetLineIndentation(previousLine, indent)
+			if last == 'end' : return -self.GetTabWidth()
+			return 0 
+		if first in ['class', 'module', 'if', 'elsif', 'else', 'begin', 'rescue', 
+			'ensure','unless', 'while', 'until', 'def', 'for', 'case', 'when']:
+			return self.GetTabWidth()
+		return 0
+
+
+	def CharAdded( self, event ):
+		if AUTO_INDENT:
+			#if self.ApplyAutoIndentation(event): event.Skip()
+			event.Skip()
+		else:
+			event.Skip()
+
+		
+	def BindHotKeys( self ):
+		self.CmdKeyAssign(ord('Z'), stc.wxSTC_SCMOD_ALT, stc.wxSTC_CMD_ZOOMIN)
+		self.CmdKeyAssign(ord('X'), stc.wxSTC_SCMOD_ALT, stc.wxSTC_CMD_ZOOMOUT)
+
+		#self.CmdKeyAssign(ord('Q'), stc.wxSTC_SCMOD_CTRL, stc.w
+
+
+		
+
 	def ApplyDefaults( self ):
 		self.SetLexer(stc.wxSTC_LEX_RUBY)
 		self.SetKeyWords(0, RUBY_KEYWORDS)
@@ -110,6 +167,19 @@ class ScriptTextCtrl(stc.wxStyledTextCtrl):
 		self.SetCaretLineBackAlpha(CARET_ALPHA)
 		self.SetIndentationGuides(INDENT_GUIDES)
 
+
+
+
+	def ApplyAutoIndentation( self, event ):
+		print 'Char Added'
+		ch = chr(event.KeyCode)
+
+		if event.ControlDown():
+			print 'CTRL'
+
+		if event.AltDown():
+			print 'ALT'
+		print event.KeyCode, ch
 
 #--------------------------------------------------------------------------------------
 # ScriptEditor_Panel
@@ -148,8 +218,6 @@ class ScriptEditor_Panel ( wx.Panel ):
 		MainSizer.Add( sizerButtons, 0, wx.ALIGN_RIGHT, 5 )
 		self.SetSizer( MainSizer )
 		self.Layout()
-
-
 
 #--------------------------------------------------------------------------------------
 # TEST
