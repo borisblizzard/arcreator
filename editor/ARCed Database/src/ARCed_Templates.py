@@ -14242,12 +14242,11 @@ class ScriptEditor_Panel ( wx.Panel ):
 		
 		sizerScriptList.Add( self.bitmapScripts, 0, wx.ALL|wx.EXPAND, 5 )
 		
-		listBoxScriptsChoices = []
-		self.listBoxScripts = wx.ListBox( self, wx.ID_ANY, wx.DefaultPosition, wx.Size( 184,-1 ), listBoxScriptsChoices, wx.LB_SINGLE|wx.CLIP_CHILDREN )
-		sizerScriptList.Add( self.listBoxScripts, 1, wx.EXPAND|wx.RIGHT|wx.LEFT, 5 )
+		self.treeCtrlScripts = wx.TreeCtrl( self, wx.ID_ANY, wx.DefaultPosition, wx.Size( 184,-1 ), wx.TR_DEFAULT_STYLE|wx.TR_EDIT_LABELS|wx.TR_HAS_BUTTONS|wx.TR_LINES_AT_ROOT|wx.TR_SINGLE )
+		sizerScriptList.Add( self.treeCtrlScripts, 1, wx.ALL|wx.EXPAND, 5 )
 		
-		self.m_textCtrl60 = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
-		sizerScriptList.Add( self.m_textCtrl60, 0, wx.ALL|wx.EXPAND, 5 )
+		self.textCtrlScriptName = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+		sizerScriptList.Add( self.textCtrlScriptName, 0, wx.ALL|wx.EXPAND, 5 )
 		
 		bSizer643.Add( sizerScriptList, 0, wx.EXPAND, 5 )
 		
@@ -14276,16 +14275,8 @@ class ScriptEditor_Panel ( wx.Panel ):
 		
 		self.SetSizer( MainSizer )
 		self.Layout()
-		
-		# Connect Events
-		self.listBoxScripts.Bind( wx.EVT_LISTBOX, self.listBoxScripts_SelectionChanged )
 	
 	def __del__( self ):
-		pass
-	
-	
-	# Virtual event handlers, overide them in your derived class
-	def listBoxScripts_SelectionChanged( self, event ):
 		pass
 	
 
