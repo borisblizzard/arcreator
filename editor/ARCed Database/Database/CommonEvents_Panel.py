@@ -1,15 +1,17 @@
-
 import wx
-import ARCed_Templates
+import Database.ARCed_Templates as Templates
 import ChangeMaximum_Dialog
 import EventCommands1_Panel
 import EventCommands2_Panel
 import EventCommands3_Panel
-import ChooseSwitchVariable_Dialog
+from Database.Dialogs import ChooseSwitchVariable_Dialog
 from DatabaseManager import DatabaseManager as DM
+#--------------------------------------------------------------------------------------
+# CommonEvents_Panel
+#--------------------------------------------------------------------------------------
 
 # Implementing CommonEvents_Panel
-class CommonEvents_Panel(ARCed_Templates.CommonEvents_Panel ):
+class CommonEvents_Panel( Templates.CommonEvents_Panel ):
 	def __init__( self, parent ):
 		ARCed_Templates.CommonEvents_Panel.__init__( self, parent )
 

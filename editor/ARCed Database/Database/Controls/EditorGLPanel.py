@@ -3,6 +3,9 @@ from PIL import Image
 import pyglet
 import pyglet.gl as gl
 from Core.Mapeditor import PygletGLPanel
+#--------------------------------------------------------------------------------------
+# EditorGLPanel
+#--------------------------------------------------------------------------------------
 
 class EditorGLPanel(PygletGLPanel):
 

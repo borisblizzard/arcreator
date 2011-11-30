@@ -1,15 +1,16 @@
 import wx
-import ARCed_Templates
-from ChangeMaximum_Dialog import ChangeMaximum_Dialog
-from Skill_Dialog import Skill_Dialog
+import Database.ARCed_Templates as Templates
+from Database.Dialogs import ChangeMaximum_Dialog, Skill_Dialog
 import numpy as np
 from DatabaseManager import DatabaseManager as DM
 from Core.RMXP import RGSS1_RPG as RPG	
 from Core import RPGutil, DatabaseActions
 import Kernel 
+#--------------------------------------------------------------------------------------
+# ClassesPanel
+#--------------------------------------------------------------------------------------
 
-
-class Classes_Panel(ARCed_Templates.Classes_Panel ):
+class Classes_Panel( Templates.Classes_Panel ):
 	def __init__( self, parent, class_index=0 ):
 		"""Basic constructor for the Classes panel"""
 		ARCed_Templates.Classes_Panel.__init__( self, parent )

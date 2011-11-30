@@ -1,9 +1,9 @@
 
 import wx
-import ARCed_Templates
+import Database.ARCed_Templates as Templates
 
 # Implementing CallCommonEvent_Dialog
-class CallCommonEvent_Dialog(ARCed_Templates.CallCommonEvent_Dialog ):
+class CallCommonEvent_Dialog( Templates.CallCommonEvent_Dialog ):
 	def __init__( self, parent ):
 		ARCed_Templates.CallCommonEvent_Dialog.__init__( self, parent )
 

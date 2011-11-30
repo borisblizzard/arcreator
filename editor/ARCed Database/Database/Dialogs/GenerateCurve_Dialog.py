@@ -1,11 +1,11 @@
 import wx
-import ARCed_Templates
+import Database.ARCed_Templates as Templates
 import wx.lib.agw.floatspin as floatspin
 import numpy as np
 from DatabaseManager import DatabaseManager as DM
 import Kernel
 
-class GenerateCurve_Dialog( ARCed_Templates.GenerateCurve_Dialog ):
+class GenerateCurve_Dialog( Templates.GenerateCurve_Dialog ):
 	def __init__( self, parent, vRange, lRange, max):
 		"""Basic constructor for the GenerateCurve_Dialog"""
 		ARCed_Templates.GenerateCurve_Dialog.__init__( self, parent )

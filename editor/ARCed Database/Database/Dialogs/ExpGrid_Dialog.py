@@ -1,5 +1,5 @@
 import wx
-import ARCed_Templates
+import Database.ARCed_Templates as Templates
 import wx.lib.agw.floatspin as floatspin
 import numpy as np
 from DatabaseManager import DatabaseManager as DM
@@ -11,7 +11,7 @@ import Main
 Main.ConfigManager.LoadConfig()
 
 # Implementing ExpGrid_Dialog
-class ExpGrid_Dialog( ARCed_Templates.ExpGrid_Dialog ):
+class ExpGrid_Dialog( Templates.ExpGrid_Dialog ):
 	def __init__( self, parent, actor ):
 		"""Basic constructor for the ExpGrid_Dialog"""
 		ARCed_Templates.ExpGrid_Dialog.__init__( self, parent )
@@ -185,7 +185,7 @@ class ExpGrid_Dialog( ARCed_Templates.ExpGrid_Dialog ):
 		
 #--------------------------------------------------------------------------------------
 
-class ExpGraphEditor_Dialog( ARCed_Templates.ExpGraph_Dialog ):
+class ExpGraphEditor_Dialog( Templates.ExpGraph_Dialog ):
 	def __init__( self, parent, *args):
 		"""Basic constructor for the ExpGraph_Dialog"""
 		ARCed_Templates.ExpGraph_Dialog.__init__( self, parent )

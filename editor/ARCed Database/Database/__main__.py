@@ -10,7 +10,7 @@ import Main
 import Kernel
 from Kernel import Manager as KM
 Main.ConfigManager.LoadConfig()
-import DatabasePackage
+import Database.DatabasePackage
   
 #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 # TEST STUFF

@@ -1,7 +1,7 @@
 import wx
-import ARCed_Templates
+import Database.ARCed_Templates as Templates
 
-class EnemyExpGold_Dialog( ARCed_Templates.EnemyExpGold_Dialog ):
+class EnemyExpGold_Dialog( Templates.EnemyExpGold_Dialog ):
 	def __init__( self, parent, label, max, current=0, variance=None ):
 		"""Basic constructor for the dialog"""
 		ARCed_Templates.EnemyExpGold_Dialog.__init__( self, parent )

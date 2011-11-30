@@ -1,11 +1,7 @@
-"""
-Contains the functionality of all the events raised on the Actors Database panel
-"""
 import wx
 import wx.lib.plot as plot
-import ARCed_Templates
-from ExpGrid_Dialog import ExpGrid_Dialog
-from ChooseGraphic_Dialog import ChooseGraphic_Dialog 
+import Database.ARCed_Templates as Templates
+from Database.Dialogs import ChooseGraphic_Dialog, ExpGrid_Dialog
 import numpy as np
 from DatabaseManager import DatabaseManager as DM
 from Core.RMXP import RGSS1_RPG as RPG	   						
@@ -25,9 +21,11 @@ GRAPH_COLORS = [
 		wx.Colour(112, 56, 187),
 		wx.Colour(187, 56, 112),
 	]
+#--------------------------------------------------------------------------------------
+# Actors_Panel
+#--------------------------------------------------------------------------------------
 
-
-class Actors_Panel(ARCed_Templates.Actors_Panel ):
+class Actors_Panel( Templates.Actors_Panel ):
 
 	def __init__( self, parent, actorIndex=0 ):
 		"""Basic constructor for the Actors panel"""
@@ -542,72 +540,3 @@ class Actors_Panel(ARCed_Templates.Actors_Panel ):
 			if DataArmors[id].kind == kind:
 				filtered.append(id)
 		return filtered
-
-#--------------------------------------------------------------------------------------
-# ParameterPlotGraphics
-#--------------------------------------------------------------------------------------
-
-class ParameterPlotGraphics(plot.PlotGraphics):
-
-	def __init__(self, *args, **kwargs):
-		"""Basic constructor for the ParameterPlotGraphics"""
-		self._yLim= kwargs.pop('YLimit', None)
-		self._xLim = kwargs.pop('XLimit', None)
-		plot.PlotGraphics.__init__(self, *args, **kwargs)
-
-	def boundingBox(self):
-		"""Calculates the bounds of the box, factoring in custom values"""
-		bounds = plot.PlotGraphics.boundingBox(self)
-		Min, Max = [bounds[0][0], bounds[1][0]], [bounds[0][1], bounds[1][1]]
-		if self._yLim is not None:
-			Min[1], Max[1] = self._yLim[0], self._yLim[1]
-		if self._xLim is not None:
-			Min[0], Max[0] = self._xLim[0], self._xLim[1]
-		return plot._Numeric.array(Min), plot._Numeric.array(Max)
-		
-#--------------------------------------------------------------------------------------
-# ParameterGraph
-#--------------------------------------------------------------------------------------
-
-class ParameterGraph(plot.PlotCanvas):
-
-	def __init__(self, parent, data=None, color='orange'):
-		"""Basic constructor for the ParameterGraph"""
-		super(ParameterGraph, self).__init__(parent, style=wx.SUNKEN_BORDER)
-		self.SetEnableTitle(False)
-		self.SetEnableLegend(False)
-		self.SetEnablePointLabel(False)
-		self.SetFontSizeAxis(6)
-		self.SetXSpec('min')
-		self.SetYSpec('min')
-		self.SetCursor(wx.StockCursor(wx.CURSOR_ARROW))
-		self.SetEnableAntiAliasing(True)
-		self.DrawColor = color
-		self.canvas.Bind(wx.EVT_ERASE_BACKGROUND, self.DoNothing)
-		if data is not None:
-			self.SetData(data)
-
-	def DoNothing( self, event ):
-		"""Prevent flickering on Windows"""
-		pass
-
-	def SetData(self, data=None, statName='', color=None, maxvalue=None, 
-			maxlevel=None, minlevel=1):
-		"""Sets the data to plot and draws the graph"""
-		if data is None:
-			data = [(0, 0), (1, 0)]
-		if color is not None:
-			self.DrawColor = color
-		line = plot.PolyLine(data, colour=self.DrawColor, width=3)
-		xLim = yLim = None
-		if maxvalue is not None:
-			yLim = [0, maxvalue]
-		if maxlevel is not None:
-			xLim = [minlevel, maxlevel]
-		gc = ParameterPlotGraphics([line], xLabel='Level', yLabel=statName,
-			XLimit=xLim, YLimit=yLim)
-		self.Draw(gc)
-
-
-
-	
