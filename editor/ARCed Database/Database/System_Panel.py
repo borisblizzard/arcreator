@@ -1,6 +1,6 @@
 import wx
 import Database.ARCed_Templates as Templates
-from Database.Dialogs import ChangeMaximum_Dialog, ChooseGraphic_Dialog, ChooseAudio_Dialog
+from Database.Dialogs import ChooseGraphic_Dialog
 #--------------------------------------------------------------------------------------
 # System_Panel
 #--------------------------------------------------------------------------------------

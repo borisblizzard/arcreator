@@ -1,5 +1,4 @@
 import wx
-import wx.lib.plot as plot
 import Database.ARCed_Templates as Templates
 import numpy as np
 import Database.Manager as DM
