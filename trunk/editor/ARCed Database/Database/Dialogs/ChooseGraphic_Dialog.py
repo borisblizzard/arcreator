@@ -1,11 +1,11 @@
 import wx
-import ARCed_Templates
+import Database.ARCed_Templates as Templates
 from Core.Cache import RTPFunctions, PILCache
 import PIL
 import os
 import Kernel
 
-class ChooseGraphic_Dialog( ARCed_Templates.ChooseGraphic_Dialog ):
+class ChooseGraphic_Dialog( Templates.ChooseGraphic_Dialog ):
 	def __init__( self, parent, folder, current, hue ):
 		ARCed_Templates.ChooseGraphic_Dialog.__init__( self, parent )
 		self.glCanvasGraphic.canvas.Bind(wx.EVT_LEFT_DOWN, 

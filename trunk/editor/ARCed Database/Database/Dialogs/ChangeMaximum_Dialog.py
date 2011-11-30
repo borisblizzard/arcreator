@@ -1,7 +1,7 @@
 import wx
-import ARCed_Templates 
+import Database.ARCed_Templates as Templates 
 
-class ChangeMaximum_Dialog(ARCed_Templates.ChangeMaximum_Dialog ):
+class ChangeMaximum_Dialog( Templates.ChangeMaximum_Dialog ):
 	"""Initialize dialog, setting using pass argument to set the initial value."""
 	def __init__( self, parent, currentMaximum, minValue, maxValue):
 		ARCed_Templates.ChangeMaximum_Dialog.__init__( self, parent )

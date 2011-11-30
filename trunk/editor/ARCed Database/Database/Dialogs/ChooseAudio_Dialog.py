@@ -1,12 +1,12 @@
 import wx
-import ARCed_Templates
+import Database.ARCed_Templates as Templates
 import os
 from pygame import mixer as Mixer
 from Core.RMXP.RGSS1_RPG import AudioFile
 import Kernel
 
 # Implementing ChooseAudio_Dialog
-class ChooseAudio_Dialog(ARCed_Templates.ChooseAudio_Dialog ):
+class ChooseAudio_Dialog( Templates.ChooseAudio_Dialog ):
 	def __init__( self, parent, rtpfolder, loopcount, audiofile=None ):
 		"""
 		Basic constructor for the ChooseAudio dialog

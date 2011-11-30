@@ -1,10 +1,13 @@
 import wx
-import ARCed_Templates
+import Database.ARCed_Templates as Templates
 from Core.RMXP import RGSS1_RPG as RPG
 from DatabaseManager import DatabaseManager as DM
 import Kernel
+#--------------------------------------------------------------------------------------
+# Weapons_Panel
+#--------------------------------------------------------------------------------------
 
-class Weapons_Panel(ARCed_Templates.Weapons_Panel ):
+class Weapons_Panel( Templates.Weapons_Panel ):
 	def __init__( self, parent, weapon_index=0 ):
 		"""Basic constructor for the Weapons panel"""
 		ARCed_Templates.Weapons_Panel.__init__( self, parent )

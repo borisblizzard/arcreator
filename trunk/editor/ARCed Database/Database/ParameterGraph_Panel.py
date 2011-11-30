@@ -1,12 +1,16 @@
 import wx
-import ARCed_Templates
+import Database.ARCed_Templates as Templates
 from Actors_Panel import GRAPH_COLORS
+from Database.Controls import ParameterPlotGraphics, ParameterGraph
 import numpy as np
 from DatabaseManager import DatabaseManager as DM
 from copy import deepcopy
 import Kernel
+#--------------------------------------------------------------------------------------
+# ParameterGraph_Panel
+#--------------------------------------------------------------------------------------
 
-class ParameterGraph_Panel(ARCed_Templates.ParameterGraph_Panel ):
+class ParameterGraph_Panel( Templates.ParameterGraph_Panel ):
 	def __init__( self, parent, actor, tabs, index=0, scaled=False):
 		"""Basic constructor for the ParameterGraph_Panel"""
 		ARCed_Templates.ParameterGraph_Panel.__init__( self, parent )

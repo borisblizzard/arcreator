@@ -1,5 +1,5 @@
 import wx
-import ARCed_Templates
+import Database.ARCed_Templates as Templates
 from Core.RMXP import RGSS1_RPG as RPG	
 
 import Kernel
@@ -7,7 +7,7 @@ from Kernel import Manager as KM
 
 ARC_FORMAT = False # TEST
 
-class Skill_Dialog(ARCed_Templates.Skill_Dialog ):
+class Skill_Dialog( Templates.Skill_Dialog ):
 	def __init__( self, parent, skills, maxlevel, level=1, skill_id=1 ):
 		""".Basic constructor for the skills dialog."""
 		ARCed_Templates.Skill_Dialog.__init__( self, parent )

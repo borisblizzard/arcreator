@@ -3,7 +3,7 @@ import numpy as np
 import wx
 import wx.lib.plot as plot
 from datetime import timedelta
-import ARCed_Templates
+import Database.ARCed_Templates as Templates
 from Core.Cache import RTPFunctions
 from Core.RMXP import RGSS1_RPG as RPG
 from DatabaseManager import DatabaseManager as DM
@@ -19,12 +19,11 @@ if DM.ARC_FORMAT:
 	AUDIO_DIRECTORIES = ['BGM', 'BGS', 'Sound'] # TODO: Sound?
 else:
 	AUDIO_DIRECTORIES = ['BGM', 'BGS', 'ME', 'SE']
-
 #--------------------------------------------------------------------------------------
 # AudioPlayer_Panel
 #--------------------------------------------------------------------------------------
 
-class AudioPlayer_Panel( ARCed_Templates.AudioPlayer_Panel ):
+class AudioPlayer_Panel( Templates.AudioPlayer_Panel ):
 	def __init__( self, parent, rpgfile=None, directory=None ):
 		"""Basic constructor for the AudioPlayer"""
 		ARCed_Templates.AudioPlayer_Panel.__init__( self, parent )
