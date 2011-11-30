@@ -6,7 +6,7 @@ import Database.ARCed_Templates as Templates
 # Implementing ShowAnimation_Dialog
 class ShowAnimation_Dialog( Templates.ShowAnimation_Dialog ):
 	def __init__( self, parent ):
-		ARCed_Templates.ShowAnimation_Dialog.__init__( self, parent )
+		Templates.ShowAnimation_Dialog.__init__( self, parent )
 	
 	# Handlers for ShowAnimation_Dialog events.
 	def buttonOK_Clicked( self, event ):

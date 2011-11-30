@@ -6,7 +6,7 @@ import Database.ARCed_Templates as Templates
 # Implementing ControlVariables_Dialog
 class ControlVariables_Dialog( Templates.ControlVariables_Dialog ):
 	def __init__( self, parent ):
-		ARCed_Templates.ControlVariables_Dialog.__init__( self, parent )
+		Templates.ControlVariables_Dialog.__init__( self, parent )
 	
 	# Handlers for ControlVariables_Dialog events.
 	def spinCtrlBatchStart_ValueChanged( self, event ):

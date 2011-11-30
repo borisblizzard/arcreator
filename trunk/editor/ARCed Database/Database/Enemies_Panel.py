@@ -2,7 +2,7 @@ import wx
 import Database.ARCed_Templates as Templates
 from Database.Dialogs import EnemyExpGold_Dialog, ChooseGraphic_Dialog, EnemyAction_Dialog
 from Core.RMXP import RGSS1_RPG as RPG
-from DatabaseManager import DatabaseManager as DM
+import Database.Manager as DM
 import Kernel
 #--------------------------------------------------------------------------------------
 # Enemies_Panel
@@ -11,7 +11,7 @@ import Kernel
 class Enemies_Panel( Templates.Enemies_Panel ):
 	def __init__( self, parent, enemy_index=0 ):
 		"""Basic constructor for the Enemies panel"""
-		ARCed_Templates.Enemies_Panel.__init__( self, parent )
+		Templates.Enemies_Panel.__init__( self, parent )
 		global Config, DataEnemies, DataStates, DataAnimations, DataElements
 		Config = Kernel.GlobalObjects.get_value('ARCed_config')
 		try:

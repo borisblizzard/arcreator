@@ -6,7 +6,7 @@ import Database.ARCed_Templates as Templates
 # Implementing ErasePicture_Dialog
 class ErasePicture_Dialog( Templates.ErasePicture_Dialog ):
 	def __init__( self, parent ):
-		ARCed_Templates.ErasePicture_Dialog.__init__( self, parent )
+		Templates.ErasePicture_Dialog.__init__( self, parent )
 	
 	# Handlers for ErasePicture_Dialog events.
 	def buttonOK_Clicked( self, event ):

@@ -6,7 +6,7 @@ import Database.ARCed_Templates as Templates
 # Implementing EventCommands2_Panel
 class EventCommands2_Panel( Templates.EventCommands2_Panel ):
 	def __init__( self, parent ):
-		ARCed_Templates.EventCommands2_Panel.__init__( self, parent )
+		Templates.EventCommands2_Panel.__init__( self, parent )
 	
 	# Handlers for EventCommands2_Panel events.
 	def buttonTransferPlayer_Clicked( self, event ):

@@ -2,7 +2,7 @@ import wx
 import Database.ARCed_Templates as Templates
 from Database.Dialogs import ChangeMaximum_Dialog, Skill_Dialog
 import numpy as np
-from DatabaseManager import DatabaseManager as DM
+import Database.Manager as DM
 from Core.RMXP import RGSS1_RPG as RPG	
 from Core import RPGutil, DatabaseActions
 import Kernel 
@@ -13,7 +13,7 @@ import Kernel
 class Classes_Panel( Templates.Classes_Panel ):
 	def __init__( self, parent, class_index=0 ):
 		"""Basic constructor for the Classes panel"""
-		ARCed_Templates.Classes_Panel.__init__( self, parent )
+		Templates.Classes_Panel.__init__( self, parent )
 		global Config
 		Config = Kernel.GlobalObjects.get_value('ARCed_config')
 		global DataClasses, DataWeapons, DataArmors, DataStates, DataElements, DataSkills

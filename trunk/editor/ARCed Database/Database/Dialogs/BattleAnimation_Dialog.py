@@ -7,7 +7,7 @@ import Database.ARCed_Templates as Templates
 # Implementing BattleAnimation_Dialog
 class BattleAnimation_Dialog( Templates.BattleAnimation_Dialog ):
 	def __init__( self, parent ):
-		ARCed_Templates.BattleAnimation_Dialog.__init__( self, parent )
+		Templates.BattleAnimation_Dialog.__init__( self, parent )
 	
 	# Handlers for BattleAnimation_Dialog events.
 	def radioButtonEnemy_CheckChanged( self, event ):

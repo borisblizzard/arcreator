@@ -6,7 +6,7 @@ import Database.ARCed_Templates as Templates
 # Implementing ChangeTextOptions_Dialog
 class ChangeTextOptions_Dialog( Templates.ChangeTextOptions_Dialog ):
 	def __init__( self, parent ):
-		ARCed_Templates.ChangeTextOptions_Dialog.__init__( self, parent )
+		Templates.ChangeTextOptions_Dialog.__init__( self, parent )
 	
 	# Handlers for ChangeTextOptions_Dialog events.
 	def buttonOK_Clicked( self, event ):

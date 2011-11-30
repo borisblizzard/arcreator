@@ -6,7 +6,7 @@ import Database.ARCed_Templates as Templates
 # Implementing ControlTimer_Dialog
 class ControlTimer_Dialog( Templates.ControlTimer_Dialog ):
 	def __init__( self, parent ):
-		ARCed_Templates.ControlTimer_Dialog.__init__( self, parent )
+		Templates.ControlTimer_Dialog.__init__( self, parent )
 	
 	# Handlers for ControlTimer_Dialog events.
 	def buttonOK_Clicked( self, event ):

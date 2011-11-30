@@ -6,7 +6,7 @@ import Database.ARCed_Templates as Templates
 # Implementing Wait_Dialog
 class Wait_Dialog( Templates.Wait_Dialog ):
 	def __init__( self, parent ):
-		ARCed_Templates.Wait_Dialog.__init__( self, parent )
+		Templates.Wait_Dialog.__init__( self, parent )
 	
 	# Handlers for Wait_Dialog events.
 	def buttonOK_Clicked( self, event ):

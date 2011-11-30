@@ -6,7 +6,7 @@ import Database.ARCed_Templates as Templates
 # Implementing ControlSwitches_Dialog
 class ControlSwitches_Dialog( Templates.ControlSwitches_Dialog ):
 	def __init__( self, parent ):
-		ARCed_Templates.ControlSwitches_Dialog.__init__( self, parent )
+		Templates.ControlSwitches_Dialog.__init__( self, parent )
 	
 	# Handlers for ControlSwitches_Dialog events.
 	def spinCtrlBatchStart_ValueChanged( self, event ):

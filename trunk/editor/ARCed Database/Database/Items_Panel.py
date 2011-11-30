@@ -2,7 +2,7 @@ import wx
 import Database.ARCed_Templates as Templates
 from Database.Dialogs import ChooseGraphic_Dialog
 from Core.RMXP import RGSS1_RPG as RPG	
-from DatabaseManager import DatabaseManager as DM
+import Database.Manager as DM
 import Kernel
 #--------------------------------------------------------------------------------------
 # Items_Panel
@@ -11,7 +11,7 @@ import Kernel
 class Items_Panel( Templates.Items_Panel ):
 	def __init__( self, parent, item_index=0 ):
 		"""Basic constructor for the Items panel"""
-		ARCed_Templates.Items_Panel.__init__( self, parent )
+		Templates.Items_Panel.__init__( self, parent )
 		global Config
 		global DataItems, DataStates, DataElements, DataCommonEvents, DataAnimations
 		Config = Kernel.GlobalObjects.get_value('ARCed_config')

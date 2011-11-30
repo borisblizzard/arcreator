@@ -6,7 +6,7 @@ import Database.ARCed_Templates as Templates
 # Implementing ChangeState_Dialog
 class ChangeState_Dialog( Templates.ChangeState_Dialog ):
 	def __init__( self, parent ):
-		ARCed_Templates.ChangeState_Dialog.__init__( self, parent )
+		Templates.ChangeState_Dialog.__init__( self, parent )
 	
 	# Handlers for ChangeState_Dialog events.
 	def buttonOK_Clicked( self, event ):

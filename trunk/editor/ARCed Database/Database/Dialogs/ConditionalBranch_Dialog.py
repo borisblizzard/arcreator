@@ -6,7 +6,7 @@ import Database.ARCed_Templates as Templates
 # Implementing ConditionalBranch_Dialog
 class ConditionalBranch_Dialog( Templates.ConditionalBranch_Dialog ):
 	def __init__( self, parent ):
-		ARCed_Templates.ConditionalBranch_Dialog.__init__( self, parent )
+		Templates.ConditionalBranch_Dialog.__init__( self, parent )
 	
 	# Handlers for ConditionalBranch_Dialog events.
 	def radioButtonSwitch_CheckedChanged( self, event ):

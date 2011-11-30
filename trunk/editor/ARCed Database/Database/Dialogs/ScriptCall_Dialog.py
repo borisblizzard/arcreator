@@ -6,7 +6,7 @@ import Database.ARCed_Templates as Templates
 # Implementing ScriptCall_Dialog
 class ScriptCall_Dialog( Templates.ScriptCall_Dialog ):
 	def __init__( self, parent ):
-		ARCed_Templates.ScriptCall_Dialog.__init__( self, parent )
+		Templates.ScriptCall_Dialog.__init__( self, parent )
 	
 	# Handlers for ScriptCall_Dialog events.
 	def buttonOK_Clicked( self, event ):

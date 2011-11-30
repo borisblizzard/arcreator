@@ -6,7 +6,7 @@ import Database.ARCed_Templates as Templates
 # Implementing ChooseFogGraphic_Dialog
 class ChooseFogGraphic_Dialog( Templates.ChooseFogGraphic_Dialog ):
 	def __init__( self, parent ):
-		ARCed_Templates.ChooseFogGraphic_Dialog.__init__( self, parent )
+		Templates.ChooseFogGraphic_Dialog.__init__( self, parent )
 	
 	# Handlers for ChooseFogGraphic_Dialog events.
 	def listBoxGraphics_SelectionChanged( self, event ):

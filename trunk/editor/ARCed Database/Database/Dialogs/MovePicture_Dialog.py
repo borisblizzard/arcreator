@@ -6,7 +6,7 @@ import Database.ARCed_Templates as Templates
 # Implementing MovePicture_Dialog
 class MovePicture_Dialog( Templates.MovePicture_Dialog ):
 	def __init__( self, parent ):
-		ARCed_Templates.MovePicture_Dialog.__init__( self, parent )
+		Templates.MovePicture_Dialog.__init__( self, parent )
 	
 	# Handlers for MovePicture_Dialog events.
 	def radioButtonConstant_CheckChanged( self, event ):

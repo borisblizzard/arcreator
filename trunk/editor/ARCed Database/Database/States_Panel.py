@@ -1,7 +1,7 @@
 import wx
 import Database.ARCed_Templates as Templates
 from Database.Dialogs import ChangeMaximum_Dialog
-from DatabaseManager import DatabaseManager as DM
+import Database.Manager as DM
 #--------------------------------------------------------------------------------------
 # States_Panel
 #--------------------------------------------------------------------------------------
@@ -9,7 +9,7 @@ from DatabaseManager import DatabaseManager as DM
 # Implementing States_Panel
 class States_Panel( Templates.States_Panel ):
 	def __init__( self, parent ):
-		ARCed_Templates.States_Panel.__init__( self, parent )
+		Templates.States_Panel.__init__( self, parent )
 
 		DM.DrawHeaderBitmap(self.bitmapStates, 'States')
 

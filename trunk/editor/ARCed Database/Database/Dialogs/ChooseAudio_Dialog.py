@@ -15,7 +15,7 @@ class ChooseAudio_Dialog( Templates.ChooseAudio_Dialog ):
 			@loopcount - The number of times to loop when played. Use -1 to make it continuous
 			@audiofile - (optional) The RPG.AudioFile instance to have selected
 		"""
-		ARCed_Templates.ChooseAudio_Dialog.__init__( self, parent )
+		Templates.ChooseAudio_Dialog.__init__( self, parent )
 		Mixer.init()
 		global LoopCount
 		LoopCount = loopcount

@@ -7,7 +7,7 @@ import Kernel
 
 class ChooseGraphic_Dialog( Templates.ChooseGraphic_Dialog ):
 	def __init__( self, parent, folder, current, hue ):
-		ARCed_Templates.ChooseGraphic_Dialog.__init__( self, parent )
+		Templates.ChooseGraphic_Dialog.__init__( self, parent )
 		self.glCanvasGraphic.canvas.Bind(wx.EVT_LEFT_DOWN, 
 			Kernel.Protect(self.glCanvas_LeftMouse))
 		#self.Centre( wx.BOTH )

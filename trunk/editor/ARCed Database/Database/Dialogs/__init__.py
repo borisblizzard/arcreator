@@ -51,7 +51,6 @@ from EnemyExpGold_Dialog import EnemyExpGold_Dialog
 from EnemyTransform_Dialog import EnemyTransform_Dialog
 from ErasePicture_Dialog import ErasePicture_Dialog
 from EventCondition_Dialog import EventCondition_Dialog
-from ExpGraph_Dialog import ExpGraph_Dialog
 from ExpGrid_Dialog import ExpGrid_Dialog
 from FadeOutAudio_Dialog import FadeOutAudio_Dialog
 from ForceAction_Dialog import ForceAction_Dialog

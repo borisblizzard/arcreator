@@ -6,7 +6,7 @@ import Database.ARCed_Templates as Templates
 # Implementing EventCommands1_Panel
 class EventCommands1_Panel( Templates.EventCommands1_Panel ):
 	def __init__( self, parent ):
-		ARCed_Templates.EventCommands1_Panel.__init__( self, parent )
+		Templates.EventCommands1_Panel.__init__( self, parent )
 	
 	# Handlers for EventCommands1_Panel events.
 	def buttonShowText_Clicked( self, event ):

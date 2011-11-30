@@ -6,7 +6,7 @@ from datetime import timedelta
 import Database.ARCed_Templates as Templates
 from Core.Cache import RTPFunctions
 from Core.RMXP import RGSS1_RPG as RPG
-from DatabaseManager import DatabaseManager as DM
+import Database.Manager as DM
 import Kernel
 from Kernel import Manager as KM
 
@@ -26,7 +26,7 @@ else:
 class AudioPlayer_Panel( Templates.AudioPlayer_Panel ):
 	def __init__( self, parent, rpgfile=None, directory=None ):
 		"""Basic constructor for the AudioPlayer"""
-		ARCed_Templates.AudioPlayer_Panel.__init__( self, parent )
+		Templates.AudioPlayer_Panel.__init__( self, parent )
 		# Set up the panel
 		self.AudioIndex = 0
 		if directory is not None:

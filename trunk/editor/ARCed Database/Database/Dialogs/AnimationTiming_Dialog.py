@@ -7,7 +7,7 @@ import Database.ARCed_Templates as Templates
 # Implementing AnimationTiming_Dialog
 class AnimationTiming_Dialog( Templates.AnimationTiming_Dialog ):
 	def __init__( self, parent ):
-		ARCed_Templates.AnimationTiming_Dialog.__init__( self, parent )
+		Templates.AnimationTiming_Dialog.__init__( self, parent )
 	
 	# Handlers for AnimationTiming_Dialog events.
 	def spinCtrlFrame_ValueChanged( self, event ):

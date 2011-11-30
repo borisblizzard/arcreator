@@ -6,7 +6,7 @@ import Database.ARCed_Templates as Templates
 # Implementing EventCommands3_Panel
 class EventCommands3_Panel( Templates.EventCommands3_Panel ):
 	def __init__( self, parent ):
-		ARCed_Templates.EventCommands3_Panel.__init__( self, parent )
+		Templates.EventCommands3_Panel.__init__( self, parent )
 	
 	# Handlers for EventCommands3_Panel events.
 	def buttonChangeTransparency_Clicked( self, event ):

@@ -105,7 +105,7 @@ class Actors_Panel ( wx.Panel ):
 		self.panelCharacter = wx.Panel( self.splitterGraphics, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.SUNKEN_BORDER|wx.TAB_TRAVERSAL )
 		sizerCharacter = wx.BoxSizer( wx.VERTICAL )
 		
-		from ImageCanvas import EditorGLPanel
+		from Database.Controls import EditorGLPanel
 		parent, id = self.panelCharacter, wx.ID_ANY
 		self.glCanvasCharacter = EditorGLPanel(parent, id, 4, 4, (0, 0,), 1)
 		self.glCanvasCharacter.SetHelpText( u"The graphic used for the actor on the map. Double-click to edit." )
@@ -189,7 +189,7 @@ class Actors_Panel ( wx.Panel ):
 		
 		bSizer613 = wx.BoxSizer( wx.HORIZONTAL )
 		
-		from Actors_Panel import ParameterGraph
+		from Database.Controls import ParameterGraph
 		self.parameterGraph = ParameterGraph(self.pageParameters)
 		bSizer613.Add( self.parameterGraph, 1, wx.EXPAND|wx.RIGHT|wx.LEFT, 0 )
 		
@@ -766,9 +766,9 @@ class Skills_Panel ( wx.Panel ):
 		
 		sizerParameters = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Parameters" ), wx.VERTICAL )
 		
-		from CustomControls import ParameterPanel
+		from Database.Controls import ParameterPanel
 		self.panelParameters = ParameterPanel(self)
-		sizerParameters.Add( self.panelParameters, 1, wx.ALL|wx.EXPAND, 5 )
+		sizerParameters.Add( self.panelParameters, 1, wx.EXPAND, 5 )
 		
 		sizer1.Add( sizerParameters, 1, wx.ALL|wx.EXPAND, 5 )
 		
@@ -784,11 +784,12 @@ class Skills_Panel ( wx.Panel ):
 		self.labelElements.Wrap( -1 )
 		sizerElements.Add( self.labelElements, 0, wx.ALL|wx.EXPAND, 5 )
 		
-		from CustomControls import ImageCheckList
-		from DatabaseManager import DatabaseManager as DM
+		from Database.Controls import  ImageCheckList
+		import Database.Manager as DM
 		states = [False, True]
 		images = DM.GetNormalCheckImageList()
 		self.checkListElements= ImageCheckList(self, states, images)
+		
 		sizerElements.Add( self.checkListElements, 1, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
 		
 		sizerEfficiency.Add( sizerElements, 1, wx.EXPAND, 5 )
@@ -1174,8 +1175,8 @@ class Items_Panel ( wx.Panel ):
 		
 		sizer15 = wx.BoxSizer( wx.HORIZONTAL )
 		
-		from CustomControls import ImageCheckList
-		from DatabaseManager import DatabaseManager as DM
+		from Database.Controls import ImageCheckList
+		import Database.Manager as DM
 		states = [False, True]
 		images = DM.GetNormalCheckImageList()
 		self.checkListElements= ImageCheckList(self, states, images)
@@ -1425,9 +1426,9 @@ class Weapons_Panel ( wx.Panel ):
 		
 		sizerParameters = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Parameters" ), wx.VERTICAL )
 		
-		from CustomControls import ParameterPanel
+		from Database.Controls import ParameterPanel
 		self.panelParameters = ParameterPanel(self)
-		sizerParameters.Add( self.panelParameters, 1, wx.ALL|wx.EXPAND, 5 )
+		sizerParameters.Add( self.panelParameters, 1, wx.EXPAND, 5 )
 		
 		sizer1.Add( sizerParameters, 1, wx.EXPAND|wx.ALL, 5 )
 		
@@ -1449,8 +1450,8 @@ class Weapons_Panel ( wx.Panel ):
 		
 		sizer15 = wx.BoxSizer( wx.HORIZONTAL )
 		
-		from CustomControls import ImageCheckList
-		from DatabaseManager import DatabaseManager as DM
+		from Database.Controls import ImageCheckList
+		import Database.Manager as DM
 		states = [False, True]
 		images = DM.GetNormalCheckImageList()
 		self.checkListElements= ImageCheckList(self, states, images)
@@ -1632,9 +1633,9 @@ class Armors_Panel ( wx.Panel ):
 		
 		sizerParameters = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Parameters" ), wx.VERTICAL )
 		
-		from CustomControls import ParameterPanel
+		from Database.Controls import ParameterPanel
 		self.panelParameters = ParameterPanel(self)
-		sizerParameters.Add( self.panelParameters, 1, wx.ALL|wx.EXPAND, 5 )
+		sizerParameters.Add( self.panelParameters, 1, wx.EXPAND, 5 )
 		
 		sizer1.Add( sizerParameters, 1, wx.EXPAND|wx.ALL, 5 )
 		
@@ -1656,8 +1657,8 @@ class Armors_Panel ( wx.Panel ):
 		
 		sizer15 = wx.BoxSizer( wx.HORIZONTAL )
 		
-		from CustomControls import ImageCheckList
-		from DatabaseManager import DatabaseManager as DM
+		from Database.Controls import ImageCheckList
+		import Database.Manager as DM
 		states = [False, True]
 		images = DM.GetNormalCheckImageList()
 		self.checkListElements= ImageCheckList(self, states, images)
@@ -1784,7 +1785,7 @@ class Enemies_Panel ( wx.Panel ):
 		self.panelEnemyGraphic = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.SUNKEN_BORDER|wx.TAB_TRAVERSAL )
 		sizerEnemyGraphic = wx.BoxSizer( wx.VERTICAL )
 		
-		from ImageCanvas import EditorGLPanel
+		from Database.Controls import EditorGLPanel
 		parent = self.panelEnemyGraphic
 		self.glCanvasEnemyGraphic = EditorGLPanel(parent, -1, 1, 1, (0, 0,), 1)
 		sizerEnemyGraphic.Add( self.glCanvasEnemyGraphic, 1, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 0 )
@@ -1825,9 +1826,9 @@ class Enemies_Panel ( wx.Panel ):
 		
 		sizerParameters = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Parameters" ), wx.VERTICAL )
 		
-		from CustomControls import ParameterPanel
+		from Database.Controls import ParameterPanel
 		self.panelParameters = ParameterPanel(self)
-		sizerParameters.Add( self.panelParameters, 1, wx.ALL|wx.EXPAND, 5 )
+		sizerParameters.Add( self.panelParameters, 1, wx.EXPAND, 5 )
 		
 		sizer3.Add( sizerParameters, 1, wx.EXPAND|wx.ALL, 5 )
 		
@@ -1876,8 +1877,8 @@ class Enemies_Panel ( wx.Panel ):
 		self.labelElements.Wrap( -1 )
 		sizer4.Add( self.labelElements, 0, wx.ALL|wx.EXPAND, 5 )
 		
-		from CustomControls import ImageCheckList
-		from DatabaseManager import DatabaseManager as DM
+		from Database.Controls import ImageCheckList
+		import Database.Manager as DM
 		states = [0, 1, -1]
 		images = DM.GetAddSubImageList()
 		self.checkListElements= ImageCheckList(self, states, images)
@@ -13538,7 +13539,7 @@ class ParameterGraph_Panel ( wx.Panel ):
 		self.panelMaxHP = wx.Panel( self.noteBookParameters, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
 		sizerGraph = wx.BoxSizer( wx.VERTICAL )
 		
-		from Actors_Panel import ParameterGraph
+		from Database.Controls import ParameterGraph
 		self.interactiveGraph = ParameterGraph(self.panelMaxHP)
 		sizerGraph.Add( self.interactiveGraph, 1, wx.EXPAND, 0 )
 		
@@ -13970,7 +13971,7 @@ class ExpGraph_Dialog ( wx.Dialog ):
 		
 		MainSizer = wx.BoxSizer( wx.VERTICAL )
 		
-		from Actors_Panel import ParameterGraph
+		from Database.Controls import ParameterGraph
 		self.graphPanel = ParameterGraph(self)
 		MainSizer.Add( self.graphPanel, 1, wx.ALL|wx.EXPAND, 5 )
 		
@@ -14260,7 +14261,7 @@ class ScriptEditor_Panel ( wx.Panel ):
 		
 		sizerScript.Add( self.toolBar, 0, wx.EXPAND|wx.TOP, 5 )
 		
-		from ScriptTextCtrl import ScriptTextCtrl
+		from  Database.Controls import ScriptTextCtrl
 		self.scriptControl = ScriptTextCtrl(self.scriptPanel)
 		sizerScript.Add( self.scriptControl, 1, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 0 )
 		

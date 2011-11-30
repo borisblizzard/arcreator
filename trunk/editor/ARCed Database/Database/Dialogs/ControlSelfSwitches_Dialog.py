@@ -6,7 +6,7 @@ import Database.ARCed_Templates as Templates
 # Implementing ControlSelfSwitches_Dialog
 class ControlSelfSwitches_Dialog( Templates.ControlSelfSwitches_Dialog ):
 	def __init__( self, parent ):
-		ARCed_Templates.ControlSelfSwitches_Dialog.__init__( self, parent )
+		Templates.ControlSelfSwitches_Dialog.__init__( self, parent )
 	
 	# Handlers for ControlSelfSwitches_Dialog events.
 	def buttonOK_Clicked( self, event ):

@@ -6,7 +6,7 @@ import Database.ARCed_Templates as Templates
 # Implementing EnemyAppearance_Dialog
 class EnemyAppearance_Dialog( Templates.EnemyAppearance_Dialog ):
 	def __init__( self, parent ):
-		ARCed_Templates.EnemyAppearance_Dialog.__init__( self, parent )
+		Templates.EnemyAppearance_Dialog.__init__( self, parent )
 	
 	# Handlers for EnemyAppearance_Dialog events.
 	def buttonOK_Clicked( self, event ):

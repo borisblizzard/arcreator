@@ -6,7 +6,7 @@ import Database.ARCed_Templates as Templates
 # Implementing TransferPlayerTilemap_Dialog
 class TransferPlayerTilemap_Dialog( Templates.TransferPlayerTilemap_Dialog ):
 	def __init__( self, parent ):
-		ARCed_Templates.TransferPlayerTilemap_Dialog.__init__( self, parent )
+		Templates.TransferPlayerTilemap_Dialog.__init__( self, parent )
 	
 	# Handlers for TransferPlayerTilemap_Dialog events.
 	def treeCtrlMaps_SelectionChanged( self, event ):

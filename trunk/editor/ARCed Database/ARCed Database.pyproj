@@ -46,7 +46,6 @@
     <Compile Include="Database\Controls\ScriptTextCtrl.py" />
     <Compile Include="Database\Controls\WaveForm_Panel.py" />
     <Compile Include="Database\Controls\__init__.py" />
-    <Compile Include="Database\DatabaseManager.py" />
     <Compile Include="Database\DatabasePackage.py" />
     <Compile Include="Database\Dialogs\AddParameter_Dialog.py" />
     <Compile Include="Database\Dialogs\AnimationCellBatch_Dialog.py" />
@@ -101,7 +100,6 @@
     <Compile Include="Database\Dialogs\EnemyTransform_Dialog.py" />
     <Compile Include="Database\Dialogs\ErasePicture_Dialog.py" />
     <Compile Include="Database\Dialogs\EventCondition_Dialog.py" />
-    <Compile Include="Database\Dialogs\ExpGraph_Dialog.py" />
     <Compile Include="Database\Dialogs\ExpGrid_Dialog.py" />
     <Compile Include="Database\Dialogs\FadeOutAudio_Dialog.py" />
     <Compile Include="Database\Dialogs\ForceAction_Dialog.py" />
@@ -139,8 +137,8 @@
     <Compile Include="Database\EventEditor_Panel.py" />
     <Compile Include="Database\EventPage_Panel.py" />
     <Compile Include="Database\Items_Panel.py" />
+    <Compile Include="Database\Manager.py" />
     <Compile Include="Database\ParameterGraph_Panel.py" />
-    <Compile Include="Database\Parameter_Panel.py" />
     <Compile Include="Database\ScriptEditor_Panel.py" />
     <Compile Include="Database\Skills_Panel.py" />
     <Compile Include="Database\States_Panel.py" />

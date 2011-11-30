@@ -2,7 +2,7 @@ import wx
 import Database.ARCed_Templates as Templates 
 from Database.Dialogs import ChooseGraphic_Dialog
 from Core.RMXP import RGSS1_RPG as RPG
-from DatabaseManager import DatabaseManager as DM
+import Database.Manager as DM
 import Kernel
 from Kernel import Manager as KM
 #--------------------------------------------------------------------------------------
@@ -11,7 +11,7 @@ from Kernel import Manager as KM
 
 class Skills_Panel( Templates.Skills_Panel ):
 	def __init__( self, parent, skill_index=0 ):
-		ARCed_Templates.Skills_Panel.__init__( self, parent )
+		Templates.Skills_Panel.__init__( self, parent )
 		global Config, DataSkills, DataAnimations, DataElements
 		global DataStates, DataCommonEvents
 		Config = Kernel.GlobalObjects.get_value('ARCed_config')

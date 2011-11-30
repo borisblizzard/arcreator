@@ -6,7 +6,7 @@ import Database.ARCed_Templates as Templates
 # Implementing ChangelGold_Dialog
 class ChangelGold_Dialog( Templates.ChangelGold_Dialog ):
 	def __init__( self, parent ):
-		ARCed_Templates.ChangelGold_Dialog.__init__( self, parent )
+		Templates.ChangelGold_Dialog.__init__( self, parent )
 	
 	# Handlers for ChangelGold_Dialog events.
 	def radioButtonConstant_CheckChanged( self, event ):

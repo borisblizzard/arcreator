@@ -1,11 +1,11 @@
 import wx
 import Database.ARCed_Templates as Templates
-from DatabaseManager import DatabaseManager as DM
+import Database.Manager as DM
 import Kernel
 
 class ChooseTreasure_Dialog( Templates.ChooseTreasure_Dialog ):
 	def __init__( self, parent, current ):
-		ARCed_Templates.ChooseTreasure_Dialog.__init__( self, parent )
+		Templates.ChooseTreasure_Dialog.__init__( self, parent )
 		proj = Kernel.GlobalObjects.get_value('PROJECT')
 		global Config, DataItems, DataWeapons, DataArmors
 		Config = Kernel.GlobalObjects.get_value('ARCed_config')

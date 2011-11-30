@@ -7,7 +7,7 @@ import Database.ARCed_Templates as Templates
 # Implementing EventEditor_Panel
 class EventEditor_Panel( Templates.EventEditor_Panel ):
 	def __init__( self, parent ):
-		ARCed_Templates.EventEditor_Panel.__init__( self, parent )
+		Templates.EventEditor_Panel.__init__( self, parent )
 	
 	# Handlers for EventEditor_Panel events.
 	def buttonNewPage_Clicked( self, event ):

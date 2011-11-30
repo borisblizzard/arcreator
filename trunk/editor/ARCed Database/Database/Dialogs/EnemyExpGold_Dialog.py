@@ -4,7 +4,7 @@ import Database.ARCed_Templates as Templates
 class EnemyExpGold_Dialog( Templates.EnemyExpGold_Dialog ):
 	def __init__( self, parent, label, max, current=0, variance=None ):
 		"""Basic constructor for the dialog"""
-		ARCed_Templates.EnemyExpGold_Dialog.__init__( self, parent )
+		Templates.EnemyExpGold_Dialog.__init__( self, parent )
 		self.labelType.SetLabel(label)
 		self.spinCtrlValue.SetRange(0, max)
 		self.spinCtrlVariance.SetRange(0, max)

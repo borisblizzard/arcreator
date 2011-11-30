@@ -6,7 +6,7 @@ import Database.ARCed_Templates as Templates
 # Implementing MoveRoute_Dialog
 class MoveRoute_Dialog( Templates.MoveRoute_Dialog ):
 	def __init__( self, parent ):
-		ARCed_Templates.MoveRoute_Dialog.__init__( self, parent )
+		Templates.MoveRoute_Dialog.__init__( self, parent )
 	
 	# Handlers for MoveRoute_Dialog events.
 	def listBoxMoveRoute_OnChar( self, event ):

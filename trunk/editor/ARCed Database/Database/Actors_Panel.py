@@ -1,9 +1,8 @@
 import wx
 import wx.lib.plot as plot
 import Database.ARCed_Templates as Templates
-from Database.Dialogs import ChooseGraphic_Dialog, ExpGrid_Dialog
 import numpy as np
-from DatabaseManager import DatabaseManager as DM
+import Database.Manager as DM
 from Core.RMXP import RGSS1_RPG as RPG	   						
 import Kernel
 
@@ -29,7 +28,7 @@ class Actors_Panel( Templates.Actors_Panel ):
 
 	def __init__( self, parent, actorIndex=0 ):
 		"""Basic constructor for the Actors panel"""
-		ARCed_Templates.Actors_Panel.__init__( self, parent )
+		Templates.Actors_Panel.__init__( self, parent )
 		# Load the project's game objects into this module's scope
 		project = Kernel.GlobalObjects.get_value('PROJECT')
 		global Config, DataActors, DataClasses, DataWeapons, DataArmors
@@ -322,6 +321,7 @@ class Actors_Panel( Templates.Actors_Panel ):
 
 	def comboBoxExperience_Click( self, event ):
 		"""Opens window to generate experience tables"""
+		from Database.Dialogs import ExpGrid_Dialog
 		actor = self.SelectedActor
 		dlg = ExpGrid_Dialog(self, actor)
 		if dlg.ShowModal() == wx.ID_OK:
@@ -333,6 +333,7 @@ class Actors_Panel( Templates.Actors_Panel ):
 
 	def glCanvasCharacter_DoubleClick( self, event ):
 		"""Opens dialog to change the character graphic"""
+		from Database.Dialogs import ChooseGraphic_Dialog
 		dlg = ChooseGraphic_Dialog(self, 'Characters',
 			self.SelectedActor.character_name, self.SelectedActor.character_hue)
 		if dlg.ShowModal() == wx.ID_OK:
@@ -343,6 +344,7 @@ class Actors_Panel( Templates.Actors_Panel ):
 
 	def glCanvasBattler_DoubleClick( self, event ):
 		"""Opens dialog to change the battler graphic"""
+		from Database.Dialogs import ChooseGraphic_Dialog
 		dlg = ChooseGraphic_Dialog(self, 'Battlers',
 			self.SelectedActor.battler_name, self.SelectedActor.battler_hue)
 		if dlg.ShowModal() == wx.ID_OK:
@@ -411,7 +413,7 @@ class Actors_Panel( Templates.Actors_Panel ):
 
 	def buttonGenerateCurve_Clicked( self, event):
 		"""Create the parameter curve dialog, using the passed index to determine the parameter"""
-		from GenerateCurve_Dialog import GenerateCurve_Dialog
+		from Database.Dialogs import GenerateCurve_Dialog
 		actor, i = self.SelectedActor, self.ParamTab
 		vRange = (actor.parameters[i, 1], actor.parameters[i, actor.final_level])
 		lRange = (actor.initial_level, actor.final_level)
@@ -501,7 +503,7 @@ class Actors_Panel( Templates.Actors_Panel ):
 
 	def buttonAddParameter_Clicked( self, event ):
 		"""Opens dialog for the user to create a custom parameter"""
-		from AddParameter_Dialog import AddParameter_Dialog
+		from Database.Dialogs import AddParameter_Dialog
 		dialog = AddParameter_Dialog( self )
 		if (dialog.ShowModal() == wx.ID_OK):
 			paramName = dialog.textCtrlParameterName.GetLineText(0)

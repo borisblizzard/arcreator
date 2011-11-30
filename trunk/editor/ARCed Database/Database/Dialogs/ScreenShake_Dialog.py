@@ -6,7 +6,7 @@ import Database.ARCed_Templates as Templates
 # Implementing ScreenShake_Dialog
 class ScreenShake_Dialog( Templates.ScreenShake_Dialog ):
 	def __init__( self, parent ):
-		ARCed_Templates.ScreenShake_Dialog.__init__( self, parent )
+		Templates.ScreenShake_Dialog.__init__( self, parent )
 	
 	# Handlers for ScreenShake_Dialog events.
 	def sliderPower_ScrollChanged( self, event ):

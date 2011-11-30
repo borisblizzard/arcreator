@@ -6,7 +6,7 @@ import Database.ARCed_Templates as Templates
 # Implementing ChangeStat_Dialog
 class ChangeStat_Dialog( Templates.ChangeStat_Dialog ):
 	def __init__( self, parent ):
-		ARCed_Templates.ChangeStat_Dialog.__init__( self, parent )
+		Templates.ChangeStat_Dialog.__init__( self, parent )
 	
 	# Handlers for ChangeStat_Dialog events.
 	def radioButtonConstant_CheckChanged( self, event ):

@@ -8,7 +8,7 @@ import os
 import Kernel
 from Kernel import Manager as KM
 
-class DatabaseManager(object):
+class Manager(object):
 
 	ARC_FORMAT = False
 	
@@ -63,9 +63,9 @@ class DatabaseManager(object):
 		bmp = wx.EmptyBitmap(bmpsize[0], bmpsize[1])
 		memDC.SelectObject(bmp)
 		memDC.Clear()	
-		if textcolor == None: textcolor = DatabaseManager.TEXT_COLOR
-		if gradient1 == None: gradient1 = DatabaseManager.GRADIENT_LEFT
-		if gradient2 == None: gradient2 = DatabaseManager.GRADIENT_RIGHT
+		if textcolor == None: textcolor = Manager.TEXT_COLOR
+		if gradient1 == None: gradient1 = Manager.GRADIENT_LEFT
+		if gradient2 == None: gradient2 = Manager.GRADIENT_RIGHT
 		if font == None: font = wx.Font(10, wx.FONTFAMILY_MODERN, wx.FONTSTYLE_NORMAL, 
 					wx.FONTWEIGHT_NORMAL, faceName='Ethnocentric') # TODO: Change this?
 		memDC.SetFont(font)	
@@ -123,7 +123,7 @@ class DatabaseManager(object):
 		An integer formatted to to be compatible with current game data structure
 		
 		"""
-		if DatabaseManager.ARC_FORMAT: return index
+		if Manager.ARC_FORMAT: return index
 		return index + 1
 
 	#----------------------------------------------------------------------------------
@@ -148,7 +148,7 @@ class DatabaseManager(object):
 		if clear:
 			wxContainer.Clear()
 		if fixed:
-			start = DatabaseManager.FixedIndex(start)
+			start = Manager.FixedIndex(start)
 		defaults.extend([
 			''.join([str(i).zfill(digits), ': ',
 		    dataSource[i].name]) for i in xrange(start, len(dataSource))])
@@ -175,7 +175,7 @@ class DatabaseManager(object):
 		if clear:
 			wxContainer.Clear()
 		if fixed:
-			start = DatabaseManager.FixedIndex(start)
+			start = Manager.FixedIndex(start)
 		defaults.extend([dataSource[i].name for i in xrange(start, len(dataSource))])
 		wxContainer.AppendItems(defaults)
 
@@ -212,7 +212,7 @@ class DatabaseManager(object):
 					index = wxList.GetSelection()
 					del data[newMax + 1:currentMax]
 					wxList.SetItems(wxList.GetItems()[0:newMax])
-					if DatabaseManager.FixedIndex(index) >= newMax:
+					if Manager.FixedIndex(index) >= newMax:
 						index = newMax - 1
 					wxList.SetSelection(index)
 		dialog.Destroy()
@@ -273,7 +273,7 @@ class DatabaseManager(object):
 			player.play()
 			player.setPitch(rpgaudio.pitch / 100.0)
 			player.setGain(rpgaudio.volume / 100.0)
-			Timer(sound.getDuration(), DatabaseManager._DestroyQuickPlay, 
+			Timer(sound.getDuration(), Manager._DestroyQuickPlay, 
 				[PyXAL, player, sound]).start()
 		except:
 			Kernel.Log('QuickPlay failed to play sound file.', '[PyXAL]', False, False)
@@ -306,7 +306,7 @@ class DatabaseManager(object):
 		index = listbox.GetSelection()
 		object.name = name
 		listbox.SetString(index, 
-			''.join([str(DatabaseManager.FixedIndex(index)).zfill(digits), ': ', name]))
+			''.join([str(Manager.FixedIndex(index)).zfill(digits), ': ', name]))
 
 	#----------------------------------------------------------------------------------
 	@staticmethod
@@ -324,7 +324,7 @@ class DatabaseManager(object):
 		"""
 		if index is None:
 			return
-		state_id = DatabaseManager.FixedIndex(index)
+		state_id = Manager.FixedIndex(index)
 		if value == 0:
 			if state_id in object.minus_state_set: 
 				object.minus_state_set.remove(state_id)
@@ -386,7 +386,7 @@ class DatabaseManager(object):
 		threshold = len(defaults)
 		count = 0
 		parameters = defaults
-		if DatabaseManager.ARC_FORMAT:
+		if Manager.ARC_FORMAT:
 			config = Kernel.GlobalObjects.get_value('ARCed_config')
 			parameters.extend(config.getlist('GameSetup', 'Parameters'))
 		else:
@@ -469,7 +469,7 @@ class DatabaseManager(object):
 		The greatest lowest common multiple of the two numbers
 		
 		"""
-		result = num1 * num2 / DatabaseManager.gcd(num1, num2)
+		result = num1 * num2 / Manager.gcd(num1, num2)
 		return result
 
 	#----------------------------------------------------------------------------------

@@ -3,7 +3,7 @@ import Database.ARCed_Templates as Templates
 from Actors_Panel import GRAPH_COLORS
 from Database.Controls import ParameterPlotGraphics, ParameterGraph
 import numpy as np
-from DatabaseManager import DatabaseManager as DM
+import Database.Manager as DM
 from copy import deepcopy
 import Kernel
 #--------------------------------------------------------------------------------------
@@ -13,7 +13,7 @@ import Kernel
 class ParameterGraph_Panel( Templates.ParameterGraph_Panel ):
 	def __init__( self, parent, actor, tabs, index=0, scaled=False):
 		"""Basic constructor for the ParameterGraph_Panel"""
-		ARCed_Templates.ParameterGraph_Panel.__init__( self, parent )
+		Templates.ParameterGraph_Panel.__init__( self, parent )
 		global Config
 		Config = Kernel.GlobalObjects.get_value('ARCed_config')
 		self.Data = deepcopy(actor.parameters)
@@ -95,7 +95,7 @@ class ParameterGraph_Panel( Templates.ParameterGraph_Panel ):
 	
 	def buttonGenerate_Clicked( self, event ):
 		"""Create the parameter curve dialog, using the passed index to determine the parameter"""
-		from GenerateCurve_Dialog import GenerateCurve_Dialog
+		from Database.Dialogs import GenerateCurve_Dialog
 		actor, i = self.Actor, self.PageIndex
 		vRange = (self.Data[i, 1], self.Data[i, actor.final_level])
 		lRange = (actor.initial_level, actor.final_level)

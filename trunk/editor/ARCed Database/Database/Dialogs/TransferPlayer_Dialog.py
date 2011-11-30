@@ -6,7 +6,7 @@ import Database.ARCed_Templates as Templates
 # Implementing TransferPlayer_Dialog
 class TransferPlayer_Dialog( Templates.TransferPlayer_Dialog ):
 	def __init__( self, parent ):
-		ARCed_Templates.TransferPlayer_Dialog.__init__( self, parent )
+		Templates.TransferPlayer_Dialog.__init__( self, parent )
 	
 	# Handlers for TransferPlayer_Dialog events.
 	def radioButtonDirect_CheckChanged( self, event ):

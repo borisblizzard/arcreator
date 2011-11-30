@@ -6,7 +6,7 @@ import Database.ARCed_Templates as Templates
 # Implementing EnemyAction_Dialog
 class EnemyAction_Dialog( Templates.EnemyAction_Dialog ):
 	def __init__( self, parent ):
-		ARCed_Templates.EnemyAction_Dialog.__init__( self, parent )
+		Templates.EnemyAction_Dialog.__init__( self, parent )
 	
 	# Handlers for EnemyAction_Dialog events.
 	def checkBoxTurn_CheckChanged( self, event ):

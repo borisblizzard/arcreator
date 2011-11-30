@@ -6,7 +6,7 @@ import Database.ARCed_Templates as Templates
 # Implementing ChangeActorClass_Dialog
 class ChangeActorClass_Dialog( Templates.ChangeActorClass_Dialog ):
 	def __init__( self, parent ):
-		ARCed_Templates.ChangeActorClass_Dialog.__init__( self, parent )
+		Templates.ChangeActorClass_Dialog.__init__( self, parent )
 	
 	# Handlers for ChangeActorClass_Dialog events.
 	def buttonOK_Clicked( self, event ):

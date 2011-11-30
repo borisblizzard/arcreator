@@ -10,7 +10,7 @@ ARC_FORMAT = False # TEST
 class Skill_Dialog( Templates.Skill_Dialog ):
 	def __init__( self, parent, skills, maxlevel, level=1, skill_id=1 ):
 		""".Basic constructor for the skills dialog."""
-		ARCed_Templates.Skill_Dialog.__init__( self, parent )
+		Templates.Skill_Dialog.__init__( self, parent )
 		self.spinCtrlLevel.SetRange(1, maxlevel)
 		self.spinCtrlLevel.SetValue(level)
 

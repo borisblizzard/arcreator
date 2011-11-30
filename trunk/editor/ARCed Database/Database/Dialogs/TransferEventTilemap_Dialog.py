@@ -6,7 +6,7 @@ import Database.ARCed_Templates as Templates
 # Implementing TransferEventTilemap_Dialog
 class TransferEventTilemap_Dialog( Templates.TransferEventTilemap_Dialog ):
 	def __init__( self, parent ):
-		ARCed_Templates.TransferEventTilemap_Dialog.__init__( self, parent )
+		Templates.TransferEventTilemap_Dialog.__init__( self, parent )
 	
 	# Handlers for TransferEventTilemap_Dialog events.
 	def buttonFull_Clicked( self, event ):
