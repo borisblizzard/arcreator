@@ -6,7 +6,7 @@ import Database.ARCed_Templates as Templates
 # Implementing DealDamage_Dialog
 class DealDamage_Dialog( Templates.DealDamage_Dialog ):
 	def __init__( self, parent ):
-		ARCed_Templates.DealDamage_Dialog.__init__( self, parent )
+		Templates.DealDamage_Dialog.__init__( self, parent )
 	
 	# Handlers for DealDamage_Dialog events.
 	def radioButtonEnemy_CheckChanged( self, event ):

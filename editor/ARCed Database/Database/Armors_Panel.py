@@ -1,7 +1,7 @@
 import wx
 import Database.ARCed_Templates as Templates
 from Core.RMXP import RGSS1_RPG as RPG
-from DatabaseManager import DatabaseManager as DM
+import Database.Manager as DM
 import Kernel
 #--------------------------------------------------------------------------------------
 # Armors_Panel
@@ -10,7 +10,7 @@ import Kernel
 class Armors_Panel( Templates.Armors_Panel ):
 	def __init__( self, parent, armor_index=0 ):
 		"""Basic constructor for the Armors panel"""
-		ARCed_Templates.Armors_Panel.__init__( self, parent )
+		Templates.Armors_Panel.__init__( self, parent )
 
 		global Config, DataArmors, DataStates, DataElements
 		Config = Kernel.GlobalObjects.get_value('ARCed_config')

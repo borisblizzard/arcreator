@@ -2,23 +2,17 @@
 
 import wx
 import Database.ARCed_Templates as Templates
-import ChangeMaximum_Dialog
-import ChooseGraphic_Dialog
-import AnimationTiming_Dialog
+from Database.Dialogs import ChangeMaximum_Dialog, ChooseGraphic_Dialog, AnimationTiming_Dialog, AnimationTweening_Dialog, AnimationCellBatch_Dialog, AnimationCellProperties_Dialog, AnimationEntireSlide_Dialog
 #import AnimationFrames_Dialog  # TODO: Forgot to implement these
 #import CopyFrames_Dialog
 #import ClearFrames_Dialog
-import AnimationTweening_Dialog
-import AnimationCellBatch_Dialog
-import AnimationCellProperties_Dialog
-import AnimationEntireSlide_Dialog
-from DatabaseManager import DatabaseManager as DM
+import Database.Manager as DM
 
 
 # Implementing Animations_Panel
 class Animations_Panel( Templates.Animations_Panel ):
 	def __init__( self, parent ):
-		ARCed_Templates.Animations_Panel.__init__( self, parent )
+		Templates.Animations_Panel.__init__( self, parent )
 
 		DM.DrawHeaderBitmap(self.bitmapAnimations, 'Animations')
 

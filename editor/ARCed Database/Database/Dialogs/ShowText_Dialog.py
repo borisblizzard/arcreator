@@ -6,7 +6,7 @@ import Database.ARCed_Templates as Templates
 # Implementing ShowText_Dialog
 class ShowText_Dialog( Templates.ShowText_Dialog ):
 	def __init__( self, parent ):
-		ARCed_Templates.ShowText_Dialog.__init__( self, parent )
+		Templates.ShowText_Dialog.__init__( self, parent )
 	
 	# Handlers for ShowText_Dialog events.
 	def buttonOK_Clicked( self, event ):

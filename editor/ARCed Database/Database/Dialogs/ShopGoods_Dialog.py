@@ -6,7 +6,7 @@ import Database.ARCed_Templates as Templates
 # Implementing ShopGoods_Dialog
 class ShopGoods_Dialog( Templates.ShopGoods_Dialog ):
 	def __init__( self, parent ):
-		ARCed_Templates.ShopGoods_Dialog.__init__( self, parent )
+		Templates.ShopGoods_Dialog.__init__( self, parent )
 	
 	# Handlers for ShopGoods_Dialog events.
 	def radioButtonItem_CheckChanged( self, event ):

@@ -6,7 +6,7 @@ import Database.ARCed_Templates as Templates
 # Implementing ChangePictureColorTone_Dialog
 class ChangePictureColorTone_Dialog( Templates.ChangePictureColorTone_Dialog ):
 	def __init__( self, parent ):
-		ARCed_Templates.ChangePictureColorTone_Dialog.__init__( self, parent )
+		Templates.ChangePictureColorTone_Dialog.__init__( self, parent )
 	
 	# Handlers for ChangePictureColorTone_Dialog events.
 	def sliderRed_ScrollChanged( self, event ):

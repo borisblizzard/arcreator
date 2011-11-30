@@ -6,7 +6,7 @@ import Database.ARCed_Templates as Templates
 # Implementing EventCondition_Dialog
 class EventCondition_Dialog( Templates.EventCondition_Dialog ):
 	def __init__( self, parent ):
-		ARCed_Templates.EventCondition_Dialog.__init__( self, parent )
+		Templates.EventCondition_Dialog.__init__( self, parent )
 	
 	# Handlers for EventCondition_Dialog events.
 	def checkBoxTurn_CheckChanged( self, event ):

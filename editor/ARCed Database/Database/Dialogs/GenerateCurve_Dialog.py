@@ -2,13 +2,13 @@ import wx
 import Database.ARCed_Templates as Templates
 import wx.lib.agw.floatspin as floatspin
 import numpy as np
-from DatabaseManager import DatabaseManager as DM
+import Database.Manager as DM
 import Kernel
 
 class GenerateCurve_Dialog( Templates.GenerateCurve_Dialog ):
 	def __init__( self, parent, vRange, lRange, max):
 		"""Basic constructor for the GenerateCurve_Dialog"""
-		ARCed_Templates.GenerateCurve_Dialog.__init__( self, parent )
+		Templates.GenerateCurve_Dialog.__init__( self, parent )
 		self.spinCtrlInitial.SetRange(0, max)
 		self.spinCtrlFinal.SetRange(0, max)
 		self.spinCtrlSpeed.SetRange(-10, 10)

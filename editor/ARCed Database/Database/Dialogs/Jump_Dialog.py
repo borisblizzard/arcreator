@@ -6,7 +6,7 @@ import Database.ARCed_Templates as Templates
 # Implementing Jump_Dialog
 class Jump_Dialog( Templates.Jump_Dialog ):
 	def __init__( self, parent ):
-		ARCed_Templates.Jump_Dialog.__init__( self, parent )
+		Templates.Jump_Dialog.__init__( self, parent )
 	
 	# Handlers for Jump_Dialog events.
 	def buttonOK_Clicked( self, event ):

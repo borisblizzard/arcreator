@@ -6,7 +6,7 @@ import Database.ARCed_Templates as Templates
 # Implementing ChangeSkills_Dialog
 class ChangeSkills_Dialog( Templates.ChangeSkills_Dialog ):
 	def __init__( self, parent ):
-		ARCed_Templates.ChangeSkills_Dialog.__init__( self, parent )
+		Templates.ChangeSkills_Dialog.__init__( self, parent )
 	
 	# Handlers for ChangeSkills_Dialog events.
 	def buttonOK_Clicked( self, event ):

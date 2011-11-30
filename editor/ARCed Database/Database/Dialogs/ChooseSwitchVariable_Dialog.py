@@ -6,7 +6,7 @@ import Database.ARCed_Templates as Templates
 # Implementing ChooseSwitchVariable_Dialog
 class ChooseSwitchVariable_Dialog( Templates.ChooseSwitchVariable_Dialog ):
 	def __init__( self, parent ):
-		ARCed_Templates.ChooseSwitchVariable_Dialog.__init__( self, parent )
+		Templates.ChooseSwitchVariable_Dialog.__init__( self, parent )
 	
 	# Handlers for ChooseSwitchVariable_Dialog events.
 	def listBoxGroup_SelectionChanged( self, event ):

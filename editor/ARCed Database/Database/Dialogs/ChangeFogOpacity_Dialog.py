@@ -6,7 +6,7 @@ import Database.ARCed_Templates as Templates
 # Implementing ChangeFogOpacity_Dialog
 class ChangeFogOpacity_Dialog( Templates.ChangeFogOpacity_Dialog ):
 	def __init__( self, parent ):
-		ARCed_Templates.ChangeFogOpacity_Dialog.__init__( self, parent )
+		Templates.ChangeFogOpacity_Dialog.__init__( self, parent )
 	
 	# Handlers for ChangeFogOpacity_Dialog events.
 	def buttonOK_Clicked( self, event ):

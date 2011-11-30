@@ -6,7 +6,7 @@ import Database.ARCed_Templates as Templates
 # Implementing ShowChoices_Dialog
 class ShowChoices_Dialog( Templates.ShowChoices_Dialog ):
 	def __init__( self, parent ):
-		ARCed_Templates.ShowChoices_Dialog.__init__( self, parent )
+		Templates.ShowChoices_Dialog.__init__( self, parent )
 	
 	# Handlers for ShowChoices_Dialog events.
 	def buttonOK_Clicked( self, event ):

@@ -6,7 +6,7 @@ import Database.ARCed_Templates as Templates
 # Implementing ChangelPartyEquipment_Dialog
 class ChangelPartyEquipment_Dialog( Templates.ChangelPartyEquipment_Dialog ):
 	def __init__( self, parent ):
-		ARCed_Templates.ChangelPartyEquipment_Dialog.__init__( self, parent )
+		Templates.ChangelPartyEquipment_Dialog.__init__( self, parent )
 	
 	# Handlers for ChangelPartyEquipment_Dialog events.
 	def radioButtonConstant_CheckChanged( self, event ):

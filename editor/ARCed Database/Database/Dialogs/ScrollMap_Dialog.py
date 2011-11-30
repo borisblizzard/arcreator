@@ -6,7 +6,7 @@ import Database.ARCed_Templates as Templates
 # Implementing ScrollMap_Dialog
 class ScrollMap_Dialog( Templates.ScrollMap_Dialog ):
 	def __init__( self, parent ):
-		ARCed_Templates.ScrollMap_Dialog.__init__( self, parent )
+		Templates.ScrollMap_Dialog.__init__( self, parent )
 	
 	# Handlers for ScrollMap_Dialog events.
 	def buttonOK_Clicked( self, event ):

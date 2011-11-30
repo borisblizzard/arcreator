@@ -8,7 +8,7 @@ from Database.Dialogs import ChangeMaximum_Dialog, ChooseGraphic_Dialog, ChooseA
 # Implementing System_Panel
 class System_Panel( Templates.System_Panel ):
 	def __init__( self, parent ):
-		ARCed_Templates.System_Panel.__init__( self, parent )
+		Templates.System_Panel.__init__( self, parent )
 
 	# Handlers for System_Panel events.
 	def listCtrlInitialParty_DoubleClicked( self, event ):

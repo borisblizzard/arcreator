@@ -6,7 +6,7 @@ import Database.ARCed_Templates as Templates
 # Implementing WeatherEffects_Dialog
 class WeatherEffects_Dialog( Templates.WeatherEffects_Dialog ):
 	def __init__( self, parent ):
-		ARCed_Templates.WeatherEffects_Dialog.__init__( self, parent )
+		Templates.WeatherEffects_Dialog.__init__( self, parent )
 	
 	# Handlers for WeatherEffects_Dialog events.
 	def sliderPower_ScrollChanged( self, event ):

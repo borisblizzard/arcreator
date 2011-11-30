@@ -6,7 +6,7 @@ import Database.ARCed_Templates as Templates
 # Implementing ChangeBlending_Dialog
 class ChangeBlending_Dialog( Templates.ChangeBlending_Dialog ):
 	def __init__( self, parent ):
-		ARCed_Templates.ChangeBlending_Dialog.__init__( self, parent )
+		Templates.ChangeBlending_Dialog.__init__( self, parent )
 	
 	# Handlers for ChangeBlending_Dialog events.
 	def buttonOK_Clicked( self, event ):

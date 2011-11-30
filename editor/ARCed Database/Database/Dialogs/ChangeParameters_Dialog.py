@@ -6,7 +6,7 @@ import Database.ARCed_Templates as Templates
 # Implementing ChangeParameters_Dialog
 class ChangeParameters_Dialog( Templates.ChangeParameters_Dialog ):
 	def __init__( self, parent ):
-		ARCed_Templates.ChangeParameters_Dialog.__init__( self, parent )
+		Templates.ChangeParameters_Dialog.__init__( self, parent )
 	
 	# Handlers for ChangeParameters_Dialog events.
 	def radioButtonConstant_CheckChanged( self, event ):

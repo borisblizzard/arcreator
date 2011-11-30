@@ -6,7 +6,7 @@ import Database.ARCed_Templates as Templates
 # Implementing ChangeTone_Dialog
 class ChangeTone_Dialog( Templates.ChangeTone_Dialog ):
 	def __init__( self, parent ):
-		ARCed_Templates.ChangeTone_Dialog.__init__( self, parent )
+		Templates.ChangeTone_Dialog.__init__( self, parent )
 	
 	# Handlers for ChangeTone_Dialog events.
 	def sliderRed_ScrollChanged( self, event ):

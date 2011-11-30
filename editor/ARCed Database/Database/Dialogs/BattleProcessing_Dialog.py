@@ -6,7 +6,7 @@ import Database.ARCed_Templates as Templates
 # Implementing BattleProcessing_Dialog
 class BattleProcessing_Dialog( Templates.BattleProcessing_Dialog ):
 	def __init__( self, parent ):
-		ARCed_Templates.BattleProcessing_Dialog.__init__( self, parent )
+		Templates.BattleProcessing_Dialog.__init__( self, parent )
 	
 	# Handlers for BattleProcessing_Dialog events.
 	def buttonOK_Clicked( self, event ):

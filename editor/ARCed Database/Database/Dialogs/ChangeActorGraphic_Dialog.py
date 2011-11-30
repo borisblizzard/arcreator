@@ -6,7 +6,7 @@ import Database.ARCed_Templates as Templates
 # Implementing ChangeActorGraphic_Dialog
 class ChangeActorGraphic_Dialog( Templates.ChangeActorGraphic_Dialog ):
 	def __init__( self, parent ):
-		ARCed_Templates.ChangeActorGraphic_Dialog.__init__( self, parent )
+		Templates.ChangeActorGraphic_Dialog.__init__( self, parent )
 	
 	# Handlers for ChangeActorGraphic_Dialog events.
 	def comboBoxCharacter_Clicked( self, event ):

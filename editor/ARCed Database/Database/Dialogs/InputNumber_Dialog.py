@@ -6,7 +6,7 @@ import Database.ARCed_Templates as Templates
 # Implementing InputNumber_Dialog
 class InputNumber_Dialog( Templates.InputNumber_Dialog ):
 	def __init__( self, parent ):
-		ARCed_Templates.InputNumber_Dialog.__init__( self, parent )
+		Templates.InputNumber_Dialog.__init__( self, parent )
 	
 	# Handlers for InputNumber_Dialog events.
 	def comboBoxVariable_Clicked( self, event ):

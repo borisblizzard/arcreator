@@ -4,7 +4,7 @@ import Database.ARCed_Templates as Templates
 class ChangeMaximum_Dialog( Templates.ChangeMaximum_Dialog ):
 	"""Initialize dialog, setting using pass argument to set the initial value."""
 	def __init__( self, parent, currentMaximum, minValue, maxValue):
-		ARCed_Templates.ChangeMaximum_Dialog.__init__( self, parent )
+		Templates.ChangeMaximum_Dialog.__init__( self, parent )
 		self.spinCtrlMaximum.SetRange(minValue, maxValue)
 		self.spinCtrlMaximum.SetValue(currentMaximum)
 

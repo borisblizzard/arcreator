@@ -1,7 +1,7 @@
 import wx
 import Database.ARCed_Templates as Templates
 from Database.Dialogs import ChangeMaximum_Dialog, ChooseGraphic_Dialog, ChooseFogGraphic_Dialog
-from DatabaseManager import DatabaseManager as DM
+import Database.Manager as DM
 #--------------------------------------------------------------------------------------
 # Tilesets_Panel
 #--------------------------------------------------------------------------------------
@@ -9,7 +9,7 @@ from DatabaseManager import DatabaseManager as DM
 # Implementing Tilesets_Panel
 class Tilesets_Panel( Templates.Tilesets_Panel ):
 	def __init__( self, parent ):
-		ARCed_Templates.Tilesets_Panel.__init__( self, parent )
+		Templates.Tilesets_Panel.__init__( self, parent )
 
 		DM.DrawHeaderBitmap(self.bitmapTilesets, 'Tilesets')
 

@@ -7,7 +7,7 @@ import Database.ARCed_Templates as Templates
 # Implementing AnimationTweening_Dialog
 class AnimationTweening_Dialog( Templates.AnimationTweening_Dialog ):
 	def __init__( self, parent ):
-		ARCed_Templates.AnimationTweening_Dialog.__init__( self, parent )
+		Templates.AnimationTweening_Dialog.__init__( self, parent )
 	
 	# Handlers for AnimationTweening_Dialog events.
 	def spinCtrlFramesStart_ValueChanged( self, event ):

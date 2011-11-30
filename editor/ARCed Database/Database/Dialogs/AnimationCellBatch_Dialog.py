@@ -7,7 +7,7 @@ import Database.ARCed_Templates as Templates
 # Implementing AnimationCellBatch_Dialog
 class AnimationCellBatch_Dialog( Templates.AnimationCellBatch_Dialog ):
 	def __init__( self, parent ):
-		ARCed_Templates.AnimationCellBatch_Dialog.__init__( self, parent )
+		Templates.AnimationCellBatch_Dialog.__init__( self, parent )
 	
 	# Handlers for AnimationCellBatch_Dialog events.
 	def spinCtrlFramesStart_ValueChanged( self, event ):

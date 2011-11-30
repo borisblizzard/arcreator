@@ -6,7 +6,7 @@ import Database.ARCed_Templates as Templates
 # Implementing ChangeEquipment_Dialog
 class ChangeEquipment_Dialog( Templates.ChangeEquipment_Dialog ):
 	def __init__( self, parent ):
-		ARCed_Templates.ChangeEquipment_Dialog.__init__( self, parent )
+		Templates.ChangeEquipment_Dialog.__init__( self, parent )
 	
 	# Handlers for ChangeEquipment_Dialog events.
 	def radioButtonWeapon_CheckChanged( self, event ):

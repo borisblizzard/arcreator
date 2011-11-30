@@ -6,7 +6,7 @@ import Database.ARCed_Templates as Templates
 # Implementing ForceAction_Dialog
 class ForceAction_Dialog( Templates.ForceAction_Dialog ):
 	def __init__( self, parent ):
-		ARCed_Templates.ForceAction_Dialog.__init__( self, parent )
+		Templates.ForceAction_Dialog.__init__( self, parent )
 	
 	# Handlers for ForceAction_Dialog events.
 	def radioButtonEnemy_CheckChanged( self, event ):

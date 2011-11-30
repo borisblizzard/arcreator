@@ -6,7 +6,7 @@ import Database.ARCed_Templates as Templates
 # Implementing Comment_Dialog
 class Comment_Dialog( Templates.Comment_Dialog ):
 	def __init__( self, parent ):
-		ARCed_Templates.Comment_Dialog.__init__( self, parent )
+		Templates.Comment_Dialog.__init__( self, parent )
 	
 	# Handlers for Comment_Dialog events.
 	def buttonOK_Clicked( self, event ):

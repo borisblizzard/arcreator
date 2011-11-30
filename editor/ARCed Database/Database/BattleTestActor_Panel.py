@@ -7,7 +7,7 @@ import Database.ARCed_Templates as Templates
 # Implementing BattleTestActor_Panel
 class BattleTestActor_Panel( Templates.BattleTestActor_Panel ):
 	def __init__( self, parent ):
-		ARCed_Templates.BattleTestActor_Panel.__init__( self, parent )
+		Templates.BattleTestActor_Panel.__init__( self, parent )
 	
 	# Handlers for BattleTestActor_Panel events.
 	def comboBoxActor_SelectionChanged( self, event ):

@@ -7,7 +7,7 @@ import Database.ARCed_Templates as Templates
 # Implementing ScriptEditor_Panel
 class ScriptEditor_Panel( Templates.ScriptEditor_Panel ):
 	def __init__( self, parent ):
-		ARCed_Templates.ScriptEditor_Panel.__init__( self, parent )
+		Templates.ScriptEditor_Panel.__init__( self, parent )
 		self.CreateToolBar()
 
 
@@ -76,14 +76,14 @@ class ScriptEditor_Panel( Templates.ScriptEditor_Panel ):
 #--------------------------------------------------------------------------------------
 # TEST
 #--------------------------------------------------------------------------------------
-
+'''
 app = wx.PySimpleApp( 0 )
 frame = wx.Frame( None, wx.ID_ANY, 'ARCed Script Editor', size=(840,630) )
 frame.CreateStatusBar()
 panel = ScriptEditor_Panel( frame )
 
 try:
-	from DatabaseManager import DatabaseManager as DM
+	import Database.Manager as DM
 	DM.DrawHeaderBitmap(panel.bitmapScripts, 'Scripts')
 except:
 	pass
@@ -91,3 +91,4 @@ except:
 frame.Centre( wx.BOTH )
 frame.Show()
 app.MainLoop()
+'''

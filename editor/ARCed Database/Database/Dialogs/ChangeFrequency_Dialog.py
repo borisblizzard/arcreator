@@ -6,7 +6,7 @@ import Database.ARCed_Templates as Templates
 # Implementing ChangeFrequency_Dialog
 class ChangeFrequency_Dialog( Templates.ChangeFrequency_Dialog ):
 	def __init__( self, parent ):
-		ARCed_Templates.ChangeFrequency_Dialog.__init__( self, parent )
+		Templates.ChangeFrequency_Dialog.__init__( self, parent )
 	
 	# Handlers for ChangeFrequency_Dialog events.
 	def buttonOK_Clicked( self, event ):

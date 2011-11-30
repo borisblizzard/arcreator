@@ -1,11 +1,10 @@
 import wx
 import Database.ARCed_Templates as Templates
-import ChangeMaximum_Dialog
 import EventCommands1_Panel
 import EventCommands2_Panel
 import EventCommands3_Panel
 from Database.Dialogs import ChooseSwitchVariable_Dialog
-from DatabaseManager import DatabaseManager as DM
+import Database.Manager as DM
 #--------------------------------------------------------------------------------------
 # CommonEvents_Panel
 #--------------------------------------------------------------------------------------
@@ -13,7 +12,7 @@ from DatabaseManager import DatabaseManager as DM
 # Implementing CommonEvents_Panel
 class CommonEvents_Panel( Templates.CommonEvents_Panel ):
 	def __init__( self, parent ):
-		ARCed_Templates.CommonEvents_Panel.__init__( self, parent )
+		Templates.CommonEvents_Panel.__init__( self, parent )
 
 		DM.DrawHeaderBitmap(self.bitmapCommonEvents, 'Common Events')
 

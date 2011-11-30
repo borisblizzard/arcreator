@@ -6,7 +6,7 @@ import Database.ARCed_Templates as Templates
 # Implementing TransparentFlag_Dialog
 class TransparentFlag_Dialog( Templates.TransparentFlag_Dialog ):
 	def __init__( self, parent ):
-		ARCed_Templates.TransparentFlag_Dialog.__init__( self, parent )
+		Templates.TransparentFlag_Dialog.__init__( self, parent )
 	
 	# Handlers for TransparentFlag_Dialog events.
 	def buttonOK_Clicked( self, event ):

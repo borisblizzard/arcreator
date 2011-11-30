@@ -6,7 +6,7 @@ import Database.ARCed_Templates as Templates
 # Implementing ChangeSpeed_Dialog
 class ChangeSpeed_Dialog( Templates.ChangeSpeed_Dialog ):
 	def __init__( self, parent ):
-		ARCed_Templates.ChangeSpeed_Dialog.__init__( self, parent )
+		Templates.ChangeSpeed_Dialog.__init__( self, parent )
 	
 	# Handlers for ChangeSpeed_Dialog events.
 	def buttonOK_Clicked( self, event ):

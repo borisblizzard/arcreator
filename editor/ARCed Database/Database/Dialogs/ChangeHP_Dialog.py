@@ -6,7 +6,7 @@ import Database.ARCed_Templates as Templates
 # Implementing ChangeHP_Dialog
 class ChangeHP_Dialog( Templates.ChangeHP_Dialog ):
 	def __init__( self, parent ):
-		ARCed_Templates.ChangeHP_Dialog.__init__( self, parent )
+		Templates.ChangeHP_Dialog.__init__( self, parent )
 	
 	# Handlers for ChangeHP_Dialog events.
 	def radioButtonConstant_CheckChanged( self, event ):

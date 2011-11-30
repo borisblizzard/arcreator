@@ -6,7 +6,7 @@ import Database.ARCed_Templates as Templates
 # Implementing ShowPicture_Dialog
 class ShowPicture_Dialog( Templates.ShowPicture_Dialog ):
 	def __init__( self, parent ):
-		ARCed_Templates.ShowPicture_Dialog.__init__( self, parent )
+		Templates.ShowPicture_Dialog.__init__( self, parent )
 	
 	# Handlers for ShowPicture_Dialog events.
 	def comboBoxPictureGraphic_Clicked( self, event ):

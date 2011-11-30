@@ -2,7 +2,7 @@ import wx
 import Database.ARCed_Templates as Templates
 import wx.lib.agw.floatspin as floatspin
 import numpy as np
-from DatabaseManager import DatabaseManager as DM
+import Database.Manager as DM
 import Kernel
 
 # TODO: THIS NEEDS FIXED UP STILL! 
@@ -14,7 +14,7 @@ Main.ConfigManager.LoadConfig()
 class ExpGrid_Dialog( Templates.ExpGrid_Dialog ):
 	def __init__( self, parent, actor ):
 		"""Basic constructor for the ExpGrid_Dialog"""
-		ARCed_Templates.ExpGrid_Dialog.__init__( self, parent )
+		Templates.ExpGrid_Dialog.__init__( self, parent )
 		# Set the options for the spin float control
 		self.spinCtrlSpeed.SetRange(-10, 10)
 		self.spinCtrlSpeed.SetIncrement(0.25)
@@ -188,7 +188,7 @@ class ExpGrid_Dialog( Templates.ExpGrid_Dialog ):
 class ExpGraphEditor_Dialog( Templates.ExpGraph_Dialog ):
 	def __init__( self, parent, *args):
 		"""Basic constructor for the ExpGraph_Dialog"""
-		ARCed_Templates.ExpGraph_Dialog.__init__( self, parent )
+		Templates.ExpGraph_Dialog.__init__( self, parent )
 		self.graphPanel.SetData(*args)
 	
 	def buttonOK_Clicked( self, event ):

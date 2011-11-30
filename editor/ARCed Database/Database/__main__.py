@@ -57,7 +57,7 @@ class Test(wx.App):
 		for data in Panels:
 			if data is None:
 				continue
-			exec('from ' + data[1] + ' import ' + data[1])
+			exec('import Database.' + data[1] + ' as ' + data[1])
 			exec('page = ' + data[1] + '(nb)')
 			nb.AddPage(page, data[0])
 		nb.SetSelection(PAGE_INDEX)

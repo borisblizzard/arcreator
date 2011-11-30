@@ -6,7 +6,7 @@ import Database.ARCed_Templates as Templates
 # Implementing NameProcessing_Dialog
 class NameProcessing_Dialog( Templates.NameProcessing_Dialog ):
 	def __init__( self, parent ):
-		ARCed_Templates.NameProcessing_Dialog.__init__( self, parent )
+		Templates.NameProcessing_Dialog.__init__( self, parent )
 	
 	# Handlers for NameProcessing_Dialog events.
 	def buttonOK_Clicked( self, event ):

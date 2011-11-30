@@ -1,5 +1,5 @@
 import ARCed_Templates
-from DatabaseManager import DatabaseManager
+from Manager import Manager
 from DatabasePackage import DatabasePackage
 
 from Actors_Panel import Actors_Panel
@@ -18,7 +18,6 @@ from EventEditor_Panel import EventEditor_Panel
 from EventPage_Panel import EventPage_Panel
 from Items_Panel import Items_Panel
 from ParameterGraph_Panel import ParameterGraph_Panel
-from Parameter_Panel import Parameter_Panel
 from ScriptEditor_Panel import ScriptEditor_Panel
 from Skills_Panel import Skills_Panel
 from States_Panel import States_Panel

@@ -6,7 +6,7 @@ import Database.ARCed_Templates as Templates
 # Implementing ButtonProcessing_Dialog
 class ButtonProcessing_Dialog( Templates.ButtonProcessing_Dialog ):
 	def __init__( self, parent ):
-		ARCed_Templates.ButtonProcessing_Dialog.__init__( self, parent )
+		Templates.ButtonProcessing_Dialog.__init__( self, parent )
 	
 	# Handlers for ButtonProcessing_Dialog events.
 	def comboBoxVariable_Clicked( self, event ):

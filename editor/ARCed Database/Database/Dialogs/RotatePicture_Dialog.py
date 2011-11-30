@@ -6,7 +6,7 @@ import Database.ARCed_Templates as Templates
 # Implementing RotatePicture_Dialog
 class RotatePicture_Dialog( Templates.RotatePicture_Dialog ):
 	def __init__( self, parent ):
-		ARCed_Templates.RotatePicture_Dialog.__init__( self, parent )
+		Templates.RotatePicture_Dialog.__init__( self, parent )
 	
 	# Handlers for RotatePicture_Dialog events.
 	def buttonOK_Clicked( self, event ):

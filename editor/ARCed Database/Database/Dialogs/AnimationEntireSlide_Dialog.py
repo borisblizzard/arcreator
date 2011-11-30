@@ -7,7 +7,7 @@ import Database.ARCed_Templates as Templates
 # Implementing AnimationEntireSlide_Dialog
 class AnimationEntireSlide_Dialog( Templates.AnimationEntireSlide_Dialog ):
 	def __init__( self, parent ):
-		ARCed_Templates.AnimationEntireSlide_Dialog.__init__( self, parent )
+		Templates.AnimationEntireSlide_Dialog.__init__( self, parent )
 	
 	# Handlers for AnimationEntireSlide_Dialog events.
 	def spinCtrlFramesStart_ValueChanged( self, event ):
