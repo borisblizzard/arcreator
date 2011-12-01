@@ -2,7 +2,7 @@ import wx
 import Database.ARCed_Templates as Templates
 import numpy as np
 import Database.Manager as DM
-from Core.RMXP import RGSS1_RPG as RPG	   						
+from Core.RMXP.RGSS1_RPG import RPG	   						
 import Kernel
 
 GRAPH_COLORS = [

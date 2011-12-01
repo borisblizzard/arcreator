@@ -2,7 +2,7 @@ import wx
 from PIL import Image
 import pyglet
 import pyglet.gl as gl
-from Core.Mapeditor import PygletGLPanel
+from Core.MapEditor.PygletWX import PygletGLPanel
 #--------------------------------------------------------------------------------------
 # EditorGLPanel
 #--------------------------------------------------------------------------------------
@@ -92,6 +92,9 @@ class EditorGLPanel(PygletGLPanel):
 
 	def draw_objects( self ):
 		"""Draws the objects on the canvas"""
+		if not self.GLinitialized:
+			return
+
 		gl.glClearColor(0.93, 0.93, 0.93, 1)
 		if self._image is None:
 			return
