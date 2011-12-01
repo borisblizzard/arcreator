@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{acb5e8a5-ec45-446e-b426-ad15be86400a}</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>Database\__main__.py</StartupFile>
+    <StartupFile>Database\ScriptEditor_Panel.py</StartupFile>
     <SearchPath>C:\Users\Eric\Desktop\ARC\editor\ARCed\src\;C:\Users\Eric\Desktop\ARC\editor\ARCed Database\src\;C:\Users\Eric\Desktop\ARC\editor\ARCed Database\src</SearchPath>
     <WorkingDirectory>
     </WorkingDirectory>
@@ -82,7 +82,6 @@
     <Compile Include="Database\Dialogs\ChangeTextOptions_Dialog.py" />
     <Compile Include="Database\Dialogs\ChangeTone_Dialog.py" />
     <Compile Include="Database\Dialogs\ChooseActor_Dialog.py" />
-    <Compile Include="Database\Dialogs\ChooseAudio_Dialog.py" />
     <Compile Include="Database\Dialogs\ChooseFogGraphic_Dialog.py" />
     <Compile Include="Database\Dialogs\ChooseGraphic_Dialog.py" />
     <Compile Include="Database\Dialogs\ChooseSwitchVariable_Dialog.py" />

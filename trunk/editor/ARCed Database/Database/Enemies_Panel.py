@@ -1,7 +1,7 @@
 import wx
 import Database.ARCed_Templates as Templates
-from Database.Dialogs import EnemyExpGold_Dialog, ChooseGraphic_Dialog, EnemyAction_Dialog
-from Core.RMXP import RGSS1_RPG as RPG
+from Database.Dialogs import ChooseGraphic_Dialog, EnemyAction_Dialog
+from Core.RMXP.RGSS1_RPG import RPG
 import Database.Manager as DM
 import Kernel
 #--------------------------------------------------------------------------------------
@@ -178,6 +178,7 @@ class Enemies_Panel( Templates.Enemies_Panel ):
 	
 	def comboBoxExp_Clicked( self, event ):
 		"""Starts the dialog to set the selected enemy's experience"""
+		from Database.Dialogs import EnemyExpGold_Dialog
 		if DM.ARC_FORMAT:
 			# TODO: Implement getting variance
 			pass

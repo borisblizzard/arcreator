@@ -1,6 +1,6 @@
 import wx
 from Core.Cache import PILCache, RTPFunctions 
-from Core.RMXP import RGSS1_RPG as RPG
+from Core.RMXP.RGSS1_RPG import RPG
 from threading import Timer
 from math import ceil
 import PIL

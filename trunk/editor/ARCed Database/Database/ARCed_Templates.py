@@ -14209,3 +14209,198 @@ class ScriptEditor_Panel ( wx.Panel ):
 		pass
 	
 
+###########################################################################
+## Class FindReplacePanel
+###########################################################################
+
+class FindReplacePanel ( wx.Panel ):
+	
+	def __init__( self, parent ):
+		wx.Panel.__init__ ( self, parent, id = wx.ID_ANY, pos = wx.DefaultPosition, size = wx.Size( 290,346 ), style = wx.TAB_TRAVERSAL )
+		
+		MainSizer = wx.BoxSizer( wx.VERTICAL )
+		
+		sizerNotebook = wx.BoxSizer( wx.VERTICAL )
+		
+		self.noteBookFindReplace = wx.Notebook( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.panelFind = wx.Panel( self.noteBookFindReplace, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
+		sizerFind = wx.BoxSizer( wx.VERTICAL )
+		
+		self.labelFind = wx.StaticText( self.panelFind, wx.ID_ANY, u"Find what:", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.labelFind.Wrap( -1 )
+		sizerFind.Add( self.labelFind, 0, wx.ALL, 5 )
+		
+		self.textCtrlFindSearch = wx.TextCtrl( self.panelFind, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+		sizerFind.Add( self.textCtrlFindSearch, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
+		
+		self.labelLookFind = wx.StaticText( self.panelFind, wx.ID_ANY, u"Look in:", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.labelLookFind.Wrap( -1 )
+		sizerFind.Add( self.labelLookFind, 0, wx.ALL, 5 )
+		
+		comboBoxLookChoices = [ u"Current Script", u"All Scripts" ]
+		self.comboBoxLook = wx.Choice( self.panelFind, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxLookChoices, 0 )
+		self.comboBoxLook.SetSelection( 0 )
+		sizerFind.Add( self.comboBoxLook, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
+		
+		sizerFindOptions = wx.StaticBoxSizer( wx.StaticBox( self.panelFind, wx.ID_ANY, u"Options" ), wx.VERTICAL )
+		
+		self.checkBoxFindMatchCase = wx.CheckBox( self.panelFind, wx.ID_ANY, u"Match case", wx.DefaultPosition, wx.DefaultSize, 0 )
+		sizerFindOptions.Add( self.checkBoxFindMatchCase, 0, wx.ALL, 5 )
+		
+		self.checkBoxFindWholeWord = wx.CheckBox( self.panelFind, wx.ID_ANY, u"Match whole word", wx.DefaultPosition, wx.DefaultSize, 0 )
+		sizerFindOptions.Add( self.checkBoxFindWholeWord, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
+		
+		self.checkBoxFindSearchUp = wx.CheckBox( self.panelFind, wx.ID_ANY, u"Search up", wx.DefaultPosition, wx.DefaultSize, 0 )
+		sizerFindOptions.Add( self.checkBoxFindSearchUp, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
+		
+		self.checkBoxFindFlags = wx.CheckBox( self.panelFind, wx.ID_ANY, u"Use:", wx.DefaultPosition, wx.DefaultSize, 0 )
+		sizerFindOptions.Add( self.checkBoxFindFlags, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
+		
+		comboBoxFindFlagsChoices = [ u"Regular Expressions", u"Wild Cards" ]
+		self.comboBoxFindFlags = wx.Choice( self.panelFind, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxFindFlagsChoices, 0 )
+		self.comboBoxFindFlags.SetSelection( 0 )
+		sizerFindOptions.Add( self.comboBoxFindFlags, 0, wx.EXPAND|wx.RIGHT|wx.LEFT, 20 )
+		
+		sizerFind.Add( sizerFindOptions, 0, wx.EXPAND|wx.ALL, 5 )
+		
+		self.buttonFind = wx.Button( self.panelFind, wx.ID_ANY, u"Find Next", wx.DefaultPosition, wx.DefaultSize, 0 )
+		sizerFind.Add( self.buttonFind, 0, wx.ALL|wx.ALIGN_RIGHT, 5 )
+		
+		self.panelFind.SetSizer( sizerFind )
+		self.panelFind.Layout()
+		sizerFind.Fit( self.panelFind )
+		self.noteBookFindReplace.AddPage( self.panelFind, u"Find", True )
+		self.panelReplace = wx.Panel( self.noteBookFindReplace, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
+		sizerReplace = wx.BoxSizer( wx.VERTICAL )
+		
+		self.labelReplace = wx.StaticText( self.panelReplace, wx.ID_ANY, u"Find what:", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.labelReplace.Wrap( -1 )
+		sizerReplace.Add( self.labelReplace, 0, wx.ALL, 5 )
+		
+		self.textCtrlReplaceSearch = wx.TextCtrl( self.panelReplace, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+		sizerReplace.Add( self.textCtrlReplaceSearch, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
+		
+		self.labelReplaceWith = wx.StaticText( self.panelReplace, wx.ID_ANY, u"Replace with:", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.labelReplaceWith.Wrap( -1 )
+		sizerReplace.Add( self.labelReplaceWith, 0, wx.ALL, 5 )
+		
+		self.textCtrlReplace = wx.TextCtrl( self.panelReplace, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+		sizerReplace.Add( self.textCtrlReplace, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
+		
+		self.labelLookReplace = wx.StaticText( self.panelReplace, wx.ID_ANY, u"Look in:", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.labelLookReplace.Wrap( -1 )
+		sizerReplace.Add( self.labelLookReplace, 0, wx.ALL, 5 )
+		
+		comboBoxLookReplaceChoices = [ u"Current Script", u"All Scripts" ]
+		self.comboBoxLookReplace = wx.Choice( self.panelReplace, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxLookReplaceChoices, 0 )
+		self.comboBoxLookReplace.SetSelection( 0 )
+		sizerReplace.Add( self.comboBoxLookReplace, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
+		
+		sizerReplaceOptions = wx.StaticBoxSizer( wx.StaticBox( self.panelReplace, wx.ID_ANY, u"Options" ), wx.VERTICAL )
+		
+		self.checkBoxReplaceMatchCase = wx.CheckBox( self.panelReplace, wx.ID_ANY, u"Match case", wx.DefaultPosition, wx.DefaultSize, 0 )
+		sizerReplaceOptions.Add( self.checkBoxReplaceMatchCase, 0, wx.ALL, 5 )
+		
+		self.checkBoxReplaceWholeWord = wx.CheckBox( self.panelReplace, wx.ID_ANY, u"Match whole word", wx.DefaultPosition, wx.DefaultSize, 0 )
+		sizerReplaceOptions.Add( self.checkBoxReplaceWholeWord, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
+		
+		self.checkBoxReplaceSearchUp = wx.CheckBox( self.panelReplace, wx.ID_ANY, u"Search up", wx.DefaultPosition, wx.DefaultSize, 0 )
+		sizerReplaceOptions.Add( self.checkBoxReplaceSearchUp, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
+		
+		self.checkBoxReplaceFlags = wx.CheckBox( self.panelReplace, wx.ID_ANY, u"Use:", wx.DefaultPosition, wx.DefaultSize, 0 )
+		sizerReplaceOptions.Add( self.checkBoxReplaceFlags, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
+		
+		comboBoxReplaceFlagsChoices = [ u"Regular Expressions", u"Wild Cards" ]
+		self.comboBoxReplaceFlags = wx.Choice( self.panelReplace, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxReplaceFlagsChoices, 0 )
+		self.comboBoxReplaceFlags.SetSelection( 0 )
+		sizerReplaceOptions.Add( self.comboBoxReplaceFlags, 0, wx.EXPAND|wx.RIGHT|wx.LEFT, 20 )
+		
+		sizerReplace.Add( sizerReplaceOptions, 0, wx.EXPAND|wx.ALL, 5 )
+		
+		bSizer653 = wx.BoxSizer( wx.HORIZONTAL )
+		
+		self.buttonFindNext = wx.Button( self.panelReplace, wx.ID_ANY, u"Find Next", wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer653.Add( self.buttonFindNext, 0, wx.ALIGN_RIGHT|wx.EXPAND|wx.TOP|wx.BOTTOM|wx.LEFT, 5 )
+		
+		self.buttonReplace = wx.Button( self.panelReplace, wx.ID_ANY, u"Replace", wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer653.Add( self.buttonReplace, 0, wx.TOP|wx.BOTTOM|wx.LEFT, 5 )
+		
+		self.buttonReplaceAll = wx.Button( self.panelReplace, wx.ID_ANY, u"Replace All", wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer653.Add( self.buttonReplaceAll, 0, wx.TOP|wx.BOTTOM|wx.RIGHT, 5 )
+		
+		sizerReplace.Add( bSizer653, 1, wx.ALIGN_RIGHT, 5 )
+		
+		self.panelReplace.SetSizer( sizerReplace )
+		self.panelReplace.Layout()
+		sizerReplace.Fit( self.panelReplace )
+		self.noteBookFindReplace.AddPage( self.panelReplace, u"Replace", False )
+		
+		sizerNotebook.Add( self.noteBookFindReplace, 1, wx.EXPAND, 5 )
+		
+		MainSizer.Add( sizerNotebook, 1, wx.EXPAND, 5 )
+		
+		self.SetSizer( MainSizer )
+		self.Layout()
+		
+		# Connect Events
+		self.noteBookFindReplace.Bind( wx.EVT_NOTEBOOK_PAGE_CHANGED, self.noteBookFindReplace_PageChanged )
+		self.comboBoxLook.Bind( wx.EVT_CHOICE, self.comboBoxLook_SelectionChanged )
+		self.checkBoxFindMatchCase.Bind( wx.EVT_CHECKBOX, self.checkBoxMatchCase_CheckChanged )
+		self.checkBoxFindWholeWord.Bind( wx.EVT_CHECKBOX, self.checkBoxWholeWord_CheckChanged )
+		self.checkBoxFindSearchUp.Bind( wx.EVT_CHECKBOX, self.checkBoxSearchUP_CheckChanged )
+		self.checkBoxFindFlags.Bind( wx.EVT_CHECKBOX, self.checkBoxFlags_CheckChanged )
+		self.comboBoxFindFlags.Bind( wx.EVT_CHOICE, self.comboBoxFlags_SelectionChanged )
+		self.buttonFind.Bind( wx.EVT_BUTTON, self.buttonFindNext_Clicked )
+		self.comboBoxLookReplace.Bind( wx.EVT_CHOICE, self.comboBoxLook_SelectionChanged )
+		self.checkBoxReplaceMatchCase.Bind( wx.EVT_CHECKBOX, self.checkBoxMatchCase_CheckChanged )
+		self.checkBoxReplaceWholeWord.Bind( wx.EVT_CHECKBOX, self.checkBoxWholeWord_CheckChanged )
+		self.checkBoxReplaceSearchUp.Bind( wx.EVT_CHECKBOX, self.checkBoxSearchUP_CheckChanged )
+		self.checkBoxReplaceFlags.Bind( wx.EVT_CHECKBOX, self.checkBoxFlags_CheckChanged )
+		self.comboBoxReplaceFlags.Bind( wx.EVT_CHOICE, self.comboBoxFlags_SelectionChanged )
+		self.buttonFindNext.Bind( wx.EVT_BUTTON, self.buttonFindNext_Clicked )
+		self.buttonReplace.Bind( wx.EVT_BUTTON, self.buttonReplace_Clicked )
+		self.buttonReplaceAll.Bind( wx.EVT_BUTTON, self.buttonReplaceAll_Clicked )
+	
+	def __del__( self ):
+		pass
+	
+	
+	# Virtual event handlers, overide them in your derived class
+	def noteBookFindReplace_PageChanged( self, event ):
+		pass
+	
+	def comboBoxLook_SelectionChanged( self, event ):
+		pass
+	
+	def checkBoxMatchCase_CheckChanged( self, event ):
+		pass
+	
+	def checkBoxWholeWord_CheckChanged( self, event ):
+		pass
+	
+	def checkBoxSearchUP_CheckChanged( self, event ):
+		pass
+	
+	def checkBoxFlags_CheckChanged( self, event ):
+		pass
+	
+	def comboBoxFlags_SelectionChanged( self, event ):
+		pass
+	
+	def buttonFindNext_Clicked( self, event ):
+		pass
+	
+	
+	
+	
+	
+	
+	
+	
+	def buttonReplace_Clicked( self, event ):
+		pass
+	
+	def buttonReplaceAll_Clicked( self, event ):
+		pass
+	
+

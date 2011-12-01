@@ -1,5 +1,5 @@
 import wx
-from wxPython import stc
+from wxPython import stc #* TODO: Use stc for now for benefit of IntelliSense
 #--------------------------------------------------------------------------------------
 # ScriptTextCtrl
 #--------------------------------------------------------------------------------------

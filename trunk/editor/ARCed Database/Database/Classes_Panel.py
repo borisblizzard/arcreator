@@ -3,7 +3,7 @@ import Database.ARCed_Templates as Templates
 from Database.Dialogs import ChangeMaximum_Dialog, Skill_Dialog
 import numpy as np
 import Database.Manager as DM
-from Core.RMXP import RGSS1_RPG as RPG	
+from Core.RMXP.RGSS1_RPG import RPG	
 from Core import RPGutil, DatabaseActions
 import Kernel 
 #--------------------------------------------------------------------------------------

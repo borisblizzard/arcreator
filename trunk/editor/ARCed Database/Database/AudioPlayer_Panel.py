@@ -5,7 +5,7 @@ import wx.lib.plot as plot
 from datetime import timedelta
 import Database.ARCed_Templates as Templates
 from Core.Cache import RTPFunctions
-from Core.RMXP import RGSS1_RPG as RPG
+from Core.RMXP.RGSS1_RPG import RPG
 import Database.Manager as DM
 import Kernel
 from Kernel import Manager as KM
