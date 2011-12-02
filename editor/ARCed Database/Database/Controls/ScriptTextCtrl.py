@@ -1,5 +1,6 @@
 import wx
 from wxPython import stc #* TODO: Use stc for now for benefit of IntelliSense
+from Database.Dialogs import FindReplace_Dialog, FindReplaceData
 #--------------------------------------------------------------------------------------
 # ScriptTextCtrl
 #--------------------------------------------------------------------------------------
@@ -111,6 +112,8 @@ class ScriptTextCtrl(stc.wxStyledTextCtrl):
 		"""Basic constructor for the ScriptTextCtrl"""
 		super(ScriptTextCtrl, self).__init__(parent, 
 			style=stc.wxSTC_STYLE_LINENUMBER|stc.wxSTC_STYLE_INDENTGUIDE)
+		self.FindReplaceData = FindReplaceData()
+		self.FindDialog = None
 		self.ApplyDefaults()
 		self.BindHotKeys()
 		self.Bind(wx.EVT_KEY_DOWN, self.KeyPressed)
@@ -119,6 +122,15 @@ class ScriptTextCtrl(stc.wxStyledTextCtrl):
 	def KeyPressed( self, event ):
 		"""Preprocess keystrokes before they are added to the Scintilla control"""
 		ch = event.GetKeyCode()
+		# Check for hotkey input
+		if event.CmdDown():
+			if ch == ord('F'):
+				self.StartFindReplace(0)
+				return
+			elif ch == ord('H'):
+				self.StartFindReplace(1)
+				return
+
 		if ch == wx.WXK_RETURN and AUTO_INDENT:
 			# Process auto-indentation if the return key was pressed
 			thisLine = self.GetCurrentLine()
@@ -132,6 +144,22 @@ class ScriptTextCtrl(stc.wxStyledTextCtrl):
 			self.CalculateLineNumberMargin()
 		else:
 			event.Skip()
+
+	def StartFindReplace(self, index=0 ):
+		"""Creates if needed, and focuses the Find & Replace window"""
+		text = self.SelectedText
+		if len(text) > 0:
+			self.FindReplaceData.SearchString[index] = text
+		if self.FindDialog is None:
+			self.FindDialog = dlg = FindReplace_Dialog(self, index, self.FindReplaceData)
+		else:
+			dlg = self.FindDialog
+		dlg.RefreshTab(index)
+		dlg.noteBookFindReplace.ChangeSelection(index)
+		if index == 0: dlg.textCtrlFindSearch.SetFocus()
+		else: dlg.textCtrlReplaceSearch.SetFocus()
+		dlg.Show(True)
+		dlg.SetFocus()
 		
 	def DetermineIndentChange( self, text, previousLine, previousIndent ):
 		"""Calculates the value to change the indent level by, if at all"""

@@ -14210,13 +14210,15 @@ class ScriptEditor_Panel ( wx.Panel ):
 	
 
 ###########################################################################
-## Class FindReplacePanel
+## Class FindReplace_Dialog
 ###########################################################################
 
-class FindReplacePanel ( wx.Panel ):
+class FindReplace_Dialog ( wx.Dialog ):
 	
 	def __init__( self, parent ):
-		wx.Panel.__init__ ( self, parent, id = wx.ID_ANY, pos = wx.DefaultPosition, size = wx.Size( 290,346 ), style = wx.TAB_TRAVERSAL )
+		wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Find & Replace", pos = wx.DefaultPosition, size = wx.Size( 295,365 ), style = wx.DEFAULT_DIALOG_STYLE|wx.RESIZE_BORDER )
+		
+		self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
 		
 		MainSizer = wx.BoxSizer( wx.VERTICAL )
 		
@@ -14259,6 +14261,8 @@ class FindReplacePanel ( wx.Panel ):
 		comboBoxFindFlagsChoices = [ u"Regular Expressions", u"Wild Cards" ]
 		self.comboBoxFindFlags = wx.Choice( self.panelFind, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxFindFlagsChoices, 0 )
 		self.comboBoxFindFlags.SetSelection( 0 )
+		self.comboBoxFindFlags.Enable( False )
+		
 		sizerFindOptions.Add( self.comboBoxFindFlags, 0, wx.EXPAND|wx.RIGHT|wx.LEFT, 20 )
 		
 		sizerFind.Add( sizerFindOptions, 0, wx.EXPAND|wx.ALL, 5 )
@@ -14269,7 +14273,7 @@ class FindReplacePanel ( wx.Panel ):
 		self.panelFind.SetSizer( sizerFind )
 		self.panelFind.Layout()
 		sizerFind.Fit( self.panelFind )
-		self.noteBookFindReplace.AddPage( self.panelFind, u"Find", True )
+		self.noteBookFindReplace.AddPage( self.panelFind, u"Find", False )
 		self.panelReplace = wx.Panel( self.noteBookFindReplace, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
 		sizerReplace = wx.BoxSizer( wx.VERTICAL )
 		
@@ -14313,6 +14317,8 @@ class FindReplacePanel ( wx.Panel ):
 		comboBoxReplaceFlagsChoices = [ u"Regular Expressions", u"Wild Cards" ]
 		self.comboBoxReplaceFlags = wx.Choice( self.panelReplace, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxReplaceFlagsChoices, 0 )
 		self.comboBoxReplaceFlags.SetSelection( 0 )
+		self.comboBoxReplaceFlags.Enable( False )
+		
 		sizerReplaceOptions.Add( self.comboBoxReplaceFlags, 0, wx.EXPAND|wx.RIGHT|wx.LEFT, 20 )
 		
 		sizerReplace.Add( sizerReplaceOptions, 0, wx.EXPAND|wx.ALL, 5 )
@@ -14320,7 +14326,7 @@ class FindReplacePanel ( wx.Panel ):
 		bSizer653 = wx.BoxSizer( wx.HORIZONTAL )
 		
 		self.buttonFindNext = wx.Button( self.panelReplace, wx.ID_ANY, u"Find Next", wx.DefaultPosition, wx.DefaultSize, 0 )
-		bSizer653.Add( self.buttonFindNext, 0, wx.ALIGN_RIGHT|wx.EXPAND|wx.TOP|wx.BOTTOM|wx.LEFT, 5 )
+		bSizer653.Add( self.buttonFindNext, 0, wx.ALIGN_RIGHT|wx.TOP|wx.BOTTOM|wx.LEFT, 5 )
 		
 		self.buttonReplace = wx.Button( self.panelReplace, wx.ID_ANY, u"Replace", wx.DefaultPosition, wx.DefaultSize, 0 )
 		bSizer653.Add( self.buttonReplace, 0, wx.TOP|wx.BOTTOM|wx.LEFT, 5 )
@@ -14333,7 +14339,7 @@ class FindReplacePanel ( wx.Panel ):
 		self.panelReplace.SetSizer( sizerReplace )
 		self.panelReplace.Layout()
 		sizerReplace.Fit( self.panelReplace )
-		self.noteBookFindReplace.AddPage( self.panelReplace, u"Replace", False )
+		self.noteBookFindReplace.AddPage( self.panelReplace, u"Replace", True )
 		
 		sizerNotebook.Add( self.noteBookFindReplace, 1, wx.EXPAND, 5 )
 		
@@ -14342,24 +14348,49 @@ class FindReplacePanel ( wx.Panel ):
 		self.SetSizer( MainSizer )
 		self.Layout()
 		
+		self.Centre( wx.BOTH )
+		
 		# Connect Events
 		self.noteBookFindReplace.Bind( wx.EVT_NOTEBOOK_PAGE_CHANGED, self.noteBookFindReplace_PageChanged )
+		self.labelFind.Bind( wx.EVT_ERASE_BACKGROUND, self.DoNothing )
+		self.textCtrlFindSearch.Bind( wx.EVT_ERASE_BACKGROUND, self.DoNothing )
+		self.labelLookFind.Bind( wx.EVT_ERASE_BACKGROUND, self.DoNothing )
 		self.comboBoxLook.Bind( wx.EVT_CHOICE, self.comboBoxLook_SelectionChanged )
+		self.comboBoxLook.Bind( wx.EVT_ERASE_BACKGROUND, self.DoNothing )
 		self.checkBoxFindMatchCase.Bind( wx.EVT_CHECKBOX, self.checkBoxMatchCase_CheckChanged )
+		self.checkBoxFindMatchCase.Bind( wx.EVT_ERASE_BACKGROUND, self.DoNothing )
 		self.checkBoxFindWholeWord.Bind( wx.EVT_CHECKBOX, self.checkBoxWholeWord_CheckChanged )
+		self.checkBoxFindWholeWord.Bind( wx.EVT_ERASE_BACKGROUND, self.DoNothing )
 		self.checkBoxFindSearchUp.Bind( wx.EVT_CHECKBOX, self.checkBoxSearchUP_CheckChanged )
+		self.checkBoxFindSearchUp.Bind( wx.EVT_ERASE_BACKGROUND, self.DoNothing )
 		self.checkBoxFindFlags.Bind( wx.EVT_CHECKBOX, self.checkBoxFlags_CheckChanged )
+		self.checkBoxFindFlags.Bind( wx.EVT_ERASE_BACKGROUND, self.DoNothing )
 		self.comboBoxFindFlags.Bind( wx.EVT_CHOICE, self.comboBoxFlags_SelectionChanged )
+		self.comboBoxFindFlags.Bind( wx.EVT_ERASE_BACKGROUND, self.DoNothing )
 		self.buttonFind.Bind( wx.EVT_BUTTON, self.buttonFindNext_Clicked )
+		self.buttonFind.Bind( wx.EVT_ERASE_BACKGROUND, self.DoNothing )
+		self.labelReplace.Bind( wx.EVT_ERASE_BACKGROUND, self.DoNothing )
+		self.textCtrlReplaceSearch.Bind( wx.EVT_ERASE_BACKGROUND, self.DoNothing )
+		self.labelReplaceWith.Bind( wx.EVT_ERASE_BACKGROUND, self.DoNothing )
+		self.textCtrlReplace.Bind( wx.EVT_ERASE_BACKGROUND, self.DoNothing )
 		self.comboBoxLookReplace.Bind( wx.EVT_CHOICE, self.comboBoxLook_SelectionChanged )
+		self.comboBoxLookReplace.Bind( wx.EVT_ERASE_BACKGROUND, self.DoNothing )
 		self.checkBoxReplaceMatchCase.Bind( wx.EVT_CHECKBOX, self.checkBoxMatchCase_CheckChanged )
+		self.checkBoxReplaceMatchCase.Bind( wx.EVT_ERASE_BACKGROUND, self.DoNothing )
 		self.checkBoxReplaceWholeWord.Bind( wx.EVT_CHECKBOX, self.checkBoxWholeWord_CheckChanged )
+		self.checkBoxReplaceWholeWord.Bind( wx.EVT_ERASE_BACKGROUND, self.DoNothing )
 		self.checkBoxReplaceSearchUp.Bind( wx.EVT_CHECKBOX, self.checkBoxSearchUP_CheckChanged )
+		self.checkBoxReplaceSearchUp.Bind( wx.EVT_ERASE_BACKGROUND, self.DoNothing )
 		self.checkBoxReplaceFlags.Bind( wx.EVT_CHECKBOX, self.checkBoxFlags_CheckChanged )
+		self.checkBoxReplaceFlags.Bind( wx.EVT_ERASE_BACKGROUND, self.DoNothing )
 		self.comboBoxReplaceFlags.Bind( wx.EVT_CHOICE, self.comboBoxFlags_SelectionChanged )
+		self.comboBoxReplaceFlags.Bind( wx.EVT_ERASE_BACKGROUND, self.DoNothing )
 		self.buttonFindNext.Bind( wx.EVT_BUTTON, self.buttonFindNext_Clicked )
+		self.buttonFindNext.Bind( wx.EVT_ERASE_BACKGROUND, self.DoNothing )
 		self.buttonReplace.Bind( wx.EVT_BUTTON, self.buttonReplace_Clicked )
+		self.buttonReplace.Bind( wx.EVT_ERASE_BACKGROUND, self.DoNothing )
 		self.buttonReplaceAll.Bind( wx.EVT_BUTTON, self.buttonReplaceAll_Clicked )
+		self.buttonReplaceAll.Bind( wx.EVT_ERASE_BACKGROUND, self.DoNothing )
 	
 	def __del__( self ):
 		pass
@@ -14369,23 +14400,34 @@ class FindReplacePanel ( wx.Panel ):
 	def noteBookFindReplace_PageChanged( self, event ):
 		pass
 	
+	def DoNothing( self, event ):
+		pass
+	
+	
+	
 	def comboBoxLook_SelectionChanged( self, event ):
 		pass
+	
 	
 	def checkBoxMatchCase_CheckChanged( self, event ):
 		pass
 	
+	
 	def checkBoxWholeWord_CheckChanged( self, event ):
 		pass
+	
 	
 	def checkBoxSearchUP_CheckChanged( self, event ):
 		pass
 	
+	
 	def checkBoxFlags_CheckChanged( self, event ):
 		pass
 	
+	
 	def comboBoxFlags_SelectionChanged( self, event ):
 		pass
+	
 	
 	def buttonFindNext_Clicked( self, event ):
 		pass
@@ -14397,10 +14439,24 @@ class FindReplacePanel ( wx.Panel ):
 	
 	
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	def buttonReplace_Clicked( self, event ):
 		pass
 	
+	
 	def buttonReplaceAll_Clicked( self, event ):
 		pass
+	
 	
 
