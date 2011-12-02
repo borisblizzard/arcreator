@@ -14174,8 +14174,9 @@ class ScriptEditor_Panel ( wx.Panel ):
 		self.toolBar.Realize() 
 		
 		sizerScript.Add( self.toolBar, 0, wx.EXPAND|wx.TOP, 5 )
-		
-		from  Database.Controls import ScriptTextCtrl
+		import Database.Controls
+		from Database.Controls.ScriptTextCtrl import ScriptTextCtrl
+		#from Database.Controls import ScriptTextCtrl
 		self.scriptControl = ScriptTextCtrl(self.scriptPanel)
 		sizerScript.Add( self.scriptControl, 1, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 0 )
 		

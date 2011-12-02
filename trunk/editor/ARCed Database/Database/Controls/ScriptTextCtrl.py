@@ -1,6 +1,6 @@
 import wx
 from wxPython import stc #* TODO: Use stc for now for benefit of IntelliSense
-from Database.Dialogs import FindReplace_Dialog, FindReplaceData
+from Database.Dialogs import FindReplace_Dialog
 #--------------------------------------------------------------------------------------
 # ScriptTextCtrl
 #--------------------------------------------------------------------------------------
@@ -112,6 +112,7 @@ class ScriptTextCtrl(stc.wxStyledTextCtrl):
 		"""Basic constructor for the ScriptTextCtrl"""
 		super(ScriptTextCtrl, self).__init__(parent, 
 			style=stc.wxSTC_STYLE_LINENUMBER|stc.wxSTC_STYLE_INDENTGUIDE)
+		from Database.ScriptEditor import FindReplaceData
 		self.FindReplaceData = FindReplaceData()
 		self.FindDialog = None
 		self.ApplyDefaults()

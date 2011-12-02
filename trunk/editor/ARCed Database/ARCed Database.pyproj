@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{acb5e8a5-ec45-446e-b426-ad15be86400a}</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>Database\ScriptEditor_Panel.py</StartupFile>
+    <StartupFile>Database\__test__.py</StartupFile>
     <SearchPath>C:\Users\Eric\Desktop\ARC\editor\ARCed\src\;C:\Users\Eric\Desktop\ARC\editor\ARCed Database\src\;C:\Users\Eric\Desktop\ARC\editor\ARCed Database\src</SearchPath>
     <WorkingDirectory>
     </WorkingDirectory>
@@ -136,11 +136,14 @@
     <Compile Include="Database\EventCommands3_Panel.py" />
     <Compile Include="Database\EventEditor_Panel.py" />
     <Compile Include="Database\EventPage_Panel.py" />
-    <Compile Include="Database\FindReplacePanel.py" />
     <Compile Include="Database\Items_Panel.py" />
     <Compile Include="Database\Manager.py" />
     <Compile Include="Database\ParameterGraph_Panel.py" />
-    <Compile Include="Database\ScriptEditor_Panel.py" />
+    <Compile Include="Database\ScriptEditor\FindReplaceData.py" />
+    <Compile Include="Database\ScriptEditor\Manager.py" />
+    <Compile Include="Database\ScriptEditor\Script.py" />
+    <Compile Include="Database\ScriptEditor\ScriptEditor_Panel.py" />
+    <Compile Include="Database\ScriptEditor\__init__.py" />
     <Compile Include="Database\Skills_Panel.py" />
     <Compile Include="Database\States_Panel.py" />
     <Compile Include="Database\System_Panel.py" />
@@ -155,5 +158,6 @@
     <Folder Include="Database" />
     <Folder Include="Database\Dialogs" />
     <Folder Include="Database\Controls" />
+    <Folder Include="Database\ScriptEditor" />
   </ItemGroup>
 </Project>

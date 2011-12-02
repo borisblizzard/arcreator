@@ -1,4 +1,4 @@
-import ARCed_Templates
+
 from Manager import Manager
 from DatabasePackage import DatabasePackage
 
@@ -18,8 +18,8 @@ from EventEditor_Panel import EventEditor_Panel
 from EventPage_Panel import EventPage_Panel
 from Items_Panel import Items_Panel
 from ParameterGraph_Panel import ParameterGraph_Panel
-import ScriptEditor
 from Skills_Panel import Skills_Panel
+
 from States_Panel import States_Panel
 from System_Panel import System_Panel
 from Tilesets_Panel import Tilesets_Panel
