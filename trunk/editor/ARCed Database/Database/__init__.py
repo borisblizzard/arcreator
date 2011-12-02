@@ -18,7 +18,7 @@ from EventEditor_Panel import EventEditor_Panel
 from EventPage_Panel import EventPage_Panel
 from Items_Panel import Items_Panel
 from ParameterGraph_Panel import ParameterGraph_Panel
-from ScriptEditor_Panel import ScriptEditor_Panel
+import ScriptEditor
 from Skills_Panel import Skills_Panel
 from States_Panel import States_Panel
 from System_Panel import System_Panel

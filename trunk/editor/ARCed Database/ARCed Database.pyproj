@@ -101,6 +101,7 @@
     <Compile Include="Database\Dialogs\EventCondition_Dialog.py" />
     <Compile Include="Database\Dialogs\ExpGrid_Dialog.py" />
     <Compile Include="Database\Dialogs\FadeOutAudio_Dialog.py" />
+    <Compile Include="Database\Dialogs\FindReplace_Dialog.py" />
     <Compile Include="Database\Dialogs\ForceAction_Dialog.py" />
     <Compile Include="Database\Dialogs\GenerateCurve_Dialog.py" />
     <Compile Include="Database\Dialogs\InputNumber_Dialog.py" />
@@ -135,6 +136,7 @@
     <Compile Include="Database\EventCommands3_Panel.py" />
     <Compile Include="Database\EventEditor_Panel.py" />
     <Compile Include="Database\EventPage_Panel.py" />
+    <Compile Include="Database\FindReplacePanel.py" />
     <Compile Include="Database\Items_Panel.py" />
     <Compile Include="Database\Manager.py" />
     <Compile Include="Database\ParameterGraph_Panel.py" />

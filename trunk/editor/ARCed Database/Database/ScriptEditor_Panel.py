@@ -10,7 +10,6 @@ class ScriptEditor_Panel( Templates.ScriptEditor_Panel ):
 		"""Basic constructor for the ScriptEditor_Panel"""
 		Templates.ScriptEditor_Panel.__init__( self, parent )
 		self.CreateToolBar()
-		self.CreateFindWindow()
 		DM.DrawHeaderBitmap(self.bitmapScripts, 'Scripts')
 
 
@@ -42,14 +41,10 @@ class ScriptEditor_Panel( Templates.ScriptEditor_Panel ):
 		self.Bind(wx.EVT_TOOL, self.OnUndo, id=3)
 		self.Bind(wx.EVT_TOOL, self.OnRedo, id=4)
 		self.Bind(wx.EVT_TOOL, self.OnFind, id=5)
-		self.Bind(wx.EVT_TOOL, self.OnFindReplace, id=6)
+		self.Bind(wx.EVT_TOOL, self.OnReplace, id=6)
 		self.Bind(wx.EVT_TOOL, self.OnSettings, id=7)
 		self.Bind(wx.EVT_TOOL, self.OnHelp, id=8)
 		self.Bind(wx.EVT_TOOL, self.OnRun, id=9)
-
-	def CreateFindWindow( self ):
-		self.FindReplaceData = wx.FindReplaceData()
-		self.FindReplaceWindow = wx.FindReplaceDialog(self, self.FindReplaceData, 'Find')
 
 	def OnCopy( self, event ):
 		"""Sets the scripts selected text to the clipboard"""
@@ -72,17 +67,12 @@ class ScriptEditor_Panel( Templates.ScriptEditor_Panel ):
 		self.scriptControl.Redo()
 
 	def OnFind( self, event ):
-		text = self.scriptControl.SelectedText
-		if len(text) > 0:
-			self.FindReplaceData.SetFindString(text)
-		self.FindReplaceWindow.SetData(self.FindReplaceData)
-		self.FindReplaceWindow.Show(True)
-		
+		"""Opens FindReplace window with Find tab focused"""
+		self.scriptControl.StartFindReplace(0)
 
-		print 'Find'
-
-	def OnFindReplace( self, event ):
-		print 'Find and Replace'
+	def OnReplace( self, event ):
+		"""Opens FindReplace window with Replace tab focused"""
+		self.scriptControl.StartFindReplace(1)
 
 	def OnSettings( self, event ):
 		print 'Settings'
@@ -92,6 +82,35 @@ class ScriptEditor_Panel( Templates.ScriptEditor_Panel ):
 
 	def OnRun( self, event ):
 		print 'Run'
+
+	#--------------------------------------------------------------
+	# Find/Replace Functions
+	#--------------------------------------------------------------
+	def FindText(self, searchString, matchcase, wholeword, scope, regex=None):
+
+		if scope == 0:
+			scripts = [self.scriptControl.Text]
+		
+
+
+
+
+
+		pass
+
+
+
+
+#--------------------------------------------------------------------------------------
+# Script
+#--------------------------------------------------------------------------------------
+class Script(object):
+
+	def __init__(self, name, text, path, readonly=False):
+		self.Name = name
+		self.Text = text
+		self.Path = path
+		self.ReadOnly = readonly
 
 #--------------------------------------------------------------------------------------
 # TEST
