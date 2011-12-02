@@ -12,7 +12,6 @@ class ScriptEditor_Panel( Templates.ScriptEditor_Panel ):
 		self.CreateToolBar()
 		DM.DrawHeaderBitmap(self.bitmapScripts, 'Scripts')
 
-
 	def CreateToolBar( self ):
 		"""Creates the toolbar and binds events to it"""
 		art = wx.ArtProvider()
@@ -98,19 +97,6 @@ class ScriptEditor_Panel( Templates.ScriptEditor_Panel ):
 
 		pass
 
-
-
-
-#--------------------------------------------------------------------------------------
-# Script
-#--------------------------------------------------------------------------------------
-class Script(object):
-
-	def __init__(self, name, text, path, readonly=False):
-		self.Name = name
-		self.Text = text
-		self.Path = path
-		self.ReadOnly = readonly
 
 #--------------------------------------------------------------------------------------
 # TEST
