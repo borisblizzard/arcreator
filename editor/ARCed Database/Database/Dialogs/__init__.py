@@ -52,7 +52,7 @@ from ErasePicture_Dialog import ErasePicture_Dialog
 from EventCondition_Dialog import EventCondition_Dialog
 from ExpGrid_Dialog import ExpGrid_Dialog
 from FadeOutAudio_Dialog import FadeOutAudio_Dialog
-from FindReplace_Dialog import FindReplace_Dialog, FindReplaceData
+from FindReplace_Dialog import FindReplace_Dialog
 from ForceAction_Dialog import ForceAction_Dialog
 from GenerateCurve_Dialog import GenerateCurve_Dialog
 from InputNumber_Dialog import InputNumber_Dialog
