@@ -20,7 +20,6 @@ class TableEditAction(Actions.ActionTemplate):
         self.oldvalue = None
 
     def do_apply(self):
-        #TODO: implement this function
         # data = { "dim": 1-3, "index": a tuple of list of len dim that looks like so (x, y, z), "value": the python list or preferably numpy array /value to set the table too
         # for a slice ((x1,x2), (y1,y2), (z1,z2))) or for a slice with a step ((x1,x2,xstep), (y1,y2,ystep), (z1,z2,zstep)) 
         # the values in a slice may be none just like in real slice notation ie.
@@ -43,7 +42,7 @@ class TableEditAction(Actions.ActionTemplate):
     def resize_apply(self):
         shape = self.data['shape']
         if len(shape) != len(self.table.getShape()):
-            raise ArgumentError("new dimension and table old dimension must be the same (%d for %d)" % (len(shape), len(self.table.getShape())))
+            raise TypeError("new dimension and table old dimension must be the same (%d for %d)" % (len(shape), len(self.table.getShape())))
         self.oldvalue = numpy.copy(self.table._data)
         self.table.resize(*shape)
 
@@ -52,17 +51,17 @@ class TableEditAction(Actions.ActionTemplate):
         index = self.data['index']
         value = self.data['value']
         if dim > 3:
-            raise ArgumentError("dim can't be less than 0")
+            raise TypeError("dim can't be less than 0")
         if dim < 0:
-            raise ArgumentError("dim can't be greater than 3 or less than 0")
+            raise TypeError("dim can't be greater than 3 or less than 0")
         if isinstance(index, int):
             if dim > 1:
-                raise ArgumentError("wrong number of arguments (%d for %d)" % (1, dim))
+                raise TypeError("wrong number of arguments (%d for %d)" % (1, dim))
             else:
                 self.oldvalue = numpy.copy(self.table[index])
                 self.table[index] = value
         elif len(index) != dim:
-            raise ArgumentError("wrong number of arguments (%d for %d)" % (len(index), dim))
+            raise TypeError("wrong number of arguments (%d for %d)" % (len(index), dim))
         if len(index) == 1:
             # 1D slice
             s = slice(*index[0])
@@ -107,7 +106,7 @@ class TableEditAction(Actions.ActionTemplate):
             self.oldvalue = numpy.copy(self.table[x, y, z])
             self.table[x, y, z] = value
         else:
-            raise ArgumentError("wrong number of arguments (%d for %d)" % (len(index), dim))
+            raise TypeError("wrong number of arguments (%d for %d)" % (len(index), dim))
         return True
         
     def do_undo(self):
@@ -122,24 +121,24 @@ class TableEditAction(Actions.ActionTemplate):
     def resize_undo(self):
         shape = self.data['shape']
         if len(shape) != len(self.table.getShape()):
-            raise ArgumentError("new dimension and table old dimension must be the same (%d for %d)" % (len(shape), len(self.table.getShape())))
+            raise TypeError("new dimension and table old dimension must be the same (%d for %d)" % (len(shape), len(self.table.getShape())))
         self.table._data[:] = self.oldvalue[:]
 
     def normal_undo(self):
         dim = self.data['dim']
         index = self.data['index']
         if dim > 3:
-            raise ArgumentError("dim can't be less than 0")
+            raise TypeError("dim can't be less than 0")
         if dim < 0:
-            raise ArgumentError("dim can't be greater than 3 or less than 0")
+            raise TypeError("dim can't be greater than 3 or less than 0")
         if isinstance(index, int):
             if dim > 1:
-                raise ArgumentError("wrong number of arguments (%d for %d)" % (1, dim))
+                raise TypeError("wrong number of arguments (%d for %d)" % (1, dim))
             else:
                 self.data['value'] = self.table[index]
                 self.table[index] = self.oldvalue
         elif len(index) != dim:
-            raise ArgumentError("wrong number of arguments (%d for %d)" % (len(index), dim))
+            raise TypeError("wrong number of arguments (%d for %d)" % (len(index), dim))
         if len(index) == 1:
             # 1D slice
             s = slice(*index[0])
@@ -184,7 +183,7 @@ class TableEditAction(Actions.ActionTemplate):
             self.data['value'] = self.table[x, y, z]
             self.table[x, y, z] = self.oldvalue
         else:
-            raise ArgumentError("wrong number of arguments (%d for %d)" % (len(index), dim))
+            raise TypeError("wrong number of arguments (%d for %d)" % (len(index), dim))
         return True
 
 class LearningEditAction(Actions.ActionTemplate):
@@ -654,10 +653,10 @@ class ClassEditAction(Actions.ActionTemplate):
                             self.learnings_action = LearningsEditAction(self.id, data={"learnings" : self.data["learnings"]}, sub_action=True)
                             self.learnings_action.apply()
                         if self.data.has_key("element_ranks"):
-                            self.element_ranks_action = TableEditAction(actor.element_ranks, self.data["element_ranks"], sub_action = True)
+                            self.element_ranks_action = TableEditAction(klass.element_ranks, self.data["element_ranks"], sub_action = True)
                             self.element_ranks_action.apply()
                         if self.data.has_key("state_ranks"):
-                            self.state_ranks_action = TableEditAction(actor.state_ranks, self.data["state_ranks"], sub_action = True)
+                            self.state_ranks_action = TableEditAction(klass.state_ranks, self.data["state_ranks"], sub_action = True)
                             self.state_ranks_action.apply()
                         return True
                     else:
@@ -718,8 +717,7 @@ class TroopEditAction(Actions.ActionTemplate):
             self.data = data
             self.old_data = {}
             
-            
-            
+     
     def do_apply():
         if Kernel.GlobalObjects.has_key("PROJECT"):
             project = Kernel.GlobalObjects.get_value("PROJECT")
@@ -743,7 +741,8 @@ class TroopEditAction(Actions.ActionTemplate):
                         if self.data.has_key("note"):
                             self.old_data["note"] = troop.note
                             troop.note = self.data["note"]
-    def do_apply():
+    
+    def do_undo():
         if Kernel.GlobalObjects.has_key("PROJECT"):
             project = Kernel.GlobalObjects.get_value("PROJECT")
             if project is not None:
