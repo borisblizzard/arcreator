@@ -77,9 +77,11 @@ class ScriptEditor_Panel( Templates.ScriptEditor_Panel ):
 
 	def RefreshScript( self, index ):
 		"""Refreshes the displayed text"""
+		self.scriptControl.SetUndoCollection(False)
 		self.scriptControl.ClearAll()
 		self.scriptControl.SetTextUTF8(Scripts[index].GetText())
 		self.textCtrlScriptName.ChangeValue(Scripts[index].GetName())
+		self.scriptControl.SetUndoCollection(True)
 		self.scriptControl.CalculateLineNumberMargin()
 		self.RefreshStatus()
 		
