@@ -1,7 +1,7 @@
 
 import os
 import fnmatch
-from Database.ScriptEditor import Script
+from Database.ScriptEditor.Script import Script
 import Kernel
 
 class Manager(object):
@@ -12,13 +12,15 @@ class Manager(object):
 		paths = []
 		for file in os.listdir(dir):
 			if fnmatch.fnmatch(file, '*.rb'):
-				paths.append(file)
-		scripts = [Script(path, False) for path in sorted(paths)]
+				paths.append(os.path.join(dir, file))
+		scripts = [Script(i, path, False) for i, path in enumerate(sorted(paths))]
 		if Kernel.GlobalObjects.has_key('Scripts'):
 			Kernel.GlobalObjects.set_value('Scripts', scripts)
 		else:
 			Kernel.GlobalObjects.request_new_key('Scripts', 'CORE', scripts)
 
+
+	@staticmethod
 	def SaveScripts():
 		if not Kernel.GlobalObjects.has_key('Scripts'):
 			Kernel.Log('Attempted saving of scripts before initialization.', 

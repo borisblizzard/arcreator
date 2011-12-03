@@ -14151,14 +14151,17 @@ class ScriptEditor_Panel ( wx.Panel ):
 		
 		sizerScriptList = wx.BoxSizer( wx.VERTICAL )
 		
-		self.bitmapScripts = wx.StaticBitmap( self, wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.Size( 150,26 ), wx.CLIP_CHILDREN|wx.FULL_REPAINT_ON_RESIZE )
-		self.bitmapScripts.SetMinSize( wx.Size( 150,26 ) )
-		self.bitmapScripts.SetMaxSize( wx.Size( 150,26 ) )
+		self.bitmapScripts = wx.StaticBitmap( self, wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.Size( 184,26 ), wx.CLIP_CHILDREN|wx.FULL_REPAINT_ON_RESIZE )
+		self.bitmapScripts.SetMinSize( wx.Size( 184,26 ) )
+		self.bitmapScripts.SetMaxSize( wx.Size( 184,26 ) )
 		
 		sizerScriptList.Add( self.bitmapScripts, 0, wx.ALL|wx.EXPAND, 5 )
 		
-		self.treeCtrlScripts = wx.TreeCtrl( self, wx.ID_ANY, wx.DefaultPosition, wx.Size( 184,-1 ), wx.TR_DEFAULT_STYLE|wx.TR_EDIT_LABELS|wx.TR_HAS_BUTTONS|wx.TR_LINES_AT_ROOT|wx.TR_SINGLE )
-		sizerScriptList.Add( self.treeCtrlScripts, 1, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
+		listBoxScriptsChoices = []
+		self.listBoxScripts = wx.ListBox( self, wx.ID_ANY, wx.DefaultPosition, wx.Size( 184,-1 ), listBoxScriptsChoices, 0 )
+		self.listBoxScripts.SetMinSize( wx.Size( 184,-1 ) )
+		
+		sizerScriptList.Add( self.listBoxScripts, 1, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
 		
 		self.textCtrlScriptName = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
 		sizerScriptList.Add( self.textCtrlScriptName, 0, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
@@ -14174,9 +14177,8 @@ class ScriptEditor_Panel ( wx.Panel ):
 		self.toolBar.Realize() 
 		
 		sizerScript.Add( self.toolBar, 0, wx.EXPAND|wx.TOP, 5 )
-		import Database.Controls
-		from Database.Controls.ScriptTextCtrl import ScriptTextCtrl
-		#from Database.Controls import ScriptTextCtrl
+		
+		from  Database.Controls import ScriptTextCtrl
 		self.scriptControl = ScriptTextCtrl(self.scriptPanel)
 		sizerScript.Add( self.scriptControl, 1, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 0 )
 		
@@ -14194,19 +14196,39 @@ class ScriptEditor_Panel ( wx.Panel ):
 		self.buttonHelp = wx.Button( self, wx.ID_ANY, u"Help", wx.DefaultPosition, wx.DefaultSize, 0 )
 		sizerButtons.Add( self.buttonHelp, 0, wx.ALL, 5 )
 		
-		self.buttonOK = wx.Button( self, wx.ID_ANY, u"OK", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.buttonOK.SetDefault() 
-		sizerButtons.Add( self.buttonOK, 0, wx.TOP|wx.BOTTOM|wx.LEFT, 5 )
+		self.buttonApply = wx.Button( self, wx.ID_ANY, u"Apply", wx.DefaultPosition, wx.DefaultSize, 0 )
+		sizerButtons.Add( self.buttonApply, 0, wx.TOP|wx.BOTTOM|wx.LEFT, 5 )
 		
 		self.buttonCancel = wx.Button( self, wx.ID_ANY, u"Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.buttonCancel.SetDefault() 
 		sizerButtons.Add( self.buttonCancel, 0, wx.TOP|wx.BOTTOM|wx.RIGHT, 5 )
 		
 		MainSizer.Add( sizerButtons, 0, wx.ALIGN_RIGHT, 5 )
 		
 		self.SetSizer( MainSizer )
 		self.Layout()
+		
+		# Connect Events
+		self.listBoxScripts.Bind( wx.EVT_LISTBOX, self.listBoxScripts_SelectionChanged )
+		self.buttonHelp.Bind( wx.EVT_BUTTON, self.OnHelp )
+		self.buttonApply.Bind( wx.EVT_BUTTON, self.buttonApply_Clicked )
+		self.buttonCancel.Bind( wx.EVT_BUTTON, self.buttonCancel_Clicked )
 	
 	def __del__( self ):
+		pass
+	
+	
+	# Virtual event handlers, overide them in your derived class
+	def listBoxScripts_SelectionChanged( self, event ):
+		pass
+	
+	def OnHelp( self, event ):
+		pass
+	
+	def buttonApply_Clicked( self, event ):
+		pass
+	
+	def buttonCancel_Clicked( self, event ):
 		pass
 	
 

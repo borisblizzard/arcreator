@@ -3,16 +3,30 @@ import Kernel
 #--------------------------------------------------------------------------------------
 # Script
 #--------------------------------------------------------------------------------------
+
 class Script(object):
 
-	def __init__(self, path, readonly=False):
+	def __init__(self, id, path, readonly=False):
 		"""Basic constructor for a Script object"""
 		self._readonly = readonly
+		self.Id = id
 		self.LoadScript(path)
+		self.CursorPosition = 0
+		self._modified_text = None
+
+	def IsModified( self ):
+		"""Returns True/False if text has been modified from original"""
+		return self._modified_text != None
+
+	def ApplyChanges( self ):
+		"""Sets the original text to that of the modified text"""
+		if self._modified_text is not None:
+			self._text = self._modified_text
+			self._modified = None
 
 	def GetName( self ):
 		"""Returns the name of the script"""
-		return self._name[3:]
+		return self._name[5:]
 
 	def ChangeName(self, name ):
 		"""Changes the name of the script, and updates the path as well"""
@@ -26,10 +40,20 @@ class Script(object):
 
 	def GetText( self ):
 		"""Returns the text of the script as a string"""
+		if self._modified_text is not None:
+			return self._modified_text
 		return self._text
+
+	def SetText( self, text ):
+		"""Sets the new string value of the text, but does not apply it permanently"""
+		if self._readonly:
+			return
+		self._modified_text = text
 
 	def GetLines( self ):
 		"""Returns a string list of the scripts text broken into lines"""
+		if self._modified_text is not None:
+			return self._modified_text.splitlines()
 		return self._text.splitlines()
 
 	def GetPath( self ):
@@ -51,6 +75,7 @@ class Script(object):
 
 	def SaveScript( self ):
 		"""Saves the script to the path it was loaded from. Returns True if successful"""
+		self.ApplyChanges()
 		try:
 			file = open(self._path, 'wb')
 			file.write(self._text)
@@ -65,7 +90,7 @@ class Script(object):
 		"""Loads the script from path and returns True if successful"""
 		try:
 			self._path = path
-			self._name = os.path.split(os.path.basename)[0]
+			self._name = os.path.splitext(os.path.basename(path))[0]
 			file = open(path, 'rb')
 			self._text = file.read()
 			file.close()
