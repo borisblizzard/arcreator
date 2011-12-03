@@ -41,7 +41,6 @@ class TableEditAction(Actions.ActionTemplate):
             return self.normal_apply()
         
     def resize_apply(self):
-        global ArgumentError
         shape = self.data['shape']
         if len(shape) != len(self.table.getShape()):
             raise ArgumentError("new dimension and table old dimension must be the same (%d for %d)" % (len(shape), len(self.table.getShape())))
@@ -312,7 +311,7 @@ class ArmorEditAction(Actions.ActionTemplate):
                     if armor is not None:
                         if self.data.has_key("id"):
                             self.old_data["id"] = armor.id
-                            armor.id = self.data["id"]
+                            actor.id = self.data["id"]
                         if self.data.has_key("name"):
                             self.old_data["name"] = armor.name
                             armor.name = self.data["name"]
@@ -374,12 +373,12 @@ class ArmorEditAction(Actions.ActionTemplate):
             project = Kernel.GlobalObjects.get_value("PROJECT")
             if project is not None:
                 armors = project.getData("Armors")
-                if armors is not None:
+                if classes is not None:
                     armor = armors[self.id]
                     if armor is not None:
                         if self.old_data.has_key("id"):
                             self.data["id"] = armor.id
-                            armor.id = self.old_data["id"]
+                            actor.id = self.old_data["id"]
                         if self.old_data.has_key("name"):
                             self.data["name"] = armor.name
                             armor.name = self.old_data["name"]
@@ -655,10 +654,10 @@ class ClassEditAction(Actions.ActionTemplate):
                             self.learnings_action = LearningsEditAction(self.id, data={"learnings" : self.data["learnings"]}, sub_action=True)
                             self.learnings_action.apply()
                         if self.data.has_key("element_ranks"):
-                            self.element_ranks_action = TableEditAction(klass.element_ranks, self.data["element_ranks"], sub_action = True)
+                            self.element_ranks_action = TableEditAction(actor.element_ranks, self.data["element_ranks"], sub_action = True)
                             self.element_ranks_action.apply()
                         if self.data.has_key("state_ranks"):
-                            self.state_ranks_action = TableEditAction(klass.state_ranks, self.data["state_ranks"], sub_action = True)
+                            self.state_ranks_action = TableEditAction(actor.state_ranks, self.data["state_ranks"], sub_action = True)
                             self.state_ranks_action.apply()
                         return True
                     else:
@@ -704,7 +703,257 @@ class ClassEditAction(Actions.ActionTemplate):
                     return False
             else:
                 return False
-                               
+     
+
+
+class TroopEditAction(Actions.ActionTemplate):
+    def __init(self, id, data={}, sub_action=False):
+        super(TroopEditAction, self).__init__(sub_action)
+        if not isinstance(data, types.DictType):
+            raise TypeError("Error: Expected dict type for 'data'")
+        elif not isinstance(id, types.IntType):
+            raise TypeError("Error: Expected int type for 'id'")
+        else:
+            self.id = id
+            self.data = data
+            self.old_data = {}
+            
+            
+            
+    def do_apply():
+        if Kernel.GlobalObjects.has_key("PROJECT"):
+            project = Kernel.GlobalObjects.get_value("PROJECT")
+            if project is not None:
+                troops = project.getData("Troops")
+                if troops is not None:
+                    troop = troops[self.id]
+                    if troop is not None:
+                        if self.data.has_key("id"):
+                            self.old_data["id"] = troop.id
+                            troop.id = self.data["id"]
+                        if self.data.has_key("name"):
+                            self.old_data["name"] = troop.name
+                            troop.name = self.data["name"]
+                        if self.data.has_key("members"):
+                            self.old_data["members"] = troop.members
+                            troop.members = self.data["members"]
+                        if self.data.has_key("pages"):
+                            self.old_data["pages"] = troop.pages
+                            troop.pages = self.data["pages"]
+                        if self.data.has_key("note"):
+                            self.old_data["note"] = troop.note
+                            troop.note = self.data["note"]
+    def do_apply():
+        if Kernel.GlobalObjects.has_key("PROJECT"):
+            project = Kernel.GlobalObjects.get_value("PROJECT")
+            if project is not None:
+                troops = project.getData("Troops")
+                if troops is not None:
+                    troop = troops[self.id]
+                    if troop is not None:
+                        if self.old_data.has_key("id"):
+                            self.data["id"] = troop.id
+                            troop.id = self.old_data["id"]
+                        if self.old_data.has_key("name"):
+                            self.data["name"] = troop.name
+                            troop.name = self.old_data["name"]
+                        if self.old_data.has_key("members"):
+                            self.data["members"] = troop.members
+                            troop.members = self.old_data["members"]
+                        if self.old_data.has_key("pages"):
+                            self.data["pages"] = troop.pages
+                            troop.pages = self.old_data["pages"]
+                        if self.old_data.has_key("note"):
+                            self.data["note"] = troop.note
+                            troop.note = self.old_data["note"]
+     
+class SkillEditAction(Actions.ActionTemplate):
+    def __init(self, id, data={}, sub_action=False):
+        super(SkillEditAction, self).__init__(sub_action)
+        if not isinstance(data, types.DictType):
+            raise TypeError("Error: Expected dict type for 'data'")
+        elif not isinstance(id, types.IntType):
+            raise TypeError("Error: Expected int type for 'id'")
+        else:
+            self.id = id
+            self.data = data
+            self.old_data = {}
+            
+    def do_apply(self):
+        if Kernel.GlobalObjects.has_key("PROJECT"):
+            project = Kernel.GlobalObjects.get_value("PROJECT")
+            if project is not None:
+                skills = project.getData("Skills")
+                if skills is not None:
+                    skill = skills[self.id]
+                    if skill is not None:
+                        if self.data.has_key("id"):
+                            self.old_data["id"] = skill.id
+                            skill.id = self.data["id"]
+                        if self.data.has_key("name"):
+                            self.old_data["name"] = skill.name
+                            skill.name = self.data["name"]
+                        if self.data.has_key("icon_name"):
+                            self.old_data["icon_name"] = skill.icon_name
+                            skill.icon_name = self.data["icon_name"]
+                        if self.data.has_key("description"):
+                            self.old_data["description"] = skill.description
+                            skill.description = self.data["description"]
+                        if self.data.has_key("scope"):
+                            self.old_data["scope"] = skill.scope
+                            skill.scope = self.data["scope"]
+                        if self.data.has_key("occasion"):
+                            self.old_data["occasion"] = skill.occasion
+                            skill.occasion = self.data["occasion"]
+                        if self.data.has_key("animation1_id"):
+                            self.old_data["animation1_id"] = skill.animation1_id
+                            skill.animation1_id = self.data["animation1_id"]
+                        if self.data.has_key("animation2_id"):
+                            self.old_data["animation2_"] = skill.animation2_
+                            skill.animation2_ = self.data["animation2_"]
+                        if self.data.has_key("menu_se"):
+                            self.old_data["menu_se"] = skill.menu_se
+                            skill.menu_se = self.data["menu_se"]
+                        if self.data.has_key("common_event_id"):
+                            self.old_data["common_event_id"] = skill.common_event_id
+                            skill.common_event_id = self.data["common_event_id"]
+                        if self.data.has_key("sp_cost"):
+                            self.old_data["sp_cost"] = skill.sp_cost
+                            skill.sp_cost = self.data["sp_cost"]
+                        if self.data.has_key("power"):
+                            self.old_data["power"] = skill.power
+                            skill.power = self.data["power"]
+                        if self.data.has_key("atk_f"):
+                            self.old_data["atk_f"] = skill.atk_f
+                            skill.atk_f = self.data["atk_f"]
+                        if self.data.has_key("eva_f"):
+                            self.old_data["eva_f"] = skill.eva_f
+                            skill.eva_f = self.data["eva_f"]
+                        if self.data.has_key("str_f"):
+                            self.old_data["str_f"] = skill.str_f
+                            skill.str_f = self.data["str_f"]
+                        if self.data.has_key("dex_f"):
+                            self.old_data["dex_f"] = skill.dex_f
+                            skill.dex_f = self.data["dex_f"]
+                        if self.data.has_key("agi_f"):
+                            self.old_data["agi_f"] = skill.agi_f
+                            skill.agi_f = self.data["agi_f"]
+                        if self.data.has_key("int_f"):
+                            self.old_data["int_f"] = skill.int_f
+                            skill.int_f = self.data["int_f"]
+                        if self.data.has_key("hit"):
+                            self.old_data["hit"] = skill.hit
+                            skill.hit = self.data["hit"]
+                        if self.data.has_key("pdef_f"):
+                            self.old_data["pdef_f"] = skill.pdef_f
+                            skill.pdef_f = self.data["pdef_f"]
+                        if self.data.has_key("mdef_f"):
+                            self.old_data["mdef_f"] = skill.mdef_f
+                            skill.mdef_f = self.data["mdef_f"]
+                        if self.data.has_key("variance"):
+                            self.old_data["variance"] = skill.variance
+                            skill.variance = self.data["variance"]
+                        if self.data.has_key("element_set"):
+                            self.old_data["element_set"] = skill.element_set
+                            skill.element_set = self.data["element_set"]
+                        if self.data.has_key("plus_state_set"):
+                            self.old_data["plus_state_set"] = skill.plus_state_set
+                            skill.plus_state_set = self.data["plus_state_set"]
+                        if self.data.has_key("minus_state_set"):
+                            self.old_data["minus_state_set"] = skill.minus_state_set
+                            skill.minus_state_set = self.data["minus_state_set"]
+                        if self.data.has_key("note"):
+                            self.old_data["note"] = skill.note
+                            skill.note = self.data["note"]
+                            
+                            
+    def do_undo(self):
+        if Kernel.GlobalObjects.has_key("PROJECT"):
+            project = Kernel.GlobalObjects.get_value("PROJECT")
+            if project is not None:
+                skills = project.getData("Skills")
+                if skills is not None:
+                    skill = skills[self.id]
+                    if skill is not None:
+                        if self.old_data.has_key("id"):
+                            self.data["id"] = skill.id
+                            skill.id = self.old_data["id"]
+                        if self.old_data.has_key("name"):
+                            self.data["name"] = skill.name
+                            skill.name = self.old_data["name"]
+                        if self.old_data.has_key("icon_name"):
+                            self.data["icon_name"] = skill.icon_name
+                            skill.icon_name = self.old_data["icon_name"]
+                        if self.old_data.has_key("description"):
+                            self.data["description"] = skill.description
+                            skill.description = self.old_data["description"]
+                        if self.old_data.has_key("scope"):
+                            self.data["scope"] = skill.scope
+                            skill.scope = self.old_data["scope"]
+                        if self.old_data.has_key("occasion"):
+                            self.data["occasion"] = skill.occasion
+                            skill.occasion = self.old_data["occasion"]
+                        if self.data.has_key("animation1_id"):
+                            self.data["animation1_id"] = skill.animation1_id
+                            skill.animation1_id = self.data["animation1_id"]
+                        if self.old_data.has_key("animation2_id"):
+                            self.data["animation2_"] = skill.animation2_
+                            skill.animation2_ = self.old_data["animation2_"]
+                        if self.old_data.has_key("menu_se"):
+                            self.data["menu_se"] = skill.menu_se
+                            skill.menu_se = self.old_data["menu_se"]
+                        if self.old_data.has_key("common_event_id"):
+                            self.data["common_event_id"] = skill.common_event_id
+                            skill.common_event_id = self.old_data["common_event_id"]
+                        if self.old_data.has_key("sp_cost"):
+                            self.data["sp_cost"] = skill.sp_cost
+                            skill.sp_cost = self.old_data["sp_cost"]
+                        if self.old_data.has_key("power"):
+                            self.data["power"] = skill.power
+                            skill.power = self.old_data["power"]
+                        if self.old_data.has_key("atk_f"):
+                            self.data["atk_f"] = skill.atk_f
+                            skill.atk_f = self.old_data["atk_f"]
+                        if self.old_data.has_key("eva_f"):
+                            self.data["eva_f"] = skill.eva_f
+                            skill.eva_f = self.old_data["eva_f"]
+                        if self.old_data.has_key("str_f"):
+                            self.data["str_f"] = skill.str_f
+                            skill.str_f = self.old_data["str_f"]
+                        if self.old_data.has_key("dex_f"):
+                            self.data["dex_f"] = skill.dex_f
+                            skill.dex_f = self.old_data["dex_f"]
+                        if self.old_data.has_key("agi_f"):
+                            self.data["agi_f"] = skill.agi_f
+                            skill.agi_f = self.old_data["agi_f"]
+                        if self.old_data.has_key("int_f"):
+                            self.data["int_f"] = skill.int_f
+                            skill.int_f = self.old_data["int_f"]
+                        if self.old_data.has_key("hit"):
+                            self.data["hit"] = skill.hit
+                            skill.hit = self.old_data["hit"]
+                        if self.old_data.has_key("pdef_f"):
+                            self.data["pdef_f"] = skill.pdef_f
+                            skill.pdef_f = self.old_data["pdef_f"]
+                        if self.old_data.has_key("mdef_f"):
+                            self.data["mdef_f"] = skill.mdef_f
+                            skill.mdef_f = self.old_data["mdef_f"]
+                        if self.old_data.has_key("variance"):
+                            self.data["variance"] = skill.variance
+                            skill.variance = self.old_data["variance"]
+                        if self.old_data.has_key("element_set"):
+                            self.data["element_set"] = skill.element_set
+                            skill.element_set = self.old_data["element_set"]
+                        if self.old_data.has_key("plus_state_set"):
+                            self.data["plus_state_set"] = skill.plus_state_set
+                            skill.plus_state_set = self.old_data["plus_state_set"]
+                        if self.old_data.has_key("minus_state_set"):
+                            self.data["minus_state_set"] = skill.minus_state_set
+                            skill.minus_state_set = self.old_data["minus_state_set"]
+                        if self.old_data.has_key("note"):
+                            self.data["note"] = skill.note
+                            skill.note = self.old_data["note"]
+          
 class WeaponEditAction(Actions.ActionTemplate):
     def __init(self, id, data={}, sub_action=False):
         super(ClassEditAction, self).__init__(sub_action)
