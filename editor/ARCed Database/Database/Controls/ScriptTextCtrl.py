@@ -63,9 +63,9 @@ RUBY_STYLES = {
 				# Default
 				stc.wxSTC_RB_DEFAULT      : "fore:#000000,face:%(mono)s,size:%(size)d" % faces,
 				# Comment Block (No block comment for Ruby, but setting global works for it)
-				stc.wxSTC_ST_COMMENT      : "fore:#008000,face:%(other)s,size:%(size2)d" % faces,
+				stc.wxSTC_ST_COMMENT      : "fore:#008000,face:%(mono)s,size:%(size)d" % faces,
 				# Comment
-				stc.wxSTC_RB_COMMENTLINE  : "fore:#008000,face:%(other)s,size:%(size2)d" % faces,
+				stc.wxSTC_RB_COMMENTLINE  : "fore:#008000,face:%(mono)s,size:%(size)d" % faces,
 				# Numbers
 				stc.wxSTC_RB_NUMBER       : "fore:#800000,face:%(mono)s,size:%(size)d" % faces,
 				# Double-Quoted Strings
@@ -131,7 +131,6 @@ class ScriptTextCtrl(stc.wxStyledTextCtrl):
 			elif ch == ord('H'):
 				self.StartFindReplace(1)
 				return
-
 		if ch == wx.WXK_RETURN and AUTO_INDENT:
 			# Process auto-indentation if the return key was pressed
 			thisLine = self.GetCurrentLine()
