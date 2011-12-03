@@ -119,6 +119,13 @@ class ScriptTextCtrl(stc.wxStyledTextCtrl):
 		self.BindHotKeys()
 		self.Bind(wx.EVT_KEY_DOWN, self.KeyPressed)
 		self.Bind(wx.EVT_TEXT_PASTE, self.CalculateLineNumberMargin)
+		self.Bind(wx.PyEventBinder(stc.wxEVT_STC_MARGINCLICK, 1), self.MarginClicked)
+
+	def MarginClicked(self, event ):
+		"""Performs code folding functions"""
+		line = self.LineFromPosition(event.GetPosition())
+		if line == self.GetFoldParent(line + 1):
+			self.ToggleFold(line)
 
 	def KeyPressed( self, event ):
 		"""Preprocess keystrokes before they are added to the Scintilla control"""

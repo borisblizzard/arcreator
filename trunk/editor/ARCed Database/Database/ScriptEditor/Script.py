@@ -18,11 +18,13 @@ class Script(object):
 		"""Returns True/False if text has been modified from original"""
 		return self._modified_text != None
 
-	def ApplyChanges( self ):
+	def ApplyChanges( self, save=False ):
 		"""Sets the original text to that of the modified text"""
 		if self._modified_text is not None:
 			self._text = self._modified_text
 			self._modified = None
+			if save:
+				self.SaveScript()
 
 	def GetName( self ):
 		"""Returns the name of the script"""

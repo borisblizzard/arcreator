@@ -64,55 +64,62 @@ class ScriptEditor_Panel( Templates.ScriptEditor_Panel ):
 		self.Bind(wx.EVT_TOOL, Kernel.Protect(self.OnSettings), id=7)
 		self.Bind(wx.EVT_TOOL, Kernel.Protect(self.OnHelp), id=8)
 		self.Bind(wx.EVT_TOOL, Kernel.Protect(self.OnRun), id=9)
+		self.Bind(wx.EVT_TOOL, Kernel.Protect(self.FindPrevious), id=10)
+		self.Bind(wx.EVT_TOOL, Kernel.Protect(self.FindNext), id=11)
 
 	def CreateStatusBar( self, frame ):
 		self.statusBar = frame.CreateStatusBar()
 		self.statusBar.SetFieldsCount(4)
 
-
 	def DoNothing( self, event ):
+		"""Prevents flickering on MSW"""
 		pass
 
 	def RefreshScript( self, index ):
+		"""Refreshes the displayed text"""
 		self.scriptControl.ClearAll()
 		self.scriptControl.SetTextUTF8(Scripts[index].GetText())
-		#self.scriptControl.SetText(Scripts[index].GetText())
 		self.textCtrlScriptName.ChangeValue(Scripts[index].GetName())
 		self.scriptControl.CalculateLineNumberMargin()
 		self.RefreshStatus()
 		
 	def RefreshStatus( self, event=None ):
+		"""Refreshes the status bar text"""
 		sctrl = self.scriptControl
 		chars = len(re.sub(r'\s', '', sctrl.Text))
 		length = str.format('Lines: {0}   Characters: {1}', sctrl.LineCount, chars)
-		self.statusBar.SetStatusText(length, 0)
+		self.statusBar.SetStatusText(length, 1)
 		pos = str.format('Position: {}', self.scriptControl.GetCurrentPos())
-		self.statusBar.SetStatusText(pos, 1)
+		self.statusBar.SetStatusText(pos, 2)
 		path = Scripts[self.listBoxScripts.GetSelection()].GetName()
 		self.statusBar.SetStatusText(path, 3)
 		if event is not None:
 			event.Skip()
 		pass
 		
-
 	def OnCopy( self, event ):
 		"""Sets the scripts selected text to the clipboard"""
+		self.statusBar.SetStatusText('Copied selected text', 0)
 		self.scriptControl.Copy()
 
 	def OnCut( self, event ):
 		"""Sets the scripts selected text to the clipboard"""
+		self.statusBar.SetStatusText('Cut selected text', 0)
 		self.scriptControl.Cut()
 
 	def OnPaste( self, event ):
 		"""Pastes the clipboard text to the script"""
+		self.statusBar.SetStatusText('Text pasted', 0)
 		self.scriptControl.Paste()
 
 	def OnUndo( self, event ):
 		"""Performs script Undo action"""
+		self.statusBar.SetStatusText('Undo applied', 0)
 		self.scriptControl.Undo()
 
 	def OnRedo( self, event ):
 		"""Performs script Redo action"""
+		self.statusBar.SetStatusText('Redo applied', 0)
 		self.scriptControl.Redo()
 
 	def OnFind( self, event ):
@@ -127,25 +134,38 @@ class ScriptEditor_Panel( Templates.ScriptEditor_Panel ):
 		print 'Settings'
 
 	def OnHelp( self, event ):
-		print 'Help'
+		self.statusBar.SetStatusText('Opening Help...', 0)
 
 	def OnRun( self, event ):
-		print 'Run'
+		self.statusBar.SetStatusText('Play test starting...', 0)
+		
+		foldingLines = []
+		for i, line in enumerate(self.scriptControl.GetText().split()):
+			parent = self.scriptControl.GetFoldParent(i)
+			if parent not in foldingLines:
+				foldingLines.append(parent)
+		print foldingLines
+		for i in foldingLines:
+			
+			self.scriptControl.ToggleFold(i)
+
 
 	def listBoxScripts_SelectionChanged( self, event ):
 		self.RefreshScript(event.GetInt())
 
 	def buttonApply_Clicked( self, event ):
-		print 'Apply'
+		"""Applies the text modifications to all the scripts"""
+		for script in Scripts:
+			script.ApplyChanges()
+		self.statusBar.SetStatusText('Modifications applied!', 0)
 
 	def buttonCancel_Clicked( self, event ):
 		print 'Cancel'
 
-
 	#--------------------------------------------------------------
 	# Find/Replace Functions
 	#--------------------------------------------------------------
-	def FindText(self, searchString, matchcase, wholeword, scope, regex=None):
+	def GetSearchLocations(self, searchString, matchcase, wholeword, scope, regex=None):
 		results = {}
 		if scope == 0:
 			scripts = [Scripts[self.listBoxScripts.GetSelection()]]
@@ -159,9 +179,13 @@ class ScriptEditor_Panel( Templates.ScriptEditor_Panel ):
 			if searchString in text:
 				lines, found = text.splitlines(), []
 				for j in xrange(len(lines)):
-					if searchString in lines[j]:
+					if searchString in lines[j] and j not in found:
 						found.append(j)
 				results[i] = found
 		return results
 
+	def FindPrevious( self, event ):
+		pass
 
+	def FindNext( self, event ):
+		pass
