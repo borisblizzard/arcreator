@@ -14178,9 +14178,9 @@ class ScriptEditor_Panel ( wx.Panel ):
 		
 		sizerScript.Add( self.toolBar, 0, wx.EXPAND|wx.TOP, 5 )
 		
-		from  Database.Controls import ScriptTextCtrl
-		self.scriptControl = ScriptTextCtrl(self.scriptPanel)
-		sizerScript.Add( self.scriptControl, 1, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 0 )
+		self.noteBookScripts = wx.Notebook( self.scriptPanel, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, 0 )
+		
+		sizerScript.Add( self.noteBookScripts, 1, wx.EXPAND|wx.TOP, 5 )
 		
 		self.scriptPanel.SetSizer( sizerScript )
 		self.scriptPanel.Layout()
@@ -14209,7 +14209,7 @@ class ScriptEditor_Panel ( wx.Panel ):
 		self.Layout()
 		
 		# Connect Events
-		self.listBoxScripts.Bind( wx.EVT_LISTBOX, self.listBoxScripts_SelectionChanged )
+		self.listBoxScripts.Bind( wx.EVT_LEFT_DCLICK, self.listBoxScripts_DoubleClick )
 		self.buttonHelp.Bind( wx.EVT_BUTTON, self.OnHelp )
 		self.buttonApply.Bind( wx.EVT_BUTTON, self.buttonApply_Clicked )
 		self.buttonCancel.Bind( wx.EVT_BUTTON, self.buttonCancel_Clicked )
@@ -14219,7 +14219,7 @@ class ScriptEditor_Panel ( wx.Panel ):
 	
 	
 	# Virtual event handlers, overide them in your derived class
-	def listBoxScripts_SelectionChanged( self, event ):
+	def listBoxScripts_DoubleClick( self, event ):
 		pass
 	
 	def OnHelp( self, event ):
@@ -14534,7 +14534,7 @@ class ScriptSettings_Dialog ( wx.Dialog ):
 		self.labelDisplayItem.Wrap( -1 )
 		sizerDisplayItem.Add( self.labelDisplayItem, 0, wx.ALL|wx.EXPAND, 5 )
 		
-		listBoxDisplayItemsChoices = [ u"Global Default", u"Line Number", u"Control Character", u"Brace Light", u"Brace Bad", u"Default Text", u"Comment Block", u"Comment Line", u"Number", u"Double Quote String", u"Single Quote String", u"Keyword", u"Class Name", u"Module Name", u"Method Name", u"Operator", u"Local Variable", u"Global Variable", u"Instance Variable", u"Class Variable", u"Regular Expression", u"Symbol", u"Back Tick", u"Data Section", u"Error" ]
+		listBoxDisplayItemsChoices = [ u"Global Default", u"Line Number", u"Control Character", u"Brace Light", u"Brace Bad", u"Comment Block", u"Comment Line", u"Number", u"Double Quote String", u"Single Quote String", u"Keyword", u"Class Name", u"Module Name", u"Method Name", u"Operator", u"Normal Text", u"Global Variable", u"Instance Variable", u"Class Variable", u"Regular Expression", u"Symbol", u"Back Tick", u"Data Section", u"Error" ]
 		self.listBoxDisplayItems = wx.ListBox( self.panelFont, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, listBoxDisplayItemsChoices, wx.LB_SINGLE )
 		sizerDisplayItem.Add( self.listBoxDisplayItems, 1, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
 		
@@ -14548,8 +14548,8 @@ class ScriptSettings_Dialog ( wx.Dialog ):
 		
 		sizerForeground = wx.BoxSizer( wx.HORIZONTAL )
 		
-		self.bitmapForeColor = wx.StaticBitmap( self.panelFont, wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.DefaultSize, wx.SUNKEN_BORDER )
-		sizerForeground.Add( self.bitmapForeColor, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL|wx.EXPAND, 5 )
+		self.panelForeColor = wx.Panel( self.panelFont, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.SUNKEN_BORDER|wx.TAB_TRAVERSAL )
+		sizerForeground.Add( self.panelForeColor, 0, wx.ALL|wx.EXPAND, 5 )
 		
 		self.textCtrlForeColor = wx.TextCtrl( self.panelFont, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
 		sizerForeground.Add( self.textCtrlForeColor, 1, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
@@ -14565,8 +14565,8 @@ class ScriptSettings_Dialog ( wx.Dialog ):
 		
 		sizerBackground = wx.BoxSizer( wx.HORIZONTAL )
 		
-		self.bitmapBackColor = wx.StaticBitmap( self.panelFont, wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.DefaultSize, wx.SUNKEN_BORDER )
-		sizerBackground.Add( self.bitmapBackColor, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL|wx.EXPAND, 5 )
+		self.panelBackColor = wx.Panel( self.panelFont, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.SUNKEN_BORDER|wx.TAB_TRAVERSAL )
+		sizerBackground.Add( self.panelBackColor, 0, wx.EXPAND |wx.ALL, 5 )
 		
 		self.textCtrlBackColor = wx.TextCtrl( self.panelFont, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
 		sizerBackground.Add( self.textCtrlBackColor, 1, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )

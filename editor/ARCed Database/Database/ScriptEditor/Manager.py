@@ -138,7 +138,6 @@ class Manager(object):
 					"face:%(mono)s" % faces, # Control Character
 					"fore:#FFFFFF,back:#0000FF,bold", # Brace Light
 					"fore:#000000,back:#FF0000,bold", # Brace Bad
-					"fore:#000000,face:%(mono)s,size:%(size)d" % faces, # Default
 					"fore:#008000,face:%(mono)s,size:%(size)d" % faces, # Comment Block
 					"fore:#008000,face:%(mono)s,size:%(size)d" % faces, # Comment
 					"fore:#800000,face:%(mono)s,size:%(size)d" % faces, # Numbers
@@ -181,7 +180,6 @@ class Manager(object):
 					(stc.STC_STYLE_CONTROLCHAR, 'control_char'),	
 					(stc.STC_STYLE_BRACELIGHT, 'brace_light'),
 					(stc.STC_STYLE_BRACEBAD, 'brace_bad'),		
-					(stc.STC_RB_DEFAULT, 'default_text'),
 					(stc.STC_ST_COMMENT, 'comment_block'),			
 					(stc.STC_RB_COMMENTLINE, 'comment_line'),
 					(stc.STC_RB_NUMBER, 'numbers'),			
@@ -235,6 +233,7 @@ class Manager(object):
 		scriptcontrol.SetCaretLineBackAlpha(int(cfg.get('caret_alpha')))
 		scriptcontrol.SetIndentationGuides(cfg.get('indent_guides').lower() == 'true')
 
+	#----------------------------------------------------------------------------------
 	@staticmethod 
 	def ParseColor(string):
 		"""Parses the color string and returns the wx.Colour instance"""
@@ -242,7 +241,7 @@ class Manager(object):
 			string = string[1:]
 		if len(string) < 6:
 			string = string.zfill(6)
-		return wx.Colour(int(string[:2]), int(string[2:4]), int(string[4:6]))
+		return wx.Colour(int(string[:2], 16), int(string[2:4], 16), int(string[4:6], 16))
 
 	#----------------------------------------------------------------------------------
 	@staticmethod 

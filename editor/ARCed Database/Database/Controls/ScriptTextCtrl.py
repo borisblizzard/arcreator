@@ -19,13 +19,14 @@ RUBY_KEYWORDS = "BEGIN END __ENCODING__ __END__ __FILE__ __LINE__ alias and begi
 
 class ScriptTextCtrl(stc.wxStyledTextCtrl):
 
-	def __init__(self, parent):
+	def __init__(self, parent, id):
 		"""Basic constructor for the ScriptTextCtrl"""
 		super(ScriptTextCtrl, self).__init__(parent, 
 			style=stc.wxSTC_STYLE_LINENUMBER|stc.wxSTC_STYLE_INDENTGUIDE)
 		from Database.ScriptEditor import FindReplaceData
 		global Config
 		Config = Kernel.GlobalObjects.get_value('ARCed_config').get_section('ScriptEditor')
+		self.Id = id
 		self.FindReplaceData = FindReplaceData()
 		self.FindDialog = None
 		self.ApplySettings()
@@ -33,7 +34,7 @@ class ScriptTextCtrl(stc.wxStyledTextCtrl):
 		self.Bind(wx.EVT_KEY_DOWN, self.KeyPressed)
 		self.Bind(wx.EVT_TEXT_PASTE, self.CalculateLineNumberMargin)
 		self.Bind(wx.PyEventBinder(stc.wxEVT_STC_MARGINCLICK, 1), self.MarginClicked)
-
+		
 	def MarginClicked(self, event ):
 		"""Performs code folding functions"""
 		line = self.LineFromPosition(event.GetPosition())

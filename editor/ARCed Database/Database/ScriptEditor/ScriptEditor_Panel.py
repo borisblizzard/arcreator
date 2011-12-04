@@ -2,6 +2,7 @@ import wx
 import os
 import Database.ARCed_Templates as Templates
 import Database.Manager as DM
+from Database.Controls import ScriptTextCtrl
 import re
 import Kernel
 #--------------------------------------------------------------------------------------
@@ -29,8 +30,20 @@ class ScriptEditor_Panel( Templates.ScriptEditor_Panel ):
 		Scripts = Kernel.GlobalObjects.get_value('Scripts')
 		self.listBoxScripts.AppendItems([script.GetName() for script in Scripts])
 		self.listBoxScripts.SetSelection(index)
-		self.scriptControl.Bind(wx.EVT_KEY_DOWN, Kernel.Protect(self.RefreshStatus))
-		self.RefreshScript(index)
+		self.ScriptCtrls = []
+
+	def AddTab( self, scriptIndex ):
+		panel = wx.Panel(self.noteBookScripts)
+		script = Scripts[scriptIndex]
+		scriptCtrl = ScriptTextCtrl(panel, script.Id)
+		scriptCtrl.Bind(wx.EVT_KEY_DOWN, Kernel.Protect(self.RefreshStatus))
+		scriptCtrl.SetTextUTF8(script.GetText())
+		self.ScriptCtrls.append(scriptCtrl)
+		sizer = wx.BoxSizer( wx.VERTICAL )
+		sizer.Add( scriptCtrl, 1, wx.ALL|wx.EXPAND, 0 )
+		panel.SetSizer(sizer)
+		panel.Layout()
+		self.noteBookScripts.AddPage(panel, script.GetName())
 
 	def CreateToolBar( self ):
 		"""Creates the toolbar and binds events to it"""
@@ -77,27 +90,36 @@ class ScriptEditor_Panel( Templates.ScriptEditor_Panel ):
 
 	def RefreshScript( self, index ):
 		"""Refreshes the displayed text"""
-		self.scriptControl.SetUndoCollection(False)
-		self.scriptControl.ClearAll()
-		self.scriptControl.SetTextUTF8(Scripts[index].GetText())
-		self.textCtrlScriptName.ChangeValue(Scripts[index].GetName())
-		self.scriptControl.SetUndoCollection(True)
-		self.scriptControl.CalculateLineNumberMargin()
+		tabIndex = -1
+		rowCount = len(self.ScriptCtrls)
+		if rowCount > 0:
+			for i in xrange(rowCount):
+				if self.ScriptCtrls[i].Id == index:
+					tabIndex = i
+		if tabIndex == -1:
+			self.AddTab(index)
+			tabIndex = rowCount
+		print tabIndex
+		self.noteBookScripts.ChangeSelection(tabIndex)
+		scritpCtrl = self.ScriptCtrls[self.noteBookScripts.GetSelection()]
+		scritpCtrl.CalculateLineNumberMargin()
 		self.RefreshStatus()
 		
 	def RefreshStatus( self, event=None ):
 		"""Refreshes the status bar text"""
-		sctrl = self.scriptControl
+		index = self.noteBookScripts.GetSelection()
+		if index < 0:
+			return
+		sctrl = self.ScriptCtrls[index]
 		chars = len(re.sub(r'\s', '', sctrl.Text))
 		length = str.format('Lines: {0}   Characters: {1}', sctrl.LineCount, chars)
 		self.statusBar.SetStatusText(length, 1)
-		pos = str.format('Position: {}', self.scriptControl.GetCurrentPos())
+		pos = str.format('Position: {}', sctrl.GetCurrentPos())
 		self.statusBar.SetStatusText(pos, 2)
 		path = Scripts[self.listBoxScripts.GetSelection()].GetName()
 		self.statusBar.SetStatusText(path, 3)
 		if event is not None:
 			event.Skip()
-		pass
 		
 	def OnCopy( self, event ):
 		"""Sets the scripts selected text to the clipboard"""
@@ -133,7 +155,10 @@ class ScriptEditor_Panel( Templates.ScriptEditor_Panel ):
 		self.scriptControl.StartFindReplace(1)
 
 	def OnSettings( self, event ):
-		print 'Settings'
+		from Database.Dialogs import ScriptSettings_Dialog
+		dlg = ScriptSettings_Dialog(self, self.scriptControl)
+		if dlg.ShowModal() == wx.ID_OK:
+			print 'OK'
 
 	def OnHelp( self, event ):
 		self.statusBar.SetStatusText('Opening Help...', 0)
@@ -152,8 +177,8 @@ class ScriptEditor_Panel( Templates.ScriptEditor_Panel ):
 			self.scriptControl.ToggleFold(i)
 
 
-	def listBoxScripts_SelectionChanged( self, event ):
-		self.RefreshScript(event.GetInt())
+	def listBoxScripts_DoubleClick( self, event ):
+		self.RefreshScript(self.listBoxScripts.GetSelection())
 
 	def buttonApply_Clicked( self, event ):
 		"""Applies the text modifications to all the scripts"""
