@@ -14483,3 +14483,271 @@ class FindReplace_Dialog ( wx.Dialog ):
 	
 	
 
+###########################################################################
+## Class ScriptSettings_Dialog
+###########################################################################
+
+class ScriptSettings_Dialog ( wx.Dialog ):
+	
+	def __init__( self, parent ):
+		wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Script Editor Settings", pos = wx.DefaultPosition, size = wx.Size( 423,279 ), style = wx.DEFAULT_DIALOG_STYLE|wx.RESIZE_BORDER )
+		
+		self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
+		
+		MainSizer = wx.BoxSizer( wx.VERTICAL )
+		
+		self.noteBookSettings = wx.Notebook( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.panelFont = wx.Panel( self.noteBookSettings, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
+		sizerFontMain = wx.BoxSizer( wx.VERTICAL )
+		
+		sizerFontLabels = wx.BoxSizer( wx.HORIZONTAL )
+		
+		self.labelFont = wx.StaticText( self.panelFont, wx.ID_ANY, u"Font:", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.labelFont.Wrap( -1 )
+		sizerFontLabels.Add( self.labelFont, 75, wx.ALL|wx.EXPAND, 5 )
+		
+		self.labelSize = wx.StaticText( self.panelFont, wx.ID_ANY, u"Size:", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.labelSize.Wrap( -1 )
+		sizerFontLabels.Add( self.labelSize, 25, wx.ALL|wx.EXPAND, 5 )
+		
+		sizerFontMain.Add( sizerFontLabels, 0, wx.EXPAND, 5 )
+		
+		sizerFontSelection = wx.BoxSizer( wx.HORIZONTAL )
+		
+		comboBoxFontChoices = []
+		self.comboBoxFont = wx.Choice( self.panelFont, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxFontChoices, 0 )
+		self.comboBoxFont.SetSelection( 0 )
+		sizerFontSelection.Add( self.comboBoxFont, 75, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
+		
+		comboBoxSizeChoices = [ u"6", u"7", u"8", u"9", u"10", u"11", u"12", u"13", u"14", u"15", u"16", u"17", u"18", u"19", u"20", u"21", u"22", u"23", u"24" ]
+		self.comboBoxSize = wx.Choice( self.panelFont, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxSizeChoices, 0 )
+		self.comboBoxSize.SetSelection( 4 )
+		sizerFontSelection.Add( self.comboBoxSize, 25, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
+		
+		sizerFontMain.Add( sizerFontSelection, 0, wx.EXPAND, 5 )
+		
+		sizerSettings = wx.BoxSizer( wx.HORIZONTAL )
+		
+		sizerDisplayItem = wx.BoxSizer( wx.VERTICAL )
+		
+		self.labelDisplayItem = wx.StaticText( self.panelFont, wx.ID_ANY, u"Display Item:", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.labelDisplayItem.Wrap( -1 )
+		sizerDisplayItem.Add( self.labelDisplayItem, 0, wx.ALL|wx.EXPAND, 5 )
+		
+		listBoxDisplayItemsChoices = [ u"Global Default", u"Line Number", u"Control Character", u"Brace Light", u"Brace Bad", u"Default Text", u"Comment Block", u"Comment Line", u"Number", u"Double Quote String", u"Single Quote String", u"Keyword", u"Class Name", u"Module Name", u"Method Name", u"Operator", u"Local Variable", u"Global Variable", u"Instance Variable", u"Class Variable", u"Regular Expression", u"Symbol", u"Back Tick", u"Data Section", u"Error" ]
+		self.listBoxDisplayItems = wx.ListBox( self.panelFont, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, listBoxDisplayItemsChoices, wx.LB_SINGLE )
+		sizerDisplayItem.Add( self.listBoxDisplayItems, 1, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
+		
+		sizerSettings.Add( sizerDisplayItem, 45, wx.EXPAND, 5 )
+		
+		sizerFontStyle = wx.BoxSizer( wx.VERTICAL )
+		
+		self.labelItemForeground = wx.StaticText( self.panelFont, wx.ID_ANY, u"Item Foreground:", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.labelItemForeground.Wrap( -1 )
+		sizerFontStyle.Add( self.labelItemForeground, 0, wx.ALL, 5 )
+		
+		sizerForeground = wx.BoxSizer( wx.HORIZONTAL )
+		
+		self.bitmapForeColor = wx.StaticBitmap( self.panelFont, wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.DefaultSize, wx.SUNKEN_BORDER )
+		sizerForeground.Add( self.bitmapForeColor, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL|wx.EXPAND, 5 )
+		
+		self.textCtrlForeColor = wx.TextCtrl( self.panelFont, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+		sizerForeground.Add( self.textCtrlForeColor, 1, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
+		
+		self.buttonForeColor = wx.Button( self.panelFont, wx.ID_ANY, u"Choose...", wx.DefaultPosition, wx.DefaultSize, 0 )
+		sizerForeground.Add( self.buttonForeColor, 1, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
+		
+		sizerFontStyle.Add( sizerForeground, 0, wx.EXPAND, 5 )
+		
+		self.labelItemBackground = wx.StaticText( self.panelFont, wx.ID_ANY, u"Item Background:", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.labelItemBackground.Wrap( -1 )
+		sizerFontStyle.Add( self.labelItemBackground, 0, wx.ALL, 5 )
+		
+		sizerBackground = wx.BoxSizer( wx.HORIZONTAL )
+		
+		self.bitmapBackColor = wx.StaticBitmap( self.panelFont, wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.DefaultSize, wx.SUNKEN_BORDER )
+		sizerBackground.Add( self.bitmapBackColor, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL|wx.EXPAND, 5 )
+		
+		self.textCtrlBackColor = wx.TextCtrl( self.panelFont, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+		sizerBackground.Add( self.textCtrlBackColor, 1, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
+		
+		self.buttonBackColor = wx.Button( self.panelFont, wx.ID_ANY, u"Choose...", wx.DefaultPosition, wx.DefaultSize, 0 )
+		sizerBackground.Add( self.buttonBackColor, 1, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
+		
+		sizerFontStyle.Add( sizerBackground, 0, wx.EXPAND, 5 )
+		
+		sizerBoldItalic = wx.BoxSizer( wx.VERTICAL )
+		
+		self.labelItemStyle = wx.StaticText( self.panelFont, wx.ID_ANY, u"Item Style:", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.labelItemStyle.Wrap( -1 )
+		sizerBoldItalic.Add( self.labelItemStyle, 0, wx.ALL, 5 )
+		
+		sizerStyleChecks = wx.BoxSizer( wx.HORIZONTAL )
+		
+		self.checkBoxBold = wx.CheckBox( self.panelFont, wx.ID_ANY, u"Bold", wx.DefaultPosition, wx.DefaultSize, 0 )
+		sizerStyleChecks.Add( self.checkBoxBold, 1, wx.ALL, 5 )
+		
+		self.checkBoxItalic = wx.CheckBox( self.panelFont, wx.ID_ANY, u"Italic", wx.DefaultPosition, wx.DefaultSize, 0 )
+		sizerStyleChecks.Add( self.checkBoxItalic, 1, wx.ALL, 5 )
+		
+		sizerBoldItalic.Add( sizerStyleChecks, 1, wx.EXPAND, 5 )
+		
+		sizerFontStyle.Add( sizerBoldItalic, 0, wx.EXPAND, 5 )
+		
+		sizerSettings.Add( sizerFontStyle, 55, wx.EXPAND, 5 )
+		
+		sizerFontMain.Add( sizerSettings, 1, wx.EXPAND, 5 )
+		
+		self.panelFont.SetSizer( sizerFontMain )
+		self.panelFont.Layout()
+		sizerFontMain.Fit( self.panelFont )
+		self.noteBookSettings.AddPage( self.panelFont, u"Font Settings", True )
+		self.panelEditor = wx.Panel( self.noteBookSettings, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
+		panelEditorMainSizer = wx.BoxSizer( wx.HORIZONTAL )
+		
+		bSizer662 = wx.BoxSizer( wx.VERTICAL )
+		
+		self.labelTabWidth = wx.StaticText( self.panelEditor, wx.ID_ANY, u"Tab Width:", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.labelTabWidth.Wrap( -1 )
+		bSizer662.Add( self.labelTabWidth, 0, wx.ALL, 5 )
+		
+		self.spinCtrlTabWidth = wx.SpinCtrl( self.panelEditor, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS|wx.SP_WRAP, 1, 20, 2 )
+		bSizer662.Add( self.spinCtrlTabWidth, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
+		
+		self.labelEdgeColumn = wx.StaticText( self.panelEditor, wx.ID_ANY, u"Edge Column:", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.labelEdgeColumn.Wrap( -1 )
+		bSizer662.Add( self.labelEdgeColumn, 0, wx.ALL, 5 )
+		
+		self.spinCtrlEdgeColumn = wx.SpinCtrl( self.panelEditor, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 1, 240, 80 )
+		bSizer662.Add( self.spinCtrlEdgeColumn, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
+		
+		self.checkBoxIndentGuides = wx.CheckBox( self.panelEditor, wx.ID_ANY, u"Indent Guides", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.checkBoxIndentGuides.SetValue(True) 
+		bSizer662.Add( self.checkBoxIndentGuides, 0, wx.ALL, 5 )
+		
+		self.checkBoxCaret = wx.CheckBox( self.panelEditor, wx.ID_ANY, u"Caret", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.checkBoxCaret.SetValue(True) 
+		bSizer662.Add( self.checkBoxCaret, 0, wx.ALL, 5 )
+		
+		panelEditorMainSizer.Add( bSizer662, 1, wx.EXPAND, 5 )
+		
+		sizerCaret = wx.StaticBoxSizer( wx.StaticBox( self.panelEditor, wx.ID_ANY, u"Caret Settings" ), wx.VERTICAL )
+		
+		sizerCaret1 = wx.BoxSizer( wx.HORIZONTAL )
+		
+		self.bitmapCaretColor = wx.StaticBitmap( self.panelEditor, wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.DefaultSize, 0 )
+		sizerCaret1.Add( self.bitmapCaretColor, 0, wx.ALL, 5 )
+		
+		self.textCtrlCaretColor = wx.TextCtrl( self.panelEditor, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+		sizerCaret1.Add( self.textCtrlCaretColor, 1, wx.ALL, 5 )
+		
+		sizerCaret.Add( sizerCaret1, 0, wx.EXPAND, 5 )
+		
+		sizerCaret2 = wx.BoxSizer( wx.VERTICAL )
+		
+		self.buttonCaretColor = wx.Button( self.panelEditor, wx.ID_ANY, u"Choose...", wx.DefaultPosition, wx.DefaultSize, 0 )
+		sizerCaret2.Add( self.buttonCaretColor, 0, wx.ALL|wx.ALIGN_RIGHT, 5 )
+		
+		sizerCaret.Add( sizerCaret2, 0, wx.EXPAND, 5 )
+		
+		sizerCaret3 = wx.BoxSizer( wx.HORIZONTAL )
+		
+		self.labelCaretAlpha = wx.StaticText( self.panelEditor, wx.ID_ANY, u"Caret Alpha:", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.labelCaretAlpha.Wrap( -1 )
+		sizerCaret3.Add( self.labelCaretAlpha, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
+		
+		self.spinCtrlCaretAlpha = wx.SpinCtrl( self.panelEditor, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 255, 40 )
+		sizerCaret3.Add( self.spinCtrlCaretAlpha, 1, wx.ALL, 5 )
+		
+		sizerCaret.Add( sizerCaret3, 0, wx.EXPAND, 5 )
+		
+		panelEditorMainSizer.Add( sizerCaret, 1, wx.ALL, 5 )
+		
+		self.panelEditor.SetSizer( panelEditorMainSizer )
+		self.panelEditor.Layout()
+		panelEditorMainSizer.Fit( self.panelEditor )
+		self.noteBookSettings.AddPage( self.panelEditor, u"Editor Settings", False )
+		
+		MainSizer.Add( self.noteBookSettings, 1, wx.EXPAND |wx.ALL, 5 )
+		
+		self.SetSizer( MainSizer )
+		self.Layout()
+		
+		self.Centre( wx.BOTH )
+		
+		# Connect Events
+		self.noteBookSettings.Bind( wx.EVT_NOTEBOOK_PAGE_CHANGED, self.noteBookSettings_PageChanged )
+		self.comboBoxFont.Bind( wx.EVT_CHOICE, self.comboBoxFont_SelectionChanged )
+		self.comboBoxSize.Bind( wx.EVT_CHOICE, self.comboBoxSize_SelectionChanged )
+		self.listBoxDisplayItems.Bind( wx.EVT_LISTBOX, self.listBoxDisplayItems_SelectionChanged )
+		self.textCtrlForeColor.Bind( wx.EVT_TEXT, self.textCtrlForeColor_TextChanged )
+		self.buttonForeColor.Bind( wx.EVT_BUTTON, self.buttonForeColor_Clicked )
+		self.textCtrlBackColor.Bind( wx.EVT_TEXT, self.textCtrlBackColor_TextChanged )
+		self.buttonBackColor.Bind( wx.EVT_BUTTON, self.buttonBackColor_Clicked )
+		self.checkBoxBold.Bind( wx.EVT_CHECKBOX, self.checkBoxBold_CheckChanged )
+		self.checkBoxItalic.Bind( wx.EVT_CHECKBOX, self.checkBoxItalic_CheckChanged )
+		self.spinCtrlTabWidth.Bind( wx.EVT_SPINCTRL, self.spinCtrlTabWidth_ValueChanged )
+		self.spinCtrlEdgeColumn.Bind( wx.EVT_SPINCTRL, self.spinCtrlEdgeColumn_ValueChanged )
+		self.checkBoxIndentGuides.Bind( wx.EVT_CHECKBOX, self.checkBoxIndentGuide_CheckChanged )
+		self.checkBoxCaret.Bind( wx.EVT_CHECKBOX, self.checkBoxCaret_CheckChanged )
+		self.textCtrlCaretColor.Bind( wx.EVT_TEXT, self.textCtrlCaretColor_TextChanged )
+		self.buttonCaretColor.Bind( wx.EVT_BUTTON, self.buttonCaretColor_Clicked )
+		self.spinCtrlCaretAlpha.Bind( wx.EVT_SPINCTRL, self.spinCtrlCaretAlpha_ValueChanged )
+	
+	def __del__( self ):
+		pass
+	
+	
+	# Virtual event handlers, overide them in your derived class
+	def noteBookSettings_PageChanged( self, event ):
+		pass
+	
+	def comboBoxFont_SelectionChanged( self, event ):
+		pass
+	
+	def comboBoxSize_SelectionChanged( self, event ):
+		pass
+	
+	def listBoxDisplayItems_SelectionChanged( self, event ):
+		pass
+	
+	def textCtrlForeColor_TextChanged( self, event ):
+		pass
+	
+	def buttonForeColor_Clicked( self, event ):
+		pass
+	
+	def textCtrlBackColor_TextChanged( self, event ):
+		pass
+	
+	def buttonBackColor_Clicked( self, event ):
+		pass
+	
+	def checkBoxBold_CheckChanged( self, event ):
+		pass
+	
+	def checkBoxItalic_CheckChanged( self, event ):
+		pass
+	
+	def spinCtrlTabWidth_ValueChanged( self, event ):
+		pass
+	
+	def spinCtrlEdgeColumn_ValueChanged( self, event ):
+		pass
+	
+	def checkBoxIndentGuide_CheckChanged( self, event ):
+		pass
+	
+	def checkBoxCaret_CheckChanged( self, event ):
+		pass
+	
+	def textCtrlCaretColor_TextChanged( self, event ):
+		pass
+	
+	def buttonCaretColor_Clicked( self, event ):
+		pass
+	
+	def spinCtrlCaretAlpha_ValueChanged( self, event ):
+		pass
+	
+

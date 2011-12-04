@@ -23,8 +23,6 @@ class ExpGrid_Dialog( Templates.ExpGrid_Dialog ):
 			Kernel.Protect(self.spinCtrlSpeed_ValueChanged))
 		# Apply settings for the controls
 		font = wx.Font(8, wx.FONTFAMILY_TELETYPE, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL)
-		if not font.SetFaceName('Consolas'):
-			font.SetFaceName('Courier New')
 		self.expGrid.SetDefaultCellFont(font)
 		self.PageIndex = 0
 		self.NextColor = wx.Color(0, 128, 0)
