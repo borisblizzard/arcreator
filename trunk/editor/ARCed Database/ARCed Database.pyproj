@@ -114,6 +114,7 @@
     <Compile Include="Database\Dialogs\RotatePicture_Dialog.py" />
     <Compile Include="Database\Dialogs\ScreenShake_Dialog.py" />
     <Compile Include="Database\Dialogs\ScriptCall_Dialog.py" />
+    <Compile Include="Database\Dialogs\ScriptSettings_Dialog.py" />
     <Compile Include="Database\Dialogs\ScrollMap_Dialog.py" />
     <Compile Include="Database\Dialogs\SetEventLocation_Dialog.py" />
     <Compile Include="Database\Dialogs\ShopGoods_Dialog.py" />

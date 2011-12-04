@@ -65,6 +65,7 @@ from RecoverAll_Dialog import RecoverAll_Dialog
 from RotatePicture_Dialog import RotatePicture_Dialog
 from ScreenShake_Dialog import ScreenShake_Dialog
 from ScriptCall_Dialog import ScriptCall_Dialog
+from ScriptSettings_Dialog import ScriptSettings_Dialog
 from ScrollMap_Dialog import ScrollMap_Dialog
 from SetEventLocation_Dialog import SetEventLocation_Dialog
 from ShopGoods_Dialog import ShopGoods_Dialog
