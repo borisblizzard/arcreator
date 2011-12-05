@@ -19,14 +19,15 @@ RUBY_KEYWORDS = "BEGIN END __ENCODING__ __END__ __FILE__ __LINE__ alias and begi
 
 class ScriptTextCtrl(stc.wxStyledTextCtrl):
 
-	def __init__(self, parent, id):
+	SCRIPT_UPDATEUI = wx.PyEventBinder(stc.wxEVT_STC_UPDATEUI, 1)
+
+	def __init__(self, parent):
 		"""Basic constructor for the ScriptTextCtrl"""
 		super(ScriptTextCtrl, self).__init__(parent, 
 			style=stc.wxSTC_STYLE_LINENUMBER|stc.wxSTC_STYLE_INDENTGUIDE)
 		from Database.ScriptEditor import FindReplaceData
 		global Config
 		Config = Kernel.GlobalObjects.get_value('ARCed_config').get_section('ScriptEditor')
-		self.Id = id
 		self.FindReplaceData = FindReplaceData()
 		self.FindDialog = None
 		self.ApplySettings()
@@ -111,6 +112,7 @@ class ScriptTextCtrl(stc.wxStyledTextCtrl):
 		"""Binds hotkey commands to the script control"""
 		self.CmdKeyAssign(ord('Z'), stc.wxSTC_SCMOD_ALT, stc.wxSTC_CMD_ZOOMIN)
 		self.CmdKeyAssign(ord('X'), stc.wxSTC_SCMOD_ALT, stc.wxSTC_CMD_ZOOMOUT)
+		#self.CmdKeyAssign(ord('Q'), stc.wxSTC_SCMOD_CTRL, stc.wxSTC_CMD_
 
 	def ApplySettings( self ):
 		"""Applies default setting to the script control"""
@@ -147,4 +149,3 @@ class ScriptTextCtrl(stc.wxStyledTextCtrl):
 			stc.wxSTC_MARK_VLINE, "white", "#808080")
 		self.MarkerDefine(stc.wxSTC_MARKNUM_FOLDERMIDTAIL,
 			stc.wxSTC_MARK_TCORNER, "white", "#808080")
-		

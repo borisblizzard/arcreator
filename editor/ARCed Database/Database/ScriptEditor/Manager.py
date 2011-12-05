@@ -1,5 +1,6 @@
 import os
 import wx 
+import codecs
 import Kernel
 #--------------------------------------------------------------------------------------
 # Manager
@@ -47,11 +48,36 @@ class Manager(object):
 		if not Kernel.GlobalObjects.has_key('Scripts'):
 			Kernel.Log('Attempted saving of scripts before initialization.', 
 				'[ScriptEditor]', False, False)
+			return False
 		else:
+			try:
+				pass
+				# TODO: Apply deleting scripts marked for deletion here
+			except:
+				Kernel.Log('', ['Script Editor'], True, False)
 			result = True
 			scripts = Kernel.GlobalObjects.get_value('Scripts')
-			for script in scripts:
-				if not script.SaveScript():
+			for i, script in enumerate(scripts):
+				script.ApplyChanges()
+				# TODO: Apply escape sequences for invalid characters in the filename
+				filename = str.format('{0}-{1}.rb', str(i).zfill(4), script.GetName())
+				original_path = script.GetPath()
+				if filename != os.path.basename(original_path):
+					try:
+						os.remove(original_path)
+					except:
+						Kernel.Log(str.format('Failed to remove {}.', original_path),
+							'[Script Editor]', True, False)
+					path = os.path.join(script.GetDirectory(), filename)
+					script.SetPath(path)
+				try:
+					file = open(script.GetPath(), 'wb')
+					file.write(codecs.BOM_UTF8)
+					file.write(script.GetText().encode('utf-8'))
+					file.close()
+				except:
+					message = str.format('Script at path {} failed to save.\nPlease ensure there are sufficient privileges to write data to the location', script.GetPath()) 
+					Kernel.Log(message, '[Script Editor]', True, False)
 					result = False
 			return result
 

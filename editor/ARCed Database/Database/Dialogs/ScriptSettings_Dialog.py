@@ -1,6 +1,7 @@
 import wx
 import Database.ARCed_Templates as Templates
 from Database.ScriptEditor import Manager as SM
+from copy import deepcopy
 import Kernel
 #--------------------------------------------------------------------------------------
 # ScriptSettings_Dialog
@@ -8,9 +9,10 @@ import Kernel
 
 class ScriptSettings_Dialog( Templates.ScriptSettings_Dialog ):
 	def __init__( self, parent, scriptcontrol ):
+		"""Basic constructor for the ScriptSettings_Dialog"""
 		Templates.ScriptSettings_Dialog.__init__( self, parent )
 		global Config
-		Config = Kernel.GlobalObjects.get_value('ARCed_config').get_section('ScriptEditor')
+		Config = deepcopy(Kernel.GlobalObjects.get_value('ARCed_config').get_section('ScriptEditor'))
 		self.ScriptControl = scriptcontrol
 		self.InstalledFonts = sorted(wx.FontEnumerator.GetFacenames())
 		self.comboBoxFont.AppendItems(self.InstalledFonts)
@@ -28,6 +30,7 @@ class ScriptSettings_Dialog( Templates.ScriptSettings_Dialog ):
 		key = self.GetStyle(index)[1]
 		fstring = Config.get(key)
 		style = ScintillaStyle()
+		print fstring
 		for format in fstring.split(','):
 			if format.startswith('fore:'):	style.fore = SM.ParseColor(format.split(':')[1])
 			elif format.startswith('back:'): style.back = SM.ParseColor(format.split(':')[1])
@@ -47,6 +50,10 @@ class ScriptSettings_Dialog( Templates.ScriptSettings_Dialog ):
 		"""Returns a default mono-spaced font for the system"""
 		return wx.Font(10, wx.FONTFAMILY_TELETYPE, wx.FONTSTYLE_NORMAL, 
 			wx.FONTWEIGHT_NORMAL).GetFaceName()
+
+	def listBoxDisplayItems_SelectionChanged( self, event ):
+		"""Refreshes the page to show the selected item's style"""
+		self.RefreshFontPage()
 
 	def RefreshFontPage( self ):
 		"""Refreshes the controls to reflect the selected style"""
@@ -73,7 +80,25 @@ class ScriptSettings_Dialog( Templates.ScriptSettings_Dialog ):
 		self.panelBackColor.Refresh()
 
 	def RefreshEditorPage( self ):
-		pass
+		"""Refreshes the controls to reflect the selected style"""
+		self.spinCtrlTabWidth.SetValue(int(Config.get('tab_width')))
+		self.spinCtrlEdgeColumn.SetValue(int(Config.get('edge_column')))
+		self.checkBoxCaret.SetValue(Config.get('show_caret').lower() == 'true')
+		self.checkBoxIndentGuides.SetValue(Config.get('indent_guides').lower() == 'true')
+		self.spinCtrlCaretAlpha.SetValue(int(Config.get('caret_alpha')))
+		fore = SM.ParseColor(Config.get('caret_fore'))
+		back = SM.ParseColor(Config.get('caret_back'))
+		self.panelCaretFore.SetBackgroundColour(fore)
+		self.panelCaretBack.SetBackgroundColour(back)
+		self.textCtrlCaretFore.ChangeValue(fore.GetAsString(wx.C2S_HTML_SYNTAX))
+		self.textCtrlCaretBack.ChangeValue(back.GetAsString(wx.C2S_HTML_SYNTAX))
+		self.panelCaretFore.Refresh()
+		self.panelCaretBack.Refresh()
+
+	def UpdateConfig( self, style, index ):
+		"""Updates the copy of the Configuration section with the new style"""
+		keys = SM.GetStyles()
+		Config.set(keys[index][1], style.GetFormatString())
 
 	def noteBookSettings_PageChanged( self, event ):
 		"""Refreshes the page then displays and switches control to it"""
@@ -83,77 +108,121 @@ class ScriptSettings_Dialog( Templates.ScriptSettings_Dialog ):
 		self.noteBookSettings.ChangeSelection(index)
 	
 	def comboBoxFont_SelectionChanged( self, event ):
-		
-
-		print event.GetString()
-
-
-		pass
-
+		"""Updates the style for this item with the new font face"""
+		index = self.listBoxDisplayItems.GetSelection()
+		if index < 0:
+			return
+		style = self.ParseFormatString(index)
+		style.face = event.GetString()
+		self.UpdateConfig(style, index)
 	
 	def comboBoxSize_SelectionChanged( self, event ):
-		# TODO: Implement comboBoxSize_SelectionChanged
-		pass
-	
-	def listBoxDisplayItems_SelectionChanged( self, event ):
-		
-		# START HERE
-		self.RefreshFontPage()
+		"""Updates the style for this item with the new size"""
+		index = self.listBoxDisplayItems.GetSelection()
+		if index < 0 :
+			return
+		style = self.ParseFormatString(index)
+		style.size = int(event.GetString())
+		self.UpdateConfig(style, index)
 	
 	def textCtrlForeColor_TextChanged( self, event ):
-		# TODO: Implement textCtrlForeColor_TextChanged
-		pass
+		# TODO: Implement 
+		index = self.listBoxDisplayItems.GetSelection()
+		if index < 0:
+			return
 	
 	def buttonForeColor_Clicked( self, event ):
-		# TODO: Implement buttonForeColor_Clicked
-		pass
+		# TODO: Implement 
+		index = self.listBoxDisplayItems.GetSelection()
+		if index < 0:
+			return
 	
 	def textCtrlBackColor_TextChanged( self, event ):
-		# TODO: Implement textCtrlBackColor_TextChanged
-		pass
+		# TODO: Implement 
+		index = self.listBoxDisplayItems.GetSelection()
+		if index < 0:
+			return
 	
 	def buttonBackColor_Clicked( self, event ):
 		# TODO: Implement buttonBackColor_Clicked
 		pass
 	
 	def checkBoxBold_CheckChanged( self, event ):
-		# TODO: Implement checkBoxBold_CheckChanged
-		pass
+		"""Changes the bold setting for the selected style and updates the config"""
+		index = self.listBoxDisplayItems.GetSelection()
+		if index < 0:
+			return
+		style = self.ParseFormatString(index)
+		style.bold = event.Checked()
+		self.UpdateConfig(style, index)
 	
 	def checkBoxItalic_CheckChanged( self, event ):
-		# TODO: Implement checkBoxItalic_CheckChanged
-		pass
+		"""Changes the italic setting for the selected style and updates the config"""
+		index = self.listBoxDisplayItems.GetSelection()
+		if index < 0:
+			return
+		style = self.ParseFormatString(index)
+		style.italic = event.Checked()
+		self.UpdateConfig(style, index)
 	
 	def spinCtrlTabWidth_ValueChanged( self, event ):
-		# TODO: Implement spinCtrlTabWidth_ValueChanged
-		pass
+		"""Updates the tab width setting in the config"""
+		Config.set('tab_width', event.GetInt())
 	
 	def spinCtrlEdgeColumn_ValueChanged( self, event ):
-		# TODO: Implement spinCtrlEdgeColumn_ValueChanged
-		pass
+		"""Updates the edge column setting in the config"""
+		Config.set('edge_column', str(event.GetInt()))
 	
 	def checkBoxIndentGuide_CheckChanged( self, event ):
-		# TODO: Implement checkBoxIndentGuide_CheckChanged
-		pass
+		"""Updates the indent guide setting in the config"""
+		Config.set('indent_guides', str(event.Checked()))
 	
 	def checkBoxCaret_CheckChanged( self, event ):
-		# TODO: Implement checkBoxCaret_CheckChanged
-		pass
+		"""Updates the caret setting in the config"""
+		Config.set('show_caret', str(event.Checked()))
 	
-	def textCtrlCaretColor_TextChanged( self, event ):
+	def textCtrlCaretFore_TextChanged( self, event ):
 		# TODO: Implement textCtrlCaretColor_TextChanged
+		print 'text fore'
+		pass
+
+	def textCtrlCaretBack_TextChanged( self, event ):
+		# TODO: Implement textCtrlCaretColor_TextChanged
+		print 'text back'
 		pass
 	
-	def buttonCaretColor_Clicked( self, event ):
+	def buttonCaretFore_Clicked( self, event ):
 		# TODO: Implement buttonCaretColor_Clicked
+		print 'button fore'
+		pass
+
+	def buttonCaretBack_Clicked( self, event ):
+		# TODO: Implement buttonCaretColor_Clicked
+		print 'button back'
 		pass
 	
 	def spinCtrlCaretAlpha_ValueChanged( self, event ):
-		# TODO: Implement spinCtrlCaretAlpha_ValueChanged
-		pass
+		"""Updates the caret alpha setting in the config"""
+		Config.set('caret_alpha', str(event.GetInt()))
 	
-	
+	def buttonOK_Clicked( self, event ):
+		"""Ends the dialog and returns wx.ID_OK"""
+		self.EndModal(wx.ID_OK)
 
+	def buttonCancel_Clicked( self, event ):
+		"""Ends the dialog and returns wx.ID_CANCEL"""
+		self.EndModal(wx.ID_CANCEL)
+
+	def buttonDefault_Clicked( self, event ):
+		"""Sets all the styles to the internal default settings"""
+		msg = 'This action is irreversible.\nAre you sure you want to reapply all default styles?'
+		if wx.MessageBox(msg, 'Confirm', wx.YES_NO|wx.CENTRE, self) == 2:
+			SM.ApplyDefaultSettings()
+			self.EndModal(wx.ID_OK)
+
+	def GetConfiguration( self ):
+		"""Returns the new configuration"""
+		return Config
 
 #--------------------------------------------------------------------------------------
 # ScintillaStyle
@@ -163,6 +232,7 @@ class ScintillaStyle(object):
 
 	def __init__(self, fore=wx.BLACK, back=wx.WHITE, face=None, size=None, 
 			 bold=False, italic=False):
+		"""Basic constructor for the ScintillaStyle"""
 		self.fore = fore
 		self.back = back
 		self.face = face
@@ -171,9 +241,11 @@ class ScintillaStyle(object):
 		self.italic = italic
 
 	def GetForeColorAsString( self ):
+		"""Returns the fore color setting in string hexadecimal notation"""
 		return self.fore.GetAsString(wx.C2S_HTML_SYNTAX)
 
 	def GetBackColorAsString( self ):
+		"""Returns the back color setting in string hexadecimal notation"""
 		return self.back.GetAsString(wx.C2S_HTML_SYNTAX)
 
 	def GetFormatString( self ):
@@ -181,6 +253,8 @@ class ScintillaStyle(object):
 		fstring = str.format('fore:{0},back:{1},face:{2},size:{3}', 
 			self.GetForeColorAsString(), self.GetBackColorAsString(),
 			self.face, self.size)
-		if self.bold: fstring = str.format('{},bold', fstring)
-		if self.italic: fstring = str.format('{},italic', fstring)
+		if self.bold: 
+			fstring += ',bold'
+		if self.italic: 
+			fstring += ',italic'
 		return fstring
