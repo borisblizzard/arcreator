@@ -11,14 +11,15 @@ import Kernel
 
 class ScriptEditor_Panel( Templates.ScriptEditor_Panel ):
 
-	def __init__( self, parent, index=0 ):
+	def __init__( self, parent, index=-1 ):
 		"""Basic constructor for the ScriptEditor_Panel"""
 		Templates.ScriptEditor_Panel.__init__( self, parent )
 		# TODO: Alter import order to allow importing this globally in header
 		import Database.ScriptEditor.Manager as SM
 		self.CreateToolBar()
-		self.CreateStatusBar(parent)
-		DM.DrawHeaderBitmap(self.bitmapScripts, 'Scripts')
+		self.statusBar = parent.CreateStatusBar()
+		self.statusBar.SetFieldsCount(3)
+		self.statusBar.SetStatusWidths([-4, -4, -2])
 		# TODO: Get path by using project path + Data/Scripts/
 		path = r"C:\Users\Eric\Desktop\ARC\editor\ARCed\src\RTP\Templates\Chonicles of Sir Lag-A-Lot\Data\Scripts"
 		#path = os.path.join(Kernel.GlobalObjects.get_value("CurrentProjectDir"), 'Data', 'Scripts')
@@ -28,22 +29,24 @@ class ScriptEditor_Panel( Templates.ScriptEditor_Panel ):
 			Kernel.Log('Failed to successfully load all scripts.', '[ScriptEditor]', True, True)
 		global Scripts
 		Scripts = Kernel.GlobalObjects.get_value('Scripts')
-		self.listBoxScripts.AppendItems([script.GetName() for script in Scripts])
-		self.listBoxScripts.SetSelection(index)
-		self.ScriptCtrls = []
-
-	def AddTab( self, scriptIndex ):
-		panel = wx.Panel(self.noteBookScripts)
-		script = Scripts[scriptIndex]
-		scriptCtrl = ScriptTextCtrl(panel, script.Id)
-		scriptCtrl.Bind(wx.EVT_KEY_DOWN, Kernel.Protect(self.RefreshStatus))
-		scriptCtrl.SetTextUTF8(script.GetText())
-		self.ScriptCtrls.append(scriptCtrl)
-		sizer = wx.BoxSizer( wx.VERTICAL )
-		sizer.Add( scriptCtrl, 1, wx.ALL|wx.EXPAND, 0 )
-		panel.SetSizer(sizer)
-		panel.Layout()
-		self.noteBookScripts.AddPage(panel, script.GetName())
+		self.ScriptIndex = -1
+		if index >= 0:
+			self.OpenScript(index=index)
+		self.scriptCtrl.Bind(wx.EVT_KEY_DOWN, Kernel.Protect(self.RefreshStatus))
+		self.scriptCtrl.Bind(ScriptTextCtrl.SCRIPT_UPDATEUI, self.RefreshStatus)
+		self.comboBoxScripts.AppendItems([script.GetName() for script in Scripts])
+		self.comboBoxScripts.SetSelection(index)
+		self.scriptCtrl.CalculateLineNumberMargin()
+		
+	def OpenScript( self, event=None, index=None ):
+		if self.ScriptIndex >= 0:
+			Scripts[self.ScriptIndex].SetText(self.scriptCtrl.GetTextUTF8())
+		if event is not None: i = event.GetInt()
+		elif index is not None: i = index
+		else: return
+		self.ScriptIndex = i
+		self.scriptCtrl.SetTextUTF8(Scripts[i].GetText())
+		self.RefreshScript()
 
 	def CreateToolBar( self ):
 		"""Creates the toolbar and binds events to it"""
@@ -60,12 +63,16 @@ class ScriptEditor_Panel( Templates.ScriptEditor_Panel ):
 		self.toolBar.AddSeparator()
 		self.toolBar.AddSimpleTool(7, art.GetBitmap(wx.ART_HELP_SETTINGS), 'Settings', 'Opens the settings window')
 		self.toolBar.AddSimpleTool(8, art.GetBitmap(wx.ART_HELP_BOOK), 'Help', 'Opens the compiled HTML help doc')
-		self.toolBar.AddSimpleTool(9, art.GetBitmap(wx.ART_EXECUTABLE_FILE), 'Test Run', 'Starts play testing')
 		self.toolBar.AddSeparator()
 		self.textCtrlSearch = wx.TextCtrl(self.toolBar, -1, 'Search...', style=wx.TE_RIGHT)
 		self.toolBar.AddControl(self.textCtrlSearch)
-		self.toolBar.AddSimpleTool(10, art.GetBitmap(wx.ART_GO_BACK), 'Previous', '')
-		self.toolBar.AddSimpleTool(11, art.GetBitmap(wx.ART_GO_FORWARD), 'Next', '')
+		self.toolBar.AddSimpleTool(9, art.GetBitmap(wx.ART_GO_BACK), 'Previous', '')
+		self.toolBar.AddSimpleTool(10, art.GetBitmap(wx.ART_GO_FORWARD), 'Next', '')
+		self.toolBar.AddSeparator()
+		self.comboBoxScripts = wx.ComboBox(self.toolBar, size=(184,-1), style=wx.GROW)
+		self.comboBoxScripts.Bind(wx.EVT_COMBOBOX, self.OpenScript)
+		self.comboBoxScripts.Bind(wx.EVT_TEXT, self.comboBoxScripts_TextChanged)
+		self.toolBar.AddControl(self.comboBoxScripts)
 		self.toolBar.Realize()
 		self.Bind(wx.EVT_TOOL, self.OnCopy, id=0)
 		self.Bind(wx.EVT_TOOL, self.OnCut, id=1)
@@ -76,118 +83,84 @@ class ScriptEditor_Panel( Templates.ScriptEditor_Panel ):
 		self.Bind(wx.EVT_TOOL, self.OnReplace, id=6)
 		self.Bind(wx.EVT_TOOL, Kernel.Protect(self.OnSettings), id=7)
 		self.Bind(wx.EVT_TOOL, Kernel.Protect(self.OnHelp), id=8)
-		self.Bind(wx.EVT_TOOL, Kernel.Protect(self.OnRun), id=9)
-		self.Bind(wx.EVT_TOOL, Kernel.Protect(self.FindPrevious), id=10)
-		self.Bind(wx.EVT_TOOL, Kernel.Protect(self.FindNext), id=11)
-
-	def CreateStatusBar( self, frame ):
-		self.statusBar = frame.CreateStatusBar()
-		self.statusBar.SetFieldsCount(4)
+		self.Bind(wx.EVT_TOOL, Kernel.Protect(self.FindPrevious), id=9)
+		self.Bind(wx.EVT_TOOL, Kernel.Protect(self.FindNext), id=10)
 
 	def DoNothing( self, event ):
 		"""Prevents flickering on MSW"""
 		pass
 
-	def RefreshScript( self, index ):
+	def RefreshScript( self ):
 		"""Refreshes the displayed text"""
-		tabIndex = -1
-		rowCount = len(self.ScriptCtrls)
-		if rowCount > 0:
-			for i in xrange(rowCount):
-				if self.ScriptCtrls[i].Id == index:
-					tabIndex = i
-		if tabIndex == -1:
-			self.AddTab(index)
-			tabIndex = rowCount
-		print tabIndex
-		self.noteBookScripts.ChangeSelection(tabIndex)
-		scritpCtrl = self.ScriptCtrls[self.noteBookScripts.GetSelection()]
-		scritpCtrl.CalculateLineNumberMargin()
+		self.scriptCtrl.CalculateLineNumberMargin()
 		self.RefreshStatus()
 		
 	def RefreshStatus( self, event=None ):
 		"""Refreshes the status bar text"""
-		index = self.noteBookScripts.GetSelection()
-		if index < 0:
-			return
-		sctrl = self.ScriptCtrls[index]
-		chars = len(re.sub(r'\s', '', sctrl.Text))
-		length = str.format('Lines: {0}   Characters: {1}', sctrl.LineCount, chars)
+		chars = len(re.sub(r'\s', '', self.scriptCtrl.Text))
+		length = str.format('Lines: {0}   Characters: {1}  Position: {2}', 
+			self.scriptCtrl.LineCount, chars, self.scriptCtrl.GetCurrentPos())
 		self.statusBar.SetStatusText(length, 1)
-		pos = str.format('Position: {}', sctrl.GetCurrentPos())
-		self.statusBar.SetStatusText(pos, 2)
-		path = Scripts[self.listBoxScripts.GetSelection()].GetName()
-		self.statusBar.SetStatusText(path, 3)
+
+		sel = len(self.scriptCtrl.SelectedText)
+		if sel > 0: self.statusBar.SetStatusText(str.format('Selection: {}', sel), 2)
+		else: self.statusBar.SetStatusText('', 2)
 		if event is not None:
 			event.Skip()
 		
 	def OnCopy( self, event ):
 		"""Sets the scripts selected text to the clipboard"""
 		self.statusBar.SetStatusText('Copied selected text', 0)
-		self.scriptControl.Copy()
+		self.scriptCtrl.Copy()
 
 	def OnCut( self, event ):
 		"""Sets the scripts selected text to the clipboard"""
 		self.statusBar.SetStatusText('Cut selected text', 0)
-		self.scriptControl.Cut()
+		self.scriptCtrl.Cut()
 
 	def OnPaste( self, event ):
 		"""Pastes the clipboard text to the script"""
 		self.statusBar.SetStatusText('Text pasted', 0)
-		self.scriptControl.Paste()
+		self.scriptCtrl.Paste()
 
 	def OnUndo( self, event ):
 		"""Performs script Undo action"""
 		self.statusBar.SetStatusText('Undo applied', 0)
-		self.scriptControl.Undo()
+		self.scriptCtrl.Undo()
 
 	def OnRedo( self, event ):
 		"""Performs script Redo action"""
 		self.statusBar.SetStatusText('Redo applied', 0)
-		self.scriptControl.Redo()
+		self.scriptCtrl.Redo()
 
 	def OnFind( self, event ):
 		"""Opens FindReplace window with Find tab focused"""
-		self.scriptControl.StartFindReplace(0)
+		self.scriptCtrl.StartFindReplace(0)
 
 	def OnReplace( self, event ):
 		"""Opens FindReplace window with Replace tab focused"""
-		self.scriptControl.StartFindReplace(1)
+		self.scriptCtrl.StartFindReplace(1)
 
 	def OnSettings( self, event ):
 		from Database.Dialogs import ScriptSettings_Dialog
-		dlg = ScriptSettings_Dialog(self, self.scriptControl)
+		import Database.ScriptEditor.Manager as SM
+		dlg = ScriptSettings_Dialog(self, self.scriptCtrl)
 		if dlg.ShowModal() == wx.ID_OK:
-			print 'OK'
+			config = Kernel.GlobalObjects.get_value('ARCed_config').get_section('ScriptEditor')
+			new_config = dlg.GetConfiguration()
+
+			for key, value in new_config.iteritems():
+				config.set(key, value)
+			SM.ApplyUserSettings(self.scriptCtrl)
 
 	def OnHelp( self, event ):
 		self.statusBar.SetStatusText('Opening Help...', 0)
 
-	def OnRun( self, event ):
-		self.statusBar.SetStatusText('Play test starting...', 0)
-		
-		foldingLines = []
-		for i, line in enumerate(self.scriptControl.GetText().split()):
-			parent = self.scriptControl.GetFoldParent(i)
-			if parent not in foldingLines:
-				foldingLines.append(parent)
-		print foldingLines
-		for i in foldingLines:
-			
-			self.scriptControl.ToggleFold(i)
-
-
-	def listBoxScripts_DoubleClick( self, event ):
-		self.RefreshScript(self.listBoxScripts.GetSelection())
-
-	def buttonApply_Clicked( self, event ):
-		"""Applies the text modifications to all the scripts"""
-		for script in Scripts:
-			script.ApplyChanges()
-		self.statusBar.SetStatusText('Modifications applied!', 0)
-
-	def buttonCancel_Clicked( self, event ):
-		print 'Cancel'
+	def comboBoxScripts_TextChanged( self, event ):
+		text = event.GetString()
+		Scripts[self.ScriptIndex].ChangeName(text)
+		self.comboBoxScripts.SetString(self.ScriptIndex, text)
+		self.comboBoxScripts.SetStringSelection(text)	
 
 	#--------------------------------------------------------------
 	# Find/Replace Functions

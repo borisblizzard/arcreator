@@ -31,10 +31,8 @@ class Script(object):
 		return self._name[5:]
 
 	def ChangeName(self, name ):
-		"""Changes the name of the script, and updates the path as well"""
-		self._name = str.join([self._name[:3], name])
-		dir = os.path.dirname(self._path)
-		self._path = str.join(dir, self._name, '.rb')
+		"""Changes the name of the script"""
+		self._name = name
 
 	def GetRealName( self ):
 		"""Returns the name of the script including the leading indexing numbers"""
@@ -62,6 +60,10 @@ class Script(object):
 		"""Returns the full path to the script file"""
 		return self._path
 
+	def SetPath( self, path ):
+		"""Sets a new path for the script to save/load from"""
+		self._path = path
+
 	def GetDirectory( self ):
 		"""Returns the directory where the script resides"""
 		return os.path.dirname(self._path)
@@ -74,19 +76,6 @@ class Script(object):
 		"""Iterates over the lines of the script, yielding the index and text of each line"""
 		for i, text in enumerate(self._text.splitlines()):
 			yield i, text
-
-	def SaveScript( self ):
-		"""Saves the script to the path it was loaded from. Returns True if successful"""
-		self.ApplyChanges()
-		try:
-			file = open(self._path, 'wb')
-			file.write(self._text)
-			file.close()
-			return True
-		except:
-			Kernel.Log(str.format('Failed to save script at {}', path),
-			  '[ScriptEditor]', True, True)
-		return False
 
 	def LoadScript( self, path ):
 		"""Loads the script from path and returns True if successful"""

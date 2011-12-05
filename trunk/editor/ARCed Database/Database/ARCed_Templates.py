@@ -14143,44 +14143,26 @@ class ExpGrid_Dialog ( wx.Dialog ):
 class ScriptEditor_Panel ( wx.Panel ):
 	
 	def __init__( self, parent ):
-		wx.Panel.__init__ ( self, parent, id = wx.ID_ANY, pos = wx.DefaultPosition, size = wx.Size( 696,485 ), style = wx.TAB_TRAVERSAL )
+		wx.Panel.__init__ ( self, parent, id = wx.ID_ANY, pos = wx.DefaultPosition, size = wx.Size( 540,485 ), style = wx.TAB_TRAVERSAL )
 		
 		MainSizer = wx.BoxSizer( wx.VERTICAL )
 		
 		bSizer643 = wx.BoxSizer( wx.HORIZONTAL )
-		
-		sizerScriptList = wx.BoxSizer( wx.VERTICAL )
-		
-		self.bitmapScripts = wx.StaticBitmap( self, wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.Size( 184,26 ), wx.CLIP_CHILDREN|wx.FULL_REPAINT_ON_RESIZE )
-		self.bitmapScripts.SetMinSize( wx.Size( 184,26 ) )
-		self.bitmapScripts.SetMaxSize( wx.Size( 184,26 ) )
-		
-		sizerScriptList.Add( self.bitmapScripts, 0, wx.ALL|wx.EXPAND, 5 )
-		
-		listBoxScriptsChoices = []
-		self.listBoxScripts = wx.ListBox( self, wx.ID_ANY, wx.DefaultPosition, wx.Size( 184,-1 ), listBoxScriptsChoices, 0 )
-		self.listBoxScripts.SetMinSize( wx.Size( 184,-1 ) )
-		
-		sizerScriptList.Add( self.listBoxScripts, 1, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
-		
-		self.textCtrlScriptName = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
-		sizerScriptList.Add( self.textCtrlScriptName, 0, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
-		
-		bSizer643.Add( sizerScriptList, 0, wx.EXPAND, 5 )
 		
 		sizerScriptControl = wx.BoxSizer( wx.VERTICAL )
 		
 		self.scriptPanel = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
 		sizerScript = wx.BoxSizer( wx.VERTICAL )
 		
-		self.toolBar = wx.ToolBar( self.scriptPanel, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TB_HORIZONTAL ) 
+		self.toolBar = wx.ToolBar( self.scriptPanel, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TB_FLAT|wx.TB_HORIZONTAL|wx.CLIP_CHILDREN ) 
 		self.toolBar.Realize() 
 		
 		sizerScript.Add( self.toolBar, 0, wx.EXPAND|wx.TOP, 5 )
 		
-		self.noteBookScripts = wx.Notebook( self.scriptPanel, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, 0 )
+		from Database.Controls import ScriptTextCtrl
+		self.scriptCtrl = ScriptTextCtrl(self.scriptPanel)
 		
-		sizerScript.Add( self.noteBookScripts, 1, wx.EXPAND|wx.TOP, 5 )
+		sizerScript.Add( self.scriptCtrl, 1, wx.EXPAND, 5 )
 		
 		self.scriptPanel.SetSizer( sizerScript )
 		self.scriptPanel.Layout()
@@ -14191,44 +14173,10 @@ class ScriptEditor_Panel ( wx.Panel ):
 		
 		MainSizer.Add( bSizer643, 1, wx.EXPAND, 5 )
 		
-		sizerButtons = wx.BoxSizer( wx.HORIZONTAL )
-		
-		self.buttonHelp = wx.Button( self, wx.ID_ANY, u"Help", wx.DefaultPosition, wx.DefaultSize, 0 )
-		sizerButtons.Add( self.buttonHelp, 0, wx.ALL, 5 )
-		
-		self.buttonApply = wx.Button( self, wx.ID_ANY, u"Apply", wx.DefaultPosition, wx.DefaultSize, 0 )
-		sizerButtons.Add( self.buttonApply, 0, wx.TOP|wx.BOTTOM|wx.LEFT, 5 )
-		
-		self.buttonCancel = wx.Button( self, wx.ID_ANY, u"Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
-		self.buttonCancel.SetDefault() 
-		sizerButtons.Add( self.buttonCancel, 0, wx.TOP|wx.BOTTOM|wx.RIGHT, 5 )
-		
-		MainSizer.Add( sizerButtons, 0, wx.ALIGN_RIGHT, 5 )
-		
 		self.SetSizer( MainSizer )
 		self.Layout()
-		
-		# Connect Events
-		self.listBoxScripts.Bind( wx.EVT_LEFT_DCLICK, self.listBoxScripts_DoubleClick )
-		self.buttonHelp.Bind( wx.EVT_BUTTON, self.OnHelp )
-		self.buttonApply.Bind( wx.EVT_BUTTON, self.buttonApply_Clicked )
-		self.buttonCancel.Bind( wx.EVT_BUTTON, self.buttonCancel_Clicked )
 	
 	def __del__( self ):
-		pass
-	
-	
-	# Virtual event handlers, overide them in your derived class
-	def listBoxScripts_DoubleClick( self, event ):
-		pass
-	
-	def OnHelp( self, event ):
-		pass
-	
-	def buttonApply_Clicked( self, event ):
-		pass
-	
-	def buttonCancel_Clicked( self, event ):
 		pass
 	
 
@@ -14490,7 +14438,7 @@ class FindReplace_Dialog ( wx.Dialog ):
 class ScriptSettings_Dialog ( wx.Dialog ):
 	
 	def __init__( self, parent ):
-		wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Script Editor Settings", pos = wx.DefaultPosition, size = wx.Size( 423,279 ), style = wx.DEFAULT_DIALOG_STYLE|wx.RESIZE_BORDER )
+		wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Script Editor Settings", pos = wx.DefaultPosition, size = wx.Size( 423,309 ), style = wx.DEFAULT_DIALOG_STYLE|wx.RESIZE_BORDER )
 		
 		self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
 		
@@ -14601,63 +14549,88 @@ class ScriptSettings_Dialog ( wx.Dialog ):
 		self.panelFont.SetSizer( sizerFontMain )
 		self.panelFont.Layout()
 		sizerFontMain.Fit( self.panelFont )
-		self.noteBookSettings.AddPage( self.panelFont, u"Font Settings", True )
+		self.noteBookSettings.AddPage( self.panelFont, u"Font Settings", False )
 		self.panelEditor = wx.Panel( self.noteBookSettings, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
 		panelEditorMainSizer = wx.BoxSizer( wx.HORIZONTAL )
 		
-		bSizer662 = wx.BoxSizer( wx.VERTICAL )
+		sizerEditor = wx.BoxSizer( wx.VERTICAL )
 		
 		self.labelTabWidth = wx.StaticText( self.panelEditor, wx.ID_ANY, u"Tab Width:", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.labelTabWidth.Wrap( -1 )
-		bSizer662.Add( self.labelTabWidth, 0, wx.ALL, 5 )
+		sizerEditor.Add( self.labelTabWidth, 0, wx.ALL, 5 )
 		
 		self.spinCtrlTabWidth = wx.SpinCtrl( self.panelEditor, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS|wx.SP_WRAP, 1, 20, 2 )
-		bSizer662.Add( self.spinCtrlTabWidth, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
+		sizerEditor.Add( self.spinCtrlTabWidth, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
 		
 		self.labelEdgeColumn = wx.StaticText( self.panelEditor, wx.ID_ANY, u"Edge Column:", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.labelEdgeColumn.Wrap( -1 )
-		bSizer662.Add( self.labelEdgeColumn, 0, wx.ALL, 5 )
+		sizerEditor.Add( self.labelEdgeColumn, 0, wx.ALL, 5 )
 		
 		self.spinCtrlEdgeColumn = wx.SpinCtrl( self.panelEditor, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 1, 240, 80 )
-		bSizer662.Add( self.spinCtrlEdgeColumn, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
+		sizerEditor.Add( self.spinCtrlEdgeColumn, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
 		
 		self.checkBoxIndentGuides = wx.CheckBox( self.panelEditor, wx.ID_ANY, u"Indent Guides", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.checkBoxIndentGuides.SetValue(True) 
-		bSizer662.Add( self.checkBoxIndentGuides, 0, wx.ALL, 5 )
+		sizerEditor.Add( self.checkBoxIndentGuides, 0, wx.ALL, 5 )
 		
 		self.checkBoxCaret = wx.CheckBox( self.panelEditor, wx.ID_ANY, u"Caret", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.checkBoxCaret.SetValue(True) 
-		bSizer662.Add( self.checkBoxCaret, 0, wx.ALL, 5 )
+		sizerEditor.Add( self.checkBoxCaret, 0, wx.ALL, 5 )
 		
-		panelEditorMainSizer.Add( bSizer662, 1, wx.EXPAND, 5 )
+		panelEditorMainSizer.Add( sizerEditor, 1, wx.EXPAND, 5 )
 		
 		sizerCaret = wx.StaticBoxSizer( wx.StaticBox( self.panelEditor, wx.ID_ANY, u"Caret Settings" ), wx.VERTICAL )
 		
+		self.labelCaretFore = wx.StaticText( self.panelEditor, wx.ID_ANY, u"Forecolor:", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.labelCaretFore.Wrap( -1 )
+		sizerCaret.Add( self.labelCaretFore, 0, wx.ALL, 5 )
+		
 		sizerCaret1 = wx.BoxSizer( wx.HORIZONTAL )
 		
-		self.bitmapCaretColor = wx.StaticBitmap( self.panelEditor, wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.DefaultSize, 0 )
-		sizerCaret1.Add( self.bitmapCaretColor, 0, wx.ALL, 5 )
+		self.panelCaretFore = wx.Panel( self.panelEditor, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.SUNKEN_BORDER|wx.TAB_TRAVERSAL )
+		sizerCaret1.Add( self.panelCaretFore, 0, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
 		
-		self.textCtrlCaretColor = wx.TextCtrl( self.panelEditor, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
-		sizerCaret1.Add( self.textCtrlCaretColor, 1, wx.ALL, 5 )
+		self.textCtrlCaretFore = wx.TextCtrl( self.panelEditor, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+		sizerCaret1.Add( self.textCtrlCaretFore, 1, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
 		
 		sizerCaret.Add( sizerCaret1, 0, wx.EXPAND, 5 )
 		
 		sizerCaret2 = wx.BoxSizer( wx.VERTICAL )
 		
-		self.buttonCaretColor = wx.Button( self.panelEditor, wx.ID_ANY, u"Choose...", wx.DefaultPosition, wx.DefaultSize, 0 )
-		sizerCaret2.Add( self.buttonCaretColor, 0, wx.ALL|wx.ALIGN_RIGHT, 5 )
+		self.buttonCaretFore = wx.Button( self.panelEditor, wx.ID_ANY, u"Choose...", wx.DefaultPosition, wx.DefaultSize, 0 )
+		sizerCaret2.Add( self.buttonCaretFore, 0, wx.ALIGN_RIGHT|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
 		
 		sizerCaret.Add( sizerCaret2, 0, wx.EXPAND, 5 )
+		
+		self.labelCaretBack = wx.StaticText( self.panelEditor, wx.ID_ANY, u"Background:", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.labelCaretBack.Wrap( -1 )
+		sizerCaret.Add( self.labelCaretBack, 0, wx.ALL, 5 )
+		
+		sizerCaret11 = wx.BoxSizer( wx.HORIZONTAL )
+		
+		self.panelCaretBack = wx.Panel( self.panelEditor, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.SUNKEN_BORDER|wx.TAB_TRAVERSAL )
+		sizerCaret11.Add( self.panelCaretBack, 0, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
+		
+		self.textCtrlCaretBack = wx.TextCtrl( self.panelEditor, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+		sizerCaret11.Add( self.textCtrlCaretBack, 1, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
+		
+		sizerCaret.Add( sizerCaret11, 1, wx.EXPAND, 5 )
+		
+		sizerCaret21 = wx.BoxSizer( wx.VERTICAL )
+		
+		self.buttonCaretBack = wx.Button( self.panelEditor, wx.ID_ANY, u"Choose...", wx.DefaultPosition, wx.DefaultSize, 0 )
+		sizerCaret21.Add( self.buttonCaretBack, 0, wx.ALIGN_RIGHT|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
+		
+		sizerCaret.Add( sizerCaret21, 0, wx.EXPAND, 5 )
 		
 		sizerCaret3 = wx.BoxSizer( wx.HORIZONTAL )
 		
 		self.labelCaretAlpha = wx.StaticText( self.panelEditor, wx.ID_ANY, u"Caret Alpha:", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.labelCaretAlpha.Wrap( -1 )
-		sizerCaret3.Add( self.labelCaretAlpha, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
+		sizerCaret3.Add( self.labelCaretAlpha, 0, wx.ALIGN_CENTER_VERTICAL|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
 		
 		self.spinCtrlCaretAlpha = wx.SpinCtrl( self.panelEditor, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 255, 40 )
-		sizerCaret3.Add( self.spinCtrlCaretAlpha, 1, wx.ALL, 5 )
+		sizerCaret3.Add( self.spinCtrlCaretAlpha, 1, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
 		
 		sizerCaret.Add( sizerCaret3, 0, wx.EXPAND, 5 )
 		
@@ -14666,9 +14639,30 @@ class ScriptSettings_Dialog ( wx.Dialog ):
 		self.panelEditor.SetSizer( panelEditorMainSizer )
 		self.panelEditor.Layout()
 		panelEditorMainSizer.Fit( self.panelEditor )
-		self.noteBookSettings.AddPage( self.panelEditor, u"Editor Settings", False )
+		self.noteBookSettings.AddPage( self.panelEditor, u"Editor Settings", True )
 		
 		MainSizer.Add( self.noteBookSettings, 1, wx.EXPAND |wx.ALL, 5 )
+		
+		bSizer673 = wx.BoxSizer( wx.HORIZONTAL )
+		
+		bSizer674 = wx.BoxSizer( wx.VERTICAL )
+		
+		self.buttonDefault = wx.Button( self, wx.ID_ANY, u"Apply Default", wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer674.Add( self.buttonDefault, 0, wx.ALL, 5 )
+		
+		bSizer673.Add( bSizer674, 1, 0, 5 )
+		
+		sizerOKCancel = wx.BoxSizer( wx.HORIZONTAL )
+		
+		self.buttonOK = wx.Button( self, wx.ID_ANY, u"OK", wx.DefaultPosition, wx.DefaultSize, 0 )
+		sizerOKCancel.Add( self.buttonOK, 0, wx.TOP|wx.BOTTOM|wx.LEFT, 5 )
+		
+		self.buttonCancel = wx.Button( self, wx.ID_ANY, u"Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
+		sizerOKCancel.Add( self.buttonCancel, 0, wx.ALL, 5 )
+		
+		bSizer673.Add( sizerOKCancel, 0, wx.ALIGN_RIGHT|wx.ALIGN_BOTTOM, 5 )
+		
+		MainSizer.Add( bSizer673, 0, wx.EXPAND, 5 )
 		
 		self.SetSizer( MainSizer )
 		self.Layout()
@@ -14690,9 +14684,14 @@ class ScriptSettings_Dialog ( wx.Dialog ):
 		self.spinCtrlEdgeColumn.Bind( wx.EVT_SPINCTRL, self.spinCtrlEdgeColumn_ValueChanged )
 		self.checkBoxIndentGuides.Bind( wx.EVT_CHECKBOX, self.checkBoxIndentGuide_CheckChanged )
 		self.checkBoxCaret.Bind( wx.EVT_CHECKBOX, self.checkBoxCaret_CheckChanged )
-		self.textCtrlCaretColor.Bind( wx.EVT_TEXT, self.textCtrlCaretColor_TextChanged )
-		self.buttonCaretColor.Bind( wx.EVT_BUTTON, self.buttonCaretColor_Clicked )
+		self.textCtrlCaretFore.Bind( wx.EVT_TEXT, self.textCtrlCaretFore_TextChanged )
+		self.buttonCaretFore.Bind( wx.EVT_BUTTON, self.buttonCaretFore_Clicked )
+		self.textCtrlCaretBack.Bind( wx.EVT_TEXT, self.textCtrlCaretBack_TextChanged )
+		self.buttonCaretBack.Bind( wx.EVT_BUTTON, self.buttonCaretBack_Clicked )
 		self.spinCtrlCaretAlpha.Bind( wx.EVT_SPINCTRL, self.spinCtrlCaretAlpha_ValueChanged )
+		self.buttonDefault.Bind( wx.EVT_BUTTON, self.buttonDefault_Clicked )
+		self.buttonOK.Bind( wx.EVT_BUTTON, self.buttonOK_Clicked )
+		self.buttonCancel.Bind( wx.EVT_BUTTON, self.buttonCancel_Clicked )
 	
 	def __del__( self ):
 		pass
@@ -14741,13 +14740,28 @@ class ScriptSettings_Dialog ( wx.Dialog ):
 	def checkBoxCaret_CheckChanged( self, event ):
 		pass
 	
-	def textCtrlCaretColor_TextChanged( self, event ):
+	def textCtrlCaretFore_TextChanged( self, event ):
 		pass
 	
-	def buttonCaretColor_Clicked( self, event ):
+	def buttonCaretFore_Clicked( self, event ):
+		pass
+	
+	def textCtrlCaretBack_TextChanged( self, event ):
+		pass
+	
+	def buttonCaretBack_Clicked( self, event ):
 		pass
 	
 	def spinCtrlCaretAlpha_ValueChanged( self, event ):
+		pass
+	
+	def buttonDefault_Clicked( self, event ):
+		pass
+	
+	def buttonOK_Clicked( self, event ):
+		pass
+	
+	def buttonCancel_Clicked( self, event ):
 		pass
 	
 

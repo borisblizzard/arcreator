@@ -45,8 +45,7 @@ else:
 	Kernel.GlobalObjects.request_new_key("ProjectOpen", "CORE", True)
 
 app = wx.PySimpleApp( 0 )
-frame = wx.Frame( None, wx.ID_ANY, 'ARCed Script Editor', size=(940,640) )
-#frame.CreateStatusBar()
+frame = wx.Frame( None, wx.ID_ANY, 'ARCed Script Editor', size=(720,600) )
 panel = ScriptEditor_Panel( frame )
 frame.Centre( wx.BOTH )
 frame.Show()
