@@ -90,7 +90,12 @@ class ScriptTextCtrl(stc.wxStyledTextCtrl):
 		if len(currentWords) == 0: 
 			return 0
 		first, last = currentWords[0], currentWords[-1]
-		if last == 'end' or last == 'else' or first in ['elsif', 'rescue', 'ensure']:
+		if last == 'end' or last == 'else' or first in ['when', 'elsif', 'rescue', 'ensure']:
+			if first == 'when':
+				previousText = self.GetLine(previousLine - 1).strip()
+				if 'then' in currentWords: return 0
+				elif 'case ' in previousText: return tabWidth
+				else: return tabWidth
 			prePreviousIndent = self.GetLineIndentation(previousLine - 1)
 			if previousIndent + tabWidth != prePreviousIndent:
 				indent = previousIndent - tabWidth
@@ -100,7 +105,7 @@ class ScriptTextCtrl(stc.wxStyledTextCtrl):
 			if last == 'end' : return -tabWidth
 			return 0
 		if first in ['class', 'module', 'if', 'elsif', 'else', 'begin', 'rescue', 
-			'ensure','unless', 'while', 'until', 'def', 'for', 'case', 'when']:
+			'ensure','unless', 'while', 'until', 'def', 'for', 'case']:
 			return tabWidth
 		return 0
 
