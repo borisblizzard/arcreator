@@ -45,41 +45,61 @@ class Manager(object):
 		Bool value if all scripts were saved successfully
 
 		"""
+		# If scripts are not loaded into memory, do not bother saving.
 		if not Kernel.GlobalObjects.has_key('Scripts'):
-			Kernel.Log('Attempted saving of scripts before initialization.', 
-				'[ScriptEditor]', False, False)
 			return False
-		else:
-			try:
-				pass
-				# TODO: Apply deleting scripts marked for deletion here
-			except:
-				Kernel.Log('', ['Script Editor'], True, False)
-			result = True
-			scripts = Kernel.GlobalObjects.get_value('Scripts')
-			for i, script in enumerate(scripts):
-				script.ApplyChanges()
-				# TODO: Apply escape sequences for invalid characters in the filename
-				filename = str.format('{0}-{1}.rb', str(i).zfill(4), script.GetName())
-				original_path = script.GetPath()
-				if filename != os.path.basename(original_path):
+
+		try:
+			pass
+			# TODO: Apply deleting scripts marked for deletion here
+		except:
+			Kernel.Log('Failed to delete all scripts marked for deletion', 
+			  ['Script Editor'], True, False)
+		result = True
+		scripts = Kernel.GlobalObjects.get_value('Scripts')
+		for i, script in enumerate(scripts):
+			# TODO: Apply escape sequences for invalid characters in the filename
+			filename = str.format('{0}-{1}.rb', str(i).zfill(4), script.GetName())
+			original_path = script.GetPath()
+			isChanged = filename != os.path.basename(original_path)
+			# If script text has not changed...
+			if not script.IsModified():
+				# If filename has changed, simply rename
+				if isChanged:
+					new_path = os.path.join(script.GetDirectory(), filename)
 					try:
-						os.remove(original_path)
+						os.rename(original_path, new_path)
+						os.path.join(script.GetDirectory(), filename)
+						script.SetPath(new_path)
 					except:
-						Kernel.Log(str.format('Failed to remove {}.', original_path),
+						Kernel.Log(str.format('Failed to rename \"{0}\" to \"{1}\"', 
+							 os.path.basename(original_path), filename),
 							'[Script Editor]', True, False)
-					path = os.path.join(script.GetDirectory(), filename)
-					script.SetPath(path)
+						result = False
+				# Do nothing if no modifications or renaming took place
+				continue
+			# Apply modifications of script text and overwrite original text
+			script.ApplyChanges()
+			if isChanged:
+				# If path has changed, remove old path
 				try:
-					file = open(script.GetPath(), 'wb')
-					file.write(codecs.BOM_UTF8)
-					file.write(script.GetText().encode('utf-8'))
-					file.close()
+					os.remove(original_path)
 				except:
-					message = str.format('Script at path {} failed to save.\nPlease ensure there are sufficient privileges to write data to the location', script.GetPath()) 
-					Kernel.Log(message, '[Script Editor]', True, False)
-					result = False
-			return result
+					Kernel.Log(str.format('Failed to remove {}.', original_path),
+						'[Script Editor]', True, False)
+				# Set the scripts new path
+				path = os.path.join(script.GetDirectory(), filename)
+				script.SetPath(path)
+			try:
+				file = open(script.GetPath(), 'wb')
+				file.write(codecs.BOM_UTF8)
+				file.write(script.GetText().encode('utf-8'))
+				file.close()
+			except:
+				message = str.format('Script at path {} failed to save.\nPlease ensure there are sufficient privileges to write data to the location', script.GetPath()) 
+				Kernel.Log(message, '[Script Editor]', True, False)
+				result = False
+		return result
 
 	#----------------------------------------------------------------------------------
 	@staticmethod

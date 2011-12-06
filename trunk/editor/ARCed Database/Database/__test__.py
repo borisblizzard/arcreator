@@ -1,6 +1,5 @@
 import sys, os, shutil
 
-
 # Remove config is it exists
 path = os.path.join(os.path.expandvars('%PROGRAMDATA%'), 'Chaos Project')
 shutil.rmtree(path)
@@ -9,6 +8,7 @@ dirName = os.path.dirname(os.path.abspath(__file__))
 editorDir = os.path.split(os.path.split(dirName)[0])[0]
 editorDir = os.path.join(editorDir, 'ARCed', 'src')  
 sys.path.append(editorDir)
+
 
 import wx
 import Database.Controls
