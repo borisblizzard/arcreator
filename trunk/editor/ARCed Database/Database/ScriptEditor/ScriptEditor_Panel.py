@@ -184,6 +184,9 @@ class ScriptEditor_Panel( Templates.ScriptEditor_Panel ):
 		return results
 
 	def FindPrevious( self, event ):
+
+		self.scriptCtrl.NormalizeIndenting()
+
 		pass
 
 	def FindNext( self, event ):
