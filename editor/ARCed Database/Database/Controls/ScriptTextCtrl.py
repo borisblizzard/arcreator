@@ -144,7 +144,6 @@ class ScriptTextCtrl(stc.wxStyledTextCtrl):
 		"""Binds hotkey commands to the script control"""
 		self.CmdKeyAssign(ord('Z'), stc.wxSTC_SCMOD_ALT, stc.wxSTC_CMD_ZOOMIN)
 		self.CmdKeyAssign(ord('X'), stc.wxSTC_SCMOD_ALT, stc.wxSTC_CMD_ZOOMOUT)
-		#self.CmdKeyAssign(ord('Q'), stc.wxSTC_SCMOD_CTRL, stc.wxSTC_CMD_
 
 	def ApplySettings( self ):
 		"""Applies default setting to the script control"""
@@ -181,3 +180,64 @@ class ScriptTextCtrl(stc.wxStyledTextCtrl):
 			stc.wxSTC_MARK_VLINE, "white", "#808080")
 		self.MarkerDefine(stc.wxSTC_MARKNUM_FOLDERMIDTAIL,
 			stc.wxSTC_MARK_TCORNER, "white", "#808080")
+
+	def NormalizeIndenting( self ):
+		"""Automatically applies conventional indent levels to the script"""
+		left = ''
+		flag = False
+		currentIndent = 1
+		num = 0
+		for i in xrange(self.LineCount):
+			text = self.Text
+			line = self.GetLine(i).strip()
+			if line.startswith('#') or flag:
+				left += (u'\t' * (currentIndent - 1)) + line + '\r\n'
+			elif line.startswith('=begin'):
+				flag = True
+				left += (u'\t' * (currentIndent - 1)) + line + '\r\n'
+			elif line.startswith('=end'):
+				flag = False
+				left += (u'\t' * (currentIndent - 1)) + line + '\r\n'
+			elif line.startswith('if ') or line.startswith('unless '):
+				left = (left + (u'\t' * (currentIndent - 1)) + line + '\r\n')
+				if not ' end' in line:
+					currentIndent += 1
+			elif line.startswith('def '):
+				left = (left + (u'\t' * (currentIndent - 1)) + line + '\r\n')
+				if not ' end' in line:
+					currentIndent += 1
+			elif line.startswith('case ') or ' case ' in line:
+				left = (left + (u'\t' * (currentIndent - 1)) + line + "\r\n")
+				currentIndent += 1
+				num += 1
+			elif ' do' in line:
+				left = (left + (u'\t' * (currentIndent - 1)) + line + "\r\n")
+				if not ' end' in line:
+					currentIndent += 1
+			elif line.startswith('module ') or line.startswith('class '):
+				left = (left + (u'\t' * (currentIndent - 1)) + line + "\r\n")
+				if not ' end' in line:
+					currentIndent += 1
+			elif line.startswith('begin'):
+				left = (left + (u'\t' * (currentIndent - 1)) + line + "\r\n")
+				if not ' end' in line:
+					currentIndent += 1
+			elif line.startswith('while ') or line.startswith('until '):
+				left = (left + (u'\t' * (currentIndent - 1)) + line + "\r\n")
+				if not ' end' in line:
+					currentIndent += 1
+			elif line.startswith('for '):
+				left = (left + (u'\t' * (currentIndent - 1)) + line + "\r\n")
+				if not ' end' in line:
+					currentIndent += 1
+			elif line.startswith('elsif') or line.startswith('else') or line.startswith('when') or line.startswith('rescue') or line.startswith('ensure'):
+				left = (left + (u'\t' * (currentIndent - 2)) + line + "\r\n")
+			elif line.startswith('end'):
+				currentIndent -= 1
+				left = (left + (u'\t' * (currentIndent - 1)) + line + "\r\n")
+				if num > 0:
+					num -= 1
+			else:
+				left = (left + (u'\t' * (currentIndent - 1)) + line + "\r\n");
+		self.ClearAll()
+		self.SetText(left)
