@@ -148,7 +148,6 @@ class ScriptEditor_Panel( Templates.ScriptEditor_Panel ):
 		if dlg.ShowModal() == wx.ID_OK:
 			config = Kernel.GlobalObjects.get_value('ARCed_config').get_section('ScriptEditor')
 			new_config = dlg.GetConfiguration()
-
 			for key, value in new_config.iteritems():
 				config.set(key, value)
 			SM.ApplyUserSettings(self.scriptCtrl)
