@@ -16,6 +16,7 @@ TODO:
 #--------------------------------------------------------------------------------------
 
 RUBY_KEYWORDS = "BEGIN END __ENCODING__ __END__ __FILE__ __LINE__ alias and begin break case class def defined? do else elsif end ensure false for if in module next nil not or redo rescue retry return self super then true undef unless until when while yield"
+BRACES = ['(', ')', '[', ']', '{', '}', '<', '>']
 
 class ScriptTextCtrl(stc.wxStyledTextCtrl):
 
@@ -34,8 +35,34 @@ class ScriptTextCtrl(stc.wxStyledTextCtrl):
 		self.BindHotKeys()
 		self.Bind(wx.EVT_KEY_DOWN, self.KeyPressed)
 		self.Bind(wx.EVT_TEXT_PASTE, self.CalculateLineNumberMargin)
+		self.Bind(self.SCRIPT_UPDATEUI, self.UpdateUI)
 		self.Bind(wx.PyEventBinder(stc.wxEVT_STC_MARGINCLICK, 1), self.MarginClicked)
 		
+	def UpdateUI( self, event ):
+		"""Updates brace matching"""
+		if Config.get('brace_match').lower() == 'true':
+			pos = self.GetCurrentPos() - 1
+			chr = unichr(self.GetCharAt(pos))
+			if chr in BRACES:
+				has_match = self.BraceMatch(pos)
+				if  has_match > -1:
+					self.BraceHighlight(has_match, pos)
+				else:
+					self.BraceBadLight(pos)
+			else:
+				pos += 1
+				chr = unichr(self.GetCharAt(pos))
+				if chr in BRACES:
+					has_match = self.BraceMatch(pos)
+					if  has_match > -1:
+						self.BraceHighlight(has_match, pos)
+					else:
+						self.BraceBadLight(pos)
+				else:
+					self.BraceHighlight(-1, -1)
+		else:
+			self.BraceHighlight(-1, -1)
+
 	def MarginClicked(self, event ):
 		"""Performs code folding functions"""
 		line = self.LineFromPosition(event.GetPosition())

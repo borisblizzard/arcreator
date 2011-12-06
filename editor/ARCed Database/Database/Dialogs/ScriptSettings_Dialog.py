@@ -30,7 +30,6 @@ class ScriptSettings_Dialog( Templates.ScriptSettings_Dialog ):
 		key = self.GetStyle(index)[1]
 		fstring = Config.get(key)
 		style = ScintillaStyle()
-		print fstring
 		for format in fstring.split(','):
 			if format.startswith('fore:'):	style.fore = SM.ParseColor(format.split(':')[1])
 			elif format.startswith('back:'): style.back = SM.ParseColor(format.split(':')[1])
@@ -85,6 +84,7 @@ class ScriptSettings_Dialog( Templates.ScriptSettings_Dialog ):
 		self.spinCtrlEdgeColumn.SetValue(int(Config.get('edge_column')))
 		self.checkBoxCaret.SetValue(Config.get('show_caret').lower() == 'true')
 		self.checkBoxIndentGuides.SetValue(Config.get('indent_guides').lower() == 'true')
+		self.checkBoxBraceMatch.SetValue(Config.get('brace_match').lower() == 'true')
 		self.spinCtrlCaretAlpha.SetValue(int(Config.get('caret_alpha')))
 		fore = SM.ParseColor(Config.get('caret_fore'))
 		back = SM.ParseColor(Config.get('caret_back'))
@@ -180,6 +180,10 @@ class ScriptSettings_Dialog( Templates.ScriptSettings_Dialog ):
 	def checkBoxCaret_CheckChanged( self, event ):
 		"""Updates the caret setting in the config"""
 		Config.set('show_caret', str(event.Checked()))
+
+	def checkBoxBraceMatch_CheckChanged( self, event ):
+		"""Updates the brace matching setting in the config"""
+		Config.set('brace_match', str(event.Checked()))
 	
 	def textCtrlCaretFore_TextChanged( self, event ):
 		# TODO: Implement textCtrlCaretColor_TextChanged

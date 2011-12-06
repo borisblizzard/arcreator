@@ -14549,7 +14549,7 @@ class ScriptSettings_Dialog ( wx.Dialog ):
 		self.panelFont.SetSizer( sizerFontMain )
 		self.panelFont.Layout()
 		sizerFontMain.Fit( self.panelFont )
-		self.noteBookSettings.AddPage( self.panelFont, u"Font Settings", False )
+		self.noteBookSettings.AddPage( self.panelFont, u"Font Settings", True )
 		self.panelEditor = wx.Panel( self.noteBookSettings, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
 		panelEditorMainSizer = wx.BoxSizer( wx.HORIZONTAL )
 		
@@ -14576,6 +14576,10 @@ class ScriptSettings_Dialog ( wx.Dialog ):
 		self.checkBoxCaret = wx.CheckBox( self.panelEditor, wx.ID_ANY, u"Caret", wx.DefaultPosition, wx.DefaultSize, 0 )
 		self.checkBoxCaret.SetValue(True) 
 		sizerEditor.Add( self.checkBoxCaret, 0, wx.ALL, 5 )
+		
+		self.checkBoxBraceMatch = wx.CheckBox( self.panelEditor, wx.ID_ANY, u"Brace Matching", wx.DefaultPosition, wx.DefaultSize, 0 )
+		self.checkBoxBraceMatch.SetValue(True) 
+		sizerEditor.Add( self.checkBoxBraceMatch, 0, wx.ALL, 5 )
 		
 		panelEditorMainSizer.Add( sizerEditor, 1, wx.EXPAND, 5 )
 		
@@ -14639,7 +14643,7 @@ class ScriptSettings_Dialog ( wx.Dialog ):
 		self.panelEditor.SetSizer( panelEditorMainSizer )
 		self.panelEditor.Layout()
 		panelEditorMainSizer.Fit( self.panelEditor )
-		self.noteBookSettings.AddPage( self.panelEditor, u"Editor Settings", True )
+		self.noteBookSettings.AddPage( self.panelEditor, u"Editor Settings", False )
 		
 		MainSizer.Add( self.noteBookSettings, 1, wx.EXPAND |wx.ALL, 5 )
 		
@@ -14684,6 +14688,7 @@ class ScriptSettings_Dialog ( wx.Dialog ):
 		self.spinCtrlEdgeColumn.Bind( wx.EVT_SPINCTRL, self.spinCtrlEdgeColumn_ValueChanged )
 		self.checkBoxIndentGuides.Bind( wx.EVT_CHECKBOX, self.checkBoxIndentGuide_CheckChanged )
 		self.checkBoxCaret.Bind( wx.EVT_CHECKBOX, self.checkBoxCaret_CheckChanged )
+		self.checkBoxBraceMatch.Bind( wx.EVT_CHECKBOX, self.checkBoxBraceMatch_CheckChanged )
 		self.textCtrlCaretFore.Bind( wx.EVT_TEXT, self.textCtrlCaretFore_TextChanged )
 		self.buttonCaretFore.Bind( wx.EVT_BUTTON, self.buttonCaretFore_Clicked )
 		self.textCtrlCaretBack.Bind( wx.EVT_TEXT, self.textCtrlCaretBack_TextChanged )
@@ -14738,6 +14743,9 @@ class ScriptSettings_Dialog ( wx.Dialog ):
 		pass
 	
 	def checkBoxCaret_CheckChanged( self, event ):
+		pass
+	
+	def checkBoxBraceMatch_CheckChanged( self, event ):
 		pass
 	
 	def textCtrlCaretFore_TextChanged( self, event ):
