@@ -56,6 +56,12 @@ class CoreEditorMainWindow(wx.Frame):
         self.Bind(wx.EVT_UPDATE_UI, self.UpdateUI)
         self.Bind(wx.EVT_CLOSE, self.OnClose, self)
 
+        #start The autosave Time
+        self.AutoSaveTimer = wx.Timer(self)
+        save_intervel = Kernel.GlobalObjects.get_value("ARCed_config").getint("Main", "Autosave")
+        self.Bind(wx.EVT_TIMER, self.ProcessAutoSave, self.AutoSaveTimer)
+        self.AutoSaveTimer.Start(save_intervel * 60000, False)
+
         #show the window
         self.Show(True)
 
@@ -118,17 +124,18 @@ class CoreEditorMainWindow(wx.Frame):
 
     def ProcessClose(self):
         #handle an open project
+        KM.raise_event("CoreExitMainWindow")
         if Kernel.GlobalObjects.has_key("ProjectOpen") and (Kernel.GlobalObjects.get_value("ProjectOpen") == True) and Kernel.GlobalObjects.has_key("PROJECT"):
             current_project = Kernel.GlobalObjects.get_value("PROJECT")
             if current_project.hasDataChanged() or current_project.hasInfoChanged():
-                message = "There are unsaved changes in the currently open project Do you want to save these chagnes?"
-            else:
-                message = "Do you want to save the currently open project?"
-            caption = "There is an open project"
-            dlg = wx.MessageDialog(self, message, caption, style=wx.YES_NO |
-                                   wx.YES_DEFAULT)
-            result = dlg.ShowModal()
-            dlg.Destroy()
-            if result == wx.YES:
-                KM.get_component("SaveProjectHandler").object()
+                message = "There are unsaved changes in the currently open project Do you want to save these changes?"
+                caption = "There is an open project"
+                dlg = wx.MessageDialog(self, message, caption, style=wx.YES_NO |
+                                       wx.YES_DEFAULT)
+                result = dlg.ShowModal()
+                dlg.Destroy()
+                if result == wx.YES:
+                    KM.get_component("SaveProjectHandler").object()
 
+    def ProcessAutoSave(self, event):
+        KM.raise_event("CoreEventAutoSave")
