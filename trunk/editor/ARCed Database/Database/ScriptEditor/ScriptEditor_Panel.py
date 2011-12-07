@@ -21,8 +21,8 @@ class ScriptEditor_Panel( Templates.ScriptEditor_Panel ):
 		self.statusBar.SetFieldsCount(3)
 		self.statusBar.SetStatusWidths([-4, -4, -2])
 		# TODO: Get path by using project path + Data/Scripts/
-		path = r"C:\Users\Eric\Desktop\ARC\editor\ARCed\src\RTP\Templates\Chonicles of Sir Lag-A-Lot\Data\Scripts"
-		#path = os.path.join(Kernel.GlobalObjects.get_value("CurrentProjectDir"), 'Data', 'Scripts')
+		#path = r"C:\Users\Eric\Desktop\ARC\editor\ARCed\src\RTP\Templates\Chonicles of Sir Lag-A-Lot\Data\Scripts"
+		path = os.path.join(Kernel.GlobalObjects.get_value("CurrentProjectDir"), 'Data', 'Scripts')
 		try:
 			SM.LoadScripts(path)
 		except:
@@ -50,30 +50,32 @@ class ScriptEditor_Panel( Templates.ScriptEditor_Panel ):
 
 	def CreateToolBar( self ):
 		"""Creates the toolbar and binds events to it"""
-		art = wx.ArtProvider()
-		self.toolBar.AddSimpleTool(0, art.GetBitmap(wx.ART_COPY), 'Copy', 'Copies the selected text')
-		self.toolBar.AddSimpleTool(1, art.GetBitmap(wx.ART_CUT), 'Cut', 'Cuts the selected text')
-		self.toolBar.AddSimpleTool(2, art.GetBitmap(wx.ART_PASTE), 'Paste', 'Pastes previously copied/cut text')
+		art = wx.ArtProvider().GetBitmap
+		self.toolBar.AddSimpleTool(0, art(wx.ART_COPY), 'Copy', 'Copies the selected text')
+		self.toolBar.AddSimpleTool(1, art(wx.ART_CUT), 'Cut', 'Cuts the selected text')
+		self.toolBar.AddSimpleTool(2, art(wx.ART_PASTE), 'Paste', 'Pastes previously copied/cut text')
 		self.toolBar.AddSeparator()
-		self.toolBar.AddSimpleTool(3, art.GetBitmap(wx.ART_UNDO), 'Undo', 'Undoes the previous action')
-		self.toolBar.AddSimpleTool(4, art.GetBitmap(wx.ART_REDO), 'Redo', 'Redoes the previous Undo')
+		self.toolBar.AddSimpleTool(3, art(wx.ART_UNDO), 'Undo', 'Undoes the previous action')
+		self.toolBar.AddSimpleTool(4, art(wx.ART_REDO), 'Redo', 'Redoes the previous Undo')
 		self.toolBar.AddSeparator()
-		self.toolBar.AddSimpleTool(5, art.GetBitmap(wx.ART_FIND), 'Find', 'Opens Find window for searching text')
-		self.toolBar.AddSimpleTool(6, art.GetBitmap(wx.ART_FIND_AND_REPLACE), 'Find and Replace', 'Open Find & Replace window for replacing text')
+		self.toolBar.AddSimpleTool(5, art(wx.ART_FIND), 'Find', 'Opens Find window for searching text')
+		self.toolBar.AddSimpleTool(6, art(wx.ART_FIND_AND_REPLACE), 'Find and Replace', 'Open Find & Replace window for replacing text')
 		self.toolBar.AddSeparator()
-		self.toolBar.AddSimpleTool(7, art.GetBitmap(wx.ART_HELP_SETTINGS), 'Settings', 'Opens the settings window')
-		self.toolBar.AddSimpleTool(8, art.GetBitmap(wx.ART_LIST_VIEW), 'Normalize Indents', 'Applies conventional Ruby indenting to the script')
-		self.toolBar.AddSimpleTool(9, art.GetBitmap(wx.ART_HELP_BOOK), 'Help', 'Opens the compiled HTML help doc')
+		self.toolBar.AddSimpleTool(7, art(wx.ART_HELP_SETTINGS), 'Settings', 'Opens the settings window')
+		self.toolBar.AddSimpleTool(8, art(wx.ART_LIST_VIEW), 'Normalize Indents', 'Applies conventional Ruby indenting to the script')
+		self.toolBar.AddSimpleTool(9, art(wx.ART_HELP_BOOK), 'Help', 'Opens the compiled HTML help doc')
 		self.toolBar.AddSeparator()
 		self.textCtrlSearch = wx.TextCtrl(self.toolBar, -1, 'Search...', style=wx.TE_RIGHT)
 		self.toolBar.AddControl(self.textCtrlSearch)
-		self.toolBar.AddSimpleTool(10, art.GetBitmap(wx.ART_GO_BACK), 'Previous', '')
-		self.toolBar.AddSimpleTool(11, art.GetBitmap(wx.ART_GO_FORWARD), 'Next', '')
+		self.toolBar.AddSimpleTool(10, art(wx.ART_GO_BACK), 'Previous', '')
+		self.toolBar.AddSimpleTool(11, art(wx.ART_GO_FORWARD), 'Next', '')
 		self.toolBar.AddSeparator()
 		self.comboBoxScripts = wx.ComboBox(self.toolBar, size=(184,-1), style=wx.GROW)
 		self.comboBoxScripts.Bind(wx.EVT_COMBOBOX, self.OpenScript)
 		self.comboBoxScripts.Bind(wx.EVT_TEXT, self.comboBoxScripts_TextChanged)
 		self.toolBar.AddControl(self.comboBoxScripts)
+		self.toolBar.AddSeparator()
+		self.toolBar.AddSimpleTool(12, art(wx.ART_FILE_SAVE), 'Save', 'Saves the current script')
 		self.toolBar.Realize()
 		self.Bind(wx.EVT_TOOL, self.OnCopy, id=0)
 		self.Bind(wx.EVT_TOOL, self.OnCut, id=1)
@@ -87,10 +89,7 @@ class ScriptEditor_Panel( Templates.ScriptEditor_Panel ):
 		self.Bind(wx.EVT_TOOL, Kernel.Protect(self.OnHelp), id=9)
 		self.Bind(wx.EVT_TOOL, Kernel.Protect(self.FindPrevious), id=10)
 		self.Bind(wx.EVT_TOOL, Kernel.Protect(self.FindNext), id=11)
-
-	def DoNothing( self, event ):
-		"""Prevents flickering on MSW"""
-		pass
+		self.Bind(wx.EVT_TOOL, Kernel.Protect(self.OnSave), id=12)
 
 	def RefreshScript( self ):
 		"""Refreshes the displayed text"""
@@ -103,12 +102,15 @@ class ScriptEditor_Panel( Templates.ScriptEditor_Panel ):
 		length = str.format('Lines: {0}   Characters: {1}   Position: {2}', 
 			self.scriptCtrl.LineCount, chars, self.scriptCtrl.GetCurrentPos())
 		self.statusBar.SetStatusText(length, 1)
-
 		sel = len(self.scriptCtrl.SelectedText)
 		if sel > 0: self.statusBar.SetStatusText(str.format('Selection: {}', sel), 2)
 		else: self.statusBar.SetStatusText('', 2)
 		if event is not None:
 			event.Skip()
+
+		# TODO: TEST
+		if self.ScriptIndex > -1:
+			Scripts[self.ScriptIndex].SetText(self.scriptCtrl.GetTextUTF8())
 		
 	def OnCopy( self, event ):
 		"""Sets the scripts selected text to the clipboard"""
@@ -166,6 +168,15 @@ class ScriptEditor_Panel( Templates.ScriptEditor_Panel ):
 
 	def OnHelp( self, event ):
 		self.statusBar.SetStatusText('Opening Help...', 0)
+		print Scripts[self.ScriptIndex].IsModified()
+
+	def OnSave( self, event ):
+		"""Saves the open script to disk"""
+		if self.ScriptIndex >= 0:
+			Scripts[self.ScriptIndex].SetText(self.scriptCtrl.GetText())
+			Scripts[self.ScriptIndex].SaveScript(self.ScriptIndex)
+			msg = str.format('{}.rb Saved!', Scripts[self.ScriptIndex].GetName())
+			self.statusBar.SetStatusText(msg, 0)
 
 	def comboBoxScripts_TextChanged( self, event ):
 		text = event.GetString()

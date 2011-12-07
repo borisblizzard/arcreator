@@ -61,7 +61,7 @@ class Manager(object):
 			# TODO: Apply escape sequences for invalid characters in the filename
 			filename = str.format('{0}-{1}.rb', str(i).zfill(4), script.GetName())
 			original_path = script.GetPath()
-			isChanged = filename != os.path.basename(original_path)
+			isChanged = filename != script.GetFileName()
 			# If script text has not changed...
 			if not script.IsModified():
 				# If filename has changed, simply rename
