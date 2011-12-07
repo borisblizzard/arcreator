@@ -220,8 +220,10 @@ class ScriptSettings_Dialog( Templates.ScriptSettings_Dialog ):
 	def buttonDefault_Clicked( self, event ):
 		"""Sets all the styles to the internal default settings"""
 		msg = 'This action is irreversible.\nAre you sure you want to reapply all default styles?'
-		if wx.MessageBox(msg, 'Confirm', wx.YES_NO|wx.CENTRE, self) == 2:
-			SM.ApplyDefaultSettings()
+		if wx.MessageBox(msg, 'Confirm', wx.YES|wx.NO|wx.CENTRE, self) == wx.YES:
+
+			# TODO: HAVE APPLY TO ALL OPEN SCRIPT CONTROLS
+			SM.ApplyDefaultSettings(self.ScriptControl)
 			self.EndModal(wx.ID_OK)
 
 	def GetConfiguration( self ):
