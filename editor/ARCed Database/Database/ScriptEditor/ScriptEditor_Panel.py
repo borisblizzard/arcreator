@@ -1,7 +1,9 @@
 import wx
 import os
+import Database
 import Database.ARCed_Templates as Templates
 import Database.Manager as DM
+from Database.ScriptEditor import Manager as SM
 from Database.Controls import ScriptTextCtrl
 import re
 import Kernel
@@ -14,8 +16,6 @@ class ScriptEditor_Panel( Templates.ScriptEditor_Panel ):
 	def __init__( self, parent, index=-1 ):
 		"""Basic constructor for the ScriptEditor_Panel"""
 		Templates.ScriptEditor_Panel.__init__( self, parent )
-		# TODO: Alter import order to allow importing this globally in header
-		import Database.ScriptEditor.Manager as SM
 		self.CreateToolBar()
 		self.statusBar = parent.CreateStatusBar()
 		self.statusBar.SetFieldsCount(3)
@@ -62,12 +62,13 @@ class ScriptEditor_Panel( Templates.ScriptEditor_Panel ):
 		self.toolBar.AddSimpleTool(6, art.GetBitmap(wx.ART_FIND_AND_REPLACE), 'Find and Replace', 'Open Find & Replace window for replacing text')
 		self.toolBar.AddSeparator()
 		self.toolBar.AddSimpleTool(7, art.GetBitmap(wx.ART_HELP_SETTINGS), 'Settings', 'Opens the settings window')
-		self.toolBar.AddSimpleTool(8, art.GetBitmap(wx.ART_HELP_BOOK), 'Help', 'Opens the compiled HTML help doc')
+		self.toolBar.AddSimpleTool(8, art.GetBitmap(wx.ART_LIST_VIEW), 'Normalize Indents', 'Applies conventional Ruby indenting to the script')
+		self.toolBar.AddSimpleTool(9, art.GetBitmap(wx.ART_HELP_BOOK), 'Help', 'Opens the compiled HTML help doc')
 		self.toolBar.AddSeparator()
 		self.textCtrlSearch = wx.TextCtrl(self.toolBar, -1, 'Search...', style=wx.TE_RIGHT)
 		self.toolBar.AddControl(self.textCtrlSearch)
-		self.toolBar.AddSimpleTool(9, art.GetBitmap(wx.ART_GO_BACK), 'Previous', '')
-		self.toolBar.AddSimpleTool(10, art.GetBitmap(wx.ART_GO_FORWARD), 'Next', '')
+		self.toolBar.AddSimpleTool(10, art.GetBitmap(wx.ART_GO_BACK), 'Previous', '')
+		self.toolBar.AddSimpleTool(11, art.GetBitmap(wx.ART_GO_FORWARD), 'Next', '')
 		self.toolBar.AddSeparator()
 		self.comboBoxScripts = wx.ComboBox(self.toolBar, size=(184,-1), style=wx.GROW)
 		self.comboBoxScripts.Bind(wx.EVT_COMBOBOX, self.OpenScript)
@@ -82,9 +83,10 @@ class ScriptEditor_Panel( Templates.ScriptEditor_Panel ):
 		self.Bind(wx.EVT_TOOL, self.OnFind, id=5)
 		self.Bind(wx.EVT_TOOL, self.OnReplace, id=6)
 		self.Bind(wx.EVT_TOOL, Kernel.Protect(self.OnSettings), id=7)
-		self.Bind(wx.EVT_TOOL, Kernel.Protect(self.OnHelp), id=8)
-		self.Bind(wx.EVT_TOOL, Kernel.Protect(self.FindPrevious), id=9)
-		self.Bind(wx.EVT_TOOL, Kernel.Protect(self.FindNext), id=10)
+		self.Bind(wx.EVT_TOOL, Kernel.Protect(self.OnNormalize), id=8)
+		self.Bind(wx.EVT_TOOL, Kernel.Protect(self.OnHelp), id=9)
+		self.Bind(wx.EVT_TOOL, Kernel.Protect(self.FindPrevious), id=10)
+		self.Bind(wx.EVT_TOOL, Kernel.Protect(self.FindNext), id=11)
 
 	def DoNothing( self, event ):
 		"""Prevents flickering on MSW"""
@@ -98,7 +100,7 @@ class ScriptEditor_Panel( Templates.ScriptEditor_Panel ):
 	def RefreshStatus( self, event=None ):
 		"""Refreshes the status bar text"""
 		chars = len(re.sub(r'\s', '', self.scriptCtrl.Text))
-		length = str.format('Lines: {0}   Characters: {1}  Position: {2}', 
+		length = str.format('Lines: {0}   Characters: {1}   Position: {2}', 
 			self.scriptCtrl.LineCount, chars, self.scriptCtrl.GetCurrentPos())
 		self.statusBar.SetStatusText(length, 1)
 
@@ -143,7 +145,6 @@ class ScriptEditor_Panel( Templates.ScriptEditor_Panel ):
 
 	def OnSettings( self, event ):
 		from Database.Dialogs import ScriptSettings_Dialog
-		import Database.ScriptEditor.Manager as SM
 		dlg = ScriptSettings_Dialog(self, self.scriptCtrl)
 		if dlg.ShowModal() == wx.ID_OK:
 			config = Kernel.GlobalObjects.get_value('ARCed_config').get_section('ScriptEditor')
@@ -151,6 +152,17 @@ class ScriptEditor_Panel( Templates.ScriptEditor_Panel ):
 			for key, value in new_config.iteritems():
 				config.set(key, value)
 			SM.ApplyUserSettings(self.scriptCtrl)
+
+	def OnNormalize( self, event ):
+		"""Applies script indent normalization"""
+		result = wx.MessageBox('Automatically apply conventional Ruby indents to document?', 
+			'Confirm Action', wx.OK|wx.CANCEL|wx.CENTRE, self)
+		if result == wx.OK:
+			import time
+			start = time.time()
+			self.scriptCtrl.NormalizeIndenting()
+			msg = str.format('Indentation applied in {} seconds', time.time() - start)
+			self.statusBar.SetStatusText(msg, 0)
 
 	def OnHelp( self, event ):
 		self.statusBar.SetStatusText('Opening Help...', 0)
@@ -184,9 +196,6 @@ class ScriptEditor_Panel( Templates.ScriptEditor_Panel ):
 		return results
 
 	def FindPrevious( self, event ):
-
-		self.scriptCtrl.NormalizeIndenting()
-
 		pass
 
 	def FindNext( self, event ):

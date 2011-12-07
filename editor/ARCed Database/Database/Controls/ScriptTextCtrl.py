@@ -1,6 +1,7 @@
 import wx
-from wxPython import stc #* TODO: Use stc for now for benefit of IntelliSense
+from wxPython.stc import *
 import Kernel
+from Database.ScriptEditor import Manager as SM
 from Database.Dialogs import FindReplace_Dialog
 
 """
@@ -17,15 +18,17 @@ TODO:
 
 RUBY_KEYWORDS = "BEGIN END __ENCODING__ __END__ __FILE__ __LINE__ alias and begin break case class def defined? do else elsif end ensure false for if in module next nil not or redo rescue retry return self super then true undef unless until when while yield"
 BRACES = ['(', ')', '[', ']', '{', '}', '<', '>']
+INDENT_WORDS = ['if', 'unless', 'def', 'module', 'class', 'begin', 'while', 'until', 'for']
+UNINDENT_WORDS = ['elsif', 'else', 'when', 'rescue', 'ensure']
 
-class ScriptTextCtrl(stc.wxStyledTextCtrl):
+class ScriptTextCtrl(wxStyledTextCtrl):
 
-	SCRIPT_UPDATEUI = wx.PyEventBinder(stc.wxEVT_STC_UPDATEUI, 1)
+	SCRIPT_UPDATEUI = wx.PyEventBinder(wxEVT_STC_UPDATEUI, 1)
 
 	def __init__(self, parent):
 		"""Basic constructor for the ScriptTextCtrl"""
 		super(ScriptTextCtrl, self).__init__(parent, 
-			style=stc.wxSTC_STYLE_LINENUMBER|stc.wxSTC_STYLE_INDENTGUIDE)
+			style=wxSTC_STYLE_LINENUMBER|wxSTC_STYLE_INDENTGUIDE)
 		from Database.ScriptEditor import FindReplaceData
 		global Config
 		Config = Kernel.GlobalObjects.get_value('ARCed_config').get_section('ScriptEditor')
@@ -36,7 +39,7 @@ class ScriptTextCtrl(stc.wxStyledTextCtrl):
 		self.Bind(wx.EVT_KEY_DOWN, self.KeyPressed)
 		self.Bind(wx.EVT_TEXT_PASTE, self.CalculateLineNumberMargin)
 		self.Bind(self.SCRIPT_UPDATEUI, self.UpdateUI)
-		self.Bind(wx.PyEventBinder(stc.wxEVT_STC_MARGINCLICK, 1), self.MarginClicked)
+		self.Bind(wx.PyEventBinder(wxEVT_STC_MARGINCLICK, 1), self.MarginClicked)
 		
 	def UpdateUI( self, event ):
 		"""Updates brace matching"""
@@ -72,22 +75,23 @@ class ScriptTextCtrl(stc.wxStyledTextCtrl):
 	def KeyPressed( self, event ):
 		"""Preprocess keystrokes before they are added to the Scintilla control"""
 		ch = event.GetKeyCode()
-		# Check for hotkey input
 		if event.CmdDown():
-			if ch == ord('F'):
+			if ch == ord('F'): # Find
 				self.StartFindReplace(0)
 				return
-			elif ch == ord('H'):
-				self.StartFindReplace(1)
+			elif ch == ord('H'): # Replace
+				self.StartFindReplace(1) 
+				return
+			elif ch == ord('S'): # Save
+				pass
 				return
 		if ch == wx.WXK_RETURN:
-			# Process auto-indentation if the return key was pressed
 			thisLine = self.GetCurrentLine()
 			nextLine = thisLine + 1
 			text = self.GetCurLine()[0]
 			indent = self.GetLineIndentation(thisLine)
 			indent += self.DetermineIndentChange(text, thisLine, indent)
-			self.CmdKeyExecute(stc.wxSTC_CMD_NEWLINE)
+			self.CmdKeyExecute(wxSTC_CMD_NEWLINE)
 			self.SetLineIndentation(nextLine, indent)
 			self.GotoPos(self.GetLineEndPosition(nextLine))
 			self.CalculateLineNumberMargin()
@@ -117,7 +121,7 @@ class ScriptTextCtrl(stc.wxStyledTextCtrl):
 		if len(currentWords) == 0: 
 			return 0
 		first, last = currentWords[0], currentWords[-1]
-		if last == 'end' or last == 'else' or first in ['when', 'elsif', 'rescue', 'ensure']:
+		if last == 'end' or first in UNINDENT_WORDS:
 			if first == 'when':
 				previousText = self.GetLine(previousLine - 1).strip()
 				if 'then' in currentWords: return 0
@@ -131,8 +135,7 @@ class ScriptTextCtrl(stc.wxStyledTextCtrl):
 				return tabWidth
 			if last == 'end' : return -tabWidth
 			return 0
-		if first in ['class', 'module', 'if', 'elsif', 'else', 'begin', 'rescue', 
-			'ensure','unless', 'while', 'until', 'def', 'for', 'case']:
+		if first in INDENT_WORDS:
 			return tabWidth
 		return 0
 
@@ -142,102 +145,63 @@ class ScriptTextCtrl(stc.wxStyledTextCtrl):
 		
 	def BindHotKeys( self ):
 		"""Binds hotkey commands to the script control"""
-		self.CmdKeyAssign(ord('Z'), stc.wxSTC_SCMOD_ALT, stc.wxSTC_CMD_ZOOMIN)
-		self.CmdKeyAssign(ord('X'), stc.wxSTC_SCMOD_ALT, stc.wxSTC_CMD_ZOOMOUT)
+		self.CmdKeyAssign(ord('Z'), wxSTC_SCMOD_ALT, wxSTC_CMD_ZOOMIN)
+		self.CmdKeyAssign(ord('X'), wxSTC_SCMOD_ALT, wxSTC_CMD_ZOOMOUT)
 
 	def ApplySettings( self ):
 		"""Applies default setting to the script control"""
-		# TODO: Reorganize imports so this doesn't have to be here
-		from Database.ScriptEditor import Manager
-		self.SetLexer(stc.wxSTC_LEX_RUBY)
+		self.SetLexer(wxSTC_LEX_RUBY)
 		self.SetKeyWords(0, RUBY_KEYWORDS)
-		Manager.ApplyUserSettings(self)
-		self.SetEdgeMode(stc.wxSTC_EDGE_LINE)
-		self.SetMarginType(2, stc.wxSTC_MARGIN_NUMBER)
+		SM.ApplyUserSettings(self)
+		self.SetEdgeMode(wxSTC_EDGE_LINE)
+		self.SetMarginType(2, wxSTC_MARGIN_NUMBER)
 		if Config.get('folding').lower() == 'true':
 			self.SetupMargins()
 		
 	def SetupMargins( self ):
 		"""Sets up the margins for folding"""
-		self.SetMarginType(3, stc.wxSTC_MARGIN_SYMBOL)
+		self.SetMarginType(3, wxSTC_MARGIN_SYMBOL)
 		self.SetMarginWidth(3, 16)
 		self.SetProperty("fold", "3")
-		self.SetMarginType(3, stc.wxSTC_MARGIN_SYMBOL)
-		self.SetMarginMask(3, stc.wxSTC_MASK_FOLDERS)
+		self.SetMarginType(3, wxSTC_MARGIN_SYMBOL)
+		self.SetMarginMask(3, wxSTC_MASK_FOLDERS)
 		self.SetMarginSensitive(3, True)
 		self.SetMarginWidth(3, 12)
-		self.MarkerDefine(stc.wxSTC_MARKNUM_FOLDEROPEN, 
-			stc.wxSTC_MARK_BOXMINUS, "white", "#808080")
-		self.MarkerDefine(stc.wxSTC_MARKNUM_FOLDER,
-			stc.wxSTC_MARK_BOXPLUS, "white", "#808080")
-		self.MarkerDefine(stc.wxSTC_MARKNUM_FOLDEROPENMID,
-			stc.wxSTC_MARK_BOXMINUSCONNECTED, "white", "#808080")
-		self.MarkerDefine(stc.wxSTC_MARKNUM_FOLDEREND,
-			stc.wxSTC_MARK_BOXPLUSCONNECTED, "white", "#808080")
-		self.MarkerDefine(stc.wxSTC_MARKNUM_FOLDERTAIL,
-			stc.wxSTC_MARK_LCORNER, "white", "#808080")
-		self.MarkerDefine(stc.wxSTC_MARKNUM_FOLDERSUB,
-			stc.wxSTC_MARK_VLINE, "white", "#808080")
-		self.MarkerDefine(stc.wxSTC_MARKNUM_FOLDERMIDTAIL,
-			stc.wxSTC_MARK_TCORNER, "white", "#808080")
+		self.MarkerDefine(wxSTC_MARKNUM_FOLDEROPEN, wxSTC_MARK_BOXMINUS, "white", "#808080")
+		self.MarkerDefine(wxSTC_MARKNUM_FOLDER, wxSTC_MARK_BOXPLUS, "white", "#808080")
+		self.MarkerDefine(wxSTC_MARKNUM_FOLDEROPENMID, wxSTC_MARK_BOXMINUSCONNECTED, "white", "#808080")
+		self.MarkerDefine(wxSTC_MARKNUM_FOLDEREND, wxSTC_MARK_BOXPLUSCONNECTED, "white", "#808080")
+		self.MarkerDefine(wxSTC_MARKNUM_FOLDERTAIL, wxSTC_MARK_LCORNER, "white", "#808080")
+		self.MarkerDefine(wxSTC_MARKNUM_FOLDERSUB, wxSTC_MARK_VLINE, "white", "#808080")
+		self.MarkerDefine(wxSTC_MARKNUM_FOLDERMIDTAIL, wxSTC_MARK_TCORNER, "white", "#808080")
 
 	def NormalizeIndenting( self ):
 		"""Automatically applies conventional indent levels to the script"""
-		left = ''
+		new_text = ''
 		flag = False
-		currentIndent = 1
-		num = 0
+		currentIndent = 0
 		for i in xrange(self.LineCount):
-			text = self.Text
 			line = self.GetLine(i).strip()
-			if line.startswith('#') or flag:
-				left += (u'\t' * (currentIndent - 1)) + line + '\r\n'
-			elif line.startswith('=begin'):
-				flag = True
-				left += (u'\t' * (currentIndent - 1)) + line + '\r\n'
-			elif line.startswith('=end'):
-				flag = False
-				left += (u'\t' * (currentIndent - 1)) + line + '\r\n'
-			elif line.startswith('if ') or line.startswith('unless '):
-				left = (left + (u'\t' * (currentIndent - 1)) + line + '\r\n')
-				if not ' end' in line:
-					currentIndent += 1
-			elif line.startswith('def '):
-				left = (left + (u'\t' * (currentIndent - 1)) + line + '\r\n')
-				if not ' end' in line:
-					currentIndent += 1
-			elif line.startswith('case ') or ' case ' in line:
-				left = (left + (u'\t' * (currentIndent - 1)) + line + "\r\n")
-				currentIndent += 1
-				num += 1
-			elif ' do' in line:
-				left = (left + (u'\t' * (currentIndent - 1)) + line + "\r\n")
-				if not ' end' in line:
-					currentIndent += 1
-			elif line.startswith('module ') or line.startswith('class '):
-				left = (left + (u'\t' * (currentIndent - 1)) + line + "\r\n")
-				if not ' end' in line:
-					currentIndent += 1
-			elif line.startswith('begin'):
-				left = (left + (u'\t' * (currentIndent - 1)) + line + "\r\n")
-				if not ' end' in line:
-					currentIndent += 1
-			elif line.startswith('while ') or line.startswith('until '):
-				left = (left + (u'\t' * (currentIndent - 1)) + line + "\r\n")
-				if not ' end' in line:
-					currentIndent += 1
-			elif line.startswith('for '):
-				left = (left + (u'\t' * (currentIndent - 1)) + line + "\r\n")
-				if not ' end' in line:
-					currentIndent += 1
-			elif line.startswith('elsif') or line.startswith('else') or line.startswith('when') or line.startswith('rescue') or line.startswith('ensure'):
-				left = (left + (u'\t' * (currentIndent - 2)) + line + "\r\n")
-			elif line.startswith('end'):
-				currentIndent -= 1
-				left = (left + (u'\t' * (currentIndent - 1)) + line + "\r\n")
-				if num > 0:
-					num -= 1
+			words = line.split()
+			if line.startswith('=begin') or line.startswith('=end'):
+				flag = line.startswith('=begin')
+				new_text += u'\t' * currentIndent + line + '\r\n'
+			elif line.startswith('#') or flag:
+				new_text += u'\t' * currentIndent + line + '\r\n'
+			elif len(words) > 0 and not line.startswith('#') and not flag:
+				first_word = words[0]
+				if first_word in INDENT_WORDS or 'do' in words or 'case' in words:
+					new_text += u'\t' * currentIndent + line + '\r\n'
+					if not 'end' in words or not ';end' in words:
+						currentIndent += 1
+				elif first_word in UNINDENT_WORDS:
+					new_text += u'\t' * (currentIndent - 1)  + line + '\r\n'
+				elif first_word.strip(';)}') == 'end':
+					currentIndent -= 1
+					new_text += u'\t' * currentIndent + line + '\r\n'
+				else:
+					new_text += u'\t' * currentIndent + line + '\r\n'
 			else:
-				left = (left + (u'\t' * (currentIndent - 1)) + line + "\r\n");
+				new_text += '\r\n'
 		self.ClearAll()
-		self.SetText(left)
+		self.SetText(new_text)
