@@ -6,7 +6,9 @@ Contains data for a open project
 '''
 import os
 import sys
+import time
 import ConfigParser
+import zipfile
 
 import Kernel
 from Kernel import Manager as KM
@@ -58,8 +60,12 @@ class Project(object):
         if self._deferred_data.has_key(key):
             return self._deferred_data[key][1]
         else:
-            self._deferred_data[key] = [False, self.load_func(os.path.dirname(self.project_path), key)]
-            return self._deferred_data[key][1]
+            try:
+                self._deferred_data[key] = [False, self.load_func(os.path.dirname(self.project_path), key)]
+                return self._deferred_data[key][1]
+            except Exception:
+                Kernel.Log("Warning: Deferred data '%s' does not exist. Returned None" % key, "[Project]")
+                return None
     
     def setInfo(self, key, value, changed=True):
         if self._info.has_key(key.lower()):
@@ -140,7 +146,29 @@ class Project(object):
                 changed_flag = True
         return changed_flag
 
-    def saveProject(self):
+
+    def saveData(self, key):
+        if (self.save_func != None) and callable(self.save_func):
+            self.save_func(os.path.dirname(self.project_path), key, self.getData(key))
+            self.setChangedData(key, False)
+        else:
+            Kernel.Log("Warning: no save function set for project. Data files NOT saved", "[Project]")
+                
+    def saveDeferredData(self, key):
+        if (self.save_func != None) and callable(self.save_func):
+            self.save_func(os.path.dirname(self.project_path), key, self.getDeferredData(key))
+            self.setChangedDeferredData(key, False)
+        else:
+            Kernel.Log("Warning: no save function set for project. Data files NOT saved", "[Project]")
+
+    def saveMapData(self, id_num):
+        if (self.save_func != None) and callable(self.save_func):
+            self.save_func(os.path.dirname(self.project_path), key, self.getDeferredData("Map%03d" % id_num))
+            self.setChangedDeferredData("Map%03d" % id_num, False)
+        else:
+            Kernel.Log("Warning: no save function set for project. Data files NOT saved", "[Project]")
+
+    def saveInfo(self):
         config = ConfigParser.ConfigParser()
         config.add_section("Project")
         for key, value in self._info.items():
@@ -159,17 +187,18 @@ class Project(object):
         f = open(filename, 'wb')
         config.write(f)
         f.close()
-        if (self.save_func != None) and callable(self.save_func):
-            for key, value in self._data.items():
-                self.save_func(os.path.dirname(self.project_path), key, value[1])
-            for key, value in self._deferred_data.items():
-                self.save_func(os.path.dirname(self.project_path), key, value[1])
-        else:
-            Kernel.Log("Warning: no save function set for project. Data files NOT saved", "[Project]")
-            
-    
+
+    def saveProject(self):
+        for key in self._data:
+            if self.getChangedData(key):
+                self.saveData(key)
+        for key in self._deferred_data:
+            if self.getChangedDeferredData(key):
+                self.saveDeferredData(key)
+               
     def loadProject(self):
         if os.path.exists(self.project_path):
+            self.Backup()
             config = ConfigParser.ConfigParser()
             config.read(os.path.normpath(self.project_path))
             infos = config.items("Project")
@@ -186,6 +215,58 @@ class Project(object):
                         Kernel.Log("Warning: no load function set for project. Data for %s set to None" % file_name, "[Project]")
         else:
             Kernel.Log("Warning: project path %s does not exist. Project not loaded." % self.project_path, "[Project]")
+    
+    def addFolderToZip(self, zip, dir, rel_path=""):
+        dir = os.path.abspath(dir)
+        dir = dir.encode('ascii') #convert path to ascii for ZipFile Method
+        for file in os.listdir(dir):
+            if os.path.isfile(file):
+                zip.write(os.path.join(dir, file), os.path.join(rel_path, os.path.basename(file)), zipfile.ZIP_DEFLATED)
+            elif os.path.isdir(file):
+                    self.addFolderToZip(zip, os.path.join(dir, file), os.path.join(rel_path, os.path.basename(dir)))
+    
+    def Backup(self):
+        filename = ""
+        parts = os.path.basename(self.project_path).split(".")
+        if len(parts) > 1:
+            filename = ".".join(parts[:-1])
+        elif len(parts) == 1:
+            fielname = parts[0]
+        curTime = time.strftime("__%Y_%m_%d_%H_%M")
+        filename += curTime
+        filename += ".zip"
+        backupFolder = os.path.abspath(os.path.join(os.path.dirname(self.project_path), "Backups"))
+        if not os.path.exists(backupFolder) or not os.path.isdir(backupFolder):
+            os.makedirs(backupFolder)
+        zipFilename = os.path.abspath(os.path.join(backupFolder, filename))
+        zip = zipfile.ZipFile(zipFilename, "wb", zipfile.ZIP_DEFLATED)
+        self.addFolderToZip(zip, os.path.abspath(os.path.join(os.path.dirname(self.project_path), "Data")))
+        zip.close()
+        return zipFilename
+
+    def RestoreBackup(self, path):
+        backup = self.Backup()
+        if zipfile.is_zipfile(path):
+            try:
+                zip = zipfile.ZipFile(path, "rb", zipfile.ZIP_DEFLATED)
+                local_path = os.path.abspath(os.path.dirname(self.project_path))
+                for file in zip.namelist():
+                    member = zip.getinfo(file)
+                    if member.filename[0] == '/':
+                        targetpath = os.path.join(local_path, member.filename[1:])
+                    else:
+                        targetpath = os.path.join(local_path, member.filename)
+                    if os.path.normpath(os.path.join(local_path, file)) == os.path.abspath(targetpath):
+                        if member.filename[-1] == '/':
+                            if not os.path.isdir(targetpath):
+                                os.mkdir(targetpath)
+                            continue
+                        zip.extract(file, local_path)
+            except Exception:
+                Kernel.Log("There was an error restoring the backup, your project data may be corrupted. A backup was made before the restore was attempted, this backup can be found at %s" % backup, "[Project]", True, True)
+        else:
+            Kernel.Log("Backup file is not a valid zip file", "[Project]", True)
+
                 
 class ARCProjectCreator(object):
     

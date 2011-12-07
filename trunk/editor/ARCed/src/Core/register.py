@@ -201,7 +201,8 @@ class CorePackage(Package):
         CoreEventARCRedirectClassPathsOnSave = Event("CoreEventARCRedirectClassPathsOnSave")
         CoreEventARCRedirectClassPathsOnLoad = Event("CoreEventARCRedirectClassPathsOnLoad")
         CoreEventARCExtendNamespaceOnLoad = Event("CoreEventARCExtendNamespaceOnLoad")
-        CoreExitMainWindow = Event("CoreExitMainWindow") 
+        CoreExitMainWindow = Event("CoreExitMainWindow")
+        CoreEventAutoSave = Event("CoreEventAutoSave")
         
         #=====================================================================
         # * add the events to be registered 
@@ -209,7 +210,7 @@ class CorePackage(Package):
         
         self.add_events(CoreEventOpenProject, CoreEventRefreshProject, CoreEventUpdateProjectMenu,
                         CoreEventARCRedirectClassPathsOnSave, CoreEventARCRedirectClassPathsOnLoad,
-                        CoreEventARCExtendNamespaceOnLoad, CoreExitMainWindow)
+                        CoreEventARCExtendNamespaceOnLoad, CoreExitMainWindow, CoreEventAutoSave)
         
         #=====================================================================
         # * add even hooks to be registered

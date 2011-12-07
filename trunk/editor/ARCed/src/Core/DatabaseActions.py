@@ -703,8 +703,6 @@ class ClassEditAction(Actions.ActionTemplate):
             else:
                 return False
      
-
-
 class TroopEditAction(Actions.ActionTemplate):
     def __init(self, id, data={}, sub_action=False):
         super(TroopEditAction, self).__init__(sub_action)
