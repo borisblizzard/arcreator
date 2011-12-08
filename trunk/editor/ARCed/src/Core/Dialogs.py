@@ -5,10 +5,12 @@ Created on Jan 16, 2011
 '''
 import os
 import sys
+import ConfigParser
 
 import wx
 
 import Kernel
+from Kernel import Manager as KM
 
 
 class NewProjectDialog(wx.Dialog):
@@ -58,22 +60,55 @@ class NewProjectDialog(wx.Dialog):
 
         nameSizer = wx.BoxSizer(wx.VERTICAL)
 
+        staticBox = wx.StaticBox(self, wx.ID_ANY, label="Type", name="Type")
+        templatesizer = wx.BoxSizer(wx.HORIZONTAL)
+        
+        self.templateRadiobt = wx.RadioButton(self, wx.ID_ANY, 'From Template', style=wx.RB_GROUP)
+        templatesizer.Add(self.templateRadiobt, 0, wx.ALL, 5)
+
+        RTPFunctions = KM.get_component("ARCRTPFunctions").object
+        templatefiles = RTPFunctions.GetTemplateList()
+        self.Templates = {}
+        templateList = []
+        for file in templatefiles:
+            name = self.getTemplateProjectName(file)
+            self.Templates[name] = file
+            templateList.append(name)
+
+        index = 0
+        for name in templateList:
+            if "default".lower() in name.lower():
+                index = templateList.index(name)
+                break
+        
+        self.TemplateChoice = wx.Choice(self, wx.ID_ANY, choices=templateList)
+        self.TemplateChoice.Select(index)
+        templatesizer.Add(self.TemplateChoice, 0, wx.ALL, 5)
+
+        self.BlankProjectRadiobt = wx.RadioButton(self, wx.ID_ANY, 'Blank Project')
+
+        TypeSizer = wx.StaticBoxSizer(staticBox, wx.VERTICAL)
+        TypeSizer.Add(templatesizer, 1, wx.ALL|wx.EXPAND, 0)
+        TypeSizer.Add(self.BlankProjectRadiobt, 1, wx.ALL|wx.EXPAND, 5)
+
+        TopSizer.Add(TypeSizer, 0, wx.ALL|wx.EXPAND, 5)
+
         self.nameText = wx.StaticText(self, wx.ID_ANY, "Project Name:",
                                       wx.DefaultPosition, wx.DefaultSize, 0)
         self.nameText.Wrap(-1)
         self.nameText.SetHelpText("The name of the project.")
 
-        nameSizer.Add(self.nameText, 0, wx.ALL, 5)
+        nameSizer.Add(self.nameText, 1, wx.ALL|wx.EXPAND, 5)
 
         self.nameTextCtrl = wx.TextCtrl(self, wx.ID_ANY, wx.EmptyString,
-                                        wx.DefaultPosition, (-1, -1), 0)
+                                        wx.DefaultPosition, (350, -1), 0)
         self.nameTextCtrl.SetHelpText("The name of the project.")
 
-        nameSizer.Add(self.nameTextCtrl, 0, wx.ALL | wx.EXPAND, 5)
+        nameSizer.Add(self.nameTextCtrl, 0, wx.ALL|wx.EXPAND, 5)
 
-        TopSizer.Add(nameSizer, 5, wx.EXPAND, 5)
+        TopSizer.Add(nameSizer, 5, wx.ALL|wx.EXPAND, 5)
 
-        DialogSizer.Add(TopSizer, 1, wx.EXPAND, 5)
+        DialogSizer.Add(TopSizer, 1, wx.ALL|wx.EXPAND, 5)
 
         BottomSizer = wx.BoxSizer(wx.HORIZONTAL)
 
@@ -156,6 +191,12 @@ class NewProjectDialog(wx.Dialog):
         self.Bind(wx.EVT_TEXT, self.FolderChanged, self.folderTextCtrl)
         self.Bind(wx.EVT_BUTTON, self.OnOk, self.ButtonOK)
         self.Bind(wx.EVT_BUTTON, self.OnFolder, self.folderBtn)
+
+    def getTemplateProjectName(self, path):
+        config = ConfigParser.ConfigParser()
+        config.read(os.path.normpath(path))
+        title = config.get("Project", "Title")
+        return title
 
     def NameChanged(self, event):
         self.name = event.GetString()

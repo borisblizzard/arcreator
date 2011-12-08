@@ -115,12 +115,14 @@ class CoreEditorMainWindow(wx.Frame):
                 self.ProcessClose()
                 self.Destroy()
                 event.Skip()
+                wx.Exit()
             else:
                 event.Veto()
         else:
             self.ProcessClose()
             self.Destroy()
             event.Skip()
+            wx.Exit()
 
     def ProcessClose(self):
         #handle an open project
