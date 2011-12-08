@@ -188,12 +188,12 @@ class Project(object):
         config.write(f)
         f.close()
 
-    def saveProject(self):
+    def saveProject(self, all=False):
         for key in self._data:
-            if self.getChangedData(key):
+            if all or self.getChangedData(key):
                 self.saveData(key)
         for key in self._deferred_data:
-            if self.getChangedDeferredData(key):
+            if all or self.getChangedDeferredData(key):
                 self.saveDeferredData(key)
                
     def loadProject(self):
@@ -269,44 +269,50 @@ class ARCProjectCreator(object):
     def __init__(self):
         self.project = None
         
-    def Create(self, path, title):
+    def Create(self, path, title, template):
         #create a project object
         self.project = KM.get_component("ARCProjectHolder").object()
-        #set initial info
-        self.project.setInfo("Title", title)
-        self.project.setChangedInfo("Title", False)
-        self.project.setData("Actors", [])
-        self.project.setChangedData("Actors", False)
-        self.project.setData("Classes", [])
-        self.project.setChangedData("Classes", False)
-        self.project.setData("Skills", [])
-        self.project.setChangedData("Skills", False)
-        self.project.setData("Items", [])
-        self.project.setChangedData("Items", False)
-        self.project.setData("Weapons", [])
-        self.project.setChangedData("Weapons", False)
-        self.project.setData("Armors", [])
-        self.project.setChangedData("Armors", False)
-        self.project.setData("States", [])
-        self.project.setChangedData("States", False)
-        self.project.setData("Animations", [])
-        self.project.setChangedData("Animations", False)
-        self.project.setData("Troops", [])
-        self.project.setChangedData("Troops", False)
-        self.project.setData("Tilesets", [])
-        self.project.setChangedData("Tilesets", False)
-        self.project.setData("CommonEvents", [])
-        self.project.setChangedData("CommonEvents", False)
-        self.project.setData("System", [])
-        self.project.setChangedData("System", False)
-        self.project.setData("MapInfos", {})
-        self.project.setChangedData("MapInfos", False)
+        if template[0]:
+            #load the template
+            self.project.setProjectPath(template[1])
+            self.project.setLoadFunc(KM.get_component("ARCProjectLoadFunction").object)
+            self.project.loadProject()
+        else:
+            #set initial info
+            self.project.setInfo("Title", title)
+            self.project.setChangedInfo("Title", False)
+            self.project.setData("Actors", [])
+            self.project.setChangedData("Actors", False)
+            self.project.setData("Classes", [])
+            self.project.setChangedData("Classes", False)
+            self.project.setData("Skills", [])
+            self.project.setChangedData("Skills", False)
+            self.project.setData("Items", [])
+            self.project.setChangedData("Items", False)
+            self.project.setData("Weapons", [])
+            self.project.setChangedData("Weapons", False)
+            self.project.setData("Armors", [])
+            self.project.setChangedData("Armors", False)
+            self.project.setData("States", [])
+            self.project.setChangedData("States", False)
+            self.project.setData("Animations", [])
+            self.project.setChangedData("Animations", False)
+            self.project.setData("Troops", [])
+            self.project.setChangedData("Troops", False)
+            self.project.setData("Tilesets", [])
+            self.project.setChangedData("Tilesets", False)
+            self.project.setData("CommonEvents", [])
+            self.project.setChangedData("CommonEvents", False)
+            self.project.setData("System", [])
+            self.project.setChangedData("System", False)
+            self.project.setData("MapInfos", {})
+            self.project.setChangedData("MapInfos", False)
         #set the save function
         self.project.setSaveFunc(KM.get_component("ARCProjectSaveFunction").object)
         #set the project path
         self.project.setProjectPath(path)
         #save the project
-        self.project.saveProject()
+        self.project.saveProject(all=True)
 
     def getProject(self):
         return self.project

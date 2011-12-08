@@ -68,11 +68,11 @@ class NewProjectDialog(wx.Dialog):
 
         RTPFunctions = KM.get_component("ARCRTPFunctions").object
         templatefiles = RTPFunctions.GetTemplateList()
-        self.Templates = {}
+        templates = {}
         templateList = []
         for file in templatefiles:
             name = self.getTemplateProjectName(file)
-            self.Templates[name] = file
+            templates[name] = file
             templateList.append(name)
 
         index = 0
@@ -81,8 +81,14 @@ class NewProjectDialog(wx.Dialog):
                 index = templateList.index(name)
                 break
         
-        self.TemplateChoice = wx.Choice(self, wx.ID_ANY, choices=templateList)
-        self.TemplateChoice.Select(index)
+        self.TemplateChoice = wx.Choice(self, wx.ID_ANY, choices=[])
+        self.TemplateChoice.Append(templateList[index], templates[templateList[index]]) 
+
+        for i in range(len(templateList)):
+            if i == index: continue
+            self.TemplateChoice.Append(templateList[i], templates[templateList[i]]) 
+        self.TemplateChoice.Select(0)
+
         templatesizer.Add(self.TemplateChoice, 0, wx.ALL, 5)
 
         self.BlankProjectRadiobt = wx.RadioButton(self, wx.ID_ANY, 'Blank Project')
@@ -241,7 +247,10 @@ class NewProjectDialog(wx.Dialog):
             event.Skip()
 
     def getdata(self):
-        return (self.name, self.location)
+        template = (False, "")
+        if self.templateRadiobt.GetValue():
+            template = (True, self.TemplateChoice.GetClientData(self.TemplateChoice.GetSelection()))
+        return (template, self.name, self.location)
 
     def checkdata(self):
         if self.name.strip() == "":

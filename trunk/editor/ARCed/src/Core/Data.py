@@ -30,11 +30,11 @@ def NewProject(mainwindow):
     dlg = KM.get_component("NewProjectDialog").object(mainwindow)
     result = dlg.ShowModal()
     if result == wx.ID_OK:
-        #lets creat the project
-        name, folder = dlg.getdata()
+        #lets create the project
+        template, name, folder = dlg.getdata()
         path = os.path.join(folder, "Project.arcproj")
         projectcreator = KM.get_component("ARCProjectCreator").object()
-        projectcreator.Create(path, name)
+        projectcreator.Create(path, name, template)
         #place the project in the global namespace
         if Kernel.GlobalObjects.has_key("PROJECT"):
             Kernel.GlobalObjects.set_value("PROJECT", projectcreator.getProject())
