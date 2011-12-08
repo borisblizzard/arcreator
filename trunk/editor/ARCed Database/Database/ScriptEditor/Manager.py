@@ -1,6 +1,5 @@
 import os
 import wx 
-import codecs
 import Kernel
 #--------------------------------------------------------------------------------------
 # Manager
@@ -8,9 +7,17 @@ import Kernel
 
 class Manager(object):
 
+	@staticmethod
+	def EnsureScriptDirectory():
+		"""Ensures the project's script directory exists"""
+		projDir = Kernel.GlobalObjects.get_value("CurrentProjectDir")
+		dir = os.path.join(projDir, 'Data', 'Scripts')
+		if not os.path.exists(dir) or not os.path.isdir(dir):
+			Kernel.Protect(os.makedirs, True)(dir)
+
 	#----------------------------------------------------------------------------------
 	@staticmethod
-	def LoadScripts(dir):
+	def LoadScripts():
 		"""Loads all scripts and stores them in memory
 
 		Arguments:
@@ -20,12 +27,15 @@ class Manager(object):
 		None
 
 		"""
-		import fnmatch
+		from fnmatch import fnmatch
 		from Database.ScriptEditor.Script import Script
+		Manager.EnsureScriptDirectory()
+		projDir = Kernel.GlobalObjects.get_value("CurrentProjectDir")
+		dir = os.path.join(projDir, 'Data', 'Scripts')
 		# TODO: Include internal scripts as read-only entries?
 		paths = []
 		for file in os.listdir(dir):
-			if fnmatch.fnmatch(file, '*.rb'):
+			if fnmatch(file, '*.rb'):
 				paths.append(os.path.join(dir, file))
 		scripts = [Script(i, path, False) for i, path in enumerate(sorted(paths))]
 		if Kernel.GlobalObjects.has_key('Scripts'):
@@ -45,60 +55,16 @@ class Manager(object):
 		Bool value if all scripts were saved successfully
 
 		"""
-		# If scripts are not loaded into memory, do not bother saving.
 		if not Kernel.GlobalObjects.has_key('Scripts'):
 			return False
-
-		try:
-			pass
-			# TODO: Apply deleting scripts marked for deletion here
-		except:
-			Kernel.Log('Failed to delete all scripts marked for deletion', 
-			  ['Script Editor'], True, False)
 		result = True
 		scripts = Kernel.GlobalObjects.get_value('Scripts')
+		Manager.EnsureScriptDirectory()
 		for i, script in enumerate(scripts):
-			# TODO: Apply escape sequences for invalid characters in the filename
-			filename = str.format('{0}-{1}.rb', str(i).zfill(4), script.GetName())
-			original_path = script.GetPath()
-			isChanged = filename != script.GetFileName()
-			# If script text has not changed...
-			if not script.IsModified():
-				# If filename has changed, simply rename
-				if isChanged:
-					new_path = os.path.join(script.GetDirectory(), filename)
-					try:
-						os.rename(original_path, new_path)
-						os.path.join(script.GetDirectory(), filename)
-						script.SetPath(new_path)
-					except:
-						Kernel.Log(str.format('Failed to rename \"{0}\" to \"{1}\"', 
-							 os.path.basename(original_path), filename),
-							'[Script Editor]', True, False)
-						result = False
-				# Do nothing if no modifications or renaming took place
-				continue
-			# Apply modifications of script text and overwrite original text
-			script.ApplyChanges()
-			if isChanged:
-				# If path has changed, remove old path
-				try:
-					os.remove(original_path)
-				except:
-					Kernel.Log(str.format('Failed to remove {}.', original_path),
-						'[Script Editor]', True, False)
-				# Set the scripts new path
-				path = os.path.join(script.GetDirectory(), filename)
-				script.SetPath(path)
-			try:
-				file = open(script.GetPath(), 'wb')
-				file.write(codecs.BOM_UTF8)
-				file.write(script.GetText().encode('utf-8'))
-				file.close()
-			except:
-				message = str.format('Script at path {} failed to save.\nPlease ensure there are sufficient privileges to write data to the location', script.GetPath()) 
-				Kernel.Log(message, '[Script Editor]', True, False)
+			if not script.SaveScript(i):
 				result = False
+				Kernel.Log(str.format('Failed to save script \"{}\".', script.GetName()), 
+					'[Script Editor]', True, False)
 		return result
 
 	#----------------------------------------------------------------------------------

@@ -154,6 +154,7 @@
     <Compile Include="Database\__init__.py" />
     <Compile Include="Database\__main__.py" />
     <Compile Include="Database\__test__.py" />
+    <Compile Include="utf8 converter.py" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Database" />
