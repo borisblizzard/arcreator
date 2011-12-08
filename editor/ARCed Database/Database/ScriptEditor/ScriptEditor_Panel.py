@@ -24,7 +24,7 @@ class ScriptEditor_Panel( Templates.ScriptEditor_Panel ):
 		#path = r"C:\Users\Eric\Desktop\ARC\editor\ARCed\src\RTP\Templates\Chonicles of Sir Lag-A-Lot\Data\Scripts"
 		path = os.path.join(Kernel.GlobalObjects.get_value("CurrentProjectDir"), 'Data', 'Scripts')
 		try:
-			SM.LoadScripts(path)
+			SM.LoadScripts()
 		except:
 			Kernel.Log('Failed to successfully load all scripts.', '[ScriptEditor]', True, True)
 		global Scripts
@@ -45,7 +45,7 @@ class ScriptEditor_Panel( Templates.ScriptEditor_Panel ):
 		elif index is not None: i = index
 		else: return
 		self.ScriptIndex = i
-		self.scriptCtrl.SetTextUTF8(Scripts[i].GetText())
+		self.scriptCtrl.SetText(Scripts[i].GetText())
 		self.RefreshScript()
 
 	def CreateToolBar( self ):
