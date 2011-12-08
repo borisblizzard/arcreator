@@ -226,12 +226,8 @@ class Project(object):
                     self.addFolderToZip(zip, os.path.join(dir, file), os.path.join(rel_path, os.path.basename(dir)))
     
     def Backup(self):
-        filename = ""
-        parts = os.path.basename(self.project_path).split(".")
-        if len(parts) > 1:
-            filename = ".".join(parts[:-1])
-        elif len(parts) == 1:
-            fielname = parts[0]
+        filename = os.path.splitext(os.path.basename(self.project_path))[0]
+
         curTime = time.strftime("__%Y_%m_%d_%H_%M")
         filename += curTime
         filename += ".zip"

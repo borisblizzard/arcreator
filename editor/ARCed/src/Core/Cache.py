@@ -191,18 +191,22 @@ class RTPFunctions(object):
     @staticmethod
     def GetTemplateList():
         files, entries = [], []
-        extension = [".arcproj"]
+        extensions = [".arcproj"]
         directories = []
         rtps = Kernel.GlobalObjects.get_value("ARCed_config").get_section("RTPs")
         directories.extend([os.path.expandvars(path[1]) for path in rtps.iteritems()])
         for dir in directories:
             target = os.path.join(dir, "Templates")
             if os.path.isdir(target):
-                entries.extend(os.listdir(target))
-        for entry in entries:
-            file, ext = os.path.splitext(entry)
-            if ext in extensions:
-                files.append(file)
+                templateFolders = os.listdir(target)
+                for folder in templateFolders:
+                    folderTarget = os.path.join(target, folder)
+                    if os.path.isdir(folderTarget):
+                        entries = os.listdir(folderTarget)
+                        for entry in entries:
+                            file, ext = os.path.splitext(entry)
+                            if ext in extensions:
+                                files.append(os.path.join(folderTarget, entry))
         return files
 
     @staticmethod
