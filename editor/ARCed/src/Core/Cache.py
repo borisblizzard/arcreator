@@ -149,7 +149,7 @@ class RTPFunctions(object):
     _audio_ext = ['', '.wav', '.ogg'] # No .mid for now
 
     @staticmethod
-    def FindFile(folder_name, name):
+    def FindImageFile(folder_name, name):
         flag = False
         flag, testpath = RTPFunctions.TestFiles(Kernel.GlobalObjects.get_value("CurrentProjectDir"), folder_name, name)
         if flag:
@@ -157,14 +157,14 @@ class RTPFunctions(object):
         else:
             rtps = Kernel.GlobalObjects.get_value("ARCed_config").get_section("RTPs")
             for rtp_name, path in rtps.iteritems():
-                flag, testpath = RTPFunctions.TestFiles(path, folder_name, name)
+                flag, testpath = RTPFunctions.TestImageFiles(path, folder_name, name)
             if flag:
                 return testpath
             else:
                 return ""
             
     @staticmethod
-    def TestFiles(path, folder_name, name):
+    def TestImageFiles(path, folder_name, name):
         for ext in RTPFunctions._image_ext:
             testpath = os.path.normpath(os.path.expandvars(os.path.join(path, folder_name, name + ext)))
             if os.path.exists(testpath) and os.path.isfile(testpath):
@@ -182,6 +182,23 @@ class RTPFunctions(object):
         directories.extend([os.path.expandvars(path[1]) for path in rtps.iteritems()])
         for dir in directories:
             entries.extend(os.listdir(os.path.join(dir, folder)))
+        for entry in entries:
+            file, ext = os.path.splitext(entry)
+            if ext in extensions:
+                files.append(file)
+        return files
+
+    @staticmethod
+    def GetTemplateList():
+        files, entries = [], []
+        extension = [".arcproj"]
+        directories = []
+        rtps = Kernel.GlobalObjects.get_value("ARCed_config").get_section("RTPs")
+        directories.extend([os.path.expandvars(path[1]) for path in rtps.iteritems()])
+        for dir in directories:
+            target = os.path.join(dir, "Templates")
+            if os.path.isdir(target):
+                entries.extend(os.listdir(target))
         for entry in entries:
             file, ext = os.path.splitext(entry)
             if ext in extensions:
@@ -315,7 +332,7 @@ class PILCache(object):
         try:
             return PILCache._NormalCache[key][hue]
         except KeyError:
-            path = RTPFunctions.FindFile(folder_name, filename)
+            path = RTPFunctions.FindImageFile(folder_name, filename)
             if path != "":
                 image = Image.open(path).convert('RGBA')
                 if hue != 0:

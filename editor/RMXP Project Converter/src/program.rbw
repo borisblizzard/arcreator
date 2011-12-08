@@ -385,8 +385,10 @@ class ConverterFrame < Wx::Frame
   end
   
   def write_script(path, script)
-    f = open(path, 'wb')
-    f.write(Zlib::Inflate.inflate(script))
+    f = open(path, 'wb:UTF-8')
+    f.write("\xef\xbb\xbf") 
+    text = Zlib::Inflate.inflate(script) 
+    f.write(text.force_encoding("UTF-8")) 
     f.close
   end
   
