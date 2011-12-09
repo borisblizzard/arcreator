@@ -312,7 +312,7 @@ class Tilemap(object):
             if self.dimmingImagePatteren == None:
                 self.dimmingImagePatteren = pyglet.image.SolidColorImagePattern((0, 0, 0, 255))
             self.dimmingImage = self.dimmingImagePatteren.create_image(width, height).get_texture()
-            self.dimmingSprite = rabbyt.Sprite(self.dimmingImage.get_texture(), x=0, y=0)
+            self.dimmingSprite = rabbyt.Sprite(self.dimmingImage, x=0, y=0)
             self.dimmingSprite.alpha = 0.7
             self.dimmingSprite.scale = scale
             
@@ -837,12 +837,12 @@ class MouseManager(object):
         if x != self.topLeft[0] or y != self.topLeft[1]:
             if x < 0:
                 x = 0
-            elif x > self.map.width:
-                x = self.map.width
+            elif x > self.map.width - 1:
+                x = self.map.width - 1
             if y < 0:
                 y = 0
-            elif y > self.map.height:
-                y = self.map.height
+            elif y > self.map.height - 1:
+                y = self.map.height - 1
             self.topLeft[0] = x
             self.topLeft[1] = y
             self.mapPanel.NeedRedraw = True
@@ -853,12 +853,12 @@ class MouseManager(object):
         if x != self.bottomRight[0] or y != self.bottomRight[1]:
             if x < 0:
                 x = 0
-            elif x > self.map.width:
-                x = self.map.width
+            elif x > self.map.width - 1:
+                x = self.map.width - 1
             if y < 0:
                 y = 0
-            elif y > self.map.height:
-                y = self.map.height
+            elif y > self.map.height - 1:
+                y = self.map.height - 1
             self.bottomRight[0] = x
             self.bottomRight[1] = y
             self.mapPanel.NeedRedraw = True
@@ -873,7 +873,7 @@ class TilemapPanel(PygletGLPanel):
 
     def __init__(self, parent, map, tilesets, toolbar, id=wx.ID_ANY):
         super(TilemapPanel, self).__init__(parent, id, wx.DefaultPosition, wx.Size(800, 600), 
-              wx.VSCROLL | wx.HSCROLL)
+              wx.VSCROLL | wx.HSCROLL | wx.SUNKEN_BORDER)
         
         #set data
         self.map = map
@@ -963,7 +963,7 @@ class TilemapPanel(PygletGLPanel):
             size.width = 1
         if size.height <= 0:
             size.height = 1
-        self.tilemap.UpdateDimmingSprite(int(size.width), int(size.height), 1/self.zoom)
+        self.tilemap.UpdateDimmingSprite(int(size.width) + 2, int(size.height) + 2, 1/self.zoom)
         gl.glViewport(0, 0,  size.width,  size.height)
         gl.glMatrixMode(gl.GL_PROJECTION)
         gl.glLoadIdentity()
@@ -975,7 +975,7 @@ class TilemapPanel(PygletGLPanel):
         self.translateY = -y + size.height / 2 / self.zoom
         self.onscreenwidth = int(size.width / self.zoom)
         self.onscreenheight = int(size.height / self.zoom)
-        self.tilemap.setDimXY(self.translateX, self.translateY )
+        self.tilemap.setDimXY(self.translateX - 1, self.translateY + 1)
         gl.glMatrixMode(gl.GL_MODELVIEW)
         
     def create_objects(self):

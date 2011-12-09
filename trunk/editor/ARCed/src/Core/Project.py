@@ -9,6 +9,7 @@ import sys
 import time
 import ConfigParser
 import zipfile
+import re
 
 import Kernel
 from Kernel import Manager as KM
@@ -196,9 +197,9 @@ class Project(object):
             if all or self.getChangedDeferredData(key):
                 self.saveDeferredData(key)
                
-    def loadProject(self):
+    def loadProject(self, backup=True):
         if os.path.exists(self.project_path):
-            self.Backup()
+            if backup: self.Backup()
             config = ConfigParser.ConfigParser()
             config.read(os.path.normpath(self.project_path))
             infos = config.items("Project")
@@ -220,31 +221,57 @@ class Project(object):
         dir = os.path.abspath(dir)
         dir = dir.encode('ascii') #convert path to ascii for ZipFile Method
         for file in os.listdir(dir):
-            if os.path.isfile(file):
-                zip.write(os.path.join(dir, file), os.path.join(rel_path, os.path.basename(file)), zipfile.ZIP_DEFLATED)
-            elif os.path.isdir(file):
-                    self.addFolderToZip(zip, os.path.join(dir, file), os.path.join(rel_path, os.path.basename(dir)))
+            target = os.path.join(dir, file)
+            if os.path.isfile(target):
+                zip.write(target, os.path.join(rel_path, file), zipfile.ZIP_DEFLATED)
+            elif os.path.isdir(target):
+                self.addFolderToZip(zip, target, os.path.join(rel_path, os.path.basename(target)))
     
     def Backup(self):
         filename = os.path.splitext(os.path.basename(self.project_path))[0]
-
-        curTime = time.strftime("__%Y_%m_%d_%H_%M")
+        curTime = time.strftime("-%Y_%m_%d-%H_%M")
         filename += curTime
         filename += ".zip"
         backupFolder = os.path.abspath(os.path.join(os.path.dirname(self.project_path), "Backups"))
         if not os.path.exists(backupFolder) or not os.path.isdir(backupFolder):
             os.makedirs(backupFolder)
         zipFilename = os.path.abspath(os.path.join(backupFolder, filename))
-        zip = zipfile.ZipFile(zipFilename, "wb", zipfile.ZIP_DEFLATED)
-        self.addFolderToZip(zip, os.path.abspath(os.path.join(os.path.dirname(self.project_path), "Data")))
+        zip = zipfile.ZipFile(zipFilename, "w", zipfile.ZIP_DEFLATED)
+        self.addFolderToZip(zip, os.path.abspath(os.path.join(os.path.dirname(self.project_path), "Data")), "Data")
         zip.close()
+        self.LimitBackups(backupFolder)
         return zipFilename
+
+    def FindBackupFiles(self, path):
+        pattern = "%s-([0-9]+_[0-9]+_[0-9]+-[0-9]+_[0-9]+)" % os.path.splitext(os.path.basename(self.project_path))[0]
+        namePattern = re.compile(pattern, re.IGNORECASE)
+        files = []
+        for file in os.listdir(path):
+            match = namePattern.search(file)
+            if match:
+                filetime = time.mktime(time.strptime(match.group(1), "%Y_%m_%d-%H_%M"))
+                files.append([os.path.join(path, file), filetime])
+        return files
+
+    def LimitBackups(self, path):
+        backups = self.FindBackupFiles(path)
+        backups.sort(key=lambda backup: backup[1])
+        config = Kernel.GlobalObjects.get_value("ARCed_config")
+        try:
+            maxBackups = config.getint("Main", "MaxBackups")
+        except:
+            maxBackups = 10
+            Kernel.Log("Invalid setting for MaxBackups in configuration", "[Project]", error=True)
+        if len(backups) > maxBackups:
+            for i in range(len(backups) - maxBackups):
+                file = backups.pop(0)
+                os.remove(file[0])
 
     def RestoreBackup(self, path):
         backup = self.Backup()
         if zipfile.is_zipfile(path):
             try:
-                zip = zipfile.ZipFile(path, "rb", zipfile.ZIP_DEFLATED)
+                zip = zipfile.ZipFile(path, "r", zipfile.ZIP_DEFLATED)
                 local_path = os.path.abspath(os.path.dirname(self.project_path))
                 for file in zip.namelist():
                     member = zip.getinfo(file)
@@ -276,7 +303,7 @@ class ARCProjectCreator(object):
             #load the template
             self.project.setProjectPath(template[1])
             self.project.setLoadFunc(KM.get_component("ARCProjectLoadFunction").object)
-            self.project.loadProject()
+            self.project.loadProject(backup=False)
         else:
             #set initial info
             self.project.setInfo("Title", title)
