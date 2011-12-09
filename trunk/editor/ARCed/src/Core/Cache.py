@@ -189,10 +189,13 @@ class RTPFunctions(object):
         return files
 
     @staticmethod
-    def GetTemplateList():
+    def GetTemplateList(extra_paths=None):
+        if extra_paths is None or not isinstance(extra_paths, list):
+            extra_paths = []
         files, entries = [], []
         extensions = [".arcproj"]
         directories = []
+        directories.extend(extra_paths)
         rtps = Kernel.GlobalObjects.get_value("ARCed_config").get_section("RTPs")
         directories.extend([os.path.expandvars(path[1]) for path in rtps.iteritems()])
         for dir in directories:

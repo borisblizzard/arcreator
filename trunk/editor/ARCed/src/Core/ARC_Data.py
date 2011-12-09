@@ -125,12 +125,12 @@ class ARC_Data(object):
     
     @staticmethod
     def __dump_int32(obj):
-        ARC_Data._io.write(pack("<I", obj))
+        ARC_Data._io.write(pack("<i", obj))
     
 
     @staticmethod
     def __load_int32():
-        return unpack("<I", ARC_Data._io.read(4))[0]
+        return unpack("<i", ARC_Data._io.read(4))[0]
     
     
     @staticmethod
@@ -301,7 +301,11 @@ class ARC_Data(object):
             ARC_Data.__dump_int32(len(variables))
             for variable in variables:
                 ARC_Data._dump_string(variable)
-                ARC_Data._dump(getattr(obj, variable))
+                try:
+                    object = getattr(obj, variable)
+                except AttributeError:
+                    object = None
+                ARC_Data._dump(object)
         
     
     

@@ -6,6 +6,7 @@ Created on Jan 16, 2011
 import os
 import sys
 import ConfigParser
+import re
 
 import wx
 
@@ -67,25 +68,22 @@ class NewProjectDialog(wx.Dialog):
         templatesizer.Add(self.templateRadiobt, 0, wx.ALL, 5)
 
         RTPFunctions = KM.get_component("ARCRTPFunctions").object
-        templatefiles = RTPFunctions.GetTemplateList()
+        templates_path = os.path.join(wx.StandardPaths.Get().GetDocumentsDir(), "ARC", "Templates")
+        if not os.path.isdir(templates_path):
+            os.makedirs(templates_path)
+        extra_paths = [templates_path]
+        templatefiles = RTPFunctions.GetTemplateList(extra_paths=extra_paths)
         templates = {}
         templateList = []
+        i = 1
         for file in templatefiles:
-            name = self.getTemplateProjectName(file)
+            name = "%s). %s" % (i, self.getTemplateProjectName(file))
             templates[name] = file
             templateList.append(name)
-
-        index = 0
-        for name in templateList:
-            if "default".lower() in name.lower():
-                index = templateList.index(name)
-                break
-        
+            i += 1
         self.TemplateChoice = wx.Choice(self, wx.ID_ANY, choices=[])
-        self.TemplateChoice.Append(templateList[index], templates[templateList[index]]) 
 
         for i in range(len(templateList)):
-            if i == index: continue
             self.TemplateChoice.Append(templateList[i], templates[templateList[i]]) 
         self.TemplateChoice.Select(0)
 
@@ -206,6 +204,13 @@ class NewProjectDialog(wx.Dialog):
 
     def NameChanged(self, event):
         self.name = event.GetString()
+        if not self.internaltextchange:
+            self.folder = re.sub("[\x00\/\\:\*\?\"<>\|]", "_", self.name)
+            self.internaltextchange = True
+            self.folderTextCtrl.SetValue(self.folder)
+            self.location = os.path.join(os.path.split(self.location)[0], self.folder)
+            self.locationTextCtrl.SetValue(self.location)
+            self.internaltextchange = False
 
     def FolderChanged(self, event):
         self.folder = event.GetString()
@@ -248,7 +253,7 @@ class NewProjectDialog(wx.Dialog):
 
     def getdata(self):
         template = (False, "")
-        if self.templateRadiobt.GetValue():
+        if self.templateRadiobt.GetValue() and (self.TemplateChoice.GetSelection() != wx.NOT_FOUND):
             template = (True, self.TemplateChoice.GetClientData(self.TemplateChoice.GetSelection()))
         return (template, self.name, self.location)
 

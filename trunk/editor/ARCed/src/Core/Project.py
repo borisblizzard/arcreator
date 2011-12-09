@@ -196,6 +196,7 @@ class Project(object):
         for key in self._deferred_data:
             if all or self.getChangedDeferredData(key):
                 self.saveDeferredData(key)
+        self.saveInfo()
                
     def loadProject(self, backup=True):
         if os.path.exists(self.project_path):
@@ -304,10 +305,11 @@ class ARCProjectCreator(object):
             self.project.setProjectPath(template[1])
             self.project.setLoadFunc(KM.get_component("ARCProjectLoadFunction").object)
             self.project.loadProject(backup=False)
+            mapinfos = self.project.getData("MapInfos")
+            for key in mapinfos:
+                self.project.getMapData(key)
         else:
             #set initial info
-            self.project.setInfo("Title", title)
-            self.project.setChangedInfo("Title", False)
             self.project.setData("Actors", [])
             self.project.setChangedData("Actors", False)
             self.project.setData("Classes", [])
@@ -320,6 +322,8 @@ class ARCProjectCreator(object):
             self.project.setChangedData("Weapons", False)
             self.project.setData("Armors", [])
             self.project.setChangedData("Armors", False)
+            self.project.setData("Enemies", [])
+            self.project.setChangedData("Enemies", False)
             self.project.setData("States", [])
             self.project.setChangedData("States", False)
             self.project.setData("Animations", [])
@@ -334,6 +338,9 @@ class ARCProjectCreator(object):
             self.project.setChangedData("System", False)
             self.project.setData("MapInfos", {})
             self.project.setChangedData("MapInfos", False)
+        #set the title
+        self.project.setInfo("Title", title)
+        self.project.setChangedInfo("Title", False)
         #set the save function
         self.project.setSaveFunc(KM.get_component("ARCProjectSaveFunction").object)
         #set the project path
@@ -383,7 +390,6 @@ def ARCProjectLoadFunction(dir_name, filename):
         Kernel.Log("Warning: file %s does not exist. Returned None" % path, "[ARC Load Function]")
         return None
     
-
 class ARCProjectSaver(object):
 
     def __init__(self, project):

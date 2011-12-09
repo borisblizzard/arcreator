@@ -263,7 +263,7 @@ def Run(programDir):
     provider = wx.SimpleHelpProvider()
     wx.HelpProvider.Set(provider)
 
-    app = ARC_App(True)
+    app = ARC_App(False)
     app.MainLoop()
     try:
         ConfigManager.SaveConfig()
