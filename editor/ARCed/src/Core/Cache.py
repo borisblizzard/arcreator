@@ -151,7 +151,7 @@ class RTPFunctions(object):
     @staticmethod
     def FindImageFile(folder_name, name):
         flag = False
-        flag, testpath = RTPFunctions.TestFiles(Kernel.GlobalObjects.get_value("CurrentProjectDir"), folder_name, name)
+        flag, testpath = RTPFunctions.TestImageFiles(Kernel.GlobalObjects.get_value("CurrentProjectDir"), folder_name, name)
         if flag:
             return testpath
         else:
