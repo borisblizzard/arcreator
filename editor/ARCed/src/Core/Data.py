@@ -32,9 +32,11 @@ def NewProject(mainwindow):
     if result == wx.ID_OK:
         #lets create the project
         template, name, folder = dlg.getdata()
-        path = os.path.join(folder, "Project.arcproj")
+        path = os.path.join(folder, "%s.arcproj" % os.path.basename(folder))
         projectcreator = KM.get_component("ARCProjectCreator").object()
+        wx.BeginBusyCursor()
         projectcreator.Create(path, name, template)
+        wx.EndBusyCursor()
         #place the project in the global namespace
         if Kernel.GlobalObjects.has_key("PROJECT"):
             Kernel.GlobalObjects.set_value("PROJECT", projectcreator.getProject())

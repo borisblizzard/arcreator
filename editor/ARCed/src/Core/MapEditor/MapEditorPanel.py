@@ -14,7 +14,6 @@ class MapPanel(wx.Panel):
         #set data
         self.map = map
         self.tilesets = tilesets
-        
         self.sizer = wx.BoxSizer(wx.VERTICAL)
         #toolbar
         self.Create_Toolbar()
