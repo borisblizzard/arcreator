@@ -107,8 +107,7 @@ class ScriptEditor_Panel( Templates.ScriptEditor_Panel ):
 		else: self.statusBar.SetStatusText('', 2)
 		if event is not None:
 			event.Skip()
-
-		# TODO: TEST
+		# Update text
 		if self.ScriptIndex > -1:
 			Scripts[self.ScriptIndex].SetText(self.scriptCtrl.GetTextUTF8())
 		
@@ -189,6 +188,7 @@ class ScriptEditor_Panel( Templates.ScriptEditor_Panel ):
 	#--------------------------------------------------------------
 	def GetSearchLocations(self, searchString, matchcase, wholeword, scope, regex=None):
 		results = {}
+		"""
 		if scope == 0:
 			scripts = [Scripts[self.listBoxScripts.GetSelection()]]
 		else:
@@ -204,10 +204,14 @@ class ScriptEditor_Panel( Templates.ScriptEditor_Panel ):
 					if searchString in lines[j] and j not in found:
 						found.append(j)
 				results[i] = found
+		"""
+
+
+
 		return results
 
 	def FindPrevious( self, event ):
-		pass
+		result = self.scriptCtrl.Find('Tro.p', True, False, True, False, True)
 
 	def FindNext( self, event ):
-		pass
+		result = self.scriptCtrl.Find('Tro.p', True, False, True, False, False)
