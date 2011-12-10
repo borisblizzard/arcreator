@@ -205,3 +205,30 @@ class ScriptTextCtrl(wxStyledTextCtrl):
 				new_text += '\r\n'
 		self.ClearAll()
 		self.SetText(new_text)
+
+	def Find(self, text, matchcase, wholeword, regex, wildcards, up, second_pass=False):
+		if up:
+			find = self.SearchPrev
+			self.SetCurrentPos(self.SelectionStart)
+			if second_pass:
+				self.SetSelection(self.Length, self.Length)
+		else:
+			find = self.SearchNext
+			self.SetCurrentPos(self.SelectionEnd)
+			if second_pass:
+				self.SetCurrentPos(0)
+		self.SearchAnchor()
+		flags = 0
+		if matchcase: flags |= wxSTC_FIND_MATCHCASE
+		if wholeword: flags |= wxSTC_FIND_WHOLEWORD
+		if regex: 
+			flags |= wxSTC_FIND_REGEXP
+			if wildcards:
+				text = text.replace('*', '.')
+		pos = find(flags, text)
+		if pos != -1:
+			second_pass = False
+			self.EnsureCaretVisible()
+		elif not second_pass:
+			# This effectively enables looping the search
+			self.Find(text, matchcase, wholeword, regex, wildcards, up, True)

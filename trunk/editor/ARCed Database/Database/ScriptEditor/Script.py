@@ -26,9 +26,10 @@ class Script(object):
 
 	def IsModified( self ):
 		"""Returns True/False if text has been modified from original"""
-		if self._modified_text is None:
-			return False
-		return not self.CompareStrings(self._text, self._modified_text)
+		if self._modified_text is not None:
+			same = self.CompareStrings(self._text, self._modified_text)
+			return not same
+		return False
 
 	def ApplyChanges( self ):
 		"""Sets the original text to that of the modified text"""
@@ -72,8 +73,7 @@ class Script(object):
 		"""Sets the new string value of the text, but does not apply it permanently"""
 		if self._readonly:
 			return
-		if not self.CompareStrings(text, self.GetText()):
-			self._modified_text = text
+		self._modified_text = text
 
 	def GetLines( self ):
 		"""Returns a string list of the scripts text broken into lines"""
