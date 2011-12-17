@@ -18,7 +18,7 @@
 	<Configurations>
 		<Configuration
 			Name="win32_Debug|Win32"
-			OutputDirectory="$(SolutionDir)bin\lib\$(ProjectName)\$(ConfigurationName)"
+			OutputDirectory="$(SolutionDir)bin\"
 			IntermediateDirectory="$(SolutionDir)bin\lib\$(ProjectName)\$(ConfigurationName)"
 			ConfigurationType="2"
 			CharacterSet="1"
@@ -63,7 +63,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="msvcr90-ruby192.lib ws2_32.lib zdll.lib rb-win32api.lib rb-socket.lib rb-zlib.lib libgtypes.lib libhltypes.lib libapril.lib libatres.lib libatresttf.lib libaprilui.lib libxal.lib zer0rgss.lib"
-				OutputFile="$(SolutionDir)bin\zer0division.dll"
+				OutputFile="$(OutDir)zer0division.dll"
 				AdditionalLibraryDirectories="..\lib\msvc90;$(SolutionDir)bin"
 				GenerateDebugInformation="true"
 				ImportLibrary="$(TargetDir)zer0division.lib"
@@ -93,7 +93,7 @@
 		</Configuration>
 		<Configuration
 			Name="win32_Release|Win32"
-			OutputDirectory="$(SolutionDir)bin\lib\$(ProjectName)\$(ConfigurationName)"
+			OutputDirectory="$(SolutionDir)bin\"
 			IntermediateDirectory="$(SolutionDir)bin\lib\$(ProjectName)\$(ConfigurationName)"
 			ConfigurationType="2"
 			CharacterSet="1"
@@ -139,7 +139,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="msvcr90-ruby192.lib ws2_32.lib zdll.lib rb-win32api.lib rb-socket.lib rb-zlib.lib libgtypes.lib libhltypes.lib libapril.lib libatres.lib libatresttf.lib libaprilui.lib libxal.lib zer0rgss.lib"
-				OutputFile="$(SolutionDir)bin\zer0division.dll"
+				OutputFile="$(OutDir)zer0division.dll"
 				AdditionalLibraryDirectories="..\lib\msvc90;$(SolutionDir)bin"
 				ImportLibrary="$(TargetDir)zer0division.lib"
 			/>
@@ -168,8 +168,8 @@
 		</Configuration>
 		<Configuration
 			Name="win32_Release_Legacy|Win32"
-			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
-			IntermediateDirectory="$(ConfigurationName)"
+			OutputDirectory="$(SolutionDir)bin\"
+			IntermediateDirectory="$(SolutionDir)bin\lib\$(ProjectName)\$(ConfigurationName)"
 			ConfigurationType="2"
 			CharacterSet="1"
 			WholeProgramOptimization="1"
@@ -214,7 +214,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="msvcr90-ruby192.lib ws2_32.lib zdll.lib rb-win32api.lib rb-socket.lib rb-zlib.lib libgtypes.lib libhltypes.lib libapril.lib libatres.lib libatresttf.lib libxal.lib zer0rgss.lib"
-				OutputFile="$(SolutionDir)bin\zer0division.dll"
+				OutputFile="$(OutDir)zer0division.dll"
 				AdditionalLibraryDirectories="..\lib\msvc90;$(SolutionDir)bin"
 				ImportLibrary="$(TargetDir)zer0division.lib"
 			/>
