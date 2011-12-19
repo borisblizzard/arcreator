@@ -20,10 +20,35 @@ class Project(object):
         self._data = {}
         self._deferred_data = {}
         self._info = {}
+        self.advanced_handlers = {}
         self.project_path = ""
         self.load_func = None
         self.save_func = None
+
+    def addAdvancedHandler(self, handler, name):
+        self.addFolderToZip[name] = handler
+
+    def removeAdvancedHandler(self, name):
+        del self.advanced_handlers[name]
         
+    def testAdvancedHandlersLoad(self, key):
+        for handler in self.advanced_handlers.itervalues():
+            if handler.test():
+                handler.loadData(key)
+                handler.finalize()
+                return True
+            else:
+                return False
+
+    def testAdvancedHandlersSave(self, key):
+        for handler in self.advanced_handlers.itervalues():
+            if handler.test():
+                handler.finalize()
+                handler.saveData(key)
+                return True
+            else:
+                return False
+
     def setLoadFunc(self, func):
         self.load_func = func
     
@@ -49,6 +74,9 @@ class Project(object):
         else:
             Kernel.Log("Warning: data key %s does not exist. Returned None" % key, "[Project]")
             return None
+
+    def hasData(self, key):
+        return self._data.has_key(key)
         
     def setDeferredData(self, key, value, changed=True):
         if self._deferred_data.has_key(key):
@@ -62,7 +90,8 @@ class Project(object):
             return self._deferred_data[key][1]
         else:
             try:
-                self._deferred_data[key] = [False, self.load_func(os.path.dirname(self.project_path), key)]
+                if not self.testAdvancedHandlersLoad(key):
+                    self._deferred_data[key] = [False, self.load_func(os.path.dirname(self.project_path), key)]
                 return self._deferred_data[key][1]
             except Exception:
                 Kernel.Log("Warning: Deferred data '%s' does not exist. Returned None" % key, "[Project]")
@@ -81,6 +110,9 @@ class Project(object):
         else:
             Kernel.Log("Warning: info key %s does not exist. Returned None" % key, "[Project]")
             return None
+
+    def hasInfo(self, key):
+        return self._info.has_key(key.lower())
         
     def setChangedInfo(self, key, value):
         if self._info.has_key(key.lower()):
@@ -147,7 +179,6 @@ class Project(object):
                 changed_flag = True
         return changed_flag
 
-
     def saveData(self, key):
         if (self.save_func != None) and callable(self.save_func):
             self.save_func(os.path.dirname(self.project_path), key, self.getData(key))
@@ -192,10 +223,12 @@ class Project(object):
     def saveProject(self, all=False):
         for key in self._data:
             if all or self.getChangedData(key):
-                self.saveData(key)
+                if not self.testAdvancedHandlersSave(key):
+                    self.saveData(key)
         for key in self._deferred_data:
             if all or self.getChangedDeferredData(key):
-                self.saveDeferredData(key)
+                if not self.testAdvancedHandlersSave(key):
+                    self.saveDeferredData(key)
         self.saveInfo()
                
     def loadProject(self, backup=True):
@@ -210,11 +243,12 @@ class Project(object):
             files = filelist.split("|")
             for file_name in files:
                 if file_name != "":
-                    if (self.load_func != None) and callable(self.load_func):
-                        self.setData(file_name, self.load_func(os.path.dirname(self.project_path), file_name), False)
-                    else:
-                        self.setData(file_name, None, False)
-                        Kernel.Log("Warning: no load function set for project. Data for %s set to None" % file_name, "[Project]")
+                    if not self.testAdvancedHandlersLoad(file_name):
+                        if (self.load_func != None) and callable(self.load_func):
+                            self.setData(file_name, self.load_func(os.path.dirname(self.project_path), file_name), False)
+                        else:
+                            self.setData(file_name, None, False)
+                            Kernel.Log("Warning: no load function set for project. Data for %s set to None" % file_name, "[Project]")
         else:
             Kernel.Log("Warning: project path %s does not exist. Project not loaded." % self.project_path, "[Project]")
     
@@ -229,6 +263,8 @@ class Project(object):
                 self.addFolderToZip(zip, target, os.path.join(rel_path, os.path.basename(target)))
     
     def Backup(self):
+        Kernel.StatusBar.BeginTask(3, "Making Project Backup")
+        Kernel.StatusBar.UpdateTask(0, "Ensure Backup Path")
         filename = os.path.splitext(os.path.basename(self.project_path))[0]
         curTime = time.strftime("-%Y_%m_%d-%H_%M")
         filename += curTime
@@ -238,9 +274,13 @@ class Project(object):
             os.makedirs(backupFolder)
         zipFilename = os.path.abspath(os.path.join(backupFolder, filename))
         zip = zipfile.ZipFile(zipFilename, "w", zipfile.ZIP_DEFLATED)
+        Kernel.StatusBar.UpdateTask(1, "Adding Data folder to Backup")
         self.addFolderToZip(zip, os.path.abspath(os.path.join(os.path.dirname(self.project_path), "Data")), "Data")
         zip.close()
+        Kernel.StatusBar.UpdateTask(2, "Limiting the Number of Backups")
         self.LimitBackups(backupFolder)
+        Kernel.StatusBar.UpdateTask(3, "Finished Backup")
+        Kernel.StatusBar.EndTask()
         return zipFilename
 
     def FindBackupFiles(self, path):
@@ -291,7 +331,141 @@ class Project(object):
         else:
             Kernel.Log("Backup file is not a valid zip file", "[Project]", True)
 
+class AdvancedDataHandler(object):
+
+    def __init__(self, project):
+        self.project = project
+        self.names = []
+
+    def test(self, name):
+        for test_name in self.names:
+            if test_name.lower() == name.lower():
+                return True
+        return False
+
+    def loadData(self, name):
+        pass
+
+    def saveData(self, name):
+        pass
+
+    def finalize(self):
+        pass
+
+    def getPath(self, name):
+        dir_name = self.getDir(name)
+        path = os.path.join(dir_name, name + ".arc")
+        return path
+
+    def getDir(self, name):
+        dir_name = os.path.join(self.project.getProjectPath(), "Data")
+        return dir_name
                 
+class MapDataHandler(AdvancedDataHandler):
+
+    def __init__(self, project):
+        AdvancedDataHandler.__init__(self, project)
+        self.names.append("MapInfos")
+        self.names.append("MapData")
+
+    def loadData(self, name):
+        if name.lower() == "MapInfos".lower():
+            path = self.getPath(name)
+            if os.path.exists(path) and (not os.path.isdir(path)):
+                try:
+                    f = open(path, "rb")
+                    redirects = {}
+                    KM.raise_event("CoreEventARCRedirectClassPathsOnLoad", redirects)
+                    extended_namespace = {}
+                    KM.raise_event("CoreEventARCExtendNamespaceOnLoad", extended_namespace)
+                    load_func = KM.get_component("ARCDataLoadFunction").object
+                    obj = load_func(f, redirects, extended_namespace)
+                    f.close()
+                    self.project.setData(name, obj, False)
+                    return True
+                except IOError:
+                    Kernel.Log("IO Error encountered Loading file %s Returned None" % path, "[ARC Load Function]", True)
+                    return False
+        elif name.lower() == "MapData".lower():
+            path = self.getPath(name)
+            if os.path.exists(path) and (not os.path.isdir(path)):
+                try:
+                    f = open(path, "rb")
+                    redirects = {}
+                    KM.raise_event("CoreEventARCRedirectClassPathsOnLoad", redirects)
+                    extended_namespace = {}
+                    KM.raise_event("CoreEventARCExtendNamespaceOnLoad", extended_namespace)
+                    load_func = KM.get_component("ARCDataLoadFunction").object
+                    obj = load_func(f, redirects, extended_namespace)
+                    f.close()
+                    self.project.setData(name, obj, False)
+                    return True
+                except IOError:
+                    Kernel.Log("IO Error encountered Loading file %s Returned None" % path, "[ARC Load Function]", True)
+                    return False
+        else:
+            return False
+        return False
+
+    def saveData(self, name):
+        if name.lower() == "MapInfos".lower():
+            dir_name = self.getDir(name)
+            path = self.getPath(name)
+            if (not os.path.exists(dir_path)) or (not os.path.isdir(dir_path)):
+                os.makedirs(dir_path)
+            try:
+                f = open(path, "wb")
+                redirects = {}
+                KM.raise_event("CoreEventARCRedirectClassPathsOnSave", redirects)
+                save_func = KM.get_component("ARCDataDumpFunction").object
+                obj = self.project.getData(name)
+                save_func(f, obj, redirects)
+                f.close()
+                return True
+            except IOError:
+                Kernel.Log("IO Error encountered Saving file %s" % path, "[MapDataHandler]", True)
+                return False
+        elif name.lower() == "MapData".lower():
+            dir_name = self.getDir(name)
+            path = self.getPath(name)
+            if (not os.path.exists(dir_path)) or (not os.path.isdir(dir_path)):
+                os.makedirs(dir_path)
+            try:
+                f = open(path, "wb")
+                redirects = {}
+                KM.raise_event("CoreEventARCRedirectClassPathsOnSave", redirects)
+                save_func = KM.get_component("ARCDataDumpFunction").object
+                obj = self.project.getData(name)
+                save_func(f, obj, redirects)
+                f.close()
+                return True
+            except IOError:
+                Kernel.Log("IO Error encountered Saving file %s" % path, "[MapDataHandler]", True)
+                return False
+        else:
+            return False
+        return False
+
+    def finalize(self):
+        infosFlag = dataFlag = False
+        if self.project.hasData("MapInfos"): infosFlag = True
+        if self.project.hasData("MapData"): dataFlag = True
+        if (not dataFlag) and infosFlag: 
+            self.buildDataFromInfos()
+        elif dataFlag: 
+            self.buildInfosFromData()
+        else: 
+            Kernel.Log("Neither the MapData nor the MapInfos files were found, setting both to 'None'", "[MapDataHandler]", True)
+            self.project.setData("MapData", None, False)
+            self.project.setData("MapInfos", None, False)
+
+    def buildDataFromInfos(self):
+        pass
+
+    def buildInfosFromData(self):
+        pass
+
+
 class ARCProjectCreator(object):
     
     def __init__(self):
@@ -310,34 +484,21 @@ class ARCProjectCreator(object):
                 self.project.getMapData(key)
         else:
             #set initial info
-            self.project.setData("Actors", [])
-            self.project.setChangedData("Actors", False)
-            self.project.setData("Classes", [])
-            self.project.setChangedData("Classes", False)
-            self.project.setData("Skills", [])
-            self.project.setChangedData("Skills", False)
-            self.project.setData("Items", [])
-            self.project.setChangedData("Items", False)
-            self.project.setData("Weapons", [])
-            self.project.setChangedData("Weapons", False)
-            self.project.setData("Armors", [])
-            self.project.setChangedData("Armors", False)
-            self.project.setData("Enemies", [])
-            self.project.setChangedData("Enemies", False)
-            self.project.setData("States", [])
-            self.project.setChangedData("States", False)
-            self.project.setData("Animations", [])
-            self.project.setChangedData("Animations", False)
-            self.project.setData("Troops", [])
-            self.project.setChangedData("Troops", False)
-            self.project.setData("Tilesets", [])
-            self.project.setChangedData("Tilesets", False)
-            self.project.setData("CommonEvents", [])
-            self.project.setChangedData("CommonEvents", False)
-            self.project.setData("System", [])
-            self.project.setChangedData("System", False)
-            self.project.setData("MapInfos", {})
-            self.project.setChangedData("MapInfos", False)
+            self.project.setData("Actors", [], Flase)
+            self.project.setData("Classes", [], False)
+            self.project.setData("Skills", [], False)
+            self.project.setData("Items", [], False)
+            self.project.setData("Weapons", [], False)
+            self.project.setData("Armors", [], False)
+            self.project.setData("Enemies", [], False)
+            self.project.setData("States", [], False)
+            self.project.setData("Animations", [], False)
+            self.project.setData("Troops", [], False)
+            self.project.setData("Tilesets", [], False)
+            self.project.setData("CommonEvents", [], False)
+            self.project.setData("System", [], False)
+            self.project.setData("MapInfos", {}, False)
+            self.project.setData("MapData", {}, False)
         #set the title
         self.project.setInfo("Title", title)
         self.project.setChangedInfo("Title", False)

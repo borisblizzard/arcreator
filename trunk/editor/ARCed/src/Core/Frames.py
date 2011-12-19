@@ -63,6 +63,7 @@ class CoreEditorMainWindow(wx.Frame):
         self.AutoSaveTimer.Start(save_intervel * 60000, False)
 
         #show the window
+        wx.GetApp().SetTopWindow(self)
         self.Show(True)
 
     def CallLayout(self):
