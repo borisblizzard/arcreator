@@ -111,6 +111,81 @@ class GlobalObjects(object):
             del GlobalObjects._objects[key]
 
 
+class StatusBar(object):
+    ''' Manages the interface to the Status Bar '''
+
+    TaskRunning = False
+    _status_bar = None
+    _previousRanges = []
+    _previousSteps = []
+    _previousStatus = []
+    _tasks_running = 0
+
+
+    @staticmethod
+    def BeginTask(range=10, status=""):
+        flag = False
+        StatusBar.TaskRunning = True
+        if StatusBar._tasks_running > 0:
+            flag = True
+        wx.BeginBusyCursor()
+        StatusBar._tasks_running += 1
+        if StatusBar._status_bar is not None:
+            StatusBar._status_bar.UpdateProgressBarShow() 
+            if flag:
+                StatusBar._previousRanges.append(StatusBar._status_bar.GetProgressRange())
+                StatusBar._previousSteps.append(StatusBar._status_bar.GetProgress())
+                StatusBar._previousStatus.append(StatusBar._status_bar.GetExtraStatus())
+            StatusBar._status_bar.SetProgressRange(range)
+            StatusBar._status_bar.UpdateProgress(0)
+            StatusBar._status_bar.SetExtraStatus(status)
+            if range <= 0:
+                StatusBar._status_bar.PulseProgress()
+        wx.SafeYield(onlyIfNeeded=True)
+
+    @staticmethod
+    def EndTask():
+        wx.EndBusyCursor()
+        StatusBar._tasks_running -= 1
+        if StatusBar._tasks_running == 0:
+            StatusBar.TaskRunning = False
+        if StatusBar._status_bar is not None:
+            StatusBar._status_bar.UpdateProgressBarShow() 
+            if len(StatusBar._previousRanges) > 0:
+                StatusBar._status_bar.SetProgressRange(StatusBar._previousRanges.pop())
+            if len(StatusBar._previousSteps) > 0:
+                StatusBar._status_bar.UpdateProgress(StatusBar._previousSteps.pop())
+            if len(StatusBar._previousStatus) > 0:
+                StatusBar._status_bar.SetExtraStatus(StatusBar._previousStatus.pop())
+            if StatusBar._tasks_running == 0:
+                StatusBar._status_bar.SetExtraStatus("Idle")
+        wx.SafeYield(onlyIfNeeded=True)
+
+    @staticmethod
+    def UpdateTask(step=0, status=""):
+        if StatusBar._status_bar is not None:
+            StatusBar._status_bar.UpdateProgressBarShow()
+            StatusBar._status_bar.UpdateProgress(step)
+            StatusBar._status_bar.SetExtraStatus(status)
+            if step < 0:
+                StatusBar._status_bar.PulseProgress()
+        wx.SafeYield(onlyIfNeeded=True)
+
+    @staticmethod
+    def SetTaskSteps(steps=10):
+        if StatusBar._status_bar is not None:
+            StatusBar._status_bar.UpdateProgressBarShow() 
+            StatusBar._status_bar.SetProgressRange(steps)
+        wx.SafeYield(onlyIfNeeded=True)
+
+    @staticmethod
+    def SetMainStatusText(text):
+        if StatusBar._status_bar is not None:
+            StatusBar._status_bar.SetMainStatus(text)
+
+    @staticmethod
+    def SetStatusBar(bar):
+        StatusBar._status_bar = bar
 #====================================================================================
 # Kernel classes
 #====================================================================================

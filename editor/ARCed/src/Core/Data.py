@@ -34,9 +34,9 @@ def NewProject(mainwindow):
         template, name, folder = dlg.getdata()
         path = os.path.join(folder, "%s.arcproj" % os.path.basename(folder))
         projectcreator = KM.get_component("ARCProjectCreator").object()
-        wx.BeginBusyCursor()
+        Kernel.StatusBar.BeginTask(2, "Creating Project")
         projectcreator.Create(path, name, template)
-        wx.EndBusyCursor()
+        Kernel.StatusBar.UpdateTask(1, "Finished Creating Project")
         #place the project in the global namespace
         if Kernel.GlobalObjects.has_key("PROJECT"):
             Kernel.GlobalObjects.set_value("PROJECT", projectcreator.getProject())
@@ -58,7 +58,9 @@ def NewProject(mainwindow):
         else:
             Kernel.GlobalObjects.request_new_key("ProjectOpen", "CORE", True)
         #refresh the interface on project data change
+        Kernel.StatusBar.UpdateTask(1, "Refreshing Interface")
         KM.raise_event("CoreEventRefreshProject")
+        Kernel.StatusBar.EndTask()
     dlg.Destroy()
 
 def OpenProject(mainwindow, filehistory, path=""):
@@ -66,7 +68,7 @@ def OpenProject(mainwindow, filehistory, path=""):
     if Kernel.GlobalObjects.has_key("ProjectOpen") and (Kernel.GlobalObjects.get_value("ProjectOpen") == True) and Kernel.GlobalObjects.has_key("PROJECT"):
         current_project = Kernel.GlobalObjects.get_value("PROJECT")
         if current_project.hasDataChanged() or current_project.hasInfoChanged():
-            message = "There are unsaved changes in the currently open project Do you want to save these chagnes?"
+            message = "There are unsaved changes in the currently open project Do you want to save these changes?"
         else:
             message = "Do you want to save the currently open project?"
         caption = "There is already an open project"
@@ -102,10 +104,10 @@ def OpenProject(mainwindow, filehistory, path=""):
     #get a project loader
     projectloader = KM.get_component("ARCProjectLoader").object()
     #this might take a while lets say we busy
-    wx.BeginBusyCursor()
+    Kernel.StatusBar.BeginTask(2, "Loading Project")
     projectloader.load(path)
     #ok done loading, that was the longest part of it
-    wx.EndBusyCursor()
+    Kernel.StatusBar.UpdateTask(1, "Finished Loading Project")
     #place the project in the global namespace
     if Kernel.GlobalObjects.has_key("PROJECT"):
         Kernel.GlobalObjects.set_value("PROJECT", projectloader.getProject())
@@ -127,7 +129,9 @@ def OpenProject(mainwindow, filehistory, path=""):
     else:
         Kernel.GlobalObjects.request_new_key("ProjectOpen", "CORE", True)
     #refresh the interface on project data change
+    Kernel.StatusBar.UpdateTask(1, "Refreshing Interface")
     KM.raise_event("CoreEventRefreshProject")
+    Kernel.StatusBar.EndTask()
 
 
 def SaveProject():
@@ -140,10 +144,11 @@ def SaveProject():
                                     "ARC", "TEMP_No_project_dirrectory_save")
         projectsaver = KM.get_component("ARCProjectSaver").object(project)
         #this might take a while lets say we busy
-        wx.BeginBusyCursor()
+        Kernel.StatusBar.BeginTask(1, "Saving Project")
         projectsaver.save(path)
+        Kernel.StatusBar.UpdateTask(1, "Finished Saving")
         #ok done saving, that was the longest part of it
-        wx.EndBusyCursor()
+        Kernel.StatusBar.EndTask()
     else:
         Kernel.Log("No current project, project not saved", "[Save Project Handeler]")
     
@@ -162,15 +167,16 @@ def SaveProjectAS(mainwindow, filehistory):
             filehistory.AddFileToHistory(path)
             projectsaver = KM.get_component("ARCProjectSaver").object()
             #this might take a while lets say we busy
-            wx.BeginBusyCursor()
+            Kernel.StatusBar.BeginTask(1, "Saving Project")
             projectsaver.save(path)
             #ok done saving, that was the longest part of it
-            wx.EndBusyCursor()
+            Kernel.StatusBar.UpdateTask(1, "Finished Saving")
             #set the current project directory
             if Kernel.GlobalObjects.has_key("CurrentProjectDir"):
                 Kernel.GlobalObjects.set_value("CurrentProjectDir", os.path.dirname(path))
             else:
                 Kernel.GlobalObjects.request_new_key("CurrentProjectDir", "CORE", os.path.dirname(path))
+            Kernel.StatusBar.EndTask()
     else:
         Kernel.Log("No current project, project not saved", "[Save AS Project Handeler]")
 
