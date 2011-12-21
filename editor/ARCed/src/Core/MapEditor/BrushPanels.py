@@ -27,9 +27,7 @@ class MapTreePanel(wx.Panel):
         box = wx.BoxSizer(wx.VERTICAL)
         #set up tree
         mapTreeCtrl = KM.get_component("MapTreeCtrl").object
-        self.treectrl =  mapTreeCtrl(self, -1, wx.Point(0, 0),
-                                        wx.Size(160, 250),
-                                        wx.TR_DEFAULT_STYLE | wx.NO_BORDER)
+        self.treectrl =  mapTreeCtrl(self, -1, wx.Point(0, 0), wx.Size(160, 250), True)
         #add ctrls to sizer
         box.Add(self.treectrl, 1, wx.ALL | wx.EXPAND)
         #set sizer
