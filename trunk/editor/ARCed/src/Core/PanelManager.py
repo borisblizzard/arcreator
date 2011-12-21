@@ -62,14 +62,12 @@ class PanelManager(object):
             else:
                 info_obj = self.generate_info(panel._arc_panel_info_string, info=info_obj)
         info_obj = self.generate_info(info, data, info_obj)
+        panel_instance._ARC_Panel_Info = info_obj
         if self.dispached.has_key(id):
-            print "removing existing panel"
             self.remove_panel(id)
         self.dispached[id] = panel_instance
         self.manager.AddPane(panel_instance, info_obj)
-        return panel_instance
-        
-            
+        return panel_instance    
     
     def remove_panel(self, id):
         '''
@@ -81,7 +79,6 @@ class PanelManager(object):
             self.dispached[id].Destroy()
             del self.dispached[id]
         
-
     def Update(self):
         '''
         Updates the AUI Manager to reflect changes
@@ -116,7 +113,7 @@ class PanelManager(object):
             #caption
             if "CaptionV" in word:
                 if data.has_key("CaptionV"):
-                    info_obj.CaptionVisible(*data["CaptionV"])
+                    info_obj.CaptionVisible(data["CaptionV"])
                 else:
                     info_obj.CaptionVisible(True)
             elif "Caption" in word:

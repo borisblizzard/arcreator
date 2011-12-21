@@ -572,3 +572,35 @@ check_green = PyEmbeddedImage(
     "uLsgAsnMQgH7R0w51UZXFyEdRQLcTCkkEuqlbdUWbiuywXbj7FJIBNRvDYurhxiqvrxcAcN6"
     "Ngh8b3GxAAAAAElFTkSuQmCC")
 IconManager._catalog['check_green'] = check_green
+
+#----------------------------------------------------------------------
+map_icon = PyEmbeddedImage(
+    "iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGOfPtRkwAAACBj"
+    "SFJNAAB6JQAAgIMAAPn/AACA6AAAdTAAAOpgAAA6lwAAF2+XqZnUAAAAwUlEQVR4nGL4//8/"
+    "AyUYIIAo0gzCAAEEJlqCzP+DMLGakNUDBBCY8/xaKxjDJAhhZPUAAQQ34P2TDSiSuDBIDUgt"
+    "jA0QQBgGnLm663/9xSX/65dcRGAgf+7tnXA1yAYABBCGATDFIAw3CERDMboBAAGEaQCSrTDD"
+    "YGLXb+3AMAAggLC6AN1WmCHYDAAIINwuAGJkb8DY6AYABBB2F6A5HW4QFgMAAojiaAQIIIoT"
+    "EkAAUZyUAQKI4swEEEAUGwAQYABRpNX0qsHD7gAAAABJRU5ErkJggg==")
+IconManager._catalog['map_icon'] = map_icon
+
+#----------------------------------------------------------------------
+project_icon = PyEmbeddedImage(
+    "iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGOfPtRkwAAACBj"
+    "SFJNAAB6JQAAgIMAAPn/AACA6AAAdTAAAOpgAAA6lwAAF2+XqZnUAAAA5klEQVR4nGL4//8/"
+    "AyUYIIBQOEEMDP+Jwch6AAIIRfMlBYb/Dx3wY5AaZEMAAghD8xEG/BjdEIAAghsA07yWAIYZ"
+    "AjMAIIDgBnxIIGw7DIPUwgwACCC4AX/nM/z/V4/Al+QRGkBsZDmQWpgBAAGEMGA/KgYpfOgB"
+    "wWBNaPIwAwACCG7AbDS8HsnQ9VjkYQYABBBGLLwscIBH2b9+CIbxYXLIsQAQQBixgBxd2Njo"
+    "sQAQQBgGHHJwQIku5OgFyaEbABBAeNMBzEZ86QAggHC6ABvG5gKAACIpE2HLVAABRFFWBmGA"
+    "AAMAbGIf2XutwP8AAAAASUVORK5CYII=")
+IconManager._catalog['project_icon'] = project_icon 
+
+#----------------------------------------------------------------------
+script_icon = PyEmbeddedImage(
+    "iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGOfPtRkwAAACBj"
+    "SFJNAAB6JQAAgIMAAPn/AACA6AAAdTAAAOpgAAA6lwAAF2+XqZnUAAAA5ElEQVR4nGL4//8/"
+    "Azn4MoPjfxANEEBgTkuQ+X9SMFgzgx+YBggguAHPr7UShc9vAWq5x/Af5gKAAIIZADfk/ZMN"
+    "ODFM857ZfP+TbTXBBgAEEIoLYAqv7J8ExshsdM0gS0F6AQIIqwH4bC4vigCrBekB6QUIIKxe"
+    "gNkKs3lHrwKGZpgLAAKIoAvWdUqAMUgziI9sOwgDBBDOMEB3CUwM3RCAAIInDGJiAVkzzAsA"
+    "AYQ3FtBdgs0FAAFEsgvQDQAIIKLTAYyPHogAAYThAmIxzBCAACIrM8EwSC9AAJGVlZExQIAB"
+    "ALAI4LT/xABjAAAAAElFTkSuQmCC")
+IconManager._catalog['script_icon'] = script_icon
