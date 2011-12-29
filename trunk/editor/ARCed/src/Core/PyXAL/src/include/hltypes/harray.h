@@ -844,6 +844,51 @@ namespace hltypes
 			}
 			return result;
 		}
+		/// @brief Gets a random element in Array and removes it.
+		/// @return Random element.
+		T pop_random()
+		{
+			if (this->size() == 0)
+			{
+				throw size_error("pop_random()");
+			}
+			T result = stdvector::at(hrand(this->size()));
+			this->remove(result);
+			return result;
+		}
+		/// @brief Gets an Array of random elements selected from this one and removes them.
+		/// @param[in] count Number of random elements.
+		/// @param[in] unique Whether to force all random values to be unique.
+		/// @return Array of random elements selected from this one.
+		Array<T> pop_random(int count, bool unique = false)
+		{
+			Array<T> result;
+			if (!unique)
+			{
+				for (int i = 0; i < count; i++)
+				{
+					result.push_back(stdvector::at(hrand(this->size())));
+				}
+			}
+			else if (count > 0)
+			{
+				if (count >= this->size())
+				{
+					return this->randomized();
+				}
+				Array<int> indexes;
+				for (int i = 0; i < this->size(); i++)
+				{
+					indexes.push_back(i);
+				}
+				for (int i = 0; i < count; i++)
+				{
+					result.push_back(stdvector::at(indexes.remove_at(hrand(indexes.size()))));
+				}
+			}
+			this->remove(result);
+			return result;
+		}
 		/// @brief Joins all elements into a string.
 		/// @param[in] separator Separator string between elements.
 		/// @return String or joined elements separater by separator string.

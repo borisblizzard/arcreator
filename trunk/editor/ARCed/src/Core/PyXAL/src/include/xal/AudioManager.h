@@ -2,7 +2,7 @@
 /// @author  Kresimir Spes
 /// @author  Boris Mikic
 /// @author  Ivan Vucica
-/// @version 2.0
+/// @version 2.2
 /// 
 /// @section LICENSE
 /// 
@@ -32,11 +32,14 @@ namespace xal
 {
 	enum Format
 	{
+#if HAVE_FLAC
+		FLAC,
+#endif
 #if HAVE_M4A
 		M4A,
 #endif
-#if HAVE_MP3
-		MP3,
+#if HAVE_MIDI
+		MIDI,
 #endif
 #if HAVE_OGG
 		OGG,
@@ -86,6 +89,7 @@ namespace xal
 		bool isEnabled() { return this->enabled; }
 		bool isPaused() { return this->paused; }
 		hstr getDeviceName() { return this->deviceName; }
+		bool isThreaded() { return (this->thread != NULL); }
 		float getUpdateTime() { return this->updateTime; }
 		float getGlobalGain() { return this->gain; }
 		void setGlobalGain(float value);
@@ -122,6 +126,11 @@ namespace xal
 		bool isAnyFadingIn(chstr name);
 		bool isAnyFadingOut(chstr name);
 
+		void queueMessage(chstr message);
+
+		void addAudioExtension(chstr extension);
+		hstr findAudioFile(chstr _filename);
+
 	protected:
 		unsigned long backendId;
 		hstr name;
@@ -136,21 +145,59 @@ namespace xal
 		harray<Player*> managedPlayers;
 		harray<Player*> pausedPlayers;
 		hmap<hstr, Sound*> sounds;
+		harray<hstr> extensions;
 		hthread* thread;
 		hmutex mutex; // a mute ex would be nice
+
+		void _setGlobalGain(float value);
+		harray<Player*> _getPlayers();
+
+		void _startThreading();
+		void _clear();
 		
 		void _update(float k);
-		void _lock();
-		void _unlock();
+		virtual void _lock();
+		virtual void _unlock();
 
+		Category* _createCategory(chstr name, HandlingMode loadMod, HandlingMode decodeMode);
+		Category* _getCategoryByName(chstr name);
+		float _getCategoryGain(chstr category);
+		void _setCategoryGain(chstr category, float gain);
+
+		Sound* _createSound(chstr filename, chstr categoryName, chstr prefix);
+		Sound* _getSound(chstr name);
+		void _destroySound(Sound* sound);
+		void _destroySoundsWithPrefix(chstr prefix);
+		harray<hstr> _createSoundsFromPath(chstr path, chstr prefix);
+		harray<hstr> _createSoundsFromPath(chstr path, chstr category, chstr prefix);
+
+		Player* _createPlayer(chstr name);
 		void _destroyPlayer(Player* player);
+		Player* _findPlayer(chstr name);
 		Player* _createManagedPlayer(chstr name);
 		void _destroyManagedPlayer(Player* player);
 
-		virtual Player* _createPlayer(Sound* sound, Buffer* buffer);
+		virtual Player* _createSystemPlayer(Sound* sound, Buffer* buffer);
 		virtual Source* _createSource(chstr filename, Format format);
 
+		void _play(chstr name, float fadeTime, bool looping, float gain);
+		void _stop(chstr name, float fadeTime);
+		void _stopFirst(chstr name, float fadeTime);
+		void _stopAll(float fadeTime);
+		void _pauseAll(float fadeTime);
+		void _resumeAll(float fadeTime);
+		void _stopCategory(chstr name, float fadeTime);
+		bool _isAnyPlaying(chstr name);
+		bool _isAnyFading(chstr name);
+		bool _isAnyFadingIn(chstr name);
+		bool _isAnyFadingOut(chstr name);
+
 		virtual void _convertStream(Buffer* buffer, unsigned char** stream, int *streamSize) { }
+
+	private:
+		harray<hstr> _queuedMessages;
+
+		void _flushQueuedMessages();
 
 	};
 	
