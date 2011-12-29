@@ -1,6 +1,6 @@
 /// @file
 /// @author  Boris Mikic
-/// @version 2.0
+/// @version 2.2
 /// 
 /// @section LICENSE
 /// 
@@ -24,20 +24,18 @@ namespace xal
 	class Buffer;
 	class Category;
 	class Sound;
-	class Updateable;
 
 	class xalExport Player
 	{
 	public:
 		friend class AudioManager;
-		friend class Updateable;
 
 		Player(Sound* sound, Buffer* buffer);
 		virtual ~Player();
 
-		float getGain() { return this->gain; }
+		float getGain();
 		void setGain(float value);
-		float getPitch() { return this->pitch; }
+		float getPitch();
 		void setPitch(float value);
 		float getOffset() { return this->offset; }
 		Sound* getSound() { return this->sound; }
@@ -71,6 +69,11 @@ namespace xal
 		Sound* sound;
 		Buffer* buffer;
 		int bufferIndex;
+
+		float _getGain();
+		void _setGain(float value);
+		float _getPitch();
+		void _setPitch(float value);
 
 		virtual void _update(float k);
 		

@@ -82,28 +82,34 @@ namespace hltypes
 /// @param[in] min Inclusive lower boundary.
 /// @param[in] max Exclusive upper boundary.
 /// @return Random number between min inclusively and max exclusively.
+/// @note Returns min if max is equal or less than min.
 hltypesFnExport int hrand(int min, int max);
 /// @brief Returns a random int number.
 /// @param[in] max Exclusive upper boundary.
 /// @return Random number between 0 inclusively and max exclusively.
+/// @note Returns 0 if max is equal or less than 0.
 hltypesFnExport int hrand(int max);
 /// @brief Returns a random float number.
 /// @param[in] min Inclusive lower boundary.
 /// @param[in] max Exclusive upper boundary.
 /// @return Random number between min inclusively and max exclusively.
+/// @note Returns min if max is equal or less than min.
 hltypesFnExport float hrandf(float min, float max);
 /// @brief Returns a random float number.
 /// @param[in] max Exclusive upper boundary.
 /// @return Random number between 0.0 inclusively and max exclusively.
+/// @note Returns 0.0 if max is equal or less than 0.0.
 hltypesFnExport float hrandf(float max);
 /// @brief Returns a random double number.
 /// @param[in] min Inclusive lower boundary.
 /// @param[in] max Exclusive upper boundary.
 /// @return Random number between min inclusively and max exclusively.
+/// @note Returns min if max is equal or less than min.
 hltypesFnExport double hrandd(double min, double max);
 /// @brief Returns a random double number.
 /// @param[in] max Exclusive upper boundary.
 /// @return Random number between 0.0 inclusively and max exclusively.
+/// @note Returns 0.0 if max is equal or less than 0.0.
 hltypesFnExport double hrandd(double max);
 /// @brief Rounds a double value to the nearest integer value.
 /// @param[in] value The value to be rounded.
