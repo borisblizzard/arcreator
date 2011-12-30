@@ -364,7 +364,6 @@ namespace rgss
 	VALUE Bitmap::rb_dispose(VALUE self)
 	{
 		RB_SELF2CPP(Bitmap, bitmap);
-		RB_CHECK_DISPOSED_2(bitmap);
 		bitmap->dispose();
 		return Qnil;
 	}

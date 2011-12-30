@@ -243,7 +243,8 @@ class Scene_StormTronics
     @snap.x = 96
     @snap.y = 288
     @credits.bitmap.draw_text(320, 96, 640, 32, 'Main Engine')
-    @credits.bitmap.draw_text(320, 160, 640, 32, 'Enterbrain')
+    @credits.bitmap.draw_text(320, 160, 640, 32, 'Chaos Project')
+    @credits.bitmap.draw_text(320, 192, 640, 32, 'Enterbrain (original design)')
     Graphics.transition
     delay(3.5)
     Graphics.freeze
