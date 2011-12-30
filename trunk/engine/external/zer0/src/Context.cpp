@@ -1,5 +1,7 @@
 #include <april/Keys.h>
+#ifndef LEGACY_ONLY
 #include <aprilui/aprilui.h>
+#endif
 #include <hltypes/harray.h>
 #include <rgss/Input.h>
 
@@ -113,7 +115,9 @@ namespace zer0
 	
 	void Context::onMouseMove(float x, float y)
 	{
+#ifndef LEGACY_ONLY
 		aprilui::updateCursorPosition();
+#endif
 	}
 	
 	void Context::onKeyDown(unsigned int keycode)

@@ -193,7 +193,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
-				AdditionalIncludeDirectories="src;include/zer0;../gtypes/include;../hltypes/include;../atres/include;../atres/atresttf/include;../april/include;../aprilui/include;../xal/include;../rgss/include;../include;../include/msvcr90-ruby192;"
+				AdditionalIncludeDirectories="src;include/zer0;../gtypes/include;../hltypes/include;../atres/include;../atres/atresttf/include;../april/include;../xal/include;../rgss/include;../include;../include/msvcr90-ruby192;"
 				PreprocessorDefinitions="_WIN32;_DESKTOP;LEGACY_ONLY;ZER0_EXPORTS;_CRT_SECURE_NO_WARNINGS"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"

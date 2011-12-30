@@ -10,7 +10,9 @@
 #include <atres/Renderer.h>
 #include <atresttf/atresttf.h>
 #include <atresttf/FontResourceTtf.h>
+#ifndef LEGACY_ONLY
 #include <aprilui/aprilui.h>
+#endif
 #include <hltypes/exception.h>
 #include <hltypes/hdir.h>
 #include <hltypes/hfile.h>

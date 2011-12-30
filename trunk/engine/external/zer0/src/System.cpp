@@ -2,10 +2,12 @@
 
 #include <april/Keys.h>
 #include <april/RenderSystem.h>
+#ifndef LEGACY_ONLY
 #include <aprilui/Animator.h>
 #include <aprilui/aprilui.h>
 #include <aprilui/Dataset.h>
 #include <aprilui/Objects.h>
+#endif
 #include <hltypes/harray.h>
 #include <hltypes/hdir.h>
 #include <hltypes/hfile.h>
