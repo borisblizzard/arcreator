@@ -255,7 +255,6 @@ namespace rgss
 	VALUE Renderable::rb_isDisposed(VALUE self)
 	{
 		RB_SELF2CPP(Renderable, renderable);
-		RB_CHECK_DISPOSED_1(renderable);
 		return (renderable->disposed ? Qtrue : Qfalse);
 	}
 

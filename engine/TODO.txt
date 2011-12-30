@@ -13,3 +13,6 @@
 - add opacity for Viewport
 - implement xal::Player::getPosition()
 - hide xal::Player::getOffset()
+- add option in CFG to pause audio while window is inactive
+- events using a tile for a graphic may not work properly because of something (possible problem with Bitmap#blt)
+- implement a texture cacher to avoid constant creations of user textures

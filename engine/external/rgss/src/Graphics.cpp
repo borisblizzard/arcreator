@@ -281,6 +281,7 @@ namespace rgss
 		april::Texture* newScreen = april::rendersys->createTextureFromMemory(imageSource->data, width, height);
 		delete imageSource;
 		float time;
+		TRY_RUN_GC;
 		if (filename == "")
 		{
 			// fade between old and new screen
@@ -296,7 +297,6 @@ namespace rgss
 				april::rendersys->drawTexturedQuad(drawRect, srcRect, color);
 				april::rendersys->presentFrame();
 				frameCount++;
-				TRY_RUN_GC;
 				_updateFpsCounter(time);
 				_waitForFrameSync();
 			}
@@ -323,7 +323,6 @@ namespace rgss
 				april::rendersys->drawTexturedQuad(drawRect, srcRect);
 				april::rendersys->presentFrame();
 				frameCount++;
-				TRY_RUN_GC;
 				_updateFpsCounter(time);
 				_waitForFrameSync();
 			}
