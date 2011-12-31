@@ -586,15 +586,14 @@ namespace rgss
 
 	VALUE Bitmap::rb_textSize(VALUE self, VALUE string)
 	{
-		// TODO - test this
 		RB_SELF2CPP(Bitmap, bitmap);
 		RB_CHECK_DISPOSED_2(bitmap);
 		RB_CHECK_TYPE_1(string, rb_cString);
 		hstr text = StringValueCStr(string);
 		hstr fontName = bitmap->_getAtresFontName();
 		float w = atres::renderer->getTextWidth(fontName, text);
-		int h = bitmap->font->getSize();
-		return Rect::create(INT2FIX(0), INT2FIX(0), INT2FIX((int)ceil(w)), INT2FIX(h));
+		float h = atres::renderer->getTextHeight(fontName, text, w + 2.0f);
+		return Rect::create(INT2FIX(0), INT2FIX(0), INT2FIX((int)ceil(w)), INT2FIX((int)ceil(h)));
 	}
 
 	VALUE Bitmap::rb_arcDump(VALUE self)

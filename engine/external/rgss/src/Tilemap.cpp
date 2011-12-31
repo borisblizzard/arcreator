@@ -208,7 +208,7 @@ namespace rgss
 							}
 						}
 					}
-					tileSprite->setZ(tileSprite->getY() + (this->priorities->getData(tileId) + 1) * TILE_SIZE);
+					tileSprite->setZ(tileSprite->getY() + (this->priorities->getData(tileId) + 1) * TILE_SIZE - 1);
 				}
 			}
 		}
