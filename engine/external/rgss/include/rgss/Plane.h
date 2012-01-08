@@ -5,7 +5,6 @@
 
 #include "Color.h"
 #include "Rect.h"
-#include "Tone.h"
 #include "Blendable.h"
 #include "rgssExport.h"
 
@@ -51,11 +50,6 @@ namespace rgss
 		Rect _getRenderRect();
 		/// @brief Renders the actual texture.
 		void _render();
-
-		/// @brief Color blended with plane
-		Color color;
-		/// @brief The plane's color tone
-		Tone tone;
 
 	};
 
