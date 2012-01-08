@@ -1,6 +1,7 @@
 #include <ruby.h>
 
 #include <april/Color.h>
+#include <april/PixelShader.h>
 #include <april/RenderSystem.h>
 #include <gtypes/Rectangle.h>
 
@@ -19,6 +20,7 @@
 namespace rgss
 {
 	unsigned int Renderable::CounterProgress;
+	extern april::PixelShader* pixelShader;
 
 	/****************************************************************************************
 	 * Pure C++ code
@@ -43,7 +45,6 @@ namespace rgss
 		this->flashColor = NULL;
 		this->flashDuration = 0;
 		this->flashTimer = 0;
-		this->tempTexture = NULL;
 		this->counterId = CounterProgress;
 		CounterProgress++;
 		this->renderQueue = renderQueue;
@@ -114,11 +115,6 @@ namespace rgss
 		this->tone = NULL;
 		if (!this->disposed)
 		{
-			if (this->tempTexture != NULL)
-			{
-				delete this->tempTexture;
-				this->tempTexture = NULL;
-			}
 			this->disposed = true;
 			this->renderQueue->remove(this);
 			switch (this->type)
@@ -147,73 +143,11 @@ namespace rgss
 	void Renderable::_renderTexture(grect drawRect, grect srcRect, april::Texture* texture, unsigned char opacity)
 	{
 		april::rendersys->setTexture(texture);
+		april::rendersys->setPixelShader(rgss::pixelShader);
 		april::rendersys->setColorMode(april::LERP, opacity);
-		april::rendersys->drawTexturedQuad(drawRect, srcRect, this->_getRenderColor());
+		april::rendersys->drawTexturedQuad(drawRect, srcRect, this->_getRenderColor(), this->tone->toAprilColor());
 		april::rendersys->setColorMode(april::NORMAL);
-		/*
-		if (this->tone->red == 0.0f && this->tone->green == 0.0f && this->tone->blue == 0.0f &&
-			this->tone->gray == 0.0f) // skip the whole slow mess down there if no tone is being used
-		{
-			if (this->tempTexture != NULL)
-			{
-				delete this->tempTexture;
-				this->tempTexture = NULL;
-			}
-			april::rendersys->setTexture(texture);
-			april::rendersys->setColorMode(april::LERP, opacity);
-			april::rendersys->drawTexturedQuad(drawRect, srcRect, this->_getRenderColor());
-			april::rendersys->setColorMode(april::NORMAL);
-			return;
-		}
-		rgss::Rect rect;
-		rect.width = hround(drawRect.w);
-		rect.height = hround(drawRect.h);
-		bool needsTextureUpdate = false;
-		if (this->tempTexture == NULL)
-		{
-			needsTextureUpdate = true;
-		}
-		else if (rect.width != this->tempTexture->getWidth() ||
-			rect.height != this->tempTexture->getHeight())
-		{
-			delete this->tempTexture;
-			needsTextureUpdate = true;
-		}
-		if (needsTextureUpdate)
-		{
-			this->tempTexture = april::rendersys->createEmptyTexture(rect.width,
-				rect.height, april::AT_ARGB, april::AT_RENDER_TARGET);
-			this->tempTexture->setTextureFilter(april::Nearest);
-		}
-		else
-		{
-			this->tempTexture->clear();
-		}
-		gmat4 viewMatrix = april::rendersys->getModelviewMatrix();
-		gmat4 projectionMatrix = april::rendersys->getProjectionMatrix();
-		april::Texture* target = april::rendersys->getRenderTarget();
-		april::rendersys->setRenderTarget(this->tempTexture);
-		april::rendersys->setTexture(texture);
-		april::rendersys->setIdentityTransform();
-		grect tempDrawRect(0.0f, 0.0f, drawRect.getSize());
-		april::rendersys->setOrthoProjection(tempDrawRect);
-		april::rendersys->setColorMode(april::LERP, opacity);
-		april::Color color = this->_getRenderColor();
-		april::rendersys->drawTexturedQuad(tempDrawRect, srcRect, color);
-		april::rendersys->setColorMode(april::NORMAL);
-		april::rendersys->setRenderTarget(target);
-		april::rendersys->setProjectionMatrix(projectionMatrix);
-		april::rendersys->setModelviewMatrix(viewMatrix);
-		if (this->tone->gray > 0.0f)
-		{
-			this->tempTexture->saturate((255.0f - this->tone->gray) / 255.0f);
-		}
-		april::rendersys->setColorMode(april::ADD);
-		april::rendersys->setTexture(this->tempTexture);
-		color = this->tone->toAprilColor();
-		april::rendersys->drawTexturedQuad(drawRect, grect(0.0f, 0.0f, 1.0f, 1.0f), color);
-		april::rendersys->setColorMode(april::NORMAL);
-		*/
+		april::rendersys->setPixelShader(NULL);
 	}
 
 	/****************************************************************************************

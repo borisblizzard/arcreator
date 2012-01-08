@@ -4,7 +4,9 @@
 #include <ruby/extensions.h>
 #include <ruby/ruby.h>
 
+#include <april/PixelShader.h>
 #include <april/RenderSystem.h>
+#include <april/VertexShader.h>
 #include <april/Window.h>
 #include <atres/atres.h>
 #include <atres/Renderer.h>
@@ -39,6 +41,8 @@ namespace zer0
 	bool result;
 	grect drawRect;
 	bool debugMode;
+	april::VertexShader* vertexShader = NULL;
+	april::PixelShader* pixelShader = NULL;
 	void (*g_logFunction)(chstr, chstr);
 	
 	void logLib(chstr message)
@@ -199,6 +203,11 @@ namespace zer0
 				zer0::Context::onKeyDown, zer0::Context::onKeyUp, zer0::Context::onChar);
 			april::rendersys->getWindow()->setQuitCallback(&System::onQuit);
 			april::rendersys->getWindow()->setWindowFocusCallback(&System::onFocusChange);
+			// TODO
+			zer0::vertexShader = april::rendersys->createVertexShader();
+			zer0::vertexShader->compile(ARC_VERTEX_SHADER);
+			zer0::pixelShader = april::rendersys->createPixelShader();
+			zer0::pixelShader->compile(ARC_PIXEL_SHADER);
 			// atres
 			atres::init();
 			atresttf::init();
@@ -243,6 +252,8 @@ namespace zer0
 		bool result = true;
 		try
 		{
+			delete zer0::vertexShader;
+			delete zer0::pixelShader;
 			zer0::log("destroying Zer0 Division Engine");
 			// destroy other
 			delete zer0::context;
@@ -284,6 +295,7 @@ namespace zer0
 		rgss::setLogFunction(&zer0::logLib);
 #endif
 		rgss::init(zer0::system->Parameters);
+		rgss::setPixelShader(zer0::pixelShader);
 		// running the Ruby scripts
 		harray<hstr> files = hdir::files("./Data/Scripts");
 		harray<hstr> scripts;

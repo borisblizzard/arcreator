@@ -1,3 +1,5 @@
+#include <april/PixelShader.h>
+
 #include "Audio.h"
 #include "Bitmap.h"
 #include "Color.h"
@@ -20,6 +22,7 @@ namespace rgss
 {
 	hmap<hstr, hstr> parameters;
 	bool debugMode;
+	april::PixelShader* pixelShader;
 	
 	void rgss_writelog(chstr message)
 	{
@@ -103,6 +106,11 @@ namespace rgss
 		Tone::destroy();
 		Viewport::destroy();
 		Window::destroy();
+	}
+
+	void setPixelShader(april::PixelShader* value)
+	{
+		rgss::pixelShader = value;
 	}
 
 }
