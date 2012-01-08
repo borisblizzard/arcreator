@@ -1,5 +1,6 @@
 #include <ruby.h>
 
+#include <april/Color.h>
 #include <hltypes/util.h>
 
 #include "CodeSnippets.h"
@@ -19,6 +20,15 @@ namespace rgss
 		this->green = hclamp(g, -255.0f, 255.0f);
 		this->blue = hclamp(b, -255.0f, 255.0f);
 		this->gray = hclamp(a, 0.0f, 255.0f);
+	}
+
+	april::Color Tone::toAprilColor()
+	{
+		return april::Color(
+			(unsigned char)((this->red + 255) / 2),
+			(unsigned char)((this->green + 255) / 2),
+			(unsigned char)((this->blue + 255) / 2),
+			(unsigned char)(255 - this->gray));
 	}
 
 	/****************************************************************************************

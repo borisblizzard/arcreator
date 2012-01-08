@@ -191,8 +191,6 @@ namespace rgss
 	private:
 		/// @brief The RenderQueue this renderable belongs to.
 		RenderQueue* renderQueue;
-		/// @brief Texture used for temporary because of tone.
-		april::Texture* tempTexture;
 
 	};
 

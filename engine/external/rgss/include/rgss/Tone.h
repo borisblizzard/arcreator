@@ -3,6 +3,8 @@
 
 #include <ruby.h>
 
+#include <april/Color.h>
+
 #include "rgssExport.h"
 
 namespace rgss
@@ -30,6 +32,10 @@ namespace rgss
 		/// @note Tone values will be clamped between -255 and 255.
 		/// @note Gray is clamped between 0 and 255.
 		void set(float r, float g, float b, float gr = 0.0f);
+
+		/// @brief Converts this instance into april::Color.
+		/// @return april::Color representation.
+		april::Color toAprilColor();
 
 		/// @brief Initializes.
 		static void init();

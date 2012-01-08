@@ -6,6 +6,11 @@
 
 #include "rgssExport.h"
 
+namespace april
+{
+	class PixelShader;
+}
+
 namespace rgss
 {
 	rgssFnExport void init(hmap<hstr, hstr> parameters);
@@ -14,6 +19,7 @@ namespace rgss
 	rgssFnExport void log(chstr message, chstr prefix = "[rgss] ");
 	rgssFnExport bool isDebugMode();
 	rgssFnExport void setDebugMode(bool value);
+	rgssFnExport void setPixelShader(april::PixelShader* value);
 
 	extern hmap<hstr, hstr> parameters;
 
