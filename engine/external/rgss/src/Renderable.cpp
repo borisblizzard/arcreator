@@ -144,9 +144,19 @@ namespace rgss
 	{
 		april::rendersys->setTexture(texture);
 		april::rendersys->setPixelShader(rgss::pixelShader);
-		april::rendersys->setColorMode(april::LERP, opacity);
-		april::rendersys->drawTexturedQuad(drawRect, srcRect, this->_getRenderColor(), this->tone->toAprilColor());
-		april::rendersys->setColorMode(april::NORMAL);
+		static float quadVectors[12] = {0.0f};
+		quadVectors[3] = opacity / 255.0f;
+		april::Color color = this->_getRenderColor();
+		quadVectors[4] = color.r_f();
+		quadVectors[5] = color.g_f();
+		quadVectors[6] = color.b_f();
+		quadVectors[7] = color.a_f();
+		quadVectors[8] = (this->tone->red + 255) / 510.0f;
+		quadVectors[9] = (this->tone->green + 255) / 510.0f;
+		quadVectors[10] = (this->tone->blue + 255) / 510.0f;
+		quadVectors[11] = (255 - this->tone->gray) / 255.0f;
+		rgss::pixelShader->setConstantsF(quadVectors, 3);
+		april::rendersys->drawTexturedQuad(drawRect, srcRect);
 		april::rendersys->setPixelShader(NULL);
 	}
 
