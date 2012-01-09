@@ -33,10 +33,6 @@ namespace rgss
 		/// @note Gray is clamped between 0 and 255.
 		void set(float r, float g, float b, float gr = 0.0f);
 
-		/// @brief Converts this instance into april::Color.
-		/// @return april::Color representation.
-		april::Color toAprilColor();
-
 		/// @brief Initializes.
 		static void init();
 		/// @brief Destroys.

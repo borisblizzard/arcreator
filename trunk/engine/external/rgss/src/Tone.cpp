@@ -22,15 +22,6 @@ namespace rgss
 		this->gray = hclamp(a, 0.0f, 255.0f);
 	}
 
-	april::Color Tone::toAprilColor()
-	{
-		return april::Color(
-			(unsigned char)((this->red + 255) / 2),
-			(unsigned char)((this->green + 255) / 2),
-			(unsigned char)((this->blue + 255) / 2),
-			(unsigned char)(255 - this->gray));
-	}
-
 	/****************************************************************************************
 	 * Ruby Interfacing, Creation, Destruction, Systematics
 	 ****************************************************************************************/
