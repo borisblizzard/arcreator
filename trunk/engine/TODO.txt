@@ -16,4 +16,3 @@
 - add option in CFG to pause audio while window is inactive
 - implement a window skin texture cacher to avoid constant creations of user textures for windows
 - implement FULLSCREEN switch in APRIL
-- check why Viewport#tone isn't working right

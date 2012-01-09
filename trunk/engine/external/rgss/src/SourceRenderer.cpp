@@ -18,7 +18,7 @@ namespace rgss
 	void SourceRenderer::initializeSourceRenderer(VALUE rb_viewport)
 	{
 		CPP_GENERATE_INITIALIZER(Viewport, viewport);
-		this->initializeRenderable(NIL_P(this->rb_viewport) ? Graphics::renderQueue : viewport->renderQueue);
+		this->initializeRenderable(NIL_P(this->rb_viewport) ? Graphics::renderQueue : this->viewport->renderQueue);
 		this->opacity = 255;
 		this->rb_bitmap = Qnil;
 		this->bitmap = NULL;

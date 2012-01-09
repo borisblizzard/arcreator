@@ -16,9 +16,9 @@ namespace rgss
 
 	void Color::set(float r, float g, float b, float a)
 	{
-		this->red = hclamp(r, -255.0f, 255.0f);
-		this->green = hclamp(g, -255.0f, 255.0f);
-		this->blue = hclamp(b, -255.0f, 255.0f);
+		this->red = hclamp(r, 0.0f, 255.0f);
+		this->green = hclamp(g, 0.0f, 255.0f);
+		this->blue = hclamp(b, 0.0f, 255.0f);
 		this->alpha = hclamp(a, 0.0f, 255.0f);
 	}
 
@@ -123,7 +123,7 @@ namespace rgss
 	VALUE Color::rb_setRed(VALUE self, VALUE value)
 	{
 		RB_SELF2CPP(Color, color);
-		color->red = hclamp((float)NUM2DBL(value), -255.0f, 255.0f);
+		color->red = hclamp((float)NUM2DBL(value), 0.0f, 255.0f);
 		return self;
 	}
 
@@ -136,7 +136,7 @@ namespace rgss
 	VALUE Color::rb_setGreen(VALUE self, VALUE value)
 	{
 		RB_SELF2CPP(Color, color);
-		color->green = hclamp((float)NUM2DBL(value), -255.0f, 255.0f);
+		color->green = hclamp((float)NUM2DBL(value), 0.0f, 255.0f);
 		return self;
 	}
 
@@ -149,7 +149,7 @@ namespace rgss
 	VALUE Color::rb_setBlue(VALUE self, VALUE value)
 	{
 		RB_SELF2CPP(Color, color);
-		color->blue = hclamp((float)NUM2DBL(value), -255.0f, 255.0f);
+		color->blue = hclamp((float)NUM2DBL(value), 0.0f, 255.0f);
 		return self;
 	}
 
@@ -175,9 +175,9 @@ namespace rgss
 		VALUE r, g, b, a;
 		rb_scan_args(argc, argv, "31", &r, &g, &b, &a);
 		RB_SELF2CPP(Color, color);
-		color->red = hclamp((float)NUM2DBL(r), -255.0f, 255.0f);
-		color->green = hclamp((float)NUM2DBL(g), -255.0f, 255.0f);
-		color->blue = hclamp((float)NUM2DBL(b), -255.0f, 255.0f);
+		color->red = hclamp((float)NUM2DBL(r), 0.0f, 255.0f);
+		color->green = hclamp((float)NUM2DBL(g), 0.0f, 255.0f);
+		color->blue = hclamp((float)NUM2DBL(b), 0.0f, 255.0f);
 		color->alpha = (NIL_P(a) ? 255.0f : hclamp((float)NUM2DBL(a), 0.0f, 255.0f));
 		return Qnil;
 	}

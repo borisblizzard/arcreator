@@ -10,11 +10,11 @@
 #include "Bitmap.h"
 #include "CodeSnippets.h"
 #include "Graphics.h"
+#include "RGSSError.h"
 #include "Sprite.h"
 #include "Table.h"
 #include "Tilemap.h"
 #include "Viewport.h"
-#include "RGSSError.h"
 
 #define TILE_SIZE 32
 
@@ -349,6 +349,7 @@ namespace rgss
 		if (value != rb_ox)
 		{
 			RB_SELF2CPP(Tilemap, tilemap);
+			tilemap->needsUpdate = true;
 		}
 		return value;
 	}
@@ -389,6 +390,7 @@ namespace rgss
 	{
 		RB_SELF2CPP(Tilemap, tilemap);
 		RB_CHECK_DISPOSED_2(tilemap);
+		tilemap->needsUpdate = true;
 		return tilemap->rb_mapData;
 	}
 
@@ -408,6 +410,7 @@ namespace rgss
 	{
 		RB_SELF2CPP(Tilemap, tilemap);
 		RB_CHECK_DISPOSED_2(tilemap);
+		tilemap->needsUpdate = true;
 		return tilemap->rb_priorities;
 	}
 
