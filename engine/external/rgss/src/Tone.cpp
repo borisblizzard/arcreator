@@ -70,14 +70,12 @@ namespace rgss
 
 	VALUE Tone::rb_new(VALUE classe)
 	{
-		Tone* color;
-		return Data_Make_Struct(classe, Tone, NULL, NULL, color);
+		Tone* tone;
+		return Data_Make_Struct(classe, Tone, NULL, NULL, tone);
 	}
 
 	VALUE Tone::rb_initialize(int argc, VALUE* argv, VALUE self)
 	{
-		VALUE r, g, b, a;
-		rb_scan_args(argc, argv, "31", &r, &g, &b, &a);
 		Tone::rb_set(argc, argv, self);
 		return self;
 	}
@@ -95,8 +93,8 @@ namespace rgss
 
 	VALUE Tone::rb_inspect(VALUE self)
 	{
-		RB_SELF2CPP(Tone, color);
-		hstr result = hsprintf("(%.1f,%.1f,%.1f,%.1f)", color->red, color->green, color->blue, color->gray);
+		RB_SELF2CPP(Tone, tone);
+		hstr result = hsprintf("(%.1f,%.1f,%.1f,%.1f)", tone->red, tone->green, tone->blue, tone->gray);
 		return rb_str_new2(result.c_str());
 	}
 
@@ -113,53 +111,53 @@ namespace rgss
 
 	VALUE Tone::rb_getRed(VALUE self)
 	{
-		RB_SELF2CPP(Tone, color);
-		return rb_float_new(color->red);
+		RB_SELF2CPP(Tone, tone);
+		return rb_float_new(tone->red);
 	}
 
 	VALUE Tone::rb_setRed(VALUE self, VALUE value)
 	{
-		RB_SELF2CPP(Tone, color);
-		color->red = hclamp((float)NUM2DBL(value), -255.0f, 255.0f);
+		RB_SELF2CPP(Tone, tone);
+		tone->red = hclamp((float)NUM2DBL(value), -255.0f, 255.0f);
 		return self;
 	}
 
 	VALUE Tone::rb_getGreen(VALUE self)
 	{
-		RB_SELF2CPP(Tone, color);
-		return rb_float_new(color->green);
+		RB_SELF2CPP(Tone, tone);
+		return rb_float_new(tone->green);
 	}
 
 	VALUE Tone::rb_setGreen(VALUE self, VALUE value)
 	{
-		RB_SELF2CPP(Tone, color);
-		color->green = hclamp((float)NUM2DBL(value), -255.0f, 255.0f);
+		RB_SELF2CPP(Tone, tone);
+		tone->green = hclamp((float)NUM2DBL(value), -255.0f, 255.0f);
 		return self;
 	}
 
 	VALUE Tone::rb_getBlue(VALUE self)
 	{
-		RB_SELF2CPP(Tone, color);
-		return rb_float_new(color->blue);
+		RB_SELF2CPP(Tone, tone);
+		return rb_float_new(tone->blue);
 	}
 
 	VALUE Tone::rb_setBlue(VALUE self, VALUE value)
 	{
-		RB_SELF2CPP(Tone, color);
-		color->blue = hclamp((float)NUM2DBL(value), -255.0f, 255.0f);
+		RB_SELF2CPP(Tone, tone);
+		tone->blue = hclamp((float)NUM2DBL(value), -255.0f, 255.0f);
 		return self;
 	}
 
 	VALUE Tone::rb_getGray(VALUE self)
 	{
-		RB_SELF2CPP(Tone, color);
-		return rb_float_new(color->gray);
+		RB_SELF2CPP(Tone, tone);
+		return rb_float_new(tone->gray);
 	}
 
 	VALUE Tone::rb_setGray(VALUE self, VALUE value)
 	{
-		RB_SELF2CPP(Tone, color);
-		color->gray = hclamp((float)NUM2DBL(value), 0.0f, 255.0f);
+		RB_SELF2CPP(Tone, tone);
+		tone->gray = hclamp((float)NUM2DBL(value), 0.0f, 255.0f);
 		return self;
 	}
 
@@ -169,13 +167,13 @@ namespace rgss
 
 	VALUE Tone::rb_set(int argc, VALUE* argv, VALUE self)
 	{
-		VALUE r, g, b, a;
-		rb_scan_args(argc, argv, "31", &r, &g, &b, &a);
-		RB_SELF2CPP(Tone, color);
-		color->red = hclamp((float)NUM2DBL(r), -255.0f, 255.0f);
-		color->green = hclamp((float)NUM2DBL(g), -255.0f, 255.0f);
-		color->blue = hclamp((float)NUM2DBL(b), -255.0f, 255.0f);
-		color->gray = (NIL_P(a) ? 255.0f : hclamp((float)NUM2DBL(a), 0.0f, 255.0f));
+		VALUE r, g, b, gray;
+		rb_scan_args(argc, argv, "31", &r, &g, &b, &gray);
+		RB_SELF2CPP(Tone, tone);
+		tone->red = hclamp((float)NUM2DBL(r), -255.0f, 255.0f);
+		tone->green = hclamp((float)NUM2DBL(g), -255.0f, 255.0f);
+		tone->blue = hclamp((float)NUM2DBL(b), -255.0f, 255.0f);
+		tone->gray = (NIL_P(gray) ? 0.0f : hclamp((float)NUM2DBL(gray), 0.0f, 255.0f));
 		return Qnil;
 	}
 

@@ -11,7 +11,6 @@
 #include "Graphics.h"
 #include "Rect.h"
 #include "RenderQueue.h"
-#include "Tone.h"
 #include "Viewport.h"
 #include "RGSSError.h"
 
@@ -150,29 +149,17 @@ namespace rgss
 
 	void Viewport::gc_mark(Viewport* viewport)
 	{
-		if (!NIL_P(viewport->rb_color))
-		{
-			rb_gc_mark(viewport->rb_color);
-		}
 		if (!NIL_P(viewport->rb_rect))
 		{
 			rb_gc_mark(viewport->rb_rect);
-		}
-		if (!NIL_P(viewport->rb_tone))
-		{
-			rb_gc_mark(viewport->rb_tone);
 		}
 		Renderable::gc_mark(viewport);
 	}
 
 	void Viewport::gc_free(Viewport* viewport)
 	{
-		viewport->rb_color = Qnil;
-		viewport->color = NULL;
 		viewport->rb_rect = Qnil;
 		viewport->rect = NULL;
-		viewport->rb_tone = Qnil;
-		viewport->tone = NULL;
 		Renderable::gc_free(viewport);
 	}
 
@@ -194,9 +181,9 @@ namespace rgss
 			rb_raise(rb_eArgError, message.c_str());
 		}
 		RB_SELF2CPP(Viewport, viewport);
+		viewport->initializeRenderable(Graphics::renderQueue);
 		viewport->renderQueue = new RenderQueue();
 		viewport->texture = NULL;
-		viewport->initializeRenderable(Graphics::renderQueue);
 		VALUE arg1, arg2, arg3, arg4;
 		rb_scan_args(argc, argv, "13", &arg1, &arg2, &arg3, &arg4);
 		if (NIL_P(arg2) && NIL_P(arg3) && NIL_P(arg4))
@@ -207,9 +194,6 @@ namespace rgss
 		{
 			Viewport::rb_setRect(self, Rect::create(arg1, arg2, arg3, arg4));
 		}
-		VALUE argv2[4] = {INT2FIX(0), INT2FIX(0), INT2FIX(0), INT2FIX(0)};
-		Viewport::rb_setColor(self, Color::create(4, argv2));
-		Viewport::rb_setTone(self, Tone::create(4, argv2));
 		return self;
 	}
 
@@ -231,7 +215,7 @@ namespace rgss
 	{
 		RB_SELF2CPP(Viewport, viewport);
 		RB_CHECK_DISPOSED_1(viewport);
-		return Color::rb_inspect(viewport->rb_color);
+		return Rect::rb_inspect(viewport->rb_rect);
 	}
 
 	/****************************************************************************************

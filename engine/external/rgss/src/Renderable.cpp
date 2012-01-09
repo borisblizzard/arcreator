@@ -132,7 +132,7 @@ namespace rgss
 	april::Color Renderable::_getRenderColor()
 	{
 		april::Color result = this->color->toAprilColor();
-		if (this->flashTimer < this->flashDuration)
+		if (this->flashDuration > 0 && this->flashTimer < this->flashDuration)
 		{
 			float ratio = (float)this->flashTimer / this->flashDuration;
 			result = result * ratio + this->flashColor->toAprilColor() * (1.0f - ratio);
@@ -333,7 +333,6 @@ namespace rgss
 		}
 		renderable->flashTimer = 0;
 		renderable->flashDuration = flashDuration;
-		renderable->rb_flashColor = color;
 		return Qnil;
 	}
 

@@ -54,7 +54,7 @@ namespace rgss
 		/// @param[in] argc Number of arguments.
 		/// @param[in] argv Pointer to first argument.
 		/// @note Arguments are "r, g, b[, a]".
-		/// @note Color values will be clamped between -255 and 255.
+		/// @note Color values will be clamped between 0 and 255.
 		/// @note Alpha is clamped between 0 and 255.
 		static VALUE rb_initialize(int argc, VALUE* argv, VALUE self);
 		/// @brief Used for clone and dup.
@@ -67,8 +67,7 @@ namespace rgss
 		/// @param[in] argc Number of arguments.
 		/// @param[in] argv Pointer to first argument.
 		/// @note Arguments are "r, g, b[, a]".
-		/// @note Color values will be clamped between -255 and 255.
-		/// @note Alpha is clamped between 0 and 255.
+		/// @note Values will be clamped between 0 and 255.
 		static VALUE create(int argc, VALUE* argv);
 
 		/// @brief Gets the red component.
@@ -76,21 +75,21 @@ namespace rgss
 		static VALUE rb_getRed(VALUE self);
 		/// @brief Sets the red component.
 		/// @param[in] value Red component.
-		/// @note The value will be clamped between -255 and 255.
+		/// @note The value will be clamped between 0 and 255.
 		static VALUE rb_setRed(VALUE self, VALUE value);
 		/// @brief Gets the green component.
 		/// @return Green component.
 		static VALUE rb_getGreen(VALUE self);
 		/// @brief Sets the green component.
 		/// @param[in] value Green component.
-		/// @note The value will be clamped between -255 and 255.
+		/// @note The value will be clamped between 0 and 255.
 		static VALUE rb_setGreen(VALUE self, VALUE value);
 		/// @brief Gets the blue component.
 		/// @return Blue component.
 		static VALUE rb_getBlue(VALUE self);
 		/// @brief Sets the blue component.
 		/// @param[in] value Blue component.
-		/// @note The value will be clamped between -255 and 255.
+		/// @note The value will be clamped between 0 and 255.
 		static VALUE rb_setBlue(VALUE self, VALUE value);
 		/// @brief Gets the alpha component.
 		/// @return Alpha component.
@@ -104,8 +103,7 @@ namespace rgss
 		/// @param[in] argc Number of arguments.
 		/// @param[in] argv Pointer to first argument.
 		/// @note Arguments are "r, g, b[, a]".
-		/// @note Color values will be clamped between -255 and 255.
-		/// @note Alpha is clamped between 0 and 255.
+		/// @note Values will be clamped between 0 and 255.
 		static VALUE rb_set(int argc, VALUE* argv, VALUE self);
 
 		/// @brief Returns a byte stream containing serialization data for Marshal.
