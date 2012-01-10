@@ -9,6 +9,7 @@
 #define CFG_RESOLUTION "Resolution"
 #define CFG_FULLSCREEN "Fullscreen"
 #define CFG_FRAME_RATE "FrameRate"
+#define CFG_GAME_VERSION "GameVersion"
 
 #define ARC_PIXEL_SHADER "\
 float4 alpha : COLOR0; \
