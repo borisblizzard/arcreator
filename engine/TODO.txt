@@ -16,3 +16,5 @@
 - add option in CFG to pause audio while window is inactive
 - implement a window skin texture cacher to avoid constant creations of user textures for windows
 - implement FULLSCREEN switch in APRIL
+
+- fix problem with game freeze after a Tilemap has been shown at least once (problems with GC?)
