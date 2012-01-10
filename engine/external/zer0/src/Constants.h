@@ -11,18 +11,14 @@
 #define CFG_FRAME_RATE "FrameRate"
 
 #define ARC_PIXEL_SHADER "\
-struct PS_INPUT \
-{ \
-	float2 tex0 : TEXCOORD0; \
-}; \
 float4 alpha : COLOR0; \
 float4 color : COLOR1; \
 float4 tone : COLOR2; \
 sampler2D tex0; \
 float3 rgb2hsl = {0.299, 0.587, 0.114}; \
-float4 main(PS_INPUT data) : COLOR0 \
+float4 main(float2 texcoord0 : TEXCOORD0) : COLOR0 \
 { \
-	float4 c = tex2D(tex0, data.tex0); \
+	float4 c = tex2D(tex0, texcoord0); \
 	if (c.a > 0) \
 	{ \
 		c.a = c.a * alpha.a; \
