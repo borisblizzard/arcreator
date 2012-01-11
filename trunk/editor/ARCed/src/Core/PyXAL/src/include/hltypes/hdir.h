@@ -27,9 +27,9 @@ namespace hltypes
 	class hltypesExport Dir
 	{
 	public:
-		/// @brief 2DO
-		/// @param[in] filepath of the file.
-		/// @result 2DO
+		/// @brief Converts a path to a platform specific format.
+		/// @param[in] path The path for conversion.
+		/// @result Platform specific formatted path.
 		static hstr convert_to_native_path(hstr path);
 		/// @brief Creates a directory.
 		/// @param[in] dirname Name of the directory.

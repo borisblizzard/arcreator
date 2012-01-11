@@ -352,9 +352,9 @@ namespace hltypes
 				throw range_error(index, count);
 			}
 			Array<T> result;
-			const_iterator_t it = stdvector::begin();
-			const_iterator_t begin = it + index;
-			const_iterator_t end = it + (index + count);
+			iterator_t it = stdvector::begin();
+			iterator_t begin = it + index;
+			iterator_t end = it + (index + count);
 			result.assign(begin, end);
 			stdvector::erase(begin, end);
 			return result;
@@ -385,6 +385,16 @@ namespace hltypes
 				stdvector::erase(stdvector::begin() + index);
 			}
 		}
+		/// @brief Removes first occurrence of element if the given condition is fulfilled.
+		/// @param[in] condition_function Function pointer with condition function that takes one element of type T and returns bool.
+		void remove(bool (*condition_function)(T))
+		{
+			T* element = this->find_first(condition_function);
+			if (element != NULL)
+			{
+				this->remove(*element);
+			}
+		}
 		/// @brief Removes all occurrences of element in Array.
 		/// @param[in] element Element to remove.
 		/// @return Number of elements removed.
@@ -405,7 +415,7 @@ namespace hltypes
 		{
 			Array<int> indexes;
 			iterator_t it;
-			int count;
+			int count = 0;
 			for (int i = 0; i < other.size(); i++)
 			{
 				Array<int> indexes = this->indexes_of(other.at(i));
@@ -417,6 +427,13 @@ namespace hltypes
 				count += indexes.size();
 			}
 			return count;
+		}
+		/// @brief Removes all occurrences of each element if the given condition is fulfilled.
+		/// @param[in] condition_function Function pointer with condition function that takes one element of type T and returns bool.
+		/// @return Number of elements removed.
+		int remove_all(bool (*condition_function)(T))
+		{
+			return this->remove_all(this->find_all(condition_function));
 		}
 		/// @brief Adds element at the end of Array.
 		/// @param[in] element Element to add.
