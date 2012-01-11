@@ -32,22 +32,22 @@ namespace xal
 {
 	enum Format
 	{
-#if HAVE_FLAC
+#ifdef HAVE_FLAC
 		FLAC,
 #endif
-#if HAVE_M4A
+#ifdef HAVE_M4A
 		M4A,
 #endif
-#if HAVE_MIDI
+#ifdef HAVE_MIDI
 		MIDI,
 #endif
-#if HAVE_OGG
+#ifdef HAVE_OGG
 		OGG,
 #endif
-#if HAVE_SPX
+#ifdef HAVE_SPX
 		SPX,
 #endif
-#if HAVE_WAV
+#ifdef HAVE_WAV
 		WAV,
 #endif
 		UNKNOWN
