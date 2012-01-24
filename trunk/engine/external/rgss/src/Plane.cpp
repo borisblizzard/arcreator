@@ -3,7 +3,7 @@
 #include <april/RenderSystem.h>
 #include <gtypes/Matrix4.h>
 #include <gtypes/Rectangle.h>
-#include <hltypes/util.h>
+#include <hltypes/hltypesUtil.h>
 
 #include "CodeSnippets.h"
 #include "Bitmap.h"

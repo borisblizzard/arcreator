@@ -1,6 +1,6 @@
 #include <ruby.h>
 
-#include <hltypes/util.h>
+#include <hltypes/hltypesUtil.h>
 
 #include "CodeSnippets.h"
 #include "RGSSError.h"

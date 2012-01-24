@@ -1,7 +1,7 @@
 #include <ruby.h>
 
 #include <april/Color.h>
-#include <hltypes/util.h>
+#include <hltypes/hltypesUtil.h>
 
 #include "CodeSnippets.h"
 #include "Color.h"

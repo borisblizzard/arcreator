@@ -6,8 +6,8 @@
 #include <april/Timer.h>
 #include <april/Window.h>
 #include <gtypes/Rectangle.h>
+#include <hltypes/hltypesUtil.h>
 #include <hltypes/hthread.h>
-#include <hltypes/util.h>
 #include <xal/AudioManager.h>
 
 #include "ApplicationExitException.h"

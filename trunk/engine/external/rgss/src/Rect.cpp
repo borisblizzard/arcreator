@@ -1,7 +1,7 @@
 #include <ruby.h>
 
 #include <gtypes/Rectangle.h>
-#include <hltypes/util.h>
+#include <hltypes/hltypesUtil.h>
 
 #include "CodeSnippets.h"
 #include "Rect.h"

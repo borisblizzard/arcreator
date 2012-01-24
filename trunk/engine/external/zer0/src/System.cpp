@@ -11,8 +11,8 @@
 #include <hltypes/harray.h>
 #include <hltypes/hdir.h>
 #include <hltypes/hfile.h>
+#include <hltypes/hltypesUtil.h>
 #include <hltypes/hstring.h>
-#include <hltypes/util.h>
 #include <rgss/Graphics.h>
 #include <xal/AudioManager.h>
 
