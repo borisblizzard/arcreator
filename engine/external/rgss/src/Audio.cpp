@@ -1,8 +1,8 @@
 #include <ruby.h>
 
-#include <hltypes/harray.h>
 #include <hltypes/exception.h>
-#include <hltypes/util.h>
+#include <hltypes/harray.h>
+#include <hltypes/hltypesUtil.h>
 #include <xal/AudioManager.h>
 #include <xal/Player.h>
 #include <xal/Sound.h>

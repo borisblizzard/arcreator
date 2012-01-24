@@ -18,8 +18,8 @@
 #include <hltypes/exception.h>
 #include <hltypes/hdir.h>
 #include <hltypes/hfile.h>
+#include <hltypes/hltypesUtil.h>
 #include <hltypes/hstring.h>
-#include <hltypes/util.h>
 #include <rgss/ApplicationExitException.h>
 #include <rgss/rgss.h>
 #include <xal/AudioManager.h>

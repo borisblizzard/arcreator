@@ -17,9 +17,9 @@
 	</ToolFiles>
 	<Configurations>
 		<Configuration
-			Name="win32_Debug|Win32"
-			OutputDirectory="$(SolutionDir)bin\"
-			IntermediateDirectory="$(SolutionDir)bin\lib\$(ProjectName)\$(ConfigurationName)"
+			Name="Debug|Win32"
+			OutputDirectory="$(SolutionDir)bin\$(PlatformName)\"
+			IntermediateDirectory="$(SolutionDir)bin\$(PlatformName)\lib\$(ProjectName)\$(ConfigurationName)"
 			ConfigurationType="2"
 			CharacterSet="1"
 			>
@@ -64,7 +64,7 @@
 				Name="VCLinkerTool"
 				AdditionalDependencies="msvcr90-ruby192.lib libgtypes.lib libhltypes.lib libapril.lib libatres.lib libxal.lib"
 				OutputFile="$(OutDir)zer0rgss.dll"
-				AdditionalLibraryDirectories="..\lib\msvc90;$(SolutionDir)bin"
+				AdditionalLibraryDirectories="..\lib\msvc90;$(SolutionDir)bin\$(PlatformName)"
 				GenerateDebugInformation="true"
 				ImportLibrary="$(TargetDir)zer0rgss.lib"
 			/>
@@ -92,9 +92,9 @@
 			/>
 		</Configuration>
 		<Configuration
-			Name="win32_Release|Win32"
-			OutputDirectory="$(SolutionDir)bin\"
-			IntermediateDirectory="$(SolutionDir)bin\lib\$(ProjectName)\$(ConfigurationName)"
+			Name="Release|Win32"
+			OutputDirectory="$(SolutionDir)bin\$(PlatformName)\"
+			IntermediateDirectory="$(SolutionDir)bin\$(PlatformName)\lib\$(ProjectName)\$(ConfigurationName)"
 			ConfigurationType="2"
 			CharacterSet="1"
 			WholeProgramOptimization="1"
@@ -140,7 +140,7 @@
 				Name="VCLinkerTool"
 				AdditionalDependencies="msvcr90-ruby192.lib libgtypes.lib libhltypes.lib libapril.lib libatres.lib libxal.lib"
 				OutputFile="$(OutDir)zer0rgss.dll"
-				AdditionalLibraryDirectories="..\lib\msvc90;$(SolutionDir)bin"
+				AdditionalLibraryDirectories="..\lib\msvc90;$(SolutionDir)bin\$(PlatformName)"
 				ImportLibrary="$(TargetDir)zer0rgss.lib"
 			/>
 			<Tool

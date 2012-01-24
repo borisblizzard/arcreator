@@ -10,7 +10,7 @@
 #include <hltypes/exception.h>
 #include <hltypes/harray.h>
 #include <hltypes/hfile.h>
-#include <hltypes/util.h>
+#include <hltypes/hltypesUtil.h>
 
 #include "CodeSnippets.h"
 #include "Bitmap.h"

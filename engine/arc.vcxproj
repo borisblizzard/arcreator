@@ -1,16 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
-    <ProjectConfiguration Include="win32_Debug|Win32">
-      <Configuration>win32_Debug</Configuration>
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
       <Platform>Win32</Platform>
     </ProjectConfiguration>
-    <ProjectConfiguration Include="win32_Release_Legacy|Win32">
-      <Configuration>win32_Release_Legacy</Configuration>
+    <ProjectConfiguration Include="Release_Legacy|Win32">
+      <Configuration>Release_Legacy</Configuration>
       <Platform>Win32</Platform>
     </ProjectConfiguration>
-    <ProjectConfiguration Include="win32_Release|Win32">
-      <Configuration>win32_Release</Configuration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
       <Platform>Win32</Platform>
     </ProjectConfiguration>
   </ItemGroup>
@@ -20,53 +20,53 @@
     <ProjectName>arc</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='win32_Release|Win32'" Label="Configuration">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <CharacterSet>MultiByte</CharacterSet>
     <CLRSupport>false</CLRSupport>
     <WholeProgramOptimization>true</WholeProgramOptimization>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='win32_Release_Legacy|Win32'" Label="Configuration">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_Legacy|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <CharacterSet>MultiByte</CharacterSet>
     <CLRSupport>false</CLRSupport>
     <WholeProgramOptimization>true</WholeProgramOptimization>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='win32_Debug|Win32'" Label="Configuration">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
   </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='win32_Release|Win32'" Label="PropertySheets">
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='win32_Release_Legacy|Win32'" Label="PropertySheets">
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release_Legacy|Win32'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='win32_Debug|Win32'" Label="PropertySheets">
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
     <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='win32_Debug|Win32'">$(SolutionDir)bin\$(Configuration)\</OutDir>
-    <IntDir Condition="'$(Configuration)|$(Platform)'=='win32_Debug|Win32'">$(SolutionDir)bin\$(Configuration)\</IntDir>
-    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='win32_Debug|Win32'">true</GenerateManifest>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='win32_Release|Win32'">$(SolutionDir)bin\$(Configuration)\</OutDir>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='win32_Release_Legacy|Win32'">$(SolutionDir)bin\$(Configuration)\</OutDir>
-    <IntDir Condition="'$(Configuration)|$(Platform)'=='win32_Release|Win32'">$(SolutionDir)bin\$(Configuration)\</IntDir>
-    <IntDir Condition="'$(Configuration)|$(Platform)'=='win32_Release_Legacy|Win32'">$(SolutionDir)bin\$(Configuration)\</IntDir>
-    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='win32_Release|Win32'">true</GenerateManifest>
-    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='win32_Release_Legacy|Win32'">true</GenerateManifest>
-    <EmbedManifest Condition="'$(Configuration)|$(Platform)'=='win32_Release|Win32'">true</EmbedManifest>
-    <EmbedManifest Condition="'$(Configuration)|$(Platform)'=='win32_Release_Legacy|Win32'">true</EmbedManifest>
-    <TargetName Condition="'$(Configuration)|$(Platform)'=='win32_Release|Win32'">Game</TargetName>
-    <TargetName Condition="'$(Configuration)|$(Platform)'=='win32_Release_Legacy|Win32'">Game</TargetName>
-    <TargetName Condition="'$(Configuration)|$(Platform)'=='win32_Debug|Win32'">Game</TargetName>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)bin\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)bin\$(Platform)\$(Configuration)\</IntDir>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</GenerateManifest>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)bin\$(Platform)\$(Configuration)\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release_Legacy|Win32'">$(SolutionDir)bin\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)bin\$(Platform)\$(Configuration)\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release_Legacy|Win32'">$(SolutionDir)bin\$(Platform)\$(Configuration)\</IntDir>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</GenerateManifest>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Release_Legacy|Win32'">true</GenerateManifest>
+    <EmbedManifest Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</EmbedManifest>
+    <EmbedManifest Condition="'$(Configuration)|$(Platform)'=='Release_Legacy|Win32'">true</EmbedManifest>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Game</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release_Legacy|Win32'">Game</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Game</TargetName>
   </PropertyGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='win32_Debug|Win32'">
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
       <AdditionalIncludeDirectories>external/hltypes/include;external/zer0/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -82,7 +82,7 @@
     <Link>
       <AdditionalDependencies>libhltypes.lib;zer0division.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
-      <AdditionalLibraryDirectories>external\lib\msvc100;$(SolutionDir)bin;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>external\lib\msvc100;$(SolutionDir)bin\$(Platform);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalManifestDependencies>%(AdditionalManifestDependencies)</AdditionalManifestDependencies>
       <UACExecutionLevel>AsInvoker</UACExecutionLevel>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -94,12 +94,12 @@
       <SuppressStartupBanner>true</SuppressStartupBanner>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy external\lib\msvc100\*.dll $(SolutionDir)bin\ /d /y
-xcopy bin\*.dll $(SolutionDir)bin\$(Configuration)\ /d /y
+      <Command>xcopy external\lib\msvc100\*.dll $(SolutionDir)bin\$(Platform)\ /d /y
+xcopy bin\$(Platform)\*.dll $(SolutionDir)bin\$(Platform)\$(Configuration)\ /d /y
 </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='win32_Release|Win32'">
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <BuildLog>
       <Path>$(IntDir)\$(MSBuildProjectName).log</Path>
     </BuildLog>
@@ -121,7 +121,7 @@ xcopy bin\*.dll $(SolutionDir)bin\$(Configuration)\ /d /y
     <Link>
       <AdditionalDependencies>libhltypes.lib;zer0division.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
-      <AdditionalLibraryDirectories>external\lib\msvc100;$(SolutionDir)bin;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>external\lib\msvc100;$(SolutionDir)bin\$(Platform);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalManifestDependencies>%(AdditionalManifestDependencies)</AdditionalManifestDependencies>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
@@ -138,20 +138,21 @@ xcopy bin\*.dll $(SolutionDir)bin\$(Configuration)\ /d /y
       </AdditionalManifestFiles>
     </Manifest>
     <PostBuildEvent>
-      <Command>xcopy external\lib\msvc100\*.dll $(SolutionDir)bin\ /d /y
-xcopy external\lib\msvc100\Microsoft.VC100.CRT\* $(SolutionDir)bin\ /d /y
-xcopy external\lib\msvc90\Microsoft.VC90.CRT\* $(SolutionDir)bin\Microsoft.VC90.CRT\ /d /y
-xcopy bin\*.dll $(SolutionDir)bin\$(Configuration)\ /d /y
+      <Command>xcopy external\lib\msvc100\*.dll $(SolutionDir)bin\$(Platform)\ /d /y
+xcopy external\lib\msvc100\Microsoft.VC100.CRT\* $(SolutionDir)bin\$(Platform)\ /d /y
+xcopy bin\$(Platform)\*.dll $(SolutionDir)bin\$(Platform)\$(Configuration)\ /d /y
 
-mkdir $(SolutionDir)bin\ARC_$(Configuration)
-copy $(SolutionDir)bin\$(Configuration)\Game.exe $(SolutionDir)bin\ARC_$(Configuration)
-copy $(SolutionDir)bin\*.dll $(SolutionDir)bin\ARC_$(Configuration)
-xcopy external\lib\msvc90\Microsoft.VC90.CRT\* $(SolutionDir)bin\ARC_$(Configuration)\Microsoft.VC90.CRT\ /d /y
-xcopy arc.cfg $(SolutionDir)bin\ARC_$(Configuration) /y
+xcopy external\lib\msvc90\Microsoft.VC90.CRT\* $(SolutionDir)bin\$(Platform)\Microsoft.VC90.CRT\ /d /y
+
+mkdir $(SolutionDir)bin\$(Platform)\ARC_$(Configuration)
+copy $(SolutionDir)bin\$(Platform)\$(Configuration)\Game.exe $(SolutionDir)bin\$(Platform)\ARC_$(Configuration)
+copy $(SolutionDir)bin\$(Platform)\*.dll $(SolutionDir)bin\$(Platform)\ARC_$(Configuration)
+xcopy external\lib\msvc90\Microsoft.VC90.CRT\* $(SolutionDir)bin\$(Platform)\ARC_$(Configuration)\Microsoft.VC90.CRT\ /d /y
+xcopy arc.cfg $(SolutionDir)bin\$(Platform)\ARC_$(Configuration) /y
 </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='win32_Release_Legacy|Win32'">
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release_Legacy|Win32'">
     <BuildLog>
       <Path>$(IntDir)\$(MSBuildProjectName).log</Path>
     </BuildLog>
@@ -173,7 +174,7 @@ xcopy arc.cfg $(SolutionDir)bin\ARC_$(Configuration) /y
     <Link>
       <AdditionalDependencies>libhltypes.lib;zer0division.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
-      <AdditionalLibraryDirectories>external\lib\msvc100;$(SolutionDir)bin;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>external\lib\msvc100;$(SolutionDir)bin\$(Platform);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalManifestDependencies>%(AdditionalManifestDependencies)</AdditionalManifestDependencies>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
@@ -190,19 +191,21 @@ xcopy arc.cfg $(SolutionDir)bin\ARC_$(Configuration) /y
       </AdditionalManifestFiles>
     </Manifest>
     <PostBuildEvent>
-      <Command>xcopy external\lib\msvc100\*.dll $(SolutionDir)bin\ /d /y
-xcopy external\lib\msvc100\Microsoft.VC100.CRT\* $(SolutionDir)bin\ /d /y
-xcopy external\lib\msvc90\Microsoft.VC90.CRT\* $(SolutionDir)bin\Microsoft.VC90.CRT\ /d /y
-xcopy bin\*.dll $(SolutionDir)bin\$(Configuration)\ /d /y
+      <Command>xcopy external\lib\msvc100\*.dll $(SolutionDir)bin\$(Platform)\ /d /y
+xcopy external\lib\msvc100\Microsoft.VC100.CRT\* $(SolutionDir)bin\$(Platform)\ /d /y
+xcopy bin\$(Platform)\*.dll $(SolutionDir)bin\$(Platform)\$(Configuration)\ /d /y
 
-mkdir $(SolutionDir)bin\ARC_$(Configuration)
-copy $(SolutionDir)bin\$(Configuration)\Game.exe $(SolutionDir)bin\ARC_$(Configuration)
-copy $(SolutionDir)bin\*.dll $(SolutionDir)bin\ARC_$(Configuration)
-del $(SolutionDir)bin\ARC_$(Configuration)\libaprilui.dll
-del $(SolutionDir)bin\ARC_$(Configuration)\libhlxml.dll
-del $(SolutionDir)bin\ARC_$(Configuration)\libxml2.dll
-xcopy external\lib\msvc90\Microsoft.VC90.CRT\* $(SolutionDir)bin\ARC_$(Configuration)\Microsoft.VC90.CRT\ /d /y
-xcopy arc.cfg $(SolutionDir)bin\ARC_$(Configuration) /y
+xcopy external\lib\msvc90\Microsoft.VC90.CRT\* $(SolutionDir)bin\$(Platform)\Microsoft.VC90.CRT\ /d /y
+
+mkdir $(SolutionDir)bin\$(Platform)\ARC_$(Configuration)
+copy $(SolutionDir)bin\$(Platform)\$(Configuration)\Game.exe $(SolutionDir)bin\$(Platform)\ARC_$(Configuration)
+copy $(SolutionDir)bin\$(Platform)\*.dll $(SolutionDir)bin\$(Platform)\ARC_$(Configuration)
+xcopy external\lib\msvc90\Microsoft.VC90.CRT\* $(SolutionDir)bin\$(Platform)\ARC_$(Configuration)\Microsoft.VC90.CRT\ /d /y
+xcopy arc.cfg $(SolutionDir)bin\$(Platform)\ARC_$(Configuration) /y
+
+del $(SolutionDir)bin\$(Platform)\ARC_$(Configuration)\libaprilui.dll
+del $(SolutionDir)bin\$(Platform)\ARC_$(Configuration)\libhlxml.dll
+del $(SolutionDir)bin\$(Platform)\ARC_$(Configuration)\libxml2.dll
 </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -212,9 +215,9 @@ xcopy arc.cfg $(SolutionDir)bin\ARC_$(Configuration) /y
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
-      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='win32_Debug|Win32'">$(IntDir)%(RelativeDir)%(Filename).obj</ObjectFileName>
-      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='win32_Release|Win32'">$(IntDir)%(RelativeDir)%(Filename).obj</ObjectFileName>
-      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='win32_Release_Legacy|Win32'">$(IntDir)%(RelativeDir)%(Filename).obj</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)%(RelativeDir)%(Filename).obj</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)%(RelativeDir)%(Filename).obj</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release_Legacy|Win32'">$(IntDir)%(RelativeDir)%(Filename).obj</ObjectFileName>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

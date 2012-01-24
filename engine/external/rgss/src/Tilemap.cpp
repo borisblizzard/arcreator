@@ -4,8 +4,8 @@
 #include <gtypes/Matrix4.h>
 #include <gtypes/Rectangle.h>
 #include <hltypes/harray.h>
+#include <hltypes/hltypesUtil.h>
 #include <hltypes/hstring.h>
-#include <hltypes/util.h>
 
 #include "Bitmap.h"
 #include "CodeSnippets.h"

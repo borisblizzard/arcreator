@@ -3,8 +3,8 @@
 #include <april/RenderSystem.h>
 #include <gtypes/Matrix4.h>
 #include <gtypes/Rectangle.h>
+#include <hltypes/hltypesUtil.h>
 #include <hltypes/hstring.h>
-#include <hltypes/util.h>
 
 #include "CodeSnippets.h"
 #include "Color.h"
