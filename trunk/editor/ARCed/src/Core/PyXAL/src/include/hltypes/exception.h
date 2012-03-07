@@ -1,7 +1,7 @@
 /// @file
 /// @author  Kresimir Spes
 /// @author  Boris Mikic
-/// @version 1.4
+/// @version 1.5
 /// 
 /// @section LICENSE
 /// 
@@ -92,6 +92,36 @@ namespace hltypes
 	/// @brief Alias for simpler code.
 	#define file_long_error(filename) hltypes::_file_long_error(filename, __FILE__, __LINE__)
 	
+	/// @brief Defines a resource-not-writeable exception.
+	class hltypesExport _resource_not_writeable : public exception
+	{
+	public:
+		/// @brief Basic constructor.
+		/// @param[in] filename Name of the resource file.
+		/// @param[in] source_file Name of the source file.
+		/// @param[in] line Number of the line.
+		_resource_not_writeable(chstr filename, const char* source_file, int line);
+		~_resource_not_writeable();
+		
+	};
+	/// @brief Alias for simpler code.
+	#define resource_not_writeable(filename) hltypes::_resource_not_writeable(filename, __FILE__, __LINE__)
+
+	/// @brief Defines a resource-not-seekable exception.
+	class hltypesExport _resource_not_seekable : public exception
+	{
+	public:
+		/// @brief Basic constructor.
+		/// @param[in] filename Name of the resource file.
+		/// @param[in] source_file Name of the source file.
+		/// @param[in] line Number of the line.
+		_resource_not_seekable(chstr filename, const char* source_file, int line);
+		~_resource_not_seekable();
+		
+	};
+	/// @brief Alias for simpler code.
+	#define resource_not_seekable(filename) hltypes::_resource_not_seekable(filename, __FILE__, __LINE__)
+
 	/// @brief Defines an index-error exception.
 	class hltypesExport _index_error : public exception
 	{
