@@ -2,7 +2,7 @@
 /// @author  Kresimir Spes
 /// @author  Boris Mikic
 /// @author  Ivan Vucica
-/// @version 1.5
+/// @version 1.55
 /// 
 /// @section LICENSE
 /// 
@@ -18,7 +18,7 @@
 
 #include <stdio.h>
 
-#include "hsbase.h"
+#include "hfbase.h"
 #include "hstring.h"
 
 #include "hltypesExport.h"
@@ -30,28 +30,9 @@ namespace hltypes
 	/// @author Kresimir Spes
 	/// @author Boris Mikic
 	/// @author Ivan Vucica
-	/// @note When writing, \\r may be used, but \\r will be removed during read.
-	class hltypesExport File : public StreamBase
+	class hltypesExport File : public FileBase
 	{
 	public:
-		/// @brief Defines file access modes.
-		/// @note Windows text read/write modes are not used because they do not work properly in multiplatform environments.
-		enum AccessMode
-		{
-			/// @brief Read-only file mode. ("rb")
-			READ,
-			/// @brief Write-only file mode. ("wb")
-			WRITE,
-			/// @brief Write and append file mode. ("ab")
-			APPEND,
-			/// @brief Read and write file mode. ("r+b")
-			READ_WRITE,
-			/// @brief Read, write and create file mode. ("w+b")
-			READ_WRITE_CREATE,
-			/// @brief Read and append file mode. ("a+b")
-			READ_APPEND
-		};
-		
 		/// @brief Constructor that immediately opens a file.
 		/// @param[in] filename Name of the file (may include path).
 		/// @param[in] access_mode File access mode.
@@ -124,28 +105,7 @@ namespace hltypes
 		/// @see write
 		static void happend(chstr filename, chstr text);
 		
-		/// @brief Defines the number of repeated attempts to access a file.
-		static int repeats;
-		/// @brief Defines the timeout in miliseconds between repeated attempts to access a file.
-		static float timeout;
-
-		/// @brief Sets the number of repeated attempts to access a file.
-		/// @param[in] value New value.
-		static void setRepeats(int value) { repeats = value; }
-		/// @brief Sets the timeout in miliseconds between repeated attempts to access a file.
-		/// @param[in] value New value.
-		static void setTimeout(float value) { timeout = value; }
-
 	protected:
-		/// @brief Current filename.
-		hstr filename;
-		/// @brief OS file handle.
-		FILE* cfile;
-
-		/// @brief Gets special descriptor.
-		/// @returns Special descriptor.
-		hstr _descriptor();
-		
 		/// @brief Reads data from the stream.
 		/// @param[in] src Destination data buffer.
 		/// @param[in] size Size in bytes of a single buffer element.

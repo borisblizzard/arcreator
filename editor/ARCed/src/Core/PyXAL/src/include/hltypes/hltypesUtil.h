@@ -2,7 +2,7 @@
 /// @author  Kresimir Spes
 /// @author  Boris Mikic
 /// @author  Ivan Vucica
-/// @version 1.4
+/// @version 1.56
 /// 
 /// @section LICENSE
 /// 
@@ -108,6 +108,38 @@ hltypesFnExport double hrandd(double min, double max);
 /// @return Random number between 0.0 inclusively and max exclusively.
 /// @note Returns 0.0 if max is equal or less than 0.0.
 hltypesFnExport double hrandd(double max);
+/// @brief Floors a float value.
+/// @param[in] value The value to be floored.
+/// @return Rounded value as integer.
+hltypesFnExport int hfloor(float value);
+/// @brief Floors a double value.
+/// @param[in] value The value to be floored.
+/// @return Rounded value as integer.
+hltypesFnExport int hfloor(double value);
+/// @brief Floors a float value.
+/// @param[in] value The value to be floored.
+/// @return Rounded value as float.
+hltypesFnExport float hfloorf(float value);
+/// @brief Floors a double value.
+/// @param[in] value The value to be floored.
+/// @return Rounded value as double.
+hltypesFnExport double hfloord(double value);
+/// @brief Ceils a float value.
+/// @param[in] value The value to be ceiled.
+/// @return Rounded value as integer.
+hltypesFnExport int hceil(float value);
+/// @brief Ceils a double value.
+/// @param[in] value The value to be ceiled.
+/// @return Rounded value as integer.
+hltypesFnExport int hceil(double value);
+/// @brief Ceils a float value.
+/// @param[in] value The value to be ceiled.
+/// @return Rounded value as float.
+hltypesFnExport float hceilf(float value);
+/// @brief Ceils a double value.
+/// @param[in] value The value to be ceiled.
+/// @return Rounded value as double.
+hltypesFnExport double hceild(double value);
 /// @brief Rounds a float value to the nearest integer value.
 /// @param[in] value The value to be rounded.
 /// @return Rounded value as integer.
@@ -116,7 +148,7 @@ hltypesFnExport int hround(float value);
 /// @param[in] value The value to be rounded.
 /// @return Rounded value as integer.
 hltypesFnExport int hround(double value);
-/// @brief Rounds a double value to the nearest integer value.
+/// @brief Rounds a float value to the nearest integer value.
 /// @param[in] value The value to be rounded.
 /// @return Rounded value as float.
 hltypesFnExport float hroundf(float value);
@@ -124,6 +156,26 @@ hltypesFnExport float hroundf(float value);
 /// @param[in] value The value to be rounded.
 /// @return Rounded value as double.
 hltypesFnExport double hroundd(double value);
+/// @brief Gets absolute value.
+/// @param[in] value The value to be absoluted.
+/// @return Absoluted value.
+hltypesFnExport int habs(int value);
+/// @brief Gets absolute value.
+/// @param[in] value The value to be absoluted.
+/// @return Absoluted value.
+hltypesFnExport long habs(long value);
+/// @brief Gets absolute value.
+/// @param[in] value The value to be absoluted.
+/// @return Absoluted value.
+hltypesFnExport float habs(float value);
+/// @brief Gets absolute value.
+/// @param[in] value The value to be absoluted.
+/// @return Absoluted value.
+hltypesFnExport double habs(double value);
+/// @brief Gets absolute value.
+/// @param[in] value The value to be absoluted.
+/// @return Absoluted value.
+hltypesFnExport long double habs(long double value);
 /// @brief Gets the always-positive value of i mod m.
 /// @param[in] i Integer value.
 /// @param[in] m Modulo value.
@@ -163,10 +215,6 @@ hltypesFnExport int hcmpd(double a, double b, double tolerance = HL_E_TOLERANCE)
 /// @param[in] path The path.
 /// @return Normalized filepath.
 hltypesFnExport hstr normalize_path(chstr path);
-/// @brief Changes the path when using specific system options. This function is usually not used.
-/// @param[in] path The path.
-/// @return Altered filepath.
-hltypesFnExport hstr systemize_path(chstr path);
 /// @brief Gets the base directory of a filename.
 /// @param[in] filename The filename.
 /// @return Base directory of the file.

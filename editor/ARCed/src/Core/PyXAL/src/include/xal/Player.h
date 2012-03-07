@@ -1,6 +1,6 @@
 /// @file
 /// @author  Boris Mikic
-/// @version 2.2
+/// @version 2.3
 /// 
 /// @section LICENSE
 /// 
@@ -86,7 +86,7 @@ namespace xal
 		void _stopSound(float fadeTime = 0.0f);
 
 		virtual bool _systemIsPlaying() { return false; }
-		virtual float _systemGetOffset() { return 1.0f; }
+		virtual float _systemGetOffset() { return 0.0f; }
 		virtual void _systemSetOffset(float value) { }
 		virtual bool _systemPreparePlay() { return true; }
 		virtual void _systemPrepareBuffer() { }

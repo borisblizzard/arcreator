@@ -1,6 +1,6 @@
 /// @file
 /// @author  Boris Mikic
-/// @version 1.5
+/// @version 1.55
 /// 
 /// @section LICENSE
 /// 
@@ -11,8 +11,8 @@
 /// 
 /// Provides a base class for streaming.
 
-#ifndef HLTYPES_FILE_BASE_H
-#define HLTYPES_FILE_BASE_H
+#ifndef HLTYPES_STREAM_BASE_H
+#define HLTYPES_STREAM_BASE_H
 
 #include <stdio.h>
 
