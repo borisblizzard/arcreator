@@ -163,7 +163,7 @@ namespace hltypes
 			{
 				return false;
 			}
-			for (int i = 0; i < this->size(); i++)
+			for_iter (i, 0, this->size())
 			{
 				// making sure operator== is used, not !=
 				if (!(stdvector::at(i) == other.at(i)))
@@ -182,7 +182,7 @@ namespace hltypes
 			{
 				return true;
 			}
-			for (int i = 0; i < this->size(); i++)
+			for_iter (i, 0, this->size())
 			{
 				// making sure operator!= is used, not ==
 				if (stdvector::at(i) != other.at(i))
@@ -197,7 +197,7 @@ namespace hltypes
 		/// @return Index of the given element or -1 if element could not be found.
 		int index_of(T element) const
 		{
-			for (int i = 0; i < this->size(); i++)
+			for_iter (i, 0, this->size())
 			{
 				if (element == stdvector::at(i))
 				{
@@ -212,7 +212,7 @@ namespace hltypes
 		Array<int> indexes_of(T element) const
 		{
 			Array<int> result;
-			for (int i = 0; i < this->size(); i++)
+			for_iter (i, 0, this->size())
 			{
 				if (element == stdvector::at(i))
 				{
@@ -234,7 +234,7 @@ namespace hltypes
 		bool contains(const Array<T>& other) const
 		{
 			int index;
-			for (int i = 0; i < other.size(); i++)
+			for_iter (i, 0, other.size())
 			{
 				index = this->index_of(other.at(i));
 				if (index < 0)
@@ -251,7 +251,7 @@ namespace hltypes
 		bool contains(const T other[], int count) const
 		{
 			int index;
-			for (int i = 0; i < count; i++)
+			for_iter (i, 0, count)
 			{
 				index = this->index_of(other[i]);
 				if (index < 0)
@@ -267,7 +267,7 @@ namespace hltypes
 		int count(T element) const
 		{
 			int result = 0;
-			for (int i = 0; i < this->size(); i++)
+			for_iter (i, 0, this->size())
 			{
 				if (element == stdvector::at(i))
 				{
@@ -375,7 +375,7 @@ namespace hltypes
 		void remove(const Array<T>& other)
 		{
 			int index;
-			for (int i = 0; i < other.size(); i++)
+			for_iter (i, 0, other.size())
 			{
 				index = this->index_of(other.at(i));
 				if (index < 0)
@@ -392,7 +392,7 @@ namespace hltypes
 		{
 			Array<int> indexes = this->indexes_of(element);
 			iterator_t it = stdvector::begin();
-			for (int i = indexes.size() - 1; i >= 0; i--)
+			for_iter_r (i, indexes.size(), 0)
 			{
 				stdvector::erase(it + indexes[i]);
 			}
@@ -406,11 +406,11 @@ namespace hltypes
 			Array<int> indexes;
 			iterator_t it;
 			int count = 0;
-			for (int i = 0; i < other.size(); i++)
+			for_iter (i, 0, other.size())
 			{
 				Array<int> indexes = this->indexes_of(other.at(i));
 				iterator_t it = stdvector::begin();
-				for (int j = indexes.size() - 1; j >= 0; j--)
+				for_iter_r (j, indexes.size(), 0)
 				{
 					stdvector::erase(it + indexes[j]);
 				}
@@ -603,7 +603,7 @@ namespace hltypes
 		void intersect(const Array<T>& other)
 		{
 			Array<T> result;
-			for (int i = 0; i < this->size(); i++)
+			for_iter (i, 0, this->size())
 			{
 				if (other.contains(stdvector::at(i)))
 				{
@@ -638,7 +638,7 @@ namespace hltypes
 		void differentiate(const Array<T>& other)
 		{
 			int index;
-			for (int i = 0; i < other.size(); i++)
+			for_iter (i, 0, other.size())
 			{
 				index = this->index_of(other.at(i));
 				if (index >= 0)
@@ -688,10 +688,10 @@ namespace hltypes
 		{
 			Array<int> indexes;
 			iterator_t it = stdvector::begin();
-			for (int i = 0; i < this->size(); i++)
+			for_iter (i, 0, this->size())
 			{
 				indexes = this->indexes_of(stdvector::at(i));
-				for (int j = indexes.size() - 1; j > 0; j--)
+				for_iter_r (j, indexes.size(), 1)
 				{
 					stdvector::erase(it + indexes[j]);
 				}
@@ -821,7 +821,7 @@ namespace hltypes
 			Array<T> result;
 			if (!unique)
 			{
-				for (int i = 0; i < count; i++)
+				for_iter (i, 0, count)
 				{
 					result.push_back(stdvector::at(hrand(this->size())));
 				}
@@ -833,11 +833,11 @@ namespace hltypes
 					return this->randomized();
 				}
 				Array<int> indexes;
-				for (int i = 0; i < this->size(); i++)
+				for_iter (i, 0, this->size())
 				{
 					indexes.push_back(i);
 				}
-				for (int i = 0; i < count; i++)
+				for_iter (i, 0, count)
 				{
 					result.push_back(stdvector::at(indexes.remove_at(hrand(indexes.size()))));
 				}
@@ -865,7 +865,7 @@ namespace hltypes
 			Array<T> result;
 			if (!unique)
 			{
-				for (int i = 0; i < count; i++)
+				for_iter (i, 0, count)
 				{
 					result.push_back(stdvector::at(hrand(this->size())));
 				}
@@ -877,11 +877,11 @@ namespace hltypes
 					return this->randomized();
 				}
 				Array<int> indexes;
-				for (int i = 0; i < this->size(); i++)
+				for_iter (i, 0, this->size())
 				{
 					indexes.push_back(i);
 				}
-				for (int i = 0; i < count; i++)
+				for_iter (i, 0, count)
 				{
 					result.push_back(stdvector::at(indexes.remove_at(hrand(indexes.size()))));
 				}
@@ -899,7 +899,7 @@ namespace hltypes
 			if (this->size() > 0)
 			{
 				result += hstr(stdvector::at(0));
-				for (int i = 1; i < this->size(); i++)
+				for_iter (i, 1, this->size())
 				{
 					result += separator + hstr(stdvector::at(i));
 				}
@@ -912,7 +912,7 @@ namespace hltypes
 		Array<T> find_all(bool (*condition_function)(T))
 		{
 			Array<T> result;
-			for (int i = 0; i < this->size(); i++)
+			for_iter (i, 0, this->size())
 			{
 				if (condition_function(stdvector::at(i)))
 				{
@@ -926,7 +926,7 @@ namespace hltypes
 		/// @return Pointer to element that matches the condition or NULL if no element was found.
 		T* find_first(bool (*condition_function)(T))
 		{
-			for (int i = 0; i < this->size(); i++)
+			for_iter (i, 0, this->size())
 			{
 				if (condition_function(stdvector::at(i)))
 				{
@@ -940,7 +940,7 @@ namespace hltypes
 		/// @return True if at least one element matches the condition.
 		bool matches_any(bool (*condition_function)(T))
 		{
-			for (int i = 0; i < this->size(); i++)
+			for_iter (i, 0, this->size())
 			{
 				if (condition_function(stdvector::at(i)))
 				{
@@ -954,7 +954,7 @@ namespace hltypes
 		/// @return True if all elements match the condition.
 		bool matches_all(bool (*condition_function)(T))
 		{
-			for (int i = 0; i < this->size(); i++)
+			for_iter (i, 0, this->size())
 			{
 				if (!condition_function(stdvector::at(i)))
 				{
@@ -970,7 +970,7 @@ namespace hltypes
 		Array<S> cast()
 		{
 			Array<S> result;
-			for (int i = 0; i < this->size(); i++)
+			for_iter (i, 0, this->size())
 			{
 				result.push_back((S)stdvector::at(i));
 			}
@@ -985,7 +985,7 @@ namespace hltypes
 		{
 			Array<S> result;
 			S value;
-			for (int i = 0; i < this->size(); i++)
+			for_iter (i, 0, this->size())
 			{
 				// when seeing "dynamic_cast", I always think of fireballs
 				value = dynamic_cast<S>(stdvector::at(i));

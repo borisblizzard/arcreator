@@ -2,7 +2,7 @@
 /// @author  Kresimir Spes
 /// @author  Boris Mikic
 /// @author  Ivan Vucica
-/// @version 2.2
+/// @version 2.32
 /// 
 /// @section LICENSE
 /// 
@@ -86,7 +86,8 @@ namespace xal
 		
 		hstr getName() { return this->name; }
 		bool isEnabled() { return this->enabled; }
-		bool isPaused() { return this->paused; }
+		bool isSuspended() { return this->suspended; }
+		DEPRECATED_ATTRIBUTE bool isPaused() { return this->suspended; }
 		hstr getDeviceName() { return this->deviceName; }
 		bool isThreaded() { return (this->thread != NULL); }
 		float getUpdateTime() { return this->updateTime; }
@@ -117,13 +118,16 @@ namespace xal
 		void stop(chstr name, float fadeTime = 0.0f);
 		void stopFirst(chstr name, float fadeTime = 0.0f);
 		void stopAll(float fadeTime = 0.0f);
-		void pauseAll(float fadeTime = 0.0f);
-		void resumeAll(float fadeTime = 0.0f);
 		void stopCategory(chstr name, float fadeTime = 0.0f);
 		bool isAnyPlaying(chstr name);
 		bool isAnyFading(chstr name);
 		bool isAnyFadingIn(chstr name);
 		bool isAnyFadingOut(chstr name);
+
+		void suspendAudio();
+		void resumeAudio();
+		DEPRECATED_ATTRIBUTE void pauseAll(float fadeTime) { this->suspendAudio(); }
+		DEPRECATED_ATTRIBUTE void resumeAll(float fadeTime) { this->resumeAudio(); }
 
 		void queueMessage(chstr message);
 
@@ -137,7 +141,7 @@ namespace xal
 		void* backendId;
 		hstr name;
 		bool enabled;
-		bool paused;
+		bool suspended;
 		bool threaded;
 		hstr deviceName;
 		float updateTime;
@@ -145,7 +149,7 @@ namespace xal
 		hmap<hstr, Category*> categories;
 		harray<Player*> players;
 		harray<Player*> managedPlayers;
-		harray<Player*> pausedPlayers;
+		harray<Player*> suspendedPlayers;
 		hmap<hstr, Sound*> sounds;
 		harray<hstr> extensions;
 		hthread* thread;
@@ -186,15 +190,19 @@ namespace xal
 		void _stop(chstr name, float fadeTime);
 		void _stopFirst(chstr name, float fadeTime);
 		void _stopAll(float fadeTime);
-		void _pauseAll(float fadeTime);
-		void _resumeAll(float fadeTime);
 		void _stopCategory(chstr name, float fadeTime);
 		bool _isAnyPlaying(chstr name);
 		bool _isAnyFading(chstr name);
 		bool _isAnyFadingIn(chstr name);
 		bool _isAnyFadingOut(chstr name);
 
+		void _suspendAudio();
+		void _resumeAudio();
+
 		virtual void _convertStream(Buffer* buffer, unsigned char** stream, int *streamSize) { }
+
+		virtual void _suspendSystem() { }
+		virtual void _resumeSystem() { }
 
 	private:
 		harray<hstr> _queuedMessages;
