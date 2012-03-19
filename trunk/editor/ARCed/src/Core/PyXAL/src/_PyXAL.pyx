@@ -7,6 +7,7 @@ cimport XAL
 
 import os
 
+cdef char* XAL_AS_ANDROID = "Android"
 cdef char* XAL_AS_DIRECTSOUND = "DirectSound"
 cdef char* XAL_AS_OPENAL = "OpenAL"
 cdef char* XAL_AS_SDL = "SDL"
@@ -998,7 +999,7 @@ cdef class XALManagerWrapper(object):
         cdef String name = String(systemname)
         cdef String dname = String(deviceName)
         self._destroyXAL()
-        XAL.init(name, backendId, threaded, updateTime, dname)
+        XAL.init(name, <void*>backendId, threaded, updateTime, dname)
         self.inited = True
         self.destroyed = False
         self.SetupXAL()
@@ -1216,26 +1217,6 @@ class XALManager(object):
         if not self.isXALInitialized():
             raise RuntimeError("XAL is not Initialized")
         XAL.mgr.stopAll(fadeTime)
-        
-    def pauseAll(self, float fadeTime = 0.0):
-        '''
-        pause all sounds and players
-        
-        @param fadeTime: float the time is second for the sound to fade out (0.0 by default)
-        '''
-        if not self.isXALInitialized():
-            raise RuntimeError("XAL is not Initialized")
-        XAL.mgr.pauseAll(fadeTime)
-    
-    def resumeAll(self, float fadeTime = 0.0):
-        '''
-        resume all sounds and players
-        
-        @param fadeTime: float the time is second for the sound to fade in (0.0 by default)
-        '''
-        if not self.isXALInitialized():
-            raise RuntimeError("XAL is not Initialized")
-        XAL.mgr.resumeAll(fadeTime)
     
     def isAnyPlaying(self, bytes name):
         '''
@@ -1284,6 +1265,26 @@ class XALManager(object):
         cdef String hl_name = String(name_str)
         cdef bint result = XAL.mgr.isAnyFadingOut(hl_name)
         return result
+
+    def suspendAudio(self):
+        '''
+        pause all sounds and players
+        
+        @param fadeTime: float the time is second for the sound to fade out (0.0 by default)
+        '''
+        if not self.isXALInitialized():
+            raise RuntimeError("XAL is not Initialized")
+        XAL.mgr.suspendAudio()
+    
+    def resumeAudio(self):
+        '''
+        resume all sounds and players
+        
+        @param fadeTime: float the time is second for the sound to fade in (0.0 by default)
+        '''
+        if not self.isXALInitialized():
+            raise RuntimeError("XAL is not Initialized")
+        XAL.mgr.resumeAudio()
         
 def Init(int backendId, bint threaded = True):
     '''
