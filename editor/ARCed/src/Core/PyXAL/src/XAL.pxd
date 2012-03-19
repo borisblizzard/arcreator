@@ -10,7 +10,9 @@ cdef extern from "<xal/AudioManager.h>" namespace "xal":
         STREAMED = 3
         
     enum Format:
+        FLAC,
         M4A,
+        MIDI,
         MP3,
         OGG,
         SPX,
@@ -31,8 +33,9 @@ cdef extern from "<xal/AudioManager.h>" namespace "xal":
         
         String getName() except +
         bool isEnabled() except +
-        bool isPaused() except +
+        bool isSuspended() except +
         String getDeviceName() except +
+        bool isThreaded() except +
         float getUpdateTime() except +
         float getGlobalGain() except +
         void setGlobalGain(float value) except +
@@ -61,13 +64,19 @@ cdef extern from "<xal/AudioManager.h>" namespace "xal":
         void stop(String& name, float fadeTime) except +
         void stopFirst(String& name, float fadeTime) except +
         void stopAll(float fadeTime) except +
-        void pauseAll(float fadeTime) except +
-        void resumeAll(float fadeTime) except +
         void stopCategory(String& name, float fadeTime) except +
         bool isAnyPlaying(String& name) except +
         bool isAnyFading(String& name) except +
         bool isAnyFadingIn(String& name) except +
         bool isAnyFadingOut(String& name) except +
+
+        void suspendAudio() except +
+        void resumeAudio() except +
+
+        void queueMessage(String& message) except +
+
+        void addAudioExtension(String& extension) except +
+        String findAudioFile(String& _filename) except +
         
 cdef extern from "<xal/Sound.h>" namespace "xal":
 
@@ -162,6 +171,7 @@ cdef extern from "<xal/Buffer.h>" namespace "xal":
         void rewind() except +
         
 cdef extern from "<xal/xal.h>" namespace "xal":
+    DEF XAL_AS_ANDROID = "Android"
     DEF XAL_AS_DIRECTSOUND = "DirectSound"
     DEF XAL_AS_OPENAL = "OpenAL"
     DEF XAL_AS_SDL = "SDL"
@@ -170,7 +180,7 @@ cdef extern from "<xal/xal.h>" namespace "xal":
     DEF XAL_AS_DISABLED = "Disabled"
     DEF XAL_AS_DEFAULT = ""
     
-    void init(String& systemName, int backendId, bool threaded, float updateTime, String& deviceName) except +
+    void init(String& systemName, void* backendId, bool threaded, float updateTime, String& deviceName) except +
     void destroy() except +
     void setLogFunction(void (*function)(String&)) except +
     void log(String& message, String& prefix) except +
