@@ -204,7 +204,6 @@ class MapTreeCtrl(wx.TreeCtrl):
         KM.get_event("CoreEventRefreshProject").unregister(self.Refresh_Map_List)
         event.Skip()
 
-
 class WxRMXPMapWindow(wx.ScrolledWindow):
     Autotiles = [
                 [[27, 28, 33, 34], [5, 28, 33, 34], [27, 6, 33, 34],

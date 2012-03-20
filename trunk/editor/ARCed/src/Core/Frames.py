@@ -56,6 +56,12 @@ class CoreEditorMainWindow(wx.Frame):
         self.Bind(wx.EVT_UPDATE_UI, self.UpdateUI)
         self.Bind(wx.EVT_CLOSE, self.OnClose, self)
 
+        #Bind AUI events
+        self.Bind(aui.EVT_AUI_PANE_FLOATING, self.OnFloating)
+        self.Bind(aui.EVT_AUI_PANE_FLOATED, self.OnFloated)
+        self.Bind(aui.EVT_AUI_PANE_DOCKING, self.OnDocking)
+        self.Bind(aui.EVT_AUI_PANE_DOCKED, self.OnDocked)
+
         #start The autosave Time
         self.AutoSaveTimer = wx.Timer(self)
         save_intervel = Kernel.GlobalObjects.get_value("ARCed_config").getint("Main", "Autosave")
@@ -142,3 +148,23 @@ class CoreEditorMainWindow(wx.Frame):
 
     def ProcessAutoSave(self, event):
         KM.raise_event("CoreEventAutoSave")
+
+    def OnFloating(self, event):
+        pass
+
+    def OnFloated(self, event):
+        print "floated event"
+        if Kernel.GlobalObjects.has_key("PanelManager"):
+            PM = Kernel.GlobalObjects.get_value("PanelManager")
+            if PM.getDockedCenterPanels() <= 1:
+                PM.dispatch_panel("ShadowPanel", "Shadow Panel")
+
+    def OnDocking(self, event):
+        pass
+
+    def OnDocked(self, event):
+        print "docked event"
+        if Kernel.GlobalObjects.has_key("PanelManager"):
+            PM = Kernel.GlobalObjects.get_value("PanelManager")
+            if PM.getDockedCenterPanels() >= 0:
+                PM.remove_panel("Shadow Panel")
