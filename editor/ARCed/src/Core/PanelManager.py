@@ -75,9 +75,11 @@ class PanelManager(object):
         then removed id from the dispatched dict
         '''
         if (self.dispached.has_key(id)) and (self.dispached[id] != None):
+            self.getPanelInfo(id).Float()
             self.manager.DetachPane(self.dispached[id])
             self.dispached[id].Destroy()
             del self.dispached[id]
+            self.Update()
         
     def Update(self):
         '''
@@ -341,3 +343,47 @@ class PanelManager(object):
 
         return info_obj
     
+    def getPanel(self, id):
+        '''
+        retrives the Window object of a panel from the idea it was dispatched with, other wise returns None
+        '''
+        if (self.dispached.has_key(id)) and (self.dispached[id] != None):
+            return self.dispached[id]
+        return None
+
+    def getPanelInfo(self, id):
+        '''
+        gets the auiPaneInfo object of the window that was dispatched with ID
+        '''
+        window = self.getPanel(id)
+        if window is not None:
+            return self.manager.GetPane(window)
+        return None
+
+    def getDispatched(self, id):
+        '''
+        return true if there is a panel dispached under ID, otherwise returns false
+        '''
+        return (self.getPanel(id) is not None)
+
+    def showPanel(self, id, show=True):
+        '''
+        if there is a window dispatched under id it calls show on the window auiPaneInfo object with the pased value 
+        which default to True. it then updates the AuiManager
+        '''
+        info = self.getPanelInfo(id)
+        if info is not None:
+            info.Show(show)
+            self.Update()
+
+    def getDockedCenterPanels(self):
+        '''
+        returns the number of center direction panels that are still docked
+        '''
+        i = 0
+        for id in self.dispached.iterkeys():
+            info = self.getPanelInfo(id)
+            if info.dock_direction_get() == aui.AUI_DOCK_CENTER:
+                if not info.IsFloating():
+                    i += 1
+        return i

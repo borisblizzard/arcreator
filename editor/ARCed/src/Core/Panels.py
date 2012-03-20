@@ -122,10 +122,18 @@ class MainToolbar(aui.AuiToolBar):
 
 class StartPanel(wx.Panel):
 
-    _arc_panel_info_string = "Name Caption Center CloseB CaptionV BestS MinimizeM Layer MinimizeB Movable Floatable NotebookD Snappable DockF Fixed"
-    _arc_panel_info_data = {"Name": "Start Panel", "Caption": "Start Panel", "CaptionV": False, "BestS": (32 * 24, 32 * 18), "MinimizeM": ["POS_SMART", "CAPT_SMART",], "Layer": 1, 
-                            "MinimizeB": False, "CloseB": False, "Floatable": False, "Movable": False, "Snappable": False, "NotebookD": False,}
+    _arc_panel_info_string = "Name Caption Center CloseB CaptionV BestS MinimizeM MinimizeB MaximizeB Floatable Resizable Snappable NotebookD Movable"
+    _arc_panel_info_data = {"Name": "Start Panel", "Caption": "Start Panel", "CaptionV": True, "BestS": (32 * 24, 32 * 18), "MinimizeM": ["POS_SMART", "CAPT_SMART",], 
+                            "MinimizeB": True, "CloseB": True}
     
     def __init__(self, parent):
         wx.Panel.__init__(self, parent, wx.ID_ANY)
 
+
+class ShadowPanel(wx.Panel):
+
+    _arc_panel_info_string = "Name Caption CloseB CaptionV BestS MinimizeB Floatable Resizable Snappable NotebookD Movable"
+    _arc_panel_info_data = {"Name": "Shadow Panel", "Caption": "Shadow Panel", "CaptionV": False, "BestS": (1000 - 8, 500), "MinimizeB": False, "CloseB": False, "Floatable" : False,}
+    
+    def __init__(self, parent):
+        wx.Panel.__init__(self, parent, wx.ID_ANY)
