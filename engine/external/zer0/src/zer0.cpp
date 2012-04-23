@@ -4,6 +4,7 @@
 #include <ruby/extensions.h>
 #include <ruby/ruby.h>
 
+#include <april/april.h>
 #include <april/PixelShader.h>
 #include <april/RenderSystem.h>
 #include <april/VertexShader.h>
@@ -199,10 +200,9 @@ namespace zer0
 #endif
 			grect viewport(0.0f, 0.0f, (float)resolution[0], (float)resolution[1]);
 			april::rendersys->setOrthoProjection(viewport);
-			april::rendersys->getWindow()->setKeyboardCallbacks(
-				zer0::Context::onKeyDown, zer0::Context::onKeyUp, zer0::Context::onChar);
-			april::rendersys->getWindow()->setQuitCallback(&System::onQuit);
-			april::rendersys->getWindow()->setWindowFocusCallback(&System::onFocusChange);
+			april::window->setKeyboardCallbacks(&zer0::Context::onKeyDown, &zer0::Context::onKeyUp, &zer0::Context::onChar);
+			april::window->setQuitCallback(&System::onQuit);
+			april::window->setWindowFocusCallback(&System::onFocusChange);
 			// TODO
 			zer0::vertexShader = april::rendersys->createVertexShader();
 			zer0::vertexShader->compile(ARC_VERTEX_SHADER);
@@ -225,9 +225,9 @@ namespace zer0
 #endif
 			// xal
 #ifndef _NOSOUND
-			xal::init(XAL_AS_DEFAULT, (unsigned long)april::rendersys->getWindow()->getIDFromBackend(), true);
+			xal::init(XAL_AS_DEFAULT, april::window->getIDFromBackend(), true);
 #else
-			xal::init(XAL_AS_DISABLED, (unsigned long)april::rendersys->getWindow()->getIDFromBackend(), false);
+			xal::init(XAL_AS_DISABLED, april::window->getIDFromBackend(), false);
 #endif
 			// zer0 related data
 			zer0::log("initializing Zer0 Division Engine");

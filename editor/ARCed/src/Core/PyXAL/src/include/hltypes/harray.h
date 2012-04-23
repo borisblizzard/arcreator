@@ -1,7 +1,8 @@
 /// @file
 /// @author  Boris Mikic
+/// @author  Kresimir Spes
 /// @author  Ivan Vucica
-/// @version 1.4
+/// @version 1.6
 /// 
 /// @section LICENSE
 /// 
