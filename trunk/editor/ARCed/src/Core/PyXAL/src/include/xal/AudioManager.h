@@ -113,6 +113,7 @@ namespace xal
 		Player* createPlayer(chstr name);
 		void destroyPlayer(Player* player);
 		Player* findPlayer(chstr name);
+		bool hasSound(chstr name);
 
 		void play(chstr name, float fadeTime = 0.0f, bool looping = false, float gain = 1.0f);
 		void stop(chstr name, float fadeTime = 0.0f);

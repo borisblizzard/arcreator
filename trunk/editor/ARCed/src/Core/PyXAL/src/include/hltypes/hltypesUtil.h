@@ -304,10 +304,14 @@ hltypesFnExport int hcmpd(double a, double b, double tolerance = HL_E_TOLERANCE)
 /// @param[in] path The path.
 /// @return Normalized filepath.
 hltypesFnExport hstr normalize_path(chstr path);
-/// @brief Gets the base directory of a filename.
-/// @param[in] filename The filename.
-/// @return Base directory of the file.
-hltypesFnExport hstr get_basedir(chstr filename);
+/// @brief Gets the base directory of a filename/directory.
+/// @param[in] filename The path.
+/// @return Base directory of the given filename/directory.
+hltypesFnExport hstr get_basedir(chstr path);
+/// @brief Gets the base filename/directory without the prepended directory path.
+/// @param[in] filename The path.
+/// @return Base directory of the filename/directory.
+hltypesFnExport hstr get_basename(chstr path);
 /// @brief Converts a unicode unsigned int to a UTF8 string.
 /// @param[in] value The unsigned int value.
 /// @return UTF8 string.
@@ -337,12 +341,18 @@ hltypesFnExport hstr unicode_to_utf8(hltypes::Array<unsigned int> chars);
 /// @param[out] character_length Length of character in bytes.
 /// @return Charcter code.
 hltypesFnExport unsigned int utf8_to_uint(chstr input, int* character_length = NULL);
-/// @brief Converts a UTF8 string into a unicode wchar string.
+/// @brief Converts a UTF8 string into a unicode string.
 /// @param[in] input The UTF8 string.
 /// @param[out] lenght Length of the string.
-/// @return The unsiend int string.
+/// @return The unsigned int string.
 /// @note Make sure to use "delete []" on the result to prevent memory leaks.
 hltypesFnExport unsigned int* utf8_to_unicode(chstr input, int* length = NULL);
+/// @brief Converts a UTF8 string into a wchar string.
+/// @param[in] input The UTF8 string.
+/// @param[out] lenght Length of the string.
+/// @return The wchar_t string.
+/// @note Make sure to use "delete []" on the result to prevent memory leaks.
+hltypesFnExport wchar_t* utf8_to_wchars(chstr input, int* length = NULL);
 /// @brief Calculates CRC32 from a byte stream.
 /// @param[in] data Data stream.
 /// @param[in] size Size of the data stream.
