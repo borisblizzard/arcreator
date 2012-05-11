@@ -9,6 +9,7 @@
 #include "CodeSnippets.h"
 #include "Graphics.h"
 #include "Input.h"
+#include "rgss.h"
 
 namespace rgss
 {
@@ -22,13 +23,11 @@ namespace rgss
 	harray<unsigned int> controlKeys;
 	bool triggered[MAX_KEYS];
 	bool pressed[MAX_KEYS];
-	int repeated[MAX_KEYS];
+	int repeatedCount;
+	unsigned int repeatedKey;
 	bool released[MAX_KEYS];
 	bool keys[MAX_KEYS];
-
-	/****************************************************************************************
-	 * Pure C++ code
-	 ****************************************************************************************/
+	harray<unsigned int> repeatedOrder;
 
 	bool Input::isTriggered(unsigned char keycode)
 	{
@@ -68,9 +67,13 @@ namespace rgss
 		{
 			return false;
 		}
+		if (repeatedKey < 0 || !conversions[keycode].contains(repeatedKey))
+		{
+			return false;
+		}
 		foreach (unsigned int, it, conversions[keycode])
 		{
-			if (repeated[*it] == 1 || repeated[*it] == 16)
+			if (repeatedCount == 1 || repeatedCount == 16)
 			{
 				return true;
 			}
@@ -172,10 +175,8 @@ namespace rgss
 		}
 		controlKeys.removed_duplicates();
 		controlKeys.sort();
-		for_iter (i, 0, MAX_KEYS)
-		{
-			repeated[i] = 0;
-		}
+		repeatedKey = -1;
+		repeatedCount = 0;
 	}
 
 	void Input::destroy()
@@ -229,21 +230,30 @@ namespace rgss
 				{
                     pressed[*it] = true;
                     triggered[*it] = true;
+					repeatedKey = (*it);
+					repeatedCount = 0;
 				}
                 else
 				{
                     triggered[*it] = false;
 				}
-				repeated[*it] < 17 ? repeated[*it] += 1 : repeated[*it] = 15;
+				if ((*it) == repeatedKey)
+				{
+					repeatedCount < 17 ? repeatedCount += 1 : repeatedCount = 15;
+				}
 			}
             else if (!released[*it])
 			{
-                triggered[*it] = false;
-				repeated[*it] = 0;
                 if (pressed[*it])
 				{
+	                triggered[*it] = false;
                     pressed[*it] = false;
                     released[*it] = true;
+					if ((*it) == repeatedKey)
+					{
+						repeatedKey = -1;
+						repeatedCount = 0;
+					}
 				}
 			}
             else
