@@ -2,5 +2,6 @@
 #define RGSS_CONSTANTS_H
 
 #define CFG_FRAME_RATE "FrameRate"
+#define CFG_INACTIVE_AUDIO "InactiveAudio"
 
 #endif

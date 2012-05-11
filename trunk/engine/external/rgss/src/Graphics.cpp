@@ -59,11 +59,11 @@ namespace rgss
 			fpsDisplay = !fpsDisplay;
 			if (fpsDisplay)
 			{
-				april::rendersys->getWindow()->setWindowTitle(windowTitle + " [FPS:0]");
+				april::window->setWindowTitle(windowTitle + " [FPS:0]");
 			}
 			else
 			{
-				april::rendersys->getWindow()->setWindowTitle(windowTitle);
+				april::window->setWindowTitle(windowTitle);
 			}
 		}
 	}
@@ -87,15 +87,22 @@ namespace rgss
 		}
 		if (focused)
 		{
-			april::rendersys->getWindow()->doEvents();
+			april::window->doEvents();
+			return;
 		}
-		else
+		bool inactiveAudio = (bool)rgss::parameters.try_get_by_key(CFG_INACTIVE_AUDIO, "false");
+		if (!inactiveAudio)
 		{
-			while (!focused)
-			{
-				april::rendersys->getWindow()->doEvents();
-				hthread::sleep(40);
-			}
+			xal::mgr->suspendAudio();
+		}
+		while (!focused)
+		{
+			april::window->doEvents();
+			hthread::sleep(40);
+		}
+		if (!inactiveAudio)
+		{
+			xal::mgr->resumeAudio();
 		}
 	}
 
@@ -105,7 +112,7 @@ namespace rgss
 		{
 			if (time - fpsTime > 1000.0f)
 			{
-				april::rendersys->getWindow()->setWindowTitle(hsprintf("%s [FPS:%d]", windowTitle.c_str(), fpsCount));
+				april::window->setWindowTitle(hsprintf("%s [FPS:%d]", windowTitle.c_str(), fpsCount));
 				fpsCount = 0;
 				fpsTime = time;
 			}
@@ -122,12 +129,12 @@ namespace rgss
 	
 	void Graphics::init()
 	{
-		april::Window* window = april::rendersys->getWindow();
+		april::Window* window = april::window;
 		width = window->getWidth();
 		height = window->getHeight();
 		active = true;
 		frameCount = 0;
-		frameRate = (rgss::parameters.has_key(CFG_FRAME_RATE) ? (int)rgss::parameters[CFG_FRAME_RATE] : 40);
+		frameRate = (int)rgss::parameters.try_get_by_key(CFG_FRAME_RATE, "40");
 		running = true;
 		focused = true;
 		renderQueue = new RenderQueue();
