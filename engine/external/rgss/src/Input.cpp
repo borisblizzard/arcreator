@@ -219,7 +219,7 @@ namespace rgss
 
 	VALUE Input::rb_update(VALUE self)
 	{
-		april::rendersys->getWindow()->doEvents();
+		april::window->doEvents();
 		foreach (unsigned int, it, controlKeys)
 		{
             if (keys[*it])
