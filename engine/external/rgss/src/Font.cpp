@@ -1,8 +1,15 @@
 #include <ruby.h>
 
+#include <atres/Renderer.h>
+#include <atresttf/FontResourceTtf.h>
+#include <hltypes/harray.h>
+#include <hltypes/hstring.h>
+
 #include "CodeSnippets.h"
 #include "Color.h"
+#include "Constants.h"
 #include "Font.h"
+#include "rgss.h"
 
 namespace rgss
 {
@@ -18,6 +25,25 @@ namespace rgss
 	bool Font::defaultItalic;
 	Color* Font::defaultColor;
 	VALUE Font::rb_defaultColor;
+	harray<hstr> Font::_missingFonts;
+
+	void Font::generate(chstr fontName)
+	{
+		if (!atres::renderer->hasFont(fontName) && !_missingFonts.contains(fontName))
+		{
+			float baseSize = (float)rgss::parameters.try_get_by_key(CFG_FONT_BASE_SIZE, "50");
+			atresttf::FontResourceTtf* font = new atresttf::FontResourceTtf("", fontName, baseSize, 1.0f);
+			if (font->getFontFilename() != "")
+			{
+				atres::renderer->registerFontResource(font);
+			}
+			else // font file was not found
+			{
+				_missingFonts += fontName;
+				delete font;
+			}
+		}
+	}
 
 	/****************************************************************************************
 	 * Ruby Interfacing, Creation, Destruction, Systematics

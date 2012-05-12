@@ -76,6 +76,12 @@ namespace rgss
 
 	void Bitmap::_drawText(int x, int y, int w, int h, chstr text, int align)
 	{
+		Font::generate(this->font->getName());
+		hstr fontName = this->_getAtresFontName();
+		if (fontName == "") // font does not exist
+		{
+			return;
+		}
 		atres::Alignment horizontal;
 		switch (align)
 		{
@@ -113,7 +119,6 @@ namespace rgss
 		april::rendersys->setIdentityTransform();
 		april::rendersys->setOrthoProjection(grect(0.0f, 0.0f,
 			(float)this->texture->getWidth(), (float)this->texture->getHeight()));
-		hstr fontName = this->_getAtresFontName();
 		grect destRect((float)x, (float)y, (float)w,
 			hmax((float)h, atres::renderer->getFontResource(fontName)->getLineHeight()));
 		atres::renderer->drawText(fontName, destRect, text, horizontal,
@@ -127,11 +132,11 @@ namespace rgss
 	hstr Bitmap::_getAtresFontName()
 	{
 		hstr result = this->font->getName();
-		int h = this->font->getSize();
 		if (!atres::renderer->hasFont(result))
 		{
-			result = atres::renderer->getFontResource("")->getName(); // default font
+			return "";
 		}
+		int h = this->font->getSize();
 		float fontHeight = atres::renderer->getFontHeight(result);
 		if (h != fontHeight)
 		{
