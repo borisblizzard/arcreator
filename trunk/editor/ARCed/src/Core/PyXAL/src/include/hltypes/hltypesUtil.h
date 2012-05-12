@@ -300,7 +300,11 @@ hltypesFnExport int hcmpf(float a, float b, float tolerance = HL_E_TOLERANCE);
 /// @param[in] b Second double value.
 /// @return 1 if a is greater than b, 0 if they are equal within the tolerance limits and -1 if a is less than b.
 hltypesFnExport int hcmpd(double a, double b, double tolerance = HL_E_TOLERANCE);
-/// @brief Normalizes a file path by converting all platform specific characters into / and proper removal of "." and ".." where necessary.
+/// @brief Changes all platform-specific directory separators to /.
+/// @param[in] path The path.
+/// @return Filepath with all platform-specific directory separators changed to /.
+hltypesFnExport hstr systemize_path(chstr path);
+/// @brief Normalizes a file path by converting all platform-specific directory separators into / and proper removal of "." and ".." where necessary.
 /// @param[in] path The path.
 /// @return Normalized filepath.
 hltypesFnExport hstr normalize_path(chstr path);
