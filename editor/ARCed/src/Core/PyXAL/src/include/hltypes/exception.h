@@ -107,21 +107,6 @@ namespace hltypes
 	/// @brief Alias for simpler code.
 	#define resource_not_writeable(filename) hltypes::_resource_not_writeable(filename, __FILE__, __LINE__)
 
-	/// @brief Defines a resource-not-seekable exception.
-	class hltypesExport _resource_only_seekable_forward : public exception
-	{
-	public:
-		/// @brief Basic constructor.
-		/// @param[in] filename Name of the resource file.
-		/// @param[in] source_file Name of the source file.
-		/// @param[in] line Number of the line.
-		_resource_only_seekable_forward(chstr filename, const char* source_file, int line);
-		~_resource_only_seekable_forward();
-		
-	};
-	/// @brief Alias for simpler code.
-	#define resource_only_seekable_forward(filename) hltypes::_resource_only_seekable_forward(filename, __FILE__, __LINE__)
-
 	/// @brief Defines an index-error exception.
 	class hltypesExport _index_error : public exception
 	{

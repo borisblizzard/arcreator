@@ -57,7 +57,8 @@ namespace xal
 		void play(float fadeTime = 0.0f, bool looping = false);
 		void stop(float fadeTime = 0.0f);
 		void pause(float fadeTime = 0.0f);
-
+		
+		float getPlaybackPosition();
 	protected:
 		float gain;
 		float pitch;
