@@ -3,6 +3,7 @@
 
 #include <ruby.h>
 
+#include <hltypes/harray.h>
 #include <hltypes/hstring.h>
 
 #include "rgssExport.h"
@@ -32,6 +33,9 @@ namespace rgss
 		/// @brief Gets the color.
 		/// @return The color.
 		Color* getColor() { return this->color; }
+
+		/// @brief Generates a Font defintion for the current render.
+		static void generate(chstr fontName);
 
 		/// @brief Default Font name.
 		static hstr defaultName;
@@ -151,6 +155,10 @@ namespace rgss
 		/// @brief Ruby object of font Color.
 		VALUE rb_color;
 
+		/// @brief Keeps track of missing fonts so they aren't checked multiple times.
+		static harray<hstr> _missingFonts;
+
 	};
+
 }
 #endif

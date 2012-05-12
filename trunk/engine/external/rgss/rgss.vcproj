@@ -41,7 +41,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="src;include/rgss;../gtypes/include;../hltypes/include;../atres/include;../april/include;../xal/include;../include;../include/msvcr90-ruby192;"
+				AdditionalIncludeDirectories="src;include/rgss;../gtypes/include;../hltypes/include;../april/include;../atres/include;../atres/atresttf/include;../xal/include;../include;../include/msvcr90-ruby192;"
 				PreprocessorDefinitions="_WIN32;_DEBUG;RGSS_EXPORTS;_CRT_SECURE_NO_WARNINGS;"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -62,7 +62,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="msvcr90-ruby192.lib libgtypes.lib libhltypes.lib libapril.lib libatres.lib libxal.lib"
+				AdditionalDependencies="msvcr90-ruby192.lib libgtypes.lib libhltypes.lib libapril.lib libatres.lib libatresttf.lib libxal.lib"
 				OutputFile="$(OutDir)zer0rgss.dll"
 				AdditionalLibraryDirectories="..\lib\msvc90;$(SolutionDir)bin\$(PlatformName)"
 				GenerateDebugInformation="true"
@@ -118,7 +118,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
-				AdditionalIncludeDirectories="src;include/rgss;../gtypes/include;../hltypes/include;../atres/include;../april/include;../xal/include;../include;../include/msvcr90-ruby192;"
+				AdditionalIncludeDirectories="src;include/rgss;../gtypes/include;../hltypes/include;../april/include;../atres/include;../atres/atresttf/include;../xal/include;../include;../include/msvcr90-ruby192;"
 				PreprocessorDefinitions="_WIN32;RGSS_EXPORTS;_CRT_SECURE_NO_WARNINGS;"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
@@ -138,7 +138,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="msvcr90-ruby192.lib libgtypes.lib libhltypes.lib libapril.lib libatres.lib libxal.lib"
+				AdditionalDependencies="msvcr90-ruby192.lib libgtypes.lib libhltypes.lib libapril.lib libatres.lib libatresttf.lib libxal.lib"
 				OutputFile="$(OutDir)zer0rgss.dll"
 				AdditionalLibraryDirectories="..\lib\msvc90;$(SolutionDir)bin\$(PlatformName)"
 				ImportLibrary="$(TargetDir)zer0rgss.lib"

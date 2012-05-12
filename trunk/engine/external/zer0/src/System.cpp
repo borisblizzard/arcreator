@@ -121,6 +121,7 @@ namespace zer0
 		result[CFG_FULLSCREEN] = "false";
 		result[CFG_FRAME_RATE] = "60";
 		result[CFG_INACTIVE_AUDIO] = "true";
+		result[CFG_FONT_BASE_SIZE] = "50";
 		result[CFG_GAME_VERSION] = "1.0.0";
 		if (hfile::exists(filename))
 		{
