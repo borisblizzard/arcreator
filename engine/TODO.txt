@@ -1,12 +1,11 @@
 ARC Legacy Executable Beta:
 
-- test Bitmap::rb_textSize
 - fix problem with D3DX9 device reset after CTRL+ALT+Delete
-- implement a window skin texture cacher to avoid constant creations of user textures for windows
 - implement FULLSCREEN switch in APRIL (MAYBE for ARC Legacy Executable Beta)
 
 other
 
+- test Bitmap::rb_textSize
 - access to RTP files
 - implement -debug argument
 - add script files as internally embedded resources
