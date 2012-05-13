@@ -1,5 +1,5 @@
-#define VER_VERSION 0,1,8,644
-#define VER_VERSION_STR "0.1.8 r644\0"
+#define VER_VERSION 0,1,9,647
+#define VER_VERSION_STR "0.1.9 r647\0"
 #define VER_COMPANYNAME_STR "Chaos Project\0"
 #define VER_FILEDESCRIPTION_STR "Zer0 Division Engine\0"
 #define VER_LEGALCOPYRIGHT_STR "© Chaos Project\0"

@@ -125,9 +125,12 @@ namespace hltypes
 		/// @param[in] prepend_dir Whether the same parent path should be appended to the file paths.
 		/// @result Array of all files.
 		static Array<hstr> resource_files(chstr dirname, bool prepend_dir = false);
-		/// @brief Changes current working directory to given parameter
-		/// @param[in] dirname Name of the directory
+		/// @brief Changes current working directory to given parameter.
+		/// @param[in] dirname Name of the directory.
 		static void chdir(chstr dirname);
+		/// @brief Gets the current working directory.
+		/// @return Current working directory.
+		static hstr cwd();
 
 	protected:
 		/// @brief Flag for creating directories with full access permissions on Win32 (Vista and later).

@@ -2,7 +2,7 @@
 /// @author  Kresimir Spes
 /// @author  Boris Mikic
 /// @author  Ivan Vucica
-/// @version 2.32
+/// @version 2.4
 /// 
 /// @section LICENSE
 /// 
@@ -32,24 +32,11 @@ namespace xal
 {
 	enum Format
 	{
-#ifdef HAVE_FLAC
 		FLAC,
-#endif
-#ifdef HAVE_M4A
 		M4A,
-#endif
-#ifdef HAVE_MIDI
-		MIDI,
-#endif
-#ifdef HAVE_OGG
 		OGG,
-#endif
-#ifdef HAVE_SPX
 		SPX,
-#endif
-#ifdef HAVE_WAV
 		WAV,
-#endif
 		UNKNOWN
 	};
 
@@ -84,6 +71,7 @@ namespace xal
 		virtual void init();
 		void clear();
 		
+		void* getBackendId() { return this->backendId; }
 		hstr getName() { return this->name; }
 		bool isEnabled() { return this->enabled; }
 		bool isSuspended() { return this->suspended; }
