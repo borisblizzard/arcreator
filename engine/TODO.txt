@@ -1,6 +1,5 @@
 ARC Legacy Executable Beta:
 
-- implement MIDI support in XAL
 - test Bitmap::rb_textSize
 - fix problem with D3DX9 device reset after CTRL+ALT+Delete
 - implement a window skin texture cacher to avoid constant creations of user textures for windows
@@ -8,6 +7,7 @@ ARC Legacy Executable Beta:
 
 other
 
+- access to RTP files
 - implement -debug argument
 - add script files as internally embedded resources
 - implement SHA-1 in C++
@@ -15,3 +15,4 @@ other
 - add opacity for Viewport
 - implement xal::Player::getPosition()
 - hide xal::Player::getOffset()
+- FLAC support
