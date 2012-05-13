@@ -43,5 +43,12 @@ class MapTreePanel(wx.Panel):
             data = self.treectrl.GetItemData(item).GetData()
             if data:
                 map_id, name = data
-                self.mapEditerPanel.add_page(map_id, name)
+                project = Kernel.GlobalObjects.get_value("PROJECT")
+                map = project.getMapData(map_id)
+                tilesets = project.getData("Tilesets")
+                if Kernel.GlobalObjects.has_key("PanelManager"):
+                    Kernel.GlobalObjects.get_value("PanelManager").dispatch_panel("MapEditorPanel", "Map Editor Panel", 
+                                                                                  arguments=[map, tilesets], 
+                                                                                  info="Name Caption", 
+                                                                                  data={"Name": name, "Caption": name})
         event.Skip()
