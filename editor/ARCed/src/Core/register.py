@@ -66,12 +66,14 @@ class PanelManagerType(SuperType):
     TilesetPanel = Type("TilesetPanel")
     MapTreePanel = Type("MapTreePanel")
     MainToolbar = Type("MainToolbar")
+    MapEditorPanel = Type("MapEditorPanel")
     
     def __init__(self):
         SuperType.__init__(self, "PanelManagerType")
 
         #----------------------------- Panels --------------------------------
-        self.add_types(self.StartPanel, self.ShadowPanel, self.TilesetPanel, self.MapTreePanel, self.MainToolbar)
+        self.add_types(self.StartPanel, self.ShadowPanel, self.TilesetPanel, self.MapTreePanel, self.MainToolbar, 
+                       self.MapEditorPanel)
 
 #=============================================================================
 # * Package Declaration
@@ -370,6 +372,9 @@ class CorePackage(Package):
                                      "CoreMapTreePanel", "CORE", 1.0, self))
         self.add_component(Component(Panels.MainToolbar, "MainToolbar", "PanelManagerType",
                                      "CoreMainToolbar", "CORE", 1.0, self))
+        self.add_component(Component(MapEditor.MapEditorPanel.MapPanel, "MapEditorPanel", "PanelManagerType",
+                                     "CoreMapEditorPanel", "CORE", 1.0, self))
+        
         
         
 package = CorePackage()
