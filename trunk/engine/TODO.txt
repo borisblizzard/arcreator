@@ -1,4 +1,3 @@
-- frame count seems not to be working
 - fix tileset texture coordinate problem
 - fix memory leak (possibly in Window)
 

@@ -194,7 +194,7 @@ namespace rgss
 
 	VALUE Graphics::rb_setFrameCount(VALUE self, VALUE value)
 	{
-		frameCount = (unsigned int)hmax(NUM2INT(value), 0);
+		frameCount = hmax(NUM2UINT(value), (unsigned int)0);
 		return Qnil;
 	}
 
@@ -232,7 +232,7 @@ namespace rgss
 
 	VALUE Graphics::rb_frameReset(VALUE self)
 	{
-		frameCount = 0;
+		// not needed in ARC
 		return Qnil;
 	}
 
