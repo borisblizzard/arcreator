@@ -1,6 +1,6 @@
 /// @file
 /// @author  Boris Mikic
-/// @version 2.3
+/// @version 2.5
 /// 
 /// @section LICENSE
 /// 
@@ -37,13 +37,14 @@ namespace xal
 		void setGain(float value);
 		float getPitch();
 		void setPitch(float value);
-		float getOffset() { return this->offset; }
 		Sound* getSound() { return this->sound; }
 		hstr getName();
 		hstr getFilename();
 		hstr getRealFilename();
 		float getDuration();
 		int getSize();
+		float getTimePosition();
+		unsigned int getSamplePosition();
 
 		Category* getCategory();
 
@@ -58,7 +59,6 @@ namespace xal
 		void stop(float fadeTime = 0.0f);
 		void pause(float fadeTime = 0.0f);
 		
-		float getPlaybackPosition();
 	protected:
 		float gain;
 		float pitch;
@@ -66,10 +66,11 @@ namespace xal
 		bool looping;
 		float fadeSpeed;
 		float fadeTime;
-		float offset; // TODO - should be int?
+		float offset; // TODO - should be removed?
 		Sound* sound;
 		Buffer* buffer;
 		int bufferIndex;
+		int processedByteCount;
 
 		float _getGain();
 		void _setGain(float value);
@@ -84,19 +85,21 @@ namespace xal
 
 		float _calcGain();
 		float _calcFadeGain();
-		void _stopSound(float fadeTime = 0.0f);
 
 		virtual bool _systemIsPlaying() { return false; }
+		virtual unsigned int _systemGetBufferPosition() { return 0; }
 		virtual float _systemGetOffset() { return 0.0f; }
 		virtual void _systemSetOffset(float value) { }
 		virtual bool _systemPreparePlay() { return true; }
 		virtual void _systemPrepareBuffer() { }
-		virtual void _systemUpdateGain() { }
-		virtual void _systemUpdateFadeGain() { }
+		virtual void _systemUpdateGain(float gain) { }
 		virtual void _systemUpdatePitch() { }
 		virtual void _systemPlay() { }
-		virtual void _systemStop() { }
-		virtual void _systemUpdateStream() { }
+		virtual int _systemStop() { return 0; }
+		virtual int _systemUpdateStream() { return 0; }
+
+	private:
+		void _stopSound(float fadeTime = 0.0f);
 
 	};
 

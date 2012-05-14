@@ -48,7 +48,7 @@ namespace hltypes
 		
 		/// @brief Checks if a resource file exists.
 		/// @param[in] filename Name of the resource file.
-		/// @result True if resource file exists.
+		/// @return True if resource file exists.
 		static bool exists(chstr filename);
 		/// @brief Opens file, gets size and closes file.
 		/// @see size
