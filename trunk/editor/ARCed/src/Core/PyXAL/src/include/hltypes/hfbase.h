@@ -107,7 +107,7 @@ namespace hltypes
 
 		/// @brief Checks if a file exists.
 		/// @param[in] filename Name of the file.
-		/// @result True if file exists.
+		/// @return True if file exists.
 		static bool _fexists(chstr filename);
 
 		/// @brief Defines the number of repeated attempts to access a file.

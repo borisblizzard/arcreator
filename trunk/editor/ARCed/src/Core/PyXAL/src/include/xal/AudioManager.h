@@ -2,7 +2,7 @@
 /// @author  Kresimir Spes
 /// @author  Boris Mikic
 /// @author  Ivan Vucica
-/// @version 2.4
+/// @version 2.5
 /// 
 /// @section LICENSE
 /// 
@@ -73,6 +73,9 @@ namespace xal
 		
 		void* getBackendId() { return this->backendId; }
 		hstr getName() { return this->name; }
+		int getSamplingRate() { return this->samplingRate; }
+		int getChannels() { return this->channels; }
+		int getBitsPerSample() { return this->bitsPerSample; }
 		bool isEnabled() { return this->enabled; }
 		bool isSuspended() { return this->suspended; }
 		DEPRECATED_ATTRIBUTE bool isPaused() { return this->suspended; }
@@ -129,6 +132,9 @@ namespace xal
 
 		void* backendId;
 		hstr name;
+		int samplingRate;
+		int channels;
+		int bitsPerSample;
 		bool enabled;
 		bool suspended;
 		bool threaded;

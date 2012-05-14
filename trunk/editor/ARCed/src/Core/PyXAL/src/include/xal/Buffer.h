@@ -1,6 +1,6 @@
 /// @file
 /// @author  Boris Mikic
-/// @version 2.2
+/// @version 2.5
 /// 
 /// @section LICENSE
 /// 
@@ -48,6 +48,9 @@ namespace xal
 		void release();
 		void free();
 		void rewind();
+
+		int convertToOutputSize(int size);
+		int convertToInputSize(int size);
 
 	protected:
 		hstr filename;

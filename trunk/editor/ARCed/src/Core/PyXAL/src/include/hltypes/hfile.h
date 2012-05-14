@@ -53,40 +53,40 @@ namespace hltypes
 		
 		/// @brief Creates a file.
 		/// @param[in] filename Name of the file.
-		/// @result True if a new file was created. False if file could not be created or already exists.
+		/// @return True if a new file was created. False if file could not be created or already exists.
 		static bool create(chstr filename);
 		/// @brief Creates a file or clears the file if it already exists.
 		/// @param[in] filename Name of the file.
-		/// @result True if a new file was created or cleared. False if file could not be created.
+		/// @return True if a new file was created or cleared. False if file could not be created.
 		static bool create_new(chstr filename);
 		/// @brief Removes a file.
 		/// @param[in] filename Name of the file.
-		/// @result True if file exists and was removed.
+		/// @return True if file exists and was removed.
 		static bool remove(chstr filename);
 		/// @brief Checks if a file exists.
 		/// @param[in] filename Name of the file.
-		/// @result True if file exists.
+		/// @return True if file exists.
 		static bool exists(chstr filename);
 		/// @brief Clears a file recursively.
 		/// @param[in] filename Name of the file.
-		/// @result True if file was cleared. False if file does not exist or is already empty.
+		/// @return True if file was cleared. False if file does not exist or is already empty.
 		static bool clear(chstr filename);
 		/// @brief Renames a file.
 		/// @param[in] old_filename Old name of the file.
 		/// @param[in] new_filename New name of the file.
-		/// @result True if file was renamed. False if old file does not exist or file with the new name already exists.
+		/// @return True if file was renamed. False if old file does not exist or file with the new name already exists.
 		/// @note If path to new file does not exist, it will be created.
 		static bool rename(chstr old_filename, chstr new_filename);
 		/// @brief Moves a file to another path.
 		/// @param[in] filename Name of the file.
 		/// @param[in] path Path where the file should be moved.
-		/// @result True if file was moved. False if file does not exist or file with the same name already exists in path.
+		/// @return True if file was moved. False if file does not exist or file with the same name already exists in path.
 		/// @note If path does not exist, it will be created.
 		static bool move(chstr filename, chstr path);
 		/// @brief Copies a file recursively.
 		/// @param[in] old_filename Old name of the file.
 		/// @param[in] new_filename New name of the file.
-		/// @result True if file was copied. False if old file does not exist or file with the new name already exists.
+		/// @return True if file was copied. False if old file does not exist or file with the new name already exists.
 		/// @note If path does not exist, it will be created.
 		static bool copy(chstr old_filename, chstr new_filename);
 		/// @brief Opens file, gets size and closes file.
