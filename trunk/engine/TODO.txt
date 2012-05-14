@@ -1,3 +1,7 @@
+- frame count seems not to be working
+- fix tileset texture coordinate problem
+- fix memory leak (possibly in Window)
+
 - fix problem with D3DX9 device reset after CTRL+ALT+Delete
 - implement FULLSCREEN switch in APRIL (MAYBE for ARC Legacy Executable Beta)
 - test Bitmap::rb_textSize

@@ -84,6 +84,9 @@ namespace rgss
 		int tx;
 		int ty;
 		bool animated;
+		int x;
+		int y;
+		int j;
 		for_iter (i, 0, 7)
 		{
 			rb_autotile = rb_ary_entry(this->rb_autotiles, i);
@@ -108,11 +111,11 @@ namespace rgss
 				}
 				RB_VAR2CPP(rb_autotile, Bitmap, autotile);
 				RB_VAR2CPP(rb_generated, Bitmap, generated);
-				for_iter (y, 0, 6)
+				for_iterx (y, 0, 6)
 				{
-					for_iter (x, 0, 8)
+					for_iterx (x, 0, 8)
 					{
-						for_iter (j, 0, 4)
+						for_iterx (j, 0, 4)
 						{
 							position = autotiles[y][x][j] - 1;
 							tx = x * 32 + j % 2 * 16;
@@ -150,13 +153,15 @@ namespace rgss
 		this->depth = this->mapData->getZSize();
 		Sprite* tileSprite;
 		VALUE rb_tileSprite;
+		int i;
+		int j;
 		if (this->tileSprites->size() == 0)
 		{
 			for_iter (k, 0, this->depth)
 			{
-				for_iter (j, 0, this->height)
+				for_iterx (j, 0, this->height)
 				{
-					for_iter (i, 0, this->width)
+					for_iterx (i, 0, this->width)
 					{
 						rb_tileSprite = Sprite::create(1, &this->rb_viewport);
 						RB_VAR2CPP(rb_tileSprite, Sprite, tileSprite);
@@ -167,14 +172,15 @@ namespace rgss
 				}
 			}
 		}
+		int priority;
 		int tileId;
 		VALUE rb_autotile;
 		Rect* rect;
 		for_iter (k, 0, this->depth)
 		{
-			for_iter (j, 0, this->height)
+			for_iterx (j, 0, this->height)
 			{
-				for_iter (i, 0, this->width)
+				for_iterx (i, 0, this->width)
 				{
 					tileSprite = (*this->tileSprites)[i + this->width * (j + this->height * k)];
 					rb_tileSprite = (*this->rb_tileSprites)[i + this->width * (j + this->height * k)];
@@ -193,22 +199,30 @@ namespace rgss
 						if (tileId >= 384)
 						{
 							SourceRenderer::rb_setBitmap(rb_tileSprite, this->rb_bitmap);
-							rect->x = (tileId - 384) % 8 * TILE_SIZE;
-							rect->y = (tileId - 384) / 8 * TILE_SIZE;
+							rect->x = ((tileId - 384) % 8) * TILE_SIZE;
+							rect->y = ((tileId - 384) / 8) * TILE_SIZE;
 						}
 						else
 						{
 							rb_autotile = rb_ary_entry(this->rb_generatedAutotiles, (tileId / 48) - 1);
 							SourceRenderer::rb_setBitmap(rb_tileSprite, rb_autotile);
-							rect->x = tileId % 8 * TILE_SIZE;
-							rect->y = (tileId % 48) / 8 * TILE_SIZE;
+							rect->x = (tileId % 8) * TILE_SIZE;
+							rect->y = ((tileId % 48) / 8) * TILE_SIZE;
 							if (NUM2INT(Bitmap::rb_getHeight(rb_autotile)) > 192)
 							{
 								rect->y += this->autotileCount / 16 * 192;
 							}
 						}
 					}
-					tileSprite->setZ(tileSprite->getY() + (this->priorities->getData(tileId) + 1) * TILE_SIZE - 1);
+					priority = this->priorities->getData(tileId);
+					if (priority > 0)
+					{
+						tileSprite->setZ(tileSprite->getY() + (priority + 1) * TILE_SIZE - 1);
+					}
+					else
+					{
+						tileSprite->setZ(0);
+					}
 				}
 			}
 		}
