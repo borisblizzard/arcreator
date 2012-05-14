@@ -7,7 +7,6 @@
 [size=14pt][b]Engine Design & Programming:[/b][/size]
 
 [list]
-[li]Eric "ForeverZer0" Freed[/li]
 [li]Boris "Blizzard" Mikiæ[/li]
 [li]Benjamin "Ryex" Powers[/li]
 [/list]
@@ -15,14 +14,13 @@
 [size=14pt][b]ARC Editor Design & Programming:[/b][/size]
 
 [list]
-[li]Eric "ForeverZer0" Freed[/li]
-[li]Ronnie "game_guy" Mooney III[/li]
 [li]Benjamin "Ryex" Powers[/li]
 [/list]
 
 [size=14pt][b]Special Thanks:[/b][/size]
 
 [list]
+[li]Eric "ForeverZer0" Freed (for his contribution of programming to the ARC Editor)[/li]
 [li]nathmatt (for ARC icon artwork)[/li]
 [li]Xuroth (for ARC logo artwork)[/li]
 [li]Chaos Project Community (for the ideas and general support)[/li]
@@ -36,7 +34,7 @@
 [li]Awesome Portable Rendering Interface (APRIL), http://sourceforge.net/projects/libapril[/li]
 [li]Advanced Text Rendering System (ATRES), licensed under BSD license, http://sourceforge.net/projects/libatres[/li]
 [li]APRIL User Interface (APRILUI), licensed under BSD license, http://sourceforge.net/projects/libaprilui[/li]
-[li]Kresimir Spes Audio Library (XAL), licensed under BSD license, http://code.google.com/p/libxal[/li]
+[li]Extensible Audio Library (XAL), licensed under BSD license, http://code.google.com/p/libxal[/li]
 [li]Win32-API Ruby extension, licensed under Artistic License 2.0, (C) Daniel J. Berger, Park Heesob, All rights reserved[/li]
 [/list]
 
