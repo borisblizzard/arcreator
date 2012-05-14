@@ -70,13 +70,16 @@ namespace rgss
 
 	void Graphics::_waitForFrameSync()
 	{
+		float difference = timer->diff();
 #ifndef _DEBUG
-		float waitTime = 1000.0f / frameRate - timer->diff();
+		float waitTime = 1000.0f / frameRate - difference;
+		difference = waitTime;
 		if (waitTime > 0.0f)
 		{
 			hthread::sleep(waitTime);
 		}
 #endif
+		xal::mgr->update(difference * 0.001f);
 	}
 
 	void Graphics::_handleFocusChange()

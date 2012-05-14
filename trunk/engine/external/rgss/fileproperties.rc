@@ -1,5 +1,5 @@
-#define VER_VERSION 0,9,8,648
-#define VER_VERSION_STR "0.9.8 r648\0"
+#define VER_VERSION 0,9,8,652
+#define VER_VERSION_STR "0.9.8 r652\0"
 #define VER_COMPANYNAME_STR "Chaos Project\0"
 #define VER_FILEDESCRIPTION_STR "Zer0 Division Engine Ruby Game Scripting System\0"
 #define VER_LEGALCOPYRIGHT_STR "© Chaos Project\0"
