@@ -27,22 +27,37 @@ namespace rgss
 	VALUE Font::rb_defaultColor;
 	harray<hstr> Font::_missingFonts;
 
-	void Font::generate(chstr fontName)
+	void Font::generate(Font* font)
 	{
+		hstr fontName = font->getFullName();
 		if (!atres::renderer->hasFont(fontName) && !_missingFonts.contains(fontName))
 		{
 			float baseSize = (float)rgss::parameters.try_get_by_key(CFG_FONT_BASE_SIZE, "50");
-			atresttf::FontResourceTtf* font = new atresttf::FontResourceTtf("", fontName, baseSize, 1.0f);
-			if (font->getFontFilename() != "")
+			atresttf::FontResourceTtf* fontResource = new atresttf::FontResourceTtf("", fontName, baseSize, 1.0f);
+			if (fontResource->isLoaded())
 			{
-				atres::renderer->registerFontResource(font);
+				atres::renderer->registerFontResource(fontResource);
 			}
 			else // font file was not found
 			{
 				_missingFonts += fontName;
-				delete font;
+				delete fontResource;
 			}
 		}
+	}
+
+	hstr Font::getFullName()
+	{
+		hstr result = this->name;
+		if (this->bold)
+		{
+			result += " Bold";
+		}
+		if (this->italic)
+		{
+			result += " Italic";
+		}
+		return result;
 	}
 
 	/****************************************************************************************

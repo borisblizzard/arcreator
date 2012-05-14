@@ -33,9 +33,13 @@ namespace rgss
 		/// @brief Gets the color.
 		/// @return The color.
 		Color* getColor() { return this->color; }
+		/// @brief Gets the full name for Atres TTF.
+		/// @return The full name for Atres TTF.
+		hstr getFullName();
 
-		/// @brief Generates a Font defintion for the current render.
-		static void generate(chstr fontName);
+		/// @brief Generates a Font defintion for the current render if necessary.
+		/// @param[in] font The font instance.
+		static void generate(Font* font);
 
 		/// @brief Default Font name.
 		static hstr defaultName;

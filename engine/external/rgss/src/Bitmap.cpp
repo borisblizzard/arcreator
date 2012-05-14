@@ -76,7 +76,6 @@ namespace rgss
 
 	void Bitmap::_drawText(int x, int y, int w, int h, chstr text, int align)
 	{
-		Font::generate(this->font->getName());
 		hstr fontName = this->_getAtresFontName();
 		if (fontName == "") // font does not exist
 		{
@@ -131,7 +130,8 @@ namespace rgss
 
 	hstr Bitmap::_getAtresFontName()
 	{
-		hstr result = this->font->getName();
+		Font::generate(this->font);
+		hstr result = this->font->getFullName();
 		if (!atres::renderer->hasFont(result))
 		{
 			return "";
