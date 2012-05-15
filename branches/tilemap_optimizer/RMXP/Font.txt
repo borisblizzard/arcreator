@@ -1,0 +1,26 @@
+Instance variables:
+Methods:
+	bold
+	bold=
+	color
+	color=
+	italic
+	italic=
+	name
+	name=
+	size
+	size=
+Public Methods:
+	bold
+	bold=
+	color
+	color=
+	italic
+	italic=
+	name
+	name=
+	size
+	size=
+Private Methods:
+Protected Methods:
+Singleton Methods:

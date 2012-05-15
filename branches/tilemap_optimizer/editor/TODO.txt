@@ -1,0 +1,64 @@
+++++++++++++++++++++++++++ UNFINISHED ++++++++++++++++++++++++++++
+
+- Writing database actions (requires framework to be finished)
+	- action to write data to project for all panels
+	- can combine individual items into one action
+	
+- interfface panels (requiers action fram work and actions for that panel to be done)
+	- make it so that editing data in a panel generates an action and applys it
+	
+- brush frame work (requires action framework)
+	- three brush source modes (paint form tileset selection, brush, or from map selection)
+	- tools
+	- action to apply the changes to the project
+	
+- event editor (requiers action framework0
+	- write the control
+	- write actions
+	- interface
+	 
+- script editor (requires action framework)
+	- styles text controll
+	- auto indent
+	easy script ordering
+	
+- map list viewer
+	- easy map oardering and nameing / genral properties changes
+	 
+- random custome controls
+	- the nonstandered controlls in the data base panels need to be written
+		- common event panel (will use the normal event editor as a base)
+		- tileset panel (setting piority and pasibility data)
+		- animation panal
+		- troops panel
+		
+- genral testing to make sure we got everything
+
+- Wrap XAL with cython
+
+- add Redo and Undo menu hooks
+
+- call the Clear method for the cache when an open project even is raised
+
+- Wrap the rest of XAL when it is compleated
+
+
+================== DONE =============================
+
+- finished project interface[DONE] (with error)
+	- loading projects[DONE] (with error) ARC format isn't being read properly
+	- acessing data [DONE]
+	- saving projects [DONE]
+	- creating new projects [DONE]
+	
+- Action framework [DONE]
+	- template actions [DONE]
+	- undo, redo calls [DONE]
+	
+- splash screen [DONE]
+
+- icons [DONE]
+
+- Add icon to the frame [DONE]
+
+- Center the main frame for the editor when it starts up [DONE]
