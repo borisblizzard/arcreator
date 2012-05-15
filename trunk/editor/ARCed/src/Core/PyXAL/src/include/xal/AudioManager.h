@@ -148,6 +148,7 @@ namespace xal
 		hmap<hstr, Sound*> sounds;
 		harray<hstr> extensions;
 		hthread* thread;
+		bool threadRunning;
 		hmutex mutex; // a mute ex would be nice
 
 		void _setGlobalGain(float value);
