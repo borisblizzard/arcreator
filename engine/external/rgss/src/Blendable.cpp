@@ -12,6 +12,15 @@ namespace rgss
 	 * Pure C++ code
 	 ****************************************************************************************/
 
+	Blendable::Blendable(Viewport* viewport) : SourceRenderer(viewport)
+	{
+		this->blendType = Normal;
+	}
+	
+	Blendable::~Blendable()
+	{
+	}
+
 	void Blendable::initializeBlendable(VALUE rb_viewport)
 	{
 		this->initializeSourceRenderer(rb_viewport);

@@ -13,6 +13,11 @@ namespace rgss
 	class rgssExport Blendable : public SourceRenderer
 	{
 	public:
+		/// @brief Constructor.
+		Blendable(Viewport* viewport = NULL);
+		/// @brief Destructor.
+		~Blendable();
+
 		/// @brief Initializes the basic Blendable object.
 		/// @param[in] rb_viewport Ruby Viewport object.
 		void initializeBlendable(VALUE rb_viewport = Qnil);

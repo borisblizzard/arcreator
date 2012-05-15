@@ -15,6 +15,11 @@ namespace rgss
 	class rgssExport SourceRenderer : public Renderable
 	{
 	public:
+		/// @brief Constructor.
+		SourceRenderer(Viewport* viewport = NULL);
+		/// @brief Destructor.
+		~SourceRenderer();
+
 		/// @brief Initializes the basic SourceRenderer object.
 		/// @param[in] rb_viewport Ruby Viewport object.
 		void initializeSourceRenderer(VALUE rb_viewport);

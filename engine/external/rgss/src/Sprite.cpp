@@ -23,6 +23,23 @@ namespace rgss
 	 * Pure C++ code
 	 ****************************************************************************************/
 
+	Sprite::Sprite(Viewport* viewport) : Blendable(viewport)
+	{
+		this->disposed = false;
+		this->type = TYPE_SPRITE;
+		this->typeName = "sprite";
+		this->angle = 0.0f;
+		this->mirror = false;
+		this->bushDepth = 0;
+		this->rb_srcRect = Qnil;
+		this->srcRect = new Rect();
+	}
+	
+	Sprite::~Sprite()
+	{
+		delete this->srcRect;
+	}
+
 	void Sprite::draw()
 	{
 		if (this->bitmap == NULL || this->bitmap->isDisposed() || this->opacity == 0 || this->srcRect->width <= 0 ||
@@ -175,6 +192,9 @@ namespace rgss
 		RB_SELF2CPP(Sprite, sprite);
 		VALUE viewport;
 		rb_scan_args(argc, argv, "01", &viewport);
+		sprite->angle = 0.0f;
+		sprite->mirror = false;
+		sprite->bushDepth = 0;
 		sprite->initializeBlendable(viewport);
 		Sprite::rb_setSrcRect(self, Rect::create(INT2FIX(0), INT2FIX(0), INT2FIX(0), INT2FIX(0)));
 		return self;

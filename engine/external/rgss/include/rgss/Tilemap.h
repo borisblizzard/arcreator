@@ -51,6 +51,9 @@ namespace rgss
 		/// @param[in] original The original.
 		static VALUE rb_initialize_dup(VALUE self, VALUE original);
 
+		/// @brief Sets the bitmap.
+		/// @param[in] value Bitmap.
+		static VALUE rb_setBitmap(VALUE self, VALUE value);
 		/// @brief Sets the offset X coordinate.
 		/// @param[in] value Offset X coordinate.
 		static VALUE rb_setOX(VALUE self, VALUE value);
@@ -117,14 +120,16 @@ namespace rgss
 		/// @brief Tile sprites.
 		/// @note Ruby does not initialize the superclass when it creates an instance of a C++ class so this variable has to be created manually.
 		harray<Sprite*>* tileSprites;
-		/// @brief Ruby objects of tile sprites.
+		/// @brief Tileset bitmaps.
 		/// @note Ruby does not initialize the superclass when it creates an instance of a C++ class so this variable has to be created manually.
-		harray<VALUE>* rb_tileSprites;
+		harray<Bitmap*>* tilesetBitmaps;
 
-		/// @brief Updates tile sprites.
-		void _updateTileSprites();
 		/// @brief Updates autotile bitmaps.
 		void _updateAutotiles();
+		/// @brief Updates tile sprites.
+		void _updateTileSprites();
+		/// @brief Updates tileset bitmaps.
+		void _updateTilesetBitmaps();
 
 	};
 

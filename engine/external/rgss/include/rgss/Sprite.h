@@ -17,6 +17,11 @@ namespace rgss
 	class rgssExport Sprite : public Blendable
 	{
 	public:
+		/// @brief Constructor.
+		Sprite(Viewport* viewport = NULL);
+		/// @brief Destructor.
+		~Sprite();
+
 		/// @brief Gets the X coordinate.
 		/// @return The X coordinate.
 		int getX() { return this->x; }
