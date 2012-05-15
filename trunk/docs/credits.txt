@@ -14,13 +14,13 @@
 [size=14pt][b]ARC Editor Design & Programming:[/b][/size]
 
 [list]
+[li]Eric "ForeverZer0" Freed[/li]
 [li]Benjamin "Ryex" Powers[/li]
 [/list]
 
 [size=14pt][b]Special Thanks:[/b][/size]
 
 [list]
-[li]Eric "ForeverZer0" Freed (for his contribution of programming to the ARC Editor)[/li]
 [li]nathmatt (for ARC icon artwork)[/li]
 [li]Xuroth (for ARC logo artwork)[/li]
 [li]Chaos Project Community (for the ideas and general support)[/li]
