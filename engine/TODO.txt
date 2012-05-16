@@ -1,6 +1,9 @@
-- fix tileset texture coordinate problem
 - fix memory leak (possibly in Window)
 - bush depth
+
+
+- switch to libpng to ensure textures are always loaded as 24 bit or 32 bit internally
+- use an ImageSource for loading a Bitmap instead of a texture and then rendering on the original texture
 
 - fix problem with D3DX9 device reset after CTRL+ALT+Delete
 - implement FULLSCREEN switch in APRIL (MAYBE for ARC Legacy Executable Beta)

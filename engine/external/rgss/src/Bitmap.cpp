@@ -157,10 +157,18 @@ namespace rgss
 		int w = loadTexture->getWidth();
 		int h = loadTexture->getHeight();
 		this->texture = april::rendersys->createEmptyTexture(w, h, april::AT_ARGB, april::AT_RENDER_TARGET);
-		this->texture->setTextureFilter(april::Nearest);
-		april::rendersys->setBlendMode(april::OVERWRITE);
-		this->_renderToTexture(0, 0, loadTexture, 0, 0, w, h);
-		april::rendersys->setBlendMode(april::DEFAULT);
+		// TODO - the texture should always be blitted to prevent problems
+		if (loadTexture->getBpp() >= 3)
+		{
+			this->texture->blit(0, 0, loadTexture, 0, 0, w, h);
+		}
+		else // palette-based textures need to be rendered after all
+		{
+			this->texture->setTextureFilter(april::Nearest);
+			april::rendersys->setBlendMode(april::OVERWRITE);
+			this->_renderToTexture(0, 0, loadTexture, 0, 0, w, h);
+			april::rendersys->setBlendMode(april::DEFAULT);
+		}
 		delete loadTexture;
 	}
 

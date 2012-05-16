@@ -106,7 +106,7 @@ namespace rgss
 					}
 					continue;
 				}
-
+				
 				generated = this->generatedAutotiles[i];
 				animated = (NUM2INT(Bitmap::rb_getWidth(rb_autotile)) > 96);
 				if (generated == NULL)
