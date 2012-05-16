@@ -9,6 +9,8 @@
 #include "SourceRenderer.h"
 #include "rgssExport.h"
 
+#define MAX_AUTOTILES 7
+
 namespace rgss
 {
 	extern VALUE rb_cTilemap;
@@ -111,7 +113,7 @@ namespace rgss
 		/// @brief Depth tile sprite count.
 		int depth;
 		/// @brief Autotile update counter.
-		int autotileCount;
+		int autotileUpdateCount;
 		/// @brief Updating flag.
 		int needsUpdate;
 		/// @brief Tile sprites.

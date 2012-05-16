@@ -26,6 +26,36 @@ namespace rgss
 	 * Pure C++ code
 	 ****************************************************************************************/
 
+	Renderable::Renderable(RenderQueue* renderQueue)
+	{
+		this->disposed = false;
+		this->visible = true;
+		this->z = 0;
+		this->ox = 0;
+		this->oy = 0;
+		this->zoom.set(1.0f, 1.0f);
+		this->rb_color = Qnil;
+		this->color = new Color();
+		this->rb_tone = Qnil;
+		this->tone = new Tone();
+		this->rb_flashColor = Qnil;
+		this->flashColor = NULL;
+		this->flashDuration = 0;
+		this->flashTimer = 0;
+		this->counterId = CounterProgress;
+		CounterProgress++;
+		this->renderQueue = renderQueue;
+		this->renderQueue->add(this);
+	}
+	
+	Renderable::~Renderable()
+	{
+		delete this->color;
+		delete this->tone;
+		this->disposed = true;
+		this->renderQueue->remove(this);
+	}
+
 	void Renderable::initializeRenderable(RenderQueue* renderQueue)
 	{
 		this->disposed = false;

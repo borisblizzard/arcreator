@@ -34,6 +34,11 @@ namespace rgss
 			TYPE_TILEMAP
 		};
 
+		/// @brief Constructor.
+		Renderable(RenderQueue* renderQueue);
+		/// @brief Destructor.
+		virtual ~Renderable();
+
 		/// @brief Initializes the basic Renderable object.
 		void initializeRenderable(RenderQueue* renderQueue);
 
