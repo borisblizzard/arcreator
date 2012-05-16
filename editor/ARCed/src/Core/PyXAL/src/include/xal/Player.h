@@ -1,6 +1,6 @@
 /// @file
 /// @author  Boris Mikic
-/// @version 2.5
+/// @version 2.6
 /// 
 /// @section LICENSE
 /// 
@@ -58,7 +58,7 @@ namespace xal
 		void play(float fadeTime = 0.0f, bool looping = false);
 		void stop(float fadeTime = 0.0f);
 		void pause(float fadeTime = 0.0f);
-		
+
 	protected:
 		float gain;
 		float pitch;
@@ -71,6 +71,7 @@ namespace xal
 		Buffer* buffer;
 		int bufferIndex;
 		int processedByteCount;
+		float idleTime;
 
 		float _getGain();
 		void _setGain(float value);
@@ -85,6 +86,7 @@ namespace xal
 
 		float _calcGain();
 		float _calcFadeGain();
+		bool _tryClearMemory();
 
 		virtual bool _systemIsPlaying() { return false; }
 		virtual unsigned int _systemGetBufferPosition() { return 0; }

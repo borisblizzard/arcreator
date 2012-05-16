@@ -2,7 +2,7 @@
 /// @author  Kresimir Spes
 /// @author  Boris Mikic
 /// @author  Ivan Vucica
-/// @version 2.5
+/// @version 2.6
 /// 
 /// @section LICENSE
 /// 
@@ -79,6 +79,8 @@ namespace xal
 		bool isEnabled() { return this->enabled; }
 		bool isSuspended() { return this->suspended; }
 		DEPRECATED_ATTRIBUTE bool isPaused() { return this->suspended; }
+		float getIdlePlayerUnloadTime() { return this->idlePlayerUnloadTime; }
+		void setIdlePlayerUnloadTime(float value) { this->idlePlayerUnloadTime = value; }
 		hstr getDeviceName() { return this->deviceName; }
 		bool isThreaded() { return (this->thread != NULL); }
 		float getUpdateTime() { return this->updateTime; }
@@ -89,7 +91,7 @@ namespace xal
 		static void update();
 		void update(float k);
 
-		Category* createCategory(chstr name, HandlingMode loadMode = FULL, HandlingMode decodeMode = FULL);
+		Category* createCategory(chstr name, HandlingMode sourceMode = FULL, HandlingMode bufferMode = FULL, bool memoryManaged = false);
 		Category* getCategoryByName(chstr name);
 		float getCategoryGain(chstr category);
 		void setCategoryGain(chstr category, float gain);
@@ -116,6 +118,8 @@ namespace xal
 		bool isAnyFadingIn(chstr name);
 		bool isAnyFadingOut(chstr name);
 
+		void clearMemory();
+
 		void suspendAudio();
 		void resumeAudio();
 		DEPRECATED_ATTRIBUTE void pauseAll(float fadeTime) { this->suspendAudio(); }
@@ -138,6 +142,7 @@ namespace xal
 		bool enabled;
 		bool suspended;
 		bool threaded;
+		float idlePlayerUnloadTime;
 		hstr deviceName;
 		float updateTime;
 		float gain;
@@ -161,7 +166,7 @@ namespace xal
 		virtual void _lock();
 		virtual void _unlock();
 
-		Category* _createCategory(chstr name, HandlingMode loadMod, HandlingMode decodeMode);
+		Category* _createCategory(chstr name, HandlingMode sourceMode, HandlingMode bufferMode, bool memoryManaged);
 		Category* _getCategoryByName(chstr name);
 		float _getCategoryGain(chstr category);
 		void _setCategoryGain(chstr category, float gain);
@@ -191,6 +196,8 @@ namespace xal
 		bool _isAnyFading(chstr name);
 		bool _isAnyFadingIn(chstr name);
 		bool _isAnyFadingOut(chstr name);
+
+		void _clearMemory();
 
 		void _suspendAudio();
 		void _resumeAudio();
