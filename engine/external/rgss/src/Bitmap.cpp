@@ -74,6 +74,22 @@ namespace rgss
 		april::rendersys->setBlendMode(april::DEFAULT);
 	}
 
+	void Bitmap::copyPixels(int x, int y, Bitmap* source, int sx, int sy, int sw, int sh)
+	{
+		this->texture->blit(x, y, source->texture, sx, sy, sw, sh, 255);
+	}
+
+	void Bitmap::fillRect(int x, int y, int w, int h, april::Color color)
+	{
+		this->_renderColor(grect((float)x, (float)y, (float)w, (float)h), color);
+	}
+
+	void Bitmap::clear()
+	{
+		this->_renderColor(grect(0.0f, 0.0f, (float)this->texture->getWidth(),
+			(float)this->texture->getHeight()), APRIL_COLOR_CLEAR);
+	}
+
 	void Bitmap::_drawText(int x, int y, int w, int h, chstr text, int align)
 	{
 		hstr fontName = this->_getAtresFontName();
@@ -487,8 +503,7 @@ namespace rgss
 	{
 		RB_SELF2CPP(Bitmap, bitmap);
 		RB_CHECK_DISPOSED_2(bitmap);
-		bitmap->_renderColor(grect(0.0f, 0.0f, (float)bitmap->texture->getWidth(),
-			(float)bitmap->texture->getHeight()), APRIL_COLOR_CLEAR);
+		bitmap->clear();
 		return Qnil;
 	}
 
