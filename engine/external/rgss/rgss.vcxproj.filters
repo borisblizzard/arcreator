@@ -94,6 +94,9 @@
     <ClCompile Include="src\Blendable.cpp">
       <Filter>Source Files\Support</Filter>
     </ClCompile>
+    <ClCompile Include="src\TileSprite.cpp">
+      <Filter>Source Files\Support</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\CodeSnippets.h">
@@ -169,6 +172,9 @@
       <Filter>Header Files\System</Filter>
     </ClInclude>
     <ClInclude Include="include\rgss\Blendable.h">
+      <Filter>Header Files\Support</Filter>
+    </ClInclude>
+    <ClInclude Include="include\rgss\TileSprite.h">
       <Filter>Header Files\Support</Filter>
     </ClInclude>
   </ItemGroup>

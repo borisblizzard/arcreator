@@ -250,6 +250,10 @@
 					RelativePath=".\src\SourceRenderer.cpp"
 					>
 				</File>
+				<File
+					RelativePath=".\src\TileSprite.cpp"
+					>
+				</File>
 			</Filter>
 			<Filter
 				Name="System"
@@ -378,6 +382,10 @@
 				</File>
 				<File
 					RelativePath=".\include\rgss\SourceRenderer.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\rgss\TileSprite.h"
 					>
 				</File>
 			</Filter>
