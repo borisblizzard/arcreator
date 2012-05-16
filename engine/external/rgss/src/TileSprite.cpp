@@ -1,5 +1,3 @@
-#include <ruby.h>
-
 #include <april/RenderSystem.h>
 #include <gtypes/Matrix4.h>
 #include <gtypes/Rectangle.h>
@@ -7,24 +5,12 @@
 
 #include "CodeSnippets.h"
 #include "Bitmap.h"
-/*
-#include "Color.h"
-#include "Graphics.h"
-*/
 #include "Rect.h"
 #include "TileSprite.h"
-/*
-#include "Tone.h"
-*/
 #include "Viewport.h"
-/*
-#include "RGSSError.h"
-*/
 
 namespace rgss
 {
-	//VALUE rb_cSprite;
-
 	/****************************************************************************************
 	 * Pure C++ code
 	 ****************************************************************************************/
@@ -32,8 +18,8 @@ namespace rgss
 	TileSprite::TileSprite(Viewport* viewport) : SourceRenderer(viewport)
 	{
 		this->disposed = false;
-		this->type = TYPE_SPRITE;
-		this->typeName = "sprite";
+		this->type = TYPE_TILE_SPRITE;
+		this->typeName = "tile sprite";
 		this->srcRect = new Rect();
 	}
 	

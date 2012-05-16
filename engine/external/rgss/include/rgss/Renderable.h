@@ -31,7 +31,8 @@ namespace rgss
 			TYPE_PLANE,
 			TYPE_SPRITE,
 			TYPE_WINDOW,
-			TYPE_TILEMAP
+			TYPE_TILEMAP,
+			TYPE_TILE_SPRITE
 		};
 
 		/// @brief Constructor.

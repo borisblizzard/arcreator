@@ -68,6 +68,8 @@ namespace rgss
 		/// @param[in] sw Source width.
 		/// @param[in] sh Source height.
 		void stretchBltOver(int x, int y, int w, int h, Bitmap* source, int sx, int sy, int sw, int sh);
+		/// @brief Clears the entire bitmap.
+		void clear();
 		/// @brief Disposes this renderable.
 		void dispose();
 
@@ -136,7 +138,7 @@ namespace rgss
 		/// @param[in] argv Pointer to first argument.
 		/// @note Arguments are "[x, y, width, height, color]" or "[rect, color]".
 		static VALUE rb_fillRect(int argc, VALUE* argv, VALUE self);
-		/// @brief Clears the entire bitmap
+		/// @brief Clears the entire bitmap.
 		static VALUE rb_clear(VALUE self);
 		/// @brief Blits src_rect from source bitmap to this one.
 		/// @param[in] argc Number of arguments.

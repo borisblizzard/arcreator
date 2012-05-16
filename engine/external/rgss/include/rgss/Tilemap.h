@@ -16,8 +16,8 @@ namespace rgss
 	extern VALUE rb_cTilemap;
 
 	class Bitmap; 
-	class Sprite;
 	class Table;
+	class TileSprite;
 
 	class rgssExport Tilemap : public SourceRenderer
 	{
@@ -92,8 +92,6 @@ namespace rgss
 		VALUE rb_autotiles;
 		/// @brief Current autotile bitmaps.
 		VALUE rb_currentAutotiles;
-		/// @brief Generated bitmaps.
-		VALUE rb_generatedAutotiles;
 		/// @brief Map data.
 		Table* mapData;
 		/// @brief Ruby object of map data.
@@ -116,17 +114,16 @@ namespace rgss
 		int autotileUpdateCount;
 		/// @brief Updating flag.
 		int needsUpdate;
+		/// @brief Generated bitmaps.
+		Bitmap* generatedAutotiles[MAX_AUTOTILES];
 		/// @brief Tile sprites.
-		/// @note Ruby does not initialize the superclass when it creates an instance of a C++ class so this variable has to be created manually.
-		harray<Sprite*>* tileSprites;
-		/// @brief Ruby objects of tile sprites.
-		/// @note Ruby does not initialize the superclass when it creates an instance of a C++ class so this variable has to be created manually.
-		harray<VALUE>* rb_tileSprites;
+		harray<TileSprite*>* tileSprites;
+		/// @brief Main tileset bitmap.
 
-		/// @brief Updates tile sprites.
-		void _updateTileSprites();
 		/// @brief Updates autotile bitmaps.
 		void _updateAutotiles();
+		/// @brief Updates tile sprites.
+		void _updateTileSprites();
 
 	};
 
