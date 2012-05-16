@@ -6,10 +6,10 @@ editorDir = os.path.join(editorDir, 'ARCed', 'src')
 sys.path.append(editorDir)
 
 import wx
-import Main
+import Boot
 import Kernel
 from Kernel import Manager as KM
-Main.ConfigManager.LoadConfig()
+Boot.ConfigManager.LoadConfig()
 import Database.DatabasePackage
   
 #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++

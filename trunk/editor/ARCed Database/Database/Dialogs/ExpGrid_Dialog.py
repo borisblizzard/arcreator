@@ -7,8 +7,8 @@ import Kernel
 
 # TODO: THIS NEEDS FIXED UP STILL! 
 
-import Main
-Main.ConfigManager.LoadConfig()
+import Boot
+Boot.ConfigManager.LoadConfig()
 
 # Implementing ExpGrid_Dialog
 class ExpGrid_Dialog( Templates.ExpGrid_Dialog ):
