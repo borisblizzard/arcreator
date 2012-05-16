@@ -68,6 +68,24 @@ namespace rgss
 		/// @param[in] sw Source width.
 		/// @param[in] sh Source height.
 		void stretchBltOver(int x, int y, int w, int h, Bitmap* source, int sx, int sy, int sw, int sh);
+		/// @brief Literally copies rect from source bitmap to this one and overwrites data below.
+		/// @param[in] x Destination X coordinate.
+		/// @param[in] y Destination Y coordinate.
+		/// @param[in] source Source Bitmap.
+		/// @param[in] sx Source X coordinate.
+		/// @param[in] sy Source Y coordinate.
+		/// @param[in] sw Source width.
+		/// @param[in] sh Source height.
+		void copyPixels(int x, int y, Bitmap* source, int sx, int sy, int sw, int sh);
+		/// @brief Sets the color to the specified value.
+		/// @param[in] x The X coordinate.
+		/// @param[in] y The Y coordinate.
+		/// @param[in] w The width.
+		/// @param[in] h The height.
+		/// @param[in] color The color.
+		void fillRect(int x, int y, int w, int h, april::Color color);
+		/// @brief Clears the entire bitmap.
+		void clear();
 		/// @brief Disposes this renderable.
 		void dispose();
 
@@ -136,7 +154,7 @@ namespace rgss
 		/// @param[in] argv Pointer to first argument.
 		/// @note Arguments are "[x, y, width, height, color]" or "[rect, color]".
 		static VALUE rb_fillRect(int argc, VALUE* argv, VALUE self);
-		/// @brief Clears the entire bitmap
+		/// @brief Clears the entire bitmap.
 		static VALUE rb_clear(VALUE self);
 		/// @brief Blits src_rect from source bitmap to this one.
 		/// @param[in] argc Number of arguments.

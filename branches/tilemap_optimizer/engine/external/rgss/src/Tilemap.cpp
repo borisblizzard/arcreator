@@ -45,13 +45,20 @@ namespace rgss
 	{
 		this->rb_autotiles = Qnil;
 		this->rb_currentAutotiles = Qnil;
-		this->rb_generatedAutotiles = Qnil;
 		this->rb_mapData = Qnil;
 		this->mapData = NULL;
 		this->rb_priorities = Qnil;
 		this->priorities = NULL;
 		this->rb_flashData = Qnil;
 		this->flashData = NULL;
+		for_iter (i, 0, MAX_AUTOTILES)
+		{
+			if (this->generatedAutotiles[i] != NULL)
+			{
+				delete this->generatedAutotiles[i];
+				this->generatedAutotiles[i] = NULL;
+			}
+		}
 		for_iter (i, 0, this->tileSprites->size())
 		{
 			delete (*this->tileSprites)[i];
@@ -78,7 +85,7 @@ namespace rgss
 	void Tilemap::_updateAutotiles()
 	{
 		VALUE rb_autotile;
-		VALUE rb_generated;
+		Bitmap* generated;
 		VALUE argv1[2] = {INT2FIX(256), INT2FIX(192)};
 		VALUE argv2[2] = {INT2FIX(256), INT2FIX(768)};
 		int position;
@@ -90,7 +97,7 @@ namespace rgss
 		int x;
 		int y;
 		int j;
-		for_iter (i, 0, 7)
+		for_iter (i, 0, MAX_AUTOTILES)
 		{
 			rb_autotile = rb_ary_entry(this->rb_autotiles, i);
 			if (rb_autotile != rb_ary_entry(this->rb_currentAutotiles, i))
@@ -98,22 +105,26 @@ namespace rgss
 				rb_ary_store(this->rb_currentAutotiles, i, rb_autotile);
 				if (NIL_P(rb_autotile))
 				{
-					rb_ary_store(this->rb_generatedAutotiles, i, Qnil);
+					if (this->generatedAutotiles[i] != NULL)
+					{
+						delete this->generatedAutotiles[i];
+						this->generatedAutotiles[i] = NULL;
+					}
 					continue;
 				}
-				rb_generated = rb_ary_entry(this->rb_generatedAutotiles, i);
+
+				generated = this->generatedAutotiles[i];
 				animated = (NUM2INT(Bitmap::rb_getWidth(rb_autotile)) > 96);
-				if (NIL_P(rb_generated))
+				if (generated == NULL)
 				{
-					rb_generated = Bitmap::create(2, (!animated ? argv1 : argv2));
-					rb_ary_store(this->rb_generatedAutotiles, i, rb_generated);
+					generated = new Bitmap(256, (!animated ? 192 : 768));
+					this->generatedAutotiles[i] = generated;
 				}
 				else
 				{
-					Bitmap::rb_clear(rb_generated);
+					generated->clear();
 				}
 				RB_VAR2CPP(rb_autotile, Bitmap, autotile);
-				RB_VAR2CPP(rb_generated, Bitmap, generated);
 				for_iterx (y, 0, 6)
 				{
 					for_iterx (x, 0, 8)
@@ -125,12 +136,12 @@ namespace rgss
 							ty = y * 32 + j / 2 * 16;
 							sx = position % 6 * 16;
 							sy = position / 6 * 16;
-							generated->bltOver(tx, ty, autotile, sx, sy, 16, 16);
+							generated->copyPixels(tx, ty, autotile, sx, sy, 16, 16);
 							if (animated)
 							{
-								generated->bltOver(tx, ty + 192, autotile, sx + 96, sy, 16, 16);
-								generated->bltOver(tx, ty + 384, autotile, sx + 192, sy, 16, 16);
-								generated->bltOver(tx, ty + 576, autotile, sx + 288, sy, 16, 16);
+								generated->copyPixels(tx, ty + 192, autotile, sx + 96, sy, 16, 16);
+								generated->copyPixels(tx, ty + 384, autotile, sx + 192, sy, 16, 16);
+								generated->copyPixels(tx, ty + 576, autotile, sx + 288, sy, 16, 16);
 							}
 						}
 					}
@@ -155,9 +166,10 @@ namespace rgss
 		Sprite* tileSprite;
 		int i;
 		int j;
+		int k;
 		if (this->tileSprites->size() == 0)
 		{
-			for_iter (k, 0, this->depth)
+			for_iterx (k, 0, this->depth)
 			{
 				for_iterx (j, 0, this->height)
 				{
@@ -172,9 +184,9 @@ namespace rgss
 		}
 		int priority;
 		int tileId;
-		VALUE rb_autotile;
+		Bitmap* autotile;
 		Rect* rect;
-		for_iter (k, 0, this->depth)
+		for_iterx (k, 0, this->depth)
 		{
 			for_iterx (j, 0, this->height)
 			{
@@ -195,20 +207,21 @@ namespace rgss
 						rect = tileSprite->getSrcRect();
 						if (tileId >= 384)
 						{
-							tileSprite->setBitmap(this->bitmap);
-							rect->x = ((tileId - 384) % 8) * TILE_SIZE;
-							rect->y = ((tileId - 384) / 8) * TILE_SIZE;
+							tileSprite->setBitmap((*this->tilesetBitmaps)[tileId - 384]);
+							//rect->x = ((tileId - 384) % 8);
+							//rect->y = ((tileId - 384) / 8) * 8;
+							rect->x = 0;
+							rect->y = 0;
 						}
 						else
 						{
-							rb_autotile = rb_ary_entry(this->rb_generatedAutotiles, (tileId / 48) - 1);
-							RB_VAR2CPP(rb_autotile, Bitmap, autotile);
+							autotile = this->generatedAutotiles[(tileId / 48) - 1];
 							tileSprite->setBitmap(autotile);
 							rect->x = (tileId % 8) * TILE_SIZE;
 							rect->y = ((tileId % 48) / 8) * TILE_SIZE;
-							if (NUM2INT(Bitmap::rb_getHeight(rb_autotile)) > 192)
+							if (autotile->getHeight() > 192)
 							{
-								rect->y += this->autotileCount / 16 * 192;
+								rect->y += this->autotileUpdateCount / 16 * 192;
 							}
 						}
 						rect->width = TILE_SIZE; // REMOVE
@@ -230,8 +243,31 @@ namespace rgss
 
 	void Tilemap::_updateTilesetBitmaps()
 	{
-		if (this->bitmap != NULL && !this->bitmap->isDisposed())
+		if (this->bitmap == NULL || this->bitmap->isDisposed() || this->bitmap == this->tileset)
 		{
+			this->tileset = this->bitmap;
+			return;
+		}
+		for_iter (i, 0, this->tilesetBitmaps->size())
+		{
+			delete (*this->tilesetBitmaps)[i];
+		}
+		this->tilesetBitmaps->clear();
+		int count = this->bitmap->getWidth() * this->bitmap->getHeight() / 1024;
+		Bitmap* bitmap;
+		int a = 255;
+		for_iter (i, 0, count)
+		{
+			bitmap = new Bitmap(TILE_SIZE, TILE_SIZE);
+			(*this->tilesetBitmaps) += bitmap;
+			bitmap->copyPixels(0, 0, this->bitmap, (i % 8) * TILE_SIZE, (i / 8) * TILE_SIZE - 1, TILE_SIZE, TILE_SIZE);
+			//bitmap->copyPixels(0, 0, this->bitmap, (i % 8) * TILE_SIZE, (i / 8) * TILE_SIZE - 1, TILE_SIZE, TILE_SIZE);
+			/*
+			bitmap->fillRect(0, 0, 1, TILE_SIZE, april::Color(APRIL_COLOR_RED, a));
+			bitmap->fillRect(TILE_SIZE - 1, 0, 1, TILE_SIZE, april::Color(APRIL_COLOR_GREEN, a));
+			bitmap->fillRect(0, 0, TILE_SIZE, 1, april::Color(APRIL_COLOR_BLACK, a));
+			bitmap->fillRect(0, TILE_SIZE - 1, TILE_SIZE, 1, april::Color(APRIL_COLOR_WHITE, a));
+			*/
 		}
 	}
 
@@ -285,7 +321,6 @@ namespace rgss
 	{
 		rb_gc_mark(tilemap->rb_autotiles);
 		rb_gc_mark(tilemap->rb_currentAutotiles);
-		rb_gc_mark(tilemap->rb_generatedAutotiles);
 		if (!NIL_P(tilemap->rb_mapData))
 		{
 			rb_gc_mark(tilemap->rb_mapData);
@@ -324,11 +359,14 @@ namespace rgss
 		tilemap->initializeSourceRenderer(viewport);
 		tilemap->rb_autotiles = rb_ary_new3(7, Qnil, Qnil, Qnil, Qnil, Qnil, Qnil, Qnil);
 		tilemap->rb_currentAutotiles = rb_ary_new3(7, Qnil, Qnil, Qnil, Qnil, Qnil, Qnil, Qnil);
-		tilemap->rb_generatedAutotiles = rb_ary_new3(7, Qnil, Qnil, Qnil, Qnil, Qnil, Qnil, Qnil);
+		for_iter (i, 0, MAX_AUTOTILES)
+		{
+			tilemap->generatedAutotiles[i] = NULL;
+		}
 		tilemap->width = (Graphics::getWidth() + TILE_SIZE - 1) / TILE_SIZE + 1;
 		tilemap->height = (Graphics::getHeight() + TILE_SIZE - 1) / TILE_SIZE + 1;
 		tilemap->depth = 0;
-		tilemap->autotileCount = 0;
+		tilemap->autotileUpdateCount = 0;
 		tilemap->needsUpdate = true;
 		tilemap->rb_mapData = Qnil;
 		tilemap->mapData = NULL;
@@ -337,6 +375,7 @@ namespace rgss
 		tilemap->rb_flashData = Qnil;
 		tilemap->flashData = NULL;
 		tilemap->tileSprites = new harray<Sprite*>();
+		tilemap->tileset = NULL;
 		tilemap->tilesetBitmaps = new harray<Bitmap*>();
 		return self;
 	}
@@ -483,8 +522,8 @@ namespace rgss
 	{
 		RB_SELF2CPP(Tilemap, tilemap);
 		RB_CHECK_DISPOSED_2(tilemap);
-		tilemap->autotileCount = (tilemap->autotileCount + 1) % 64;
-		if (tilemap->autotileCount == 0)
+		tilemap->autotileUpdateCount = (tilemap->autotileUpdateCount + 1) % 64;
+		if (tilemap->autotileUpdateCount == 0)
 		{
 			tilemap->needsUpdate = true;
 		}

@@ -52,6 +52,8 @@ namespace rgss
 	{
 		delete this->color;
 		delete this->tone;
+		this->disposed = true;
+		this->renderQueue->remove(this);
 	}
 
 	void Renderable::initializeRenderable(RenderQueue* renderQueue)
