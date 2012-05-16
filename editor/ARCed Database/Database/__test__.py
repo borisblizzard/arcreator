@@ -15,8 +15,8 @@ import Database.Controls
 from Database.ScriptEditor import ScriptEditor_Panel
 
 
-import Main
-Main.ConfigManager.LoadConfig()
+import Boot
+Boot.ConfigManager.LoadConfig()
 import Kernel
 from Kernel import Manager as KM
 
