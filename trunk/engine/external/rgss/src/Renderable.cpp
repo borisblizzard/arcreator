@@ -13,6 +13,7 @@
 #include "RGSSError.h"
 #include "Sprite.h"
 #include "Tilemap.h"
+#include "TileSprite.h"
 #include "Tone.h"
 #include "Viewport.h"
 #include "Window.h"
@@ -109,6 +110,9 @@ namespace rgss
 			break;
 		case TYPE_WINDOW:
 			((Window*)this)->draw();
+			break;
+		case TYPE_TILE_SPRITE:
+			((TileSprite*)this)->draw();
 			break;
 		}
 	}
