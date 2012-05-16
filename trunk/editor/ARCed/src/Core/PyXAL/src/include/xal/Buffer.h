@@ -1,6 +1,6 @@
 /// @file
 /// @author  Boris Mikic
-/// @version 2.5
+/// @version 2.6
 /// 
 /// @section LICENSE
 /// 
@@ -26,7 +26,7 @@ namespace xal
 	class xalExport Buffer
 	{
 	public:
-		Buffer(chstr filename, HandlingMode loadMode, HandlingMode decodeMode);
+		Buffer(chstr filename, HandlingMode sourceMode, HandlingMode bufferMode);
 		~Buffer();
 
 		chstr getFilename() { return this->filename; }
@@ -45,7 +45,7 @@ namespace xal
 
 		void prepare();
 		int load(bool looping, int size = STREAM_BUFFER_SIZE);
-		void release();
+		void release(bool playerPaused);
 		void free();
 		void rewind();
 
@@ -55,13 +55,21 @@ namespace xal
 	protected:
 		hstr filename;
 		int fileSize;
-		HandlingMode loadMode;
-		HandlingMode decodeMode;
+		HandlingMode sourceMode;
+		HandlingMode bufferMode;
 		bool loaded;
 		bool decoded;
 		unsigned char* stream;
 		int streamSize;
 		Source* source;
+		bool loadedData;
+		int size;
+		int channels;
+		int samplingRate;
+		int bitPerSample;
+		float duration;
+
+		void _tryLoadData();
 
 	};
 
