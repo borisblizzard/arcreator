@@ -1,6 +1,6 @@
 /// @file
 /// @author  Boris Mikic
-/// @version 2.6
+/// @version 2.61
 /// 
 /// @section LICENSE
 /// 
@@ -21,12 +21,13 @@
 
 namespace xal
 {
+	class Category;
 	class Source;
 
 	class xalExport Buffer
 	{
 	public:
-		Buffer(chstr filename, HandlingMode sourceMode, HandlingMode bufferMode);
+		Buffer(chstr filename, Category* category);
 		~Buffer();
 
 		chstr getFilename() { return this->filename; }
@@ -55,8 +56,7 @@ namespace xal
 	protected:
 		hstr filename;
 		int fileSize;
-		HandlingMode sourceMode;
-		HandlingMode bufferMode;
+		BufferMode mode;
 		bool loaded;
 		bool decoded;
 		unsigned char* stream;

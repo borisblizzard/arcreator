@@ -1,6 +1,6 @@
 /// @file
 /// @author  Boris Mikic
-/// @version 1.55
+/// @version 1.66
 /// 
 /// @section LICENSE
 /// 
@@ -40,6 +40,7 @@ namespace hltypes
 		};
 		
 		/// @brief Basic constructor.
+		/// @param[in] encryption_offset Byte value offset while reading/writing that serves as simple binary encryption.
 		StreamBase(unsigned char encryption_offset = 0);
 		/// @brief Destructor.
 		virtual ~StreamBase();
@@ -63,52 +64,61 @@ namespace hltypes
 		/// @return True if data has reached the end.
 		bool eof();
 
-		/// @brief Reads from the file until delimiter character is read.
+		/// @brief Reads from the stream until delimiter character is read.
 		/// @param[in] delimiter String where to stop reading.
 		/// @return The read string.
 		/// @note Delimiter String is not included in return result.
 		/// @note When delimiter is omitted, the file will be read until EOF.
 		hstr read(chstr delimiter = "");
-		/// @brief Reads n bytes from the file.
+		/// @brief Reads n bytes from the stream.
 		/// @param[in] count Number of bytes to read.
 		/// @return The read string.
 		hstr read(int count);
-		/// @brief Reads one line from the file.
+		/// @brief Reads one line from the stream.
 		/// @return The read line.
 		/// @note \\n is not included in the returned String.
 		hstr read_line();
-		/// @brief Reads all lines from the file.
+		/// @brief Reads all lines from the stream.
 		/// @return Array with read lines.
 		/// @note \\n is not included in the read lines.
 		Array<hstr> read_lines();
-		/// @brief Writes string to the file.
+		/// @brief Writes string to the stream.
 		/// @param[in] text String to write.
 		void write(chstr text);
-		/// @brief Writes string to the file.
+		/// @brief Writes string to the stream.
 		/// @param[in] text C-type string to write.
 		void write(const char* text);
-		/// @brief Writes string to the file and appends \\n at the end.
+		/// @brief Writes string to the stream and appends \\n at the end.
 		/// @param[in] text String to write.
 		void write_line(chstr text);
-		/// @brief Writes string to the file and appends \\n at the end.
+		/// @brief Writes string to the stream and appends \\n at the end.
 		/// @param[in] text C-type string to write.
 		void write_line(const char* text);
-		/// @brief Writes formatted string to the file.
+		/// @brief Writes formatted string to the stream.
 		/// @param[in] format C-type string containing format.
 		/// @param[in] ... Formatting arguments.
 		void writef(const char* format, ...);
-		/// @brief Reads raw data from the file.
-		/// @param[in] buffer Pointer to raw data buffer.
+		/// @brief Reads raw data from the stream.
+		/// @param[out] buffer Pointer to raw data buffer.
 		/// @param[in] count Number of bytes to read.
 		/// @return Number of bytes read.
 		/// @note If return value differs from parameter count, it can indicate a reading error or that end of file has been reached.
 		int read_raw(void* buffer, int count);
-		/// @brief Writes raw data to the file.
-		/// @param[out] buffer Pointer to raw data buffer.
+		/// @brief Writes raw data to the stream.
+		/// @param[in] buffer Pointer to raw data buffer.
 		/// @param[in] count Number of bytes to write.
 		/// @return Number of bytes written.
 		/// @note If return value differs from parameter count, it can indicate a writing error.
 		int write_raw(void* buffer, int count);
+		/// @brief Writes raw data to the stream from another stream.
+		/// @param[in] stream Another stream.
+		/// @param[in] count Number of bytes to write.
+		/// @return Number of bytes written.
+		int write_raw(StreamBase& other, int count);
+		/// @brief Writes raw data to the stream from another stream.
+		/// @param[in] stream Another stream.
+		/// @return Number of bytes written.
+		int write_raw(StreamBase& other);
 
 		/// @brief Dumps data to file in a platform-aware format.
 		/// @param c Character to dump.
