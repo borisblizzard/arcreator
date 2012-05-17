@@ -1,6 +1,6 @@
 /// @file
 /// @author  Boris Mikic
-/// @version 1.55
+/// @version 1.66
 /// 
 /// @section LICENSE
 /// 
@@ -48,6 +48,9 @@ namespace hltypes
 			READ_APPEND
 		};
 		
+		/// @brief Basic constructor.
+		/// @param[in] encryption_offset Byte value offset while reading/writing that serves as simple binary encryption.
+		FileBase(unsigned char encryption_offset = 0);
 		/// @brief Destructor.
 		~FileBase();
 
@@ -63,12 +66,6 @@ namespace hltypes
 		hstr filename;
 		/// @brief OS file handle.
 		void* cfile;
-
-		/// @brief Constructor that immediately opens a file.
-		/// @param[in] filename Name of the file (may include path).
-		/// @param[in] access_mode File access mode.
-		/// @param[in] encryption_offset Byte value offset while reading/writing that serves as simple binary encryption.
-		FileBase(unsigned char encryption_offset = 0);
 
 		/// @brief Gets special descriptor.
 		/// @returns Special descriptor.

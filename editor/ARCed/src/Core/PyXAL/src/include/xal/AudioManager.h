@@ -2,7 +2,7 @@
 /// @author  Kresimir Spes
 /// @author  Boris Mikic
 /// @author  Ivan Vucica
-/// @version 2.6
+/// @version 2.61
 /// 
 /// @section LICENSE
 /// 
@@ -40,21 +40,32 @@ namespace xal
 		UNKNOWN
 	};
 
-	enum HandlingMode
+	enum BufferMode
 	{
-		/// @brief Handles on Sound creation, keeps results in memory.
+		/// @brief Buffers data upon player creation, keeps results in memory.
 		FULL = 0,
-		/// @brief Handles when first need arises, keeps results in memory.
-		LAZY = 1,
-		/// @brief Handles when first need arises, removes from memory when not needed anymore.
-		ON_DEMAND = 2,
-		/// @brief Handles streamed.
-		STREAMED = 3
+		/// @brief Buffers data upon player creation, clears memory after a timeout.
+		MANAGED = 1,
+		/// @brief Buffers when first need arises, keeps results in memory.
+		LAZY = 2,
+		/// @brief Buffers when first need arises, clears memory after a timeout.
+		LAZY_MANAGED = 3,
+		/// @brief Buffers when first need arises, clears memory after usage.
+		ON_DEMAND = 4,
+		/// @brief Buffers in streamed mode.
+		STREAMED = 5
+	};
+
+	enum SourceMode
+	{
+		/// @brief Leaves data on permanent storage device.
+		DISK = 0,
+		/// @brief Copies data to RAM buffer and accesses it from there.
+		RAM = 1
 	};
 
 	class Buffer;
 	class Category;
-	class ExternalComponent;
 	class Player;
 	class Sound;
 	class Source;
@@ -63,7 +74,6 @@ namespace xal
 	{
 	public:
 		friend class Buffer;
-		friend class ExternalComponent;
 		friend class Player;
 		friend class Sound;
 
@@ -78,7 +88,6 @@ namespace xal
 		int getBitsPerSample() { return this->bitsPerSample; }
 		bool isEnabled() { return this->enabled; }
 		bool isSuspended() { return this->suspended; }
-		DEPRECATED_ATTRIBUTE bool isPaused() { return this->suspended; }
 		float getIdlePlayerUnloadTime() { return this->idlePlayerUnloadTime; }
 		void setIdlePlayerUnloadTime(float value) { this->idlePlayerUnloadTime = value; }
 		hstr getDeviceName() { return this->deviceName; }
@@ -88,10 +97,10 @@ namespace xal
 		void setGlobalGain(float value);
 		harray<Player*> getPlayers();
 
-		static void update();
+		static void update(); // used for threaded update only
 		void update(float k);
 
-		Category* createCategory(chstr name, HandlingMode sourceMode = FULL, HandlingMode bufferMode = FULL, bool memoryManaged = false);
+		Category* createCategory(chstr name, BufferMode bufferMode, SourceMode sourceMode);
 		Category* getCategoryByName(chstr name);
 		float getCategoryGain(chstr category);
 		void setCategoryGain(chstr category, float gain);
@@ -122,8 +131,6 @@ namespace xal
 
 		void suspendAudio();
 		void resumeAudio();
-		DEPRECATED_ATTRIBUTE void pauseAll(float fadeTime) { this->suspendAudio(); }
-		DEPRECATED_ATTRIBUTE void resumeAll(float fadeTime) { this->resumeAudio(); }
 
 		void queueMessage(chstr message);
 
@@ -166,7 +173,7 @@ namespace xal
 		virtual void _lock();
 		virtual void _unlock();
 
-		Category* _createCategory(chstr name, HandlingMode sourceMode, HandlingMode bufferMode, bool memoryManaged);
+		Category* _createCategory(chstr name, BufferMode bufferMode, SourceMode sourceMode);
 		Category* _getCategoryByName(chstr name);
 		float _getCategoryGain(chstr category);
 		void _setCategoryGain(chstr category, float gain);
@@ -185,7 +192,7 @@ namespace xal
 		void _destroyManagedPlayer(Player* player);
 
 		virtual Player* _createSystemPlayer(Sound* sound, Buffer* buffer);
-		virtual Source* _createSource(chstr filename, Format format);
+		virtual Source* _createSource(chstr filename, Category* category, Format format);
 
 		void _play(chstr name, float fadeTime, bool looping, float gain);
 		void _stop(chstr name, float fadeTime);
