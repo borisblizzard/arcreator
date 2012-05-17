@@ -11,8 +11,8 @@
 #include "CodeSnippets.h"
 #include "Graphics.h"
 #include "RGSSError.h"
+#include "SystemSprite.h"
 #include "Table.h"
-#include "TileSprite.h"
 #include "Tilemap.h"
 #include "Viewport.h"
 
@@ -157,7 +157,7 @@ namespace rgss
 		}
 		this->_updateAutotiles();
 		this->depth = this->mapData->getZSize();
-		TileSprite* tileSprite;
+		SystemSprite* tileSprite;
 		int i;
 		int j;
 		int k;
@@ -169,7 +169,7 @@ namespace rgss
 				{
 					for_iterx (i, 0, this->width)
 					{
-						tileSprite = new TileSprite(this->viewport);
+						tileSprite = new SystemSprite(this->viewport);
 						tileSprite->getSrcRect()->set(0, 0, TILE_SIZE, TILE_SIZE);
 						(*this->tileSprites) += tileSprite;
 					}
@@ -334,7 +334,7 @@ namespace rgss
 		tilemap->priorities = NULL;
 		tilemap->rb_flashData = Qnil;
 		tilemap->flashData = NULL;
-		tilemap->tileSprites = new harray<TileSprite*>();
+		tilemap->tileSprites = new harray<SystemSprite*>();
 		return self;
 	}
 

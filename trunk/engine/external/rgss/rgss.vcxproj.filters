@@ -94,7 +94,7 @@
     <ClCompile Include="src\Blendable.cpp">
       <Filter>Source Files\Support</Filter>
     </ClCompile>
-    <ClCompile Include="src\TileSprite.cpp">
+    <ClCompile Include="src\SystemSprite.cpp">
       <Filter>Source Files\Support</Filter>
     </ClCompile>
   </ItemGroup>
@@ -174,7 +174,7 @@
     <ClInclude Include="include\rgss\Blendable.h">
       <Filter>Header Files\Support</Filter>
     </ClInclude>
-    <ClInclude Include="include\rgss\TileSprite.h">
+    <ClInclude Include="include\rgss\SystemSprite.h">
       <Filter>Header Files\Support</Filter>
     </ClInclude>
   </ItemGroup>

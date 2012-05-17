@@ -324,7 +324,7 @@ namespace zer0
 #ifdef HAVE_LOCALE_H
 	    setlocale(LC_CTYPE, "");
 #endif
-		int exception;
+		int exception = 0;
 		ruby_sysinit(&argc, &argv);
 		RUBY_INIT_STACK;
 		ruby_init();
@@ -352,12 +352,11 @@ namespace zer0
 		// running everything
 		try
 		{
-			rb_protect(embedded, Qnil, &exception);
+			rb_protect(&embedded, Qnil, &exception);
 			if (exception != 0)
 			{
 				displayRubyError();
 			}
-			ruby_cleanup(exception);
 		}
 		catch (rgss::ApplicationExitException e)
 		{
@@ -372,6 +371,8 @@ namespace zer0
 		{
 			zer0::log(e);
 		}
+		rb_funcall_0(rb_mGC, "start");
+		ruby_cleanup(exception);
 		return 0;
 	}
 
