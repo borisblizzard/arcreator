@@ -1,5 +1,5 @@
-#ifndef RGSS_TILE_SPRITE_H
-#define RGSS_TILE_SPRITE_H
+#ifndef RGSS_SYSTEM_SPRITE_H
+#define RGSS_SYSTEM_SPRITE_H
 
 #include "SourceRenderer.h"
 #include "rgssExport.h"
@@ -9,14 +9,14 @@ namespace rgss
 	class Bitmap;
 	class Rect;
 
-	/// @brief A special lighter sprite class with fixed rendering for tilemap tiles.
-	class rgssExport TileSprite : public SourceRenderer
+	/// @brief A special lighter sprite class used internally for rendering.
+	class rgssExport SystemSprite : public SourceRenderer
 	{
 	public:
 		/// @brief Constructor.
-		TileSprite(Viewport* viewport = NULL);
+		SystemSprite(Viewport* viewport = NULL);
 		/// @brief Destructor;
-		~TileSprite();
+		~SystemSprite();
 		/// @brief Gets the X coordinate.
 		/// @return The X coordinate.
 		int getX() { return this->x; }

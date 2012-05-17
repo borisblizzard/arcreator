@@ -251,7 +251,7 @@
 					>
 				</File>
 				<File
-					RelativePath=".\src\TileSprite.cpp"
+					RelativePath=".\src\SystemSprite.cpp"
 					>
 				</File>
 			</Filter>
@@ -385,7 +385,7 @@
 					>
 				</File>
 				<File
-					RelativePath=".\include\rgss\TileSprite.h"
+					RelativePath=".\include\rgss\SystemSprite.h"
 					>
 				</File>
 			</Filter>

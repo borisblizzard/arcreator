@@ -136,7 +136,7 @@
     <ClCompile Include="src\Sprite.cpp" />
     <ClCompile Include="src\Table.cpp" />
     <ClCompile Include="src\Tilemap.cpp" />
-    <ClCompile Include="src\TileSprite.cpp" />
+    <ClCompile Include="src\SystemSprite.cpp" />
     <ClCompile Include="src\Tone.cpp" />
     <ClCompile Include="src\Viewport.cpp" />
     <ClCompile Include="src\Window.cpp" />
@@ -160,7 +160,7 @@
     <ClInclude Include="include\rgss\Sprite.h" />
     <ClInclude Include="include\rgss\Table.h" />
     <ClInclude Include="include\rgss\Tilemap.h" />
-    <ClInclude Include="include\rgss\TileSprite.h" />
+    <ClInclude Include="include\rgss\SystemSprite.h" />
     <ClInclude Include="include\rgss\Tone.h" />
     <ClInclude Include="include\rgss\Viewport.h" />
     <ClInclude Include="include\rgss\Window.h" />

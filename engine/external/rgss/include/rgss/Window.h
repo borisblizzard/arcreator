@@ -7,6 +7,8 @@
 #include "SourceRenderer.h"
 #include "rgssExport.h"
 
+#define MAX_BORDERS 4
+
 namespace rgss
 {
 	extern VALUE rb_cWindow;
@@ -152,6 +154,8 @@ namespace rgss
 		Bitmap* windowskinVerticalBorders;
 		/// @brief Windowskin corners bitmap.
 		Bitmap* windowskinCorners;
+		/// @brief Windowskin corners bitmap.
+		Bitmap* windowskinCursor;
 		/// @brief Contents sprite.
 		Sprite* contentsSprite;
 		/// @brief Ruby object of contents sprite.
@@ -165,9 +169,9 @@ namespace rgss
 		/// @brief Ruby object of pause sprite.
 		VALUE rb_pauseSprite;
 		/// @brief Bitmap border sprites.
-		Sprite* borderSprites[4];
+		Sprite* borderSprites[MAX_BORDERS];
 		/// @brief Ruby objects of bitmap border sprites.
-		VALUE rb_borderSprites[4];
+		VALUE rb_borderSprites[MAX_BORDERS];
 		
 		/// @brief Renders the actual texture.
 		void _render();

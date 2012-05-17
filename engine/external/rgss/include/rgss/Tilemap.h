@@ -15,9 +15,9 @@ namespace rgss
 {
 	extern VALUE rb_cTilemap;
 
-	class Bitmap; 
+	class Bitmap;
+	class SystemSprite;
 	class Table;
-	class TileSprite;
 
 	class rgssExport Tilemap : public SourceRenderer
 	{
@@ -117,7 +117,7 @@ namespace rgss
 		/// @brief Generated bitmaps.
 		Bitmap* generatedAutotiles[MAX_AUTOTILES];
 		/// @brief Tile sprites.
-		harray<TileSprite*>* tileSprites;
+		harray<SystemSprite*>* tileSprites;
 		/// @brief Main tileset bitmap.
 
 		/// @brief Updates autotile bitmaps.

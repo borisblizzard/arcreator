@@ -32,7 +32,7 @@ namespace rgss
 			TYPE_SPRITE,
 			TYPE_WINDOW,
 			TYPE_TILEMAP,
-			TYPE_TILE_SPRITE
+			TYPE_SYSTEM_SPRITE
 		};
 
 		/// @brief Constructor.

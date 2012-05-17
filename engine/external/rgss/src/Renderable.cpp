@@ -12,8 +12,8 @@
 #include "RenderQueue.h"
 #include "RGSSError.h"
 #include "Sprite.h"
+#include "SystemSprite.h"
 #include "Tilemap.h"
-#include "TileSprite.h"
 #include "Tone.h"
 #include "Viewport.h"
 #include "Window.h"
@@ -111,8 +111,8 @@ namespace rgss
 		case TYPE_WINDOW:
 			((Window*)this)->draw();
 			break;
-		case TYPE_TILE_SPRITE:
-			((TileSprite*)this)->draw();
+		case TYPE_SYSTEM_SPRITE:
+			((SystemSprite*)this)->draw();
 			break;
 		}
 	}

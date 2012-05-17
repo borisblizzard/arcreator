@@ -6,7 +6,7 @@
 #include "CodeSnippets.h"
 #include "Bitmap.h"
 #include "Rect.h"
-#include "TileSprite.h"
+#include "SystemSprite.h"
 #include "Viewport.h"
 
 namespace rgss
@@ -15,20 +15,20 @@ namespace rgss
 	 * Pure C++ code
 	 ****************************************************************************************/
 
-	TileSprite::TileSprite(Viewport* viewport) : SourceRenderer(viewport)
+	SystemSprite::SystemSprite(Viewport* viewport) : SourceRenderer(viewport)
 	{
 		this->disposed = false;
-		this->type = TYPE_TILE_SPRITE;
-		this->typeName = "tile sprite";
+		this->type = TYPE_SYSTEM_SPRITE;
+		this->typeName = "system sprite";
 		this->srcRect = new Rect();
 	}
 	
-	TileSprite::~TileSprite()
+	SystemSprite::~SystemSprite()
 	{
 		delete this->srcRect;
 	}
 
-	void TileSprite::draw()
+	void SystemSprite::draw()
 	{
 		if (this->bitmap == NULL || this->bitmap->isDisposed() || this->opacity == 0 || this->srcRect->width <= 0 ||
 			this->srcRect->height <= 0 || this->zoom.x == 0.0f || this->zoom.y == 0.0f)
@@ -50,7 +50,7 @@ namespace rgss
 		april::rendersys->setModelviewMatrix(viewMatrix);
 	}
 
-	void TileSprite::_render()
+	void SystemSprite::_render()
 	{
 		int dw = hmin(this->srcRect->width, this->bitmap->getWidth());
 		int dh = hmin(this->srcRect->height, this->bitmap->getHeight());
