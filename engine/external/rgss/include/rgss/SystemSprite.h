@@ -8,15 +8,21 @@ namespace rgss
 {
 	class Bitmap;
 	class Rect;
+	class Viewport;
 
 	/// @brief A special lighter sprite class used internally for rendering.
+	/// @note This class is not exposed to Ruby and can be created only in C++.
 	class rgssExport SystemSprite : public SourceRenderer
 	{
 	public:
 		/// @brief Constructor.
-		SystemSprite(Viewport* viewport = NULL);
+		/// @param[in] viewport Viewport object.
+		SystemSprite(Viewport* viewport);
 		/// @brief Destructor;
 		~SystemSprite();
+		/// @brief Disposes this object.
+		void dispose();
+
 		/// @brief Gets the X coordinate.
 		/// @return The X coordinate.
 		int getX() { return this->x; }
@@ -46,6 +52,9 @@ namespace rgss
 		/// @brief Source rectangle.
 		Rect* srcRect;
 
+		/// @brief Checks if object is visible for rendering.
+		/// @return True if object is visible for rendering.
+		bool _canDraw();
 		/// @brief Renders the actual texture.
 		void _render();
 

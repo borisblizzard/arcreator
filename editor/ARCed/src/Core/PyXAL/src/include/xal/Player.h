@@ -1,6 +1,6 @@
 /// @file
 /// @author  Boris Mikic
-/// @version 2.61
+/// @version 2.62
 /// 
 /// @section LICENSE
 /// 
@@ -85,7 +85,6 @@ namespace xal
 		void _pause(float fadeTime = 0.0f);
 
 		float _calcGain();
-		float _calcFadeGain();
 		bool _tryClearMemory();
 
 		virtual bool _systemIsPlaying() { return false; }
@@ -94,7 +93,7 @@ namespace xal
 		virtual void _systemSetOffset(float value) { }
 		virtual bool _systemPreparePlay() { return true; }
 		virtual void _systemPrepareBuffer() { }
-		virtual void _systemUpdateGain(float gain) { }
+		virtual void _systemUpdateGain() { }
 		virtual void _systemUpdatePitch() { }
 		virtual void _systemPlay() { }
 		virtual int _systemStop() { return 0; }

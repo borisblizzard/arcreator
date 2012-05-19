@@ -6,13 +6,14 @@
 #include <gtypes/Rectangle.h>
 
 #include "rgssExport.h"
+#include "RubyObject.h"
 
 namespace rgss
 {
 	extern VALUE rb_cRect;
 
 	/// @brief Emulates RGSS's Rect class.
-	class rgssExport Rect
+	class rgssExport Rect : public RubyObject
 	{
 	public:
 		/// @brief X coordinate.
@@ -23,6 +24,17 @@ namespace rgss
 		int width;
 		/// @brief Height.
 		int height;
+
+		/// @brief Constructor.
+		Rect();
+		/// @brief Constructor.
+		/// @param[in] x X coordinate.
+		/// @param[in] y Y coordinate.
+		/// @param[in] width The width.
+		/// @param[in] height The height.
+		Rect(int x, int y, int width, int height);
+		/// @brief Destructor.
+		~Rect();
 
 		/// @brief Sets the rect to the specified value.
 		/// @param[in] x X coordinate.

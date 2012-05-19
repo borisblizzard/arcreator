@@ -9,6 +9,7 @@
 #include "Font.h"
 #include "Rect.h"
 #include "rgssExport.h"
+#include "RubyObject.h"
 
 namespace april
 {
@@ -19,18 +20,28 @@ namespace rgss
 {
 	extern VALUE rb_cBitmap;
 
-	class rgssExport Bitmap
+	class rgssExport Bitmap : public RubyObject
 	{
 	public:
+		/// @brief Constructor.
+		Bitmap();
 		/// @brief Constructor.
 		/// @param[in] width The width.
 		/// @param[in] height The height.
 		Bitmap(int width, int height);
 		/// @brief Constructor.
-		/// @param[in] filename The filename.
-		Bitmap(chstr filename);
+		/// @param[in] fullFilename The full filename.
+		Bitmap(chstr fullFilename);
 		/// @brief Destructor.
 		~Bitmap();
+		/// @brief Initializes the basic object.
+		/// @param[in] argc Number of arguments.
+		/// @param[in] argv Pointer to first argument.
+		void initialize(int argc, VALUE* argv);
+		/// @brief Disposes this object.
+		void dispose();
+		/// @brief Ruby garbage collector marking.
+		void mark();
 
 		/// @brief Gets the april::Texture.
 		/// @return april::Texture used to draw.
@@ -70,8 +81,11 @@ namespace rgss
 		void stretchBltOver(int x, int y, int w, int h, Bitmap* source, int sx, int sy, int sw, int sh);
 		/// @brief Clears the entire bitmap.
 		void clear();
-		/// @brief Disposes this renderable.
-		void dispose();
+
+		/// @brief Gets the full filename and checks whether it exists.
+		/// @param[in] filename The filename, possibly without extension.
+		/// @return The full filename.
+		static hstr getFullFilename(chstr filename);
 
 		/// @brief Initializes.
 		static void init();
@@ -79,12 +93,6 @@ namespace rgss
 		static void destroy();
 		/// @brief Exposes this class to Ruby.
 		static void createRubyInterface();
-		/// @brief Marks referenced values of sprite for garbage collection.
-		/// @param[in] bitmap Pointer to the Bitmap to mark.
-		static void gc_mark(Bitmap* bitmap);
-		/// @brief Frees additional resources used by this instance.
-		/// @param[in] bitmap Pointer to the Bitmap to free.
-		static void gc_free(Bitmap* bitmap);
 		/// @brief Ruby allocation of an instance.
 		static VALUE rb_new(VALUE classe);
 		/// @brief Sets the bitmap dimensions.
@@ -174,10 +182,9 @@ namespace rgss
 		Font* font;
 		/// @brief Ruby object of the Font used to draw text.
 		VALUE rb_font;
+		/// @brief Used for error prints.
+		hstr typeName;
 
-		/// @brief Gets the Atres font name.
-		/// @return Atres font name.
-		hstr _getAtresFontName();
 		/// @brief Draws text onto this bitmap;
 		/// @param[in] x X coordinate.
 		/// @param[in] y Y coordinate.

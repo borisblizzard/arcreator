@@ -17,6 +17,21 @@ namespace rgss
 	class rgssExport Sprite : public Blendable
 	{
 	public:
+		/// @brief Constructor.
+		Sprite();
+		/// @brief Constructor.
+		/// @param[in] viewport Viewport object.
+		Sprite(Viewport* viewport);
+		/// @brief Destructor.
+		~Sprite();
+		/// @brief Initializes the basic object.
+		/// @param[in] rb_viewport Ruby Viewport object.
+		void initialize(VALUE rb_viewport);
+		/// @brief Disposes this object.
+		void dispose();
+		/// @brief Ruby garbage collector marking.
+		void mark();
+
 		/// @brief Gets the X coordinate.
 		/// @return The X coordinate.
 		int getX() { return this->x; }
@@ -48,12 +63,6 @@ namespace rgss
 		static void destroy();
 		/// @brief Exposes this class to Ruby.
 		static void createRubyInterface();
-		/// @brief Marks referenced values of sprite for garbage collection.
-		/// @param[in] sprite Pointer to the Sprite to mark.
-		static void gc_mark(Sprite* sprite);
-		/// @brief Frees allocated memory.
-		/// @param[in] sprite Pointer to the Sprite to free.
-		static void gc_free(Sprite* sprite);
 		/// @brief Ruby allocation of an instance.
 		static VALUE rb_new(VALUE classe);
 		/// @brief Initializes this instance, setting the viewport if provided.
@@ -117,6 +126,9 @@ namespace rgss
 		/// @brief Ruby object of source rectangle.
 		VALUE rb_srcRect;
 
+		/// @brief Checks if object is visible for rendering.
+		/// @return True if object is visible for rendering.
+		bool _canDraw();
 		/// @brief Renders the actual texture.
 		void _render();
 

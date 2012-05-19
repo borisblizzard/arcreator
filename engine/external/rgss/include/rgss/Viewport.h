@@ -22,7 +22,21 @@ namespace rgss
 	class rgssExport Viewport : public Renderable
 	{
 	public:
+		/// @brief This viewport's RenderQueue.
 		RenderQueue* renderQueue;
+
+		/// @brief Constructor.
+		Viewport();
+		/// @brief Destructor.
+		~Viewport();
+		/// @brief Initializes the basic object.
+		/// @param[in] argc Number of arguments.
+		/// @param[in] argv Pointer to first argument.
+		void initialize(int argc, VALUE* argv);
+		/// @brief Disposes this object.
+		void dispose();
+		/// @brief Ruby garbage collector marking.
+		void mark();
 
 		/// @brief Gets the Rect.
 		/// @return The Rect.
@@ -30,8 +44,6 @@ namespace rgss
 
 		/// @brief Draws this sprite on the screen.
 		void draw();
-		/// @brief Disposed this instance.
-		void dispose();
 
 		/// @brief Initializes.
 		static void init();
@@ -39,12 +51,6 @@ namespace rgss
 		static void destroy();
 		/// @brief Exposes this class to Ruby.
 		static void createRubyInterface();
-		/// @brief Marks referenced values of Viewport for garbage collection.
-		/// @param[in] viewport Pointer to the Viewport to mark.
-		static void gc_mark(Viewport* viewport);
-		/// @brief Frees allocated memory.
-		/// @param[in] viewport Pointer to the Viewport to free.
-		static void gc_free(Viewport* viewport);
 		/// @brief Ruby allocation of an instance.
 		static VALUE rb_new(VALUE classe);
 		/// @brief Initializes this instance.

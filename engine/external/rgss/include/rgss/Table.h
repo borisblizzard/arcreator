@@ -4,6 +4,7 @@
 #include <ruby.h>
 
 #include "rgssExport.h"
+#include "RubyObject.h"
 
 namespace rgss
 {
@@ -11,9 +12,14 @@ namespace rgss
 
 	/// @brief Emulates RGSS's Table class.
 	/// @note Depending on the instance's dimensions, specific method calls will not work. Use the proper method calls.
-	class rgssExport Table
+	class rgssExport Table : public RubyObject
 	{
 	public:
+		/// @brief Constructor.
+		Table();
+		/// @brief Destructor.
+		~Table();
+
 		/// @brief Gets the Z size.
 		/// @return The Z size.
 		int getZSize() { return this->zSize; }
@@ -37,9 +43,6 @@ namespace rgss
 		static void destroy();
 		/// @brief Exposes this class to Ruby.
 		static void createRubyInterface();
-		/// @brief Frees allocated memory.
-		/// @param[in] table Pointer to the Table to free.
-		static void gc_free(Table* table);
 		/// @brief Ruby allocation of an instance.
 		static VALUE rb_new(VALUE classe);
 		/// @brief Initializes the instance, setting the dimensions.

@@ -11,6 +11,24 @@ namespace rgss
 	VALUE rb_cTable;
 
 	/****************************************************************************************
+	 * Construction/Destruction
+	 ****************************************************************************************/
+
+	Table::Table() : RubyObject()
+	{
+		this->xSize = 1;
+		this->ySize = 1;
+		this->zSize = 1;
+		this->data = this->_createData(1, 1, 1);
+		this->dimensions = 1;
+	}
+	
+	Table::~Table()
+	{
+		delete [] this->data;
+	}
+
+	/****************************************************************************************
 	 * Pure C++ code
 	 ****************************************************************************************/
 
@@ -118,19 +136,10 @@ namespace rgss
 		rb_define_method(rb_cTable, "resize", RUBY_METHOD_FUNC(&Table::rb_resize), -1);
 	}
 	
-	void Table::gc_free(Table* table)
-	{
-		if (table->data != NULL)
-		{
-			delete [] table->data;
-			table->data = NULL;
-		}
-	}
-
 	VALUE Table::rb_new(VALUE classe)
 	{
 		Table* table;
-		return Data_Make_Struct(classe, Table, NULL, &Table::gc_free, table);
+		return RB_OBJECT_NEW(classe, Table, table, &Table::gc_mark, &Table::gc_free);
 	}
 
 	VALUE Table::rb_initialize(int argc, VALUE* argv, VALUE self)
@@ -138,10 +147,10 @@ namespace rgss
 		RB_SELF2CPP(Table, table);
 		VALUE arg1, arg2, arg3;
 		rb_scan_args(argc, argv, "12", &arg1, &arg2, &arg3);
-		table->xSize = hmax(NUM2INT(arg1), 1);
-		table->ySize = hmax(NIL_P(arg2) ? 1 : NUM2INT(arg2), 1);
-		table->zSize = hmax(NIL_P(arg3) ? 1 : NUM2INT(arg3), 1);
-		table->data = table->_createData(table->xSize, table->ySize, table->zSize);
+		int xSize = hmax(NUM2INT(arg1), 1);
+		int ySize = hmax(NIL_P(arg2) ? 1 : NUM2INT(arg2), 1);
+		int zSize = hmax(NIL_P(arg3) ? 1 : NUM2INT(arg3), 1);
+		table->_resize(xSize, ySize, zSize);
 		table->dimensions = argc;
 		return self;
 	}
@@ -150,10 +159,10 @@ namespace rgss
 	{
 		RB_SELF2CPP(Table, table);
 		RB_VAR2CPP(original, Table, other);
-		table->xSize = other->xSize;
-		table->ySize = other->ySize;
-		table->zSize = other->zSize;
-		table->data = table->_createData(table->xSize, table->ySize, table->zSize);
+		int xSize = other->xSize;
+		int ySize = other->ySize;
+		int zSize = other->zSize;
+		table->_resize(xSize, ySize, zSize);
 		table->dimensions = other->dimensions;
 		memcpy(table->data, other->data, table->xSize * table->ySize * table->zSize * sizeof(short));
 		return self;

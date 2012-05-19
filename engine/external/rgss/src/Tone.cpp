@@ -11,6 +11,24 @@ namespace rgss
 	VALUE rb_cTone;
 
 	/****************************************************************************************
+	 * Construction/Destruction
+	 ****************************************************************************************/
+
+	Tone::Tone() : RubyObject()
+	{
+		this->set(0.0f, 0.0f, 0.0f, 0.0f);
+	}
+	
+	Tone::Tone(float r, float g, float b, float gr) : RubyObject()
+	{
+		this->set(r, g, b, gr);
+	}
+	
+	Tone::~Tone()
+	{
+	}
+
+	/****************************************************************************************
 	 * Pure C++ code
 	 ****************************************************************************************/
 
@@ -62,7 +80,7 @@ namespace rgss
 	VALUE Tone::rb_new(VALUE classe)
 	{
 		Tone* tone;
-		return Data_Make_Struct(classe, Tone, NULL, NULL, tone);
+		return RB_OBJECT_NEW(classe, Tone, tone, &Tone::gc_mark, &Tone::gc_free);
 	}
 
 	VALUE Tone::rb_initialize(int argc, VALUE* argv, VALUE self)

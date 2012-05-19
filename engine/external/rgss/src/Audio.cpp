@@ -41,6 +41,7 @@ namespace rgss
 
 	void Audio::init()
 	{
+		xal::mgr->setIdlePlayerUnloadTime(300.0f);
 		xal::mgr->createCategory(CATEGORY_BGM, xal::STREAMED, xal::DISK);
 		xal::mgr->createSoundsFromPath(PATH_BGM, CATEGORY_BGM, PATH_BGM);
 		xal::mgr->createCategory(CATEGORY_BGS, xal::STREAMED, xal::DISK);

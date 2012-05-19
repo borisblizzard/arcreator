@@ -7,6 +7,7 @@
 #include <hltypes/hstring.h>
 
 #include "rgssExport.h"
+#include "RubyObject.h"
 
 namespace rgss
 {
@@ -15,9 +16,27 @@ namespace rgss
 	extern VALUE rb_cFont;
 
 	/// @brief Emulates RGSS's Font class.
-	class rgssExport Font
+	class rgssExport Font : public RubyObject
 	{
 	public:
+		/// @brief Constructor.
+		Font();
+		/// @brief Constructor.
+		/// @param[in] name Font name.
+		Font(chstr name);
+		/// @brief Constructor.
+		/// @param[in] name Font name.
+		/// @param[in] size Font size.
+		Font(chstr name, int size);
+		/// @brief Destructor.
+		~Font();
+		/// @brief Initializes the basic object.
+		/// @param[in] argc Number of arguments.
+		/// @param[in] argv Pointer to first argument.
+		void initialize(int argc, VALUE* argv);
+		/// @brief Ruby garbage collector marking.
+		void mark();
+
 		/// @brief Gets the name.
 		/// @return The name.
 		hstr getName() { return this->name; }
@@ -33,9 +52,9 @@ namespace rgss
 		/// @brief Gets the color.
 		/// @return The color.
 		Color* getColor() { return this->color; }
-		/// @brief Gets the full name for Atres TTF.
-		/// @return The full name for Atres TTF.
-		hstr getFullName();
+		/// @brief Gets the Atres font name.
+		/// @return Atres font name.
+		hstr getAtresFontName();
 
 		/// @brief Generates a Font defintion for the current render if necessary.
 		/// @param[in] font The font instance.
@@ -60,12 +79,6 @@ namespace rgss
 		static void destroy();
 		/// @brief Exposes this class to Ruby.
 		static void createRubyInterface();
-		/// @brief Marks referenced values of font for garbage collection.
-		/// @param[in] font Pointer to the Font to mark.
-		static void gc_mark(Font* font);
-		/// @brief Frees allocated memory.
-		/// @param[in] font Pointer to the Font to free.
-		static void gc_free(Font* font);
 		/// @brief Ruby allocation of an instance.
 		static VALUE rb_new(VALUE classe);
 		/// @brief Sets the font parameters.
@@ -158,6 +171,10 @@ namespace rgss
 		Color* color;
 		/// @brief Ruby object of font Color.
 		VALUE rb_color;
+
+		/// @brief Gets the name for Atres TTF.
+		/// @return The name for Atres TTF.
+		hstr _getAtresTtfName();
 
 		/// @brief Keeps track of missing fonts so they aren't checked multiple times.
 		static harray<hstr> _missingFonts;

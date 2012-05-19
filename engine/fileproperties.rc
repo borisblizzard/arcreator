@@ -1,5 +1,5 @@
-#define VER_VERSION 1,0,0,652
-#define VER_VERSION_STR "1.0.0 r652\0"
+#define VER_VERSION 1,0,0,666
+#define VER_VERSION_STR "1.0.0 r666\0"
 #define VER_COMPANYNAME_STR "Chaos Project\0"
 #define VER_FILEDESCRIPTION_STR "Advanced RPG Creator Executable\0"
 #define VER_LEGALCOPYRIGHT_STR "© Chaos Project\0"

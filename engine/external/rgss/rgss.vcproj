@@ -247,6 +247,10 @@
 					>
 				</File>
 				<File
+					RelativePath=".\src\RubyObject.cpp"
+					>
+				</File>
+				<File
 					RelativePath=".\src\SourceRenderer.cpp"
 					>
 				</File>
@@ -378,6 +382,10 @@
 				</File>
 				<File
 					RelativePath=".\include\rgss\Renderable.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\rgss\RubyObject.h"
 					>
 				</File>
 				<File

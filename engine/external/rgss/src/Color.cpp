@@ -11,6 +11,24 @@ namespace rgss
 	VALUE rb_cColor;
 
 	/****************************************************************************************
+	 * Construction/Destruction
+	 ****************************************************************************************/
+
+	Color::Color() : RubyObject()
+	{
+		this->set(0.0f, 0.0f, 0.0f, 0.0f);
+	}
+	
+	Color::Color(float r, float g, float b, float a) : RubyObject()
+	{
+		this->set(r, g, b, a);
+	}
+	
+	Color::~Color()
+	{
+	}
+
+	/****************************************************************************************
 	 * Pure C++ code
 	 ****************************************************************************************/
 
@@ -76,11 +94,12 @@ namespace rgss
 	VALUE Color::rb_new(VALUE classe)
 	{
 		Color* color;
-		return Data_Make_Struct(classe, Color, NULL, NULL, color);
+		return RB_OBJECT_NEW(classe, Color, color, &Color::gc_mark, &Color::gc_free);
 	}
 
 	VALUE Color::rb_initialize(int argc, VALUE* argv, VALUE self)
 	{
+		RB_SELF2CPP(Color, color);
 		Color::rb_set(argc, argv, self);
 		return self;
 	}

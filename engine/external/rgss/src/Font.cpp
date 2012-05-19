@@ -16,7 +16,7 @@ namespace rgss
 	VALUE rb_cFont;
 
 	/****************************************************************************************
-	 * Pure C++ code
+	 * Construction/Destruction
 	 ****************************************************************************************/
 
 	hstr Font::defaultName;
@@ -27,9 +27,69 @@ namespace rgss
 	VALUE Font::rb_defaultColor;
 	harray<hstr> Font::_missingFonts;
 
+	Font::Font() : RubyObject()
+	{
+		this->name = defaultName;
+		this->size = defaultSize;
+		this->bold = defaultBold;
+		this->italic = defaultItalic;
+		this->rb_color = Qnil;
+		this->color = NULL;
+	}
+	
+	Font::Font(chstr name) : RubyObject()
+	{
+		this->name = name;
+		this->size = defaultSize;
+		this->bold = defaultBold;
+		this->italic = defaultItalic;
+		this->rb_color = Qnil;
+		this->color = new Color(*defaultColor);
+	}
+
+	Font::Font(chstr name, int size) : RubyObject()
+	{
+		this->name = name;
+		this->size = size;
+		this->bold = defaultBold;
+		this->italic = defaultItalic;
+		this->rb_color = Qnil;
+		this->color = new Color(*defaultColor);
+	}
+
+	Font::~Font()
+	{
+		CPP_VAR_DELETE(color);
+		this->rb_color = Qnil;
+		this->color = NULL;
+	}
+
+	void Font::initialize(int argc, VALUE* argv)
+	{
+		VALUE name, size;
+		rb_scan_args(argc, argv, "02", &name, &size);
+		this->name = (!NIL_P(name) ? StringValueCStr(name) : defaultName);
+		this->size = (!NIL_P(name) ? NUM2INT(size) : defaultSize);
+		this->bold = defaultBold;
+		this->italic = defaultItalic;
+		this->rb_color = rb_f_clone(rb_defaultColor);
+		RB_VAR2CPP(this->rb_color, Color, color);
+		this->color = color;
+	}
+
+	void Font::mark()
+	{
+		RubyObject::mark();
+		RB_GC_MARK(color);
+	}
+
+	/****************************************************************************************
+	 * Pure C++ code
+	 ****************************************************************************************/
+
 	void Font::generate(Font* font)
 	{
-		hstr fontName = font->getFullName();
+		hstr fontName = font->_getAtresTtfName();
 		if (!atres::renderer->hasFont(fontName) && !_missingFonts.contains(fontName))
 		{
 			float baseSize = (float)rgss::parameters.try_get_by_key(CFG_FONT_BASE_SIZE, "50");
@@ -46,7 +106,23 @@ namespace rgss
 		}
 	}
 
-	hstr Font::getFullName()
+	hstr Font::getAtresFontName()
+	{
+		Font::generate(this);
+		hstr result = this->_getAtresTtfName();
+		if (!atres::renderer->hasFont(result))
+		{
+			return "";
+		}
+		float fontHeight = atres::renderer->getFontHeight(result);
+		if (this->size != fontHeight)
+		{
+			result += hsprintf(":%f", this->size / fontHeight);
+		}
+		return result;
+	}
+
+	hstr Font::_getAtresTtfName()
 	{
 		hstr result = this->name;
 		if (this->bold)
@@ -80,6 +156,7 @@ namespace rgss
 	void Font::destroy()
 	{
 		rb_defaultColor = Qnil;
+		defaultColor = NULL;
 		rb_gc_unregister_address(&rb_defaultColor);
 	}
 
@@ -115,36 +192,16 @@ namespace rgss
 		rb_define_singleton_method(rb_cFont, "default_color=", RUBY_METHOD_FUNC(&Font::rb_setDefaultColor), 1);
 	}
 
-	void Font::gc_mark(Font* font)
-	{
-		if (!NIL_P(font->rb_color))
-		{
-			rb_gc_mark(font->rb_color);
-		}
-	}
-
-	void Font::gc_free(Font* font)
-	{
-		font->rb_color = Qnil;
-		font->color = NULL;
-	}
-
 	VALUE Font::rb_new(VALUE classe)
 	{
 		Font* font;
-		return Data_Make_Struct(classe, Font, Font::gc_mark, Font::gc_free, font);
+		return RB_OBJECT_NEW(classe, Font, font, &Font::gc_mark, &Font::gc_free);
 	}
 
 	VALUE Font::rb_initialize(int argc, VALUE* argv, VALUE self)
 	{
-		VALUE name, size;
-		rb_scan_args(argc, argv, "02", &name, &size);
 		RB_SELF2CPP(Font, font);
-		font->name = (!NIL_P(name) ? StringValueCStr(name) : defaultName);
-		font->size = (!NIL_P(name) ? NUM2INT(size) : defaultSize);
-		font->bold = defaultBold;
-		font->italic = defaultItalic;
-		Font::rb_setColor(self, rb_f_clone(rb_defaultColor));
+		font->initialize(argc, argv);
 		return self;
 	}
 

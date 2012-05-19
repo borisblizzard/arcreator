@@ -22,7 +22,7 @@
 #define TRY_RUN_GC \
 	if (frameCount % 200 == 0) \
 	{ \
-		rb_funcall_0(rb_mGC, "start"); \
+		rb_gc(); \
 	}
 
 namespace rgss
@@ -314,7 +314,8 @@ namespace rgss
 		else if (vague >= 0) // skip if vague is not 0 or greater
 		{
 			// small hack to make use of the safe texture loading code in Bitmap class
-			Bitmap* bitmap = new Bitmap(filename);
+			hstr fullFilename = Bitmap::getFullFilename(filename);
+			Bitmap* bitmap = new Bitmap(fullFilename);
 			april::Texture* transition = bitmap->getTexture();
 			bitmap->setTexture(NULL);
 			delete bitmap;
