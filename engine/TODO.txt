@@ -9,5 +9,4 @@
 - implement SHA-1 in C++
 - add blend_type for Viewport
 - add opacity for Viewport
-- hide xal::Player::getOffset()
 - FLAC support

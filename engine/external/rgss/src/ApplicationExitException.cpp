@@ -9,4 +9,8 @@ namespace rgss
 	{
 	}
 
+	ApplicationExitException::~ApplicationExitException()
+	{
+	}
+
 }

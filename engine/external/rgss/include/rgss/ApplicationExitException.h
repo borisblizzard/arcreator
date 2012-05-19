@@ -7,10 +7,14 @@
 
 namespace rgss
 {
+	/// @brief Special exception that is thrown to terminate the game.
 	class rgssExport ApplicationExitException : public hltypes::exception
 	{
 	public:
+		/// @brief Constructor.
 		ApplicationExitException();
+		/// @brief Desstructor.
+		~ApplicationExitException();
 
 	};
 

@@ -42,26 +42,38 @@ namespace rgss
 		this->cursorRect = NULL;
 		this->rb_windowskin = Qnil;
 		this->windowskin = NULL;
-		// TODO - needs to be changed
-		this->rb_cursorSprite = Qnil;
 		this->cursorSprite = NULL;
-		// TODO - needs to be changed
-		this->rb_contentsSprite = Qnil;
 		this->contentsSprite = NULL;
 		for_iter (i, 0, MAX_BORDERS)
 		{
-			// TODO - needs to be changed
-			this->rb_borderSprites[i] = Qnil;
 			this->borderSprites[i] = NULL;
 		}
-		// TODO - needs to be changed
-		this->rb_pauseSprite = Qnil;
 		this->pauseSprite = NULL;
+		this->cursorBitmap = NULL;
 	}
 	
 	Window::~Window()
 	{
 		this->dispose();
+		if (this->cursorSprite != NULL)
+		{
+			delete this->cursorSprite;
+		}
+		if (this->contentsSprite != NULL)
+		{
+			delete this->contentsSprite;
+		}
+		for_iter (i, 0, MAX_BORDERS)
+		{
+			if (this->borderSprites[i] != NULL)
+			{
+				delete this->borderSprites[i];
+			}
+		}
+		if (this->pauseSprite != NULL)
+		{
+			delete this->pauseSprite;
+		}
 	}
 
 	void Window::initialize(VALUE rb_viewport)
@@ -85,29 +97,18 @@ namespace rgss
 		this->rb_windowskin = Qnil;
 		this->windowskin = NULL;
 		// order of sprite creation is important, don't change it!
-		// TODO - needs to be changed
-		this->rb_cursorSprite = Sprite::create(1, &rb_viewport);
-		RB_VAR2CPP(this->rb_cursorSprite, Sprite, cursorSprite);
-		this->cursorSprite = cursorSprite;
+		this->cursorSprite = new Sprite(this->viewport);
 		this->cursorSprite->setZ(this->z + 2);
-		// TODO - needs to be changed
-		this->rb_contentsSprite = Sprite::create(1, &rb_viewport);
-		RB_VAR2CPP(this->rb_contentsSprite, Sprite, contentsSprite);
-		this->contentsSprite = contentsSprite;
+		this->contentsSprite = new Sprite(this->viewport);
 		this->contentsSprite->setZ(this->z + 2);
 		for_iter (i, 0, MAX_BORDERS)
 		{
-			// TODO - needs to be changed
-			this->rb_borderSprites[i] = Sprite::create(1, &rb_viewport);
-			RB_VAR2CPP(this->rb_borderSprites[i], Sprite, borderSprite);
-			this->borderSprites[i] = borderSprite;
+			this->borderSprites[i] = new Sprite(this->viewport);
 			this->borderSprites[i]->setZ(this->z + 2);
 		}
-		// TODO - needs to be changed
-		this->rb_pauseSprite = Sprite::create(1, &rb_viewport);
-		RB_VAR2CPP(this->rb_pauseSprite, Sprite, pauseSprite);
-		this->pauseSprite = pauseSprite;
+		this->pauseSprite = new Sprite(this->viewport);
 		this->pauseSprite->setZ(this->z + 2);
+		this->cursorBitmap = NULL;
 	}
 
 	void Window::dispose()
@@ -119,36 +120,29 @@ namespace rgss
 			this->cursorRect = NULL;
 			this->rb_windowskin = Qnil;
 			this->windowskin = NULL;
-			// TODO - needs to be changed
-			if (!NIL_P(this->rb_contentsSprite))
+			if (this->cursorSprite != NULL)
 			{
-				this->contentsSprite->setVisible(false);
+				this->cursorSprite->dispose();
 			}
-			this->rb_contentsSprite = Qnil;
-			this->contentsSprite = NULL;
-			// TODO - needs to be changed
-			if (!NIL_P(this->rb_cursorSprite))
+			if (this->contentsSprite != NULL)
 			{
-				this->cursorSprite->setVisible(false);
+				this->contentsSprite->dispose();
 			}
-			this->rb_cursorSprite = Qnil;
-			this->cursorSprite = NULL;
-			// TODO - needs to be changed
-			if (!NIL_P(this->rb_pauseSprite))
-			{
-				this->pauseSprite->setVisible(false);
-			}
-			this->rb_pauseSprite = Qnil;
-			this->pauseSprite = NULL;
 			for_iter (i, 0, MAX_BORDERS)
 			{
-				// TODO - needs to be changed
-				if (!NIL_P(this->rb_borderSprites[i]))
+				if (this->borderSprites[i] != NULL)
 				{
-					this->borderSprites[i]->setVisible(false);
+					this->borderSprites[i]->dispose();
 				}
-				this->rb_borderSprites[i] = Qnil;
-				this->borderSprites[i] = NULL;
+			}
+			if (this->pauseSprite != NULL)
+			{
+				this->pauseSprite->dispose();
+			}
+			if (this->cursorBitmap != NULL)
+			{
+				delete this->cursorBitmap;
+				this->cursorBitmap = NULL;
 			}
 			if (this->windowskinBackground != NULL)
 			{
@@ -172,13 +166,6 @@ namespace rgss
 		SourceRenderer::mark();
 		RB_GC_MARK(cursorRect);
 		RB_GC_MARK(windowskin);
-		RB_GC_MARK(contentsSprite);
-		RB_GC_MARK(cursorSprite);
-		RB_GC_MARK(pauseSprite);
-		for_iter (i, 0, MAX_BORDERS)
-		{
-			RB_GC_MARK(borderSprites[i]);
-		}
 	}
 
 	/****************************************************************************************
@@ -413,18 +400,17 @@ namespace rgss
 
 	void Window::_updateCursorSprite()
 	{
-		Rect* srcRect = this->cursorSprite->getSrcRect();
-		Bitmap* cursorBitmap = this->cursorSprite->getBitmap();
-		VALUE rb_bitmap = Sprite::rb_getBitmap(this->rb_cursorSprite);
+		//Rect* srcRect = this->cursorSprite->getSrcRect();
 		// remove bitmap if no windowskin or cursorRect has an incorrect size
 		if (this->windowskin == NULL || this->cursorRect->width <= 0 || this->cursorRect->height <= 0)
 		{
-			if (cursorBitmap != NULL)
+			if (this->cursorBitmap != NULL)
 			{
-				Bitmap::rb_dispose(rb_bitmap);
-				Sprite::rb_setBitmap(this->rb_cursorSprite, Qnil);
+				delete this->cursorBitmap;
+				this->cursorBitmap = NULL;
+				this->cursorSprite->setBitmap(NULL);
 			}
-			srcRect->set(0, 0, 0, 0);
+			this->cursorSprite->getSrcRect()->set(0, 0, 0, 0);
 			return;
 		}
 		// set sprite to correct position and dimensions
@@ -432,53 +418,48 @@ namespace rgss
 		this->cursorSprite->setY(this->y + 16 + this->cursorRect->y);
 		int count = (this->cursorUpdateCount < 16 ? this->cursorUpdateCount : 32 - this->cursorUpdateCount);
 		this->cursorSprite->setOpacity(this->contentsOpacity * (32 - count) / 32);
-		srcRect->width = this->cursorRect->width;
-		srcRect->height = this->cursorRect->height;
+		this->cursorSprite->getSrcRect()->set(0, 0, this->cursorRect->width, this->cursorRect->height);
 		// stop if bitmap exists and dimensions have not changed
-		if (cursorBitmap != NULL && cursorBitmap->getWidth() == this->cursorRect->width &&
-			cursorBitmap->getHeight() == this->cursorRect->height)
+		if (this->cursorBitmap != NULL && this->cursorBitmap->getWidth() == this->cursorRect->width &&
+			this->cursorBitmap->getHeight() == this->cursorRect->height)
 		{
 			return;
 		}
 		// dispose old bitmap for better memory management
-		if (cursorBitmap != NULL)
+		if (this->cursorBitmap != NULL)
 		{
-			Bitmap::rb_dispose(rb_bitmap);
+			delete this->cursorBitmap;
+			this->cursorBitmap = NULL;
 		}
 		// create new bitmap
-		VALUE argv[2] = {INT2FIX(this->cursorRect->width), INT2FIX(this->cursorRect->height)};
-		rb_bitmap = Bitmap::create(2, argv);
-		Sprite::rb_setBitmap(this->rb_cursorSprite, rb_bitmap);
-		// set the srcRect of the cursor Sprite
-		srcRect->set(0, 0, this->cursorRect->width, this->cursorRect->height);
+		this->cursorBitmap = new Bitmap(this->cursorRect->width, this->cursorRect->height);
+		this->cursorSprite->setBitmap(this->cursorBitmap);
 		// blit cursor image onto new bitmap
-		RB_VAR2CPP(rb_bitmap, Bitmap, bitmap);
 		int w = hmax(this->cursorRect->width - 4, 0);
 		int h = hmax(this->cursorRect->height - 4, 0);
-		bitmap->bltOver(0, 0, this->windowskinCursor, 0, 0, 2, 2);
-		bitmap->bltOver(w + 2, 0, this->windowskinCursor, 30, 0, 2, 2);
-		bitmap->bltOver(0, h + 2, this->windowskinCursor, 0, 30, 2, 2);
-		bitmap->bltOver(w + 2, h + 2, this->windowskinCursor, 30, 30, 2, 2);
+		this->cursorBitmap->bltOver(0, 0, this->windowskinCursor, 0, 0, 2, 2);
+		this->cursorBitmap->bltOver(w + 2, 0, this->windowskinCursor, 30, 0, 2, 2);
+		this->cursorBitmap->bltOver(0, h + 2, this->windowskinCursor, 0, 30, 2, 2);
+		this->cursorBitmap->bltOver(w + 2, h + 2, this->windowskinCursor, 30, 30, 2, 2);
 		if (w > 0)
 		{
-			bitmap->stretchBltOver(2, 0, w, 2, this->windowskinCursor, 2, 0, 28, 2);
-			bitmap->stretchBltOver(2, h + 2, w, 2, this->windowskinCursor, 2, 30, 28, 2);
+			this->cursorBitmap->stretchBltOver(2, 0, w, 2, this->windowskinCursor, 2, 0, 28, 2);
+			this->cursorBitmap->stretchBltOver(2, h + 2, w, 2, this->windowskinCursor, 2, 30, 28, 2);
 		}
 		if (h > 0)
 		{
-			bitmap->stretchBltOver(0, 2, 2, h, this->windowskinCursor, 0, 2, 2, 28);
-			bitmap->stretchBltOver(w + 2, 2, 2, h, this->windowskinCursor, 30, 2, 2, 28);
+			this->cursorBitmap->stretchBltOver(0, 2, 2, h, this->windowskinCursor, 0, 2, 2, 28);
+			this->cursorBitmap->stretchBltOver(w + 2, 2, 2, h, this->windowskinCursor, 30, 2, 2, 28);
 		}
 		if (w > 0 && h > 0)
 		{
-			bitmap->stretchBltOver(2, 2, w, h, this->windowskinCursor, 2, 2, 28, 28);
+			this->cursorBitmap->stretchBltOver(2, 2, w, h, this->windowskinCursor, 2, 2, 28, 28);
 		}
-		delete cursorBitmap;
 	}
 
 	void Window::_updatePauseSprite()
 	{
-		SourceRenderer::rb_setBitmap(this->rb_pauseSprite, this->rb_windowskin);
+		this->pauseSprite->setBitmap(this->windowskin);
 		this->pauseSprite->setX(this->x + this->width / 2 - 8);
 		this->pauseSprite->setY(this->y + this->height - 16);
 		int index = this->pauseUpdateCount % 32 / 8;
@@ -490,7 +471,7 @@ namespace rgss
 	{
 		for_iter (i, 0, MAX_BORDERS)
 		{
-			SourceRenderer::rb_setBitmap(this->rb_borderSprites[i], this->rb_windowskin);
+			this->borderSprites[i]->setBitmap(this->windowskin);
 		}
 		Bitmap* bitmap = this->contentsSprite->getBitmap();
 		if (bitmap == NULL)
@@ -649,12 +630,13 @@ namespace rgss
 	{
 		SourceRenderer::rb_setVisible(self, value);
 		RB_SELF2CPP(Window, window);
-		Sprite::rb_setVisible(window->rb_contentsSprite, value);
-		Sprite::rb_setVisible(window->rb_cursorSprite, value);
-		Sprite::rb_setVisible(window->rb_pauseSprite, value);
+		bool visible = (bool)RTEST(value);
+		window->contentsSprite->setVisible(visible);
+		window->cursorSprite->setVisible(visible);
+		window->pauseSprite->setVisible(visible);
 		for_iter (i, 0, MAX_BORDERS)
 		{
-			Sprite::rb_setVisible(window->rb_borderSprites[i], value);
+			window->borderSprites[i]->setVisible(visible);
 		}
 		return value;
 	}
@@ -663,7 +645,9 @@ namespace rgss
 	{
 		SourceRenderer::rb_setBitmap(self, value);
 		RB_SELF2CPP(Window, window);
-		Sprite::rb_setBitmap(window->rb_contentsSprite, value);
+		RB_VAR2CPP(value, Bitmap, bitmap);
+		window->contentsSprite->setBitmap(bitmap);
+		window->contentsSprite->getSrcRect()->set(0, 0, bitmap->getWidth(), bitmap->getHeight());
 		return value;
 	}
 
