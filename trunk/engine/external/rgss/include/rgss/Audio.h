@@ -74,5 +74,6 @@ namespace rgss
 		static VALUE rb_seStop(VALUE self);
 
 	};
+
 }
 #endif

@@ -163,20 +163,14 @@ namespace rgss
 		Bitmap* windowskinCursor;
 		/// @brief Contents sprite.
 		Sprite* contentsSprite;
-		/// @brief Ruby object of contents sprite.
-		VALUE rb_contentsSprite;
 		/// @brief Windowskin cursor Sprite.
 		Sprite* cursorSprite;
-		/// @brief Ruby object of cursor sprite.
-		VALUE rb_cursorSprite;
 		/// @brief Pause sprite.
 		Sprite* pauseSprite;
-		/// @brief Ruby object of pause sprite.
-		VALUE rb_pauseSprite;
 		/// @brief Bitmap border sprites.
 		Sprite* borderSprites[MAX_BORDERS];
-		/// @brief Ruby objects of bitmap border sprites.
-		VALUE rb_borderSprites[MAX_BORDERS];
+		/// @brief Current cursor Bitmap.
+		Bitmap* cursorBitmap;
 		
 		/// @brief Checks if object is visible for rendering.
 		/// @return True if object is visible for rendering.

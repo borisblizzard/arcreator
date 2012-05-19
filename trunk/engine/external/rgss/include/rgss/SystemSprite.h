@@ -38,9 +38,6 @@ namespace rgss
 		/// @brief Gets the source rectangle.
 		/// @return Source Rectangle.
 		Rect* getSrcRect() { return this->srcRect; }
-		/// @brief Gets the Bitmap.
-		/// @return The Bitmap.
-		Bitmap* getBitmap() { return this->bitmap; }
 		/// @brief Sets the Bitmap.
 		/// @param[in] value The Bitmap.
 		void setBitmap(Bitmap* value) { this->bitmap = value; }
