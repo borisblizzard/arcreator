@@ -11,6 +11,24 @@ namespace rgss
 	VALUE rb_cRect;
 
 	/****************************************************************************************
+	 * Construction/Destruction
+	 ****************************************************************************************/
+
+	Rect::Rect() : RubyObject()
+	{
+		this->set(0, 0, 0, 0);
+	}
+	
+	Rect::Rect(int x, int y, int width, int height) : RubyObject()
+	{
+		this->set(x, y, width, height);
+	}
+	
+	Rect::~Rect()
+	{
+	}
+
+	/****************************************************************************************
 	 * Pure C++ code
 	 ****************************************************************************************/
 
@@ -65,7 +83,7 @@ namespace rgss
 	VALUE Rect::rb_new(VALUE classe)
 	{
 		Rect* rect;
-		return Data_Make_Struct(classe, Rect, NULL, NULL, rect);
+		return RB_OBJECT_NEW(classe, Rect, rect, &Rect::gc_mark, &Rect::gc_free);
 	}
 
 	VALUE Rect::rb_initialize(VALUE self, VALUE x, VALUE y, VALUE width, VALUE height)

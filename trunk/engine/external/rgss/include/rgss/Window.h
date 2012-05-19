@@ -20,10 +20,21 @@ namespace rgss
 	class rgssExport Window : public SourceRenderer
 	{
 	public:
+		/// @brief Constructor.
+		Window();
+		/// @brief Destructor.
+		~Window();
+		/// @brief Initializes the basic object.
+		/// @param[in] argc Number of arguments.
+		/// @param[in] argv Pointer to first argument.
+		void initialize(VALUE rb_viewport);
+		/// @brief Disposes this object.
+		void dispose();
+		/// @brief Ruby garbage collector marking.
+		void mark();
+
 		/// @brief Draws this sprite on the screen.
 		void draw();
-		/// @brief Disposed this instance.
-		void dispose();
 
 		/// @brief Initializes.
 		static void init();
@@ -31,12 +42,6 @@ namespace rgss
 		static void destroy();
 		/// @brief Exposes this class to Ruby.
 		static void createRubyInterface();
-		/// @brief Marks referenced values of window for garbage collection.
-		/// @param[in] window Pointer to the Window to mark.
-		static void gc_mark(Window* window);
-		/// @brief Frees allocated memory.
-		/// @param[in] window Pointer to the Window to free.
-		static void gc_free(Window* window);
 		/// @brief Ruby allocation of an instance.
 		static VALUE rb_new(VALUE classe);
 		/// @brief Initializes this instance, setting the viewport if provided.
@@ -134,9 +139,9 @@ namespace rgss
 		/// @brief Stretch flag.
 		bool stretch;
 		/// @brief Pause animation counter.
-		int pauseCount;
+		int pauseUpdateCount;
 		/// @brief Cursor animation counter.
-		int cursorCount;
+		int cursorUpdateCount;
 		/// @brief Cursor rectangle.
 		Rect* cursorRect;
 		/// @brief Ruby object of cursor rectangle.
@@ -173,6 +178,9 @@ namespace rgss
 		/// @brief Ruby objects of bitmap border sprites.
 		VALUE rb_borderSprites[MAX_BORDERS];
 		
+		/// @brief Checks if object is visible for rendering.
+		/// @return True if object is visible for rendering.
+		bool _canDraw();
 		/// @brief Renders the actual texture.
 		void _render();
 		/// @brief Renders the background of the window with the windowskin.

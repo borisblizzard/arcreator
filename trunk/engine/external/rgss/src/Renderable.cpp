@@ -10,6 +10,7 @@
 #include "Rect.h"
 #include "Renderable.h"
 #include "RenderQueue.h"
+#include "rgss.h"
 #include "RGSSError.h"
 #include "Sprite.h"
 #include "SystemSprite.h"
@@ -24,10 +25,31 @@ namespace rgss
 	extern april::PixelShader* pixelShader;
 
 	/****************************************************************************************
-	 * Pure C++ code
+	 * Construction/Destruction
 	 ****************************************************************************************/
 
-	Renderable::Renderable(RenderQueue* renderQueue)
+	Renderable::Renderable() : RubyObject()
+	{
+		this->disposed = true;
+		this->visible = true;
+		this->z = 0;
+		this->ox = 0;
+		this->oy = 0;
+		this->zoom.set(1.0f, 1.0f);
+		this->rb_color = Qnil;
+		this->color = NULL;
+		this->rb_tone = Qnil;
+		this->tone = NULL;
+		this->rb_flashColor = Qnil;
+		this->flashColor = NULL;
+		this->flashDuration = 0;
+		this->flashTimer = 0;
+		this->counterId = CounterProgress;
+		CounterProgress++;
+		this->renderQueue = NULL;
+	}
+	
+	Renderable::Renderable(RenderQueue* renderQueue) : RubyObject()
 	{
 		this->disposed = false;
 		this->visible = true;
@@ -36,9 +58,9 @@ namespace rgss
 		this->oy = 0;
 		this->zoom.set(1.0f, 1.0f);
 		this->rb_color = Qnil;
-		this->color = new Color();
+		this->color = new Color(0.0f, 0.0f, 0.0f, 0.0f);
 		this->rb_tone = Qnil;
-		this->tone = new Tone();
+		this->tone = new Tone(0.0f, 0.0f, 0.0f, 0.0f);
 		this->rb_flashColor = Qnil;
 		this->flashColor = NULL;
 		this->flashDuration = 0;
@@ -48,16 +70,13 @@ namespace rgss
 		this->renderQueue = renderQueue;
 		this->renderQueue->add(this);
 	}
-	
+
 	Renderable::~Renderable()
 	{
-		delete this->color;
-		delete this->tone;
-		this->disposed = true;
-		this->renderQueue->remove(this);
+		this->dispose();
 	}
 
-	void Renderable::initializeRenderable(RenderQueue* renderQueue)
+	void Renderable::initialize(RenderQueue* renderQueue)
 	{
 		this->disposed = false;
 		this->visible = true;
@@ -76,59 +95,54 @@ namespace rgss
 		this->flashColor = NULL;
 		this->flashDuration = 0;
 		this->flashTimer = 0;
-		this->counterId = CounterProgress;
-		CounterProgress++;
 		this->renderQueue = renderQueue;
 		this->renderQueue->add(this);
 	}
+
+	void Renderable::dispose()
+	{
+		if (!this->disposed)
+		{
+			CPP_VAR_DELETE(color);
+			CPP_VAR_DELETE(tone);
+			this->rb_color = Qnil;
+			this->color = NULL;
+			this->rb_tone = Qnil;
+			this->tone = NULL;
+			this->rb_flashColor = Qnil;
+			this->flashColor = NULL;
+			this->disposed = true;
+			this->renderQueue->remove(this);
+		}
+	}
+
+	void Renderable::mark()
+	{
+		RubyObject::mark();
+		RB_GC_MARK(color);
+		RB_GC_MARK(tone);
+		RB_GC_MARK(flashColor);
+	}
+
+	/****************************************************************************************
+	 * Pure C++ code
+	 ****************************************************************************************/
 
 	void Renderable::setZ(int value)
 	{
 		if (this->z != value)
 		{
 			this->z = value;
-			this->renderQueue->update(this);
+			this->renderQueue->reorder(this);
 		}
 	}
 
 	void Renderable::draw()
 	{
-		if (!this->visible || this->isDisposed())
-		{
-			return;
-		}
-		switch (this->type)
-		{
-		case TYPE_VIEWPORT:
-			((Viewport*)this)->draw();
-			break;
-		case TYPE_SPRITE:
-			((Sprite*)this)->draw();
-			break;
-		case TYPE_PLANE:
-			((Plane*)this)->draw();
-			break;
-		case TYPE_WINDOW:
-			((Window*)this)->draw();
-			break;
-		case TYPE_SYSTEM_SPRITE:
-			((SystemSprite*)this)->draw();
-			break;
-		}
 	}
 
 	void Renderable::update()
 	{
-		if (this->isDisposed() || !this->visible)
-		{
-			return;
-		}
-		switch (this->type)
-		{
-		case TYPE_TILEMAP:
-			((Tilemap*)this)->update();
-			break;
-		}
 	}
 
 	void Renderable::updateFlash()
@@ -141,26 +155,9 @@ namespace rgss
 		}
 	}
 
-	void Renderable::dispose()
+	bool Renderable::_canDraw()
 	{
-		this->rb_color = Qnil;
-		this->color = NULL;
-		this->rb_tone = Qnil;
-		this->tone = NULL;
-		if (!this->disposed)
-		{
-			this->disposed = true;
-			this->renderQueue->remove(this);
-			switch (this->type)
-			{
-			case TYPE_VIEWPORT:
-				((Viewport*)this)->dispose();
-				break;
-			case TYPE_WINDOW:
-				((Window*)this)->dispose();
-				break;
-			}
-		}
+		return (this->visible && !this->disposed && this->zoom.x != 0.0f && this->zoom.y != 0.0f);
 	}
 
 	april::Color Renderable::_getRenderColor()
@@ -198,27 +195,6 @@ namespace rgss
 	 * Ruby Interfacing, Creation, Destruction, Systematics
 	 ****************************************************************************************/
 
-	void Renderable::gc_mark(Renderable* renderable)
-	{
-		if (!NIL_P(renderable->rb_color))
-		{
-			rb_gc_mark(renderable->rb_color);
-		}
-		if (!NIL_P(renderable->rb_tone))
-		{
-			rb_gc_mark(renderable->rb_tone);
-		}
-		if (!NIL_P(renderable->rb_flashColor))
-		{
-			rb_gc_mark(renderable->rb_flashColor);
-		}
-	}
-
-	void Renderable::gc_free(Renderable* renderable)
-	{
-		renderable->dispose();
-	}
-
 	VALUE Renderable::rb_dispose(VALUE self)
 	{
 		RB_SELF2CPP(Renderable, renderable);
@@ -239,14 +215,14 @@ namespace rgss
 	VALUE Renderable::rb_getVisible(VALUE self)
 	{
 		RB_SELF2CPP(Renderable, renderable);
-		RB_CHECK_DISPOSED_1(renderable);
+		RB_CHECK_DISPOSED(renderable);
 		return (renderable->visible ? Qtrue : Qfalse);
 	}
 
 	VALUE Renderable::rb_setVisible(VALUE self, VALUE value)
 	{
 		RB_SELF2CPP(Renderable, renderable);
-		RB_CHECK_DISPOSED_1(renderable);
+		RB_CHECK_DISPOSED(renderable);
 		renderable->visible = (bool)RTEST(value);
 		return value;
 	}
@@ -254,14 +230,14 @@ namespace rgss
 	VALUE Renderable::rb_getZ(VALUE self)
 	{
 		RB_SELF2CPP(Renderable, renderable);
-		RB_CHECK_DISPOSED_1(renderable);
+		RB_CHECK_DISPOSED(renderable);
 		return INT2NUM(renderable->z);
 	}
 
 	VALUE Renderable::rb_setZ(VALUE self, VALUE value)
 	{
 		RB_SELF2CPP(Renderable, renderable);
-		RB_CHECK_DISPOSED_1(renderable);
+		RB_CHECK_DISPOSED(renderable);
 		renderable->setZ(NUM2INT(value));
 		return value;
 	}
@@ -269,14 +245,14 @@ namespace rgss
 	VALUE Renderable::rb_getOX(VALUE self)
 	{
 		RB_SELF2CPP(Renderable, renderable);
-		RB_CHECK_DISPOSED_1(renderable);
+		RB_CHECK_DISPOSED(renderable);
 		return INT2NUM(-renderable->ox);
 	}
 
 	VALUE Renderable::rb_setOX(VALUE self, VALUE value)
 	{
 		RB_SELF2CPP(Renderable, renderable);
-		RB_CHECK_DISPOSED_1(renderable);
+		RB_CHECK_DISPOSED(renderable);
 		renderable->ox = -NUM2INT(value);
 		return value;
 	}
@@ -284,14 +260,14 @@ namespace rgss
 	VALUE Renderable::rb_getOY(VALUE self)
 	{
 		RB_SELF2CPP(Renderable, renderable);
-		RB_CHECK_DISPOSED_1(renderable);
+		RB_CHECK_DISPOSED(renderable);
 		return INT2NUM(-renderable->oy);
 	}
 
 	VALUE Renderable::rb_setOY(VALUE self, VALUE value)
 	{
 		RB_SELF2CPP(Renderable, renderable);
-		RB_CHECK_DISPOSED_1(renderable);
+		RB_CHECK_DISPOSED(renderable);
 		renderable->oy = -NUM2INT(value);
 		return value;
 	}
@@ -299,14 +275,14 @@ namespace rgss
 	VALUE Renderable::rb_getZoomX(VALUE self)
 	{
 		RB_SELF2CPP(Renderable, renderable);
-		RB_CHECK_DISPOSED_1(renderable);
+		RB_CHECK_DISPOSED(renderable);
 		return rb_float_new(renderable->zoom.x);
 	}
 
 	VALUE Renderable::rb_setZoomX(VALUE self, VALUE value)
 	{
 		RB_SELF2CPP(Renderable, renderable);
-		RB_CHECK_DISPOSED_1(renderable);
+		RB_CHECK_DISPOSED(renderable);
 		renderable->zoom.x = (float)NUM2DBL(value);
 		return value;
 	}
@@ -314,14 +290,14 @@ namespace rgss
 	VALUE Renderable::rb_getZoomY(VALUE self)
 	{
 		RB_SELF2CPP(Renderable, renderable);
-		RB_CHECK_DISPOSED_1(renderable);
+		RB_CHECK_DISPOSED(renderable);
 		return rb_float_new(renderable->zoom.y);
 	}
 
 	VALUE Renderable::rb_setZoomY(VALUE self, VALUE value)
 	{
 		RB_SELF2CPP(Renderable, renderable);
-		RB_CHECK_DISPOSED_1(renderable);
+		RB_CHECK_DISPOSED(renderable);
 		renderable->zoom.y = (float)NUM2DBL(value);
 		return value;
 	}
@@ -329,28 +305,28 @@ namespace rgss
 	VALUE Renderable::rb_getColor(VALUE self)
 	{
 		RB_SELF2CPP(Renderable, renderable);
-		RB_CHECK_DISPOSED_1(renderable);
+		RB_CHECK_DISPOSED(renderable);
 		return renderable->rb_color;
 	}
 
 	VALUE Renderable::rb_setColor(VALUE self, VALUE value)
 	{
 		RB_GENERATE_SETTER(Renderable, renderable, Color, color);
-		RB_CHECK_DISPOSED_1(renderable);
+		RB_CHECK_DISPOSED(renderable);
 		return value;
 	}
 
 	VALUE Renderable::rb_getTone(VALUE self)
 	{
 		RB_SELF2CPP(Renderable, renderable);
-		RB_CHECK_DISPOSED_1(renderable);
+		RB_CHECK_DISPOSED(renderable);
 		return renderable->rb_tone;
 	}
 
 	VALUE Renderable::rb_setTone(VALUE self, VALUE value)
 	{
 		RB_GENERATE_SETTER(Renderable, renderable, Tone, tone);
-		RB_CHECK_DISPOSED_1(renderable);
+		RB_CHECK_DISPOSED(renderable);
 		return value;
 	}
 
@@ -361,7 +337,7 @@ namespace rgss
 	VALUE Renderable::rb_flash(VALUE self, VALUE color, VALUE duration)
 	{
 		RB_SELF2CPP(Renderable, renderable);
-		RB_CHECK_DISPOSED_1(renderable);
+		RB_CHECK_DISPOSED(renderable);
 		int flashDuration = hmax(NUM2INT(duration), 0);
 		if (!NIL_P(color) && flashDuration > 0)
 		{

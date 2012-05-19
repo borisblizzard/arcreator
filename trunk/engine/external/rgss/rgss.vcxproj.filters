@@ -97,6 +97,9 @@
     <ClCompile Include="src\SystemSprite.cpp">
       <Filter>Source Files\Support</Filter>
     </ClCompile>
+    <ClCompile Include="src\RubyObject.cpp">
+      <Filter>Source Files\Support</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\CodeSnippets.h">
@@ -175,6 +178,9 @@
       <Filter>Header Files\Support</Filter>
     </ClInclude>
     <ClInclude Include="include\rgss\SystemSprite.h">
+      <Filter>Header Files\Support</Filter>
+    </ClInclude>
+    <ClInclude Include="include\rgss\RubyObject.h">
       <Filter>Header Files\Support</Filter>
     </ClInclude>
   </ItemGroup>

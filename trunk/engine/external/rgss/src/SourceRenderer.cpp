@@ -12,12 +12,24 @@
 namespace rgss
 {
 	/****************************************************************************************
-	 * Pure C++ code
+	 * Construction/Destruction
 	 ****************************************************************************************/
 
+	SourceRenderer::SourceRenderer() : Renderable()
+	{
+		this->rb_viewport = Qnil;
+		this->viewport = NULL;
+		this->x = 0;
+		this->y = 0;
+		this->opacity = 255;
+		this->rb_bitmap = Qnil;
+		this->bitmap = NULL;
+	}
+	
 	SourceRenderer::SourceRenderer(Viewport* viewport) :
 		Renderable(viewport == NULL ? Graphics::renderQueue : viewport->renderQueue)
 	{
+		this->rb_viewport = Qnil;
 		this->viewport = viewport;
 		this->x = 0;
 		this->y = 0;
@@ -28,12 +40,15 @@ namespace rgss
 	
 	SourceRenderer::~SourceRenderer()
 	{
+		this->dispose();
+		this->rb_bitmap = Qnil;
+		this->bitmap = NULL;
 	}
 
-	void SourceRenderer::initializeSourceRenderer(VALUE rb_viewport)
+	void SourceRenderer::initialize(VALUE rb_viewport)
 	{
 		CPP_GENERATE_INITIALIZER(Viewport, viewport);
-		this->initializeRenderable(NIL_P(this->rb_viewport) ? Graphics::renderQueue : this->viewport->renderQueue);
+		Renderable::initialize(NIL_P(this->rb_viewport) ? Graphics::renderQueue : this->viewport->renderQueue);
 		this->x = 0;
 		this->y = 0;
 		this->opacity = 255;
@@ -41,35 +56,36 @@ namespace rgss
 		this->bitmap = NULL;
 	}
 
+	void SourceRenderer::dispose()
+	{
+		if (!this->disposed)
+		{
+			this->rb_viewport = Qnil;
+			this->viewport = NULL;
+		}
+		Renderable::dispose();
+	}
+
+	void SourceRenderer::mark()
+	{
+		Renderable::mark();
+		RB_GC_MARK(viewport);
+		RB_GC_MARK(bitmap);
+	}
+
+	/****************************************************************************************
+	 * Pure C++ code
+	 ****************************************************************************************/
+
 	void SourceRenderer::setOpacity(int value)
 	{
 		this->opacity = hclamp(value, 0, 255);
 	}
 
-	/****************************************************************************************
-	 * Ruby Interfacing, Creation, Destruction, Systematics
-	 ****************************************************************************************/
-
-	void SourceRenderer::gc_mark(SourceRenderer* sourceRenderer)
+	bool SourceRenderer::_canDraw()
 	{
-		if (!NIL_P(sourceRenderer->rb_viewport))
-		{
-			rb_gc_mark(sourceRenderer->rb_viewport);
-		}
-		if (!NIL_P(sourceRenderer->rb_bitmap))
-		{
-			rb_gc_mark(sourceRenderer->rb_bitmap);
-		}
-		Renderable::gc_mark(sourceRenderer);
-	}
-
-	void SourceRenderer::gc_free(SourceRenderer* sourceRenderer)
-	{
-		sourceRenderer->rb_viewport = Qnil;
-		sourceRenderer->viewport = NULL;
-		sourceRenderer->rb_bitmap = Qnil;
-		sourceRenderer->bitmap = NULL;
-		Renderable::gc_free(sourceRenderer);
+		return (this->opacity > 0 && this->bitmap != NULL && !this->bitmap->isDisposed() &&
+			Renderable::_canDraw());
 	}
 
 	/****************************************************************************************
@@ -79,14 +95,14 @@ namespace rgss
 	VALUE SourceRenderer::rb_getX(VALUE self)
 	{
 		RB_SELF2CPP(SourceRenderer, sourceRenderer);
-		RB_CHECK_DISPOSED_1(sourceRenderer);
+		RB_CHECK_DISPOSED(sourceRenderer);
 		return INT2NUM(sourceRenderer->x);
 	}
 
 	VALUE SourceRenderer::rb_setX(VALUE self, VALUE value)
 	{
 		RB_SELF2CPP(SourceRenderer, sourceRenderer);
-		RB_CHECK_DISPOSED_1(sourceRenderer);
+		RB_CHECK_DISPOSED(sourceRenderer);
 		sourceRenderer->x = NUM2INT(value);
 		return value;
 	}
@@ -94,14 +110,14 @@ namespace rgss
 	VALUE SourceRenderer::rb_getY(VALUE self)
 	{
 		RB_SELF2CPP(SourceRenderer, sourceRenderer);
-		RB_CHECK_DISPOSED_1(sourceRenderer);
+		RB_CHECK_DISPOSED(sourceRenderer);
 		return INT2NUM(sourceRenderer->y);
 	}
 
 	VALUE SourceRenderer::rb_setY(VALUE self, VALUE value)
 	{
 		RB_SELF2CPP(SourceRenderer, sourceRenderer);
-		RB_CHECK_DISPOSED_1(sourceRenderer);
+		RB_CHECK_DISPOSED(sourceRenderer);
 		sourceRenderer->y = NUM2INT(value);
 		return value;
 	}
@@ -121,14 +137,14 @@ namespace rgss
 	VALUE SourceRenderer::rb_getOpacity(VALUE self)
 	{
 		RB_SELF2CPP(SourceRenderer, sourceRenderer);
-		RB_CHECK_DISPOSED_1(sourceRenderer);
+		RB_CHECK_DISPOSED(sourceRenderer);
 		return INT2NUM(sourceRenderer->opacity);
 	}
 
 	VALUE SourceRenderer::rb_setOpacity(VALUE self, VALUE value)
 	{
 		RB_SELF2CPP(SourceRenderer, sourceRenderer);
-		RB_CHECK_DISPOSED_1(sourceRenderer);
+		RB_CHECK_DISPOSED(sourceRenderer);
 		sourceRenderer->opacity = hclamp(NUM2INT(value), 0, 255);
 		return value;
 	}
@@ -142,7 +158,7 @@ namespace rgss
 	VALUE SourceRenderer::rb_setBitmap(VALUE self, VALUE value)
 	{
 		RB_SELF2CPP(SourceRenderer, sourceRenderer);
-		RB_CHECK_DISPOSED_1(sourceRenderer);
+		RB_CHECK_DISPOSED(sourceRenderer);
 		if (!NIL_P(value))
 		{
 			RB_CHECK_TYPE_1(value, rb_cBitmap);

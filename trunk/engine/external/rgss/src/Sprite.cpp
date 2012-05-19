@@ -20,13 +20,69 @@ namespace rgss
 	VALUE rb_cSprite;
 
 	/****************************************************************************************
+	 * Construction/Destruction
+	 ****************************************************************************************/
+
+	Sprite::Sprite() : Blendable()
+	{
+		this->typeName = "sprite";
+		this->angle = 0.0f;
+		this->mirror = false;
+		this->bushDepth = 0;
+		this->rb_srcRect = Qnil;
+		this->srcRect = NULL;
+	}
+	
+	Sprite::Sprite(Viewport* viewport) : Blendable(viewport)
+	{
+		this->typeName = "sprite";
+		this->angle = 0.0f;
+		this->mirror = false;
+		this->bushDepth = 0;
+		this->rb_srcRect = Qnil;
+		this->srcRect = new Rect(0, 0, 0, 0);
+	}
+
+	Sprite::~Sprite()
+	{
+		this->dispose();
+	}
+
+	void Sprite::initialize(VALUE rb_viewport)
+	{
+		Blendable::initialize(rb_viewport);
+		this->angle = 0.0f;
+		this->mirror = false;
+		this->bushDepth = 0;
+		this->rb_srcRect = Rect::create(INT2FIX(0), INT2FIX(0), INT2FIX(0), INT2FIX(0));
+		RB_VAR2CPP(this->rb_srcRect, Rect, rect);
+		this->srcRect = rect;
+	}
+
+	void Sprite::dispose()
+	{
+		if (!this->disposed)
+		{
+			CPP_VAR_DELETE(srcRect);
+			this->rb_srcRect = Qnil;
+			this->srcRect = NULL;
+		}
+		Blendable::dispose();
+	}
+
+	void Sprite::mark()
+	{
+		Blendable::mark();
+		RB_GC_MARK(srcRect);
+	}
+
+	/****************************************************************************************
 	 * Pure C++ code
 	 ****************************************************************************************/
 
 	void Sprite::draw()
 	{
-		if (this->bitmap == NULL || this->bitmap->isDisposed() || this->opacity == 0 || this->srcRect->width <= 0 ||
-			this->srcRect->height <= 0 || this->zoom.x == 0.0f || this->zoom.y == 0.0f)
+		if (!this->_canDraw())
 		{
 			return;
 		}
@@ -47,6 +103,11 @@ namespace rgss
 		this->_render();
 		april::rendersys->setProjectionMatrix(projectionMatrix);
 		april::rendersys->setModelviewMatrix(viewMatrix);
+	}
+
+	bool Sprite::_canDraw()
+	{
+		return (this->srcRect->width > 0 && this->srcRect->height > 0 && Blendable::_canDraw());
 	}
 
 	void Sprite::_render()
@@ -147,27 +208,10 @@ namespace rgss
 		rb_define_method(rb_cSprite, "update", RUBY_METHOD_FUNC(&Sprite::rb_update), 0);
 	}
 
-	void Sprite::gc_mark(Sprite* sprite)
-	{
-		rb_gc_mark(sprite->rb_srcRect);
-		Blendable::gc_mark(sprite);
-	}
-
-	void Sprite::gc_free(Sprite* sprite)
-	{
-		sprite->rb_srcRect = Qnil;
-		sprite->srcRect = NULL;
-		Blendable::gc_free(sprite);
-	}
-
 	VALUE Sprite::rb_new(VALUE classe)
 	{
 		Sprite* sprite;
-		VALUE result = Data_Make_Struct(classe, Sprite, Sprite::gc_mark, Sprite::gc_free, sprite);
-		sprite->disposed = true;
-		sprite->type = TYPE_SPRITE;
-		sprite->typeName = "sprite";
-		return result;
+		return RB_OBJECT_NEW(classe, Sprite, sprite, &Sprite::gc_mark, &Sprite::gc_free);
 	}
 
 	VALUE Sprite::rb_initialize(int argc, VALUE* argv, VALUE self)
@@ -175,8 +219,7 @@ namespace rgss
 		RB_SELF2CPP(Sprite, sprite);
 		VALUE viewport;
 		rb_scan_args(argc, argv, "01", &viewport);
-		sprite->initializeBlendable(viewport);
-		Sprite::rb_setSrcRect(self, Rect::create(INT2FIX(0), INT2FIX(0), INT2FIX(0), INT2FIX(0)));
+		sprite->initialize(viewport);
 		return self;
 	}
 
@@ -219,14 +262,14 @@ namespace rgss
 	VALUE Sprite::rb_getAngle(VALUE self)
 	{
 		RB_SELF2CPP(Sprite, sprite);
-		RB_CHECK_DISPOSED_1(sprite);
+		RB_CHECK_DISPOSED(sprite);
 		return rb_float_new(sprite->angle);
 	}
 
 	VALUE Sprite::rb_setAngle(VALUE self, VALUE value)
 	{
 		RB_SELF2CPP(Sprite, sprite);
-		RB_CHECK_DISPOSED_1(sprite);
+		RB_CHECK_DISPOSED(sprite);
 		sprite->angle = (float)NUM2DBL(value);
 		return value;
 	}
@@ -234,14 +277,14 @@ namespace rgss
 	VALUE Sprite::rb_getMirror(VALUE self)
 	{
 		RB_SELF2CPP(Sprite, sprite);
-		RB_CHECK_DISPOSED_1(sprite);
+		RB_CHECK_DISPOSED(sprite);
 		return (sprite->mirror ? Qtrue : Qfalse);
 	}
 
 	VALUE Sprite::rb_setMirror(VALUE self, VALUE value)
 	{
 		RB_SELF2CPP(Sprite, sprite);
-		RB_CHECK_DISPOSED_1(sprite);
+		RB_CHECK_DISPOSED(sprite);
 		sprite->mirror = (bool)RTEST(value);
 		return value;
 	}
@@ -249,14 +292,14 @@ namespace rgss
 	VALUE Sprite::rb_getBushDepth(VALUE self)
 	{
 		RB_SELF2CPP(Sprite, sprite);
-		RB_CHECK_DISPOSED_1(sprite);
+		RB_CHECK_DISPOSED(sprite);
 		return INT2NUM(sprite->bushDepth);
 	}
 
 	VALUE Sprite::rb_setBushDepth(VALUE self, VALUE value)
 	{
 		RB_SELF2CPP(Sprite, sprite);
-		RB_CHECK_DISPOSED_1(sprite);
+		RB_CHECK_DISPOSED(sprite);
 		sprite->bushDepth = NUM2INT(value);
 		return value;
 	}
@@ -264,14 +307,14 @@ namespace rgss
 	VALUE Sprite::rb_getSrcRect(VALUE self)
 	{
 		RB_SELF2CPP(Sprite, sprite);
-		RB_CHECK_DISPOSED_1(sprite);
+		RB_CHECK_DISPOSED(sprite);
 		return sprite->rb_srcRect;
 	}
 
 	VALUE Sprite::rb_setSrcRect(VALUE self, VALUE value)
 	{
 		RB_GENERATE_SETTER(Sprite, sprite, Rect, srcRect);
-		RB_CHECK_DISPOSED_1(sprite);
+		RB_CHECK_DISPOSED(sprite);
 		return value;
 	}
 
@@ -282,7 +325,7 @@ namespace rgss
 	VALUE Sprite::rb_update(VALUE self)
 	{
 		RB_SELF2CPP(Sprite, sprite);
-		RB_CHECK_DISPOSED_1(sprite);
+		RB_CHECK_DISPOSED(sprite);
 		sprite->updateFlash();
 		return Qnil;
 	}

@@ -120,17 +120,10 @@
 
 /// @brief Automatically does a disposed check.
 /// @param[in] value Value to check.
-#define RB_CHECK_DISPOSED_1(value) \
+#define RB_CHECK_DISPOSED(value) \
 	if (value->disposed) \
 	{ \
 		rb_raise(rb_eRGSSError, ("disposed " + value->typeName).c_str()); \
-	}
-/// @brief Automatically does a disposed check.
-/// @param[in] value Value to check.
-#define RB_CHECK_DISPOSED_2(value) \
-	if (value->disposed) \
-	{ \
-		rb_raise(rb_eRGSSError, "disposed " #value); \
 	}
 
 /// @brief Automatically does a type check (and throw an exception if failed) with 1 acceptable type.
@@ -196,6 +189,36 @@
 		rb_raise(rb_eTypeError, message.c_str()); \
 	}
 
+/// @brief Creates a C++ object with a Ruby reference.
+/// @param[in] classe Ruby class VALUE.
+/// @param[in] type C++ type.
+/// @param[in] var Variable to store the object.
+/// @param[in] mark Mark function.
+/// @param[in] free Free function.
+#define RB_OBJECT_NEW(classe, type, var, mark, free) \
+	( \
+		var = new type(), \
+		Data_Wrap_Struct(classe, mark, free, var) \
+	)
+/// @brief Deletes the C++ object after the Ruby reference has been destroyed.
+/// @param[in] var Variable of the object.
+#define RB_OBJECT_DELETE(var) delete var
+
+/// @brief Marks the object for the GC if it exists.
+/// @param[in] object The Ruby object to mark.
+#define RB_GC_MARK(object) \
+	if (!NIL_P(this->rb_ ## object)) \
+	{ \
+		rb_gc_mark(this->rb_ ## object); \
+	}
+
+/// @brief Deletes the variable since it was created for C++ only.
+/// @param[in] object The C++ object to delete.
+#define CPP_VAR_DELETE(object) \
+	if (NIL_P(this->rb_ ## object) && this->object != NULL) \
+	{ \
+		delete this->object; \
+	}
 
 #endif
 

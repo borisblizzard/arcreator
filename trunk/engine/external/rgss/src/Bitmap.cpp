@@ -17,6 +17,7 @@
 #include "Color.h"
 #include "Font.h"
 #include "Rect.h"
+#include "rgss.h"
 #include "RGSSError.h"
 
 namespace rgss
@@ -24,25 +25,35 @@ namespace rgss
 	VALUE rb_cBitmap;
 
 	/****************************************************************************************
-	 * Pure C++ code
+	 * Construction/Destruction
 	 ****************************************************************************************/
 	
-	Bitmap::Bitmap(int width, int height) : texture(NULL)
+	Bitmap::Bitmap() : RubyObject()
 	{
-		this->texture = april::rendersys->createEmptyTexture(width, height, april::AT_ARGB, april::AT_RENDER_TARGET);
-		this->texture->setTextureFilter(april::Nearest);
-		this->disposed = false;
+		this->typeName = "bitmap";
+		this->disposed = true;
+		this->texture = NULL;
+		this->rb_font = Qnil;
+		this->font = NULL;
 	}
 
-	Bitmap::Bitmap(chstr filename) : texture(NULL)
+	Bitmap::Bitmap(int width, int height) : RubyObject(), texture(NULL)
 	{
-		hstr fullFilename = april::rendersys->findTextureFile(filename);
-		if (fullFilename == "")
-		{
-			RB_RAISE_FILE_NOT_FOUND(filename.c_str());
-		}
-		this->_loadTexture(fullFilename);
+		this->typeName = "bitmap";
 		this->disposed = false;
+		this->texture = april::rendersys->createEmptyTexture(width, height, april::AT_ARGB, april::AT_RENDER_TARGET);
+		this->texture->setTextureFilter(april::Nearest);
+		this->rb_font = Qnil;
+		this->font = new Font(Font::defaultName);
+	}
+
+	Bitmap::Bitmap(chstr fullFilename) : RubyObject(), texture(NULL)
+	{
+		this->typeName = "bitmap";
+		this->disposed = false;
+		this->_loadTexture(fullFilename);
+		this->rb_font = Qnil;
+		this->font = new Font(Font::defaultName);
 	}
 
 	Bitmap::~Bitmap()
@@ -50,6 +61,60 @@ namespace rgss
 		this->dispose();
 	}
 
+	void Bitmap::initialize(int argc, VALUE* argv)
+	{
+		this->disposed = false;
+		VALUE arg1, arg2;
+		rb_scan_args(argc, argv, "11", &arg1, &arg2);
+		if (NIL_P(arg2))
+		{
+			RB_CHECK_TYPE_1(arg1, rb_cString);
+			hstr filename = StringValueCStr(arg1);
+			hstr fullFilename = Bitmap::getFullFilename(filename);
+			this->_loadTexture(fullFilename);
+		}
+		else
+		{
+			int w = NUM2INT(arg1);
+			int h = NUM2INT(arg2);
+			if (w < 1 || h < 1)
+			{
+				rb_raise(rb_eRGSSError, hsprintf("failed to create Bitmap, dimensions: %d, %d", w, h).c_str());
+			}
+			this->texture = april::rendersys->createEmptyTexture(w, h, april::AT_ARGB, april::AT_RENDER_TARGET);
+			this->texture->setTextureFilter(april::Nearest);
+		}
+		this->rb_font = Font::create(0, NULL);
+		RB_VAR2CPP(this->rb_font, Font, font);
+		this->font = font;
+	}
+
+	void Bitmap::dispose()
+	{
+		if (!this->disposed)
+		{
+			CPP_VAR_DELETE(font);
+			this->rb_font = Qnil;
+			this->font = NULL;
+			if (this->texture != NULL)
+			{
+				delete this->texture;
+				this->texture = NULL;
+			}
+			this->disposed = true;
+		}
+	}
+
+	void Bitmap::mark()
+	{
+		RubyObject::mark();
+		RB_GC_MARK(font);
+	}
+
+	/****************************************************************************************
+	 * Pure C++ code
+	 ****************************************************************************************/
+	
 	int Bitmap::getWidth()
 	{
 		return this->texture->getWidth();
@@ -80,11 +145,22 @@ namespace rgss
 			(float)this->texture->getHeight()), APRIL_COLOR_CLEAR);
 	}
 
+	hstr Bitmap::getFullFilename(chstr filename)
+	{
+		hstr fullFilename = april::rendersys->findTextureFile(filename);
+		if (fullFilename == "")
+		{
+			RB_RAISE_FILE_NOT_FOUND(filename.c_str());
+		}
+		return fullFilename;
+	}
+
 	void Bitmap::_drawText(int x, int y, int w, int h, chstr text, int align)
 	{
-		hstr fontName = this->_getAtresFontName();
+		hstr fontName = this->font->getAtresFontName();
 		if (fontName == "") // font does not exist
 		{
+			rgss::log(hsprintf("Warning! Font '%s' could not be found", this->font->getName().c_str()));
 			return;
 		}
 		atres::Alignment horizontal;
@@ -132,23 +208,6 @@ namespace rgss
 		this->texture->setTextureFilter(filter);
 		april::rendersys->setProjectionMatrix(projectionMatrix);
 		april::rendersys->setModelviewMatrix(viewMatrix);
-	}
-
-	hstr Bitmap::_getAtresFontName()
-	{
-		Font::generate(this->font);
-		hstr result = this->font->getFullName();
-		if (!atres::renderer->hasFont(result))
-		{
-			return "";
-		}
-		int h = this->font->getSize();
-		float fontHeight = atres::renderer->getFontHeight(result);
-		if (h != fontHeight)
-		{
-			result += hsprintf(":%f", h / fontHeight);
-		}
-		return result;
 	}
 
 	void Bitmap::_loadTexture(chstr filename)
@@ -260,19 +319,6 @@ namespace rgss
 		april::rendersys->setModelviewMatrix(viewMatrix);
 	}
 
-	void Bitmap::dispose()
-	{
-		if (!this->disposed)
-		{
-			if (this->texture != NULL)
-			{
-				delete this->texture;
-				this->texture = NULL;
-			}
-			this->disposed = true;
-		}
-	}
-
 	/****************************************************************************************
 	 * Ruby Interfacing, Creation, Destruction, Systematics
 	 ****************************************************************************************/
@@ -313,56 +359,16 @@ namespace rgss
 		rb_define_method(rb_cBitmap, "text_size", RUBY_METHOD_FUNC(&Bitmap::rb_textSize), 1); 
 	}
 	
-	void Bitmap::gc_mark(Bitmap* bitmap)
-	{
-		if (!NIL_P(bitmap->rb_font))
-		{
-			rb_gc_mark(bitmap->rb_font);
-		}
-	}
-
-	void Bitmap::gc_free(Bitmap* bitmap)
-	{
-		bitmap->dispose();
-	}
-
 	VALUE Bitmap::rb_new(VALUE classe) 
 	{
 		Bitmap* bitmap;
-		VALUE result = Data_Make_Struct(classe, Bitmap, Bitmap::gc_mark, Bitmap::gc_free, bitmap);
-		bitmap->disposed = true;
-		return result;
+		return RB_OBJECT_NEW(classe, Bitmap, bitmap, &Bitmap::gc_mark, &Bitmap::gc_free);
 	}
 
 	VALUE Bitmap::rb_initialize(int argc, VALUE* argv, VALUE self)
 	{
 		RB_SELF2CPP(Bitmap, bitmap);
-		bitmap->disposed = false;
-		VALUE arg1, arg2;
-		rb_scan_args(argc, argv, "11", &arg1, &arg2);
-		if (NIL_P(arg2))
-		{
-			RB_CHECK_TYPE_1(arg1, rb_cString);
-			hstr filename = StringValueCStr(arg1);
-			hstr fullFilename = april::rendersys->findTextureFile(filename);
-			if (fullFilename == "")
-			{
-				RB_RAISE_FILE_NOT_FOUND(filename.c_str());
-			}
-			bitmap->_loadTexture(fullFilename);
-		}
-		else
-		{
-			int w = NUM2INT(arg1);
-			int h = NUM2INT(arg2);
-			if (w < 1 || h < 1)
-			{
-				rb_raise(rb_eRGSSError, hsprintf("failed to create Bitmap, dimensions: %d, %d", w, h).c_str());
-			}
-			bitmap->texture = april::rendersys->createEmptyTexture(w, h, april::AT_ARGB, april::AT_RENDER_TARGET);
-			bitmap->texture->setTextureFilter(april::Nearest);
-		}
-		Bitmap::rb_setFont(self, Font::create(0, NULL));
+		bitmap->initialize(argc, argv);
 		return self;
 	}
 
@@ -401,35 +407,38 @@ namespace rgss
 	VALUE Bitmap::rb_getWidth(VALUE self)
 	{
 		RB_SELF2CPP(Bitmap, bitmap);
-		RB_CHECK_DISPOSED_2(bitmap);
+		RB_CHECK_DISPOSED(bitmap);
 		return INT2FIX(bitmap->getWidth());
 	}
 
 	VALUE Bitmap::rb_getHeight(VALUE self)
 	{
 		RB_SELF2CPP(Bitmap, bitmap);
-		RB_CHECK_DISPOSED_2(bitmap);
+		RB_CHECK_DISPOSED(bitmap);
 		return INT2FIX(bitmap->getHeight());
 	}
 
 	VALUE Bitmap::rb_getRect(VALUE self)
 	{
 		RB_SELF2CPP(Bitmap, bitmap);
-		RB_CHECK_DISPOSED_2(bitmap);
+		RB_CHECK_DISPOSED(bitmap);
 		return Rect::create(INT2FIX(0), INT2FIX(0), INT2FIX(bitmap->getWidth()), INT2FIX(bitmap->getHeight()));
 	}
 
 	VALUE Bitmap::rb_getFont(VALUE self)
 	{
 		RB_SELF2CPP(Bitmap, bitmap);
-		RB_CHECK_DISPOSED_2(bitmap);
+		RB_CHECK_DISPOSED(bitmap);
 		return bitmap->rb_font;
 	}
 
 	VALUE Bitmap::rb_setFont(VALUE self, VALUE value)
 	{
+		{
+			RB_SELF2CPP(Bitmap, bitmap);
+			RB_CHECK_DISPOSED(bitmap);
+		}
 		RB_GENERATE_SETTER(Bitmap, bitmap, Font, font);
-		RB_CHECK_DISPOSED_2(bitmap);
 		return value;
 	}
 
@@ -446,7 +455,7 @@ namespace rgss
 	VALUE Bitmap::rb_getPixel(VALUE self, VALUE x, VALUE y)
 	{
 		RB_SELF2CPP(Bitmap, bitmap);
-		RB_CHECK_DISPOSED_2(bitmap);
+		RB_CHECK_DISPOSED(bitmap);
 		april::Color color = bitmap->texture->getPixel(NUM2INT(x), NUM2INT(y));
 		VALUE argv[4] = {INT2FIX(color.r), INT2FIX(color.g), INT2FIX(color.b), INT2FIX(color.a)};
 		return Color::create(4, argv);
@@ -455,7 +464,7 @@ namespace rgss
 	VALUE Bitmap::rb_setPixel(VALUE self, VALUE x, VALUE y, VALUE color)
 	{
 		RB_SELF2CPP(Bitmap, bitmap);
-		RB_CHECK_DISPOSED_2(bitmap);
+		RB_CHECK_DISPOSED(bitmap);
 		RB_CHECK_TYPE_1(color, rb_cColor);
 		RB_VAR2CPP(color, Color, cColor);
 		bitmap->_renderColor(grect((float)NUM2INT(x), (float)NUM2INT(y), 1.0f, 1.0f), cColor->toAprilColor());
@@ -470,7 +479,7 @@ namespace rgss
 			rb_raise(rb_eArgError, message.c_str());
 		}
 		RB_SELF2CPP(Bitmap, bitmap);
-		RB_CHECK_DISPOSED_2(bitmap);
+		RB_CHECK_DISPOSED(bitmap);
 		int x, y, w, h;
 		VALUE arg1, arg2, arg3, arg4, color;
 		rb_scan_args(argc, argv, "23", &arg1, &arg2, &arg3, &arg4, &color);
@@ -500,7 +509,7 @@ namespace rgss
 	VALUE Bitmap::rb_clear(VALUE self)
 	{
 		RB_SELF2CPP(Bitmap, bitmap);
-		RB_CHECK_DISPOSED_2(bitmap);
+		RB_CHECK_DISPOSED(bitmap);
 		bitmap->clear();
 		return Qnil;
 	}
@@ -508,7 +517,7 @@ namespace rgss
 	VALUE Bitmap::rb_blt(int argc, VALUE* argv, VALUE self)
 	{
 		RB_SELF2CPP(Bitmap, bitmap);
-		RB_CHECK_DISPOSED_2(bitmap);
+		RB_CHECK_DISPOSED(bitmap);
 		VALUE arg1, arg2, arg3, arg4, arg5;
 		rb_scan_args(argc, argv, "41", &arg1, &arg2, &arg3, &arg4, &arg5);
 		int x = NUM2INT(arg1);
@@ -532,7 +541,7 @@ namespace rgss
 	VALUE Bitmap::rb_stretchBlt(int argc, VALUE* argv, VALUE self)
 	{
 		RB_SELF2CPP(Bitmap, bitmap);
-		RB_CHECK_DISPOSED_2(bitmap);
+		RB_CHECK_DISPOSED(bitmap);
 		VALUE arg1, arg2, arg3, arg4;
 		rb_scan_args(argc, argv, "31", &arg1, &arg2, &arg3, &arg4);
 		RB_CHECK_TYPE_1(arg1, rb_cRect);
@@ -563,7 +572,7 @@ namespace rgss
 			rb_raise(rb_eArgError, message.c_str());
 		}
 		RB_SELF2CPP(Bitmap, bitmap);
-		RB_CHECK_DISPOSED_2(bitmap);
+		RB_CHECK_DISPOSED(bitmap);
 		int x, y, w, h;
 		hstr text;
 		VALUE arg1, arg2, arg3, arg4, arg5, arg6;
@@ -597,7 +606,7 @@ namespace rgss
 	VALUE Bitmap::rb_changeHue(VALUE self, VALUE hue)
 	{
 		RB_SELF2CPP(Bitmap, bitmap);
-		RB_CHECK_DISPOSED_2(bitmap);
+		RB_CHECK_DISPOSED(bitmap);
 		bitmap->texture->rotateHue((float)NUM2DBL(hue));
 		return Qnil;
 	}
@@ -605,10 +614,10 @@ namespace rgss
 	VALUE Bitmap::rb_textSize(VALUE self, VALUE string)
 	{
 		RB_SELF2CPP(Bitmap, bitmap);
-		RB_CHECK_DISPOSED_2(bitmap);
+		RB_CHECK_DISPOSED(bitmap);
 		RB_CHECK_TYPE_1(string, rb_cString);
 		hstr text = StringValueCStr(string);
-		hstr fontName = bitmap->_getAtresFontName();
+		hstr fontName = bitmap->font->getAtresFontName();
 		float w = atres::renderer->getTextWidth(fontName, text);
 		float h = atres::renderer->getTextHeight(fontName, text, w + 2.0f);
 		return Rect::create(INT2FIX(0), INT2FIX(0), INT2FIX((int)ceil(w)), INT2FIX((int)ceil(h)));

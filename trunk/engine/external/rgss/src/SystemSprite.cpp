@@ -12,26 +12,37 @@
 namespace rgss
 {
 	/****************************************************************************************
-	 * Pure C++ code
+	 * Construction/Destruction
 	 ****************************************************************************************/
 
 	SystemSprite::SystemSprite(Viewport* viewport) : SourceRenderer(viewport)
 	{
-		this->disposed = false;
-		this->type = TYPE_SYSTEM_SPRITE;
 		this->typeName = "system sprite";
 		this->srcRect = new Rect();
 	}
 	
 	SystemSprite::~SystemSprite()
 	{
-		delete this->srcRect;
+		this->dispose();
 	}
+
+	void SystemSprite::dispose()
+	{
+		if (!this->disposed)
+		{
+			delete this->srcRect;
+			this->srcRect = NULL;
+		}
+		SourceRenderer::dispose();
+	}
+
+	/****************************************************************************************
+	 * Pure C++ code
+	 ****************************************************************************************/
 
 	void SystemSprite::draw()
 	{
-		if (this->bitmap == NULL || this->bitmap->isDisposed() || this->opacity == 0 || this->srcRect->width <= 0 ||
-			this->srcRect->height <= 0 || this->zoom.x == 0.0f || this->zoom.y == 0.0f)
+		if (!this->_canDraw())
 		{
 			return;
 		}
@@ -48,6 +59,11 @@ namespace rgss
 		this->_render();
 		april::rendersys->setProjectionMatrix(projectionMatrix);
 		april::rendersys->setModelviewMatrix(viewMatrix);
+	}
+
+	bool SystemSprite::_canDraw()
+	{
+		return (this->srcRect->width > 0 && this->srcRect->height > 0 && SourceRenderer::_canDraw());
 	}
 
 	void SystemSprite::_render()

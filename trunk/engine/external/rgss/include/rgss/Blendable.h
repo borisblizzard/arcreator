@@ -1,5 +1,5 @@
-#ifndef RGSS_ZOOMABLE_H
-#define RGSS_ZOOMABLE_H
+#ifndef RGSS_BLENDABLE_H
+#define RGSS_BLENDABLE_H
 
 #include <ruby.h>
 
@@ -13,16 +13,16 @@ namespace rgss
 	class rgssExport Blendable : public SourceRenderer
 	{
 	public:
-		/// @brief Initializes the basic Blendable object.
+		/// @brief Constructor.
+		Blendable();
+		/// @brief Constructor.
+		/// @param[in] viewport Viewport object.
+		Blendable(Viewport* viewport);
+		/// @brief Destructor.
+		~Blendable();
+		/// @brief Initializes the basic object.
 		/// @param[in] rb_viewport Ruby Viewport object.
-		void initializeBlendable(VALUE rb_viewport = Qnil);
-
-		/// @brief Marks referenced values of blendable for garbage collection.
-		/// @param[in] blendable Blendable to mark.
-		static void gc_mark(Blendable* blendable);
-		/// @brief Frees allocated memory.
-		/// @param[in] blendable Blendable to free.
-		static void gc_free(Blendable* blendable);
+		void initialize(VALUE rb_viewport);
 
 		/// @brief Gets the blend type.
 		/// @return The blend type.

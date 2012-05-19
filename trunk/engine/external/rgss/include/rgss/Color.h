@@ -6,13 +6,14 @@
 #include <april/Color.h>
 
 #include "rgssExport.h"
+#include "RubyObject.h"
 
 namespace rgss
 {
 	extern VALUE rb_cColor;
 
 	/// @brief Emulates RGSS's Color class.
-	class rgssExport Color
+	class rgssExport Color : public RubyObject
 	{
 	public:
 		/// @brief Red component.
@@ -23,6 +24,19 @@ namespace rgss
 		float blue;
 		/// @brief Alpha component.
 		float alpha;
+
+		/// @brief Constructor.
+		Color();
+		/// @brief Constructor.
+		/// @param[in] r Red component.
+		/// @param[in] g Green component.
+		/// @param[in] b Blue component.
+		/// @param[in] a Alpha component.
+		/// @note Color values will be clamped between -255 and 255.
+		/// @note Alpha is clamped between 0 and 255.
+		Color(float r, float g, float b, float a = 255.0f);
+		/// @brief Destructor.
+		~Color();
 
 		/// @brief Sets the color to the specified value.
 		/// @param[in] r Red component.

@@ -9,27 +9,28 @@
 namespace rgss
 {
 	/****************************************************************************************
-	 * Pure C++ code
+	 * Construction/Destruction
 	 ****************************************************************************************/
 
-	void Blendable::initializeBlendable(VALUE rb_viewport)
+	Blendable::Blendable() : SourceRenderer()
 	{
-		this->initializeSourceRenderer(rb_viewport);
 		this->blendType = Normal;
 	}
 
-	/****************************************************************************************
-	 * Ruby Interfacing, Creation, Destruction, Systematics
-	 ****************************************************************************************/
-
-	void Blendable::gc_mark(Blendable* blendable)
+	Blendable::Blendable(Viewport* viewport) : SourceRenderer(viewport)
 	{
-		SourceRenderer::gc_mark(blendable);
+		this->blendType = Normal;
 	}
 
-	void Blendable::gc_free(Blendable* blendable)
+	Blendable::~Blendable()
 	{
-		SourceRenderer::gc_free(blendable);
+		this->dispose();
+	}
+
+	void Blendable::initialize(VALUE rb_viewport)
+	{
+		SourceRenderer::initialize(rb_viewport);
+		this->blendType = Normal;
 	}
 
 	/****************************************************************************************
@@ -39,14 +40,14 @@ namespace rgss
 	VALUE Blendable::rb_getBlendType(VALUE self)
 	{
 		RB_SELF2CPP(Blendable, blendable);
-		RB_CHECK_DISPOSED_1(blendable);
+		RB_CHECK_DISPOSED(blendable);
 		return INT2NUM((int)blendable->blendType);
 	}
 
 	VALUE Blendable::rb_setBlendType(VALUE self, VALUE value)
 	{
 		RB_SELF2CPP(Blendable, blendable);
-		RB_CHECK_DISPOSED_1(blendable);
+		RB_CHECK_DISPOSED(blendable);
 		blendable->blendType = (BlendType)hclamp(NUM2INT(value), 0, 2);
 		return value;
 	}

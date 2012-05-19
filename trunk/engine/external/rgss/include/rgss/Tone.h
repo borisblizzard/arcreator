@@ -6,13 +6,14 @@
 #include <april/Color.h>
 
 #include "rgssExport.h"
+#include "RubyObject.h"
 
 namespace rgss
 {
 	extern VALUE rb_cTone;
 
 	/// @brief Emulates RGSS's Tone class.
-	class rgssExport Tone
+	class rgssExport Tone : public RubyObject
 	{
 	public:
 		/// @brief Red component.
@@ -23,6 +24,19 @@ namespace rgss
 		float blue;
 		/// @brief Gray component.
 		float gray;
+
+		/// @brief Constructor.
+		Tone();
+		/// @brief Constructor.
+		/// @param[in] r Red component.
+		/// @param[in] g Green component.
+		/// @param[in] b Blue component.
+		/// @param[in] gr Gray component.
+		/// @note Tone values will be clamped between -255 and 255.
+		/// @note Gray is clamped between 0 and 255.
+		Tone(float r, float g, float b, float gr = 255.0f);
+		/// @brief Destructor.
+		~Tone();
 
 		/// @brief Sets the tone to the specified value.
 		/// @param[in] r Red component.

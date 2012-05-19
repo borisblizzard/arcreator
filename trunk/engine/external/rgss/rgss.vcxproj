@@ -132,6 +132,7 @@
     <ClCompile Include="src\RenderQueue.cpp" />
     <ClCompile Include="src\rgss.cpp" />
     <ClCompile Include="src\RGSSError.cpp" />
+    <ClCompile Include="src\RubyObject.cpp" />
     <ClCompile Include="src\SourceRenderer.cpp" />
     <ClCompile Include="src\Sprite.cpp" />
     <ClCompile Include="src\Table.cpp" />
@@ -156,6 +157,7 @@
     <ClInclude Include="include\rgss\Renderable.h" />
     <ClInclude Include="include\rgss\RenderQueue.h" />
     <ClInclude Include="include\rgss\RGSSError.h" />
+    <ClInclude Include="include\rgss\RubyObject.h" />
     <ClInclude Include="include\rgss\SourceRenderer.h" />
     <ClInclude Include="include\rgss\Sprite.h" />
     <ClInclude Include="include\rgss\Table.h" />

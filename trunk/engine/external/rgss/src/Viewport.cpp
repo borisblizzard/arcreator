@@ -19,11 +19,74 @@ namespace rgss
 	VALUE rb_cViewport;
 
 	/****************************************************************************************
+	 * Construction/Destruction
+	 ****************************************************************************************/
+
+	Viewport::Viewport() : Renderable()
+	{
+		this->typeName = "viewport";
+		this->renderQueue = new RenderQueue();
+		this->texture = NULL;
+		this->rb_rect = Rect::create(INT2FIX(0), INT2FIX(0), INT2FIX(0), INT2FIX(0));
+		RB_VAR2CPP(this->rb_rect, Rect, rect);
+		this->rect = rect;
+	}
+	
+	Viewport::~Viewport()
+	{
+		this->dispose();
+	}
+
+	void Viewport::initialize(int argc, VALUE* argv)
+	{
+		Renderable::initialize(Graphics::renderQueue);
+		VALUE arg1, arg2, arg3, arg4;
+		rb_scan_args(argc, argv, "13", &arg1, &arg2, &arg3, &arg4);
+		if (NIL_P(arg2) && NIL_P(arg3) && NIL_P(arg4))
+		{
+			this->rb_rect = arg1;
+		}
+		else
+		{
+			this->rb_rect = Rect::create(arg1, arg2, arg3, arg4);
+		}
+		RB_VAR2CPP(this->rb_rect, Rect, rect);
+		this->rect = rect;
+	}
+
+	void Viewport::dispose()
+	{
+		if (!this->disposed)
+		{
+			this->rb_rect = Qnil;
+			this->rect = NULL;
+			delete this->renderQueue;
+			this->renderQueue = NULL;
+			if (this->texture != NULL)
+			{
+				delete this->texture;
+				this->texture = NULL;
+			}
+		}
+		Renderable::dispose();
+	}
+
+	void Viewport::mark()
+	{
+		Renderable::mark();
+		RB_GC_MARK(rect);
+	}
+
+	/****************************************************************************************
 	 * Pure C++ code
 	 ****************************************************************************************/
 
 	void Viewport::draw()
 	{
+		if (!this->_canDraw())
+		{
+			return;
+		}
 		bool needsTextureUpdate = false;
 		if (this->texture == NULL)
 		{
@@ -85,20 +148,6 @@ namespace rgss
 		this->_renderTexture(drawRect, srcRect, this->texture, 255);
 	}
 
-	void Viewport::dispose()
-	{
-		if (this->texture != NULL)
-		{
-			delete this->texture;
-			this->texture = NULL;
-		}
-		if (this->renderQueue != NULL)
-		{
-			delete this->renderQueue;
-			this->renderQueue = NULL;
-		}
-	}
-
 	/****************************************************************************************
 	 * Ruby Interfacing, Creation, Destruction, Systematics
 	 ****************************************************************************************/
@@ -147,30 +196,10 @@ namespace rgss
 		rb_define_method(rb_cViewport, "update", RUBY_METHOD_FUNC(&Viewport::rb_update), 0);
 	}
 
-	void Viewport::gc_mark(Viewport* viewport)
-	{
-		if (!NIL_P(viewport->rb_rect))
-		{
-			rb_gc_mark(viewport->rb_rect);
-		}
-		Renderable::gc_mark(viewport);
-	}
-
-	void Viewport::gc_free(Viewport* viewport)
-	{
-		viewport->rb_rect = Qnil;
-		viewport->rect = NULL;
-		Renderable::gc_free(viewport);
-	}
-
 	VALUE Viewport::rb_new(VALUE classe)
 	{
 		Viewport* viewport;
-		VALUE result = Data_Make_Struct(classe, Viewport, Viewport::gc_mark, Viewport::gc_free, viewport);
-		viewport->disposed = true;
-		viewport->type = TYPE_VIEWPORT;
-		viewport->typeName = "viewport";
-		return result;
+		return RB_OBJECT_NEW(classe, Viewport, viewport, &Viewport::gc_mark, &Viewport::gc_free);
 	}
 
 	VALUE Viewport::rb_initialize(int argc, VALUE* argv, VALUE self)
@@ -181,19 +210,7 @@ namespace rgss
 			rb_raise(rb_eArgError, message.c_str());
 		}
 		RB_SELF2CPP(Viewport, viewport);
-		viewport->initializeRenderable(Graphics::renderQueue);
-		viewport->renderQueue = new RenderQueue();
-		viewport->texture = NULL;
-		VALUE arg1, arg2, arg3, arg4;
-		rb_scan_args(argc, argv, "13", &arg1, &arg2, &arg3, &arg4);
-		if (NIL_P(arg2) && NIL_P(arg3) && NIL_P(arg4))
-		{
-			Viewport::rb_setRect(self, arg1);
-		}
-		else
-		{
-			Viewport::rb_setRect(self, Rect::create(arg1, arg2, arg3, arg4));
-		}
+		viewport->initialize(argc, argv);
 		return self;
 	}
 
@@ -214,7 +231,7 @@ namespace rgss
 	VALUE Viewport::rb_inspect(VALUE self)
 	{
 		RB_SELF2CPP(Viewport, viewport);
-		RB_CHECK_DISPOSED_1(viewport);
+		RB_CHECK_DISPOSED(viewport);
 		return Rect::rb_inspect(viewport->rb_rect);
 	}
 
@@ -225,14 +242,14 @@ namespace rgss
 	VALUE Viewport::rb_getRect(VALUE self)
 	{
 		RB_SELF2CPP(Viewport, viewport);
-		RB_CHECK_DISPOSED_1(viewport);
+		RB_CHECK_DISPOSED(viewport);
 		return viewport->rb_rect;
 	}
 
 	VALUE Viewport::rb_setRect(VALUE self, VALUE value)
 	{
 		RB_GENERATE_SETTER(Viewport, viewport, Rect, rect);
-		RB_CHECK_DISPOSED_1(viewport);
+		RB_CHECK_DISPOSED(viewport);
 		return value;
 	}
 
@@ -243,7 +260,7 @@ namespace rgss
 	VALUE Viewport::rb_update(VALUE self)
 	{
 		RB_SELF2CPP(Viewport, viewport);
-		RB_CHECK_DISPOSED_1(viewport);
+		RB_CHECK_DISPOSED(viewport);
 		viewport->updateFlash();
 		return Qnil;
 	}

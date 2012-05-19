@@ -8,6 +8,7 @@
 #include <gtypes/Vector2.h>
 
 #include "rgssExport.h"
+#include "RubyObject.h"
 
 namespace april
 {
@@ -21,31 +22,24 @@ namespace rgss
 	class Tone;
 
 	/// @brief Provides commonly used rendering functionality.
-	class rgssExport Renderable
+	class rgssExport Renderable : public RubyObject
 	{
 	public:
-		/// @brief Type enumarator because of Ruby.
-		enum Type
-		{
-			TYPE_VIEWPORT,
-			TYPE_PLANE,
-			TYPE_SPRITE,
-			TYPE_WINDOW,
-			TYPE_TILEMAP,
-			TYPE_SYSTEM_SPRITE
-		};
-
 		/// @brief Constructor.
+		Renderable();
+		/// @brief Constructor.
+		/// @param[in] renderQueue The assigned RenderQueue.
 		Renderable(RenderQueue* renderQueue);
 		/// @brief Destructor.
 		virtual ~Renderable();
+		/// @brief Initializes the basic object.
+		/// @param[in] renderQueue The assigned RenderQueue.
+		virtual void initialize(RenderQueue* renderQueue);
+		/// @brief Disposes this object.
+		virtual void dispose();
+		/// @brief Ruby garbage collector marking.
+		void mark();
 
-		/// @brief Initializes the basic Renderable object.
-		void initializeRenderable(RenderQueue* renderQueue);
-
-		/// @brief Gets the type ID.
-		/// @return The type DI.
-		Type getType() { return this->type; }
 		/// @brief Sets the visible flag.
 		/// @param[in] value The visible flag.
 		void setVisible(bool value) { this->visible = value; }
@@ -67,25 +61,20 @@ namespace rgss
 		/// @brief Gets the counter ID.
 		/// @return The counter ID.
 		unsigned int getCounterId() { return this->counterId; }
+		/// @brief Gets the renderable collection flag.
+		/// @return True if this object is not to be actually rendered.
+		virtual bool isCollection() { return false; }
 
 		/// @brief Draws this renderable on the screen.
-		void draw();
+		virtual void draw();
 		/// @brief Updates this renderable on the screen.
-		void update();
-		/// @brief Disposed this renderable.
-		void dispose();
+		virtual void update();
 		/// @brief Updates the flash effect.
 		void updateFlash();
 
 		/// @brief Sprite counter.
 		static unsigned int CounterProgress;
 
-		/// @brief Marks referenced values of renderable for garbage collection.
-		/// @param[in] renderable Renderable to mark.
-		static void gc_mark(Renderable* renderable);
-		/// @brief Frees allocated memory.
-		/// @param[in] renderable Renderable to free.
-		static void gc_free(Renderable* renderable);
 		/// @brief Disposes the object.
 		static VALUE rb_dispose(VALUE self);
 
@@ -178,14 +167,14 @@ namespace rgss
 		int flashDuration;
 		/// @brief The current value of the flash timer.
 		int flashTimer;
-		/// @brief Used for determining which Renderable subclass it actually is.
-		/// @note This is a necessity because objects created through Ruby don't have a virtual function pointer table.
-		Type type;
 		/// @brief Used for error prints.
 		hstr typeName;
 		/// @brief Renderable counter Id.
 		unsigned int counterId;
 
+		/// @brief Checks if object is visible for rendering.
+		/// @return True if object is visible for rendering.
+		virtual bool _canDraw();
 		/// @brief Calculates the color for rendering.
 		/// @return april::Color to use for rendering.
 		april::Color _getRenderColor();

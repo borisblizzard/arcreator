@@ -73,4 +73,20 @@
 		rb_raise(enoentClass, filename); \
 	}
 
+/// @brief Creates a C++ object with a Ruby reference.
+/// @param[in] classe Ruby class VALUE.
+/// @param[in] type C++ type.
+/// @param[in] var Variable to store the object.
+/// @param[in] mark Mark function.
+/// @param[in] free Free function.
+#define RB_OBJECT_NEW(classe, type, var, mark, free) \
+	( \
+		var = (type*)xmalloc(sizeof(type)), \
+		memset(var, 0, sizeof(type)), \
+		Data_Wrap_Struct(classe, mark, free, var) \
+	)
+/// @brief Deletes the C++ object after the Ruby reference has been destroyed.
+/// @param[in] var Variable of the object.
+#define RB_OBJECT_DELETE(var) xfree(var)
+
 #endif

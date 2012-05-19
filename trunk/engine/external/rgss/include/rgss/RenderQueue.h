@@ -7,6 +7,7 @@
 
 namespace rgss
 {
+	class Collection;
 	class Renderable;
 	class Tilemap;
 
@@ -19,6 +20,8 @@ namespace rgss
 		/// @brief Destructor.
 		~RenderQueue();
 
+		/// @brief Updates this RenderQueue.
+		void update();
 		/// @brief Draws this RenderQueue.
 		void draw();
 		/// @brief Adds a new renderable object.
@@ -29,10 +32,7 @@ namespace rgss
 		void remove(Renderable* renderable);
 		/// @brief Updates a renderable object because of a change in the Z coordinate.
 		/// @param[in] renderable The renderable object that has changed.
-		void update(Renderable* renderable);
-
-		void addCollection(Tilemap* collection);
-		void removeCollection(Tilemap* collection);
+		void reorder(Renderable* renderable);
 
 	protected:
 		/// @brief Contains all renderable objects.
@@ -49,6 +49,11 @@ namespace rgss
 		harray<Renderable*> removedCollections;
 		/// @brief Needs-Sorting flag.
 		bool needsSorting;
+
+		/// @brief Updates renderables.
+		void _updateRenderables();
+		/// @brief Updates collections.
+		void _updateCollections();
 
 	};
 

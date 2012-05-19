@@ -15,6 +15,11 @@ namespace rgss
 	class rgssExport Plane : public Blendable
 	{
 	public:
+		/// @brief Constructor.
+		Plane();
+		/// @brief Destructor.
+		~Plane();
+
 		/// @brief Draws this sprite on the screen.
 		void draw();
 
@@ -24,12 +29,6 @@ namespace rgss
 		static void destroy();
 		/// @brief Exposes this class to Ruby.
 		static void createRubyInterface();
-		/// @brief Marks referenced values of Plane for garbage collection.
-		/// @param[in] plane Pointer to the Plane to mark.
-		static void gc_mark(Plane* plane);
-		/// @brief Frees allocated memory.
-		/// @param[in] plane Pointer to the Plane to free.
-		static void gc_free(Plane* plane);
 		/// @brief Ruby allocation of an instance.
 		static VALUE rb_new(VALUE classe);
 		/// @brief Initializes this instance.

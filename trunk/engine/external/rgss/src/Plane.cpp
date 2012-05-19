@@ -18,13 +18,26 @@ namespace rgss
 	VALUE rb_cPlane;
 
 	/****************************************************************************************
+	 * Construction/Destruction
+	 ****************************************************************************************/
+
+	Plane::Plane() : Blendable()
+	{
+		this->typeName = "plane";
+	}
+	
+	Plane::~Plane()
+	{
+		this->dispose();
+	}
+
+	/****************************************************************************************
 	 * Pure C++ code
 	 ****************************************************************************************/
 
 	void Plane::draw()
 	{
-		if (this->bitmap == NULL || this->bitmap->isDisposed() || this->opacity == 0 ||
-			this->zoom.x == 0.0f || this->zoom.y == 0.0f)
+		if (!this->_canDraw())
 		{
 			return;
 		}
@@ -134,24 +147,10 @@ namespace rgss
 		rb_define_method(rb_cPlane, "blend_type=", RUBY_METHOD_FUNC(&Plane::rb_setBlendType), 1);
 	}
 
-	void Plane::gc_mark(Plane* plane)
-	{
-		Blendable::gc_mark(plane);
-	}
-
-	void Plane::gc_free(Plane* plane)
-	{
-		Blendable::gc_free(plane);
-	}
-
 	VALUE Plane::rb_new(VALUE classe)
 	{
 		Plane* plane;
-		VALUE result = Data_Make_Struct(classe, Plane, Plane::gc_mark, Plane::gc_free, plane);
-		plane->disposed = true;
-		plane->type = TYPE_PLANE;
-		plane->typeName = "plane";
-		return result;
+		return RB_OBJECT_NEW(classe, Plane, plane, Plane::gc_mark, &Plane::gc_free);
 	}
 
 	VALUE Plane::rb_initialize(int argc, VALUE* argv, VALUE self)
@@ -159,7 +158,7 @@ namespace rgss
 		RB_SELF2CPP(Plane, plane);
 		VALUE viewport;
 		rb_scan_args(argc, argv, "01", &viewport);
-		plane->initializeBlendable(viewport);
+		plane->initialize(viewport);
 		return self;
 	}
 

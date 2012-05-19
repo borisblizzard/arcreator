@@ -318,20 +318,30 @@ namespace zer0
 		return Qnil;
 	}
 
-	int enterMainLoop(int argc, char** argv)
+	int enterMainLoop(harray<hstr> args)
 	{
 		// initialization of all Ruby related parts
 #ifdef HAVE_LOCALE_H
 	    setlocale(LC_CTYPE, "");
 #endif
-		int exception = 0;
+		// argc/argv
+		const char** cArgs = new const char*[args.size()];
+		for_iter (i, 0, args.size())
+		{
+			cArgs[i] = args[i].c_str();
+		}
+		int argc = args.size();
+		char** argv = (char**)cArgs;
 		ruby_sysinit(&argc, &argv);
+		delete [] cArgs;
+		// Ruby
+		int exception = 0;
 		RUBY_INIT_STACK;
 		ruby_init();
 		ruby_init_loadpath();
-		ruby_script("ARC");
+		ruby_script(zer0::system->Parameters[CFG_TITLE].c_str());
 #ifndef _DEBUG
-		if (argc >= 2 && hstr(argv[1]).lower() == "-debug")
+		if (args.size() >= 2 && args[1].lower() == "-debug")
 #endif
 		{
 			rb_eval_string("$DEBUG = true");
@@ -371,9 +381,8 @@ namespace zer0
 		{
 			zer0::log(e);
 		}
-		rb_funcall_0(rb_mGC, "start");
-		ruby_cleanup(exception);
-		return 0;
+		rb_gc();
+		return ruby_cleanup(exception);
 	}
 
 }

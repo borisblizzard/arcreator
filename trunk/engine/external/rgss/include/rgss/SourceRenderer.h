@@ -16,24 +16,23 @@ namespace rgss
 	{
 	public:
 		/// @brief Constructor.
-		SourceRenderer(Viewport* viewport = NULL);
+		SourceRenderer();
+		/// @brief Constructor.
+		/// @param[in] viewport Viewport object.
+		SourceRenderer(Viewport* viewport);
 		/// @brief Destructor.
 		~SourceRenderer();
-
-		/// @brief Initializes the basic SourceRenderer object.
+		/// @brief Initializes the basic object.
 		/// @param[in] rb_viewport Ruby Viewport object.
-		void initializeSourceRenderer(VALUE rb_viewport);
+		void initialize(VALUE rb_viewport);
+		/// @brief Disposes this object.
+		void dispose();
+		/// @brief Ruby garbage collector marking.
+		void mark();
 
 		/// @brief Sets the opacity.
 		/// @param[in] value The opacity.
 		void setOpacity(int value);
-
-		/// @brief Marks referenced values of sourceRenderer for garbage collection.
-		/// @param[in] sourceRenderer SourceRenderer to mark.
-		static void gc_mark(SourceRenderer* sourceRenderer);
-		/// @brief Frees allocated memory.
-		/// @param[in] sourceRenderer SourceRenderer to free.
-		static void gc_free(SourceRenderer* sourceRenderer);
 
 		/// @brief Gets the viewport.
 		/// @return Viewport.
@@ -81,6 +80,10 @@ namespace rgss
 		Bitmap* bitmap;
 		/// @brief Ruby object of bitmap drawing reference.
 		VALUE rb_bitmap;
+
+		/// @brief Checks if object is visible for rendering.
+		/// @return True if object is visible for rendering.
+		bool _canDraw();
 
 	};
 
