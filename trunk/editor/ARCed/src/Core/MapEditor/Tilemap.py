@@ -923,13 +923,15 @@ class TilemapPanel(PygletGLPanel):
             self.SetBottomRightXY(event)
         if event.LeftDown():
             self.SetFocus()
+            self.canvas.CaptureMouse()
             if onEventLayer:
                 self.SetTopLeftXY(event)
             self.drawing = True
         elif event.LeftUp():
+            self.canvas.ReleaseMouse()
+            #if self.drawing:
+            #    self.commitBrush()
             self.drawing = False
-            if self.drawing:
-                self.commitBrush()
         if self.NeedRedraw:
             self.ForceRedraw()
         event.Skip()

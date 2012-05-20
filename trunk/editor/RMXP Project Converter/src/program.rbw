@@ -38,6 +38,7 @@ ARCIcon = ("" +
 #get RMXP data
 require './data'
 require './arc_data_dump'
+require './extras'
 
 
 class RMXPProjectFileDropTarget < Wx::FileDropTarget
@@ -345,8 +346,33 @@ class ConverterFrame < Wx::Frame
       arc_ini["Project"] = {"Title" => title}
       arc_ini["Files"] =  {"list" => "Actors|Classes|Skills|Items|Weapons|Armors|Enemies|Troops|States|Animations|Tilesets|CommonEvents|System|MapInfos"}
       arc_ini.update
+      cfgfile = File.new(File.join(arc_path, "arc.cfg"), "wb")
+      cfgfile.write("Title:#{title}\n")
+      cfgfile.write("Resolution:640x480\n")
+      cfgfile.write("Fullscreen:false\n")
+      cfgfile.write("FrameRate:40\n")
+      cfgfile.write("InactiveAudio:false\n")
+      cfgfile.write("FontBaseSize:48\n")
+      cfgfile.write("GameVersion:1.0.0\n")
+      cfgfile.close
     rescue
       log("Error writing project file: #{$!.message}")
+      backtrace = $!.backtrace.join("\n").gsub(Dir.getwd){'.'}
+      log("Backtrace: #{backtrace}")
+      @errors = true
+    end
+  end
+  
+  def writeARCExtras(arc_path)
+    begin
+      ARC_EXTRA_INCLUDES::EXTRAS.each {|extra|
+        filename = File.join(arc_path, extra[0])
+        f = File.new(filename, "wb")
+        f.write(extra[1])
+        f.close
+      }
+    rescue
+      log("Error writing extra project files: #{$!.message}")
       backtrace = $!.backtrace.join("\n").gsub(Dir.getwd){'.'}
       log("Backtrace: #{backtrace}")
       @errors = true
@@ -387,8 +413,7 @@ class ConverterFrame < Wx::Frame
   def write_script(path, script)
     f = open(path, 'wb')
     f.write("\xef\xbb\xbf") 
-    text = Zlib::Inflate.inflate(script) 
-    f.write(text.force_encoding("UTF-8")) 
+    f.write(script.force_encoding("UTF-8")) 
     f.close
   end
   
@@ -396,16 +421,51 @@ class ConverterFrame < Wx::Frame
     rmxp_name = File.join(rmxp_path, "Data",  "Scripts") + ".rxdata"
     scripts_folder = File.join(arc_path, "Data", "Scripts")
     log("------------ Converting RMXP Scripts ------------")
+    replacements = [['"Save#{@file_index + 1}.rxdata"', '"Save#{@file_index + 1}.dat"'],
+                    ['"Save#{i+1}.rxdata"', '"Save#{i+1}.dat"'],
+                    ['"Save#{file_index + 1}.rxdata"', '"Save#{file_index + 1}.dat"'],
+                    ['load_data(sprintf("Data/Map%03d.rxdata"', 'ARC::Data::load(sprintf("Data/Map%03d.arc"'],
+                    ['load_data("Data/Actors.rxdata")', 'ARC::Data::load("Data/Actors.arc")'],
+                    ['load_data("Data/Classes.rxdata")', 'ARC::Data::load("Data/Classes.arc")'],
+                    ['load_data("Data/Skills.rxdata")', 'ARC::Data::load("Data/Skills.arc")'],
+                    ['load_data("Data/Items.rxdata")', 'ARC::Data::load("Data/Items.arc")'],
+                    ['load_data("Data/Weapons.rxdata")', 'ARC::Data::load("Data/Weapons.arc")'],
+                    ['load_data("Data/Armors.rxdata")', 'ARC::Data::load("Data/Armors.arc")'],
+                    ['load_data("Data/Enemies.rxdata")', 'ARC::Data::load("Data/Enemies.arc")'],
+                    ['load_data("Data/Troops.rxdata")', 'ARC::Data::load("Data/Troops.arc")'],
+                    ['load_data("Data/States.rxdata")', 'ARC::Data::load("Data/States.arc")'],
+                    ['load_data("Data/Animations.rxdata")', 'ARC::Data::load("Data/Animations.arc")'],
+                    ['load_data("Data/Tilesets.rxdata")', 'ARC::Data::load("Data/Tilesets.arc")'],
+                    ['load_data("Data/CommonEvents.rxdata")', 'ARC::Data::load("Data/CommonEvents.arc")'],
+                    ['load_data("Data/System.rxdata")', 'ARC::Data::load("Data/System.arc")'],
+                    ['load_data("Data/BT_Actors.rxdata")', 'ARC::Data::load("Data/BT_Actors.arc")'],
+                    ['load_data("Data/BT_Classes.rxdata")', 'ARC::Data::load("Data/BT_Classes.arc")'],
+                    ['load_data("Data/BT_Skills.rxdata")', 'ARC::Data::load("Data/BT_Skills.arc")'],
+                    ['load_data("Data/BT_Items.rxdata")', 'ARC::Data::load("Data/BT_Items.arc")'],
+                    ['load_data("Data/BT_Weapons.rxdata")', 'ARC::Data::load("Data/BT_Weapons.arc")'],
+                    ['load_data("Data/BT_Armors.rxdata")', 'ARC::Data::load("Data/BT_Armors.arc")'],
+                    ['load_data("Data/BT_Enemies.rxdata")', 'ARC::Data::load("Data/BT_Enemies.arc")'],
+                    ['load_data("Data/BT_Troops.rxdata")', 'ARC::Data::load("Data/BT_Troops.arc")'],
+                    ['load_data("Data/BT_States.rxdata")', 'ARC::Data::load("Data/BT_States.arc")'],
+                    ['load_data("Data/BT_Animations.rxdata")', 'ARC::Data::load("Data/BT_Animations.arc")'],
+                    ['load_data("Data/BT_Tilesets.rxdata")', 'ARC::Data::load("Data/BT_Tilesets.arc")'],
+                    ['load_data("Data/BT_CommonEvents.rxdata")', 'ARC::Data::load("Data/BT_CommonEvents.arc")'],
+                    ['load_data("Data/BT_System.rxdata")', 'ARC::Data::load("Data/BT_System.arc")']]    
     begin
       scripts = load_data(rmxp_name)
       make_path(scripts_folder)
       i = 0
       for script in scripts
         script_name = "%04d" % i
-        script_name += "-#{script[1].gsub(/[\x00\/\\:\*\?\"<>\|\n\r]/, '_')}"
+        script_name += "-#{script[1].gsub(/[\x00\/\\:\*\?\"<>\|]/, '_').gsub(/[\n\r]/, '')}"
         script_file_path = File.join(scripts_folder, script_name) + ".rb"
         log("        - Writing #{script_file_path} ...")
-        write_script(script_file_path, script[2])   
+        #fix some rmxp lines
+        text = Zlib::Inflate.inflate(script[2]) 
+        replacements.each {|replacement|
+          text.gsub!(replacement[0], replacement[1])
+        }
+        write_script(script_file_path, text)   
         i += 1
       end
     rescue
@@ -445,12 +505,15 @@ class ConverterFrame < Wx::Frame
       convert_file(rmxp_dir, @arc_path, "Map%03d" % key)
     end
     convert_scripts(rmxp_dir, @arc_path)
-    log("- Writing project file")
-    writeARCProjectFile(@arc_path, project_title)
     if @copyresourcefiles
       log("--------- Copying resource files -----------------")
       copyresourcefiles(rmxp_dir, @arc_path)
     end
+    log("--------- Writing extra files files -----------------")
+    log("        - Writing system files")
+    writeARCExtras(@arc_path)
+    log("        - Writing project file")
+    writeARCProjectFile(@arc_path, project_title)
     log("============== Convertion Finished =================")
     display_end_message
   end

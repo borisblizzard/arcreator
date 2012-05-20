@@ -41,6 +41,21 @@ class PanelManager(object):
         self.parent = parent
         self.manager = manager
         self.dispached = {}
+        self.IDs = {}
+        self.LastActive = {}
+        self.LastActive[aui.AUI_DOCK_NOTEBOOK_PAGE] = None
+        self.LastActive[aui.AUI_DOCK_BOTTOM] = None
+        self.LastActive[aui.AUI_DOCK_TOP] = None
+        self.LastActive[aui.AUI_DOCK_LEFT] = None
+        self.LastActive[aui.AUI_DOCK_RIGHT] = None
+        self.LastActive[aui.AUI_DOCK_CENTER] = None
+
+    def set_last_active(self, id):
+        ''' Sets the last active Center Panel ID so that the next center panel is docked on top of it'''
+        info = self.getPanelInfo(id)
+        if info is not None:
+            print info.dock_direction_get()
+            self.LastActive[info.dock_direction_get()] = id
     
     def get_panel_object(self, type_name):
         '''
@@ -53,8 +68,10 @@ class PanelManager(object):
         gets a panel instance and dispatches it to the window storing it in the dispatched array mapped to id, 
         if id already exists the panel currently mapped to id is removed before the new panel is dispatched
         '''
+        #build the window instance
         panel = self.get_panel_object(type)
         panel_instance = panel(self.parent, *arguments)
+        #generate the AUI info
         info_obj = None
         if hasattr(panel, "_arc_panel_info_string"):
             if hasattr(panel, "_arc_panel_info_data"):
@@ -62,11 +79,21 @@ class PanelManager(object):
             else:
                 info_obj = self.generate_info(panel._arc_panel_info_string, info=info_obj)
         info_obj = self.generate_info(info, data, info_obj)
+        #Check to see if we should dock or float this panel
+        docktarget = None
+        if not info_obj.IsFloating():
+            targetid = self.LastActive[info_obj.dock_direction_get()]
+            if (self.dispached.has_key(targetid)) and (self.dispached[targetid] != None):
+                docktarget = self.getPanelInfo(targetid)
         panel_instance._ARC_Panel_Info = info_obj
+        #store the panel
         if self.dispached.has_key(id):
             self.remove_panel(id)
         self.dispached[id] = panel_instance
-        self.manager.AddPane(panel_instance, info_obj)
+        self.IDs[panel_instance] = id
+        #add the panel to the AUI interface
+        self.manager.AddPane(panel_instance, info_obj, target=docktarget)
+        self.Update()
         return panel_instance    
     
     def remove_panel(self, id):
@@ -77,9 +104,10 @@ class PanelManager(object):
         if (self.dispached.has_key(id)) and (self.dispached[id] != None):
             self.getPanelInfo(id).Float()
             self.manager.DetachPane(self.dispached[id])
-            self.dispached[id].Destroy()
-            del self.dispached[id]
             self.Update()
+            self.dispached[id].Destroy()
+            del self.IDs[self.dispached[id]]
+            del self.dispached[id]
         
     def Update(self):
         '''
@@ -356,8 +384,18 @@ class PanelManager(object):
         gets the auiPaneInfo object of the window that was dispatched with ID
         '''
         window = self.getPanel(id)
+        print id
         if window is not None:
-            return self.manager.GetPane(window)
+            info = self.manager.GetPane(window)
+            print info.IsOk()
+            if info.IsOk():
+                return info
+        return None
+
+    def getPanelID(self, window):
+        ''' gets the id a panel was dispatched with '''
+        if (self.IDs.has_key(window)) and (self.IDs[window] != None):
+            return self.dispached[id]
         return None
 
     def getDispatched(self, id):
