@@ -16,10 +16,22 @@ cdef char* XAL_AS_COREAUDIO = "CoreAudio"
 cdef char* XAL_AS_DISABLED = "Disabled"
 cdef char* XAL_AS_DEFAULT = ""
 
-cdef XAL.HandlingMode FULL = XAL.FULL
-cdef XAL.HandlingMode LAZY = XAL.LAZY
-cdef XAL.HandlingMode ON_DEMAND = XAL.ON_DEMAND
-cdef XAL.HandlingMode STREAMED = XAL.ON_DEMAND
+cdef XAL.BufferMode FULL = XAL.FULL
+cdef XAL.BufferMode MANAGED = XAL.MANAGED
+cdef XAL.BufferMode LAZY = XAL.LAZY
+cdef XAL.BufferMode LAZY_MANAGED = XAL.LAZY_MANAGED
+cdef XAL.BufferMode ON_DEMAND = XAL.ON_DEMAND
+cdef XAL.BufferMode STREAMED = XAL.ON_DEMAND
+
+cdef XAL.SourceMode DISK = XAL.DISK
+cdef XAL.SourceMode RAM = XAL.RAM
+
+cdef XAL.Format FLAC = XAL.FLAC
+cdef XAL.Format M4A = XAL.M4A
+cdef XAL.Format OGG = XAL.OGG
+cdef XAL.Format SPX = XAL.SPX
+cdef XAL.Format WAV = XAL.WAV
+cdef XAL.Format UNKNOWN = XAL.UNKNOWN
 
 cdef extern from *:
     ctypedef char* const_char_ptr "const char*"
@@ -357,27 +369,6 @@ cdef class PlayerWrapper:
             raise RuntimeError("the C++ interface for this object has been destroyed")
         self._pointer.setPitch(value)
         
-    def getOffset(self):
-        '''
-        @return: float the current playing offset in seconds from the start of the sound
-        '''
-        if not self.isXALInitialized():
-            raise RuntimeError("XAL is not Initialized")
-        if self.destroyed:
-            raise RuntimeError("the C++ interface for this object has been destroyed")
-        cdef float offset = self._pointer.getOffset()
-        return offset
-        
-    def setOffset(self, float value):
-        '''
-        set the offset in seconds from the start of the sound
-        
-        WARNING: THIS IS JUST HERE TO PROVIDE THE INTERFACE FOR NOW.  IT DOES NOTHING AS OF YET AS XAL DOES NOT IMPLMENT THE FEATURE
-        
-        @param value: float offset in seconds to set
-        '''
-        pass
-        
     def getName(self):
         '''
         @return: returns the string name of the sound. it is normal the full path of teh sound file with out the file extention
@@ -434,6 +425,28 @@ cdef class PlayerWrapper:
         if self.destroyed:
             raise RuntimeError("the C++ interface for this object has been destroyed")
         cdef int size = self._pointer.getSize()
+        return size
+        
+    def getTimePosition(self):
+        '''
+        @return: float the time position in seconds
+        '''
+        if not self.isXALInitialized():
+            raise RuntimeError("XAL is not Initialized")
+        if self.destroyed:
+            raise RuntimeError("the C++ interface for this object has been destroyed")
+        cdef float size = self._pointer.getTimePosition()
+        return size
+        
+    def getSamplePosition(self):
+        '''
+        @return: unsigned int the position in the buffer
+        '''
+        if not self.isXALInitialized():
+            raise RuntimeError("XAL is not Initialized")
+        if self.destroyed:
+            raise RuntimeError("the C++ interface for this object has been destroyed")
+        cdef unsigned int size = self._pointer.getSamplePosition()
         return size
         
     def isPlaying(self):
@@ -796,26 +809,6 @@ class PyPlayer(object):
         if self.destroyed:
             raise RuntimeError("the C++ interface for this object has been destroyed")
         self._wrapper.setPitch(value)
-        
-    def getOffset(self):
-        '''
-        @return: float the current playing offset in seconds from the start of the sound
-        '''
-        if not self.isXALInitialized():
-            raise RuntimeError("XAL is not Initialized")
-        if self.destroyed:
-            raise RuntimeError("the C++ interface for this object has been destroyed")
-        return self._wrapper.getOffset()
-        
-    def setOffset(self, float value):
-        '''
-        set the offset in seconds from the start of the sound
-        
-        WARNING: THIS IS JUST HERE TO PROVIDE THE INTERFACE FOR NOW.  IT DOES NOTHING AS OF YET AS XAL DOES NOT IMPLMENT THE FEATURE
-        
-        @param value: float offset in seconds to set
-        '''
-        pass
     
     def getSound(self):
         '''
@@ -872,6 +865,26 @@ class PyPlayer(object):
         if self.destroyed:
             raise RuntimeError("the C++ interface for this object has been destroyed")
         return self._wrapper.getSize()
+        
+    def getTimePosition(self):
+        '''
+        @return: float the time position in seconds
+        '''
+        if not self.isXALInitialized():
+            raise RuntimeError("XAL is not Initialized")
+        if self.destroyed:
+            raise RuntimeError("the C++ interface for this object has been destroyed")
+        return self._wrapper.getTimePosition()
+        
+    def getSamplePosition(self):
+        '''
+        @return: unsigned int the position in the buffer
+        '''
+        if not self.isXALInitialized():
+            raise RuntimeError("XAL is not Initialized")
+        if self.destroyed:
+            raise RuntimeError("the C++ interface for this object has been destroyed")
+        return self._wrapper.getSamplePosition()
         
     def isPlaying(self):
         '''
@@ -1026,7 +1039,7 @@ cdef class XALManagerWrapper(object):
         if not self.isXALInitialized():
             raise RuntimeError("XAL is not Initialized")
         cdef String category = String(self.CATEGORY_STR)
-        self._category = XAL.mgr.createCategory(category, FULL, FULL)
+        self._category = XAL.mgr.createCategory(category, FULL, DISK)
     
     def _destroyXAL(self):
         if XAL.mgr != NULL:
@@ -1060,7 +1073,6 @@ class XALManager(object):
         if Mgr is not None:
             raise RuntimeError("Only one XALManager interface allowed at a time, use the one at PyXAL.Mgr")
         cdef XALManagerWrapper wrapper = XALManagerWrapper(XAL_AS_DEFAULT, backendId, threaded)
-        wrapper.SetupXAL()
         self._wrapper = wrapper
         self._players = {}
         
@@ -1288,7 +1300,7 @@ class XALManager(object):
         
 def Init(int backendId, bint threaded = True):
     '''
-    Setup XAL and creat an XALManager interface at PyXAL.Mgr
+    Setup XAL and create an XALManager interface at PyXAL.Mgr
     
     @param backendId: int window handel in the calling aplication
     @param threaded: bool should XAL use a threaded interface? (True by default)

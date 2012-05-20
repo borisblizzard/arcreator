@@ -6,15 +6,17 @@ import numpy
 import Kernel
 from Kernel import Manager as KM
 
-class MapPanel(wx.Panel):
+from Core import Panels
+
+class MapPanel(Panels.PanelBase):
     
-    _arc_panel_info_string = "Name Caption Center CloseB CaptionV BestS MinimizeM MinimizeB MaximizeB Floatable Resizable Snappable NotebookD NotebookP Movable"
+    _arc_panel_info_string = "Name Caption Center CloseB CaptionV BestS MinimizeM MinimizeB MaximizeB Floatable Resizable Snappable NotebookD Movable"
     _arc_panel_info_data = {"Name": "Map Editor:", "Caption": "Map Editor:", "CaptionV": True, "BestS": (32 * 24, 32 * 18), "MinimizeM": ["POS_SMART", "CAPT_SMART",], 
                             "MinimizeB": True, "CloseB": True, "NotebookP" : [1]}
 
-    def __init__(self, parent, map, tilesets,  id=wx.ID_ANY, pos=wx.DefaultPosition, size=wx.DefaultSize, style=0):
+    def __init__(self, parent, map, tilesets):
         '''lays out a toolbar and the map window'''
-        super(MapPanel, self).__init__(parent, id, pos, size, style)
+        super(MapPanel, self).__init__(parent)
         #set data
         self.map = map
         self.caption = "Map Editor:"

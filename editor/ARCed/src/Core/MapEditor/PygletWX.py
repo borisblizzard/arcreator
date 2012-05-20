@@ -106,7 +106,8 @@ class PygletGLPanel(wx.Panel):
     def OnInitGL(self):
         '''Initialize OpenGL for use in the window.'''
         #create a pyglet context for this panel
-        self.pygletcontext = gl.Context(gl.current_context)
+        #self.pygletcontext = gl.Context(gl.current_context)
+        self.pygletcontext = gl.Context()
         self.pygletcontext.set_current()
         #normal gl init
         gl.glEnable(gl.GL_BLEND)
@@ -119,20 +120,20 @@ class PygletGLPanel(wx.Panel):
                                          
     def OnReshape(self, width, height):
         '''Reshape the OpenGL viewport based on the dimensions of the window.'''
-        gl.glViewport(0, 0, width, height)
-        gl.glMatrixMode(gl.GL_PROJECTION)
-        gl.glLoadIdentity()
+        #CORRECT WIDTH AND HEIGHT
         if width <= 0:
             width = 1
         if height <= 0:
             height = 1
-        gl.glOrtho(0, width, 0, height, 1, -1)
-        gl.glMatrixMode(gl.GL_MODELVIEW)
-        #pyglet stuff
-
         if self.GLinitialized:
             self.pygletcontext.set_current()
             self.update_object_resize(width, height)
+        gl.glViewport(0, 0, width, height)
+        gl.glMatrixMode(gl.GL_PROJECTION)
+        gl.glLoadIdentity()
+        gl.glOrtho(0, width, 0, height, 1, -1)
+        gl.glMatrixMode(gl.GL_MODELVIEW)
+            
             
     def OnDraw(self, *args, **kwargs):
         "Draw the window."

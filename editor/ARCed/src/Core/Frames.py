@@ -39,7 +39,7 @@ class CoreEditorMainWindow(wx.Frame):
         IconManager = KM.get_component("IconManager").object
         self.SetIcon(IconManager.getIcon("arcicon"))
 
-        self._mgr = aui.AuiManager()
+        self._mgr = aui.AuiManager_DCP()
         # tell AuiManager to manage this frame
         self._mgr.SetManagedWindow(self)
         self.layout_mgr = None
@@ -153,18 +153,29 @@ class CoreEditorMainWindow(wx.Frame):
         pass
 
     def OnFloated(self, event):
-        print "floated event"
-        if Kernel.GlobalObjects.has_key("PanelManager"):
-            PM = Kernel.GlobalObjects.get_value("PanelManager")
-            if PM.getDockedCenterPanels() <= 1:
-                PM.dispatch_panel("ShadowPanel", "Shadow Panel")
+        #if Kernel.GlobalObjects.has_key("PanelManager"):
+        #    PM = Kernel.GlobalObjects.get_value("PanelManager")
+        #    if PM.getDockedCenterPanels() <= 1:
+        #        PM.dispatch_panel("ShadowPanel", "Shadow Panel")
+        pass
 
     def OnDocking(self, event):
         pass
 
     def OnDocked(self, event):
-        print "docked event"
+        #if Kernel.GlobalObjects.has_key("PanelManager"):
+        #    PM = Kernel.GlobalObjects.get_value("PanelManager")
+        #    if PM.getDockedCenterPanels() >= 0:
+        #        PM.remove_panel("Shadow Panel")
+        pass
+
+    def OnFocus(self, event):
         if Kernel.GlobalObjects.has_key("PanelManager"):
             PM = Kernel.GlobalObjects.get_value("PanelManager")
-            if PM.getDockedCenterPanels() >= 0:
-                PM.remove_panel("Shadow Panel")
+            id = PM.getPanelID(self)
+            info = PM.getPanelInfo(id)
+            if info is not None:
+                if info.IsFloating():
+                    PM.set_last_active("Shadow Panel")
+                else:
+                    PM.set_last_active(id)

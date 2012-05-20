@@ -16,6 +16,25 @@ from wx.lib.agw.aui import aui_switcherdialog as ASD
 import Kernel
 from Kernel import Manager as KM
 
+class PanelBase(wx.Panel):
+
+    def __init__(self, parent):
+        wx.Panel.__init__(self, parent, wx.ID_ANY)
+
+        self.Bind(wx.EVT_SET_FOCUS, self.OnFocus)
+
+    def OnFocus(self, event):
+        print "focus event"
+        if Kernel.GlobalObjects.has_key("PanelManager"):
+            PM = Kernel.GlobalObjects.get_value("PanelManager")
+            id = PM.getPanelID(self)
+            info = PM.getPanelInfo(id)
+            if info is not None:
+                if info.IsFloating():
+                    PM.set_last_active("Shadow Panel")
+                else:
+                    PM.set_last_active(id)
+
 class MainToolbar(aui.AuiToolBar):
 
     _arc_panel_info_string = "Name Caption ToolbarP Top Row CloseB"
@@ -120,20 +139,20 @@ class MainToolbar(aui.AuiToolBar):
         else:
             event.Enable(False)
 
-class StartPanel(wx.Panel):
+class StartPanel(PanelBase):
 
     _arc_panel_info_string = "Name Caption Center CloseB CaptionV BestS MinimizeM MinimizeB MaximizeB Floatable Resizable Snappable NotebookD Movable"
     _arc_panel_info_data = {"Name": "Start Panel", "Caption": "Start Panel", "CaptionV": True, "BestS": (32 * 24, 32 * 18), "MinimizeM": ["POS_SMART", "CAPT_SMART",], 
                             "MinimizeB": True, "CloseB": True}
     
     def __init__(self, parent):
-        wx.Panel.__init__(self, parent, wx.ID_ANY)
+        wx.Panel.__init__(self, parent)
 
 
-class ShadowPanel(wx.Panel):
+class ShadowPanel(PanelBase):
 
     _arc_panel_info_string = "Name Caption CloseB CaptionV BestS MinimizeB Floatable Resizable Snappable NotebookD Movable"
     _arc_panel_info_data = {"Name": "Shadow Panel", "Caption": "Shadow Panel", "CaptionV": False, "BestS": (1000 - 8, 500), "MinimizeB": False, "CloseB": False, "Floatable" : False,}
     
     def __init__(self, parent):
-        wx.Panel.__init__(self, parent, wx.ID_ANY)
+        PanelBase.__init__(self, parent)
