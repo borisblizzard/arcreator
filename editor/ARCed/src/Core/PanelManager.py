@@ -54,7 +54,6 @@ class PanelManager(object):
         ''' Sets the last active Center Panel ID so that the next center panel is docked on top of it'''
         info = self.getPanelInfo(id)
         if info is not None:
-            print info.dock_direction_get()
             self.LastActive[info.dock_direction_get()] = id
     
     def get_panel_object(self, type_name):
@@ -384,10 +383,8 @@ class PanelManager(object):
         gets the auiPaneInfo object of the window that was dispatched with ID
         '''
         window = self.getPanel(id)
-        print id
         if window is not None:
             info = self.manager.GetPane(window)
-            print info.IsOk()
             if info.IsOk():
                 return info
         return None
@@ -395,7 +392,7 @@ class PanelManager(object):
     def getPanelID(self, window):
         ''' gets the id a panel was dispatched with '''
         if (self.IDs.has_key(window)) and (self.IDs[window] != None):
-            return self.dispached[id]
+            return self.IDs[window]
         return None
 
     def getDispatched(self, id):

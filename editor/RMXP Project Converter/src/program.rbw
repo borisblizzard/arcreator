@@ -450,14 +450,17 @@ class ConverterFrame < Wx::Frame
                     ['load_data("Data/BT_Animations.rxdata")', 'ARC::Data::load("Data/BT_Animations.arc")'],
                     ['load_data("Data/BT_Tilesets.rxdata")', 'ARC::Data::load("Data/BT_Tilesets.arc")'],
                     ['load_data("Data/BT_CommonEvents.rxdata")', 'ARC::Data::load("Data/BT_CommonEvents.arc")'],
-                    ['load_data("Data/BT_System.rxdata")', 'ARC::Data::load("Data/BT_System.arc")']]    
+                    ['load_data("Data/BT_System.rxdata")', 'ARC::Data::load("Data/BT_System.arc")'],
+                    ['load_data("Data/MapInfos.rxdata")', 'ARC::Data.load("Data/MapInfos.arc")']]    
     begin
       scripts = load_data(rmxp_name)
       make_path(scripts_folder)
       i = 0
       for script in scripts
         script_name = "%04d" % i
-        script_name += "-#{script[1].gsub(/[\x00\/\\:\*\?\"<>\|]/, '_').gsub(/[\n\r]/, '')}"
+        name = script[1]
+        name.force_encoding("US-ASCII")
+        script_name += "-#{name.gsub(/[\x00\/\\:\*\?\"<>\|]/, '_').gsub(/[\n\r]/, '')}"
         script_file_path = File.join(scripts_folder, script_name) + ".rb"
         log("        - Writing #{script_file_path} ...")
         #fix some rmxp lines

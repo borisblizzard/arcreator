@@ -21,10 +21,15 @@ class PanelBase(wx.Panel):
     def __init__(self, parent):
         wx.Panel.__init__(self, parent, wx.ID_ANY)
 
+        self.bindFocus()
+        self.SetFocus()
+
+    def bindFocus(self):
         self.Bind(wx.EVT_SET_FOCUS, self.OnFocus)
+        self.Bind(wx.EVT_CHILD_FOCUS, self.OnFocus)
+
 
     def OnFocus(self, event):
-        print "focus event"
         if Kernel.GlobalObjects.has_key("PanelManager"):
             PM = Kernel.GlobalObjects.get_value("PanelManager")
             id = PM.getPanelID(self)
@@ -146,7 +151,7 @@ class StartPanel(PanelBase):
                             "MinimizeB": True, "CloseB": True}
     
     def __init__(self, parent):
-        wx.Panel.__init__(self, parent)
+        PanelBase.__init__(self, parent)
 
 
 class ShadowPanel(PanelBase):

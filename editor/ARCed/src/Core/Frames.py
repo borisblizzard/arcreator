@@ -19,8 +19,25 @@ from wx.lib.agw.aui import aui_switcherdialog as ASD
 import Kernel
 from Kernel import Manager as KM
 
+from Core import Panels
 
 MinEditorSize = (1000, 500)
+
+class AuiManager_DCP_ARC(aui.AuiManager_DCP):
+    """
+    
+    """     
+
+    def _createDummyPane(self):
+        """ Creates a Dummy Center Pane (**DCP**). """
+
+        if self.hasDummyPane:
+            return
+
+        self.hasDummyPane = True
+        dummy = Panels.PanelBase(self.GetManagedWindow())
+        info = aui.AuiPaneInfo().CenterPane().NotebookDockable(True).Name('dummyCenterPane').DestroyOnClose(True)
+        self.AddPane(dummy, info)
 
 class CoreEditorMainWindow(wx.Frame):
     
@@ -39,7 +56,7 @@ class CoreEditorMainWindow(wx.Frame):
         IconManager = KM.get_component("IconManager").object
         self.SetIcon(IconManager.getIcon("arcicon"))
 
-        self._mgr = aui.AuiManager_DCP()
+        self._mgr = AuiManager_DCP_ARC()
         # tell AuiManager to manage this frame
         self._mgr.SetManagedWindow(self)
         self.layout_mgr = None
