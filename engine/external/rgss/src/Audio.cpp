@@ -46,9 +46,9 @@ namespace rgss
 		xal::mgr->createSoundsFromPath(PATH_BGM, CATEGORY_BGM, PATH_BGM);
 		xal::mgr->createCategory(CATEGORY_BGS, xal::STREAMED, xal::DISK);
 		xal::mgr->createSoundsFromPath(PATH_BGS, CATEGORY_BGS, PATH_BGS);
-		xal::mgr->createCategory(CATEGORY_ME, xal::LAZY_MANAGED, xal::DISK);
+		xal::mgr->createCategory(CATEGORY_ME, xal::MANAGED, xal::DISK);
 		xal::mgr->createSoundsFromPath(PATH_ME, CATEGORY_ME, PATH_ME);
-		xal::mgr->createCategory(CATEGORY_SE, xal::LAZY_MANAGED, xal::DISK);
+		xal::mgr->createCategory(CATEGORY_SE, xal::MANAGED, xal::DISK);
 		xal::mgr->createSoundsFromPath(PATH_SE, CATEGORY_SE, PATH_SE);
 		bgmPlayer = NULL;
 		bgmPitch = 100;
