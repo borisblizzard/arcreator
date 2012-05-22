@@ -1,6 +1,6 @@
 /// @file
 /// @author  Boris Mikic
-/// @version 2.62
+/// @version 2.7
 /// 
 /// @section LICENSE
 /// 
@@ -30,7 +30,7 @@ namespace xal
 	public:
 		friend class AudioManager;
 
-		Player(Sound* sound, Buffer* buffer);
+		Player(Sound* sound);
 		virtual ~Player();
 
 		float getGain();
@@ -85,7 +85,6 @@ namespace xal
 		void _pause(float fadeTime = 0.0f);
 
 		float _calcGain();
-		bool _tryClearMemory();
 
 		virtual bool _systemIsPlaying() { return false; }
 		virtual unsigned int _systemGetBufferPosition() { return 0; }

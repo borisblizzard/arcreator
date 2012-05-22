@@ -1,6 +1,6 @@
 /// @file
 /// @author  Boris Mikic
-/// @version 2.61
+/// @version 2.7
 /// 
 /// @section LICENSE
 /// 
@@ -21,13 +21,15 @@
 
 namespace xal
 {
-	class Category;
+	class Sound;
 	class Source;
 
 	class xalExport Buffer
 	{
 	public:
-		Buffer(chstr filename, Category* category);
+		friend class AudioManager;
+
+		Buffer(Sound* sound);
 		~Buffer();
 
 		chstr getFilename() { return this->filename; }
@@ -42,16 +44,19 @@ namespace xal
 		float getDuration();
 		Format getFormat();
 		bool isStreamed();
+		bool isMemoryManaged();
 		bool setOffset(int value);
 
 		void prepare();
 		int load(bool looping, int size = STREAM_BUFFER_SIZE);
-		void release(bool playerPaused);
-		void free();
+		void bind(Player* player, bool playerPaused);
+		void unbind(Player* player, bool playerPaused);
+		void keepLoaded();
 		void rewind();
 
 		int convertToOutputSize(int size);
 		int convertToInputSize(int size);
+		int readPcmData(unsigned char** output);
 
 	protected:
 		hstr filename;
@@ -68,8 +73,12 @@ namespace xal
 		int samplingRate;
 		int bitPerSample;
 		float duration;
+		int boundPlayers;
+		float idleTime;
 
+		void _update(float k);
 		void _tryLoadData();
+		bool _tryClearMemory();
 
 	};
 

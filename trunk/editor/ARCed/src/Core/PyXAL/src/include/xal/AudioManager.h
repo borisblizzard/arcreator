@@ -2,7 +2,7 @@
 /// @author  Kresimir Spes
 /// @author  Boris Mikic
 /// @author  Ivan Vucica
-/// @version 2.61
+/// @version 2.7
 /// 
 /// @section LICENSE
 /// 
@@ -44,16 +44,14 @@ namespace xal
 	{
 		/// @brief Buffers data upon player creation, keeps results in memory.
 		FULL = 0,
-		/// @brief Buffers data upon player creation, clears memory after a timeout.
-		MANAGED = 1,
 		/// @brief Buffers when first need arises, keeps results in memory.
-		LAZY = 2,
+		LAZY = 1,
 		/// @brief Buffers when first need arises, clears memory after a timeout.
-		LAZY_MANAGED = 3,
+		MANAGED = 2,
 		/// @brief Buffers when first need arises, clears memory after usage.
-		ON_DEMAND = 4,
+		ON_DEMAND = 3,
 		/// @brief Buffers in streamed mode.
-		STREAMED = 5
+		STREAMED = 4
 	};
 
 	enum SourceMode
@@ -158,6 +156,7 @@ namespace xal
 		harray<Player*> managedPlayers;
 		harray<Player*> suspendedPlayers;
 		hmap<hstr, Sound*> sounds;
+		harray<Buffer*> buffers;
 		harray<hstr> extensions;
 		hthread* thread;
 		bool threadRunning;
@@ -191,7 +190,10 @@ namespace xal
 		Player* _createManagedPlayer(chstr name);
 		void _destroyManagedPlayer(Player* player);
 
-		virtual Player* _createSystemPlayer(Sound* sound, Buffer* buffer);
+		Buffer* _createBuffer(Sound* sound);
+		void _destroyBuffer(Buffer* buffer);
+
+		virtual Player* _createSystemPlayer(Sound* sound) = 0;
 		virtual Source* _createSource(chstr filename, Category* category, Format format);
 
 		void _play(chstr name, float fadeTime, bool looping, float gain);
