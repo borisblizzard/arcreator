@@ -17,11 +17,10 @@ cdef char* XAL_AS_DISABLED = "Disabled"
 cdef char* XAL_AS_DEFAULT = ""
 
 cdef XAL.BufferMode FULL = XAL.FULL
-cdef XAL.BufferMode MANAGED = XAL.MANAGED
 cdef XAL.BufferMode LAZY = XAL.LAZY
-cdef XAL.BufferMode LAZY_MANAGED = XAL.LAZY_MANAGED
+cdef XAL.BufferMode MANAGED = XAL.MANAGED
 cdef XAL.BufferMode ON_DEMAND = XAL.ON_DEMAND
-cdef XAL.BufferMode STREAMED = XAL.ON_DEMAND
+cdef XAL.BufferMode STREAMED = XAL.STREAMED
 
 cdef XAL.SourceMode DISK = XAL.DISK
 cdef XAL.SourceMode RAM = XAL.RAM
@@ -267,28 +266,28 @@ cdef class SoundWrapper:
         cdef bint streamed = self._pointer.isStreamed()
         return streamed
         
-    def readRawData(self):
+    def readPcmData(self):
         '''
-        read the raw data of the sound and return it the format of said data can be determined from the size, chanels, bits per sample and sampleling rate of the sound
+        read the pcm data of the sound and return it the format of said data can be determined from the size, chanels, bits per sample and sampleling rate of the sound
         @return: a 2 tuple of (number of bits read, string of bytes read)
         '''
         if not self.isXALInitialized():
             raise RuntimeError("XAL is not Initialized")
         if self.destroyed:
             raise RuntimeError("the C++ interface for this object has been destroyed")
-        cdef unsigned char* raw_data
-        cdef int raw_size
+        cdef unsigned char* pcm_data
+        cdef int pcm_size
         cdef char* c_data
         data = ""
         try:
-            raw_size = self._pointer.readRawData(&raw_data)
-            if raw_size > 0:
-                c_data = <char*>raw_data
-                data = c_data[:raw_size]
+            pcm_size = self._pointer.readPcmData(&pcm_data)
+            if pcm_size > 0:
+                c_data = <char*>pcm_data
+                data = c_data[:pcm_size]
         finally:
-            free(raw_data)
-            raw_data = NULL
-        return (raw_size, data)
+            free(pcm_data)
+            pcm_data = NULL
+        return (pcm_size, data)
                 
                 
 cdef class PlayerWrapper:
@@ -699,7 +698,7 @@ class PySound(object):
             raise RuntimeError("the C++ interface for this object has been destroyed")
         return self._wrapper.isStreamed()
         
-    def readRawData(self):
+    def readPcmData(self):
         '''
         read the raw data of the sound and return it the format of said data can be determined from the size, chanels, bits per sample and sampleling rate of the sound
         @return: a 2 tuple of (number of bits read, string of bytes read)
@@ -708,7 +707,7 @@ class PySound(object):
             raise RuntimeError("XAL is not Initialized")
         if self.destroyed:
             raise RuntimeError("the C++ interface for this object has been destroyed")
-        return self._wrapper.readRawData()       
+        return self._wrapper.readPcmData()       
         
 class PyPlayer(object):
     '''
