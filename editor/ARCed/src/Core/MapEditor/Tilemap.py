@@ -1094,6 +1094,7 @@ class TilemapPanel(PygletGLPanel):
         elif orient == wx.VERTICAL:
             thumb = size[1]
             range_s = self.map.height * 32 * self.zoom
+        self.PrepareGL()
         self.SetOrigin()
         self.OnDraw()
         self.SetScrollbar(orient, pos, thumb, range_s, refresh=True)

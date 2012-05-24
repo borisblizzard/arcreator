@@ -126,13 +126,14 @@ class PygletGLPanel(wx.Panel):
         if height <= 0:
             height = 1
         if self.GLinitialized:
-            self.pygletcontext.set_current()
-            self.update_object_resize(width, height)
+            self.pygletcontext.set_current()    
         gl.glViewport(0, 0, width, height)
         gl.glMatrixMode(gl.GL_PROJECTION)
         gl.glLoadIdentity()
         gl.glOrtho(0, width, 0, height, 1, -1)
         gl.glMatrixMode(gl.GL_MODELVIEW)
+        if self.GLinitialized:
+            self.update_object_resize(width, height)
             
             
     def OnDraw(self, *args, **kwargs):

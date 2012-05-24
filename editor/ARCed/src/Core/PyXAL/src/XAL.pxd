@@ -5,6 +5,7 @@ cdef extern from *:
     ctypedef char* const_char_ptr "const char*"
     ctypedef unsigned char* const_unsigned_char_ptr "const unsigned char*"
     ctypedef String& chstr "chstr"
+    ctypedef String hstr "hstr"
 
 cdef extern from "<xal/AudioManager.h>" namespace "xal":
 
@@ -20,20 +21,18 @@ cdef extern from "<xal/AudioManager.h>" namespace "xal":
     
     enum BufferMode:
         FULL = 0
-        MANAGED = 1
-        LAZY = 2
-        LAZY_MANAGED = 3
-        ON_DEMAND = 4
-        STREAMED = 5
+        LAZY = 1
+        MANAGED = 2
+        ON_DEMAND = 3
+        STREAMED = 4
         
     enum SourceMode:
         DISK = 0
         RAM = 1
 
-    cdef cppclass Player
-    cdef cppclass Category
     cdef cppclass Buffer
-    cdef cppclass ExternalComponent
+    cdef cppclass Category
+    cdef cppclass Player
     cdef cppclass Sound
     cdef cppclass Source
 
@@ -43,15 +42,15 @@ cdef extern from "<xal/AudioManager.h>" namespace "xal":
         void clear()
         
         void* getBackendId() except +
-        String getName() except +
+        hstr getName() except +
         int getSamplingRate() except +
         int getChannels() except +
         int getBitsPerSample() except +
         bool isEnabled() except +
+        bool isSuspended() except +
         float getIdlePlayerUnloadTime() except +
         void setIdlePlayerUnloadTime(float value) except +
-        bool isSuspended() except +
-        String getDeviceName() except +
+        hstr getDeviceName() except +
         bool isThreaded() except +
         float getUpdateTime() except +
         float getGlobalGain() except +
@@ -70,8 +69,8 @@ cdef extern from "<xal/AudioManager.h>" namespace "xal":
         Sound* getSound(chstr name) except +
         void destroySound(Sound* sound) except +
         void destroySoundsWithPrefix(chstr prefix) except +
-        Array[String] createSoundsFromPath(chstr path, chstr prefix) except +
-        Array[String] createSoundsFromPath(chstr path, chstr category, chstr prefix) except +
+        Array[hstr] createSoundsFromPath(chstr path, chstr prefix) except +
+        Array[hstr] createSoundsFromPath(chstr path, chstr category, chstr prefix) except +
 
         Player* createPlayer(chstr name) except +
         void destroyPlayer(Player* player) except +
@@ -96,7 +95,7 @@ cdef extern from "<xal/AudioManager.h>" namespace "xal":
         void queueMessage(chstr message) except +
 
         void addAudioExtension(chstr extension) except +
-        String findAudioFile(chstr _filename) except +
+        hstr findAudioFile(chstr _filename) except +
         
 cdef extern from "<xal/Sound.h>" namespace "xal":
 
@@ -104,9 +103,9 @@ cdef extern from "<xal/Sound.h>" namespace "xal":
     
         Sound(chstr filename, Category* category, chstr prefix)
 
-        String getName() except +
-        String getFilename() except +
-        String getRealFilename() except +
+        hstr getName() except +
+        hstr getFilename() except +
+        hstr getRealFilename() except +
         Category* getCategory() except +
         Buffer* getBuffer() except +
 
@@ -118,15 +117,15 @@ cdef extern from "<xal/Sound.h>" namespace "xal":
         Format getFormat() except +
         bool isStreamed() except +
         
-        int readRawData(unsigned char** output) except +
+        int readPcmData(unsigned char** output) except +
         
 cdef extern from "<xal/Category.h>" namespace "xal":
 
     cdef cppclass Category:
     
-        Category(chstr name, int bufferMode, int sourceMode)
+        Category(chstr name, BufferMode bufferMode, SourceMode sourceMode)
         
-        String getName() except +
+        hstr getName() except +
         float getGain() except +
         void setGain(float value) except +
         int getBufferMode() except +
@@ -138,16 +137,16 @@ cdef extern from "<xal/Player.h>" namespace "xal":
 
     cdef cppclass Player:
     
-        Player(Sound* sound, Buffer* buffer)
+        Player(Sound* sound)
         
         float getGain() except +
         void setGain(float value) except +
         float getPitch() except +
         void setPitch(float value) except +
         Sound* getSound() except +
-        String getName() except +
-        String getFilename() except +
-        String getRealFilename() except +
+        hstr getName() except +
+        hstr getFilename() except +
+        hstr getRealFilename() except +
         float getDuration() except +
         int getSize() except +
         float getTimePosition() except +
@@ -171,7 +170,7 @@ cdef extern from "<xal/Buffer.h>" namespace "xal":
 
     cdef cppclass Buffer:
     
-        Buffer(chstr filename, Category* category) except +
+        Buffer(Sound* sound) except +
         
         chstr getFilename() except +
         int getFileSize() except +
@@ -189,12 +188,14 @@ cdef extern from "<xal/Buffer.h>" namespace "xal":
 
         void prepare() except +
         int load(bool looping, int size) except +
-        void release(bool playerPaused) except +
-        void free() except +
+        void bind(Player* player, bool playerPaused) except +
+        void unbind(Player* player, bool playerPaused) except +
+        void keepLoaded() except +
         void rewind() except +
         
         int convertToOutputSize(int size) except +
         int convertToInputSize(int size) except +
+        int readPcmData(unsigned char** output) except +
         
 cdef extern from "<xal/xal.h>" namespace "xal":
     DEF XAL_AS_ANDROID = "Android"

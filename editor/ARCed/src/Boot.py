@@ -178,8 +178,8 @@ class ConfigManager(object):
                     if os.path.isdir(name):
                         if os.path.exists(os.path.join(name, "__init__.py")) and not os.path.isdir(os.path.join(name, "__init__.py")):
                             execfile(os.path.join(name, "__init__.py"), globals())
-                    else:
-                        execfile(os.path.join(name, "__init__.py"), globals())
+                    #else:
+                    #    execfile(os.path.join(name, "__init__.py"), globals())
             except Exception:
                 ConfigManager.HandelErrorLoadingPlugin(name, plugin_path)
             

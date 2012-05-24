@@ -53,5 +53,5 @@ class MapTreePanel(Panels.PanelBase):
                     Kernel.GlobalObjects.get_value("PanelManager").dispatch_panel("MapEditorPanel", "Map Editor Panel " + str(map_id), 
                                                                                   arguments=[map, tilesets], 
                                                                                   info="Name Caption", 
-                                                                                  data={"Name": name, "Caption": name})
+                                                                                  data={"Name": "[" + str(map_id) + "] " + name, "Caption": "[" + str(map_id) + "] " + name })
         event.Skip()

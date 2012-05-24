@@ -142,7 +142,7 @@ class XALTestFrame ( wx.Frame ):
                       16 : np.int16, # AUDIO_S16
                       24 : np.int32  # 24 bit integers! oh god!
                     }
-        data = self.sound.readRawData()
+        data = self.sound.readPcmData()
         size = data[0]
         raw_data = data[1]
         print "length: %s" % len(raw_data)
