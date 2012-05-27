@@ -4,6 +4,7 @@ module ARC
 
 	module Data
 	
+		HEADER = "ARCD"
 		VERSION = "\x01\x00" # 1.0
 		
 		TYPES = {
@@ -29,6 +30,7 @@ module ARC
 		def self.dump(io, obj, redirects = {})
 			@@class_path_redirects = redirects
 			@@io = io
+			@@io.write(FORMAT_HEADER)
 			@@io.write(VERSION)
 			begin
 				self._dump(obj)
@@ -42,6 +44,8 @@ module ARC
 		def self.load(io, redirects = {})
 			@@class_path_redirects = redirects
 			@@io = io
+			format = @@io.read(4)
+			raise "Error: #{self} header mismatch! Expected: #{HEADER.inspect} Found: \"#{header.inspect}" if HEADER != header
 			version = @@io.read(2)
 			raise "Error: #{self} version mismatch! Expected: #{VERSION.inspect} Found: #{version.inspect}" if VERSION != version
 			begin

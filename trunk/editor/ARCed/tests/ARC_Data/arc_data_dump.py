@@ -2,7 +2,8 @@ from struct import pack, unpack
 import types
 
 class ARC_Dump(object):
-
+	
+	_HEADER = "ARCD"
     _VERSION = "\x01\x00" # 1.0
     
     _TYPES = {
@@ -32,6 +33,7 @@ class ARC_Dump(object):
         global _io
         _class_path_redirects = redirects
         _io = io
+        _io.write(ARC_Dump._HEADER)
         _io.write(ARC_Dump._VERSION)
         try:
             ARC_Dump._dump(obj)
@@ -53,6 +55,9 @@ class ARC_Dump(object):
         _extended_namespace = dict(extended_namespace.update(globals()))
         extended_namespace = {}
         _io = io
+        header = _io.read(4)
+        if ARC_Dump._HEADER != header:
+            raise "Error: header mismatch! Expected: %s Found: %s" %(repr(ARC_Dump._HEADER), repr(header))
         version = _io.read(2)
         if ARC_Dump._VERSION != version:
             raise "Error: version mismatch! Expected: %s Found: %s" %(repr(ARC_Dump._VERSION), repr(version))
