@@ -468,7 +468,7 @@ namespace zer0
 		}
 		rb_funcall_0(rb_mGC, "disable"); // to prevent GC destroying temp data
 		bool failed = (file.size() < 4);
-		unsigned char chars[5] = {'\0'};
+		char chars[5] = {'\0'};
 		hstr header;
 		if (!failed)
 		{
