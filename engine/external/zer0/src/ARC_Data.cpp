@@ -23,7 +23,8 @@ namespace zer0
 	/****************************************************************************************
 	 * Pure C++ code
 	 ****************************************************************************************/
-
+	
+	hstr ARC_Data::Header;
 	hstr ARC_Data::Version;
 	hmap<VALUE, unsigned char> ARC_Data::Types;
 	hfile ARC_Data::file;
@@ -39,6 +40,7 @@ namespace zer0
 
 	void ARC_Data::init()
 	{
+		Header = "ARCD";
 		Version = "1.0";
 		Types[rb_cNilClass] = 0x10;
 		Types[rb_cFalseClass] = 0x11;
@@ -436,6 +438,10 @@ namespace zer0
 			RB_RAISE_FILE_NOT_FOUND(StringValueCStr(filename));
 		}
 		rb_funcall_0(rb_mGC, "disable"); // to prevent GC destroying temp data
+		file.dump((unsigned char)Header[0]);
+		file.dump((unsigned char)Header[1]);
+		file.dump((unsigned char)Header[2]);
+		file.dump((unsigned char)Header[3]);
 		harray<unsigned char> versions = Version.split(".").cast<int>().cast<unsigned char>();
 		file.dump(versions[0]);
 		file.dump(versions[1]);
@@ -461,7 +467,27 @@ namespace zer0
 			RB_RAISE_FILE_NOT_FOUND(StringValueCStr(filename));
 		}
 		rb_funcall_0(rb_mGC, "disable"); // to prevent GC destroying temp data
-		bool failed = (file.size() < 2);
+		bool failed = (file.size() < 4);
+		unsigned char chars[5] = {'\0'};
+		hstr header;
+		if (!failed)
+		{
+			chars[0] = (char)file.load_uchar();
+			chars[1] = (char)file.load_uchar();
+			chars[2] = (char)file.load_uchar();
+			chars[3] = (char)file.load_uchar();
+			header = hstr(chars);
+			failed = (Header != header);
+		}
+		if (failed)
+		{
+			ARC_Data::_resetSerializer();
+			rb_funcall_0(rb_mGC, "enable");
+			rb_raise(rb_eARC_Error, hsprintf("Error: ARC::Data header mismatch! Excepted: \"ARCD\" Found: \"%s\"",
+				Header.c_str(), header.c_str()).c_str());
+			return Qnil;
+		}
+		failed = (file.size() < 6);
 		unsigned char major;
 		unsigned char minor;
 		hstr version;
@@ -476,7 +502,7 @@ namespace zer0
 		{
 			ARC_Data::_resetSerializer();
 			rb_funcall_0(rb_mGC, "enable");
-			rb_raise(rb_eARC_Error, hsprintf("Error: ARC::Data version mismatch! Excepted: %s Found: %s",
+			rb_raise(rb_eARC_Error, hsprintf("Error: ARC::Data version mismatch! Excepted: \"%s\" Found: \"%s\"",
 				Version.c_str(), version.c_str()).c_str());
 			return Qnil;
 		}
