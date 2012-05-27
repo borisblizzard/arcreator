@@ -17,6 +17,8 @@ namespace zer0
 	class zer0Export ARC_Data
 	{
 	public:
+		/// @brief ARC Data identifier.
+		static hstr Header;
 		/// @brief Serializer version.
 		static hstr Version;
 		/// @brief Type ID mapping.
