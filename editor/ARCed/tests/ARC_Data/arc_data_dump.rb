@@ -20,6 +20,8 @@ module ARC
 			Object => 0x00.chr
 		}
 		
+		UNBOUND_IDENTITY = Object.instance_method(:object_id)		
+		
 		@@io = nil
 		@@strings = [nil]
 		@@arrays = [nil]
@@ -30,7 +32,7 @@ module ARC
 		def self.dump(io, obj, redirects = {})
 			@@class_path_redirects = redirects
 			@@io = io
-			@@io.write(FORMAT_HEADER)
+			@@io.write(HEADER)
 			@@io.write(VERSION)
 			begin
 				self._dump(obj)
@@ -44,7 +46,7 @@ module ARC
 		def self.load(io, redirects = {})
 			@@class_path_redirects = redirects
 			@@io = io
-			format = @@io.read(4)
+			header = @@io.read(4)
 			raise "Error: #{self} header mismatch! Expected: #{HEADER.inspect} Found: \"#{header.inspect}" if HEADER != header
 			version = @@io.read(2)
 			raise "Error: #{self} version mismatch! Expected: #{VERSION.inspect} Found: #{version.inspect}" if VERSION != version
@@ -86,8 +88,25 @@ module ARC
 			return classe
 		end
 
-		def self.__try_map(data, obj)
+		def self.__try_map_equality(data, obj)
 			index = data.index(obj)
+			if index == nil
+				self.__dump_int32(data.size)
+				data.push(obj)
+				return true
+			end
+			self.__dump_int32(index)
+			return false
+		end
+
+		def self.__try_map_identity(data, obj)
+			index = nil
+			data.each_index {|i|
+				if UNBOUND_IDENTITY.bind(data[i]).call == UNBOUND_IDENTITY.bind(obj).call
+					index = i
+					break
+				end
+			}
 			if index == nil
 				self.__dump_int32(data.size)
 				data.push(obj)
@@ -173,41 +192,29 @@ module ARC
 		
 		def self._dump_string(obj)
 			@@io.write(TYPES[String])
-			if obj.size > 0
-				return if !self.__try_map(@@strings, obj) # abort if object has already been mapped
-				self.__dump_int32(obj.size)
-				@@io.write(obj)
-			else
-				self.__dump_int32(0)
-			end
+			return if !self.__try_map_equality(@@strings, obj) # abort if object has already been mapped
+			self.__dump_int32(obj.size)
+			@@io.write(obj) if obj.size > 0
 		end
 		
 		def self._dump_array(obj)
 			@@io.write(TYPES[Array])
-			if obj.size > 0
-				return if !self.__try_map(@@arrays, obj) # abort if object has already been mapped
-				self.__dump_int32(obj.size)
-				obj.each {|value| self._dump(value)}
-			else
-				self.__dump_int32(0)
-			end
+			return if !self.__try_map_identity(@@arrays, obj) # abort if object has already been mapped
+			self.__dump_int32(obj.size)
+			obj.each {|value| self._dump(value)}
 		end
 		
 		def self._dump_hash(obj)
 			@@io.write(TYPES[Hash])
-			if obj.size > 0
-				return if !self.__try_map(@@hashes, obj) # abort if object has already been mapped
-				self.__dump_int32(obj.size)
-				obj.each_pair {|key, value| self._dump(key); self._dump(value)}
-			else
-				self.__dump_int32(0)
-			end
+			return if !self.__try_map_identity(@@hashes, obj) # abort if object has already been mapped
+			self.__dump_int32(obj.size)
+			obj.each_pair {|key, value| self._dump(key); self._dump(value)}
 		end
 		
 		def self._dump_object(obj)
 			@@io.write(TYPES[Object])
 			self._dump_string(self.__get_class_path(obj.class.name)) # first the string path because this is required to load the object
-			return if !self.__try_map(@@objects, obj) # abort if object has already been mapped
+			return if !self.__try_map_identity(@@objects, obj) # abort if object has already been mapped
 			if obj.respond_to?(:_arc_dump)
 				data = obj._arc_dump
 				self.__dump_int32(data.size)
@@ -248,7 +255,6 @@ module ARC
 		
 		def self._load_string
 			id = self.__load_int32
-			return '' if id == 0
 			obj = self.__find_mapped(@@strings, id)
 			return obj.clone if obj != nil
 			size = self.__load_int32
@@ -259,7 +265,6 @@ module ARC
 		
 		def self._load_array
 			id = self.__load_int32
-			return [] if id == 0
 			obj = self.__find_mapped(@@arrays, id)
 			return obj if obj != nil
 			size = self.__load_int32
@@ -271,13 +276,12 @@ module ARC
 		
 		def self._load_hash
 			id = self.__load_int32
-			return {} if id == 0
 			obj = self.__find_mapped(@@hashes, id)
 			return obj if obj != nil
 			size = self.__load_int32
 			obj = {}
 			self.__map(@@hashes, obj)
-			# obj[key] can be evaluate after the second self._load, this makes sure the key is loaded first
+			# obj[key] can be evaluated after the second self._load, this makes sure the key is loaded first
 			size.times {key = self._load; obj[key] = self._load}
 			return obj
 		end

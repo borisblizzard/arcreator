@@ -11,6 +11,7 @@
 #define CFG_FRAME_RATE "FrameRate"
 #define CFG_INACTIVE_AUDIO "InactiveAudio"
 #define CFG_FONT_BASE_SIZE "FontBaseSize"
+#define CFG_LOGGING "Logging"
 #define CFG_GAME_VERSION "GameVersion"
 
 #define ARC_PIXEL_SHADER "\

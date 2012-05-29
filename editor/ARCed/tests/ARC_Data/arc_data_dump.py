@@ -113,9 +113,24 @@ class ARC_Dump(object):
     
 
     @staticmethod
-    def __try_map(data, obj):
+    def __try_map_equality(data, obj):
         index = data.index(obj)
-        if index is None:
+        if index == None:
+            ARC_Dump.__dump_int32(len(data))
+            data.append(obj)
+            return True
+        ARC_Dump.__dump_int32(index)
+        return False
+    
+
+    @staticmethod
+    def __try_map_identity(data, obj):
+		index = None
+		for i in xrange(len(data)):
+			if data[i] is obj:
+				index = i
+				break
+        if index == None:
             ARC_Dump.__dump_int32(len(data))
             data.append(obj)
             return True
@@ -148,11 +163,11 @@ class ARC_Dump(object):
     
     @staticmethod
     def _dump(obj):
-        if obj is None:
+        if obj == None:
             return ARC_Dump._dump_none(obj)
-        if obj is False:
+        if obj == False:
             return ARC_Dump._dump_false(obj) 
-        if obj is True:
+        if obj == True:
             return ARC_Dump._dump_true(obj)
         if isinstance(obj, types.IntType):
             return ARC_Dump._dump_fixnum(obj)
@@ -173,25 +188,25 @@ class ARC_Dump(object):
     @staticmethod
     def _load():
         type_id = _io.read(1)
-        if type_id is ARC_Dump._TYPES["NoneClass"]:
+        if type_id == ARC_Dump._TYPES["NoneClass"]:
             return ARC_Dump._load_none()
-        elif type_id is ARC_Dump._TYPES["FalseClass"]:
+        elif type_id == ARC_Dump._TYPES["FalseClass"]:
             return ARC_Dump._load_false()
-        elif type_id is ARC_Dump._TYPES["TrueClass"]:
+        elif type_id == ARC_Dump._TYPES["TrueClass"]:
             return ARC_Dump._load_true()
-        elif type_id is ARC_Dump._TYPES["Fixnum"]:
+        elif type_id == ARC_Dump._TYPES["Fixnum"]:
             return ARC_Dump._load_fixnum()
-        elif type_id is ARC_Dump._TYPES["Bignum"]:
+        elif type_id == ARC_Dump._TYPES["Bignum"]:
             return ARC_Dump._load_bignum()
-        elif type_id is ARC_Dump._TYPES["Float"]:
+        elif type_id == ARC_Dump._TYPES["Float"]:
             return ARC_Dump._load_float()
-        elif type_id is ARC_Dump._TYPES["String"]:
+        elif type_id == ARC_Dump._TYPES["String"]:
             return ARC_Dump._load_string()
-        elif type_id is ARC_Dump._TYPES["Array"]:
+        elif type_id == ARC_Dump._TYPES["Array"]:
             return ARC_Dump._load_array()
-        elif type_id is ARC_Dump._TYPES["Hash"]:
+        elif type_id == ARC_Dump._TYPES["Hash"]:
             return ARC_Dump._load_hash()
-        elif type_id is ARC_Dump._TYPES["Object"]:
+        elif type_id == ARC_Dump._TYPES["Object"]:
             return ARC_Dump._load_object()
         
         raise "Error: Unknown type 0x%02X detected!" % ord(type_id)
@@ -233,57 +248,45 @@ class ARC_Dump(object):
     @staticmethod
     def _dump_string(obj):
         _io.write(ARC_Dump._TYPES["String"])
-        if obj.size > 0:
-            if not ARC_Dump.__try_map(_strings, obj): # abort if object has already been mapped
-                return
-            ARC_Dump.__dump_int32(len(obj))
-            _io.write(obj)
-        else:
-            ARC_Dump.__dump_int32(0)
-        
+		if not ARC_Dump.__try_map_equality(_strings, obj): # abort if object has already been mapped
+			return
+		ARC_Dump.__dump_int32(len(obj))
+		_io.write(obj)
     
     
     @staticmethod
     def _dump_array(obj):
         _io.write(ARC_Dump._TYPES["Array"])
-        if obj.size > 0:
-            if not ARC_Dump.__try_map(_arrays, obj): # abort if object has already been mapped
-                return 
-            ARC_Dump.__dump_int32(len(obj))
-            for value in obj:
-                ARC_Dump._dump(value)
-        else:
-            ARC_Dump.__dump_int32(0)
-        
+		if not ARC_Dump.__try_map_identity(_arrays, obj): # abort if object has already been mapped
+			return 
+		ARC_Dump.__dump_int32(len(obj))
+		for value in obj:
+			ARC_Dump._dump(value)
     
     
     @staticmethod
     def _dump_hash(obj):
         _io.write(ARC_Dump._TYPES["Hash"])
-        if obj.size > 0:
-            if not ARC_Dump.__try_map(_hashes, obj): # abort if object has already been mapped
-                return 
-            ARC_Dump.__dump_int32(len(obj))
-            for key, value in obj.items():
-                ARC_Dump._dump(key)
-                ARC_Dump._dump(value)
-        else:
-            ARC_Dump.__dump_int32(0)
+		if not ARC_Dump.__try_map_identity(_hashes, obj): # abort if object has already been mapped
+			return 
+		ARC_Dump.__dump_int32(len(obj))
+		for key, value in obj.items():
+			ARC_Dump._dump(key)
+			ARC_Dump._dump(value)
         
     
     @staticmethod
     def _request_instance_variables(obj):
         if hasattr(obj, "_arc_instance_variables"):
             return obj._arc_instance_variables
-        else:
-            l = []
-            for key, value in obj.__dict__.items():
-                if key[0] is not "_":
-                    if not isinstance(value, (types.FunctionType, types.ClassType, types.MethodType, 
-                                              types.ModuleType, types.SliceType, types.LambdaType, 
-                                              types.GeneratorType)):
-                        l.append(key)
-            return l
+		result = []
+		for key, value in obj.__dict__.items():
+			if key[0] != "_":
+				if not isinstance(value, (types.FunctionType, types.ClassType, types.MethodType, 
+										  types.ModuleType, types.SliceType, types.LambdaType, 
+										  types.GeneratorType)):
+					result.append(key)
+		return result
     
     @staticmethod
     def _dump_object(obj):
@@ -293,7 +296,7 @@ class ARC_Dump(object):
         else:
             klass_path = "%s::%s" % (obj.__class__.__module__, obj.__class__.__name__)
         ARC_Dump._dump_string(ARC_Dump.__get_class_path(klass_path)) # first the string path because this is required to load the object
-        if not ARC_Dump.__try_map(_objects, obj): # abort if object has already been mapped
+        if not ARC_Dump.__try_map_identity(_objects, obj): # abort if object has already been mapped
             return
         if hasattr(obj, "_arc_dump"):
             data = obj._arc_dump()
@@ -345,8 +348,6 @@ class ARC_Dump(object):
     @staticmethod
     def _load_string():
         id_num = ARC_Dump.__load_int32()
-        if id_num == 0:
-            return ""
         obj = ARC_Dump.__find_mapped(_strings, id_num)
         if obj != None:
             return obj.clone
@@ -359,15 +360,13 @@ class ARC_Dump(object):
     @staticmethod
     def _load_array():
         id_num = ARC_Dump.__load_int32()
-        if id_num == 0:
-            return []
         obj = ARC_Dump.__find_mapped(_arrays, id_num)
         if obj != None:
             return obj
         size = ARC_Dump.__load_int32()
         obj = []
         ARC_Dump.__map(_arrays, obj)
-        for i in range(size):
+        for i in xrange(size):
             obj.append(ARC_Dump._load())
         return obj
     
@@ -375,16 +374,15 @@ class ARC_Dump(object):
     @staticmethod
     def _load_hash():
         id_num = ARC_Dump.__load_int32()
-        if id_num == 0:
-            return {}
         obj = ARC_Dump.__find_mapped(_hashes, id_num)
         if obj != None:
             return obj
         size = ARC_Dump.__load_int32()
         obj = {}
         ARC_Dump.__map(_hashes, obj)
-        for i in range(size):
-            key = ARC_Dump._load() # making sure key is always loaded first
+        for i in xrange(size):
+			# obj[key] can be evaluated after the second ARC_Dump._load, this makes sure the key is loaded first
+            key = ARC_Dump._load()
             obj[key] = ARC_Dump._load()
         return obj
     
@@ -403,11 +401,8 @@ class ARC_Dump(object):
             return obj
         obj = classe.__new__(classe)
         ARC_Dump.__map(_objects, obj)
-        for i in range(size):
+        for i in xrange(size):
             setattr(obj, ARC_Dump._load(), ARC_Dump._load())
         return obj
     
-    
-
-
-
+	

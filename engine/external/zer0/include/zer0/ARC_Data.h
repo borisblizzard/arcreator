@@ -59,11 +59,16 @@ namespace zer0
 		/// @param[in] Path of the class.
 		/// @return Ruby class object from the path.
 		static VALUE __get_class_object(hstr class_path);
-		/// @brief Tries to map the object into the mapping.
+		/// @brief Tries to map the object into the mapping using equality comparison.
 		/// @param[in] data The VALUE array.
-		/// @param[in] obj The object to map.
+		/// @param[in] obj The Ruby object to map.
 		/// @return True if object was mapped, false if object has been previously already mapped.
-		static bool __try_map(harray<VALUE>& data, VALUE obj);
+		static bool __try_map_equality(harray<VALUE>& data, VALUE obj);
+		/// @brief Tries to map the object into the mapping using identity comparison.
+		/// @param[in] data The VALUE array.
+		/// @param[in] obj The Ruby object to map.
+		/// @return True if object was mapped, false if object has been previously already mapped.
+		static bool __try_map_identity(harray<VALUE>& data, VALUE obj);
 		/// @brief Used for rb_protect.
 		/// @param[in] obj Object to dump.
 		static VALUE __safe_dump(VALUE obj);

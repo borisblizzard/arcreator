@@ -645,17 +645,24 @@ namespace rgss
 	{
 		SourceRenderer::rb_setBitmap(self, value);
 		RB_SELF2CPP(Window, window);
-		RB_VAR2CPP(value, Bitmap, bitmap);
-		window->contentsSprite->setBitmap(bitmap);
-		window->contentsSprite->getSrcRect()->set(0, 0, bitmap->getWidth(), bitmap->getHeight());
+		if (!NIL_P(value))
+		{
+			RB_VAR2CPP(value, Bitmap, bitmap);
+			window->contentsSprite->setBitmap(bitmap);
+			window->contentsSprite->getSrcRect()->set(0, 0, bitmap->getWidth(), bitmap->getHeight());
+		}
+		else
+		{
+			window->contentsSprite->setBitmap(NULL);
+		}
 		return value;
 	}
 
 	VALUE Window::rb_setZ(VALUE self, VALUE value)
 	{
-		SourceRenderer::rb_setZ(self, value);
 		RB_SELF2CPP(Window, window);
 		RB_CHECK_DISPOSED(window);
+		SourceRenderer::rb_setZ(self, value);
 		window->cursorSprite->setZ(window->z + 2);
 		window->contentsSprite->setZ(window->z + 2);
 		window->pauseSprite->setZ(window->z + 2);
@@ -785,8 +792,11 @@ namespace rgss
 
 	VALUE Window::rb_setCursorRect(VALUE self, VALUE value)
 	{
+		{
+			RB_SELF2CPP(Window, window);
+			RB_CHECK_DISPOSED(window);
+		}
 		RB_GENERATE_SETTER(Window, window, Rect, cursorRect);
-		RB_CHECK_DISPOSED(window);
 		return value;
 	}
 
@@ -799,9 +809,12 @@ namespace rgss
 
 	VALUE Window::rb_setWindowskin(VALUE self, VALUE value)
 	{
+		{
+			RB_SELF2CPP(Window, window);
+			RB_CHECK_DISPOSED(window);
+		}
 		VALUE rb_oldWindowskin = Window::rb_getWindowskin(self);
 		RB_GENERATE_SETTER(Window, window, Bitmap, windowskin);
-		RB_CHECK_DISPOSED(window);
 		if (rb_oldWindowskin != value)
 		{
 			window->_updateWindowskin();
