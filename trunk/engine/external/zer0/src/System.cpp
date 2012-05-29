@@ -122,6 +122,7 @@ namespace zer0
 		result[CFG_FRAME_RATE] = "60";
 		result[CFG_INACTIVE_AUDIO] = "true";
 		result[CFG_FONT_BASE_SIZE] = "50";
+		result[CFG_LOGGING] = "true";
 		result[CFG_GAME_VERSION] = "1.0.0";
 		if (hfile::exists(filename))
 		{
@@ -157,6 +158,7 @@ namespace zer0
 			}
 			result[CFG_FULLSCREEN] = ((bool)result[CFG_FULLSCREEN] ? "true" : "false");
 			result[CFG_INACTIVE_AUDIO] = ((bool)result[CFG_INACTIVE_AUDIO] ? "true" : "false");
+			result[CFG_LOGGING] = ((bool)result[CFG_LOGGING] ? "true" : "false");
 		}
 		return result;
 	}

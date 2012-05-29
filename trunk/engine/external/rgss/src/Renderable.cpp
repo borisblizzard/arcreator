@@ -311,8 +311,11 @@ namespace rgss
 
 	VALUE Renderable::rb_setColor(VALUE self, VALUE value)
 	{
+		{
+			RB_SELF2CPP(Renderable, renderable);
+			RB_CHECK_DISPOSED(renderable);
+		}
 		RB_GENERATE_SETTER(Renderable, renderable, Color, color);
-		RB_CHECK_DISPOSED(renderable);
 		return value;
 	}
 
@@ -325,8 +328,11 @@ namespace rgss
 
 	VALUE Renderable::rb_setTone(VALUE self, VALUE value)
 	{
+		{
+			RB_SELF2CPP(Renderable, renderable);
+			RB_CHECK_DISPOSED(renderable);
+		}
 		RB_GENERATE_SETTER(Renderable, renderable, Tone, tone);
-		RB_CHECK_DISPOSED(renderable);
 		return value;
 	}
 

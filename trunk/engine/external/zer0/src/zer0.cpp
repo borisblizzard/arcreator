@@ -48,12 +48,18 @@ namespace zer0
 	
 	void logLib(chstr message)
 	{
-		g_logFunction(zer0::system->Path, message);
+		if ((bool)zer0::system->Parameters[CFG_LOGGING])
+		{
+			g_logFunction(zer0::system->Path, message);
+		}
 	}
 
 	void log(chstr message, chstr prefix)
 	{
-		g_logFunction(zer0::system->Path, prefix + message);
+		if ((bool)zer0::system->Parameters[CFG_LOGGING])
+		{
+			g_logFunction(zer0::system->Path, prefix + message);
+		}
 	}
 
 	void displayRubyError()

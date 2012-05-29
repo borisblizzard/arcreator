@@ -16,9 +16,13 @@
 #define __DUMP_INT32(obj) (file.dump(obj))
 #define __LOAD_INT32 (file.load_int())
 
+#define MAX_BUFFER_SIZE 32768
+
 namespace zer0
 {
 	VALUE rb_mARC_Data;
+
+	static unsigned char _readBuffer[MAX_BUFFER_SIZE];
 
 	/****************************************************************************************
 	 * Pure C++ code
@@ -91,7 +95,7 @@ namespace zer0
 	{
 		harray<hstr> classes = class_path.split("::");
 		VALUE symbol = rb_f_to_sym(rb_str_new2(classes[0].c_str()));
-		if (!RTEST(rb_funcall_1(rb_mKernel, "const_defined?", symbol)))
+		if (!(bool)RTEST(rb_funcall_1(rb_mKernel, "const_defined?", symbol)))
 		{
 			rb_raise(rb_eARC_Error, ("Class not defined " + classes[0]).c_str());
 		}
@@ -100,7 +104,7 @@ namespace zer0
 		foreach (hstr, it, classes)
 		{
 			symbol = rb_f_to_sym(rb_str_new2((*it).c_str()));
-			if (!RTEST(rb_funcall_1(classe, "const_defined?", symbol)))
+			if (!(bool)RTEST(rb_funcall_1(classe, "const_defined?", symbol)))
 			{
 				rb_raise(rb_eARC_Error, ("Class not defined " + (*it)).c_str());
 			}
@@ -109,9 +113,30 @@ namespace zer0
 		return classe;
 	}
 
-	bool ARC_Data::__try_map(harray<VALUE>& data, VALUE obj)
+	bool ARC_Data::__try_map_equality(harray<VALUE>& data, VALUE obj)
 	{
-		int index = data.index_of(obj);
+		int index = -1;
+		for_iter (i, 0, data.size())
+		{
+			if ((bool)RTEST(rb_funcall_1(data[i], "==", obj))) // uses equality operator to determine equality
+			{
+				index = i;
+				break;
+			}
+		}
+		if (index < 0)
+		{
+			__DUMP_INT32(data.size());
+			data += obj;
+			return true;
+		}
+		__DUMP_INT32(index);
+		return false;
+	}
+
+	bool ARC_Data::__try_map_identity(harray<VALUE>& data, VALUE obj)
+	{
+		int index = data.index_of(obj); // compares actual VALUEs which are basically Object#object_id
 		if (index < 0)
 		{
 			__DUMP_INT32(data.size());
@@ -135,17 +160,17 @@ namespace zer0
 
 	void ARC_Data::_dump(VALUE obj)
 	{
-		if (rb_obj_is_instance_of(obj, rb_cNilClass)) return ARC_Data::_dump_nil(obj);
-		if (rb_obj_is_instance_of(obj, rb_cFalseClass)) return ARC_Data::_dump_false(obj);
-		if (rb_obj_is_instance_of(obj, rb_cTrueClass)) return ARC_Data::_dump_true(obj);
-		if (rb_obj_is_instance_of(obj, rb_cFixnum)) return ARC_Data::_dump_fixnum(obj);
-		if (rb_obj_is_instance_of(obj, rb_cBignum)) return ARC_Data::_dump_bignum(obj);
-		if (rb_obj_is_instance_of(obj, rb_cFloat)) return ARC_Data::_dump_float(obj);
-		if (rb_obj_is_instance_of(obj, rb_cString)) return ARC_Data::_dump_string(obj);
-		if (rb_obj_is_instance_of(obj, rb_cArray)) return ARC_Data::_dump_array(obj);
-		if (rb_obj_is_instance_of(obj, rb_cHash)) return ARC_Data::_dump_hash(obj);
-		if (rb_obj_is_instance_of(obj, rb_cObject)) return ARC_Data::_dump_object(obj);
-		VALUE class_name = rb_class_name(obj);
+		if (rb_obj_is_kind_of(obj, rb_cNilClass)) return ARC_Data::_dump_nil(obj);
+		if (rb_obj_is_kind_of(obj, rb_cFalseClass)) return ARC_Data::_dump_false(obj);
+		if (rb_obj_is_kind_of(obj, rb_cTrueClass)) return ARC_Data::_dump_true(obj);
+		if (rb_obj_is_kind_of(obj, rb_cFixnum)) return ARC_Data::_dump_fixnum(obj);
+		if (rb_obj_is_kind_of(obj, rb_cBignum)) return ARC_Data::_dump_bignum(obj);
+		if (rb_obj_is_kind_of(obj, rb_cFloat)) return ARC_Data::_dump_float(obj);
+		if (rb_obj_is_kind_of(obj, rb_cString)) return ARC_Data::_dump_string(obj);
+		if (rb_obj_is_kind_of(obj, rb_cArray)) return ARC_Data::_dump_array(obj);
+		if (rb_obj_is_kind_of(obj, rb_cHash)) return ARC_Data::_dump_hash(obj);
+		if (rb_obj_is_kind_of(obj, rb_cObject)) return ARC_Data::_dump_object(obj);
+		VALUE class_name = rb_class_name(rb_class_of(obj));
 		rb_raise(rb_eARC_Error, hsprintf("Error: %s cannot be dumped!", StringValueCStr(class_name)).c_str());
 	}
 		
@@ -202,63 +227,39 @@ namespace zer0
 	void ARC_Data::_dump_string(VALUE obj)
 	{
 		file.dump(Types[rb_cString]);
-		int size = NUM2INT(rb_str_size(obj));
-		if (size > 0)
+		if (ARC_Data::__try_map_equality(strings, obj))
 		{
-			if (ARC_Data::__try_map(strings, obj))
-			{
-				file.dump(hstr(StringValueCStr(obj)));
-			}
-		}
-		else
-		{
-			__DUMP_INT32(0);
+			file.dump(hstr(StringValueCStr(obj)));
 		}
 	}
 		
 	void ARC_Data::_dump_array(VALUE obj)
 	{
 		file.dump(Types[rb_cArray]);
-		int size = NUM2INT(rb_ary_size(obj));
-		if (size > 0)
+		if (ARC_Data::__try_map_identity(arrays, obj))
 		{
-			if (ARC_Data::__try_map(arrays, obj))
+			__DUMP_INT32(NUM2INT(rb_ary_size(obj)));
+			rb_ary_each_index(obj, i)
 			{
-				__DUMP_INT32(size);
-				rb_ary_each_index(obj, i)
-				{
-					ARC_Data::_dump(rb_ary_entry(obj, i));
-				}
+				ARC_Data::_dump(rb_ary_entry(obj, i));
 			}
-		}
-		else
-		{
-			__DUMP_INT32(0);
 		}
 	}
 		
 	void ARC_Data::_dump_hash(VALUE obj)
 	{
 		file.dump(Types[rb_cHash]);
-		int size = NUM2INT(rb_hash_size(obj));
-		if (size > 0)
+		if (ARC_Data::__try_map_identity(hashes, obj))
 		{
-			if (ARC_Data::__try_map(hashes, obj))
+			__DUMP_INT32(NUM2INT(rb_hash_size(obj)));
+			VALUE keys = rb_funcall_0(obj, "keys");
+			VALUE key;
+			rb_ary_each_index(keys, i)
 			{
-				__DUMP_INT32(size);
-				VALUE keys = rb_funcall_0(obj, "keys");
-				VALUE key;
-				rb_ary_each_index(keys, i)
-				{
-					key = rb_ary_entry(keys, i);
-					ARC_Data::_dump(key);
-					ARC_Data::_dump(rb_hash_aref(obj, key));
-				}
+				key = rb_ary_entry(keys, i);
+				ARC_Data::_dump(key);
+				ARC_Data::_dump(rb_hash_aref(obj, key));
 			}
-		}
-		else
-		{
-			__DUMP_INT32(0);
 		}
 	}
 		
@@ -266,16 +267,16 @@ namespace zer0
 	{
 		file.dump(Types[rb_cObject]);
 		// first the string path because this is required to load the object
-		VALUE class_name = rb_class_name(obj);
+		VALUE class_name = rb_class_name(rb_class_of(obj));
 		file.dump(hstr(StringValueCStr(class_name)));
-		if (ARC_Data::__try_map(objects, obj))
+		if (ARC_Data::__try_map_identity(objects, obj))
 		{
-			if (RTEST(rb_funcall_1(obj, "respond_to?", rb_str_new2("_arc_dump"))))
+			if ((bool)RTEST(rb_funcall_1(obj, "respond_to?", rb_str_new2("_arc_dump"))))
 			{
 				VALUE data = rb_funcall_0(obj, "_arc_dump");
 				int size = NUM2INT(rb_str_size(data));
 				__DUMP_INT32(size);
-				unsigned char* raw_data = (unsigned char*)StringValueCStr(data);
+				unsigned char* raw_data = (unsigned char*)StringValuePtr(data);
 				file.write_raw(raw_data, size);
 			}
 			else
@@ -327,10 +328,6 @@ namespace zer0
 	VALUE ARC_Data::_load_string()
 	{
 		int id = __LOAD_INT32;
-		if (id == 0)
-		{
-			return rb_str_new2("");
-		}
 		VALUE obj = __FIND_MAPPED(strings, id);
 		if (!NIL_P(obj))
 		{
@@ -345,18 +342,14 @@ namespace zer0
 	VALUE ARC_Data::_load_array()
 	{
 		int id = __LOAD_INT32;
-		if (id == 0)
-		{
-			return rb_ary_new();
-		}
 		VALUE obj = __FIND_MAPPED(arrays, id);
 		if (!NIL_P(obj))
 		{
 			return obj;
 		}
-		int size = __LOAD_INT32;
 		obj = rb_ary_new();
 		__MAP(arrays, obj);
+		int size = __LOAD_INT32;
 		for_iter (i, 0, size)
 		{
 			rb_ary_push(obj, ARC_Data::_load());
@@ -367,18 +360,14 @@ namespace zer0
 	VALUE ARC_Data::_load_hash()
 	{
 		int id = __LOAD_INT32;
-		if (id == 0)
-		{
-			return rb_hash_new();
-		}
 		VALUE obj = __FIND_MAPPED(hashes, id);
 		if (!NIL_P(obj))
 		{
 			return obj;
 		}
-		int size = __LOAD_INT32;
 		obj = rb_hash_new();
 		__MAP(hashes, obj);
+		int size = __LOAD_INT32;
 		VALUE key;
 		for_iter (i, 0, size)
 		{
@@ -401,11 +390,18 @@ namespace zer0
 		int size = __LOAD_INT32;
 		if (rb_funcall_1(classe, "respond_to?", rb_str_new2("_arc_load")))
 		{
-			unsigned char* data = new unsigned char[size];
+			unsigned char* data = _readBuffer;
+			if (size > MAX_BUFFER_SIZE)
+			{
+				data = new unsigned char[size];
+			}
 			file.read_raw(data, size);
 			obj = rb_funcall_1(classe, "_arc_load", rb_str_new((const char*)data, size));
 			__MAP(objects, obj);
-			delete data;
+			if (size > MAX_BUFFER_SIZE)
+			{
+				delete [] data;
+			}
 			return obj;
 		}
 		obj = rb_funcall_0(classe, "allocate");
@@ -431,13 +427,13 @@ namespace zer0
 	{
 		try
 		{
-			file.open(StringValueCStr(filename));
+			file.open(StringValueCStr(filename), hfile::WRITE);
 		}
 		catch (hltypes::_file_not_found e)
 		{
 			RB_RAISE_FILE_NOT_FOUND(StringValueCStr(filename));
 		}
-		rb_funcall_0(rb_mGC, "disable"); // to prevent GC destroying temp data
+		bool gcEnable = !(bool)RTEST(rb_gc_disable()); // to prevent GC destroying temp data
 		file.dump((unsigned char)Header[0]);
 		file.dump((unsigned char)Header[1]);
 		file.dump((unsigned char)Header[2]);
@@ -448,7 +444,10 @@ namespace zer0
 		int exception;
 		rb_protect(&ARC_Data::__safe_dump, obj, &exception);
 		ARC_Data::_resetSerializer();
-		rb_funcall_0(rb_mGC, "enable");
+		if (gcEnable) // if garbage collection was previously enabled
+		{
+			rb_gc_enable();
+		}
 		if (exception != 0)
 		{
 			rb_jump_tag(exception);
@@ -466,7 +465,7 @@ namespace zer0
 		{
 			RB_RAISE_FILE_NOT_FOUND(StringValueCStr(filename));
 		}
-		rb_funcall_0(rb_mGC, "disable"); // to prevent GC destroying temp data
+		bool gcEnable = !(bool)RTEST(rb_gc_disable()); // to prevent GC destroying temp data
 		bool failed = (file.size() < 4);
 		char chars[5] = {'\0'};
 		hstr header;
@@ -482,8 +481,11 @@ namespace zer0
 		if (failed)
 		{
 			ARC_Data::_resetSerializer();
-			rb_funcall_0(rb_mGC, "enable");
-			rb_raise(rb_eARC_Error, hsprintf("Error: ARC::Data header mismatch! Excepted: \"ARCD\" Found: \"%s\"",
+			if (gcEnable) // if garbage collection was previously enabled
+			{
+				rb_gc_enable();
+			}
+			rb_raise(rb_eARC_Error, hsprintf("Error: ARC::Data header mismatch! Excepted: \"%s\" Found: \"%s\"",
 				Header.c_str(), header.c_str()).c_str());
 			return Qnil;
 		}
@@ -501,7 +503,10 @@ namespace zer0
 		if (failed)
 		{
 			ARC_Data::_resetSerializer();
-			rb_funcall_0(rb_mGC, "enable");
+			if (gcEnable) // if garbage collection was previously enabled
+			{
+				rb_gc_enable();
+			}
 			rb_raise(rb_eARC_Error, hsprintf("Error: ARC::Data version mismatch! Excepted: \"%s\" Found: \"%s\"",
 				Version.c_str(), version.c_str()).c_str());
 			return Qnil;
@@ -509,7 +514,10 @@ namespace zer0
 		int exception;
 		VALUE data = rb_protect(&ARC_Data::__safe_load, Qnil, &exception);
 		ARC_Data::_resetSerializer();
-		rb_funcall_0(rb_mGC, "enable");
+		if (gcEnable) // if garbage collection was previously enabled
+		{
+			rb_gc_enable();
+		}
 		if (exception != 0)
 		{
 			rb_jump_tag(exception);
