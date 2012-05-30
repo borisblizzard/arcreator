@@ -25,7 +25,10 @@ namespace rgss
 	
 	Table::~Table()
 	{
-		delete [] this->data;
+		if (this->data != NULL)
+		{
+			delete [] this->data;
+		}
 	}
 
 	/****************************************************************************************
@@ -34,6 +37,10 @@ namespace rgss
 
 	short Table::getData(int x, int y, int z)
 	{
+		if (this->xSize == 0 || this->ySize == 0 || this->zSize == 0)
+		{
+			return 0;
+		}
 		x = hclamp(x, 0, this->xSize - 1);
 		y = hclamp(y, 0, this->ySize - 1);
 		z = hclamp(z, 0, this->zSize - 1);
@@ -42,6 +49,10 @@ namespace rgss
 
 	short Table::getCircularData(int x, int y, int z)
 	{
+		if (this->xSize == 0 || this->ySize == 0 || this->zSize == 0)
+		{
+			return 0;
+		}
 		x %= this->xSize;
 		y %= this->ySize;
 		z = hclamp(z, 0, this->zSize - 1);
@@ -67,28 +78,34 @@ namespace rgss
 		int copyXSize = hmin(this->xSize, xSize);
 		int copyYSize = hmin(this->ySize, ySize);
 		int copyZSize = hmin(this->zSize, zSize);
-		// make sure xSize isn't <= 0 and none of the sizes are negative
+		int copySize = copyXSize * copyYSize * copyZSize;
 		// store table sizes
-		this->xSize = hmax(xSize, 1);
-		this->ySize = hmax(ySize, 1);
-		this->zSize = hmax(zSize, 1);
+		this->xSize = hmax(xSize, 0);
+		this->ySize = hmax(ySize, 0);
+		this->zSize = hmax(zSize, 0);
 		// allocate space for the table
 		short* newData = this->_createData(this->xSize, this->ySize, this->zSize);
 
 		// copy the data from the old table, as much as fits
-		for_iter (x, 0, copyXSize)
+		if (copySize > 0)
 		{
-			for_iter (y, 0, copyYSize)
+			for_iter (x, 0, copyXSize)
 			{
-				for_iter (z, 0, copyZSize)
+				for_iter (y, 0, copyYSize)
 				{
-					newData[x + this->xSize * (y + this->ySize * z)] =
-						this->data[x + oldXSize * (y + oldYSize * z)];
+					for_iter (z, 0, copyZSize)
+					{
+						newData[x + this->xSize * (y + this->ySize * z)] =
+							this->data[x + oldXSize * (y + oldYSize * z)];
+					}
 				}
 			}
 		}
 		// delete the old array
-		delete [] this->data;
+		if (this->data != NULL)
+		{
+			delete [] this->data;
+		}
 		// set the new data
 		this->data = newData;
 		this->dimensions = 3;
@@ -96,10 +113,14 @@ namespace rgss
 	
 	short* Table::_createData(int xSize, int ySize, int zSize) const
 	{
-		// allocate table space filled with 0
 		int size = xSize * ySize * zSize;
-		short* data = new short[size];
-		memset(data, 0, size * sizeof(short));
+		short* data = NULL;
+		if (size > 0)
+		{
+			// allocate table space filled with 0
+			data = new short[size];
+			memset(data, 0, size * sizeof(short));
+		}
 		return data;
 	}
 
@@ -147,9 +168,9 @@ namespace rgss
 		RB_SELF2CPP(Table, table);
 		VALUE arg1, arg2, arg3;
 		rb_scan_args(argc, argv, "12", &arg1, &arg2, &arg3);
-		int xSize = hmax(NUM2INT(arg1), 1);
-		int ySize = hmax(NIL_P(arg2) ? 1 : NUM2INT(arg2), 1);
-		int zSize = hmax(NIL_P(arg3) ? 1 : NUM2INT(arg3), 1);
+		int xSize = hmax(NUM2INT(arg1), 0);
+		int ySize = hmax(NIL_P(arg2) ? 1 : NUM2INT(arg2), 0);
+		int zSize = hmax(NIL_P(arg3) ? 1 : NUM2INT(arg3), 0);
 		table->_resize(xSize, ySize, zSize);
 		table->dimensions = argc;
 		return self;
@@ -164,7 +185,11 @@ namespace rgss
 		int zSize = other->zSize;
 		table->_resize(xSize, ySize, zSize);
 		table->dimensions = other->dimensions;
-		memcpy(table->data, other->data, table->xSize * table->ySize * table->zSize * sizeof(short));
+		int size = table->xSize * table->ySize * table->zSize;
+		if (size > 0)
+		{
+			memcpy(table->data, other->data, size * sizeof(short));
+		}
 		return self;
 	}
 
@@ -254,9 +279,9 @@ namespace rgss
 		RB_SELF2CPP(Table, table);
 		VALUE rb_xSize, rb_ySize, rb_zSize;
 		rb_scan_args(argc, argv, "12", &rb_xSize, &rb_ySize, &rb_zSize);
-		int xSize = hmax(NUM2INT(rb_xSize), 1);
-		int ySize = hmax(NIL_P(rb_ySize) ? 1 : NUM2INT(rb_ySize), 1);
-		int zSize = hmax(NIL_P(rb_zSize) ? 1 : NUM2INT(rb_zSize), 1);
+		int xSize = hmax(NUM2INT(rb_xSize), 0);
+		int ySize = hmax(NIL_P(rb_ySize) ? 1 : NUM2INT(rb_ySize), 0);
+		int zSize = hmax(NIL_P(rb_zSize) ? 1 : NUM2INT(rb_zSize), 0);
 		table->_resize(xSize, ySize, zSize);
 		table->dimensions = argc;
 		return Qnil;
@@ -290,42 +315,27 @@ namespace rgss
 		}
 		// convert data array into data stream
 		hstr format = "LLLLL" + hstr('S', size);
-		VALUE data_fmt = rb_str_new2(format.c_str());
-		VALUE byte_string = rb_funcall_1(data, "pack", data_fmt);
+		VALUE byte_string = rb_f_ary_pack(data, format.c_str());
 		return byte_string;
 	}
 
 	VALUE Table::rb_load(VALUE self, VALUE value)
 	{
 		// load Table size data
-		VALUE sliced_string = rb_funcall_2(value, "[]", INT2FIX(0), INT2FIX(20));
-		VALUE data = rb_funcall_1(sliced_string, "unpack", rb_str_new2("LLLLL"));
+		VALUE sliced_string = rb_str_substr(value, 0, 20);
+		VALUE data = rb_f_str_unpack(sliced_string, "LLLLL");
 		int dimensions = NUM2INT(rb_ary_shift(data));
 		VALUE rb_xSize = rb_ary_shift(data);
 		VALUE rb_ySize = rb_ary_shift(data);
 		VALUE rb_zSize = rb_ary_shift(data);
 		int size = NUM2INT(rb_xSize) * NUM2INT(rb_ySize) * NUM2INT(rb_zSize);
 		// create the table
-		VALUE rb_table;
-		if (dimensions == 1)
-		{
-			rb_table = Table::create(1, &rb_xSize);
-		}
-		else if (dimensions == 2)
-		{
-			VALUE argv[2] = {rb_xSize, rb_ySize};
-			rb_table = Table::create(2, argv);
-		}
-		else
-		{
-			VALUE argv[3] = {rb_xSize, rb_ySize, rb_zSize};
-			rb_table = Table::create(3, argv);
-		}
+		VALUE argv[3] = {rb_xSize, rb_ySize, rb_zSize};
+		VALUE rb_table = Table::create(dimensions, argv);
 		RB_VAR2CPP(rb_table, Table, table);
 		// loading data entries
-		VALUE data_fmt = rb_str_new2(hstr('S', size).c_str());
-		sliced_string = rb_funcall_2(value, "[]", INT2FIX(20), INT2FIX(size * 2));
-		data = rb_funcall_1(sliced_string, "unpack", data_fmt);
+		sliced_string = rb_str_substr(value, 20, size * 2);
+		data = rb_f_str_unpack(sliced_string, hstr('S', size).c_str());
 		for_iter (i, 0, size)
 		{
 			table->data[i] = (short)NUM2INT(rb_ary_shift(data));
@@ -349,16 +359,15 @@ namespace rgss
 			rb_ary_push(data, INT2FIX(table->data[i]));
 		}
 		// convert data array into data stream
-		VALUE data_fmt = rb_str_new2(("VVVV" + hstr('v', size)).c_str());
-		VALUE byte_string = rb_funcall_1(data, "pack", data_fmt);
+		VALUE byte_string = rb_f_ary_pack(data, ("VVVV" + hstr('v', size)).c_str());
 		return byte_string;
 	}
 
 	VALUE Table::rb_arcLoad(VALUE self, VALUE value)
 	{
 		// load Table size data
-		VALUE sliced_string = rb_funcall_2(value, "[]", INT2FIX(0), INT2FIX(16));
-		VALUE data = rb_funcall_1(sliced_string, "unpack", rb_str_new2("VVVV"));
+		VALUE sliced_string = rb_str_substr(value, 0, 16);
+		VALUE data = rb_f_str_unpack(sliced_string, "VVVV");
 		int dimensions = NUM2INT(rb_ary_shift(data));
 		VALUE rb_xSize = rb_ary_shift(data);
 		VALUE rb_ySize = rb_ary_shift(data);
@@ -369,9 +378,8 @@ namespace rgss
 		VALUE rb_table = Table::create(dimensions, argv);
 		RB_VAR2CPP(rb_table, Table, table);
 		// loading data entries
-		VALUE data_fmt = rb_str_new2(hstr('v', size).c_str());
-		sliced_string = rb_funcall_2(value, "[]", INT2FIX(16), INT2FIX(size * 2));
-		data = rb_funcall_1(sliced_string, "unpack", data_fmt);
+		sliced_string = rb_str_substr(value, 16, size * 2);
+		data = rb_f_str_unpack(sliced_string, hstr('v', size).c_str());
 		for_iter (i, 0, size)
 		{
 			table->data[i] = (short)NUM2INT(rb_ary_shift(data));

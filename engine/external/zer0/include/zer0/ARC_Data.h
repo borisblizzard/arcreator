@@ -55,10 +55,6 @@ namespace zer0
 		/// @brief Resets all internal variables for data reading.
 		static void _resetSerializer();
 
-		/// @brief Gets the appropriate class from a class path.
-		/// @param[in] Path of the class.
-		/// @return Ruby class object from the path.
-		static VALUE __get_class_object(hstr class_path);
 		/// @brief Tries to map the object into the mapping using equality comparison.
 		/// @param[in] data The VALUE array.
 		/// @param[in] obj The Ruby object to map.

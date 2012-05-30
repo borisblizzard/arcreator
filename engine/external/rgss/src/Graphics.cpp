@@ -273,7 +273,7 @@ namespace rgss
 		hstr filename = "";
 		if (!NIL_P(arg2))
 		{
-			RB_CHECK_TYPE_1(arg2, rb_cString);
+			RB_CHECK_TYPE(arg2, rb_cString);
 			filename = StringValueCStr(arg2);
 		}
 		int vague = (NIL_P(arg3) ? 40 : NUM2INT(arg3));

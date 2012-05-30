@@ -72,7 +72,7 @@ namespace rgss
 		this->size = (!NIL_P(name) ? NUM2INT(size) : defaultSize);
 		this->bold = defaultBold;
 		this->italic = defaultItalic;
-		this->rb_color = rb_f_clone(rb_defaultColor);
+		this->rb_color = rb_obj_clone(rb_defaultColor);
 		RB_VAR2CPP(this->rb_color, Color, color);
 		this->color = color;
 	}
@@ -213,7 +213,7 @@ namespace rgss
 		font->size = other->size;
 		font->bold = other->bold;
 		font->italic = other->italic;
-		Font::rb_setColor(self, rb_f_clone(other->rb_color));
+		Font::rb_setColor(self, rb_obj_clone(other->rb_color));
 		return self;
 	}
 
@@ -237,7 +237,7 @@ namespace rgss
 	VALUE Font::rb_setName(VALUE self, VALUE value)
 	{
 		RB_SELF2CPP(Font, font);
-		RB_CHECK_TYPE_1(value, rb_cString);
+		RB_CHECK_TYPE(value, rb_cString);
 		font->name = StringValueCStr(value);
 		return value;
 	}
@@ -304,7 +304,7 @@ namespace rgss
 
 	VALUE Font::rb_setDefaultName(VALUE classe, VALUE value)
 	{
-		RB_CHECK_TYPE_1(value, rb_cString);
+		RB_CHECK_TYPE(value, rb_cString);
 		defaultName = StringValueCStr(value);
 		return value;
 	}
@@ -352,7 +352,7 @@ namespace rgss
 		rb_defaultColor = value;
 		if (!NIL_P(value))
 		{
-			RB_CHECK_TYPE_1(value, rb_cColor);
+			RB_CHECK_TYPE(value, rb_cColor);
 			RB_VAR2CPP(value, Color, color);
 			defaultColor = color;
 		}

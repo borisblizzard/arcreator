@@ -347,7 +347,7 @@ namespace rgss
 		int flashDuration = hmax(NUM2INT(duration), 0);
 		if (!NIL_P(color) && flashDuration > 0)
 		{
-			RB_CHECK_TYPE_1(color, rb_cColor);
+			RB_CHECK_TYPE(color, rb_cColor);
 			renderable->rb_flashColor = color;
 			RB_VAR2CPP(color, Color, flashColor);
 			renderable->flashColor = flashColor;
