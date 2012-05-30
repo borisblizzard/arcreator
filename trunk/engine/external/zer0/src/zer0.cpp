@@ -68,8 +68,8 @@ namespace zer0
 		VALUE message = rb_funcall_0(error, "message");
 		hstr text = StringValueCStr(message);
 		VALUE backtrace = rb_funcall_0(error, "backtrace");
-		VALUE backtraceMessage = rb_funcall_1(backtrace, "join", rb_str_new2("\n"));
-		VALUE rb_mDir = rb_funcall_1(rb_mKernel, "const_get", rb_f_to_sym(rb_str_new2("Dir")));
+		VALUE backtraceMessage = rb_ary_join(backtrace, rb_str_new2("\n"));
+		VALUE rb_mDir = rb_const_get(rb_mKernel, rb_intern("Dir")); \
 		rb_funcall_2(backtraceMessage, "gsub!", rb_funcall_0(rb_mDir, "pwd"), rb_str_new2(""));
 		text += hstr("\n") + StringValueCStr(backtraceMessage);
 		zer0::log(text, "");
@@ -118,7 +118,7 @@ namespace zer0
 			}
 			else
 			{
-				result = rb_f_clone(args);
+				result = rb_obj_clone(args);
 			}
 			VALUE rb_delimiter = rb_gv_get("$,");
 			hstr delimiter = (NIL_P(rb_delimiter) ? ", " : StringValueCStr(rb_delimiter));
@@ -126,8 +126,7 @@ namespace zer0
 			VALUE string;
 			for_iter (i, 0, argc)
 			{
-				string = rb_ary_shift(args);
-				string = rb_f_inspect(string);
+				string = rb_inspect(rb_ary_shift(args));
 				data += StringValueCStr(string);
 			}
 			text = data.join(delimiter);
@@ -139,16 +138,17 @@ namespace zer0
 	
 	VALUE _safe_loadData(VALUE file)
 	{
-		VALUE rb_mMarshal = rb_funcall_1(rb_mKernel, "const_get", rb_f_to_sym(rb_str_new2("Marshal")));
+		VALUE rb_mMarshal = rb_const_get(rb_mKernel, rb_intern("Marshal"));
 		return rb_funcall_1(rb_mMarshal, "load", file);
 	}
 	
 	VALUE rb_Kernel_loadData(VALUE self, VALUE filename)
 	{
-		VALUE file = rb_funcall_2(rb_cFile, "open", filename, rb_str_new2("rb"));
+		
+		VALUE file = rb_file_open(StringValueCStr(filename), "rb");
 		int exception;
 		VALUE data = rb_protect(&_safe_loadData, file, &exception);
-		rb_funcall_0(file, "close");
+		rb_io_close(file);
 		if (exception != 0)
 		{
 			rb_jump_tag(exception);

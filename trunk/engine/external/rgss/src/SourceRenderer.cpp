@@ -161,7 +161,7 @@ namespace rgss
 		RB_CHECK_DISPOSED(sourceRenderer);
 		if (!NIL_P(value))
 		{
-			RB_CHECK_TYPE_1(value, rb_cBitmap);
+			RB_CHECK_TYPE(value, rb_cBitmap);
 			RB_VAR2CPP(value, Bitmap, bitmap);
 			sourceRenderer->bitmap = bitmap;
 		}

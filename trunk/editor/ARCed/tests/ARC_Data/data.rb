@@ -932,37 +932,39 @@ class Table
   end
   
   def _dump(d = 0)
-     s = [@dim, @xsize, @ysize, @zsize, @xsize * @ysize * @zsize].pack('LLLLL')
-     s += @data.pack('S' * (@xsize * @ysize * @zsize))
-     return s
+    s = [@dim, @xsize, @ysize, @zsize, @xsize * @ysize * @zsize].pack('LLLLL')
+    size = @xsize * @ysize * @zsize
+    s += @data.pack('S' * size) if size > 0
+    return s
   end
   
   def self._load(s)
-     dim, nx, ny, nz, size = s[0, 20].unpack('LLLLL')
-     data = s[20, size * 2].unpack('S' * size)
-     if dim == 3
-       t = Table.new(nx, ny, nz)
-       t.data = data
-     elsif dim == 2
-       t = Table.new(nx, ny)
-       t.data = data
-     elsif dim == 1
-       t = Table.new(nx)
-       t.data = data
-     end
-     return t
+    dim, nx, ny, nz, size = s[0, 20].unpack('LLLLL')
+    data = []
+    data = s[20, size * 2].unpack('S' * size) if size > 0
+    if dim == 3
+      t = Table.new(nx, ny, nz)
+    elsif dim == 2
+      t = Table.new(nx, ny)
+    elsif dim == 1
+      t = Table.new(nx)
+    end
+    t.data = data
+    return t
   end
   
   def _arc_dump
     s = [@dim, @xsize, @ysize, @zsize].pack('VVVV')
-    s += @data.pack('v' * (@xsize * @ysize * @zsize))
+    size = @xsize * @ysize * @zsize
+    s += @data.pack('v' * size) if size > 0
     return s
   end
   
   def self._arc_load(s)
     dim, nx, ny, nz = s[0, 16].unpack('VVVV')
-	size = nx * nz * ny
-    data = s[16, size * 2].unpack('v' * size)
+    size = nx * nz * ny
+    data = []
+    data = s[16, size * 2].unpack('v' * size) if size > 0
     if dim == 1
       t = Table.new(nx)
     elsif dim == 2

@@ -74,12 +74,8 @@ module ARC
 		end
 		
 		def self.__get_class_object(class_path)
-			classes = class_path.split('::')
-			if !Kernel.const_defined?(classes[0].to_sym)
-				raise TypeError, "Class not defined: #{classes[0]}"
-			end
-			classe = Kernel.const_get(classes.shift.to_sym)
-			classes.each {|c|
+			classe = Kernel
+			class_path.split('::').each {|c|
 				if !classe.const_defined?(c.to_sym)
 					raise TypeError, "Class not defined: #{c}"
 				end
@@ -222,6 +218,7 @@ module ARC
 			else
 				variables = obj.instance_variables
 				self.__dump_int32(variables.size)
+				variables.sort_by! {|sym| sym.to_s}
 				variables.each {|variable|
 					self._dump_string(variable.to_s.gsub('@', ''))
 					self._dump(obj.instance_variable_get(variable))

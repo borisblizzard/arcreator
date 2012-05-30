@@ -91,34 +91,12 @@ namespace zer0
 		objects += Qnil;
 	}
 
-	VALUE ARC_Data::__get_class_object(hstr class_path)
-	{
-		harray<hstr> classes = class_path.split("::");
-		VALUE symbol = rb_f_to_sym(rb_str_new2(classes[0].c_str()));
-		if (!(bool)RTEST(rb_funcall_1(rb_mKernel, "const_defined?", symbol)))
-		{
-			rb_raise(rb_eARC_Error, ("Class not defined " + classes[0]).c_str());
-		}
-		classes.pop(0);
-		VALUE classe = rb_funcall_1(rb_mKernel, "const_get", symbol);
-		foreach (hstr, it, classes)
-		{
-			symbol = rb_f_to_sym(rb_str_new2((*it).c_str()));
-			if (!(bool)RTEST(rb_funcall_1(classe, "const_defined?", symbol)))
-			{
-				rb_raise(rb_eARC_Error, ("Class not defined " + (*it)).c_str());
-			}
-			classe = rb_funcall_1(classe, "const_get", symbol);
-		}
-		return classe;
-	}
-
 	bool ARC_Data::__try_map_equality(harray<VALUE>& data, VALUE obj)
 	{
 		int index = -1;
 		for_iter (i, 0, data.size())
 		{
-			if ((bool)RTEST(rb_funcall_1(data[i], "==", obj))) // uses equality operator to determine equality
+			if ((bool)RTEST(rb_f_equal(data[i], obj))) // uses equality operator to determine equality
 			{
 				index = i;
 				break;
@@ -229,7 +207,7 @@ namespace zer0
 		file.dump(Types[rb_cString]);
 		if (ARC_Data::__try_map_equality(strings, obj))
 		{
-			file.dump(hstr(StringValueCStr(obj)));
+			file.dump(StringValueCStr(obj));
 		}
 	}
 		
@@ -238,8 +216,8 @@ namespace zer0
 		file.dump(Types[rb_cArray]);
 		if (ARC_Data::__try_map_identity(arrays, obj))
 		{
-			__DUMP_INT32(NUM2INT(rb_ary_size(obj)));
-			rb_ary_each_index(obj, i)
+			__DUMP_INT32(NUM2INT(rb_f_size(obj)));
+			rb_b_ary_each_index(obj, i)
 			{
 				ARC_Data::_dump(rb_ary_entry(obj, i));
 			}
@@ -251,10 +229,10 @@ namespace zer0
 		file.dump(Types[rb_cHash]);
 		if (ARC_Data::__try_map_identity(hashes, obj))
 		{
-			__DUMP_INT32(NUM2INT(rb_hash_size(obj)));
+			__DUMP_INT32(NUM2INT(rb_f_size(obj)));
 			VALUE keys = rb_funcall_0(obj, "keys");
 			VALUE key;
-			rb_ary_each_index(keys, i)
+			rb_b_ary_each_index(keys, i)
 			{
 				key = rb_ary_entry(keys, i);
 				ARC_Data::_dump(key);
@@ -268,28 +246,34 @@ namespace zer0
 		file.dump(Types[rb_cObject]);
 		// first the string path because this is required to load the object
 		VALUE class_name = rb_class_name(rb_class_of(obj));
-		file.dump(hstr(StringValueCStr(class_name)));
+		ARC_Data::_dump(class_name);
 		if (ARC_Data::__try_map_identity(objects, obj))
 		{
-			if ((bool)RTEST(rb_funcall_1(obj, "respond_to?", rb_str_new2("_arc_dump"))))
+			if ((bool)RTEST(rb_f_respond_to(obj, "_arc_dump")))
 			{
 				VALUE data = rb_funcall_0(obj, "_arc_dump");
-				int size = NUM2INT(rb_str_size(data));
+				int size = NUM2INT(rb_f_size(data));
 				__DUMP_INT32(size);
 				unsigned char* raw_data = (unsigned char*)StringValuePtr(data);
 				file.write_raw(raw_data, size);
 			}
 			else
 			{
-				VALUE variables = rb_funcall_0(obj, "instance_variables");
-				int size = NUM2INT(rb_ary_size(variables));
+				VALUE variables = rb_obj_instance_variables(obj);
+				int size = NUM2INT(rb_f_size(variables));
 				__DUMP_INT32(size);
+				harray<hstr> variableNames;
 				VALUE variable;
-				rb_ary_each_index(variables, i)
+				rb_b_ary_each_index(variables, i)
 				{
-					variable = rb_ary_entry(variables, i);
-					ARC_Data::_dump_string(rb_funcall_2(rb_f_to_s(variable), "gsub", rb_str_new2("@"), rb_str_new2("")));
-					ARC_Data::_dump(rb_funcall_1(obj, "instance_variable_get", variable));
+					variable = rb_f_to_s(rb_ary_entry(variables, i));
+					variableNames += StringValueCStr(variable);
+				}
+				variableNames.sort();
+				foreach (hstr, it, variableNames)
+				{
+					ARC_Data::_dump(rb_str_new2((*it).replace("@", "").c_str()));
+					ARC_Data::_dump(rb_iv_get(obj, (*it).c_str()));
 				}
 			}
 		}
@@ -386,9 +370,9 @@ namespace zer0
 		{
 			return obj;
 		}
-		VALUE classe = ARC_Data::__get_class_object(hstr(StringValueCStr(class_path)));
+		VALUE classe = rb_path_to_class(class_path);
 		int size = __LOAD_INT32;
-		if (rb_funcall_1(classe, "respond_to?", rb_str_new2("_arc_load")))
+		if ((bool)RTEST(rb_f_respond_to(classe, "_arc_load")))
 		{
 			unsigned char* data = _readBuffer;
 			if (size > MAX_BUFFER_SIZE)
@@ -404,17 +388,17 @@ namespace zer0
 			}
 			return obj;
 		}
-		obj = rb_funcall_0(classe, "allocate");
+		obj = rb_obj_alloc(classe);
 		__MAP(objects, obj);
 		VALUE variable;
-		VALUE symbol;
+		hstr variableName;
 		VALUE value;
 		for_iter (i, 0, size)
 		{
 			variable = ARC_Data::_load();
-			symbol = rb_f_to_sym(rb_str_new2(("@" + hstr(StringValueCStr(variable))).c_str()));
+			variableName = "@" + hstr(StringValueCStr(variable));
 			value = ARC_Data::_load();
-			rb_funcall_2(obj, "instance_variable_set", symbol, value);
+			rb_iv_set(obj, variableName.c_str(), value);
 		}
 		return obj;
 	}

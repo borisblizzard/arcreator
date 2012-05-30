@@ -1,4 +1,5 @@
 - check if rendertarget is set to Linear during text rendering
+- fix blitting with alpha bug (icons are blitted with 25% alpha only)
 
 - switch to libpng to ensure textures are always loaded as 24 bit or 32 bit internally
 - use an ImageSource for loading a Bitmap instead of a texture and then rendering on the original texture

@@ -201,13 +201,13 @@ namespace rgss
 		RB_SELF2CPP(Tone, tone);
 		VALUE arr = rb_ary_new3(4, rb_float_new(tone->red), rb_float_new(tone->green),
 			rb_float_new(tone->blue), rb_float_new(tone->gray));
-		VALUE byte_string = rb_funcall_1(arr, "pack", rb_str_new2("d4"));
+		VALUE byte_string = rb_f_ary_pack(arr, "d4");
 		return byte_string;
 	}
 
 	VALUE Tone::rb_load(VALUE self, VALUE value)
 	{
-		VALUE arr = rb_funcall_1(value, "unpack", rb_str_new2("d4"));
+		VALUE arr = rb_f_str_unpack(value, "d4");
 		VALUE c_arr[4];
 		c_arr[0] = rb_ary_shift(arr);
 		c_arr[1] = rb_ary_shift(arr);
@@ -221,13 +221,13 @@ namespace rgss
 		RB_SELF2CPP(Tone, tone);
 		VALUE arr = rb_ary_new3(4, rb_float_new(tone->red), rb_float_new(tone->green),
 			rb_float_new(tone->blue), rb_float_new(tone->gray));
-		VALUE byte_string = rb_funcall_1(arr, "pack", rb_str_new2("eeee"));
+		VALUE byte_string = rb_f_ary_pack(arr, "eeee");
 		return byte_string;
 	}
 
 	VALUE Tone::rb_arcLoad(VALUE self, VALUE value)
 	{
-		VALUE arr = rb_funcall_1(value, "unpack", rb_str_new2("eeee"));
+		VALUE arr = rb_f_str_unpack(value, "eeee");
 		VALUE c_arr[4];
 		c_arr[0] = rb_ary_shift(arr);
 		c_arr[1] = rb_ary_shift(arr);

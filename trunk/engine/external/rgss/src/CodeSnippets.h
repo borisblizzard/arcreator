@@ -1,23 +1,37 @@
 #ifndef RGSS_CODE_SNIPPETS_H
 #define RGSS_CODE_SNIPPETS_H
 
-// iterator macro
-#define for_iter(name, min, max) for (int name = min; name < max; name++)
-#define for_iter_step(name, min, max, step) for (int name = min; name < max; name += step)
+#define rb_b_ary_each_index(ary, name) for (int name = 0; name < NUM2INT(rb_f_size(ary)); name++)
 
-#define rb_ary_each_index(ary, name) for (int name = 0; name < NUM2INT(rb_ary_size(ary)); name++)
-
-// missing C functions for commonly used classes
-
-/// @brief Gets string size.
-/// @param[in] str String to check.
-#define rb_str_size(str) rb_funcall(str, rb_intern("size"), 0)
-/// @brief Gets array size.
-/// @param[in] ary Array to check.
-#define rb_ary_size(ary) rb_funcall(ary, rb_intern("size"), 0)
-/// @brief Gets hash size.
-/// @param[in] ary Hash to check.
-#define rb_hash_size(ary) rb_funcall(ary, rb_intern("size"), 0)
+/// @brief Calls the to_s method.
+/// @param[in] obj Object to use.
+#define rb_f_to_s(obj) rb_funcall_0(obj, "to_s")
+/// @brief Calls the to_sym method.
+/// @param[in] obj Object to use.
+#define rb_f_to_sym(obj) rb_funcall_0(obj, "to_sym")
+/// @brief Gets object size.
+/// @param[in] str Object to check.
+#define rb_f_size(str) rb_funcall_0(str, "size")
+/// @brief Packs an array into a bytestream in the given format.
+/// @param[in] ary Array to pack.
+/// @param[in] format Packing format.
+#define rb_f_ary_pack(ary, format) rb_funcall_1(ary, "pack", rb_str_new2(format))
+/// @brief Unpacks a bytestream into an array in the given format.
+/// @param[in] str String to unpack.
+/// @param[in] format Unpacking format.
+#define rb_f_str_unpack(str, format) rb_funcall_1(str, "unpack", rb_str_new2(format))
+/// @brief Checks if a constant is defined.
+/// @param[in] obj Object to check.
+/// @param[in] name Name of the constant.
+#define rb_f_const_defined(obj, name) rb_funcall_1(obj, "const_defined?", rb_f_to_sym(rb_str_new2(name)))
+/// @brief Checks if a method can be called.
+/// @param[in] obj Object to check.
+/// @param[in] name Name of the method.
+#define rb_f_respond_to(obj, name) rb_funcall_1(obj, "respond_to?", rb_f_to_sym(rb_str_new2(name)))
+/// @brief Checks if two objects are equal.
+/// @param[in] obj1 First object.
+/// @param[in] obj2 Second object.
+#define rb_f_equal(obj1, obj2) rb_funcall_1(obj1, "==", obj2)
 /// @brief Calls method with name.
 /// @param[in] obj Object to call the method.
 /// @param[in] name Name of the method.
@@ -39,21 +53,6 @@
 /// @param[in] argc Number of arguments.
 /// @param[in] argv Argument values.
 #define rb_funcall_x(obj, name, argc, argv) rb_funcall2(obj, rb_intern(name), argc, argv)
-/// @brief Calls to_s.
-/// @param[in] obj Object to use.
-#define rb_f_to_s(obj) rb_funcall(obj, rb_intern("to_s"), 0)
-/// @brief Calls rb_to_sym.
-/// @param[in] obj Object to use.
-#define rb_f_to_sym(obj) rb_funcall(obj, rb_intern("to_sym"), 0)
-/// @brief Calls inspect.
-/// @param[in] obj Object to use.
-#define rb_f_inspect(obj) rb_funcall(obj, rb_intern("inspect"), 0)
-/// @brief Gets the object ID.
-/// @param[in] obj Object to check.
-#define rb_f_object_id(obj) rb_funcall(obj, rb_intern("object_id"), 0)
-/// @brief Clones object.
-/// @param[in] obj Object to clone.
-#define rb_f_clone(obj) rb_funcall(obj, rb_intern("clone"), 0)
 
 /// @brief Converts a VALUE to a pointer of type and name.
 /// @param[in] value The Ruby VALUE.
@@ -68,8 +67,8 @@
 /// @param[in] filename Filename C-string.
 #define RB_RAISE_FILE_NOT_FOUND(filename) \
 	{ \
-		VALUE errnoModule = rb_funcall_1(rb_mKernel, "const_get", rb_f_to_sym(rb_str_new2("Errno"))); \
-		VALUE enoentClass = rb_funcall_1(errnoModule, "const_get", rb_f_to_sym(rb_str_new2("ENOENT"))); \
+		VALUE errnoModule = rb_const_get(rb_mKernel, rb_intern("Errno")); \
+		VALUE enoentClass = rb_const_get(errnoModule, rb_intern("ENOENT")); \
 		rb_raise(enoentClass, filename); \
 	}
 
@@ -82,7 +81,7 @@
 	RB_SELF2CPP(type1, name1); \
 	if (!NIL_P(value)) \
 	{ \
-		RB_CHECK_TYPE_1(value, rb_c ## type2); \
+		RB_CHECK_TYPE(value, rb_c ## type2); \
 		RB_VAR2CPP(value, type2, name2); \
 		name1->name2 = name2; \
 	} \
@@ -99,7 +98,7 @@
 #define CPP_GENERATE_INITIALIZER(type, name) \
 	if (!NIL_P(rb_ ## name)) \
 	{ \
-		RB_CHECK_TYPE_1(rb_ ## name, rb_c ## type); \
+		RB_CHECK_TYPE(rb_ ## name, rb_c ## type); \
 		RB_VAR2CPP(rb_ ## name, type, name); \
 		this->name = name; \
 	} \
@@ -129,63 +128,13 @@
 /// @brief Automatically does a type check (and throw an exception if failed) with 1 acceptable type.
 /// @param[in] var Variable that needs to be type-checked.
 /// @param[in] type1 First acceptable class.
-#define RB_CHECK_TYPE_1(var, type1) \
+#define RB_CHECK_TYPE(var, type1) \
 	if (!rb_obj_is_kind_of(var, type1)) \
 	{ \
-		VALUE varClass = rb_funcall(rb_class_of(var), rb_intern("name"), 0, NULL); \
-		VALUE class1 = rb_funcall(type1, rb_intern("name"), 0, NULL); \
+		VALUE varClass = rb_class_name(rb_class_of(var)); \
+		VALUE class1 = rb_class_name(type1); \
 		hstr message = hsprintf("cannot convert %s into %s", StringValueCStr(varClass), \
 			StringValueCStr(class1)); \
-		rb_raise(rb_eTypeError, message.c_str()); \
-	}
-/// @brief Automatically does a type check (and throw an exception if failed) with 2 acceptable types.
-/// @param[in] var Variable that needs to be type-checked.
-/// @param[in] type1 First acceptable class.
-/// @param[in] type2 Second acceptable class.
-#define RB_CHECK_TYPE_2(var, type1, type2) \
-	if (!rb_obj_is_kind_of(var, type1) && !rb_obj_is_kind_of(var, type2)) \
-	{ \
-		VALUE varClass = rb_funcall(rb_class_of(var), rb_intern("name"), 0, NULL); \
-		VALUE class1 = rb_funcall(type1, rb_intern("name"), 0, NULL); \
-		VALUE class2 = rb_funcall(type2, rb_intern("name"), 0, NULL); \
-		hstr message = hsprintf("cannot convert %s into %s or %s", StringValueCStr(varClass), \
-			StringValueCStr(class1), StringValueCStr(class2)); \
-		rb_raise(rb_eTypeError, message.c_str()); \
-	}
-/// @brief Automatically does a type check (and throw an exception if failed) with 3 acceptable types.
-/// @param[in] var Variable that needs to be type-checked.
-/// @param[in] type1 First acceptable class.
-/// @param[in] type2 Second acceptable class.
-/// @param[in] type3 Third acceptable class.
-#define RB_CHECK_TYPE_3(var, type1, type2, type3) \
-	if (!rb_obj_is_kind_of(var, type1) && !rb_obj_is_kind_of(var, type2) && \
-		!rb_obj_is_kind_of(var, type3)) \
-	{ \
-		VALUE varClass = rb_funcall(rb_class_of(var), rb_intern("name"), 0, NULL); \
-		VALUE class1 = rb_funcall(type1, rb_intern("name"), 0, NULL); \
-		VALUE class2 = rb_funcall(type2, rb_intern("name"), 0, NULL); \
-		VALUE class3 = rb_funcall(type3, rb_intern("name"), 0, NULL); \
-		hstr message = hsprintf("cannot convert %s into %s, %s or %s", StringValueCStr(varClass), \
-			StringValueCStr(class1), StringValueCStr(class2), StringValueCStr(class3)); \
-		rb_raise(rb_eTypeError, message.c_str()); \
-	}
-/// @brief Automatically does a type check (and throw an exception if failed) with 4 acceptable types.
-/// @param[in] var Variable that needs to be type-checked.
-/// @param[in] type1 First acceptable class.
-/// @param[in] type2 Second acceptable class.
-/// @param[in] type3 Third acceptable class.
-/// @param[in] type4 Fourth acceptable class.
-#define RB_CHECK_TYPE_4(var, type1, type2, type3, type4) \
-	if (!rb_obj_is_kind_of(var, type1) && !rb_obj_is_kind_of(var, type2) && \
-		!rb_obj_is_kind_of(var, type3) && !rb_obj_is_kind_of(var, type4)) \
-	{ \
-		VALUE varClass = rb_funcall(rb_class_of(var), rb_intern("name"), 0, NULL); \
-		VALUE class1 = rb_funcall(type1, rb_intern("name"), 0, NULL); \
-		VALUE class2 = rb_funcall(type2, rb_intern("name"), 0, NULL); \
-		VALUE class3 = rb_funcall(type3, rb_intern("name"), 0, NULL); \
-		VALUE class4 = rb_funcall(type4, rb_intern("name"), 0, NULL); \
-		hstr message = hsprintf("cannot convert %s into %s, %s, %s or %s", StringValueCStr(varClass), \
-			StringValueCStr(class1), StringValueCStr(class2), StringValueCStr(class3), StringValueCStr(class4)); \
 		rb_raise(rb_eTypeError, message.c_str()); \
 	}
 
