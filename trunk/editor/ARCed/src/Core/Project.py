@@ -195,7 +195,7 @@ class Project(object):
 
     def saveMapData(self, id_num):
         if (self.save_func != None) and callable(self.save_func):
-            self.save_func(os.path.dirname(self.project_path), key, self.getDeferredData("Map%03d" % id_num))
+            self.save_func(os.path.dirname(self.project_path), "Map%03d" % id_num, self.getDeferredData("Map%03d" % id_num))
             self.setChangedDeferredData("Map%03d" % id_num, False)
         else:
             Kernel.Log("Warning: no save function set for project. Data files NOT saved", "[Project]")
@@ -380,7 +380,7 @@ class ARCProjectCreator(object):
                 self.project.getMapData(key)
         else:
             #set initial info
-            self.project.setData("Actors", [], Flase)
+            self.project.setData("Actors", [], False)
             self.project.setData("Classes", [], False)
             self.project.setData("Skills", [], False)
             self.project.setData("Items", [], False)

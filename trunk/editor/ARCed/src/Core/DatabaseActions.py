@@ -310,7 +310,7 @@ class ArmorEditAction(Actions.ActionTemplate):
                     if armor is not None:
                         if self.data.has_key("id"):
                             self.old_data["id"] = armor.id
-                            actor.id = self.data["id"]
+                            armor.id = self.data["id"]
                         if self.data.has_key("name"):
                             self.old_data["name"] = armor.name
                             armor.name = self.data["name"]
@@ -372,12 +372,12 @@ class ArmorEditAction(Actions.ActionTemplate):
             project = Kernel.GlobalObjects.get_value("PROJECT")
             if project is not None:
                 armors = project.getData("Armors")
-                if classes is not None:
+                if armors is not None:
                     armor = armors[self.id]
                     if armor is not None:
                         if self.old_data.has_key("id"):
                             self.data["id"] = armor.id
-                            actor.id = self.old_data["id"]
+                            armor.id = self.old_data["id"]
                         if self.old_data.has_key("name"):
                             self.data["name"] = armor.name
                             armor.name = self.old_data["name"]
@@ -716,7 +716,7 @@ class TroopEditAction(Actions.ActionTemplate):
             self.old_data = {}
             
      
-    def do_apply():
+    def do_apply(self):
         if Kernel.GlobalObjects.has_key("PROJECT"):
             project = Kernel.GlobalObjects.get_value("PROJECT")
             if project is not None:
@@ -740,7 +740,7 @@ class TroopEditAction(Actions.ActionTemplate):
                             self.old_data["note"] = troop.note
                             troop.note = self.data["note"]
     
-    def do_undo():
+    def do_undo(self):
         if Kernel.GlobalObjects.has_key("PROJECT"):
             project = Kernel.GlobalObjects.get_value("PROJECT")
             if project is not None:
