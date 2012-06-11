@@ -77,7 +77,7 @@ class NewProjectDialog(wx.Dialog):
         templateList = []
         i = 1
         for file in templatefiles:
-            name = "%s). %s" % (i, self.getTemplateProjectName(file))
+            name = "%s)  %s" % (i, self.getTemplateProjectName(file))
             templates[name] = file
             templateList.append(name)
             i += 1

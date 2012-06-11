@@ -23,7 +23,8 @@ del /s /q "%out_path%%name%"
 :: --console --windows --chdir-first 
 :: run ocra
 echo.
-ruby "%ocra_file%" "%script%" "%icon%" --icon "%icon%" --windows --output "%out_path%%name%" --chdir-first
+::ruby "%ocra_file%" "%script%" "%icon%" --icon "%icon%" --windows --output "%out_path%%name%" --chdir-first
+ocra "%script%" "%icon%" --icon "%icon%" --windows --output "%out_path%%name%" --chdir-first
 
 ::echo.
 ::echo Moving resultent exe to bin\ dir

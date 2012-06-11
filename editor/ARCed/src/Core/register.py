@@ -226,10 +226,10 @@ class CorePackage(Package):
         #=====================================================================
 
         #--------------------------- functions -------------------------------
-        self.add_component(Component(ARC_Data.ARC_Data.dump, "ARCDataDumpFunction",
+        self.add_component(Component(ARC_Data.ARC_Dump.dump, "ARCDataDumpFunction",
                                      None, "CoreARCDataDumpFunction", "CORE",
                                      1.0, self))
-        self.add_component(Component(ARC_Data.ARC_Data.load, "ARCDataLoadFunction",
+        self.add_component(Component(ARC_Data.ARC_Dump.load, "ARCDataLoadFunction",
                                      None, "CoreARCDataLoadFunction", "CORE",
                                      1.0, self))
         self.add_component(Component(Project.ARCProjectSaveFunction, "ARCProjectSaveFunction", 
