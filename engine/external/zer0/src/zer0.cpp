@@ -6,6 +6,7 @@
 
 #include <april/april.h>
 #include <april/PixelShader.h>
+#include <april/Platform.h>
 #include <april/RenderSystem.h>
 #include <april/VertexShader.h>
 #include <april/Window.h>
@@ -196,19 +197,15 @@ namespace zer0
 #endif
 			xal::setLogFunction(&zer0::logLib);
 			// april
-			april::init();
-			april::createRenderSystem("");
-			april::createRenderTarget(resolution[0], resolution[1], fullscreen, zer0::system->Title);
-#ifndef __BIG_ENDIAN__
-			april::rendersys->setIdleTextureUnloadTime(TEXTURE_UNLOAD_TIME);
-#else
-			april::rendersys->setIdleTextureUnloadTime(0);
-#endif
+			april::init(april::RS_DEFAULT, april::WS_DEFAULT);
+			april::createRenderSystem();
+			april::createWindow(resolution[0], resolution[1], fullscreen, zer0::system->Title);
+			aprilui::setTextureIdleUnloadTime(TEXTURE_UNLOAD_TIME);
 			grect viewport(0.0f, 0.0f, (float)resolution[0], (float)resolution[1]);
 			april::rendersys->setOrthoProjection(viewport);
 			april::window->setKeyboardCallbacks(&zer0::Context::onKeyDown, &zer0::Context::onKeyUp, &zer0::Context::onChar);
 			april::window->setQuitCallback(&System::onQuit);
-			april::window->setWindowFocusCallback(&System::onFocusChange);
+			april::window->setFocusChangeCallback(&System::onFocusChange);
 			// TODO
 			zer0::vertexShader = april::rendersys->createVertexShader();
 			zer0::vertexShader->compile(ARC_VERTEX_SHADER);
@@ -227,9 +224,9 @@ namespace zer0
 #endif
 			// xal
 #ifndef _NOSOUND
-			xal::init(XAL_AS_DEFAULT, april::window->getIDFromBackend(), true);
+			xal::init(XAL_AS_DEFAULT, april::window->getBackendId(), true);
 #else
-			xal::init(XAL_AS_DISABLED, april::window->getIDFromBackend(), false);
+			xal::init(XAL_AS_DISABLED, april::window->getBackendId(), false);
 #endif
 			// zer0 related data
 			zer0::log("initializing Zer0 Division Engine");

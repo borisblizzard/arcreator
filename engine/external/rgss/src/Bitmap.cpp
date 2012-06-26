@@ -41,8 +41,9 @@ namespace rgss
 	{
 		this->typeName = "bitmap";
 		this->disposed = false;
-		this->texture = april::rendersys->createEmptyTexture(width, height, april::AT_ARGB, april::AT_RENDER_TARGET);
-		this->texture->setTextureFilter(april::Nearest);
+		this->texture = april::rendersys->createTexture(width, height,
+			april::Texture::FORMAT_ARGB, april::Texture::TYPE_RENDER_TARGET);
+		this->texture->setFilter(april::Texture::FILTER_NEAREST);
 		this->rb_font = Qnil;
 		this->font = new Font(Font::defaultName);
 	}
@@ -81,8 +82,9 @@ namespace rgss
 			{
 				rb_raise(rb_eRGSSError, hsprintf("failed to create Bitmap, dimensions: %d, %d", w, h).c_str());
 			}
-			this->texture = april::rendersys->createEmptyTexture(w, h, april::AT_ARGB, april::AT_RENDER_TARGET);
-			this->texture->setTextureFilter(april::Nearest);
+			this->texture = april::rendersys->createTexture(
+				w, h, april::Texture::FORMAT_ARGB, april::Texture::TYPE_RENDER_TARGET);
+			this->texture->setFilter(april::Texture::FILTER_NEAREST);
 		}
 		this->rb_font = Font::create(0, NULL);
 		RB_VAR2CPP(this->rb_font, Font, font);
@@ -127,16 +129,16 @@ namespace rgss
 
 	void Bitmap::bltOver(int x, int y, Bitmap* source, int sx, int sy, int sw, int sh)
 	{
-		april::rendersys->setBlendMode(april::OVERWRITE);
+		april::rendersys->setTextureBlendMode(april::OVERWRITE);
 		this->_renderToTexture(x, y, source->texture, sx, sy, sw, sh);
-		april::rendersys->setBlendMode(april::DEFAULT);
+		april::rendersys->setTextureBlendMode(april::DEFAULT);
 	}
 
 	void Bitmap::stretchBltOver(int x, int y, int w, int h, Bitmap* source, int sx, int sy, int sw, int sh)
 	{
-		april::rendersys->setBlendMode(april::OVERWRITE);
+		april::rendersys->setTextureBlendMode(april::OVERWRITE);
 		this->_renderToTexture(x, y, w, h, source->texture, sx, sy, sw, sh);
-		april::rendersys->setBlendMode(april::DEFAULT);
+		april::rendersys->setTextureBlendMode(april::DEFAULT);
 	}
 
 	void Bitmap::clear()
@@ -147,7 +149,7 @@ namespace rgss
 
 	hstr Bitmap::getFullFilename(chstr filename)
 	{
-		hstr fullFilename = april::rendersys->findTextureFile(filename);
+		hstr fullFilename = april::rendersys->findTextureFilename(filename);
 		if (fullFilename == "")
 		{
 			RB_RAISE_FILE_NOT_FOUND(filename.c_str());
@@ -193,8 +195,8 @@ namespace rgss
 		}
 		gmat4 viewMatrix = april::rendersys->getModelviewMatrix();
 		gmat4 projectionMatrix = april::rendersys->getProjectionMatrix();
-		april::TextureFilter filter = this->texture->getTextureFilter();
-		this->texture->setTextureFilter(april::Linear);
+		april::Texture::Filter filter = this->texture->getFilter();
+		this->texture->setFilter(april::Texture::FILTER_LINEAR);
 		april::Texture* target = april::rendersys->getRenderTarget();
 		april::rendersys->setRenderTarget(this->texture);
 		april::rendersys->setIdentityTransform();
@@ -205,7 +207,7 @@ namespace rgss
 		atres::renderer->drawText(fontName, destRect, text, horizontal,
 			atres::CENTER, this->font->getColor()->toAprilColor());
 		april::rendersys->setRenderTarget(target);
-		this->texture->setTextureFilter(filter);
+		this->texture->setFilter(filter);
 		april::rendersys->setProjectionMatrix(projectionMatrix);
 		april::rendersys->setModelviewMatrix(viewMatrix);
 	}
@@ -215,7 +217,8 @@ namespace rgss
 		april::Texture* loadTexture = april::rendersys->loadTexture(filename);
 		int w = loadTexture->getWidth();
 		int h = loadTexture->getHeight();
-		this->texture = april::rendersys->createEmptyTexture(w, h, april::AT_ARGB, april::AT_RENDER_TARGET);
+		this->texture = april::rendersys->createTexture(
+			w, h, april::Texture::FORMAT_ARGB, april::Texture::TYPE_RENDER_TARGET);
 		// TODO - the texture should always be blitted to prevent problems
 		if (loadTexture->getBpp() >= 3)
 		{
@@ -223,10 +226,10 @@ namespace rgss
 		}
 		else // palette-based textures need to be rendered after all
 		{
-			this->texture->setTextureFilter(april::Nearest);
-			april::rendersys->setBlendMode(april::OVERWRITE);
+			this->texture->setFilter(april::Texture::FILTER_NEAREST);
+			april::rendersys->setTextureBlendMode(april::OVERWRITE);
 			this->_renderToTexture(0, 0, loadTexture, 0, 0, w, h);
-			april::rendersys->setBlendMode(april::DEFAULT);
+			april::rendersys->setTextureBlendMode(april::DEFAULT);
 		}
 		delete loadTexture;
 	}
@@ -239,8 +242,8 @@ namespace rgss
 		}
 		gmat4 viewMatrix = april::rendersys->getModelviewMatrix();
 		gmat4 projectionMatrix = april::rendersys->getProjectionMatrix();
-		april::TextureFilter filter = source->getTextureFilter();
-		source->setTextureFilter(april::Nearest);
+		april::Texture::Filter filter = source->getFilter();
+		source->setFilter(april::Texture::FILTER_NEAREST);
 		april::Texture* target = april::rendersys->getRenderTarget();
 		april::rendersys->setRenderTarget(this->texture);
 		april::rendersys->setTexture(source);
@@ -253,14 +256,14 @@ namespace rgss
 		grect srcRect(sx / width, sy / height, sw / width, sh / height);
 		if (alpha == 255)
 		{
-			april::rendersys->drawTexturedQuad(destRect, srcRect);
+			april::rendersys->drawTexturedRect(destRect, srcRect);
 		}
 		else
 		{
-			april::rendersys->drawTexturedQuad(destRect, srcRect, april::Color(APRIL_COLOR_WHITE, alpha));
+			april::rendersys->drawTexturedRect(destRect, srcRect, april::Color(APRIL_COLOR_WHITE, alpha));
 		}
 		april::rendersys->setRenderTarget(target);
-		source->setTextureFilter(filter);
+		source->setFilter(filter);
 		april::rendersys->setProjectionMatrix(projectionMatrix);
 		april::rendersys->setModelviewMatrix(viewMatrix);
 	}
@@ -278,8 +281,8 @@ namespace rgss
 		}
 		gmat4 viewMatrix = april::rendersys->getModelviewMatrix();
 		gmat4 projectionMatrix = april::rendersys->getProjectionMatrix();
-		april::TextureFilter filter = source->getTextureFilter();
-		source->setTextureFilter(april::Linear);
+		april::Texture::Filter filter = source->getFilter();
+		source->setFilter(april::Texture::FILTER_LINEAR);
 		april::Texture* target = april::rendersys->getRenderTarget();
 		april::rendersys->setRenderTarget(this->texture);
 		april::rendersys->setIdentityTransform();
@@ -292,14 +295,14 @@ namespace rgss
 		grect srcRect(sx / width, sy / height, sw / width, sh / height);
 		if (alpha == 255)
 		{
-			april::rendersys->drawTexturedQuad(destRect, srcRect);
+			april::rendersys->drawTexturedRect(destRect, srcRect);
 		}
 		else
 		{
-			april::rendersys->drawTexturedQuad(destRect, srcRect, april::Color(APRIL_COLOR_WHITE, alpha));
+			april::rendersys->drawTexturedRect(destRect, srcRect, april::Color(APRIL_COLOR_WHITE, alpha));
 		}
 		april::rendersys->setRenderTarget(target);
-		source->setTextureFilter(filter);
+		source->setFilter(filter);
 		april::rendersys->setProjectionMatrix(projectionMatrix);
 		april::rendersys->setModelviewMatrix(viewMatrix);
 	}
@@ -313,7 +316,7 @@ namespace rgss
 		april::rendersys->setIdentityTransform();
 		april::rendersys->setOrthoProjection(grect(0.0f, 0.0f,
 			(float)this->texture->getWidth(), (float)this->texture->getHeight()));
-		april::rendersys->clear(true, false, rect, color);
+		april::rendersys->clear(false, rect, color);
 		april::rendersys->setRenderTarget(target);
 		april::rendersys->setProjectionMatrix(projectionMatrix);
 		april::rendersys->setModelviewMatrix(viewMatrix);
@@ -379,8 +382,9 @@ namespace rgss
 		bitmap->disposed = false;
 		int w = other->texture->getWidth();
 		int h = other->texture->getHeight();
-		bitmap->texture = april::rendersys->createEmptyTexture(w, h, april::AT_ARGB, april::AT_RENDER_TARGET);
-		bitmap->texture->setTextureFilter(april::Nearest);
+		bitmap->texture = april::rendersys->createTexture(
+			w, h, april::Texture::FORMAT_ARGB, april::Texture::TYPE_RENDER_TARGET);
+		bitmap->texture->setFilter(april::Texture::FILTER_NEAREST);
 		bitmap->bltOver(0, 0, other, 0, 0, w, h);
 		Bitmap::rb_setFont(self, rb_obj_clone(other->rb_font));
 		return self;

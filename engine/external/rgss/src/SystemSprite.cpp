@@ -79,7 +79,7 @@ namespace rgss
 		srcRect.w = hmin(this->srcRect->width / sw, 1.0f - srcRect.x);
 		srcRect.h = hmin(this->srcRect->height / sh, 1.0f - srcRect.y);
 		this->_renderTexture(drawRect, srcRect, this->bitmap->getTexture(), this->opacity);
-		april::rendersys->setBlendMode(april::DEFAULT);
+		april::rendersys->setTextureBlendMode(april::DEFAULT);
 	}
 
 }

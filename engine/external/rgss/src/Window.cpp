@@ -215,8 +215,8 @@ namespace rgss
 			return;
 		}
 		april::Texture* texture = this->windowskinBackground->getTexture();
-		april::TextureFilter filter = texture->getTextureFilter();
-		texture->setTextureFilter(april::Linear);
+		april::Texture::Filter filter = texture->getFilter();
+		texture->setFilter(april::Texture::FILTER_LINEAR);
 		april::rendersys->setTexture(texture);
 		grect drawRect(2.0f, 2.0f, this->width - 4.0f, this->height - 4.0f);
 		grect srcRect(0.0f, 0.0f, 1.0f, 1.0f);
@@ -227,14 +227,14 @@ namespace rgss
 		}
 		if (this->opacity == 255 && this->backOpacity == 255)
 		{
-			april::rendersys->drawTexturedQuad(drawRect, srcRect);
+			april::rendersys->drawTexturedRect(drawRect, srcRect);
 		}
 		else
 		{
 			april::Color color(APRIL_COLOR_WHITE, (unsigned char)(this->opacity * this->backOpacity / 255));
-			april::rendersys->drawTexturedQuad(drawRect, srcRect, color);
+			april::rendersys->drawTexturedRect(drawRect, srcRect, color);
 		}
-		texture->setTextureFilter(filter);
+		texture->setFilter(filter);
 	}
 
 	void Window::_renderWindowskinBorders()
@@ -251,22 +251,22 @@ namespace rgss
 		srcRect.set(0.0f, 0.0f, w / 32, 0.5f);
 		if (this->opacity == 255)
 		{
-			april::rendersys->drawTexturedQuad(drawRect, srcRect);
+			april::rendersys->drawTexturedRect(drawRect, srcRect);
 		}
 		else
 		{
-			april::rendersys->drawTexturedQuad(drawRect, srcRect, color);
+			april::rendersys->drawTexturedRect(drawRect, srcRect, color);
 		}
 		// bottom border
 		drawRect.y = h;
 		srcRect.y = 0.5f;
 		if (this->opacity == 255)
 		{
-			april::rendersys->drawTexturedQuad(drawRect, srcRect);
+			april::rendersys->drawTexturedRect(drawRect, srcRect);
 		}
 		else
 		{
-			april::rendersys->drawTexturedQuad(drawRect, srcRect, color);
+			april::rendersys->drawTexturedRect(drawRect, srcRect, color);
 		}
 		// vertical borders
 		april::rendersys->setTexture(this->windowskinVerticalBorders->getTexture());
@@ -275,22 +275,22 @@ namespace rgss
 		srcRect.set(0.0f, 0.0f, 0.5f, h / 32);
 		if (this->opacity == 255)
 		{
-			april::rendersys->drawTexturedQuad(drawRect, srcRect);
+			april::rendersys->drawTexturedRect(drawRect, srcRect);
 		}
 		else
 		{
-			april::rendersys->drawTexturedQuad(drawRect, srcRect, color);
+			april::rendersys->drawTexturedRect(drawRect, srcRect, color);
 		}
 		// right border
 		drawRect.x = w;
 		srcRect.x = 0.5f;
 		if (this->opacity == 255)
 		{
-			april::rendersys->drawTexturedQuad(drawRect, srcRect);
+			april::rendersys->drawTexturedRect(drawRect, srcRect);
 		}
 		else
 		{
-			april::rendersys->drawTexturedQuad(drawRect, srcRect, color);
+			april::rendersys->drawTexturedRect(drawRect, srcRect, color);
 		}
 	}
 
@@ -307,44 +307,44 @@ namespace rgss
 		srcRect.set(0.0f, 0.0f, 0.5f, 0.5f);
 		if (this->opacity == 255)
 		{
-			april::rendersys->drawTexturedQuad(drawRect, srcRect);
+			april::rendersys->drawTexturedRect(drawRect, srcRect);
 		}
 		else
 		{
-			april::rendersys->drawTexturedQuad(drawRect, srcRect, color);
+			april::rendersys->drawTexturedRect(drawRect, srcRect, color);
 		}
 		// top right corner
 		drawRect.x = w;
 		srcRect.x = 0.5f;
 		if (this->opacity == 255)
 		{
-			april::rendersys->drawTexturedQuad(drawRect, srcRect);
+			april::rendersys->drawTexturedRect(drawRect, srcRect);
 		}
 		else
 		{
-			april::rendersys->drawTexturedQuad(drawRect, srcRect, color);
+			april::rendersys->drawTexturedRect(drawRect, srcRect, color);
 		}
 		// top right corner
 		drawRect.set(0.0f, h, 16.0f, 16.0f);
 		srcRect.set(0.0f, 0.5f, 0.5f, 0.5f);
 		if (this->opacity == 255)
 		{
-			april::rendersys->drawTexturedQuad(drawRect, srcRect);
+			april::rendersys->drawTexturedRect(drawRect, srcRect);
 		}
 		else
 		{
-			april::rendersys->drawTexturedQuad(drawRect, srcRect, color);
+			april::rendersys->drawTexturedRect(drawRect, srcRect, color);
 		}
 		// top right corner
 		drawRect.x = w;
 		srcRect.x = 0.5f;
 		if (this->opacity == 255)
 		{
-			april::rendersys->drawTexturedQuad(drawRect, srcRect);
+			april::rendersys->drawTexturedRect(drawRect, srcRect);
 		}
 		else
 		{
-			april::rendersys->drawTexturedQuad(drawRect, srcRect, color);
+			april::rendersys->drawTexturedRect(drawRect, srcRect, color);
 		}
 	}
 

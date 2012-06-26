@@ -187,7 +187,7 @@ namespace rgss
 		quadVectors[10] = (this->tone->blue + 255) / 510.0f;
 		quadVectors[11] = (255 - this->tone->gray) / 255.0f;
 		rgss::pixelShader->setConstantsF(quadVectors, 3);
-		april::rendersys->drawTexturedQuad(drawRect, srcRect);
+		april::rendersys->drawTexturedRect(drawRect, srcRect);
 		april::rendersys->setPixelShader(NULL);
 	}
 
