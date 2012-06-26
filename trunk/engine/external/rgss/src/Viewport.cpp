@@ -100,9 +100,9 @@ namespace rgss
 		}
 		if (needsTextureUpdate)
 		{
-			this->texture = april::rendersys->createEmptyTexture(this->rect->width,
-				this->rect->height, april::AT_ARGB, april::AT_RENDER_TARGET);
-			this->texture->setTextureFilter(april::Nearest);
+			this->texture = april::rendersys->createTexture(this->rect->width,
+				this->rect->height, april::Texture::FORMAT_ARGB, april::Texture::TYPE_RENDER_TARGET);
+			this->texture->setFilter(april::Texture::FILTER_NEAREST);
 		}
 		// rendering
 		this->_renderToTexture();
@@ -128,7 +128,7 @@ namespace rgss
 			(float)this->texture->getWidth(), (float)this->texture->getHeight());
 		april::rendersys->setOrthoProjection(drawRect);
 		april::rendersys->clear();
-		april::rendersys->setBlendMode(april::DEFAULT);
+		april::rendersys->setTextureBlendMode(april::DEFAULT);
 		if (this->zoom.x != 1.0f || this->zoom.y != 1.0f)
 		{
 			april::rendersys->translate((float)this->ox, (float)this->oy);
@@ -142,7 +142,7 @@ namespace rgss
 
 	void Viewport::_render()
 	{
-		april::rendersys->setBlendMode(april::DEFAULT);
+		april::rendersys->setTextureBlendMode(april::DEFAULT);
 		grect drawRect(0.0f, 0.0f, (float)this->rect->width, (float)this->rect->height);
 		grect srcRect(0.0f, 0.0f, 1.0f, 1.0f);
 		this->_renderTexture(drawRect, srcRect, this->texture, 255);

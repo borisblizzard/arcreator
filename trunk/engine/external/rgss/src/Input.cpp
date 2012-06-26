@@ -67,16 +67,10 @@ namespace rgss
 		{
 			return false;
 		}
-		if (repeatedKey < 0 || !conversions[keycode].contains(repeatedKey))
+		if (repeatedKey >= 0 && conversions[keycode].contains(repeatedKey) &&
+			(repeatedCount == 1 || repeatedCount == 16))
 		{
-			return false;
-		}
-		foreach (unsigned int, it, conversions[keycode])
-		{
-			if (repeatedCount == 1 || repeatedCount == 16)
-			{
-				return true;
-			}
+			return true;
 		}
 		return false;
 	}
@@ -220,35 +214,35 @@ namespace rgss
 
 	VALUE Input::rb_update(VALUE self)
 	{
-		april::window->doEvents();
+		april::window->checkEvents();
 		foreach (unsigned int, it, controlKeys)
 		{
-            if (keys[*it])
+			if (keys[*it])
 			{
-                released[*it] = false;
-                if (!pressed[*it])
+				released[*it] = false;
+				if (!pressed[*it])
 				{
-                    pressed[*it] = true;
-                    triggered[*it] = true;
+					pressed[*it] = true;
+					triggered[*it] = true;
 					repeatedKey = (*it);
 					repeatedCount = 0;
 				}
-                else
+				else
 				{
-                    triggered[*it] = false;
+					triggered[*it] = false;
 				}
 				if ((*it) == repeatedKey)
 				{
 					repeatedCount < 17 ? repeatedCount += 1 : repeatedCount = 15;
 				}
 			}
-            else if (!released[*it])
+			else if (!released[*it])
 			{
-                if (pressed[*it])
+				if (pressed[*it])
 				{
-	                triggered[*it] = false;
-                    pressed[*it] = false;
-                    released[*it] = true;
+					triggered[*it] = false;
+					pressed[*it] = false;
+					released[*it] = true;
 					if ((*it) == repeatedKey)
 					{
 						repeatedKey = -1;
@@ -256,9 +250,9 @@ namespace rgss
 					}
 				}
 			}
-            else
+			else
 			{
-                released[*it] = false;
+				released[*it] = false;
 			}
 		}
 		return Qnil;

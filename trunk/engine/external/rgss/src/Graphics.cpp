@@ -59,11 +59,11 @@ namespace rgss
 			fpsDisplay = !fpsDisplay;
 			if (fpsDisplay)
 			{
-				april::window->setWindowTitle(windowTitle + " [FPS:0]");
+				april::window->setTitle(windowTitle + " [FPS:0]");
 			}
 			else
 			{
-				april::window->setWindowTitle(windowTitle);
+				april::window->setTitle(windowTitle);
 			}
 		}
 	}
@@ -90,7 +90,7 @@ namespace rgss
 		}
 		if (focused)
 		{
-			april::window->doEvents();
+			april::window->checkEvents();
 			return;
 		}
 		bool inactiveAudio = (bool)rgss::parameters.try_get_by_key(CFG_INACTIVE_AUDIO, "false");
@@ -100,7 +100,7 @@ namespace rgss
 		}
 		while (!focused)
 		{
-			april::window->doEvents();
+			april::window->checkEvents();
 			hthread::sleep(40);
 		}
 		if (!inactiveAudio)
@@ -115,7 +115,7 @@ namespace rgss
 		{
 			if (time - fpsTime > 1000.0f)
 			{
-				april::window->setWindowTitle(hsprintf("%s [FPS:%d]", windowTitle.c_str(), fpsCount));
+				april::window->setTitle(hsprintf("%s [FPS:%d]", windowTitle.c_str(), fpsCount));
 				fpsCount = 0;
 				fpsTime = time;
 			}
@@ -147,7 +147,7 @@ namespace rgss
 		fpsTimer = new april::Timer();
 		fpsTime = fpsTimer->getTime();
 		fpsCount = 0;
-		windowTitle = window->getWindowTitle();
+		windowTitle = window->getTitle();
 		Renderable::CounterProgress = 0;
 	}
 
@@ -253,9 +253,9 @@ namespace rgss
 		VALUE argv[2] = {INT2FIX(width), INT2FIX(height)};
 		VALUE rb_bitmap = Bitmap::create(2, argv);
 		RB_VAR2CPP(rb_bitmap, Bitmap, bitmap);
-		april::ImageSource* imageSource = april::rendersys->grabScreenshot(4);
+		april::ImageSource* imageSource = april::rendersys->takeScreenshot(4);
 		delete bitmap->getTexture();
-		bitmap->setTexture(april::rendersys->createTextureFromMemory(imageSource->data, width, height));
+		bitmap->setTexture(april::rendersys->createTexture(width, height, imageSource->data));
 		delete imageSource;
 		return rb_bitmap;
 	}
@@ -281,14 +281,14 @@ namespace rgss
 		grect srcRect(0.0f, 0.0f, 1.0f, 1.0f);
 		april::Color color = APRIL_COLOR_WHITE;
 		// capture old screen
-		april::ImageSource* imageSource = april::rendersys->grabScreenshot(4);
-		april::Texture* oldScreen = april::rendersys->createTextureFromMemory(imageSource->data, width, height);
+		april::ImageSource* imageSource = april::rendersys->takeScreenshot(4);
+		april::Texture* oldScreen = april::rendersys->createTexture(width, height, imageSource->data);
 		delete imageSource;
 		// capture new screen
 		april::rendersys->clear();
 		renderQueue->draw();
-		imageSource = april::rendersys->grabScreenshot(4);
-		april::Texture* newScreen = april::rendersys->createTextureFromMemory(imageSource->data, width, height);
+		imageSource = april::rendersys->takeScreenshot(4);
+		april::Texture* newScreen = april::rendersys->createTexture(width, height, imageSource->data);
 		delete imageSource;
 		float time;
 		TRY_RUN_GC;
@@ -301,10 +301,10 @@ namespace rgss
 				_handleFocusChange();
 				april::rendersys->clear();
 				april::rendersys->setTexture(oldScreen);
-				april::rendersys->drawTexturedQuad(drawRect, srcRect);
+				april::rendersys->drawTexturedRect(drawRect, srcRect);
 				april::rendersys->setTexture(newScreen);
 				color.a = (i + 1) * 255 / duration;
-				april::rendersys->drawTexturedQuad(drawRect, srcRect, color);
+				april::rendersys->drawTexturedRect(drawRect, srcRect, color);
 				april::rendersys->presentFrame();
 				frameCount++;
 				_updateFpsCounter(time);
@@ -319,7 +319,7 @@ namespace rgss
 			april::Texture* transition = bitmap->getTexture();
 			bitmap->setTexture(NULL);
 			delete bitmap;
-			april::rendersys->setBlendMode(april::DEFAULT);
+			april::rendersys->setTextureBlendMode(april::DEFAULT);
 			int ambiguity = vague * 2;
 			// fade between old and new screen
 			for_iter (i, 0, duration)
@@ -328,10 +328,10 @@ namespace rgss
 				_handleFocusChange();
 				april::rendersys->clear();
 				april::rendersys->setTexture(oldScreen);
-				april::rendersys->drawTexturedQuad(drawRect, srcRect);
+				april::rendersys->drawTexturedRect(drawRect, srcRect);
 				newScreen->insertAsAlphaMap(transition, (i + 1) * 255 / duration, ambiguity);
 				april::rendersys->setTexture(newScreen);
-				april::rendersys->drawTexturedQuad(drawRect, srcRect);
+				april::rendersys->drawTexturedRect(drawRect, srcRect);
 				april::rendersys->presentFrame();
 				frameCount++;
 				_updateFpsCounter(time);
