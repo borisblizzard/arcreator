@@ -1,0 +1,34 @@
+﻿Script Related
+- Improve ScriptMenuForm to have names edit like I did with actor panel, only invalidate single item
+- Edit Find in Scripts to check if script is open when the result is double-clicked 
+- Fix script editor buttons so that features enable/disable when toggles (indent lines, code-folding, caret)
+- Improve how scripts saving, loading, and creating are handled
+- Script snippet manager
+- Finish autocomplete configuration (per script?)(auto-generation?)
+
+
+- File associations (.arcproj)(.arc)
+- RTP functions 
+- Database panels
+	- Troops
+	- Animations
+	- System
+- Fix whatever the hell the issue is with skin settings form (also implement
+  font selector directly into it instead of dialog?)
+- Implement undo/redo framework with DejaVu
+- Implement logic for "NotifyRefresh" in all database panels
+- Implement logic for Editor status bar in each window 
+  when windows are activated, deactivated, changed, etc.
+- Map Editor (use embedded XNA panel)
+- XAL wrapper
+- Documentation 
+- Implement "notes" for all database classes
+- Implement trying to load all fonts from memory, and if not found, then load normally
+- Tooltips for everything
+- Modify equipment slots to use a "RpgAttribute" like the ParamBox does. 
+- Drag-Drop function of enemies onto troop panel
+
+** Possible ** (Depends on scripts)
+- Curve generation for experience
+- Custom parameters
+- Custom equipment slots

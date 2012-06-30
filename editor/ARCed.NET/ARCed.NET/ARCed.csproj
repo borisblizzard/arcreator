@@ -1,0 +1,1477 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{D34AD2AA-708E-4288-A4D4-8F2B378D1776}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ARCed</RootNamespace>
+    <AssemblyName>ARCed</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>ARCed.Program</StartupObject>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>icon.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <OutputPath>bin\Debug\</OutputPath>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Optimize>true</Optimize>
+    <DefineConstants>DEBUG</DefineConstants>
+    <CodeAnalysisRuleSet>SecurityRules.ruleset</CodeAnalysisRuleSet>
+    <DocumentationFile>bin\Debug\ARCed.XML</DocumentationFile>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <OutputPath>bin\Release\</OutputPath>
+    <CodeAnalysisRuleSet>SecurityRules.ruleset</CodeAnalysisRuleSet>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Optimize>true</Optimize>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Dejavu">
+      <HintPath>..\..\..\..\NET Stuff\Dejavu.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="IronRuby, Version=1.1.3.0, Culture=neutral, PublicKeyToken=7f709c5b713576e1, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>lib\IronRuby.dll</HintPath>
+    </Reference>
+    <Reference Include="IronRuby.Libraries, Version=1.1.3.0, Culture=neutral, PublicKeyToken=7f709c5b713576e1, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>lib\IronRuby.Libraries.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Dynamic, Version=1.1.0.20, Culture=neutral, PublicKeyToken=7f709c5b713576e1, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>lib\Microsoft.Dynamic.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Scripting, Version=1.1.0.20, Culture=neutral, PublicKeyToken=7f709c5b713576e1, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>lib\Microsoft.Scripting.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Xna.Framework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Assemblies\Microsoft.Xna.Framework.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Xna.Framework.Graphics, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Assemblies\Microsoft.Xna.Framework.Graphics.dll</HintPath>
+    </Reference>
+    <Reference Include="SevenZipSharp, Version=0.64.3890.29348, Culture=neutral, PublicKeyToken=20de82c62b055c88, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>lib\SevenZipSharp.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Design" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ArcData.cs" />
+    <Compile Include="Controls\BattleEventPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\BattleEventPage.Designer.cs">
+      <DependentUpon>BattleEventPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\BattleTestActorPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\BattleTestActorPanel.Designer.cs">
+      <DependentUpon>BattleTestActorPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\CheckGroupBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\CheckGroupBox.Designer.cs">
+      <DependentUpon>CheckGroupBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\CollapsibleGroupBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\CollapsibleGroupBox.designer.cs">
+      <DependentUpon>CollapsibleGroupBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ColumnSorter.cs" />
+    <Compile Include="Controls\DatabaseObjectListBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\DatabaseObjectListBox.Designer.cs">
+      <DependentUpon>DatabaseObjectListBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\DoubleBufferedListBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\DoubleBufferedListBox.Designer.cs">
+      <DependentUpon>DoubleBufferedListBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\EventTextBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\EventTextBox.Designer.cs">
+      <DependentUpon>EventTextBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\MultiStateCheckedListBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\MultiStateCheckedListBox.Designer.cs">
+      <DependentUpon>MultiStateCheckedListBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\EfficiencySlot.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\EfficiencySlot.Designer.cs">
+      <DependentUpon>EfficiencySlot.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\EquipSlot.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\EquipSlot.Designer.cs">
+      <DependentUpon>EquipSlot.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\FontComboBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\FontSelector.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\FontSelector.Designer.cs">
+      <DependentUpon>FontSelector.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\GraphicsDeviceControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\GraphicsDeviceService.cs" />
+    <Compile Include="Controls\MultiStateCheckbox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\MultiStateCheckbox.Designer.cs">
+      <DependentUpon>MultiStateCheckbox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\NoteTextBox.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\NoteTextBox.Designer.cs">
+      <DependentUpon>NoteTextBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ParameterMiniChart.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\ParameterMiniChart.Designer.cs">
+      <DependentUpon>ParameterMiniChart.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ParamBox.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\ParamBox.Designer.cs">
+      <DependentUpon>ParamBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\SearchControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\SearchControl.designer.cs">
+      <DependentUpon>SearchControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ServiceContainer.cs" />
+    <Compile Include="Controls\TroopXnaPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\TroopXnaPanel.Designer.cs">
+      <DependentUpon>TroopXnaPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\XtendPicBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\XtendPicBox.designer.cs">
+      <DependentUpon>XtendPicBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Database\Actors\ExperienceCurveForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Database\Actors\ExperienceCurveForm.Designer.cs">
+      <DependentUpon>ExperienceCurveForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Database\Armors\ArmorMainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Database\Armors\ArmorMainForm.Designer.cs">
+      <DependentUpon>ArmorMainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Database\Classes\ClassMainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Database\Classes\ClassMainForm.Designer.cs">
+      <DependentUpon>ClassMainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Database\Classes\EditSkillDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Database\Classes\EditSkillDialog.Designer.cs">
+      <DependentUpon>EditSkillDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Database\DatabaseWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Database\Enemies\EditActionDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Database\Enemies\EditActionDialog.Designer.cs">
+      <DependentUpon>EditActionDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Database\Enemies\EnemyMainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Database\Enemies\EnemyMainForm.Designer.cs">
+      <DependentUpon>EnemyMainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Database\Enemies\TreasureSelectDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Database\Enemies\TreasureSelectDialog.Designer.cs">
+      <DependentUpon>TreasureSelectDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Database\Troops\BattleTestDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Database\Troops\BattleTestDialog.Designer.cs">
+      <DependentUpon>BattleTestDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Database\Troops\TroopMainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Database\Troops\TroopMainForm.Designer.cs">
+      <DependentUpon>TroopMainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ARCedException.cs" />
+    <Compile Include="Database\Items\ItemMainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Database\Items\ItemMainForm.Designer.cs">
+      <DependentUpon>ItemMainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Database\Skills\SkillMainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Database\Skills\SkillMainForm.Designer.cs">
+      <DependentUpon>SkillMainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Database\Weapons\WeaponMainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Database\Weapons\WeaponMainForm.Designer.cs">
+      <DependentUpon>WeaponMainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Data\GameResource.cs" />
+    <Compile Include="Dialogs\FontSelectionDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\FontSelectionDialog.Designer.cs">
+      <DependentUpon>FontSelectionDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\HeaderSettingsDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\HeaderSettingsDialog.Designer.cs">
+      <DependentUpon>HeaderSettingsDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\ImageSelectionForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\ImageSelectionForm.Designer.cs">
+      <DependentUpon>ImageSelectionForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Database\SwitchForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Database\SwitchForm.Designer.cs">
+      <DependentUpon>SwitchForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Editor.Static.cs">
+      <DependentUpon>Editor.cs</DependentUpon>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Helpers\Cache.cs" />
+    <Compile Include="Data\ColorHandler.cs" />
+    <Compile Include="Data\ColorWheel.cs" />
+    <Compile Include="Data\Logger.cs" />
+    <Compile Include="Data\QColorMatrix.cs" />
+    <Compile Include="Helpers\ResourceHelper.cs" />
+    <Compile Include="Data\SerializableFont.cs" />
+    <Compile Include="Dialogs\AboutBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\AboutBox.Designer.cs">
+      <DependentUpon>AboutBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\CaptureForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\CaptureForm.designer.cs">
+      <DependentUpon>CaptureForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\ChangeMaxDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\ChangeMaxDialog.Designer.cs">
+      <DependentUpon>ChangeMaxDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\ColorChooserForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\ColorChooserForm.designer.cs">
+      <DependentUpon>ColorChooserForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\NoteForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\NoteForm.Designer.cs">
+      <DependentUpon>NoteForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Database\Actors\ParamGenerateCurveDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Database\Actors\ParamGenerateCurveDialog.designer.cs">
+      <DependentUpon>ParamGenerateCurveDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ExtensionMethods.cs" />
+    <Compile Include="Database\Actors\ActorMainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Database\Actors\ActorMainForm.designer.cs">
+      <DependentUpon>ActorMainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Database\Actors\ActorParametersForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Database\Actors\ActorParametersForm.designer.cs">
+      <DependentUpon>ActorParametersForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ARChiveForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ARChiveForm.Designer.cs">
+      <DependentUpon>ARChiveForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\UserStringForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\UserStringForm.Designer.cs">
+      <DependentUpon>UserStringForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Database\Actors\ChartSettingsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Database\Actors\ChartSettingsForm.designer.cs">
+      <DependentUpon>ChartSettingsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\EditorOptionsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\EditorOptionsForm.Designer.cs">
+      <DependentUpon>EditorOptionsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\CalculatorForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\CalculatorForm.designer.cs">
+      <DependentUpon>CalculatorForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\SkinSettingsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\SkinSettingsForm.Designer.cs">
+      <DependentUpon>SkinSettingsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GameData.cs" />
+    <Compile Include="Helpers\DatabaseHelper.cs" />
+    <Compile Include="RPG\RpgObject.cs" />
+    <Compile Include="NativeMethods.cs" />
+    <Compile Include="Plugins\PluginCollection.cs" />
+    <Compile Include="Plugins\RegistryEntry.cs" />
+    <Compile Include="Plugins\RegistryEntryCollection.cs" />
+    <Compile Include="RPG\Actor.cs" />
+    <Compile Include="RPG\Animation.cs" />
+    <Compile Include="RPG\Armor.cs" />
+    <Compile Include="RPG\AudioFile.cs" />
+    <Compile Include="RPG\Class.cs" />
+    <Compile Include="RPG\Color.cs" />
+    <Compile Include="RPG\CommonEvent.cs" />
+    <Compile Include="RPG\Enemy.cs" />
+    <Compile Include="RPG\Event.cs" />
+    <Compile Include="RPG\EventCommand.cs" />
+    <Compile Include="RPG\Item.cs" />
+    <Compile Include="RPG\Map.cs" />
+    <Compile Include="RPG\MapInfo.cs" />
+    <Compile Include="RPG\MoveCommand.cs" />
+    <Compile Include="RPG\MoveRoute.cs" />
+    <Compile Include="RPG\IRpgObject.cs" />
+    <Compile Include="RPG\Skill.cs" />
+    <Compile Include="RPG\State.cs" />
+    <Compile Include="RPG\System.cs" />
+    <Compile Include="RPG\Table.cs" />
+    <Compile Include="RPG\Tileset.cs" />
+    <Compile Include="RPG\Tone.cs" />
+    <Compile Include="RPG\Troop.cs" />
+    <Compile Include="RPG\Weapon.cs" />
+    <Compile Include="Settings\ChartSettings.cs" />
+    <Compile Include="Settings\EquipmentSettings.cs" />
+    <Compile Include="Settings\HeaderSettings.cs" />
+    <Compile Include="Settings\ProjectSettings.cs" />
+    <Compile Include="Scripting\AutoCompleteForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Scripting\AutoCompleteForm.Designer.cs">
+      <DependentUpon>AutoCompleteForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Scripting\NewScriptForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Scripting\NewScriptForm.Designer.cs">
+      <DependentUpon>NewScriptForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Scripting\ScriptManager.cs" />
+    <Compile Include="Scripting\ScriptMenuForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Scripting\ScriptMenuForm.Designer.cs">
+      <DependentUpon>ScriptMenuForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Scripting\ScriptSearchForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Scripting\ScriptSearchForm.Designer.cs">
+      <DependentUpon>ScriptSearchForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Scripting\ScriptStyleForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Scripting\ScriptStyleForm.Designer.cs">
+      <DependentUpon>ScriptStyleForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Settings\ARChiveSettings.cs" />
+    <Compile Include="Utilities\Compressor.cs" />
+    <Compile Include="Utilities\FileAssociator.cs" />
+    <Compile Include="Utilities\Ini.cs" />
+    <Compile Include="Project.cs" />
+    <Compile Include="Scripting\Script.cs" />
+    <Compile Include="Settings\ScriptSettings.cs" />
+    <Compile Include="Scripting\ScriptStyle.cs" />
+    <Compile Include="Scripting\SearchResult.cs" />
+    <Compile Include="Editor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Editor.Designer.cs">
+      <DependentUpon>Editor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\NewProjectForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\NewProjectForm.Designer.cs">
+      <DependentUpon>NewProjectForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Settings\EditorSettings.cs" />
+    <Compile Include="Scripting\ScriptEditorForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Scripting\ScriptEditorForm.Designer.cs">
+      <DependentUpon>ScriptEditorForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Scripting\Scintilla\Annotation.cs" />
+    <Compile Include="Scripting\Scintilla\AnnotationChangedEventArgs.cs" />
+    <Compile Include="Scripting\Scintilla\AnnotationCollection.cs" />
+    <Compile Include="Scripting\Scintilla\AnnotationsVisibility.cs" />
+    <Compile Include="Scripting\Scintilla\AutoComplete.cs" />
+    <Compile Include="Scripting\Scintilla\AutoCompleteAcceptedEventArgs.cs" />
+    <Compile Include="Scripting\Scintilla\BindableCommand.cs" />
+    <Compile Include="Scripting\Scintilla\CallTip.cs" />
+    <Compile Include="Scripting\Scintilla\CallTipArrow.cs" />
+    <Compile Include="Scripting\Scintilla\CallTipClickEventArgs.cs" />
+    <Compile Include="Scripting\Scintilla\CaretInfo.cs" />
+    <Compile Include="Scripting\Scintilla\CaretPolicy.cs" />
+    <Compile Include="Scripting\Scintilla\CaretStyle.cs" />
+    <Compile Include="Scripting\Scintilla\CharacterRange.cs" />
+    <Compile Include="Scripting\Scintilla\CharacterSet.cs" />
+    <Compile Include="Scripting\Scintilla\CharAddedEventArgs.cs" />
+    <Compile Include="Scripting\Scintilla\Clipboard.cs" />
+    <Compile Include="Scripting\Scintilla\Commands.cs" />
+    <Compile Include="Scripting\Scintilla\Configuration\CommandBindingConfig.cs" />
+    <Compile Include="Scripting\Scintilla\Configuration\CommandBindingConfigList.cs" />
+    <Compile Include="Scripting\Scintilla\Configuration\Configuration.cs" />
+    <Compile Include="Scripting\Scintilla\Configuration\ConfigurationLoadOrder.cs" />
+    <Compile Include="Scripting\Scintilla\Configuration\ConfigurationManager.cs" />
+    <Compile Include="Scripting\Scintilla\Configuration\IndicatorConfigList.cs" />
+    <Compile Include="Scripting\Scintilla\Configuration\IndicatorsConfig.cs" />
+    <Compile Include="Scripting\Scintilla\Configuration\KeyWordConfig.cs" />
+    <Compile Include="Scripting\Scintilla\Configuration\KeyWordConfigList.cs" />
+    <Compile Include="Scripting\Scintilla\Configuration\LexerProperties.cs" />
+    <Compile Include="Scripting\Scintilla\Configuration\MarginConfig.cs" />
+    <Compile Include="Scripting\Scintilla\Configuration\MarginConfigList.cs" />
+    <Compile Include="Scripting\Scintilla\Configuration\MarkersConfig.cs" />
+    <Compile Include="Scripting\Scintilla\Configuration\MarkersConfigList.cs" />
+    <Compile Include="Scripting\Scintilla\Configuration\ResolvedStyleList.cs" />
+    <Compile Include="Scripting\Scintilla\Configuration\SnippetsConfig.cs" />
+    <Compile Include="Scripting\Scintilla\Configuration\SnippetsConfigList.cs" />
+    <Compile Include="Scripting\Scintilla\Configuration\StyleConfig.cs" />
+    <Compile Include="Scripting\Scintilla\Configuration\StyleConfigList.cs" />
+    <Compile Include="Scripting\Scintilla\Constants.cs" />
+    <Compile Include="Scripting\Scintilla\CopyFormat.cs" />
+    <Compile Include="Scripting\Scintilla\CursorShape.cs" />
+    <Compile Include="Scripting\Scintilla\Design\FlagsDesigner.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Scripting\Scintilla\Design\ScintillaDesigner.cs" />
+    <Compile Include="Scripting\Scintilla\Document.cs" />
+    <Compile Include="Scripting\Scintilla\DocumentHandler.cs" />
+    <Compile Include="Scripting\Scintilla\DocumentNavigation.cs" />
+    <Compile Include="Scripting\Scintilla\DropMarker.cs" />
+    <Compile Include="Scripting\Scintilla\DropMarkerCollectEventArgs.cs" />
+    <Compile Include="Scripting\Scintilla\DropMarkerList.cs" />
+    <Compile Include="Scripting\Scintilla\DropMarkers.cs" />
+    <Compile Include="Scripting\Scintilla\EdgeMode.cs" />
+    <Compile Include="Scripting\Scintilla\EndOfLine.cs" />
+    <Compile Include="Scripting\Scintilla\EndOfLineMode.cs" />
+    <Compile Include="Scripting\Scintilla\Events.cs" />
+    <Compile Include="Scripting\Scintilla\FakeStack.cs" />
+    <Compile Include="Scripting\Scintilla\FileDropEventArgs.cs" />
+    <Compile Include="Scripting\Scintilla\FindReplace\FindOption.cs" />
+    <Compile Include="Scripting\Scintilla\FindReplace\FindReplace.cs" />
+    <Compile Include="Scripting\Scintilla\FindReplace\FindReplaceDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Scripting\Scintilla\FindReplace\FindReplaceDialog.Designer.cs">
+      <DependentUpon>FindReplaceDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Scripting\Scintilla\FindReplace\IncrementalSearcher.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Scripting\Scintilla\FindReplace\IncrementalSearcher.Designer.cs">
+      <DependentUpon>IncrementalSearcher.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Scripting\Scintilla\FindReplace\ToolStripIncrementalSearcher.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Scripting\Scintilla\FoldChangedEventArgs.cs" />
+    <Compile Include="Scripting\Scintilla\FoldFlag.cs" />
+    <Compile Include="Scripting\Scintilla\Folding.cs" />
+    <Compile Include="Scripting\Scintilla\FoldLevel.cs" />
+    <Compile Include="Scripting\Scintilla\FoldMarkerScheme.cs" />
+    <Compile Include="Scripting\Scintilla\GoTo.cs" />
+    <Compile Include="Scripting\Scintilla\GoToDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Scripting\Scintilla\GoToDialog.designer.cs">
+      <DependentUpon>GoToDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Scripting\Scintilla\HotspotClickEventArgs.cs" />
+    <Compile Include="Scripting\Scintilla\HotspotStyle.cs" />
+    <Compile Include="Scripting\Scintilla\INativeScintilla.cs" />
+    <Compile Include="Scripting\Scintilla\Indentation.cs" />
+    <Compile Include="Scripting\Scintilla\Indicator.cs" />
+    <Compile Include="Scripting\Scintilla\IndicatorCollection.cs" />
+    <Compile Include="Scripting\Scintilla\IndicatorStyle.cs" />
+    <Compile Include="Scripting\Scintilla\KeyBinding.cs" />
+    <Compile Include="Scripting\Scintilla\KeyMod.cs" />
+    <Compile Include="Scripting\Scintilla\KeywordCollection.cs" />
+    <Compile Include="Scripting\Scintilla\LayoutCacheMode.cs" />
+    <Compile Include="Scripting\Scintilla\Lexer.cs" />
+    <Compile Include="Scripting\Scintilla\Lexing.cs" />
+    <Compile Include="Scripting\Scintilla\Line.cs" />
+    <Compile Include="Scripting\Scintilla\LinesCollection.cs" />
+    <Compile Include="Scripting\Scintilla\LinesNeedShownEventArgs.cs" />
+    <Compile Include="Scripting\Scintilla\LineWrapping.cs" />
+    <Compile Include="Scripting\Scintilla\LineWrappingIndentMode.cs" />
+    <Compile Include="Scripting\Scintilla\LineWrappingMode.cs" />
+    <Compile Include="Scripting\Scintilla\LineWrappingVisualFlags.cs" />
+    <Compile Include="Scripting\Scintilla\LineWrappingVisualFlagsLocations.cs" />
+    <Compile Include="Scripting\Scintilla\LongLines.cs" />
+    <Compile Include="Scripting\Scintilla\MacroRecordEventArgs.cs" />
+    <Compile Include="Scripting\Scintilla\ManagedRange.cs" />
+    <Compile Include="Scripting\Scintilla\Margin.cs" />
+    <Compile Include="Scripting\Scintilla\MarginClickEventArgs.cs" />
+    <Compile Include="Scripting\Scintilla\MarginCollection.cs" />
+    <Compile Include="Scripting\Scintilla\MarginType.cs" />
+    <Compile Include="Scripting\Scintilla\Marker.cs" />
+    <Compile Include="Scripting\Scintilla\MarkerChangedEventArgs.cs" />
+    <Compile Include="Scripting\Scintilla\MarkerCollection.cs" />
+    <Compile Include="Scripting\Scintilla\MarkerInstance.cs" />
+    <Compile Include="Scripting\Scintilla\MarkerOutline.cs" />
+    <Compile Include="Scripting\Scintilla\MarkerSymbol.cs" />
+    <Compile Include="Scripting\Scintilla\ModificationFlags.cs" />
+    <Compile Include="Scripting\Scintilla\ModifiedEventArgs.cs" />
+    <Compile Include="Scripting\Scintilla\NativeMethods.cs" />
+    <Compile Include="Scripting\Scintilla\NativeMethods.Scintilla.cs" />
+    <Compile Include="Scripting\Scintilla\NativeScintillaEventArgs.cs" />
+    <Compile Include="Scripting\Scintilla\NavigationPont.cs" />
+    <Compile Include="Scripting\Scintilla\NotifyHeader.cs" />
+    <Compile Include="Scripting\Scintilla\OverloadList.cs" />
+    <Compile Include="Scripting\Scintilla\PrintColorMode.cs" />
+    <Compile Include="Scripting\Scintilla\Printing\FooterInformation.cs" />
+    <Compile Include="Scripting\Scintilla\Printing\HeaderInformation.cs" />
+    <Compile Include="Scripting\Scintilla\Printing\InformationType.cs" />
+    <Compile Include="Scripting\Scintilla\Printing\PageInformation.cs" />
+    <Compile Include="Scripting\Scintilla\Printing\PageInformationBorder.cs" />
+    <Compile Include="Scripting\Scintilla\Printing\PageSettings.cs" />
+    <Compile Include="Scripting\Scintilla\Printing\PrintDocument.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Scripting\Scintilla\Printing\Printing.cs" />
+    <Compile Include="Scripting\Scintilla\PrintRectangle.cs" />
+    <Compile Include="Scripting\Scintilla\Range.cs" />
+    <Compile Include="Scripting\Scintilla\RangeToFormat.cs" />
+    <Compile Include="Scripting\Scintilla\RECT.cs" />
+    <Compile Include="Scripting\Scintilla\Scintilla.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Scripting\Scintilla\Scintilla.INativeScintilla.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Scripting\Scintilla\ScintillaHelperBase.cs" />
+    <Compile Include="Scripting\Scintilla\ScintillaMouseEventArgs.cs" />
+    <Compile Include="Scripting\Scintilla\SCNotification.cs" />
+    <Compile Include="Scripting\Scintilla\Scrolling.cs" />
+    <Compile Include="Scripting\Scintilla\SearchFlags.cs" />
+    <Compile Include="Scripting\Scintilla\Selection.cs" />
+    <Compile Include="Scripting\Scintilla\SelectionMode.cs" />
+    <Compile Include="Scripting\Scintilla\SmartIndent.cs" />
+    <Compile Include="Scripting\Scintilla\Snippets\Snippet.cs" />
+    <Compile Include="Scripting\Scintilla\Snippets\SnippetChooser.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Scripting\Scintilla\Snippets\SnippetChooser.Designer.cs">
+      <DependentUpon>SnippetChooser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Scripting\Scintilla\Snippets\SnippetLinkCollection.cs" />
+    <Compile Include="Scripting\Scintilla\Snippets\SnippetLinkEnd.cs" />
+    <Compile Include="Scripting\Scintilla\Snippets\SnippetLinkRange.cs" />
+    <Compile Include="Scripting\Scintilla\Snippets\SnippetLinks.cs" />
+    <Compile Include="Scripting\Scintilla\Snippets\SnippetList.cs" />
+    <Compile Include="Scripting\Scintilla\Snippets\SnippetManager.cs" />
+    <Compile Include="Scripting\Scintilla\Style.cs" />
+    <Compile Include="Scripting\Scintilla\StyleCase.cs" />
+    <Compile Include="Scripting\Scintilla\StyleChangedEventArgs.cs" />
+    <Compile Include="Scripting\Scintilla\StyleCollection.cs" />
+    <Compile Include="Scripting\Scintilla\StyleNeededEventArgs.cs" />
+    <Compile Include="Scripting\Scintilla\StyleRun.cs" />
+    <Compile Include="Scripting\Scintilla\StyleRunReader.cs" />
+    <Compile Include="Scripting\Scintilla\StyleRunWriter.cs" />
+    <Compile Include="Scripting\Scintilla\StylesCommon.cs" />
+    <Compile Include="Scripting\Scintilla\TextModifiedEventArgs.cs" />
+    <Compile Include="Scripting\Scintilla\TextRange.cs" />
+    <Compile Include="Scripting\Scintilla\TextToFind.cs" />
+    <Compile Include="Scripting\Scintilla\TopLevelHelper.cs" />
+    <Compile Include="Scripting\Scintilla\UndoRedo.cs" />
+    <Compile Include="Scripting\Scintilla\UndoRedoFlags.cs" />
+    <Compile Include="Scripting\Scintilla\UriDroppedEventArgs.cs" />
+    <Compile Include="Scripting\Scintilla\Utilities.cs" />
+    <Compile Include="Scripting\Scintilla\VOID.cs" />
+    <Compile Include="Scripting\Scintilla\Whitespace.cs" />
+    <Compile Include="Scripting\Scintilla\WhitespaceMode.cs" />
+    <Compile Include="Scripting\Scintilla\WhitespaceStringConverter.cs" />
+    <Compile Include="Scripting\Scintilla\XpmAdapter.cs" />
+    <Compile Include="Forms\Splash\SplashScreen.cs" />
+    <Compile Include="Forms\Splash\SplashScreenForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Splash\SplashScreenForm.Designer.cs">
+      <DependentUpon>SplashScreenForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Plugins\IPluginClient.cs" />
+    <Compile Include="Plugins\IPluginHost.cs" />
+    <Compile Include="Plugins\Plugin.cs" />
+    <Compile Include="Plugins\Registry.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UI\AutoHideStripBase.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UI\DockAreasEditor.cs" />
+    <Compile Include="UI\DockContent.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\DockContentCollection.cs" />
+    <Compile Include="UI\DockContentEventArgs.cs" />
+    <Compile Include="UI\DockContentHandler.cs" />
+    <Compile Include="UI\DockOutlineBase.cs" />
+    <Compile Include="UI\DockPane.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\DockPane.SplitterControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\DockPaneCaptionBase.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UI\DockPaneCollection.cs" />
+    <Compile Include="UI\DockPanel.AutoHideWindow.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UI\DockPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UI\DockPanel.DockDragHandler.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UI\DockPanel.DragHandler.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UI\DockPanel.FocusManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UI\DockPanel.MdiClientController.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UI\DockPanel.Persistor.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UI\DockPanel.SplitterDragHandler.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UI\DockPanelExtender.cs" />
+    <Compile Include="UI\DockPanelSkin.cs" />
+    <Compile Include="UI\DockPaneStripBase.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UI\DockWindow.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UI\DockWindow.SplitterControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UI\DockWindowCollection.cs" />
+    <Compile Include="UI\DragForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\DummyControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UI\Enums.cs" />
+    <Compile Include="UI\FloatWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\FloatWindowCollection.cs" />
+    <Compile Include="UI\Helpers\DockHelper.cs" />
+    <Compile Include="UI\Helpers\DrawHelper.cs" />
+    <Compile Include="UI\Helpers\ResourceHelper.cs" />
+    <Compile Include="UI\Helpers\Win32Helper.cs" />
+    <Compile Include="UI\InertButtonBase.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UI\Interfaces.cs" />
+    <Compile Include="UI\Localization.cs" />
+    <Compile Include="UI\Measures.cs" />
+    <Compile Include="UI\NestedDockingStatus.cs" />
+    <Compile Include="UI\NestedPaneCollection.cs" />
+    <Compile Include="UI\Resources.Designer.cs" />
+    <Compile Include="UI\Resources1.Designer.cs" />
+    <Compile Include="UI\SplitterBase.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UI\Strings.Designer.cs" />
+    <Compile Include="UI\Strings1.Designer.cs" />
+    <Compile Include="UI\VisibleNestedPaneCollection.cs" />
+    <Compile Include="UI\VS2005AutoHideStrip.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UI\VS2005DockPaneCaption.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UI\VS2005DockPaneStrip.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UI\Win32\Enums.cs" />
+    <Compile Include="UI\Win32\NativeMethods.cs" />
+    <Compile Include="Helpers\FontHelper.cs" />
+    <Compile Include="Helpers\PathHelper.cs" />
+    <Compile Include="Helpers\SystemHelper.cs" />
+    <Compile Include="Utilities\Util.cs" />
+    <Compile Include="Windows.cs" />
+    <EmbeddedResource Include="Controls\BattleEventPage.resx">
+      <DependentUpon>BattleEventPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\BattleTestActorPanel.resx">
+      <DependentUpon>BattleTestActorPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\CheckGroupBox.resx">
+      <DependentUpon>CheckGroupBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\CollapsibleGroupBox.resx">
+      <DependentUpon>CollapsibleGroupBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\DatabaseObjectListBox.resx">
+      <DependentUpon>DatabaseObjectListBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\EventTextBox.resx">
+      <DependentUpon>EventTextBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\MultiStateCheckedListBox.resx">
+      <DependentUpon>MultiStateCheckedListBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\EfficiencySlot.resx">
+      <DependentUpon>EfficiencySlot.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\EquipSlot.resx">
+      <DependentUpon>EquipSlot.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\FontComboBox.resx">
+      <DependentUpon>FontComboBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\FontSelector.resx">
+      <DependentUpon>FontSelector.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\MultiStateCheckbox.resx">
+      <DependentUpon>MultiStateCheckbox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\NoteTextBox.resx">
+      <DependentUpon>NoteTextBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\ParameterMiniChart.resx">
+      <DependentUpon>ParameterMiniChart.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\ParamBox.resx">
+      <DependentUpon>ParamBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\SearchControl.resx">
+      <DependentUpon>SearchControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\TroopXnaPanel.resx">
+      <DependentUpon>TroopXnaPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Database\Actors\ExperienceCurveForm.resx">
+      <DependentUpon>ExperienceCurveForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Database\Armors\ArmorMainForm.resx">
+      <DependentUpon>ArmorMainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Database\Classes\ClassMainForm.resx">
+      <DependentUpon>ClassMainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Database\Classes\EditSkillDialog.resx">
+      <DependentUpon>EditSkillDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Database\Enemies\EditActionDialog.resx">
+      <DependentUpon>EditActionDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Database\Enemies\EnemyMainForm.resx">
+      <DependentUpon>EnemyMainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Database\Enemies\TreasureSelectDialog.resx">
+      <DependentUpon>TreasureSelectDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Database\Troops\BattleTestDialog.resx">
+      <DependentUpon>BattleTestDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Database\Troops\TroopMainForm.resx">
+      <DependentUpon>TroopMainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Database\Items\ItemMainForm.resx">
+      <DependentUpon>ItemMainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Database\Skills\SkillMainForm.resx">
+      <DependentUpon>SkillMainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Database\Weapons\WeaponMainForm.resx">
+      <DependentUpon>WeaponMainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\AboutBox.resx">
+      <DependentUpon>AboutBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\CaptureForm.resx">
+      <DependentUpon>CaptureForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\ChangeMaxDialog.resx">
+      <DependentUpon>ChangeMaxDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\ColorChooserForm.resx">
+      <DependentUpon>ColorChooserForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Database\Actors\ActorMainForm.resx">
+      <DependentUpon>ActorMainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Database\Actors\ActorParametersForm.resx">
+      <DependentUpon>ActorParametersForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\FontSelectionDialog.resx">
+      <DependentUpon>FontSelectionDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\HeaderSettingsDialog.resx">
+      <DependentUpon>HeaderSettingsDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\ImageSelectionForm.resx">
+      <DependentUpon>ImageSelectionForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\NoteForm.resx">
+      <DependentUpon>NoteForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Database\Actors\ParamGenerateCurveDialog.resx">
+      <DependentUpon>ParamGenerateCurveDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Database\SwitchForm.resx">
+      <DependentUpon>SwitchForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ARChiveForm.resx">
+      <DependentUpon>ARChiveForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\UserStringForm.resx">
+      <DependentUpon>UserStringForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Editor.resx">
+      <DependentUpon>Editor.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\NewProjectForm.resx">
+      <DependentUpon>NewProjectForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Database\Actors\ChartSettingsForm.resx">
+      <DependentUpon>ChartSettingsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\EditorOptionsForm.resx">
+      <DependentUpon>EditorOptionsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\CalculatorForm.resx">
+      <DependentUpon>CalculatorForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\SkinSettingsForm.resx">
+      <DependentUpon>SkinSettingsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Scripting\AutoCompleteForm.resx">
+      <DependentUpon>AutoCompleteForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Scripting\NewScriptForm.resx">
+      <DependentUpon>NewScriptForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Scripting\ScriptEditorForm.resx">
+      <DependentUpon>ScriptEditorForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Scripting\Scintilla\FindReplace\FindReplaceDialog.resx">
+      <DependentUpon>FindReplaceDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Scripting\Scintilla\FindReplace\IncrementalSearcher.resx">
+      <DependentUpon>IncrementalSearcher.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Scripting\Scintilla\GoToDialog.resx">
+      <DependentUpon>GoToDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Scripting\Scintilla\Snippets\SnippetChooser.resx">
+      <DependentUpon>SnippetChooser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Scripting\ScriptMenuForm.resx">
+      <DependentUpon>ScriptMenuForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Scripting\ScriptSearchForm.resx">
+      <DependentUpon>ScriptSearchForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Scripting\ScriptStyleForm.resx">
+      <DependentUpon>ScriptStyleForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Splash\SplashScreenForm.resx">
+      <DependentUpon>SplashScreenForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="UI\Resources.resx" />
+    <EmbeddedResource Include="UI\Strings.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <None Include="app.config" />
+    <None Include="Fonts\ethnocen.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Fonts\consola.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Fonts\OptimusPrinceps.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Files\Default.7z" />
+    <None Include="UI\Resources\Thumbs.db" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assemblies\Dejavu.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assemblies\Microsoft.Dynamic.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assemblies\Microsoft.Xna.Framework.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assemblies\Microsoft.Xna.Framework.Graphics.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assemblies\SevenZipSharp.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <EmbeddedResource Include="Files\CustomCross.cur" />
+    <Content Include="Plugins\Instructions.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <EmbeddedResource Include="Resources\Add.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\ARCedSplash.png" />
+    <EmbeddedResource Include="Resources\Calculator.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CharMap.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Close.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Delete.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Color.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Comment.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Cut.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Paste.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Copy.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Find2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Find3.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\GoTo.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Find1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Next.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Previous.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Help.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Down.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\FolderOpen.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Up.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\NextMessage.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\PreviousMessage.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Ruby.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\SevenZip.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\FileOpen.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\FoldCollapse.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Fold.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\AutoComplete.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Redo.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Save.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Undo.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Indent.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\SaveTemplate.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\NewDocument.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\CaretColor.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Highlight.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Replace.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Ruler.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\SaveAll.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\SelectAll.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Theme.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Settings.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Pin.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Database.png" />
+    <EmbeddedResource Include="Resources\Crop.png" />
+    <EmbeddedResource Include="Resources\Alpha.png" />
+    <EmbeddedResource Include="Resources\FoldExpand.bmp" />
+    <EmbeddedResource Include="Resources\Font.png" />
+    <EmbeddedResource Include="Resources\Chart.png" />
+    <EmbeddedResource Include="Resources\Edit.png" />
+    <EmbeddedResource Include="Resources\Armor.png" />
+    <EmbeddedResource Include="Resources\Enemy.png" />
+    <EmbeddedResource Include="Resources\icon.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Outline.png" />
+    <EmbeddedResource Include="Resources\Update.png" />
+    <EmbeddedResource Include="Resources\Scintilla.png" />
+    <EmbeddedResource Include="Resources\RMXP.png" />
+    <EmbeddedResource Include="Resources\NoteText.png" />
+    <EmbeddedResource Include="Resources\Play.png" />
+    <EmbeddedResource Include="Resources\Item.png" />
+    <EmbeddedResource Include="Resources\ResourceLocal.png" />
+    <EmbeddedResource Include="Resources\ResourceRTP.png" />
+    <EmbeddedResource Include="Resources\Settings2.png" />
+    <EmbeddedResource Include="Resources\TrueType.bmp" />
+    <EmbeddedResource Include="Resources\Switch.png" />
+    <EmbeddedResource Include="Resources\Variable.png" />
+    <EmbeddedResource Include="Resources\Skill.png" />
+    <EmbeddedResource Include="Resources\Weapon.png" />
+    <Content Include="x86\7z.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="x64\7z64.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="icon.ico" />
+    <Content Include="x86\SciLexer.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="x64\SciLexer64.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\ruby.xml" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\cpp.xml" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\cs.xml" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\default.xml" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\html.xml" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\js.xml" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerKeywordListNames\ada.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerKeywordListNames\apdl.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerKeywordListNames\asm.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerKeywordListNames\asn1.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerKeywordListNames\au3.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerKeywordListNames\ave.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerKeywordListNames\baan.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerKeywordListNames\bash.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerKeywordListNames\batch.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerKeywordListNames\blitsbasic.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerKeywordListNames\bullant.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerKeywordListNames\caml.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerKeywordListNames\clw.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerKeywordListNames\clwnocase.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerKeywordListNames\cmake.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerKeywordListNames\conf.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerKeywordListNames\cpp.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerKeywordListNames\cppnocase.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerKeywordListNames\csound.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerKeywordListNames\css.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerKeywordListNames\d.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerKeywordListNames\diff.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerKeywordListNames\eiffel.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerKeywordListNames\eiffelkw.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerKeywordListNames\erlang.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerKeywordListNames\errorlist.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerKeywordListNames\escript.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerKeywordListNames\f77.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerKeywordListNames\flagship.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerKeywordListNames\forth.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerKeywordListNames\fortran.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerKeywordListNames\freebasic.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerKeywordListNames\gap.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerKeywordListNames\gui4cli.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerKeywordListNames\haskell.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerKeywordListNames\hypertext.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerKeywordListNames\innosetup.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerKeywordListNames\kix.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerKeywordListNames\latex.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerKeywordListNames\lisp.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerKeywordListNames\lot.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerKeywordListNames\lout.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerKeywordListNames\lua.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerKeywordListNames\make.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerKeywordListNames\matlab.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerKeywordListNames\metapost.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerKeywordListNames\mmixal.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerKeywordListNames\mssql.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerKeywordListNames\nncrontab.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerKeywordListNames\nsis.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerKeywordListNames\null.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerKeywordListNames\octave.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerKeywordListNames\opal.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerKeywordListNames\pascal.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerKeywordListNames\perl.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerKeywordListNames\phpscript.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerKeywordListNames\plm.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerKeywordListNames\pov.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerKeywordListNames\powerbasic.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerKeywordListNames\progress.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerKeywordListNames\props.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerKeywordListNames\ps.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerKeywordListNames\purebasic.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerKeywordListNames\python.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerKeywordListNames\rebol.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerKeywordListNames\ruby.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerKeywordListNames\scriptol.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerKeywordListNames\smalltalk.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerKeywordListNames\specman.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerKeywordListNames\spice.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerKeywordListNames\sql.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerKeywordListNames\tads3.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerKeywordListNames\tcl.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerKeywordListNames\tex.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerKeywordListNames\vb.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerKeywordListNames\vbscript.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerKeywordListNames\verilog.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerKeywordListNames\vhdl.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerKeywordListNames\xml.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerKeywordListNames\yaml.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerStyleNames\ada.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerStyleNames\apdl.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerStyleNames\asm.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerStyleNames\asn1.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerStyleNames\au3.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerStyleNames\ave.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerStyleNames\baan.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerStyleNames\bash.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerStyleNames\batch.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerStyleNames\blitsbasic.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerStyleNames\bullant.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerStyleNames\caml.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerStyleNames\clw.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerStyleNames\clwnocase.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerStyleNames\cmake.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerStyleNames\conf.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerStyleNames\cpp.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerStyleNames\cppnocase.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerStyleNames\csound.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerStyleNames\css.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerStyleNames\d.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerStyleNames\diff.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerStyleNames\eiffel.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerStyleNames\eiffelkw.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerStyleNames\erlang.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerStyleNames\errorlist.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerStyleNames\escript.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerStyleNames\f77.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerStyleNames\flagship.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerStyleNames\forth.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerStyleNames\fortran.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerStyleNames\freebasic.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerStyleNames\gap.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerStyleNames\gui4cli.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerStyleNames\haskell.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerStyleNames\hypertext.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerStyleNames\innosetup.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerStyleNames\kix.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerStyleNames\latext.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerStyleNames\lisp.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerStyleNames\lot.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerStyleNames\lout.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerStyleNames\lua.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerStyleNames\make.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerStyleNames\matlab.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerStyleNames\metapost.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerStyleNames\mmixal.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerStyleNames\mssql.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerStyleNames\nncrontab.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerStyleNames\nsis.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerStyleNames\null.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerStyleNames\octave.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerStyleNames\opal.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerStyleNames\pascal.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerStyleNames\perl.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerStyleNames\phpscript.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerStyleNames\plm.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerStyleNames\pov.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerStyleNames\powerbasic.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerStyleNames\progress.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerStyleNames\props.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerStyleNames\ps.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerStyleNames\purebasic.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerStyleNames\python.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerStyleNames\rebol.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerStyleNames\ruby.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerStyleNames\scriptol.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerStyleNames\smalltalk.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerStyleNames\specman.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerStyleNames\spice.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerStyleNames\sql.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerStyleNames\tads3.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerStyleNames\tcl.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerStyleNames\tex.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerStyleNames\vb.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerStyleNames\vbscript.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerStyleNames\verilog.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerStyleNames\vhdl.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerStyleNames\xml.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\LexerStyleNames\yaml.txt" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\mssql.xml" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\pgsql.xml" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\python.xml" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\vbscript.xml" />
+    <Content Include="Scripting\Scintilla\Configuration\Builtin\xml.xml" />
+    <Content Include="TODO.txt" />
+    <Content Include="UI\DockPanel.bmp" />
+    <Content Include="UI\Resources\DockIndicator_PaneDiamond.bmp" />
+    <Content Include="UI\Resources\DockIndicator_PaneDiamond_Bottom.bmp" />
+    <Content Include="UI\Resources\Dockindicator_PaneDiamond_Fill.bmp" />
+    <Content Include="UI\Resources\DockIndicator_PaneDiamond_Hotspot.bmp" />
+    <Content Include="UI\Resources\DockIndicator_PaneDiamond_HotspotIndex.bmp" />
+    <Content Include="UI\Resources\DockIndicator_PaneDiamond_Left.bmp" />
+    <Content Include="UI\Resources\DockIndicator_PaneDiamond_Right.bmp" />
+    <Content Include="UI\Resources\DockIndicator_PaneDiamond_Top.bmp" />
+    <Content Include="UI\Resources\DockIndicator_PanelBottom.bmp" />
+    <Content Include="UI\Resources\DockIndicator_PanelBottom_Active.bmp" />
+    <Content Include="UI\Resources\DockIndicator_PanelFill.bmp" />
+    <Content Include="UI\Resources\DockIndicator_PanelFill_Active.bmp" />
+    <Content Include="UI\Resources\DockIndicator_PanelLeft.bmp" />
+    <Content Include="UI\Resources\DockIndicator_PanelLeft_Active.bmp" />
+    <Content Include="UI\Resources\DockIndicator_PanelRight.bmp" />
+    <Content Include="UI\Resources\DockIndicator_PanelRight_Active.bmp" />
+    <Content Include="UI\Resources\DockIndicator_PanelTop.bmp" />
+    <Content Include="UI\Resources\DockIndicator_PanelTop_Active.bmp" />
+    <Content Include="UI\Resources\DockPane_AutoHide.bmp" />
+    <Content Include="UI\Resources\DockPane_Close.bmp" />
+    <Content Include="UI\Resources\DockPane_Dock.bmp" />
+    <Content Include="UI\Resources\DockPane_Option.bmp" />
+    <Content Include="UI\Resources\DockPane_OptionOverflow.bmp" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.0">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

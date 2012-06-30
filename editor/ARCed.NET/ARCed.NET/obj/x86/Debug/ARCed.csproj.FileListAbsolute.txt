@@ -1,0 +1,256 @@
+C:\Users\Eric\Documents\Visual Studio 2010\Projects\ARCed.NET\ARCed.NET\bin\Debug\Assemblies\Dejavu.dll
+C:\Users\Eric\Documents\Visual Studio 2010\Projects\ARCed.NET\ARCed.NET\bin\Debug\Assemblies\SevenZipSharp.dll
+C:\Users\Eric\Documents\Visual Studio 2010\Projects\ARCed.NET\ARCed.NET\bin\Debug\Assemblies\Microsoft.Dynamic.dll
+C:\Users\Eric\Documents\Visual Studio 2010\Projects\ARCed.NET\ARCed.NET\bin\Debug\Assemblies\Microsoft.Xna.Framework.dll
+C:\Users\Eric\Documents\Visual Studio 2010\Projects\ARCed.NET\ARCed.NET\bin\Debug\Assemblies\Microsoft.Xna.Framework.Graphics.dll
+C:\Users\Eric\Documents\Visual Studio 2010\Projects\ARCed.NET\ARCed.NET\bin\Debug\Plugins\Instructions.txt
+C:\Users\Eric\Documents\Visual Studio 2010\Projects\ARCed.NET\ARCed.NET\bin\Debug\Resources\icon.ico
+C:\Users\Eric\Documents\Visual Studio 2010\Projects\ARCed.NET\ARCed.NET\bin\Debug\x86\7z.dll
+C:\Users\Eric\Documents\Visual Studio 2010\Projects\ARCed.NET\ARCed.NET\bin\Debug\x64\7z64.dll
+C:\Users\Eric\Documents\Visual Studio 2010\Projects\ARCed.NET\ARCed.NET\bin\Debug\x86\SciLexer.dll
+C:\Users\Eric\Documents\Visual Studio 2010\Projects\ARCed.NET\ARCed.NET\bin\Debug\x64\SciLexer64.dll
+C:\Users\Eric\Documents\Visual Studio 2010\Projects\ARCed.NET\ARCed.NET\bin\Debug\Fonts\ethnocen.ttf
+C:\Users\Eric\Documents\Visual Studio 2010\Projects\ARCed.NET\ARCed.NET\bin\Debug\Fonts\consola.ttf
+C:\Users\Eric\Documents\Visual Studio 2010\Projects\ARCed.NET\ARCed.NET\bin\Debug\Fonts\OptimusPrinceps.ttf
+C:\Users\Eric\Documents\Visual Studio 2010\Projects\ARCed.NET\ARCed.NET\bin\Debug\Resources\Add.png
+C:\Users\Eric\Documents\Visual Studio 2010\Projects\ARCed.NET\ARCed.NET\bin\Debug\Resources\Calculator.png
+C:\Users\Eric\Documents\Visual Studio 2010\Projects\ARCed.NET\ARCed.NET\bin\Debug\Resources\CharMap.png
+C:\Users\Eric\Documents\Visual Studio 2010\Projects\ARCed.NET\ARCed.NET\bin\Debug\Resources\Close.png
+C:\Users\Eric\Documents\Visual Studio 2010\Projects\ARCed.NET\ARCed.NET\bin\Debug\Resources\Delete.png
+C:\Users\Eric\Documents\Visual Studio 2010\Projects\ARCed.NET\ARCed.NET\bin\Debug\Resources\Color.png
+C:\Users\Eric\Documents\Visual Studio 2010\Projects\ARCed.NET\ARCed.NET\bin\Debug\Resources\Comment.png
+C:\Users\Eric\Documents\Visual Studio 2010\Projects\ARCed.NET\ARCed.NET\bin\Debug\Resources\Cut.png
+C:\Users\Eric\Documents\Visual Studio 2010\Projects\ARCed.NET\ARCed.NET\bin\Debug\Resources\Paste.png
+C:\Users\Eric\Documents\Visual Studio 2010\Projects\ARCed.NET\ARCed.NET\bin\Debug\Resources\Copy.png
+C:\Users\Eric\Documents\Visual Studio 2010\Projects\ARCed.NET\ARCed.NET\bin\Debug\Resources\Find2.png
+C:\Users\Eric\Documents\Visual Studio 2010\Projects\ARCed.NET\ARCed.NET\bin\Debug\Resources\Find3.png
+C:\Users\Eric\Documents\Visual Studio 2010\Projects\ARCed.NET\ARCed.NET\bin\Debug\Resources\GoTo.png
+C:\Users\Eric\Documents\Visual Studio 2010\Projects\ARCed.NET\ARCed.NET\bin\Debug\Resources\Find1.png
+C:\Users\Eric\Documents\Visual Studio 2010\Projects\ARCed.NET\ARCed.NET\bin\Debug\Resources\Next.png
+C:\Users\Eric\Documents\Visual Studio 2010\Projects\ARCed.NET\ARCed.NET\bin\Debug\Resources\Previous.png
+C:\Users\Eric\Documents\Visual Studio 2010\Projects\ARCed.NET\ARCed.NET\bin\Debug\Resources\Help.png
+C:\Users\Eric\Documents\Visual Studio 2010\Projects\ARCed.NET\ARCed.NET\bin\Debug\Resources\Down.png
+C:\Users\Eric\Documents\Visual Studio 2010\Projects\ARCed.NET\ARCed.NET\bin\Debug\Resources\FolderOpen.png
+C:\Users\Eric\Documents\Visual Studio 2010\Projects\ARCed.NET\ARCed.NET\bin\Debug\Resources\Up.png
+C:\Users\Eric\Documents\Visual Studio 2010\Projects\ARCed.NET\ARCed.NET\bin\Debug\Resources\NextMessage.png
+C:\Users\Eric\Documents\Visual Studio 2010\Projects\ARCed.NET\ARCed.NET\bin\Debug\Resources\PreviousMessage.png
+C:\Users\Eric\Documents\Visual Studio 2010\Projects\ARCed.NET\ARCed.NET\bin\Debug\Resources\Ruby.png
+C:\Users\Eric\Documents\Visual Studio 2010\Projects\ARCed.NET\ARCed.NET\bin\Debug\Resources\SevenZip.png
+C:\Users\Eric\Documents\Visual Studio 2010\Projects\ARCed.NET\ARCed.NET\bin\Debug\Resources\FileOpen.png
+C:\Users\Eric\Documents\Visual Studio 2010\Projects\ARCed.NET\ARCed.NET\bin\Debug\Resources\FoldCollapse.bmp
+C:\Users\Eric\Documents\Visual Studio 2010\Projects\ARCed.NET\ARCed.NET\bin\Debug\Resources\Fold.png
+C:\Users\Eric\Documents\Visual Studio 2010\Projects\ARCed.NET\ARCed.NET\bin\Debug\Resources\AutoComplete.png
+C:\Users\Eric\Documents\Visual Studio 2010\Projects\ARCed.NET\ARCed.NET\bin\Debug\Resources\Redo.png
+C:\Users\Eric\Documents\Visual Studio 2010\Projects\ARCed.NET\ARCed.NET\bin\Debug\Resources\Save.png
+C:\Users\Eric\Documents\Visual Studio 2010\Projects\ARCed.NET\ARCed.NET\bin\Debug\Resources\Undo.png
+C:\Users\Eric\Documents\Visual Studio 2010\Projects\ARCed.NET\ARCed.NET\bin\Debug\Resources\Indent.png
+C:\Users\Eric\Documents\Visual Studio 2010\Projects\ARCed.NET\ARCed.NET\bin\Debug\Resources\SaveTemplate.png
+C:\Users\Eric\Documents\Visual Studio 2010\Projects\ARCed.NET\ARCed.NET\bin\Debug\Resources\NewDocument.png
+C:\Users\Eric\Documents\Visual Studio 2010\Projects\ARCed.NET\ARCed.NET\bin\Debug\Resources\CaretColor.png
+C:\Users\Eric\Documents\Visual Studio 2010\Projects\ARCed.NET\ARCed.NET\bin\Debug\Resources\Highlight.png
+C:\Users\Eric\Documents\Visual Studio 2010\Projects\ARCed.NET\ARCed.NET\bin\Debug\Resources\Replace.png
+C:\Users\Eric\Documents\Visual Studio 2010\Projects\ARCed.NET\ARCed.NET\bin\Debug\Resources\Ruler.png
+C:\Users\Eric\Documents\Visual Studio 2010\Projects\ARCed.NET\ARCed.NET\bin\Debug\Resources\SaveAll.png
+C:\Users\Eric\Documents\Visual Studio 2010\Projects\ARCed.NET\ARCed.NET\bin\Debug\Resources\SelectAll.png
+C:\Users\Eric\Documents\Visual Studio 2010\Projects\ARCed.NET\ARCed.NET\bin\Debug\Resources\Theme.png
+C:\Users\Eric\Documents\Visual Studio 2010\Projects\ARCed.NET\ARCed.NET\bin\Debug\Resources\Settings.png
+C:\Users\Eric\Documents\Visual Studio 2010\Projects\ARCed.NET\ARCed.NET\bin\Debug\Resources\Pin.png
+C:\Users\Eric\Documents\Visual Studio 2010\Projects\ARCed.NET\ARCed.NET\bin\Debug\ARCed.exe.config
+C:\Users\Eric\Documents\Visual Studio 2010\Projects\ARCed.NET\ARCed.NET\bin\Debug\ARCed.exe
+C:\Users\Eric\Documents\Visual Studio 2010\Projects\ARCed.NET\ARCed.NET\bin\Debug\ARCed.pdb
+C:\Users\Eric\Documents\Visual Studio 2010\Projects\ARCed.NET\ARCed.NET\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Users\Eric\Documents\Visual Studio 2010\Projects\ARCed.NET\ARCed.NET\obj\x86\Debug\ARCed.Controls.CheckGroupBox.resources
+C:\Users\Eric\Documents\Visual Studio 2010\Projects\ARCed.NET\ARCed.NET\obj\x86\Debug\ARCed.Controls.CollapsibleGroupBox.resources
+C:\Users\Eric\Documents\Visual Studio 2010\Projects\ARCed.NET\ARCed.NET\obj\x86\Debug\ARCed.Controls.DatabaseObjectListBox.resources
+C:\Users\Eric\Documents\Visual Studio 2010\Projects\ARCed.NET\ARCed.NET\obj\x86\Debug\ARCed.Controls.EfficiencySlot.resources
+C:\Users\Eric\Documents\Visual Studio 2010\Projects\ARCed.NET\ARCed.NET\obj\x86\Debug\ARCed.Controls.FontComboBox.resources
+C:\Users\Eric\Documents\Visual Studio 2010\Projects\ARCed.NET\ARCed.NET\obj\x86\Debug\ARCed.Controls.FontSelector.resources
+C:\Users\Eric\Documents\Visual Studio 2010\Projects\ARCed.NET\ARCed.NET\obj\x86\Debug\ARCed.Controls.NoteTextBox.resources
+C:\Users\Eric\Documents\Visual Studio 2010\Projects\ARCed.NET\ARCed.NET\obj\x86\Debug\ARCed.Controls.ParameterMiniChart.resources
+C:\Users\Eric\Documents\Visual Studio 2010\Projects\ARCed.NET\ARCed.NET\obj\x86\Debug\ARCed.Controls.SearchControl.resources
+C:\Users\Eric\Documents\Visual Studio 2010\Projects\ARCed.NET\ARCed.NET\obj\x86\Debug\ARCed.Database.Actors.ExperienceCurveForm.resources
+C:\Users\Eric\Documents\Visual Studio 2010\Projects\ARCed.NET\ARCed.NET\obj\x86\Debug\ARCed.Database.Classes.ClassMainForm.resources
+C:\Users\Eric\Documents\Visual Studio 2010\Projects\ARCed.NET\ARCed.NET\obj\x86\Debug\ARCed.Database.Classes.EditSkillDialog.resources
+C:\Users\Eric\Documents\Visual Studio 2010\Projects\ARCed.NET\ARCed.NET\obj\x86\Debug\ARCed.Database.Skills.SkillMainForm.resources
+C:\Users\Eric\Documents\Visual Studio 2010\Projects\ARCed.NET\ARCed.NET\obj\x86\Debug\ARCed.Dialogs.AboutBox.resources
+C:\Users\Eric\Documents\Visual Studio 2010\Projects\ARCed.NET\ARCed.NET\obj\x86\Debug\ARCed.Dialogs.CaptureForm.resources
+C:\Users\Eric\Documents\Visual Studio 2010\Projects\ARCed.NET\ARCed.NET\obj\x86\Debug\ARCed.Dialogs.ChangeMaxDialog.resources
+C:\Users\Eric\Documents\Visual Studio 2010\Projects\ARCed.NET\ARCed.NET\obj\x86\Debug\ARCed.Dialogs.ColorChooserForm.resources
+C:\Users\Eric\Documents\Visual Studio 2010\Projects\ARCed.NET\ARCed.NET\obj\x86\Debug\ARCed.Database.Actors.ActorMainForm.resources
+C:\Users\Eric\Documents\Visual Studio 2010\Projects\ARCed.NET\ARCed.NET\obj\x86\Debug\ARCed.Database.Actors.ActorParametersForm.resources
+C:\Users\Eric\Documents\Visual Studio 2010\Projects\ARCed.NET\ARCed.NET\obj\x86\Debug\ARCed.Dialogs.HeaderSettingsDialog.resources
+C:\Users\Eric\Documents\Visual Studio 2010\Projects\ARCed.NET\ARCed.NET\obj\x86\Debug\ARCed.Dialogs.ImageSelectionForm.resources
+C:\Users\Eric\Documents\Visual Studio 2010\Projects\ARCed.NET\ARCed.NET\obj\x86\Debug\ARCed.Dialogs.NoteForm.resources
+C:\Users\Eric\Documents\Visual Studio 2010\Projects\ARCed.NET\ARCed.NET\obj\x86\Debug\ARCed.Database.Actors.ParamGenerateCurveDialog.resources
+C:\Users\Eric\Documents\Visual Studio 2010\Projects\ARCed.NET\ARCed.NET\obj\x86\Debug\ARCed.Forms.ARChiveForm.resources
+C:\Users\Eric\Documents\Visual Studio 2010\Projects\ARCed.NET\ARCed.NET\obj\x86\Debug\ARCed.Dialogs.UserStringForm.resources
+C:\Users\Eric\Documents\Visual Studio 2010\Projects\ARCed.NET\ARCed.NET\obj\x86\Debug\ARCed.Editor.resources
+C:\Users\Eric\Documents\Visual Studio 2010\Projects\ARCed.NET\ARCed.NET\obj\x86\Debug\ARCed.Dialogs.NewProjectForm.resources
+C:\Users\Eric\Documents\Visual Studio 2010\Projects\ARCed.NET\ARCed.NET\obj\x86\Debug\ARCed.Database.Actors.ChartSettingsForm.resources
+C:\Users\Eric\Documents\Visual Studio 2010\Projects\ARCed.NET\ARCed.NET\obj\x86\Debug\ARCed.Forms.EditorOptionsForm.resources
+C:\Users\Eric\Documents\Visual Studio 2010\Projects\ARCed.NET\ARCed.NET\obj\x86\Debug\ARCed.Forms.CalculatorForm.resources
+C:\Users\Eric\Documents\Visual Studio 2010\Projects\ARCed.NET\ARCed.NET\obj\x86\Debug\ARCed.Forms.SkinSettingsForm.resources
+C:\Users\Eric\Documents\Visual Studio 2010\Projects\ARCed.NET\ARCed.NET\obj\x86\Debug\ARCed.Scripting.AutoCompleteForm.resources
+C:\Users\Eric\Documents\Visual Studio 2010\Projects\ARCed.NET\ARCed.NET\obj\x86\Debug\ARCed.Scripting.NewScriptForm.resources
+C:\Users\Eric\Documents\Visual Studio 2010\Projects\ARCed.NET\ARCed.NET\obj\x86\Debug\ARCed.Scripting.ScriptEditorForm.resources
+C:\Users\Eric\Documents\Visual Studio 2010\Projects\ARCed.NET\ARCed.NET\obj\x86\Debug\ARCed.Scintilla.FindReplaceDialog.resources
+C:\Users\Eric\Documents\Visual Studio 2010\Projects\ARCed.NET\ARCed.NET\obj\x86\Debug\ARCed.Scintilla.IncrementalSearcher.resources
+C:\Users\Eric\Documents\Visual Studio 2010\Projects\ARCed.NET\ARCed.NET\obj\x86\Debug\ARCed.Scintilla.GoToDialog.resources
+C:\Users\Eric\Documents\Visual Studio 2010\Projects\ARCed.NET\ARCed.NET\obj\x86\Debug\ARCed.Scintilla.SnippetChooser.resources
+C:\Users\Eric\Documents\Visual Studio 2010\Projects\ARCed.NET\ARCed.NET\obj\x86\Debug\ARCed.Scripting.ScriptMenuForm.resources
+C:\Users\Eric\Documents\Visual Studio 2010\Projects\ARCed.NET\ARCed.NET\obj\x86\Debug\ARCed.Scripting.ScriptSearchForm.resources
+C:\Users\Eric\Documents\Visual Studio 2010\Projects\ARCed.NET\ARCed.NET\obj\x86\Debug\ARCed.Scripting.ScriptStyleForm.resources
+C:\Users\Eric\Documents\Visual Studio 2010\Projects\ARCed.NET\ARCed.NET\obj\x86\Debug\ARCed.Forms.Splash.SplashScreenForm.resources
+C:\Users\Eric\Documents\Visual Studio 2010\Projects\ARCed.NET\ARCed.NET\obj\x86\Debug\ARCed.Properties.Resources.resources
+C:\Users\Eric\Documents\Visual Studio 2010\Projects\ARCed.NET\ARCed.NET\obj\x86\Debug\ARCed.UI.Resources.resources
+C:\Users\Eric\Documents\Visual Studio 2010\Projects\ARCed.NET\ARCed.NET\obj\x86\Debug\ARCed.UI.Strings.resources
+C:\Users\Eric\Documents\Visual Studio 2010\Projects\ARCed.NET\ARCed.NET\obj\x86\Debug\GenerateResource.read.1.tlog
+C:\Users\Eric\Documents\Visual Studio 2010\Projects\ARCed.NET\ARCed.NET\obj\x86\Debug\GenerateResource.write.1.tlog
+C:\Users\Eric\Documents\Visual Studio 2010\Projects\ARCed.NET\ARCed.NET\obj\x86\Debug\ARCed.exe
+C:\Users\Eric\Documents\Visual Studio 2010\Projects\ARCed.NET\ARCed.NET\obj\x86\Debug\ARCed.pdb
+C:\Users\Eric\Documents\Visual Studio 2010\Projects\ARCed.NET\ARCed.NET\obj\x86\Debug\ARCed.Controls.ParamBox.resources
+C:\Users\Eric\Documents\Visual Studio 2010\Projects\ARCed.NET\ARCed.NET\obj\x86\Debug\ARCed.Controls.EquipSlot.resources
+C:\Users\Eric\Documents\Visual Studio 2010\Projects\ARCed.NET\ARCed.NET\obj\x86\Debug\ARCed.Controls.MultiStateCheckbox.resources
+C:\Users\Eric\Documents\Visual Studio 2010\Projects\ARCed.NET\ARCed.NET\obj\x86\Debug\ARCed.Controls.MultiStateCheckedListBox.resources
+C:\Users\Eric\Documents\Visual Studio 2010\Projects\ARCed.NET\ARCed.NET\obj\x86\Debug\ARCed.Database.Items.ItemMainForm.resources
+C:\Users\Eric\Documents\Visual Studio 2010\Projects\ARCed.NET\ARCed.NET\obj\x86\Debug\ARCed.Database.Armors.ArmorMainForm.resources
+C:\Users\Eric\Documents\Visual Studio 2010\Projects\ARCed.NET\ARCed.NET\obj\x86\Debug\ARCed.Database.Weapons.WeaponMainForm.resources
+C:\Users\Eric\Documents\Visual Studio 2010\Projects\ARCed.NET\ARCed.NET\obj\x86\Debug\ARCed.Database.Enemies.EnemyMainForm.resources
+C:\Users\Eric\Documents\Visual Studio 2010\Projects\ARCed.NET\ARCed.NET\obj\x86\Debug\ARCed.Database.Troops.TroopMainForm.resources
+C:\Users\Eric\Documents\Visual Studio 2010\Projects\ARCed.NET\ARCed.NET\obj\x86\Debug\ARCed.Database.Enemies.EditActionDialog.resources
+C:\Users\Eric\Documents\Visual Studio 2010\Projects\ARCed.NET\ARCed.NET\obj\x86\Debug\ARCed.Database.SwitchForm.resources
+C:\Users\Eric\Documents\Visual Studio 2010\Projects\ARCed.NET\ARCed.NET\obj\x86\Debug\ARCed.Database.Enemies.TreasureSelectDialog.resources
+C:\Users\Eric\Documents\Visual Studio 2010\Projects\ARCed.NET\ARCed.NET\obj\x86\Debug\ARCed.Dialogs.FontSelectionDialog.resources
+C:\Users\Eric\Documents\Visual Studio 2010\Projects\ARCed.NET\ARCed.NET\obj\x86\Debug\ARCed.Controls.EnemySprite.resources
+C:\Users\Eric\Documents\Visual Studio 2010\Projects\ARCed.NET\ARCed.NET\obj\x86\Debug\ARCed.Controls.BattleEventPage.resources
+C:\Users\Eric\Documents\Visual Studio 2010\Projects\ARCed.NET\ARCed.NET\obj\x86\Debug\ARCed.Controls.BattleTestActorPanel.resources
+C:\Users\Eric\Documents\Visual Studio 2010\Projects\ARCed.NET\ARCed.NET\obj\x86\Debug\ARCed.Database.Troops.BattleTestDialog.resources
+C:\Users\Eric\Documents\Visual Studio 2010\Projects\ARCed.NET\ARCed.NET\obj\x86\Debug\ARCed.Controls.EventTextBox.resources
+C:\Users\Eric\Desktop\ARC\editor\ARCed.NET\ARCed.NET\bin\Debug\ARCed.exe.config
+C:\Users\Eric\Desktop\ARC\editor\ARCed.NET\ARCed.NET\obj\x86\Debug\ARCed.exe
+C:\Users\Eric\Desktop\ARC\editor\ARCed.NET\ARCed.NET\obj\x86\Debug\ARCed.pdb
+C:\Users\Eric\Desktop\ARC\editor\ARCed.NET\ARCed.NET\bin\Debug\Assemblies\Dejavu.dll
+C:\Users\Eric\Desktop\ARC\editor\ARCed.NET\ARCed.NET\bin\Debug\Assemblies\Microsoft.Dynamic.dll
+C:\Users\Eric\Desktop\ARC\editor\ARCed.NET\ARCed.NET\bin\Debug\Assemblies\Microsoft.Xna.Framework.dll
+C:\Users\Eric\Desktop\ARC\editor\ARCed.NET\ARCed.NET\bin\Debug\Assemblies\Microsoft.Xna.Framework.Graphics.dll
+C:\Users\Eric\Desktop\ARC\editor\ARCed.NET\ARCed.NET\bin\Debug\Assemblies\SevenZipSharp.dll
+C:\Users\Eric\Desktop\ARC\editor\ARCed.NET\ARCed.NET\bin\Debug\Plugins\Instructions.txt
+C:\Users\Eric\Desktop\ARC\editor\ARCed.NET\ARCed.NET\bin\Debug\Resources\icon.ico
+C:\Users\Eric\Desktop\ARC\editor\ARCed.NET\ARCed.NET\bin\Debug\x86\7z.dll
+C:\Users\Eric\Desktop\ARC\editor\ARCed.NET\ARCed.NET\bin\Debug\x64\7z64.dll
+C:\Users\Eric\Desktop\ARC\editor\ARCed.NET\ARCed.NET\bin\Debug\x86\SciLexer.dll
+C:\Users\Eric\Desktop\ARC\editor\ARCed.NET\ARCed.NET\bin\Debug\x64\SciLexer64.dll
+C:\Users\Eric\Desktop\ARC\editor\ARCed.NET\ARCed.NET\bin\Debug\Fonts\ethnocen.ttf
+C:\Users\Eric\Desktop\ARC\editor\ARCed.NET\ARCed.NET\bin\Debug\Fonts\consola.ttf
+C:\Users\Eric\Desktop\ARC\editor\ARCed.NET\ARCed.NET\bin\Debug\Fonts\OptimusPrinceps.ttf
+C:\Users\Eric\Desktop\ARC\editor\ARCed.NET\ARCed.NET\bin\Debug\Resources\Add.png
+C:\Users\Eric\Desktop\ARC\editor\ARCed.NET\ARCed.NET\bin\Debug\Resources\Calculator.png
+C:\Users\Eric\Desktop\ARC\editor\ARCed.NET\ARCed.NET\bin\Debug\Resources\CharMap.png
+C:\Users\Eric\Desktop\ARC\editor\ARCed.NET\ARCed.NET\bin\Debug\Resources\Close.png
+C:\Users\Eric\Desktop\ARC\editor\ARCed.NET\ARCed.NET\bin\Debug\Resources\Delete.png
+C:\Users\Eric\Desktop\ARC\editor\ARCed.NET\ARCed.NET\bin\Debug\Resources\Color.png
+C:\Users\Eric\Desktop\ARC\editor\ARCed.NET\ARCed.NET\bin\Debug\Resources\Comment.png
+C:\Users\Eric\Desktop\ARC\editor\ARCed.NET\ARCed.NET\bin\Debug\Resources\Cut.png
+C:\Users\Eric\Desktop\ARC\editor\ARCed.NET\ARCed.NET\bin\Debug\Resources\Paste.png
+C:\Users\Eric\Desktop\ARC\editor\ARCed.NET\ARCed.NET\bin\Debug\Resources\Copy.png
+C:\Users\Eric\Desktop\ARC\editor\ARCed.NET\ARCed.NET\bin\Debug\Resources\Find2.png
+C:\Users\Eric\Desktop\ARC\editor\ARCed.NET\ARCed.NET\bin\Debug\Resources\Find3.png
+C:\Users\Eric\Desktop\ARC\editor\ARCed.NET\ARCed.NET\bin\Debug\Resources\GoTo.png
+C:\Users\Eric\Desktop\ARC\editor\ARCed.NET\ARCed.NET\bin\Debug\Resources\Find1.png
+C:\Users\Eric\Desktop\ARC\editor\ARCed.NET\ARCed.NET\bin\Debug\Resources\Next.png
+C:\Users\Eric\Desktop\ARC\editor\ARCed.NET\ARCed.NET\bin\Debug\Resources\Previous.png
+C:\Users\Eric\Desktop\ARC\editor\ARCed.NET\ARCed.NET\bin\Debug\Resources\Help.png
+C:\Users\Eric\Desktop\ARC\editor\ARCed.NET\ARCed.NET\bin\Debug\Resources\Down.png
+C:\Users\Eric\Desktop\ARC\editor\ARCed.NET\ARCed.NET\bin\Debug\Resources\FolderOpen.png
+C:\Users\Eric\Desktop\ARC\editor\ARCed.NET\ARCed.NET\bin\Debug\Resources\Up.png
+C:\Users\Eric\Desktop\ARC\editor\ARCed.NET\ARCed.NET\bin\Debug\Resources\NextMessage.png
+C:\Users\Eric\Desktop\ARC\editor\ARCed.NET\ARCed.NET\bin\Debug\Resources\PreviousMessage.png
+C:\Users\Eric\Desktop\ARC\editor\ARCed.NET\ARCed.NET\bin\Debug\Resources\Ruby.png
+C:\Users\Eric\Desktop\ARC\editor\ARCed.NET\ARCed.NET\bin\Debug\Resources\SevenZip.png
+C:\Users\Eric\Desktop\ARC\editor\ARCed.NET\ARCed.NET\bin\Debug\Resources\FileOpen.png
+C:\Users\Eric\Desktop\ARC\editor\ARCed.NET\ARCed.NET\bin\Debug\Resources\FoldCollapse.bmp
+C:\Users\Eric\Desktop\ARC\editor\ARCed.NET\ARCed.NET\bin\Debug\Resources\Fold.png
+C:\Users\Eric\Desktop\ARC\editor\ARCed.NET\ARCed.NET\bin\Debug\Resources\AutoComplete.png
+C:\Users\Eric\Desktop\ARC\editor\ARCed.NET\ARCed.NET\bin\Debug\Resources\Redo.png
+C:\Users\Eric\Desktop\ARC\editor\ARCed.NET\ARCed.NET\bin\Debug\Resources\Save.png
+C:\Users\Eric\Desktop\ARC\editor\ARCed.NET\ARCed.NET\bin\Debug\Resources\Undo.png
+C:\Users\Eric\Desktop\ARC\editor\ARCed.NET\ARCed.NET\bin\Debug\Resources\Indent.png
+C:\Users\Eric\Desktop\ARC\editor\ARCed.NET\ARCed.NET\bin\Debug\Resources\SaveTemplate.png
+C:\Users\Eric\Desktop\ARC\editor\ARCed.NET\ARCed.NET\bin\Debug\Resources\NewDocument.png
+C:\Users\Eric\Desktop\ARC\editor\ARCed.NET\ARCed.NET\bin\Debug\Resources\CaretColor.png
+C:\Users\Eric\Desktop\ARC\editor\ARCed.NET\ARCed.NET\bin\Debug\Resources\Highlight.png
+C:\Users\Eric\Desktop\ARC\editor\ARCed.NET\ARCed.NET\bin\Debug\Resources\Replace.png
+C:\Users\Eric\Desktop\ARC\editor\ARCed.NET\ARCed.NET\bin\Debug\Resources\Ruler.png
+C:\Users\Eric\Desktop\ARC\editor\ARCed.NET\ARCed.NET\bin\Debug\Resources\SaveAll.png
+C:\Users\Eric\Desktop\ARC\editor\ARCed.NET\ARCed.NET\bin\Debug\Resources\SelectAll.png
+C:\Users\Eric\Desktop\ARC\editor\ARCed.NET\ARCed.NET\bin\Debug\Resources\Theme.png
+C:\Users\Eric\Desktop\ARC\editor\ARCed.NET\ARCed.NET\bin\Debug\Resources\Settings.png
+C:\Users\Eric\Desktop\ARC\editor\ARCed.NET\ARCed.NET\bin\Debug\Resources\Pin.png
+C:\Users\Eric\Desktop\ARC\editor\ARCed.NET\ARCed.NET\bin\Debug\ARCed.exe
+C:\Users\Eric\Desktop\ARC\editor\ARCed.NET\ARCed.NET\bin\Debug\ARCed.pdb
+C:\Users\Eric\Desktop\ARC\editor\ARCed.NET\ARCed.NET\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Users\Eric\Desktop\ARC\editor\ARCed.NET\ARCed.NET\obj\x86\Debug\ARCed.Controls.BattleEventPage.resources
+C:\Users\Eric\Desktop\ARC\editor\ARCed.NET\ARCed.NET\obj\x86\Debug\ARCed.Controls.BattleTestActorPanel.resources
+C:\Users\Eric\Desktop\ARC\editor\ARCed.NET\ARCed.NET\obj\x86\Debug\ARCed.Controls.CheckGroupBox.resources
+C:\Users\Eric\Desktop\ARC\editor\ARCed.NET\ARCed.NET\obj\x86\Debug\ARCed.Controls.CollapsibleGroupBox.resources
+C:\Users\Eric\Desktop\ARC\editor\ARCed.NET\ARCed.NET\obj\x86\Debug\ARCed.Controls.DatabaseObjectListBox.resources
+C:\Users\Eric\Desktop\ARC\editor\ARCed.NET\ARCed.NET\obj\x86\Debug\ARCed.Controls.EventTextBox.resources
+C:\Users\Eric\Desktop\ARC\editor\ARCed.NET\ARCed.NET\obj\x86\Debug\ARCed.Controls.MultiStateCheckedListBox.resources
+C:\Users\Eric\Desktop\ARC\editor\ARCed.NET\ARCed.NET\obj\x86\Debug\ARCed.Controls.EfficiencySlot.resources
+C:\Users\Eric\Desktop\ARC\editor\ARCed.NET\ARCed.NET\obj\x86\Debug\ARCed.Controls.EquipSlot.resources
+C:\Users\Eric\Desktop\ARC\editor\ARCed.NET\ARCed.NET\obj\x86\Debug\ARCed.Controls.FontComboBox.resources
+C:\Users\Eric\Desktop\ARC\editor\ARCed.NET\ARCed.NET\obj\x86\Debug\ARCed.Controls.FontSelector.resources
+C:\Users\Eric\Desktop\ARC\editor\ARCed.NET\ARCed.NET\obj\x86\Debug\ARCed.Controls.MultiStateCheckbox.resources
+C:\Users\Eric\Desktop\ARC\editor\ARCed.NET\ARCed.NET\obj\x86\Debug\ARCed.Controls.NoteTextBox.resources
+C:\Users\Eric\Desktop\ARC\editor\ARCed.NET\ARCed.NET\obj\x86\Debug\ARCed.Controls.ParameterMiniChart.resources
+C:\Users\Eric\Desktop\ARC\editor\ARCed.NET\ARCed.NET\obj\x86\Debug\ARCed.Controls.ParamBox.resources
+C:\Users\Eric\Desktop\ARC\editor\ARCed.NET\ARCed.NET\obj\x86\Debug\ARCed.Controls.SearchControl.resources
+C:\Users\Eric\Desktop\ARC\editor\ARCed.NET\ARCed.NET\obj\x86\Debug\ARCed.Controls.EnemySprite.resources
+C:\Users\Eric\Desktop\ARC\editor\ARCed.NET\ARCed.NET\obj\x86\Debug\ARCed.Database.Actors.ExperienceCurveForm.resources
+C:\Users\Eric\Desktop\ARC\editor\ARCed.NET\ARCed.NET\obj\x86\Debug\ARCed.Database.Armors.ArmorMainForm.resources
+C:\Users\Eric\Desktop\ARC\editor\ARCed.NET\ARCed.NET\obj\x86\Debug\ARCed.Database.Classes.ClassMainForm.resources
+C:\Users\Eric\Desktop\ARC\editor\ARCed.NET\ARCed.NET\obj\x86\Debug\ARCed.Database.Classes.EditSkillDialog.resources
+C:\Users\Eric\Desktop\ARC\editor\ARCed.NET\ARCed.NET\obj\x86\Debug\ARCed.Database.Enemies.EditActionDialog.resources
+C:\Users\Eric\Desktop\ARC\editor\ARCed.NET\ARCed.NET\obj\x86\Debug\ARCed.Database.Enemies.EnemyMainForm.resources
+C:\Users\Eric\Desktop\ARC\editor\ARCed.NET\ARCed.NET\obj\x86\Debug\ARCed.Database.Enemies.TreasureSelectDialog.resources
+C:\Users\Eric\Desktop\ARC\editor\ARCed.NET\ARCed.NET\obj\x86\Debug\ARCed.Database.Troops.BattleTestDialog.resources
+C:\Users\Eric\Desktop\ARC\editor\ARCed.NET\ARCed.NET\obj\x86\Debug\ARCed.Database.Troops.TroopMainForm.resources
+C:\Users\Eric\Desktop\ARC\editor\ARCed.NET\ARCed.NET\obj\x86\Debug\ARCed.Database.Items.ItemMainForm.resources
+C:\Users\Eric\Desktop\ARC\editor\ARCed.NET\ARCed.NET\obj\x86\Debug\ARCed.Database.Skills.SkillMainForm.resources
+C:\Users\Eric\Desktop\ARC\editor\ARCed.NET\ARCed.NET\obj\x86\Debug\ARCed.Database.Weapons.WeaponMainForm.resources
+C:\Users\Eric\Desktop\ARC\editor\ARCed.NET\ARCed.NET\obj\x86\Debug\ARCed.Dialogs.AboutBox.resources
+C:\Users\Eric\Desktop\ARC\editor\ARCed.NET\ARCed.NET\obj\x86\Debug\ARCed.Dialogs.CaptureForm.resources
+C:\Users\Eric\Desktop\ARC\editor\ARCed.NET\ARCed.NET\obj\x86\Debug\ARCed.Dialogs.ChangeMaxDialog.resources
+C:\Users\Eric\Desktop\ARC\editor\ARCed.NET\ARCed.NET\obj\x86\Debug\ARCed.Dialogs.ColorChooserForm.resources
+C:\Users\Eric\Desktop\ARC\editor\ARCed.NET\ARCed.NET\obj\x86\Debug\ARCed.Database.Actors.ActorMainForm.resources
+C:\Users\Eric\Desktop\ARC\editor\ARCed.NET\ARCed.NET\obj\x86\Debug\ARCed.Database.Actors.ActorParametersForm.resources
+C:\Users\Eric\Desktop\ARC\editor\ARCed.NET\ARCed.NET\obj\x86\Debug\ARCed.Dialogs.FontSelectionDialog.resources
+C:\Users\Eric\Desktop\ARC\editor\ARCed.NET\ARCed.NET\obj\x86\Debug\ARCed.Dialogs.HeaderSettingsDialog.resources
+C:\Users\Eric\Desktop\ARC\editor\ARCed.NET\ARCed.NET\obj\x86\Debug\ARCed.Dialogs.ImageSelectionForm.resources
+C:\Users\Eric\Desktop\ARC\editor\ARCed.NET\ARCed.NET\obj\x86\Debug\ARCed.Dialogs.NoteForm.resources
+C:\Users\Eric\Desktop\ARC\editor\ARCed.NET\ARCed.NET\obj\x86\Debug\ARCed.Database.Actors.ParamGenerateCurveDialog.resources
+C:\Users\Eric\Desktop\ARC\editor\ARCed.NET\ARCed.NET\obj\x86\Debug\ARCed.Database.SwitchForm.resources
+C:\Users\Eric\Desktop\ARC\editor\ARCed.NET\ARCed.NET\obj\x86\Debug\ARCed.Forms.ARChiveForm.resources
+C:\Users\Eric\Desktop\ARC\editor\ARCed.NET\ARCed.NET\obj\x86\Debug\ARCed.Dialogs.UserStringForm.resources
+C:\Users\Eric\Desktop\ARC\editor\ARCed.NET\ARCed.NET\obj\x86\Debug\ARCed.Editor.resources
+C:\Users\Eric\Desktop\ARC\editor\ARCed.NET\ARCed.NET\obj\x86\Debug\ARCed.Dialogs.NewProjectForm.resources
+C:\Users\Eric\Desktop\ARC\editor\ARCed.NET\ARCed.NET\obj\x86\Debug\ARCed.Database.Actors.ChartSettingsForm.resources
+C:\Users\Eric\Desktop\ARC\editor\ARCed.NET\ARCed.NET\obj\x86\Debug\ARCed.Forms.EditorOptionsForm.resources
+C:\Users\Eric\Desktop\ARC\editor\ARCed.NET\ARCed.NET\obj\x86\Debug\ARCed.Forms.CalculatorForm.resources
+C:\Users\Eric\Desktop\ARC\editor\ARCed.NET\ARCed.NET\obj\x86\Debug\ARCed.Forms.SkinSettingsForm.resources
+C:\Users\Eric\Desktop\ARC\editor\ARCed.NET\ARCed.NET\obj\x86\Debug\ARCed.Scripting.AutoCompleteForm.resources
+C:\Users\Eric\Desktop\ARC\editor\ARCed.NET\ARCed.NET\obj\x86\Debug\ARCed.Scripting.NewScriptForm.resources
+C:\Users\Eric\Desktop\ARC\editor\ARCed.NET\ARCed.NET\obj\x86\Debug\ARCed.Scripting.ScriptEditorForm.resources
+C:\Users\Eric\Desktop\ARC\editor\ARCed.NET\ARCed.NET\obj\x86\Debug\ARCed.Scintilla.FindReplaceDialog.resources
+C:\Users\Eric\Desktop\ARC\editor\ARCed.NET\ARCed.NET\obj\x86\Debug\ARCed.Scintilla.IncrementalSearcher.resources
+C:\Users\Eric\Desktop\ARC\editor\ARCed.NET\ARCed.NET\obj\x86\Debug\ARCed.Scintilla.GoToDialog.resources
+C:\Users\Eric\Desktop\ARC\editor\ARCed.NET\ARCed.NET\obj\x86\Debug\ARCed.Scintilla.SnippetChooser.resources
+C:\Users\Eric\Desktop\ARC\editor\ARCed.NET\ARCed.NET\obj\x86\Debug\ARCed.Scripting.ScriptMenuForm.resources
+C:\Users\Eric\Desktop\ARC\editor\ARCed.NET\ARCed.NET\obj\x86\Debug\ARCed.Scripting.ScriptSearchForm.resources
+C:\Users\Eric\Desktop\ARC\editor\ARCed.NET\ARCed.NET\obj\x86\Debug\ARCed.Scripting.ScriptStyleForm.resources
+C:\Users\Eric\Desktop\ARC\editor\ARCed.NET\ARCed.NET\obj\x86\Debug\ARCed.Forms.Splash.SplashScreenForm.resources
+C:\Users\Eric\Desktop\ARC\editor\ARCed.NET\ARCed.NET\obj\x86\Debug\ARCed.Properties.Resources.resources
+C:\Users\Eric\Desktop\ARC\editor\ARCed.NET\ARCed.NET\obj\x86\Debug\ARCed.UI.Resources.resources
+C:\Users\Eric\Desktop\ARC\editor\ARCed.NET\ARCed.NET\obj\x86\Debug\ARCed.UI.Strings.resources
+C:\Users\Eric\Desktop\ARC\editor\ARCed.NET\ARCed.NET\obj\x86\Debug\GenerateResource.read.1.tlog
+C:\Users\Eric\Desktop\ARC\editor\ARCed.NET\ARCed.NET\obj\x86\Debug\GenerateResource.write.1.tlog
