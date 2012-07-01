@@ -411,6 +411,8 @@
 			// 
 			// menuStripGame
 			// 
+			this.menuStripGame.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+			this.gameMenuOpenFolder});
 			this.menuStripGame.Name = "menuStripGame";
 			this.menuStripGame.Size = new System.Drawing.Size(50, 20);
 			this.menuStripGame.Text = "&Game";

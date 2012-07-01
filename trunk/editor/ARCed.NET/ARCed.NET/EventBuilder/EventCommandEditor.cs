@@ -10,7 +10,7 @@ using Cmd = RPG.EventCommand;
 namespace ARCed.EventBuilder
 {
 	/// <summary>
-	/// A compiler bug in VS prevents a simple using alias for this, hence the inclusion 
+	/// A compiler bug in VS prevents a simple "using" alias for this, hence the inclusion 
 	/// of this class.
 	/// </summary>
 	public class Params : List<dynamic> { }
