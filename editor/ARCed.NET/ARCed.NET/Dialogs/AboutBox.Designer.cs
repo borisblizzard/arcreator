@@ -28,7 +28,6 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AboutBox));
 			this.DetailsButton = new System.Windows.Forms.Button();
 			this.ImagePictureBox = new System.Windows.Forms.PictureBox();
 			this.AppDateLabel = new System.Windows.Forms.Label();
@@ -175,7 +174,7 @@
 			this.MoreRichTextBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
 			this.MoreRichTextBox.Size = new System.Drawing.Size(414, 114);
 			this.MoreRichTextBox.TabIndex = 26;
-			this.MoreRichTextBox.Text = resources.GetString("MoreRichTextBox.Text");
+			this.MoreRichTextBox.Text = "TODO: Write text here";
 			this.MoreRichTextBox.LinkClicked += new System.Windows.Forms.LinkClickedEventHandler(this.MoreRichTextBox_LinkClicked);
 			// 
 			// TabPanelDetails
