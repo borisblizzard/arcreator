@@ -35,6 +35,9 @@
 			this.BackColor = System.Drawing.SystemColors.Window;
 			this.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.ReadOnly = true;
+			this.Click += new System.EventHandler(this.EventTextBox_Click);
+			this.DoubleClick += new System.EventHandler(this.EventTextBox_DoubleClick);
+			this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.EventTextBox_KeyDown);
 			this.ResumeLayout(false);
 
 		}

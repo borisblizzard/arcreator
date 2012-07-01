@@ -95,7 +95,23 @@
 			this.toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
 			this.newHorizontalTabGroupToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.newVerticalTabGroupToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.toolStripMenuDatabase = new System.Windows.Forms.ToolStripMenuItem();
+			this.actorsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.classesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.skillsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.itemsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.weaponsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.armorsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.enemiesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.troopsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.statesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.animationsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.tilesetsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.commonEventsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.systemToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.dockMain = new ARCed.UI.DockPanel();
+			this.switchesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.variablesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.menuStripMain.SuspendLayout();
 			this.statusStripMain.SuspendLayout();
 			this.contextMenuScriptTab.SuspendLayout();
@@ -109,7 +125,8 @@
             this.menuStripView,
             this.menuStripTools,
             this.menuStripGame,
-            this.menuStripHelp});
+            this.menuStripHelp,
+            this.toolStripMenuDatabase});
 			this.menuStripMain.Location = new System.Drawing.Point(0, 0);
 			this.menuStripMain.Name = "menuStripMain";
 			this.menuStripMain.Size = new System.Drawing.Size(829, 24);
@@ -627,6 +644,133 @@
 			this.newVerticalTabGroupToolStripMenuItem.Size = new System.Drawing.Size(215, 22);
 			this.newVerticalTabGroupToolStripMenuItem.Text = "New Vertical Tab Group";
 			// 
+			// toolStripMenuDatabase
+			// 
+			this.toolStripMenuDatabase.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+			this.toolStripMenuDatabase.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.actorsToolStripMenuItem,
+            this.classesToolStripMenuItem,
+            this.skillsToolStripMenuItem,
+            this.itemsToolStripMenuItem,
+            this.weaponsToolStripMenuItem,
+            this.armorsToolStripMenuItem,
+            this.enemiesToolStripMenuItem,
+            this.troopsToolStripMenuItem,
+            this.statesToolStripMenuItem,
+            this.animationsToolStripMenuItem,
+            this.tilesetsToolStripMenuItem,
+            this.commonEventsToolStripMenuItem,
+            this.systemToolStripMenuItem,
+            this.switchesToolStripMenuItem,
+            this.variablesToolStripMenuItem});
+			this.toolStripMenuDatabase.Name = "toolStripMenuDatabase";
+			this.toolStripMenuDatabase.Size = new System.Drawing.Size(104, 20);
+			this.toolStripMenuDatabase.Text = "Database Panels";
+			// 
+			// actorsToolStripMenuItem
+			// 
+			this.actorsToolStripMenuItem.Name = "actorsToolStripMenuItem";
+			this.actorsToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
+			this.actorsToolStripMenuItem.Tag = "0";
+			this.actorsToolStripMenuItem.Text = "Actors";
+			this.actorsToolStripMenuItem.Click += new System.EventHandler(this.toolComboDatabaseItem_Click);
+			// 
+			// classesToolStripMenuItem
+			// 
+			this.classesToolStripMenuItem.Name = "classesToolStripMenuItem";
+			this.classesToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
+			this.classesToolStripMenuItem.Tag = "1";
+			this.classesToolStripMenuItem.Text = "Classes";
+			this.classesToolStripMenuItem.Click += new System.EventHandler(this.toolComboDatabaseItem_Click);
+			// 
+			// skillsToolStripMenuItem
+			// 
+			this.skillsToolStripMenuItem.Name = "skillsToolStripMenuItem";
+			this.skillsToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
+			this.skillsToolStripMenuItem.Tag = "2";
+			this.skillsToolStripMenuItem.Text = "Skills";
+			this.skillsToolStripMenuItem.Click += new System.EventHandler(this.toolComboDatabaseItem_Click);
+			// 
+			// itemsToolStripMenuItem
+			// 
+			this.itemsToolStripMenuItem.Name = "itemsToolStripMenuItem";
+			this.itemsToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
+			this.itemsToolStripMenuItem.Tag = "3";
+			this.itemsToolStripMenuItem.Text = "Items";
+			this.itemsToolStripMenuItem.Click += new System.EventHandler(this.toolComboDatabaseItem_Click);
+			// 
+			// weaponsToolStripMenuItem
+			// 
+			this.weaponsToolStripMenuItem.Name = "weaponsToolStripMenuItem";
+			this.weaponsToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
+			this.weaponsToolStripMenuItem.Tag = "4";
+			this.weaponsToolStripMenuItem.Text = "Weapons";
+			this.weaponsToolStripMenuItem.Click += new System.EventHandler(this.toolComboDatabaseItem_Click);
+			// 
+			// armorsToolStripMenuItem
+			// 
+			this.armorsToolStripMenuItem.Name = "armorsToolStripMenuItem";
+			this.armorsToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
+			this.armorsToolStripMenuItem.Tag = "5";
+			this.armorsToolStripMenuItem.Text = "Armors";
+			this.armorsToolStripMenuItem.Click += new System.EventHandler(this.toolComboDatabaseItem_Click);
+			// 
+			// enemiesToolStripMenuItem
+			// 
+			this.enemiesToolStripMenuItem.Name = "enemiesToolStripMenuItem";
+			this.enemiesToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
+			this.enemiesToolStripMenuItem.Tag = "6";
+			this.enemiesToolStripMenuItem.Text = "Enemies";
+			this.enemiesToolStripMenuItem.Click += new System.EventHandler(this.toolComboDatabaseItem_Click);
+			// 
+			// troopsToolStripMenuItem
+			// 
+			this.troopsToolStripMenuItem.Name = "troopsToolStripMenuItem";
+			this.troopsToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
+			this.troopsToolStripMenuItem.Tag = "7";
+			this.troopsToolStripMenuItem.Text = "Troops";
+			this.troopsToolStripMenuItem.Click += new System.EventHandler(this.toolComboDatabaseItem_Click);
+			// 
+			// statesToolStripMenuItem
+			// 
+			this.statesToolStripMenuItem.Name = "statesToolStripMenuItem";
+			this.statesToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
+			this.statesToolStripMenuItem.Tag = "8";
+			this.statesToolStripMenuItem.Text = "States";
+			this.statesToolStripMenuItem.Click += new System.EventHandler(this.toolComboDatabaseItem_Click);
+			// 
+			// animationsToolStripMenuItem
+			// 
+			this.animationsToolStripMenuItem.Name = "animationsToolStripMenuItem";
+			this.animationsToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
+			this.animationsToolStripMenuItem.Tag = "9";
+			this.animationsToolStripMenuItem.Text = "Animations";
+			this.animationsToolStripMenuItem.Click += new System.EventHandler(this.toolComboDatabaseItem_Click);
+			// 
+			// tilesetsToolStripMenuItem
+			// 
+			this.tilesetsToolStripMenuItem.Name = "tilesetsToolStripMenuItem";
+			this.tilesetsToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
+			this.tilesetsToolStripMenuItem.Tag = "10";
+			this.tilesetsToolStripMenuItem.Text = "Tilesets";
+			this.tilesetsToolStripMenuItem.Click += new System.EventHandler(this.toolComboDatabaseItem_Click);
+			// 
+			// commonEventsToolStripMenuItem
+			// 
+			this.commonEventsToolStripMenuItem.Name = "commonEventsToolStripMenuItem";
+			this.commonEventsToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
+			this.commonEventsToolStripMenuItem.Tag = "11";
+			this.commonEventsToolStripMenuItem.Text = "Common Events";
+			this.commonEventsToolStripMenuItem.Click += new System.EventHandler(this.toolComboDatabaseItem_Click);
+			// 
+			// systemToolStripMenuItem
+			// 
+			this.systemToolStripMenuItem.Name = "systemToolStripMenuItem";
+			this.systemToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
+			this.systemToolStripMenuItem.Tag = "12";
+			this.systemToolStripMenuItem.Text = "System";
+			this.systemToolStripMenuItem.Click += new System.EventHandler(this.toolComboDatabaseItem_Click);
+			// 
 			// dockMain
 			// 
 			this.dockMain.ActiveAutoHideContent = null;
@@ -636,6 +780,22 @@
 			this.dockMain.Name = "dockMain";
 			this.dockMain.Size = new System.Drawing.Size(829, 451);
 			this.dockMain.TabIndex = 3;
+			// 
+			// switchesToolStripMenuItem
+			// 
+			this.switchesToolStripMenuItem.Name = "switchesToolStripMenuItem";
+			this.switchesToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
+			this.switchesToolStripMenuItem.Tag = "13";
+			this.switchesToolStripMenuItem.Text = "Switches";
+			this.switchesToolStripMenuItem.Click += new System.EventHandler(this.toolComboDatabaseItem_Click);
+			// 
+			// variablesToolStripMenuItem
+			// 
+			this.variablesToolStripMenuItem.Name = "variablesToolStripMenuItem";
+			this.variablesToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
+			this.variablesToolStripMenuItem.Tag = "14";
+			this.variablesToolStripMenuItem.Text = "Variables";
+			this.variablesToolStripMenuItem.Click += new System.EventHandler(this.toolComboDatabaseItem_Click);
 			// 
 			// Editor
 			// 
@@ -728,6 +888,22 @@
 		private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
 		private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
 		private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel3;
+		private System.Windows.Forms.ToolStripMenuItem toolStripMenuDatabase;
+		private System.Windows.Forms.ToolStripMenuItem actorsToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem classesToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem skillsToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem itemsToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem weaponsToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem armorsToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem enemiesToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem troopsToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem statesToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem animationsToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem tilesetsToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem commonEventsToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem systemToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem switchesToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem variablesToolStripMenuItem;
 	}
 }
 

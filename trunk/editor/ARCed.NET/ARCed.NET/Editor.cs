@@ -115,16 +115,7 @@ namespace ARCed
 				LoadProject(testPath);
 			dockMain.SuspendPainting();
 			SuspendLayout();
-			//new Database.SwitchForm(Database.SwitchType.Switch).Show(Editor.MainDock, DockState.DockRightAutoHide);
-			//new Database.SwitchForm(Database.SwitchType.Variable).Show(Editor.MainDock, DockState.DockRightAutoHide);
-			new Database.Enemies.EnemyMainForm().Show(Editor.MainDock);
 			new Database.Troops.TroopMainForm().Show(Editor.MainDock);
-			new Database.Armors.ArmorMainForm().Show(Editor.MainDock);
-			new Database.Weapons.WeaponMainForm().Show(Editor.MainDock);
-			new Database.Items.ItemMainForm().Show(Editor.MainDock);
-			new Database.Skills.SkillMainForm().Show(Editor.MainDock);
-			new Database.Actors.ActorMainForm().Show(Editor.MainDock);
-			new Database.Classes.ClassMainForm().Show(dockMain);
 			dockMain.ResumePainting(true);
 			ResumeLayout(true);
 
@@ -610,6 +601,35 @@ namespace ARCed
 		{
 			using (AboutBox aboutDialog = new AboutBox())
 				aboutDialog.ShowDialog(this);
+		}
+
+		/// <summary>
+		/// TEST PURPOSES ONLY
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void toolComboDatabaseItem_Click(object sender, EventArgs e)
+		{
+			int index = Convert.ToInt32((sender as ToolStripMenuItem).Tag);
+			Database.DatabaseWindow window = null;
+			switch (index)
+			{
+				case 0: window = Windows.DatabaseForm<Database.Actors.ActorMainForm>(); break;
+				case 1: window = Windows.DatabaseForm<Database.Classes.ClassMainForm>(); break;
+				case 2: window = Windows.DatabaseForm<Database.Skills.SkillMainForm>(); break;
+				case 3: window = Windows.DatabaseForm<Database.Items.ItemMainForm>(); break;
+				case 4: window = Windows.DatabaseForm<Database.Weapons.WeaponMainForm>(); break;
+				case 5: window = Windows.DatabaseForm<Database.Armors.ArmorMainForm>(); break;
+				case 6: window = Windows.DatabaseForm<Database.Enemies.EnemyMainForm>(); break;
+				case 7: window = Windows.DatabaseForm<Database.Troops.TroopMainForm>(); break;
+				case 8: window = Windows.DatabaseForm<Database.Actors.ActorMainForm>(); break;
+				case 9: window = Windows.DatabaseForm<Database.Actors.ActorMainForm>(); break;
+				case 10: window = Windows.DatabaseForm<Database.Actors.ActorMainForm>(); break;
+				case 11: window = Windows.DatabaseForm<Database.Actors.ActorMainForm>(); break;
+				case 12: window = Windows.DatabaseForm<Database.Actors.ActorMainForm>(); break;
+			}
+			if (window != null)
+				window.Show(Editor.MainDock);
 		}
 	}
 }

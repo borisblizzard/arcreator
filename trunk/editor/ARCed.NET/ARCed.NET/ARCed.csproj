@@ -344,6 +344,61 @@
       <DependentUpon>Editor.cs</DependentUpon>
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="EventBuilder\CmdInputNumberDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EventBuilder\CmdInputNumberDialog.Designer.cs">
+      <DependentUpon>CmdInputNumberDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="EventBuilder\CmdShowChoicesDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EventBuilder\CmdShowChoicesDialog.Designer.cs">
+      <DependentUpon>CmdShowChoicesDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="EventBuilder\CmdShowTextDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EventBuilder\CmdShowTextDialog.Designer.cs">
+      <DependentUpon>CmdShowTextDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="EventBuilder\CmdChangeTextOptionDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EventBuilder\CmdChangeTextOptionDialog.Designer.cs">
+      <DependentUpon>CmdChangeTextOptionDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="EventBuilder\CmdButtonInputDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EventBuilder\CmdButtonInputDialog.Designer.cs">
+      <DependentUpon>CmdButtonInputDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="EventBuilder\CmdWaitDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EventBuilder\CmdWaitDialog.Designer.cs">
+      <DependentUpon>CmdWaitDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="EventBuilder\CmdCommentDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EventBuilder\CmdCommentDialog.Designer.cs">
+      <DependentUpon>CmdCommentDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="EventBuilder\EventBuilderMainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EventBuilder\EventBuilderMainForm.Designer.cs">
+      <DependentUpon>EventBuilderMainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="EventBuilder\EventCommandEditor.cs" />
+    <Compile Include="EventBuilder\__CMD_TEMPLATE__.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EventBuilder\__CMD_TEMPLATE__.Designer.cs">
+      <DependentUpon>__CMD_TEMPLATE__.cs</DependentUpon>
+    </Compile>
     <Compile Include="Helpers\Cache.cs" />
     <Compile Include="Data\ColorHandler.cs" />
     <Compile Include="Data\ColorWheel.cs" />
@@ -961,6 +1016,33 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Database\SwitchForm.resx">
       <DependentUpon>SwitchForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EventBuilder\CmdInputNumberDialog.resx">
+      <DependentUpon>CmdInputNumberDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EventBuilder\CmdShowChoicesDialog.resx">
+      <DependentUpon>CmdShowChoicesDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EventBuilder\CmdShowTextDialog.resx">
+      <DependentUpon>CmdShowTextDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EventBuilder\CmdChangeTextOptionDialog.resx">
+      <DependentUpon>CmdChangeTextOptionDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EventBuilder\CmdButtonInputDialog.resx">
+      <DependentUpon>CmdButtonInputDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EventBuilder\CmdWaitDialog.resx">
+      <DependentUpon>CmdWaitDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EventBuilder\CmdCommentDialog.resx">
+      <DependentUpon>CmdCommentDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EventBuilder\EventBuilderMainForm.resx">
+      <DependentUpon>EventBuilderMainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EventBuilder\__CMD_TEMPLATE__.resx">
+      <DependentUpon>__CMD_TEMPLATE__.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ARChiveForm.resx">
       <DependentUpon>ARChiveForm.cs</DependentUpon>
