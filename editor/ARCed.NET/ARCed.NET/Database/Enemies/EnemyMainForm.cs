@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 using ARCed.Controls;
+using ARCed.Dialogs;
 using ARCed.Helpers;
 
 namespace ARCed.Database.Enemies
@@ -49,26 +51,6 @@ namespace ARCed.Database.Enemies
 			_listViewSorter = new ListViewColumnSorter();
 			listViewActions.ListViewItemSorter = _listViewSorter;
 			dataObjectList.SelectedIndex = 0;
-		}
-
-		#endregion
-
-		#region Initialize Controls
-
-		public void InitializeElements()
-		{
-			checkedListElements.ClearItems();
-			List<dynamic> elements = Project.Data.System.elements;
-			for (int i = 1; i < elements.Count; i++)
-				checkedListElements.AddItem(elements[i % elements.Count]);
-		}
-
-		public void InitializeStates()
-		{
-			checkedListStates.ClearItems();
-			List<dynamic> states = Project.Data.States;
-			for (int i = 1; i < states.Count; i++)
-				checkedListStates.AddItem(states[i % states.Count].name);
 		}
 
 		#endregion
@@ -137,6 +119,22 @@ namespace ARCed.Database.Enemies
 		#endregion
 
 		#region Private Methods
+
+		private void InitializeElements()
+		{
+			checkedListElements.ClearItems();
+			List<dynamic> elements = Project.Data.System.elements;
+			for (int i = 1; i < elements.Count; i++)
+				checkedListElements.AddItem(elements[i % elements.Count]);
+		}
+
+		private void InitializeStates()
+		{
+			checkedListStates.ClearItems();
+			List<dynamic> states = Project.Data.States;
+			for (int i = 1; i < states.Count; i++)
+				checkedListStates.AddItem(states[i % states.Count].name);
+		}
 
 		private void RefreshActions()
 		{
@@ -365,6 +363,39 @@ namespace ARCed.Database.Enemies
 					RefreshTreasure();
 				}
 			}
+		}
+
+		private void pictureBattler_DoubleClick(object sender, EventArgs e)
+		{
+			using (ImageSelectionForm dialog =
+				new ImageSelectionForm(@"Graphics\Battlers", _enemy.battler_name, _enemy.battler_hue))
+			{
+				dialog.TileSelection = false;
+				if (dialog.ShowDialog(this) == DialogResult.OK)
+				{
+					_enemy.battler_name = dialog.ImageName;
+					_enemy.battler_hue = dialog.ImageHue;
+					pictureBattler.Image =
+						Cache.Battler(_enemy.battler_name, _enemy.battler_hue);
+				}
+			}
+		}
+
+		private void contextMenuImages_Opening(object sender, CancelEventArgs e)
+		{
+			PictureBoxSizeMode mode =
+				(contextMenuImages.SourceControl as PictureBox).SizeMode;
+			contextImageNormal.Checked = mode == PictureBoxSizeMode.Normal;
+			contextImageCenter.Checked = mode == PictureBoxSizeMode.CenterImage;
+			contextImageStretch.Checked = mode == PictureBoxSizeMode.StretchImage;
+			contextImageZoom.Checked = mode == PictureBoxSizeMode.Zoom;
+		}
+
+		private void contextImagesSizeMode_Clicked(object sender, EventArgs e)
+		{
+			int num = Convert.ToInt32((sender as ToolStripMenuItem).Tag);
+			PictureBoxSizeMode mode = (PictureBoxSizeMode)num;
+			(contextMenuImages.SourceControl as PictureBox).SizeMode = mode;
 		}
 
 		#endregion

@@ -43,6 +43,13 @@
 			this.labelGold = new System.Windows.Forms.Label();
 			this.labelAtkAnimation = new System.Windows.Forms.Label();
 			this.pictureBattler = new System.Windows.Forms.PictureBox();
+			this.contextMenuImages = new System.Windows.Forms.ContextMenuStrip(this.components);
+			this.contextImageNormal = new System.Windows.Forms.ToolStripMenuItem();
+			this.contextImageStretch = new System.Windows.Forms.ToolStripMenuItem();
+			this.contextImageCenter = new System.Windows.Forms.ToolStripMenuItem();
+			this.contextImageZoom = new System.Windows.Forms.ToolStripMenuItem();
+			this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+			this.changeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.comboBoxAttackerAnimation = new System.Windows.Forms.ComboBox();
 			this.textBoxName = new System.Windows.Forms.TextBox();
 			this.labelName = new System.Windows.Forms.Label();
@@ -104,6 +111,7 @@
 			((System.ComponentModel.ISupportInitialize)(this.numericUpDownExp)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.numericUpDownGold)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBattler)).BeginInit();
+			this.contextMenuImages.SuspendLayout();
 			this.groupBoxParameters.SuspendLayout();
 			this.flowPanel.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.splitContainerStateElements)).BeginInit();
@@ -303,12 +311,71 @@
 						| System.Windows.Forms.AnchorStyles.Left)
 						| System.Windows.Forms.AnchorStyles.Right)));
 			this.pictureBattler.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+			this.pictureBattler.ContextMenuStrip = this.contextMenuImages;
 			this.pictureBattler.Location = new System.Drawing.Point(9, 64);
 			this.pictureBattler.Name = "pictureBattler";
 			this.pictureBattler.Size = new System.Drawing.Size(173, 154);
 			this.pictureBattler.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
 			this.pictureBattler.TabIndex = 4;
 			this.pictureBattler.TabStop = false;
+			this.pictureBattler.DoubleClick += new System.EventHandler(this.pictureBattler_DoubleClick);
+			// 
+			// contextMenuImages
+			// 
+			this.contextMenuImages.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.contextImageNormal,
+            this.contextImageStretch,
+            this.contextImageCenter,
+            this.contextImageZoom,
+            this.toolStripSeparator2,
+            this.changeToolStripMenuItem});
+			this.contextMenuImages.Name = "contextMenuImages";
+			this.contextMenuImages.Size = new System.Drawing.Size(125, 120);
+			this.contextMenuImages.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuImages_Opening);
+			// 
+			// contextImageNormal
+			// 
+			this.contextImageNormal.Name = "contextImageNormal";
+			this.contextImageNormal.Size = new System.Drawing.Size(124, 22);
+			this.contextImageNormal.Tag = "0";
+			this.contextImageNormal.Text = "Normal";
+			this.contextImageNormal.Click += new System.EventHandler(this.contextImagesSizeMode_Clicked);
+			// 
+			// contextImageStretch
+			// 
+			this.contextImageStretch.Name = "contextImageStretch";
+			this.contextImageStretch.Size = new System.Drawing.Size(124, 22);
+			this.contextImageStretch.Tag = "1";
+			this.contextImageStretch.Text = "Stretch";
+			this.contextImageStretch.Click += new System.EventHandler(this.contextImagesSizeMode_Clicked);
+			// 
+			// contextImageCenter
+			// 
+			this.contextImageCenter.Name = "contextImageCenter";
+			this.contextImageCenter.Size = new System.Drawing.Size(124, 22);
+			this.contextImageCenter.Tag = "3";
+			this.contextImageCenter.Text = "Center";
+			this.contextImageCenter.Click += new System.EventHandler(this.contextImagesSizeMode_Clicked);
+			// 
+			// contextImageZoom
+			// 
+			this.contextImageZoom.Name = "contextImageZoom";
+			this.contextImageZoom.Size = new System.Drawing.Size(124, 22);
+			this.contextImageZoom.Tag = "4";
+			this.contextImageZoom.Text = "Zoom";
+			this.contextImageZoom.Click += new System.EventHandler(this.contextImagesSizeMode_Clicked);
+			// 
+			// toolStripSeparator2
+			// 
+			this.toolStripSeparator2.Name = "toolStripSeparator2";
+			this.toolStripSeparator2.Size = new System.Drawing.Size(121, 6);
+			// 
+			// changeToolStripMenuItem
+			// 
+			this.changeToolStripMenuItem.Name = "changeToolStripMenuItem";
+			this.changeToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
+			this.changeToolStripMenuItem.Text = "Change...";
+			this.changeToolStripMenuItem.Click += new System.EventHandler(this.pictureBattler_DoubleClick);
 			// 
 			// comboBoxAttackerAnimation
 			// 
@@ -951,6 +1018,7 @@
 			((System.ComponentModel.ISupportInitialize)(this.numericUpDownExp)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.numericUpDownGold)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBattler)).EndInit();
+			this.contextMenuImages.ResumeLayout(false);
 			this.groupBoxParameters.ResumeLayout(false);
 			this.flowPanel.ResumeLayout(false);
 			this.splitContainerStateElements.Panel1.ResumeLayout(false);
@@ -1020,5 +1088,12 @@
 		private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
 		private System.Windows.Forms.ToolStripMenuItem contextButtonActionRemove;
 		private System.Windows.Forms.ToolStripMenuItem contextButtonActionEdit;
+		private System.Windows.Forms.ContextMenuStrip contextMenuImages;
+		private System.Windows.Forms.ToolStripMenuItem contextImageNormal;
+		private System.Windows.Forms.ToolStripMenuItem contextImageStretch;
+		private System.Windows.Forms.ToolStripMenuItem contextImageCenter;
+		private System.Windows.Forms.ToolStripMenuItem contextImageZoom;
+		private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+		private System.Windows.Forms.ToolStripMenuItem changeToolStripMenuItem;
 	}
 }

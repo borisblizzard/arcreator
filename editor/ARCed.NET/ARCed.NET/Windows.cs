@@ -1,5 +1,6 @@
 ﻿#region Using Directives
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
@@ -226,5 +227,19 @@ namespace ARCed // INCOMPLETE
 		}
 
 		#endregion
+
+		/// <summary>
+		/// Gets a database window of the given type. If one is already created, it returns it, 
+		/// otherwise a new instance is created.
+		/// </summary>
+		/// <typeparam name="T">Type of database panel to get, must derive from DatabaseWindow</typeparam>
+		/// <returns>A window instance of the given type.</returns>
+		public static T DatabaseForm<T>() where T : DatabaseWindow
+		{
+			T form = (T)_databaseForms.Find(delegate(DatabaseWindow w) { return w is T; });
+			if (form != null)
+				return form;
+			return Activator.CreateInstance<T>();
+		}
 	}
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
+using System.Reflection;
 using ARCed.Helpers;
 
 namespace ARCed.Controls
@@ -60,123 +61,20 @@ namespace ARCed.Controls
 		private void Translate(int code, int indent, dynamic args)
 		{
 			AppendText(new string('\t', indent));
-			switch (code)
-			{
-				case 0: Command0(); break;          // Blank Command
-				case 101: Command101(args); break;  // Show Text
-				case 102: Command102(args); break;  // Show Choices
-				case 401: Command401(args); break;  // Show Text (Multi-Line)
-				case 402: Command402(args); break;  // When [**]
-				case 403: Command403(args); break;  // When Cancel
-				case 404: Command404(); break;      // End Branch (Choices)
-				case 412: Command412(); break;      // End Branch (Conditional Branch)
-				case 103: Command103(args); break;  // Input Number
-				case 104: Command104(args); break;  // Change Text Options
-				case 105: Command105(args); break;  // Button Input Processing
-				case 106: Command106(args); break;  // Wait
-				case 108: Command108(args); break;  // Comment
-				case 408: Command408(args); break;  // Comment (Multi-line)
-				case 111: Command111(args); break;  // Conditional Branch
-				case 411: Command411(args); break;  // Else
-				case 112: Command112(args); break;  // Loop
-				case 413: Command413(args); break;  // Repeat Above
-				case 113: Command113(args); break;  // Break Loop
-				case 115: Command115(args); break;  // Exit Event Processing
-				case 116: Command116(args); break;  // Erase Event
-				case 117: Command117(args); break;  // Call Common Event
-				case 118: Command118(args); break;  // Label
-				case 119: Command119(args); break;  // Jump to Label
-				case 121: Command121(args); break;  // Control Switches
-				case 122: Command122(args); break;  // Control Variables
-				case 123: Command123(args); break;  // Control Self Switch 
-				case 124: Command124(args); break;  // Control Timer
-				case 125: Command125(args); break;  // Change Gold
-				case 126: Command126(args); break;  // Change Items
-				case 127: Command127(args); break;  // Change Weapons
-				case 128: Command128(args); break;  // Change Armor
-				case 129: Command129(args); break;  // Change Party Member
-				case 131: Command131(args); break;  // Change Windowskin
-				case 132: Command132(args); break;  // Change Battle BGM
-				case 133: Command133(args); break;  // Change Battle End ME
-				case 134: Command134(args); break;  // Change Save Access
-				case 135: Command135(args); break;  // Change Menu Access
-				case 136: Command136(args); break;  // Change Encounter
-				case 201: Command201(args); break;  // Transfer Player
-				case 202: Command202(args); break;  // Set Event Location
-				case 203: Command203(args); break;  // Scroll Map
-				case 204: Command204(args); break;  // Change Map Settings
-				case 205: Command205(args); break;  // Change Fog Color Tone
-				case 206: Command206(args); break;  // Change Fog Opacity
-				case 207: Command207(args); break;  // Show Animation
-				case 208: Command208(args); break;  // Change Transparent Flag
-				case 209: Command209(args); break;  // Set Move Route
-				case 509: Command509(args); break;  // Move Command
-				case 210: Command210(args); break;  // Wait for Move's Completion
-				case 221: Command221(args); break;  // Prepare for Transition
-				case 222: Command222(args); break;  // Execute Transition
-				case 223: Command223(args); break;  // Change Screen Color Tone
-				case 224: Command224(args); break;  // Screen Flash
-				case 225: Command225(args); break;  // Screen Shake
-				case 231: Command231(args); break;  // Show Picture
-				case 232: Command232(args); break;  // Move Picture
-				case 233: Command233(args); break;  // Rotate Picture
-				case 234: Command234(args); break;  // Change Picture Color Tone
-				case 235: Command235(args); break;  // Erase Picture
-				case 236: Command236(args); break;  // Set Weather Effects
-				case 241: Command241(args); break;  // Play BGM
-				case 242: Command242(args); break;  // Fade Out BGM
-				case 245: Command245(args); break;  // Play BGS
-				case 246: Command246(args); break;  // Fade Out BGS
-				case 247: Command247(args); break;  // Memorize BGM/BGS
-				case 248: Command248(args); break;  // Restore BGM/BGS
-				case 249: Command249(args); break;  // Play ME
-				case 250: Command250(args); break;  // Play SE
-				case 251: Command251(args); break;  // Stop SE
-				case 301: Command301(args); break;  // Battle Processing
-				case 601: Command601(args); break;  // If Win
-				case 602: Command602(args); break;  // If Escape
-				case 603: Command603(args); break;  // If Lose
-				case 604: Command604(args); break;  // End Branch (Battle Processing)
-				case 302: Command302(args); break;  // Shop Processing
-				case 605: Command605(args); break;  // Shop Good
-				case 303: Command303(args); break;  // Name Input Processing
-				case 311: Command311(args); break;  // Change HP
-				case 312: Command312(args); break;  // Change SP
-				case 313: Command313(args); break;  // Change State
-				case 314: Command314(args); break;  // Recover All
-				case 315: Command315(args); break;  // Change EXP
-				case 316: Command316(args); break;  // Change Level
-				case 317: Command317(args); break;  // Change Parameters
-				case 318: Command318(args); break;  // Change Skills
-				case 319: Command319(args); break;  // Change Equipment
-				case 320: Command320(args); break;  // Change Actor Name
-				case 321: Command321(args); break;  // Change Actor Class
-				case 322: Command322(args); break;  // Change Actor Graphic
-				case 331: Command331(args); break;  // Change Enemy HP
-				case 332: Command332(args); break;  // Change Enemy SP
-				case 333: Command333(args); break;  // Change Enemy State
-				case 334: Command334(args); break;  // Enemy Recover All
-				case 335: Command335(args); break;  // Enemy Appearance
-				case 336: Command336(args); break;  // Enemy Transform
-				case 337: Command337(args); break;  // Show Battle Animation
-				case 338: Command338(args); break;  // Deal Damage
-				case 339: Command339(args); break;  // Force Action
-				case 340: Command340(args); break;  // Abort Battle
-				case 351: Command351(args); break;  // Call Menu Screen
-				case 352: Command352(args); break;  // Call Save Screen
-				case 353: Command353(args); break;  // Game Over
-				case 354: Command354(args); break;  // Return to Title Screen
-				case 355: Command355(args); break;  // Script
-				case 655: Command655(args); break;  // Script (Multi-Line)
-				default: Console.WriteLine("No branch for code: {0}", code); break;
-			}
+			string methodName = String.Format("Command{0}", code);
+			MethodInfo info = typeof(EventTextBox).GetMethod(methodName, 
+				BindingFlags.NonPublic | BindingFlags.Instance);
+			if (info != null)
+				info.Invoke(this, new object[] { args });
+			else 
+				Console.WriteLine("Missing Method: {0}", methodName);
 			AppendText("\n");
 		}
 
 		/// <summary>
 		/// Blank Command
 		/// </summary>
-		private void Command0()
+		private void Command0(dynamic args)
 		{
 			AppendText("@>");
 		}
@@ -229,7 +127,7 @@ namespace ARCed.Controls
 		/// <summary>
 		/// Branch End (Choices)
 		/// </summary>
-		private void Command404()
+		private void Command404(dynamic args)
 		{
 			AppendText(" : Branch End");
 		}
@@ -445,7 +343,7 @@ namespace ARCed.Controls
 		/// Branch End (Conditional Branch)
 		/// </summary>
 		/// <param frames="args">Array of game event parameters</param>
-		private void Command412()
+		private void Command412(dynamic args)
 		{
 			AppendText(" : ");
 			AppendText("Branch End", Color.Blue);
@@ -1793,5 +1691,21 @@ namespace ARCed.Controls
 		}
 
 		#endregion
+
+		private void EventTextBox_Click(object sender, EventArgs e)
+		{
+
+		}
+
+		private void EventTextBox_DoubleClick(object sender, EventArgs e)
+		{
+			EventBuilder.EventBuilderMainForm form = new EventBuilder.EventBuilderMainForm();
+			form.ShowDialog();
+		}
+
+		private void EventTextBox_KeyDown(object sender, KeyEventArgs e)
+		{
+
+		}
 	}
 }

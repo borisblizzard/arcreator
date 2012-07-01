@@ -41,7 +41,7 @@
 			this.label1.TabIndex = 0;
 			this.label1.Text = "Font:";
 			// 
-			// comboBox1
+			// comboBoxVariable
 			// 
 			this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
 			this.comboBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
