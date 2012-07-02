@@ -115,7 +115,9 @@ namespace ARCed
 				LoadProject(testPath);
 			dockMain.SuspendPainting();
 			SuspendLayout();
-			new Database.Troops.TroopMainForm().Show(Editor.MainDock);
+			//new Database.Actors.ActorMainForm().Show(Editor.MainDock);
+			new Database.Tilesets.TilesetsMainForm().Show(Editor.MainDock);
+			//new Database.Troops.TroopMainForm().Show(Editor.MainDock);
 			dockMain.ResumePainting(true);
 			ResumeLayout(true);
 

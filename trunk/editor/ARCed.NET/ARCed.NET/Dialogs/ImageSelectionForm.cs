@@ -142,6 +142,9 @@ namespace ARCed.Dialogs
 				case @"Graphics\Battlebacks":
 					pictureBox.Image = new Bitmap(Cache.Battleback(_filename));
 					break;
+				case @"Graphics\Tilesets":
+					pictureBox.Image = new Bitmap(Cache.Tileset(_filename));
+					break;
 			}
 		}
 

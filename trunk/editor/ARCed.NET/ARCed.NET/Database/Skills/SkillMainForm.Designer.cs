@@ -48,7 +48,6 @@
 			this.paramBoxAgi = new ARCed.Controls.ParamBox();
 			this.paramBoxInt = new ARCed.Controls.ParamBox();
 			this.buttonPlay = new System.Windows.Forms.Button();
-			this.button1 = new System.Windows.Forms.Button();
 			this.labelMenuSE = new System.Windows.Forms.Label();
 			this.splitContainerScopeAnimation = new System.Windows.Forms.SplitContainer();
 			this.comboBoxCommonEvent = new System.Windows.Forms.ComboBox();
@@ -61,10 +60,7 @@
 			this.label4 = new System.Windows.Forms.Label();
 			this.comboBoxOccasion = new System.Windows.Forms.ComboBox();
 			this.labelOccasion = new System.Windows.Forms.Label();
-			this.textBoxMenuSe = new System.Windows.Forms.TextBox();
-			this.buttonIcon = new System.Windows.Forms.Button();
 			this.pictureBoxIcon = new System.Windows.Forms.PictureBox();
-			this.textBoxIcon = new System.Windows.Forms.TextBox();
 			this.labelIcon = new System.Windows.Forms.Label();
 			this.textBoxDescription = new System.Windows.Forms.TextBox();
 			this.labelDescription = new System.Windows.Forms.Label();
@@ -75,6 +71,8 @@
 			this.checkGroupBoxElements = new ARCed.Controls.CheckGroupBox(this.components);
 			this.checkedListBoxStates = new ARCed.Controls.MultiStateCheckedListBox();
 			this.noteTextBox = new ARCed.Controls.NoteTextBox();
+			this.textBoxMenuSe = new ARCed.Controls.TextBoxButton();
+			this.textBoxIcon = new ARCed.Controls.TextBoxButton();
 			((System.ComponentModel.ISupportInitialize)(this.splitContainerMain)).BeginInit();
 			this.splitContainerMain.Panel1.SuspendLayout();
 			this.splitContainerMain.Panel2.SuspendLayout();
@@ -139,15 +137,13 @@
 			// 
 			// splitContainerRight.Panel1
 			// 
+			this.splitContainerRight.Panel1.Controls.Add(this.textBoxIcon);
+			this.splitContainerRight.Panel1.Controls.Add(this.textBoxMenuSe);
 			this.splitContainerRight.Panel1.Controls.Add(this.groupBoxParameters);
 			this.splitContainerRight.Panel1.Controls.Add(this.buttonPlay);
-			this.splitContainerRight.Panel1.Controls.Add(this.button1);
 			this.splitContainerRight.Panel1.Controls.Add(this.labelMenuSE);
 			this.splitContainerRight.Panel1.Controls.Add(this.splitContainerScopeAnimation);
-			this.splitContainerRight.Panel1.Controls.Add(this.textBoxMenuSe);
-			this.splitContainerRight.Panel1.Controls.Add(this.buttonIcon);
 			this.splitContainerRight.Panel1.Controls.Add(this.pictureBoxIcon);
-			this.splitContainerRight.Panel1.Controls.Add(this.textBoxIcon);
 			this.splitContainerRight.Panel1.Controls.Add(this.labelIcon);
 			this.splitContainerRight.Panel1.Controls.Add(this.textBoxDescription);
 			this.splitContainerRight.Panel1.Controls.Add(this.labelDescription);
@@ -512,22 +508,11 @@
 			this.buttonPlay.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.buttonPlay.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
 			this.buttonPlay.Image = global::ARCed.Properties.Resources.Play;
-			this.buttonPlay.Location = new System.Drawing.Point(182, 143);
+			this.buttonPlay.Location = new System.Drawing.Point(212, 143);
 			this.buttonPlay.Name = "buttonPlay";
 			this.buttonPlay.Size = new System.Drawing.Size(24, 24);
 			this.buttonPlay.TabIndex = 27;
 			this.buttonPlay.UseVisualStyleBackColor = true;
-			// 
-			// button1
-			// 
-			this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-			this.button1.Image = global::ARCed.Properties.Resources.Edit;
-			this.button1.Location = new System.Drawing.Point(212, 143);
-			this.button1.Name = "button1";
-			this.button1.Size = new System.Drawing.Size(24, 24);
-			this.button1.TabIndex = 26;
-			this.button1.UseVisualStyleBackColor = true;
 			// 
 			// labelMenuSE
 			// 
@@ -683,30 +668,6 @@
 			this.labelOccasion.TabIndex = 0;
 			this.labelOccasion.Text = "Occasion:";
 			// 
-			// textBoxMenuSe
-			// 
-			this.textBoxMenuSe.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-						| System.Windows.Forms.AnchorStyles.Right)));
-			this.textBoxMenuSe.BackColor = System.Drawing.SystemColors.Window;
-			this.textBoxMenuSe.Location = new System.Drawing.Point(6, 146);
-			this.textBoxMenuSe.Name = "textBoxMenuSe";
-			this.textBoxMenuSe.ReadOnly = true;
-			this.textBoxMenuSe.Size = new System.Drawing.Size(170, 20);
-			this.textBoxMenuSe.TabIndex = 4;
-			this.textBoxMenuSe.WordWrap = false;
-			// 
-			// buttonIcon
-			// 
-			this.buttonIcon.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.buttonIcon.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-			this.buttonIcon.Image = global::ARCed.Properties.Resources.Edit;
-			this.buttonIcon.Location = new System.Drawing.Point(212, 104);
-			this.buttonIcon.Name = "buttonIcon";
-			this.buttonIcon.Size = new System.Drawing.Size(24, 24);
-			this.buttonIcon.TabIndex = 24;
-			this.buttonIcon.UseVisualStyleBackColor = true;
-			this.buttonIcon.Click += new System.EventHandler(this.buttonIcon_Click);
-			// 
 			// pictureBoxIcon
 			// 
 			this.pictureBoxIcon.BackColor = System.Drawing.SystemColors.Window;
@@ -717,17 +678,6 @@
 			this.pictureBoxIcon.Size = new System.Drawing.Size(36, 36);
 			this.pictureBoxIcon.TabIndex = 23;
 			this.pictureBoxIcon.TabStop = false;
-			// 
-			// textBoxIcon
-			// 
-			this.textBoxIcon.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-						| System.Windows.Forms.AnchorStyles.Right)));
-			this.textBoxIcon.BackColor = System.Drawing.SystemColors.Window;
-			this.textBoxIcon.Location = new System.Drawing.Point(51, 107);
-			this.textBoxIcon.Name = "textBoxIcon";
-			this.textBoxIcon.ReadOnly = true;
-			this.textBoxIcon.Size = new System.Drawing.Size(155, 20);
-			this.textBoxIcon.TabIndex = 22;
 			// 
 			// labelIcon
 			// 
@@ -859,6 +809,28 @@
 			this.noteTextBox.TabIndex = 0;
 			this.noteTextBox.NoteTextChanged += new ARCed.Controls.NoteTextBox.TextChangedEventHandler(this.noteTextBox_NoteTextChanged);
 			// 
+			// textBoxMenuSe
+			// 
+			this.textBoxMenuSe.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+						| System.Windows.Forms.AnchorStyles.Right)));
+			this.textBoxMenuSe.Location = new System.Drawing.Point(6, 146);
+			this.textBoxMenuSe.MaximumSize = new System.Drawing.Size(1800, 20);
+			this.textBoxMenuSe.Name = "textBoxMenuSe";
+			this.textBoxMenuSe.Size = new System.Drawing.Size(200, 20);
+			this.textBoxMenuSe.TabIndex = 29;
+			this.textBoxMenuSe.OnButtonClick += new ARCed.Controls.TextBoxButton.ButtonClickHandler(this.textBoxMenuSe_OnButtonClick);
+			// 
+			// textBoxIcon
+			// 
+			this.textBoxIcon.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+						| System.Windows.Forms.AnchorStyles.Right)));
+			this.textBoxIcon.Location = new System.Drawing.Point(51, 107);
+			this.textBoxIcon.MaximumSize = new System.Drawing.Size(1800, 20);
+			this.textBoxIcon.Name = "textBoxIcon";
+			this.textBoxIcon.Size = new System.Drawing.Size(185, 20);
+			this.textBoxIcon.TabIndex = 30;
+			this.textBoxIcon.OnButtonClick += new ARCed.Controls.TextBoxButton.ButtonClickHandler(this.buttonIcon_Click);
+			// 
 			// SkillMainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -911,12 +883,10 @@
 		private System.Windows.Forms.TextBox textBoxName;
 		private System.Windows.Forms.Label labelIcon;
 		private System.Windows.Forms.PictureBox pictureBoxIcon;
-		private System.Windows.Forms.TextBox textBoxIcon;
 		private System.Windows.Forms.SplitContainer splitContainerNotes;
 		private Controls.NoteTextBox noteTextBox;
 		private System.Windows.Forms.SplitContainer splitContainerStateElements;
 		private Controls.CheckGroupBox checkGroupBoxElements;
-		private System.Windows.Forms.Button buttonIcon;
 		private System.Windows.Forms.SplitContainer splitContainerScopeAnimation;
 		private System.Windows.Forms.ComboBox comboBoxUserAnimation;
 		private System.Windows.Forms.Label label3;
@@ -927,11 +897,9 @@
 		private System.Windows.Forms.ComboBox comboBoxOccasion;
 		private System.Windows.Forms.Label labelOccasion;
 		private System.Windows.Forms.Label labelMenuSE;
-		private System.Windows.Forms.TextBox textBoxMenuSe;
 		private System.Windows.Forms.Label labelCommonEvent;
 		private System.Windows.Forms.ComboBox comboBoxCommonEvent;
 		private System.Windows.Forms.Button buttonPlay;
-		private System.Windows.Forms.Button button1;
 		private System.Windows.Forms.GroupBox groupBoxParameters;
 		private System.Windows.Forms.FlowLayoutPanel flowPanel;
 		private Controls.ParamBox paramBoxSpCost;
@@ -947,6 +915,8 @@
 		private Controls.ParamBox paramBoxAgi;
 		private Controls.ParamBox paramBoxInt;
 		private Controls.MultiStateCheckedListBox checkedListBoxStates;
+		private Controls.TextBoxButton textBoxIcon;
+		private Controls.TextBoxButton textBoxMenuSe;
 
 	}
 }

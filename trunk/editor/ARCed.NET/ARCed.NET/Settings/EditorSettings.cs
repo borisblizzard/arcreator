@@ -84,6 +84,10 @@ namespace ARCed.Settings
 		/// Gets or sets the settings used for rendering header images
 		/// </summary>
 		public HeaderSettings HeaderImage { get; set; }
+		/// <summary>
+		/// Gets or sets the settings used for tileset editor.
+		/// </summary>
+		public TilesetSettings TilesetSettings { get; set; }
 
 		/// <summary>
 		/// Default constructor
@@ -101,6 +105,7 @@ namespace ARCed.Settings
 			Charting = new ChartSettings();
 			SerializedNoteFont = FontHelper.MonoFont;
 			HeaderImage = new HeaderSettings();
+			TilesetSettings = new TilesetSettings();
 		}
 
 		/// <summary>

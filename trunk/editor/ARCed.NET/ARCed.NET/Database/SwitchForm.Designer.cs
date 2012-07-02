@@ -80,9 +80,12 @@
 			this.DockAreas = ((ARCed.UI.DockAreas)(((ARCed.UI.DockAreas.Float | ARCed.UI.DockAreas.DockLeft)
 						| ARCed.UI.DockAreas.DockRight)));
 			this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
 			this.Name = "SwitchForm";
 			this.RpgTypeName = "RPG.RpgObject";
 			this.ShowHint = ARCed.UI.DockState.DockRight;
+			this.ShowIcon = false;
+			this.ShowInTaskbar = false;
 			this.Text = "SwitchVariableDialog";
 			this.ResumeLayout(false);
 			this.PerformLayout();

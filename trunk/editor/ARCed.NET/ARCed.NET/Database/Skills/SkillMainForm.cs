@@ -333,5 +333,10 @@ namespace ARCed.Database.Skills
 			//if (!suppressEvents)
 				//_item.note = noteTextBox.NoteText;
 		}
+
+		private void textBoxMenuSe_OnButtonClick(object sender, EventArgs e)
+		{
+
+		}
 	}
 }

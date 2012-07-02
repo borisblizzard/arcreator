@@ -258,7 +258,7 @@ namespace ARCed
 				data.System = LoadArcData<RPG.System>("System.arc", map);
 				data.Enemies = LoadArcData<List<dynamic>>("Enemies.arc", map);
 				data.Troops = LoadArcData<List<dynamic>>("Troops.arc", map);
-				
+				data.Tilesets = LoadArcData<List<dynamic>>("Tilesets.arc", map);
 
 				Project.Data = data;
 				Editor.MainInstance.Cursor = System.Windows.Forms.Cursors.Default;

@@ -48,9 +48,7 @@
 			this.paramBoxDexPlus = new ARCed.Controls.ParamBox();
 			this.paramBoxAgiPlus = new ARCed.Controls.ParamBox();
 			this.paramBoxIntPlus = new ARCed.Controls.ParamBox();
-			this.buttonIcon = new System.Windows.Forms.Button();
 			this.pictureBoxIcon = new System.Windows.Forms.PictureBox();
-			this.textBoxIcon = new System.Windows.Forms.TextBox();
 			this.labelIcon = new System.Windows.Forms.Label();
 			this.textBoxDescription = new System.Windows.Forms.TextBox();
 			this.labelDescription = new System.Windows.Forms.Label();
@@ -61,6 +59,7 @@
 			this.checkGroupBoxElements = new ARCed.Controls.CheckGroupBox(this.components);
 			this.checkGroupBoxStates = new ARCed.Controls.CheckGroupBox(this.components);
 			this.noteTextBox = new ARCed.Controls.NoteTextBox();
+			this.textBoxIcon = new ARCed.Controls.TextBoxButton();
 			((System.ComponentModel.ISupportInitialize)(this.splitContainerMain)).BeginInit();
 			this.splitContainerMain.Panel1.SuspendLayout();
 			this.splitContainerMain.Panel2.SuspendLayout();
@@ -125,11 +124,10 @@
 			// 
 			// splitContainerWeapons.Panel1
 			// 
+			this.splitContainerWeapons.Panel1.Controls.Add(this.textBoxIcon);
 			this.splitContainerWeapons.Panel1.Controls.Add(this.splitContainerKind);
 			this.splitContainerWeapons.Panel1.Controls.Add(this.groupBoxParameters);
-			this.splitContainerWeapons.Panel1.Controls.Add(this.buttonIcon);
 			this.splitContainerWeapons.Panel1.Controls.Add(this.pictureBoxIcon);
-			this.splitContainerWeapons.Panel1.Controls.Add(this.textBoxIcon);
 			this.splitContainerWeapons.Panel1.Controls.Add(this.labelIcon);
 			this.splitContainerWeapons.Panel1.Controls.Add(this.textBoxDescription);
 			this.splitContainerWeapons.Panel1.Controls.Add(this.labelDescription);
@@ -450,18 +448,6 @@
             0});
 			this.paramBoxIntPlus.OnValueChanged += new ARCed.Controls.ParamBox.ValueChangedEventHandler(this.paramBox_OnValueChanged);
 			// 
-			// buttonIcon
-			// 
-			this.buttonIcon.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.buttonIcon.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-			this.buttonIcon.Image = global::ARCed.Properties.Resources.Edit;
-			this.buttonIcon.Location = new System.Drawing.Point(253, 104);
-			this.buttonIcon.Name = "buttonIcon";
-			this.buttonIcon.Size = new System.Drawing.Size(24, 24);
-			this.buttonIcon.TabIndex = 37;
-			this.buttonIcon.UseVisualStyleBackColor = true;
-			this.buttonIcon.Click += new System.EventHandler(this.buttonIcon_Click);
-			// 
 			// pictureBoxIcon
 			// 
 			this.pictureBoxIcon.BackColor = System.Drawing.SystemColors.Window;
@@ -472,17 +458,6 @@
 			this.pictureBoxIcon.Size = new System.Drawing.Size(36, 36);
 			this.pictureBoxIcon.TabIndex = 36;
 			this.pictureBoxIcon.TabStop = false;
-			// 
-			// textBoxIcon
-			// 
-			this.textBoxIcon.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-						| System.Windows.Forms.AnchorStyles.Right)));
-			this.textBoxIcon.BackColor = System.Drawing.SystemColors.Window;
-			this.textBoxIcon.Location = new System.Drawing.Point(51, 107);
-			this.textBoxIcon.Name = "textBoxIcon";
-			this.textBoxIcon.ReadOnly = true;
-			this.textBoxIcon.Size = new System.Drawing.Size(196, 20);
-			this.textBoxIcon.TabIndex = 35;
 			// 
 			// labelIcon
 			// 
@@ -606,6 +581,17 @@
 			this.noteTextBox.TabIndex = 0;
 			this.noteTextBox.NoteTextChanged += new ARCed.Controls.NoteTextBox.TextChangedEventHandler(this.noteTextBox_NoteTextChanged);
 			// 
+			// textBoxIcon
+			// 
+			this.textBoxIcon.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+						| System.Windows.Forms.AnchorStyles.Right)));
+			this.textBoxIcon.Location = new System.Drawing.Point(51, 107);
+			this.textBoxIcon.MaximumSize = new System.Drawing.Size(1800, 20);
+			this.textBoxIcon.Name = "textBoxIcon";
+			this.textBoxIcon.Size = new System.Drawing.Size(223, 20);
+			this.textBoxIcon.TabIndex = 41;
+			this.textBoxIcon.OnButtonClick += new ARCed.Controls.TextBoxButton.ButtonClickHandler(this.buttonIcon_Click);
+			// 
 			// ArmorMainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -652,9 +638,7 @@
 		private System.Windows.Forms.SplitContainer splitContainerMain;
 		private System.Windows.Forms.SplitContainer splitContainerWeapons;
 		private Controls.DatabaseObjectListBox dataObjectList;
-		private System.Windows.Forms.Button buttonIcon;
 		private System.Windows.Forms.PictureBox pictureBoxIcon;
-		private System.Windows.Forms.TextBox textBoxIcon;
 		private System.Windows.Forms.Label labelIcon;
 		private System.Windows.Forms.TextBox textBoxDescription;
 		private System.Windows.Forms.Label labelDescription;
@@ -680,5 +664,6 @@
 		private Controls.ParamBox paramBoxDexPlus;
 		private Controls.ParamBox paramBoxAgiPlus;
 		private Controls.ParamBox paramBoxIntPlus;
+		private Controls.TextBoxButton textBoxIcon;
 	}
 }

@@ -41,8 +41,6 @@
 			this.groupBoxEquipment = new System.Windows.Forms.GroupBox();
 			this.panelEquipment = new System.Windows.Forms.Panel();
 			this.groupBoxGeneral = new System.Windows.Forms.GroupBox();
-			this.buttonExperience = new System.Windows.Forms.Button();
-			this.textBoxExpCurve = new System.Windows.Forms.TextBox();
 			this.groupBoxGraphics = new System.Windows.Forms.GroupBox();
 			this.tabControlImages = new System.Windows.Forms.TabControl();
 			this.tabPageCharacter = new System.Windows.Forms.TabPage();
@@ -65,6 +63,7 @@
 			this.groupBoxParameters = new System.Windows.Forms.GroupBox();
 			this.tableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
 			this.splitContainerBottomRight = new System.Windows.Forms.SplitContainer();
+			this.textBoxExpCurve = new ARCed.Controls.TextBoxButton();
 			((System.ComponentModel.ISupportInitialize)(this.pictureCharacter)).BeginInit();
 			this.contextMenuImages.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBattler)).BeginInit();
@@ -210,7 +209,6 @@
 			this.groupBoxGeneral.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
 						| System.Windows.Forms.AnchorStyles.Left)
 						| System.Windows.Forms.AnchorStyles.Right)));
-			this.groupBoxGeneral.Controls.Add(this.buttonExperience);
 			this.groupBoxGeneral.Controls.Add(this.textBoxExpCurve);
 			this.groupBoxGeneral.Controls.Add(this.groupBoxGraphics);
 			this.groupBoxGeneral.Controls.Add(this.labelName);
@@ -225,29 +223,6 @@
 			this.groupBoxGeneral.TabIndex = 0;
 			this.groupBoxGeneral.TabStop = false;
 			this.groupBoxGeneral.Text = "General";
-			// 
-			// buttonExperience
-			// 
-			this.buttonExperience.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.buttonExperience.BackgroundImage = global::ARCed.Properties.Resources.Settings2;
-			this.buttonExperience.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-			this.buttonExperience.Location = new System.Drawing.Point(150, 169);
-			this.buttonExperience.Name = "buttonExperience";
-			this.buttonExperience.Size = new System.Drawing.Size(24, 24);
-			this.buttonExperience.TabIndex = 22;
-			this.buttonExperience.UseVisualStyleBackColor = true;
-			this.buttonExperience.Click += new System.EventHandler(this.buttonExperience_Click);
-			// 
-			// textBoxExpCurve
-			// 
-			this.textBoxExpCurve.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-						| System.Windows.Forms.AnchorStyles.Right)));
-			this.textBoxExpCurve.BackColor = System.Drawing.SystemColors.Window;
-			this.textBoxExpCurve.Location = new System.Drawing.Point(9, 172);
-			this.textBoxExpCurve.Name = "textBoxExpCurve";
-			this.textBoxExpCurve.ReadOnly = true;
-			this.textBoxExpCurve.Size = new System.Drawing.Size(135, 20);
-			this.textBoxExpCurve.TabIndex = 21;
 			// 
 			// groupBoxGraphics
 			// 
@@ -531,6 +506,17 @@
 			this.splitContainerBottomRight.SplitterDistance = 315;
 			this.splitContainerBottomRight.TabIndex = 0;
 			// 
+			// textBoxExpCurve
+			// 
+			this.textBoxExpCurve.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+						| System.Windows.Forms.AnchorStyles.Right)));
+			this.textBoxExpCurve.Location = new System.Drawing.Point(9, 171);
+			this.textBoxExpCurve.MaximumSize = new System.Drawing.Size(1800, 20);
+			this.textBoxExpCurve.Name = "textBoxExpCurve";
+			this.textBoxExpCurve.Size = new System.Drawing.Size(168, 20);
+			this.textBoxExpCurve.TabIndex = 20;
+			this.textBoxExpCurve.OnButtonClick += new ARCed.Controls.TextBoxButton.ButtonClickHandler(this.buttonExperience_Click);
+			// 
 			// ActorMainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -610,14 +596,13 @@
 		private System.Windows.Forms.TabControl tabControlImages;
 		private System.Windows.Forms.TabPage tabPageCharacter;
 		private System.Windows.Forms.TabPage tabPageBattler;
-		private System.Windows.Forms.Button buttonExperience;
-		private System.Windows.Forms.TextBox textBoxExpCurve;
 		private System.Windows.Forms.SplitContainer splitContainerRight;
 		private System.Windows.Forms.SplitContainer splitContainerBottomRight;
 		private System.Windows.Forms.GroupBox groupBoxParameters;
 		private System.Windows.Forms.TableLayoutPanel tableLayoutPanel;
 		private Controls.DatabaseObjectListBox dataObjectList;
 		private System.Windows.Forms.Panel panelEquipment;
+		private Controls.TextBoxButton textBoxExpCurve;
 
 	}
 }
