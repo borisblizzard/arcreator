@@ -135,6 +135,12 @@
       <DependentUpon>CollapsibleGroupBox.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\ColumnSorter.cs" />
+    <Compile Include="Controls\TilesetXnaPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\TilesetXnaPanel.Designer.cs">
+      <DependentUpon>TilesetXnaPanel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\DatabaseObjectListBox.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -215,6 +221,12 @@
       <DependentUpon>SearchControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\ServiceContainer.cs" />
+    <Compile Include="Controls\TextBoxButton.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\TextBoxButton.Designer.cs">
+      <DependentUpon>TextBoxButton.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\TroopXnaPanel.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -271,6 +283,24 @@
     </Compile>
     <Compile Include="Database\Enemies\TreasureSelectDialog.Designer.cs">
       <DependentUpon>TreasureSelectDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Database\Sys\SystemMainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Database\Sys\SystemMainForm.Designer.cs">
+      <DependentUpon>SystemMainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Database\Tilesets\TilemapColorDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Database\Tilesets\TilemapColorDialog.Designer.cs">
+      <DependentUpon>TilemapColorDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Database\Tilesets\TilesetsMainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Database\Tilesets\TilesetsMainForm.Designer.cs">
+      <DependentUpon>TilesetsMainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Database\Troops\BattleTestDialog.cs">
       <SubType>Form</SubType>
@@ -552,6 +582,7 @@
       <DependentUpon>ScriptStyleForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Settings\ARChiveSettings.cs" />
+    <Compile Include="Settings\TilesetSettings.cs" />
     <Compile Include="Utilities\Compressor.cs" />
     <Compile Include="Utilities\FileAssociator.cs" />
     <Compile Include="Utilities\Ini.cs" />
@@ -900,6 +931,9 @@
     <EmbeddedResource Include="Controls\CollapsibleGroupBox.resx">
       <DependentUpon>CollapsibleGroupBox.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Controls\TilesetXnaPanel.resx">
+      <DependentUpon>TilesetXnaPanel.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Controls\DatabaseObjectListBox.resx">
       <DependentUpon>DatabaseObjectListBox.cs</DependentUpon>
     </EmbeddedResource>
@@ -936,6 +970,9 @@
     <EmbeddedResource Include="Controls\SearchControl.resx">
       <DependentUpon>SearchControl.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Controls\TextBoxButton.resx">
+      <DependentUpon>TextBoxButton.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Controls\TroopXnaPanel.resx">
       <DependentUpon>TroopXnaPanel.cs</DependentUpon>
     </EmbeddedResource>
@@ -959,6 +996,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Database\Enemies\TreasureSelectDialog.resx">
       <DependentUpon>TreasureSelectDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Database\Tilesets\TilemapColorDialog.resx">
+      <DependentUpon>TilemapColorDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Database\Tilesets\TilesetsMainForm.resx">
+      <DependentUpon>TilesetsMainForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Database\Troops\BattleTestDialog.resx">
       <DependentUpon>BattleTestDialog.cs</DependentUpon>
@@ -1522,7 +1565,9 @@
     <Content Include="UI\Resources\DockPane_Option.bmp" />
     <Content Include="UI\Resources\DockPane_OptionOverflow.bmp" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Database\Animations\" />
+  </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0">
       <Visible>False</Visible>

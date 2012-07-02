@@ -362,5 +362,10 @@ namespace ARCed.Database.Items
 				_item.parameter_type = comboBoxParameter.SelectedIndex;
 			paramBoxParamInc.Enabled = _item.parameter_type > 0;
 		}
+
+		private void textBoxMenuSe_OnButtonClick(object sender, EventArgs e)
+		{
+
+		}
 	}
 }

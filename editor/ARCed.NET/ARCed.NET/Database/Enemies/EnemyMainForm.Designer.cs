@@ -65,8 +65,6 @@
 			this.paramBoxPdef = new ARCed.Controls.ParamBox();
 			this.paramBoxMdef = new ARCed.Controls.ParamBox();
 			this.paramBoxEva = new ARCed.Controls.ParamBox();
-			this.buttonTreasure = new System.Windows.Forms.Button();
-			this.textBoxTreasure = new System.Windows.Forms.TextBox();
 			this.labelTreasure = new System.Windows.Forms.Label();
 			this.labelTargetAnimation = new System.Windows.Forms.Label();
 			this.comboBoxTargetAnimation = new System.Windows.Forms.ComboBox();
@@ -88,6 +86,7 @@
 			this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
 			this.contextButtonActionEdit = new System.Windows.Forms.ToolStripMenuItem();
 			this.noteTextBox = new ARCed.Controls.NoteTextBox();
+			this.textBoxTreasure = new ARCed.Controls.TextBoxButton();
 			((System.ComponentModel.ISupportInitialize)(this.splitContainerMain)).BeginInit();
 			this.splitContainerMain.Panel1.SuspendLayout();
 			this.splitContainerMain.Panel2.SuspendLayout();
@@ -210,9 +209,8 @@
 			// 
 			// splitContainerTopCenter.Panel2
 			// 
-			this.splitContainerTopCenter.Panel2.Controls.Add(this.groupBoxParameters);
-			this.splitContainerTopCenter.Panel2.Controls.Add(this.buttonTreasure);
 			this.splitContainerTopCenter.Panel2.Controls.Add(this.textBoxTreasure);
+			this.splitContainerTopCenter.Panel2.Controls.Add(this.groupBoxParameters);
 			this.splitContainerTopCenter.Panel2.Controls.Add(this.labelTreasure);
 			this.splitContainerTopCenter.Panel2.Controls.Add(this.labelTargetAnimation);
 			this.splitContainerTopCenter.Panel2.Controls.Add(this.comboBoxTargetAnimation);
@@ -692,28 +690,6 @@
             0,
             0});
 			// 
-			// buttonTreasure
-			// 
-			this.buttonTreasure.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.buttonTreasure.Image = global::ARCed.Properties.Resources.Edit;
-			this.buttonTreasure.Location = new System.Drawing.Point(135, 273);
-			this.buttonTreasure.Name = "buttonTreasure";
-			this.buttonTreasure.Size = new System.Drawing.Size(24, 24);
-			this.buttonTreasure.TabIndex = 9;
-			this.buttonTreasure.UseVisualStyleBackColor = true;
-			this.buttonTreasure.Click += new System.EventHandler(this.buttonTreasure_Click);
-			// 
-			// textBoxTreasure
-			// 
-			this.textBoxTreasure.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
-						| System.Windows.Forms.AnchorStyles.Right)));
-			this.textBoxTreasure.BackColor = System.Drawing.SystemColors.Window;
-			this.textBoxTreasure.Location = new System.Drawing.Point(6, 276);
-			this.textBoxTreasure.Name = "textBoxTreasure";
-			this.textBoxTreasure.ReadOnly = true;
-			this.textBoxTreasure.Size = new System.Drawing.Size(123, 20);
-			this.textBoxTreasure.TabIndex = 8;
-			// 
 			// labelTreasure
 			// 
 			this.labelTreasure.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -980,6 +956,17 @@
 			this.noteTextBox.TabIndex = 0;
 			this.noteTextBox.NoteTextChanged += new ARCed.Controls.NoteTextBox.TextChangedEventHandler(this.noteTextBox_NoteTextChanged);
 			// 
+			// textBoxTreasure
+			// 
+			this.textBoxTreasure.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+						| System.Windows.Forms.AnchorStyles.Right)));
+			this.textBoxTreasure.Location = new System.Drawing.Point(6, 277);
+			this.textBoxTreasure.MaximumSize = new System.Drawing.Size(1800, 20);
+			this.textBoxTreasure.Name = "textBoxTreasure";
+			this.textBoxTreasure.Size = new System.Drawing.Size(153, 20);
+			this.textBoxTreasure.TabIndex = 11;
+			this.textBoxTreasure.OnButtonClick += new ARCed.Controls.TextBoxButton.ButtonClickHandler(this.buttonTreasure_Click);
+			// 
 			// EnemyMainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1057,8 +1044,6 @@
 		private System.Windows.Forms.TextBox textBoxName;
 		private System.Windows.Forms.Label labelName;
 		private System.Windows.Forms.GroupBox groupBoxParameters;
-		private System.Windows.Forms.Button buttonTreasure;
-		private System.Windows.Forms.TextBox textBoxTreasure;
 		private System.Windows.Forms.Label labelTreasure;
 		private System.Windows.Forms.Label labelTargetAnimation;
 		private System.Windows.Forms.ComboBox comboBoxTargetAnimation;
@@ -1095,5 +1080,6 @@
 		private System.Windows.Forms.ToolStripMenuItem contextImageZoom;
 		private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
 		private System.Windows.Forms.ToolStripMenuItem changeToolStripMenuItem;
+		private Controls.TextBoxButton textBoxTreasure;
 	}
 }

@@ -205,6 +205,26 @@ namespace ARCed.Helpers
 		}
 
 		/// <summary>
+		/// Loads/recalls a cached tileset file and returns it
+		/// </summary>
+		/// <param frames="filename">Full path of the tileset graphic</param>
+		/// <param frames="hue">Hue rotation to apply to graphic, with 360 degrees of displacment</param>
+		/// <param frames="opacity">Opacity of the returned image</param>
+		/// <returns>Cached image with effects applied</returns>
+		public static Image Tileset(string filename, int hue = 0, int opacity = 255)
+		{
+			using (Image image = new Bitmap(LoadBitmap(@"Graphics\Tilesets", filename)))
+			{
+				if (hue != 0)
+					RotateHue(image, hue);
+				if (opacity != 255)
+					ChangeOpacity(image, opacity);
+				GC.Collect(GC.GetGeneration(image), GCCollectionMode.Forced);
+				return new Bitmap(image);
+			}
+		}
+
+		/// <summary>
 		/// Returns a tile of a character graphic using the given pattern and direction
 		/// </summary>
 		/// <param frames="filename">FullPath of the character graphic</param>

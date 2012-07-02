@@ -24,6 +24,26 @@ namespace ARCed
 
 		#endregion
 
+		public static Microsoft.Xna.Framework.Color ToXnaColor(this Color color)
+		{
+			return new Microsoft.Xna.Framework.Color(color.R, color.G, color.B, color.A);
+		}
+
+		public static Color ToSystemColor(this Microsoft.Xna.Framework.Color color)
+		{
+			return Color.FromArgb(color.A, color.R, color.G, color.B);
+		}
+
+		public static int RoundFloor(this int value, int multiple)
+		{
+			return ((int)Math.Floor(value / Convert.ToSingle(multiple))) * multiple;
+		}
+
+		public static int RoundCeil(this int value, int multiple)
+		{
+			return ((int)Math.Ceiling(value / Convert.ToSingle(multiple))) * multiple;
+		}
+
 		/// <summary>
 		/// Suspends painting of control until ResumePainting() is called.
 		/// </summary>
