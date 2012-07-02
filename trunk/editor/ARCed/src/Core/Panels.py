@@ -53,6 +53,13 @@ class MainToolbar(aui.AuiToolBar):
 
         self.SetToolBitmapSize(wx.Size(16, 16))
 
+       
+        #build toolbar
+        self.AddTools()
+        self.Realize()
+        self.BindEvents()
+
+    def AddTools(self):
         IconManager = KM.get_component("IconManager").object
         #get bitmaps
         newbmp = IconManager.getBitmap("newicon")
@@ -91,7 +98,8 @@ class MainToolbar(aui.AuiToolBar):
                            "Copy selection to the clipboard")
         self.AddSimpleTool(self.pasteid, "Paste", pastebmp,
                            "Paste data from the clipboard")
-        self.Realize()
+
+    def BindEvents(self):
 
         self.Bind(wx.EVT_TOOL, self.OnNew, id=self.newid)
         self.Bind(wx.EVT_TOOL, self.OnOpen, id=self.openid)
@@ -137,6 +145,49 @@ class MainToolbar(aui.AuiToolBar):
 
     def OnPaste(self, event):
         pass
+
+    def uiupdate(self, event):
+        if Kernel.GlobalObjects.has_key("ProjectOpen") and (Kernel.GlobalObjects.get_value("ProjectOpen") == True):
+            event.Enable(True)
+        else:
+            event.Enable(False)
+
+class DatabaseToolbar(aui.AuiToolBar):
+
+    _arc_panel_info_string = "Name Caption ToolbarP Top Row CloseB"
+    _arc_panel_info_data = {"Name": "Toolbar", "Caption": "Database Tool Bar",  "Row": 1, "CloseB": False, }
+
+    def __init__(self, parent):
+
+        aui.AuiToolBar.__init__(self, parent, style=wx.TB_FLAT | wx.TB_HORIZONTAL)
+        
+        self.parent = parent
+
+        self.SetToolBitmapSize(wx.Size(16, 16))
+
+        IconManager = KM.get_component("IconManager").object
+        #get bitmaps
+        #newbmp = IconManager.getBitmap("newicon")
+
+        #set up ids
+        #self.newid = wx.NewId()
+        #build toolbar
+        self.AddTools()
+        self.Realize()
+        self.BindEvents()
+
+    def AddTools(self):
+        #add the tools
+        #self.AddSimpleTool(self.newid, "New", newbmp,
+        #                   "Create a new project")
+
+        #self.AddSeparator()
+        pass       
+
+    def BindEvents(self):
+        #self.Bind(wx.EVT_TOOL, self.OnNew, id=self.newid)
+
+        self.Bind(wx.EVT_UPDATE_UI, self.uiupdate, id=self.saveid)
 
     def uiupdate(self, event):
         if Kernel.GlobalObjects.has_key("ProjectOpen") and (Kernel.GlobalObjects.get_value("ProjectOpen") == True):
