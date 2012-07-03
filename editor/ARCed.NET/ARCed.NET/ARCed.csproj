@@ -78,6 +78,8 @@
       <HintPath>..\..\..\..\NET Stuff\Dejavu.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Microsoft.Build" />
+    <Reference Include="Microsoft.Build.Framework" />
     <Reference Include="Microsoft.Dynamic, Version=1.1.0.20, Culture=neutral, PublicKeyToken=7f709c5b713576e1, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>lib\Microsoft.Dynamic.dll</HintPath>
@@ -290,6 +292,7 @@
     <Compile Include="Database\Sys\SystemMainForm.Designer.cs">
       <DependentUpon>SystemMainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Database\Tilesets\IconCache.cs" />
     <Compile Include="Database\Tilesets\TilemapColorDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -1201,7 +1204,9 @@
     <EmbeddedResource Include="Resources\Add.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\ARCedSplash.png" />
+    <EmbeddedResource Include="Resources\ARCedSplash.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\Calculator.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
@@ -1328,33 +1333,107 @@
     <EmbeddedResource Include="Resources\Pin.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\Database.png" />
-    <EmbeddedResource Include="Resources\Crop.png" />
-    <EmbeddedResource Include="Resources\Alpha.png" />
-    <EmbeddedResource Include="Resources\FoldExpand.bmp" />
-    <EmbeddedResource Include="Resources\Font.png" />
-    <EmbeddedResource Include="Resources\Chart.png" />
-    <EmbeddedResource Include="Resources\Edit.png" />
-    <EmbeddedResource Include="Resources\Armor.png" />
-    <EmbeddedResource Include="Resources\Enemy.png" />
+    <EmbeddedResource Include="Resources\Database.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Crop.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Alpha.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\FoldExpand.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Font.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Chart.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Edit.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Armor.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Enemy.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\icon.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\Outline.png" />
-    <EmbeddedResource Include="Resources\Update.png" />
-    <EmbeddedResource Include="Resources\Scintilla.png" />
-    <EmbeddedResource Include="Resources\RMXP.png" />
-    <EmbeddedResource Include="Resources\NoteText.png" />
-    <EmbeddedResource Include="Resources\Play.png" />
-    <EmbeddedResource Include="Resources\Item.png" />
-    <EmbeddedResource Include="Resources\ResourceLocal.png" />
-    <EmbeddedResource Include="Resources\ResourceRTP.png" />
-    <EmbeddedResource Include="Resources\Settings2.png" />
-    <EmbeddedResource Include="Resources\TrueType.bmp" />
-    <EmbeddedResource Include="Resources\Switch.png" />
-    <EmbeddedResource Include="Resources\Variable.png" />
-    <EmbeddedResource Include="Resources\Skill.png" />
-    <EmbeddedResource Include="Resources\Weapon.png" />
+    <EmbeddedResource Include="Resources\Outline.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Update.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Scintilla.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\RMXP.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\NoteText.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Play.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Item.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\ResourceLocal.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\ResourceRTP.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Settings2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\TrueType.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Switch.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Variable.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Skill.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Weapon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\TilesetIcons\Bush.png" />
+    <EmbeddedResource Include="Resources\TilesetIcons\Counter.png" />
+    <EmbeddedResource Include="Resources\TilesetIcons\None.png" />
+    <EmbeddedResource Include="Resources\TilesetIcons\PassageAll.png" />
+    <EmbeddedResource Include="Resources\TilesetIcons\PassageCircle.png" />
+    <EmbeddedResource Include="Resources\TilesetIcons\PassageDown.png" />
+    <EmbeddedResource Include="Resources\TilesetIcons\PassageLeft.png" />
+    <EmbeddedResource Include="Resources\TilesetIcons\PassageNone.png" />
+    <EmbeddedResource Include="Resources\TilesetIcons\PassageRight.png" />
+    <EmbeddedResource Include="Resources\TilesetIcons\PassageSquare.png" />
+    <EmbeddedResource Include="Resources\TilesetIcons\PassageUp.png" />
+    <EmbeddedResource Include="Resources\TilesetIcons\PassageX.png" />
+    <EmbeddedResource Include="Resources\TilesetIcons\Priority1.png" />
+    <EmbeddedResource Include="Resources\TilesetIcons\Priority2.png" />
+    <EmbeddedResource Include="Resources\TilesetIcons\Priority3.png" />
+    <EmbeddedResource Include="Resources\TilesetIcons\Priority4.png" />
+    <EmbeddedResource Include="Resources\TilesetIcons\Priority5.png" />
+    <EmbeddedResource Include="Resources\TilesetIcons\Terrain0.png" />
+    <EmbeddedResource Include="Resources\TilesetIcons\Terrain1.png" />
+    <EmbeddedResource Include="Resources\TilesetIcons\Terrain2.png" />
+    <EmbeddedResource Include="Resources\TilesetIcons\Terrain3.png" />
+    <EmbeddedResource Include="Resources\TilesetIcons\Terrain4.png" />
+    <EmbeddedResource Include="Resources\TilesetIcons\Terrain5.png" />
+    <EmbeddedResource Include="Resources\TilesetIcons\Terrain6.png" />
+    <EmbeddedResource Include="Resources\TilesetIcons\Terrain7.png" />
+    <EmbeddedResource Include="Resources\TilesetIcons\Priority0.png" />
     <Content Include="x86\7z.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

@@ -470,7 +470,7 @@ namespace ARCed.Controls
 			GraphicsDevice.Clear(XnaColor.Gray);
 			_rectTexture = new Texture2D(GraphicsDevice, 1, 1);
 			_rectTexture.SetData(new[] { XnaColor.White });
-			_hiddenColor = new XnaColor(80, 80, 80, 60); ;
+			_hiddenColor = new XnaColor(80, 80, 80, 60);
 			this.MouseDown += new System.Windows.Forms.MouseEventHandler(TroopXnaPanel_MouseDown);
 			this.MouseUp += new System.Windows.Forms.MouseEventHandler(TroopXnaPanel_MouseUp);
 			this.MouseMove += new System.Windows.Forms.MouseEventHandler(TroopXnaPanel_MouseMove);
