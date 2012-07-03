@@ -224,7 +224,7 @@ namespace ARCed.Scintilla.Configuration
         {
             //	So here is the general pattern: We go through each of
             //	the configurations in the list (which has been ordered
-            //	by priority). If the configuration has a value we're
+            //	by terrain). If the configuration has a value we're
             //	looking for it overwrites whatever was before it.
             //	In the _end if the value isn't null, we set the
             //	corresponding Scintilla Value to this.
