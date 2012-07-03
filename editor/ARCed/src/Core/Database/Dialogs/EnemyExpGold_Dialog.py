@@ -1,5 +1,5 @@
 import wx
-import Database.ARCed_Templates as Templates
+from Core.Database import ARCed_Templates as Templates
 
 class EnemyExpGold_Dialog( Templates.EnemyExpGold_Dialog ):
 	def __init__( self, parent, label, max, current=0, variance=None ):

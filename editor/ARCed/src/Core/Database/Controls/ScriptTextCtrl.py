@@ -1,8 +1,8 @@
 import wx
 from wxPython.stc import *
 import Kernel
-from Database.ScriptEditor import Manager as SM
-from Database.Dialogs import FindReplace_Dialog
+from Core.Database.ScriptEditor import Manager as SM
+from Core.Database.Dialogs import FindReplace_Dialog
 
 """
 TODO:
@@ -29,7 +29,7 @@ class ScriptTextCtrl(wxStyledTextCtrl):
 		"""Basic constructor for the ScriptTextCtrl"""
 		super(ScriptTextCtrl, self).__init__(parent, 
 			style=wxSTC_STYLE_LINENUMBER|wxSTC_STYLE_INDENTGUIDE)
-		from Database.ScriptEditor import FindReplaceData
+		from Core.Database.ScriptEditor import FindReplaceData
 		global Config
 		Config = Kernel.GlobalObjects.get_value('ARCed_config').get_section('ScriptEditor')
 		self.FindReplaceData = FindReplaceData()

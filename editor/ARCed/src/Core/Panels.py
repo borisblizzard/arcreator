@@ -16,11 +16,13 @@ from wx.lib.agw.aui import aui_switcherdialog as ASD
 import Kernel
 from Kernel import Manager as KM
 
-class PanelBase(wx.Panel):
+class PanelBase(object):
 
     def __init__(self, parent):
         wx.Panel.__init__(self, parent, wx.ID_ANY)
+        self.BindPanelManager()
 
+    def BindPanelManager(self):
         self.bindFocus()
         self.SetFocus()
 
@@ -32,13 +34,14 @@ class PanelBase(wx.Panel):
     def OnFocus(self, event):
         if Kernel.GlobalObjects.has_key("PanelManager"):
             PM = Kernel.GlobalObjects.get_value("PanelManager")
-            id = PM.getPanelID(self)
-            info = PM.getPanelInfo(id)
-            if info is not None:
-                if info.IsFloating():
-                    PM.set_last_active("Shadow Panel")
-                else:
-                    PM.set_last_active(id)
+            if PM is not None:
+                id = PM.getPanelID(self)
+                info = PM.getPanelInfo(id)
+                if info is not None:
+                    if info.IsFloating():
+                        PM.set_last_active("Shadow Panel")
+                    else:
+                        PM.set_last_active(id)
 
 class MainToolbar(aui.AuiToolBar):
 
@@ -195,7 +198,7 @@ class DatabaseToolbar(aui.AuiToolBar):
         else:
             event.Enable(False)
 
-class StartPanel(PanelBase):
+class StartPanel(wx.Panel, PanelBase):
 
     _arc_panel_info_string = "Name Caption Center CloseB CaptionV BestS MinimizeM MinimizeB MaximizeB Floatable Resizable Snappable NotebookD Movable"
     _arc_panel_info_data = {"Name": "Start Panel", "Caption": "Start Panel", "CaptionV": True, "BestS": (32 * 24, 32 * 18), "MinimizeM": ["POS_SMART", "CAPT_SMART",], 
@@ -205,7 +208,7 @@ class StartPanel(PanelBase):
         PanelBase.__init__(self, parent)
 
 
-class ShadowPanel(PanelBase):
+class ShadowPanel(wx.Panel, PanelBase):
 
     _arc_panel_info_string = "Name Caption CloseB CaptionV BestS MinimizeB Floatable Resizable Snappable NotebookD Movable"
     _arc_panel_info_data = {"Name": "Shadow Panel", "Caption": "Shadow Panel", "CaptionV": False, "BestS": (1000 - 8, 500), "MinimizeB": False, "CloseB": False, "Floatable" : False,}

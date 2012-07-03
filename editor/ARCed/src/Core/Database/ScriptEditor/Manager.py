@@ -28,7 +28,7 @@ class Manager(object):
 
 		"""
 		from fnmatch import fnmatch
-		from Database.ScriptEditor.Script import Script
+		from Core.Database.ScriptEditor.Script import Script
 		Manager.EnsureScriptDirectory()
 		projDir = Kernel.GlobalObjects.get_value("CurrentProjectDir")
 		dir = os.path.join(projDir, 'Data', 'Scripts')

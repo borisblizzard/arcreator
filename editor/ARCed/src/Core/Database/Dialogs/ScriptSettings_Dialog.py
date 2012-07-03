@@ -1,6 +1,6 @@
 import wx
-import Database.ARCed_Templates as Templates
-from Database.ScriptEditor import Manager as SM
+from Core.Database import ARCed_Templates as Templates
+from Core.Database.ScriptEditor import Manager as SM
 from copy import deepcopy
 import Kernel
 #--------------------------------------------------------------------------------------

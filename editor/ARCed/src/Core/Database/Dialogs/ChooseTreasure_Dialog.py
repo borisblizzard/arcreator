@@ -1,6 +1,6 @@
 import wx
-import Database.ARCed_Templates as Templates
-import Database.Manager as DM
+from Core.Database import ARCed_Templates as Templates
+from Core.Database import Manager as DM
 import Kernel
 
 class ChooseTreasure_Dialog( Templates.ChooseTreasure_Dialog ):

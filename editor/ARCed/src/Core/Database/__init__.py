@@ -1,6 +1,6 @@
 
+import ARCed_Templates
 from Manager import Manager
-from DatabasePackage import DatabasePackage
 
 from Actors_Panel import Actors_Panel
 from Animations_Panel import Animations_Panel

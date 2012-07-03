@@ -1,5 +1,5 @@
 import wx
-import Database.ARCed_Templates as Templates 
+from Core.Database import ARCed_Templates as Templates 
 
 class ChangeMaximum_Dialog( Templates.ChangeMaximum_Dialog ):
 	"""Initialize dialog, setting using pass argument to set the initial value."""
