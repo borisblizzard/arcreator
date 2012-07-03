@@ -1,0 +1,5 @@
+C:\Users\Eric\Documents\Visual Studio 2010\Projects\ARCed.NET\ARCDumpTests\bin\Debug\ARCDumpTests.exe
+C:\Users\Eric\Documents\Visual Studio 2010\Projects\ARCed.NET\ARCDumpTests\bin\Debug\ARCDumpTests.pdb
+C:\Users\Eric\Documents\Visual Studio 2010\Projects\ARCed.NET\ARCDumpTests\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Users\Eric\Documents\Visual Studio 2010\Projects\ARCed.NET\ARCDumpTests\obj\x86\Debug\ARCDumpTests.exe
+C:\Users\Eric\Documents\Visual Studio 2010\Projects\ARCed.NET\ARCDumpTests\obj\x86\Debug\ARCDumpTests.pdb
