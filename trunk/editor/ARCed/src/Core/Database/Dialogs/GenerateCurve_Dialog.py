@@ -1,8 +1,8 @@
 import wx
-import Database.ARCed_Templates as Templates
+from Core.Database import ARCed_Templates as Templates
 import wx.lib.agw.floatspin as floatspin
 import numpy as np
-import Database.Manager as DM
+from Core.Database import Manager as DM
 import Kernel
 
 class GenerateCurve_Dialog( Templates.GenerateCurve_Dialog ):

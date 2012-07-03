@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{d772c392-e7b6-4c18-8c5f-49bac2a1e237}</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>src\__main__.py</StartupFile>
+    <StartupFile>src\Database_Test.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>src</WorkingDirectory>
@@ -71,7 +71,6 @@
     <Compile Include="src\Core\Database\Controls\ScriptTextCtrl.py" />
     <Compile Include="src\Core\Database\Controls\WaveForm_Panel.py" />
     <Compile Include="src\Core\Database\Controls\__init__.py" />
-    <Compile Include="src\Core\Database\DatabasePackage.py" />
     <Compile Include="src\Core\Database\Dialogs\AddParameter_Dialog.py" />
     <Compile Include="src\Core\Database\Dialogs\AnimationCellBatch_Dialog.py" />
     <Compile Include="src\Core\Database\Dialogs\AnimationCellProperties_Dialog.py" />
@@ -177,7 +176,6 @@
     <Compile Include="src\Core\Database\Troops_Panel.py" />
     <Compile Include="src\Core\Database\Weapons_Panel.py" />
     <Compile Include="src\Core\Database\__init__.py" />
-    <Compile Include="src\Core\Database\__main__.py" />
     <Compile Include="src\Core\Database\__test__.py" />
     <Compile Include="src\Core\Icons.py" />
     <Compile Include="src\Core\MapEditor\MapEditorPanel.py" />
@@ -188,6 +186,7 @@
     <Compile Include="src\Core\_ext.py" />
     <Compile Include="src\Core\Panels.py" />
     <Compile Include="src\Core\PyXAL\__init__.py" />
+    <Compile Include="src\Database_Test.py" />
     <Compile Include="src\Logo.py" />
     <Compile Include="src\Core\Actions.py" />
     <Compile Include="src\Core\ARC_Data.py" />

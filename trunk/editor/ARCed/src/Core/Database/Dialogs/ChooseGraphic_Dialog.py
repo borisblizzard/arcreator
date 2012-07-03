@@ -1,5 +1,5 @@
 import wx
-import Database.ARCed_Templates as Templates
+from Core.Database import ARCed_Templates as Templates
 from Core.Cache import RTPFunctions, PILCache
 import PIL
 import os

@@ -1,6 +1,6 @@
 
 import wx
-import Database.ARCed_Templates as Templates
+from Core.Database import ARCed_Templates as Templates
 
 # Implementing CallCommonEvent_Dialog
 class CallCommonEvent_Dialog( Templates.CallCommonEvent_Dialog ):

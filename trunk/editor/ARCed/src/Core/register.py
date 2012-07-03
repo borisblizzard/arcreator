@@ -6,32 +6,44 @@ exports all the core components to the kernel
 import Kernel
 from Kernel import Manager, Type, SuperType, Component, Package, Event
 import RMXP
-from Core import Frames, Menues, Dialogs, Controls, Layouts, Data, Project, ARC_Data, Actions
-from Core import DatabaseActions, RPGutil, Icons, PanelManager, Panels, Cache
-from Core import PyXAL, MapEditor
-
+from Core import Frames
+from Core import Menues
+from Core import Dialogs
+from Core import Controls
+from Core import Layouts
+from Core import Data
+from Core import Project
+from Core import ARC_Data
+from Core import Actions
+from Core import DatabaseActions
+from Core import RPGutil
+from Core import Icons
+from Core import PanelManager
+from Core import Panels
+from Core import Cache
+from Core import PyXAL
+from Core import MapEditor
+from Core.Database import Actors_Panel
+from Core.Database import Classes_Panel
+from Core.Database import Skills_Panel
+from Core.Database import Items_Panel
+from Core.Database import Weapons_Panel
+from Core.Database import Armors_Panel
+from Core.Database import Enemies_Panel
+from Core.Database import Troops_Panel
+from Core.Database import States_Panel
+from Core.Database import Animations_Panel
+from Core.Database import Tilesets_Panel
+from Core.Database import CommonEvents_Panel
+from Core.Database import System_Panel
 
 #=============================================================================
 # * RMXP SuperType Declaration
 #=============================================================================
 class RMXPType(SuperType):
 
-    #-------------------------- functions ------------------------------------
-    #HueRotationOperator = Type("HueRotationOperator")
-    #AdjustAlphaOperator = Type("AdjustAlphaOperator")
-
     #---------------------------- data holder --------------------------------
     RPG = Type("RPG")
-    #PyGameCache = Type("PyGameCache")
-
-    #---------------------------- data handlers ------------------------------
-
-    #------------------------------- ctrls -----------------------------------
-    
-    #-------------------------------- layouts --------------------------------
-
-    #------------------------------- dialogs ---------------------------------
-
 
     def __init__(self):
         SuperType.__init__(self, "RMXP")
@@ -39,21 +51,10 @@ class RMXPType(SuperType):
         #=====================================================================
         # * add types
         #=====================================================================
-
-        #-------------------------- functions --------------------------------
-        #self.add_types(self.HueRotationOperator, self.AdjustAlphaOperator)
-
         #------------------------- data holder -------------------------------
         self.add_types(self.RPG)
-        #, self.PyGameCache)
 
-        #------------------------ data handlers ------------------------------
 
-        #---------------------------- ctrls ----------------------------------
-
-        #---------------------------- layouts --------------------------------
-
-        #---------------------------- dialogs --------------------------------
 
 #=============================================================================
 # * PanelManager SuperType Declaration
@@ -67,6 +68,20 @@ class PanelManagerType(SuperType):
     MapTreePanel = Type("MapTreePanel")
     MainToolbar = Type("MainToolbar")
     MapEditorPanel = Type("MapEditorPanel")
+    #Database
+    MainActorsPanel = Type("MainActorsPanel")
+    MainClassesPanel = Type("MainClassesPanel")
+    MainSkillsPanel = Type("MainSkillsPanel")
+    MainItemsPanel = Type("MainItemsPanel")
+    MainWeaponsPanel = Type("MainWeaponsPanel")
+    MainArmorsPanel = Type("MainArmorsPanel")
+    MainEnemiesPanel = Type("MainEnemiesPanel")
+    MainTroopsPanel = Type("MainTroopsPanel")
+    MainStatesPanel = Type("MainStatesPanel")
+    MainAnimationsPanel = Type("MainAnimationsPanel")
+    MainTilesetsPanel = Type("MainTilesetsPanel")
+    MainCommonEventsPanel = Type("MainCommonEventsPanel")
+    MainSystemPanel = Type("MainSystemPanel")
     
     def __init__(self):
         SuperType.__init__(self, "PanelManagerType")
@@ -74,6 +89,11 @@ class PanelManagerType(SuperType):
         #----------------------------- Panels --------------------------------
         self.add_types(self.StartPanel, self.ShadowPanel, self.TilesetPanel, self.MapTreePanel, self.MainToolbar, 
                        self.MapEditorPanel)
+        #Database
+        self.add_types(self.MainActorsPanel, self.MainClassesPanel, self.MainSkillsPanel, 
+                       self.MainItemsPanel, self.MainWeaponsPanel, self.MainArmorsPanel, self.MainEnemiesPanel, 
+                       self.MainTroopsPanel, self.MainStatesPanel, self.MainAnimationsPanel, self.MainTilesetsPanel, 
+                       self.MainCommonEventsPanel, self.MainSystemPanel)
 
 #=============================================================================
 # * Package Declaration
@@ -299,6 +319,7 @@ class CorePackage(Package):
                                      "MapTreeCtrl", None,
                                      "CoreMapTreeCtrl", "CORE", 1.0,
                                      self))
+        
 
         #----------------------------- layouts -------------------------------
         self.add_component(Component(Layouts.MainWindowLayout,
@@ -362,6 +383,7 @@ class CorePackage(Package):
         #=====================================================================
         # * add components (PanelManager)
         #=====================================================================
+        #------------------------------ Panels--------------------------------
         self.add_component(Component(Panels.StartPanel, "StartPanel", "PanelManagerType",
                                      "CoreStartPanel", "CORE", 1.0, self))
         self.add_component(Component(Panels.ShadowPanel, "ShadowPanel", "PanelManagerType",
@@ -374,9 +396,37 @@ class CorePackage(Package):
                                      "CoreMainToolbar", "CORE", 1.0, self))
         self.add_component(Component(MapEditor.MapEditorPanel.MapPanel, "MapEditorPanel", "PanelManagerType",
                                      "CoreMapEditorPanel", "CORE", 1.0, self))
+        self.add_component(Component(Actors_Panel, "MainActorsPanel", "PanelManagerType", 
+                                     "COREMainActorsPanel", "CORE", 1.0, self))
+        self.add_component(Component(Classes_Panel, "MainClassesPanel", "PanelManagerType", 
+                                     "COREMainClassesPanel", "CORE", 1.0, self))
+        self.add_component(Component(Skills_Panel, "MainSkillsPanel", "PanelManagerType", 
+                                     "COREMainSkillsPanel", "CORE", 1.0, self))
+        self.add_component(Component(Items_Panel, "MainItemsPanel", "PanelManagerType", 
+                                     "COREMainItemsPanel", "CORE", 1.0, self))
+        self.add_component(Component(Weapons_Panel, "MainWeaponsPanel", "PanelManagerType", 
+                                     "COREMainWeaponsPanel", "CORE", 1.0, self))
+        self.add_component(Component(Armors_Panel, "MainArmorsPanel", "PanelManagerType", 
+                                     "COREMainArmorsPanel", "CORE", 1.0, self))
+        self.add_component(Component(Enemies_Panel, "MainEnemiesPanel", "PanelManagerType", 
+                                     "COREMainEnemiesPanel", "CORE", 1.0, self))
+        self.add_component(Component(Troops_Panel, "MainTroopsPanel", "PanelManagerType", 
+                                     "COREMainTroopsPanel", "CORE", 1.0, self))
+        self.add_component(Component(States_Panel, "MainStatesPanel", "PanelManagerType", 
+                                     "COREMainStatesPanel", "CORE", 1.0, self))
+        self.add_component(Component(Animations_Panel, "MainAnimationsPanel", "PanelManagerType", 
+                                     "COREMainAnimationsPanel", "CORE", 1.0, self))
+        self.add_component(Component(Tilesets_Panel, "MainTilesetsPanel", "PanelManagerType", 
+                                     "COREMainTilesetsPanel", "CORE", 1.0, self))
+        self.add_component(Component(CommonEvents_Panel, "MainCommonEventsPanel", "PanelManagerType", 
+                                     "COREMainCommonEventsPanel", "CORE", 1.0, self))
+        self.add_component(Component(System_Panel, "MainSystemPanel", "PanelManagerType", 
+                                     "COREMainSystemPanel", "CORE", 1.0, self))
         
         
-        
+
+
+
 package = CorePackage()
 key = package.add_to_kernel()
 

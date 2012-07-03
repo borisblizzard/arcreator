@@ -1,10 +1,10 @@
 import wx
 import os
-import Database
-import Database.ARCed_Templates as Templates
-import Database.Manager as DM
-from Database.ScriptEditor import Manager as SM
-from Database.Controls import ScriptTextCtrl
+import Core.Database
+from Core.Database import ARCed_Templates as Templates
+from Core.Database import Manager as DM
+from Core.Database.ScriptEditor import Manager as SM
+from Core.Database.Controls import ScriptTextCtrl
 import re
 import Kernel
 #--------------------------------------------------------------------------------------
@@ -145,7 +145,7 @@ class ScriptEditor_Panel( Templates.ScriptEditor_Panel ):
 		self.scriptCtrl.StartFindReplace(1)
 
 	def OnSettings( self, event ):
-		from Database.Dialogs import ScriptSettings_Dialog
+		from Core.Database.Dialogs import ScriptSettings_Dialog
 		dlg = ScriptSettings_Dialog(self, self.scriptCtrl)
 		if dlg.ShowModal() == wx.ID_OK:
 			config = Kernel.GlobalObjects.get_value('ARCed_config').get_section('ScriptEditor')

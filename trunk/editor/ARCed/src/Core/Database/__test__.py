@@ -11,8 +11,8 @@ sys.path.append(editorDir)
 
 
 import wx
-import Database.Controls
-from Database.ScriptEditor import ScriptEditor_Panel
+import Core.Database.Controls
+from Core.Database.ScriptEditor import ScriptEditor_Panel
 
 
 import Boot
