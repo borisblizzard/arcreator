@@ -9,10 +9,17 @@ namespace ARCed.Database.Tilesets
 {
 	public static class IconCache
 	{
+		private const int DOWN = 0x01;
+		private const int LEFT = 0x02;
+		private const int RIGHT = 0x04;
+		private const int UP = 0x08;
+		private const int ALL = 0x01 | 0x02 | 0x04 | 0x08;
+		private const int BUSH = 0x40;
+		private const int COUNTER = 0x80;
+
 		private static Dictionary<string, Texture2D> _cache =
 			new Dictionary<string, Texture2D>();
 		public static GraphicsDevice GraphicsDevice { get; set; }
-		public static int _all = 0x01 | 0x02 | 0x04 | 0x08;
 
 		private static Bitmap GetBitmap(string key)
 		{
@@ -31,8 +38,8 @@ namespace ARCed.Database.Tilesets
 
 		public static Texture2D Passage(int passage)
 		{
-			passage &= ~0x40;
-			passage &= ~0x80;
+			passage &= ~BUSH;
+			passage &= ~COUNTER;
 			string key = (passage == 0) ? "PassageCircle" : "PassageX";
 			return CacheTexture(key);
 		}
@@ -45,13 +52,13 @@ namespace ARCed.Database.Tilesets
 
 		public static Texture2D Counter(int passage)
 		{
-			string key = ((passage & 0x80) == 0x80) ? "Counter" : "Priority0";
+			string key = ((passage & COUNTER) == COUNTER) ? "Counter" : "Priority0";
 			return CacheTexture(key);
 		}
 
 		public static Texture2D Bush(int passage)
 		{
-			string key = ((passage & 0x40) == 0x40) ? "Bush" : "Priority0";
+			string key = ((passage & BUSH) == BUSH) ? "Bush" : "Priority0";
 			return CacheTexture(key);
 		}
 
@@ -63,32 +70,31 @@ namespace ARCed.Database.Tilesets
 
 		public static Texture2D Passage4Dir(int passage)
 		{
-			passage &= ~0x40;
-			passage &= ~0x80;
+			passage &= ~BUSH;
+			passage &= ~COUNTER;
 			string key = String.Format("Passage{0}", passage);
 			if (_cache.ContainsKey(key))
 				return _cache[key];
 			if (passage == 0)
 				return CacheTexture("PassageAll");
-			if ((passage & _all) == _all)
+			if ((passage & ALL) == ALL)
 				return CacheTexture("PassageNone");
 			{
 				Bitmap b = GetBitmap("PassageNone");
 				using (Graphics g = Graphics.FromImage(b))
 				{
-					if ((passage & 0x01) != 0x01)
+					if ((passage & DOWN) != DOWN)
 						g.DrawImage(GetBitmap("PassageDown"), PointF.Empty);
-					if ((passage & 0x02) != 0x02)
+					if ((passage & LEFT) != LEFT)
 						g.DrawImage(GetBitmap("PassageLeft"), PointF.Empty);
-					if ((passage & 0x04) != 0x04)
+					if ((passage & RIGHT) != RIGHT)
 						g.DrawImage(GetBitmap("PassageRight"), PointF.Empty);
-					if ((passage & 0x08) != 0x08)
+					if ((passage & UP) != UP)
 						g.DrawImage(GetBitmap("PassageUp"), PointF.Empty);
 				}
 				_cache[key] = b.ToTexture(GraphicsDevice);
 				return _cache[key];
 			}
 		}
-
 	}
 }

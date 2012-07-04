@@ -1,18 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
-using System.IO;
-using ARCed.Helpers;
-using Microsoft.Xna.Framework.Graphics;
 using ARCed.Database.Tilesets;
+using System.Linq;
+using ARCed.Helpers;
+using System.Collections.Generic;
+using Microsoft.Xna.Framework.Graphics;
+using System.Windows.Forms;
 using Vector2 = Microsoft.Xna.Framework.Vector2;
 using XnaColor = Microsoft.Xna.Framework.Color;
 using XnaRect = Microsoft.Xna.Framework.Rectangle;
 
 namespace ARCed.Controls
 {
-
 	public enum TilesetMode
 	{
 		Passage,
@@ -23,21 +23,8 @@ namespace ARCed.Controls
 		Terrain
 	}
 
-	public enum Passages
-	{
-		None = 0x00,
-		CannotMoveDown = 0x01,
-		CannotMoveLeft = 0x02,
-		CannotMoveRight = 0x04,
-		CannotMoveUp = 0x08,
-		BushFlag = 0x40,
-		CounterFlag = 0x80,
-		All = 0x01 | 0x02 | 0x04 | 0x08
-	}
-
-
 	/// <summary>
-	/// Control for configuring Troop layouts
+	/// Control for configuring tileset configurations.
 	/// </summary>
 	public partial class TilesetXnaPanel : GraphicsDeviceControl
 	{
@@ -46,10 +33,11 @@ namespace ARCed.Controls
 		private const int TILESIZE = 32;
 		private const int MAXWIDTH = 256;
 		private const int TILEWIDTH = 8;
-		private const int AUTOPASSAGES = 384;
+		private const int AUTO_IDS = 384;
+		private const int PRIORITIES = 6;
+		private const int TERRAINS = 8;
 
 		private static Texture2D _rectTexture;
-		private static XnaColor _hiddenColor;
 		RPG.Tileset _tileset;
 		Texture2D _tilesetTexture;
 		SpriteBatch _batch;
@@ -164,7 +152,17 @@ namespace ARCed.Controls
 
 		#region Public Methods
 
+		public int GetTileAtPoint(int x, int y)
+		{
+			int row = x / TILESIZE;
+			int column = y / TILESIZE;
+			return AUTO_IDS + (row + (column * TILEWIDTH));
+		}
 
+		public int GetTileAtPoint(Point point)
+		{
+			return GetTileAtPoint(point.X, point.Y);
+		}
 
 
 		#endregion
@@ -182,12 +180,12 @@ namespace ARCed.Controls
 			GraphicsDevice.Clear(XnaColor.Gray);
 			_rectTexture = new Texture2D(GraphicsDevice, 1, 1);
 			_rectTexture.SetData(new[] { XnaColor.White });
-			_hiddenColor = new XnaColor(80, 80, 80, 60); ;
 			Disposed += new EventHandler(TroopXnaPanel_Disposed);
-			this.MouseDown += new System.Windows.Forms.MouseEventHandler(TroopXnaPanel_MouseDown);
-			this.MouseUp += new System.Windows.Forms.MouseEventHandler(TroopXnaPanel_MouseUp);
-			this.MouseMove += new System.Windows.Forms.MouseEventHandler(TroopXnaPanel_MouseMove);
+			this.MouseDown += new MouseEventHandler(TroopXnaPanel_MouseDown);
+			this.MouseUp += new MouseEventHandler(TroopXnaPanel_MouseUp);
+			this.MouseMove += new MouseEventHandler(TroopXnaPanel_MouseMove);
 		}
+
 
 		/// <summary>
 		/// Performs painting of the control
@@ -209,18 +207,13 @@ namespace ARCed.Controls
 						_batch.Draw(_rectTexture, new XnaRect(0, y, MAXWIDTH, 1), Settings.GridColor);
 				}
 				// *************************************************************
-				if (TilesetMode == TilesetMode.Passage)
-					RefreshPassage();
-				else if (TilesetMode == TilesetMode.Passage4Dir)
-					RefreshPassage4Dir();
-				else if (TilesetMode == TilesetMode.Priority)
-					RefreshPriority();
-				else if (TilesetMode == TilesetMode.Counter)
-					RefreshCounter();
-				else if (TilesetMode == TilesetMode.Bush)
-					RefreshBush();
-				else if (TilesetMode == TilesetMode.Terrain)
-					RefreshTerrain();
+
+				if (TilesetMode == TilesetMode.Passage) RefreshPassage();
+				else if (TilesetMode == TilesetMode.Passage4Dir) RefreshPassage4Dir();
+				else if (TilesetMode == TilesetMode.Priority) RefreshPriority();
+				else if (TilesetMode == TilesetMode.Counter) RefreshCounter();
+				else if (TilesetMode == TilesetMode.Bush) RefreshBush();
+				else if (TilesetMode == TilesetMode.Terrain) RefreshTerrain();
 
 				// *************************************************************
 				XnaRect rect = SelectionRectangle;
@@ -243,14 +236,11 @@ namespace ARCed.Controls
 
 		private void RefreshPassage()
 		{
-			int x, y;
-			XnaRect rect;
-			int passage;
-			for (int i = AUTOPASSAGES; i < Tileset.passages.xsize; i++)
+			int x, y, passage;
+			for (int i = AUTO_IDS; i < Tileset.passages.xsize; i++)
 			{
-				x = (i - AUTOPASSAGES) % TILEWIDTH * TILESIZE;
-				y = (i - AUTOPASSAGES) / TILEWIDTH * TILESIZE;
-				rect = new XnaRect(x, y, 32, 32);
+				x = (i - AUTO_IDS) % TILEWIDTH * TILESIZE;
+				y = (i - AUTO_IDS) / TILEWIDTH * TILESIZE;
 				passage = Tileset.passages[i];
 				_batch.Draw(IconCache.Passage(passage), new Vector2(x, y), _semiTransparent);
 			}
@@ -258,14 +248,11 @@ namespace ARCed.Controls
 
 		private void RefreshPassage4Dir()
 		{
-			int x, y;
-			XnaRect rect;
-			int passage;
-			for (int i = AUTOPASSAGES; i < Tileset.passages.xsize; i++)
+			int x, y, passage;
+			for (int i = AUTO_IDS; i < Tileset.passages.xsize; i++)
 			{
-				x = (i - AUTOPASSAGES) % TILEWIDTH * TILESIZE;
-				y = (i - AUTOPASSAGES) / TILEWIDTH * TILESIZE;
-				rect = new XnaRect(x, y, 32, 32);
+				x = (i - AUTO_IDS) % TILEWIDTH * TILESIZE;
+				y = (i - AUTO_IDS) / TILEWIDTH * TILESIZE;
 				passage = Tileset.passages[i];
 				_batch.Draw(IconCache.Passage4Dir(passage), new Vector2(x, y), _semiTransparent);
 			}
@@ -273,14 +260,11 @@ namespace ARCed.Controls
 
 		private void RefreshPriority()
 		{
-			int x, y;
-			XnaRect rect;
-			int priority;
-			for (int i = AUTOPASSAGES; i < Tileset.priorities.xsize; i++)
+			int x, y, priority;
+			for (int i = AUTO_IDS; i < Tileset.priorities.xsize; i++)
 			{
-				x = (i - AUTOPASSAGES) % TILEWIDTH * TILESIZE;
-				y = (i - AUTOPASSAGES) / TILEWIDTH * TILESIZE;
-				rect = new XnaRect(x, y, 32, 32);
+				x = (i - AUTO_IDS) % TILEWIDTH * TILESIZE;
+				y = (i - AUTO_IDS) / TILEWIDTH * TILESIZE;
 				priority = Tileset.priorities[i];
 				_batch.Draw(IconCache.Priority(priority), new Vector2(x, y), _semiTransparent);
 			}
@@ -288,14 +272,11 @@ namespace ARCed.Controls
 
 		private void RefreshBush()
 		{
-			int x, y;
-			XnaRect rect;
-			int passage;
-			for (int i = AUTOPASSAGES; i < Tileset.passages.xsize; i++)
+			int x, y, passage;
+			for (int i = AUTO_IDS; i < Tileset.passages.xsize; i++)
 			{
-				x = (i - AUTOPASSAGES) % TILEWIDTH * TILESIZE;
-				y = (i - AUTOPASSAGES) / TILEWIDTH * TILESIZE;
-				rect = new XnaRect(x, y, 32, 32);
+				x = (i - AUTO_IDS) % TILEWIDTH * TILESIZE;
+				y = (i - AUTO_IDS) / TILEWIDTH * TILESIZE;
 				passage = Tileset.passages[i];
 				_batch.Draw(IconCache.Bush(passage), new Vector2(x, y), _semiTransparent);
 			}
@@ -303,14 +284,11 @@ namespace ARCed.Controls
 
 		private void RefreshCounter()
 		{
-			int x, y;
-			XnaRect rect;
-			int passage;
-			for (int i = AUTOPASSAGES; i < Tileset.passages.xsize; i++)
+			int x, y, passage;
+			for (int i = AUTO_IDS; i < Tileset.passages.xsize; i++)
 			{
-				x = (i - AUTOPASSAGES) % TILEWIDTH * TILESIZE;
-				y = (i - AUTOPASSAGES) / TILEWIDTH * TILESIZE;
-				rect = new XnaRect(x, y, 32, 32);
+				x = (i - AUTO_IDS) % TILEWIDTH * TILESIZE;
+				y = (i - AUTO_IDS) / TILEWIDTH * TILESIZE;
 				passage = Tileset.passages[i];
 				_batch.Draw(IconCache.Counter(passage), new Vector2(x, y), _semiTransparent);
 			}
@@ -318,14 +296,11 @@ namespace ARCed.Controls
 
 		private void RefreshTerrain()
 		{
-			int x, y;
-			XnaRect rect;
-			int terrain;
-			for (int i = AUTOPASSAGES; i < Tileset.terrain_tags.xsize; i++)
+			int x, y, terrain;
+			for (int i = AUTO_IDS; i < Tileset.terrain_tags.xsize; i++)
 			{
-				x = (i - AUTOPASSAGES) % TILEWIDTH * TILESIZE;
-				y = (i - AUTOPASSAGES) / TILEWIDTH * TILESIZE;
-				rect = new XnaRect(x, y, 32, 32);
+				x = (i - AUTO_IDS) % TILEWIDTH * TILESIZE;
+				y = (i - AUTO_IDS) / TILEWIDTH * TILESIZE;
 				terrain = Tileset.terrain_tags[i];
 				_batch.Draw(IconCache.Terrain(terrain), new Vector2(x, y), _semiTransparent);
 			}
@@ -361,7 +336,7 @@ namespace ARCed.Controls
 			
 		}
 
-		private void TroopXnaPanel_MouseMove(object sender, System.Windows.Forms.MouseEventArgs e)
+		private void TroopXnaPanel_MouseMove(object sender, MouseEventArgs e)
 		{
 			if (SelectionEnabled && _mouseDown)
 			{
@@ -371,25 +346,96 @@ namespace ARCed.Controls
 			}
 		}
 
-		private void TroopXnaPanel_MouseUp(object sender, System.Windows.Forms.MouseEventArgs e)
+		private void TroopXnaPanel_MouseUp(object sender, MouseEventArgs e)
 		{
 			_mouseDown = false;
-
 		}
 
-		private void TroopXnaPanel_MouseDown(object sender, System.Windows.Forms.MouseEventArgs e)
+		private void TroopXnaPanel_MouseDown(object sender, MouseEventArgs e)
 		{
 			_mouseDown = true;
 			_originPoint.X = _endPoint.X = e.X;
 			_originPoint.Y = _endPoint.Y = e.Y;
 			if (SelectionEnabled)
 				Invalidate();
+			else
+				ChangeData(e);
 		}
 
+		private void ChangeData(MouseEventArgs e)
+		{
+			if (e.Button != MouseButtons.Left && e.Button != MouseButtons.Right)
+				return;
+			int id = GetTileAtPoint(e.X, e.Y);
+			if (TilesetMode == TilesetMode.Passage)
+			{
+				if ((_tileset.passages[id] & ~0x40 & ~0x80) == 0)
+					_tileset.passages[id] |= 0x01 | 0x02 | 0x04 | 0x08;
+				else
+					_tileset.passages[id] &= ~(0x01 | 0x02 | 0x04 | 0x08);
+			}
+			else if (TilesetMode == TilesetMode.Passage4Dir)
+			{
+				int half = TILESIZE / 2;
+				int x = 1 + e.X % TILESIZE;
+				int y = 1 + e.Y % TILESIZE;
+				List<double> dist = new List<double>
+				{
+					Math.Pow(half - x, 2) + Math.Pow(TILESIZE - y, 2), // Bottom
+					Math.Pow(x, 2) + Math.Pow(half - y, 2),            // Left
+					Math.Pow(TILESIZE - x, 2) + Math.Pow(half - y, 2), // Right
+					Math.Pow(half - x, 2) + Math.Pow(y, 2)             // Top
+				};
+				int index = dist.IndexOf(dist.Min());
+				int bit = new[] { 0x01, 0x02, 0x04, 0x08 }[index];
+				if ((_tileset.passages[id] & bit) == bit)
+					_tileset.passages[id] &= ~bit;
+				else
+					_tileset.passages[id] |= bit;
+			}
+			else if (TilesetMode == TilesetMode.Priority)
+			{
+				if (e.Button == MouseButtons.Left)
+					_tileset.priorities[id] = (_tileset.priorities[id] + 1) % PRIORITIES;
+				else 
+				{
+					_tileset.priorities[id]--;
+					if (_tileset.priorities[id] < 0)
+						_tileset.priorities[id] = PRIORITIES - 1;
+				}
+			}
+			else if (TilesetMode == TilesetMode.Bush)
+			{
+				if ((_tileset.passages[id] & 0x40) == 0x40)
+					_tileset.passages[id] &= ~0x40;
+				else
+					_tileset.passages[id] |= 0x40;
+			}
+			else if (TilesetMode == TilesetMode.Counter)
+			{
+				if ((_tileset.passages[id] & 0x80) == 0x80)
+					_tileset.passages[id] &= ~0x80;
+				else
+					_tileset.passages[id] |= 0x80;
+			}
+			else if (TilesetMode == TilesetMode.Terrain)
+			{
+				if (e.Button == MouseButtons.Left)
+					_tileset.terrain_tags[id] = (_tileset.terrain_tags[id] + 1) % TERRAINS;
+				else
+				{
+					_tileset.terrain_tags[id]--;
+					if (_tileset.terrain_tags[id] < 0)
+						_tileset.terrain_tags[id] = TERRAINS - 1;
+				}
+			}
+			Invalidate(); 
+		}
 
-
-
-
+		public double Hypotenuse(double a, double b)
+		{
+			return Math.Sqrt(Math.Pow(a, 2) + Math.Pow(b, 2));
+		}
 
 		#endregion
 	}
