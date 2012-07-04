@@ -10,7 +10,7 @@ os.chdir("src")
 # them to extension names in dotted notation
 # "Cache.py", "Controls.py"
 ingoreNames = ["__init__.py", "setup.py", "__main__.py", "_ext.py", "Logo.py", "Boot.py", "build"]
-testFiles = ["Map_Test.py", "PyXAL_Test.py"]
+testFiles = ["Map_Test.py", "PyXAL_Test.py", "Database_Test.py"]
 def scandir(dir, files=[]):
     for file in os.listdir(dir):
         path = os.path.join(dir, file)

@@ -85,8 +85,8 @@ class Weapons_Panel( Templates.Weapons_Panel, PanelBase ):
         self.comboBoxTargetAnimation.SetSelection(weapon.animation2_id)
         if DM.ARC_FORMAT:
             # TODO: Implement
-            addstates = skill.plus_state_set
-            minusstates = skill.minus_state_set
+            addstates = weapon.plus_state_set
+            minusstates = weapon.minus_state_set
             checked = weapon.element_set
         else:
             checked = [i - 1 for i in weapon.element_set]

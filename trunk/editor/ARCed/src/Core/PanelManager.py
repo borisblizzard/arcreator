@@ -237,7 +237,12 @@ class PanelManager(object):
             if "Hide" in word:
                 info_obj.Hide()
             #icon
-            if "Icon" in word:
+            if "IconARCM" in word:
+                if data.has_key("IconARCM"):
+                    IconManager = KM.get_component("IconManager").object
+                    icon = IconManager.getBitmap(data["IconARCM"])
+                    info_obj.Icon(icon)
+            elif "Icon" in word:
                 if data.has_key("Icon"):
                     info_obj.Icon(data["Icon"])
             #layer

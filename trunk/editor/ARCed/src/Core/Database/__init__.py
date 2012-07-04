@@ -25,3 +25,6 @@ from System_Panel import System_Panel
 from Tilesets_Panel import Tilesets_Panel
 from Troops_Panel import Troops_Panel
 from Weapons_Panel import Weapons_Panel
+import Controls
+import Dialogs
+import ScriptEditor

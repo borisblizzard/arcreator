@@ -26,9 +26,9 @@ GRAPH_COLORS = [
 
 class Actors_Panel( Templates.Actors_Panel, PanelBase ):
 
-    _arc_panel_info_string = "Name Caption Center CloseB CaptionV DestroyOC Floatable Float MaximizeB MinimizeM MinimizeB Movable NotebookD  Resizable Snappable"
+    _arc_panel_info_string = "Name Caption Center CloseB CaptionV DestroyOC Floatable Float IconARCM MaximizeB MinimizeM MinimizeB Movable NotebookD  Resizable Snappable"
     _arc_panel_info_data = {"Name": "Actors Panel", "Caption": "Actors Panel", "CaptionV": True,  "MinimizeM": ["POS_SMART", "CAPT_SMART",], 
-                            "MinimizeB": True, "CloseB": True}
+                            "MinimizeB": True, "CloseB": True, 'IconARCM': 'actorsicon'}
 
     def __init__( self, parent, actorIndex=0 ):
         """Basic constructor for the Actors panel"""
@@ -75,9 +75,9 @@ class Actors_Panel( Templates.Actors_Panel, PanelBase ):
         DM.DrawHeaderBitmap(self.bitmapActors, 'Actors')
         # Set the initial selection of the list control 
         self.listBoxActors.SetSelection(actorIndex)
-
         # Bind the panel tot he Panel Manager
         self.BindPanelManager()
+        self.Show()
 
     def AddParameterPage( self, title, activate=False ):
         """Creates a page and adds it to the notebook control"""

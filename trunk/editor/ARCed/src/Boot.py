@@ -17,6 +17,7 @@ import ConfigParser
 import wx
 from wx.lib.embeddedimage import PyEmbeddedImage
 import wx.lib.agw.advancedsplash as AS
+import wx.lib.inspection
 
 import Kernel
 from Kernel import Manager as KM
@@ -239,6 +240,8 @@ class ARCSplashScreen(AS.AdvancedSplash):
         MainWindow = KM.get_component("EditorMainWindow").object
         self.frame = MainWindow(None, wx.ID_ANY, 'ARCed')
         self.frame.Show(True)
+        
+        #wx.lib.inspection.InspectionTool().Show()
 
 class ARC_App(wx.App):
 

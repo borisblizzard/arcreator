@@ -8,15 +8,16 @@ from Kernel import Manager as KM
 
 from Core import Panels
 
-class MapPanel(Panels.PanelBase):
+class MapPanel(wx.Panel, Panels.PanelBase):
     
-    _arc_panel_info_string = "Name Caption Center CloseB CaptionV BestS MinimizeM MinimizeB MaximizeB Floatable Resizable Snappable NotebookD Movable"
+    _arc_panel_info_string = "Name Caption Center CloseB CaptionV BestS MinimizeM MinimizeB MaximizeB Floatable Resizable Snappable NotebookD Movable IconARCM DestroyOC"
     _arc_panel_info_data = {"Name": "Map Editor:", "Caption": "Map Editor:", "CaptionV": True, "BestS": (32 * 24, 32 * 18), "MinimizeM": ["POS_SMART", "CAPT_SMART",], 
-                            "MinimizeB": True, "CloseB": True, "NotebookP" : [1]}
+                            "MinimizeB": True, "CloseB": True, "NotebookP" : [1], 'IconARCM': 'map_icon'}
 
     def __init__(self, parent, map, tilesets):
         '''lays out a toolbar and the map window'''
         super(MapPanel, self).__init__(parent)
+        self.Show(False)
         #set data
         self.map = map
         self.caption = "Map Editor:"
@@ -33,6 +34,7 @@ class MapPanel(Panels.PanelBase):
         self.Layout()
 
         self.Bind(wx.EVT_UPDATE_UI, self.UpdateUI)
+        self.Show()
            
     def Create_Toolbar(self):
         '''creates the toolbar and adds tools'''

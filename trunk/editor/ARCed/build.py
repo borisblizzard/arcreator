@@ -135,6 +135,19 @@ maptestTargert = Target(
     copyright = "© 2011 ARC Developers arc@chaos-project.com",
     name = "ARCed (Advanced RPG Creator Editor)"
     )
+	
+DatabaseTestTargert = Target(
+    # what to build
+    script = "Database_Test.py",
+    icon_resources = icon_resources,
+    bitmap_resources = bitmap_resources,
+    other_resources = other_resources,
+    dest_base = "maptest",
+    version = "0.6.1.469",
+    company_name = "ARC Developers",
+    copyright = "© 2011 ARC Developers arc@chaos-project.com",
+    name = "ARCed (Advanced RPG Creator Editor)"
+    )
     
 PyXALTargert = Target(
     # what to build
@@ -170,7 +183,7 @@ setup(
 
     zipfile = None,
     console = [],
-    windows = [ARCedTarget, maptestTargert, PyXALTargert]
+    windows = [ARCedTarget, maptestTargert, DatabaseTestTargert, PyXALTargert]
     )
     
 

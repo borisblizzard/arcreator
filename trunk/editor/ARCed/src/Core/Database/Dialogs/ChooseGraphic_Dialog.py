@@ -18,7 +18,7 @@ class ChooseGraphic_Dialog( Templates.ChooseGraphic_Dialog ):
 		if folder == 'Characters': self.cache = PILCache.Character
 		elif folder == 'Battlers': self.cache = PILCache.Battler
 		elif folder == 'Icons' : self.cache = PILCache.Icon
-		elif foler == 'Panoramas': PILCache.Panorama 
+		elif folder == 'Panoramas': PILCache.Panorama 
 		# TODO: Implement the rest...
 		if current in self.ImageList: 
 			self.ImageIndex = self.ImageList.index(current)
