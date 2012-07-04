@@ -16,13 +16,13 @@ class TilesetPanel(wx.ScrolledWindow, Panels.PanelBase):
         self.panel = wx.Panel(self, wx.ID_ANY)
         self.SetScrollbars(32, 32, 8, 50)
 
-class MapTreePanel(Panels.PanelBase):
+class MapTreePanel(wx.Panel, Panels.PanelBase):
 
     _arc_panel_info_string = "Name Caption Left CloseB BestS MinimizeM Layer Row Pos MinimizeB"
     _arc_panel_info_data = {"Name": "Maps", "Caption": "Maps", "CloseB": False, "BestS": (32 * 8, 32 * 4), "MinimizeM": ["POS_SMART", "CAPT_SMART",], "Layer": 1, "Row": 1, "Pos": 1, "MinimizeB": True,}
 
     def __init__(self, parent, mapEditerPanel=None):
-        Panels.PanelBase.__init__(self, parent)
+        wx.Panel.__init__(self, parent)
 
         self.mapEditerPanel = mapEditerPanel
 

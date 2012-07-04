@@ -61,12 +61,14 @@ class RMXPType(SuperType):
 #=============================================================================
 class PanelManagerType(SuperType):
 
+    #--------------------------------- Toolbars ----------------------------------
+    MainToolbar = Type("MainToolbar")
+    DatabaseToolbar = Type("DatabaseToolbar")
     #----------------------------- Panels ------------------------------------
     StartPanel = Type("StartPanel")
     ShadowPanel = Type("ShadowPanel")
     TilesetPanel = Type("TilesetPanel")
     MapTreePanel = Type("MapTreePanel")
-    MainToolbar = Type("MainToolbar")
     MapEditorPanel = Type("MapEditorPanel")
     #Database
     MainActorsPanel = Type("MainActorsPanel")
@@ -94,6 +96,8 @@ class PanelManagerType(SuperType):
                        self.MainItemsPanel, self.MainWeaponsPanel, self.MainArmorsPanel, self.MainEnemiesPanel, 
                        self.MainTroopsPanel, self.MainStatesPanel, self.MainAnimationsPanel, self.MainTilesetsPanel, 
                        self.MainCommonEventsPanel, self.MainSystemPanel)
+        #--------------------------------- Toolbars ----------------------------------
+        self.add_types(self.MainToolbar, self.DatabaseToolbar)
 
 #=============================================================================
 # * Package Declaration
@@ -141,7 +145,6 @@ class CorePackage(Package):
         EditorMainWindow = Type("EditorMainWindow")
         
         #-------------------------------- ctrls --------------------------------------
-        MainToolbar = Type("MainToolbar")
         MapEditorWindow = Type("MapEditorWindow")
         MapTreeCtrl = Type("MapTreeCtrl")
         
@@ -189,9 +192,9 @@ class CorePackage(Package):
         
         #-------------------------------- frames -------------------------------------
         self.add_types(EditorMainWindow)
-        
+
         #-------------------------------- ctrls --------------------------------------
-        self.add_types(MainToolbar, MapEditorWindow, MapTreeCtrl)
+        self.add_types(MapEditorWindow, MapTreeCtrl)
         
         #-------------------------------- layouts --------------------------------
         self.add_types(EditorMainWindowLayout, ARCModeLayout, PanelManager)
@@ -388,14 +391,20 @@ class CorePackage(Package):
                                      "CoreStartPanel", "CORE", 1.0, self))
         self.add_component(Component(Panels.ShadowPanel, "ShadowPanel", "PanelManagerType",
                                      "CoreShadowPanel", "CORE", 1.0, self))
+
         self.add_component(Component(MapEditor.BrushPanels.TilesetPanel, "TilesetPanel", "PanelManagerType",
                                      "CoreTilesetPanel", "CORE", 1.0, self))
         self.add_component(Component(MapEditor.BrushPanels.MapTreePanel, "MapTreePanel", "PanelManagerType",
                                      "CoreMapTreePanel", "CORE", 1.0, self))
-        self.add_component(Component(Panels.MainToolbar, "MainToolbar", "PanelManagerType",
-                                     "CoreMainToolbar", "CORE", 1.0, self))
         self.add_component(Component(MapEditor.MapEditorPanel.MapPanel, "MapEditorPanel", "PanelManagerType",
                                      "CoreMapEditorPanel", "CORE", 1.0, self))
+
+        self.add_component(Component(Panels.MainToolbar, "MainToolbar", "PanelManagerType",
+                                     "CoreMainToolbar", "CORE", 1.0, self))
+        self.add_component(Component(Panels.DatabaseToolbar, "DatabaseToolbar", "PanelManagerType",
+                                     "CoreDatabaseToolbar", "CORE", 1.0, self))
+
+        
         self.add_component(Component(Actors_Panel, "MainActorsPanel", "PanelManagerType", 
                                      "COREMainActorsPanel", "CORE", 1.0, self))
         self.add_component(Component(Classes_Panel, "MainClassesPanel", "PanelManagerType", 

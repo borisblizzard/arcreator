@@ -26,13 +26,14 @@ class MainWindowLayout(object):
         else:
             Kernel.GlobalObjects.request_new_key("PanelManager", "CORE", self.mgr)
 
-        self.CreateToolbar()
+        self.CreateToolbars()
         self.CreateStartPanel()
         self.layout = KM.get_component("ARCModeLayout").object()
         
 
-    def CreateToolbar(self):
-        self.toolbar = self.mgr.dispatch_panel("MainToolbar", "Main Tool bar")
+    def CreateToolbars(self):
+        self.maintoolbar = self.mgr.dispatch_panel("MainToolbar", "Main Toolbar")
+        self.databasetoolbar = self.mgr.dispatch_panel("DatabaseToolbar", "Database Toolbar")
 
     def CreateStartPanel(self):
         self.startPanel = self.mgr.dispatch_panel("StartPanel", "Start Panel")
@@ -64,23 +65,6 @@ class ARCModeLayout(object):
             #self.regesterParts()
         # "commit" all changes made to PanelManager
         self.mgr.Update()
-
-    #def regesterParts(self):
-    #    pluginmenuitem = KM.get_component("PluginMenuItem").object
-    #    self.importmenuitem = pluginmenuitem(self.OnImportMenu,
-    #                                         "Import RMXP Data...")
-    #    self.importmenuitem.add_to_menu()
-    #    self.exportmenuitem = pluginmenuitem(self.OnExportMenu,
-    #                                         "Export RMXP Data...")
-    #    self.exportmenuitem.add_to_menu()
-
-    #def OnImportMenu(self, event):
-    #    function = KM.get_component("ProjectImportHandler", "RMXP").object
-    #    function(self.parent)
-
-    #def OnExportMenu(self, event):
-    #    function = KM.get_component("ProjectExportHandler", "RMXP").object
-    #    function(self.parent)
 
     def Refresh(self):
         self.ClearLayout()

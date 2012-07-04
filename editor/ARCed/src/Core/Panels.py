@@ -18,10 +18,6 @@ from Kernel import Manager as KM
 
 class PanelBase(object):
 
-    def __init__(self, parent):
-        wx.Panel.__init__(self, parent, wx.ID_ANY)
-        self.BindPanelManager()
-
     def BindPanelManager(self):
         self.bindFocus()
         self.SetFocus()
@@ -46,7 +42,7 @@ class PanelBase(object):
 class MainToolbar(aui.AuiToolBar):
 
     _arc_panel_info_string = "Name Caption ToolbarP Top Row CloseB"
-    _arc_panel_info_data = {"Name": "Toolbar", "Caption": "Main Tool Bar",  "Row": 1, "CloseB": False, }
+    _arc_panel_info_data = {"Name": "MainToolbar", "Caption": "Main Tool Bar",  "Row": 1, "CloseB": False, }
 
     def __init__(self, parent):
 
@@ -158,7 +154,7 @@ class MainToolbar(aui.AuiToolBar):
 class DatabaseToolbar(aui.AuiToolBar):
 
     _arc_panel_info_string = "Name Caption ToolbarP Top Row CloseB"
-    _arc_panel_info_data = {"Name": "Toolbar", "Caption": "Database Tool Bar",  "Row": 1, "CloseB": False, }
+    _arc_panel_info_data = {"Name": "DatabaseToolbar", "Caption": "Database Tool Bar",  "Row": 1, "CloseB": False, }
 
     def __init__(self, parent):
 
@@ -166,37 +162,160 @@ class DatabaseToolbar(aui.AuiToolBar):
         
         self.parent = parent
 
+        self.mgr = Kernel.GlobalObjects.get_value("PanelManager")
+
         self.SetToolBitmapSize(wx.Size(16, 16))
 
-        IconManager = KM.get_component("IconManager").object
-        #get bitmaps
-        #newbmp = IconManager.getBitmap("newicon")
-
-        #set up ids
-        #self.newid = wx.NewId()
+        self.actorspanel = None
+        self.classespanel = None
+        self.skillspanel = None
+        self.itemspanel = None
+        self.weaponspanel = None
+        self.armorspanel = None
+        self.enemiespanel = None
+        self.troopspanel = None
+        self.statespanel = None
+        self.animationspanel = None
+        self.tilesetspanel = None
+        self.commoneventspanel = None
+        self.systempanel = None
+        self.scriptpanel = None
+        
         #build toolbar
         self.AddTools()
         self.Realize()
         self.BindEvents()
 
     def AddTools(self):
-        #add the tools
-        #self.AddSimpleTool(self.newid, "New", newbmp,
-        #                   "Create a new project")
+        IconManager = KM.get_component("IconManager").object
+        #get bitmaps
+        actorsbmp = IconManager.getBitmap("actorsicon")
+        classesbmp = IconManager.getBitmap("classesicon")
+        skillsbmp = IconManager.getBitmap("skillsicon")
+        itemsbmp = IconManager.getBitmap("itemsicon")
+        weaponsbmp = IconManager.getBitmap("weaponsicon")
+        armorsbmp = IconManager.getBitmap("armorsicon")
+        enemiesbmp = IconManager.getBitmap("enemiesicon")
+        troopsbmp = IconManager.getBitmap("troopsicon")
+        statesbmp = IconManager.getBitmap("statesicon")
+        animationsbmp = IconManager.getBitmap("animationsicon")
+        tilesetsbmp = IconManager.getBitmap("tilesetsicon")
+        commoneventsbmp = IconManager.getBitmap("commoneventsicon")
+        systembmp = IconManager.getBitmap("systemicon")
+        scriptbmp = IconManager.getBitmap("script_icon")
 
-        #self.AddSeparator()
-        pass       
+        #set up ids
+        self.actorsid = wx.NewId()
+        self.classesid = wx.NewId()
+        self.skillsid = wx.NewId()
+        self.itemsid = wx.NewId()
+        self.weaponsid = wx.NewId()
+        self.armorsid = wx.NewId()
+        self.enemiesid = wx.NewId()
+        self.troopsid = wx.NewId()
+        self.statesid = wx.NewId()
+        self.animationsid = wx.NewId()
+        self.tilesetsid = wx.NewId()
+        self.commoneventsid = wx.NewId()
+        self.systemid = wx.NewId()
+        self.scriptid = wx.NewId()
+
+        #add the tools
+        self.AddSimpleTool(self.actorsid, "Actors", actorsbmp,
+                           "Open the Actors Panel")
+        self.AddSimpleTool(self.classesid, "Classes", classesbmp,
+                           "Open the Classes Panel")
+        self.AddSimpleTool(self.skillsid, "Skills", skillsbmp,
+                           "Open the Skills Panel")
+        self.AddSimpleTool(self.statesid, "States", statesbmp,
+                           "Open the States Panel")
+        self.AddSeparator()
+        self.AddSimpleTool(self.itemsid, "Items", itemsbmp,
+                           "Open the Items Panel")
+        self.AddSimpleTool(self.weaponsid, "Weapons", weaponsbmp,
+                           "Open the Weapons Panel")
+        self.AddSimpleTool(self.armorsid, "Armors", armorsbmp,
+                           "Open the Armors Panel")
+        self.AddSeparator()
+        self.AddSimpleTool(self.enemiesid, "Enemies", enemiesbmp,
+                           "Open the Enemies Panel")
+        self.AddSimpleTool(self.troopsid, "Troops", troopsbmp,
+                           "Open the Troops Panel")
+        
+        self.AddSeparator()
+        self.AddSimpleTool(self.animationsid, "Animations", animationsbmp,
+                           "Open the Animations Panel")
+        self.AddSimpleTool(self.tilesetsid, "Tilesets", tilesetsbmp,
+                           "Open the Tilesets Panel")
+        self.AddSeparator()
+        self.AddSimpleTool(self.commoneventsid, "Common Events", commoneventsbmp,
+                           "Open the Common Events Panel")
+        self.AddSimpleTool(self.systemid, "System", systembmp,
+                           "Open the System Panel")
+        self.AddSimpleTool(self.scriptid, "Scripts", scriptbmp,
+                           "Open the Scripts Panel")
+    
 
     def BindEvents(self):
         #self.Bind(wx.EVT_TOOL, self.OnNew, id=self.newid)
 
-        self.Bind(wx.EVT_UPDATE_UI, self.uiupdate, id=self.saveid)
+        self.Bind(wx.EVT_TOOL, self.paneldispatch, id=self.actorsid)
+        self.Bind(wx.EVT_TOOL, self.paneldispatch, id=self.classesid)
+        self.Bind(wx.EVT_TOOL, self.paneldispatch, id=self.skillsid)
+        self.Bind(wx.EVT_TOOL, self.paneldispatch, id=self.itemsid)
+        self.Bind(wx.EVT_TOOL, self.paneldispatch, id=self.weaponsid)
+        self.Bind(wx.EVT_TOOL, self.paneldispatch, id=self.armorsid)
+        self.Bind(wx.EVT_TOOL, self.paneldispatch, id=self.enemiesid)
+        self.Bind(wx.EVT_TOOL, self.paneldispatch, id=self.troopsid)
+        self.Bind(wx.EVT_TOOL, self.paneldispatch, id=self.statesid)
+        self.Bind(wx.EVT_TOOL, self.paneldispatch, id=self.animationsid)
+        self.Bind(wx.EVT_TOOL, self.paneldispatch, id=self.tilesetsid)
+        self.Bind(wx.EVT_TOOL, self.paneldispatch, id=self.commoneventsid)
+        self.Bind(wx.EVT_TOOL, self.paneldispatch, id=self.systemid)
+        self.Bind(wx.EVT_TOOL, self.paneldispatch, id=self.scriptid)
+
+        self.Bind(wx.EVT_UPDATE_UI, self.uiupdate, id=self.actorsid)
+        self.Bind(wx.EVT_UPDATE_UI, self.uiupdate, id=self.classesid)
+        self.Bind(wx.EVT_UPDATE_UI, self.uiupdate, id=self.skillsid)
+        self.Bind(wx.EVT_UPDATE_UI, self.uiupdate, id=self.itemsid)
+        self.Bind(wx.EVT_UPDATE_UI, self.uiupdate, id=self.weaponsid)
+        self.Bind(wx.EVT_UPDATE_UI, self.uiupdate, id=self.armorsid)
+        self.Bind(wx.EVT_UPDATE_UI, self.uiupdate, id=self.enemiesid)
+        self.Bind(wx.EVT_UPDATE_UI, self.uiupdate, id=self.troopsid)
+        self.Bind(wx.EVT_UPDATE_UI, self.uiupdate, id=self.statesid)
+        self.Bind(wx.EVT_UPDATE_UI, self.uiupdate, id=self.animationsid)
+        self.Bind(wx.EVT_UPDATE_UI, self.uiupdate, id=self.tilesetsid)
+        self.Bind(wx.EVT_UPDATE_UI, self.uiupdate, id=self.commoneventsid)
+        self.Bind(wx.EVT_UPDATE_UI, self.uiupdate, id=self.systemid)
+        self.Bind(wx.EVT_UPDATE_UI, self.uiupdate, id=self.scriptid)
 
     def uiupdate(self, event):
         if Kernel.GlobalObjects.has_key("ProjectOpen") and (Kernel.GlobalObjects.get_value("ProjectOpen") == True):
             event.Enable(True)
         else:
             event.Enable(False)
+
+    def paneldispatch(self, event):
+        #self.actorspanel = None
+        #self.classespanel = None
+        #self.skillspanel = None
+        #self.itemspanel = None
+        #self.weaponspanel = None
+        #self.armorspanel = None
+        #self.enemiespanel = None
+        #self.troopspanel = None
+        #self.statespanel = None
+        #self.animationspanel = None
+        #self.tilesetspanel = None
+        #self.commoneventspanel = None
+        #self.systempanel = None
+        #self.scriptpanel = None
+        if event.Id == self.actorsid:
+            if self.actorspanel:
+                self.mgr.RequestUserAttention(self.actorspanel) 
+            else:
+                self.actorspanel = self.mgr.dispatch_panel("MainActorsPanel", "Main Actors Panel") 
+            
 
 class StartPanel(wx.Panel, PanelBase):
 
@@ -205,7 +324,8 @@ class StartPanel(wx.Panel, PanelBase):
                             "MinimizeB": True, "CloseB": True}
     
     def __init__(self, parent):
-        PanelBase.__init__(self, parent)
+        wx.Panel.__init__(self, parent)
+        self.BindPanelManager()
 
 
 class ShadowPanel(wx.Panel, PanelBase):
@@ -214,4 +334,5 @@ class ShadowPanel(wx.Panel, PanelBase):
     _arc_panel_info_data = {"Name": "Shadow Panel", "Caption": "Shadow Panel", "CaptionV": False, "BestS": (1000 - 8, 500), "MinimizeB": False, "CloseB": False, "Floatable" : False,}
     
     def __init__(self, parent):
-        PanelBase.__init__(self, parent)
+        wx.Panel.__init__(self, parent)
+        self.BindPanelManager()
