@@ -145,6 +145,9 @@ namespace ARCed.Dialogs
 				case @"Graphics\Tilesets":
 					pictureBox.Image = new Bitmap(Cache.Tileset(_filename));
 					break;
+				case @"Graphics\Autotiles":
+					pictureBox.Image = new Bitmap(Cache.Autotile(_filename));
+					break;
 			}
 		}
 

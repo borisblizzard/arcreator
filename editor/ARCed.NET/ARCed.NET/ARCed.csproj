@@ -286,6 +286,18 @@
     <Compile Include="Database\Enemies\TreasureSelectDialog.Designer.cs">
       <DependentUpon>TreasureSelectDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="Database\MapEditor\MapEditorMainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Database\MapEditor\MapEditorMainForm.Designer.cs">
+      <DependentUpon>MapEditorMainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Database\MapEditor\MapTilesetForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Database\MapEditor\MapTilesetForm.Designer.cs">
+      <DependentUpon>MapTilesetForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Database\Sys\SystemMainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -999,6 +1011,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Database\Enemies\TreasureSelectDialog.resx">
       <DependentUpon>TreasureSelectDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Database\MapEditor\MapTilesetForm.resx">
+      <DependentUpon>MapTilesetForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Database\Tilesets\TilemapColorDialog.resx">
       <DependentUpon>TilemapColorDialog.cs</DependentUpon>

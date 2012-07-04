@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using ARCed.Helpers;
+using ARCed.Dialogs;
 using ARCed.Controls;
 
 namespace ARCed.Database.Tilesets
@@ -15,6 +16,7 @@ namespace ARCed.Database.Tilesets
 	{
 
 		private RPG.Tileset _tileset;
+		private const int AUTOTILES = 7;
 
 		#region Protected Properties
 
@@ -37,8 +39,36 @@ namespace ARCed.Database.Tilesets
 		public TilesetsMainForm()
 		{
 			InitializeComponent();
-			checkBoxGrid.Checked = Editor.Settings.TilesetSettings.ShowGrid;
-			RefreshObjectList();
+		}
+
+		private void InitializeAutotiles()
+		{
+			for (int i = 0; i < AUTOTILES; i++)
+			{
+				TextBoxButton textBox = new TextBoxButton();
+				textBox.Tag = i;
+				textBox.Location = new Point(6, 6 + (i * 24));
+				textBox.Size = new Size(panelAutotiles.ClientSize.Width - 12, 20);
+				textBox.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+				panelAutotiles.Controls.Add(textBox);
+				textBox.OnButtonClick += new TextBoxButton.ButtonClickHandler(textBoxAutotile_ButtonClick);
+			}
+		}
+
+		void textBoxAutotile_ButtonClick(object sender, EventArgs e)
+		{
+			int index = Convert.ToInt32((sender as TextBoxButton).Tag);
+			string tile = _tileset.autotile_names[index];
+			using (ImageSelectionForm dialog = new ImageSelectionForm(@"Graphics\Autotiles", tile))
+			{
+				dialog.TileSelection = false;
+				dialog.EnableHueChange = false;
+				if (dialog.ShowDialog(this) == DialogResult.OK)
+				{
+					_tileset.autotile_names[index] = dialog.ImageName;
+					tilesetXnaPanel.Invalidate();
+				}
+			}
 		}
 
 		/// <summary>
@@ -55,8 +85,22 @@ namespace ARCed.Database.Tilesets
 			suppressEvents = true;
 
 			tilesetXnaPanel.Tileset = _tileset;
-
-
+			textBoxName.Text = _tileset.name;
+			textBoxTileset.Text = String.IsNullOrWhiteSpace(_tileset.tileset_name) ?
+				"<None>" : _tileset.tileset_name; 
+			textBoxFog.Text = String.IsNullOrWhiteSpace(_tileset.fog_name) ?
+				"<None>" : _tileset.fog_name;
+			textBoxPanorama.Text = String.IsNullOrWhiteSpace(_tileset.panorama_name) ?
+				"<None>" : _tileset.panorama_name;
+			textBoxBattleback.Text = String.IsNullOrWhiteSpace(_tileset.battleback_name) ?
+				"<None>" : _tileset.battleback_name;
+			string autotile;
+			for (int i = 0; i < _tileset.autotile_names.Count; i++)
+			{
+				autotile = _tileset.autotile_names[i];
+				(panelAutotiles.Controls[i] as TextBoxButton).Text = 
+					String.IsNullOrWhiteSpace(autotile) ? "<None>" : autotile;
+			}
 			suppressEvents = false;
 		}
 
@@ -72,6 +116,9 @@ namespace ARCed.Database.Tilesets
 
 		private void TilesetsMainForm_Load(object sender, EventArgs e)
 		{
+			checkBoxGrid.Checked = Editor.Settings.TilesetSettings.ShowGrid;
+			RefreshObjectList();
+			InitializeAutotiles();
 			dataObjectList.SelectedIndex = 0;
 		}
 
