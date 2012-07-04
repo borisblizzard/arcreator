@@ -30,7 +30,12 @@
 		{
 			this.splitContainer1 = new System.Windows.Forms.SplitContainer();
 			this.dataObjectList = new ARCed.Controls.DatabaseObjectListBox();
-			this.label1 = new System.Windows.Forms.Label();
+			this.radioTerrain = new System.Windows.Forms.RadioButton();
+			this.radioCounter = new System.Windows.Forms.RadioButton();
+			this.radioBush = new System.Windows.Forms.RadioButton();
+			this.radioPriority = new System.Windows.Forms.RadioButton();
+			this.radioPassage4Dir = new System.Windows.Forms.RadioButton();
+			this.radioPassage = new System.Windows.Forms.RadioButton();
 			this.checkBoxGrid = new System.Windows.Forms.CheckBox();
 			this.buttonColors = new System.Windows.Forms.Button();
 			this.panelTileset = new System.Windows.Forms.Panel();
@@ -41,22 +46,18 @@
 			this.textBoxTileset = new ARCed.Controls.TextBoxButton();
 			this.textBoxName = new System.Windows.Forms.TextBox();
 			this.groupBoxAutotiles = new System.Windows.Forms.GroupBox();
+			this.panelAutotiles = new System.Windows.Forms.Panel();
 			this.labelBattlebackGraphic = new System.Windows.Forms.Label();
 			this.labelFogGraphic = new System.Windows.Forms.Label();
 			this.labelPanoramaGraphic = new System.Windows.Forms.Label();
 			this.labelTilesetGraphic = new System.Windows.Forms.Label();
 			this.labelName = new System.Windows.Forms.Label();
-			this.radioPassage = new System.Windows.Forms.RadioButton();
-			this.radioPassage4Dir = new System.Windows.Forms.RadioButton();
-			this.radioPriority = new System.Windows.Forms.RadioButton();
-			this.radioBush = new System.Windows.Forms.RadioButton();
-			this.radioCounter = new System.Windows.Forms.RadioButton();
-			this.radioTerrain = new System.Windows.Forms.RadioButton();
 			((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
 			this.splitContainer1.Panel1.SuspendLayout();
 			this.splitContainer1.Panel2.SuspendLayout();
 			this.splitContainer1.SuspendLayout();
 			this.panelTileset.SuspendLayout();
+			this.groupBoxAutotiles.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// splitContainer1
@@ -77,7 +78,6 @@
 			this.splitContainer1.Panel2.Controls.Add(this.radioPriority);
 			this.splitContainer1.Panel2.Controls.Add(this.radioPassage4Dir);
 			this.splitContainer1.Panel2.Controls.Add(this.radioPassage);
-			this.splitContainer1.Panel2.Controls.Add(this.label1);
 			this.splitContainer1.Panel2.Controls.Add(this.checkBoxGrid);
 			this.splitContainer1.Panel2.Controls.Add(this.buttonColors);
 			this.splitContainer1.Panel2.Controls.Add(this.panelTileset);
@@ -110,15 +110,91 @@
 			this.dataObjectList.TabStop = false;
 			this.dataObjectList.OnListBoxIndexChanged += new ARCed.Controls.DatabaseObjectListBox.ObjectListIndexChangedEventHandler(this.dataObjectList_OnListBoxIndexChanged);
 			// 
-			// label1
+			// radioTerrain
 			// 
-			this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
-						| System.Windows.Forms.AnchorStyles.Right)));
-			this.label1.Location = new System.Drawing.Point(6, 408);
-			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(176, 57);
-			this.label1.TabIndex = 24;
-			this.label1.Text = "* Hold Ctrl and use the mouse to batch select tiles";
+			this.radioTerrain.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.radioTerrain.Appearance = System.Windows.Forms.Appearance.Button;
+			this.radioTerrain.Location = new System.Drawing.Point(468, 243);
+			this.radioTerrain.Name = "radioTerrain";
+			this.radioTerrain.Size = new System.Drawing.Size(59, 40);
+			this.radioTerrain.TabIndex = 30;
+			this.radioTerrain.Tag = "5";
+			this.radioTerrain.Text = "Terrain Tag";
+			this.radioTerrain.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+			this.radioTerrain.UseVisualStyleBackColor = true;
+			this.radioTerrain.Click += new System.EventHandler(this.radioMode_Clicked);
+			// 
+			// radioCounter
+			// 
+			this.radioCounter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.radioCounter.Appearance = System.Windows.Forms.Appearance.Button;
+			this.radioCounter.Location = new System.Drawing.Point(468, 197);
+			this.radioCounter.Name = "radioCounter";
+			this.radioCounter.Size = new System.Drawing.Size(59, 40);
+			this.radioCounter.TabIndex = 29;
+			this.radioCounter.Tag = "4";
+			this.radioCounter.Text = "Counter Flag";
+			this.radioCounter.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+			this.radioCounter.UseVisualStyleBackColor = true;
+			this.radioCounter.Click += new System.EventHandler(this.radioMode_Clicked);
+			// 
+			// radioBush
+			// 
+			this.radioBush.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.radioBush.Appearance = System.Windows.Forms.Appearance.Button;
+			this.radioBush.Location = new System.Drawing.Point(468, 151);
+			this.radioBush.Name = "radioBush";
+			this.radioBush.Size = new System.Drawing.Size(59, 40);
+			this.radioBush.TabIndex = 28;
+			this.radioBush.Tag = "3";
+			this.radioBush.Text = "Bush Flag";
+			this.radioBush.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+			this.radioBush.UseVisualStyleBackColor = true;
+			this.radioBush.Click += new System.EventHandler(this.radioMode_Clicked);
+			// 
+			// radioPriority
+			// 
+			this.radioPriority.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.radioPriority.Appearance = System.Windows.Forms.Appearance.Button;
+			this.radioPriority.Location = new System.Drawing.Point(468, 105);
+			this.radioPriority.Name = "radioPriority";
+			this.radioPriority.Size = new System.Drawing.Size(59, 40);
+			this.radioPriority.TabIndex = 27;
+			this.radioPriority.Tag = "2";
+			this.radioPriority.Text = "Priority";
+			this.radioPriority.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+			this.radioPriority.UseVisualStyleBackColor = true;
+			this.radioPriority.Click += new System.EventHandler(this.radioMode_Clicked);
+			// 
+			// radioPassage4Dir
+			// 
+			this.radioPassage4Dir.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.radioPassage4Dir.Appearance = System.Windows.Forms.Appearance.Button;
+			this.radioPassage4Dir.Location = new System.Drawing.Point(468, 58);
+			this.radioPassage4Dir.Name = "radioPassage4Dir";
+			this.radioPassage4Dir.Size = new System.Drawing.Size(59, 40);
+			this.radioPassage4Dir.TabIndex = 26;
+			this.radioPassage4Dir.Tag = "1";
+			this.radioPassage4Dir.Text = "Passage (4 Dir)";
+			this.radioPassage4Dir.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+			this.radioPassage4Dir.UseVisualStyleBackColor = true;
+			this.radioPassage4Dir.Click += new System.EventHandler(this.radioMode_Clicked);
+			// 
+			// radioPassage
+			// 
+			this.radioPassage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.radioPassage.Appearance = System.Windows.Forms.Appearance.Button;
+			this.radioPassage.Checked = true;
+			this.radioPassage.Location = new System.Drawing.Point(468, 12);
+			this.radioPassage.Name = "radioPassage";
+			this.radioPassage.Size = new System.Drawing.Size(59, 40);
+			this.radioPassage.TabIndex = 25;
+			this.radioPassage.TabStop = true;
+			this.radioPassage.Tag = "0";
+			this.radioPassage.Text = "Passage";
+			this.radioPassage.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+			this.radioPassage.UseVisualStyleBackColor = true;
+			this.radioPassage.Click += new System.EventHandler(this.radioMode_Clicked);
 			// 
 			// checkBoxGrid
 			// 
@@ -164,6 +240,8 @@
 			this.tilesetXnaPanel.Size = new System.Drawing.Size(256, 451);
 			this.tilesetXnaPanel.TabIndex = 0;
 			this.tilesetXnaPanel.Text = "tilesetXnaPanel";
+			this.tilesetXnaPanel.Tileset = null;
+			this.tilesetXnaPanel.TilesetMode = ARCed.Controls.TilesetMode.Passage;
 			// 
 			// textBoxBattleback
 			// 
@@ -219,12 +297,24 @@
 			this.groupBoxAutotiles.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
 						| System.Windows.Forms.AnchorStyles.Left)
 						| System.Windows.Forms.AnchorStyles.Right)));
+			this.groupBoxAutotiles.Controls.Add(this.panelAutotiles);
 			this.groupBoxAutotiles.Location = new System.Drawing.Point(6, 209);
 			this.groupBoxAutotiles.Name = "groupBoxAutotiles";
 			this.groupBoxAutotiles.Size = new System.Drawing.Size(175, 196);
 			this.groupBoxAutotiles.TabIndex = 9;
 			this.groupBoxAutotiles.TabStop = false;
 			this.groupBoxAutotiles.Text = "Autotiles";
+			// 
+			// panelAutotiles
+			// 
+			this.panelAutotiles.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+						| System.Windows.Forms.AnchorStyles.Left)
+						| System.Windows.Forms.AnchorStyles.Right)));
+			this.panelAutotiles.AutoScroll = true;
+			this.panelAutotiles.Location = new System.Drawing.Point(7, 19);
+			this.panelAutotiles.Name = "panelAutotiles";
+			this.panelAutotiles.Size = new System.Drawing.Size(162, 171);
+			this.panelAutotiles.TabIndex = 0;
 			// 
 			// labelBattlebackGraphic
 			// 
@@ -271,92 +361,6 @@
 			this.labelName.TabIndex = 2;
 			this.labelName.Text = "Name:";
 			// 
-			// radioPassage
-			// 
-			this.radioPassage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.radioPassage.Appearance = System.Windows.Forms.Appearance.Button;
-			this.radioPassage.Checked = true;
-			this.radioPassage.Location = new System.Drawing.Point(468, 12);
-			this.radioPassage.Name = "radioPassage";
-			this.radioPassage.Size = new System.Drawing.Size(59, 40);
-			this.radioPassage.TabIndex = 25;
-			this.radioPassage.TabStop = true;
-			this.radioPassage.Tag = "0";
-			this.radioPassage.Text = "Passage";
-			this.radioPassage.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-			this.radioPassage.UseVisualStyleBackColor = true;
-			this.radioPassage.Click += new System.EventHandler(this.radioMode_Clicked);
-			// 
-			// radioPassage4Dir
-			// 
-			this.radioPassage4Dir.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.radioPassage4Dir.Appearance = System.Windows.Forms.Appearance.Button;
-			this.radioPassage4Dir.Location = new System.Drawing.Point(468, 58);
-			this.radioPassage4Dir.Name = "radioPassage4Dir";
-			this.radioPassage4Dir.Size = new System.Drawing.Size(59, 40);
-			this.radioPassage4Dir.TabIndex = 26;
-			this.radioPassage4Dir.Tag = "1";
-			this.radioPassage4Dir.Text = "Passage (4 Dir)";
-			this.radioPassage4Dir.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-			this.radioPassage4Dir.UseVisualStyleBackColor = true;
-			this.radioPassage4Dir.Click += new System.EventHandler(this.radioMode_Clicked);
-			// 
-			// radioPriority
-			// 
-			this.radioPriority.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.radioPriority.Appearance = System.Windows.Forms.Appearance.Button;
-			this.radioPriority.Location = new System.Drawing.Point(468, 105);
-			this.radioPriority.Name = "radioPriority";
-			this.radioPriority.Size = new System.Drawing.Size(59, 40);
-			this.radioPriority.TabIndex = 27;
-			this.radioPriority.Tag = "2";
-			this.radioPriority.Text = "Priority";
-			this.radioPriority.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-			this.radioPriority.UseVisualStyleBackColor = true;
-			this.radioPriority.Click += new System.EventHandler(this.radioMode_Clicked);
-			// 
-			// radioBush
-			// 
-			this.radioBush.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.radioBush.Appearance = System.Windows.Forms.Appearance.Button;
-			this.radioBush.Location = new System.Drawing.Point(468, 151);
-			this.radioBush.Name = "radioBush";
-			this.radioBush.Size = new System.Drawing.Size(59, 40);
-			this.radioBush.TabIndex = 28;
-			this.radioBush.Tag = "3";
-			this.radioBush.Text = "Bush Flag";
-			this.radioBush.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-			this.radioBush.UseVisualStyleBackColor = true;
-			this.radioBush.Click += new System.EventHandler(this.radioMode_Clicked);
-			// 
-			// radioCounter
-			// 
-			this.radioCounter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.radioCounter.Appearance = System.Windows.Forms.Appearance.Button;
-			this.radioCounter.Location = new System.Drawing.Point(468, 197);
-			this.radioCounter.Name = "radioCounter";
-			this.radioCounter.Size = new System.Drawing.Size(59, 40);
-			this.radioCounter.TabIndex = 29;
-			this.radioCounter.Tag = "4";
-			this.radioCounter.Text = "Counter Flag";
-			this.radioCounter.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-			this.radioCounter.UseVisualStyleBackColor = true;
-			this.radioCounter.Click += new System.EventHandler(this.radioMode_Clicked);
-			// 
-			// radioTerrain
-			// 
-			this.radioTerrain.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.radioTerrain.Appearance = System.Windows.Forms.Appearance.Button;
-			this.radioTerrain.Location = new System.Drawing.Point(468, 243);
-			this.radioTerrain.Name = "radioTerrain";
-			this.radioTerrain.Size = new System.Drawing.Size(59, 40);
-			this.radioTerrain.TabIndex = 30;
-			this.radioTerrain.Tag = "5";
-			this.radioTerrain.Text = "Terrain Tag";
-			this.radioTerrain.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-			this.radioTerrain.UseVisualStyleBackColor = true;
-			this.radioTerrain.Click += new System.EventHandler(this.radioMode_Clicked);
-			// 
 			// TilesetsMainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -377,6 +381,7 @@
 			((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
 			this.splitContainer1.ResumeLayout(false);
 			this.panelTileset.ResumeLayout(false);
+			this.groupBoxAutotiles.ResumeLayout(false);
 			this.ResumeLayout(false);
 
 		}
@@ -400,12 +405,12 @@
 		private Controls.TilesetXnaPanel tilesetXnaPanel;
 		private System.Windows.Forms.Button buttonColors;
 		private System.Windows.Forms.CheckBox checkBoxGrid;
-		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.RadioButton radioTerrain;
 		private System.Windows.Forms.RadioButton radioCounter;
 		private System.Windows.Forms.RadioButton radioBush;
 		private System.Windows.Forms.RadioButton radioPriority;
 		private System.Windows.Forms.RadioButton radioPassage4Dir;
 		private System.Windows.Forms.RadioButton radioPassage;
+		private System.Windows.Forms.Panel panelAutotiles;
 	}
 }

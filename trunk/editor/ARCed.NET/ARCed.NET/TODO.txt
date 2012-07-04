@@ -26,7 +26,10 @@
 - Implement trying to load all fonts from memory, and if not found, then load normally
 - Tooltips for everything
 - Modify equipment slots to use a "RpgAttribute" like the ParamBox does. 
-- Drag-Drop function of enemies onto troop panel
+- Create class to automatically display all tooltips in the main status bar
+- Remove progress bar in status bar?
+- Get better icons for tileset editor
+
 
 ** Possible ** (Depends on scripts)
 - Curve generation for experience

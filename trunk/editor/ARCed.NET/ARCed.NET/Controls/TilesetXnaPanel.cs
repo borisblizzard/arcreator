@@ -37,7 +37,9 @@ namespace ARCed.Controls
 		private const int PRIORITIES = 6;
 		private const int TERRAINS = 8;
 
+		private static int _currentId;
 		private static Texture2D _rectTexture;
+		private static XnaColor _currentColor;
 		RPG.Tileset _tileset;
 		Texture2D _tilesetTexture;
 		SpriteBatch _batch;
@@ -92,8 +94,8 @@ namespace ARCed.Controls
 				int ex = Math.Max(_originPoint.X, _endPoint.X).RoundCeil(TILESIZE);
 				int sy = Math.Min(_originPoint.Y, _endPoint.Y).RoundFloor(TILESIZE);
 				int ey = Math.Max(_originPoint.Y, _endPoint.Y).RoundCeil(TILESIZE);
-
-				return new XnaRect(sx, sy, ex - sx + 1, ey - sy + 1);
+				return new XnaRect(Math.Max(0, sx), Math.Max(0, sy), 
+					Math.Min(MAXWIDTH, ex - sx + 1), Math.Min(ey - sy, Height) + 1);
 			}
 		}
 
@@ -127,11 +129,14 @@ namespace ARCed.Controls
 			get { return _tileset; }
 			set
 			{
-				_tileset = value;
-				Image image = Cache.Tileset(value.tileset_name);
-				_tilesetTexture = image.ToTexture(GraphicsDevice);
-				this.Size = image.Size;
-				Invalidate();
+				if (value != null)
+				{
+					_tileset = value;
+					Image image = Cache.Tileset(value.tileset_name);
+					_tilesetTexture = image.ToTexture(GraphicsDevice);
+					this.Size = image.Size;
+					Invalidate();
+				}
 			}
 		}
 
@@ -184,6 +189,20 @@ namespace ARCed.Controls
 			this.MouseDown += new MouseEventHandler(TroopXnaPanel_MouseDown);
 			this.MouseUp += new MouseEventHandler(TroopXnaPanel_MouseUp);
 			this.MouseMove += new MouseEventHandler(TroopXnaPanel_MouseMove);
+			this.MouseLeave += new EventHandler(TilesetXnaPanel_MouseLeave);
+			this.MouseEnter += new EventHandler(TilesetXnaPanel_MouseEnter);
+		}
+
+		void TilesetXnaPanel_MouseLeave(object sender, EventArgs e)
+		{
+			_currentId = -1;
+			Invalidate();
+			Editor.StatusBar.Items[2].Text = "";
+		}
+
+		void TilesetXnaPanel_MouseEnter(object sender, EventArgs e)
+		{
+			Editor.StatusBar.Items[2].Text = "Use mouse buttons to edit. Hold Ctrl to batch select.";
 		}
 
 
@@ -216,15 +235,18 @@ namespace ARCed.Controls
 				else if (TilesetMode == TilesetMode.Terrain) RefreshTerrain();
 
 				// *************************************************************
-				XnaRect rect = SelectionRectangle;
-				if (rect != XnaRect.Empty)
+				if (_originPoint != _endPoint)
 				{
+					XnaRect rect = SelectionRectangle;
 					DrawRectangle(rect, XnaColor.Black, 3);
 					XnaRect innerRect = new XnaRect(rect.X + 1, rect.Y + 1, 
 						rect.Width - 2, rect.Height - 2);
 					DrawRectangle(innerRect, Settings.SelectorColor, 1);
 				}
 				
+
+
+
 				_batch.End();
 				
 			}
@@ -242,7 +264,8 @@ namespace ARCed.Controls
 				x = (i - AUTO_IDS) % TILEWIDTH * TILESIZE;
 				y = (i - AUTO_IDS) / TILEWIDTH * TILESIZE;
 				passage = Tileset.passages[i];
-				_batch.Draw(IconCache.Passage(passage), new Vector2(x, y), _semiTransparent);
+				_currentColor = (_currentId == i) ? XnaColor.White : _semiTransparent;
+				_batch.Draw(IconCache.Passage(passage), new Vector2(x, y), _currentColor);
 			}
 		}
 
@@ -254,7 +277,10 @@ namespace ARCed.Controls
 				x = (i - AUTO_IDS) % TILEWIDTH * TILESIZE;
 				y = (i - AUTO_IDS) / TILEWIDTH * TILESIZE;
 				passage = Tileset.passages[i];
-				_batch.Draw(IconCache.Passage4Dir(passage), new Vector2(x, y), _semiTransparent);
+				if (_currentId != i)
+					_batch.Draw(IconCache.Passage4Dir(passage), new Vector2(x, y), _semiTransparent);
+				else
+					_batch.Draw(IconCache.Passage4Dir(passage), new Vector2(x, y), XnaColor.White);
 			}
 		}
 
@@ -266,7 +292,8 @@ namespace ARCed.Controls
 				x = (i - AUTO_IDS) % TILEWIDTH * TILESIZE;
 				y = (i - AUTO_IDS) / TILEWIDTH * TILESIZE;
 				priority = Tileset.priorities[i];
-				_batch.Draw(IconCache.Priority(priority), new Vector2(x, y), _semiTransparent);
+				_currentColor = (_currentId == i) ? XnaColor.White : _semiTransparent;
+				_batch.Draw(IconCache.Priority(priority), new Vector2(x, y), _currentColor);
 			}
 		}
 
@@ -278,7 +305,8 @@ namespace ARCed.Controls
 				x = (i - AUTO_IDS) % TILEWIDTH * TILESIZE;
 				y = (i - AUTO_IDS) / TILEWIDTH * TILESIZE;
 				passage = Tileset.passages[i];
-				_batch.Draw(IconCache.Bush(passage), new Vector2(x, y), _semiTransparent);
+				_currentColor = (_currentId == i) ? XnaColor.White : _semiTransparent;
+				_batch.Draw(IconCache.Bush(passage), new Vector2(x, y), _currentColor);
 			}
 		}
 
@@ -290,7 +318,8 @@ namespace ARCed.Controls
 				x = (i - AUTO_IDS) % TILEWIDTH * TILESIZE;
 				y = (i - AUTO_IDS) / TILEWIDTH * TILESIZE;
 				passage = Tileset.passages[i];
-				_batch.Draw(IconCache.Counter(passage), new Vector2(x, y), _semiTransparent);
+				_currentColor = (_currentId == i) ? XnaColor.White : _semiTransparent;
+				_batch.Draw(IconCache.Counter(passage), new Vector2(x, y), _currentColor);
 			}
 		}
 
@@ -302,7 +331,8 @@ namespace ARCed.Controls
 				x = (i - AUTO_IDS) % TILEWIDTH * TILESIZE;
 				y = (i - AUTO_IDS) / TILEWIDTH * TILESIZE;
 				terrain = Tileset.terrain_tags[i];
-				_batch.Draw(IconCache.Terrain(terrain), new Vector2(x, y), _semiTransparent);
+				_currentColor = (_currentId == i) ? XnaColor.White : _semiTransparent;
+				_batch.Draw(IconCache.Terrain(terrain), new Vector2(x, y), _currentColor);
 			}
 		}
 
@@ -338,12 +368,13 @@ namespace ARCed.Controls
 
 		private void TroopXnaPanel_MouseMove(object sender, MouseEventArgs e)
 		{
+			_currentId = GetTileAtPoint(e.X, e.Y);
 			if (SelectionEnabled && _mouseDown)
 			{
 				_endPoint.X = e.X;
 				_endPoint.Y = e.Y;
-				Invalidate();
 			}
+			Invalidate();
 		}
 
 		private void TroopXnaPanel_MouseUp(object sender, MouseEventArgs e)
@@ -432,10 +463,6 @@ namespace ARCed.Controls
 			Invalidate(); 
 		}
 
-		public double Hypotenuse(double a, double b)
-		{
-			return Math.Sqrt(Math.Pow(a, 2) + Math.Pow(b, 2));
-		}
 
 		#endregion
 	}
