@@ -10,6 +10,11 @@ import Kernel
 #--------------------------------------------------------------------------------------
 
 class Items_Panel( Templates.Items_Panel, PanelBase ):
+
+    _arc_panel_info_string = "Name Caption Center CloseB CaptionV DestroyOC Floatable Float IconARCM MaximizeB MinimizeM MinimizeB Movable NotebookD Resizable Snappable"
+    _arc_panel_info_data = {"Name": "Items Panel", "Caption": "Items Panel", "CaptionV": True,  "MinimizeM": ["POS_SMART", "CAPT_SMART",], 
+                            "MinimizeB": True, "CloseB": True, 'IconARCM': 'itemsicon'}
+
     def __init__( self, parent, item_index=0 ):
         """Basic constructor for the Items panel"""
         Templates.Items_Panel.__init__( self, parent )

@@ -36,6 +36,7 @@ from Core.Database import Animations_Panel
 from Core.Database import Tilesets_Panel
 from Core.Database import CommonEvents_Panel
 from Core.Database import System_Panel
+from Core.Database.ScriptEditor import ScriptEditor_Panel
 
 #=============================================================================
 # * RMXP SuperType Declaration
@@ -84,6 +85,8 @@ class PanelManagerType(SuperType):
     MainTilesetsPanel = Type("MainTilesetsPanel")
     MainCommonEventsPanel = Type("MainCommonEventsPanel")
     MainSystemPanel = Type("MainSystemPanel")
+
+    MainScriptEditorPanel = Type("MainScriptEditorPanel")
     
     def __init__(self):
         SuperType.__init__(self, "PanelManagerType")
@@ -96,6 +99,8 @@ class PanelManagerType(SuperType):
                        self.MainItemsPanel, self.MainWeaponsPanel, self.MainArmorsPanel, self.MainEnemiesPanel, 
                        self.MainTroopsPanel, self.MainStatesPanel, self.MainAnimationsPanel, self.MainTilesetsPanel, 
                        self.MainCommonEventsPanel, self.MainSystemPanel)
+
+        self.add_types(self.MainScriptEditorPanel)
         #--------------------------------- Toolbars ----------------------------------
         self.add_types(self.MainToolbar, self.DatabaseToolbar)
 
@@ -431,6 +436,9 @@ class CorePackage(Package):
                                      "COREMainCommonEventsPanel", "CORE", 1.0, self))
         self.add_component(Component(System_Panel, "MainSystemPanel", "PanelManagerType", 
                                      "COREMainSystemPanel", "CORE", 1.0, self))
+
+        self.add_component(Component(ScriptEditor_Panel, "MainScriptEditorPanel", "PanelManagerType", 
+                                     "COREMainScriptEditorPanel", "CORE", 1.0, self))
         
         
 

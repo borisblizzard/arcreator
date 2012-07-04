@@ -8,6 +8,11 @@ from Core.Panels import PanelBase
 
 # Implementing System_Panel
 class System_Panel( Templates.System_Panel, PanelBase ):
+
+    _arc_panel_info_string = "Name Caption Center CloseB CaptionV DestroyOC Floatable Float IconARCM MaximizeB MinimizeM MinimizeB Movable NotebookD Resizable Snappable"
+    _arc_panel_info_data = {"Name": "System Panel", "Caption": "System Panel", "CaptionV": True,  "MinimizeM": ["POS_SMART", "CAPT_SMART",], 
+                            "MinimizeB": True, "CloseB": True, 'IconARCM': 'systemicon'}
+
     def __init__( self, parent ):
         Templates.System_Panel.__init__( self, parent )
 

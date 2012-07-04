@@ -255,7 +255,6 @@ class DatabaseToolbar(aui.AuiToolBar):
         self.AddSimpleTool(self.scriptid, "Scripts", scriptbmp,
                            "Open the Scripts Panel")
     
-
     def BindEvents(self):
         #self.Bind(wx.EVT_TOOL, self.OnNew, id=self.newid)
 
@@ -296,25 +295,76 @@ class DatabaseToolbar(aui.AuiToolBar):
             event.Enable(False)
 
     def paneldispatch(self, event):
-        #self.actorspanel = None
-        #self.classespanel = None
-        #self.skillspanel = None
-        #self.itemspanel = None
-        #self.weaponspanel = None
-        #self.armorspanel = None
-        #self.enemiespanel = None
-        #self.troopspanel = None
-        #self.statespanel = None
-        #self.animationspanel = None
-        #self.tilesetspanel = None
-        #self.commoneventspanel = None
-        #self.systempanel = None
-        #self.scriptpanel = None
         if event.Id == self.actorsid:
             if self.actorspanel:
                 self.mgr.RequestUserAttention(self.actorspanel) 
             else:
                 self.actorspanel = self.mgr.dispatch_panel("MainActorsPanel", "Main Actors Panel") 
+        elif event.Id == self.classesid:
+            if self.classespanel:
+                self.mgr.RequestUserAttention(self.classespanel) 
+            else:
+                self.classespanel = self.mgr.dispatch_panel("MainClassesPanel", "Main Classes Panel")
+        elif event.Id == self.skillsid:
+            if self.skillspanel:
+                self.mgr.RequestUserAttention(self.skillspanel) 
+            else:
+                self.skillspanel = self.mgr.dispatch_panel("MainSkillsPanel", "Main Skills Panel")
+        elif event.Id == self.itemsid:
+            if self.itemspanel:
+                self.mgr.RequestUserAttention(self.itemspanel) 
+            else:
+                self.itemspanel = self.mgr.dispatch_panel("MainItemsPanel", "Main Items Panel")
+        elif event.Id == self.weaponsid:
+            if self.weaponspanel:
+                self.mgr.RequestUserAttention(self.weaponspanel) 
+            else:
+                self.weaponspanel = self.mgr.dispatch_panel("MainWeaponsPanel", "Main Weapons Panel")
+        elif event.Id == self.armorsid:
+            if self.armorspanel:
+                self.mgr.RequestUserAttention(self.armorspanel) 
+            else:
+                self.armorspanel = self.mgr.dispatch_panel("MainArmorsPanel", "Main Armors Panel")
+        elif event.Id == self.enemiesid:
+            if self.enemiespanel:
+                self.mgr.RequestUserAttention(self.enemiespanel) 
+            else:
+                self.enemiespanel = self.mgr.dispatch_panel("MainEnemiesPanel", "Main Enemies Panel")
+        elif event.Id == self.troopsid:
+            if self.troopspanel:
+                self.mgr.RequestUserAttention(self.troopspanel) 
+            else:
+                self.troopspanel = self.mgr.dispatch_panel("MainTroopsPanel", "Main Troops Panel")
+        elif event.Id == self.statesid:
+            if self.statespanel:
+                self.mgr.RequestUserAttention(self.statespanel) 
+            else:
+                self.statespanel = self.mgr.dispatch_panel("MainStatesPanel", "Main States Panel")
+        elif event.Id == self.animationsid:
+            if self.animationspanel:
+                self.mgr.RequestUserAttention(self.animationspanel) 
+            else:
+                self.animationspanel = self.mgr.dispatch_panel("MainAnimationsPanel", "Main Animations Panel")
+        elif event.Id == self.tilesetsid:
+            if self.tilesetspanel:
+                self.mgr.RequestUserAttention(self.tilesetspanel) 
+            else:
+                self.tilesetspanel = self.mgr.dispatch_panel("MainTilesetsPanel", "Main Tilesets Panel")
+        elif event.Id == self.commoneventsid:
+            if self.commoneventspanel:
+                self.mgr.RequestUserAttention(self.commoneventspanel) 
+            else:
+                self.commoneventspanel = self.mgr.dispatch_panel("MainCommonEventsPanel", "Main Common Events Panel")
+        elif event.Id == self.systemid:
+            if self.systempanel:
+                self.mgr.RequestUserAttention(self.systempanel) 
+            else:
+                self.systempanel = self.mgr.dispatch_panel("MainSystemPanel", "Main System Panel")
+        elif event.Id == self.scriptid:
+            if self.scriptpanel:
+                self.mgr.RequestUserAttention(self.scriptpanel) 
+            else:
+                self.scriptpanel = self.mgr.dispatch_panel("MainScriptEditorPanel", "Main Script Editor Panel")
             
 
 class StartPanel(wx.Panel, PanelBase):

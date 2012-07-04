@@ -12,6 +12,11 @@ from Core.Database import Manager as DM
 
 # Implementing Animations_Panel
 class Animations_Panel( Templates.Animations_Panel, PanelBase ):
+
+    _arc_panel_info_string = "Name Caption Center CloseB CaptionV DestroyOC Floatable Float IconARCM MaximizeB MinimizeM MinimizeB Movable NotebookD Resizable Snappable"
+    _arc_panel_info_data = {"Name": "Animations Panel", "Caption": "Animations Panel", "CaptionV": True,  "MinimizeM": ["POS_SMART", "CAPT_SMART",], 
+                            "MinimizeB": True, "CloseB": True, 'IconARCM': 'animationsicon'}
+
     def __init__( self, parent ):
         Templates.Animations_Panel.__init__( self, parent )
 

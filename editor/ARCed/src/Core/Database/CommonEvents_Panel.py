@@ -12,6 +12,11 @@ from Core.Database import Manager as DM
 
 # Implementing CommonEvents_Panel
 class CommonEvents_Panel( Templates.CommonEvents_Panel, PanelBase  ):
+
+    _arc_panel_info_string = "Name Caption Center CloseB CaptionV DestroyOC Floatable Float IconARCM MaximizeB MinimizeM MinimizeB Movable NotebookD Resizable Snappable"
+    _arc_panel_info_data = {"Name": "Common Events Panel", "Caption": "Common Events Panel", "CaptionV": True,  "MinimizeM": ["POS_SMART", "CAPT_SMART",], 
+                            "MinimizeB": True, "CloseB": True, 'IconARCM': 'commoneventsicon'}
+
     def __init__( self, parent ):
         Templates.CommonEvents_Panel.__init__( self, parent )
 

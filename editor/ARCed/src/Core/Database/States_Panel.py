@@ -9,6 +9,11 @@ from Core.Panels import PanelBase
 
 # Implementing States_Panel
 class States_Panel( Templates.States_Panel, PanelBase ):
+
+    _arc_panel_info_string = "Name Caption Center CloseB CaptionV DestroyOC Floatable Float IconARCM MaximizeB MinimizeM MinimizeB Movable NotebookD Resizable Snappable"
+    _arc_panel_info_data = {"Name": "States Panel", "Caption": "States Panel", "CaptionV": True,  "MinimizeM": ["POS_SMART", "CAPT_SMART",], 
+                            "MinimizeB": True, "CloseB": True, 'IconARCM': 'statesicon'}
+
     def __init__( self, parent ):
         Templates.States_Panel.__init__( self, parent )
 
