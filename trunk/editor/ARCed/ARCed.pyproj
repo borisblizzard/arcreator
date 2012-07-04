@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{d772c392-e7b6-4c18-8c5f-49bac2a1e237}</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>src\Database_Test.py</StartupFile>
+    <StartupFile>src\__main__.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>src</WorkingDirectory>

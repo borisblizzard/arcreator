@@ -35,7 +35,7 @@ class AuiManager_DCP_ARC(aui.AuiManager_DCP):
             return
 
         self.hasDummyPane = True
-        dummy = Panels.PanelBase(self.GetManagedWindow())
+        dummy = Panels.ShadowPanel(self.GetManagedWindow())
         info = aui.AuiPaneInfo().CenterPane().NotebookDockable(True).Name('dummyCenterPane').DestroyOnClose(True)
         self.AddPane(dummy, info)
 

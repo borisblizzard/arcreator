@@ -50,6 +50,9 @@ class PanelManager(object):
         self.LastActive[aui.AUI_DOCK_RIGHT] = None
         self.LastActive[aui.AUI_DOCK_CENTER] = None
 
+    def RequestUserAttention(self, window):
+        self.manager.RequestUserAttention(window)
+
     def set_last_active(self, id):
         ''' Sets the last active Center Panel ID so that the next center panel is docked on top of it'''
         info = self.getPanelInfo(id)
@@ -101,10 +104,13 @@ class PanelManager(object):
         then removed id from the dispatched dict
         '''
         if (self.dispached.has_key(id)) and (self.dispached[id] != None):
-            self.getPanelInfo(id).Float()
+            info = self.getPanelInfo(id)
+            if info is not None:
+                info.Float()
             self.manager.DetachPane(self.dispached[id])
             self.Update()
-            self.dispached[id].Destroy()
+            if self.dispached[id]:
+                self.dispached[id].Destroy()
             del self.IDs[self.dispached[id]]
             del self.dispached[id]
         
