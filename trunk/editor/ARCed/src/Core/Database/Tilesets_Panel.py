@@ -9,6 +9,11 @@ from Core.Panels import PanelBase
 
 # Implementing Tilesets_Panel
 class Tilesets_Panel( Templates.Tilesets_Panel, PanelBase ):
+
+    _arc_panel_info_string = "Name Caption Center CloseB CaptionV DestroyOC Floatable Float IconARCM MaximizeB MinimizeM MinimizeB Movable NotebookD Resizable Snappable"
+    _arc_panel_info_data = {"Name": "Tilesets Panel", "Caption": "Tilesets Panel", "CaptionV": True,  "MinimizeM": ["POS_SMART", "CAPT_SMART",], 
+                            "MinimizeB": True, "CloseB": True, 'IconARCM': 'tilesetsicon'}
+
     def __init__( self, parent ):
         Templates.Tilesets_Panel.__init__( self, parent )
 

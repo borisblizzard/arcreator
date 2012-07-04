@@ -12,6 +12,11 @@ from Core.Panels import PanelBase
 
 # Implementing Troops_Panel
 class Troops_Panel( Templates.Troops_Panel, PanelBase ):
+
+    _arc_panel_info_string = "Name Caption Center CloseB CaptionV DestroyOC Floatable Float IconARCM MaximizeB MinimizeM MinimizeB Movable NotebookD Resizable Snappable"
+    _arc_panel_info_data = {"Name": "Troops Panel", "Caption": "Troops Panel", "CaptionV": True,  "MinimizeM": ["POS_SMART", "CAPT_SMART",], 
+                            "MinimizeB": True, "CloseB": True, 'IconARCM': 'troopsicon'}
+
     def __init__( self, parent ):
         Templates.Troops_Panel.__init__( self, parent )
 

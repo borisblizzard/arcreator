@@ -9,6 +9,11 @@ import Kernel
 #--------------------------------------------------------------------------------------
 
 class Weapons_Panel( Templates.Weapons_Panel, PanelBase ):
+
+    _arc_panel_info_string = "Name Caption Center CloseB CaptionV DestroyOC Floatable Float IconARCM MaximizeB MinimizeM MinimizeB Movable NotebookD Resizable Snappable"
+    _arc_panel_info_data = {"Name": "Weapons Panel", "Caption": "Weapons Panel", "CaptionV": True,  "MinimizeM": ["POS_SMART", "CAPT_SMART",], 
+                            "MinimizeB": True, "CloseB": True, 'IconARCM': 'weaponsicon'}
+
     def __init__( self, parent, weapon_index=0 ):
         """Basic constructor for the Weapons panel"""
         Templates.Weapons_Panel.__init__( self, parent )

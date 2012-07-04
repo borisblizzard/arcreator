@@ -10,6 +10,11 @@ import Kernel
 #--------------------------------------------------------------------------------------
 
 class Enemies_Panel( Templates.Enemies_Panel, PanelBase ):
+
+    _arc_panel_info_string = "Name Caption Center CloseB CaptionV DestroyOC Floatable Float IconARCM MaximizeB MinimizeM MinimizeB Movable NotebookD Resizable Snappable"
+    _arc_panel_info_data = {"Name": "Enemies Panel", "Caption": "Enemies Panel", "CaptionV": True,  "MinimizeM": ["POS_SMART", "CAPT_SMART",], 
+                            "MinimizeB": True, "CloseB": True, 'IconARCM': 'enemiesicon'}
+
     def __init__( self, parent, enemy_index=0 ):
         """Basic constructor for the Enemies panel"""
         Templates.Enemies_Panel.__init__( self, parent )
