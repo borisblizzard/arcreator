@@ -94,10 +94,10 @@ namespace ARCed.Scintilla
 
 
         /// <summary>
-        ///     Registers an _image with index to be displayed in the AutoComplete window.
+        ///     Registers an _texture with index to be displayed in the AutoComplete window.
         /// </summary>
-        /// <param name="type">Index of the _image to register to</param>
-        /// <param name="_image">Image to display in Bitmap format</param>
+        /// <param name="type">Index of the _texture to register to</param>
+        /// <param name="_texture">Image to display in Bitmap format</param>
         private void RegisterImage(int type, Bitmap image)
         {
             NativeScintilla.RegisterImage(type, XpmConverter.ConvertToXPM(image));
@@ -105,11 +105,11 @@ namespace ARCed.Scintilla
 
 
         /// <summary>
-        ///     Registers an _image with index to be displayed in the AutoComplete window.
+        ///     Registers an _texture with index to be displayed in the AutoComplete window.
         /// </summary>
-        /// <param name="type">Index of the _image to register to</param>
-        /// <param name="xpmImage">Image to display in the XPM _image format</param>
-        /// <param name="transparentColor">Color to mask the _image as transparent</param>
+        /// <param name="type">Index of the _texture to register to</param>
+        /// <param name="xpmImage">Image to display in the XPM _texture format</param>
+        /// <param name="transparentColor">Color to mask the _texture as transparent</param>
         private void RegisterImage(int type, Bitmap image, Color transparentColor)
         {
             NativeScintilla.RegisterImage(type, XpmConverter.ConvertToXPM(image, Utilities.ColorToHtml(transparentColor)));
@@ -117,10 +117,10 @@ namespace ARCed.Scintilla
 
 
         /// <summary>
-        ///     Registers an _image with index to be displayed in the AutoComplete window.
+        ///     Registers an _texture with index to be displayed in the AutoComplete window.
         /// </summary>
-        /// <param name="type">Index of the _image to register to</param>
-        /// <param name="xpmImage">Image in the XPM _image format</param>
+        /// <param name="type">Index of the _texture to register to</param>
+        /// <param name="xpmImage">Image in the XPM _texture format</param>
         public void RegisterImage(int type, string xpmImage)
         {
             NativeScintilla.RegisterImage(type, xpmImage);
@@ -130,7 +130,7 @@ namespace ARCed.Scintilla
         /// <summary>
         ///     Registers a list of images to be displayed in the AutoComplete window.
         /// </summary>
-        /// <param name="images">List of images in the Bitmap _image format</param>
+        /// <param name="images">List of images in the Bitmap _texture format</param>
         /// <remarks>Indecis are assigned sequentially starting at 0</remarks>
         public void RegisterImages(IList<Bitmap> images)
         {
@@ -142,8 +142,8 @@ namespace ARCed.Scintilla
         /// <summary>
         ///     Registers a list of images to be displayed in the AutoComplete window.
         /// </summary>
-        /// <param name="images">List of images in the Bitmap _image format</param>
-        /// <param name="transparentColor">Color to mask the _image as transparent</param>
+        /// <param name="images">List of images in the Bitmap _texture format</param>
+        /// <param name="transparentColor">Color to mask the _texture as transparent</param>
         /// <remarks>Indecis are assigned sequentially starting at 0</remarks>
         public void RegisterImages(IList<Bitmap> images, Color transparentColor)
         {
@@ -155,7 +155,7 @@ namespace ARCed.Scintilla
         /// <summary>
         ///     Registers a list of images to be displayed in the AutoComplete window.
         /// </summary>
-        /// <param name="xpmImages">List of images in the XPM _image format</param>
+        /// <param name="xpmImages">List of images in the XPM _texture format</param>
         /// <remarks>Indecis are assigned sequentially starting at 0</remarks>
         public void RegisterImages(IList<string> xpmImages)
         {
@@ -179,7 +179,7 @@ namespace ARCed.Scintilla
         ///     Registers a list of images to be displayed in the AutoComplete window.
         /// </summary>
         /// <param name="images">List of images contained in an ImageList</param>
-        /// <param name="transparentColor">Color to mask the _image as transparent</param>
+        /// <param name="transparentColor">Color to mask the _texture as transparent</param>
         /// <remarks>Indecis are assigned sequentially starting at 0</remarks>
         public void RegisterImages(ImageList images, Color transparentColor)
         {
@@ -564,9 +564,9 @@ namespace ARCed.Scintilla
 
 
         /// <summary>
-        ///     Autocompletion list items may display an _image as well as text. Each _image is first registered with an integer type. 
+        ///     Autocompletion list items may display an _texture as well as text. Each _texture is first registered with an integer type. 
         ///     Then this integer is included in the text of the list separated by a '?' from the text. For example, "fclose?2 fopen" 
-        ///     displays _image 2 before the string "fclose" and no _image before "fopen". 
+        ///     displays _texture 2 before the string "fclose" and no _texture before "fopen". 
         /// </summary>
         public char ImageSeparator
         {

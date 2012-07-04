@@ -5,8 +5,6 @@
 - Improve how scripts saving, loading, and creating are handled
 - Script snippet manager
 - Finish autocomplete configuration (per script?)(auto-generation?)
-
-
 - File associations (.arcproj)(.arc)
 - RTP functions 
 - Database panels
@@ -29,7 +27,10 @@
 - Create class to automatically display all tooltips in the main status bar
 - Remove progress bar in status bar?
 - Get better icons for tileset editor
-
+- Improve Cache. Remove redundancies
+- Improve ImageSelectionForm, possible even implement XNA panel instead of PictureBox
+- Create single class for containing settings such as tile size, number of autotiles, equipslots, 
+  and other settings that would require engine changes to permit
 
 ** Possible ** (Depends on scripts)
 - Curve generation for experience

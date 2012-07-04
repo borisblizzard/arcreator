@@ -45,7 +45,7 @@ namespace ARCed.Data
 		// example, to see what happens. 1536 (6 * 256) seems 
 		// a good compromise -- it's enough to get a full 
 		// range of colors, but it doesn't overwhelm the processor
-		// attempting to generate the _image. The color wheel
+		// attempting to generate the _texture. The color wheel
 		// contains 6 sections, and each section displays 
 		// 256 colors. Seems like a reasonable compromise.
 		private const int COLOR_COUNT = 6 * 256;
@@ -344,7 +344,7 @@ namespace ARCed.Data
 
 			using (Brush selectedBrush = new SolidBrush(selectedColor))
 			{
-				// Draw the saved color wheel _image.
+				// Draw the saved color wheel _texture.
 				g.DrawImage(colorImage, colorRectangle);
 				// Draw the "selected color" rect.
 				g.DrawImage(Properties.Resources.Alpha, selectedColorRectangle);

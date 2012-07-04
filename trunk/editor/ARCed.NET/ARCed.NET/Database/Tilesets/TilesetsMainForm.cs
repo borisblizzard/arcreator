@@ -61,8 +61,8 @@ namespace ARCed.Database.Tilesets
 			string tile = _tileset.autotile_names[index];
 			using (ImageSelectionForm dialog = new ImageSelectionForm(@"Graphics\Autotiles", tile))
 			{
-				dialog.TileSelection = false;
-				dialog.EnableHueChange = false;
+				dialog.SelectionEnabled = false;
+				dialog.HueEnabled = false;
 				if (dialog.ShowDialog(this) == DialogResult.OK)
 				{
 					_tileset.autotile_names[index] = dialog.ImageName;
@@ -161,6 +161,58 @@ namespace ARCed.Database.Tilesets
 			tilesetXnaPanel.TilesetMode = (TilesetMode)mode;
 			
 
+		}
+
+		private void textBoxTileset_OnButtonClick(object sender, EventArgs e)
+		{
+			using (ImageSelectionForm dialog = 
+				new ImageSelectionForm(@"Graphics\Tilesets", _tileset.tileset_name))
+			{
+				dialog.SelectionEnabled = false;
+				dialog.HueEnabled = false;
+				dialog.Height = 640;
+				if (dialog.ShowDialog(this) == DialogResult.OK)
+				{
+					_tileset.tileset_name = dialog.ImageName;
+					tilesetXnaPanel.Invalidate();
+				}
+			}
+		}
+
+		private void textBoxPanorama_OnButtonClick(object sender, EventArgs e)
+		{
+			using (ImageSelectionForm dialog =
+				new ImageSelectionForm(@"Graphics\Panoramas", _tileset.panorama_name))
+			{
+				dialog.SelectionEnabled = false;
+				dialog.Hue = _tileset.panorama_hue;
+				if (dialog.ShowDialog(this) == DialogResult.OK)
+					_tileset.panorama_name = dialog.ImageName;
+			}
+		}
+
+		private void textBoxBattleback_OnButtonClick(object sender, EventArgs e)
+		{
+			using (ImageSelectionForm dialog =
+				new ImageSelectionForm(@"Graphics\Battlebacks", _tileset.battleback_name))
+			{
+				dialog.SelectionEnabled = false;
+				dialog.HueEnabled = false;
+				dialog.Width = 800;
+				if (dialog.ShowDialog(this) == DialogResult.OK)
+					_tileset.panorama_name = dialog.ImageName;
+			}
+		}
+
+		private void textBoxName_TextChanged(object sender, EventArgs e)
+		{
+			if (!suppressEvents)
+			{
+				_tileset.name = textBoxName.Text;
+				int index = dataObjectList.SelectedIndex;
+				dataObjectList.Items[index] = _tileset.ToString();
+				dataObjectList.Invalidate(dataObjectList.GetItemRectangle(index));
+			}
 		}
 	}
 }

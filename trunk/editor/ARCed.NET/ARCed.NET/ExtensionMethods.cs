@@ -66,7 +66,7 @@ namespace ARCed
 		}
 
 		/// <summary>
-		/// Converts a Texture2D to an _image and returns it.
+		/// Converts a Texture2D to an _texture and returns it.
 		/// </summary>
 		/// <param name="texture">Texture to convert</param>
 		/// <returns>Image representation of the texture.</returns>

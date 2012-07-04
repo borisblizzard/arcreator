@@ -187,8 +187,8 @@ namespace ARCed.Database.Troops
 			using (ImageSelectionForm dialog = new ImageSelectionForm(@"Graphics\Battlebacks", _battleBackName))
 			{
 				dialog.Width = 800;
-				dialog.TileSelection = false;
-				dialog.EnableHueChange = false;
+				dialog.SelectionEnabled = false;
+				dialog.HueEnabled = false;
 				if (dialog.ShowDialog(this) == DialogResult.OK)
 				{
 					_battleBackName = dialog.ImageName;

@@ -293,11 +293,11 @@ namespace ARCed.Database.Actors
 			using (ImageSelectionForm dialog = 
 				new ImageSelectionForm(@"Graphics\Characters", _actor.character_name, _actor.character_hue))
 			{
-				dialog.TileSelection = false;
+				dialog.SelectionEnabled = false;
 				if (dialog.ShowDialog(this) == DialogResult.OK)
 				{
 					_actor.character_name = dialog.ImageName;
-					_actor.character_hue = dialog.ImageHue;
+					_actor.character_hue = dialog.Hue;
 					pictureCharacter.Image =
 						Cache.CharacterStance(_actor.character_name, 0, 1, _actor.character_hue);
 				}
@@ -309,11 +309,11 @@ namespace ARCed.Database.Actors
 			using (ImageSelectionForm dialog =
 				new ImageSelectionForm(@"Graphics\Battlers", _actor.battler_name, _actor.battler_hue))
 			{
-				dialog.TileSelection = false;
+				dialog.SelectionEnabled = false;
 				if (dialog.ShowDialog(this) == DialogResult.OK)
 				{
 					_actor.battler_name = dialog.ImageName;
-					_actor.battler_hue = dialog.ImageHue;
+					_actor.battler_hue = dialog.Hue;
 					pictureBattler.Image =
 						Cache.Battler(_actor.battler_name, _actor.battler_hue);
 				}

@@ -28,9 +28,11 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
+			this.components = new System.ComponentModel.Container();
 			System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("ARCed Project Name");
 			this.splitContainer = new System.Windows.Forms.SplitContainer();
 			this.treeViewMaps = new System.Windows.Forms.TreeView();
+			this.imageList = new System.Windows.Forms.ImageList(this.components);
 			((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
 			this.splitContainer.Panel2.SuspendLayout();
 			this.splitContainer.SuspendLayout();
@@ -42,6 +44,10 @@
 			this.splitContainer.Location = new System.Drawing.Point(0, 0);
 			this.splitContainer.Name = "splitContainer";
 			this.splitContainer.Orientation = System.Windows.Forms.Orientation.Horizontal;
+			// 
+			// splitContainer.Panel1
+			// 
+			this.splitContainer.Panel1.AutoScroll = true;
 			// 
 			// splitContainer.Panel2
 			// 
@@ -61,6 +67,12 @@
             treeNode1});
 			this.treeViewMaps.Size = new System.Drawing.Size(264, 167);
 			this.treeViewMaps.TabIndex = 0;
+			// 
+			// imageList
+			// 
+			this.imageList.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
+			this.imageList.ImageSize = new System.Drawing.Size(16, 16);
+			this.imageList.TransparentColor = System.Drawing.Color.Transparent;
 			// 
 			// MapTilesetForm
 			// 
@@ -89,5 +101,6 @@
 
 		private System.Windows.Forms.SplitContainer splitContainer;
 		private System.Windows.Forms.TreeView treeViewMaps;
+		private System.Windows.Forms.ImageList imageList;
 	}
 }

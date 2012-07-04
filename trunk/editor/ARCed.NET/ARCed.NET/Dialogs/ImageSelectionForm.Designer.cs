@@ -30,17 +30,35 @@
 		{
 			this.buttonCancel = new System.Windows.Forms.Button();
 			this.buttonOK = new System.Windows.Forms.Button();
-			this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+			this.splitContainer = new System.Windows.Forms.SplitContainer();
 			this.listBoxGraphics = new System.Windows.Forms.ListBox();
+			this.panelTop = new System.Windows.Forms.Panel();
+			this.groupBoxOptions = new System.Windows.Forms.GroupBox();
+			this.numericSY = new System.Windows.Forms.NumericUpDown();
+			this.numericSX = new System.Windows.Forms.NumericUpDown();
+			this.numericZoom = new System.Windows.Forms.NumericUpDown();
+			this.numericOpacity = new System.Windows.Forms.NumericUpDown();
+			this.comboBoxBlend = new System.Windows.Forms.ComboBox();
+			this.labelSY = new System.Windows.Forms.Label();
+			this.labelSX = new System.Windows.Forms.Label();
+			this.labelZoom = new System.Windows.Forms.Label();
+			this.labelBlending = new System.Windows.Forms.Label();
+			this.labelOpacity = new System.Windows.Forms.Label();
 			this.groupBoxHue = new System.Windows.Forms.GroupBox();
 			this.trackBarHue = new System.Windows.Forms.TrackBar();
-			this.label1 = new System.Windows.Forms.Label();
-			this.label2 = new System.Windows.Forms.Label();
-			this.pictureBox = new ARCed.Controls.CharSelectionControl();
-			((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
-			this.splitContainer1.Panel1.SuspendLayout();
-			this.splitContainer1.Panel2.SuspendLayout();
-			this.splitContainer1.SuspendLayout();
+			this.labelRtp = new System.Windows.Forms.Label();
+			this.labelLocal = new System.Windows.Forms.Label();
+			this.pictureBox = new ARCed.Controls.ImageSelectXnaPanel();
+			((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
+			this.splitContainer.Panel1.SuspendLayout();
+			this.splitContainer.Panel2.SuspendLayout();
+			this.splitContainer.SuspendLayout();
+			this.panelTop.SuspendLayout();
+			this.groupBoxOptions.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.numericSY)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.numericSX)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.numericZoom)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.numericOpacity)).BeginInit();
 			this.groupBoxHue.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.trackBarHue)).BeginInit();
 			this.SuspendLayout();
@@ -49,7 +67,7 @@
 			// 
 			this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-			this.buttonCancel.Location = new System.Drawing.Point(496, 406);
+			this.buttonCancel.Location = new System.Drawing.Point(580, 406);
 			this.buttonCancel.Name = "buttonCancel";
 			this.buttonCancel.Size = new System.Drawing.Size(75, 23);
 			this.buttonCancel.TabIndex = 0;
@@ -59,7 +77,7 @@
 			// buttonOK
 			// 
 			this.buttonOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.buttonOK.Location = new System.Drawing.Point(415, 406);
+			this.buttonOK.Location = new System.Drawing.Point(499, 406);
 			this.buttonOK.Name = "buttonOK";
 			this.buttonOK.Size = new System.Drawing.Size(75, 23);
 			this.buttonOK.TabIndex = 1;
@@ -67,25 +85,26 @@
 			this.buttonOK.UseVisualStyleBackColor = true;
 			this.buttonOK.Click += new System.EventHandler(this.buttonOK_Click);
 			// 
-			// splitContainerWeapons
+			// splitContainer
 			// 
-			this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+			this.splitContainer.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
 						| System.Windows.Forms.AnchorStyles.Left)
 						| System.Windows.Forms.AnchorStyles.Right)));
-			this.splitContainer1.Location = new System.Drawing.Point(12, 12);
-			this.splitContainer1.Name = "splitContainer1";
+			this.splitContainer.Location = new System.Drawing.Point(12, 12);
+			this.splitContainer.Name = "splitContainer";
 			// 
-			// splitContainerWeapons.Panel1
+			// splitContainer.Panel1
 			// 
-			this.splitContainer1.Panel1.Controls.Add(this.listBoxGraphics);
+			this.splitContainer.Panel1.Controls.Add(this.listBoxGraphics);
 			// 
-			// splitContainerWeapons.Panel2
+			// splitContainer.Panel2
 			// 
-			this.splitContainer1.Panel2.Controls.Add(this.pictureBox);
-			this.splitContainer1.Panel2.Controls.Add(this.groupBoxHue);
-			this.splitContainer1.Size = new System.Drawing.Size(559, 388);
-			this.splitContainer1.SplitterDistance = 144;
-			this.splitContainer1.TabIndex = 2;
+			this.splitContainer.Panel2.Controls.Add(this.panelTop);
+			this.splitContainer.Panel2.Controls.Add(this.groupBoxOptions);
+			this.splitContainer.Panel2.Controls.Add(this.groupBoxHue);
+			this.splitContainer.Size = new System.Drawing.Size(643, 388);
+			this.splitContainer.SplitterDistance = 165;
+			this.splitContainer.TabIndex = 2;
 			// 
 			// listBoxGraphics
 			// 
@@ -95,11 +114,181 @@
 			this.listBoxGraphics.IntegralHeight = false;
 			this.listBoxGraphics.Location = new System.Drawing.Point(0, 0);
 			this.listBoxGraphics.Name = "listBoxGraphics";
-			this.listBoxGraphics.Size = new System.Drawing.Size(144, 388);
+			this.listBoxGraphics.Size = new System.Drawing.Size(165, 388);
 			this.listBoxGraphics.TabIndex = 0;
 			this.listBoxGraphics.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.listBoxGraphics_DrawItem);
 			this.listBoxGraphics.SelectedIndexChanged += new System.EventHandler(this.listBoxGraphics_SelectedIndexChanged);
 			this.listBoxGraphics.DoubleClick += new System.EventHandler(this.buttonOK_Click);
+			// 
+			// panelTop
+			// 
+			this.panelTop.Controls.Add(this.pictureBox);
+			this.panelTop.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.panelTop.Location = new System.Drawing.Point(0, 0);
+			this.panelTop.Name = "panelTop";
+			this.panelTop.Size = new System.Drawing.Size(385, 322);
+			this.panelTop.TabIndex = 3;
+			// 
+			// groupBoxOptions
+			// 
+			this.groupBoxOptions.Controls.Add(this.numericSY);
+			this.groupBoxOptions.Controls.Add(this.numericSX);
+			this.groupBoxOptions.Controls.Add(this.numericZoom);
+			this.groupBoxOptions.Controls.Add(this.numericOpacity);
+			this.groupBoxOptions.Controls.Add(this.comboBoxBlend);
+			this.groupBoxOptions.Controls.Add(this.labelSY);
+			this.groupBoxOptions.Controls.Add(this.labelSX);
+			this.groupBoxOptions.Controls.Add(this.labelZoom);
+			this.groupBoxOptions.Controls.Add(this.labelBlending);
+			this.groupBoxOptions.Controls.Add(this.labelOpacity);
+			this.groupBoxOptions.Dock = System.Windows.Forms.DockStyle.Right;
+			this.groupBoxOptions.Location = new System.Drawing.Point(385, 0);
+			this.groupBoxOptions.Name = "groupBoxOptions";
+			this.groupBoxOptions.Size = new System.Drawing.Size(89, 322);
+			this.groupBoxOptions.TabIndex = 2;
+			this.groupBoxOptions.TabStop = false;
+			this.groupBoxOptions.Text = "Options";
+			// 
+			// numericSY
+			// 
+			this.numericSY.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+						| System.Windows.Forms.AnchorStyles.Right)));
+			this.numericSY.Location = new System.Drawing.Point(9, 233);
+			this.numericSY.Maximum = new decimal(new int[] {
+            480,
+            0,
+            0,
+            0});
+			this.numericSY.Minimum = new decimal(new int[] {
+            480,
+            0,
+            0,
+            -2147483648});
+			this.numericSY.Name = "numericSY";
+			this.numericSY.Size = new System.Drawing.Size(74, 20);
+			this.numericSY.TabIndex = 9;
+			this.numericSY.ValueChanged += new System.EventHandler(this.imageOption_Changed);
+			// 
+			// numericSX
+			// 
+			this.numericSX.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+						| System.Windows.Forms.AnchorStyles.Right)));
+			this.numericSX.Location = new System.Drawing.Point(9, 185);
+			this.numericSX.Maximum = new decimal(new int[] {
+            480,
+            0,
+            0,
+            0});
+			this.numericSX.Minimum = new decimal(new int[] {
+            480,
+            0,
+            0,
+            -2147483648});
+			this.numericSX.Name = "numericSX";
+			this.numericSX.Size = new System.Drawing.Size(74, 20);
+			this.numericSX.TabIndex = 8;
+			this.numericSX.ValueChanged += new System.EventHandler(this.imageOption_Changed);
+			// 
+			// numericZoom
+			// 
+			this.numericZoom.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+						| System.Windows.Forms.AnchorStyles.Right)));
+			this.numericZoom.Location = new System.Drawing.Point(9, 137);
+			this.numericZoom.Maximum = new decimal(new int[] {
+            800,
+            0,
+            0,
+            0});
+			this.numericZoom.Minimum = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+			this.numericZoom.Name = "numericZoom";
+			this.numericZoom.Size = new System.Drawing.Size(74, 20);
+			this.numericZoom.TabIndex = 7;
+			this.numericZoom.Value = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+			this.numericZoom.ValueChanged += new System.EventHandler(this.imageOption_Changed);
+			// 
+			// numericOpacity
+			// 
+			this.numericOpacity.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+						| System.Windows.Forms.AnchorStyles.Right)));
+			this.numericOpacity.Location = new System.Drawing.Point(9, 41);
+			this.numericOpacity.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+			this.numericOpacity.Name = "numericOpacity";
+			this.numericOpacity.Size = new System.Drawing.Size(74, 20);
+			this.numericOpacity.TabIndex = 6;
+			this.numericOpacity.ValueChanged += new System.EventHandler(this.imageOption_Changed);
+			// 
+			// comboBoxBlend
+			// 
+			this.comboBoxBlend.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+						| System.Windows.Forms.AnchorStyles.Right)));
+			this.comboBoxBlend.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.comboBoxBlend.FormattingEnabled = true;
+			this.comboBoxBlend.Items.AddRange(new object[] {
+            "Normal",
+            "Add",
+            "Sub"});
+			this.comboBoxBlend.Location = new System.Drawing.Point(9, 89);
+			this.comboBoxBlend.Name = "comboBoxBlend";
+			this.comboBoxBlend.Size = new System.Drawing.Size(74, 21);
+			this.comboBoxBlend.TabIndex = 5;
+			this.comboBoxBlend.SelectedIndexChanged += new System.EventHandler(this.imageOption_Changed);
+			// 
+			// labelSY
+			// 
+			this.labelSY.AutoSize = true;
+			this.labelSY.Location = new System.Drawing.Point(6, 217);
+			this.labelSY.Name = "labelSY";
+			this.labelSY.Size = new System.Drawing.Size(46, 13);
+			this.labelSY.TabIndex = 4;
+			this.labelSY.Text = "Scroll Y:";
+			// 
+			// labelSX
+			// 
+			this.labelSX.AutoSize = true;
+			this.labelSX.Location = new System.Drawing.Point(6, 169);
+			this.labelSX.Name = "labelSX";
+			this.labelSX.Size = new System.Drawing.Size(46, 13);
+			this.labelSX.TabIndex = 3;
+			this.labelSX.Text = "Scroll X:";
+			// 
+			// labelZoom
+			// 
+			this.labelZoom.AutoSize = true;
+			this.labelZoom.Location = new System.Drawing.Point(6, 121);
+			this.labelZoom.Name = "labelZoom";
+			this.labelZoom.Size = new System.Drawing.Size(48, 13);
+			this.labelZoom.TabIndex = 2;
+			this.labelZoom.Text = "Zoom %:";
+			// 
+			// labelBlending
+			// 
+			this.labelBlending.AutoSize = true;
+			this.labelBlending.Location = new System.Drawing.Point(6, 73);
+			this.labelBlending.Name = "labelBlending";
+			this.labelBlending.Size = new System.Drawing.Size(51, 13);
+			this.labelBlending.TabIndex = 1;
+			this.labelBlending.Text = "Blending:";
+			// 
+			// labelOpacity
+			// 
+			this.labelOpacity.AutoSize = true;
+			this.labelOpacity.Location = new System.Drawing.Point(6, 25);
+			this.labelOpacity.Name = "labelOpacity";
+			this.labelOpacity.Size = new System.Drawing.Size(46, 13);
+			this.labelOpacity.TabIndex = 0;
+			this.labelOpacity.Text = "Opacity:";
 			// 
 			// groupBoxHue
 			// 
@@ -107,7 +296,7 @@
 			this.groupBoxHue.Dock = System.Windows.Forms.DockStyle.Bottom;
 			this.groupBoxHue.Location = new System.Drawing.Point(0, 322);
 			this.groupBoxHue.Name = "groupBoxHue";
-			this.groupBoxHue.Size = new System.Drawing.Size(411, 66);
+			this.groupBoxHue.Size = new System.Drawing.Size(474, 66);
 			this.groupBoxHue.TabIndex = 0;
 			this.groupBoxHue.TabStop = false;
 			this.groupBoxHue.Text = "Hue";
@@ -119,49 +308,53 @@
 			this.trackBarHue.Location = new System.Drawing.Point(6, 15);
 			this.trackBarHue.Maximum = 359;
 			this.trackBarHue.Name = "trackBarHue";
-			this.trackBarHue.Size = new System.Drawing.Size(399, 45);
+			this.trackBarHue.Size = new System.Drawing.Size(462, 45);
 			this.trackBarHue.TabIndex = 0;
 			this.trackBarHue.TickFrequency = 8;
-			this.trackBarHue.ValueChanged += new System.EventHandler(this.trackBarHue_ValueChanged);
+			this.trackBarHue.ValueChanged += new System.EventHandler(this.imageOption_Changed);
 			// 
-			// label1
+			// labelRtp
 			// 
-			this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-			this.label1.AutoSize = true;
-			this.label1.Image = global::ARCed.Properties.Resources.ResourceRTP;
-			this.label1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-			this.label1.Location = new System.Drawing.Point(86, 411);
-			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(50, 13);
-			this.label1.TabIndex = 3;
-			this.label1.Text = "     : RTP";
-			this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			this.labelRtp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.labelRtp.AutoSize = true;
+			this.labelRtp.Image = global::ARCed.Properties.Resources.ResourceRTP;
+			this.labelRtp.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			this.labelRtp.Location = new System.Drawing.Point(86, 411);
+			this.labelRtp.Name = "labelRtp";
+			this.labelRtp.Size = new System.Drawing.Size(50, 13);
+			this.labelRtp.TabIndex = 3;
+			this.labelRtp.Text = "     : RTP";
+			this.labelRtp.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 			// 
-			// label2
+			// labelLocal
 			// 
-			this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-			this.label2.AutoSize = true;
-			this.label2.Image = global::ARCed.Properties.Resources.ResourceLocal;
-			this.label2.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-			this.label2.Location = new System.Drawing.Point(12, 411);
-			this.label2.Name = "label2";
-			this.label2.Size = new System.Drawing.Size(54, 13);
-			this.label2.TabIndex = 4;
-			this.label2.Text = "     : Local";
-			this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			this.labelLocal.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.labelLocal.AutoSize = true;
+			this.labelLocal.Image = global::ARCed.Properties.Resources.ResourceLocal;
+			this.labelLocal.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			this.labelLocal.Location = new System.Drawing.Point(12, 411);
+			this.labelLocal.Name = "labelLocal";
+			this.labelLocal.Size = new System.Drawing.Size(54, 13);
+			this.labelLocal.TabIndex = 4;
+			this.labelLocal.Text = "     : Local";
+			this.labelLocal.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 			// 
 			// pictureBox
 			// 
-			this.pictureBox.AutoScroll = true;
-			this.pictureBox.AutoSize = true;
-			this.pictureBox.BackColor = System.Drawing.SystemColors.ControlDark;
-			this.pictureBox.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.pictureBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+						| System.Windows.Forms.AnchorStyles.Left)
+						| System.Windows.Forms.AnchorStyles.Right)));
+			this.pictureBox.BlendMode = 0;
 			this.pictureBox.Image = null;
-			this.pictureBox.ImageBackColor = System.Drawing.SystemColors.ControlLight;
 			this.pictureBox.Location = new System.Drawing.Point(0, 0);
 			this.pictureBox.Name = "pictureBox";
-			this.pictureBox.Size = new System.Drawing.Size(411, 322);
-			this.pictureBox.TabIndex = 1;
+			this.pictureBox.ScrollX = 0;
+			this.pictureBox.ScrollY = 0;
+			this.pictureBox.SelectionEnabled = false;
+			this.pictureBox.Size = new System.Drawing.Size(379, 322);
+			this.pictureBox.TabIndex = 0;
+			this.pictureBox.Text = "imageSelectXnaPanel1";
+			this.pictureBox.Zoom = 0;
 			// 
 			// ImageSelectionForm
 			// 
@@ -169,10 +362,10 @@
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.CancelButton = this.buttonCancel;
-			this.ClientSize = new System.Drawing.Size(583, 441);
-			this.Controls.Add(this.label2);
-			this.Controls.Add(this.label1);
-			this.Controls.Add(this.splitContainer1);
+			this.ClientSize = new System.Drawing.Size(667, 441);
+			this.Controls.Add(this.labelLocal);
+			this.Controls.Add(this.labelRtp);
+			this.Controls.Add(this.splitContainer);
 			this.Controls.Add(this.buttonOK);
 			this.Controls.Add(this.buttonCancel);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
@@ -180,11 +373,17 @@
 			this.ShowInTaskbar = false;
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
 			this.Text = "Select Graphic";
-			this.splitContainer1.Panel1.ResumeLayout(false);
-			this.splitContainer1.Panel2.ResumeLayout(false);
-			this.splitContainer1.Panel2.PerformLayout();
-			((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
-			this.splitContainer1.ResumeLayout(false);
+			this.splitContainer.Panel1.ResumeLayout(false);
+			this.splitContainer.Panel2.ResumeLayout(false);
+			((System.ComponentModel.ISupportInitialize)(this.splitContainer)).EndInit();
+			this.splitContainer.ResumeLayout(false);
+			this.panelTop.ResumeLayout(false);
+			this.groupBoxOptions.ResumeLayout(false);
+			this.groupBoxOptions.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.numericSY)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.numericSX)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.numericZoom)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.numericOpacity)).EndInit();
 			this.groupBoxHue.ResumeLayout(false);
 			this.groupBoxHue.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.trackBarHue)).EndInit();
@@ -197,12 +396,24 @@
 
 		private System.Windows.Forms.Button buttonCancel;
 		private System.Windows.Forms.Button buttonOK;
-		private System.Windows.Forms.SplitContainer splitContainer1;
+		private System.Windows.Forms.SplitContainer splitContainer;
 		private System.Windows.Forms.ListBox listBoxGraphics;
 		private System.Windows.Forms.GroupBox groupBoxHue;
 		private System.Windows.Forms.TrackBar trackBarHue;
-		private ARCed.Controls.CharSelectionControl pictureBox;
-		private System.Windows.Forms.Label label1;
-		private System.Windows.Forms.Label label2;
+		private System.Windows.Forms.Label labelRtp;
+		private System.Windows.Forms.Label labelLocal;
+		private System.Windows.Forms.GroupBox groupBoxOptions;
+		private System.Windows.Forms.Label labelSY;
+		private System.Windows.Forms.Label labelSX;
+		private System.Windows.Forms.Label labelZoom;
+		private System.Windows.Forms.Label labelBlending;
+		private System.Windows.Forms.Label labelOpacity;
+		private System.Windows.Forms.NumericUpDown numericSY;
+		private System.Windows.Forms.NumericUpDown numericSX;
+		private System.Windows.Forms.NumericUpDown numericZoom;
+		private System.Windows.Forms.NumericUpDown numericOpacity;
+		private System.Windows.Forms.ComboBox comboBoxBlend;
+		private System.Windows.Forms.Panel panelTop;
+		private Controls.ImageSelectXnaPanel pictureBox;
 	}
 }
