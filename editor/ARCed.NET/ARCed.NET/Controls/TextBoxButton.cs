@@ -7,7 +7,7 @@ namespace ARCed.Controls
 	/// <summary>
 	/// Control that combines a read-only, unselectable textbox and a button.
 	/// </summary>
-	[DefaultEvent("OnTextChange"), DefaultProperty("Text")]
+	[DefaultEvent("OnButtonClick"), DefaultProperty("Text")]
 	public partial class TextBoxButton : UserControl
 	{
 		#region Events

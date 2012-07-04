@@ -191,8 +191,8 @@ namespace ARCed.Database.Weapons
 		{
 			using (ImageSelectionForm dialog = new ImageSelectionForm(@"Graphics\Icons", _weapon.icon_name))
 			{
-				dialog.TileSelection = false;
-				dialog.EnableHueChange = false;
+				dialog.SelectionEnabled = false;
+				dialog.HueEnabled = false;
 				if (dialog.ShowDialog(this) == DialogResult.OK)
 				{
 					_weapon.icon_name = dialog.ImageName;

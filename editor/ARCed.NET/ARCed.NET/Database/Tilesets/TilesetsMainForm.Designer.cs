@@ -252,6 +252,7 @@
 			this.textBoxBattleback.Name = "textBoxBattleback";
 			this.textBoxBattleback.Size = new System.Drawing.Size(175, 20);
 			this.textBoxBattleback.TabIndex = 16;
+			this.textBoxBattleback.OnButtonClick += new ARCed.Controls.TextBoxButton.ButtonClickHandler(this.textBoxBattleback_OnButtonClick);
 			// 
 			// textBoxFog
 			// 
@@ -272,6 +273,7 @@
 			this.textBoxPanorama.Name = "textBoxPanorama";
 			this.textBoxPanorama.Size = new System.Drawing.Size(175, 20);
 			this.textBoxPanorama.TabIndex = 14;
+			this.textBoxPanorama.OnButtonClick += new ARCed.Controls.TextBoxButton.ButtonClickHandler(this.textBoxPanorama_OnButtonClick);
 			// 
 			// textBoxTileset
 			// 
@@ -282,6 +284,7 @@
 			this.textBoxTileset.Name = "textBoxTileset";
 			this.textBoxTileset.Size = new System.Drawing.Size(175, 20);
 			this.textBoxTileset.TabIndex = 13;
+			this.textBoxTileset.OnButtonClick += new ARCed.Controls.TextBoxButton.ButtonClickHandler(this.textBoxTileset_OnButtonClick);
 			// 
 			// textBoxName
 			// 
@@ -291,6 +294,7 @@
 			this.textBoxName.Name = "textBoxName";
 			this.textBoxName.Size = new System.Drawing.Size(175, 20);
 			this.textBoxName.TabIndex = 10;
+			this.textBoxName.TextChanged += new System.EventHandler(this.textBoxName_TextChanged);
 			// 
 			// groupBoxAutotiles
 			// 

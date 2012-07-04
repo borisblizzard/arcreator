@@ -370,11 +370,11 @@ namespace ARCed.Database.Enemies
 			using (ImageSelectionForm dialog =
 				new ImageSelectionForm(@"Graphics\Battlers", _enemy.battler_name, _enemy.battler_hue))
 			{
-				dialog.TileSelection = false;
+				dialog.SelectionEnabled = false;
 				if (dialog.ShowDialog(this) == DialogResult.OK)
 				{
 					_enemy.battler_name = dialog.ImageName;
-					_enemy.battler_hue = dialog.ImageHue;
+					_enemy.battler_hue = dialog.Hue;
 					pictureBattler.Image =
 						Cache.Battler(_enemy.battler_name, _enemy.battler_hue);
 				}

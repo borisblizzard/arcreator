@@ -34,7 +34,7 @@ namespace ARCed.Data
 		private const float rad = (float)(Math.PI / 180.0);
 
 		/*
-		QColorMatrix rotates hues while preserving the luminance. In other words: only the color information is modified, not the black-and-white levels. If you would remove the color from an _image (by setting the saturation to zero), rotating the hue has no effect.
+		QColorMatrix rotates hues while preserving the luminance. In other words: only the color information is modified, not the black-and-white levels. If you would remove the color from an _texture (by setting the saturation to zero), rotating the hue has no effect.
 		Because the luminance of the brightest red on the computer screen (RGB 255, 0, 0) is way lower than the luminance of the brightest green (RGB 0, 255, 0), the brightest red does not translate into the brightest green, but into a darker green.
 		It all has to do with the 'luminance weights' which are assigned to the R, G, and B elements of the color (see the const's in the top part of QColorMatrix.cpp). If all three luminance weights were equal (1.0), the brightest red would translate to the brightest green after rotation. However, rotating the hue would also mean modifying the luminance.
 		See http://www.graficaobscura.com/matrix/ for some more information on hue rotation.
@@ -541,7 +541,7 @@ namespace ARCed.Data
 			// NOTE: theoretically, greenRotation should have the value of 39.182655 degrees,
 			// being the angle for which the sine is 1/(sqrt(3)), and the cosine is sqrt(2/3).
 			// However, I found that using a slightly smaller angle works better.
-			// In particular, the greys in the _image are not visibly affected with the smaller
+			// In particular, the greys in the _texture are not visibly affected with the smaller
 			// angle, while they deviate a little bit with the theoretical value.
 			// An explanation escapes me for now.
 			// If you rather stick with the theory, change the comments in the previous lines.
@@ -550,7 +550,7 @@ namespace ARCed.Data
 			if (!initialized)
 			{
 				initialized = true;
-				// Rotating the hue of an _image is a rather convoluted task, involving several matrix
+				// Rotating the hue of an _texture is a rather convoluted task, involving several matrix
 				// multiplications. For efficiency, we prepare two static matrices.
 				// This is by far the most complicated part of this class. For the background
 				// theory, refer to the sgi-sites mentioned at the top of this file.

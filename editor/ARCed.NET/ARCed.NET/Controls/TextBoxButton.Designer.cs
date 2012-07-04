@@ -30,24 +30,9 @@
 		{
 			this.components = new System.ComponentModel.Container();
 			this.toolTip = new System.Windows.Forms.ToolTip(this.components);
-			this.textBox = new System.Windows.Forms.Label();
 			this.button = new System.Windows.Forms.Button();
+			this.textBox = new System.Windows.Forms.Label();
 			this.SuspendLayout();
-			// 
-			// textBox
-			// 
-			this.textBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-						| System.Windows.Forms.AnchorStyles.Left)
-						| System.Windows.Forms.AnchorStyles.Right)));
-			this.textBox.BackColor = System.Drawing.SystemColors.Window;
-			this.textBox.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-			this.textBox.Location = new System.Drawing.Point(0, 0);
-			this.textBox.Margin = new System.Windows.Forms.Padding(0);
-			this.textBox.Name = "textBox";
-			this.textBox.Size = new System.Drawing.Size(198, 20);
-			this.textBox.TabIndex = 1;
-			this.textBox.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-			this.textBox.TextChanged += new System.EventHandler(this.textBox_TextChanged);
 			// 
 			// button
 			// 
@@ -65,6 +50,22 @@
 			this.toolTip.SetToolTip(this.button, "Edit");
 			this.button.UseVisualStyleBackColor = false;
 			this.button.Click += new System.EventHandler(this.button_Click);
+			// 
+			// textBox
+			// 
+			this.textBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+						| System.Windows.Forms.AnchorStyles.Left)
+						| System.Windows.Forms.AnchorStyles.Right)));
+			this.textBox.BackColor = System.Drawing.SystemColors.Window;
+			this.textBox.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+			this.textBox.Location = new System.Drawing.Point(0, 0);
+			this.textBox.Margin = new System.Windows.Forms.Padding(0);
+			this.textBox.Name = "textBox";
+			this.textBox.Size = new System.Drawing.Size(198, 20);
+			this.textBox.TabIndex = 1;
+			this.textBox.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			this.textBox.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+			this.textBox.DoubleClick += new System.EventHandler(this.button_Click);
 			// 
 			// TextBoxButton
 			// 

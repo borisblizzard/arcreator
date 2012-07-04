@@ -157,6 +157,12 @@ namespace ARCed.Controls
 
 		#region Public Methods
 
+		/// <summary>
+		/// Gets the ID of the tile at the specified X and Y.
+		/// </summary>
+		/// <param name="x">X-coordinate value, in pixels.</param>
+		/// <param name="y">Y-coordinate value, in pixels.</param>
+		/// <returns>ID of the tile that contains the coordinates.</returns>
 		public int GetTileAtPoint(int x, int y)
 		{
 			int row = x / TILESIZE;
@@ -164,11 +170,15 @@ namespace ARCed.Controls
 			return AUTO_IDS + (row + (column * TILEWIDTH));
 		}
 
+		/// <summary>
+		/// Gets the ID of the tile at the specified Point.
+		/// </summary>
+		/// <param name="point">Coordinates to check, in pixels.</param>
+		/// <returns>ID of the tile that contains the coordinates.</returns>
 		public int GetTileAtPoint(Point point)
 		{
 			return GetTileAtPoint(point.X, point.Y);
 		}
-
 
 		#endregion
 
@@ -205,7 +215,6 @@ namespace ARCed.Controls
 			Editor.StatusBar.Items[2].Text = "Use mouse buttons to edit. Hold Ctrl to batch select.";
 		}
 
-
 		/// <summary>
 		/// Performs painting of the control
 		/// </summary>
@@ -225,16 +234,15 @@ namespace ARCed.Controls
 					for (int y = TILESIZE; y < h; y += TILESIZE)
 						_batch.Draw(_rectTexture, new XnaRect(0, y, MAXWIDTH, 1), Settings.GridColor);
 				}
-				// *************************************************************
-
-				if (TilesetMode == TilesetMode.Passage) RefreshPassage();
-				else if (TilesetMode == TilesetMode.Passage4Dir) RefreshPassage4Dir();
-				else if (TilesetMode == TilesetMode.Priority) RefreshPriority();
-				else if (TilesetMode == TilesetMode.Counter) RefreshCounter();
-				else if (TilesetMode == TilesetMode.Bush) RefreshBush();
-				else if (TilesetMode == TilesetMode.Terrain) RefreshTerrain();
-
-				// *************************************************************
+				switch (TilesetMode)
+				{
+					case TilesetMode.Passage: RefreshPassage(); break;
+					case TilesetMode.Passage4Dir: RefreshPassage4Dir(); break;
+					case TilesetMode.Priority: RefreshPriority(); break;
+					case TilesetMode.Counter: RefreshCounter(); break;
+					case TilesetMode.Bush: RefreshBush(); break;
+					case TilesetMode.Terrain: RefreshTerrain(); break;
+				}
 				if (_originPoint != _endPoint)
 				{
 					XnaRect rect = SelectionRectangle;
@@ -243,12 +251,7 @@ namespace ARCed.Controls
 						rect.Width - 2, rect.Height - 2);
 					DrawRectangle(innerRect, Settings.SelectorColor, 1);
 				}
-				
-
-
-
 				_batch.End();
-				
 			}
 		}
 
@@ -393,6 +396,10 @@ namespace ARCed.Controls
 				ChangeData(e);
 		}
 
+		/// <summary>
+		/// Performs logic for changing tileset data during mouse events.
+		/// </summary>
+		/// <param name="e">Mouse event arguments.</param>
 		private void ChangeData(MouseEventArgs e)
 		{
 			if (e.Button != MouseButtons.Left && e.Button != MouseButtons.Right)
@@ -462,7 +469,6 @@ namespace ARCed.Controls
 			}
 			Invalidate(); 
 		}
-
 
 		#endregion
 	}

@@ -23,7 +23,7 @@ namespace ARCed.Helpers
 		/// </summary>
 		public const string RTP_PATH = @"C:\Program Files (x86)\Common Files\Enterbrain\RGSS\Standard";
 		/// <summary>
-		/// Array of strings used for searching supported _image formats
+		/// Array of strings used for searching supported _texture formats
 		/// </summary>
 		public static readonly string[] ImageFilters = new[] { "*.png", "*.jpg", "*.bmp" };
 		/// <summary>

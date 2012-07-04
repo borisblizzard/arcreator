@@ -235,8 +235,8 @@ namespace ARCed.Database.Skills
 		{
 			using (ImageSelectionForm dialog = new ImageSelectionForm(@"Graphics\Icons", _skill.icon_name))
 			{
-				dialog.TileSelection = false;
-				dialog.EnableHueChange = false;
+				dialog.SelectionEnabled = false;
+				dialog.HueEnabled = false;
 				if (dialog.ShowDialog(this) == DialogResult.OK)
 				{
 					_skill.icon_name = dialog.ImageName;

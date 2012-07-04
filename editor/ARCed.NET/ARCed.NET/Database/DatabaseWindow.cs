@@ -98,7 +98,7 @@ namespace ARCed.Database
 		}
 
 		/// <summary>
-		/// Refreshes the header _image
+		/// Refreshes the header _texture
 		/// </summary>
 		public void RefreshHeader()
 		{

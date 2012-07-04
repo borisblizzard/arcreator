@@ -74,14 +74,14 @@ namespace ARCed.Controls
 		/// </summary>
 		[Category("ARCed"), Description("Defines the property that allows ability to select individual tiles.")]
 		[DefaultValue(true)]
-		public bool TileSelection
+		public bool SelectionEnabled
 		{
 			get { return _selectable; }
 			set { _selectable = value; RefreshImage(); }
 		}
 
 		/// <summary>
-		/// Gets or sets the background color of the _image area
+		/// Gets or sets the background color of the _texture area
 		/// </summary>
 		[Category("ARCed"), Description("Defines the background color of the image area.")]
 		[DefaultValue(typeof(Color), "LightGray")]
@@ -92,7 +92,7 @@ namespace ARCed.Controls
 		}
 
 		/// <summary>
-		/// Gets or sets the path to the _image file used in the panel
+		/// Gets or sets the path to the _texture file used in the panel
 		/// </summary>
 		[Category("ARCed"), Description("Define path to image file.")]
 		[Editor(typeof(System.Windows.Forms.Design.FileNameEditor), typeof(System.Drawing.Design.UITypeEditor))]
@@ -131,7 +131,7 @@ namespace ARCed.Controls
 		}
 
 		/// <summary>
-		/// Gets or sets the _image used in the control
+		/// Gets or sets the _texture used in the control
 		/// </summary>
 		[Category("ARCed"), Description("Set the image used by the control")]
 		public Image Image
@@ -145,7 +145,7 @@ namespace ARCed.Controls
 		}
 
 		/// <summary>
-		/// Gets a image copied from the main _image file that was contained in the selection rectangle
+		/// Gets a image copied from the main _texture file that was contained in the selection rectangle
 		/// </summary>
 		[Browsable(false)]
 		public Image SelectionImage

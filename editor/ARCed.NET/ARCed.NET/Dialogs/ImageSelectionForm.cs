@@ -24,17 +24,41 @@ namespace ARCed.Dialogs
 		#region Public Properties
 
 		/// <summary>
-		/// Gets the _image under the selection rectangle
+		/// Gets the image under the selection rectangle
 		/// </summary>
 		public Image SelectedImage { get; private set; }
 
 		/// <summary>
-		/// Gets or sets the hue rotation applied to the _image
+		/// Gets or sets the hue rotation applied to the image
 		/// </summary>
-		public int ImageHue
+		public int Hue
 		{
 			get { return (int)trackBarHue.Value; }
-			set { trackBarHue.Value = value; }
+			set { trackBarHue.Value = value.Clamp(0, 359); }
+		}
+
+		public int Zoom
+		{
+			get { return (int)numericZoom.Value; }
+			set { numericZoom.Value = value.Clamp(100, 800); }
+		}
+
+		public int ScrollX
+		{
+			get { return (int)numericSX.Value; }
+			set { numericSX.Value = value.Clamp(-480, 480); }
+		}
+
+		public int ScrollY
+		{
+			get { return (int)numericSY.Value; }
+			set { numericSY.Value = value.Clamp(-480, 480); }
+		}
+
+		public int BlendMode
+		{
+			get { return comboBoxBlend.SelectedIndex; }
+			set { comboBoxBlend.SelectedIndex = value.Clamp(0, 2); }
 		}
 
 		/// <summary>
@@ -47,7 +71,7 @@ namespace ARCed.Dialogs
 		}
 
 		/// <summary>
-		/// Gets or sets the filename (without extension) of the _image that is found in the current folder
+		/// Gets or sets the filename (without extension) of the image that is found in the current folder
 		/// </summary>
 		public string ImageName
 		{
@@ -56,21 +80,39 @@ namespace ARCed.Dialogs
 		}
 
 		/// <summary>
-		/// Gets or sets the ability to select individual tiles of the _image
+		/// Gets or sets the ability to select individual tiles of the _texture
 		/// </summary>
-		public bool TileSelection 
+		public bool SelectionEnabled 
 		{
-			get { return pictureBox.TileSelection; }
-			set { pictureBox.TileSelection = value; }
+			get { return pictureBox.SelectionEnabled; }
+			set { pictureBox.SelectionEnabled = value; }
 		}
 
 		/// <summary>
-		/// Gets or sets the ability to alter the hue of the loaded _image
+		/// Gets or sets the visibility of the trackbar for changing image hue.
 		/// </summary>
-		public bool EnableHueChange 
+		public bool HueEnabled 
 		{
 			get { return groupBoxHue.Visible; }
 			set { groupBoxHue.Visible = value; }
+		}
+
+		/// <summary>
+		/// Gets or sets the visibility of the panel for changing options.
+		/// </summary>
+		public bool OptionsEnabled
+		{
+			get { return groupBoxOptions.Visible; }
+			set { groupBoxOptions.Visible = value; }
+		}
+
+		/// <summary>
+		/// Gets or sets the enabled status of the scroll options.
+		/// </summary>
+		public bool AdvancedOptionEnabled
+		{
+			get { return numericZoom.Enabled && numericSX.Enabled && numericSY.Enabled; }
+			set { numericZoom.Enabled = numericSX.Enabled = numericSY.Enabled = value; }
 		}
 
 		#endregion
@@ -78,11 +120,11 @@ namespace ARCed.Dialogs
 		#region Construction
 
 		/// <summary>
-		/// Constructor that sets the folder and selected _image
+		/// Constructor that sets the folder and selected _texture
 		/// </summary>
 		/// <param name="folder">Root folder searched for images</param>
-		/// <param name="filename">FullPath (without extension) of the _image that is found in the current folder</param>
-		/// <param name="hue">Amount of hue rotation applied to the _image</param>
+		/// <param name="filename">FullPath (without extension) of the _texture that is found in the current folder</param>
+		/// <param name="hue">Amount of hue rotation applied to the _texture</param>
 		public ImageSelectionForm(string folder, string filename, int hue = 0) : this()
 		{
 			SetFolder(folder);
@@ -148,6 +190,12 @@ namespace ARCed.Dialogs
 				case @"Graphics\Autotiles":
 					pictureBox.Image = new Bitmap(Cache.Autotile(_filename));
 					break;
+				case @"Graphics\Fogs":
+					pictureBox.Image = new Bitmap(Cache.Fog(_filename, (int)trackBarHue.Value));
+					break;
+				case @"Graphics\Panoramas":
+					pictureBox.Image = new Bitmap(Cache.Panorama(_filename, (int)trackBarHue.Value));
+					break;
 			}
 		}
 
@@ -166,7 +214,7 @@ namespace ARCed.Dialogs
 			}
 		}
 
-		private void trackBarHue_ValueChanged(object sender, EventArgs e)
+		private void imageOption_Changed(object sender, EventArgs e)
 		{
 			RefreshPicture();
 		}
