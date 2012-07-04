@@ -33,7 +33,9 @@
 			this.splitContainer = new System.Windows.Forms.SplitContainer();
 			this.listBoxGraphics = new System.Windows.Forms.ListBox();
 			this.panelTop = new System.Windows.Forms.Panel();
+			this.pictureBox = new ARCed.Controls.ImageSelectXnaPanel();
 			this.groupBoxOptions = new System.Windows.Forms.GroupBox();
+			this.checkAlphaPreview = new System.Windows.Forms.CheckBox();
 			this.numericSY = new System.Windows.Forms.NumericUpDown();
 			this.numericSX = new System.Windows.Forms.NumericUpDown();
 			this.numericZoom = new System.Windows.Forms.NumericUpDown();
@@ -48,7 +50,6 @@
 			this.trackBarHue = new System.Windows.Forms.TrackBar();
 			this.labelRtp = new System.Windows.Forms.Label();
 			this.labelLocal = new System.Windows.Forms.Label();
-			this.pictureBox = new ARCed.Controls.ImageSelectXnaPanel();
 			((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
 			this.splitContainer.Panel1.SuspendLayout();
 			this.splitContainer.Panel2.SuspendLayout();
@@ -129,8 +130,29 @@
 			this.panelTop.Size = new System.Drawing.Size(385, 322);
 			this.panelTop.TabIndex = 3;
 			// 
+			// pictureBox
+			// 
+			this.pictureBox.AdvancedEnabled = false;
+			this.pictureBox.AlphaPreview = false;
+			this.pictureBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+						| System.Windows.Forms.AnchorStyles.Left)
+						| System.Windows.Forms.AnchorStyles.Right)));
+			this.pictureBox.BlendMode = 0;
+			this.pictureBox.Image = null;
+			this.pictureBox.ImageOpacity = 255;
+			this.pictureBox.Location = new System.Drawing.Point(0, 0);
+			this.pictureBox.Name = "pictureBox";
+			this.pictureBox.ScrollX = 0;
+			this.pictureBox.ScrollY = 0;
+			this.pictureBox.SelectionEnabled = false;
+			this.pictureBox.Size = new System.Drawing.Size(379, 322);
+			this.pictureBox.TabIndex = 0;
+			this.pictureBox.Text = "pictureBox";
+			this.pictureBox.Zoom = 0;
+			// 
 			// groupBoxOptions
 			// 
+			this.groupBoxOptions.Controls.Add(this.checkAlphaPreview);
 			this.groupBoxOptions.Controls.Add(this.numericSY);
 			this.groupBoxOptions.Controls.Add(this.numericSX);
 			this.groupBoxOptions.Controls.Add(this.numericZoom);
@@ -148,6 +170,18 @@
 			this.groupBoxOptions.TabIndex = 2;
 			this.groupBoxOptions.TabStop = false;
 			this.groupBoxOptions.Text = "Options";
+			// 
+			// checkAlphaPreview
+			// 
+			this.checkAlphaPreview.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
+						| System.Windows.Forms.AnchorStyles.Right)));
+			this.checkAlphaPreview.Location = new System.Drawing.Point(9, 276);
+			this.checkAlphaPreview.Name = "checkAlphaPreview";
+			this.checkAlphaPreview.Size = new System.Drawing.Size(74, 40);
+			this.checkAlphaPreview.TabIndex = 10;
+			this.checkAlphaPreview.Text = "Alpha Preview";
+			this.checkAlphaPreview.UseVisualStyleBackColor = true;
+			this.checkAlphaPreview.CheckedChanged += new System.EventHandler(this.checkAlphaPreview_CheckedChanged);
 			// 
 			// numericSY
 			// 
@@ -227,7 +261,7 @@
 			this.numericOpacity.Name = "numericOpacity";
 			this.numericOpacity.Size = new System.Drawing.Size(74, 20);
 			this.numericOpacity.TabIndex = 6;
-			this.numericOpacity.ValueChanged += new System.EventHandler(this.imageOption_Changed);
+			this.numericOpacity.ValueChanged += new System.EventHandler(this.numericOpacity_ValueChanged);
 			// 
 			// comboBoxBlend
 			// 
@@ -339,23 +373,6 @@
 			this.labelLocal.Text = "     : Local";
 			this.labelLocal.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 			// 
-			// pictureBox
-			// 
-			this.pictureBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-						| System.Windows.Forms.AnchorStyles.Left)
-						| System.Windows.Forms.AnchorStyles.Right)));
-			this.pictureBox.BlendMode = 0;
-			this.pictureBox.Image = null;
-			this.pictureBox.Location = new System.Drawing.Point(0, 0);
-			this.pictureBox.Name = "pictureBox";
-			this.pictureBox.ScrollX = 0;
-			this.pictureBox.ScrollY = 0;
-			this.pictureBox.SelectionEnabled = false;
-			this.pictureBox.Size = new System.Drawing.Size(379, 322);
-			this.pictureBox.TabIndex = 0;
-			this.pictureBox.Text = "imageSelectXnaPanel1";
-			this.pictureBox.Zoom = 0;
-			// 
 			// ImageSelectionForm
 			// 
 			this.AcceptButton = this.buttonOK;
@@ -373,6 +390,7 @@
 			this.ShowInTaskbar = false;
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
 			this.Text = "Select Graphic";
+			this.Load += new System.EventHandler(this.ImageSelectionForm_Load);
 			this.splitContainer.Panel1.ResumeLayout(false);
 			this.splitContainer.Panel2.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.splitContainer)).EndInit();
@@ -415,5 +433,6 @@
 		private System.Windows.Forms.ComboBox comboBoxBlend;
 		private System.Windows.Forms.Panel panelTop;
 		private Controls.ImageSelectXnaPanel pictureBox;
+		private System.Windows.Forms.CheckBox checkAlphaPreview;
 	}
 }

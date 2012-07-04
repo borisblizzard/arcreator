@@ -19,10 +19,6 @@ namespace ARCed.Helpers
 		}
 
 		/// <summary>
-		/// Path to the RTP root directory. ** TEST ONLY **
-		/// </summary>
-		public const string RTP_PATH = @"C:\Program Files (x86)\Common Files\Enterbrain\RGSS\Standard";
-		/// <summary>
 		/// Array of strings used for searching supported _texture formats
 		/// </summary>
 		public static readonly string[] ImageFilters = new[] { "*.png", "*.jpg", "*.bmp" };
@@ -175,7 +171,7 @@ namespace ARCed.Helpers
 			if (!_initialized)
 			{
 				_resources = new List<GameResource>();
-				_rtpWatcher = new FileSystemWatcher(RTP_PATH);
+				_rtpWatcher = new FileSystemWatcher(Constants.RTP_PATH);
 				_localWatcher = new FileSystemWatcher(".");
 				//_scriptWatcher = new FileSystemWatcher(".");
 				_rtpWatcher.IncludeSubdirectories = true;
@@ -221,8 +217,8 @@ namespace ARCed.Helpers
 		public static void RefreshRTP()
 		{
 			_resources.RemoveAll(delegate(GameResource r) { return r.Location == Location.RTP; });
-			string graphics = Path.Combine(RTP_PATH, "Graphics");
-			string audio = Path.Combine(RTP_PATH, "Audio");
+			string graphics = Path.Combine(Constants.RTP_PATH, "Graphics");
+			string audio = Path.Combine(Constants.RTP_PATH, "Audio");
 			foreach (string filename in DirectorySearch(graphics, ImageFilters))
 				_resources.Add(new GameResource(filename, Location.RTP, ResourceType.Graphics));
 			foreach (string filename in DirectorySearch(audio, AudioFilters))
@@ -317,7 +313,7 @@ namespace ARCed.Helpers
 		/// <param frames="e">Event arguments</param>
 		private static void fileSystemWatcher_Created(object sender, FileSystemEventArgs e)
 		{
-			Location location = e.FullPath.Contains(RTP_PATH) ? Location.RTP : Location.Local;
+			Location location = e.FullPath.Contains(Constants.RTP_PATH) ? Location.RTP : Location.Local;
 			_resources.Add(new GameResource(e.FullPath, location, ResourceType.Unknown));
 		}
 

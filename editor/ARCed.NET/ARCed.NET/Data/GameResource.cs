@@ -90,7 +90,7 @@ namespace ARCed.Data
 				if (Location == Location.Local)
 					path = FullPath.Replace(System.IO.Directory.GetCurrentDirectory(), "");
 				else
-					path = FullPath.Replace(ResourceHelper.RTP_PATH, "");
+					path = FullPath.Replace(Constants.RTP_PATH, "");
 				return path.TrimStart('\\', '.');
 			}
 		}

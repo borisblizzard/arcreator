@@ -112,6 +112,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ArcData.cs" />
+    <Compile Include="Constants.cs" />
     <Compile Include="Controls\BattleEventPage.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -355,6 +356,7 @@
       <DependentUpon>WeaponMainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Data\GameResource.cs" />
+    <Compile Include="Controls\HighPrecisionTimer.cs" />
     <Compile Include="Dialogs\FontSelectionDialog.cs">
       <SubType>Form</SubType>
     </Compile>

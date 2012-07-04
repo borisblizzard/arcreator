@@ -291,8 +291,9 @@ namespace ARCed.Database.Actors
 		private void pictureCharacter_DoubleClick(object sender, EventArgs e)
 		{
 			using (ImageSelectionForm dialog = 
-				new ImageSelectionForm(@"Graphics\Characters", _actor.character_name, _actor.character_hue))
+				new ImageSelectionForm(@"Graphics\Characters", _actor.character_name))
 			{
+				dialog.Hue = _actor.character_hue;
 				dialog.SelectionEnabled = false;
 				if (dialog.ShowDialog(this) == DialogResult.OK)
 				{
@@ -307,8 +308,9 @@ namespace ARCed.Database.Actors
 		private void pictureBattler_DoubleClick(object sender, EventArgs e)
 		{
 			using (ImageSelectionForm dialog =
-				new ImageSelectionForm(@"Graphics\Battlers", _actor.battler_name, _actor.battler_hue))
+				new ImageSelectionForm(@"Graphics\Battlers", _actor.battler_name))
 			{
+				dialog.Hue = _actor.battler_hue;
 				dialog.SelectionEnabled = false;
 				if (dialog.ShowDialog(this) == DialogResult.OK)
 				{
