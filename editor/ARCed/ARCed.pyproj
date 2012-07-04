@@ -65,6 +65,7 @@
     <Compile Include="src\Core\Database\Configuration_Panel.py" />
     <Compile Include="src\Core\Database\Controls\EditorGLPanel.py" />
     <Compile Include="src\Core\Database\Controls\ImageCheckList.py" />
+    <Compile Include="src\Core\Database\Controls\ProportionalSplitter.py" />
     <Compile Include="src\Core\Database\Controls\ParameterGraph.py" />
     <Compile Include="src\Core\Database\Controls\ParameterPanel.py" />
     <Compile Include="src\Core\Database\Controls\ParameterPlotGraphics.py" />
@@ -176,7 +177,6 @@
     <Compile Include="src\Core\Database\Troops_Panel.py" />
     <Compile Include="src\Core\Database\Weapons_Panel.py" />
     <Compile Include="src\Core\Database\__init__.py" />
-    <Compile Include="src\Core\Database\__test__.py" />
     <Compile Include="src\Core\Icons.py" />
     <Compile Include="src\Core\MapEditor\MapEditorPanel.py" />
     <Compile Include="src\Core\MapEditor\BrushPanels.py" />

@@ -7,7 +7,7 @@ from Core import Panels
 
 class TilesetPanel(wx.ScrolledWindow, Panels.PanelBase):
     
-    _arc_panel_info_string = "Name Caption Left CloseB BestS MinimizeM Layer Row Pos MinimizeB"
+    _arc_panel_info_string = "Name Caption Left CloseB BestS MinimizeM Layer Row Pos MinimizeB DestroyOC"
     _arc_panel_info_data = {"Name": "Tileset", "Caption": "Tileset", "CloseB": False, "BestS": (32 * 8, 32 * 12), "MinimizeM": ["POS_SMART", "CAPT_SMART",], "Layer": 1, "Row": 1, "Pos": 1, "MinimizeB": True,}
 
     def __init__(self, parent):
@@ -18,8 +18,9 @@ class TilesetPanel(wx.ScrolledWindow, Panels.PanelBase):
 
 class MapTreePanel(wx.Panel, Panels.PanelBase):
 
-    _arc_panel_info_string = "Name Caption Left CloseB BestS MinimizeM Layer Row Pos MinimizeB"
-    _arc_panel_info_data = {"Name": "Maps", "Caption": "Maps", "CloseB": False, "BestS": (32 * 8, 32 * 4), "MinimizeM": ["POS_SMART", "CAPT_SMART",], "Layer": 1, "Row": 1, "Pos": 1, "MinimizeB": True,}
+    _arc_panel_info_string = "Name Caption Left CloseB BestS MinimizeM Layer Row Pos MinimizeB IconARCM DestroyOC"
+    _arc_panel_info_data = {"Name": "Maps", "Caption": "Maps", "CloseB": False, "BestS": (32 * 8, 32 * 4), 
+                            "MinimizeM": ["POS_SMART", "CAPT_SMART",], "Layer": 1, "Row": 1, "Pos": 1, "MinimizeB": True, 'IconARCM': 'project_icon'}
 
     def __init__(self, parent, mapEditerPanel=None):
         wx.Panel.__init__(self, parent)

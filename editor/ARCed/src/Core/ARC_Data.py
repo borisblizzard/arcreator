@@ -287,7 +287,7 @@ class ARC_Dump(object):
         else:
             klass_path = "%s::%s" % (obj.__class__.__module__, obj.__class__.__name__)
         ARC_Dump._dump_string(ARC_Dump.__get_class_path(klass_path)) # first the string path because this is required to load the object
-        if not ARC_Dump.__try_map_identity(_objects, obj): # abort if object has already been mapped
+        if not ARC_Dump.__try_map_identity(ARC_Dump.DestroyOC, obj): # abort if object has already been mapped
             return
         if hasattr(obj, "_arc_dump"):
             data = obj._arc_dump()

@@ -1,6 +1,6 @@
 import wx
 from Core.Database import ARCed_Templates as Templates
-from Core.Database.Dialogs import ChooseGraphic_Dialog, EnemyAction_Dialog
+from Core.Database.Dialogs import ChooseGraphic_Dialog, EnemyAction_Dialog, EnemyExpGold_Dialog, ChooseTreasure_Dialog
 from Core.RMXP.RGSS1_RPG import RPG
 from Core.Panels import PanelBase
 from Core.Database import Manager as DM
