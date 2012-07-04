@@ -233,7 +233,7 @@ namespace ARCed.Helpers
 		/// <returns>Cached image with effects applied</returns>
 		public static Image Fog(string filename, int hue = 0, int opacity = 255)
 		{
-			using (Image image = new Bitmap(LoadBitmap(@"Graphics\Characters", filename)))
+			using (Image image = new Bitmap(LoadBitmap(@"Graphics\Fogs", filename)))
 			{
 				if (hue != 0)
 					RotateHue(image, hue);
@@ -332,30 +332,6 @@ namespace ARCed.Helpers
 
 		/*
 
-		public static Image Fog(string filename, int hue, int opacity, float zoom)
-		{
-			string key = String.Format("Fog\\{0}, {1}, {2}", filename, hue, opacity);
-			if (!_cache.ContainsKey(key))
-			{
-				using (Image fog = Bitmap.FromFile(Util.GetLocation(filename, "Fogs")))
-				{
-					ImageAttributes imageAttr = new ImageAttributes();
-					QColorMatrix qm = new QColorMatrix();
-					if (hue != 0)
-						qm.RotateHue((float)hue);
-					if (opacity != 255)
-						qm.ScaleOpacity(opacity / 255.0f);
-					imageAttr.SetColorMatrix(qm.ToColorMatrix());
-					_cache[key] = new Bitmap(fog.Width, fog.Height);
-					Rectangle destRect = new Rectangle(0, 0, fog.Width, fog.Height);
-					using (Graphics g = Graphics.FromImage(_cache[key]))
-						g.DrawImage(fog, destRect, 0, 0, _cache[key].Width,
-							_cache[key].Height, GraphicsUnit.Pixel, imageAttr);
-				}
-			}
-			return _cache[key];
-		}
-
 		public static Image Tile(string filename, int tileId)
 		{
 			return Tile(filename, tileId, 255);
@@ -394,31 +370,6 @@ namespace ARCed.Helpers
 					_cache[key] = opaqueBitmap;
 				}
 			}
-			return _cache[key];
-		}
-
-		/// <summary>
-		/// Sets the source for the tileset and loads the image into memory
-		/// </summary>
-		/// <param frames="filename">The filename of the tileset</param>
-		private static void LoadTilesetSource(string filename)
-		{
-			currentTilesetName = filename;
-			currentTilesetBitmap = Image.FromFile(Util.GetLocation(filename, "Tilesets"));
-		}
-
-		/// <summary>
-		/// Retrieves the tile with ID of the specified tileset
-		/// </summary>
-		/// <param frames="filename">The filename of the autotile</param>
-		/// <param frames="index">The index of the autotile</param>
-		/// <param frames="frame">The frame (animated only, else 0)</param>
-		/// <returns>A 32x32 image</returns>
-		public static Image Autotile(string filename, int index, int frame)
-		{
-			string key = String.Format("Autotile\\{0}, {1}, {2}", filename, index % 48, frame);
-			if (!_cache.ContainsKey(key))
-				LoadAutotile(filename);
 			return _cache[key];
 		}
 

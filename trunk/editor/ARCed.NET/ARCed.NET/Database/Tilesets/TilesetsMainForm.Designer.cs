@@ -263,6 +263,7 @@
 			this.textBoxFog.Name = "textBoxFog";
 			this.textBoxFog.Size = new System.Drawing.Size(175, 20);
 			this.textBoxFog.TabIndex = 15;
+			this.textBoxFog.OnButtonClick += new ARCed.Controls.TextBoxButton.ButtonClickHandler(this.textBoxFog_OnButtonClick);
 			// 
 			// textBoxPanorama
 			// 
@@ -304,7 +305,7 @@
 			this.groupBoxAutotiles.Controls.Add(this.panelAutotiles);
 			this.groupBoxAutotiles.Location = new System.Drawing.Point(6, 209);
 			this.groupBoxAutotiles.Name = "groupBoxAutotiles";
-			this.groupBoxAutotiles.Size = new System.Drawing.Size(175, 196);
+			this.groupBoxAutotiles.Size = new System.Drawing.Size(175, 255);
 			this.groupBoxAutotiles.TabIndex = 9;
 			this.groupBoxAutotiles.TabStop = false;
 			this.groupBoxAutotiles.Text = "Autotiles";
@@ -317,7 +318,7 @@
 			this.panelAutotiles.AutoScroll = true;
 			this.panelAutotiles.Location = new System.Drawing.Point(7, 19);
 			this.panelAutotiles.Name = "panelAutotiles";
-			this.panelAutotiles.Size = new System.Drawing.Size(162, 171);
+			this.panelAutotiles.Size = new System.Drawing.Size(162, 230);
 			this.panelAutotiles.TabIndex = 0;
 			// 
 			// labelBattlebackGraphic

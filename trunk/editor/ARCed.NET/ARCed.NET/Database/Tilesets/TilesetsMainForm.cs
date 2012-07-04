@@ -16,7 +16,6 @@ namespace ARCed.Database.Tilesets
 	{
 
 		private RPG.Tileset _tileset;
-		private const int AUTOTILES = 7;
 
 		#region Protected Properties
 
@@ -43,7 +42,7 @@ namespace ARCed.Database.Tilesets
 
 		private void InitializeAutotiles()
 		{
-			for (int i = 0; i < AUTOTILES; i++)
+			for (int i = 0; i < Constants.AUTOTILES; i++)
 			{
 				TextBoxButton textBox = new TextBoxButton();
 				textBox.Tag = i;
@@ -187,7 +186,10 @@ namespace ARCed.Database.Tilesets
 				dialog.SelectionEnabled = false;
 				dialog.Hue = _tileset.panorama_hue;
 				if (dialog.ShowDialog(this) == DialogResult.OK)
+				{
 					_tileset.panorama_name = dialog.ImageName;
+					_tileset.panorama_hue = dialog.Hue;
+				}
 			}
 		}
 
@@ -200,7 +202,33 @@ namespace ARCed.Database.Tilesets
 				dialog.HueEnabled = false;
 				dialog.Width = 800;
 				if (dialog.ShowDialog(this) == DialogResult.OK)
-					_tileset.panorama_name = dialog.ImageName;
+					_tileset.battleback_name = dialog.ImageName;
+			}
+		}
+
+		private void textBoxFog_OnButtonClick(object sender, EventArgs e)
+		{
+			using (ImageSelectionForm dialog =
+				new ImageSelectionForm(@"Graphics\Fogs", _tileset.fog_name))
+			{
+				dialog.AdvancedOptionEnabled = true;
+				dialog.SelectionEnabled = false;
+				dialog.HueEnabled = true;
+				dialog.Hue = _tileset.fog_hue;
+				dialog.ScrollX = _tileset.fog_sx;
+				dialog.ScrollY = _tileset.fog_sy;
+				dialog.Zoom = _tileset.fog_zoom;
+				dialog.ImageOpacity = _tileset.fog_opacity;
+				dialog.BlendMode = _tileset.fog_blend_type;
+				if (dialog.ShowDialog(this) == DialogResult.OK)
+				{
+					_tileset.fog_name = dialog.ImageName;
+					_tileset.fog_hue = dialog.Hue;
+					_tileset.fog_opacity = dialog.ImageOpacity;
+					_tileset.fog_sx = dialog.ScrollX;
+					_tileset.fog_sy = dialog.ScrollY;
+					_tileset.fog_zoom = dialog.Zoom;
+				}
 			}
 		}
 

@@ -18,6 +18,7 @@ namespace ARCed.Dialogs
 		private List<GameResource> _resources;
 		private string _folder;
 		private string _filename;
+		private bool _initialized;
 
 		#endregion
 
@@ -35,6 +36,16 @@ namespace ARCed.Dialogs
 		{
 			get { return (int)trackBarHue.Value; }
 			set { trackBarHue.Value = value.Clamp(0, 359); }
+		}
+
+		public int ImageOpacity
+		{
+			get { return (int)numericOpacity.Value; }
+			set 
+			{ 
+				numericOpacity.Value = value.Clamp(0, 255);
+				pictureBox.ImageOpacity = value.Clamp(0, 255);
+			}
 		}
 
 		public int Zoom
@@ -111,8 +122,8 @@ namespace ARCed.Dialogs
 		/// </summary>
 		public bool AdvancedOptionEnabled
 		{
-			get { return numericZoom.Enabled && numericSX.Enabled && numericSY.Enabled; }
-			set { numericZoom.Enabled = numericSX.Enabled = numericSY.Enabled = value; }
+			get { return pictureBox.AdvancedEnabled; }
+			set { pictureBox.AdvancedEnabled = numericZoom.Enabled = numericSX.Enabled = numericSY.Enabled = value; }
 		}
 
 		#endregion
@@ -125,12 +136,11 @@ namespace ARCed.Dialogs
 		/// <param name="folder">Root folder searched for images</param>
 		/// <param name="filename">FullPath (without extension) of the _texture that is found in the current folder</param>
 		/// <param name="hue">Amount of hue rotation applied to the _texture</param>
-		public ImageSelectionForm(string folder, string filename, int hue = 0) : this()
+		public ImageSelectionForm(string folder, string filename) : this()
 		{
-			SetFolder(folder);
-			SetFilename(filename);
-			if (hue != 0)
-				trackBarHue.Value = hue;
+			// Find all valid filenames
+			_folder = folder;
+			_filename = filename;
 		}
 
 		/// <summary>
@@ -139,7 +149,19 @@ namespace ARCed.Dialogs
 		public ImageSelectionForm()
 		{
 			InitializeComponent();
-			_resources = new List<GameResource>();
+		}
+
+		private void ImageSelectionForm_Load(object sender, EventArgs e)
+		{
+			if (_folder != null)
+			{
+				_resources = ResourceHelper.GetTypes(_folder);
+				SetFolder(_folder);
+				SetFilename(_filename);
+			}
+			else
+				_resources = new List<GameResource>();
+			_initialized = true;
 		}
 
 		#endregion
@@ -148,9 +170,6 @@ namespace ARCed.Dialogs
 
 		private void SetFolder(string folder)
 		{
-			// Find all valid filenames
-			_folder = folder;
-			_resources = ResourceHelper.GetTypes(folder);
 			// Update listbox
 			listBoxGraphics.BeginUpdate();
 			listBoxGraphics.Items.Clear();
@@ -170,6 +189,18 @@ namespace ARCed.Dialogs
 		// TODO: Improve this to me more dyanamic
 		private void RefreshPicture()
 		{
+			if (!_initialized)
+				return;
+			if (OptionsEnabled)
+			{
+				pictureBox.BlendMode = comboBoxBlend.SelectedIndex;
+				if (AdvancedOptionEnabled)
+				{
+					pictureBox.Zoom = (int)numericZoom.Value;
+					pictureBox.ScrollX = (int)numericSX.Value;
+					pictureBox.ScrollY = (int)numericSY.Value;
+				}
+			}
 			switch (_folder)
 			{
 				case @"Graphics\Characters": 
@@ -191,7 +222,8 @@ namespace ARCed.Dialogs
 					pictureBox.Image = new Bitmap(Cache.Autotile(_filename));
 					break;
 				case @"Graphics\Fogs":
-					pictureBox.Image = new Bitmap(Cache.Fog(_filename, (int)trackBarHue.Value));
+					pictureBox.Image = 
+						new Bitmap(Cache.Fog(_filename, (int)trackBarHue.Value));
 					break;
 				case @"Graphics\Panoramas":
 					pictureBox.Image = new Bitmap(Cache.Panorama(_filename, (int)trackBarHue.Value));
@@ -216,7 +248,8 @@ namespace ARCed.Dialogs
 
 		private void imageOption_Changed(object sender, EventArgs e)
 		{
-			RefreshPicture();
+			if (_initialized)
+				RefreshPicture();
 		}
 
 		private void buttonOK_Click(object sender, EventArgs e)
@@ -244,6 +277,17 @@ namespace ARCed.Dialogs
 				e.Graphics.DrawString("     " + str, e.Font, Brushes.Black, e.Bounds);
 				e.DrawFocusRectangle();
 			}
+		}
+
+		private void checkAlphaPreview_CheckedChanged(object sender, EventArgs e)
+		{
+			pictureBox.AlphaPreview = checkAlphaPreview.Checked;
+			pictureBox.Invalidate();
+		}
+
+		private void numericOpacity_ValueChanged(object sender, EventArgs e)
+		{
+			pictureBox.ImageOpacity = (int)numericOpacity.Value;
 		}
 	}
 }

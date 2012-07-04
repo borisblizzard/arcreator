@@ -30,13 +30,6 @@ namespace ARCed.Controls
 	{
 		#region Private Fields
 
-		private const int TILESIZE = 32;
-		private const int MAXWIDTH = 256;
-		private const int TILEWIDTH = 8;
-		private const int AUTO_IDS = 384;
-		private const int PRIORITIES = 6;
-		private const int TERRAINS = 8;
-
 		private static int _currentId;
 		private static Texture2D _rectTexture;
 		private static XnaColor _currentColor;
@@ -69,7 +62,11 @@ namespace ARCed.Controls
 		[Browsable(false)]
 		public int TileCount
 		{
-			get { return (MAXWIDTH / TILESIZE) * (_tilesetTexture.Height / TILESIZE); }
+			get
+			{
+				return (Constants.MAXWIDTH / Constants.TILESIZE) * 
+				(_tilesetTexture.Height / Constants.TILESIZE); 
+			}
 		}
 
 		/// <summary>
@@ -90,12 +87,12 @@ namespace ARCed.Controls
 		{
 			get
 			{
-				int sx = Math.Min(_originPoint.X, _endPoint.X).RoundFloor(TILESIZE);
-				int ex = Math.Max(_originPoint.X, _endPoint.X).RoundCeil(TILESIZE);
-				int sy = Math.Min(_originPoint.Y, _endPoint.Y).RoundFloor(TILESIZE);
-				int ey = Math.Max(_originPoint.Y, _endPoint.Y).RoundCeil(TILESIZE);
-				return new XnaRect(Math.Max(0, sx), Math.Max(0, sy), 
-					Math.Min(MAXWIDTH, ex - sx + 1), Math.Min(ey - sy, Height) + 1);
+				int sx = Math.Min(_originPoint.X, _endPoint.X).RoundFloor(Constants.TILESIZE);
+				int ex = Math.Max(_originPoint.X, _endPoint.X).RoundCeil(Constants.TILESIZE);
+				int sy = Math.Min(_originPoint.Y, _endPoint.Y).RoundFloor(Constants.TILESIZE);
+				int ey = Math.Max(_originPoint.Y, _endPoint.Y).RoundCeil(Constants.TILESIZE);
+				return new XnaRect(Math.Max(0, sx), Math.Max(0, sy),
+					Math.Min(Constants.MAXWIDTH, ex - sx + 1), Math.Min(ey - sy, Height) + 1);
 			}
 		}
 
@@ -165,9 +162,9 @@ namespace ARCed.Controls
 		/// <returns>ID of the tile that contains the coordinates.</returns>
 		public int GetTileAtPoint(int x, int y)
 		{
-			int row = x / TILESIZE;
-			int column = y / TILESIZE;
-			return AUTO_IDS + (row + (column * TILEWIDTH));
+			int row = x / Constants.TILESIZE;
+			int column = y / Constants.TILESIZE;
+			return Constants.AUTO_IDS + (row + (column * Constants.TILEWIDTH));
 		}
 
 		/// <summary>
@@ -229,10 +226,10 @@ namespace ARCed.Controls
 				if (Settings.ShowGrid)
 				{
 					int h = _tilesetTexture.Height;
-					for (int x = TILESIZE; x < MAXWIDTH; x += TILESIZE)
+					for (int x = Constants.TILESIZE; x < Constants.MAXWIDTH; x += Constants.TILESIZE)
 						_batch.Draw(_rectTexture, new XnaRect(x, 0, 1, h), Settings.GridColor);
-					for (int y = TILESIZE; y < h; y += TILESIZE)
-						_batch.Draw(_rectTexture, new XnaRect(0, y, MAXWIDTH, 1), Settings.GridColor);
+					for (int y = Constants.TILESIZE; y < h; y += Constants.TILESIZE)
+						_batch.Draw(_rectTexture, new XnaRect(0, y, Constants.MAXWIDTH, 1), Settings.GridColor);
 				}
 				switch (TilesetMode)
 				{
@@ -262,10 +259,10 @@ namespace ARCed.Controls
 		private void RefreshPassage()
 		{
 			int x, y, passage;
-			for (int i = AUTO_IDS; i < Tileset.passages.xsize; i++)
+			for (int i = Constants.AUTO_IDS; i < Tileset.passages.xsize; i++)
 			{
-				x = (i - AUTO_IDS) % TILEWIDTH * TILESIZE;
-				y = (i - AUTO_IDS) / TILEWIDTH * TILESIZE;
+				x = (i - Constants.AUTO_IDS) % Constants.TILEWIDTH * Constants.TILESIZE;
+				y = (i - Constants.AUTO_IDS) / Constants.TILEWIDTH * Constants.TILESIZE;
 				passage = Tileset.passages[i];
 				_currentColor = (_currentId == i) ? XnaColor.White : _semiTransparent;
 				_batch.Draw(IconCache.Passage(passage), new Vector2(x, y), _currentColor);
@@ -275,10 +272,10 @@ namespace ARCed.Controls
 		private void RefreshPassage4Dir()
 		{
 			int x, y, passage;
-			for (int i = AUTO_IDS; i < Tileset.passages.xsize; i++)
+			for (int i = Constants.AUTO_IDS; i < Tileset.passages.xsize; i++)
 			{
-				x = (i - AUTO_IDS) % TILEWIDTH * TILESIZE;
-				y = (i - AUTO_IDS) / TILEWIDTH * TILESIZE;
+				x = (i - Constants.AUTO_IDS) % Constants.TILEWIDTH * Constants.TILESIZE;
+				y = (i - Constants.AUTO_IDS) / Constants.TILEWIDTH * Constants.TILESIZE;
 				passage = Tileset.passages[i];
 				if (_currentId != i)
 					_batch.Draw(IconCache.Passage4Dir(passage), new Vector2(x, y), _semiTransparent);
@@ -290,10 +287,10 @@ namespace ARCed.Controls
 		private void RefreshPriority()
 		{
 			int x, y, priority;
-			for (int i = AUTO_IDS; i < Tileset.priorities.xsize; i++)
+			for (int i = Constants.AUTO_IDS; i < Tileset.priorities.xsize; i++)
 			{
-				x = (i - AUTO_IDS) % TILEWIDTH * TILESIZE;
-				y = (i - AUTO_IDS) / TILEWIDTH * TILESIZE;
+				x = (i - Constants.AUTO_IDS) % Constants.TILEWIDTH * Constants.TILESIZE;
+				y = (i - Constants.AUTO_IDS) / Constants.TILEWIDTH * Constants.TILESIZE;
 				priority = Tileset.priorities[i];
 				_currentColor = (_currentId == i) ? XnaColor.White : _semiTransparent;
 				_batch.Draw(IconCache.Priority(priority), new Vector2(x, y), _currentColor);
@@ -303,10 +300,10 @@ namespace ARCed.Controls
 		private void RefreshBush()
 		{
 			int x, y, passage;
-			for (int i = AUTO_IDS; i < Tileset.passages.xsize; i++)
+			for (int i = Constants.AUTO_IDS; i < Tileset.passages.xsize; i++)
 			{
-				x = (i - AUTO_IDS) % TILEWIDTH * TILESIZE;
-				y = (i - AUTO_IDS) / TILEWIDTH * TILESIZE;
+				x = (i - Constants.AUTO_IDS) % Constants.TILEWIDTH * Constants.TILESIZE;
+				y = (i - Constants.AUTO_IDS) / Constants.TILEWIDTH * Constants.TILESIZE;
 				passage = Tileset.passages[i];
 				_currentColor = (_currentId == i) ? XnaColor.White : _semiTransparent;
 				_batch.Draw(IconCache.Bush(passage), new Vector2(x, y), _currentColor);
@@ -316,10 +313,10 @@ namespace ARCed.Controls
 		private void RefreshCounter()
 		{
 			int x, y, passage;
-			for (int i = AUTO_IDS; i < Tileset.passages.xsize; i++)
+			for (int i = Constants.AUTO_IDS; i < Tileset.passages.xsize; i++)
 			{
-				x = (i - AUTO_IDS) % TILEWIDTH * TILESIZE;
-				y = (i - AUTO_IDS) / TILEWIDTH * TILESIZE;
+				x = (i - Constants.AUTO_IDS) % Constants.TILEWIDTH * Constants.TILESIZE;
+				y = (i - Constants.AUTO_IDS) / Constants.TILEWIDTH * Constants.TILESIZE;
 				passage = Tileset.passages[i];
 				_currentColor = (_currentId == i) ? XnaColor.White : _semiTransparent;
 				_batch.Draw(IconCache.Counter(passage), new Vector2(x, y), _currentColor);
@@ -329,10 +326,10 @@ namespace ARCed.Controls
 		private void RefreshTerrain()
 		{
 			int x, y, terrain;
-			for (int i = AUTO_IDS; i < Tileset.terrain_tags.xsize; i++)
+			for (int i = Constants.AUTO_IDS; i < Tileset.terrain_tags.xsize; i++)
 			{
-				x = (i - AUTO_IDS) % TILEWIDTH * TILESIZE;
-				y = (i - AUTO_IDS) / TILEWIDTH * TILESIZE;
+				x = (i - Constants.AUTO_IDS) % Constants.TILEWIDTH * Constants.TILESIZE;
+				y = (i - Constants.AUTO_IDS) / Constants.TILEWIDTH * Constants.TILESIZE;
 				terrain = Tileset.terrain_tags[i];
 				_currentColor = (_currentId == i) ? XnaColor.White : _semiTransparent;
 				_batch.Draw(IconCache.Terrain(terrain), new Vector2(x, y), _currentColor);
@@ -366,7 +363,10 @@ namespace ARCed.Controls
 
 		private void TroopXnaPanel_Disposed(object sender, EventArgs e)
 		{
-			
+			if (_tilesetTexture != null)
+				_tilesetTexture.Dispose();
+			_rectTexture.Dispose();
+			_batch.Dispose();
 		}
 
 		private void TroopXnaPanel_MouseMove(object sender, MouseEventArgs e)
@@ -414,14 +414,14 @@ namespace ARCed.Controls
 			}
 			else if (TilesetMode == TilesetMode.Passage4Dir)
 			{
-				int half = TILESIZE / 2;
-				int x = 1 + e.X % TILESIZE;
-				int y = 1 + e.Y % TILESIZE;
+				int half = Constants.TILESIZE / 2;
+				int x = 1 + e.X % Constants.TILESIZE;
+				int y = 1 + e.Y % Constants.TILESIZE;
 				List<double> dist = new List<double>
 				{
-					Math.Pow(half - x, 2) + Math.Pow(TILESIZE - y, 2), // Bottom
+					Math.Pow(half - x, 2) + Math.Pow(Constants.TILESIZE - y, 2), // Bottom
 					Math.Pow(x, 2) + Math.Pow(half - y, 2),            // Left
-					Math.Pow(TILESIZE - x, 2) + Math.Pow(half - y, 2), // Right
+					Math.Pow(Constants.TILESIZE - x, 2) + Math.Pow(half - y, 2), // Right
 					Math.Pow(half - x, 2) + Math.Pow(y, 2)             // Top
 				};
 				int index = dist.IndexOf(dist.Min());
@@ -434,12 +434,12 @@ namespace ARCed.Controls
 			else if (TilesetMode == TilesetMode.Priority)
 			{
 				if (e.Button == MouseButtons.Left)
-					_tileset.priorities[id] = (_tileset.priorities[id] + 1) % PRIORITIES;
+					_tileset.priorities[id] = (_tileset.priorities[id] + 1) % Constants.PRIORITIES;
 				else 
 				{
 					_tileset.priorities[id]--;
 					if (_tileset.priorities[id] < 0)
-						_tileset.priorities[id] = PRIORITIES - 1;
+						_tileset.priorities[id] = Constants.PRIORITIES - 1;
 				}
 			}
 			else if (TilesetMode == TilesetMode.Bush)
@@ -459,12 +459,12 @@ namespace ARCed.Controls
 			else if (TilesetMode == TilesetMode.Terrain)
 			{
 				if (e.Button == MouseButtons.Left)
-					_tileset.terrain_tags[id] = (_tileset.terrain_tags[id] + 1) % TERRAINS;
+					_tileset.terrain_tags[id] = (_tileset.terrain_tags[id] + 1) % Constants.TERRAINS;
 				else
 				{
 					_tileset.terrain_tags[id]--;
 					if (_tileset.terrain_tags[id] < 0)
-						_tileset.terrain_tags[id] = TERRAINS - 1;
+						_tileset.terrain_tags[id] = Constants.TERRAINS - 1;
 				}
 			}
 			Invalidate(); 
