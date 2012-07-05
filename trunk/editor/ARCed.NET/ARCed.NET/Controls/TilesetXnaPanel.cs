@@ -121,7 +121,7 @@ namespace ARCed.Controls
 		}
 
 
-		public RPG.Tileset Tileset 
+		public RPG.Tileset Tileset
 		{
 			get { return _tileset; }
 			set
@@ -130,9 +130,19 @@ namespace ARCed.Controls
 				{
 					_tileset = value;
 					Image image = Cache.Tileset(value.tileset_name);
-					_tilesetTexture = image.ToTexture(GraphicsDevice);
-					this.Size = image.Size;
-					Invalidate();
+					if (image == null)
+					{
+						GraphicsDevice.Clear(XnaColor.White);
+						_tilesetTexture = null;
+						this.Size = new Size(0, 0);
+						Refresh();
+					}
+					else
+					{
+						_tilesetTexture = image.ToTexture(GraphicsDevice);
+						this.Size = image.Size;
+						Invalidate();
+					}
 				}
 			}
 		}

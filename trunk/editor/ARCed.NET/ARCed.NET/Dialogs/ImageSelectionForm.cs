@@ -104,8 +104,8 @@ namespace ARCed.Dialogs
 		/// </summary>
 		public bool HueEnabled 
 		{
-			get { return groupBoxHue.Visible; }
-			set { groupBoxHue.Visible = value; }
+			get { return groupBoxHue.Enabled; }
+			set { groupBoxHue.Enabled = value; }
 		}
 
 		/// <summary>
@@ -113,8 +113,8 @@ namespace ARCed.Dialogs
 		/// </summary>
 		public bool OptionsEnabled
 		{
-			get { return groupBoxOptions.Visible; }
-			set { groupBoxOptions.Visible = value; }
+			get { return groupBoxOptions.Enabled; }
+			set { groupBoxOptions.Enabled = value; }
 		}
 
 		/// <summary>
@@ -123,12 +123,22 @@ namespace ARCed.Dialogs
 		public bool AdvancedOptionEnabled
 		{
 			get { return pictureBox.AdvancedEnabled; }
-			set { pictureBox.AdvancedEnabled = numericZoom.Enabled = numericSX.Enabled = numericSY.Enabled = value; }
+			set { pictureBox.AdvancedEnabled = panelAdvanced.Enabled = value; }
 		}
 
 		#endregion
 
 		#region Construction
+
+		public void SetDefaultOptions(string folder)
+		{
+			List<string> hue = new List<string> { "Animations", "Battlers", "Characters",
+				"Fogs", "Panoramas", "Pictures" };
+			List<string> options = new List<string> { "Battlers", "Characters", "Fogs" };
+			OptionsEnabled = options.Contains(folder);
+			HueEnabled = hue.Contains(folder);
+			AdvancedOptionEnabled = (folder == "Fogs");
+		}
 
 		/// <summary>
 		/// Constructor that sets the folder and selected _texture
@@ -155,13 +165,17 @@ namespace ARCed.Dialogs
 		{
 			if (_folder != null)
 			{
+				SetDefaultOptions(_folder);
+				if (!_folder.StartsWith("Graphics"))
+					_folder = Path.Combine("Graphics", _folder);
 				_resources = ResourceHelper.GetTypes(_folder);
 				SetFolder(_folder);
-				SetFilename(_filename);
 			}
 			else
 				_resources = new List<GameResource>();
 			_initialized = true;
+			if (_filename != null)
+				SetFilename(_filename);
 		}
 
 		#endregion

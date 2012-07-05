@@ -1,12 +1,10 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Drawing;
-using ARCed.Database.Tilesets;
 using System.Linq;
-using ARCed.Helpers;
-using System.Collections.Generic;
-using Microsoft.Xna.Framework.Graphics;
 using System.Windows.Forms;
+using ARCed.Database.Tilesets;
+using Microsoft.Xna.Framework.Graphics;
 using Vector2 = Microsoft.Xna.Framework.Vector2;
 using XnaColor = Microsoft.Xna.Framework.Color;
 using XnaRect = Microsoft.Xna.Framework.Rectangle;
@@ -22,15 +20,13 @@ namespace ARCed.Controls
 
 		private float planeSx, planeSy;
 		private int _cx, _cy, _sx, _sy, _zoom, _blendMode;
-
 		private bool _advanced, _mouseDown;
-
 		private Timer _timer;
 		private static Texture2D _rectTexture;
-		Image _image;
-		Texture2D _texture;
-		SpriteBatch _batch;
-		Point _originPoint, _endPoint;
+		private Image _image;
+		private Texture2D _texture;
+		private SpriteBatch _batch;
+		private Point _originPoint, _endPoint;
 		private static XnaColor _blendColor = XnaColor.White;
 		private static XnaColor _semiTransparent = new XnaColor(160, 160, 160, 160);
 
@@ -38,6 +34,9 @@ namespace ARCed.Controls
 
 		#region Public Properties
 
+		/// <summary>
+		/// Gets or sets the image that will be displayed.
+		/// </summary>
 		[Browsable(false)]
 		public Image Image 
 		{
@@ -48,7 +47,7 @@ namespace ARCed.Controls
 				if (value == null)
 				{
 					_texture = null;
-					this.Size = Size.Empty;
+					this.Size = new Size(0, 0);
 				}
 				else
 				{
@@ -60,6 +59,10 @@ namespace ARCed.Controls
 			}
 		}
 
+		/// <summary>
+		/// Gets or sets the opacity of the image. Full opacity is used unless 
+		/// "AlphaPreview" is true.
+		/// </summary>
 		[Browsable(false)]
 		public int ImageOpacity 
 		{
@@ -74,9 +77,15 @@ namespace ARCed.Controls
 			}
 		}
 
+		/// <summary>
+		/// Gets or sets the flag to show alpha transparency in the preview window.
+		/// </summary>
 		[Browsable(false)]
 		public bool AlphaPreview { get; set; }
 
+		/// <summary>
+		/// Gets or sets the speed at which the image scrolls on the X-Axis.
+		/// </summary>
 		[Browsable(false)]
 		public int ScrollX 
 		{
@@ -84,6 +93,9 @@ namespace ARCed.Controls
 			set { _sx = value; planeSx = value / 8.0f; Invalidate(); }
 		}
 
+		/// <summary>
+		/// Gets or sets the speed at which the image scrolls on the Y-Axis.
+		/// </summary>
 		[Browsable(false)]
 		public int ScrollY
 		{
@@ -91,6 +103,9 @@ namespace ARCed.Controls
 			set { _sy = value; planeSy = value / 8.0f;  Invalidate(); }
 		}
 
+		/// <summary>
+		/// Gets or sets the zoom factor to apply to the image.
+		/// </summary>
 		[Browsable(false)]
 		public int Zoom 
 		{
@@ -98,6 +113,9 @@ namespace ARCed.Controls
 			set { _zoom = value; Invalidate(); }
 		}
 
+		/// <summary>
+		/// Gets or sets the blend mode of the image.
+		/// </summary>
 		[Browsable(false)]
 		public int BlendMode
 		{
@@ -105,6 +123,9 @@ namespace ARCed.Controls
 			set { _blendMode = value; Invalidate(); }
 		}
 
+		/// <summary>
+		/// Gets or sets the flag to use advanced drawing techniques such as alpha and scrolling.
+		/// </summary>
 		[Browsable(false)]
 		public bool AdvancedEnabled 
 		{
@@ -129,10 +150,17 @@ namespace ARCed.Controls
 					_timer.Start();
 				}
 				else
+				{
 					this.Dock = DockStyle.None;
+					if (_image != null)
+						this.Size = _image.Size;
+				}
 			}
 		}
 
+		/// <summary>
+		/// Gets or sets the flag to allow selection of tiles on the image.
+		/// </summary>
 		[Browsable(false)]
 		public bool SelectionEnabled { get; set; }
 
@@ -213,16 +241,6 @@ namespace ARCed.Controls
 			this.MouseMove += new MouseEventHandler(imageXnaPanel_MouseMove);
 		}
 
-		private void imageSelectXnaPanel_Disposed(object sender, EventArgs e)
-		{
-			if (_image != null)
-				_image.Dispose();
-			if (_texture != null)
-				_texture.Dispose();
-			_rectTexture.Dispose();
-			_batch.Dispose();
-		}
-
 		/// <summary>
 		/// Performs painting of the control
 		/// </summary>
@@ -254,8 +272,9 @@ namespace ARCed.Controls
 				}
 				else
 				{
+					_batch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
 					GraphicsDevice.Clear(XnaColor.DarkGray);
-					_batch.Begin();
+					FillRectangle(0, 0, _texture.Width, _texture.Height, XnaColor.White);
 					_batch.Draw(_texture, new Vector2(0, 0), XnaColor.White);
 				}
 				if (_originPoint != _endPoint)
@@ -275,6 +294,16 @@ namespace ARCed.Controls
 
 		#region Private Methods
 
+		private void imageSelectXnaPanel_Disposed(object sender, EventArgs e)
+		{
+			if (_image != null)
+				_image.Dispose();
+			if (_texture != null)
+				_texture.Dispose();
+			_rectTexture.Dispose();
+			_batch.Dispose();
+		}
+
 		private void _timer_Tick(object sender, EventArgs e)
 		{
 			if (_texture != null)
@@ -288,6 +317,14 @@ namespace ARCed.Controls
 		private void ResetPoints()
 		{
 			_originPoint = _endPoint = new Point(-1, -1);
+		}
+
+		private void FillRectangle(int x, int y, int width, int height, XnaColor color)
+		{
+			Texture2D rectangleTexture = new Texture2D(GraphicsDevice, width, height);
+			XnaColor[] colors = Enumerable.Repeat(color, width * height).ToArray();
+			rectangleTexture.SetData(colors);
+			_batch.Draw(rectangleTexture, new Vector2(x, y), XnaColor.White);
 		}
 
 		/// <summary>

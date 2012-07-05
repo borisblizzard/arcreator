@@ -58,13 +58,14 @@ namespace ARCed.Database.Tilesets
 		{
 			int index = Convert.ToInt32((sender as TextBoxButton).Tag);
 			string tile = _tileset.autotile_names[index];
-			using (ImageSelectionForm dialog = new ImageSelectionForm(@"Graphics\Autotiles", tile))
+			using (ImageSelectionForm dialog = new ImageSelectionForm(@"Autotiles", tile))
 			{
-				dialog.SelectionEnabled = false;
-				dialog.HueEnabled = false;
 				if (dialog.ShowDialog(this) == DialogResult.OK)
 				{
-					_tileset.autotile_names[index] = dialog.ImageName;
+					string name = dialog.ImageName;
+					_tileset.autotile_names[index] = name;
+					(sender as TextBoxButton).Text = String.IsNullOrWhiteSpace(name) ?
+						"<None>" : name;
 					tilesetXnaPanel.Invalidate();
 				}
 			}
@@ -82,7 +83,6 @@ namespace ARCed.Database.Tilesets
 		public override void RefreshCurrentObject()
 		{
 			suppressEvents = true;
-
 			tilesetXnaPanel.Tileset = _tileset;
 			textBoxName.Text = _tileset.name;
 			textBoxTileset.Text = String.IsNullOrWhiteSpace(_tileset.tileset_name) ?
@@ -158,37 +158,46 @@ namespace ARCed.Database.Tilesets
 		{
 			int mode = Convert.ToInt32((sender as RadioButton).Tag);
 			tilesetXnaPanel.TilesetMode = (TilesetMode)mode;
-			
-
 		}
 
 		private void textBoxTileset_OnButtonClick(object sender, EventArgs e)
 		{
 			using (ImageSelectionForm dialog = 
-				new ImageSelectionForm(@"Graphics\Tilesets", _tileset.tileset_name))
+				new ImageSelectionForm(@"Tilesets", _tileset.tileset_name))
 			{
-				dialog.SelectionEnabled = false;
-				dialog.HueEnabled = false;
 				dialog.Height = 640;
 				if (dialog.ShowDialog(this) == DialogResult.OK)
 				{
 					_tileset.tileset_name = dialog.ImageName;
-					tilesetXnaPanel.Invalidate();
+					ResizeTileset();
+					textBoxTileset.Text = _tileset.tileset_name;
 				}
 			}
 		}
 
-		private void textBoxPanorama_OnButtonClick(object sender, EventArgs e)
+		private void ResizeTileset()
+		{
+			tilesetXnaPanel.Tileset = _tileset;
+			Size size = tilesetXnaPanel.Size;
+			int ids = (size.Height / Constants.TILESIZE) * (size.Width / Constants.TILESIZE);
+			ids += Constants.AUTO_IDS;
+			_tileset.priorities.resize(ids);
+			_tileset.passages.resize(ids);
+			_tileset.terrain_tags.resize(ids);
+			RefreshCurrentObject();
+		}	
+	
+		 void textBoxPanorama_OnButtonClick(object sender, EventArgs e)
 		{
 			using (ImageSelectionForm dialog =
-				new ImageSelectionForm(@"Graphics\Panoramas", _tileset.panorama_name))
+				new ImageSelectionForm(@"Panoramas", _tileset.panorama_name))
 			{
-				dialog.SelectionEnabled = false;
 				dialog.Hue = _tileset.panorama_hue;
 				if (dialog.ShowDialog(this) == DialogResult.OK)
 				{
 					_tileset.panorama_name = dialog.ImageName;
 					_tileset.panorama_hue = dialog.Hue;
+					textBoxPanorama.Text = _tileset.panorama_name;
 				}
 			}
 		}
@@ -196,24 +205,26 @@ namespace ARCed.Database.Tilesets
 		private void textBoxBattleback_OnButtonClick(object sender, EventArgs e)
 		{
 			using (ImageSelectionForm dialog =
-				new ImageSelectionForm(@"Graphics\Battlebacks", _tileset.battleback_name))
+				new ImageSelectionForm(@"Battlebacks", _tileset.battleback_name))
 			{
-				dialog.SelectionEnabled = false;
-				dialog.HueEnabled = false;
+				//dialog.OptionsEnabled = false;
+				//dialog.AdvancedOptionEnabled = false;
+				//dialog.SelectionEnabled = false;
+				//dialog.HueEnabled = false;
 				dialog.Width = 800;
 				if (dialog.ShowDialog(this) == DialogResult.OK)
+				{
 					_tileset.battleback_name = dialog.ImageName;
-			}
+					textBoxBattleback.Text = _tileset.battleback_name;
+				}
+			}	
 		}
 
 		private void textBoxFog_OnButtonClick(object sender, EventArgs e)
 		{
 			using (ImageSelectionForm dialog =
-				new ImageSelectionForm(@"Graphics\Fogs", _tileset.fog_name))
+				new ImageSelectionForm(@"Fogs", _tileset.fog_name))
 			{
-				dialog.AdvancedOptionEnabled = true;
-				dialog.SelectionEnabled = false;
-				dialog.HueEnabled = true;
 				dialog.Hue = _tileset.fog_hue;
 				dialog.ScrollX = _tileset.fog_sx;
 				dialog.ScrollY = _tileset.fog_sy;
@@ -228,6 +239,7 @@ namespace ARCed.Database.Tilesets
 					_tileset.fog_sx = dialog.ScrollX;
 					_tileset.fog_sy = dialog.ScrollY;
 					_tileset.fog_zoom = dialog.Zoom;
+					textBoxFog.Text = _tileset.fog_name;
 				}
 			}
 		}

@@ -58,7 +58,7 @@ namespace ARCed.Helpers
 		{
 			string path = ResourceHelper.GetFullPath(folder, filename);
 			if (String.IsNullOrEmpty(path))
-				return new Bitmap(32, 32);
+				return null;
 			if (_cache.ContainsKey(path))
 				return _cache[path];
 			try
@@ -66,7 +66,7 @@ namespace ARCed.Helpers
 				_cache[path] = Image.FromFile(path);
 				return _cache[path];
 			}
-			catch { return new Bitmap(32, 32); }
+			catch { return null; }
 		}
 
 		/// <summary>
@@ -153,7 +153,10 @@ namespace ARCed.Helpers
 		/// <returns>Cached image with effects applied</returns>
 		public static Image Autotile(string filename, int hue = 0, int opacity = 255)
 		{
-			using (Image image = new Bitmap(LoadBitmap(@"Graphics\Autotiles", filename)))
+			Image bitmap = LoadBitmap(@"Graphics\Autotiles", filename);
+			if (bitmap == null)
+				return null;
+			using (Image image = new Bitmap(bitmap))
 			{
 				if (hue != 0)
 					RotateHue(image, hue);
@@ -173,7 +176,10 @@ namespace ARCed.Helpers
 		/// <returns>Cached image with effects applied</returns>
 		public static Image Icon(string filename, int hue = 0, int opacity = 255)
 		{
-			using (Image image = new Bitmap(LoadBitmap(@"Graphics\Icons", filename)))
+			Image bitmap = LoadBitmap(@"Graphics\Icons", filename);
+			if (bitmap == null)
+				return null;
+			using (Image image = new Bitmap(bitmap))
 			{
 				if (hue != 0)
 					RotateHue(image, hue);
@@ -193,7 +199,10 @@ namespace ARCed.Helpers
 		/// <returns>Cached image with effects applied</returns>
 		public static Image Character(string filename, int hue = 0, int opacity = 255)
 		{
-			using (Image image = new Bitmap(LoadBitmap(@"Graphics\Characters", filename)))
+			Image bitmap = LoadBitmap(@"Graphics\Characters", filename);
+			if (bitmap == null)
+				return null;
+			using (Image image = new Bitmap(bitmap))
 			{
 				if (hue != 0)
 					RotateHue(image, hue);
@@ -213,7 +222,10 @@ namespace ARCed.Helpers
 		/// <returns>Cached image with effects applied</returns>
 		public static Image Tileset(string filename, int hue = 0, int opacity = 255)
 		{
-			using (Image image = new Bitmap(LoadBitmap(@"Graphics\Tilesets", filename)))
+			Image bitmap = LoadBitmap(@"Graphics\Tilesets", filename);
+			if (bitmap == null)
+				return null;
+			using (Image image = new Bitmap(bitmap))
 			{
 				if (hue != 0)
 					RotateHue(image, hue);
@@ -233,7 +245,10 @@ namespace ARCed.Helpers
 		/// <returns>Cached image with effects applied</returns>
 		public static Image Fog(string filename, int hue = 0, int opacity = 255)
 		{
-			using (Image image = new Bitmap(LoadBitmap(@"Graphics\Fogs", filename)))
+			Image bitmap = LoadBitmap(@"Graphics\Fogs", filename);
+			if (bitmap == null)
+				return null;
+			using (Image image = new Bitmap(bitmap))
 			{
 				if (hue != 0)
 					RotateHue(image, hue);
@@ -253,7 +268,10 @@ namespace ARCed.Helpers
 		/// <returns>Cached image with effects applied</returns>
 		public static Image Panorama(string filename, int hue = 0, int opacity = 255)
 		{
-			using (Image image = new Bitmap(LoadBitmap(@"Graphics\Panoramas", filename)))
+			Image bitmap = LoadBitmap(@"Graphics\Panoramas", filename);
+			if (bitmap == null)
+				return null;
+			using (Image image = new Bitmap(bitmap))
 			{
 				if (hue != 0)
 					RotateHue(image, hue);
@@ -273,7 +291,10 @@ namespace ARCed.Helpers
 		/// <returns>Cached image with effects applied</returns>
 		public static Image Battleback(string filename, int hue = 0, int opacity = 255)
 		{
-			using (Image image = new Bitmap(LoadBitmap(@"Graphics\Battlebacks", filename)))
+			Image bitmap = LoadBitmap(@"Graphics\Battlebacks", filename);
+			if (bitmap == null)
+				return null;
+			using (Image image = new Bitmap(bitmap))
 			{
 				if (hue != 0)
 					RotateHue(image, hue);
@@ -318,7 +339,10 @@ namespace ARCed.Helpers
 		/// <returns>Cached image with effects applied</returns>
 		public static Image Battler(string filename, int hue = 0, int opacity = 255)
 		{
-			using (Image image = new Bitmap(LoadBitmap(@"Graphics\Battlers", filename)))
+			Image bitmap = LoadBitmap(@"Graphics\Battlers", filename);
+			if (bitmap == null)
+				return null;
+			using (Image image = new Bitmap(bitmap))
 			{
 				if (hue != 0)
 					RotateHue(image, hue);
