@@ -368,10 +368,9 @@ namespace ARCed.Database.Enemies
 		private void pictureBattler_DoubleClick(object sender, EventArgs e)
 		{
 			using (ImageSelectionForm dialog =
-				new ImageSelectionForm(@"Graphics\Battlers", _enemy.battler_name))
+				new ImageSelectionForm(@"Battlers", _enemy.battler_name))
 			{
 				dialog.Hue = _enemy.battler_hue;
-				dialog.SelectionEnabled = false;
 				if (dialog.ShowDialog(this) == DialogResult.OK)
 				{
 					_enemy.battler_name = dialog.ImageName;

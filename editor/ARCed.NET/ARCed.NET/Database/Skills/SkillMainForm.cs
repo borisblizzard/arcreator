@@ -233,10 +233,8 @@ namespace ARCed.Database.Skills
 
 		private void buttonIcon_Click(object sender, EventArgs e)
 		{
-			using (ImageSelectionForm dialog = new ImageSelectionForm(@"Graphics\Icons", _skill.icon_name))
+			using (ImageSelectionForm dialog = new ImageSelectionForm(@"Icons", _skill.icon_name))
 			{
-				dialog.SelectionEnabled = false;
-				dialog.HueEnabled = false;
 				if (dialog.ShowDialog(this) == DialogResult.OK)
 				{
 					_skill.icon_name = dialog.ImageName;

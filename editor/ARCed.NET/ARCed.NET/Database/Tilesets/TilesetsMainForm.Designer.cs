@@ -28,7 +28,7 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+			this.splitContainer = new System.Windows.Forms.SplitContainer();
 			this.dataObjectList = new ARCed.Controls.DatabaseObjectListBox();
 			this.radioTerrain = new System.Windows.Forms.RadioButton();
 			this.radioCounter = new System.Windows.Forms.RadioButton();
@@ -52,49 +52,49 @@
 			this.labelPanoramaGraphic = new System.Windows.Forms.Label();
 			this.labelTilesetGraphic = new System.Windows.Forms.Label();
 			this.labelName = new System.Windows.Forms.Label();
-			((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
-			this.splitContainer1.Panel1.SuspendLayout();
-			this.splitContainer1.Panel2.SuspendLayout();
-			this.splitContainer1.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
+			this.splitContainer.Panel1.SuspendLayout();
+			this.splitContainer.Panel2.SuspendLayout();
+			this.splitContainer.SuspendLayout();
 			this.panelTileset.SuspendLayout();
 			this.groupBoxAutotiles.SuspendLayout();
 			this.SuspendLayout();
 			// 
-			// splitContainer1
+			// splitContainer
 			// 
-			this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.splitContainer1.Location = new System.Drawing.Point(0, 0);
-			this.splitContainer1.Name = "splitContainer1";
+			this.splitContainer.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.splitContainer.Location = new System.Drawing.Point(0, 0);
+			this.splitContainer.Name = "splitContainer";
 			// 
-			// splitContainer1.Panel1
+			// splitContainer.Panel1
 			// 
-			this.splitContainer1.Panel1.Controls.Add(this.dataObjectList);
+			this.splitContainer.Panel1.Controls.Add(this.dataObjectList);
 			// 
-			// splitContainer1.Panel2
+			// splitContainer.Panel2
 			// 
-			this.splitContainer1.Panel2.Controls.Add(this.radioTerrain);
-			this.splitContainer1.Panel2.Controls.Add(this.radioCounter);
-			this.splitContainer1.Panel2.Controls.Add(this.radioBush);
-			this.splitContainer1.Panel2.Controls.Add(this.radioPriority);
-			this.splitContainer1.Panel2.Controls.Add(this.radioPassage4Dir);
-			this.splitContainer1.Panel2.Controls.Add(this.radioPassage);
-			this.splitContainer1.Panel2.Controls.Add(this.checkBoxGrid);
-			this.splitContainer1.Panel2.Controls.Add(this.buttonColors);
-			this.splitContainer1.Panel2.Controls.Add(this.panelTileset);
-			this.splitContainer1.Panel2.Controls.Add(this.textBoxBattleback);
-			this.splitContainer1.Panel2.Controls.Add(this.textBoxFog);
-			this.splitContainer1.Panel2.Controls.Add(this.textBoxPanorama);
-			this.splitContainer1.Panel2.Controls.Add(this.textBoxTileset);
-			this.splitContainer1.Panel2.Controls.Add(this.textBoxName);
-			this.splitContainer1.Panel2.Controls.Add(this.groupBoxAutotiles);
-			this.splitContainer1.Panel2.Controls.Add(this.labelBattlebackGraphic);
-			this.splitContainer1.Panel2.Controls.Add(this.labelFogGraphic);
-			this.splitContainer1.Panel2.Controls.Add(this.labelPanoramaGraphic);
-			this.splitContainer1.Panel2.Controls.Add(this.labelTilesetGraphic);
-			this.splitContainer1.Panel2.Controls.Add(this.labelName);
-			this.splitContainer1.Size = new System.Drawing.Size(731, 477);
-			this.splitContainer1.SplitterDistance = 188;
-			this.splitContainer1.TabIndex = 0;
+			this.splitContainer.Panel2.Controls.Add(this.radioTerrain);
+			this.splitContainer.Panel2.Controls.Add(this.radioCounter);
+			this.splitContainer.Panel2.Controls.Add(this.radioBush);
+			this.splitContainer.Panel2.Controls.Add(this.radioPriority);
+			this.splitContainer.Panel2.Controls.Add(this.radioPassage4Dir);
+			this.splitContainer.Panel2.Controls.Add(this.radioPassage);
+			this.splitContainer.Panel2.Controls.Add(this.checkBoxGrid);
+			this.splitContainer.Panel2.Controls.Add(this.buttonColors);
+			this.splitContainer.Panel2.Controls.Add(this.panelTileset);
+			this.splitContainer.Panel2.Controls.Add(this.textBoxBattleback);
+			this.splitContainer.Panel2.Controls.Add(this.textBoxFog);
+			this.splitContainer.Panel2.Controls.Add(this.textBoxPanorama);
+			this.splitContainer.Panel2.Controls.Add(this.textBoxTileset);
+			this.splitContainer.Panel2.Controls.Add(this.textBoxName);
+			this.splitContainer.Panel2.Controls.Add(this.groupBoxAutotiles);
+			this.splitContainer.Panel2.Controls.Add(this.labelBattlebackGraphic);
+			this.splitContainer.Panel2.Controls.Add(this.labelFogGraphic);
+			this.splitContainer.Panel2.Controls.Add(this.labelPanoramaGraphic);
+			this.splitContainer.Panel2.Controls.Add(this.labelTilesetGraphic);
+			this.splitContainer.Panel2.Controls.Add(this.labelName);
+			this.splitContainer.Size = new System.Drawing.Size(731, 477);
+			this.splitContainer.SplitterDistance = 188;
+			this.splitContainer.TabIndex = 0;
 			// 
 			// dataObjectList
 			// 
@@ -224,6 +224,7 @@
 			this.panelTileset.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
 						| System.Windows.Forms.AnchorStyles.Right)));
 			this.panelTileset.AutoScroll = true;
+			this.panelTileset.BackColor = System.Drawing.Color.White;
 			this.panelTileset.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
 			this.panelTileset.Controls.Add(this.tilesetXnaPanel);
 			this.panelTileset.Location = new System.Drawing.Point(187, 12);
@@ -371,7 +372,7 @@
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(731, 477);
-			this.Controls.Add(this.splitContainer1);
+			this.Controls.Add(this.splitContainer);
 			this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.KeyPreview = true;
 			this.Name = "TilesetsMainForm";
@@ -380,11 +381,11 @@
 			this.Load += new System.EventHandler(this.TilesetsMainForm_Load);
 			this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TilesetsMainForm_KeyDown);
 			this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.TilesetsMainForm_KeyUp);
-			this.splitContainer1.Panel1.ResumeLayout(false);
-			this.splitContainer1.Panel2.ResumeLayout(false);
-			this.splitContainer1.Panel2.PerformLayout();
-			((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
-			this.splitContainer1.ResumeLayout(false);
+			this.splitContainer.Panel1.ResumeLayout(false);
+			this.splitContainer.Panel2.ResumeLayout(false);
+			this.splitContainer.Panel2.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.splitContainer)).EndInit();
+			this.splitContainer.ResumeLayout(false);
 			this.panelTileset.ResumeLayout(false);
 			this.groupBoxAutotiles.ResumeLayout(false);
 			this.ResumeLayout(false);
@@ -393,7 +394,7 @@
 
 		#endregion
 
-		private System.Windows.Forms.SplitContainer splitContainer1;
+		private System.Windows.Forms.SplitContainer splitContainer;
 		private Controls.DatabaseObjectListBox dataObjectList;
 		private System.Windows.Forms.TextBox textBoxName;
 		private System.Windows.Forms.GroupBox groupBoxAutotiles;

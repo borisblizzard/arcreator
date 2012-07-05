@@ -243,10 +243,8 @@ namespace ARCed.Database.Items
 
 		private void buttonIcon_Click(object sender, EventArgs e)
 		{
-			using (ImageSelectionForm dialog = new ImageSelectionForm(@"Graphics\Icons", _item.icon_name))
+			using (ImageSelectionForm dialog = new ImageSelectionForm(@"Icons", _item.icon_name))
 			{
-				dialog.SelectionEnabled = false;
-				dialog.HueEnabled = false;
 				if (dialog.ShowDialog(this) == DialogResult.OK)
 				{
 					_item.icon_name = dialog.ImageName;

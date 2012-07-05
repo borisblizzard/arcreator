@@ -184,7 +184,7 @@ namespace ARCed.Database.Troops
 
 		private void buttonBattleback_Click(object sender, EventArgs e)
 		{
-			using (ImageSelectionForm dialog = new ImageSelectionForm(@"Graphics\Battlebacks", _battleBackName))
+			using (ImageSelectionForm dialog = new ImageSelectionForm(@"Battlebacks", _battleBackName))
 			{
 				dialog.Width = 800;
 				dialog.SelectionEnabled = false;
