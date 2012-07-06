@@ -22,13 +22,14 @@ namespace ARCed.Controls
 		private int _cx, _cy, _sx, _sy, _zoom, _blendMode;
 		private bool _advanced, _mouseDown;
 		private Timer _timer;
-		private static Texture2D _rectTexture;
 		private Image _image;
 		private Texture2D _texture;
 		private SpriteBatch _batch;
 		private Point _originPoint, _endPoint;
+
 		private static XnaColor _blendColor = XnaColor.White;
 		private static XnaColor _semiTransparent = new XnaColor(160, 160, 160, 160);
+		private static XnaColor _backColor;
 
 		private static BlendState _subBlend;
 		private static BlendState _addBlend;
@@ -36,6 +37,30 @@ namespace ARCed.Controls
 		#endregion
 
 		#region Public Properties
+
+
+		public BlendState CurrentBlendState
+		{
+			get
+			{
+				switch (_blendMode)
+				{
+					case 1: return _addBlend;
+					case 2: return _subBlend;
+					default: return BlendState.AlphaBlend;
+				}
+			}
+		}
+
+		/// <summary>
+		/// Gets or sets the background color in the image preview.
+		/// </summary>
+		[Browsable(false)]
+		public XnaColor ImageBackColor
+		{
+			get { return _backColor; }
+			set { _backColor = value; Invalidate(); }
+		}
 
 		/// <summary>
 		/// Gets or sets the image that will be displayed.
@@ -71,10 +96,7 @@ namespace ARCed.Controls
 		{
 			get { return _blendColor.A; }
 			set 
-			{
-				int opp = 255 - value;
-				//_blendColor = new XnaColor(opp, opp, opp, value.Clamp(0, 255));
-				//_blendColor = new XnaColor(255, 255, 255, value.Clamp(0, 255)); 
+			{ 
 				_blendColor = XnaColor.White * (value / 255.0f);
 				Invalidate(); 
 			}
@@ -251,11 +273,11 @@ namespace ARCed.Controls
 				AlphaDestinationBlend = Blend.One | Blend.InverseSourceAlpha,
 				AlphaBlendFunction = BlendFunction.Add
 			};
+			_blendColor = XnaColor.White;
+			_backColor = Editor.Settings.ImageBackColor;
 			IconCache.GraphicsDevice = GraphicsDevice;
 			_batch = new SpriteBatch(GraphicsDevice);
 			GraphicsDevice.Clear(XnaColor.DarkGray);
-			_rectTexture = new Texture2D(GraphicsDevice, 1, 1);
-			_rectTexture.SetData(new[] { XnaColor.White });
 			this.Disposed += new EventHandler(imageSelectXnaPanel_Disposed);
 			this.MouseDown += new MouseEventHandler(imageXnaPanel_MouseDown);
 			this.MouseUp += new MouseEventHandler(imageXnaPanel_MouseUp);
@@ -271,21 +293,28 @@ namespace ARCed.Controls
 			{
 				if (AdvancedEnabled)
 				{
-					_batch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend,
+					GraphicsDevice.Clear(_backColor);
+					_batch.Begin(SpriteSortMode.Immediate, CurrentBlendState,
 						SamplerState.LinearWrap, null, null);
-					XnaColor color = AlphaPreview ? _blendColor : XnaColor.White;
-					GraphicsDevice.Clear(XnaColor.White);
-					for (int x = 0; x < Width + _texture.Width; x += _texture.Width)
+					int zw = _texture.Width;
+					int zh = _texture.Height;
+					XnaRect destRect, srcRect;
+					if (_zoom > 100)
 					{
-						for (int y = 0; y < Height + _texture.Height; y += _texture.Height)
+						float factor = _zoom / 100.0f;
+						zw = (int)(zw * factor);
+						zh = (int)(zh * factor);
+					}
+					for (int x = 0; x < Width + zw; x += zw)
+					{
+						for (int y = 0; y < Height + zh; y += zh)
 						{
-							XnaRect destRect =
-								new XnaRect(x, y, _texture.Width, _texture.Height);
-							XnaRect srcRect = new XnaRect(
+							destRect = new XnaRect(x, y, zw, zh);
+							srcRect = new XnaRect(
 								Convert.ToInt32((-_cx - planeSx) / 4), 
 								Convert.ToInt32((-_cy - planeSy) / 4), 
 								_texture.Width, _texture.Height);
-							_batch.Draw(_texture, destRect, srcRect, color);
+							_batch.Draw(_texture, destRect, srcRect, _blendColor);
 						}
 					}
 					_cx %= _texture.Width * 8;
@@ -295,25 +324,19 @@ namespace ARCed.Controls
 				{
 					GraphicsDevice.Clear(XnaColor.DarkGray);
 					_batch.Begin();
-					FillRectangle(0, 0, _texture.Width, _texture.Height, XnaColor.ForestGreen);
+					_batch.FillRectangle(0, 0, _texture.Width, _texture.Height, _backColor);
 					_batch.End();
-					switch (BlendMode)
-					{
-						case -1:
-						case 0: _batch.Begin(); break;
-						case 1: _batch.Begin(SpriteSortMode.Immediate, _addBlend); break;
-						case 2: _batch.Begin(SpriteSortMode.Immediate, _subBlend); break;
-
-					}
-					_batch.Draw(_texture, new Vector2(0, 0), XnaColor.White);
+					_batch.Begin(SpriteSortMode.Immediate, CurrentBlendState);
+					_batch.Draw(_texture, new Vector2(0, 0), _blendColor);
 				}
+
 				if (_originPoint != _endPoint)
 				{
 					XnaRect rect = SelectionRectangle;
-					DrawRectangle(rect, XnaColor.Black, 3);
+					_batch.DrawRectangle(rect, XnaColor.Black, 3);
 					XnaRect innerRect = new XnaRect(rect.X + 1, rect.Y + 1,
 						rect.Width - 2, rect.Height - 2);
-					DrawRectangle(innerRect, XnaColor.White, 1);
+					_batch.DrawRectangle(innerRect, XnaColor.White, 1);
 				}
 
 				_batch.End();
@@ -330,7 +353,6 @@ namespace ARCed.Controls
 				_image.Dispose();
 			if (_texture != null)
 				_texture.Dispose();
-			_rectTexture.Dispose();
 			_batch.Dispose();
 		}
 
@@ -347,28 +369,6 @@ namespace ARCed.Controls
 		private void ResetPoints()
 		{
 			_originPoint = _endPoint = new Point(-1, -1);
-		}
-
-		private void FillRectangle(int x, int y, int width, int height, XnaColor color)
-		{
-			Texture2D rectangleTexture = new Texture2D(GraphicsDevice, width, height);
-			XnaColor[] colors = Enumerable.Repeat(color, width * height).ToArray();
-			rectangleTexture.SetData(colors);
-			_batch.Draw(rectangleTexture, new Vector2(x, y), XnaColor.White);
-		}
-
-		/// <summary>
-		/// Draw a rectangle.
-		/// </summary>
-		/// <param name="rect">The rectangle to draw.</param>
-		/// <param name="color">The draw color.</param>
-		/// <param name="border">Thickness of the border, in pixels.</param>
-		private void DrawRectangle(XnaRect rect, XnaColor color, int border = 1)
-		{
-			_batch.Draw(_rectTexture, new XnaRect(rect.Left, rect.Top, rect.Width, border), color);
-			_batch.Draw(_rectTexture, new XnaRect(rect.Left, rect.Bottom - border, rect.Width, border), color);
-			_batch.Draw(_rectTexture, new XnaRect(rect.Left, rect.Top, border, rect.Height), color);
-			_batch.Draw(_rectTexture, new XnaRect(rect.Right - border, rect.Top, border, rect.Height - border), color);
 		}
 
 		private void imageXnaPanel_MouseMove(object sender, MouseEventArgs e)

@@ -31,7 +31,6 @@ namespace ARCed.Controls
 		#region Private Fields
 
 		private static int _currentId;
-		private static Texture2D _rectTexture;
 		private static XnaColor _currentColor;
 		RPG.Tileset _tileset;
 		Texture2D _tilesetTexture;
@@ -39,6 +38,7 @@ namespace ARCed.Controls
 		bool _mouseDown, _ctrlDown;
 		TilesetMode _mode = TilesetMode.Passage;
 		Point _originPoint, _endPoint;
+
 		private static XnaColor _semiTransparent = new XnaColor(160, 160, 160, 160);
 
 		#endregion
@@ -200,8 +200,6 @@ namespace ARCed.Controls
 			Settings = Editor.Settings.TilesetSettings;
 			_batch = new SpriteBatch(GraphicsDevice);
 			GraphicsDevice.Clear(XnaColor.Gray);
-			_rectTexture = new Texture2D(GraphicsDevice, 1, 1);
-			_rectTexture.SetData(new[] { XnaColor.White });
 			Disposed += new EventHandler(TroopXnaPanel_Disposed);
 			this.MouseDown += new MouseEventHandler(TroopXnaPanel_MouseDown);
 			this.MouseUp += new MouseEventHandler(TroopXnaPanel_MouseUp);
@@ -237,9 +235,9 @@ namespace ARCed.Controls
 				{
 					int h = _tilesetTexture.Height;
 					for (int x = Constants.TILESIZE; x < Constants.MAXWIDTH; x += Constants.TILESIZE)
-						_batch.Draw(_rectTexture, new XnaRect(x, 0, 1, h), Settings.GridColor);
+						_batch.DrawRectangle(new XnaRect(x, 0, 1, h), Settings.GridColor);
 					for (int y = Constants.TILESIZE; y < h; y += Constants.TILESIZE)
-						_batch.Draw(_rectTexture, new XnaRect(0, y, Constants.MAXWIDTH, 1), Settings.GridColor);
+						_batch.DrawRectangle(new XnaRect(0, y, Constants.MAXWIDTH, 1), Settings.GridColor);
 				}
 				switch (TilesetMode)
 				{
@@ -253,10 +251,10 @@ namespace ARCed.Controls
 				if (_originPoint != _endPoint)
 				{
 					XnaRect rect = SelectionRectangle;
-					DrawRectangle(rect, XnaColor.Black, 3);
+					_batch.DrawRectangle(rect, XnaColor.Black, 3);
 					XnaRect innerRect = new XnaRect(rect.X + 1, rect.Y + 1, 
 						rect.Width - 2, rect.Height - 2);
-					DrawRectangle(innerRect, Settings.SelectorColor, 1);
+					_batch.DrawRectangle(innerRect, Settings.SelectorColor, 1);
 				}
 				_batch.End();
 			}
@@ -351,20 +349,6 @@ namespace ARCed.Controls
 			_originPoint = _endPoint = new Point(-1, -1);
 		}
 
-		/// <summary>
-		/// Draw a rectangle.
-		/// </summary>
-		/// <param name="rect">The rectangle to draw.</param>
-		/// <param name="color">The draw color.</param>
-		/// <param name="border">Thickness of the border, in pixels.</param>
-		private void DrawRectangle(XnaRect rect, XnaColor color, int border = 1)
-		{
-			_batch.Draw(_rectTexture, new XnaRect(rect.Left, rect.Top, rect.Width, border), color);
-			_batch.Draw(_rectTexture, new XnaRect(rect.Left, rect.Bottom - border, rect.Width, border), color);
-			_batch.Draw(_rectTexture, new XnaRect(rect.Left, rect.Top, border, rect.Height), color);
-			_batch.Draw(_rectTexture, new XnaRect(rect.Right - border, rect.Top, border, rect.Height - border), color);
-		}
-
 		private void sprite_OnSelectionChanged(object sender, EventArgs e)
 		{
 			if (OnSelectionChanged != null)
@@ -375,7 +359,6 @@ namespace ARCed.Controls
 		{
 			if (_tilesetTexture != null)
 				_tilesetTexture.Dispose();
-			_rectTexture.Dispose();
 			_batch.Dispose();
 		}
 

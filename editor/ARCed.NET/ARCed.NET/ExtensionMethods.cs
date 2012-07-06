@@ -2,7 +2,7 @@
 using System.Drawing;
 using System.IO;
 using System.Text;
-using Microsoft.Xna.Framework.Graphics;
+using System.Linq;
 
 namespace ARCed
 {
@@ -23,16 +23,6 @@ namespace ARCed
 		private static byte[] _buffer;
 
 		#endregion
-
-		public static Microsoft.Xna.Framework.Color ToXnaColor(this Color color)
-		{
-			return new Microsoft.Xna.Framework.Color(color.R, color.G, color.B, color.A);
-		}
-
-		public static Color ToSystemColor(this Microsoft.Xna.Framework.Color color)
-		{
-			return Color.FromArgb(color.A, color.R, color.G, color.B);
-		}
 
 		public static int RoundFloor(this int value, int multiple)
 		{
@@ -63,41 +53,6 @@ namespace ARCed
 			NativeMethods.SendMessage(control.Handle, NativeMethods.WM_SETREDRAW, true, 0);
 			if (refresh)
 				control.Refresh();
-		}
-
-		/// <summary>
-		/// Converts a Texture2D to an _texture and returns it.
-		/// </summary>
-		/// <param name="texture">Texture to convert</param>
-		/// <returns>Image representation of the texture.</returns>
-		public static Image ToImage(this Texture2D texture)
-		{
-			Image image = null;
-			using (MemoryStream stream = new MemoryStream())
-			{
-				texture.SaveAsPng(stream, texture.Width, texture.Height);
-				stream.Seek(0, SeekOrigin.Begin);
-				image = Image.FromStream(stream);
-			}
-			return image;
-		}
-
-		/// <summary>
-		/// Converts an Bitmap to a Texture2D and returns it.
-		/// </summary>
-		/// <param name="image">Bitmap to convert</param>
-		/// <param name="device">Texture graphics device</param>
-		/// <returns>Texture2D representation of the image</returns>
-		public static Texture2D ToTexture(this Image bitmap, GraphicsDevice device)
-		{
-			Texture2D texture = null;
-			using (MemoryStream stream = new MemoryStream())
-			{
-				bitmap.Save(stream, System.Drawing.Imaging.ImageFormat.Png);
-				stream.Seek(0, SeekOrigin.Begin);
-				texture = Texture2D.FromStream(device, stream);
-			}
-			return texture;
 		}
 
 		/// <summary>

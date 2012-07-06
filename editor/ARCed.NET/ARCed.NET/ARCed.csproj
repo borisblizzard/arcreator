@@ -948,6 +948,7 @@
     <Compile Include="Helpers\SystemHelper.cs" />
     <Compile Include="Utilities\Util.cs" />
     <Compile Include="Windows.cs" />
+    <Compile Include="XnaExtensions.cs" />
     <EmbeddedResource Include="Controls\BattleEventPage.resx">
       <DependentUpon>BattleEventPage.cs</DependentUpon>
     </EmbeddedResource>
