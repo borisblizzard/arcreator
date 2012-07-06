@@ -134,7 +134,7 @@ namespace ARCed.Dialogs
 		{
 			List<string> hue = new List<string> { "Animations", "Battlers", "Characters",
 				"Fogs", "Panoramas", "Pictures" };
-			List<string> options = new List<string> { "Fogs" };
+			List<string> options = new List<string> { "Battlers", "Fogs" };
 			OptionsEnabled = options.Contains(folder);
 			HueEnabled = hue.Contains(folder);
 			AdvancedOptionEnabled = (folder == "Fogs");
@@ -304,6 +304,20 @@ namespace ARCed.Dialogs
 		private void numericOpacity_ValueChanged(object sender, EventArgs e)
 		{
 			pictureBox.ImageOpacity = (int)numericOpacity.Value;
+		}
+
+		private void buttonColor_Click(object sender, EventArgs e)
+		{
+			using (ColorChooserForm dialog = new ColorChooserForm())
+			{
+				dialog.AlphaEnabled = false;
+				dialog.Color = Editor.Settings.ImageBackColor.ToSystemColor();
+				if (dialog.ShowDialog() == DialogResult.OK)
+				{
+					Editor.Settings.ImageBackColor = dialog.Color.ToXnaColor();
+					pictureBox.ImageBackColor = Editor.Settings.ImageBackColor;
+				}
+			}
 		}
 	}
 }

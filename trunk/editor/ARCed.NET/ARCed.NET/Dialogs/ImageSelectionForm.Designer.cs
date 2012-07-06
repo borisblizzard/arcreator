@@ -34,7 +34,6 @@
 			this.splitContainer = new System.Windows.Forms.SplitContainer();
 			this.listBoxGraphics = new System.Windows.Forms.ListBox();
 			this.panelTop = new System.Windows.Forms.Panel();
-			this.pictureBox = new ARCed.Controls.ImageSelectXnaPanel();
 			this.groupBoxOptions = new System.Windows.Forms.GroupBox();
 			this.panelAdvanced = new System.Windows.Forms.Panel();
 			this.labelZoom = new System.Windows.Forms.Label();
@@ -52,8 +51,9 @@
 			this.trackBarHue = new System.Windows.Forms.TrackBar();
 			this.labelRtp = new System.Windows.Forms.Label();
 			this.labelLocal = new System.Windows.Forms.Label();
-			this.buttonOptions = new System.Windows.Forms.Button();
+			this.buttonColor = new System.Windows.Forms.Button();
 			this.toolTip = new System.Windows.Forms.ToolTip(this.components);
+			this.pictureBox = new ARCed.Controls.ImageSelectXnaPanel();
 			((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
 			this.splitContainer.Panel1.SuspendLayout();
 			this.splitContainer.Panel2.SuspendLayout();
@@ -138,24 +138,6 @@
 			this.panelTop.Name = "panelTop";
 			this.panelTop.Size = new System.Drawing.Size(385, 322);
 			this.panelTop.TabIndex = 3;
-			// 
-			// pictureBox
-			// 
-			this.pictureBox.AdvancedEnabled = false;
-			this.pictureBox.AlphaPreview = false;
-			this.pictureBox.BackColor = System.Drawing.SystemColors.ControlDark;
-			this.pictureBox.BlendMode = 0;
-			this.pictureBox.Image = null;
-			this.pictureBox.ImageOpacity = 255;
-			this.pictureBox.Location = new System.Drawing.Point(0, 0);
-			this.pictureBox.Name = "pictureBox";
-			this.pictureBox.ScrollX = 0;
-			this.pictureBox.ScrollY = 0;
-			this.pictureBox.SelectionEnabled = false;
-			this.pictureBox.Size = new System.Drawing.Size(269, 184);
-			this.pictureBox.TabIndex = 0;
-			this.pictureBox.Text = "pictureBox";
-			this.pictureBox.Zoom = 0;
 			// 
 			// groupBoxOptions
 			// 
@@ -398,16 +380,35 @@
 			this.labelLocal.Text = "     : Local";
 			this.labelLocal.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
 			// 
-			// buttonOptions
+			// buttonColor
 			// 
-			this.buttonOptions.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.buttonOptions.Location = new System.Drawing.Point(418, 406);
-			this.buttonOptions.Name = "buttonOptions";
-			this.buttonOptions.Size = new System.Drawing.Size(75, 23);
-			this.buttonOptions.TabIndex = 5;
-			this.buttonOptions.Text = "Options...";
-			this.toolTip.SetToolTip(this.buttonOptions, "Change display options");
-			this.buttonOptions.UseVisualStyleBackColor = true;
+			this.buttonColor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+			this.buttonColor.Location = new System.Drawing.Point(418, 406);
+			this.buttonColor.Name = "buttonColor";
+			this.buttonColor.Size = new System.Drawing.Size(75, 23);
+			this.buttonColor.TabIndex = 5;
+			this.buttonColor.Text = "Color...";
+			this.toolTip.SetToolTip(this.buttonColor, "Change tha background color");
+			this.buttonColor.UseVisualStyleBackColor = true;
+			this.buttonColor.Click += new System.EventHandler(this.buttonColor_Click);
+			// 
+			// pictureBox
+			// 
+			this.pictureBox.AdvancedEnabled = false;
+			this.pictureBox.AlphaPreview = false;
+			this.pictureBox.BackColor = System.Drawing.SystemColors.ControlDark;
+			this.pictureBox.BlendMode = 0;
+			this.pictureBox.Image = null;
+			this.pictureBox.ImageOpacity = 255;
+			this.pictureBox.Location = new System.Drawing.Point(0, 0);
+			this.pictureBox.Name = "pictureBox";
+			this.pictureBox.ScrollX = 0;
+			this.pictureBox.ScrollY = 0;
+			this.pictureBox.SelectionEnabled = false;
+			this.pictureBox.Size = new System.Drawing.Size(269, 184);
+			this.pictureBox.TabIndex = 0;
+			this.pictureBox.Text = "pictureBox";
+			this.pictureBox.Zoom = 0;
 			// 
 			// ImageSelectionForm
 			// 
@@ -416,7 +417,7 @@
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.CancelButton = this.buttonCancel;
 			this.ClientSize = new System.Drawing.Size(667, 441);
-			this.Controls.Add(this.buttonOptions);
+			this.Controls.Add(this.buttonColor);
 			this.Controls.Add(this.labelLocal);
 			this.Controls.Add(this.labelRtp);
 			this.Controls.Add(this.splitContainer);
@@ -474,7 +475,7 @@
 		private System.Windows.Forms.Panel panelTop;
 		private Controls.ImageSelectXnaPanel pictureBox;
 		private System.Windows.Forms.CheckBox checkAlphaPreview;
-		private System.Windows.Forms.Button buttonOptions;
+		private System.Windows.Forms.Button buttonColor;
 		private System.Windows.Forms.Panel panelAdvanced;
 		private System.Windows.Forms.ToolTip toolTip;
 	}

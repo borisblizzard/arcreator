@@ -276,7 +276,6 @@ namespace ARCed.Controls
 	{
 		#region Private Fields
 
-		private static Texture2D _rectTexture;
 		private static XnaColor _hiddenColor;
 		Texture2D _background;
 		SpriteBatch _batch;
@@ -468,26 +467,10 @@ namespace ARCed.Controls
 			_sprites = new List<EnemySprite>();
 			_batch = new SpriteBatch(GraphicsDevice);
 			GraphicsDevice.Clear(XnaColor.Gray);
-			_rectTexture = new Texture2D(GraphicsDevice, 1, 1);
-			_rectTexture.SetData(new[] { XnaColor.White });
 			_hiddenColor = new XnaColor(80, 80, 80, 60);
 			this.MouseDown += new System.Windows.Forms.MouseEventHandler(TroopXnaPanel_MouseDown);
 			this.MouseUp += new System.Windows.Forms.MouseEventHandler(TroopXnaPanel_MouseUp);
 			this.MouseMove += new System.Windows.Forms.MouseEventHandler(TroopXnaPanel_MouseMove);
-		}
-
-		/// <summary>
-		/// Draw a rectangle.
-		/// </summary>
-		/// <param name="rect">The rectangle to draw.</param>
-		/// <param name="color">The draw color.</param>
-		/// <param name="border">Thickness of the border, in pixels.</param>
-		private void DrawRectangle(XnaRect rect, XnaColor color, int border = 1)
-		{
-			_batch.Draw(_rectTexture, new XnaRect(rect.Left, rect.Top, rect.Width, border), color);
-			_batch.Draw(_rectTexture, new XnaRect(rect.Left, rect.Bottom - border, rect.Width, border), color);
-			_batch.Draw(_rectTexture, new XnaRect(rect.Left, rect.Top, border, rect.Height), color);
-			_batch.Draw(_rectTexture, new XnaRect(rect.Right - border, rect.Top, border, rect.Height - border), color);
 		}
 
 		/// <summary>
@@ -506,7 +489,7 @@ namespace ARCed.Controls
 					_batch.Draw(sprite.Texture, sprite.Vector, 
 						sprite.Hidden ? _hiddenColor : XnaColor.White);
 					if (sprite.Selected)
-						DrawRectangle(sprite.Rectangle, XnaColor.White, 2);
+						_batch.DrawRectangle(sprite.Rectangle, XnaColor.White, 2);
 				}
 				_batch.End();
 			}
