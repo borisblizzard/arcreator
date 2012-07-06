@@ -134,7 +134,7 @@ namespace ARCed.Dialogs
 		{
 			List<string> hue = new List<string> { "Animations", "Battlers", "Characters",
 				"Fogs", "Panoramas", "Pictures" };
-			List<string> options = new List<string> { "Battlers", "Characters", "Fogs" };
+			List<string> options = new List<string> { "Fogs" };
 			OptionsEnabled = options.Contains(folder);
 			HueEnabled = hue.Contains(folder);
 			AdvancedOptionEnabled = (folder == "Fogs");
@@ -159,6 +159,8 @@ namespace ARCed.Dialogs
 		public ImageSelectionForm()
 		{
 			InitializeComponent();
+			this.ResizeBegin += (s, e) => { SuspendLayout(); };
+			this.ResizeEnd += (s, e) => { ResumeLayout(); };
 		}
 
 		private void ImageSelectionForm_Load(object sender, EventArgs e)

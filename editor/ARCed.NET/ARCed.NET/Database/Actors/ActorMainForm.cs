@@ -294,6 +294,7 @@ namespace ARCed.Database.Actors
 				new ImageSelectionForm(@"Characters", _actor.character_name))
 			{
 				dialog.Hue = _actor.character_hue;
+				dialog.OptionsEnabled = false;
 				if (dialog.ShowDialog(this) == DialogResult.OK)
 				{
 					_actor.character_name = dialog.ImageName;
@@ -310,6 +311,7 @@ namespace ARCed.Database.Actors
 				new ImageSelectionForm(@"Battlers", _actor.battler_name))
 			{
 				dialog.Hue = _actor.battler_hue;
+				dialog.OptionsEnabled = false;
 				if (dialog.ShowDialog(this) == DialogResult.OK)
 				{
 					_actor.battler_name = dialog.ImageName;
