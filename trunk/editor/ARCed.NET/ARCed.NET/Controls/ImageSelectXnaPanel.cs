@@ -30,6 +30,9 @@ namespace ARCed.Controls
 		private static XnaColor _blendColor = XnaColor.White;
 		private static XnaColor _semiTransparent = new XnaColor(160, 160, 160, 160);
 
+		private static BlendState _subBlend;
+		private static BlendState _addBlend;
+
 		#endregion
 
 		#region Public Properties
@@ -230,6 +233,24 @@ namespace ARCed.Controls
 		/// </summary>
 		protected override void Initialize()
 		{
+			_addBlend = new BlendState()
+			{
+				ColorDestinationBlend = Blend.One,
+				ColorSourceBlend = Blend.One,
+				AlphaDestinationBlend = Blend.One,
+				AlphaSourceBlend = Blend.One,
+				ColorBlendFunction = BlendFunction.Add,
+				AlphaBlendFunction = BlendFunction.Add
+			};
+			_subBlend = new BlendState()
+			{
+				ColorSourceBlend = Blend.InverseBlendFactor,
+				ColorDestinationBlend = Blend.One | Blend.InverseSourceColor,
+				ColorBlendFunction = BlendFunction.Add,
+				AlphaSourceBlend = Blend.InverseBlendFactor,
+				AlphaDestinationBlend = Blend.One | Blend.InverseSourceAlpha,
+				AlphaBlendFunction = BlendFunction.Add
+			};
 			IconCache.GraphicsDevice = GraphicsDevice;
 			_batch = new SpriteBatch(GraphicsDevice);
 			GraphicsDevice.Clear(XnaColor.DarkGray);
@@ -272,9 +293,18 @@ namespace ARCed.Controls
 				}
 				else
 				{
-					_batch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
 					GraphicsDevice.Clear(XnaColor.DarkGray);
-					FillRectangle(0, 0, _texture.Width, _texture.Height, XnaColor.White);
+					_batch.Begin();
+					FillRectangle(0, 0, _texture.Width, _texture.Height, XnaColor.ForestGreen);
+					_batch.End();
+					switch (BlendMode)
+					{
+						case -1:
+						case 0: _batch.Begin(); break;
+						case 1: _batch.Begin(SpriteSortMode.Immediate, _addBlend); break;
+						case 2: _batch.Begin(SpriteSortMode.Immediate, _subBlend); break;
+
+					}
 					_batch.Draw(_texture, new Vector2(0, 0), XnaColor.White);
 				}
 				if (_originPoint != _endPoint)

@@ -144,6 +144,12 @@
     <Compile Include="Controls\ImageSelectXnaPanel.Designer.cs">
       <DependentUpon>ImageSelectXnaPanel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\StatusBarToolTip.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\StatusBarToolTip.Designer.cs">
+      <DependentUpon>StatusBarToolTip.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\TilesetXnaPanel.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -956,6 +962,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\ImageSelectXnaPanel.resx">
       <DependentUpon>ImageSelectXnaPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\StatusBarToolTip.resx">
+      <DependentUpon>StatusBarToolTip.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\TilesetXnaPanel.resx">
       <DependentUpon>TilesetXnaPanel.cs</DependentUpon>

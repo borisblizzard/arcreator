@@ -28,11 +28,13 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
+			this.components = new System.ComponentModel.Container();
 			this.buttonCancel = new System.Windows.Forms.Button();
 			this.buttonOK = new System.Windows.Forms.Button();
 			this.splitContainer = new System.Windows.Forms.SplitContainer();
 			this.listBoxGraphics = new System.Windows.Forms.ListBox();
 			this.panelTop = new System.Windows.Forms.Panel();
+			this.pictureBox = new ARCed.Controls.ImageSelectXnaPanel();
 			this.groupBoxOptions = new System.Windows.Forms.GroupBox();
 			this.panelAdvanced = new System.Windows.Forms.Panel();
 			this.labelZoom = new System.Windows.Forms.Label();
@@ -51,7 +53,7 @@
 			this.labelRtp = new System.Windows.Forms.Label();
 			this.labelLocal = new System.Windows.Forms.Label();
 			this.buttonOptions = new System.Windows.Forms.Button();
-			this.pictureBox = new ARCed.Controls.ImageSelectXnaPanel();
+			this.toolTip = new System.Windows.Forms.ToolTip(this.components);
 			((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
 			this.splitContainer.Panel1.SuspendLayout();
 			this.splitContainer.Panel2.SuspendLayout();
@@ -76,6 +78,7 @@
 			this.buttonCancel.Size = new System.Drawing.Size(75, 23);
 			this.buttonCancel.TabIndex = 0;
 			this.buttonCancel.Text = "Cancel";
+			this.toolTip.SetToolTip(this.buttonCancel, "Cancel and return to previous window");
 			this.buttonCancel.UseVisualStyleBackColor = true;
 			// 
 			// buttonOK
@@ -86,6 +89,7 @@
 			this.buttonOK.Size = new System.Drawing.Size(75, 23);
 			this.buttonOK.TabIndex = 1;
 			this.buttonOK.Text = "OK";
+			this.toolTip.SetToolTip(this.buttonOK, "Confirm selection");
 			this.buttonOK.UseVisualStyleBackColor = true;
 			this.buttonOK.Click += new System.EventHandler(this.buttonOK_Click);
 			// 
@@ -134,6 +138,24 @@
 			this.panelTop.Name = "panelTop";
 			this.panelTop.Size = new System.Drawing.Size(385, 322);
 			this.panelTop.TabIndex = 3;
+			// 
+			// pictureBox
+			// 
+			this.pictureBox.AdvancedEnabled = false;
+			this.pictureBox.AlphaPreview = false;
+			this.pictureBox.BackColor = System.Drawing.SystemColors.ControlDark;
+			this.pictureBox.BlendMode = 0;
+			this.pictureBox.Image = null;
+			this.pictureBox.ImageOpacity = 255;
+			this.pictureBox.Location = new System.Drawing.Point(0, 0);
+			this.pictureBox.Name = "pictureBox";
+			this.pictureBox.ScrollX = 0;
+			this.pictureBox.ScrollY = 0;
+			this.pictureBox.SelectionEnabled = false;
+			this.pictureBox.Size = new System.Drawing.Size(269, 184);
+			this.pictureBox.TabIndex = 0;
+			this.pictureBox.Text = "pictureBox";
+			this.pictureBox.Zoom = 0;
 			// 
 			// groupBoxOptions
 			// 
@@ -193,6 +215,7 @@
 			this.numericSY.Name = "numericSY";
 			this.numericSY.Size = new System.Drawing.Size(74, 20);
 			this.numericSY.TabIndex = 9;
+			this.toolTip.SetToolTip(this.numericSY, "Adjust the speed the image scrolls on the y-axis");
 			this.numericSY.ValueChanged += new System.EventHandler(this.imageOption_Changed);
 			// 
 			// labelSY
@@ -222,6 +245,7 @@
 			this.numericZoom.Name = "numericZoom";
 			this.numericZoom.Size = new System.Drawing.Size(74, 20);
 			this.numericZoom.TabIndex = 7;
+			this.toolTip.SetToolTip(this.numericZoom, "Adjust the zoom factor of the image");
 			this.numericZoom.Value = new decimal(new int[] {
             100,
             0,
@@ -247,6 +271,7 @@
 			this.numericSX.Name = "numericSX";
 			this.numericSX.Size = new System.Drawing.Size(74, 20);
 			this.numericSX.TabIndex = 8;
+			this.toolTip.SetToolTip(this.numericSX, "Adjust the speed the image scrolls on the x-axis");
 			this.numericSX.ValueChanged += new System.EventHandler(this.imageOption_Changed);
 			// 
 			// labelSX
@@ -267,6 +292,7 @@
 			this.checkAlphaPreview.Size = new System.Drawing.Size(74, 40);
 			this.checkAlphaPreview.TabIndex = 10;
 			this.checkAlphaPreview.Text = "Alpha Preview";
+			this.toolTip.SetToolTip(this.checkAlphaPreview, "Preview alpha channel in sample window");
 			this.checkAlphaPreview.UseVisualStyleBackColor = true;
 			this.checkAlphaPreview.CheckedChanged += new System.EventHandler(this.checkAlphaPreview_CheckedChanged);
 			// 
@@ -283,6 +309,7 @@
 			this.numericOpacity.Name = "numericOpacity";
 			this.numericOpacity.Size = new System.Drawing.Size(74, 20);
 			this.numericOpacity.TabIndex = 6;
+			this.toolTip.SetToolTip(this.numericOpacity, "Change image opacity");
 			this.numericOpacity.ValueChanged += new System.EventHandler(this.numericOpacity_ValueChanged);
 			// 
 			// comboBoxBlend
@@ -299,6 +326,7 @@
 			this.comboBoxBlend.Name = "comboBoxBlend";
 			this.comboBoxBlend.Size = new System.Drawing.Size(74, 21);
 			this.comboBoxBlend.TabIndex = 5;
+			this.toolTip.SetToolTip(this.comboBoxBlend, "Select image blending option");
 			this.comboBoxBlend.SelectedIndexChanged += new System.EventHandler(this.imageOption_Changed);
 			// 
 			// labelBlending
@@ -341,6 +369,7 @@
 			this.trackBarHue.Size = new System.Drawing.Size(462, 45);
 			this.trackBarHue.TabIndex = 0;
 			this.trackBarHue.TickFrequency = 8;
+			this.toolTip.SetToolTip(this.trackBarHue, "Rotate the hue of the image using 360 degrees of displacement");
 			this.trackBarHue.ValueChanged += new System.EventHandler(this.imageOption_Changed);
 			// 
 			// labelRtp
@@ -377,25 +406,8 @@
 			this.buttonOptions.Size = new System.Drawing.Size(75, 23);
 			this.buttonOptions.TabIndex = 5;
 			this.buttonOptions.Text = "Options...";
+			this.toolTip.SetToolTip(this.buttonOptions, "Change display options");
 			this.buttonOptions.UseVisualStyleBackColor = true;
-			// 
-			// pictureBox
-			// 
-			this.pictureBox.AdvancedEnabled = false;
-			this.pictureBox.AlphaPreview = false;
-			this.pictureBox.BackColor = System.Drawing.SystemColors.ControlDark;
-			this.pictureBox.BlendMode = 0;
-			this.pictureBox.Image = null;
-			this.pictureBox.ImageOpacity = 255;
-			this.pictureBox.Location = new System.Drawing.Point(0, 0);
-			this.pictureBox.Name = "pictureBox";
-			this.pictureBox.ScrollX = 0;
-			this.pictureBox.ScrollY = 0;
-			this.pictureBox.SelectionEnabled = false;
-			this.pictureBox.Size = new System.Drawing.Size(269, 184);
-			this.pictureBox.TabIndex = 0;
-			this.pictureBox.Text = "pictureBox";
-			this.pictureBox.Zoom = 0;
 			// 
 			// ImageSelectionForm
 			// 
@@ -464,5 +476,6 @@
 		private System.Windows.Forms.CheckBox checkAlphaPreview;
 		private System.Windows.Forms.Button buttonOptions;
 		private System.Windows.Forms.Panel panelAdvanced;
+		private System.Windows.Forms.ToolTip toolTip;
 	}
 }
