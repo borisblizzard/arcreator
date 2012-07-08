@@ -19,16 +19,15 @@ namespace ARCed.Controls
 		#region Private Fields
 
 		private float planeSx, planeSy;
-		private int _cx, _cy, _sx, _sy, _zoom, _blendMode;
-		private bool _advanced, _mouseDown;
+		private int _cx, _cy, _sx, _sy, _zoom, _blendMode, _opacity;
+		private bool _advanced, _mouseDown, _alphaPreview;
 		private Timer _timer;
 		private Image _image;
 		private Texture2D _texture;
 		private SpriteBatch _batch;
 		private Point _originPoint, _endPoint;
 
-		private static XnaColor _blendColor = XnaColor.White;
-		private static XnaColor _semiTransparent = new XnaColor(160, 160, 160, 160);
+		private static XnaColor _blendColor;
 		private static XnaColor _backColor;
 
 		private static BlendState _subBlend;
@@ -94,11 +93,15 @@ namespace ARCed.Controls
 		[Browsable(false)]
 		public int ImageOpacity 
 		{
-			get { return _blendColor.A; }
+			get { return _opacity; }
 			set 
-			{ 
-				_blendColor = XnaColor.White * (value / 255.0f);
-				Invalidate(); 
+			{
+				_opacity = value;
+				if (_alphaPreview)
+				{
+					_blendColor = XnaColor.White * (value / 255.0f);
+					Invalidate();
+				}
 			}
 		}
 
@@ -106,7 +109,16 @@ namespace ARCed.Controls
 		/// Gets or sets the flag to show alpha transparency in the preview window.
 		/// </summary>
 		[Browsable(false)]
-		public bool AlphaPreview { get; set; }
+		public bool AlphaPreview 
+		{
+			get { return _alphaPreview; }
+			set
+			{
+				_alphaPreview = value;
+				_blendColor = value ? XnaColor.White * (_opacity / 255.0f) : XnaColor.White;
+				Invalidate();
+			}
+		}
 
 		/// <summary>
 		/// Gets or sets the speed at which the image scrolls on the X-Axis.
@@ -273,7 +285,6 @@ namespace ARCed.Controls
 				AlphaDestinationBlend = Blend.One | Blend.InverseSourceAlpha,
 				AlphaBlendFunction = BlendFunction.Add
 			};
-			_blendColor = XnaColor.White;
 			_backColor = Editor.Settings.ImageBackColor;
 			IconCache.GraphicsDevice = GraphicsDevice;
 			_batch = new SpriteBatch(GraphicsDevice);
@@ -289,11 +300,12 @@ namespace ARCed.Controls
 		/// </summary>
 		protected override void Draw()
 		{
+			GraphicsDevice.Clear(XnaColor.DarkGray);
 			if (_texture != null)
 			{
+				GraphicsDevice.Clear(_backColor);
 				if (AdvancedEnabled)
 				{
-					GraphicsDevice.Clear(_backColor);
 					_batch.Begin(SpriteSortMode.Immediate, CurrentBlendState,
 						SamplerState.LinearWrap, null, null);
 					int zw = _texture.Width;
@@ -322,7 +334,6 @@ namespace ARCed.Controls
 				}
 				else
 				{
-					GraphicsDevice.Clear(XnaColor.DarkGray);
 					_batch.Begin();
 					_batch.FillRectangle(0, 0, _texture.Width, _texture.Height, _backColor);
 					_batch.End();
@@ -331,14 +342,7 @@ namespace ARCed.Controls
 				}
 
 				if (_originPoint != _endPoint)
-				{
-					XnaRect rect = SelectionRectangle;
-					_batch.DrawRectangle(rect, XnaColor.Black, 3);
-					XnaRect innerRect = new XnaRect(rect.X + 1, rect.Y + 1,
-						rect.Width - 2, rect.Height - 2);
-					_batch.DrawRectangle(innerRect, XnaColor.White, 1);
-				}
-
+					_batch.DrawSelectionRect(SelectionRectangle, XnaColor.White, 2);
 				_batch.End();
 			}
 		}

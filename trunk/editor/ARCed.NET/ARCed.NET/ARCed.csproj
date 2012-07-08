@@ -318,11 +318,11 @@
       <DependentUpon>SystemMainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Database\Tilesets\IconCache.cs" />
-    <Compile Include="Database\Tilesets\TilemapColorDialog.cs">
+    <Compile Include="Database\Tilesets\ImageColorsDialog.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Database\Tilesets\TilemapColorDialog.Designer.cs">
-      <DependentUpon>TilemapColorDialog.cs</DependentUpon>
+    <Compile Include="Database\Tilesets\ImageColorsDialog.Designer.cs">
+      <DependentUpon>ImageColorsDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="Database\Tilesets\TilesetsMainForm.cs">
       <SubType>Form</SubType>
@@ -611,7 +611,7 @@
       <DependentUpon>ScriptStyleForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Settings\ARChiveSettings.cs" />
-    <Compile Include="Settings\TilesetSettings.cs" />
+    <Compile Include="Settings\ImageColorSettings.cs" />
     <Compile Include="Utilities\Compressor.cs" />
     <Compile Include="Utilities\FileAssociator.cs" />
     <Compile Include="Utilities\Ini.cs" />
@@ -1036,8 +1036,8 @@
     <EmbeddedResource Include="Database\MapEditor\MapTilesetForm.resx">
       <DependentUpon>MapTilesetForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Database\Tilesets\TilemapColorDialog.resx">
-      <DependentUpon>TilemapColorDialog.cs</DependentUpon>
+    <EmbeddedResource Include="Database\Tilesets\ImageColorsDialog.resx">
+      <DependentUpon>ImageColorsDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Database\Tilesets\TilesetsMainForm.resx">
       <DependentUpon>TilesetsMainForm.cs</DependentUpon>

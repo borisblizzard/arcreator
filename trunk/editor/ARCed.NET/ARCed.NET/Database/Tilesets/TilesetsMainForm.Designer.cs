@@ -30,6 +30,7 @@
 		{
 			this.splitContainer = new System.Windows.Forms.SplitContainer();
 			this.dataObjectList = new ARCed.Controls.DatabaseObjectListBox();
+			this.checkBoxBatch = new System.Windows.Forms.CheckBox();
 			this.radioTerrain = new System.Windows.Forms.RadioButton();
 			this.radioCounter = new System.Windows.Forms.RadioButton();
 			this.radioBush = new System.Windows.Forms.RadioButton();
@@ -72,6 +73,7 @@
 			// 
 			// splitContainer.Panel2
 			// 
+			this.splitContainer.Panel2.Controls.Add(this.checkBoxBatch);
 			this.splitContainer.Panel2.Controls.Add(this.radioTerrain);
 			this.splitContainer.Panel2.Controls.Add(this.radioCounter);
 			this.splitContainer.Panel2.Controls.Add(this.radioBush);
@@ -109,6 +111,19 @@
 			this.dataObjectList.TabIndex = 0;
 			this.dataObjectList.TabStop = false;
 			this.dataObjectList.OnListBoxIndexChanged += new ARCed.Controls.DatabaseObjectListBox.ObjectListIndexChangedEventHandler(this.dataObjectList_OnListBoxIndexChanged);
+			// 
+			// checkBoxBatch
+			// 
+			this.checkBoxBatch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+			this.checkBoxBatch.Appearance = System.Windows.Forms.Appearance.Button;
+			this.checkBoxBatch.Location = new System.Drawing.Point(468, 425);
+			this.checkBoxBatch.Name = "checkBoxBatch";
+			this.checkBoxBatch.Size = new System.Drawing.Size(59, 40);
+			this.checkBoxBatch.TabIndex = 31;
+			this.checkBoxBatch.Text = "Batch Select";
+			this.checkBoxBatch.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+			this.checkBoxBatch.UseVisualStyleBackColor = true;
+			this.checkBoxBatch.CheckedChanged += new System.EventHandler(this.checkBoxBatch_CheckedChanged);
 			// 
 			// radioTerrain
 			// 
@@ -198,9 +213,9 @@
 			// 
 			// checkBoxGrid
 			// 
-			this.checkBoxGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+			this.checkBoxGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
 			this.checkBoxGrid.AutoSize = true;
-			this.checkBoxGrid.Location = new System.Drawing.Point(468, 401);
+			this.checkBoxGrid.Location = new System.Drawing.Point(114, 443);
 			this.checkBoxGrid.Name = "checkBoxGrid";
 			this.checkBoxGrid.Size = new System.Drawing.Size(45, 17);
 			this.checkBoxGrid.TabIndex = 23;
@@ -210,10 +225,10 @@
 			// 
 			// buttonColors
 			// 
-			this.buttonColors.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.buttonColors.Location = new System.Drawing.Point(468, 424);
+			this.buttonColors.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.buttonColors.Location = new System.Drawing.Point(12, 439);
 			this.buttonColors.Name = "buttonColors";
-			this.buttonColors.Size = new System.Drawing.Size(59, 40);
+			this.buttonColors.Size = new System.Drawing.Size(96, 23);
 			this.buttonColors.TabIndex = 22;
 			this.buttonColors.Text = "Edit Colors";
 			this.buttonColors.UseVisualStyleBackColor = true;
@@ -237,7 +252,6 @@
 			this.tilesetXnaPanel.Location = new System.Drawing.Point(0, 0);
 			this.tilesetXnaPanel.Name = "tilesetXnaPanel";
 			this.tilesetXnaPanel.SelectionEnabled = false;
-			this.tilesetXnaPanel.Settings = null;
 			this.tilesetXnaPanel.Size = new System.Drawing.Size(256, 451);
 			this.tilesetXnaPanel.TabIndex = 0;
 			this.tilesetXnaPanel.Text = "tilesetXnaPanel";
@@ -306,7 +320,7 @@
 			this.groupBoxAutotiles.Controls.Add(this.panelAutotiles);
 			this.groupBoxAutotiles.Location = new System.Drawing.Point(6, 209);
 			this.groupBoxAutotiles.Name = "groupBoxAutotiles";
-			this.groupBoxAutotiles.Size = new System.Drawing.Size(175, 255);
+			this.groupBoxAutotiles.Size = new System.Drawing.Size(175, 224);
 			this.groupBoxAutotiles.TabIndex = 9;
 			this.groupBoxAutotiles.TabStop = false;
 			this.groupBoxAutotiles.Text = "Autotiles";
@@ -319,7 +333,7 @@
 			this.panelAutotiles.AutoScroll = true;
 			this.panelAutotiles.Location = new System.Drawing.Point(7, 19);
 			this.panelAutotiles.Name = "panelAutotiles";
-			this.panelAutotiles.Size = new System.Drawing.Size(162, 230);
+			this.panelAutotiles.Size = new System.Drawing.Size(162, 199);
 			this.panelAutotiles.TabIndex = 0;
 			// 
 			// labelBattlebackGraphic
@@ -380,7 +394,6 @@
 			this.Text = "Tilesets";
 			this.Load += new System.EventHandler(this.TilesetsMainForm_Load);
 			this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TilesetsMainForm_KeyDown);
-			this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.TilesetsMainForm_KeyUp);
 			this.splitContainer.Panel1.ResumeLayout(false);
 			this.splitContainer.Panel2.ResumeLayout(false);
 			this.splitContainer.Panel2.PerformLayout();
@@ -418,5 +431,6 @@
 		private System.Windows.Forms.RadioButton radioPassage4Dir;
 		private System.Windows.Forms.RadioButton radioPassage;
 		private System.Windows.Forms.Panel panelAutotiles;
+		private System.Windows.Forms.CheckBox checkBoxBatch;
 	}
 }

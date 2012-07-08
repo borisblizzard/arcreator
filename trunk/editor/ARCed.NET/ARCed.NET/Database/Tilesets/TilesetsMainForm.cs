@@ -115,7 +115,7 @@ namespace ARCed.Database.Tilesets
 
 		private void TilesetsMainForm_Load(object sender, EventArgs e)
 		{
-			checkBoxGrid.Checked = Editor.Settings.TilesetSettings.ShowGrid;
+			checkBoxGrid.Checked = Editor.Settings.ImageColorSettings.ShowGrid;
 			RefreshObjectList();
 			InitializeAutotiles();
 			dataObjectList.SelectedIndex = 0;
@@ -123,13 +123,12 @@ namespace ARCed.Database.Tilesets
 
 		private void buttonColors_Click(object sender, EventArgs e)
 		{
-			using (TilemapColorDialog dialog = new TilemapColorDialog(Editor.Settings.TilesetSettings))
+			using (ImageColorsDialog dialog = new ImageColorsDialog(Editor.Settings.ImageColorSettings))
 			{
 				dialog.XnaPanel = tilesetXnaPanel;
 				if (dialog.ShowDialog() != DialogResult.OK)
 				{
-					Editor.Settings.TilesetSettings = dialog.OriginalSettings;
-					tilesetXnaPanel.Settings = dialog.OriginalSettings;
+					Editor.Settings.ImageColorSettings = dialog.OriginalSettings;
 					tilesetXnaPanel.Invalidate();
 				}
 			}
@@ -137,21 +136,14 @@ namespace ARCed.Database.Tilesets
 
 		private void checkBoxGrid_CheckedChanged(object sender, EventArgs e)
 		{
-			Editor.Settings.TilesetSettings.ShowGrid = checkBoxGrid.Checked;
-			tilesetXnaPanel.Settings = Editor.Settings.TilesetSettings;
+			Editor.Settings.ImageColorSettings.ShowGrid = checkBoxGrid.Checked;
 			tilesetXnaPanel.Invalidate();
 		}
 
 		private void TilesetsMainForm_KeyDown(object sender, KeyEventArgs e)
 		{
 			if (e.KeyCode == Keys.ControlKey)
-				tilesetXnaPanel.SelectionEnabled = true;
-		}
-
-		private void TilesetsMainForm_KeyUp(object sender, KeyEventArgs e)
-		{
-			if (e.KeyCode == Keys.ControlKey)
-				tilesetXnaPanel.SelectionEnabled = false;
+				checkBoxBatch.Checked = !checkBoxBatch.Checked;
 		}
 
 		private void radioMode_Clicked(object sender, EventArgs e)
@@ -207,10 +199,6 @@ namespace ARCed.Database.Tilesets
 			using (ImageSelectionForm dialog =
 				new ImageSelectionForm(@"Battlebacks", _tileset.battleback_name))
 			{
-				//dialog.OptionsEnabled = false;
-				//dialog.AdvancedOptionEnabled = false;
-				//dialog.SelectionEnabled = false;
-				//dialog.HueEnabled = false;
 				dialog.Width = 800;
 				if (dialog.ShowDialog(this) == DialogResult.OK)
 				{
@@ -253,6 +241,11 @@ namespace ARCed.Database.Tilesets
 				dataObjectList.Items[index] = _tileset.ToString();
 				dataObjectList.Invalidate(dataObjectList.GetItemRectangle(index));
 			}
+		}
+
+		private void checkBoxBatch_CheckedChanged(object sender, EventArgs e)
+		{
+			tilesetXnaPanel.SelectionEnabled = checkBoxBatch.Checked;
 		}
 	}
 }

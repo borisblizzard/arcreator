@@ -20,7 +20,7 @@ namespace ARCed.Controls
 
 		private bool _selected;
 		private Image _image;
-		private Pen pen = new Pen(Color.White, 2);
+		private Texture2D _texture;
 		private RPG.Troop.Member _member;
 
 		#endregion
@@ -47,12 +47,29 @@ namespace ARCed.Controls
 		public Image Image 
 		{ 
 			get { return _image; }
-			set { _image = value; }
+			set 
+			{ 
+				_image = value;
+				_texture = null;
+			}
 		}
 		/// <summary>
 		/// Gets the sprites texture
 		/// </summary>
-		public Texture2D Texture { get { return Image.ToTexture(GraphicsDevice); } }
+		public Texture2D Texture 
+		{ 
+			get 
+			{
+				if (_texture == null)
+				{
+					if (_image != null)
+						_texture = _image.ToTexture(GraphicsDevice);
+					else
+						return new Texture2D(GraphicsDevice, 32, 32);
+				}
+				return _texture;
+			} 
+		}
 		/// <summary>
 		/// Gets a vector that represents the sprites location
 		/// </summary>
@@ -96,17 +113,17 @@ namespace ARCed.Controls
 		/// <summary>
 		/// Gets the width of the sprite
 		/// </summary>
-		public int Width { get { return Image.Width; } }
+		public int Width { get { return Image == null ? 32 : Image.Width; } }
 		/// <summary>
 		/// Gets the height of the sprite
 		/// </summary>
-		public int Height { get { return Image.Height; } }
+		public int Height { get { return Image == null ? 32 : Image.Height; } }
 		/// <summary>
 		/// Gets the rectangle of the sprite
 		/// </summary>
 		public XnaRect Rectangle 
 		{ 
-			get { return new XnaRect(X, Y, Image.Width, Image.Height); } 
+			get { return new XnaRect(X, Y, Width, Height); } 
 		}
 		/// <summary>
 		/// Gets or sets the immortal status of the RPG.Troop.Member
@@ -207,8 +224,8 @@ namespace ARCed.Controls
 			{
 				if (_image != null)
 					_image.Dispose();
-				if (pen != null)
-					pen.Dispose();
+				if (_texture != null)
+					_texture.Dispose();
 			}
 		}
 
@@ -489,7 +506,7 @@ namespace ARCed.Controls
 					_batch.Draw(sprite.Texture, sprite.Vector, 
 						sprite.Hidden ? _hiddenColor : XnaColor.White);
 					if (sprite.Selected)
-						_batch.DrawRectangle(sprite.Rectangle, XnaColor.White, 2);
+						_batch.DrawSelectionRect(sprite.Rectangle, XnaColor.White, 2);
 				}
 				_batch.End();
 			}

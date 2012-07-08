@@ -87,7 +87,7 @@ namespace ARCed.Settings
 		/// <summary>
 		/// Gets or sets the settings used for tileset editor.
 		/// </summary>
-		public TilesetSettings TilesetSettings { get; set; }
+		public ImageColorSettings ImageColorSettings { get; set; }
 		/// <summary>
 		/// Gets or sets the background color used for image selection.
 		/// </summary>
@@ -109,7 +109,7 @@ namespace ARCed.Settings
 			Charting = new ChartSettings();
 			SerializedNoteFont = FontHelper.MonoFont;
 			HeaderImage = new HeaderSettings();
-			TilesetSettings = new TilesetSettings();
+			ImageColorSettings = new ImageColorSettings();
 			ImageBackColor = Microsoft.Xna.Framework.Color.White;
 		}
 
