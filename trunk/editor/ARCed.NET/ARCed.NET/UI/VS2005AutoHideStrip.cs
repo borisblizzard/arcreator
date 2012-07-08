@@ -345,7 +345,7 @@ namespace ARCed.UI
 
             if (dockState == DockState.DockLeftAutoHide || dockState == DockState.DockRightAutoHide)
             {
-                // The DockState is DockLeftAutoHide or DockRightAutoHide, so rotate the _texture 90 degrees to the right. 
+                // The DockState is DockLeftAutoHide or DockRightAutoHide, so rotate the _srcTexture 90 degrees to the right. 
                 Rectangle rectTransform = RtlTransform(rectImage, dockState);
                 Point[] rotationPoints =
                 { 

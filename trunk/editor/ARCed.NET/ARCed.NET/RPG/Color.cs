@@ -1,4 +1,5 @@
-﻿
+﻿using SysColor = System.Drawing.Color;
+
 // TODO: Clamp values
 namespace RPG
 {
@@ -33,6 +34,16 @@ namespace RPG
 			this.green = green;
 			this.blue = blue;
 			this.alpha = alpha;
+		}
+
+		public override string ToString()
+		{
+			return string.Format("({0}, {1}, {2}, {3})", red, green, blue, alpha);
+		}
+
+		public SysColor ToSystemColor()
+		{
+			return SysColor.FromArgb((int)alpha, (int)red, (int)green, (int)blue);
 		}
 	}
 }

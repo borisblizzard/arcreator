@@ -82,10 +82,10 @@ namespace ARCed
 
 		private static Stream _stream = Stream.Null;
 		private static byte[] _buffer = new byte[0];
-		private static List<object> _strings = new List<object>() { null };
-		private static List<object> _arrays = new List<object>() { null };
-		private static List<object> _hashes = new List<object>() { null };
-		private static List<object> _objects = new List<object>() { null };
+		private static List<dynamic> _strings = new List<dynamic>() { null };
+		private static List<dynamic> _arrays = new List<dynamic>() { null };
+		private static List<dynamic> _hashes = new List<dynamic>() { null };
+		private static List<dynamic> _objects = new List<dynamic>() { null };
 		private static TypeMap _mappedTypes;
 		private static TypeMap _assemblyTypes;
 
@@ -308,7 +308,7 @@ namespace ARCed
 		/// <returns>Flag if object was mapped</returns>
 		/// <remarks>If object is already mapped, the index it was found in is dumped instead of the
 		/// the whole object</remarks>
-		private static bool TryMapEquality(ref List<object> data, object obj) 
+		private static bool TryMapEquality(ref List<dynamic> data, dynamic obj) 
 		{
 			int index = -1;
 			for (int i = 0; i < data.Count; i++)
@@ -337,7 +337,7 @@ namespace ARCed
 		/// <returns>Flag if object was mapped</returns>
 		/// <remarks>If object is already mapped, the index it was found in is dumped instead of the
 		/// the whole object</remarks>
-		private static bool TryMapIdentity(ref List<object> data, object obj) 
+		private static bool TryMapIdentity(ref List<dynamic> data, dynamic obj) 
 		{
 			int index = data.IndexOf(obj);
 			if (index < 0)
@@ -382,7 +382,7 @@ namespace ARCed
 		/// <param name="list">Reference to the map to search</param>
 		/// <param name="id">ID of the object</param>
 		/// <returns>Object found with the given ID, or null if not found</returns>
-		private static object FindMapping(ref List<object> list, int id)
+		private static object FindMapping(ref List<dynamic> list, int id)
 		{
 			return id < list.Count ? list[id] : null;
 		}
@@ -393,7 +393,7 @@ namespace ARCed
 		/// <typeparam name="T">Object type</typeparam>
 		/// <param name="list">Reference to the map</param>
 		/// <param name="obj">Object to map</param>
-		private static void MapObject<T>(ref List<object> list, T obj)
+		private static void MapObject(ref List<dynamic> list, dynamic obj)
 		{
 			list.Add(obj);
 		}
@@ -620,6 +620,7 @@ namespace ARCed
 			List<dynamic> array = new List<dynamic>(size);
 			for (int i = 0; i < size; i++)
 				array.Add(_load());
+			MapObject(ref _arrays, obj);
 			return array;
 		}
 
@@ -662,6 +663,7 @@ namespace ARCed
 				key = _load();
 				hash[key] = _load();
 			}
+			MapObject(ref _hashes, obj);
 			return hash;
 		}
 
@@ -695,10 +697,10 @@ namespace ARCed
 			}
 			else
 			{
-				List<object> excludes = new List<object>();
+				List<dynamic> excludes = new List<dynamic>();
 				if (obj.HasMethod("_arc_exclude"))
 				{
-					excludes = (List<object>)objType.InvokeMember(
+					excludes = (List<dynamic>)objType.InvokeMember(
 						"_arc_exclude",
 						BindingFlags.Public | BindingFlags.GetProperty,
 						null,
@@ -753,7 +755,6 @@ namespace ARCed
 				return obj;
 			}
 			obj = Activator.CreateInstance(type);
-			MapObject(ref _objects, obj);
 			string propertyName;
 			dynamic propertyValue;
 			for (int i = 0; i < size; i++)
@@ -764,6 +765,7 @@ namespace ARCed
 				if (info != null)
 					info.SetValue(obj, propertyValue, null);
 			}
+			MapObject(ref _objects, obj);
 			return obj;
 		}
 

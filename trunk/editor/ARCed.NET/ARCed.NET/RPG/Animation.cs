@@ -25,7 +25,7 @@ namespace RPG
 			animation_hue = 0;
 			position = 1;
 			frame_max = 1;
-			frames = new List<dynamic>() {  };
+			frames = new List<dynamic>() { new RPG.Animation.Frame() };
 			timings = new List<dynamic>() {  };
 		}
 

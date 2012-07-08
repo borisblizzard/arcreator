@@ -19,7 +19,7 @@ namespace ARCed.Helpers
 		}
 
 		/// <summary>
-		/// Array of strings used for searching supported _texture formats
+		/// Array of strings used for searching supported _srcTexture formats
 		/// </summary>
 		public static readonly string[] ImageFilters = new[] { "*.png", "*.jpg", "*.bmp" };
 		/// <summary>

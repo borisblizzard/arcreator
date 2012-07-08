@@ -157,7 +157,7 @@ namespace ARCed.Scintilla
         Arrows = NativeMethods.SC_MARK_ARROWS,
 
         /// <summary>
-        ///     The marker is drawn using the _texture specified in the <see cref="Marker.SetImage" /> method.
+        ///     The marker is drawn using the _srcTexture specified in the <see cref="Marker.SetImage" /> method.
         /// </summary>
         PixMap = NativeMethods.SC_MARK_PIXMAP,
 

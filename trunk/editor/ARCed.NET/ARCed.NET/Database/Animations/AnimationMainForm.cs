@@ -15,7 +15,7 @@ namespace ARCed.Database.Animations
 	{
 		#region Private Fields
 
-		RPG.Animation _animation = new RPG.Animation();
+		RPG.Animation _animation;
 
 		#endregion
 
@@ -23,6 +23,8 @@ namespace ARCed.Database.Animations
 		/// Gets the object list control of this database panel.
 		/// </summary>
 		protected override DatabaseObjectListBox DataObjectList { get { return dataObjectList; } }
+
+		public override List<dynamic> Data { get { return Project.Data.Animations; } }
 
 		#region Construction
 
@@ -36,8 +38,16 @@ namespace ARCed.Database.Animations
 
 		private void AnimationMainForm_Load(object sender, EventArgs e)
 		{
-			//RefreshObjectList();
-			//dataObjectList.SelectedIndex = 0;
+			// TEST ////////////////////////////////////////////
+
+			Project.Data.Animations = new List<dynamic>() { null };
+			for (int i = 1; i <= 20; i++)
+				Project.Data.Animations.Add(new RPG.Animation() { id = i });
+
+			// TEST ////////////////////////////////////////////
+			RefreshObjectList();
+			dataObjectList.SelectedIndex = 0;
+			listBoxFrames.SelectedIndex = 0;
 		}
 
 		#endregion
@@ -63,24 +73,73 @@ namespace ARCed.Database.Animations
 		public override void RefreshCurrentObject()
 		{
 			suppressEvents = true;
-
+			animeXnaPanel.Animation = _animation;
+			animeSrcXnaPanel.Animation = _animation;
+			textBoxName.Text = _animation.name;
+			textBoxGraphic.Text = String.IsNullOrWhiteSpace(_animation.animation_name) ?
+				"<None>" : _animation.animation_name;
+			numericUpDownFrames.Value = _animation.frame_max;
+			comboBoxPosition.SelectedIndex = _animation.position;
+			RefreshTimings();
+			RefreshFrameList();
 			suppressEvents = false;
 		}
 
 		#endregion
 
+		private void RefreshTimings()
+		{
+			listViewTiming.BeginUpdate();
+			listViewTiming.Items.Clear();
+			string[] items;
+			string flash, condition;
+			foreach (RPG.Animation.Timing timing in _animation.timings)
+			{
+				switch (timing.flash_scope)
+				{
+					case 1: 
+						flash = String.Format("Target{0}, @{1}", timing.flash_color, timing.flash_duration);
+						break;
+					case 2:
+						flash = String.Format("Screen{0}, @{1}", timing.flash_color, timing.flash_duration);
+						break;
+					case 3:
+						flash = String.Format("Hide Target, @{0}", timing.flash_duration);
+						break;
+					default: flash = "<None>"; break;
+				}
+				condition = String.Format("");
+				items = new string[] {
+					timing.frame.ToString(),
+					String.IsNullOrWhiteSpace(timing.se.name) ? "<None>" : timing.se.ToString(),
+					flash,
+					new[] { "None", "Hit", "Miss"}[timing.condition]
+				};
+				listViewTiming.Items.Add(new ListViewItem(items));
+			}
+			listViewTiming.EndUpdate();
+		}
+
 		private void RefreshFrameList()
 		{
+			int index = listBoxFrames.SelectedIndex;
 			listBoxFrames.BeginUpdate();
 			listBoxFrames.Items.Clear();
 			for (int i = 0; i < _animation.frames.Count; i++)
 				listBoxFrames.Items.Add(String.Format("#{0:d3}", i + 1));
+			listBoxFrames.SelectedIndex = index.Clamp(0, listBoxFrames.Items.Count - 1);
 			listBoxFrames.EndUpdate();
 		}
 
 		private void RefreshImages()
 		{
 			// TEST ////////////////////////////////////////////
+
+			_animation = new RPG.Animation()
+			{
+				animation_hue = _animation.animation_hue,
+				animation_name = _animation.animation_name
+			};
 			animeSrcXnaPanel.Animation = _animation;
 			////////////////////////////////////////////////////
 		}
@@ -116,7 +175,65 @@ namespace ARCed.Database.Animations
 				{
 					_animation.animation_name = dialog.ImageName;
 					_animation.animation_hue = dialog.Hue;
+					textBoxGraphic.Text = String.IsNullOrWhiteSpace(_animation.animation_name) ?
+						"<None>" : _animation.animation_name;
 					RefreshImages();
+				}
+			}
+		}
+
+		private void dataObjectList_OnListBoxIndexChanged(object sender, EventArgs e)
+		{
+			int index = dataObjectList.SelectedIndex;
+			if (index >= 0)
+			{
+				_animation = Data[index + 1];
+				RefreshCurrentObject();
+			}
+		}
+
+		private void textBoxName_TextChanged(object sender, EventArgs e)
+		{
+			if (!suppressEvents)
+			{
+				_animation.name = textBoxName.Text;
+				int index = dataObjectList.SelectedIndex;
+				dataObjectList.Items[index] = _animation.ToString();
+				dataObjectList.Invalidate(dataObjectList.GetItemRectangle(index));
+			}
+		}
+
+		private void listViewTiming_DoubleClick(object sender, EventArgs e)
+		{
+
+		}
+
+		private void listViewTiming_ColumnClick(object sender, ColumnClickEventArgs e)
+		{
+
+		}
+
+		private void listViewTiming_MouseDown(object sender, MouseEventArgs e)
+		{
+			if (e.Clicks == 2)
+			{
+				using (AnimationTimingDialog dialog = new AnimationTimingDialog())
+				{
+					
+					var indices = listViewTiming.SelectedIndices;
+					int index = indices.Count > 0 ? indices[0] : -1;
+					if (index >= 0)
+						dialog.Timing = _animation.timings[index];
+					else
+						dialog.Timing = new RPG.Animation.Timing();
+					if (dialog.ShowDialog() == DialogResult.OK)
+					{
+						if (index >= 0)
+							_animation.timings[index] = dialog.Timing;
+						else
+							_animation.timings.Add(dialog.Timing);
+						RefreshTimings();
+					}
 				}
 			}
 		}
