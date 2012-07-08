@@ -15,9 +15,9 @@ namespace ARCed.Helpers
 		/// <summary>
 		/// Clears and fills the control with the given data. 
 		/// </summary>
-		/// <param frames="ctrl">Listbox control to fill</param>
-		/// <param frames="data">List of data</param>
-		/// <param frames="none">Flag to fill the first position with "None"</param>
+		/// <param _frames="ctrl">Listbox control to fill</param>
+		/// <param _frames="data">List of data</param>
+		/// <param _frames="none">Flag to fill the first position with "None"</param>
 		/// <remarks>Painting is suspended until after items have been added</remarks>
 		public static void Populate(ListBox ctrl, IList<dynamic> data, bool none) 
 		{
@@ -33,9 +33,9 @@ namespace ARCed.Helpers
 		/// <summary>
 		/// Clears and fills the control with the given data. 
 		/// </summary>
-		/// <param frames="ctrl">Combobox control to fill</param>
-		/// <param frames="data">List of data</param>
-		/// <param frames="none">Flag to fill the first position with "None"</param>
+		/// <param _frames="ctrl">Combobox control to fill</param>
+		/// <param _frames="data">List of data</param>
+		/// <param _frames="none">Flag to fill the first position with "None"</param>
 		/// <remarks>Painting is suspended until after items have been added</remarks>
 		public static void Populate(ComboBox ctrl, IList<dynamic> data, bool none) 
 		{
@@ -51,8 +51,8 @@ namespace ARCed.Helpers
 		/// <summary>
 		/// 
 		/// </summary>
-		/// <param frames="picBox"></param>
-		/// <param frames="text"></param>
+		/// <param _frames="picBox"></param>
+		/// <param _frames="text"></param>
 		public static void RenderHeaderImage(PictureBox picBox, string text)
 		{
 			RenderHeaderImage(picBox, text,
@@ -65,12 +65,12 @@ namespace ARCed.Helpers
 		/// <summary>
 		/// 
 		/// </summary>
-		/// <param frames="picBox"></param>
-		/// <param frames="text"></param>
-		/// <param frames="font"></param>
-		/// <param frames="textBrush"></param>
-		/// <param frames="gradient1"></param>
-		/// <param frames="gradient2"></param>
+		/// <param _frames="picBox"></param>
+		/// <param _frames="text"></param>
+		/// <param _frames="font"></param>
+		/// <param _frames="textBrush"></param>
+		/// <param _frames="gradient1"></param>
+		/// <param _frames="gradient2"></param>
 		public static void RenderHeaderImage(PictureBox picBox, string text, Font font,
 			Brush textBrush, Color gradient1, Color gradient2)
 		{

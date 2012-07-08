@@ -138,6 +138,12 @@
       <DependentUpon>CollapsibleGroupBox.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\ColumnSorter.cs" />
+    <Compile Include="Controls\AnimationSourceXnaPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\AnimationSourceXnaPanel.Designer.cs">
+      <DependentUpon>AnimationSourceXnaPanel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\ImageSelectXnaPanel.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -259,6 +265,12 @@
     </Compile>
     <Compile Include="Database\Actors\ExperienceCurveForm.Designer.cs">
       <DependentUpon>ExperienceCurveForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Database\Animations\AnimationMainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Database\Animations\AnimationMainForm.Designer.cs">
+      <DependentUpon>AnimationMainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Database\Armors\ArmorMainForm.cs">
       <SubType>Form</SubType>
@@ -961,6 +973,9 @@
     <EmbeddedResource Include="Controls\CollapsibleGroupBox.resx">
       <DependentUpon>CollapsibleGroupBox.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Controls\AnimationSourceXnaPanel.resx">
+      <DependentUpon>AnimationSourceXnaPanel.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Controls\ImageSelectXnaPanel.resx">
       <DependentUpon>ImageSelectXnaPanel.cs</DependentUpon>
     </EmbeddedResource>
@@ -1014,6 +1029,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Database\Actors\ExperienceCurveForm.resx">
       <DependentUpon>ExperienceCurveForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Database\Animations\AnimationMainForm.resx">
+      <DependentUpon>AnimationMainForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Database\Armors\ArmorMainForm.resx">
       <DependentUpon>ArmorMainForm.cs</DependentUpon>
@@ -1680,9 +1698,7 @@
     <Content Include="UI\Resources\DockPane_Option.bmp" />
     <Content Include="UI\Resources\DockPane_OptionOverflow.bmp" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Database\Animations\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0">
       <Visible>False</Visible>

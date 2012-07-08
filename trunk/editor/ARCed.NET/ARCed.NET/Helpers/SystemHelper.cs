@@ -39,9 +39,9 @@ namespace ARCed.Helpers
 		/// <summary>
 		/// Saves an object in XML format
 		/// </summary>
-		/// <typeparam frames="T">Object type that will be saved</typeparam>
-		/// <param frames="path">Path to the file that will be written to</param>
-		/// <param frames="data">Object to save</param>
+		/// <typeparam _frames="T">Object type that will be saved</typeparam>
+		/// <param _frames="path">Path to the file that will be written to</param>
+		/// <param _frames="data">Object to save</param>
 		public static void SaveXML<T>(string path, T data)
 		{
 			try
@@ -56,8 +56,8 @@ namespace ARCed.Helpers
 		/// <summary>
 		/// Loads an object previously saved in XML format
 		/// </summary>
-		/// <typeparam frames="T">Object type that will be restored</typeparam>
-		/// <param frames="path">Path to the XML formatted file to load</param>
+		/// <typeparam _frames="T">Object type that will be restored</typeparam>
+		/// <param _frames="path">Path to the XML formatted file to load</param>
 		/// <returns>Loaded object</returns>
 		public static T LoadXML<T>(string path) where T : class
 		{
@@ -76,8 +76,8 @@ namespace ARCed.Helpers
 		/// <summary>
 		/// Saves an object in binary format
 		/// </summary>
-		/// <param frames="path">Path to the file that will be written to</param>
-		/// <param frames="data">Object to save</param>
+		/// <param _frames="path">Path to the file that will be written to</param>
+		/// <param _frames="data">Object to save</param>
 		public static void SaveBinary(string path, object data)
 		{
 			try
@@ -92,8 +92,8 @@ namespace ARCed.Helpers
 		/// <summary>
 		/// Loads an object previously saved in binary format
 		/// </summary>
-		/// <typeparam frames="T">Object type that will be restored</typeparam>
-		/// <param frames="path">Path to the binary formatted file to load</param>
+		/// <typeparam _frames="T">Object type that will be restored</typeparam>
+		/// <param _frames="path">Path to the binary formatted file to load</param>
 		/// <returns>Loaded object</returns>
 		public static T LoadBinary<T>(string path) where T : class
 		{

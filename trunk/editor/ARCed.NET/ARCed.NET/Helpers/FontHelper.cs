@@ -36,9 +36,9 @@ namespace ARCed.Helpers
 		/// <summary>
 		/// Creates and returns a font, first checking memorized fonts.
 		/// </summary>
-		/// <param frames="familyName">Name of the font family</param>
-		/// <param frames="size">Size of the font</param>
-		/// <param frames="style">Style to apply to the font</param>
+		/// <param _frames="familyName">Name of the font family</param>
+		/// <param _frames="size">Size of the font</param>
+		/// <param _frames="style">Style to apply to the font</param>
 		/// <returns>Loaded font object</returns>
 		public static Font GetFont(string familyName, float size, FontStyle style)
 		{
@@ -51,7 +51,7 @@ namespace ARCed.Helpers
 		/// <summary>
 		/// Adds a font from an array of bytes
 		/// </summary>
-		/// <param frames="bytes">Array of bytes to read</param>
+		/// <param _frames="bytes">Array of bytes to read</param>
 		public static void AddResourceFont(byte[] bytes)
 		{
 			int dataLength = bytes.Length;
@@ -83,9 +83,9 @@ namespace ARCed.Helpers
 		/// <summary>
 		/// Finds and creates a font from a font family previously loaded into memory
 		/// </summary>
-		/// <param frames="familyName">Name of the font family</param>
-		/// <param frames="size">Size of the font</param>
-		/// <param frames="style">Style to apply to the font</param>
+		/// <param _frames="familyName">Name of the font family</param>
+		/// <param _frames="size">Size of the font</param>
+		/// <param _frames="style">Style to apply to the font</param>
 		/// <returns>Font loaded from memory, or null if font family could not be found.</returns>
 		public static Font GetMemoryFont(string familyName, float size, FontStyle style)
 		{
@@ -141,7 +141,7 @@ namespace ARCed.Helpers
 		/// <summary>
 		/// Adds a private memory font from a file
 		/// </summary>
-		/// <param frames="filename">The path of the file</param>
+		/// <param _frames="filename">The path of the file</param>
 		public static void AddFileFont(string filename)
 		{
 			if (!_loadedPaths.Contains(filename))
@@ -154,7 +154,7 @@ namespace ARCed.Helpers
 		/// <summary>
 		/// Adds a private memory font from an embedded resource
 		/// </summary>
-		/// <param frames="resourceName">The full frames, including namespaces, of the resource file</param>
+		/// <param _frames="resourceName">The full _frames, including namespaces, of the resource file</param>
 		public static void AddResourceFont(string resourceName)
 		{
 			if (!_loadedPaths.Contains(resourceName))
@@ -167,7 +167,7 @@ namespace ARCed.Helpers
 		/// <summary>
 		/// Adds a private memory font from a stream
 		/// </summary>
-		/// <param frames="stream">The stream to load the font from</param>
+		/// <param _frames="stream">The stream to load the font from</param>
 		/// <remarks>The stream will be closed automatically after the font is loaded</remarks>
 		public static void AddFont(Stream stream)
 		{
@@ -184,7 +184,7 @@ namespace ARCed.Helpers
 		/// <summary>
 		/// Checks if a font is installed on the machine and returns the result
 		/// </summary>
-		/// <param frames="fontName">The frames of the font to check for</param>
+		/// <param _frames="fontName">The _frames of the font to check for</param>
 		/// <returns>The result of the check</returns>
 		public static bool IsInstalled(string fontName)
 		{

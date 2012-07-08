@@ -246,7 +246,7 @@ namespace ARCed
 				foreach (Type type in SystemHelper.ARCedAssembly.GetTypes())
 					map[type.ToString()] = type;
 
-
+				//data.Animations = LoadArcData<List<dynamic>>("Animations.arc", map);
 				data.Actors = LoadArcData<List<dynamic>>("Actors.arc", map);
 				data.Classes = LoadArcData<List<dynamic>>("Classes.arc", map);
 				data.Items = LoadArcData<List<dynamic>>("Items.arc", map);
