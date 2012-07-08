@@ -1,21 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
-using ARCed.Helpers;
-using ARCed.Dialogs;
 using ARCed.Controls;
+using ARCed.Dialogs;
 
 namespace ARCed.Database.Tilesets
 {
 	public partial class TilesetsMainForm : DatabaseWindow
 	{
+		#region Private Fields
 
 		private RPG.Tileset _tileset;
+
+		#endregion
 
 		#region Protected Properties
 
@@ -35,41 +33,27 @@ namespace ARCed.Database.Tilesets
 
 		#endregion
 
+		#region Construction
+
+		/// <summary>
+		/// Default constructor
+		/// </summary>
 		public TilesetsMainForm()
 		{
 			InitializeComponent();
 		}
 
-		private void InitializeAutotiles()
+		private void TilesetsMainForm_Load(object sender, EventArgs e)
 		{
-			for (int i = 0; i < Constants.AUTOTILES; i++)
-			{
-				TextBoxButton textBox = new TextBoxButton();
-				textBox.Tag = i;
-				textBox.Location = new Point(6, 6 + (i * 24));
-				textBox.Size = new Size(panelAutotiles.ClientSize.Width - 12, 20);
-				textBox.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-				panelAutotiles.Controls.Add(textBox);
-				textBox.OnButtonClick += new TextBoxButton.ButtonClickHandler(textBoxAutotile_ButtonClick);
-			}
+			checkBoxGrid.Checked = Editor.Settings.ImageColorSettings.ShowGrid;
+			RefreshObjectList();
+			InitializeAutotiles();
+			dataObjectList.SelectedIndex = 0;
 		}
 
-		void textBoxAutotile_ButtonClick(object sender, EventArgs e)
-		{
-			int index = Convert.ToInt32((sender as TextBoxButton).Tag);
-			string tile = _tileset.autotile_names[index];
-			using (ImageSelectionForm dialog = new ImageSelectionForm(@"Autotiles", tile))
-			{
-				if (dialog.ShowDialog(this) == DialogResult.OK)
-				{
-					string name = dialog.ImageName;
-					_tileset.autotile_names[index] = name;
-					(sender as TextBoxButton).Text = String.IsNullOrWhiteSpace(name) ?
-						"<None>" : name;
-					tilesetXnaPanel.Invalidate();
-				}
-			}
-		}
+		#endregion
+
+		#region Public Methods
 
 		/// <summary>
 		/// Refreshes objects by type flag
@@ -93,6 +77,7 @@ namespace ARCed.Database.Tilesets
 				"<None>" : _tileset.panorama_name;
 			textBoxBattleback.Text = String.IsNullOrWhiteSpace(_tileset.battleback_name) ?
 				"<None>" : _tileset.battleback_name;
+			//noteTextBox.NoteText = _tileset.note;
 			string autotile;
 			for (int i = 0; i < _tileset.autotile_names.Count; i++)
 			{
@@ -103,6 +88,41 @@ namespace ARCed.Database.Tilesets
 			suppressEvents = false;
 		}
 
+		#endregion
+
+		#region Private Methods
+
+		private void InitializeAutotiles()
+		{
+			for (int i = 0; i < Constants.AUTOTILES; i++)
+			{
+				TextBoxButton textBox = new TextBoxButton();
+				textBox.Tag = i;
+				textBox.Location = new Point(6, 6 + (i * 24));
+				textBox.Size = new Size(panelAutotiles.ClientSize.Width - 12, 20);
+				textBox.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+				panelAutotiles.Controls.Add(textBox);
+				textBox.OnButtonClick += new TextBoxButton.ButtonClickHandler(textBoxAutotile_ButtonClick);
+			}
+		}
+
+		private void textBoxAutotile_ButtonClick(object sender, EventArgs e)
+		{
+			int index = Convert.ToInt32((sender as TextBoxButton).Tag);
+			string tile = _tileset.autotile_names[index];
+			using (ImageSelectionForm dialog = new ImageSelectionForm(@"Autotiles", tile))
+			{
+				if (dialog.ShowDialog(this) == DialogResult.OK)
+				{
+					string name = dialog.ImageName;
+					_tileset.autotile_names[index] = name;
+					(sender as TextBoxButton).Text = String.IsNullOrWhiteSpace(name) ?
+						"<None>" : name;
+					tilesetXnaPanel.Invalidate();
+				}
+			}
+		}
+
 		private void dataObjectList_OnListBoxIndexChanged(object sender, EventArgs e)
 		{
 			int index = dataObjectList.SelectedIndex;
@@ -111,14 +131,6 @@ namespace ARCed.Database.Tilesets
 				_tileset = Data[index + 1];
 				RefreshCurrentObject();
 			}
-		}
-
-		private void TilesetsMainForm_Load(object sender, EventArgs e)
-		{
-			checkBoxGrid.Checked = Editor.Settings.ImageColorSettings.ShowGrid;
-			RefreshObjectList();
-			InitializeAutotiles();
-			dataObjectList.SelectedIndex = 0;
 		}
 
 		private void buttonColors_Click(object sender, EventArgs e)
@@ -179,7 +191,7 @@ namespace ARCed.Database.Tilesets
 			RefreshCurrentObject();
 		}	
 	
-		 void textBoxPanorama_OnButtonClick(object sender, EventArgs e)
+		private void textBoxPanorama_OnButtonClick(object sender, EventArgs e)
 		{
 			using (ImageSelectionForm dialog =
 				new ImageSelectionForm(@"Panoramas", _tileset.panorama_name))
@@ -247,5 +259,19 @@ namespace ARCed.Database.Tilesets
 		{
 			tilesetXnaPanel.SelectionEnabled = checkBoxBatch.Checked;
 		}
+
+		private void checkBoxIcons_CheckedChanged(object sender, EventArgs e)
+		{
+			tilesetXnaPanel.DisplayIcons = checkBoxIcons.Checked;
+		}
+
+		private void noteTextBox_NoteTextChanged(object sender, EventArgs e)
+		{
+			//if (!suppressEvents)
+			//_tileset.note = noteTextBox.NoteText;
+		}
+
+		#endregion
+
 	}
 }

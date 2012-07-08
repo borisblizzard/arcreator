@@ -6,7 +6,7 @@ namespace ARCed.EventBuilder
 	public partial class CmdWaitDialog : Form
 	{
 		/// <summary>
-		/// Gets or sets the number of frames defined.
+		/// Gets or sets the number of _frames defined.
 		/// </summary>
 		public int Frames
 		{

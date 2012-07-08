@@ -31,6 +31,7 @@
 - Replace picturebox controls in Enemies panel to use XNA so proper blending and opacity 
   can be made.
 - Implement altered opacity and blending of sprites into the Troop panel
+- Implement option to have XNA panels "fit" to current panel size and scale graphics appropriately
 
 ** Possible ** (Depends on scripts)
 - Curve generation for experience

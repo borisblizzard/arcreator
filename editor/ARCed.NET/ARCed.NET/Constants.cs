@@ -16,6 +16,7 @@ namespace ARCed
 		public const int AUTOTILES = 7;
 		public const int PRIORITIES = 6;
 		public const int TERRAINS = 8;
+		public const int ANIMATIONSIZE = 192;
 
 		public const string RTP_PATH = @"C:\Program Files (x86)\Common Files\Enterbrain\RGSS\Standard";
 	}

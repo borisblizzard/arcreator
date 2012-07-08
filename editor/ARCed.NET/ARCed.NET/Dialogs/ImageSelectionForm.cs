@@ -219,6 +219,9 @@ namespace ARCed.Dialogs
 			}
 			switch (_folder)
 			{
+				case @"Graphics\Animations":
+					pictureBox.Image = new Bitmap(Cache.Animation(_filename, (int)trackBarHue.Value));
+					break;
 				case @"Graphics\Characters": 
 					pictureBox.Image = new Bitmap(Cache.Character(_filename, (int)trackBarHue.Value));
 					break;

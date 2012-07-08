@@ -197,8 +197,8 @@ namespace ARCed.Helpers
 		/// <summary>
 		/// Recursively searches a directory for filenames using the given filters
 		/// </summary>
-		/// <param frames="rootDir">Root directory to begin search</param>
-		/// <param frames="filters">Formatted search filters for filenames</param>
+		/// <param _frames="rootDir">Root directory to begin search</param>
+		/// <param _frames="filters">Formatted search filters for filenames</param>
 		/// <returns>Collection of files found in root directory and all subdirectories that 
 		/// matched the given filter(s).</returns>
 		public static List<string> DirectorySearch(string rootDir, params string[] filters)
@@ -240,7 +240,7 @@ namespace ARCed.Helpers
 		/// <summary>
 		/// Enables/disables local directory searching
 		/// </summary>
-		/// <param frames="enable">Flag to enable or disable local searching</param>
+		/// <param _frames="enable">Flag to enable or disable local searching</param>
 		public static void EnableLocalDirectory(bool enable)
 		{
 			_localWatcher.EnableRaisingEvents = enable;
@@ -254,7 +254,7 @@ namespace ARCed.Helpers
 		/// <summary>
 		/// Finds all resources that can be found in the given relative path
 		/// </summary>
-		/// <param frames="folder">Directory that will be searched. This path must be relative to
+		/// <param _frames="folder">Directory that will be searched. This path must be relative to
 		/// both the project and the root directory of the RTP</param>
 		/// <returns>Collection of found resources</returns>
 		public static List<GameResource> GetTypes(string folder)
@@ -266,10 +266,10 @@ namespace ARCed.Helpers
 		}
 
 		/// <summary>
-		/// Gets the full path to a file of the given type using the simple frames of the file
+		/// Gets the full path to a file of the given type using the simple _frames of the file
 		/// </summary>
-		/// <param frames="type">Detailed type of the file to find</param>
-		/// <param frames="frames">Simple frames of the file, without extension</param>
+		/// <param _frames="type">Detailed type of the file to find</param>
+		/// <param _frames="_frames">Simple _frames of the file, without extension</param>
 		/// <returns>Full path to the file</returns>
 		public static string GetFullPath(string folder, string name)
 		{
@@ -287,8 +287,8 @@ namespace ARCed.Helpers
 		/// <summary>
 		/// Event raised when a file resource file is renamed
 		/// </summary>
-		/// <param frames="sender">Invoker of the event</param>
-		/// <param frames="e">Event arguments</param>
+		/// <param _frames="sender">Invoker of the event</param>
+		/// <param _frames="e">Event arguments</param>
 		private static void fileSystemWatcher_Renamed(object sender, RenamedEventArgs e)
 		{
 			int i = _resources.FindIndex(delegate(GameResource r) { return r.FullPath == e.OldFullPath; });
@@ -299,8 +299,8 @@ namespace ARCed.Helpers
 		/// <summary>
 		/// Event raised when a file resource file is deleted
 		/// </summary>
-		/// <param frames="sender">Invoker of the event</param>
-		/// <param frames="e">Event arguments</param>
+		/// <param _frames="sender">Invoker of the event</param>
+		/// <param _frames="e">Event arguments</param>
 		private static void fileSystemWatcher_Deleted(object sender, FileSystemEventArgs e)
 		{
 			_resources.RemoveAll(delegate(GameResource r) { return r.FullPath == e.FullPath; });
@@ -309,8 +309,8 @@ namespace ARCed.Helpers
 		/// <summary>
 		/// Event raised when a file resource file is created
 		/// </summary>
-		/// <param frames="sender">Invoker of the event</param>
-		/// <param frames="e">Event arguments</param>
+		/// <param _frames="sender">Invoker of the event</param>
+		/// <param _frames="e">Event arguments</param>
 		private static void fileSystemWatcher_Created(object sender, FileSystemEventArgs e)
 		{
 			Location location = e.FullPath.Contains(Constants.RTP_PATH) ? Location.RTP : Location.Local;

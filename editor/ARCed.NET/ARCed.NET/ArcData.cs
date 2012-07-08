@@ -240,16 +240,16 @@ namespace ARCed
 			RubyTypes type = (RubyTypes)_stream.ReadByte();
 			switch (type)
 			{
-				case RubyTypes.NilClass: return _loadNilClass();
+				case RubyTypes.NilClass:   return _loadNilClass();
 				case RubyTypes.FalseClass: return _loadFalseClass();
-				case RubyTypes.TrueClass: return _loadTrueClass();
-				case RubyTypes.Fixnum: return _loadFixnum();
-				case RubyTypes.Bignum: return _loadBignum();
-				case RubyTypes.Float: return _loadFloat();
-				case RubyTypes.String: return _loadString();
-				case RubyTypes.Array: return _loadArray();
-				case RubyTypes.Hash: return _loadHash();
-				case RubyTypes.Object: return _loadObject();
+				case RubyTypes.TrueClass:  return _loadTrueClass();
+				case RubyTypes.Fixnum:     return _loadFixnum();
+				case RubyTypes.Bignum:     return _loadBignum();
+				case RubyTypes.Float:      return _loadFloat();
+				case RubyTypes.String:     return _loadString();
+				case RubyTypes.Array:      return _loadArray();
+				case RubyTypes.Hash:       return _loadHash();
+				case RubyTypes.Object:     return _loadObject();
 			}
 			string msg = String.Format("Unknown byte identifier: {0}", type);
 			throw new TypeLoadException(msg);
