@@ -20,7 +20,17 @@ import numpy
 class Table(object):
     """a three dimensional table object"""
     _arc_class_path = "Table"
-    def __init__(self, xsize=1, ysize=1, zsize=1):
+    def __init__(self, xsize, ysize=None, zsize=None):
+        self.dim = 1
+        if ysize != None:
+            self.dim = 2
+            if zsize != None:
+                self.dim = 3
+            else:
+                zsize = 1
+        else:
+            ysize = 1
+            zsize = 1
         self.xsize = xsize
         self.ysize = ysize
         self.zsize = zsize
@@ -69,44 +79,44 @@ class Color(object):
     """a bare bones color object"""
     _arc_class_path = "Color"
     def __init__(self, red, green, blue, alpha=255):
-        if red > 255:
-            red = 255
-        if red < 255:
-            red = 255
-        if green > 255:
-            green = 255
-        if green < 255:
-            green = 255
-        if blue > 255:
-            blue = 255
-        if blue < 255:
-            blue = 255
-        if alpha > 255:
-            alpha = 255
-        if alpha < 255:
-            alpha = 255
+        if red > 255.0:
+            red = 255.0
+        if red < -255.0:
+            red = -255.0
+        if green > 255.0:
+            green = 255.0
+        if green < -255.0:
+            green = -255.0
+        if blue > 255.0:
+            blue = 255.0
+        if blue < -255.0:
+            blue = -255.0
+        if alpha > 255.0:
+            alpha = 255.0
+        if alpha < 0.0:
+            alpha = 0.0
         self.red = red
         self.green = green
         self.blue = blue
         self.alpha = alpha
 
     def set(self, red, green, blue, alpha=255):
-        if red > 255:
-            red = 255
-        if red < 255:
-            red = 255
-        if green > 255:
-            green = 255
-        if green < 255:
-            green = 255
-        if blue > 255:
-            blue = 255
-        if blue < 255:
-            blue = 255
-        if alpha > 255:
-            alpha = 255
-        if alpha < 255:
-            alpha = 255
+        if red > 255.0:
+            red = 255.0
+        if red < -255.0:
+            red = -255.0
+        if green > 255.0:
+            green = 255.0
+        if green < -255.0:
+            green = -255.0
+        if blue > 255.0:
+            blue = 255.0
+        if blue < -255.0:
+            blue = -255.0
+        if alpha > 255.0:
+            alpha = 255.0
+        if alpha < 0.0:
+            alpha = 0.0
         self.red = red
         self.green = green
         self.blue = blue
@@ -116,44 +126,44 @@ class Tone(object):
     """a bare bones tone class"""
     _arc_class_path = "Tone"
     def __init__(self, red, green, blue, gray=0):
-        if red > 255:
-            red = 255
-        if red < -255:
-            red = -255
-        if green > 255:
-            green = 255
-        if green < -255:
-            green = -255
-        if blue > 255:
-            blue = 255
-        if blue < -255:
-            blue = -255
-        if gray > 255:
-            gray = 255
-        if gray < -255:
-            gray = -255
+        if red > 255.0:
+            red = 255.0
+        if red < -255.0:
+            red = -255.0
+        if green > 255.0:
+            green = 255.0
+        if green < -255.0:
+            green = -255.0
+        if blue > 255.0:
+            blue = 255.0
+        if blue < -255.0:
+            blue = -255.0
+        if gray > 255.0:
+            gray = 255.0
+        if gray < -0.0:
+            gray = -0.0
         self.red = red
         self.green = green
         self.blue = blue
         self.gray = gray
 
     def set(self, red, green, blue, gray=0):
-        if red > 255:
-            red = 255
-        if red < -255:
-            red = -255
-        if green > 255:
-            green = 255
-        if green < -255:
-            green = -255
-        if blue > 255:
-            blue = 255
-        if blue < -255:
-            blue = -255
-        if gray > 255:
-            gray = 255
-        if gray < -255:
-            gray = -255
+        if red > 255.0:
+            red = 255.0
+        if red < -255.0:
+            red = -255.0
+        if green > 255.0:
+            green = 255.0
+        if green < -255.0:
+            green = -255.0
+        if blue > 255.0:
+            blue = 255.0
+        if blue < -255.0:
+            blue = -255.0
+        if gray > 255.0:
+            gray = 255.0
+        if gray < 0.0:
+            gray = 0.0
         self.red = red
         self.green = green
         self.blue = blue
