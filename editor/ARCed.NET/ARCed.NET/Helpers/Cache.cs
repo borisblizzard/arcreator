@@ -15,7 +15,7 @@ namespace ARCed.Helpers
 		/// </summary>
 		private static Dictionary<string, Image> _cache = new Dictionary<string, Image>();
 		/// <summary>
-		/// The cached _texture of the currently loaded tileset graphic
+		/// The cached _srcTexture of the currently loaded tileset graphic
 		/// </summary>
 		private static string currentTilesetName;
 		/// <summary>
@@ -73,7 +73,7 @@ namespace ARCed.Helpers
 		/// Rotates the hue and alters the opacity of an image. Using this
 		/// method is more efficient than performing the actions seperately.
 		/// </summary>
-		/// <param _frames="_texture">Image to change</param>
+		/// <param _frames="_srcTexture">Image to change</param>
 		/// <param _frames="hue">Degree of hue displacement (0..360)</param>
 		/// <param _frames="opacity">Opacity change to apply (0..255)</param>
 		/// <remarks>Values out of range will be automatically corrected</remarks>
@@ -99,7 +99,7 @@ namespace ARCed.Helpers
 		/// <summary>
 		/// Rotates the hue of an image
 		/// </summary>
-		/// <param _frames="_texture">Image to change</param>
+		/// <param _frames="_srcTexture">Image to change</param>
 		/// <param _frames="hue">Degree of hue displacement (0..360)</param>
 		/// <remarks>Values out of range will be automatically corrected</remarks>
 		public static void RotateHue(Image image, int hue)
@@ -123,7 +123,7 @@ namespace ARCed.Helpers
 		/// <summary>
 		/// Changes the opacity of an image. 
 		/// </summary>
-		/// <param _frames="_texture">Image to change</param>
+		/// <param _frames="_srcTexture">Image to change</param>
 		/// <param _frames="opacity">Opacity change to apply (0..255)</param>
 		/// <remarks>Values out of range will be automatically corrected</remarks>
 		public static void ChangeOpacity(Image image, int opacity)
@@ -149,7 +149,7 @@ namespace ARCed.Helpers
 		/// </summary>
 		/// <param _frames="filename">Full path of the autotile graphic</param>
 		/// <param _frames="hue">Hue rotation to apply to graphic, with 360 degrees of displacment</param>
-		/// <param _frames="opacity">Opacity of the returned _texture</param>
+		/// <param _frames="opacity">Opacity of the returned _srcTexture</param>
 		/// <returns>Cached image with effects applied</returns>
 		public static Image Autotile(string filename, int hue = 0, int opacity = 255)
 		{
@@ -172,7 +172,7 @@ namespace ARCed.Helpers
 		/// </summary>
 		/// <param _frames="filename">Full path of the icon graphic</param>
 		/// <param _frames="hue">Hue rotation to apply to graphic, with 360 degrees of displacment</param>
-		/// <param _frames="opacity">Opacity of the returned _texture</param>
+		/// <param _frames="opacity">Opacity of the returned _srcTexture</param>
 		/// <returns>Cached image with effects applied</returns>
 		public static Image Icon(string filename, int hue = 0, int opacity = 255)
 		{
@@ -195,7 +195,7 @@ namespace ARCed.Helpers
 		/// </summary>
 		/// <param _frames="filename">Full path of the character graphic</param>
 		/// <param _frames="hue">Hue rotation to apply to graphic, with 360 degrees of displacment</param>
-		/// <param _frames="opacity">Opacity of the returned _texture</param>
+		/// <param _frames="opacity">Opacity of the returned _srcTexture</param>
 		/// <returns>Cached image with effects applied</returns>
 		public static Image Character(string filename, int hue = 0, int opacity = 255)
 		{
@@ -218,7 +218,7 @@ namespace ARCed.Helpers
 		/// </summary>
 		/// <param _frames="filename">Relative path of the tileset graphic</param>
 		/// <param _frames="hue">Hue rotation to apply to graphic, with 360 degrees of displacment</param>
-		/// <param _frames="opacity">Opacity of the returned _texture</param>
+		/// <param _frames="opacity">Opacity of the returned _srcTexture</param>
 		/// <returns>Cached image with effects applied</returns>
 		public static Image Tileset(string filename, int hue = 0, int opacity = 255)
 		{
@@ -241,7 +241,7 @@ namespace ARCed.Helpers
 		/// </summary>
 		/// <param _frames="filename">Relative path of the animation graphic</param>
 		/// <param _frames="hue">Hue rotation to apply to graphic, with 360 degrees of displacment</param>
-		/// <param _frames="opacity">Opacity of the returned _texture</param>
+		/// <param _frames="opacity">Opacity of the returned _srcTexture</param>
 		/// <returns>Cached image with effects applied</returns>
 		public static Image Animation(string filename, int hue = 0, int opacity = 255)
 		{
@@ -264,7 +264,7 @@ namespace ARCed.Helpers
 		/// </summary>
 		/// <param _frames="filename">Full path of the fog graphic</param>
 		/// <param _frames="hue">Hue rotation to apply to graphic, with 360 degrees of displacment</param>
-		/// <param _frames="opacity">Opacity of the returned _texture</param>
+		/// <param _frames="opacity">Opacity of the returned _srcTexture</param>
 		/// <returns>Cached image with effects applied</returns>
 		public static Image Fog(string filename, int hue = 0, int opacity = 255)
 		{
@@ -287,7 +287,7 @@ namespace ARCed.Helpers
 		/// </summary>
 		/// <param _frames="filename">Full path of the panorama graphic</param>
 		/// <param _frames="hue">Hue rotation to apply to graphic, with 360 degrees of displacment</param>
-		/// <param _frames="opacity">Opacity of the returned _texture</param>
+		/// <param _frames="opacity">Opacity of the returned _srcTexture</param>
 		/// <returns>Cached image with effects applied</returns>
 		public static Image Panorama(string filename, int hue = 0, int opacity = 255)
 		{
@@ -335,8 +335,8 @@ namespace ARCed.Helpers
 		/// <param _frames="pattern">Pattern of the character tile</param>
 		/// <param _frames="direction">Direction of the character tile</param>
 		/// <param _frames="hue">Hue rotation to apply to graphic, with 360 degrees of displacment</param>
-		/// <param _frames="opacity">Opacity of the returned _texture</param>
-		/// <returns>Cached _texture with effects applied</returns>
+		/// <param _frames="opacity">Opacity of the returned _srcTexture</param>
+		/// <returns>Cached _srcTexture with effects applied</returns>
 		public static Image CharacterStance(string filename, int pattern, int direction, 
 			int hue = 0, int opacity = 255)
 		{
@@ -358,7 +358,7 @@ namespace ARCed.Helpers
 		/// </summary>
 		/// <param _frames="filename">FullPath of the character graphic</param>
 		/// <param _frames="hue">Hue rotation to apply to graphic, with 360 degrees of displacment</param>
-		/// <param _frames="opacity">Opacity of the returned _texture</param>
+		/// <param _frames="opacity">Opacity of the returned _srcTexture</param>
 		/// <returns>Cached image with effects applied</returns>
 		public static Image Battler(string filename, int hue = 0, int opacity = 255)
 		{

@@ -81,7 +81,7 @@ namespace ARCed.Controls
 		}
 
 		/// <summary>
-		/// Gets or sets the background color of the _texture area
+		/// Gets or sets the background color of the _srcTexture area
 		/// </summary>
 		[Category("ARCed"), Description("Defines the background color of the image area.")]
 		[DefaultValue(typeof(Color), "LightGray")]
@@ -92,7 +92,7 @@ namespace ARCed.Controls
 		}
 
 		/// <summary>
-		/// Gets or sets the path to the _texture file used in the panel
+		/// Gets or sets the path to the _srcTexture file used in the panel
 		/// </summary>
 		[Category("ARCed"), Description("Define path to image file.")]
 		[Editor(typeof(System.Windows.Forms.Design.FileNameEditor), typeof(System.Drawing.Design.UITypeEditor))]
@@ -131,7 +131,7 @@ namespace ARCed.Controls
 		}
 
 		/// <summary>
-		/// Gets or sets the _texture used in the control
+		/// Gets or sets the _srcTexture used in the control
 		/// </summary>
 		[Category("ARCed"), Description("Set the image used by the control")]
 		public Image Image
@@ -145,7 +145,7 @@ namespace ARCed.Controls
 		}
 
 		/// <summary>
-		/// Gets a image copied from the main _texture file that was contained in the selection rectangle
+		/// Gets a image copied from the main _srcTexture file that was contained in the selection rectangle
 		/// </summary>
 		[Browsable(false)]
 		public Image SelectionImage

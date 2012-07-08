@@ -91,7 +91,7 @@ namespace ARCed.Dialogs
 		}
 
 		/// <summary>
-		/// Gets or sets the ability to select individual tiles of the _texture
+		/// Gets or sets the ability to select individual tiles of the _srcTexture
 		/// </summary>
 		public bool SelectionEnabled 
 		{
@@ -141,11 +141,11 @@ namespace ARCed.Dialogs
 		}
 
 		/// <summary>
-		/// Constructor that sets the folder and selected _texture
+		/// Constructor that sets the folder and selected _srcTexture
 		/// </summary>
 		/// <param name="folder">Root folder searched for images</param>
-		/// <param name="filename">FullPath (without extension) of the _texture that is found in the current folder</param>
-		/// <param name="hue">Amount of hue rotation applied to the _texture</param>
+		/// <param name="filename">FullPath (without extension) of the _srcTexture that is found in the current folder</param>
+		/// <param name="hue">Amount of hue rotation applied to the _srcTexture</param>
 		public ImageSelectionForm(string folder, string filename) : this()
 		{
 			// Find all valid filenames

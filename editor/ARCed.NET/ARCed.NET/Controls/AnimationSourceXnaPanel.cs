@@ -8,17 +8,36 @@ using Microsoft.Xna.Framework;
 
 namespace ARCed.Controls
 {
-
 	/// <summary>
-	/// Control for configuring Troop layouts
+	/// Control for selecting individual Animation graphics.
 	/// </summary>
+	[Description("Control for selecting individual Animation graphics.")]
 	public partial class AnimationSourceXnaPanel : GraphicsDeviceControl
 	{
 		SpriteBatch _batch;
 		RPG.Animation _animation;
-		Texture2D _texture;
-		int _frames;
+		Texture2D _srcTexture;
+		int _frames, _selectedId;
+		Rectangle srcRect, destRect;
 
+		/// <summary>
+		/// Gets or sets the ID of the selected sub-image of the animation.
+		/// </summary>
+		[Browsable(false)]
+		public int SelectedId
+		{
+			get { return _selectedId; }
+			set 
+			{
+				_selectedId = value;
+				Invalidate();
+			}
+		}
+
+		/// <summary>
+		/// Gets or sets the associated RPG.Animation for the panel.
+		/// </summary>
+		[Browsable(false)]
 		public RPG.Animation Animation 
 		{
 			get { return _animation; }
@@ -53,24 +72,15 @@ namespace ARCed.Controls
 		protected override void Initialize()
 		{
 			_batch = new SpriteBatch(GraphicsDevice);
-			GraphicsDevice.Clear(Color.DarkGray);
-			//this.SizeChanged += new EventHandler(AnimationSourceXnaPanel_SizeChanged);
+			_selectedId = -1;
+			GraphicsDevice.Clear(Editor.Settings.ImageColorSettings.BackgroundColor);
+			this.MouseDown += new System.Windows.Forms.MouseEventHandler(AnimationSourceXnaPanel_MouseDown);
 		}
 
-		void AnimationSourceXnaPanel_SizeChanged(object sender, EventArgs e)
+		void AnimationSourceXnaPanel_MouseDown(object sender, System.Windows.Forms.MouseEventArgs e)
 		{
-
-			if (_texture != null)
-			{
-				int width = this.Height * _frames;
-				if (this.Width != width)
-				{
-					this.SuspendLayout();
-					this.Width = width;
-					this.ResumeLayout(true);
-					(this.Parent as System.Windows.Forms.Panel).Refresh();
-				}
-			}
+			if (_frames > 0)
+				SelectedId = e.X / (this.Width / _frames);
 		}
 
 		/// <summary>
@@ -78,23 +88,26 @@ namespace ARCed.Controls
 		/// </summary>
 		protected override void Draw()
 		{
-			GraphicsDevice.Clear(Color.White);
-			if (_texture != null)
+			GraphicsDevice.Clear(Editor.Settings.ImageColorSettings.BackgroundColor);
+			if (_srcTexture != null)
 			{
-				this.Width = this.Height * _frames;
-				int dim = this.Height;
-				Rectangle srcRect;
-				Rectangle destRect;
+				int dim = Parent.ClientSize.Height;
+				this.Width = dim * _frames;
 				int x, y;
 				_batch.Begin();
 				for (int i = 0; i < _frames; i++)
 				{
-					x = (i * Constants.ANIMATIONSIZE) % _texture.Width;
-					y = (i * Constants.ANIMATIONSIZE) / _texture.Height;
-					srcRect = new Rectangle(x, y, Constants.ANIMATIONSIZE, Constants.ANIMATIONSIZE);
+					x = (i % (_srcTexture.Width / Constants.ANIMESIZE)) * Constants.ANIMESIZE;
+					y = (i / (_srcTexture.Width / Constants.ANIMESIZE)) * Constants.ANIMESIZE;
+					srcRect = new Rectangle(x, y, Constants.ANIMESIZE, Constants.ANIMESIZE);
 					destRect = new Rectangle(i * dim, 0, dim, dim);
-					_batch.Draw(_texture, destRect, srcRect, Color.White);
-					_batch.DrawRectangle(i * dim - 1, 0, 1, dim, Color.Black, 1);
+					_batch.Draw(_srcTexture, destRect, srcRect, Color.White);
+					_batch.DrawRectangle(i * dim - 1, 0, 1, dim + 1, Color.Black, 1);
+					if (SelectedId >= 0)
+					{
+						Rectangle rect = new Rectangle(SelectedId * dim - 1, 0, dim + 1, dim);
+						_batch.DrawSelectionRect(rect, Color.White, 2);
+					}
 				}
 				_batch.End();
 			}
@@ -106,12 +119,14 @@ namespace ARCed.Controls
 			{
 				if (image == null)
 				{
-					_texture = null;
+					_srcTexture = null;
+					_frames = 0;
+					this.Visible = false;
 					return;
 				}
-				_frames = (image.Width / Constants.ANIMATIONSIZE) + (image.Height / Constants.ANIMATIONSIZE);
-				this.Width = (this.Height * _frames);
-				_texture = image.ToTexture(GraphicsDevice);
+				this.Visible = true;
+				_frames = (image.Width / Constants.ANIMESIZE) * (image.Height / Constants.ANIMESIZE);
+				_srcTexture = image.ToTexture(GraphicsDevice);
 			}
 		}
 

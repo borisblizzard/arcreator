@@ -32,6 +32,7 @@
 			this.dataObjectList = new ARCed.Controls.DatabaseObjectListBox();
 			this.splitContainerXnaPanels = new System.Windows.Forms.SplitContainer();
 			this.panelPreview = new System.Windows.Forms.Panel();
+			this.animeXnaPanel = new ARCed.Controls.AnimationXnaPanel();
 			this.panel1 = new System.Windows.Forms.Panel();
 			this.buttonPlayMiss = new System.Windows.Forms.Button();
 			this.buttonPlayHit = new System.Windows.Forms.Button();
@@ -61,6 +62,10 @@
 			this.label1 = new System.Windows.Forms.Label();
 			this.label2 = new System.Windows.Forms.Label();
 			this.listViewTiming = new System.Windows.Forms.ListView();
+			this.columnFrames = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+			this.columnSE = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+			this.columnFlash = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+			this.columnCondition = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
 			((System.ComponentModel.ISupportInitialize)(this.splitContainerMain)).BeginInit();
 			this.splitContainerMain.Panel1.SuspendLayout();
 			this.splitContainerMain.Panel2.SuspendLayout();
@@ -69,6 +74,7 @@
 			this.splitContainerXnaPanels.Panel1.SuspendLayout();
 			this.splitContainerXnaPanels.Panel2.SuspendLayout();
 			this.splitContainerXnaPanels.SuspendLayout();
+			this.panelPreview.SuspendLayout();
 			this.panel1.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.splitContainerBottom)).BeginInit();
 			this.splitContainerBottom.Panel1.SuspendLayout();
@@ -117,6 +123,7 @@
 			this.dataObjectList.Size = new System.Drawing.Size(195, 556);
 			this.dataObjectList.TabIndex = 1;
 			this.dataObjectList.TabStop = false;
+			this.dataObjectList.OnListBoxIndexChanged += new ARCed.Controls.DatabaseObjectListBox.ObjectListIndexChangedEventHandler(this.dataObjectList_OnListBoxIndexChanged);
 			// 
 			// splitContainerXnaPanels
 			// 
@@ -151,10 +158,21 @@
 						| System.Windows.Forms.AnchorStyles.Right)));
 			this.panelPreview.BackColor = System.Drawing.SystemColors.ControlDark;
 			this.panelPreview.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+			this.panelPreview.Controls.Add(this.animeXnaPanel);
 			this.panelPreview.Location = new System.Drawing.Point(62, 9);
 			this.panelPreview.Name = "panelPreview";
 			this.panelPreview.Size = new System.Drawing.Size(382, 267);
 			this.panelPreview.TabIndex = 4;
+			// 
+			// animeXnaPanel
+			// 
+			this.animeXnaPanel.Animation = null;
+			this.animeXnaPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.animeXnaPanel.Location = new System.Drawing.Point(0, 0);
+			this.animeXnaPanel.Name = "animeXnaPanel";
+			this.animeXnaPanel.Size = new System.Drawing.Size(378, 263);
+			this.animeXnaPanel.TabIndex = 0;
+			this.animeXnaPanel.Text = "animeXnaPanel";
 			// 
 			// panel1
 			// 
@@ -325,7 +343,7 @@
 			// splitContainerBottom.Panel2
 			// 
 			this.splitContainerBottom.Panel2.Controls.Add(this.noteTextBox);
-			this.splitContainerBottom.Size = new System.Drawing.Size(570, 131);
+			this.splitContainerBottom.Size = new System.Drawing.Size(570, 160);
 			this.splitContainerBottom.SplitterDistance = 383;
 			this.splitContainerBottom.TabIndex = 0;
 			// 
@@ -337,7 +355,7 @@
 			this.groupBoxGraphics.Controls.Add(this.panelGraphics);
 			this.groupBoxGraphics.Location = new System.Drawing.Point(6, 6);
 			this.groupBoxGraphics.Name = "groupBoxGraphics";
-			this.groupBoxGraphics.Size = new System.Drawing.Size(374, 122);
+			this.groupBoxGraphics.Size = new System.Drawing.Size(374, 151);
 			this.groupBoxGraphics.TabIndex = 1;
 			this.groupBoxGraphics.TabStop = false;
 			this.groupBoxGraphics.Text = "Graphics";
@@ -353,7 +371,7 @@
 			this.panelGraphics.Controls.Add(this.animeSrcXnaPanel);
 			this.panelGraphics.Location = new System.Drawing.Point(6, 19);
 			this.panelGraphics.Name = "panelGraphics";
-			this.panelGraphics.Size = new System.Drawing.Size(362, 97);
+			this.panelGraphics.Size = new System.Drawing.Size(362, 126);
 			this.panelGraphics.TabIndex = 0;
 			// 
 			// animeSrcXnaPanel
@@ -363,9 +381,11 @@
 			this.animeSrcXnaPanel.Animation = null;
 			this.animeSrcXnaPanel.Location = new System.Drawing.Point(0, 0);
 			this.animeSrcXnaPanel.Name = "animeSrcXnaPanel";
-			this.animeSrcXnaPanel.Size = new System.Drawing.Size(318, 97);
+			this.animeSrcXnaPanel.SelectedId = 0;
+			this.animeSrcXnaPanel.Size = new System.Drawing.Size(318, 126);
 			this.animeSrcXnaPanel.TabIndex = 0;
 			this.animeSrcXnaPanel.Text = "animeSrcXnaPanel";
+			this.animeSrcXnaPanel.Visible = false;
 			// 
 			// noteTextBox
 			// 
@@ -375,7 +395,7 @@
 			this.noteTextBox.Location = new System.Drawing.Point(3, 6);
 			this.noteTextBox.Name = "noteTextBox";
 			this.noteTextBox.NoteText = "";
-			this.noteTextBox.Size = new System.Drawing.Size(180, 122);
+			this.noteTextBox.Size = new System.Drawing.Size(180, 151);
 			this.noteTextBox.TabIndex = 0;
 			// 
 			// splitContainerTop
@@ -499,6 +519,7 @@
 			this.textBoxName.Name = "textBoxName";
 			this.textBoxName.Size = new System.Drawing.Size(182, 20);
 			this.textBoxName.TabIndex = 4;
+			this.textBoxName.TextChanged += new System.EventHandler(this.textBoxName_TextChanged);
 			// 
 			// label1
 			// 
@@ -523,12 +544,42 @@
 			this.listViewTiming.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
 						| System.Windows.Forms.AnchorStyles.Left)
 						| System.Windows.Forms.AnchorStyles.Right)));
+			this.listViewTiming.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnFrames,
+            this.columnSE,
+            this.columnFlash,
+            this.columnCondition});
+			this.listViewTiming.FullRowSelect = true;
+			this.listViewTiming.GridLines = true;
 			this.listViewTiming.Location = new System.Drawing.Point(3, 3);
+			this.listViewTiming.MultiSelect = false;
 			this.listViewTiming.Name = "listViewTiming";
 			this.listViewTiming.Size = new System.Drawing.Size(372, 133);
 			this.listViewTiming.TabIndex = 0;
 			this.listViewTiming.UseCompatibleStateImageBehavior = false;
 			this.listViewTiming.View = System.Windows.Forms.View.Details;
+			this.listViewTiming.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.listViewTiming_ColumnClick);
+			this.listViewTiming.MouseDown += new System.Windows.Forms.MouseEventHandler(this.listViewTiming_MouseDown);
+			// 
+			// columnFrames
+			// 
+			this.columnFrames.Text = "Frame";
+			this.columnFrames.Width = 44;
+			// 
+			// columnSE
+			// 
+			this.columnSE.Text = "SE";
+			this.columnSE.Width = 96;
+			// 
+			// columnFlash
+			// 
+			this.columnFlash.Text = "Flash";
+			this.columnFlash.Width = 123;
+			// 
+			// columnCondition
+			// 
+			this.columnCondition.Text = "Condition";
+			this.columnCondition.Width = 96;
 			// 
 			// AnimationMainForm
 			// 
@@ -537,6 +588,7 @@
 			this.ClientSize = new System.Drawing.Size(784, 562);
 			this.Controls.Add(this.splitContainerMain);
 			this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.KeyPreview = true;
 			this.Name = "AnimationMainForm";
 			this.RpgTypeName = "RPG.Animation";
 			this.Text = "Animations";
@@ -549,6 +601,7 @@
 			this.splitContainerXnaPanels.Panel2.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.splitContainerXnaPanels)).EndInit();
 			this.splitContainerXnaPanels.ResumeLayout(false);
+			this.panelPreview.ResumeLayout(false);
 			this.panel1.ResumeLayout(false);
 			this.splitContainerBottom.Panel1.ResumeLayout(false);
 			this.splitContainerBottom.Panel2.ResumeLayout(false);
@@ -607,6 +660,11 @@
 		private System.Windows.Forms.Panel panelGraphics;
 		private Controls.NoteTextBox noteTextBox;
 		private Controls.AnimationSourceXnaPanel animeSrcXnaPanel;
+		private Controls.AnimationXnaPanel animeXnaPanel;
+		private System.Windows.Forms.ColumnHeader columnFrames;
+		private System.Windows.Forms.ColumnHeader columnSE;
+		private System.Windows.Forms.ColumnHeader columnFlash;
+		private System.Windows.Forms.ColumnHeader columnCondition;
 
 	}
 }

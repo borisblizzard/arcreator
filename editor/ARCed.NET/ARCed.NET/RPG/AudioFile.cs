@@ -23,7 +23,7 @@ namespace RPG
 
 		public override string ToString()
 		{
-			return string.Format("\"{0}\", V:{1}, P:{2}", name, volume, pitch);
+			return string.Format("\"{0}\", {1}, {2}", name, volume, pitch);
 		}
 	}
 }

@@ -35,7 +35,7 @@ namespace ARCed.Scintilla
         ///     Warning: images with more than (around) 50 colors will generate incorrect XPM.
         ///     Uses the DefaultTransparentColor.
         /// </summary>
-        /// <param name="bmp">The _texture to transform.</param>
+        /// <param name="bmp">The _srcTexture to transform.</param>
         public static string ConvertToXPM(Bitmap bmp)
         {
             return ConvertToXPM(bmp, DefaultTransparentColor);
@@ -47,7 +47,7 @@ namespace ARCed.Scintilla
         ///     Warning: images with more than (around) 50 colors will generate incorrect XPM
         ///     tColor: specified transparent color in format: "#00FF00".
         /// </summary>
-        /// <param name="bmp">The _texture to transform.</param>
+        /// <param name="bmp">The _srcTexture to transform.</param>
         /// <param name="transparentColor">The overriding transparent Color</param>
         public static string ConvertToXPM(Bitmap bmp, string transparentColor)
         {
@@ -93,11 +93,11 @@ namespace ARCed.Scintilla
 
 
         /// <summary>
-        ///     Cicles an _texture list object to convert contained images into xpm
+        ///     Cicles an _srcTexture list object to convert contained images into xpm
         ///     at the same time we add converted images into an arraylist that lets us to retrieve images later.
         ///     Uses the DefaultTransparentColor.
         /// </summary>
-        /// <param name="imageList">The _texture list to transform.</param>
+        /// <param name="imageList">The _srcTexture list to transform.</param>
         public static List<string> ConvertToXPM(ImageList ImageList)
         {
             return ConvertToXPM(ImageList, DefaultTransparentColor);
@@ -105,10 +105,10 @@ namespace ARCed.Scintilla
 
 
         /// <summary>
-        ///     Cicles an _texture list object to convert contained images into xpm
+        ///     Cicles an _srcTexture list object to convert contained images into xpm
         ///     at the same time we add converted images into an arraylist that lets us to retrieve images later	
         /// </summary>
-        /// <param name="imageList">The _texture list to transform.</param>
+        /// <param name="imageList">The _srcTexture list to transform.</param>
         /// <param name="transparentColor">The overriding transparent Color</param>
         public static List<string> ConvertToXPM(ImageList imageList, string transparentColor)
         {

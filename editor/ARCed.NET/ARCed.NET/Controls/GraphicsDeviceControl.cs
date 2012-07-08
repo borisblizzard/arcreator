@@ -179,7 +179,7 @@ namespace ARCed.Controls
         /// <summary>
         /// Ends drawing the control. This is called after derived classes
         /// have finished their Draw method, and is responsible for presenting
-        /// the finished _texture onto the screen, using the appropriate WinForms
+        /// the finished _srcTexture onto the screen, using the appropriate WinForms
         /// control handle to make sure it shows up in the right place.
         /// </summary>
         void EndDraw()

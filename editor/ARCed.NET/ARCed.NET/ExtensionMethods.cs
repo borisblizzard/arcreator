@@ -24,6 +24,11 @@ namespace ARCed
 
 		#endregion
 
+		public static RPG.Color ToRpgColor(this Color color)
+		{
+			return new RPG.Color(color.R, color.G, color.B, color.A);
+		}
+
 		public static int RoundFloor(this int value, int multiple)
 		{
 			return ((int)Math.Floor(value / Convert.ToSingle(multiple))) * multiple;
