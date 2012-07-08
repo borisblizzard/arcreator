@@ -27,6 +27,10 @@
 - Get better icons for tileset editor
 - Improve Cache. Remove redundancies
 - Clear selection rectangle when switching tilesets in Tileset panel
+- Create a single settings class for background color, selection color, etc. for image panels
+- Replace picturebox controls in Enemies panel to use XNA so proper blending and opacity 
+  can be made.
+- Implement altered opacity and blending of sprites into the Troop panel
 
 ** Possible ** (Depends on scripts)
 - Curve generation for experience

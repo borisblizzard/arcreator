@@ -53,6 +53,7 @@
 			this.comboBoxAttackerAnimation = new System.Windows.Forms.ComboBox();
 			this.textBoxName = new System.Windows.Forms.TextBox();
 			this.labelName = new System.Windows.Forms.Label();
+			this.textBoxTreasure = new ARCed.Controls.TextBoxButton();
 			this.groupBoxParameters = new System.Windows.Forms.GroupBox();
 			this.flowPanel = new System.Windows.Forms.FlowLayoutPanel();
 			this.paramBoxMaxHP = new ARCed.Controls.ParamBox();
@@ -86,7 +87,6 @@
 			this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
 			this.contextButtonActionEdit = new System.Windows.Forms.ToolStripMenuItem();
 			this.noteTextBox = new ARCed.Controls.NoteTextBox();
-			this.textBoxTreasure = new ARCed.Controls.TextBoxButton();
 			((System.ComponentModel.ISupportInitialize)(this.splitContainerMain)).BeginInit();
 			this.splitContainerMain.Panel1.SuspendLayout();
 			this.splitContainerMain.Panel2.SuspendLayout();
@@ -406,6 +406,17 @@
 			this.labelName.Size = new System.Drawing.Size(38, 13);
 			this.labelName.TabIndex = 0;
 			this.labelName.Text = "Name:";
+			// 
+			// textBoxTreasure
+			// 
+			this.textBoxTreasure.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
+						| System.Windows.Forms.AnchorStyles.Right)));
+			this.textBoxTreasure.Location = new System.Drawing.Point(6, 277);
+			this.textBoxTreasure.MaximumSize = new System.Drawing.Size(1800, 20);
+			this.textBoxTreasure.Name = "textBoxTreasure";
+			this.textBoxTreasure.Size = new System.Drawing.Size(153, 20);
+			this.textBoxTreasure.TabIndex = 11;
+			this.textBoxTreasure.OnButtonClick += new ARCed.Controls.TextBoxButton.ButtonClickHandler(this.buttonTreasure_Click);
 			// 
 			// groupBoxParameters
 			// 
@@ -955,17 +966,6 @@
 			this.noteTextBox.Size = new System.Drawing.Size(208, 168);
 			this.noteTextBox.TabIndex = 0;
 			this.noteTextBox.NoteTextChanged += new ARCed.Controls.NoteTextBox.TextChangedEventHandler(this.noteTextBox_NoteTextChanged);
-			// 
-			// textBoxTreasure
-			// 
-			this.textBoxTreasure.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-						| System.Windows.Forms.AnchorStyles.Right)));
-			this.textBoxTreasure.Location = new System.Drawing.Point(6, 277);
-			this.textBoxTreasure.MaximumSize = new System.Drawing.Size(1800, 20);
-			this.textBoxTreasure.Name = "textBoxTreasure";
-			this.textBoxTreasure.Size = new System.Drawing.Size(153, 20);
-			this.textBoxTreasure.TabIndex = 11;
-			this.textBoxTreasure.OnButtonClick += new ARCed.Controls.TextBoxButton.ButtonClickHandler(this.buttonTreasure_Click);
 			// 
 			// EnemyMainForm
 			// 

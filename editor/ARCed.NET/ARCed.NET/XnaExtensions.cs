@@ -11,6 +11,20 @@ namespace ARCed
 	public static class XnaExtensions
 	{
 		/// <summary>
+		/// Draws a bordered selection rectangle around the given rectangle.
+		/// </summary>
+		/// <param name="batch">SpriteBatch to draw the rectangle.</param>
+		/// <param name="rect">Rectangle to draw</param>
+		/// <param name="color">Color of the rectangle border</param>
+		/// <param name="thickness">Thickness, in pixels, of the inner selection rectangle</param>
+		public static void DrawSelectionRect(this SpriteBatch batch, Rectangle rect, Color color, int thickness = 1)
+		{
+			DrawRectangle(batch, rect, Color.Black, thickness + 2);
+			DrawRectangle(batch, new Rectangle(rect.X + 1, rect.Y + 1,
+				rect.Width - 2, rect.Height - 2), color, thickness);
+		}
+
+		/// <summary>
 		/// Draws a rectangle with given location, size, color, and border width.
 		/// </summary>
 		/// <param name="batch">SpriteBatch to draw the rectangle.</param>
@@ -70,6 +84,28 @@ namespace ARCed
 		public static void FillRectangle(this SpriteBatch batch, Rectangle rect, Color color)
 		{
 			FillRectangle(batch, rect.X, rect.Y, rect.Width, rect.Height, color);
+		}
+
+		/// <summary>
+		/// Converts a <paramref name="System.Drawing.Rectangle"/> to a 
+		/// <paramref name="Microsoft.Xna.Framework.Rectangle"/> and returns it.
+		/// </summary>
+		/// <param name="rect">Rectangle to convert</param>
+		/// <returns>Converted rectangle</returns>
+		public static Rectangle ToXnaRect(this System.Drawing.Rectangle rect)
+		{
+			return new Rectangle(rect.X, rect.Y, rect.Width, rect.Height);
+		}
+
+		/// <summary>
+		/// Converts a <paramref name="Microsoft.Xna.Framework.Rectangle"/> to a 
+		/// <paramref name="System.Drawing.Rectangle"/> and returns it.
+		/// </summary>
+		/// <param name="rect">Rectangle to convert</param>
+		/// <returns>Converted rectangle</returns>
+		public static System.Drawing.Rectangle ToSystemRect(this Rectangle rect)
+		{
+			return new System.Drawing.Rectangle(rect.X, rect.Y, rect.Width, rect.Height);
 		}
 
 		/// <summary>
