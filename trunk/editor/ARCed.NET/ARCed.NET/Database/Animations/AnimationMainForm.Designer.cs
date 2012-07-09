@@ -156,6 +156,8 @@
 			this.panelPreview.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
 						| System.Windows.Forms.AnchorStyles.Left)
 						| System.Windows.Forms.AnchorStyles.Right)));
+			this.panelPreview.AutoScroll = true;
+			this.panelPreview.AutoScrollMinSize = new System.Drawing.Size(320, 160);
 			this.panelPreview.BackColor = System.Drawing.SystemColors.ControlDark;
 			this.panelPreview.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
 			this.panelPreview.Controls.Add(this.animeXnaPanel);
@@ -166,9 +168,12 @@
 			// 
 			// animeXnaPanel
 			// 
+			this.animeXnaPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+						| System.Windows.Forms.AnchorStyles.Left)
+						| System.Windows.Forms.AnchorStyles.Right)));
 			this.animeXnaPanel.Animation = null;
-			this.animeXnaPanel.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.animeXnaPanel.Location = new System.Drawing.Point(0, 0);
+			this.animeXnaPanel.MinimumSize = new System.Drawing.Size(320, 160);
 			this.animeXnaPanel.Name = "animeXnaPanel";
 			this.animeXnaPanel.Size = new System.Drawing.Size(378, 263);
 			this.animeXnaPanel.TabIndex = 0;

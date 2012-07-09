@@ -6,10 +6,83 @@ using System.IO;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+using Bitmap = System.Drawing.Bitmap;
+
 namespace ARCed
 {
 	public static class XnaExtensions
 	{
+		/// <summary>
+		/// Draws and fills a triangle using the given points and color.
+		/// </summary>
+		/// <param name="batch">SpriteBatch to draw triangle</param>
+		/// <param name="p1">First point</param>
+		/// <param name="p2">Second point</param>
+		/// <param name="p3">Third point</param>
+		/// <param name="color">Color to fill triangle</param>
+		public static void FillTriangle(this SpriteBatch batch, Vector2 p1, Vector2 p2, 
+			Vector2 p3, Color color)
+		{
+			Vector2 tp;
+			if (p2.Y > p1.Y) { tp = p1; p1 = p2; p2 = tp; }
+			if (p3.Y > p1.Y) { tp = p1; p1 = p3; p3 = tp; }
+			if (p3.Y > p2.Y) { tp = p2; p2 = p3; p3 = tp; }
+			int steps13 = (int)(p1.Y - p3.Y);
+			int steps12 = (int)(p1.Y - p2.Y);
+			int steps23 = (int)(p2.Y - p3.Y);
+			float sx13 = (float)(p1.X - p3.X) / (float)steps13;
+			float sx12 = (float)(p1.X - p2.X) / (float)steps12;
+			float sx23 = (float)(p2.X - p3.X) / (float)steps23;
+			float x13 = p1.X;
+			float x12 = p1.X;
+			float dx = 1;
+			for (int i = 0; i < steps12; i++)
+			{
+				x13 -= sx13;
+				x12 -= sx12;
+				dx = x13 - x12;
+				if (dx > 0)
+					batch.FillRectangle((int)x12, (int)p1.Y - i, (int)Math.Abs(dx), 1, color);
+				else
+					batch.FillRectangle((int)x13, (int)p1.Y - i, (int)Math.Abs(dx), 1, color);
+			}
+			float x23 = p2.X;
+			for (int i = 0; i < steps23; i++)
+			{
+				x13 -= sx13;
+				x23 -= sx23;
+				dx = x13 - x23;
+				if (dx > 0)
+					batch.FillRectangle((int)x23, (int)p2.Y - i, (int)Math.Abs(dx), 1, color);
+				else
+					batch.FillRectangle((int)x13, (int)p2.Y - i, (int)Math.Abs(dx), 1, color);
+			}
+		}
+
+		/// <summary>
+		/// Draws the specified string using the given font and location.
+		/// </summary>
+		/// <param name="batch">SpriteBatch to draw the string</param>
+		/// <param name="text">Text to draw</param>
+		/// <param name="font">Font to draw text with.</param>
+		/// <param name="color">Color of the text.</param>
+		/// <param name="rect">Rectangle where text will be drawn.</param>
+		/// <remarks>Without the use of a ContentPipeline, it is necessary to use GDI+ to 
+		/// draw the font onto a bitmap and transfer it to a texture.</remarks>
+		public static void DrawString(this SpriteBatch batch, string text, 
+			System.Drawing.Font font, Color color, Rectangle rect)
+		{
+			using (Bitmap bmp = new Bitmap(rect.Width, rect.Height))
+			{
+				using (var g = System.Drawing.Graphics.FromImage(bmp))
+				{
+					g.DrawString(text, font, System.Drawing.Brushes.White,
+						new System.Drawing.PointF(0, 0));
+					batch.Draw(bmp.ToTexture(batch.GraphicsDevice), rect, color);
+				}
+			}
+		}
+
 		/// <summary>
 		/// Draws a bordered selection rectangle around the given rectangle.
 		/// </summary>
