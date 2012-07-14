@@ -25,9 +25,9 @@ namespace ARCed.Helpers
 		const string SCILEXER_32 = "SciLexer.dll";
 		const string SCILEXER_64 = "SciLexer64.dll";
 
-        const string ASSEMBLYDIR = "Assemblies";
+        const string ASSEMBLY_DIRECTORY = "Assemblies";
+        const string PORTABLE_DIRECTORY = "AppData";
 
-		private static string _appPath;
 		private static string _appDataDir;
 
 		/// <summary>
@@ -39,8 +39,13 @@ namespace ARCed.Helpers
 			{
 				if (_appDataDir == null)
 				{
-					string appdata = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-					_appDataDir = Path.Combine(appdata, "ARCed.NET");
+                    if (Runtime.Portable)
+                        _appDataDir = Path.Combine(EditorDirectory, PORTABLE_DIRECTORY);
+                    else
+                    {
+                        string appdata = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+                        _appDataDir = Path.Combine(appdata, "ARCed.NET");
+                    }
 				}
 				if (!Directory.Exists(_appDataDir))
 					Directory.CreateDirectory(_appDataDir);
@@ -51,33 +56,23 @@ namespace ARCed.Helpers
 		/// <summary>
 		/// Gets the full path to the current application
 		/// </summary>
-		public static string EditorPath
-		{
-			get
-			{
-				if (_appPath == null)
-					_appPath = Assembly.GetExecutingAssembly().Location;
-				return _appPath;
-			}
-		}
+        public static string EditorPath { get; set; }
+
+        /// <summary>
+        /// Gets the full path to the directory of the editor
+        /// </summary>
+        public static string EditorDirectory
+        {
+            get { return Path.GetDirectoryName(EditorPath); }
+        }
 
         /// <summary>
         /// Gets the path to the folder containing the application's assemblies.
         /// </summary>
         public static string AssemblyDir
         {
-            get { return EditorDirectory; }
-            // TODO: Change above to below once released
-            //get { return Path.Combine(EditorDirectory, ASSEMBLYDIR); }
+            get { return Path.Combine(EditorDirectory, ASSEMBLY_DIRECTORY); }
         }
-
-		/// <summary>
-		/// Gets the full path to the directory of the editor
-		/// </summary>
-		public static string EditorDirectory
-		{
-			get { return Path.GetDirectoryName(EditorPath); }
-		}
 
 		/// <summary>
 		/// Gets the path to the plugins directory
@@ -100,7 +95,7 @@ namespace ARCed.Helpers
 		{
 			get
 			{
-				string path = Path.Combine(ApplicationData, TEMPLATES_FOLDER);
+                string path = Path.Combine(ApplicationData, TEMPLATES_FOLDER);
 				if (!Directory.Exists(path))
 					Directory.CreateDirectory(path);
 				return path;
@@ -188,7 +183,7 @@ namespace ARCed.Helpers
 			}
 		}
 
-		public static string SevenZip_Library
+		public static string SevenZipLibrary
 		{
 			get
 			{
@@ -199,7 +194,7 @@ namespace ARCed.Helpers
 			}
 		}
 
-		public static string SciLexer_Library
+		public static string SciLexerLibrary
 		{
 			get
 			{

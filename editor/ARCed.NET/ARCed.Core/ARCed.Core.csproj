@@ -47,7 +47,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\x86\Debug\</OutputPath>
+    <OutputPath>..\ARCed.NET\bin\Debug\Assemblies\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <DebugType>full</DebugType>
     <PlatformTarget>x86</PlatformTarget>
@@ -64,7 +64,7 @@
     <Optimize>true</Optimize>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
-    <OutputPath>bin\x86\Release\</OutputPath>
+    <OutputPath>..\ARCed.NET\bin\Release\Assemblies\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <Optimize>true</Optimize>
     <DebugType>pdbonly</DebugType>
@@ -83,6 +83,7 @@
   <ItemGroup>
     <Reference Include="SevenZipSharp">
       <HintPath>..\ARCed.NET\lib\SevenZipSharp.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -139,6 +140,7 @@
     <Compile Include="RPG\Tone.cs" />
     <Compile Include="RPG\Troop.cs" />
     <Compile Include="RPG\Weapon.cs" />
+    <Compile Include="Runtime.cs" />
     <Compile Include="SerializableFont.cs" />
     <Compile Include="Win32\Enums.cs" />
     <Compile Include="Win32\NativeMethods.cs" />

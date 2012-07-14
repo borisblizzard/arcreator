@@ -82,12 +82,12 @@ namespace ARCed
 			get
 			{
 				EditorMode mode = EditorMode.Normal;
-				if (Program.DEBUG_MODE)
+				if (Runtime.Debug)
 				{
 					mode |= EditorMode.Debug;
 					mode &= ~EditorMode.Normal;
 				}
-				if (Program.LOGGING)
+				if (Runtime.Logging)
 				{
 					mode |= EditorMode.Logging;
 					mode &= ~EditorMode.Normal;
