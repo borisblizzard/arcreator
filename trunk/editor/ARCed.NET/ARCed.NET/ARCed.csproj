@@ -1,0 +1,2053 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{D34AD2AA-708E-4288-A4D4-8F2B378D1776}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ARCed</RootNamespace>
+    <AssemblyName>ARCed</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>ARCed.Program</StartupObject>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>icon.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <OutputPath>bin\Debug\</OutputPath>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Optimize>true</Optimize>
+    <DefineConstants>DEBUG</DefineConstants>
+    <CodeAnalysisRuleSet>SecurityRules.ruleset</CodeAnalysisRuleSet>
+    <DocumentationFile>bin\Debug\ARCed.XML</DocumentationFile>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <OutputPath>bin\Release\</OutputPath>
+    <CodeAnalysisRuleSet>SecurityRules.ruleset</CodeAnalysisRuleSet>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Optimize>true</Optimize>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Xna.Framework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Assemblies\Microsoft.Xna.Framework.dll</HintPath>
+    </Reference>
+    <Reference Include="SevenZipSharp, Version=0.64.3890.29348, Culture=neutral, PublicKeyToken=20de82c62b055c88, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>lib\SevenZipSharp.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Controls\BattleTestActorPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\BattleTestActorPanel.Designer.cs">
+      <DependentUpon>BattleTestActorPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\StatusBarToolTip.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\StatusBarToolTip.Designer.cs">
+      <DependentUpon>StatusBarToolTip.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\DatabaseObjectListBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\DatabaseObjectListBox.Designer.cs">
+      <DependentUpon>DatabaseObjectListBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\EquipSlot.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\EquipSlot.Designer.cs">
+      <DependentUpon>EquipSlot.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\NoteTextBox.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\NoteTextBox.Designer.cs">
+      <DependentUpon>NoteTextBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ParameterMiniChart.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\ParameterMiniChart.Designer.cs">
+      <DependentUpon>ParameterMiniChart.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ParamBox.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\ParamBox.Designer.cs">
+      <DependentUpon>ParamBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Database\Actors\ExperienceCurveForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Database\Actors\ExperienceCurveForm.Designer.cs">
+      <DependentUpon>ExperienceCurveForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Database\Animations\AnimationMainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Database\Animations\AnimationMainForm.Designer.cs">
+      <DependentUpon>AnimationMainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Database\Animations\AnimationTimingDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Database\Animations\AnimationTimingDialog.Designer.cs">
+      <DependentUpon>AnimationTimingDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Database\Armors\ArmorMainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Database\Armors\ArmorMainForm.Designer.cs">
+      <DependentUpon>ArmorMainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Database\Classes\ClassMainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Database\Classes\ClassMainForm.Designer.cs">
+      <DependentUpon>ClassMainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Database\Classes\EditSkillDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Database\Classes\EditSkillDialog.Designer.cs">
+      <DependentUpon>EditSkillDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Database\DatabaseWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Database\Enemies\EditActionDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Database\Enemies\EditActionDialog.Designer.cs">
+      <DependentUpon>EditActionDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Database\Enemies\EnemyMainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Database\Enemies\EnemyMainForm.Designer.cs">
+      <DependentUpon>EnemyMainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Database\Enemies\TreasureSelectDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Database\Enemies\TreasureSelectDialog.Designer.cs">
+      <DependentUpon>TreasureSelectDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Database\MapEditor\MapEditorMainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Database\MapEditor\MapEditorMainForm.Designer.cs">
+      <DependentUpon>MapEditorMainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Database\MapEditor\MapTilesetForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Database\MapEditor\MapTilesetForm.Designer.cs">
+      <DependentUpon>MapTilesetForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Database\Sys\SystemMainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Database\Sys\SystemMainForm.Designer.cs">
+      <DependentUpon>SystemMainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Database\Tilesets\ImageColorsDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Database\Tilesets\ImageColorsDialog.Designer.cs">
+      <DependentUpon>ImageColorsDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Database\Tilesets\TilesetsMainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Database\Tilesets\TilesetsMainForm.Designer.cs">
+      <DependentUpon>TilesetsMainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Database\Troops\BattleTestDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Database\Troops\BattleTestDialog.Designer.cs">
+      <DependentUpon>BattleTestDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Database\Troops\TroopMainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Database\Troops\TroopMainForm.Designer.cs">
+      <DependentUpon>TroopMainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Database\Items\ItemMainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Database\Items\ItemMainForm.Designer.cs">
+      <DependentUpon>ItemMainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Database\Skills\SkillMainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Database\Skills\SkillMainForm.Designer.cs">
+      <DependentUpon>SkillMainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Database\Weapons\WeaponMainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Database\Weapons\WeaponMainForm.Designer.cs">
+      <DependentUpon>WeaponMainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\FontSelectionDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\FontSelectionDialog.Designer.cs">
+      <DependentUpon>FontSelectionDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\HeaderSettingsDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\HeaderSettingsDialog.Designer.cs">
+      <DependentUpon>HeaderSettingsDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\ImageSelectionForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\ImageSelectionForm.Designer.cs">
+      <DependentUpon>ImageSelectionForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Database\SwitchForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Database\SwitchForm.Designer.cs">
+      <DependentUpon>SwitchForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Editor.Static.cs">
+      <DependentUpon>Editor.cs</DependentUpon>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\AboutBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\AboutBox.Designer.cs">
+      <DependentUpon>AboutBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\CaptureForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\CaptureForm.designer.cs">
+      <DependentUpon>CaptureForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\ChangeMaxDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\ChangeMaxDialog.Designer.cs">
+      <DependentUpon>ChangeMaxDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\ColorChooserForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\ColorChooserForm.designer.cs">
+      <DependentUpon>ColorChooserForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\NoteForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\NoteForm.Designer.cs">
+      <DependentUpon>NoteForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Database\Actors\ParamGenerateCurveDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Database\Actors\ParamGenerateCurveDialog.designer.cs">
+      <DependentUpon>ParamGenerateCurveDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Database\Actors\ActorMainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Database\Actors\ActorMainForm.designer.cs">
+      <DependentUpon>ActorMainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Database\Actors\ActorParametersForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Database\Actors\ActorParametersForm.designer.cs">
+      <DependentUpon>ActorParametersForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ARChiveForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ARChiveForm.Designer.cs">
+      <DependentUpon>ARChiveForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\UserStringForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\UserStringForm.Designer.cs">
+      <DependentUpon>UserStringForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Database\Actors\ChartSettingsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Database\Actors\ChartSettingsForm.designer.cs">
+      <DependentUpon>ChartSettingsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\EditorOptionsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\EditorOptionsForm.Designer.cs">
+      <DependentUpon>EditorOptionsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\CalculatorForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\CalculatorForm.designer.cs">
+      <DependentUpon>CalculatorForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\SkinSettingsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\SkinSettingsForm.Designer.cs">
+      <DependentUpon>SkinSettingsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Settings\ChartSettings.cs" />
+    <Compile Include="Scripting\AutoCompleteForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Scripting\AutoCompleteForm.Designer.cs">
+      <DependentUpon>AutoCompleteForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Scripting\NewScriptForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Scripting\NewScriptForm.Designer.cs">
+      <DependentUpon>NewScriptForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Scripting\ScriptMenuForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Scripting\ScriptMenuForm.Designer.cs">
+      <DependentUpon>ScriptMenuForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Scripting\ScriptSearchForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Scripting\ScriptSearchForm.Designer.cs">
+      <DependentUpon>ScriptSearchForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Scripting\ScriptStyleForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Scripting\ScriptStyleForm.Designer.cs">
+      <DependentUpon>ScriptStyleForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Settings\ScriptSettings.cs" />
+    <Compile Include="Scripting\ScriptStyle.cs" />
+    <Compile Include="Scripting\SearchResult.cs" />
+    <Compile Include="Editor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Editor.Designer.cs">
+      <DependentUpon>Editor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\NewProjectForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\NewProjectForm.Designer.cs">
+      <DependentUpon>NewProjectForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Settings\EditorSettings.cs" />
+    <Compile Include="Scripting\ScriptEditorForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Scripting\ScriptEditorForm.Designer.cs">
+      <DependentUpon>ScriptEditorForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Splash\SplashScreen.cs" />
+    <Compile Include="Forms\Splash\SplashScreenForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Splash\SplashScreenForm.Designer.cs">
+      <DependentUpon>SplashScreenForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Windows.cs" />
+    <EmbeddedResource Include="Controls\BattleTestActorPanel.resx">
+      <DependentUpon>BattleTestActorPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\StatusBarToolTip.resx">
+      <DependentUpon>StatusBarToolTip.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\DatabaseObjectListBox.resx">
+      <DependentUpon>DatabaseObjectListBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\EquipSlot.resx">
+      <DependentUpon>EquipSlot.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\NoteTextBox.resx">
+      <DependentUpon>NoteTextBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\ParameterMiniChart.resx">
+      <DependentUpon>ParameterMiniChart.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\ParamBox.resx">
+      <DependentUpon>ParamBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Database\Actors\ExperienceCurveForm.resx">
+      <DependentUpon>ExperienceCurveForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Database\Animations\AnimationMainForm.resx">
+      <DependentUpon>AnimationMainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Database\Animations\AnimationTimingDialog.resx">
+      <DependentUpon>AnimationTimingDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Database\Armors\ArmorMainForm.resx">
+      <DependentUpon>ArmorMainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Database\Classes\ClassMainForm.resx">
+      <DependentUpon>ClassMainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Database\Classes\EditSkillDialog.resx">
+      <DependentUpon>EditSkillDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Database\Enemies\EditActionDialog.resx">
+      <DependentUpon>EditActionDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Database\Enemies\EnemyMainForm.resx">
+      <DependentUpon>EnemyMainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Database\Enemies\TreasureSelectDialog.resx">
+      <DependentUpon>TreasureSelectDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Database\MapEditor\MapTilesetForm.resx">
+      <DependentUpon>MapTilesetForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Database\Tilesets\ImageColorsDialog.resx">
+      <DependentUpon>ImageColorsDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Database\Tilesets\TilesetsMainForm.resx">
+      <DependentUpon>TilesetsMainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Database\Troops\BattleTestDialog.resx">
+      <DependentUpon>BattleTestDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Database\Troops\TroopMainForm.resx">
+      <DependentUpon>TroopMainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Database\Items\ItemMainForm.resx">
+      <DependentUpon>ItemMainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Database\Skills\SkillMainForm.resx">
+      <DependentUpon>SkillMainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Database\Weapons\WeaponMainForm.resx">
+      <DependentUpon>WeaponMainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\AboutBox.resx">
+      <DependentUpon>AboutBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\CaptureForm.resx">
+      <DependentUpon>CaptureForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\ChangeMaxDialog.resx">
+      <DependentUpon>ChangeMaxDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\ColorChooserForm.resx">
+      <DependentUpon>ColorChooserForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Database\Actors\ActorMainForm.resx">
+      <DependentUpon>ActorMainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Database\Actors\ActorParametersForm.resx">
+      <DependentUpon>ActorParametersForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\FontSelectionDialog.resx">
+      <DependentUpon>FontSelectionDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\HeaderSettingsDialog.resx">
+      <DependentUpon>HeaderSettingsDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\ImageSelectionForm.resx">
+      <DependentUpon>ImageSelectionForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\NoteForm.resx">
+      <DependentUpon>NoteForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Database\Actors\ParamGenerateCurveDialog.resx">
+      <DependentUpon>ParamGenerateCurveDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Database\SwitchForm.resx">
+      <DependentUpon>SwitchForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ARChiveForm.resx">
+      <DependentUpon>ARChiveForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\UserStringForm.resx">
+      <DependentUpon>UserStringForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Editor.resx">
+      <DependentUpon>Editor.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\NewProjectForm.resx">
+      <DependentUpon>NewProjectForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Database\Actors\ChartSettingsForm.resx">
+      <DependentUpon>ChartSettingsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\EditorOptionsForm.resx">
+      <DependentUpon>EditorOptionsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\CalculatorForm.resx">
+      <DependentUpon>CalculatorForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\SkinSettingsForm.resx">
+      <DependentUpon>SkinSettingsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Scripting\AutoCompleteForm.resx">
+      <DependentUpon>AutoCompleteForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Scripting\NewScriptForm.resx">
+      <DependentUpon>NewScriptForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Scripting\ScriptEditorForm.resx">
+      <DependentUpon>ScriptEditorForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Scripting\ScriptMenuForm.resx">
+      <DependentUpon>ScriptMenuForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Scripting\ScriptSearchForm.resx">
+      <DependentUpon>ScriptSearchForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Scripting\ScriptStyleForm.resx">
+      <DependentUpon>ScriptStyleForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Splash\SplashScreenForm.resx">
+      <DependentUpon>SplashScreenForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="app.config" />
+    <None Include="Chronicles of Sir Lag-A-Lot\Chronicles of Sir Lag-A-Lot.arcproj">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Chronicles of Sir Lag-A-Lot\Data\Actors.arc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Chronicles of Sir Lag-A-Lot\Data\Animations.arc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Chronicles of Sir Lag-A-Lot\Data\Armors.arc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Chronicles of Sir Lag-A-Lot\Data\Classes.arc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Chronicles of Sir Lag-A-Lot\Data\CommonEvents.arc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Chronicles of Sir Lag-A-Lot\Data\Enemies.arc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Chronicles of Sir Lag-A-Lot\Data\Items.arc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Chronicles of Sir Lag-A-Lot\Data\Map008.arc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Chronicles of Sir Lag-A-Lot\Data\Map009.arc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Chronicles of Sir Lag-A-Lot\Data\Map010.arc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Chronicles of Sir Lag-A-Lot\Data\Map012.arc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Chronicles of Sir Lag-A-Lot\Data\Map013.arc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Chronicles of Sir Lag-A-Lot\Data\Map017.arc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Chronicles of Sir Lag-A-Lot\Data\Map018.arc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Chronicles of Sir Lag-A-Lot\Data\Map019.arc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Chronicles of Sir Lag-A-Lot\Data\Map020.arc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Chronicles of Sir Lag-A-Lot\Data\Map021.arc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Chronicles of Sir Lag-A-Lot\Data\Map022.arc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Chronicles of Sir Lag-A-Lot\Data\Map023.arc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Chronicles of Sir Lag-A-Lot\Data\Map024.arc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Chronicles of Sir Lag-A-Lot\Data\Map025.arc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Chronicles of Sir Lag-A-Lot\Data\Map026.arc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Chronicles of Sir Lag-A-Lot\Data\Map027.arc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Chronicles of Sir Lag-A-Lot\Data\Map028.arc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Chronicles of Sir Lag-A-Lot\Data\Map029.arc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Chronicles of Sir Lag-A-Lot\Data\Map030.arc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Chronicles of Sir Lag-A-Lot\Data\Map031.arc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Chronicles of Sir Lag-A-Lot\Data\Map032.arc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Chronicles of Sir Lag-A-Lot\Data\Map033.arc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Chronicles of Sir Lag-A-Lot\Data\Map034.arc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Chronicles of Sir Lag-A-Lot\Data\Map037.arc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Chronicles of Sir Lag-A-Lot\Data\Map038.arc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Chronicles of Sir Lag-A-Lot\Data\Map039.arc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Chronicles of Sir Lag-A-Lot\Data\Map040.arc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Chronicles of Sir Lag-A-Lot\Data\Map041.arc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Chronicles of Sir Lag-A-Lot\Data\Map042.arc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Chronicles of Sir Lag-A-Lot\Data\Map043.arc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Chronicles of Sir Lag-A-Lot\Data\Map044.arc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Chronicles of Sir Lag-A-Lot\Data\Map045.arc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Chronicles of Sir Lag-A-Lot\Data\Map046.arc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Chronicles of Sir Lag-A-Lot\Data\MapInfos.arc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Chronicles of Sir Lag-A-Lot\Data\Map_Data.abs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Chronicles of Sir Lag-A-Lot\Data\Skills.arc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Chronicles of Sir Lag-A-Lot\Data\States.arc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Chronicles of Sir Lag-A-Lot\Data\System.arc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Chronicles of Sir Lag-A-Lot\Data\Tilesets.arc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Chronicles of Sir Lag-A-Lot\Data\Troops.arc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Chronicles of Sir Lag-A-Lot\Data\Weapons.arc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Fonts\ethnocen.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Fonts\consola.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Fonts\OptimusPrinceps.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Files\Default.7z" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assemblies\Dejavu.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assemblies\Microsoft.Dynamic.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assemblies\Microsoft.Xna.Framework.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assemblies\Microsoft.Xna.Framework.Graphics.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assemblies\SevenZipSharp.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <EmbeddedResource Include="Files\CustomCross.cur" />
+    <Content Include="Chronicles of Sir Lag-A-Lot\Audio\BGM\005-Boss01.mid">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Audio\BGM\007-Boss03.mid">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Audio\BGM\012-Theme01.mid">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Audio\BGM\021-Field04.mid">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Audio\BGM\039-Dungeon05.mid">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Audio\BGM\044-Positive02.mid">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Audio\BGM\darkness.ogg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Audio\BGM\E Nomine - Die Schwarzen Reiter %28Blizzard Edit for Blizz-ABS Demo%29.ogg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Audio\BGM\empire base.mid">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Audio\BGM\The final encounter.ogg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Audio\BGS\003-Wind03.ogg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Audio\ME\001-Victory01.mid">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Audio\ME\002-Victory02.mid">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Audio\ME\005-Defeat01.mid">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Audio\SE\001-System01.ogg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Audio\SE\002-System02.ogg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Audio\SE\003-System03.ogg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Audio\SE\004-System04.ogg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Audio\SE\005-System05.ogg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Audio\SE\006-System06.ogg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Audio\SE\009-System09.ogg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Audio\SE\010-System10.ogg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Audio\SE\011-System11.ogg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Audio\SE\012-System12.ogg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Audio\SE\024-Door01.ogg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Audio\SE\026-Door03.ogg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Audio\SE\027-Door04.ogg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Audio\SE\028-Door05.ogg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Audio\SE\030-Door07.ogg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Audio\SE\044-Chest01.ogg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Audio\SE\049-Explosion02.ogg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Audio\SE\050-Explosion03.ogg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Audio\SE\056-Right02.ogg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Audio\SE\064-Swing03.ogg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Audio\SE\065-Swing04.ogg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Audio\SE\074-Small01.ogg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Audio\SE\088-Action03.ogg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Audio\SE\091-Attack03.ogg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Audio\SE\092-Attack04.ogg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Audio\SE\100-Attack12.ogg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Audio\SE\104-Attack16.ogg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Audio\SE\105-Heal01.ogg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Audio\SE\106-Heal02.ogg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Audio\SE\108-Heal04.ogg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Audio\SE\111-Heal07.ogg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Audio\SE\117-Fire01.ogg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Audio\SE\120-Ice01.ogg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Audio\SE\123-Thunder01.ogg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Audio\SE\125-Thunder03.ogg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Audio\SE\136-Light02.ogg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Audio\SE\LoadSound.ogg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Data\RMXP.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Data\Scripts\0000-  - F12 fix.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Data\Scripts\0001-Game_Temp.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Data\Scripts\0002-Game_System.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Data\Scripts\0003-Game_Switches.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Data\Scripts\0004-Game_Variables.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Data\Scripts\0005-Game_SelfSwitches.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Data\Scripts\0006-Game_Screen.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Data\Scripts\0007-Game_Picture.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Data\Scripts\0008-Game_Battler 1.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Data\Scripts\0009-Game_Battler 2.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Data\Scripts\0010-Game_Battler 3.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Data\Scripts\0011-Game_BattleAction.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Data\Scripts\0012-Game_Actor.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Data\Scripts\0013-Game_Enemy.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Data\Scripts\0014-Game_Actors.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Data\Scripts\0015-Game_Party.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Data\Scripts\0016-Game_Troop.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Data\Scripts\0017-Game_Map.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Data\Scripts\0018-Game_CommonEvent.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Data\Scripts\0019-Game_Character 1.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Data\Scripts\0020-Game_Character 2.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Data\Scripts\0021-Game_Character 3.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Data\Scripts\0022-Game_Event.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Data\Scripts\0023-Game_Player.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Data\Scripts\0024-Sprite_Character.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Data\Scripts\0025-Sprite_Battler.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Data\Scripts\0026-Sprite_Picture.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Data\Scripts\0027-Sprite_Timer.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Data\Scripts\0028-Spriteset_Map.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Data\Scripts\0029-Spriteset_Battle.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Data\Scripts\0030-Window_Base + moded.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Data\Scripts\0031-Window_Selectable.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Data\Scripts\0032-Window_Command.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Data\Scripts\0033-Window_Help.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Data\Scripts\0034-Window_Gold.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Data\Scripts\0035-Window_PlayTime.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Data\Scripts\0036-Window_Steps.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Data\Scripts\0037-Window_MenuStatus.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Data\Scripts\0038-Window_Item.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Data\Scripts\0039-Window_Skill.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Data\Scripts\0040-Window_SkillStatus.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Data\Scripts\0041-Window_Target.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Data\Scripts\0042-Window_EquipLeft.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Data\Scripts\0043-Window_EquipRight.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Data\Scripts\0044-Window_EquipItem.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Data\Scripts\0045-Window_Status.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Data\Scripts\0046-Window_SaveFile.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Data\Scripts\0047-Window_ShopCommand.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Data\Scripts\0048-Window_ShopBuy.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Data\Scripts\0049-Window_ShopSell.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Data\Scripts\0050-Window_ShopNumber.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Data\Scripts\0051-Window_ShopStatus.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Data\Scripts\0052-Window_NameEdit.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Data\Scripts\0053-Window_NameInput.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Data\Scripts\0054-Window_InputNumber.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Data\Scripts\0055-Window_Message.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Data\Scripts\0056-Window_PartyCommand.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Data\Scripts\0057-Window_BattleStatus.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Data\Scripts\0058-Window_BattleResult.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Data\Scripts\0059-Window_DebugLeft.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Data\Scripts\0060-Window_DebugRight.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Data\Scripts\0061-Arrow_Base.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Data\Scripts\0062-Arrow_Enemy.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Data\Scripts\0063-Arrow_Actor.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Data\Scripts\0064-Interpreter 1.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Data\Scripts\0065-Interpreter 2.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Data\Scripts\0066-Interpreter 3.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Data\Scripts\0067-Interpreter 4.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Data\Scripts\0068-Interpreter 5.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Data\Scripts\0069-Interpreter 6.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Data\Scripts\0070-Interpreter 7.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Data\Scripts\0071-Scene_Title + moded.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Data\Scripts\0072-Scene_Map.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Data\Scripts\0073-Scene_Menu.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Data\Scripts\0074-Scene_Item.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Data\Scripts\0075-Scene_Skill.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Data\Scripts\0076-Scene_Equip.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Data\Scripts\0077-Scene_Status.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Data\Scripts\0078-Scene_File.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Data\Scripts\0079-Scene_Save.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Data\Scripts\0080-Scene_Load.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Data\Scripts\0081-Scene_End.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Data\Scripts\0082-Scene_Battle 1.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Data\Scripts\0083-Scene_Battle 2.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Data\Scripts\0084-Scene_Battle 3.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Data\Scripts\0085-Scene_Battle 4.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Data\Scripts\0086-Scene_Shop.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Data\Scripts\0087-Scene_Name.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Data\Scripts\0088-Scene_Gameover.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Data\Scripts\0089-Scene_Debug.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Data\Scripts\0090- %28+%29 CP Debugger.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Data\Scripts\0091-  - Scene_StormTronics.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Data\Scripts\0092- %28+%29 Tons of Add-ons.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Data\Scripts\0093- %28+%29 ST CMS - Hybrid moded.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Data\Scripts\0094-.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Data\Scripts\0095-%28Blizz-ABS%29 DEMO CONFIG.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Data\Scripts\0096-%28Blizz-ABS%29 Script.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Data\Scripts\0097-.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Data\Scripts\0098----===MAIN===---.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Data\System.rb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Animations\001-Action01.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Animations\002-Action02.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Animations\004-Attack02.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Animations\005-Attack03.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Animations\006-Weapon01.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Animations\007-Weapon02.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Animations\012-Heal01.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Animations\013-Heal02.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Animations\015-Fire01.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Animations\016-Ice01.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Animations\017-Thunder01.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Animations\021-Light01.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Animations\022-Darkness01.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Animations\028-State01.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Animations\030-Explosion01.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Animations\afraid.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Animations\light.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Autotiles\001-G_Water01.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Autotiles\002-G_Shadow01.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Autotiles\003-G_Ground01.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Autotiles\004-G_Ground02.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Autotiles\006-G_Road02.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Autotiles\007-G_Undulation01.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Autotiles\008-G_Undulation02.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Autotiles\033-Waterfall01.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Autotiles\034-Waterfall02.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Autotiles\035-Waterfall03.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Autotiles\036-Tree01.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Autotiles\037-Tree02.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Autotiles\040-Ground01.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Autotiles\041-Grass01.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Autotiles\043-Grass02.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Autotiles\044-Road01.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Autotiles\047-Flower01.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Autotiles\048-Water01.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Autotiles\049-St_Shadow01.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Autotiles\050-Roof02.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Autotiles\051-Carpet01.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Autotiles\052-Carpet02.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Autotiles\053-Wall01.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Autotiles\062-CF_Lava01.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Autotiles\063-CF_Shadow01.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Autotiles\064-CF_Ground01.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Autotiles\065-CF_Ground02.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Autotiles\066-CF_Ground03.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Autotiles\067-CF_Ground04.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Autotiles\roofs.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Characters\001-Fighter01.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Characters\036-Mage04.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Characters\083-Elemental01.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Characters\083-Elemental01_atk.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Characters\083-Elemental01_skl.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Characters\093-Monster07.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Characters\161-Small03.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Characters\170-Door01.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Characters\171-Door02.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Characters\173-Door04.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Characters\174-Chest01.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Characters\175-Chest02.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Characters\176-Chest03.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Characters\177-Chest04.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Characters\183-Rock02.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Characters\184-Light01.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Characters\186-Bulletin01.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Characters\arrow.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Characters\banana.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Characters\Batman.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Characters\Batman_atk.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Characters\Batman_skl.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Characters\Beelzebub.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Characters\Beelzebub_atk.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Characters\Beelzebub_skl.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Characters\Cold Lunch.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Characters\Cold Lunch_atk.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Characters\Cold Lunch_skl.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Characters\crazy rubbersword.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Characters\crazy rubbersword_atk.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Characters\Doom_Doors.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Characters\Doors.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Characters\doors_.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Characters\double_door.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Characters\fire burst.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Characters\FireBall.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Characters\flame.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Characters\flamer.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Characters\flamer_atk.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Characters\flamer_skl.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Characters\happybirthday.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Characters\happybirthday_atk.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Characters\happybirthday_def.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Characters\icicle.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Characters\jason lex.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Characters\Killerbunny.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Characters\Killerbunny_atk.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Characters\Killerbunny_skl.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Characters\kugelblitz.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Characters\lag_a_lot.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Characters\lag_a_lot_atk0.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Characters\lag_a_lot_atk0_Hellbound.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Characters\lag_a_lot_atk0_shortsword.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Characters\lag_a_lot_atk2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Characters\lag_a_lot_atk2_RaptureRose.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Characters\lag_a_lot_atk3.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Characters\lag_a_lot_atk3_banana.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Characters\lag_a_lot_atk4.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Characters\lag_a_lot_atk5.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Characters\lag_a_lot_atk5_Link bow.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Characters\lag_a_lot_atk6.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Characters\lag_a_lot_atk6_icicle.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Characters\lag_a_lot_def.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Characters\lag_a_lot_itm.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Characters\lag_a_lot_jmp.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Characters\lag_a_lot_skl.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Characters\LOS-MetalTounge.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Characters\reply.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Characters\reply_atk.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Characters\sting.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Characters\Third Head.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Characters\Third Head_atk.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Characters\Third Head_skl.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Characters\Zinger.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Characters\Zinger_atk.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Characters\Zinger_skl.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Fogs\003-Shade01.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Gameovers\game_over0.PNG">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Icons\009-Shield01.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Icons\010-Head01.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Icons\013-Body01.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Icons\021-Potion01.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Icons\024-Potion04.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Icons\025-Herb01.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Icons\044-Skill01.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Icons\045-Skill02.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Icons\arrow.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Icons\banana.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Icons\bomb.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Icons\cash.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Icons\CMS\commandmenu0.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Icons\CMS\commandmenu1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Icons\CMS\commandmenu2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Icons\CMS\commandmenu3.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Icons\CMS\commandmenu4.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Icons\CMS\commandmenu5.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Icons\CMS\commandmenu6.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Icons\CMS\commandmenu7.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Icons\CMS\commandmenu8.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Icons\CMS\elm_electar.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Icons\CMS\elm_holy.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Icons\CMS\elm_polar.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Icons\CMS\elm_solar.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Icons\CMS\elm_unholy.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Icons\CMS\stat_barrier.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Icons\CMS\stat_blink.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Icons\CMS\stat_clumsy.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Icons\CMS\stat_confuse.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Icons\CMS\stat_dazzle.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Icons\CMS\stat_delay.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Icons\CMS\stat_feedle.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Icons\CMS\stat_knockout.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Icons\CMS\stat_mute.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Icons\CMS\stat_paralyzed.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Icons\CMS\stat_resist.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Icons\CMS\stat_sharp.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Icons\CMS\stat_sleep.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Icons\CMS\stat_stun.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Icons\CMS\stat_venom.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Icons\CMS\stat_weaken.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Icons\control_icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Icons\ear.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Icons\fire burst.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Icons\FireBall.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Icons\flameboomerang.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Icons\Hellbound.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Icons\holy.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Icons\icicle.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Icons\kugelblitz.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Icons\Link bow.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Icons\LOS-MetalTounge.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Icons\oblivion.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Icons\RaptureRose.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Icons\shortsword.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Icons\sting.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Panoramas\001-Sky01.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Panoramas\006-Mountains01.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Pictures\blizzabs_keyboard.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Pictures\MovieStripes.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Tilesets\002-Woods01.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Tilesets\004-Mountain01.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Tilesets\009-CastleTown01.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Tilesets\025-Castle01.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Tilesets\027-Castle03.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Tilesets\029-Church02.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Tilesets\037-Fort01.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Tilesets\038-Fort02.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Tilesets\040-Tower02.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Tilesets\044-Cave02.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Tilesets\Rocky mountains tower.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Tilesets\Stone cave.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Titles\1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Titles\2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Titles\3.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Titles\4.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Titles\5.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Titles\6.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Titles\7.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Titles\8.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Titles\abs_game.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Titles\back.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Titles\final.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Titles\glow.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Titles\inverted.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Titles\lagalot.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Titles\letters1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Titles\letters2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Titles\letters3.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Titles\logo.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Titles\logo_mask.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Titles\presents.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Titles\StormFlash.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Titles\StormMask.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Titles\StormTronics.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Transitions\003-Blind03.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Windowskins\02-Golden01.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\Graphics\Windowskins\Hell Breath.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Chronicles of Sir Lag-A-Lot\README.txt" />
+    <EmbeddedResource Include="Resources\Add.png" />
+    <EmbeddedResource Include="Resources\ARCedSplash.png" />
+    <EmbeddedResource Include="Resources\Calculator.png" />
+    <EmbeddedResource Include="Resources\CharMap.png" />
+    <EmbeddedResource Include="Resources\Close.png" />
+    <EmbeddedResource Include="Resources\Delete.png" />
+    <EmbeddedResource Include="Resources\Color.png" />
+    <EmbeddedResource Include="Resources\Comment.png" />
+    <EmbeddedResource Include="Resources\Cut.png" />
+    <EmbeddedResource Include="Resources\Paste.png" />
+    <EmbeddedResource Include="Resources\Copy.png" />
+    <EmbeddedResource Include="Resources\Find2.png" />
+    <EmbeddedResource Include="Resources\Find3.png" />
+    <EmbeddedResource Include="Resources\GoTo.png" />
+    <EmbeddedResource Include="Resources\Find1.png" />
+    <EmbeddedResource Include="Resources\Next.png" />
+    <EmbeddedResource Include="Resources\Previous.png" />
+    <EmbeddedResource Include="Resources\Help.png" />
+    <EmbeddedResource Include="Resources\Down.png" />
+    <EmbeddedResource Include="Resources\FolderOpen.png" />
+    <EmbeddedResource Include="Resources\Up.png" />
+    <EmbeddedResource Include="Resources\NextMessage.png" />
+    <EmbeddedResource Include="Resources\PreviousMessage.png" />
+    <EmbeddedResource Include="Resources\Ruby.png" />
+    <EmbeddedResource Include="Resources\SevenZip.png" />
+    <EmbeddedResource Include="Resources\FileOpen.png" />
+    <EmbeddedResource Include="Resources\FoldCollapse.bmp" />
+    <EmbeddedResource Include="Resources\Fold.png" />
+    <EmbeddedResource Include="Resources\AutoComplete.png" />
+    <EmbeddedResource Include="Resources\Redo.png" />
+    <EmbeddedResource Include="Resources\Save.png" />
+    <EmbeddedResource Include="Resources\Undo.png" />
+    <EmbeddedResource Include="Resources\Indent.png" />
+    <EmbeddedResource Include="Resources\SaveTemplate.png" />
+    <EmbeddedResource Include="Resources\NewDocument.png" />
+    <EmbeddedResource Include="Resources\CaretColor.png" />
+    <EmbeddedResource Include="Resources\Highlight.png" />
+    <EmbeddedResource Include="Resources\Replace.png" />
+    <EmbeddedResource Include="Resources\Ruler.png" />
+    <EmbeddedResource Include="Resources\SaveAll.png" />
+    <EmbeddedResource Include="Resources\SelectAll.png" />
+    <EmbeddedResource Include="Resources\Theme.png" />
+    <EmbeddedResource Include="Resources\Settings.png" />
+    <EmbeddedResource Include="Resources\Pin.png" />
+    <EmbeddedResource Include="Resources\Database.png" />
+    <EmbeddedResource Include="Resources\Crop.png" />
+    <EmbeddedResource Include="Resources\Alpha.png" />
+    <EmbeddedResource Include="Resources\FoldExpand.bmp" />
+    <EmbeddedResource Include="Resources\Font.png" />
+    <EmbeddedResource Include="Resources\Chart.png" />
+    <EmbeddedResource Include="Resources\Edit.png" />
+    <EmbeddedResource Include="Resources\Armor.png" />
+    <EmbeddedResource Include="Resources\Enemy.png" />
+    <EmbeddedResource Include="Resources\icon.ico" />
+    <EmbeddedResource Include="Resources\Outline.png" />
+    <EmbeddedResource Include="Resources\Update.png" />
+    <EmbeddedResource Include="Resources\Scintilla.png" />
+    <EmbeddedResource Include="Resources\RMXP.png" />
+    <EmbeddedResource Include="Resources\NoteText.png" />
+    <EmbeddedResource Include="Resources\Play.png" />
+    <EmbeddedResource Include="Resources\Item.png" />
+    <EmbeddedResource Include="Resources\ResourceLocal.png" />
+    <EmbeddedResource Include="Resources\ResourceRTP.png" />
+    <EmbeddedResource Include="Resources\Settings2.png" />
+    <EmbeddedResource Include="Resources\TrueType.bmp" />
+    <EmbeddedResource Include="Resources\Switch.png" />
+    <EmbeddedResource Include="Resources\Variable.png" />
+    <EmbeddedResource Include="Resources\Skill.png" />
+    <EmbeddedResource Include="Resources\Weapon.png" />
+    <Content Include="x86\7z.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="x64\7z64.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="icon.ico" />
+    <Content Include="x86\SciLexer.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="x64\SciLexer64.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="TODO.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ARCed.Controls\ARCed.Controls.csproj">
+      <Project>{E302ABFC-CB38-4FC6-A223-561B3B64B229}</Project>
+      <Name>ARCed.Controls</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ARCed.Core\ARCed.Core.csproj">
+      <Project>{0890E629-23C8-462E-B836-AA05ABD22E17}</Project>
+      <Name>ARCed.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ARCed.Plugins\ARCed.Plugins.csproj">
+      <Project>{1E120825-9105-41C8-80F6-F4BDFCC1A9DA}</Project>
+      <Name>ARCed.Plugins</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ARCed.Project\ARCed.Project.csproj">
+      <Project>{CB4B14CC-7F28-47E3-8BAE-8ACB3B80CFAA}</Project>
+      <Name>ARCed.Project</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ARCed.Scintilla\ARCed.Scintilla.csproj">
+      <Project>{A4955F62-9543-48A1-80B4-5EC0D52F07B5}</Project>
+      <Name>ARCed.Scintilla</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ARCed.UI\ARCed.UI.csproj">
+      <Project>{0E258A7C-61C2-4945-96A2-447D39E705DA}</Project>
+      <Name>ARCed.UI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ARCed.Xna\ARCed.Xna.csproj">
+      <Project>{A8CABA22-80D4-48A9-B3D0-EF358D12F301}</Project>
+      <Name>ARCed.Xna</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.0">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
