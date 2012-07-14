@@ -68,7 +68,7 @@ namespace ARCed.Settings
 
 		public ImageColorSettings()
 		{
-			BackgroundColor = XnaColor.LightGray;
+			BackgroundColor = XnaColor.White;
 			SelectorColor = XnaColor.White;
 			GridColor = XnaColor.Black;
 			SelectorThickness = 2;

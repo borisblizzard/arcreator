@@ -314,11 +314,11 @@ namespace ARCed.Dialogs
 			using (ColorChooserForm dialog = new ColorChooserForm())
 			{
 				dialog.AlphaEnabled = false;
-				dialog.Color = Editor.Settings.ImageBackColor.ToSystemColor();
+                dialog.Color = Editor.Settings.ImageColorSettings.BackgroundColor.ToSystemColor();
 				if (dialog.ShowDialog() == DialogResult.OK)
 				{
-					Editor.Settings.ImageBackColor = dialog.Color.ToXnaColor();
-					pictureBox.ImageBackColor = Editor.Settings.ImageBackColor;
+                    Editor.Settings.ImageColorSettings.BackgroundColor = dialog.Color.ToXnaColor();
+                    pictureBox.ImageBackColor = Editor.Settings.ImageColorSettings.BackgroundColor;
 				}
 			}
 		}

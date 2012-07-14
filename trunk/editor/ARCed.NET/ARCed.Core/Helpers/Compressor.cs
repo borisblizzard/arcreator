@@ -20,7 +20,7 @@ namespace ARCed.Helpers
 		/// <param name="notify">Flag to notify user when finished</param>
 		public static void CompressDirectory(string inDir, string outFile, bool notify = false)
 		{
-			SevenZip.SevenZipBase.SetLibraryPath(PathHelper.SevenZip_Library);
+			SevenZip.SevenZipBase.SetLibraryPath(PathHelper.SevenZipLibrary);
 			if (_compressor == null)
 			{
 				_compressor = new SevenZipCompressor();
@@ -42,7 +42,7 @@ namespace ARCed.Helpers
 		/// <param name="outDir">The path to the target directory for extraction</param>
 		public static void ExtractArchive(string inFile, string outDir)
 		{
-			SevenZip.SevenZipBase.SetLibraryPath(PathHelper.SevenZip_Library);
+			SevenZip.SevenZipBase.SetLibraryPath(PathHelper.SevenZipLibrary);
 			try
 			{
 				_extractor = new SevenZipExtractor(inFile);

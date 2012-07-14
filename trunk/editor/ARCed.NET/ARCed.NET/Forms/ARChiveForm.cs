@@ -181,7 +181,7 @@ namespace ARCed.Forms
 		{
 			if (compressor == null)
 			{
-				SevenZipBase.SetLibraryPath(PathHelper.SevenZip_Library);
+				SevenZipBase.SetLibraryPath(PathHelper.SevenZipLibrary);
 				compressor = new SevenZipCompressor(Path.GetTempPath());
 				compressor.ArchiveFormat = OutArchiveFormat.SevenZip;
 				compressor.CompressionLevel = CompressionLevel.Ultra;

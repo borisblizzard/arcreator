@@ -29,9 +29,12 @@ namespace ARCed.Helpers
 		/// <remarks>This method also loads resource fonts embedded into the application.</remarks>
 		public static void LoadUserFonts()
 		{
-			string editorPath = Path.Combine(PathHelper.EditorDirectory, "Fonts");
-			foreach (string filename in Directory.GetFiles(editorPath, "*.ttf"))
-				AddFileFont(filename);
+			string fontDir = Path.Combine(PathHelper.EditorDirectory, "Fonts");
+            if (Directory.Exists(fontDir))
+            {
+                foreach (string filename in Directory.GetFiles(fontDir, "*.ttf"))
+                    AddFileFont(filename);
+            }
 		}
 
 		/// <summary>
