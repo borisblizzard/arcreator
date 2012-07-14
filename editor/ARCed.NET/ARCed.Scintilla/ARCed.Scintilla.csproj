@@ -1,0 +1,527 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{A4955F62-9543-48A1-80B4-5EC0D52F07B5}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ARCed.Scintilla</RootNamespace>
+    <AssemblyName>ARCed.Scintilla</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Optimize>true</Optimize>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisLogFile>bin\Debug\ARCed.Scintilla.dll.CodeAnalysisLog.xml</CodeAnalysisLogFile>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSetDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\\Rule Sets</CodeAnalysisRuleSetDirectories>
+    <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisRuleDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
+    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
+    <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisLogFile>bin\Release\ARCed.Scintilla.dll.CodeAnalysisLog.xml</CodeAnalysisLogFile>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSetDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\\Rule Sets</CodeAnalysisRuleSetDirectories>
+    <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisRuleDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Design" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Annotation.cs" />
+    <Compile Include="AnnotationChangedEventArgs.cs" />
+    <Compile Include="AnnotationCollection.cs" />
+    <Compile Include="AnnotationsVisibility.cs" />
+    <Compile Include="AutoComplete.cs" />
+    <Compile Include="AutoCompleteAcceptedEventArgs.cs" />
+    <Compile Include="BindableCommand.cs" />
+    <Compile Include="CallTip.cs" />
+    <Compile Include="CallTipArrow.cs" />
+    <Compile Include="CallTipClickEventArgs.cs" />
+    <Compile Include="CaretInfo.cs" />
+    <Compile Include="CaretPolicy.cs" />
+    <Compile Include="CaretStyle.cs" />
+    <Compile Include="CharacterRange.cs" />
+    <Compile Include="CharacterSet.cs" />
+    <Compile Include="CharAddedEventArgs.cs" />
+    <Compile Include="Clipboard.cs" />
+    <Compile Include="Commands.cs" />
+    <Compile Include="Configuration\CommandBindingConfig.cs" />
+    <Compile Include="Configuration\CommandBindingConfigList.cs" />
+    <Compile Include="Configuration\Configuration.cs" />
+    <Compile Include="Configuration\ConfigurationLoadOrder.cs" />
+    <Compile Include="Configuration\ConfigurationManager.cs" />
+    <Compile Include="Configuration\IndicatorConfigList.cs" />
+    <Compile Include="Configuration\IndicatorsConfig.cs" />
+    <Compile Include="Configuration\KeyWordConfig.cs" />
+    <Compile Include="Configuration\KeyWordConfigList.cs" />
+    <Compile Include="Configuration\LexerProperties.cs" />
+    <Compile Include="Configuration\MarginConfig.cs" />
+    <Compile Include="Configuration\MarginConfigList.cs" />
+    <Compile Include="Configuration\MarkersConfig.cs" />
+    <Compile Include="Configuration\MarkersConfigList.cs" />
+    <Compile Include="Configuration\ResolvedStyleList.cs" />
+    <Compile Include="Configuration\SnippetsConfig.cs" />
+    <Compile Include="Configuration\SnippetsConfigList.cs" />
+    <Compile Include="Configuration\StyleConfig.cs" />
+    <Compile Include="Configuration\StyleConfigList.cs" />
+    <Compile Include="Constants.cs" />
+    <Compile Include="CopyFormat.cs" />
+    <Compile Include="CursorShape.cs" />
+    <Compile Include="Design\FlagsDesigner.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Design\ScintillaDesigner.cs" />
+    <Compile Include="Document.cs" />
+    <Compile Include="DocumentHandler.cs" />
+    <Compile Include="DocumentNavigation.cs" />
+    <Compile Include="DropMarker.cs" />
+    <Compile Include="DropMarkerCollectEventArgs.cs" />
+    <Compile Include="DropMarkerList.cs" />
+    <Compile Include="DropMarkers.cs" />
+    <Compile Include="EdgeMode.cs" />
+    <Compile Include="EndOfLine.cs" />
+    <Compile Include="EndOfLineMode.cs" />
+    <Compile Include="Events.cs" />
+    <Compile Include="FakeStack.cs" />
+    <Compile Include="FileDropEventArgs.cs" />
+    <Compile Include="FindReplace\FindOption.cs" />
+    <Compile Include="FindReplace\FindReplace.cs" />
+    <Compile Include="FindReplace\FindReplaceDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FindReplace\FindReplaceDialog.Designer.cs">
+      <DependentUpon>FindReplaceDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FindReplace\IncrementalSearcher.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="FindReplace\IncrementalSearcher.Designer.cs">
+      <DependentUpon>IncrementalSearcher.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FindReplace\ToolStripIncrementalSearcher.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="FoldChangedEventArgs.cs" />
+    <Compile Include="FoldFlag.cs" />
+    <Compile Include="Folding.cs" />
+    <Compile Include="FoldLevel.cs" />
+    <Compile Include="FoldMarkerScheme.cs" />
+    <Compile Include="GoTo.cs" />
+    <Compile Include="GoToDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GoToDialog.designer.cs">
+      <DependentUpon>GoToDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="HotspotClickEventArgs.cs" />
+    <Compile Include="HotspotStyle.cs" />
+    <Compile Include="INativeScintilla.cs" />
+    <Compile Include="Indentation.cs" />
+    <Compile Include="Indicator.cs" />
+    <Compile Include="IndicatorCollection.cs" />
+    <Compile Include="IndicatorStyle.cs" />
+    <Compile Include="KeyBinding.cs" />
+    <Compile Include="KeyMod.cs" />
+    <Compile Include="KeywordCollection.cs" />
+    <Compile Include="LayoutCacheMode.cs" />
+    <Compile Include="Lexer.cs" />
+    <Compile Include="Lexing.cs" />
+    <Compile Include="Line.cs" />
+    <Compile Include="LinesCollection.cs" />
+    <Compile Include="LinesNeedShownEventArgs.cs" />
+    <Compile Include="LineWrapping.cs" />
+    <Compile Include="LineWrappingIndentMode.cs" />
+    <Compile Include="LineWrappingMode.cs" />
+    <Compile Include="LineWrappingVisualFlags.cs" />
+    <Compile Include="LineWrappingVisualFlagsLocations.cs" />
+    <Compile Include="LongLines.cs" />
+    <Compile Include="MacroRecordEventArgs.cs" />
+    <Compile Include="ManagedRange.cs" />
+    <Compile Include="Margin.cs" />
+    <Compile Include="MarginClickEventArgs.cs" />
+    <Compile Include="MarginCollection.cs" />
+    <Compile Include="MarginType.cs" />
+    <Compile Include="Marker.cs" />
+    <Compile Include="MarkerChangedEventArgs.cs" />
+    <Compile Include="MarkerCollection.cs" />
+    <Compile Include="MarkerInstance.cs" />
+    <Compile Include="MarkerOutline.cs" />
+    <Compile Include="MarkerSymbol.cs" />
+    <Compile Include="ModificationFlags.cs" />
+    <Compile Include="ModifiedEventArgs.cs" />
+    <Compile Include="NativeMethods.cs" />
+    <Compile Include="NativeMethods.Scintilla.cs" />
+    <Compile Include="NativeScintillaEventArgs.cs" />
+    <Compile Include="NavigationPont.cs" />
+    <Compile Include="NotifyHeader.cs" />
+    <Compile Include="OverloadList.cs" />
+    <Compile Include="PrintColorMode.cs" />
+    <Compile Include="Printing\FooterInformation.cs" />
+    <Compile Include="Printing\HeaderInformation.cs" />
+    <Compile Include="Printing\InformationType.cs" />
+    <Compile Include="Printing\PageInformation.cs" />
+    <Compile Include="Printing\PageInformationBorder.cs" />
+    <Compile Include="Printing\PageSettings.cs" />
+    <Compile Include="Printing\PrintDocument.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Printing\Printing.cs" />
+    <Compile Include="PrintRectangle.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Range.cs" />
+    <Compile Include="RangeToFormat.cs" />
+    <Compile Include="RECT.cs" />
+    <Compile Include="Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Scintilla.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Scintilla.INativeScintilla.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ScintillaHelperBase.cs" />
+    <Compile Include="ScintillaMouseEventArgs.cs" />
+    <Compile Include="SCNotification.cs" />
+    <Compile Include="Scrolling.cs" />
+    <Compile Include="SearchFlags.cs" />
+    <Compile Include="Selection.cs" />
+    <Compile Include="SelectionMode.cs" />
+    <Compile Include="SmartIndent.cs" />
+    <Compile Include="Snippets\Snippet.cs" />
+    <Compile Include="Snippets\SnippetChooser.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Snippets\SnippetChooser.Designer.cs">
+      <DependentUpon>SnippetChooser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Snippets\SnippetLinkCollection.cs" />
+    <Compile Include="Snippets\SnippetLinkEnd.cs" />
+    <Compile Include="Snippets\SnippetLinkRange.cs" />
+    <Compile Include="Snippets\SnippetLinks.cs" />
+    <Compile Include="Snippets\SnippetList.cs" />
+    <Compile Include="Snippets\SnippetManager.cs" />
+    <Compile Include="Style.cs" />
+    <Compile Include="StyleCase.cs" />
+    <Compile Include="StyleChangedEventArgs.cs" />
+    <Compile Include="StyleCollection.cs" />
+    <Compile Include="StyleNeededEventArgs.cs" />
+    <Compile Include="StyleRun.cs" />
+    <Compile Include="StyleRunReader.cs" />
+    <Compile Include="StyleRunWriter.cs" />
+    <Compile Include="StylesCommon.cs" />
+    <Compile Include="TextModifiedEventArgs.cs" />
+    <Compile Include="TextRange.cs" />
+    <Compile Include="TextToFind.cs" />
+    <Compile Include="TopLevelHelper.cs" />
+    <Compile Include="UndoRedo.cs" />
+    <Compile Include="UndoRedoFlags.cs" />
+    <Compile Include="UriDroppedEventArgs.cs" />
+    <Compile Include="Utilities.cs" />
+    <Compile Include="VOID.cs" />
+    <Compile Include="Whitespace.cs" />
+    <Compile Include="WhitespaceMode.cs" />
+    <Compile Include="WhitespaceStringConverter.cs" />
+    <Compile Include="XpmAdapter.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Configuration\Builtin\cpp.xml" />
+    <Content Include="Configuration\Builtin\cs.xml" />
+    <Content Include="Configuration\Builtin\default.xml" />
+    <Content Include="Configuration\Builtin\html.xml" />
+    <Content Include="Configuration\Builtin\js.xml" />
+    <Content Include="Configuration\Builtin\LexerKeywordListNames\ada.txt" />
+    <Content Include="Configuration\Builtin\LexerKeywordListNames\apdl.txt" />
+    <Content Include="Configuration\Builtin\LexerKeywordListNames\asm.txt" />
+    <Content Include="Configuration\Builtin\LexerKeywordListNames\asn1.txt" />
+    <Content Include="Configuration\Builtin\LexerKeywordListNames\au3.txt" />
+    <Content Include="Configuration\Builtin\LexerKeywordListNames\ave.txt" />
+    <Content Include="Configuration\Builtin\LexerKeywordListNames\baan.txt" />
+    <Content Include="Configuration\Builtin\LexerKeywordListNames\bash.txt" />
+    <Content Include="Configuration\Builtin\LexerKeywordListNames\batch.txt" />
+    <Content Include="Configuration\Builtin\LexerKeywordListNames\blitsbasic.txt" />
+    <Content Include="Configuration\Builtin\LexerKeywordListNames\bullant.txt" />
+    <Content Include="Configuration\Builtin\LexerKeywordListNames\caml.txt" />
+    <Content Include="Configuration\Builtin\LexerKeywordListNames\clw.txt" />
+    <Content Include="Configuration\Builtin\LexerKeywordListNames\clwnocase.txt" />
+    <Content Include="Configuration\Builtin\LexerKeywordListNames\cmake.txt" />
+    <Content Include="Configuration\Builtin\LexerKeywordListNames\conf.txt" />
+    <Content Include="Configuration\Builtin\LexerKeywordListNames\cpp.txt" />
+    <Content Include="Configuration\Builtin\LexerKeywordListNames\cppnocase.txt" />
+    <Content Include="Configuration\Builtin\LexerKeywordListNames\csound.txt" />
+    <Content Include="Configuration\Builtin\LexerKeywordListNames\css.txt" />
+    <Content Include="Configuration\Builtin\LexerKeywordListNames\d.txt" />
+    <Content Include="Configuration\Builtin\LexerKeywordListNames\diff.txt" />
+    <Content Include="Configuration\Builtin\LexerKeywordListNames\eiffel.txt" />
+    <Content Include="Configuration\Builtin\LexerKeywordListNames\eiffelkw.txt" />
+    <Content Include="Configuration\Builtin\LexerKeywordListNames\erlang.txt" />
+    <Content Include="Configuration\Builtin\LexerKeywordListNames\errorlist.txt" />
+    <Content Include="Configuration\Builtin\LexerKeywordListNames\escript.txt" />
+    <Content Include="Configuration\Builtin\LexerKeywordListNames\f77.txt" />
+    <Content Include="Configuration\Builtin\LexerKeywordListNames\flagship.txt" />
+    <Content Include="Configuration\Builtin\LexerKeywordListNames\forth.txt" />
+    <Content Include="Configuration\Builtin\LexerKeywordListNames\fortran.txt" />
+    <Content Include="Configuration\Builtin\LexerKeywordListNames\freebasic.txt" />
+    <Content Include="Configuration\Builtin\LexerKeywordListNames\gap.txt" />
+    <Content Include="Configuration\Builtin\LexerKeywordListNames\gui4cli.txt" />
+    <Content Include="Configuration\Builtin\LexerKeywordListNames\haskell.txt" />
+    <Content Include="Configuration\Builtin\LexerKeywordListNames\hypertext.txt" />
+    <Content Include="Configuration\Builtin\LexerKeywordListNames\innosetup.txt" />
+    <Content Include="Configuration\Builtin\LexerKeywordListNames\kix.txt" />
+    <Content Include="Configuration\Builtin\LexerKeywordListNames\latex.txt" />
+    <Content Include="Configuration\Builtin\LexerKeywordListNames\lisp.txt" />
+    <Content Include="Configuration\Builtin\LexerKeywordListNames\lot.txt" />
+    <Content Include="Configuration\Builtin\LexerKeywordListNames\lout.txt" />
+    <Content Include="Configuration\Builtin\LexerKeywordListNames\lua.txt" />
+    <Content Include="Configuration\Builtin\LexerKeywordListNames\make.txt" />
+    <Content Include="Configuration\Builtin\LexerKeywordListNames\matlab.txt" />
+    <Content Include="Configuration\Builtin\LexerKeywordListNames\metapost.txt" />
+    <Content Include="Configuration\Builtin\LexerKeywordListNames\mmixal.txt" />
+    <Content Include="Configuration\Builtin\LexerKeywordListNames\mssql.txt" />
+    <Content Include="Configuration\Builtin\LexerKeywordListNames\nncrontab.txt" />
+    <Content Include="Configuration\Builtin\LexerKeywordListNames\nsis.txt" />
+    <Content Include="Configuration\Builtin\LexerKeywordListNames\null.txt" />
+    <Content Include="Configuration\Builtin\LexerKeywordListNames\octave.txt" />
+    <Content Include="Configuration\Builtin\LexerKeywordListNames\opal.txt" />
+    <Content Include="Configuration\Builtin\LexerKeywordListNames\pascal.txt" />
+    <Content Include="Configuration\Builtin\LexerKeywordListNames\perl.txt" />
+    <Content Include="Configuration\Builtin\LexerKeywordListNames\phpscript.txt" />
+    <Content Include="Configuration\Builtin\LexerKeywordListNames\plm.txt" />
+    <Content Include="Configuration\Builtin\LexerKeywordListNames\pov.txt" />
+    <Content Include="Configuration\Builtin\LexerKeywordListNames\powerbasic.txt" />
+    <Content Include="Configuration\Builtin\LexerKeywordListNames\progress.txt" />
+    <Content Include="Configuration\Builtin\LexerKeywordListNames\props.txt" />
+    <Content Include="Configuration\Builtin\LexerKeywordListNames\ps.txt" />
+    <Content Include="Configuration\Builtin\LexerKeywordListNames\purebasic.txt" />
+    <Content Include="Configuration\Builtin\LexerKeywordListNames\python.txt" />
+    <Content Include="Configuration\Builtin\LexerKeywordListNames\rebol.txt" />
+    <Content Include="Configuration\Builtin\LexerKeywordListNames\ruby.txt" />
+    <Content Include="Configuration\Builtin\LexerKeywordListNames\scriptol.txt" />
+    <Content Include="Configuration\Builtin\LexerKeywordListNames\smalltalk.txt" />
+    <Content Include="Configuration\Builtin\LexerKeywordListNames\specman.txt" />
+    <Content Include="Configuration\Builtin\LexerKeywordListNames\spice.txt" />
+    <Content Include="Configuration\Builtin\LexerKeywordListNames\sql.txt" />
+    <Content Include="Configuration\Builtin\LexerKeywordListNames\tads3.txt" />
+    <Content Include="Configuration\Builtin\LexerKeywordListNames\tcl.txt" />
+    <Content Include="Configuration\Builtin\LexerKeywordListNames\tex.txt" />
+    <Content Include="Configuration\Builtin\LexerKeywordListNames\vb.txt" />
+    <Content Include="Configuration\Builtin\LexerKeywordListNames\vbscript.txt" />
+    <Content Include="Configuration\Builtin\LexerKeywordListNames\verilog.txt" />
+    <Content Include="Configuration\Builtin\LexerKeywordListNames\vhdl.txt" />
+    <Content Include="Configuration\Builtin\LexerKeywordListNames\xml.txt" />
+    <Content Include="Configuration\Builtin\LexerKeywordListNames\yaml.txt" />
+    <Content Include="Configuration\Builtin\LexerStyleNames\ada.txt" />
+    <Content Include="Configuration\Builtin\LexerStyleNames\apdl.txt" />
+    <Content Include="Configuration\Builtin\LexerStyleNames\asm.txt" />
+    <Content Include="Configuration\Builtin\LexerStyleNames\asn1.txt" />
+    <Content Include="Configuration\Builtin\LexerStyleNames\au3.txt" />
+    <Content Include="Configuration\Builtin\LexerStyleNames\ave.txt" />
+    <Content Include="Configuration\Builtin\LexerStyleNames\baan.txt" />
+    <Content Include="Configuration\Builtin\LexerStyleNames\bash.txt" />
+    <Content Include="Configuration\Builtin\LexerStyleNames\batch.txt" />
+    <Content Include="Configuration\Builtin\LexerStyleNames\blitsbasic.txt" />
+    <Content Include="Configuration\Builtin\LexerStyleNames\bullant.txt" />
+    <Content Include="Configuration\Builtin\LexerStyleNames\caml.txt" />
+    <Content Include="Configuration\Builtin\LexerStyleNames\clw.txt" />
+    <Content Include="Configuration\Builtin\LexerStyleNames\clwnocase.txt" />
+    <Content Include="Configuration\Builtin\LexerStyleNames\cmake.txt" />
+    <Content Include="Configuration\Builtin\LexerStyleNames\conf.txt" />
+    <Content Include="Configuration\Builtin\LexerStyleNames\cpp.txt" />
+    <Content Include="Configuration\Builtin\LexerStyleNames\cppnocase.txt" />
+    <Content Include="Configuration\Builtin\LexerStyleNames\csound.txt" />
+    <Content Include="Configuration\Builtin\LexerStyleNames\css.txt" />
+    <Content Include="Configuration\Builtin\LexerStyleNames\d.txt" />
+    <Content Include="Configuration\Builtin\LexerStyleNames\diff.txt" />
+    <Content Include="Configuration\Builtin\LexerStyleNames\eiffel.txt" />
+    <Content Include="Configuration\Builtin\LexerStyleNames\eiffelkw.txt" />
+    <Content Include="Configuration\Builtin\LexerStyleNames\erlang.txt" />
+    <Content Include="Configuration\Builtin\LexerStyleNames\errorlist.txt" />
+    <Content Include="Configuration\Builtin\LexerStyleNames\escript.txt" />
+    <Content Include="Configuration\Builtin\LexerStyleNames\f77.txt" />
+    <Content Include="Configuration\Builtin\LexerStyleNames\flagship.txt" />
+    <Content Include="Configuration\Builtin\LexerStyleNames\forth.txt" />
+    <Content Include="Configuration\Builtin\LexerStyleNames\fortran.txt" />
+    <Content Include="Configuration\Builtin\LexerStyleNames\freebasic.txt" />
+    <Content Include="Configuration\Builtin\LexerStyleNames\gap.txt" />
+    <Content Include="Configuration\Builtin\LexerStyleNames\gui4cli.txt" />
+    <Content Include="Configuration\Builtin\LexerStyleNames\haskell.txt" />
+    <Content Include="Configuration\Builtin\LexerStyleNames\hypertext.txt" />
+    <Content Include="Configuration\Builtin\LexerStyleNames\innosetup.txt" />
+    <Content Include="Configuration\Builtin\LexerStyleNames\kix.txt" />
+    <Content Include="Configuration\Builtin\LexerStyleNames\latext.txt" />
+    <Content Include="Configuration\Builtin\LexerStyleNames\lisp.txt" />
+    <Content Include="Configuration\Builtin\LexerStyleNames\lot.txt" />
+    <Content Include="Configuration\Builtin\LexerStyleNames\lout.txt" />
+    <Content Include="Configuration\Builtin\LexerStyleNames\lua.txt" />
+    <Content Include="Configuration\Builtin\LexerStyleNames\make.txt" />
+    <Content Include="Configuration\Builtin\LexerStyleNames\matlab.txt" />
+    <Content Include="Configuration\Builtin\LexerStyleNames\metapost.txt" />
+    <Content Include="Configuration\Builtin\LexerStyleNames\mmixal.txt" />
+    <Content Include="Configuration\Builtin\LexerStyleNames\mssql.txt" />
+    <Content Include="Configuration\Builtin\LexerStyleNames\nncrontab.txt" />
+    <Content Include="Configuration\Builtin\LexerStyleNames\nsis.txt" />
+    <Content Include="Configuration\Builtin\LexerStyleNames\null.txt" />
+    <Content Include="Configuration\Builtin\LexerStyleNames\octave.txt" />
+    <Content Include="Configuration\Builtin\LexerStyleNames\opal.txt" />
+    <Content Include="Configuration\Builtin\LexerStyleNames\pascal.txt" />
+    <Content Include="Configuration\Builtin\LexerStyleNames\perl.txt" />
+    <Content Include="Configuration\Builtin\LexerStyleNames\phpscript.txt" />
+    <Content Include="Configuration\Builtin\LexerStyleNames\plm.txt" />
+    <Content Include="Configuration\Builtin\LexerStyleNames\pov.txt" />
+    <Content Include="Configuration\Builtin\LexerStyleNames\powerbasic.txt" />
+    <Content Include="Configuration\Builtin\LexerStyleNames\progress.txt" />
+    <Content Include="Configuration\Builtin\LexerStyleNames\props.txt" />
+    <Content Include="Configuration\Builtin\LexerStyleNames\ps.txt" />
+    <Content Include="Configuration\Builtin\LexerStyleNames\purebasic.txt" />
+    <Content Include="Configuration\Builtin\LexerStyleNames\python.txt" />
+    <Content Include="Configuration\Builtin\LexerStyleNames\rebol.txt" />
+    <Content Include="Configuration\Builtin\LexerStyleNames\ruby.txt" />
+    <Content Include="Configuration\Builtin\LexerStyleNames\scriptol.txt" />
+    <Content Include="Configuration\Builtin\LexerStyleNames\smalltalk.txt" />
+    <Content Include="Configuration\Builtin\LexerStyleNames\specman.txt" />
+    <Content Include="Configuration\Builtin\LexerStyleNames\spice.txt" />
+    <Content Include="Configuration\Builtin\LexerStyleNames\sql.txt" />
+    <Content Include="Configuration\Builtin\LexerStyleNames\tads3.txt" />
+    <Content Include="Configuration\Builtin\LexerStyleNames\tcl.txt" />
+    <Content Include="Configuration\Builtin\LexerStyleNames\tex.txt" />
+    <Content Include="Configuration\Builtin\LexerStyleNames\vb.txt" />
+    <Content Include="Configuration\Builtin\LexerStyleNames\vbscript.txt" />
+    <Content Include="Configuration\Builtin\LexerStyleNames\verilog.txt" />
+    <Content Include="Configuration\Builtin\LexerStyleNames\vhdl.txt" />
+    <Content Include="Configuration\Builtin\LexerStyleNames\xml.txt" />
+    <Content Include="Configuration\Builtin\LexerStyleNames\yaml.txt" />
+    <Content Include="Configuration\Builtin\mssql.xml" />
+    <Content Include="Configuration\Builtin\pgsql.xml" />
+    <Content Include="Configuration\Builtin\python.xml" />
+    <Content Include="Configuration\Builtin\ruby.xml" />
+    <Content Include="Configuration\Builtin\vbscript.xml" />
+    <Content Include="Configuration\Builtin\xml.xml" />
+    <None Include="Resources\delete.png" />
+    <None Include="Resources\caretcolor.png" />
+    <None Include="Resources\previousmessage.png" />
+    <None Include="Resources\nextmessage.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="FindReplace\FindReplaceDialog.resx">
+      <DependentUpon>FindReplaceDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FindReplace\IncrementalSearcher.resx">
+      <DependentUpon>IncrementalSearcher.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GoToDialog.resx">
+      <DependentUpon>GoToDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Snippets\SnippetChooser.resx">
+      <DependentUpon>SnippetChooser.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ARCed.Controls\ARCed.Controls.csproj">
+      <Project>{E302ABFC-CB38-4FC6-A223-561B3B64B229}</Project>
+      <Name>ARCed.Controls</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ARCed.UI\ARCed.UI.csproj">
+      <Project>{0E258A7C-61C2-4945-96A2-447D39E705DA}</Project>
+      <Name>ARCed.UI</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.0">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
