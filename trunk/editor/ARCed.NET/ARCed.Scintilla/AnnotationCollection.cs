@@ -3,7 +3,7 @@
 using System;
 using System.Collections;
 using System.ComponentModel;
-using ARCed.Scintilla.Design;
+
 
 #endregion Using Directives
 

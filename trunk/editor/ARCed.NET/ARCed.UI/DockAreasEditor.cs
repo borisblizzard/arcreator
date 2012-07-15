@@ -4,7 +4,6 @@ using System.Drawing;
 using System.Drawing.Design;
 using System.Windows.Forms;
 using System.Windows.Forms.Design;
-using ARCed.UI.Docking;
 
 namespace ARCed.UI
 {	

@@ -1,13 +1,12 @@
 ﻿#region Using Directives
 
 using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
-using ARCed.Core;
+using ARCed.Core.Win32;
 using ARCed.Dialogs;
 using ARCed.Forms.Splash;
 using ARCed.Helpers;
@@ -15,10 +14,6 @@ using ARCed.Plugins;
 using ARCed.Scripting;
 using ARCed.Settings;
 using ARCed.UI;
-using System.Diagnostics;
-using System.Security.Principal;
-using System.Security.Permissions;
-using ARCed.Core.Win32;
 
 #endregion
 

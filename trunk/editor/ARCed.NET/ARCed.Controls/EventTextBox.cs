@@ -55,8 +55,8 @@ namespace ARCed.Controls
 		/// <summary>
 		/// Translates the specified event code and arguments into a formatted string
 		/// </summary>
-		/// <param _frames="code">Event code.</param>
-		/// <param _frames="args">Array of game event parameters.</param>
+		/// <param name="code">Event code.</param>
+		/// <param name="args">Array of game event parameters.</param>
 		/// <returns>Formatted string.</returns>
 		private void Translate(int code, int indent, dynamic args)
 		{
@@ -82,7 +82,7 @@ namespace ARCed.Controls
 		/// <summary>
 		/// Show Text
 		/// </summary>
-		/// <param _frames="args">Array of game event parameters</param>
+		/// <param name="args">Array of game event parameters</param>
 		private void Command101(dynamic args)
 		{
 			AppendText(String.Format("@>Text: {0}", args[0]));
@@ -91,7 +91,7 @@ namespace ARCed.Controls
 		/// <summary>
 		/// Show Text (Multi-Line)
 		/// </summary>
-		/// <param _frames="args">Array of game event parameters</param>
+		/// <param name="args">Array of game event parameters</param>
 		private void Command401(dynamic args)
 		{
 			AppendText(String.Format("      : {0}", args[0]));
@@ -100,7 +100,7 @@ namespace ARCed.Controls
 		/// <summary>
 		/// Show Choices
 		/// </summary>
-		/// <param _frames="args">Array of game event parameters</param>
+		/// <param name="args">Array of game event parameters</param>
 		private void Command102(dynamic args)
 		{
 			AppendText(String.Format("@>Show Choices: {0}", String.Join(", ", args[0])));
@@ -109,7 +109,7 @@ namespace ARCed.Controls
 		/// <summary>
 		/// When [**]
 		/// </summary>
-		/// <param _frames="args">Array of game event parameters</param>
+		/// <param name="args">Array of game event parameters</param>
 		private void Command402(dynamic args)
 		{
 			AppendText(String.Format(" : When [{0}]", args[1]));
@@ -118,7 +118,7 @@ namespace ARCed.Controls
 		/// <summary>
 		/// When Cancel
 		/// </summary>
-		/// <param _frames="args">Array of game event parameters</param>
+		/// <param name="args">Array of game event parameters</param>
 		private void Command403(dynamic args)
 		{
 			AppendText(" : When Cancel");
@@ -135,7 +135,7 @@ namespace ARCed.Controls
 		/// <summary>
 		/// Input Number
 		/// </summary>
-		/// <param _frames="args">Array of game event parameters</param>
+		/// <param name="args">Array of game event parameters</param>
 		private void Command103(dynamic args)
 		{
 			AppendText(String.Format("Input Number: [{0}], {1} digit(s)",
@@ -145,7 +145,7 @@ namespace ARCed.Controls
 		/// <summary>
 		/// Change Text Options
 		/// </summary>
-		/// <param _frames="args">Array of game event parameters</param>
+		/// <param name="args">Array of game event parameters</param>
 		private void Command104(dynamic args)
 		{
 			AppendText(String.Format("@>Change Text Options: {0}, {1}",
@@ -155,7 +155,7 @@ namespace ARCed.Controls
 		/// <summary>
 		/// Button Input Processing
 		/// </summary>
-		/// <param _frames="args">Array of game event parameters</param>
+		/// <param name="args">Array of game event parameters</param>
 		private void Command105(dynamic args)
 		{
 			AppendText(String.Format("@>Button Input Processing: [{0}]",
@@ -165,7 +165,7 @@ namespace ARCed.Controls
 		/// <summary>
 		/// Wait
 		/// </summary>
-		/// <param _frames="args">Array of game event parameters</param>
+		/// <param name="args">Array of game event parameters</param>
 		private void Command106(dynamic args)
 		{
 			AppendText(String.Format("@>Wait: {0} frame(s)", args[0]));
@@ -174,7 +174,7 @@ namespace ARCed.Controls
 		/// <summary>
 		/// Comment
 		/// </summary>
-		/// <param _frames="args">Array of game event parameters</param>
+		/// <param name="args">Array of game event parameters</param>
 		private void Command108(dynamic args)
 		{
 			AppendText("@>");
@@ -184,7 +184,7 @@ namespace ARCed.Controls
 		/// <summary>
 		/// Comment (Multi-line)
 		/// </summary>
-		/// <param _frames="args">Array of game event parameters</param>
+		/// <param name="args">Array of game event parameters</param>
 		private void Command408(dynamic args)
 		{
 			AppendText(" :");
@@ -194,7 +194,7 @@ namespace ARCed.Controls
 		/// <summary>
 		/// Conditional Branch
 		/// </summary>
-		/// <param _frames="args">Array of game event parameters</param>
+		/// <param name="args">Array of game event parameters</param>
 		private void Command111(dynamic args)
 		{
 			AppendText("@>Conditional Branch: ", Color.Blue);
@@ -332,7 +332,7 @@ namespace ARCed.Controls
 		/// <summary>
 		/// Else
 		/// </summary>
-		/// <param _frames="args">Array of game event parameters</param>
+		/// <param name="args">Array of game event parameters</param>
 		private void Command411(dynamic args)
 		{
 			AppendText(" : ");
@@ -342,7 +342,7 @@ namespace ARCed.Controls
 		/// <summary>
 		/// Branch End (Conditional Branch)
 		/// </summary>
-		/// <param _frames="args">Array of game event parameters</param>
+		/// <param name="args">Array of game event parameters</param>
 		private void Command412(dynamic args)
 		{
 			AppendText(" : ");
@@ -352,7 +352,7 @@ namespace ARCed.Controls
 		/// <summary>
 		/// Loop
 		/// </summary>
-		/// <param _frames="args">Array of game event parameters</param>
+		/// <param name="args">Array of game event parameters</param>
 		private void Command112(dynamic args)
 		{
 			AppendText("@>");
@@ -362,7 +362,7 @@ namespace ARCed.Controls
 		/// <summary>
 		/// End Loop
 		/// </summary>
-		/// <param _frames="args">Array of game event parameters</param>
+		/// <param name="args">Array of game event parameters</param>
 		private void Command413(dynamic args)
 		{
 			AppendText(" : ");
@@ -372,7 +372,7 @@ namespace ARCed.Controls
 		/// <summary>
 		/// Break Loop
 		/// </summary>
-		/// <param _frames="args">Array of game event parameters</param>
+		/// <param name="args">Array of game event parameters</param>
 		private void Command113(dynamic args)
 		{
 			AppendText("@>");
@@ -382,7 +382,7 @@ namespace ARCed.Controls
 		/// <summary>
 		/// Exit Event Processing
 		/// </summary>
-		/// <param _frames="args">Array of game event parameters</param>
+		/// <param name="args">Array of game event parameters</param>
 		private void Command115(dynamic args)
 		{
 			AppendText("@>");
@@ -392,7 +392,7 @@ namespace ARCed.Controls
 		/// <summary>
 		/// Erase Event
 		/// </summary>
-		/// <param _frames="args">Array of game event parameters</param>
+		/// <param name="args">Array of game event parameters</param>
 		private void Command116(dynamic args)
 		{
 			AppendText("@>");
@@ -402,7 +402,7 @@ namespace ARCed.Controls
 		/// <summary>
 		/// Call Common Event
 		/// </summary>
-		/// <param _frames="args">Array of game event parameters</param>
+		/// <param name="args">Array of game event parameters</param>
 		private void Command117(dynamic args)
 		{
 			AppendText("@>");
@@ -413,7 +413,7 @@ namespace ARCed.Controls
 		/// <summary>
 		/// Label
 		/// </summary>
-		/// <param _frames="args">Array of game event parameters</param>
+		/// <param name="args">Array of game event parameters</param>
 		private void Command118(dynamic args)
 		{
 			AppendText("@>");
@@ -423,7 +423,7 @@ namespace ARCed.Controls
 		/// <summary>
 		/// Jump to Label
 		/// </summary>
-		/// <param _frames="args">Array of game event parameters</param>
+		/// <param name="args">Array of game event parameters</param>
 		private void Command119(dynamic args)
 		{
 			AppendText("@>");
@@ -433,7 +433,7 @@ namespace ARCed.Controls
 		/// <summary>
 		/// Control Switches
 		/// </summary>
-		/// <param _frames="args">Array of game event parameters</param>
+		/// <param name="args">Array of game event parameters</param>
 		private void Command121(dynamic args)
 		{
 			int id1 = args[0];
@@ -455,7 +455,7 @@ namespace ARCed.Controls
 		/// <summary>
 		/// Control Variables
 		/// </summary>
-		/// <param _frames="args">Array of game event parameters</param>
+		/// <param name="args">Array of game event parameters</param>
 		private void Command122(dynamic args)
 		{
 			AppendText("@>");
@@ -505,7 +505,7 @@ namespace ARCed.Controls
 		/// <summary>
 		/// Control Self-Switch
 		/// </summary>
-		/// <param _frames="args">Array of game event parameters</param>
+		/// <param name="args">Array of game event parameters</param>
 		private void Command123(dynamic args)
 		{
 			AppendText("@>");
@@ -516,7 +516,7 @@ namespace ARCed.Controls
 		/// <summary>
 		/// Control Timer
 		/// </summary>
-		/// <param _frames="args">Array of game event parameters</param>
+		/// <param name="args">Array of game event parameters</param>
 		private void Command124(dynamic args)
 		{
 			AppendText("@>");
@@ -533,7 +533,7 @@ namespace ARCed.Controls
 		/// <summary>
 		/// Change Gold
 		/// </summary>
-		/// <param _frames="args">Array of game event parameters</param>
+		/// <param name="args">Array of game event parameters</param>
 		private void Command125(dynamic args)
 		{
 			AppendText("@>");
@@ -552,7 +552,7 @@ namespace ARCed.Controls
 		/// <summary>
 		/// Change Items
 		/// </summary>
-		/// <param _frames="args">Array of game event parameters</param>
+		/// <param name="args">Array of game event parameters</param>
 		private void Command126(dynamic args)
 		{
 			AppendText("@>");
@@ -573,7 +573,7 @@ namespace ARCed.Controls
 		/// <summary>
 		/// Change Weapons
 		/// </summary>
-		/// <param _frames="args">Array of game event parameters</param>
+		/// <param name="args">Array of game event parameters</param>
 		private void Command127(dynamic args)
 		{
 			AppendText("@>");
@@ -594,7 +594,7 @@ namespace ARCed.Controls
 		/// <summary>
 		/// Change Armors
 		/// </summary>
-		/// <param _frames="args">Array of game event parameters</param>
+		/// <param name="args">Array of game event parameters</param>
 		private void Command128(dynamic args)
 		{
 			AppendText("@>");
@@ -615,7 +615,7 @@ namespace ARCed.Controls
 		/// <summary>
 		/// Change Party Member
 		/// </summary>
-		/// <param _frames="args">Array of game event parameters</param>
+		/// <param name="args">Array of game event parameters</param>
 		private void Command129(dynamic args)
 		{
 			AppendText("@>");
@@ -635,7 +635,7 @@ namespace ARCed.Controls
 		/// <summary>
 		/// Change Windowskin
 		/// </summary>
-		/// <param _frames="args">Array of game event parameters</param>
+		/// <param name="args">Array of game event parameters</param>
 		private void Command131(dynamic args)
 		{
 			AppendText("@>");
@@ -645,7 +645,7 @@ namespace ARCed.Controls
 		/// <summary>
 		/// Change Battle BGM
 		/// </summary>
-		/// <param _frames="args">Array of game event parameters</param>
+		/// <param name="args">Array of game event parameters</param>
 		private void Command132(dynamic args)
 		{
 			AppendText("@>");
@@ -657,7 +657,7 @@ namespace ARCed.Controls
 		/// <summary>
 		/// Change Battle End ME
 		/// </summary>
-		/// <param _frames="args">Array of game event parameters</param>
+		/// <param name="args">Array of game event parameters</param>
 		private void Command133(dynamic args)
 		{
 			AppendText("@>");
@@ -669,7 +669,7 @@ namespace ARCed.Controls
 		/// <summary>
 		/// Change Save Access
 		/// </summary>
-		/// <param _frames="args">Array of game event parameters</param>
+		/// <param name="args">Array of game event parameters</param>
 		private void Command134(dynamic args)
 		{
 			AppendText("@>");
@@ -680,7 +680,7 @@ namespace ARCed.Controls
 		/// <summary>
 		/// Change Menu Access
 		/// </summary>
-		/// <param _frames="args">Array of game event parameters</param>
+		/// <param name="args">Array of game event parameters</param>
 		private void Command135(dynamic args)
 		{
 			AppendText("@>");
@@ -691,7 +691,7 @@ namespace ARCed.Controls
 		/// <summary>
 		/// Change Encounter
 		/// </summary>
-		/// <param _frames="args">Array of game event parameters</param>
+		/// <param name="args">Array of game event parameters</param>
 		private void Command136(dynamic args)
 		{
 			AppendText("@>");
@@ -702,7 +702,7 @@ namespace ARCed.Controls
 		/// <summary>
 		/// Transfer Player
 		/// </summary>
-		/// <param _frames="args">Array of game event parameters</param>
+		/// <param name="args">Array of game event parameters</param>
 		private void Command201(dynamic args)
 		{
 			AppendText("@>");
@@ -729,7 +729,7 @@ namespace ARCed.Controls
 		/// <summary>
 		/// Set Event Location
 		/// </summary>
-		/// <param _frames="args">Array of game event parameters</param>
+		/// <param name="args">Array of game event parameters</param>
 		private void Command202(dynamic args)
 		{
 			// TODO: Implement
@@ -738,7 +738,7 @@ namespace ARCed.Controls
 		/// <summary>
 		/// Scroll Map
 		/// </summary>
-		/// <param _frames="args">Array of game event parameters</param>
+		/// <param name="args">Array of game event parameters</param>
 		private void Command203(dynamic args)
 		{
 			AppendText("@>");
@@ -750,7 +750,7 @@ namespace ARCed.Controls
 		/// <summary>
 		/// Change Map Settings
 		/// </summary>
-		/// <param _frames="args">Array of game event parameters</param>
+		/// <param name="args">Array of game event parameters</param>
 		private void Command204(dynamic args)
 		{
 			AppendText("@>");
@@ -776,7 +776,7 @@ namespace ARCed.Controls
 		/// <summary>
 		/// Change Fog Color Tone
 		/// </summary>
-		/// <param _frames="args">Array of game event parameters</param>
+		/// <param name="args">Array of game event parameters</param>
 		private void Command205(dynamic args)
 		{
 			AppendText("@>");
@@ -787,7 +787,7 @@ namespace ARCed.Controls
 		/// <summary>
 		/// Change Fog Opacity
 		/// </summary>
-		/// <param _frames="args">Array of game event parameters</param>
+		/// <param name="args">Array of game event parameters</param>
 		private void Command206(dynamic args)
 		{
 			AppendText("@>");
@@ -798,12 +798,12 @@ namespace ARCed.Controls
 		/// <summary>
 		/// Show Animation
 		/// </summary>
-		/// <param _frames="args">Array of game event parameters</param>
+		/// <param name="args">Array of game event parameters</param>
 		private void Command207(dynamic args)
 		{
 			AppendText("@>");
 			int id = args[0];
-			// TODO: Implement getting map event _frames
+			// TODO: Implement getting map event names
 			string name = (id == -1 ? "Player" : (id == 0 ? "This Event" : "[IMPLEMENT]"));
 			AppendText(String.Format("Show Animation: {0}, [{1}]", name,
 				Project.Data.Animations[args[1]]), Color.Brown);
@@ -812,7 +812,7 @@ namespace ARCed.Controls
 		/// <summary>
 		/// Change Transparent Flag
 		/// </summary>
-		/// <param _frames="args">Array of game event parameters</param>
+		/// <param name="args">Array of game event parameters</param>
 		private void Command208(dynamic args)
 		{
 			AppendText(String.Format("Change Transparent Flag: {0}",
@@ -822,13 +822,13 @@ namespace ARCed.Controls
 		/// <summary>
 		/// Set Move Route
 		/// </summary>
-		/// <param _frames="args">Array of game event parameters</param>
+		/// <param name="args">Array of game event parameters</param>
 		private void Command209(dynamic args)
 		{
 			AppendText("@>");
 			int id = args[0];
 			RPG.MoveRoute route = args[1];
-			// TODO: Implement getting map event _frames
+			// TODO: Implement getting map event names
 			string name = (id == -1 ? "Player" : (id == 0 ? "This Event" : "[IMPLEMENT]"));
 			if (route.repeat || route.skippable)
 			{
@@ -844,7 +844,7 @@ namespace ARCed.Controls
 		/// <summary>
 		/// Move Command
 		/// </summary>
-		/// <param _frames="args">Array of game event parameters</param>
+		/// <param name="args">Array of game event parameters</param>
 		private void Command509(dynamic args)
 		{
 			AppendText(" :");
@@ -855,7 +855,7 @@ namespace ARCed.Controls
 		/// <summary>
 		/// Wait for Move's Completion
 		/// </summary>
-		/// <param _frames="args">Array of game event parameters</param>
+		/// <param name="args">Array of game event parameters</param>
 		private void Command210(dynamic args)
 		{
 			AppendText("@>Wait for Move's Completion");
@@ -864,7 +864,7 @@ namespace ARCed.Controls
 		/// <summary>
 		/// Prepare for Transition
 		/// </summary>
-		/// <param _frames="args">Array of game event parameters</param>
+		/// <param name="args">Array of game event parameters</param>
 		private void Command221(dynamic args)
 		{
 			AppendText("@>");
@@ -874,7 +874,7 @@ namespace ARCed.Controls
 		/// <summary>
 		/// Execute Transition
 		/// </summary>
-		/// <param _frames="args">Array of game event parameters</param>
+		/// <param name="args">Array of game event parameters</param>
 		private void Command222(dynamic args)
 		{
 			AppendText("@>");
@@ -884,7 +884,7 @@ namespace ARCed.Controls
 		/// <summary>
 		/// Change Screen Color Tone
 		/// </summary>
-		/// <param _frames="args">Array of game event parameters</param>
+		/// <param name="args">Array of game event parameters</param>
 		private void Command223(dynamic args)
 		{
 			AppendText("@>");
@@ -895,7 +895,7 @@ namespace ARCed.Controls
 		/// <summary>
 		/// Screen Flash
 		/// </summary>
-		/// <param _frames="args">Array of game event parameters</param>
+		/// <param name="args">Array of game event parameters</param>
 		private void Command224(dynamic args)
 		{
 			AppendText("@>");
@@ -906,7 +906,7 @@ namespace ARCed.Controls
 		/// <summary>
 		/// Screen Shake
 		/// </summary>
-		/// <param _frames="args">Array of game event parameters</param>
+		/// <param name="args">Array of game event parameters</param>
 		private void Command225(dynamic args)
 		{
 			AppendText("@>");
@@ -917,7 +917,7 @@ namespace ARCed.Controls
 		/// <summary>
 		/// Show Picture
 		/// </summary>
-		/// <param _frames="args">Array of game event parameters</param>
+		/// <param name="args">Array of game event parameters</param>
 		private void Command231(dynamic args)
 		{
 			AppendText("@>");
@@ -947,7 +947,7 @@ namespace ARCed.Controls
 		/// <summary>
 		/// Move Picture
 		/// </summary>
-		/// <param _frames="args">Array of game event parameters</param>
+		/// <param name="args">Array of game event parameters</param>
 		private void Command232(dynamic args)
 		{
 			AppendText("@>");
@@ -977,7 +977,7 @@ namespace ARCed.Controls
 		/// <summary>
 		/// Rotate Picture
 		/// </summary>
-		/// <param _frames="args">Array of game event parameters</param>
+		/// <param name="args">Array of game event parameters</param>
 		private void Command233(dynamic args)
 		{
 			AppendText("@>");
@@ -989,7 +989,7 @@ namespace ARCed.Controls
 		/// <summary>
 		/// Change Picture Color Tone
 		/// </summary>
-		/// <param _frames="args">Array of game event parameters</param>
+		/// <param name="args">Array of game event parameters</param>
 		private void Command234(dynamic args)
 		{
 			AppendText("@>");
@@ -1000,7 +1000,7 @@ namespace ARCed.Controls
 		/// <summary>
 		/// Erase Picture
 		/// </summary>
-		/// <param _frames="args">Array of game event parameters</param>
+		/// <param name="args">Array of game event parameters</param>
 		private void Command235(dynamic args)
 		{
 			AppendText("@>");
@@ -1010,7 +1010,7 @@ namespace ARCed.Controls
 		/// <summary>
 		/// Set Weather Effects
 		/// </summary>
-		/// <param _frames="args">Array of game event parameters</param>
+		/// <param name="args">Array of game event parameters</param>
 		private void Command236(dynamic args)
 		{
 			AppendText("@>");
@@ -1023,7 +1023,7 @@ namespace ARCed.Controls
 		/// <summary>
 		/// Play BGM
 		/// </summary>
-		/// <param _frames="args">Array of game event parameters</param>
+		/// <param name="args">Array of game event parameters</param>
 		private void Command241(dynamic args)
 		{
 			AppendText("@>");
@@ -1033,7 +1033,7 @@ namespace ARCed.Controls
 		/// <summary>
 		/// Fade Out BGM
 		/// </summary>
-		/// <param _frames="args">Array of game event parameters</param>
+		/// <param name="args">Array of game event parameters</param>
 		private void Command242(dynamic args)
 		{
 			AppendText("@>");
@@ -1043,7 +1043,7 @@ namespace ARCed.Controls
 		/// <summary>
 		/// Play BGS
 		/// </summary>
-		/// <param _frames="args">Array of game event parameters</param>
+		/// <param name="args">Array of game event parameters</param>
 		private void Command245(dynamic args)
 		{
 			AppendText("@>");
@@ -1053,7 +1053,7 @@ namespace ARCed.Controls
 		/// <summary>
 		/// Fade Out BGS
 		/// </summary>
-		/// <param _frames="args">Array of game event parameters</param>
+		/// <param name="args">Array of game event parameters</param>
 		private void Command246(dynamic args)
 		{
 			AppendText("@>");
@@ -1063,7 +1063,7 @@ namespace ARCed.Controls
 		/// <summary>
 		/// Memorize BGM/BGS
 		/// </summary>
-		/// <param _frames="args">Array of game event parameters</param>
+		/// <param name="args">Array of game event parameters</param>
 		private void Command247(dynamic args)
 		{
 			AppendText("@>");
@@ -1073,7 +1073,7 @@ namespace ARCed.Controls
 		/// <summary>
 		/// Restore BGM/BGS
 		/// </summary>
-		/// <param _frames="args">Array of game event parameters</param>
+		/// <param name="args">Array of game event parameters</param>
 		private void Command248(dynamic args)
 		{
 			AppendText("@>");
@@ -1083,7 +1083,7 @@ namespace ARCed.Controls
 		/// <summary>
 		/// Play ME
 		/// </summary>
-		/// <param _frames="args">Array of game event parameters</param>
+		/// <param name="args">Array of game event parameters</param>
 		private void Command249(dynamic args)
 		{
 			AppendText("@>");
@@ -1093,7 +1093,7 @@ namespace ARCed.Controls
 		/// <summary>
 		/// Play SE
 		/// </summary>
-		/// <param _frames="args">Array of game event parameters</param>
+		/// <param name="args">Array of game event parameters</param>
 		private void Command250(dynamic args)
 		{
 			AppendText("@>");
@@ -1103,7 +1103,7 @@ namespace ARCed.Controls
 		/// <summary>
 		/// Stop SE
 		/// </summary>
-		/// <param _frames="args">Array of game event parameters</param>
+		/// <param name="args">Array of game event parameters</param>
 		private void Command251(dynamic args)
 		{
 			AppendText("@>");
@@ -1113,7 +1113,7 @@ namespace ARCed.Controls
 		/// <summary>
 		/// Battle Processing
 		/// </summary>
-		/// <param _frames="args">Array of game event parameters</param>
+		/// <param name="args">Array of game event parameters</param>
 		private void Command301(dynamic args)
 		{
 			AppendText("@>");
@@ -1124,7 +1124,7 @@ namespace ARCed.Controls
 		/// <summary>
 		/// If Win
 		/// </summary>
-		/// <param _frames="args">Array of game event parameters</param>
+		/// <param name="args">Array of game event parameters</param>
 		private void Command601(dynamic args)
 		{
 			AppendText(" : ");
@@ -1134,7 +1134,7 @@ namespace ARCed.Controls
 		/// <summary>
 		/// If Escape
 		/// </summary>
-		/// <param _frames="args">Array of game event parameters</param>
+		/// <param name="args">Array of game event parameters</param>
 		private void Command602(dynamic args)
 		{
 			AppendText(" : ");
@@ -1144,7 +1144,7 @@ namespace ARCed.Controls
 		/// <summary>
 		/// If Lose
 		/// </summary>
-		/// <param _frames="args">Array of game event parameters</param>
+		/// <param name="args">Array of game event parameters</param>
 		private void Command603(dynamic args)
 		{
 			AppendText(" : ");
@@ -1154,7 +1154,7 @@ namespace ARCed.Controls
 		/// <summary>
 		/// End Branch (Battle Processing)
 		/// </summary>
-		/// <param _frames="args">Array of game event parameters</param>
+		/// <param name="args">Array of game event parameters</param>
 		private void Command604(dynamic args)
 		{
 			AppendText(" : ");
@@ -1164,7 +1164,7 @@ namespace ARCed.Controls
 		/// <summary>
 		/// Shop Processing
 		/// </summary>
-		/// <param _frames="args">Array of game event parameters</param>
+		/// <param name="args">Array of game event parameters</param>
 		private void Command302(dynamic args)
 		{
 			AppendText("@>");
@@ -1175,7 +1175,7 @@ namespace ARCed.Controls
 		/// <summary>
 		/// Shop Good
 		/// </summary>
-		/// <param _frames="args">Array of game event parameters</param>
+		/// <param name="args">Array of game event parameters</param>
 		private void Command605(dynamic args)
 		{
 			AppendText(" :");
@@ -1186,7 +1186,7 @@ namespace ARCed.Controls
 		/// <summary>
 		/// Name Input Processing
 		/// </summary>
-		/// <param _frames="args">Array of game event parameters</param>
+		/// <param name="args">Array of game event parameters</param>
 		private void Command303(dynamic args)
 		{
 			AppendText("@>");
@@ -1197,7 +1197,7 @@ namespace ARCed.Controls
 		/// <summary>
 		/// Change HP
 		/// </summary>
-		/// <param _frames="args">Array of game event parameters</param>
+		/// <param name="args">Array of game event parameters</param>
 		private void Command311(dynamic args)
 		{
 			AppendText("@>");
@@ -1217,7 +1217,7 @@ namespace ARCed.Controls
 		/// <summary>
 		/// Change SP
 		/// </summary>
-		/// <param _frames="args">Array of game event parameters</param>
+		/// <param name="args">Array of game event parameters</param>
 		private void Command312(dynamic args)
 		{
 			AppendText("@>");
@@ -1237,7 +1237,7 @@ namespace ARCed.Controls
 		/// <summary>
 		/// Change State
 		/// </summary>
-		/// <param _frames="args">Array of game event parameters</param>
+		/// <param name="args">Array of game event parameters</param>
 		private void Command313(dynamic args)
 		{
 			AppendText("@>");
@@ -1251,7 +1251,7 @@ namespace ARCed.Controls
 		/// <summary>
 		/// Recover All
 		/// </summary>
-		/// <param _frames="args">Array of game event parameters</param>
+		/// <param name="args">Array of game event parameters</param>
 		private void Command314(dynamic args)
 		{
 			AppendText("@>");
@@ -1263,7 +1263,7 @@ namespace ARCed.Controls
 		/// <summary>
 		/// Change Experience
 		/// </summary>
-		/// <param _frames="args">Array of game event parameters</param>
+		/// <param name="args">Array of game event parameters</param>
 		private void Command315(dynamic args)
 		{
 			AppendText("@>");
@@ -1283,7 +1283,7 @@ namespace ARCed.Controls
 		/// <summary>
 		/// Change Level
 		/// </summary>
-		/// <param _frames="args">Array of game event parameters</param>
+		/// <param name="args">Array of game event parameters</param>
 		private void Command316(dynamic args)
 		{
 			AppendText("@>");
@@ -1303,7 +1303,7 @@ namespace ARCed.Controls
 		/// <summary>
 		/// Change Parameters
 		/// </summary>
-		/// <param _frames="args">Array of game event parameters</param>
+		/// <param name="args">Array of game event parameters</param>
 		private void Command317(dynamic args)
 		{
 			AppendText("@>");
@@ -1322,7 +1322,7 @@ namespace ARCed.Controls
 		/// <summary>
 		/// Change Skills
 		/// </summary>
-		/// <param _frames="args">Array of game event parameters</param>
+		/// <param name="args">Array of game event parameters</param>
 		private void Command318(dynamic args)
 		{
 			AppendText("@>");
@@ -1336,7 +1336,7 @@ namespace ARCed.Controls
 		/// <summary>
 		/// Change Equipment
 		/// </summary>
-		/// <param _frames="args">Array of game event parameters</param>
+		/// <param name="args">Array of game event parameters</param>
 		private void Command319(dynamic args)
 		{
 			AppendText("@>");
@@ -1354,7 +1354,7 @@ namespace ARCed.Controls
 		/// <summary>
 		/// Change Actor Name
 		/// </summary>
-		/// <param _frames="args">Array of game event parameters</param>
+		/// <param name="args">Array of game event parameters</param>
 		private void Command320(dynamic args)
 		{
 			AppendText("@>");
@@ -1365,7 +1365,7 @@ namespace ARCed.Controls
 		/// <summary>
 		/// Change Actor Class
 		/// </summary>
-		/// <param _frames="args">Array of game event parameters</param>
+		/// <param name="args">Array of game event parameters</param>
 		private void Command321(dynamic args)
 		{
 			AppendText("@>");
@@ -1376,7 +1376,7 @@ namespace ARCed.Controls
 		/// <summary>
 		/// Change Actor Graphic
 		/// </summary>
-		/// <param _frames="args">Array of game event parameters</param>
+		/// <param name="args">Array of game event parameters</param>
 		private void Command322(dynamic args)
 		{
 			AppendText("@>");
@@ -1387,7 +1387,7 @@ namespace ARCed.Controls
 		/// <summary>
 		/// Change Enemy HP
 		/// </summary>
-		/// <param _frames="args">Array of game event parameters</param>
+		/// <param name="args">Array of game event parameters</param>
 		private void Command331(dynamic args)
 		{
 			AppendText("@>");
@@ -1407,7 +1407,7 @@ namespace ARCed.Controls
 		/// <summary>
 		/// Change Enemy SP
 		/// </summary>
-		/// <param _frames="args">Array of game event parameters</param>
+		/// <param name="args">Array of game event parameters</param>
 		private void Command332(dynamic args)
 		{
 			AppendText("@>");
@@ -1427,7 +1427,7 @@ namespace ARCed.Controls
 		/// <summary>
 		/// Change Enemy State
 		/// </summary>
-		/// <param _frames="args">Array of game event parameters</param>
+		/// <param name="args">Array of game event parameters</param>
 		private void Command333(dynamic args)
 		{
 			AppendText("@>");
@@ -1441,7 +1441,7 @@ namespace ARCed.Controls
 		/// <summary>
 		/// Enemy Recover All
 		/// </summary>
-		/// <param _frames="args">Array of game event parameters</param>
+		/// <param name="args">Array of game event parameters</param>
 		private void Command334(dynamic args)
 		{
 			AppendText("@>");
@@ -1453,7 +1453,7 @@ namespace ARCed.Controls
 		/// <summary>
 		/// Enemy Appearance
 		/// </summary>
-		/// <param _frames="args">Array of game event parameters</param>
+		/// <param name="args">Array of game event parameters</param>
 		private void Command335(dynamic args)
 		{
 			AppendText("@>");
@@ -1464,7 +1464,7 @@ namespace ARCed.Controls
 		/// <summary>
 		/// Enemy Transform
 		/// </summary>
-		/// <param _frames="args">Array of game event parameters</param>
+		/// <param name="args">Array of game event parameters</param>
 		private void Command336(dynamic args)
 		{
 			AppendText("@>");
@@ -1475,7 +1475,7 @@ namespace ARCed.Controls
 		/// <summary>
 		/// Show Battle Animation
 		/// </summary>
-		/// <param _frames="args">Array of game event parameters</param>
+		/// <param name="args">Array of game event parameters</param>
 		private void Command337(dynamic args)
 		{
 			AppendText("@>");
@@ -1495,7 +1495,7 @@ namespace ARCed.Controls
 		/// <summary>
 		/// Deal Damage
 		/// </summary>
-		/// <param _frames="args">Array of game event parameters</param>
+		/// <param name="args">Array of game event parameters</param>
 		private void Command338(dynamic args)
 		{
 			AppendText("@>");
@@ -1519,7 +1519,7 @@ namespace ARCed.Controls
 		/// <summary>
 		/// Force Action
 		/// </summary>
-		/// <param _frames="args">Array of game event parameters</param>
+		/// <param name="args">Array of game event parameters</param>
 		private void Command339(dynamic args)
 		{
 			AppendText("@>");
@@ -1541,7 +1541,7 @@ namespace ARCed.Controls
 		/// <summary>
 		/// Abort Battle
 		/// </summary>
-		/// <param _frames="args">Array of game event parameters</param>
+		/// <param name="args">Array of game event parameters</param>
 		private void Command340(dynamic args)
 		{
 			AppendText("@>");
@@ -1551,7 +1551,7 @@ namespace ARCed.Controls
 		/// <summary>
 		/// Call Menu Screen
 		/// </summary>
-		/// <param _frames="args">Array of game event parameters</param>
+		/// <param name="args">Array of game event parameters</param>
 		private void Command351(dynamic args)
 		{
 			AppendText("@>");
@@ -1561,7 +1561,7 @@ namespace ARCed.Controls
 		/// <summary>
 		/// Call Save Screen
 		/// </summary>
-		/// <param _frames="args">Array of game event parameters</param>
+		/// <param name="args">Array of game event parameters</param>
 		private void Command352(dynamic args)
 		{
 			AppendText("@>");
@@ -1571,7 +1571,7 @@ namespace ARCed.Controls
 		/// <summary>
 		/// Gameover
 		/// </summary>
-		/// <param _frames="args">Array of game event parameters</param>
+		/// <param name="args">Array of game event parameters</param>
 		private void Command353(dynamic args)
 		{
 			AppendText("@>");
@@ -1581,7 +1581,7 @@ namespace ARCed.Controls
 		/// <summary>
 		/// Return to Title Screen
 		/// </summary>
-		/// <param _frames="args">Array of game event parameters</param>
+		/// <param name="args">Array of game event parameters</param>
 		private void Command354(dynamic args)
 		{
 			AppendText("@>");
@@ -1591,7 +1591,7 @@ namespace ARCed.Controls
 		/// <summary>
 		/// Script
 		/// </summary>
-		/// <param _frames="args">Array of game event parameters</param>
+		/// <param name="args">Array of game event parameters</param>
 		private void Command355(dynamic args)
 		{
 			AppendText("@>");
@@ -1601,7 +1601,7 @@ namespace ARCed.Controls
 		/// <summary>
 		/// Script (Multi-Line)
 		/// </summary>
-		/// <param _frames="args">Array of game event parameters</param>
+		/// <param name="args">Array of game event parameters</param>
 		private void Command655(dynamic args)
 		{
 			AppendText(" :");
@@ -1611,7 +1611,7 @@ namespace ARCed.Controls
 		/// <summary>
 		/// Translates an RPG.MoveCommand into a string to display in the editor.
 		/// </summary>
-		/// <param _frames="cmd">RPG.MoveCommand to translate</param>
+		/// <param name="cmd">RPG.MoveCommand to translate</param>
 		/// <returns>String representation of command and parameters</returns>
 		private string TranslateMove(RPG.MoveCommand cmd)
 		{
