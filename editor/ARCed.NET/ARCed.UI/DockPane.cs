@@ -1,12 +1,9 @@
 using System;
 using System.ComponentModel;
-using System.Drawing;
-using System.Drawing.Drawing2D;
-using System.Windows.Forms;
-using System.Runtime.InteropServices;
-using System.Security.Permissions;
 using System.Diagnostics.CodeAnalysis;
-using ARCed.UI.Docking;
+using System.Drawing;
+using System.Security.Permissions;
+using System.Windows.Forms;
 using ARCed.Core.Win32;
 
 namespace ARCed.UI

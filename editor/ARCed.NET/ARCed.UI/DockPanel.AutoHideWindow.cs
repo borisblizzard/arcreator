@@ -1,8 +1,6 @@
 using System;
-using System.Windows.Forms;
 using System.Drawing;
-using System.Runtime.InteropServices;
-using ARCed.UI.Docking;
+using System.Windows.Forms;
 
 namespace ARCed.UI
 {

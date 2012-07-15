@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace ARCed
 {
@@ -42,6 +39,19 @@ namespace ARCed
 		public const int TERRAINS = 8;
 		public const int ANIMESIZE = 192;
 
-		public const string RTP_PATH = @"C:\Program Files (x86)\Common Files\Enterbrain\RGSS\Standard";
+        public static string _rtpPath;
+
+        public static string RTP_PATH
+        {
+            get
+            {
+                if (String.IsNullOrEmpty(_rtpPath))
+                {
+                    string common = Environment.GetFolderPath(Environment.SpecialFolder.CommonProgramFilesX86);
+                    _rtpPath = System.IO.Path.Combine(common, "Enterbrain", "RGSS", "Standard");
+                }
+                return _rtpPath;
+            }
+        }
 	}
 }

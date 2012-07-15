@@ -1,13 +1,10 @@
 using System;
 using System.ComponentModel;
-using System.Windows.Forms;
 using System.Drawing;
-using ARCed.UI;
+using System.Globalization;
 using System.IO;
 using System.Text;
 using System.Xml;
-using System.Globalization;
-using ARCed.UI.Docking;
 
 namespace ARCed.UI
 {

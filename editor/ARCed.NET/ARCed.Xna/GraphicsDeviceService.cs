@@ -62,7 +62,7 @@ namespace ARCed.Controls
             parameters.IsFullScreen = false;
 
             graphicsDevice = new GraphicsDevice(GraphicsAdapter.DefaultAdapter,
-                                                GraphicsProfile.HiDef,
+                                                GraphicsProfile.Reach,
                                                 parameters);
         }
 

@@ -1,7 +1,6 @@
-﻿using Microsoft.Win32;
-using System.Runtime.InteropServices;
-using System.Text;
+﻿using System.Text;
 using ARCed.Core.Win32;
+using Microsoft.Win32;
 
 namespace ARCed.Helpers
 {
