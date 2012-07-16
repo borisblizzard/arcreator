@@ -12,9 +12,11 @@ using RPG;
 
 namespace ARCed.Database.Armors
 {
-	public partial class ArmorMainForm : DatabaseWindow
+    /// <summary>
+    /// Main form for configuring Project <see cref="RPG.Armor"/> data.
+    /// </summary>
+	public sealed partial class ArmorMainForm : DatabaseWindow
 	{
-
 		#region Private Fields
 
 		private Armor _armor;
@@ -28,12 +30,12 @@ namespace ARCed.Database.Armors
 		/// </summary>
 		protected override DatabaseObjectListBox DataObjectList { get { return dataObjectList; } }
 
-		#endregion
+        /// <summary>
+        /// Gets the data associated with this panel.
+        /// </summary>
+        public override List<dynamic> Data { get { return Project.Data.Armors; } }
 
-		/// <summary>
-		/// Gets the data associated with this panel.
-		/// </summary>
-		public override List<dynamic> Data { get { return Project.Data.Armors; } }
+		#endregion
 
 		#region Constructors
 
@@ -51,36 +53,7 @@ namespace ARCed.Database.Armors
 
 		#endregion
 
-		#region Control Initialization
-
-		private void InitializeElements()
-		{
-			checkGroupBoxElements.BeginUpdate();
-			checkGroupBoxElements.Items.Clear();
-			for (int i = 1; i < Project.Data.System.elements.Count; i++)
-				checkGroupBoxElements.Items.Add(Project.Data.System.elements[i]);
-			checkGroupBoxElements.EndUpdate();
-		}
-
-		private void InitializeStates()
-		{
-			checkGroupBoxStates.BeginUpdate();
-			comboBoxAutoState.BeginUpdate();
-			checkGroupBoxStates.Items.Clear();
-			comboBoxAutoState.Items.Clear();
-			comboBoxAutoState.Items.Add("<None>");
-			for (int i = 1; i < Project.Data.States.Count; i++)
-			{
-				checkGroupBoxStates.Items.Add(Project.Data.States[i].name);
-				comboBoxAutoState.Items.Add(Project.Data.States[i].ToString());
-			}
-			checkGroupBoxStates.EndUpdate();
-			comboBoxAutoState.EndUpdate();
-		}
-
-		#endregion
-
-		#region Refreshing
+		#region Public Methods
 
 		/// <summary>
 		/// Refreshes objects by type flag
@@ -102,6 +75,9 @@ namespace ARCed.Database.Armors
 			}
 		}
 
+        /// <summary>
+        /// Refreshes the form to display data for the currently selected <see cref="RPG.Armor"/>.
+        /// </summary>
 		public override void RefreshCurrentObject()
 		{
 			SuppressEvents = true;
@@ -115,6 +91,35 @@ namespace ARCed.Database.Armors
 			RefreshStates();
 			SuppressEvents = false;
 		}
+
+#endregion
+
+        #region Private Methods
+
+        private void InitializeElements()
+        {
+            checkGroupBoxElements.BeginUpdate();
+            checkGroupBoxElements.Items.Clear();
+            for (int i = 1; i < Project.Data.System.elements.Count; i++)
+                checkGroupBoxElements.Items.Add(Project.Data.System.elements[i]);
+            checkGroupBoxElements.EndUpdate();
+        }
+
+        private void InitializeStates()
+        {
+            checkGroupBoxStates.BeginUpdate();
+            comboBoxAutoState.BeginUpdate();
+            checkGroupBoxStates.Items.Clear();
+            comboBoxAutoState.Items.Clear();
+            comboBoxAutoState.Items.Add("<None>");
+            for (int i = 1; i < Project.Data.States.Count; i++)
+            {
+                checkGroupBoxStates.Items.Add(Project.Data.States[i].name);
+                comboBoxAutoState.Items.Add(Project.Data.States[i].ToString());
+            }
+            checkGroupBoxStates.EndUpdate();
+            comboBoxAutoState.EndUpdate();
+        }
 
 		private void RefreshElements()
 		{
@@ -158,9 +163,7 @@ namespace ARCed.Database.Armors
 			}
 		}
 
-		#endregion
-
-		private void listBoxArmors_OnListBoxIndexChanged(object sender, EventArgs e)
+		private void ListBoxArmorsOnListBoxIndexChanged(object sender, EventArgs e)
 		{
 			int index = dataObjectList.SelectedIndex;
 			if (index >= 0)
@@ -170,7 +173,7 @@ namespace ARCed.Database.Armors
 			}
 		}
 
-		private void textBoxName_TextChanged(object sender, EventArgs e)
+		private void TextBoxNameTextChanged(object sender, EventArgs e)
 		{
 			if (!SuppressEvents)
 			{
@@ -181,13 +184,13 @@ namespace ARCed.Database.Armors
 			}
 		}
 
-		private void textBoxDescription_TextChanged(object sender, EventArgs e)
+		private void TextBoxDescriptionTextChanged(object sender, EventArgs e)
 		{
 			if (!SuppressEvents)
 				_armor.description = textBoxDescription.Text;
 		}
 
-		private void buttonIcon_Click(object sender, EventArgs e)
+		private void ButtonIconClick(object sender, EventArgs e)
 		{
 			using (var dialog = new ImageSelectionForm(@"Icons", _armor.icon_name))
 			{
@@ -199,57 +202,53 @@ namespace ARCed.Database.Armors
 			}
 		}
 
-		private void paramBox_OnValueChanged(object sender, ParameterEventArgs e)
+		private void ParamBoxOnValueChanged(object sender, ParameterEventArgs e)
 		{
-			if (!SuppressEvents)
-			{
-				var paramBox = sender as ParamBox;
-				var value = (int)paramBox.Value;
-				string propertyName = paramBox.RpgAttribute;
-				typeof(Armor).GetProperty(propertyName).SetValue(_armor, value, null);
-			}
+		    if (SuppressEvents) return;
+		    var paramBox = sender as ParamBox;
+		    var value = (int)paramBox.Value;
+		    string propertyName = paramBox.RpgAttribute;
+		    typeof(Armor).GetProperty(propertyName).SetValue(this._armor, value, null);
 		}
 
-		private void checkGroupBoxElements_OnCheckChange(object sender, ItemCheckEventArgs e)
+		private void CheckGroupBoxElementsOnCheckChange(object sender, ItemCheckEventArgs e)
 		{
-			if (!SuppressEvents)
-			{
-				int id = e.Index + 1;
-				if (e.NewValue == CheckState.Checked && !_armor.guard_element_set.Contains(id))
-					_armor.guard_element_set.Add(id);
-				else if (e.NewValue == CheckState.Unchecked && _armor.guard_element_set.Contains(id))
-					_armor.guard_element_set.Remove(id);
-			}
+		    if (SuppressEvents) return;
+		    int id = e.Index + 1;
+		    if (e.NewValue == CheckState.Checked && !this._armor.guard_element_set.Contains(id))
+		        this._armor.guard_element_set.Add(id);
+		    else if (e.NewValue == CheckState.Unchecked && this._armor.guard_element_set.Contains(id))
+		        this._armor.guard_element_set.Remove(id);
 		}
 
-		private void checkGroupBoxStates_OnCheckChange(object sender, ItemCheckEventArgs e)
+		private void CheckGroupBoxStatesOnCheckChange(object sender, ItemCheckEventArgs e)
 		{
-			if (!SuppressEvents)
-			{
-				int id = e.Index + 1;
-				if (e.NewValue == CheckState.Checked && !_armor.guard_state_set.Contains(id))
-					_armor.guard_state_set.Add(id);
-				else if (e.NewValue == CheckState.Unchecked && _armor.guard_state_set.Contains(id))
-					_armor.guard_state_set.Remove(id);
-			}
+		    if (SuppressEvents) return;
+		    int id = e.Index + 1;
+		    if (e.NewValue == CheckState.Checked && !this._armor.guard_state_set.Contains(id))
+		        this._armor.guard_state_set.Add(id);
+		    else if (e.NewValue == CheckState.Unchecked && this._armor.guard_state_set.Contains(id))
+		        this._armor.guard_state_set.Remove(id);
 		}
 
-		private void noteTextBox_NoteTextChanged(object sender, EventArgs e)
+		private void NoteTextBoxNoteTextChanged(object sender, EventArgs e)
 		{
 			//if (!suppressEvents)
 			//_armor.note = noteTextBox.NoteText;
 		}
 
-		private void comboBoxKind_SelectedIndexChanged(object sender, EventArgs e)
+		private void ComboBoxKindSelectedIndexChanged(object sender, EventArgs e)
 		{
 			if (!SuppressEvents)
 				_armor.kind = comboBoxKind.SelectedIndex;
 		}
 
-		private void comboBoxAutoState_SelectedIndexChanged(object sender, EventArgs e)
+		private void ComboBoxAutoStateSelectedIndexChanged(object sender, EventArgs e)
 		{
 			if (!SuppressEvents)
 				_armor.auto_state_id = comboBoxAutoState.SelectedIndex;
 		}
+
+        #endregion
 	}
 }

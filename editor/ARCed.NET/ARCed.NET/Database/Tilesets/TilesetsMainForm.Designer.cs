@@ -118,7 +118,7 @@
 			this.dataObjectList.Size = new System.Drawing.Size(195, 556);
 			this.dataObjectList.TabIndex = 0;
 			this.dataObjectList.TabStop = false;
-			this.dataObjectList.OnListBoxIndexChanged += new ARCed.Controls.DatabaseObjectListBox.ObjectListIndexChangedEventHandler(this.dataObjectList_OnListBoxIndexChanged);
+			this.dataObjectList.OnListBoxIndexChanged += new ARCed.Controls.DatabaseObjectListBox.ObjectListIndexChangedEventHandler(this.DataObjectListOnListBoxIndexChanged);
 			// 
 			// checkBoxIcons
 			// 
@@ -132,7 +132,7 @@
 			this.checkBoxIcons.TabIndex = 32;
 			this.checkBoxIcons.Text = "Icons";
 			this.checkBoxIcons.UseVisualStyleBackColor = true;
-			this.checkBoxIcons.CheckedChanged += new System.EventHandler(this.checkBoxIcons_CheckedChanged);
+			this.checkBoxIcons.CheckedChanged += new System.EventHandler(this.CheckBoxIconsCheckedChanged);
 			// 
 			// checkBoxBatch
 			// 
@@ -145,7 +145,7 @@
 			this.checkBoxBatch.Text = "Batch Select";
 			this.checkBoxBatch.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 			this.checkBoxBatch.UseVisualStyleBackColor = true;
-			this.checkBoxBatch.CheckedChanged += new System.EventHandler(this.checkBoxBatch_CheckedChanged);
+			this.checkBoxBatch.CheckedChanged += new System.EventHandler(this.CheckBoxBatchCheckedChanged);
 			// 
 			// radioTerrain
 			// 
@@ -159,7 +159,7 @@
 			this.radioTerrain.Text = "Terrain Tag";
 			this.radioTerrain.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 			this.radioTerrain.UseVisualStyleBackColor = true;
-			this.radioTerrain.Click += new System.EventHandler(this.radioMode_Clicked);
+			this.radioTerrain.Click += new System.EventHandler(this.RadioModeClicked);
 			// 
 			// radioCounter
 			// 
@@ -173,7 +173,7 @@
 			this.radioCounter.Text = "Counter Flag";
 			this.radioCounter.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 			this.radioCounter.UseVisualStyleBackColor = true;
-			this.radioCounter.Click += new System.EventHandler(this.radioMode_Clicked);
+			this.radioCounter.Click += new System.EventHandler(this.RadioModeClicked);
 			// 
 			// radioBush
 			// 
@@ -187,7 +187,7 @@
 			this.radioBush.Text = "Bush Flag";
 			this.radioBush.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 			this.radioBush.UseVisualStyleBackColor = true;
-			this.radioBush.Click += new System.EventHandler(this.radioMode_Clicked);
+			this.radioBush.Click += new System.EventHandler(this.RadioModeClicked);
 			// 
 			// radioPriority
 			// 
@@ -201,7 +201,7 @@
 			this.radioPriority.Text = "Priority";
 			this.radioPriority.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 			this.radioPriority.UseVisualStyleBackColor = true;
-			this.radioPriority.Click += new System.EventHandler(this.radioMode_Clicked);
+			this.radioPriority.Click += new System.EventHandler(this.RadioModeClicked);
 			// 
 			// radioPassage4Dir
 			// 
@@ -215,7 +215,7 @@
 			this.radioPassage4Dir.Text = "Passage (4 Dir)";
 			this.radioPassage4Dir.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 			this.radioPassage4Dir.UseVisualStyleBackColor = true;
-			this.radioPassage4Dir.Click += new System.EventHandler(this.radioMode_Clicked);
+			this.radioPassage4Dir.Click += new System.EventHandler(this.RadioModeClicked);
 			// 
 			// radioPassage
 			// 
@@ -231,7 +231,7 @@
 			this.radioPassage.Text = "Passage";
 			this.radioPassage.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 			this.radioPassage.UseVisualStyleBackColor = true;
-			this.radioPassage.Click += new System.EventHandler(this.radioMode_Clicked);
+			this.radioPassage.Click += new System.EventHandler(this.RadioModeClicked);
 			// 
 			// checkBoxGrid
 			// 
@@ -245,7 +245,7 @@
 			this.checkBoxGrid.TabIndex = 23;
 			this.checkBoxGrid.Text = "Grid";
 			this.checkBoxGrid.UseVisualStyleBackColor = true;
-			this.checkBoxGrid.CheckedChanged += new System.EventHandler(this.checkBoxGrid_CheckedChanged);
+			this.checkBoxGrid.CheckedChanged += new System.EventHandler(this.CheckBoxGridCheckedChanged);
 			// 
 			// buttonColors
 			// 
@@ -256,7 +256,7 @@
 			this.buttonColors.TabIndex = 22;
 			this.buttonColors.Text = "Edit Colors...";
 			this.buttonColors.UseVisualStyleBackColor = true;
-			this.buttonColors.Click += new System.EventHandler(this.buttonColors_Click);
+			this.buttonColors.Click += new System.EventHandler(this.ButtonColorsClick);
 			// 
 			// panelTileset
 			// 
@@ -292,7 +292,7 @@
 			this.textBoxBattleback.Name = "textBoxBattleback";
 			this.textBoxBattleback.Size = new System.Drawing.Size(215, 20);
 			this.textBoxBattleback.TabIndex = 16;
-			this.textBoxBattleback.OnButtonClick += new ARCed.Controls.TextBoxButton.ButtonClickHandler(this.textBoxBattleback_OnButtonClick);
+			this.textBoxBattleback.OnButtonClick += new ARCed.Controls.TextBoxButton.ButtonClickHandler(this.TextBoxBattlebackOnButtonClick);
 			// 
 			// textBoxFog
 			// 
@@ -303,7 +303,7 @@
 			this.textBoxFog.Name = "textBoxFog";
 			this.textBoxFog.Size = new System.Drawing.Size(215, 20);
 			this.textBoxFog.TabIndex = 15;
-			this.textBoxFog.OnButtonClick += new ARCed.Controls.TextBoxButton.ButtonClickHandler(this.textBoxFog_OnButtonClick);
+			this.textBoxFog.OnButtonClick += new ARCed.Controls.TextBoxButton.ButtonClickHandler(this.TextBoxFogOnTextBoxFogOnButtonClick);
 			// 
 			// textBoxPanorama
 			// 
@@ -314,7 +314,7 @@
 			this.textBoxPanorama.Name = "textBoxPanorama";
 			this.textBoxPanorama.Size = new System.Drawing.Size(215, 20);
 			this.textBoxPanorama.TabIndex = 14;
-			this.textBoxPanorama.OnButtonClick += new ARCed.Controls.TextBoxButton.ButtonClickHandler(this.textBoxPanorama_OnButtonClick);
+			this.textBoxPanorama.OnButtonClick += new ARCed.Controls.TextBoxButton.ButtonClickHandler(this.TextBoxPanoramaOnButtonClick);
 			// 
 			// textBoxTileset
 			// 
@@ -325,7 +325,7 @@
 			this.textBoxTileset.Name = "textBoxTileset";
 			this.textBoxTileset.Size = new System.Drawing.Size(215, 20);
 			this.textBoxTileset.TabIndex = 13;
-			this.textBoxTileset.OnButtonClick += new ARCed.Controls.TextBoxButton.ButtonClickHandler(this.textBoxTileset_OnButtonClick);
+			this.textBoxTileset.OnButtonClick += new ARCed.Controls.TextBoxButton.ButtonClickHandler(this.TextBoxTilesetOnButtonClick);
 			// 
 			// textBoxName
 			// 
@@ -335,7 +335,7 @@
 			this.textBoxName.Name = "textBoxName";
 			this.textBoxName.Size = new System.Drawing.Size(215, 20);
 			this.textBoxName.TabIndex = 10;
-			this.textBoxName.TextChanged += new System.EventHandler(this.textBoxName_TextChanged);
+			this.textBoxName.TextChanged += new System.EventHandler(this.TextBoxNameTextChanged);
 			// 
 			// groupBoxAutotiles
 			// 
@@ -432,7 +432,7 @@
 			this.noteTextBox.NoteText = "";
 			this.noteTextBox.Size = new System.Drawing.Size(215, 150);
 			this.noteTextBox.TabIndex = 0;
-			this.noteTextBox.NoteTextChanged += new ARCed.Controls.NoteTextBox.TextChangedEventHandler(this.noteTextBox_NoteTextChanged);
+			this.noteTextBox.NoteTextChanged += new ARCed.Controls.NoteTextBox.TextChangedEventHandler(this.NoteTextBoxNoteTextChanged);
 			// 
 			// TilesetsMainForm
 			// 
@@ -445,8 +445,8 @@
 			this.Name = "TilesetsMainForm";
 			this.RpgTypeName = "RPG.Tileset";
 			this.Text = "Tilesets";
-			this.Load += new System.EventHandler(this.TilesetsMainForm_Load);
-			this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TilesetsMainForm_KeyDown);
+			this.Load += new System.EventHandler(this.TilesetsMainFormLoad);
+			this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TilesetsMainFormKeyDown);
 			this.splitContainer.Panel1.ResumeLayout(false);
 			this.splitContainer.Panel2.ResumeLayout(false);
 			this.splitContainer.Panel2.PerformLayout();

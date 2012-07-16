@@ -80,7 +80,7 @@
 			this.checkBox3D.Text = "3-Dimensional";
 			this.toolTip.SetToolTip(this.checkBox3D, "Enable/Disable three-dimensional view of chart");
 			this.checkBox3D.UseVisualStyleBackColor = true;
-			this.checkBox3D.CheckedChanged += new System.EventHandler(this.checkBox3D_CheckedChanged);
+			this.checkBox3D.CheckedChanged += new System.EventHandler(this.CheckBox3DCheckedChanged);
 			// 
 			// numericDepth
 			// 
@@ -106,7 +106,7 @@
             0,
             0,
             0});
-			this.numericDepth.ValueChanged += new System.EventHandler(this.numericDepth_ValueChanged);
+			this.numericDepth.ValueChanged += new System.EventHandler(this.NumericDepthValueChanged);
 			// 
 			// labelDepth
 			// 
@@ -128,7 +128,7 @@
 			this.numericPerspective.Size = new System.Drawing.Size(89, 20);
 			this.numericPerspective.TabIndex = 19;
 			this.toolTip.SetToolTip(this.numericPerspective, "Perspective of the chart (3D only)");
-			this.numericPerspective.ValueChanged += new System.EventHandler(this.numericPerspective_ValueChanged);
+			this.numericPerspective.ValueChanged += new System.EventHandler(this.NumericPerspectiveValueChanged);
 			// 
 			// numericRotation
 			// 
@@ -149,7 +149,7 @@
 			this.numericRotation.Size = new System.Drawing.Size(89, 20);
 			this.numericRotation.TabIndex = 18;
 			this.toolTip.SetToolTip(this.numericRotation, "Rotation of the chart (3D only)");
-			this.numericRotation.ValueChanged += new System.EventHandler(this.numericRotation_ValueChanged);
+			this.numericRotation.ValueChanged += new System.EventHandler(this.NumericRotationValueChanged);
 			// 
 			// numericInclination
 			// 
@@ -170,7 +170,7 @@
 			this.numericInclination.Size = new System.Drawing.Size(92, 20);
 			this.numericInclination.TabIndex = 17;
 			this.toolTip.SetToolTip(this.numericInclination, "Inclination of the chart (3D only)");
-			this.numericInclination.ValueChanged += new System.EventHandler(this.numericInclination_ValueChanged);
+			this.numericInclination.ValueChanged += new System.EventHandler(this.NumericInclinationValueChanged);
 			// 
 			// labelPerspective
 			// 
@@ -217,7 +217,7 @@
 			this.checkBoxMarkerLines.Text = "Marker Lines";
 			this.toolTip.SetToolTip(this.checkBoxMarkerLines, "Toggle marker line display");
 			this.checkBoxMarkerLines.UseVisualStyleBackColor = true;
-			this.checkBoxMarkerLines.CheckStateChanged += new System.EventHandler(this.checkBoxMarkerLines_CheckedChanged);
+			this.checkBoxMarkerLines.CheckStateChanged += new System.EventHandler(this.CheckBoxMarkerLinesCheckedChanged);
 			// 
 			// comboBoxLighting
 			// 
@@ -233,7 +233,7 @@
 			this.comboBoxLighting.Size = new System.Drawing.Size(89, 21);
 			this.comboBoxLighting.TabIndex = 12;
 			this.toolTip.SetToolTip(this.comboBoxLighting, "Lighting effects applied to the chart");
-			this.comboBoxLighting.SelectedIndexChanged += new System.EventHandler(this.comboBoxLighting_SelectedIndexChanged);
+			this.comboBoxLighting.SelectedIndexChanged += new System.EventHandler(this.ComboBoxLightingSelectedIndexChanged);
 			// 
 			// labelLighting
 			// 
@@ -266,7 +266,7 @@
 			this.numericTension.Size = new System.Drawing.Size(92, 20);
 			this.numericTension.TabIndex = 10;
 			this.toolTip.SetToolTip(this.numericTension, "Tension of the line across the splines");
-			this.numericTension.ValueChanged += new System.EventHandler(this.numericTension_ValueChanged);
+			this.numericTension.ValueChanged += new System.EventHandler(this.NumericTensionValueChanged);
 			// 
 			// labelTension
 			// 
@@ -296,7 +296,7 @@
 			this.comboBoxType.Size = new System.Drawing.Size(92, 21);
 			this.comboBoxType.TabIndex = 8;
 			this.toolTip.SetToolTip(this.comboBoxType, "Display type of the charts");
-			this.comboBoxType.SelectedIndexChanged += new System.EventHandler(this.comboBoxType_SelectedIndexChanged);
+			this.comboBoxType.SelectedIndexChanged += new System.EventHandler(this.ComboBoxTypeSelectedIndexChanged);
 			// 
 			// labelType
 			// 
@@ -367,7 +367,7 @@
 			this.buttonDefaultColors.TabIndex = 5;
 			this.toolTip.SetToolTip(this.buttonDefaultColors, "Reset default colors");
 			this.buttonDefaultColors.UseVisualStyleBackColor = true;
-			this.buttonDefaultColors.Click += new System.EventHandler(this.buttonDefaultColors_Click);
+			this.buttonDefaultColors.Click += new System.EventHandler(this.ButtonDefaultColorsClick);
 			// 
 			// buttonDown
 			// 
@@ -380,7 +380,7 @@
 			this.buttonDown.TabIndex = 4;
 			this.toolTip.SetToolTip(this.buttonDown, "Move selected color down");
 			this.buttonDown.UseVisualStyleBackColor = true;
-			this.buttonDown.Click += new System.EventHandler(this.buttonDown_Click);
+			this.buttonDown.Click += new System.EventHandler(this.ButtonDownClick);
 			// 
 			// buttonUp
 			// 
@@ -393,7 +393,7 @@
 			this.buttonUp.TabIndex = 3;
 			this.toolTip.SetToolTip(this.buttonUp, "Move selected color up");
 			this.buttonUp.UseVisualStyleBackColor = true;
-			this.buttonUp.Click += new System.EventHandler(this.buttonUp_Click);
+			this.buttonUp.Click += new System.EventHandler(this.ButtonUpClick);
 			// 
 			// buttonRemove
 			// 
@@ -406,7 +406,7 @@
 			this.buttonRemove.TabIndex = 2;
 			this.toolTip.SetToolTip(this.buttonRemove, "Remove selected color");
 			this.buttonRemove.UseVisualStyleBackColor = true;
-			this.buttonRemove.Click += new System.EventHandler(this.buttonRemove_Click);
+			this.buttonRemove.Click += new System.EventHandler(this.ButtonRemoveClick);
 			// 
 			// buttonAdd
 			// 
@@ -418,7 +418,7 @@
 			this.buttonAdd.TabIndex = 1;
 			this.toolTip.SetToolTip(this.buttonAdd, "Add a new color");
 			this.buttonAdd.UseVisualStyleBackColor = true;
-			this.buttonAdd.Click += new System.EventHandler(this.buttonAdd_Click);
+			this.buttonAdd.Click += new System.EventHandler(this.ButtonAddClick);
 			// 
 			// listBoxColors
 			// 
@@ -431,8 +431,8 @@
 			this.listBoxColors.Size = new System.Drawing.Size(158, 144);
 			this.listBoxColors.TabIndex = 0;
 			this.toolTip.SetToolTip(this.listBoxColors, "Double-click to edit");
-			this.listBoxColors.SelectedIndexChanged += new System.EventHandler(this.listBoxColors_SelectedIndexChanged);
-			this.listBoxColors.DoubleClick += new System.EventHandler(this.listBoxColors_DoubleClick);
+			this.listBoxColors.SelectedIndexChanged += new System.EventHandler(this.ListBoxColorsSelectedIndexChanged);
+			this.listBoxColors.DoubleClick += new System.EventHandler(this.ListBoxColorsDoubleClick);
 			// 
 			// ChartSettingsForm
 			// 

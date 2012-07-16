@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 using ARCed.Controls;
 using ARCed.Dialogs;
@@ -12,7 +13,10 @@ using RPG;
 
 namespace ARCed.Database.Skills
 {
-	public partial class SkillMainForm : DatabaseWindow
+    /// <summary>
+    /// Main form for configuring Project <see cref="RPG.State"/> data.
+    /// </summary>
+	public sealed partial class SkillMainForm : DatabaseWindow
 	{
 		#region Private Fields
 
@@ -38,7 +42,9 @@ namespace ARCed.Database.Skills
 
 		#endregion
 
-		/// <summary>
+        #region Constructor
+
+        /// <summary>
 		/// Default constructor
 		/// </summary>
 		public SkillMainForm()
@@ -52,7 +58,70 @@ namespace ARCed.Database.Skills
 			dataObjectList.SelectedIndex = 0;
 		}
 
-		#region Control Initialization
+        #endregion
+
+        #region Public Methods
+
+        /// <summary>
+        /// Refreshes objects by type flag
+        /// </summary>
+        /// <param name="type">Flag for type of object to refresh</param>
+        public override void NotifyRefresh(RefreshType type)
+        {
+            if (type.HasFlag(RefreshType.States))
+            {
+
+            }
+            if (type.HasFlag(RefreshType.Elements))
+            {
+
+            }
+            if (type.HasFlag(RefreshType.Animations))
+            {
+
+            }
+            if (type.HasFlag(RefreshType.Scopes))
+            {
+
+            }
+            if (type.HasFlag(RefreshType.Parameters))
+            {
+
+            }
+            if (type.HasFlag(RefreshType.Occasions))
+            {
+
+            }
+            if (type.HasFlag(RefreshType.CommonEvents))
+            {
+
+            }
+        }
+
+        /// <summary>
+        /// Refreshes the form to display data for the currently selected <see cref="RPG.Skill"/>.
+        /// </summary>
+        public override void RefreshCurrentObject()
+        {
+            SuppressEvents = true;
+            RefreshIcon();
+            textBoxName.Text = _skill.name;
+            textBoxDescription.Text = _skill.description;
+            RefreshElements();
+            RefreshStates();
+            comboBoxScope.SelectedIndex = _skill.scope;
+            comboBoxOccasion.SelectedIndex = _skill.occasion;
+            comboBoxCommonEvent.SelectedIndex = _skill.common_event_id;
+            RefreshMenuSE();
+            RefreshAnimations();
+            RefreshParameters();
+            //noteTextBox.NoteText = _item.note;
+            SuppressEvents = false;
+        }
+
+        #endregion
+
+		#region Private Methods
 
 		private void InitializeElements()
 		{
@@ -66,7 +135,7 @@ namespace ARCed.Database.Skills
 		private void InitializeStates()
 		{
 			checkedListBoxStates.ClearItems();
-			List<dynamic> states = Project.Data.States;
+			var states = Project.Data.States;
 			for (int i = 1; i < states.Count; i++)
 				checkedListBoxStates.AddItem(states[i % states.Count].name);
 		}
@@ -82,14 +151,11 @@ namespace ARCed.Database.Skills
 			comboBoxUserAnimation.Items.Add("<None>");
 			comboBoxTargetAnimation.Items.Add("<None>");
 			string name;
-			foreach (Animation animation in Project.Data.Animations)
+			foreach (Animation animation in Project.Data.Animations.Cast<Animation>().Where(animation => animation != null))
 			{
-				if (animation != null)
-				{
-					name = animation.ToString();
-					comboBoxUserAnimation.Items.Add(name);
-					comboBoxTargetAnimation.Items.Add(name);
-				}
+			    name = animation.ToString();
+			    this.comboBoxUserAnimation.Items.Add(name);
+			    this.comboBoxTargetAnimation.Items.Add(name);
 			}
 			comboBoxUserAnimation.EndUpdate();
 			comboBoxTargetAnimation.EndUpdate();
@@ -100,75 +166,15 @@ namespace ARCed.Database.Skills
 			ControlHelper.Populate(comboBoxCommonEvent, Project.Data.CommonEvents, true);
 		}
 
-		#endregion
-
-		#region Refresh Methods
-
-		/// <summary>
-		/// Refreshes objects by type flag
-		/// </summary>
-		/// <param name="type">Flag for type of object to refresh</param>
-		public override void NotifyRefresh(RefreshType type)
-		{
-			if (type.HasFlag(RefreshType.States))
-			{
-
-			}
-			if (type.HasFlag(RefreshType.Elements))
-			{
-
-			}
-			if (type.HasFlag(RefreshType.Animations))
-			{
-
-			}
-			if (type.HasFlag(RefreshType.Scopes))
-			{
-
-			}
-			if (type.HasFlag(RefreshType.Parameters))
-			{
-
-			}
-			if (type.HasFlag(RefreshType.Occasions))
-			{
-
-			}
-			if (type.HasFlag(RefreshType.CommonEvents))
-			{
-
-			}
-		}
-
-		public override void RefreshCurrentObject()
-		{
-			SuppressEvents = true;
-			RefreshIcon();
-			textBoxName.Text = _skill.name;
-			textBoxDescription.Text = _skill.description;
-			RefreshElements();
-			RefreshStates();
-			comboBoxScope.SelectedIndex = _skill.scope;
-			comboBoxOccasion.SelectedIndex = _skill.occasion;
-			comboBoxCommonEvent.SelectedIndex = _skill.common_event_id;
-			RefreshMenuSE();
-			RefreshAnimations();
-			RefreshParameters();
-			//noteTextBox.NoteText = _item.note;
-			SuppressEvents = false;
-		}
-
-		private void RefreshParameters()
+        private void RefreshParameters()
 		{
 			foreach (Control ctrl in flowPanel.Controls)
 			{
-				if (ctrl is ParamBox)
-				{
-					var param = ctrl as ParamBox;
-					var property = typeof(Skill).GetProperty(param.RpgAttribute);
-					if (property != null)
-						param.Value = (int)property.GetValue(_skill, null);
-				}
+			    if (!(ctrl is ParamBox)) continue;
+			    var param = ctrl as ParamBox;
+			    var property = typeof(Skill).GetProperty(param.RpgAttribute);
+			    if (property != null)
+			        param.Value = (int)property.GetValue(this._skill, null);
 			}
 		}
 
@@ -210,19 +216,15 @@ namespace ARCed.Database.Skills
 			comboBoxTargetAnimation.SelectedIndex = _skill.animation2_id;
 		}
 
-		private void RefreshMenuSE()
-		{
-			if (_skill.menu_se.name != "")
-				textBoxMenuSe.Text = _skill.menu_se.ToString();
-			else
-				textBoxMenuSe.Text = "";
+		private void RefreshMenuSE() 
+        {
+		    this.textBoxMenuSe.Text = this._skill.menu_se.name != "" ? 
+                this._skill.menu_se.ToString() : "";
 		}
 
-		#endregion
-
-		private void listBoxSkills_OnListBoxIndexChanged(object sender, EventArgs e)
+        private void ListBoxSkillsOnListBoxIndexChanged(object sender, EventArgs e)
 		{
-			int index = dataObjectList.SelectedIndex;
+			var index = dataObjectList.SelectedIndex;
 			if (index >= 0)
 			{
 				_skill = Data[index + 1];
@@ -230,71 +232,66 @@ namespace ARCed.Database.Skills
 			}
 		}
 
-		private void buttonIcon_Click(object sender, EventArgs e)
+		private void ButtonIconClick(object sender, EventArgs e)
 		{
 			using (var dialog = new ImageSelectionForm(@"Icons", _skill.icon_name))
 			{
-				if (dialog.ShowDialog(this) == DialogResult.OK)
-				{
-					_skill.icon_name = dialog.ImageName;
-					RefreshIcon();
-				}
+			    if (dialog.ShowDialog(this) != DialogResult.OK) return;
+			    this._skill.icon_name = dialog.ImageName;
+			    this.RefreshIcon();
 			}
 		}
 
-		private void textBoxName_TextChanged(object sender, EventArgs e)
+		private void TextBoxNameTextChanged(object sender, EventArgs e)
 		{
-			if (!SuppressEvents)
-			{
-				_skill.name = textBoxName.Text;
-				int index = dataObjectList.SelectedIndex;
-				dataObjectList.Items[index] = _skill.ToString();
-				dataObjectList.Invalidate(dataObjectList.GetItemRectangle(index));
-			}
+		    if (SuppressEvents) return;
+		    this._skill.name = this.textBoxName.Text;
+		    var index = this.dataObjectList.SelectedIndex;
+		    this.dataObjectList.Items[index] = this._skill.ToString();
+		    this.dataObjectList.Invalidate(this.dataObjectList.GetItemRectangle(index));
 		}
 
-		private void textBoxDescription_TextChanged(object sender, EventArgs e)
+		private void TextBoxDescriptionTextChanged(object sender, EventArgs e)
 		{
 			if (!SuppressEvents)
 				_skill.description = textBoxDescription.Text;
 		}
 
-		private void checkGroupBoxElements_OnCheckChange(object sender, ItemCheckEventArgs e)
+		private void CheckGroupBoxElementsOnCheckChange(object sender, ItemCheckEventArgs e)
 		{
-			if (!SuppressEvents)
-			{
-				int id = e.Index + 1;
-				if (e.NewValue == CheckState.Checked && !_skill.element_set.Contains(id))
-					_skill.element_set.Add(id);
-				else if (e.NewValue == CheckState.Unchecked && _skill.element_set.Contains(id))
-					_skill.element_set.Remove(id);
-			}
+		    if (SuppressEvents) return;
+		    int id = e.Index + 1;
+		    if (e.NewValue == CheckState.Checked && !this._skill.element_set.Contains(id))
+		        this._skill.element_set.Add(id);
+		    else if (e.NewValue == CheckState.Unchecked && this._skill.element_set.Contains(id))
+		        this._skill.element_set.Remove(id);
 		}
 
-		private void checkGroup_FocusLeave(object sender, EventArgs e)
+		private void CheckGroupFocusLeave(object sender, EventArgs e)
 		{
-			(sender as CheckGroupBox).SelectedIndex = -1;
+		    var checkGroupBox = sender as CheckGroupBox;
+		    if (checkGroupBox != null) checkGroupBox.SelectedIndex = -1;
 		}
 
-		private void comboBoxScope_SelectedIndexChanged(object sender, EventArgs e)
+        private void ComboBoxScopeSelectedIndexChanged(object sender, EventArgs e)
 		{
 			if (SuppressEvents)
 				_skill.scope = comboBoxScope.SelectedIndex;
 		}
 
-		private void comboBoxOccasion_SelectedIndexChanged(object sender, EventArgs e)
+		private void ComboBoxOccasionSelectedIndexChanged(object sender, EventArgs e)
 		{
 			if (!SuppressEvents)
 				_skill.occasion = comboBoxOccasion.SelectedIndex;
 		}
 
-		private void comboBoxUserAnimation_SelectedIndexChanged(object sender, EventArgs e)
+		private void ComboBoxUserAnimationSelectedIndexChanged(object sender, EventArgs e)
 		{
 			if (SuppressEvents)
 				_skill.animation1_id = comboBoxUserAnimation.SelectedIndex;
 		}
 
-		private void comboBoxTargetAnimation_SelectedIndexChanged(object sender, EventArgs e)
+		private void ComboBoxTargetAnimationSelectedIndexChanged(object sender, EventArgs e)
 		{
 			if (SuppressEvents)
 				_skill.animation2_id = comboBoxTargetAnimation.SelectedIndex;
@@ -303,12 +300,13 @@ namespace ARCed.Database.Skills
 		private void paramBox_OnValueChanged(object sender, ParameterEventArgs e)
 		{
 			var paramBox = sender as ParamBox;
-			var value = (int)paramBox.Value;
-			string propertyName = paramBox.RpgAttribute;
-			typeof(Skill).GetProperty(propertyName).SetValue(_skill, value, null); 
+		    if (paramBox == null) return;
+		    var value = (int)paramBox.Value;
+		    string propertyName = paramBox.RpgAttribute;
+		    typeof(Skill).GetProperty(propertyName).SetValue(this._skill, value, null);
 		}
 
-		private void checkedListBoxStates_OnItemChanged(object sender, MultiStateCheckEventArgs e)
+		private void CheckedListBoxStatesOnItemChanged(object sender, MultiStateCheckEventArgs e)
 		{
 			int id = e.Index + 1;
 			_skill.plus_state_set.Remove(id);
@@ -319,21 +317,23 @@ namespace ARCed.Database.Skills
 				_skill.minus_state_set.Add(id);
 		}
 
-		private void comboBoxCommonEvent_SelectedIndexChanged(object sender, EventArgs e)
+		private void ComboBoxCommonEventSelectedIndexChanged(object sender, EventArgs e)
 		{
 			if (!SuppressEvents)
 				_skill.common_event_id = comboBoxCommonEvent.SelectedIndex;
 		}
 
-		private void noteTextBox_NoteTextChanged(object sender, EventArgs e)
+		private void NoteTextBoxNoteTextChanged(object sender, EventArgs e)
 		{
 			//if (!suppressEvents)
 				//_item.note = noteTextBox.NoteText;
 		}
 
-		private void textBoxMenuSe_OnButtonClick(object sender, EventArgs e)
+		private void TextBoxMenuSeOnButtonClick(object sender, EventArgs e)
 		{
 
-		}
-	}
+        }
+
+        #endregion
+    }
 }

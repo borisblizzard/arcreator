@@ -79,7 +79,7 @@
 			this.chartParameter.TabIndex = 0;
 			this.chartParameter.Text = "chart1";
 			this.toolTip.SetToolTip(this.chartParameter, "Double-click to edit parameter");
-			this.chartParameter.DoubleClick += new System.EventHandler(this.ParameterMiniChart_DoubleClick);
+			this.chartParameter.DoubleClick += new System.EventHandler(this.ParameterMiniChartDoubleClick);
 			// 
 			// ParameterMiniChart
 			// 

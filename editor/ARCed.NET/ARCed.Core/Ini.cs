@@ -9,11 +9,16 @@ using ARCed.Core.Win32;
 
 namespace ARCed.Helpers
 {
+    /// <summary>
+    /// Static class for reading/writing .ini files.
+    /// </summary>
 	public static class Ini
 	{
 		#region Private Fields
+
 		private static string _filename;
 		private static StringBuilder _buffer;
+
 		#endregion
 
 		/// <summary>

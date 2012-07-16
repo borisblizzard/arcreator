@@ -1,6 +1,6 @@
 ﻿namespace ARCed.Database.Troops
 {
-	partial class TroopMainForm
+    sealed partial class TroopMainForm
 	{
 		/// <summary>
 		/// Required designer variable.
@@ -115,7 +115,7 @@
 			this.dataObjectList.Size = new System.Drawing.Size(193, 501);
 			this.dataObjectList.TabIndex = 0;
 			this.dataObjectList.TabStop = false;
-			this.dataObjectList.OnListBoxIndexChanged += new ARCed.Controls.DatabaseObjectListBox.ObjectListIndexChangedEventHandler(this.dataObjectList_OnListBoxIndexChanged);
+			this.dataObjectList.OnListBoxIndexChanged += new ARCed.Controls.DatabaseObjectListBox.ObjectListIndexChangedEventHandler(this.DataObjectListOnListBoxIndexChanged);
 			// 
 			// splitContainerRight
 			// 
@@ -193,10 +193,10 @@
 			this.xnaPanel.Size = new System.Drawing.Size(233, 117);
 			this.xnaPanel.TabIndex = 0;
 			this.toolTip.SetToolTip(this.xnaPanel, "Set troop placement");
-			this.xnaPanel.OnSelectionChanged += new ARCed.Controls.TroopXnaPanel.OnSelectHandler(this.xnaPanel_OnSelectionChanged);
-			this.xnaPanel.OnTroopChanged += new ARCed.Controls.TroopXnaPanel.TroopChangedHandler(this.xnaPanel_OnTroopChanged);
-			this.xnaPanel.DragDrop += new System.Windows.Forms.DragEventHandler(this.xnaPanel_DragDrop);
-			this.xnaPanel.DragEnter += new System.Windows.Forms.DragEventHandler(this.xnaPanel_DragEnter);
+			this.xnaPanel.OnSelectionChanged += new ARCed.Controls.TroopXnaPanel.OnSelectHandler(this.XnaPanelOnSelectionChanged);
+			this.xnaPanel.OnTroopChanged += new ARCed.Controls.TroopXnaPanel.TroopChangedHandler(this.XnaPanelOnTroopChanged);
+			this.xnaPanel.DragDrop += new System.Windows.Forms.DragEventHandler(this.XnaPanelDragDrop);
+			this.xnaPanel.DragEnter += new System.Windows.Forms.DragEventHandler(this.XnaPanelDragEnter);
 			// 
 			// contextMenuStripMember
 			// 
@@ -207,7 +207,7 @@
             this.removeToolStripMenuItem});
 			this.contextMenuStripMember.Name = "contextMenuStripMember";
 			this.contextMenuStripMember.Size = new System.Drawing.Size(159, 76);
-			this.contextMenuStripMember.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStripMember_Opening);
+			this.contextMenuStripMember.Opening += new System.ComponentModel.CancelEventHandler(this.ContextMenuStripMemberOpening);
 			// 
 			// buttonAppearHalfway
 			// 
@@ -215,7 +215,7 @@
 			this.buttonAppearHalfway.Name = "buttonAppearHalfway";
 			this.buttonAppearHalfway.Size = new System.Drawing.Size(158, 22);
 			this.buttonAppearHalfway.Text = "Appear Halfway";
-			this.buttonAppearHalfway.CheckedChanged += new System.EventHandler(this.buttonAppearHalfway_CheckedChanged);
+			this.buttonAppearHalfway.CheckedChanged += new System.EventHandler(this.ButtonAppearHalfwayCheckedChanged);
 			// 
 			// buttonImmortal
 			// 
@@ -223,7 +223,7 @@
 			this.buttonImmortal.Name = "buttonImmortal";
 			this.buttonImmortal.Size = new System.Drawing.Size(158, 22);
 			this.buttonImmortal.Text = "Immortal";
-			this.buttonImmortal.CheckedChanged += new System.EventHandler(this.buttonImmortal_CheckedChanged);
+			this.buttonImmortal.CheckedChanged += new System.EventHandler(this.ButtonImmortalCheckedChanged);
 			// 
 			// toolStripSeparator1
 			// 
@@ -236,7 +236,7 @@
 			this.removeToolStripMenuItem.Name = "removeToolStripMenuItem";
 			this.removeToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
 			this.removeToolStripMenuItem.Text = "Remove";
-			this.removeToolStripMenuItem.Click += new System.EventHandler(this.buttonRemoveEnemy_Click);
+			this.removeToolStripMenuItem.Click += new System.EventHandler(this.ButtonRemoveEnemyClick);
 			// 
 			// groupBoxEnemies
 			// 
@@ -263,7 +263,7 @@
 			this.buttonClear.TabIndex = 7;
 			this.toolTip.SetToolTip(this.buttonClear, "Clear all troop members");
 			this.buttonClear.UseVisualStyleBackColor = true;
-			this.buttonClear.Click += new System.EventHandler(this.buttonClear_Click);
+			this.buttonClear.Click += new System.EventHandler(this.ButtonClearClick);
 			// 
 			// buttonFull
 			// 
@@ -274,7 +274,7 @@
 			this.buttonFull.TabIndex = 6;
 			this.toolTip.SetToolTip(this.buttonFull, "Full editor");
 			this.buttonFull.UseVisualStyleBackColor = true;
-			this.buttonFull.Click += new System.EventHandler(this.buttonFull_Click);
+			this.buttonFull.Click += new System.EventHandler(this.ButtonFullClick);
 			// 
 			// buttonAlignEnemies
 			// 
@@ -285,7 +285,7 @@
 			this.buttonAlignEnemies.TabIndex = 1;
 			this.toolTip.SetToolTip(this.buttonAlignEnemies, "Align troop members in a row");
 			this.buttonAlignEnemies.UseVisualStyleBackColor = true;
-			this.buttonAlignEnemies.Click += new System.EventHandler(this.buttonAlignEnemies_Click);
+			this.buttonAlignEnemies.Click += new System.EventHandler(this.ButtonAlignEnemiesClick);
 			// 
 			// listBoxEnemies
 			// 
@@ -300,8 +300,8 @@
 			this.listBoxEnemies.Size = new System.Drawing.Size(134, 238);
 			this.listBoxEnemies.TabIndex = 5;
 			this.toolTip.SetToolTip(this.listBoxEnemies, "Select an enemy to add to the troop or drag-drop enemy onto panel");
-			this.listBoxEnemies.SelectedIndexChanged += new System.EventHandler(this.listBoxEnemies_SelectedIndexChanged);
-			this.listBoxEnemies.MouseDown += new System.Windows.Forms.MouseEventHandler(this.listBoxEnemies_MouseDown);
+			this.listBoxEnemies.SelectedIndexChanged += new System.EventHandler(this.ListBoxEnemiesSelectedIndexChanged);
+			this.listBoxEnemies.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ListBoxEnemiesMouseDown);
 			// 
 			// buttonRemoveEnemy
 			// 
@@ -313,7 +313,7 @@
 			this.buttonRemoveEnemy.TabIndex = 2;
 			this.toolTip.SetToolTip(this.buttonRemoveEnemy, "Remove selected enemy from troop");
 			this.buttonRemoveEnemy.UseVisualStyleBackColor = true;
-			this.buttonRemoveEnemy.Click += new System.EventHandler(this.buttonRemoveEnemy_Click);
+			this.buttonRemoveEnemy.Click += new System.EventHandler(this.ButtonRemoveEnemyClick);
 			// 
 			// buttonAddEnemy
 			// 
@@ -325,7 +325,7 @@
 			this.buttonAddEnemy.TabIndex = 0;
 			this.toolTip.SetToolTip(this.buttonAddEnemy, "Add selected enemy to troop");
 			this.buttonAddEnemy.UseVisualStyleBackColor = true;
-			this.buttonAddEnemy.Click += new System.EventHandler(this.buttonAddEnemy_Click);
+			this.buttonAddEnemy.Click += new System.EventHandler(this.ButtonAddEnemyClick);
 			// 
 			// buttonAutoname
 			// 
@@ -337,7 +337,7 @@
 			this.buttonAutoname.Text = "Autoname";
 			this.toolTip.SetToolTip(this.buttonAutoname, "Generate name for troop automatically");
 			this.buttonAutoname.UseVisualStyleBackColor = true;
-			this.buttonAutoname.Click += new System.EventHandler(this.buttonAutoname_Click);
+			this.buttonAutoname.Click += new System.EventHandler(this.ButtonAutonameClick);
 			// 
 			// buttonBattleback
 			// 
@@ -349,7 +349,7 @@
 			this.buttonBattleback.Text = "Battleback...";
 			this.toolTip.SetToolTip(this.buttonBattleback, "Change the sample battleback");
 			this.buttonBattleback.UseVisualStyleBackColor = true;
-			this.buttonBattleback.Click += new System.EventHandler(this.buttonBattleback_Click);
+			this.buttonBattleback.Click += new System.EventHandler(this.ButtonBattlebackClick);
 			// 
 			// buttonBattleTest
 			// 
@@ -361,7 +361,7 @@
 			this.buttonBattleTest.Text = "Battle Test...";
 			this.toolTip.SetToolTip(this.buttonBattleTest, "Run a test battle with current troop");
 			this.buttonBattleTest.UseVisualStyleBackColor = true;
-			this.buttonBattleTest.Click += new System.EventHandler(this.buttonBattleTest_Click);
+			this.buttonBattleTest.Click += new System.EventHandler(this.ButtonBattleTestClick);
 			// 
 			// textBoxName
 			// 
@@ -372,7 +372,7 @@
 			this.textBoxName.Size = new System.Drawing.Size(231, 20);
 			this.textBoxName.TabIndex = 1;
 			this.toolTip.SetToolTip(this.textBoxName, "Define name of troop");
-			this.textBoxName.TextChanged += new System.EventHandler(this.textBoxName_TextChanged);
+			this.textBoxName.TextChanged += new System.EventHandler(this.TextBoxNameTextChanged);
 			// 
 			// labelName
 			// 
@@ -495,8 +495,8 @@
 			this.Name = "TroopMainForm";
 			this.RpgTypeName = "RPG.Troop";
 			this.Text = "Troops";
-			this.Load += new System.EventHandler(this.TroopMainForm_Load);
-			this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.form_KeyDown);
+			this.Load += new System.EventHandler(this.TroopMainFormLoad);
+			this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FormKeyDown);
 			this.splitContainerMain.Panel1.ResumeLayout(false);
 			this.splitContainerMain.Panel2.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.splitContainerMain)).EndInit();

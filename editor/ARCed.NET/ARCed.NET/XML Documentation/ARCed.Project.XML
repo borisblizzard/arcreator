@@ -14,6 +14,13 @@
             Default constructor
             </summary>
         </member>
+        <member name="M:ARCed.Settings.ProjectSettings.GetMaxValue(System.Int32)">
+            <summary>
+            Gets the max value for the parameter with the given index.
+            </summary>
+            <param name="paramIndex">Index of the parameter</param>
+            <returns>Maximum value for the parameter.</returns>
+        </member>
         <member name="P:ARCed.Settings.ProjectSettings.HeaderImage">
             <summary>
             Gets or sets the settings used for rendering header images
@@ -32,6 +39,21 @@
         <member name="P:ARCed.Settings.ProjectSettings.Guid">
             <summary>
             Gets or sets the GUID for the project.
+            </summary>
+        </member>
+        <member name="P:ARCed.Settings.ProjectSettings.MaxLevel">
+            <summary>
+            Gets or sets the max permissable value allowed for Actor max levels.
+            </summary>
+        </member>
+        <member name="P:ARCed.Settings.ProjectSettings.Parameters">
+            <summary>
+            Gets or sets the names of Battler parameters.
+            </summary>
+        </member>
+        <member name="P:ARCed.Settings.ProjectSettings.EquipmentSettings">
+            <summary>
+            Gets or sets the collection of equipment configurations
             </summary>
         </member>
         <member name="T:ARCed.Project">
@@ -297,6 +319,11 @@
         <member name="T:ARCed.Scripting.Script">
             <summary>
             Represents a script file
+            </summary>
+        </member>
+        <member name="F:ARCed.Scripting.Script.DummyScript">
+            <summary>
+            Gets an empty script object.
             </summary>
         </member>
         <member name="M:ARCed.Scripting.Script.#ctor">

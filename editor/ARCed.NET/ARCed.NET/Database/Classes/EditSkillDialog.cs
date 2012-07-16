@@ -9,9 +9,14 @@ using RPG;
 
 namespace ARCed.Database.Classes
 {
+    /// <summary>
+    /// Dialog for getting a user-defined <see cref="RPG.Skill"/> configuration.
+    /// </summary>
 	public partial class EditSkillDialog : Form
-	{
-		/// <summary>
+    {
+        #region Public Properties
+
+        /// <summary>
 		/// Gets or sets the current RPG.Learning defined on the form
 		/// </summary>
 		public Class.Learning Learning 
@@ -20,7 +25,11 @@ namespace ARCed.Database.Classes
 			set { SetLearning(value); }
 		}
 
-		/// <summary>
+        #endregion
+
+        #region Constructor
+
+        /// <summary>
 		/// Default constructor
 		/// </summary>
 		public EditSkillDialog()
@@ -30,7 +39,11 @@ namespace ARCed.Database.Classes
 			comboBoxSkill.SelectedIndex = 0;
 		}
 
-		private void SetLearning(Class.Learning learning)
+        #endregion
+
+        #region Private Methods
+
+        private void SetLearning(Class.Learning learning)
 		{
 			comboBoxSkill.SelectedIndex = learning.skill_id - 1;
 			numericLevel.Value = learning.level;
@@ -38,16 +51,20 @@ namespace ARCed.Database.Classes
 
 		private Class.Learning GetLearning()
 		{
-			var learning = new Class.Learning();
-			learning.level = (int)numericLevel.Value;
-			learning.skill_id = comboBoxSkill.SelectedIndex + 1;
-			return learning;
+			var learning = new Class.Learning
+			{
+			    level = (int)this.numericLevel.Value,
+			    skill_id = this.comboBoxSkill.SelectedIndex + 1
+			};
+		    return learning;
 		}
 
-		private void buttonOK_Click(object sender, EventArgs e)
+		private void ButtonOkClick(object sender, EventArgs e)
 		{
-			this.DialogResult = DialogResult.OK;
-			this.Close();
-		}
-	}
+			DialogResult = DialogResult.OK;
+			Close();
+        }
+
+        #endregion
+    }
 }

@@ -84,7 +84,7 @@
             this.buttonOK.Name = "buttonOK";
             this.toolTip.SetToolTip(this.buttonOK, resources.GetString("buttonOK.ToolTip"));
             this.buttonOK.UseVisualStyleBackColor = true;
-            this.buttonOK.Click += new System.EventHandler(this.buttonOK_Click);
+            this.buttonOK.Click += new System.EventHandler(this.ButtonOkClick);
             // 
             // splitContainer
             // 
@@ -107,9 +107,9 @@
             this.listBoxGraphics.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.listBoxGraphics.FormattingEnabled = true;
             this.listBoxGraphics.Name = "listBoxGraphics";
-            this.listBoxGraphics.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.listBoxGraphics_DrawItem);
-            this.listBoxGraphics.SelectedIndexChanged += new System.EventHandler(this.listBoxGraphics_SelectedIndexChanged);
-            this.listBoxGraphics.DoubleClick += new System.EventHandler(this.buttonOK_Click);
+            this.listBoxGraphics.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.ListBoxGraphicsDrawItem);
+            this.listBoxGraphics.SelectedIndexChanged += new System.EventHandler(this.ListBoxGraphicsSelectedIndexChanged);
+            this.listBoxGraphics.DoubleClick += new System.EventHandler(this.ButtonOkClick);
             // 
             // panelTop
             // 
@@ -177,7 +177,7 @@
             -2147483648});
             this.numericSY.Name = "numericSY";
             this.toolTip.SetToolTip(this.numericSY, resources.GetString("numericSY.ToolTip"));
-            this.numericSY.ValueChanged += new System.EventHandler(this.imageOption_Changed);
+            this.numericSY.ValueChanged += new System.EventHandler(this.ImageOptionChanged);
             // 
             // labelSY
             // 
@@ -204,7 +204,7 @@
             0,
             0,
             0});
-            this.numericZoom.ValueChanged += new System.EventHandler(this.imageOption_Changed);
+            this.numericZoom.ValueChanged += new System.EventHandler(this.ImageOptionChanged);
             // 
             // numericSX
             // 
@@ -221,7 +221,7 @@
             -2147483648});
             this.numericSX.Name = "numericSX";
             this.toolTip.SetToolTip(this.numericSX, resources.GetString("numericSX.ToolTip"));
-            this.numericSX.ValueChanged += new System.EventHandler(this.imageOption_Changed);
+            this.numericSX.ValueChanged += new System.EventHandler(this.ImageOptionChanged);
             // 
             // labelSX
             // 
@@ -234,7 +234,7 @@
             this.checkAlphaPreview.Name = "checkAlphaPreview";
             this.toolTip.SetToolTip(this.checkAlphaPreview, resources.GetString("checkAlphaPreview.ToolTip"));
             this.checkAlphaPreview.UseVisualStyleBackColor = true;
-            this.checkAlphaPreview.CheckedChanged += new System.EventHandler(this.checkAlphaPreview_CheckedChanged);
+            this.checkAlphaPreview.CheckedChanged += new System.EventHandler(this.CheckAlphaPreviewCheckedChanged);
             // 
             // numericOpacity
             // 
@@ -246,7 +246,7 @@
             0});
             this.numericOpacity.Name = "numericOpacity";
             this.toolTip.SetToolTip(this.numericOpacity, resources.GetString("numericOpacity.ToolTip"));
-            this.numericOpacity.ValueChanged += new System.EventHandler(this.numericOpacity_ValueChanged);
+            this.numericOpacity.ValueChanged += new System.EventHandler(this.NumericOpacityValueChanged);
             // 
             // comboBoxBlend
             // 
@@ -259,7 +259,7 @@
             resources.GetString("comboBoxBlend.Items2")});
             this.comboBoxBlend.Name = "comboBoxBlend";
             this.toolTip.SetToolTip(this.comboBoxBlend, resources.GetString("comboBoxBlend.ToolTip"));
-            this.comboBoxBlend.SelectedIndexChanged += new System.EventHandler(this.imageOption_Changed);
+            this.comboBoxBlend.SelectedIndexChanged += new System.EventHandler(this.ImageOptionChanged);
             // 
             // labelBlending
             // 
@@ -285,7 +285,7 @@
             this.trackBarHue.Name = "trackBarHue";
             this.trackBarHue.TickFrequency = 8;
             this.toolTip.SetToolTip(this.trackBarHue, resources.GetString("trackBarHue.ToolTip"));
-            this.trackBarHue.ValueChanged += new System.EventHandler(this.imageOption_Changed);
+            this.trackBarHue.ValueChanged += new System.EventHandler(this.ImageOptionChanged);
             // 
             // labelRtp
             // 
@@ -305,7 +305,7 @@
             this.buttonColor.Name = "buttonColor";
             this.toolTip.SetToolTip(this.buttonColor, resources.GetString("buttonColor.ToolTip"));
             this.buttonColor.UseVisualStyleBackColor = true;
-            this.buttonColor.Click += new System.EventHandler(this.buttonColor_Click);
+            this.buttonColor.Click += new System.EventHandler(this.ButtonColorClick);
             // 
             // ImageSelectionForm
             // 
@@ -323,7 +323,7 @@
             this.Name = "ImageSelectionForm";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
-            this.Load += new System.EventHandler(this.ImageSelectionForm_Load);
+            this.Load += new System.EventHandler(this.ImageSelectionFormLoad);
             this.splitContainer.Panel1.ResumeLayout(false);
             this.splitContainer.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).EndInit();

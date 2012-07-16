@@ -4,6 +4,11 @@
         <name>ARCed</name>
     </assembly>
     <members>
+        <member name="T:ARCed.Dialogs.NewProjectForm">
+            <summary>
+            Dialog for creating a new ARCed project.
+            </summary>
+        </member>
         <member name="F:ARCed.Dialogs.NewProjectForm.components">
             <summary>
             Required designer variable.
@@ -26,7 +31,7 @@
             Object initialization
             </summary>
         </member>
-        <member name="M:ARCed.Dialogs.NewProjectForm.NewProjectForm_Load(System.Object,System.EventArgs)">
+        <member name="M:ARCed.Dialogs.NewProjectForm.NewProjectFormLoad(System.Object,System.EventArgs)">
             <summary>
             Fills the default name in with first new directory in sequence
             </summary>
@@ -38,28 +43,28 @@
             Iterates over installed .zip templates and adds their names to the combo control
             </summary>
         </member>
-        <member name="M:ARCed.Dialogs.NewProjectForm.buttonBrowse_Click(System.Object,System.EventArgs)">
+        <member name="M:ARCed.Dialogs.NewProjectForm.ButtonBrowseClick(System.Object,System.EventArgs)">
             <summary>
             Opens the folder browser dialog to select a project location
             </summary>
             <param name="sender">The invoker of the event</param>
             <param name="e">Event arguments</param>
         </member>
-        <member name="M:ARCed.Dialogs.NewProjectForm.buttonOK_Click(System.Object,System.EventArgs)">
+        <member name="M:ARCed.Dialogs.NewProjectForm.ButtonOkClick(System.Object,System.EventArgs)">
             <summary>
             Sets the dialog result and closes the dialog
             </summary>
             <param name="sender">The invoker of the event</param>
             <param name="e">Event arguments</param>
         </member>
-        <member name="M:ARCed.Dialogs.NewProjectForm.textBoxFolderName_TextChanged(System.Object,System.EventArgs)">
+        <member name="M:ARCed.Dialogs.NewProjectForm.TextBoxFolderNameTextChanged(System.Object,System.EventArgs)">
             <summary>
             Updates the title and location when the text changes
             </summary>
             <param name="sender">The invoker of the event</param>
             <param name="e">Event arguments</param>
         </member>
-        <member name="M:ARCed.Dialogs.NewProjectForm.textBoxLocation_TextChanged(System.Object,System.EventArgs)">
+        <member name="M:ARCed.Dialogs.NewProjectForm.TextBoxLocationTextChanged(System.Object,System.EventArgs)">
             <summary>
             Updates the location when the text changes
             </summary>
@@ -352,7 +357,7 @@
         </member>
         <member name="M:ARCed.Dialogs.ColorChooserForm.#ctor">
             <summary>
-              Required designer variable.
+            Default constructor
             </summary>
         </member>
         <member name="M:ARCed.Dialogs.ColorChooserForm.InitializeComponent">
@@ -364,6 +369,21 @@
         <member name="P:ARCed.Dialogs.ColorChooserForm.AlphaEnabled">
             <summary>
             Gets or sets the ability to adjust alpha values
+            </summary>
+        </member>
+        <member name="P:ARCed.Dialogs.ColorChooserForm.Color">
+            <summary>
+            Gets or sets the selected <see cref="P:ARCed.Dialogs.ColorChooserForm.Color"/> of the form.
+            </summary>
+        </member>
+        <member name="T:ARCed.Dialogs.ColorChooserForm.ChangeStyle">
+            <summary>
+            Enum containing flags for change styles
+            </summary>
+        </member>
+        <member name="T:ARCed.Database.Weapons.WeaponMainForm">
+            <summary>
+            Main form for configuring Project <see cref="T:RPG.Weapon"/> data.
             </summary>
         </member>
         <member name="T:ARCed.Database.DatabaseWindow">
@@ -464,6 +484,11 @@
             </summary>
             <param name="type">Flag for type of object to refresh</param>
         </member>
+        <member name="M:ARCed.Database.Weapons.WeaponMainForm.RefreshCurrentObject">
+            <summary>
+            Refreshes the form to display data for the currently selected <see cref="T:RPG.Weapon"/>.
+            </summary>
+        </member>
         <member name="F:ARCed.Database.Weapons.WeaponMainForm.components">
             <summary>
             Required designer variable.
@@ -479,6 +504,11 @@
             <summary>
             Required method for Designer support - do not modify
             the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:ARCed.Database.Troops.BattleTestDialog">
+            <summary>
+            Dialog for getting user-defined battle test configuration.
             </summary>
         </member>
         <member name="F:ARCed.Database.Troops.BattleTestDialog.components">
@@ -498,6 +528,16 @@
             the contents of this method with the code editor.
             </summary>
         </member>
+        <member name="M:ARCed.Database.Troops.BattleTestDialog.#ctor">
+            <summary>
+            Defualt constructor
+            </summary>
+        </member>
+        <member name="T:ARCed.Database.Tilesets.TilesetsMainForm">
+            <summary>
+            Main form for configuring Project <see cref="T:RPG.Tileset"/> data.
+            </summary>
+        </member>
         <member name="M:ARCed.Database.Tilesets.TilesetsMainForm.#ctor">
             <summary>
             Default constructor
@@ -508,6 +548,11 @@
             Refreshes objects by type flag
             </summary>
             <param name="type">Flag for type of object to refresh</param>
+        </member>
+        <member name="M:ARCed.Database.Tilesets.TilesetsMainForm.RefreshCurrentObject">
+            <summary>
+            Refreshes the form to display data for the currently selected <see cref="T:RPG.Tileset"/>.
+            </summary>
         </member>
         <member name="F:ARCed.Database.Tilesets.TilesetsMainForm.components">
             <summary>
@@ -536,6 +581,11 @@
             Gets the data associated with this panel.
             </summary>
         </member>
+        <member name="T:ARCed.Database.Actors.ExperienceCurveForm">
+            <summary>
+            Form for displaying and configuring experience tables for an <see cref="T:RPG.Actor"/>.
+            </summary>
+        </member>
         <member name="F:ARCed.Database.Actors.ExperienceCurveForm.components">
             <summary>
             Required designer variable.
@@ -551,6 +601,29 @@
             <summary>
             Required method for Designer support - do not modify
             the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="M:ARCed.Database.Actors.ExperienceCurveForm.#ctor">
+            <summary>
+            Default constructor
+            </summary>
+        </member>
+        <member name="M:ARCed.Database.Actors.ExperienceCurveForm.ChangeActor(RPG.Actor)">
+            <summary>
+            Changes the form's associated <see cref="T:RPG.Actor"/> to represent.
+            </summary>
+            <param name="actor">RPG.Actor instance</param>
+        </member>
+        <member name="M:ARCed.Database.Actors.ExperienceCurveForm.CalculateInflation(System.Int32,System.Int32)">
+            <summary>
+            Calculates experience levels based on the given basis and inflation rate.
+            </summary>
+            <param name="basis">Base value</param>
+            <param name="inflation">Rate of inflation</param>
+        </member>
+        <member name="M:ARCed.Database.Actors.ExperienceCurveForm.RefreshTable">
+            <summary>
+            Refreshes the table to display current values.
             </summary>
         </member>
         <member name="T:ARCed.Controls.EquipSlot">
@@ -671,6 +744,62 @@
             the contents of this method with the code editor.
             </summary>
         </member>
+        <member name="T:ARCed.Database.Actors.ChartSettingsForm">
+            <summary>
+            Form with controls for allowing modification of user-defined chart settings.
+            </summary>
+        </member>
+        <member name="M:ARCed.Database.Actors.ChartSettingsForm.#ctor">
+            <summary>
+            Default constuctor
+            </summary>
+        </member>
+        <member name="M:ARCed.Database.Actors.ChartSettingsForm.SetCharts(System.Windows.Forms.DataVisualization.Charting.Chart[]@)">
+            <summary>
+            Sets the forms chart controls
+            </summary>
+            <param name="charts">Reference to an array of <see cref="T:System.Windows.Forms.DataVisualization.Charting.Chart"/> object.</param>
+        </member>
+        <member name="M:ARCed.Database.Actors.ChartSettingsForm.ClearCharts">
+            <summary>
+            Clears the charts
+            </summary>
+        </member>
+        <member name="M:ARCed.Database.Actors.ChartSettingsForm.SetChartType(System.Windows.Forms.DataVisualization.Charting.SeriesChartType,System.Windows.Forms.DataVisualization.Charting.Chart[]@)">
+            <summary>
+            Sets the <see cref="T:System.Windows.Forms.DataVisualization.Charting.SeriesChartType"/> type for the charts.
+            </summary>
+            <param name="type">Chart type to set</param>
+            <param name="charts">Reference to an array of <see cref="T:System.Windows.Forms.DataVisualization.Charting.Chart"/> object.</param>
+        </member>
+        <member name="M:ARCed.Database.Actors.ChartSettingsForm.GetUserColor(System.Int32)">
+            <summary>
+            Gets the user-defined <see cref="T:System.Drawing.Color"/> used for the chart with the given index.
+            </summary>
+            <param name="index">Index of the color to retrieve.</param>
+            <returns>User-defined color</returns>
+        </member>
+        <member name="M:ARCed.Database.Actors.ChartSettingsForm.SetUserColor(System.Int32,System.Drawing.Color)">
+            <summary>
+            Gets the user-defined <see cref="T:System.Drawing.Color"/> used for the chart with the given index.
+            </summary>
+            <param name="index">Index of the color to retrieve.</param>
+            <param name="color">User-defined color</param>
+        </member>
+        <member name="M:ARCed.Database.Actors.ChartSettingsForm.GetChartLighting(System.Int32)">
+            <summary>
+            Gets the user-defined <see cref="T:System.Windows.Forms.DataVisualization.Charting.LightStyle"/> setting for the given index. 
+            </summary>
+            <param name="index">Index to retrieve the style for.</param>
+            <returns>LightStyle setting for index.</returns>
+        </member>
+        <member name="M:ARCed.Database.Actors.ChartSettingsForm.SetChartLighting(System.Windows.Forms.DataVisualization.Charting.LightStyle,System.Windows.Forms.DataVisualization.Charting.Chart[]@)">
+            <summary>
+            Sets the user-defined <see cref="T:System.Windows.Forms.DataVisualization.Charting.LightStyle"/> setting for the given index. 
+            </summary>
+            <param name="style">Style to set</param>
+            <param name="charts">Reference to an array of <see cref="T:System.Windows.Forms.DataVisualization.Charting.Chart"/> object.</param>
+        </member>
         <member name="F:ARCed.Database.Actors.ChartSettingsForm.components">
             <summary>
             Required designer variable.
@@ -688,6 +817,16 @@
             the contents of this method with the code editor.
             </summary>
         </member>
+        <member name="T:ARCed.Database.Enemies.EditActionDialog">
+            <summary>
+            Dialog for getting user-defined <see cref="T:RPG.Enemy.Action"/>.
+            </summary>
+        </member>
+        <member name="M:ARCed.Database.Enemies.EditActionDialog.#ctor">
+            <summary>
+            Default constructor
+            </summary>
+        </member>
         <member name="F:ARCed.Database.Enemies.EditActionDialog.components">
             <summary>
             Required designer variable.
@@ -703,6 +842,11 @@
             <summary>
             Required method for Designer support - do not modify
             the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="P:ARCed.Database.Enemies.EditActionDialog.EnemyAction">
+            <summary>
+            Gets or sets the <see cref="T:RPG.Enemy.Action"/> defined on the form.
             </summary>
         </member>
         <member name="T:ARCed.Controls.ParameterMiniChart">
@@ -944,6 +1088,11 @@
             Gets or sets the directory where the project's scripts are found
             </summary>
         </member>
+        <member name="T:ARCed.Dialogs.UserStringForm">
+            <summary>
+            Dialog for getting a user-defined <see langword="string"/>.
+            </summary>
+        </member>
         <member name="F:ARCed.Dialogs.UserStringForm.components">
             <summary>
             Required designer variable.
@@ -966,18 +1115,23 @@
             Creates a new instance of the form
             </summary>
             <param name="title">The title of the form in the header</param>
-            <param name="defaultText">Default text for the textbox field</param>
-            <param name="label">The text for the textbox label</param>
+            <param name="defaultText">Default text for the <see cref="T:System.Windows.Forms.TextBox"/> field</param>
+            <param name="label">The text for the <see cref="T:System.Windows.Forms.TextBox"/> label</param>
             <param name="validate">Flag to validate text for filenames</param>
         </member>
         <member name="P:ARCed.Dialogs.UserStringForm.UserString">
             <summary>
-            Gets or sets the text in the textbox field
+            Gets or sets the text in the <see cref="T:System.Windows.Forms.TextBox"/> field.
             </summary>
         </member>
         <member name="P:ARCed.Dialogs.UserStringForm.Label">
             <summary>
-            Gets or sets the label for the textbox
+            Gets or sets the label for the <see cref="T:System.Windows.Forms.TextBox"/> control on the form.
+            </summary>
+        </member>
+        <member name="P:ARCed.Dialogs.UserStringForm.Text">
+            <summary>
+            Gets or sets the text of the control.
             </summary>
         </member>
         <member name="T:ARCed.Dialogs.LocalizationDialog">
@@ -1108,6 +1262,11 @@
             Default constructor
             </summary>
         </member>
+        <member name="T:ARCed.Database.MapEditor.MapEditorMainForm">
+            <summary>
+            Main form for configuring Project <see cref="T:RPG.Map"/> data.
+            </summary>
+        </member>
         <member name="F:ARCed.Database.MapEditor.MapEditorMainForm.components">
             <summary>
             Required designer variable.
@@ -1163,22 +1322,27 @@
         </member>
         <member name="P:ARCed.Database.Enemies.TreasureSelectDialog.ItemId">
             <summary>
-            Gets the item ID defined in the dialog
+            Gets the ID of the <see cref="T:RPG.Item"/> defined in the dialog
             </summary>
         </member>
         <member name="P:ARCed.Database.Enemies.TreasureSelectDialog.WeaponId">
             <summary>
-            Gets the weapon ID defined in the dialog
+            Gets the ID of the <see cref="T:RPG.Weapon"/> defined in the dialog
             </summary>
         </member>
         <member name="P:ARCed.Database.Enemies.TreasureSelectDialog.ArmorId">
             <summary>
-            Gets the armor ID defined in the dialog
+            Gets the ID of the <see cref="T:RPG.Armor"/> defined in the dialog
             </summary>
         </member>
         <member name="P:ARCed.Database.Enemies.TreasureSelectDialog.TreasureProbablity">
             <summary>
             Gets the probablity defined in the dialog
+            </summary>
+        </member>
+        <member name="T:ARCed.Database.Classes.EditSkillDialog">
+            <summary>
+            Dialog for getting a user-defined <see cref="T:RPG.Skill"/> configuration.
             </summary>
         </member>
         <member name="M:ARCed.Database.Classes.EditSkillDialog.#ctor">
@@ -1208,6 +1372,11 @@
             Gets or sets the current RPG.Learning defined on the form
             </summary>
         </member>
+        <member name="T:ARCed.Database.Armors.ArmorMainForm">
+            <summary>
+            Main form for configuring Project <see cref="T:RPG.Armor"/> data.
+            </summary>
+        </member>
         <member name="F:ARCed.Database.Armors.ArmorMainForm.components">
             <summary>
             Required designer variable.
@@ -1235,6 +1404,11 @@
             Refreshes objects by type flag
             </summary>
             <param name="type">Flag for type of object to refresh</param>
+        </member>
+        <member name="M:ARCed.Database.Armors.ArmorMainForm.RefreshCurrentObject">
+            <summary>
+            Refreshes the form to display data for the currently selected <see cref="T:RPG.Armor"/>.
+            </summary>
         </member>
         <member name="P:ARCed.Database.Armors.ArmorMainForm.DataObjectList">
             <summary>
@@ -1350,6 +1524,11 @@
             the contents of this method with the code editor.
             </summary>
         </member>
+        <member name="T:ARCed.Dialogs.CaptureForm">
+            <summary>
+            Invisible form that is used as an overlay of the screen for capturing color data under the mouse.
+            </summary>
+        </member>
         <member name="F:ARCed.Dialogs.CaptureForm.components">
             <summary>
             Required designer variable.
@@ -1399,6 +1578,11 @@
             Refreshes objects by type flag
             </summary>
             <param name="type">Flag for type of object to refresh</param>
+        </member>
+        <member name="M:ARCed.Database.Sys.SystemMainForm.RefreshCurrentObject">
+            <summary>
+            Refreshes the form to display data for the currently selected <see cref="T:RPG.System"/>.
+            </summary>
         </member>
         <member name="P:ARCed.Database.Sys.SystemMainForm.DataObjectList">
             <summary>
@@ -1617,9 +1801,14 @@
             The main entry point for the application.
             </summary>
         </member>
+        <member name="T:ARCed.Database.Classes.ClassMainForm">
+            <summary>
+            Main form for configuring Project <see cref="T:RPG.Class"/> data.
+            </summary>
+        </member>
         <member name="M:ARCed.Database.Classes.ClassMainForm.#ctor">
             <summary>
-            
+            Default constructor
             </summary>
         </member>
         <member name="M:ARCed.Database.Classes.ClassMainForm.NotifyRefresh(ARCed.Database.RefreshType)">
@@ -1627,6 +1816,11 @@
             Refreshes objects by type flag
             </summary>
             <param name="type">Flag for type of object to refresh</param>
+        </member>
+        <member name="M:ARCed.Database.Classes.ClassMainForm.RefreshCurrentObject">
+            <summary>
+            Refreshes the form to display data for the currently selected <see cref="T:RPG.Class"/>.
+            </summary>
         </member>
         <member name="F:ARCed.Database.Classes.ClassMainForm.components">
             <summary>
@@ -1754,7 +1948,7 @@
         </member>
         <member name="M:ARCed.Database.SwitchForm.RefreshCurrentObject">
             <summary>
-            Refreshes the current selected object
+            Refreshes the form to display data for the currently selected <see cref="T:RPG.RpgObject"/>.
             </summary>
         </member>
         <member name="P:ARCed.Database.SwitchForm.DataObjectList">
@@ -1780,6 +1974,11 @@
         <member name="P:ARCed.Database.SwitchForm.Data">
             <summary>
             Gets the data associated with the control
+            </summary>
+        </member>
+        <member name="T:ARCed.Database.Skills.SkillMainForm">
+            <summary>
+            Main form for configuring Project <see cref="T:RPG.State"/> data.
             </summary>
         </member>
         <member name="F:ARCed.Database.Skills.SkillMainForm.components">
@@ -1810,6 +2009,11 @@
             </summary>
             <param name="type">Flag for type of object to refresh</param>
         </member>
+        <member name="M:ARCed.Database.Skills.SkillMainForm.RefreshCurrentObject">
+            <summary>
+            Refreshes the form to display data for the currently selected <see cref="T:RPG.Skill"/>.
+            </summary>
+        </member>
         <member name="P:ARCed.Database.Skills.SkillMainForm.DataObjectList">
             <summary>
             Gets the object list control of this database panel.
@@ -1818,6 +2022,11 @@
         <member name="P:ARCed.Database.Skills.SkillMainForm.Data">
             <summary>
             Gets the data associated with this panel.
+            </summary>
+        </member>
+        <member name="T:ARCed.Database.Items.ItemMainForm">
+            <summary>
+            Main form for configuring Project <see cref="T:RPG.Item"/> data.
             </summary>
         </member>
         <member name="F:ARCed.Database.Items.ItemMainForm.components">
@@ -1848,6 +2057,11 @@
             </summary>
             <param name="type">Flag for type of object to refresh</param>
         </member>
+        <member name="M:ARCed.Database.Items.ItemMainForm.RefreshCurrentObject">
+            <summary>
+            Refreshes the form to display data for the currently selected <see cref="T:RPG.Item"/>.
+            </summary>
+        </member>
         <member name="P:ARCed.Database.Items.ItemMainForm.DataObjectList">
             <summary>
             Gets the object list control of this database panel.
@@ -1860,7 +2074,7 @@
         </member>
         <member name="T:ARCed.Database.Enemies.EnemyMainForm">
             <summary>
-            Database window for editing RPG.Enemy data
+            Main form for configuring Project <see cref="T:RPG.Enemy"/> data.
             </summary>
         </member>
         <member name="F:ARCed.Database.Enemies.EnemyMainForm.components">
@@ -1880,11 +2094,21 @@
             the contents of this method with the code editor.
             </summary>
         </member>
+        <member name="M:ARCed.Database.Enemies.EnemyMainForm.#ctor">
+            <summary>
+            Default constructor
+            </summary>
+        </member>
         <member name="M:ARCed.Database.Enemies.EnemyMainForm.NotifyRefresh(ARCed.Database.RefreshType)">
             <summary>
             Refreshes objects by type flag
             </summary>
             <param name="type">Flag for type of object to refresh</param>
+        </member>
+        <member name="M:ARCed.Database.Enemies.EnemyMainForm.RefreshCurrentObject">
+            <summary>
+            Refreshes the form to display data for the currently selected <see cref="T:RPG.Enemy"/>.
+            </summary>
         </member>
         <member name="P:ARCed.Database.Enemies.EnemyMainForm.DataObjectList">
             <summary>
@@ -2051,6 +2275,12 @@
             Gets the current display mode of the calculator
             </summary>
         </member>
+        <member name="T:ARCed.Database.Actors.ParamGenerateCurveDialog">
+            <summary>
+            Dialog for getting user-defined values used to 
+            generate curves for <see cref="T:RPG.Actor"/> parameters.
+            </summary>
+        </member>
         <member name="F:ARCed.Database.Actors.ParamGenerateCurveDialog.components">
             <summary>
             Required designer variable.
@@ -2068,9 +2298,31 @@
             the contents of this method with the code editor.
             </summary>
         </member>
+        <member name="M:ARCed.Database.Actors.ParamGenerateCurveDialog.#ctor(RPG.Actor@,System.Int32)">
+            <summary>
+            Default constructor.
+            </summary>
+            <param name="actor">Reference to an <see cref="T:RPG.Actor"/> object.</param>
+            <param name="paramIndex">Index of the parameter to change</param>
+        </member>
+        <member name="P:ARCed.Database.Actors.ParamGenerateCurveDialog.InitialValue">
+            <summary>
+            Gets the initial value to start the curve on.
+            </summary>
+        </member>
+        <member name="P:ARCed.Database.Actors.ParamGenerateCurveDialog.FinalValue">
+            <summary>
+            Gets the final value to end the curve on.
+            </summary>
+        </member>
+        <member name="P:ARCed.Database.Actors.ParamGenerateCurveDialog.Speed">
+            <summary>
+            Gets the speed at which the curve increases.
+            </summary>
+        </member>
         <member name="T:ARCed.Dialogs.FontSelectionDialog">
             <summary>
-            Simple dialog for choosing a font resource
+            Simple dialog for getting a user-defined <see cref="T:System.Drawing.Font"/>.
             </summary>
         </member>
         <member name="F:ARCed.Dialogs.FontSelectionDialog.components">
@@ -2149,6 +2401,11 @@
             Refreshes objects by type flag
             </summary>
             <param name="type">Flag for type of object to refresh</param>
+        </member>
+        <member name="M:ARCed.Database.Actors.ActorMainForm.RefreshCurrentObject">
+            <summary>
+            Refreshes the form to display data for the currently selected <see cref="T:RPG.Skill"/>.
+            </summary>
         </member>
         <member name="P:ARCed.Database.Actors.ActorMainForm.DataObjectList">
             <summary>
@@ -2258,6 +2515,11 @@
         <member name="P:ARCed.Settings.EditorSettings.ImageColorSettings">
             <summary>
             Gets or sets the settings used for tileset editor.
+            </summary>
+        </member>
+        <member name="T:ARCed.Settings.ScriptSettings">
+            <summary>
+            Class containing settings for the look and behavior of scripting controls.
             </summary>
         </member>
         <member name="M:ARCed.Settings.ScriptSettings.#ctor">
@@ -2490,10 +2752,23 @@
             Creates a new instance of the custom AboutBox object
             </summary>
         </member>
-        <member name="M:ARCed.Dialogs.AboutBox.RegistryHklmValue(System.String,System.String)">
+        <member name="P:ARCed.Dialogs.AboutBox.AppEntryAssembly">
             <summary>
-            Reads an HKLM Windows Registry key value
+            Returns the entry assembly for the current application domain
             </summary>
+            <remarks>
+            This is usually read-only, but in some weird cases (Smart Client apps) 
+            you won't have an entry assembly, so you may want to set this manually.
+            </remarks>
+        </member>
+        <member name="P:ARCed.Dialogs.AboutBox.AppTitle">
+            <summary>
+            Single line of text to show in the application title section of the about box dialog
+            </summary>
+            <remarks>
+            defaults to "%title%" 
+            %title% = Assembly: AssemblyTitle
+            </remarks>
         </member>
         <member name="P:ARCed.Dialogs.AboutBox.AppDescription">
             <summary>
@@ -2503,6 +2778,74 @@
             defaults to "%description%"
             %description% = Assembly: AssemblyDescription
             </remarks>
+        </member>
+        <member name="P:ARCed.Dialogs.AboutBox.AppVersion">
+            <summary>
+            single line of text to show in the version section of the about dialog
+            </summary>
+            <remarks>
+            defaults to "Version %version%"
+            %version% = Assembly: AssemblyVersion
+            </remarks>
+        </member>
+        <member name="P:ARCed.Dialogs.AboutBox.AppCopyright">
+            <summary>
+            Single line of text to show in the copyright section of the about dialog
+            </summary>
+            <remarks>
+            defaults to "Copyright © %year%, %company%"
+            %company% = Assembly: AssemblyCompany
+            %year% = current 4-digit year
+            </remarks>
+        </member>
+        <member name="P:ARCed.Dialogs.AboutBox.AppImage">
+            <summary>
+            Intended for the default 32x32 application icon to appear in the upper left of the about dialog
+            </summary>
+            <remarks>
+            If you open this form using .ShowDialog(Owner), the icon can be derived from the owning form
+            </remarks>
+        </member>
+        <member name="P:ARCed.Dialogs.AboutBox.AppMoreInfo">
+            <summary>
+            multiple lines of miscellaneous text to show in rich text box
+            </summary>
+            <remarks>
+            defaults to "%product% is %copyright%, %trademark%"
+            %product% = Assembly: AssemblyProduct
+            %copyright% = Assembly: AssemblyCopyright
+            %trademark% = Assembly: AssemblyTrademark
+            </remarks>
+        </member>
+        <member name="P:ARCed.Dialogs.AboutBox.AppDetailsButton">
+            <summary>
+            Determines if the "Details" (advanced assembly details) button is shown
+            </summary>
+        </member>
+        <member name="T:ARCed.Dialogs.AboutBox.ListViewItemComparer">
+            <summary>
+            Class used for comparing <see cref="T:System.Windows.Forms.ListViewItem"/> objects. 
+            </summary>
+        </member>
+        <member name="M:ARCed.Dialogs.AboutBox.ListViewItemComparer.#ctor">
+            <summary>
+            Default constructor
+            </summary>
+        </member>
+        <member name="M:ARCed.Dialogs.AboutBox.ListViewItemComparer.#ctor(System.Int32,System.Boolean)">
+            <summary>
+            Default constructor
+            </summary>
+            <param name="column">Column index</param>
+            <param name="ascending">Flag if sort method should be ascending or descending</param>
+        </member>
+        <member name="M:ARCed.Dialogs.AboutBox.ListViewItemComparer.Compare(System.Object,System.Object)">
+            <summary>
+            Compares to objects and returns the result of the comparison.
+            </summary>
+            <param name="x">First object to compare</param>
+            <param name="y">Second object to compare.</param>
+            <returns>Result of comparison.</returns>
         </member>
         <member name="F:ARCed.Database.Tilesets.ImageColorsDialog.components">
             <summary>
@@ -2553,6 +2896,11 @@
             <summary>
             Required method for Designer support - do not modify
             the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:ARCed.Dialogs.ChangeMaxDialog">
+            <summary>
+            Dialog for getting a new maximum capacity for data.
             </summary>
         </member>
         <member name="M:ARCed.Dialogs.ChangeMaxDialog.#ctor(System.Int32,System.Int32,System.Int32)">
@@ -2680,6 +3028,11 @@
             Gets or sets the line number of the result
             </summary>
         </member>
+        <member name="T:ARCed.Database.Troops.TroopMainForm">
+            <summary>
+            Main form for configuring Project <see cref="T:RPG.Troop"/> data.
+            </summary>
+        </member>
         <member name="F:ARCed.Database.Troops.TroopMainForm.components">
             <summary>
             Required designer variable.
@@ -2700,6 +3053,11 @@
         <member name="M:ARCed.Database.Troops.TroopMainForm.#ctor">
             <summary>
             Default constructor
+            </summary>
+        </member>
+        <member name="M:ARCed.Database.Troops.TroopMainForm.RefreshCurrentObject">
+            <summary>
+            Refreshes the form to display data for the currently selected <see cref="T:RPG.Troop"/>.
             </summary>
         </member>
         <member name="P:ARCed.Database.Troops.TroopMainForm.DataObjectList">
@@ -2734,6 +3092,11 @@
             Refreshes objects by type flag
             </summary>
             <param name="type">Flag for type of object to refresh</param>
+        </member>
+        <member name="M:ARCed.Database.Animations.AnimationMainForm.RefreshCurrentObject">
+            <summary>
+            Refreshes the form to display data for the currently selected <see cref="T:RPG.Animation"/>.
+            </summary>
         </member>
         <member name="P:ARCed.Database.Animations.AnimationMainForm.DataObjectList">
             <summary>
@@ -2794,6 +3157,11 @@
             Gets all instances of database related forms
             </summary>
         </member>
+        <member name="P:ARCed.Windows.ChartForms">
+            <summary>
+            Gets all instanced of the actor parameter chart forms.
+            </summary>
+        </member>
         <member name="P:ARCed.Windows.ScintillaFindReplace">
             <summary>
             Returns the static Find and Replace window used for scripts
@@ -2822,6 +3190,11 @@
         <member name="P:ARCed.Windows.CalculatorWindow">
             <summary>
             Gets or sets the instance of the Calculator
+            </summary>
+        </member>
+        <member name="T:ARCed.Settings.ChartSettings">
+            <summary>
+            Class containing settings for the look and behavior of charting controls.
             </summary>
         </member>
         <member name="M:ARCed.Settings.ChartSettings.#ctor">

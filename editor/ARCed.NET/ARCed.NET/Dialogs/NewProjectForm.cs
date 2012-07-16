@@ -9,6 +9,9 @@ using ARCed.Helpers;
 
 namespace ARCed.Dialogs
 {
+    /// <summary>
+    /// Dialog for creating a new ARCed project.
+    /// </summary>
 	public partial class NewProjectForm : Form
 	{
 		#region Private Fields
@@ -47,7 +50,7 @@ namespace ARCed.Dialogs
 		/// </summary>
 		/// <param name="sender">The invoker of the event</param>
 		/// <param name="e">Event arguments</param>
-		private void NewProjectForm_Load(object sender, EventArgs e)
+		private void NewProjectFormLoad(object sender, EventArgs e)
 		{
 			string dir = PathHelper.DefaultSaveDirectory;
 			string path, name;
@@ -77,12 +80,14 @@ namespace ARCed.Dialogs
 		{
 			comboTemplates.Items.Clear();
 			comboTemplates.Items.Add("Default");
-			string templateDir = PathHelper.ProjectTemplateDirectory;
-			if (Directory.Exists(templateDir))
-			{
-				foreach (string filename in Directory.GetFiles(templateDir, "*.7z"))
-					comboTemplates.Items.Add(Path.GetFileNameWithoutExtension(filename));
-			}
+			var templateDir = PathHelper.ProjectTemplateDirectory;
+		    if (!Directory.Exists(templateDir)) return;
+		    string name;
+            foreach (string filename in Directory.GetFiles(templateDir, "*.7z"))
+            {
+                name = Path.GetFileNameWithoutExtension(filename);
+                if (name != null) this.comboTemplates.Items.Add(name);
+            }
 		}
 
 		/// <summary>
@@ -90,7 +95,7 @@ namespace ARCed.Dialogs
 		/// </summary>
 		/// <param name="sender">The invoker of the event</param>
 		/// <param name="e">Event arguments</param>
-		private void buttonBrowse_Click(object sender, EventArgs e)
+		private void ButtonBrowseClick(object sender, EventArgs e)
 		{
 			using (var dialog = new FolderBrowserDialog())
 			{
@@ -111,10 +116,10 @@ namespace ARCed.Dialogs
 		/// </summary>
 		/// <param name="sender">The invoker of the event</param>
 		/// <param name="e">Event arguments</param>
-		private void buttonOK_Click(object sender, EventArgs e)
+		private void ButtonOkClick(object sender, EventArgs e)
 		{
-			this.DialogResult = DialogResult.OK;
-			this.Close();
+			DialogResult = DialogResult.OK;
+			Close();
 		}
 
 		/// <summary>
@@ -122,7 +127,7 @@ namespace ARCed.Dialogs
 		/// </summary>
 		/// <param name="sender">The invoker of the event</param>
 		/// <param name="e">Event arguments</param>
-		private void textBoxFolderName_TextChanged(object sender, EventArgs e)
+		private void TextBoxFolderNameTextChanged(object sender, EventArgs e)
 		{
 			_folder = textBoxFolderName.Text;
 			textBoxTitle.Text = _folder;
@@ -134,9 +139,9 @@ namespace ARCed.Dialogs
 		/// </summary>
 		/// <param name="sender">The invoker of the event</param>
 		/// <param name="e">Event arguments</param>
-		private void textBoxLocation_TextChanged(object sender, EventArgs e)
+		private void TextBoxLocationTextChanged(object sender, EventArgs e)
 		{
-			if (this.ActiveControl != null && !textBoxFolderName.Focused)
+			if (ActiveControl != null && !textBoxFolderName.Focused)
 				_location = textBoxLocation.Text;
 		}
 

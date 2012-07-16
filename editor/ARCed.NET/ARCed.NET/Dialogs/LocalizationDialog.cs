@@ -42,8 +42,8 @@ namespace ARCed.Dialogs
                 default: info = new CultureInfo("en-US"); break;
             }
             Thread.CurrentThread.CurrentUICulture = info;
-            this.DialogResult = DialogResult.OK;
-            this.Close();
+            DialogResult = DialogResult.OK;
+            Close();
         }
     }
 }

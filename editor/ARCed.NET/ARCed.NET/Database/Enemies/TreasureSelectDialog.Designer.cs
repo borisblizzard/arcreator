@@ -53,7 +53,7 @@
 			this.radioButtonNone.TabStop = true;
 			this.radioButtonNone.Text = "None";
 			this.radioButtonNone.UseVisualStyleBackColor = true;
-			this.radioButtonNone.CheckedChanged += new System.EventHandler(this.radioButton_CheckChanged);
+			this.radioButtonNone.CheckedChanged += new System.EventHandler(this.RadioButtonCheckChanged);
 			// 
 			// radioButtonItem
 			// 
@@ -64,7 +64,7 @@
 			this.radioButtonItem.TabIndex = 1;
 			this.radioButtonItem.Text = "Item";
 			this.radioButtonItem.UseVisualStyleBackColor = true;
-			this.radioButtonItem.CheckedChanged += new System.EventHandler(this.radioButton_CheckChanged);
+			this.radioButtonItem.CheckedChanged += new System.EventHandler(this.RadioButtonCheckChanged);
 			// 
 			// radioButtonArmor
 			// 
@@ -75,7 +75,7 @@
 			this.radioButtonArmor.TabIndex = 3;
 			this.radioButtonArmor.Text = "Armor";
 			this.radioButtonArmor.UseVisualStyleBackColor = true;
-			this.radioButtonArmor.CheckedChanged += new System.EventHandler(this.radioButton_CheckChanged);
+			this.radioButtonArmor.CheckedChanged += new System.EventHandler(this.RadioButtonCheckChanged);
 			// 
 			// radioButtonWeapon
 			// 
@@ -86,7 +86,7 @@
 			this.radioButtonWeapon.TabIndex = 2;
 			this.radioButtonWeapon.Text = "Weapon";
 			this.radioButtonWeapon.UseVisualStyleBackColor = true;
-			this.radioButtonWeapon.CheckedChanged += new System.EventHandler(this.radioButton_CheckChanged);
+			this.radioButtonWeapon.CheckedChanged += new System.EventHandler(this.RadioButtonCheckChanged);
 			// 
 			// comboBoxItem
 			// 
@@ -144,7 +144,7 @@
 			this.buttonOK.TabIndex = 9;
 			this.buttonOK.Text = "OK";
 			this.buttonOK.UseVisualStyleBackColor = true;
-			this.buttonOK.Click += new System.EventHandler(this.buttonOK_Click);
+			this.buttonOK.Click += new System.EventHandler(this.ButtonOkClick);
 			// 
 			// label1
 			// 

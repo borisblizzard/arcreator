@@ -114,9 +114,9 @@ namespace ARCed.Database
 
 		}
 
-		/// <summary>
-		/// Refreshes the current selected object
-		/// </summary>
+        /// <summary>
+        /// Refreshes the form to display data for the currently selected <see cref="RPG.RpgObject"/>.
+        /// </summary>
 		public override void RefreshCurrentObject()
 		{
 			SuppressEvents = true;

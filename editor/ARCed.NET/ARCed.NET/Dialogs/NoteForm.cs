@@ -31,16 +31,16 @@ namespace ARCed.Dialogs
 		public NoteForm()
 		{
 			InitializeComponent();
-			this.Icon = Icon.FromHandle(Resources.NoteText.GetHicon());
+			Icon = Icon.FromHandle(Resources.NoteText.GetHicon());
 			textBoxNotes.DataBindings.Add("Font", Editor.Settings, "NoteFont",
-				false, DataSourceUpdateMode.OnValidation | DataSourceUpdateMode.OnPropertyChanged);
+				false, DataSourceUpdateMode.OnPropertyChanged);
 		}
 
 		#endregion
 
 		#region Private Methods
 
-		private void buttonCut_Click(object sender, EventArgs e)
+		private void ButtonCutClick(object sender, EventArgs e)
 		{
 			if (textBoxNotes.SelectedText.Length > 0)
 			{
@@ -50,13 +50,13 @@ namespace ARCed.Dialogs
 
 		}
 
-		private void buttonCopy_Click(object sender, EventArgs e)
+		private void ButtonCopyClick(object sender, EventArgs e)
 		{
 			if (textBoxNotes.SelectedText.Length > 0)
 				Clipboard.SetText(textBoxNotes.SelectedText);
 		}
 
-		private void buttonPaste_Click(object sender, EventArgs e)
+		private void ButtonPasteClick(object sender, EventArgs e)
 		{
 			if (Clipboard.ContainsText())
 			{
@@ -67,12 +67,12 @@ namespace ARCed.Dialogs
 			}
 		}
 
-		private void buttonSelectAll_Click(object sender, EventArgs e)
+		private void ButtonSelectAllClick(object sender, EventArgs e)
 		{
 			textBoxNotes.SelectAll();
 		}
 
-		private void buttonFont_Click(object sender, EventArgs e)
+		private void ButtonFontClick(object sender, EventArgs e)
 		{
 			using (var dialog = new FontSelectionDialog())
 			{
@@ -82,10 +82,10 @@ namespace ARCed.Dialogs
 			}
 		}
 
-		private void buttonOK_Click(object sender, EventArgs e)
+		private void ButtonOkClick(object sender, EventArgs e)
 		{
-			this.DialogResult = DialogResult.OK;
-			this.Close();
+			DialogResult = DialogResult.OK;
+			Close();
 		}
 
 		#endregion

@@ -9,27 +9,45 @@ using RPG;
 
 namespace ARCed.Database.Enemies
 {
+    /// <summary>
+    /// Dialog for getting user-defined <see cref="RPG.Enemy.Action"/>.
+    /// </summary>
 	public partial class EditActionDialog : Form
-	{
+    {
+        #region Public Properties
 
-		public Enemy.Action EnemyAction 
+        /// <summary>
+        /// Gets or sets the <see cref="RPG.Enemy.Action"/> defined on the form.
+        /// </summary>
+        public Enemy.Action EnemyAction 
 		{
 			get { return GetAction(); }
 			set { SetAction(value); }
 		}
 
-		public EditActionDialog()
+        #endregion
+
+        #region Constructor
+
+        /// <summary>
+        /// Default constructor
+        /// </summary>
+        public EditActionDialog()
 		{
 			InitializeComponent();
 			RefreshSkills();
 			trackBarRating.DataBindings.Add("Value", numericUpDownRating, "Value", false,
-				DataSourceUpdateMode.OnPropertyChanged | DataSourceUpdateMode.OnValidation);
+				DataSourceUpdateMode.OnPropertyChanged);
 			RefreshSwitches();
 		}
 
-		private void SetAction(Enemy.Action action)
+        #endregion
+
+        #region Private Methods
+
+        private void SetAction(Enemy.Action action)
 		{
-			bool turnC = !(action.condition_turn_a == 0 && action.condition_turn_b == 1);
+			var turnC = !(action.condition_turn_a == 0 && action.condition_turn_b == 1);
 			if (turnC)
 			{
 				checkBoxTurn.Checked = true;
@@ -84,40 +102,40 @@ namespace ARCed.Database.Enemies
 			return action;
 		}
 
-		public void RefreshSkills()
+		private void RefreshSkills()
 		{
 			ControlHelper.Populate(comboBoxSkill, Project.Data.Skills, false);
 		}
 
-		public void RefreshSwitches()
+		private void RefreshSwitches()
 		{
 			ControlHelper.Populate(comboBoxSwitch, Project.Switches, false);
 		}
 
-		private void checkBoxTurn_CheckedChanged(object sender, EventArgs e)
+		private void CheckBoxTurnCheckedChanged(object sender, EventArgs e)
 		{
-			bool enable = checkBoxTurn.Checked;
+			var enable = checkBoxTurn.Checked;
 			numericUpDownTurn.Enabled = enable;
 			numericUpDownTurnX.Enabled = enable;
 		}
 
-		private void checkBoxHP_CheckedChanged(object sender, EventArgs e)
+		private void CheckBoxHpCheckedChanged(object sender, EventArgs e)
 		{
 			numericUpDownHP.Enabled = checkBoxHP.Checked;
 		}
 
-		private void checkBoxLevel_CheckedChanged(object sender, EventArgs e)
+		private void CheckBoxLevelCheckedChanged(object sender, EventArgs e)
 		{
 			numericUpDownLevel.Enabled = checkBoxLevel.Checked;
 		}
 
-		private void checkBoxSwitch_CheckedChanged(object sender, EventArgs e)
+		private void CheckBoxSwitchCheckedChanged(object sender, EventArgs e)
 		{
 			comboBoxSwitch.Enabled = checkBoxSwitch.Checked;
 			comboBoxSwitch.SelectedIndex = Math.Max(0, comboBoxSwitch.SelectedIndex);
 		}
 
-		private void radioButton_CheckedChanged(object sender, EventArgs e)
+		private void RadioButtonCheckedChanged(object sender, EventArgs e)
 		{
 			if (radioButtonBasic.Checked)
 			{
@@ -133,10 +151,12 @@ namespace ARCed.Database.Enemies
 			}
 		}
 
-		private void buttonOK_Click(object sender, EventArgs e)
+		private void ButtonOkClick(object sender, EventArgs e)
 		{
-			this.DialogResult = DialogResult.OK;
-			this.Close();
-		}
-	}
+			DialogResult = DialogResult.OK;
+			Close();
+        }
+
+        #endregion
+    }
 }

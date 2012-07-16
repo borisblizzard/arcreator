@@ -1,5 +1,6 @@
 ﻿#region Using Directives
 
+using System.Globalization;
 using System.Windows.Forms;
 
 #endregion
@@ -28,7 +29,7 @@ namespace ARCed.Scripting
 		/// <param name="lineNumber">The line number the in the script the result is found on</param>
 		/// <param name="lineText">The text of the line</param>
 		public SearchResult(Script script, string scriptTitle, int lineNumber, string lineText)
-			: base(new[] { scriptTitle, (lineNumber + 1).ToString(), lineText })
+			: base(new[] { scriptTitle, (lineNumber + 1).ToString(CultureInfo.InvariantCulture), lineText })
 		{
 			Script = script;
 			Line = lineNumber;

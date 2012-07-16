@@ -1,6 +1,7 @@
 ﻿namespace ARCed.Database.Enemies
 {
-	partial class EnemyMainForm
+
+    sealed partial class EnemyMainForm
 	{
 		/// <summary>
 		/// Required designer variable.
@@ -154,7 +155,7 @@
 			this.dataObjectList.Size = new System.Drawing.Size(181, 475);
 			this.dataObjectList.TabIndex = 0;
 			this.dataObjectList.TabStop = false;
-			this.dataObjectList.OnListBoxIndexChanged += new ARCed.Controls.DatabaseObjectListBox.ObjectListIndexChangedEventHandler(this.dataObjectList_OnListBoxIndexChanged);
+			this.dataObjectList.OnListBoxIndexChanged += new ARCed.Controls.DatabaseObjectListBox.ObjectListIndexChangedEventHandler(this.DataObjectListOnListBoxIndexChanged);
 			// 
 			// splitContainerRight
 			// 
@@ -316,7 +317,7 @@
 			this.pictureBattler.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
 			this.pictureBattler.TabIndex = 4;
 			this.pictureBattler.TabStop = false;
-			this.pictureBattler.DoubleClick += new System.EventHandler(this.pictureBattler_DoubleClick);
+			this.pictureBattler.DoubleClick += new System.EventHandler(this.PictureBattlerDoubleClick);
 			// 
 			// contextMenuImages
 			// 
@@ -329,7 +330,7 @@
             this.changeToolStripMenuItem});
 			this.contextMenuImages.Name = "contextMenuImages";
 			this.contextMenuImages.Size = new System.Drawing.Size(125, 120);
-			this.contextMenuImages.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuImages_Opening);
+			this.contextMenuImages.Opening += new System.ComponentModel.CancelEventHandler(this.ContextMenuImagesOpening);
 			// 
 			// contextImageNormal
 			// 
@@ -337,7 +338,7 @@
 			this.contextImageNormal.Size = new System.Drawing.Size(124, 22);
 			this.contextImageNormal.Tag = "0";
 			this.contextImageNormal.Text = "Normal";
-			this.contextImageNormal.Click += new System.EventHandler(this.contextImagesSizeMode_Clicked);
+			this.contextImageNormal.Click += new System.EventHandler(this.ContextImagesSizeModeClicked);
 			// 
 			// contextImageStretch
 			// 
@@ -345,7 +346,7 @@
 			this.contextImageStretch.Size = new System.Drawing.Size(124, 22);
 			this.contextImageStretch.Tag = "1";
 			this.contextImageStretch.Text = "Stretch";
-			this.contextImageStretch.Click += new System.EventHandler(this.contextImagesSizeMode_Clicked);
+			this.contextImageStretch.Click += new System.EventHandler(this.ContextImagesSizeModeClicked);
 			// 
 			// contextImageCenter
 			// 
@@ -353,7 +354,7 @@
 			this.contextImageCenter.Size = new System.Drawing.Size(124, 22);
 			this.contextImageCenter.Tag = "3";
 			this.contextImageCenter.Text = "Center";
-			this.contextImageCenter.Click += new System.EventHandler(this.contextImagesSizeMode_Clicked);
+			this.contextImageCenter.Click += new System.EventHandler(this.ContextImagesSizeModeClicked);
 			// 
 			// contextImageZoom
 			// 
@@ -361,7 +362,7 @@
 			this.contextImageZoom.Size = new System.Drawing.Size(124, 22);
 			this.contextImageZoom.Tag = "4";
 			this.contextImageZoom.Text = "Zoom";
-			this.contextImageZoom.Click += new System.EventHandler(this.contextImagesSizeMode_Clicked);
+			this.contextImageZoom.Click += new System.EventHandler(this.ContextImagesSizeModeClicked);
 			// 
 			// toolStripSeparator2
 			// 
@@ -373,7 +374,7 @@
 			this.changeToolStripMenuItem.Name = "changeToolStripMenuItem";
 			this.changeToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
 			this.changeToolStripMenuItem.Text = "Change...";
-			this.changeToolStripMenuItem.Click += new System.EventHandler(this.pictureBattler_DoubleClick);
+			this.changeToolStripMenuItem.Click += new System.EventHandler(this.PictureBattlerDoubleClick);
 			// 
 			// comboBoxAttackerAnimation
 			// 
@@ -396,7 +397,7 @@
 			this.textBoxName.Name = "textBoxName";
 			this.textBoxName.Size = new System.Drawing.Size(176, 20);
 			this.textBoxName.TabIndex = 1;
-			this.textBoxName.TextChanged += new System.EventHandler(this.textBoxName_TextChanged);
+			this.textBoxName.TextChanged += new System.EventHandler(this.TextBoxNameTextChanged);
 			// 
 			// labelName
 			// 
@@ -416,7 +417,7 @@
 			this.textBoxTreasure.Name = "textBoxTreasure";
 			this.textBoxTreasure.Size = new System.Drawing.Size(153, 20);
 			this.textBoxTreasure.TabIndex = 11;
-			this.textBoxTreasure.OnButtonClick += new ARCed.Controls.TextBoxButton.ButtonClickHandler(this.buttonTreasure_Click);
+			this.textBoxTreasure.OnButtonClick += new ARCed.Controls.TextBoxButton.ButtonClickHandler(this.ButtonTreasureClick);
 			// 
 			// groupBoxParameters
 			// 
@@ -474,7 +475,7 @@
             0,
             0,
             0});
-			this.paramBoxMaxHP.OnValueChanged += new ARCed.Controls.ParamBox.ValueChangedEventHandler(this.paramBox_OnValueChanged);
+			this.paramBoxMaxHP.OnValueChanged += new ARCed.Controls.ParamBox.ValueChangedEventHandler(this.ParamBoxOnValueChanged);
 			// 
 			// paramBoxMaxSP
 			// 
@@ -777,7 +778,7 @@
 			this.checkedListElements.TabIndex = 0;
 			this.checkedListElements.TabStop = false;
 			this.checkedListElements.Text = "Elements";
-			this.checkedListElements.OnItemChanged += new ARCed.Controls.MultiStateCheckedListBox.ItemValueChangedEventHandler(this.checkedListElements_OnItemChanged);
+			this.checkedListElements.OnItemChanged += new ARCed.Controls.MultiStateCheckedListBox.ItemValueChangedEventHandler(this.CheckedListElementsOnItemChanged);
 			// 
 			// checkedListStates
 			// 
@@ -805,7 +806,7 @@
 			this.checkedListStates.TabIndex = 0;
 			this.checkedListStates.TabStop = false;
 			this.checkedListStates.Text = "States";
-			this.checkedListStates.OnItemChanged += new ARCed.Controls.MultiStateCheckedListBox.ItemValueChangedEventHandler(this.checkedListStates_OnItemChanged);
+			this.checkedListStates.OnItemChanged += new ARCed.Controls.MultiStateCheckedListBox.ItemValueChangedEventHandler(this.CheckedListStatesOnItemChanged);
 			// 
 			// splitContainerBottom
 			// 
@@ -851,7 +852,7 @@
 			this.buttonEditAction.Size = new System.Drawing.Size(24, 24);
 			this.buttonEditAction.TabIndex = 6;
 			this.buttonEditAction.UseVisualStyleBackColor = true;
-			this.buttonEditAction.Click += new System.EventHandler(this.buttonEditAction_Click);
+			this.buttonEditAction.Click += new System.EventHandler(this.ButtonEditActionClick);
 			// 
 			// buttonRemoveAction
 			// 
@@ -863,7 +864,7 @@
 			this.buttonRemoveAction.Size = new System.Drawing.Size(24, 24);
 			this.buttonRemoveAction.TabIndex = 5;
 			this.buttonRemoveAction.UseVisualStyleBackColor = true;
-			this.buttonRemoveAction.Click += new System.EventHandler(this.buttonRemoveAction_Click);
+			this.buttonRemoveAction.Click += new System.EventHandler(this.ButtonRemoveActionClick);
 			// 
 			// buttonAddSkill
 			// 
@@ -874,7 +875,7 @@
 			this.buttonAddSkill.Size = new System.Drawing.Size(24, 24);
 			this.buttonAddSkill.TabIndex = 4;
 			this.buttonAddSkill.UseVisualStyleBackColor = true;
-			this.buttonAddSkill.Click += new System.EventHandler(this.buttonAddAction_Click);
+			this.buttonAddSkill.Click += new System.EventHandler(this.ButtonAddActionClick);
 			// 
 			// listViewActions
 			// 
@@ -894,9 +895,9 @@
 			this.listViewActions.TabIndex = 0;
 			this.listViewActions.UseCompatibleStateImageBehavior = false;
 			this.listViewActions.View = System.Windows.Forms.View.Details;
-			this.listViewActions.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.listViewSkills_ColumnClick);
-			this.listViewActions.SelectedIndexChanged += new System.EventHandler(this.listViewActions_SelectedIndexChanged);
-			this.listViewActions.DoubleClick += new System.EventHandler(this.listViewActions_DoubleClick);
+			this.listViewActions.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.ListViewSkillsColumnClick);
+			this.listViewActions.SelectedIndexChanged += new System.EventHandler(this.ListViewActionsSelectedIndexChanged);
+			this.listViewActions.DoubleClick += new System.EventHandler(this.ListViewActionsDoubleClick);
 			// 
 			// columnHeaderAction
 			// 
@@ -930,7 +931,7 @@
 			this.contextButtonActionAdd.Name = "contextButtonActionAdd";
 			this.contextButtonActionAdd.Size = new System.Drawing.Size(117, 22);
 			this.contextButtonActionAdd.Text = "Add";
-			this.contextButtonActionAdd.Click += new System.EventHandler(this.buttonAddAction_Click);
+			this.contextButtonActionAdd.Click += new System.EventHandler(this.ButtonAddActionClick);
 			// 
 			// contextButtonActionRemove
 			// 
@@ -939,7 +940,7 @@
 			this.contextButtonActionRemove.Name = "contextButtonActionRemove";
 			this.contextButtonActionRemove.Size = new System.Drawing.Size(117, 22);
 			this.contextButtonActionRemove.Text = "Remove";
-			this.contextButtonActionRemove.Click += new System.EventHandler(this.buttonRemoveAction_Click);
+			this.contextButtonActionRemove.Click += new System.EventHandler(this.ButtonRemoveActionClick);
 			// 
 			// toolStripSeparator1
 			// 
@@ -953,7 +954,7 @@
 			this.contextButtonActionEdit.Name = "contextButtonActionEdit";
 			this.contextButtonActionEdit.Size = new System.Drawing.Size(117, 22);
 			this.contextButtonActionEdit.Text = "Edit";
-			this.contextButtonActionEdit.Click += new System.EventHandler(this.buttonEditAction_Click);
+			this.contextButtonActionEdit.Click += new System.EventHandler(this.ButtonEditActionClick);
 			// 
 			// noteTextBox
 			// 
@@ -965,7 +966,7 @@
 			this.noteTextBox.NoteText = "";
 			this.noteTextBox.Size = new System.Drawing.Size(208, 168);
 			this.noteTextBox.TabIndex = 0;
-			this.noteTextBox.NoteTextChanged += new ARCed.Controls.NoteTextBox.TextChangedEventHandler(this.noteTextBox_NoteTextChanged);
+			this.noteTextBox.NoteTextChanged += new ARCed.Controls.NoteTextBox.TextChangedEventHandler(this.NoteTextBoxNoteTextChanged);
 			// 
 			// EnemyMainForm
 			// 

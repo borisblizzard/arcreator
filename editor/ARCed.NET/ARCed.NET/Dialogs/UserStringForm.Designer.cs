@@ -47,7 +47,7 @@
             resources.ApplyResources(this.buttonOK, "buttonOK");
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.UseVisualStyleBackColor = true;
-            this.buttonOK.Click += new System.EventHandler(this.buttonOK_Click);
+            this.buttonOK.Click += new System.EventHandler(this.ButtonOkClick);
             // 
             // labelString
             // 
@@ -58,7 +58,7 @@
             // 
             resources.ApplyResources(this.textBoxString, "textBoxString");
             this.textBoxString.Name = "textBoxString";
-            this.textBoxString.TextChanged += new System.EventHandler(this.textBoxString_TextChanged);
+            this.textBoxString.TextChanged += new System.EventHandler(this.TextBoxStringTextChanged);
             // 
             // UserStringForm
             // 

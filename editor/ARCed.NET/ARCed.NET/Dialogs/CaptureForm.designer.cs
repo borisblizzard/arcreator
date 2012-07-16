@@ -16,7 +16,7 @@
 			if (disposing && (components != null))
 			{
 				components.Dispose();
-				ScreenCapture.Dispose();
+				this._screenCapture.Dispose();
 			}
 			base.Dispose(disposing);
 		}
@@ -48,8 +48,8 @@
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
 			this.Text = "Capture Form";
 			this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
-			this.Click += new System.EventHandler(this.captureForm_Clicked);
-			this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.captureForm_MouseMoved);
+			this.Click += new System.EventHandler(this.CaptureFormClicked);
+			this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.CaptureFormMouseMoved);
 			this.ResumeLayout(false);
 
 		}

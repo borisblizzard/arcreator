@@ -59,7 +59,7 @@
             resources.ApplyResources(this.buttonOK, "buttonOK");
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.UseVisualStyleBackColor = true;
-            this.buttonOK.Click += new System.EventHandler(this.buttonOK_Click);
+            this.buttonOK.Click += new System.EventHandler(this.ButtonOkClick);
             // 
             // buttonCopy
             // 
@@ -67,7 +67,7 @@
             this.buttonCopy.Image = global::ARCed.Properties.Resources.Copy;
             this.buttonCopy.Name = "buttonCopy";
             this.buttonCopy.UseVisualStyleBackColor = true;
-            this.buttonCopy.Click += new System.EventHandler(this.buttonCopy_Click);
+            this.buttonCopy.Click += new System.EventHandler(this.ButtonCopyClick);
             // 
             // buttonPaste
             // 
@@ -75,7 +75,7 @@
             this.buttonPaste.Image = global::ARCed.Properties.Resources.Paste;
             this.buttonPaste.Name = "buttonPaste";
             this.buttonPaste.UseVisualStyleBackColor = true;
-            this.buttonPaste.Click += new System.EventHandler(this.buttonPaste_Click);
+            this.buttonPaste.Click += new System.EventHandler(this.ButtonPasteClick);
             // 
             // textBoxNotes
             // 
@@ -101,28 +101,28 @@
             this.buttonCutContext.Image = global::ARCed.Properties.Resources.Cut;
             this.buttonCutContext.Name = "buttonCutContext";
             resources.ApplyResources(this.buttonCutContext, "buttonCutContext");
-            this.buttonCutContext.Click += new System.EventHandler(this.buttonCut_Click);
+            this.buttonCutContext.Click += new System.EventHandler(this.ButtonCutClick);
             // 
             // buttonCopyContext
             // 
             this.buttonCopyContext.Image = global::ARCed.Properties.Resources.Copy;
             this.buttonCopyContext.Name = "buttonCopyContext";
             resources.ApplyResources(this.buttonCopyContext, "buttonCopyContext");
-            this.buttonCopyContext.Click += new System.EventHandler(this.buttonCopy_Click);
+            this.buttonCopyContext.Click += new System.EventHandler(this.ButtonCopyClick);
             // 
             // buttonPasteContext
             // 
             this.buttonPasteContext.Image = global::ARCed.Properties.Resources.Paste;
             this.buttonPasteContext.Name = "buttonPasteContext";
             resources.ApplyResources(this.buttonPasteContext, "buttonPasteContext");
-            this.buttonPasteContext.Click += new System.EventHandler(this.buttonPaste_Click);
+            this.buttonPasteContext.Click += new System.EventHandler(this.ButtonPasteClick);
             // 
             // buttonSelectAllContext
             // 
             this.buttonSelectAllContext.Image = global::ARCed.Properties.Resources.SelectAll;
             this.buttonSelectAllContext.Name = "buttonSelectAllContext";
             resources.ApplyResources(this.buttonSelectAllContext, "buttonSelectAllContext");
-            this.buttonSelectAllContext.Click += new System.EventHandler(this.buttonSelectAll_Click);
+            this.buttonSelectAllContext.Click += new System.EventHandler(this.ButtonSelectAllClick);
             // 
             // toolStripSeparator2
             // 
@@ -134,7 +134,7 @@
             this.buttonFont.Image = global::ARCed.Properties.Resources.Font;
             this.buttonFont.Name = "buttonFont";
             resources.ApplyResources(this.buttonFont, "buttonFont");
-            this.buttonFont.Click += new System.EventHandler(this.buttonFont_Click);
+            this.buttonFont.Click += new System.EventHandler(this.ButtonFontClick);
             // 
             // buttonSelectAll
             // 
@@ -142,7 +142,7 @@
             this.buttonSelectAll.Image = global::ARCed.Properties.Resources.SelectAll;
             this.buttonSelectAll.Name = "buttonSelectAll";
             this.buttonSelectAll.UseVisualStyleBackColor = true;
-            this.buttonSelectAll.Click += new System.EventHandler(this.buttonSelectAll_Click);
+            this.buttonSelectAll.Click += new System.EventHandler(this.ButtonSelectAllClick);
             // 
             // buttonCut
             // 
@@ -150,7 +150,7 @@
             this.buttonCut.Image = global::ARCed.Properties.Resources.Cut;
             this.buttonCut.Name = "buttonCut";
             this.buttonCut.UseVisualStyleBackColor = true;
-            this.buttonCut.Click += new System.EventHandler(this.buttonCut_Click);
+            this.buttonCut.Click += new System.EventHandler(this.ButtonCutClick);
             // 
             // NoteForm
             // 

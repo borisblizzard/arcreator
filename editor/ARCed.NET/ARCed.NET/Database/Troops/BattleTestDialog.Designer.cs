@@ -89,7 +89,7 @@
             0,
             0,
             0});
-			this.numericUpDownActors.ValueChanged += new System.EventHandler(this.numericUpDownActors_ValueChanged);
+			this.numericUpDownActors.ValueChanged += new System.EventHandler(this.NumericUpDownActorsValueChanged);
 			// 
 			// tabControlActors
 			// 

@@ -2,6 +2,7 @@
 
 using System;
 using System.Drawing;
+using System.Globalization;
 using System.Windows.Forms;
 using ARCed.Helpers;
 using ARCed.UI;
@@ -11,25 +12,44 @@ using RPG;
 
 namespace ARCed.Database.Actors
 {
+    /// <summary>
+    /// Form for displaying and configuring experience tables for an <see cref="RPG.Actor"/>.
+    /// </summary>
 	public partial class ExperienceCurveForm : DockContent
-	{
+    {
+        #region Private Fields
 
-		Actor _actor;
-		string _fStr;
-		long[] _expList;
-		int[] _startValues;
+        private Actor _actor;
+        private string _fStr;
+        private long[] _expList;
+        private int[] _startValues;
 
+        #endregion
+
+        #region Constructor
+
+        /// <summary>
+        /// Default constructor
+        /// </summary>
 		public ExperienceCurveForm()
 		{
 			InitializeComponent();
 			listBoxExperience.Font = new Font(FontHelper.MonoFont.FontFamily, 7.5f, FontStyle.Regular);
 			numericBasis.DataBindings.Add("Value", trackBarBasis, "Value",
-				false, DataSourceUpdateMode.OnPropertyChanged | DataSourceUpdateMode.OnValidation);
+				false, DataSourceUpdateMode.OnPropertyChanged);
 			numericInflation.DataBindings.Add("Value", trackBarInflation, "Value",
-				false, DataSourceUpdateMode.OnPropertyChanged | DataSourceUpdateMode.OnValidation);
+				false, DataSourceUpdateMode.OnPropertyChanged);
 		}
 
-		public void ChangeActor(Actor actor)
+        #endregion
+
+        #region Public Methods
+
+        /// <summary>
+        /// Changes the form's associated <see cref="RPG.Actor"/> to represent.
+        /// </summary>
+        /// <param name="actor">RPG.Actor instance</param>
+        public void ChangeActor(Actor actor)
 		{
 			_actor = actor;
 			listBoxExperience.ColumnWidth = _actor.final_level <= 100 ? 96 : 136;
@@ -39,20 +59,28 @@ namespace ARCed.Database.Actors
 			_startValues = new[] { _actor.exp_basis, _actor.exp_inflation };
 		}
 
+        /// <summary>
+        /// Calculates experience levels based on the given basis and inflation rate.
+        /// </summary>
+        /// <param name="basis">Base value</param>
+        /// <param name="inflation">Rate of inflation</param>
 		public void CalculateInflation(int basis, int inflation)
 		{
 			_expList = new long[_actor.final_level + 1];
-			double pow_i = 2.4d + inflation / 100.0d;
+			double powI = 2.4d + inflation / 100.0d;
 			double n;
 			for (int i = 2; i <= _actor.final_level; i++)
 			{
-				n = basis * (Math.Pow(i + 3, pow_i) / Math.Pow(5, pow_i));
+				n = basis * (Math.Pow(i + 3, powI) / Math.Pow(5, powI));
 				_expList[i] = _expList[i - 1] + Convert.ToInt64(n);
 			}
-			int digits = _expList[_expList.Length - 1].ToString().Length + 5;
-			_fStr = @"{0," + digits.ToString() + @"}";
+			var digits = _expList[_expList.Length - 1].ToString(CultureInfo.InvariantCulture).Length + 5;
+			_fStr = @"{0," + digits.ToString(CultureInfo.InvariantCulture) + @"}";
 		}
 
+        /// <summary>
+        /// Refreshes the table to display current values.
+        /// </summary>
 		public void RefreshTable()
 		{
 			if (_actor != null)
@@ -78,27 +106,31 @@ namespace ARCed.Database.Actors
 				listBoxExperience.Items.Clear();
 		}
 
-		private void numericBasis_ValueChanged(object sender, EventArgs e)
+        #endregion
+
+        #region Private Methods
+
+        private void NumericBasisValueChanged(object sender, EventArgs e)
 		{
 			RefreshTable();
 			if (_actor != null)
 				_actor.exp_basis = (int)numericBasis.Value;
 		}
 
-		private void numericInflation_ValueChanged(object sender, EventArgs e)
+		private void NumericInflationValueChanged(object sender, EventArgs e)
 		{
 			RefreshTable();
 			if (_actor != null)
 				_actor.exp_inflation = (int)numericInflation.Value;
 		}
 
-		private void buttonApply_Click(object sender, EventArgs e)
+		private void ButtonApplyClick(object sender, EventArgs e)
 		{
 			_actor.exp_basis = (int)numericBasis.Value;
 			_actor.exp_inflation = (int)numericInflation.Value;
 		}
 
-		private void listBoxExperience_DrawItem(object sender, DrawItemEventArgs e)
+		private void ListBoxExperienceDrawItem(object sender, DrawItemEventArgs e)
 		{
 			using (e.Graphics)
 			{
@@ -110,15 +142,17 @@ namespace ARCed.Database.Actors
 			}
 		}
 
-		private void radioButton_CheckedChanged(object sender, EventArgs e)
+		private void RadioButtonCheckedChanged(object sender, EventArgs e)
 		{
 			RefreshTable();
 		}
 
-		private void buttonCancel_Click(object sender, EventArgs e)
+		private void ButtonCancelClick(object sender, EventArgs e)
 		{
 			trackBarBasis.Value = _startValues[0];
 			trackBarInflation.Value = _startValues[1];
-		}
-	}
+        }
+
+        #endregion
+    }
 }

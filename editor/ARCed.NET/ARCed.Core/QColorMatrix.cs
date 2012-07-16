@@ -9,118 +9,140 @@ using System.Drawing.Imaging;
 namespace ARCed.Core
 {
 	/// <summary>
-	/// QColorMatrix
-	/// http://www.codeguru.com/Cpp/G-M/gdi/gdi/article.php/c3667
-	/// 
 	/// Extension of the GDI+ struct ColorMatrix.
-	/// Adds some member functions so you can actually do something with it.
-	/// Use QColorMatrix like ColorMatrix to update the ImmageAttributes class.
-	/// Use at your own risk. Comments welcome.
-	///
-	/// See: http://www.sgi.com/grafica/matrix/
-	/// http://www.sgi.com/software/opengl/advanced98/notes/node182.html
-	///
-	/// (chr) 2003, Sjaak Priester, Amsterdam.
-	/// mailto:sjaak@sjaakpriester.nl
-	/// 
-	/// This C# port from original C++ code is done by:
-	/// (C) 2010, Vasian Cepa
-	/// http://madebits.com
-	/// This port fixes a bug in TransformVector and offers some new convenience methods.
-	/// This class is not thread-safe.
 	/// </summary>
 	public class QColorMatrix
-	{
-		#region privateData
+    {
+        #region Nested Enum
 
+        /// <summary>
+        /// GDI+ type for MatrixOrder
+        /// </summary>
+        public enum MatrixOrder
+        {
+            /// <summary>
+            /// Prepend matrix order
+            /// </summary>
+            MatrixOrderPrepend = 0x00,
+            /// <summary>
+            /// Append matrix order
+            /// </summary>
+            MatrixOrderAppend = 0x01
+        }
+
+        #endregion
+
+        #region Private Constants
+
+        private const float LUM_R = 0.3086f;
+        private const float LUM_G = 0.6094f;
+        private const float LUM_B = 0.0820f;
 		private const int MATRIX_LENGTH = 5;
-		private readonly float[,] _m = new float[MATRIX_LENGTH, MATRIX_LENGTH];
-		private const float RAD = (float)(Math.PI / 180.0);
+        private const float RAD = (float)(Math.PI / 180.0);
+		
+        #endregion
 
-		/*
-		QColorMatrix rotates hues while preserving the luminance. In other words: only the color information is modified, not the black-and-white levels. If you would remove the color from an _srcTexture (by setting the saturation to zero), rotating the hue has no effect.
-		Because the luminance of the brightest red on the computer screen (RGB 255, 0, 0) is way lower than the luminance of the brightest green (RGB 0, 255, 0), the brightest red does not translate into the brightest green, but into a darker green.
-		It all has to do with the 'luminance weights' which are assigned to the R, G, and B elements of the color (see the const's in the top part of QColorMatrix.cpp). If all three luminance weights were equal (1.0), the brightest red would translate to the brightest green after rotation. However, rotating the hue would also mean modifying the luminance.
-		See http://www.graficaobscura.com/matrix/ for some more information on hue rotation.
-		For what it's worth, the Photoshop hue control works similar to QColormatrix in this respect.
-		*/
+        #region Private Fields
 
-		// The luminance weight factors for the RGB color space.
-		// These values are actually preferable to the better known factors of
-		// Y = 0.30R + 0.59G + 0.11B, the formula which is used in color television technique.
-		public static float lumR = 0.3086f;
-		public static float lumG = 0.6094f;
-		public static float lumB = 0.0820f;
-
-		private static readonly QColorMatrix preHue = new QColorMatrix();
-		private static readonly QColorMatrix postHue = new QColorMatrix();
+        private readonly float[,] _matrix = new float[MATRIX_LENGTH, MATRIX_LENGTH];
+	    private static readonly QColorMatrix _preHue = new QColorMatrix();
+		private static readonly QColorMatrix _postHue = new QColorMatrix();
 	    private static bool _initialized;
 
-		#endregion privateData
+		#endregion 
 
-		/// <summary>
-		/// gdi+ type
-		/// </summary>
-		public enum MatrixOrder { MatrixOrderPrepend = 0, MatrixOrderAppend = 1 };
+        #region Public Properties
 
-		#region ctors
+        /// <summary>
+        /// Gets the matrix
+        /// </summary>
+        public float[,] Matrix { get { return this._matrix; } }
 
+        #endregion
+
+		#region Constructor
+
+        /// <summary>
+        /// Default constructor
+        /// </summary>
 		public QColorMatrix()
 		{
 			Reset();
 		}
 
-		public QColorMatrix(float[,] m)
+        /// <summary>
+        /// Constructor specifying matrix data
+        /// </summary>
+        /// <param name="matrixData">Matrix data to initialize with</param>
+		public QColorMatrix(float[,] matrixData)
 		{
-			if (m == null)
+			if (matrixData == null)
 			{
 				Reset();
 				return;
 			}
-			Copy(m);
+			Copy(matrixData);
 		}
 
-		public QColorMatrix(float[][] m)
+        /// <summary>
+        /// Constructor specifying matrix data
+        /// </summary>
+        /// <param name="matrixData">Matrix data to initialize with</param>
+		public QColorMatrix(float[][] matrixData)
 		{
-			FromJaggedMatrix(m);
+			FromJaggedMatrix(matrixData);
 		}
 
-		public QColorMatrix(QColorMatrix qm)
+        /// <summary>
+        /// Constructor specifying matrix data
+        /// </summary>
+        /// <param name="matrixData">Matrix data to initialize with</param>
+		public QColorMatrix(QColorMatrix matrixData)
 		{
-			Copy(qm);
+			Copy(matrixData);
 		}
 
-		public QColorMatrix(ColorMatrix cm)
+        /// <summary>
+        /// Constructor specifying matrix data
+        /// </summary>
+        /// <param name="colorMatrix">Matrix data to initialize with</param>
+		public QColorMatrix(ColorMatrix colorMatrix)
 		{
-			FromColorMatrix(cm);
+			FromColorMatrix(colorMatrix);
 		}
 
-		#endregion ctors
+		#endregion 
 
-		public float[,] Matrix { get { return this._m; } }
+		#region Conversions
 
-		#region conversions
-
-		public void FromJaggedMatrix(float[][] m)
+        /// <summary>
+        /// Returns the given matrix data as a jagged matrix
+        /// </summary>
+        /// <param name="matrixData">Matrix data</param>
+		public void FromJaggedMatrix(float[][] matrixData)
 		{
 			Reset();
-			if (m == null)
+			if (matrixData == null)
 			{
 				return;
 			}
-			for (int i = 0; i < m.Length; i++)
+			for (int i = 0; i < matrixData.Length; i++)
 			{
-				if (m[i] == null)
+				if (matrixData[i] == null)
 				{
 					throw new ArgumentException();
 				}
-				for (int j = 0; j < m[i].Length; j++)
+				for (int j = 0; j < matrixData[i].Length; j++)
 				{
-					this._m[i, j] = m[i][j];
+					this._matrix[i, j] = matrixData[i][j];
 				}
 			}
 		}
 
+        /// <summary>
+        /// Converts the matrix to a jagged array of data
+        /// </summary>
+        /// <returns>Jagged array</returns>
 		public float[][] ToJaggedMatrix()
 		{
 			var t = new float[MATRIX_LENGTH][];
@@ -129,15 +151,19 @@ namespace ARCed.Core
 				t[i] = new float[MATRIX_LENGTH];
 				for (int j = 0; j < t[i].Length; j++)
 				{
-					t[i][j] = this._m[i, j];
+					t[i][j] = this._matrix[i, j];
 				}
 			}
 			return t;
 		}
 
-		public void FromColorMatrix(ColorMatrix cm)
+        /// <summary>
+        /// Translates the matrix from a <seealso cref="ColorMatrix"/>.
+        /// </summary>
+        /// <param name="colorMatrix">ColorMatrix to translate from</param>
+		public void FromColorMatrix(ColorMatrix colorMatrix)
 		{
-			if (cm == null)
+			if (colorMatrix == null)
 			{
 				Reset();
 				return;
@@ -146,11 +172,15 @@ namespace ARCed.Core
 			{
 				for (int j = 0; j < MATRIX_LENGTH; j++)
 				{
-					this._m[i, j] = cm[i, j];
+					this._matrix[i, j] = colorMatrix[i, j];
 				}
 			}
 		}
 
+        /// <summary>
+        /// Converts the matrix to a <seealso cref="ColorMatrix"/> and returns it.
+        /// </summary>
+        /// <returns>ColorMatrix representation</returns>
 		public ColorMatrix ToColorMatrix()
 		{
 			var cm = new ColorMatrix();
@@ -158,18 +188,18 @@ namespace ARCed.Core
 			{
 				for (int j = 0; j < MATRIX_LENGTH; j++)
 				{
-					cm[i, j] = this._m[i, j];
+					cm[i, j] = this._matrix[i, j];
 				}
 			}
 			return cm;
 		}
 
-		#endregion conversions
+		#endregion
 
-		#region core
+		#region Core
 
 		/// <summary>
-		/// set to identity matrix
+		/// Set to identity matrix
 		/// </summary>
 		public void Reset()
 		{
@@ -177,7 +207,7 @@ namespace ARCed.Core
 			{
 				for (int j = 0; j < MATRIX_LENGTH; j++)
 				{
-					this._m[i, j] = ((i == j) ? 1.0f : 0.0f);
+					this._matrix[i, j] = ((i == j) ? 1.0f : 0.0f);
 				}
 			}
 		}
@@ -192,51 +222,66 @@ namespace ARCed.Core
 			return TransformVector(v, false);
 		}
 
-		public static float[] Color2Vector(Color c)
+        /// <summary>
+        /// Converts a <seealso cref="Color"/> object to a vector and returns it.
+        /// </summary>
+        /// <param name="color">Color to convert</param>
+        /// <returns>Vector representation of the color</returns>
+		public static float[] Color2Vector(Color color)
 		{
-			if (c == null) return null;
 			var p = new float[4];
-			p[0] = c.R;
-			p[1] = c.G;
-			p[2] = c.B;
-			p[3] = c.A;
+			p[0] = color.R;
+			p[1] = color.G;
+			p[2] = color.B;
+			p[3] = color.A;
 			return p;
 		}
 
-		public static Color Vector2Color(float[] p)
+        /// <summary>
+        /// Converts a vector array to a <seealso cref="Color"/> object.
+        /// </summary>
+        /// <param name="vector">Floar array vector</param>
+        /// <returns>Color representation of the vector</returns>
+		public static Color Vector2Color(float[] vector)
 		{
-			if (p == null || (p.Length < 4))
+			if (vector == null || (vector.Length < 4))
 			{
 				throw new ArgumentException();
 			}
-			return Color.FromArgb((int)p[3], (int)p[0], (int)p[1], (int)p[2]);
+			return Color.FromArgb((int)vector[3], (int)vector[0], (int)vector[1], (int)vector[2]);
 		}
 
-		public float[] TransformVector(float[] v, bool normalize)
+        /// <summary>
+        /// Transforms a vector
+        /// </summary>
+        /// <param name="vector">Vector to transform</param>
+        /// <param name="normalize">Flag to normalize data before returning</param>
+        /// <returns>Transformed vector.</returns>
+		public float[] TransformVector(float[] vector, bool normalize)
 		{
-			if (v == null || (v.Length < 4))
+			if (vector == null || (vector.Length < 4))
 			{
 				throw new ArgumentException();
 			}
 			var temp = new float[4];
 			for (int x = 0; x < 4; x++)
 			{
-				temp[x] = 255.0f * this._m[4, x];
+				temp[x] = 255.0f * this._matrix[4, x];
 				for (int y = 0; y < 4; y++)
 				{
-					temp[x] += v[y] * this._m[y, x];
+					temp[x] += vector[y] * this._matrix[y, x];
 				}
 			}
 			for (int x = 0; x < 4; x++)
 			{
-				v[x] = temp[x];
+				vector[x] = temp[x];
 				if (normalize)
 				{
-					if (v[x] < 0) v[x] = 0.0f;
-					else if (v[x] > 255.0f) v[x] = 255.0f;
+					if (vector[x] < 0) vector[x] = 0.0f;
+					else if (vector[x] > 255.0f) vector[x] = 255.0f;
 				}
 			}
-			return v;
+			return vector;
 		}
 
 		/// <summary>
@@ -253,31 +298,34 @@ namespace ARCed.Core
 			}
 			return colors;
 		}
-
-
+        
+        /// <summary>
+        /// Multiplies the given matrix
+        /// </summary>
+        /// <param name="matrix">Matrix to multiply</param>
 		public void Multiply(QColorMatrix matrix)
 		{
 			Multiply(matrix, MatrixOrder.MatrixOrderPrepend);
 		}
 
-		/// <summary>
-		/// Unlike the original C++ code we multiply all value here.
-		/// </summary>
+        /// <summary>
+        /// Multiply the given matrix using the specified matrix order.
+        /// </summary>
+        /// <param name="matrix">Matrix to multiply</param>
+        /// <param name="order">Order to multiply with</param>
 		public void Multiply(QColorMatrix matrix, MatrixOrder order)
 		{
 			if (matrix == null) throw new ArgumentException();
-			float[,] a = null;
-			float[,] b = null;
-
+            float[,] a, b;
 			if (order == MatrixOrder.MatrixOrderAppend)
 			{
-				a = matrix._m;
-				b = this._m;
+				a = matrix._matrix;
+				b = this._matrix;
 			}
 			else
 			{
-				a = this._m;
-				b = matrix._m;
+				a = this._matrix;
+				b = matrix._matrix;
 			}
 
 			var temp = new float[MATRIX_LENGTH, MATRIX_LENGTH];
@@ -297,18 +345,22 @@ namespace ARCed.Core
 			{
 				for (int x = 0; x < MATRIX_LENGTH; x++)
 				{
-					this._m[y, x] = temp[y, x];
+					this._matrix[y, x] = temp[y, x];
 				}
 			}
 		}
 
-		#endregion core
+		#endregion 
 
-		#region scale
+		#region Scale
 
-		/// <summary>
-		/// Update this matrix with the product of itself and a scaling vector.
-		/// </summary>
+        /// <summary>
+        /// Update this matrix with the product of itself and a scaling vector.
+        /// </summary>
+        /// <param name="scaleRed">Red scaling value</param>
+        /// <param name="scaleGreen">Green scaling value</param>
+        /// <param name="scaleBlue">Blue scaling value</param>
+        /// <param name="scaleOpacity">Alpha scaling value</param>
 		public void Scale(float scaleRed, float scaleGreen, float scaleBlue,
 			float scaleOpacity)
 		{
@@ -316,47 +368,74 @@ namespace ARCed.Core
 				scaleOpacity, MatrixOrder.MatrixOrderPrepend);
 		}
 
+        /// <summary>
+        /// Update this matrix with the product of itself and a scaling vector.
+        /// </summary>
+        /// <param name="scaleRed">Red scaling value</param>
+        /// <param name="scaleGreen">Green scaling value</param>
+        /// <param name="scaleBlue">Blue scaling value</param>
+        /// <param name="scaleOpacity">Alpha scaling value</param>
+        /// <param name="order">Matrix order</param>
 		public void Scale(float scaleRed, float scaleGreen, float scaleBlue,
 			float scaleOpacity, MatrixOrder order)
 		{
 			var qm = new QColorMatrix();
-			qm._m[0, 0] = scaleRed;
-			qm._m[1, 1] = scaleGreen;
-			qm._m[2, 2] = scaleBlue;
-			qm._m[3, 3] = scaleOpacity;
+			qm._matrix[0, 0] = scaleRed;
+			qm._matrix[1, 1] = scaleGreen;
+			qm._matrix[2, 2] = scaleBlue;
+			qm._matrix[3, 3] = scaleOpacity;
 			Multiply(qm, order);
 		}
-
-		/// <summary>
-		/// Scale just the three colors with the same amount, leave opacity unchanged
-		/// </summary>
+        
+        /// <summary>
+        /// Scale just the three colors with the same amount, leave opacity unchanged
+        /// </summary>
+        /// <param name="scale">Scale value</param>
 		public void ScaleColors(float scale)
 		{
 			ScaleColors(scale, MatrixOrder.MatrixOrderPrepend);
 		}
 
+        /// <summary>
+        /// Scale just the three colors with the same amount, leave opacity unchanged
+        /// </summary>
+        /// <param name="scale">Scale value</param>
+        /// <param name="order">Matrix order</param>
 		public void ScaleColors(float scale, MatrixOrder order)
 		{
 			Scale(scale, scale, scale, 1.0f, order);
 		}
 
+        /// <summary>
+        /// Scales the matrix opacity
+        /// </summary>
+        /// <param name="scaleOpacity">Alpha scaling value</param>
 		public void ScaleOpacity(float scaleOpacity)
 		{
 			ScaleOpacity(scaleOpacity, MatrixOrder.MatrixOrderPrepend);
 		}
 
+        /// <summary>
+        /// Scales the matrix opacity
+        /// </summary>
+        /// <param name="scaleOpacity">Alpha scaling value</param>
+        /// <param name="order">Matrix order</param>
 		public void ScaleOpacity(float scaleOpacity, MatrixOrder order)
 		{
 			Scale(1.0f, 1.0f, 1.0f, scaleOpacity, order);
 		}
 
-		#endregion scale
+		#endregion
 
-		#region traslate
+		#region Translate
 
-		/// <summary>
-		/// Update this matrix with the product of itself and a translation vector.
-		/// </summary>
+        /// <summary>
+        /// Update this matrix with the product of itself and a translation vector.
+        /// </summary>
+        /// <param name="offsetRed">Red offset value</param>
+        /// <param name="offsetGreen">Green offset value</param>
+        /// <param name="offsetBlue">Blue offset value</param>
+        /// <param name="offsetOpacity">Alpha offset value</param>
 		public void Translate(float offsetRed, float offsetGreen, float offsetBlue,
 			float offsetOpacity)
 		{
@@ -364,129 +443,224 @@ namespace ARCed.Core
 				offsetOpacity, MatrixOrder.MatrixOrderPrepend);
 		}
 
+        /// <summary>
+        /// Update this matrix with the product of itself and a translation vector.
+        /// </summary>
+        /// <param name="offsetRed">Red offset value</param>
+        /// <param name="offsetGreen">Green offset value</param>
+        /// <param name="offsetBlue">Blue offset value</param>
+        /// <param name="offsetOpacity">Alpha offset value</param>
+        /// <param name="order">Matrix order</param>
 		public void Translate(float offsetRed, float offsetGreen, float offsetBlue,
 			float offsetOpacity, MatrixOrder order)
 		{
 			var qm = new QColorMatrix();
-			qm._m[4, 0] = offsetRed;
-			qm._m[4, 1] = offsetGreen;
-			qm._m[4, 2] = offsetBlue;
-			qm._m[4, 3] = offsetOpacity;
+			qm._matrix[4, 0] = offsetRed;
+			qm._matrix[4, 1] = offsetGreen;
+			qm._matrix[4, 2] = offsetBlue;
+			qm._matrix[4, 3] = offsetOpacity;
 			Multiply(qm, order);
 		}
 
+        /// <summary>
+        /// Translate matrix colors
+        /// </summary>
+        /// <param name="offset">Offset value</param>
 		public void TranslateColors(float offset)
 		{
 			TranslateColors(offset, MatrixOrder.MatrixOrderPrepend);
 		}
 
+        /// <summary>
+        /// Translate matrix colors
+        /// </summary>
+        /// <param name="offset">Offset value</param>
+        /// <param name="order">Matrix order</param>
 		public void TranslateColors(float offset, MatrixOrder order)
 		{
 			Translate(offset, offset, offset, 0.0f, order);
 		}
 
+        /// <summary>
+        /// Translate matrix opacity
+        /// </summary>
+        /// <param name="offsetOpacity">Alpha offset value</param>
 		public void TranslateOpacity(float offsetOpacity)
 		{
 			TranslateOpacity(offsetOpacity, MatrixOrder.MatrixOrderPrepend);
 		}
 
+        /// <summary>
+        /// Translate matrix opacity
+        /// </summary>
+        /// <param name="offsetOpacity">Alpha offset value</param>
+        /// <param name="order">Matrix order</param>
 		public void TranslateOpacity(float offsetOpacity, MatrixOrder order)
 		{
 			Translate(0.0f, 0.0f, 0.0f, offsetOpacity, order);
 		}
 
-		#endregion traslate
+		#endregion 
 
-		#region rotate
+		#region Rotate
 
-		// Rotate the matrix around one of the color axes. The color of the rotation
-		// axis is unchanged, the other two colors are rotated in color space.
-		// The angle phi is in degrees (-180.0f... 180.0f).
-
+        /// <summary>
+        /// Rotate the matrix around the red color axes. The color of the rotation 
+        /// axis is unchanged, the other two colors are rotated in color space.
+        /// </summary>
+        /// <param name="phi">Angle in degrees to rotate (-180.0f... 180.0f).</param>
 		public void RotateRed(float phi)
 		{
 			RotateRed(phi, MatrixOrder.MatrixOrderPrepend);
 		}
+
+        /// <summary>
+        /// Rotate the matrix around the green color axes. The color of the rotation 
+        /// axis is unchanged, the other two colors are rotated in color space.
+        /// </summary>
+        /// <param name="phi">Angle in degrees to rotate (-180.0f... 180.0f).</param>
 		public void RotateGreen(float phi)
 		{
 			RotateGreen(phi, MatrixOrder.MatrixOrderPrepend);
 		}
+
+        /// <summary>
+        /// Rotate the matrix around the blue color axes. The color of the rotation 
+        /// axis is unchanged, the other two colors are rotated in color space.
+        /// </summary>
+        /// <param name="phi">Angle in degrees to rotate (-180.0f... 180.0f).</param>
 		public void RotateBlue(float phi)
 		{
 			RotateBlue(phi, MatrixOrder.MatrixOrderPrepend);
 		}
+
+        /// <summary>
+        /// Rotate the matrix around the red color axes. The color of the rotation 
+        /// axis is unchanged, the other two colors are rotated in color space.
+        /// </summary>
+        /// <param name="phi">Angle in degrees to rotate (-180.0f... 180.0f).</param>
+        /// <param name="order">Matrix order</param>
 		public void RotateRed(float phi, MatrixOrder order)
 		{
 			RotateColor(phi, 2, 1, order);
 		}
+
+        /// <summary>
+        /// Rotate the matrix around the green color axes. The color of the rotation 
+        /// axis is unchanged, the other two colors are rotated in color space.
+        /// </summary>
+        /// <param name="phi">Angle in degrees to rotate (-180.0f... 180.0f).</param>
+        /// <param name="order">Matrix order</param>
 		public void RotateGreen(float phi, MatrixOrder order)
 		{
 			RotateColor(phi, 0, 2, order);
 		}
+
+        /// <summary>
+        /// Rotate the matrix around the blue color axes. The color of the rotation 
+        /// axis is unchanged, the other two colors are rotated in color space.
+        /// </summary>
+        /// <param name="phi">Angle in degrees to rotate (-180.0f... 180.0f).</param>
+        /// <param name="order">Matrix order</param>
 		public void RotateBlue(float phi, MatrixOrder order)
 		{
 			RotateColor(phi, 1, 0, order);
 		}
 
-		#endregion rotate
+		#endregion 
 
-		#region shear
+		#region Shear
 
 		// Shear the matrix in one of the color planes. The color of the color plane
 		// is influenced by the two other colors.
 
+        /// <summary>
+        /// Shear the matrix in the red color plane. The color is influenced by the other two planes.
+        /// </summary>
+        /// <param name="green">Green color plane</param>
+        /// <param name="blue">Blue color plane</param>
 		public void ShearRed(float green, float blue)
 		{
 			ShearRed(green, blue, MatrixOrder.MatrixOrderPrepend);
 		}
 
+        /// <summary>
+        /// Shear the matrix in the green color plane. The color is influenced by the other two planes.
+        /// </summary>
+        /// <param name="red">Red color plane</param>
+        /// <param name="blue">Blue color plane</param>
 		public void ShearGreen(float red, float blue)
 		{
 			ShearGreen(red, blue, MatrixOrder.MatrixOrderPrepend);
 		}
 
+        /// <summary>
+        /// Shear the matrix in the blue color plane. The color is influenced by the other two planes.
+        /// </summary>
+        /// <param name="red">Red color plane</param>
+        /// <param name="green">Green color plane</param>
 		public void ShearBlue(float red, float green)
 		{
 			ShearBlue(red, green, MatrixOrder.MatrixOrderPrepend);
 		}
 
+        /// <summary>
+        /// Shear the matrix in the red color plane. The color is influenced by the other two planes.
+        /// </summary>
+        /// <param name="green">Green color plane</param>
+        /// <param name="blue">Blue color plane</param>
+        /// <param name="order">Matrix order</param>
 		public void ShearRed(float green, float blue, MatrixOrder order)
 		{
 			ShearColor(0, 1, green, 2, blue, order);
 		}
 
+        /// <summary>
+        /// Shear the matrix in the green color plane. The color is influenced by the other two planes.
+        /// </summary>
+        /// <param name="red">Red color plane</param>
+        /// <param name="blue">Blue color plane</param>
+        /// <param name="order">Matrix order</param>
 		public void ShearGreen(float red, float blue, MatrixOrder order)
 		{
 			ShearColor(1, 0, red, 2, blue, order);
 		}
 
+        /// <summary>
+        /// Shear the matrix in the blue color plane. The color is influenced by the other two planes.
+        /// </summary>
+        /// <param name="red">Red color plane</param>
+        /// <param name="green">Green color plane</param>
+        /// <param name="order">Matrix order</param>
 		public void ShearBlue(float red, float green, MatrixOrder order)
 		{
 			ShearColor(2, 0, red, 1, green, order);
 		}
 
-		#endregion shear
+		#endregion 
 
-		#region HueSat
+		#region Hue/Saturation
 
+        /// <summary>
+        /// Sets the matrix saturation
+        /// </summary>
+        /// <param name="saturation">Saturation value</param>
 		public void SetSaturation(float saturation)
 		{
 			SetSaturation(saturation, MatrixOrder.MatrixOrderPrepend);
 		}
 
-		/// <summary>
-		/// Set the saturation of the matrix. Saturation of 0.0f yields black and white, 1.0f is neutral.
-		/// </summary>
+        /// <summary>
+        /// Set the saturation of the matrix. Saturation of 0.0f yields black and white, 1.0f is neutral.
+        /// </summary>
+        /// <param name="saturation">Saturation value</param>
+        /// <param name="order">Matrix order</param>
 		public void SetSaturation(float saturation, MatrixOrder order)
 		{
-			// For the theory behind this, see the web sites at the top of this file.
-			// In short: if saturation is 1.0f, m becomes the identity matrix, and this matrix is
-			// unchanged. If saturation is 0.0f, each color is scaled by it's luminance weight.
 			float satCompl = 1.0f - saturation;
-			float satComplR = lumR * satCompl;
-			float satComplG = lumG * satCompl;
-			float satComplB = lumB * satCompl;
-
+			float satComplR = LUM_R * satCompl;
+			float satComplG = LUM_G * satCompl;
+			float satComplB = LUM_B * satCompl;
 			var tm = new[,]
             {
                 {satComplR + saturation,	satComplR,	satComplR,	0.0f, 0.0f} ,
@@ -495,101 +669,80 @@ namespace ARCed.Core
 		        {0.0f,	0.0f,	0.0f,	1.0f,	0.0f},
 		        {0.0f,	0.0f,	0.0f,	0.0f,	1.0f}
             };
-
 			var qm = new QColorMatrix(tm);
 			Multiply(qm, order);
 		}
 
-		/// <summary>
-		/// Rotate the hue around the grey axis, keeping luminance fixed. Greys are fixed,
-		/// all other colors change.
-		/// </summary>
+
+        /// <summary>
+        /// Rotate the hue around the gray axis, keeping luminance fixed. Grays are fixed,
+        /// all other colors change.
+        /// </summary>
+        /// <param name="phi">Degrees to rotate</param>
 		public void RotateHue(float phi)
 		{
 			InitHue();
-			// Rotate the grey vector to the blue axis.
-			Multiply(preHue, MatrixOrder.MatrixOrderAppend);
-			// Rotate around the blue axis
+			Multiply(_preHue, MatrixOrder.MatrixOrderAppend);
 			RotateBlue(phi, MatrixOrder.MatrixOrderAppend);
-			Multiply(postHue, MatrixOrder.MatrixOrderAppend);
+			Multiply(_postHue, MatrixOrder.MatrixOrderAppend);
 		}
 
-		#endregion HueSat
+		#endregion 
 
-		#region convenience
+		#region Convenience
 
+        /// <summary>
+        /// Sets the matrix contrast
+        /// </summary>
+        /// <param name="scale">Constrast scale value</param>
 		public void SetContrast(float scale)
 		{
 			ScaleColors(scale);
 		}
 
+        /// <summary>
+        /// Sets the matrix brightness
+        /// </summary>
+        /// <param name="offset">Brightness offset value</param>
 		public void SetBrightness(float offset)
 		{
 			TranslateColors(offset, MatrixOrder.MatrixOrderAppend);
 		}
 
+        /// <summary>
+        /// Sets the matrix saturation using <seealso cref="MatrixOrder.MatrixOrderAppend"/> order.
+        /// </summary>
+        /// <param name="saturation">Saturation value.</param>
 		public void SetSaturation2(float saturation)
 		{
 			SetSaturation(saturation, MatrixOrder.MatrixOrderAppend);
 		}
 
-		#endregion convenience
+		#endregion 
 
-		#region private
+		#region Private Methods
 
 		private static void InitHue()
 		{
 			const float greenRotation = 35.0f;
-			//	const REAL greenRotation = 39.182655f;
-
-			// NOTE: theoretically, greenRotation should have the value of 39.182655 degrees,
-			// being the angle for which the sine is 1/(sqrt(3)), and the cosine is sqrt(2/3).
-			// However, I found that using a slightly smaller angle works better.
-			// In particular, the greys in the _srcTexture are not visibly affected with the smaller
-			// angle, while they deviate a little bit with the theoretical value.
-			// An explanation escapes me for now.
-			// If you rather stick with the theory, change the comments in the previous lines.
-
-
 			if (!_initialized)
 			{
 				_initialized = true;
-				// Rotating the hue of an _srcTexture is a rather convoluted task, involving several matrix
-				// multiplications. For efficiency, we prepare two static matrices.
-				// This is by far the most complicated part of this class. For the background
-				// theory, refer to the sgi-sites mentioned at the top of this file.
-
-				// Prepare the preHue matrix.
-				// Rotate the grey vector in the green plane.
-				preHue.RotateRed(45.0f);
-
-				// Next, rotate it again in the green plane, so it coincides with the blue axis.
-				preHue.RotateGreen(-greenRotation, MatrixOrder.MatrixOrderAppend);
-
-				// Hue rotations keep the color luminations constant, so that only the hues change
-				// visible. To accomplish that, we shear the blue plane.
-				var lum = new[] { lumR, lumG, lumB, 1.0f };
-
-				// Transform the luminance vector.
-				preHue.TransformVector(lum);
-
-				// Calculate the shear factors for red and green.
+				_preHue.RotateRed(45.0f);
+				_preHue.RotateGreen(-greenRotation, MatrixOrder.MatrixOrderAppend);
+				var lum = new[] { LUM_R, LUM_G, LUM_B, 1.0f };
+				_preHue.TransformVector(lum);
 				float red = lum[0] / lum[2];
 				float green = lum[1] / lum[2];
-
-				// Shear the blue plane.
-				preHue.ShearBlue(red, green, MatrixOrder.MatrixOrderAppend);
-
-				// Prepare the postHue matrix. This holds the opposite transformations of the
-				// preHue matrix. In fact, postHue is the inversion of preHue.
-				postHue.ShearBlue(-red, -green);
-				postHue.RotateGreen(greenRotation, MatrixOrder.MatrixOrderAppend);
-				postHue.RotateRed(-45.0f, MatrixOrder.MatrixOrderAppend);
+				_preHue.ShearBlue(red, green, MatrixOrder.MatrixOrderAppend);
+				_postHue.ShearBlue(-red, -green);
+				_postHue.RotateGreen(greenRotation, MatrixOrder.MatrixOrderAppend);
+				_postHue.RotateRed(-45.0f, MatrixOrder.MatrixOrderAppend);
 			}
 		}
 
         /// <summary>
-        /// x and y are the indices of the value to receive the sin(phi) value
+        /// X and Y are the indices of the value to receive the sin(phi) value
         /// </summary>
         /// <param name="phi">phi is in degrees</param>
         /// <param name="x">x value</param>
@@ -599,21 +752,18 @@ namespace ARCed.Core
 		{
 			phi *= RAD;
 			var qm = new QColorMatrix();
-
-			qm._m[x, x] = qm._m[y, y] = (float)Math.Cos(phi);
-
+			qm._matrix[x, x] = qm._matrix[y, y] = (float)Math.Cos(phi);
 			var s = (float)Math.Sin(phi);
-			qm._m[y, x] = s;
-			qm._m[x, y] = -s;
-
+			qm._matrix[y, x] = s;
+			qm._matrix[x, y] = -s;
 			Multiply(qm, order);
 		}
 
 		private void ShearColor(int x, int y1, float d1, int y2, float d2, MatrixOrder order)
 		{
 			var qm = new QColorMatrix();
-			qm._m[y1, x] = d1;
-			qm._m[y2, x] = d2;
+			qm._matrix[y1, x] = d1;
+			qm._matrix[y2, x] = d2;
 			Multiply(qm, order);
 		}
 
@@ -624,19 +774,19 @@ namespace ARCed.Core
 				Reset();
 				return;
 			}
-			Copy(qm._m);
+			Copy(qm._matrix);
 		}
 
 		private void Copy(float[,] m)
 		{
-			if ((m == null) || (m.Length != this._m.Length))
+			if ((m == null) || (m.Length != this._matrix.Length))
 			{
 				throw new ArgumentException();
 			}
-			Array.Copy(m, this._m, m.Length);
+			Array.Copy(m, this._matrix, m.Length);
 		}
 
-		#endregion private
+		#endregion 
 
-	}//EOC
+	}
 }

@@ -3,6 +3,7 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms.DataVisualization.Charting;
 using System.Xml.Serialization;
 
@@ -10,6 +11,9 @@ using System.Xml.Serialization;
 
 namespace ARCed.Settings
 {
+    /// <summary>
+    /// Class containing settings for the look and behavior of charting controls.
+    /// </summary>
 	[Serializable]
 	public class ChartSettings
 	{
@@ -59,21 +63,9 @@ namespace ARCed.Settings
 		/// </summary>
 		[XmlElement("Colors")]
 		public List<string> ColorsHtml 
-		{ 
-			get
-			{
-				var colors = new List<string>();
-				foreach (Color c in Colors)
-					colors.Add(ColorTranslator.ToHtml(c));
-				return colors;
-			}
-			set
-			{
-				var colors = new List<Color>();
-				foreach (string color in value)
-					colors.Add(ColorTranslator.FromHtml(color));
-				Colors = colors;
-			}
+		{
+            get { return this.Colors.Select(ColorTranslator.ToHtml).ToList(); }
+            set { Colors = value.Select(ColorTranslator.FromHtml).ToList(); }
 		}
 
 		/// <summary>

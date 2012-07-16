@@ -154,9 +154,9 @@ namespace ARCed.Helpers
 		    _localWatcher.Created += FileSystemWatcherCreated;
 		    _localWatcher.Deleted += FileSystemWatcherDeleted;
 		    _localWatcher.Renamed += FileSystemWatcherRenamed;
-		    if (Directory.Exists(Constants.RTP_PATH))
+		    if (Directory.Exists(Constants.RTPPath))
 		    {
-		        _rtpWatcher = new FileSystemWatcher(Constants.RTP_PATH)
+		        _rtpWatcher = new FileSystemWatcher(Constants.RTPPath)
 		                          { IncludeSubdirectories = true, EnableRaisingEvents = true };
 		        _rtpWatcher.Created += FileSystemWatcherCreated;
 		        _rtpWatcher.Deleted += FileSystemWatcherDeleted;
@@ -194,8 +194,8 @@ namespace ARCed.Helpers
 		public static void RefreshRTP()
 		{
 			_resources.RemoveAll(r => r.Location == Location.RTP);
-			var graphics = Path.Combine(Constants.RTP_PATH, "Graphics");
-			var audio = Path.Combine(Constants.RTP_PATH, "Audio");
+			var graphics = Path.Combine(Constants.RTPPath, "Graphics");
+			var audio = Path.Combine(Constants.RTPPath, "Audio");
 			foreach (string filename in DirectorySearch(graphics, Constants.IMAGEFILTERS.Split('|')))
 				_resources.Add(new GameResource(filename, Location.RTP, ResourceType.Graphics));
             foreach (string filename in DirectorySearch(audio, Constants.AUDIOFILTERS.Split('|')))
@@ -286,7 +286,7 @@ namespace ARCed.Helpers
 		/// <param name="e">Event arguments</param>
 		private static void FileSystemWatcherCreated(object sender, FileSystemEventArgs e)
 		{
-			var location = e.FullPath.Contains(Constants.RTP_PATH) ? Location.RTP : Location.Local;
+			var location = e.FullPath.Contains(Constants.RTPPath) ? Location.RTP : Location.Local;
 			_resources.Add(new GameResource(e.FullPath, location, ResourceType.Unknown));
 		}
 

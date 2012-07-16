@@ -8,10 +8,21 @@ using ARCed.Helpers;
 
 namespace ARCed.Dialogs
 {
+    /// <summary>
+    /// Dialog for getting a user-defined <see langword="string"/>.
+    /// </summary>
 	public partial class UserStringForm : Form
-	{
-		/// <summary>
-		/// Gets or sets the text in the textbox field
+    {
+        #region Private Fields
+
+        private readonly bool _validate;
+
+        #endregion
+
+        #region Public Properties
+
+        /// <summary>
+        /// Gets or sets the text in the <see cref="TextBox"/> field.
 		/// </summary>
 		public string UserString
 		{
@@ -20,7 +31,7 @@ namespace ARCed.Dialogs
 		}
 
 		/// <summary>
-		/// Gets or sets the label for the textbox
+		/// Gets or sets the label for the <see cref="TextBox"/> control on the form.
 		/// </summary>
 		public string Label
 		{
@@ -28,35 +39,52 @@ namespace ARCed.Dialogs
 			set { labelString.Text = value; }
 		}
 
-		private readonly bool _validate;
+        /// <summary>
+        /// Gets or sets the text of the control.
+        /// </summary>
+        public override sealed string Text
+        {
+            get { return base.Text; }
+            set { base.Text = value; }
+        }
 
-		/// <summary>
+        #endregion
+
+        #region Constructor
+
+        /// <summary>
 		/// Creates a new instance of the form
 		/// </summary>
 		/// <param name="title">The title of the form in the header</param>
-		/// <param name="defaultText">Default text for the textbox field</param>
-		/// <param name="label">The text for the textbox label</param>
+        /// <param name="defaultText">Default text for the <see cref="TextBox"/> field</param>
+        /// <param name="label">The text for the <see cref="TextBox"/> label</param>
 		/// <param name="validate">Flag to validate text for filenames</param>
 		public UserStringForm(string title, string defaultText, string label, bool validate = false)
 		{
 			InitializeComponent();
-			this.Text = title;
+			Text = title;
 			textBoxString.Text = defaultText;
 			labelString.Text = label;
 			_validate = validate;
 		}
 
-		private void buttonOK_Click(object sender, EventArgs e)
+        #endregion
+
+        #region Private Fields
+
+        private void ButtonOkClick(object sender, EventArgs e)
 		{
-			this.DialogResult = DialogResult.OK;
-			this.Close();
+			DialogResult = DialogResult.OK;
+			Close();
 		}
 
-		private void textBoxString_TextChanged(object sender, EventArgs e)
+		private void TextBoxStringTextChanged(object sender, EventArgs e)
 		{
 			if (_validate)
 				Util.ValidateTextBox(textBoxString);
 			buttonOK.Enabled = textBoxString.Text.Trim() != "";
-		}
-	}
+        }
+
+        #endregion
+    }
 }

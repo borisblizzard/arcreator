@@ -112,20 +112,16 @@ namespace ARCed.Plugins
 		private static IEnumerable<DictionaryEntry> ReadResourceConfiguration(Assembly assembly)
 		{
 			var config = new List<DictionaryEntry>();
-			foreach (var resName in assembly.GetManifestResourceNames())
-			{
-				using (var stream = assembly.GetManifestResourceStream(resName))
-				{
-				    if (stream != null)
-				        using (var reader = new ResourceReader(stream))
-				        {
-				            var kvp = reader.GetEnumerator();
-				            while (kvp.MoveNext())
-				                config.Add(kvp.Entry);
-				        }
-				}
-			}
-			return config;
+		    foreach (var resName in assembly.GetManifestResourceNames())
+		        using (var stream = assembly.GetManifestResourceStream(resName))
+		            if (stream != null)
+		                using (var reader = new ResourceReader(stream))
+		                {
+		                    var kvp = reader.GetEnumerator();
+		                    while (kvp.MoveNext())
+		                        config.Add(kvp.Entry);
+		                }
+		    return config;
 		}
 
 		/// <summary>

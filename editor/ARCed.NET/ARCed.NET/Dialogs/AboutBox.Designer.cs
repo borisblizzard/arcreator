@@ -67,7 +67,7 @@
             // 
             resources.ApplyResources(this.DetailsButton, "DetailsButton");
             this.DetailsButton.Name = "DetailsButton";
-            this.DetailsButton.Click += new System.EventHandler(this.DetailsButton_Click);
+            this.DetailsButton.Click += new System.EventHandler(this.DetailsButtonClick);
             // 
             // ImagePictureBox
             // 
@@ -84,7 +84,7 @@
             // 
             resources.ApplyResources(this.SysInfoButton, "SysInfoButton");
             this.SysInfoButton.Name = "SysInfoButton";
-            this.SysInfoButton.Click += new System.EventHandler(this.SysInfoButton_Click);
+            this.SysInfoButton.Click += new System.EventHandler(this.SysInfoButtonClick);
             // 
             // AppCopyrightLabel
             // 
@@ -124,7 +124,7 @@
             this.MoreRichTextBox.BackColor = System.Drawing.SystemColors.ControlLight;
             this.MoreRichTextBox.Name = "MoreRichTextBox";
             this.MoreRichTextBox.ReadOnly = true;
-            this.MoreRichTextBox.LinkClicked += new System.Windows.Forms.LinkClickedEventHandler(this.MoreRichTextBox_LinkClicked);
+            this.MoreRichTextBox.LinkClicked += new System.Windows.Forms.LinkClickedEventHandler(this.MoreRichTextBoxLinkClicked);
             // 
             // TabPanelDetails
             // 
@@ -134,7 +134,7 @@
             this.TabPanelDetails.Controls.Add(this.TabPageAssemblyDetails);
             this.TabPanelDetails.Name = "TabPanelDetails";
             this.TabPanelDetails.SelectedIndex = 0;
-            this.TabPanelDetails.SelectedIndexChanged += new System.EventHandler(this.TabPanelDetails_SelectedIndexChanged);
+            this.TabPanelDetails.SelectedIndexChanged += new System.EventHandler(this.TabPanelDetailsSelectedIndexChanged);
             // 
             // TabPageApplication
             // 
@@ -182,8 +182,8 @@
             this.AssemblyInfoListView.Sorting = System.Windows.Forms.SortOrder.Ascending;
             this.AssemblyInfoListView.UseCompatibleStateImageBehavior = false;
             this.AssemblyInfoListView.View = System.Windows.Forms.View.Details;
-            this.AssemblyInfoListView.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.AssemblyInfoListView_ColumnClick);
-            this.AssemblyInfoListView.DoubleClick += new System.EventHandler(this.AssemblyInfoListView_DoubleClick);
+            this.AssemblyInfoListView.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.AssemblyInfoListViewColumnClick);
+            this.AssemblyInfoListView.DoubleClick += new System.EventHandler(this.AssemblyInfoListViewDoubleClick);
             // 
             // colAssemblyName
             // 
@@ -235,7 +235,7 @@
             this.AssemblyNamesComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.AssemblyNamesComboBox.Name = "AssemblyNamesComboBox";
             this.AssemblyNamesComboBox.Sorted = true;
-            this.AssemblyNamesComboBox.SelectedIndexChanged += new System.EventHandler(this.AssemblyNamesComboBox_SelectedIndexChanged);
+            this.AssemblyNamesComboBox.SelectedIndexChanged += new System.EventHandler(this.AssemblyNamesComboBoxSelectedIndexChanged);
             // 
             // AboutBox
             // 
@@ -259,8 +259,8 @@
             this.MinimizeBox = false;
             this.Name = "AboutBox";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
-            this.Load += new System.EventHandler(this.AboutBox_Load);
-            this.Paint += new System.Windows.Forms.PaintEventHandler(this.AboutBox_Paint);
+            this.Load += new System.EventHandler(this.AboutBoxLoad);
+            this.Paint += new System.Windows.Forms.PaintEventHandler(this.AboutBoxPaint);
             ((System.ComponentModel.ISupportInitialize)(this.ImagePictureBox)).EndInit();
             this.TabPanelDetails.ResumeLayout(false);
             this.TabPageApplication.ResumeLayout(false);

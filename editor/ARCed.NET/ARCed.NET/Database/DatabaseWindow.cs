@@ -106,10 +106,15 @@ namespace ARCed.Database
     /// Base class for database forms.
     /// </summary>
 	public class DatabaseWindow : DockContent
-	{
-		private Image _imageIcon;
+    {
+        #region Private Fields
+
+        private Image _imageIcon;
 		private Type _rpgType;
-		/// <summary>
+
+        #endregion
+
+        /// <summary>
 		/// Flag if control changing should cause events to be raised.
 		/// </summary>
 		protected bool SuppressEvents;

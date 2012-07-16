@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 using ARCed.Helpers;
@@ -66,7 +67,7 @@ namespace ARCed.Database.Actors
 			_actor = actor;
 			numericLevel.Minimum = _actor.initial_level;
 			numericLevel.Maximum = _actor.final_level;
-			this.TabText = String.Format("Parameters: {0}", _actor.name);
+			TabText = String.Format("Parameters: {0}", _actor.name);
 			GenerateCharts();
 			Windows.ChartSettingsForm.SetCharts(ref _charts);
 			tabControlParameters.SelectedIndex = index;
@@ -76,38 +77,38 @@ namespace ARCed.Database.Actors
 
 		#region Mouse Events
 
-		private void chart_MouseEnter(object sender, EventArgs e)
+		private void ChartMouseEnter(object sender, EventArgs e)
 		{
 			Cursor = Cursors.Cross;
 		}
 
-		private void chart_MouseLeave(object sender, EventArgs e)
+		private void ChartMouseLeave(object sender, EventArgs e)
 		{
 			Cursor = Cursors.Default;
 			_mouseDown = false;
 		}
 
-		private void chart_MouseUp(object sender, MouseEventArgs e)
+		private void ChartMouseUp(object sender, MouseEventArgs e)
 		{
 			_mouseDown = false;
 		}
 
-		private void chart_MouseDown(object sender, MouseEventArgs e)
+		private void ChartMouseDown(object sender, MouseEventArgs e)
 		{
 			_mouseDown = true;
 		}
 
-		void chart_MouseMove(object sender, MouseEventArgs e)
+		void ChartMouseMove(object sender, MouseEventArgs e)
 		{
-			HitTestResult result = (sender as Chart).HitTest(e.X, e.Y);
+			var result = (sender as Chart).HitTest(e.X, e.Y);
 			if (result.ChartElementType == ChartElementType.PlottingArea ||
 				result.ChartElementType == ChartElementType.DataPoint ||
 				result.ChartElementType == ChartElementType.Gridlines)
 			{
 
 				Tuple<int, int> point = GetAxisValuesFromMouse(sender as Chart, e.X, e.Y);
-				labelCoordX.Text = "X: " + point.Item1.ToString();
-				labelCoordY.Text = "Y: " + point.Item2.ToString();
+				labelCoordX.Text = "X: " + point.Item1.ToString(CultureInfo.InvariantCulture);
+				labelCoordY.Text = "Y: " + point.Item2.ToString(CultureInfo.InvariantCulture);
 				if (_mouseDown)
 				{
 					int index = tabControlParameters.SelectedIndex;
@@ -147,7 +148,7 @@ namespace ARCed.Database.Actors
 			_actor = actor;
 			numericLevel.Minimum = _actor.initial_level;
 			numericLevel.Maximum = _actor.final_level;
-			this.TabText = String.Format("Parameters: {0}", _actor.name);
+			TabText = String.Format("Parameters: {0}", _actor.name);
 			RefreshChart(tabControlParameters.SelectedIndex);
 		}
 
@@ -180,22 +181,22 @@ namespace ARCed.Database.Actors
 				chart.Series[0].Color = Editor.Settings.Charting.Colors[i];
 				chart.Series[0].IsVisibleInLegend = false;
 				chart.Series[0]["LineTension"] =
-					Editor.Settings.Charting.SplineTension.ToString();
+					Editor.Settings.Charting.SplineTension.ToString(CultureInfo.InvariantCulture);
 				// Plot points
 				for (int lvl = _actor.initial_level; lvl < _actor.final_level + 1; lvl++)
 					chart.Series[0].Points.AddXY(lvl, parameters[i, lvl]);
 				// Label styling
 				chart.ChartAreas[0].AxisX.LabelStyle.Interval =
-					(_actor.final_level - _actor.initial_level) / 10;
-				chart.ChartAreas[0].AxisY.LabelStyle.Interval = Project.Settings.GetMaxValue(i) / 10;
+					(_actor.final_level - _actor.initial_level) / 10.0d;
+				chart.ChartAreas[0].AxisY.LabelStyle.Interval = Project.Settings.GetMaxValue(i) / 10.0d;
 				chart.ChartAreas[0].AxisX.LabelStyle.IntervalOffset = -1;
 				chart.ChartAreas[0].AxisX.LabelStyle.IsEndLabelVisible = true;
 				// Bind events
-				chart.MouseMove += this.chart_MouseMove;
-				chart.MouseDown += this.chart_MouseDown;
-				chart.MouseUp += this.chart_MouseUp;
-				chart.MouseEnter += this.chart_MouseEnter;
-				chart.MouseLeave += this.chart_MouseLeave;
+				chart.MouseMove += this.ChartMouseMove;
+				chart.MouseDown += this.ChartMouseDown;
+				chart.MouseUp += this.ChartMouseUp;
+				chart.MouseEnter += this.ChartMouseEnter;
+				chart.MouseLeave += this.ChartMouseLeave;
 				// Add page and chart to tab control
 				page.Controls.Add(chart);
 				chart.Dock = DockStyle.Fill;
@@ -206,7 +207,7 @@ namespace ARCed.Database.Actors
 			ChartSettingsForm.SetChartLighting(Editor.Settings.Charting.Lighting, ref _charts);
 		}
 
-		private void buttonGenerate_Click(object sender, EventArgs e)
+		private void ButtonGenerateClick(object sender, EventArgs e)
 		{
 			int index = tabControlParameters.SelectedIndex;
 			using (var dialog = new ParamGenerateCurveDialog(ref _actor, index))
@@ -236,7 +237,7 @@ namespace ARCed.Database.Actors
 				_charts[index].Series[0].Points.AddXY(i, parameters[index, i]);
 		}
 
-		private void buttonQuickCurve_Click(object sender, EventArgs e)
+		private void ButtonQuickCurveClick(object sender, EventArgs e)
 		{
 			int index = tabControlParameters.SelectedIndex;
 			int max = Project.Settings.GetMaxValue(index);
@@ -253,13 +254,13 @@ namespace ARCed.Database.Actors
 			RefreshChart(index);
 		}
 
-		private void tabControlParameters_SelectedIndexChanged(object sender, EventArgs e)
+		private void TabControlParametersSelectedIndexChanged(object sender, EventArgs e)
 		{
 			numericValue.Maximum = Project.Settings.GetMaxValue(tabControlParameters.SelectedIndex);
-			numericLevel_ValueChanged(null, null);
+			this.NumericLevelValueChanged(null, null);
 		}
 
-		private void numericLevel_ValueChanged(object sender, EventArgs e)
+		private void NumericLevelValueChanged(object sender, EventArgs e)
 		{
 			int index = tabControlParameters.SelectedIndex;
 			_suppressEvent = true;
@@ -267,7 +268,7 @@ namespace ARCed.Database.Actors
 			_suppressEvent = false;
 		}
 
-		private void numericValue_ValueChanged(object sender, EventArgs e)
+		private void NumericValueValueChanged(object sender, EventArgs e)
 		{
 			if (!_suppressEvent)
 			{
@@ -277,14 +278,20 @@ namespace ARCed.Database.Actors
 			}
 		}
 
-		private void buttonSettings_Click(object sender, EventArgs e)
+		private void ButtonSettingsClick(object sender, EventArgs e)
 		{
 			Windows.ChartSettingsForm.Show(Editor.MainDock);
 			Windows.ChartSettingsForm.SetCharts(ref _charts);
 		}
 
-		private void ActorParametersForm_FormClosing(object sender, FormClosingEventArgs e)
+        private void ActorParametersFormLoad(object sender, EventArgs e)
+        {
+            Windows.ChartForms.Add(this);
+        }
+
+		private void ActorParametersFormFormClosing(object sender, FormClosingEventArgs e)
 		{
+		    Windows.ChartForms.Remove(this);
 			Windows.ChartSettingsForm.ClearCharts();
 		}
 
