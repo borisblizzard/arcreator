@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
 using ARCed.Controls;
@@ -15,7 +16,10 @@ using RPG;
 
 namespace ARCed.Database.Troops
 {
-	public partial class TroopMainForm : DatabaseWindow
+    /// <summary>
+    /// Main form for configuring Project <see cref="RPG.Troop"/> data.
+    /// </summary>
+	public sealed partial class TroopMainForm : DatabaseWindow
 	{
 		#region Private Fields
 
@@ -56,7 +60,9 @@ namespace ARCed.Database.Troops
 
 		#endregion
 
-		public override void NotifyRefresh(RefreshType type)
+        #region Public Methods
+
+        public override void NotifyRefresh(RefreshType type)
 		{
 			if (type.HasFlag(RefreshType.Enemies))
 			{
@@ -68,6 +74,9 @@ namespace ARCed.Database.Troops
 			}
 		}
 
+        /// <summary>
+        /// Refreshes the form to display data for the currently selected <see cref="RPG.Troop"/>.
+        /// </summary>
 		public override void RefreshCurrentObject()
 		{
 			SuppressEvents = true;
@@ -81,7 +90,11 @@ namespace ARCed.Database.Troops
 			SuppressEvents = false;
 		}
 
-		private void RefreshEnemies()
+        #endregion
+
+        #region Private Methods
+
+        private void RefreshEnemies()
 		{
 			ControlHelper.Populate(listBoxEnemies, Project.Data.Enemies, false);
 		}
@@ -93,7 +106,7 @@ namespace ARCed.Database.Troops
 			int count = 1;
 			foreach (var page in _troop.pages)
 			{
-				var tab = new TabPage(count.ToString());
+				var tab = new TabPage(count.ToString(CultureInfo.InvariantCulture));
 				var editor = new BattleEventPage();
 				tab.Controls.Add(editor);
 				editor.Dock = DockStyle.Fill;
@@ -104,7 +117,7 @@ namespace ARCed.Database.Troops
 			tabControlEvents.ResumePainting(true);
 		}
 
-		private void TroopMainForm_Load(object sender, EventArgs e)
+		private void TroopMainFormLoad(object sender, EventArgs e)
 		{
 			var resources = ResourceHelper.GetTypes(@"Graphics\Battlebacks");
 			if (resources.Count > 0)
@@ -118,16 +131,16 @@ namespace ARCed.Database.Troops
 				using (Graphics g = Graphics.FromImage(image))
 				{
 					g.FillRectangle(Brushes.CornflowerBlue, 0, 0, 640, 320);
-					g.DrawString("No background image found!", this.Font, Brushes.White, new PointF(12, 12));
+					g.DrawString("No background image found!", Font, Brushes.White, new PointF(12, 12));
 				}
 				xnaPanel.SetBackground(image);
 			}
 			dataObjectList.SelectedIndex = 0;
 		}
 
-		private void buttonAddEnemy_Click(object sender, EventArgs e)
+		private void ButtonAddEnemyClick(object sender, EventArgs e)
 		{
-			int index = listBoxEnemies.SelectedIndex;
+			var index = listBoxEnemies.SelectedIndex;
 			if (index >= 0)
 			{
 				var sprite = new EnemySprite(Project.Data.Enemies[index + 1]);
@@ -137,92 +150,76 @@ namespace ARCed.Database.Troops
 				buttonAddEnemy.Enabled = false;
 		}
 
-		private void buttonRemoveEnemy_Click(object sender, EventArgs e)
+		private void ButtonRemoveEnemyClick(object sender, EventArgs e)
 		{
 			xnaPanel.RemoveSelected();
 		}
 
-		private void buttonAlignEnemies_Click(object sender, EventArgs e)
+		private void ButtonAlignEnemiesClick(object sender, EventArgs e)
 		{
 			xnaPanel.AutoAlign();
 		}
 
-		private void buttonFull_Click(object sender, EventArgs e)
+		private void ButtonFullClick(object sender, EventArgs e)
 		{
 
 		}
 
-		private void xnaPanel_OnSelectionChanged(object sender, EventArgs e)
+		private void XnaPanelOnSelectionChanged(object sender, EventArgs e)
 		{
-			bool enable = false;
-			foreach (EnemySprite sprite in xnaPanel.Sprites)
-			{
-				if (sprite.Selected)
-				{
-					enable = true;
-					break;
-				}
-			}
-			buttonRemoveEnemy.Enabled = enable;
+			var enable = this.xnaPanel.Sprites.Any(sprite => sprite.Selected);
+		    buttonRemoveEnemy.Enabled = enable;
 		}
 
-		private void xnaPanel_OnTroopChanged(object sender, EventArgs e)
+		private void XnaPanelOnTroopChanged(object sender, EventArgs e)
 		{
-			if (!SuppressEvents)
-			{
-				_troop.members.Clear();
-				foreach (EnemySprite sprite in xnaPanel.Sprites)
-					_troop.members.Add(sprite.TroopMember);
-			}
+		    if (SuppressEvents) return;
+		    this._troop.members.Clear();
+		    foreach (EnemySprite sprite in this.xnaPanel.Sprites)
+		        this._troop.members.Add(sprite.TroopMember);
 		}
 
-		private void form_KeyDown(object sender, KeyEventArgs e)
+		private void FormKeyDown(object sender, KeyEventArgs e)
 		{
-			if (e.KeyCode == Keys.Delete)
-			{
-				buttonRemoveEnemy_Click(null, null);
-				e.Handled = true;
-			}
+		    if (e.KeyCode != Keys.Delete) return;
+		    this.ButtonRemoveEnemyClick(null, null);
+		    e.Handled = true;
 		}
 
-		private void listBoxEnemies_SelectedIndexChanged(object sender, EventArgs e)
+		private void ListBoxEnemiesSelectedIndexChanged(object sender, EventArgs e)
 		{
 			buttonAddEnemy.Enabled = listBoxEnemies.SelectedIndex >= 0;
 		}
 
-		private void buttonBattleback_Click(object sender, EventArgs e)
+		private void ButtonBattlebackClick(object sender, EventArgs e)
 		{
 			using (var dialog = new ImageSelectionForm(@"Battlebacks", _battleBackName))
 			{
 				dialog.Width = 800;
 				dialog.SelectionEnabled = false;
 				dialog.HueEnabled = false;
-				if (dialog.ShowDialog(this) == DialogResult.OK)
-				{
-					_battleBackName = dialog.ImageName;
-					xnaPanel.SetBackground(Cache.Battleback(_battleBackName));
-				}
+			    if (dialog.ShowDialog(this) != DialogResult.OK) return;
+			    this._battleBackName = dialog.ImageName;
+			    this.xnaPanel.SetBackground(Cache.Battleback(this._battleBackName));
 			}
 		}
 
-		private void dataObjectList_OnListBoxIndexChanged(object sender, EventArgs e)
+		private void DataObjectListOnListBoxIndexChanged(object sender, EventArgs e)
 		{
-			int index = dataObjectList.SelectedIndex;
-			if (index >= 0)
-			{
-				_troop = Data[index + 1];
-				RefreshCurrentObject();
-			}
+			var index = dataObjectList.SelectedIndex;
+		    if (index < 0) return;
+		    this._troop = this.Data[index + 1];
+		    this.RefreshCurrentObject();
 		}
 
-		private void buttonClear_Click(object sender, EventArgs e)
+		private void ButtonClearClick(object sender, EventArgs e)
 		{
 			xnaPanel.RemoveAll();
 		}
 
-		private void contextMenuStripMember_Opening(object sender, CancelEventArgs e)
+		private void ContextMenuStripMemberOpening(object sender, CancelEventArgs e)
 		{
-			EnemySprite sprite = xnaPanel.SelectedSprite;
+			var sprite = xnaPanel.SelectedSprite;
 			if (sprite == null)
 				e.Cancel = true;
 			else
@@ -234,18 +231,18 @@ namespace ARCed.Database.Troops
 			}
 		}
 
-		private void buttonAppearHalfway_CheckedChanged(object sender, EventArgs e)
+		private void ButtonAppearHalfwayCheckedChanged(object sender, EventArgs e)
 		{
 			xnaPanel.SelectedSprite.Hidden = buttonAppearHalfway.Checked;
 			xnaPanel.Invalidate();
 		}
 
-		private void buttonImmortal_CheckedChanged(object sender, EventArgs e)
+		private void ButtonImmortalCheckedChanged(object sender, EventArgs e)
 		{
 			xnaPanel.SelectedSprite.Immortal = buttonImmortal.Checked;
 		}
 
-		private void buttonAutoname_Click(object sender, EventArgs e)
+		private void ButtonAutonameClick(object sender, EventArgs e)
 		{
 			var enemyCounts = new SortedDictionary<int, int>();
 			int id;
@@ -268,49 +265,44 @@ namespace ARCed.Database.Troops
 			textBoxName.Text = String.Join(", ", names);
 		}
 
-		private void textBoxName_TextChanged(object sender, EventArgs e)
+		private void TextBoxNameTextChanged(object sender, EventArgs e)
 		{
-			if (!SuppressEvents)
-			{
-				_troop.name = textBoxName.Text;
-				int index = dataObjectList.SelectedIndex;
-				dataObjectList.Items[index] = _troop.ToString();
-				dataObjectList.Invalidate(dataObjectList.GetItemRectangle(index));
-			}
+		    if (SuppressEvents) return;
+		    this._troop.name = this.textBoxName.Text;
+		    int index = this.dataObjectList.SelectedIndex;
+		    this.dataObjectList.Items[index] = this._troop.ToString();
+		    this.dataObjectList.Invalidate(this.dataObjectList.GetItemRectangle(index));
 		}
 
-		private void buttonBattleTest_Click(object sender, EventArgs e)
+		private void ButtonBattleTestClick(object sender, EventArgs e)
 		{
 			using (var dialog = new BattleTestDialog())
-			{
 				dialog.ShowDialog();
-			}
 		}
 
-		private void listBoxEnemies_MouseDown(object sender, MouseEventArgs e)
+		private void ListBoxEnemiesMouseDown(object sender, MouseEventArgs e)
 		{
-			int index = listBoxEnemies.IndexFromPoint(e.Location);
+			var index = listBoxEnemies.IndexFromPoint(e.Location);
 			if (index >= 0)
 				listBoxEnemies.DoDragDrop(Project.Data.Enemies[index + 1], DragDropEffects.Copy);
 		}
 
-		private void xnaPanel_DragEnter(object sender, DragEventArgs e)
-		{
-
-			if (e.Data.GetData(typeof(Enemy)) != null)
-				e.Effect = DragDropEffects.Copy;
-			else
-				e.Effect = DragDropEffects.None;
+		private void XnaPanelDragEnter(object sender, DragEventArgs e) 
+        {
+		    e.Effect = e.Data.GetData(typeof(Enemy)) != null ? 
+                DragDropEffects.Copy : DragDropEffects.None;
 		}
 
-		private void xnaPanel_DragDrop(object sender, DragEventArgs e)
+        private void XnaPanelDragDrop(object sender, DragEventArgs e)
 		{
             var enemy = (Enemy)e.Data.GetData(typeof(Enemy));
             var sprite = new EnemySprite(enemy);
-			Point p = xnaPanel.PointToClient(new Point(e.X, e.Y));
+			var p = xnaPanel.PointToClient(new Point(e.X, e.Y));
 			sprite.X = p.X - (sprite.Width / 2);
 			sprite.Y = p.Y - (sprite.Height / 2);
 			xnaPanel.AddSprite(sprite);
-		}
-	}
+        }
+
+        #endregion
+    }
 }

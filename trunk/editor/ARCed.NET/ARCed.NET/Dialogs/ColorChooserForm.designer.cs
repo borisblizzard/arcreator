@@ -5,13 +5,13 @@ using ARCed.Core;
 
 namespace ARCed.Dialogs
 {
-	public partial class ColorChooserForm : Form
+	public partial class ColorChooserForm 
 	{
-		private ColorHandler.ARGB argb;
+		private ColorHandler.ARGB _argb;
 		private Button btnCancel;
 		private Button btnOk;
-		private ChangeStyle changeType = ChangeStyle.None;
-		private ColorHandler.HSV hsv;
+		private ChangeStyle _changeType = ChangeStyle.None;
+		private ColorHandler.HSV _hsv;
 		private Label labelSaturation;
 		private Label labelValue;
 		private Label labelRed;
@@ -157,7 +157,7 @@ namespace ARCed.Dialogs
             this.buttonCapture.Name = "buttonCapture";
             this.toolTip.SetToolTip(this.buttonCapture, resources.GetString("buttonCapture.ToolTip"));
             this.buttonCapture.UseVisualStyleBackColor = true;
-            this.buttonCapture.Click += new System.EventHandler(this.buttonCapture_Click);
+            this.buttonCapture.Click += new System.EventHandler(this.ButtonCaptureClick);
             // 
             // tbBlue
             // 
@@ -241,7 +241,7 @@ namespace ARCed.Dialogs
             this.groupBoxRGB.Controls.Add(this.tbRed);
             this.groupBoxRGB.Name = "groupBoxRGB";
             this.groupBoxRGB.TabStop = false;
-            this.groupBoxRGB.CollapseBoxClickedEvent += new ARCed.Controls.CollapsibleGroupBox.CollapseBoxClickedEventHandler(this.groupBoxRGB_CollapseBoxClickedEvent);
+            this.groupBoxRGB.CollapseBoxClickedEvent += new ARCed.Controls.CollapsibleGroupBox.CollapseBoxClickedEventHandler(this.GroupBoxRGBCollapseBoxClickedEvent);
             // 
             // labelRed
             // 
@@ -290,7 +290,7 @@ namespace ARCed.Dialogs
             this.groupBoxHSV.Controls.Add(this.lblHue);
             this.groupBoxHSV.Name = "groupBoxHSV";
             this.groupBoxHSV.TabStop = false;
-            this.groupBoxHSV.CollapseBoxClickedEvent += new ARCed.Controls.CollapsibleGroupBox.CollapseBoxClickedEventHandler(this.groupBoxHSV_CollapseBoxClickedEvent);
+            this.groupBoxHSV.CollapseBoxClickedEvent += new ARCed.Controls.CollapsibleGroupBox.CollapseBoxClickedEventHandler(this.GroupBoxHSVCollapseBoxClickedEvent);
             // 
             // labelHue
             // 

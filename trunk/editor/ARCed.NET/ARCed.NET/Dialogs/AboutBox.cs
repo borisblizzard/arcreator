@@ -5,7 +5,9 @@ using System.Collections;
 using System.Collections.Specialized;
 using System.Diagnostics;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Resources;
 using System.Runtime.InteropServices;
@@ -22,8 +24,22 @@ namespace ARCed.Dialogs
 	/// Generic, self-contained About Box dialog
 	/// </summary>
 	public partial class AboutBox : Form
-	{
-		/// <summary>
+    {
+        #region Private Fields
+
+        private bool _isPainted;
+        private string _entryAssemblyName;
+        private string _callingAssemblyName;
+        private string _executingAssemblyName;
+        private Assembly _entryAssembly;
+        private NameValueCollection _entryAssemblyAttribCollection;
+        private int _minWindowHeight;
+
+        #endregion
+
+        #region Constructor
+
+        /// <summary>
 		/// Creates a new instance of the custom AboutBox object
 		/// </summary>
 		public AboutBox()
@@ -31,37 +47,33 @@ namespace ARCed.Dialogs
 			InitializeComponent();
 		}
 
-	    private bool _IsPainted;
-		private string _EntryAssemblyName;
-		private string _CallingAssemblyName;
-		private string _ExecutingAssemblyName;
-		private Assembly _EntryAssembly;
-		private NameValueCollection _EntryAssemblyAttribCollection;
-		private int _MinWindowHeight;
+        #endregion
 
-		// <summary>
-		// returns the entry assembly for the current application domain
-		// </summary>
-		// <remarks>
-		// This is usually read-only, but in some weird cases (Smart Client apps) 
-		// you won't have an entry assembly, so you may want to set this manually.
-		// </remarks>
+        #region Public Properties
+
+        /// <summary>
+		/// Returns the entry assembly for the current application domain
+		/// </summary>
+		/// <remarks>
+		/// This is usually read-only, but in some weird cases (Smart Client apps) 
+		/// you won't have an entry assembly, so you may want to set this manually.
+		/// </remarks>
 		public Assembly AppEntryAssembly
 		{
-			get { return _EntryAssembly; }
+			get { return this._entryAssembly; }
 			set
 			{
-				_EntryAssembly = value;
+				this._entryAssembly = value;
 			}
 		}
 
-		// <summary>
-		// single line of text to show in the application title section of the about box dialog
-		// </summary>
-		// <remarks>
-		// defaults to "%title%" 
-		// %title% = Assembly: AssemblyTitle
-		// </remarks>
+		/// <summary>
+		/// Single line of text to show in the application title section of the about box dialog
+		/// </summary>
+		/// <remarks>
+		/// defaults to "%title%" 
+		/// %title% = Assembly: AssemblyTitle
+		/// </remarks>
 		public string AppTitle
 		{
 			get
@@ -101,13 +113,13 @@ namespace ARCed.Dialogs
 			}
 		}
 
-		// <summary>
-		// single line of text to show in the version section of the about dialog
-		// </summary>
-		// <remarks>
-		// defaults to "Version %version%"
-		// %version% = Assembly: AssemblyVersion
-		// </remarks>
+		/// <summary>
+		/// single line of text to show in the version section of the about dialog
+		/// </summary>
+		/// <remarks>
+		/// defaults to "Version %version%"
+		/// %version% = Assembly: AssemblyVersion
+		/// </remarks>
 		public string AppVersion
 		{
 			get
@@ -128,14 +140,14 @@ namespace ARCed.Dialogs
 			}
 		}
 
-		// <summary>
-		// single line of text to show in the copyright section of the about dialog
-		// </summary>
-		// <remarks>
-		// defaults to "Copyright © %year%, %company%"
-		// %company% = Assembly: AssemblyCompany
-		// %year% = current 4-digit year
-		// </remarks>
+		/// <summary>
+		/// Single line of text to show in the copyright section of the about dialog
+		/// </summary>
+		/// <remarks>
+		/// defaults to "Copyright © %year%, %company%"
+		/// %company% = Assembly: AssemblyCompany
+		/// %year% = current 4-digit year
+		/// </remarks>
 		public string AppCopyright
 		{
 			get
@@ -156,12 +168,12 @@ namespace ARCed.Dialogs
 			}
 		}
 
-		// <summary>
-		// intended for the default 32x32 application icon to appear in the upper left of the about dialog
-		// </summary>
-		// <remarks>
-		// if you open this form using .ShowDialog(Owner), the icon can be derived from the owning form
-		// </remarks>
+		/// <summary>
+		/// Intended for the default 32x32 application icon to appear in the upper left of the about dialog
+		/// </summary>
+		/// <remarks>
+		/// If you open this form using .ShowDialog(Owner), the icon can be derived from the owning form
+		/// </remarks>
 		public Image AppImage
 		{
 			get
@@ -174,15 +186,15 @@ namespace ARCed.Dialogs
 			}
 		}
 
-		// <summary>
-		// multiple lines of miscellaneous text to show in rich text box
-		// </summary>
-		// <remarks>
-		// defaults to "%product% is %copyright%, %trademark%"
-		// %product% = Assembly: AssemblyProduct
-		// %copyright% = Assembly: AssemblyCopyright
-		// %trademark% = Assembly: AssemblyTrademark
-		// </remarks>
+		/// <summary>
+		/// multiple lines of miscellaneous text to show in rich text box
+		/// </summary>
+		/// <remarks>
+		/// defaults to "%product% is %copyright%, %trademark%"
+		/// %product% = Assembly: AssemblyProduct
+		/// %copyright% = Assembly: AssemblyCopyright
+		/// %trademark% = Assembly: AssemblyTrademark
+		/// </remarks>
 		public string AppMoreInfo
 		{
 			get
@@ -203,26 +215,20 @@ namespace ARCed.Dialogs
 			}
 		}
 
-		// <summary>
-		// determines if the "Details" (advanced assembly details) button is shown
-		// </summary>
-		public bool AppDetailsButton
-		{
-			get
-			{
-				return DetailsButton.Visible;
-			}
-			set
-			{
-				DetailsButton.Visible = value;
-			}
-		}
+        /// <summary>
+        /// Determines if the "Details" (advanced assembly details) button is shown
+        /// </summary>
+        public bool AppDetailsButton
+        {
+            get { return DetailsButton.Visible; }
+            set { DetailsButton.Visible = value; }
+        }
 
-		// <summary>
-		// exception-safe retrieval of LastWriteTime for this assembly.
-		// </summary>
-		// <returns>File.GetLastWriteTime, or DateTime.MaxValue if exception was encountered.</returns>
-		private static DateTime AssemblyLastWriteTime(Assembly a)
+        #endregion
+
+        #region Private Methods
+
+        private static DateTime AssemblyLastWriteTime(Assembly a)
 		{
 			try
 			{
@@ -243,30 +249,23 @@ namespace ARCed.Dialogs
 			}
 		}
 
-		// <summary>
-		// returns DateTime this Assembly was last built. Will attempt to calculate from build number, if possible. 
-		// If not, the actual LastWriteTime on the assembly file will be returned.
-		// </summary>
-		// <param name="a">Assembly to get build date for</param>
-		// <param name="ForceFileDate">Don't attempt to use the build number to calculate the date</param>
-		// <returns>DateTime this assembly was last built</returns>
-		private DateTime AssemblyBuildDate(Assembly a, bool ForceFileDate)
+		private DateTime AssemblyBuildDate(Assembly a, bool forceFileDate)
 		{
-			Version AssemblyVersion = a.GetName().Version;
+			var assemblyVersion = a.GetName().Version;
 			DateTime dt;
 
-			if (ForceFileDate)
+			if (forceFileDate)
 			{
 				dt = AssemblyLastWriteTime(a);
 			}
 			else
 			{
-				dt = DateTime.Parse("01/01/2000").AddDays(AssemblyVersion.Build).AddSeconds(AssemblyVersion.Revision * 2);
+				dt = DateTime.Parse("01/01/2000").AddDays(assemblyVersion.Build).AddSeconds(assemblyVersion.Revision * 2);
 				if (TimeZone.IsDaylightSavingTime(dt, TimeZone.CurrentTimeZone.GetDaylightChanges(dt.Year)))
 				{
 					dt = dt.AddHours(1);
 				}
-				if (dt > DateTime.Now || AssemblyVersion.Build < 730 || AssemblyVersion.Revision == 0)
+				if (dt > DateTime.Now || assemblyVersion.Build < 730 || assemblyVersion.Revision == 0)
 				{
 					dt = AssemblyLastWriteTime(a);
 				}
@@ -275,99 +274,76 @@ namespace ARCed.Dialogs
 			return dt;
 		}
 
-		// <summary>
-		// returns string name / string value pair of all attribs
-		// for specified assembly
-		// </summary>
-		// <remarks>
-		// note that Assembly* values are pulled from AssemblyInfo file in project folder
-		//
-		// Trademark       = AssemblyTrademark string
-		// Debuggable      = true
-		// GUID            = 7FDF68D5-8C6F-44C9-B391-117B5AFB5467
-		// CLSCompliant    = true
-		// Product         = AssemblyProduct string
-		// Copyright       = AssemblyCopyright string
-		// Company         = AssemblyCompany string
-		// Description     = AssemblyDescription string
-		// Title           = AssemblyTitle string
-		// </remarks>
+
 		private NameValueCollection AssemblyAttribs(Assembly a)
 		{
-			string TypeName;
-			string Name;
-			string Value;
+			string typeName;
+			string name;
+		    string value = "";
 			var nvc = new NameValueCollection();
 			var r = new Regex(@"(\.Assembly|\.)(?<Name>[^.]*)Attribute$", RegexOptions.IgnoreCase);
-
 			foreach (object attrib in a.GetCustomAttributes(false))
 			{
-				TypeName = attrib.GetType().ToString();
-				Name = r.Match(TypeName).Groups["Name"].ToString();
-				Value = "";
-				switch (TypeName)
+				typeName = attrib.GetType().ToString();
+				name = r.Match(typeName).Groups["Name"].ToString();
+				switch (typeName)
 				{
 					case "System.CLSCompliantAttribute":
-						Value = ((CLSCompliantAttribute)attrib).IsCompliant.ToString(); break;
+						value = ((CLSCompliantAttribute)attrib).IsCompliant.ToString(); break;
 					case "System.Diagnostics.DebuggableAttribute":
-						Value = ((DebuggableAttribute)attrib).IsJITTrackingEnabled.ToString(); break;
+						value = ((DebuggableAttribute)attrib).IsJITTrackingEnabled.ToString(); break;
 					case "System.Reflection.AssemblyCompanyAttribute":
-						Value = ((AssemblyCompanyAttribute)attrib).Company; break;
+						value = ((AssemblyCompanyAttribute)attrib).Company; break;
 					case "System.Reflection.AssemblyConfigurationAttribute":
-						Value = ((AssemblyConfigurationAttribute)attrib).Configuration; break;
+						value = ((AssemblyConfigurationAttribute)attrib).Configuration; break;
 					case "System.Reflection.AssemblyCopyrightAttribute":
-						Value = ((AssemblyCopyrightAttribute)attrib).Copyright; break;
+						value = ((AssemblyCopyrightAttribute)attrib).Copyright; break;
 					case "System.Reflection.AssemblyDefaultAliasAttribute":
-						Value = ((AssemblyDefaultAliasAttribute)attrib).DefaultAlias; break;
+						value = ((AssemblyDefaultAliasAttribute)attrib).DefaultAlias; break;
 					case "System.Reflection.AssemblyDelaySignAttribute":
-						Value = ((AssemblyDelaySignAttribute)attrib).DelaySign.ToString(); break;
+						value = ((AssemblyDelaySignAttribute)attrib).DelaySign.ToString(); break;
 					case "System.Reflection.AssemblyDescriptionAttribute":
-						Value = ((AssemblyDescriptionAttribute)attrib).Description; break;
+						value = ((AssemblyDescriptionAttribute)attrib).Description; break;
 					case "System.Reflection.AssemblyInformationalVersionAttribute":
-						Value = ((AssemblyInformationalVersionAttribute)attrib).InformationalVersion; break;
+						value = ((AssemblyInformationalVersionAttribute)attrib).InformationalVersion; break;
 					case "System.Reflection.AssemblyKeyFileAttribute":
-						Value = ((AssemblyKeyFileAttribute)attrib).KeyFile; break;
+						value = ((AssemblyKeyFileAttribute)attrib).KeyFile; break;
 					case "System.Reflection.AssemblyProductAttribute":
-						Value = ((AssemblyProductAttribute)attrib).Product; break;
+						value = ((AssemblyProductAttribute)attrib).Product; break;
 					case "System.Reflection.AssemblyTrademarkAttribute":
-						Value = ((AssemblyTrademarkAttribute)attrib).Trademark; break;
+						value = ((AssemblyTrademarkAttribute)attrib).Trademark; break;
 					case "System.Reflection.AssemblyTitleAttribute":
-						Value = ((AssemblyTitleAttribute)attrib).Title; break;
+						value = ((AssemblyTitleAttribute)attrib).Title; break;
 					case "System.Resources.NeutralResourcesLanguageAttribute":
-						Value = ((NeutralResourcesLanguageAttribute)attrib).CultureName; break;
+						value = ((NeutralResourcesLanguageAttribute)attrib).CultureName; break;
 					case "System.Resources.SatelliteContractVersionAttribute":
-						Value = ((SatelliteContractVersionAttribute)attrib).Version; break;
+						value = ((SatelliteContractVersionAttribute)attrib).Version; break;
 					case "System.Runtime.InteropServices.ComCompatibleVersionAttribute":
 						{
-							ComCompatibleVersionAttribute x;
-							x = ((ComCompatibleVersionAttribute)attrib);
-							Value = x.MajorVersion + "." + x.MinorVersion + "." + x.RevisionNumber + "." + x.BuildNumber; break;
+							var x = ((ComCompatibleVersionAttribute)attrib);
+							value = x.MajorVersion + "." + x.MinorVersion + "." + x.RevisionNumber + "." + x.BuildNumber; break;
 						}
 					case "System.Runtime.InteropServices.ComVisibleAttribute":
-						Value = ((ComVisibleAttribute)attrib).Value.ToString(); break;
+						value = ((ComVisibleAttribute)attrib).Value.ToString(); break;
 					case "System.Runtime.InteropServices.GuidAttribute":
-						Value = ((GuidAttribute)attrib).Value; break;
+						value = ((GuidAttribute)attrib).Value; break;
 					case "System.Runtime.InteropServices.TypeLibVersionAttribute":
 						{
-							TypeLibVersionAttribute x;
-							x = ((TypeLibVersionAttribute)attrib);
-							Value = x.MajorVersion + "." + x.MinorVersion; break;
+						    var x = ((TypeLibVersionAttribute)attrib);
+							value = x.MajorVersion + "." + x.MinorVersion; break;
 						}
 					case "System.Security.AllowPartiallyTrustedCallersAttribute":
-						Value = "(Present)"; break;
+						value = "(Present)"; break;
 					default:
 						// debug.writeline("** unknown assembly attribute '" + TypeName + "'")
-						Value = TypeName; break;
+						value = typeName; break;
 				}
 
-				if (nvc[Name] == null)
+				if (nvc[name] == null)
 				{
-					nvc.Add(Name, Value);
+					nvc.Add(name, value);
 				}
 			}
-
-			// add some extra values that are not in the AssemblyInfo, but nice to have
-			// codebase
 			try
 			{
 				nvc.Add("CodeBase", a.CodeBase.Replace("file:///", ""));
@@ -377,16 +353,10 @@ namespace ARCed.Dialogs
 				nvc.Add("CodeBase", "(not supported)");
 			}
 			// build date
-			DateTime dt = AssemblyBuildDate(a, false);
-			if (dt == DateTime.MaxValue)
-			{
-				nvc.Add("BuildDate", "(unknown)");
-			}
-			else
-			{
-				nvc.Add("BuildDate", dt.ToString("yyyy-MM-dd hh:mm tt"));
-			}
-			// location
+			var dt = AssemblyBuildDate(a, false);
+		    nvc.Add("BuildDate", dt == DateTime.MaxValue ? "(unknown)" : 
+                dt.ToString("yyyy-MM-dd hh:mm tt"));
+		    // location
 			try
 			{
 				nvc.Add("Location", a.Location);
@@ -417,36 +387,29 @@ namespace ARCed.Dialogs
 			return nvc;
 		}
 
-		/// <summary>
-		/// Reads an HKLM Windows Registry key value
-		/// </summary>
-		private static string RegistryHklmValue(string KeyName, string SubKeyRef)
+		private static string RegistryHklmValue(string keyName, string subKeyRef)
 		{
 			RegistryKey rk;
 			try
 			{
-				rk = Registry.LocalMachine.OpenSubKey(KeyName);
-				return (string)rk.GetValue(SubKeyRef, "");
+			    rk = Registry.LocalMachine.OpenSubKey(keyName);
+			    if (rk != null) return (string)rk.GetValue(subKeyRef, "");
 			}
 			catch (Exception)
 			{
 				return "";
 			}
+		    return "";
 		}
 
-		// <summary>
-		// launch the MSInfo "system information" application (works on XP, 2003, and Vista)
-		// </summary>
 		private void ShowSysInfo()
 		{
-			string strSysInfoPath = "";
-
+			var strSysInfoPath = "";
 			strSysInfoPath = RegistryHklmValue(@"SOFTWARE\Microsoft\Shared Tools Location", "MSINFO");
 			if (strSysInfoPath == "")
 			{
 				strSysInfoPath = RegistryHklmValue(@"SOFTWARE\Microsoft\Shared Tools\MSINFO", "PATH");
 			}
-
 			if (strSysInfoPath == "")
 			{
 				MessageBox.Show("System Information is unavailable at this time." +
@@ -472,25 +435,21 @@ namespace ARCed.Dialogs
 
 		}
 
-		// <summary>
-		// populate a listview with the specified key and value strings
-		// </summary>
-		private static void Populate(ListView lvw, string Key, string Value)
+		private static void Populate(ListView lvw, string key, string value)
 		{
-			if (Value == "")
+			if (value == "")
 				return;
-			var lvi = new ListViewItem();
-			lvi.Text = Key;
-			lvi.SubItems.Add(Value);
+			var lvi = new ListViewItem
+			{
+			    Text = key
+			};
+		    lvi.SubItems.Add(value);
 			lvw.Items.Add(lvi);
 		}
 
-		// <summary>
-		// populates the Application Information listview
-		// </summary>
 		private void PopulateAppInfo()
 		{
-			AppDomain d = AppDomain.CurrentDomain;
+			var d = AppDomain.CurrentDomain;
 			Populate(AppInfoListView, "Application Name", d.SetupInformation.ApplicationName);
 			Populate(AppInfoListView, "Application Base", d.SetupInformation.ApplicationBase);
 			Populate(AppInfoListView, "Cache Path", d.SetupInformation.CachePath);
@@ -501,81 +460,60 @@ namespace ARCed.Dialogs
 			Populate(AppInfoListView, "private Bin Path", d.SetupInformation.PrivateBinPath);
 			Populate(AppInfoListView, "Shadow Copy Directories", d.SetupInformation.ShadowCopyDirectories);
 			Populate(AppInfoListView, " ", " ");
-			Populate(AppInfoListView, "Entry Assembly", _EntryAssemblyName);
-			Populate(AppInfoListView, "Executing Assembly", _ExecutingAssemblyName);
-			Populate(AppInfoListView, "Calling Assembly", _CallingAssemblyName);
+			Populate(AppInfoListView, "Entry Assembly", this._entryAssemblyName);
+			Populate(AppInfoListView, "Executing Assembly", this._executingAssemblyName);
+			Populate(AppInfoListView, "Calling Assembly", this._callingAssemblyName);
 		}
 
-		// <summary>
-		// populate Assembly Information listview with ALL assemblies
-		// </summary>
 		private void PopulateAssemblies()
 		{
 			foreach (Assembly a in AppDomain.CurrentDomain.GetAssemblies())
 			{
 				PopulateAssemblySummary(a);
 			}
-			AssemblyNamesComboBox.SelectedIndex = AssemblyNamesComboBox.FindStringExact(_EntryAssemblyName);
+			AssemblyNamesComboBox.SelectedIndex = AssemblyNamesComboBox.FindStringExact(this._entryAssemblyName);
 		}
 
-		// <summary>
-		// populate Assembly Information listview with summary view for a specific assembly
-		// </summary>
 		private void PopulateAssemblySummary(Assembly a)
 		{
-			NameValueCollection nvc = AssemblyAttribs(a);
-
-			string strAssemblyName = a.GetName().Name;
-
-			var lvi = new ListViewItem();
-			lvi.Text = strAssemblyName;
-			lvi.Tag = strAssemblyName;
-			if (strAssemblyName == _CallingAssemblyName)
+			var nvc = AssemblyAttribs(a);
+			var strAssemblyName = a.GetName().Name;
+			var lvi = new ListViewItem
+			{
+			    Text = strAssemblyName,
+			    Tag = strAssemblyName
+			};
+		    if (strAssemblyName == this._callingAssemblyName)
 			{
 				lvi.Text += " (calling)";
 			}
-			if (strAssemblyName == _ExecutingAssemblyName)
+			if (strAssemblyName == this._executingAssemblyName)
 			{
 				lvi.Text += " (executing)";
 			}
-			if (strAssemblyName == _EntryAssemblyName)
+			if (strAssemblyName == this._entryAssemblyName)
 			{
 				lvi.Text += " (entry)";
 			}
 			lvi.SubItems.Add(nvc["version"]);
 			lvi.SubItems.Add(nvc["builddate"]);
 			lvi.SubItems.Add(nvc["codebase"]);
-			//lvi.SubItems.Add(AssemblyVersion(a))
-			//lvi.SubItems.Add(AssemblyBuildDatestring(a, true))
-			//lvi.SubItems.Add(AssemblyCodeBase(a))
 			AssemblyInfoListView.Items.Add(lvi);
 			AssemblyNamesComboBox.Items.Add(strAssemblyName);
 		}
 
-		// <summary>
-		// retrieves a cached value from the entry assembly attribute lookup collection
-		// </summary>
 		private string EntryAssemblyAttrib(string strName)
 		{
-			if (_EntryAssemblyAttribCollection[strName] == null)
+		    if (this._entryAssemblyAttribCollection[strName] == null)
 			{
 				return "<Assembly: Assembly" + strName + "(\"\")>";
 			}
-			else
-			{
-				return this._EntryAssemblyAttribCollection[strName];
-			}
+		    return this._entryAssemblyAttribCollection[strName];
 		}
 
-		// <summary>
-		// Populate all the form labels with tokenized text
-		// </summary>
-		private void PopulateLabels()
+	    private void PopulateLabels()
 		{
-			// get entry assembly attribs
-			_EntryAssemblyAttribCollection = AssemblyAttribs(_EntryAssembly);
-
-			// set icon from parent, if present
+			this._entryAssemblyAttribCollection = AssemblyAttribs(this._entryAssembly);
 			if (Owner == null)
 			{
 				ImagePictureBox.Visible = false;
@@ -587,7 +525,6 @@ namespace ARCed.Dialogs
 				Icon = Owner.Icon;
 				ImagePictureBox.Image = Icon.ToBitmap();
 			}
-			// replace all labels and window title
 			Text = ReplaceTokens(Text);
 			AppTitleLabel.Text = ReplaceTokens(AppTitleLabel.Text);
 			if (AppDescriptionLabel.Visible)
@@ -612,9 +549,6 @@ namespace ARCed.Dialogs
 			}
 		}
 
-		// <summary>
-		// perform assemblyinfo to string replacements on labels
-		// </summary>
 		private string ReplaceTokens(string s)
 		{
 			s = s.Replace("%title%", EntryAssemblyAttrib("title"));
@@ -623,23 +557,17 @@ namespace ARCed.Dialogs
 			s = s.Replace("%company%", EntryAssemblyAttrib("company"));
 			s = s.Replace("%product%", EntryAssemblyAttrib("product"));
 			s = s.Replace("%trademark%", EntryAssemblyAttrib("trademark"));
-			s = s.Replace("%year%", DateTime.Now.Year.ToString());
+			s = s.Replace("%year%", DateTime.Now.Year.ToString(CultureInfo.InvariantCulture));
 			s = s.Replace("%version%", EntryAssemblyAttrib("version"));
 			s = s.Replace("%builddate%", EntryAssemblyAttrib("builddate"));
 			return s;
 		}
 
-		// <summary>
-		// populate details for a single assembly
-		// </summary>
 		private void PopulateAssemblyDetails(Assembly a, ListView lvw)
 		{
 			lvw.Items.Clear();
-
-			// this assembly property is only available in framework versions 1.1+
 			Populate(lvw, "Image Runtime Version", a.ImageRuntimeVersion);
 			Populate(lvw, "Loaded from GAC", a.GlobalAssemblyCache.ToString());
-
 			NameValueCollection nvc = AssemblyAttribs(a);
 			foreach (string strKey in nvc)
 			{
@@ -647,49 +575,31 @@ namespace ARCed.Dialogs
 			}
 		}
 
-		// <summary>
-		// matches assembly by Assembly.GetName.Name; returns nothing if no match
-		// </summary>
-		private static Assembly MatchAssemblyByName(string AssemblyName)
+		private static Assembly MatchAssemblyByName(string assemblyName)
 		{
-			foreach (Assembly a in AppDomain.CurrentDomain.GetAssemblies())
-			{
-				if (a.GetName().Name == AssemblyName)
-				{
-					return a;
-				}
-			}
-			return null;
+		    return AppDomain.CurrentDomain.GetAssemblies().FirstOrDefault(a => a.GetName().Name == assemblyName);
 		}
 
-		// <summary>
-		// things to do when form is loaded
-		// </summary>
-		private void AboutBox_Load(object sender, EventArgs e)
+	    private void AboutBoxLoad(object sender, EventArgs e)
 		{
-			// if the user didn't provide an assembly, try to guess which one is the entry assembly
-			if (_EntryAssembly == null)
+			if (this._entryAssembly == null)
 			{
-				_EntryAssembly = Assembly.GetEntryAssembly();
+				this._entryAssembly = Assembly.GetEntryAssembly();
 			}
-			if (_EntryAssembly == null)
+			if (this._entryAssembly == null)
 			{
-				_EntryAssembly = Assembly.GetExecutingAssembly();
+				this._entryAssembly = Assembly.GetExecutingAssembly();
 			}
-
-			_ExecutingAssemblyName = Assembly.GetExecutingAssembly().GetName().Name;
-			_CallingAssemblyName = Assembly.GetCallingAssembly().GetName().Name;
+			this._executingAssemblyName = Assembly.GetExecutingAssembly().GetName().Name;
+			this._callingAssemblyName = Assembly.GetCallingAssembly().GetName().Name;
 			try
 			{
-				// for web hosted apps, GetEntryAssembly = nothing
-				_EntryAssemblyName = Assembly.GetEntryAssembly().GetName().Name;
+				this._entryAssemblyName = Assembly.GetEntryAssembly().GetName().Name;
 			}
 			catch (Exception)
 			{
 			}
-
-			_MinWindowHeight = AppCopyrightLabel.Top + AppCopyrightLabel.Height + OKButton.Height + 30;
-
+			this._minWindowHeight = AppCopyrightLabel.Top + AppCopyrightLabel.Height + OKButton.Height + 30;
 			TabPanelDetails.Visible = false;
 			if (!MoreRichTextBox.Visible)
 			{
@@ -697,25 +607,17 @@ namespace ARCed.Dialogs
 			}
 		}
 
-		// <summary>
-		// things to do when form is FIRST painted
-		// </summary>
-		private void AboutBox_Paint(object sender, PaintEventArgs e)
+		private void AboutBoxPaint(object sender, PaintEventArgs e)
 		{
-			if (!_IsPainted)
-			{
-				_IsPainted = true;
-				Application.DoEvents();
-				Cursor.Current = Cursors.WaitCursor;
-				PopulateLabels();
-				Cursor.Current = Cursors.Default;
-			}
+		    if (this._isPainted) return;
+		    this._isPainted = true;
+		    Application.DoEvents();
+		    Cursor.Current = Cursors.WaitCursor;
+		    this.PopulateLabels();
+		    Cursor.Current = Cursors.Default;
 		}
 
-		// <summary>
-		// expand about dialog to show additional advanced details
-		// </summary>
-		private void DetailsButton_Click(object sender, EventArgs e)
+		private void DetailsButtonClick(object sender, EventArgs e)
 		{
 			Cursor.Current = Cursors.WaitCursor;
 			DetailsButton.Visible = false;
@@ -734,18 +636,12 @@ namespace ARCed.Dialogs
 			Cursor.Current = Cursors.Default;
 		}
 
-		// <summary>
-		// for detailed system info, launch the external Microsoft system info app
-		// </summary>
-		private void SysInfoButton_Click(object sender, EventArgs e)
+		private void SysInfoButtonClick(object sender, EventArgs e)
 		{
 			ShowSysInfo();
 		}
 
-		// <summary>
-		// if an assembly is double-clicked, go to the detail page for that assembly
-		// </summary>
-		private void AssemblyInfoListView_DoubleClick(object sender, EventArgs e)
+		private void AssemblyInfoListViewDoubleClick(object sender, EventArgs e)
 		{
 			string strAssemblyName;
 			if (AssemblyInfoListView.SelectedItems.Count > 0)
@@ -756,19 +652,13 @@ namespace ARCed.Dialogs
 			}
 		}
 
-		// <summary>
-		// if a new assembly is selected from the combo box, show details for that assembly
-		// </summary>
-		private void AssemblyNamesComboBox_SelectedIndexChanged(object sender, EventArgs e)
+		private void AssemblyNamesComboBoxSelectedIndexChanged(object sender, EventArgs e)
 		{
-			string strAssemblyName = Convert.ToString(AssemblyNamesComboBox.SelectedItem);
+			var strAssemblyName = Convert.ToString(AssemblyNamesComboBox.SelectedItem);
 			PopulateAssemblyDetails(MatchAssemblyByName(strAssemblyName), AssemblyDetailsListView);
 		}
 
-		// <summary>
-		// sort the assembly list by column
-		// </summary>
-		private void AssemblyInfoListView_ColumnClick(object sender, ColumnClickEventArgs e)
+		private void AssemblyInfoListViewColumnClick(object sender, ColumnClickEventArgs e)
 		{
 			int intTargetCol = e.Column + 1;
 
@@ -783,10 +673,7 @@ namespace ARCed.Dialogs
 			AssemblyInfoListView.ListViewItemSorter = new ListViewItemComparer(intTargetCol, true);
 		}
 
-		// <summary>
-		// launch any http:// or mailto: links clicked in the body of the rich text box
-		// </summary>
-		private void MoreRichTextBox_LinkClicked(object sender, LinkClickedEventArgs e)
+		private void MoreRichTextBoxLinkClicked(object sender, LinkClickedEventArgs e)
 		{
 			try
 			{
@@ -797,53 +684,62 @@ namespace ARCed.Dialogs
 			}
 		}
 
-		// <summary>
-		// things to do when the selected tab is changed
-		// </summary>
-		class ListViewItemComparer : IComparer
-		{
-			private readonly int _intCol;
-			private readonly bool _IsAscending = true;
+        private void TabPanelDetailsSelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (TabPanelDetails.SelectedTab == TabPageAssemblyDetails)
+                AssemblyNamesComboBox.Focus();
+        }
 
+        #endregion
+
+        /// <summary>
+        /// Class used for comparing <see cref="ListViewItem"/> objects. 
+        /// </summary>
+		class ListViewItemComparer : IComparer
+        {
+            #region Private Fields
+
+            private readonly int _intCol;
+			private readonly bool _isAscending = true;
+
+            #endregion
+
+            #region Constructor
+
+            /// <summary>
+            /// Default constructor
+            /// </summary>
 			public ListViewItemComparer()
 			{
 				_intCol = 0;
-				_IsAscending = true;
+				this._isAscending = true;
 			}
 
+            /// <summary>
+            /// Default constructor
+            /// </summary>
+            /// <param name="column">Column index</param>
+            /// <param name="ascending">Flag if sort method should be ascending or descending</param>
 			public ListViewItemComparer(int column, bool ascending)
+            {
+                this._isAscending = column >= 0 && @ascending;
+                _intCol = Math.Abs(column) - 1;
+            }
+
+            #endregion
+
+            /// <summary>
+            /// Compares to objects and returns the result of the comparison.
+            /// </summary>
+            /// <param name="x">First object to compare</param>
+            /// <param name="y">Second object to compare.</param>
+            /// <returns>Result of comparison.</returns>
+            public int Compare(object x, object y)
 			{
-				if (column < 0)
-				{
-					_IsAscending = false;
-				}
-				else
-				{
-					_IsAscending = ascending;
-				}
-				_intCol = Math.Abs(column) - 1;
+				var intResult = String.CompareOrdinal(((ListViewItem)x).SubItems[this._intCol].Text, 
+                    ((ListViewItem)y).SubItems[this._intCol].Text);
+                return (this._isAscending) ? intResult : -intResult;
 			}
-
-			public int Compare(object x, object y)
-			{
-				int intResult =
-					string.Compare(((ListViewItem)x).SubItems[_intCol].Text, ((ListViewItem)y).SubItems[_intCol].Text);
-
-				if (_IsAscending)
-				{
-					return intResult;
-				}
-				else
-				{
-					return -intResult;
-				}
-			}
-		}
-
-		private void TabPanelDetails_SelectedIndexChanged(object sender, EventArgs e)
-		{
-			if (TabPanelDetails.SelectedTab == TabPageAssemblyDetails)
-				AssemblyNamesComboBox.Focus();
 		}
 	}
 }

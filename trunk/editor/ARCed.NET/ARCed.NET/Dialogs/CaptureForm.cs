@@ -11,18 +11,30 @@ using ARCed.Core.Win32;
 
 namespace ARCed.Dialogs
 {
+    /// <summary>
+    /// Invisible form that is used as an overlay of the screen for capturing color data under the mouse.
+    /// </summary>
 	public sealed partial class CaptureForm : Form
-	{
+    {
+        #region Private Fields
 
-		private Color _capturedColor;
-		/// <summary>
+        private Color _capturedColor;
+        private Bitmap _screenCapture;
+
+        #endregion
+
+        #region Public Properties
+
+        /// <summary>
 		/// Gets the color under the mouse where the user clicked
 		/// </summary>
 		public Color CaptureColor { get { return _capturedColor; } }
 
-		private Bitmap ScreenCapture;
+        #endregion
 
-		/// <summary>
+        #region Constructor
+
+        /// <summary>
 		/// Default constructor
 		/// </summary>
 		public CaptureForm()
@@ -32,20 +44,27 @@ namespace ARCed.Dialogs
 			_capturedColor = Color.Black;
 		}
 
-		private static Cursor LoadCursorFromResource(string resourceName)
+        #endregion
+
+        #region Private Methods
+
+        private static Cursor LoadCursorFromResource(string resourceName)
 		{
 			Cursor result;
 			try
 			{
-				string tempFile = Path.GetTempFileName();
+				var tempFile = Path.GetTempFileName();
 				using (Stream s =
 					Assembly.GetExecutingAssembly().GetManifestResourceStream(resourceName))
 				using (var resourceFile = new FileStream(tempFile, FileMode.Create))
 				{
-					var b = new byte[s.Length + 1];
-					s.Read(b, 0, Convert.ToInt32(s.Length));
-					resourceFile.Write(b, 0, Convert.ToInt32(b.Length - 1));
-					resourceFile.Flush();
+				    if (s != null)
+				    {
+				        var b = new byte[s.Length + 1];
+				        s.Read(b, 0, Convert.ToInt32(s.Length));
+				        resourceFile.Write(b, 0, Convert.ToInt32(b.Length - 1));
+				    }
+				    resourceFile.Flush();
 				}
 				result = new Cursor(NativeMethods.LoadCursorFromFile(tempFile));
 				File.Delete(tempFile);
@@ -59,23 +78,23 @@ namespace ARCed.Dialogs
 
 		internal void TakeSnapShot()
 		{
-			Rectangle bounds = Screen.GetBounds(Point.Empty);
-			ScreenCapture = new Bitmap(bounds.Width, bounds.Height);
-			using (Graphics g = Graphics.FromImage(ScreenCapture))
+			var bounds = Screen.GetBounds(Point.Empty);
+			this._screenCapture = new Bitmap(bounds.Width, bounds.Height);
+			using (Graphics g = Graphics.FromImage(this._screenCapture))
 				g.CopyFromScreen(Point.Empty, Point.Empty, bounds.Size);
-			this.BackgroundImage = ScreenCapture;
+			BackgroundImage = this._screenCapture;
 		}
 
-		private void captureForm_Clicked(object sender, EventArgs e)
+		private void CaptureFormClicked(object sender, EventArgs e)
 		{
-			this.Close();
+			Close();
 		}
 
-		private void captureForm_MouseMoved(object sender, MouseEventArgs e)
+		private void CaptureFormMouseMoved(object sender, MouseEventArgs e)
 		{
-			_capturedColor =
-				ScreenCapture.GetPixel(MousePosition.X, MousePosition.Y);
-			//RGBForm.SetSampleColor(_capturedColor);
-		}
-	}
+			_capturedColor = this._screenCapture.GetPixel(MousePosition.X, MousePosition.Y);
+        }
+
+        #endregion
+    }
 }

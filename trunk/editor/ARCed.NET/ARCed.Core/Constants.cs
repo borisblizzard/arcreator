@@ -99,7 +99,7 @@ namespace ARCed
         /// <summary>
         /// Path to the RTP folder (TEST PURPOSES ONLY)
         /// </summary>
-        public static string RTP_PATH
+        public static string RTPPath
         {
             get
             {

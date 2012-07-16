@@ -72,6 +72,9 @@ namespace ARCed.Database.Animations
 			}
 		}
 
+        /// <summary>
+        /// Refreshes the form to display data for the currently selected <see cref="RPG.Animation"/>.
+        /// </summary>
 		public override void RefreshCurrentObject()
 		{
 			SuppressEvents = true;

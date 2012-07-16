@@ -2,7 +2,7 @@
 
 using System;
 using System.Collections.Generic;
-using System.Drawing;
+using System.Globalization;
 using System.Windows.Forms;
 using ARCed.Controls;
 using RPG;
@@ -10,8 +10,11 @@ using RPG;
 #endregion
 
 namespace ARCed.Database.Classes
-{
-	public partial class ClassMainForm : DatabaseWindow
+{    
+    /// <summary>
+    /// Main form for configuring Project <see cref="RPG.Class"/> data.
+    /// </summary>
+	public sealed partial class ClassMainForm : DatabaseWindow
 	{
 		#region Private Fields
 
@@ -38,8 +41,10 @@ namespace ARCed.Database.Classes
 
 		#endregion
 
-		/// <summary>
-		/// 
+        #region Constructor
+
+        /// <summary>
+		/// Default constructor
 		/// </summary>
 		public ClassMainForm()
 		{
@@ -53,7 +58,58 @@ namespace ARCed.Database.Classes
 			dataObjectList.SelectedIndex = 0;
 		}
 
-		public void InitializeElements()
+        #endregion
+
+        #region Public Methods
+
+        /// <summary>
+        /// Refreshes objects by type flag
+        /// </summary>
+        /// <param name="type">Flag for type of object to refresh</param>
+        public override void NotifyRefresh(RefreshType type)
+        {
+            if (type.HasFlag(RefreshType.States))
+            {
+
+            }
+            if (type.HasFlag(RefreshType.Elements))
+            {
+
+            }
+            if (type.HasFlag(RefreshType.Weapons))
+            {
+
+            }
+            if (type.HasFlag(RefreshType.Armors))
+            {
+
+            }
+            if (type.HasFlag(RefreshType.Skills))
+            {
+
+            }
+        }
+
+        /// <summary>
+        /// Refreshes the form to display data for the currently selected <see cref="RPG.Class"/>.
+        /// </summary>
+        public override void RefreshCurrentObject()
+        {
+            SuppressEvents = true;
+            textBoxName.Text = _class.name;
+            comboBoxPosition.SelectedIndex = _class.position;
+            RefreshEquipment();
+            RefreshSkills();
+            RefreshElements();
+            RefreshStates();
+            SuppressEvents = false;
+        }
+
+        #endregion
+
+        #region Private Methods
+
+        private void InitializeElements()
 		{
 			checkedListElements.ClearItems();
 			List<dynamic> elements = Project.Data.System.elements;
@@ -61,7 +117,7 @@ namespace ARCed.Database.Classes
 				checkedListElements.AddItem(elements[i % elements.Count]);
 		}
 
-		public void InitializeStates()
+		private void InitializeStates()
 		{
 			checkedListStates.ClearItems();
 			List<dynamic> states = Project.Data.States;
@@ -91,65 +147,25 @@ namespace ARCed.Database.Classes
 				foreach (Class.Learning learning in _class.learnings)
 				{
 					name = Project.Data.Skills[learning.skill_id].name;
-					var item = new ListViewItem(new[] { learning.level.ToString(), 
-						learning.skill_id.ToString(), name });
+					var item = new ListViewItem(new[] { learning.level.ToString(CultureInfo.InvariantCulture), 
+						learning.skill_id.ToString(CultureInfo.InvariantCulture), name });
 					listViewSkills.Items.Add(item);
 				}
 			}
 			listViewSkills.EndUpdate();
 		}
 
-		/// <summary>
-		/// Refreshes objects by type flag
-		/// </summary>
-		/// <param name="type">Flag for type of object to refresh</param>
-		public override void NotifyRefresh(RefreshType type)
-		{
-			if (type.HasFlag(RefreshType.States))
-			{
+        private void ListBoxClassesSelectedIndexChanged(object sender, EventArgs e)
+        {
+            int index = dataObjectList.SelectedIndex;
+            if (index >= 0)
+            {
+                _class = Data[index + 1];
+                RefreshCurrentObject();
+            }
+        }
 
-			}
-			if (type.HasFlag(RefreshType.Elements))
-			{
-
-			}
-			if (type.HasFlag(RefreshType.Weapons))
-			{
-
-			}
-			if (type.HasFlag(RefreshType.Armors))
-			{
-
-			}
-			if (type.HasFlag(RefreshType.Skills))
-			{
-
-			}
-		}
-
-		public override void RefreshCurrentObject()
-		{
-			SuppressEvents = true;
-			textBoxName.Text = _class.name;
-			comboBoxPosition.SelectedIndex = _class.position;
-			RefreshEquipment();
-			RefreshSkills();
-			RefreshElements();
-			RefreshStates();
-			SuppressEvents = false;
-		}
-
-		private void listBoxClasses_SelectedIndexChanged(object sender, EventArgs e)
-		{
-			int index = dataObjectList.SelectedIndex;
-			if (index >= 0)
-			{	
-				_class = Data[index + 1];
-				RefreshCurrentObject();
-			}
-		}
-
-		private void textBoxName_TextChanged(object sender, EventArgs e)
+		private void TextBoxNameTextChanged(object sender, EventArgs e)
 		{
 			if (!SuppressEvents)
 			{
@@ -192,13 +208,13 @@ namespace ARCed.Database.Classes
 			SuppressEvents = false;
 		}
 
-		private void comboBoxPosition_SelectedIndexChanged(object sender, EventArgs e)
+		private void ComboBoxPositionSelectedIndexChanged(object sender, EventArgs e)
 		{
 			if (!SuppressEvents)
 				_class.position = comboBoxPosition.SelectedIndex;
 		}
 
-		private void checkGroupWeapons_OnCheckChange(object sender, ItemCheckEventArgs e)
+		private void CheckGroupWeaponsOnCheckChange(object sender, ItemCheckEventArgs e)
 		{
 			int id = e.Index + 1;
 			if (e.NewValue == CheckState.Checked && !_class.weapon_set.Contains(id))
@@ -207,7 +223,7 @@ namespace ARCed.Database.Classes
 				_class.weapon_set.Remove(id);
 		}
 
-		private void checkGroupArmor_OnCheckChange(object sender, ItemCheckEventArgs e)
+		private void CheckGroupArmorOnCheckChange(object sender, ItemCheckEventArgs e)
 		{
 			int id = e.Index + 1;
 			if (e.NewValue == CheckState.Checked && !_class.armor_set.Contains(id))
@@ -216,49 +232,46 @@ namespace ARCed.Database.Classes
 				_class.armor_set.Remove(id);
 		}
 
-		private void checkGroup_FocusLeave(object sender, EventArgs e)
+		private void CheckGroupFocusLeave(object sender, EventArgs e)
 		{
-			(sender as CheckGroupBox).SelectedIndex = -1;
+		    var checkGroupBox = sender as CheckGroupBox;
+		    if (checkGroupBox != null) checkGroupBox.SelectedIndex = -1;
 		}
 
-		private void buttonAddSkill_Click(object sender, EventArgs e)
+    private void ButtonAddSkillClick(object sender, EventArgs e)
 		{
 			using (var dialog = new EditSkillDialog())
 			{
-				if (dialog.ShowDialog(this) == DialogResult.OK)
-				{
-					_class.learnings.Add(dialog.Learning);
-					RefreshSkills();
-				}
+			    if (dialog.ShowDialog(this) != DialogResult.OK) return;
+			    this._class.learnings.Add(dialog.Learning);
+			    this.RefreshSkills();
 			}
 		}
 
-		private void buttonRemoveSkill_Click(object sender, EventArgs e)
+		private void ButtonRemoveSkillClick(object sender, EventArgs e)
 		{
-			int index = GetSkillIndex();
+			var index = GetSkillIndex();
 			if (_class != null && index >= 0)
 			{
 				_class.learnings.RemoveAt(index);
 				RefreshSkills();
 				listViewSkills.Focus();
-				listViewSkills_SelectedIndexChanged(sender, e);
+				this.ListViewSkillsSelectedIndexChanged(sender, e);
 			}
 			if (listViewSkills.Items.Count > 0)
 				listViewSkills.Items[index.Clamp(0, listViewSkills.Items.Count - 1)].Selected = true;
 		}
 
-		private void buttonEditSkill_Click(object sender, EventArgs e)
+		private void ButtonEditSkillClick(object sender, EventArgs e)
 		{
-			int index = GetSkillIndex();
+			var index = GetSkillIndex();
 			using (var dialog = new EditSkillDialog())
 			{
 				Class.Learning learning = _class.learnings[index];
 				dialog.Learning = learning;
-				if (dialog.ShowDialog(this) == DialogResult.OK)
-				{
-					_class.learnings[index] = dialog.Learning;
-					RefreshSkills();
-				}
+			    if (dialog.ShowDialog(this) != DialogResult.OK) return;
+			    this._class.learnings[index] = dialog.Learning;
+			    this.RefreshSkills();
 			}
 		}
 
@@ -269,24 +282,24 @@ namespace ARCed.Database.Classes
 			return -1;
 		}
 
-		private void listViewSkills_SelectedIndexChanged(object sender, EventArgs e)
+		private void ListViewSkillsSelectedIndexChanged(object sender, EventArgs e)
 		{
-			bool enable = listViewSkills.SelectedItems.Count > 0;
+			var enable = listViewSkills.SelectedItems.Count > 0;
 			buttonEditSkill.Enabled = enable;
 			buttonRemoveSkill.Enabled = enable;
 			contextButtonSkillEdit.Enabled = enable;
 			contextButtonSkillRemove.Enabled = enable;
 		}
 
-		private void listViewSkills_DoubleClick(object sender, EventArgs e)
+		private void ListViewSkillsDoubleClick(object sender, EventArgs e)
 		{
-			Point pnt = listViewSkills.PointToClient(MousePosition);
-			ListViewHitTestInfo info = listViewSkills.HitTest(pnt);
+			var pnt = listViewSkills.PointToClient(MousePosition);
+			var info = listViewSkills.HitTest(pnt);
 			if (info.Item != null)
-				buttonEditSkill_Click(sender, e);
+				this.ButtonEditSkillClick(sender, e);
 		}
 
-		private void listViewSkills_ColumnClick(object sender, ColumnClickEventArgs e)
+		private void ListViewSkillsColumnClick(object sender, ColumnClickEventArgs e)
 		{
 			if (e.Column == _listViewSorter.SortColumn)
 			{
@@ -301,22 +314,32 @@ namespace ARCed.Database.Classes
 			((ListView)sender).Sort();
 		}
 
-		private void efficiencyElements_OnItemChanged(object sender, MultiStateCheckEventArgs e)
+		private void EfficiencyElementsOnItemChanged(object sender, MultiStateCheckEventArgs e)
 		{
 			if (!SuppressEvents)
-				_class.element_ranks[e.Index + 1] = (sender as MultiStateCheckbox).SelectedState;
+			{
+			    var multiStateCheckbox = sender as MultiStateCheckbox;
+			    if (multiStateCheckbox != null)
+			        this._class.element_ranks[e.Index + 1] = multiStateCheckbox.SelectedState;
+			}
 		}
 
-		private void efficiencyStates_OnItemChanged(object sender, MultiStateCheckEventArgs e)
+		private void EfficiencyStatesOnItemChanged(object sender, MultiStateCheckEventArgs e)
 		{
 			if (!SuppressEvents)
-				_class.state_ranks[e.Index + 1] = (sender as MultiStateCheckbox).SelectedState;
+			{
+			    var multiStateCheckbox = sender as MultiStateCheckbox;
+			    if (multiStateCheckbox != null)
+			        this._class.state_ranks[e.Index + 1] = multiStateCheckbox.SelectedState;
+			}
 		}
 
-		private void noteTextBox_NoteTextChanged(object sender, EventArgs e)
+		private void NoteTextBoxNoteTextChanged(object sender, EventArgs e)
 		{
 			//if (!suppressEvents)
 				//_class.note = noteTextBox.NoteText;
-		}
-	}
+        }
+
+        #endregion
+    }
 }

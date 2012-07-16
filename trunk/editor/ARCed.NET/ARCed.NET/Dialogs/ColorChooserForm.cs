@@ -2,6 +2,7 @@
 
 using System;
 using System.Drawing;
+using System.Globalization;
 using System.Threading;
 using System.Windows.Forms;
 using ARCed.Core;
@@ -14,97 +15,81 @@ namespace ARCed.Dialogs
 	///   Summary description for ColorChooser.
 	/// </summary>
 	public partial class ColorChooserForm : Form
-	{
-		/// <summary>
-		///   Required designer variable.
-		/// </summary>
+    {
 
+        #region Public Properties
+
+        /// <summary>
+        /// Gets or sets the ability to adjust alpha values
+        /// </summary>
+        public bool AlphaEnabled
+        {
+            get { return panelAlpha.Enabled; }
+            set
+            {
+                panelAlpha.Enabled = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the selected <see cref="Color"/> of the form.
+        /// </summary>
+        public Color Color
+        {
+            get { return myColorWheel.Color; }
+            set
+            {
+                this._changeType = ChangeStyle.RGB;
+                this._argb = new ColorHandler.ARGB(value.A, value.R, value.G, value.B);
+                this._hsv = ColorHandler.RGBtoHSV(this._argb);
+            }
+        }
+
+        #endregion
+
+        #region Constructor
+
+        /// <summary>
+        /// Default constructor
+        /// </summary>
 		public ColorChooserForm()
 		{
-			//
-			// Required for Windows Form Designer support
-			//
 			InitializeComponent();
 		}
 
-		/// <summary>
-		/// Gets or sets the ability to adjust alpha values
-		/// </summary>
-		public bool AlphaEnabled
-		{
-			get { return panelAlpha.Enabled; }
-			set
-			{ 
-				panelAlpha.Enabled = value;
-			}
-		}
+        #endregion
 
-		public Color Color
-		{
-			// Get or set the color to be
-			// displayed in the color wheel.
-			get { return myColorWheel.Color; }
+        #region Private Methods
 
-			set
-			{
-				// Indicate the color change type. Either RGB or HSV
-				// will cause the color wheel to update the position
-				// of the pointer.
-				changeType = ChangeStyle.RGB;
-				argb = new ColorHandler.ARGB(value.A, value.R, value.G, value.B);
-				hsv = ColorHandler.RGBtoHSV(argb);
-			}
-		}
-
-		private void ColorChooserLoad(object sender, EventArgs e)
+        private void ColorChooserLoad(object sender, EventArgs e)
 		{
-			// Turn on double-buffering, so the form looks better. 
 			SetStyle(ControlStyles.AllPaintingInWmPaint, true);
 			SetStyle(ControlStyles.UserPaint, true);
 			SetStyle(ControlStyles.DoubleBuffer, true);
-
-			// These properties are set in design view, as well, but they
-			// have to be set to false in order for the Paint
-			// event to be able to display their contents.
-			// Never hurts to make sure they're invisible.
 			pnlSelectedColor.Visible = false;
 			pnlBrightness.Visible = false;
 			pnlColor.Visible = false;
-
-			// Calculate the coordinates of the three
-			// required regions on the form.
 			var selectedColorRectangle = new Rectangle(pnlSelectedColor.Location, pnlSelectedColor.Size);
 			var brightnessRectangle = new Rectangle(pnlBrightness.Location, pnlBrightness.Size);
 			var colorRectangle = new Rectangle(pnlColor.Location, pnlColor.Size);
-
-			// Create the new ColorWheel class, indicating
-			// the locations of the color wheel itself, the
-			// brightness area, and the position of the selected color.
 			myColorWheel = new ColorWheel(colorRectangle, brightnessRectangle, selectedColorRectangle);
 			myColorWheel.ColorChanged += MyColorWheelColorChanged;
-
 			if (!panelAlpha.Enabled)
 			{
 				if (this.Color.A != 255)
 					this.Color = Color.FromArgb(255, this.Color);
 			}
-
-			// Set the RGB and HSV values 
-			// of the NumericUpDown controls.
-			SetRGB(argb);
-			SetHSV(hsv);
-			SetRGBLabels(argb);
-			SetHSVLabels(hsv);
+			SetRGB(this._argb);
+			SetHSV(this._hsv);
+			SetRGBLabels(this._argb);
+			SetHSVLabels(this._hsv);
 		}
 
 		private void HandleMouse(object sender, MouseEventArgs e)
 		{
-			// If you have the left mouse button down, 
-			// then update the selectedPoint value and 
-			// force a repaint of the color wheel.
 			if (e.Button != MouseButtons.Left)
 				return;
-			changeType = ChangeStyle.MouseMove;
+			this._changeType = ChangeStyle.MouseMove;
 			selectedPoint = new Point(e.X, e.Y);
 			Invalidate();
 		}
@@ -112,7 +97,7 @@ namespace ARCed.Dialogs
 		private void FormMainMouseUp(object sender, MouseEventArgs e)
 		{
 			myColorWheel.SetMouseUp();
-			changeType = ChangeStyle.None;
+			this._changeType = ChangeStyle.None;
 		}
 
 		private void SetRGBLabels(ColorHandler.ARGB argb)
@@ -124,17 +109,16 @@ namespace ARCed.Dialogs
 			tbHexCode.Text = string.Format("{0:X2}{1:X2}{2:X2}{3:X2}", argb.Alpha, argb.Red, argb.Green, argb.Blue);
 		}
 
-		private void SetHSVLabels(ColorHandler.HSV HSV)
+		private void SetHSVLabels(ColorHandler.HSV hsv)
 		{
-			RefreshText(lblHue, HSV.Hue);
-			RefreshText(lblSaturation, HSV.Saturation);
-			RefreshText(lblValue, HSV.Value);
-			RefreshText(lblAlpha, HSV.Alpha);
+			RefreshText(lblHue, hsv.Hue);
+			RefreshText(lblSaturation, hsv.Saturation);
+			RefreshText(lblValue, hsv.Value);
+			RefreshText(lblAlpha, hsv.Alpha);
 		}
 
 		private void SetRGB(ColorHandler.ARGB argb)
 		{
-			// Update the RGB values on the form.
 			RefreshValue(tbRed, argb.Red);
 			RefreshValue(tbBlue, argb.Blue);
 			RefreshValue(tbGreen, argb.Green);
@@ -142,14 +126,13 @@ namespace ARCed.Dialogs
 			SetRGBLabels(argb);
 		}
 
-		private void SetHSV(ColorHandler.HSV HSV)
+		private void SetHSV(ColorHandler.HSV hsv)
 		{
-			// Update the HSV values on the form.
-			RefreshValue(tbHue, HSV.Hue);
-			RefreshValue(tbSaturation, HSV.Saturation);
-			RefreshValue(tbValue, HSV.Value);
-			RefreshValue(tbAlpha, HSV.Alpha);
-			SetHSVLabels(HSV);
+			RefreshValue(tbHue, hsv.Hue);
+			RefreshValue(tbSaturation, hsv.Saturation);
+			RefreshValue(tbValue, hsv.Value);
+			RefreshValue(tbAlpha, hsv.Alpha);
+			SetHSVLabels(hsv);
 		}
 
 		private static void RefreshValue(TrackBar hsv, int value)
@@ -159,7 +142,7 @@ namespace ARCed.Dialogs
 
 		private static void RefreshText(Control lbl, int value)
 		{
-			lbl.Text = value.ToString();
+			lbl.Text = value.ToString(CultureInfo.InvariantCulture);
 		}
 
 		private void MyColorWheelColorChanged(object sender, ColorChangedEventArgs e)
@@ -169,57 +152,45 @@ namespace ARCed.Dialogs
 		}
 
 		private void HandleHSVScroll(object sender, EventArgs e)
-		// If the H, S, or V values change, use this 
-		// code to update the RGB values and invalidate
-		// the color wheel (so it updates the pointers).
-		// Check the isInUpdate flag to avoid recursive events
-		// when you update the NumericUpdownControls.
 		{
-			changeType = ChangeStyle.HSV;
-			hsv = new ColorHandler.HSV(tbAlpha.Value, tbHue.Value, tbSaturation.Value, tbValue.Value);
-			SetRGB(ColorHandler.HSVtoRGB(hsv));
-			SetHSVLabels(hsv);
+			this._changeType = ChangeStyle.HSV;
+			this._hsv = new ColorHandler.HSV(tbAlpha.Value, tbHue.Value, tbSaturation.Value, tbValue.Value);
+			SetRGB(ColorHandler.HSVtoRGB(this._hsv));
+			SetHSVLabels(this._hsv);
 			Invalidate();
 		}
 
 		private void HandleRGBScroll(object sender, EventArgs e)
 		{
-			// If the R, G, or B values change, use this 
-			// code to update the HSV values and invalidate
-			// the color wheel (so it updates the pointers).
-			// Check the isInUpdate flag to avoid recursive events
-			// when you update the NumericUpdownControls.
-			changeType = ChangeStyle.RGB;
-			argb = new ColorHandler.ARGB(tbAlpha.Value, tbRed.Value, tbGreen.Value, tbBlue.Value);
-			SetHSV(ColorHandler.RGBtoHSV(argb));
-			SetRGBLabels(argb);
+			this._changeType = ChangeStyle.RGB;
+			this._argb = new ColorHandler.ARGB(tbAlpha.Value, tbRed.Value, tbGreen.Value, tbBlue.Value);
+			SetHSV(ColorHandler.RGBtoHSV(this._argb));
+			SetRGBLabels(this._argb);
 			Invalidate();
 		}
 
 		private void TbAlphaScroll(object sender, EventArgs e)
 		{
-			changeType = ChangeStyle.RGB;
-			argb = new ColorHandler.ARGB(tbAlpha.Value, tbRed.Value, tbGreen.Value, tbBlue.Value);
+			this._changeType = ChangeStyle.RGB;
+			this._argb = new ColorHandler.ARGB(tbAlpha.Value, tbRed.Value, tbGreen.Value, tbBlue.Value);
 			RefreshText(lblAlpha, tbAlpha.Value);
-			tbHexCode.Text = string.Format("{0:X2}{1:X2}{2:X2}{3:X2}", argb.Alpha, argb.Red, argb.Green, argb.Blue);
+			tbHexCode.Text = string.Format("{0:X2}{1:X2}{2:X2}{3:X2}", this._argb.Alpha, this._argb.Red, this._argb.Green, this._argb.Blue);
 			Invalidate();
 		}
 
 		private void ColorChooserPaint(object sender, PaintEventArgs e)
 		{
-			// Depending on the circumstances, force a repaint
-			// of the color wheel passing different information.
-			switch (changeType)
+			switch (this._changeType)
 			{
 				case ChangeStyle.HSV:
-					myColorWheel.Draw(e.Graphics, hsv);
+					myColorWheel.Draw(e.Graphics, this._hsv);
 					break;
 				case ChangeStyle.MouseMove:
 				case ChangeStyle.None:
 					myColorWheel.Draw(e.Graphics, selectedPoint);
 					break;
 				case ChangeStyle.RGB:
-					myColorWheel.Draw(e.Graphics, argb);
+					myColorWheel.Draw(e.Graphics, this._argb);
 					break;
 			}
 		}
@@ -230,57 +201,60 @@ namespace ARCed.Dialogs
 			tbHexCode.SelectionLength = tbHexCode.Text.Length;
 		}
 
-
-		#region Nested type: ChangeStyle
-
-		private enum ChangeStyle
-		{
-			MouseMove,
-			RGB,
-			HSV,
-			None
-		}
-
-		#endregion
-
-		private void buttonCapture_Click(object sender, EventArgs e)
+		private void ButtonCaptureClick(object sender, EventArgs e)
 		{
 			Editor.MainInstance.Visible = false;
-			this.Visible = false;
+			Visible = false;
 			Thread.Sleep(500);
 			using (var captureForm = new CaptureForm())
 			{
 				captureForm.TakeSnapShot();
 				captureForm.ShowDialog();
 				this.Color = captureForm.CaptureColor;
-				SetRGBLabels(argb);
-				SetHSVLabels(hsv);
-				SetRGB(argb);
-				SetHSV(hsv);
+				SetRGBLabels(this._argb);
+				SetHSVLabels(this._hsv);
+				SetRGB(this._argb);
+				SetHSV(this._hsv);
 			}
 			Editor.MainInstance.Visible = true;
-			this.Visible = true;
-
+			Visible = true;
 		}
 
-		private void groupBoxRGB_CollapseBoxClickedEvent(object sender)
+		private void GroupBoxRGBCollapseBoxClickedEvent(object sender)
 		{
 			int y = (groupBoxRGB.FullHeight - groupBoxRGB.CollapsedHeight);
 			if (groupBoxRGB.IsCollapsed) y *= -1;
-			this.Size = new Size(this.Width, this.Height + y);
+			Size = new Size(Width, Height + y);
 			groupBoxHSV.Location = new Point(groupBoxHSV.Location.X,
 				groupBoxHSV.Location.Y + y);
 			panelAlpha.Location = new Point(panelAlpha.Location.X,
 				panelAlpha.Location.Y + y);
 		}
 
-		private void groupBoxHSV_CollapseBoxClickedEvent(object sender)
+		private void GroupBoxHSVCollapseBoxClickedEvent(object sender)
 		{
 			int y = (groupBoxHSV.FullHeight - groupBoxHSV.CollapsedHeight);
 			if (groupBoxHSV.IsCollapsed) y *= -1;
-			this.Size = new Size(this.Width, this.Height + y);
+			Size = new Size(Width, Height + y);
 			panelAlpha.Location = new Point(panelAlpha.Location.X,
 				panelAlpha.Location.Y + y);
 		}
+
+        #endregion
+
+        #region Nested type: ChangeStyle
+
+        /// <summary>
+        /// Enum containing flags for change styles
+        /// </summary>
+        private enum ChangeStyle
+        {
+            MouseMove,
+            RGB,
+            HSV,
+            None
+        }
+
+        #endregion
 	}
 }

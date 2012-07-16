@@ -28,6 +28,7 @@ namespace ARCed // INCOMPLETE
 		private static EditorOptionsForm _editorOptionsForm;
 		private static List<ScriptEditorForm> _scriptEditors;
 		private static List<DatabaseWindow> _databaseForms;
+	    private static List<ActorParametersForm> _chartForms; 
 		private static SkinSettingsForm _skinSettingsForm;
 		private static AutoCompleteForm _autoCompleteForm;
 		private static ScriptSearchForm _scriptSearchForm;
@@ -47,7 +48,9 @@ namespace ARCed // INCOMPLETE
 				_autoCompleteForm, _scriptSearchForm, _calculatorForm,
 				_scriptFindReplaceForm, _chartSettingsForm
 			};
+            // TODO: Clean this crap up
 			contents = (Form[])contents.Concat(_scriptEditors);
+		    contents = (Form[])contents.Concat(_chartForms);
 			foreach (Form content in contents)
 			{
 				if (content != null && !content.IsDisposed)
@@ -130,12 +133,7 @@ namespace ARCed // INCOMPLETE
 		/// </summary>
 		public static List<ScriptEditorForm> ScriptEditors
 		{
-			get
-			{
-				if (_scriptEditors == null)
-					_scriptEditors = new List<ScriptEditorForm>();
-				return _scriptEditors;
-			}
+			get { return _scriptEditors ?? (_scriptEditors = new List<ScriptEditorForm>()); }
 		}
 
 		/// <summary>
@@ -143,15 +141,19 @@ namespace ARCed // INCOMPLETE
 		/// </summary>
 		public static List<DatabaseWindow> DatabaseForms
 		{
-			get
-			{
-				if (_databaseForms == null)
-					_databaseForms = new List<DatabaseWindow>();
-				return _databaseForms;
-			}
-			set { _databaseForms = value; }
+			get { return _databaseForms ?? (_databaseForms = new List<DatabaseWindow>()); }
+		    set { _databaseForms = value; }
 		}
 
+        /// <summary>
+        /// Gets all instanced of the actor parameter chart forms.
+        /// </summary>
+	    public static List<ActorParametersForm> ChartForms
+	    {
+            get { return _chartForms ?? (_chartForms = new List<ActorParametersForm>()); }
+            set { _chartForms = value; }
+	    }
+             
 		/// <summary>
 		/// Returns the static Find and Replace window used for scripts
 		/// </summary>
@@ -239,10 +241,8 @@ namespace ARCed // INCOMPLETE
 		/// <returns>A window instance of the given type.</returns>
 		public static T DatabaseForm<T>() where T : DatabaseWindow
 		{
-			var form = (T)_databaseForms.Find(delegate(DatabaseWindow w) { return w is T; });
-			if (form != null)
-				return form;
-			return Activator.CreateInstance<T>();
+			var form = (T)_databaseForms.Find(w => w is T);
+			return form ?? Activator.CreateInstance<T>();
 		}
 	}
 }

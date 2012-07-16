@@ -116,7 +116,7 @@
 			this.checkBoxSwitch.TabIndex = 11;
 			this.checkBoxSwitch.Text = "Switch";
 			this.checkBoxSwitch.UseVisualStyleBackColor = true;
-			this.checkBoxSwitch.CheckedChanged += new System.EventHandler(this.checkBoxSwitch_CheckedChanged);
+			this.checkBoxSwitch.CheckedChanged += new System.EventHandler(this.CheckBoxSwitchCheckedChanged);
 			// 
 			// checkBoxLevel
 			// 
@@ -127,7 +127,7 @@
 			this.checkBoxLevel.TabIndex = 10;
 			this.checkBoxLevel.Text = "Level";
 			this.checkBoxLevel.UseVisualStyleBackColor = true;
-			this.checkBoxLevel.CheckedChanged += new System.EventHandler(this.checkBoxLevel_CheckedChanged);
+			this.checkBoxLevel.CheckedChanged += new System.EventHandler(this.CheckBoxLevelCheckedChanged);
 			// 
 			// checkBoxHP
 			// 
@@ -138,7 +138,7 @@
 			this.checkBoxHP.TabIndex = 9;
 			this.checkBoxHP.Text = "HP";
 			this.checkBoxHP.UseVisualStyleBackColor = true;
-			this.checkBoxHP.CheckedChanged += new System.EventHandler(this.checkBoxHP_CheckedChanged);
+			this.checkBoxHP.CheckedChanged += new System.EventHandler(this.CheckBoxHpCheckedChanged);
 			// 
 			// comboBoxSwitch
 			// 
@@ -248,7 +248,7 @@
 			this.checkBoxTurn.TabIndex = 0;
 			this.checkBoxTurn.Text = "Turn";
 			this.checkBoxTurn.UseVisualStyleBackColor = true;
-			this.checkBoxTurn.CheckedChanged += new System.EventHandler(this.checkBoxTurn_CheckedChanged);
+			this.checkBoxTurn.CheckedChanged += new System.EventHandler(this.CheckBoxTurnCheckedChanged);
 			// 
 			// groupBoxAction
 			// 
@@ -273,7 +273,7 @@
 			this.radioButtonSkill.TabStop = true;
 			this.radioButtonSkill.Text = "Skill";
 			this.radioButtonSkill.UseVisualStyleBackColor = true;
-			this.radioButtonSkill.CheckedChanged += new System.EventHandler(this.radioButton_CheckedChanged);
+			this.radioButtonSkill.CheckedChanged += new System.EventHandler(this.RadioButtonCheckedChanged);
 			// 
 			// radioButtonBasic
 			// 
@@ -285,7 +285,7 @@
 			this.radioButtonBasic.TabStop = true;
 			this.radioButtonBasic.Text = "Basic";
 			this.radioButtonBasic.UseVisualStyleBackColor = true;
-			this.radioButtonBasic.CheckedChanged += new System.EventHandler(this.radioButton_CheckedChanged);
+			this.radioButtonBasic.CheckedChanged += new System.EventHandler(this.RadioButtonCheckedChanged);
 			// 
 			// comboBoxSkill
 			// 
@@ -330,7 +330,7 @@
 			this.buttonOK.TabIndex = 3;
 			this.buttonOK.Text = "OK";
 			this.buttonOK.UseVisualStyleBackColor = true;
-			this.buttonOK.Click += new System.EventHandler(this.buttonOK_Click);
+			this.buttonOK.Click += new System.EventHandler(this.ButtonOkClick);
 			// 
 			// groupBoxRating
 			// 

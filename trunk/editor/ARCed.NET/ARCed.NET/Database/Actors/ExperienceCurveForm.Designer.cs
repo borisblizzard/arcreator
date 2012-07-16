@@ -79,7 +79,7 @@
             0,
             0,
             0});
-			this.numericBasis.ValueChanged += new System.EventHandler(this.numericBasis_ValueChanged);
+			this.numericBasis.ValueChanged += new System.EventHandler(this.NumericBasisValueChanged);
 			// 
 			// trackBarBasis
 			// 
@@ -119,7 +119,7 @@
             0,
             0,
             0});
-			this.numericInflation.ValueChanged += new System.EventHandler(this.numericInflation_ValueChanged);
+			this.numericInflation.ValueChanged += new System.EventHandler(this.NumericInflationValueChanged);
 			// 
 			// trackBarInflation
 			// 
@@ -167,7 +167,7 @@
 			this.radioButtonNext.TabStop = true;
 			this.radioButtonNext.Text = "To Next Level";
 			this.radioButtonNext.UseVisualStyleBackColor = true;
-			this.radioButtonNext.CheckedChanged += new System.EventHandler(this.radioButton_CheckedChanged);
+			this.radioButtonNext.CheckedChanged += new System.EventHandler(this.RadioButtonCheckedChanged);
 			// 
 			// buttonCancel
 			// 
@@ -179,7 +179,7 @@
 			this.buttonCancel.TabIndex = 3;
 			this.buttonCancel.Text = "Reset";
 			this.buttonCancel.UseVisualStyleBackColor = true;
-			this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
+			this.buttonCancel.Click += new System.EventHandler(this.ButtonCancelClick);
 			// 
 			// buttonApply
 			// 
@@ -190,7 +190,7 @@
 			this.buttonApply.TabIndex = 4;
 			this.buttonApply.Text = "Apply";
 			this.buttonApply.UseVisualStyleBackColor = true;
-			this.buttonApply.Click += new System.EventHandler(this.buttonApply_Click);
+			this.buttonApply.Click += new System.EventHandler(this.ButtonApplyClick);
 			// 
 			// listBoxExperience
 			// 
@@ -204,7 +204,7 @@
 			this.listBoxExperience.SelectionMode = System.Windows.Forms.SelectionMode.None;
 			this.listBoxExperience.Size = new System.Drawing.Size(387, 277);
 			this.listBoxExperience.TabIndex = 5;
-			this.listBoxExperience.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.listBoxExperience_DrawItem);
+			this.listBoxExperience.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.ListBoxExperienceDrawItem);
 			// 
 			// ExperienceCurveForm
 			// 

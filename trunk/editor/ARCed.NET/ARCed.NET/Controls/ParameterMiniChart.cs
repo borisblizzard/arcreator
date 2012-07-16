@@ -58,8 +58,8 @@ namespace ARCed.Controls
 		[Category("ARCed"), Description("Defines the label for the control."), DefaultValue("MaxHP")]
 		public string ParameterLabel
 		{
-			get { return this.Text; }
-			set { this.Text = value; }
+			get { return Text; }
+			set { Text = value; }
 		}
 
 		#endregion
@@ -79,7 +79,7 @@ namespace ARCed.Controls
 		public ParameterMiniChart()
 		{
 			InitializeComponent();
-			this.Controls.Add(chartParameter);
+			Controls.Add(chartParameter);
 			this.chartParameter.Series[0]["ShowMarkerLines"] = false.ToString();
 			this.chartParameter.Series[0]["LineTension"] = "0.0";
 		}
@@ -119,27 +119,18 @@ namespace ARCed.Controls
 
 		#region Private Methods
 
-		private void ParameterMiniChart_DoubleClick(object sender, EventArgs e)
+		private void ParameterMiniChartDoubleClick(object sender, EventArgs e)
 		{
-		    ActorParametersForm window;
-			foreach (Form form in Windows.DatabaseForms)
-			{
-                window = (ActorParametersForm)form;
-                if (window != null && window.Actor == _actor)
-                {
-					window.ParameterIndex = _paramIndex;
-					window.Activate();
-					return;
-				}
-			}
-			window = new ActorParametersForm(_actor, _paramIndex);
-			window.Show(Editor.MainDock);
+		    var window = Windows.ChartForms.Find(f => f.Actor == this._actor) ??
+		        new ActorParametersForm(this._actor, this._paramIndex);
+		    window.ParameterIndex = _paramIndex;
+		    window.Show(Editor.MainDock);
 		}
 
-		private void SetParameterIndex(int index)
+	    private void SetParameterIndex(int index)
 		{
 			_paramIndex = index % Project.Settings.Parameters.Count;
-			this.Text = Project.Settings.Parameters[_paramIndex];
+			Text = Project.Settings.Parameters[_paramIndex];
 			chartParameter.Series[0].Color = Editor.Settings.Charting.Colors[_paramIndex];
 			RefreshChart();
 		}

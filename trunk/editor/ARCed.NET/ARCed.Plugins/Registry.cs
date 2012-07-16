@@ -95,7 +95,7 @@ namespace ARCed.Plugins
 		/// <param name="plugin">Plugin to remove</param>
 		public static void Unload(Plugin plugin)
 		{
-			foreach (RegistryEntry entry in plugin.GetEntries())
+			foreach (var entry in plugin.GetEntries())
 				Entries.Remove(entry);
 			Plugins.Remove(plugin);
 		}

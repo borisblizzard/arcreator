@@ -55,7 +55,7 @@ namespace ARCed.Plugins
 			get
 			{
 				var contents = new DockContentCollection();
-				foreach (RegistryEntry entry in this)
+				foreach (var entry in this)
 					contents.Add(entry.Content);
 				return contents;
 			}

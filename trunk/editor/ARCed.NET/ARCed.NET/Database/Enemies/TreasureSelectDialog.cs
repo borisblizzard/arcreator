@@ -15,9 +15,9 @@ namespace ARCed.Database.Enemies
 	{
 		#region Public Properties
 
-		/// <summary>
-		/// Gets the item ID defined in the dialog
-		/// </summary>
+        /// <summary>
+        /// Gets the ID of the <see cref="RPG.Item"/> defined in the dialog
+        /// </summary>
 		public int ItemId
 		{
 			get
@@ -29,7 +29,7 @@ namespace ARCed.Database.Enemies
 		}
 
 		/// <summary>
-		/// Gets the weapon ID defined in the dialog
+		/// Gets the ID of the <see cref="RPG.Weapon"/> defined in the dialog
 		/// </summary>
 		public int WeaponId
 		{
@@ -41,9 +41,9 @@ namespace ARCed.Database.Enemies
 			}
 		}
 
-		/// <summary>
-		/// Gets the armor ID defined in the dialog
-		/// </summary>
+        /// <summary>
+        /// Gets the ID of the <see cref="RPG.Armor"/> defined in the dialog
+        /// </summary>
 		public int ArmorId
 		{
 			get
@@ -112,13 +112,13 @@ namespace ARCed.Database.Enemies
 
 		#region Private Methods
 
-		private void buttonOK_Click(object sender, EventArgs e)
+		private void ButtonOkClick(object sender, EventArgs e)
 		{
-			this.DialogResult = DialogResult.OK;
-			this.Close();
+			DialogResult = DialogResult.OK;
+			Close();
 		}
 
-		private void radioButton_CheckChanged(object sender, EventArgs e)
+		private void RadioButtonCheckChanged(object sender, EventArgs e)
 		{
 			bool disableAll = radioButtonNone.Checked;
 			comboBoxItem.Enabled = radioButtonItem.Checked && !disableAll;

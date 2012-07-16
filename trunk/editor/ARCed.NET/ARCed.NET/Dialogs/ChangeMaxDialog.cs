@@ -7,14 +7,23 @@ using System.Windows.Forms;
 
 namespace ARCed.Dialogs
 {
+    /// <summary>
+    /// Dialog for getting a new maximum capacity for data.
+    /// </summary>
 	public partial class ChangeMaxDialog : Form
-	{
-		/// <summary>
+    {
+        #region Public Properties
+
+        /// <summary>
 		/// Gets the maximum value defined by the user on the form
 		/// </summary>
 		public int MaxValue { get { return (int)numericMax.Value; } }
 
-		/// <summary>
+        #endregion
+
+        #region Constructor
+
+        /// <summary>
 		/// Default contstructor
 		/// </summary>
 		/// <param name="current">Current value</param>
@@ -29,10 +38,16 @@ namespace ARCed.Dialogs
 			labelCurrent.Text = String.Format("Current: {0}", current);
 		}
 
-		private void buttonOK_Click(object sender, EventArgs e)
+        #endregion
+
+        #region Private Methods
+
+        private void ButtonOkClick(object sender, EventArgs e)
 		{
-			this.DialogResult = DialogResult.OK;
-			this.Close();
-		}
-	}
+			DialogResult = DialogResult.OK;
+			Close();
+        }
+
+        #endregion
+    }
 }

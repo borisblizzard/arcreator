@@ -44,6 +44,9 @@ namespace ARCed.Database.Sys
 			}
 		}
 
+        /// <summary>
+        /// Refreshes the form to display data for the currently selected <see cref="RPG.System"/>.
+        /// </summary>
 		public override void RefreshCurrentObject()
 		{
 			SuppressEvents = true;

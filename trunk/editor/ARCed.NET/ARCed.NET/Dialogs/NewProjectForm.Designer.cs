@@ -59,7 +59,7 @@
             resources.ApplyResources(this.textBoxFolderName, "textBoxFolderName");
             this.textBoxFolderName.Name = "textBoxFolderName";
             this.toolTip.SetToolTip(this.textBoxFolderName, resources.GetString("textBoxFolderName.ToolTip"));
-            this.textBoxFolderName.TextChanged += new System.EventHandler(this.textBoxFolderName_TextChanged);
+            this.textBoxFolderName.TextChanged += new System.EventHandler(this.TextBoxFolderNameTextChanged);
             // 
             // textBoxTitle
             // 
@@ -77,7 +77,7 @@
             resources.ApplyResources(this.textBoxLocation, "textBoxLocation");
             this.textBoxLocation.Name = "textBoxLocation";
             this.toolTip.SetToolTip(this.textBoxLocation, resources.GetString("textBoxLocation.ToolTip"));
-            this.textBoxLocation.TextChanged += new System.EventHandler(this.textBoxLocation_TextChanged);
+            this.textBoxLocation.TextChanged += new System.EventHandler(this.TextBoxLocationTextChanged);
             // 
             // buttonBrowse
             // 
@@ -86,7 +86,7 @@
             this.buttonBrowse.Name = "buttonBrowse";
             this.toolTip.SetToolTip(this.buttonBrowse, resources.GetString("buttonBrowse.ToolTip"));
             this.buttonBrowse.UseVisualStyleBackColor = true;
-            this.buttonBrowse.Click += new System.EventHandler(this.buttonBrowse_Click);
+            this.buttonBrowse.Click += new System.EventHandler(this.ButtonBrowseClick);
             // 
             // buttonCancel
             // 
@@ -102,7 +102,7 @@
             this.buttonOK.Name = "buttonOK";
             this.toolTip.SetToolTip(this.buttonOK, resources.GetString("buttonOK.ToolTip"));
             this.buttonOK.UseVisualStyleBackColor = true;
-            this.buttonOK.Click += new System.EventHandler(this.buttonOK_Click);
+            this.buttonOK.Click += new System.EventHandler(this.ButtonOkClick);
             // 
             // labelTemplates
             // 
@@ -139,7 +139,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "NewProjectForm";
-            this.Load += new System.EventHandler(this.NewProjectForm_Load);
+            this.Load += new System.EventHandler(this.NewProjectFormLoad);
             this.ResumeLayout(false);
             this.PerformLayout();
 

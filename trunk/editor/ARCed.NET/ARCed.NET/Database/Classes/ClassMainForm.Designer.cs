@@ -1,6 +1,6 @@
 ﻿namespace ARCed.Database.Classes
 {
-	partial class ClassMainForm
+    sealed partial class ClassMainForm
 	{
 		/// <summary>
 		/// Required designer variable.
@@ -134,7 +134,7 @@
 			this.dataObjectList.Size = new System.Drawing.Size(156, 443);
 			this.dataObjectList.TabIndex = 0;
 			this.dataObjectList.TabStop = false;
-			this.dataObjectList.OnListBoxIndexChanged += new ARCed.Controls.DatabaseObjectListBox.ObjectListIndexChangedEventHandler(this.listBoxClasses_SelectedIndexChanged);
+			this.dataObjectList.OnListBoxIndexChanged += new ARCed.Controls.DatabaseObjectListBox.ObjectListIndexChangedEventHandler(this.ListBoxClassesSelectedIndexChanged);
 			// 
 			// checkGroupWeapons
 			// 
@@ -148,8 +148,8 @@
 			this.checkGroupWeapons.TabIndex = 2;
 			this.checkGroupWeapons.TabStop = false;
 			this.checkGroupWeapons.Text = "Weapons";
-			this.checkGroupWeapons.OnCheckChange += new ARCed.Controls.CheckGroupBox.CheckChangeEventHandler(this.checkGroupWeapons_OnCheckChange);
-			this.checkGroupWeapons.Leave += new System.EventHandler(this.checkGroup_FocusLeave);
+			this.checkGroupWeapons.OnCheckChange += new ARCed.Controls.CheckGroupBox.CheckChangeEventHandler(this.CheckGroupWeaponsOnCheckChange);
+			this.checkGroupWeapons.Leave += new System.EventHandler(this.CheckGroupFocusLeave);
 			// 
 			// textBoxName
 			// 
@@ -159,7 +159,7 @@
 			this.textBoxName.Name = "textBoxName";
 			this.textBoxName.Size = new System.Drawing.Size(142, 20);
 			this.textBoxName.TabIndex = 1;
-			this.textBoxName.TextChanged += new System.EventHandler(this.textBoxName_TextChanged);
+			this.textBoxName.TextChanged += new System.EventHandler(this.TextBoxNameTextChanged);
 			// 
 			// labelName
 			// 
@@ -201,8 +201,8 @@
 			this.checkGroupArmor.TabIndex = 2;
 			this.checkGroupArmor.TabStop = false;
 			this.checkGroupArmor.Text = "Armors";
-			this.checkGroupArmor.OnCheckChange += new ARCed.Controls.CheckGroupBox.CheckChangeEventHandler(this.checkGroupArmor_OnCheckChange);
-			this.checkGroupArmor.Leave += new System.EventHandler(this.checkGroup_FocusLeave);
+			this.checkGroupArmor.OnCheckChange += new ARCed.Controls.CheckGroupBox.CheckChangeEventHandler(this.CheckGroupArmorOnCheckChange);
+			this.checkGroupArmor.Leave += new System.EventHandler(this.CheckGroupFocusLeave);
 			// 
 			// comboBoxPosition
 			// 
@@ -218,7 +218,7 @@
 			this.comboBoxPosition.Name = "comboBoxPosition";
 			this.comboBoxPosition.Size = new System.Drawing.Size(145, 21);
 			this.comboBoxPosition.TabIndex = 1;
-			this.comboBoxPosition.SelectedIndexChanged += new System.EventHandler(this.comboBoxPosition_SelectedIndexChanged);
+			this.comboBoxPosition.SelectedIndexChanged += new System.EventHandler(this.ComboBoxPositionSelectedIndexChanged);
 			// 
 			// labelPosition
 			// 
@@ -289,7 +289,7 @@
 			this.checkedListElements.TabIndex = 0;
 			this.checkedListElements.TabStop = false;
 			this.checkedListElements.Text = "Element Efficiency";
-			this.checkedListElements.OnItemChanged += new ARCed.Controls.MultiStateCheckedListBox.ItemValueChangedEventHandler(this.efficiencyElements_OnItemChanged);
+			this.checkedListElements.OnItemChanged += new ARCed.Controls.MultiStateCheckedListBox.ItemValueChangedEventHandler(this.EfficiencyElementsOnItemChanged);
 			// 
 			// checkedListStates
 			// 
@@ -316,7 +316,7 @@
 			this.checkedListStates.TabIndex = 0;
 			this.checkedListStates.TabStop = false;
 			this.checkedListStates.Text = "State Efficiency";
-			this.checkedListStates.OnItemChanged += new ARCed.Controls.MultiStateCheckedListBox.ItemValueChangedEventHandler(this.efficiencyStates_OnItemChanged);
+			this.checkedListStates.OnItemChanged += new ARCed.Controls.MultiStateCheckedListBox.ItemValueChangedEventHandler(this.EfficiencyStatesOnItemChanged);
 			// 
 			// splitContainerSkillNotes
 			// 
@@ -363,7 +363,7 @@
 			this.buttonEditSkill.Size = new System.Drawing.Size(24, 24);
 			this.buttonEditSkill.TabIndex = 3;
 			this.buttonEditSkill.UseVisualStyleBackColor = true;
-			this.buttonEditSkill.Click += new System.EventHandler(this.buttonEditSkill_Click);
+			this.buttonEditSkill.Click += new System.EventHandler(this.ButtonEditSkillClick);
 			// 
 			// buttonRemoveSkill
 			// 
@@ -375,7 +375,7 @@
 			this.buttonRemoveSkill.Size = new System.Drawing.Size(24, 24);
 			this.buttonRemoveSkill.TabIndex = 2;
 			this.buttonRemoveSkill.UseVisualStyleBackColor = true;
-			this.buttonRemoveSkill.Click += new System.EventHandler(this.buttonRemoveSkill_Click);
+			this.buttonRemoveSkill.Click += new System.EventHandler(this.ButtonRemoveSkillClick);
 			// 
 			// buttonAddSkill
 			// 
@@ -386,7 +386,7 @@
 			this.buttonAddSkill.Size = new System.Drawing.Size(24, 24);
 			this.buttonAddSkill.TabIndex = 1;
 			this.buttonAddSkill.UseVisualStyleBackColor = true;
-			this.buttonAddSkill.Click += new System.EventHandler(this.buttonAddSkill_Click);
+			this.buttonAddSkill.Click += new System.EventHandler(this.ButtonAddSkillClick);
 			// 
 			// listViewSkills
 			// 
@@ -407,9 +407,9 @@
 			this.listViewSkills.TabIndex = 0;
 			this.listViewSkills.UseCompatibleStateImageBehavior = false;
 			this.listViewSkills.View = System.Windows.Forms.View.Details;
-			this.listViewSkills.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.listViewSkills_ColumnClick);
-			this.listViewSkills.SelectedIndexChanged += new System.EventHandler(this.listViewSkills_SelectedIndexChanged);
-			this.listViewSkills.DoubleClick += new System.EventHandler(this.listViewSkills_DoubleClick);
+			this.listViewSkills.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.ListViewSkillsColumnClick);
+			this.listViewSkills.SelectedIndexChanged += new System.EventHandler(this.ListViewSkillsSelectedIndexChanged);
+			this.listViewSkills.DoubleClick += new System.EventHandler(this.ListViewSkillsDoubleClick);
 			// 
 			// columnLevel
 			// 
@@ -444,7 +444,7 @@
 			this.contextButtonSkillEdit.Name = "contextButtonSkillEdit";
 			this.contextButtonSkillEdit.Size = new System.Drawing.Size(117, 22);
 			this.contextButtonSkillEdit.Text = "Edit";
-			this.contextButtonSkillEdit.Click += new System.EventHandler(this.buttonEditSkill_Click);
+			this.contextButtonSkillEdit.Click += new System.EventHandler(this.ButtonEditSkillClick);
 			// 
 			// toolStripSeparator1
 			// 
@@ -457,7 +457,7 @@
 			this.contextButtonSkillAdd.Name = "contextButtonSkillAdd";
 			this.contextButtonSkillAdd.Size = new System.Drawing.Size(117, 22);
 			this.contextButtonSkillAdd.Text = "Add";
-			this.contextButtonSkillAdd.Click += new System.EventHandler(this.buttonAddSkill_Click);
+			this.contextButtonSkillAdd.Click += new System.EventHandler(this.ButtonAddSkillClick);
 			// 
 			// contextButtonSkillRemove
 			// 
@@ -466,7 +466,7 @@
 			this.contextButtonSkillRemove.Name = "contextButtonSkillRemove";
 			this.contextButtonSkillRemove.Size = new System.Drawing.Size(117, 22);
 			this.contextButtonSkillRemove.Text = "Remove";
-			this.contextButtonSkillRemove.Click += new System.EventHandler(this.buttonRemoveSkill_Click);
+			this.contextButtonSkillRemove.Click += new System.EventHandler(this.ButtonRemoveSkillClick);
 			// 
 			// noteTextBox
 			// 
@@ -478,7 +478,7 @@
 			this.noteTextBox.NoteText = "";
 			this.noteTextBox.Size = new System.Drawing.Size(270, 120);
 			this.noteTextBox.TabIndex = 0;
-			this.noteTextBox.NoteTextChanged += new ARCed.Controls.NoteTextBox.TextChangedEventHandler(this.noteTextBox_NoteTextChanged);
+			this.noteTextBox.NoteTextChanged += new ARCed.Controls.NoteTextBox.TextChangedEventHandler(this.NoteTextBoxNoteTextChanged);
 			// 
 			// ClassMainForm
 			// 

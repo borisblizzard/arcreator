@@ -172,9 +172,11 @@ namespace ARCed.Scripting
 		{
 			get
 			{
-				var binding = new BindingList<Script>(Scripts);
-				binding.AllowNew = true;
-				return binding;
+				var binding = new BindingList<Script>(Scripts)
+				{
+				    AllowNew = true
+				};
+			    return binding;
 			}
 			set { _scripts = value.ToList(); }
 		}
@@ -195,7 +197,7 @@ namespace ARCed.Scripting
 		/// <returns>The path to the script if found, null otherwise</returns>
 		public Script WithPath(string path)
 		{
-			return _scripts.Find(delegate(Script s) { return s.Filename == path; });
+			return _scripts.Find(s => s.Filename == path);
 		}
 	}
 }

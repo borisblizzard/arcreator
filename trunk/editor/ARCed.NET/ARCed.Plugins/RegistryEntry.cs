@@ -39,7 +39,9 @@ namespace ARCed.Plugins
 		/// <summary>
 		/// Gets the associated window as dockable content
 		/// </summary>
-		public DockContent Content { get { return (Window as DockContent); } }
+// ReSharper disable SuspiciousTypeConversion.Global
+        public DockContent Content { get { return (DockContent)Window; } }
+// ReSharper restore SuspiciousTypeConversion.Global
 
 		private IPluginClient _instance;
 

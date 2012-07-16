@@ -12,6 +12,9 @@ using RPG;
 
 namespace ARCed.Database.Tilesets
 {
+    /// <summary>
+    /// Main form for configuring Project <see cref="RPG.Tileset"/> data.
+    /// </summary>
 	public partial class TilesetsMainForm : DatabaseWindow
 	{
 		#region Private Fields
@@ -48,14 +51,6 @@ namespace ARCed.Database.Tilesets
 			InitializeComponent();
 		}
 
-		private void TilesetsMainForm_Load(object sender, EventArgs e)
-		{
-			checkBoxGrid.Checked = Editor.Settings.ImageColorSettings.ShowGrid;
-			RefreshObjectList();
-			InitializeAutotiles();
-			dataObjectList.SelectedIndex = 0;
-		}
-
 		#endregion
 
 		#region Public Methods
@@ -69,6 +64,9 @@ namespace ARCed.Database.Tilesets
 
 		}
 
+        /// <summary>
+        /// Refreshes the form to display data for the currently selected <see cref="RPG.Tileset"/>.
+        /// </summary>
 		public override void RefreshCurrentObject()
 		{
 			SuppressEvents = true;
@@ -86,101 +84,106 @@ namespace ARCed.Database.Tilesets
 			string autotile;
 			for (int i = 0; i < _tileset.autotile_names.Count; i++)
 			{
-				autotile = _tileset.autotile_names[i];
-				(panelAutotiles.Controls[i] as TextBoxButton).Text = 
-					String.IsNullOrWhiteSpace(autotile) ? "<None>" : autotile;
+			    autotile = _tileset.autotile_names[i];
+			    var textBoxButton = this.panelAutotiles.Controls[i] as TextBoxButton;
+			    if (textBoxButton != null)
+			        textBoxButton.Text = String.IsNullOrWhiteSpace(autotile) ? "<None>" : autotile;
 			}
-			SuppressEvents = false;
+            SuppressEvents = false;
 		}
 
 		#endregion
 
 		#region Private Methods
 
+        private void TilesetsMainFormLoad(object sender, EventArgs e)
+        {
+            checkBoxGrid.Checked = Editor.Settings.ImageColorSettings.ShowGrid;
+            RefreshObjectList();
+            InitializeAutotiles();
+            dataObjectList.SelectedIndex = 0;
+        }
+
 		private void InitializeAutotiles()
 		{
 			for (int i = 0; i < Constants.AUTOTILES; i++)
 			{
-				var textBox = new TextBoxButton();
-				textBox.Tag = i;
-				textBox.Location = new Point(6, 6 + (i * 24));
-				textBox.Size = new Size(panelAutotiles.ClientSize.Width - 12, 20);
-				textBox.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-				panelAutotiles.Controls.Add(textBox);
-				textBox.OnButtonClick += this.textBoxAutotile_ButtonClick;
-			}
-		}
-
-		private void textBoxAutotile_ButtonClick(object sender, EventArgs e)
-		{
-			int index = Convert.ToInt32((sender as TextBoxButton).Tag);
-			string tile = _tileset.autotile_names[index];
-			using (var dialog = new ImageSelectionForm(@"Autotiles", tile))
-			{
-				if (dialog.ShowDialog(this) == DialogResult.OK)
+				var textBox = new TextBoxButton
 				{
-					string name = dialog.ImageName;
-					_tileset.autotile_names[index] = name;
-					(sender as TextBoxButton).Text = String.IsNullOrWhiteSpace(name) ?
-						"<None>" : name;
-					tilesetXnaPanel.Invalidate();
-				}
+				    Tag = i,
+				    Location = new Point(6, 6 + (i * 24)),
+				    Size = new Size(this.panelAutotiles.ClientSize.Width - 12, 20),
+				    Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right
+				};
+			    panelAutotiles.Controls.Add(textBox);
+				textBox.OnButtonClick += this.TextBoxAutotileButtonClick;
 			}
 		}
 
-		private void dataObjectList_OnListBoxIndexChanged(object sender, EventArgs e)
+		private void TextBoxAutotileButtonClick(object sender, EventArgs e)
 		{
-			int index = dataObjectList.SelectedIndex;
-			if (index >= 0)
-			{
-				_tileset = Data[index + 1];
-				RefreshCurrentObject();
-			}
+		    var textBoxButton = sender as TextBoxButton;
+		    if (textBoxButton == null) return;
+		    var index = Convert.ToInt32(textBoxButton.Tag);
+		    string tile = this._tileset.autotile_names[index];
+		    using (var dialog = new ImageSelectionForm(@"Autotiles", tile))
+		    {
+		        if (dialog.ShowDialog(this) != DialogResult.OK) return;
+		        var name = dialog.ImageName;
+		        this._tileset.autotile_names[index] = name;
+		        textBoxButton.Text = String.IsNullOrWhiteSpace(name) ? "<None>" : name;
+		        this.tilesetXnaPanel.Invalidate();
+		    }
 		}
 
-		private void buttonColors_Click(object sender, EventArgs e)
+        private void DataObjectListOnListBoxIndexChanged(object sender, EventArgs e)
+		{
+			var index = dataObjectList.SelectedIndex;
+            if (index < 0) return;
+            this._tileset = this.Data[index + 1];
+            this.RefreshCurrentObject();
+		}
+
+		private void ButtonColorsClick(object sender, EventArgs e)
 		{
 			using (var dialog = new ImageColorsDialog(Editor.Settings.ImageColorSettings))
 			{
 				dialog.XnaPanel = tilesetXnaPanel;
-				if (dialog.ShowDialog() != DialogResult.OK)
-				{
-					Editor.Settings.ImageColorSettings = dialog.OriginalSettings;
-					tilesetXnaPanel.Invalidate();
-				}
+			    if (dialog.ShowDialog() == DialogResult.OK) return;
+			    Editor.Settings.ImageColorSettings = dialog.OriginalSettings;
+			    this.tilesetXnaPanel.Invalidate();
 			}
 		}
 
-		private void checkBoxGrid_CheckedChanged(object sender, EventArgs e)
+		private void CheckBoxGridCheckedChanged(object sender, EventArgs e)
 		{
 			Editor.Settings.ImageColorSettings.ShowGrid = checkBoxGrid.Checked;
 			tilesetXnaPanel.Invalidate();
 		}
 
-		private void TilesetsMainForm_KeyDown(object sender, KeyEventArgs e)
+		private void TilesetsMainFormKeyDown(object sender, KeyEventArgs e)
 		{
 			if (e.KeyCode == Keys.ControlKey)
 				checkBoxBatch.Checked = !checkBoxBatch.Checked;
 		}
 
-		private void radioMode_Clicked(object sender, EventArgs e)
+		private void RadioModeClicked(object sender, EventArgs e)
 		{
-			int mode = Convert.ToInt32((sender as RadioButton).Tag);
-			tilesetXnaPanel.TilesetMode = (TilesetMode)mode;
+		    var radioButton = sender as RadioButton;
+		    if (radioButton == null) return;
+		    var mode = Convert.ToInt32(radioButton.Tag);
+		    this.tilesetXnaPanel.TilesetMode = (TilesetMode)mode;
 		}
 
-		private void textBoxTileset_OnButtonClick(object sender, EventArgs e)
+        private void TextBoxTilesetOnButtonClick(object sender, EventArgs e)
 		{
-			using (var dialog = 
-				new ImageSelectionForm(@"Tilesets", _tileset.tileset_name))
+			using (var dialog = new ImageSelectionForm(@"Tilesets", _tileset.tileset_name))
 			{
 				dialog.Height = 640;
-				if (dialog.ShowDialog(this) == DialogResult.OK)
-				{
-					_tileset.tileset_name = dialog.ImageName;
-					ResizeTileset();
-					textBoxTileset.Text = _tileset.tileset_name;
-				}
+			    if (dialog.ShowDialog(this) != DialogResult.OK) return;
+			    this._tileset.tileset_name = dialog.ImageName;
+			    this.ResizeTileset();
+			    this.textBoxTileset.Text = this._tileset.tileset_name;
 			}
 		}
 
@@ -196,39 +199,32 @@ namespace ARCed.Database.Tilesets
 			RefreshCurrentObject();
 		}	
 	
-		private void textBoxPanorama_OnButtonClick(object sender, EventArgs e)
+		private void TextBoxPanoramaOnButtonClick(object sender, EventArgs e)
 		{
-			using (var dialog =
-				new ImageSelectionForm(@"Panoramas", _tileset.panorama_name))
+			using (var dialog = new ImageSelectionForm(@"Panoramas", _tileset.panorama_name))
 			{
 				dialog.Hue = _tileset.panorama_hue;
-				if (dialog.ShowDialog(this) == DialogResult.OK)
-				{
-					_tileset.panorama_name = dialog.ImageName;
-					_tileset.panorama_hue = dialog.Hue;
-					textBoxPanorama.Text = _tileset.panorama_name;
-				}
+			    if (dialog.ShowDialog(this) != DialogResult.OK) return;
+			    this._tileset.panorama_name = dialog.ImageName;
+			    this._tileset.panorama_hue = dialog.Hue;
+			    this.textBoxPanorama.Text = this._tileset.panorama_name;
 			}
 		}
 
-		private void textBoxBattleback_OnButtonClick(object sender, EventArgs e)
+		private void TextBoxBattlebackOnButtonClick(object sender, EventArgs e)
 		{
-			using (var dialog =
-				new ImageSelectionForm(@"Battlebacks", _tileset.battleback_name))
+			using (var dialog = new ImageSelectionForm(@"Battlebacks", _tileset.battleback_name))
 			{
 				dialog.Width = 800;
-				if (dialog.ShowDialog(this) == DialogResult.OK)
-				{
-					_tileset.battleback_name = dialog.ImageName;
-					textBoxBattleback.Text = _tileset.battleback_name;
-				}
+			    if (dialog.ShowDialog(this) != DialogResult.OK) return;
+			    this._tileset.battleback_name = dialog.ImageName;
+			    this.textBoxBattleback.Text = this._tileset.battleback_name;
 			}	
 		}
 
-		private void textBoxFog_OnButtonClick(object sender, EventArgs e)
+		private void TextBoxFogOnTextBoxFogOnButtonClick(object sender, EventArgs e)
 		{
-			using (var dialog =
-				new ImageSelectionForm(@"Fogs", _tileset.fog_name))
+			using (var dialog = new ImageSelectionForm(@"Fogs", _tileset.fog_name))
 			{
 				dialog.Hue = _tileset.fog_hue;
 				dialog.ScrollX = _tileset.fog_sx;
@@ -236,41 +232,37 @@ namespace ARCed.Database.Tilesets
 				dialog.Zoom = _tileset.fog_zoom;
 				dialog.ImageOpacity = _tileset.fog_opacity;
 				dialog.BlendMode = _tileset.fog_blend_type;
-				if (dialog.ShowDialog(this) == DialogResult.OK)
-				{
-					_tileset.fog_name = dialog.ImageName;
-					_tileset.fog_hue = dialog.Hue;
-					_tileset.fog_opacity = dialog.ImageOpacity;
-					_tileset.fog_sx = dialog.ScrollX;
-					_tileset.fog_sy = dialog.ScrollY;
-					_tileset.fog_zoom = dialog.Zoom;
-					textBoxFog.Text = _tileset.fog_name;
-				}
+			    if (dialog.ShowDialog(this) != DialogResult.OK) return;
+			    this._tileset.fog_name = dialog.ImageName;
+			    this._tileset.fog_hue = dialog.Hue;
+			    this._tileset.fog_opacity = dialog.ImageOpacity;
+			    this._tileset.fog_sx = dialog.ScrollX;
+			    this._tileset.fog_sy = dialog.ScrollY;
+			    this._tileset.fog_zoom = dialog.Zoom;
+			    this.textBoxFog.Text = this._tileset.fog_name;
 			}
 		}
 
-		private void textBoxName_TextChanged(object sender, EventArgs e)
+		private void TextBoxNameTextChanged(object sender, EventArgs e)
 		{
-			if (!SuppressEvents)
-			{
-				_tileset.name = textBoxName.Text;
-				int index = dataObjectList.SelectedIndex;
-				dataObjectList.Items[index] = _tileset.ToString();
-				dataObjectList.Invalidate(dataObjectList.GetItemRectangle(index));
-			}
+		    if (SuppressEvents) return;
+		    this._tileset.name = this.textBoxName.Text;
+		    int index = this.dataObjectList.SelectedIndex;
+		    this.dataObjectList.Items[index] = this._tileset.ToString();
+		    this.dataObjectList.Invalidate(this.dataObjectList.GetItemRectangle(index));
 		}
 
-		private void checkBoxBatch_CheckedChanged(object sender, EventArgs e)
+		private void CheckBoxBatchCheckedChanged(object sender, EventArgs e)
 		{
 			tilesetXnaPanel.SelectionEnabled = checkBoxBatch.Checked;
 		}
 
-		private void checkBoxIcons_CheckedChanged(object sender, EventArgs e)
+		private void CheckBoxIconsCheckedChanged(object sender, EventArgs e)
 		{
 			tilesetXnaPanel.DisplayIcons = checkBoxIcons.Checked;
 		}
 
-		private void noteTextBox_NoteTextChanged(object sender, EventArgs e)
+		private void NoteTextBoxNoteTextChanged(object sender, EventArgs e)
 		{
 			//if (!suppressEvents)
 			//_tileset.note = noteTextBox.NoteText;

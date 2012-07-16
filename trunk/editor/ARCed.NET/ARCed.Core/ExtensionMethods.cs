@@ -1,6 +1,7 @@
 ﻿#region Using Directives
 
 using System;
+using System.Globalization;
 using System.IO;
 using System.Reflection;
 using System.Text;
@@ -29,11 +30,23 @@ namespace ARCed
 
 		#endregion
 
+        /// <summary>
+        /// Rounds an <seealso langword="int"/> down to the nearest multiple.
+        /// </summary>
+        /// <param name="value">Integer to round</param>
+        /// <param name="multiple">Multiple to round down to.</param>
+        /// <returns>The rounded number</returns>
 		public static int RoundFloor(this int value, int multiple)
 		{
 			return ((int)Math.Floor(value / Convert.ToSingle(multiple))) * multiple;
 		}
 
+        /// <summary>
+        /// Rounds an <seealso langword="int"/> up to the nearest multiple.
+        /// </summary>
+        /// <param name="value">Integer to round</param>
+        /// <param name="multiple">Multiple to round up to.</param>
+        /// <returns>The rounded number</returns>
 		public static int RoundCeil(this int value, int multiple)
 		{
 			return ((int)Math.Ceiling(value / Convert.ToSingle(multiple))) * multiple;
@@ -81,7 +94,7 @@ namespace ARCed
 		/// <returns>Number of digits counted</returns>
 		public static int NumberDigits(this int value)
 		{
-			return value.ToString().Length;
+			return value.ToString(CultureInfo.InvariantCulture).Length;
 		}
 
 		/// <summary>
@@ -179,8 +192,7 @@ namespace ARCed
 		public static T Clamp<T>(this T value, T min, T max) where T : IComparable
 		{
 			if (value.CompareTo(min) < 0) return min;
-			else if (value.CompareTo(max) > 0) return max;
-			else return value;
+			return value.CompareTo(max) > 0 ? max : value;
 		}
 
 		/// <summary>

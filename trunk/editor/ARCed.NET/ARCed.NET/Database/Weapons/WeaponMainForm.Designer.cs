@@ -1,6 +1,6 @@
 ﻿namespace ARCed.Database.Weapons
 {
-	partial class WeaponMainForm
+    sealed partial class WeaponMainForm
 	{
 		/// <summary>
 		/// Required designer variable.
@@ -115,7 +115,7 @@
 			this.dataObjectList.Size = new System.Drawing.Size(182, 482);
 			this.dataObjectList.TabIndex = 0;
 			this.dataObjectList.TabStop = false;
-			this.dataObjectList.OnListBoxIndexChanged += new ARCed.Controls.DatabaseObjectListBox.ObjectListIndexChangedEventHandler(this.listBoxWeapons_OnListBoxIndexChanged);
+			this.dataObjectList.OnListBoxIndexChanged += new ARCed.Controls.DatabaseObjectListBox.ObjectListIndexChangedEventHandler(this.ListBoxWeaponsOnListBoxIndexChanged);
 			// 
 			// splitContainerWeapons
 			// 
@@ -197,7 +197,7 @@
             0,
             0,
             0});
-			this.paramBoxPrice.OnValueChanged += new ARCed.Controls.ParamBox.ValueChangedEventHandler(this.paramBox_OnValueChanged);
+			this.paramBoxPrice.OnValueChanged += new ARCed.Controls.ParamBox.ValueChangedEventHandler(this.ParamBoxOnValueChanged);
 			// 
 			// paramBoxAtk
 			// 
@@ -223,7 +223,7 @@
             0,
             0,
             0});
-			this.paramBoxAtk.OnValueChanged += new ARCed.Controls.ParamBox.ValueChangedEventHandler(this.paramBox_OnValueChanged);
+			this.paramBoxAtk.OnValueChanged += new ARCed.Controls.ParamBox.ValueChangedEventHandler(this.ParamBoxOnValueChanged);
 			// 
 			// paramBoxPdef
 			// 
@@ -249,7 +249,7 @@
             0,
             0,
             0});
-			this.paramBoxPdef.OnValueChanged += new ARCed.Controls.ParamBox.ValueChangedEventHandler(this.paramBox_OnValueChanged);
+			this.paramBoxPdef.OnValueChanged += new ARCed.Controls.ParamBox.ValueChangedEventHandler(this.ParamBoxOnValueChanged);
 			// 
 			// paramBoxMdef
 			// 
@@ -275,7 +275,7 @@
             0,
             0,
             0});
-			this.paramBoxMdef.OnValueChanged += new ARCed.Controls.ParamBox.ValueChangedEventHandler(this.paramBox_OnValueChanged);
+			this.paramBoxMdef.OnValueChanged += new ARCed.Controls.ParamBox.ValueChangedEventHandler(this.ParamBoxOnValueChanged);
 			// 
 			// paramBoxStrPlus
 			// 
@@ -301,7 +301,7 @@
             0,
             0,
             0});
-			this.paramBoxStrPlus.OnValueChanged += new ARCed.Controls.ParamBox.ValueChangedEventHandler(this.paramBox_OnValueChanged);
+			this.paramBoxStrPlus.OnValueChanged += new ARCed.Controls.ParamBox.ValueChangedEventHandler(this.ParamBoxOnValueChanged);
 			// 
 			// paramBoxDexPlus
 			// 
@@ -327,7 +327,7 @@
             0,
             0,
             0});
-			this.paramBoxDexPlus.OnValueChanged += new ARCed.Controls.ParamBox.ValueChangedEventHandler(this.paramBox_OnValueChanged);
+			this.paramBoxDexPlus.OnValueChanged += new ARCed.Controls.ParamBox.ValueChangedEventHandler(this.ParamBoxOnValueChanged);
 			// 
 			// paramBoxAgiPlus
 			// 
@@ -353,7 +353,7 @@
             0,
             0,
             0});
-			this.paramBoxAgiPlus.OnValueChanged += new ARCed.Controls.ParamBox.ValueChangedEventHandler(this.paramBox_OnValueChanged);
+			this.paramBoxAgiPlus.OnValueChanged += new ARCed.Controls.ParamBox.ValueChangedEventHandler(this.ParamBoxOnValueChanged);
 			// 
 			// paramBoxIntPlus
 			// 
@@ -379,7 +379,7 @@
             0,
             0,
             0});
-			this.paramBoxIntPlus.OnValueChanged += new ARCed.Controls.ParamBox.ValueChangedEventHandler(this.paramBox_OnValueChanged);
+			this.paramBoxIntPlus.OnValueChanged += new ARCed.Controls.ParamBox.ValueChangedEventHandler(this.ParamBoxOnValueChanged);
 			// 
 			// splitContainerAnimation
 			// 
@@ -413,7 +413,7 @@
 			this.comboBoxUserAnimation.Name = "comboBoxUserAnimation";
 			this.comboBoxUserAnimation.Size = new System.Drawing.Size(128, 21);
 			this.comboBoxUserAnimation.TabIndex = 3;
-			this.comboBoxUserAnimation.SelectedIndexChanged += new System.EventHandler(this.comboBoxUserAnimation_SelectedIndexChanged);
+			this.comboBoxUserAnimation.SelectedIndexChanged += new System.EventHandler(this.ComboBoxUserAnimationSelectedIndexChanged);
 			// 
 			// label3
 			// 
@@ -436,7 +436,7 @@
 			this.comboBoxTargetAnimation.Name = "comboBoxTargetAnimation";
 			this.comboBoxTargetAnimation.Size = new System.Drawing.Size(130, 21);
 			this.comboBoxTargetAnimation.TabIndex = 4;
-			this.comboBoxTargetAnimation.SelectedIndexChanged += new System.EventHandler(this.comboBoxTargetAnimation_SelectedIndexChanged);
+			this.comboBoxTargetAnimation.SelectedIndexChanged += new System.EventHandler(this.ComboBoxTargetAnimationSelectedIndexChanged);
 			// 
 			// label4
 			// 
@@ -457,7 +457,7 @@
 			this.buttonIcon.Size = new System.Drawing.Size(24, 24);
 			this.buttonIcon.TabIndex = 37;
 			this.buttonIcon.UseVisualStyleBackColor = true;
-			this.buttonIcon.Click += new System.EventHandler(this.buttonIcon_Click);
+			this.buttonIcon.Click += new System.EventHandler(this.ButtonIconClick);
 			// 
 			// pictureBoxIcon
 			// 
@@ -498,7 +498,7 @@
 			this.textBoxDescription.Name = "textBoxDescription";
 			this.textBoxDescription.Size = new System.Drawing.Size(271, 20);
 			this.textBoxDescription.TabIndex = 31;
-			this.textBoxDescription.TextChanged += new System.EventHandler(this.textBoxDescription_TextChanged);
+			this.textBoxDescription.TextChanged += new System.EventHandler(this.TextBoxDescriptionTextChanged);
 			// 
 			// labelDescription
 			// 
@@ -517,7 +517,7 @@
 			this.textBoxName.Name = "textBoxName";
 			this.textBoxName.Size = new System.Drawing.Size(271, 20);
 			this.textBoxName.TabIndex = 29;
-			this.textBoxName.TextChanged += new System.EventHandler(this.textBoxName_TextChanged);
+			this.textBoxName.TextChanged += new System.EventHandler(this.TextBoxNameTextChanged);
 			// 
 			// labelName
 			// 
@@ -575,7 +575,7 @@
 			this.checkGroupBoxElements.TabIndex = 0;
 			this.checkGroupBoxElements.TabStop = false;
 			this.checkGroupBoxElements.Text = "Elements";
-			this.checkGroupBoxElements.OnCheckChange += new ARCed.Controls.CheckGroupBox.CheckChangeEventHandler(this.checkGroupBoxElements_OnCheckChange);
+			this.checkGroupBoxElements.OnCheckChange += new ARCed.Controls.CheckGroupBox.CheckChangeEventHandler(this.CheckGroupBoxElementsOnCheckChange);
 			// 
 			// checkedListBoxStates
 			// 
@@ -596,7 +596,7 @@
 			this.checkedListBoxStates.TabIndex = 0;
 			this.checkedListBoxStates.TabStop = false;
 			this.checkedListBoxStates.Text = "State Change";
-			this.checkedListBoxStates.OnItemChanged += new ARCed.Controls.MultiStateCheckedListBox.ItemValueChangedEventHandler(this.checkedListBoxStates_OnItemChanged);
+			this.checkedListBoxStates.OnItemChanged += new ARCed.Controls.MultiStateCheckedListBox.ItemValueChangedEventHandler(this.CheckedListBoxStatesOnItemChanged);
 			// 
 			// noteTextBox
 			// 
@@ -608,7 +608,7 @@
 			this.noteTextBox.NoteText = "";
 			this.noteTextBox.Size = new System.Drawing.Size(293, 168);
 			this.noteTextBox.TabIndex = 0;
-			this.noteTextBox.NoteTextChanged += new ARCed.Controls.NoteTextBox.TextChangedEventHandler(this.noteTextBox_NoteTextChanged);
+			this.noteTextBox.NoteTextChanged += new ARCed.Controls.NoteTextBox.TextChangedEventHandler(this.NoteTextBoxNoteTextChanged);
 			// 
 			// WeaponMainForm
 			// 

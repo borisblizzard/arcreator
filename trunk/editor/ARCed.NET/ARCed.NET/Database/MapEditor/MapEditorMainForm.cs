@@ -6,6 +6,9 @@ using System.Windows.Forms;
 
 namespace ARCed.Database.MapEditor
 {
+    /// <summary>
+    /// Main form for configuring Project <see cref="RPG.Map"/> data.
+    /// </summary>
 	public partial class MapEditorMainForm : Form
 	{
 		public MapEditorMainForm()

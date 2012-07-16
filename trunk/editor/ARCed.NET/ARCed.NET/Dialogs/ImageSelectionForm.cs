@@ -32,7 +32,7 @@ namespace ARCed.Dialogs
 		/// <summary>
 		/// Gets the image under the selection rectangle
 		/// </summary>
-		public Image SelectedImage { get; private set; }
+        public Image SelectedImage { get; private set; }
 
 		/// <summary>
 		/// Gets or sets the hue rotation applied to the image
@@ -163,11 +163,11 @@ namespace ARCed.Dialogs
 		public ImageSelectionForm()
 		{
 			InitializeComponent();
-			this.ResizeBegin += (s, e) => { SuspendLayout(); };
-			this.ResizeEnd += (s, e) => { ResumeLayout(); };
+			ResizeBegin += (s, e) => SuspendLayout();
+			ResizeEnd += (s, e) => ResumeLayout();
 		}
 
-		private void ImageSelectionForm_Load(object sender, EventArgs e)
+		private void ImageSelectionFormLoad(object sender, EventArgs e)
 		{
 			if (_folder != null)
 			{
@@ -190,9 +190,9 @@ namespace ARCed.Dialogs
 
 		private void SetFolder(string folder)
 		{
-			// Update listbox
 			listBoxGraphics.BeginUpdate();
 			listBoxGraphics.Items.Clear();
+		    _folder = folder;
 			foreach (GameResource rsx in _resources)
 				listBoxGraphics.Items.Add(rsx.Name);
 			_resources.Insert(0, null);
@@ -202,7 +202,7 @@ namespace ARCed.Dialogs
 
 		private void SetFilename(string filename)
 		{
-			int index = listBoxGraphics.FindStringExact(filename, 1);
+			var index = listBoxGraphics.FindStringExact(filename, 1);
 			listBoxGraphics.SelectedIndex = Math.Max(0, index);
 		}
 
@@ -254,9 +254,9 @@ namespace ARCed.Dialogs
 			}
 		}
 
-		private void listBoxGraphics_SelectedIndexChanged(object sender, EventArgs e)
+		private void ListBoxGraphicsSelectedIndexChanged(object sender, EventArgs e)
 		{
-			int index = listBoxGraphics.SelectedIndex;
+			var index = listBoxGraphics.SelectedIndex;
 			if (index > 0)
 			{
 				_filename = _resources[listBoxGraphics.SelectedIndex].Name;
@@ -269,61 +269,59 @@ namespace ARCed.Dialogs
 			}
 		}
 
-		private void imageOption_Changed(object sender, EventArgs e)
+		private void ImageOptionChanged(object sender, EventArgs e)
 		{
 			if (_initialized)
 				RefreshPicture();
 		}
 
-		private void buttonOK_Click(object sender, EventArgs e)
+		private void ButtonOkClick(object sender, EventArgs e)
 		{
-			this.DialogResult = DialogResult.OK;
-			this.Close();
+			DialogResult = DialogResult.OK;
+			Close();
 		}
 
 		#endregion
 
-		private void listBoxGraphics_DrawItem(object sender, DrawItemEventArgs e)
+		private void ListBoxGraphicsDrawItem(object sender, DrawItemEventArgs e)
 		{
-			int index = e.Index;
-			string str = (index == 0) ? "<None>" : _resources[e.Index].Name;
+			var index = e.Index;
+			var str = (index == 0) ? "<None>" : _resources[e.Index].Name;
 			using (e.Graphics)
 			{
 				e.DrawBackground();
 				if (index > 0)
 				{
-					if (_resources[index].Location == Core.Location.Local)
-						e.Graphics.DrawImageUnscaled(Resources.ResourceLocal, e.Bounds);
-					else
-						e.Graphics.DrawImageUnscaled(Resources.ResourceRTP, e.Bounds);
+				    e.Graphics.DrawImageUnscaled(
+				        this._resources[index].Location == Core.Location.Local ? 
+                        Resources.ResourceLocal : Resources.ResourceRTP,
+				        e.Bounds);
 				}
 				e.Graphics.DrawString("     " + str, e.Font, Brushes.Black, e.Bounds);
 				e.DrawFocusRectangle();
 			}
 		}
 
-		private void checkAlphaPreview_CheckedChanged(object sender, EventArgs e)
+		private void CheckAlphaPreviewCheckedChanged(object sender, EventArgs e)
 		{
 			pictureBox.AlphaPreview = checkAlphaPreview.Checked;
 			pictureBox.Invalidate();
 		}
 
-		private void numericOpacity_ValueChanged(object sender, EventArgs e)
+		private void NumericOpacityValueChanged(object sender, EventArgs e)
 		{
 			pictureBox.ImageOpacity = (int)numericOpacity.Value;
 		}
 
-		private void buttonColor_Click(object sender, EventArgs e)
+		private void ButtonColorClick(object sender, EventArgs e)
 		{
 			using (var dialog = new ColorChooserForm())
 			{
 				dialog.AlphaEnabled = false;
                 dialog.Color = Editor.Settings.ImageColorSettings.BackgroundColor.ToSystemColor();
-				if (dialog.ShowDialog() == DialogResult.OK)
-				{
-                    Editor.Settings.ImageColorSettings.BackgroundColor = dialog.Color.ToXnaColor();
-                    pictureBox.ImageBackColor = Editor.Settings.ImageColorSettings.BackgroundColor;
-				}
+			    if (dialog.ShowDialog() != DialogResult.OK) return;
+			    Editor.Settings.ImageColorSettings.BackgroundColor = dialog.Color.ToXnaColor();
+			    this.pictureBox.ImageBackColor = Editor.Settings.ImageColorSettings.BackgroundColor;
 			}
 		}
 	}

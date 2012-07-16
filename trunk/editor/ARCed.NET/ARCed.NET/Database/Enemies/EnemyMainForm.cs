@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using System.Globalization;
 using System.Windows.Forms;
 using ARCed.Controls;
 using ARCed.Dialogs;
@@ -14,10 +15,10 @@ using RPG;
 
 namespace ARCed.Database.Enemies
 {
-	/// <summary>
-	/// Database window for editing RPG.Enemy data
-	/// </summary>
-	public partial class EnemyMainForm : DatabaseWindow
+    /// <summary>
+    /// Main form for configuring Project <see cref="RPG.Enemy"/> data.
+    /// </summary>
+	public sealed partial class EnemyMainForm : DatabaseWindow
 	{
 		#region Private Fields
 
@@ -47,6 +48,9 @@ namespace ARCed.Database.Enemies
 
 		#region Constructor
 
+        /// <summary>
+        /// Default constructor
+        /// </summary>
 		public EnemyMainForm()
 		{
 			InitializeComponent();
@@ -106,6 +110,9 @@ namespace ARCed.Database.Enemies
 			}
 		}
 
+        /// <summary>
+        /// Refreshes the form to display data for the currently selected <see cref="RPG.Enemy"/>.
+        /// </summary>
 		public override void RefreshCurrentObject()
 		{
 			SuppressEvents = true;
@@ -167,12 +174,10 @@ namespace ARCed.Database.Enemies
 			if (conditions.Count == 0)
 				conditions.Add("<None>");
 			string condition = String.Join(", ", conditions);
-			string cmd;
-			if (action.kind == 0)
-				cmd = _actions[action.basic];
-			else
-				cmd = Project.Data.Skills[action.skill_id].name;
-			return new ListViewItem(new[] { cmd, condition, action.rating.ToString() });
+			string cmd = action.kind == 0 ? _actions[action.basic] : 
+                Project.Data.Skills[action.skill_id].name;
+			return new ListViewItem(new[] { cmd, condition, 
+                action.rating.ToString(CultureInfo.InvariantCulture) });
 		}
 
 		private void RefreshElements()
@@ -205,13 +210,11 @@ namespace ARCed.Database.Enemies
 		{
 			foreach (Control ctrl in flowPanel.Controls)
 			{
-				if (ctrl is ParamBox)
-				{
-					var param = ctrl as ParamBox;
-					var property = typeof(Enemy).GetProperty(param.RpgAttribute);
-					if (property != null)
-						param.Value = (int)property.GetValue(_enemy, null);
-				}
+			    if (!(ctrl is ParamBox)) continue;
+			    var param = ctrl as ParamBox;
+			    var property = typeof(Enemy).GetProperty(param.RpgAttribute);
+			    if (property != null)
+			        param.Value = (int)property.GetValue(this._enemy, null);
 			}
 		}
 
@@ -220,18 +223,19 @@ namespace ARCed.Database.Enemies
 			pictureBattler.Image = Cache.Battler(_enemy.battler_name, _enemy.battler_hue);
 		}
 
-		private void paramBox_OnValueChanged(object sender, ParameterEventArgs e)
+		private void ParamBoxOnValueChanged(object sender, ParameterEventArgs e)
 		{
-			if (!SuppressEvents)
-			{
-				var paramBox = sender as ParamBox;
-				var value = (int)paramBox.Value;
-				string propertyName = paramBox.RpgAttribute;
-				typeof(Enemy).GetProperty(propertyName).SetValue(_enemy, value, null);
-			}
+		    if (SuppressEvents) return;
+		    var paramBox = sender as ParamBox;
+		    if (paramBox != null)
+		    {
+		        var value = (int)paramBox.Value;
+		        var propertyName = paramBox.RpgAttribute;
+		        typeof(Enemy).GetProperty(propertyName).SetValue(this._enemy, value, null);
+		    }
 		}
 
-		private void dataObjectList_OnListBoxIndexChanged(object sender, EventArgs e)
+		private void DataObjectListOnListBoxIndexChanged(object sender, EventArgs e)
 		{
 			int index = dataObjectList.SelectedIndex;
 			if (index >= 0)
@@ -241,7 +245,7 @@ namespace ARCed.Database.Enemies
 			}
 		}
 
-		private void textBoxName_TextChanged(object sender, EventArgs e)
+		private void TextBoxNameTextChanged(object sender, EventArgs e)
 		{
 			if (!SuppressEvents)
 			{
@@ -252,19 +256,23 @@ namespace ARCed.Database.Enemies
 			}
 		}
 
-		private void checkedListElements_OnItemChanged(object sender, MultiStateCheckEventArgs e)
+		private void CheckedListElementsOnItemChanged(object sender, MultiStateCheckEventArgs e)
 		{
-			if (!SuppressEvents)
-				_enemy.element_ranks[e.Index + 1] = (sender as MultiStateCheckbox).SelectedState;
+		    if (SuppressEvents) return;
+		    var multiStateCheckbox = sender as MultiStateCheckbox;
+		    if (multiStateCheckbox != null)
+		        this._enemy.element_ranks[e.Index + 1] = multiStateCheckbox.SelectedState;
 		}
 
-		private void checkedListStates_OnItemChanged(object sender, MultiStateCheckEventArgs e)
+		private void CheckedListStatesOnItemChanged(object sender, MultiStateCheckEventArgs e)
 		{
-			if (!SuppressEvents)
-				_enemy.state_ranks[e.Index + 1] = (sender as MultiStateCheckbox).SelectedState;
+		    if (SuppressEvents) return;
+		    var multiStateCheckbox = sender as MultiStateCheckbox;
+		    if (multiStateCheckbox != null)
+		        this._enemy.state_ranks[e.Index + 1] = multiStateCheckbox.SelectedState;
 		}
 
-		private void listViewSkills_ColumnClick(object sender, ColumnClickEventArgs e)
+		private void ListViewSkillsColumnClick(object sender, ColumnClickEventArgs e)
 		{
 			if (e.Column == _listViewSorter.SortColumn)
 			{
@@ -279,13 +287,13 @@ namespace ARCed.Database.Enemies
 			((ListView)sender).Sort();
 		}
 
-		private void noteTextBox_NoteTextChanged(object sender, EventArgs e)
+		private void NoteTextBoxNoteTextChanged(object sender, EventArgs e)
 		{
 			//if (suppressEvents)
 				//_enemy.note = noteTextBox.NoteText;
 		}
 
-		private void buttonAddAction_Click(object sender, EventArgs e)
+		private void ButtonAddActionClick(object sender, EventArgs e)
 		{
 			using (var dialog = new EditActionDialog())
 			{
@@ -297,7 +305,7 @@ namespace ARCed.Database.Enemies
 			}
 		}
 
-		private void buttonRemoveAction_Click(object sender, EventArgs e)
+		private void ButtonRemoveActionClick(object sender, EventArgs e)
 		{
 			int index = GetActionIndex();
 			if (_enemy != null && index >= 0)
@@ -305,7 +313,7 @@ namespace ARCed.Database.Enemies
 				_enemy.actions.RemoveAt(index);
 				RefreshActions();
 				listViewActions.Focus();
-				listViewActions_SelectedIndexChanged(sender, e);
+				this.ListViewActionsSelectedIndexChanged(sender, e);
 			}
 			if (listViewActions.Items.Count > 0)
 				listViewActions.Items[index.Clamp(0, listViewActions.Items.Count - 1)].Selected = true;
@@ -318,7 +326,7 @@ namespace ARCed.Database.Enemies
 			return -1;
 		}
 
-		private void buttonEditAction_Click(object sender, EventArgs e)
+		private void ButtonEditActionClick(object sender, EventArgs e)
 		{
 			int index = GetActionIndex();
 			using (var dialog = new EditActionDialog())
@@ -332,15 +340,15 @@ namespace ARCed.Database.Enemies
 			}
 		}
 
-		private void listViewActions_DoubleClick(object sender, EventArgs e)
+		private void ListViewActionsDoubleClick(object sender, EventArgs e)
 		{
 			Point pnt = listViewActions.PointToClient(MousePosition);
 			ListViewHitTestInfo info = listViewActions.HitTest(pnt);
 			if (info.Item != null)
-				buttonEditAction_Click(sender, e);
+				this.ButtonEditActionClick(sender, e);
 		}
 
-		private void listViewActions_SelectedIndexChanged(object sender, EventArgs e)
+		private void ListViewActionsSelectedIndexChanged(object sender, EventArgs e)
 		{
 			bool enable = listViewActions.SelectedItems.Count > 0;
 			buttonEditAction.Enabled = enable;
@@ -349,7 +357,7 @@ namespace ARCed.Database.Enemies
 			contextButtonActionRemove.Enabled = enable;
 		}
 
-		private void buttonTreasure_Click(object sender, EventArgs e)
+		private void ButtonTreasureClick(object sender, EventArgs e)
 		{
 			using (var dialog = new TreasureSelectDialog())
 			{
@@ -370,7 +378,7 @@ namespace ARCed.Database.Enemies
 			}
 		}
 
-		private void pictureBattler_DoubleClick(object sender, EventArgs e)
+		private void PictureBattlerDoubleClick(object sender, EventArgs e)
 		{
 			using (var dialog =
 				new ImageSelectionForm(@"Battlers", _enemy.battler_name))
@@ -386,23 +394,30 @@ namespace ARCed.Database.Enemies
 			}
 		}
 
-		private void contextMenuImages_Opening(object sender, CancelEventArgs e)
+		private void ContextMenuImagesOpening(object sender, CancelEventArgs e)
 		{
-			PictureBoxSizeMode mode =
-				(contextMenuImages.SourceControl as PictureBox).SizeMode;
-			contextImageNormal.Checked = mode == PictureBoxSizeMode.Normal;
-			contextImageCenter.Checked = mode == PictureBoxSizeMode.CenterImage;
-			contextImageStretch.Checked = mode == PictureBoxSizeMode.StretchImage;
-			contextImageZoom.Checked = mode == PictureBoxSizeMode.Zoom;
+		    var pictureBox = this.contextMenuImages.SourceControl as PictureBox;
+		    if (pictureBox != null)
+		    {
+		        var mode = pictureBox.SizeMode;
+		        this.contextImageNormal.Checked = mode == PictureBoxSizeMode.Normal;
+		        this.contextImageCenter.Checked = mode == PictureBoxSizeMode.CenterImage;
+		        this.contextImageStretch.Checked = mode == PictureBoxSizeMode.StretchImage;
+		        this.contextImageZoom.Checked = mode == PictureBoxSizeMode.Zoom;
+		    }
 		}
 
-		private void contextImagesSizeMode_Clicked(object sender, EventArgs e)
+        private void ContextImagesSizeModeClicked(object sender, EventArgs e)
 		{
-			int num = Convert.ToInt32((sender as ToolStripMenuItem).Tag);
-			var mode = (PictureBoxSizeMode)num;
-			(contextMenuImages.SourceControl as PictureBox).SizeMode = mode;
+		    var toolStripMenuItem = sender as ToolStripMenuItem;
+		    if (toolStripMenuItem == null) return;
+		    int num = Convert.ToInt32(toolStripMenuItem.Tag);
+		    var mode = (PictureBoxSizeMode)num;
+		    var pictureBox = this.contextMenuImages.SourceControl as PictureBox;
+		    if (pictureBox != null)
+		        pictureBox.SizeMode = mode;
 		}
 
-		#endregion
+        #endregion
 	}
 }

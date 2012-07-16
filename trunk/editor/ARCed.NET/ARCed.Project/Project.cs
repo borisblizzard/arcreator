@@ -432,7 +432,7 @@ namespace ARCed
             {
                 T data;
                 using (Stream s = File.OpenRead(Path.Combine(DataDirectory, filename)))
-                    data = (map == null) ? (T)ArcData.load(s) : (T)ArcData.load(s, map);
+                    data = (map == null) ? (T)ArcData.Load(s) : (T)ArcData.Load(s, map);
                 return data;
             }
             catch (Exception error) { throw new ARCedException(error.Message); }

@@ -49,7 +49,7 @@
 			this.buttonOK.Text = "OK";
 			this.toolTip.SetToolTip(this.buttonOK, "Confirm ");
 			this.buttonOK.UseVisualStyleBackColor = true;
-			this.buttonOK.Click += new System.EventHandler(this.buttonOK_Click);
+			this.buttonOK.Click += new System.EventHandler(this.ButtonOkClick);
 			// 
 			// buttonCancel
 			// 

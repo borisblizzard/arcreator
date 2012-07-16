@@ -89,12 +89,9 @@ namespace ARCed.Core
 		{
 			get 
 			{
-				string path;
-				if (Location == Location.Local)
-					path = FullPath.Replace(System.IO.Directory.GetCurrentDirectory(), "");
-				else
-					path = FullPath.Replace(Constants.RTP_PATH, "");
-				return path.TrimStart('\\', '.');
+			    var path = FullPath.Replace(this.Location == Location.Local ? 
+                    System.IO.Directory.GetCurrentDirectory() : Constants.RTPPath, "");
+			    return path.TrimStart('\\', '.');
 			}
 		}
 		/// <summary>
@@ -148,12 +145,17 @@ namespace ARCed.Core
 				throw new ArgumentException("Object is not of type \"GameResource\"");
 			if (this.Location == Location.Local && rsx.Location != Location.Local)
 				return -1;
-			else if (this.Location == Location.RTP && rsx.Location == Location.Local)
+			if (this.Location == Location.RTP && rsx.Location == Location.Local)
 				return 1;
-			else
-				return this.Name.CompareTo(rsx.Name);
+			return String.Compare(this.Name, rsx.Name, StringComparison.Ordinal);
 		}
 
+        /// <summary>
+        /// Compares two objects for equality.
+        /// </summary>
+        /// <param name="obj1">First object to compare</param>
+        /// <param name="obj2">Second object to compare</param>
+        /// <returns>Result of comparison</returns>
 		public static int Compare(object obj1, object obj2)
 		{
 			return new ResourceComparer().Compare(obj1, obj2);
@@ -161,7 +163,15 @@ namespace ARCed.Core
 
 		private class ResourceComparer : IComparer
 		{
+            /// <summary>
+            /// Compares two objects for equality.
+            /// </summary>
+            /// <param name="obj1">First object to compare</param>
+            /// <param name="obj2">Second object to compare</param>
+            /// <returns>Result of comparison</returns>
+// ReSharper disable MemberHidesStaticFromOuterClass
 			public int Compare(object obj1, object obj2)
+// ReSharper restore MemberHidesStaticFromOuterClass
 			{
 				GameResource rsx1, rsx2;
 				if (obj1 is GameResource)

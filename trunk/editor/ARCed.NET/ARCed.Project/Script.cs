@@ -13,8 +13,10 @@ namespace ARCed.Scripting
 	/// </summary>
 	public class Script
 	{
-
-        public static Script DummyScript { get { return new Script(); } }
+        /// <summary>
+        /// Gets an empty script object.
+        /// </summary>
+        public static readonly Script DummyScript = new Script();
 
 		#region Private Fields
 
@@ -82,6 +84,8 @@ namespace ARCed.Scripting
 		{
 			Load(filename);
 			filename = Path.GetFileName(filename);
+            if (String.IsNullOrEmpty(filename))
+                return;
 			try { _index = Convert.ToInt32(filename.Substring(0, 4)); }
 			catch { _index = 0; NeedSaved = true; }
 		}
@@ -116,6 +120,8 @@ namespace ARCed.Scripting
 			{
 				_text = File.ReadAllText(filename, Encoding.UTF8).Replace("  ", "\t");
 				filename = Path.GetFileNameWithoutExtension(filename);
+                if (String.IsNullOrEmpty(filename))
+                    return false;
 				_title = filename.Substring(5, filename.Length - 5);
 				NeedSaved = false;
 				return true;

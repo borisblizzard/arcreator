@@ -1,6 +1,6 @@
 ﻿namespace ARCed.Database.Items
 {
-	partial class ItemMainForm
+    sealed partial class ItemMainForm
 	{
 		/// <summary>
 		/// Required designer variable.
@@ -133,7 +133,7 @@
 			this.dataObjectList.Size = new System.Drawing.Size(165, 484);
 			this.dataObjectList.TabIndex = 0;
 			this.dataObjectList.TabStop = false;
-			this.dataObjectList.OnListBoxIndexChanged += new ARCed.Controls.DatabaseObjectListBox.ObjectListIndexChangedEventHandler(this.listBoxItems_OnListBoxIndexChanged);
+			this.dataObjectList.OnListBoxIndexChanged += new ARCed.Controls.DatabaseObjectListBox.ObjectListIndexChangedEventHandler(this.ListBoxItemsOnListBoxIndexChanged);
 			// 
 			// splitContainerRight
 			// 
@@ -221,7 +221,7 @@
             0,
             0,
             0});
-			this.paramBoxSpCost.OnValueChanged += new ARCed.Controls.ParamBox.ValueChangedEventHandler(this.paramBox_OnValueChanged);
+			this.paramBoxSpCost.OnValueChanged += new ARCed.Controls.ParamBox.ValueChangedEventHandler(this.ParamBoxOnValueChanged);
 			// 
 			// panelConsumable
 			// 
@@ -245,7 +245,7 @@
 			this.comboBoxConsumable.Name = "comboBoxConsumable";
 			this.comboBoxConsumable.Size = new System.Drawing.Size(63, 21);
 			this.comboBoxConsumable.TabIndex = 1;
-			this.comboBoxConsumable.SelectedIndexChanged += new System.EventHandler(this.comboBoxConsumable_SelectedIndexChanged);
+			this.comboBoxConsumable.SelectedIndexChanged += new System.EventHandler(this.ComboBoxConsumableSelectedIndexChanged);
 			// 
 			// labelConsumable
 			// 
@@ -283,7 +283,7 @@
 			this.comboBoxParameter.Name = "comboBoxParameter";
 			this.comboBoxParameter.Size = new System.Drawing.Size(63, 21);
 			this.comboBoxParameter.TabIndex = 1;
-			this.comboBoxParameter.SelectedIndexChanged += new System.EventHandler(this.comboBoxParameter_SelectedIndexChanged);
+			this.comboBoxParameter.SelectedIndexChanged += new System.EventHandler(this.ComboBoxParameterSelectedIndexChanged);
 			// 
 			// labelParameter
 			// 
@@ -318,7 +318,7 @@
             0,
             0,
             0});
-			this.paramBoxParamInc.OnValueChanged += new ARCed.Controls.ParamBox.ValueChangedEventHandler(this.paramBox_OnValueChanged);
+			this.paramBoxParamInc.OnValueChanged += new ARCed.Controls.ParamBox.ValueChangedEventHandler(this.ParamBoxOnValueChanged);
 			// 
 			// paramBoxHpPercent
 			// 
@@ -344,7 +344,7 @@
             0,
             0,
             0});
-			this.paramBoxHpPercent.OnValueChanged += new ARCed.Controls.ParamBox.ValueChangedEventHandler(this.paramBox_OnValueChanged);
+			this.paramBoxHpPercent.OnValueChanged += new ARCed.Controls.ParamBox.ValueChangedEventHandler(this.ParamBoxOnValueChanged);
 			// 
 			// paramBoxHP
 			// 
@@ -370,7 +370,7 @@
             0,
             0,
             0});
-			this.paramBoxHP.OnValueChanged += new ARCed.Controls.ParamBox.ValueChangedEventHandler(this.paramBox_OnValueChanged);
+			this.paramBoxHP.OnValueChanged += new ARCed.Controls.ParamBox.ValueChangedEventHandler(this.ParamBoxOnValueChanged);
 			// 
 			// paramBoxSpPercent
 			// 
@@ -396,7 +396,7 @@
             0,
             0,
             0});
-			this.paramBoxSpPercent.OnValueChanged += new ARCed.Controls.ParamBox.ValueChangedEventHandler(this.paramBox_OnValueChanged);
+			this.paramBoxSpPercent.OnValueChanged += new ARCed.Controls.ParamBox.ValueChangedEventHandler(this.ParamBoxOnValueChanged);
 			// 
 			// paramBoxSP
 			// 
@@ -422,7 +422,7 @@
             0,
             0,
             0});
-			this.paramBoxSP.OnValueChanged += new ARCed.Controls.ParamBox.ValueChangedEventHandler(this.paramBox_OnValueChanged);
+			this.paramBoxSP.OnValueChanged += new ARCed.Controls.ParamBox.ValueChangedEventHandler(this.ParamBoxOnValueChanged);
 			// 
 			// paramBoxPdef
 			// 
@@ -448,7 +448,7 @@
             0,
             0,
             0});
-			this.paramBoxPdef.OnValueChanged += new ARCed.Controls.ParamBox.ValueChangedEventHandler(this.paramBox_OnValueChanged);
+			this.paramBoxPdef.OnValueChanged += new ARCed.Controls.ParamBox.ValueChangedEventHandler(this.ParamBoxOnValueChanged);
 			// 
 			// paramBoxMdef
 			// 
@@ -474,7 +474,7 @@
             0,
             0,
             0});
-			this.paramBoxMdef.OnValueChanged += new ARCed.Controls.ParamBox.ValueChangedEventHandler(this.paramBox_OnValueChanged);
+			this.paramBoxMdef.OnValueChanged += new ARCed.Controls.ParamBox.ValueChangedEventHandler(this.ParamBoxOnValueChanged);
 			// 
 			// paramBoxHitRate
 			// 
@@ -500,7 +500,7 @@
             0,
             0,
             0});
-			this.paramBoxHitRate.OnValueChanged += new ARCed.Controls.ParamBox.ValueChangedEventHandler(this.paramBox_OnValueChanged);
+			this.paramBoxHitRate.OnValueChanged += new ARCed.Controls.ParamBox.ValueChangedEventHandler(this.ParamBoxOnValueChanged);
 			// 
 			// paramBoxVariance
 			// 
@@ -526,7 +526,7 @@
             0,
             0,
             0});
-			this.paramBoxVariance.OnValueChanged += new ARCed.Controls.ParamBox.ValueChangedEventHandler(this.paramBox_OnValueChanged);
+			this.paramBoxVariance.OnValueChanged += new ARCed.Controls.ParamBox.ValueChangedEventHandler(this.ParamBoxOnValueChanged);
 			// 
 			// buttonPlay
 			// 
@@ -584,7 +584,7 @@
 			this.comboBoxCommonEvent.Name = "comboBoxCommonEvent";
 			this.comboBoxCommonEvent.Size = new System.Drawing.Size(110, 21);
 			this.comboBoxCommonEvent.TabIndex = 5;
-			this.comboBoxCommonEvent.SelectedIndexChanged += new System.EventHandler(this.comboBoxCommonEvent_SelectedIndexChanged);
+			this.comboBoxCommonEvent.SelectedIndexChanged += new System.EventHandler(this.ComboBoxCommonEventSelectedIndexChanged);
 			// 
 			// labelCommonEvent
 			// 
@@ -605,7 +605,7 @@
 			this.comboBoxUserAnimation.Name = "comboBoxUserAnimation";
 			this.comboBoxUserAnimation.Size = new System.Drawing.Size(110, 21);
 			this.comboBoxUserAnimation.TabIndex = 3;
-			this.comboBoxUserAnimation.SelectedIndexChanged += new System.EventHandler(this.comboBoxUserAnimation_SelectedIndexChanged);
+			this.comboBoxUserAnimation.SelectedIndexChanged += new System.EventHandler(this.ComboBoxUserAnimationSelectedIndexChanged);
 			// 
 			// label3
 			// 
@@ -635,7 +635,7 @@
 			this.comboBoxScope.Name = "comboBoxScope";
 			this.comboBoxScope.Size = new System.Drawing.Size(110, 21);
 			this.comboBoxScope.TabIndex = 1;
-			this.comboBoxScope.SelectedIndexChanged += new System.EventHandler(this.comboBoxScope_SelectedIndexChanged);
+			this.comboBoxScope.SelectedIndexChanged += new System.EventHandler(this.ComboBoxScopeSelectedIndexChanged);
 			// 
 			// labelScope
 			// 
@@ -656,7 +656,7 @@
 			this.comboBoxTargetAnimation.Name = "comboBoxTargetAnimation";
 			this.comboBoxTargetAnimation.Size = new System.Drawing.Size(107, 21);
 			this.comboBoxTargetAnimation.TabIndex = 4;
-			this.comboBoxTargetAnimation.SelectedIndexChanged += new System.EventHandler(this.comboBoxTargetAnimation_SelectedIndexChanged);
+			this.comboBoxTargetAnimation.SelectedIndexChanged += new System.EventHandler(this.ComboBoxTargetAnimationSelectedIndexChanged);
 			// 
 			// label4
 			// 
@@ -682,7 +682,7 @@
 			this.comboBoxOccasion.Name = "comboBoxOccasion";
 			this.comboBoxOccasion.Size = new System.Drawing.Size(107, 21);
 			this.comboBoxOccasion.TabIndex = 2;
-			this.comboBoxOccasion.SelectedIndexChanged += new System.EventHandler(this.comboBoxOccasion_SelectedIndexChanged);
+			this.comboBoxOccasion.SelectedIndexChanged += new System.EventHandler(this.ComboBoxOccasionSelectedIndexChanged);
 			// 
 			// labelOccasion
 			// 
@@ -721,7 +721,7 @@
 			this.textBoxDescription.Name = "textBoxDescription";
 			this.textBoxDescription.Size = new System.Drawing.Size(230, 20);
 			this.textBoxDescription.TabIndex = 3;
-			this.textBoxDescription.TextChanged += new System.EventHandler(this.textBoxDescription_TextChanged);
+			this.textBoxDescription.TextChanged += new System.EventHandler(this.TextBoxDescriptionTextChanged);
 			// 
 			// labelDescription
 			// 
@@ -740,7 +740,7 @@
 			this.textBoxName.Name = "textBoxName";
 			this.textBoxName.Size = new System.Drawing.Size(230, 20);
 			this.textBoxName.TabIndex = 1;
-			this.textBoxName.TextChanged += new System.EventHandler(this.textBoxName_TextChanged);
+			this.textBoxName.TextChanged += new System.EventHandler(this.TextBoxNameTextChanged);
 			// 
 			// labelName
 			// 
@@ -798,8 +798,8 @@
 			this.checkGroupBoxElements.TabIndex = 0;
 			this.checkGroupBoxElements.TabStop = false;
 			this.checkGroupBoxElements.Text = "Elements";
-			this.checkGroupBoxElements.OnCheckChange += new ARCed.Controls.CheckGroupBox.CheckChangeEventHandler(this.checkGroupBoxElements_OnCheckChange);
-			this.checkGroupBoxElements.Leave += new System.EventHandler(this.checkGroup_FocusLeave);
+			this.checkGroupBoxElements.OnCheckChange += new ARCed.Controls.CheckGroupBox.CheckChangeEventHandler(this.CheckGroupBoxElementsOnCheckChange);
+			this.checkGroupBoxElements.Leave += new System.EventHandler(this.CheckGroupFocusLeave);
 			// 
 			// checkedListBoxStates
 			// 
@@ -820,7 +820,7 @@
 			this.checkedListBoxStates.TabIndex = 0;
 			this.checkedListBoxStates.TabStop = false;
 			this.checkedListBoxStates.Text = "States";
-			this.checkedListBoxStates.OnItemChanged += new ARCed.Controls.MultiStateCheckedListBox.ItemValueChangedEventHandler(this.checkedListBoxStates_OnItemChanged);
+			this.checkedListBoxStates.OnItemChanged += new ARCed.Controls.MultiStateCheckedListBox.ItemValueChangedEventHandler(this.CheckedListBoxStatesOnItemChanged);
 			// 
 			// noteTextBox
 			// 
@@ -832,7 +832,7 @@
 			this.noteTextBox.NoteText = "";
 			this.noteTextBox.Size = new System.Drawing.Size(281, 164);
 			this.noteTextBox.TabIndex = 0;
-			this.noteTextBox.NoteTextChanged += new ARCed.Controls.NoteTextBox.TextChangedEventHandler(this.noteTextBox_NoteTextChanged);
+			this.noteTextBox.NoteTextChanged += new ARCed.Controls.NoteTextBox.TextChangedEventHandler(this.NoteTextBoxNoteTextChanged);
 			// 
 			// textBoxIcon
 			// 
@@ -841,7 +841,7 @@
 			this.textBoxIcon.Name = "textBoxIcon";
 			this.textBoxIcon.Size = new System.Drawing.Size(185, 20);
 			this.textBoxIcon.TabIndex = 29;
-			this.textBoxIcon.OnButtonClick += new ARCed.Controls.TextBoxButton.ButtonClickHandler(this.buttonIcon_Click);
+			this.textBoxIcon.OnButtonClick += new ARCed.Controls.TextBoxButton.ButtonClickHandler(this.ButtonIconClick);
 			// 
 			// textBoxMenuSe
 			// 
@@ -852,7 +852,7 @@
 			this.textBoxMenuSe.Name = "textBoxMenuSe";
 			this.textBoxMenuSe.Size = new System.Drawing.Size(200, 20);
 			this.textBoxMenuSe.TabIndex = 30;
-			this.textBoxMenuSe.OnButtonClick += new ARCed.Controls.TextBoxButton.ButtonClickHandler(this.textBoxMenuSe_OnButtonClick);
+			this.textBoxMenuSe.OnButtonClick += new ARCed.Controls.TextBoxButton.ButtonClickHandler(this.TextBoxMenuSeOnButtonClick);
 			// 
 			// ItemMainForm
 			// 

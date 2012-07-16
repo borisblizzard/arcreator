@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Windows.Forms;
 using ARCed.Controls;
 
@@ -9,8 +10,16 @@ using ARCed.Controls;
 
 namespace ARCed.Database.Troops
 {
+    /// <summary>
+    /// Dialog for getting user-defined battle test configuration.
+    /// </summary>
 	public partial class BattleTestDialog : Form
-	{
+    {
+        #region Constructor
+
+        /// <summary>
+        /// Defualt constructor
+        /// </summary>
 		public BattleTestDialog()
 		{
 			InitializeComponent();
@@ -20,7 +29,11 @@ namespace ARCed.Database.Troops
 			numericUpDownActors.Value = Project.BTActors.Count;
 		}
 
-		private void numericUpDownActors_ValueChanged(object sender, EventArgs e)
+        #endregion
+
+        #region Private Methods
+
+        private void NumericUpDownActorsValueChanged(object sender, EventArgs e)
 		{
 			var value = (int)numericUpDownActors.Value;
 			if (value < tabControlActors.TabCount)
@@ -36,7 +49,7 @@ namespace ARCed.Database.Troops
 				tabControlActors.SuspendLayout();
 				for (int i = tabControlActors.TabCount; i < value; i++)
 				{
-					var page = new TabPage((i + 1).ToString());
+					var page = new TabPage((i + 1).ToString(CultureInfo.InvariantCulture));
 					var panel = new BattleTestActorPanel();
 					page.Controls.Add(panel);
 					panel.Dock = DockStyle.Fill;
@@ -45,6 +58,8 @@ namespace ARCed.Database.Troops
 				}
 				tabControlActors.ResumeLayout(true);
 			}
-		}
-	}
+        }
+
+        #endregion
+    }
 }

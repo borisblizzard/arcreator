@@ -4,6 +4,31 @@
         <name>ARCed.Core</name>
     </assembly>
     <members>
+        <member name="T:ARCed.Runtime">
+            <summary>
+            Static class containing flags indicating ARCed environment flags.
+            </summary>
+        </member>
+        <member name="P:ARCed.Runtime.Debug">
+            <summary>
+            Flag indicating if ARCed.NET is being ran with Debug flag.
+            </summary>
+        </member>
+        <member name="P:ARCed.Runtime.Portable">
+            <summary>
+            Flag indicating if ARCed.NET is being ran with Portable flag.
+            </summary>
+        </member>
+        <member name="P:ARCed.Runtime.Legacy">
+            <summary>
+            Flag indicating if ARCed.NET is being ran with Legacy flag.
+            </summary>
+        </member>
+        <member name="P:ARCed.Runtime.Logging">
+            <summary>
+            Flag indicating if ARCed.NET is being ran with Logging flag.
+            </summary>
+        </member>
         <member name="T:RPG.Actor">
             <summary>
             Data class for actors.
@@ -428,7 +453,7 @@
         </member>
         <member name="T:ARCed.TypeMap">
             <summary>
-            Wrapper for a dictionary containing name-type pairs
+            Wrapper for a Dictionary containing name-type pairs
             </summary>
         </member>
         <member name="T:ARCed.ArcData">
@@ -436,21 +461,21 @@
             Static class for serialization of .arc format
             </summary>
         </member>
-        <member name="M:ARCed.ArcData.dump(System.IO.Stream,System.Object)">
+        <member name="M:ARCed.ArcData.Dump(System.IO.Stream,System.Object)">
             <summary>
             Serializes the given object and writes it to the stream
             </summary>
             <param name="stream">IO stream to write to</param>
             <param name="obj">Object to write</param>
         </member>
-        <member name="M:ARCed.ArcData.load(System.IO.Stream)">
+        <member name="M:ARCed.ArcData.Load(System.IO.Stream)">
             <summary>
             Loads an object from the stream
             </summary>
             <param name="stream">Stream to read</param>
             <returns>Deserialized object</returns>
         </member>
-        <member name="M:ARCed.ArcData.load(System.IO.Stream,System.Reflection.Assembly[])">
+        <member name="M:ARCed.ArcData.Load(System.IO.Stream,System.Reflection.Assembly[])">
             <summary>
             Loads an object from the stream
             </summary>
@@ -458,7 +483,7 @@
             <param name="assemblies">Assemblies that will be searched for known types</param>
             <returns>Deserialized object</returns>
         </member>
-        <member name="M:ARCed.ArcData.load(System.IO.Stream,ARCed.TypeMap)">
+        <member name="M:ARCed.ArcData.Load(System.IO.Stream,ARCed.TypeMap)">
             <summary>
             Loads an object from the stream
             </summary>
@@ -554,131 +579,131 @@
             <param name="list">Reference to the map</param>
             <param name="obj">Object to map</param>
         </member>
-        <member name="M:ARCed.ArcData._dumpInt32(System.Int32)">
+        <member name="M:ARCed.ArcData.DumpInt32(System.Int32)">
             <summary>
             Converts an Int32 to a four-byte, little-endian array and writes it to the stream
             </summary>
             <param name="int32">Integer to dump</param>
         </member>
-        <member name="M:ARCed.ArcData._loadInt32">
+        <member name="M:ARCed.ArcData.LoadInt32">
             <summary>
             Loads a 32-bit integer from the stream
             </summary>
             <returns>Integer value</returns>
         </member>
-        <member name="M:ARCed.ArcData._dumpNilClass">
+        <member name="M:ARCed.ArcData.DumpNilClass">
             <summary>
             Writes a null-type to the stream
             </summary>
         </member>
-        <member name="M:ARCed.ArcData._loadNilClass">
+        <member name="M:ARCed.ArcData.LoadNilClass">
             <summary>
             Returns null
             </summary>
             <returns>null</returns>
         </member>
-        <member name="M:ARCed.ArcData._dumpFalseClass">
+        <member name="M:ARCed.ArcData.DumpFalseClass">
             <summary>
             Writes bool-type to the stream
             </summary>
         </member>
-        <member name="M:ARCed.ArcData._loadFalseClass">
+        <member name="M:ARCed.ArcData.LoadFalseClass">
             <summary>
             Returns false
             </summary>
             <returns>false</returns>
         </member>
-        <member name="M:ARCed.ArcData._dumpTrueClass">
+        <member name="M:ARCed.ArcData.DumpTrueClass">
             <summary>
             Writes bool-type to the stram
             </summary>
         </member>
-        <member name="M:ARCed.ArcData._loadTrueClass">
+        <member name="M:ARCed.ArcData.LoadTrueClass">
             <summary>
             Returns true
             </summary>
             <returns>true</returns>
         </member>
-        <member name="M:ARCed.ArcData._dumpFixnum(System.Object)">
+        <member name="M:ARCed.ArcData.DumpFixnum(System.Object)">
             <summary>
             Writes an object to the string as a Ruby Fixnum
             </summary>
             <param name="obj">Object to serialize</param>
         </member>
-        <member name="M:ARCed.ArcData._loadFixnum">
+        <member name="M:ARCed.ArcData.LoadFixnum">
             <summary>
             Reads a number from the stream
             </summary>
             <returns>Integer value</returns>
         </member>
-        <member name="M:ARCed.ArcData._dumpBignum(System.Object)">
+        <member name="M:ARCed.ArcData.DumpBignum(System.Object)">
             <summary>
             Writes an object to the string as a Ruby Bignum
             </summary>
             <param name="obj">Object to serialize</param>
         </member>
-        <member name="M:ARCed.ArcData._loadBignum">
+        <member name="M:ARCed.ArcData.LoadBignum">
             <summary>
             Reads a number from the stream
             </summary>
             <returns>Integer value</returns>
         </member>
-        <member name="M:ARCed.ArcData._dumpFloat(System.Object)">
+        <member name="M:ARCed.ArcData.DumpFloat(System.Object)">
             <summary>
             Writes a floating point decimal to the stream
             </summary>
             <param name="obj">Object to serialize</param>
         </member>
-        <member name="M:ARCed.ArcData._loadFloat">
+        <member name="M:ARCed.ArcData.LoadFloat">
             <summary>
             Reads a floating point decimal from the stream
             </summary>
             <returns>Float value</returns>
         </member>
-        <member name="M:ARCed.ArcData._dumpString(System.Object)">
+        <member name="M:ARCed.ArcData.DumpString(System.Object)">
             <summary>
             Writes a string to the stream
             </summary>
             <param name="obj">Object to serialize</param>
             <remarks>Strings are serialized in UTF-8 encoding</remarks>
         </member>
-        <member name="M:ARCed.ArcData._loadString">
+        <member name="M:ARCed.ArcData.LoadString">
             <summary>
             Reads a string from the stream
             </summary>
             <returns>String value</returns>
         </member>
-        <member name="M:ARCed.ArcData._dumpArray(System.Object)">
+        <member name="M:ARCed.ArcData.DumpArray(System.Object)">
             <summary>
             Writes an array-type to the stream
             </summary>
             <param name="obj">Object to serialize</param>
         </member>
-        <member name="M:ARCed.ArcData._loadArray">
+        <member name="M:ARCed.ArcData.LoadArray">
             <summary>
             Reads an array from the stream
             </summary>
             <returns>Array value</returns>
         </member>
-        <member name="M:ARCed.ArcData._dumpHash(System.Object)">
+        <member name="M:ARCed.ArcData.DumpHash(System.Object)">
             <summary>
             Writes a dictionary-type to the stream
             </summary>
             <param name="obj">Object to serialize</param>
         </member>
-        <member name="M:ARCed.ArcData._loadHash">
+        <member name="M:ARCed.ArcData.LoadHash">
             <summary>
             Reads a dictionary type from the stream
             </summary>
             <returns>Dictionary value</returns>
         </member>
-        <member name="M:ARCed.ArcData._dumpObject(System.Object)">
+        <member name="M:ARCed.ArcData.DumpObject(System.Object)">
             <summary>
             Writes an object to the stream
             </summary>
             <param name="obj">Object to serialize</param>
         </member>
-        <member name="M:ARCed.ArcData._loadObject">
+        <member name="M:ARCed.ArcData.LoadObject">
             <summary>
             
             </summary>
@@ -744,6 +769,11 @@
             Returns a <see langword="string"/> that represents the current object.
             </summary>
             <returns>String representation of object.</returns>
+        </member>
+        <member name="T:ARCed.Helpers.Ini">
+            <summary>
+            Static class for reading/writing .ini files.
+            </summary>
         </member>
         <member name="M:ARCed.Helpers.Ini.Load(System.String)">
             <summary>
@@ -1385,6 +1415,66 @@
             Dictionary whose key is the map ID and value is an RPG.Map object.
             </summary>
         </member>
+        <member name="T:ARCed.Core.SerializableFont">
+            <summary>
+            Class that handles conversions to/from a serializable string to a <see cref="T:System.Drawing.Font"/> object.
+            </summary>
+        </member>
+        <member name="M:ARCed.Core.SerializableFont.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="M:ARCed.Core.SerializableFont.#ctor(System.Drawing.Font)">
+            <summary>
+            Constructor specifying <seealso cref="T:System.Drawing.Font"/> to create object from. 
+            </summary>
+            <param name="font"></param>
+        </member>
+        <member name="M:ARCed.Core.SerializableFont.op_Implicit(ARCed.Core.SerializableFont)~System.Drawing.Font">
+            <summary>
+            Implicit cast from a <see cref="T:ARCed.Core.SerializableFont"/> to a <see cref="T:System.Drawing.Font"/>.
+            </summary>
+            <param name="serializeableFont">SerializableFont to cast from.</param>
+            <returns>Font representation of the object.</returns>
+        </member>
+        <member name="M:ARCed.Core.SerializableFont.op_Implicit(System.Drawing.Font)~ARCed.Core.SerializableFont">
+            <summary>
+            Implicit cast from a <see cref="T:System.Drawing.Font"/> to a <see cref="T:ARCed.Core.SerializableFont"/>.
+            </summary>
+            <param name="font">Font to cast from.</param>
+            <returns>Font representation of the object.</returns>
+        </member>
+        <member name="P:ARCed.Core.SerializableFont.FontValue">
+            <summary>
+            Gets or sets the <see cref="T:System.Drawing.Font"/> object associated with object.
+            </summary>
+        </member>
+        <member name="P:ARCed.Core.SerializableFont.SerializeFontAttribute">
+            <summary>
+            Gets or sets the <see langword="string"/> attribute of the <see cref="T:System.Drawing.Font"/> that will 
+            be serialized.
+            </summary>
+        </member>
+        <member name="T:ARCed.Core.FontXmlConverter">
+            <summary>
+            Static class that handles conversion of XML serialized Fonts to/from <see cref="T:System.Drawing.Font"/> objects.
+            </summary>
+        </member>
+        <member name="M:ARCed.Core.FontXmlConverter.ConvertToString(System.Drawing.Font)">
+            <summary>
+            Converts a <see cref="T:System.Drawing.Font"/> to a <see cref="T:System.String"/>
+            </summary>
+            <param name="font">Font to convert</param>
+            <returns>String representation of the font.</returns>
+        </member>
+        <member name="M:ARCed.Core.FontXmlConverter.ConvertToFont(System.String)">
+            <summary>
+            Converts a <see cref="T:System.String"/> to a <see cref="T:System.Drawing.Font"/> object.
+            </summary>
+            <param name="fontString">String to convert</param>
+            <returns>Font representation of the string.</returns>
+        </member>
         <member name="M:RPG.Skill.ToString">
             <summary>
             Returns a <see langword="string"/> that represents the current object.
@@ -1392,31 +1482,66 @@
             <returns>String representation of object.</returns>
         </member>
         <member name="T:ARCed.Core.QColorMatrix">
-             <summary>
-             QColorMatrix
-             http://www.codeguru.com/Cpp/G-M/gdi/gdi/article.php/c3667
-             
-             Extension of the GDI+ struct ColorMatrix.
-             Adds some member functions so you can actually do something with it.
-             Use QColorMatrix like ColorMatrix to update the ImmageAttributes class.
-             Use at your own risk. Comments welcome.
-            
-             See: http://www.sgi.com/grafica/matrix/
-             http://www.sgi.com/software/opengl/advanced98/notes/node182.html
-            
-             (chr) 2003, Sjaak Priester, Amsterdam.
-             mailto:sjaak@sjaakpriester.nl
-             
-             This C# port from original C++ code is done by:
-             (C) 2010, Vasian Cepa
-             http://madebits.com
-             This port fixes a bug in TransformVector and offers some new convenience methods.
-             This class is not thread-safe.
-             </summary>
+            <summary>
+            Extension of the GDI+ struct ColorMatrix.
+            </summary>
+        </member>
+        <member name="M:ARCed.Core.QColorMatrix.#ctor">
+            <summary>
+            Default constructor
+            </summary>
+        </member>
+        <member name="M:ARCed.Core.QColorMatrix.#ctor(System.Single[0:,0:])">
+            <summary>
+            Constructor specifying matrix data
+            </summary>
+            <param name="matrixData">Matrix data to initialize with</param>
+        </member>
+        <member name="M:ARCed.Core.QColorMatrix.#ctor(System.Single[][])">
+            <summary>
+            Constructor specifying matrix data
+            </summary>
+            <param name="matrixData">Matrix data to initialize with</param>
+        </member>
+        <member name="M:ARCed.Core.QColorMatrix.#ctor(ARCed.Core.QColorMatrix)">
+            <summary>
+            Constructor specifying matrix data
+            </summary>
+            <param name="matrixData">Matrix data to initialize with</param>
+        </member>
+        <member name="M:ARCed.Core.QColorMatrix.#ctor(System.Drawing.Imaging.ColorMatrix)">
+            <summary>
+            Constructor specifying matrix data
+            </summary>
+            <param name="colorMatrix">Matrix data to initialize with</param>
+        </member>
+        <member name="M:ARCed.Core.QColorMatrix.FromJaggedMatrix(System.Single[][])">
+            <summary>
+            Returns the given matrix data as a jagged matrix
+            </summary>
+            <param name="matrixData">Matrix data</param>
+        </member>
+        <member name="M:ARCed.Core.QColorMatrix.ToJaggedMatrix">
+            <summary>
+            Converts the matrix to a jagged array of data
+            </summary>
+            <returns>Jagged array</returns>
+        </member>
+        <member name="M:ARCed.Core.QColorMatrix.FromColorMatrix(System.Drawing.Imaging.ColorMatrix)">
+            <summary>
+            Translates the matrix from a <seealso cref="T:System.Drawing.Imaging.ColorMatrix"/>.
+            </summary>
+            <param name="colorMatrix">ColorMatrix to translate from</param>
+        </member>
+        <member name="M:ARCed.Core.QColorMatrix.ToColorMatrix">
+            <summary>
+            Converts the matrix to a <seealso cref="T:System.Drawing.Imaging.ColorMatrix"/> and returns it.
+            </summary>
+            <returns>ColorMatrix representation</returns>
         </member>
         <member name="M:ARCed.Core.QColorMatrix.Reset">
             <summary>
-            set to identity matrix
+            Set to identity matrix
             </summary>
         </member>
         <member name="M:ARCed.Core.QColorMatrix.TransformVector(System.Single[])">
@@ -1426,54 +1551,291 @@
             representing R, G, B and A.
             </summary>
         </member>
+        <member name="M:ARCed.Core.QColorMatrix.Color2Vector(System.Drawing.Color)">
+            <summary>
+            Converts a <seealso cref="T:System.Drawing.Color"/> object to a vector and returns it.
+            </summary>
+            <param name="color">Color to convert</param>
+            <returns>Vector representation of the color</returns>
+        </member>
+        <member name="M:ARCed.Core.QColorMatrix.Vector2Color(System.Single[])">
+            <summary>
+            Converts a vector array to a <seealso cref="T:System.Drawing.Color"/> object.
+            </summary>
+            <param name="vector">Floar array vector</param>
+            <returns>Color representation of the vector</returns>
+        </member>
+        <member name="M:ARCed.Core.QColorMatrix.TransformVector(System.Single[],System.Boolean)">
+            <summary>
+            Transforms a vector
+            </summary>
+            <param name="vector">Vector to transform</param>
+            <param name="normalize">Flag to normalize data before returning</param>
+            <returns>Transformed vector.</returns>
+        </member>
         <member name="M:ARCed.Core.QColorMatrix.TransformColors(System.Drawing.Color[])">
             <summary>
             Multiply each color by the matrix.
             </summary>
         </member>
+        <member name="M:ARCed.Core.QColorMatrix.Multiply(ARCed.Core.QColorMatrix)">
+            <summary>
+            Multiplies the given matrix
+            </summary>
+            <param name="matrix">Matrix to multiply</param>
+        </member>
         <member name="M:ARCed.Core.QColorMatrix.Multiply(ARCed.Core.QColorMatrix,ARCed.Core.QColorMatrix.MatrixOrder)">
             <summary>
-            Unlike the original C++ code we multiply all value here.
+            Multiply the given matrix using the specified matrix order.
             </summary>
+            <param name="matrix">Matrix to multiply</param>
+            <param name="order">Order to multiply with</param>
         </member>
         <member name="M:ARCed.Core.QColorMatrix.Scale(System.Single,System.Single,System.Single,System.Single)">
             <summary>
             Update this matrix with the product of itself and a scaling vector.
             </summary>
+            <param name="scaleRed">Red scaling value</param>
+            <param name="scaleGreen">Green scaling value</param>
+            <param name="scaleBlue">Blue scaling value</param>
+            <param name="scaleOpacity">Alpha scaling value</param>
+        </member>
+        <member name="M:ARCed.Core.QColorMatrix.Scale(System.Single,System.Single,System.Single,System.Single,ARCed.Core.QColorMatrix.MatrixOrder)">
+            <summary>
+            Update this matrix with the product of itself and a scaling vector.
+            </summary>
+            <param name="scaleRed">Red scaling value</param>
+            <param name="scaleGreen">Green scaling value</param>
+            <param name="scaleBlue">Blue scaling value</param>
+            <param name="scaleOpacity">Alpha scaling value</param>
+            <param name="order">Matrix order</param>
         </member>
         <member name="M:ARCed.Core.QColorMatrix.ScaleColors(System.Single)">
             <summary>
             Scale just the three colors with the same amount, leave opacity unchanged
             </summary>
+            <param name="scale">Scale value</param>
+        </member>
+        <member name="M:ARCed.Core.QColorMatrix.ScaleColors(System.Single,ARCed.Core.QColorMatrix.MatrixOrder)">
+            <summary>
+            Scale just the three colors with the same amount, leave opacity unchanged
+            </summary>
+            <param name="scale">Scale value</param>
+            <param name="order">Matrix order</param>
+        </member>
+        <member name="M:ARCed.Core.QColorMatrix.ScaleOpacity(System.Single)">
+            <summary>
+            Scales the matrix opacity
+            </summary>
+            <param name="scaleOpacity">Alpha scaling value</param>
+        </member>
+        <member name="M:ARCed.Core.QColorMatrix.ScaleOpacity(System.Single,ARCed.Core.QColorMatrix.MatrixOrder)">
+            <summary>
+            Scales the matrix opacity
+            </summary>
+            <param name="scaleOpacity">Alpha scaling value</param>
+            <param name="order">Matrix order</param>
         </member>
         <member name="M:ARCed.Core.QColorMatrix.Translate(System.Single,System.Single,System.Single,System.Single)">
             <summary>
             Update this matrix with the product of itself and a translation vector.
             </summary>
+            <param name="offsetRed">Red offset value</param>
+            <param name="offsetGreen">Green offset value</param>
+            <param name="offsetBlue">Blue offset value</param>
+            <param name="offsetOpacity">Alpha offset value</param>
+        </member>
+        <member name="M:ARCed.Core.QColorMatrix.Translate(System.Single,System.Single,System.Single,System.Single,ARCed.Core.QColorMatrix.MatrixOrder)">
+            <summary>
+            Update this matrix with the product of itself and a translation vector.
+            </summary>
+            <param name="offsetRed">Red offset value</param>
+            <param name="offsetGreen">Green offset value</param>
+            <param name="offsetBlue">Blue offset value</param>
+            <param name="offsetOpacity">Alpha offset value</param>
+            <param name="order">Matrix order</param>
+        </member>
+        <member name="M:ARCed.Core.QColorMatrix.TranslateColors(System.Single)">
+            <summary>
+            Translate matrix colors
+            </summary>
+            <param name="offset">Offset value</param>
+        </member>
+        <member name="M:ARCed.Core.QColorMatrix.TranslateColors(System.Single,ARCed.Core.QColorMatrix.MatrixOrder)">
+            <summary>
+            Translate matrix colors
+            </summary>
+            <param name="offset">Offset value</param>
+            <param name="order">Matrix order</param>
+        </member>
+        <member name="M:ARCed.Core.QColorMatrix.TranslateOpacity(System.Single)">
+            <summary>
+            Translate matrix opacity
+            </summary>
+            <param name="offsetOpacity">Alpha offset value</param>
+        </member>
+        <member name="M:ARCed.Core.QColorMatrix.TranslateOpacity(System.Single,ARCed.Core.QColorMatrix.MatrixOrder)">
+            <summary>
+            Translate matrix opacity
+            </summary>
+            <param name="offsetOpacity">Alpha offset value</param>
+            <param name="order">Matrix order</param>
+        </member>
+        <member name="M:ARCed.Core.QColorMatrix.RotateRed(System.Single)">
+            <summary>
+            Rotate the matrix around the red color axes. The color of the rotation 
+            axis is unchanged, the other two colors are rotated in color space.
+            </summary>
+            <param name="phi">Angle in degrees to rotate (-180.0f... 180.0f).</param>
+        </member>
+        <member name="M:ARCed.Core.QColorMatrix.RotateGreen(System.Single)">
+            <summary>
+            Rotate the matrix around the green color axes. The color of the rotation 
+            axis is unchanged, the other two colors are rotated in color space.
+            </summary>
+            <param name="phi">Angle in degrees to rotate (-180.0f... 180.0f).</param>
+        </member>
+        <member name="M:ARCed.Core.QColorMatrix.RotateBlue(System.Single)">
+            <summary>
+            Rotate the matrix around the blue color axes. The color of the rotation 
+            axis is unchanged, the other two colors are rotated in color space.
+            </summary>
+            <param name="phi">Angle in degrees to rotate (-180.0f... 180.0f).</param>
+        </member>
+        <member name="M:ARCed.Core.QColorMatrix.RotateRed(System.Single,ARCed.Core.QColorMatrix.MatrixOrder)">
+            <summary>
+            Rotate the matrix around the red color axes. The color of the rotation 
+            axis is unchanged, the other two colors are rotated in color space.
+            </summary>
+            <param name="phi">Angle in degrees to rotate (-180.0f... 180.0f).</param>
+            <param name="order">Matrix order</param>
+        </member>
+        <member name="M:ARCed.Core.QColorMatrix.RotateGreen(System.Single,ARCed.Core.QColorMatrix.MatrixOrder)">
+            <summary>
+            Rotate the matrix around the green color axes. The color of the rotation 
+            axis is unchanged, the other two colors are rotated in color space.
+            </summary>
+            <param name="phi">Angle in degrees to rotate (-180.0f... 180.0f).</param>
+            <param name="order">Matrix order</param>
+        </member>
+        <member name="M:ARCed.Core.QColorMatrix.RotateBlue(System.Single,ARCed.Core.QColorMatrix.MatrixOrder)">
+            <summary>
+            Rotate the matrix around the blue color axes. The color of the rotation 
+            axis is unchanged, the other two colors are rotated in color space.
+            </summary>
+            <param name="phi">Angle in degrees to rotate (-180.0f... 180.0f).</param>
+            <param name="order">Matrix order</param>
+        </member>
+        <member name="M:ARCed.Core.QColorMatrix.ShearRed(System.Single,System.Single)">
+            <summary>
+            Shear the matrix in the red color plane. The color is influenced by the other two planes.
+            </summary>
+            <param name="green">Green color plane</param>
+            <param name="blue">Blue color plane</param>
+        </member>
+        <member name="M:ARCed.Core.QColorMatrix.ShearGreen(System.Single,System.Single)">
+            <summary>
+            Shear the matrix in the green color plane. The color is influenced by the other two planes.
+            </summary>
+            <param name="red">Red color plane</param>
+            <param name="blue">Blue color plane</param>
+        </member>
+        <member name="M:ARCed.Core.QColorMatrix.ShearBlue(System.Single,System.Single)">
+            <summary>
+            Shear the matrix in the blue color plane. The color is influenced by the other two planes.
+            </summary>
+            <param name="red">Red color plane</param>
+            <param name="green">Green color plane</param>
+        </member>
+        <member name="M:ARCed.Core.QColorMatrix.ShearRed(System.Single,System.Single,ARCed.Core.QColorMatrix.MatrixOrder)">
+            <summary>
+            Shear the matrix in the red color plane. The color is influenced by the other two planes.
+            </summary>
+            <param name="green">Green color plane</param>
+            <param name="blue">Blue color plane</param>
+            <param name="order">Matrix order</param>
+        </member>
+        <member name="M:ARCed.Core.QColorMatrix.ShearGreen(System.Single,System.Single,ARCed.Core.QColorMatrix.MatrixOrder)">
+            <summary>
+            Shear the matrix in the green color plane. The color is influenced by the other two planes.
+            </summary>
+            <param name="red">Red color plane</param>
+            <param name="blue">Blue color plane</param>
+            <param name="order">Matrix order</param>
+        </member>
+        <member name="M:ARCed.Core.QColorMatrix.ShearBlue(System.Single,System.Single,ARCed.Core.QColorMatrix.MatrixOrder)">
+            <summary>
+            Shear the matrix in the blue color plane. The color is influenced by the other two planes.
+            </summary>
+            <param name="red">Red color plane</param>
+            <param name="green">Green color plane</param>
+            <param name="order">Matrix order</param>
+        </member>
+        <member name="M:ARCed.Core.QColorMatrix.SetSaturation(System.Single)">
+            <summary>
+            Sets the matrix saturation
+            </summary>
+            <param name="saturation">Saturation value</param>
         </member>
         <member name="M:ARCed.Core.QColorMatrix.SetSaturation(System.Single,ARCed.Core.QColorMatrix.MatrixOrder)">
             <summary>
             Set the saturation of the matrix. Saturation of 0.0f yields black and white, 1.0f is neutral.
             </summary>
+            <param name="saturation">Saturation value</param>
+            <param name="order">Matrix order</param>
         </member>
         <member name="M:ARCed.Core.QColorMatrix.RotateHue(System.Single)">
             <summary>
-            Rotate the hue around the grey axis, keeping luminance fixed. Greys are fixed,
+            Rotate the hue around the gray axis, keeping luminance fixed. Grays are fixed,
             all other colors change.
             </summary>
+            <param name="phi">Degrees to rotate</param>
+        </member>
+        <member name="M:ARCed.Core.QColorMatrix.SetContrast(System.Single)">
+            <summary>
+            Sets the matrix contrast
+            </summary>
+            <param name="scale">Constrast scale value</param>
+        </member>
+        <member name="M:ARCed.Core.QColorMatrix.SetBrightness(System.Single)">
+            <summary>
+            Sets the matrix brightness
+            </summary>
+            <param name="offset">Brightness offset value</param>
+        </member>
+        <member name="M:ARCed.Core.QColorMatrix.SetSaturation2(System.Single)">
+            <summary>
+            Sets the matrix saturation using <seealso cref="F:ARCed.Core.QColorMatrix.MatrixOrder.MatrixOrderAppend"/> order.
+            </summary>
+            <param name="saturation">Saturation value.</param>
         </member>
         <member name="M:ARCed.Core.QColorMatrix.RotateColor(System.Single,System.Int32,System.Int32,ARCed.Core.QColorMatrix.MatrixOrder)">
             <summary>
-            x and y are the indices of the value to receive the sin(phi) value
+            X and Y are the indices of the value to receive the sin(phi) value
             </summary>
             <param name="phi">phi is in degrees</param>
             <param name="x">x value</param>
             <param name="y">y value</param>
             <param name="order">Matrix order</param>
         </member>
+        <member name="P:ARCed.Core.QColorMatrix.Matrix">
+            <summary>
+            Gets the matrix
+            </summary>
+        </member>
         <member name="T:ARCed.Core.QColorMatrix.MatrixOrder">
             <summary>
-            gdi+ type
+            GDI+ type for MatrixOrder
+            </summary>
+        </member>
+        <member name="F:ARCed.Core.QColorMatrix.MatrixOrder.MatrixOrderPrepend">
+            <summary>
+            Prepend matrix order
+            </summary>
+        </member>
+        <member name="F:ARCed.Core.QColorMatrix.MatrixOrder.MatrixOrderAppend">
+            <summary>
+            Append matrix order
             </summary>
         </member>
         <member name="M:RPG.Animation.ToString">
@@ -1884,6 +2246,14 @@
             <returns>Integer comparison flag</returns>
             <exception cref="T:System.ArgumentException">Thrown when object to compare is not a GameResource</exception>
         </member>
+        <member name="M:ARCed.Core.GameResource.Compare(System.Object,System.Object)">
+            <summary>
+            Compares two objects for equality.
+            </summary>
+            <param name="obj1">First object to compare</param>
+            <param name="obj2">Second object to compare</param>
+            <returns>Result of comparison</returns>
+        </member>
         <member name="P:ARCed.Core.GameResource.Directory">
             <summary>
             Directory relative to the main directory the resource is found in
@@ -1928,6 +2298,14 @@
             <summary>
             Gets the FileInfo object for the file
             </summary>
+        </member>
+        <member name="M:ARCed.Core.GameResource.ResourceComparer.Compare(System.Object,System.Object)">
+            <summary>
+            Compares two objects for equality.
+            </summary>
+            <param name="obj1">First object to compare</param>
+            <param name="obj2">Second object to compare</param>
+            <returns>Result of comparison</returns>
         </member>
         <member name="T:ARCed.Constants">
             <summary>
@@ -2034,7 +2412,7 @@
             Width and height of a animation source graphic frame
             </summary>
         </member>
-        <member name="P:ARCed.Constants.RTP_PATH">
+        <member name="P:ARCed.Constants.RTPPath">
             <summary>
             Path to the RTP folder (TEST PURPOSES ONLY)
             </summary>
@@ -2374,6 +2752,22 @@
             <summary>
             Byte array used as a buffer for reading streams
             </summary>
+        </member>
+        <member name="M:ARCed.ExtensionMethods.RoundFloor(System.Int32,System.Int32)">
+            <summary>
+            Rounds an <seealso langword="int"/> down to the nearest multiple.
+            </summary>
+            <param name="value">Integer to round</param>
+            <param name="multiple">Multiple to round down to.</param>
+            <returns>The rounded number</returns>
+        </member>
+        <member name="M:ARCed.ExtensionMethods.RoundCeil(System.Int32,System.Int32)">
+            <summary>
+            Rounds an <seealso langword="int"/> up to the nearest multiple.
+            </summary>
+            <param name="value">Integer to round</param>
+            <param name="multiple">Multiple to round up to.</param>
+            <returns>The rounded number</returns>
         </member>
         <member name="M:ARCed.ExtensionMethods.SuspendPainting(System.Windows.Forms.Control)">
             <summary>

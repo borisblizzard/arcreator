@@ -11,6 +11,9 @@ using ARCed.Scripting;
 
 namespace ARCed.Settings
 {
+    /// <summary>
+    /// Class containing settings for the look and behavior of scripting controls.
+    /// </summary>
 	[Serializable]
 	public class ScriptSettings
 	{
@@ -97,11 +100,8 @@ namespace ARCed.Settings
 		{
 			get
 			{
-			    Font font;
-				if (FontHelper.IsInstalled("Consolas"))
-					font = new Font("Consolas", 10.25f, FontStyle.Regular);
-				else
-					font = FontHelper.MonoFont;
+				var font = FontHelper.IsInstalled("Consolas") ? 
+                    new Font("Consolas", 10.25f, FontStyle.Regular) : FontHelper.MonoFont;
 				var styles = new[] {
 				    new ScriptStyle("White Space"        , Color.Black          , Color.White   , font),
 				    new ScriptStyle("Brace Match"        , Color.Purple         , Color.Yellow  , font),

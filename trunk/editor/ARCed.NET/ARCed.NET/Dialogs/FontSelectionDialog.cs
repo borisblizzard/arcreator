@@ -9,7 +9,7 @@ using System.Windows.Forms;
 namespace ARCed.Dialogs
 {
 	/// <summary>
-	/// Simple dialog for choosing a font resource
+	/// Simple dialog for getting a user-defined <see cref="Font"/>.
 	/// </summary>
 	public partial class FontSelectionDialog : Form
 	{
@@ -41,10 +41,10 @@ namespace ARCed.Dialogs
 
 		#region Private Methods
 
-		private void buttonOK_Click(object sender, EventArgs e)
+		private void ButtonOkClick(object sender, EventArgs e)
 		{
-			this.DialogResult = DialogResult.OK;
-			this.Close();
+			DialogResult = DialogResult.OK;
+			Close();
 		}
 
 		#endregion
