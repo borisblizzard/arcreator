@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 
-#endregion Using Directives
+#endregion
 
 
 namespace ARCed.Scintilla
@@ -16,7 +16,7 @@ namespace ARCed.Scintilla
     ///     The caret is the blinking line that indicates the current document position. This
     ///     is sometimes referred to as cursor.
     /// </remarks>
-    [TypeConverterAttribute(typeof(System.ComponentModel.ExpandableObjectConverter))]
+    [TypeConverter(typeof(ExpandableObjectConverter))]
     public class CaretInfo : TopLevelHelper
     {
         #region Methods
@@ -283,7 +283,7 @@ namespace ARCed.Scintilla
         ///     Gets/Sets the color of the document line where the caret currently resides
         /// </summary>
         /// <remarks>
-        ///     The <see cref="HighlightCurrentList"/> property must be set to true in order
+        ///     The <see cref="ARCed.Scintilla.CaretInfo.HighlightCurrentLine"/> property must be set to true in order
         ///     for this to to take effect.
         /// </remarks>
         public Color CurrentLineBackgroundColor

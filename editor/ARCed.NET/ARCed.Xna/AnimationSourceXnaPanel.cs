@@ -1,10 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
+﻿#region Using Directives
+
 using System.ComponentModel;
-using System.IO;
+using System.Windows.Forms;
 using ARCed.Helpers;
-using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using RPG;
+using Color = Microsoft.Xna.Framework.Color;
+
+#endregion
 
 namespace ARCed.Controls
 {
@@ -15,7 +19,7 @@ namespace ARCed.Controls
 	public partial class AnimationSourceXnaPanel : GraphicsDeviceControl
 	{
 		SpriteBatch _batch;
-		RPG.Animation _animation;
+		Animation _animation;
 		Texture2D _srcTexture;
 		int _frames, _selectedId;
 		Rectangle srcRect, destRect;
@@ -38,7 +42,7 @@ namespace ARCed.Controls
 		/// Gets or sets the associated RPG.Animation for the panel.
 		/// </summary>
 		[Browsable(false)]
-		public RPG.Animation Animation 
+		public Animation Animation 
 		{
 			get { return _animation; }
 			set
@@ -75,10 +79,10 @@ namespace ARCed.Controls
 			_selectedId = -1;
             // TODO: Edit this
             GraphicsDevice.Clear(TilesetXnaPanel.Settings.BackgroundColor);
-			this.MouseDown += new System.Windows.Forms.MouseEventHandler(AnimationSourceXnaPanel_MouseDown);
+			this.MouseDown += this.AnimationSourceXnaPanel_MouseDown;
 		}
 
-		void AnimationSourceXnaPanel_MouseDown(object sender, System.Windows.Forms.MouseEventArgs e)
+		void AnimationSourceXnaPanel_MouseDown(object sender, MouseEventArgs e)
 		{
 			if (_frames > 0)
 				SelectedId = e.X / (this.Width / _frames);
@@ -106,7 +110,7 @@ namespace ARCed.Controls
 					_batch.DrawRectangle(i * dim - 1, 0, 1, dim + 1, Color.Black, 1);
 					if (SelectedId >= 0)
 					{
-						Rectangle rect = new Rectangle(SelectedId * dim - 1, 0, dim + 1, dim);
+						var rect = new Rectangle(SelectedId * dim - 1, 0, dim + 1, dim);
 						_batch.DrawSelectionRect(rect, Color.White, 2);
 					}
 				}

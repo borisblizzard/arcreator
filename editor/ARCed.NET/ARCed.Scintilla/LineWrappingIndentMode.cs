@@ -14,7 +14,7 @@ namespace ARCed.Scintilla
     {
         /// <summary>
         ///     Wrapped lines are aligned on the left and indented by the amount
-        ///     spcified in the <see cref="LineWrapping.Indent" /> property.
+        ///     spcified in the "Indent" property.
         /// </summary>
         Fixed = NativeMethods.SC_WRAPINDENT_FIXED,
 

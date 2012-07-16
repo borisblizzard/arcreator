@@ -4,7 +4,7 @@ using System;
 using System.Drawing;
 using System.Windows.Forms;
 
-#endregion Using Directives
+#endregion
 
 
 namespace ARCed.Scintilla
@@ -14,7 +14,7 @@ namespace ARCed.Scintilla
         #region Fields
 
         private Scintilla _scintilla;
-        private bool _toolItem = false;
+        private readonly bool _toolItem;
 
         #endregion Fields
 
@@ -90,9 +90,9 @@ namespace ARCed.Scintilla
             int x = Scintilla.PointXFromPosition(pos);
             int y = Scintilla.PointYFromPosition(pos);
 
-            Point cursorPoint = new Point(x, y);
+            var cursorPoint = new Point(x, y);
 
-            Rectangle r = new Rectangle(Location, Size);
+            var r = new Rectangle(Location, Size);
             if (r.Contains(cursorPoint))
             {
                 Point newLocation;

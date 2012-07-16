@@ -1,11 +1,16 @@
+#region Using Directives
+
 using System;
 using System.ComponentModel;
+using System.Drawing.Design;
+
+#endregion
 
 namespace ARCed.UI
 {
 	[Flags]
 	[Serializable]
-	[Editor(typeof(DockAreasEditor), typeof(System.Drawing.Design.UITypeEditor))]
+	[Editor(typeof(DockAreasEditor), typeof(UITypeEditor))]
 	public enum DockAreas
 	{
 		Float = 1,

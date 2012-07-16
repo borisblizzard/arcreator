@@ -1,14 +1,19 @@
-﻿using System;
+﻿#region Using Directives
+
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
-using System.Windows.Forms;
-using ARCed.UI;
-using System.Diagnostics;
-using ARCed.Settings;
 using System.Threading;
+using System.Windows.Forms;
 using ARCed.Helpers;
+using ARCed.Properties;
+using ARCed.Settings;
+using ARCed.UI;
 using SevenZip;
+
+#endregion
 
 namespace ARCed.Forms
 {
@@ -21,7 +26,7 @@ namespace ARCed.Forms
 		public ARChiveForm()
 		{
 			InitializeComponent();
-			this.Icon = System.Drawing.Icon.FromHandle(Properties.Resources.SevenZip.GetHicon());
+			this.Icon = Icon.FromHandle(Resources.SevenZip.GetHicon());
 			numericMaxBackups.DataBindings.Add("Value", Project.ARChiveSettings, 
 				"MaxBackups", false, DataSourceUpdateMode.OnPropertyChanged);
 			numericInterval.DataBindings.Add("Value", Project.ARChiveSettings,
@@ -62,7 +67,7 @@ namespace ARCed.Forms
 			listViewARChives.BeginUpdate();
 			foreach (string filename in _archives)
 			{
-				FileInfo info = new FileInfo(filename);
+				var info = new FileInfo(filename);
 				string[] columns = 
 				{ 
 					info.CreationTime.ToString(),
@@ -123,7 +128,7 @@ namespace ARCed.Forms
 		private void buttonRestore_Click(object sender, EventArgs e)
 		{
 			string file = listViewARChives.SelectedItems[0].Tag.ToString();
-			using (FolderBrowserDialog dialog = new FolderBrowserDialog())
+			using (var dialog = new FolderBrowserDialog())
 			{
 				dialog.Description = "Select folder for ARChive extraction.";
 				dialog.ShowNewFolderButton = true;
@@ -156,7 +161,7 @@ namespace ARCed.Forms
 
 		private BackupType GetBackupType()
 		{
-			BackupType type = BackupType.None;
+			var type = BackupType.None;
 			if (checkBoxTypeAllData.Checked) type |= BackupType.AllData;
 			else
 			{
@@ -188,10 +193,10 @@ namespace ARCed.Forms
 				compressor.CompressionMethod = CompressionMethod.Lzma2;
 				compressor.CompressionMode = CompressionMode.Create;
 				compressor.EventSynchronization = EventSynchronizationStrategy.AlwaysAsynchronous;
-				compressor.Compressing += new EventHandler<ProgressEventArgs>(compressor_Compressing);
-				compressor.CompressionFinished += new EventHandler<EventArgs>(compressor_CompressionFinished);
+				compressor.Compressing += this.compressor_Compressing;
+				compressor.CompressionFinished += this.compressor_CompressionFinished;
 			}
-			List<string> paths = new List<string>();
+			var paths = new List<string>();
 			_archiveName = Path.Combine(Project.BackupDirectory, String.Format("{0}.7z", Guid.NewGuid()));
 			if (type.HasFlag(BackupType.AllData))
 				paths.Add(Path.Combine(Project.ProjectFolder, Project.DataDirectory));
@@ -201,7 +206,7 @@ namespace ARCed.Forms
 					paths.Add(Path.Combine(Project.ProjectFolder, Project.ScriptsDirectory));
 				if (type.HasFlag(BackupType.Maps))
 				{
-					DirectoryInfo info = new DirectoryInfo(Project.DataDirectory);
+					var info = new DirectoryInfo(Project.DataDirectory);
 					foreach (FileInfo file in info.GetFiles("*Map*.arc"))
 						paths.Add(Path.Combine(Project.ProjectFolder, file.FullName));
 				}	
@@ -242,7 +247,7 @@ namespace ARCed.Forms
 		{
 			if (this.InvokeRequired)
 			{
-				this.Invoke(new MethodInvoker(delegate() { EnableCreateButton(true); }));
+				this.Invoke(new MethodInvoker(delegate { EnableCreateButton(true); }));
 			}
 			else
 			{
@@ -255,7 +260,7 @@ namespace ARCed.Forms
 		{
 			if (this.InvokeRequired)
 			{
-				this.Invoke(new MethodInvoker(delegate() { EnableCreateButton(false); }));
+				this.Invoke(new MethodInvoker(delegate { EnableCreateButton(false); }));
 			}
 			else
 			{
@@ -265,7 +270,7 @@ namespace ARCed.Forms
 
 		private void listViewARChives_MouseDown(object sender, MouseEventArgs e)
 		{
-			if (e.Button == System.Windows.Forms.MouseButtons.Right)
+			if (e.Button == MouseButtons.Right)
 			{
 				var item = listViewARChives.GetItemAt(e.X, e.Y);
 				if (item != null)

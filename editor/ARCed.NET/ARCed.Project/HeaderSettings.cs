@@ -1,8 +1,12 @@
-﻿using System;
+﻿#region Using Directives
+
+using System;
 using System.Drawing;
 using System.Xml.Serialization;
 using ARCed.Core;
 using ARCed.Helpers;
+
+#endregion
 
 namespace ARCed.Settings
 {

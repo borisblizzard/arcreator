@@ -1,12 +1,16 @@
+#region Using Directives
+
 using System;
 using System.ComponentModel;
+
+#endregion
 
 namespace ARCed.UI
 {
 	[AttributeUsage(AttributeTargets.All)]
 	internal sealed class LocalizedDescriptionAttribute : DescriptionAttribute
 	{
-		private bool m_initialized = false;
+		private bool m_initialized;
 
 		public LocalizedDescriptionAttribute(string key) : base(key)
 		{

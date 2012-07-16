@@ -1,11 +1,17 @@
-﻿using System;
+﻿#region Using Directives
+
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using ARCed.Controls;
 using ARCed.Dialogs;
 using ARCed.Helpers;
+using RPG;
+
+#endregion
 
 namespace ARCed.Database.Troops
 {
@@ -14,7 +20,7 @@ namespace ARCed.Database.Troops
 		#region Private Fields
 
 		private string _battleBackName;
-		private RPG.Troop _troop;
+		private Troop _troop;
 
 		#endregion
 
@@ -41,7 +47,7 @@ namespace ARCed.Database.Troops
 		/// <summary>
 		/// Default constructor
 		/// </summary>
-		public TroopMainForm() : base()
+		public TroopMainForm()
 		{
 			InitializeComponent();
 			RefreshEnemies();
@@ -64,15 +70,15 @@ namespace ARCed.Database.Troops
 
 		public override void RefreshCurrentObject()
 		{
-			suppressEvents = true;
+			SuppressEvents = true;
 			xnaPanel.RemoveAll();
-            foreach (RPG.Troop.Member member in _troop.members)
+            foreach (Troop.Member member in _troop.members)
             {
                 xnaPanel.AddSprite(new EnemySprite(Project.Data.Enemies[member.enemy_id]));
             }
 			textBoxName.Text = _troop.name;
 			RefreshEvents();
-			suppressEvents = false;
+			SuppressEvents = false;
 		}
 
 		private void RefreshEnemies()
@@ -87,8 +93,8 @@ namespace ARCed.Database.Troops
 			int count = 1;
 			foreach (var page in _troop.pages)
 			{
-				TabPage tab = new TabPage(count.ToString());
-				BattleEventPage editor = new BattleEventPage();
+				var tab = new TabPage(count.ToString());
+				var editor = new BattleEventPage();
 				tab.Controls.Add(editor);
 				editor.Dock = DockStyle.Fill;
 				editor.EventPage = page;
@@ -100,7 +106,7 @@ namespace ARCed.Database.Troops
 
 		private void TroopMainForm_Load(object sender, EventArgs e)
 		{
-			var resources = ARCed.Helpers.ResourceHelper.GetTypes(@"Graphics\Battlebacks");
+			var resources = ResourceHelper.GetTypes(@"Graphics\Battlebacks");
 			if (resources.Count > 0)
 			{
 				_battleBackName = resources[0].Name;
@@ -124,7 +130,7 @@ namespace ARCed.Database.Troops
 			int index = listBoxEnemies.SelectedIndex;
 			if (index >= 0)
 			{
-				EnemySprite sprite = new EnemySprite(Project.Data.Enemies[index + 1]);
+				var sprite = new EnemySprite(Project.Data.Enemies[index + 1]);
 				xnaPanel.AddSprite(sprite);
 			}
 			if (xnaPanel.Sprites.Count >= 12)
@@ -162,7 +168,7 @@ namespace ARCed.Database.Troops
 
 		private void xnaPanel_OnTroopChanged(object sender, EventArgs e)
 		{
-			if (!suppressEvents)
+			if (!SuppressEvents)
 			{
 				_troop.members.Clear();
 				foreach (EnemySprite sprite in xnaPanel.Sprites)
@@ -186,7 +192,7 @@ namespace ARCed.Database.Troops
 
 		private void buttonBattleback_Click(object sender, EventArgs e)
 		{
-			using (ImageSelectionForm dialog = new ImageSelectionForm(@"Battlebacks", _battleBackName))
+			using (var dialog = new ImageSelectionForm(@"Battlebacks", _battleBackName))
 			{
 				dialog.Width = 800;
 				dialog.SelectionEnabled = false;
@@ -214,17 +220,17 @@ namespace ARCed.Database.Troops
 			xnaPanel.RemoveAll();
 		}
 
-		private void contextMenuStripMember_Opening(object sender, System.ComponentModel.CancelEventArgs e)
+		private void contextMenuStripMember_Opening(object sender, CancelEventArgs e)
 		{
 			EnemySprite sprite = xnaPanel.SelectedSprite;
 			if (sprite == null)
 				e.Cancel = true;
 			else
 			{
-				suppressEvents = true;
+				SuppressEvents = true;
 				buttonAppearHalfway.Checked = sprite.Hidden;
 				buttonImmortal.Checked = sprite.Immortal;
-				suppressEvents = false;
+				SuppressEvents = false;
 			}
 		}
 
@@ -243,7 +249,7 @@ namespace ARCed.Database.Troops
 		{
 			var enemyCounts = new SortedDictionary<int, int>();
 			int id;
-			foreach (RPG.Troop.Member member in _troop.members)
+			foreach (Troop.Member member in _troop.members)
 			{
 				id = member.enemy_id;
 				if (enemyCounts.ContainsKey(id))
@@ -251,7 +257,7 @@ namespace ARCed.Database.Troops
 				else
 					enemyCounts[id] = 1;
 			}
-			string[] names = new string[enemyCounts.Count];
+			var names = new string[enemyCounts.Count];
 			int count = 0;
 			foreach (int i in enemyCounts.Keys.Reverse())
 			{
@@ -264,7 +270,7 @@ namespace ARCed.Database.Troops
 
 		private void textBoxName_TextChanged(object sender, EventArgs e)
 		{
-			if (!suppressEvents)
+			if (!SuppressEvents)
 			{
 				_troop.name = textBoxName.Text;
 				int index = dataObjectList.SelectedIndex;
@@ -275,7 +281,7 @@ namespace ARCed.Database.Troops
 
 		private void buttonBattleTest_Click(object sender, EventArgs e)
 		{
-			using (BattleTestDialog dialog = new BattleTestDialog())
+			using (var dialog = new BattleTestDialog())
 			{
 				dialog.ShowDialog();
 			}
@@ -291,7 +297,7 @@ namespace ARCed.Database.Troops
 		private void xnaPanel_DragEnter(object sender, DragEventArgs e)
 		{
 
-			if (e.Data.GetData(typeof(RPG.Enemy)) != null)
+			if (e.Data.GetData(typeof(Enemy)) != null)
 				e.Effect = DragDropEffects.Copy;
 			else
 				e.Effect = DragDropEffects.None;
@@ -299,8 +305,8 @@ namespace ARCed.Database.Troops
 
 		private void xnaPanel_DragDrop(object sender, DragEventArgs e)
 		{
-            RPG.Enemy enemy = (RPG.Enemy)e.Data.GetData(typeof(RPG.Enemy));
-            EnemySprite sprite = new EnemySprite(enemy);
+            var enemy = (Enemy)e.Data.GetData(typeof(Enemy));
+            var sprite = new EnemySprite(enemy);
 			Point p = xnaPanel.PointToClient(new Point(e.X, e.Y));
 			sprite.X = p.X - (sprite.Width / 2);
 			sprite.Y = p.Y - (sprite.Height / 2);

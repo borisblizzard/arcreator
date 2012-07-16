@@ -1,24 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿#region Using Directives
 
+using System;
 using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
+using ARCed.Controls;
 using ARCed.Dialogs;
 using ARCed.Helpers;
 using ARCed.Settings;
+
+#endregion
 
 namespace ARCed.Database.Tilesets
 {
 	public partial class ImageColorsDialog : Form
 	{
-		private ImageColorSettings _original, _settings;
+		private readonly ImageColorSettings _original, _settings;
 
 		public ImageColorSettings Settings { get { return _settings; } }
 		public ImageColorSettings OriginalSettings { get { return _original; } }
-		public ARCed.Controls.GraphicsDeviceControl XnaPanel { get; set; }
+		public GraphicsDeviceControl XnaPanel { get; set; }
 
 		public ImageColorsDialog(ImageColorSettings settings)
 		{
@@ -28,9 +28,9 @@ namespace ARCed.Database.Tilesets
 			RefreshColors();
 		}
 
-		private Color GetColor(Color color)
+		private static Color GetColor(Color color)
 		{
-			using (ColorChooserForm dialog = new ColorChooserForm())
+			using (var dialog = new ColorChooserForm())
 			{
 				dialog.Color = color;
 				if (dialog.ShowDialog() == DialogResult.OK)

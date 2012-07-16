@@ -1,6 +1,10 @@
-﻿using System;
+﻿#region Using Directives
+
+using System;
 using System.Collections.Generic;
 using ARCed;
+
+#endregion
 
 public class Table 
 {
@@ -133,7 +137,7 @@ public class Table
 		_xSize = Math.Max(xSize, 0);
 		_ySize = Math.Max(ySize, 0);
 		_zSize = Math.Max(zSize, 0);
-		int[] newData = new int[xSize * ySize * zSize];
+		var newData = new int[xSize * ySize * zSize];
 
 		if (copySize > 0)
 		{
@@ -144,7 +148,7 @@ public class Table
 					for (int z = 0; z < copyZSize; z++)
 					{
 						newData[x + _xSize * (y + _ySize * z)] =
-							_data[x + oldXSize * (y + oldXSize * z)];
+							_data[x + oldXSize * (y + oldYSize * z)];
 					}
 				}
 			}
@@ -190,7 +194,7 @@ public class Table
 
 	public byte[] _arc_dump()
 	{
-		List<byte> byteList = new List<byte>();
+		var byteList = new List<byte>();
 		byteList.AddRange(_dimensions.GetBytes());
 		byteList.AddRange(_xSize.GetBytes());
 		byteList.AddRange(_ySize.GetBytes());
@@ -203,14 +207,13 @@ public class Table
 
 	public static Table _arc_load(byte[] bytes)
 	{
-		int nx, ny, nz, dimensions, size;
-		dimensions = BitConverter.ToInt32(bytes, 0);
-		nx = BitConverter.ToInt32(bytes, 4);
-		ny = BitConverter.ToInt32(bytes, 8);
-		nz = BitConverter.ToInt32(bytes, 12);
-		size = nx * ny * nz;
-		Table table = new Table(nx, ny, nz);
-		int[] data = new int[size];
+	    int dimensions = BitConverter.ToInt32(bytes, 0);
+		int nx = BitConverter.ToInt32(bytes, 4);
+		int ny = BitConverter.ToInt32(bytes, 8);
+		int nz = BitConverter.ToInt32(bytes, 12);
+		int size = nx * ny * nz;
+		var table = new Table(nx, ny, nz);
+		var data = new int[size];
 		for (int i = 0; i < size; i++)
 			data[i] = BitConverter.ToInt16(bytes, 16 + (i * 2));
 		table._data = data;

@@ -1,7 +1,11 @@
+#region Using Directives
+
 using System;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Windows.Forms;
+
+#endregion
 
 namespace ARCed.UI
 {
@@ -18,7 +22,7 @@ namespace ARCed.UI
             get;
         }
 
-        private bool m_isMouseOver = false;
+        private bool m_isMouseOver;
         protected bool IsMouseOver
         {
             get { return m_isMouseOver; }
@@ -63,15 +67,15 @@ namespace ARCed.UI
         {
             if (IsMouseOver && Enabled)
             {
-                using (Pen pen = new Pen(ForeColor))
+                using (var pen = new Pen(ForeColor))
                 {
                     e.Graphics.DrawRectangle(pen, Rectangle.Inflate(ClientRectangle, -1, -1));
                 }
             }
 
-            using (ImageAttributes imageAttributes = new ImageAttributes())
+            using (var imageAttributes = new ImageAttributes())
             {
-                ColorMap[] colorMap = new ColorMap[2];
+                var colorMap = new ColorMap[2];
                 colorMap[0] = new ColorMap();
                 colorMap[0].OldColor = Color.FromArgb(0, 0, 0);
                 colorMap[0].NewColor = ForeColor;
@@ -99,7 +103,7 @@ namespace ARCed.UI
             if (IsDisposed)
                 return;
 
-            bool mouseOver = ClientRectangle.Contains(PointToClient(Control.MousePosition));
+            bool mouseOver = ClientRectangle.Contains(PointToClient(MousePosition));
             if (mouseOver != IsMouseOver)
                 IsMouseOver = mouseOver;
 

@@ -1,10 +1,17 @@
-﻿using System;
+﻿#region Using Directives
+
+using System;
 using System.IO;
 using System.Windows.Forms;
 using SevenZip;
 
+#endregion
+
 namespace ARCed.Helpers
 {
+    /// <summary>
+    /// Static class used for compressing/extracting files and folders using 7zip.
+    /// </summary>
 	public static class Compressor
 	{
 
@@ -20,16 +27,17 @@ namespace ARCed.Helpers
 		/// <param name="notify">Flag to notify user when finished</param>
 		public static void CompressDirectory(string inDir, string outFile, bool notify = false)
 		{
-			SevenZip.SevenZipBase.SetLibraryPath(PathHelper.SevenZipLibrary);
+			SevenZipBase.SetLibraryPath(PathHelper.SevenZipLibrary);
 			if (_compressor == null)
 			{
-				_compressor = new SevenZipCompressor();
-				_compressor.ArchiveFormat = OutArchiveFormat.SevenZip;
-				_compressor.CompressionLevel = CompressionLevel.Ultra;
-				_compressor.CompressionMode = CompressionMode.Create;
+				_compressor = new SevenZipCompressor
+				{
+				    ArchiveFormat = OutArchiveFormat.SevenZip,
+				    CompressionLevel = CompressionLevel.Ultra,
+				    CompressionMode = CompressionMode.Create
+				};
 			}
 			_notify = notify;
-			string tempPath = Path.GetTempPath();
 			_compressor.TempFolderPath = Path.GetTempPath();
 			_compressor.CompressDirectory(inDir, outFile);
 			File.SetCreationTime(outFile, DateTime.Now);
@@ -42,13 +50,13 @@ namespace ARCed.Helpers
 		/// <param name="outDir">The path to the target directory for extraction</param>
 		public static void ExtractArchive(string inFile, string outDir)
 		{
-			SevenZip.SevenZipBase.SetLibraryPath(PathHelper.SevenZipLibrary);
+			SevenZipBase.SetLibraryPath(PathHelper.SevenZipLibrary);
 			try
 			{
 				_extractor = new SevenZipExtractor(inFile);
 				if (!Directory.Exists(outDir))
 					Directory.CreateDirectory(outDir);
-				_extractor.ExtractionFinished += new EventHandler<EventArgs>(_extractor_ExtractionFinished);
+				_extractor.ExtractionFinished += ExtractorExtractionFinished;
 				_extractor.BeginExtractArchive(outDir);
 			}
 			catch
@@ -58,7 +66,7 @@ namespace ARCed.Helpers
 			}
 		}
 
-		private static void _extractor_ExtractionFinished(object sender, EventArgs e)
+		private static void ExtractorExtractionFinished(object sender, EventArgs e)
 		{
 			_extractor.Dispose();
 			if (_notify)

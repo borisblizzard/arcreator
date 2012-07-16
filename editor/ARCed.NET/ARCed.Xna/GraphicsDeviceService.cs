@@ -7,10 +7,12 @@
 //-----------------------------------------------------------------------------
 #endregion
 
-#region Using Statements
+#region Using Directives
+
 using System;
 using System.Threading;
 using Microsoft.Xna.Framework.Graphics;
+
 #endregion
 
 // The IGraphicsDeviceService interface requires a DeviceCreated event, but we
@@ -141,7 +143,7 @@ namespace ARCed.Controls
 
 
         // Store the current device settings.
-        PresentationParameters parameters;
+        private readonly PresentationParameters parameters;
 
 
         // IGraphicsDeviceService events.

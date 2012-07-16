@@ -1,8 +1,14 @@
-﻿using System;
+﻿#region Using Directives
+
+using System;
 using System.Collections.Generic;
 using System.Drawing;
+using ARCed.Helpers;
+using ARCed.Properties;
 using ARCed.Scintilla;
 using ARCed.UI;
+
+#endregion
 
 namespace ARCed.Scripting
 {
@@ -11,7 +17,7 @@ namespace ARCed.Scripting
 	/// </summary>
 	public partial class ScriptSearchForm : DockContent
 	{
-		private List<SearchResult> results;
+		private readonly List<SearchResult> results;
 
 		/// <summary>
 		/// Default constructor
@@ -19,11 +25,11 @@ namespace ARCed.Scripting
 		public ScriptSearchForm()
 		{
 			InitializeComponent();
-			this.Icon = Icon.FromHandle(Properties.Resources.Find3.GetHicon());
+			this.Icon = Icon.FromHandle(Resources.Find3.GetHicon());
 			results = new List<SearchResult>();
-			searchControl.buttonSearch.Click += new EventHandler(buttonSearch_Click);
-			searchControl.listViewResults.DoubleClick += new EventHandler(listViewResults_DoubleClick);
-			searchControl.listViewResults.Font = Helpers.FontHelper.MonoFont;
+			searchControl.buttonSearch.Click += this.buttonSearch_Click;
+			searchControl.listViewResults.DoubleClick += this.listViewResults_DoubleClick;
+			searchControl.listViewResults.Font = FontHelper.MonoFont;
 		}
 
 		private void listViewResults_DoubleClick(object sender, EventArgs e)
@@ -33,7 +39,7 @@ namespace ARCed.Scripting
 			if (index >= 0)
 			{
 				Script script = results[index].Script;
-				ScriptEditorForm page = new ScriptEditorForm(script);
+				var page = new ScriptEditorForm(script);
 				page.Show(Editor.MainDock);
 				page.ScintillaControl.Lines[results[index].Line].Select();
 			}
@@ -43,7 +49,7 @@ namespace ARCed.Scripting
 		{
 			results.Clear();
 			// Create list of scripts to search
-			List<Script> searchScripts = new List<Script>();
+			var searchScripts = new List<Script>();
 			if (searchControl.toolStripComboBox_Scope.SelectedIndex == 0) // Open
 			{
 				foreach (ScriptEditorForm form in Windows.ScriptEditors)
@@ -53,7 +59,7 @@ namespace ARCed.Scripting
 				searchScripts = Project.ScriptManager.Scripts;
 			string searchString = searchControl.textBoxSearch.Text;
 			// Set flags
-			SearchFlags flag = SearchFlags.Empty;
+			var flag = SearchFlags.Empty;
 			if (searchControl.toolStripMenuItem_MatchCase.Checked) flag |= SearchFlags.MatchCase;
 			if (searchControl.toolStripMenuItem_RegExp.Checked) flag |= SearchFlags.RegExp;
 			if (searchControl.toolStripMenuItem_WholeWord.Checked) flag |= SearchFlags.WholeWord;

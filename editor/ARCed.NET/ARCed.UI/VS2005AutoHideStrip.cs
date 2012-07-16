@@ -1,7 +1,11 @@
+#region Using Directives
+
 using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
+
+#endregion
 
 namespace ARCed.UI
 {
@@ -14,14 +18,14 @@ namespace ARCed.UI
             {
             }
 
-            private int m_tabX = 0;
+            private int m_tabX;
             public int TabX
             {
                 get { return m_tabX; }
                 set { m_tabX = value; }
             }
 
-            private int m_tabWidth = 0;
+            private int m_tabWidth;
             public int TabWidth
             {
                 get { return m_tabWidth; }
@@ -154,7 +158,7 @@ namespace ARCed.UI
         }
         #endregion
 
-        private static Matrix _matrixIdentity = new Matrix();
+        private readonly static Matrix _matrixIdentity = new Matrix();
         private static Matrix MatrixIdentity
         {
             get { return _matrixIdentity; }
@@ -206,7 +210,7 @@ namespace ARCed.UI
             Color startColor = DockPanel.Skin.AutoHideStripSkin.DockStripGradient.StartColor;
             Color endColor = DockPanel.Skin.AutoHideStripSkin.DockStripGradient.EndColor;
             LinearGradientMode gradientMode = DockPanel.Skin.AutoHideStripSkin.DockStripGradient.LinearGradientMode;
-            using (LinearGradientBrush brush = new LinearGradientBrush(ClientRectangle, startColor, endColor, gradientMode))
+            using (var brush = new LinearGradientBrush(ClientRectangle, startColor, endColor, gradientMode))
             {
                 g.FillRectangle(brush, ClientRectangle);
             }
@@ -238,9 +242,9 @@ namespace ARCed.UI
             Matrix matrixIdentity = g.Transform;
             if (dockState == DockState.DockLeftAutoHide || dockState == DockState.DockRightAutoHide)
             {
-                Matrix matrixRotated = new Matrix();
-                matrixRotated.RotateAt(90, new PointF((float)rectTabStrip.X + (float)rectTabStrip.Height / 2,
-                    (float)rectTabStrip.Y + (float)rectTabStrip.Height / 2));
+                var matrixRotated = new Matrix();
+                matrixRotated.RotateAt(90, new PointF(rectTabStrip.X + (float)rectTabStrip.Height / 2,
+                    rectTabStrip.Y + (float)rectTabStrip.Height / 2));
                 g.Transform = matrixRotated;
             }
 
@@ -353,7 +357,7 @@ namespace ARCed.UI
                     new Point(rectTransform.X, rectTransform.Y)
                 };
 
-                using (Icon rotatedIcon = new Icon(((Form)content).Icon, 16, 16))
+                using (var rotatedIcon = new Icon(((Form)content).Icon, 16, 16))
                 {
                     g.DrawImage(rotatedIcon.ToBitmap(), rotationPoints);
                 }
@@ -467,14 +471,14 @@ namespace ARCed.UI
             if (dockState != DockState.DockLeftAutoHide && dockState != DockState.DockRightAutoHide)
                 return rect;
 
-            PointF[] pts = new PointF[1];
+            var pts = new PointF[1];
             // the center of the rect
-            pts[0].X = (float)rect.X + (float)rect.Width / 2;
-            pts[0].Y = (float)rect.Y + (float)rect.Height / 2;
+            pts[0].X = rect.X + (float)rect.Width / 2;
+            pts[0].Y = rect.Y + (float)rect.Height / 2;
             Rectangle rectTabStrip = GetLogicalTabStripRectangle(dockState);
-            Matrix matrix = new Matrix();
-            matrix.RotateAt(90, new PointF((float)rectTabStrip.X + (float)rectTabStrip.Height / 2,
-                (float)rectTabStrip.Y + (float)rectTabStrip.Height / 2));
+            var matrix = new Matrix();
+            matrix.RotateAt(90, new PointF(rectTabStrip.X + (float)rectTabStrip.Height / 2,
+                rectTabStrip.Y + (float)rectTabStrip.Height / 2));
             matrix.TransformPoints(pts);
 
             return new Rectangle((int)(pts[0].X - (float)rect.Height / 2 + .5F),
@@ -517,7 +521,7 @@ namespace ARCed.UI
             Invalidate();
         }
 
-        protected override AutoHideStripBase.Tab CreateTab(IDockContent content)
+        protected override Tab CreateTab(IDockContent content)
         {
             return new TabVS2005(content);
         }

@@ -1,4 +1,8 @@
+#region Using Directives
+
 using System.Drawing;
+
+#endregion
 
 namespace ARCed.UI
 {
@@ -6,22 +10,22 @@ namespace ARCed.UI
 	{
 		internal NestedDockingStatus(DockPane pane)
 		{
-			m_dockPane = pane;
+			this._mDockPane = pane;
 		}
 
-		private DockPane m_dockPane = null;
+	    private readonly DockPane _mDockPane;
 		public DockPane DockPane
 		{
-			get	{	return m_dockPane;	}
+			get	{	return this._mDockPane;	}
 		}
-		
-		private NestedPaneCollection m_nestedPanes = null;
+
+	    private NestedPaneCollection m_nestedPanes;
 		public NestedPaneCollection NestedPanes
 		{
 			get	{	return m_nestedPanes;	}
 		}
 		
-		private DockPane m_previousPane = null;
+		private DockPane m_previousPane;
 		public DockPane PreviousPane
 		{
 			get	{	return m_previousPane;	}
@@ -39,13 +43,13 @@ namespace ARCed.UI
 			get	{	return m_proportion;	}
 		}
 
-		private bool m_isDisplaying = false;
+		private bool m_isDisplaying;
 		public bool IsDisplaying
 		{
 			get	{	return m_isDisplaying;	}
 		}
 
-		private DockPane m_displayingPreviousPane = null;
+		private DockPane m_displayingPreviousPane;
 		public DockPane DisplayingPreviousPane
 		{
 			get	{	return m_displayingPreviousPane;	}

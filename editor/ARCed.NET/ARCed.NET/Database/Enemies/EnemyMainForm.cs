@@ -1,4 +1,6 @@
-﻿using System;
+﻿#region Using Directives
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
@@ -6,6 +8,9 @@ using System.Windows.Forms;
 using ARCed.Controls;
 using ARCed.Dialogs;
 using ARCed.Helpers;
+using RPG;
+
+#endregion
 
 namespace ARCed.Database.Enemies
 {
@@ -16,9 +21,9 @@ namespace ARCed.Database.Enemies
 	{
 		#region Private Fields
 
-		private static string[] _actions = new[] { "Attack", "Defend", "Escape", "Do Nothing" };
-		private RPG.Enemy _enemy;
-		private ListViewColumnSorter _listViewSorter;
+		private static readonly string[] _actions = new[] { "Attack", "Defend", "Escape", "Do Nothing" };
+		private Enemy _enemy;
+		private readonly ListViewColumnSorter _listViewSorter;
 
 		#endregion
 
@@ -42,7 +47,7 @@ namespace ARCed.Database.Enemies
 
 		#region Constructor
 
-		public EnemyMainForm() : base()
+		public EnemyMainForm()
 		{
 			InitializeComponent();
 			InitializeElements();
@@ -103,7 +108,7 @@ namespace ARCed.Database.Enemies
 
 		public override void RefreshCurrentObject()
 		{
-			suppressEvents = true;
+			SuppressEvents = true;
 			textBoxName.Text = _enemy.name;
 			RefreshParameters();
 			RefreshImages();
@@ -113,7 +118,7 @@ namespace ARCed.Database.Enemies
 			RefreshElements();
 			RefreshStates();
 			RefreshActions();
-			suppressEvents = false;
+			SuppressEvents = false;
 		}
 
 		#endregion
@@ -140,14 +145,14 @@ namespace ARCed.Database.Enemies
 		{
 			listViewActions.BeginUpdate();
 			listViewActions.Items.Clear();
-			foreach (RPG.Enemy.Action action in _enemy.actions)
+			foreach (Enemy.Action action in _enemy.actions)
 				listViewActions.Items.Add(MakeActionItem(action));
 			listViewActions.EndUpdate();
 		}
 
-		private ListViewItem MakeActionItem(RPG.Enemy.Action action)
+		private static ListViewItem MakeActionItem(Enemy.Action action)
 		{
-			List<string> conditions = new List<string>();
+			var conditions = new List<string>();
 			bool turnCondition = !(action.condition_turn_a == 0 && action.condition_turn_b == 1);
 			if (turnCondition)
 				conditions.Add(String.Format("Turn {0} + {1}X",
@@ -167,7 +172,7 @@ namespace ARCed.Database.Enemies
 				cmd = _actions[action.basic];
 			else
 				cmd = Project.Data.Skills[action.skill_id].name;
-			return new ListViewItem(new string[] { cmd, condition, action.rating.ToString() });
+			return new ListViewItem(new[] { cmd, condition, action.rating.ToString() });
 		}
 
 		private void RefreshElements()
@@ -184,7 +189,7 @@ namespace ARCed.Database.Enemies
 
 		private void RefreshTreasure()
 		{
-			RPG.IRpgObject obj;
+			IRpgObject obj;
 			if (_enemy.item_id > 0) obj = Project.Data.Items[_enemy.item_id];
 			else if (_enemy.weapon_id > 0) obj = Project.Data.Weapons[_enemy.weapon_id];
 			else if (_enemy.armor_id > 0) obj = Project.Data.Armors[_enemy.armor_id];
@@ -202,8 +207,8 @@ namespace ARCed.Database.Enemies
 			{
 				if (ctrl is ParamBox)
 				{
-					ParamBox param = ctrl as ParamBox;
-					var property = typeof(RPG.Enemy).GetProperty(param.RpgAttribute);
+					var param = ctrl as ParamBox;
+					var property = typeof(Enemy).GetProperty(param.RpgAttribute);
 					if (property != null)
 						param.Value = (int)property.GetValue(_enemy, null);
 				}
@@ -217,12 +222,12 @@ namespace ARCed.Database.Enemies
 
 		private void paramBox_OnValueChanged(object sender, ParameterEventArgs e)
 		{
-			if (!suppressEvents)
+			if (!SuppressEvents)
 			{
-				ParamBox paramBox = sender as ParamBox;
-				int value = (int)paramBox.Value;
+				var paramBox = sender as ParamBox;
+				var value = (int)paramBox.Value;
 				string propertyName = paramBox.RpgAttribute;
-				typeof(RPG.Enemy).GetProperty(propertyName).SetValue(_enemy, value, null);
+				typeof(Enemy).GetProperty(propertyName).SetValue(_enemy, value, null);
 			}
 		}
 
@@ -238,7 +243,7 @@ namespace ARCed.Database.Enemies
 
 		private void textBoxName_TextChanged(object sender, EventArgs e)
 		{
-			if (!suppressEvents)
+			if (!SuppressEvents)
 			{
 				_enemy.name = textBoxName.Text;
 				int index = dataObjectList.SelectedIndex;
@@ -249,13 +254,13 @@ namespace ARCed.Database.Enemies
 
 		private void checkedListElements_OnItemChanged(object sender, MultiStateCheckEventArgs e)
 		{
-			if (!suppressEvents)
+			if (!SuppressEvents)
 				_enemy.element_ranks[e.Index + 1] = (sender as MultiStateCheckbox).SelectedState;
 		}
 
 		private void checkedListStates_OnItemChanged(object sender, MultiStateCheckEventArgs e)
 		{
-			if (!suppressEvents)
+			if (!SuppressEvents)
 				_enemy.state_ranks[e.Index + 1] = (sender as MultiStateCheckbox).SelectedState;
 		}
 
@@ -282,7 +287,7 @@ namespace ARCed.Database.Enemies
 
 		private void buttonAddAction_Click(object sender, EventArgs e)
 		{
-			using (EditActionDialog dialog = new EditActionDialog())
+			using (var dialog = new EditActionDialog())
 			{
 				if (dialog.ShowDialog(this) == DialogResult.OK)
 				{
@@ -316,7 +321,7 @@ namespace ARCed.Database.Enemies
 		private void buttonEditAction_Click(object sender, EventArgs e)
 		{
 			int index = GetActionIndex();
-			using (EditActionDialog dialog = new EditActionDialog())
+			using (var dialog = new EditActionDialog())
 			{
 				dialog.EnemyAction = _enemy.actions[index];
 				if (dialog.ShowDialog(this) == DialogResult.OK)
@@ -346,7 +351,7 @@ namespace ARCed.Database.Enemies
 
 		private void buttonTreasure_Click(object sender, EventArgs e)
 		{
-			using (TreasureSelectDialog dialog = new TreasureSelectDialog())
+			using (var dialog = new TreasureSelectDialog())
 			{
 				dialog.SetTreasure(_enemy.treasure_prob, _enemy.item_id,
 					_enemy.weapon_id, _enemy.armor_id);
@@ -359,7 +364,7 @@ namespace ARCed.Database.Enemies
 					else if (dialog.WeaponId > 0)
 						_enemy.weapon_id = dialog.WeaponId;
 					else if (dialog.ArmorId > 0)
-						_enemy.armor_id = dialog.ArmorId; ;
+						_enemy.armor_id = dialog.ArmorId;
 					RefreshTreasure();
 				}
 			}
@@ -367,7 +372,7 @@ namespace ARCed.Database.Enemies
 
 		private void pictureBattler_DoubleClick(object sender, EventArgs e)
 		{
-			using (ImageSelectionForm dialog =
+			using (var dialog =
 				new ImageSelectionForm(@"Battlers", _enemy.battler_name))
 			{
 				dialog.Hue = _enemy.battler_hue;
@@ -394,7 +399,7 @@ namespace ARCed.Database.Enemies
 		private void contextImagesSizeMode_Clicked(object sender, EventArgs e)
 		{
 			int num = Convert.ToInt32((sender as ToolStripMenuItem).Tag);
-			PictureBoxSizeMode mode = (PictureBoxSizeMode)num;
+			var mode = (PictureBoxSizeMode)num;
 			(contextMenuImages.SourceControl as PictureBox).SizeMode = mode;
 		}
 

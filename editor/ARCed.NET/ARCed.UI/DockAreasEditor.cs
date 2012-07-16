@@ -1,3 +1,5 @@
+#region Using Directives
+
 using System;
 using System.ComponentModel;
 using System.Drawing;
@@ -5,40 +7,42 @@ using System.Drawing.Design;
 using System.Windows.Forms;
 using System.Windows.Forms.Design;
 
+#endregion
+
 namespace ARCed.UI
 {	
 	internal class DockAreasEditor : UITypeEditor
 	{
-		private class DockAreasEditorControl : System.Windows.Forms.UserControl
+		private class DockAreasEditorControl : UserControl
 		{
-			private CheckBox checkBoxFloat;
-			private CheckBox checkBoxDockLeft;
-			private CheckBox checkBoxDockRight;
-			private CheckBox checkBoxDockTop;
-			private CheckBox checkBoxDockBottom;
-			private CheckBox checkBoxDockFill;
-			private DockAreas m_oldDockAreas;
+            private readonly CheckBox _checkBoxFloat;
+            private readonly CheckBox _checkBoxDockLeft;
+            private readonly CheckBox _checkBoxDockRight;
+            private readonly CheckBox _checkBoxDockTop;
+            private readonly CheckBox _checkBoxDockBottom;
+            private readonly CheckBox _checkBoxDockFill;
+			private DockAreas _mOldDockAreas;
 
 			public DockAreas DockAreas
 			{
 				get
 				{
 					DockAreas dockAreas = 0;
-					if (checkBoxFloat.Checked)
+					if (this._checkBoxFloat.Checked)
 						dockAreas |= DockAreas.Float;
-					if (checkBoxDockLeft.Checked)
+					if (this._checkBoxDockLeft.Checked)
 						dockAreas |= DockAreas.DockLeft;
-					if (checkBoxDockRight.Checked)
+					if (this._checkBoxDockRight.Checked)
 						dockAreas |= DockAreas.DockRight;
-					if (checkBoxDockTop.Checked)
+					if (this._checkBoxDockTop.Checked)
 						dockAreas |= DockAreas.DockTop;
-					if (checkBoxDockBottom.Checked)
+					if (this._checkBoxDockBottom.Checked)
 						dockAreas |= DockAreas.DockBottom;
-					if (checkBoxDockFill.Checked)
+					if (this._checkBoxDockFill.Checked)
 						dockAreas |= DockAreas.Document;
 
 					if (dockAreas == 0)
-						return m_oldDockAreas;
+						return this._mOldDockAreas;
 					else
 						return dockAreas;
 				}
@@ -46,80 +50,80 @@ namespace ARCed.UI
 
 			public DockAreasEditorControl()
 			{
-				checkBoxFloat = new CheckBox();
-				checkBoxDockLeft = new CheckBox();
-				checkBoxDockRight = new CheckBox();
-				checkBoxDockTop = new CheckBox();
-				checkBoxDockBottom = new CheckBox();
-				checkBoxDockFill = new CheckBox();
+				this._checkBoxFloat = new CheckBox();
+				this._checkBoxDockLeft = new CheckBox();
+				this._checkBoxDockRight = new CheckBox();
+				this._checkBoxDockTop = new CheckBox();
+				this._checkBoxDockBottom = new CheckBox();
+				this._checkBoxDockFill = new CheckBox();
 
 				SuspendLayout();
 
-				checkBoxFloat.Appearance = Appearance.Button;
-				checkBoxFloat.Dock = DockStyle.Top;
-				checkBoxFloat.Height = 24;
-				checkBoxFloat.Text = Strings.DockAreaEditor_FloatCheckBoxText;
-				checkBoxFloat.TextAlign = ContentAlignment.MiddleCenter;
-				checkBoxFloat.FlatStyle = FlatStyle.System;
+				this._checkBoxFloat.Appearance = Appearance.Button;
+				this._checkBoxFloat.Dock = DockStyle.Top;
+				this._checkBoxFloat.Height = 24;
+				this._checkBoxFloat.Text = Strings.DockAreaEditor_FloatCheckBoxText;
+				this._checkBoxFloat.TextAlign = ContentAlignment.MiddleCenter;
+				this._checkBoxFloat.FlatStyle = FlatStyle.System;
 			
-				checkBoxDockLeft.Appearance = System.Windows.Forms.Appearance.Button;
-				checkBoxDockLeft.Dock = System.Windows.Forms.DockStyle.Left;
-				checkBoxDockLeft.Width = 24;
-				checkBoxDockLeft.FlatStyle = FlatStyle.System;
+				this._checkBoxDockLeft.Appearance = Appearance.Button;
+				this._checkBoxDockLeft.Dock = DockStyle.Left;
+				this._checkBoxDockLeft.Width = 24;
+				this._checkBoxDockLeft.FlatStyle = FlatStyle.System;
 
-				checkBoxDockRight.Appearance = System.Windows.Forms.Appearance.Button;
-				checkBoxDockRight.Dock = System.Windows.Forms.DockStyle.Right;
-				checkBoxDockRight.Width = 24;
-				checkBoxDockRight.FlatStyle = FlatStyle.System;
+				this._checkBoxDockRight.Appearance = Appearance.Button;
+				this._checkBoxDockRight.Dock = DockStyle.Right;
+				this._checkBoxDockRight.Width = 24;
+				this._checkBoxDockRight.FlatStyle = FlatStyle.System;
 
-				checkBoxDockTop.Appearance = System.Windows.Forms.Appearance.Button;
-				checkBoxDockTop.Dock = System.Windows.Forms.DockStyle.Top;
-				checkBoxDockTop.Height = 24;
-				checkBoxDockTop.FlatStyle = FlatStyle.System;
+				this._checkBoxDockTop.Appearance = Appearance.Button;
+				this._checkBoxDockTop.Dock = DockStyle.Top;
+				this._checkBoxDockTop.Height = 24;
+				this._checkBoxDockTop.FlatStyle = FlatStyle.System;
 
-				checkBoxDockBottom.Appearance = System.Windows.Forms.Appearance.Button;
-				checkBoxDockBottom.Dock = System.Windows.Forms.DockStyle.Bottom;
-				checkBoxDockBottom.Height = 24;
-				checkBoxDockBottom.FlatStyle = FlatStyle.System;
+				this._checkBoxDockBottom.Appearance = Appearance.Button;
+				this._checkBoxDockBottom.Dock = DockStyle.Bottom;
+				this._checkBoxDockBottom.Height = 24;
+				this._checkBoxDockBottom.FlatStyle = FlatStyle.System;
 			
-				checkBoxDockFill.Appearance = System.Windows.Forms.Appearance.Button;
-				checkBoxDockFill.Dock = System.Windows.Forms.DockStyle.Fill;
-				checkBoxDockFill.FlatStyle = FlatStyle.System;
+				this._checkBoxDockFill.Appearance = Appearance.Button;
+				this._checkBoxDockFill.Dock = DockStyle.Fill;
+				this._checkBoxDockFill.FlatStyle = FlatStyle.System;
 
 				this.Controls.AddRange(new Control[] {
-														 checkBoxDockFill,
-														 checkBoxDockBottom,
-														 checkBoxDockTop,
-														 checkBoxDockRight,
-														 checkBoxDockLeft,
-														 checkBoxFloat});
+														 this._checkBoxDockFill,
+														 this._checkBoxDockBottom,
+														 this._checkBoxDockTop,
+														 this._checkBoxDockRight,
+														 this._checkBoxDockLeft,
+														 this._checkBoxFloat});
 
-				Size = new System.Drawing.Size(160, 144);
+				Size = new Size(160, 144);
 				BackColor = SystemColors.Control;
 				ResumeLayout();
 			}
 
 			public void SetStates(DockAreas dockAreas)
 			{
-				m_oldDockAreas = dockAreas;
+				this._mOldDockAreas = dockAreas;
 				if ((dockAreas & DockAreas.DockLeft) != 0)
-					checkBoxDockLeft.Checked = true;
+					this._checkBoxDockLeft.Checked = true;
 				if ((dockAreas & DockAreas.DockRight) != 0)
-					checkBoxDockRight.Checked = true;
+					this._checkBoxDockRight.Checked = true;
 				if ((dockAreas & DockAreas.DockTop) != 0)
-					checkBoxDockTop.Checked = true;
+					this._checkBoxDockTop.Checked = true;
 				if ((dockAreas & DockAreas.DockTop) != 0)
-					checkBoxDockTop.Checked = true;
+					this._checkBoxDockTop.Checked = true;
 				if ((dockAreas & DockAreas.DockBottom) != 0)
-					checkBoxDockBottom.Checked = true;
+					this._checkBoxDockBottom.Checked = true;
 				if ((dockAreas & DockAreas.Document) != 0)
-					checkBoxDockFill.Checked = true;
+					this._checkBoxDockFill.Checked = true;
 				if ((dockAreas & DockAreas.Float) != 0)
-					checkBoxFloat.Checked = true;
+					this._checkBoxFloat.Checked = true;
 			}
 		}
 
-		private DockAreasEditor.DockAreasEditorControl m_ui = null;
+		private DockAreasEditorControl m_ui;
 
 		public override UITypeEditorEditStyle GetEditStyle(ITypeDescriptorContext context)
 		{
@@ -129,11 +133,11 @@ namespace ARCed.UI
 		public override object EditValue(ITypeDescriptorContext context, IServiceProvider sp, object value)
 		{
 			if (m_ui == null)
-				m_ui = new DockAreasEditor.DockAreasEditorControl();
+				m_ui = new DockAreasEditorControl();
 
 			m_ui.SetStates((DockAreas)value);
 
-            IWindowsFormsEditorService edSvc = (IWindowsFormsEditorService)sp.GetService(typeof(IWindowsFormsEditorService));
+            var edSvc = (IWindowsFormsEditorService)sp.GetService(typeof(IWindowsFormsEditorService));
 			edSvc.DropDownControl(m_ui);
 
 			return m_ui.DockAreas;

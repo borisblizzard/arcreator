@@ -1,7 +1,11 @@
-﻿using System;
+﻿#region Using Directives
+
+using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
+
+#endregion
 
 namespace ARCed.Controls
 {
@@ -15,7 +19,7 @@ namespace ARCed.Controls
 		#region Private Fields
 
 		private bool _suppressEvents;
-		private static Padding _padding = new Padding(3, 0, 3, 0);
+		private static readonly Padding _padding = new Padding(3, 0, 3, 0);
 
 		#endregion
 
@@ -94,7 +98,7 @@ namespace ARCed.Controls
 		/// <param name="valueIndex">Index of the slot's value</param>
 		public void AddItem(string label, int valueIndex)
 		{
-			MultiStateCheckbox checkBox = new MultiStateCheckbox();
+			var checkBox = new MultiStateCheckbox();
 			checkBox.Margin = _padding;
 			checkBox.Characters = Items;
 			checkBox.CharColors = Colors;
@@ -102,7 +106,7 @@ namespace ARCed.Controls
 			checkBox.Text = label;
 			if (valueIndex >= 0)
 				checkBox.SelectedState = valueIndex;
-			checkBox.MouseDown += new MouseEventHandler(slot_OnTextChange);
+			checkBox.MouseDown += this.slot_OnTextChange;
 			flowPanel.Controls.Add(checkBox);
 		}
 
@@ -143,7 +147,7 @@ namespace ARCed.Controls
 		{
 			if (OnItemChanged != null && !_suppressEvents)
 			{
-				MultiStateCheckbox checkBox = sender as MultiStateCheckbox;
+				var checkBox = sender as MultiStateCheckbox;
 				int vIndex = checkBox.SelectedState;
 				int index = flowPanel.Controls.IndexOf(checkBox);
 				OnItemChanged(sender, new MultiStateCheckEventArgs(index, vIndex));

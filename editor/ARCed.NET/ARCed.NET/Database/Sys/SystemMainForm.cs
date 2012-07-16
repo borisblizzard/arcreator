@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿#region Using Directives
 
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
 using ARCed.Controls;
+
+#endregion
 
 namespace ARCed.Database.Sys
 {
@@ -50,9 +46,9 @@ namespace ARCed.Database.Sys
 
 		public override void RefreshCurrentObject()
 		{
-			suppressEvents = true;
+			SuppressEvents = true;
 
-			suppressEvents = false;
+			SuppressEvents = false;
 		}
 	}
 }

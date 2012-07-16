@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿#region Using Directives
 
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
 using ARCed.UI;
+
+#endregion
 
 namespace ARCed.Database.MapEditor
 {

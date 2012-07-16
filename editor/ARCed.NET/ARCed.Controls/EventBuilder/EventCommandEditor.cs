@@ -1,11 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Windows.Forms;
+﻿#region Using Directives
 
+using System;
+using System.Collections.Generic;
+using System.Reflection;
+using System.Windows.Forms;
 using Cmd = RPG.EventCommand;
+
+#endregion
 
 namespace ARCed.EventBuilder
 {
@@ -29,7 +30,7 @@ namespace ARCed.EventBuilder
 		/// <param name="code">Event command code to get a command for.</param>
 		/// <param name="indent">Current indent level to set for the commands.</param>
 		/// <returns>List of user-defined event commands</returns>
-		public static List<RPG.EventCommand> CreateCommand(int code, int indent)
+		public static List<Cmd> CreateCommand(int code, int indent)
 		{
 			string methodName = String.Format("Command{0}", code);
 			MethodInfo info = typeof(EventCommandEditor).GetMethod(methodName, BindingFlags.Static | BindingFlags.NonPublic);
@@ -44,7 +45,7 @@ namespace ARCed.EventBuilder
 		/// <summary>
 		/// Begins edit of an existing event command.
 		/// </summary>
-		/// <param name="command">List of event commands to edit.</param>
+		/// <param name="commands">List of event commands to edit.</param>
 		/// <returns>Modified commands, or null if unchanged.</returns>
 		public static Cmd EditCommand(List<Cmd> commands)
 		{
@@ -56,7 +57,7 @@ namespace ARCed.EventBuilder
 				Console.WriteLine("Missing method: \"{0}\"", methodName);
 				return null;
 			}
-			return (RPG.EventCommand)info.Invoke(null, new object[] { commands });
+			return (Cmd)info.Invoke(null, new object[] { commands });
 		}
 
 		#region Page 1
@@ -68,10 +69,10 @@ namespace ARCed.EventBuilder
 		/// <returns>List of user-defined event commands</returns>
 		private static List<Cmd> Command101(List<Cmd> commands)
 		{
-			string[] lines = new string[commands.Count];
+			var lines = new string[commands.Count];
 			for (int i = 0; i < commands.Count; i++)
 				lines[i] = commands[i].parameters[0];
-			using (CmdShowTextDialog dialog = new CmdShowTextDialog())
+			using (var dialog = new CmdShowTextDialog())
 			{
 				dialog.Lines = lines;
 				if (dialog.ShowDialog() == DialogResult.OK)
@@ -94,7 +95,7 @@ namespace ARCed.EventBuilder
 		/// <returns>List of user-defined event commands</returns>
 		private static List<Cmd> Command102(List<Cmd> commands)
 		{
-			using (CmdShowChoicesDialog dialog = new CmdShowChoicesDialog())
+			using (var dialog = new CmdShowChoicesDialog())
 			{
 				if (commands.Count > 0)
 				{
@@ -103,7 +104,7 @@ namespace ARCed.EventBuilder
 				}
 				if (dialog.ShowDialog() == DialogResult.OK)
 				{
-					Params choices = new Params();
+					var choices = new Params();
 					foreach (string choice in dialog.Choices)
 						choices.Add(choice);
 					if (choices.Count == 0) choices.Add("");
@@ -133,7 +134,7 @@ namespace ARCed.EventBuilder
 		/// <returns>List of user-defined event commands</returns>
 		private static List<Cmd> Command103(List<Cmd> commands)
 		{
-			using (CmdInputNumberDialog dialog = new CmdInputNumberDialog())
+			using (var dialog = new CmdInputNumberDialog())
 			{
 				if (commands.Count > 0)
 				{
@@ -159,7 +160,7 @@ namespace ARCed.EventBuilder
 		/// <returns>List of user-defined event commands</returns>
 		private static List<Cmd> Command104(List<Cmd> commands)
 		{
-			using (CmdChangeTextOptionsDialog dialog = new CmdChangeTextOptionsDialog())
+			using (var dialog = new CmdChangeTextOptionsDialog())
 			{
 				if (commands.Count > 0)
 				{
@@ -184,7 +185,7 @@ namespace ARCed.EventBuilder
 		/// <returns>List of user-defined event commands</returns>
 		private static List<Cmd> Command105(List<Cmd> commands)
 		{
-			using (CmdButtonInputDialog dialog = new CmdButtonInputDialog())
+			using (var dialog = new CmdButtonInputDialog())
 			{
 				if (commands.Count > 0)
 					dialog.VariableId = commands[0].parameters[0];
@@ -205,7 +206,7 @@ namespace ARCed.EventBuilder
 		/// <returns>List of user-defined event commands</returns>
 		private static List<Cmd> Command106(List<Cmd> commands)
 		{
-			using (CmdWaitDialog dialog = new CmdWaitDialog())
+			using (var dialog = new CmdWaitDialog())
 			{
 				if (commands.Count > 0)
 					dialog.Frames = commands[0].parameters[0];
@@ -227,7 +228,7 @@ namespace ARCed.EventBuilder
 		private static List<Cmd> Command108(List<Cmd> commands)
 		{
 			string[] lines;
-			using (CmdCommentDialog dialog = new CmdCommentDialog())
+			using (var dialog = new CmdCommentDialog())
 			{ 
 				if (commands.Count > 0)
 				{

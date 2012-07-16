@@ -1,14 +1,14 @@
-using System;
-using System.Drawing;
-using System.Reflection;
+#region Using Directives
+
 using System.Resources;
-using System.Windows.Forms;
+
+#endregion
 
 namespace ARCed.UI
 {
 	internal static class ResourceHelper
 	{
-        private static ResourceManager _resourceManager = null;
+        private static ResourceManager _resourceManager;
 
         private static ResourceManager ResourceManager
         {

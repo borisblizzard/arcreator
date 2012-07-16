@@ -1,30 +1,34 @@
+#region Using Directives
+
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Drawing;
 using ARCed.Core.Win32;
 
+#endregion
+
 namespace ARCed.UI
 {
 	public sealed class NestedPaneCollection : ReadOnlyCollection<DockPane>
 	{
-		private INestedPanesContainer m_container;
-		private VisibleNestedPaneCollection m_visibleNestedPanes;
+        private readonly INestedPanesContainer _mContainer;
+        private readonly VisibleNestedPaneCollection _mVisibleNestedPanes;
 
 		internal NestedPaneCollection(INestedPanesContainer container)
             : base(new List<DockPane>())
 		{
-			m_container = container;
-			m_visibleNestedPanes = new VisibleNestedPaneCollection(this);
+			this._mContainer = container;
+			this._mVisibleNestedPanes = new VisibleNestedPaneCollection(this);
 		}
 
 		public INestedPanesContainer Container
 		{
-			get	{	return m_container;	}
+			get	{	return this._mContainer;	}
 		}
 		
 		public VisibleNestedPaneCollection VisibleNestedPanes
 		{
-			get	{	return m_visibleNestedPanes;	}
+			get	{	return this._mVisibleNestedPanes;	}
 		}
 
 		public DockState DockState
@@ -54,7 +58,7 @@ namespace ARCed.UI
 		{
 			if (Count == 0 && Container.DockState == DockState.Float)
 			{
-				FloatWindow floatWindow = (FloatWindow)Container;
+				var floatWindow = (FloatWindow)Container;
 				if (!floatWindow.Disposing && !floatWindow.IsDisposed)
 					NativeMethods.PostMessage(((FloatWindow)Container).Handle, FloatWindow.WM_CHECKDISPOSE, 0, 0);
 			}

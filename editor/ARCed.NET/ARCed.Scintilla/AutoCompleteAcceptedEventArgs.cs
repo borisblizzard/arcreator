@@ -3,7 +3,7 @@
 using System;
 using System.Text;
 
-#endregion Using Directives
+#endregion
 
 
 namespace ARCed.Scintilla
@@ -15,9 +15,9 @@ namespace ARCed.Scintilla
     {
         #region Fields
 
-        private string _text;
-        private int _wordStartPosition;
-        private bool _cancel = false;
+        private readonly string _text;
+        private readonly int _wordStartPosition;
+        private bool _cancel;
 
         #endregion Fields
 

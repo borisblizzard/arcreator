@@ -4,7 +4,7 @@ using System;
 using System.ComponentModel;
 using System.Drawing;
 
-#endregion Using Directives
+#endregion
 
 
 namespace ARCed.Scintilla
@@ -44,7 +44,7 @@ namespace ARCed.Scintilla
         /// <param name="iPageNumber"></param>
         public void Draw(Graphics oGraphics, Rectangle oBounds, String strDocumentName, int iPageNumber)
         {
-            StringFormat oFormat = new StringFormat(StringFormat.GenericDefault);
+            var oFormat = new StringFormat(StringFormat.GenericDefault);
             Pen oPen = Pens.Black;
             Brush oBrush = Brushes.Black;
 

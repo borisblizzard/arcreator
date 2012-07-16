@@ -1,3 +1,5 @@
+#region Using Directives
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -6,14 +8,16 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 
+#endregion
+
 namespace ARCed.UI
 {
-	public abstract partial class AutoHideStripBase : Control
+	public abstract class AutoHideStripBase : Control
 	{
         [SuppressMessage("Microsoft.Design", "CA1034:NestedTypesShouldNotBeVisible")]
         protected class Tab : IDisposable
         {
-            private IDockContent m_content;
+            private readonly IDockContent m_content;
 
             protected internal Tab(IDockContent content)
             {
@@ -63,7 +67,7 @@ namespace ARCed.UI
                 m_dockPane = pane;
             }
 
-            private DockPane m_dockPane = null;
+            private readonly DockPane m_dockPane;
             public DockPane DockPane
             {
                 get { return m_dockPane; }
@@ -119,7 +123,7 @@ namespace ARCed.UI
         [SuppressMessage("Microsoft.Design", "CA1034:NestedTypesShouldNotBeVisible")]
         protected class Pane : IDisposable
         {
-            private DockPane m_dockPane;
+            private readonly DockPane m_dockPane;
 
             protected internal Pane(DockPane dockPane)
             {
@@ -162,33 +166,33 @@ namespace ARCed.UI
         {
             private class AutoHideState
             {
-                public DockState m_dockState;
-                public bool m_selected = false;
+                private readonly DockState _mDockState;
+                private bool _mSelected;
 
                 public AutoHideState(DockState dockState)
                 {
-                    m_dockState = dockState;
+                    this._mDockState = dockState;
                 }
 
                 public DockState DockState
                 {
-                    get { return m_dockState; }
+                    get { return this._mDockState; }
                 }
 
                 public bool Selected
                 {
-                    get { return m_selected; }
-                    set { m_selected = value; }
+                    get { return this._mSelected; }
+                    set { this._mSelected = value; }
                 }
             }
 
             private class AutoHideStateCollection
             {
-                private AutoHideState[] m_states;
+                private readonly AutoHideState[] _mStates;
 
                 public AutoHideStateCollection()
                 {
-                    m_states = new AutoHideState[]	{	
+                    this._mStates = new[]	{	
 												new AutoHideState(DockState.DockTopAutoHide),
 												new AutoHideState(DockState.DockBottomAutoHide),
 												new AutoHideState(DockState.DockLeftAutoHide),
@@ -200,10 +204,10 @@ namespace ARCed.UI
                 {
                     get
                     {
-                        for (int i = 0; i < m_states.Length; i++)
+                        for (int i = 0; i < this._mStates.Length; i++)
                         {
-                            if (m_states[i].DockState == dockState)
-                                return m_states[i];
+                            if (this._mStates[i].DockState == dockState)
+                                return this._mStates[i];
                         }
                         throw new ArgumentOutOfRangeException("dockState");
                     }
@@ -214,9 +218,9 @@ namespace ARCed.UI
                     if (pane.IsHidden)
                         return false;
 
-                    for (int i = 0; i < m_states.Length; i++)
+                    for (int i = 0; i < this._mStates.Length; i++)
                     {
-                        if (m_states[i].DockState == pane.DockState && m_states[i].Selected)
+                        if (this._mStates[i].DockState == pane.DockState && this._mStates[i].Selected)
                             return true;
                     }
                     return false;
@@ -225,24 +229,24 @@ namespace ARCed.UI
 
             internal PaneCollection(DockPanel panel, DockState dockState)
             {
-                m_dockPanel = panel;
-                m_states = new AutoHideStateCollection();
+                this._mDockPanel = panel;
+                this._mStates = new AutoHideStateCollection();
                 States[DockState.DockTopAutoHide].Selected = (dockState == DockState.DockTopAutoHide);
                 States[DockState.DockBottomAutoHide].Selected = (dockState == DockState.DockBottomAutoHide);
                 States[DockState.DockLeftAutoHide].Selected = (dockState == DockState.DockLeftAutoHide);
                 States[DockState.DockRightAutoHide].Selected = (dockState == DockState.DockRightAutoHide);
             }
 
-            private DockPanel m_dockPanel;
+            private readonly DockPanel _mDockPanel;
             public DockPanel DockPanel
             {
-                get { return m_dockPanel; }
+                get { return this._mDockPanel; }
             }
 
-            private AutoHideStateCollection m_states;
+            private readonly AutoHideStateCollection _mStates;
             private AutoHideStateCollection States
             {
-                get { return m_states; }
+                get { return this._mStates; }
             }
 
             public int Count
@@ -326,44 +330,44 @@ namespace ARCed.UI
 
 		protected AutoHideStripBase(DockPanel panel)
 		{
-			m_dockPanel = panel;
-			m_panesTop = new PaneCollection(panel, DockState.DockTopAutoHide);
-			m_panesBottom = new PaneCollection(panel, DockState.DockBottomAutoHide);
-			m_panesLeft = new PaneCollection(panel, DockState.DockLeftAutoHide);
-			m_panesRight = new PaneCollection(panel, DockState.DockRightAutoHide);
+			this._mDockPanel = panel;
+			this._mPanesTop = new PaneCollection(panel, DockState.DockTopAutoHide);
+			this._mPanesBottom = new PaneCollection(panel, DockState.DockBottomAutoHide);
+			this._mPanesLeft = new PaneCollection(panel, DockState.DockLeftAutoHide);
+			this._mPanesRight = new PaneCollection(panel, DockState.DockRightAutoHide);
 
 			SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
 			SetStyle(ControlStyles.Selectable, false);
 		}
 
-		private DockPanel m_dockPanel;
+        private readonly DockPanel _mDockPanel;
 		protected DockPanel DockPanel
 		{
-			get	{	return m_dockPanel;	}
+			get	{	return this._mDockPanel;	}
 		}
 
-		private PaneCollection m_panesTop;
+        private readonly PaneCollection _mPanesTop;
 		protected PaneCollection PanesTop
 		{
-			get	{	return m_panesTop;	}
+			get	{	return this._mPanesTop;	}
 		}
 
-		private PaneCollection m_panesBottom;
+        private readonly PaneCollection _mPanesBottom;
 		protected PaneCollection PanesBottom
 		{
-			get	{	return m_panesBottom;	}
+			get	{	return this._mPanesBottom;	}
 		}
 
-		private PaneCollection m_panesLeft;
+        private readonly PaneCollection _mPanesLeft;
 		protected PaneCollection PanesLeft
 		{
-			get	{	return m_panesLeft;	}
+			get	{	return this._mPanesLeft;	}
 		}
 
-		private PaneCollection m_panesRight;
+        private readonly PaneCollection _mPanesRight;
 		protected PaneCollection PanesRight
 		{
-			get	{	return m_panesRight;	}
+			get	{	return this._mPanesRight;	}
 		}
 
 		protected PaneCollection GetPanes(DockState dockState)
@@ -436,7 +440,7 @@ namespace ARCed.UI
 				return Rectangle.Empty;
 		}
 
-		private GraphicsPath m_displayingArea = null;
+		private GraphicsPath m_displayingArea;
 		private GraphicsPath DisplayingArea
 		{
 			get
@@ -511,7 +515,7 @@ namespace ARCed.UI
 
 		private IDockContent HitTest()
 		{
-			Point ptMouse = PointToClient(Control.MousePosition);
+			Point ptMouse = PointToClient(MousePosition);
 			return HitTest(ptMouse);
 		}
 

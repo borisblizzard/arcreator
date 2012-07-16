@@ -4,7 +4,7 @@ using System;
 using System.ComponentModel;
 using System.Windows.Forms;
 
-#endregion Using Directives
+#endregion
 
 
 namespace ARCed.Scintilla
@@ -13,13 +13,13 @@ namespace ARCed.Scintilla
     ///     Manages Document Navigation, which is a snapshot history of movements within
     ///     a document.
     /// </summary>
-    [TypeConverterAttribute(typeof(System.ComponentModel.ExpandableObjectConverter))]
+    [TypeConverter(typeof(ExpandableObjectConverter))]
     public class DocumentNavigation : TopLevelHelper
     {
         #region Fields
 
-        private bool _supressNext = false;
-        private Timer t = null;
+        private bool _supressNext;
+        private readonly Timer t;
         private int _navigationPointTimeout = 200;
         public FakeStack _forewardStack = new FakeStack();
         public FakeStack _backwardStack = new FakeStack();
@@ -79,7 +79,7 @@ namespace ARCed.Scintilla
 
         private NavigationPont NewRange(int pos)
         {
-            NavigationPont mr = new NavigationPont(pos, Scintilla);
+            var mr = new NavigationPont(pos, Scintilla);
             Scintilla.ManagedRanges.Add(mr);
             return mr;
         }
@@ -307,8 +307,8 @@ namespace ARCed.Scintilla
         {
             t = new Timer();
             t.Interval = _navigationPointTimeout;
-            t.Tick += new EventHandler(t_Tick);
-            scintilla.SelectionChanged += new EventHandler(scintilla_SelectionChanged);
+            t.Tick += this.t_Tick;
+            scintilla.SelectionChanged += this.scintilla_SelectionChanged;
         }
 
         #endregion Constructors

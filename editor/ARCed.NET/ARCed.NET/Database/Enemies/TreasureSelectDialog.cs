@@ -1,6 +1,10 @@
-﻿using System;
+﻿#region Using Directives
+
+using System;
 using System.Windows.Forms;
 using ARCed.Helpers;
+
+#endregion
 
 namespace ARCed.Database.Enemies
 {

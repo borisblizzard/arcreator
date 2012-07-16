@@ -2,7 +2,7 @@
 
 using System;
 
-#endregion Using Directives
+#endregion
 
 
 namespace ARCed.Scintilla
@@ -10,8 +10,8 @@ namespace ARCed.Scintilla
     public class FileDropEventArgs : EventArgs
     {
         #region Fields
-        
-        private string[] _fileNames;
+
+        private readonly string[] _fileNames;
 
         #endregion Fields
 

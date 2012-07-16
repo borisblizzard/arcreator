@@ -1,10 +1,15 @@
+#region Using Directives
+
 using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using System.Security.Permissions;
 using System.Windows.Forms;
 using ARCed.Core.Win32;
+
+#endregion
 
 namespace ARCed.UI
 {
@@ -27,8 +32,8 @@ namespace ARCed.UI
 
         private struct HitTestResult
         {
-            public HitTestArea HitArea;
-            public int Index;
+            public readonly HitTestArea HitArea;
+            public readonly int Index;
 
             public HitTestResult(HitTestArea hitTestArea, int index)
             {
@@ -159,7 +164,7 @@ namespace ARCed.UI
             base.Dispose(disposing);
         }
 
-        private IDockContent m_activeContent = null;
+        private IDockContent m_activeContent;
         public virtual IDockContent ActiveContent
         {
             get { return m_activeContent; }
@@ -222,14 +227,14 @@ namespace ARCed.UI
             set { m_allowDockDragAndDrop = value; }
         }
 
-        private IDisposable m_autoHidePane = null;
+        private IDisposable m_autoHidePane;
         internal IDisposable AutoHidePane
         {
             get { return m_autoHidePane; }
             set { m_autoHidePane = value; }
         }
 
-        private object m_autoHideTabs = null;
+        private object m_autoHideTabs;
         internal object AutoHideTabs
         {
             get { return m_autoHideTabs; }
@@ -266,14 +271,14 @@ namespace ARCed.UI
             if (menu == null)
                 return;
 
-            ContextMenuStrip contextMenuStrip = menu as ContextMenuStrip;
+            var contextMenuStrip = menu as ContextMenuStrip;
             if (contextMenuStrip != null)
             {
                 contextMenuStrip.Show(control, position);
                 return;
             }
 
-            ContextMenu contextMenu = menu as ContextMenu;
+            var contextMenu = menu as ContextMenu;
             if (contextMenu != null)
                 contextMenu.Show(this, position);
         }
@@ -411,7 +416,7 @@ namespace ARCed.UI
             }
         }
 
-        private bool m_isActivated = false;
+        private bool m_isActivated;
         public bool IsActivated
         {
             get { return m_isActivated; }
@@ -427,7 +432,7 @@ namespace ARCed.UI
             OnIsActivatedChanged(EventArgs.Empty);
         }
 
-        private bool m_isActiveDocumentPane = false;
+        private bool m_isActiveDocumentPane;
         public bool IsActiveDocumentPane
         {
             get { return m_isActiveDocumentPane; }
@@ -587,7 +592,7 @@ namespace ARCed.UI
             if (DockState == DockState.Document && DockPanel.DocumentStyle == DocumentStyle.DockingMdi)
                 rectContent = DockPanel.RectangleToMdiClient(RectangleToScreen(rectContent));
 
-            Rectangle rectInactive = new Rectangle(-rectContent.Width, rectContent.Y, rectContent.Width, rectContent.Height);
+            var rectInactive = new Rectangle(-rectContent.Width, rectContent.Y, rectContent.Width, rectContent.Height);
             foreach (IDockContent content in Contents)
                 if (content.DockHandler.Pane == this)
                 {
@@ -718,7 +723,7 @@ namespace ARCed.UI
             if (!dragSource.CanDockTo(this))
                 return;
 
-            Point ptMouse = Control.MousePosition;
+            Point ptMouse = MousePosition;
 
             HitTestResult hitTestResult = GetHitTest(ptMouse);
             if (hitTestResult.HitArea == HitTestArea.Caption)
@@ -771,7 +776,7 @@ namespace ARCed.UI
         }
         protected virtual void OnDockStateChanged(EventArgs e)
         {
-            EventHandler handler = (EventHandler)Events[DockStateChangedEvent];
+            var handler = (EventHandler)Events[DockStateChangedEvent];
             if (handler != null)
                 handler(this, e);
         }
@@ -784,7 +789,7 @@ namespace ARCed.UI
         }
         protected virtual void OnIsActivatedChanged(EventArgs e)
         {
-            EventHandler handler = (EventHandler)Events[IsActivatedChangedEvent];
+            var handler = (EventHandler)Events[IsActivatedChangedEvent];
             if (handler != null)
                 handler(this, e);
         }
@@ -797,7 +802,7 @@ namespace ARCed.UI
         }
         protected virtual void OnIsActiveDocumentPaneChanged(EventArgs e)
         {
-            EventHandler handler = (EventHandler)Events[IsActiveDocumentPaneChangedEvent];
+            var handler = (EventHandler)Events[IsActiveDocumentPaneChangedEvent];
             if (handler != null)
                 handler(this, e);
         }
@@ -932,7 +937,7 @@ namespace ARCed.UI
             ResumeRefreshStateChange(oldContainer, oldDockState);
         }
 
-        private int m_countRefreshStateChange = 0;
+        private int m_countRefreshStateChange;
         private void SuspendRefreshStateChange()
         {
             m_countRefreshStateChange++;
@@ -942,7 +947,7 @@ namespace ARCed.UI
         private void ResumeRefreshStateChange()
         {
             m_countRefreshStateChange--;
-            System.Diagnostics.Debug.Assert(m_countRefreshStateChange >= 0);
+            Debug.Assert(m_countRefreshStateChange >= 0);
             DockPanel.ResumeLayout(true, true);
         }
 
@@ -984,7 +989,7 @@ namespace ARCed.UI
 
             if (oldContainer != null)
             {
-                Control oldContainerControl = (Control)oldContainer;
+                var oldContainerControl = (Control)oldContainer;
                 if (oldContainer.DockState == oldDockState && !oldContainerControl.IsDisposed)
                     oldContainerControl.PerformLayout();
             }
@@ -1254,7 +1259,7 @@ namespace ARCed.UI
 			if (FloatWindow == null || FloatWindow.NestedPanes.Count != 1)
 			{
 
-				Point p = new Point(floatWindowBounds.Left, floatWindowBounds.Top);
+				var p = new Point(floatWindowBounds.Left, floatWindowBounds.Top);
 				floatWindowBounds = new Rectangle(p, (Contents[0] as DockContent).DefaultFloatSize);
 
 

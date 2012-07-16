@@ -5,7 +5,7 @@ using System.Drawing;
 using System.Globalization;
 using System.Windows.Forms;
 
-#endregion Using Directives
+#endregion
 
 
 namespace ARCed.Scintilla
@@ -18,7 +18,7 @@ namespace ARCed.Scintilla
     ///     a document position. It also display a list of method overloads and
     ///     highlighight a portion of the message. This is useful in IDE scenarios.
     /// </remarks>
-    [TypeConverterAttribute(typeof(System.ComponentModel.ExpandableObjectConverter))]
+    [TypeConverter(typeof(ExpandableObjectConverter))]
     public class CallTip : TopLevelHelper
     {
         #region Fields
@@ -27,8 +27,8 @@ namespace ARCed.Scintilla
         public const char DownArrow = '\u0002';
 
         private int _lastPos = -1;
-        private OverloadList _overloadList = null;
-        private string _message = null;
+        private OverloadList _overloadList;
+        private string _message;
         private int _highlightStart = -1;
         private int _highlightEnd = -1;
 
@@ -277,7 +277,7 @@ namespace ARCed.Scintilla
         /// <remarks>
         ///     ShowOverload automatically handles displaying a calltip with a list of overloads. It automatically shows the
         ///     up and down arrows and cycles through the list of overloads in response to mouse clicks.
-        ///     The <see cref="OverLoadList"/> must already be populated. It will be displayed at the current document
+        ///     The <see cref="ARCed.Scintilla.OverloadList"/> must already be populated. It will be displayed at the current document
         ///     position starting at overload 0 with no highlight.
         /// </remarks>
         public void ShowOverload()
@@ -294,7 +294,7 @@ namespace ARCed.Scintilla
         /// <remarks>
         ///     ShowOverload automatically handles displaying a calltip with a list of overloads. It automatically shows the
         ///     up and down arrows and cycles through the list of overloads in response to mouse clicks.
-        ///     The <see cref="OverLoadList"/> must already be populated. It will be displayed at the current document
+        ///     The <see cref="ARCed.Scintilla.OverloadList"/> must already be populated. It will be displayed at the current document
         ///     position starting at overload 0
         /// </remarks>
         public void ShowOverload(int highlightStart, int highlightEnd)
@@ -310,7 +310,7 @@ namespace ARCed.Scintilla
         /// <remarks>
         ///     ShowOverload automatically handles displaying a calltip with a list of overloads. It automatically shows the
         ///     up and down arrows and cycles through the list of overloads in response to mouse clicks.
-        ///     The <see cref="OverLoadList"/> must already be populated. The overload at position 0 will be displayed
+        ///     The <see cref="ARCed.Scintilla.OverloadList"/> must already be populated. The overload at position 0 will be displayed
         ///     with no highlight.
         /// </remarks>
         public void ShowOverload(int position)
@@ -328,7 +328,7 @@ namespace ARCed.Scintilla
         /// <remarks>
         ///     ShowOverload automatically handles displaying a calltip with a list of overloads. It automatically shows the
         ///     up and down arrows and cycles through the list of overloads in response to mouse clicks.
-        ///     The <see cref="OverLoadList"/> must already be populated. The overload at position 0 will be displayed.
+        ///     The <see cref="ARCed.Scintilla.OverloadList"/> must already be populated. The overload at position 0 will be displayed.
         /// </remarks>
         public void ShowOverload(int position, int highlightStart, int highlightEnd)
         {
@@ -344,7 +344,7 @@ namespace ARCed.Scintilla
         /// <remarks>
         ///     ShowOverload automatically handles displaying a calltip with a list of overloads. It automatically shows the
         ///     up and down arrows and cycles through the list of overloads in response to mouse clicks.
-        ///     The <see cref="OverLoadList"/> must already be populated. It will be displayed at the current document
+        ///     The <see cref="ARCed.Scintilla.OverloadList"/> must already be populated. It will be displayed at the current document
         ///     position with no highlight
         /// </remarks>
         public void ShowOverload(int position, uint startIndex)
@@ -363,7 +363,7 @@ namespace ARCed.Scintilla
         /// <remarks>
         ///     ShowOverload automatically handles displaying a calltip with a list of overloads. It automatically shows the
         ///     up and down arrows and cycles through the list of overloads in response to mouse clicks.
-        ///     The <see cref="OverLoadList"/> must already be populated.
+        ///     The <see cref="ARCed.Scintilla.OverloadList"/> must already be populated.
         /// </remarks>
         public void ShowOverload(int position, uint startIndex, int highlightStart, int highlightEnd)
         {
@@ -374,7 +374,7 @@ namespace ARCed.Scintilla
         /// <summary>
         ///     Shows the calltip with overloads
         /// </summary>
-        /// <param name="overloadList">List of overloads to be displayed see <see cref="OverLoadList"/></param>
+        /// <param name="overloadList">List of overloads to be displayed see <see cref="ARCed.Scintilla.OverloadList"/></param>
         /// <remarks>
         ///     ShowOverload automatically handles displaying a calltip with a list of overloads. It automatically shows the
         ///     up and down arrows and cycles through the list of overloads in response to mouse clicks.
@@ -389,7 +389,7 @@ namespace ARCed.Scintilla
         /// <summary>
         ///     Shows the calltip with overloads
         /// </summary>
-        /// <param name="overloadList">List of overloads to be displayed see <see cref="OverLoadList"/></param>
+        /// <param name="overloadList">List of overloads to be displayed see <see cref="ARCed.Scintilla.OverloadList"/></param>
         /// <param name="highlightStart">Start posision of the part of the message that should be selected</param>
         /// <param name="highlightEnd">End posision of the part of the message that should be selected</param>
         /// <remarks>
@@ -406,7 +406,7 @@ namespace ARCed.Scintilla
         /// <summary>
         ///     Shows the calltip with overloads
         /// </summary>
-        /// <param name="overloadList">List of overloads to be displayed see <see cref="OverLoadList"/></param>
+        /// <param name="overloadList">List of overloads to be displayed see <see cref="ARCed.Scintilla.OverloadList"/></param>
         /// <param name="position">The document position where the calltip should be displayed</param>
         /// <remarks>
         ///     ShowOverload automatically handles displaying a calltip with a list of overloads. It automatically shows the
@@ -422,7 +422,7 @@ namespace ARCed.Scintilla
         /// <summary>
         ///     Shows the calltip with overloads
         /// </summary>
-        /// <param name="overloadList">List of overloads to be displayed see <see cref="OverLoadList"/></param>
+        /// <param name="overloadList">List of overloads to be displayed see <see cref="ARCed.Scintilla.OverloadList"/></param>
         /// <param name="position">The document position where the calltip should be displayed</param>
         /// <param name="highlightStart">Start posision of the part of the message that should be selected</param>
         /// <param name="highlightEnd">End posision of the part of the message that should be selected</param>
@@ -440,7 +440,7 @@ namespace ARCed.Scintilla
         /// <summary>
         ///     Shows the calltip with overloads
         /// </summary>
-        /// <param name="overloadList">List of overloads to be displayed see <see cref="OverLoadList"/></param>
+        /// <param name="overloadList">List of overloads to be displayed see <see cref="ARCed.Scintilla.OverloadList"/></param>
         /// <param name="position">The document position where the calltip should be displayed</param>
         /// <param name="startIndex">The index of the initial overload to display</param>
         /// <param name="highlightStart">Start posision of the part of the message that should be selected</param>
@@ -466,7 +466,7 @@ namespace ARCed.Scintilla
         /// <summary>
         ///     Shows the calltip with overloads
         /// </summary>
-        /// <param name="overloadList">List of overloads to be displayed see <see cref="OverLoadList"/></param>
+        /// <param name="overloadList">List of overloads to be displayed see <see cref="ARCed.Scintilla.OverloadList"/></param>
         /// <param name="startIndex">The index of the initial overload to display</param>
         /// <remarks>
         ///     ShowOverload automatically handles displaying a calltip with a list of overloads. It automatically shows the
@@ -482,7 +482,7 @@ namespace ARCed.Scintilla
         /// <summary>
         ///     Shows the calltip with overloads
         /// </summary>
-        /// <param name="overloadList">List of overloads to be displayed see <see cref="OverLoadList"/></param>
+        /// <param name="overloadList">List of overloads to be displayed see <see cref="ARCed.Scintilla.OverloadList"/></param>
         /// <param name="startIndex">The index of the initial overload to display</param>
         /// <param name="highlightStart">Start posision of the part of the message that should be selected</param>
         /// <param name="highlightEnd">End posision of the part of the message that should be selected</param>
@@ -504,7 +504,7 @@ namespace ARCed.Scintilla
         /// <remarks>
         ///     ShowOverload automatically handles displaying a calltip with a list of overloads. It automatically shows the
         ///     up and down arrows and cycles through the list of overloads in response to mouse clicks.
-        ///     The <see cref="OverLoadList"/> must already be populated. It will be displayed at the current document
+        ///     The <see cref="ARCed.Scintilla.OverloadList"/> must already be populated. It will be displayed at the current document
         ///     position with no highlight.
         /// </remarks>
         public void ShowOverload(uint startIndex)
@@ -522,7 +522,7 @@ namespace ARCed.Scintilla
         /// <remarks>
         ///     ShowOverload automatically handles displaying a calltip with a list of overloads. It automatically shows the
         ///     up and down arrows and cycles through the list of overloads in response to mouse clicks.
-        ///     The <see cref="OverLoadList"/> must already be populated. It will be displayed at the current document
+        ///     The <see cref="ARCed.Scintilla.OverloadList"/> must already be populated. It will be displayed at the current document
         ///     position.
         /// </remarks>
         public void ShowOverload(uint startIndex, int highlightStart, int highlightEnd)
@@ -715,7 +715,7 @@ namespace ARCed.Scintilla
             //	thing you can't turn it off. We set the CallTip styles by default
             //	anyhow.
             NativeScintilla.CallTipUseStyle(10);
-            Scintilla.BeginInvoke(new MethodInvoker(delegate()
+            Scintilla.BeginInvoke(new MethodInvoker(delegate
             {
                 HighlightTextColor = HighlightTextColor;
                 ForeColor = ForeColor;

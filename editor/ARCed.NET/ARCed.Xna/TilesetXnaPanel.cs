@@ -1,12 +1,21 @@
-﻿using System;
+﻿#region Using Directives
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using ARCed.Helpers;
+using ARCed.Settings;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Image = System.Drawing.Image;
+using RPG;
+using Color = Microsoft.Xna.Framework.Color;
+using Point = Microsoft.Xna.Framework.Point;
+using Rectangle = Microsoft.Xna.Framework.Rectangle;
+
+#endregion
 
 namespace ARCed.Controls
 {
@@ -32,13 +41,13 @@ namespace ARCed.Controls
 
 		private static int _currentId;
 		private static Color _currentColor;
-		private static RPG.Tileset _tileset;
+		private static Tileset _tileset;
 		private static Texture2D _tilesetTexture;
 		private static SpriteBatch _batch;
 		private static bool _mouseDown, _selectionEnabled, _selectionActive, _displayIcons;
 		private static TilesetMode _mode = TilesetMode.Passage;
 		private static Point _originPoint, _endPoint;
-		private static Color _semiTransparent = Color.White * 0.7f;
+        private static readonly Color _semiTransparent = Color.White * 0.7f;
 
 		#endregion
 
@@ -99,7 +108,7 @@ namespace ARCed.Controls
 		/// Gets or sets the settings used for drawing on the panel.
 		/// </summary>
         [Browsable(false)]
-        public static ARCed.Settings.ImageColorSettings Settings { get; set; }
+        public static ImageColorSettings Settings { get; set; }
 		
 		/// <summary>
 		/// Gets or sets the enabled status of batch selection.
@@ -121,7 +130,7 @@ namespace ARCed.Controls
 		/// Gets or sets the associated tileset of the panel.
 		/// </summary>
 		[Browsable(false)]
-		public RPG.Tileset Tileset
+		public Tileset Tileset
 		{
 			get { return _tileset; }
 			set
@@ -135,7 +144,7 @@ namespace ARCed.Controls
 					{
 						GraphicsDevice.Clear(Color.White);
 						_tilesetTexture = null;
-						this.Size = System.Drawing.Size.Empty;
+						this.Size = Size.Empty;
 						Refresh();
 					}
 					else
@@ -162,7 +171,7 @@ namespace ARCed.Controls
 				int size = (rect.Width / Constants.TILESIZE) * (rect.Height / Constants.TILESIZE);
 				if (size > 0)
 				{
-					List<int> tiles = new List<int>(size);
+					var tiles = new List<int>(size);
 					for (int x = rect.X; x < rect.X + rect.Width; x += Constants.TILESIZE)
 					{
 						for (int y = rect.Y; y < rect.Y + rect.Height; y += Constants.TILESIZE)
@@ -246,11 +255,11 @@ namespace ARCed.Controls
 			_batch = new SpriteBatch(GraphicsDevice);
 			_displayIcons = true;
 			GraphicsDevice.Clear(Color.White);
-			Disposed += new EventHandler(TroopXnaPanel_Disposed);
-			this.MouseDown += new MouseEventHandler(TroopXnaPanel_MouseDown);
-			this.MouseUp += new MouseEventHandler(TroopXnaPanel_MouseUp);
-			this.MouseMove += new MouseEventHandler(TroopXnaPanel_MouseMove);
-			this.MouseLeave += new EventHandler(TilesetXnaPanel_MouseLeave);
+			Disposed += this.TroopXnaPanel_Disposed;
+			this.MouseDown += this.TroopXnaPanel_MouseDown;
+			this.MouseUp += this.TroopXnaPanel_MouseUp;
+			this.MouseMove += this.TroopXnaPanel_MouseMove;
+			this.MouseLeave += this.TilesetXnaPanel_MouseLeave;
 		}
 
 		/// <summary>
@@ -467,7 +476,7 @@ namespace ARCed.Controls
 				int half = Constants.TILESIZE / 2;
 				int x = 1 + e.X % Constants.TILESIZE;
 				int y = 1 + e.Y % Constants.TILESIZE;
-				List<double> dist = new List<double>
+				var dist = new List<double>
 				{
 					Math.Pow(half - x, 2) + Math.Pow(Constants.TILESIZE - y, 2), // Bottom
 					Math.Pow(x, 2) + Math.Pow(half - y, 2),            // Left

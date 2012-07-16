@@ -2,7 +2,7 @@
 
 using System;
 
-#endregion Using Directives
+#endregion
 
 
 namespace ARCed.Scintilla
@@ -14,7 +14,7 @@ namespace ARCed.Scintilla
     {
         #region Fields
 
-        private char _ch;
+        private readonly char _ch;
 
         #endregion Fields
 

@@ -1,0 +1,915 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ARCed.Xna</name>
+    </assembly>
+    <members>
+        <member name="T:ARCed.Controls.ImageSelectXnaPanel">
+            <summary>
+            Control for configuring tileset configurations.
+            </summary>
+        </member>
+        <member name="T:ARCed.Controls.GraphicsDeviceControl">
+            <summary>
+            Custom control uses the XNA Framework GraphicsDevice to render onto
+            a Windows Form. Derived classes can override the Initialize and Draw
+            methods to add their own drawing code.
+            </summary>
+        </member>
+        <member name="M:ARCed.Controls.GraphicsDeviceControl.OnCreateControl">
+            <summary>
+            Initializes the control.
+            </summary>
+        </member>
+        <member name="M:ARCed.Controls.GraphicsDeviceControl.Dispose(System.Boolean)">
+            <summary>
+            Disposes the control.
+            </summary>
+        </member>
+        <member name="M:ARCed.Controls.GraphicsDeviceControl.OnPaint(System.Windows.Forms.PaintEventArgs)">
+            <summary>
+            Redraws the control in response to a WinForms paint message.
+            </summary>
+        </member>
+        <member name="M:ARCed.Controls.GraphicsDeviceControl.BeginDraw">
+            <summary>
+            Attempts to begin drawing the control. Returns an error message string
+            if this was not possible, which can happen if the graphics device is
+            lost, or if we are running inside the Form designer.
+            </summary>
+        </member>
+        <member name="M:ARCed.Controls.GraphicsDeviceControl.EndDraw">
+            <summary>
+            Ends drawing the control. This is called after derived classes
+            have finished their Draw method, and is responsible for presenting
+            the finished _srcTexture onto the screen, using the appropriate WinForms
+            control handle to make sure it shows up in the right place.
+            </summary>
+        </member>
+        <member name="M:ARCed.Controls.GraphicsDeviceControl.HandleDeviceReset">
+            <summary>
+            Helper used by BeginDraw. This checks the graphics device status,
+            making sure it is big enough for drawing the current control, and
+            that the device is not lost. Returns an error string if the device
+            could not be reset.
+            </summary>
+        </member>
+        <member name="M:ARCed.Controls.GraphicsDeviceControl.PaintUsingSystemDrawing(System.Drawing.Graphics,System.String)">
+            <summary>
+            If we do not have a valid graphics device (for instance if the device
+            is lost, or if we are running inside the Form designer), we must use
+            regular System.Drawing method to display a status message.
+            </summary>
+        </member>
+        <member name="M:ARCed.Controls.GraphicsDeviceControl.OnPaintBackground(System.Windows.Forms.PaintEventArgs)">
+            <summary>
+            Ignores WinForms paint-background messages. The default implementation
+            would clear the control to the current background color, causing
+            flickering when our OnPaint implementation then immediately draws some
+            other color over the top using the XNA Framework GraphicsDevice.
+            </summary>
+        </member>
+        <member name="M:ARCed.Controls.GraphicsDeviceControl.Initialize">
+            <summary>
+            Derived classes override this to initialize their drawing code.
+            </summary>
+        </member>
+        <member name="M:ARCed.Controls.GraphicsDeviceControl.Draw">
+            <summary>
+            Derived classes override this to draw themselves using the GraphicsDevice.
+            </summary>
+        </member>
+        <member name="P:ARCed.Controls.GraphicsDeviceControl.GraphicsDevice">
+            <summary>
+            Gets a GraphicsDevice that can be used to draw onto this control.
+            </summary>
+        </member>
+        <member name="P:ARCed.Controls.GraphicsDeviceControl.Services">
+            <summary>
+            Gets an IServiceProvider containing our IGraphicsDeviceService.
+            This can be used with components such as the ContentManager,
+            which use this service to look up the GraphicsDevice.
+            </summary>
+        </member>
+        <member name="F:ARCed.Controls.ImageSelectXnaPanel.components">
+            <summary> 
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:ARCed.Controls.ImageSelectXnaPanel.Dispose(System.Boolean)">
+            <summary> 
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:ARCed.Controls.ImageSelectXnaPanel.InitializeComponent">
+            <summary> 
+            Required method for Designer support - do not modify 
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="M:ARCed.Controls.ImageSelectXnaPanel.#ctor">
+            <summary>
+            Default constructor
+            </summary>
+        </member>
+        <member name="M:ARCed.Controls.ImageSelectXnaPanel.GetTileAtPoint(System.Int32,System.Int32)">
+            <summary>
+            Gets the ID of the tile at the specified X and Y.
+            </summary>
+            <param name="x">X-coordinate value, in pixels.</param>
+            <param name="y">Y-coordinate value, in pixels.</param>
+            <returns>ID of the tile that contains the coordinates.</returns>
+        </member>
+        <member name="M:ARCed.Controls.ImageSelectXnaPanel.GetTileAtPoint(System.Drawing.Point)">
+            <summary>
+            Gets the ID of the tile at the specified Point.
+            </summary>
+            <param name="point">Coordinates to check, in pixels.</param>
+            <returns>ID of the tile that contains the coordinates.</returns>
+        </member>
+        <member name="M:ARCed.Controls.ImageSelectXnaPanel.Initialize">
+            <summary>
+            Creates the context and prepares for drawing
+            </summary>
+        </member>
+        <member name="M:ARCed.Controls.ImageSelectXnaPanel.Draw">
+            <summary>
+            Performs painting of the control
+            </summary>
+        </member>
+        <member name="P:ARCed.Controls.ImageSelectXnaPanel.ImageBackColor">
+            <summary>
+            Gets or sets the background color in the image preview.
+            </summary>
+        </member>
+        <member name="P:ARCed.Controls.ImageSelectXnaPanel.Image">
+            <summary>
+            Gets or sets the image that will be displayed.
+            </summary>
+        </member>
+        <member name="P:ARCed.Controls.ImageSelectXnaPanel.ImageOpacity">
+            <summary>
+            Gets or sets the opacity of the image. Full opacity is used unless 
+            "AlphaPreview" is true.
+            </summary>
+        </member>
+        <member name="P:ARCed.Controls.ImageSelectXnaPanel.AlphaPreview">
+            <summary>
+            Gets or sets the flag to show alpha transparency in the preview window.
+            </summary>
+        </member>
+        <member name="P:ARCed.Controls.ImageSelectXnaPanel.ScrollX">
+            <summary>
+            Gets or sets the speed at which the image scrolls on the X-Axis.
+            </summary>
+        </member>
+        <member name="P:ARCed.Controls.ImageSelectXnaPanel.ScrollY">
+            <summary>
+            Gets or sets the speed at which the image scrolls on the Y-Axis.
+            </summary>
+        </member>
+        <member name="P:ARCed.Controls.ImageSelectXnaPanel.Zoom">
+            <summary>
+            Gets or sets the zoom factor to apply to the image.
+            </summary>
+        </member>
+        <member name="P:ARCed.Controls.ImageSelectXnaPanel.BlendMode">
+            <summary>
+            Gets or sets the blend mode of the image.
+            </summary>
+        </member>
+        <member name="P:ARCed.Controls.ImageSelectXnaPanel.AdvancedEnabled">
+            <summary>
+            Gets or sets the flag to use advanced drawing techniques such as alpha and scrolling.
+            </summary>
+        </member>
+        <member name="P:ARCed.Controls.ImageSelectXnaPanel.SelectionEnabled">
+            <summary>
+            Gets or sets the flag to allow selection of tiles on the image.
+            </summary>
+        </member>
+        <member name="P:ARCed.Controls.ImageSelectXnaPanel.SelectionRectangle">
+            <summary>
+            Gets the rectangle of the selector
+            </summary>
+        </member>
+        <member name="T:ARCed.Controls.GraphicsDeviceService">
+            <summary>
+            Helper class responsible for creating and managing the GraphicsDevice.
+            All GraphicsDeviceControl instances share the same GraphicsDeviceService,
+            so even though there can be many controls, there will only ever be a single
+            underlying GraphicsDevice. This implements the standard IGraphicsDeviceService
+            interface, which provides notification events for when the device is reset
+            or disposed.
+            </summary>
+        </member>
+        <member name="M:ARCed.Controls.GraphicsDeviceService.#ctor(System.IntPtr,System.Int32,System.Int32)">
+            <summary>
+            Constructor is private, because this is a singleton class:
+            client controls should use the public AddRef method instead.
+            </summary>
+        </member>
+        <member name="M:ARCed.Controls.GraphicsDeviceService.AddRef(System.IntPtr,System.Int32,System.Int32)">
+            <summary>
+            Gets a reference to the singleton instance.
+            </summary>
+        </member>
+        <member name="M:ARCed.Controls.GraphicsDeviceService.Release(System.Boolean)">
+            <summary>
+            Releases a reference to the singleton instance.
+            </summary>
+        </member>
+        <member name="M:ARCed.Controls.GraphicsDeviceService.ResetDevice(System.Int32,System.Int32)">
+            <summary>
+            Resets the graphics device to whichever is bigger out of the specified
+            resolution or its current size. This behavior means the device will
+            demand-grow to the largest of all its GraphicsDeviceControl clients.
+            </summary>
+        </member>
+        <member name="P:ARCed.Controls.GraphicsDeviceService.GraphicsDevice">
+            <summary>
+            Gets the current graphics device.
+            </summary>
+        </member>
+        <member name="T:ARCed.Controls.AnimationXnaPanel">
+            <summary>
+            Control for configuring Troop layouts
+            </summary>
+        </member>
+        <member name="F:ARCed.Controls.AnimationXnaPanel.components">
+            <summary> 
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:ARCed.Controls.AnimationXnaPanel.Dispose(System.Boolean)">
+            <summary> 
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:ARCed.Controls.AnimationXnaPanel.InitializeComponent">
+            <summary> 
+            Required method for Designer support - do not modify 
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="M:ARCed.Controls.AnimationXnaPanel.#ctor">
+            <summary>
+            Default constructor
+            </summary>
+        </member>
+        <member name="M:ARCed.Controls.AnimationXnaPanel.Initialize">
+            <summary>
+            Creates the context and prepares for drawing
+            </summary>
+        </member>
+        <member name="M:ARCed.Controls.AnimationXnaPanel.Draw">
+            <summary>
+            Performs painting of the control
+            </summary>
+        </member>
+        <member name="F:ARCed.Controls.IconCache.DOWN">
+            <summary>
+            Bit value indicating down direction is impassable.
+            </summary>
+        </member>
+        <member name="F:ARCed.Controls.IconCache.LEFT">
+            <summary>
+            Bit value indicating left direction is impassable.
+            </summary>
+        </member>
+        <member name="F:ARCed.Controls.IconCache.RIGHT">
+            <summary>
+            Bit value indicating right direction is impassable.
+            </summary>
+        </member>
+        <member name="F:ARCed.Controls.IconCache.UP">
+            <summary>
+            Bit value indicating up direction is impassable.
+            </summary>
+        </member>
+        <member name="F:ARCed.Controls.IconCache.ALL">
+            <summary>
+            Bit value indicating all directions are impassable.
+            </summary>
+        </member>
+        <member name="F:ARCed.Controls.IconCache.BUSH">
+            <summary>
+            Bit value indicating a bush flag.
+            </summary>
+        </member>
+        <member name="F:ARCed.Controls.IconCache.COUNTER">
+            <summary>
+            Bit value indicating a counter flag.
+            </summary>
+        </member>
+        <member name="M:ARCed.Controls.IconCache.Passage(System.Int32)">
+            <summary>
+            Caches and returns an icon used for Passage.
+            </summary>
+            <param name="passage">Passage value</param>
+            <returns>Cached texture</returns>
+        </member>
+        <member name="M:ARCed.Controls.IconCache.Priority(System.Int32)">
+            <summary>
+            Caches and returns an icon used for Priority.
+            </summary>
+            <param name="priority">Priority value</param>
+            <returns>Cached texture</returns>
+        </member>
+        <member name="M:ARCed.Controls.IconCache.Counter(System.Int32)">
+            <summary>
+            Caches and returns an icon used for Counter flags.
+            </summary>
+            <param name="passage">Passage value</param>
+            <returns>Cached texture</returns>
+        </member>
+        <member name="M:ARCed.Controls.IconCache.Bush(System.Int32)">
+            <summary>
+            Caches and returns an icon used for Bush flags.
+            </summary>
+            <param name="passage">Passage value</param>
+            <returns>Cached texture</returns>
+        </member>
+        <member name="M:ARCed.Controls.IconCache.Terrain(System.Int32)">
+            <summary>
+            Caches and returns an icon used for Terrain Tags.
+            </summary>
+            <param name="terrain">Terrain tag value</param>
+            <returns>Cached texture</returns>
+        </member>
+        <member name="M:ARCed.Controls.IconCache.Passage4Dir(System.Int32)">
+            <summary>
+            Caches and returns an icon used for Passage 4-Dir.
+            </summary>
+            <param name="passage">Passage value</param>
+            <returns>Cached texture</returns>
+        </member>
+        <member name="T:ARCed.Controls.TroopXnaPanel">
+            <summary>
+            Control for configuring Troop layouts
+            </summary>
+        </member>
+        <member name="F:ARCed.Controls.TroopXnaPanel.components">
+            <summary> 
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:ARCed.Controls.TroopXnaPanel.Dispose(System.Boolean)">
+            <summary> 
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:ARCed.Controls.TroopXnaPanel.InitializeComponent">
+            <summary> 
+            Required method for Designer support - do not modify 
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="M:ARCed.Controls.TroopXnaPanel.#ctor">
+            <summary>
+            Default constructor
+            </summary>
+        </member>
+        <member name="M:ARCed.Controls.TroopXnaPanel.AutoAlign">
+            <summary>
+            Aligns all sprites in an even row on the panel
+            </summary>
+        </member>
+        <member name="M:ARCed.Controls.TroopXnaPanel.AddSprite(ARCed.Controls.EnemySprite)">
+            <summary>
+            Adds a sprite to the collection for drawing
+            </summary>
+            <param name="sprite">Sprite to add</param>
+        </member>
+        <member name="M:ARCed.Controls.TroopXnaPanel.RemoveSelected">
+            <summary>
+            Disposes and removes the selected sprites
+            </summary>
+        </member>
+        <member name="M:ARCed.Controls.TroopXnaPanel.RemoveSprite(ARCed.Controls.EnemySprite)">
+            <summary>
+            Disposed and removes the specified sprite
+            </summary>
+            <param name="sprite">EnemySprite to remove</param>
+        </member>
+        <member name="M:ARCed.Controls.TroopXnaPanel.SetBackground(System.Drawing.Image)">
+            <summary>
+            Sets the background image to use for the control
+            </summary>
+            <param name="image">Image file</param>
+        </member>
+        <member name="M:ARCed.Controls.TroopXnaPanel.SetBackground(System.String)">
+            <summary>
+            Sets the filepath to the background image to use for the control
+            </summary>
+            <param name="path">Path to the image file.</param>
+        </member>
+        <member name="M:ARCed.Controls.TroopXnaPanel.RemoveAll">
+            <summary>
+            Disposes and removes all sprites from the control. 
+            </summary>
+        </member>
+        <member name="M:ARCed.Controls.TroopXnaPanel.Initialize">
+            <summary>
+            Creates the context and prepares for drawing
+            </summary>
+        </member>
+        <member name="M:ARCed.Controls.TroopXnaPanel.Draw">
+            <summary>
+            Performs painting of the control
+            </summary>
+        </member>
+        <member name="E:ARCed.Controls.TroopXnaPanel.OnSelectionChanged">
+            <summary>
+            Event raised whenever the selected status of a sprite is changed.
+            </summary>
+        </member>
+        <member name="E:ARCed.Controls.TroopXnaPanel.OnTroopChanged">
+            <summary>
+            Event raised whenever the troop is modified.
+            </summary>
+        </member>
+        <member name="P:ARCed.Controls.TroopXnaPanel.Sprites">
+            <summary>
+            Gets the collection of sprites on the control
+            </summary>
+        </member>
+        <member name="P:ARCed.Controls.TroopXnaPanel.SelectedSprite">
+            <summary>
+            Gets the selected sprite or null if one are selected
+            </summary>
+        </member>
+        <member name="T:ARCed.Controls.TilesetXnaPanel">
+            <summary>
+            Control for configuring tileset configurations.
+            </summary>
+        </member>
+        <member name="F:ARCed.Controls.TilesetXnaPanel.components">
+            <summary> 
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:ARCed.Controls.TilesetXnaPanel.Dispose(System.Boolean)">
+            <summary> 
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:ARCed.Controls.TilesetXnaPanel.InitializeComponent">
+            <summary> 
+            Required method for Designer support - do not modify 
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="M:ARCed.Controls.TilesetXnaPanel.#ctor">
+            <summary>
+            Default constructor
+            </summary>
+        </member>
+        <member name="M:ARCed.Controls.TilesetXnaPanel.GetTileAtPoint(System.Int32,System.Int32)">
+            <summary>
+            Gets the ID of the tile at the specified X and Y.
+            </summary>
+            <param name="x">X-coordinate value, in pixels.</param>
+            <param name="y">Y-coordinate value, in pixels.</param>
+            <returns>ID of the tile that contains the coordinates.</returns>
+        </member>
+        <member name="M:ARCed.Controls.TilesetXnaPanel.GetTileAtPoint(Microsoft.Xna.Framework.Point)">
+            <summary>
+            Gets the ID of the tile at the specified Point.
+            </summary>
+            <param name="point">Coordinates to check, in pixels.</param>
+            <returns>ID of the tile that contains the coordinates.</returns>
+        </member>
+        <member name="M:ARCed.Controls.TilesetXnaPanel.Initialize">
+            <summary>
+            Creates the context and prepares for drawing
+            </summary>
+        </member>
+        <member name="M:ARCed.Controls.TilesetXnaPanel.Draw">
+            <summary>
+            Performs painting of the control
+            </summary>
+        </member>
+        <member name="M:ARCed.Controls.TilesetXnaPanel.ChangeData(System.Windows.Forms.MouseEventArgs)">
+            <summary>
+            Performs logic for changing tileset data during mouse events.
+            </summary>
+            <param name="e">Mouse event arguments.</param>
+        </member>
+        <member name="E:ARCed.Controls.TilesetXnaPanel.OnSelectionChanged">
+            <summary>
+            Event raised whenever the selected status of a sprite is changed.
+            </summary>
+        </member>
+        <member name="P:ARCed.Controls.TilesetXnaPanel.TileCount">
+            <summary>
+            Gets the total number of tiles of the current tileset.
+            </summary>
+        </member>
+        <member name="P:ARCed.Controls.TilesetXnaPanel.TilesetMode">
+            <summary>
+            Gets or sets the current display mode of the tileset editor.
+            </summary>
+        </member>
+        <member name="P:ARCed.Controls.TilesetXnaPanel.SelectionRectangle">
+            <summary>
+            Gets the rectangle of the selector
+            </summary>
+        </member>
+        <member name="P:ARCed.Controls.TilesetXnaPanel.Settings">
+            <summary>
+            Gets or sets the settings used for drawing on the panel.
+            </summary>
+        </member>
+        <member name="P:ARCed.Controls.TilesetXnaPanel.SelectionEnabled">
+            <summary>
+            Gets or sets the enabled status of batch selection.
+            </summary>
+        </member>
+        <member name="P:ARCed.Controls.TilesetXnaPanel.Tileset">
+            <summary>
+            Gets or sets the associated tileset of the panel.
+            </summary>
+        </member>
+        <member name="P:ARCed.Controls.TilesetXnaPanel.SelectedTileIds">
+            <summary>
+            Gets the IDs of all tiles that are within the selection rectangle.
+            </summary>
+        </member>
+        <member name="P:ARCed.Controls.TilesetXnaPanel.DisplayIcons">
+            <summary>
+            Gets or sets the flag to draw the icon overlay on the panel.
+            </summary>
+        </member>
+        <member name="M:ARCed.XnaExtensions.FillTriangle(Microsoft.Xna.Framework.Graphics.SpriteBatch,Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Vector2,Microsoft.Xna.Framework.Color)">
+            <summary>
+            Draws and fills a triangle using the given points and color.
+            </summary>
+            <param name="batch">SpriteBatch to draw triangle</param>
+            <param name="p1">First point</param>
+            <param name="p2">Second point</param>
+            <param name="p3">Third point</param>
+            <param name="color">Color to fill triangle</param>
+        </member>
+        <member name="M:ARCed.XnaExtensions.DrawString(Microsoft.Xna.Framework.Graphics.SpriteBatch,System.String,System.Drawing.Font,Microsoft.Xna.Framework.Color,Microsoft.Xna.Framework.Rectangle)">
+            <summary>
+            Draws the specified string using the given font and location.
+            </summary>
+            <param name="batch">SpriteBatch to draw the string</param>
+            <param name="text">Text to draw</param>
+            <param name="font">Font to draw text with.</param>
+            <param name="color">Color of the text.</param>
+            <param name="rect">Rectangle where text will be drawn.</param>
+            <remarks>Without the use of a ContentPipeline, it is necessary to use GDI+ to 
+            draw the font onto a bitmap and transfer it to a texture.</remarks>
+        </member>
+        <member name="M:ARCed.XnaExtensions.DrawSelectionRect(Microsoft.Xna.Framework.Graphics.SpriteBatch,Microsoft.Xna.Framework.Rectangle,Microsoft.Xna.Framework.Color,System.Int32)">
+            <summary>
+            Draws a bordered selection rectangle around the given rectangle.
+            </summary>
+            <param name="batch">SpriteBatch to draw the rectangle.</param>
+            <param name="rect">Rectangle to draw</param>
+            <param name="color">Color of the rectangle border</param>
+            <param name="thickness">Thickness, in pixels, of the inner selection rectangle</param>
+        </member>
+        <member name="M:ARCed.XnaExtensions.DrawRectangle(Microsoft.Xna.Framework.Graphics.SpriteBatch,System.Int32,System.Int32,System.Int32,System.Int32,Microsoft.Xna.Framework.Color,System.Int32)">
+            <summary>
+            Draws a rectangle with given location, size, color, and border width.
+            </summary>
+            <param name="batch">SpriteBatch to draw the rectangle.</param>
+            <param name="x">Coordinate of the rectangle on the x-axis</param>
+            <param name="y">Coordinate of the rectangle on the y-axis</param>
+            <param name="width">Width of the rectangle in pixels</param>
+            <param name="height">Height of the rectangle in pixels</param>
+            <param name="color">Color of the rectangle border</param>
+            <param name="border">Width of the border in pixels</param>
+        </member>
+        <member name="M:ARCed.XnaExtensions.DrawRectangle(Microsoft.Xna.Framework.Graphics.SpriteBatch,Microsoft.Xna.Framework.Rectangle,Microsoft.Xna.Framework.Color,System.Int32)">
+            <summary>
+            Draws a rectangle with given location, size, color, and border width.
+            </summary>
+            <param name="batch">SpriteBatch to draw the rectangle.</param>
+            <param name="rect">Rectangle to draw.</param>
+            <param name="color">Color to draw rectangle.</param>
+            <param name="border">Width of the border in pixels</param>
+        </member>
+        <member name="M:ARCed.XnaExtensions.FillRectangle(Microsoft.Xna.Framework.Graphics.SpriteBatch,System.Int32,System.Int32,System.Int32,System.Int32,Microsoft.Xna.Framework.Color)">
+            <summary>
+            Draws and fills a rectangle with given location, size, and color.
+            </summary>
+            <param name="batch">SpriteBatch to draw the rectangle.</param>
+            <param name="x">Coordinate of the rectangle on the x-axis</param>
+            <param name="y">Coordinate of the rectangle on the y-axis</param>
+            <param name="width">Width of the rectangle in pixels</param>
+            <param name="height">Height of the rectangle in pixels</param>
+            <param name="color">Color of the rectangle border</param>
+        </member>
+        <member name="M:ARCed.XnaExtensions.FillRectangle(Microsoft.Xna.Framework.Graphics.SpriteBatch,Microsoft.Xna.Framework.Rectangle,Microsoft.Xna.Framework.Color)">
+            <summary>
+            Draws and fills a rectangle with given location, size, and color.
+            </summary>
+            <param name="batch">SpriteBatch to draw the rectangle.</param>
+            <param name="rect">Rectangle to draw</param>
+            <param name="color">Color of the rectangle border</param>
+        </member>
+        <member name="M:ARCed.XnaExtensions.ToXnaRect(System.Drawing.Rectangle)">
+            <summary>
+            Converts a <see cref="T:System.Drawing.Rectangle"/> to a 
+            <see cref="T:Microsoft.Xna.Framework.Rectangle"/> and returns it.
+            </summary>
+            <param name="rect">Rectangle to convert</param>
+            <returns>Converted rectangle</returns>
+        </member>
+        <member name="M:ARCed.XnaExtensions.ToSystemRect(Microsoft.Xna.Framework.Rectangle)">
+            <summary>
+            Converts a <see cref="T:Microsoft.Xna.Framework.Rectangle"/> to a 
+            <see cref="T:System.Drawing.Rectangle"/> and returns it.
+            </summary>
+            <param name="rect">Rectangle to convert</param>
+            <returns>Converted rectangle</returns>
+        </member>
+        <member name="M:ARCed.XnaExtensions.ToXnaColor(System.Drawing.Color)">
+            <summary>
+            Converts and returns a <see cref="T:System.Drawing.Color"/> to 
+            a <see cref="T:Microsoft.Xna.Framework.Color"/>.
+            </summary>
+            <param name="color">Color to convert.</param>
+            <returns>Converted color</returns>
+        </member>
+        <member name="M:ARCed.XnaExtensions.ToSystemColor(Microsoft.Xna.Framework.Color)">
+            <summary>
+            Converts and returns a <see cref="T:Microsoft.Xna.Framework.Color"/> to 
+            a <see cref="T:System.Drawing.Color"/>.
+            </summary>
+            <param name="color">Color to convert.</param>
+            <returns>Converted color</returns>
+        </member>
+        <member name="M:ARCed.XnaExtensions.ToImage(Microsoft.Xna.Framework.Graphics.Texture2D)">
+            <summary>
+            Converts a Texture2D to an <see cref="T:System.Drawing.Image"/> and returns it.
+            </summary>
+            <param name="texture">Texture to convert</param>
+            <returns>Image representation of the texture.</returns>
+        </member>
+        <member name="M:ARCed.XnaExtensions.ToTexture(System.Drawing.Image,Microsoft.Xna.Framework.Graphics.GraphicsDevice)">
+            <summary>
+            Converts a Image to a Texture2D and returns it.
+            </summary>
+            <param name="image">Image to convert</param>
+            <param name="device">Texture graphics device</param>
+            <returns>Texture2D representation of the image</returns>
+        </member>
+        <member name="P:ARCed.Settings.ImageColorSettings.BackgroundColor">
+            <summary>
+            Gets or sets the color of the background.
+            </summary>
+        </member>
+        <member name="P:ARCed.Settings.ImageColorSettings.SelectorColor">
+            <summary>
+            Gets or sets the color of the selector.
+            </summary>
+        </member>
+        <member name="P:ARCed.Settings.ImageColorSettings.GridColor">
+            <summary>
+            Gets or sets the color of the grid lines.
+            </summary>
+        </member>
+        <member name="P:ARCed.Settings.ImageColorSettings.SelectorThickness">
+            <summary>
+            Gets or sets the thickness of the selector rectangle.
+            </summary>
+        </member>
+        <member name="P:ARCed.Settings.ImageColorSettings.BackgroundColorHtml">
+            <summary>
+            Gets or sets the color of the background as an HTML formatted string.
+            </summary>
+        </member>
+        <member name="P:ARCed.Settings.ImageColorSettings.SelectorColorHtml">
+            <summary>
+            Gets or sets the color of the selector as an HTML formatted string.
+            </summary>
+        </member>
+        <member name="P:ARCed.Settings.ImageColorSettings.GridColorHtml">
+            <summary>
+            Gets or sets the color of the grid lines as an HTML formatted string.
+            </summary>
+        </member>
+        <member name="P:ARCed.Settings.ImageColorSettings.ShowGrid">
+            <summary>
+            Gets or sets the flag to display grid lines on the tileset.
+            </summary>
+        </member>
+        <member name="T:ARCed.Controls.AnimationSourceXnaPanel">
+            <summary>
+            Control for selecting individual Animation graphics.
+            </summary>
+        </member>
+        <member name="M:ARCed.Controls.AnimationSourceXnaPanel.#ctor">
+            <summary>
+            Default constructor
+            </summary>
+        </member>
+        <member name="M:ARCed.Controls.AnimationSourceXnaPanel.Initialize">
+            <summary>
+            Creates the context and prepares for drawing
+            </summary>
+        </member>
+        <member name="M:ARCed.Controls.AnimationSourceXnaPanel.Draw">
+            <summary>
+            Performs painting of the control
+            </summary>
+        </member>
+        <member name="F:ARCed.Controls.AnimationSourceXnaPanel.components">
+            <summary> 
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:ARCed.Controls.AnimationSourceXnaPanel.Dispose(System.Boolean)">
+            <summary> 
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:ARCed.Controls.AnimationSourceXnaPanel.InitializeComponent">
+            <summary> 
+            Required method for Designer support - do not modify 
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="P:ARCed.Controls.AnimationSourceXnaPanel.SelectedId">
+            <summary>
+            Gets or sets the ID of the selected sub-image of the animation.
+            </summary>
+        </member>
+        <member name="P:ARCed.Controls.AnimationSourceXnaPanel.Animation">
+            <summary>
+            Gets or sets the associated RPG.Animation for the panel.
+            </summary>
+        </member>
+        <member name="M:ARCed.Controls.FrameSprite.Dispose">
+            <summary>
+            Releases all resources used by the EnemySprite
+            </summary>
+        </member>
+        <member name="T:ARCed.Controls.EnemySprite">
+            <summary>
+            Class representing a sprite in the Editor's Troop panel
+            </summary>
+        </member>
+        <member name="M:ARCed.Controls.EnemySprite.#ctor(RPG.Enemy)">
+            <summary>
+            Create EnemySprite instance from an RPG.Enemy instance
+            </summary>
+            <param name="enemy">RPG.Enemy instance to create from</param>
+        </member>
+        <member name="M:ARCed.Controls.EnemySprite.Dispose">
+            <summary>
+            Releases all resources used by the EnemySprite
+            </summary>
+        </member>
+        <member name="M:ARCed.Controls.EnemySprite.CompareTo(System.Object)">
+            <summary>
+            Compares two EnemySprite objects.
+            </summary>
+            <param name="other">EnemySprite object to compare</param>
+            <returns>Indication of their relative values</returns>
+            <exception cref="T:System.ArgumentException">Thrown when object to compare is not a EnemySprite</exception>
+        </member>
+        <member name="M:ARCed.Controls.EnemySprite.Compare(System.Object,System.Object)">
+            <summary>
+            Compares two instances of EnemySprite objects and returns 
+            an indication of their relative values.
+            </summary>
+            <param name="obj1">First EnemySprite object to compare.</param>
+            <param name="obj2">Second EnemySprite object to compare.</param>
+            <returns>Indication of relative values</returns>
+        </member>
+        <member name="E:ARCed.Controls.EnemySprite.OnSelectionChanged">
+            <summary>
+            Event raised when the sprite selection changes.
+            </summary>
+        </member>
+        <member name="P:ARCed.Controls.EnemySprite.GraphicsDevice">
+            <summary>
+            Gets or sets the GraphicsDevice associated with the sprite
+            </summary>
+        </member>
+        <member name="P:ARCed.Controls.EnemySprite.Image">
+            <summary>
+            Gets or sets the sprites associated image
+            </summary>
+        </member>
+        <member name="P:ARCed.Controls.EnemySprite.Texture">
+            <summary>
+            Gets the sprites texture
+            </summary>
+        </member>
+        <member name="P:ARCed.Controls.EnemySprite.Vector">
+            <summary>
+            Gets a vector that represents the sprites location
+            </summary>
+        </member>
+        <member name="P:ARCed.Controls.EnemySprite.X">
+            <summary>
+            Gets or sets the X-coordinate of the sprite
+            </summary>
+        </member>
+        <member name="P:ARCed.Controls.EnemySprite.Y">
+            <summary>
+            Gets or sets the Y-coordinate of the sprite
+            </summary>
+        </member>
+        <member name="P:ARCed.Controls.EnemySprite.Selected">
+            <summary>
+            Gets or sets the selected flag of the sprite
+            </summary>
+        </member>
+        <member name="P:ARCed.Controls.EnemySprite.Moving">
+            <summary>
+            Gets or sets the moving flag of the sprite
+            </summary>
+        </member>
+        <member name="P:ARCed.Controls.EnemySprite.Width">
+            <summary>
+            Gets the width of the sprite
+            </summary>
+        </member>
+        <member name="P:ARCed.Controls.EnemySprite.Height">
+            <summary>
+            Gets the height of the sprite
+            </summary>
+        </member>
+        <member name="P:ARCed.Controls.EnemySprite.Rectangle">
+            <summary>
+            Gets the rectangle of the sprite
+            </summary>
+        </member>
+        <member name="P:ARCed.Controls.EnemySprite.Immortal">
+            <summary>
+            Gets or sets the immortal status of the RPG.Troop.Member
+            </summary>
+        </member>
+        <member name="P:ARCed.Controls.EnemySprite.Hidden">
+            <summary>
+            Gets or sets the hidden status of the RPG.Troop.Member
+            </summary>
+        </member>
+        <member name="P:ARCed.Controls.EnemySprite.EnemyId">
+            <summary>
+            Gets the ID of the enemy the sprite represents
+            </summary>
+        </member>
+        <member name="P:ARCed.Controls.EnemySprite.TroopMember">
+            <summary>
+            Gets or sets the RPG.Troop.Member the sprite represents
+            </summary>
+        </member>
+        <member name="P:ARCed.Controls.EnemySprite.IsDisposed">
+            <summary>
+            Gets the disposed status of the sprite
+            </summary>
+        </member>
+        <member name="T:ARCed.Controls.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:ARCed.Controls.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:ARCed.Controls.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="T:ARCed.Controls.TilesetMode">
+            <summary>
+            Flags used for determining display mode for the tileset panel.
+            </summary>
+        </member>
+        <member name="T:ARCed.Controls.ServiceContainer">
+            <summary>
+            Container class implements the IServiceProvider interface. This is used
+            to pass shared services between different components, for instance the
+            ContentManager uses it to locate the IGraphicsDeviceService implementation.
+            </summary>
+        </member>
+        <member name="M:ARCed.Controls.ServiceContainer.AddService``1(``0)">
+            <summary>
+            Adds a new service to the collection.
+            </summary>
+        </member>
+        <member name="M:ARCed.Controls.ServiceContainer.GetService(System.Type)">
+            <summary>
+            Looks up the specified service.
+            </summary>
+        </member>
+    </members>
+</doc>

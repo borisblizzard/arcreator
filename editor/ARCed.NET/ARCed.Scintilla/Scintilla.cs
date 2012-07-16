@@ -7,6 +7,7 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Design;
+using System.Drawing.Drawing2D;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Security.Permissions;
@@ -15,7 +16,7 @@ using System.Windows.Forms;
 using ARCed.Scintilla.Configuration;
 using ARCed.Scintilla.Design;
 
-#endregion Using Directives
+#endregion
 
 
 namespace ARCed.Scintilla
@@ -79,15 +80,15 @@ namespace ARCed.Scintilla
         private LineWrapping _lineWrapping;
 
         private List<TopLevelHelper> _helpers = new List<TopLevelHelper>();
-        private AutoComplete _autoComplete;
+        private readonly AutoComplete _autoComplete;
         private CallTip _callTip;
-        private CaretInfo _caret;
-        private Clipboard _clipboard;
+        private readonly CaretInfo _caret;
+        private readonly Clipboard _clipboard;
         private Commands _commands;
-        private Configuration.ConfigurationManager _configurationManager;
+        private ConfigurationManager _configurationManager;
         private DocumentHandler _documentHandler;
         private DocumentNavigation _documentNavigation;
-        private DropMarkers _dropMarkers;
+        private readonly DropMarkers _dropMarkers;
         private Encoding _encoding;
         private EndOfLine _endOfLine;
         private FindReplace _findReplace;
@@ -95,40 +96,40 @@ namespace ARCed.Scintilla
         private GoTo _goto;
         private HotspotStyle _hotspotStyle;
         private Indentation _indentation;
-        private IndicatorCollection _indicators;
+        private readonly IndicatorCollection _indicators;
         private Lexing _lexing;
-        private LineCollection _lines;
+        private readonly LineCollection _lines;
         private LongLines _longLines;
-        private MarginCollection _margins;
+        private readonly MarginCollection _margins;
         private MarkerCollection _markers;
         private Printing _printing;
         private Scrolling _scrolling;
-        private Selection _selection;
-        private SnippetManager _snippets;
+        private readonly Selection _selection;
+        private readonly SnippetManager _snippets;
         private StyleCollection _styles;
-        private UndoRedo _undoRedo;
-        private Whitespace _whitespace;
+        private readonly UndoRedo _undoRedo;
+        private readonly Whitespace _whitespace;
 
         private bool _allowDrop;
         private string _caption;
-        private Dictionary<string, Color> _colorBag = new Dictionary<string, Color>();
+        private readonly Dictionary<string, Color> _colorBag = new Dictionary<string, Color>();
 
         /// <summary>
         ///     Enables the brace matching from current position.
         /// </summary>
-        private bool _isBraceMatching = false;
+        private bool _isBraceMatching;
         private bool _isCustomPaintingEnabled = true;
-        private bool _isInitializing = false;
-        private List<ManagedRange> _managedRanges = new List<ManagedRange>();
+        private bool _isInitializing;
+        private readonly List<ManagedRange> _managedRanges = new List<ManagedRange>();
         private bool _matchBraces = true;
 
-        private INativeScintilla _ns;
-        private Hashtable _propertyBag = new Hashtable();
+        private readonly INativeScintilla _ns;
+        private readonly Hashtable _propertyBag = new Hashtable();
         private SearchFlags _searchFlags = SearchFlags.Empty;
         private bool _supressControlCharacters = true;
 
         // List of Scintilla Supported encodings
-        internal static readonly IList<Encoding> ValidCodePages = new Encoding[]
+        internal static readonly IList<Encoding> ValidCodePages = new[]
         {
             Encoding.ASCII,
             Encoding.UTF8,
@@ -235,7 +236,7 @@ namespace ARCed.Scintilla
         public IntPtr DirectMessage(int msg, IntPtr wParam, IntPtr lParam)
         {
             // Enforce illegal cross-thread calls
-            if (Form.CheckForIllegalCrossThreadCalls && InvokeRequired)
+            if (CheckForIllegalCrossThreadCalls && InvokeRequired)
             {
                 string message = string.Format(Resources.Culture, Resources.Exception_IllegalCrossThreadCall, Name);
                 throw new InvalidOperationException(message);
@@ -264,7 +265,7 @@ namespace ARCed.Scintilla
                 // Since we eat the destroy message in WndProc
                 // we have to manually let Scintilla know to
                 // clean up its resources.
-                Message destroyMessage = new Message();
+                var destroyMessage = new Message();
                 destroyMessage.Msg = NativeMethods.WM_DESTROY;
                 destroyMessage.HWnd = Handle;
                 base.DefWndProc(ref destroyMessage);
@@ -291,8 +292,8 @@ namespace ARCed.Scintilla
         /// <remarks>Only ASCII documents are supported. Other encoding types have undefined behavior.</remarks>
         public string ExportHtml()
         {
-            StringBuilder sb = new StringBuilder();
-            using (StringWriter sw = new StringWriter(sb))
+            var sb = new StringBuilder();
+            using (var sw = new StringWriter(sb))
                 ExportHtml(sw, "Untitled", false);
 
             return sb.ToString();
@@ -316,7 +317,7 @@ namespace ARCed.Scintilla
 
             // Get the styles used
             int length = NativeInterface.GetLength();
-            bool[] stylesUsed = new bool[(int)StylesCommon.Max + 1];
+            var stylesUsed = new bool[(int)StylesCommon.Max + 1];
             if (allStyles)
             {
                 for (int i = 0; i < stylesUsed.Length; i++)
@@ -458,7 +459,7 @@ namespace ARCed.Scintilla
 
         internal void FireCallTipClick(int arrow)
         {
-            CallTipArrow a = (CallTipArrow)arrow;
+            var a = (CallTipArrow)arrow;
             OverloadList ol = CallTip.OverloadList;
             CallTipClickEventArgs e;
 
@@ -517,7 +518,7 @@ namespace ARCed.Scintilla
         internal void FireMarginClick(SCNotification n)
         {
             Margin m = Margins[n.margin];
-            Keys k = Keys.None;
+            var k = Keys.None;
 
             if ((n.modifiers & (int)KeyMod.Alt) == (int)KeyMod.Alt)
                 k |= Keys.Alt;
@@ -542,7 +543,7 @@ namespace ARCed.Scintilla
         ///     Gets the text of the line containing the caret.
         /// </summary>
         /// <returns>A <see cref="String" /> representing the text of the line containing the caret.</returns>
-        public unsafe string GetCurrentLine()
+        public string GetCurrentLine()
         {
             int tmp;
             return GetCurrentLine(out tmp);
@@ -557,7 +558,7 @@ namespace ARCed.Scintilla
         public unsafe string GetCurrentLine(out int caretPosition)
         {
             int length = DirectMessage(NativeMethods.SCI_GETCURLINE, IntPtr.Zero, IntPtr.Zero).ToInt32();
-            byte[] buffer = new byte[length];
+            var buffer = new byte[length];
             fixed (byte* bp = buffer)
                 caretPosition = DirectMessage(NativeMethods.SCI_GETCURLINE, new IntPtr(buffer.Length), new IntPtr(bp)).ToInt32();
 
@@ -608,7 +609,7 @@ namespace ARCed.Scintilla
         {
             StringBuilder buffer = null;
             uint nfiles = NativeMethods.DragQueryFile(hDrop, 0xffffffff, buffer, 0);
-            List<string> files = new List<string>();
+            var files = new List<string>();
             for (uint i = 0; i < nfiles; i++)
             {
                 buffer = new StringBuilder(512);
@@ -705,7 +706,7 @@ namespace ARCed.Scintilla
             // TODO: look into optimizing this so that it isn't a linear
             // search. This is fine for a few markers per document but
             // can be greatly improved if there are a large # of markers
-            List<ManagedRange> ret = new List<ManagedRange>();
+            var ret = new List<ManagedRange>();
             foreach (ManagedRange mr in _managedRanges)
                 if (mr.Start >= firstPos && mr.Start <= lastPos)
                     ret.Add(mr);
@@ -720,7 +721,7 @@ namespace ARCed.Scintilla
         /// <param name="e">An <see cref="AnnotationChangedEventArgs" /> that contains the event data.</param>
         protected virtual void OnAnnotationChanged(AnnotationChangedEventArgs e)
         {
-            EventHandler<AnnotationChangedEventArgs> handler = Events[_annotationChangedEventKey] as EventHandler<AnnotationChangedEventArgs>;
+            var handler = Events[_annotationChangedEventKey] as EventHandler<AnnotationChangedEventArgs>;
             if (handler != null)
                 handler(this, e);
         }
@@ -732,7 +733,7 @@ namespace ARCed.Scintilla
         /// <param name="e">An <see cref="AutoCompleteAcceptedEventArgs"/> that contains the event data.</param>
         protected virtual void OnAutoCompleteAccepted(AutoCompleteAcceptedEventArgs e)
         {
-            EventHandler<AutoCompleteAcceptedEventArgs> handler = Events[_autoCompleteAcceptedEventKey] as EventHandler<AutoCompleteAcceptedEventArgs>;
+            var handler = Events[_autoCompleteAcceptedEventKey] as EventHandler<AutoCompleteAcceptedEventArgs>;
             if (handler != null)
                 handler(this, e);
 
@@ -742,7 +743,7 @@ namespace ARCed.Scintilla
 
 
         /// <summary>
-        ///     Raises the <see cref="BackColorChanged"/> event.
+        ///     Raises the <see cref="E:System.Windows.Forms.Control.BackColorChanged"/> event.
         /// </summary>
         /// <param name="e">An <see cref="EventArgs"/> that contains the event data. </param>
         protected override void OnBackColorChanged(EventArgs e)
@@ -761,7 +762,7 @@ namespace ARCed.Scintilla
             int firstPos = e.Position;
             int lastPos = firstPos + e.Length;
 
-            List<ManagedRange> deletedRanges = new List<ManagedRange>();
+            var deletedRanges = new List<ManagedRange>();
             foreach (ManagedRange mr in _managedRanges)
             {
 
@@ -811,7 +812,7 @@ namespace ARCed.Scintilla
             foreach (ManagedRange mr in deletedRanges)
                 mr.Dispose();
 
-            EventHandler<TextModifiedEventArgs> handler = Events[_beforeTextDeleteEventKey] as EventHandler<TextModifiedEventArgs>;
+            var handler = Events[_beforeTextDeleteEventKey] as EventHandler<TextModifiedEventArgs>;
             if (handler != null)
                 handler(this, e);
         }
@@ -823,14 +824,14 @@ namespace ARCed.Scintilla
         /// <param name="e">An <see cref="TextModifiedEventArgs"/> that contains the event data.</param>
         protected virtual void OnBeforeTextInsert(TextModifiedEventArgs e)
         {
-            List<ManagedRange> offsetRanges = new List<ManagedRange>();
+            var offsetRanges = new List<ManagedRange>();
             foreach (ManagedRange mr in _managedRanges)
             {
                 if (mr.Start == e.Position && mr.PendingDeletion)
                 {
                     mr.PendingDeletion = false;
                     ManagedRange lmr = mr;
-                    BeginInvoke(new MethodInvoker(delegate() { lmr.Change(e.Position, e.Position + e.Length); }));
+                    BeginInvoke(new MethodInvoker(delegate { lmr.Change(e.Position, e.Position + e.Length); }));
                 }
 
                 //	If the Range is a single point we treat it slightly
@@ -863,7 +864,7 @@ namespace ARCed.Scintilla
 
             }
 
-            EventHandler<TextModifiedEventArgs> handler = Events[_beforeTextInsertEventKey] as EventHandler<TextModifiedEventArgs>;
+            var handler = Events[_beforeTextInsertEventKey] as EventHandler<TextModifiedEventArgs>;
             if (handler != null)
                 handler(this, e);
         }
@@ -875,7 +876,7 @@ namespace ARCed.Scintilla
         /// <param name="e">An <see cref="EventArgs"/> that contains the event data.</param>
         protected virtual void OnBorderStyleChanged(EventArgs e)
         {
-            EventHandler handler = Events[_borderStyleChangedEventKey] as EventHandler;
+            var handler = Events[_borderStyleChangedEventKey] as EventHandler;
             if (handler != null)
                 handler(this, e);
         }
@@ -887,7 +888,7 @@ namespace ARCed.Scintilla
         /// <param name="e">An <see cref="CallTipClickEventArgs"/> that contains the event data.</param>
         protected virtual void OnCallTipClick(CallTipClickEventArgs e)
         {
-            EventHandler<CallTipClickEventArgs> handler = Events[_callTipClickEventKey] as EventHandler<CallTipClickEventArgs>;
+            var handler = Events[_callTipClickEventKey] as EventHandler<CallTipClickEventArgs>;
             if (handler != null)
                 handler(this, e);
         }
@@ -899,7 +900,7 @@ namespace ARCed.Scintilla
         /// <param name="e">An <see cref="CharAddedEventArgs"/> that contains the event data.</param>
         protected virtual void OnCharAdded(CharAddedEventArgs e)
         {
-            EventHandler<CharAddedEventArgs> handler = Events[_charAddedEventKey] as EventHandler<CharAddedEventArgs>;
+            var handler = Events[_charAddedEventKey] as EventHandler<CharAddedEventArgs>;
             if (handler != null)
                 handler(this, e);
 
@@ -924,7 +925,7 @@ namespace ARCed.Scintilla
         /// <param name="e">An <see cref="NativeScintillaEventArgs"/> that contains the event data.</param>
         protected virtual void OnDocumentChange(NativeScintillaEventArgs e)
         {
-            EventHandler<NativeScintillaEventArgs> handler = Events[_documentChangeEventKey] as EventHandler<NativeScintillaEventArgs>;
+            var handler = Events[_documentChangeEventKey] as EventHandler<NativeScintillaEventArgs>;
             if (handler != null)
                 handler(this, e);
         }
@@ -943,7 +944,7 @@ namespace ARCed.Scintilla
                        bracePosStart = -1,
                        bracePosEnd = -1;
 
-                char character = (char)CharAt(position);
+                char character = this.CharAt(position);
 
                 switch (character)
                 {
@@ -969,7 +970,7 @@ namespace ARCed.Scintilla
         /// <param name="e">An <see cref="DropMarkerCollectEventArgs"/> that contains the event data.</param>
         protected internal virtual void OnDropMarkerCollect(DropMarkerCollectEventArgs e)
         {
-            EventHandler<DropMarkerCollectEventArgs> handler = Events[_dropMarkerCollectEventKey] as EventHandler<DropMarkerCollectEventArgs>;
+            var handler = Events[_dropMarkerCollectEventKey] as EventHandler<DropMarkerCollectEventArgs>;
             if (handler != null)
                 handler(this, e);
         }
@@ -981,7 +982,7 @@ namespace ARCed.Scintilla
         /// <param name="e">An <see cref="ScintillaMouseEventArgs"/> that contains the event data.</param>
         protected virtual void OnDwellEnd(ScintillaMouseEventArgs e)
         {
-            EventHandler<ScintillaMouseEventArgs> handler = Events[_dwellEndEventKey] as EventHandler<ScintillaMouseEventArgs>;
+            var handler = Events[_dwellEndEventKey] as EventHandler<ScintillaMouseEventArgs>;
             if (handler != null)
                 handler(this, e);
         }
@@ -993,7 +994,7 @@ namespace ARCed.Scintilla
         /// <param name="e">An <see cref="ScintillaMouseEventArgs"/> that contains the event data.</param>
         protected virtual void OnDwellStart(ScintillaMouseEventArgs e)
         {
-            EventHandler<ScintillaMouseEventArgs> handler = Events[_dwellStartEventKey] as EventHandler<ScintillaMouseEventArgs>;
+            var handler = Events[_dwellStartEventKey] as EventHandler<ScintillaMouseEventArgs>;
             if (handler != null)
                 handler(this, e);
         }
@@ -1005,7 +1006,7 @@ namespace ARCed.Scintilla
         /// <param name="e">An <see cref="FileDropEventArgs"/> that contains the event data.</param>
         protected virtual void OnFileDrop(FileDropEventArgs e)
         {
-            EventHandler<FileDropEventArgs> handler = Events[_fileDropEventKey] as EventHandler<FileDropEventArgs>;
+            var handler = Events[_fileDropEventKey] as EventHandler<FileDropEventArgs>;
             if (handler != null)
                 handler(this, e);
         }
@@ -1017,14 +1018,14 @@ namespace ARCed.Scintilla
         /// <param name="e">An <see cref="FoldChangedEventArgs"/> that contains the event data.</param>
         protected virtual void OnFoldChanged(FoldChangedEventArgs e)
         {
-            EventHandler<FoldChangedEventArgs> handler = Events[_foldChangedEventKey] as EventHandler<FoldChangedEventArgs>;
+            var handler = Events[_foldChangedEventKey] as EventHandler<FoldChangedEventArgs>;
             if (handler != null)
                 handler(this, e);
         }
 
 
         /// <summary>
-        ///     Raises the <see cref="FontChanged"/> event.
+        ///     Raises the <see cref="E:System.Windows.Forms.Control.FontChanged"/> event.
         /// </summary>
         /// <param name="e">An <see cref="EventArgs"/> that contains the event data.</param>
         protected override void OnFontChanged(EventArgs e)
@@ -1035,7 +1036,7 @@ namespace ARCed.Scintilla
 
 
         /// <summary>
-        ///     Raises the <see cref="ForeColorChanged"/> event.
+        ///     Raises the <see cref="E:System.Windows.Forms.Control.ForeColorChanged"/> event.
         /// </summary>
         /// <param name="e">An <see cref="EventArgs"/> that contains the event data. </param>
         protected override void OnForeColorChanged(EventArgs e)
@@ -1083,7 +1084,7 @@ namespace ARCed.Scintilla
         /// <param name="e">A <see cref="HotspotClickEventArgs"/> that contains the event data.</param>
         protected virtual void OnHotspotClick(HotspotClickEventArgs e)
         {
-            EventHandler<HotspotClickEventArgs> handler = Events[_hotspotClickEventKey] as EventHandler<HotspotClickEventArgs>;
+            var handler = Events[_hotspotClickEventKey] as EventHandler<HotspotClickEventArgs>;
             if (handler != null)
                 handler(this, e);
         }
@@ -1095,7 +1096,7 @@ namespace ARCed.Scintilla
         /// <param name="e">A <see cref="HotspotClickEventArgs"/> that contains the event data.</param>
         protected virtual void OnHotspotDoubleClick(HotspotClickEventArgs e)
         {
-            EventHandler<HotspotClickEventArgs> handler = Events[_hotspotDoubleClickEventKey] as EventHandler<HotspotClickEventArgs>;
+            var handler = Events[_hotspotDoubleClickEventKey] as EventHandler<HotspotClickEventArgs>;
             if (handler != null)
                 handler(this, e);
         }
@@ -1107,7 +1108,7 @@ namespace ARCed.Scintilla
         /// <param name="e">A <see cref="HotspotClickEventArgs"/> that contains the event data.</param>
         protected virtual void OnHotspotReleaseClick(HotspotClickEventArgs e)
         {
-            EventHandler<HotspotClickEventArgs> handler = Events[_hotspotReleaseClickEventKey] as EventHandler<HotspotClickEventArgs>;
+            var handler = Events[_hotspotReleaseClickEventKey] as EventHandler<HotspotClickEventArgs>;
             if (handler != null)
                 handler(this, e);
         }
@@ -1119,7 +1120,7 @@ namespace ARCed.Scintilla
         /// <param name="e">An <see cref="ScintillaMouseEventArgs"/> that contains the event data.</param>
         protected virtual void OnIndicatorClick(ScintillaMouseEventArgs e)
         {
-            EventHandler<ScintillaMouseEventArgs> handler = Events[_indicatorClickEventKey] as EventHandler<ScintillaMouseEventArgs>;
+            var handler = Events[_indicatorClickEventKey] as EventHandler<ScintillaMouseEventArgs>;
             if (handler != null)
                 handler(this, e);
         }
@@ -1141,7 +1142,7 @@ namespace ARCed.Scintilla
         /// </summary>
         protected override void OnKeyPress(KeyPressEventArgs e)
         {
-            if (_supressControlCharacters && (int)e.KeyChar < 32)
+            if (_supressControlCharacters && e.KeyChar < 32)
                 e.Handled = true;
 
             if (_snippets.IsEnabled && _snippets.IsOneKeySelectionEmbedEnabled && _selection.Length > 0)
@@ -1167,7 +1168,7 @@ namespace ARCed.Scintilla
         /// <param name="e">An <see cref="LinesNeedShownEventArgs"/> that contains the event data.</param>
         protected virtual void OnLinesNeedShown(LinesNeedShownEventArgs e)
         {
-            EventHandler<LinesNeedShownEventArgs> handler = Events[_linesNeedShownEventKey] as EventHandler<LinesNeedShownEventArgs>;
+            var handler = Events[_linesNeedShownEventKey] as EventHandler<LinesNeedShownEventArgs>;
             if (handler != null)
                 handler(this, e);
         }
@@ -1179,7 +1180,7 @@ namespace ARCed.Scintilla
         /// <param name="e">An <see cref="EventArgs"/> that contains the event data.</param>
         protected virtual void OnLoad(EventArgs e)
         {
-            EventHandler handler = Events[_loadEventKey] as EventHandler;
+            var handler = Events[_loadEventKey] as EventHandler;
             if (handler != null)
                 handler(this, e);
         }
@@ -1206,7 +1207,7 @@ namespace ARCed.Scintilla
         /// <param name="e">An <see cref="MacroRecordEventArgs"/> that contains the event data.</param>
         protected virtual void OnMacroRecord(MacroRecordEventArgs e)
         {
-            EventHandler<MacroRecordEventArgs> handler = Events[_macroRecordEventKey] as EventHandler<MacroRecordEventArgs>;
+            var handler = Events[_macroRecordEventKey] as EventHandler<MacroRecordEventArgs>;
             if (handler != null)
                 handler(this, e);
         }
@@ -1218,13 +1219,13 @@ namespace ARCed.Scintilla
         /// <param name="e">An <see cref="MarginClickEventArgs"/> that contains the event data.</param>
         protected virtual void OnMarginClick(MarginClickEventArgs e)
         {
-            EventHandler<MarginClickEventArgs> handler = Events[_marginClickEventKey] as EventHandler<MarginClickEventArgs>;
+            var handler = Events[_marginClickEventKey] as EventHandler<MarginClickEventArgs>;
             if (handler != null)
                 handler(this, e);
 
             if (e.ToggleMarkerNumber >= 0)
             {
-                int mask = (int)Math.Pow(2, e.ToggleMarkerNumber);
+                var mask = (int)Math.Pow(2, e.ToggleMarkerNumber);
                 if ((e.Line.GetMarkerMask() & mask) == mask)
                     e.Line.DeleteMarker(e.ToggleMarkerNumber);
                 else
@@ -1242,7 +1243,7 @@ namespace ARCed.Scintilla
         /// <param name="e">An <see cref="MarkerChangedEventArgs"/> that contains the event data.</param>
         protected virtual void OnMarkerChanged(MarkerChangedEventArgs e)
         {
-            EventHandler<MarkerChangedEventArgs> handler = Events[_markerChangedEventKey] as EventHandler<MarkerChangedEventArgs>;
+            var handler = Events[_markerChangedEventKey] as EventHandler<MarkerChangedEventArgs>;
             if (handler != null)
                 handler(this, e);
         }
@@ -1254,7 +1255,7 @@ namespace ARCed.Scintilla
         /// <param name="e">An <see cref="EventArgs"/> that contains the event data.</param>
         protected virtual void OnModifiedChanged(EventArgs e)
         {
-            EventHandler handler = Events[_modifiedChangedEventKey] as EventHandler;
+            var handler = Events[_modifiedChangedEventKey] as EventHandler;
             if (handler != null)
                 handler(this, e);
         }
@@ -1277,7 +1278,7 @@ namespace ARCed.Scintilla
         /// <param name="e">An <see cref="EventArgs"/> that contains the event data.</param>
         protected virtual void OnReadOnlyModifyAttempt(EventArgs e)
         {
-            EventHandler handler = Events[_readOnlyModifyAttemptEventKey] as EventHandler;
+            var handler = Events[_readOnlyModifyAttemptEventKey] as EventHandler;
             if (handler != null)
                 handler(this, e);
         }
@@ -1289,7 +1290,7 @@ namespace ARCed.Scintilla
         /// <param name="e">An <see cref="ScrollEventArgs"/> that contains the event data.</param>
         protected virtual void OnScroll(ScrollEventArgs e)
         {
-            EventHandler<ScrollEventArgs> handler = Events[_scrollEventKey] as EventHandler<ScrollEventArgs>;
+            var handler = Events[_scrollEventKey] as EventHandler<ScrollEventArgs>;
             if (handler != null)
                 handler(this, e);
         }
@@ -1302,7 +1303,7 @@ namespace ARCed.Scintilla
         protected virtual void OnSelectionChanged(EventArgs e)
         {
             //this is being fired in tandem with the cursor blink...
-            EventHandler handler = Events[_selectionChangedEventKey] as EventHandler;
+            var handler = Events[_selectionChangedEventKey] as EventHandler;
             if (handler != null)
                 handler(this, e);
 
@@ -1312,7 +1313,7 @@ namespace ARCed.Scintilla
                     bracePosStart = -1,
                     bracePosEnd = -1;
 
-                char character = (char)CharAt(position);
+                char character = this.CharAt(position);
 
                 switch (character)
                 {
@@ -1339,7 +1340,7 @@ namespace ARCed.Scintilla
                         break;
                     default:
                         position = CurrentPos;
-                        character = (char)CharAt(position); //this is not being used anywhere... --Cory
+                        character = this.CharAt(position); //this is not being used anywhere... --Cory
                         _ns.BraceHighlight(bracePosStart, bracePosEnd);
                         break;
                 }
@@ -1353,7 +1354,7 @@ namespace ARCed.Scintilla
         /// <param name="e">An <see cref="StyleNeededEventArgs"/> that contains the event data.</param>
         protected virtual void OnStyleNeeded(StyleNeededEventArgs e)
         {
-            EventHandler<StyleNeededEventArgs> handler = Events[_styleNeededEventKey] as EventHandler<StyleNeededEventArgs>;
+            var handler = Events[_styleNeededEventKey] as EventHandler<StyleNeededEventArgs>;
             if (handler != null)
                 handler(this, e);
         }
@@ -1365,7 +1366,7 @@ namespace ARCed.Scintilla
         /// <param name="e">An <see cref="TextModifiedEventArgs"/> that contains the event data.</param>
         protected virtual void OnTextDeleted(TextModifiedEventArgs e)
         {
-            EventHandler<TextModifiedEventArgs> handler = Events[_textDeletedEventKey] as EventHandler<TextModifiedEventArgs>;
+            var handler = Events[_textDeletedEventKey] as EventHandler<TextModifiedEventArgs>;
             if (handler != null)
                 handler(this, e);
         }
@@ -1377,7 +1378,7 @@ namespace ARCed.Scintilla
         /// <param name="e">An <see cref="TextModifiedEventArgs"/> that contains the event data.</param>
         protected virtual void OnTextInserted(TextModifiedEventArgs e)
         {
-            EventHandler<TextModifiedEventArgs> handler = Events[_textInsertedEventKey] as EventHandler<TextModifiedEventArgs>;
+            var handler = Events[_textInsertedEventKey] as EventHandler<TextModifiedEventArgs>;
             if (handler != null)
                 handler(this, e);
         }
@@ -1389,7 +1390,7 @@ namespace ARCed.Scintilla
         /// <param name="e">An <see cref="EventArgs"/> that contains the event data.</param>
         protected virtual void OnZoomChanged(EventArgs e)
         {
-            EventHandler handler = Events[_zoomChangedEventKey] as EventHandler;
+            var handler = Events[_zoomChangedEventKey] as EventHandler;
             if (handler != null)
                 handler(this, e);
         }
@@ -1412,7 +1413,7 @@ namespace ARCed.Scintilla
             List<ManagedRange> mrs = ManagedRangesInRange(firstPos, lastPos);
 
 
-            g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+            g.SmoothingMode = SmoothingMode.AntiAlias;
             foreach (ManagedRange mr in mrs)
             {
                 mr.Paint(g);
@@ -1731,7 +1732,7 @@ namespace ARCed.Scintilla
         {
             if ((scn.modificationType & NativeMethods.SC_MOD_CHANGEANNOTATION) == NativeMethods.SC_MOD_CHANGEANNOTATION)
             {
-                AnnotationChangedEventArgs acea = new AnnotationChangedEventArgs(scn.line, scn.annotationLinesAdded);
+                var acea = new AnnotationChangedEventArgs(scn.line, scn.annotationLinesAdded);
                 OnAnnotationChanged(acea);
             }
         }
@@ -1938,11 +1939,11 @@ namespace ARCed.Scintilla
         private void WmReflectNotify(ref Message m)
         {
             // New *internal* structure...
-            NativeMethods.SCNotification scn = (NativeMethods.SCNotification)Marshal.PtrToStructure(m.LParam, typeof(NativeMethods.SCNotification));
+            var scn = (NativeMethods.SCNotification)Marshal.PtrToStructure(m.LParam, typeof(NativeMethods.SCNotification));
 
             // Old *public* *outdated* structure and event args...
-            SCNotification scnOld = (SCNotification)Marshal.PtrToStructure(m.LParam, typeof(SCNotification));
-            NativeScintillaEventArgs nsea = new NativeScintillaEventArgs(m, scnOld);
+            var scnOld = (SCNotification)Marshal.PtrToStructure(m.LParam, typeof(SCNotification));
+            var nsea = new NativeScintillaEventArgs(m, scnOld);
 
             switch (scnOld.nmhdr.code)
             {
@@ -2052,9 +2053,9 @@ namespace ARCed.Scintilla
 
         private void WmScroll(ref Message m)
         {
-            ScrollOrientation so = ScrollOrientation.VerticalScroll;
+            var so = ScrollOrientation.VerticalScroll;
             int oldScroll = 0, newScroll = 0;
-            ScrollEventType set = (ScrollEventType)(Utilities.SignedLoWord(m.WParam));
+            var set = (ScrollEventType)(Utilities.SignedLoWord(m.WParam));
             if (m.Msg == NativeMethods.WM_HSCROLL)
             {
                 so = ScrollOrientation.HorizontalScroll;
@@ -2155,7 +2156,7 @@ namespace ARCed.Scintilla
                     break;
 
                 default:
-                    if ((int)m.Msg >= 10000) // TODO Remove "magic number"
+                    if (m.Msg >= 10000) // TODO Remove "magic number"
                     {
                         _commands.Execute((BindableCommand)m.Msg);
                         return;
@@ -2310,11 +2311,11 @@ namespace ARCed.Scintilla
         ///     Gets or sets the border style of the control.
         /// </summary>
         /// <value>
-        ///     A <see cref="BorderStyle" /> that represents the border type of the control.
-        ///     The default is <see cref="BorderStyle.Fixed3D" />.
+        ///     A <see cref="System.Windows.Forms.BorderStyle" /> that represents the border type of the control.
+        ///     The default is <see cref="System.Windows.Forms.BorderStyle.Fixed3D" />.
         /// </value>
         /// <exception cref="InvalidEnumArgumentException">
-        ///     The value assigned is not one of the <see cref="BorderStyle" /> values.
+        ///     The value assigned is not one of the <see cref="System.Windows.Forms.BorderStyle" /> values.
         /// </exception>
         [DefaultValue(BorderStyle.Fixed3D), Category("Appearance")]
         [Description("Indicates whether the control should have a border.")] // TODO Move to a resource
@@ -2434,7 +2435,7 @@ namespace ARCed.Scintilla
         ///     Controls behavior of loading/managing ARCed.Scintilla configurations.
         /// </summary>
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content), Category("Behavior")]
-        public Configuration.ConfigurationManager ConfigurationManager
+        public ConfigurationManager ConfigurationManager
         {
             get
             {
@@ -2599,7 +2600,7 @@ namespace ARCed.Scintilla
                 //	EncoderFallbackException isn't really the correct exception but
                 //	I'm being lazy and you get the point
                 if (!ValidCodePages.Contains(value))
-                    throw new EncoderFallbackException("Scintilla only supports the following Encodings: " + ValidCodePages.ToString());
+                    throw new EncoderFallbackException("Scintilla only supports the following Encodings: " + ValidCodePages);
 
                 _encoding = value;
                 _ns.SetCodePage(_encoding.CodePage);
@@ -2651,7 +2652,7 @@ namespace ARCed.Scintilla
             }
         }
 
-
+        /*
         /// <summary>
         ///     Gets or sets the font of the text displayed by the control.
         /// </summary>
@@ -2665,7 +2666,7 @@ namespace ARCed.Scintilla
             get { return base.Font; }
             set { base.Font = value; }
         }
-
+        */
 
         /// <summary>
         ///     Gets or sets the foreground color of the control.
@@ -2809,11 +2810,11 @@ namespace ARCed.Scintilla
         ///     Gets or sets the line layout caching strategy in a <see cref="Scintilla" /> control.
         /// </summary>
         /// <returns>
-        ///     One of the <see cref="LayoutCacheMode"/> enumeration values.
-        ///     The default is <see cref="LayoutCacheMode.Caret" />.
+        ///     One of the <see cref="ARCed.Scintilla.LayoutCacheMode"/> enumeration values.
+        ///     The default is <see cref="ARCed.Scintilla.LayoutCacheMode.Caret" />.
         /// </returns>
         /// <exception cref="InvalidEnumArgumentException">
-        ///     The value assigned is not one of the <see cref="LayoutCacheMode" /> values.
+        ///     The value assigned is not one of the <see cref="ARCed.Scintilla.LayoutCacheMode" /> values.
         /// </exception>
         /// <remarks>Larger cache sizes increase performance at the expense of memory.</remarks>
         [Browsable(false)]
@@ -2992,7 +2993,7 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return this as INativeScintilla;
+                return this;
             }
         }
 
@@ -3065,7 +3066,7 @@ namespace ARCed.Scintilla
                 //  Allocate a buffer the size of the string + 1 for
                 //  the NULL terminator. Scintilla always sets this
                 //  regardless of the encoding
-                byte[] buffer = new byte[length];
+                var buffer = new byte[length];
 
                 //  Get a direct pointer to the the head of the buffer
                 //  to pass to the message along with the wParam.
@@ -3090,7 +3091,7 @@ namespace ARCed.Scintilla
                     {
                         //	I hate to have to do this becuase it can be very inefficient.
                         //	It can probably be done much better by the client app
-                        Array.Resize<byte>(ref value, value.Length + 1);
+                        Array.Resize(ref value, value.Length + 1);
                         value[value.Length - 1] = 0;
                     }
                     fixed (byte* bp = value)
@@ -3115,7 +3116,7 @@ namespace ARCed.Scintilla
 
 
         [DefaultValue(SearchFlags.Empty), Category("Behavior")]
-        [Editor(typeof(Design.FlagEnumUIEditor), typeof(System.Drawing.Design.UITypeEditor))]
+        [Editor(typeof(FlagEnumUIEditor), typeof(UITypeEditor))]
         public SearchFlags SearchFlags
         {
             get
@@ -3564,7 +3565,7 @@ namespace ARCed.Scintilla
 
 
         /// <summary>
-        ///     Occurs when the value of the <see cref="Modified"> property has changed.
+        ///     Occurs when the value of the <see cref="Modified"/> property has changed.
         /// </summary>
         [Category("Property Changed"), Description("Occurs when the value of the Modified property changes.")]
         public event EventHandler ModifiedChanged
@@ -3661,7 +3662,7 @@ namespace ARCed.Scintilla
             this._state[_acceptsReturnState] = true;
             this._state[_acceptsTabState] = true;
 
-            _ns = (INativeScintilla)this;
+            _ns = this;
 
             _caption = GetType().FullName;
 

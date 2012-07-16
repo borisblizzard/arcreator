@@ -1,5 +1,10 @@
-﻿using System;
+﻿#region Using Directives
+
+using System;
 using System.Windows.Forms;
+using ARCed.Helpers;
+
+#endregion
 
 namespace ARCed.EventBuilder
 {
@@ -38,7 +43,7 @@ namespace ARCed.EventBuilder
 		public CmdInputNumberDialog()
 		{
 			InitializeComponent();
-			ARCed.Helpers.ControlHelper.Populate(comboBoxVariable, Project.Variables, false);
+			ControlHelper.Populate(comboBoxVariable, Project.Variables, false);
 		}
 
 		private void OK_Click(object sender, EventArgs e)

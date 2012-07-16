@@ -8,23 +8,23 @@ using System.IO;
 using System.Reflection;
 using System.Windows.Forms;
 
-#endregion Using Directives
+#endregion
 
 
 namespace ARCed.Scintilla.Configuration
 {
-    [TypeConverterAttribute(typeof(System.ComponentModel.ExpandableObjectConverter))]
+    [TypeConverter(typeof(ExpandableObjectConverter))]
     public class ConfigurationManager : TopLevelHelper
     {
         #region Fields
 
         private string _appDataFolder;
-        private bool _clearIndicators = false;
-        private bool _clearKeyBindings = false;
-        private bool _clearMargins = false;
-        private bool _clearMarkers = false;
-        private bool _clearSnippets = false;
-        private bool _clearStyles = false;
+        private bool _clearIndicators;
+        private bool _clearKeyBindings;
+        private bool _clearMargins;
+        private bool _clearMarkers;
+        private bool _clearSnippets;
+        private bool _clearStyles;
         private string _customLocation;
         private bool _isBuiltInEnabled = true;
         private bool _isUserEnabled = true;
@@ -87,7 +87,7 @@ namespace ARCed.Scintilla.Configuration
                     throw new FileNotFoundException("Could not find the custom configuration file.", _customLocation);
             }
 
-            List<Configuration> configList = new List<Configuration>();
+            var configList = new List<Configuration>();
             if (_loadOrder == ConfigurationLoadOrder.BuiltInCustomUser)
             {
                 if (builtInDefault != null && builtInDefault.HasData)
@@ -216,7 +216,7 @@ namespace ARCed.Scintilla.Configuration
 
         public void Configure(Configuration config)
         {
-            Configure(new List<Configuration>(new Configuration[] { config }));
+            Configure(new List<Configuration>(new[] { config }));
         }
 
 
@@ -494,7 +494,7 @@ namespace ARCed.Scintilla.Configuration
             if (_clearKeyBindings)
                 Scintilla.Commands.RemoveAllBindings();
 
-            CommandBindingConfigList cbcl = new CommandBindingConfigList();
+            var cbcl = new CommandBindingConfigList();
             foreach (Configuration c in configList)
             {
                 if (c.Commands_KeyBindingList.Inherit.HasValue && !c.Commands_KeyBindingList.Inherit.Value)
@@ -699,7 +699,7 @@ namespace ARCed.Scintilla.Configuration
             if (_clearIndicators)
                 Scintilla.Indicators.Reset();
 
-            IndicatorConfigList resolvedIndicators = new IndicatorConfigList();
+            var resolvedIndicators = new IndicatorConfigList();
             foreach (Configuration c in configList)
             {
                 if (c.Indicator_List.Inherit.HasValue && !c.Indicator_List.Inherit.Value)
@@ -927,7 +927,7 @@ namespace ARCed.Scintilla.Configuration
             if (_clearMargins)
                 Scintilla.Margins.Reset();
 
-            Dictionary<int, MarginConfig> margins = new Dictionary<int, MarginConfig>();
+            var margins = new Dictionary<int, MarginConfig>();
             foreach (Configuration c in configList)
             {
                 if (c.Margin_List.Inherit.HasValue && !c.Margin_List.Inherit.Value)
@@ -992,7 +992,7 @@ namespace ARCed.Scintilla.Configuration
             if (_clearMarkers)
                 Scintilla.Markers.Reset();
 
-            MarkersConfigList resolvedMarkers = new MarkersConfigList();
+            var resolvedMarkers = new MarkersConfigList();
             foreach (Configuration c in configList)
             {
                 if (c.Markers_List.Inherit.HasValue && !c.Markers_List.Inherit.Value)
@@ -1196,7 +1196,7 @@ namespace ARCed.Scintilla.Configuration
             if (!ch.HasValue)
                 Scintilla.Snippets.DefaultDelimeter = '$';
 
-            SnippetList snips = new SnippetList(null);
+            var snips = new SnippetList(null);
             foreach (Configuration c in configList)
             {
                 if (c.SnippetsConfigList.Inherit.HasValue && !c.SnippetsConfigList.Inherit.Value)
@@ -1357,10 +1357,10 @@ namespace ARCed.Scintilla.Configuration
             #pragma warning restore 618
 
             Dictionary<string, int> styleNameMap =  Scintilla.Lexing.StyleNameMap;
-            ResolvedStyleList resolvedStyles = new ResolvedStyleList();
+            var resolvedStyles = new ResolvedStyleList();
 
             int _unmappedStyleNumber = -1;
-            Dictionary<string, int> _unmappedStyleMap = new Dictionary<string,int>();
+            var _unmappedStyleMap = new Dictionary<string,int>();
             foreach (Configuration c in configList)
             {
                 if (c.Styles.Inherit.HasValue && !c.Styles.Inherit.Value)
@@ -1480,9 +1480,9 @@ namespace ARCed.Scintilla.Configuration
             //	it needs to be applied first, then StyleClearAll() called so that all
             //	other styles will "inherit" this style. Then the other styles will 
             //	override the default with any defined properties.
-            StyleConfig[] arr = new StyleConfig[resolvedStyles.Count];
+            var arr = new StyleConfig[resolvedStyles.Count];
             resolvedStyles.Values.CopyTo(arr, 0);
-            Array.Sort<StyleConfig>(arr, new Comparison<StyleConfig>(delegate(StyleConfig sc1, StyleConfig sc2)
+            Array.Sort(arr, delegate(StyleConfig sc1, StyleConfig sc2)
             {
                 int v1 = sc1.Number.Value == Constants.STYLE_DEFAULT ? -1 : sc1.Number.Value;
                 int v2 = sc2.Number.Value == Constants.STYLE_DEFAULT ? -1 : sc2.Number.Value;
@@ -1493,7 +1493,7 @@ namespace ARCed.Scintilla.Configuration
                     return 1;
 
                 return 0;
-            }));
+            });
             
 
             foreach (StyleConfig sc in arr)

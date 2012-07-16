@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows.Forms;
 
-#endregion Using Directives
+#endregion
 
 
 namespace ARCed.Scintilla
@@ -13,13 +13,13 @@ namespace ARCed.Scintilla
     /// <summary>
     ///     Manages commands, which are actions in ARCed.Scintilla that can be bound to key combinations.
     /// </summary>
-    [TypeConverterAttribute(typeof(System.ComponentModel.ExpandableObjectConverter))]
+    [TypeConverter(typeof(ExpandableObjectConverter))]
     public class Commands : TopLevelHelper
     {
         #region Fields
 
-        private Dictionary<KeyBinding, List<BindableCommand>> _boundCommands = new Dictionary<KeyBinding, List<BindableCommand>>();
-        private CommandComparer _commandComparer = new CommandComparer();
+        private readonly Dictionary<KeyBinding, List<BindableCommand>> _boundCommands = new Dictionary<KeyBinding, List<BindableCommand>>();
+        private readonly CommandComparer _commandComparer = new CommandComparer();
 
         // Hmmm.. This is getting more and more hackyish
         internal bool StopProcessingCommands = false;
@@ -73,7 +73,7 @@ namespace ARCed.Scintilla
         /// <param name="command">Command to execute</param>
         public void AddBinding(Keys shortcut, Keys modifiers, BindableCommand command)
         {
-            KeyBinding kb = new KeyBinding(shortcut, modifiers);
+            var kb = new KeyBinding(shortcut, modifiers);
             if (!_boundCommands.ContainsKey(kb))
                 _boundCommands.Add(kb, new List<BindableCommand>());
 
@@ -236,7 +236,7 @@ namespace ARCed.Scintilla
         /// <returns>List of Commands bound to a keyboard shortcut</returns>
         private List<BindableCommand> GetCommands(Keys shortcut, Keys modifiers)
         {
-            KeyBinding kb = new KeyBinding(shortcut, modifiers);
+            var kb = new KeyBinding(shortcut, modifiers);
             if (!_boundCommands.ContainsKey(kb))
                 return new List<BindableCommand>();
 
@@ -251,7 +251,7 @@ namespace ARCed.Scintilla
         /// <returns>List of KeyBindings bound to the given command</returns>
         public List<KeyBinding> GetKeyBindings(BindableCommand command)
         {
-            List<KeyBinding> ret = new List<KeyBinding>();
+            var ret = new List<KeyBinding>();
             foreach (KeyValuePair<KeyBinding, List<BindableCommand>> item in _boundCommands)
             {
                 if (item.Value.Contains(command))
@@ -266,7 +266,7 @@ namespace ARCed.Scintilla
         {
             StopProcessingCommands = false;
 
-            KeyBinding kb = new KeyBinding(e.KeyCode, e.Modifiers);
+            var kb = new KeyBinding(e.KeyCode, e.Modifiers);
             if (!_boundCommands.ContainsKey(kb))
                 return false;
 
@@ -386,7 +386,7 @@ namespace ARCed.Scintilla
         /// <param name="command">Command to execute</param>
         public void RemoveBinding(Keys shortcut, Keys modifiers, BindableCommand command)
         {
-            KeyBinding kb = new KeyBinding(shortcut, modifiers);
+            var kb = new KeyBinding(shortcut, modifiers);
             if (!_boundCommands.ContainsKey(kb))
                 return;
 

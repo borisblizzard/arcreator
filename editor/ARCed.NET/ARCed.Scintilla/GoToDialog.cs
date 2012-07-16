@@ -4,7 +4,7 @@ using System;
 using System.Drawing;
 using System.Windows.Forms;
 
-#endregion Using Directives
+#endregion
 
 
 namespace ARCed.Scintilla
@@ -70,7 +70,7 @@ namespace ARCed.Scintilla
 
             Point cursorPoint = Scintilla.PointToScreen(new Point(x, y));
 
-            Rectangle r = new Rectangle(Location, Size);
+            var r = new Rectangle(Location, Size);
             if (r.Contains(cursorPoint))
             {
                 Point newLocation;

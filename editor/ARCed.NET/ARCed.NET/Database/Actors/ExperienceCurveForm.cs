@@ -1,17 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿#region Using Directives
 
+using System;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using RPG;
-using ARCed.Helpers;
 using System.Windows.Forms;
+using ARCed.Helpers;
+using ARCed.UI;
+using RPG;
+
+#endregion
 
 namespace ARCed.Database.Actors
 {
-	public partial class ExperienceCurveForm : ARCed.UI.DockContent
+	public partial class ExperienceCurveForm : DockContent
 	{
 
 		Actor _actor;

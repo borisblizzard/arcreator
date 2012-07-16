@@ -1,7 +1,11 @@
-﻿using System;
-using System.Drawing;
+﻿#region Using Directives
+
+using System;
 using System.ComponentModel;
+using System.Drawing;
 using System.Windows.Forms;
+
+#endregion
 
 namespace ARCed.Controls
 {

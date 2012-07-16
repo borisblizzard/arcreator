@@ -1,7 +1,12 @@
+#region Using Directives
+
 using System;
 using System.Drawing;
 using System.Windows.Forms;
+using ARCed.Properties;
 using ARCed.UI;
+
+#endregion
 
 namespace ARCed.Forms
 {
@@ -67,7 +72,7 @@ namespace ARCed.Forms
 			textBox.RightToLeft = RightToLeft.Yes;
 			textBox.Text = "0";
 			radioDegree.Checked = true;
-			this.Icon = Icon.FromHandle(Properties.Resources.Calculator.GetHicon());
+			this.Icon = Icon.FromHandle(Resources.Calculator.GetHicon());
 			this.checkBoxTopMost.DataBindings.Add("Checked", this,
 				"Topmost", false, DataSourceUpdateMode.OnPropertyChanged);
 		}
@@ -303,7 +308,7 @@ namespace ARCed.Forms
 			textBox.Text = Convert.ToString(result);
 		}
 
-		private int Factorial(int x)
+		private static int Factorial(int x)
 		{
 			int i = 1;
 			for (int s = 1; s <= x; s++)

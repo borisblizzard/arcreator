@@ -3,7 +3,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-#endregion Using Directive
+#endregion
 
 
 namespace ARCed.Scintilla
@@ -16,8 +16,8 @@ namespace ARCed.Scintilla
     {
         #region Fields
 
-        private List<StyleRun> _styleRuns;
-        private StringBuilder _stringBuilder;
+        private readonly List<StyleRun> _styleRuns;
+        private readonly StringBuilder _stringBuilder;
 
         #endregion Fields
 

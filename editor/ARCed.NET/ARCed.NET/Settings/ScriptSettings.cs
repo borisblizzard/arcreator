@@ -1,8 +1,13 @@
-﻿using System;
+﻿#region Using Directives
+
+using System;
 using System.Collections.Generic;
 using System.Drawing;
-using ARCed.Scripting;
 using System.Xml.Serialization;
+using ARCed.Helpers;
+using ARCed.Scripting;
+
+#endregion
 
 namespace ARCed.Settings
 {
@@ -92,33 +97,32 @@ namespace ARCed.Settings
 		{
 			get
 			{
-				ScriptStyle[] styles;
-				Font font;
-				if (Helpers.FontHelper.IsInstalled("Consolas"))
+			    Font font;
+				if (FontHelper.IsInstalled("Consolas"))
 					font = new Font("Consolas", 10.25f, FontStyle.Regular);
 				else
-					font = Helpers.FontHelper.MonoFont;
-				styles = new ScriptStyle[] {
-					new ScriptStyle("White Space"        , Color.Black          , Color.White   , font),
-					new ScriptStyle("Brace Match"        , Color.Purple         , Color.Yellow  , font),
-					new ScriptStyle("Comment Line"       , Color.Green          , Color.White   , font),
-					new ScriptStyle("Comment Block"      , Color.Green          , Color.White   , font),
-					new ScriptStyle("Number"             , Color.DarkRed        , Color.White   , font),
-					new ScriptStyle("Keyword"            , Color.Blue           , Color.White   , font),
-					new ScriptStyle("Double Quote String", Color.Purple         , Color.White   , font),
-					new ScriptStyle("Single Quote String", Color.MediumVioletRed, Color.White   , font),
-					new ScriptStyle("Class Name"         , Color.DarkViolet     , Color.White   , font),
-					new ScriptStyle("Method Name"        , Color.Black          , Color.White   , font),
-					new ScriptStyle("Operator"           , Color.DarkCyan       , Color.White   , font),
-					new ScriptStyle("Call"               , Color.Black          , Color.White   , font),
- 					new ScriptStyle("Regular Expression" , Color.MediumPurple   , Color.White   , font),
-					new ScriptStyle("Global Variable"    , Color.Black          , Color.White   , font),
-					new ScriptStyle("Symbol"             , Color.Black          , Color.White   , font),
-					new ScriptStyle("Module Name"        , Color.DarkViolet     , Color.White   , font),
-					new ScriptStyle("Instance Variable"  , Color.Black          , Color.White   , font),
-					new ScriptStyle("Class Variable"     , Color.Black          , Color.White   , font),
-					new ScriptStyle("System String"      , Color.Red            , Color.White   , font),
-					new ScriptStyle("Line Number"        , Color.Black          , Color.Lavender, font)
+					font = FontHelper.MonoFont;
+				var styles = new[] {
+				    new ScriptStyle("White Space"        , Color.Black          , Color.White   , font),
+				    new ScriptStyle("Brace Match"        , Color.Purple         , Color.Yellow  , font),
+				    new ScriptStyle("Comment Line"       , Color.Green          , Color.White   , font),
+				    new ScriptStyle("Comment Block"      , Color.Green          , Color.White   , font),
+				    new ScriptStyle("Number"             , Color.DarkRed        , Color.White   , font),
+				    new ScriptStyle("Keyword"            , Color.Blue           , Color.White   , font),
+				    new ScriptStyle("Double Quote String", Color.Purple         , Color.White   , font),
+				    new ScriptStyle("Single Quote String", Color.MediumVioletRed, Color.White   , font),
+				    new ScriptStyle("Class Name"         , Color.DarkViolet     , Color.White   , font),
+				    new ScriptStyle("Method Name"        , Color.Black          , Color.White   , font),
+				    new ScriptStyle("Operator"           , Color.DarkCyan       , Color.White   , font),
+				    new ScriptStyle("Call"               , Color.Black          , Color.White   , font),
+				    new ScriptStyle("Regular Expression" , Color.MediumPurple   , Color.White   , font),
+				    new ScriptStyle("Global Variable"    , Color.Black          , Color.White   , font),
+				    new ScriptStyle("Symbol"             , Color.Black          , Color.White   , font),
+				    new ScriptStyle("Module Name"        , Color.DarkViolet     , Color.White   , font),
+				    new ScriptStyle("Instance Variable"  , Color.Black          , Color.White   , font),
+				    new ScriptStyle("Class Variable"     , Color.Black          , Color.White   , font),
+				    new ScriptStyle("System String"      , Color.Red            , Color.White   , font),
+				    new ScriptStyle("Line Number"        , Color.Black          , Color.Lavender, font)
 				};
 				styles[8].Font = styles[15].Font = new Font(font, FontStyle.Bold);
 				styles[19].Font = new Font(font.FontFamily, 8.25f, FontStyle.Regular);

@@ -1,0 +1,2959 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ARCed</name>
+    </assembly>
+    <members>
+        <member name="F:ARCed.Dialogs.NewProjectForm.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:ARCed.Dialogs.NewProjectForm.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:ARCed.Dialogs.NewProjectForm.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="M:ARCed.Dialogs.NewProjectForm.#ctor">
+            <summary>
+            Object initialization
+            </summary>
+        </member>
+        <member name="M:ARCed.Dialogs.NewProjectForm.NewProjectForm_Load(System.Object,System.EventArgs)">
+            <summary>
+            Fills the default name in with first new directory in sequence
+            </summary>
+            <param name="sender">The invoker of the event</param>
+            <param name="e">Event arguments</param>
+        </member>
+        <member name="M:ARCed.Dialogs.NewProjectForm.RefreshTemplates">
+            <summary>
+            Iterates over installed .zip templates and adds their names to the combo control
+            </summary>
+        </member>
+        <member name="M:ARCed.Dialogs.NewProjectForm.buttonBrowse_Click(System.Object,System.EventArgs)">
+            <summary>
+            Opens the folder browser dialog to select a project location
+            </summary>
+            <param name="sender">The invoker of the event</param>
+            <param name="e">Event arguments</param>
+        </member>
+        <member name="M:ARCed.Dialogs.NewProjectForm.buttonOK_Click(System.Object,System.EventArgs)">
+            <summary>
+            Sets the dialog result and closes the dialog
+            </summary>
+            <param name="sender">The invoker of the event</param>
+            <param name="e">Event arguments</param>
+        </member>
+        <member name="M:ARCed.Dialogs.NewProjectForm.textBoxFolderName_TextChanged(System.Object,System.EventArgs)">
+            <summary>
+            Updates the title and location when the text changes
+            </summary>
+            <param name="sender">The invoker of the event</param>
+            <param name="e">Event arguments</param>
+        </member>
+        <member name="M:ARCed.Dialogs.NewProjectForm.textBoxLocation_TextChanged(System.Object,System.EventArgs)">
+            <summary>
+            Updates the location when the text changes
+            </summary>
+            <param name="sender">The invoker of the event</param>
+            <param name="e">Event arguments</param>
+        </member>
+        <member name="P:ARCed.Dialogs.NewProjectForm.ProjectDirectory">
+            <summary>
+            Gets the path to the defined project directory from the text control
+            </summary>
+        </member>
+        <member name="P:ARCed.Dialogs.NewProjectForm.ProjectTitle">
+            <summary>
+            Gets the title of the game from the text control
+            </summary>
+        </member>
+        <member name="P:ARCed.Dialogs.NewProjectForm.ProjectTemplate">
+            <summary>
+            Gets the name of the selected template from the combo control
+            </summary>
+        </member>
+        <member name="F:ARCed.Editor.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:ARCed.Editor.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:ARCed.Editor.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="F:ARCed.Editor._childProcesses">
+            <summary>
+            List of all processes attached to the editor
+            </summary>
+        </member>
+        <member name="M:ARCed.Editor.DatabaseNotify(ARCed.Database.RefreshType)">
+            <summary>
+            Notifies all open database windows that objects of a given type need refreshed
+            </summary>
+            <param name="type">Flag for type of object to refresh</param>
+        </member>
+        <member name="M:ARCed.Editor.Show(ARCed.UI.DockContent,ARCed.UI.DockState)">
+            <summary>
+            Adds and activates a window to the main editor's dock panel
+            </summary>
+            <param name="window">The dockable window</param>
+            <param name="state">The initial state of the window</param>
+        </member>
+        <member name="M:ARCed.Editor.OpenScript(System.String,System.Boolean)">
+            <summary>
+            Creates a script editor panel and puts it in the opened script list
+            </summary>
+            <param name="file">The path of the script</param>
+            <param name="show">Flag to display the script window</param>
+            <returns>The instance of the associated script window</returns>
+        </member>
+        <member name="M:ARCed.Editor.OpenScript(ARCed.Scripting.Script,System.Boolean)">
+            <summary>
+            Creates a script editor panel and puts it in the opened script list
+            </summary>
+            <param name="script">The script to open</param>
+            <param name="show">Flag to display the script window</param>
+            <returns>The instance of the associated script window</returns>
+        </member>
+        <member name="M:ARCed.Editor.AttachProcess(System.String,System.Boolean)">
+            <summary>
+            Starts a process and attaches it to the editor.
+            </summary>
+            <param name="filename">The path to the process</param>
+            <param name="hidden">Flag to start hidden or not</param>
+            <remarks>All child processes will be killed automatically when Editor exits</remarks>
+        </member>
+        <member name="M:ARCed.Editor.#ctor(System.String)">
+            <summary>
+            Constructs a new Editor, automatically opening a a project if filename is given
+            </summary>
+            <param name="filename"></param>
+        </member>
+        <member name="M:ARCed.Editor.RestoreWindowLocation">
+            <summary>
+            Restores the window size, state, and location it was in from the last save
+            </summary>
+        </member>
+        <member name="M:ARCed.Editor.GetContentFromPersistString(System.String)">
+            <summary>
+            Creates a window from a string representation of the original and returns it
+            </summary>
+            <param name="persistString">The string representation of the window</param>
+            <returns>The created window</returns>
+            <remarks>It is important that any plugin have a parameterless constructor, else
+            it will fail to load from a saved layout.</remarks>
+        </member>
+        <member name="M:ARCed.Editor.LoadSettings">
+            <summary>
+            Loads the settings of the editor or initializes new ones if not found.
+            </summary>
+        </member>
+        <member name="M:ARCed.Editor.LoadProject(System.String)">
+            <summary>
+            Loads the project file at the given path.
+            </summary>
+            <param name="path">Full path to the project file</param>
+        </member>
+        <member name="M:ARCed.Editor.CloseProject">
+            <summary>
+            Closes the project and resets the Editor back to default
+            </summary>
+        </member>
+        <member name="M:ARCed.Editor.ConfirmProjectClose">
+            <summary>
+            Asks confirmation before continuing if there are unsaved changes to the project.
+            </summary>
+            <returns>Flag if it is OK to continue</returns>
+        </member>
+        <member name="M:ARCed.Editor.menuItemFile_DropDownOpening(System.Object,System.EventArgs)">
+            <summary>
+            Invoked when "File" drop-down is opening on menu strip, 
+            enabling/disabling specific options as needed.
+            </summary>
+        </member>
+        <member name="M:ARCed.Editor.fileMenuNewProject_Clicked(System.Object,System.EventArgs)">
+            <summary>
+            Menu: File -> New Project...
+            </summary>
+        </member>
+        <member name="M:ARCed.Editor.fileMenuOpenProject_Click(System.Object,System.EventArgs)">
+            <summary>
+            Menu: File -> Open Project...
+            </summary>
+        </member>
+        <member name="M:ARCed.Editor.fileMenuCloseProject_Click(System.Object,System.EventArgs)">
+            <summary>
+            Menu: File -> Close Project
+            </summary>
+        </member>
+        <member name="M:ARCed.Editor.fileMenuSaveProject_Click(System.Object,System.EventArgs)">
+            <summary>
+            Menu: File -> Save Project
+            </summary>
+        </member>
+        <member name="M:ARCed.Editor.fileMenuSaveTemplate_Click(System.Object,System.EventArgs)">
+            <summary>
+            Menu: File -> Save As Template...
+            </summary>
+        </member>
+        <member name="M:ARCed.Editor.fileMenuExit_Click(System.Object,System.EventArgs)">
+            <summary>
+            Menu: File -> Exit
+            </summary>
+        </member>
+        <member name="M:ARCed.Editor.menuStripEdit_DropDownOpening(System.Object,System.EventArgs)">
+            <summary>
+            Invoked when the "Tools" drop-down is opening on menu strip, 
+            enabling/disabling specific options as needed.
+            </summary>
+        </member>
+        <member name="M:ARCed.Editor.toolComboDatabaseItem_Click(System.Object,System.EventArgs)">
+            <summary>
+            TEST PURPOSES ONLY
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="P:ARCed.Editor.ARCedAssemblies">
+            <summary>
+            Gets a collection of assemblies used for the editor, as well as loaded plugin assemblies.
+            </summary>
+        </member>
+        <member name="P:ARCed.Editor.StatusBar">
+            <summary>
+            Gets or sets the main status bar instance of the editor
+            </summary>
+        </member>
+        <member name="P:ARCed.Editor.Settings">
+            <summary>
+            Gets or sets the editor settings.
+            </summary>
+        </member>
+        <member name="P:ARCed.Editor.MainDock">
+            <summary>
+            The main dock panel instance of the editor
+            </summary>
+        </member>
+        <member name="P:ARCed.Editor.DeserializeContent">
+            <summary>
+            Deserializer used for recreating windows from persist strings
+            </summary>
+        </member>
+        <member name="P:ARCed.Editor.IsAdministrator">
+            <summary>
+            Gets the flag indicating if the program is being run as an administrator
+            </summary>
+        </member>
+        <member name="P:ARCed.Editor.Is64bit">
+            <summary>
+            Gets the flag indicating if the current platform has a 64-bit CPU architecture
+            </summary>
+        </member>
+        <member name="P:ARCed.Editor.MainInstance">
+            <summary>
+            Returns the main editor instance
+            </summary>
+        </member>
+        <member name="P:ARCed.Editor.Mode">
+            <summary>
+            Gets the current mode of the editor
+            </summary>
+        </member>
+        <member name="P:ARCed.Editor.ChildProcesses">
+            <summary>
+            Gets a list of all processes attached to the Editor
+            </summary>
+        </member>
+        <member name="T:ARCed.Editor.EditorMode">
+            <summary>
+            Possible editor modes
+            </summary>
+        </member>
+        <member name="F:ARCed.Editor.EditorMode.Normal">
+            <summary>
+            Normal mode without debugging or logging
+            </summary>
+        </member>
+        <member name="F:ARCed.Editor.EditorMode.Debug">
+            <summary>
+            Debug mode with output console attached
+            </summary>
+        </member>
+        <member name="F:ARCed.Editor.EditorMode.Logging">
+            <summary>
+            Generates log file of various events and errors
+            </summary>
+        </member>
+        <member name="T:ARCed.Database.Actors.ActorParametersForm">
+            <summary>
+            Form to provide functionality of using an interactive chart to modify actor parameter values.
+            </summary>
+        </member>
+        <member name="M:ARCed.Database.Actors.ActorParametersForm.#ctor(RPG.Actor,System.Int32)">
+            <summary>
+            Default constructor
+            </summary>
+            <param name="actor">Actor to associate with this control.</param>
+            <param name="index">Index of the parameter to activate on the control.</param>
+        </member>
+        <member name="F:ARCed.Database.Actors.ActorParametersForm.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:ARCed.Database.Actors.ActorParametersForm.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:ARCed.Database.Actors.ActorParametersForm.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="P:ARCed.Database.Actors.ActorParametersForm.Actor">
+            <summary>
+            Gets or sets the associated actor of the control.
+            </summary>
+        </member>
+        <member name="P:ARCed.Database.Actors.ActorParametersForm.ParameterIndex">
+            <summary>
+            Gets or sets the index of the associated parameter.
+            </summary>
+        </member>
+        <member name="P:ARCed.Database.Actors.ActorParametersForm.CurrentChart">
+            <summary>
+            Gets the current chart.
+            </summary>
+        </member>
+        <member name="T:ARCed.Dialogs.ColorChooserForm">
+            <summary>
+              Summary description for ColorChooser.
+            </summary>
+        </member>
+        <member name="M:ARCed.Dialogs.ColorChooserForm.#ctor">
+            <summary>
+              Required designer variable.
+            </summary>
+        </member>
+        <member name="M:ARCed.Dialogs.ColorChooserForm.InitializeComponent">
+            <summary>
+              Required method for Designer support - do not modify
+              the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="P:ARCed.Dialogs.ColorChooserForm.AlphaEnabled">
+            <summary>
+            Gets or sets the ability to adjust alpha values
+            </summary>
+        </member>
+        <member name="T:ARCed.Database.DatabaseWindow">
+            <summary>
+            Base class for database forms.
+            </summary>
+        </member>
+        <member name="F:ARCed.Database.DatabaseWindow.SuppressEvents">
+            <summary>
+            Flag if control changing should cause events to be raised.
+            </summary>
+        </member>
+        <member name="M:ARCed.Database.DatabaseWindow.#ctor">
+            <summary>
+            Default constructor
+            </summary>
+        </member>
+        <member name="M:ARCed.Database.DatabaseWindow.RefreshHeader">
+            <summary>
+            Refreshes the header _srcTexture
+            </summary>
+        </member>
+        <member name="M:ARCed.Database.DatabaseWindow.RefreshCurrentObject">
+            <summary>
+            Refreshes the current game object selected
+            </summary>
+            <exception cref="T:System.NotImplementedException">Thrown when method has not been overridden.</exception>
+            <remarks>This method must be overridden in inherited classes</remarks>
+        </member>
+        <member name="M:ARCed.Database.DatabaseWindow.RefreshObjectList">
+            <summary>
+            Refreshes the list of game objects
+            </summary>
+        </member>
+        <member name="M:ARCed.Database.DatabaseWindow.SetWindowIcon(System.Drawing.Image)">
+            <summary>
+            Sets the form's icon using the given Bitmap object.
+            </summary>
+            <param name="image">Bitmap to create Icon from.</param>
+        </member>
+        <member name="M:ARCed.Database.DatabaseWindow.DatabaseWindowLoad(System.Object,System.EventArgs)">
+            <summary>
+            Registers the window when it is loaded
+            </summary>
+            <param name="sender">Invoker of the event</param>
+            <param name="e">Event arguments</param>
+        </member>
+        <member name="M:ARCed.Database.DatabaseWindow.DatabaseWindowFormClosing(System.Object,System.Windows.Forms.FormClosingEventArgs)">
+            <summary>
+            Unregisters the window when it is closed
+            </summary>
+            <param name="sender">Invoker of the event</param>
+            <param name="e">Event arguments</param>
+        </member>
+        <member name="M:ARCed.Database.DatabaseWindow.ChangeCapacity">
+            <summary>
+            Changes the capcity of the given game object collection.
+            </summary>
+        </member>
+        <member name="M:ARCed.Database.DatabaseWindow.NotifyRefresh(ARCed.Database.RefreshType)">
+            <summary>
+            Refreshes objects by type flag
+            </summary>
+            <param name="type">Flag for type of object to refresh</param>
+            <exception cref="T:System.NotImplementedException">Thrown when method is not overridden.</exception>
+            <remarks>This methods is to be overridden in inherited classes.</remarks>
+            <exception cref="T:System.NotImplementedException">Thrown when method is not overridden in inherited class</exception>
+        </member>
+        <member name="P:ARCed.Database.DatabaseWindow.DataObjectList">
+            <summary>
+            Gets the instance of the windows DatabaseObjectListBox or null if there is not one.
+            </summary>
+        </member>
+        <member name="P:ARCed.Database.DatabaseWindow.Data">
+            <summary>
+            Gets the project game data associated with this window.
+            </summary>
+        </member>
+        <member name="P:ARCed.Database.DatabaseWindow.RpgType">
+            <summary>
+            Gets the game object type the window is associated with.
+            </summary>
+        </member>
+        <member name="P:ARCed.Database.DatabaseWindow.RpgTypeName">
+            <summary>
+            Gets or sets the name of the window's associated game object type. 
+            </summary>
+            <remarks>Once set, changing this value has no effect.</remarks>
+        </member>
+        <member name="M:ARCed.Database.Weapons.WeaponMainForm.#ctor">
+            <summary>
+            Default constructor
+            </summary>
+        </member>
+        <member name="M:ARCed.Database.Weapons.WeaponMainForm.NotifyRefresh(ARCed.Database.RefreshType)">
+            <summary>
+            Refreshes objects by type flag
+            </summary>
+            <param name="type">Flag for type of object to refresh</param>
+        </member>
+        <member name="F:ARCed.Database.Weapons.WeaponMainForm.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:ARCed.Database.Weapons.WeaponMainForm.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:ARCed.Database.Weapons.WeaponMainForm.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="F:ARCed.Database.Troops.BattleTestDialog.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:ARCed.Database.Troops.BattleTestDialog.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:ARCed.Database.Troops.BattleTestDialog.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="M:ARCed.Database.Tilesets.TilesetsMainForm.#ctor">
+            <summary>
+            Default constructor
+            </summary>
+        </member>
+        <member name="M:ARCed.Database.Tilesets.TilesetsMainForm.NotifyRefresh(ARCed.Database.RefreshType)">
+            <summary>
+            Refreshes objects by type flag
+            </summary>
+            <param name="type">Flag for type of object to refresh</param>
+        </member>
+        <member name="F:ARCed.Database.Tilesets.TilesetsMainForm.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:ARCed.Database.Tilesets.TilesetsMainForm.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:ARCed.Database.Tilesets.TilesetsMainForm.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="P:ARCed.Database.Tilesets.TilesetsMainForm.DataObjectList">
+            <summary>
+            Gets the object list control of this database panel.
+            </summary>
+        </member>
+        <member name="P:ARCed.Database.Tilesets.TilesetsMainForm.Data">
+            <summary>
+            Gets the data associated with this panel.
+            </summary>
+        </member>
+        <member name="F:ARCed.Database.Actors.ExperienceCurveForm.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:ARCed.Database.Actors.ExperienceCurveForm.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:ARCed.Database.Actors.ExperienceCurveForm.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:ARCed.Controls.EquipSlot">
+            <summary>
+            Control for displaying and setting equipment on an actor.
+            </summary>
+        </member>
+        <member name="F:ARCed.Controls.EquipSlot.components">
+            <summary> 
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:ARCed.Controls.EquipSlot.Dispose(System.Boolean)">
+            <summary> 
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:ARCed.Controls.EquipSlot.InitializeComponent">
+            <summary> 
+            Required method for Designer support - do not modify 
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="M:ARCed.Controls.EquipSlot.#ctor">
+            <summary>
+            Default constructor
+            </summary>
+        </member>
+        <member name="M:ARCed.Controls.EquipSlot.RefreshItems(System.Collections.Generic.List{System.Object})">
+            <summary>
+            Refreshes the list of items/equipment in the combo box control
+            </summary>
+            <param name="ids"></param>
+        </member>
+        <member name="M:ARCed.Controls.EquipSlot.GetItemId">
+            <summary>
+            Returns the ID of the selected piece of equipment.
+            </summary>
+            <returns>ID of the selected equipment</returns>
+        </member>
+        <member name="M:ARCed.Controls.EquipSlot.SetItemId(System.Int32)">
+            <summary>
+            Sets the equipment that has the given ID as the current item.
+            </summary>
+            <param name="id">ID of the equipement to set.</param>
+        </member>
+        <member name="M:ARCed.Controls.EquipSlot.BeginUpdate">
+            <summary>
+            Maintains performance while items are added to the control's 
+            ComboBox one at a time by preventing painting until EndUpdate() is called.
+            </summary>
+        </member>
+        <member name="M:ARCed.Controls.EquipSlot.EndUpdate">
+            <summary>
+            Resumes painting of the control's ComboBox after painting is suspended from calling BeginUpdate().
+            </summary>
+        </member>
+        <member name="E:ARCed.Controls.EquipSlot.OnEquipmentChange">
+            <summary>
+            Event fired when the equipment is changed in the combo box.
+            </summary>
+        </member>
+        <member name="E:ARCed.Controls.EquipSlot.OnEquipFixChange">
+            <summary>
+            Event fired when the fixed status is changed with the checkbox control.
+            </summary>
+        </member>
+        <member name="P:ARCed.Controls.EquipSlot.EquipKind">
+            <summary>
+            Gets or sets the type of items that the equipment slot contains
+            </summary>
+        </member>
+        <member name="P:ARCed.Controls.EquipSlot.Items">
+            <summary>
+            Gets a collection of the items in the combo control
+            </summary>
+        </member>
+        <member name="P:ARCed.Controls.EquipSlot.Label">
+            <summary>
+            Gets or sets the label of the equipment type. 
+            </summary>
+        </member>
+        <member name="P:ARCed.Controls.EquipSlot.Fixed">
+            <summary>
+            Gets or sets the fixed status of the equipment slot.
+            </summary>
+        </member>
+        <member name="P:ARCed.Controls.EquipSlot.RpgIdAttribute">
+            <summary>
+            Name of the RPG object property the equipment ID value represents.
+            </summary>
+        </member>
+        <member name="P:ARCed.Controls.EquipSlot.RpgFixedAttribute">
+            <summary>
+            Name of the RPG object property the fixed value represents.
+            </summary>
+        </member>
+        <member name="P:ARCed.Controls.EquipSlot.SelectedIndex">
+            <summary>
+            Gets or sets the selected index of the equipment combobox
+            </summary>
+        </member>
+        <member name="F:ARCed.Controls.BattleTestActorPanel.components">
+            <summary> 
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:ARCed.Controls.BattleTestActorPanel.Dispose(System.Boolean)">
+            <summary> 
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:ARCed.Controls.BattleTestActorPanel.InitializeComponent">
+            <summary> 
+            Required method for Designer support - do not modify 
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="F:ARCed.Database.Actors.ChartSettingsForm.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:ARCed.Database.Actors.ChartSettingsForm.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:ARCed.Database.Actors.ChartSettingsForm.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="F:ARCed.Database.Enemies.EditActionDialog.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:ARCed.Database.Enemies.EditActionDialog.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:ARCed.Database.Enemies.EditActionDialog.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:ARCed.Controls.ParameterMiniChart">
+            <summary>
+            Control for displaying actor parameters in a chart.
+            </summary>
+        </member>
+        <member name="M:ARCed.Controls.ParameterMiniChart.#ctor">
+            <summary>
+            Default constructor
+            </summary>
+        </member>
+        <member name="M:ARCed.Controls.ParameterMiniChart.RefreshChart">
+            <summary>
+            Forces the chart to refresh current parameters
+            </summary>
+        </member>
+        <member name="M:ARCed.Controls.ParameterMiniChart.ChangeActor(RPG.Actor)">
+            <summary>
+            Changes the actor the chart is displaying information of.
+            </summary>
+            <param name="actor"></param>
+        </member>
+        <member name="F:ARCed.Controls.ParameterMiniChart.components">
+            <summary> 
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:ARCed.Controls.ParameterMiniChart.Dispose(System.Boolean)">
+            <summary> 
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:ARCed.Controls.ParameterMiniChart.InitializeComponent">
+            <summary> 
+            Required method for Designer support - do not modify 
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="P:ARCed.Controls.ParameterMiniChart.Chart">
+            <summary>
+            Gets the chart of the control
+            </summary>
+        </member>
+        <member name="P:ARCed.Controls.ParameterMiniChart.ChartColor">
+            <summary>
+            Gets or sets the color of the chart on the control
+            </summary>
+        </member>
+        <member name="P:ARCed.Controls.ParameterMiniChart.ParameterIndex">
+            <summary>
+            Gets or sets the index of the associated parameter
+            </summary>
+        </member>
+        <member name="P:ARCed.Controls.ParameterMiniChart.ParameterLabel">
+            <summary>
+            Gets or sets the label of the control
+            </summary>
+        </member>
+        <member name="T:ARCed.Scripting.ScriptEditorForm">
+            <summary>
+            Form used for editing game scripts. Uses a customizable Ruby lexer for syntax highlighting.
+            </summary>
+        </member>
+        <member name="F:ARCed.Scripting.ScriptEditorForm.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:ARCed.Scripting.ScriptEditorForm.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:ARCed.Scripting.ScriptEditorForm.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="M:ARCed.Scripting.ScriptEditorForm.#ctor">
+            <summary>
+            Default constructor
+            </summary>
+        </member>
+        <member name="M:ARCed.Scripting.ScriptEditorForm.#ctor(ARCed.Scripting.Script)">
+            <summary>
+            Constructs and opens a script
+            </summary>
+            <param name="script">The script to open</param>
+        </member>
+        <member name="M:ARCed.Scripting.ScriptEditorForm.RegisterScript">
+            <summary>
+            Adds the form to the main editor's script editor list
+            </summary>
+        </member>
+        <member name="M:ARCed.Scripting.ScriptEditorForm.DeRegisterScript">
+            <summary>
+            Removes the window from the main editor's list of open script editors
+            </summary>
+        </member>
+        <member name="M:ARCed.Scripting.ScriptEditorForm.ChangeScript(ARCed.Scripting.Script)">
+            <summary>
+            Changes the form's associated <see cref="T:ARCed.Scripting.Script"/> object
+            </summary>
+            <param name="script"></param>
+        </member>
+        <member name="M:ARCed.Scripting.ScriptEditorForm.UpdateSettings">
+            <summary>
+            Updates the script settings to reflect current settings
+            </summary>
+        </member>
+        <member name="M:ARCed.Scripting.ScriptEditorForm.SetStyle(ARCed.Scripting.ScriptStyle[])">
+            <summary>
+            Sets the styles used for the script editor
+            </summary>
+            <param name="styles">An array of script styles</param>
+        </member>
+        <member name="M:ARCed.Scripting.ScriptEditorForm.SetStyle">
+            <summary>
+            Sets the styles used for the script editor to match the currently defined
+            </summary>
+        </member>
+        <member name="M:ARCed.Scripting.ScriptEditorForm.StructureScript">
+            <summary>
+            Normalizes indentation of the script according to standard Ruby conventions
+            </summary>
+            <returns>Return true if changes have been applied</returns>
+        </member>
+        <member name="M:ARCed.Scripting.ScriptEditorForm.RemoveEmptyLines">
+            <summary>
+            Make the script shorter by deleting all unneeded lines
+            </summary>
+            <returns>Return true if changes have been applied</returns>
+        </member>
+        <member name="M:ARCed.Scripting.ScriptEditorForm.UnfoldAllLines">
+            <summary>
+            Expands all code folding
+            </summary>
+        </member>
+        <member name="M:ARCed.Scripting.ScriptEditorForm.GetLineIndent(ARCed.Scintilla.Line)">
+            <summary>
+            Return the required indent for this line or -1 if the line is a multiline comment or string
+            </summary>
+        </member>
+        <member name="M:ARCed.Scripting.ScriptEditorForm.Scintilla_KeyDown(System.Object,System.Windows.Forms.KeyEventArgs)">
+            <summary>
+            Checks key input for the hotkeys
+            </summary>
+        </member>
+        <member name="M:ARCed.Scripting.ScriptEditorForm.Scintilla_CharAdded(System.Object,ARCed.Scintilla.CharAddedEventArgs)">
+            <summary>
+            Registers characters added to the control for controlling auto-indentation and autocomplete 
+            </summary>
+        </member>
+        <member name="M:ARCed.Scripting.ScriptEditorForm.Scintilla_TextChanged(System.Object,System.EventArgs)">
+            <summary>
+            Ensures the margin is sized correctly to allow display of the line numbers
+            </summary>
+        </member>
+        <member name="M:ARCed.Scripting.ScriptEditorForm.Scintilla_NativeInterface_UpdateUI(System.Object,ARCed.Scintilla.NativeScintillaEventArgs)">
+            <summary>
+            Check if cursor is on a brace or not, highlighting if necessary
+            </summary>
+        </member>
+        <member name="P:ARCed.Scripting.ScriptEditorForm.Title">
+            <summary>
+            Gets or sets title of the script and window title
+            </summary>
+        </member>
+        <member name="P:ARCed.Scripting.ScriptEditorForm.ScintillaControl">
+            <summary>
+            Gets the Scintilla object from the window
+            </summary>
+        </member>
+        <member name="P:ARCed.Scripting.ScriptEditorForm.ScriptText">
+            <summary>
+            Gets the text from the scintilla control
+            </summary>
+        </member>
+        <member name="P:ARCed.Scripting.ScriptEditorForm.NeedSave">
+            <summary>
+            Gets or sets the flag for showing the script has been updated and requires saving
+            </summary>
+        </member>
+        <member name="P:ARCed.Scripting.ScriptEditorForm.NeedApplyChanges">
+            <summary>
+            Gets the flag if changes need applied to the script text
+            </summary>
+        </member>
+        <member name="P:ARCed.Scripting.ScriptEditorForm.Script">
+            <summary>
+            Gets or sets the window's associated <see cref="T:ARCed.Scripting.Script"/> object
+            </summary>
+        </member>
+        <member name="F:ARCed.Scripting.ScriptStyleForm.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:ARCed.Scripting.ScriptStyleForm.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:ARCed.Scripting.ScriptStyleForm.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="F:ARCed.Scripting.ScriptMenuForm.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:ARCed.Scripting.ScriptMenuForm.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:ARCed.Scripting.ScriptMenuForm.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="M:ARCed.Scripting.ScriptMenuForm.#ctor">
+            <summary>
+            Default constructor
+            </summary>
+        </member>
+        <member name="P:ARCed.Scripting.ScriptMenuForm.ScriptsDirectory">
+            <summary>
+            Gets or sets the directory where the project's scripts are found
+            </summary>
+        </member>
+        <member name="F:ARCed.Dialogs.UserStringForm.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:ARCed.Dialogs.UserStringForm.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:ARCed.Dialogs.UserStringForm.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="M:ARCed.Dialogs.UserStringForm.#ctor(System.String,System.String,System.String,System.Boolean)">
+            <summary>
+            Creates a new instance of the form
+            </summary>
+            <param name="title">The title of the form in the header</param>
+            <param name="defaultText">Default text for the textbox field</param>
+            <param name="label">The text for the textbox label</param>
+            <param name="validate">Flag to validate text for filenames</param>
+        </member>
+        <member name="P:ARCed.Dialogs.UserStringForm.UserString">
+            <summary>
+            Gets or sets the text in the textbox field
+            </summary>
+        </member>
+        <member name="P:ARCed.Dialogs.UserStringForm.Label">
+            <summary>
+            Gets or sets the label for the textbox
+            </summary>
+        </member>
+        <member name="T:ARCed.Dialogs.LocalizationDialog">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="F:ARCed.Dialogs.LocalizationDialog.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:ARCed.Dialogs.LocalizationDialog.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:ARCed.Dialogs.LocalizationDialog.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="M:ARCed.Dialogs.LocalizationDialog.#ctor">
+            <summary>
+            Dialog for specifying ARCed.NET localization.
+            </summary>
+        </member>
+        <member name="P:ARCed.Dialogs.LocalizationDialog.LanguageIndex">
+            <summary>
+            Gets or sets the index of the selected language;
+            </summary>
+        </member>
+        <member name="T:ARCed.Dialogs.ImageSelectionForm">
+            <summary>
+            Dialog for getting a user-selected game graphic
+            </summary>
+        </member>
+        <member name="F:ARCed.Dialogs.ImageSelectionForm.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:ARCed.Dialogs.ImageSelectionForm.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:ARCed.Dialogs.ImageSelectionForm.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="M:ARCed.Dialogs.ImageSelectionForm.#ctor(System.String,System.String)">
+            <summary>
+            Constructor that sets the folder and selected _srcTexture
+            </summary>
+            <param name="folder">Root folder searched for images</param>
+            <param name="filename">FullPath (without extension) of the _srcTexture that is found in the current folder</param>
+        </member>
+        <member name="M:ARCed.Dialogs.ImageSelectionForm.#ctor">
+            <summary>
+            Default constructor
+            </summary>
+        </member>
+        <member name="P:ARCed.Dialogs.ImageSelectionForm.SelectedImage">
+            <summary>
+            Gets the image under the selection rectangle
+            </summary>
+        </member>
+        <member name="P:ARCed.Dialogs.ImageSelectionForm.Hue">
+            <summary>
+            Gets or sets the hue rotation applied to the image
+            </summary>
+        </member>
+        <member name="P:ARCed.Dialogs.ImageSelectionForm.ImageFolder">
+            <summary>
+            Gets or sets the root folder searched for images
+            </summary>
+        </member>
+        <member name="P:ARCed.Dialogs.ImageSelectionForm.ImageName">
+            <summary>
+            Gets or sets the filename (without extension) of the image that is found in the current folder
+            </summary>
+        </member>
+        <member name="P:ARCed.Dialogs.ImageSelectionForm.SelectionEnabled">
+            <summary>
+            Gets or sets the ability to select individual tiles of the _srcTexture
+            </summary>
+        </member>
+        <member name="P:ARCed.Dialogs.ImageSelectionForm.HueEnabled">
+            <summary>
+            Gets or sets the visibility of the trackbar for changing image hue.
+            </summary>
+        </member>
+        <member name="P:ARCed.Dialogs.ImageSelectionForm.OptionsEnabled">
+            <summary>
+            Gets or sets the visibility of the panel for changing options.
+            </summary>
+        </member>
+        <member name="P:ARCed.Dialogs.ImageSelectionForm.AdvancedOptionEnabled">
+            <summary>
+            Gets or sets the enabled status of the scroll options.
+            </summary>
+        </member>
+        <member name="F:ARCed.Dialogs.HeaderSettingsDialog.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:ARCed.Dialogs.HeaderSettingsDialog.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:ARCed.Dialogs.HeaderSettingsDialog.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="M:ARCed.Dialogs.HeaderSettingsDialog.#ctor">
+            <summary>
+            Default constructor
+            </summary>
+        </member>
+        <member name="F:ARCed.Database.MapEditor.MapEditorMainForm.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:ARCed.Database.MapEditor.MapEditorMainForm.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:ARCed.Database.MapEditor.MapEditorMainForm.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:ARCed.Database.Enemies.TreasureSelectDialog">
+            <summary>
+            Dialog for selecting possible treasure to be obtained after defeating enemies.
+            </summary>
+        </member>
+        <member name="M:ARCed.Database.Enemies.TreasureSelectDialog.#ctor">
+            <summary>
+            Default constructor
+            </summary>
+        </member>
+        <member name="M:ARCed.Database.Enemies.TreasureSelectDialog.SetTreasure(System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Sets the values of the control based on current settings
+            </summary>
+            <param name="prob">Probablity of obtaining treasure</param>
+            <param name="itemId">ID of item to be obtained</param>
+            <param name="weaponId">ID of weapon to be obtained</param>
+            <param name="armorId">ID of armor to be obtained</param>
+        </member>
+        <member name="F:ARCed.Database.Enemies.TreasureSelectDialog.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:ARCed.Database.Enemies.TreasureSelectDialog.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:ARCed.Database.Enemies.TreasureSelectDialog.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="P:ARCed.Database.Enemies.TreasureSelectDialog.ItemId">
+            <summary>
+            Gets the item ID defined in the dialog
+            </summary>
+        </member>
+        <member name="P:ARCed.Database.Enemies.TreasureSelectDialog.WeaponId">
+            <summary>
+            Gets the weapon ID defined in the dialog
+            </summary>
+        </member>
+        <member name="P:ARCed.Database.Enemies.TreasureSelectDialog.ArmorId">
+            <summary>
+            Gets the armor ID defined in the dialog
+            </summary>
+        </member>
+        <member name="P:ARCed.Database.Enemies.TreasureSelectDialog.TreasureProbablity">
+            <summary>
+            Gets the probablity defined in the dialog
+            </summary>
+        </member>
+        <member name="M:ARCed.Database.Classes.EditSkillDialog.#ctor">
+            <summary>
+            Default constructor
+            </summary>
+        </member>
+        <member name="F:ARCed.Database.Classes.EditSkillDialog.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:ARCed.Database.Classes.EditSkillDialog.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:ARCed.Database.Classes.EditSkillDialog.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="P:ARCed.Database.Classes.EditSkillDialog.Learning">
+            <summary>
+            Gets or sets the current RPG.Learning defined on the form
+            </summary>
+        </member>
+        <member name="F:ARCed.Database.Armors.ArmorMainForm.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:ARCed.Database.Armors.ArmorMainForm.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:ARCed.Database.Armors.ArmorMainForm.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="M:ARCed.Database.Armors.ArmorMainForm.#ctor">
+            <summary>
+            Default constructor
+            </summary>
+        </member>
+        <member name="M:ARCed.Database.Armors.ArmorMainForm.NotifyRefresh(ARCed.Database.RefreshType)">
+            <summary>
+            Refreshes objects by type flag
+            </summary>
+            <param name="type">Flag for type of object to refresh</param>
+        </member>
+        <member name="P:ARCed.Database.Armors.ArmorMainForm.DataObjectList">
+            <summary>
+            Gets the object list control of this database panel.
+            </summary>
+        </member>
+        <member name="P:ARCed.Database.Armors.ArmorMainForm.Data">
+            <summary>
+            Gets the data associated with this panel.
+            </summary>
+        </member>
+        <member name="T:ARCed.Forms.Splash.TypeOfMessage">
+            <summary>
+            Defined types of messages: Success/Warning/Error.
+            </summary>
+        </member>
+        <member name="T:ARCed.Forms.Splash.SplashScreen">
+            <summary>
+            Initiate instance of SplashScreen
+            </summary>
+        </member>
+        <member name="M:ARCed.Forms.Splash.SplashScreen.ShowSplashScreen">
+            <summary>
+            Displays the splashscreen
+            </summary>
+        </member>
+        <member name="M:ARCed.Forms.Splash.SplashScreen.CloseSplashScreen">
+            <summary>
+            Closes the SplashScreen
+            </summary>
+        </member>
+        <member name="M:ARCed.Forms.Splash.SplashScreen.UdpateStatusText(System.String)">
+            <summary>
+            Update text in default green color of success message
+            </summary>
+            <param name="Text">Message</param>
+        </member>
+        <member name="M:ARCed.Forms.Splash.SplashScreen.UdpateStatusTextWithStatus(System.String,ARCed.Forms.Splash.TypeOfMessage)">
+            <summary>
+            Update text with message color defined as green/yellow/red/ for success/warning/failure
+            </summary>
+            <param name="Text">Message</param>
+            <param name="tom">Type of Message</param>
+        </member>
+        <member name="T:ARCed.Scripting.ScriptStyle">
+            <summary>
+            Represents a lexer style used by the script editor
+            </summary>
+        </member>
+        <member name="M:ARCed.Scripting.ScriptStyle.#ctor">
+            <summary>
+            Default constructor
+            </summary>
+        </member>
+        <member name="M:ARCed.Scripting.ScriptStyle.#ctor(System.String,System.Drawing.Color,System.Drawing.Color,System.Drawing.Font)">
+            <summary>
+            Constructor with parameters
+            </summary>
+            <param name="name">The name of the style</param>
+            <param name="fore">The foreground color of the style</param>
+            <param name="back">The background color of the style</param>
+            <param name="font">The font used for the style</param>
+        </member>
+        <member name="P:ARCed.Scripting.ScriptStyle.ForeColor">
+            <summary>
+            Gets or sets the foreground color of the style
+            </summary>
+        </member>
+        <member name="P:ARCed.Scripting.ScriptStyle.ForeColorHtml">
+            <summary>
+            Gets or sets the foreground color using an Html formatted color string
+            </summary>
+        </member>
+        <member name="P:ARCed.Scripting.ScriptStyle.BackColor">
+            <summary>
+            Gets or sets the background color of the style
+            </summary>
+        </member>
+        <member name="P:ARCed.Scripting.ScriptStyle.BackColorHtml">
+            <summary>
+            Gets or sets the background color using an Html formatted color string
+            </summary>
+        </member>
+        <member name="P:ARCed.Scripting.ScriptStyle.Font">
+            <summary>
+            Gets or sets the font used for the style
+            </summary> 
+        </member>
+        <member name="P:ARCed.Scripting.ScriptStyle.Name">
+            <summary>
+            Gets or sets the name of the style
+            </summary>
+        </member>
+        <member name="M:ARCed.Scripting.AutoCompleteForm.#ctor">
+            <summary>
+            Default constructor
+            </summary>
+        </member>
+        <member name="F:ARCed.Scripting.AutoCompleteForm.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:ARCed.Scripting.AutoCompleteForm.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:ARCed.Scripting.AutoCompleteForm.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="F:ARCed.Dialogs.CaptureForm.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:ARCed.Dialogs.CaptureForm.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:ARCed.Dialogs.CaptureForm.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="M:ARCed.Dialogs.CaptureForm.#ctor">
+            <summary>
+            Default constructor
+            </summary>
+        </member>
+        <member name="P:ARCed.Dialogs.CaptureForm.CaptureColor">
+            <summary>
+            Gets the color under the mouse where the user clicked
+            </summary>
+        </member>
+        <member name="F:ARCed.Database.Sys.SystemMainForm.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:ARCed.Database.Sys.SystemMainForm.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:ARCed.Database.Sys.SystemMainForm.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="M:ARCed.Database.Sys.SystemMainForm.NotifyRefresh(ARCed.Database.RefreshType)">
+            <summary>
+            Refreshes objects by type flag
+            </summary>
+            <param name="type">Flag for type of object to refresh</param>
+        </member>
+        <member name="P:ARCed.Database.Sys.SystemMainForm.DataObjectList">
+            <summary>
+            Gets the object list control of this database panel.
+            </summary>
+        </member>
+        <member name="P:ARCed.Database.Sys.SystemMainForm.Data">
+            <summary>
+            Gets the data associated with this panel.
+            </summary>
+        </member>
+        <member name="T:ARCed.Database.RefreshType">
+            <summary>
+            Flags to specifiy what data structures need refreshed.
+            </summary>
+        </member>
+        <member name="F:ARCed.Database.RefreshType.Actors">
+            <summary>
+            Actor data needs refreshed flag.
+            </summary>
+        </member>
+        <member name="F:ARCed.Database.RefreshType.Classes">
+            <summary>
+            Class data needs refreshed flag.
+            </summary>
+        </member>
+        <member name="F:ARCed.Database.RefreshType.Skills">
+            <summary>
+            Skill data needs refreshed flag.
+            </summary>
+        </member>
+        <member name="F:ARCed.Database.RefreshType.Items">
+            <summary>
+            Item data needs refreshed flag.
+            </summary>
+        </member>
+        <member name="F:ARCed.Database.RefreshType.Weapons">
+            <summary>
+            Weapon data needs refreshed flag.
+            </summary>
+        </member>
+        <member name="F:ARCed.Database.RefreshType.Armors">
+            <summary>
+            Armor data needs refreshed flag.
+            </summary>
+        </member>
+        <member name="F:ARCed.Database.RefreshType.Enemies">
+            <summary>
+            Enemy data needs refreshed flag.
+            </summary>
+        </member>
+        <member name="F:ARCed.Database.RefreshType.Troops">
+            <summary>
+            Troop data needs refreshed flag.
+            </summary>
+        </member>
+        <member name="F:ARCed.Database.RefreshType.States">
+            <summary>
+            State data needs refreshed flag.
+            </summary>
+        </member>
+        <member name="F:ARCed.Database.RefreshType.Animations">
+            <summary>
+            Animation data needs refreshed flag.
+            </summary>
+        </member>
+        <member name="F:ARCed.Database.RefreshType.Tilesets">
+            <summary>
+            Tileset data needs refreshed flag.
+            </summary>
+        </member>
+        <member name="F:ARCed.Database.RefreshType.CommonEvents">
+            <summary>
+            COmmon event data needs refreshed flag.
+            </summary>
+        </member>
+        <member name="F:ARCed.Database.RefreshType.System">
+            <summary>
+            System data needs refreshed flag.
+            </summary>
+        </member>
+        <member name="F:ARCed.Database.RefreshType.Switches">
+            <summary>
+            Switch data needs refreshed flag.
+            </summary>
+        </member>
+        <member name="F:ARCed.Database.RefreshType.Variables">
+            <summary>
+            Variable data needs refreshed flag.
+            </summary>
+        </member>
+        <member name="F:ARCed.Database.RefreshType.Parameters">
+            <summary>
+            Parameter data needs refreshed flag.
+            </summary>
+        </member>
+        <member name="F:ARCed.Database.RefreshType.EquipKinds">
+            <summary>
+            Equip kind data needs refreshed flag.
+            </summary>
+        </member>
+        <member name="F:ARCed.Database.RefreshType.Elements">
+            <summary>
+            Element data needs refreshed flag.
+            </summary>
+        </member>
+        <member name="F:ARCed.Database.RefreshType.Scopes">
+            <summary>
+            Scope data needs refreshed flag.
+            </summary>
+        </member>
+        <member name="F:ARCed.Database.RefreshType.Occasions">
+            <summary>
+            Occasion data needs refreshed flag.
+            </summary>
+        </member>
+        <member name="T:ARCed.Controls.DatabaseObjectListBox">
+            <summary>
+            Control that handles selecting and changing quantity of a collection of game objects.
+            </summary>
+        </member>
+        <member name="M:ARCed.Controls.DatabaseObjectListBox.#ctor">
+            <summary>
+            Default constructor
+            </summary>
+        </member>
+        <member name="M:ARCed.Controls.DatabaseObjectListBox.GetItemRectangle(System.Int32)">
+            <summary>
+            Returns the bounding rectangle for an item in the control's listbox
+            </summary>
+            <param name="index">Index of the item in the listbox to get the rectangle for</param>
+            <returns>Rectangle of the item</returns>
+        </member>
+        <member name="M:ARCed.Controls.DatabaseObjectListBox.PopulateList(System.Collections.Generic.List{System.Object})">
+            <summary>
+            Clears and populates the listbox on the control with the given collection of objects
+            </summary>
+            <param name="objectList">Collection of items</param>
+        </member>
+        <member name="M:ARCed.Controls.DatabaseObjectListBox.BeginUpdate">
+            <summary>
+            Maintains performance while items are added to the control's 
+            listbox one at a time by preventing painting until EndUpdate() is called.
+            </summary>
+        </member>
+        <member name="M:ARCed.Controls.DatabaseObjectListBox.EndUpdate">
+            <summary>
+            Resumes painting of the control's listbox after painting 
+            is suspended from calling BeginUpdate().
+            </summary>
+        </member>
+        <member name="M:ARCed.Controls.DatabaseObjectListBox.RefreshHeader">
+            <summary>
+            Forces a repainting of the header. Called after settings have changed.
+            </summary>
+        </member>
+        <member name="F:ARCed.Controls.DatabaseObjectListBox.components">
+            <summary> 
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:ARCed.Controls.DatabaseObjectListBox.Dispose(System.Boolean)">
+            <summary> 
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:ARCed.Controls.DatabaseObjectListBox.InitializeComponent">
+            <summary> 
+            Required method for Designer support - do not modify 
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="E:ARCed.Controls.DatabaseObjectListBox.OnButtonMaxClick">
+            <summary>
+            Event raised when "Change Maximum" button is clicked
+            </summary>
+        </member>
+        <member name="E:ARCed.Controls.DatabaseObjectListBox.OnListBoxIndexChanged">
+            <summary>
+            Event raised when the index of the control's listbox is changed
+            </summary>
+        </member>
+        <member name="P:ARCed.Controls.DatabaseObjectListBox.HeaderText">
+            <summary>
+            Gets or sets the text drawn in the header
+            </summary>
+        </member>
+        <member name="P:ARCed.Controls.DatabaseObjectListBox.SelectedIndex">
+            <summary>
+            Gets or sets the selected index of the listbox on the control
+            </summary>
+        </member>
+        <member name="P:ARCed.Controls.DatabaseObjectListBox.ButtonMaximum">
+            <summary>
+            Gets the "Change Max" button on the control
+            </summary>
+        </member>
+        <member name="P:ARCed.Controls.DatabaseObjectListBox.ListBox">
+            <summary>
+            Gets the listbox on the control
+            </summary>
+        </member>
+        <member name="P:ARCed.Controls.DatabaseObjectListBox.PictureBox">
+            <summary>
+            Gets the picture box on the control
+            </summary>
+        </member>
+        <member name="P:ARCed.Controls.DatabaseObjectListBox.Items">
+            <summary>
+            Gets the items in the listbox on the control
+            </summary>
+        </member>
+        <member name="M:ARCed.Program.Main(System.String[])">
+            <summary>
+            The main entry point for the application.
+            </summary>
+        </member>
+        <member name="M:ARCed.Database.Classes.ClassMainForm.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:ARCed.Database.Classes.ClassMainForm.NotifyRefresh(ARCed.Database.RefreshType)">
+            <summary>
+            Refreshes objects by type flag
+            </summary>
+            <param name="type">Flag for type of object to refresh</param>
+        </member>
+        <member name="F:ARCed.Database.Classes.ClassMainForm.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:ARCed.Database.Classes.ClassMainForm.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:ARCed.Database.Classes.ClassMainForm.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="P:ARCed.Database.Classes.ClassMainForm.DataObjectList">
+            <summary>
+            Gets the object list control of this database panel.
+            </summary>
+        </member>
+        <member name="P:ARCed.Database.Classes.ClassMainForm.Data">
+            <summary>
+            Gets the data associated with this panel.
+            </summary>
+        </member>
+        <member name="T:ARCed.Database.Animations.AnimationTimingDialog">
+            <summary>
+            Dialog for creating/editing RPG.Animation.Timing objects.
+            </summary>
+        </member>
+        <member name="M:ARCed.Database.Animations.AnimationTimingDialog.#ctor">
+            <summary>
+            Default constructor
+            </summary>
+        </member>
+        <member name="F:ARCed.Database.Animations.AnimationTimingDialog.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:ARCed.Database.Animations.AnimationTimingDialog.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:ARCed.Database.Animations.AnimationTimingDialog.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="P:ARCed.Database.Animations.AnimationTimingDialog.Timing">
+            <summary>
+            Gets or sets the RPG.Animation.Timing object associated with the dialog.
+            </summary>
+        </member>
+        <member name="T:ARCed.Dialogs.NoteForm">
+            <summary>
+            Basic form to display a full editor for database notes.
+            </summary>
+        </member>
+        <member name="F:ARCed.Dialogs.NoteForm.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:ARCed.Dialogs.NoteForm.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:ARCed.Dialogs.NoteForm.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="M:ARCed.Dialogs.NoteForm.#ctor">
+            <summary>
+            Default constructor
+            </summary>
+        </member>
+        <member name="P:ARCed.Dialogs.NoteForm.NoteText">
+            <summary>
+            Gets or sets the text of the textbox control on the form
+            </summary>
+        </member>
+        <member name="T:ARCed.Database.SwitchForm">
+            <summary>
+            Form fo displaying and editing in game switches and variables.
+            </summary>
+        </member>
+        <member name="F:ARCed.Database.SwitchForm.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:ARCed.Database.SwitchForm.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:ARCed.Database.SwitchForm.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="M:ARCed.Database.SwitchForm.#ctor">
+            <summary>
+            Default constructor
+            </summary>
+        </member>
+        <member name="M:ARCed.Database.SwitchForm.#ctor(ARCed.Database.SwitchType)">
+            <summary>
+            Construct the form, specifying the type
+            </summary>
+            <param name="switchType">Type of data to edit</param>
+        </member>
+        <member name="M:ARCed.Database.SwitchForm.RefreshCurrentObject">
+            <summary>
+            Refreshes the current selected object
+            </summary>
+        </member>
+        <member name="P:ARCed.Database.SwitchForm.DataObjectList">
+            <summary>
+            Gets the object list control of this database panel.
+            </summary>
+        </member>
+        <member name="P:ARCed.Database.SwitchForm.FormType">
+            <summary>
+            Gets the type of the form when it was initialized 
+            </summary>
+        </member>
+        <member name="P:ARCed.Database.SwitchForm.SelectedId">
+            <summary>
+            Gets or sets the ID of the selected item
+            </summary>
+        </member>
+        <member name="P:ARCed.Database.SwitchForm.SelectedSwitch">
+            <summary>
+            Gets the selected switch
+            </summary>
+        </member>
+        <member name="P:ARCed.Database.SwitchForm.Data">
+            <summary>
+            Gets the data associated with the control
+            </summary>
+        </member>
+        <member name="F:ARCed.Database.Skills.SkillMainForm.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:ARCed.Database.Skills.SkillMainForm.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:ARCed.Database.Skills.SkillMainForm.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="M:ARCed.Database.Skills.SkillMainForm.#ctor">
+            <summary>
+            Default constructor
+            </summary>
+        </member>
+        <member name="M:ARCed.Database.Skills.SkillMainForm.NotifyRefresh(ARCed.Database.RefreshType)">
+            <summary>
+            Refreshes objects by type flag
+            </summary>
+            <param name="type">Flag for type of object to refresh</param>
+        </member>
+        <member name="P:ARCed.Database.Skills.SkillMainForm.DataObjectList">
+            <summary>
+            Gets the object list control of this database panel.
+            </summary>
+        </member>
+        <member name="P:ARCed.Database.Skills.SkillMainForm.Data">
+            <summary>
+            Gets the data associated with this panel.
+            </summary>
+        </member>
+        <member name="F:ARCed.Database.Items.ItemMainForm.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:ARCed.Database.Items.ItemMainForm.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:ARCed.Database.Items.ItemMainForm.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="M:ARCed.Database.Items.ItemMainForm.#ctor">
+            <summary>
+            Default constructor
+            </summary>
+        </member>
+        <member name="M:ARCed.Database.Items.ItemMainForm.NotifyRefresh(ARCed.Database.RefreshType)">
+            <summary>
+            Refreshes objects by type flag
+            </summary>
+            <param name="type">Flag for type of object to refresh</param>
+        </member>
+        <member name="P:ARCed.Database.Items.ItemMainForm.DataObjectList">
+            <summary>
+            Gets the object list control of this database panel.
+            </summary>
+        </member>
+        <member name="P:ARCed.Database.Items.ItemMainForm.Data">
+            <summary>
+            Gets the data associated with this panel.
+            </summary>
+        </member>
+        <member name="T:ARCed.Database.Enemies.EnemyMainForm">
+            <summary>
+            Database window for editing RPG.Enemy data
+            </summary>
+        </member>
+        <member name="F:ARCed.Database.Enemies.EnemyMainForm.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:ARCed.Database.Enemies.EnemyMainForm.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:ARCed.Database.Enemies.EnemyMainForm.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="M:ARCed.Database.Enemies.EnemyMainForm.NotifyRefresh(ARCed.Database.RefreshType)">
+            <summary>
+            Refreshes objects by type flag
+            </summary>
+            <param name="type">Flag for type of object to refresh</param>
+        </member>
+        <member name="P:ARCed.Database.Enemies.EnemyMainForm.DataObjectList">
+            <summary>
+            Gets the object list control of this database panel.
+            </summary>
+        </member>
+        <member name="P:ARCed.Database.Enemies.EnemyMainForm.Data">
+            <summary>
+            Gets the data associated with this panel.
+            </summary>
+        </member>
+        <member name="F:ARCed.Controls.ParamBox.components">
+            <summary> 
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:ARCed.Controls.ParamBox.Dispose(System.Boolean)">
+            <summary> 
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:ARCed.Controls.ParamBox.InitializeComponent">
+            <summary> 
+            Required method for Designer support - do not modify 
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="M:ARCed.Controls.ParamBox.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="M:ARCed.Controls.ParamBox.#ctor(System.Int32,System.Decimal)">
+            <summary>
+            Constructor with arguments to set initial values;
+            </summary>
+            <param name="index">Parameter index of the control</param>
+            <param name="value">Value of the control</param>
+        </member>
+        <member name="P:ARCed.Controls.ParamBox.NumberBox">
+            <summary>
+            Gets the instance of the NumericUpDown on the control.
+            </summary>
+        </member>
+        <member name="P:ARCed.Controls.ParamBox.ParameterIndex">
+            <summary>
+            Gets or sets the index of the parameter the control represents.
+            </summary>
+        </member>
+        <member name="P:ARCed.Controls.ParamBox.ParameterLabel">
+            <summary>
+            Gets or sets the label of the control.
+            </summary>
+        </member>
+        <member name="P:ARCed.Controls.ParamBox.Maximum">
+            <summary>
+            Gets or sets the maximum value the user can select.
+            </summary>
+        </member>
+        <member name="P:ARCed.Controls.ParamBox.Minimum">
+            <summary>
+            Gets or sets the minimum value the user can select.
+            </summary>
+        </member>
+        <member name="P:ARCed.Controls.ParamBox.Value">
+            <summary>
+            Gets or sets the value of the control.
+            </summary>
+        </member>
+        <member name="P:ARCed.Controls.ParamBox.RpgAttribute">
+            <summary>
+            Gets or sets the attribute name for the corresponding RPG object property.
+            </summary>
+        </member>
+        <member name="E:ARCed.Controls.ParamBox.OnValueChanged">
+            <summary>
+            Event fired when the value of the control changes.
+            </summary>
+        </member>
+        <member name="T:ARCed.Controls.ParameterEventArgs">
+            <summary>
+            Arguments used for changing parameters
+            </summary>
+        </member>
+        <member name="M:ARCed.Controls.ParameterEventArgs.#ctor(System.Int32,System.Decimal)">
+            <summary>
+            Default constructor;
+            </summary>
+            <param name="index">Parameter index of the control.</param>
+            <param name="value">Value of the control</param>
+        </member>
+        <member name="P:ARCed.Controls.ParameterEventArgs.Index">
+            <summary>
+            The parameter index of the control.
+            </summary>
+        </member>
+        <member name="P:ARCed.Controls.ParameterEventArgs.Value">
+            <summary>
+            The value of the control
+            </summary>
+        </member>
+        <member name="T:ARCed.Scripting.ScriptSearchForm">
+            <summary>
+            Class for displaying search results found across multiple script files
+            </summary>
+        </member>
+        <member name="F:ARCed.Scripting.ScriptSearchForm.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:ARCed.Scripting.ScriptSearchForm.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:ARCed.Scripting.ScriptSearchForm.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="M:ARCed.Scripting.ScriptSearchForm.#ctor">
+            <summary>
+            Default constructor
+            </summary>
+        </member>
+        <member name="F:ARCed.Forms.CalculatorForm.RADIAN">
+            <summary>
+            PI / 180
+            </summary>
+        </member>
+        <member name="F:ARCed.Forms.CalculatorForm.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:ARCed.Forms.CalculatorForm.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:ARCed.Forms.CalculatorForm.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="M:ARCed.Forms.CalculatorForm.#ctor">
+            <summary>
+            Default constructor
+            </summary>
+        </member>
+        <member name="P:ARCed.Forms.CalculatorForm.InputValue">
+            <summary>
+            Gets the text from the calculator textbox and returns it as a double
+            </summary>
+        </member>
+        <member name="P:ARCed.Forms.CalculatorForm.Mode">
+            <summary>
+            Gets the current display mode of the calculator
+            </summary>
+        </member>
+        <member name="F:ARCed.Database.Actors.ParamGenerateCurveDialog.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:ARCed.Database.Actors.ParamGenerateCurveDialog.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:ARCed.Database.Actors.ParamGenerateCurveDialog.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:ARCed.Dialogs.FontSelectionDialog">
+            <summary>
+            Simple dialog for choosing a font resource
+            </summary>
+        </member>
+        <member name="F:ARCed.Dialogs.FontSelectionDialog.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:ARCed.Dialogs.FontSelectionDialog.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:ARCed.Dialogs.FontSelectionDialog.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="M:ARCed.Dialogs.FontSelectionDialog.#ctor">
+            <summary>
+            Default constructor
+            </summary>
+        </member>
+        <member name="P:ARCed.Dialogs.FontSelectionDialog.UserFont">
+            <summary>
+            Gets or sets the user-defined font of the control
+            </summary>
+        </member>
+        <member name="F:ARCed.Scripting.NewScriptForm.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:ARCed.Scripting.NewScriptForm.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:ARCed.Scripting.NewScriptForm.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="P:ARCed.Scripting.NewScriptForm.NewScript">
+            <summary>
+            Gets a new script object based on the configuration
+            </summary>
+        </member>
+        <member name="F:ARCed.Database.Actors.ActorMainForm.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:ARCed.Database.Actors.ActorMainForm.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:ARCed.Database.Actors.ActorMainForm.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="M:ARCed.Database.Actors.ActorMainForm.InitializeParameters">
+            <summary>
+            Initializes the tab pages and charts based of defined parameters
+            </summary>
+        </member>
+        <member name="M:ARCed.Database.Actors.ActorMainForm.NotifyRefresh(ARCed.Database.RefreshType)">
+            <summary>
+            Refreshes objects by type flag
+            </summary>
+            <param name="type">Flag for type of object to refresh</param>
+        </member>
+        <member name="P:ARCed.Database.Actors.ActorMainForm.DataObjectList">
+            <summary>
+            Gets the object list control of this database panel.
+            </summary>
+        </member>
+        <member name="P:ARCed.Database.Actors.ActorMainForm.Data">
+            <summary>
+            Gets the data associated with this panel.
+            </summary>
+        </member>
+        <member name="T:ARCed.Settings.EditorSettings">
+            <summary>
+            Represents all settings that are not project related. These settings are the
+            same globally for the editor under the current user no matter the current project.
+            </summary>
+        </member>
+        <member name="M:ARCed.Settings.EditorSettings.#ctor">
+            <summary>
+            Default constructor
+            </summary>
+        </member>
+        <member name="M:ARCed.Settings.EditorSettings.AddToRecent(System.String)">
+            <summary>
+            Adds a value to the "Recently Opened" list and trims the list to the max allowed items
+            </summary>
+            <param name="filename">The filename to add</param>
+        </member>
+        <member name="M:ARCed.Settings.EditorSettings.Save">
+            <summary>
+            Saves the settings files to disk in the AppData folder.
+            </summary>
+            <seealso cref="T:ARCed.Helpers.PathHelper"/>
+            <seealso cref="T:ARCed.Settings.ScriptSettings"/>
+            <seealso cref="T:ARCed.UI.DockPanelSkin"/>
+        </member>
+        <member name="M:ARCed.Settings.EditorSettings.Load">
+            <summary>
+            Initializes a new instance the ARCed.NET settings. User defined settings are
+            loaded so long as each file exists, else the default values will be used.
+            </summary>
+            <returns>The created settings</returns>
+            <seealso cref="T:ARCed.Helpers.PathHelper"/>
+            <seealso cref="T:ARCed.Settings.ScriptSettings"/>
+            <seealso cref="T:ARCed.UI.DockPanelSkin"/>
+        </member>
+        <member name="P:ARCed.Settings.EditorSettings.Location">
+            <summary>
+            Gets or sets the editor's window location on startup
+            </summary>
+        </member>
+        <member name="P:ARCed.Settings.EditorSettings.Size">
+            <summary>
+            Gets or sets the editor's window size on startup
+            </summary>
+        </member>
+        <member name="P:ARCed.Settings.EditorSettings.WindowState">
+            <summary>
+            Gets or sets the editor's window state on startup
+            </summary>
+        </member>
+        <member name="P:ARCed.Settings.EditorSettings.ShowSplash">
+            <summary>
+            Gets or sets the flag to display the splash screen on startup
+            </summary>
+        </member>
+        <member name="P:ARCed.Settings.EditorSettings.RecentlyOpened">
+            <summary>
+            Gets or sets a list of recently opened projects
+            </summary>
+        </member>
+        <member name="P:ARCed.Settings.EditorSettings.MaxRecent">
+            <summary>
+            Gets or sets the maximum number of recently opened projects to display
+            </summary>
+            <remarks>The maximum number of recently items is 16</remarks>
+        </member>
+        <member name="P:ARCed.Settings.EditorSettings.WindowSkin">
+            <summary>
+            Gets or sets the <see cref="T:ARCed.UI.DockPanelSkin"/> property. These 
+            settings are used for the styling of the editor windows
+            </summary>
+            <remarks>These settings are stored their own file.</remarks>
+        </member>
+        <member name="P:ARCed.Settings.EditorSettings.Scripting">
+            <summary>
+            Gets or sets the <see cref="T:ARCed.Settings.ScriptSettings"/> property. These 
+            settings are used for all the styling and behavior of the script editor.
+            </summary>
+            <remarks>These settings are stored their own file.</remarks>
+        </member>
+        <member name="P:ARCed.Settings.EditorSettings.Charting">
+            <summary>
+            Settings used for chart styling in the _actor database panel
+            </summary>
+        </member>
+        <member name="P:ARCed.Settings.EditorSettings.NoteFont">
+            <summary>
+            Gets or sets the font used for notepads
+            </summary>
+        </member>
+        <member name="P:ARCed.Settings.EditorSettings.SerializedNoteFont">
+            <summary>
+            Gets or sets the font used for notepads
+            </summary>
+        </member>
+        <member name="P:ARCed.Settings.EditorSettings.ImageColorSettings">
+            <summary>
+            Gets or sets the settings used for tileset editor.
+            </summary>
+        </member>
+        <member name="M:ARCed.Settings.ScriptSettings.#ctor">
+            <summary>
+            Default constructor
+            </summary>
+        </member>
+        <member name="P:ARCed.Settings.ScriptSettings.AutoComplete">
+            <summary>
+            Gets or sets the flag if autocomplete is used
+            </summary>
+        </member>
+        <member name="P:ARCed.Settings.ScriptSettings.AutoCompleteLength">
+            <summary>
+            Gets or sets the number of characters needed to begin autocomplete
+            </summary>
+        </member>
+        <member name="P:ARCed.Settings.ScriptSettings.AutoCompleteFlag">
+            <summary>
+            Gets or sets the auto-complete flag.
+            </summary>
+        </member>
+        <member name="P:ARCed.Settings.ScriptSettings.AutoCompleteWords">
+            <summary>
+            Gets or sets the list of autocomplete words
+            </summary>
+        </member>
+        <member name="P:ARCed.Settings.ScriptSettings.AutoIndent">
+            <summary>
+            Gets or sets the flag to use auto-indentation
+            </summary>
+        </member>
+        <member name="P:ARCed.Settings.ScriptSettings.GuideLines">
+            <summary>
+            Gets or sets the flag to use column guidelines
+            </summary>
+        </member>
+        <member name="P:ARCed.Settings.ScriptSettings.Caret">
+            <summary>
+            Gets or sets the flag to use the caret marker
+            </summary>
+        </member>
+        <member name="P:ARCed.Settings.ScriptSettings.CaretColor">
+            <summary>
+            Gets or sets the color used for the caret
+            </summary>
+        </member>
+        <member name="P:ARCed.Settings.ScriptSettings.CaretColorHtml">
+            <summary>
+            Gets or sets the caret color using an Html formatted color string
+            </summary>
+        </member>
+        <member name="P:ARCed.Settings.ScriptSettings.CodeFolding">
+            <summary>
+            Gets or sets the flag to use code folding
+            </summary>
+        </member>
+        <member name="P:ARCed.Settings.ScriptSettings.ScriptStyles">
+            <summary>
+            Gets or sets the array of script styles
+            </summary>
+        </member>
+        <member name="P:ARCed.Settings.ScriptSettings.FillUpCharacters">
+            <summary>
+            Gets or sets the string of characters that accept autocomplete when pressed
+            </summary>
+        </member>
+        <member name="P:ARCed.Settings.ScriptSettings.DefaultStyles">
+            <summary>
+            Gets the array of script styles created internally as the default
+            </summary>
+        </member>
+        <member name="F:ARCed.Forms.SkinSettingsForm.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:ARCed.Forms.SkinSettingsForm.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:ARCed.Forms.SkinSettingsForm.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="M:ARCed.Forms.SkinSettingsForm.#ctor">
+            <summary>
+            Default constructor
+            </summary>
+        </member>
+        <member name="F:ARCed.Forms.EditorOptionsForm.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:ARCed.Forms.EditorOptionsForm.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:ARCed.Forms.EditorOptionsForm.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:ARCed.Controls.NoteTextBox">
+            <summary>
+            Control used for displaying and editing notes
+            </summary>
+        </member>
+        <member name="F:ARCed.Controls.NoteTextBox.components">
+            <summary> 
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:ARCed.Controls.NoteTextBox.Dispose(System.Boolean)">
+            <summary> 
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:ARCed.Controls.NoteTextBox.InitializeComponent">
+            <summary> 
+            Required method for Designer support - do not modify 
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="M:ARCed.Controls.NoteTextBox.#ctor">
+            <summary>
+            Default constructor
+            </summary>
+        </member>
+        <member name="E:ARCed.Controls.NoteTextBox.NoteTextChanged">
+            <summary>
+            Event raised when the text on the control is changed
+            </summary>
+        </member>
+        <member name="P:ARCed.Controls.NoteTextBox.NoteText">
+            <summary>
+            Gets or sets the note text of the control
+            </summary>
+        </member>
+        <member name="F:ARCed.Forms.Splash.SplashScreenForm.CloseSplashScreenFlag">
+            <summary>
+            To ensure splash screen is closed using the API and not by keyboard or any other things
+            </summary>
+        </member>
+        <member name="M:ARCed.Forms.Splash.SplashScreenForm.#ctor">
+            <summary>
+            Base constructor
+            </summary>
+        </member>
+        <member name="M:ARCed.Forms.Splash.SplashScreenForm.ShowSplashScreen">
+            <summary>
+            Displays the splashscreen
+            </summary>
+        </member>
+        <member name="M:ARCed.Forms.Splash.SplashScreenForm.CloseSplashScreen">
+            <summary>
+            Closes the SplashScreen
+            </summary>
+        </member>
+        <member name="M:ARCed.Forms.Splash.SplashScreenForm.UdpateStatusText(System.String)">
+            <summary>
+            Update text message
+            </summary>
+            <param name="Text">Message</param>
+        </member>
+        <member name="M:ARCed.Forms.Splash.SplashScreenForm.UdpateStatusTextWithStatus(System.String,ARCed.Forms.Splash.TypeOfMessage)">
+            <summary>
+            Update text with message color defined as white/yellow/red/ for success/warning/failure
+            </summary>
+            <param name="Text">Message</param>
+            <param name="tom">Type of Message</param>
+        </member>
+        <member name="M:ARCed.Forms.Splash.SplashScreenForm.SplashForm_FormClosing(System.Object,System.Windows.Forms.FormClosingEventArgs)">
+            <summary>
+            Prevents the closing of form other than by calling the CloseSplashScreen function
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="F:ARCed.Forms.Splash.SplashScreenForm.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:ARCed.Forms.Splash.SplashScreenForm.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:ARCed.Forms.Splash.SplashScreenForm.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:ARCed.Dialogs.AboutBox">
+            <summary>
+            Generic, self-contained About Box dialog
+            </summary>
+        </member>
+        <member name="F:ARCed.Dialogs.AboutBox.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:ARCed.Dialogs.AboutBox.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:ARCed.Dialogs.AboutBox.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="M:ARCed.Dialogs.AboutBox.#ctor">
+            <summary>
+            Creates a new instance of the custom AboutBox object
+            </summary>
+        </member>
+        <member name="M:ARCed.Dialogs.AboutBox.RegistryHklmValue(System.String,System.String)">
+            <summary>
+            Reads an HKLM Windows Registry key value
+            </summary>
+        </member>
+        <member name="P:ARCed.Dialogs.AboutBox.AppDescription">
+            <summary>
+            single line of text to show in the description section of the about box dialog
+            </summary>
+            <remarks>
+            defaults to "%description%"
+            %description% = Assembly: AssemblyDescription
+            </remarks>
+        </member>
+        <member name="F:ARCed.Database.Tilesets.ImageColorsDialog.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:ARCed.Database.Tilesets.ImageColorsDialog.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:ARCed.Database.Tilesets.ImageColorsDialog.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="F:ARCed.Controls.StatusBarToolTip.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:ARCed.Controls.StatusBarToolTip.Dispose(System.Boolean)">
+            <summary> 
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:ARCed.Controls.StatusBarToolTip.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="F:ARCed.Forms.ARChiveForm.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:ARCed.Forms.ARChiveForm.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:ARCed.Forms.ARChiveForm.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="M:ARCed.Dialogs.ChangeMaxDialog.#ctor(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Default contstructor
+            </summary>
+            <param name="current">Current value</param>
+            <param name="min">Minimum allowed value</param>
+            <param name="max">Maximim allowed value</param>
+        </member>
+        <member name="F:ARCed.Dialogs.ChangeMaxDialog.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:ARCed.Dialogs.ChangeMaxDialog.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:ARCed.Dialogs.ChangeMaxDialog.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="P:ARCed.Dialogs.ChangeMaxDialog.MaxValue">
+            <summary>
+            Gets the maximum value defined by the user on the form
+            </summary>
+        </member>
+        <member name="T:ARCed.Properties.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:ARCed.Properties.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:ARCed.Properties.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:ARCed.Properties.Resources.ProjectFile">
+             <summary>
+               Looks up a localized string similar to [Project]
+            Title={0}
+            [Files]
+            list=Actors|Classes|Skills|Items|Weapons|Armors|Enemies|Troops|States|Animations|Tilesets|CommonEvents|System|MapInfos.
+             </summary>
+        </member>
+        <member name="P:ARCed.Properties.Resources.RubyKeywords">
+            <summary>
+              Looks up a localized string similar to BEGIN END __ENCODING__ __END__ __FILE__ __LINE__ alias and begin break case class def defined? do else elsif end ensure false for if in module next nil not or redo rescue retry return self super then true undef unless until when while yield.
+            </summary>
+        </member>
+        <member name="P:ARCed.Properties.Resources.SuppressedChars">
+            <summary>
+              Looks up a localized string similar to !@#$%^&amp;*()-+={}[]:;&lt;&gt;.,?/\~`|&apos;&quot;.
+            </summary>
+        </member>
+        <member name="P:ARCed.Properties.Resources.UnIndentWords">
+            <summary>
+              Looks up a localized string similar to else elsif rescue ensure when end ) ] }.
+            </summary>
+        </member>
+        <member name="T:ARCed.Forms.CalculatorMode">
+            <summary>
+            Values for the calculator display mode
+            </summary>
+        </member>
+        <member name="F:ARCed.Forms.CalculatorMode.Basic">
+            <summary>
+            Basic display mode with advanced functions hidden
+            </summary>
+        </member>
+        <member name="F:ARCed.Forms.CalculatorMode.Full">
+            <summary>
+            Scientific display mode with trigonometry functions, logarithms, etc.
+            </summary>
+        </member>
+        <member name="F:ARCed.Database.MapEditor.MapTilesetForm.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:ARCed.Database.MapEditor.MapTilesetForm.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:ARCed.Database.MapEditor.MapTilesetForm.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:ARCed.Scripting.SearchResult">
+            <summary>
+            Represents a script search result
+            </summary>
+        </member>
+        <member name="M:ARCed.Scripting.SearchResult.#ctor(ARCed.Scripting.Script,System.String,System.Int32,System.String)">
+            <summary>
+            Constructs a new instance
+            </summary>
+            <param name="script">The <see cref="T:ARCed.Scripting.Script"/> the result is found in</param>
+            <param name="scriptTitle">Title of the script</param>
+            <param name="lineNumber">The line number the in the script the result is found on</param>
+            <param name="lineText">The text of the line</param>
+        </member>
+        <member name="P:ARCed.Scripting.SearchResult.Script">
+            <summary>
+            Gets or sets the script the result is found in
+            </summary>
+        </member>
+        <member name="P:ARCed.Scripting.SearchResult.Line">
+            <summary>
+            Gets or sets the line number of the result
+            </summary>
+        </member>
+        <member name="F:ARCed.Database.Troops.TroopMainForm.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:ARCed.Database.Troops.TroopMainForm.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:ARCed.Database.Troops.TroopMainForm.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="M:ARCed.Database.Troops.TroopMainForm.#ctor">
+            <summary>
+            Default constructor
+            </summary>
+        </member>
+        <member name="P:ARCed.Database.Troops.TroopMainForm.DataObjectList">
+            <summary>
+            Gets the object list control of this database panel.
+            </summary>
+        </member>
+        <member name="P:ARCed.Database.Troops.TroopMainForm.Data">
+            <summary>
+            Gets the data associated with this panel
+            </summary>
+        </member>
+        <member name="F:ARCed.Database.Animations.AnimationMainForm.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:ARCed.Database.Animations.AnimationMainForm.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:ARCed.Database.Animations.AnimationMainForm.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="M:ARCed.Database.Animations.AnimationMainForm.NotifyRefresh(ARCed.Database.RefreshType)">
+            <summary>
+            Refreshes objects by type flag
+            </summary>
+            <param name="type">Flag for type of object to refresh</param>
+        </member>
+        <member name="P:ARCed.Database.Animations.AnimationMainForm.DataObjectList">
+            <summary>
+            Gets the object list control of this database panel.
+            </summary>
+        </member>
+        <member name="T:ARCed.Windows">
+            <summary>
+            Static class for getting editor windows. The windows are static properties that 
+            will create the window if it does not exist and is referenced. 
+            </summary>
+        </member>
+        <member name="M:ARCed.Windows.DisposeAll">
+            <summary>
+            Disposes all loaded windows
+            </summary>
+        </member>
+        <member name="M:ARCed.Windows.DatabaseForm``1">
+            <summary>
+            Gets a database window of the given type. If one is already created, it returns it, 
+            otherwise a new instance is created.
+            </summary>
+            <typeparam name="T">Type of database panel to get, must derive from DatabaseWindow</typeparam>
+            <returns>A window instance of the given type.</returns>
+        </member>
+        <member name="P:ARCed.Windows.ChartSettingsForm">
+            <summary>
+            Gets the instance of the chart form used for editing actor parameters.
+            </summary>
+        </member>
+        <member name="P:ARCed.Windows.ARChiveForm">
+            <summary>
+            Gets the instance of the Editor's ARChive Utility form.
+            </summary>
+        </member>
+        <member name="P:ARCed.Windows.ScriptMenu">
+            <summary>
+            Gets the instance of the Editor's Script Menu form.
+            </summary>
+        </member>
+        <member name="P:ARCed.Windows.ScriptStyleMenu">
+            <summary>
+            Gets the instance of the Editor's Script Style Menu form.
+            </summary>
+        </member>
+        <member name="P:ARCed.Windows.EditorOptionsMenu">
+            <summary>
+            Gets the instance of the Editor's Options Menu form.
+            </summary>
+        </member>
+        <member name="P:ARCed.Windows.ScriptEditors">
+            <summary>
+            Gets a list of all script editor forms open in the editor
+            </summary>
+        </member>
+        <member name="P:ARCed.Windows.DatabaseForms">
+            <summary>
+            Gets all instances of database related forms
+            </summary>
+        </member>
+        <member name="P:ARCed.Windows.ScintillaFindReplace">
+            <summary>
+            Returns the static Find and Replace window used for scripts
+            </summary>
+        </member>
+        <member name="P:ARCed.Windows.SkinSettingForm">
+            <summary>
+            Returns the static Skin Setting window
+            </summary>
+        </member>
+        <member name="P:ARCed.Windows.AutoCompleteWindow">
+            <summary>
+            Returns the static Auto-Complete Window
+            </summary>
+        </member>
+        <member name="P:ARCed.Windows.ScriptTabContextMenu">
+            <summary>
+            Gets or sets the tab context menu for script windows
+            </summary>
+        </member>
+        <member name="P:ARCed.Windows.ScriptSearchForm">
+            <summary>
+            Gets or sets the form used for searching all scripts
+            </summary>
+        </member>
+        <member name="P:ARCed.Windows.CalculatorWindow">
+            <summary>
+            Gets or sets the instance of the Calculator
+            </summary>
+        </member>
+        <member name="M:ARCed.Settings.ChartSettings.#ctor">
+            <summary>
+            Default constructor
+            </summary>
+        </member>
+        <member name="P:ARCed.Settings.ChartSettings.Type">
+            <summary>
+            Gets or sets the type of the chart
+            </summary>
+        </member>
+        <member name="P:ARCed.Settings.ChartSettings.Lighting">
+            <summary>
+            Gets or sets the lighting of the chart
+            </summary>
+        </member>
+        <member name="P:ARCed.Settings.ChartSettings.SplineTension">
+            <summary>
+            Gets or sets the spline tension of the chart
+            </summary>
+        </member>
+        <member name="P:ARCed.Settings.ChartSettings.Perspective">
+            <summary>
+            Gets or sets the perspective of the chart (3D only)
+            </summary>
+        </member>
+        <member name="P:ARCed.Settings.ChartSettings.Inclination">
+            <summary>
+            Gets or sets the inclination of the chart (3D only)
+            </summary>
+        </member>
+        <member name="P:ARCed.Settings.ChartSettings.Rotation">
+            <summary>
+            Gets or sets the rotation of the chart (3D only)
+            </summary>
+        </member>
+        <member name="P:ARCed.Settings.ChartSettings.Depth">
+            <summary>
+            Gets or sets the depth of the chart (3D only)
+            </summary>
+        </member>
+        <member name="P:ARCed.Settings.ChartSettings.ThreeD">
+            <summary>
+            Gets or sets the flag to display chart as 3D
+            </summary>
+        </member>
+        <member name="P:ARCed.Settings.ChartSettings.Markers">
+            <summary>
+            Gets or sets the flag to display point markers
+            </summary>
+        </member>
+        <member name="P:ARCed.Settings.ChartSettings.Colors">
+            <summary>
+            Gets or sets the colors used for various charts
+            </summary>
+        </member>
+        <member name="P:ARCed.Settings.ChartSettings.ColorsHtml">
+            <summary>
+            Gets or sets the list of HTML string colors
+            </summary>
+        </member>
+        <member name="P:ARCed.Settings.ChartSettings.DefaultColors">
+            <summary>
+            Default list of 8 colors used for charts
+            </summary>
+            <remarks>Tomato, Slate Blue, Forest Green, Orange, Thistle, Cadet Blue, Yellow-Green, and Violet</remarks>
+        </member>
+        <member name="T:ARCed.Database.SwitchType">
+            <summary>
+            Enum for determining data type between switches and variables.
+            </summary>
+        </member>
+        <member name="F:ARCed.Database.SwitchType.Switch">
+            <summary>
+            Flag representing a game switch.
+            </summary>
+        </member>
+        <member name="F:ARCed.Database.SwitchType.Variable">
+            <summary>
+            Flag representing a game variable.
+            </summary>
+        </member>
+        <member name="T:ARCed.Controls.EquipmentChangedEventArgs">
+            <summary>
+            Event arguments used for changing equipment events
+            </summary>
+        </member>
+        <member name="M:ARCed.Controls.EquipmentChangedEventArgs.#ctor(System.Int32,System.Int32,System.String)">
+            <summary>
+            Default constructor
+            </summary>
+            <param name="index">Index of the item</param>
+            <param name="equipmentId">ID of the item's selected equipment</param>
+            <param name="propertyName">Name of the RPG object property this value represents</param>
+        </member>
+        <member name="P:ARCed.Controls.EquipmentChangedEventArgs.Index">
+            <summary>
+            Gets the index of the item
+            </summary>
+        </member>
+        <member name="P:ARCed.Controls.EquipmentChangedEventArgs.EquipmentId">
+            <summary>
+            Gets the ID of the item's selected equipment
+            </summary>
+        </member>
+        <member name="P:ARCed.Controls.EquipmentChangedEventArgs.PropertyName">
+            <summary>
+            Name of the RPG object property this value represents
+            </summary>
+        </member>
+        <member name="T:ARCed.Controls.EquipFixChangedEventArgs">
+            <summary>
+            Event arguments for used for changing fixed status events
+            </summary>
+        </member>
+        <member name="M:ARCed.Controls.EquipFixChangedEventArgs.#ctor(System.Boolean,System.String)">
+            <summary>
+            Default constructor
+            </summary>
+            <param name="value">Value indicating the fixed status of the slot</param>
+            <param name="propertyName">Name of the RPG object property this value represents</param>
+        </member>
+        <member name="P:ARCed.Controls.EquipFixChangedEventArgs.Fixed">
+            <summary>
+            Gets the value indicating the fixed status of the slot
+            </summary>
+        </member>
+        <member name="P:ARCed.Controls.EquipFixChangedEventArgs.PropertyName">
+            <summary>
+            Name of the RPG object property this value represents
+            </summary>
+        </member>
+    </members>
+</doc>

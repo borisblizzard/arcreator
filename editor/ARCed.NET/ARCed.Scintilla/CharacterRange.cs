@@ -2,7 +2,7 @@
 
 using System.Runtime.InteropServices;
 
-#endregion Using Directives
+#endregion
 
 
 namespace ARCed.Scintilla

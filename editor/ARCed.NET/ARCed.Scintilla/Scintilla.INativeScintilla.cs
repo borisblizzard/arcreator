@@ -4,7 +4,7 @@ using System;
 using System.Text;
 using System.Windows.Forms;
 
-#endregion Using Directives
+#endregion
 
 
 namespace ARCed.Scintilla
@@ -37,7 +37,7 @@ namespace ARCed.Scintilla
         private static readonly object _uriDroppedEventKeyNative = new object();
         private static readonly object _userListSelectionEventKeyNative = new object();
         private static readonly object _zoomEventKey = new object();
-        private LastSelection lastSelection = new LastSelection();
+        private readonly LastSelection lastSelection = new LastSelection();
         private const uint TEXT_MODIFIED_FLAGS = Constants.SC_MOD_BEFOREDELETE | Constants.SC_MOD_BEFOREINSERT |
                                                     Constants.SC_MOD_DELETETEXT | Constants.SC_MOD_INSERTTEXT;
 
@@ -154,7 +154,7 @@ namespace ARCed.Scintilla
 
             if((modType & TEXT_MODIFIED_FLAGS) > 0)
             {
-                TextModifiedEventArgs mea = new TextModifiedEventArgs
+                var mea = new TextModifiedEventArgs
                     (
                     modType,
                     (modType & Constants.SC_PERFORMED_USER) != 0,
@@ -185,17 +185,17 @@ namespace ARCed.Scintilla
             }
             else if((modType & Constants.SC_MOD_CHANGEFOLD) > 0)
             {
-                FoldChangedEventArgs fea = new FoldChangedEventArgs(scn.line, scn.foldLevelNow, scn.foldLevelPrev, scn.modificationType);
+                var fea = new FoldChangedEventArgs(scn.line, scn.foldLevelNow, scn.foldLevelPrev, scn.modificationType);
                 OnFoldChanged(fea);
             }
             else if((modType & Constants.SC_MOD_CHANGESTYLE) > 0)
             {
-                StyleChangedEventArgs sea = new StyleChangedEventArgs(scn.position, scn.length, scn.modificationType);
+                var sea = new StyleChangedEventArgs(scn.position, scn.length, scn.modificationType);
                 OnStyleChanged(sea);
             }
             else if((modType & Constants.SC_MOD_CHANGEMARKER) > 0)
             {
-                MarkerChangedEventArgs mea = new MarkerChangedEventArgs(scn.line, scn.modificationType);
+                var mea = new MarkerChangedEventArgs(scn.line, scn.modificationType);
                 OnMarkerChanged(mea);
             }
 
@@ -270,7 +270,7 @@ namespace ARCed.Scintilla
             int lineNumber	= _ns.LineFromPosition(startPos);
             startPos		= _ns.PositionFromLine(lineNumber);
 
-            StyleNeededEventArgs snea = new StyleNeededEventArgs(new Range(startPos, ea.SCNotification.position, this));
+            var snea = new StyleNeededEventArgs(new Range(startPos, ea.SCNotification.position, this));
             OnStyleNeeded(snea);
         }
 
@@ -508,7 +508,7 @@ namespace ARCed.Scintilla
 
         void INativeScintilla.AutoCSetTypeSeparator(char separatorCharacter)
         {
-            _ns.SendMessageDirect(Constants.SCI_AUTOCSETTYPESEPARATOR, (int)separatorCharacter, 0);
+            _ns.SendMessageDirect(Constants.SCI_AUTOCSETTYPESEPARATOR, separatorCharacter, 0);
         }
 
 
@@ -1368,7 +1368,7 @@ namespace ARCed.Scintilla
 
         int INativeScintilla.GetText(int length, out string text)
         {
-            return (int)_ns.SendMessageDirect(Constants.SCI_GETTEXT, (IntPtr)length, out text, length);
+            return this._ns.SendMessageDirect(Constants.SCI_GETTEXT, (IntPtr)length, out text, length);
         }
 
 
@@ -2104,7 +2104,7 @@ namespace ARCed.Scintilla
         {
             if (!this.IsDisposed)
             {
-                Message m = new Message();
+                var m = new Message();
                 m.Msg = (int)msg;
                 m.WParam = wParam;
                 m.LParam = lParam;
@@ -2160,7 +2160,7 @@ namespace ARCed.Scintilla
             //	exception.
             unchecked
             {
-                int i = (int)lParam;
+                var i = (int)lParam;
                 return (int)_ns.SendMessageDirect(msg, (IntPtr)wParam, (IntPtr)i);
             }
             
@@ -2172,7 +2172,7 @@ namespace ARCed.Scintilla
         ///    (,int)    
         /// </summary>
         /// <param name="msg">Scintilla Message Number</param>
-        /// <param name="NULL">always pass null--Unused parameter</param>
+        /// <param name="wParam">always pass null--Unused parameter</param>
         /// <param name="lParam">lParam</param>
         /// <returns></returns>
         int INativeScintilla.SendMessageDirect(uint msg, VOID wParam, int lParam)
@@ -2219,6 +2219,7 @@ namespace ARCed.Scintilla
         ///  by calling the message with a 0 lParam. 
         /// </summary>
         /// <param name="msg">Scintilla Message Number</param>
+        /// <param name="wParam">Scintilla param</param>
         /// <param name="text">String output</param>
         /// <returns></returns>
         int INativeScintilla.SendMessageDirect(uint msg, int wParam, out string text)
@@ -2240,7 +2241,7 @@ namespace ARCed.Scintilla
         /// <param name="msg">Scintilla Message Number</param>
         /// <param name="wParam">int wParam</param>
         /// <param name="text">String output</param>
-        /// <param name="_length">_length of the input buffer</param>
+        /// <param name="length">_length of the input buffer</param>
         /// <returns></returns>
         unsafe int INativeScintilla.SendMessageDirect(uint msg, IntPtr wParam, out string text, int length)
         {
@@ -2249,7 +2250,7 @@ namespace ARCed.Scintilla
             //  Allocate a buffer the size of the string + 1 for 
             //  the NULL terminator. Scintilla always sets this
             //  regardless of the encoding
-            byte[] buffer = new byte[length + 1];
+            var buffer = new byte[length + 1];
 
             //  Get a direct pointer to the the head of the buffer
             //  to pass to the message along with the wParam. 
@@ -2362,10 +2363,10 @@ namespace ARCed.Scintilla
 
             fixed (byte* bpw = _encoding.GetBytes(ZeroTerminated(wParam)))
             {
-                int length = (int)_ns.SendMessageDirect(msg, (IntPtr)bpw, IntPtr.Zero);
+                var length = (int)_ns.SendMessageDirect(msg, (IntPtr)bpw, IntPtr.Zero);
 
 
-                byte[] buffer = new byte[length + 1];
+                var buffer = new byte[length + 1];
 
                 fixed (byte* bpl = buffer)
                     ret = _ns.SendMessageDirect(msg, (IntPtr)bpw, (IntPtr)bpl);

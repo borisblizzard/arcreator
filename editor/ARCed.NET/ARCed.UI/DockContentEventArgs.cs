@@ -1,19 +1,23 @@
+#region Using Directives
+
 using System;
+
+#endregion
 
 namespace ARCed.UI
 {
 	public class DockContentEventArgs : EventArgs
 	{
-		private IDockContent m_content;
+        private readonly IDockContent _mContent;
 
 		public DockContentEventArgs(IDockContent content)
 		{
-			m_content = content;
+			this._mContent = content;
 		}
 
 		public IDockContent Content
 		{
-			get	{	return m_content;	}
+			get	{	return this._mContent;	}
 		}
 	}
 }

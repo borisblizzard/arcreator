@@ -2,7 +2,7 @@
 
 using System.Windows.Forms;
 
-#endregion Using Directives
+#endregion
 
 
 namespace ARCed.Scintilla
@@ -32,7 +32,7 @@ namespace ARCed.Scintilla
             if (!(obj is KeyBinding))
                 return false;
 
-            KeyBinding kb = (KeyBinding)obj;
+            var kb = (KeyBinding)obj;
 
             return _keycode == kb._keycode && _modifiers == kb._modifiers;
         }

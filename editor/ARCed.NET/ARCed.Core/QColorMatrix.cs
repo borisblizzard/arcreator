@@ -1,6 +1,10 @@
-﻿using System;
+﻿#region Using Directives
+
+using System;
 using System.Drawing;
 using System.Drawing.Imaging;
+
+#endregion
 
 namespace ARCed.Core
 {
@@ -29,9 +33,9 @@ namespace ARCed.Core
 	{
 		#region privateData
 
-		private const int MatrixLength = 5;
-		private float[,] m = new float[MatrixLength, MatrixLength];
-		private const float rad = (float)(Math.PI / 180.0);
+		private const int MATRIX_LENGTH = 5;
+		private readonly float[,] _m = new float[MATRIX_LENGTH, MATRIX_LENGTH];
+		private const float RAD = (float)(Math.PI / 180.0);
 
 		/*
 		QColorMatrix rotates hues while preserving the luminance. In other words: only the color information is modified, not the black-and-white levels. If you would remove the color from an _srcTexture (by setting the saturation to zero), rotating the hue has no effect.
@@ -48,9 +52,9 @@ namespace ARCed.Core
 		public static float lumG = 0.6094f;
 		public static float lumB = 0.0820f;
 
-		private static QColorMatrix preHue = new QColorMatrix();
-		private static QColorMatrix postHue = new QColorMatrix();
-		private static bool initialized = false;
+		private static readonly QColorMatrix preHue = new QColorMatrix();
+		private static readonly QColorMatrix postHue = new QColorMatrix();
+	    private static bool _initialized;
 
 		#endregion privateData
 
@@ -93,7 +97,7 @@ namespace ARCed.Core
 
 		#endregion ctors
 
-		public float[,] Matrix { get { return m; } }
+		public float[,] Matrix { get { return this._m; } }
 
 		#region conversions
 
@@ -112,20 +116,20 @@ namespace ARCed.Core
 				}
 				for (int j = 0; j < m[i].Length; j++)
 				{
-					this.m[i, j] = m[i][j];
+					this._m[i, j] = m[i][j];
 				}
 			}
 		}
 
 		public float[][] ToJaggedMatrix()
 		{
-			float[][] t = new float[MatrixLength][];
+			var t = new float[MATRIX_LENGTH][];
 			for (int i = 0; i < t.Length; i++)
 			{
-				t[i] = new float[MatrixLength];
+				t[i] = new float[MATRIX_LENGTH];
 				for (int j = 0; j < t[i].Length; j++)
 				{
-					t[i][j] = this.m[i, j];
+					t[i][j] = this._m[i, j];
 				}
 			}
 			return t;
@@ -138,23 +142,23 @@ namespace ARCed.Core
 				Reset();
 				return;
 			}
-			for (int i = 0; i < MatrixLength; i++)
+			for (int i = 0; i < MATRIX_LENGTH; i++)
 			{
-				for (int j = 0; j < MatrixLength; j++)
+				for (int j = 0; j < MATRIX_LENGTH; j++)
 				{
-					m[i, j] = cm[i, j];
+					this._m[i, j] = cm[i, j];
 				}
 			}
 		}
 
 		public ColorMatrix ToColorMatrix()
 		{
-			ColorMatrix cm = new ColorMatrix();
-			for (int i = 0; i < MatrixLength; i++)
+			var cm = new ColorMatrix();
+			for (int i = 0; i < MATRIX_LENGTH; i++)
 			{
-				for (int j = 0; j < MatrixLength; j++)
+				for (int j = 0; j < MATRIX_LENGTH; j++)
 				{
-					cm[i, j] = m[i, j];
+					cm[i, j] = this._m[i, j];
 				}
 			}
 			return cm;
@@ -169,11 +173,11 @@ namespace ARCed.Core
 		/// </summary>
 		public void Reset()
 		{
-			for (int i = 0; i < MatrixLength; i++)
+			for (int i = 0; i < MATRIX_LENGTH; i++)
 			{
-				for (int j = 0; j < MatrixLength; j++)
+				for (int j = 0; j < MATRIX_LENGTH; j++)
 				{
-					m[i, j] = ((i == j) ? 1.0f : 0.0f);
+					this._m[i, j] = ((i == j) ? 1.0f : 0.0f);
 				}
 			}
 		}
@@ -191,11 +195,11 @@ namespace ARCed.Core
 		public static float[] Color2Vector(Color c)
 		{
 			if (c == null) return null;
-			float[] p = new float[4];
-			p[0] = (float)c.R;
-			p[1] = (float)c.G;
-			p[2] = (float)c.B;
-			p[3] = (float)c.A;
+			var p = new float[4];
+			p[0] = c.R;
+			p[1] = c.G;
+			p[2] = c.B;
+			p[3] = c.A;
 			return p;
 		}
 
@@ -214,13 +218,13 @@ namespace ARCed.Core
 			{
 				throw new ArgumentException();
 			}
-			float[] temp = new float[4];
+			var temp = new float[4];
 			for (int x = 0; x < 4; x++)
 			{
-				temp[x] = 255.0f * m[4, x];
+				temp[x] = 255.0f * this._m[4, x];
 				for (int y = 0; y < 4; y++)
 				{
-					temp[x] += v[y] * m[y, x];
+					temp[x] += v[y] * this._m[y, x];
 				}
 			}
 			for (int x = 0; x < 4; x++)
@@ -267,33 +271,33 @@ namespace ARCed.Core
 
 			if (order == MatrixOrder.MatrixOrderAppend)
 			{
-				a = matrix.m;
-				b = m;
+				a = matrix._m;
+				b = this._m;
 			}
 			else
 			{
-				a = m;
-				b = matrix.m;
+				a = this._m;
+				b = matrix._m;
 			}
 
-			float[,] temp = new float[MatrixLength, MatrixLength];
-			for (int y = 0; y < MatrixLength; y++)
+			var temp = new float[MATRIX_LENGTH, MATRIX_LENGTH];
+			for (int y = 0; y < MATRIX_LENGTH; y++)
 			{
-				for (int x = 0; x < MatrixLength; x++)
+				for (int x = 0; x < MATRIX_LENGTH; x++)
 				{
 					float t = 0;
-					for (int i = 0; i < MatrixLength; i++)
+					for (int i = 0; i < MATRIX_LENGTH; i++)
 					{
 						t += b[y, i] * a[i, x];
 					}
 					temp[y, x] = t;
 				}
 			}
-			for (int y = 0; y < MatrixLength; y++)
+			for (int y = 0; y < MATRIX_LENGTH; y++)
 			{
-				for (int x = 0; x < MatrixLength; x++)
+				for (int x = 0; x < MATRIX_LENGTH; x++)
 				{
-					m[y, x] = temp[y, x];
+					this._m[y, x] = temp[y, x];
 				}
 			}
 		}
@@ -315,11 +319,11 @@ namespace ARCed.Core
 		public void Scale(float scaleRed, float scaleGreen, float scaleBlue,
 			float scaleOpacity, MatrixOrder order)
 		{
-			QColorMatrix qm = new QColorMatrix();
-			qm.m[0, 0] = scaleRed;
-			qm.m[1, 1] = scaleGreen;
-			qm.m[2, 2] = scaleBlue;
-			qm.m[3, 3] = scaleOpacity;
+			var qm = new QColorMatrix();
+			qm._m[0, 0] = scaleRed;
+			qm._m[1, 1] = scaleGreen;
+			qm._m[2, 2] = scaleBlue;
+			qm._m[3, 3] = scaleOpacity;
 			Multiply(qm, order);
 		}
 
@@ -363,11 +367,11 @@ namespace ARCed.Core
 		public void Translate(float offsetRed, float offsetGreen, float offsetBlue,
 			float offsetOpacity, MatrixOrder order)
 		{
-			QColorMatrix qm = new QColorMatrix();
-			qm.m[4, 0] = offsetRed;
-			qm.m[4, 1] = offsetGreen;
-			qm.m[4, 2] = offsetBlue;
-			qm.m[4, 3] = offsetOpacity;
+			var qm = new QColorMatrix();
+			qm._m[4, 0] = offsetRed;
+			qm._m[4, 1] = offsetGreen;
+			qm._m[4, 2] = offsetBlue;
+			qm._m[4, 3] = offsetOpacity;
 			Multiply(qm, order);
 		}
 
@@ -471,7 +475,7 @@ namespace ARCed.Core
 		}
 
 		/// <summary>
-		/// Set the saturation of the matrix. Saturation of 0.0f yields B&W, 1.0f is neutral.
+		/// Set the saturation of the matrix. Saturation of 0.0f yields black and white, 1.0f is neutral.
 		/// </summary>
 		public void SetSaturation(float saturation, MatrixOrder order)
 		{
@@ -483,7 +487,7 @@ namespace ARCed.Core
 			float satComplG = lumG * satCompl;
 			float satComplB = lumB * satCompl;
 
-			float[,] tm = new float[,]
+			var tm = new[,]
             {
                 {satComplR + saturation,	satComplR,	satComplR,	0.0f, 0.0f} ,
                 {satComplG,	satComplG + saturation,	satComplG,	0.0f, 0.0f},
@@ -492,7 +496,7 @@ namespace ARCed.Core
 		        {0.0f,	0.0f,	0.0f,	0.0f,	1.0f}
             };
 
-			QColorMatrix qm = new QColorMatrix(tm);
+			var qm = new QColorMatrix(tm);
 			Multiply(qm, order);
 		}
 
@@ -547,9 +551,9 @@ namespace ARCed.Core
 			// If you rather stick with the theory, change the comments in the previous lines.
 
 
-			if (!initialized)
+			if (!_initialized)
 			{
-				initialized = true;
+				_initialized = true;
 				// Rotating the hue of an _srcTexture is a rather convoluted task, involving several matrix
 				// multiplications. For efficiency, we prepare two static matrices.
 				// This is by far the most complicated part of this class. For the background
@@ -564,7 +568,7 @@ namespace ARCed.Core
 
 				// Hue rotations keep the color luminations constant, so that only the hues change
 				// visible. To accomplish that, we shear the blue plane.
-				float[] lum = new float[] { lumR, lumG, lumB, 1.0f };
+				var lum = new[] { lumR, lumG, lumB, 1.0f };
 
 				// Transform the luminance vector.
 				preHue.TransformVector(lum);
@@ -584,29 +588,32 @@ namespace ARCed.Core
 			}
 		}
 
-		/// <summary>
-		/// x and y are the indices of the value to receive the sin(phi) value
-		/// </summary>
-		/// <param name="phi">phi is in degrees</param>
+        /// <summary>
+        /// x and y are the indices of the value to receive the sin(phi) value
+        /// </summary>
+        /// <param name="phi">phi is in degrees</param>
+        /// <param name="x">x value</param>
+        /// <param name="y">y value</param>
+        /// <param name="order">Matrix order</param>
 		private void RotateColor(float phi, int x, int y, MatrixOrder order)
 		{
-			phi *= rad;
-			QColorMatrix qm = new QColorMatrix();
+			phi *= RAD;
+			var qm = new QColorMatrix();
 
-			qm.m[x, x] = qm.m[y, y] = (float)Math.Cos(phi);
+			qm._m[x, x] = qm._m[y, y] = (float)Math.Cos(phi);
 
-			float s = (float)Math.Sin(phi);
-			qm.m[y, x] = s;
-			qm.m[x, y] = -s;
+			var s = (float)Math.Sin(phi);
+			qm._m[y, x] = s;
+			qm._m[x, y] = -s;
 
 			Multiply(qm, order);
 		}
 
 		private void ShearColor(int x, int y1, float d1, int y2, float d2, MatrixOrder order)
 		{
-			QColorMatrix qm = new QColorMatrix();
-			qm.m[y1, x] = d1;
-			qm.m[y2, x] = d2;
+			var qm = new QColorMatrix();
+			qm._m[y1, x] = d1;
+			qm._m[y2, x] = d2;
 			Multiply(qm, order);
 		}
 
@@ -617,16 +624,16 @@ namespace ARCed.Core
 				Reset();
 				return;
 			}
-			Copy(qm.m);
+			Copy(qm._m);
 		}
 
 		private void Copy(float[,] m)
 		{
-			if ((m == null) || (m.Length != this.m.Length))
+			if ((m == null) || (m.Length != this._m.Length))
 			{
 				throw new ArgumentException();
 			}
-			Array.Copy(m, this.m, m.Length);
+			Array.Copy(m, this._m, m.Length);
 		}
 
 		#endregion private

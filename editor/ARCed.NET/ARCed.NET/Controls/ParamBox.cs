@@ -1,11 +1,16 @@
-﻿using System;
+﻿#region Using Directives
+
+using System;
 using System.ComponentModel;
+using System.Drawing;
 using System.Windows.Forms;
+
+#endregion
 
 namespace ARCed.Controls
 {
 	[DefaultEvent("OnValueChanged"), DefaultProperty("Value")]
-	[System.Drawing.ToolboxBitmap(typeof(NumericUpDown))]
+	[ToolboxBitmap(typeof(NumericUpDown))]
 	public partial class ParamBox : UserControl
 	{
 

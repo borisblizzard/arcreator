@@ -1,4 +1,8 @@
-﻿using System.Collections.Generic;
+﻿#region Using Directives
+
+using System.Collections.Generic;
+
+#endregion
 
 namespace RPG
 {
@@ -50,7 +54,8 @@ namespace RPG
 			animation2_id = 0;
 			element_ranks = new Table(1);
 			state_ranks = new Table(1);
-			actions = new List<dynamic>() { new Action() };
+			actions = new List<dynamic>
+			{ new Action() };
 			exp = 0;
 			gold = 0;
 			item_id = 0;
@@ -60,7 +65,7 @@ namespace RPG
 		}
 
 		/// <summary>
-		/// Returns a <paramref name="System.String"/> that represents the current object.
+        /// Returns a <see langword="string"/> that represents the current object.
 		/// </summary>
 		/// <returns>String representation of object.</returns>
 		public override string ToString()

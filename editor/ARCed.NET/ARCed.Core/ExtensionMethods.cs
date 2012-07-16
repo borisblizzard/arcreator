@@ -1,7 +1,13 @@
-﻿using System;
+﻿#region Using Directives
+
+using System;
 using System.IO;
+using System.Reflection;
 using System.Text;
+using System.Windows.Forms;
 using ARCed.Core.Win32;
+
+#endregion
 
 namespace ARCed
 {
@@ -15,7 +21,7 @@ namespace ARCed
 		/// <summary>
 		/// UTF-8 encoding instance used for byte-string conversions
 		/// </summary>
-		private static UTF8Encoding _utf8 = new UTF8Encoding();
+		private static readonly UTF8Encoding _utf8 = new UTF8Encoding();
 		/// <summary>
 		/// Byte array used as a buffer for reading streams
 		/// </summary>
@@ -37,7 +43,7 @@ namespace ARCed
 		/// Suspends painting of control until ResumePainting() is called.
 		/// </summary>
 		/// <param name="control">Control to suspend painting</param>
-		public static void SuspendPainting(this System.Windows.Forms.Control control)
+		public static void SuspendPainting(this Control control)
 		{
 			NativeMethods.SendMessage(control.Handle, NativeMethods.WM_SETREDRAW, false, 0);
 		}
@@ -47,7 +53,7 @@ namespace ARCed
 		/// </summary>
 		/// <param name="control">Control to resume painting</param>
 		/// <param name="refresh">Flag to refresh control.</param>
-		public static void ResumePainting(this System.Windows.Forms.Control control, bool refresh)
+		public static void ResumePainting(this Control control, bool refresh)
 		{
 			NativeMethods.SendMessage(control.Handle, NativeMethods.WM_SETREDRAW, true, 0);
 			if (refresh)
@@ -208,7 +214,7 @@ namespace ARCed
 		public static bool HasMethod(this object objectToCheck, string methodName)
 		{
 			var type = objectToCheck.GetType();
-			return type.GetMethod(methodName, System.Reflection.BindingFlags.IgnoreCase) != null;
+			return type.GetMethod(methodName, BindingFlags.IgnoreCase) != null;
 		} 
 	}
 }

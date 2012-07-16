@@ -1,11 +1,14 @@
-﻿using System;
+﻿#region Using Directives
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
-using System.Drawing.Drawing2D;
-using ARCed.Helpers;
 using ARCed.Dialogs;
+using ARCed.Helpers;
+
+#endregion
 
 namespace ARCed.Controls
 {
@@ -95,7 +98,7 @@ namespace ARCed.Controls
 		public DatabaseObjectListBox()
 		{
 			InitializeComponent();
-			toolStripMenuItemEdit.Click += new EventHandler(pictureBoxHeader_DoubleClick);
+			toolStripMenuItemEdit.Click += this.pictureBoxHeader_DoubleClick;
 		}
 
 		#endregion
@@ -107,7 +110,7 @@ namespace ARCed.Controls
 		/// </summary>
 		/// <param name="index">Index of the item in the listbox to get the rectangle for</param>
 		/// <returns>Rectangle of the item</returns>
-		public System.Drawing.Rectangle GetItemRectangle(int index)
+		public Rectangle GetItemRectangle(int index)
 		{
 			return listBoxObjects.GetItemRectangle(index);
 		}
@@ -115,7 +118,6 @@ namespace ARCed.Controls
 		/// <summary>
 		/// Clears and populates the listbox on the control with the given collection of objects
 		/// </summary>
-		/// <typeparam name="T">Object type that interfaces RPG.IRpgObject</typeparam>
 		/// <param name="objectList">Collection of items</param>
 		public void PopulateList(List<dynamic> objectList)
 		{
@@ -154,7 +156,7 @@ namespace ARCed.Controls
 
 		private void pictureBoxHeader_DoubleClick(object sender, EventArgs e)
 		{
-			using (HeaderSettingsDialog dialog = new HeaderSettingsDialog())
+			using (var dialog = new HeaderSettingsDialog())
 				dialog.ShowDialog();
 		}
 

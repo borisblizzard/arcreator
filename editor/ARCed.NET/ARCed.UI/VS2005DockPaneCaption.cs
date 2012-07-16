@@ -1,8 +1,12 @@
+#region Using Directives
+
 using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
+
+#endregion
 
 namespace ARCed.UI
 {
@@ -10,10 +14,9 @@ namespace ARCed.UI
 	{
         private sealed class InertButton : InertButtonBase
         {
-            private Bitmap m_image, m_imageAutoHide;
+            private readonly Bitmap m_image, m_imageAutoHide;
 
             public InertButton(VS2005DockPaneCaption dockPaneCaption, Bitmap image, Bitmap imageAutoHide)
-                : base()
             {
                 m_dockPaneCaption = dockPaneCaption;
                 m_image = image;
@@ -21,7 +24,7 @@ namespace ARCed.UI
                 RefreshChanges();
             }
 
-            private VS2005DockPaneCaption m_dockPaneCaption;
+            private readonly VS2005DockPaneCaption m_dockPaneCaption;
             private VS2005DockPaneCaption DockPaneCaption
             {
                 get { return m_dockPaneCaption; }
@@ -82,7 +85,7 @@ namespace ARCed.UI
                 {
                     m_buttonClose = new InertButton(this, ImageButtonClose, ImageButtonClose);
                     m_toolTip.SetToolTip(m_buttonClose, ToolTipClose);
-                    m_buttonClose.Click += new EventHandler(Close_Click);
+                    m_buttonClose.Click += this.Close_Click;
                     Controls.Add(m_buttonClose);
                 }
 
@@ -123,7 +126,7 @@ namespace ARCed.UI
                 {
                     m_buttonAutoHide = new InertButton(this, ImageButtonDock, ImageButtonAutoHide);
                     m_toolTip.SetToolTip(m_buttonAutoHide, ToolTipAutoHide);
-                    m_buttonAutoHide.Click += new EventHandler(AutoHide_Click);
+                    m_buttonAutoHide.Click += this.AutoHide_Click;
                     Controls.Add(m_buttonAutoHide);
                 }
 
@@ -152,20 +155,20 @@ namespace ARCed.UI
                 {
                     m_buttonOptions = new InertButton(this, ImageButtonOptions, ImageButtonOptions);
                     m_toolTip.SetToolTip(m_buttonOptions, ToolTipOptions);
-                    m_buttonOptions.Click += new EventHandler(Options_Click);
+                    m_buttonOptions.Click += this.Options_Click;
                     Controls.Add(m_buttonOptions);
                 }
                 return m_buttonOptions;
             }
         }
 
-        private IContainer m_components;
+        private readonly IContainer m_components;
         private IContainer Components
         {
             get { return m_components; }
         }
 
-		private ToolTip m_toolTip;
+        private readonly ToolTip m_toolTip;
 
 		public VS2005DockPaneCaption(DockPane pane) : base(pane)
 		{
@@ -275,10 +278,10 @@ namespace ARCed.UI
             {
                 if (_activeBackColorGradientBlend == null)
                 {
-                    Blend blend = new Blend(2);
+                    var blend = new Blend(2);
 
-                    blend.Factors = new float[]{0.5F, 1.0F};
-                    blend.Positions = new float[]{0.0F, 1.0F};
+                    blend.Factors = new[]{0.5F, 1.0F};
+                    blend.Positions = new[]{0.0F, 1.0F};
                     _activeBackColorGradientBlend = blend;
                 }
 
@@ -338,7 +341,7 @@ namespace ARCed.UI
                 Color startColor = DockPane.DockPanel.Skin.DockPaneStripSkin.ToolWindowGradient.ActiveCaptionGradient.StartColor;
                 Color endColor = DockPane.DockPanel.Skin.DockPaneStripSkin.ToolWindowGradient.ActiveCaptionGradient.EndColor;
                 LinearGradientMode gradientMode = DockPane.DockPanel.Skin.DockPaneStripSkin.ToolWindowGradient.ActiveCaptionGradient.LinearGradientMode;
-                using (LinearGradientBrush brush = new LinearGradientBrush(ClientRectangle, startColor, endColor, gradientMode))
+                using (var brush = new LinearGradientBrush(ClientRectangle, startColor, endColor, gradientMode))
                 {
                     brush.Blend = ActiveBackColorGradientBlend;
                     g.FillRectangle(brush, ClientRectangle);
@@ -349,7 +352,7 @@ namespace ARCed.UI
                 Color startColor = DockPane.DockPanel.Skin.DockPaneStripSkin.ToolWindowGradient.InactiveCaptionGradient.StartColor;
                 Color endColor = DockPane.DockPanel.Skin.DockPaneStripSkin.ToolWindowGradient.InactiveCaptionGradient.EndColor;
                 LinearGradientMode gradientMode = DockPane.DockPanel.Skin.DockPaneStripSkin.ToolWindowGradient.InactiveCaptionGradient.LinearGradientMode;
-                using (LinearGradientBrush brush = new LinearGradientBrush(ClientRectangle, startColor, endColor, gradientMode))
+                using (var brush = new LinearGradientBrush(ClientRectangle, startColor, endColor, gradientMode))
                 {
                     g.FillRectangle(brush, ClientRectangle);
                 }
@@ -432,10 +435,10 @@ namespace ARCed.UI
 				buttonWidth = buttonWidth * (height / buttonHeight);
 				buttonHeight = height;
 			}
-			Size buttonSize = new Size(buttonWidth, buttonHeight);
+			var buttonSize = new Size(buttonWidth, buttonHeight);
 			int x = rectCaption.X + rectCaption.Width - 1 - ButtonGapRight - m_buttonClose.Width;
 			int y = rectCaption.Y + ButtonGapTop;
-			Point point = new Point(x, y);
+			var point = new Point(x, y);
             ButtonClose.Bounds = DrawHelper.RtlTransform(this, new Rectangle(point, buttonSize));
 
             // If the close button is not visible draw the auto hide button overtop.
@@ -466,7 +469,7 @@ namespace ARCed.UI
 
         private void Options_Click(object sender, EventArgs e)
         {
-            ShowTabPageContextMenu(PointToClient(Control.MousePosition));
+            ShowTabPageContextMenu(PointToClient(MousePosition));
         }
 
         protected override void OnRightToLeftChanged(EventArgs e)

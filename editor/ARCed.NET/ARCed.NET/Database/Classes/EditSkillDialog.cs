@@ -1,6 +1,11 @@
-﻿using System;
+﻿#region Using Directives
+
+using System;
 using System.Windows.Forms;
 using ARCed.Helpers;
+using RPG;
+
+#endregion
 
 namespace ARCed.Database.Classes
 {
@@ -9,7 +14,7 @@ namespace ARCed.Database.Classes
 		/// <summary>
 		/// Gets or sets the current RPG.Learning defined on the form
 		/// </summary>
-		public RPG.Class.Learning Learning 
+		public Class.Learning Learning 
 		{
 			get { return GetLearning(); }
 			set { SetLearning(value); }
@@ -25,15 +30,15 @@ namespace ARCed.Database.Classes
 			comboBoxSkill.SelectedIndex = 0;
 		}
 
-		private void SetLearning(RPG.Class.Learning learning)
+		private void SetLearning(Class.Learning learning)
 		{
 			comboBoxSkill.SelectedIndex = learning.skill_id - 1;
 			numericLevel.Value = learning.level;
 		}
 
-		private RPG.Class.Learning GetLearning()
+		private Class.Learning GetLearning()
 		{
-			RPG.Class.Learning learning = new RPG.Class.Learning();
+			var learning = new Class.Learning();
 			learning.level = (int)numericLevel.Value;
 			learning.skill_id = comboBoxSkill.SelectedIndex + 1;
 			return learning;

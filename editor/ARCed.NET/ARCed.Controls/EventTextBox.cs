@@ -1,9 +1,15 @@
-﻿using System;
+﻿#region Using Directives
+
+using System;
 using System.Collections.Generic;
-using System.Drawing;
-using System.Windows.Forms;
 using System.Reflection;
+using System.Windows.Forms;
+using ARCed.EventBuilder;
 using ARCed.Helpers;
+using RPG;
+using Color = System.Drawing.Color;
+
+#endregion
 
 namespace ARCed.Controls
 {
@@ -43,7 +49,7 @@ namespace ARCed.Controls
 		{
 			this.SuspendPainting();
 			Clear();
-			foreach (RPG.EventCommand command in list)
+			foreach (EventCommand command in list)
 				Translate(command.code, command.indent, command.parameters);
 			this.ResumePainting(true);
 		}
@@ -56,6 +62,7 @@ namespace ARCed.Controls
 		/// Translates the specified event code and arguments into a formatted string
 		/// </summary>
 		/// <param name="code">Event code.</param>
+        /// <param name="indent">Indent level</param>
 		/// <param name="args">Array of game event parameters.</param>
 		/// <returns>Formatted string.</returns>
 		private void Translate(int code, int indent, dynamic args)
@@ -314,7 +321,7 @@ namespace ARCed.Controls
 				}
 				case 11: // Button
 				{
-					string[] buttons = new[] { "", "", "Down", "", "Left", "", "Right", 
+					var buttons = new[] { "", "", "Down", "", "Left", "", "Right", 
 						"", "Up", "", "", "A", "B", "C", "X", "Y", "Z", "L", "R" };
 					text = String.Format("The {0} button is being pressed", buttons[args[1]]);
 					break;
@@ -649,7 +656,7 @@ namespace ARCed.Controls
 		private void Command132(dynamic args)
 		{
 			AppendText("@>");
-			RPG.AudioFile bgm = args[0];
+			AudioFile bgm = args[0];
 			AppendText(String.Format("Change Battle BGM: '{0}', {1}, {2}",
 				bgm.name, bgm.volume, bgm.pitch), Color.Magenta);
 		}
@@ -661,7 +668,7 @@ namespace ARCed.Controls
 		private void Command133(dynamic args)
 		{
 			AppendText("@>");
-			RPG.AudioFile me = args[0];
+			AudioFile me = args[0];
 			AppendText(String.Format("Change Battle End ME: '{0}', {1}, {2}",
 				me.name, me.volume, me.pitch), Color.Magenta);
 		}
@@ -827,7 +834,7 @@ namespace ARCed.Controls
 		{
 			AppendText("@>");
 			int id = args[0];
-			RPG.MoveRoute route = args[1];
+			MoveRoute route = args[1];
 			// TODO: Implement getting map event names
 			string name = (id == -1 ? "Player" : (id == 0 ? "This Event" : "[IMPLEMENT]"));
 			if (route.repeat || route.skippable)
@@ -1523,7 +1530,7 @@ namespace ARCed.Controls
 		private void Command339(dynamic args)
 		{
 			AppendText("@>");
-			string name, cmd, target, seq, text;
+			string name, cmd;
 			if (args[0] == 0) // Enemy
 				name = String.Format("[{0}. {1}", args[1] + 1, "IMPLEMENT"); // TODO: Implement
 			else // Actor
@@ -1532,9 +1539,9 @@ namespace ARCed.Controls
 				cmd = new[] { "Attack", "Defend", "Escape", "Do Nothing" }[args[3]];
 			else // Skill
 				cmd = String.Format("[{0}]", Project.Data.Skills[args[3]]);
-			target = args[4] == -1 ? "Random" : "Index " + args[4].ToString();
-			seq = args[5] == 0 ? "" : ", Execute Now";
-			text = String.Format("Force Action: {0}, {1}, {2}{3}", name, cmd, target, seq);
+			string target = args[4] == -1 ? "Random" : "Index " + args[4].ToString();
+			string seq = args[5] == 0 ? "" : ", Execute Now";
+			string text = String.Format("Force Action: {0}, {1}, {2}{3}", name, cmd, target, seq);
 			AppendText(text, Color.DarkViolet);
 		}
 
@@ -1613,7 +1620,7 @@ namespace ARCed.Controls
 		/// </summary>
 		/// <param name="cmd">RPG.MoveCommand to translate</param>
 		/// <returns>String representation of command and parameters</returns>
-		private string TranslateMove(RPG.MoveCommand cmd)
+		private static string TranslateMove(MoveCommand cmd)
 		{
 			switch (cmd.code)
 			{
@@ -1679,7 +1686,7 @@ namespace ARCed.Controls
 		/// <param name="type">Type of item: 0 = Item, 1 = Weapon, 2 = Armor</param>
 		/// <param name="id">ID of the item</param>
 		/// <returns>Formatted name of item</returns>
-		private string GetItemName(int type, int id)
+		private static string GetItemName(int type, int id)
 		{
 			if (type == 0)
 				return Project.Data.Items[id].ToString();
@@ -1699,7 +1706,7 @@ namespace ARCed.Controls
 
 		private void EventTextBox_DoubleClick(object sender, EventArgs e)
 		{
-			EventBuilder.EventBuilderMainForm form = new EventBuilder.EventBuilderMainForm();
+			var form = new EventBuilderMainForm();
 			form.ShowDialog();
 		}
 

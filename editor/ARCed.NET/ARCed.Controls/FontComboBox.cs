@@ -1,10 +1,12 @@
+#region Using Directives
+
 using System;
-using System.Collections;
 using System.ComponentModel;
 using System.Drawing;
-using System.Data;
-using ARCed.Helpers;
 using System.Windows.Forms;
+using ARCed.Helpers;
+
+#endregion
 
 namespace ARCed.Controls
 {
@@ -40,13 +42,13 @@ namespace ARCed.Controls
 		{
 			BeginUpdate();
 			Items.Clear();
-			ttimg = Resources.TrueType;
+			this._ttimg = Resources.TrueType;
 			foreach (FontFamily ff in FontHelper.FontCollection.Families)
 			{
 				if (ff.IsStyleAvailable(FontStyle.Regular))
 					Items.Add(ff.Name);
 			}
-			memFontCount = Items.Count;
+			this._memFontCount = Items.Count;
 			foreach (FontFamily ff in FontFamily.Families)
 			{
 				if (ff.IsStyleAvailable(FontStyle.Regular))
@@ -57,7 +59,7 @@ namespace ARCed.Controls
 			EndUpdate();
 		}
 
-		protected override void OnMeasureItem(System.Windows.Forms.MeasureItemEventArgs e)
+		protected override void OnMeasureItem(MeasureItemEventArgs e)
 		{
 			if (e.Index > -1)
 			{
@@ -67,60 +69,60 @@ namespace ARCed.Controls
 				{
 					e.ItemHeight = (int)e.Graphics.MeasureString(fontstring, tempFont).Height;
 					w = (int)e.Graphics.MeasureString(fontstring, tempFont).Width;
-					w += ttimg.Width * 2;
-					maxwid = Math.Max(w, maxwid);
+					w += this._ttimg.Width * 2;
+					this._maxwid = Math.Max(w, this._maxwid);
 					e.ItemHeight = Math.Min(20, e.ItemHeight);
 				}
 				e.Graphics.Dispose();
 			}
 		}
 
-		protected override void OnDrawItem(System.Windows.Forms.DrawItemEventArgs e)
+		protected override void OnDrawItem(DrawItemEventArgs e)
 		{
 			if (e.Index > -1)
 			{
 				string fontString = Items[e.Index].ToString();
-				x = e.Bounds.X + ttimg.Width;
-				y = e.Bounds.Y;
-				width = e.Bounds.Width;
-				height = e.Bounds.Height;
-				nfont = FontHelper.GetFont(fontString, 10f, FontStyle.Regular);
+				this._x = e.Bounds.X + this._ttimg.Width;
+				this._y = e.Bounds.Y;
+				this._width = e.Bounds.Width;
+				this._height = e.Bounds.Height;
+				this._nfont = FontHelper.GetFont(fontString, 10f, FontStyle.Regular);
 				if (!DroppedDown)
 				{
-					e.Graphics.FillRectangle(SystemBrushes.Window, x, y, width, height);
-					e.Graphics.DrawString(fontString, nfont, SystemBrushes.WindowText, x * 2, y);
+					e.Graphics.FillRectangle(SystemBrushes.Window, this._x, this._y, this._width, this._height);
+					e.Graphics.DrawString(fontString, this._nfont, SystemBrushes.WindowText, this._x * 2, this._y);
 				}
 				else if (!e.State.HasFlag(DrawItemState.Focus))
 				{
-					if (e.Index < memFontCount)
+					if (e.Index < this._memFontCount)
 					{
-						e.Graphics.FillRectangle(Brushes.PowderBlue, x, y, width, height);
-						e.Graphics.DrawString(fontString, nfont, SystemBrushes.WindowText, x * 2, y);
+						e.Graphics.FillRectangle(Brushes.PowderBlue, this._x, this._y, this._width, this._height);
+						e.Graphics.DrawString(fontString, this._nfont, SystemBrushes.WindowText, this._x * 2, this._y);
 					}
 					else
 					{
-						e.Graphics.FillRectangle(SystemBrushes.Window, x, y, width, height);
-						e.Graphics.DrawString(fontString, nfont, SystemBrushes.WindowText, x * 2, y);
+						e.Graphics.FillRectangle(SystemBrushes.Window, this._x, this._y, this._width, this._height);
+						e.Graphics.DrawString(fontString, this._nfont, SystemBrushes.WindowText, this._x * 2, this._y);
 					}
 				}
 				else
 				{
-					e.Graphics.FillRectangle(SystemBrushes.Highlight, x, y, width, height);
-					e.Graphics.DrawString(fontString, nfont, SystemBrushes.HighlightText, x * 2, y);
+					e.Graphics.FillRectangle(SystemBrushes.Highlight, this._x, this._y, this._width, this._height);
+					e.Graphics.DrawString(fontString, this._nfont, SystemBrushes.HighlightText, this._x * 2, this._y);
 				}
-				e.Graphics.DrawImage(ttimg, new Point(e.Bounds.X, y));
+				e.Graphics.DrawImage(this._ttimg, new Point(e.Bounds.X, this._y));
 			}
 		}
 
-		int x, y, width, height;
-		Font nfont;
-		int maxwid = 0;
-		int memFontCount;
-		Image ttimg;
+        private int _x, _y, _width, _height;
+        private Font _nfont;
+	    private int _maxwid;
+		int _memFontCount;
+        private Image _ttimg;
 
-		protected override void OnDropDown(System.EventArgs e)
+		protected override void OnDropDown(EventArgs e)
 		{
-			this.DropDownWidth = maxwid + 30;
+			this.DropDownWidth = this._maxwid + 30;
 		}
 	}
 }

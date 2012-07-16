@@ -1,9 +1,14 @@
-﻿using System;
+﻿#region Using Directives
+
+using System;
 using System.Drawing;
 using System.Windows.Forms;
 using ARCed.Dialogs;
+using ARCed.Properties;
 using ARCed.Settings;
 using ARCed.UI;
+
+#endregion
 
 namespace ARCed.Scripting
 {
@@ -19,7 +24,7 @@ namespace ARCed.Scripting
 		public ScriptStyleForm()
 		{
 			InitializeComponent();
-			this.Icon = Icon.FromHandle(Properties.Resources.Scintilla.GetHicon());
+			this.Icon = Icon.FromHandle(Resources.Scintilla.GetHicon());
 			listBoxStyles.Items.Clear();
 			listBoxStyles.BeginUpdate();
 			foreach (ScriptStyle style in Editor.Settings.Scripting.ScriptStyles)
@@ -29,9 +34,9 @@ namespace ARCed.Scripting
 			listBoxStyles.SelectedIndex = 0;
 		}
 
-		private Color ShowColorDialog(Color color)
+		private static Color ShowColorDialog(Color color)
 		{
-			using (ColorChooserForm dialog = new ColorChooserForm())
+			using (var dialog = new ColorChooserForm())
 			{
 				dialog.Color = color;
 				if (dialog.ShowDialog() == DialogResult.OK)
@@ -40,7 +45,7 @@ namespace ARCed.Scripting
 			}
 		}
 
-		private void UpdateOpenScripts()
+		private static void UpdateOpenScripts()
 		{
 			foreach (ScriptEditorForm form in Windows.ScriptEditors)
 			{
@@ -114,8 +119,8 @@ namespace ARCed.Scripting
 		{
 			using (e.Graphics)
 			{
-				e.Graphics.DrawImage(Properties.Resources.Alpha, e.ClipRectangle);
-				using (SolidBrush brush = new SolidBrush((sender as Panel).BackColor))
+				e.Graphics.DrawImage(Resources.Alpha, e.ClipRectangle);
+				using (var brush = new SolidBrush((sender as Panel).BackColor))
 					e.Graphics.FillRectangle(brush, e.ClipRectangle);	
 			}
 		}

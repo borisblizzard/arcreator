@@ -1,11 +1,10 @@
 #region Using Directives
 
-using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Printing;
 
-#endregion Using Directives
+#endregion
 
 
 namespace ARCed.Scintilla
@@ -14,12 +13,12 @@ namespace ARCed.Scintilla
     ///     ARCed.Scintilla derived class for handling printed page settings.  It holds information 
     ///     on how and what to print in the header and footer of pages.
     /// </summary>
-    [TypeConverterAttribute(typeof(System.ComponentModel.ExpandableObjectConverter))]
+    [TypeConverter(typeof(ExpandableObjectConverter))]
     public class PageSettings : System.Drawing.Printing.PageSettings
     {
         #region Fields
 
-        private bool _baseColor;
+        private readonly bool _baseColor;
 
         /// <summary>
         /// Default footer style used when no footer is provided.
@@ -248,7 +247,7 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return base.PaperSize as PaperSize;
+                return base.PaperSize;
             }
             set
             {

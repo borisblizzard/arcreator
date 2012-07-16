@@ -1,5 +1,9 @@
+#region Using Directives
+
 using System.Drawing;
 using System.Windows.Forms;
+
+#endregion
 
 namespace ARCed.UI
 {
@@ -80,7 +84,7 @@ namespace ARCed.UI
             get { return m_contentIndex != 0; }
         }
 
-        private bool m_flagTestDrop = false;
+        private bool m_flagTestDrop;
         public bool FlagTestDrop
         {
             get { return m_flagTestDrop; }

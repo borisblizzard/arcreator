@@ -47,7 +47,7 @@ namespace ARCed // INCOMPLETE
 				_autoCompleteForm, _scriptSearchForm, _calculatorForm,
 				_scriptFindReplaceForm, _chartSettingsForm
 			};
-			contents = (Form[])contents.Concat<Form>(_scriptEditors);
+			contents = (Form[])contents.Concat(_scriptEditors);
 			foreach (Form content in contents)
 			{
 				if (content != null && !content.IsDisposed)
@@ -239,7 +239,7 @@ namespace ARCed // INCOMPLETE
 		/// <returns>A window instance of the given type.</returns>
 		public static T DatabaseForm<T>() where T : DatabaseWindow
 		{
-			T form = (T)_databaseForms.Find(delegate(DatabaseWindow w) { return w is T; });
+			var form = (T)_databaseForms.Find(delegate(DatabaseWindow w) { return w is T; });
 			if (form != null)
 				return form;
 			return Activator.CreateInstance<T>();

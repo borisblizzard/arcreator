@@ -117,7 +117,1063 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="btnCancel.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 8.25pt</value>
+  </data>
+  <data name="btnCancel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>208, 118</value>
+  </data>
+  <data name="btnCancel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>72, 23</value>
+  </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="btnCancel.TabIndex" type="System.Int32, mscorlib">
+    <value>42</value>
+  </data>
+  <data name="btnCancel.Text" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
   <metadata name="toolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
+  <data name="btnCancel.ToolTip" xml:space="preserve">
+    <value>Cancel and close</value>
+  </data>
+  <data name="&gt;&gt;btnCancel.Name" xml:space="preserve">
+    <value>btnCancel</value>
+  </data>
+  <data name="&gt;&gt;btnCancel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btnCancel.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;btnCancel.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="btnOk.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 8.25pt</value>
+  </data>
+  <data name="btnOk.Location" type="System.Drawing.Point, System.Drawing">
+    <value>208, 149</value>
+  </data>
+  <data name="btnOk.Size" type="System.Drawing.Size, System.Drawing">
+    <value>72, 23</value>
+  </data>
+  <data name="btnOk.TabIndex" type="System.Int32, mscorlib">
+    <value>41</value>
+  </data>
+  <data name="btnOk.Text" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="btnOk.ToolTip" xml:space="preserve">
+    <value>Confirm</value>
+  </data>
+  <data name="&gt;&gt;btnOk.Name" xml:space="preserve">
+    <value>btnOk</value>
+  </data>
+  <data name="&gt;&gt;btnOk.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btnOk.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;btnOk.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="tbHexCode.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Courier New, 8.25pt</value>
+  </data>
+  <data name="tbHexCode.Location" type="System.Drawing.Point, System.Drawing">
+    <value>208, 42</value>
+  </data>
+  <data name="tbHexCode.MaxLength" type="System.Int32, mscorlib">
+    <value>8</value>
+  </data>
+  <data name="tbHexCode.Size" type="System.Drawing.Size, System.Drawing">
+    <value>71, 20</value>
+  </data>
+  <data name="tbHexCode.TabIndex" type="System.Int32, mscorlib">
+    <value>58</value>
+  </data>
+  <data name="tbHexCode.ToolTip" xml:space="preserve">
+    <value>Hex value</value>
+  </data>
+  <data name="&gt;&gt;tbHexCode.Name" xml:space="preserve">
+    <value>tbHexCode</value>
+  </data>
+  <data name="&gt;&gt;tbHexCode.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tbHexCode.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;tbHexCode.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="labelAlpha.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
+  </data>
+  <data name="labelAlpha.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="labelAlpha.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 8.25pt, style=Bold</value>
+  </data>
+  <data name="labelAlpha.Location" type="System.Drawing.Point, System.Drawing">
+    <value>9, 8</value>
+  </data>
+  <data name="labelAlpha.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 8, 3, 0</value>
+  </data>
+  <data name="labelAlpha.Size" type="System.Drawing.Size, System.Drawing">
+    <value>19, 13</value>
+  </data>
+  <data name="labelAlpha.TabIndex" type="System.Int32, mscorlib">
+    <value>55</value>
+  </data>
+  <data name="labelAlpha.Text" xml:space="preserve">
+    <value>A:</value>
+  </data>
+  <data name="labelAlpha.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleLeft</value>
+  </data>
+  <data name="&gt;&gt;labelAlpha.Name" xml:space="preserve">
+    <value>labelAlpha</value>
+  </data>
+  <data name="&gt;&gt;labelAlpha.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelAlpha.Parent" xml:space="preserve">
+    <value>panelAlpha</value>
+  </data>
+  <data name="&gt;&gt;labelAlpha.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="tbAlpha.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left, Right</value>
+  </data>
+  <data name="tbAlpha.AutoSize" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="tbAlpha.Location" type="System.Drawing.Point, System.Drawing">
+    <value>31, 3</value>
+  </data>
+  <data name="tbAlpha.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 3, 3, 0</value>
+  </data>
+  <data name="tbAlpha.Size" type="System.Drawing.Size, System.Drawing">
+    <value>207, 32</value>
+  </data>
+  <data name="tbAlpha.TabIndex" type="System.Int32, mscorlib">
+    <value>56</value>
+  </data>
+  <data name="tbAlpha.ToolTip" xml:space="preserve">
+    <value>Alpha</value>
+  </data>
+  <data name="&gt;&gt;tbAlpha.Name" xml:space="preserve">
+    <value>tbAlpha</value>
+  </data>
+  <data name="&gt;&gt;tbAlpha.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TrackBar, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tbAlpha.Parent" xml:space="preserve">
+    <value>panelAlpha</value>
+  </data>
+  <data name="&gt;&gt;tbAlpha.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="pnlSelectedColor.Location" type="System.Drawing.Point, System.Drawing">
+    <value>208, 12</value>
+  </data>
+  <data name="pnlSelectedColor.Size" type="System.Drawing.Size, System.Drawing">
+    <value>72, 24</value>
+  </data>
+  <data name="pnlSelectedColor.TabIndex" type="System.Int32, mscorlib">
+    <value>40</value>
+  </data>
+  <data name="pnlSelectedColor.ToolTip" xml:space="preserve">
+    <value>Selected color</value>
+  </data>
+  <data name="pnlSelectedColor.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="&gt;&gt;pnlSelectedColor.Name" xml:space="preserve">
+    <value>pnlSelectedColor</value>
+  </data>
+  <data name="&gt;&gt;pnlSelectedColor.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;pnlSelectedColor.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;pnlSelectedColor.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="lblAlpha.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Right</value>
+  </data>
+  <data name="lblAlpha.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="lblAlpha.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 8.25pt</value>
+  </data>
+  <data name="lblAlpha.Location" type="System.Drawing.Point, System.Drawing">
+    <value>243, 8</value>
+  </data>
+  <data name="lblAlpha.Size" type="System.Drawing.Size, System.Drawing">
+    <value>25, 13</value>
+  </data>
+  <data name="lblAlpha.TabIndex" type="System.Int32, mscorlib">
+    <value>57</value>
+  </data>
+  <data name="lblAlpha.Text" xml:space="preserve">
+    <value>000</value>
+  </data>
+  <data name="lblAlpha.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleCenter</value>
+  </data>
+  <data name="&gt;&gt;lblAlpha.Name" xml:space="preserve">
+    <value>lblAlpha</value>
+  </data>
+  <data name="&gt;&gt;lblAlpha.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lblAlpha.Parent" xml:space="preserve">
+    <value>panelAlpha</value>
+  </data>
+  <data name="&gt;&gt;lblAlpha.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="pnlColor.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 12</value>
+  </data>
+  <data name="pnlColor.Size" type="System.Drawing.Size, System.Drawing">
+    <value>160, 160</value>
+  </data>
+  <data name="pnlColor.TabIndex" type="System.Int32, mscorlib">
+    <value>38</value>
+  </data>
+  <data name="pnlColor.ToolTip" xml:space="preserve">
+    <value>Select color</value>
+  </data>
+  <data name="pnlColor.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="&gt;&gt;pnlColor.Name" xml:space="preserve">
+    <value>pnlColor</value>
+  </data>
+  <data name="&gt;&gt;pnlColor.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;pnlColor.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;pnlColor.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="pnlBrightness.Location" type="System.Drawing.Point, System.Drawing">
+    <value>178, 12</value>
+  </data>
+  <data name="pnlBrightness.Size" type="System.Drawing.Size, System.Drawing">
+    <value>16, 160</value>
+  </data>
+  <data name="pnlBrightness.TabIndex" type="System.Int32, mscorlib">
+    <value>39</value>
+  </data>
+  <data name="pnlBrightness.ToolTip" xml:space="preserve">
+    <value>Value</value>
+  </data>
+  <data name="pnlBrightness.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="&gt;&gt;pnlBrightness.Name" xml:space="preserve">
+    <value>pnlBrightness</value>
+  </data>
+  <data name="&gt;&gt;pnlBrightness.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;pnlBrightness.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;pnlBrightness.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="buttonCapture.Location" type="System.Drawing.Point, System.Drawing">
+    <value>207, 70</value>
+  </data>
+  <data name="buttonCapture.Size" type="System.Drawing.Size, System.Drawing">
+    <value>72, 23</value>
+  </data>
+  <data name="buttonCapture.TabIndex" type="System.Int32, mscorlib">
+    <value>63</value>
+  </data>
+  <data name="buttonCapture.Text" xml:space="preserve">
+    <value>Capture</value>
+  </data>
+  <data name="buttonCapture.ToolTip" xml:space="preserve">
+    <value>Capture color on screen</value>
+  </data>
+  <data name="&gt;&gt;buttonCapture.Name" xml:space="preserve">
+    <value>buttonCapture</value>
+  </data>
+  <data name="&gt;&gt;buttonCapture.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonCapture.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;buttonCapture.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="tbBlue.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="tbBlue.AutoSize" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="tbBlue.Location" type="System.Drawing.Point, System.Drawing">
+    <value>29, 70</value>
+  </data>
+  <data name="tbBlue.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 3, 3, 6</value>
+  </data>
+  <data name="tbBlue.Size" type="System.Drawing.Size, System.Drawing">
+    <value>208, 32</value>
+  </data>
+  <data name="tbBlue.TabIndex" type="System.Int32, mscorlib">
+    <value>47</value>
+  </data>
+  <data name="tbBlue.ToolTip" xml:space="preserve">
+    <value>Blue</value>
+  </data>
+  <data name="&gt;&gt;tbBlue.Name" xml:space="preserve">
+    <value>tbBlue</value>
+  </data>
+  <data name="&gt;&gt;tbBlue.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TrackBar, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tbBlue.Parent" xml:space="preserve">
+    <value>groupBoxRGB</value>
+  </data>
+  <data name="&gt;&gt;tbBlue.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="tbGreen.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="tbGreen.AutoSize" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="tbGreen.Location" type="System.Drawing.Point, System.Drawing">
+    <value>30, 44</value>
+  </data>
+  <data name="tbGreen.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 3, 3, 0</value>
+  </data>
+  <data name="tbGreen.Size" type="System.Drawing.Size, System.Drawing">
+    <value>207, 32</value>
+  </data>
+  <data name="tbGreen.TabIndex" type="System.Int32, mscorlib">
+    <value>45</value>
+  </data>
+  <data name="tbGreen.ToolTip" xml:space="preserve">
+    <value>Green</value>
+  </data>
+  <data name="&gt;&gt;tbGreen.Name" xml:space="preserve">
+    <value>tbGreen</value>
+  </data>
+  <data name="&gt;&gt;tbGreen.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TrackBar, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tbGreen.Parent" xml:space="preserve">
+    <value>groupBoxRGB</value>
+  </data>
+  <data name="&gt;&gt;tbGreen.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="tbRed.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="tbRed.AutoSize" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="tbRed.Location" type="System.Drawing.Point, System.Drawing">
+    <value>30, 18</value>
+  </data>
+  <data name="tbRed.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 3, 3, 0</value>
+  </data>
+  <data name="tbRed.Size" type="System.Drawing.Size, System.Drawing">
+    <value>207, 32</value>
+  </data>
+  <data name="tbRed.TabIndex" type="System.Int32, mscorlib">
+    <value>43</value>
+  </data>
+  <data name="tbRed.ToolTip" xml:space="preserve">
+    <value>Red</value>
+  </data>
+  <data name="&gt;&gt;tbRed.Name" xml:space="preserve">
+    <value>tbRed</value>
+  </data>
+  <data name="&gt;&gt;tbRed.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TrackBar, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tbRed.Parent" xml:space="preserve">
+    <value>groupBoxRGB</value>
+  </data>
+  <data name="&gt;&gt;tbRed.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="tbValue.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="tbValue.AutoSize" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="tbValue.Location" type="System.Drawing.Point, System.Drawing">
+    <value>31, 74</value>
+  </data>
+  <data name="tbValue.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 3, 3, 6</value>
+  </data>
+  <data name="tbValue.Size" type="System.Drawing.Size, System.Drawing">
+    <value>207, 32</value>
+  </data>
+  <data name="tbValue.TabIndex" type="System.Int32, mscorlib">
+    <value>41</value>
+  </data>
+  <data name="tbValue.ToolTip" xml:space="preserve">
+    <value>Value</value>
+  </data>
+  <data name="&gt;&gt;tbValue.Name" xml:space="preserve">
+    <value>tbValue</value>
+  </data>
+  <data name="&gt;&gt;tbValue.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TrackBar, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tbValue.Parent" xml:space="preserve">
+    <value>groupBoxHSV</value>
+  </data>
+  <data name="&gt;&gt;tbValue.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="tbSaturation.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="tbSaturation.AutoSize" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="tbSaturation.Location" type="System.Drawing.Point, System.Drawing">
+    <value>31, 48</value>
+  </data>
+  <data name="tbSaturation.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 3, 3, 0</value>
+  </data>
+  <data name="tbSaturation.Size" type="System.Drawing.Size, System.Drawing">
+    <value>207, 32</value>
+  </data>
+  <data name="tbSaturation.TabIndex" type="System.Int32, mscorlib">
+    <value>39</value>
+  </data>
+  <data name="tbSaturation.ToolTip" xml:space="preserve">
+    <value>Saturation</value>
+  </data>
+  <data name="&gt;&gt;tbSaturation.Name" xml:space="preserve">
+    <value>tbSaturation</value>
+  </data>
+  <data name="&gt;&gt;tbSaturation.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TrackBar, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tbSaturation.Parent" xml:space="preserve">
+    <value>groupBoxHSV</value>
+  </data>
+  <data name="&gt;&gt;tbSaturation.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="tbHue.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="tbHue.AutoSize" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="tbHue.Location" type="System.Drawing.Point, System.Drawing">
+    <value>30, 22</value>
+  </data>
+  <data name="tbHue.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 3, 3, 0</value>
+  </data>
+  <data name="tbHue.Size" type="System.Drawing.Size, System.Drawing">
+    <value>208, 32</value>
+  </data>
+  <data name="tbHue.TabIndex" type="System.Int32, mscorlib">
+    <value>36</value>
+  </data>
+  <data name="tbHue.ToolTip" xml:space="preserve">
+    <value>Hue</value>
+  </data>
+  <data name="&gt;&gt;tbHue.Name" xml:space="preserve">
+    <value>tbHue</value>
+  </data>
+  <data name="&gt;&gt;tbHue.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TrackBar, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tbHue.Parent" xml:space="preserve">
+    <value>groupBoxHSV</value>
+  </data>
+  <data name="&gt;&gt;tbHue.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="panelAlpha.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="panelAlpha.Location" type="System.Drawing.Point, System.Drawing">
+    <value>5, 406</value>
+  </data>
+  <data name="panelAlpha.Size" type="System.Drawing.Size, System.Drawing">
+    <value>274, 40</value>
+  </data>
+  <data name="panelAlpha.TabIndex" type="System.Int32, mscorlib">
+    <value>64</value>
+  </data>
+  <data name="&gt;&gt;panelAlpha.Name" xml:space="preserve">
+    <value>panelAlpha</value>
+  </data>
+  <data name="&gt;&gt;panelAlpha.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;panelAlpha.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;panelAlpha.ZOrder" xml:space="preserve">
+    <value>9</value>
+  </data>
+  <data name="groupBoxRGB.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="groupBoxRGB.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
+    <value>GrowAndShrink</value>
+  </data>
+  <data name="labelRed.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="labelRed.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 8.25pt, style=Bold</value>
+  </data>
+  <data name="labelRed.Location" type="System.Drawing.Point, System.Drawing">
+    <value>7, 23</value>
+  </data>
+  <data name="labelRed.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 8, 3, 0</value>
+  </data>
+  <data name="labelRed.Size" type="System.Drawing.Size, System.Drawing">
+    <value>20, 13</value>
+  </data>
+  <data name="labelRed.TabIndex" type="System.Int32, mscorlib">
+    <value>42</value>
+  </data>
+  <data name="labelRed.Text" xml:space="preserve">
+    <value>R:</value>
+  </data>
+  <data name="labelRed.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleLeft</value>
+  </data>
+  <data name="&gt;&gt;labelRed.Name" xml:space="preserve">
+    <value>labelRed</value>
+  </data>
+  <data name="&gt;&gt;labelRed.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelRed.Parent" xml:space="preserve">
+    <value>groupBoxRGB</value>
+  </data>
+  <data name="&gt;&gt;labelRed.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="lblBlue.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="lblBlue.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="lblBlue.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 8.25pt</value>
+  </data>
+  <data name="lblBlue.Location" type="System.Drawing.Point, System.Drawing">
+    <value>243, 75</value>
+  </data>
+  <data name="lblBlue.Size" type="System.Drawing.Size, System.Drawing">
+    <value>25, 13</value>
+  </data>
+  <data name="lblBlue.TabIndex" type="System.Int32, mscorlib">
+    <value>54</value>
+  </data>
+  <data name="lblBlue.Text" xml:space="preserve">
+    <value>000</value>
+  </data>
+  <data name="lblBlue.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleCenter</value>
+  </data>
+  <data name="&gt;&gt;lblBlue.Name" xml:space="preserve">
+    <value>lblBlue</value>
+  </data>
+  <data name="&gt;&gt;lblBlue.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lblBlue.Parent" xml:space="preserve">
+    <value>groupBoxRGB</value>
+  </data>
+  <data name="&gt;&gt;lblBlue.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="labelBlue.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="labelBlue.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 8.25pt, style=Bold</value>
+  </data>
+  <data name="labelBlue.Location" type="System.Drawing.Point, System.Drawing">
+    <value>7, 75</value>
+  </data>
+  <data name="labelBlue.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 8, 3, 0</value>
+  </data>
+  <data name="labelBlue.Size" type="System.Drawing.Size, System.Drawing">
+    <value>19, 13</value>
+  </data>
+  <data name="labelBlue.TabIndex" type="System.Int32, mscorlib">
+    <value>46</value>
+  </data>
+  <data name="labelBlue.Text" xml:space="preserve">
+    <value>B:</value>
+  </data>
+  <data name="labelBlue.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleLeft</value>
+  </data>
+  <data name="&gt;&gt;labelBlue.Name" xml:space="preserve">
+    <value>labelBlue</value>
+  </data>
+  <data name="&gt;&gt;labelBlue.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelBlue.Parent" xml:space="preserve">
+    <value>groupBoxRGB</value>
+  </data>
+  <data name="&gt;&gt;labelBlue.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="lblGreen.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="lblGreen.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="lblGreen.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 8.25pt</value>
+  </data>
+  <data name="lblGreen.Location" type="System.Drawing.Point, System.Drawing">
+    <value>243, 49</value>
+  </data>
+  <data name="lblGreen.Size" type="System.Drawing.Size, System.Drawing">
+    <value>25, 13</value>
+  </data>
+  <data name="lblGreen.TabIndex" type="System.Int32, mscorlib">
+    <value>53</value>
+  </data>
+  <data name="lblGreen.Text" xml:space="preserve">
+    <value>000</value>
+  </data>
+  <data name="lblGreen.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleCenter</value>
+  </data>
+  <data name="&gt;&gt;lblGreen.Name" xml:space="preserve">
+    <value>lblGreen</value>
+  </data>
+  <data name="&gt;&gt;lblGreen.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lblGreen.Parent" xml:space="preserve">
+    <value>groupBoxRGB</value>
+  </data>
+  <data name="&gt;&gt;lblGreen.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="labelGreen.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="labelGreen.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 8.25pt, style=Bold</value>
+  </data>
+  <data name="labelGreen.Location" type="System.Drawing.Point, System.Drawing">
+    <value>7, 49</value>
+  </data>
+  <data name="labelGreen.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 8, 3, 0</value>
+  </data>
+  <data name="labelGreen.Size" type="System.Drawing.Size, System.Drawing">
+    <value>20, 13</value>
+  </data>
+  <data name="labelGreen.TabIndex" type="System.Int32, mscorlib">
+    <value>44</value>
+  </data>
+  <data name="labelGreen.Text" xml:space="preserve">
+    <value>G:</value>
+  </data>
+  <data name="labelGreen.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleLeft</value>
+  </data>
+  <data name="&gt;&gt;labelGreen.Name" xml:space="preserve">
+    <value>labelGreen</value>
+  </data>
+  <data name="&gt;&gt;labelGreen.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelGreen.Parent" xml:space="preserve">
+    <value>groupBoxRGB</value>
+  </data>
+  <data name="&gt;&gt;labelGreen.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="lblRed.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="lblRed.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="lblRed.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 8.25pt</value>
+  </data>
+  <data name="lblRed.Location" type="System.Drawing.Point, System.Drawing">
+    <value>243, 23</value>
+  </data>
+  <data name="lblRed.Size" type="System.Drawing.Size, System.Drawing">
+    <value>25, 13</value>
+  </data>
+  <data name="lblRed.TabIndex" type="System.Int32, mscorlib">
+    <value>52</value>
+  </data>
+  <data name="lblRed.Text" xml:space="preserve">
+    <value>000</value>
+  </data>
+  <data name="lblRed.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleCenter</value>
+  </data>
+  <data name="&gt;&gt;lblRed.Name" xml:space="preserve">
+    <value>lblRed</value>
+  </data>
+  <data name="&gt;&gt;lblRed.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lblRed.Parent" xml:space="preserve">
+    <value>groupBoxRGB</value>
+  </data>
+  <data name="&gt;&gt;lblRed.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="groupBoxRGB.Location" type="System.Drawing.Point, System.Drawing">
+    <value>5, 178</value>
+  </data>
+  <data name="groupBoxRGB.Size" type="System.Drawing.Size, System.Drawing">
+    <value>274, 108</value>
+  </data>
+  <data name="groupBoxRGB.TabIndex" type="System.Int32, mscorlib">
+    <value>61</value>
+  </data>
+  <data name="groupBoxRGB.Text" xml:space="preserve">
+    <value>RGB</value>
+  </data>
+  <data name="&gt;&gt;groupBoxRGB.Name" xml:space="preserve">
+    <value>groupBoxRGB</value>
+  </data>
+  <data name="&gt;&gt;groupBoxRGB.Type" xml:space="preserve">
+    <value>ARCed.Controls.CollapsibleGroupBox, ARCed.Controls, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;groupBoxRGB.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;groupBoxRGB.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="groupBoxHSV.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
+  <data name="groupBoxHSV.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
+    <value>GrowAndShrink</value>
+  </data>
+  <data name="labelHue.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="labelHue.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 8.25pt, style=Bold</value>
+  </data>
+  <data name="labelHue.Location" type="System.Drawing.Point, System.Drawing">
+    <value>7, 24</value>
+  </data>
+  <data name="labelHue.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 8, 3, 0</value>
+  </data>
+  <data name="labelHue.Size" type="System.Drawing.Size, System.Drawing">
+    <value>20, 13</value>
+  </data>
+  <data name="labelHue.TabIndex" type="System.Int32, mscorlib">
+    <value>35</value>
+  </data>
+  <data name="labelHue.Text" xml:space="preserve">
+    <value>H:</value>
+  </data>
+  <data name="labelHue.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleLeft</value>
+  </data>
+  <data name="&gt;&gt;labelHue.Name" xml:space="preserve">
+    <value>labelHue</value>
+  </data>
+  <data name="&gt;&gt;labelHue.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelHue.Parent" xml:space="preserve">
+    <value>groupBoxHSV</value>
+  </data>
+  <data name="&gt;&gt;labelHue.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="labelValue.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="labelValue.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 8.25pt, style=Bold</value>
+  </data>
+  <data name="labelValue.Location" type="System.Drawing.Point, System.Drawing">
+    <value>9, 74</value>
+  </data>
+  <data name="labelValue.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 8, 3, 0</value>
+  </data>
+  <data name="labelValue.Size" type="System.Drawing.Size, System.Drawing">
+    <value>19, 13</value>
+  </data>
+  <data name="labelValue.TabIndex" type="System.Int32, mscorlib">
+    <value>40</value>
+  </data>
+  <data name="labelValue.Text" xml:space="preserve">
+    <value>V:</value>
+  </data>
+  <data name="labelValue.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleLeft</value>
+  </data>
+  <data name="&gt;&gt;labelValue.Name" xml:space="preserve">
+    <value>labelValue</value>
+  </data>
+  <data name="&gt;&gt;labelValue.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelValue.Parent" xml:space="preserve">
+    <value>groupBoxHSV</value>
+  </data>
+  <data name="&gt;&gt;labelValue.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="labelSaturation.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="labelSaturation.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 8.25pt, style=Bold</value>
+  </data>
+  <data name="labelSaturation.Location" type="System.Drawing.Point, System.Drawing">
+    <value>8, 48</value>
+  </data>
+  <data name="labelSaturation.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 8, 3, 0</value>
+  </data>
+  <data name="labelSaturation.Size" type="System.Drawing.Size, System.Drawing">
+    <value>19, 13</value>
+  </data>
+  <data name="labelSaturation.TabIndex" type="System.Int32, mscorlib">
+    <value>38</value>
+  </data>
+  <data name="labelSaturation.Text" xml:space="preserve">
+    <value>S:</value>
+  </data>
+  <data name="labelSaturation.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleLeft</value>
+  </data>
+  <data name="&gt;&gt;labelSaturation.Name" xml:space="preserve">
+    <value>labelSaturation</value>
+  </data>
+  <data name="&gt;&gt;labelSaturation.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelSaturation.Parent" xml:space="preserve">
+    <value>groupBoxHSV</value>
+  </data>
+  <data name="&gt;&gt;labelSaturation.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="lblValue.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="lblValue.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="lblValue.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 8.25pt</value>
+  </data>
+  <data name="lblValue.Location" type="System.Drawing.Point, System.Drawing">
+    <value>244, 74</value>
+  </data>
+  <data name="lblValue.Size" type="System.Drawing.Size, System.Drawing">
+    <value>25, 13</value>
+  </data>
+  <data name="lblValue.TabIndex" type="System.Int32, mscorlib">
+    <value>51</value>
+  </data>
+  <data name="lblValue.Text" xml:space="preserve">
+    <value>000</value>
+  </data>
+  <data name="lblValue.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleCenter</value>
+  </data>
+  <data name="&gt;&gt;lblValue.Name" xml:space="preserve">
+    <value>lblValue</value>
+  </data>
+  <data name="&gt;&gt;lblValue.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lblValue.Parent" xml:space="preserve">
+    <value>groupBoxHSV</value>
+  </data>
+  <data name="&gt;&gt;lblValue.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="lblSaturation.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="lblSaturation.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="lblSaturation.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 8.25pt</value>
+  </data>
+  <data name="lblSaturation.Location" type="System.Drawing.Point, System.Drawing">
+    <value>244, 48</value>
+  </data>
+  <data name="lblSaturation.Size" type="System.Drawing.Size, System.Drawing">
+    <value>25, 13</value>
+  </data>
+  <data name="lblSaturation.TabIndex" type="System.Int32, mscorlib">
+    <value>50</value>
+  </data>
+  <data name="lblSaturation.Text" xml:space="preserve">
+    <value>000</value>
+  </data>
+  <data name="lblSaturation.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleCenter</value>
+  </data>
+  <data name="&gt;&gt;lblSaturation.Name" xml:space="preserve">
+    <value>lblSaturation</value>
+  </data>
+  <data name="&gt;&gt;lblSaturation.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lblSaturation.Parent" xml:space="preserve">
+    <value>groupBoxHSV</value>
+  </data>
+  <data name="&gt;&gt;lblSaturation.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="lblHue.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Right</value>
+  </data>
+  <data name="lblHue.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="lblHue.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 8.25pt</value>
+  </data>
+  <data name="lblHue.Location" type="System.Drawing.Point, System.Drawing">
+    <value>244, 24</value>
+  </data>
+  <data name="lblHue.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 8, 3, 0</value>
+  </data>
+  <data name="lblHue.Size" type="System.Drawing.Size, System.Drawing">
+    <value>25, 13</value>
+  </data>
+  <data name="lblHue.TabIndex" type="System.Int32, mscorlib">
+    <value>49</value>
+  </data>
+  <data name="lblHue.Text" xml:space="preserve">
+    <value>000</value>
+  </data>
+  <data name="lblHue.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleCenter</value>
+  </data>
+  <data name="&gt;&gt;lblHue.Name" xml:space="preserve">
+    <value>lblHue</value>
+  </data>
+  <data name="&gt;&gt;lblHue.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lblHue.Parent" xml:space="preserve">
+    <value>groupBoxHSV</value>
+  </data>
+  <data name="&gt;&gt;lblHue.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="groupBoxHSV.Location" type="System.Drawing.Point, System.Drawing">
+    <value>5, 292</value>
+  </data>
+  <data name="groupBoxHSV.Size" type="System.Drawing.Size, System.Drawing">
+    <value>275, 108</value>
+  </data>
+  <data name="groupBoxHSV.TabIndex" type="System.Int32, mscorlib">
+    <value>62</value>
+  </data>
+  <data name="groupBoxHSV.Text" xml:space="preserve">
+    <value>HSV</value>
+  </data>
+  <data name="&gt;&gt;groupBoxHSV.Name" xml:space="preserve">
+    <value>groupBoxHSV</value>
+  </data>
+  <data name="&gt;&gt;groupBoxHSV.Type" xml:space="preserve">
+    <value>ARCed.Controls.CollapsibleGroupBox, ARCed.Controls, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;groupBoxHSV.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;groupBoxHSV.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="$this.AutoScaleBaseSize" type="System.Drawing.Size, System.Drawing">
+    <value>5, 13</value>
+  </data>
+  <data name="$this.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
+    <value>GrowAndShrink</value>
+  </data>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>288, 447</value>
+  </data>
+  <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
+    <value>CenterParent</value>
+  </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>Choose Color</value>
+  </data>
+  <data name="&gt;&gt;toolTip.Name" xml:space="preserve">
+    <value>toolTip</value>
+  </data>
+  <data name="&gt;&gt;toolTip.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolTip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;$this.Name" xml:space="preserve">
+    <value>ColorChooserForm</value>
+  </data>
+  <data name="&gt;&gt;$this.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Form, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
 </root>

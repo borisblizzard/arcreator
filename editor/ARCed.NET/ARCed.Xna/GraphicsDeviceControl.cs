@@ -7,21 +7,21 @@
 //-----------------------------------------------------------------------------
 #endregion
 
-#region Using Statements
+#region Using Directives
+
 using System;
 using System.Drawing;
 using System.Windows.Forms;
 using Microsoft.Xna.Framework.Graphics;
+using Rectangle = Microsoft.Xna.Framework.Rectangle;
+
 #endregion
 
 namespace ARCed.Controls
 {
     // System.Drawing and the XNA Framework both define Color and Rectangle
     // types. To avoid conflicts, we specify exactly which ones to use.
-    using Color = System.Drawing.Color;
-    using Rectangle = Microsoft.Xna.Framework.Rectangle;
-
-
+    
     /// <summary>
     /// Custom control uses the XNA Framework GraphicsDevice to render onto
     /// a Windows Form. Derived classes can override the Initialize and Draw
@@ -61,7 +61,7 @@ namespace ARCed.Controls
             get { return services; }
         }
 
-        ServiceContainer services = new ServiceContainer();
+        private readonly ServiceContainer services = new ServiceContainer();
 
 
         #endregion
@@ -159,7 +159,7 @@ namespace ARCed.Controls
             // largest of these controls. But what if we are currently drawing
             // a smaller control? To avoid unwanted stretching, we set the
             // viewport to only use the top left portion of the full backbuffer.
-            Viewport viewport = new Viewport();
+            var viewport = new Viewport();
 
             viewport.X = 0;
             viewport.Y = 0;
@@ -186,7 +186,7 @@ namespace ARCed.Controls
         {
             try
             {
-                Rectangle sourceRectangle = new Rectangle(0, 0, ClientSize.Width,
+                var sourceRectangle = new Rectangle(0, 0, ClientSize.Width,
                                                                 ClientSize.Height);
 
                 GraphicsDevice.Present(sourceRectangle, null, this.Handle);
@@ -259,7 +259,7 @@ namespace ARCed.Controls
 
             using (Brush brush = new SolidBrush(Color.Black))
             {
-                using (StringFormat format = new StringFormat())
+                using (var format = new StringFormat())
                 {
                     format.Alignment = StringAlignment.Center;
                     format.LineAlignment = StringAlignment.Center;

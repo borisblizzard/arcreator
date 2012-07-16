@@ -1,3 +1,5 @@
+#region Using Directives
+
 using System;
 using System.ComponentModel;
 using System.Drawing;
@@ -6,6 +8,8 @@ using System.IO;
 using System.Text;
 using System.Xml;
 
+#endregion
+
 namespace ARCed.UI
 {
     partial class DockPanel
@@ -13,7 +17,7 @@ namespace ARCed.UI
         private static class Persistor
         {
             private const string ConfigFileVersion = "1.0";
-            private static string[] CompatibleConfigFileVersions = new string[] { };
+            private static readonly string[] CompatibleConfigFileVersions = new string[] { };
 
             private class DummyContent : DockContent
             {
@@ -212,7 +216,7 @@ namespace ARCed.UI
 
             public static void SaveAsXml(DockPanel dockPanel, string fileName, Encoding encoding)
             {
-                FileStream fs = new FileStream(fileName, FileMode.Create);
+                var fs = new FileStream(fileName, FileMode.Create);
                 try
                 {
                     SaveAsXml(dockPanel, fs, encoding);
@@ -230,7 +234,7 @@ namespace ARCed.UI
 
             public static void SaveAsXml(DockPanel dockPanel, Stream stream, Encoding encoding, bool upstream)
             {
-                XmlTextWriter xmlOut = new XmlTextWriter(stream, encoding);
+                var xmlOut = new XmlTextWriter(stream, encoding);
 
                 // Use indenting for readability
                 xmlOut.Formatting = Formatting.Indented;
@@ -320,7 +324,7 @@ namespace ARCed.UI
                 xmlOut.WriteEndElement();
 
                 // FloatWindows
-                RectangleConverter rectConverter = new RectangleConverter();
+                var rectConverter = new RectangleConverter();
                 xmlOut.WriteStartElement("FloatWindows");
                 xmlOut.WriteAttributeString("Count", dockPanel.FloatWindows.Count.ToString(CultureInfo.InvariantCulture));
                 foreach (FloatWindow fw in dockPanel.FloatWindows)
@@ -360,7 +364,7 @@ namespace ARCed.UI
 
             public static void LoadFromXml(DockPanel dockPanel, string fileName, DeserializeDockContent deserializeContent)
             {
-                FileStream fs = new FileStream(fileName, FileMode.Open, FileAccess.Read);
+                var fs = new FileStream(fileName, FileMode.Open, FileAccess.Read);
                 try
                 {
                     LoadFromXml(dockPanel, fs, deserializeContent);
@@ -379,7 +383,7 @@ namespace ARCed.UI
             private static ContentStruct[] LoadContents(XmlTextReader xmlIn)
             {
                 int countOfContents = Convert.ToInt32(xmlIn.GetAttribute("Count"), CultureInfo.InvariantCulture);
-                ContentStruct[] contents = new ContentStruct[countOfContents];
+                var contents = new ContentStruct[countOfContents];
                 MoveToNextElement(xmlIn);
                 for (int i = 0; i < countOfContents; i++)
                 {
@@ -399,9 +403,9 @@ namespace ARCed.UI
 
             private static PaneStruct[] LoadPanes(XmlTextReader xmlIn)
             {
-                EnumConverter dockStateConverter = new EnumConverter(typeof(DockState));
+                var dockStateConverter = new EnumConverter(typeof(DockState));
                 int countOfPanes = Convert.ToInt32(xmlIn.GetAttribute("Count"), CultureInfo.InvariantCulture);
-                PaneStruct[] panes = new PaneStruct[countOfPanes];
+                var panes = new PaneStruct[countOfPanes];
                 MoveToNextElement(xmlIn);
                 for (int i = 0; i < countOfPanes; i++)
                 {
@@ -435,10 +439,10 @@ namespace ARCed.UI
 
             private static DockWindowStruct[] LoadDockWindows(XmlTextReader xmlIn, DockPanel dockPanel)
             {
-                EnumConverter dockStateConverter = new EnumConverter(typeof(DockState));
-                EnumConverter dockAlignmentConverter = new EnumConverter(typeof(DockAlignment));
+                var dockStateConverter = new EnumConverter(typeof(DockState));
+                var dockAlignmentConverter = new EnumConverter(typeof(DockAlignment));
                 int countOfDockWindows = dockPanel.DockWindows.Count;
-                DockWindowStruct[] dockWindows = new DockWindowStruct[countOfDockWindows];
+                var dockWindows = new DockWindowStruct[countOfDockWindows];
                 MoveToNextElement(xmlIn);
                 for (int i = 0; i < countOfDockWindows; i++)
                 {
@@ -472,10 +476,10 @@ namespace ARCed.UI
 
             private static FloatWindowStruct[] LoadFloatWindows(XmlTextReader xmlIn)
             {
-                EnumConverter dockAlignmentConverter = new EnumConverter(typeof(DockAlignment));
-                RectangleConverter rectConverter = new RectangleConverter();
+                var dockAlignmentConverter = new EnumConverter(typeof(DockAlignment));
+                var rectConverter = new RectangleConverter();
                 int countOfFloatWindows = Convert.ToInt32(xmlIn.GetAttribute("Count"), CultureInfo.InvariantCulture);
-                FloatWindowStruct[] floatWindows = new FloatWindowStruct[countOfFloatWindows];
+                var floatWindows = new FloatWindowStruct[countOfFloatWindows];
                 MoveToNextElement(xmlIn);
                 for (int i = 0; i < countOfFloatWindows; i++)
                 {
@@ -513,7 +517,7 @@ namespace ARCed.UI
                 if (dockPanel.Contents.Count != 0)
                     throw new InvalidOperationException(Strings.DockPanel_LoadFromXml_AlreadyInitialized);
 
-                XmlTextReader xmlIn = new XmlTextReader(stream);
+                var xmlIn = new XmlTextReader(stream);
                 xmlIn.WhitespaceHandling = WhitespaceHandling.None;
                 xmlIn.MoveToContent();
 
@@ -527,7 +531,7 @@ namespace ARCed.UI
                 if (!IsFormatVersionValid(formatVersion))
                     throw new ArgumentException(Strings.DockPanel_LoadFromXml_InvalidFormatVersion);
 
-                DockPanelStruct dockPanelStruct = new DockPanelStruct();
+                var dockPanelStruct = new DockPanelStruct();
                 dockPanelStruct.DockLeftPortion = Convert.ToDouble(xmlIn.GetAttribute("DockLeftPortion"), CultureInfo.InvariantCulture);
                 dockPanelStruct.DockRightPortion = Convert.ToDouble(xmlIn.GetAttribute("DockRightPortion"), CultureInfo.InvariantCulture);
                 dockPanelStruct.DockTopPortion = Convert.ToDouble(xmlIn.GetAttribute("DockTopPortion"), CultureInfo.InvariantCulture);

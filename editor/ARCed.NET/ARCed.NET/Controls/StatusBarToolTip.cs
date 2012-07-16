@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿#region Using Directives
+
 using System.ComponentModel;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
+
+#endregion
 
 namespace ARCed.Controls
 {
@@ -23,7 +22,6 @@ namespace ARCed.Controls
 		
 		private void StatusBarToolTip_Popup(object sender, PopupEventArgs e)
 		{
-			Console.WriteLine("POOP");
 			Editor.StatusBar.Items[2].Text = GetToolTip(e.AssociatedControl);
 			e.Cancel = true;
 		}

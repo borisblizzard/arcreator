@@ -1,9 +1,13 @@
-﻿using System;
+﻿#region Using Directives
+
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using ARCed.Helpers;
 using Microsoft.Xna.Framework.Graphics;
+
+#endregion
 
 namespace ARCed.Controls
 {
@@ -44,7 +48,7 @@ namespace ARCed.Controls
 
 		#region Private Fields
 
-		private static Dictionary<string, Texture2D> _cache =
+        private readonly static Dictionary<string, Texture2D> _cache =
 			new Dictionary<string, Texture2D>();
 		public static GraphicsDevice GraphicsDevice { get; set; }
 
@@ -87,7 +91,7 @@ namespace ARCed.Controls
 		/// <summary>
 		/// Caches and returns an icon used for Priority.
 		/// </summary>
-		/// <param name="passage">Priority value</param>
+		/// <param name="priority">Priority value</param>
 		/// <returns>Cached texture</returns>
 		public static Texture2D Priority(int priority)
 		{
@@ -120,7 +124,7 @@ namespace ARCed.Controls
 		/// <summary>
 		/// Caches and returns an icon used for Terrain Tags.
 		/// </summary>
-		/// <param name="passage">Terrain tag value</param>
+		/// <param name="terrain">Terrain tag value</param>
 		/// <returns>Cached texture</returns>
 		public static Texture2D Terrain(int terrain)
 		{

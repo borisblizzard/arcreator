@@ -3,7 +3,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Resources;
 
@@ -30,15 +30,15 @@ namespace ARCed.Plugins
 		/// </summary>
 		public bool IsLoaded { get; private set; }
 		/// <summary>
-		/// The associated <paramref name="System.Reflection.Assembly"/> instance of the plugin
+		/// The associated <see cref="System.Reflection.Assembly"/> instance of the plugin
 		/// </summary>
 		public Assembly Assembly { get { return _assembly; } }
 		/// <summary>
-		/// The associated <paramref name="System.Reflection.AssemblyName"/> instance of the plugin
+        /// The associated <see cref="System.Reflection.AssemblyName"/> instance of the plugin
 		/// </summary>
 		public AssemblyName AssemblyName { get { return _assembly.GetName(); } }
 		/// <summary>
-		/// Gets the file <paramref name="System.Version"/> of the associated assembly 
+        /// Gets the file <see cref="System.Version"/> of the associated assembly 
 		/// </summary>
 		public Version Version { get { return _assembly.GetName().Version; } }
 		/// <summary>
@@ -54,9 +54,9 @@ namespace ARCed.Plugins
 
 		#region Private Fields
 
-		private Assembly _assembly;
-		private IPluginHost _host;
-		private Dictionary<string, string> _data;
+		private readonly Assembly _assembly;
+		private readonly IPluginHost _host;
+		private readonly Dictionary<string, string> _data;
 
 		#endregion
 
@@ -73,7 +73,7 @@ namespace ARCed.Plugins
 			{
 				_host = host;
 				_assembly = Assembly.LoadFile(filename);
-				List<DictionaryEntry> config = ReadResourceConfiguration(_assembly);
+				var config = ReadResourceConfiguration(_assembly);
 				_data = GetRegistryClasses(config);
 				GetEntries();
 				IsLoaded = true;
@@ -91,14 +91,11 @@ namespace ARCed.Plugins
 		/// <returns>The list of entries</returns>
 		public List<RegistryEntry> GetEntries()
 		{
-			List<RegistryEntry> entries = new List<RegistryEntry>(_data.Count);
-			foreach (var kvp in _data)
-			{
-				Type type = _assembly.GetType(kvp.Value);
-				RegistryEntry entry = new RegistryEntry(this, type, kvp.Key, kvp.Value);
-				entries.Add(entry);
-			}
-			return entries;
+			var entries = new List<RegistryEntry>(_data.Count);
+		    entries.AddRange(from kvp in this._data
+		        let type = this._assembly.GetType(kvp.Value)
+		        select new RegistryEntry(this, type, kvp.Key, kvp.Value));
+		    return entries;
 		}
 
 		#endregion
@@ -112,19 +109,20 @@ namespace ARCed.Plugins
 		/// <param name="assembly">The assembly to check for resource files</param>
 		/// <returns>A list of key/values pairs, the keys being the simple name to display
 		/// in the GUI, and the values being the full name of the type including namespaces</returns>
-		private static List<DictionaryEntry>  ReadResourceConfiguration(Assembly assembly)
+		private static IEnumerable<DictionaryEntry> ReadResourceConfiguration(Assembly assembly)
 		{
-			List<DictionaryEntry> config = new List<DictionaryEntry>();
-			foreach (string resName in assembly.GetManifestResourceNames())
+			var config = new List<DictionaryEntry>();
+			foreach (var resName in assembly.GetManifestResourceNames())
 			{
-				using (Stream stream = assembly.GetManifestResourceStream(resName))
+				using (var stream = assembly.GetManifestResourceStream(resName))
 				{
-					using (ResourceReader reader = new ResourceReader(stream))
-					{
-						IDictionaryEnumerator kvp = reader.GetEnumerator();
-						while (kvp.MoveNext())
-							config.Add(kvp.Entry);
-					}
+				    if (stream != null)
+				        using (var reader = new ResourceReader(stream))
+				        {
+				            var kvp = reader.GetEnumerator();
+				            while (kvp.MoveNext())
+				                config.Add(kvp.Entry);
+				        }
 				}
 			}
 			return config;
@@ -137,16 +135,14 @@ namespace ARCed.Plugins
 		/// the resouce, and the value being the value of the resouce</param>
 		/// <returns>A dictionary of key/values pairs, the keys being the simple name to display
 		/// in the GUI, and the values being the full name of the type including namespaces</returns>
-		private static Dictionary<string, string> GetRegistryClasses(List<DictionaryEntry> config)
+		private static Dictionary<string, string> GetRegistryClasses(IEnumerable<DictionaryEntry> config)
 		{
 			var data = new Dictionary<string,string>();
-			foreach (DictionaryEntry entry in config)
+			foreach (var classNames in from entry in config
+			    where entry.Key.ToString().StartsWith("RegistyPlugin")
+			    select entry.Value.ToString().Split('|'))
 			{
-				if (entry.Key.ToString().StartsWith("RegistyPlugin"))
-				{
-					string[] classNames = entry.Value.ToString().Split('|');
-					data[classNames[0]] = classNames[1];
-				}
+			    data[classNames[0]] = classNames[1];
 			}
 			return data;
 		}

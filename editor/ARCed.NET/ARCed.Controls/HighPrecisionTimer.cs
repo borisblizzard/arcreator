@@ -23,10 +23,14 @@
 
 #endregion
 
+#region Using Directives
+
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
+
+#endregion
 
 namespace ARCed.Controls
 {
@@ -196,19 +200,19 @@ namespace ARCed.Controls
 		private EventRaiser tickRaiser;
 
 		// Indicates whether or not the timer is running.
-		private bool running = false;
+	    private bool running;
 
 		// Indicates whether or not the timer has been disposed.
-		private volatile bool disposed = false;
+	    private volatile bool disposed;
 
 		// The ISynchronizeInvoke object to use for marshaling events.
-		private ISynchronizeInvoke synchronizingObject = null;
+	    private ISynchronizeInvoke synchronizingObject;
 
 		// For implementing IComponent.
-		private ISite site = null;
+	    private ISite site;
 
 		// Multimedia timer capabilities.
-		private static TimerCaps caps;
+		private static readonly TimerCaps caps;
 
 		#endregion
 
@@ -250,11 +254,7 @@ namespace ARCed.Controls
 		/// </param>
 		public HighPrecisionTimer(IContainer container)
 		{
-			///
-			/// Required for Windows.Forms Class Composition Designer support
-			///
 			container.Add(this);
-
 			Initialize();
 		}
 
@@ -284,9 +284,9 @@ namespace ARCed.Controls
 
 			running = false;
 
-			timeProcPeriodic = new TimeProc(TimerPeriodicEventCallback);
-			timeProcOneShot = new TimeProc(TimerOneShotEventCallback);
-			tickRaiser = new EventRaiser(OnTick);
+			timeProcPeriodic = this.TimerPeriodicEventCallback;
+			timeProcOneShot = this.TimerOneShotEventCallback;
+			tickRaiser = this.OnTick;
 		}
 
 		#endregion
@@ -692,7 +692,7 @@ namespace ARCed.Controls
 
 		#region IComponent Members
 
-		public event System.EventHandler Disposed;
+		public event EventHandler Disposed;
 
 		public ISite Site
 		{

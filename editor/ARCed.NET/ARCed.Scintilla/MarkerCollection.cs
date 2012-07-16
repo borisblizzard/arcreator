@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 
-#endregion Using Directives
+#endregion
 
 
 namespace ARCed.Scintilla
@@ -12,7 +12,7 @@ namespace ARCed.Scintilla
     /// <summary>
     ///     Represents a collection of <see cref="Marker" /> objects and options in a <see cref="Scintilla" /> control.
     /// </summary>
-    [TypeConverterAttribute(typeof(System.ComponentModel.ExpandableObjectConverter))]
+    [TypeConverter(typeof(ExpandableObjectConverter))]
     public class MarkerCollection : TopLevelHelper
     {
         #region Methods
@@ -252,7 +252,7 @@ namespace ARCed.Scintilla
 
         public List<Marker> GetMarkers(int line)
         {
-            List<Marker> ret = new List<Marker>();
+            var ret = new List<Marker>();
             int mask = GetMarkerMask(line);
             for (int i = 0; i < 32; i++)
                 if ((mask & i) == i)

@@ -1,3 +1,5 @@
+#region Using Directives
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -8,6 +10,8 @@ using System.Security.Permissions;
 using System.Windows.Forms;
 using ARCed.Core.Win32;
 
+#endregion
+
 namespace ARCed.UI
 {
 	public abstract class DockPaneStripBase : Control
@@ -15,11 +19,11 @@ namespace ARCed.UI
         [SuppressMessage("Microsoft.Design", "CA1034:NestedTypesShouldNotBeVisible")]        
         protected internal class Tab : IDisposable
         {
-            private IDockContent m_content;
+            private readonly IDockContent _mContent;
 
             public Tab(IDockContent content)
             {
-                m_content = content;
+                this._mContent = content;
             }
 
             ~Tab()
@@ -29,12 +33,12 @@ namespace ARCed.UI
 
             public IDockContent Content
             {
-                get { return m_content; }
+                get { return this._mContent; }
             }
 
             public Form ContentForm
             {
-                get { return m_content as Form; }
+                get { return this._mContent as Form; }
             }
 
             public void Dispose()
@@ -67,13 +71,13 @@ namespace ARCed.UI
 
             internal TabCollection(DockPane pane)
             {
-                m_dockPane = pane;
+                this._mDockPane = pane;
             }
 
-            private DockPane m_dockPane;
+            private readonly DockPane _mDockPane;
             public DockPane DockPane
             {
-                get { return m_dockPane; }
+                get { return this._mDockPane; }
             }
 
             public int Count
@@ -118,17 +122,17 @@ namespace ARCed.UI
 
 		protected DockPaneStripBase(DockPane pane)
 		{
-			m_dockPane = pane;
+			this._mDockPane = pane;
 
 			SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
 			SetStyle(ControlStyles.Selectable, false);
             AllowDrop = true;
 		}
 
-		private DockPane m_dockPane;
+        private readonly DockPane _mDockPane;
 		protected DockPane DockPane
 		{
-			get	{	return m_dockPane;	}
+			get	{	return this._mDockPane;	}
 		}
 
 		protected DockPane.AppearanceStyle Appearance
@@ -136,7 +140,7 @@ namespace ARCed.UI
 			get	{	return DockPane.Appearance;	}
 		}
 
-        private TabCollection m_tabs = null;
+        private TabCollection m_tabs;
 		protected TabCollection Tabs
 		{
 			get
@@ -166,7 +170,7 @@ namespace ARCed.UI
 
 		protected int HitTest()
 		{
-			return HitTest(PointToClient(Control.MousePosition));
+			return HitTest(PointToClient(MousePosition));
 		}
 
 		protected internal abstract int HitTest(Point point);

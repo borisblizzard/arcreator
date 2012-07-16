@@ -1,4 +1,8 @@
-﻿using System.Windows.Forms;
+﻿#region Using Directives
+
+using System.Windows.Forms;
+
+#endregion
 
 namespace ARCed.Scripting
 {
@@ -19,12 +23,12 @@ namespace ARCed.Scripting
 		/// <summary>
 		/// Constructs a new instance
 		/// </summary>
-		/// <param name="script">The <paramref name="ARCed.Scripting.Script"/> the result is found in</param>
+        /// <param name="script">The <see cref="ARCed.Scripting.Script"/> the result is found in</param>
 		/// <param name="scriptTitle">Title of the script</param>
 		/// <param name="lineNumber">The line number the in the script the result is found on</param>
 		/// <param name="lineText">The text of the line</param>
 		public SearchResult(Script script, string scriptTitle, int lineNumber, string lineText)
-			: base(new string[] { scriptTitle, (lineNumber + 1).ToString(), lineText })
+			: base(new[] { scriptTitle, (lineNumber + 1).ToString(), lineText })
 		{
 			Script = script;
 			Line = lineNumber;

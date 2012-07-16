@@ -1,4 +1,8 @@
-﻿using System.Collections.Generic;
+﻿#region Using Directives
+
+using System.Collections.Generic;
+
+#endregion
 
 namespace RPG
 {
@@ -12,7 +16,8 @@ namespace RPG
 		{
 			repeat = true;
 			skippable = false;
-			list = new List<dynamic>() { new MoveCommand() };
+			list = new List<dynamic>
+			{ new MoveCommand() };
 		}
 	}
 }

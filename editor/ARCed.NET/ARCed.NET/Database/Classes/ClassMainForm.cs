@@ -1,12 +1,13 @@
-﻿using System;
+﻿#region Using Directives
+
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 using ARCed.Controls;
-using ARCed.Helpers;
-using ARCed.UI;
-using ARCed.Controls;
+using RPG;
+
+#endregion
 
 namespace ARCed.Database.Classes
 {
@@ -14,8 +15,8 @@ namespace ARCed.Database.Classes
 	{
 		#region Private Fields
 
-		private RPG.Class _class;
-		private ListViewColumnSorter _listViewSorter;
+		private Class _class;
+		private readonly ListViewColumnSorter _listViewSorter;
 
 		#endregion
 
@@ -40,7 +41,7 @@ namespace ARCed.Database.Classes
 		/// <summary>
 		/// 
 		/// </summary>
-		public ClassMainForm() : base()
+		public ClassMainForm()
 		{
 			InitializeComponent();
 			InitializeElements();
@@ -87,10 +88,10 @@ namespace ARCed.Database.Classes
 			if (_class != null)
 			{
 				string name;
-				foreach (RPG.Class.Learning learning in _class.learnings)
+				foreach (Class.Learning learning in _class.learnings)
 				{
 					name = Project.Data.Skills[learning.skill_id].name;
-					ListViewItem item = new ListViewItem(new[] { learning.level.ToString(), 
+					var item = new ListViewItem(new[] { learning.level.ToString(), 
 						learning.skill_id.ToString(), name });
 					listViewSkills.Items.Add(item);
 				}
@@ -128,14 +129,14 @@ namespace ARCed.Database.Classes
 
 		public override void RefreshCurrentObject()
 		{
-			suppressEvents = true;
+			SuppressEvents = true;
 			textBoxName.Text = _class.name;
 			comboBoxPosition.SelectedIndex = _class.position;
 			RefreshEquipment();
 			RefreshSkills();
 			RefreshElements();
 			RefreshStates();
-			suppressEvents = false;
+			SuppressEvents = false;
 		}
 
 		private void listBoxClasses_SelectedIndexChanged(object sender, EventArgs e)
@@ -150,7 +151,7 @@ namespace ARCed.Database.Classes
 
 		private void textBoxName_TextChanged(object sender, EventArgs e)
 		{
-			if (!suppressEvents)
+			if (!SuppressEvents)
 			{
 				_class.name = textBoxName.Text;
 				int index = dataObjectList.SelectedIndex;
@@ -163,7 +164,7 @@ namespace ARCed.Database.Classes
 		{
 			checkGroupWeapons.BeginUpdate();
 			checkGroupWeapons.Items.Clear();
-			foreach (RPG.Weapon weapon in Project.Data.Weapons)
+			foreach (Weapon weapon in Project.Data.Weapons)
 			{
 				if (weapon != null)
 					checkGroupWeapons.Items.Add(weapon.name);
@@ -171,7 +172,7 @@ namespace ARCed.Database.Classes
 			checkGroupWeapons.EndUpdate();
 			checkGroupArmor.BeginUpdate();
 			checkGroupArmor.Items.Clear();
-			foreach (RPG.Armor armor in Project.Data.Armors)
+			foreach (Armor armor in Project.Data.Armors)
 			{
 				if (armor != null)
 					checkGroupArmor.Items.Add(armor.name);
@@ -181,19 +182,19 @@ namespace ARCed.Database.Classes
 
 		private void RefreshEquipment()
 		{
-			suppressEvents = true;
+			SuppressEvents = true;
 			checkGroupWeapons.CheckAll(false);
 			foreach (int id in _class.weapon_set)
 				checkGroupWeapons.SetItemChecked(id - 1, true);
 			checkGroupArmor.CheckAll(false);
 			foreach (int id in _class.armor_set)
 				checkGroupArmor.SetItemChecked(id - 1, true);
-			suppressEvents = false;
+			SuppressEvents = false;
 		}
 
 		private void comboBoxPosition_SelectedIndexChanged(object sender, EventArgs e)
 		{
-			if (!suppressEvents)
+			if (!SuppressEvents)
 				_class.position = comboBoxPosition.SelectedIndex;
 		}
 
@@ -222,7 +223,7 @@ namespace ARCed.Database.Classes
 
 		private void buttonAddSkill_Click(object sender, EventArgs e)
 		{
-			using (EditSkillDialog dialog = new EditSkillDialog())
+			using (var dialog = new EditSkillDialog())
 			{
 				if (dialog.ShowDialog(this) == DialogResult.OK)
 				{
@@ -249,9 +250,9 @@ namespace ARCed.Database.Classes
 		private void buttonEditSkill_Click(object sender, EventArgs e)
 		{
 			int index = GetSkillIndex();
-			using (EditSkillDialog dialog = new EditSkillDialog())
+			using (var dialog = new EditSkillDialog())
 			{
-				RPG.Class.Learning learning = _class.learnings[index];
+				Class.Learning learning = _class.learnings[index];
 				dialog.Learning = learning;
 				if (dialog.ShowDialog(this) == DialogResult.OK)
 				{
@@ -302,13 +303,13 @@ namespace ARCed.Database.Classes
 
 		private void efficiencyElements_OnItemChanged(object sender, MultiStateCheckEventArgs e)
 		{
-			if (!suppressEvents)
+			if (!SuppressEvents)
 				_class.element_ranks[e.Index + 1] = (sender as MultiStateCheckbox).SelectedState;
 		}
 
 		private void efficiencyStates_OnItemChanged(object sender, MultiStateCheckEventArgs e)
 		{
-			if (!suppressEvents)
+			if (!SuppressEvents)
 				_class.state_ranks[e.Index + 1] = (sender as MultiStateCheckbox).SelectedState;
 		}
 

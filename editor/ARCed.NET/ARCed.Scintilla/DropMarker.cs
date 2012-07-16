@@ -3,7 +3,7 @@
 using System;
 using System.Drawing;
 
-#endregion Using Directives
+#endregion
 
 
 namespace ARCed.Scintilla
@@ -49,7 +49,7 @@ namespace ARCed.Scintilla
 
         internal bool Collect(bool dispose)
         {
-            DropMarkerCollectEventArgs e = new DropMarkerCollectEventArgs(this);
+            var e = new DropMarkerCollectEventArgs(this);
             Scintilla.OnDropMarkerCollect(e);
 
             if (e.Cancel)
@@ -130,8 +130,8 @@ namespace ARCed.Scintilla
             int y = NativeScintilla.PointYFromPosition(Start) + NativeScintilla.TextHeight(0) - 2;
 
             //	Draw a red Triangle with a dark red border at the marker position
-            g.FillPolygon(Brushes.Red, new Point[] { new Point(x - 2, y + 4), new Point(x, y), new Point(x + 2, y + 4) });
-            g.DrawPolygon(Pens.DarkRed, new Point[] { new Point(x - 2, y + 4), new Point(x, y), new Point(x + 2, y + 4) });
+            g.FillPolygon(Brushes.Red, new[] { new Point(x - 2, y + 4), new Point(x, y), new Point(x + 2, y + 4) });
+            g.DrawPolygon(Pens.DarkRed, new[] { new Point(x - 2, y + 4), new Point(x, y), new Point(x + 2, y + 4) });
         }
 
         #endregion Methods

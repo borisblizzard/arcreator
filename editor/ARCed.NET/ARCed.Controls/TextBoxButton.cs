@@ -1,6 +1,10 @@
-﻿using System;
+﻿#region Using Directives
+
+using System;
 using System.ComponentModel;
 using System.Windows.Forms;
+
+#endregion
 
 namespace ARCed.Controls
 {
@@ -24,7 +28,7 @@ namespace ARCed.Controls
 		/// Event raised when the text is changed.
 		/// </summary>
 		[Category("ARCed"), Description("Event raised when the text is changed.")]
-		public event TextChangeHandler OnTextChanged;
+		public new event TextChangeHandler OnTextChanged;
 
 		#endregion
 

@@ -1,10 +1,18 @@
-﻿using System;
+﻿#region Using Directives
+
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using ARCed.Helpers;
+using ARCed.Properties;
 using ARCed.Scintilla;
+using ARCed.Settings;
 using ARCed.UI;
+
+#endregion
 
 namespace ARCed.Scripting
 {
@@ -16,13 +24,14 @@ namespace ARCed.Scripting
 
 		#region Private Fields
 
-		private bool _needSave = false;
+	    private bool _needSave;
 		private string _title;
 		private Script _script;
-		private static List<char> _braces = new List<char>() { '(', ')', '[', ']', '{', '}' };
+		private static readonly List<char> _braces = new List<char>
+		{ '(', ')', '[', ']', '{', '}' };
 		private static List<char> _suppressedChars;
 		private static List<string> _unindentWords;
-		private static bool _suppressEvents = false;
+	    private static bool _suppressEvents;
 
 		#endregion
 
@@ -60,7 +69,7 @@ namespace ARCed.Scripting
 		/// </summary>
 		public bool NeedApplyChanges { get { return false; } }//get { return _scintilla.Text != _script.Text; } }
 		/// <summary>
-		/// Gets or sets the window's associated <paramref name="ARCed.Scripting.Script"/> object
+        /// Gets or sets the window's associated <see cref="ARCed.Scripting.Script"/> object
 		/// </summary>
 		public Script Script { get { return _script; } set { ChangeScript(value); } }
 
@@ -74,11 +83,11 @@ namespace ARCed.Scripting
 		public ScriptEditorForm()
 		{
 			_unindentWords =
-				ARCed.Properties.Resources.UnIndentWords.Split(' ').ToList<string>();
-			_suppressedChars = ARCed.Properties.Resources.SuppressedChars.ToCharArray().ToList<char>();
-			_suppressedChars.AddRange(new char[] { ' ', '\n', '\r', '\t', '\\' });
+				Resources.UnIndentWords.Split(' ').ToList();
+			_suppressedChars = Resources.SuppressedChars.ToCharArray().ToList();
+			_suppressedChars.AddRange(new[] { ' ', '\n', '\r', '\t', '\\' });
 			InitializeComponent();
-			this.Icon = System.Drawing.Icon.FromHandle(Properties.Resources.Ruby.GetHicon());
+			this.Icon = Icon.FromHandle(Resources.Ruby.GetHicon());
 			InitializeScintilla();
 		
 
@@ -123,7 +132,7 @@ namespace ARCed.Scripting
 		}
 
 		/// <summary>
-		/// Changes the form's associated <paramref name="ARCed.Scripting.Script"/> object
+        /// Changes the form's associated <see cref="ARCed.Scripting.Script"/> object
 		/// </summary>
 		/// <param name="script"></param>
 		public void ChangeScript(Script script)
@@ -134,7 +143,7 @@ namespace ARCed.Scripting
 			_scintilla.UndoRedo.EmptyUndoBuffer();
 		}
 
-		private ARCed.Settings.ScriptSettings _settings
+		private static ScriptSettings _settings
 		{
 			get { return Editor.Settings.Scripting; }
 		}
@@ -144,7 +153,7 @@ namespace ARCed.Scripting
 			// Lexer
 			_scintilla.ConfigurationManager.Language = "ruby";
 			_scintilla.Lexing.Lexer = Lexer.Ruby;
-			_scintilla.Lexing.SetKeywords(0, ARCed.Properties.Resources.RubyKeywords);
+			_scintilla.Lexing.SetKeywords(0, Resources.RubyKeywords);
 			//Folding
 			_scintilla.Folding.Flags = FoldFlag.LineAfterContracted;
 			_scintilla.Folding.UseCompactFolding = true;
@@ -163,10 +172,10 @@ namespace ARCed.Scripting
 			//_scintilla.LongLines.EdgeMode = EdgeMode.Line;
 
 
-
+		    _scintilla.KeyDown += this.Scintilla_KeyDown;
 
 			_scintilla.NativeInterface.UpdateUI += 
-				new EventHandler<NativeScintillaEventArgs>(Scintilla_NativeInterface_UpdateUI);
+				this.Scintilla_NativeInterface_UpdateUI;
 			// Setup
 			_scintilla.SupressControlCharacters = true;
 			_scintilla.ContextMenuStrip = contextMenu;
@@ -188,7 +197,7 @@ namespace ARCed.Scripting
 			{
 				_scintilla.AutoComplete.FillUpCharacters = _settings.FillUpCharacters;
 				_scintilla.Indentation.ShowGuides = _settings.GuideLines;
-				_scintilla.Margins.Margin1.Scintilla.Font = Helpers.FontHelper.MonoFont;
+				_scintilla.Margins.Margin1.Scintilla.Font = FontHelper.MonoFont;
 				_scintilla.Margins.Margin2.Width = _settings.CodeFolding ? 16 : 0;
 				_scintilla.Caret.CurrentLineBackgroundColor = _settings.CaretColor;
 				_scintilla.Caret.CurrentLineBackgroundAlpha = _settings.CaretColor.A;
@@ -346,7 +355,7 @@ namespace ARCed.Scripting
 		{
 			if (e.Control)
 			{
-				Scintilla.Scintilla scintilla = (ARCed.Scintilla.Scintilla)sender;
+				var scintilla = (Scintilla.Scintilla)sender;
 				if (e.KeyCode == Keys.NumPad0 || e.KeyCode == Keys.D0)
 					scintilla.Zoom = 0;
 				// Just for GG, we add the Ctrl button for dropping autocomplete :)
@@ -426,7 +435,7 @@ namespace ARCed.Scripting
 		/// </summary>
 		private void Scintilla_NativeInterface_UpdateUI(object sender, NativeScintillaEventArgs e)
 		{
-			ARCed.Scintilla.Scintilla scintilla = (ARCed.Scintilla.Scintilla)sender;
+			var scintilla = (Scintilla.Scintilla)sender;
 			int pos = scintilla.CurrentPos;
 			if (IsBrace(pos) || IsBrace(--pos))
 			{
@@ -646,7 +655,6 @@ namespace ARCed.Scripting
 
 		private void _scintilla_SelectionChanged(object sender, EventArgs e)
 		{
-			bool enable = _scintilla.Selection.Length > 0;
 			copyToolStripButton.Enabled = _scintilla.Clipboard.CanCopy;
 			cutToolStripMenuItem.Enabled = _scintilla.Clipboard.CanCut;
 			pasteToolStripButton.Enabled = _scintilla.Clipboard.CanPaste;
@@ -654,7 +662,7 @@ namespace ARCed.Scripting
 				String.Format("Selection Length: {0}", _scintilla.Selection.Length);
 		}
 
-		void contextMenu_Opening(object sender, System.ComponentModel.CancelEventArgs e)
+		void contextMenu_Opening(object sender, CancelEventArgs e)
 		{
 			bool enable = _scintilla.Selection.Length > 0;
 			copyToolStripMenuItem.Enabled = enable;

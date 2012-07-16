@@ -1,11 +1,16 @@
-﻿using System;
+﻿#region Using Directives
+
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using ARCed.UI;
+
+#endregion
 
 namespace ARCed.Plugins
 {
 	/// <summary>
-	/// Container for <paramref name="RegistryEntry"/> objects
+    /// Container for <see cref="RegistryEntry"/> objects
 	/// </summary>
 	public class RegistryEntryCollection : List<RegistryEntry>
 	{
@@ -18,10 +23,8 @@ namespace ARCed.Plugins
 		{
 			get
 			{
-				List<string> names = new List<string>();
-				foreach (RegistryEntry entry in this)
-					names.Add(entry.Name);
-				names.Sort();
+				var names = this.Select(entry => entry.Name).ToList();
+			    names.Sort();
 				return names;
 			}
 		}
@@ -32,10 +35,8 @@ namespace ARCed.Plugins
 		{
 			get
 			{
-				List<string> names = new List<string>();
-				foreach (RegistryEntry entry in this)
-					names.Add(entry.ClassName);
-				names.Sort();
+				var names = this.Select(entry => entry.ClassName).ToList();
+			    names.Sort();
 				return names;
 			}
 		}
@@ -44,13 +45,7 @@ namespace ARCed.Plugins
 		/// </summary>
 		public List<Type> Types
 		{
-			get
-			{
-				List<Type> types = new List<Type>();
-				foreach (RegistryEntry entry in this)
-					types.Add(entry.ClassType);
-				return types;
-			}
+			get { return this.Select(entry => entry.ClassType).ToList(); }
 		}
 		/// <summary>
 		/// Gets a collection of all associated DockContent for the entries
@@ -59,7 +54,7 @@ namespace ARCed.Plugins
 		{
 			get
 			{
-				DockContentCollection contents = new DockContentCollection();
+				var contents = new DockContentCollection();
 				foreach (RegistryEntry entry in this)
 					contents.Add(entry.Content);
 				return contents;

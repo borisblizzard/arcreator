@@ -1,6 +1,10 @@
+#region Using Directives
+
 using System.Drawing;
 using System.Windows.Forms;
 using ARCed.Core.Win32;
+
+#endregion
 
 namespace ARCed.UI
 {
@@ -15,10 +19,6 @@ namespace ARCed.UI
         /// </summary>
         private abstract class DragHandlerBase : NativeWindow, IMessageFilter
         {
-            protected DragHandlerBase()
-            {
-            }
-
             protected abstract Control DragControl
             {
                 get;
@@ -39,7 +39,7 @@ namespace ARCed.UI
                     if (DragControl == null)
                         return false;
 
-                    StartMousePosition = Control.MousePosition;
+                    StartMousePosition = MousePosition;
 
                     if (!NativeMethods.DragDetect(DragControl.Handle, StartMousePosition))
                         return false;
@@ -94,16 +94,16 @@ namespace ARCed.UI
 
         private abstract class DragHandler : DragHandlerBase
         {
-            private DockPanel m_dockPanel;
+            private readonly DockPanel _mDockPanel;
 
             protected DragHandler(DockPanel dockPanel)
             {
-                m_dockPanel = dockPanel;
+                this._mDockPanel = dockPanel;
             }
 
             public DockPanel DockPanel
             {
-                get { return m_dockPanel; }
+                get { return this._mDockPanel; }
             }
 
             private IDragSource m_dragSource;

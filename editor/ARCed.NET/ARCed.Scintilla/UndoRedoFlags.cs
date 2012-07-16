@@ -70,11 +70,7 @@ namespace ARCed.Scintilla
         /// <summary>
         ///     Initializes a new instance of the UndoRedoFlags structure.
         /// </summary>
-        /// <param name="isUndo">Was this action the result of an undo action</param>
-        /// <param name="isRedo">Was this action the result of a redo action</param>
-        /// <param name="isMultiStep">Is this part of a multiple undo or redo</param>
-        /// <param name="isLastStep">Is this the last step in an undi or redo</param>
-        /// <param name="isMultiLine">Does this affect multiple lines</param>
+        /// <param name="modificationType">Specifies the modification type</param>
         public UndoRedoFlags(int modificationType)
         {
             IsLastStep = (modificationType & Constants.SC_LASTSTEPINUNDOREDO) > 0;

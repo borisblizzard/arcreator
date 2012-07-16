@@ -1,5 +1,9 @@
+#region Using Directives
+
 using System.Drawing;
 using System.Windows.Forms;
+
+#endregion
 
 namespace ARCed.UI
 {
@@ -11,17 +15,17 @@ namespace ARCed.UI
             {
                 public SplitterOutline()
                 {
-                    m_dragForm = new DragForm();
+                    this._mDragForm = new DragForm();
                     SetDragForm(Rectangle.Empty);
                     DragForm.BackColor = Color.Black;
                     DragForm.Opacity = 0.7;
                     DragForm.Show(false);
                 }
 
-                DragForm m_dragForm;
+                readonly DragForm _mDragForm;
                 private DragForm DragForm
                 {
-                    get { return m_dragForm; }
+                    get { return this._mDragForm; }
                 }
 
                 public void Show(Rectangle rect)
@@ -87,7 +91,7 @@ namespace ARCed.UI
 
             protected override void OnDragging()
             {
-                Outline.Show(GetSplitterOutlineBounds(Control.MousePosition));
+                Outline.Show(GetSplitterOutlineBounds(MousePosition));
             }
 
             protected override void OnEndDrag(bool abort)
@@ -97,7 +101,7 @@ namespace ARCed.UI
                 Outline.Close();
 
                 if (!abort)
-                    DragSource.MoveSplitter(GetMovingOffset(Control.MousePosition));
+                    DragSource.MoveSplitter(GetMovingOffset(MousePosition));
 
                 DragSource.EndDrag();
                 DockPanel.ResumeLayout(true, true);
@@ -144,7 +148,7 @@ namespace ARCed.UI
             }
         }
 
-        private SplitterDragHandler m_splitterDragHandler = null;
+        private SplitterDragHandler m_splitterDragHandler;
         private SplitterDragHandler GetSplitterDragHandler()
         {
             if (m_splitterDragHandler == null)

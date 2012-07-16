@@ -1,10 +1,14 @@
-﻿using System;
+﻿#region Using Directives
+
+using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using ARCed.Controls;
 using ARCed.Dialogs;
 using ARCed.Helpers;
-using ARCed.UI;
+using RPG;
+
+#endregion
 
 namespace ARCed.Database.Weapons
 {
@@ -13,7 +17,7 @@ namespace ARCed.Database.Weapons
 
 		#region Private Fields
 
-		private RPG.Weapon _weapon;
+		private Weapon _weapon;
 
 		#endregion
 
@@ -25,7 +29,7 @@ namespace ARCed.Database.Weapons
 		/// <summary>
 		/// Default constructor
 		/// </summary>
-		public WeaponMainForm() : base()
+		public WeaponMainForm()
 		{
 			InitializeComponent();
 			InitializeElements();
@@ -67,7 +71,7 @@ namespace ARCed.Database.Weapons
 			comboBoxUserAnimation.Items.Add("<None>");
 			comboBoxTargetAnimation.Items.Add("<None>");
 			string name;
-			foreach (RPG.Animation animation in Project.Data.Animations)
+			foreach (Animation animation in Project.Data.Animations)
 			{
 				if (animation != null)
 				{
@@ -102,7 +106,7 @@ namespace ARCed.Database.Weapons
 
 		public override void RefreshCurrentObject()
 		{
-			suppressEvents = true;
+			SuppressEvents = true;
 			textBoxName.Text = _weapon.name;
 			textBoxDescription.Text = _weapon.description;
 			//comboBoxUserAnimation.SelectedIndex = _armor.animation1_id;
@@ -111,7 +115,7 @@ namespace ARCed.Database.Weapons
 			RefreshParameters();
 			RefreshElements();
 			RefreshStates();
-			suppressEvents = false;
+			SuppressEvents = false;
 		}
 
 		private void RefreshElements()
@@ -136,8 +140,8 @@ namespace ARCed.Database.Weapons
 			{
 				if (ctrl is ParamBox)
 				{
-					ParamBox param = ctrl as ParamBox;
-					var property = typeof(RPG.Weapon).GetProperty(param.RpgAttribute);
+					var param = ctrl as ParamBox;
+					var property = typeof(Weapon).GetProperty(param.RpgAttribute);
 					if (property != null)
 						param.Value = (int)property.GetValue(_weapon, null);
 				}
@@ -172,7 +176,7 @@ namespace ARCed.Database.Weapons
 
 		private void textBoxName_TextChanged(object sender, EventArgs e)
 		{
-			if (!suppressEvents)
+			if (!SuppressEvents)
 			{
 				_weapon.name = textBoxName.Text;
 				int index = dataObjectList.SelectedIndex;
@@ -183,13 +187,13 @@ namespace ARCed.Database.Weapons
 
 		private void textBoxDescription_TextChanged(object sender, EventArgs e)
 		{
-			if (!suppressEvents)
+			if (!SuppressEvents)
 				_weapon.description = textBoxDescription.Text;
 		}
 
 		private void buttonIcon_Click(object sender, EventArgs e)
 		{
-			using (ImageSelectionForm dialog = new ImageSelectionForm(@"Icons", _weapon.icon_name))
+			using (var dialog = new ImageSelectionForm(@"Icons", _weapon.icon_name))
 			{
 				if (dialog.ShowDialog(this) == DialogResult.OK)
 				{
@@ -201,30 +205,30 @@ namespace ARCed.Database.Weapons
 
 		private void comboBoxUserAnimation_SelectedIndexChanged(object sender, EventArgs e)
 		{
-			if (!suppressEvents)
+			if (!SuppressEvents)
 				_weapon.animation1_id = comboBoxUserAnimation.SelectedIndex;
 		}
 
 		private void comboBoxTargetAnimation_SelectedIndexChanged(object sender, EventArgs e)
 		{
-			if (!suppressEvents)
+			if (!SuppressEvents)
 				_weapon.animation2_id = comboBoxTargetAnimation.SelectedIndex;
 		}
 
 		private void paramBox_OnValueChanged(object sender, ParameterEventArgs e)
 		{
-			if (!suppressEvents)
+			if (!SuppressEvents)
 			{
-				ParamBox paramBox = sender as ParamBox;
-				int value = (int)paramBox.Value;
+				var paramBox = sender as ParamBox;
+				var value = (int)paramBox.Value;
 				string propertyName = paramBox.RpgAttribute;
-				typeof(RPG.Weapon).GetProperty(propertyName).SetValue(_weapon, value, null);
+				typeof(Weapon).GetProperty(propertyName).SetValue(_weapon, value, null);
 			}
 		}
 
 		private void checkGroupBoxElements_OnCheckChange(object sender, ItemCheckEventArgs e)
 		{
-			if (!suppressEvents)
+			if (!SuppressEvents)
 			{
 				int id = e.Index + 1;
 				if (e.NewValue == CheckState.Checked && !_weapon.element_set.Contains(id))
@@ -236,7 +240,7 @@ namespace ARCed.Database.Weapons
 
 		private void checkedListBoxStates_OnItemChanged(object sender, MultiStateCheckEventArgs e)
 		{
-			if (!suppressEvents)
+			if (!SuppressEvents)
 			{
 				int id = e.Index + 1;
 				_weapon.plus_state_set.Remove(id);

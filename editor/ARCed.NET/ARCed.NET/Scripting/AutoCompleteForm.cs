@@ -1,18 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿#region Using Directives
 
+using System;
+using System.ComponentModel;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using ARCed.UI;
 using System.Windows.Forms;
+using ARCed.Helpers;
+using ARCed.Properties;
+using ARCed.UI;
+
+#endregion
 
 namespace ARCed.Scripting
 {
 	public partial class AutoCompleteForm : DockContent
 	{
-		private BindingList<string> _wordList;
+		private readonly BindingList<string> _wordList;
 
 		/// <summary>
 		/// Default constructor
@@ -21,9 +23,9 @@ namespace ARCed.Scripting
 		{
 			InitializeComponent();
 			_wordList = new BindingList<string>(Editor.Settings.Scripting.AutoCompleteWords);
-			this.Icon = System.Drawing.Icon.FromHandle(Properties.Resources.AutoComplete.GetHicon());
+			this.Icon = Icon.FromHandle(Resources.AutoComplete.GetHicon());
 			textBoxFillUp.Text = Editor.Settings.Scripting.FillUpCharacters;
-			textBoxFillUp.Font = Helpers.FontHelper.MonoFont;
+			textBoxFillUp.Font = FontHelper.MonoFont;
 			numericAutoLength.Value = Editor.Settings.Scripting.AutoCompleteLength;
 			listBoxWords.DataSource = _wordList; 
 		}
@@ -62,7 +64,7 @@ namespace ARCed.Scripting
 		private void removeSelectedToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			listBoxWords.BeginUpdate();
-			string[] words = new string[listBoxWords.SelectedItems.Count];
+			var words = new string[listBoxWords.SelectedItems.Count];
 			for (int i = 0; i < listBoxWords.SelectedItems.Count; i++)
 				words[i] = listBoxWords.SelectedItems[i].ToString();
 			foreach (string word in words)

@@ -5,7 +5,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 
-#endregion Using Directives
+#endregion
 
 
 namespace ARCed.Scintilla
@@ -13,7 +13,7 @@ namespace ARCed.Scintilla
     /// <summary>
     ///     Defines a marker's appearance in a <see cref="Scintilla"/> control.
     /// </summary>
-    [TypeConverterAttribute(typeof(System.ComponentModel.ExpandableObjectConverter))]
+    [TypeConverter(typeof(ExpandableObjectConverter))]
     public class Marker : ScintillaHelperBase
     {
         #region Fields

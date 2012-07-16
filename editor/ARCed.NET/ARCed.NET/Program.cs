@@ -1,8 +1,13 @@
-﻿using System;
+﻿#region Using Directives
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using ARCed.Core.Win32;
+using ARCed.Helpers;
+
+#endregion
 
 namespace ARCed
 {
@@ -15,7 +20,7 @@ namespace ARCed
 		[STAThread]
 		static void Main(string[] arguments)
 		{
-			List<string> args = arguments.ToList<string>();
+			List<string> args = arguments.ToList();
 			Runtime.Debug = args.Contains("-d") || args.Contains("-debug");
 			Runtime.Logging = args.Contains("-l") || args.Contains("-logging");
 			Runtime.Legacy = args.Contains("-x") || args.Contains("-legacy");
@@ -31,7 +36,7 @@ namespace ARCed
 				Console.WriteLine();
 			}
 			string filename = args.Count > 0 ? args[0] : null;
-            ARCed.Helpers.PathHelper.EditorPath = Application.ExecutablePath;
+            PathHelper.EditorPath = Application.ExecutablePath;
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
 			Application.Run(new Editor(filename));

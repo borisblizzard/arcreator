@@ -1,6 +1,10 @@
-﻿using System;
+﻿#region Using Directives
+
+using System;
 using System.Windows.Forms;
 using ARCed.Helpers;
+
+#endregion
 
 namespace ARCed.Dialogs
 {
@@ -24,7 +28,7 @@ namespace ARCed.Dialogs
 			set { labelString.Text = value; }
 		}
 
-		private bool _validate;
+		private readonly bool _validate;
 
 		/// <summary>
 		/// Creates a new instance of the form

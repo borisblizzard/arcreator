@@ -1,9 +1,13 @@
+#region Using Directives
+
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using System.Security.Permissions;
 using System.Windows.Forms;
 using ARCed.Core.Win32;
+
+#endregion
 
 namespace ARCed.UI
 {
@@ -55,7 +59,6 @@ namespace ARCed.UI
 			m_dockPanel = dockPanel;
 			Owner = DockPanel.FindForm();
 
-#warning ADD UI FLOAT SIZE
 			this.Size = bounds.Size;
 			// Suspend child controls from resizing every pixel
 			this.ResizeBegin += (s, e) => { SuspendLayout(); };
@@ -203,7 +206,7 @@ namespace ARCed.UI
                     DockPane theOnlyPane = (VisibleNestedPanes.Count == 1) ? VisibleNestedPanes[0] : null;
                     if (theOnlyPane != null && theOnlyPane.ActiveContent != null)
                     {
-                        theOnlyPane.ShowTabPageContextMenu(this, PointToClient(Control.MousePosition));
+                        theOnlyPane.ShowTabPageContextMenu(this, PointToClient(MousePosition));
                         return;
                     }
                 }
@@ -320,7 +323,7 @@ namespace ARCed.UI
                 if (!dragSource.CanDockTo(pane))
                     return;
 
-                Point ptMouse = Control.MousePosition;
+                Point ptMouse = MousePosition;
                 uint lParam = Win32Helper.MakeLong(ptMouse.X, ptMouse.Y);
                 if (NativeMethods.SendMessage(Handle, (int)Msgs.WM_NCHITTEST, 0, lParam) == (uint)HitTest.HTCAPTION)
                     dockOutline.Show(VisibleNestedPanes[0], -1);
@@ -383,7 +386,7 @@ namespace ARCed.UI
             }
             else
             {
-                DockAlignment alignment = DockAlignment.Left;
+                var alignment = DockAlignment.Left;
                 if (dockStyle == DockStyle.Left)
                     alignment = DockAlignment.Left;
                 else if (dockStyle == DockStyle.Right)
@@ -428,10 +431,10 @@ namespace ARCed.UI
                 return;
 
             int count = nestedPanesFrom.Count;
-            DockPane[] panes = new DockPane[count];
-            DockPane[] prevPanes = new DockPane[count];
-            DockAlignment[] alignments = new DockAlignment[count];
-            double[] proportions = new double[count];
+            var panes = new DockPane[count];
+            var prevPanes = new DockPane[count];
+            var alignments = new DockAlignment[count];
+            var proportions = new double[count];
 
             for (int i = 0; i < count; i++)
             {

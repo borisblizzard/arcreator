@@ -1,11 +1,9 @@
 ﻿#region Using Directives
 
-using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Text;
 
-#endregion Using Directives
+#endregion
 
 
 namespace ARCed.Scintilla.Configuration

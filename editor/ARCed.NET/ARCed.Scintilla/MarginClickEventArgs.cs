@@ -3,7 +3,7 @@
 using System;
 using System.Windows.Forms;
 
-#endregion Using Directives
+#endregion
 
 
 namespace ARCed.Scintilla
@@ -15,10 +15,10 @@ namespace ARCed.Scintilla
     {
         #region Fields
 
-        private Line _line;
-        private Margin _margin;
-        private Keys _modifiers;
-        private int _position;
+        private readonly Line _line;
+        private readonly Margin _margin;
+        private readonly Keys _modifiers;
+        private readonly int _position;
         private bool _toggleFold;
         private int _toggleMarkerNumber;
 

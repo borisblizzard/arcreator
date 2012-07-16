@@ -1,7 +1,11 @@
-﻿using System;
+﻿#region Using Directives
+
+using System;
 using System.IO;
 using System.Text;
 using ARCed.Core.Win32;
+
+#endregion
 
 namespace ARCed.Helpers
 {
@@ -15,7 +19,7 @@ namespace ARCed.Helpers
 		/// <summary>
 		/// Prepares the file to be read by the parser
 		/// </summary>
-		/// <param name="path">The path to be parsed</param>
+		/// <param name="filename">The path to be parsed</param>
 		/// <returns>Flag is file was successfully loaded</returns>
 		public static bool Load(string filename)
 		{

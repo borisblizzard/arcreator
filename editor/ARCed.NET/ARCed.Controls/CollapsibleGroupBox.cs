@@ -1,8 +1,12 @@
+#region Using Directives
+
 using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
+
+#endregion
 
 namespace ARCed.Controls
 {
@@ -15,11 +19,11 @@ namespace ARCed.Controls
     {
         #region Private Fields
 
-        private Rectangle m_toggleRect = new Rectangle(8, 2, 11, 11);
-		private Boolean m_collapsed = false;
-		private Boolean m_bResizingFromCollapse = false;
-        private const int m_collapsedHeight = 20;
-        private Size m_FullSize = Size.Empty;
+        private Rectangle _mToggleRect = new Rectangle(8, 2, 11, 11);
+        private Boolean _mCollapsed;
+        private Boolean _mBResizingFromCollapse;
+        private const int M_COLLAPSED_HEIGHT = 20;
+        private Size _mFullSize = Size.Empty;
 
         #endregion
 
@@ -55,7 +59,7 @@ namespace ARCed.Controls
         [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public int FullHeight
         {
-            get { return m_FullSize.Height; }
+            get { return this._mFullSize.Height; }
         }
 
 		/// <summary>
@@ -64,7 +68,7 @@ namespace ARCed.Controls
 		[Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
 		public int CollapsedHeight
 		{
-			get { return m_collapsedHeight; }
+			get { return M_COLLAPSED_HEIGHT; }
 		}
 
 		/// <summary>
@@ -75,22 +79,22 @@ namespace ARCed.Controls
         [DefaultValue(false), Browsable(true), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public bool IsCollapsed
         {
-            get { return m_collapsed; }
+            get { return this._mCollapsed; }
             set
             {
-                if (value != m_collapsed)
+                if (value != this._mCollapsed)
                 {
-                    m_collapsed = value;
+                    this._mCollapsed = value;
 
                     if (!value)
                         // Expand
-                        this.Size = m_FullSize;
+                        this.Size = this._mFullSize;
                     else
                     {
                         // Collapse
-                        m_bResizingFromCollapse = true;
-                        this.Height = m_collapsedHeight;
-                        m_bResizingFromCollapse = false;
+                        this._mBResizingFromCollapse = true;
+                        this.Height = M_COLLAPSED_HEIGHT;
+                        this._mBResizingFromCollapse = false;
                     }
 
                     foreach (Control c in Controls)
@@ -121,7 +125,7 @@ namespace ARCed.Controls
 
 		protected override void OnMouseUp(MouseEventArgs e)
         {
-            if (m_toggleRect.Contains(e.Location))
+            if (this._mToggleRect.Contains(e.Location))
                 ToggleCollapsed();
             else
                 base.OnMouseUp(e);
@@ -141,13 +145,13 @@ namespace ARCed.Controls
         private void DrawGroupBox(Graphics g)
         {
             // Get windows to draw the GroupBox
-            Rectangle bounds = new Rectangle(ClientRectangle.X, ClientRectangle.Y + 6, ClientRectangle.Width, ClientRectangle.Height - 6);
+            var bounds = new Rectangle(ClientRectangle.X, ClientRectangle.Y + 6, ClientRectangle.Width, ClientRectangle.Height - 6);
             GroupBoxRenderer.DrawGroupBox(g, bounds, Enabled ? GroupBoxState.Normal : GroupBoxState.Disabled);
 
             // Text Formating positioning & Size
-            StringFormat sf = new StringFormat();
-            int i_textPos = (bounds.X + 8) + m_toggleRect.Width + 2;
-            int i_textSize = (int)g.MeasureString(Text, this.Font).Width;
+            var sf = new StringFormat();
+            int i_textPos = (bounds.X + 8) + this._mToggleRect.Width + 2;
+            var i_textSize = (int)g.MeasureString(Text, this.Font).Width;
             i_textSize = i_textSize < 1 ? 1 : i_textSize;
             int i_endPos = i_textPos + i_textSize + 1;
 
@@ -155,22 +159,22 @@ namespace ARCed.Controls
             g.DrawLine(SystemPens.Control, i_textPos, bounds.Y, i_endPos, bounds.Y);
 
             // Draw the GroupBox text
-            using (SolidBrush drawBrush = new SolidBrush(Color.FromArgb(0, 70, 213)))
+            using (var drawBrush = new SolidBrush(Color.FromArgb(0, 70, 213)))
                 g.DrawString(Text, this.Font, drawBrush, i_textPos, 0);
         }
 
         private void DrawToggleButton(Graphics g)
         {
             if(IsCollapsed)
-                g.DrawImage(Resources.FoldExpand, m_toggleRect);
+                g.DrawImage(Resources.FoldExpand, this._mToggleRect);
             else
-                g.DrawImage(Resources.FoldCollapse, m_toggleRect);
+                g.DrawImage(Resources.FoldCollapse, this._mToggleRect);
         }
 
         private void HandleResize()
         {
-            if (!m_bResizingFromCollapse && !m_collapsed)
-                m_FullSize = this.Size;
+            if (!this._mBResizingFromCollapse && !this._mCollapsed)
+                this._mFullSize = this.Size;
         }
 
         #endregion

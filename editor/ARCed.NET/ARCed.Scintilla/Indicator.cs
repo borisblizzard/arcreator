@@ -4,12 +4,12 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 
-#endregion Using Directives
+#endregion
 
 
 namespace ARCed.Scintilla
 {
-    [TypeConverterAttribute(typeof(System.ComponentModel.ExpandableObjectConverter))]
+    [TypeConverter(typeof(ExpandableObjectConverter))]
     public class Indicator : ScintillaHelperBase
     {
         #region Fields
@@ -129,7 +129,7 @@ namespace ARCed.Scintilla
         {
             Range foundRange = Scintilla.GetRange(-1, -1);
 
-            List<Range> ret = new List<Range>();
+            var ret = new List<Range>();
             do
             {
                 foundRange = Search(searchRange, foundRange);

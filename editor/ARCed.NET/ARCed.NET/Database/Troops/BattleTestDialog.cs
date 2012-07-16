@@ -1,11 +1,11 @@
-﻿using System;
+﻿#region Using Directives
+
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using ARCed.Controls;
+
+#endregion
 
 namespace ARCed.Database.Troops
 {
@@ -15,13 +15,14 @@ namespace ARCed.Database.Troops
 		{
 			InitializeComponent();
 			if (Project.BTActors == null)
-				Project.BTActors = new List<dynamic>() { Project.Data.Actors[0] };
+				Project.BTActors = new List<dynamic>
+				{ Project.Data.Actors[0] };
 			numericUpDownActors.Value = Project.BTActors.Count;
 		}
 
 		private void numericUpDownActors_ValueChanged(object sender, EventArgs e)
 		{
-			int value = (int)numericUpDownActors.Value;
+			var value = (int)numericUpDownActors.Value;
 			if (value < tabControlActors.TabCount)
 			{
 				for (int i = tabControlActors.TabCount - 1; i >= value; i--)
@@ -35,8 +36,8 @@ namespace ARCed.Database.Troops
 				tabControlActors.SuspendLayout();
 				for (int i = tabControlActors.TabCount; i < value; i++)
 				{
-					TabPage page = new TabPage((i + 1).ToString());
-					BattleTestActorPanel panel = new BattleTestActorPanel();
+					var page = new TabPage((i + 1).ToString());
+					var panel = new BattleTestActorPanel();
 					page.Controls.Add(panel);
 					panel.Dock = DockStyle.Fill;
 					tabControlActors.TabPages.Add(page);

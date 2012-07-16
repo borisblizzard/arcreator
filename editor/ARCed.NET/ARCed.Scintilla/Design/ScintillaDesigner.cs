@@ -2,10 +2,10 @@
 
 using System;
 using System.Collections;
-using System.Windows.Forms.Design;
 using System.ComponentModel;
+using System.Windows.Forms.Design;
 
-#endregion Using Directives
+#endregion
 
 
 namespace ARCed.Scintilla.Design

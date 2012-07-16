@@ -6,7 +6,7 @@ using System.Globalization;
 using System.Text;
 using System.Text.RegularExpressions;
 
-#endregion Using Directives
+#endregion
 
 
 namespace ARCed.Scintilla
@@ -55,7 +55,7 @@ namespace ARCed.Scintilla
         }
 
 
-        public override object ConvertFrom(ITypeDescriptorContext context, System.Globalization.CultureInfo culture, object value)
+        public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
         {
             string val = ConvertFrom(value.ToString());
 
@@ -69,10 +69,10 @@ namespace ARCed.Scintilla
 
         private string ConvertTo(string nativeString)
         {
-            StringBuilder sb = new StringBuilder();
+            var sb = new StringBuilder();
             foreach (char c in nativeString)
             {
-                if ((int)c > 32)
+                if (c > 32)
                 {
                     sb.Append(c);
                     continue;
@@ -101,7 +101,7 @@ namespace ARCed.Scintilla
         }
 
 
-        public override object ConvertTo(ITypeDescriptorContext context, System.Globalization.CultureInfo culture, object value, Type destinationType)
+        public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
         {
             string val = ConvertTo(value.ToString());
 

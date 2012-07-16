@@ -1,14 +1,18 @@
-﻿using System;
+﻿#region Using Directives
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 
+#endregion
+
 namespace ARCed.Scripting
 {
 	/// <summary>
-	/// Class used for managing <paramref name="ARCed.Scripting.Script"/> objects. The functionality
+    /// Class used for managing <see cref="ARCed.Scripting.Script"/> objects. The functionality
 	/// is a very loose wrapper for a list.
 	/// </summary>
 	public class ScriptManager
@@ -63,7 +67,7 @@ namespace ARCed.Scripting
 		/// <summary>
 		/// Adds a script into the manager
 		/// </summary>
-		/// <param name="path">The path of the script</param>
+		/// <param name="filename">The path of the script</param>
 		/// <remarks>Only files with an ".rb" extension will be added</remarks>
 		public void Add(string filename)
 		{
@@ -146,7 +150,7 @@ namespace ARCed.Scripting
 		/// </summary>
 		public void SaveAll()
 		{
-			List<string> errors = new List<string>();
+			var errors = new List<string>();
 			for (int i = 0; i < Scripts.Count; i++)
 			{
 				Scripts[i].Index = i;
@@ -172,7 +176,7 @@ namespace ARCed.Scripting
 				binding.AllowNew = true;
 				return binding;
 			}
-			set { _scripts = value.ToList<Script>(); }
+			set { _scripts = value.ToList(); }
 		}
 
 		/// <summary>

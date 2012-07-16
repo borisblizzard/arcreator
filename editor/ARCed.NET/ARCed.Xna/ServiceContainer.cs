@@ -7,9 +7,11 @@
 //-----------------------------------------------------------------------------
 #endregion
 
-#region Using Statements
+#region Using Directives
+
 using System;
 using System.Collections.Generic;
+
 #endregion
 
 namespace ARCed.Controls
@@ -21,7 +23,7 @@ namespace ARCed.Controls
     /// </summary>
     public class ServiceContainer : IServiceProvider
     {
-        Dictionary<Type, object> services = new Dictionary<Type, object>();
+        private readonly Dictionary<Type, object> services = new Dictionary<Type, object>();
 
 
         /// <summary>

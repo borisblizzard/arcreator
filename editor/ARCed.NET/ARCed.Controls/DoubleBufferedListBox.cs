@@ -1,6 +1,10 @@
-﻿using System.ComponentModel;
-using System.Windows.Forms;
+﻿#region Using Directives
+
+using System.ComponentModel;
 using System.Drawing;
+using System.Windows.Forms;
+
+#endregion
 
 namespace ARCed.Controls
 {
@@ -11,8 +15,7 @@ namespace ARCed.Controls
 	[Description("ListBox control with double-buffering.")]
 	public partial class DoubleBufferedListBox : ListBox
 	{
-		public DoubleBufferedListBox() : base()
-		{
+		public DoubleBufferedListBox() {
 			this.DoubleBuffered = true;
 		}
 	}

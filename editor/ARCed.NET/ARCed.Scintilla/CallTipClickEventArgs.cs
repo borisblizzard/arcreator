@@ -2,7 +2,7 @@
 
 using System;
 
-#endregion Using Directives
+#endregion
 
 
 namespace ARCed.Scintilla
@@ -14,11 +14,11 @@ namespace ARCed.Scintilla
     {
         #region Fields
 
-        private CallTipArrow _callTipArrow;
-        private int _currentIndex;
+        private readonly CallTipArrow _callTipArrow;
+        private readonly int _currentIndex;
         private int _newIndex;
-        private OverloadList _overloadList;
-        private bool _cancel = false;
+        private readonly OverloadList _overloadList;
+        private bool _cancel;
         private int _highlightStart;
         private int _highlightEnd;
 

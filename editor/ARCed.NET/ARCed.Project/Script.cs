@@ -1,6 +1,10 @@
-﻿using System;
+﻿#region Using Directives
+
+using System;
 using System.IO;
 using System.Text;
+
+#endregion
 
 namespace ARCed.Scripting
 {

@@ -1,7 +1,9 @@
-﻿using System.Drawing;
+﻿#region Using Directives
+
+using System.Drawing;
 using System.Windows.Forms;
 
-
+#endregion
 
 namespace ARCed.Forms.Splash
 {
@@ -11,10 +13,10 @@ namespace ARCed.Forms.Splash
 		delegate void StringParameterWithStatusDelegate(string Text, TypeOfMessage tom);
 		delegate void SplashShowCloseDelegate();
 
-		/// <summary>
-		/// To ensure splash screen is closed using the API and not by keyboard or any other things
-		/// </summary>
-		bool CloseSplashScreenFlag = false;
+	    /// <summary>
+	    /// To ensure splash screen is closed using the API and not by keyboard or any other things
+	    /// </summary>
+	    private bool CloseSplashScreenFlag;
 
 		/// <summary>
 		/// Base constructor

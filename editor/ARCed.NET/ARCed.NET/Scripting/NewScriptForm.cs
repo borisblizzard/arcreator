@@ -1,8 +1,11 @@
-﻿using System;
+﻿#region Using Directives
+
+using System;
 using System.IO;
-using System.Linq;
 using System.Windows.Forms;
 using ARCed.Helpers;
+
+#endregion
 
 namespace ARCed.Scripting
 {
@@ -25,7 +28,8 @@ namespace ARCed.Scripting
 					try { text = String.Format(File.ReadAllText(path), textBoxName.Text); }
 					catch { }
 				}
-				Script script = new Script() { Title = textBoxName.Text, Text = text };
+				var script = new Script
+				{ Title = textBoxName.Text, Text = text };
 				return script;
 			}
 		}

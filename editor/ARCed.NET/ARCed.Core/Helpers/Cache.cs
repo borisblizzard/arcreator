@@ -1,18 +1,26 @@
-﻿using System;
+﻿#region Using Directives
+
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
 using ARCed.Core;
 
+#endregion
+
 namespace ARCed.Helpers
 {
+    /// <summary>
+    /// Static class for loading graphic resources and caching them to increase performance. This class 
+    /// class also performs hue and opacity alterations on graphics.
+    /// </summary>
 	public static class Cache
 	{
 		#region Fields
 		/// <summary>
 		/// The internal dictionary that contains all the cached images
 		/// </summary>
-		private static Dictionary<string, Image> _cache = new Dictionary<string, Image>();
+		private static readonly Dictionary<string, Image> _cache = new Dictionary<string, Image>();
 		/// <summary>
 		/// The cached _srcTexture of the currently loaded tileset graphic
 		/// </summary>
@@ -24,7 +32,7 @@ namespace ARCed.Helpers
 		/// <summary>
 		/// The index to reference for building autotile graphics
 		/// </summary>
-		private static readonly int[][] AUTOINDEX = new int[][] { 
+		private static readonly int[][] AUTOINDEX = new[] { 
 			new[] { 27,28,33,34 },   new[] { 5,28,33,34 },   new[] { 27,6,33,34 },  
 			new[] { 5,6,33,34 },     new[] { 27,28,33,12 },  new[] { 5,28,33,12 },  
 			new[] { 27,6,33,12 },    new[] { 5,6,33,12 },    new[] { 27,28,11,34 },  
@@ -44,18 +52,16 @@ namespace ARCed.Helpers
 		};
 		#endregion
 
-		const string BASE_DIRECTORY = @"C:\Program Files (x86)\Common Files\Enterbrain\RGSS\Standard\Graphics";
-
 		/// <summary>
 		/// Loads a filename as a Image from the specified folder, or recalls
 		/// a cached image, and returns it.
 		/// </summary>
-		/// <param name="type">Detailed type specifying where the image will be searched</param>
+		/// <param name="folder">Folder specifying where the image will be searched</param>
 		/// <param name="filename">FullPath of the image, omitting extension</param>
 		/// <returns>Cached image</returns>
 		public static Image LoadBitmap(string folder, string filename)
 		{
-			string path = ResourceHelper.GetFullPath(folder, filename);
+			var path = ResourceHelper.GetFullPath(folder, filename);
 			if (String.IsNullOrEmpty(path))
 				return null;
 			if (_cache.ContainsKey(path))
@@ -72,22 +78,22 @@ namespace ARCed.Helpers
 		/// Rotates the hue and alters the opacity of an image. Using this
 		/// method is more efficient than performing the actions seperately.
 		/// </summary>
-		/// <param name="_srcTexture">Image to change</param>
+		/// <param name="image">Image to change</param>
 		/// <param name="hue">Degree of hue displacement (0..360)</param>
 		/// <param name="opacity">Opacity change to apply (0..255)</param>
 		/// <remarks>Values out of range will be automatically corrected</remarks>
 		public static void ChangeHueOpacity(Image image, int hue, int opacity)
 		{
-			using (Image newImage = new Bitmap(image))
+			using (var newImage = new Bitmap(image))
 			{
-				using (Graphics g = Graphics.FromImage(image))
+				using (var g = Graphics.FromImage(image))
 				{
-					ImageAttributes imageAttr = new ImageAttributes();
-					QColorMatrix qm = new QColorMatrix();
+					var imageAttr = new ImageAttributes();
+					var qm = new QColorMatrix();
 					qm.RotateHue(hue % 360);
 					qm.ScaleOpacity(opacity.Clamp(0, 255) / 255.0f);
 					imageAttr.SetColorMatrix(qm.ToColorMatrix());
-					Rectangle destRect = new Rectangle(new Point(), image.Size);
+					var destRect = new Rectangle(new Point(), image.Size);
 					g.Clear(Color.Transparent);
 					g.DrawImage(newImage, destRect, 0, 0, image.Width, image.Height,
 						GraphicsUnit.Pixel, imageAttr);
@@ -98,20 +104,20 @@ namespace ARCed.Helpers
 		/// <summary>
 		/// Rotates the hue of an image
 		/// </summary>
-		/// <param name="_srcTexture">Image to change</param>
+		/// <param name="image">Image to change</param>
 		/// <param name="hue">Degree of hue displacement (0..360)</param>
 		/// <remarks>Values out of range will be automatically corrected</remarks>
 		public static void RotateHue(Image image, int hue)
 		{
-			using (Image newImage = new Bitmap(image))
+			using (var newImage = new Bitmap(image))
 			{
-				using (Graphics g = Graphics.FromImage(image))
+				using (var g = Graphics.FromImage(image))
 				{
-					ImageAttributes imageAttr = new ImageAttributes();
-					QColorMatrix qm = new QColorMatrix();
+					var imageAttr = new ImageAttributes();
+					var qm = new QColorMatrix();
 					qm.RotateHue(hue % 360);
 					imageAttr.SetColorMatrix(qm.ToColorMatrix());
-					Rectangle destRect = new Rectangle(new Point(), image.Size);
+					var destRect = new Rectangle(new Point(), image.Size);
 					g.Clear(Color.Transparent);
 					g.DrawImage(newImage, destRect, 0, 0, image.Width, image.Height,
 						GraphicsUnit.Pixel, imageAttr);
@@ -122,20 +128,20 @@ namespace ARCed.Helpers
 		/// <summary>
 		/// Changes the opacity of an image. 
 		/// </summary>
-		/// <param name="_srcTexture">Image to change</param>
+		/// <param name="image">Image to change</param>
 		/// <param name="opacity">Opacity change to apply (0..255)</param>
 		/// <remarks>Values out of range will be automatically corrected</remarks>
 		public static void ChangeOpacity(Image image, int opacity)
 		{
-			using (Image newImage = new Bitmap(image))
+			using (var newImage = new Bitmap(image))
 			{
-				using (Graphics g = Graphics.FromImage(image))
+				using (var g = Graphics.FromImage(image))
 				{
-					ImageAttributes imageAttr = new ImageAttributes();
-					QColorMatrix qm = new QColorMatrix();
+					var imageAttr = new ImageAttributes();
+					var qm = new QColorMatrix();
 					qm.ScaleOpacity(opacity.Clamp(0, 255) / 255.0f);
 					imageAttr.SetColorMatrix(qm.ToColorMatrix());
-					Rectangle destRect = new Rectangle(new Point(), image.Size);
+					var destRect = new Rectangle(new Point(), image.Size);
 					g.Clear(Color.Transparent);
 					g.DrawImage(newImage, destRect, 0, 0, image.Width, image.Height,
 						GraphicsUnit.Pixel, imageAttr);
@@ -339,14 +345,13 @@ namespace ARCed.Helpers
 		public static Image CharacterStance(string filename, int pattern, int direction, 
 			int hue = 0, int opacity = 255)
 		{
-			Image image = Character(filename, hue, opacity);
-			int cw, ch, sx, sy;
-			cw = image.Width / 4;
-			ch = image.Height / 4;
-			sx = pattern * cw;
-			sy = (direction - 2) / 2 * ch;
-			Bitmap tile = new Bitmap(cw, ch);
-			using (Graphics g = Graphics.FromImage(tile))
+			var image = Character(filename, hue, opacity);
+		    var cw = image.Width / 4;
+			var ch = image.Height / 4;
+			var sx = pattern * cw;
+			var sy = (direction - 2) / 2 * ch;
+			var tile = new Bitmap(cw, ch);
+			using (var g = Graphics.FromImage(tile))
 				g.DrawImage(image, new Rectangle(0, 0, cw, ch), sx, sy, cw, ch, GraphicsUnit.Pixel);
 			GC.Collect(GC.GetGeneration(image), GCCollectionMode.Forced);
 			return tile;

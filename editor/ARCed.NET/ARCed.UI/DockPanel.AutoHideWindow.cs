@@ -1,6 +1,10 @@
+#region Using Directives
+
 using System;
 using System.Drawing;
 using System.Windows.Forms;
+
+#endregion
 
 namespace ARCed.UI
 {
@@ -12,13 +16,13 @@ namespace ARCed.UI
             {
                 public SplitterControl(AutoHideWindowControl autoHideWindow)
                 {
-                    m_autoHideWindow = autoHideWindow;
+                    this._mAutoHideWindow = autoHideWindow;
                 }
 
-                private AutoHideWindowControl m_autoHideWindow;
+                private readonly AutoHideWindowControl _mAutoHideWindow;
                 private AutoHideWindowControl AutoHideWindow
                 {
-                    get { return m_autoHideWindow; }
+                    get { return this._mAutoHideWindow; }
                 }
 
                 protected override int SplitterSize
@@ -36,37 +40,37 @@ namespace ARCed.UI
             private const int ANIMATE_TIME = 100;	// in mini-seconds
             #endregion
 
-            private Timer m_timerMouseTrack;
-            private SplitterControl m_splitter;
+            private readonly Timer _mTimerMouseTrack;
+            private readonly SplitterControl _mSplitter;
 
             public AutoHideWindowControl(DockPanel dockPanel)
             {
-                m_dockPanel = dockPanel;
+                this._mDockPanel = dockPanel;
 
-                m_timerMouseTrack = new Timer();
-                m_timerMouseTrack.Tick += new EventHandler(TimerMouseTrack_Tick);
+                this._mTimerMouseTrack = new Timer();
+                this._mTimerMouseTrack.Tick += this.TimerMouseTrack_Tick;
 
                 Visible = false;
-                m_splitter = new SplitterControl(this);
-                Controls.Add(m_splitter);
+                this._mSplitter = new SplitterControl(this);
+                Controls.Add(this._mSplitter);
             }
 
             protected override void Dispose(bool disposing)
             {
                 if (disposing)
                 {
-                    m_timerMouseTrack.Dispose();
+                    this._mTimerMouseTrack.Dispose();
                 }
                 base.Dispose(disposing);
             }
 
-            private DockPanel m_dockPanel = null;
+            private readonly DockPanel _mDockPanel;
             public DockPanel DockPanel
             {
-                get { return m_dockPanel; }
+                get { return this._mDockPanel; }
             }
 
-            private DockPane m_activePane = null;
+            private DockPane m_activePane;
             public DockPane ActivePane
             {
                 get { return m_activePane; }
@@ -81,7 +85,7 @@ namespace ARCed.UI
                 m_activePane = value;
             }
 
-            private IDockContent m_activeContent = null;
+            private IDockContent m_activeContent;
             public IDockContent ActiveContent
             {
                 get { return m_activeContent; }
@@ -132,7 +136,7 @@ namespace ARCed.UI
                 set { m_flagAnimate = value; }
             }
 
-            private bool m_flagDragging = false;
+            private bool m_flagDragging;
             internal bool FlagDragging
             {
                 get { return m_flagDragging; }
@@ -221,7 +225,7 @@ namespace ARCed.UI
 
                     while (true)
                     {
-                        TimeSpan time = new TimeSpan(0, 0, 0, 0, ANIMATE_TIME);
+                        var time = new TimeSpan(0, 0, 0, 0, ANIMATE_TIME);
                         TimeSpan elapsedPerMove = DateTime.Now - startPerMove;
                         TimeSpan elapsedTime = DateTime.Now - startingTime;
                         if (((int)((time - elapsedTime).TotalMilliseconds)) <= 0)
@@ -283,7 +287,7 @@ namespace ARCed.UI
             {
                 if (ActivePane == null || ActivePane.IsActivated || FlagDragging)
                 {
-                    m_timerMouseTrack.Enabled = false;
+                    this._mTimerMouseTrack.Enabled = false;
                     return;
                 }
 
@@ -294,8 +298,8 @@ namespace ARCed.UI
                 if (hovertime <= 0)
                     hovertime = 400;
 
-                m_timerMouseTrack.Interval = 2 * (int)hovertime;
-                m_timerMouseTrack.Enabled = true;
+                this._mTimerMouseTrack.Interval = 2 * hovertime;
+                this._mTimerMouseTrack.Enabled = true;
             }
 
             protected virtual Rectangle DisplayingRectangle
@@ -330,29 +334,29 @@ namespace ARCed.UI
                 if (DockState == DockState.DockLeftAutoHide)
                 {
                     DockPadding.Right = 2;
-                    m_splitter.Dock = DockStyle.Right;
+                    this._mSplitter.Dock = DockStyle.Right;
                 }
                 else if (DockState == DockState.DockRightAutoHide)
                 {
                     DockPadding.Left = 2;
-                    m_splitter.Dock = DockStyle.Left;
+                    this._mSplitter.Dock = DockStyle.Left;
                 }
                 else if (DockState == DockState.DockTopAutoHide)
                 {
                     DockPadding.Bottom = 2;
-                    m_splitter.Dock = DockStyle.Bottom;
+                    this._mSplitter.Dock = DockStyle.Bottom;
                 }
                 else if (DockState == DockState.DockBottomAutoHide)
                 {
                     DockPadding.Top = 2;
-                    m_splitter.Dock = DockStyle.Top;
+                    this._mSplitter.Dock = DockStyle.Top;
                 }
 
                 Rectangle rectDisplaying = DisplayingRectangle;
-                Rectangle rectHidden = new Rectangle(-rectDisplaying.Width, rectDisplaying.Y, rectDisplaying.Width, rectDisplaying.Height);
+                var rectHidden = new Rectangle(-rectDisplaying.Width, rectDisplaying.Y, rectDisplaying.Width, rectDisplaying.Height);
                 foreach (Control c in Controls)
                 {
-                    DockPane pane = c as DockPane;
+                    var pane = c as DockPane;
                     if (pane == null)
                         continue;
                     
@@ -414,20 +418,20 @@ namespace ARCed.UI
 
                 if (ActivePane == null || ActivePane.IsActivated)
                 {
-                    m_timerMouseTrack.Enabled = false;
+                    this._mTimerMouseTrack.Enabled = false;
                     return;
                 }
 
                 DockPane pane = ActivePane;
-                Point ptMouseInAutoHideWindow = PointToClient(Control.MousePosition);
-                Point ptMouseInDockPanel = DockPanel.PointToClient(Control.MousePosition);
+                Point ptMouseInAutoHideWindow = PointToClient(MousePosition);
+                Point ptMouseInDockPanel = DockPanel.PointToClient(MousePosition);
 
                 Rectangle rectTabStrip = DockPanel.GetTabStripRectangle(pane.DockState);
 
                 if (!ClientRectangle.Contains(ptMouseInAutoHideWindow) && !rectTabStrip.Contains(ptMouseInDockPanel))
                 {
                     ActiveContent = null;
-                    m_timerMouseTrack.Enabled = false;
+                    this._mTimerMouseTrack.Enabled = false;
                 }
             }
 
@@ -476,28 +480,28 @@ namespace ARCed.UI
                 if (DockState == DockState.DockLeftAutoHide && rectDockArea.Width > 0)
                 {
                     if (content.DockHandler.AutoHidePortion < 1)
-                        content.DockHandler.AutoHidePortion += ((double)offset) / (double)rectDockArea.Width;
+                        content.DockHandler.AutoHidePortion += (offset) / (double)rectDockArea.Width;
                     else
                         content.DockHandler.AutoHidePortion = Width + offset;
                 }
                 else if (DockState == DockState.DockRightAutoHide && rectDockArea.Width > 0)
                 {
                     if (content.DockHandler.AutoHidePortion < 1)
-                        content.DockHandler.AutoHidePortion -= ((double)offset) / (double)rectDockArea.Width;
+                        content.DockHandler.AutoHidePortion -= (offset) / (double)rectDockArea.Width;
                     else
                         content.DockHandler.AutoHidePortion = Width - offset;
                 }
                 else if (DockState == DockState.DockBottomAutoHide && rectDockArea.Height > 0)
                 {
                     if (content.DockHandler.AutoHidePortion < 1)
-                        content.DockHandler.AutoHidePortion -= ((double)offset) / (double)rectDockArea.Height;
+                        content.DockHandler.AutoHidePortion -= (offset) / (double)rectDockArea.Height;
                     else
                         content.DockHandler.AutoHidePortion = Height - offset;
                 }
                 else if (DockState == DockState.DockTopAutoHide && rectDockArea.Height > 0)
                 {
                     if (content.DockHandler.AutoHidePortion < 1)
-                        content.DockHandler.AutoHidePortion += ((double)offset) / (double)rectDockArea.Height;
+                        content.DockHandler.AutoHidePortion += (offset) / (double)rectDockArea.Height;
                     else
                         content.DockHandler.AutoHidePortion = Height + offset;
                 }
@@ -517,12 +521,12 @@ namespace ARCed.UI
 
         private AutoHideWindowControl AutoHideWindow
         {
-            get { return m_autoHideWindow; }
+            get { return this._mAutoHideWindow; }
         }
 
         internal Control AutoHideControl
         {
-            get { return m_autoHideWindow; }
+            get { return this._mAutoHideWindow; }
         }
 
         internal void RefreshActiveAutoHideContent()

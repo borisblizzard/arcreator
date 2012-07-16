@@ -1,4 +1,8 @@
+#region Using Directives
+
 using System.Windows.Forms;
+
+#endregion
 
 namespace ARCed.UI
 {

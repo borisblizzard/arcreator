@@ -1,12 +1,11 @@
 #region Using Directives
 
-using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Printing;
 
-#endregion Using Directives
+#endregion
 
 
 namespace ARCed.Scintilla
@@ -14,7 +13,7 @@ namespace ARCed.Scintilla
     /// <summary>
     ///     ARCed.Scintilla derived class for handling printing of source code from a Scintilla control.
     /// </summary>
-    [TypeConverterAttribute(typeof(System.ComponentModel.ExpandableObjectConverter))]
+    [TypeConverter(typeof(ExpandableObjectConverter))]
     public class PrintDocument : System.Drawing.Printing.PrintDocument
     {
         #region Fields
@@ -22,7 +21,7 @@ namespace ARCed.Scintilla
         private int _iCurrentPage;
         private int _iPosition;
         private int _iPrintEnd;
-        private Scintilla _oScintillaControl;
+        private readonly Scintilla _oScintillaControl;
 
         #endregion Fields
 
@@ -37,9 +36,9 @@ namespace ARCed.Scintilla
                 };
             oGraphics.TransformPoints(CoordinateSpace.Device, CoordinateSpace.Page, oPoints);
 
-            PrintRectangle oPrintRectangle = new PrintRectangle(oPoints[0].X, oPoints[0].Y, oPoints[1].X, oPoints[1].Y);
+            var oPrintRectangle = new PrintRectangle(oPoints[0].X, oPoints[0].Y, oPoints[1].X, oPoints[1].Y);
 
-            RangeToFormat oRangeToFormat = new RangeToFormat();
+            var oRangeToFormat = new RangeToFormat();
             oRangeToFormat.hdc = oRangeToFormat.hdcTarget = oGraphics.GetHdc();
             oRangeToFormat.rc = oRangeToFormat.rcPage = oPrintRectangle;
             oRangeToFormat.chrg.cpMin = _iPosition;
@@ -55,7 +54,7 @@ namespace ARCed.Scintilla
             if (oFooter.Display)
             {
                 int iHeight = oFooter.Height;
-                Rectangle oFooterBounds = new Rectangle(oBounds.Left, oBounds.Bottom - iHeight, oBounds.Width, iHeight);
+                var oFooterBounds = new Rectangle(oBounds.Left, oBounds.Bottom - iHeight, oBounds.Width, iHeight);
 
                 oFooter.Draw(oGraphics, oFooterBounds, this.DocumentName, _iCurrentPage);
 
@@ -75,7 +74,7 @@ namespace ARCed.Scintilla
         {
             if (oHeader.Display)
             {
-                Rectangle oHeaderBounds = new Rectangle(oBounds.Left, oBounds.Top, oBounds.Width, oHeader.Height);
+                var oHeaderBounds = new Rectangle(oBounds.Left, oBounds.Top, oBounds.Width, oHeader.Height);
 
                 oHeader.Draw(oGraphics, oHeaderBounds, this.DocumentName, _iCurrentPage);
 
@@ -235,7 +234,7 @@ namespace ARCed.Scintilla
         public PrintDocument(Scintilla oScintillaControl)
         {
             _oScintillaControl = oScintillaControl;
-            DefaultPageSettings = new ARCed.Scintilla.PageSettings();
+            DefaultPageSettings = new PageSettings();
         }
 
         #endregion Constructors

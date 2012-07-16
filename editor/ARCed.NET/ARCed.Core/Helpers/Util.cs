@@ -1,6 +1,9 @@
-﻿using System;
+﻿#region Using Directives
+
+using System;
 using System.IO;
 using System.Linq;
+using System.Media;
 using System.Reflection;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
@@ -8,12 +11,18 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using System.Xml.Serialization;
+using RPG;
+
+#endregion
 
 namespace ARCed.Helpers
 {
+    /// <summary>
+    /// Static class that provides functions that are shared across tha ARCed assemblies.
+    /// </summary>
 	public static class Util
 	{
-		private static Random random;
+		private static Random _random;
         private static TypeMap _rpgTypes;
         private static Assembly _xnaAssembly, _coreAssembly;
 
@@ -27,20 +36,26 @@ namespace ARCed.Helpers
                 if (_rpgTypes == null)
                 {
                     _rpgTypes = new TypeMap();
-                    foreach (Type type in GetTypesInNamespace(ARCedCoreAssembly, "RPG"))
+                    foreach (var type in GetTypesInNamespace(ARCedCoreAssembly, "RPG"))
                         _rpgTypes[type.ToString()] = type;
                     _rpgTypes.Add("Table", typeof(Table));
-                    _rpgTypes.Add("Color", typeof(RPG.Color));
+                    _rpgTypes.Add("Color", typeof(Color));
                     //_rpgTypes.Add("Tone", typeof(RPG.Tone));
                 }
                 return _rpgTypes;
             }
         }
 
-        public static Type[] GetTypesInNamespace(Assembly assembly, string nameSpace)
+        /// <summary>
+        /// Gets an array of all types found in the given namespace.
+        /// </summary>
+        /// <param name="assembly">Assembly to search for the namespace.</param>
+        /// <param name="namespace">The namespace to search</param>
+        /// <returns>Array of found types</returns>
+        public static Type[] GetTypesInNamespace(Assembly assembly, string @namespace)
         {
             return assembly.GetTypes().Where(t => 
-                String.Equals(t.Namespace, nameSpace, StringComparison.Ordinal)).ToArray();
+                String.Equals(t.Namespace, @namespace, StringComparison.Ordinal)).ToArray();
         }
 
         /// <summary>
@@ -67,13 +82,16 @@ namespace ARCed.Helpers
             }
         }
 
+        /// <summary>
+        /// Gets the instance of the ARCed.Xna assembly.
+        /// </summary>
         public static Assembly XnaAssembly
         {
             get
             {
                 if (_xnaAssembly == null)
                 {
-                    string path = Path.Combine(PathHelper.AssemblyDir, "ARCed.Xna.dll");
+                    var path = Path.Combine(PathHelper.AssemblyDir, "ARCed.Xna.dll");
                     _xnaAssembly = Assembly.LoadFile(path);
                 }
                 return _xnaAssembly;
@@ -84,7 +102,7 @@ namespace ARCed.Helpers
 		/// Calculates the parameter value of a curve at the given level
 		/// </summary>
 		/// <param name="min">The lowest value value at the starting point of the curve</param>
-		/// <param name="_maxBackups">The greatest value at the end of the curve</param>
+		/// <param name="max">The greatest value at the end of the curve</param>
 		/// <param name="speed">The "pitch" of the curve</param>
 		/// <param name="level">The level to calculate the value for (x coordinate)</param>
 		/// <param name="initial">The initial level that the curve begins generation</param>
@@ -115,24 +133,28 @@ namespace ARCed.Helpers
 		/// <returns>A randomly generated number</returns>
 		public static double GetRandomBetween(double minimum, double maximum)
 		{
-			if (random == null)
-				random = new Random();
-			return random.NextDouble() * (maximum - minimum) + minimum;
+			if (_random == null)
+				_random = new Random();
+			return _random.NextDouble() * (maximum - minimum) + minimum;
 		}
 
 		/// <summary>
 		/// Copies an embedded resource to an external place on the hard-drive
 		/// </summary>
+        /// <param name="resource">The name of the resource</param>
 		/// <param name="path">The path the resource will be saved to</param>
 		public static void ExtractResource(string resource, string path)
 		{
-			using (Stream s = Assembly.GetExecutingAssembly().GetManifestResourceStream(resource))
-			using (FileStream resourceFile = new FileStream(path, FileMode.Create))
+			using (var s = Assembly.GetExecutingAssembly().GetManifestResourceStream(resource))
+			using (var resourceFile = new FileStream(path, FileMode.Create))
 			{
-				byte[] b = new byte[s.Length + 1];
-				s.Read(b, 0, Convert.ToInt32(s.Length));
-				resourceFile.Write(b, 0, Convert.ToInt32(b.Length - 1));
-				resourceFile.Flush();
+			    if (s != null)
+			    {
+			        var b = new byte[s.Length + 1];
+			        s.Read(b, 0, Convert.ToInt32(s.Length));
+			        resourceFile.Write(b, 0, Convert.ToInt32(b.Length - 1));
+			    }
+			    resourceFile.Flush();
 			}
 		}
 
@@ -144,8 +166,8 @@ namespace ARCed.Helpers
 		/// <returns>A santized string valid for a path</returns>
 		public static string ValidateFilename(string name, string replace = "")
 		{
-			string invalidChars = Regex.Escape(new string(Path.GetInvalidFileNameChars()));
-			string invalidReStr = string.Format(@"[{0}]+", invalidChars);
+			var invalidChars = Regex.Escape(new string(Path.GetInvalidFileNameChars()));
+			var invalidReStr = string.Format(@"[{0}]+", invalidChars);
 			return Regex.Replace(name, invalidReStr, replace);
 		}
 
@@ -155,8 +177,7 @@ namespace ARCed.Helpers
 		/// <param name="textBox">The textbox to check</param>
 		/// <param name="replace">Replacement string for invalid characters</param>
 		/// <param name="beep">Flag to play system beep if invalid characters are found</param>
-		public static void ValidateTextBox(System.Windows.Forms.TextBox textBox, 
-			string replace = "", bool beep = true)
+		public static void ValidateTextBox(TextBox textBox, string replace = "", bool beep = true)
 		{
 			string text = ValidateFilename(textBox.Text, replace);
 			if (text != textBox.Text)
@@ -164,7 +185,7 @@ namespace ARCed.Helpers
 				int pos = textBox.SelectionStart - 1;
 				textBox.Text = text;
 				if (beep)
-					System.Media.SystemSounds.Beep.Play();
+					SystemSounds.Beep.Play();
 				textBox.SelectionStart = pos;
 			}
 		}
@@ -177,9 +198,9 @@ namespace ARCed.Helpers
 		/// <returns>A deep clone of the object</returns>
 		public static T CloneObject<T>(T obj)
 		{
-			using (MemoryStream memStream = new MemoryStream())
+			using (var memStream = new MemoryStream())
 			{
-				BinaryFormatter binaryFormatter = new BinaryFormatter(null,
+				var binaryFormatter = new BinaryFormatter(null,
 					 new StreamingContext(StreamingContextStates.Clone));
 				binaryFormatter.Serialize(memStream, obj);
 				memStream.Seek(0, SeekOrigin.Begin);
@@ -187,11 +208,17 @@ namespace ARCed.Helpers
 			}
 		}
 
+        /// <summary>
+        /// Generates and returns a random number within the specified range
+        /// </summary>
+        /// <param name="minimum">Minimum value of the number to return</param>
+        /// <param name="maximum">Maximum value of the number to return</param>
+        /// <returns>Random number</returns>
 		public static double GetRandomNumber(double minimum, double maximum)
 		{
-			if (random == null)
-				random = new Random();
-			return random.NextDouble() * (maximum - minimum) + minimum;
+			if (_random == null)
+				_random = new Random();
+			return _random.NextDouble() * (maximum - minimum) + minimum;
 		}
 
         /// <summary>
@@ -204,7 +231,7 @@ namespace ARCed.Helpers
         {
             try
             {
-                XmlSerializer serializer = new XmlSerializer(typeof(T));
+                var serializer = new XmlSerializer(typeof(T));
                 using (TextWriter writer = new StreamWriter(path, false, Encoding.UTF8))
                     serializer.Serialize(writer, data);
             }
@@ -221,7 +248,7 @@ namespace ARCed.Helpers
         {
             try
             {
-                XmlSerializer serializer = new XmlSerializer(typeof(T));
+                var serializer = new XmlSerializer(typeof(T));
                 T data;
                 using (TextReader reader = new StreamReader(path, Encoding.UTF8))
                     data = (T)serializer.Deserialize(reader);
@@ -240,7 +267,7 @@ namespace ARCed.Helpers
         {
             try
             {
-                BinaryFormatter formatter = new BinaryFormatter();
+                var formatter = new BinaryFormatter();
                 using (Stream stream = File.OpenWrite(path))
                     formatter.Serialize(stream, data);
             }
@@ -257,7 +284,7 @@ namespace ARCed.Helpers
         {
             try
             {
-                BinaryFormatter formatter = new BinaryFormatter();
+                var formatter = new BinaryFormatter();
                 T data;
                 using (Stream stream = File.OpenRead(path))
                     data = (T)formatter.Deserialize(stream);

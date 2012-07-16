@@ -1,0 +1,270 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ARCed.Plugins</name>
+    </assembly>
+    <members>
+        <member name="T:ARCed.Plugins.RegistryEntryCollection">
+            <summary>
+            Container for <see cref="T:ARCed.Plugins.RegistryEntry"/> objects
+            </summary>
+        </member>
+        <member name="P:ARCed.Plugins.RegistryEntryCollection.Names">
+            <summary>
+            Gets a sorted list of all names found in the collection
+            </summary>
+        </member>
+        <member name="P:ARCed.Plugins.RegistryEntryCollection.ClassNames">
+            <summary>
+            Gets a sorted list of all class names found in the collection
+            </summary>
+        </member>
+        <member name="P:ARCed.Plugins.RegistryEntryCollection.Types">
+            <summary>
+            Gets a list of all types found in the collection
+            </summary>
+        </member>
+        <member name="P:ARCed.Plugins.RegistryEntryCollection.Contents">
+            <summary>
+            Gets a collection of all associated DockContent for the entries
+            </summary>
+        </member>
+        <member name="T:ARCed.Plugins.RegistryEntry">
+            <summary>
+            Represents an entry in the plugin registry.
+            </summary>
+        </member>
+        <member name="T:ARCed.Plugins.IPluginClient">
+            <summary>
+            Interface for plugin forms to inherit.
+            </summary>
+        </member>
+        <member name="M:ARCed.Plugins.IPluginClient.Show">
+            <summary>
+            Shows the control.
+            </summary>
+        </member>
+        <member name="M:ARCed.Plugins.IPluginClient.Show(ARCed.UI.DockPanel)">
+            <summary>
+            Shows the control using the specified <see cref="T:ARCed.UI.DockPanel"/> parent.
+            </summary>
+            <param name="panel">Parent dock panel to dock form in.</param>
+        </member>
+        <member name="M:ARCed.Plugins.RegistryEntry.#ctor(ARCed.Plugins.Plugin,System.Type,System.String,System.String)">
+            <summary>
+            Constructs a new RegistryEntry object
+            </summary>
+            <param name="plugin">The plugin the entry is from</param>
+            <param name="type">The invokable type found in the plugin</param>
+            <param name="name">The simple name of the entry</param>
+            <param name="className">The full class name, including namespaces of the type</param>
+        </member>
+        <member name="M:ARCed.Plugins.RegistryEntry.Show">
+            <summary>
+            Displays the contents in the host's default dock panel
+            </summary>
+        </member>
+        <member name="M:ARCed.Plugins.RegistryEntry.Show(ARCed.UI.DockPanel)">
+            <summary>
+            Displays the contents in the given panel
+            </summary>
+            <param name="panel">The parent panel to dock the content in</param>
+        </member>
+        <member name="P:ARCed.Plugins.RegistryEntry.Name">
+            <summary>
+            Gets the simple name of the entry
+            </summary>
+        </member>
+        <member name="P:ARCed.Plugins.RegistryEntry.ClassName">
+            <summary>
+            Gets the name of the class type
+            </summary>
+        </member>
+        <member name="P:ARCed.Plugins.RegistryEntry.ClassType">
+            <summary>
+            Gets the type that will be invoked
+            </summary>
+        </member>
+        <member name="P:ARCed.Plugins.RegistryEntry.Description">
+            <summary>
+            A simple description of the entry's function, used for tooltips in the editor
+            </summary>
+        </member>
+        <member name="P:ARCed.Plugins.RegistryEntry.Host">
+            <summary>
+            Gets the host inherited from the plugin
+            </summary>
+        </member>
+        <member name="P:ARCed.Plugins.RegistryEntry.Plugin">
+            <summary>
+            Gets the associated plugin object
+            </summary>
+        </member>
+        <member name="P:ARCed.Plugins.RegistryEntry.Content">
+            <summary>
+            Gets the associated window as dockable content
+            </summary>
+        </member>
+        <member name="P:ARCed.Plugins.RegistryEntry.Window">
+            <summary>
+            Gets the associated window for the entry
+            </summary>
+        </member>
+        <member name="T:ARCed.Plugins.PluginCollection">
+            <summary>
+            Container for <see crefe="Plugin"/> objects
+            </summary>
+        </member>
+        <member name="P:ARCed.Plugins.PluginCollection.Assemblies">
+            <summary>
+            Returns a list of all loaded assemblies
+            </summary>
+        </member>
+        <member name="P:ARCed.Plugins.PluginCollection.Filenames">
+            <summary>
+            Gets a list of all filenames in the collection
+            </summary>
+        </member>
+        <member name="P:ARCed.Plugins.PluginCollection.Names">
+            <summary>
+            Returns a sorted list of all plugin names
+            </summary>
+        </member>
+        <member name="T:ARCed.Plugins.Registry">
+            <summary>
+            Static class that acts as the interface for storing and invoking plugins.
+            It ensures that all plugins are correctly formatted and searches them for
+            content before adding their entries.
+            </summary>
+        </member>
+        <member name="M:ARCed.Plugins.Registry.Load(System.String)">
+            <summary>
+            Loads a a plugin from file. The assembly is searched for useable content and 
+            registered with the Editor
+            </summary>
+            <param name="filename"></param>
+        </member>
+        <member name="M:ARCed.Plugins.Registry.LoadAll">
+            <summary>
+            Loads all plugins from the default plugin folder
+            </summary>
+            <remarks>Acceptable formats are "*.exe" and "*.dll"</remarks>
+        </member>
+        <member name="M:ARCed.Plugins.Registry.Unload(ARCed.Plugins.Plugin)">
+            <summary>
+            Unloads the given plugin and all associated registry entries
+            </summary>
+            <param name="plugin">Plugin to remove</param>
+        </member>
+        <member name="M:ARCed.Plugins.Registry.Unload(ARCed.Plugins.RegistryEntry)">
+            <summary>
+            Unloads the given entry from the registry
+            </summary>
+            <param name="entry">The entry to remove</param>
+        </member>
+        <member name="M:ARCed.Plugins.Registry.UnloadAll">
+            <summary>
+            Unloads all registry entries and plugins
+            </summary>
+        </member>
+        <member name="P:ARCed.Plugins.Registry.Host">
+            <summary>
+            Gets or sets the Host form
+            </summary>
+        </member>
+        <member name="P:ARCed.Plugins.Registry.Entries">
+            <summary>
+            Gets a collection of all currently registered plugin content
+            </summary>
+        </member>
+        <member name="P:ARCed.Plugins.Registry.Plugins">
+            <summary>
+            Gets a list of loaded plugins
+            </summary>
+        </member>
+        <member name="T:ARCed.Plugins.IPluginHost">
+            <summary>
+            Interface for host applications to inherit from.
+            </summary>
+        </member>
+        <member name="P:ARCed.Plugins.IPluginHost.DockPanel">
+            <summary>
+            Gets the <see cref="P:ARCed.Plugins.IPluginHost.DockPanel"/> instance of the host form.
+            </summary>
+        </member>
+        <member name="T:ARCed.Plugins.Plugin">
+            <summary>
+            This class is used for loading and processing of plugins.
+            It acts as a handle for control between the assemblies.
+            </summary>
+            <seealso cref="T:ARCed.Plugins.IPluginClient"/>
+            <seealso cref="T:ARCed.Plugins.IPluginHost"/>
+        </member>
+        <member name="M:ARCed.Plugins.Plugin.#ctor(System.String,ARCed.Plugins.IPluginHost)">
+            <summary>
+            Creates a new Plugin instance
+            </summary>
+            <param name="filename">The filename to the assembly that contains the plugin</param>
+            <param name="host">The host form that will be using the plugin</param>
+        </member>
+        <member name="M:ARCed.Plugins.Plugin.GetEntries">
+            <summary>
+            Generates and returns a list of entries to be added to the ARCed Registry
+            </summary>
+            <returns>The list of entries</returns>
+        </member>
+        <member name="M:ARCed.Plugins.Plugin.ReadResourceConfiguration(System.Reflection.Assembly)">
+            <summary>
+            Reads the assembly's resource files for the configuration strings used in 
+            creating the windows
+            </summary>
+            <param name="assembly">The assembly to check for resource files</param>
+            <returns>A list of key/values pairs, the keys being the simple name to display
+            in the GUI, and the values being the full name of the type including namespaces</returns>
+        </member>
+        <member name="M:ARCed.Plugins.Plugin.GetRegistryClasses(System.Collections.Generic.IEnumerable{System.Collections.DictionaryEntry})">
+            <summary>
+            Generates a dictionary of simple and full names of registerable windows found
+            </summary>
+            <param name="config">A list of resource key/value pairs, the key being the name of
+            the resouce, and the value being the value of the resouce</param>
+            <returns>A dictionary of key/values pairs, the keys being the simple name to display
+            in the GUI, and the values being the full name of the type including namespaces</returns>
+        </member>
+        <member name="P:ARCed.Plugins.Plugin.Filename">
+            <summary>
+            Gets the filename to the plugin assembly
+            </summary>
+        </member>
+        <member name="P:ARCed.Plugins.Plugin.IsLoaded">
+            <summary>
+            Gets a flag indicating the plugin loaded without errors
+            </summary>
+        </member>
+        <member name="P:ARCed.Plugins.Plugin.Assembly">
+            <summary>
+            The associated <see cref="T:System.Reflection.Assembly"/> instance of the plugin
+            </summary>
+        </member>
+        <member name="P:ARCed.Plugins.Plugin.AssemblyName">
+            <summary>
+            The associated <see cref="T:System.Reflection.AssemblyName"/> instance of the plugin
+            </summary>
+        </member>
+        <member name="P:ARCed.Plugins.Plugin.Version">
+            <summary>
+            Gets the file <see cref="T:System.Version"/> of the associated assembly 
+            </summary>
+        </member>
+        <member name="P:ARCed.Plugins.Plugin.Name">
+            <summary>
+            Gets the simple name of the associated assembly
+            </summary>
+        </member>
+        <member name="P:ARCed.Plugins.Plugin.Host">
+            <summary>
+            Gets the plugin's host
+            </summary>
+        </member>
+    </members>
+</doc>

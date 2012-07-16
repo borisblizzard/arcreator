@@ -6,7 +6,7 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 
-#endregion Using Directives
+#endregion
 
 
 namespace ARCed.Scintilla
@@ -19,7 +19,7 @@ namespace ARCed.Scintilla
     ///     Autocomplete is typically used in IDEs to automatically complete some kind
     ///     of identifier or keyword based on a partial name. 
     /// </remarks>
-    [TypeConverterAttribute(typeof(System.ComponentModel.ExpandableObjectConverter))]
+    [TypeConverter(typeof(ExpandableObjectConverter))]
     public class AutoComplete : TopLevelHelper
     {
         #region Fields
@@ -80,7 +80,7 @@ namespace ARCed.Scintilla
 
         private string GetListString(IEnumerable<string> list)
         {
-            StringBuilder listString = new StringBuilder();
+            var listString = new StringBuilder();
             foreach (string s in list)
             {
                 listString.Append(s).Append(ListSeparator);
@@ -96,7 +96,7 @@ namespace ARCed.Scintilla
         ///     Registers an _srcTexture with index to be displayed in the AutoComplete window.
         /// </summary>
         /// <param name="type">Index of the _srcTexture to register to</param>
-        /// <param name="_srcTexture">Image to display in Bitmap format</param>
+        /// <param name="image">Image to display in Bitmap format</param>
         private void RegisterImage(int type, Bitmap image)
         {
             NativeScintilla.RegisterImage(type, XpmConverter.ConvertToXPM(image));
@@ -107,7 +107,7 @@ namespace ARCed.Scintilla
         ///     Registers an _srcTexture with index to be displayed in the AutoComplete window.
         /// </summary>
         /// <param name="type">Index of the _srcTexture to register to</param>
-        /// <param name="xpmImage">Image to display in the XPM _srcTexture format</param>
+        /// <param name="image">Image to display in the XPM _srcTexture format</param>
         /// <param name="transparentColor">Color to mask the _srcTexture as transparent</param>
         private void RegisterImage(int type, Bitmap image, Color transparentColor)
         {
@@ -495,7 +495,8 @@ namespace ARCed.Scintilla
 
 
         /// <summary>
-        ///     Gets or Sets the last automatically calculated LengthEntered used whith <see cref="Show" />.
+        /// Gets or Sets the last automatically calculated LengthEntered used 
+        /// with <see cref="System.Windows.Forms.Control.Show" />.
         /// </summary>
         public bool AutomaticLengthEntered
         {
@@ -646,7 +647,7 @@ namespace ARCed.Scintilla
         /// <summary>
         ///     CharacterStance used to split <see cref="ListString"/> to convert to a List.
         /// </summary>
-        [TypeConverter(typeof(ARCed.Scintilla.WhitespaceStringConverter))]
+        [TypeConverter(typeof(WhitespaceStringConverter))]
         public char ListSeparator
         {
             get

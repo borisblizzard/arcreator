@@ -2,7 +2,7 @@
 
 using System.Collections.Generic;
 
-#endregion Using Directives
+#endregion
 
 
 namespace ARCed.Scintilla
@@ -60,7 +60,7 @@ namespace ARCed.Scintilla
         /// <summary>
         ///     Creates a new instance of an OverLoadList
         /// </summary>
-        public OverloadList() : base() { }
+        public OverloadList() { }
 
         /// <summary>
         ///     Creates a new instance of an OverLoadList. The list of overloads is supplied by collection

@@ -1,13 +1,18 @@
 ﻿#region Using Directives
 
-using System;
+
 
 #endregion Using Directives
 
+#region Using Directives
+
+using System.Collections.ObjectModel;
+
+#endregion
 
 namespace ARCed.Scintilla.Configuration
 {
-    public class MarkersConfigList : System.Collections.ObjectModel.KeyedCollection<int, MarkersConfig>
+    public class MarkersConfigList : KeyedCollection<int, MarkersConfig>
     {
         #region Fields
 

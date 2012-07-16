@@ -1,15 +1,14 @@
 #region Using Directives
 
-using System;
 using System.ComponentModel;
 using System.Windows.Forms;
 
-#endregion Using Directives
+#endregion
 
 
 namespace ARCed.Scintilla
 {
-    [TypeConverterAttribute(typeof(System.ComponentModel.ExpandableObjectConverter))]
+    [TypeConverter(typeof(ExpandableObjectConverter))]
     public class Printing : TopLevelHelper
     {
         #region Fields
@@ -31,7 +30,7 @@ namespace ARCed.Scintilla
         {
             if (showPrintDialog)
             {
-                PrintDialog pd = new PrintDialog();
+                var pd = new PrintDialog();
                 pd.Document = _printDocument;
                 pd.UseEXDialog = true;
                 pd.AllowCurrentPage = true;
@@ -56,7 +55,7 @@ namespace ARCed.Scintilla
 
         public DialogResult PrintPreview()
         {
-            PrintPreviewDialog ppd = new PrintPreviewDialog();
+            var ppd = new PrintPreviewDialog();
             ppd.WindowState = FormWindowState.Maximized;
 
             ppd.Document = _printDocument;
@@ -66,7 +65,7 @@ namespace ARCed.Scintilla
 
         public DialogResult PrintPreview(IWin32Window owner)
         {
-            PrintPreviewDialog ppd = new PrintPreviewDialog();
+            var ppd = new PrintPreviewDialog();
             ppd.WindowState = FormWindowState.Maximized;
 
             if (owner is Form)
@@ -97,7 +96,7 @@ namespace ARCed.Scintilla
 
         public DialogResult ShowPageSetupDialog()
         {
-            PageSetupDialog psd = new PageSetupDialog();
+            var psd = new PageSetupDialog();
             psd.PageSettings = PageSettings;
             psd.PrinterSettings = PageSettings.PrinterSettings;
             return psd.ShowDialog();
@@ -106,7 +105,7 @@ namespace ARCed.Scintilla
 
         public DialogResult ShowPageSetupDialog(IWin32Window owner)
         {
-            PageSetupDialog psd = new PageSetupDialog();
+            var psd = new PageSetupDialog();
             psd.AllowPrinter = true;
             psd.PageSettings = PageSettings;
             psd.PrinterSettings = PageSettings.PrinterSettings;

@@ -1,10 +1,15 @@
-﻿using System.Collections.Generic;
+﻿#region Using Directives
+
+using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
+
+#endregion
 
 namespace ARCed.Plugins
 {
 	/// <summary>
-	/// Container for <paramref name="Plugin"/> objects
+    /// Container for <see crefe="Plugin"/> objects
 	/// </summary>
 	public class PluginCollection : List<Plugin>
 	{
@@ -15,13 +20,7 @@ namespace ARCed.Plugins
 		/// </summary>
 		public List<Assembly> Assemblies
 		{
-			get
-			{
-				List<Assembly> assemblies = new List<Assembly>();
-				foreach (Plugin plugin in this)
-					assemblies.Add(plugin.Assembly);
-				return assemblies;
-			}
+			get { return this.Select(plugin => plugin.Assembly).ToList(); }
 		}
 
 		/// <summary>
@@ -29,13 +28,7 @@ namespace ARCed.Plugins
 		/// </summary>
 		public List<string> Filenames
 		{
-			get
-			{
-				List<string> filenames = new List<string>();
-				foreach (Plugin plugin in this)
-					filenames.Add(plugin.Filename);
-				return filenames;
-			}
+			get { return this.Select(plugin => plugin.Filename).ToList(); }
 		}
 
 		/// <summary>
@@ -45,10 +38,9 @@ namespace ARCed.Plugins
 		{
 			get
 			{
-				List<string> names = new List<string>(Count);
-				foreach (Plugin plugin in this)
-					names.Add(plugin.Name);
-				names.Sort();
+				var names = new List<string>(Count);
+			    names.AddRange(this.Select(plugin => plugin.Name));
+			    names.Sort();
 				return names;
 			}
 		}

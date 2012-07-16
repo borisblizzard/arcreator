@@ -1,10 +1,12 @@
-﻿using System;
+﻿#region Using Directives
+
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
+
+#endregion
 
 namespace ARCed.Helpers
 {
@@ -72,12 +74,12 @@ namespace ARCed.Helpers
         public static void RenderHeaderImage(PictureBox picBox, string text, Font font,
             Brush textBrush, Color gradient1, Color gradient2)
         {
-            Rectangle rect = new Rectangle(new Point(), picBox.Size);
-            Point endPoint = new Point(rect.Width, rect.Height);
+            var rect = new Rectangle(new Point(), picBox.Size);
+            var endPoint = new Point(rect.Width, rect.Height);
             if (endPoint.X == 0 || endPoint.Y == 0)
                 return;
             Image image = new Bitmap(rect.Width, rect.Height);
-            using (LinearGradientBrush brush =
+            using (var brush =
                 new LinearGradientBrush(rect.Location, endPoint, gradient1, gradient2))
             {
                 using (Graphics g = Graphics.FromImage(image))

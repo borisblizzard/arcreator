@@ -1,16 +1,31 @@
 ﻿#region Using Directives
 
 using System;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
+using ARCed.Controls;
 using ARCed.Core.Win32;
+using ARCed.Database;
+using ARCed.Database.Actors;
+using ARCed.Database.Animations;
+using ARCed.Database.Armors;
+using ARCed.Database.Classes;
+using ARCed.Database.Enemies;
+using ARCed.Database.Items;
+using ARCed.Database.Skills;
+using ARCed.Database.Tilesets;
+using ARCed.Database.Troops;
+using ARCed.Database.Weapons;
 using ARCed.Dialogs;
+using ARCed.Forms;
 using ARCed.Forms.Splash;
 using ARCed.Helpers;
 using ARCed.Plugins;
+using ARCed.Scintilla;
 using ARCed.Scripting;
 using ARCed.Settings;
 using ARCed.UI;
@@ -42,7 +57,7 @@ namespace ARCed
 
 		#region Private Fields
 
-		private DeserializeDockContent _deserializeDockContent;
+		private readonly DeserializeDockContent _deserializeDockContent;
 
 		#endregion
 
@@ -70,34 +85,34 @@ namespace ARCed
                     File.Delete(editorSetting);
             #endif
             //*******************************************************************************
-            ARCed.Helpers.ResourceHelper.Initialize();
+            ResourceHelper.Initialize();
             FontHelper.LoadUserFonts();
             LoadSettings();
             //Log.AppendFormat("ARCed Log File: {0}\n\n", DateTime.Now);
             // Create editor form and set the icon to match the executable
             InitializeComponent();
-            Editor.MainInstance = this;
+            MainInstance = this;
             Registry.Host = this;
             ///////////////////////////////
-            Editor.MainDock = dockMain;
-            ARCed.Controls.TilesetXnaPanel.Settings = Settings.ImageColorSettings;
+            MainDock = dockMain;
+            TilesetXnaPanel.Settings = Settings.ImageColorSettings;
             //////////////////////////////
-            ARCed.Scintilla.FindReplace.ParentDock = dockMain;
-            Editor.StatusBar = this.statusStripMain;
+            FindReplace.ParentDock = dockMain;
+            StatusBar = this.statusStripMain;
             Windows.ScriptTabContextMenu = this.contextMenuScriptTab;
-            dockMain.Skin = Editor.Settings.WindowSkin;
+            dockMain.Skin = Settings.WindowSkin;
             try
             {
                 this.Icon = Icon.ExtractAssociatedIcon(PathHelper.EditorPath);
-                if (Editor.Mode.HasFlag(EditorMode.Debug))
+                if (Mode.HasFlag(EditorMode.Debug))
                     new Thread(lamda => NativeMethods.SetConsoleIcon(this.Icon.Handle)).Start();
             }
             catch { }
             // Show the splash screen
-            if (Editor.Settings.ShowSplash)
+            if (Settings.ShowSplash)
             {
                 this.Hide();
-                Thread splashthread = new Thread(new ThreadStart(SplashScreen.ShowSplashScreen));
+                var splashthread = new Thread(SplashScreen.ShowSplashScreen);
                 splashthread.IsBackground = true;
                 splashthread.Start();
                 StartSplash(filename);
@@ -113,7 +128,7 @@ namespace ARCed
 
             Registry.LoadAll();
             // Set deserializer for restoring window layout.
-            _deserializeDockContent = new DeserializeDockContent(GetContentFromPersistString);
+            _deserializeDockContent = GetContentFromPersistString;
 
             Project.Settings = new ProjectSettings();
 
@@ -124,8 +139,8 @@ namespace ARCed
             if (File.Exists(testPath))
                 LoadProject(testPath);
             Console.WriteLine(File.Exists(testPath));
-            new Database.Animations.AnimationMainForm().Show(Editor.MainDock);
-            new Database.Tilesets.TilesetsMainForm().Show(Editor.MainDock);
+            new AnimationMainForm().Show(MainDock);
+            new TilesetsMainForm().Show(MainDock);
             //new Database.Troops.TroopMainForm().Show(Editor.MainDock);
 
             // TEST /////////////////////////////////////////////////////////////////////////////////////
@@ -141,12 +156,12 @@ namespace ARCed
 		/// </summary>
 		private void RestoreWindowLocation()
 		{
-			if (Editor.Settings.WindowState.HasFlag(FormWindowState.Maximized))
+			if (Settings.WindowState.HasFlag(FormWindowState.Maximized))
 				this.WindowState = FormWindowState.Maximized;
 			else
 			{
-				this.Size = Editor.Settings.Size;
-				this.Location = Editor.Settings.Location;
+				this.Size = Settings.Size;
+				this.Location = Settings.Location;
 			}
 		}
 
@@ -157,9 +172,9 @@ namespace ARCed
 		/// <returns>The created window</returns>
 		/// <remarks>It is important that any plugin have a parameterless constructor, else
 		/// it will fail to load from a saved layout.</remarks>
-		private IDockContent GetContentFromPersistString(string persistString)
+		private static IDockContent GetContentFromPersistString(string persistString)
 		{
-			if (persistString == typeof(ARCed.Scripting.ScriptEditorForm).ToString())
+			if (persistString == typeof(ScriptEditorForm).ToString())
 			{
 				if (Project.Settings.OpenScripts.Count > 0)
 				{
@@ -169,26 +184,26 @@ namespace ARCed
 				}
 				return null;
 			}
-			else if (persistString == typeof(ARCed.Scintilla.FindReplaceDialog).ToString())
+			else if (persistString == typeof(FindReplaceDialog).ToString())
 				return Windows.ScintillaFindReplace;
-			else if (persistString == typeof(ARCed.Scripting.ScriptStyleForm).ToString())
+			else if (persistString == typeof(ScriptStyleForm).ToString())
 				return Windows.ScriptStyleMenu;
-			else if (persistString == typeof(ARCed.Scripting.ScriptMenuForm).ToString())
+			else if (persistString == typeof(ScriptMenuForm).ToString())
 				return Windows.ScriptMenu;
-			else if (persistString == typeof(ARCed.Forms.ARChiveForm).ToString())
+			else if (persistString == typeof(ARChiveForm).ToString())
 				return Windows.ARChiveForm;
-			else if (persistString == typeof(ARCed.Forms.EditorOptionsForm).ToString())
+			else if (persistString == typeof(EditorOptionsForm).ToString())
 				return Windows.EditorOptionsMenu;
-			else if (persistString == typeof(ARCed.Forms.SkinSettingsForm).ToString())
+			else if (persistString == typeof(SkinSettingsForm).ToString())
 				return Windows.SkinSettingForm;
-			else if (persistString == typeof(ARCed.Scripting.AutoCompleteForm).ToString())
+			else if (persistString == typeof(AutoCompleteForm).ToString())
 				return Windows.AutoCompleteWindow;
 
 			// Attempt to create windows not defined, searching plugin assemblies
 			try
 			{
 				Type type = null;
-				foreach (var assembly in Editor.ARCedAssemblies)
+				foreach (var assembly in ARCedAssemblies)
 				{
 					type = assembly.GetType(persistString);
 					if (type != null)
@@ -206,7 +221,7 @@ namespace ARCed
 		private void StartSplash(string filename)
 		{
 			Project.NeedSaved = false;
-			if (Editor.Settings.ShowSplash)
+			if (Settings.ShowSplash)
 			{
 				SplashScreen.UdpateStatusText("Initializing Ruby engine...");
 				Thread.Sleep(500);
@@ -230,9 +245,9 @@ namespace ARCed
 		/// <summary>
 		/// Loads the settings of the editor or initializes new ones if not found.
 		/// </summary>
-		private void LoadSettings()
+		private static void LoadSettings()
 		{
-			Editor.Settings = EditorSettings.Load();
+			Settings = EditorSettings.Load();
 		}
 	
 		/// <summary>
@@ -256,7 +271,7 @@ namespace ARCed
 				Windows.ScriptMenu.ScriptsDirectory = Project.ScriptsDirectory;
 				Windows.ARChiveForm.RefreshSettings();
 				this.Text = Project.Title;
-				Editor.Settings.AddToRecent(path);
+				Settings.AddToRecent(path);
 			//}
 			//catch
 			//{
@@ -315,11 +330,11 @@ namespace ARCed
 
 		private void Editor_FormClosing(object sender, FormClosingEventArgs e)
 		{
-			Editor.Settings.Location = this.Location;
-			Editor.Settings.Size = this.Size;
-			Editor.Settings.WindowState = this.WindowState;
-			Editor.Settings.Save();
-			ARCed.Properties.Settings.Default.Save();
+			Settings.Location = this.Location;
+			Settings.Size = this.Size;
+			Settings.WindowState = this.WindowState;
+			Settings.Save();
+			Properties.Settings.Default.Save();
 		}
 
 		private void buttonOpenGameDirectory_Click(object sender, EventArgs e)
@@ -340,7 +355,7 @@ namespace ARCed
 				case "Settings": dir = PathHelper.SettingsDirectory; break;
 				default: dir = PathHelper.EditorDirectory; break;
 			}
-			System.Diagnostics.Process.Start(dir + @"\");
+			Process.Start(dir + @"\");
 
 		}
 
@@ -380,11 +395,11 @@ namespace ARCed
 			fileMenuSaveTemplate.Enabled = enable;
 			fileMenuCloseProject.Enabled = enable;
 			fileMenuOpenRecent.DropDownItems.Clear();
-			foreach (string filename in Editor.Settings.RecentlyOpened)
+			foreach (string filename in Settings.RecentlyOpened)
 			{
 				// TODO: Implement custom game icon to tool item?
 				var item = new ToolStripMenuItem(Path.GetFileNameWithoutExtension(filename));
-				item.Click += new EventHandler(openRecentFile_Click);
+				item.Click += this.openRecentFile_Click;
 				item.ToolTipText = filename;
 				fileMenuOpenRecent.DropDownItems.Add(item);
 			}
@@ -400,7 +415,7 @@ namespace ARCed
 			{
 				MessageBox.Show("Project cannot be found.", 
 					"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-				Editor.Settings.RecentlyOpened.Remove(filename);
+				Settings.RecentlyOpened.Remove(filename);
 			}
 		}
 
@@ -411,7 +426,7 @@ namespace ARCed
 		{
 			if (ConfirmProjectClose())
 			{
-				using (NewProjectForm dialog = new NewProjectForm())
+				using (var dialog = new NewProjectForm())
 				{
 					if (dialog.ShowDialog() == DialogResult.OK)
 					{
@@ -425,7 +440,7 @@ namespace ARCed
 						else
 							template = Path.Combine(PathHelper.ProjectTemplateDirectory,
 								String.Format("{0}.7z", dialog.ProjectTemplate));
-                        string lib = Editor.Is64bit ?
+                        string lib = Is64bit ?
                             Path.Combine(PathHelper.EditorDirectory, @"x64\7z64.dll") :
                             Path.Combine(PathHelper.EditorDirectory, @"x86\7z.dll");
 						string proj = Project.CreateProject(lib, dir, dialog.ProjectTitle, template);
@@ -442,7 +457,7 @@ namespace ARCed
 		{
 			if (ConfirmProjectClose())
 			{
-				using (OpenFileDialog loadDialog = new OpenFileDialog())
+				using (var loadDialog = new OpenFileDialog())
 				{
 					loadDialog.DefaultExt = "";
 					loadDialog.Filter = "ARC Project File|*.arcproj|All Documents|*.*";
@@ -481,10 +496,10 @@ namespace ARCed
 		/// </summary>
 		private void fileMenuSaveTemplate_Click(object sender, EventArgs e)
 		{
-			string title = "Save Project Template";
-			string label = "Template Name:";
+			const string title = "Save Project Template";
+			const string label = "Template Name:";
 			string text = Project.Title;
-			using (UserStringForm dialog = new UserStringForm(title, text, label, true))
+			using (var dialog = new UserStringForm(title, text, label, true))
 			{
 				if (dialog.ShowDialog() == DialogResult.OK)
 				{
@@ -544,16 +559,16 @@ namespace ARCed
 			toolMenuPlugins.DropDownItems.Clear();
 			foreach (RegistryEntry entry in Registry.Entries)
 			{
-				ToolStripMenuItem item = new ToolStripMenuItem(entry.Name);
+				var item = new ToolStripMenuItem(entry.Name);
 				item.Image = Icon.ExtractAssociatedIcon(entry.Plugin.Filename).ToBitmap();
 				item.ToolTipText = entry.Description;
 				item.Tag = entry;
-				item.Click += new EventHandler(menuStripPlugins_Clicked);
+				item.Click += menuStripPlugins_Clicked;
 				toolMenuPlugins.DropDownItems.Add(item);
 			}
 		}
 
-		private void menuStripPlugins_Clicked(object sender, EventArgs e)
+		private static void menuStripPlugins_Clicked(object sender, EventArgs e)
 		{
 			((sender as ToolStripMenuItem).Tag as RegistryEntry).Show();
 		}
@@ -564,12 +579,12 @@ namespace ARCed
 
 		private void saveToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			(Editor.MainDock.ActivePane.ActiveContent as ScriptEditorForm).Script.Save();
+			(MainDock.ActivePane.ActiveContent as ScriptEditorForm).Script.Save();
 		}
 
 		private void closeToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			Editor.MainDock.ActivePane.CloseActiveContent();
+			MainDock.ActivePane.CloseActiveContent();
 		}
 
 		private void closeAllButThisToolStripMenuItem_Click(object sender, EventArgs e)
@@ -592,10 +607,10 @@ namespace ARCed
 
 		private void floatToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			Size size = new Size(720, 512);
+			var size = new Size(720, 512);
 			Rectangle screenRect = Screen.FromControl(this).Bounds;
-			Point point = new Point((screenRect.Width - 720) / 2, (screenRect.Height - 512) / 2);
-			Editor.MainDock.ActivePane.ActiveContent.DockHandler.FloatAt(new Rectangle(point, size));
+			var point = new Point((screenRect.Width - 720) / 2, (screenRect.Height - 512) / 2);
+			MainDock.ActivePane.ActiveContent.DockHandler.FloatAt(new Rectangle(point, size));
 		}
 
 		#endregion
@@ -612,7 +627,7 @@ namespace ARCed
 
 		private void helpMenuAbout_Click(object sender, EventArgs e)
 		{
-			using (AboutBox aboutDialog = new AboutBox())
+			using (var aboutDialog = new AboutBox())
 				aboutDialog.ShowDialog(this);
 		}
 
@@ -624,25 +639,25 @@ namespace ARCed
 		private void toolComboDatabaseItem_Click(object sender, EventArgs e)
 		{
 			int index = Convert.ToInt32((sender as ToolStripMenuItem).Tag);
-			Database.DatabaseWindow window = null;
+			DatabaseWindow window = null;
 			switch (index)
 			{
-				case 0: window = Windows.DatabaseForm<Database.Actors.ActorMainForm>(); break;
-				case 1: window = Windows.DatabaseForm<Database.Classes.ClassMainForm>(); break;
-				case 2: window = Windows.DatabaseForm<Database.Skills.SkillMainForm>(); break;
-				case 3: window = Windows.DatabaseForm<Database.Items.ItemMainForm>(); break;
-				case 4: window = Windows.DatabaseForm<Database.Weapons.WeaponMainForm>(); break;
-				case 5: window = Windows.DatabaseForm<Database.Armors.ArmorMainForm>(); break;
-				case 6: window = Windows.DatabaseForm<Database.Enemies.EnemyMainForm>(); break;
-				case 7: window = Windows.DatabaseForm<Database.Troops.TroopMainForm>(); break;
-				case 8: window = Windows.DatabaseForm<Database.Actors.ActorMainForm>(); break;
-				case 9: window = Windows.DatabaseForm<Database.Actors.ActorMainForm>(); break;
-				case 10: window = Windows.DatabaseForm<Database.Actors.ActorMainForm>(); break;
-				case 11: window = Windows.DatabaseForm<Database.Actors.ActorMainForm>(); break;
-				case 12: window = Windows.DatabaseForm<Database.Actors.ActorMainForm>(); break;
+				case 0: window = Windows.DatabaseForm<ActorMainForm>(); break;
+				case 1: window = Windows.DatabaseForm<ClassMainForm>(); break;
+				case 2: window = Windows.DatabaseForm<SkillMainForm>(); break;
+				case 3: window = Windows.DatabaseForm<ItemMainForm>(); break;
+				case 4: window = Windows.DatabaseForm<WeaponMainForm>(); break;
+				case 5: window = Windows.DatabaseForm<ArmorMainForm>(); break;
+				case 6: window = Windows.DatabaseForm<EnemyMainForm>(); break;
+				case 7: window = Windows.DatabaseForm<TroopMainForm>(); break;
+				case 8: window = Windows.DatabaseForm<ActorMainForm>(); break;
+				case 9: window = Windows.DatabaseForm<ActorMainForm>(); break;
+				case 10: window = Windows.DatabaseForm<ActorMainForm>(); break;
+				case 11: window = Windows.DatabaseForm<ActorMainForm>(); break;
+				case 12: window = Windows.DatabaseForm<ActorMainForm>(); break;
 			}
 			if (window != null)
-				window.Show(Editor.MainDock);
+				window.Show(MainDock);
 		}
 	}
 }

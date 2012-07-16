@@ -92,7 +92,7 @@ namespace ARCed.Dialogs
 		/// <param name="e">Event arguments</param>
 		private void buttonBrowse_Click(object sender, EventArgs e)
 		{
-			using (FolderBrowserDialog dialog = new FolderBrowserDialog())
+			using (var dialog = new FolderBrowserDialog())
 			{
 				dialog.Description = "Choose a location for the project.";
 				dialog.ShowNewFolderButton = true;

@@ -1,17 +1,22 @@
-﻿using System;
+﻿#region Using Directives
+
+using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
-using ARCed.UI;
-using ARCed.Helpers;
+using ARCed.Core;
 using ARCed.Dialogs;
+using ARCed.Helpers;
+using ARCed.UI;
+
+#endregion
 
 namespace ARCed.Forms
 {
 	public partial class SkinSettingsForm : DockContent
 	{
-		private static string[] AutoHideGradients = { "Dock Strip", "Tab" };
-		private static string[] DockPaneStripGradients = 
+		private static readonly string[] AutoHideGradients = { "Dock Strip", "Tab" };
+		private static readonly string[] DockPaneStripGradients = 
 		{
 			"Document Dock Strip",
 			"Document Active Tab",
@@ -57,7 +62,7 @@ namespace ARCed.Forms
 			}
 		}
 
-		private ARCed.Core.SerializableFont CurrentFont
+		private SerializableFont CurrentFont
 		{
 			get
 			{
@@ -117,10 +122,10 @@ namespace ARCed.Forms
 			if (tag == "START") color = panelStartColor.BackColor;
 			else if (tag == "END") color = panelEndColor.BackColor;
 			else color = panelTextColor.BackColor;
-			using (ColorChooserForm dialog = new ColorChooserForm())
+			using (var dialog = new ColorChooserForm())
 			{
 				dialog.Color = color;
-				if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+				if (dialog.ShowDialog() == DialogResult.OK)
 				{
 					if (tag == "START") CurrentGradient.StartColor = dialog.Color;
 					else if (tag == "END") CurrentGradient.EndColor = dialog.Color;
@@ -138,7 +143,7 @@ namespace ARCed.Forms
 
 		private void buttonFont_Click(object sender, EventArgs e)
 		{
-			using (FontSelectionDialog dialog = new FontSelectionDialog())
+			using (var dialog = new FontSelectionDialog())
 			{
 				dialog.UserFont = CurrentFont;
 				if (dialog.ShowDialog() == DialogResult.OK)
@@ -160,7 +165,7 @@ namespace ARCed.Forms
 
 		private void buttonApply_Click(object sender, EventArgs e)
 		{
-			Editor.MainDock.Skin = Util.CloneObject<DockPanelSkin>(Editor.Settings.WindowSkin);
+			Editor.MainDock.Skin = Util.CloneObject(Editor.Settings.WindowSkin);
 		}
 
 		private void groupBoxSkinType_CollapseBoxClickedEvent(object sender)
