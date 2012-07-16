@@ -3,22 +3,23 @@
  * Modified the Namespace just because it was too generic.
  * Added DesignTimeVisible(false) to hide it from the toolbox.
  */
+
+#region Using Directives
+
 using System;
-using System.Collections;
 using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Windows.Forms;
 using System.Drawing.Design;
+using System.Windows.Forms;
 using System.Windows.Forms.Design;
 
+#endregion
 
 namespace ARCed.Scintilla.Design
 {
     [DesignTimeVisible(false)]
     public class FlagCheckedListBox : CheckedListBox
     {
-        private System.ComponentModel.Container components = null;
+        private readonly Container components = null;
 
         public FlagCheckedListBox()
         {
@@ -53,7 +54,7 @@ namespace ARCed.Scintilla.Design
         // Adds an integer value and its associated description
         public FlagCheckedListBoxItem Add(int v, string c)
         {
-            FlagCheckedListBoxItem item = new FlagCheckedListBoxItem(v, c);
+            var item = new FlagCheckedListBoxItem(v, c);
             Items.Add(item);
             return item;
         }
@@ -72,7 +73,7 @@ namespace ARCed.Scintilla.Design
                 return;
 
             // Get the checked/unchecked item
-            FlagCheckedListBoxItem item = Items[e.Index] as FlagCheckedListBoxItem;
+            var item = Items[e.Index] as FlagCheckedListBoxItem;
             // Update other items
             UpdateCheckedItems(item, e.NewValue);
         }
@@ -86,7 +87,7 @@ namespace ARCed.Scintilla.Design
             // Iterate over all items
             for(int i=0; i<Items.Count; i++)
             {
-                FlagCheckedListBoxItem item = Items[i] as FlagCheckedListBoxItem;
+                var item = Items[i] as FlagCheckedListBoxItem;
 
                 if(item.value==0)
                 {
@@ -123,7 +124,7 @@ namespace ARCed.Scintilla.Design
             int sum = 0;
             for(int i=0; i<Items.Count; i++)
             {
-                FlagCheckedListBoxItem item = Items[i] as FlagCheckedListBoxItem;
+                var item = Items[i] as FlagCheckedListBoxItem;
 
                 // If item is checked, add its value to the sum.
                 if(GetItemChecked(i))
@@ -142,7 +143,7 @@ namespace ARCed.Scintilla.Design
 
         }
 
-        private bool isUpdatingCheckStates = false;
+        private bool isUpdatingCheckStates;
 
         // Gets the current bit value corresponding to all checked items
         public int GetCurrentValue()
@@ -151,7 +152,7 @@ namespace ARCed.Scintilla.Design
 
             for(int i=0; i<Items.Count; i++)
             {
-                FlagCheckedListBoxItem item = Items[i] as FlagCheckedListBoxItem;
+                var item = Items[i] as FlagCheckedListBoxItem;
 
                 if(GetItemChecked(i))
                     sum |= item.value;
@@ -169,7 +170,7 @@ namespace ARCed.Scintilla.Design
             foreach(string name in Enum.GetNames(enumType))
             {
                 object val = Enum.Parse(enumType, name);
-                int intVal = (int)Convert.ChangeType(val, typeof(int));
+                var intVal = (int)Convert.ChangeType(val, typeof(int));
 
                 Add(intVal, name);
             }
@@ -178,12 +179,12 @@ namespace ARCed.Scintilla.Design
         // Checks/unchecks items based on the current value of the enum variable
         private void ApplyEnumValue()
         {
-            int intVal = (int)Convert.ChangeType(enumValue, typeof(int));
+            var intVal = (int)Convert.ChangeType(enumValue, typeof(int));
             UpdateCheckedItems(intVal);
 
         }
 
-        [DesignerSerializationVisibilityAttribute(DesignerSerializationVisibility.Hidden)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public Enum EnumValue
         {
             get
@@ -244,7 +245,7 @@ namespace ARCed.Scintilla.Design
     public class FlagEnumUIEditor : UITypeEditor
     {
         // The checklistbox
-        private FlagCheckedListBox flagEnumCB;
+        private readonly FlagCheckedListBox flagEnumCB;
 
         public FlagEnumUIEditor()
         {
@@ -259,12 +260,12 @@ namespace ARCed.Scintilla.Design
                 && provider != null)
             {
 
-                IWindowsFormsEditorService edSvc = (IWindowsFormsEditorService)provider.GetService(typeof(IWindowsFormsEditorService));
+                var edSvc = (IWindowsFormsEditorService)provider.GetService(typeof(IWindowsFormsEditorService));
 
                 if(edSvc != null)
                 {
 
-                    Enum e = (Enum)Convert.ChangeType(value, context.PropertyDescriptor.PropertyType);
+                    var e = (Enum)Convert.ChangeType(value, context.PropertyDescriptor.PropertyType);
                     flagEnumCB.EnumValue = e;
                     edSvc.DropDownControl(flagEnumCB);
                     return flagEnumCB.EnumValue;

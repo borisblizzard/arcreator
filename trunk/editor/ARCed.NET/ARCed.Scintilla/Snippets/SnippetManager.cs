@@ -7,12 +7,12 @@ using System.Drawing;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
-#endregion Using Directives
+#endregion
 
 
 namespace ARCed.Scintilla
 {
-    [TypeConverterAttribute(typeof(System.ComponentModel.ExpandableObjectConverter))]
+    [TypeConverter(typeof(ExpandableObjectConverter))]
     public class SnippetManager : TopLevelHelper
     {
         #region Fields
@@ -27,12 +27,12 @@ namespace ARCed.Scintilla
         private bool _isEnabled = true;
         
         //	Yeah I know this is a bit unwieldly but I can't come up with a better name
-        private bool _isOneKeySelectionEmbedEnabled = false;
+        private bool _isOneKeySelectionEmbedEnabled;
         private SnippetList _list;
-        private bool _pendingUndo = false;
+        private bool _pendingUndo;
         private SnippetChooser _snipperChooser;
-        private SnippetLinkCollection _snippetLinks = new SnippetLinkCollection();
-        private Timer _snippetLinkTimer = new Timer();
+        private readonly SnippetLinkCollection _snippetLinks = new SnippetLinkCollection();
+        private readonly Timer _snippetLinkTimer = new Timer();
         private readonly Regex snippetRegex1 = new Regex(string.Format(@"(?<dm>{0}DropMarker(?<dmi>\[[0-9]*\])?{0})|(?<c>{0}caret{0})|(?<a>{0}anchor{0})|(?<e>{0}_end{0})|(?<s>{0}selected{0})|(?<l>{0}.+?(?<li>\[[0-9]*\])?{0})", Snippet.RealDelimeter), RegexOptions.IgnoreCase | RegexOptions.ExplicitCapture | RegexOptions.Compiled);
 
         #endregion Fields
@@ -130,7 +130,7 @@ namespace ARCed.Scintilla
                 if (offset != 0)
                     mr.Change(mr.Start + offset, mr.End + offset);
 
-                SnippetLinkRange slr = mr as SnippetLinkRange;
+                var slr = mr as SnippetLinkRange;
                 if (slr == null || !oldActiveSnippetLink.Ranges.Contains(slr) || slr.Text == newText)
                     continue;
 
@@ -253,9 +253,9 @@ namespace ARCed.Scintilla
             int caretPos = -1;
             int endPos = -1;
             int selPos = -1;
-            SortedList<int, int> dropMarkers = new SortedList<int, int>();
-            SortedList<int, SnippetLinkRange> indexedRangesToActivate = new SortedList<int, SnippetLinkRange>();
-            List<SnippetLinkRange> unindexedRangesToActivate = new List<SnippetLinkRange>();
+            var dropMarkers = new SortedList<int, int>();
+            var indexedRangesToActivate = new SortedList<int, SnippetLinkRange>();
+            var unindexedRangesToActivate = new List<SnippetLinkRange>();
             Match m = snippetRegex1.Match(snippet);
 
             while (m.Success)
@@ -351,7 +351,7 @@ namespace ARCed.Scintilla
                         //	And now we add (or replace) the snippet link range at the index
                         //	keep in mind duplicates will stomp all over each other, the last
                         //	one wins. Replaced tokens won't get a range
-                        indexedRangesToActivate[rangeIndex] = new SnippetLinkRange(start, end, Scintilla, groupKey); ;
+                        indexedRangesToActivate[rangeIndex] = new SnippetLinkRange(start, end, Scintilla, groupKey);
 
                         //	And remove all the token info including the subindex from the snippet text 
                         //	leaving only the key
@@ -394,7 +394,7 @@ namespace ARCed.Scintilla
 
             //	Since we are done adding new SnippetLinkRanges we can tack
             //	on the unindexed ranges to the _end of the indexed ranges
-            SnippetLinkRange[] allLinks = new SnippetLinkRange[indexedRangesToActivate.Count + unindexedRangesToActivate.Count];
+            var allLinks = new SnippetLinkRange[indexedRangesToActivate.Count + unindexedRangesToActivate.Count];
             for (int i = 0; i < indexedRangesToActivate.Values.Count; i++)
                 allLinks[i] = indexedRangesToActivate[i];
 
@@ -414,16 +414,16 @@ namespace ARCed.Scintilla
             //	a timer.
             if (_snippetLinks.Count > 0)
             {
-                Timer t = new Timer();
+                var t = new Timer();
                 t.Interval = 10;
 
                 //	Oh how I love anonymous delegates, this is starting to remind
                 //	me of JavaScript and SetTimeout...
-                t.Tick += new EventHandler(delegate(object sender, EventArgs te)
+                t.Tick += delegate
                 {
                     t.Dispose();
-                    IsActive = true;
-                });
+                    this.IsActive = true;
+                };
                 t.Start();
             }
 
@@ -451,7 +451,7 @@ namespace ARCed.Scintilla
                 //	go ahead and set up an EndPoint marker
                 if (allLinks.Length > 0)
                 {
-                    SnippetLinkEnd eci = new SnippetLinkEnd(endPos + startPos, Scintilla);
+                    var eci = new SnippetLinkEnd(endPos + startPos, Scintilla);
                     Scintilla.ManagedRanges.Add(eci);
                     _snippetLinks.EndPoint = eci;
                 }
@@ -627,7 +627,7 @@ namespace ARCed.Scintilla
             //	deleted range.
             if (_snippetLinks.IsActive && _snippetLinks.EndPoint != null && _snippetLinks.EndPoint.Scintilla == null)
             {
-                SnippetLinkEnd eci = new SnippetLinkEnd(e.Position, Scintilla);
+                var eci = new SnippetLinkEnd(e.Position, Scintilla);
                 Scintilla.ManagedRanges.Add(eci);
                 _snippetLinks.EndPoint = eci;
             }
@@ -829,7 +829,7 @@ namespace ARCed.Scintilla
 
         public void ShowSurroundWithList()
         {
-            SnippetList sl = new SnippetList(null);
+            var sl = new SnippetList(null);
             foreach (Snippet s in _list)
             {
                 if (s.IsSurroundsWith)
@@ -863,7 +863,7 @@ namespace ARCed.Scintilla
 
                 if (oldActiveRange != null && (oldActiveRange.IntersectsWith(sr) || oldActiveRange.Equals(sr)))
                 {
-                    Scintilla.BeginInvoke(new MethodInvoker(delegate()
+                    Scintilla.BeginInvoke(new MethodInvoker(delegate
                     {
                         cascadeSnippetLinkRangeChange(oldActiveSnippetLink, oldActiveRange);
 
@@ -1044,17 +1044,17 @@ namespace ARCed.Scintilla
 
                 if (value)
                 {
-                    Scintilla.TextInserted += new EventHandler<TextModifiedEventArgs>(Scintilla_TextInserted);
-                    Scintilla.BeforeTextInsert += new EventHandler<TextModifiedEventArgs>(Scintilla_BeforeTextInsert);
-                    Scintilla.BeforeTextDelete += new EventHandler<TextModifiedEventArgs>(Scintilla_BeforeTextDelete);
-                    Scintilla.SelectionChanged += new EventHandler(Scintilla_SelectionChanged);
+                    Scintilla.TextInserted += this.Scintilla_TextInserted;
+                    Scintilla.BeforeTextInsert += this.Scintilla_BeforeTextInsert;
+                    Scintilla.BeforeTextDelete += this.Scintilla_BeforeTextDelete;
+                    Scintilla.SelectionChanged += this.Scintilla_SelectionChanged;
                 }
                 else
                 {
-                    Scintilla.TextInserted -= new EventHandler<TextModifiedEventArgs>(Scintilla_TextInserted);
-                    Scintilla.BeforeTextInsert -= new EventHandler<TextModifiedEventArgs>(Scintilla_BeforeTextInsert);
-                    Scintilla.BeforeTextDelete -= new EventHandler<TextModifiedEventArgs>(Scintilla_BeforeTextDelete);
-                    Scintilla.SelectionChanged -= new EventHandler(Scintilla_SelectionChanged);
+                    Scintilla.TextInserted -= this.Scintilla_TextInserted;
+                    Scintilla.BeforeTextInsert -= this.Scintilla_BeforeTextInsert;
+                    Scintilla.BeforeTextDelete -= this.Scintilla_BeforeTextDelete;
+                    Scintilla.SelectionChanged -= this.Scintilla_SelectionChanged;
                 }
             }
         }
@@ -1096,7 +1096,7 @@ namespace ARCed.Scintilla
             _list = new SnippetList(this);
 
             _snippetLinkTimer.Interval = 1;
-            _snippetLinkTimer.Tick += new EventHandler(snippetLinkTimer_Tick);
+            _snippetLinkTimer.Tick += this.snippetLinkTimer_Tick;
 
             IsEnabled = _isEnabled;
         }

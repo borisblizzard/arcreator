@@ -1,9 +1,13 @@
+#region Using Directives
+
 using System;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using System.Windows.Forms;
 using ARCed.Core.Win32;
+
+#endregion
 
 namespace ARCed.UI
 {
@@ -21,14 +25,14 @@ namespace ARCed.UI
 			if (!(form is IDockContent))
 				throw new ArgumentException(Strings.DockContent_Constructor_InvalidForm, "form");
 
-			m_form = form;
+			this._mForm = form;
 			m_getPersistStringCallback = getPersistStringCallback;
 
 			(form as DockContent).Size = form.Size;
 
-			m_events = new EventHandlerList();
-			Form.Disposed +=new EventHandler(Form_Disposed);
-			Form.TextChanged += new EventHandler(Form_TextChanged);
+			this._mEvents = new EventHandlerList();
+			Form.Disposed +=this.Form_Disposed;
+			Form.TextChanged += this.Form_TextChanged;
 		}
 
 		public void Dispose()
@@ -49,17 +53,17 @@ namespace ARCed.UI
 					if (m_tab != null)
 						m_tab.Dispose();
 
-					Form.Disposed -= new EventHandler(Form_Disposed);
-					Form.TextChanged -= new EventHandler(Form_TextChanged);
-					m_events.Dispose();
+					Form.Disposed -= this.Form_Disposed;
+					Form.TextChanged -= this.Form_TextChanged;
+					this._mEvents.Dispose();
 				}
 			}
 		}
 
-		private Form m_form;
+        private readonly Form _mForm;
 		public Form Form
 		{
-			get	{	return m_form;	}
+			get	{	return this._mForm;	}
 		}
 
 		public IDockContent Content
@@ -67,24 +71,24 @@ namespace ARCed.UI
 			get	{	return Form as IDockContent;	}
 		}
 
-        private IDockContent m_previousActive = null;
+        private IDockContent m_previousActive;
         public IDockContent PreviousActive
         {
             get { return m_previousActive; }
             internal set { m_previousActive = value; }
         }
 
-        private IDockContent m_nextActive = null;
+        private IDockContent m_nextActive;
         public IDockContent NextActive
         {
             get { return m_nextActive; }
             internal set { m_nextActive = value; }
         }
 
-		private EventHandlerList m_events;
+        private readonly EventHandlerList _mEvents;
 		private EventHandlerList Events
 		{
-			get	{	return m_events;	}
+			get	{	return this._mEvents;	}
 		}
 
 		private bool m_allowEndUserDocking = true;
@@ -227,7 +231,7 @@ namespace ARCed.UI
 			}
 		}
 
-		private DockPanel m_dockPanel = null;
+		private DockPanel m_dockPanel;
 		public DockPanel DockPanel
 		{
 			get { return m_dockPanel; }
@@ -312,7 +316,7 @@ namespace ARCed.UI
 			}
 		}
 
-		private string m_tabText = null;
+		private string m_tabText;
 		public string TabText
 		{
             get { return m_tabText == null || m_tabText == "" ? Form.Text : m_tabText; }
@@ -340,7 +344,7 @@ namespace ARCed.UI
 			}
 		}
 
-		private bool m_isFloat = false;
+		private bool m_isFloat;
 		public bool IsFloat
 		{
 			get	{	return m_isFloat;	}
@@ -380,7 +384,7 @@ namespace ARCed.UI
             return dockState;
         }
 
-		private DockPane m_panelPane = null;
+		private DockPane m_panelPane;
 		public DockPane PanelPane
 		{
 			get	{	return m_panelPane;	}
@@ -418,7 +422,7 @@ namespace ARCed.UI
                 pane.Dispose();
         }
 
-		private DockPane m_floatPane = null;
+		private DockPane m_floatPane;
 		public DockPane FloatPane
 		{
 			get	{	return m_floatPane;	}
@@ -448,7 +452,7 @@ namespace ARCed.UI
 			}
 		}
 
-		private int m_countSetDockState = 0;
+		private int m_countSetDockState;
 		private void SuspendSetDockState()
 		{
 			m_countSetDockState ++;
@@ -560,7 +564,7 @@ namespace ARCed.UI
 			get	{	return GetPersistStringCallback == null ? Form.GetType().ToString() : GetPersistStringCallback();	}
 		}
 
-		private GetPersistStringCallback m_getPersistStringCallback = null;
+		private GetPersistStringCallback m_getPersistStringCallback;
 		public GetPersistStringCallback GetPersistStringCallback
 		{
 			get	{	return m_getPersistStringCallback;	}
@@ -568,7 +572,7 @@ namespace ARCed.UI
 		}
 
 
-		private bool m_hideOnClose = false;
+		private bool m_hideOnClose;
 		public bool HideOnClose
 		{
 			get	{	return m_hideOnClose;	}
@@ -591,7 +595,7 @@ namespace ARCed.UI
 			}
 		}
 
-		private bool m_isActivated = false;
+		private bool m_isActivated;
 		public bool IsActivated
 		{
 			get	{	return m_isActivated;	}
@@ -612,14 +616,14 @@ namespace ARCed.UI
 				return DockHelper.IsDockStateValid(dockState, DockAreas);
 		}
 
-		private ContextMenu m_tabPageContextMenu = null;
+		private ContextMenu m_tabPageContextMenu;
 		public ContextMenu TabPageContextMenu
 		{
 			get	{	return m_tabPageContextMenu;	}
 			set	{	m_tabPageContextMenu = value;	}
 		}
 
-		private string m_toolTipText = null;
+		private string m_toolTipText;
 		public string ToolTipText
 		{
 			get	{	return m_toolTipText;	}
@@ -878,7 +882,7 @@ namespace ARCed.UI
 
 		}
 
-		private DockPaneStripBase.Tab m_tab = null;
+		private DockPaneStripBase.Tab m_tab;
 		internal DockPaneStripBase.Tab GetTab(DockPaneStripBase dockPaneStrip)
 		{
             if (m_tab == null)
@@ -887,7 +891,7 @@ namespace ARCed.UI
             return m_tab;
 		}
 
-		private IDisposable m_autoHideTab = null;
+		private IDisposable m_autoHideTab;
 		internal IDisposable AutoHideTab
 		{
             get { return m_autoHideTab; }
@@ -903,7 +907,7 @@ namespace ARCed.UI
 		}
 		protected virtual void OnDockStateChanged(EventArgs e)
 		{
-			EventHandler handler = (EventHandler)Events[DockStateChangedEvent];
+			var handler = (EventHandler)Events[DockStateChangedEvent];
 			if (handler != null)
 				handler(this, e);
 		}
@@ -926,7 +930,7 @@ namespace ARCed.UI
 			}
 		}
 
-		private bool m_flagClipWindow = false;
+		private bool m_flagClipWindow;
 		internal bool FlagClipWindow
 		{
 			get	{	return m_flagClipWindow;	}
@@ -943,7 +947,7 @@ namespace ARCed.UI
 			}
 		}
 
-        private ContextMenuStrip m_tabPageContextMenuStrip = null;
+        private ContextMenuStrip m_tabPageContextMenuStrip;
         public ContextMenuStrip TabPageContextMenuStrip
         {
             get { return m_tabPageContextMenuStrip; }
@@ -975,7 +979,6 @@ namespace ARCed.UI
             if (DockState == DockState.Float || floatPane == null || floatPane.FloatWindow.NestedPanes.Count != 1)
                 //size = DockPanel.DefaultFloatWindowSize; 
 				size = (Content as DockContent).DefaultFloatSize;
-#warning EDIT HERE
             else
                 size = floatPane.FloatWindow.Size;
 

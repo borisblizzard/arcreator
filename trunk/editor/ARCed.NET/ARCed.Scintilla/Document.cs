@@ -2,7 +2,7 @@
 
 using System;
 
-#endregion Using Directives
+#endregion
 
 
 namespace ARCed.Scintilla
@@ -38,7 +38,7 @@ namespace ARCed.Scintilla
         /// <returns>True if both Documents have the same Handle</returns>
         public override bool Equals(object obj)
         {
-            Document d = obj as Document;
+            var d = obj as Document;
 
             if (_handle == IntPtr.Zero)
                 return false;

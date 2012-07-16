@@ -4,7 +4,7 @@ using System;
 using System.Runtime.InteropServices;
 using System.Text;
 
-#endregion Using Directives
+#endregion
 
 
 namespace ARCed.Scintilla

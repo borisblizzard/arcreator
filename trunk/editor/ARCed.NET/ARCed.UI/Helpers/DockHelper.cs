@@ -1,6 +1,9 @@
-using System;
+#region Using Directives
+
 using System.Drawing;
 using System.Windows.Forms;
+
+#endregion
 
 namespace ARCed.UI
 {
@@ -76,11 +79,11 @@ namespace ARCed.UI
 		{
 			for (Control control = Win32Helper.ControlAtPoint(pt); control != null; control = control.Parent)
 			{
-				IDockContent content = control as IDockContent;
+				var content = control as IDockContent;
 				if (content != null && content.DockHandler.DockPanel == dockPanel)
 					return content.DockHandler.Pane;
 
-				DockPane pane = control as DockPane;
+				var pane = control as DockPane;
 				if (pane != null && pane.DockPanel == dockPanel)
 					return pane;
 			}
@@ -92,7 +95,7 @@ namespace ARCed.UI
 		{
 			for (Control control = Win32Helper.ControlAtPoint(pt); control != null; control = control.Parent)
 			{
-				FloatWindow floatWindow = control as FloatWindow;
+				var floatWindow = control as FloatWindow;
 				if (floatWindow != null && floatWindow.DockPanel == dockPanel)
 					return floatWindow;
 			}

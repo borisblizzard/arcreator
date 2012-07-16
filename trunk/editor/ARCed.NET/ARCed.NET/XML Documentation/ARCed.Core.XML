@@ -1,0 +1,2489 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ARCed.Core</name>
+    </assembly>
+    <members>
+        <member name="T:RPG.Actor">
+            <summary>
+            Data class for actors.
+            </summary>
+        </member>
+        <member name="T:RPG.IRpgObject">
+            <summary>
+            Generic interface for database objects
+            </summary>
+        </member>
+        <member name="P:RPG.IRpgObject.name">
+            <summary>
+            Gets or sets the name of the object
+            </summary>
+        </member>
+        <member name="P:RPG.IRpgObject.id">
+            <summary>
+            Gets or sets the ID of the object
+            </summary>
+        </member>
+        <member name="M:RPG.Actor.#ctor">
+            <summary>
+            Default constructor
+            </summary>
+        </member>
+        <member name="M:RPG.Actor.ToString">
+            <summary>
+            Returns a <see langword="string"/> that represents the current object.
+            </summary>
+            <returns>String representation of object.</returns>
+        </member>
+        <member name="P:RPG.Actor.id">
+            <summary>
+            Actor id
+            </summary>
+        </member>
+        <member name="P:RPG.Actor.name">
+            <summary>
+            Actor name
+            </summary>
+        </member>
+        <member name="P:RPG.Actor.class_id">
+            <summary>
+            Actor class id
+            </summary>
+        </member>
+        <member name="P:RPG.Actor.initial_level">
+            <summary>
+            Actor's initial level
+            </summary>
+        </member>
+        <member name="P:RPG.Actor.final_level">
+            <summary>
+            Actor's final level
+            </summary>
+        </member>
+        <member name="P:RPG.Actor.exp_basis">
+            <summary>
+            The value on which the experience curve is based (10..50).
+            </summary>
+        </member>
+        <member name="P:RPG.Actor.exp_inflation">
+            <summary>
+            The amount of experience curve inflation (10..50).
+            </summary>
+        </member>
+        <member name="P:RPG.Actor.character_name">
+            <summary>
+            The _actor's character graphic file name.
+            </summary>
+        </member>
+        <member name="P:RPG.Actor.character_hue">
+            <summary>
+            The adjustment value for the character graphic's hue (0..360).
+            </summary>
+        </member>
+        <member name="P:RPG.Actor.battler_name">
+            <summary>
+            The _actor's battler graphic file name.
+            </summary>
+        </member>
+        <member name="P:RPG.Actor.battler_hue">
+            <summary>
+            The adjustment value for the battler graphic's hue (0..360).
+            </summary>
+        </member>
+        <member name="P:RPG.Actor.parameters">
+            <summary>
+            2-dimensional array containing base parameters for each level.
+            Generally takes the form parameters[kind, level].
+            Kind indicates the parameter type (0: max HP, 1: max SP, 2: strength, 3: dexterity, 4: agility, 5: intelligence).
+            </summary>
+            <seealso cref="T:Table"/>
+        </member>
+        <member name="P:RPG.Actor.weapon_id">
+            <summary>
+            ID of the _actor's initially equipped weapon.
+            </summary>
+        </member>
+        <member name="P:RPG.Actor.armor1_id">
+            <summary>
+            ID of the _actor's initially equipped shield.
+            </summary>
+        </member>
+        <member name="P:RPG.Actor.armor2_id">
+            <summary>
+            ID of the _actor's initially equipped helmet.
+            </summary>
+        </member>
+        <member name="P:RPG.Actor.armor3_id">
+            <summary>
+            ID of the _actor's initially equipped body armor.
+            </summary>
+        </member>
+        <member name="P:RPG.Actor.armor4_id">
+            <summary>
+            ID of the _actor's initially equipped accessory.
+            </summary>
+        </member>
+        <member name="P:RPG.Actor.weapon_fix">
+            <summary>
+            Flag making the _actor's weapon unremovable.
+            </summary>
+        </member>
+        <member name="P:RPG.Actor.armor1_fix">
+            <summary>
+            Flag making the _actor's shield unremovable.
+            </summary>
+        </member>
+        <member name="P:RPG.Actor.armor2_fix">
+            <summary>
+            Flag making the _actor's helmet unremovable.
+            </summary>
+        </member>
+        <member name="P:RPG.Actor.armor3_fix">
+            <summary>
+            Flag making the _actor's body armor unremovable.
+            </summary>
+        </member>
+        <member name="P:RPG.Actor.armor4_fix">
+            <summary>
+            Flag making the _actor's accessory unremovable.
+            </summary>
+        </member>
+        <member name="T:ARCed.Core.Ini">
+            <summary>
+            Static class for reading/writing keys and values from an .ini file
+            </summary>
+        </member>
+        <member name="M:ARCed.Core.Ini.Load(System.String)">
+            <summary>
+            Prepares the file to be read by the parser
+            </summary>
+            <param name="filename">The path to be parsed</param>
+            <returns>Flag is file was successfully loaded</returns>
+        </member>
+        <member name="M:ARCed.Core.Ini.Write(System.String,System.String,System.String)">
+            <summary>
+            Writes a value to the .ini file
+            </summary>
+            <param name="section">The section of the .ini file</param>
+            <param name="key">A key name in the .ini file</param>
+            <param name="value">The value to write</param>
+        </member>
+        <member name="M:ARCed.Core.Ini.ReadString(System.String,System.String)">
+            <summary>
+            Returns a string value read from the file
+            </summary>
+            <param name="section">The section of the .ini file</param>
+            <param name="key">A key name in the .ini file</param>
+            <returns>The read value</returns>
+        </member>
+        <member name="M:ARCed.Core.Ini.ReadInteger(System.String,System.String)">
+            <summary>
+            Returns an integer value read from the file
+            </summary>
+            <param name="section">The section of the .ini file</param>
+            <param name="key">A key name in the .ini file</param>
+            <returns>A value converted to a integer</returns>
+        </member>
+        <member name="M:ARCed.Core.Ini.ReadFloat(System.String,System.String)">
+            <summary>
+            Returns a float value read from the file
+            </summary>
+            <param name="section">The section of the .ini file</param>
+            <param name="key">A key name in the .ini file</param>
+            <returns>A value converted to a float</returns>
+        </member>
+        <member name="M:ARCed.Core.Ini.ReadStringSplit(System.String,System.String,System.Char)">
+            <summary>
+            Returns an array of values from splitting a string
+            </summary>
+            <param name="section">The section of the .ini file</param>
+            <param name="key">A key name in the .ini file</param>
+            <param name="separator">The separator string used for splitting</param>
+            <returns>An string array of read values</returns>
+        </member>
+        <member name="M:RPG.Armor.ToString">
+            <summary>
+            Returns a <see langword="string"/> that represents the current object.
+            </summary>
+            <returns>String representation of object.</returns>
+        </member>
+        <member name="T:ARCed.Core.Win32.NativeMethods">
+            <summary>
+            Static class containing methods that utilize P/Invoke or other unmanaged libraries
+            </summary>
+        </member>
+        <member name="M:ARCed.Core.Win32.NativeMethods.WritePrivateProfileString(System.String,System.String,System.String,System.String)">
+            <summary>
+            Writes a configuration value to an .ini file
+            </summary>
+            <param name="section">The section name</param>
+            <param name="key">The key name</param>
+            <param name="val">The value to write</param>
+            <param name="filePath">The path to the file</param>
+            <returns>Error code</returns>
+        </member>
+        <member name="M:ARCed.Core.Win32.NativeMethods.GetPrivateProfileString(System.String,System.String,System.String,System.Text.StringBuilder,System.Int32,System.String)">
+            <summary>
+            Reads a configuration value to an .ini file
+            </summary>
+            <param name="section">The section name</param>
+            <param name="key">The key name</param>
+            <param name="def">Default string if value cannot be found</param>
+            <param name="retVal">The buffer to write the value to</param>
+            <param name="size">The maximum buffer size</param>
+            <param name="filePath">The path to the file</param>
+            <returns>Error code</returns>
+        </member>
+        <member name="M:ARCed.Core.Win32.NativeMethods.LoadCursorFromFile(System.String)">
+            <summary>
+            Creates a cursor object and returns it
+            </summary>
+            <param name="str">The name of the resouce file</param>
+            <returns>A handle to a cursor object</returns>
+        </member>
+        <member name="M:ARCed.Core.Win32.NativeMethods.SetForegroundWindow(System.IntPtr)">
+            <summary>
+            Sets the foreground window
+            </summary>
+            <param name="hWnd">A handle to a window</param>
+            <returns>Flag if error occurred</returns>
+        </member>
+        <member name="M:ARCed.Core.Win32.NativeMethods.SetConsoleIcon(System.IntPtr)">
+            <summary>
+            Changes the icon of an attached console
+            </summary>
+            <param name="hIcon">A handle to an icon</param>
+            <returns>Flag if error occurred</returns>
+        </member>
+        <member name="M:ARCed.Core.Win32.NativeMethods.GetShortPathName(System.String,System.Text.StringBuilder,System.UInt32)">
+            <summary>
+            Obtains the short path form of a specified input path
+            </summary>
+            <param name="lpszLongPath">Points to a null-terminated path string. The function 
+            obtains the short form of this path</param>
+            <param name="lpszShortPath">Points to a buffer to receive the null-terminated 
+            short form of the path specified by lpszLongPath</param>
+            <param name="cchBuffer">The size of the buffer that lpszShortPath points to</param>
+            <returns>Value is the length, in characters, of the string copied to lpszShortPath</returns>
+        </member>
+        <member name="M:ARCed.Core.Win32.NativeMethods.AllocConsole">
+            <summary>
+            Allocates a new console for the calling process
+            </summary>
+            <returns>Non-zero if successful, zero otherwise</returns>
+        </member>
+        <member name="T:ARCed.Core.ColorHandler">
+            <summary>
+            Handle conversions between RGB and HSV color spaces.
+            </summary>
+        </member>
+        <member name="M:ARCed.Core.ColorHandler.HSVtoRGB(System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Converts a HSV color values to an RGB color
+            </summary>
+            <param name="a">Alpha value</param>
+            <param name="h">Hue value</param>
+            <param name="s">Saturation value</param>
+            <param name="v">Value value</param>
+            <returns>RGB color equivalent</returns>
+        </member>
+        <member name="M:ARCed.Core.ColorHandler.HSVtoColor(ARCed.Core.ColorHandler.HSV)">
+            <summary>
+            Converts a HSV color to a System.Drawing.Color
+            </summary>
+            <param name="hsv">HSV color to convert</param>
+            <returns>System.Drawing.Color equivalent</returns>
+        </member>
+        <member name="M:ARCed.Core.ColorHandler.HSVtoColor(System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Converts a HSV color values to a System.Drawing.Color.
+            </summary>
+            <param name="a">Alpha value</param>
+            <param name="h">Hue value</param>
+            <param name="s">Saturation value</param>
+            <param name="v">Value value</param>
+            <returns>System.Drawing.Color equivalent</returns>
+        </member>
+        <member name="M:ARCed.Core.ColorHandler.HSVtoRGB(ARCed.Core.ColorHandler.HSV)">
+            <summary>
+            Converts a HSV color values to an RGB color
+            </summary>
+            <param name="hsv">HSV color to convert</param>
+            <returns>RGB color equivalent</returns>
+        </member>
+        <member name="M:ARCed.Core.ColorHandler.RGBtoHSV(ARCed.Core.ColorHandler.ARGB)">
+            <summary>
+            Converts an ARGB color to a HSV color.
+            </summary>
+            <param name="argb">ARGB color to convert</param>
+            <returns>HSV color equivalent</returns>
+        </member>
+        <member name="T:ARCed.Core.ColorHandler.ARGB">
+            <summary>
+            Struct containing data for a color of the ARGB color space.
+            </summary>
+        </member>
+        <member name="M:ARCed.Core.ColorHandler.ARGB.#ctor(System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Default constructor
+            </summary>
+            <param name="a">Alpha value</param>
+            <param name="r">Red value</param>
+            <param name="g">Green value</param>
+            <param name="b">Blue value</param>
+            <remarks>Values are clamped between 0 and 255</remarks>
+        </member>
+        <member name="M:ARCed.Core.ColorHandler.ARGB.ToString">
+            <summary>
+            Converts and returns the string representation of the object
+            </summary>
+            <returns>String representation</returns>
+        </member>
+        <member name="P:ARCed.Core.ColorHandler.ARGB.Alpha">
+            <summary>
+            Gets or sets the alpha value
+            </summary>
+        </member>
+        <member name="P:ARCed.Core.ColorHandler.ARGB.Red">
+            <summary>
+            Gets or sets the red value
+            </summary>
+        </member>
+        <member name="P:ARCed.Core.ColorHandler.ARGB.Green">
+            <summary>
+            Gets or sets the green value
+            </summary>
+        </member>
+        <member name="P:ARCed.Core.ColorHandler.ARGB.Blue">
+            <summary>
+            Gets or sets the blue value
+            </summary>
+        </member>
+        <member name="T:ARCed.Core.ColorHandler.HSV">
+            <summary>
+            Struct containing data for a color of the HSV color space.
+            </summary>
+        </member>
+        <member name="M:ARCed.Core.ColorHandler.HSV.#ctor(System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Default constructor
+            </summary>
+            <param name="a">Alpha value</param>
+            <param name="h">Hue value</param>
+            <param name="s">Saturation value</param>
+            <param name="v">Value value</param>
+        </member>
+        <member name="M:ARCed.Core.ColorHandler.HSV.ToString">
+            <summary>
+            Converts and returns the string representation of the object
+            </summary>
+            <returns>String representation</returns>
+        </member>
+        <member name="P:ARCed.Core.ColorHandler.HSV.Alpha">
+            <summary>
+            Gets or sets the alpha value
+            </summary>
+        </member>
+        <member name="P:ARCed.Core.ColorHandler.HSV.Hue">
+            <summary>
+            Gets or sets the hue value
+            </summary>
+        </member>
+        <member name="P:ARCed.Core.ColorHandler.HSV.Saturation">
+            <summary>
+            Gets or sets the saturation value
+            </summary>
+        </member>
+        <member name="P:ARCed.Core.ColorHandler.HSV.Value">
+            <summary>
+            Gets or sets the value value
+            </summary>
+        </member>
+        <member name="T:ARCed.Core.ColorChangedEventArgs">
+            <summary>
+            Arguments used when the color changes.
+            </summary>
+        </member>
+        <member name="M:ARCed.Core.ColorChangedEventArgs.#ctor(ARCed.Core.ColorHandler.ARGB,ARCed.Core.ColorHandler.HSV)">
+            <summary>
+            Default constructor
+            </summary>
+            <param name="argb">ARGB color value</param>
+            <param name="hsv">HSV color value</param>
+        </member>
+        <member name="P:ARCed.Core.ColorChangedEventArgs.ARGB">
+            <summary>
+            Gets the color value in the ARGB color space.
+            </summary>
+        </member>
+        <member name="P:ARCed.Core.ColorChangedEventArgs.HSV">
+            <summary>
+            Gets the color value in the HSV color space.
+            </summary>
+        </member>
+        <member name="T:ARCed.Hash">
+            <summary>
+            Wrapper for standard Dictionary with dynamic key-value pairs
+            </summary>
+        </member>
+        <member name="T:ARCed.TypeMap">
+            <summary>
+            Wrapper for a dictionary containing name-type pairs
+            </summary>
+        </member>
+        <member name="T:ARCed.ArcData">
+            <summary>
+            Static class for serialization of .arc format
+            </summary>
+        </member>
+        <member name="M:ARCed.ArcData.dump(System.IO.Stream,System.Object)">
+            <summary>
+            Serializes the given object and writes it to the stream
+            </summary>
+            <param name="stream">IO stream to write to</param>
+            <param name="obj">Object to write</param>
+        </member>
+        <member name="M:ARCed.ArcData.load(System.IO.Stream)">
+            <summary>
+            Loads an object from the stream
+            </summary>
+            <param name="stream">Stream to read</param>
+            <returns>Deserialized object</returns>
+        </member>
+        <member name="M:ARCed.ArcData.load(System.IO.Stream,System.Reflection.Assembly[])">
+            <summary>
+            Loads an object from the stream
+            </summary>
+            <param name="stream">Stream to read</param>
+            <param name="assemblies">Assemblies that will be searched for known types</param>
+            <returns>Deserialized object</returns>
+        </member>
+        <member name="M:ARCed.ArcData.load(System.IO.Stream,ARCed.TypeMap)">
+            <summary>
+            Loads an object from the stream
+            </summary>
+            <param name="stream">Stream to read</param>
+            <param name="assemblyTypes">Dictionary map for containing known types</param>
+            <returns>Deserialized object</returns>
+        </member>
+        <member name="M:ARCed.ArcData.CheckHeader">
+            <summary>
+            Checks formatting of header and version data at the beginning of the stream
+            </summary>
+            <exception cref="T:System.IO.InvalidDataException">Thrown if header and version do not match proper format</exception>
+        </member>
+        <member name="M:ARCed.ArcData.Reset">
+            <summary>
+            Closes the stream if open, and clears all mappings
+            </summary>
+        </member>
+        <member name="M:ARCed.ArcData._dump(System.Object)">
+            <summary>
+            Identifies the object type and dumps it to the stream accordingly
+            </summary>
+            <param name="obj">Object to serialize</param>
+        </member>
+        <member name="M:ARCed.ArcData._load">
+            <summary>
+            Reads the type identifying byte marker from the current stream position, and loads the data accordingly
+            </summary>
+            <returns>Deserialized object</returns>
+        </member>
+        <member name="M:ARCed.ArcData.IsRubyFixnum(System.Object)">
+            <summary>
+            Checks an object if it us a numerical type falling in range of a Ruby Fixnum
+            </summary>
+            <param name="value">Object to check</param>
+            <returns>Flag if object is Fixnum or not</returns>
+        </member>
+        <member name="M:ARCed.ArcData.IsRubyBignum(System.Object)">
+            <summary>
+            Checks an object if it us a numerical type falling in range of a Ruby Bignum
+            </summary>
+            <param name="value">Object to check</param>
+            <returns>Flag if object is Bignum or not</returns>
+        </member>
+        <member name="M:ARCed.ArcData.IsRubyFloat(System.Object)">
+            <summary>
+            Checks an object if it us a numerical type falling in range of a Ruby Float
+            </summary>
+            <param name="value">Object to check</param>
+            <returns>Flag if object is Float or not</returns>
+        </member>
+        <member name="M:ARCed.ArcData.TryMapEquality(System.Collections.Generic.List{System.Object}@,System.Object)">
+            <summary>
+            Checks if object is already mapped using equality comparison, mapping object if not found
+            </summary>
+            <param name="data">Reference to a list of objects</param>
+            <param name="obj">Object to map</param>
+            <returns>Flag if object was mapped</returns>
+            <remarks>If object is already mapped, the index it was found in is dumped instead of the
+            the whole object</remarks>
+        </member>
+        <member name="M:ARCed.ArcData.TryMapIdentity(System.Collections.Generic.List{System.Object}@,System.Object)">
+            <summary>
+            Checks if object is already mapped using identity comparison, mapping object if not found
+            </summary>
+            <param name="data">Reference to a list of objects</param>
+            <param name="obj">Object to map</param>
+            <returns>Flag if object was mapped</returns>
+            <remarks>If object is already mapped, the index it was found in is dumped instead of the
+            the whole object</remarks>
+        </member>
+        <member name="M:ARCed.ArcData.GetMappedType(System.String)">
+            <summary>
+            Retrieves a <see cref="T:System.Type"/> that was previously mapped, or if not found, 
+            finds the type and maps it.
+            </summary>
+            <param name="classPath">Path of the class</param>
+            <returns>Object type</returns>
+            <exception cref="T:System.TypeLoadException">Thrown when type cannot be found in the assembly</exception>
+        </member>
+        <member name="M:ARCed.ArcData.FindMapping(System.Collections.Generic.List{System.Object}@,System.Int32)">
+            <summary>
+            Retrieves the object with the given ID in the map, or null if not found
+            </summary>
+            <param name="list">Reference to the map to search</param>
+            <param name="id">ID of the object</param>
+            <returns>Object found with the given ID, or null if not found</returns>
+        </member>
+        <member name="M:ARCed.ArcData.MapObject(System.Collections.Generic.List{System.Object}@,System.Object)">
+            <summary>
+            Maps an object to the given list
+            </summary>
+            <param name="list">Reference to the map</param>
+            <param name="obj">Object to map</param>
+        </member>
+        <member name="M:ARCed.ArcData._dumpInt32(System.Int32)">
+            <summary>
+            Converts an Int32 to a four-byte, little-endian array and writes it to the stream
+            </summary>
+            <param name="int32">Integer to dump</param>
+        </member>
+        <member name="M:ARCed.ArcData._loadInt32">
+            <summary>
+            Loads a 32-bit integer from the stream
+            </summary>
+            <returns>Integer value</returns>
+        </member>
+        <member name="M:ARCed.ArcData._dumpNilClass">
+            <summary>
+            Writes a null-type to the stream
+            </summary>
+        </member>
+        <member name="M:ARCed.ArcData._loadNilClass">
+            <summary>
+            Returns null
+            </summary>
+            <returns>null</returns>
+        </member>
+        <member name="M:ARCed.ArcData._dumpFalseClass">
+            <summary>
+            Writes bool-type to the stream
+            </summary>
+        </member>
+        <member name="M:ARCed.ArcData._loadFalseClass">
+            <summary>
+            Returns false
+            </summary>
+            <returns>false</returns>
+        </member>
+        <member name="M:ARCed.ArcData._dumpTrueClass">
+            <summary>
+            Writes bool-type to the stram
+            </summary>
+        </member>
+        <member name="M:ARCed.ArcData._loadTrueClass">
+            <summary>
+            Returns true
+            </summary>
+            <returns>true</returns>
+        </member>
+        <member name="M:ARCed.ArcData._dumpFixnum(System.Object)">
+            <summary>
+            Writes an object to the string as a Ruby Fixnum
+            </summary>
+            <param name="obj">Object to serialize</param>
+        </member>
+        <member name="M:ARCed.ArcData._loadFixnum">
+            <summary>
+            Reads a number from the stream
+            </summary>
+            <returns>Integer value</returns>
+        </member>
+        <member name="M:ARCed.ArcData._dumpBignum(System.Object)">
+            <summary>
+            Writes an object to the string as a Ruby Bignum
+            </summary>
+            <param name="obj">Object to serialize</param>
+        </member>
+        <member name="M:ARCed.ArcData._loadBignum">
+            <summary>
+            Reads a number from the stream
+            </summary>
+            <returns>Integer value</returns>
+        </member>
+        <member name="M:ARCed.ArcData._dumpFloat(System.Object)">
+            <summary>
+            Writes a floating point decimal to the stream
+            </summary>
+            <param name="obj">Object to serialize</param>
+        </member>
+        <member name="M:ARCed.ArcData._loadFloat">
+            <summary>
+            Reads a floating point decimal from the stream
+            </summary>
+            <returns>Float value</returns>
+        </member>
+        <member name="M:ARCed.ArcData._dumpString(System.Object)">
+            <summary>
+            Writes a string to the stream
+            </summary>
+            <param name="obj">Object to serialize</param>
+            <remarks>Strings are serialized in UTF-8 encoding</remarks>
+        </member>
+        <member name="M:ARCed.ArcData._loadString">
+            <summary>
+            Reads a string from the stream
+            </summary>
+            <returns>String value</returns>
+        </member>
+        <member name="M:ARCed.ArcData._dumpArray(System.Object)">
+            <summary>
+            Writes an array-type to the stream
+            </summary>
+            <param name="obj">Object to serialize</param>
+        </member>
+        <member name="M:ARCed.ArcData._loadArray">
+            <summary>
+            Reads an array from the stream
+            </summary>
+            <returns>Array value</returns>
+        </member>
+        <member name="M:ARCed.ArcData._dumpHash(System.Object)">
+            <summary>
+            Writes a dictionary-type to the stream
+            </summary>
+            <param name="obj">Object to serialize</param>
+        </member>
+        <member name="M:ARCed.ArcData._loadHash">
+            <summary>
+            Reads a dictionary type from the stream
+            </summary>
+            <returns>Dictionary value</returns>
+        </member>
+        <member name="M:ARCed.ArcData._dumpObject(System.Object)">
+            <summary>
+            Writes an object to the stream
+            </summary>
+            <param name="obj">Object to serialize</param>
+        </member>
+        <member name="M:ARCed.ArcData._loadObject">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:ARCed.ArcData.RubyTypes">
+            <summary>
+            Enum representing flags for type-identifying byte markers 
+            </summary>
+        </member>
+        <member name="F:ARCed.ArcData.RubyTypes.NilClass">
+            <summary>
+            Byte marker for NilClass value: 0x10 (16)
+            </summary>
+        </member>
+        <member name="F:ARCed.ArcData.RubyTypes.FalseClass">
+            <summary>
+            Byte marker for FalseClass value: 0x11 (17)
+            </summary>
+        </member>
+        <member name="F:ARCed.ArcData.RubyTypes.TrueClass">
+            <summary>
+            Byte marker for TrueClass value: 0x12 (18)
+            </summary>
+        </member>
+        <member name="F:ARCed.ArcData.RubyTypes.Fixnum">
+            <summary>
+            Byte marker for Fixnum value: 0x21 (33)
+            </summary>
+        </member>
+        <member name="F:ARCed.ArcData.RubyTypes.Bignum">
+            <summary>
+            Byte marker for Bignum value: 0x22 (34)
+            </summary>
+        </member>
+        <member name="F:ARCed.ArcData.RubyTypes.Float">
+            <summary>
+            Byte marker for Float value: 0x23 (35)
+            </summary>
+        </member>
+        <member name="F:ARCed.ArcData.RubyTypes.String">
+            <summary>
+            Byte marker for String value: 0x30 (48)
+            </summary>
+        </member>
+        <member name="F:ARCed.ArcData.RubyTypes.Array">
+            <summary>
+            Byte marker for Array value: 0x40 (64)
+            </summary>
+        </member>
+        <member name="F:ARCed.ArcData.RubyTypes.Hash">
+            <summary>
+            Byte marker for Hash value: 0x41 (65)
+            </summary>
+        </member>
+        <member name="F:ARCed.ArcData.RubyTypes.Object">
+            <summary>
+            Byte marker for Object value: 0x00 (0)
+            </summary>
+        </member>
+        <member name="M:RPG.CommonEvent.ToString">
+            <summary>
+            Returns a <see langword="string"/> that represents the current object.
+            </summary>
+            <returns>String representation of object.</returns>
+        </member>
+        <member name="M:ARCed.Helpers.Ini.Load(System.String)">
+            <summary>
+            Prepares the file to be read by the parser
+            </summary>
+            <param name="filename">The path to be parsed</param>
+            <returns>Flag is file was successfully loaded</returns>
+        </member>
+        <member name="M:ARCed.Helpers.Ini.Write(System.String,System.String,System.String)">
+            <summary>
+            Writes a value to the .ini file
+            </summary>
+            <param name="section">The section of the .ini file</param>
+            <param name="key">A key name in the .ini file</param>
+            <param name="value">The value to write</param>
+        </member>
+        <member name="M:ARCed.Helpers.Ini.ReadString(System.String,System.String)">
+            <summary>
+            Returns a string value read from the file
+            </summary>
+            <param name="section">The section of the .ini file</param>
+            <param name="key">A key name in the .ini file</param>
+            <returns>The read value</returns>
+        </member>
+        <member name="M:ARCed.Helpers.Ini.ReadInteger(System.String,System.String)">
+            <summary>
+            Returns an integer value read from the file
+            </summary>
+            <param name="section">The section of the .ini file</param>
+            <param name="key">A key name in the .ini file</param>
+            <returns>A value converted to a integer</returns>
+        </member>
+        <member name="M:ARCed.Helpers.Ini.ReadFloat(System.String,System.String)">
+            <summary>
+            Returns a float value read from the file
+            </summary>
+            <param name="section">The section of the .ini file</param>
+            <param name="key">A key name in the .ini file</param>
+            <returns>A value converted to a float</returns>
+        </member>
+        <member name="M:ARCed.Helpers.Ini.ReadStringSplit(System.String,System.String,System.Char)">
+            <summary>
+            Returns an array of values from splitting a string
+            </summary>
+            <param name="section">The section of the .ini file</param>
+            <param name="key">A key name in the .ini file</param>
+            <param name="separator">The separator string used for splitting</param>
+            <returns>An string array of read values</returns>
+        </member>
+        <member name="M:RPG.Enemy.ToString">
+            <summary>
+            Returns a <see langword="string"/> that represents the current object.
+            </summary>
+            <returns>String representation of object.</returns>
+        </member>
+        <member name="T:ARCed.Helpers.Util">
+            <summary>
+            Static class that provides functions that are shared across tha ARCed assemblies.
+            </summary>
+        </member>
+        <member name="M:ARCed.Helpers.Util.GetTypesInNamespace(System.Reflection.Assembly,System.String)">
+            <summary>
+            Gets an array of all types found in the given namespace.
+            </summary>
+            <param name="assembly">Assembly to search for the namespace.</param>
+            <param name="namespace">The namespace to search</param>
+            <returns>Array of found types</returns>
+        </member>
+        <member name="M:ARCed.Helpers.Util.GenerateParameter(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Calculates the parameter value of a curve at the given level
+            </summary>
+            <param name="min">The lowest value value at the starting point of the curve</param>
+            <param name="max">The greatest value at the end of the curve</param>
+            <param name="speed">The "pitch" of the curve</param>
+            <param name="level">The level to calculate the value for (x coordinate)</param>
+            <param name="initial">The initial level that the curve begins generation</param>
+            <param name="final">The final level that the curve ends generation</param>
+            <returns>The calculated value for the curve at the given level</returns>
+        </member>
+        <member name="M:ARCed.Helpers.Util.GetRandomBetween(System.Double,System.Double)">
+            <summary>
+            Gets a random number between two given values
+            </summary>
+            <param name="minimum">The minimum threshold</param>
+            <param name="maximum">The maximum threshold</param>
+            <returns>A randomly generated number</returns>
+        </member>
+        <member name="M:ARCed.Helpers.Util.ExtractResource(System.String,System.String)">
+            <summary>
+            Copies an embedded resource to an external place on the hard-drive
+            </summary>
+            <param name="resource">The name of the resource</param>
+            <param name="path">The path the resource will be saved to</param>
+        </member>
+        <member name="M:ARCed.Helpers.Util.ValidateFilename(System.String,System.String)">
+            <summary>
+            Validates a string by replacing any illegal path characters
+            </summary>
+            <param name="name">The text of the path</param>
+            <param name="replace">Replacement string for invalid characters</param>
+            <returns>A santized string valid for a path</returns>
+        </member>
+        <member name="M:ARCed.Helpers.Util.ValidateTextBox(System.Windows.Forms.TextBox,System.String,System.Boolean)">
+            <summary>
+            Ensures that all characters in the textbox field are valid for a path
+            </summary>
+            <param name="textBox">The textbox to check</param>
+            <param name="replace">Replacement string for invalid characters</param>
+            <param name="beep">Flag to play system beep if invalid characters are found</param>
+        </member>
+        <member name="M:ARCed.Helpers.Util.CloneObject``1(``0)">
+            <summary>
+            Creates an deep clone of an object
+            </summary>
+            <typeparam name="T">The object type</typeparam>
+            <param name="obj">The object to create an exact copy of</param>
+            <returns>A deep clone of the object</returns>
+        </member>
+        <member name="M:ARCed.Helpers.Util.GetRandomNumber(System.Double,System.Double)">
+            <summary>
+            Generates and returns a random number within the specified range
+            </summary>
+            <param name="minimum">Minimum value of the number to return</param>
+            <param name="maximum">Maximum value of the number to return</param>
+            <returns>Random number</returns>
+        </member>
+        <member name="M:ARCed.Helpers.Util.SaveXML``1(System.String,``0)">
+            <summary>
+            Saves an object in XML format
+            </summary>
+            <typeparam name="T">Object type that will be saved</typeparam>
+            <param name="path">Path to the file that will be written to</param>
+            <param name="data">Object to save</param>
+        </member>
+        <member name="M:ARCed.Helpers.Util.LoadXML``1(System.String)">
+            <summary>
+            Loads an object previously saved in XML format
+            </summary>
+            <typeparam name="T">Object type that will be restored</typeparam>
+            <param name="path">Path to the XML formatted file to load</param>
+            <returns>Loaded object</returns>
+        </member>
+        <member name="M:ARCed.Helpers.Util.SaveBinary(System.String,System.Object)">
+            <summary>
+            Saves an object in binary format
+            </summary>
+            <param name="path">Path to the file that will be written to</param>
+            <param name="data">Object to save</param>
+        </member>
+        <member name="M:ARCed.Helpers.Util.LoadBinary``1(System.String)">
+            <summary>
+            Loads an object previously saved in binary format
+            </summary>
+            <typeparam name="T">Object type that will be restored</typeparam>
+            <param name="path">Path to the binary formatted file to load</param>
+            <returns>Loaded object</returns>
+        </member>
+        <member name="P:ARCed.Helpers.Util.RpgTypes">
+            <summary>
+            Gets a mapping of all RPG types.
+            </summary>
+        </member>
+        <member name="P:ARCed.Helpers.Util.ARCedAssembly">
+            <summary>
+            Gets the assembly instance of the editor
+            </summary>
+        </member>
+        <member name="P:ARCed.Helpers.Util.ARCedCoreAssembly">
+            <summary>
+            Gets the assembly instance of the editor
+            </summary>
+        </member>
+        <member name="P:ARCed.Helpers.Util.XnaAssembly">
+            <summary>
+            Gets the instance of the ARCed.Xna assembly.
+            </summary>
+        </member>
+        <member name="M:RPG.State.ToString">
+            <summary>
+            Returns a <see langword="string"/> that represents the current object.
+            </summary>
+            <returns>String representation of object.</returns>
+        </member>
+        <member name="M:Table.resize(System.Int32)">
+            <summary>
+            Resizes the table to the specified dimensions
+            </summary>
+            <param name="xSize">Size of the Table on the x-axis</param>
+        </member>
+        <member name="M:Table.resize(System.Int32,System.Int32)">
+            <summary>
+            Resizes the table to the specified dimensions
+            </summary>
+            <param name="xSize">Size of the Table on the x-axis</param>
+            <param name="ySize">Size of the Table on the y-axis</param>
+        </member>
+        <member name="M:Table.resize(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Resizes the table to the specified dimensions
+            </summary>
+            <param name="xSize">Size of the Table on the x-axis</param>
+            <param name="ySize">Size of the Table on the y-axis</param>
+            <param name="zSize">Size of the Table on the z-axis</param>
+        </member>
+        <member name="P:Table.Item(System.Int32)">
+            <summary>
+            Accesses the array's elements. Pulls the same number of arguments as 
+            there are dimensions in the created array. Returns nil if the specified 
+            element does not exist.
+            </summary>
+            <param name="x">Index on the x-axis</param>
+            <returns>Value at the specified position</returns>
+        </member>
+        <member name="P:Table.Item(System.Int32,System.Int32)">
+            <summary>
+            Accesses the array's elements. Pulls the same number of arguments as 
+            there are dimensions in the created array. Returns nil if the specified 
+            element does not exist.
+            </summary>
+            <param name="x">Index on the x-axis</param>
+            <param name="y">Index on the y-axis</param>
+            <returns>Value at the specified position</returns>
+        </member>
+        <member name="P:Table.Item(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Accesses the array's elements. Pulls the same number of arguments as 
+            there are dimensions in the created array. Returns nil if the specified 
+            element does not exist.
+            </summary>
+            <param name="x">Index on the x-axis</param>
+            <param name="y">Index on the y-axis</param>
+            <param name="z">Index on the z-axis</param>
+            <returns>Value at the specified position</returns>
+        </member>
+        <member name="P:Table.xsize">
+            <summary>
+            Gets the size of the Table on the x-axis
+            </summary>
+        </member>
+        <member name="P:Table.ysize">
+            <summary>
+            Gets the size of the Table on the y-axis
+            </summary>
+        </member>
+        <member name="P:Table.zsize">
+            <summary>
+            Gets the size of the Table on the z-axis
+            </summary>
+        </member>
+        <member name="M:RPG.Class.ToString">
+            <summary>
+            Returns a <see langword="string"/> that represents the current object.
+            </summary>
+            <returns>String representation of object.</returns>
+        </member>
+        <member name="T:ARCed.ARCedException">
+            <summary>
+            Generic exception used for ARCed related errors.
+            </summary>
+        </member>
+        <member name="M:ARCed.ARCedException.#ctor(System.String)">
+            <summary>
+            Default constructor
+            </summary>
+            <param name="message">Exception message</param>
+        </member>
+        <member name="T:ARCed.ArcSerializationException">
+            <summary>
+            Generic exception used for ARCed serialization errors. 
+            </summary>
+        </member>
+        <member name="M:ARCed.ArcSerializationException.#ctor(System.String)">
+            <summary>
+            Default constructor
+            </summary>
+            <param name="message">Exception message</param>
+        </member>
+        <member name="T:ARCed.Helpers.FileAssociator">
+            <summary>
+            Static class used for associated ARCed file types with the program and respective icons.
+            </summary>
+        </member>
+        <member name="M:ARCed.Helpers.FileAssociator.Associate(System.String,System.String,System.String,System.String)">
+            <summary>
+            Associate file extension with progID, description, icon and application
+            </summary>
+            <param name="extension">Extension to associate</param>
+            <param name="description">Description of file type</param>
+            <param name="icon">Path to icon to set for the file type</param>
+            <param name="application">Path to icon to associate with this file type</param>
+        </member>
+        <member name="M:ARCed.Helpers.FileAssociator.IsAssociated(System.String)">
+            <summary>
+            Return true if extension already associated in registry
+            </summary>
+            <param name="extension">Extension to check</param>
+            <returns>Flag if extension is already associated or not</returns>
+        </member>
+        <member name="M:ARCed.Helpers.FileAssociator.ToShortPathName(System.String)">
+            <summary>
+            Return short path format of a file name
+            </summary>
+            <param name="longName">Long name of file</param>
+            <returns>Short name of file</returns>
+        </member>
+        <member name="T:ARCed.Helpers.Cache">
+            <summary>
+            Static class for loading graphic resources and caching them to increase performance. This class 
+            class also performs hue and opacity alterations on graphics.
+            </summary>
+        </member>
+        <member name="F:ARCed.Helpers.Cache._cache">
+            <summary>
+            The internal dictionary that contains all the cached images
+            </summary>
+        </member>
+        <member name="F:ARCed.Helpers.Cache.currentTilesetName">
+            <summary>
+            The cached _srcTexture of the currently loaded tileset graphic
+            </summary>
+        </member>
+        <member name="F:ARCed.Helpers.Cache.currentTilesetBitmap">
+            <summary>
+            The name of the currently loaded tileset graphic
+            </summary>
+        </member>
+        <member name="F:ARCed.Helpers.Cache.AUTOINDEX">
+            <summary>
+            The index to reference for building autotile graphics
+            </summary>
+        </member>
+        <member name="M:ARCed.Helpers.Cache.LoadBitmap(System.String,System.String)">
+            <summary>
+            Loads a filename as a Image from the specified folder, or recalls
+            a cached image, and returns it.
+            </summary>
+            <param name="folder">Folder specifying where the image will be searched</param>
+            <param name="filename">FullPath of the image, omitting extension</param>
+            <returns>Cached image</returns>
+        </member>
+        <member name="M:ARCed.Helpers.Cache.ChangeHueOpacity(System.Drawing.Image,System.Int32,System.Int32)">
+            <summary>
+            Rotates the hue and alters the opacity of an image. Using this
+            method is more efficient than performing the actions seperately.
+            </summary>
+            <param name="image">Image to change</param>
+            <param name="hue">Degree of hue displacement (0..360)</param>
+            <param name="opacity">Opacity change to apply (0..255)</param>
+            <remarks>Values out of range will be automatically corrected</remarks>
+        </member>
+        <member name="M:ARCed.Helpers.Cache.RotateHue(System.Drawing.Image,System.Int32)">
+            <summary>
+            Rotates the hue of an image
+            </summary>
+            <param name="image">Image to change</param>
+            <param name="hue">Degree of hue displacement (0..360)</param>
+            <remarks>Values out of range will be automatically corrected</remarks>
+        </member>
+        <member name="M:ARCed.Helpers.Cache.ChangeOpacity(System.Drawing.Image,System.Int32)">
+            <summary>
+            Changes the opacity of an image. 
+            </summary>
+            <param name="image">Image to change</param>
+            <param name="opacity">Opacity change to apply (0..255)</param>
+            <remarks>Values out of range will be automatically corrected</remarks>
+        </member>
+        <member name="M:ARCed.Helpers.Cache.Autotile(System.String,System.Int32,System.Int32)">
+            <summary>
+            Loads/recalls a cached image autotile file and returns it
+            </summary>
+            <param name="filename">Full path of the autotile graphic</param>
+            <param name="hue">Hue rotation to apply to graphic, with 360 degrees of displacment</param>
+            <param name="opacity">Opacity of the returned _srcTexture</param>
+            <returns>Cached image with effects applied</returns>
+        </member>
+        <member name="M:ARCed.Helpers.Cache.Icon(System.String,System.Int32,System.Int32)">
+            <summary>
+            Loads/recalls a cached image icon file and returns it
+            </summary>
+            <param name="filename">Full path of the icon graphic</param>
+            <param name="hue">Hue rotation to apply to graphic, with 360 degrees of displacment</param>
+            <param name="opacity">Opacity of the returned _srcTexture</param>
+            <returns>Cached image with effects applied</returns>
+        </member>
+        <member name="M:ARCed.Helpers.Cache.Character(System.String,System.Int32,System.Int32)">
+            <summary>
+            Loads/recalls a cached character file and returns it
+            </summary>
+            <param name="filename">Full path of the character graphic</param>
+            <param name="hue">Hue rotation to apply to graphic, with 360 degrees of displacment</param>
+            <param name="opacity">Opacity of the returned _srcTexture</param>
+            <returns>Cached image with effects applied</returns>
+        </member>
+        <member name="M:ARCed.Helpers.Cache.Tileset(System.String,System.Int32,System.Int32)">
+            <summary>
+            Loads/recalls a cached tileset file and returns it
+            </summary>
+            <param name="filename">Relative path of the tileset graphic</param>
+            <param name="hue">Hue rotation to apply to graphic, with 360 degrees of displacment</param>
+            <param name="opacity">Opacity of the returned _srcTexture</param>
+            <returns>Cached image with effects applied</returns>
+        </member>
+        <member name="M:ARCed.Helpers.Cache.Animation(System.String,System.Int32,System.Int32)">
+            <summary>
+            Loads/recalls a cached animation file and returns it
+            </summary>
+            <param name="filename">Relative path of the animation graphic</param>
+            <param name="hue">Hue rotation to apply to graphic, with 360 degrees of displacment</param>
+            <param name="opacity">Opacity of the returned _srcTexture</param>
+            <returns>Cached image with effects applied</returns>
+        </member>
+        <member name="M:ARCed.Helpers.Cache.Fog(System.String,System.Int32,System.Int32)">
+            <summary>
+            Loads/recalls a cached fog file and returns it
+            </summary>
+            <param name="filename">Full path of the fog graphic</param>
+            <param name="hue">Hue rotation to apply to graphic, with 360 degrees of displacment</param>
+            <param name="opacity">Opacity of the returned _srcTexture</param>
+            <returns>Cached image with effects applied</returns>
+        </member>
+        <member name="M:ARCed.Helpers.Cache.Panorama(System.String,System.Int32,System.Int32)">
+            <summary>
+            Loads/recalls a cached panorama file and returns it
+            </summary>
+            <param name="filename">Full path of the panorama graphic</param>
+            <param name="hue">Hue rotation to apply to graphic, with 360 degrees of displacment</param>
+            <param name="opacity">Opacity of the returned _srcTexture</param>
+            <returns>Cached image with effects applied</returns>
+        </member>
+        <member name="M:ARCed.Helpers.Cache.Battleback(System.String,System.Int32,System.Int32)">
+            <summary>
+            Loads/recalls a cached battleback file and returns it
+            </summary>
+            <param name="filename">Full path of the battleback graphic</param>
+            <param name="hue">Hue rotation to apply to graphic, with 360 degrees of displacment</param>
+            <param name="opacity">Opacity of the returned image</param>
+            <returns>Cached image with effects applied</returns>
+        </member>
+        <member name="M:ARCed.Helpers.Cache.CharacterStance(System.String,System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Returns a tile of a character graphic using the given pattern and direction
+            </summary>
+            <param name="filename">FullPath of the character graphic</param>
+            <param name="pattern">Pattern of the character tile</param>
+            <param name="direction">Direction of the character tile</param>
+            <param name="hue">Hue rotation to apply to graphic, with 360 degrees of displacment</param>
+            <param name="opacity">Opacity of the returned _srcTexture</param>
+            <returns>Cached _srcTexture with effects applied</returns>
+        </member>
+        <member name="M:ARCed.Helpers.Cache.Battler(System.String,System.Int32,System.Int32)">
+            <summary>
+            Loads/recalls a cached image battler file and returns it
+            </summary>
+            <param name="filename">FullPath of the character graphic</param>
+            <param name="hue">Hue rotation to apply to graphic, with 360 degrees of displacment</param>
+            <param name="opacity">Opacity of the returned _srcTexture</param>
+            <returns>Cached image with effects applied</returns>
+        </member>
+        <member name="T:ARCed.Core.ColorWheel">
+            <summary>
+            Color wheel for getting a user-selected color
+            </summary>
+        </member>
+        <member name="F:ARCed.Core.ColorWheel.ColorChanged">
+            <summary>
+            Handler for color change events
+            </summary>
+        </member>
+        <member name="M:ARCed.Core.ColorWheel.#ctor(System.Drawing.Rectangle,System.Drawing.Rectangle,System.Drawing.Rectangle)">
+            <summary>
+            Default constructor
+            </summary>
+            <param name="colorRectangle">Rectangle for the color wheel image</param>
+            <param name="brightnessRectangle">Rectangle for the brightness control</param>
+            <param name="selectedColorRectangle">Rectangle for the selected color control</param>
+        </member>
+        <member name="M:ARCed.Core.ColorWheel.SetMouseUp">
+            <summary>
+            Sets the mouse state to MouseState.MouseUp
+            </summary>
+        </member>
+        <member name="M:ARCed.Core.ColorWheel.Draw(System.Drawing.Graphics,ARCed.Core.ColorHandler.HSV)">
+            <summary>
+            Draws the images
+            </summary>
+            <param name="g">Graphics context to draw with</param>
+            <param name="hsv">HSV color to draw</param>
+        </member>
+        <member name="M:ARCed.Core.ColorWheel.Draw(System.Drawing.Graphics,ARCed.Core.ColorHandler.ARGB)">
+            <summary>
+            Draws the images
+            </summary>
+            <param name="g">Graphics context to draw with</param>
+            <param name="argb">ARGB color to draw</param>
+        </member>
+        <member name="M:ARCed.Core.ColorWheel.Draw(System.Drawing.Graphics,System.Drawing.Point)">
+            <summary>
+            Draws the images
+            </summary>
+            <param name="g">Graphics context to draw with</param>
+            <param name="mousePoint">MousePoint to draw</param>
+        </member>
+        <member name="P:ARCed.Core.ColorWheel.Color">
+            <summary>
+            Gets the selected color
+            </summary>
+        </member>
+        <member name="T:ARCed.Core.ColorWheel.ColorChangedEventHandler">
+            <summary>
+            Handler for color changing events
+            </summary>
+            <param name="sender">Delegate invoker</param>
+            <param name="e">Event arguments</param>
+        </member>
+        <member name="T:ARCed.Core.ColorWheel.MouseState">
+            <summary>
+            Enum for tracking current mouse state
+            </summary>
+        </member>
+        <member name="F:ARCed.Core.ColorWheel.MouseState.MouseUp">
+            <summary>
+            Mouse up state
+            </summary>
+        </member>
+        <member name="F:ARCed.Core.ColorWheel.MouseState.ClickOnColor">
+            <summary>
+            Mouse click on color state
+            </summary>
+        </member>
+        <member name="F:ARCed.Core.ColorWheel.MouseState.DragInColor">
+            <summary>
+            Mouse drag in color state
+            </summary>
+        </member>
+        <member name="F:ARCed.Core.ColorWheel.MouseState.ClickOnBrightness">
+            <summary>
+            Mouse click on brightness state
+            </summary>
+        </member>
+        <member name="F:ARCed.Core.ColorWheel.MouseState.DragInBrightness">
+            <summary>
+            Mouse drag in brightness state
+            </summary>
+        </member>
+        <member name="F:ARCed.Core.ColorWheel.MouseState.ClickOutsideRegion">
+            <summary>
+            Mouse click outside region state
+            </summary>
+        </member>
+        <member name="F:ARCed.Core.ColorWheel.MouseState.DragOutsideRegion">
+            <summary>
+            Mouse drag outside region state.
+            </summary>
+        </member>
+        <member name="M:RPG.Tileset.ToString">
+            <summary>
+            Returns a <see langword="string"/> that represents the current object.
+            </summary>
+            <returns>String representation of object.</returns>
+        </member>
+        <member name="T:ARCed.GameData">
+            <summary>
+            Container for holding all game data used by the editor and engine
+            </summary>
+        </member>
+        <member name="P:ARCed.GameData.Actors">
+            <summary>
+            List of RPG.Actor objects. First element is null.
+            </summary>
+        </member>
+        <member name="P:ARCed.GameData.Animations">
+            <summary>
+            List of RPG.Animation objects. First element is null.
+            </summary>
+        </member>
+        <member name="P:ARCed.GameData.Armors">
+            <summary>
+            List of RPG.Armor objects. First element is null.
+            </summary>
+        </member>
+        <member name="P:ARCed.GameData.Classes">
+            <summary>
+            List of RPG.Class objects. First element is null.
+            </summary>
+        </member>
+        <member name="P:ARCed.GameData.CommonEvents">
+            <summary>
+            List of RPG.CommonEvent objects. First element is null.
+            </summary>
+        </member>
+        <member name="P:ARCed.GameData.Enemies">
+            <summary>
+            List of RPG.Enemy objects. First element is null.
+            </summary>
+        </member>
+        <member name="P:ARCed.GameData.Items">
+            <summary>
+            List of RPG.Item objects. First element is null.
+            </summary>
+        </member>
+        <member name="P:ARCed.GameData.MapInfos">
+            <summary>
+            List of RPG.MapInfo objects. First element is null.
+            </summary>
+        </member>
+        <member name="P:ARCed.GameData.Skills">
+            <summary>
+            List of RPG.Skills objects. First element is null.
+            </summary>
+        </member>
+        <member name="P:ARCed.GameData.States">
+            <summary>
+            List of RPG.State objects. First element is null.
+            </summary>
+        </member>
+        <member name="P:ARCed.GameData.System">
+            <summary>
+            RPG.System object.
+            </summary>
+        </member>
+        <member name="P:ARCed.GameData.Tilesets">
+            <summary>
+            List of RPG.Tileset objects. First element is null.
+            </summary>
+        </member>
+        <member name="P:ARCed.GameData.Troops">
+            <summary>
+            List of RPG.Troop objects. First element is null.
+            </summary>
+        </member>
+        <member name="P:ARCed.GameData.Weapons">
+            <summary>
+            List of RPG.Weapon objects. First element is null.
+            </summary>
+        </member>
+        <member name="P:ARCed.GameData.Maps">
+            <summary>
+            Dictionary whose key is the map ID and value is an RPG.Map object.
+            </summary>
+        </member>
+        <member name="M:RPG.Skill.ToString">
+            <summary>
+            Returns a <see langword="string"/> that represents the current object.
+            </summary>
+            <returns>String representation of object.</returns>
+        </member>
+        <member name="T:ARCed.Core.QColorMatrix">
+             <summary>
+             QColorMatrix
+             http://www.codeguru.com/Cpp/G-M/gdi/gdi/article.php/c3667
+             
+             Extension of the GDI+ struct ColorMatrix.
+             Adds some member functions so you can actually do something with it.
+             Use QColorMatrix like ColorMatrix to update the ImmageAttributes class.
+             Use at your own risk. Comments welcome.
+            
+             See: http://www.sgi.com/grafica/matrix/
+             http://www.sgi.com/software/opengl/advanced98/notes/node182.html
+            
+             (chr) 2003, Sjaak Priester, Amsterdam.
+             mailto:sjaak@sjaakpriester.nl
+             
+             This C# port from original C++ code is done by:
+             (C) 2010, Vasian Cepa
+             http://madebits.com
+             This port fixes a bug in TransformVector and offers some new convenience methods.
+             This class is not thread-safe.
+             </summary>
+        </member>
+        <member name="M:ARCed.Core.QColorMatrix.Reset">
+            <summary>
+            set to identity matrix
+            </summary>
+        </member>
+        <member name="M:ARCed.Core.QColorMatrix.TransformVector(System.Single[])">
+            <summary>
+            Multiply the vector v by the matrix in place. 
+            v points to an array of at least four values,
+            representing R, G, B and A.
+            </summary>
+        </member>
+        <member name="M:ARCed.Core.QColorMatrix.TransformColors(System.Drawing.Color[])">
+            <summary>
+            Multiply each color by the matrix.
+            </summary>
+        </member>
+        <member name="M:ARCed.Core.QColorMatrix.Multiply(ARCed.Core.QColorMatrix,ARCed.Core.QColorMatrix.MatrixOrder)">
+            <summary>
+            Unlike the original C++ code we multiply all value here.
+            </summary>
+        </member>
+        <member name="M:ARCed.Core.QColorMatrix.Scale(System.Single,System.Single,System.Single,System.Single)">
+            <summary>
+            Update this matrix with the product of itself and a scaling vector.
+            </summary>
+        </member>
+        <member name="M:ARCed.Core.QColorMatrix.ScaleColors(System.Single)">
+            <summary>
+            Scale just the three colors with the same amount, leave opacity unchanged
+            </summary>
+        </member>
+        <member name="M:ARCed.Core.QColorMatrix.Translate(System.Single,System.Single,System.Single,System.Single)">
+            <summary>
+            Update this matrix with the product of itself and a translation vector.
+            </summary>
+        </member>
+        <member name="M:ARCed.Core.QColorMatrix.SetSaturation(System.Single,ARCed.Core.QColorMatrix.MatrixOrder)">
+            <summary>
+            Set the saturation of the matrix. Saturation of 0.0f yields black and white, 1.0f is neutral.
+            </summary>
+        </member>
+        <member name="M:ARCed.Core.QColorMatrix.RotateHue(System.Single)">
+            <summary>
+            Rotate the hue around the grey axis, keeping luminance fixed. Greys are fixed,
+            all other colors change.
+            </summary>
+        </member>
+        <member name="M:ARCed.Core.QColorMatrix.RotateColor(System.Single,System.Int32,System.Int32,ARCed.Core.QColorMatrix.MatrixOrder)">
+            <summary>
+            x and y are the indices of the value to receive the sin(phi) value
+            </summary>
+            <param name="phi">phi is in degrees</param>
+            <param name="x">x value</param>
+            <param name="y">y value</param>
+            <param name="order">Matrix order</param>
+        </member>
+        <member name="T:ARCed.Core.QColorMatrix.MatrixOrder">
+            <summary>
+            gdi+ type
+            </summary>
+        </member>
+        <member name="M:RPG.Animation.ToString">
+            <summary>
+            Returns a <see langword="string"/> that represents the current object.
+            </summary>
+            <returns>String representation of object.</returns>
+        </member>
+        <member name="T:ARCed.Helpers.Compressor">
+            <summary>
+            Static class used for compressing/extracting files and folders using 7zip.
+            </summary>
+        </member>
+        <member name="M:ARCed.Helpers.Compressor.CompressDirectory(System.String,System.String,System.Boolean)">
+            <summary>
+            Compresses a directory into a single archive
+            </summary>
+            <param name="inDir">The path to the directory to compress</param>
+            <param name="outFile">The archive name to create</param>
+            <param name="notify">Flag to notify user when finished</param>
+        </member>
+        <member name="M:ARCed.Helpers.Compressor.ExtractArchive(System.String,System.String)">
+            <summary>
+            Extracts and archive to the given directory
+            </summary>
+            <param name="inFile">Path to the archive to extract</param>
+            <param name="outDir">The path to the target directory for extraction</param>
+        </member>
+        <member name="T:ARCed.Core.LogTextEventArgs">
+            <summary>
+            Events arguments used when a text is added to a Logger
+            </summary>
+        </member>
+        <member name="M:ARCed.Core.LogTextEventArgs.#ctor(System.String)">
+            <summary>
+            Default constructor
+            </summary>
+            <param name="text">Text added to the Logger</param>
+        </member>
+        <member name="P:ARCed.Core.LogTextEventArgs.AddedText">
+            <summary>
+            The text added to the Logger
+            </summary>
+        </member>
+        <member name="T:ARCed.Core.LogSaveEventArgs">
+            <summary>
+            Events arguments used when a Logger is saved
+            </summary>
+        </member>
+        <member name="M:ARCed.Core.LogSaveEventArgs.#ctor(System.String,System.Boolean,System.Boolean)">
+            <summary>
+            Default constructor
+            </summary>
+            <param name="filename">FullPath where the file is saved</param>
+            <param name="success">Flag is save was successful</param>
+            <param name="flushed">Flag is buffer was cleared</param>
+        </member>
+        <member name="P:ARCed.Core.LogSaveEventArgs.Filename">
+            <summary>
+            FullPath where the file is saved
+            </summary>
+        </member>
+        <member name="P:ARCed.Core.LogSaveEventArgs.Successful">
+            <summary>
+            Flag is save was successful
+            </summary>
+        </member>
+        <member name="P:ARCed.Core.LogSaveEventArgs.BufferCleared">
+            <summary>
+            Flag is buffer was cleared
+            </summary>
+        </member>
+        <member name="T:ARCed.Core.Logger">
+            <summary>
+            Class for creating a buffer and adding text to. Acts as a loose wrapper for 
+            a StringBuilder object, but includes events raised when text is added or when
+            the buffer is flushed to a file.
+            </summary>
+        </member>
+        <member name="M:ARCed.Core.Logger.#ctor">
+            <summary>
+            Default contructor
+            </summary>
+        </member>
+        <member name="M:ARCed.Core.Logger.Save(System.String,System.Boolean)">
+            <summary>
+            Saves the log file to disk
+            </summary>
+            <param name="filename">FullPath where log is saved</param>
+            <param name="flushBuffer">Flag to clear the buffer after saving</param>
+        </member>
+        <member name="M:ARCed.Core.Logger.AppendHeader(System.String)">
+            <summary>
+            Appends a header to the log file to denote a new section
+            </summary>
+            <param name="message">The text within the header</param>
+        </member>
+        <member name="M:ARCed.Core.Logger.Clear(System.Boolean)">
+            <summary>
+            Clears the buffer of all logged text
+            </summary>
+            <param name="notify">Flag to fire NoteTextChanged event</param>
+        </member>
+        <member name="M:ARCed.Core.Logger.Append(System.String)">
+            <summary>
+            Appends the text to the log
+            </summary>
+            <param name="text">Text to append</param>
+        </member>
+        <member name="M:ARCed.Core.Logger.Append(System.Object)">
+            <summary>
+            Appends the string representation of the object to the log
+            </summary>
+            <param name="obj">Object to append</param>
+        </member>
+        <member name="M:ARCed.Core.Logger.AppendLine(System.String)">
+            <summary>
+            Appends the text to the log and adds a newline
+            </summary>
+            <param name="text">Text to append</param>
+        </member>
+        <member name="M:ARCed.Core.Logger.AppendLine(System.Object)">
+            <summary>
+            Appends the string representation of the object to the log and adds a newline
+            </summary>
+            <param name="obj">Object to append</param>
+        </member>
+        <member name="M:ARCed.Core.Logger.AppendFormat(System.String,System.Object[])">
+            <summary>
+            Appends text, replacing items in formatted string with objects
+            </summary>
+            <param name="text">Format string</param>
+            <param name="objs">Object replacements</param>
+        </member>
+        <member name="E:ARCed.Core.Logger.OnSave">
+            <summary>
+            Event raised when the Logger is saved to disk
+            </summary>
+        </member>
+        <member name="E:ARCed.Core.Logger.TextChanged">
+            <summary>
+            Event raised when text is added to the Logger
+            </summary>
+        </member>
+        <member name="P:ARCed.Core.Logger.Text">
+            <summary>
+            Gets or sets the text of the Logger
+            </summary>
+        </member>
+        <member name="P:ARCed.Core.Logger.Buffer">
+            <summary>
+            Gets the buffer
+            </summary>
+        </member>
+        <member name="T:ARCed.Core.Logger.OnSaveHandler">
+            <summary>
+            Delegate handler for the OnSave event
+            </summary>
+            <param name="sender">Invoker of the even</param>
+            <param name="e">Event arguments</param>
+        </member>
+        <member name="T:ARCed.Core.Logger.TextChangedHandler">
+            <summary>
+            Delegate handler for the NoteTextChanged event
+            </summary>
+            <param name="sender">Invoker of the even</param>
+            <param name="e">Event arguments</param>
+        </member>
+        <member name="T:ARCed.Helpers.PathHelper">
+            <summary>
+            Static class for getting paths to files/folders used by ARCed.
+            </summary>
+        </member>
+        <member name="P:ARCed.Helpers.PathHelper.ApplicationData">
+            <summary>
+            Gets the path to ARCed.NET's AppData directory
+            </summary>
+        </member>
+        <member name="P:ARCed.Helpers.PathHelper.EditorPath">
+            <summary>
+            Gets the full path to the current application
+            </summary>
+        </member>
+        <member name="P:ARCed.Helpers.PathHelper.EditorDirectory">
+            <summary>
+            Gets the full path to the directory of the editor
+            </summary>
+        </member>
+        <member name="P:ARCed.Helpers.PathHelper.AssemblyDir">
+            <summary>
+            Gets the path to the folder containing the application's assemblies.
+            </summary>
+        </member>
+        <member name="P:ARCed.Helpers.PathHelper.PluginDirectory">
+            <summary>
+            Gets the path to the plugins directory
+            </summary>
+        </member>
+        <member name="P:ARCed.Helpers.PathHelper.TemplateDirectory">
+            <summary>
+            Gets the path to the template directory
+            </summary>
+        </member>
+        <member name="P:ARCed.Helpers.PathHelper.ProjectTemplateDirectory">
+            <summary>
+            Gets the path to the templates directory
+            </summary>
+        </member>
+        <member name="P:ARCed.Helpers.PathHelper.ScriptTemplateDirectory">
+            <summary>
+            Gets the path to the script template directory
+            </summary>
+        </member>
+        <member name="P:ARCed.Helpers.PathHelper.SettingsDirectory">
+            <summary>
+            Gets the path to the editor's settings folder
+            </summary>
+        </member>
+        <member name="P:ARCed.Helpers.PathHelper.EditorSettings">
+            <summary>
+            Gets the path to ARCed.NET's settings file
+            </summary>
+        </member>
+        <member name="P:ARCed.Helpers.PathHelper.SkinSettings">
+            <summary>
+            Gets the path to ARCed.NET's skin settings file
+            </summary>
+        </member>
+        <member name="P:ARCed.Helpers.PathHelper.ScriptSettings">
+            <summary>
+            Gets the path to ARCed.NET's script setting file
+            </summary>
+        </member>
+        <member name="P:ARCed.Helpers.PathHelper.DefaultSaveDirectory">
+            <summary>
+            Gets the default directory where projects are saved
+            </summary>
+        </member>
+        <member name="P:ARCed.Helpers.PathHelper.SevenZipLibrary">
+            <summary>
+            Gets the path to the native 7zip library appropriate for the host machines CPU architecture.
+            </summary>
+        </member>
+        <member name="P:ARCed.Helpers.PathHelper.SciLexerLibrary">
+            <summary>
+            Gets the path to the native Scintilla library appropriate for the host machines CPU architecture.
+            </summary>
+        </member>
+        <member name="T:ARCed.Settings.BackupType">
+            <summary>
+            Flags used for determining the type of data to backup.
+            </summary>
+        </member>
+        <member name="F:ARCed.Settings.BackupType.None">
+            <summary>
+            No data will be backed up.
+            </summary>
+        </member>
+        <member name="F:ARCed.Settings.BackupType.Scripts">
+            <summary>
+            Script files will be backed up.
+            </summary>
+        </member>
+        <member name="F:ARCed.Settings.BackupType.Maps">
+            <summary>
+            Map data will be backed up.
+            </summary>
+        </member>
+        <member name="F:ARCed.Settings.BackupType.AllData">
+            <summary>
+            All data will be backed up.
+            </summary>
+        </member>
+        <member name="T:ARCed.Settings.BackupFrequency">
+            <summary>
+            Flags for specifying the frequency when data will be backed up.
+            </summary>
+        </member>
+        <member name="F:ARCed.Settings.BackupFrequency.None">
+            <summary>
+            Backups are not created
+            </summary>
+        </member>
+        <member name="F:ARCed.Settings.BackupFrequency.Run">
+            <summary>
+            Each time the project is ran from the editor
+            </summary>
+        </member>
+        <member name="F:ARCed.Settings.BackupFrequency.Debug">
+            <summary>
+            Each time the project is ran from the editor in DEBUG mode
+            </summary>
+        </member>
+        <member name="F:ARCed.Settings.BackupFrequency.Save">
+            <summary>
+            Each time data is saved 
+            </summary>
+        </member>
+        <member name="F:ARCed.Settings.BackupFrequency.Timed">
+            <summary>
+            At timed intervals
+            </summary>
+        </member>
+        <member name="T:ARCed.Settings.ARChiveSettings">
+            <summary>
+            Class the contains settings on 
+            </summary>
+        </member>
+        <member name="M:ARCed.Settings.ARChiveSettings.#ctor">
+            <summary>
+            Fefault constructor.
+            </summary>
+        </member>
+        <member name="P:ARCed.Settings.ARChiveSettings.Type">
+            <summary>
+            Gets or sets the BackupType setting.
+            </summary>
+        </member>
+        <member name="P:ARCed.Settings.ARChiveSettings.Frequency">
+            <summary>
+            Gets or sets the frequency backups are created.
+            </summary>
+        </member>
+        <member name="P:ARCed.Settings.ARChiveSettings.Interval">
+            <summary>
+            Gets or sets the interval that backups are created when using BackupType.Interval
+            </summary>
+        </member>
+        <member name="P:ARCed.Settings.ARChiveSettings.Threaded">
+            <summary>
+            Gets or sets the flag to have the backups copied and compressed on a separate thread.
+            </summary>
+        </member>
+        <member name="P:ARCed.Settings.ARChiveSettings.MaxBackups">
+            <summary>
+            Gets or sets the maximum number of backups that will be created before overwriting begins.
+            </summary>
+        </member>
+        <member name="P:ARCed.Settings.ARChiveSettings.TypeToInt32">
+            <summary>
+            Gets or sets the BackupType flag as an integer.
+            </summary>
+        </member>
+        <member name="T:ARCed.Core.ResourceType">
+            <summary>
+            Enum containing flags for various resource types
+            </summary>
+        </member>
+        <member name="F:ARCed.Core.ResourceType.Unknown">
+            <summary>
+            Unknown type
+            </summary>
+        </member>
+        <member name="F:ARCed.Core.ResourceType.Graphics">
+            <summary>
+            Flag for a graphic resource
+            </summary>
+        </member>
+        <member name="F:ARCed.Core.ResourceType.Audio">
+            <summary>
+            Flag for an audio resource
+            </summary>
+        </member>
+        <member name="F:ARCed.Core.ResourceType.Script">
+            <summary>
+            Flag for a script file
+            </summary>
+        </member>
+        <member name="T:ARCed.Core.Location">
+            <summary>
+            Enum containing flags for various of resource types
+            </summary>
+        </member>
+        <member name="F:ARCed.Core.Location.Unknown">
+            <summary>
+            Flag for an unknown/undefined location
+            </summary>
+        </member>
+        <member name="F:ARCed.Core.Location.Local">
+            <summary>
+            Flag for a resource local to the project
+            </summary>
+        </member>
+        <member name="F:ARCed.Core.Location.RTP">
+            <summary>
+            Flag for a resource located in the host machine's RTP directory
+            </summary>
+        </member>
+        <member name="T:ARCed.Core.GameResource">
+            <summary>
+            Base class for resource classes
+            </summary>
+        </member>
+        <member name="M:ARCed.Core.GameResource.#ctor(System.String,ARCed.Core.Location,ARCed.Core.ResourceType)">
+            <summary>
+            Constructor with parameters
+            </summary>
+            <param name="filename">Filename of the resource</param>
+            <param name="location">Flag for resource location</param>
+            <param name="type">Flag for resource type</param>
+        </member>
+        <member name="M:ARCed.Core.GameResource.CompareTo(System.Object)">
+            <summary>
+            Compares two GameResource objects. Local resources are listed first, names are 
+            sorted alphabetically within their location.
+            </summary>
+            <param name="other">GameResource object to compare</param>
+            <returns>Integer comparison flag</returns>
+            <exception cref="T:System.ArgumentException">Thrown when object to compare is not a GameResource</exception>
+        </member>
+        <member name="P:ARCed.Core.GameResource.Directory">
+            <summary>
+            Directory relative to the main directory the resource is found in
+            </summary>
+        </member>
+        <member name="P:ARCed.Core.GameResource.FullPath">
+            <summary>
+            FullPath of the resource
+            </summary>
+        </member>
+        <member name="P:ARCed.Core.GameResource.ResourceType">
+            <summary>
+            The type of the resource
+            </summary>
+        </member>
+        <member name="P:ARCed.Core.GameResource.Location">
+            <summary>
+            Gets or sets the location parameter determining if resource is local or ResourceHelper
+            </summary>
+        </member>
+        <member name="P:ARCed.Core.GameResource.Name">
+            <summary>
+            Gets the name of the file without directory or extension
+            </summary>
+        </member>
+        <member name="P:ARCed.Core.GameResource.FileExtension">
+            <summary>
+            Gets the extension of the file
+            </summary>
+        </member>
+        <member name="P:ARCed.Core.GameResource.RelativePath">
+            <summary>
+            Gets a path that is relative to both the project and RTP directory
+            </summary>
+        </member>
+        <member name="P:ARCed.Core.GameResource.RelativeDirectory">
+            <summary>
+            Returns the relative directory of the resource from the root folder
+            </summary>
+        </member>
+        <member name="P:ARCed.Core.GameResource.FileInfo">
+            <summary>
+            Gets the FileInfo object for the file
+            </summary>
+        </member>
+        <member name="T:ARCed.Constants">
+            <summary>
+            Static class for containing constant values used by all assemblies.
+            </summary>
+        </member>
+        <member name="F:ARCed.Constants.IMAGEFILTERS">
+            <summary>
+            Array of strings used for searching supported _srcTexture formats
+            </summary>
+        </member>
+        <member name="F:ARCed.Constants.AUDIOFILTERS">
+            <summary>
+            Array of strings used for searching supported audio formats
+            </summary>
+        </member>
+        <member name="F:ARCed.Constants.SCRIPTFILTERS">
+            <summary>
+            Array of strings used for searching supported script file formats
+            </summary>
+        </member>
+        <member name="F:ARCed.Constants.BACKUP_FOLDER">
+            <summary>
+            Name of the backup folder
+            </summary>
+        </member>
+        <member name="F:ARCed.Constants.SETTINGS_FOLDER">
+            <summary>
+            Name of the settings folder
+            </summary>
+        </member>
+        <member name="F:ARCed.Constants.GRAPHICS_FOLDER">
+            <summary>
+            Name of the graphics folder
+            </summary>
+        </member>
+        <member name="F:ARCed.Constants.AUDIO_FOLDER">
+            <summary>
+            Name of the audio folder
+            </summary>
+        </member>
+        <member name="F:ARCed.Constants.DATA_FOLDER">
+            <summary>
+            Name of the data folder
+            </summary>
+        </member>
+        <member name="F:ARCed.Constants.SCRIPT_FOLDER">
+            <summary>
+            Name of the scripts folder
+            </summary>
+        </member>
+        <member name="F:ARCed.Constants.LAYOUT_FILE">
+            <summary>
+            Name of the layout settings file
+            </summary>
+        </member>
+        <member name="F:ARCed.Constants.PROJECT_SETTINGS_FILE">
+            <summary>
+            Name of the project settings file
+            </summary>
+        </member>
+        <member name="F:ARCed.Constants.FRAMERATE">
+            <summary>
+            Frames per second for the game resolution
+            </summary>
+        </member>
+        <member name="F:ARCed.Constants.TILESIZE">
+            <summary>
+            Size in pixels of a map tiles.
+            </summary>
+        </member>
+        <member name="F:ARCed.Constants.MAXWIDTH">
+            <summary>
+            Size in pixels of a tileset graphic
+            </summary>
+        </member>
+        <member name="F:ARCed.Constants.TILEWIDTH">
+            <summary>
+            Number of tiles across of a tileset graphic
+            </summary>
+        </member>
+        <member name="F:ARCed.Constants.AUTO_IDS">
+            <summary>
+            Tile IDs reserved for autotiles
+            </summary>
+        </member>
+        <member name="F:ARCed.Constants.AUTOTILES">
+            <summary>
+            Number of autotiles
+            </summary>
+        </member>
+        <member name="F:ARCed.Constants.PRIORITIES">
+            <summary>
+            Number of priorities for a tileset
+            </summary>
+        </member>
+        <member name="F:ARCed.Constants.TERRAINS">
+            <summary>
+            Number of terrains for a tileset
+            </summary>
+        </member>
+        <member name="F:ARCed.Constants.ANIMESIZE">
+            <summary>
+            Width and height of a animation source graphic frame
+            </summary>
+        </member>
+        <member name="P:ARCed.Constants.RTP_PATH">
+            <summary>
+            Path to the RTP folder (TEST PURPOSES ONLY)
+            </summary>
+        </member>
+        <member name="M:RPG.Troop.ToString">
+            <summary>
+            Returns a <see langword="string"/> that represents the current object.
+            </summary>
+            <returns>String representation of object.</returns>
+        </member>
+        <member name="M:RPG.Item.ToString">
+            <summary>
+            Returns a <see langword="string"/> that represents the current object.
+            </summary>
+            <returns>String representation of object.</returns>
+        </member>
+        <member name="T:ARCed.Helpers.ResourceHelper">
+            <summary>
+            Static class that handles finding, organizing, and getting resources automatically from 
+            both ther local directory and installed RTP directory if there is one.
+            </summary>
+        </member>
+        <member name="M:ARCed.Helpers.ResourceHelper.Initialize">
+            <summary>
+            Initializes the system. Must be called before system can be used.
+            </summary>
+        </member>
+        <member name="M:ARCed.Helpers.ResourceHelper.DirectorySearch(System.String,System.String[])">
+            <summary>
+            Recursively searches a directory for filenames using the given filters
+            </summary>
+            <param name="rootDir">Root directory to begin search</param>
+            <param name="filters">Formatted search filters for filenames</param>
+            <returns>Collection of files found in root directory and all subdirectories that 
+            matched the given filter(s).</returns>
+        </member>
+        <member name="M:ARCed.Helpers.ResourceHelper.RefreshRTP">
+            <summary>
+            Refreshes the collection of RTP resources
+            </summary>
+        </member>
+        <member name="M:ARCed.Helpers.ResourceHelper.RefreshLocal">
+            <summary>
+            Refreshes the collection of local resources
+            </summary>
+        </member>
+        <member name="M:ARCed.Helpers.ResourceHelper.EnableLocalDirectory(System.Boolean)">
+            <summary>
+            Enables/disables local directory searching
+            </summary>
+            <param name="enable">Flag to enable or disable local searching</param>
+        </member>
+        <member name="M:ARCed.Helpers.ResourceHelper.GetTypes(System.String)">
+            <summary>
+            Finds all resources that can be found in the given relative path
+            </summary>
+            <param name="folder">Directory that will be searched. This path must be relative to
+            both the project and the root directory of the RTP</param>
+            <returns>Collection of found resources</returns>
+        </member>
+        <member name="M:ARCed.Helpers.ResourceHelper.GetFullPath(System.String,System.String)">
+            <summary>
+            Gets the full path to a file of the given type using the simple name of the file
+            </summary>
+            <param name="folder">Folder name where the file to be found is located.</param>
+            <param name="name">Simple name of the file, without extension</param>
+            <returns>Full path to the file</returns>
+        </member>
+        <member name="M:ARCed.Helpers.ResourceHelper.FileSystemWatcherRenamed(System.Object,System.IO.RenamedEventArgs)">
+            <summary>
+            Event raised when a file resource file is renamed
+            </summary>
+            <param name="sender">Invoker of the event</param>
+            <param name="e">Event arguments</param>
+        </member>
+        <member name="M:ARCed.Helpers.ResourceHelper.FileSystemWatcherDeleted(System.Object,System.IO.FileSystemEventArgs)">
+            <summary>
+            Event raised when a file resource file is deleted
+            </summary>
+            <param name="sender">Invoker of the event</param>
+            <param name="e">Event arguments</param>
+        </member>
+        <member name="M:ARCed.Helpers.ResourceHelper.FileSystemWatcherCreated(System.Object,System.IO.FileSystemEventArgs)">
+            <summary>
+            Event raised when a file resource file is created
+            </summary>
+            <param name="sender">Invoker of the event</param>
+            <param name="e">Event arguments</param>
+        </member>
+        <member name="P:ARCed.Helpers.ResourceHelper.RtpWatcher">
+            <summary>
+            File watcher for RTP resources.
+            </summary>
+        </member>
+        <member name="P:ARCed.Helpers.ResourceHelper.LocalWatcher">
+            <summary>
+            File watcher for local project resources.
+            </summary>
+        </member>
+        <member name="P:ARCed.Helpers.ResourceHelper.Filters">
+            <summary>
+            Gets an array of filters used for searching resources
+            </summary>
+        </member>
+        <member name="P:ARCed.Helpers.ResourceHelper.AllResources">
+            <summary>
+            Gets a collection of all resources used by the project, both RTP and local, audio and graphics.
+            </summary>
+        </member>
+        <member name="P:ARCed.Helpers.ResourceHelper.RTPResources">
+            <summary>
+            Gets a collection of all resources found in the RTP directories
+            </summary>
+        </member>
+        <member name="P:ARCed.Helpers.ResourceHelper.LocalResources">
+            <summary>
+            Gets a collection of all resources found in the local directories
+            </summary>
+        </member>
+        <member name="P:ARCed.Helpers.ResourceHelper.AllGraphics">
+            <summary>
+            Gets a collection of all graphic resources, both local and RTP
+            </summary>
+        </member>
+        <member name="P:ARCed.Helpers.ResourceHelper.AllAudio">
+            <summary>
+            Gets a collection of all audio resources, both local and RTP
+            </summary>
+        </member>
+        <member name="P:ARCed.Helpers.ResourceHelper.LocalAudio">
+            <summary>
+            Gets a collection of all audio resources located in the local directory
+            </summary>
+        </member>
+        <member name="P:ARCed.Helpers.ResourceHelper.RTPAudio">
+            <summary>
+            Gets a collection of all audio resources located in the RTP directory
+            </summary>
+        </member>
+        <member name="P:ARCed.Helpers.ResourceHelper.LocalGraphics">
+            <summary>
+            Gets a collection of all graphic resources located in the local directory
+            </summary>
+        </member>
+        <member name="P:ARCed.Helpers.ResourceHelper.RTPGraphics">
+            <summary>
+            Gets a collection of all graphic resources located in the RTP directory
+            </summary>
+        </member>
+        <member name="P:ARCed.Helpers.ResourceHelper.IsInitialized">
+            <summary>
+            Gets the initialized status of the system
+            </summary>
+        </member>
+        <member name="T:ARCed.Helpers.FontHelper">
+            <summary>
+            Static class for loading and creating Fonts in memory without the need to 
+            have them installed.
+            </summary>
+            <remarks>In order for a memory font to be drawn on a control, it must be 
+            rendered with GDI+, so "SetCompatibleTextRenderingDefault" must be set for  
+            the application, or "UseCompatibleTextRendering" for individual controls.</remarks>
+        </member>
+        <member name="M:ARCed.Helpers.FontHelper.LoadUserFonts">
+            <summary>
+            Loads all TrueType fonts found in the application's "Fonts" folder into memory.
+            </summary>
+            <remarks>This method also loads resource fonts embedded into the application.</remarks>
+        </member>
+        <member name="M:ARCed.Helpers.FontHelper.GetFont(System.String,System.Single,System.Drawing.FontStyle)">
+            <summary>
+            Creates and returns a font, first checking memorized fonts.
+            </summary>
+            <param name="familyName">Name of the font family</param>
+            <param name="size">Size of the font</param>
+            <param name="style">Style to apply to the font</param>
+            <returns>Loaded font object</returns>
+        </member>
+        <member name="M:ARCed.Helpers.FontHelper.AddResourceFont(System.Byte[])">
+            <summary>
+            Adds a font from an array of bytes
+            </summary>
+            <param name="bytes">Array of bytes to read</param>
+        </member>
+        <member name="M:ARCed.Helpers.FontHelper.GetMemoryFont(System.String,System.Single,System.Drawing.FontStyle)">
+            <summary>
+            Finds and creates a font from a font family previously loaded into memory
+            </summary>
+            <param name="familyName">Name of the font family</param>
+            <param name="size">Size of the font</param>
+            <param name="style">Style to apply to the font</param>
+            <returns>Font loaded from memory, or null if font family could not be found.</returns>
+        </member>
+        <member name="M:ARCed.Helpers.FontHelper.AddFileFont(System.String)">
+            <summary>
+            Adds a private memory font from a file
+            </summary>
+            <param name="filename">The path of the file</param>
+        </member>
+        <member name="M:ARCed.Helpers.FontHelper.AddResourceFont(System.String)">
+            <summary>
+            Adds a private memory font from an embedded resource
+            </summary>
+            <param name="resourceName">The full names, including namespaces, of the resource file</param>
+        </member>
+        <member name="M:ARCed.Helpers.FontHelper.AddFont(System.IO.Stream)">
+            <summary>
+            Adds a private memory font from a stream
+            </summary>
+            <param name="stream">The stream to load the font from</param>
+            <remarks>The stream will be closed automatically after the font is loaded</remarks>
+        </member>
+        <member name="M:ARCed.Helpers.FontHelper.IsInstalled(System.String)">
+            <summary>
+            Checks if a font is installed on the machine and returns the result
+            </summary>
+            <param name="fontName">The names of the font to check for</param>
+            <returns>The result of the check</returns>
+        </member>
+        <member name="P:ARCed.Helpers.FontHelper.MonoFont">
+            <summary>
+            Returns the system's default monospace font
+            </summary>
+        </member>
+        <member name="P:ARCed.Helpers.FontHelper.InstalledFonts">
+            <summary>
+            Gets a list of names of the system's installed fonts
+            </summary>
+        </member>
+        <member name="P:ARCed.Helpers.FontHelper.FontCollection">
+            <summary>
+            Gets the private collection of fonts loaded into memory
+            </summary>
+        </member>
+        <member name="P:ARCed.Helpers.FontHelper.Families">
+            <summary>
+            Gets an array of loaded font families in memory
+            </summary>
+        </member>
+        <member name="T:ARCed.Settings.EquipmentSettings">
+            <summary>
+            Class containing settings for equipment slots. 
+            </summary>
+            <remarks>This class is a wrapper for a standard List of EquipSlotConfiguration objects</remarks>
+        </member>
+        <member name="P:ARCed.Settings.EquipmentSettings.RmxpConfiguration">
+            <summary>
+            Gets the default configuration used for a converted RMXP project.
+            </summary>
+        </member>
+        <member name="T:ARCed.Settings.EquipSlotConfiguration">
+            <summary>
+            Contains settings determining the name, properties and types of equipment for an equipment slot.
+            </summary>
+        </member>
+        <member name="M:ARCed.Settings.EquipSlotConfiguration.#ctor">
+            <summary>
+            Default constructor
+            </summary>
+        </member>
+        <member name="P:ARCed.Settings.EquipSlotConfiguration.EquipKind">
+            <summary>
+            Gets or sets the kind of equipment this slot contains.
+            </summary>
+        </member>
+        <member name="P:ARCed.Settings.EquipSlotConfiguration.Label">
+            <summary>
+            Gets or sets the associated label for the equipment slot.
+            </summary>
+        </member>
+        <member name="P:ARCed.Settings.EquipSlotConfiguration.RpgIdProperty">
+            <summary>
+            Gets or sets the associated property name of the RPG class to modify
+            </summary>
+        </member>
+        <member name="P:ARCed.Settings.EquipSlotConfiguration.RpgFixedProperty">
+            <summary>
+            Gets or sets the fixed flag indicating equipment can be changed.
+            </summary>
+        </member>
+        <member name="M:RPG.Weapon.ToString">
+            <summary>
+            Returns a <see langword="string"/> that represents the current object.
+            </summary>
+            <returns>String representation of object.</returns>
+        </member>
+        <member name="T:RPG.RpgObject">
+            <summary>
+            A generic container for a basic game object
+            </summary>
+        </member>
+        <member name="M:RPG.RpgObject.#ctor">
+            <summary>
+            Default constructor
+            </summary>
+        </member>
+        <member name="M:RPG.RpgObject.#ctor(System.String,System.Int32)">
+            <summary>
+            Default constructor
+            </summary>
+            <param name="name">Name of the object</param>
+            <param name="id">ID of the object</param>
+        </member>
+        <member name="M:RPG.RpgObject.ToString">
+            <summary>
+            Returns a <see langword="string"/> that represents the current object.
+            </summary>
+            <returns>String representation of object.</returns>
+        </member>
+        <member name="P:RPG.RpgObject.name">
+            <summary>
+            Gets or sets the name of the object
+            </summary>
+        </member>
+        <member name="P:RPG.RpgObject.id">
+            <summary>
+            Gets or sets the ID of the object
+            </summary>
+        </member>
+        <member name="M:RPG.Event.ToString">
+            <summary>
+            Returns a <see langword="string"/> that represents the current object.
+            </summary>
+            <returns>String representation of object.</returns>
+        </member>
+        <member name="T:ARCed.ExtensionMethods">
+            <summary>
+            Static class that extends functionality of various data types
+            </summary>
+        </member>
+        <member name="F:ARCed.ExtensionMethods._utf8">
+            <summary>
+            UTF-8 encoding instance used for byte-string conversions
+            </summary>
+        </member>
+        <member name="F:ARCed.ExtensionMethods._buffer">
+            <summary>
+            Byte array used as a buffer for reading streams
+            </summary>
+        </member>
+        <member name="M:ARCed.ExtensionMethods.SuspendPainting(System.Windows.Forms.Control)">
+            <summary>
+            Suspends painting of control until ResumePainting() is called.
+            </summary>
+            <param name="control">Control to suspend painting</param>
+        </member>
+        <member name="M:ARCed.ExtensionMethods.ResumePainting(System.Windows.Forms.Control,System.Boolean)">
+            <summary>
+            Resumes painting of the control that was suspended with SuspendPainting().
+            </summary>
+            <param name="control">Control to resume painting</param>
+            <param name="refresh">Flag to refresh control.</param>
+        </member>
+        <member name="M:ARCed.ExtensionMethods.PadCenter(System.String,System.Int32,System.Char)">
+            <summary>
+            Pads the center of a string with the given character
+            </summary>
+            <param name="str">String to pad</param>
+            <param name="width">The width of the string</param>
+            <param name="chr">Character to pad with</param>
+            <returns>The string padded in the center</returns>
+        </member>
+        <member name="M:ARCed.ExtensionMethods.NumberDigits(System.Int32)">
+            <summary>
+            Gets the number of digits in a number
+            </summary>
+            <param name="value">Integer to get digits of</param>
+            <returns>Number of digits counted</returns>
+        </member>
+        <member name="M:ARCed.ExtensionMethods.ReadByteString(System.IO.Stream,System.Int32)">
+            <summary>
+            Reads the specified number of bytes from the stream and returns it as a UTF-8 encoded string
+            </summary>
+            <param name="stream">Stream to read</param>
+            <param name="numBytes">Number of bytes to read</param>
+            <returns>UTF-8 encoded string</returns>
+        </member>
+        <member name="M:ARCed.ExtensionMethods.ReadBytes(System.IO.Stream,System.Int32)">
+            <summary>
+            Reads the specified number of bytes from the current position if the stream
+            </summary>
+            <param name="stream">Stream to read</param>
+            <param name="numBytes">Number of bytes to read</param>
+            <returns>Array of bytes that were read</returns>
+        </member>
+        <member name="M:ARCed.ExtensionMethods.GetString(System.Byte[])">
+            <summary>
+            Returns a UTF-8 encoded string from an array of bytes
+            </summary>
+            <param name="value">Array of bytes to convert</param>
+            <returns>UTF-8 encoded string</returns>
+        </member>
+        <member name="M:ARCed.ExtensionMethods.GetBytes(System.String)">
+            <summary>
+            Returns the string as an array of bytes
+            </summary>
+            <param name="value">String value to convert</param>
+            <returns>Array of bytes</returns>
+            <remarks>The string is assumed to be encoded using UTF-8</remarks>
+        </member>
+        <member name="M:ARCed.ExtensionMethods.GetBytes(System.Int16)">
+            <summary>
+            Gets a byte array of the value
+            </summary>
+            <param name="value">Short value</param>
+            <returns>Two element byte array</returns>
+        </member>
+        <member name="M:ARCed.ExtensionMethods.GetBytes(System.Int32)">
+            <summary>
+            Gets a byte array of the value
+            </summary>
+            <param name="value">Integer value</param>
+            <returns>Four element byte array</returns>
+        </member>
+        <member name="M:ARCed.ExtensionMethods.IsBetween(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Checks if integer is between an upper and lower range
+            </summary>
+            <param name="value">Integer value to compare</param>
+            <param name="lower">Lower limit to check</param>
+            <param name="upper">Upper limit to check</param>
+            <returns>True if value is withing range, otherwise false</returns>
+            <remarks>Comparison is inclusive for upper and lower</remarks>
+        </member>
+        <member name="M:ARCed.ExtensionMethods.Clamp``1(``0,``0,``0)">
+            <summary>
+            Clamps a value within a given minimum and maximum
+            </summary>
+            <typeparam name="T">Type of object that interfaces IComparable</typeparam>
+            <param name="value">Value of object</param>
+            <param name="min">Minimum value that will be returned</param>
+            <param name="max">Maximum value that will be returned</param>
+            <returns>Value clamped between the minimum and maximum</returns>
+        </member>
+        <member name="M:ARCed.ExtensionMethods.IsNumber(System.Object)">
+            <summary>
+            Checks an object if it us a numerical type
+            </summary>
+            <param name="value">Object to check</param>
+            <returns>Flag if object is numerical or not</returns>
+        </member>
+        <member name="M:ARCed.ExtensionMethods.HasMethod(System.Object,System.String)">
+            <summary>
+            Checks if a type has the given method and returns the result
+            </summary>
+            <param name="objectToCheck">Object to check for the method</param>
+            <param name="methodName">String name of the method</param>
+            <returns>Flag if object type has given method</returns>
+            <remarks>CharacterStance case of the string will be ignored</remarks>
+        </member>
+    </members>
+</doc>

@@ -1,8 +1,10 @@
-using System;
+#region Using Directives
+
 using System.Drawing;
 using System.Drawing.Drawing2D;
-using System.Drawing.Imaging;
 using System.Windows.Forms;
+
+#endregion
 
 namespace ARCed.UI
 {
@@ -60,7 +62,7 @@ namespace ARCed.UI
 		// From http://edu.cnzz.cn/show_3281.html
 		public static GraphicsPath CalculateGraphicsPathFromBitmap(Bitmap bitmap, Color colorTransparent) 
 		{ 
-			GraphicsPath graphicsPath = new GraphicsPath(); 
+			var graphicsPath = new GraphicsPath(); 
 			if (colorTransparent == Color.Empty)
 				colorTransparent = bitmap.GetPixel(0, 0); 
 

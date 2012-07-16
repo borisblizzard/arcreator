@@ -1,9 +1,14 @@
+#region Using Directives
+
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using System.Windows.Forms;
+using System.Windows.Forms.Design;
+
+#endregion
 
 // To simplify the process of finding the toolbox image resource:
 // #1 Create an internal class called "resfinder" outside of the root namespace.
@@ -20,39 +25,39 @@ namespace ARCed.UI
 	public delegate IDockContent DeserializeDockContent(string persistString);
 
     [LocalizedDescription("DockPanel_Description")]
-    [Designer(typeof(System.Windows.Forms.Design.ControlDesigner))]
+    [Designer(typeof(ControlDesigner))]
     [ToolboxBitmap(typeof(resfinder), "ARCed.UI.DockPanel.bmp")]
     [DefaultProperty("DocumentStyle")]
     [DefaultEvent("ActiveContentChanged")]
 	public partial class DockPanel : Panel
 	{
-        private FocusManagerImpl m_focusManager;
-        private DockPanelExtender m_extender;
-        private DockPaneCollection m_panes;
-        private FloatWindowCollection m_floatWindows;
-        private AutoHideWindowControl m_autoHideWindow;
-        private DockWindowCollection m_dockWindows;
-        private DockContent m_dummyContent; 
-        private Control m_dummyControl;
+        private readonly FocusManagerImpl _mFocusManager;
+        private readonly DockPanelExtender _mExtender;
+        private readonly DockPaneCollection _mPanes;
+        private readonly FloatWindowCollection _mFloatWindows;
+        private readonly AutoHideWindowControl _mAutoHideWindow;
+        private readonly DockWindowCollection _mDockWindows;
+        private readonly DockContent _mDummyContent;
+        private readonly Control _mDummyControl;
         
 		public DockPanel()
 		{
-            m_focusManager = new FocusManagerImpl(this);
-			m_extender = new DockPanelExtender(this);
-			m_panes = new DockPaneCollection();
-			m_floatWindows = new FloatWindowCollection();
+            this._mFocusManager = new FocusManagerImpl(this);
+			this._mExtender = new DockPanelExtender(this);
+			this._mPanes = new DockPaneCollection();
+			this._mFloatWindows = new FloatWindowCollection();
 
             SuspendLayout();
 
-			m_autoHideWindow = new AutoHideWindowControl(this);
-			m_autoHideWindow.Visible = false;
+			this._mAutoHideWindow = new AutoHideWindowControl(this);
+			this._mAutoHideWindow.Visible = false;
             SetAutoHideWindowParent();
 
-			m_dummyControl = new DummyControl();
-			m_dummyControl.Bounds = new Rectangle(0, 0, 1, 1);
-			Controls.Add(m_dummyControl);
+			this._mDummyControl = new DummyControl();
+			this._mDummyControl.Bounds = new Rectangle(0, 0, 1, 1);
+			Controls.Add(this._mDummyControl);
 
-			m_dockWindows = new DockWindowCollection(this);
+			this._mDockWindows = new DockWindowCollection(this);
 			Controls.AddRange(new Control[]	{
 				DockWindows[DockState.Document],
 				DockWindows[DockState.DockLeft],
@@ -61,7 +66,7 @@ namespace ARCed.UI
 				DockWindows[DockState.DockBottom]
 				});
 
-			m_dummyContent = new DockContent();
+			this._mDummyContent = new DockContent();
             ResumeLayout();
         }
         
@@ -94,7 +99,7 @@ namespace ARCed.UI
             }
         }
 
-		private AutoHideStripBase m_autoHideStripControl = null;
+		private AutoHideStripBase m_autoHideStripControl;
 		internal AutoHideStripBase AutoHideStripControl
 		{
 			get
@@ -133,19 +138,19 @@ namespace ARCed.UI
 			InvalidateWindowRegion();
 		}
 
-		private bool m_disposed = false;
+		private bool m_disposed;
 		protected override void Dispose(bool disposing)
 		{
 			lock (this)
 			{
 				if (!m_disposed && disposing)
 				{
-                    m_focusManager.Dispose();
+                    this._mFocusManager.Dispose();
 					if (m_mdiClientController != null)
 					{
-						m_mdiClientController.HandleAssigned -= new EventHandler(MdiClientHandleAssigned);
-						m_mdiClientController.MdiChildActivate -= new EventHandler(ParentFormMdiChildActivate);
-						m_mdiClientController.Layout -= new LayoutEventHandler(MdiClient_Layout);
+						m_mdiClientController.HandleAssigned -= this.MdiClientHandleAssigned;
+						m_mdiClientController.MdiChildActivate -= this.ParentFormMdiChildActivate;
+						m_mdiClientController.Layout -= this.MdiClient_Layout;
 						m_mdiClientController.Dispose();
 					}
 					FloatWindows.Dispose();
@@ -186,19 +191,19 @@ namespace ARCed.UI
             set { m_allowEndUserNestedDocking = value; }
         }
 
-        private DockContentCollection m_contents = new DockContentCollection();
+        private readonly DockContentCollection _mContents = new DockContentCollection();
 		[Browsable(false)]
 		public DockContentCollection Contents
 		{
-			get	{	return m_contents;	}
+			get	{	return this._mContents;	}
 		}
 
 		internal DockContent DummyContent
 		{
-			get	{	return m_dummyContent;	}
+			get	{	return this._mDummyContent;	}
 		}
 
-        private bool m_rightToLeftLayout = false;
+        private bool m_rightToLeftLayout;
         [DefaultValue(false)]
         [LocalizedCategory("Appearance")]
         [LocalizedDescription("DockPanel_RightToLeftLayout_Description")]
@@ -226,7 +231,7 @@ namespace ARCed.UI
             }
         }
 
-		private bool m_showDocumentIcon = false;
+		private bool m_showDocumentIcon;
 		[DefaultValue(false)]
 		[LocalizedCategory("Category_Docking")]
 		[LocalizedDescription("DockPanel_ShowDocumentIcon_Description")]
@@ -266,7 +271,7 @@ namespace ARCed.UI
 		[Browsable(false)]
 		public DockPanelExtender Extender
 		{
-			get	{	return m_extender;	}
+			get	{	return this._mExtender;	}
 		}
 
         [Browsable(false)]
@@ -299,7 +304,7 @@ namespace ARCed.UI
 		[Browsable(false)]
 		public DockPaneCollection Panes
 		{
-			get	{	return m_panes;	}
+			get	{	return this._mPanes;	}
 		}
 
 		internal Rectangle DockArea
@@ -420,7 +425,7 @@ namespace ARCed.UI
 		[Browsable(false)]
 		public DockWindowCollection DockWindows
 		{
-			get	{	return m_dockWindows;	}
+			get	{	return this._mDockWindows;	}
 		}
 
         public void UpdateDockWindowZOrder(DockStyle dockStyle, bool fullPanelEdge)
@@ -471,7 +476,7 @@ namespace ARCed.UI
         public IDockContent[] DocumentsToArray()
         {
             int count = DocumentsCount;
-            IDockContent[] documents = new IDockContent[count];
+            var documents = new IDockContent[count];
             int i = 0;
             foreach (IDockContent content in Documents)
             {
@@ -521,13 +526,13 @@ namespace ARCed.UI
 
 		private Control DummyControl
 		{
-			get	{	return m_dummyControl;	}
+			get	{	return this._mDummyControl;	}
 		}
 
 		[Browsable(false)]
 		public FloatWindowCollection FloatWindows
 		{
-			get	{	return m_floatWindows;	}
+			get	{	return this._mFloatWindows;	}
 		}
 
         private Size m_defaultFloatWindowSize = new Size(300, 300);
@@ -670,7 +675,7 @@ namespace ARCed.UI
 		    if (DockBackColor == BackColor) return;
 
 		    Graphics g = e.Graphics;
-		    SolidBrush bgBrush = new SolidBrush(DockBackColor);
+		    var bgBrush = new SolidBrush(DockBackColor);
 		    g.FillRectangle(bgBrush, ClientRectangle);
 		}
 
@@ -874,14 +879,14 @@ namespace ARCed.UI
 			}
 		}
 
-        private PaintEventHandler m_dummyControlPaintEventHandler = null;
+        private PaintEventHandler m_dummyControlPaintEventHandler;
         private void InvalidateWindowRegion()
         {
             if (DesignMode)
                 return;
 
             if (m_dummyControlPaintEventHandler == null)
-                m_dummyControlPaintEventHandler = new PaintEventHandler(DummyControl_Paint);
+                m_dummyControlPaintEventHandler = this.DummyControl_Paint;
 
             DummyControl.Paint += m_dummyControlPaintEventHandler;
             DummyControl.Invalidate();
@@ -912,7 +917,7 @@ namespace ARCed.UI
 		private void UpdateWindowRegion_EmptyDocumentArea()
 		{
 			Rectangle rect = DocumentWindowBounds;
-			SetRegion(new Rectangle[] { rect });
+			SetRegion(new[] { rect });
 		}
 
 		private void UpdateWindowRegion_ClipContent()
@@ -932,7 +937,7 @@ namespace ARCed.UI
                 return;
             }
 
-			Rectangle[] rects = new Rectangle[count];
+			var rects = new Rectangle[count];
 			int i = 0;
 			foreach (DockPane pane in this.Panes)
 			{
@@ -946,7 +951,7 @@ namespace ARCed.UI
 			SetRegion(rects);
 		}
 
-		private Rectangle[] m_clipRects = null;
+		private Rectangle[] m_clipRects;
 		private void SetRegion(Rectangle[] clipRects)
 		{
 			if (!IsClipRectsChanged(clipRects))
@@ -958,7 +963,7 @@ namespace ARCed.UI
 				Region = null;
 			else
 			{
-				Region region = new Region(new Rectangle(0, 0, this.Width, this.Height));
+				var region = new Region(new Rectangle(0, 0, this.Width, this.Height));
 				foreach (Rectangle rect in m_clipRects)
 					region.Exclude(rect);
 				Region = region;
@@ -1014,7 +1019,7 @@ namespace ARCed.UI
 		}
 		protected virtual void OnContentAdded(DockContentEventArgs e)
 		{
-			EventHandler<DockContentEventArgs> handler = (EventHandler<DockContentEventArgs>)Events[ContentAddedEvent];
+			var handler = (EventHandler<DockContentEventArgs>)Events[ContentAddedEvent];
 			if (handler != null)
 				handler(this, e);
 		}
@@ -1029,7 +1034,7 @@ namespace ARCed.UI
 		}
 		protected virtual void OnContentRemoved(DockContentEventArgs e)
 		{
-			EventHandler<DockContentEventArgs> handler = (EventHandler<DockContentEventArgs>)Events[ContentRemovedEvent];
+			var handler = (EventHandler<DockContentEventArgs>)Events[ContentRemovedEvent];
 			if (handler != null)
 				handler(this, e);
 		}

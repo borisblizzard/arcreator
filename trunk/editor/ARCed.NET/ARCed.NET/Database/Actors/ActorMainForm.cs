@@ -1,13 +1,16 @@
-﻿using System;
+﻿#region Using Directives
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
-using System.Windows.Forms.DataVisualization.Charting;
 using ARCed.Controls;
 using ARCed.Dialogs;
 using ARCed.Helpers;
-using ARCed.UI;
+using RPG;
+
+#endregion
 
 namespace ARCed.Database.Actors
 {
@@ -17,7 +20,7 @@ namespace ARCed.Database.Actors
 
 		private ParameterMiniChart[] _paramCharts;
 		private EquipSlot[] _equipSlots;
-		private RPG.Actor _actor;
+		private Actor _actor;
 
 		#endregion
 
@@ -41,7 +44,7 @@ namespace ARCed.Database.Actors
 
 		#region Construction
 
-		public ActorMainForm() : base()
+		public ActorMainForm()
 		{
 			InitializeComponent();
 			InitializeParameters();
@@ -63,15 +66,16 @@ namespace ARCed.Database.Actors
 			int width = groupBoxEquipment.Width - 13;
 			for (int i = 0; i < Project.Settings.EquipmentSettings.Count; i++)
 			{
-				EquipSlot slot = new EquipSlot() { Parent = groupBoxEquipment };
+				var slot = new EquipSlot
+				{ Parent = groupBoxEquipment };
 				slot.Configuration = Project.Settings.EquipmentSettings[i];
 				slot.Location = new Point(7, 19 + (i * 27));
 				slot.Size = new Size(width, slot.Size.Height);
 				slot.Anchor = AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Top;
 				_equipSlots[i] = slot;
 				panelEquipment.Controls.Add(slot);
-				slot.OnEquipmentChange += new EquipSlot.EquipmentChangedEventHandler(slot_OnEquipmentChange);
-				slot.OnEquipFixChange += new EquipSlot.EquipFixChangedEventHandler(slot_OnEquipFixChange);
+				slot.OnEquipmentChange += this.slot_OnEquipmentChange;
+				slot.OnEquipFixChange += this.slot_OnEquipFixChange;
 			}
 			panelEquipment.ResumeLayout();
 		}
@@ -87,7 +91,7 @@ namespace ARCed.Database.Actors
 			_paramCharts = new ParameterMiniChart[count];
 			for (int i = 0; i < count; i++)
 			{
-				ParameterMiniChart chart = new ParameterMiniChart();
+				var chart = new ParameterMiniChart();
 				chart.Dock = DockStyle.Fill;
 				chart.ParameterLabel = parameterNames[i];
 				chart.ParameterIndex = i;
@@ -102,7 +106,7 @@ namespace ARCed.Database.Actors
 
 		private void RefreshEquipmentSlots()
 		{
-			RPG.Class klass = Project.Data.Classes[_actor.class_id];
+			Class klass = Project.Data.Classes[_actor.class_id];
 			foreach (EquipSlot slot in _equipSlots)
 			{
 				if (slot.EquipKind < 0)
@@ -124,6 +128,7 @@ namespace ARCed.Database.Actors
 			}
 		}
 
+        /*
 		private void RefreshChart(int index = -1)
 		{
 			if (index == -1)
@@ -134,6 +139,7 @@ namespace ARCed.Database.Actors
 			else
 				_paramCharts[index].RefreshChart();
 		}
+         */
 
 		private void RefreshImages()
 		{
@@ -144,20 +150,20 @@ namespace ARCed.Database.Actors
 
 		private void RefreshGeneral()
 		{
-			suppressEvents = true;
+			SuppressEvents = true;
 			textBoxName.Text = _actor.name;
 			numericLevelInit.Value = _actor.initial_level;
 			numericLevelFinal.Value = _actor.final_level;
 			comboClass.SelectedIndex = _actor.class_id - 1;
 			textBoxExpCurve.Text = String.Format("Basis: {0}, Inflation: {1}",
 				_actor.exp_basis, _actor.exp_inflation);
-			suppressEvents = false;
+			SuppressEvents = false;
 		}
 
 		private void RefreshEquipment()
 		{
 			// Edit to allow dynamic slots
-			suppressEvents = true;
+			SuppressEvents = true;
 			_equipSlots[0].SetItemId(_actor.weapon_id);
 			_equipSlots[1].SetItemId(_actor.armor1_id);
 			_equipSlots[2].SetItemId(_actor.armor2_id);
@@ -168,7 +174,7 @@ namespace ARCed.Database.Actors
 			_equipSlots[2].Fixed = _actor.armor2_fix;
 			_equipSlots[3].Fixed = _actor.armor3_fix;
 			_equipSlots[4].Fixed = _actor.armor4_fix;
-			suppressEvents = false;
+			SuppressEvents = false;
 		}
 
 		#endregion
@@ -191,33 +197,33 @@ namespace ARCed.Database.Actors
 
 		public override void RefreshCurrentObject()
 		{
-			suppressEvents = true;
+			SuppressEvents = true;
 			RefreshGeneral();
 			RefreshEquipmentSlots();
 			RefreshEquipment();
 			RefreshImages();
 			foreach (ParameterMiniChart chart in _paramCharts)
 				chart.ChangeActor(_actor);
-			suppressEvents = false;
+			SuppressEvents = false;
 		}
 
 		#region Events
 
 		private void slot_OnEquipFixChange(object sender, EquipFixChangedEventArgs e)
 		{
-			if (!suppressEvents)
+			if (!SuppressEvents)
 			{
 				if (!String.IsNullOrEmpty(e.PropertyName))
-					typeof(RPG.Actor).GetProperty(e.PropertyName).SetValue(_actor, e.Fixed, null);
+					typeof(Actor).GetProperty(e.PropertyName).SetValue(_actor, e.Fixed, null);
 			}
 		}
 
 		private void slot_OnEquipmentChange(object sender, EquipmentChangedEventArgs e)
 		{
-			if (!suppressEvents)
+			if (!SuppressEvents)
 			{
 				if (!String.IsNullOrEmpty(e.PropertyName))
-					typeof(RPG.Actor).GetProperty(e.PropertyName).SetValue(_actor, e.EquipmentId, null);
+					typeof(Actor).GetProperty(e.PropertyName).SetValue(_actor, e.EquipmentId, null);
 			}
 		}
 
@@ -234,13 +240,13 @@ namespace ARCed.Database.Actors
 		private void contextImagesSizeMode_Clicked(object sender, EventArgs e)
 		{
 			int num = Convert.ToInt32((sender as ToolStripMenuItem).Tag);
-			PictureBoxSizeMode mode = (PictureBoxSizeMode)num;
+			var mode = (PictureBoxSizeMode)num;
 			(contextMenuImages.SourceControl as PictureBox).SizeMode = mode;
 		}
 
 		private void comboClass_SelectedIndexChanged(object sender, EventArgs e)
 		{
-			if (!suppressEvents)
+			if (!SuppressEvents)
 			{
 				_actor.class_id = comboClass.SelectedIndex + 1;
 				RefreshEquipmentSlots();
@@ -250,19 +256,19 @@ namespace ARCed.Database.Actors
 
 		private void numericLevelInit_ValueChanged(object sender, EventArgs e)
 		{
-			if (!suppressEvents)
+			if (!SuppressEvents)
 				_actor.initial_level = (int)numericLevelInit.Value;
 		}
 
 		private void numericLevelFinal_ValueChanged(object sender, EventArgs e)
 		{
-			if (!suppressEvents)
+			if (!SuppressEvents)
 				_actor.final_level = (int)numericLevelFinal.Value;
 		}
 
 		private void textBoxName_TextChanged(object sender, EventArgs e)
 		{
-			if (!suppressEvents)
+			if (!SuppressEvents)
 			{
 				_actor.name = textBoxName.Text;
 				int index = dataObjectList.SelectedIndex;
@@ -283,14 +289,14 @@ namespace ARCed.Database.Actors
 
 		private void buttonExperience_Click(object sender, EventArgs e)
 		{
-			ExperienceCurveForm form = new ExperienceCurveForm();
+			var form = new ExperienceCurveForm();
 			form.ChangeActor(_actor);
 			form.Show(Editor.MainDock);
 		}
 
 		private void pictureCharacter_DoubleClick(object sender, EventArgs e)
 		{
-			using (ImageSelectionForm dialog = 
+			using (var dialog = 
 				new ImageSelectionForm(@"Characters", _actor.character_name))
 			{
 				dialog.Hue = _actor.character_hue;
@@ -307,7 +313,7 @@ namespace ARCed.Database.Actors
 
 		private void pictureBattler_DoubleClick(object sender, EventArgs e)
 		{
-			using (ImageSelectionForm dialog =
+			using (var dialog =
 				new ImageSelectionForm(@"Battlers", _actor.battler_name))
 			{
 				dialog.Hue = _actor.battler_hue;

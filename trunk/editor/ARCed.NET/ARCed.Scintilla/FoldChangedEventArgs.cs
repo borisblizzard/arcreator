@@ -15,8 +15,8 @@ namespace ARCed.Scintilla
         #region Fields
 
         private int _line;
-        private int _newFoldLevel;
-        private int _previousFoldLevel;
+        private readonly int _newFoldLevel;
+        private readonly int _previousFoldLevel;
 
         #endregion Fields
 

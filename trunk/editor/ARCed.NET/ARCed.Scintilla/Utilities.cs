@@ -8,7 +8,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Forms;
 
-#endregion Using Directives
+#endregion
 
 
 namespace ARCed.Scintilla
@@ -104,7 +104,7 @@ namespace ARCed.Scintilla
             // This should be a little less wasteful than simply appending
             // a null terminator to the string and then converting it
             int byteCount = encoding.GetByteCount(text);
-            byte[] buffer = new byte[byteCount + 1];
+            var buffer = new byte[byteCount + 1];
 
             unsafe
             {
@@ -129,7 +129,7 @@ namespace ARCed.Scintilla
 
             // Find the length of the null terminated bytes
             int length = 0;
-            while (*((byte*)ptr + length) != (byte)0)
+            while (*((byte*)ptr + length) != 0)
                 length++;
 
             return IntPtrToString(encoding, ptr, length);
@@ -155,7 +155,7 @@ namespace ARCed.Scintilla
             if (length == 0)
                 return string.Empty;
 
-            byte[] buff = new byte[length];
+            var buff = new byte[length];
             Marshal.Copy(ptr, buff, 0, length);
 
             //	We don't want to carry over the Trailing null

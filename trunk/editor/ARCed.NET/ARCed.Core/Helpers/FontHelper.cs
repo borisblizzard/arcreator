@@ -1,11 +1,16 @@
-﻿using System;
+﻿#region Using Directives
+
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Text;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using ARCed.Core.Win32;
+
+#endregion
 
 namespace ARCed.Helpers
 {
@@ -18,7 +23,7 @@ namespace ARCed.Helpers
 	/// the application, or "UseCompatibleTextRendering" for individual controls.</remarks>
 	public static class FontHelper
 	{
-		private static List<string> _loadedPaths = new List<string>();
+		private static readonly List<string> _loadedPaths = new List<string>();
 		private static PrivateFontCollection _fonts;
 		private static Font _monoFont;
 		private static List<string> _installedFonts;
@@ -76,7 +81,7 @@ namespace ARCed.Helpers
 			{
 				if (_monoFont == null)
 				{
-					FontFamily family = new FontFamily(GenericFontFamilies.Monospace);
+					var family = new FontFamily(GenericFontFamilies.Monospace);
 					float size = SystemFonts.MessageBoxFont.Size;
 					_monoFont = new Font(family, size);
 				}
@@ -93,15 +98,11 @@ namespace ARCed.Helpers
 		/// <returns>Font loaded from memory, or null if font family could not be found.</returns>
 		public static Font GetMemoryFont(string familyName, float size, FontStyle style)
 		{
-			foreach (FontFamily family in Families)
-			{
-				if (family.Name == familyName)
-					return new Font(family, size, style);
-			}
-			return null;
+		    return (from family in Families where family.Name == familyName 
+                    select new Font(family, size, style)).FirstOrDefault();
 		}
 
-		/// <summary>
+	    /// <summary>
 		/// Gets a list of names of the system's installed fonts
 		/// </summary>
 		public static List<string> InstalledFonts
@@ -111,7 +112,7 @@ namespace ARCed.Helpers
 				if (_installedFonts == null)
 				{
 					_installedFonts = new List<string>();
-					using (InstalledFontCollection fonts = new InstalledFontCollection())
+					using (var fonts = new InstalledFontCollection())
 					{
 						foreach (var family in fonts.Families)
 							_installedFonts.Add(family.Name);
@@ -126,12 +127,7 @@ namespace ARCed.Helpers
 		/// </summary>
 		public static PrivateFontCollection FontCollection
 		{
-			get
-			{
-				if (_fonts == null)
-					_fonts = new PrivateFontCollection();
-				return _fonts;
-			}
+			get { return _fonts ?? (_fonts = new PrivateFontCollection()); }
 		}
 
 		/// <summary>
@@ -175,9 +171,8 @@ namespace ARCed.Helpers
 		/// <remarks>The stream will be closed automatically after the font is loaded</remarks>
 		public static void AddFont(Stream stream)
 		{
-			IntPtr ptr;
-			ptr = Marshal.AllocCoTaskMem((int)stream.Length);
-			byte[] data = new byte[stream.Length];
+		    IntPtr ptr = Marshal.AllocCoTaskMem((int)stream.Length);
+			var data = new byte[stream.Length];
 			stream.Read(data, 0, (int)stream.Length);
 			Marshal.Copy(data, 0, ptr, (int)stream.Length);
 			FontCollection.AddMemoryFont(ptr, (int)stream.Length);
@@ -192,7 +187,7 @@ namespace ARCed.Helpers
 		/// <returns>The result of the check</returns>
 		public static bool IsInstalled(string fontName)
 		{
-			using (Font testFont = new Font(fontName, 8))
+			using (var testFont = new Font(fontName, 8))
 			{
 				return 0 == string.Compare(
 				  fontName,

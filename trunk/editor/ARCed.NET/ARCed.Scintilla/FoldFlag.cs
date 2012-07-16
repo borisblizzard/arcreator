@@ -2,7 +2,7 @@
 
 using System;
 
-#endregion Using Directives
+#endregion
 
 
 namespace ARCed.Scintilla

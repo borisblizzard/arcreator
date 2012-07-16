@@ -7,7 +7,7 @@ using System.Globalization;
 using System.Reflection;
 using System.Text;
 
-#endregion Using Directives
+#endregion
 
 
 namespace ARCed.Scintilla
@@ -19,7 +19,7 @@ namespace ARCed.Scintilla
     ///     By default, whitespace is determined by the lexer in use. Setting the <see cref="ForeColor"/>
     ///     or <see cref="BackColor"/> properties overrides the lexer behavior.
     /// </remarks>
-    [TypeConverterAttribute(typeof(WhitespaceConverter))]
+    [TypeConverter(typeof(WhitespaceConverter))]
     public class Whitespace : TopLevelHelper
     {
         #region Constants
@@ -45,8 +45,8 @@ namespace ARCed.Scintilla
         ///     A <see cref="Color"/> that represents the background color of whitespace characters.
         ///     The default is <see cref="Color.Empty"/>.
         /// </returns>
-        /// <exception cref="ArgumentOutOfRange">
-        ///     The specified <paramref name="value"/> has an alpha value that is less that <see cref="Byte.MaxValue"/>.
+        /// <exception cref="System.ArgumentOutOfRangeException">
+        ///     The specified <paramref name="value"/> has an alpha value that is less that <see cref="byte.MaxValue"/>.
         /// </exception>
         [DefaultValue(typeof(Color), ""), NotifyParentProperty(true), RefreshProperties(RefreshProperties.Repaint)]
         [Category("Appearance"), Description("The background color of whitespace characters.")]
@@ -92,8 +92,8 @@ namespace ARCed.Scintilla
         ///     A <see cref="Color"/> that represents the foreground color of whitespace characters.
         ///     The default is <see cref="Color.Empty"/>.
         /// </returns>
-        /// <exception cref="ArgumentOutOfRange">
-        ///     The specified <paramref name="value"/> has an alpha value that is less that <see cref="Byte.MaxValue"/>.
+        /// <exception cref="System.ArgumentOutOfRangeException">
+        ///     The specified <paramref name="value"/> has an alpha value that is less that <see cref="byte.MaxValue"/>.
         /// </exception>
         [DefaultValue(typeof(Color), ""), NotifyParentProperty(true), RefreshProperties(RefreshProperties.Repaint)]
         [Category("Appearance"), Description("The foreground color of whitespace characters.")]
@@ -178,14 +178,14 @@ namespace ARCed.Scintilla
                 try
                 {
                     // Enumerate all the public properties
-                    StringBuilder sb = new StringBuilder();
+                    var sb = new StringBuilder();
                     foreach (PropertyInfo pi in context.PropertyDescriptor.PropertyType.GetProperties(BindingFlags.Instance | BindingFlags.Public))
                     {
                         // Look for a DefaultAttribute and see if the value has changed
                         object[] attributes = pi.GetCustomAttributes(typeof(DefaultValueAttribute), true);
                         if (attributes != null && attributes.Length > 0)
                         {
-                            DefaultValueAttribute dv = (DefaultValueAttribute)attributes[0];
+                            var dv = (DefaultValueAttribute)attributes[0];
                             object propertyValue = pi.GetValue(value, null);
                             if (!dv.Value.Equals(propertyValue))
                             {

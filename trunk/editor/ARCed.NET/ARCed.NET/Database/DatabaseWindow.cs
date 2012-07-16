@@ -1,39 +1,110 @@
-﻿using System;
+﻿#region Using Directives
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Drawing;
 using System.Windows.Forms;
 using ARCed.Controls;
 using ARCed.Dialogs;
 using ARCed.Helpers;
-using System.Drawing;
 using ARCed.UI;
+
+#endregion
 
 namespace ARCed.Database
 {
+    /// <summary>
+    /// Flags to specifiy what data structures need refreshed.
+    /// </summary>
+    [Flags]
 	public enum RefreshType
 	{
+        /// <summary>
+        /// Actor data needs refreshed flag.
+        /// </summary>
 		Actors,
+        /// <summary>
+        /// Class data needs refreshed flag.
+        /// </summary>
 		Classes,
+        /// <summary>
+        /// Skill data needs refreshed flag.
+        /// </summary>
 		Skills,
+        /// <summary>
+        /// Item data needs refreshed flag.
+        /// </summary>
 		Items,
+        /// <summary>
+        /// Weapon data needs refreshed flag.
+        /// </summary>
 		Weapons,
+        /// <summary>
+        /// Armor data needs refreshed flag.
+        /// </summary>
 		Armors,
+        /// <summary>
+        /// Enemy data needs refreshed flag.
+        /// </summary>
 		Enemies,
+        /// <summary>
+        /// Troop data needs refreshed flag.
+        /// </summary>
 		Troops,
+        /// <summary>
+        /// State data needs refreshed flag.
+        /// </summary>
 		States,
+        /// <summary>
+        /// Animation data needs refreshed flag.
+        /// </summary>
 		Animations,
+        /// <summary>
+        /// Tileset data needs refreshed flag.
+        /// </summary>
 		Tilesets,
+        /// <summary>
+        /// COmmon event data needs refreshed flag.
+        /// </summary>
 		CommonEvents,
+        /// <summary>
+        /// System data needs refreshed flag.
+        /// </summary>
 		System,
+        /// <summary>
+        /// Switch data needs refreshed flag.
+        /// </summary>
 		Switches,
+        /// <summary>
+        /// Variable data needs refreshed flag.
+        /// </summary>
 		Variables,
+        /// <summary>
+        /// Parameter data needs refreshed flag.
+        /// </summary>
 		Parameters,
+        /// <summary>
+        /// Equip kind data needs refreshed flag.
+        /// </summary>
 		EquipKinds,
+        /// <summary>
+        /// Element data needs refreshed flag.
+        /// </summary>
 		Elements,
+        /// <summary>
+        /// Scope data needs refreshed flag.
+        /// </summary>
 		Scopes,
+        /// <summary>
+        /// Occasion data needs refreshed flag.
+        /// </summary>
 		Occasions
 	}
 
+    /// <summary>
+    /// Base class for database forms.
+    /// </summary>
 	public class DatabaseWindow : DockContent
 	{
 		private Image _imageIcon;
@@ -41,8 +112,7 @@ namespace ARCed.Database
 		/// <summary>
 		/// Flag if control changing should cause events to be raised.
 		/// </summary>
-		protected bool suppressEvents;
-
+		protected bool SuppressEvents;
 		/// <summary>
 		/// Gets the instance of the windows DatabaseObjectListBox or null if there is not one.
 		/// </summary>
@@ -58,13 +128,11 @@ namespace ARCed.Database
 		[Browsable(false)]
 		public Type RpgType
 		{
-			get 
+			get
 			{
-				if (String.IsNullOrEmpty(RpgTypeName))
+			    if (String.IsNullOrEmpty(RpgTypeName))
 					return null;
-				if (_rpgType == null)
-					_rpgType = Util.ARCedAssembly.GetType(RpgTypeName);
-				return _rpgType;
+			    return this._rpgType ?? (this._rpgType = Util.ARCedAssembly.GetType(this.RpgTypeName));
 			}
 		}
 		/// <summary>
@@ -89,12 +157,12 @@ namespace ARCed.Database
 		/// <summary>
 		/// Default constructor
 		/// </summary>
-		public DatabaseWindow() : base()
+		public DatabaseWindow()
 		{
-			Load += new EventHandler(DatabaseWindow_Load);
-			FormClosing += new System.Windows.Forms.FormClosingEventHandler(DatabaseWindow_FormClosing);
-			this.DefaultFloatSize = new System.Drawing.Size(800, 600);
-			this.ShowHint = UI.DockState.Document;
+			Load += this.DatabaseWindowLoad;
+			FormClosing += this.DatabaseWindowFormClosing;
+			DefaultFloatSize = new Size(800, 600);
+			ShowHint = DockState.Document;
 		}
 
 		/// <summary>
@@ -105,13 +173,14 @@ namespace ARCed.Database
 			DataObjectList.RefreshHeader();
 		}
 
-		/// <summary>
-		/// Refreshes the current game object selected
-		/// </summary>
-		/// <remarks>This method must be overridden in inherited classes</remarks>
-		public virtual void RefreshCurrentObject() 
+        /// <summary>
+        /// Refreshes the current game object selected
+        /// </summary>
+        /// <exception cref="NotImplementedException">Thrown when method has not been overridden.</exception>
+        /// <remarks>This method must be overridden in inherited classes</remarks>
+        public virtual void RefreshCurrentObject() 
 		{
-			throw new NotImplementedException();
+            throw new NotImplementedException("Method needs to be overridden in inherited classes.");
 		}
 
 		/// <summary>
@@ -127,10 +196,10 @@ namespace ARCed.Database
 		/// Sets the form's icon using the given Bitmap object.
 		/// </summary>
 		/// <param name="image">Bitmap to create Icon from.</param>
-		public virtual void SetWindowIcon(System.Drawing.Image image)
+		public virtual void SetWindowIcon(Image image)
 		{
 			_imageIcon = image;
-			this.Icon = Icon.FromHandle((image as Bitmap).GetHicon());
+			Icon = Icon.FromHandle(((Bitmap)image).GetHicon());
 		}
 
 		/// <summary>
@@ -138,13 +207,13 @@ namespace ARCed.Database
 		/// </summary>
 		/// <param name="sender">Invoker of the event</param>
 		/// <param name="e">Event arguments</param>
-		private void DatabaseWindow_Load(object sender, EventArgs e)
+		private void DatabaseWindowLoad(object sender, EventArgs e)
 		{
 			if (!Windows.DatabaseForms.Contains(this))
 				Windows.DatabaseForms.Add(this);
 			if (DataObjectList != null)
 			{
-				DataObjectList.OnButtonMaxClick += (s, ev) => { ChangeCapacity(); };
+				DataObjectList.OnButtonMaxClick += (s, ev) => this.ChangeCapacity();
 			}
 		}
 
@@ -153,7 +222,7 @@ namespace ARCed.Database
 		/// </summary>
 		/// <param name="sender">Invoker of the event</param>
 		/// <param name="e">Event arguments</param>
-		private void DatabaseWindow_FormClosing(object sender, System.Windows.Forms.FormClosingEventArgs e)
+		private void DatabaseWindowFormClosing(object sender, FormClosingEventArgs e)
 		{
 			if (Windows.DatabaseForms.Contains(this))
 				Windows.DatabaseForms.Remove(this);
@@ -162,24 +231,22 @@ namespace ARCed.Database
 		/// <summary>
 		/// Changes the capcity of the given game object collection.
 		/// </summary>
-		/// <typeparam name="T">Type of items the collection contains</typeparam>
-		/// <param name="list">Instance of the collection</param>
 		protected void ChangeCapacity()
 		{
 			if (RpgType == null || DataObjectList == null)
 				return;
-			int current = Data.Count - 1;
-			int max = current;
-			using (ChangeMaxDialog dialog = new ChangeMaxDialog(current, 1, 9999))
+			var current = Data.Count - 1;
+			var max = current;
+			using (var dialog = new ChangeMaxDialog(current, 1, 9999))
 			{
 				if (dialog.ShowDialog() == DialogResult.OK)
 					max = dialog.MaxValue;
 			}
 			if (current == max)
 				return;
-			int listBoxGeneration = GC.GetGeneration(DataObjectList);
-			int listGeneration = GC.GetGeneration(Data);
-			int index = DataObjectList.SelectedIndex;
+			var listBoxGeneration = GC.GetGeneration(DataObjectList);
+			var listGeneration = GC.GetGeneration(Data);
+			var index = DataObjectList.SelectedIndex;
 			if (current > max)
 				Data.RemoveRange(max + 1, current - max);
 			else if (current < max)
@@ -197,13 +264,14 @@ namespace ARCed.Database
 			GC.Collect(listBoxGeneration, GCCollectionMode.Forced);
 		}
 
-		/// <summary>
-		/// Refreshes objects by type flag
-		/// </summary>
-		/// <param name="type">Flag for type of object to refresh</param>
-		/// <remarks>This methods is to be overridden in inherited classes.</remarks>
-		/// <exception cref="System.NotImplementedException">Thrown when method is not overridden in inherited class</exception>
-		public virtual void NotifyRefresh(RefreshType type)
+        /// <summary>
+        /// Refreshes objects by type flag
+        /// </summary>
+        /// <param name="type">Flag for type of object to refresh</param>
+        /// <exception cref="NotImplementedException">Thrown when method is not overridden.</exception>
+        /// <remarks>This methods is to be overridden in inherited classes.</remarks>
+        /// <exception cref="System.NotImplementedException">Thrown when method is not overridden in inherited class</exception>
+        public virtual void NotifyRefresh(RefreshType type)
 		{
 			throw new NotImplementedException("Method needs to be overridden in inherited classes.");
 		}

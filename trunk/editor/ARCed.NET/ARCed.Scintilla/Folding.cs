@@ -2,13 +2,15 @@
 
 using System.ComponentModel;
 using System.Drawing;
+using System.Drawing.Design;
+using ARCed.Scintilla.Design;
 
-#endregion Using Directives
+#endregion
 
 
 namespace ARCed.Scintilla
 {
-    [TypeConverterAttribute(typeof(System.ComponentModel.ExpandableObjectConverter))]
+    [TypeConverter(typeof(ExpandableObjectConverter))]
     public class Folding : TopLevelHelper
     {
         #region Fields
@@ -23,7 +25,7 @@ namespace ARCed.Scintilla
 
         private void ResetFlags()
         {
-            Flags = (FoldFlag)0;
+            Flags = 0;
         }
 
 
@@ -85,7 +87,7 @@ namespace ARCed.Scintilla
         /// <summary>
         ///     Read or change the Flags associated with a fold. The default value is 0.
         /// </summary>
-        [Editor(typeof(ARCed.Scintilla.Design.FlagEnumUIEditor), typeof(System.Drawing.Design.UITypeEditor)), Category("Appearance")]
+        [Editor(typeof(FlagEnumUIEditor), typeof(UITypeEditor)), Category("Appearance")]
         public FoldFlag Flags
         {
             get

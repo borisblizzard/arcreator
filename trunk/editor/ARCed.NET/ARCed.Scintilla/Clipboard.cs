@@ -4,7 +4,7 @@ using System;
 using System.ComponentModel;
 using System.Security.Permissions;
 
-#endregion Using Directives
+#endregion
 
 
 namespace ARCed.Scintilla
@@ -12,7 +12,7 @@ namespace ARCed.Scintilla
     /// <summary>
     ///     Provides methods to place data on and retrieve data from the system Clipboard.
     /// </summary>
-    [TypeConverterAttribute(typeof(System.ComponentModel.ExpandableObjectConverter))]
+    [TypeConverter(typeof(ExpandableObjectConverter))]
     public class Clipboard : TopLevelHelper
     {
         #region Methods

@@ -1,10 +1,15 @@
-﻿using System;
+﻿#region Using Directives
+
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 using ARCed.Core;
 using ARCed.Helpers;
+using ARCed.Properties;
+
+#endregion
 
 namespace ARCed.Dialogs
 {
@@ -34,7 +39,7 @@ namespace ARCed.Dialogs
 		/// </summary>
 		public int Hue
 		{
-			get { return (int)trackBarHue.Value; }
+			get { return this.trackBarHue.Value; }
 			set { trackBarHue.Value = value.Clamp(0, 359); }
 		}
 
@@ -132,9 +137,9 @@ namespace ARCed.Dialogs
 
 		public void SetDefaultOptions(string folder)
 		{
-			List<string> hue = new List<string> { "Animations", "Battlers", "Characters",
+			var hue = new List<string> { "Animations", "Battlers", "Characters",
 				"Fogs", "Panoramas", "Pictures" };
-			List<string> options = new List<string> { "Battlers", "Fogs" };
+			var options = new List<string> { "Battlers", "Fogs" };
 			OptionsEnabled = options.Contains(folder);
 			HueEnabled = hue.Contains(folder);
 			AdvancedOptionEnabled = (folder == "Fogs");
@@ -145,7 +150,6 @@ namespace ARCed.Dialogs
 		/// </summary>
 		/// <param name="folder">Root folder searched for images</param>
 		/// <param name="filename">FullPath (without extension) of the _srcTexture that is found in the current folder</param>
-		/// <param name="hue">Amount of hue rotation applied to the _srcTexture</param>
 		public ImageSelectionForm(string folder, string filename) : this()
 		{
 			// Find all valid filenames
@@ -220,13 +224,13 @@ namespace ARCed.Dialogs
 			switch (_folder)
 			{
 				case @"Graphics\Animations":
-					pictureBox.Image = new Bitmap(Cache.Animation(_filename, (int)trackBarHue.Value));
+					pictureBox.Image = new Bitmap(Cache.Animation(_filename, this.trackBarHue.Value));
 					break;
 				case @"Graphics\Characters": 
-					pictureBox.Image = new Bitmap(Cache.Character(_filename, (int)trackBarHue.Value));
+					pictureBox.Image = new Bitmap(Cache.Character(_filename, this.trackBarHue.Value));
 					break;
 				case @"Graphics\Battlers":
-					pictureBox.Image = new Bitmap(Cache.Battler(_filename, (int)trackBarHue.Value));
+					pictureBox.Image = new Bitmap(Cache.Battler(_filename, this.trackBarHue.Value));
 					break;
 				case @"Graphics\Icons":
 					pictureBox.Image = new Bitmap(Cache.Icon(_filename));
@@ -242,10 +246,10 @@ namespace ARCed.Dialogs
 					break;
 				case @"Graphics\Fogs":
 					pictureBox.Image = 
-						new Bitmap(Cache.Fog(_filename, (int)trackBarHue.Value));
+						new Bitmap(Cache.Fog(_filename, this.trackBarHue.Value));
 					break;
 				case @"Graphics\Panoramas":
-					pictureBox.Image = new Bitmap(Cache.Panorama(_filename, (int)trackBarHue.Value));
+					pictureBox.Image = new Bitmap(Cache.Panorama(_filename, this.trackBarHue.Value));
 					break;
 			}
 		}
@@ -289,9 +293,9 @@ namespace ARCed.Dialogs
 				if (index > 0)
 				{
 					if (_resources[index].Location == Core.Location.Local)
-						e.Graphics.DrawImageUnscaled(Properties.Resources.ResourceLocal, e.Bounds);
+						e.Graphics.DrawImageUnscaled(Resources.ResourceLocal, e.Bounds);
 					else
-						e.Graphics.DrawImageUnscaled(Properties.Resources.ResourceRTP, e.Bounds);
+						e.Graphics.DrawImageUnscaled(Resources.ResourceRTP, e.Bounds);
 				}
 				e.Graphics.DrawString("     " + str, e.Font, Brushes.Black, e.Bounds);
 				e.DrawFocusRectangle();
@@ -311,7 +315,7 @@ namespace ARCed.Dialogs
 
 		private void buttonColor_Click(object sender, EventArgs e)
 		{
-			using (ColorChooserForm dialog = new ColorChooserForm())
+			using (var dialog = new ColorChooserForm())
 			{
 				dialog.AlphaEnabled = false;
                 dialog.Color = Editor.Settings.ImageColorSettings.BackgroundColor.ToSystemColor();

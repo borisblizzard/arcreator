@@ -1,6 +1,10 @@
+#region Using Directives
+
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
+
+#endregion
 
 namespace ARCed.UI
 {
@@ -114,16 +118,16 @@ namespace ARCed.UI
 
 		internal DockPanelExtender(DockPanel dockPanel)
 		{
-			m_dockPanel = dockPanel;
+			this._mDockPanel = dockPanel;
 		}
 
-		private DockPanel m_dockPanel;
+        private readonly DockPanel _mDockPanel;
 		private DockPanel DockPanel
 		{
-			get	{	return m_dockPanel;	}
+			get	{	return this._mDockPanel;	}
 		}
 
-		private IDockPaneFactory m_dockPaneFactory = null;
+		private IDockPaneFactory m_dockPaneFactory;
 		public IDockPaneFactory DockPaneFactory
 		{
 			get
@@ -142,7 +146,7 @@ namespace ARCed.UI
 			}
 		}
 
-		private IFloatWindowFactory m_floatWindowFactory = null;
+		private IFloatWindowFactory m_floatWindowFactory;
 		public IFloatWindowFactory FloatWindowFactory
 		{
 			get
@@ -161,7 +165,7 @@ namespace ARCed.UI
 			}
 		}
 
-		private IDockPaneCaptionFactory m_dockPaneCaptionFactory = null;
+		private IDockPaneCaptionFactory m_dockPaneCaptionFactory;
 		public IDockPaneCaptionFactory DockPaneCaptionFactory
 		{	
 			get
@@ -180,7 +184,7 @@ namespace ARCed.UI
 			}
 		}
 
-		private IDockPaneStripFactory m_dockPaneStripFactory = null;
+		private IDockPaneStripFactory m_dockPaneStripFactory;
 		public IDockPaneStripFactory DockPaneStripFactory
 		{
 			get
@@ -199,7 +203,7 @@ namespace ARCed.UI
 			}
 		}
 
-		private IAutoHideStripFactory m_autoHideStripFactory = null;
+		private IAutoHideStripFactory m_autoHideStripFactory;
 		public IAutoHideStripFactory AutoHideStripFactory
 		{	
 			get

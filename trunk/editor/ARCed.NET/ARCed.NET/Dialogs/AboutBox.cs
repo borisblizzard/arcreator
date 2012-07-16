@@ -1,11 +1,19 @@
-﻿using System;
+﻿#region Using Directives
+
+using System;
+using System.Collections;
 using System.Collections.Specialized;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Reflection;
+using System.Resources;
+using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using Microsoft.Win32;
+
+#endregion
 
 namespace ARCed.Dialogs
 {
@@ -23,7 +31,7 @@ namespace ARCed.Dialogs
 			InitializeComponent();
 		}
 
-		private bool _IsPainted = false;
+	    private bool _IsPainted;
 		private string _EntryAssemblyName;
 		private string _CallingAssemblyName;
 		private string _ExecutingAssemblyName;
@@ -183,7 +191,7 @@ namespace ARCed.Dialogs
 			}
 			set
 			{
-				if (value == null || value == "")
+				if (String.IsNullOrEmpty(value))
 				{
 					MoreRichTextBox.Visible = false;
 				}
@@ -214,11 +222,11 @@ namespace ARCed.Dialogs
 		// exception-safe retrieval of LastWriteTime for this assembly.
 		// </summary>
 		// <returns>File.GetLastWriteTime, or DateTime.MaxValue if exception was encountered.</returns>
-		private DateTime AssemblyLastWriteTime(Assembly a)
+		private static DateTime AssemblyLastWriteTime(Assembly a)
 		{
 			try
 			{
-				if (a.Location == null || a.Location == "")
+				if (String.IsNullOrEmpty(a.Location))
 					return DateTime.MaxValue;
 				try
 				{
@@ -289,8 +297,8 @@ namespace ARCed.Dialogs
 			string TypeName;
 			string Name;
 			string Value;
-			NameValueCollection nvc = new NameValueCollection();
-			Regex r = new Regex(@"(\.Assembly|\.)(?<Name>[^.]*)Attribute$", RegexOptions.IgnoreCase);
+			var nvc = new NameValueCollection();
+			var r = new Regex(@"(\.Assembly|\.)(?<Name>[^.]*)Attribute$", RegexOptions.IgnoreCase);
 
 			foreach (object attrib in a.GetCustomAttributes(false))
 			{
@@ -302,47 +310,47 @@ namespace ARCed.Dialogs
 					case "System.CLSCompliantAttribute":
 						Value = ((CLSCompliantAttribute)attrib).IsCompliant.ToString(); break;
 					case "System.Diagnostics.DebuggableAttribute":
-						Value = ((System.Diagnostics.DebuggableAttribute)attrib).IsJITTrackingEnabled.ToString(); break;
+						Value = ((DebuggableAttribute)attrib).IsJITTrackingEnabled.ToString(); break;
 					case "System.Reflection.AssemblyCompanyAttribute":
-						Value = ((AssemblyCompanyAttribute)attrib).Company.ToString(); break;
+						Value = ((AssemblyCompanyAttribute)attrib).Company; break;
 					case "System.Reflection.AssemblyConfigurationAttribute":
-						Value = ((AssemblyConfigurationAttribute)attrib).Configuration.ToString(); break;
+						Value = ((AssemblyConfigurationAttribute)attrib).Configuration; break;
 					case "System.Reflection.AssemblyCopyrightAttribute":
-						Value = ((AssemblyCopyrightAttribute)attrib).Copyright.ToString(); break;
+						Value = ((AssemblyCopyrightAttribute)attrib).Copyright; break;
 					case "System.Reflection.AssemblyDefaultAliasAttribute":
-						Value = ((AssemblyDefaultAliasAttribute)attrib).DefaultAlias.ToString(); break;
+						Value = ((AssemblyDefaultAliasAttribute)attrib).DefaultAlias; break;
 					case "System.Reflection.AssemblyDelaySignAttribute":
 						Value = ((AssemblyDelaySignAttribute)attrib).DelaySign.ToString(); break;
 					case "System.Reflection.AssemblyDescriptionAttribute":
-						Value = ((AssemblyDescriptionAttribute)attrib).Description.ToString(); break;
+						Value = ((AssemblyDescriptionAttribute)attrib).Description; break;
 					case "System.Reflection.AssemblyInformationalVersionAttribute":
-						Value = ((AssemblyInformationalVersionAttribute)attrib).InformationalVersion.ToString(); break;
+						Value = ((AssemblyInformationalVersionAttribute)attrib).InformationalVersion; break;
 					case "System.Reflection.AssemblyKeyFileAttribute":
-						Value = ((AssemblyKeyFileAttribute)attrib).KeyFile.ToString(); break;
+						Value = ((AssemblyKeyFileAttribute)attrib).KeyFile; break;
 					case "System.Reflection.AssemblyProductAttribute":
-						Value = ((AssemblyProductAttribute)attrib).Product.ToString(); break;
+						Value = ((AssemblyProductAttribute)attrib).Product; break;
 					case "System.Reflection.AssemblyTrademarkAttribute":
-						Value = ((AssemblyTrademarkAttribute)attrib).Trademark.ToString(); break;
+						Value = ((AssemblyTrademarkAttribute)attrib).Trademark; break;
 					case "System.Reflection.AssemblyTitleAttribute":
-						Value = ((AssemblyTitleAttribute)attrib).Title.ToString(); break;
+						Value = ((AssemblyTitleAttribute)attrib).Title; break;
 					case "System.Resources.NeutralResourcesLanguageAttribute":
-						Value = ((System.Resources.NeutralResourcesLanguageAttribute)attrib).CultureName.ToString(); break;
+						Value = ((NeutralResourcesLanguageAttribute)attrib).CultureName; break;
 					case "System.Resources.SatelliteContractVersionAttribute":
-						Value = ((System.Resources.SatelliteContractVersionAttribute)attrib).Version.ToString(); break;
+						Value = ((SatelliteContractVersionAttribute)attrib).Version; break;
 					case "System.Runtime.InteropServices.ComCompatibleVersionAttribute":
 						{
-							System.Runtime.InteropServices.ComCompatibleVersionAttribute x;
-							x = ((System.Runtime.InteropServices.ComCompatibleVersionAttribute)attrib);
+							ComCompatibleVersionAttribute x;
+							x = ((ComCompatibleVersionAttribute)attrib);
 							Value = x.MajorVersion + "." + x.MinorVersion + "." + x.RevisionNumber + "." + x.BuildNumber; break;
 						}
 					case "System.Runtime.InteropServices.ComVisibleAttribute":
-						Value = ((System.Runtime.InteropServices.ComVisibleAttribute)attrib).Value.ToString(); break;
+						Value = ((ComVisibleAttribute)attrib).Value.ToString(); break;
 					case "System.Runtime.InteropServices.GuidAttribute":
-						Value = ((System.Runtime.InteropServices.GuidAttribute)attrib).Value.ToString(); break;
+						Value = ((GuidAttribute)attrib).Value; break;
 					case "System.Runtime.InteropServices.TypeLibVersionAttribute":
 						{
-							System.Runtime.InteropServices.TypeLibVersionAttribute x;
-							x = ((System.Runtime.InteropServices.TypeLibVersionAttribute)attrib);
+							TypeLibVersionAttribute x;
+							x = ((TypeLibVersionAttribute)attrib);
 							Value = x.MajorVersion + "." + x.MinorVersion; break;
 						}
 					case "System.Security.AllowPartiallyTrustedCallersAttribute":
@@ -409,10 +417,10 @@ namespace ARCed.Dialogs
 			return nvc;
 		}
 
-		// <summary>
-		// reads an HKLM Windows Registry key value
-		// </summary>
-		private string RegistryHklmValue(string KeyName, string SubKeyRef)
+		/// <summary>
+		/// Reads an HKLM Windows Registry key value
+		/// </summary>
+		private static string RegistryHklmValue(string KeyName, string SubKeyRef)
 		{
 			RegistryKey rk;
 			try
@@ -451,7 +459,7 @@ namespace ARCed.Dialogs
 
 			try
 			{
-				System.Diagnostics.Process.Start(strSysInfoPath);
+				Process.Start(strSysInfoPath);
 			}
 			catch (Exception)
 			{
@@ -467,11 +475,11 @@ namespace ARCed.Dialogs
 		// <summary>
 		// populate a listview with the specified key and value strings
 		// </summary>
-		private void Populate(ListView lvw, string Key, string Value)
+		private static void Populate(ListView lvw, string Key, string Value)
 		{
 			if (Value == "")
 				return;
-			ListViewItem lvi = new ListViewItem();
+			var lvi = new ListViewItem();
 			lvi.Text = Key;
 			lvi.SubItems.Add(Value);
 			lvw.Items.Add(lvi);
@@ -482,7 +490,7 @@ namespace ARCed.Dialogs
 		// </summary>
 		private void PopulateAppInfo()
 		{
-			AppDomain d = System.AppDomain.CurrentDomain;
+			AppDomain d = AppDomain.CurrentDomain;
 			Populate(AppInfoListView, "Application Name", d.SetupInformation.ApplicationName);
 			Populate(AppInfoListView, "Application Base", d.SetupInformation.ApplicationBase);
 			Populate(AppInfoListView, "Cache Path", d.SetupInformation.CachePath);
@@ -519,7 +527,7 @@ namespace ARCed.Dialogs
 
 			string strAssemblyName = a.GetName().Name;
 
-			ListViewItem lvi = new ListViewItem();
+			var lvi = new ListViewItem();
 			lvi.Text = strAssemblyName;
 			lvi.Tag = strAssemblyName;
 			if (strAssemblyName == _CallingAssemblyName)
@@ -555,7 +563,7 @@ namespace ARCed.Dialogs
 			}
 			else
 			{
-				return _EntryAssemblyAttribCollection[strName].ToString();
+				return this._EntryAssemblyAttribCollection[strName];
 			}
 		}
 
@@ -642,7 +650,7 @@ namespace ARCed.Dialogs
 		// <summary>
 		// matches assembly by Assembly.GetName.Name; returns nothing if no match
 		// </summary>
-		private Assembly MatchAssemblyByName(string AssemblyName)
+		private static Assembly MatchAssemblyByName(string AssemblyName)
 		{
 			foreach (Assembly a in AppDomain.CurrentDomain.GetAssemblies())
 			{
@@ -782,7 +790,7 @@ namespace ARCed.Dialogs
 		{
 			try
 			{
-				System.Diagnostics.Process.Start(e.LinkText);
+				Process.Start(e.LinkText);
 			}
 			catch (Exception)
 			{
@@ -792,10 +800,10 @@ namespace ARCed.Dialogs
 		// <summary>
 		// things to do when the selected tab is changed
 		// </summary>
-		class ListViewItemComparer : System.Collections.IComparer
+		class ListViewItemComparer : IComparer
 		{
-			private int _intCol;
-			private bool _IsAscending = true;
+			private readonly int _intCol;
+			private readonly bool _IsAscending = true;
 
 			public ListViewItemComparer()
 			{

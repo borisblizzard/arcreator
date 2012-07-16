@@ -1,9 +1,15 @@
-﻿using System;
+﻿#region Using Directives
+
+using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 using ARCed.Database.Actors;
+using RPG;
+using Color = System.Drawing.Color;
+
+#endregion
 
 namespace ARCed.Controls
 {
@@ -60,8 +66,8 @@ namespace ARCed.Controls
 
 		#region Private Fields
 
-		private RPG.Actor _actor;
-		private int _paramIndex = 0;
+		private Actor _actor;
+	    private int _paramIndex;
 
 		#endregion
 
@@ -103,7 +109,7 @@ namespace ARCed.Controls
 		/// Changes the actor the chart is displaying information of.
 		/// </summary>
 		/// <param name="actor"></param>
-		public void ChangeActor(RPG.Actor actor)
+		public void ChangeActor(Actor actor)
 		{
 			_actor = actor;
 			RefreshChart();
@@ -115,16 +121,18 @@ namespace ARCed.Controls
 
 		private void ParameterMiniChart_DoubleClick(object sender, EventArgs e)
 		{
+		    ActorParametersForm window;
 			foreach (Form form in Windows.DatabaseForms)
 			{
-				if (form is ActorParametersForm && ((ActorParametersForm)form).Actor == _actor)
-				{
-					(form as ActorParametersForm).ParameterIndex = _paramIndex;
-					form.Activate();
+                window = (ActorParametersForm)form;
+                if (window != null && window.Actor == _actor)
+                {
+					window.ParameterIndex = _paramIndex;
+					window.Activate();
 					return;
 				}
 			}
-			ActorParametersForm window = new ActorParametersForm(_actor, _paramIndex);
+			window = new ActorParametersForm(_actor, _paramIndex);
 			window.Show(Editor.MainDock);
 		}
 

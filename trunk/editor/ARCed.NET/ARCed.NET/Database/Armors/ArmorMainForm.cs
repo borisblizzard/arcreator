@@ -1,10 +1,14 @@
-﻿using System;
+﻿#region Using Directives
+
+using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using ARCed.Controls;
 using ARCed.Dialogs;
 using ARCed.Helpers;
-using ARCed.UI;
+using RPG;
+
+#endregion
 
 namespace ARCed.Database.Armors
 {
@@ -13,7 +17,7 @@ namespace ARCed.Database.Armors
 
 		#region Private Fields
 
-		private RPG.Armor _armor;
+		private Armor _armor;
 
 		#endregion
 
@@ -36,7 +40,7 @@ namespace ARCed.Database.Armors
 		/// <summary>
 		/// Default constructor
 		/// </summary>
-		public ArmorMainForm() : base()
+		public ArmorMainForm()
 		{
 			InitializeComponent();
 			InitializeElements();
@@ -100,7 +104,7 @@ namespace ARCed.Database.Armors
 
 		public override void RefreshCurrentObject()
 		{
-			suppressEvents = true;
+			SuppressEvents = true;
 			textBoxName.Text = _armor.name;
 			textBoxDescription.Text = _armor.description;
 			comboBoxKind.SelectedIndex = _armor.kind;
@@ -109,7 +113,7 @@ namespace ARCed.Database.Armors
 			RefreshParameters();
 			RefreshElements();
 			RefreshStates();
-			suppressEvents = false;
+			SuppressEvents = false;
 		}
 
 		private void RefreshElements()
@@ -132,8 +136,8 @@ namespace ARCed.Database.Armors
 			{
 				if (ctrl is ParamBox)
 				{
-					ParamBox param = ctrl as ParamBox;
-					var property = typeof(RPG.Armor).GetProperty(param.RpgAttribute);
+					var param = ctrl as ParamBox;
+					var property = typeof(Armor).GetProperty(param.RpgAttribute);
 					if (property != null)
 						param.Value = (int)property.GetValue(_armor, null);
 				}
@@ -168,7 +172,7 @@ namespace ARCed.Database.Armors
 
 		private void textBoxName_TextChanged(object sender, EventArgs e)
 		{
-			if (!suppressEvents)
+			if (!SuppressEvents)
 			{
 				_armor.name = textBoxName.Text;
 				int index = dataObjectList.SelectedIndex;
@@ -179,13 +183,13 @@ namespace ARCed.Database.Armors
 
 		private void textBoxDescription_TextChanged(object sender, EventArgs e)
 		{
-			if (!suppressEvents)
+			if (!SuppressEvents)
 				_armor.description = textBoxDescription.Text;
 		}
 
 		private void buttonIcon_Click(object sender, EventArgs e)
 		{
-			using (ImageSelectionForm dialog = new ImageSelectionForm(@"Icons", _armor.icon_name))
+			using (var dialog = new ImageSelectionForm(@"Icons", _armor.icon_name))
 			{
 				if (dialog.ShowDialog(this) == DialogResult.OK)
 				{
@@ -197,18 +201,18 @@ namespace ARCed.Database.Armors
 
 		private void paramBox_OnValueChanged(object sender, ParameterEventArgs e)
 		{
-			if (!suppressEvents)
+			if (!SuppressEvents)
 			{
-				ParamBox paramBox = sender as ParamBox;
-				int value = (int)paramBox.Value;
+				var paramBox = sender as ParamBox;
+				var value = (int)paramBox.Value;
 				string propertyName = paramBox.RpgAttribute;
-				typeof(RPG.Armor).GetProperty(propertyName).SetValue(_armor, value, null);
+				typeof(Armor).GetProperty(propertyName).SetValue(_armor, value, null);
 			}
 		}
 
 		private void checkGroupBoxElements_OnCheckChange(object sender, ItemCheckEventArgs e)
 		{
-			if (!suppressEvents)
+			if (!SuppressEvents)
 			{
 				int id = e.Index + 1;
 				if (e.NewValue == CheckState.Checked && !_armor.guard_element_set.Contains(id))
@@ -220,7 +224,7 @@ namespace ARCed.Database.Armors
 
 		private void checkGroupBoxStates_OnCheckChange(object sender, ItemCheckEventArgs e)
 		{
-			if (!suppressEvents)
+			if (!SuppressEvents)
 			{
 				int id = e.Index + 1;
 				if (e.NewValue == CheckState.Checked && !_armor.guard_state_set.Contains(id))
@@ -238,13 +242,13 @@ namespace ARCed.Database.Armors
 
 		private void comboBoxKind_SelectedIndexChanged(object sender, EventArgs e)
 		{
-			if (!suppressEvents)
+			if (!SuppressEvents)
 				_armor.kind = comboBoxKind.SelectedIndex;
 		}
 
 		private void comboBoxAutoState_SelectedIndexChanged(object sender, EventArgs e)
 		{
-			if (!suppressEvents)
+			if (!SuppressEvents)
 				_armor.auto_state_id = comboBoxAutoState.SelectedIndex;
 		}
 	}

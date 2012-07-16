@@ -1,8 +1,14 @@
-﻿using System;
+﻿#region Using Directives
+
+using System;
 using System.ComponentModel;
 using System.Drawing;
+using System.Drawing.Design;
 using System.IO;
 using System.Windows.Forms;
+using System.Windows.Forms.Design;
+
+#endregion
 
 namespace ARCed.Controls
 {
@@ -22,14 +28,15 @@ namespace ARCed.Controls
 
 		#region Private Fields
 
-		PictureBox picBox = new PictureBox();
+        readonly PictureBox picBox = new PictureBox();
 		Image _image;
-		private string picturePath = "";
+		private string _picturePath = "";
 		private bool _selectable;
 		private int _x, _y, _tWidth, _tHeight;
-		private Pen _innerPen = new Pen(Color.White, 2), _outerPen = new Pen(Color.Black, 4);
+		private readonly Pen _innerPen = new Pen(Color.White, 2);
+        private readonly Pen _outerPen = new Pen(Color.Black, 4);
 
-		#endregion
+        #endregion
 
 		#region Public Properties
 
@@ -95,16 +102,16 @@ namespace ARCed.Controls
 		/// Gets or sets the path to the _srcTexture file used in the panel
 		/// </summary>
 		[Category("ARCed"), Description("Define path to image file.")]
-		[Editor(typeof(System.Windows.Forms.Design.FileNameEditor), typeof(System.Drawing.Design.UITypeEditor))]
+		[Editor(typeof(FileNameEditor), typeof(UITypeEditor))]
 		[DefaultValue("")]
 		public string PictureFile
 		{
-			get { return picturePath; }
+			get { return this._picturePath; }
 			set
 			{
 				if (!String.IsNullOrEmpty(value) && File.Exists(value))
 				{
-					picturePath = value;
+					this._picturePath = value;
 					_image = Image.FromFile(value);
 					RefreshImage();
 				}
@@ -152,7 +159,7 @@ namespace ARCed.Controls
 		{
 			get
 			{
-				Rectangle rect = new Rectangle(_x, _y, _tWidth, _tHeight);
+				var rect = new Rectangle(_x, _y, _tWidth, _tHeight);
 				Image image = new Bitmap(rect.Width, rect.Height);
 				using (Graphics g = Graphics.FromImage(image))
 					g.DrawImage(_image, rect);
@@ -178,7 +185,7 @@ namespace ARCed.Controls
             picBox.SizeMode = PictureBoxSizeMode.Normal;
 			picBox.BorderStyle = BorderStyle.None;
             Controls.Add(picBox);
-			picBox.MouseClick += new MouseEventHandler(picBox_MouseClick);
+			picBox.MouseClick += this.picBox_MouseClick;
         }
 
 		#endregion

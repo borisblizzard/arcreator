@@ -1,4 +1,8 @@
-﻿using System.Collections.Generic;
+﻿#region Using Directives
+
+using System.Collections.Generic;
+
+#endregion
 
 namespace RPG
 {
@@ -14,11 +18,12 @@ namespace RPG
 			id = 0;
 			name = "";
 			members = new List<dynamic>();
-			pages = new List<dynamic>() { new Page() };
+			pages = new List<dynamic>
+			{ new Page() };
 		}
 
 		/// <summary>
-		/// Returns a <paramref name="System.String"/> that represents the current object.
+        /// Returns a <see langword="string"/> that represents the current object.
 		/// </summary>
 		/// <returns>String representation of object.</returns>
 		public override string ToString()
@@ -55,7 +60,8 @@ namespace RPG
 			{
 				condition = new Condition();
 				span = 0;
-				list = new List<dynamic>() { new EventCommand() };
+				list = new List<dynamic>
+				{ new EventCommand() };
 			}
 
 			public class Condition

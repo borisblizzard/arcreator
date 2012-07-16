@@ -6,7 +6,7 @@ using System.Drawing.Design;
 using System.Globalization;
 using ARCed.Scintilla.Design;
 
-#endregion Using Directives
+#endregion
 
 
 namespace ARCed.Scintilla
@@ -14,12 +14,12 @@ namespace ARCed.Scintilla
     /// <summary>
     ///     Controls line wrapping options in a <see cref="Scintilla" /> control.
     /// </summary>
-    [TypeConverterAttribute(typeof(ExpandableObjectConverter))]
+    [TypeConverter(typeof(ExpandableObjectConverter))]
     public class LineWrapping
     {
         #region Fields
 
-        private Scintilla _scintilla;
+        private readonly Scintilla _scintilla;
 
         #endregion Fields
 
@@ -131,7 +131,7 @@ namespace ARCed.Scintilla
         /// <summary>
         ///     Gets or sets the size that wrapped lines are indented when <see cref="IndentMode" /> is <see cref="LineWrappingIndentMode.Fixed" />.
         /// </summary>
-        /// <returns>An <see cref="Int32" /> representing the size (in characters) that wrapped lines are indented.</returns>
+        /// <returns>An <see cref="int" /> representing the size (in characters) that wrapped lines are indented.</returns>
         /// <exception cref="ArgumentOutOfRangeException">The value is less that zero or greater than 256.</exception>
         [DefaultValue(0)]
         [Description("The indentation size of wrapped lines.")] // TODO Move to resource file.

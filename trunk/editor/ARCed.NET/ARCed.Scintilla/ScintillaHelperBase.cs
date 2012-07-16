@@ -3,8 +3,7 @@
 using System;
 using System.ComponentModel;
 
-
-#endregion Using Directives
+#endregion
 
 
 namespace ARCed.Scintilla
@@ -13,7 +12,7 @@ namespace ARCed.Scintilla
     {
         #region Fields
 
-        private bool _isDisposed = false;
+        private bool _isDisposed;
         private INativeScintilla _nativeScintilla;
         private Scintilla _scintilla;
 
@@ -65,7 +64,7 @@ namespace ARCed.Scintilla
         /// </summary>
         protected bool IsSameHelperFamily(object obj)
         {
-            ScintillaHelperBase other = obj as ScintillaHelperBase;
+            var other = obj as ScintillaHelperBase;
             if (other == null)
                 return false;
 
@@ -109,7 +108,7 @@ namespace ARCed.Scintilla
             set 
             { 
                 _scintilla = value;
-                _nativeScintilla = (INativeScintilla)_scintilla;
+                _nativeScintilla = this._scintilla;
             }
         }
 
@@ -121,7 +120,7 @@ namespace ARCed.Scintilla
         protected internal ScintillaHelperBase(Scintilla scintilla)
         {
             _scintilla = scintilla;
-            _nativeScintilla = (INativeScintilla)scintilla;
+            _nativeScintilla = scintilla;
         }
 
         #endregion Constructors

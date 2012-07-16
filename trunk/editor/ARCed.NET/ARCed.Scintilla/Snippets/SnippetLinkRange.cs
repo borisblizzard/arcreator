@@ -1,9 +1,8 @@
 ﻿#region Using Directives
 
-using System;
 using System.Collections.Generic;
 
-#endregion Using Directives
+#endregion
 
 
 namespace ARCed.Scintilla
@@ -12,7 +11,7 @@ namespace ARCed.Scintilla
     {
         #region Fields
 
-        private bool _active = false;
+        private bool _active;
         private string _key;
         private List<SnippetLinkRange> _parent;
 
@@ -95,7 +94,7 @@ namespace ARCed.Scintilla
 
         #region Constructors
 
-        public SnippetLinkRange(int start, int end, Scintilla scintilla, string key) : base()
+        public SnippetLinkRange(int start, int end, Scintilla scintilla, string key)
         {
             Scintilla = scintilla;
             Start = start;

@@ -2,7 +2,7 @@
 
 using System.Windows.Forms;
 
-#endregion Using Directives
+#endregion
 
 
 namespace ARCed.Scintilla
@@ -25,7 +25,7 @@ namespace ARCed.Scintilla
 
         public void ShowGoToDialog()
         {
-            GoToDialog gd = new GoToDialog();
+            var gd = new GoToDialog();
 
             gd.CurrentLineNumber = Scintilla.Lines.Current.Number;
             gd.MaximumLineNumber = Scintilla.Lines.Count;

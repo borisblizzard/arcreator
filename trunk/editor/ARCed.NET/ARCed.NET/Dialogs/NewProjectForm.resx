@@ -117,7 +117,322 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="labelFolderName.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="labelFolderName.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 9</value>
+  </data>
+  <data name="labelFolderName.Size" type="System.Drawing.Size, System.Drawing">
+    <value>70, 13</value>
+  </data>
+  <data name="labelFolderName.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="labelFolderName.Text" xml:space="preserve">
+    <value>Folder Name:</value>
+  </data>
+  <data name="&gt;&gt;labelFolderName.Name" xml:space="preserve">
+    <value>labelFolderName</value>
+  </data>
+  <data name="&gt;&gt;labelFolderName.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelFolderName.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;labelFolderName.ZOrder" xml:space="preserve">
+    <value>10</value>
+  </data>
+  <data name="labelTitle.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="labelTitle.Location" type="System.Drawing.Point, System.Drawing">
+    <value>169, 9</value>
+  </data>
+  <data name="labelTitle.Size" type="System.Drawing.Size, System.Drawing">
+    <value>61, 13</value>
+  </data>
+  <data name="labelTitle.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="labelTitle.Text" xml:space="preserve">
+    <value>Game Title:</value>
+  </data>
+  <data name="&gt;&gt;labelTitle.Name" xml:space="preserve">
+    <value>labelTitle</value>
+  </data>
+  <data name="&gt;&gt;labelTitle.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelTitle.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;labelTitle.ZOrder" xml:space="preserve">
+    <value>9</value>
+  </data>
+  <data name="textBoxFolderName.Location" type="System.Drawing.Point, System.Drawing">
+    <value>15, 25</value>
+  </data>
+  <data name="textBoxFolderName.Size" type="System.Drawing.Size, System.Drawing">
+    <value>151, 20</value>
+  </data>
+  <data name="textBoxFolderName.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
   <metadata name="toolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
+  <data name="textBoxFolderName.ToolTip" xml:space="preserve">
+    <value>The directory name of the project</value>
+  </data>
+  <data name="&gt;&gt;textBoxFolderName.Name" xml:space="preserve">
+    <value>textBoxFolderName</value>
+  </data>
+  <data name="&gt;&gt;textBoxFolderName.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;textBoxFolderName.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;textBoxFolderName.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="textBoxTitle.Location" type="System.Drawing.Point, System.Drawing">
+    <value>172, 25</value>
+  </data>
+  <data name="textBoxTitle.Size" type="System.Drawing.Size, System.Drawing">
+    <value>190, 20</value>
+  </data>
+  <data name="textBoxTitle.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="textBoxTitle.ToolTip" xml:space="preserve">
+    <value>The title of the game</value>
+  </data>
+  <data name="&gt;&gt;textBoxTitle.Name" xml:space="preserve">
+    <value>textBoxTitle</value>
+  </data>
+  <data name="&gt;&gt;textBoxTitle.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;textBoxTitle.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;textBoxTitle.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="labelLocation.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="labelLocation.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 59</value>
+  </data>
+  <data name="labelLocation.Size" type="System.Drawing.Size, System.Drawing">
+    <value>51, 13</value>
+  </data>
+  <data name="labelLocation.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="labelLocation.Text" xml:space="preserve">
+    <value>Location:</value>
+  </data>
+  <data name="&gt;&gt;labelLocation.Name" xml:space="preserve">
+    <value>labelLocation</value>
+  </data>
+  <data name="&gt;&gt;labelLocation.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelLocation.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;labelLocation.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="textBoxLocation.Location" type="System.Drawing.Point, System.Drawing">
+    <value>15, 75</value>
+  </data>
+  <data name="textBoxLocation.Size" type="System.Drawing.Size, System.Drawing">
+    <value>318, 20</value>
+  </data>
+  <data name="textBoxLocation.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="textBoxLocation.ToolTip" xml:space="preserve">
+    <value>The location of the project directory</value>
+  </data>
+  <data name="&gt;&gt;textBoxLocation.Name" xml:space="preserve">
+    <value>textBoxLocation</value>
+  </data>
+  <data name="&gt;&gt;textBoxLocation.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;textBoxLocation.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;textBoxLocation.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="buttonBrowse.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>Zoom</value>
+  </data>
+  <data name="buttonBrowse.Location" type="System.Drawing.Point, System.Drawing">
+    <value>339, 73</value>
+  </data>
+  <data name="buttonBrowse.Size" type="System.Drawing.Size, System.Drawing">
+    <value>23, 23</value>
+  </data>
+  <data name="buttonBrowse.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="buttonBrowse.ToolTip" xml:space="preserve">
+    <value>Browse for a folder</value>
+  </data>
+  <data name="&gt;&gt;buttonBrowse.Name" xml:space="preserve">
+    <value>buttonBrowse</value>
+  </data>
+  <data name="&gt;&gt;buttonBrowse.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonBrowse.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;buttonBrowse.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="buttonCancel.Location" type="System.Drawing.Point, System.Drawing">
+    <value>287, 128</value>
+  </data>
+  <data name="buttonCancel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 23</value>
+  </data>
+  <data name="buttonCancel.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="buttonCancel.Text" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="buttonCancel.ToolTip" xml:space="preserve">
+    <value>Cancel and return</value>
+  </data>
+  <data name="&gt;&gt;buttonCancel.Name" xml:space="preserve">
+    <value>buttonCancel</value>
+  </data>
+  <data name="&gt;&gt;buttonCancel.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonCancel.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;buttonCancel.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="buttonOK.Location" type="System.Drawing.Point, System.Drawing">
+    <value>206, 128</value>
+  </data>
+  <data name="buttonOK.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 23</value>
+  </data>
+  <data name="buttonOK.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="buttonOK.Text" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="buttonOK.ToolTip" xml:space="preserve">
+    <value>Confirm and create</value>
+  </data>
+  <data name="&gt;&gt;buttonOK.Name" xml:space="preserve">
+    <value>buttonOK</value>
+  </data>
+  <data name="&gt;&gt;buttonOK.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonOK.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;buttonOK.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="labelTemplates.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="labelTemplates.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 109</value>
+  </data>
+  <data name="labelTemplates.Size" type="System.Drawing.Size, System.Drawing">
+    <value>54, 13</value>
+  </data>
+  <data name="labelTemplates.TabIndex" type="System.Int32, mscorlib">
+    <value>9</value>
+  </data>
+  <data name="labelTemplates.Text" xml:space="preserve">
+    <value>Template:</value>
+  </data>
+  <data name="&gt;&gt;labelTemplates.Name" xml:space="preserve">
+    <value>labelTemplates</value>
+  </data>
+  <data name="&gt;&gt;labelTemplates.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;labelTemplates.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;labelTemplates.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="comboTemplates.Location" type="System.Drawing.Point, System.Drawing">
+    <value>15, 125</value>
+  </data>
+  <data name="comboTemplates.Size" type="System.Drawing.Size, System.Drawing">
+    <value>151, 21</value>
+  </data>
+  <data name="comboTemplates.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="comboTemplates.ToolTip" xml:space="preserve">
+    <value>Choose the template for the new project</value>
+  </data>
+  <data name="&gt;&gt;comboTemplates.Name" xml:space="preserve">
+    <value>comboTemplates</value>
+  </data>
+  <data name="&gt;&gt;comboTemplates.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;comboTemplates.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;comboTemplates.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
+    <value>6, 13</value>
+  </data>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>374, 163</value>
+  </data>
+  <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
+    <value>CenterParent</value>
+  </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>New Project</value>
+  </data>
+  <data name="&gt;&gt;toolTip.Name" xml:space="preserve">
+    <value>toolTip</value>
+  </data>
+  <data name="&gt;&gt;toolTip.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolTip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;$this.Name" xml:space="preserve">
+    <value>NewProjectForm</value>
+  </data>
+  <data name="&gt;&gt;$this.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Form, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
 </root>

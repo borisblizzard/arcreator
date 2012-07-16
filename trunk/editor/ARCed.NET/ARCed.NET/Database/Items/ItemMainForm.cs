@@ -1,9 +1,14 @@
-﻿using System;
+﻿#region Using Directives
+
+using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using ARCed.Controls;
 using ARCed.Dialogs;
 using ARCed.Helpers;
+using RPG;
+
+#endregion
 
 namespace ARCed.Database.Items
 {
@@ -11,7 +16,7 @@ namespace ARCed.Database.Items
 	{
 		#region Private Fields
 
-		private RPG.Item _item;
+		private Item _item;
 
 		#endregion
 
@@ -36,7 +41,7 @@ namespace ARCed.Database.Items
 		/// <summary>
 		/// Default constructor
 		/// </summary>
-		public ItemMainForm() : base()
+		public ItemMainForm()
 		{
 			InitializeComponent();
 			InitializeElements();
@@ -77,7 +82,7 @@ namespace ARCed.Database.Items
 			comboBoxUserAnimation.Items.Add("<None>");
 			comboBoxTargetAnimation.Items.Add("<None>");
 			string name;
-			foreach (RPG.Animation animation in Project.Data.Animations)
+			foreach (Animation animation in Project.Data.Animations)
 			{
 				if (animation != null)
 				{
@@ -95,7 +100,7 @@ namespace ARCed.Database.Items
 			comboBoxCommonEvent.BeginUpdate();
 			comboBoxCommonEvent.Items.Clear();
 			comboBoxCommonEvent.Items.Add("<None>");
-			foreach (RPG.CommonEvent commonEvent in Project.Data.CommonEvents)
+			foreach (CommonEvent commonEvent in Project.Data.CommonEvents)
 			{
 				if (commonEvent != null)
 					comboBoxCommonEvent.Items.Add(commonEvent.ToString());
@@ -145,7 +150,7 @@ namespace ARCed.Database.Items
 
 		public override void RefreshCurrentObject()
 		{
-			suppressEvents = true;
+			SuppressEvents = true;
 			RefreshIcon();
 			textBoxName.Text = _item.name;
 			textBoxDescription.Text = _item.description;
@@ -158,7 +163,7 @@ namespace ARCed.Database.Items
 			RefreshAnimations();
 			RefreshParameters();
 			//noteTextBox.NoteText = _item.note;
-			suppressEvents = false;
+			SuppressEvents = false;
 		}
 
 		private void RefreshParameters()
@@ -167,8 +172,8 @@ namespace ARCed.Database.Items
 			{
 				if (ctrl is ParamBox)
 				{
-					ParamBox param = ctrl as ParamBox;
-					var property = typeof(RPG.Item).GetProperty(param.RpgAttribute);
+					var param = ctrl as ParamBox;
+					var property = typeof(Item).GetProperty(param.RpgAttribute);
 					if (property != null)
 						param.Value = (int)property.GetValue(_item, null);	
 				}
@@ -237,7 +242,7 @@ namespace ARCed.Database.Items
 
 		private void buttonIcon_Click(object sender, EventArgs e)
 		{
-			using (ImageSelectionForm dialog = new ImageSelectionForm(@"Icons", _item.icon_name))
+			using (var dialog = new ImageSelectionForm(@"Icons", _item.icon_name))
 			{
 				if (dialog.ShowDialog(this) == DialogResult.OK)
 				{
@@ -249,7 +254,7 @@ namespace ARCed.Database.Items
 
 		private void textBoxName_TextChanged(object sender, EventArgs e)
 		{
-			if (!suppressEvents)
+			if (!SuppressEvents)
 			{
 				_item.name = textBoxName.Text;
 				int index = dataObjectList.SelectedIndex;
@@ -260,13 +265,13 @@ namespace ARCed.Database.Items
 
 		private void textBoxDescription_TextChanged(object sender, EventArgs e)
 		{
-			if (!suppressEvents)
+			if (!SuppressEvents)
 				_item.description = textBoxDescription.Text;
 		}
 
 		private void checkGroupBoxElements_OnCheckChange(object sender, ItemCheckEventArgs e)
 		{
-			if (!suppressEvents)
+			if (!SuppressEvents)
 			{
 				int id = e.Index + 1;
 				if (e.NewValue == CheckState.Checked && !_item.element_set.Contains(id))
@@ -278,47 +283,47 @@ namespace ARCed.Database.Items
 
 		private void checkGroup_FocusLeave(object sender, EventArgs e)
 		{
-			(sender as ARCed.Controls.CheckGroupBox).SelectedIndex = -1;
+			(sender as CheckGroupBox).SelectedIndex = -1;
 		}
 
 		private void comboBoxScope_SelectedIndexChanged(object sender, EventArgs e)
 		{
-			if (!suppressEvents)
+			if (!SuppressEvents)
 				_item.scope = comboBoxScope.SelectedIndex;
 		}
 
 		private void comboBoxOccasion_SelectedIndexChanged(object sender, EventArgs e)
 		{
-			if (!suppressEvents)
+			if (!SuppressEvents)
 				_item.occasion = comboBoxOccasion.SelectedIndex;
 		}
 
 		private void comboBoxUserAnimation_SelectedIndexChanged(object sender, EventArgs e)
 		{
-			if (!suppressEvents)
+			if (!SuppressEvents)
 				_item.animation1_id = comboBoxUserAnimation.SelectedIndex;
 		}
 
 		private void comboBoxTargetAnimation_SelectedIndexChanged(object sender, EventArgs e)
 		{
-			if (!suppressEvents)
+			if (!SuppressEvents)
 				_item.animation2_id = comboBoxTargetAnimation.SelectedIndex;
 		}
 
 		private void paramBox_OnValueChanged(object sender, ParameterEventArgs e)
 		{
-			if (!suppressEvents)
+			if (!SuppressEvents)
 			{
-				ParamBox paramBox = sender as ParamBox;
-				int value = (int)paramBox.Value;
+				var paramBox = sender as ParamBox;
+				var value = (int)paramBox.Value;
 				string propertyName = paramBox.RpgAttribute;
-				typeof(RPG.Item).GetProperty(propertyName).SetValue(_item, value, null);
+				typeof(Item).GetProperty(propertyName).SetValue(_item, value, null);
 			}
 		}
 
 		private void checkedListBoxStates_OnItemChanged(object sender, MultiStateCheckEventArgs e)
 		{
-			if (!suppressEvents)
+			if (!SuppressEvents)
 			{
 				int id = e.Index + 1;
 				_item.plus_state_set.Remove(id);
@@ -332,7 +337,7 @@ namespace ARCed.Database.Items
 
 		private void comboBoxCommonEvent_SelectedIndexChanged(object sender, EventArgs e)
 		{
-			if (!suppressEvents)
+			if (!SuppressEvents)
 				_item.common_event_id = comboBoxCommonEvent.SelectedIndex;
 		}
 
@@ -344,13 +349,13 @@ namespace ARCed.Database.Items
 
 		private void comboBoxConsumable_SelectedIndexChanged(object sender, EventArgs e)
 		{
-			if (!suppressEvents)
+			if (!SuppressEvents)
 				_item.consumable = (comboBoxConsumable.SelectedIndex == 0);
 		}
 
 		private void comboBoxParameter_SelectedIndexChanged(object sender, EventArgs e)
 		{
-			if (!suppressEvents)
+			if (!SuppressEvents)
 				_item.parameter_type = comboBoxParameter.SelectedIndex;
 			paramBoxParamInc.Enabled = _item.parameter_type > 0;
 		}

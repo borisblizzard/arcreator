@@ -4,14 +4,17 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using System.Drawing.Design;
 using System.Text.RegularExpressions;
+using ARCed.Scintilla.Design;
+using ARCed.UI;
 
-#endregion Using Directives
+#endregion
 
 
 namespace ARCed.Scintilla
 {
-    [TypeConverterAttribute(typeof(System.ComponentModel.ExpandableObjectConverter))]
+    [TypeConverter(typeof(ExpandableObjectConverter))]
     public class FindReplace : TopLevelHelper
     {
         #region Fields
@@ -23,12 +26,12 @@ namespace ARCed.Scintilla
         private IncrementalSearcher _incrementalSearcher;
         private List<Range> _lastReplaceAllMatches = new List<Range>();
         private string _lastReplaceAllReplaceString = "";
-        private Range _lastReplaceAllRangeToSearch = null;
-        private int _lastReplaceAllOffset = 0;
+        private Range _lastReplaceAllRangeToSearch;
+        private int _lastReplaceAllOffset;
 
         #endregion Fields
 
-        public static ARCed.UI.DockPanel ParentDock { get; set; }
+        public static DockPanel ParentDock { get; set; }
 
         #region Methods
 
@@ -56,7 +59,7 @@ namespace ARCed.Scintilla
 
         public unsafe Range Find(int startPos, int endPos, string searchString, SearchFlags flags)
         {
-            TextToFind ttf = new TextToFind();
+            var ttf = new TextToFind();
             ttf.chrg.cpMin = startPos;
             ttf.chrg.cpMax = endPos;
 
@@ -194,7 +197,7 @@ namespace ARCed.Scintilla
 
         public List<Range> FindAll(int startPos, int endPos, string searchString, SearchFlags flags)
         {
-            List<Range> res = new List<Range>();
+            var res = new List<Range>();
 
             while (true)
             {
@@ -215,7 +218,7 @@ namespace ARCed.Scintilla
 
         public List<Range> FindAll(Range rangeToSearch, Regex findExpression)
         {
-            List<Range> res = new List<Range>();
+            var res = new List<Range>();
 
             while (true)
             {
@@ -450,9 +453,9 @@ namespace ARCed.Scintilla
 
         public List<MarkerInstance> MarkAll(IList<Range> foundRanges)
         {
-            List<MarkerInstance> ret = new List<MarkerInstance>();
+            var ret = new List<MarkerInstance>();
 
-            Line lastLine = new Line(Scintilla, -1);
+            var lastLine = new Line(Scintilla, -1);
             foreach (Range r in foundRanges)
             {
                 //	We can of course have multiple instances of a find on a single
@@ -475,7 +478,7 @@ namespace ARCed.Scintilla
 
         public List<Range> ReplaceAll(int startPos, int endPos, string searchString, string replaceString, SearchFlags flags)
         {
-            List<Range> ret = new List<Range>();
+            var ret = new List<Range>();
 
             Scintilla.UndoRedo.BeginUndoAction();
 
@@ -514,7 +517,7 @@ namespace ARCed.Scintilla
             _lastReplaceAllRangeToSearch = rangeToSearch;
             _lastReplaceAllOffset = 0;
 
-            findExpression.Replace(rangeToSearch.Text, new MatchEvaluator(ReplaceAllEvaluator));
+            findExpression.Replace(rangeToSearch.Text, this.ReplaceAllEvaluator);
 
             Scintilla.UndoRedo.EndUndoAction();
 
@@ -568,7 +571,7 @@ namespace ARCed.Scintilla
             int start = _lastReplaceAllRangeToSearch.Start + m.Index + _lastReplaceAllOffset;
             int end = start + m.Length;
 
-            Range r = new Range(start, end, Scintilla);
+            var r = new Range(start, end, Scintilla);
             _lastReplaceAllMatches.Add(r);
             r.Text = replacement;
 
@@ -741,7 +744,7 @@ namespace ARCed.Scintilla
 
         #region Properties
 
-        [Editor(typeof(ARCed.Scintilla.Design.FlagEnumUIEditor), typeof(System.Drawing.Design.UITypeEditor))]
+        [Editor(typeof(FlagEnumUIEditor), typeof(UITypeEditor))]
         public SearchFlags Flags
         {
             get

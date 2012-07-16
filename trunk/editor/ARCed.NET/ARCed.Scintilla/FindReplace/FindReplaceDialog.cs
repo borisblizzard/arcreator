@@ -7,7 +7,7 @@ using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using ARCed.UI;
 
-#endregion Using Directives
+#endregion
 
 
 namespace ARCed.Scintilla
@@ -16,13 +16,13 @@ namespace ARCed.Scintilla
     {
         #region Fields
 
-        private BindingSource _bindingSourceFind = new BindingSource();
+        private readonly BindingSource _bindingSourceFind = new BindingSource();
         private List<string> _mruFind;
-        private BindingSource _bindingSourceReplace = new BindingSource();
+        private readonly BindingSource _bindingSourceReplace = new BindingSource();
         private List<string> _mruReplace;
         private int _mruMaxCount = 10;
         private Scintilla _scintilla;
-        private Range _searchRange = null;
+        private Range _searchRange;
 
         #endregion Fields
 
@@ -343,7 +343,7 @@ namespace ARCed.Scintilla
 
             if (rdoRegexF.Checked)
             {
-                Regex rr = new Regex(cboFindF.Text, GetRegexOptions());
+                var rr = new Regex(cboFindF.Text, GetRegexOptions());
 
                 if (chkSearchSelectionF.Checked)
                 {
@@ -493,7 +493,7 @@ namespace ARCed.Scintilla
 
         public RegexOptions GetRegexOptions()
         {
-            RegexOptions ro = RegexOptions.None;
+            var ro = RegexOptions.None;
 
             if (tabAll.SelectedTab == tpgFind)
             {
@@ -560,7 +560,7 @@ namespace ARCed.Scintilla
 
         public SearchFlags GetSearchFlags()
         {
-            SearchFlags sf = SearchFlags.Empty;
+            var sf = SearchFlags.Empty;
 
             if (tabAll.SelectedTab == tpgFind)
             {
@@ -600,7 +600,7 @@ namespace ARCed.Scintilla
 
             Point cursorPoint = Scintilla.PointToScreen(new Point(x, y));
 
-            Rectangle r = new Rectangle(Location, Size);
+            var r = new Rectangle(Location, Size);
             if (r.Contains(cursorPoint))
             {
                 Point newLocation;
@@ -664,7 +664,7 @@ namespace ARCed.Scintilla
             List<KeyBinding> showFindBinding = Scintilla.Commands.GetKeyBindings(BindableCommand.ShowFind);
             List<KeyBinding> showReplaceBinding = Scintilla.Commands.GetKeyBindings(BindableCommand.ShowReplace);
 
-            KeyBinding kb = new KeyBinding(e.KeyCode, e.Modifiers);
+            var kb = new KeyBinding(e.KeyCode, e.Modifiers);
 
             if (findNextBinding.Contains(kb) || findPrevBinding.Contains(kb) || showFindBinding.Contains(kb) || showReplaceBinding.Contains(kb))
             {

@@ -2,7 +2,7 @@
 
 using System;
 
-#endregion Using Directives
+#endregion
 
 
 namespace ARCed.Scintilla
@@ -29,12 +29,12 @@ namespace ARCed.Scintilla
 
         #region Fields
 
-        private bool _isUserChange;
-        private int _length;
-        private int _linesAddedCount;
-        private int _markerChangedLine;
-        private int _position;
-        private string _text;
+        private readonly bool _isUserChange;
+        private readonly int _length;
+        private readonly int _linesAddedCount;
+        private readonly int _markerChangedLine;
+        private readonly int _position;
+        private readonly string _text;
 
         #endregion Fields
 
@@ -131,14 +131,15 @@ namespace ARCed.Scintilla
         #region Constructors
 
         /// <summary>
-        ///     Initializes a new instance of the TextModifiedEventArgs class.
+        /// Initializes a new instance of the TextModifiedEventArgs class.
         /// </summary>
-        /// <param name="position">document position where the change occured</param>
-        /// <param name="_length">_length of the change occured</param>
-        /// <param name="linesAddedCount">the # of lines added or removed as a result of the change</param>
-        /// <param name="text">affected text of the change</param>
+        /// <param name="modificationType">Specifies the modification type</param>
         /// <param name="isUserChange">true if the change was a direct result of user interaction</param>
         /// <param name="markerChangedLine"> the line # of where the marker change occured (if applicable)</param>
+        /// <param name="position">document position where the change occured</param>
+        /// <param name="length">_length of the change occured</param>
+        /// <param name="linesAddedCount">the # of lines added or removed as a result of the change</param>
+        /// <param name="text">affected text of the change</param>
         public TextModifiedEventArgs(int modificationType, bool isUserChange, int markerChangedLine, int position, int length, int linesAddedCount, string text) : base(modificationType)
         {
             _isUserChange = isUserChange;

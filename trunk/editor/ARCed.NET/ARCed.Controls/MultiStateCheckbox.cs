@@ -1,7 +1,11 @@
-﻿using System;
+﻿#region Using Directives
+
+using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
+
+#endregion
 
 namespace ARCed.Controls
 {
@@ -14,7 +18,8 @@ namespace ARCed.Controls
 
 		private static readonly Font _font = 
 			new Font("Arial Black", 11, FontStyle.Regular, GraphicsUnit.Pixel);
-		private int _stateIndex = 0;
+
+	    private int _stateIndex;
 
 		#endregion
 
@@ -91,7 +96,7 @@ namespace ARCed.Controls
 		{
 			InitializeComponent();
 			AutoCheck = false;
-			this.MouseDown += new MouseEventHandler(MultiStateCheckbox_MouseDown);
+			this.MouseDown += this.MultiStateCheckbox_MouseDown;
 		}
 
 		#endregion
@@ -154,8 +159,8 @@ namespace ARCed.Controls
 				SizeF size = e.Graphics.MeasureString(chr, _font);
 				float x = (12 - size.Width) / 2 + Padding.Left;
 				float y = (Height - size.Height) / 2 + Padding.Top;
-				PointF pntF = new PointF(x, y);
-				using (SolidBrush brush = new SolidBrush(CurrentColor))
+				var pntF = new PointF(x, y);
+				using (var brush = new SolidBrush(CurrentColor))
 					e.Graphics.DrawString(chr, _font, brush, pntF);
 			}
 		}

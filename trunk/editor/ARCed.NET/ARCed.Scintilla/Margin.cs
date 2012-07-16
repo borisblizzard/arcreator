@@ -3,18 +3,18 @@
 using System.ComponentModel;
 using System.Drawing;
 
-#endregion Using Directives
+#endregion
 
 
 namespace ARCed.Scintilla
 {
-    [TypeConverterAttribute(typeof(System.ComponentModel.ExpandableObjectConverter))]
+    [TypeConverter(typeof(ExpandableObjectConverter))]
     public class Margin : ScintillaHelperBase
     {
         #region Fields
 
         private int _autoToggleMarkerNumber = -1;
-        private int _number;
+        private readonly int _number;
 
         #endregion Fields
 

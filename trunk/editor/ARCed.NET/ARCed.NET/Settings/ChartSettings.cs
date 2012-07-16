@@ -1,8 +1,12 @@
-﻿using System;
+﻿#region Using Directives
+
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms.DataVisualization.Charting;
 using System.Xml.Serialization;
+
+#endregion
 
 namespace ARCed.Settings
 {
@@ -58,14 +62,14 @@ namespace ARCed.Settings
 		{ 
 			get
 			{
-				List<string> colors = new List<string>();
+				var colors = new List<string>();
 				foreach (Color c in Colors)
 					colors.Add(ColorTranslator.ToHtml(c));
 				return colors;
 			}
 			set
 			{
-				List<Color> colors = new List<Color>();
+				var colors = new List<Color>();
 				foreach (string color in value)
 					colors.Add(ColorTranslator.FromHtml(color));
 				Colors = colors;
@@ -97,7 +101,7 @@ namespace ARCed.Settings
 		{
 			get
 			{
-				return new List<Color>()
+				return new List<Color>
 				{
 					Color.Tomato,
 					Color.SlateBlue,

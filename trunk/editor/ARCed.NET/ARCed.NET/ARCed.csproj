@@ -50,6 +50,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DocumentationFile>XML Documentation\ARCed.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject>ARCed.Program</StartupObject>
@@ -83,6 +84,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
     <Reference Include="System.Windows.Forms.DataVisualization" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Drawing" />
@@ -272,6 +274,12 @@
     </Compile>
     <Compile Include="Database\SwitchForm.Designer.cs">
       <DependentUpon>SwitchForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\LocalizationDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\LocalizationDialog.Designer.cs">
+      <DependentUpon>LocalizationDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="Editor.Static.cs">
       <DependentUpon>Editor.cs</DependentUpon>
@@ -522,6 +530,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\ImageSelectionForm.resx">
       <DependentUpon>ImageSelectionForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\LocalizationDialog.resx">
+      <DependentUpon>LocalizationDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\NoteForm.resx">
       <DependentUpon>NoteForm.cs</DependentUpon>

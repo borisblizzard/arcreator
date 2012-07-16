@@ -1,14 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
+﻿#region Using Directives
+
+using System;
 using System.Windows.Forms;
 using ARCed.Helpers;
+using RPG;
+
+#endregion
 
 namespace ARCed.Database.Enemies
 {
 	public partial class EditActionDialog : Form
 	{
 
-		public RPG.Enemy.Action EnemyAction 
+		public Enemy.Action EnemyAction 
 		{
 			get { return GetAction(); }
 			set { SetAction(value); }
@@ -23,7 +27,7 @@ namespace ARCed.Database.Enemies
 			RefreshSwitches();
 		}
 
-		private void SetAction(RPG.Enemy.Action action)
+		private void SetAction(Enemy.Action action)
 		{
 			bool turnC = !(action.condition_turn_a == 0 && action.condition_turn_b == 1);
 			if (turnC)
@@ -56,9 +60,9 @@ namespace ARCed.Database.Enemies
 			numericUpDownRating.Value = action.rating;
 		}
 
-		private RPG.Enemy.Action GetAction()
+		private Enemy.Action GetAction()
 		{
-			var action = new RPG.Enemy.Action();
+			var action = new Enemy.Action();
 			if (checkBoxTurn.Checked)
 			{
 				action.condition_turn_a = (int)numericUpDownTurn.Value;

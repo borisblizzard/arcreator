@@ -3,7 +3,7 @@
 using System;
 using System.Runtime.InteropServices;
 
-#endregion Using Directives
+#endregion
 
 
 namespace ARCed.Scintilla
@@ -59,7 +59,7 @@ namespace ARCed.Scintilla
 
         public int CompareTo(object otherObj)
         {
-            Range other = otherObj as Range;
+            var other = otherObj as Range;
 
             if(other == null)
                 return 1;
@@ -105,7 +105,7 @@ namespace ARCed.Scintilla
 
         public override bool Equals(object obj)
         {
-            Range r = obj as Range;
+            var r = obj as Range;
             if(r == null)
                 return false;
 
@@ -210,7 +210,7 @@ namespace ARCed.Scintilla
 
         public void SetStyle(byte styleMask, int style)
         {
-            NativeScintilla.StartStyling(_start, (int)styleMask);
+            NativeScintilla.StartStyling(_start, styleMask);
             NativeScintilla.SetStyling(Length, style);
         }
 
@@ -364,14 +364,14 @@ namespace ARCed.Scintilla
                     return new byte[0];
 
                 int bufferLength    = (Length * 2) + 2;
-                TextRange rng       = new TextRange();
+                var rng       = new TextRange();
                 rng.lpstrText       = Marshal.AllocHGlobal(bufferLength);
                 rng.chrg.cpMin      = _start;
                 rng.chrg.cpMax      = _end;
                 
                 NativeScintilla.GetStyledText(ref rng);
 
-                byte[] ret = new byte[bufferLength];
+                var ret = new byte[bufferLength];
                     Marshal.Copy(rng.lpstrText, ret, 0, bufferLength);
 
                 Marshal.FreeHGlobal(rng.lpstrText);
@@ -387,14 +387,14 @@ namespace ARCed.Scintilla
                 if (Start < 0 || End < 0 || Scintilla == null)
                     return String.Empty;
 
-                TextRange rng = new TextRange();
+                var rng = new TextRange();
                 try
                 {
                     rng.lpstrText = Marshal.AllocHGlobal(Length + 1);
                     rng.chrg.cpMin = _start;
                     rng.chrg.cpMax = _end;
                     
-                    int len = (int)NativeScintilla.GetTextRange(ref rng);
+                    int len = NativeScintilla.GetTextRange(ref rng);
                     string ret = Utilities.IntPtrToString(Scintilla.Encoding, rng.lpstrText, len);
                     return ret ?? String.Empty;
                 }

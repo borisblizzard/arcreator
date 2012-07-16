@@ -1,9 +1,8 @@
 #region Using Directives
 
-using System;
 using System.Drawing;
 
-#endregion Using Directives
+#endregion
 
 
 namespace ARCed.Scintilla
@@ -35,7 +34,7 @@ namespace ARCed.Scintilla
         {
             if(Scintilla != null && Start > 0)
             {
-                INativeScintilla _ns = Scintilla as INativeScintilla;
+                INativeScintilla _ns = Scintilla;
                 int x = _ns.PointXFromPosition(Start);
                 int y = _ns.PointYFromPosition(Start) + _ns.TextHeight(0) - 2;
 
@@ -52,14 +51,14 @@ namespace ARCed.Scintilla
             if (IsDisposed)
                 return;
 
-            INativeScintilla _ns = Scintilla as INativeScintilla;
+            INativeScintilla _ns = Scintilla;
 
             int x = _ns.PointXFromPosition(Start);
             int y = _ns.PointYFromPosition(Start) + _ns.TextHeight(0) - 2;
 
             //	Draw a red Triangle with a dark red border at the marker position
-            g.FillPolygon(Brushes.Lime, new Point[] { new Point(x-2, y+4), new Point(x, y), new Point(x+2, y+4) });
-            g.DrawPolygon(Pens.Green, new Point[] { new Point(x-2, y+4), new Point(x, y), new Point(x+2, y+4) });
+            g.FillPolygon(Brushes.Lime, new[] { new Point(x-2, y+4), new Point(x, y), new Point(x+2, y+4) });
+            g.DrawPolygon(Pens.Green, new[] { new Point(x-2, y+4), new Point(x, y), new Point(x+2, y+4) });
         }
 
         #endregion Methods

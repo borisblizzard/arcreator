@@ -5,12 +5,12 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 
-#endregion Using Directives
+#endregion
 
 
 namespace ARCed.Scintilla
 {
-    [TypeConverterAttribute(typeof(System.ComponentModel.ExpandableObjectConverter))]
+    [TypeConverter(typeof(ExpandableObjectConverter))]
     public class Lexing : TopLevelHelper
     {
         #region Constants
@@ -23,13 +23,13 @@ namespace ARCed.Scintilla
 
         #region Fields
 
-        private KeywordCollection _keywords;
-        private Dictionary<string, string> _lexerLanguageMap = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+        private readonly KeywordCollection _keywords;
+        private readonly Dictionary<string, string> _lexerLanguageMap = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
         private string _lexerName = "container";
         private string _lineCommentPrefix = string.Empty;
         private string _streamCommentPrefix = string.Empty;
         private string _streamCommentSufix = string.Empty;
-        private Dictionary<string, int> _styleNameMap = new Dictionary<string, int>(StringComparer.OrdinalIgnoreCase);
+        private readonly Dictionary<string, int> _styleNameMap = new Dictionary<string, int>(StringComparer.OrdinalIgnoreCase);
         private string _whitespaceChars;
         private string _wordChars;
         internal char[] WhitespaceCharsArr;
@@ -192,7 +192,7 @@ namespace ARCed.Scintilla
                 if (s == null)
                     return;
 
-                using (StreamReader sr = new StreamReader(s))
+                using (var sr = new StreamReader(s))
                 {
                     while (!sr.EndOfStream)
                     {
@@ -457,7 +457,7 @@ namespace ARCed.Scintilla
         }
 
 
-        [TypeConverter(typeof(ARCed.Scintilla.WhitespaceStringConverter))]
+        [TypeConverter(typeof(WhitespaceStringConverter))]
         public string WhitespaceChars
         {
             get

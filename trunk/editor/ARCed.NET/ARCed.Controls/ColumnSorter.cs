@@ -1,6 +1,11 @@
+#region Using Directives
+
+using System;
 using System.Collections;
-using System.Text.RegularExpressions;	
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
+
+#endregion
 
 namespace ARCed.Controls
 {
@@ -21,8 +26,8 @@ namespace ARCed.Controls
 		/// Case insensitive comparer object
 		/// </summary>
 		//private CaseInsensitiveComparer ObjectCompare;
-		private NumberCaseInsensitiveComparer ObjectCompare;
-		private ImageTextComparer FirstObjectCompare;
+		private readonly NumberCaseInsensitiveComparer ObjectCompare;
+		private readonly ImageTextComparer FirstObjectCompare;
 
 		/// <summary>
 		/// Class constructor.  Initializes various elements
@@ -50,11 +55,10 @@ namespace ARCed.Controls
 		public int Compare(object x, object y)
 		{
 			int compareResult;
-			ListViewItem listviewX, listviewY;
 
-			// Cast the objects to be compared to ListViewItem objects
-			listviewX = (ListViewItem)x;
-			listviewY = (ListViewItem)y;
+		    // Cast the objects to be compared to ListViewItem objects
+			var listviewX = (ListViewItem)x;
+			var listviewY = (ListViewItem)y;
 
 			if (ColumnToSort == 0)
 			{
@@ -119,7 +123,7 @@ namespace ARCed.Controls
 	public class ImageTextComparer : IComparer
 	{
 		//private CaseInsensitiveComparer ObjectCompare;
-		private NumberCaseInsensitiveComparer ObjectCompare;
+		private readonly NumberCaseInsensitiveComparer ObjectCompare;
         
 		public ImageTextComparer()
 		{
@@ -130,14 +134,12 @@ namespace ARCed.Controls
 		public int Compare(object x, object y)
 		{
 			//int compareResult;
-			int image1, image2;
-			ListViewItem listviewX, listviewY;
 
-			// Cast the objects to be compared to ListViewItem objects
-			listviewX = (ListViewItem)x;
-			image1 = listviewX.ImageIndex;
-			listviewY = (ListViewItem)y;
-			image2 = listviewY.ImageIndex;
+		    // Cast the objects to be compared to ListViewItem objects
+			var listviewX = (ListViewItem)x;
+			int image1 = listviewX.ImageIndex;
+			var listviewY = (ListViewItem)y;
+			int image2 = listviewY.ImageIndex;
 
 			if (image1 < image2)
 			{
@@ -156,16 +158,12 @@ namespace ARCed.Controls
 
 	public class NumberCaseInsensitiveComparer : CaseInsensitiveComparer
 	{
-		public NumberCaseInsensitiveComparer ()
-		{
-			
-		}
 
 		public new int Compare(object x, object y)
 		{
-			if ((x is System.String) && IsWholeNumber((string)x) && (y is System.String) && IsWholeNumber((string)y))
+			if ((x is String) && IsWholeNumber((string)x) && (y is String) && IsWholeNumber((string)y))
 			{
-				return base.Compare(System.Convert.ToInt32(x),System.Convert.ToInt32(y));
+				return base.Compare(Convert.ToInt32(x),Convert.ToInt32(y));
 			}
 			else
 			{
@@ -173,9 +171,9 @@ namespace ARCed.Controls
 			}
 		}
 
-		private bool IsWholeNumber(string strNumber)
+		private static bool IsWholeNumber(string strNumber)
 		{
-			Regex objNotWholePattern=new Regex("[^0-9]");
+			var objNotWholePattern=new Regex("[^0-9]");
 			return !objNotWholePattern.IsMatch(strNumber);
 		}  
 	}

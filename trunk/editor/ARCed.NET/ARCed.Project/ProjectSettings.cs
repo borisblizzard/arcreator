@@ -1,5 +1,9 @@
-﻿using System;
+﻿#region Using Directives
+
+using System;
 using System.Collections.Generic;
+
+#endregion
 
 namespace ARCed.Settings
 {
@@ -40,9 +44,9 @@ namespace ARCed.Settings
 		{
 			OpenScripts = new List<string>();
 			ARChiveSettings = new ARChiveSettings();
-			Guid = System.Guid.NewGuid();
+			Guid = Guid.NewGuid();
 			MaxLevel = 99;
-			Parameters = new List<string>()
+			Parameters = new List<string>
 			{
 				"MaxHP", "MaxSP", "STR", "DEX", "AGI", "INT"
 			};

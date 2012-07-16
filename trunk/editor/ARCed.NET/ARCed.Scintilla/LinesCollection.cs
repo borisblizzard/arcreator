@@ -3,7 +3,7 @@
 using System;
 using System.Collections;
 
-#endregion Using Directives
+#endregion
 
 
 namespace ARCed.Scintilla
@@ -155,7 +155,7 @@ namespace ARCed.Scintilla
                 if (max > this.Count)
                     max = this.Count;
 
-                Line[] ret = new Line[max - min];
+                var ret = new Line[max - min];
 
                 for (int i = min; i < max; i++)
                     ret[i - min] = FromVisibleLineNumber(i);
@@ -180,9 +180,9 @@ namespace ARCed.Scintilla
         {
             #region Fields
 
-            private int _count;
+            private readonly int _count;
             private int _index = -1;
-            private LineCollection _lines;
+            private readonly LineCollection _lines;
 
             #endregion Fields
 

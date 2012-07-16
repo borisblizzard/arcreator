@@ -4,7 +4,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-#endregion Using Directives
+#endregion
 
 
 namespace ARCed.Scintilla
@@ -13,8 +13,8 @@ namespace ARCed.Scintilla
     {
         #region Fields
 
-        private string[] _keywords = new string[] { "", "", "", "", "", "", "", "", "" };
-        private Dictionary<string, Lexer> _lexerAliasMap;
+        private readonly string[] _keywords = new[] { "", "", "", "", "", "", "", "", "" };
+        private readonly Dictionary<string, Lexer> _lexerAliasMap;
         private Dictionary<string, string[]> _lexerKeywordListMap;
         private Dictionary<string, Dictionary<string, int>> _lexerStyleMap;
 

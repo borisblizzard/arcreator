@@ -1,26 +1,27 @@
 ﻿#region Using Directives
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
 
-#endregion Using Directives
+#endregion
 
 
 namespace ARCed.Scintilla
 {
-    [TypeConverterAttribute(typeof(System.ComponentModel.ExpandableObjectConverter))]
+    [TypeConverter(typeof(ExpandableObjectConverter))]
     public class MarginCollection : TopLevelHelper, ICollection<Margin>
     {
         #region Fields
 
-        private Margin _margin0;
-        private Margin _margin1;
-        private Margin _margin2;
-        private Margin _margin3;
-        private Margin _margin4;
+        private readonly Margin _margin0;
+        private readonly Margin _margin1;
+        private readonly Margin _margin2;
+        private readonly Margin _margin3;
+        private readonly Margin _margin4;
 
         #endregion Fields
 
@@ -195,7 +196,7 @@ namespace ARCed.Scintilla
         }
 
 
-        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+        IEnumerator IEnumerable.GetEnumerator()
         {
             return new List<Margin>(ToArray()).GetEnumerator();
         }
@@ -203,7 +204,7 @@ namespace ARCed.Scintilla
 
         public Margin[] ToArray()
         {
-            return new Margin[]
+            return new[]
             {
                 _margin0,
                 _margin1,

@@ -2,7 +2,7 @@
 
 using System.Collections.Generic;
 
-#endregion Using Directives
+#endregion
 
 
 namespace ARCed.Scintilla

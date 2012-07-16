@@ -2,8 +2,7 @@
 
 using System;
 
-
-#endregion Using Directives
+#endregion
 
 
 namespace ARCed.Scintilla
@@ -15,7 +14,7 @@ namespace ARCed.Scintilla
     {
         #region Fields
 
-        private int _lineIndex;
+        private readonly int _lineIndex;
         private int _lineCountDelta;
 
         #endregion Fields

@@ -1,8 +1,12 @@
+#region Using Directives
+
 using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
+
+#endregion
 
 namespace ARCed.UI
 {
@@ -44,23 +48,22 @@ namespace ARCed.UI
             }
         }
 
-        protected internal override DockPaneStripBase.Tab CreateTab(IDockContent content)
+        protected internal override Tab CreateTab(IDockContent content)
         {
             return new TabVS2005(content);
         }
 
         private sealed class InertButton : InertButtonBase
         {
-            private Bitmap m_image0, m_image1;
+            private readonly Bitmap m_image0, m_image1;
 
             public InertButton(Bitmap image0, Bitmap image1)
-                : base()
             {
                 m_image0 = image0;
                 m_image1 = image1;
             }
 
-            private int m_imageCategory = 0;
+            private int m_imageCategory;
             public int ImageCategory
             {
                 get { return m_imageCategory; }
@@ -117,23 +120,23 @@ namespace ARCed.UI
 
         #region Members
 
-        private ContextMenuStrip m_selectMenu;
+        private readonly ContextMenuStrip m_selectMenu;
         private static Bitmap m_imageButtonClose;
         private InertButton m_buttonClose;
         private static Bitmap m_imageButtonWindowList;
         private static Bitmap m_imageButtonWindowListOverflow;
         private InertButton m_buttonWindowList;
-        private IContainer m_components;
-        private ToolTip m_toolTip;
+        private readonly IContainer m_components;
+        private readonly ToolTip m_toolTip;
         private Font m_font;
         private Font m_boldFont;
-        private int m_startDisplayingTab = 0;
-        private int m_endDisplayingTab = 0;
-        private int m_firstDisplayingTab = 0;
-        private bool m_documentTabsOverflow = false;
+        private int m_startDisplayingTab;
+        private int m_endDisplayingTab;
+        private int m_firstDisplayingTab;
+        private bool m_documentTabsOverflow;
         private static string m_toolTipSelect;
         private static string m_toolTipClose;
-        private bool m_closeButtonVisible = false;
+        private bool m_closeButtonVisible;
 
         #endregion
 
@@ -217,7 +220,7 @@ namespace ARCed.UI
                 {
                     m_buttonClose = new InertButton(ImageButtonClose, ImageButtonClose);
                     m_toolTip.SetToolTip(m_buttonClose, ToolTipClose);
-                    m_buttonClose.Click += new EventHandler(Close_Click);
+                    m_buttonClose.Click += this.Close_Click;
                     Controls.Add(m_buttonClose);
                 }
 
@@ -255,7 +258,7 @@ namespace ARCed.UI
                 {
                     m_buttonWindowList = new InertButton(ImageButtonWindowList, ImageButtonWindowListOverflow);
                     m_toolTip.SetToolTip(m_buttonWindowList, ToolTipSelect);
-                    m_buttonWindowList.Click += new EventHandler(WindowList_Click);
+                    m_buttonWindowList.Click += this.WindowList_Click;
                     Controls.Add(m_buttonWindowList);
                 }
 
@@ -636,7 +639,7 @@ namespace ARCed.UI
                     Color startColor = DockPane.DockPanel.Skin.DockPaneStripSkin.DocumentGradient.DockStripGradient.StartColor;
                     Color endColor = DockPane.DockPanel.Skin.DockPaneStripSkin.DocumentGradient.DockStripGradient.EndColor;
                     LinearGradientMode gradientMode = DockPane.DockPanel.Skin.DockPaneStripSkin.DocumentGradient.DockStripGradient.LinearGradientMode;
-                    using (LinearGradientBrush brush = new LinearGradientBrush(rect, startColor, endColor, gradientMode))
+                    using (var brush = new LinearGradientBrush(rect, startColor, endColor, gradientMode))
                     {
                         e.Graphics.FillRectangle(brush, rect);
                     }
@@ -647,7 +650,7 @@ namespace ARCed.UI
                 Color startColor = DockPane.DockPanel.Skin.DockPaneStripSkin.ToolWindowGradient.DockStripGradient.StartColor;
                 Color endColor = DockPane.DockPanel.Skin.DockPaneStripSkin.ToolWindowGradient.DockStripGradient.EndColor;
                 LinearGradientMode gradientMode = DockPane.DockPanel.Skin.DockPaneStripSkin.ToolWindowGradient.DockStripGradient.LinearGradientMode;
-                using (LinearGradientBrush brush = new LinearGradientBrush(rect, startColor, endColor, gradientMode))
+                using (var brush = new LinearGradientBrush(rect, startColor, endColor, gradientMode))
                 {
                     e.Graphics.FillRectangle(brush, rect);
                 }
@@ -687,7 +690,7 @@ namespace ARCed.UI
             rectTab = RectangleToScreen(DrawHelper.RtlTransform(this, rectTab));
             Rectangle rectPaneClient = DockPane.RectangleToScreen(DockPane.ClientRectangle);
 
-            GraphicsPath path = new GraphicsPath();
+            var path = new GraphicsPath();
             GraphicsPath pathTab = GetTabOutline_Document(Tabs[index], true, true, true);
             path.AddPath(pathTab, true);
 
@@ -717,7 +720,7 @@ namespace ARCed.UI
             rectTab = RectangleToScreen(DrawHelper.RtlTransform(this, rectTab));
             Rectangle rectPaneClient = DockPane.RectangleToScreen(DockPane.ClientRectangle);
 
-            GraphicsPath path = new GraphicsPath();
+            var path = new GraphicsPath();
             GraphicsPath pathTab = GetTabOutline(Tabs[index], true, true);
             path.AddPath(pathTab, true);
             path.AddLine(rectTab.Left, rectTab.Top, rectPaneClient.Left, rectTab.Top);
@@ -811,7 +814,7 @@ namespace ARCed.UI
         {
             bool overflow = false;
 
-            TabVS2005 tab = Tabs[index] as TabVS2005;
+            var tab = Tabs[index] as TabVS2005;
             tab.MaxWidth = GetMaxTabWidth(index);
             int width = Math.Min(tab.MaxWidth, DocumentTabMaxWidth);
             if (x + width < rectTabStrip.Right || index == StartDisplayingTab)
@@ -852,7 +855,7 @@ namespace ARCed.UI
             if (m_startDisplayingTab > 0)
             {
                 int tempX = x;
-                TabVS2005 tab = Tabs[m_startDisplayingTab] as TabVS2005;
+                var tab = Tabs[m_startDisplayingTab] as TabVS2005;
                 tab.MaxWidth = GetMaxTabWidth(m_startDisplayingTab);
 
                 // Add the active tab and tabs to the left
@@ -911,7 +914,7 @@ namespace ARCed.UI
         private bool EnsureDocumentTabVisible(IDockContent content, bool repaint)
         {
             int index = Tabs.IndexOf(content);
-            TabVS2005 tab = Tabs[index] as TabVS2005;
+            var tab = Tabs[index] as TabVS2005;
             if (tab.TabWidth != 0)
                 return false;
 
@@ -1026,16 +1029,16 @@ namespace ARCed.UI
         {
             Rectangle rectTabStrip = TabStripRectangle;
 
-            TabVS2005 tab = (TabVS2005)(Tabs[index]);
+            var tab = (TabVS2005)(Tabs[index]);
             return new Rectangle(tab.TabX, rectTabStrip.Y, tab.TabWidth, rectTabStrip.Height);
         }
 
         private Rectangle GetTabRectangle_Document(int index)
         {
             Rectangle rectTabStrip = TabStripRectangle;
-            TabVS2005 tab = (TabVS2005)Tabs[index];
+            var tab = (TabVS2005)Tabs[index];
 
-            Rectangle rect = new Rectangle();
+            var rect = new Rectangle();
             rect.X = tab.TabX;
             rect.Width = tab.TabWidth;
             rect.Height = rectTabStrip.Height - DocumentTabGapTop;
@@ -1244,7 +1247,7 @@ namespace ARCed.UI
 
         private void DrawTab_ToolWindow(Graphics g, TabVS2005 tab, Rectangle rect)
         {
-            Rectangle rectIcon = new Rectangle(
+            var rectIcon = new Rectangle(
                 rect.X + ToolWindowImageGapLeft,
                 rect.Y + rect.Height - 1 - ToolWindowImageGapBottom - ToolWindowImageHeight,
                 ToolWindowImageWidth, ToolWindowImageHeight);
@@ -1277,8 +1280,8 @@ namespace ARCed.UI
 
                 if (Tabs.IndexOf(DockPane.ActiveContent) != Tabs.IndexOf(tab) + 1)
                 {
-                    Point pt1 = new Point(rect.Right, rect.Top + ToolWindowTabSeperatorGapTop);
-                    Point pt2 = new Point(rect.Right, rect.Bottom - ToolWindowTabSeperatorGapBottom);
+                    var pt1 = new Point(rect.Right, rect.Top + ToolWindowTabSeperatorGapTop);
+                    var pt2 = new Point(rect.Right, rect.Bottom - ToolWindowTabSeperatorGapBottom);
                     g.DrawLine(PenToolWindowTabBorder, DrawHelper.RtlTransform(this, pt1), DrawHelper.RtlTransform(this, pt2));
                 }
 
@@ -1295,7 +1298,7 @@ namespace ARCed.UI
             if (tab.TabWidth == 0)
                 return;
 
-            Rectangle rectIcon = new Rectangle(
+            var rectIcon = new Rectangle(
                 rect.X + DocumentIconGapLeft,
                 rect.Y + rect.Height - 1 - DocumentIconGapBottom - DocumentIconHeight,
                 DocumentIconWidth, DocumentIconHeight);
@@ -1360,17 +1363,17 @@ namespace ARCed.UI
                 IDockContent content = tab.Content;
                 ToolStripItem item = SelectMenu.Items.Add(content.DockHandler.TabText, content.DockHandler.Icon.ToBitmap());
                 item.Tag = tab.Content;
-                item.Click += new EventHandler(ContextMenuItem_Click);
+                item.Click += this.ContextMenuItem_Click;
             }
             SelectMenu.Show(ButtonWindowList, x, y);
         }
 
         private void ContextMenuItem_Click(object sender, EventArgs e)
         {
-            ToolStripMenuItem item = sender as ToolStripMenuItem;
+            var item = sender as ToolStripMenuItem;
             if (item != null)
             {
-                IDockContent content = (IDockContent)item.Tag;
+                var content = (IDockContent)item.Tag;
                 DockPane.ActiveContent = content;
             }
         }
@@ -1419,12 +1422,12 @@ namespace ARCed.UI
                 buttonWidth = buttonWidth * (height / buttonHeight);
                 buttonHeight = height;
             }
-            Size buttonSize = new Size(buttonWidth, buttonHeight);
+            var buttonSize = new Size(buttonWidth, buttonHeight);
 
             int x = rectTabStrip.X + rectTabStrip.Width - DocumentTabGapLeft
                 - DocumentButtonGapRight - buttonWidth;
             int y = rectTabStrip.Y + DocumentButtonGapTop;
-            Point point = new Point(x, y);
+            var point = new Point(x, y);
             ButtonClose.Bounds = DrawHelper.RtlTransform(this, new Rectangle(point, buttonSize));
 
             // If the close button is not visible draw the window list button overtop.
@@ -1456,14 +1459,14 @@ namespace ARCed.UI
 
         protected override void OnMouseHover(EventArgs e)
         {
-            int index = HitTest(PointToClient(Control.MousePosition));
+            int index = HitTest(PointToClient(MousePosition));
             string toolTip = string.Empty;
 
             base.OnMouseHover(e);
 
             if (index != -1)
             {
-                TabVS2005 tab = Tabs[index] as TabVS2005;
+                var tab = Tabs[index] as TabVS2005;
                 if (!String.IsNullOrEmpty(tab.Content.DockHandler.ToolTipText))
                     toolTip = tab.Content.DockHandler.ToolTipText;
                 else if (tab.MaxWidth > tab.TabWidth)

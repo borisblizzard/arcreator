@@ -1,10 +1,8 @@
 #region Using Directives
 
-using System;
 using System.Drawing;
-using System.Collections.ObjectModel;
 
-#endregion Using Directives
+#endregion
 
 
 namespace ARCed.Scintilla.Configuration

@@ -1,9 +1,14 @@
+#region Using Directives
+
 using System;
 using System.ComponentModel;
 using System.ComponentModel.Design;
 using System.Drawing;
 using System.Windows.Forms;
 using ARCed.Core.Win32;
+using ScrollBars = ARCed.Core.Win32.ScrollBars;
+
+#endregion
 
 namespace ARCed.UI
 {
@@ -15,13 +20,9 @@ namespace ARCed.UI
         {
             private bool m_autoScroll = true;
             private BorderStyle m_borderStyle = BorderStyle.Fixed3D;
-            private MdiClient m_mdiClient = null;
-            private Form m_parentForm = null;
-            private ISite m_site = null;
-
-            public MdiClientController()
-            {
-            }
+            private MdiClient m_mdiClient;
+            private Form m_parentForm;
+            private ISite m_site;
 
             public void Dispose()
             {
@@ -134,8 +135,8 @@ namespace ARCed.UI
                     // unwire events connected to the old parent.
                     if (m_parentForm != null)
                     {
-                        m_parentForm.HandleCreated -= new EventHandler(ParentFormHandleCreated);
-                        m_parentForm.MdiChildActivate -= new EventHandler(ParentFormMdiChildActivate);
+                        m_parentForm.HandleCreated -= this.ParentFormHandleCreated;
+                        m_parentForm.MdiChildActivate -= this.ParentFormMdiChildActivate;
                     }
 
                     m_parentForm = value;
@@ -151,9 +152,9 @@ namespace ARCed.UI
                         RefreshProperties();
                     }
                     else
-                        m_parentForm.HandleCreated += new EventHandler(ParentFormHandleCreated);
+                        m_parentForm.HandleCreated += this.ParentFormHandleCreated;
 
-                    m_parentForm.MdiChildActivate += new EventHandler(ParentFormMdiChildActivate);
+                    m_parentForm.MdiChildActivate += this.ParentFormMdiChildActivate;
                 }
             }
 
@@ -169,10 +170,10 @@ namespace ARCed.UI
 
                     // If the component is dropped onto a form during design-time,
                     // set the ParentForm property.
-                    IDesignerHost host = (value.GetService(typeof(IDesignerHost)) as IDesignerHost);
+                    var host = (value.GetService(typeof(IDesignerHost)) as IDesignerHost);
                     if (host != null)
                     {
-                        Form parent = host.RootComponent as Form;
+                        var parent = host.RootComponent as Form;
                         if (parent != null)
                             ParentForm = parent;
                     }
@@ -232,7 +233,7 @@ namespace ARCed.UI
                         // If AutoScroll is set to false, hide the scrollbars when the control
                         // calculates its non-client area.
                         if (!AutoScroll)
-                            NativeMethods.ShowScrollBar(m.HWnd, (int)ARCed.Core.Win32.ScrollBars.SB_BOTH, 0 /*false*/);
+                            NativeMethods.ShowScrollBar(m.HWnd, (int)ScrollBars.SB_BOTH, 0 /*false*/);
                         break;
                 }
 
@@ -242,7 +243,7 @@ namespace ARCed.UI
             private void ParentFormHandleCreated(object sender, EventArgs e)
             {
                 // The form has been created, unwire the event, and initialize the MdiClient.
-                this.m_parentForm.HandleCreated -= new EventHandler(ParentFormHandleCreated);
+                this.m_parentForm.HandleCreated -= this.ParentFormHandleCreated;
                 InitializeMdiClient();
                 RefreshProperties();
             }
@@ -263,7 +264,7 @@ namespace ARCed.UI
                 // release the handle.
                 if (m_mdiClient != null)
                 {
-                    m_mdiClient.HandleDestroyed -= new EventHandler(MdiClientHandleDestroyed);
+                    m_mdiClient.HandleDestroyed -= this.MdiClientHandleDestroyed;
                     m_mdiClient = null;
                 }
 
@@ -276,8 +277,8 @@ namespace ARCed.UI
                 // to the old MDI.
                 if (MdiClient != null)
                 {
-                    MdiClient.HandleDestroyed -= new EventHandler(MdiClientHandleDestroyed);
-                    MdiClient.Layout -= new LayoutEventHandler(MdiClientLayout);
+                    MdiClient.HandleDestroyed -= this.MdiClientHandleDestroyed;
+                    MdiClient.Layout -= this.MdiClientLayout;
                 }
 
                 if (ParentForm == null)
@@ -301,8 +302,8 @@ namespace ARCed.UI
                     OnHandleAssigned(EventArgs.Empty);
 
                     // Monitor the MdiClient for when its handle is destroyed.
-                    MdiClient.HandleDestroyed += new EventHandler(MdiClientHandleDestroyed);
-                    MdiClient.Layout += new LayoutEventHandler(MdiClientLayout);
+                    MdiClient.HandleDestroyed += this.MdiClientHandleDestroyed;
+                    MdiClient.Layout += this.MdiClientLayout;
 
                     break;
                 }
@@ -330,15 +331,15 @@ namespace ARCed.UI
             }
         }
 
-        private MdiClientController m_mdiClientController = null;
+        private MdiClientController m_mdiClientController;
         private MdiClientController GetMdiClientController()
         {
             if (m_mdiClientController == null)
             {
                 m_mdiClientController = new MdiClientController();
-                m_mdiClientController.HandleAssigned += new EventHandler(MdiClientHandleAssigned);
-                m_mdiClientController.MdiChildActivate += new EventHandler(ParentFormMdiChildActivate);
-                m_mdiClientController.Layout += new LayoutEventHandler(MdiClient_Layout);
+                m_mdiClientController.HandleAssigned += this.MdiClientHandleAssigned;
+                m_mdiClientController.MdiChildActivate += this.ParentFormMdiChildActivate;
+                m_mdiClientController.Layout += this.MdiClient_Layout;
             }
 
             return m_mdiClientController;
@@ -349,7 +350,7 @@ namespace ARCed.UI
             if (GetMdiClientController().ParentForm == null)
                 return;
 
-            IDockContent content = GetMdiClientController().ParentForm.ActiveMdiChild as IDockContent;
+            var content = GetMdiClientController().ParentForm.ActiveMdiChild as IDockContent;
             if (content == null)
                 return;
 

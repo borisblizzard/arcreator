@@ -1,12 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿#region Using Directives
+
+using System;
+using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
+using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Color = Microsoft.Xna.Framework.Color;
+using Rectangle = Microsoft.Xna.Framework.Rectangle;
 
-using Bitmap = System.Drawing.Bitmap;
+#endregion
 
 namespace ARCed
 {
@@ -27,12 +31,12 @@ namespace ARCed
 			if (p2.Y > p1.Y) { tp = p1; p1 = p2; p2 = tp; }
 			if (p3.Y > p1.Y) { tp = p1; p1 = p3; p3 = tp; }
 			if (p3.Y > p2.Y) { tp = p2; p2 = p3; p3 = tp; }
-			int steps13 = (int)(p1.Y - p3.Y);
-			int steps12 = (int)(p1.Y - p2.Y);
-			int steps23 = (int)(p2.Y - p3.Y);
-			float sx13 = (float)(p1.X - p3.X) / (float)steps13;
-			float sx12 = (float)(p1.X - p2.X) / (float)steps12;
-			float sx23 = (float)(p2.X - p3.X) / (float)steps23;
+			var steps13 = (int)(p1.Y - p3.Y);
+			var steps12 = (int)(p1.Y - p2.Y);
+			var steps23 = (int)(p2.Y - p3.Y);
+			float sx13 = (p1.X - p3.X) / steps13;
+			float sx12 = (p1.X - p2.X) / steps12;
+			float sx23 = (p2.X - p3.X) / steps23;
 			float x13 = p1.X;
 			float x12 = p1.X;
 			float dx = 1;
@@ -70,14 +74,14 @@ namespace ARCed
 		/// <remarks>Without the use of a ContentPipeline, it is necessary to use GDI+ to 
 		/// draw the font onto a bitmap and transfer it to a texture.</remarks>
 		public static void DrawString(this SpriteBatch batch, string text, 
-			System.Drawing.Font font, Color color, Rectangle rect)
+			Font font, Color color, Rectangle rect)
 		{
-			using (Bitmap bmp = new Bitmap(rect.Width, rect.Height))
+			using (var bmp = new Bitmap(rect.Width, rect.Height))
 			{
-				using (var g = System.Drawing.Graphics.FromImage(bmp))
+				using (var g = Graphics.FromImage(bmp))
 				{
-					g.DrawString(text, font, System.Drawing.Brushes.White,
-						new System.Drawing.PointF(0, 0));
+					g.DrawString(text, font, Brushes.White,
+						new PointF(0, 0));
 					batch.Draw(bmp.ToTexture(batch.GraphicsDevice), rect, color);
 				}
 			}
@@ -110,7 +114,7 @@ namespace ARCed
 		public static void DrawRectangle(this SpriteBatch batch, int x, int y, 
 			int width, int height, Color color, int border = 1)
 		{
-			Rectangle rect = new Rectangle(x, y, width, height);
+			var rect = new Rectangle(x, y, width, height);
 			DrawRectangle(batch, rect, color, border);
 		}
 
@@ -119,10 +123,11 @@ namespace ARCed
 		/// </summary>
 		/// <param name="batch">SpriteBatch to draw the rectangle.</param>
 		/// <param name="rect">Rectangle to draw.</param>
+        /// <param name="color">Color to draw rectangle.</param>
 		/// <param name="border">Width of the border in pixels</param>
 		public static void DrawRectangle(this SpriteBatch batch, Rectangle rect, Color color, int border = 1)
 		{
-			Texture2D _texture = new Texture2D(batch.GraphicsDevice, 1, 1);
+			var _texture = new Texture2D(batch.GraphicsDevice, 1, 1);
 			_texture.SetData(new[] { Color.White });
 			batch.Draw(_texture, new Rectangle(rect.Left, rect.Top, rect.Width, border), color);
 			batch.Draw(_texture, new Rectangle(rect.Left, rect.Bottom - border, rect.Width, border), color);
@@ -142,7 +147,7 @@ namespace ARCed
 		public static void FillRectangle(this SpriteBatch batch, int x, int y,
 			int width, int height, Color color)
 		{
-			Texture2D rectangleTexture = new Texture2D(batch.GraphicsDevice, width, height);
+			var rectangleTexture = new Texture2D(batch.GraphicsDevice, width, height);
 			Color[] colors = Enumerable.Repeat(color, width * height).ToArray();
 			rectangleTexture.SetData(colors);
 			batch.Draw(rectangleTexture, new Vector2(x, y), Color.White);
@@ -160,8 +165,8 @@ namespace ARCed
 		}
 
 		/// <summary>
-		/// Converts a <paramref name="System.Drawing.Rectangle"/> to a 
-		/// <paramref name="Microsoft.Xna.Framework.Rectangle"/> and returns it.
+		/// Converts a <see cref="System.Drawing.Rectangle"/> to a 
+        /// <see cref="Microsoft.Xna.Framework.Rectangle"/> and returns it.
 		/// </summary>
 		/// <param name="rect">Rectangle to convert</param>
 		/// <returns>Converted rectangle</returns>
@@ -171,8 +176,8 @@ namespace ARCed
 		}
 
 		/// <summary>
-		/// Converts a <paramref name="Microsoft.Xna.Framework.Rectangle"/> to a 
-		/// <paramref name="System.Drawing.Rectangle"/> and returns it.
+        /// Converts a <see cref="Microsoft.Xna.Framework.Rectangle"/> to a 
+        /// <see cref="System.Drawing.Rectangle"/> and returns it.
 		/// </summary>
 		/// <param name="rect">Rectangle to convert</param>
 		/// <returns>Converted rectangle</returns>
@@ -182,8 +187,8 @@ namespace ARCed
 		}
 
 		/// <summary>
-		/// Converts and returns a <paramref name="System.Drawing.Color"/> to 
-		/// a <paramref name="Microsoft.Xna.Framework.Color"/>.
+        /// Converts and returns a <see cref="System.Drawing.Color"/> to 
+        /// a <see cref="Microsoft.Xna.Framework.Color"/>.
 		/// </summary>
 		/// <param name="color">Color to convert.</param>
 		/// <returns>Converted color</returns>
@@ -193,8 +198,8 @@ namespace ARCed
 		}
 
 		/// <summary>
-		/// Converts and returns a <paramref name="Microsoft.Xna.Framework.Color"/> to 
-		/// a <paramref name="System.Drawing.Color"/>.
+        /// Converts and returns a <see cref="Microsoft.Xna.Framework.Color"/> to 
+        /// a <see cref="System.Drawing.Color"/>.
 		/// </summary>
 		/// <param name="color">Color to convert.</param>
 		/// <returns>Converted color</returns>
@@ -204,18 +209,18 @@ namespace ARCed
 		}
 
 		/// <summary>
-		/// Converts a Texture2D to an <paramref name="System.Drawing.Image"/> and returns it.
+        /// Converts a Texture2D to an <see cref="System.Drawing.Image"/> and returns it.
 		/// </summary>
 		/// <param name="texture">Texture to convert</param>
 		/// <returns>Image representation of the texture.</returns>
-		public static System.Drawing.Image ToImage(this Texture2D texture)
+		public static Image ToImage(this Texture2D texture)
 		{
-			System.Drawing.Image image = null;
-			using (MemoryStream stream = new MemoryStream())
+			Image image = null;
+			using (var stream = new MemoryStream())
 			{
 				texture.SaveAsPng(stream, texture.Width, texture.Height);
 				stream.Seek(0, SeekOrigin.Begin);
-				image = System.Drawing.Image.FromStream(stream);
+				image = Image.FromStream(stream);
 			}
 			return image;
 		}
@@ -226,12 +231,12 @@ namespace ARCed
 		/// <param name="image">Image to convert</param>
 		/// <param name="device">Texture graphics device</param>
 		/// <returns>Texture2D representation of the image</returns>
-		public static Texture2D ToTexture(this System.Drawing.Image image, GraphicsDevice device)
+		public static Texture2D ToTexture(this Image image, GraphicsDevice device)
 		{
 			Texture2D texture = null;
-			using (MemoryStream stream = new MemoryStream())
+			using (var stream = new MemoryStream())
 			{
-				image.Save(stream, System.Drawing.Imaging.ImageFormat.Png);
+				image.Save(stream, ImageFormat.Png);
 				stream.Seek(0, SeekOrigin.Begin);
 				texture = Texture2D.FromStream(device, stream);
 			}

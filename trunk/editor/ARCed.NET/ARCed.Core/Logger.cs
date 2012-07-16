@@ -1,6 +1,10 @@
-﻿using System;
+﻿#region Using Directives
+
+using System;
 using System.IO;
 using System.Text;
+
+#endregion
 
 namespace ARCed.Core
 {
@@ -63,7 +67,7 @@ namespace ARCed.Core
 	/// </summary>
 	public class Logger
 	{
-		private StringBuilder _buffer;
+		private readonly StringBuilder _buffer;
 		private static string _header;
 
 		/// <summary>
@@ -147,7 +151,7 @@ namespace ARCed.Core
 			_buffer.AppendLine(_header);
 			if (TextChanged != null)
 			{
-				LogTextEventArgs args = new LogTextEventArgs(_header);
+				var args = new LogTextEventArgs(_header);
 				TextChanged(this, args);
 				TextChanged(this, new LogTextEventArgs(message + "\n"));
 				TextChanged(this, args);
@@ -209,7 +213,7 @@ namespace ARCed.Core
 		{
 			_buffer.AppendLine(obj.ToString());
 			if (TextChanged != null)
-				TextChanged(this, new LogTextEventArgs(obj.ToString() + "\n"));
+				TextChanged(this, new LogTextEventArgs(obj + "\n"));
 			LogConsoleLine(obj);
 		}
 
@@ -227,13 +231,13 @@ namespace ARCed.Core
 			LogConsole(str);
 		}
 
-		private void LogConsole(object obj)
+		private static void LogConsole(object obj)
 		{
 			
 			Console.Write(obj);
 		}
 
-		private void LogConsoleLine(object obj)
+		private static void LogConsoleLine(object obj)
 		{
 			Console.WriteLine(obj);
 		}

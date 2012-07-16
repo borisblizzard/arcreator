@@ -1,4 +1,8 @@
+#region Using Directives
+
 using System;
+
+#endregion
 
 namespace ARCed.Core.Win32
 {
@@ -341,14 +345,14 @@ namespace ARCed.Core.Win32
 		SB_BOTH = 3
 	}
 
-	public enum GetWindowLongIndex : int
+	public enum GetWindowLongIndex
 	{
 		GWL_STYLE = -16,
 		GWL_EXSTYLE = -20
 	}
 
     // Hook Types  
-    public enum HookType : int
+    public enum HookType 
     {
         WH_JOURNALRECORD = 0,
         WH_JOURNALPLAYBACK = 1,

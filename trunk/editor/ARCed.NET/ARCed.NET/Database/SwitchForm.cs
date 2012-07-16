@@ -1,6 +1,13 @@
-﻿using System;
+﻿#region Using Directives
+
+using System;
 using System.Collections.Generic;
+using System.Drawing;
 using ARCed.Controls;
+using ARCed.Properties;
+using RPG;
+
+#endregion
 
 namespace ARCed.Database
 {
@@ -50,12 +57,12 @@ namespace ARCed.Database
 		/// <summary>
 		/// Gets the selected switch
 		/// </summary>
-		public RPG.RpgObject SelectedSwitch 
+		public RpgObject SelectedSwitch 
 		{ 
 			get { return Data[dataObjectList.SelectedIndex + 1]; } 
 		}
 
-		private RPG.RpgObject _switch;
+		private RpgObject _switch;
 
 		/// <summary>
 		/// Gets the data associated with the control
@@ -78,7 +85,7 @@ namespace ARCed.Database
 		/// Construct the form, specifying the type
 		/// </summary>
 		/// <param name="switchType">Type of data to edit</param>
-		public SwitchForm(SwitchType switchType) : base()
+		public SwitchForm(SwitchType switchType)
 		{
 			InitializeComponent();
 			FormType = switchType;
@@ -86,12 +93,12 @@ namespace ARCed.Database
 			if (switchType == SwitchType.Switch)
 			{
 				text = "Switches";
-				this.Icon = System.Drawing.Icon.FromHandle(Properties.Resources.Switch.GetHicon());
+				this.Icon = Icon.FromHandle(Resources.Switch.GetHicon());
 			}
 			else
 			{
 				text = "Variables";
-				this.Icon = System.Drawing.Icon.FromHandle(Properties.Resources.Variable.GetHicon());
+				this.Icon = Icon.FromHandle(Resources.Variable.GetHicon());
 			}
 			this.Text = dataObjectList.HeaderText = text;
 			dataObjectList.PopulateList(Data);
@@ -112,9 +119,9 @@ namespace ARCed.Database
 		/// </summary>
 		public override void RefreshCurrentObject()
 		{
-			suppressEvents = true;
+			SuppressEvents = true;
 			textBoxName.Text = _switch.name;
-			suppressEvents = false;
+			SuppressEvents = false;
 		}
 
 		#endregion
@@ -139,7 +146,7 @@ namespace ARCed.Database
 
 		private void textBoxName_TextChanged(object sender, EventArgs e)
 		{
-			if (!suppressEvents)
+			if (!SuppressEvents)
 			{
 				int index = dataObjectList.SelectedIndex;
 				string text = textBoxName.Text;

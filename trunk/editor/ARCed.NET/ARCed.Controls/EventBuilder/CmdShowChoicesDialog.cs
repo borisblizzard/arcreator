@@ -1,10 +1,10 @@
-﻿using System;
+﻿#region Using Directives
+
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
+
+#endregion
 
 namespace ARCed.EventBuilder
 {
@@ -31,10 +31,10 @@ namespace ARCed.EventBuilder
 			InitializeComponent();
 		}
 
-		private void SetChoices(string[] choices)
+		private void SetChoices(IList<string> choices)
 		{
-			TextBox[] textBoxes = new[] { textBox1, textBox2, textBox3, textBox4 };
-			for (int i = 0; i < choices.Length; i++)
+			var textBoxes = new[] { textBox1, textBox2, textBox3, textBox4 };
+			for (int i = 0; i < choices.Count; i++)
 				textBoxes[i].Text = choices[i];
 		}
 

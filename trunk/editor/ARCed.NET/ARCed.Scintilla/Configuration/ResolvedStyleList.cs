@@ -3,7 +3,7 @@
 using System;
 using System.Collections.Generic;
 
-#endregion Using Directives
+#endregion
 
 
 namespace ARCed.Scintilla.Configuration
@@ -28,11 +28,6 @@ namespace ARCed.Scintilla.Configuration
 
 
         #region Constructors
-
-        public ResolvedStyleList()
-        {
-
-        }
 
         #endregion Constructors
     }

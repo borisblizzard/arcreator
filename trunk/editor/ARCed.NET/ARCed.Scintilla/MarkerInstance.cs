@@ -11,8 +11,8 @@ namespace ARCed.Scintilla
     {
         #region Fields
 
-        private int _handle;
-        private Marker _marker;
+        private readonly int _handle;
+        private readonly Marker _marker;
 
         #endregion Fields
 

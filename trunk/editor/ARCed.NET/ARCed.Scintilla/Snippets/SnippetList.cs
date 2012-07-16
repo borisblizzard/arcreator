@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
 
-#endregion Using Directives
+#endregion
 
 
 namespace ARCed.Scintilla
@@ -14,7 +14,7 @@ namespace ARCed.Scintilla
     {
         #region Fields
 
-        SnippetManager _manager;
+        private readonly SnippetManager _manager;
 
         #endregion Fields
 
@@ -41,7 +41,7 @@ namespace ARCed.Scintilla
 
         public Snippet Add(string shortcut, string code, char delimeter, bool isSurroundsWith)
         {
-            Snippet s = new Snippet(shortcut, code, delimeter, isSurroundsWith);
+            var s = new Snippet(shortcut, code, delimeter, isSurroundsWith);
             Add(s);
             return s;
         }
@@ -63,9 +63,9 @@ namespace ARCed.Scintilla
         public void Sort()
         {
             
-            Snippet[] a = new Snippet[Count];
+            var a = new Snippet[Count];
             CopyTo(a, 0);
-            Array.Sort<Snippet>(a);
+            Array.Sort(a);
 
             Clear();
             AddRange(a);
@@ -74,7 +74,7 @@ namespace ARCed.Scintilla
 
         public override string ToString()
         {
-            StringBuilder sb = new StringBuilder();
+            var sb = new StringBuilder();
             foreach (Snippet s in this.Items)
                 sb.Append(s.Shortcut).Append(" ");
 

@@ -1,4 +1,8 @@
-﻿using System.Collections.Generic;
+﻿#region Using Directives
+
+using System.Collections.Generic;
+
+#endregion
 
 namespace RPG
 {
@@ -43,10 +47,14 @@ namespace RPG
 		public System()
 		{
 			magic_number = 0;
-			party_members = new List<dynamic>() { 1 };
-			elements = new List<dynamic>() { null, "" };
-			switches = new List<dynamic>() { null, "" };
-			variables = new List<dynamic>() { null, "" };
+			party_members = new List<dynamic>
+			{ 1 };
+			elements = new List<dynamic>
+			{ null, "" };
+			switches = new List<dynamic>
+			{ null, "" };
+			variables = new List<dynamic>
+			{ null, "" };
 			windowskin_name = "";
 			title_name = "";
 			gameover_name = "";
@@ -68,7 +76,8 @@ namespace RPG
 			actor_collapse_se = new AudioFile("", 80);
 			enemy_collapse_se = new AudioFile("", 80);
 			words = new Words();
-			test_battlers = new List<dynamic>() {};
+			test_battlers = new List<dynamic>
+			{};
 			test_troop_id = 1;
 			start_map_id = 1;
 			start_x = 0;

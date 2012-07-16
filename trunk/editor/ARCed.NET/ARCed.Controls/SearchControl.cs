@@ -1,6 +1,11 @@
-﻿using System.ComponentModel;
+﻿#region Using Directives
+
+using System;
+using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
+
+#endregion
 
 namespace ARCed.Controls
 {
@@ -27,7 +32,7 @@ namespace ARCed.Controls
 
 		#region Private Methods
 
-		private void toolStripMenuItem_OptionsItem_Click(object sender, System.EventArgs e)
+		private void toolStripMenuItem_OptionsItem_Click(object sender, EventArgs e)
 		{
 			toolStripDropDownButton_Options.ShowDropDown();
 			((ToolStripMenuItem)sender).Select();

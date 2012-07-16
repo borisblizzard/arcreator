@@ -12,7 +12,7 @@ namespace ARCed.UI
 
             protected override void StartDrag()
             {
-                DockWindow window = Parent as DockWindow;
+                var window = Parent as DockWindow;
                 if (window == null)
                     return;
 

@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-
-using System.Drawing;
-using System.Text;
-using System.Windows.Forms;
-
-namespace ARCed.Forms.Splash
+﻿namespace ARCed.Forms.Splash
 {
 	/// <summary>
 	/// Defined types of messages: Success/Warning/Error.
@@ -22,7 +14,7 @@ namespace ARCed.Forms.Splash
 	/// </summary>
 	public static class SplashScreen
 	{
-		static SplashScreenForm sf = null;
+	    private static SplashScreenForm sf;
 
 		/// <summary>
 		/// Displays the splashscreen

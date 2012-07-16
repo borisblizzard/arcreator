@@ -1,10 +1,14 @@
-﻿using System;
+﻿#region Using Directives
+
+using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 using ARCed.Helpers;
 using ARCed.UI;
 using RPG;
+
+#endregion
 
 namespace ARCed.Database.Actors
 {
@@ -154,8 +158,8 @@ namespace ARCed.Database.Actors
 			_charts = new Chart[parameterNames.Count];
 			for (int i = 0; i < parameterNames.Count; i++)
 			{
-				TabPage page = new TabPage(parameterNames[i]);
-				Chart chart = new Chart();
+				var page = new TabPage(parameterNames[i]);
+				var chart = new Chart();
 				// ChartArea styling
 				chart.ChartAreas.Add(new ChartArea(parameterNames[i]));
 				chart.ChartAreas[0].Area3DStyle.Enable3D = Editor.Settings.Charting.ThreeD;
@@ -187,11 +191,11 @@ namespace ARCed.Database.Actors
 				chart.ChartAreas[0].AxisX.LabelStyle.IntervalOffset = -1;
 				chart.ChartAreas[0].AxisX.LabelStyle.IsEndLabelVisible = true;
 				// Bind events
-				chart.MouseMove += new MouseEventHandler(chart_MouseMove);
-				chart.MouseDown += new MouseEventHandler(chart_MouseDown);
-				chart.MouseUp += new MouseEventHandler(chart_MouseUp);
-				chart.MouseEnter += new EventHandler(chart_MouseEnter);
-				chart.MouseLeave += new EventHandler(chart_MouseLeave);
+				chart.MouseMove += this.chart_MouseMove;
+				chart.MouseDown += this.chart_MouseDown;
+				chart.MouseUp += this.chart_MouseUp;
+				chart.MouseEnter += this.chart_MouseEnter;
+				chart.MouseLeave += this.chart_MouseLeave;
 				// Add page and chart to tab control
 				page.Controls.Add(chart);
 				chart.Dock = DockStyle.Fill;
@@ -268,7 +272,7 @@ namespace ARCed.Database.Actors
 			if (!_suppressEvent)
 			{
 				int index = tabControlParameters.SelectedIndex;
-				int level = (int)numericLevel.Value;
+				var level = (int)numericLevel.Value;
 				_actor.parameters[index, level] = (int)numericValue.Value;
 			}
 		}

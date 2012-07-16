@@ -1,3 +1,5 @@
+#region Using Directives
+
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -5,6 +7,8 @@ using System.Diagnostics.CodeAnalysis;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using ARCed.Core.Win32;
+
+#endregion
 
 namespace ARCed.UI
 {
@@ -43,9 +47,9 @@ namespace ARCed.UI
             private class LocalWindowsHook : IDisposable
             {
                 // Internal properties
-                private IntPtr m_hHook = IntPtr.Zero;
-                private NativeMethods.HookProc m_filterFunc = null;
-                private HookType m_hookType;
+                private IntPtr _mHHook = IntPtr.Zero;
+                private readonly NativeMethods.HookProc _mFilterFunc;
+                private readonly HookType _mHookType;
 
                 // Event delegate
                 public delegate void HookEventHandler(object sender, HookEventArgs e);
@@ -60,44 +64,44 @@ namespace ARCed.UI
 
                 public LocalWindowsHook(HookType hook)
                 {
-                    m_hookType = hook;
-                    m_filterFunc = new NativeMethods.HookProc(this.CoreHookProc);
+                    this._mHookType = hook;
+                    this._mFilterFunc = this.CoreHookProc;
                 }
 
                 // Default filter function
                 public IntPtr CoreHookProc(int code, IntPtr wParam, IntPtr lParam)
                 {
                     if (code < 0)
-                        return NativeMethods.CallNextHookEx(m_hHook, code, wParam, lParam);
+                        return NativeMethods.CallNextHookEx(this._mHHook, code, wParam, lParam);
 
                     // Let clients determine what to do
-                    HookEventArgs e = new HookEventArgs();
+                    var e = new HookEventArgs();
                     e.HookCode = code;
                     e.wParam = wParam;
                     e.lParam = lParam;
                     OnHookInvoked(e);
 
                     // Yield to the next hook in the chain
-                    return NativeMethods.CallNextHookEx(m_hHook, code, wParam, lParam);
+                    return NativeMethods.CallNextHookEx(this._mHHook, code, wParam, lParam);
                 }
 
                 // Install the hook
                 public void Install()
                 {
-                    if (m_hHook != IntPtr.Zero)
+                    if (this._mHHook != IntPtr.Zero)
                         Uninstall();
 
                     int threadId = NativeMethods.GetCurrentThreadId();
-                    m_hHook = NativeMethods.SetWindowsHookEx(m_hookType, m_filterFunc, IntPtr.Zero, threadId);
+                    this._mHHook = NativeMethods.SetWindowsHookEx(this._mHookType, this._mFilterFunc, IntPtr.Zero, threadId);
                 }
 
                 // Uninstall the hook
                 public void Uninstall()
                 {
-                    if (m_hHook != IntPtr.Zero)
+                    if (this._mHHook != IntPtr.Zero)
                     {
-                        NativeMethods.UnhookWindowsHookEx(m_hHook);
-                        m_hHook = IntPtr.Zero;
+                        NativeMethods.UnhookWindowsHookEx(this._mHHook);
+                        this._mHHook = IntPtr.Zero;
                     }
                 }
 
@@ -118,32 +122,32 @@ namespace ARCed.UI
                 }
             }
 
-            private LocalWindowsHook m_localWindowsHook;
-            private LocalWindowsHook.HookEventHandler m_hookEventHandler;
+            private readonly LocalWindowsHook _mLocalWindowsHook;
+            private readonly LocalWindowsHook.HookEventHandler _mHookEventHandler;
 
             public FocusManagerImpl(DockPanel dockPanel)
             {
-                m_dockPanel = dockPanel;
-                m_localWindowsHook = new LocalWindowsHook(HookType.WH_CALLWNDPROCRET);
-                m_hookEventHandler = new LocalWindowsHook.HookEventHandler(HookEventHandler);
-                m_localWindowsHook.HookInvoked += m_hookEventHandler;
-                m_localWindowsHook.Install();
+                this._mDockPanel = dockPanel;
+                this._mLocalWindowsHook = new LocalWindowsHook(HookType.WH_CALLWNDPROCRET);
+                this._mHookEventHandler = this.HookEventHandler;
+                this._mLocalWindowsHook.HookInvoked += this._mHookEventHandler;
+                this._mLocalWindowsHook.Install();
             }
 
-            private DockPanel m_dockPanel;
+            private readonly DockPanel _mDockPanel;
             public DockPanel DockPanel
             {
-                get { return m_dockPanel; }
+                get { return this._mDockPanel; }
             }
 
-            private bool m_disposed = false;
+            private bool m_disposed;
             protected override void Dispose(bool disposing)
             {
                 lock (this)
                 {
                     if (!m_disposed && disposing)
                     {
-                        m_localWindowsHook.Dispose();
+                        this._mLocalWindowsHook.Dispose();
                         m_disposed = true;
                     }
 
@@ -151,7 +155,7 @@ namespace ARCed.UI
                 }
             }
 
-            private IDockContent m_contentActivating = null;
+            private IDockContent m_contentActivating;
             private IDockContent ContentActivating
             {
                 get { return m_contentActivating; }
@@ -181,10 +185,10 @@ namespace ARCed.UI
                 }
             }
 
-            private List<IDockContent> m_listContent = new List<IDockContent>();
+            private readonly List<IDockContent> _mListContent = new List<IDockContent>();
             private List<IDockContent> ListContent
             {
-                get { return m_listContent; }
+                get { return this._mListContent; }
             }
             public void AddToList(IDockContent content)
             {
@@ -202,7 +206,7 @@ namespace ARCed.UI
                     ListContent.Remove(content);
             }
 
-            private IDockContent m_lastActiveContent = null;
+            private IDockContent m_lastActiveContent;
             private IDockContent LastActiveContent
             {
                 get { return m_lastActiveContent; }
@@ -273,7 +277,7 @@ namespace ARCed.UI
 
             private static bool ContentContains(IDockContent content, IntPtr hWnd)
             {
-                Control control = Control.FromChildHandle(hWnd);
+                Control control = FromChildHandle(hWnd);
                 for (Control parent = control; parent != null; parent = parent.Parent)
                     if (parent == content.DockHandler.Form)
                         return true;
@@ -281,11 +285,11 @@ namespace ARCed.UI
                 return false;
             }
 
-            private int m_countSuspendFocusTracking = 0;
+            private int m_countSuspendFocusTracking;
             public void SuspendFocusTracking()
             {
                 m_countSuspendFocusTracking++;
-                m_localWindowsHook.HookInvoked -= m_hookEventHandler;
+                this._mLocalWindowsHook.HookInvoked -= this._mHookEventHandler;
             }
 
             public void ResumeFocusTracking()
@@ -300,7 +304,7 @@ namespace ARCed.UI
                         Activate(ContentActivating);
                         ContentActivating = null;
                     }
-                    m_localWindowsHook.HookInvoked += m_hookEventHandler;
+                    this._mLocalWindowsHook.HookInvoked += this._mHookEventHandler;
                     if (!InRefreshActiveWindow)
                         RefreshActiveWindow();
                 }
@@ -314,7 +318,7 @@ namespace ARCed.UI
             // Windows hook event handler
             private void HookEventHandler(object sender, HookEventArgs e)
             {
-                Msgs msg = (Msgs)Marshal.ReadInt32(e.lParam, IntPtr.Size * 3);
+                var msg = (Msgs)Marshal.ReadInt32(e.lParam, IntPtr.Size * 3);
 
                 if (msg == Msgs.WM_KILLFOCUS)
                 {
@@ -329,7 +333,7 @@ namespace ARCed.UI
 
             private DockPane GetPaneFromHandle(IntPtr hWnd)
             {
-                Control control = Control.FromChildHandle(hWnd);
+                Control control = FromChildHandle(hWnd);
 
                 IDockContent content = null;
                 DockPane pane = null;
@@ -350,7 +354,7 @@ namespace ARCed.UI
                 return pane;
             }
 
-            private bool m_inRefreshActiveWindow = false;
+            private bool m_inRefreshActiveWindow;
             private bool InRefreshActiveWindow
             {
                 get { return m_inRefreshActiveWindow; }
@@ -382,7 +386,7 @@ namespace ARCed.UI
                     DockPanel.OnActivePaneChanged(EventArgs.Empty);
             }
 
-            private DockPane m_activePane = null;
+            private DockPane m_activePane;
             public DockPane ActivePane
             {
                 get { return m_activePane; }
@@ -403,7 +407,7 @@ namespace ARCed.UI
                     m_activePane.SetIsActivated(true);
             }
 
-            private IDockContent m_activeContent = null;
+            private IDockContent m_activeContent;
             public IDockContent ActiveContent
             {
                 get { return m_activeContent; }
@@ -429,7 +433,7 @@ namespace ARCed.UI
                 }
             }
 
-            private DockPane m_activeDocumentPane = null;
+            private DockPane m_activeDocumentPane;
             public DockPane ActiveDocumentPane
             {
                 get { return m_activeDocumentPane; }
@@ -464,7 +468,7 @@ namespace ARCed.UI
                     m_activeDocumentPane.SetIsActiveDocumentPane(true);
             }
 
-            private IDockContent m_activeDocument = null;
+            private IDockContent m_activeDocument;
             public IDockContent ActiveDocument
             {
                 get { return m_activeDocument; }
@@ -483,12 +487,12 @@ namespace ARCed.UI
 
         private IFocusManager FocusManager
         {
-            get { return m_focusManager; }
+            get { return this._mFocusManager; }
         }
 
         internal IContentFocusManager ContentFocusManager
         {
-            get { return m_focusManager; }
+            get { return this._mFocusManager; }
         }
 
         internal void SaveFocus()
@@ -530,7 +534,7 @@ namespace ARCed.UI
         }
         protected virtual void OnActiveDocumentChanged(EventArgs e)
         {
-            EventHandler handler = (EventHandler)Events[ActiveDocumentChangedEvent];
+            var handler = (EventHandler)Events[ActiveDocumentChangedEvent];
             if (handler != null)
                 handler(this, e);
         }
@@ -545,7 +549,7 @@ namespace ARCed.UI
         }
         protected void OnActiveContentChanged(EventArgs e)
         {
-            EventHandler handler = (EventHandler)Events[ActiveContentChangedEvent];
+            var handler = (EventHandler)Events[ActiveContentChangedEvent];
             if (handler != null)
                 handler(this, e);
         }
@@ -560,7 +564,7 @@ namespace ARCed.UI
         }
         protected virtual void OnActivePaneChanged(EventArgs e)
         {
-            EventHandler handler = (EventHandler)Events[ActivePaneChangedEvent];
+            var handler = (EventHandler)Events[ActivePaneChangedEvent];
             if (handler != null)
                 handler(this, e);
         }

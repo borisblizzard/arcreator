@@ -1,8 +1,13 @@
-﻿using System;
+﻿#region Using Directives
+
+using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Drawing;
 using System.Xml.Serialization;
 using ARCed.Helpers;
+
+#endregion
 
 namespace ARCed.Core
 {
@@ -62,7 +67,7 @@ namespace ARCed.Core
 				else
 					return null;
 			}
-			catch { System.Diagnostics.Debug.WriteLine("Unable to convert"); }
+			catch { Debug.WriteLine("Unable to convert"); }
 			return null;
 		}
 
@@ -71,7 +76,7 @@ namespace ARCed.Core
 			try
 			{
 				TypeConverter converter = TypeDescriptor.GetConverter(typeof(Font));
-				Font f = (Font)converter.ConvertFromString(fontString);
+				var f = (Font)converter.ConvertFromString(fontString);
 				// ------------------------------------------------------------
 				// Bit of a hack since memory fonts are not included in search
 				// ------------------------------------------------------------
@@ -87,7 +92,7 @@ namespace ARCed.Core
 				// -------------------------------------------------------------
 				return f;
 			}
-			catch { System.Diagnostics.Debug.WriteLine("Unable to convert"); }
+			catch { Debug.WriteLine("Unable to convert"); }
 			return null;
 		}
 	}

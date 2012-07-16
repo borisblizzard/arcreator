@@ -1,13 +1,19 @@
-﻿using System;
+﻿#region Using Directives
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.IO;
+using System.Windows.Forms;
 using ARCed.Helpers;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Vector2 = Microsoft.Xna.Framework.Vector2;
+using RPG;
 using XnaColor = Microsoft.Xna.Framework.Color;
 using XnaRect = Microsoft.Xna.Framework.Rectangle;
+
+#endregion
 
 namespace ARCed.Controls
 {
@@ -21,7 +27,7 @@ namespace ARCed.Controls
 		private bool _selected;
 		private Image _image;
 		private Texture2D _texture;
-		private RPG.Troop.Member _member;
+		private Troop.Member _member;
 
 		#endregion
 
@@ -73,9 +79,9 @@ namespace ARCed.Controls
 		/// <summary>
 		/// Gets a vector that represents the sprites location
 		/// </summary>
-		public Microsoft.Xna.Framework.Vector2 Vector
+		public Vector2 Vector
 		{
-			get { return new Microsoft.Xna.Framework.Vector2(X, Y); } 
+			get { return new Vector2(X, Y); } 
 		}
 		/// <summary>
 		/// Gets or sets the X-coordinate of the sprite
@@ -151,7 +157,7 @@ namespace ARCed.Controls
 		/// <summary>
 		/// Gets or sets the RPG.Troop.Member the sprite represents
 		/// </summary>
-		public RPG.Troop.Member TroopMember
+		public Troop.Member TroopMember
 		{
 			get { return _member; }
 			set { _member = value; }
@@ -169,10 +175,10 @@ namespace ARCed.Controls
 		/// Create EnemySprite instance from an RPG.Enemy instance
 		/// </summary>
 		/// <param name="enemy">RPG.Enemy instance to create from</param>
-		public EnemySprite(RPG.Enemy enemy) 
+		public EnemySprite(Enemy enemy) 
 		{
 			Image = Cache.Battler(enemy.battler_name, enemy.battler_hue);
-			_member = new RPG.Troop.Member();
+			_member = new Troop.Member();
 			_member.enemy_id = enemy.id;
 			_selected = false;
 			Moving = false;
@@ -324,7 +330,7 @@ namespace ARCed.Controls
 		public TroopXnaPanel()
 		{
 			InitializeComponent();
-			Disposed += new EventHandler(TroopXnaPanel_Disposed);
+			Disposed += this.TroopXnaPanel_Disposed;
 		}
 
 		#endregion
@@ -361,7 +367,7 @@ namespace ARCed.Controls
 		{
 			if (sprite.GraphicsDevice == null)
 				sprite.GraphicsDevice = GraphicsDevice;
-			sprite.OnSelectionChanged += new EnemySprite.SelectionChangedHandler(sprite_OnSelectionChanged);
+			sprite.OnSelectionChanged += this.sprite_OnSelectionChanged;
 			if (sprite.X < 0 && sprite.Y < 0)
 			{
 				sprite.X = (_background.Width - sprite.Width) / 2;
@@ -422,7 +428,7 @@ namespace ARCed.Controls
 		{
 			using (Stream str = File.OpenRead(path))
 				_background = Texture2D.FromStream(GraphicsDevice, str);
-			this.Size = new System.Drawing.Size(_background.Width, _background.Height);
+			this.Size = new Size(_background.Width, _background.Height);
 			Invalidate();
 		}
 
@@ -450,9 +456,9 @@ namespace ARCed.Controls
 			_batch = new SpriteBatch(GraphicsDevice);
 			GraphicsDevice.Clear(XnaColor.Gray);
 			_hiddenColor = new XnaColor(80, 80, 80, 60);
-			this.MouseDown += new System.Windows.Forms.MouseEventHandler(TroopXnaPanel_MouseDown);
-			this.MouseUp += new System.Windows.Forms.MouseEventHandler(TroopXnaPanel_MouseUp);
-			this.MouseMove += new System.Windows.Forms.MouseEventHandler(TroopXnaPanel_MouseMove);
+			this.MouseDown += this.TroopXnaPanel_MouseDown;
+			this.MouseUp += this.TroopXnaPanel_MouseUp;
+			this.MouseMove += this.TroopXnaPanel_MouseMove;
 		}
 
 		/// <summary>
@@ -496,7 +502,7 @@ namespace ARCed.Controls
 			}
 		}
 
-		private void TroopXnaPanel_MouseMove(object sender, System.Windows.Forms.MouseEventArgs e)
+		private void TroopXnaPanel_MouseMove(object sender, MouseEventArgs e)
 		{
 			if (_mouseDown)
 			{
@@ -519,7 +525,7 @@ namespace ARCed.Controls
 			}
 		}
 
-		private void TroopXnaPanel_MouseUp(object sender, System.Windows.Forms.MouseEventArgs e)
+		private void TroopXnaPanel_MouseUp(object sender, MouseEventArgs e)
 		{
 			_mouseDown = false;
 			foreach (EnemySprite sprite in _sprites)
@@ -535,7 +541,7 @@ namespace ARCed.Controls
 			Invalidate();
 		}
 
-		private void TroopXnaPanel_MouseDown(object sender, System.Windows.Forms.MouseEventArgs e)
+		private void TroopXnaPanel_MouseDown(object sender, MouseEventArgs e)
 		{
 			_mouseDown = true;
 			_lastX = e.X;

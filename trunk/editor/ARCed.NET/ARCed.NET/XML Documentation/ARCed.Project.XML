@@ -1,0 +1,540 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ARCed.Project</name>
+    </assembly>
+    <members>
+        <member name="T:ARCed.Settings.ProjectSettings">
+            <summary>
+            Class for containing various settings unique to individual projects
+            </summary>
+        </member>
+        <member name="M:ARCed.Settings.ProjectSettings.#ctor">
+            <summary>
+            Default constructor
+            </summary>
+        </member>
+        <member name="P:ARCed.Settings.ProjectSettings.HeaderImage">
+            <summary>
+            Gets or sets the settings used for rendering header images
+            </summary>
+        </member>
+        <member name="P:ARCed.Settings.ProjectSettings.OpenScripts">
+            <summary>
+            Gets or sets the list of relative filenames of open scripts
+            </summary>
+        </member>
+        <member name="P:ARCed.Settings.ProjectSettings.ARChiveSettings">
+            <summary>
+            Gets or sets the settings used for creating backups
+            </summary>
+        </member>
+        <member name="P:ARCed.Settings.ProjectSettings.Guid">
+            <summary>
+            Gets or sets the GUID for the project.
+            </summary>
+        </member>
+        <member name="T:ARCed.Project">
+            <summary>
+            Static class representing the current ARC project.
+            </summary>
+        </member>
+        <member name="M:ARCed.Project.Load(System.String)">
+            <summary>
+            Loads an ARC project
+            </summary>
+            <param name="filename">The path to the .arcproj</param>
+            <returns>Truth value successful load</returns>
+        </member>
+        <member name="M:ARCed.Project.Save">
+            <summary>
+            Saves the current open project.
+            </summary>
+            <returns>Flag if save was successful or not.</returns>
+        </member>
+        <member name="M:ARCed.Project.Close">
+            <summary>
+            Unloads the current project
+            </summary>
+        </member>
+        <member name="M:ARCed.Project.LoadGameData">
+            <summary>
+            Loads the serialized ARC data.
+            </summary>
+            <returns>Flag is data was successfully loaded or not.</returns>
+        </member>
+        <member name="M:ARCed.Project.LoadArcData``1(System.String,ARCed.TypeMap)">
+            <summary>
+            Loads serialized ARC format data from the given path.
+            </summary>
+            <typeparam name="T">Specifies the <see cref="T:System.Type"/> of the 
+            object that will be returned.</typeparam>
+            <param name="filename">Filename of the file to load.</param>
+            <param name="map">Map of reflected types</param>
+            <returns>Deserialized data.</returns>
+        </member>
+        <member name="M:ARCed.Project.CreateProject(System.String,System.String,System.String,System.String)">
+            <summary>
+            Creates a new ARC project.
+            </summary>
+            <param name="library">Path to native library to use for extraction.</param>
+            <param name="directory">Path to the directory to create project in.</param>
+            <param name="title">Title of the project.</param>
+            <param name="template">Template name of the project.</param>
+            <returns>Path to the created project file to load.</returns>
+        </member>
+        <member name="M:ARCed.Project.CreateArcProj(System.String,System.String)">
+            <summary>
+            Creates the .arcproj file for a project.
+            </summary>
+            <param name="dir">Directory where file will be saved.</param>
+            <param name="title">Title of the project.</param>
+            <returns>Path to the created file.</returns>
+        </member>
+        <member name="M:ARCed.Project.GetRelativePath(System.String)">
+            <summary>
+            Gets the relative path of the given path to the project folder
+            </summary>
+            <param name="absolutePath">The full system path</param>
+            <returns>The relative path</returns>
+        </member>
+        <member name="M:ARCed.Project.GetAbsolutePath(System.String)">
+            <summary>
+            Appends the project's directory to the given relative path and returns it
+            </summary>
+            <param name="relativePath">The relative path to the game folder</param>
+            <returns>The full system path</returns>
+        </member>
+        <member name="M:ARCed.Project.EnsureDirectoryExist(System.String)">
+            <summary>
+            Checks if a directory exists, creating it if not, then returns it
+            </summary>
+            <param name="directory">The directory to check</param>
+            <returns>The directory</returns>
+        </member>
+        <member name="M:ARCed.Project.CleanARChives">
+            <summary>
+            Deletes backup files when the number of files exceeds the maximum allowed
+            </summary>
+            <returns>Flag if all files were successfully removed or not.</returns>
+            <remarks>The "Creation Time" attribute of the file is used to delete 
+            the files in order of the oldest first.</remarks>
+        </member>
+        <member name="E:ARCed.Project.Created">
+            <summary>
+            Event raised when a project is created.
+            </summary>
+        </member>
+        <member name="E:ARCed.Project.Opened">
+            <summary>
+            Event raised when a project is opened.
+            </summary>
+        </member>
+        <member name="E:ARCed.Project.Closed">
+            <summary>
+            Event raised when a project is closed.
+            </summary>
+        </member>
+        <member name="E:ARCed.Project.Saved">
+            <summary>
+            Event raised when a project is saved.
+            </summary>
+        </member>
+        <member name="E:ARCed.Project.Renamed">
+            <summary>
+            Event raised when a project is renamed.
+            </summary>
+        </member>
+        <member name="P:ARCed.Project.ProjectFolder">
+            <summary>
+            Gets the directory of of the project
+            </summary>
+        </member>
+        <member name="P:ARCed.Project.GraphicsDirectory">
+            <summary>
+            Gets the the path to the project's graphics directory
+            </summary>
+        </member>
+        <member name="P:ARCed.Project.AudioDirectory">
+            <summary>
+            Gets the the path to the project's audio directory
+            </summary>
+        </member>
+        <member name="P:ARCed.Project.DataDirectory">
+            <summary>
+            Gets the the path to the project's data directory
+            </summary>
+        </member>
+        <member name="P:ARCed.Project.ScriptsDirectory">
+            <summary>
+            Gets the the path to the project's script directory
+            </summary>
+        </member>
+        <member name="P:ARCed.Project.BackupDirectory">
+            <summary>
+            Gets the path to this project's backups directory
+            </summary>
+        </member>
+        <member name="P:ARCed.Project.SettingsDirectory">
+            <summary>
+            Gets the path to the project's settings directory
+            </summary>
+        </member>
+        <member name="P:ARCed.Project.LayoutSettings">
+            <summary>
+            Gets the path to the project's window layout configuration
+            </summary>
+        </member>
+        <member name="P:ARCed.Project.SettingsFile">
+            <summary>
+            Gets the path to the project's settings file
+            </summary>
+        </member>
+        <member name="P:ARCed.Project.BTActors">
+            <summary>
+            Gets or sets the project's Battle Test Actors.
+            </summary>
+        </member>
+        <member name="P:ARCed.Project.Settings">
+            <summary>
+            Gets or sets the project's settings.
+            </summary>
+        </member>
+        <member name="P:ARCed.Project.GUID">
+            <summary>
+            Returns the Guid (Globally Unique Identifier) of the project
+            </summary>
+            <remarks>This values is used for keeping track of backup files, so 
+            manually altering it in the .arcproj file will "lose" the directory</remarks>
+        </member>
+        <member name="P:ARCed.Project.IsLoaded">
+            <summary>
+            Gets the status of the editor having a project loaded
+            </summary>
+        </member>
+        <member name="P:ARCed.Project.Switches">
+            <summary>
+            Gets the project's variables as a list of generic RPG.GameObjects
+            </summary>
+        </member>
+        <member name="P:ARCed.Project.Variables">
+            <summary>
+            Gets the project's variables as a list of generic RPG.GameObjects
+            </summary>
+        </member>
+        <member name="P:ARCed.Project.ARChiveSettings">
+            <summary>
+            Gets or sets the project's associated backup utility
+            </summary>
+        </member>
+        <member name="P:ARCed.Project.Filename">
+            <summary>
+            Gets or sets the path of the project.
+            </summary>
+            <remarks>The setter does not actually change the path, it
+            only calls the "Load" function on the passed value.</remarks>
+        </member>
+        <member name="P:ARCed.Project.Data">
+            <summary>
+            Gets or sets the project's <see cref="T:ARCed.GameData"/>.
+            </summary>
+        </member>
+        <member name="P:ARCed.Project.Title">
+            <summary>
+            Gets or sets the project title
+            </summary>
+        </member>
+        <member name="P:ARCed.Project.ScriptFilenames">
+            <summary>
+            Gets a sorted list of the filenames of all the project's scripts 
+            </summary>
+        </member>
+        <member name="P:ARCed.Project.ScriptTitles">
+            <summary>
+            Gets a list of the project's script names, omitting the ordering numbers;
+            </summary>
+        </member>
+        <member name="P:ARCed.Project.ScriptManager">
+            <summary>
+            Gets or sets the project's <see cref="T:ARCed.Scripting.ScriptManager"/>
+            </summary>
+        </member>
+        <member name="P:ARCed.Project.NeedSaved">
+            <summary>
+            Flag indicating of project has unsaved changes
+            </summary>
+        </member>
+        <member name="T:ARCed.Project.OnCreateHandler">
+            <summary>
+            Handler for <see cref="E:ARCed.Project.Created"/> events.
+            </summary>
+            <param name="e">Event arguments.</param>
+        </member>
+        <member name="T:ARCed.Project.OnOpenHandler">
+            <summary>
+            Handler for <see cref="E:ARCed.Project.Opened"/> events.
+            </summary>
+            <param name="e">Event arguments.</param>
+        </member>
+        <member name="T:ARCed.Project.OnCloseHandler">
+            <summary>
+            Handler for <see cref="E:ARCed.Project.Closed"/> events.
+            </summary>
+            <param name="e">Event arguments.</param>
+        </member>
+        <member name="T:ARCed.Project.OnSavedHandler">
+            <summary>
+            Handler for <see cref="E:ARCed.Project.Saved"/> events.
+            </summary>
+            <param name="e">Event arguments.</param>
+        </member>
+        <member name="T:ARCed.Project.OnRenamHandler">
+            <summary>
+            Handler for <see cref="E:ARCed.Project.Renamed"/> events.
+            </summary>
+            <param name="e">Event arguments.</param>
+        </member>
+        <member name="T:ARCed.Scripting.Script">
+            <summary>
+            Represents a script file
+            </summary>
+        </member>
+        <member name="M:ARCed.Scripting.Script.#ctor">
+            <summary>
+            Default constructor
+            </summary>
+        </member>
+        <member name="M:ARCed.Scripting.Script.#ctor(System.String)">
+            <summary>
+            Parametered constructor to load a script after construction
+            </summary>
+            <param name="filename">The filename of the script to load</param>
+        </member>
+        <member name="M:ARCed.Scripting.Script.Save">
+            <summary>
+            Saves the script to disk using generated filename
+            </summary>
+            <returns>Flag if save was successful or not</returns>
+        </member>
+        <member name="M:ARCed.Scripting.Script.Load(System.String)">
+            <summary>
+            Loads a script file from the given path
+            </summary>
+            <param name="filename">The path to the script</param>
+            <returns>Flag if script was successfully loaded or not</returns>
+        </member>
+        <member name="M:ARCed.Scripting.Script.Reload">
+            <summary>
+            Reloads the script from file
+            </summary>
+        </member>
+        <member name="M:ARCed.Scripting.Script.GetFullPath">
+            <summary>
+            Uses the index and title of the script to create a unique filename
+            </summary>
+            <returns>The path for the script</returns>
+        </member>
+        <member name="M:ARCed.Scripting.Script.Exists">
+            <summary>
+            Checks if the script has a associated file
+            </summary>
+            <returns>Flag if script file exists for the script</returns>
+        </member>
+        <member name="M:ARCed.Scripting.Script.SetTitle(System.String)">
+            <summary>
+            Sets the title of the script
+            </summary>
+            <param name="title">The title of the script</param>
+        </member>
+        <member name="M:ARCed.Scripting.Script.SetText(System.String)">
+            <summary>
+            Sets the text of the script
+            </summary>
+            <param name="text">The text of the script</param>
+        </member>
+        <member name="M:ARCed.Scripting.Script.SetIndex(System.Int32)">
+            <summary>
+            Sets the index of the script
+            </summary>
+            <param name="index">The script index</param>
+        </member>
+        <member name="P:ARCed.Scripting.Script.Text">
+            <summary>
+            Gets or sets the associated text of the script
+            </summary>
+        </member>
+        <member name="P:ARCed.Scripting.Script.Title">
+            <summary>
+            Gets or sets the title of the script.
+            </summary>
+            <remarks>Titles may not contain characters that are invalid for filenames</remarks>
+        </member>
+        <member name="P:ARCed.Scripting.Script.Index">
+            <summary>
+            Gets or sets the index of the script
+            </summary>
+        </member>
+        <member name="P:ARCed.Scripting.Script.Filename">
+            <summary>
+            Gets the path to the script file, relative to the main project folder
+            </summary>
+        </member>
+        <member name="P:ARCed.Scripting.Script.NeedSaved">
+            <summary>
+            Gets the flag if the script has been altered and requires saving the changes
+            </summary>
+        </member>
+        <member name="P:ARCed.Scripting.Script.FileInfo">
+            <summary>
+            Gets file information for this script, or null if file does not exist.
+            </summary>
+        </member>
+        <member name="T:ARCed.Scripting.ScriptManager">
+            <summary>
+            Class used for managing <see cref="T:ARCed.Scripting.Script"/> objects. The functionality
+            is a very loose wrapper for a list.
+            </summary>
+        </member>
+        <member name="M:ARCed.Scripting.ScriptManager.#ctor(System.String)">
+            <summary>
+            Returns a new instance of the ScriptManager
+            </summary>
+            <param name="parentDirectory">The parent directory of the scripts</param>
+        </member>
+        <member name="M:ARCed.Scripting.ScriptManager.LoadScripts">
+            <summary>
+            Loads scripts from the default directory
+            </summary>
+        </member>
+        <member name="M:ARCed.Scripting.ScriptManager.LoadScripts(System.String)">
+            <summary>
+            Loads scripts from the given directory
+            </summary>
+            <param name="directory"></param>
+        </member>
+        <member name="M:ARCed.Scripting.ScriptManager.Add(ARCed.Scripting.Script)">
+            <summary>
+            Adds a script into the manager
+            </summary>
+            <param name="script">The script to add</param>
+        </member>
+        <member name="M:ARCed.Scripting.ScriptManager.Add(System.String)">
+            <summary>
+            Adds a script into the manager
+            </summary>
+            <param name="filename">The path of the script</param>
+            <remarks>Only files with an ".rb" extension will be added</remarks>
+        </member>
+        <member name="M:ARCed.Scripting.ScriptManager.AddRange(System.Collections.Generic.IEnumerable{ARCed.Scripting.Script})">
+            <summary>
+            Creates and adds multiple scripts into the manager
+            </summary>
+            <param name="scripts">An array of scripts</param>
+        </member>
+        <member name="M:ARCed.Scripting.ScriptManager.AddRange(System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Creates and adds multiple scripts into the manager
+            </summary>
+            <param name="filenames">The filenames of the scripts</param>
+            <remarks>Only files with an ".rb" extension will be added</remarks>
+        </member>
+        <member name="M:ARCed.Scripting.ScriptManager.Insert(ARCed.Scripting.Script,System.Int32)">
+            <summary>
+            Inserts a script at the given index
+            </summary>
+            <param name="script">The script to insert</param>
+            <param name="index">The index where it will be inserted</param>
+        </member>
+        <member name="M:ARCed.Scripting.ScriptManager.Remove(ARCed.Scripting.Script)">
+            <summary>
+            Removes the script from the manager
+            </summary>
+            <param name="script">The script to remove</param>
+        </member>
+        <member name="M:ARCed.Scripting.ScriptManager.Remove(System.Int32)">
+            <summary>
+            Removes the script at the given index
+            </summary>
+            <param name="index">The index of the script</param>
+        </member>
+        <member name="M:ARCed.Scripting.ScriptManager.Save(System.Int32)">
+            <summary>
+            Saves the script at the given index
+            </summary>
+            <param name="index">The index of the script</param>
+            <returns>Truth value of successful save</returns>
+        </member>
+        <member name="M:ARCed.Scripting.ScriptManager.SaveAll">
+            <summary>
+            Applies changes and saves all scripts to disk
+            </summary>
+        </member>
+        <member name="M:ARCed.Scripting.ScriptManager.RefreshScriptIndices">
+            <summary>
+            Refreshes the indices of all loaded scripts to match their current position in the list
+            </summary>
+        </member>
+        <member name="M:ARCed.Scripting.ScriptManager.WithPath(System.String)">
+            <summary>
+            Finds a and returns the script with the given filename.
+            </summary>
+            <param name="path">The path to script to be found</param>
+            <returns>The path to the script if found, null otherwise</returns>
+        </member>
+        <member name="P:ARCed.Scripting.ScriptManager.Scripts">
+            <summary>
+            Gets a list of all loaded scripts
+            </summary>
+        </member>
+        <member name="P:ARCed.Scripting.ScriptManager.BindingList">
+            <summary>
+            Returns a binding list to be used with form controls
+            </summary>
+        </member>
+        <member name="T:ARCed.Settings.HeaderSettings">
+            <summary>
+            Class containing settings for how the headers in the database will be rendered
+            </summary>
+        </member>
+        <member name="M:ARCed.Settings.HeaderSettings.#ctor">
+            <summary>
+            Default constructor
+            </summary>
+        </member>
+        <member name="P:ARCed.Settings.HeaderSettings.GradientLeft">
+            <summary>
+            Gets or sets the left gradient color
+            </summary>
+        </member>
+        <member name="P:ARCed.Settings.HeaderSettings.GradientRight">
+            <summary>
+            Gets or sets the right gradient color
+            </summary>
+        </member>
+        <member name="P:ARCed.Settings.HeaderSettings.TextColor">
+            <summary>
+            Gets or sets the text color
+            </summary>
+        </member>
+        <member name="P:ARCed.Settings.HeaderSettings.GradientLeftHtml">
+            <summary>
+            Gets or sets the left gradient color using an Html formatted color string
+            </summary>
+        </member>
+        <member name="P:ARCed.Settings.HeaderSettings.GradientRightHtml">
+            <summary>
+            Gets or sets the right gradient color using an Html formatted color string
+            </summary>
+        </member>
+        <member name="P:ARCed.Settings.HeaderSettings.TextColorHtml">
+            <summary>
+            Gets or sets the text color using an Html formatted color string
+            </summary>
+        </member>
+        <member name="P:ARCed.Settings.HeaderSettings.Font">
+            <summary>
+            Get or set the font used to draw the text
+            </summary>
+        </member>
+    </members>
+</doc>

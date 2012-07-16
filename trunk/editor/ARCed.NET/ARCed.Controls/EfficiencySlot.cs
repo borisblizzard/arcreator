@@ -1,7 +1,12 @@
-﻿using System;
+﻿#region Using Directives
+
+using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
+
+#endregion
 
 namespace ARCed.Controls
 {
@@ -58,14 +63,14 @@ namespace ARCed.Controls
 		/// <param name="label">Label applied to the slot</param>
 		/// <param name="items">Values that can be selected</param>
 		/// <param name="colors">Text colors used for corresponding values</param>
-		public EfficiencySlot(string label, string[] items, Color[] colors)
+		public EfficiencySlot(string label, IEnumerable<string> items, Color[] colors)
 		{
 			InitializeComponent();
 			labelValue.Text = label;
 			foreach (string item in items)
 				domainUpDown.Items.Add(item);
 			TextColors = colors;
-			domainUpDown.SelectedItemChanged += new EventHandler(domainUpDown_SelectedItemChanged);
+			domainUpDown.SelectedItemChanged += this.domainUpDown_SelectedItemChanged;
 		}
 
 		#endregion

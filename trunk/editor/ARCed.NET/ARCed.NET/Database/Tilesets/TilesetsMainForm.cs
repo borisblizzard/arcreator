@@ -1,9 +1,14 @@
-﻿using System;
+﻿#region Using Directives
+
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using ARCed.Controls;
 using ARCed.Dialogs;
+using RPG;
+
+#endregion
 
 namespace ARCed.Database.Tilesets
 {
@@ -11,7 +16,7 @@ namespace ARCed.Database.Tilesets
 	{
 		#region Private Fields
 
-		private RPG.Tileset _tileset;
+		private Tileset _tileset;
 
 		#endregion
 
@@ -66,7 +71,7 @@ namespace ARCed.Database.Tilesets
 
 		public override void RefreshCurrentObject()
 		{
-			suppressEvents = true;
+			SuppressEvents = true;
 			tilesetXnaPanel.Tileset = _tileset;
 			textBoxName.Text = _tileset.name;
 			textBoxTileset.Text = String.IsNullOrWhiteSpace(_tileset.tileset_name) ?
@@ -85,7 +90,7 @@ namespace ARCed.Database.Tilesets
 				(panelAutotiles.Controls[i] as TextBoxButton).Text = 
 					String.IsNullOrWhiteSpace(autotile) ? "<None>" : autotile;
 			}
-			suppressEvents = false;
+			SuppressEvents = false;
 		}
 
 		#endregion
@@ -96,13 +101,13 @@ namespace ARCed.Database.Tilesets
 		{
 			for (int i = 0; i < Constants.AUTOTILES; i++)
 			{
-				TextBoxButton textBox = new TextBoxButton();
+				var textBox = new TextBoxButton();
 				textBox.Tag = i;
 				textBox.Location = new Point(6, 6 + (i * 24));
 				textBox.Size = new Size(panelAutotiles.ClientSize.Width - 12, 20);
 				textBox.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
 				panelAutotiles.Controls.Add(textBox);
-				textBox.OnButtonClick += new TextBoxButton.ButtonClickHandler(textBoxAutotile_ButtonClick);
+				textBox.OnButtonClick += this.textBoxAutotile_ButtonClick;
 			}
 		}
 
@@ -110,7 +115,7 @@ namespace ARCed.Database.Tilesets
 		{
 			int index = Convert.ToInt32((sender as TextBoxButton).Tag);
 			string tile = _tileset.autotile_names[index];
-			using (ImageSelectionForm dialog = new ImageSelectionForm(@"Autotiles", tile))
+			using (var dialog = new ImageSelectionForm(@"Autotiles", tile))
 			{
 				if (dialog.ShowDialog(this) == DialogResult.OK)
 				{
@@ -135,7 +140,7 @@ namespace ARCed.Database.Tilesets
 
 		private void buttonColors_Click(object sender, EventArgs e)
 		{
-			using (ImageColorsDialog dialog = new ImageColorsDialog(Editor.Settings.ImageColorSettings))
+			using (var dialog = new ImageColorsDialog(Editor.Settings.ImageColorSettings))
 			{
 				dialog.XnaPanel = tilesetXnaPanel;
 				if (dialog.ShowDialog() != DialogResult.OK)
@@ -166,7 +171,7 @@ namespace ARCed.Database.Tilesets
 
 		private void textBoxTileset_OnButtonClick(object sender, EventArgs e)
 		{
-			using (ImageSelectionForm dialog = 
+			using (var dialog = 
 				new ImageSelectionForm(@"Tilesets", _tileset.tileset_name))
 			{
 				dialog.Height = 640;
@@ -193,7 +198,7 @@ namespace ARCed.Database.Tilesets
 	
 		private void textBoxPanorama_OnButtonClick(object sender, EventArgs e)
 		{
-			using (ImageSelectionForm dialog =
+			using (var dialog =
 				new ImageSelectionForm(@"Panoramas", _tileset.panorama_name))
 			{
 				dialog.Hue = _tileset.panorama_hue;
@@ -208,7 +213,7 @@ namespace ARCed.Database.Tilesets
 
 		private void textBoxBattleback_OnButtonClick(object sender, EventArgs e)
 		{
-			using (ImageSelectionForm dialog =
+			using (var dialog =
 				new ImageSelectionForm(@"Battlebacks", _tileset.battleback_name))
 			{
 				dialog.Width = 800;
@@ -222,7 +227,7 @@ namespace ARCed.Database.Tilesets
 
 		private void textBoxFog_OnButtonClick(object sender, EventArgs e)
 		{
-			using (ImageSelectionForm dialog =
+			using (var dialog =
 				new ImageSelectionForm(@"Fogs", _tileset.fog_name))
 			{
 				dialog.Hue = _tileset.fog_hue;
@@ -246,7 +251,7 @@ namespace ARCed.Database.Tilesets
 
 		private void textBoxName_TextChanged(object sender, EventArgs e)
 		{
-			if (!suppressEvents)
+			if (!SuppressEvents)
 			{
 				_tileset.name = textBoxName.Text;
 				int index = dataObjectList.SelectedIndex;

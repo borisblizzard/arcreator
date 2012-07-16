@@ -1,4 +1,8 @@
-﻿using SysColor = System.Drawing.Color;
+﻿#region Using Directives
+
+using SysColor = System.Drawing.Color;
+
+#endregion
 
 // TODO: Clamp values
 

@@ -1,7 +1,12 @@
-﻿using System;
+﻿#region Using Directives
+
+using System;
 using System.Drawing;
+using System.Threading;
 using System.Windows.Forms;
 using ARCed.Core;
+
+#endregion
 
 namespace ARCed.Dialogs
 {
@@ -68,9 +73,9 @@ namespace ARCed.Dialogs
 
 			// Calculate the coordinates of the three
 			// required regions on the form.
-			Rectangle selectedColorRectangle = new Rectangle(pnlSelectedColor.Location, pnlSelectedColor.Size);
-			Rectangle brightnessRectangle = new Rectangle(pnlBrightness.Location, pnlBrightness.Size);
-			Rectangle colorRectangle = new Rectangle(pnlColor.Location, pnlColor.Size);
+			var selectedColorRectangle = new Rectangle(pnlSelectedColor.Location, pnlSelectedColor.Size);
+			var brightnessRectangle = new Rectangle(pnlBrightness.Location, pnlBrightness.Size);
+			var colorRectangle = new Rectangle(pnlColor.Location, pnlColor.Size);
 
 			// Create the new ColorWheel class, indicating
 			// the locations of the color wheel itself, the
@@ -240,11 +245,10 @@ namespace ARCed.Dialogs
 
 		private void buttonCapture_Click(object sender, EventArgs e)
 		{
-			FormWindowState currentState = Editor.MainInstance.WindowState;
 			Editor.MainInstance.Visible = false;
 			this.Visible = false;
-			System.Threading.Thread.Sleep(500);
-			using (CaptureForm captureForm = new CaptureForm())
+			Thread.Sleep(500);
+			using (var captureForm = new CaptureForm())
 			{
 				captureForm.TakeSnapShot();
 				captureForm.ShowDialog();

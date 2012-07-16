@@ -1,4 +1,6 @@
-﻿using System;
+﻿#region Using Directives
+
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
@@ -7,6 +9,8 @@ using System.Xml.Serialization;
 using ARCed.Core;
 using ARCed.Helpers;
 using ARCed.UI;
+
+#endregion
 
 namespace ARCed.Settings
 {
@@ -49,14 +53,14 @@ namespace ARCed.Settings
 			set { _maxRecent = value.Clamp(0, 16); }
 		}
 		/// <summary>
-		/// Gets or sets the <paramref name="DockPanelSkin"/> property. These 
+        /// Gets or sets the <see cref="DockPanelSkin"/> property. These 
 		/// settings are used for the styling of the editor windows
 		/// </summary>
 		/// <remarks>These settings are stored their own file.</remarks>
 		[XmlIgnore]
 		public DockPanelSkin WindowSkin { get; set; }
 		/// <summary>
-		/// Gets or sets the <paramref name="ScriptSettings"/> property. These 
+        /// Gets or sets the <see cref="ScriptSettings"/> property. These 
 		/// settings are used for all the styling and behavior of the script editor.
 		/// </summary>
 		/// <remarks>These settings are stored their own file.</remarks>
@@ -120,15 +124,15 @@ namespace ARCed.Settings
 		/// Saves the settings files to disk in the AppData folder.
 		/// </summary>
 		/// <seealso cref="ARCed.Helpers.PathHelper"/>
-		/// <seealso cref="ARCed.Scripting.ScriptSettings"/>
+		/// <seealso cref="ScriptSettings"/>
 		/// <seealso cref="ARCed.UI.DockPanelSkin"/>
 		public void Save()
 		{
 			try
 			{
-				Util.SaveXML<EditorSettings>(PathHelper.EditorSettings, this);
-				Util.SaveXML<DockPanelSkin>(PathHelper.SkinSettings, WindowSkin);
-				Util.SaveXML<ScriptSettings>(PathHelper.ScriptSettings, Scripting);
+				Util.SaveXML(PathHelper.EditorSettings, this);
+				Util.SaveXML(PathHelper.SkinSettings, WindowSkin);
+				Util.SaveXML(PathHelper.ScriptSettings, Scripting);
 			}
 			catch (IOException)
 			{
@@ -143,11 +147,11 @@ namespace ARCed.Settings
 		/// </summary>
 		/// <returns>The created settings</returns>
 		/// <seealso cref="ARCed.Helpers.PathHelper"/>
-		/// <seealso cref="ARCed.Scripting.ScriptSettings"/>
+		/// <seealso cref="ScriptSettings"/>
 		/// <seealso cref="ARCed.UI.DockPanelSkin"/>
 		public static EditorSettings Load()
 		{
-			EditorSettings settings = new EditorSettings();
+			var settings = new EditorSettings();
 			if (File.Exists(PathHelper.EditorSettings))
 				settings = Util.LoadXML<EditorSettings>(PathHelper.EditorSettings);
 			if (File.Exists(PathHelper.SkinSettings))

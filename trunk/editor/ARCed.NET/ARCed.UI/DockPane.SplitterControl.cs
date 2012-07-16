@@ -1,5 +1,9 @@
+#region Using Directives
+
 using System.Drawing;
 using System.Windows.Forms;
+
+#endregion
 
 namespace ARCed.UI
 {
@@ -7,17 +11,17 @@ namespace ARCed.UI
     {
         private class SplitterControl : Control, ISplitterDragSource
         {
-            DockPane m_pane;
+            private readonly DockPane _mPane;
 
             public SplitterControl(DockPane pane)
             {
                 SetStyle(ControlStyles.Selectable, false);
-                m_pane = pane;
+                this._mPane = pane;
             }
 
             public DockPane DockPane
             {
-                get { return m_pane; }
+                get { return this._mPane; }
             }
 
             private DockAlignment m_alignment;
@@ -112,13 +116,13 @@ namespace ARCed.UI
                 if (status.LogicalBounds.Width <= 0 || status.LogicalBounds.Height <= 0)
                     return;
                 else if (status.DisplayingAlignment == DockAlignment.Left)
-                    proportion += ((double)offset) / (double)status.LogicalBounds.Width;
+                    proportion += (offset) / (double)status.LogicalBounds.Width;
                 else if (status.DisplayingAlignment == DockAlignment.Right)
-                    proportion -= ((double)offset) / (double)status.LogicalBounds.Width;
+                    proportion -= (offset) / (double)status.LogicalBounds.Width;
                 else if (status.DisplayingAlignment == DockAlignment.Top)
-                    proportion += ((double)offset) / (double)status.LogicalBounds.Height;
+                    proportion += (offset) / (double)status.LogicalBounds.Height;
                 else
-                    proportion -= ((double)offset) / (double)status.LogicalBounds.Height;
+                    proportion -= (offset) / (double)status.LogicalBounds.Height;
 
                 DockPane.SetNestedDockingProportion(proportion);
             }

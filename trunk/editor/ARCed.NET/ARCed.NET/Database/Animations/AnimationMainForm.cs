@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿#region Using Directives
 
-using System.Drawing;
-using System.Linq;
-using System.Text;
+using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
-using ARCed.Dialogs;
 using ARCed.Controls;
+using ARCed.Dialogs;
+using RPG;
+
+#endregion
 
 namespace ARCed.Database.Animations
 {
@@ -15,7 +15,7 @@ namespace ARCed.Database.Animations
 	{
 		#region Private Fields
 
-		RPG.Animation _animation;
+		Animation _animation;
 
 		#endregion
 
@@ -40,9 +40,11 @@ namespace ARCed.Database.Animations
 		{
 			// TEST ////////////////////////////////////////////
 
-			Project.Data.Animations = new List<dynamic>() { null };
+			Project.Data.Animations = new List<dynamic>
+			{ null };
 			for (int i = 1; i <= 20; i++)
-				Project.Data.Animations.Add(new RPG.Animation() { id = i });
+				Project.Data.Animations.Add(new Animation
+				{ id = i });
 
 			// TEST ////////////////////////////////////////////
 			RefreshObjectList();
@@ -72,7 +74,7 @@ namespace ARCed.Database.Animations
 
 		public override void RefreshCurrentObject()
 		{
-			suppressEvents = true;
+			SuppressEvents = true;
 			animeXnaPanel.Animation = _animation;
 			animeSrcXnaPanel.Animation = _animation;
 			textBoxName.Text = _animation.name;
@@ -82,7 +84,7 @@ namespace ARCed.Database.Animations
 			comboBoxPosition.SelectedIndex = _animation.position;
 			RefreshTimings();
 			RefreshFrameList();
-			suppressEvents = false;
+			SuppressEvents = false;
 		}
 
 		#endregion
@@ -93,7 +95,7 @@ namespace ARCed.Database.Animations
 			listViewTiming.Items.Clear();
 			string[] items;
 			string flash, condition;
-			foreach (RPG.Animation.Timing timing in _animation.timings)
+			foreach (Animation.Timing timing in _animation.timings)
 			{
 				switch (timing.flash_scope)
 				{
@@ -109,7 +111,7 @@ namespace ARCed.Database.Animations
 					default: flash = "<None>"; break;
 				}
 				condition = String.Format("");
-				items = new string[] {
+				items = new[] {
 					timing.frame.ToString(),
 					String.IsNullOrWhiteSpace(timing.se.name) ? "<None>" : timing.se.ToString(),
 					flash,
@@ -135,7 +137,7 @@ namespace ARCed.Database.Animations
 		{
 			// TEST ////////////////////////////////////////////
 
-			_animation = new RPG.Animation()
+			_animation = new Animation
 			{
 				animation_hue = _animation.animation_hue,
 				animation_name = _animation.animation_name
@@ -146,9 +148,9 @@ namespace ARCed.Database.Animations
 
 		private void numericUpDownFrames_ValueChanged(object sender, EventArgs e)
 		{
-			if (!suppressEvents)
+			if (!SuppressEvents)
 			{
-				int frames = (int)numericUpDownFrames.Value;
+				var frames = (int)numericUpDownFrames.Value;
 				if (_animation.frames.Count > frames)
 				{
 					for (int i = _animation.frames.Count; i > frames; i--)
@@ -157,7 +159,7 @@ namespace ARCed.Database.Animations
 				else if (_animation.frames.Count < frames)
 				{
 					for (int i = _animation.frames.Count; i < frames; i++)
-						_animation.frames.Add(new RPG.Animation.Frame());
+						_animation.frames.Add(new Animation.Frame());
 				}
 				_animation.frame_max = frames;
 				RefreshFrameList();
@@ -166,7 +168,7 @@ namespace ARCed.Database.Animations
 
 		private void textBoxGraphic_OnButtonClick(object sender, EventArgs e)
 		{
-			using (ImageSelectionForm dialog =
+			using (var dialog =
 				new ImageSelectionForm(@"Animations", _animation.animation_name))
 			{
 				dialog.Hue = _animation.animation_hue;
@@ -194,7 +196,7 @@ namespace ARCed.Database.Animations
 
 		private void textBoxName_TextChanged(object sender, EventArgs e)
 		{
-			if (!suppressEvents)
+			if (!SuppressEvents)
 			{
 				_animation.name = textBoxName.Text;
 				int index = dataObjectList.SelectedIndex;
@@ -217,7 +219,7 @@ namespace ARCed.Database.Animations
 		{
 			if (e.Clicks == 2)
 			{
-				using (AnimationTimingDialog dialog = new AnimationTimingDialog())
+				using (var dialog = new AnimationTimingDialog())
 				{
 					
 					var indices = listViewTiming.SelectedIndices;
@@ -225,7 +227,7 @@ namespace ARCed.Database.Animations
 					if (index >= 0)
 						dialog.Timing = _animation.timings[index];
 					else
-						dialog.Timing = new RPG.Animation.Timing();
+						dialog.Timing = new Animation.Timing();
 					if (dialog.ShowDialog() == DialogResult.OK)
 					{
 						if (index >= 0)

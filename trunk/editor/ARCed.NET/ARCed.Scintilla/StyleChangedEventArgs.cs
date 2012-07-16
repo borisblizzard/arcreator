@@ -18,8 +18,8 @@ namespace ARCed.Scintilla
     {
         #region Fields
 
-        private int _length;
-        private int _position;
+        private readonly int _length;
+        private readonly int _position;
 
         #endregion Fields
 

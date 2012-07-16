@@ -1,17 +1,22 @@
-﻿using System;
+﻿#region Using Directives
+
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
+using System.Reflection;
 using System.Security.Principal;
 using System.Windows.Forms;
 using ARCed.Core;
+using ARCed.Core.Win32;
+using ARCed.Database;
+using ARCed.Helpers;
 using ARCed.Plugins;
 using ARCed.Scripting;
 using ARCed.Settings;
 using ARCed.UI;
-using ARCed.Database;
-using ARCed.Core.Win32;
-using System.Reflection;
-using System.IO;
+
+#endregion
 
 namespace ARCed
 {
@@ -19,7 +24,7 @@ namespace ARCed
 	{
 		#region Private Fields
 
-		private static Logger _logger = new Logger();
+		private static readonly Logger _logger = new Logger();
 
 		/// <summary>
 		/// List of all processes attached to the editor
@@ -37,7 +42,7 @@ namespace ARCed
         {
             get
             {
-                List<Assembly> assemblies = new List<Assembly>();;
+                var assemblies = new List<Assembly>();
                 string dir = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "Assemblies");
                 foreach (string path in Directory.GetFiles(dir, "*.dll"))
                     assemblies.Add(Assembly.LoadFile(path));
@@ -81,7 +86,7 @@ namespace ARCed
 		{
 			get
 			{
-				EditorMode mode = EditorMode.Normal;
+				var mode = EditorMode.Normal;
 				if (Runtime.Debug)
 				{
 					mode |= EditorMode.Debug;
@@ -135,9 +140,9 @@ namespace ARCed
 		public static void Show(DockContent window, DockState state = DockState.Unknown)
 		{
 			if (state == DockState.Unknown)
-				window.Show(Editor.MainDock);
+				window.Show(MainDock);
 			else
-				window.Show(Editor.MainDock, state);
+				window.Show(MainDock, state);
 		}
 
 		public static void Show(IPluginClient plugin, DockState state = DockState.Unknown)
@@ -153,11 +158,10 @@ namespace ARCed
 		/// <returns>The instance of the associated script window</returns>
 		public static ScriptEditorForm OpenScript(string file, bool show = false)
 		{
-			ScriptEditorForm editor;
-			Script script = Project.ScriptManager.WithPath(file);
+		    Script script = Project.ScriptManager.WithPath(file);
 			if (script == null)
 				script = new Script(file);
-			editor = Windows.ScriptEditors.Find(delegate(ScriptEditorForm e) { return e.Script == script; });
+			ScriptEditorForm editor = Windows.ScriptEditors.Find(delegate(ScriptEditorForm e) { return e.Script == script; });
 			if (editor == null)
 			{
 				editor = new ScriptEditorForm(script);
@@ -195,7 +199,7 @@ namespace ARCed
 		/// <remarks>All child processes will be killed automatically when Editor exits</remarks>
 		public static void AttachProcess(string filename, bool hidden = false)
 		{
-			ProcessStartInfo info = new ProcessStartInfo(filename);
+			var info = new ProcessStartInfo(filename);
 
 			Process found = ChildProcesses.Find(
 				delegate(Process p) { return p.StartInfo.FileName == filename; });
@@ -217,9 +221,9 @@ namespace ARCed
 
 		public static void AssociateFiles()
 		{
-			Helpers.FileAssociator.Associate(".arcproj", "ARCed Project File",
-				System.IO.Path.Combine(Helpers.PathHelper.EditorDirectory, "Resources", "icon.ico"),
-				Helpers.PathHelper.EditorPath);
+			FileAssociator.Associate(".arcproj", "ARCed Project File",
+				Path.Combine(PathHelper.EditorDirectory, "Resources", "icon.ico"),
+				PathHelper.EditorPath);
 			Console.WriteLine("Associated");
 		}
 
@@ -230,7 +234,7 @@ namespace ARCed
 		private static bool IsRunAsAdmin()
 		{
 			WindowsIdentity curIdentity = WindowsIdentity.GetCurrent();
-			WindowsPrincipal principal = new WindowsPrincipal(curIdentity);
+			var principal = new WindowsPrincipal(curIdentity);
 			return principal.IsInRole(WindowsBuiltInRole.Administrator);
 		}
 

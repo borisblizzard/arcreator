@@ -7,7 +7,7 @@ using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using System.Xml;
 
-#endregion Using Directives
+#endregion
 
 
 namespace ARCed.Scintilla.Configuration
@@ -50,7 +50,7 @@ namespace ARCed.Scintilla.Configuration
         private bool? _folding_IsEnabled;
         private FoldMarkerScheme? _folding_MarkerScheme;
         private bool? _folding_UseCompactFolding;
-        private bool _hasData = false;
+        private bool _hasData;
         private Color _hotspot_ActiveBackColor;
         private Color _hotspot_ActiveForeColor;
         private bool? _hotspot_ActiveUnderline;
@@ -167,7 +167,7 @@ namespace ARCed.Scintilla.Configuration
 
         private StyleConfig getStyleConfigFromElement(XmlReader reader)
         {
-            StyleConfig sc = new StyleConfig();
+            var sc = new StyleConfig();
             if (reader.HasAttributes)
             {
                 while (reader.MoveToNextAttribute())
@@ -234,7 +234,7 @@ namespace ARCed.Scintilla.Configuration
 
         public void Load(TextReader txtReader)
         {
-            XmlDocument configDocument = new XmlDocument();
+            var configDocument = new XmlDocument();
             configDocument.PreserveWhitespace = true;
             configDocument.Load(txtReader);
             Load(configDocument);
@@ -278,11 +278,11 @@ namespace ARCed.Scintilla.Configuration
 
         public void Load(XmlDocument configDocument)
         {
-            XmlElement langNode = configDocument.DocumentElement.SelectSingleNode("./Language[@Name='" + _language + "']") as XmlElement;
+            var langNode = configDocument.DocumentElement.SelectSingleNode("./Language[@Name='" + _language + "']") as XmlElement;
             if (langNode == null)
                 return;
 
-            XmlElement autoCNode = langNode.SelectSingleNode("AutoComplete") as XmlElement;
+            var autoCNode = langNode.SelectSingleNode("AutoComplete") as XmlElement;
             if (autoCNode != null)
             {
                 _autoComplete_AutoHide = getBool(autoCNode.GetAttribute("AutoHide"));
@@ -298,7 +298,7 @@ namespace ARCed.Scintilla.Configuration
                 _autoComplete_singleLineAccept = getBool(autoCNode.GetAttribute("SingleLineAccept"));
                 _autoComplete_StopCharacters = getString(autoCNode.GetAttributeNode("StopCharacters"));
 
-                XmlElement listNode = autoCNode.SelectSingleNode("./List") as XmlElement;
+                var listNode = autoCNode.SelectSingleNode("./List") as XmlElement;
                 if (listNode != null)
                 {
                     _autoComplete_ListInherit = getBool(listNode.GetAttribute("Inherit"));
@@ -308,7 +308,7 @@ namespace ARCed.Scintilla.Configuration
             }
             autoCNode = null;
 
-            XmlElement callTipNode = langNode.SelectSingleNode("CallTip") as XmlElement;
+            var callTipNode = langNode.SelectSingleNode("CallTip") as XmlElement;
             if (callTipNode != null)
             {
                 _callTip_BackColor = getColor(callTipNode.GetAttribute("BackColor"));
@@ -317,7 +317,7 @@ namespace ARCed.Scintilla.Configuration
             }
             callTipNode = null;
 
-            XmlElement caretNode = langNode.SelectSingleNode("Caret") as XmlElement;
+            var caretNode = langNode.SelectSingleNode("Caret") as XmlElement;
             if (caretNode != null)
             {
                 //	This guy is a bit of an oddball becuase null means "I don't Care"
@@ -342,7 +342,7 @@ namespace ARCed.Scintilla.Configuration
             }
             caretNode = null;
 
-            XmlElement clipboardNode = langNode.SelectSingleNode("Clipboard") as XmlElement;
+            var clipboardNode = langNode.SelectSingleNode("Clipboard") as XmlElement;
             if (clipboardNode != null)
             {
                 _clipboard_ConvertLineBreaksOnPaste = getBool(clipboardNode.GetAttribute("ConvertLineBreaksOnPaste"));
@@ -350,14 +350,14 @@ namespace ARCed.Scintilla.Configuration
             clipboardNode = null;
 
             _commands_KeyBindingList = new CommandBindingConfigList();
-            XmlElement commandsNode = langNode.SelectSingleNode("Commands") as XmlElement;
+            var commandsNode = langNode.SelectSingleNode("Commands") as XmlElement;
             if (commandsNode != null)
             {
                 _commands_KeyBindingList.Inherit = getBool(commandsNode.GetAttribute("Inherit"));
                 _commands_KeyBindingList.AllowDuplicateBindings = getBool(commandsNode.GetAttribute("AllowDuplicateBindings"));
                 foreach (XmlElement el in commandsNode.SelectNodes("./Binding"))
                 {
-                    KeyBinding kb = new KeyBinding();
+                    var kb = new KeyBinding();
                     kb.KeyCode = Utilities.GetKeys(el.GetAttribute("Key"));
 
                     string modifiers = el.GetAttribute("Modifier");
@@ -367,14 +367,14 @@ namespace ARCed.Scintilla.Configuration
                             kb.Modifiers |= (Keys)Enum.Parse(typeof(Keys), modifier.Trim(), true);
                     }
 
-                    BindableCommand cmd = (BindableCommand)Enum.Parse(typeof(BindableCommand), el.GetAttribute("Command"), true);
-                    CommandBindingConfig cfg = new CommandBindingConfig(kb, getBool(el.GetAttribute("ReplaceCurrent")), cmd);
+                    var cmd = (BindableCommand)Enum.Parse(typeof(BindableCommand), el.GetAttribute("Command"), true);
+                    var cfg = new CommandBindingConfig(kb, getBool(el.GetAttribute("ReplaceCurrent")), cmd);
                     _commands_KeyBindingList.Add(cfg);
                 }
             }
             commandsNode = null;
 
-            XmlElement endOfLineNode = langNode.SelectSingleNode("EndOfLine") as XmlElement;
+            var endOfLineNode = langNode.SelectSingleNode("EndOfLine") as XmlElement;
             if (endOfLineNode != null)
             {
                 _endOfLine_IsVisisble = getBool(endOfLineNode.GetAttribute("IsVisible"));
@@ -387,7 +387,7 @@ namespace ARCed.Scintilla.Configuration
             }
             endOfLineNode = null;
 
-            XmlElement foldingNode = langNode.SelectSingleNode("Folding") as XmlElement;
+            var foldingNode = langNode.SelectSingleNode("Folding") as XmlElement;
             if (foldingNode != null)
             {
                 string flags = foldingNode.GetAttribute("Flags").Trim();
@@ -412,7 +412,7 @@ namespace ARCed.Scintilla.Configuration
             }
             foldingNode = null;
 
-            XmlElement hotSpotNode = langNode.SelectSingleNode("Hotspot") as XmlElement;
+            var hotSpotNode = langNode.SelectSingleNode("Hotspot") as XmlElement;
             if (hotSpotNode != null)
             {
                 _hotspot_ActiveBackColor = getColor(hotSpotNode.GetAttribute("ActiveBackColor"));
@@ -424,7 +424,7 @@ namespace ARCed.Scintilla.Configuration
             }
             hotSpotNode = null;
 
-            XmlElement indentationNode = langNode.SelectSingleNode("Indentation") as XmlElement;
+            var indentationNode = langNode.SelectSingleNode("Indentation") as XmlElement;
             if (indentationNode != null)
             {
                 _indentation_BackspaceUnindents = getBool(indentationNode.GetAttribute("BackspaceUnindents"));
@@ -443,13 +443,13 @@ namespace ARCed.Scintilla.Configuration
             }
             indentationNode = null;
 
-            XmlElement indicatorNode = langNode.SelectSingleNode("Indicators") as XmlElement;
+            var indicatorNode = langNode.SelectSingleNode("Indicators") as XmlElement;
             if (indicatorNode != null)
             {
                 _indicator_List.Inherit = getBool(indicatorNode.GetAttribute("Inherit"));
                 foreach (XmlElement el in indicatorNode.SelectNodes("Indicator"))
                 {
-                    IndicatorConfig ic = new IndicatorConfig();
+                    var ic = new IndicatorConfig();
                     ic.Number = int.Parse(el.GetAttribute("Number"));
                     ic.Color = getColor(el.GetAttribute("Color"));
                     ic.Inherit = getBool(el.GetAttribute("Inherit"));
@@ -466,7 +466,7 @@ namespace ARCed.Scintilla.Configuration
 
             _lexing_Properties = new LexerPropertiesConfig();
             _lexing_Keywords = new KeyWordConfigList();
-            XmlElement lexerNode = langNode.SelectSingleNode("Lexer") as XmlElement;
+            var lexerNode = langNode.SelectSingleNode("Lexer") as XmlElement;
             if (lexerNode != null)
             {
                 _lexing_WhitespaceChars = getString(lexerNode.GetAttributeNode("WhitespaceChars"));
@@ -476,7 +476,7 @@ namespace ARCed.Scintilla.Configuration
                 _lexing_StreamCommentPrefix = getString(lexerNode.GetAttributeNode("StreamCommentPrefix"));
                 _lexing_StreamCommentSuffix = getString(lexerNode.GetAttributeNode("StreamCommentSuffix"));
 
-                XmlElement propNode = lexerNode.SelectSingleNode("Properties") as XmlElement;
+                var propNode = lexerNode.SelectSingleNode("Properties") as XmlElement;
                 if (propNode != null)
                 {
                     _lexing_Properties.Inherit = getBool(propNode.GetAttribute("Inherit"));
@@ -491,7 +491,7 @@ namespace ARCed.Scintilla.Configuration
             }
             lexerNode = null;
 
-            XmlElement lineWrapNode = langNode.SelectSingleNode("LineWrapping") as XmlElement;
+            var lineWrapNode = langNode.SelectSingleNode("LineWrapping") as XmlElement;
             if (lineWrapNode != null)
             {
                 try
@@ -527,7 +527,7 @@ namespace ARCed.Scintilla.Configuration
             }
             lineWrapNode = null;
 
-            XmlElement longLinesNode = langNode.SelectSingleNode("LongLines") as XmlElement;
+            var longLinesNode = langNode.SelectSingleNode("LongLines") as XmlElement;
             if (longLinesNode != null)
             {
                 _longLines_EdgeColor = getColor(longLinesNode.GetAttribute("EdgeColor"));
@@ -541,7 +541,7 @@ namespace ARCed.Scintilla.Configuration
             longLinesNode = null;
 
             _margin_List = new MarginConfigList();
-            XmlElement marginNode = langNode.SelectSingleNode("Margins") as XmlElement;
+            var marginNode = langNode.SelectSingleNode("Margins") as XmlElement;
             if (marginNode != null)
             {
                 _margin_List.FoldMarginColor = getColor(marginNode.GetAttribute("FoldMarginColor"));
@@ -552,7 +552,7 @@ namespace ARCed.Scintilla.Configuration
 
                 foreach (XmlElement el in marginNode.SelectNodes("./Margin"))
                 {
-                    MarginConfig mc = new MarginConfig();
+                    var mc = new MarginConfig();
                     mc.Number = int.Parse(el.GetAttribute("Number"));
                     mc.Inherit = getBool(el.GetAttribute("Inherit"));
                     mc.AutoToggleMarkerNumber = getInt(el.GetAttribute("AutoToggleMarkerNumber"));
@@ -572,7 +572,7 @@ namespace ARCed.Scintilla.Configuration
             }
             marginNode = null;
 
-            XmlElement markersNode = langNode.SelectSingleNode("Markers") as XmlElement;
+            var markersNode = langNode.SelectSingleNode("Markers") as XmlElement;
             _markers_List = new MarkersConfigList();
             if (markersNode != null)
             {
@@ -580,7 +580,7 @@ namespace ARCed.Scintilla.Configuration
 
                 foreach (XmlElement el in markersNode.SelectNodes("Marker"))
                 {
-                    MarkersConfig mc = new MarkersConfig();
+                    var mc = new MarkersConfig();
                     mc.Alpha = getInt(el.GetAttribute("Alpha"));
                     mc.BackColor = getColor(el.GetAttribute("BackColor"));
                     mc.ForeColor = getColor(el.GetAttribute("ForeColor"));
@@ -596,7 +596,7 @@ namespace ARCed.Scintilla.Configuration
                 }
             }
 
-            XmlElement scrollingNode = langNode.SelectSingleNode("Scrolling") as XmlElement;
+            var scrollingNode = langNode.SelectSingleNode("Scrolling") as XmlElement;
             if (scrollingNode != null)
             {
                 _scrolling_EndAtLastLine = getBool(scrollingNode.GetAttribute("EndAtLastLine"));
@@ -618,7 +618,7 @@ namespace ARCed.Scintilla.Configuration
             scrollingNode = null;
 
 
-            XmlElement selectionNode = langNode.SelectSingleNode("Selection") as XmlElement;
+            var selectionNode = langNode.SelectSingleNode("Selection") as XmlElement;
             if (selectionNode != null)
             {
                 _selection_BackColor = getColor(selectionNode.GetAttribute("BackColor"));
@@ -636,7 +636,7 @@ namespace ARCed.Scintilla.Configuration
             selectionNode = null;
 
             _snippetsConfigList = new SnippetsConfigList();
-            XmlElement snippetsNode = langNode.SelectSingleNode("Snippets") as XmlElement;
+            var snippetsNode = langNode.SelectSingleNode("Snippets") as XmlElement;
             if (snippetsNode != null)
             {
                 _snippetsConfigList.ActiveSnippetColor = getColor(snippetsNode.GetAttribute("ActiveSnippetColor"));
@@ -662,7 +662,7 @@ namespace ARCed.Scintilla.Configuration
 
                 foreach (XmlElement el in snippetsNode.SelectNodes("Snippet"))
                 {
-                    SnippetsConfig sc = new SnippetsConfig();
+                    var sc = new SnippetsConfig();
                     sc.Shortcut = el.GetAttribute("Shortcut");
                     sc.Code = el.InnerText;
                     sc.Delimeter = getChar(el.GetAttribute("Delimeter"));
@@ -673,13 +673,13 @@ namespace ARCed.Scintilla.Configuration
             snippetsNode = null;
 
             _styles = new StyleConfigList();
-            XmlElement stylesNode = langNode.SelectSingleNode("Styles") as XmlElement;
+            var stylesNode = langNode.SelectSingleNode("Styles") as XmlElement;
             if (stylesNode != null)
             {
                 _styles.Bits = getInt(stylesNode.GetAttribute("Bits"));
                 foreach (XmlElement el in stylesNode.SelectNodes("Style"))
                 {
-                    StyleConfig sc = new StyleConfig();
+                    var sc = new StyleConfig();
                     sc.Name = el.GetAttribute("Name");
                     sc.Number = getInt(el.GetAttribute("Number"));
                     sc.BackColor = getColor(el.GetAttribute("BackColor"));
@@ -737,7 +737,7 @@ namespace ARCed.Scintilla.Configuration
                     string subLanguageName = subLanguage.GetAttribute("Name");
                     foreach (XmlElement el in subLanguage.SelectNodes("Style"))
                     {
-                        StyleConfig sc = new StyleConfig();
+                        var sc = new StyleConfig();
                         sc.Name = subLanguageName + "." + el.GetAttribute("Name");
                         sc.Number = getInt(el.GetAttribute("Number"));
                         sc.BackColor = getColor(el.GetAttribute("BackColor"));
@@ -771,7 +771,7 @@ namespace ARCed.Scintilla.Configuration
             }
             stylesNode = null;
 
-            XmlElement undoRedoNode = langNode.SelectSingleNode("UndoRedo") as XmlElement;
+            var undoRedoNode = langNode.SelectSingleNode("UndoRedo") as XmlElement;
             if (undoRedoNode != null)
             {
                 _undoRedoIsUndoEnabled = getBool(undoRedoNode.GetAttribute("IsUndoEnabled"));
@@ -779,7 +779,7 @@ namespace ARCed.Scintilla.Configuration
             undoRedoNode = null;
 
 
-            XmlElement whitespaceNode = langNode.SelectSingleNode("Whitespace") as XmlElement;
+            var whitespaceNode = langNode.SelectSingleNode("Whitespace") as XmlElement;
             if (whitespaceNode != null)
             {
                 _whitespace_BackColor = getColor(whitespaceNode.GetAttribute("BackColor"));
@@ -796,7 +796,7 @@ namespace ARCed.Scintilla.Configuration
         {
             if (useXmlReader)
             {
-                XmlReaderSettings s = new XmlReaderSettings();
+                var s = new XmlReaderSettings();
                 s.IgnoreComments = true;
                 s.IgnoreWhitespace = true;
 
@@ -804,7 +804,7 @@ namespace ARCed.Scintilla.Configuration
             }
             else
             {
-                XmlDocument doc = new XmlDocument();
+                var doc = new XmlDocument();
                 doc.PreserveWhitespace = true;
                 doc.Load(fileName);
                 Load(doc);
@@ -816,14 +816,14 @@ namespace ARCed.Scintilla.Configuration
         {
             if (useXmlReader)
             {
-                XmlReaderSettings s = new XmlReaderSettings();
+                var s = new XmlReaderSettings();
                 s.IgnoreComments = true;
                 s.IgnoreWhitespace = true;
 				Load(XmlReader.Create(inStream, s));
             }
             else
             {
-                XmlDocument doc = new XmlDocument();
+                var doc = new XmlDocument();
                 doc.PreserveWhitespace = true;
                 doc.Load(inStream);
                 Load(doc);
@@ -1031,8 +1031,8 @@ namespace ARCed.Scintilla.Configuration
                     {
                         if (reader.HasAttributes)
                         {
-                            KeyBinding kb = new KeyBinding();
-                            BindableCommand cmd = new BindableCommand();
+                            var kb = new KeyBinding();
+                            var cmd = new BindableCommand();
                             bool? replaceCurrent = null;
 
                             while (reader.MoveToNextAttribute())
@@ -1235,7 +1235,7 @@ namespace ARCed.Scintilla.Configuration
                     {
                         if (reader.HasAttributes)
                         {
-                            IndicatorConfig ic = new IndicatorConfig();
+                            var ic = new IndicatorConfig();
                             while (reader.MoveToNextAttribute())
                             {
                                 string attrName = reader.Name.ToLower();
@@ -1593,7 +1593,7 @@ namespace ARCed.Scintilla.Configuration
                     {
                         if (reader.HasAttributes)
                         {
-                            MarginConfig mc = new MarginConfig();
+                            var mc = new MarginConfig();
                             while (reader.MoveToNextAttribute())
                             {
                                 string attrName = reader.Name.ToLower();
@@ -1656,7 +1656,7 @@ namespace ARCed.Scintilla.Configuration
                     {
                         if (reader.HasAttributes)
                         {
-                            MarkersConfig mc = new MarkersConfig();
+                            var mc = new MarkersConfig();
                             while (reader.MoveToNextAttribute())
                             {
                                 string attrName = reader.Name.ToLower();
@@ -1825,7 +1825,7 @@ namespace ARCed.Scintilla.Configuration
                     {
                         if (reader.HasAttributes)
                         {
-                            SnippetsConfig sc = new SnippetsConfig();
+                            var sc = new SnippetsConfig();
                             if (reader.HasAttributes)
                             {
                                 while (reader.MoveToNextAttribute())

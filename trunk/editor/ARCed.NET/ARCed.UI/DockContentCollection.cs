@@ -1,12 +1,16 @@
+#region Using Directives
+
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+
+#endregion
 
 namespace ARCed.UI
 {
     public class DockContentCollection : ReadOnlyCollection<IDockContent>
     {
-        private static List<IDockContent> _emptyList = new List<IDockContent>(0);
+        private static readonly List<IDockContent> _emptyList = new List<IDockContent>(0);
 
         public DockContentCollection()
             : base(new List<IDockContent>())
@@ -16,13 +20,13 @@ namespace ARCed.UI
         public DockContentCollection(DockPane pane)
             : base(_emptyList)
         {
-            m_dockPane = pane;
+            this._mDockPane = pane;
         }
 
-        private DockPane m_dockPane = null;
+        private readonly DockPane _mDockPane;
         private DockPane DockPane
         {
-            get { return m_dockPane; }
+            get { return this._mDockPane; }
         }
 
         public new IDockContent this[int index]
@@ -30,7 +34,7 @@ namespace ARCed.UI
             get
             {
                 if (DockPane == null)
-                    return Items[index] as IDockContent;
+                    return Items[index];
                 else
                     return GetVisibleContent(index);
             }

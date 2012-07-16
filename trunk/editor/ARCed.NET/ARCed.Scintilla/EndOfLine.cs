@@ -2,7 +2,7 @@
 
 using System.ComponentModel;
 
-#endregion Using Directives
+#endregion
 
 
 namespace ARCed.Scintilla
@@ -10,7 +10,7 @@ namespace ARCed.Scintilla
     /// <summary>
     ///     Manages End of line settings for the Scintilla Control
     /// </summary>
-    [TypeConverterAttribute(typeof(System.ComponentModel.ExpandableObjectConverter))]
+    [TypeConverter(typeof(ExpandableObjectConverter))]
     public class EndOfLine : TopLevelHelper
     {
         #region Methods

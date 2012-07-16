@@ -1,8 +1,12 @@
-﻿using System;
+﻿#region Using Directives
+
+using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 using ARCed.Helpers;
+
+#endregion
 
 namespace ARCed.Controls
 {
@@ -126,11 +130,11 @@ namespace ARCed.Controls
 
 		private Font GetFont()
 		{
-			FontStyle style = FontStyle.Regular;
+			var style = FontStyle.Regular;
 			if (checkBoxBold.Checked) style |= FontStyle.Bold;
 			if (checkBoxItalic.Checked) style |= FontStyle.Italic;
 			if (checkBoxUnderline.Checked) style |= FontStyle.Underline;
-			float size = (float)numericSize.Value;
+			var size = (float)numericSize.Value;
 			string fontName = fontComboBox.SelectedFontFamily;
 			return FontHelper.GetFont(fontName, size, style);
 		}

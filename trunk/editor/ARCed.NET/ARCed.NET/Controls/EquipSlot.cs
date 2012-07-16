@@ -1,10 +1,13 @@
-﻿using System;
+﻿#region Using Directives
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows.Forms;
-using ARCed.Helpers;
-using System.ComponentModel.Design;
 using ARCed.Settings;
+using RPG;
+
+#endregion
 
 namespace ARCed.Controls
 {
@@ -146,9 +149,9 @@ namespace ARCed.Controls
 		#region Public Methods
 
 		/// <summary>
-		/// 
+		/// Refreshes the list of items/equipment in the combo box control
 		/// </summary>
-		/// <param name="enemyCounts"></param>
+		/// <param name="ids"></param>
 		public void RefreshItems(List<dynamic> ids)
 		{
 			comboBoxEquipment.BeginUpdate();
@@ -159,7 +162,7 @@ namespace ARCed.Controls
 				comboBoxEquipment.EndUpdate();
 				return;
 			}
-			RPG.Armor armor;
+			Armor armor;
 			foreach (int id in ids)
 			{
 				if (EquipKind < 0) // Weapon
@@ -282,7 +285,7 @@ namespace ARCed.Controls
 	public class EquipFixChangedEventArgs
 	{
 		/// <summary>
-		/// Gets the value indicating the fixed status of the slot<
+		/// Gets the value indicating the fixed status of the slot
 		/// </summary>
 		public bool Fixed { get; private set; }
 

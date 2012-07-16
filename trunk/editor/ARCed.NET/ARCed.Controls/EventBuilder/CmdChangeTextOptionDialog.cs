@@ -1,4 +1,9 @@
-﻿using System.Windows.Forms;
+﻿#region Using Directives
+
+using System;
+using System.Windows.Forms;
+
+#endregion
 
 namespace ARCed.EventBuilder
 {
@@ -46,7 +51,7 @@ namespace ARCed.EventBuilder
 			InitializeComponent();
 		}
 
-		private void buttonOK_Click(object sender, System.EventArgs e)
+		private void buttonOK_Click(object sender, EventArgs e)
 		{
 			this.DialogResult = DialogResult.OK;
 			this.Close();

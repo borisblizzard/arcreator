@@ -1,9 +1,17 @@
-﻿using System.Collections.Generic;
+﻿#region Using Directives
+
+using System.Collections.Generic;
 using System.IO;
 using ARCed.Core;
 
+#endregion
+
 namespace ARCed.Helpers
 {
+    /// <summary>
+    /// Static class that handles finding, organizing, and getting resources automatically from 
+    /// both ther local directory and installed RTP directory if there is one.
+    /// </summary>
 	public static class ResourceHelper
 	{
 
@@ -11,11 +19,10 @@ namespace ARCed.Helpers
 
 		private static FileSystemWatcher _rtpWatcher;
 		private static FileSystemWatcher _localWatcher;
-		private static FileSystemWatcher _scriptWatcher;
+		//private static FileSystemWatcher _scriptWatcher;
 		private static List<GameResource> _resources;
-		private static bool _initialized;
 
-		#endregion
+	    #endregion
 
 		#region Public Properties
 
@@ -57,10 +64,7 @@ namespace ARCed.Helpers
 		{
 			get
 			{
-				return _resources.FindAll(delegate(GameResource r)
-				{
-					return r.Location == Location.RTP;
-				});
+				return _resources.FindAll(r => r.Location == Location.RTP);
 			}
 		}
 		/// <summary>
@@ -70,10 +74,7 @@ namespace ARCed.Helpers
 		{
 			get
 			{
-				return _resources.FindAll(delegate(GameResource r)
-				{
-					return r.Location == Location.Local;
-				});
+				return _resources.FindAll(r => r.Location == Location.Local);
 			}
 		}
 		/// <summary>
@@ -83,10 +84,7 @@ namespace ARCed.Helpers
 		{
 			get
 			{
-				return _resources.FindAll(delegate(GameResource r)
-				{
-					return r.ResourceType == ResourceType.Graphics;
-				});
+				return _resources.FindAll(r => r.ResourceType == ResourceType.Graphics);
 			}
 		}
 		/// <summary>
@@ -96,10 +94,7 @@ namespace ARCed.Helpers
 		{
 			get
 			{
-				return _resources.FindAll(delegate(GameResource r)
-				{
-					return r.ResourceType == ResourceType.Audio;
-				});
+				return _resources.FindAll(r => r.ResourceType == ResourceType.Audio);
 			}
 		}
 		/// <summary>
@@ -109,10 +104,7 @@ namespace ARCed.Helpers
 		{
 			get
 			{
-				return _resources.FindAll(delegate(GameResource r)
-				{
-					return r.ResourceType == ResourceType.Audio && r.Location == Location.Local;
-				});
+				return _resources.FindAll(r => r.ResourceType == ResourceType.Audio && r.Location == Location.Local);
 			}
 		}
 		/// <summary>
@@ -122,10 +114,7 @@ namespace ARCed.Helpers
 		{
 			get
 			{
-				return _resources.FindAll(delegate(GameResource r)
-				{
-					return r.ResourceType == ResourceType.Audio && r.Location == Location.RTP;
-				});
+				return _resources.FindAll(r => r.ResourceType == ResourceType.Audio && r.Location == Location.RTP);
 			}
 		}
 		/// <summary>
@@ -135,10 +124,7 @@ namespace ARCed.Helpers
 		{
 			get
 			{
-				return _resources.FindAll(delegate(GameResource r)
-				{
-					return r.ResourceType == ResourceType.Graphics && r.Location == Location.Local;
-				});
+				return _resources.FindAll(r => r.ResourceType == ResourceType.Graphics && r.Location == Location.Local);
 			}
 		}
 		/// <summary>
@@ -148,10 +134,7 @@ namespace ARCed.Helpers
 		{
 			get
 			{
-				return _resources.FindAll(delegate(GameResource r)
-				{
-					return r.ResourceType == ResourceType.Graphics && r.Location == Location.RTP;
-				});
+				return _resources.FindAll(r => r.ResourceType == ResourceType.Graphics && r.Location == Location.RTP);
 			}
 		}
 
@@ -164,36 +147,31 @@ namespace ARCed.Helpers
 		/// </summary>
 		public static void Initialize()
 		{
-			if (!_initialized)
-			{
-				_resources = new List<GameResource>();
-				_localWatcher = new FileSystemWatcher(".");
-				//_scriptWatcher = new FileSystemWatcher(".");
-				_localWatcher.IncludeSubdirectories = true;
-				_localWatcher.EnableRaisingEvents = false;
-				_localWatcher.Created += new FileSystemEventHandler(fileSystemWatcher_Created);
-				_localWatcher.Deleted += new FileSystemEventHandler(fileSystemWatcher_Deleted);
-				_localWatcher.Renamed += new RenamedEventHandler(fileSystemWatcher_Renamed);
-                if (Directory.Exists(Constants.RTP_PATH))
-                {
-                    _rtpWatcher = new FileSystemWatcher(Constants.RTP_PATH);
-                    _rtpWatcher.IncludeSubdirectories = true;
-                    _rtpWatcher.EnableRaisingEvents = true;
-                    _rtpWatcher.Created += new FileSystemEventHandler(fileSystemWatcher_Created);
-                    _rtpWatcher.Deleted += new FileSystemEventHandler(fileSystemWatcher_Deleted);
-                    _rtpWatcher.Renamed += new RenamedEventHandler(fileSystemWatcher_Renamed);
-                    RefreshRTP();
-                }
-				_initialized = true;
-			}
+		    if (IsInitialized) return;
+		    _resources = new List<GameResource>();
+		    _localWatcher = new FileSystemWatcher(".") {IncludeSubdirectories = true, EnableRaisingEvents = false};
+		    //_scriptWatcher = new FileSystemWatcher(".");
+		    _localWatcher.Created += FileSystemWatcherCreated;
+		    _localWatcher.Deleted += FileSystemWatcherDeleted;
+		    _localWatcher.Renamed += FileSystemWatcherRenamed;
+		    if (Directory.Exists(Constants.RTP_PATH))
+		    {
+		        _rtpWatcher = new FileSystemWatcher(Constants.RTP_PATH)
+		                          { IncludeSubdirectories = true, EnableRaisingEvents = true };
+		        _rtpWatcher.Created += FileSystemWatcherCreated;
+		        _rtpWatcher.Deleted += FileSystemWatcherDeleted;
+		        _rtpWatcher.Renamed += FileSystemWatcherRenamed;
+		        RefreshRTP();
+		    }
+		    IsInitialized = true;
 		}
 
-		/// <summary>
-		/// Gets the initialized status of the system
-		/// </summary>
-		public static bool IsInitialized { get { return _initialized; } }
+	    /// <summary>
+	    /// Gets the initialized status of the system
+	    /// </summary>
+	    public static bool IsInitialized { get; private set; }
 
-		/// <summary>
+	    /// <summary>
 		/// Recursively searches a directory for filenames using the given filters
 		/// </summary>
 		/// <param name="rootDir">Root directory to begin search</param>
@@ -202,7 +180,7 @@ namespace ARCed.Helpers
 		/// matched the given filter(s).</returns>
 		public static List<string> DirectorySearch(string rootDir, params string[] filters)
 		{
-			List<string> fileList = new List<string>();
+			var fileList = new List<string>();
 			foreach (string filter in filters)
 				fileList.AddRange(Directory.GetFiles(rootDir, filter));
 			foreach (string dir in Directory.GetDirectories(rootDir))
@@ -215,9 +193,9 @@ namespace ARCed.Helpers
 		/// </summary>
 		public static void RefreshRTP()
 		{
-			_resources.RemoveAll(delegate(GameResource r) { return r.Location == Location.RTP; });
-			string graphics = Path.Combine(Constants.RTP_PATH, "Graphics");
-			string audio = Path.Combine(Constants.RTP_PATH, "Audio");
+			_resources.RemoveAll(r => r.Location == Location.RTP);
+			var graphics = Path.Combine(Constants.RTP_PATH, "Graphics");
+			var audio = Path.Combine(Constants.RTP_PATH, "Audio");
 			foreach (string filename in DirectorySearch(graphics, Constants.IMAGEFILTERS.Split('|')))
 				_resources.Add(new GameResource(filename, Location.RTP, ResourceType.Graphics));
             foreach (string filename in DirectorySearch(audio, Constants.AUDIOFILTERS.Split('|')))
@@ -229,7 +207,7 @@ namespace ARCed.Helpers
 		/// </summary>
 		public static void RefreshLocal()
 		{
-			_resources.RemoveAll(delegate(GameResource r) { return r.Location == Location.Local; });
+			_resources.RemoveAll(r => r.Location == Location.Local);
             foreach (string filename in DirectorySearch("Graphics", Constants.IMAGEFILTERS.Split('|')))
 				_resources.Add(new GameResource(filename, Location.Local, ResourceType.Graphics));
             foreach (string filename in DirectorySearch("Audio", Constants.AUDIOFILTERS.Split('|')))
@@ -247,7 +225,7 @@ namespace ARCed.Helpers
 			if (enable)
 				RefreshLocal();
 			else
-				_resources.RemoveAll(delegate(GameResource r) { return r.Location == Location.Local; });
+				_resources.RemoveAll(r => r.Location == Location.Local);
 		}
 
 		/// <summary>
@@ -258,8 +236,7 @@ namespace ARCed.Helpers
 		/// <returns>Collection of found resources</returns>
 		public static List<GameResource> GetTypes(string folder)
 		{
-			var results = _resources.FindAll(delegate(GameResource r) {
-				return folder == r.RelativeDirectory; });
+			var results = _resources.FindAll(r => folder == r.RelativeDirectory);
 			results.Sort();
 			return results;
 		}
@@ -267,16 +244,13 @@ namespace ARCed.Helpers
 		/// <summary>
 		/// Gets the full path to a file of the given type using the simple name of the file
 		/// </summary>
-		/// <param name="type">Detailed type of the file to find</param>
+		/// <param name="folder">Folder name where the file to be found is located.</param>
 		/// <param name="name">Simple name of the file, without extension</param>
 		/// <returns>Full path to the file</returns>
 		public static string GetFullPath(string folder, string name)
 		{
-			GameResource rsx = _resources.Find(delegate(GameResource r) { 
-				return r.Name == name && r.RelativeDirectory == folder; });
-			if (rsx != null)
-				return rsx.FullPath;
-			return null;
+			var rsx = _resources.Find(r => r.Name == name && r.RelativeDirectory == folder);
+			return rsx != null ? rsx.FullPath : null;
 		}
 
 		#endregion
@@ -288,9 +262,9 @@ namespace ARCed.Helpers
 		/// </summary>
 		/// <param name="sender">Invoker of the event</param>
 		/// <param name="e">Event arguments</param>
-		private static void fileSystemWatcher_Renamed(object sender, RenamedEventArgs e)
+		private static void FileSystemWatcherRenamed(object sender, RenamedEventArgs e)
 		{
-			int i = _resources.FindIndex(delegate(GameResource r) { return r.FullPath == e.OldFullPath; });
+			var i = _resources.FindIndex(r => r.FullPath == e.OldFullPath);
 			if (i >= 0)
 				_resources[i].FileInfo = new FileInfo(e.FullPath);
 		}
@@ -300,9 +274,9 @@ namespace ARCed.Helpers
 		/// </summary>
 		/// <param name="sender">Invoker of the event</param>
 		/// <param name="e">Event arguments</param>
-		private static void fileSystemWatcher_Deleted(object sender, FileSystemEventArgs e)
+		private static void FileSystemWatcherDeleted(object sender, FileSystemEventArgs e)
 		{
-			_resources.RemoveAll(delegate(GameResource r) { return r.FullPath == e.FullPath; });
+			_resources.RemoveAll(r => r.FullPath == e.FullPath);
 		}
 
 		/// <summary>
@@ -310,9 +284,9 @@ namespace ARCed.Helpers
 		/// </summary>
 		/// <param name="sender">Invoker of the event</param>
 		/// <param name="e">Event arguments</param>
-		private static void fileSystemWatcher_Created(object sender, FileSystemEventArgs e)
+		private static void FileSystemWatcherCreated(object sender, FileSystemEventArgs e)
 		{
-			Location location = e.FullPath.Contains(Constants.RTP_PATH) ? Location.RTP : Location.Local;
+			var location = e.FullPath.Contains(Constants.RTP_PATH) ? Location.RTP : Location.Local;
 			_resources.Add(new GameResource(e.FullPath, location, ResourceType.Unknown));
 		}
 

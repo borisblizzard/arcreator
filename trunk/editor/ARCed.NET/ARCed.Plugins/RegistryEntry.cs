@@ -1,8 +1,15 @@
-﻿using System;
+﻿#region Using Directives
+
+using System;
 using ARCed.UI;
+
+#endregion
 
 namespace ARCed.Plugins
 {
+    /// <summary>
+    /// Represents an entry in the plugin registry.
+    /// </summary>
 	public class RegistryEntry : IPluginClient
 	{
 		/// <summary>

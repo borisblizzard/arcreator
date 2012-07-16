@@ -1,8 +1,13 @@
-﻿using System;
+﻿#region Using Directives
+
+using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Windows.Forms;
 using ARCed.Dialogs;
+using RPG;
+using Color = System.Drawing.Color;
+
+#endregion
 
 namespace ARCed.Database.Animations
 {
@@ -16,7 +21,7 @@ namespace ARCed.Database.Animations
 		/// <summary>
 		/// Gets or sets the RPG.Animation.Timing object associated with the dialog.
 		/// </summary>
-		public RPG.Animation.Timing Timing 
+		public Animation.Timing Timing 
 		{
 			get { return GetTiming(); }
 			set { SetTiming(value); }
@@ -40,21 +45,21 @@ namespace ARCed.Database.Animations
 
 		#region Private Methods
 
-		private RPG.Animation.Timing GetTiming()
+		private Animation.Timing GetTiming()
 		{
-			RPG.Animation.Timing timing = new RPG.Animation.Timing();
+			var timing = new Animation.Timing();
 			timing.frame = (int)numericUpDownFrame.Value;
 			timing.condition = comboBoxCondition.SelectedIndex;
 			timing.flash_duration = (int)numericUpDownDuration.Value;
             timing.flash_color = panelColor.BackColor;
 			timing.flash_color.alpha = (float)numericUpDownStrength.Value;
-			List<RadioButton> btns = new List<RadioButton> { radioNone, radioTarget, radioScreen, radioHide };
+			var btns = new List<RadioButton> { radioNone, radioTarget, radioScreen, radioHide };
 			timing.flash_scope = btns.FindIndex(delegate(RadioButton btn) { return btn.Checked; });
-			timing.se = textBoxSE.Tag == null ? new RPG.AudioFile() : (RPG.AudioFile)textBoxSE.Tag;
+			timing.se = textBoxSE.Tag == null ? new AudioFile() : (AudioFile)textBoxSE.Tag;
 			return timing;
 		}
 
-		private void SetTiming(RPG.Animation.Timing timing)
+		private void SetTiming(Animation.Timing timing)
 		{
 			numericUpDownFrame.Value = timing.frame.Clamp(1, 999);
 			numericUpDownDuration.Value = timing.flash_duration;
@@ -81,7 +86,7 @@ namespace ARCed.Database.Animations
 
 		private void panelColor_DoubleClick(object sender, EventArgs e)
 		{
-			using (ColorChooserForm dialog = new ColorChooserForm())
+			using (var dialog = new ColorChooserForm())
 			{
 				dialog.AlphaEnabled = false;
 				Color c = panelColor.BackColor;

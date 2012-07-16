@@ -3,7 +3,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 
-#endregion Using Directives
+#endregion
 
 
 namespace ARCed.Scintilla
@@ -11,13 +11,13 @@ namespace ARCed.Scintilla
     /// <summary>
     ///     Manages DropMarkers, a Stack Based document bookmarking system.
     /// </summary>
-    [TypeConverterAttribute(typeof(System.ComponentModel.ExpandableObjectConverter))]
+    [TypeConverter(typeof(ExpandableObjectConverter))]
     public class DropMarkers : TopLevelHelper
     {
         #region Fields
 
         private Stack<DropMarker> _markerStack = new Stack<DropMarker>();
-        private static Dictionary<string, Stack<DropMarker>> _sharedStack = new Dictionary<string, Stack<DropMarker>>();
+        private readonly static Dictionary<string, Stack<DropMarker>> _sharedStack = new Dictionary<string, Stack<DropMarker>>();
         private DropMarkerList _allDocumentDropMarkers = new DropMarkerList();
         private string _sharedStackName = string.Empty;
 
@@ -85,7 +85,7 @@ namespace ARCed.Scintilla
         /// </remarks>
         public DropMarker Drop(int position)
         {
-            DropMarker dm = new DropMarker(position, position, GetCurrentTopOffset(), Scintilla);
+            var dm = new DropMarker(position, position, GetCurrentTopOffset(), Scintilla);
             _allDocumentDropMarkers.Add(dm);
             _markerStack.Push(dm);
             Scintilla.ManagedRanges.Add(dm);

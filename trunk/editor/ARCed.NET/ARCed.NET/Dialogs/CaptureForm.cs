@@ -1,10 +1,13 @@
-﻿using System;
+﻿#region Using Directives
+
+using System;
 using System.Drawing;
 using System.IO;
 using System.Reflection;
-using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using ARCed.Core.Win32;
+
+#endregion
 
 namespace ARCed.Dialogs
 {
@@ -37,9 +40,9 @@ namespace ARCed.Dialogs
 				string tempFile = Path.GetTempFileName();
 				using (Stream s =
 					Assembly.GetExecutingAssembly().GetManifestResourceStream(resourceName))
-				using (FileStream resourceFile = new FileStream(tempFile, FileMode.Create))
+				using (var resourceFile = new FileStream(tempFile, FileMode.Create))
 				{
-					byte[] b = new byte[s.Length + 1];
+					var b = new byte[s.Length + 1];
 					s.Read(b, 0, Convert.ToInt32(s.Length));
 					resourceFile.Write(b, 0, Convert.ToInt32(b.Length - 1));
 					resourceFile.Flush();

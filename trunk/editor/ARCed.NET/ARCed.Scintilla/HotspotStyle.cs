@@ -3,12 +3,12 @@
 using System.ComponentModel;
 using System.Drawing;
 
-#endregion Using Directives
+#endregion
 
 
 namespace ARCed.Scintilla
 {
-    [TypeConverterAttribute(typeof(System.ComponentModel.ExpandableObjectConverter))]
+    [TypeConverter(typeof(ExpandableObjectConverter))]
     public class HotspotStyle : TopLevelHelper
     {
         #region Fields

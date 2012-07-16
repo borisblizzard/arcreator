@@ -1,12 +1,16 @@
-﻿using System;
+﻿#region Using Directives
+
+using System;
 using System.ComponentModel;
 using System.Drawing;
-using System.Linq;
 using System.Windows.Forms;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Vector2 = Microsoft.Xna.Framework.Vector2;
+using Point = System.Drawing.Point;
 using XnaColor = Microsoft.Xna.Framework.Color;
 using XnaRect = Microsoft.Xna.Framework.Rectangle;
+
+#endregion
 
 namespace ARCed.Controls
 {
@@ -174,7 +178,7 @@ namespace ARCed.Controls
 					if (_timer == null)
 					{
 						_timer = new Timer();
-						_timer.Tick += new EventHandler(_timer_Tick);
+						_timer.Tick += this._timer_Tick;
 						if (components == null)
 						{
 							components = new Container();
@@ -265,7 +269,7 @@ namespace ARCed.Controls
 		/// </summary>
 		protected override void Initialize()
 		{
-			_addBlend = new BlendState()
+			_addBlend = new BlendState
 			{
 				ColorDestinationBlend = Blend.One,
 				ColorSourceBlend = Blend.One,
@@ -274,7 +278,7 @@ namespace ARCed.Controls
 				ColorBlendFunction = BlendFunction.Add,
 				AlphaBlendFunction = BlendFunction.Add
 			};
-			_subBlend = new BlendState()
+			_subBlend = new BlendState
 			{
 				ColorSourceBlend = Blend.InverseBlendFactor,
 				ColorDestinationBlend = Blend.One | Blend.InverseSourceColor,
@@ -287,10 +291,10 @@ namespace ARCed.Controls
 			IconCache.GraphicsDevice = GraphicsDevice;
 			_batch = new SpriteBatch(GraphicsDevice);
 			GraphicsDevice.Clear(XnaColor.DarkGray);
-			this.Disposed += new EventHandler(imageSelectXnaPanel_Disposed);
-			this.MouseDown += new MouseEventHandler(imageXnaPanel_MouseDown);
-			this.MouseUp += new MouseEventHandler(imageXnaPanel_MouseUp);
-			this.MouseMove += new MouseEventHandler(imageXnaPanel_MouseMove);
+			this.Disposed += this.imageSelectXnaPanel_Disposed;
+			this.MouseDown += this.imageXnaPanel_MouseDown;
+			this.MouseUp += this.imageXnaPanel_MouseUp;
+			this.MouseMove += this.imageXnaPanel_MouseMove;
 		}
 
 		/// <summary>

@@ -1,6 +1,11 @@
-﻿using System;
+﻿#region Using Directives
+
+using System;
 using System.Drawing;
 using System.Windows.Forms;
+using ARCed.Properties;
+
+#endregion
 
 namespace ARCed.Dialogs
 {
@@ -26,7 +31,7 @@ namespace ARCed.Dialogs
 		public NoteForm()
 		{
 			InitializeComponent();
-			this.Icon = Icon.FromHandle(Properties.Resources.NoteText.GetHicon());
+			this.Icon = Icon.FromHandle(Resources.NoteText.GetHicon());
 			textBoxNotes.DataBindings.Add("Font", Editor.Settings, "NoteFont",
 				false, DataSourceUpdateMode.OnValidation | DataSourceUpdateMode.OnPropertyChanged);
 		}
@@ -69,7 +74,7 @@ namespace ARCed.Dialogs
 
 		private void buttonFont_Click(object sender, EventArgs e)
 		{
-			using (FontSelectionDialog dialog = new FontSelectionDialog())
+			using (var dialog = new FontSelectionDialog())
 			{
 				dialog.UserFont = textBoxNotes.Font;
 				if (dialog.ShowDialog() == DialogResult.OK)

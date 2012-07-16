@@ -4,8 +4,7 @@ using System;
 using System.Collections;
 using System.ComponentModel;
 
-
-#endregion Using Directives
+#endregion
 
 
 namespace ARCed.Scintilla
@@ -17,12 +16,12 @@ namespace ARCed.Scintilla
     ///     Annotations are customizable read-only blocks of text which can be displayed below
     ///     each line in a <see cref="Scintilla" /> control.
     /// </remarks>
-    [TypeConverterAttribute(typeof(System.ComponentModel.ExpandableObjectConverter))]
+    [TypeConverter(typeof(ExpandableObjectConverter))]
     public class AnnotationCollection : /*ICollection,*/ IEnumerable
     {
         #region Fields
 
-        private Scintilla _scintilla;
+        private readonly Scintilla _scintilla;
 
         #endregion Fields
 
@@ -246,7 +245,7 @@ namespace ARCed.Scintilla
         // Just enough to get the job done...
         private class AnnotationCollectionEnumerator : IEnumerator
         {
-            private AnnotationCollection _collection;
+            private readonly AnnotationCollection _collection;
             private int _index;
 
             public bool MoveNext()

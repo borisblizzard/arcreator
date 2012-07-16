@@ -36,7 +36,7 @@ namespace RPG
 		}
 
 		/// <summary>
-		/// Returns a <paramref name="System.String"/> that represents the current object.
+        /// Returns a <see langword="string"/> that represents the current object.
 		/// </summary>
 		/// <returns>String representation of object.</returns>
 		public override string ToString()

@@ -2,7 +2,7 @@
 
 using System.ComponentModel;
 
-#endregion Using Directives
+#endregion
 
 
 namespace ARCed.Scintilla
@@ -14,7 +14,7 @@ namespace ARCed.Scintilla
     {
         #region Fields
 
-        private DropMarker _dropMarker;
+        private readonly DropMarker _dropMarker;
 
         #endregion Fields
 

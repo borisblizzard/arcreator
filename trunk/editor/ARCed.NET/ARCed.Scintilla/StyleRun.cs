@@ -1,6 +1,6 @@
 ﻿#region Using Directives
 
-using System;
+
 
 #endregion Using Directives
 
@@ -30,7 +30,7 @@ namespace ARCed.Scintilla
         /// <summary>
         ///     Gets or sets length of this <see cref="StyleRun" />.
         /// </summary>
-        /// <returns>An <see cref="Int32" /> representing the length of this <see cref="StyleRun" />.</returns>
+        /// <returns>An <see cref="int" /> representing the length of this <see cref="StyleRun" />.</returns>
         public int Length
         {
             get
@@ -47,7 +47,7 @@ namespace ARCed.Scintilla
         /// <summary>
         ///     Gets or sets the style index of this <see cref="StyleRun" />.
         /// </summary>
-        /// <returns>An <see cref="Int32" /> representing the zero-based style index of this <see cref="StyleRun" />.</returns>
+        /// <returns>An <see cref="int" /> representing the zero-based style index of this <see cref="StyleRun" />.</returns>
         public int Style
         {
             get

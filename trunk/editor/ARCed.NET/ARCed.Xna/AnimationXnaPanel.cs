@@ -1,11 +1,15 @@
-﻿using System;
+﻿#region Using Directives
+
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.IO;
-using ARCed.Helpers;
-using System.Linq;
-using Microsoft.Xna.Framework.Graphics;
+using System.Drawing;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using RPG;
+using Color = Microsoft.Xna.Framework.Color;
+using Rectangle = Microsoft.Xna.Framework.Rectangle;
+
+#endregion
 
 namespace ARCed.Controls
 {
@@ -15,7 +19,7 @@ namespace ARCed.Controls
 		Texture2D _texture;
 
 		public bool IsDisposed { get; private set; }
-		public RPG.Animation.Frame Frame { get; set; }
+		public Animation.Frame Frame { get; set; }
 
 		public int Index { get; set; }
 
@@ -91,9 +95,9 @@ namespace ARCed.Controls
 	public partial class AnimationXnaPanel : GraphicsDeviceControl
 	{
 		SpriteBatch _batch;
-		RPG.Animation _animation;
+		Animation _animation;
 		Texture2D _texture;
-		System.Drawing.Font _font;
+		Font _font;
 
 		private static Rectangle VIEWPORT;
 		private List<FrameSprite> _sprites;
@@ -104,7 +108,7 @@ namespace ARCed.Controls
 			set { _sprites = value; }
 		}
 
-		public RPG.Animation Animation 
+		public Animation Animation 
 		{
 			get { return _animation; }
 			set
@@ -137,11 +141,11 @@ namespace ARCed.Controls
 		protected override void Initialize()
 		{
 			_sprites = new List<FrameSprite>();
-			_font = new System.Drawing.Font("Courier New", 8.25f, System.Drawing.FontStyle.Regular);
+			_font = new Font("Courier New", 8.25f, FontStyle.Regular);
 			_batch = new SpriteBatch(GraphicsDevice);
 			GraphicsDevice.Clear(Color.Black);
 			VIEWPORT = new Rectangle(0, 0, 320, 160);
-			Disposed += new EventHandler(AnimationXnaPanel_Disposed);
+			Disposed += this.AnimationXnaPanel_Disposed;
 		}
 
 		void AnimationXnaPanel_Disposed(object sender, EventArgs e)

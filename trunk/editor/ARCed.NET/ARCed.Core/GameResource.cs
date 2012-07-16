@@ -1,7 +1,11 @@
-﻿using System;
+﻿#region Using Directives
+
+using System;
 using System.Collections;
 using System.IO;
 using System.Linq;
+
+#endregion
 
 namespace ARCed.Core
 {

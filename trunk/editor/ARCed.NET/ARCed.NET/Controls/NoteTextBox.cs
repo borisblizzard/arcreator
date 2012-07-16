@@ -1,8 +1,12 @@
-﻿using System;
+﻿#region Using Directives
+
+using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 using ARCed.Dialogs;
+
+#endregion
 
 namespace ARCed.Controls
 {
@@ -60,7 +64,7 @@ namespace ARCed.Controls
 
 		private void buttonFont_Click(object sender, EventArgs e)
 		{
-			using (FontSelectionDialog dialog = new FontSelectionDialog())
+			using (var dialog = new FontSelectionDialog())
 			{
 				dialog.UserFont = textBoxNotes.Font;
 				if (dialog.ShowDialog() == DialogResult.OK)
@@ -70,7 +74,7 @@ namespace ARCed.Controls
 
 		private void buttonEditor_Click(object sender, EventArgs e)
 		{
-			using (NoteForm dialog = new NoteForm())
+			using (var dialog = new NoteForm())
 			{
 				dialog.NoteText = textBoxNotes.Text;
 				if (dialog.ShowDialog() == DialogResult.OK)
@@ -83,7 +87,7 @@ namespace ARCed.Controls
 			if (!DesignMode && textBoxNotes.DataBindings.Count == 0)
 			{
 				textBoxNotes.DataBindings.Add("Font", Editor.Settings, "NoteFont",
-					false, DataSourceUpdateMode.OnValidation | DataSourceUpdateMode.OnPropertyChanged);
+					false, DataSourceUpdateMode.OnPropertyChanged);
 				textBoxNotes.ContextMenuStrip = contextMenuNotes;
 			}
 		}

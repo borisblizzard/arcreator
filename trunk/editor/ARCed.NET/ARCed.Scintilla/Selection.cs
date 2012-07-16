@@ -4,19 +4,19 @@ using System;
 using System.ComponentModel;
 using System.Drawing;
 
-#endregion Using Directives
+#endregion
 
 
 namespace ARCed.Scintilla
 {
-    [TypeConverterAttribute(typeof(System.ComponentModel.ExpandableObjectConverter))]
+    [TypeConverter(typeof(ExpandableObjectConverter))]
     public class Selection : TopLevelHelper
     {
         #region Fields
 
         private Color _backColorUnfocused = Color.LightGray;
-        private bool _hidden = false;
-        private bool _hideSelection = false;
+        private bool _hidden;
+        private bool _hideSelection;
 
         #endregion Fields
 

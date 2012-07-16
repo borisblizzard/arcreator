@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-#endregion Using Directives
+#endregion
 
 
 namespace ARCed.Scintilla
@@ -24,8 +24,8 @@ namespace ARCed.Scintilla
 
         #region Fields
 
-        private Scintilla _scintilla;
-        private int _lineIndex;
+        private readonly Scintilla _scintilla;
+        private readonly int _lineIndex;
 
         #endregion Fields
 
@@ -54,12 +54,12 @@ namespace ARCed.Scintilla
 
 
         /// <summary>
-        ///     Overridden. Determines whether the specified <see cref="Object" /> is equal to the current <see cref="Object" />.
+        ///     Overridden. Determines whether the specified <see cref="object" /> is equal to the current <see cref="object" />.
         /// </summary>
         /// <param name="obj">The object to compare with the current object.</param>
         /// <returns>
-        ///     true if the specified <see cref="Object" /> is equal to the
-        ///     current <see cref="Object" />; otherwise, false.
+        ///     true if the specified <see cref="object" /> is equal to the
+        ///     current <see cref="object" />; otherwise, false.
         /// </returns>
         public override bool Equals(object obj)
         {
@@ -67,7 +67,7 @@ namespace ARCed.Scintilla
             {
                 // If another annotation has the same Scintilla
                 // control and line index--it is the same.
-                Annotation a = (Annotation)obj;
+                var a = (Annotation)obj;
                 if (a._scintilla == _scintilla && a._lineIndex == _lineIndex)
                     return true;
             }
@@ -103,7 +103,7 @@ namespace ARCed.Scintilla
         /// <summary>
         ///     Overridden. Serves as a hash function for a particular type.
         /// </summary>
-        /// <returns>A hash code for the current <see cref="Object" />.</returns>
+        /// <returns>A hash code for the current <see cref="object" />.</returns>
         public override int GetHashCode()
         {
             return _scintilla.GetHashCode() ^ _lineIndex;
@@ -128,8 +128,8 @@ namespace ARCed.Scintilla
             // characters that span more than one byte.
 
             int length = _scintilla.DirectMessage(NativeMethods.SCI_ANNOTATIONGETTEXT, new IntPtr(_lineIndex), IntPtr.Zero).ToInt32();
-            byte[] textBuffer = new byte[length];
-            byte[] stylesBuffer = new byte[length];
+            var textBuffer = new byte[length];
+            var stylesBuffer = new byte[length];
 
             unsafe
             {
@@ -139,9 +139,10 @@ namespace ARCed.Scintilla
                     _scintilla.DirectMessage(NativeMethods.SCI_ANNOTATIONGETSTYLES, new IntPtr(_lineIndex), new IntPtr(bp)).ToInt32();
             }
 
-            List<StyleRun> styles = new List<StyleRun>();
+            var styles = new List<StyleRun>();
             Decoder decoder = _scintilla.Encoding.GetDecoder();
-            StyleRun sr = new StyleRun() { Style = -1 };
+            var sr = new StyleRun
+            { Style = -1 };
             int index = 0;
             int count = 1;
 
@@ -215,8 +216,8 @@ namespace ARCed.Scintilla
             // one byte and fill the array accordingly.
 
             int length = _scintilla.DirectMessage(NativeMethods.SCI_ANNOTATIONGETTEXT, new IntPtr(_lineIndex), IntPtr.Zero).ToInt32();
-            byte[] textBuffer = new byte[length];
-            byte[] stylesBuffer = new byte[length];
+            var textBuffer = new byte[length];
+            var stylesBuffer = new byte[length];
 
             unsafe
             {
@@ -249,7 +250,7 @@ namespace ARCed.Scintilla
                         index += count;
                         count = 1;
                         sr.Length--;
-                    };
+                    }
                 }
             }
 
@@ -354,11 +355,11 @@ namespace ARCed.Scintilla
 
                 // Determine the buffer size, fill it, and convert it to a string
                 int length = _scintilla.DirectMessage(NativeMethods.SCI_ANNOTATIONGETTEXT, new IntPtr(_lineIndex), IntPtr.Zero).ToInt32();
-                byte[] buffer = new byte[length];
+                var buffer = new byte[length];
                 unsafe
                 {
                     fixed (byte* bp = buffer)
-                        length = (int)_scintilla.DirectMessage(NativeMethods.SCI_ANNOTATIONGETTEXT, new IntPtr(_lineIndex), new IntPtr(bp)).ToInt32();
+                        length = this._scintilla.DirectMessage(NativeMethods.SCI_ANNOTATIONGETTEXT, new IntPtr(this._lineIndex), new IntPtr(bp)).ToInt32();
                 }
 
                 return _scintilla.Encoding.GetString(buffer, 0, length);
@@ -409,14 +410,14 @@ namespace ARCed.Scintilla
         public static bool operator ==(Annotation left, Annotation right)
         {
             // If both are null, or both are same instance
-            if (Object.ReferenceEquals(left, right))
+            if (ReferenceEquals(left, right))
                 return true;
 
             // If one is null, but not both
             if (((object)left == null) || ((object)right == null))
                 return false;
 
-            return left.Equals((Annotation)right);
+            return left.Equals(right);
         }
 
         #endregion Operators

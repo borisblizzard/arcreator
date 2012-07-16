@@ -1,7 +1,13 @@
-﻿using System;
+﻿#region Using Directives
+
+using System;
 using System.Drawing;
 using System.Windows.Forms;
+using ARCed.Database;
 using ARCed.Helpers;
+using ARCed.Settings;
+
+#endregion
 
 namespace ARCed.Dialogs
 {
@@ -9,7 +15,7 @@ namespace ARCed.Dialogs
 	{
 		#region Private Fields
 
-		private ARCed.Settings.HeaderSettings _settings;
+		private readonly HeaderSettings _settings;
 
 		#endregion
 
@@ -50,9 +56,9 @@ namespace ARCed.Dialogs
 			panelTextColor.BackColor = _settings.TextColor;
 		}
 
-		private Color GetColor(Color color)
+		private static Color GetColor(Color color)
 		{
-			using (ColorChooserForm dialog = new ColorChooserForm())
+			using (var dialog = new ColorChooserForm())
 			{
 				dialog.Color = color;
 				dialog.AlphaEnabled = false;
@@ -65,7 +71,7 @@ namespace ARCed.Dialogs
 		private void buttonOK_Click(object sender, EventArgs e)
 		{
 			Project.Settings.HeaderImage = _settings;
-			foreach (ARCed.Database.DatabaseWindow window in Windows.DatabaseForms)
+			foreach (DatabaseWindow window in Windows.DatabaseForms)
 				window.RefreshHeader();
 			Windows.ScriptMenu.RefreshHeader();
 			this.DialogResult = DialogResult.OK;

@@ -1,11 +1,16 @@
-﻿using System;
+﻿#region Using Directives
+
+using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
-using ARCed.UI;
 using ARCed.Dialogs;
 using ARCed.Helpers;
+using ARCed.Properties;
+using ARCed.UI;
+
+#endregion
 
 namespace ARCed.Scripting
 {
@@ -32,7 +37,7 @@ namespace ARCed.Scripting
 		{
 			InitializeComponent();
 			LoadScripts(Project.ScriptsDirectory);
-			this.Icon = Icon.FromHandle(Properties.Resources.Ruby.GetHicon());
+			this.Icon = Icon.FromHandle(Resources.Ruby.GetHicon());
 		}
 
 		private void LoadScripts(string directory)
@@ -75,7 +80,7 @@ namespace ARCed.Scripting
 			}
 		}
 
-		private void OpenScript(Script script)
+		private static void OpenScript(Script script)
 		{
 			Editor.OpenScript(script, true);
 		}
@@ -97,7 +102,7 @@ namespace ARCed.Scripting
 
 		private void buttonImport_Click(object sender, EventArgs e)
 		{
-			using (OpenFileDialog loadDialog = new OpenFileDialog())
+			using (var loadDialog = new OpenFileDialog())
 			{
 				loadDialog.DefaultExt = ".rb";
 				loadDialog.Filter = "Ruby File|*.rb";
@@ -172,7 +177,7 @@ namespace ARCed.Scripting
 
 		private void AddScript(int index = -1)
 		{
-			using (NewScriptForm dialog = new NewScriptForm())
+			using (var dialog = new NewScriptForm())
 			{
 				if (dialog.ShowDialog() == DialogResult.OK)
 				{
@@ -195,7 +200,7 @@ namespace ARCed.Scripting
 			int index = listBoxScripts.SelectedIndex;
 			if (index < 0)
 				index = Project.ScriptManager.Scripts.Count;
-			Script script = new Script();
+			var script = new Script();
 			_scripts.Insert(index, script);
 			listBoxScripts.SelectedIndex = index;
 			buttonOpen_Click(null, null);
@@ -225,7 +230,7 @@ namespace ARCed.Scripting
 
 		private void listBoxScripts_MouseDown(object sender, MouseEventArgs e)
 		{
-			if (e.Button == System.Windows.Forms.MouseButtons.Right)
+			if (e.Button == MouseButtons.Right)
 			{
 				int index = listBoxScripts.IndexFromPoint(e.X, e.Y);
 				if (index >= 0)
@@ -241,7 +246,7 @@ namespace ARCed.Scripting
 			{
 				string t = (listBoxScripts.SelectedItem as Script).Title;
 				using (var dialog =
-					new ARCed.Dialogs.UserStringForm("Save as Template", t, "Template Name:", true))
+					new UserStringForm("Save as Template", t, "Template Name:", true))
 				{
 					dialog.Location = listBoxScripts.PointToClient(MousePosition);
 					if (dialog.ShowDialog(this) == DialogResult.OK)
@@ -290,7 +295,7 @@ namespace ARCed.Scripting
 
 		private void pictureHeader_DoubleClick(object sender, EventArgs e)
 		{
-			using (HeaderSettingsDialog dialog = new HeaderSettingsDialog())
+			using (var dialog = new HeaderSettingsDialog())
 				dialog.ShowDialog();
 		}
 

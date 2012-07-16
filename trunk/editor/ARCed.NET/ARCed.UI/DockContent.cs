@@ -1,8 +1,12 @@
+#region Using Directives
+
 using System;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using System.Windows.Forms;
+
+#endregion
 
 namespace ARCed.UI
 {
@@ -10,10 +14,10 @@ namespace ARCed.UI
 	{
 		public DockContent()
 		{
-			m_dockHandler = new DockContentHandler(this, new GetPersistStringCallback(GetPersistString));
-			m_dockHandler.DockStateChanged += new EventHandler(DockHandler_DockStateChanged);
+			this._mDockHandler = new DockContentHandler(this, this.GetPersistString);
+			this._mDockHandler.DockStateChanged += this.DockHandler_DockStateChanged;
 			//Suggested as a fix by bensty regarding form resize
-            this.ParentChanged += new EventHandler(DockContent_ParentChanged);
+            this.ParentChanged += this.DockContent_ParentChanged;
 		}
 
 		//Suggested as a fix by bensty regarding form resize
@@ -23,11 +27,11 @@ namespace ARCed.UI
                 this.Font = this.Parent.Font;
 		}
 
-		private DockContentHandler m_dockHandler = null;
+	    private readonly DockContentHandler _mDockHandler;
 		[Browsable(false)]
 		public DockContentHandler DockHandler
 		{
-			get	{	return m_dockHandler;	}
+			get	{	return this._mDockHandler;	}
 		}
 
 		[LocalizedCategory("Category_Docking")]
@@ -61,7 +65,7 @@ namespace ARCed.UI
 		[LocalizedCategory("Category_Docking")]
 		[LocalizedDescription("DockContent_TabText_Description")]
 		[DefaultValue(null)]
-        private string m_tabText = null;
+        private string m_tabText;
 		public string TabText
 		{
             get { return m_tabText; }
@@ -303,7 +307,7 @@ namespace ARCed.UI
 		}
 		protected virtual void OnDockStateChanged(EventArgs e)
 		{
-			EventHandler handler = (EventHandler)Events[DockStateChangedEvent];
+			var handler = (EventHandler)Events[DockStateChangedEvent];
 			if (handler != null)
 				handler(this, e);
 		}

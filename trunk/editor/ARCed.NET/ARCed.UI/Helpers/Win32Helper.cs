@@ -1,7 +1,10 @@
-using System;
+#region Using Directives
+
 using System.Drawing;
 using System.Windows.Forms;
 using ARCed.Core.Win32;
+
+#endregion
 
 namespace ARCed.UI
 {

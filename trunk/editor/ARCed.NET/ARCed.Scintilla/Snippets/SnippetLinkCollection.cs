@@ -1,9 +1,10 @@
 ﻿#region Using Directives
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
 
-#endregion Using Directives
+#endregion
 
 
 namespace ARCed.Scintilla
@@ -13,10 +14,10 @@ namespace ARCed.Scintilla
         #region Fields
 
         private int _activeLinkIndex = -1;
-        private SnippetLinkRange _activeRange = null;
-        private SnippetLinkEnd _endPoint = null;
-        private bool _isActive = false;
-        List<SnippetLink> _snippetLinks = new List<SnippetLink>();
+        private SnippetLinkRange _activeRange;
+        private SnippetLinkEnd _endPoint;
+        private bool _isActive;
+        private readonly List<SnippetLink> _snippetLinks = new List<SnippetLink>();
 
         #endregion Fields
 
@@ -48,13 +49,13 @@ namespace ARCed.Scintilla
 
         public void Clear()
         {
-            List<ManagedRange> rageList = new List<ManagedRange>();
+            var rageList = new List<ManagedRange>();
 
             foreach (SnippetLink sl in _snippetLinks)
             {
                 foreach (Range r in sl.Ranges)
                 {
-                    ManagedRange mr = r as ManagedRange;
+                    var mr = r as ManagedRange;
                     rageList.Add(mr);
                 }
             }
@@ -157,7 +158,7 @@ namespace ARCed.Scintilla
         }
 
 
-        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+        IEnumerator IEnumerable.GetEnumerator()
         {
             return _snippetLinks.GetEnumerator();
         }
@@ -258,7 +259,7 @@ namespace ARCed.Scintilla
         {
             get
             {
-                string[] keys = new string[_snippetLinks.Count];
+                var keys = new string[_snippetLinks.Count];
                 for (int i = 0; i < _snippetLinks.Count; i++)
                 {
                     keys[i] = _snippetLinks[i].Key;
@@ -302,7 +303,7 @@ namespace ARCed.Scintilla
         {
             get
             {
-                SnippetLink[] values = new SnippetLink[_snippetLinks.Count];
+                var values = new SnippetLink[_snippetLinks.Count];
                 for (int i = 0; i < _snippetLinks.Count; i++)
                 {
                     values[i] = _snippetLinks[i];

@@ -1,7 +1,11 @@
+#region Using Directives
+
 using System.Drawing;
 using System.Security.Permissions;
 using System.Windows.Forms;
 using ARCed.Core.Win32;
+
+#endregion
 
 namespace ARCed.UI
 {
@@ -9,7 +13,7 @@ namespace ARCed.UI
 	{
 		protected internal DockPaneCaptionBase(DockPane pane)
 		{
-			m_dockPane = pane;
+			this._mDockPane = pane;
 
 			SetStyle(ControlStyles.OptimizedDoubleBuffer |
                 ControlStyles.ResizeRedraw |
@@ -18,10 +22,10 @@ namespace ARCed.UI
 			SetStyle(ControlStyles.Selectable, false);
 		}
 
-		private DockPane m_dockPane;
+        private readonly DockPane _mDockPane;
 		protected DockPane DockPane
 		{
-			get	{	return m_dockPane;	}
+			get	{	return this._mDockPane;	}
 		}
 
 		protected DockPane.AppearanceStyle Appearance

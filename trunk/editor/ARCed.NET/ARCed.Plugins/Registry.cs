@@ -1,7 +1,12 @@
-﻿using System;
+﻿#region Using Directives
+
+using System;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 using ARCed.Helpers;
+
+#endregion
 
 namespace ARCed.Plugins
 {
@@ -21,6 +26,9 @@ namespace ARCed.Plugins
 
 		#region Public Properties
 
+        /// <summary>
+        /// Gets or sets the Host form
+        /// </summary>
         public static IPluginHost Host { get; set; }
 
 		/// <summary>
@@ -28,12 +36,7 @@ namespace ARCed.Plugins
 		/// </summary>
 		public static RegistryEntryCollection Entries 
 		{
-			get
-			{
-				if (_entries == null)
-					_entries = new RegistryEntryCollection();
-				return _entries;
-			}
+			get { return _entries ?? (_entries = new RegistryEntryCollection()); }
 		}
 
 		/// <summary>
@@ -41,12 +44,7 @@ namespace ARCed.Plugins
 		/// </summary>
 		public static PluginCollection Plugins 
 		{
-			get
-			{
-				if (_plugins == null)
-					_plugins = new PluginCollection();
-				return _plugins;
-			}
+			get { return _plugins ?? (_plugins = new PluginCollection()); }
 		}
 
 		#endregion
@@ -62,10 +60,10 @@ namespace ARCed.Plugins
 		{
             if (Host == null)
                 return;
-			string ext = Path.GetExtension(filename);
+			var ext = Path.GetExtension(filename);
 			if (File.Exists(filename) && (ext == ".exe" || ext == ".dll"))
 			{
-				Plugin plugin = new Plugin(filename, Host);
+				var plugin = new Plugin(filename, Host);
 				if (plugin.IsLoaded)
 				{
 					Plugins.Add(plugin);
@@ -83,16 +81,15 @@ namespace ARCed.Plugins
 		/// <remarks>Acceptable formats are "*.exe" and "*.dll"</remarks>
 		public static void LoadAll()
 		{
-			string[] filters = { "*.dll", "*.exe" };
-			foreach (string filter in filters)
-			{
-				string[] files = Directory.GetFiles(PathHelper.PluginDirectory, filter);
-				foreach (string filename in files)
-					Load(filename);
-			}
+		    string[] filters = { "*.dll", "*.exe" };
+		    foreach (var filename in filters.Select(filter => 
+                Directory.GetFiles(PathHelper.PluginDirectory, filter)).SelectMany(files => files))
+		    {
+		        Load(filename);
+		    }
 		}
 
-		/// <summary>
+	    /// <summary>
 		/// Unloads the given plugin and all associated registry entries
 		/// </summary>
 		/// <param name="plugin">Plugin to remove</param>

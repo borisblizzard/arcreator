@@ -3,17 +3,17 @@
 using System.ComponentModel;
 using System.Drawing;
 
-#endregion Using Directives
+#endregion
 
 
 namespace ARCed.Scintilla
 {
-    [TypeConverterAttribute(typeof(System.ComponentModel.ExpandableObjectConverter))]
+    [TypeConverter(typeof(ExpandableObjectConverter))]
     public class Style : ScintillaHelperBase
     {
         #region Fields
 
-        private int _index = 0;
+        private readonly int _index;
 
         #endregion Fields
 
@@ -420,7 +420,7 @@ namespace ARCed.Scintilla
         {
             get
             {
-                FontStyle fs = FontStyle.Regular;
+                var fs = FontStyle.Regular;
                 if (Bold) fs |= FontStyle.Bold;
                 if (Italic) fs |= FontStyle.Italic;
                 if (Underline) fs |= FontStyle.Underline;
@@ -499,7 +499,7 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return NativeScintilla.StyleGetChangeable(_index); ;
+                return NativeScintilla.StyleGetChangeable(_index); 
             }
             set
             {
@@ -512,7 +512,7 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return NativeScintilla.StyleGetHotspot(_index); ;
+                return NativeScintilla.StyleGetHotspot(_index);
             }
             set
             {
@@ -568,7 +568,7 @@ namespace ARCed.Scintilla
             get
             {
                 if (!Scintilla.PropertyBag.ContainsKey(ToString() + ".Size"))
-                    return (float)NativeScintilla.StyleGetSize(_index);
+                    return NativeScintilla.StyleGetSize(this._index);
 
                 return (float)Scintilla.PropertyBag[ToString() + ".Size"];
             }

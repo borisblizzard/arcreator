@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
+﻿#region Using Directives
 
-using System.Linq;
-using System.Text;
+using System;
+using System.ComponentModel;
 using System.Windows.Forms;
+using RPG;
+
+#endregion
 
 namespace ARCed.Controls
 {
@@ -14,13 +14,13 @@ namespace ARCed.Controls
 		[Browsable(false)]
 		public EventTextBox Editor { get { return eventTextBox; } }
 
-		private RPG.Troop.Page _page;
+		private Troop.Page _page;
 
 		/// <summary>
 		/// Gets or sets the instance of the RPG.Troop.Page this control represents.
 		/// </summary>
 		[Browsable(false)]
-		public RPG.Troop.Page EventPage 
+		public Troop.Page EventPage 
 		{
 			get { return _page; }
 			set { SetPage(value); }
@@ -29,11 +29,11 @@ namespace ARCed.Controls
 		public BattleEventPage()
 		{
 			InitializeComponent();
-			_page = new RPG.Troop.Page();
+			_page = new Troop.Page();
 			comboBoxSpan.SelectedIndex = 0;
 		}
 
-		public void SetPage(RPG.Troop.Page page)
+		public void SetPage(Troop.Page page)
 		{
 			_page = page;
 			eventTextBox.Parse(page.list);

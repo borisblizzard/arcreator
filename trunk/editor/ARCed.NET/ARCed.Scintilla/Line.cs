@@ -1,4 +1,8 @@
+#region Using Directives
+
 using System.Collections.Generic;
+
+#endregion
 
 namespace ARCed.Scintilla
 {
@@ -6,7 +10,7 @@ namespace ARCed.Scintilla
     {
         #region Fields
 
-        private int _number = 0;
+        private int _number;
 
         #endregion Fields
 
@@ -93,7 +97,7 @@ namespace ARCed.Scintilla
 
         public override bool Equals(object obj)
         {
-            Line l = obj as Line;
+            var l = obj as Line;
             if (l == null)
                 return false;
 
@@ -187,7 +191,7 @@ namespace ARCed.Scintilla
 
         public List<Marker> GetMarkers()
         {
-            List<Marker> ret = new List<Marker>();
+            var ret = new List<Marker>();
             int mask = GetMarkerMask();
             int bit = 1;
             for (int i = 0; i < 32; ++i)

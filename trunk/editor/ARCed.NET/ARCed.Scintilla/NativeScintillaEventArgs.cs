@@ -3,7 +3,7 @@
 using System;
 using System.Windows.Forms;
 
-#endregion Using Directives
+#endregion
 
 
 namespace ARCed.Scintilla
@@ -23,8 +23,8 @@ namespace ARCed.Scintilla
     {
         #region Fields
 
-        private Message _msg;
-        private SCNotification _notification;
+        private readonly Message _msg;
+        private readonly SCNotification _notification;
 
         #endregion Fields
 

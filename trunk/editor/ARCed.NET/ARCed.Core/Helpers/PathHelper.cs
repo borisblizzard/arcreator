@@ -1,8 +1,15 @@
-﻿using System;
+﻿#region Using Directives
+
+using System;
 using System.IO;
+
+#endregion
 
 namespace ARCed.Helpers
 {
+    /// <summary>
+    /// Static class for getting paths to files/folders used by ARCed.
+    /// </summary>
 	public static class PathHelper
 	{
 		// Names for folders
@@ -182,25 +189,27 @@ namespace ARCed.Helpers
 			}
 		}
 
+        /// <summary>
+        /// Gets the path to the native 7zip library appropriate for the host machines CPU architecture.
+        /// </summary>
 		public static string SevenZipLibrary
 		{
-			get
-			{
-				if (IntPtr.Size == 8)
-					return Path.Combine(EditorDirectory, X64_FOLDER, SEVENZIP_64);
-				else
-					return Path.Combine(EditorDirectory, X86_FOLDER, SEVENZIP_32);
+			get 
+            {
+			    return IntPtr.Size == 8 ? Path.Combine(EditorDirectory, X64_FOLDER, SEVENZIP_64) : 
+                    Path.Combine(EditorDirectory, X86_FOLDER, SEVENZIP_32);
 			}
 		}
 
+        /// <summary>
+        /// Gets the path to the native Scintilla library appropriate for the host machines CPU architecture.
+        /// </summary>
 		public static string SciLexerLibrary
 		{
-			get
-			{
-				if (IntPtr.Size == 8)
-					return Path.Combine(EditorDirectory, X64_FOLDER, SCILEXER_64);
-				else
-					return Path.Combine(EditorDirectory, X86_FOLDER, SCILEXER_32);
+			get 
+            {
+			    return IntPtr.Size == 8 ? Path.Combine(EditorDirectory, X64_FOLDER, SCILEXER_64) : 
+                    Path.Combine(EditorDirectory, X86_FOLDER, SCILEXER_32);
 			}
 		}
 	}

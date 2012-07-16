@@ -5,7 +5,7 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 
-#endregion Using Directives
+#endregion
 
 
 namespace ARCed.Scintilla
@@ -50,9 +50,9 @@ namespace ARCed.Scintilla
         /// <param name="transparentColor">The overriding transparent Color</param>
         public static string ConvertToXPM(Bitmap bmp, string transparentColor)
         {
-            StringBuilder sb = new StringBuilder();
-            List<string> colors = new List<string>();
-            List<char> chars = new List<char>();
+            var sb = new StringBuilder();
+            var colors = new List<string>();
+            var chars = new List<char>();
             int width = bmp.Width;
             int height = bmp.Height;
             int index;
@@ -72,12 +72,12 @@ namespace ARCed.Scintilla
                         index = colors.Count + 65;
                         colors.Add(col);
                         if (index > 90) index += 6;
-                        c = Encoding.ASCII.GetChars(new byte[] { (byte)(index & 0xff) })[0];
+                        c = Encoding.ASCII.GetChars(new[] { (byte)(index & 0xff) })[0];
                         chars.Add(c);
                         sb.Insert(colorsIndex, ",\"" + c + " c " + col + "\"");
                         colorsIndex += 14;
                     }
-                    else c = (char)chars[index];
+                    else c = chars[index];
                     sb.Append(c);
                 }
                 sb.Append("\"");
@@ -97,9 +97,9 @@ namespace ARCed.Scintilla
         ///     Uses the DefaultTransparentColor.
         /// </summary>
         /// <param name="imageList">The _srcTexture list to transform.</param>
-        public static List<string> ConvertToXPM(ImageList ImageList)
+        public static List<string> ConvertToXPM(ImageList imageList)
         {
-            return ConvertToXPM(ImageList, DefaultTransparentColor);
+            return ConvertToXPM(imageList, DefaultTransparentColor);
         }
 
 
@@ -111,7 +111,7 @@ namespace ARCed.Scintilla
         /// <param name="transparentColor">The overriding transparent Color</param>
         public static List<string> ConvertToXPM(ImageList imageList, string transparentColor)
         {
-            List<string> xpmImages = new List<string>();
+            var xpmImages = new List<string>();
             foreach (Image image in imageList.Images)
             {
                 if (image is Bitmap)

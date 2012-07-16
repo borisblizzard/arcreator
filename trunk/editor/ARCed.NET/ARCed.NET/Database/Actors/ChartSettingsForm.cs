@@ -1,10 +1,15 @@
-﻿using System;
+﻿#region Using Directives
+
+using System;
 using System.Drawing;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 using ARCed.Dialogs;
+using ARCed.Properties;
+using ARCed.Settings;
 using ARCed.UI;
-using ARCed;
+
+#endregion
 
 namespace ARCed.Database.Actors
 {
@@ -20,7 +25,7 @@ namespace ARCed.Database.Actors
 		{
 			InitializeComponent();
 			AddDataBinding();
-			this.Icon = Icon.FromHandle(Properties.Resources.Chart.GetHicon());
+			this.Icon = Icon.FromHandle(Resources.Chart.GetHicon());
 		}
 
 		public void SetCharts(ref Chart[] charts)
@@ -164,7 +169,7 @@ namespace ARCed.Database.Actors
 			int index = listBoxColors.SelectedIndex;
 			if (index >= 0)
 			{
-				using (ColorChooserForm dialog = new ColorChooserForm())
+				using (var dialog = new ColorChooserForm())
 				{
 					dialog.Color = Editor.Settings.Charting.Colors[index];
 					dialog.AlphaEnabled = false;
@@ -217,7 +222,7 @@ namespace ARCed.Database.Actors
 
 		private void buttonAdd_Click(object sender, EventArgs e)
 		{
-			using (ColorChooserForm dialog = new ColorChooserForm())
+			using (var dialog = new ColorChooserForm())
 			{
 				//dialog.AlphaEnabled = false;
 				dialog.Color = Color.White;
@@ -287,7 +292,7 @@ namespace ARCed.Database.Actors
 		private void buttonDefaultColors_Click(object sender, EventArgs e)
 		{
 			listBoxColors.DataSource = null;
-			Editor.Settings.Charting.Colors = Settings.ChartSettings.DefaultColors;
+			Editor.Settings.Charting.Colors = ChartSettings.DefaultColors;
 			RefreshColors();
 		}
 
