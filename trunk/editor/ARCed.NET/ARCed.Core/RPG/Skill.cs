@@ -6,34 +6,117 @@ using System.Collections.Generic;
 
 namespace RPG
 {
+    /// <summary>
+    /// Data class for skills.
+    /// </summary>
 	public class Skill : IRpgObject
 	{
+        /// <summary>
+        /// The skill ID.
+        /// </summary>
 		public int id { get; set; }
+        /// <summary>
+        /// The skill name.
+        /// </summary>
 		public string name { get; set; }
+        /// <summary>
+        /// The skill's icon graphic file name.
+        /// </summary>
 		public string icon_name { get; set; }
+        /// <summary>
+        /// The skill description.
+        /// </summary>
 		public string description { get; set; }
+        /// <summary>
+        /// Scope of the skill's effects 
+        /// (0: none, 1: one enemy, 2: all enemies, 3: one ally, 4: all allies, 5: 1 ally--HP 0, 6: all allies--HP 0, 7: the user).
+        /// </summary>
 		public int scope { get; set; }
+        /// <summary>
+        /// When the skill may be used 
+        /// (0: always, 1: only in battle, 2: only from the menu, 3: never).
+        /// </summary>
 		public int occasion { get; set; }
+        /// <summary>
+        /// The animation ID when using the skill.
+        /// </summary>
 		public int animation1_id { get; set; }
+        /// <summary>
+        /// The animation ID when on the receiving end of the skill.
+        /// </summary>
 		public int animation2_id { get; set; }
+        /// <summary>
+        /// SE played when skill is used on the menu screen (<see cref="RPG.AudioFile"/>).
+        /// </summary>
 		public AudioFile menu_se { get; set; }
+        /// <summary>
+        /// The Common Event ID.
+        /// </summary>
 		public int common_event_id { get; set; }
+        /// <summary>
+        /// Number of SP consumed.
+        /// </summary>
 		public int sp_cost { get; set; }
+        /// <summary>
+        /// The skill's power.
+        /// </summary>
 		public int power { get; set; }
+        /// <summary>
+        /// The skill's attack power F rating.
+        /// </summary>
 		public int atk_f { get; set; }
+        /// <summary>
+        /// The skill's evasion F rating.
+        /// </summary>
 		public int eva_f { get; set; }
+        /// <summary>
+        /// The skill's strength F rating.
+        /// </summary>
 		public int str_f { get; set; }
+        /// <summary>
+        /// The skill's dexterity F rating.
+        /// </summary>
 		public int dex_f { get; set; }
+        /// <summary>
+        /// The skill's agility F rating.
+        /// </summary>
 		public int agi_f { get; set; }
+        /// <summary>
+        /// The skill's intelligence F rating.
+        /// </summary>
 		public int int_f { get; set; }
+        /// <summary>
+        /// The skill's hit probability.
+        /// </summary>
 		public int hit { get; set; }
+        /// <summary>
+        /// The skill's physical defense F rating.
+        /// </summary>
 		public int pdef_f { get; set; }
+        /// <summary>
+        /// The skill's magic defense F rating.
+        /// </summary>
 		public int mdef_f { get; set; }
+        /// <summary>
+        /// The skill's degree of variance.
+        /// </summary>
 		public int variance { get; set; }
+        /// <summary>
+        /// The skill's element. An Elemental ID collection.
+        /// </summary>
 		public List<dynamic> element_set { get; set; }
+        /// <summary>
+        /// States to add. A State ID collection.
+        /// </summary>
 		public List<dynamic> plus_state_set { get; set; }
+        /// <summary>
+        /// States to cancel. A State ID collection.
+        /// </summary>
 		public List<dynamic> minus_state_set { get; set; }
 
+        /// <summary>
+        /// Creates a new instance of an RPG.Skill.
+        /// </summary>
 		public Skill()
 		{
 			id = 0;
