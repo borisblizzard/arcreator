@@ -6,14 +6,22 @@ using ARCed;
 
 #endregion
 
-public class Table 
+/// <summary>
+/// The multidimensional array class. 
+/// Each element takes up 2 signed bytes (<see langword="short"/>), ranging from -32,768 to 32,767.
+/// </summary>
+public class Table
 {
-	private int[] _data;
+    #region Private Fields
+
+    private int[] _data;
 	private int _xSize, _ySize, _zSize, _dimensions;
 
-	#region Public Properties
+    #endregion
 
-	/// <summary>
+    #region Public Properties
+
+    /// <summary>
 	/// Accesses the array's elements. Pulls the same number of arguments as 
 	/// there are dimensions in the created array. Returns nil if the specified 
 	/// element does not exist.
@@ -74,18 +82,40 @@ public class Table
 
 	#region Constructors
 
+    /// <summary>
+    /// Creates a Table object. Specifies the size of each dimension in the multidimensional array. 
+    /// 1-, 2-, and 3-dimensional arrays are possible. Arrays with no parameters are also permitted.
+    /// </summary>
 	public Table() : this(1, 1, 1) { }
 
+    /// <summary>
+    /// Creates a Table object. Specifies the size of each dimension in the multidimensional array. 
+    /// 1-, 2-, and 3-dimensional arrays are possible. Arrays with no parameters are also permitted.
+    /// </summary>
+    /// <param name="xSize">The size of the Table on the X-axis.</param>
 	public Table(int xSize) : this(xSize, 1, 1) 
 	{
 		_dimensions = 1;
 	}
 
+    /// <summary>
+    /// Creates a Table object. Specifies the size of each dimension in the multidimensional array. 
+    /// 1-, 2-, and 3-dimensional arrays are possible. Arrays with no parameters are also permitted.
+    /// </summary>
+    /// <param name="xSize">The size of the Table on the X-axis.</param>
+    /// <param name="ySize">The size of the Table on the Y-axis.</param>
 	public Table(int xSize, int ySize) : this(xSize, ySize, 1) 
 	{
 		_dimensions = 2;
 	}
 
+    /// <summary>
+    /// Creates a Table object. Specifies the size of each dimension in the multidimensional array. 
+    /// 1-, 2-, and 3-dimensional arrays are possible. Arrays with no parameters are also permitted.
+    /// </summary>
+    /// <param name="xSize">The size of the Table on the X-axis.</param>
+    /// <param name="ySize">The size of the Table on the Y-axis.</param>
+    /// <param name="zSize">The size of the Table on the Z-axis.</param>
 	public Table(int xSize, int ySize, int zSize) 
 	{
 		_data = new int[0];
@@ -192,6 +222,10 @@ public class Table
 
 	#region Dump/Load
 
+    /// <summary>
+    /// Serializes and dumps the <see cref="Table"/> object in ARC format.
+    /// </summary>
+    /// <returns>An <see langword="byte"/> array containing the serialized data.</returns>
 	public byte[] _arc_dump()
 	{
 		var byteList = new List<byte>();
@@ -205,6 +239,11 @@ public class Table
 		return byteList.ToArray();
 	}
 
+    /// <summary>
+    /// Deserializes and loads a <see cref="Table"/> object saved in ARC format.
+    /// </summary>
+    /// <param name="bytes">A <see langword="byte"/> array containing the serialized data.</param>
+    /// <returns>The deserialized <see cref="Table"/> object.</returns>
 	public static Table _arc_load(byte[] bytes)
 	{
 	    int dimensions = BitConverter.ToInt32(bytes, 0);

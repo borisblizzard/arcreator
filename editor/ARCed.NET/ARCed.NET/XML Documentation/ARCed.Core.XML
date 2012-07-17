@@ -41,12 +41,12 @@
         </member>
         <member name="P:RPG.IRpgObject.name">
             <summary>
-            Gets or sets the name of the object
+            Gets or sets the name of the object.
             </summary>
         </member>
         <member name="P:RPG.IRpgObject.id">
             <summary>
-            Gets or sets the ID of the object
+            Gets or sets the ID of the object.
             </summary>
         </member>
         <member name="M:RPG.Actor.#ctor">
@@ -226,11 +226,101 @@
             <param name="separator">The separator string used for splitting</param>
             <returns>An string array of read values</returns>
         </member>
+        <member name="T:RPG.Armor">
+            <summary>
+            Data class for armor.
+            </summary>
+        </member>
+        <member name="M:RPG.Armor.#ctor">
+            <summary>
+            Creates a new instance of an RPG.Armor.
+            </summary>
+        </member>
         <member name="M:RPG.Armor.ToString">
             <summary>
             Returns a <see langword="string"/> that represents the current object.
             </summary>
             <returns>String representation of object.</returns>
+        </member>
+        <member name="P:RPG.Armor.id">
+            <summary>
+            The armor ID.
+            </summary>
+        </member>
+        <member name="P:RPG.Armor.name">
+            <summary>
+            The armor name.
+            </summary>
+        </member>
+        <member name="P:RPG.Armor.icon_name">
+            <summary>
+            The armor's icon graphic file name.
+            </summary>
+        </member>
+        <member name="P:RPG.Armor.description">
+            <summary>
+            The armor description.
+            </summary>
+        </member>
+        <member name="P:RPG.Armor.kind">
+            <summary>
+            Type of armor (0: shield, 1: helmet, 2: body armor, 3: accessory).
+            </summary>
+        </member>
+        <member name="P:RPG.Armor.auto_state_id">
+            <summary>
+            The auto state ID.
+            </summary>
+        </member>
+        <member name="P:RPG.Armor.price">
+            <summary>
+            The armor's price.
+            </summary>
+        </member>
+        <member name="P:RPG.Armor.pdef">
+            <summary>
+            The armor's physical defense rating.
+            </summary>
+        </member>
+        <member name="P:RPG.Armor.mdef">
+            <summary>
+            The armor's magic defense rating.
+            </summary>
+        </member>
+        <member name="P:RPG.Armor.eva">
+            <summary>
+            The armor's evasion correction.
+            </summary>
+        </member>
+        <member name="P:RPG.Armor.str_plus">
+            <summary>
+            The armor's strength bonus.
+            </summary>
+        </member>
+        <member name="P:RPG.Armor.dex_plus">
+            <summary>
+            The armor's dexterity bonus.
+            </summary>
+        </member>
+        <member name="P:RPG.Armor.agi_plus">
+            <summary>
+            The armor's agility bonus.
+            </summary>
+        </member>
+        <member name="P:RPG.Armor.int_plus">
+            <summary>
+            The armor's intelligence bonus.
+            </summary>
+        </member>
+        <member name="P:RPG.Armor.guard_element_set">
+            <summary>
+            The armor's elemental defense rating. An elemental ID collection.
+            </summary>
+        </member>
+        <member name="P:RPG.Armor.guard_state_set">
+            <summary>
+            The armor's state defense rating. A state ID collection.
+            </summary>
         </member>
         <member name="T:ARCed.Core.Win32.NativeMethods">
             <summary>
@@ -444,6 +534,31 @@
         <member name="P:ARCed.Core.ColorChangedEventArgs.HSV">
             <summary>
             Gets the color value in the HSV color space.
+            </summary>
+        </member>
+        <member name="T:RPG.MoveRoute">
+            <summary>
+            Data class for the move route (movement route).
+            </summary>
+        </member>
+        <member name="M:RPG.MoveRoute.#ctor">
+            <summary>
+            Creates a new instance of an RPG.MoveRoute.
+            </summary>
+        </member>
+        <member name="P:RPG.MoveRoute.repeat">
+            <summary>
+            Truth value of the [Repeat Action] option.
+            </summary>
+        </member>
+        <member name="P:RPG.MoveRoute.skippable">
+            <summary>
+            Truth value of the [Ignore if Can't Move] option.
+            </summary>
+        </member>
+        <member name="P:RPG.MoveRoute.list">
+            <summary>
+            Program contents. A collection of <see cref="T:RPG.MoveCommand"/> objects.
             </summary>
         </member>
         <member name="T:ARCed.Hash">
@@ -764,11 +879,46 @@
             Byte marker for Object value: 0x00 (0)
             </summary>
         </member>
+        <member name="T:RPG.CommonEvent">
+            <summary>
+            Data class for common events.
+            </summary>
+        </member>
+        <member name="M:RPG.CommonEvent.#ctor">
+            <summary>
+            Creates a new instance of an RPG.CommonEvent.
+            </summary>
+        </member>
         <member name="M:RPG.CommonEvent.ToString">
             <summary>
             Returns a <see langword="string"/> that represents the current object.
             </summary>
             <returns>String representation of object.</returns>
+        </member>
+        <member name="P:RPG.CommonEvent.id">
+            <summary>
+            The event ID.
+            </summary>
+        </member>
+        <member name="P:RPG.CommonEvent.name">
+            <summary>
+            The event name.
+            </summary>
+        </member>
+        <member name="P:RPG.CommonEvent.trigger">
+            <summary>
+            The event trigger (0: none, 1: autorun; 2: parallel).
+            </summary>
+        </member>
+        <member name="P:RPG.CommonEvent.switch_id">
+            <summary>
+            The condition switch ID.
+            </summary>
+        </member>
+        <member name="P:RPG.CommonEvent.list">
+            <summary>
+            List of event commands. A collection of <see cref="T:RPG.EventCommand"/> pbjects.
+            </summary>
         </member>
         <member name="T:ARCed.Helpers.Ini">
             <summary>
@@ -823,11 +973,214 @@
             <param name="separator">The separator string used for splitting</param>
             <returns>An string array of read values</returns>
         </member>
+        <member name="T:RPG.Enemy">
+            <summary>
+            Data class for enemies.
+            </summary>
+        </member>
+        <member name="M:RPG.Enemy.#ctor">
+            <summary>
+            Creates a new instance of an RPG.Enemy.
+            </summary>
+        </member>
         <member name="M:RPG.Enemy.ToString">
             <summary>
             Returns a <see langword="string"/> that represents the current object.
             </summary>
             <returns>String representation of object.</returns>
+        </member>
+        <member name="P:RPG.Enemy.id">
+            <summary>
+            The enemy ID.
+            </summary>
+        </member>
+        <member name="P:RPG.Enemy.name">
+            <summary>
+            The enemy name.
+            </summary>
+        </member>
+        <member name="P:RPG.Enemy.battler_name">
+            <summary>
+            The enemy's battler graphic file name.
+            </summary>
+        </member>
+        <member name="P:RPG.Enemy.battler_hue">
+            <summary>
+            The adjustment value for the battler graphic's hue (0..360).
+            </summary>
+        </member>
+        <member name="P:RPG.Enemy.maxhp">
+            <summary>
+            The enemy's max HP.
+            </summary>
+        </member>
+        <member name="P:RPG.Enemy.maxsp">
+            <summary>
+            The enemy's max SP.
+            </summary>
+        </member>
+        <member name="P:RPG.Enemy.str">
+            <summary>
+            The enemy's strength.
+            </summary>
+        </member>
+        <member name="P:RPG.Enemy.dex">
+            <summary>
+            The enemy's dexterity.
+            </summary>
+        </member>
+        <member name="P:RPG.Enemy.agi">
+            <summary>
+            The enemy's agility.
+            </summary>
+        </member>
+        <member name="P:RPG.Enemy.int">
+            <summary>
+            The enemy's intelligence.
+            </summary>
+        </member>
+        <member name="P:RPG.Enemy.atk">
+            <summary>
+            The enemy's attack power.
+            </summary>
+        </member>
+        <member name="P:RPG.Enemy.pdef">
+            <summary>
+            The enemy's physical defense rating.
+            </summary>
+        </member>
+        <member name="P:RPG.Enemy.mdef">
+            <summary>
+            The enemy's magic defense rating.
+            </summary>
+        </member>
+        <member name="P:RPG.Enemy.eva">
+            <summary>
+            The enemy's evasion rating.
+            </summary>
+        </member>
+        <member name="P:RPG.Enemy.animation1_id">
+            <summary>
+            The battle animation ID.
+            </summary>
+        </member>
+        <member name="P:RPG.Enemy.animation2_id">
+            <summary>
+            The target animation ID.
+            </summary>
+        </member>
+        <member name="P:RPG.Enemy.element_ranks">
+            <summary>
+            Level of elemental effectiveness. 
+            1-dimensional <see cref="T:Table"/> using element IDs as subscripts, 
+            with 6 levels (0: A, 1: B, 2: C, 3: D, 4: E, 5: F).
+            </summary>
+        </member>
+        <member name="P:RPG.Enemy.state_ranks">
+            <summary>
+            Level of status effectiveness. 
+            1-dimensional <see cref="T:Table"/> using status IDs as subscripts, 
+            with 6 levels (0: A, 1: B, 2: C, 3: D, 4: E, 5: F).
+            </summary>
+        </member>
+        <member name="P:RPG.Enemy.actions">
+            <summary>
+            The enemy's actions. A collection of <see cref="T:RPG.Enemy.Action"/> objects.
+            </summary>
+        </member>
+        <member name="P:RPG.Enemy.exp">
+            <summary>
+            The enemy's experience.
+            </summary>
+        </member>
+        <member name="P:RPG.Enemy.gold">
+            <summary>
+            The enemy's gold.
+            </summary>
+        </member>
+        <member name="P:RPG.Enemy.item_id">
+            <summary>
+            The ID of the item used as treasure.
+            </summary>
+        </member>
+        <member name="P:RPG.Enemy.weapon_id">
+            <summary>
+            The ID of the weapon used as treasure.
+            </summary>
+        </member>
+        <member name="P:RPG.Enemy.armor_id">
+            <summary>
+            The ID of the armor used as treasure.
+            </summary>
+        </member>
+        <member name="P:RPG.Enemy.treasure_prob">
+            <summary>
+            The probability of treasure being left behind.
+            </summary>
+        </member>
+        <member name="T:RPG.Enemy.Action">
+            <summary>
+            Data class for enemy [Actions].
+            </summary>
+        </member>
+        <member name="M:RPG.Enemy.Action.#ctor">
+            <summary>
+            Creates a new instance of an RPG.Enemy.Action.
+            </summary>
+        </member>
+        <member name="P:RPG.Enemy.Action.kind">
+            <summary>
+            Type of action (0: basic, 1: skill).
+            </summary>
+        </member>
+        <member name="P:RPG.Enemy.Action.basic">
+            <summary>
+            When set to a [Basic] action, defines it further 
+            (0: attack, 1: defend, 2: escape, 3: do nothing).
+            </summary>
+        </member>
+        <member name="P:RPG.Enemy.Action.skill_id">
+            <summary>
+            When set to a [Skill], the ID of that skill.
+            </summary>
+        </member>
+        <member name="P:RPG.Enemy.Action.condition_turn_a">
+            <summary>
+            a and b values specified in the [Turn] condition. 
+            To be input in the form a + bx.
+            When the turn is not specified as a condition, a = 0 and b = 1.
+            </summary>
+        </member>
+        <member name="P:RPG.Enemy.Action.condition_turn_b">
+            <summary>
+            a and b values specified in the [Turn] condition. 
+            To be input in the form a + bx.
+            When the turn is not specified as a condition, a = 0 and b = 1.
+            </summary>
+        </member>
+        <member name="P:RPG.Enemy.Action.condition_hp">
+            <summary>
+            Percentage specified in the [HP] condition.
+            When HP is not specified as a condition, this value is set to 100.
+            </summary>
+        </member>
+        <member name="P:RPG.Enemy.Action.condition_level">
+            <summary>
+            Standard level specified in the [Level] condition.
+            When the level is not specified as a condition, this value is set to 1.
+            </summary>
+        </member>
+        <member name="P:RPG.Enemy.Action.condition_switch_id">
+            <summary>
+            Switch ID specified in the [Switch] condition.
+            When the switch ID is not specified as a condition, this value is set to 0. 
+            Consequently, it is essential to check whether this value is 0.
+            </summary>
+        </member>
+        <member name="P:RPG.Enemy.Action.rating">
+            <summary>
+            The action's rating (1..10).
+            </summary>
         </member>
         <member name="T:ARCed.Helpers.Util">
             <summary>
@@ -952,11 +1305,287 @@
             Gets the instance of the ARCed.Xna assembly.
             </summary>
         </member>
+        <member name="T:RPG.State">
+            <summary>
+            Data class for state.
+            </summary>
+        </member>
+        <member name="M:RPG.State.#ctor">
+            <summary>
+            Creates a new instance of an RPG.State.
+            </summary>
+        </member>
         <member name="M:RPG.State.ToString">
             <summary>
             Returns a <see langword="string"/> that represents the current object.
             </summary>
             <returns>String representation of object.</returns>
+        </member>
+        <member name="P:RPG.State.id">
+            <summary>
+            State ID.
+            </summary>
+        </member>
+        <member name="P:RPG.State.name">
+            <summary>
+            State name.
+            </summary>
+        </member>
+        <member name="P:RPG.State.animation_id">
+            <summary>
+            The state's animation ID.
+            </summary>
+        </member>
+        <member name="P:RPG.State.restriction">
+            <summary>
+            Sets restrictions 
+            (0: none, 1: can't use magic, 2: always attack enemies, 3: always attack allies, 4: can't move).
+            </summary>
+        </member>
+        <member name="P:RPG.State.nonresistance">
+            <summary>
+            Truth value of the [Nonresistance] option.
+            </summary>
+        </member>
+        <member name="P:RPG.State.zero_hp">
+            <summary>
+            Truth value of the [Regard as HP 0] option.
+            </summary>
+        </member>
+        <member name="P:RPG.State.cant_get_exp">
+            <summary>
+            Truth value of the [Can't Get EXP] option.
+            </summary>
+        </member>
+        <member name="P:RPG.State.cant_evade">
+            <summary>
+            Truth value of the [Can't Evade] option.
+            </summary>
+        </member>
+        <member name="P:RPG.State.slip_damage">
+            <summary>
+            Truth value of the [Slip Damage] option.
+            </summary>
+        </member>
+        <member name="P:RPG.State.rating">
+            <summary>
+            State rating (0..10).
+            </summary>
+        </member>
+        <member name="P:RPG.State.hit_rate">
+            <summary>
+            Hit percentage.
+            </summary>
+        </member>
+        <member name="P:RPG.State.maxhp_rate">
+            <summary>
+            Maximum HP percentage.
+            </summary>
+        </member>
+        <member name="P:RPG.State.maxsp_rate">
+            <summary>
+            Maximum SP percentage.
+            </summary>
+        </member>
+        <member name="P:RPG.State.str_rate">
+            <summary>
+            Strength percentage.
+            </summary>
+        </member>
+        <member name="P:RPG.State.dex_rate">
+            <summary>
+            Dexterity percentage.
+            </summary>
+        </member>
+        <member name="P:RPG.State.agi_rate">
+            <summary>
+            Agility percentage.
+            </summary>
+        </member>
+        <member name="P:RPG.State.int_rate">
+            <summary>
+            Intelligence percentage.
+            </summary>
+        </member>
+        <member name="P:RPG.State.atk_rate">
+            <summary>
+            Attack percentage.
+            </summary>
+        </member>
+        <member name="P:RPG.State.pdef_rate">
+            <summary>
+            Physical defense percentage.
+            </summary>
+        </member>
+        <member name="P:RPG.State.mdef_rate">
+            <summary>
+            Magic defense percentage.
+            </summary>
+        </member>
+        <member name="P:RPG.State.eva">
+            <summary>
+            Evasion correction.
+            </summary>
+        </member>
+        <member name="P:RPG.State.battle_only">
+            <summary>
+            Truth value of whether the state wears off at battle end.
+            </summary>
+        </member>
+        <member name="P:RPG.State.hold_turn">
+            <summary>
+            Minumum number of turns before state has chance of releasing.
+            </summary>
+        </member>
+        <member name="P:RPG.State.auto_release_prob">
+            <summary>
+            Percent probability of wearing off after the number of turns in hold_turn have passed.
+            </summary>
+        </member>
+        <member name="P:RPG.State.shock_release_prob">
+            <summary>
+            Percent probability of wearing off after receiving physical damage.
+            </summary>
+        </member>
+        <member name="P:RPG.State.guard_element_set">
+            <summary>
+            Elemental defense. An Elemental ID collection.
+            </summary>
+        </member>
+        <member name="P:RPG.State.plus_state_set">
+            <summary>
+            States to add. A State ID collection.
+            </summary>
+        </member>
+        <member name="P:RPG.State.minus_state_set">
+            <summary>
+            States to cancel. A State ID collection.
+            </summary>
+        </member>
+        <member name="T:RPG.MapInfo">
+            <summary>
+            Data class for map information.
+            </summary>
+        </member>
+        <member name="M:RPG.MapInfo.#ctor">
+            <summary>
+            Creates a new instance of an RPG.MapInfo.
+            </summary>
+        </member>
+        <member name="P:RPG.MapInfo.name">
+            <summary>
+            The map name.
+            </summary>
+        </member>
+        <member name="P:RPG.MapInfo.parent_id">
+            <summary>
+            The parent map ID.
+            </summary>
+        </member>
+        <member name="P:RPG.MapInfo.order">
+            <summary>
+            The map tree display order, used internally.
+            </summary>
+        </member>
+        <member name="P:RPG.MapInfo.expanded">
+            <summary>
+            The map tree expansion flag, used internally.
+            </summary>
+        </member>
+        <member name="P:RPG.MapInfo.scroll_x">
+            <summary>
+            The X-axis scroll position, used internally.
+            </summary>
+        </member>
+        <member name="P:RPG.MapInfo.scroll_y">
+            <summary>
+            The Y-axis scroll position, used internally.
+            </summary>
+        </member>
+        <member name="T:RPG.EventCommand">
+            <summary>
+            Data class for the Event command.
+            </summary>
+        </member>
+        <member name="M:RPG.EventCommand.#ctor">
+            <summary>
+            Creates a new instance of an RPG.EventCommand.
+            </summary>
+        </member>
+        <member name="M:RPG.EventCommand.#ctor(System.Int32)">
+            <summary>
+            Creates a new instance of an RPG.EventCommand.
+            </summary>
+            <param name="code">The event code.</param>
+        </member>
+        <member name="M:RPG.EventCommand.#ctor(System.Int32,System.Int32)">
+            <summary>
+            Creates a new instance of an RPG.EventCommand.
+            </summary>
+            <param name="code">The event code.</param>
+            <param name="indent">The indent depth.</param>
+        </member>
+        <member name="M:RPG.EventCommand.#ctor(System.Int32,System.Int32,System.Collections.Generic.List{System.Object})">
+            <summary>
+            Creates a new instance of an RPG.EventCommand.
+            </summary>
+            <param name="code">The event code.</param>
+            <param name="indent">The indent depth.</param>
+            <param name="parameters">Command arguments.</param>
+        </member>
+        <member name="P:RPG.EventCommand.code">
+            <summary>
+            The event code.
+            </summary>
+        </member>
+        <member name="P:RPG.EventCommand.indent">
+            <summary>
+            The indent depth. 
+            Usually 0; the [Conditional Branch] command, among others, 
+            adds 1 with every step deeper.
+            </summary>
+        </member>
+        <member name="P:RPG.EventCommand.parameters">
+            <summary>
+            Collection containing the Move command arguments. 
+            The contents vary for each command.
+            </summary>
+        </member>
+        <member name="T:Table">
+            <summary>
+            The multidimensional array class. 
+            Each element takes up 2 signed bytes (<see langword="short"/>), ranging from -32,768 to 32,767.
+            </summary>
+        </member>
+        <member name="M:Table.#ctor">
+            <summary>
+            Creates a Table object. Specifies the size of each dimension in the multidimensional array. 
+            1-, 2-, and 3-dimensional arrays are possible. Arrays with no parameters are also permitted.
+            </summary>
+        </member>
+        <member name="M:Table.#ctor(System.Int32)">
+            <summary>
+            Creates a Table object. Specifies the size of each dimension in the multidimensional array. 
+            1-, 2-, and 3-dimensional arrays are possible. Arrays with no parameters are also permitted.
+            </summary>
+            <param name="xSize">The size of the Table on the X-axis.</param>
+        </member>
+        <member name="M:Table.#ctor(System.Int32,System.Int32)">
+            <summary>
+            Creates a Table object. Specifies the size of each dimension in the multidimensional array. 
+            1-, 2-, and 3-dimensional arrays are possible. Arrays with no parameters are also permitted.
+            </summary>
+            <param name="xSize">The size of the Table on the X-axis.</param>
+            <param name="ySize">The size of the Table on the Y-axis.</param>
+        </member>
+        <member name="M:Table.#ctor(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Creates a Table object. Specifies the size of each dimension in the multidimensional array. 
+            1-, 2-, and 3-dimensional arrays are possible. Arrays with no parameters are also permitted.
+            </summary>
+            <param name="xSize">The size of the Table on the X-axis.</param>
+            <param name="ySize">The size of the Table on the Y-axis.</param>
+            <param name="zSize">The size of the Table on the Z-axis.</param>
         </member>
         <member name="M:Table.resize(System.Int32)">
             <summary>
@@ -978,6 +1607,19 @@
             <param name="xSize">Size of the Table on the x-axis</param>
             <param name="ySize">Size of the Table on the y-axis</param>
             <param name="zSize">Size of the Table on the z-axis</param>
+        </member>
+        <member name="M:Table._arc_dump">
+            <summary>
+            Serializes and dumps the <see cref="T:Table"/> object in ARC format.
+            </summary>
+            <returns>An <see langword="byte"/> array containing the serialized data.</returns>
+        </member>
+        <member name="M:Table._arc_load(System.Byte[])">
+            <summary>
+            Deserializes and loads a <see cref="T:Table"/> object saved in ARC format.
+            </summary>
+            <param name="bytes">A <see langword="byte"/> array containing the serialized data.</param>
+            <returns>The deserialized <see cref="T:Table"/> object.</returns>
         </member>
         <member name="P:Table.Item(System.Int32)">
             <summary>
@@ -1024,11 +1666,85 @@
             Gets the size of the Table on the z-axis
             </summary>
         </member>
+        <member name="T:RPG.Class">
+            <summary>
+            Data class for class.
+            </summary>
+        </member>
+        <member name="M:RPG.Class.#ctor">
+            <summary>
+            Creates a new instance of an RPG.Class.
+            </summary>
+        </member>
         <member name="M:RPG.Class.ToString">
             <summary>
             Returns a <see langword="string"/> that represents the current object.
             </summary>
             <returns>String representation of object.</returns>
+        </member>
+        <member name="P:RPG.Class.id">
+            <summary>
+            The class's ID.
+            </summary>
+        </member>
+        <member name="P:RPG.Class.name">
+            <summary>
+            The class name.
+            </summary>
+        </member>
+        <member name="P:RPG.Class.position">
+            <summary>
+            The class position (0: front, 1: middle, 2: rear).
+            </summary>
+        </member>
+        <member name="P:RPG.Class.weapon_set">
+            <summary>
+            Collection containing IDs for equippable weapons.
+            </summary>
+        </member>
+        <member name="P:RPG.Class.armor_set">
+            <summary>
+            Collection containing IDs for equippable armor.
+            </summary>
+        </member>
+        <member name="P:RPG.Class.element_ranks">
+            <summary>
+            Level of elemental effectiveness. 
+            1-dimensional <see cref="T:Table"/> using element IDs as subscripts, 
+            with 6 levels (0: A, 1: B, 2: C, 3: D, 4: E, 5: F).
+            </summary>
+        </member>
+        <member name="P:RPG.Class.state_ranks">
+            <summary>
+            Level of status effectiveness. 
+            1-dimensional <see cref="T:Table"/> using status IDs as subscripts, 
+            with 6 levels (0: A, 1: B, 2: C, 3: D, 4: E, 5: F).
+            </summary>
+        </member>
+        <member name="P:RPG.Class.learnings">
+            <summary>
+            Skills to Learn. A collection of <see cref="T:RPG.Class.Learning"/> objects.
+            </summary>
+        </member>
+        <member name="T:RPG.Class.Learning">
+            <summary>
+            Data class for a [Class's Learned] skills.
+            </summary>
+        </member>
+        <member name="M:RPG.Class.Learning.#ctor">
+            <summary>
+            Creates a new instance of an RPG.Class.Learning.
+            </summary>
+        </member>
+        <member name="P:RPG.Class.Learning.level">
+            <summary>
+            Skill level.
+            </summary>
+        </member>
+        <member name="P:RPG.Class.Learning.skill_id">
+            <summary>
+            The learned skill's ID.
+            </summary>
         </member>
         <member name="T:ARCed.ARCedException">
             <summary>
@@ -1329,11 +2045,147 @@
             Mouse drag outside region state.
             </summary>
         </member>
+        <member name="T:RPG.Tileset">
+            <summary>
+            Data class for tilesets.
+            </summary>
+        </member>
+        <member name="M:RPG.Tileset.#ctor">
+            <summary>
+            Creates a new instance of an RPG.Tileset.
+            </summary>
+        </member>
         <member name="M:RPG.Tileset.ToString">
             <summary>
             Returns a <see langword="string"/> that represents the current object.
             </summary>
             <returns>String representation of object.</returns>
+        </member>
+        <member name="P:RPG.Tileset.id">
+            <summary>
+            The tileset ID.
+            </summary>
+        </member>
+        <member name="P:RPG.Tileset.name">
+            <summary>
+            The tileset name.
+            </summary>
+        </member>
+        <member name="P:RPG.Tileset.tileset_name">
+            <summary>
+            The tileset's graphic file name.
+            </summary>
+        </member>
+        <member name="P:RPG.Tileset.autotile_names">
+            <summary>
+            The autotile graphic's file name array ([0]..[6]).
+            </summary>
+        </member>
+        <member name="P:RPG.Tileset.panorama_name">
+            <summary>
+            The panorama graphic file name.
+            </summary>
+        </member>
+        <member name="P:RPG.Tileset.panorama_hue">
+            <summary>
+            The adjustment value for the panorama graphic's hue (0..360).
+            </summary>
+        </member>
+        <member name="P:RPG.Tileset.fog_name">
+            <summary>
+            The fog graphic's file name.
+            </summary>
+        </member>
+        <member name="P:RPG.Tileset.fog_hue">
+            <summary>
+            The adjustment value for the fog graphic's hue (0..360).
+            </summary>
+        </member>
+        <member name="P:RPG.Tileset.fog_opacity">
+            <summary>
+            The fog's opacity.
+            </summary>
+        </member>
+        <member name="P:RPG.Tileset.fog_blend_type">
+            <summary>
+            The fog's blending mode.
+            </summary>
+        </member>
+        <member name="P:RPG.Tileset.fog_zoom">
+            <summary>
+            The fog's zoom level.
+            </summary>
+        </member>
+        <member name="P:RPG.Tileset.fog_sx">
+            <summary>
+            The fog's SX (automatic X-axis scrolling speed).
+            </summary>
+        </member>
+        <member name="P:RPG.Tileset.fog_sy">
+            <summary>
+            The fog's SY (automatic Y-axis scrolling speed).
+            </summary>
+        </member>
+        <member name="P:RPG.Tileset.battleback_name">
+            <summary>
+            The battle background's graphic file name.
+            </summary>
+        </member>
+        <member name="P:RPG.Tileset.passages">
+            <summary>
+            Passage table. A 1-dimensional <see cref="T:Table"/> containing passage flags, Bush flags, and counter flags.
+            The tile ID is used as a subscript. 
+            Each bit is handled as follows:
+                0x01: Cannot move down. 
+                0x02: Cannot move left. 
+                0x04: Cannot move right. 
+                0x08: Cannot move up. 
+                0x40: Bush flag. 
+                0x80: Counter flag. 
+            </summary>
+        </member>
+        <member name="P:RPG.Tileset.priorities">
+            <summary>
+            Priority table. A 1-dimensional <see cref="T:Table"/> containing priority data.
+            The tile ID is used as a subscript.
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "P:RPG.Tileset.terrain_tags" -->
+        <member name="T:RPG.AudioFile">
+            <summary>
+            Data class for audio files. Common to all formats (BGM, BGS, ME, SE). 
+            </summary>
+        </member>
+        <member name="M:RPG.AudioFile.#ctor(System.String,System.Int32,System.Int32)">
+            <summary>
+            Creates a new instance of an RPG.AudioFile.
+            </summary>
+            <param name="name">Name of the sound file.</param>
+            <param name="volume">The sound's volume.</param>
+            <param name="pitch">The sound's pitch.</param>
+        </member>
+        <member name="M:RPG.AudioFile.ToString">
+            <summary>
+            Returns a <see langword="string"/> that represents the current object.
+            </summary>
+            <returns>String representation of object.</returns>
+        </member>
+        <member name="P:RPG.AudioFile.name">
+            <summary>
+            The sound file name.
+            </summary>
+        </member>
+        <member name="P:RPG.AudioFile.volume">
+            <summary>
+            The sound's volume (0..100). 
+            The default values are 100 for BGM and ME and 80 for BGS and SE.
+            </summary>
+        </member>
+        <member name="P:RPG.AudioFile.pitch">
+            <summary>
+            The sound's pitch (50..150). 
+            The default value is 100.
+            </summary>
         </member>
         <member name="T:ARCed.GameData">
             <summary>
@@ -1475,11 +2327,210 @@
             <param name="fontString">String to convert</param>
             <returns>Font representation of the string.</returns>
         </member>
+        <member name="T:RPG.Tone">
+            <summary>
+            The color tone class. Each component is handled with a <see langword="float"/> value.
+            </summary>
+        </member>
+        <member name="M:RPG.Tone.#ctor">
+            <summary>
+            Creates a Tone object with all values initialized as 0.0.
+            </summary>
+        </member>
+        <member name="M:RPG.Tone.#ctor(System.Single,System.Single,System.Single,System.Single)">
+            <summary>
+            Creates a Tone object. If gray is omitted, it is assumed at 0.
+            </summary>
+            <param name="red">The red value (-255-255)</param>
+            <param name="green">The green value (-255-255)</param>
+            <param name="blue">The blue value (-255-255)</param>
+            <param name="gray">The gray value (0-255)</param>
+        </member>
+        <member name="M:RPG.Tone.set(System.Single,System.Single,System.Single)">
+            <summary>
+            Sets all components at once. Gray remains the same.
+            </summary>
+            <param name="red">The red value (-255-255)</param>
+            <param name="green">The green value (-255-255)</param>
+            <param name="blue">The blue value (-255-255)</param>
+        </member>
+        <member name="M:RPG.Tone.set(System.Single,System.Single,System.Single,System.Single)">
+            <summary>
+            Sets all components at once. 
+            </summary>
+            <param name="red">The red value (-255-255)</param>
+            <param name="green">The green value (-255-255)</param>
+            <param name="blue">The blue value (-255-255)</param>
+            <param name="gray">The gray value (0-255)</param>
+        </member>
+        <member name="M:RPG.Tone.ToString">
+            <summary>
+            Returns a <see langword="string"/> that represents the current object.
+            </summary>
+            <returns>String representation of object.</returns>
+        </member>
+        <member name="P:RPG.Tone.red">
+            <summary>
+            The red value (-255-255). Values out of range are automatically corrected.
+            </summary>
+        </member>
+        <member name="P:RPG.Tone.green">
+            <summary>
+            The green value (-255-255). Values out of range are automatically corrected.
+            </summary>
+        </member>
+        <member name="P:RPG.Tone.blue">
+            <summary>
+            The blue value (-255-255). Values out of range are automatically corrected.
+            </summary>
+        </member>
+        <member name="P:RPG.Tone.gray">
+            <summary>
+            The gray value (0-255). Values out of range are automatically corrected.
+            </summary>
+        </member>
+        <member name="T:RPG.Skill">
+            <summary>
+            Data class for skills.
+            </summary>
+        </member>
+        <member name="M:RPG.Skill.#ctor">
+            <summary>
+            Creates a new instance of an RPG.Skill.
+            </summary>
+        </member>
         <member name="M:RPG.Skill.ToString">
             <summary>
             Returns a <see langword="string"/> that represents the current object.
             </summary>
             <returns>String representation of object.</returns>
+        </member>
+        <member name="P:RPG.Skill.id">
+            <summary>
+            The skill ID.
+            </summary>
+        </member>
+        <member name="P:RPG.Skill.name">
+            <summary>
+            The skill name.
+            </summary>
+        </member>
+        <member name="P:RPG.Skill.icon_name">
+            <summary>
+            The skill's icon graphic file name.
+            </summary>
+        </member>
+        <member name="P:RPG.Skill.description">
+            <summary>
+            The skill description.
+            </summary>
+        </member>
+        <member name="P:RPG.Skill.scope">
+            <summary>
+            Scope of the skill's effects 
+            (0: none, 1: one enemy, 2: all enemies, 3: one ally, 4: all allies, 5: 1 ally--HP 0, 6: all allies--HP 0, 7: the user).
+            </summary>
+        </member>
+        <member name="P:RPG.Skill.occasion">
+            <summary>
+            When the skill may be used 
+            (0: always, 1: only in battle, 2: only from the menu, 3: never).
+            </summary>
+        </member>
+        <member name="P:RPG.Skill.animation1_id">
+            <summary>
+            The animation ID when using the skill.
+            </summary>
+        </member>
+        <member name="P:RPG.Skill.animation2_id">
+            <summary>
+            The animation ID when on the receiving end of the skill.
+            </summary>
+        </member>
+        <member name="P:RPG.Skill.menu_se">
+            <summary>
+            SE played when skill is used on the menu screen (<see cref="T:RPG.AudioFile"/>).
+            </summary>
+        </member>
+        <member name="P:RPG.Skill.common_event_id">
+            <summary>
+            The Common Event ID.
+            </summary>
+        </member>
+        <member name="P:RPG.Skill.sp_cost">
+            <summary>
+            Number of SP consumed.
+            </summary>
+        </member>
+        <member name="P:RPG.Skill.power">
+            <summary>
+            The skill's power.
+            </summary>
+        </member>
+        <member name="P:RPG.Skill.atk_f">
+            <summary>
+            The skill's attack power F rating.
+            </summary>
+        </member>
+        <member name="P:RPG.Skill.eva_f">
+            <summary>
+            The skill's evasion F rating.
+            </summary>
+        </member>
+        <member name="P:RPG.Skill.str_f">
+            <summary>
+            The skill's strength F rating.
+            </summary>
+        </member>
+        <member name="P:RPG.Skill.dex_f">
+            <summary>
+            The skill's dexterity F rating.
+            </summary>
+        </member>
+        <member name="P:RPG.Skill.agi_f">
+            <summary>
+            The skill's agility F rating.
+            </summary>
+        </member>
+        <member name="P:RPG.Skill.int_f">
+            <summary>
+            The skill's intelligence F rating.
+            </summary>
+        </member>
+        <member name="P:RPG.Skill.hit">
+            <summary>
+            The skill's hit probability.
+            </summary>
+        </member>
+        <member name="P:RPG.Skill.pdef_f">
+            <summary>
+            The skill's physical defense F rating.
+            </summary>
+        </member>
+        <member name="P:RPG.Skill.mdef_f">
+            <summary>
+            The skill's magic defense F rating.
+            </summary>
+        </member>
+        <member name="P:RPG.Skill.variance">
+            <summary>
+            The skill's degree of variance.
+            </summary>
+        </member>
+        <member name="P:RPG.Skill.element_set">
+            <summary>
+            The skill's element. An Elemental ID collection.
+            </summary>
+        </member>
+        <member name="P:RPG.Skill.plus_state_set">
+            <summary>
+            States to add. A State ID collection.
+            </summary>
+        </member>
+        <member name="P:RPG.Skill.minus_state_set">
+            <summary>
+            States to cancel. A State ID collection.
+            </summary>
         </member>
         <member name="T:ARCed.Core.QColorMatrix">
             <summary>
@@ -1838,11 +2889,126 @@
             Append matrix order
             </summary>
         </member>
+        <member name="T:RPG.Animation">
+            <summary>
+            Data class for animation.
+            </summary>
+        </member>
+        <member name="M:RPG.Animation.#ctor">
+            <summary>
+            Creates a new instance of an RPG.Animation.
+            </summary>
+        </member>
         <member name="M:RPG.Animation.ToString">
             <summary>
             Returns a <see langword="string"/> that represents the current object.
             </summary>
             <returns>String representation of object.</returns>
+        </member>
+        <member name="P:RPG.Animation.id">
+            <summary>
+            The animation ID.
+            </summary>
+        </member>
+        <member name="P:RPG.Animation.name">
+            <summary>
+            The animation name.
+            </summary>
+        </member>
+        <member name="P:RPG.Animation.animation_name">
+            <summary>
+            The animation's graphic file name.
+            </summary>
+        </member>
+        <member name="P:RPG.Animation.animation_hue">
+            <summary>
+            The adjustment value for the animation graphic's hue (0..360).
+            </summary>
+        </member>
+        <member name="P:RPG.Animation.position">
+            <summary>
+            The animation's position (0: top, 1: middle, 2: bottom, 3: screen).
+            </summary>
+        </member>
+        <member name="P:RPG.Animation.frame_max">
+            <summary>
+            Number of frames.
+            </summary>
+        </member>
+        <member name="P:RPG.Animation.frames">
+            <summary>
+            Frame contents. An <see cref="T:RPG.Animation.Frame"/> collection.
+            </summary>
+        </member>
+        <member name="P:RPG.Animation.timings">
+            <summary>
+            Timing for SE and flash effects. An <see cref="T:RPG.Animation.Timing"/> collection.
+            </summary>
+        </member>
+        <member name="T:RPG.Animation.Frame">
+            <summary>
+            Data class for animation frames.
+            </summary>
+        </member>
+        <member name="M:RPG.Animation.Frame.#ctor">
+            <summary>
+            Creates a new instance of an RPG.Animation.Frame.
+            </summary>
+        </member>
+        <member name="P:RPG.Animation.Frame.cell_max">
+            <summary>
+            Number of cells. Equivalent to the largest cell number in the frame set.
+            </summary>
+        </member>
+        <member name="P:RPG.Animation.Frame.cell_data">
+            <summary>
+            2-dimensional <see cref="T:Table"/> containing cell contents.
+            Generally takes the form <c>cell_data[cell_index, data_index]</c>.
+            <c>data_index</c> ranges from 0 to 7 and denotes various information 
+            about a cell. 
+            (0: pattern, 1: X-coordinate, 2: Y-coordinate, 3: zoom level, 4: angle of rotation, 5: horizontal flip, 6: opacity, 7: blending mode). 
+            Patterns are 1 less than the number displayed in RPGXP; -1 indicates that that cell is not in use.
+            </summary>
+        </member>
+        <member name="T:RPG.Animation.Timing">
+            <summary>
+            Data class for the timing of an animation's SE and flash effects.
+            </summary>
+        </member>
+        <member name="M:RPG.Animation.Timing.#ctor">
+            <summary>
+            Creates a new instance of an RPG.Animation.Timing.
+            </summary>
+        </member>
+        <member name="P:RPG.Animation.Timing.frame">
+            <summary>
+            Frame number. 1 less than the number displayed in RPGXP.
+            </summary>
+        </member>
+        <member name="P:RPG.Animation.Timing.se">
+            <summary>
+            SE, or sound effect (<see cref="T:RPG.AudioFile"/>).
+            </summary>
+        </member>
+        <member name="P:RPG.Animation.Timing.flash_scope">
+            <summary>
+            Flash area (0: none, 1: target, 2: screen; 3: delete target).
+            </summary>
+        </member>
+        <member name="P:RPG.Animation.Timing.flash_color">
+            <summary>
+            Flash color (<see cref="T:RPG.Color"/>).
+            </summary>
+        </member>
+        <member name="P:RPG.Animation.Timing.flash_duration">
+            <summary>
+            Flash duration.
+            </summary>
+        </member>
+        <member name="P:RPG.Animation.Timing.condition">
+            <summary>
+            Condition of the effect (0: none, 1: hit, 2: miss).
+            </summary>
         </member>
         <member name="T:ARCed.Helpers.Compressor">
             <summary>
@@ -1863,6 +3029,82 @@
             </summary>
             <param name="inFile">Path to the archive to extract</param>
             <param name="outDir">The path to the target directory for extraction</param>
+        </member>
+        <member name="T:RPG.Color">
+            <summary>
+            The RGBA color class. Each component is handled with a <see langword="float"/> value.
+            </summary>
+        </member>
+        <member name="M:RPG.Color.#ctor">
+            <summary>
+            Creates a Color object with all values initialized as 0.0.
+            </summary>
+        </member>
+        <member name="M:RPG.Color.#ctor(System.Single,System.Single,System.Single,System.Single)">
+            <summary>
+            Creates a Color object. If alpha is omitted, it is assumed at 255.
+            </summary>
+            <param name="red">The red value (0-255)</param>
+            <param name="green">The green value (0-255)</param>
+            <param name="blue">The blue value (0-255)</param>
+            <param name="alpha">The alpha value (0-255)</param>
+        </member>
+        <member name="M:RPG.Color.set(System.Single,System.Single,System.Single)">
+            <summary>
+            Sets all components at once. Alpha remains the same.
+            </summary>
+            <param name="red">The red value (0-255)</param>
+            <param name="green">The green value (0-255)</param>
+            <param name="blue">The blue value (0-255)</param>
+        </member>
+        <member name="M:RPG.Color.set(System.Single,System.Single,System.Single,System.Single)">
+            <summary>
+            Sets all components at once. 
+            </summary>
+            <param name="red">The red value (0-255)</param>
+            <param name="green">The green value (0-255)</param>
+            <param name="blue">The blue value (0-255)</param>
+            <param name="alpha">The alpha value (0-255)</param>
+        </member>
+        <member name="M:RPG.Color.ToString">
+            <summary>
+            Returns a <see langword="string"/> that represents the current object.
+            </summary>
+            <returns>String representation of object.</returns>
+        </member>
+        <member name="M:RPG.Color.op_Implicit(RPG.Color)~System.Drawing.Color">
+            <summary>
+            Implicit operator to convert a <see cref="T:RPG.Color"/> to a <see cref="T:System.Drawing.Color"/>.
+            </summary>
+            <param name="color">Color to convert</param>
+            <returns>A System.Drawing.Color representation of the object.</returns>
+        </member>
+        <member name="M:RPG.Color.op_Implicit(System.Drawing.Color)~RPG.Color">
+            <summary>
+            Implicit operator to convert a <see cref="T:System.Drawing.Color"/> to a <see cref="T:RPG.Color"/>.
+            </summary>
+            <param name="color">Color to convert</param>
+            <returns>Color representation of the object.</returns>
+        </member>
+        <member name="P:RPG.Color.red">
+            <summary>
+            The red value (0-255). Values out of range are automatically corrected.
+            </summary>
+        </member>
+        <member name="P:RPG.Color.green">
+            <summary>
+            The green value (0-255). Values out of range are automatically corrected.
+            </summary>
+        </member>
+        <member name="P:RPG.Color.blue">
+            <summary>
+            The blue value (0-255). Values out of range are automatically corrected.
+            </summary>
+        </member>
+        <member name="P:RPG.Color.alpha">
+            <summary>
+            The alpha value (0-255). Values out of range are automatically corrected.
+            </summary>
         </member>
         <member name="T:ARCed.Core.LogTextEventArgs">
             <summary>
@@ -2417,17 +3659,694 @@
             Path to the RTP folder (TEST PURPOSES ONLY)
             </summary>
         </member>
+        <member name="T:RPG.Troop">
+            <summary>
+            Data class for troops.
+            </summary>
+        </member>
+        <member name="M:RPG.Troop.#ctor">
+            <summary>
+            Creates a new instance of an RPG.Troop.
+            </summary>
+        </member>
         <member name="M:RPG.Troop.ToString">
             <summary>
             Returns a <see langword="string"/> that represents the current object.
             </summary>
             <returns>String representation of object.</returns>
         </member>
+        <member name="P:RPG.Troop.id">
+            <summary>
+            Troop ID.
+            </summary>
+        </member>
+        <member name="P:RPG.Troop.name">
+            <summary>
+            Troop name.
+            </summary>
+        </member>
+        <member name="P:RPG.Troop.members">
+            <summary>
+            Troop members. A collection of <see cref="T:RPG.Troop.Member"/> objects.
+            </summary>
+        </member>
+        <member name="P:RPG.Troop.pages">
+            <summary>
+            Battle events. A collection of <see cref="T:RPG.Troop.Page"/> objects.
+            </summary>
+        </member>
+        <member name="T:RPG.Troop.Member">
+            <summary>
+            Data class for troop members.
+            </summary>
+        </member>
+        <member name="M:RPG.Troop.Member.#ctor">
+            <summary>
+            Creates a new instance of an RPG.Troop.Member.
+            </summary>
+        </member>
+        <member name="P:RPG.Troop.Member.enemy_id">
+            <summary>
+            The enemy ID.
+            </summary>
+        </member>
+        <member name="P:RPG.Troop.Member.x">
+            <summary>
+            The troop member's X-coordinate.
+            </summary>
+        </member>
+        <member name="P:RPG.Troop.Member.y">
+            <summary>
+            The troop member's Y-coordinate.
+            </summary>
+        </member>
+        <member name="P:RPG.Troop.Member.hidden">
+            <summary>
+            Truth value of the [Appear Midway] option.
+            </summary>
+        </member>
+        <member name="P:RPG.Troop.Member.immortal">
+            <summary>
+            Truth value of the [Immortal] option.
+            </summary>
+        </member>
+        <member name="T:RPG.Troop.Page">
+            <summary>
+            Data class for battle events (pages).
+            </summary>
+        </member>
+        <member name="M:RPG.Troop.Page.#ctor">
+            <summary>
+            Creates a new instance of an RPG.Troop.Page.
+            </summary>
+        </member>
+        <member name="P:RPG.Troop.Page.condition">
+            <summary>
+            Condition (<see cref="T:RPG.Troop.Page.Condition"/>).
+            </summary>
+        </member>
+        <member name="P:RPG.Troop.Page.span">
+            <summary>
+            Span (0: battle, 1: turn, 2: moment).
+            </summary>
+        </member>
+        <member name="P:RPG.Troop.Page.list">
+            <summary>
+            Program contents. A collection of <see cref="T:RPG.EventCommand"/> objects.
+            </summary>
+        </member>
+        <member name="T:RPG.Troop.Page.Condition">
+            <summary>
+            A database of battle event [Conditions].
+            </summary>
+        </member>
+        <member name="M:RPG.Troop.Page.Condition.#ctor">
+            <summary>
+            Creates a new instance of an RPG.Troop.Page.Condition.
+            </summary>
+        </member>
+        <member name="P:RPG.Troop.Page.Condition.turn_valid">
+            <summary>
+            Truth value for whether the [Turn] condition is valid.
+            </summary>
+        </member>
+        <member name="P:RPG.Troop.Page.Condition.enemy_valid">
+            <summary>
+            Truth value for whether the [Enemy] condition is valid.
+            </summary>
+        </member>
+        <member name="P:RPG.Troop.Page.Condition.actor_valid">
+            <summary>
+            Truth value for whether the [Actor] condition is valid.
+            </summary>
+        </member>
+        <member name="P:RPG.Troop.Page.Condition.switch_valid">
+            <summary>
+            Truth value for whether the [Switch] condition is valid.
+            </summary>
+        </member>
+        <member name="P:RPG.Troop.Page.Condition.turn_a">
+            <summary>
+            a and b values specified in the [Turn] condition. 
+            To be input in the form a + bx.
+            </summary>
+        </member>
+        <member name="P:RPG.Troop.Page.Condition.turn_b">
+            <summary>
+            a and b values specified in the [Turn] condition. 
+            To be input in the form a + bx.
+            </summary>
+        </member>
+        <member name="P:RPG.Troop.Page.Condition.enemy_index">
+            <summary>
+            Troop member index specified in the [Enemy] condition (0..7).
+            </summary>
+        </member>
+        <member name="P:RPG.Troop.Page.Condition.enemy_hp">
+            <summary>
+            HP percentage specified in the [Enemy] condition.
+            </summary>
+        </member>
+        <member name="P:RPG.Troop.Page.Condition.actor_id">
+            <summary>
+            Actor ID specified in the [Actor] condition.
+            </summary>
+        </member>
+        <member name="P:RPG.Troop.Page.Condition.actor_hp">
+            <summary>
+            HP percentage specified in the [Actor] condition.
+            </summary>
+        </member>
+        <member name="P:RPG.Troop.Page.Condition.switch_id">
+            <summary>
+            Switch ID specified in the [Switch] condition.
+            </summary>
+        </member>
+        <member name="T:RPG.System">
+            <summary>
+            Data class for the system.
+            </summary>
+        </member>
+        <member name="M:RPG.System.#ctor">
+            <summary>
+            Creates a new instance of an RPG.System.
+            </summary>
+        </member>
+        <member name="P:RPG.System.magic_number">
+            <summary>
+            Magic number used for update checks. 
+            Updates changed values every time data is saved in RPGXP.
+            </summary>
+        </member>
+        <member name="P:RPG.System.party_members">
+            <summary>
+            The initial party. A collection of actor IDs.
+            </summary>
+        </member>
+        <member name="P:RPG.System.elements">
+            <summary>
+            Element list. 
+            Text collection using element IDs as subscripts, 
+            with the element in the 0 position being nil.
+            </summary>
+        </member>
+        <member name="P:RPG.System.switches">
+            <summary>
+            Switch list. 
+            Text collection using switch IDs as subscripts, 
+            with the element in the 0 position being nil.
+            </summary>
+        </member>
+        <member name="P:RPG.System.variables">
+            <summary>
+            Variable list. 
+            Text collection using switch IDs as subscripts, 
+            with the element in the 0 position being nil.
+            </summary>
+        </member>
+        <member name="P:RPG.System.windowskin_name">
+            <summary>
+            The window skin (or "windowskin") graphic file name.
+            </summary>
+        </member>
+        <member name="P:RPG.System.title_name">
+            <summary>
+            The title graphic file name.
+            </summary>
+        </member>
+        <member name="P:RPG.System.gameover_name">
+            <summary>
+            The "Game Over" graphic file name.
+            </summary>
+        </member>
+        <member name="P:RPG.System.battle_transition">
+            <summary>
+            The file name of the transition graphic, displayed when entering battle.
+            </summary>
+        </member>
+        <member name="P:RPG.System.title_bgm">
+            <summary>
+            The title BGM (<see cref="T:RPG.AudioFile"/>).
+            </summary>
+        </member>
+        <member name="P:RPG.System.battle_bgm">
+            <summary>
+            The battle BGM (<see cref="T:RPG.AudioFile"/>).
+            </summary>
+        </member>
+        <member name="P:RPG.System.battle_end_me">
+            <summary>
+            The battle end ME (<see cref="T:RPG.AudioFile"/>).
+            </summary>
+        </member>
+        <member name="P:RPG.System.gameover_me">
+            <summary>
+            The gameover ME (<see cref="T:RPG.AudioFile"/>).
+            </summary>
+        </member>
+        <member name="P:RPG.System.cursor_se">
+            <summary>
+            The cursor SE (<see cref="T:RPG.AudioFile"/>).
+            </summary>
+        </member>
+        <member name="P:RPG.System.decision_se">
+            <summary>
+            The decision SE (<see cref="T:RPG.AudioFile"/>).
+            </summary>
+        </member>
+        <member name="P:RPG.System.cancel_se">
+            <summary>
+            The cancel SE (<see cref="T:RPG.AudioFile"/>).
+            </summary>
+        </member>
+        <member name="P:RPG.System.buzzer_se">
+            <summary>
+            The buzzer SE (<see cref="T:RPG.AudioFile"/>).
+            </summary>
+        </member>
+        <member name="P:RPG.System.equip_se">
+            <summary>
+            The equip SE (<see cref="T:RPG.AudioFile"/>).
+            </summary>
+        </member>
+        <member name="P:RPG.System.shop_se">
+            <summary>
+            The shop SE (<see cref="T:RPG.AudioFile"/>).
+            </summary>
+        </member>
+        <member name="P:RPG.System.save_se">
+            <summary>
+            The save SE (<see cref="T:RPG.AudioFile"/>).
+            </summary>
+        </member>
+        <member name="P:RPG.System.load_se">
+            <summary>
+            The load SE (<see cref="T:RPG.AudioFile"/>).
+            </summary>
+        </member>
+        <member name="P:RPG.System.battle_start_se">
+            <summary>
+            The battle start SE (<see cref="T:RPG.AudioFile"/>).
+            </summary>
+        </member>
+        <member name="P:RPG.System.escape_se">
+            <summary>
+            The escape SE (<see cref="T:RPG.AudioFile"/>).
+            </summary>
+        </member>
+        <member name="P:RPG.System.actor_collapse_se">
+            <summary>
+            The actor collapse SE (<see cref="T:RPG.AudioFile"/>).
+            </summary>
+        </member>
+        <member name="P:RPG.System.enemy_collapse_se">
+            <summary>
+            The enemy collapse SE (<see cref="T:RPG.AudioFile"/>).
+            </summary>
+        </member>
+        <member name="P:RPG.System.words">
+            <summary>
+            Terms (<see cref="T:RPG.System.Words"/>).
+            </summary>
+        </member>
+        <member name="P:RPG.System.start_map_id">
+            <summary>
+            The map ID of the player's initial position.
+            </summary>
+        </member>
+        <member name="P:RPG.System.start_x">
+            <summary>
+            The map X-coordinate of the player's initial position.
+            </summary>
+        </member>
+        <member name="P:RPG.System.start_y">
+            <summary>
+            The map Y-coordinate of the player's initial position.
+            </summary>
+        </member>
+        <member name="P:RPG.System.test_battlers">
+            <summary>
+            Party settings for battle tests. 
+            A collection of <see cref="T:RPG.System.TestBattler"/> objects.
+            </summary>
+        </member>
+        <member name="P:RPG.System.test_troop_id">
+            <summary>
+            The troop ID for battle tests.
+            </summary>
+        </member>
+        <member name="P:RPG.System.battleback_name">
+            <summary>
+            The battle background graphic file name, for battle tests and internal use.
+            </summary>
+        </member>
+        <member name="P:RPG.System.battler_name">
+            <summary>
+            The battler graphic file name, for internal use.
+            </summary>
+        </member>
+        <member name="P:RPG.System.battler_hue">
+            <summary>
+            The adjustment value for the battler graphic's hue (0..360), for internal use.
+            </summary>
+        </member>
+        <member name="P:RPG.System.edit_map_id">
+            <summary>
+            The ID of the map currently being edited, for internal use.
+            </summary>
+        </member>
+        <member name="T:RPG.System.TestBattler">
+            <summary>
+            Data class for the battlers used in battle tests.
+            </summary>
+        </member>
+        <member name="M:RPG.System.TestBattler.#ctor">
+            <summary>
+            Creates a new instance of an RPG.System.TestBattler.
+            </summary>
+        </member>
+        <member name="P:RPG.System.TestBattler.actor_id">
+            <summary>
+            The actor ID.
+            </summary>
+        </member>
+        <member name="P:RPG.System.TestBattler.level">
+            <summary>
+            The actor's level.
+            </summary>
+        </member>
+        <member name="P:RPG.System.TestBattler.weapon_id">
+            <summary>
+            The actor's weapon ID.
+            </summary>
+        </member>
+        <member name="P:RPG.System.TestBattler.armor1_id">
+            <summary>
+            The actor's shield ID.
+            </summary>
+        </member>
+        <member name="P:RPG.System.TestBattler.armor2_id">
+            <summary>
+            The actor's helmet ID.
+            </summary>
+        </member>
+        <member name="P:RPG.System.TestBattler.armor3_id">
+            <summary>
+            The actor's body armor ID.
+            </summary>
+        </member>
+        <member name="P:RPG.System.TestBattler.armor4_id">
+            <summary>
+            The actor's accessory ID.
+            </summary>
+        </member>
+        <member name="T:RPG.System.Words">
+            <summary>
+            Data class for terminology.
+            </summary>
+        </member>
+        <member name="M:RPG.System.Words.#ctor">
+            <summary>
+            Creates a new instance of an RPG.System.Words.
+            </summary>
+        </member>
+        <member name="P:RPG.System.Words.gold">
+            <summary>
+            The term "G" (the unit of currency).
+            </summary>
+        </member>
+        <member name="P:RPG.System.Words.hp">
+            <summary>
+            The term "HP" (hit points).
+            </summary>
+        </member>
+        <member name="P:RPG.System.Words.sp">
+            <summary>
+            The term "SP" (skill points).
+            </summary>
+        </member>
+        <member name="P:RPG.System.Words.str">
+            <summary>
+            The term "Strength".
+            </summary>
+        </member>
+        <member name="P:RPG.System.Words.dex">
+            <summary>
+            The term "Dexterity".
+            </summary>
+        </member>
+        <member name="P:RPG.System.Words.agi">
+            <summary>
+            The term "Agility".
+            </summary>
+        </member>
+        <member name="P:RPG.System.Words.int">
+            <summary>
+            The term "Intelligence".
+            </summary>
+        </member>
+        <member name="P:RPG.System.Words.atk">
+            <summary>
+            The term "Attack Power".
+            </summary>
+        </member>
+        <member name="P:RPG.System.Words.pdef">
+            <summary>
+            The term "Physical Defense".
+            </summary>
+        </member>
+        <member name="P:RPG.System.Words.mdef">
+            <summary>
+            The term "Magic Defense".
+            </summary>
+        </member>
+        <member name="P:RPG.System.Words.weapon">
+            <summary>
+            The term "Weapon".
+            </summary>
+        </member>
+        <member name="P:RPG.System.Words.armor1">
+            <summary>
+            The term "Shield".
+            </summary>
+        </member>
+        <member name="P:RPG.System.Words.armor2">
+            <summary>
+            The term "Helmet".
+            </summary>
+        </member>
+        <member name="P:RPG.System.Words.armor3">
+            <summary>
+            The term "Body armor".
+            </summary>
+        </member>
+        <member name="P:RPG.System.Words.armor4">
+            <summary>
+            The term "Accessory".
+            </summary>
+        </member>
+        <member name="P:RPG.System.Words.attack">
+            <summary>
+            The term "Attack".
+            </summary>
+        </member>
+        <member name="P:RPG.System.Words.skill">
+            <summary>
+            The term "Skill".
+            </summary>
+        </member>
+        <member name="P:RPG.System.Words.guard">
+            <summary>
+            The term "Defense".
+            </summary>
+        </member>
+        <member name="P:RPG.System.Words.item">
+            <summary>
+            The term "Item".
+            </summary>
+        </member>
+        <member name="P:RPG.System.Words.equip">
+            <summary>
+            The term "Equip".
+            </summary>
+        </member>
+        <member name="T:RPG.MoveCommand">
+            <summary>
+            Data class for the Move command.
+            </summary>
+        </member>
+        <member name="M:RPG.MoveCommand.#ctor">
+            <summary>
+            Creates a new instance of an RPG.MoveCommand.
+            </summary>
+        </member>
+        <member name="M:RPG.MoveCommand.#ctor(System.Int32)">
+            <summary>
+            Creates a new instance of an RPG.MoveCommand.
+            </summary>
+            <param name="code">Move command code.</param>
+        </member>
+        <member name="M:RPG.MoveCommand.#ctor(System.Int32,System.Collections.Generic.List{System.Object})">
+            <summary>
+            Creates a new instance of an RPG.MoveCommand.
+            </summary>
+            <param name="code">Move command code.</param>
+            <param name="parameters">Move command arguments.</param>
+        </member>
+        <member name="P:RPG.MoveCommand.code">
+            <summary>
+            Move command code.
+            </summary>
+        </member>
+        <member name="P:RPG.MoveCommand.parameters">
+            <summary>
+            Array containing the Move command arguments. 
+            The contents vary for each command.
+            </summary>
+        </member>
+        <member name="T:RPG.Item">
+            <summary>
+            Data class for items.
+            </summary>
+        </member>
+        <member name="M:RPG.Item.#ctor">
+            <summary>
+            Creates a new instance of an RPG.Item.
+            </summary>
+        </member>
         <member name="M:RPG.Item.ToString">
             <summary>
             Returns a <see langword="string"/> that represents the current object.
             </summary>
             <returns>String representation of object.</returns>
+        </member>
+        <member name="P:RPG.Item.id">
+            <summary>
+            The item ID.
+            </summary>
+        </member>
+        <member name="P:RPG.Item.name">
+            <summary>
+            The item name.
+            </summary>
+        </member>
+        <member name="P:RPG.Item.icon_name">
+            <summary>
+            The item's icon graphic file name.
+            </summary>
+        </member>
+        <member name="P:RPG.Item.description">
+            <summary>
+            The item description.
+            </summary>
+        </member>
+        <member name="P:RPG.Item.scope">
+            <summary>
+            Scope of the item's effects 
+            (0: none, 1: one enemy, 2: all enemies, 3: one ally, 4: all allies, 5: 1 ally--HP 0, 6: all allies--HP 0, 7: the user).
+            </summary>
+        </member>
+        <member name="P:RPG.Item.occasion">
+            <summary>
+            When the item may be used 
+            (0: always, 1: only in battle, 2: only from the menu, 3: never).
+            </summary>
+        </member>
+        <member name="P:RPG.Item.animation1_id">
+            <summary>
+            The animation ID when using the item.
+            </summary>
+        </member>
+        <member name="P:RPG.Item.animation2_id">
+            <summary>
+            The animation ID when on the receiving end of the item.
+            </summary>
+        </member>
+        <member name="P:RPG.Item.menu_se">
+            <summary>
+            SE played when item is used on the menu screen (<see cref="T:RPG.AudioFile"/>).
+            </summary>
+        </member>
+        <member name="P:RPG.Item.common_event_id">
+            <summary>
+            The Common Event ID.
+            </summary>
+        </member>
+        <member name="P:RPG.Item.price">
+            <summary>
+            The item price.
+            </summary>
+        </member>
+        <member name="P:RPG.Item.consumable">
+            <summary>
+            Truth value of whether the item disappears when used.
+            </summary>
+        </member>
+        <member name="P:RPG.Item.parameter_type">
+            <summary>
+            Parameter affected 
+            (0: none, 1: max HP, 2: max SP, 3: strength, 4: dexterity, 5: agility, 6: intelligence).
+            </summary>
+        </member>
+        <member name="P:RPG.Item.parameter_points">
+            <summary>
+            Amount by which parameter increases.
+            </summary>
+        </member>
+        <member name="P:RPG.Item.recover_hp_rate">
+            <summary>
+            HP recovery rate.
+            </summary>
+        </member>
+        <member name="P:RPG.Item.recover_hp">
+            <summary>
+            HP recovery amount.
+            </summary>
+        </member>
+        <member name="P:RPG.Item.recover_sp_rate">
+            <summary>
+            SP recovery rate.
+            </summary>
+        </member>
+        <member name="P:RPG.Item.recover_sp">
+            <summary>
+            SP recovery amount.
+            </summary>
+        </member>
+        <member name="P:RPG.Item.hit">
+            <summary>
+            The item's hit probability.
+            </summary>
+        </member>
+        <member name="P:RPG.Item.pdef_f">
+            <summary>
+            The item's physical defense F rating.
+            </summary>
+        </member>
+        <member name="P:RPG.Item.mdef_f">
+            <summary>
+            The item's magic defense F rating.
+            </summary>
+        </member>
+        <member name="P:RPG.Item.variance">
+            <summary>
+            The item's degree of variance.
+            </summary>
+        </member>
+        <member name="P:RPG.Item.element_set">
+            <summary>
+            The item's element. An Elemental ID collection.
+            </summary>
+        </member>
+        <member name="P:RPG.Item.plus_state_set">
+            <summary>
+            States to add. A State ID collection.
+            </summary>
+        </member>
+        <member name="P:RPG.Item.minus_state_set">
+            <summary>
+            States to cancel. A State ID collection.
+            </summary>
         </member>
         <member name="T:ARCed.Helpers.ResourceHelper">
             <summary>
@@ -2693,11 +4612,106 @@
             Gets or sets the fixed flag indicating equipment can be changed.
             </summary>
         </member>
+        <member name="T:RPG.Weapon">
+            <summary>
+            Data class for weapons.
+            </summary>
+        </member>
+        <member name="M:RPG.Weapon.#ctor">
+            <summary>
+            Creates a new instance of an RPG.Weapon.
+            </summary>
+        </member>
         <member name="M:RPG.Weapon.ToString">
             <summary>
             Returns a <see langword="string"/> that represents the current object.
             </summary>
             <returns>String representation of object.</returns>
+        </member>
+        <member name="P:RPG.Weapon.id">
+            <summary>
+            The weapon ID.
+            </summary>
+        </member>
+        <member name="P:RPG.Weapon.name">
+            <summary>
+            The weapon name.
+            </summary>
+        </member>
+        <member name="P:RPG.Weapon.icon_name">
+            <summary>
+            The weapon's icon graphic file name.
+            </summary>
+        </member>
+        <member name="P:RPG.Weapon.description">
+            <summary>
+            The weapon description.
+            </summary>
+        </member>
+        <member name="P:RPG.Weapon.animation1_id">
+            <summary>
+            The animation ID when using the weapon.
+            </summary>
+        </member>
+        <member name="P:RPG.Weapon.animation2_id">
+            <summary>
+            The animation ID when on the receiving end of the weapon.
+            </summary>
+        </member>
+        <member name="P:RPG.Weapon.price">
+            <summary>
+            The weapon's price.
+            </summary>
+        </member>
+        <member name="P:RPG.Weapon.atk">
+            <summary>
+            The weapon's attack power.
+            </summary>
+        </member>
+        <member name="P:RPG.Weapon.pdef">
+            <summary>
+            The weapon's physical defense rating.
+            </summary>
+        </member>
+        <member name="P:RPG.Weapon.mdef">
+            <summary>
+            The weapon's magic defense rating.
+            </summary>
+        </member>
+        <member name="P:RPG.Weapon.str_plus">
+            <summary>
+            The weapon's strength bonus.
+            </summary>
+        </member>
+        <member name="P:RPG.Weapon.dex_plus">
+            <summary>
+            The weapon's dexterity bonus.
+            </summary>
+        </member>
+        <member name="P:RPG.Weapon.agi_plus">
+            <summary>
+            The weapon's agility bonus.
+            </summary>
+        </member>
+        <member name="P:RPG.Weapon.int_plus">
+            <summary>
+            The weapon's intelligence bonus.
+            </summary>
+        </member>
+        <member name="P:RPG.Weapon.element_set">
+            <summary>
+            The weapon's element. An Elemental ID array.
+            </summary>
+        </member>
+        <member name="P:RPG.Weapon.plus_state_set">
+            <summary>
+            States to add. A State ID collection.
+            </summary>
+        </member>
+        <member name="P:RPG.Weapon.minus_state_set">
+            <summary>
+            States to cancel. A State ID collection.
+            </summary>
         </member>
         <member name="T:RPG.RpgObject">
             <summary>
@@ -2732,11 +4746,293 @@
             Gets or sets the ID of the object
             </summary>
         </member>
+        <member name="T:RPG.Map">
+            <summary>
+            Data class for maps.
+            </summary>
+        </member>
+        <member name="M:RPG.Map.#ctor(System.Int32,System.Int32)">
+            <summary>
+            Creates a new instance of an RPG.Map.
+            </summary>
+            <param name="width">The map width.</param>
+            <param name="height">The map height.</param>
+        </member>
+        <member name="P:RPG.Map.tileset_id">
+            <summary>
+            Tileset ID to be used in the map.
+            </summary>
+        </member>
+        <member name="P:RPG.Map.width">
+            <summary>
+            The map width.
+            </summary>
+        </member>
+        <member name="P:RPG.Map.height">
+            <summary>
+            The map height.
+            </summary>
+        </member>
+        <member name="P:RPG.Map.autoplay_bgm">
+            <summary>
+            Truth-value of whether BGM autoswitching is enabled.
+            </summary>
+        </member>
+        <member name="P:RPG.Map.bgm">
+            <summary>
+            If BGM autoswitching is enabled, the name of that BGM (<see cref="T:RPG.AudioFile"/>).
+            </summary>
+        </member>
+        <member name="P:RPG.Map.autoplay_bgs">
+            <summary>
+            Truth-value of whether BGS autoswitching is enabled.
+            </summary>
+        </member>
+        <member name="P:RPG.Map.bgs">
+            <summary>
+            If BGS autoswitching is enabled, the name of that BGS (<see cref="T:RPG.AudioFile"/>).
+            </summary>
+        </member>
+        <member name="P:RPG.Map.encounter_list">
+            <summary>
+            Encounter list. A troop ID collection.
+            </summary>
+        </member>
+        <member name="P:RPG.Map.encounter_step">
+            <summary>
+            Encounter list. A troop ID array.
+            </summary>
+        </member>
+        <member name="P:RPG.Map.data">
+            <summary>
+            The map data. A 3-dimensional tile ID <see cref="T:Table"/>.
+            </summary>
+        </member>
+        <member name="P:RPG.Map.events">
+            <summary>
+            Map events. A dictionary that represents RPG.Event instances as 
+            values, using event IDs as the keys.
+            </summary>
+        </member>
+        <member name="T:RPG.Event">
+            <summary>
+            Data class for map events.
+            </summary>
+        </member>
+        <member name="M:RPG.Event.#ctor(System.Int32,System.Int32)">
+            <summary>
+            Creates a new instance of an RPG.Event.
+            </summary>
+            <param name="x">The event's X-coordinate on the map.</param>
+            <param name="y">The event's Y-coordinate on the map.</param>
+        </member>
         <member name="M:RPG.Event.ToString">
             <summary>
             Returns a <see langword="string"/> that represents the current object.
             </summary>
             <returns>String representation of object.</returns>
+        </member>
+        <member name="P:RPG.Event.id">
+            <summary>
+            The event ID.
+            </summary>
+        </member>
+        <member name="P:RPG.Event.name">
+            <summary>
+            The event name.
+            </summary>
+        </member>
+        <member name="P:RPG.Event.x">
+            <summary>
+            The event's X-coordinate on the map.
+            </summary>
+        </member>
+        <member name="P:RPG.Event.y">
+            <summary>
+            The event's Y-coordinate on the map.
+            </summary>
+        </member>
+        <member name="P:RPG.Event.pages">
+            <summary>
+            The Events pages. A collection of <see cref="T:RPG.Event.Page"/> objects.
+            </summary>
+        </member>
+        <member name="T:RPG.Event.Page">
+            <summary>
+            Data class for the event page.
+            </summary>
+        </member>
+        <member name="M:RPG.Event.Page.#ctor">
+            <summary>
+            Creates a new instance of an RPG.Event.Page.
+            </summary>
+        </member>
+        <member name="P:RPG.Event.Page.condition">
+            <summary>
+            The event condition.
+            </summary>
+        </member>
+        <member name="P:RPG.Event.Page.graphic">
+            <summary>
+            The event graphic.
+            </summary>
+        </member>
+        <member name="P:RPG.Event.Page.move_type">
+            <summary>
+            Type of movement (0: fixed, 1: random, 2: approach, 3: custom).
+            </summary>
+        </member>
+        <member name="P:RPG.Event.Page.move_speed">
+            <summary>
+            Movement speed (1: slowest, 2: slower, 3: slow, 4: fast, 5: faster, 6: fastest).
+            </summary>
+        </member>
+        <member name="P:RPG.Event.Page.move_frequency">
+            <summary>
+            Movement frequency (1: lowest, 2: lower, 3: low ,4: high, 5: higher, 6: highest).
+            </summary>
+        </member>
+        <member name="P:RPG.Event.Page.move_route">
+            <summary>
+            Movement route. 
+            Referenced only when the movement type is set to Custom.
+            </summary>
+        </member>
+        <member name="P:RPG.Event.Page.walk_anime">
+            <summary>
+            Truth value of the [Moving Animation] option.
+            </summary>
+        </member>
+        <member name="P:RPG.Event.Page.step_anime">
+            <summary>
+            Truth value of the [Stopped Animation] option.
+            </summary>
+        </member>
+        <member name="P:RPG.Event.Page.direction_fix">
+            <summary>
+            Truth value of the [Fixed Direction] option.
+            </summary>
+        </member>
+        <member name="P:RPG.Event.Page.through">
+            <summary>
+            Truth value of the [Move Through] option.
+            </summary>
+        </member>
+        <member name="P:RPG.Event.Page.always_on_top">
+            <summary>
+            Truth value of the [Always On Top] option.
+            </summary>
+        </member>
+        <member name="P:RPG.Event.Page.trigger">
+            <summary>
+            Event trigger.
+            (0: action button, 1: contact with player, 2: contact with event, 3: autorun, 4: parallel processing).
+            </summary>
+        </member>
+        <member name="P:RPG.Event.Page.list">
+            <summary>
+            Program contents. A collection of <see cref="T:RPG.EventCommand"/> objects.
+            </summary>
+        </member>
+        <member name="T:RPG.Event.Page.Condition">
+            <summary>
+            Data class for event page conditions.
+            </summary>
+        </member>
+        <member name="M:RPG.Event.Page.Condition.#ctor">
+            <summary>
+            Creates a new instance of an RPG.Event.Page.Condition.
+            </summary>
+        </member>
+        <member name="P:RPG.Event.Page.Condition.switch1_valid">
+            <summary>
+            Truth value for whether the first [Switch] condition is valid.
+            </summary>
+        </member>
+        <member name="P:RPG.Event.Page.Condition.switch2_valid">
+            <summary>
+            Truth value for whether the second [Switch] condition is valid.
+            </summary>
+        </member>
+        <member name="P:RPG.Event.Page.Condition.variable_valid">
+            <summary>
+            Truth value for whether the [Variable] condition is valid.
+            </summary>
+        </member>
+        <member name="P:RPG.Event.Page.Condition.self_switch_valid">
+            <summary>
+            Truth value for whether the [Self Switch] condition is valid.
+            </summary>
+        </member>
+        <member name="P:RPG.Event.Page.Condition.switch1_id">
+            <summary>
+            If the first [Switch] condition is valid, the ID of that switch.
+            </summary>
+        </member>
+        <member name="P:RPG.Event.Page.Condition.switch2_id">
+            <summary>
+            If the second [Switch] condition is valid, the ID of that switch.
+            </summary>
+        </member>
+        <member name="P:RPG.Event.Page.Condition.variable_id">
+            <summary>
+            If the [Variable] condition is valid, the ID of that variable.
+            </summary>
+        </member>
+        <member name="P:RPG.Event.Page.Condition.variable_value">
+            <summary>
+            If the [Variable] condition is valid, the standard value of that variable (x and greater).
+            </summary>
+        </member>
+        <member name="P:RPG.Event.Page.Condition.self_switch_ch">
+            <summary>
+            If the [Self Switch] condition is valid, the letter of that self switch ("A".."D").
+            </summary>
+        </member>
+        <member name="T:RPG.Event.Page.Graphic">
+            <summary>
+            Data class for the Event page [Graphics].
+            </summary>
+        </member>
+        <member name="M:RPG.Event.Page.Graphic.#ctor">
+            <summary>
+            Creates a new instance of an RPG.Event.Graphic.
+            </summary>
+        </member>
+        <member name="P:RPG.Event.Page.Graphic.tile_id">
+            <summary>
+            The tile ID. If the specified graphic is not a tile, this value is 0.
+            </summary>
+        </member>
+        <member name="P:RPG.Event.Page.Graphic.character_name">
+            <summary>
+            The character's graphic file name.
+            </summary>
+        </member>
+        <member name="P:RPG.Event.Page.Graphic.character_hue">
+            <summary>
+            The adjustment value for the character graphic's hue (0..360).
+            </summary>
+        </member>
+        <member name="P:RPG.Event.Page.Graphic.direction">
+            <summary>
+            The direction in which the character is facing (2: down, 4: left, 6: right, 8: up).
+            </summary>
+        </member>
+        <member name="P:RPG.Event.Page.Graphic.pattern">
+            <summary>
+            The character's pattern (0..3).
+            </summary>
+        </member>
+        <member name="P:RPG.Event.Page.Graphic.opacity">
+            <summary>
+            The character's opacity.
+            </summary>
+        </member>
+        <member name="P:RPG.Event.Page.Graphic.blend_type">
+            <summary>
+            The character's blending mode.
+            </summary>
         </member>
         <member name="T:ARCed.ExtensionMethods">
             <summary>
