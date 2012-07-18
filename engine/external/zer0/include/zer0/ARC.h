@@ -33,6 +33,9 @@ namespace zer0
 		/// @brief Returns parameters from arc.cfg file.
 		/// @return Parameters from arc.cfg file.
 		static VALUE rb_getCfgParameters(VALUE self);
+		/// @brief Returns the logical HWND for the window.
+		/// @return Logical HWND for the window.
+		static VALUE rb_getBackendId(VALUE self);
 
 	};
 
