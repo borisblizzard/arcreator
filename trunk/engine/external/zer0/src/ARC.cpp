@@ -1,5 +1,6 @@
 #include <ruby.h>
 
+#include <april/Window.h>
 #include <hltypes/harray.h>
 #include <hltypes/hfile.h>
 #include <hltypes/hmap.h>
@@ -37,6 +38,7 @@ namespace zer0
 		rb_define_const(rb_mARC, "Version", rb_str_new2(Version.c_str()));
 		rb_define_module_function(rb_mARC, "system_path", RUBY_METHOD_FUNC(&ARC::rb_getSystemPath), 0);
 		rb_define_module_function(rb_mARC, "cfg_parameters", RUBY_METHOD_FUNC(&ARC::rb_getCfgParameters), 0);
+		rb_define_module_function(rb_mARC, "backend_id", RUBY_METHOD_FUNC(&ARC::rb_getBackendId), 0);
 	}
 
 	/****************************************************************************************
@@ -56,6 +58,11 @@ namespace zer0
 			rb_hash_aset(result, rb_str_new2(it->first.c_str()), rb_str_new2(it->second.c_str()));
 		}
 		return result;
+	}
+
+	VALUE ARC::rb_getBackendId(VALUE self)
+	{
+		return UINT2NUM((unsigned int)april::window->getBackendId());
 	}
 
 }
