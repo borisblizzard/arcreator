@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
 using Cmd = RPG.EventCommand;
@@ -105,9 +106,8 @@ namespace ARCed.EventBuilder
 				if (dialog.ShowDialog() == DialogResult.OK)
 				{
 					var choices = new Params();
-					foreach (string choice in dialog.Choices)
-						choices.Add(choice);
-					if (choices.Count == 0) choices.Add("");
+				    choices.AddRange(dialog.Choices);
+				    if (choices.Count == 0) choices.Add("");
 					commands.Clear();
 					commands.Add(new Cmd(102, 0, new Params { choices, dialog.CancelIndex }));
 					for (int i = 0; i < choices.Count; i++)

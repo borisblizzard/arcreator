@@ -25,9 +25,9 @@ namespace ARCed.Scintilla.Configuration
         /// </summary>
         public CommandBindingConfig(KeyBinding keyBinding, bool? replaceCurrent, BindableCommand bindableCommand)
         {
-            KeyBinding = keyBinding;
-            ReplaceCurrent = replaceCurrent;
-            BindableCommand = bindableCommand;
+            this.KeyBinding = keyBinding;
+            this.ReplaceCurrent = replaceCurrent;
+            this.BindableCommand = bindableCommand;
         }
 
         #endregion Constructors

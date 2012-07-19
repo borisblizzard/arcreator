@@ -23,7 +23,7 @@ namespace ARCed.Scintilla
         [UIPermission(SecurityAction.Demand, Clipboard = UIPermissionClipboard.OwnClipboard)]
         public void Copy()
         {
-            Copy(false);
+            this.Copy(false);
         }
 
 
@@ -81,7 +81,7 @@ namespace ARCed.Scintilla
 
         internal bool ShouldSerialize()
         {
-            return !ConvertLineBreaksOnPaste;
+            return !this.ConvertLineBreaksOnPaste;
         }
 
         #endregion Methods

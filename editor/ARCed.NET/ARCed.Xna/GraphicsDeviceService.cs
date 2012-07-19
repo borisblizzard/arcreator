@@ -53,19 +53,20 @@ namespace ARCed.Controls
         /// </summary>
         GraphicsDeviceService(IntPtr windowHandle, int width, int height)
         {
-            parameters = new PresentationParameters();
+            this.parameters = new PresentationParameters
+            {
+                BackBufferWidth = Math.Max(width, 1),
+                BackBufferHeight = Math.Max(height, 1),
+                BackBufferFormat = SurfaceFormat.Color,
+                DepthStencilFormat = DepthFormat.Depth24,
+                DeviceWindowHandle = windowHandle,
+                PresentationInterval = PresentInterval.Immediate,
+                IsFullScreen = false
+            };
 
-            parameters.BackBufferWidth = Math.Max(width, 1);
-            parameters.BackBufferHeight = Math.Max(height, 1);
-            parameters.BackBufferFormat = SurfaceFormat.Color;
-            parameters.DepthStencilFormat = DepthFormat.Depth24;
-            parameters.DeviceWindowHandle = windowHandle;
-            parameters.PresentationInterval = PresentInterval.Immediate;
-            parameters.IsFullScreen = false;
-
-            graphicsDevice = new GraphicsDevice(GraphicsAdapter.DefaultAdapter,
+            this.graphicsDevice = new GraphicsDevice(GraphicsAdapter.DefaultAdapter,
                                                 GraphicsProfile.Reach,
-                                                parameters);
+                                                this.parameters);
         }
 
 
@@ -100,13 +101,13 @@ namespace ARCed.Controls
                 // device, we should dispose the singleton instance.
                 if (disposing)
                 {
-                    if (DeviceDisposing != null)
-                        DeviceDisposing(this, EventArgs.Empty);
+                    if (this.DeviceDisposing != null)
+                        this.DeviceDisposing(this, EventArgs.Empty);
 
-                    graphicsDevice.Dispose();
+                    this.graphicsDevice.Dispose();
                 }
 
-                graphicsDevice = null;
+                this.graphicsDevice = null;
             }
         }
 
@@ -118,16 +119,16 @@ namespace ARCed.Controls
         /// </summary>
         public void ResetDevice(int width, int height)
         {
-            if (DeviceResetting != null)
-                DeviceResetting(this, EventArgs.Empty);
+            if (this.DeviceResetting != null)
+                this.DeviceResetting(this, EventArgs.Empty);
 
-            parameters.BackBufferWidth = Math.Max(parameters.BackBufferWidth, width);
-            parameters.BackBufferHeight = Math.Max(parameters.BackBufferHeight, height);
+            this.parameters.BackBufferWidth = Math.Max(this.parameters.BackBufferWidth, width);
+            this.parameters.BackBufferHeight = Math.Max(this.parameters.BackBufferHeight, height);
 
-            graphicsDevice.Reset(parameters);
+            this.graphicsDevice.Reset(this.parameters);
 
-            if (DeviceReset != null)
-                DeviceReset(this, EventArgs.Empty);
+            if (this.DeviceReset != null)
+                this.DeviceReset(this, EventArgs.Empty);
         }
 
         
@@ -136,7 +137,7 @@ namespace ARCed.Controls
         /// </summary>
         public GraphicsDevice GraphicsDevice
         {
-            get { return graphicsDevice; }
+            get { return this.graphicsDevice; }
         }
 
         GraphicsDevice graphicsDevice;

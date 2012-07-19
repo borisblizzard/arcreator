@@ -19,15 +19,15 @@ namespace ARCed.Database.Actors
         /// <summary>
         /// Gets the initial value to start the curve on.
         /// </summary>
-		public int InitialValue { get { return (int)numericInitial.Value; } }
+		public int InitialValue { get { return (int)this.numericInitial.Value; } }
         /// <summary>
         /// Gets the final value to end the curve on.
         /// </summary>
-		public int FinalValue { get { return (int)numericFinal.Value; } }
+		public int FinalValue { get { return (int)this.numericFinal.Value; } }
         /// <summary>
         /// Gets the speed at which the curve increases.
         /// </summary>
-		public int Speed { get { return trackBarSpeed.Value; } }
+		public int Speed { get { return this.trackBarSpeed.Value; } }
 
         #endregion
 
@@ -40,12 +40,12 @@ namespace ARCed.Database.Actors
         /// <param name="paramIndex">Index of the parameter to change</param>
 		public ParamGenerateCurveDialog(ref Actor actor, int paramIndex)
 		{
-			InitializeComponent();
+			this.InitializeComponent();
 			var max = Project.Settings.GetMaxValue(paramIndex);
-			numericInitial.Maximum = max;
-			numericFinal.Maximum = max;
-			numericFinal.Value = actor.parameters[paramIndex, actor.final_level];
-			numericInitial.Value = actor.parameters[paramIndex, actor.initial_level];
+			this.numericInitial.Maximum = max;
+			this.numericFinal.Maximum = max;
+			this.numericFinal.Value = actor.parameters[paramIndex, actor.final_level];
+			this.numericInitial.Value = actor.parameters[paramIndex, actor.initial_level];
 		}
 
         #endregion
@@ -60,8 +60,8 @@ namespace ARCed.Database.Actors
 
 		private void NumericValueChanged(object sender, EventArgs e)
 		{
-			if (numericInitial.Value > numericFinal.Value)
-				numericInitial.Value = numericFinal.Value;
+			if (this.numericInitial.Value > this.numericFinal.Value)
+				this.numericInitial.Value = this.numericFinal.Value;
         }
 
         #endregion

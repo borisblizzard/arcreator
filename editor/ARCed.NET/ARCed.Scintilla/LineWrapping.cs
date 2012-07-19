@@ -43,18 +43,18 @@ namespace ARCed.Scintilla
             //    throw new ArgumentOutOfRangeException(paramName, message);
             //}
 
-            return _scintilla.DirectMessage(NativeMethods.SCI_WRAPCOUNT, new IntPtr(lineIndex), IntPtr.Zero).ToInt32();
+            return this._scintilla.DirectMessage(NativeMethods.SCI_WRAPCOUNT, new IntPtr(lineIndex), IntPtr.Zero).ToInt32();
         }
 
 
         internal bool ShouldSerialize()
         {
             return
-                IndentMode != LineWrappingIndentMode.Fixed ||
-                IndentSize != 0 ||
-                Mode != LineWrappingMode.None ||
-                VisualFlags != LineWrappingVisualFlags.None ||
-                VisualFlagsLocations != LineWrappingVisualFlagsLocations.Default;
+                this.IndentMode != LineWrappingIndentMode.Fixed ||
+                this.IndentSize != 0 ||
+                this.Mode != LineWrappingMode.None ||
+                this.VisualFlags != LineWrappingVisualFlags.None ||
+                this.VisualFlagsLocations != LineWrappingVisualFlagsLocations.Default;
         }
 
 
@@ -79,8 +79,8 @@ namespace ARCed.Scintilla
             //    throw new ArgumentOutOfRangeException("endLine", _resources.Exception_InvalidLineRange);
 
             // Convert line indexes to positions within the line
-            int startPos = _scintilla.DirectMessage(NativeMethods.SCI_POSITIONFROMLINE, new IntPtr(startLine), IntPtr.Zero).ToInt32();
-            int endPos = _scintilla.DirectMessage(NativeMethods.SCI_POSITIONFROMLINE, new IntPtr(endLine), IntPtr.Zero).ToInt32();
+            int startPos = this._scintilla.DirectMessage(NativeMethods.SCI_POSITIONFROMLINE, new IntPtr(startLine), IntPtr.Zero).ToInt32();
+            int endPos = this._scintilla.DirectMessage(NativeMethods.SCI_POSITIONFROMLINE, new IntPtr(endLine), IntPtr.Zero).ToInt32();
 
             //if (startPos == -1)
             //    throw new ArgumentOutOfRangeException("startLine", string.Format(CultureInfo.InvariantCulture, _resources.Exception_InvalidLine, "start"));
@@ -88,10 +88,10 @@ namespace ARCed.Scintilla
             //    throw new ArgumentOutOfRangeException("endLine", string.Format(CultureInfo.InvariantCulture, _resources.Exception_InvalidLine, "end"));
 
             // Set the target positions (which Scintilla will convert back to line indexes)
-            _scintilla.DirectMessage(NativeMethods.SCI_SETTARGETSTART, new IntPtr(startPos), IntPtr.Zero);
-            _scintilla.DirectMessage(NativeMethods.SCI_SETTARGETEND, new IntPtr(endPos), IntPtr.Zero);
+            this._scintilla.DirectMessage(NativeMethods.SCI_SETTARGETSTART, new IntPtr(startPos), IntPtr.Zero);
+            this._scintilla.DirectMessage(NativeMethods.SCI_SETTARGETEND, new IntPtr(endPos), IntPtr.Zero);
 
-            _scintilla.DirectMessage(NativeMethods.SCI_LINESSPLIT, new IntPtr(width), IntPtr.Zero);
+            this._scintilla.DirectMessage(NativeMethods.SCI_LINESSPLIT, new IntPtr(width), IntPtr.Zero);
         }
 
         #endregion Methods
@@ -115,7 +115,7 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return (LineWrappingIndentMode)_scintilla.DirectMessage(
+                return (LineWrappingIndentMode)this._scintilla.DirectMessage(
                     NativeMethods.SCI_GETWRAPINDENTMODE, IntPtr.Zero, IntPtr.Zero);
             }
             set
@@ -123,7 +123,7 @@ namespace ARCed.Scintilla
                 if (!Enum.IsDefined(typeof(LineWrappingIndentMode), value))
                     throw new InvalidEnumArgumentException("value", (int)value, typeof(LineWrappingIndentMode));
 
-                _scintilla.DirectMessage(NativeMethods.SCI_SETWRAPINDENTMODE, new IntPtr((int)value), IntPtr.Zero);
+                this._scintilla.DirectMessage(NativeMethods.SCI_SETWRAPINDENTMODE, new IntPtr((int)value), IntPtr.Zero);
             }
         }
 
@@ -139,7 +139,7 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _scintilla.DirectMessage(NativeMethods.SCI_GETWRAPSTARTINDENT, IntPtr.Zero, IntPtr.Zero).ToInt32();
+                return this._scintilla.DirectMessage(NativeMethods.SCI_GETWRAPSTARTINDENT, IntPtr.Zero, IntPtr.Zero).ToInt32();
             }
             set
             {
@@ -153,7 +153,7 @@ namespace ARCed.Scintilla
                     throw new ArgumentOutOfRangeException(paramName, message);
                 }
 
-                _scintilla.DirectMessage(NativeMethods.SCI_SETWRAPSTARTINDENT, new IntPtr(value), IntPtr.Zero);
+                this._scintilla.DirectMessage(NativeMethods.SCI_SETWRAPSTARTINDENT, new IntPtr(value), IntPtr.Zero);
             }
         }
 
@@ -174,7 +174,7 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return (LineWrappingMode)_scintilla.DirectMessage(
+                return (LineWrappingMode)this._scintilla.DirectMessage(
                     NativeMethods.SCI_GETWRAPMODE, IntPtr.Zero, IntPtr.Zero);
             }
             set
@@ -182,7 +182,7 @@ namespace ARCed.Scintilla
                 if (!Enum.IsDefined(typeof(LineWrappingMode), value))
                     throw new InvalidEnumArgumentException("value", (int)value, typeof(LineWrappingMode));
 
-                _scintilla.DirectMessage(NativeMethods.SCI_SETWRAPMODE, new IntPtr((int)value), IntPtr.Zero);
+                this._scintilla.DirectMessage(NativeMethods.SCI_SETWRAPMODE, new IntPtr((int)value), IntPtr.Zero);
             }
         }
 
@@ -201,12 +201,12 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return (LineWrappingVisualFlags)_scintilla.DirectMessage(
+                return (LineWrappingVisualFlags)this._scintilla.DirectMessage(
                     NativeMethods.SCI_GETWRAPVISUALFLAGS, IntPtr.Zero, IntPtr.Zero);
             }
             set
             {
-                _scintilla.DirectMessage(NativeMethods.SCI_SETWRAPVISUALFLAGS, new IntPtr((int)value), IntPtr.Zero);
+                this._scintilla.DirectMessage(NativeMethods.SCI_SETWRAPVISUALFLAGS, new IntPtr((int)value), IntPtr.Zero);
             }
         }
 
@@ -225,12 +225,12 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return (LineWrappingVisualFlagsLocations)_scintilla.DirectMessage(
+                return (LineWrappingVisualFlagsLocations)this._scintilla.DirectMessage(
                     NativeMethods.SCI_GETWRAPVISUALFLAGSLOCATION, IntPtr.Zero, IntPtr.Zero);
             }
             set
             {
-                _scintilla.DirectMessage(NativeMethods.SCI_SETWRAPVISUALFLAGSLOCATION, new IntPtr((int)value), IntPtr.Zero);
+                this._scintilla.DirectMessage(NativeMethods.SCI_SETWRAPVISUALFLAGSLOCATION, new IntPtr((int)value), IntPtr.Zero);
             }
         }
 
@@ -245,7 +245,7 @@ namespace ARCed.Scintilla
         /// <param name="scintilla">The <see cref="Scintilla" /> control that created this object.</param>
         protected internal LineWrapping(Scintilla scintilla)
         {
-            _scintilla = scintilla;
+            this._scintilla = scintilla;
         }
 
         #endregion Constructors

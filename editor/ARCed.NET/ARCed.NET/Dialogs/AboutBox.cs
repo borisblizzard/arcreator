@@ -44,7 +44,7 @@ namespace ARCed.Dialogs
 		/// </summary>
 		public AboutBox()
 		{
-			InitializeComponent();
+			this.InitializeComponent();
 		}
 
         #endregion
@@ -78,11 +78,11 @@ namespace ARCed.Dialogs
 		{
 			get
 			{
-				return AppTitleLabel.Text;
+				return this.AppTitleLabel.Text;
 			}
 			set
 			{
-				AppTitleLabel.Text = value;
+				this.AppTitleLabel.Text = value;
 			}
 		}
 
@@ -97,18 +97,18 @@ namespace ARCed.Dialogs
 		{
 			get
 			{
-				return AppDescriptionLabel.Text;
+				return this.AppDescriptionLabel.Text;
 			}
 			set
 			{
 				if (value == "")
 				{
-					AppDescriptionLabel.Visible = false;
+					this.AppDescriptionLabel.Visible = false;
 				}
 				else
 				{
-					AppDescriptionLabel.Visible = true;
-					AppDescriptionLabel.Text = value;
+					this.AppDescriptionLabel.Visible = true;
+					this.AppDescriptionLabel.Text = value;
 				}
 			}
 		}
@@ -124,18 +124,18 @@ namespace ARCed.Dialogs
 		{
 			get
 			{
-				return AppVersionLabel.Text;
+				return this.AppVersionLabel.Text;
 			}
 			set
 			{
 				if (value == "")
 				{
-					AppVersionLabel.Visible = false;
+					this.AppVersionLabel.Visible = false;
 				}
 				else
 				{
-					AppVersionLabel.Visible = true;
-					AppVersionLabel.Text = value;
+					this.AppVersionLabel.Visible = true;
+					this.AppVersionLabel.Text = value;
 				}
 			}
 		}
@@ -152,18 +152,18 @@ namespace ARCed.Dialogs
 		{
 			get
 			{
-				return AppCopyrightLabel.Text;
+				return this.AppCopyrightLabel.Text;
 			}
 			set
 			{
 				if (value == "")
 				{
-					AppCopyrightLabel.Visible = false;
+					this.AppCopyrightLabel.Visible = false;
 				}
 				else
 				{
-					AppCopyrightLabel.Visible = true;
-					AppCopyrightLabel.Text = value;
+					this.AppCopyrightLabel.Visible = true;
+					this.AppCopyrightLabel.Text = value;
 				}
 			}
 		}
@@ -178,11 +178,11 @@ namespace ARCed.Dialogs
 		{
 			get
 			{
-				return ImagePictureBox.Image;
+				return this.ImagePictureBox.Image;
 			}
 			set
 			{
-				ImagePictureBox.Image = value;
+				this.ImagePictureBox.Image = value;
 			}
 		}
 
@@ -199,18 +199,18 @@ namespace ARCed.Dialogs
 		{
 			get
 			{
-				return MoreRichTextBox.Text;
+				return this.MoreRichTextBox.Text;
 			}
 			set
 			{
 				if (String.IsNullOrEmpty(value))
 				{
-					MoreRichTextBox.Visible = false;
+					this.MoreRichTextBox.Visible = false;
 				}
 				else
 				{
-					MoreRichTextBox.Visible = true;
-					MoreRichTextBox.Text = value;
+					this.MoreRichTextBox.Visible = true;
+					this.MoreRichTextBox.Text = value;
 				}
 			}
 		}
@@ -220,8 +220,8 @@ namespace ARCed.Dialogs
         /// </summary>
         public bool AppDetailsButton
         {
-            get { return DetailsButton.Visible; }
-            set { DetailsButton.Visible = value; }
+            get { return this.DetailsButton.Visible; }
+            set { this.DetailsButton.Visible = value; }
         }
 
         #endregion
@@ -249,7 +249,7 @@ namespace ARCed.Dialogs
 			}
 		}
 
-		private DateTime AssemblyBuildDate(Assembly a, bool forceFileDate)
+		private static DateTime AssemblyBuildDate(Assembly a, bool forceFileDate)
 		{
 			var assemblyVersion = a.GetName().Version;
 			DateTime dt;
@@ -450,33 +450,33 @@ namespace ARCed.Dialogs
 		private void PopulateAppInfo()
 		{
 			var d = AppDomain.CurrentDomain;
-			Populate(AppInfoListView, "Application Name", d.SetupInformation.ApplicationName);
-			Populate(AppInfoListView, "Application Base", d.SetupInformation.ApplicationBase);
-			Populate(AppInfoListView, "Cache Path", d.SetupInformation.CachePath);
-			Populate(AppInfoListView, "Configuration File", d.SetupInformation.ConfigurationFile);
-			Populate(AppInfoListView, "Dynamic Base", d.SetupInformation.DynamicBase);
-			Populate(AppInfoListView, "Friendly Name", d.FriendlyName);
-			Populate(AppInfoListView, "License File", d.SetupInformation.LicenseFile);
-			Populate(AppInfoListView, "private Bin Path", d.SetupInformation.PrivateBinPath);
-			Populate(AppInfoListView, "Shadow Copy Directories", d.SetupInformation.ShadowCopyDirectories);
-			Populate(AppInfoListView, " ", " ");
-			Populate(AppInfoListView, "Entry Assembly", this._entryAssemblyName);
-			Populate(AppInfoListView, "Executing Assembly", this._executingAssemblyName);
-			Populate(AppInfoListView, "Calling Assembly", this._callingAssemblyName);
+			Populate(this.AppInfoListView, "Application Name", d.SetupInformation.ApplicationName);
+			Populate(this.AppInfoListView, "Application Base", d.SetupInformation.ApplicationBase);
+			Populate(this.AppInfoListView, "Cache Path", d.SetupInformation.CachePath);
+			Populate(this.AppInfoListView, "Configuration File", d.SetupInformation.ConfigurationFile);
+			Populate(this.AppInfoListView, "Dynamic Base", d.SetupInformation.DynamicBase);
+			Populate(this.AppInfoListView, "Friendly Name", d.FriendlyName);
+			Populate(this.AppInfoListView, "License File", d.SetupInformation.LicenseFile);
+			Populate(this.AppInfoListView, "private Bin Path", d.SetupInformation.PrivateBinPath);
+			Populate(this.AppInfoListView, "Shadow Copy Directories", d.SetupInformation.ShadowCopyDirectories);
+			Populate(this.AppInfoListView, " ", " ");
+			Populate(this.AppInfoListView, "Entry Assembly", this._entryAssemblyName);
+			Populate(this.AppInfoListView, "Executing Assembly", this._executingAssemblyName);
+			Populate(this.AppInfoListView, "Calling Assembly", this._callingAssemblyName);
 		}
 
 		private void PopulateAssemblies()
 		{
 			foreach (Assembly a in AppDomain.CurrentDomain.GetAssemblies())
 			{
-				PopulateAssemblySummary(a);
+				this.PopulateAssemblySummary(a);
 			}
-			AssemblyNamesComboBox.SelectedIndex = AssemblyNamesComboBox.FindStringExact(this._entryAssemblyName);
+			this.AssemblyNamesComboBox.SelectedIndex = this.AssemblyNamesComboBox.FindStringExact(this._entryAssemblyName);
 		}
 
 		private void PopulateAssemblySummary(Assembly a)
 		{
-			var nvc = AssemblyAttribs(a);
+			var nvc = this.AssemblyAttribs(a);
 			var strAssemblyName = a.GetName().Name;
 			var lvi = new ListViewItem
 			{
@@ -498,8 +498,8 @@ namespace ARCed.Dialogs
 			lvi.SubItems.Add(nvc["version"]);
 			lvi.SubItems.Add(nvc["builddate"]);
 			lvi.SubItems.Add(nvc["codebase"]);
-			AssemblyInfoListView.Items.Add(lvi);
-			AssemblyNamesComboBox.Items.Add(strAssemblyName);
+			this.AssemblyInfoListView.Items.Add(lvi);
+			this.AssemblyNamesComboBox.Items.Add(strAssemblyName);
 		}
 
 		private string EntryAssemblyAttrib(string strName)
@@ -513,53 +513,53 @@ namespace ARCed.Dialogs
 
 	    private void PopulateLabels()
 		{
-			this._entryAssemblyAttribCollection = AssemblyAttribs(this._entryAssembly);
+			this._entryAssemblyAttribCollection = this.AssemblyAttribs(this._entryAssembly);
 			if (Owner == null)
 			{
-				ImagePictureBox.Visible = false;
-				AppTitleLabel.Left = AppCopyrightLabel.Left;
-				AppDescriptionLabel.Left = AppCopyrightLabel.Left;
+				this.ImagePictureBox.Visible = false;
+				this.AppTitleLabel.Left = this.AppCopyrightLabel.Left;
+				this.AppDescriptionLabel.Left = this.AppCopyrightLabel.Left;
 			}
 			else
 			{
 				Icon = Owner.Icon;
-				ImagePictureBox.Image = Icon.ToBitmap();
+				this.ImagePictureBox.Image = Icon.ToBitmap();
 			}
-			Text = ReplaceTokens(Text);
-			AppTitleLabel.Text = ReplaceTokens(AppTitleLabel.Text);
-			if (AppDescriptionLabel.Visible)
+			Text = this.ReplaceTokens(Text);
+			this.AppTitleLabel.Text = this.ReplaceTokens(this.AppTitleLabel.Text);
+			if (this.AppDescriptionLabel.Visible)
 			{
-				AppDescriptionLabel.Text = ReplaceTokens(AppDescriptionLabel.Text);
+				this.AppDescriptionLabel.Text = this.ReplaceTokens(this.AppDescriptionLabel.Text);
 			}
-			if (AppCopyrightLabel.Visible)
+			if (this.AppCopyrightLabel.Visible)
 			{
-				AppCopyrightLabel.Text = ReplaceTokens(AppCopyrightLabel.Text);
+				this.AppCopyrightLabel.Text = this.ReplaceTokens(this.AppCopyrightLabel.Text);
 			}
-			if (AppVersionLabel.Visible)
+			if (this.AppVersionLabel.Visible)
 			{
-				AppVersionLabel.Text = ReplaceTokens(AppVersionLabel.Text);
+				this.AppVersionLabel.Text = this.ReplaceTokens(this.AppVersionLabel.Text);
 			}
-			if (AppDateLabel.Visible)
+			if (this.AppDateLabel.Visible)
 			{
-				AppDateLabel.Text = ReplaceTokens(AppDateLabel.Text);
+				this.AppDateLabel.Text = this.ReplaceTokens(this.AppDateLabel.Text);
 			}
-			if (MoreRichTextBox.Visible)
+			if (this.MoreRichTextBox.Visible)
 			{
-				MoreRichTextBox.Text = ReplaceTokens(MoreRichTextBox.Text);
+				this.MoreRichTextBox.Text = this.ReplaceTokens(this.MoreRichTextBox.Text);
 			}
 		}
 
 		private string ReplaceTokens(string s)
 		{
-			s = s.Replace("%title%", EntryAssemblyAttrib("title"));
-			s = s.Replace("%copyright%", EntryAssemblyAttrib("copyright"));
-			s = s.Replace("%description%", EntryAssemblyAttrib("description"));
-			s = s.Replace("%company%", EntryAssemblyAttrib("company"));
-			s = s.Replace("%product%", EntryAssemblyAttrib("product"));
-			s = s.Replace("%trademark%", EntryAssemblyAttrib("trademark"));
+			s = s.Replace("%title%", this.EntryAssemblyAttrib("title"));
+			s = s.Replace("%copyright%", this.EntryAssemblyAttrib("copyright"));
+			s = s.Replace("%description%", this.EntryAssemblyAttrib("description"));
+			s = s.Replace("%company%", this.EntryAssemblyAttrib("company"));
+			s = s.Replace("%product%", this.EntryAssemblyAttrib("product"));
+			s = s.Replace("%trademark%", this.EntryAssemblyAttrib("trademark"));
 			s = s.Replace("%year%", DateTime.Now.Year.ToString(CultureInfo.InvariantCulture));
-			s = s.Replace("%version%", EntryAssemblyAttrib("version"));
-			s = s.Replace("%builddate%", EntryAssemblyAttrib("builddate"));
+			s = s.Replace("%version%", this.EntryAssemblyAttrib("version"));
+			s = s.Replace("%builddate%", this.EntryAssemblyAttrib("builddate"));
 			return s;
 		}
 
@@ -568,7 +568,7 @@ namespace ARCed.Dialogs
 			lvw.Items.Clear();
 			Populate(lvw, "Image Runtime Version", a.ImageRuntimeVersion);
 			Populate(lvw, "Loaded from GAC", a.GlobalAssemblyCache.ToString());
-			NameValueCollection nvc = AssemblyAttribs(a);
+			NameValueCollection nvc = this.AssemblyAttribs(a);
 			foreach (string strKey in nvc)
 			{
 				Populate(lvw, strKey, nvc[strKey]);
@@ -599,11 +599,11 @@ namespace ARCed.Dialogs
 			catch (Exception)
 			{
 			}
-			this._minWindowHeight = AppCopyrightLabel.Top + AppCopyrightLabel.Height + OKButton.Height + 30;
-			TabPanelDetails.Visible = false;
-			if (!MoreRichTextBox.Visible)
+			this._minWindowHeight = this.AppCopyrightLabel.Top + this.AppCopyrightLabel.Height + this.OKButton.Height + 30;
+			this.TabPanelDetails.Visible = false;
+			if (!this.MoreRichTextBox.Visible)
 			{
-				Height = Height - MoreRichTextBox.Height;
+				Height = Height - this.MoreRichTextBox.Height;
 			}
 		}
 
@@ -620,17 +620,17 @@ namespace ARCed.Dialogs
 		private void DetailsButtonClick(object sender, EventArgs e)
 		{
 			Cursor.Current = Cursors.WaitCursor;
-			DetailsButton.Visible = false;
+			this.DetailsButton.Visible = false;
 			SuspendLayout();
 			MaximizeBox = true;
 			FormBorderStyle = FormBorderStyle.Sizable;
 			SizeGripStyle = SizeGripStyle.Show;
 			Size = new Size(580, Size.Height + 200);
-			MoreRichTextBox.Visible = false;
-			TabPanelDetails.Visible = true;
-			SysInfoButton.Visible = true;
-			PopulateAssemblies();
-			PopulateAppInfo();
+			this.MoreRichTextBox.Visible = false;
+			this.TabPanelDetails.Visible = true;
+			this.SysInfoButton.Visible = true;
+			this.PopulateAssemblies();
+			this.PopulateAppInfo();
 			CenterToParent();
 			ResumeLayout();
 			Cursor.Current = Cursors.Default;
@@ -638,39 +638,39 @@ namespace ARCed.Dialogs
 
 		private void SysInfoButtonClick(object sender, EventArgs e)
 		{
-			ShowSysInfo();
+			this.ShowSysInfo();
 		}
 
 		private void AssemblyInfoListViewDoubleClick(object sender, EventArgs e)
 		{
 			string strAssemblyName;
-			if (AssemblyInfoListView.SelectedItems.Count > 0)
+			if (this.AssemblyInfoListView.SelectedItems.Count > 0)
 			{
-				strAssemblyName = Convert.ToString(AssemblyInfoListView.SelectedItems[0].Tag);
-				AssemblyNamesComboBox.SelectedIndex = AssemblyNamesComboBox.FindStringExact(strAssemblyName);
-				TabPanelDetails.SelectedTab = TabPageAssemblyDetails;
+				strAssemblyName = Convert.ToString(this.AssemblyInfoListView.SelectedItems[0].Tag);
+				this.AssemblyNamesComboBox.SelectedIndex = this.AssemblyNamesComboBox.FindStringExact(strAssemblyName);
+				this.TabPanelDetails.SelectedTab = this.TabPageAssemblyDetails;
 			}
 		}
 
 		private void AssemblyNamesComboBoxSelectedIndexChanged(object sender, EventArgs e)
 		{
-			var strAssemblyName = Convert.ToString(AssemblyNamesComboBox.SelectedItem);
-			PopulateAssemblyDetails(MatchAssemblyByName(strAssemblyName), AssemblyDetailsListView);
+			var strAssemblyName = Convert.ToString(this.AssemblyNamesComboBox.SelectedItem);
+			this.PopulateAssemblyDetails(MatchAssemblyByName(strAssemblyName), this.AssemblyDetailsListView);
 		}
 
 		private void AssemblyInfoListViewColumnClick(object sender, ColumnClickEventArgs e)
 		{
 			int intTargetCol = e.Column + 1;
 
-			if (AssemblyInfoListView.Tag != null)
+			if (this.AssemblyInfoListView.Tag != null)
 			{
-				if (Math.Abs(Convert.ToInt32(AssemblyInfoListView.Tag)) == intTargetCol)
+				if (Math.Abs(Convert.ToInt32(this.AssemblyInfoListView.Tag)) == intTargetCol)
 				{
-					intTargetCol = -Convert.ToInt32(AssemblyInfoListView.Tag);
+					intTargetCol = -Convert.ToInt32(this.AssemblyInfoListView.Tag);
 				}
 			}
-			AssemblyInfoListView.Tag = intTargetCol;
-			AssemblyInfoListView.ListViewItemSorter = new ListViewItemComparer(intTargetCol, true);
+			this.AssemblyInfoListView.Tag = intTargetCol;
+			this.AssemblyInfoListView.ListViewItemSorter = new ListViewItemComparer(intTargetCol, true);
 		}
 
 		private void MoreRichTextBoxLinkClicked(object sender, LinkClickedEventArgs e)
@@ -686,8 +686,8 @@ namespace ARCed.Dialogs
 
         private void TabPanelDetailsSelectedIndexChanged(object sender, EventArgs e)
         {
-            if (TabPanelDetails.SelectedTab == TabPageAssemblyDetails)
-                AssemblyNamesComboBox.Focus();
+            if (this.TabPanelDetails.SelectedTab == this.TabPageAssemblyDetails)
+                this.AssemblyNamesComboBox.Focus();
         }
 
         #endregion
@@ -711,7 +711,7 @@ namespace ARCed.Dialogs
             /// </summary>
 			public ListViewItemComparer()
 			{
-				_intCol = 0;
+				this._intCol = 0;
 				this._isAscending = true;
 			}
 
@@ -723,7 +723,7 @@ namespace ARCed.Dialogs
 			public ListViewItemComparer(int column, bool ascending)
             {
                 this._isAscending = column >= 0 && @ascending;
-                _intCol = Math.Abs(column) - 1;
+                this._intCol = Math.Abs(column) - 1;
             }
 
             #endregion

@@ -40,7 +40,7 @@ namespace ARCed.Plugins
 		/// Gets the associated window as dockable content
 		/// </summary>
 // ReSharper disable SuspiciousTypeConversion.Global
-        public DockContent Content { get { return (DockContent)Window; } }
+        public DockContent Content { get { return (DockContent)this.Window; } }
 // ReSharper restore SuspiciousTypeConversion.Global
 
 		private IPluginClient _instance;
@@ -54,12 +54,12 @@ namespace ARCed.Plugins
 		/// <param name="className">The full class name, including namespaces of the type</param>
 		public RegistryEntry(Plugin plugin, Type type, string name, string className)
 		{
-			Plugin = plugin;
-			Host = plugin.Host;
-			ClassType = type;
-			Name = name;
-			ClassName = className;
-			Description = "";
+			this.Plugin = plugin;
+			this.Host = plugin.Host;
+			this.ClassType = type;
+			this.Name = name;
+			this.ClassName = className;
+			this.Description = "";
 		}
 
 		/// <summary>
@@ -69,9 +69,10 @@ namespace ARCed.Plugins
 		{
 			get
 			{
-				if (_instance == null || (_instance as DockContent).IsDisposed)
-					_instance = (IPluginClient)Activator.CreateInstance(ClassType);
-				return _instance;
+                var dockContent = (DockContent)this._instance;
+			    if (dockContent != null && (this._instance == null || dockContent.IsDisposed))
+					this._instance = (IPluginClient)Activator.CreateInstance(this.ClassType);
+				return this._instance;
 			}
 		}
 
@@ -80,7 +81,7 @@ namespace ARCed.Plugins
 		/// </summary>
 		public void Show()
 		{
-			Window.Show(Host.DockPanel);
+			this.Window.Show(this.Host.DockPanel);
 		}
 
 		/// <summary>
@@ -89,7 +90,7 @@ namespace ARCed.Plugins
 		/// <param name="panel">The parent panel to dock the content in</param>
 		public void Show(DockPanel panel)
 		{
-			Window.Show(panel);
+			this.Window.Show(panel);
 		}
 
 	}

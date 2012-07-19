@@ -17,7 +17,7 @@ namespace ARCed.EventBuilder
 			get 
 			{
 				int count = 0;
-				foreach (RadioButton radio in groupBoxPosition.Controls)
+				foreach (RadioButton radio in this.groupBoxPosition.Controls)
 				{
 					if (radio.Checked) return count;
 					count++;
@@ -26,7 +26,7 @@ namespace ARCed.EventBuilder
 			}
 			set
 			{
-				(groupBoxPosition.Controls[value] as RadioButton).Checked = true;
+				(this.groupBoxPosition.Controls[value] as RadioButton).Checked = true;
 			}
 		}
 
@@ -35,11 +35,11 @@ namespace ARCed.EventBuilder
 		/// </summary>
 		public int WindowVisibility
 		{
-			get { return radioButtonShow.Checked ? 0 : 1; }
+			get { return this.radioButtonShow.Checked ? 0 : 1; }
 			set 
 			{
-				if (value == 0) radioButtonShow.Checked = true;
-				else radioButtonHide.Checked = true;
+				if (value == 0) this.radioButtonShow.Checked = true;
+				else this.radioButtonHide.Checked = true;
 			}
 		}
 		
@@ -48,13 +48,13 @@ namespace ARCed.EventBuilder
 		/// </summary>
 		public CmdChangeTextOptionsDialog()
 		{
-			InitializeComponent();
+			this.InitializeComponent();
 		}
 
 		private void buttonOK_Click(object sender, EventArgs e)
 		{
-			this.DialogResult = DialogResult.OK;
-			this.Close();
+			DialogResult = DialogResult.OK;
+			Close();
 		}
 	}
 }

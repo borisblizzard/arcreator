@@ -37,8 +37,8 @@ namespace ARCed.Controls
 		[Browsable(false)]
 		public int SelectedIndex
 		{
-			get { return domainUpDown.SelectedIndex; }
-			set { domainUpDown.SelectedIndex = value; }
+			get { return this.domainUpDown.SelectedIndex; }
+			set { this.domainUpDown.SelectedIndex = value; }
 		}
 
 		#endregion
@@ -65,12 +65,12 @@ namespace ARCed.Controls
 		/// <param name="colors">Text colors used for corresponding values</param>
 		public EfficiencySlot(string label, IEnumerable<string> items, Color[] colors)
 		{
-			InitializeComponent();
-			labelValue.Text = label;
+			this.InitializeComponent();
+			this.labelValue.Text = label;
 			foreach (string item in items)
-				domainUpDown.Items.Add(item);
-			TextColors = colors;
-			domainUpDown.SelectedItemChanged += this.domainUpDown_SelectedItemChanged;
+				this.domainUpDown.Items.Add(item);
+			this.TextColors = colors;
+			this.domainUpDown.SelectedItemChanged += this.domainUpDown_SelectedItemChanged;
 		}
 
 		#endregion
@@ -79,16 +79,16 @@ namespace ARCed.Controls
 
 		private void RefreshItems()
 		{
-			domainUpDown.Items.Clear();
-			foreach (string item in Items)
-				domainUpDown.Items.Add(item);
+			this.domainUpDown.Items.Clear();
+			foreach (string item in this.Items)
+				this.domainUpDown.Items.Add(item);
 		}
 
 		private void domainUpDown_SelectedItemChanged(object sender, EventArgs e)
 		{
-			domainUpDown.ForeColor = TextColors[domainUpDown.SelectedIndex];
-			if (OnItemChange != null)
-				OnItemChange(this, e);
+			this.domainUpDown.ForeColor = this.TextColors[this.domainUpDown.SelectedIndex];
+			if (this.OnItemChange != null)
+				this.OnItemChange(this, e);
 		}
 
 		#endregion

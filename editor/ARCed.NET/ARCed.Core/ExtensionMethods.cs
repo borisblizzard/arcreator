@@ -212,8 +212,7 @@ namespace ARCed
 			if (value is ulong) return true;
 			if (value is float) return true;
 			if (value is double) return true;
-			if (value is decimal) return true;
-			return false;
+			return value is decimal;
 		}
 
 		/// <summary>

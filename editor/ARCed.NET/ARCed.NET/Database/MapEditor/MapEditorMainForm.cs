@@ -13,7 +13,7 @@ namespace ARCed.Database.MapEditor
 	{
 		public MapEditorMainForm()
 		{
-			InitializeComponent();
+			this.InitializeComponent();
 		}
 	}
 }

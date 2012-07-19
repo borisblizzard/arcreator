@@ -43,19 +43,14 @@ namespace ARCed.Controls
 		[Browsable(false)]
 		public EquipSlotConfiguration Configuration 
 		{ 
-			get
-			{
-				if (_configuration == null)
-					_configuration = new EquipSlotConfiguration();
-				return _configuration;
-			}
-			set 
+			get { return this._configuration ?? (this._configuration = new EquipSlotConfiguration()); }
+		    set 
 			{
 				if (value != null)
 				{
-					_configuration = value;
-					labelType.Text = value.Label + ":";
-					RefreshItems(null);
+					this._configuration = value;
+					this.labelType.Text = value.Label + ":";
+					this.RefreshItems(null);
 				}
 			} 
 		}
@@ -66,8 +61,8 @@ namespace ARCed.Controls
 		[Category("ARCed"), Description("Defines the type of items that the equipment slot contains")]
 		public int EquipKind 
 		{ 
-			get { return Configuration.EquipKind; }
-			set { Configuration.EquipKind = value; }
+			get { return this.Configuration.EquipKind; }
+			set { this.Configuration.EquipKind = value; }
 		}
 
 		/// <summary>
@@ -76,7 +71,7 @@ namespace ARCed.Controls
 		[Category("ARCed"), Description("Specifies the items in the equipmeny ComboBox.")]
 		public ComboBox.ObjectCollection Items
 		{
-			get { return comboBoxEquipment.Items; }
+			get { return this.comboBoxEquipment.Items; }
 		}
 
 		/// <summary>
@@ -86,8 +81,8 @@ namespace ARCed.Controls
 		[Category("ARCed"), Description("Defines the label of the equipment type.")]
 		public string Label 
 		{ 
-			get { return Configuration.Label; }
-			set { Configuration.Label = value; labelType.Text = value + ":"; }
+			get { return this.Configuration.Label; }
+			set { this.Configuration.Label = value; this.labelType.Text = value + ":"; }
 		}
 
 		/// <summary>
@@ -96,8 +91,8 @@ namespace ARCed.Controls
 		[Category("ARCed"), Description("Define the fixed state of the equipment slot.")]
 		public bool Fixed
 		{
-			get { return checkBoxFixed.Checked; }
-			set { checkBoxFixed.Checked = value; }
+			get { return this.checkBoxFixed.Checked; }
+			set { this.checkBoxFixed.Checked = value; }
 		}
 
 		/// <summary>
@@ -107,8 +102,8 @@ namespace ARCed.Controls
 		[Category("ARCed"), Description("Name of the RPG object property the equipment ID value represents.")]
 		public string RpgIdAttribute 
 		{ 
-			get { return Configuration.RpgIdProperty; }
-			set { Configuration.RpgIdProperty = value; }
+			get { return this.Configuration.RpgIdProperty; }
+			set { this.Configuration.RpgIdProperty = value; }
 		}
 
 		/// <summary>
@@ -118,8 +113,8 @@ namespace ARCed.Controls
 		[Category("ARCed"), Description("Name of the RPG object property the \"fixed\" value represents.")]
 		public string RpgFixedAttribute
 		{
-			get { return Configuration.RpgFixedProperty; }
-			set { Configuration.RpgFixedProperty = value; }
+			get { return this.Configuration.RpgFixedProperty; }
+			set { this.Configuration.RpgFixedProperty = value; }
 		}
 
 		/// <summary>
@@ -128,8 +123,8 @@ namespace ARCed.Controls
 		[Browsable(false)]
 		public int SelectedIndex
 		{
-			get { return comboBoxEquipment.SelectedIndex; }
-			set { comboBoxEquipment.SelectedIndex = value; }
+			get { return this.comboBoxEquipment.SelectedIndex; }
+			set { this.comboBoxEquipment.SelectedIndex = value; }
 		}
 
 		#endregion
@@ -141,7 +136,7 @@ namespace ARCed.Controls
 		/// </summary>
 		public EquipSlot()
 		{
-			InitializeComponent();
+			this.InitializeComponent();
 		}
 
 		#endregion
@@ -154,27 +149,27 @@ namespace ARCed.Controls
 		/// <param name="ids"></param>
 		public void RefreshItems(List<dynamic> ids)
 		{
-			comboBoxEquipment.BeginUpdate();
-			comboBoxEquipment.Items.Clear();
-			comboBoxEquipment.Items.Add("<None>");
+			this.comboBoxEquipment.BeginUpdate();
+			this.comboBoxEquipment.Items.Clear();
+			this.comboBoxEquipment.Items.Add("<None>");
 			if (ids == null)
 			{
-				comboBoxEquipment.EndUpdate();
+				this.comboBoxEquipment.EndUpdate();
 				return;
 			}
 			Armor armor;
 			foreach (int id in ids)
 			{
-				if (EquipKind < 0) // Weapon
-					comboBoxEquipment.Items.Add(Project.Data.Weapons[id].ToString());
+				if (this.EquipKind < 0) // Weapon
+					this.comboBoxEquipment.Items.Add(Project.Data.Weapons[id].ToString());
 				else // Armor
 				{
 					armor = Project.Data.Armors[id];
-					if (armor.kind == EquipKind)
-						comboBoxEquipment.Items.Add(armor.ToString());
+					if (armor.kind == this.EquipKind)
+						this.comboBoxEquipment.Items.Add(armor.ToString());
 				}
 			}
-			comboBoxEquipment.EndUpdate();
+			this.comboBoxEquipment.EndUpdate();
 		}
 
 		/// <summary>
@@ -183,10 +178,8 @@ namespace ARCed.Controls
 		/// <returns>ID of the selected equipment</returns>
 		public int GetItemId()
 		{
-			string[] text = comboBoxEquipment.Text.Split(':');
-			if (text.Length <= 1)
-				return 0;
-			return Convert.ToInt32(text[0]);
+			string[] text = this.comboBoxEquipment.Text.Split(':');
+			return text.Length <= 1 ? 0 : Convert.ToInt32(text[0]);
 		}
 
 		/// <summary>
@@ -197,17 +190,17 @@ namespace ARCed.Controls
 		{
 			int itemId;
 			string subString;
-			for (int i = 1; i < comboBoxEquipment.Items.Count; i++)
+			for (int i = 1; i < this.comboBoxEquipment.Items.Count; i++)
 			{
-				subString = comboBoxEquipment.Items[i].ToString();
+				subString = this.comboBoxEquipment.Items[i].ToString();
 				itemId = Convert.ToInt32(subString.Substring(0, 4));
 				if (itemId == id)
 				{
-					comboBoxEquipment.SelectedIndex = i;
+					this.comboBoxEquipment.SelectedIndex = i;
 					return;
 				}
 			}
-			comboBoxEquipment.SelectedIndex = 0;
+			this.comboBoxEquipment.SelectedIndex = 0;
 		}
 
 		/// <summary>
@@ -216,7 +209,7 @@ namespace ARCed.Controls
 		/// </summary>
 		public void BeginUpdate()
 		{
-			comboBoxEquipment.BeginUpdate();
+			this.comboBoxEquipment.BeginUpdate();
 		}
 
 		/// <summary>
@@ -224,7 +217,7 @@ namespace ARCed.Controls
 		/// </summary>
 		public void EndUpdate()
 		{
-			comboBoxEquipment.EndUpdate();
+			this.comboBoxEquipment.EndUpdate();
 		}
 
 		#endregion
@@ -233,15 +226,15 @@ namespace ARCed.Controls
 
 		private void checkBoxFixed_CheckedChanged(object sender, EventArgs e)
 		{
-			if (OnEquipFixChange != null)
-				OnEquipFixChange(this, new EquipFixChangedEventArgs(checkBoxFixed.Checked, RpgFixedAttribute));
+			if (this.OnEquipFixChange != null)
+				this.OnEquipFixChange(this, new EquipFixChangedEventArgs(this.checkBoxFixed.Checked, this.RpgFixedAttribute));
 		}
 
 		private void comboBoxEquipment_SelectedIndexChanged(object sender, EventArgs e)
 		{
-			if (OnEquipmentChange != null)
-				OnEquipmentChange(this,
-					new EquipmentChangedEventArgs(comboBoxEquipment.SelectedIndex, GetItemId(), RpgIdAttribute));
+			if (this.OnEquipmentChange != null)
+				this.OnEquipmentChange(this,
+					new EquipmentChangedEventArgs(this.comboBoxEquipment.SelectedIndex, this.GetItemId(), this.RpgIdAttribute));
 		}
 
 		#endregion
@@ -273,9 +266,9 @@ namespace ARCed.Controls
 		/// <param name="propertyName">Name of the RPG object property this value represents</param>
 		public EquipmentChangedEventArgs(int index, int equipmentId, string propertyName)
 		{
-			Index = index;
-			EquipmentId = equipmentId;
-			PropertyName = propertyName;
+			this.Index = index;
+			this.EquipmentId = equipmentId;
+			this.PropertyName = propertyName;
 		}
 	}
 
@@ -301,8 +294,8 @@ namespace ARCed.Controls
 		/// <param name="propertyName">Name of the RPG object property this value represents</param>
 		public EquipFixChangedEventArgs(bool value, string propertyName)
 		{
-			Fixed = value;
-			PropertyName = propertyName;
+			this.Fixed = value;
+			this.PropertyName = propertyName;
 		}
 	}
 }

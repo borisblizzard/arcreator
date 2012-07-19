@@ -33,7 +33,7 @@ namespace ARCed.Database.Troops
 		/// <summary>
 		/// Gets the object list control of this database panel.
 		/// </summary>
-		protected override DatabaseObjectListBox DataObjectList { get { return dataObjectList; } }
+		protected override DatabaseObjectListBox DataObjectList { get { return this.dataObjectList; } }
 
 		#endregion
 
@@ -53,8 +53,8 @@ namespace ARCed.Database.Troops
 		/// </summary>
 		public TroopMainForm()
 		{
-			InitializeComponent();
-			RefreshEnemies();
+			this.InitializeComponent();
+			this.RefreshEnemies();
 			RefreshObjectList();
 		}
 
@@ -80,13 +80,13 @@ namespace ARCed.Database.Troops
 		public override void RefreshCurrentObject()
 		{
 			SuppressEvents = true;
-			xnaPanel.RemoveAll();
-            foreach (Troop.Member member in _troop.members)
+			this.xnaPanel.RemoveAll();
+            foreach (Troop.Member member in this._troop.members)
             {
-                xnaPanel.AddSprite(new EnemySprite(Project.Data.Enemies[member.enemy_id]));
+                this.xnaPanel.AddSprite(new EnemySprite(Project.Data.Enemies[member.enemy_id]));
             }
-			textBoxName.Text = _troop.name;
-			RefreshEvents();
+			this.textBoxName.Text = this._troop.name;
+			this.RefreshEvents();
 			SuppressEvents = false;
 		}
 
@@ -96,25 +96,25 @@ namespace ARCed.Database.Troops
 
         private void RefreshEnemies()
 		{
-			ControlHelper.Populate(listBoxEnemies, Project.Data.Enemies, false);
+			ControlHelper.Populate(this.listBoxEnemies, Project.Data.Enemies, false);
 		}
 
 		private void RefreshEvents()
 		{
-			tabControlEvents.SuspendPainting();
-			tabControlEvents.TabPages.Clear();
+			this.tabControlEvents.SuspendPainting();
+			this.tabControlEvents.TabPages.Clear();
 			int count = 1;
-			foreach (var page in _troop.pages)
+			foreach (var page in this._troop.pages)
 			{
 				var tab = new TabPage(count.ToString(CultureInfo.InvariantCulture));
 				var editor = new BattleEventPage();
 				tab.Controls.Add(editor);
 				editor.Dock = DockStyle.Fill;
 				editor.EventPage = page;
-				tabControlEvents.TabPages.Add(tab);
+				this.tabControlEvents.TabPages.Add(tab);
 				count++;
 			}
-			tabControlEvents.ResumePainting(true);
+			this.tabControlEvents.ResumePainting(true);
 		}
 
 		private void TroopMainFormLoad(object sender, EventArgs e)
@@ -122,8 +122,8 @@ namespace ARCed.Database.Troops
 			var resources = ResourceHelper.GetTypes(@"Graphics\Battlebacks");
 			if (resources.Count > 0)
 			{
-				_battleBackName = resources[0].Name;
-				xnaPanel.SetBackground(Cache.Battleback(_battleBackName));
+				this._battleBackName = resources[0].Name;
+				this.xnaPanel.SetBackground(Cache.Battleback(this._battleBackName));
 			}
 			else
 			{
@@ -133,31 +133,31 @@ namespace ARCed.Database.Troops
 					g.FillRectangle(Brushes.CornflowerBlue, 0, 0, 640, 320);
 					g.DrawString("No background image found!", Font, Brushes.White, new PointF(12, 12));
 				}
-				xnaPanel.SetBackground(image);
+				this.xnaPanel.SetBackground(image);
 			}
-			dataObjectList.SelectedIndex = 0;
+			this.dataObjectList.SelectedIndex = 0;
 		}
 
 		private void ButtonAddEnemyClick(object sender, EventArgs e)
 		{
-			var index = listBoxEnemies.SelectedIndex;
+			var index = this.listBoxEnemies.SelectedIndex;
 			if (index >= 0)
 			{
 				var sprite = new EnemySprite(Project.Data.Enemies[index + 1]);
-				xnaPanel.AddSprite(sprite);
+				this.xnaPanel.AddSprite(sprite);
 			}
-			if (xnaPanel.Sprites.Count >= 12)
-				buttonAddEnemy.Enabled = false;
+			if (this.xnaPanel.Sprites.Count >= 12)
+				this.buttonAddEnemy.Enabled = false;
 		}
 
 		private void ButtonRemoveEnemyClick(object sender, EventArgs e)
 		{
-			xnaPanel.RemoveSelected();
+			this.xnaPanel.RemoveSelected();
 		}
 
 		private void ButtonAlignEnemiesClick(object sender, EventArgs e)
 		{
-			xnaPanel.AutoAlign();
+			this.xnaPanel.AutoAlign();
 		}
 
 		private void ButtonFullClick(object sender, EventArgs e)
@@ -168,7 +168,7 @@ namespace ARCed.Database.Troops
 		private void XnaPanelOnSelectionChanged(object sender, EventArgs e)
 		{
 			var enable = this.xnaPanel.Sprites.Any(sprite => sprite.Selected);
-		    buttonRemoveEnemy.Enabled = enable;
+		    this.buttonRemoveEnemy.Enabled = enable;
 		}
 
 		private void XnaPanelOnTroopChanged(object sender, EventArgs e)
@@ -188,12 +188,12 @@ namespace ARCed.Database.Troops
 
 		private void ListBoxEnemiesSelectedIndexChanged(object sender, EventArgs e)
 		{
-			buttonAddEnemy.Enabled = listBoxEnemies.SelectedIndex >= 0;
+			this.buttonAddEnemy.Enabled = this.listBoxEnemies.SelectedIndex >= 0;
 		}
 
 		private void ButtonBattlebackClick(object sender, EventArgs e)
 		{
-			using (var dialog = new ImageSelectionForm(@"Battlebacks", _battleBackName))
+			using (var dialog = new ImageSelectionForm(@"Battlebacks", this._battleBackName))
 			{
 				dialog.Width = 800;
 				dialog.SelectionEnabled = false;
@@ -206,7 +206,7 @@ namespace ARCed.Database.Troops
 
 		private void DataObjectListOnListBoxIndexChanged(object sender, EventArgs e)
 		{
-			var index = dataObjectList.SelectedIndex;
+			var index = this.dataObjectList.SelectedIndex;
 		    if (index < 0) return;
 		    this._troop = this.Data[index + 1];
 		    this.RefreshCurrentObject();
@@ -214,39 +214,39 @@ namespace ARCed.Database.Troops
 
 		private void ButtonClearClick(object sender, EventArgs e)
 		{
-			xnaPanel.RemoveAll();
+			this.xnaPanel.RemoveAll();
 		}
 
 		private void ContextMenuStripMemberOpening(object sender, CancelEventArgs e)
 		{
-			var sprite = xnaPanel.SelectedSprite;
+			var sprite = this.xnaPanel.SelectedSprite;
 			if (sprite == null)
 				e.Cancel = true;
 			else
 			{
 				SuppressEvents = true;
-				buttonAppearHalfway.Checked = sprite.Hidden;
-				buttonImmortal.Checked = sprite.Immortal;
+				this.buttonAppearHalfway.Checked = sprite.Hidden;
+				this.buttonImmortal.Checked = sprite.Immortal;
 				SuppressEvents = false;
 			}
 		}
 
 		private void ButtonAppearHalfwayCheckedChanged(object sender, EventArgs e)
 		{
-			xnaPanel.SelectedSprite.Hidden = buttonAppearHalfway.Checked;
-			xnaPanel.Invalidate();
+			this.xnaPanel.SelectedSprite.Hidden = this.buttonAppearHalfway.Checked;
+			this.xnaPanel.Invalidate();
 		}
 
 		private void ButtonImmortalCheckedChanged(object sender, EventArgs e)
 		{
-			xnaPanel.SelectedSprite.Immortal = buttonImmortal.Checked;
+			this.xnaPanel.SelectedSprite.Immortal = this.buttonImmortal.Checked;
 		}
 
 		private void ButtonAutonameClick(object sender, EventArgs e)
 		{
 			var enemyCounts = new SortedDictionary<int, int>();
 			int id;
-			foreach (Troop.Member member in _troop.members)
+			foreach (Troop.Member member in this._troop.members)
 			{
 				id = member.enemy_id;
 				if (enemyCounts.ContainsKey(id))
@@ -262,7 +262,7 @@ namespace ARCed.Database.Troops
 					Project.Data.Enemies[i].name, enemyCounts[i]);
 				count++;
 			}
-			textBoxName.Text = String.Join(", ", names);
+			this.textBoxName.Text = String.Join(", ", names);
 		}
 
 		private void TextBoxNameTextChanged(object sender, EventArgs e)
@@ -282,9 +282,9 @@ namespace ARCed.Database.Troops
 
 		private void ListBoxEnemiesMouseDown(object sender, MouseEventArgs e)
 		{
-			var index = listBoxEnemies.IndexFromPoint(e.Location);
+			var index = this.listBoxEnemies.IndexFromPoint(e.Location);
 			if (index >= 0)
-				listBoxEnemies.DoDragDrop(Project.Data.Enemies[index + 1], DragDropEffects.Copy);
+				this.listBoxEnemies.DoDragDrop(Project.Data.Enemies[index + 1], DragDropEffects.Copy);
 		}
 
 		private void XnaPanelDragEnter(object sender, DragEventArgs e) 
@@ -297,10 +297,10 @@ namespace ARCed.Database.Troops
 		{
             var enemy = (Enemy)e.Data.GetData(typeof(Enemy));
             var sprite = new EnemySprite(enemy);
-			var p = xnaPanel.PointToClient(new Point(e.X, e.Y));
+			var p = this.xnaPanel.PointToClient(new Point(e.X, e.Y));
 			sprite.X = p.X - (sprite.Width / 2);
 			sprite.Y = p.Y - (sprite.Height / 2);
-			xnaPanel.AddSprite(sprite);
+			this.xnaPanel.AddSprite(sprite);
         }
 
         #endregion

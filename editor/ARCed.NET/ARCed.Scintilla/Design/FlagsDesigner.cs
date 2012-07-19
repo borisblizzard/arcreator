@@ -24,7 +24,7 @@ namespace ARCed.Scintilla.Design
         public FlagCheckedListBox()
         {
             // This call is required by the Windows.Forms Form Designer.
-            InitializeComponent();
+            this.InitializeComponent();
 
             // TODO: Add any initialization after the InitForm call
 
@@ -34,8 +34,8 @@ namespace ARCed.Scintilla.Design
         {
             if(disposing)
             {
-                if(components != null)
-                    components.Dispose();
+                if(this.components != null)
+                    this.components.Dispose();
             }
             base.Dispose(disposing);
         }
@@ -69,20 +69,20 @@ namespace ARCed.Scintilla.Design
         {
             base.OnItemCheck(e);
 
-            if(isUpdatingCheckStates)
+            if(this.isUpdatingCheckStates)
                 return;
 
             // Get the checked/unchecked item
             var item = Items[e.Index] as FlagCheckedListBoxItem;
             // Update other items
-            UpdateCheckedItems(item, e.NewValue);
+            this.UpdateCheckedItems(item, e.NewValue);
         }
 
         // Checks/Unchecks items depending on the give bitvalue
         protected void UpdateCheckedItems(int value)
         {
 
-            isUpdatingCheckStates = true;
+            this.isUpdatingCheckStates = true;
 
             // Iterate over all items
             for(int i=0; i<Items.Count; i++)
@@ -105,7 +105,7 @@ namespace ARCed.Scintilla.Design
                 }
             }
 
-            isUpdatingCheckStates = false;
+            this.isUpdatingCheckStates = false;
 
         }
 
@@ -117,7 +117,7 @@ namespace ARCed.Scintilla.Design
 
             // If the value of the item is 0, call directly.
             if(composite.value==0)
-                UpdateCheckedItems(0);
+                this.UpdateCheckedItems(0);
 
 
             // Get the total value of all checked items
@@ -139,7 +139,7 @@ namespace ARCed.Scintilla.Design
                 sum |= composite.value;
 
             // Update all items in the checklistbox based on the final bit value
-            UpdateCheckedItems(sum);
+            this.UpdateCheckedItems(sum);
 
         }
 
@@ -167,20 +167,20 @@ namespace ARCed.Scintilla.Design
         // Adds items to the checklistbox based on the members of the enum
         private void FillEnumMembers()
         {
-            foreach(string name in Enum.GetNames(enumType))
+            foreach(string name in Enum.GetNames(this.enumType))
             {
-                object val = Enum.Parse(enumType, name);
+                object val = Enum.Parse(this.enumType, name);
                 var intVal = (int)Convert.ChangeType(val, typeof(int));
 
-                Add(intVal, name);
+                this.Add(intVal, name);
             }
         }
 
         // Checks/unchecks items based on the current value of the enum variable
         private void ApplyEnumValue()
         {
-            var intVal = (int)Convert.ChangeType(enumValue, typeof(int));
-            UpdateCheckedItems(intVal);
+            var intVal = (int)Convert.ChangeType(this.enumValue, typeof(int));
+            this.UpdateCheckedItems(intVal);
 
         }
 
@@ -189,17 +189,17 @@ namespace ARCed.Scintilla.Design
         {
             get
             {
-                object e = Enum.ToObject(enumType, GetCurrentValue());
+                object e = Enum.ToObject(this.enumType, this.GetCurrentValue());
                 return (Enum)e;
             }
             set
             {
 
                 Items.Clear();
-                enumValue = value; // Store the current enum value
-                enumType = value.GetType(); // Store enum type
-                FillEnumMembers(); // Add items for enum members
-                ApplyEnumValue(); // Check/uncheck items depending on enum value
+                this.enumValue = value; // Store the current enum value
+                this.enumType = value.GetType(); // Store enum type
+                this.FillEnumMembers(); // Add items for enum members
+                this.ApplyEnumValue(); // Check/uncheck items depending on enum value
 
             }
         }
@@ -212,13 +212,13 @@ namespace ARCed.Scintilla.Design
     {
         public FlagCheckedListBoxItem(int v, string c)
         {
-            value = v;
-            caption = c;
+            this.value = v;
+            this.caption = c;
         }
 
         public override string ToString()
         {
-            return caption;
+            return this.caption;
         }
 
         // Returns true if the value corresponds to a single bit being set
@@ -226,14 +226,14 @@ namespace ARCed.Scintilla.Design
         {
             get
             {
-                return ((value & (value - 1)) == 0);
+                return ((this.value & (this.value - 1)) == 0);
             }
         }
 
         // Returns true if this value is a member of the composite bit value
         public bool IsMemberFlag(FlagCheckedListBoxItem composite)
         {
-            return (IsFlag && ((value & composite.value) == value));
+            return (this.IsFlag && ((this.value & composite.value) == this.value));
         }
 
         public int value;
@@ -249,8 +249,10 @@ namespace ARCed.Scintilla.Design
 
         public FlagEnumUIEditor()
         {
-            flagEnumCB = new FlagCheckedListBox();
-            flagEnumCB.BorderStyle = BorderStyle.None;
+            this.flagEnumCB = new FlagCheckedListBox
+            {
+                BorderStyle = BorderStyle.None
+            };
         }
 
         public override object EditValue(ITypeDescriptorContext context, IServiceProvider provider, object value)
@@ -266,9 +268,9 @@ namespace ARCed.Scintilla.Design
                 {
 
                     var e = (Enum)Convert.ChangeType(value, context.PropertyDescriptor.PropertyType);
-                    flagEnumCB.EnumValue = e;
-                    edSvc.DropDownControl(flagEnumCB);
-                    return flagEnumCB.EnumValue;
+                    this.flagEnumCB.EnumValue = e;
+                    edSvc.DropDownControl(this.flagEnumCB);
+                    return this.flagEnumCB.EnumValue;
 
                 }
             }

@@ -65,7 +65,7 @@ namespace ARCed.Settings
 		public List<string> ColorsHtml 
 		{
             get { return this.Colors.Select(ColorTranslator.ToHtml).ToList(); }
-            set { Colors = value.Select(ColorTranslator.FromHtml).ToList(); }
+            set { this.Colors = value.Select(ColorTranslator.FromHtml).ToList(); }
 		}
 
 		/// <summary>
@@ -73,16 +73,16 @@ namespace ARCed.Settings
 		/// </summary>
 		public ChartSettings()
 		{
-			Type = SeriesChartType.SplineRange;
-			Lighting = LightStyle.Realistic;
-			SplineTension = 0.4M;
-			Perspective = 0;
-			Inclination = 0;
-			Rotation = 0;
-			Depth = 200;
-			Markers = false;
-			ThreeD = true;
-			Colors = DefaultColors;
+			this.Type = SeriesChartType.SplineRange;
+			this.Lighting = LightStyle.Realistic;
+			this.SplineTension = 0.4M;
+			this.Perspective = 0;
+			this.Inclination = 0;
+			this.Rotation = 0;
+			this.Depth = 200;
+			this.Markers = false;
+			this.ThreeD = true;
+			this.Colors = DefaultColors;
 		}
 
 		/// <summary>

@@ -26,7 +26,7 @@ namespace ARCed.Scintilla
 
         public void Add(SnippetLink item)
         {
-            Add(item.Key, item);
+            this.Add(item.Key, item);
         }
 
 
@@ -34,16 +34,16 @@ namespace ARCed.Scintilla
         {
             if (!key.Equals(value.Key, StringComparison.CurrentCultureIgnoreCase))
                 throw new ArgumentException("Key argument must == value.Key", "key");
-            else if (ContainsKey(key))
+            else if (this.ContainsKey(key))
                 throw new ArgumentException("Key already exists", "key");
 
-            _snippetLinks.Add(value);
+            this._snippetLinks.Add(value);
         }
 
 
         public void Add(KeyValuePair<string, SnippetLink> item)
         {
-            Add(item.Key, item.Value);
+            this.Add(item.Key, item.Value);
         }
 
 
@@ -51,7 +51,7 @@ namespace ARCed.Scintilla
         {
             var rageList = new List<ManagedRange>();
 
-            foreach (SnippetLink sl in _snippetLinks)
+            foreach (SnippetLink sl in this._snippetLinks)
             {
                 foreach (Range r in sl.Ranges)
                 {
@@ -60,7 +60,7 @@ namespace ARCed.Scintilla
                 }
             }
 
-            _snippetLinks.Clear();
+            this._snippetLinks.Clear();
 
             foreach (ManagedRange mr in rageList)
                 mr.Dispose();
@@ -69,19 +69,19 @@ namespace ARCed.Scintilla
 
         public bool Contains(SnippetLink item)
         {
-            return _snippetLinks.Contains(item);
+            return this._snippetLinks.Contains(item);
         }
 
 
         public bool Contains(KeyValuePair<string, SnippetLink> item)
         {
-            return ContainsKey(item.Key);
+            return this.ContainsKey(item.Key);
         }
 
 
         public bool ContainsKey(string key)
         {
-            foreach (SnippetLink sl in _snippetLinks)
+            foreach (SnippetLink sl in this._snippetLinks)
                 if (sl.Key.Equals(key, StringComparison.CurrentCultureIgnoreCase))
                     return true;
 
@@ -91,7 +91,7 @@ namespace ARCed.Scintilla
 
         public void CopyTo(SnippetLink[] array, int arrayIndex)
         {
-            _snippetLinks.CopyTo(array, arrayIndex);
+            this._snippetLinks.CopyTo(array, arrayIndex);
         }
 
 
@@ -109,29 +109,29 @@ namespace ARCed.Scintilla
 
         IEnumerator<SnippetLink> IEnumerable<SnippetLink>.GetEnumerator()
         {
-            return _snippetLinks.GetEnumerator();
+            return this._snippetLinks.GetEnumerator();
         }
 
 
         public int IndexOf(SnippetLink item)
         {
-            return _snippetLinks.IndexOf(item);
+            return this._snippetLinks.IndexOf(item);
         }
 
 
         public void Insert(int index, SnippetLink item)
         {
-            _snippetLinks.Insert(index, item);
+            this._snippetLinks.Insert(index, item);
         }
 
 
         public bool Remove(string key)
         {
-            for (int i = 0; i < _snippetLinks.Count; i++)
+            for (int i = 0; i < this._snippetLinks.Count; i++)
             {
-                if (_snippetLinks[i].Key.Equals(key, StringComparison.CurrentCultureIgnoreCase))
+                if (this._snippetLinks[i].Key.Equals(key, StringComparison.CurrentCultureIgnoreCase))
                 {
-                    _snippetLinks.RemoveAt(i);
+                    this._snippetLinks.RemoveAt(i);
                     return true;
                 }
             }
@@ -142,7 +142,7 @@ namespace ARCed.Scintilla
 
         public bool Remove(SnippetLink item)
         {
-            return _snippetLinks.Remove(item);
+            return this._snippetLinks.Remove(item);
         }
 
 
@@ -154,24 +154,24 @@ namespace ARCed.Scintilla
 
         public void RemoveAt(int index)
         {
-            _snippetLinks.RemoveAt(index);
+            this._snippetLinks.RemoveAt(index);
         }
 
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return _snippetLinks.GetEnumerator();
+            return this._snippetLinks.GetEnumerator();
         }
 
 
         public bool TryGetValue(string key, out SnippetLink value)
         {
             value = null;
-            for (int i = 0; i < _snippetLinks.Count; i++)
+            for (int i = 0; i < this._snippetLinks.Count; i++)
             {
-                if (_snippetLinks[i].Key.Equals(key, StringComparison.CurrentCultureIgnoreCase))
+                if (this._snippetLinks[i].Key.Equals(key, StringComparison.CurrentCultureIgnoreCase))
                 {
-                    value = _snippetLinks[i];
+                    value = this._snippetLinks[i];
                     return true;
                 }
             }
@@ -187,11 +187,11 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _activeRange;
+                return this._activeRange;
             }
             set
             {
-                _activeRange = value;
+                this._activeRange = value;
             }
         }
 
@@ -200,26 +200,26 @@ namespace ARCed.Scintilla
         {
             get
             {
-                if (_activeLinkIndex < 0 || _activeLinkIndex >= _snippetLinks.Count)
+                if (this._activeLinkIndex < 0 || this._activeLinkIndex >= this._snippetLinks.Count)
                     return null;
 
-                return _snippetLinks[_activeLinkIndex];
+                return this._snippetLinks[this._activeLinkIndex];
             }
             set
             {
                 if (value == null)
                 {
-                    _activeLinkIndex = -1;
+                    this._activeLinkIndex = -1;
                     return;
                 }
-                _activeLinkIndex = _snippetLinks.IndexOf(value);
+                this._activeLinkIndex = this._snippetLinks.IndexOf(value);
             }
         }
 
 
         public int Count
         {
-            get { return _snippetLinks.Count; }
+            get { return this._snippetLinks.Count; }
         }
 
 
@@ -227,11 +227,11 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _endPoint;
+                return this._endPoint;
             }
             set
             {
-                _endPoint = value;
+                this._endPoint = value;
             }
         }
 
@@ -240,11 +240,11 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _isActive;
+                return this._isActive;
             }
             set
             {
-                _isActive = value;
+                this._isActive = value;
             }
         }
 
@@ -259,10 +259,10 @@ namespace ARCed.Scintilla
         {
             get
             {
-                var keys = new string[_snippetLinks.Count];
-                for (int i = 0; i < _snippetLinks.Count; i++)
+                var keys = new string[this._snippetLinks.Count];
+                for (int i = 0; i < this._snippetLinks.Count; i++)
                 {
-                    keys[i] = _snippetLinks[i].Key;
+                    keys[i] = this._snippetLinks[i].Key;
                 }
                 return keys;
             }
@@ -273,13 +273,13 @@ namespace ARCed.Scintilla
         {
             get
             {
-                int newIndex = _activeLinkIndex;
+                int newIndex = this._activeLinkIndex;
                 if (newIndex < 0)
                     return null;
-                else if (++newIndex >= _snippetLinks.Count)
+                else if (++newIndex >= this._snippetLinks.Count)
                     newIndex = 0;
 
-                return _snippetLinks[newIndex];
+                return this._snippetLinks[newIndex];
             }
         }
 
@@ -288,13 +288,13 @@ namespace ARCed.Scintilla
         {
             get
             {
-                int newIndex = _activeLinkIndex;
+                int newIndex = this._activeLinkIndex;
                 if (newIndex < 0)
                     return null;
                 else if (--newIndex < 0)
-                    newIndex = _snippetLinks.Count - 1;
+                    newIndex = this._snippetLinks.Count - 1;
 
-                return _snippetLinks[newIndex];
+                return this._snippetLinks[newIndex];
             }
         }
 
@@ -303,10 +303,10 @@ namespace ARCed.Scintilla
         {
             get
             {
-                var values = new SnippetLink[_snippetLinks.Count];
-                for (int i = 0; i < _snippetLinks.Count; i++)
+                var values = new SnippetLink[this._snippetLinks.Count];
+                for (int i = 0; i < this._snippetLinks.Count; i++)
                 {
-                    values[i] = _snippetLinks[i];
+                    values[i] = this._snippetLinks[i];
                 }
                 return values;
             }
@@ -321,10 +321,10 @@ namespace ARCed.Scintilla
         {
             get
             {
-                for (int i = 0; i < _snippetLinks.Count; i++)
+                for (int i = 0; i < this._snippetLinks.Count; i++)
                 {
-                    if (_snippetLinks[i].Key.Equals(key, StringComparison.CurrentCultureIgnoreCase))
-                        return _snippetLinks[i];
+                    if (this._snippetLinks[i].Key.Equals(key, StringComparison.CurrentCultureIgnoreCase))
+                        return this._snippetLinks[i];
                 }
                 throw new KeyNotFoundException();
             }
@@ -333,16 +333,16 @@ namespace ARCed.Scintilla
                 if (!key.Equals(value.Key, StringComparison.CurrentCultureIgnoreCase))
                     throw new ArgumentException("Key argument must == value.Key", "key");
 
-                for (int i = 0; i < _snippetLinks.Count; i++)
+                for (int i = 0; i < this._snippetLinks.Count; i++)
                 {
-                    if (_snippetLinks[i].Key.Equals(key, StringComparison.CurrentCultureIgnoreCase))
+                    if (this._snippetLinks[i].Key.Equals(key, StringComparison.CurrentCultureIgnoreCase))
                     {
-                        _snippetLinks[i] = value;
+                        this._snippetLinks[i] = value;
                         return;
                     }
                 }
 
-                _snippetLinks.Add(value);
+                this._snippetLinks.Add(value);
             }
         }
 
@@ -351,11 +351,11 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _snippetLinks[index];
+                return this._snippetLinks[index];
             }
             set
             {
-                _snippetLinks[index] = value;
+                this._snippetLinks[index] = value;
             }
         }
 

@@ -20,8 +20,8 @@ namespace RPG
 		/// </summary>
 		public RpgObject()
 		{
-			name = "";
-			id = 0;
+			this.name = "";
+			this.id = 0;
 		}
 
 		/// <summary>

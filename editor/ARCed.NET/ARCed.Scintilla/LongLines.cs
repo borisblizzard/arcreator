@@ -15,45 +15,45 @@ namespace ARCed.Scintilla
 
         private void ResetEdgeColor()
         {
-            EdgeColor = Color.Silver;
+            this.EdgeColor = Color.Silver;
         }
 
 
         private void ResetEdgeColumn()
         {
-            EdgeColumn = 0;
+            this.EdgeColumn = 0;
         }
 
 
         private void ResetEdgeMode()
         {
-            EdgeMode = EdgeMode.None;
+            this.EdgeMode = EdgeMode.None;
         }
 
 
         internal bool ShouldSerialize()
         {
-            return ShouldSerializeEdgeColor() ||
-                ShouldSerializeEdgeColumn() ||
-                ShouldSerializeEdgeMode();
+            return this.ShouldSerializeEdgeColor() ||
+                this.ShouldSerializeEdgeColumn() ||
+                this.ShouldSerializeEdgeMode();
         }
 
 
         private bool ShouldSerializeEdgeColor()
         {
-            return EdgeColor != Color.Silver;
+            return this.EdgeColor != Color.Silver;
         }
 
 
         private bool ShouldSerializeEdgeColumn()
         {
-            return EdgeColumn != 0;
+            return this.EdgeColumn != 0;
         }
 
 
         private bool ShouldSerializeEdgeMode()
         {
-            return EdgeMode != EdgeMode.None;
+            return this.EdgeMode != EdgeMode.None;
         }
 
         #endregion Methods

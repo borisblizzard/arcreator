@@ -119,31 +119,31 @@ namespace RPG
         /// </summary>
 		public Skill()
 		{
-			id = 0;
-			name = "";
-			icon_name = "";
-			description = "";
-			scope = 0;
-			occasion = 1;
-			animation1_id = 0;
-			animation2_id = 0;
-			menu_se = new AudioFile("", 80);
-			common_event_id = 0;
-			sp_cost = 0;
-			power = 0;
-			atk_f = 0;
-			eva_f = 0;
-			str_f = 0;
-			dex_f = 0;
-			agi_f = 0;
-			int_f = 0;
-			hit = 0;
-			pdef_f = 0;
-			mdef_f = 0;
-			variance = 15;
-			element_set = new List<dynamic>();
-			plus_state_set = new List<dynamic>();
-			minus_state_set = new List<dynamic>();
+			this.id = 0;
+			this.name = "";
+			this.icon_name = "";
+			this.description = "";
+			this.scope = 0;
+			this.occasion = 1;
+			this.animation1_id = 0;
+			this.animation2_id = 0;
+			this.menu_se = new AudioFile("", 80);
+			this.common_event_id = 0;
+			this.sp_cost = 0;
+			this.power = 0;
+			this.atk_f = 0;
+			this.eva_f = 0;
+			this.str_f = 0;
+			this.dex_f = 0;
+			this.agi_f = 0;
+			this.int_f = 0;
+			this.hit = 0;
+			this.pdef_f = 0;
+			this.mdef_f = 0;
+			this.variance = 15;
+			this.element_set = new List<dynamic>();
+			this.plus_state_set = new List<dynamic>();
+			this.minus_state_set = new List<dynamic>();
 		}
 
 		/// <summary>

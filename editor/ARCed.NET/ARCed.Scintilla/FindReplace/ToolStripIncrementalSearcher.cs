@@ -13,8 +13,8 @@ namespace ARCed.Scintilla
 
         public Scintilla Scintilla
         {
-            get { return Searcher.Scintilla; }
-            set { Searcher.Scintilla = value; }
+            get { return this.Searcher.Scintilla; }
+            set { this.Searcher.Scintilla = value; }
         }
 
 

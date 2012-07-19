@@ -67,7 +67,7 @@ namespace ARCed.Core
         /// </summary>
 		public QColorMatrix()
 		{
-			Reset();
+			this.Reset();
 		}
 
         /// <summary>
@@ -78,7 +78,7 @@ namespace ARCed.Core
 		{
 			if (matrixData == null)
 			{
-				Reset();
+				this.Reset();
 				return;
 			}
 			Copy(matrixData);
@@ -90,7 +90,7 @@ namespace ARCed.Core
         /// <param name="matrixData">Matrix data to initialize with</param>
 		public QColorMatrix(float[][] matrixData)
 		{
-			FromJaggedMatrix(matrixData);
+			this.FromJaggedMatrix(matrixData);
 		}
 
         /// <summary>
@@ -108,7 +108,7 @@ namespace ARCed.Core
         /// <param name="colorMatrix">Matrix data to initialize with</param>
 		public QColorMatrix(ColorMatrix colorMatrix)
 		{
-			FromColorMatrix(colorMatrix);
+			this.FromColorMatrix(colorMatrix);
 		}
 
 		#endregion 
@@ -121,7 +121,7 @@ namespace ARCed.Core
         /// <param name="matrixData">Matrix data</param>
 		public void FromJaggedMatrix(float[][] matrixData)
 		{
-			Reset();
+			this.Reset();
 			if (matrixData == null)
 			{
 				return;
@@ -165,7 +165,7 @@ namespace ARCed.Core
 		{
 			if (colorMatrix == null)
 			{
-				Reset();
+				this.Reset();
 				return;
 			}
 			for (int i = 0; i < MATRIX_LENGTH; i++)
@@ -219,7 +219,7 @@ namespace ARCed.Core
 		/// </summary>
 		public float[] TransformVector(float[] v)
 		{
-			return TransformVector(v, false);
+			return this.TransformVector(v, false);
 		}
 
         /// <summary>
@@ -293,7 +293,7 @@ namespace ARCed.Core
 			for (int i = 0; i < colors.Length; i++)
 			{
 				colors[i] = Vector2Color(
-					TransformVector(
+					this.TransformVector(
 						Color2Vector(colors[i]), true));
 			}
 			return colors;
@@ -305,7 +305,7 @@ namespace ARCed.Core
         /// <param name="matrix">Matrix to multiply</param>
 		public void Multiply(QColorMatrix matrix)
 		{
-			Multiply(matrix, MatrixOrder.MatrixOrderPrepend);
+			this.Multiply(matrix, MatrixOrder.MatrixOrderPrepend);
 		}
 
         /// <summary>
@@ -364,7 +364,7 @@ namespace ARCed.Core
 		public void Scale(float scaleRed, float scaleGreen, float scaleBlue,
 			float scaleOpacity)
 		{
-			Scale(scaleRed, scaleGreen, scaleBlue,
+			this.Scale(scaleRed, scaleGreen, scaleBlue,
 				scaleOpacity, MatrixOrder.MatrixOrderPrepend);
 		}
 
@@ -384,7 +384,7 @@ namespace ARCed.Core
 			qm._matrix[1, 1] = scaleGreen;
 			qm._matrix[2, 2] = scaleBlue;
 			qm._matrix[3, 3] = scaleOpacity;
-			Multiply(qm, order);
+			this.Multiply(qm, order);
 		}
         
         /// <summary>
@@ -393,7 +393,7 @@ namespace ARCed.Core
         /// <param name="scale">Scale value</param>
 		public void ScaleColors(float scale)
 		{
-			ScaleColors(scale, MatrixOrder.MatrixOrderPrepend);
+			this.ScaleColors(scale, MatrixOrder.MatrixOrderPrepend);
 		}
 
         /// <summary>
@@ -403,7 +403,7 @@ namespace ARCed.Core
         /// <param name="order">Matrix order</param>
 		public void ScaleColors(float scale, MatrixOrder order)
 		{
-			Scale(scale, scale, scale, 1.0f, order);
+			this.Scale(scale, scale, scale, 1.0f, order);
 		}
 
         /// <summary>
@@ -412,7 +412,7 @@ namespace ARCed.Core
         /// <param name="scaleOpacity">Alpha scaling value</param>
 		public void ScaleOpacity(float scaleOpacity)
 		{
-			ScaleOpacity(scaleOpacity, MatrixOrder.MatrixOrderPrepend);
+			this.ScaleOpacity(scaleOpacity, MatrixOrder.MatrixOrderPrepend);
 		}
 
         /// <summary>
@@ -422,7 +422,7 @@ namespace ARCed.Core
         /// <param name="order">Matrix order</param>
 		public void ScaleOpacity(float scaleOpacity, MatrixOrder order)
 		{
-			Scale(1.0f, 1.0f, 1.0f, scaleOpacity, order);
+			this.Scale(1.0f, 1.0f, 1.0f, scaleOpacity, order);
 		}
 
 		#endregion
@@ -439,7 +439,7 @@ namespace ARCed.Core
 		public void Translate(float offsetRed, float offsetGreen, float offsetBlue,
 			float offsetOpacity)
 		{
-			Translate(offsetRed, offsetGreen, offsetBlue,
+			this.Translate(offsetRed, offsetGreen, offsetBlue,
 				offsetOpacity, MatrixOrder.MatrixOrderPrepend);
 		}
 
@@ -459,7 +459,7 @@ namespace ARCed.Core
 			qm._matrix[4, 1] = offsetGreen;
 			qm._matrix[4, 2] = offsetBlue;
 			qm._matrix[4, 3] = offsetOpacity;
-			Multiply(qm, order);
+			this.Multiply(qm, order);
 		}
 
         /// <summary>
@@ -468,7 +468,7 @@ namespace ARCed.Core
         /// <param name="offset">Offset value</param>
 		public void TranslateColors(float offset)
 		{
-			TranslateColors(offset, MatrixOrder.MatrixOrderPrepend);
+			this.TranslateColors(offset, MatrixOrder.MatrixOrderPrepend);
 		}
 
         /// <summary>
@@ -478,7 +478,7 @@ namespace ARCed.Core
         /// <param name="order">Matrix order</param>
 		public void TranslateColors(float offset, MatrixOrder order)
 		{
-			Translate(offset, offset, offset, 0.0f, order);
+			this.Translate(offset, offset, offset, 0.0f, order);
 		}
 
         /// <summary>
@@ -487,7 +487,7 @@ namespace ARCed.Core
         /// <param name="offsetOpacity">Alpha offset value</param>
 		public void TranslateOpacity(float offsetOpacity)
 		{
-			TranslateOpacity(offsetOpacity, MatrixOrder.MatrixOrderPrepend);
+			this.TranslateOpacity(offsetOpacity, MatrixOrder.MatrixOrderPrepend);
 		}
 
         /// <summary>
@@ -497,7 +497,7 @@ namespace ARCed.Core
         /// <param name="order">Matrix order</param>
 		public void TranslateOpacity(float offsetOpacity, MatrixOrder order)
 		{
-			Translate(0.0f, 0.0f, 0.0f, offsetOpacity, order);
+			this.Translate(0.0f, 0.0f, 0.0f, offsetOpacity, order);
 		}
 
 		#endregion 
@@ -511,7 +511,7 @@ namespace ARCed.Core
         /// <param name="phi">Angle in degrees to rotate (-180.0f... 180.0f).</param>
 		public void RotateRed(float phi)
 		{
-			RotateRed(phi, MatrixOrder.MatrixOrderPrepend);
+			this.RotateRed(phi, MatrixOrder.MatrixOrderPrepend);
 		}
 
         /// <summary>
@@ -521,7 +521,7 @@ namespace ARCed.Core
         /// <param name="phi">Angle in degrees to rotate (-180.0f... 180.0f).</param>
 		public void RotateGreen(float phi)
 		{
-			RotateGreen(phi, MatrixOrder.MatrixOrderPrepend);
+			this.RotateGreen(phi, MatrixOrder.MatrixOrderPrepend);
 		}
 
         /// <summary>
@@ -531,7 +531,7 @@ namespace ARCed.Core
         /// <param name="phi">Angle in degrees to rotate (-180.0f... 180.0f).</param>
 		public void RotateBlue(float phi)
 		{
-			RotateBlue(phi, MatrixOrder.MatrixOrderPrepend);
+			this.RotateBlue(phi, MatrixOrder.MatrixOrderPrepend);
 		}
 
         /// <summary>
@@ -542,7 +542,7 @@ namespace ARCed.Core
         /// <param name="order">Matrix order</param>
 		public void RotateRed(float phi, MatrixOrder order)
 		{
-			RotateColor(phi, 2, 1, order);
+			this.RotateColor(phi, 2, 1, order);
 		}
 
         /// <summary>
@@ -553,7 +553,7 @@ namespace ARCed.Core
         /// <param name="order">Matrix order</param>
 		public void RotateGreen(float phi, MatrixOrder order)
 		{
-			RotateColor(phi, 0, 2, order);
+			this.RotateColor(phi, 0, 2, order);
 		}
 
         /// <summary>
@@ -564,7 +564,7 @@ namespace ARCed.Core
         /// <param name="order">Matrix order</param>
 		public void RotateBlue(float phi, MatrixOrder order)
 		{
-			RotateColor(phi, 1, 0, order);
+			this.RotateColor(phi, 1, 0, order);
 		}
 
 		#endregion 
@@ -581,7 +581,7 @@ namespace ARCed.Core
         /// <param name="blue">Blue color plane</param>
 		public void ShearRed(float green, float blue)
 		{
-			ShearRed(green, blue, MatrixOrder.MatrixOrderPrepend);
+			this.ShearRed(green, blue, MatrixOrder.MatrixOrderPrepend);
 		}
 
         /// <summary>
@@ -591,7 +591,7 @@ namespace ARCed.Core
         /// <param name="blue">Blue color plane</param>
 		public void ShearGreen(float red, float blue)
 		{
-			ShearGreen(red, blue, MatrixOrder.MatrixOrderPrepend);
+			this.ShearGreen(red, blue, MatrixOrder.MatrixOrderPrepend);
 		}
 
         /// <summary>
@@ -601,7 +601,7 @@ namespace ARCed.Core
         /// <param name="green">Green color plane</param>
 		public void ShearBlue(float red, float green)
 		{
-			ShearBlue(red, green, MatrixOrder.MatrixOrderPrepend);
+			this.ShearBlue(red, green, MatrixOrder.MatrixOrderPrepend);
 		}
 
         /// <summary>
@@ -612,7 +612,7 @@ namespace ARCed.Core
         /// <param name="order">Matrix order</param>
 		public void ShearRed(float green, float blue, MatrixOrder order)
 		{
-			ShearColor(0, 1, green, 2, blue, order);
+			this.ShearColor(0, 1, green, 2, blue, order);
 		}
 
         /// <summary>
@@ -623,7 +623,7 @@ namespace ARCed.Core
         /// <param name="order">Matrix order</param>
 		public void ShearGreen(float red, float blue, MatrixOrder order)
 		{
-			ShearColor(1, 0, red, 2, blue, order);
+			this.ShearColor(1, 0, red, 2, blue, order);
 		}
 
         /// <summary>
@@ -634,7 +634,7 @@ namespace ARCed.Core
         /// <param name="order">Matrix order</param>
 		public void ShearBlue(float red, float green, MatrixOrder order)
 		{
-			ShearColor(2, 0, red, 1, green, order);
+			this.ShearColor(2, 0, red, 1, green, order);
 		}
 
 		#endregion 
@@ -647,7 +647,7 @@ namespace ARCed.Core
         /// <param name="saturation">Saturation value</param>
 		public void SetSaturation(float saturation)
 		{
-			SetSaturation(saturation, MatrixOrder.MatrixOrderPrepend);
+			this.SetSaturation(saturation, MatrixOrder.MatrixOrderPrepend);
 		}
 
         /// <summary>
@@ -670,7 +670,7 @@ namespace ARCed.Core
 		        {0.0f,	0.0f,	0.0f,	0.0f,	1.0f}
             };
 			var qm = new QColorMatrix(tm);
-			Multiply(qm, order);
+			this.Multiply(qm, order);
 		}
 
 
@@ -682,9 +682,9 @@ namespace ARCed.Core
 		public void RotateHue(float phi)
 		{
 			InitHue();
-			Multiply(_preHue, MatrixOrder.MatrixOrderAppend);
-			RotateBlue(phi, MatrixOrder.MatrixOrderAppend);
-			Multiply(_postHue, MatrixOrder.MatrixOrderAppend);
+			this.Multiply(_preHue, MatrixOrder.MatrixOrderAppend);
+			this.RotateBlue(phi, MatrixOrder.MatrixOrderAppend);
+			this.Multiply(_postHue, MatrixOrder.MatrixOrderAppend);
 		}
 
 		#endregion 
@@ -697,7 +697,7 @@ namespace ARCed.Core
         /// <param name="scale">Constrast scale value</param>
 		public void SetContrast(float scale)
 		{
-			ScaleColors(scale);
+			this.ScaleColors(scale);
 		}
 
         /// <summary>
@@ -706,7 +706,7 @@ namespace ARCed.Core
         /// <param name="offset">Brightness offset value</param>
 		public void SetBrightness(float offset)
 		{
-			TranslateColors(offset, MatrixOrder.MatrixOrderAppend);
+			this.TranslateColors(offset, MatrixOrder.MatrixOrderAppend);
 		}
 
         /// <summary>
@@ -715,7 +715,7 @@ namespace ARCed.Core
         /// <param name="saturation">Saturation value.</param>
 		public void SetSaturation2(float saturation)
 		{
-			SetSaturation(saturation, MatrixOrder.MatrixOrderAppend);
+			this.SetSaturation(saturation, MatrixOrder.MatrixOrderAppend);
 		}
 
 		#endregion 
@@ -756,7 +756,7 @@ namespace ARCed.Core
 			var s = (float)Math.Sin(phi);
 			qm._matrix[y, x] = s;
 			qm._matrix[x, y] = -s;
-			Multiply(qm, order);
+			this.Multiply(qm, order);
 		}
 
 		private void ShearColor(int x, int y1, float d1, int y2, float d2, MatrixOrder order)
@@ -764,14 +764,14 @@ namespace ARCed.Core
 			var qm = new QColorMatrix();
 			qm._matrix[y1, x] = d1;
 			qm._matrix[y2, x] = d2;
-			Multiply(qm, order);
+			this.Multiply(qm, order);
 		}
 
 		private void Copy(QColorMatrix qm)
 		{
 			if (qm == null)
 			{
-				Reset();
+				this.Reset();
 				return;
 			}
 			Copy(qm._matrix);

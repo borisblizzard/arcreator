@@ -22,7 +22,7 @@ namespace ARCed.Scintilla
 
         public bool Print()
         {
-            return Print(true);
+            return this.Print(true);
         }
 
 
@@ -30,85 +30,95 @@ namespace ARCed.Scintilla
         {
             if (showPrintDialog)
             {
-                var pd = new PrintDialog();
-                pd.Document = _printDocument;
-                pd.UseEXDialog = true;
-                pd.AllowCurrentPage = true;
-                pd.AllowSelection = true;
-                pd.AllowSomePages = true;
-                pd.PrinterSettings = PageSettings.PrinterSettings;
+                var pd = new PrintDialog
+                {
+                    Document = this._printDocument,
+                    UseEXDialog = true,
+                    AllowCurrentPage = true,
+                    AllowSelection = true,
+                    AllowSomePages = true,
+                    PrinterSettings = this.PageSettings.PrinterSettings
+                };
 
                 if (pd.ShowDialog(Scintilla) == DialogResult.OK)
                 {
-                    _printDocument.PrinterSettings = pd.PrinterSettings;
-                    _printDocument.Print();
+                    this._printDocument.PrinterSettings = pd.PrinterSettings;
+                    this._printDocument.Print();
                     return true;
                 }
 
                 return false;
             }
 
-            _printDocument.Print();
+            this._printDocument.Print();
             return true;
         }
 
 
         public DialogResult PrintPreview()
         {
-            var ppd = new PrintPreviewDialog();
-            ppd.WindowState = FormWindowState.Maximized;
+            var ppd = new PrintPreviewDialog
+            {
+                WindowState = FormWindowState.Maximized,
+                Document = this._printDocument
+            };
 
-            ppd.Document = _printDocument;
             return ppd.ShowDialog();
         }
 
 
         public DialogResult PrintPreview(IWin32Window owner)
         {
-            var ppd = new PrintPreviewDialog();
-            ppd.WindowState = FormWindowState.Maximized;
+            var ppd = new PrintPreviewDialog
+            {
+                WindowState = FormWindowState.Maximized
+            };
 
             if (owner is Form)
                 ppd.Icon = ((Form)owner).Icon;
 
-            ppd.Document = _printDocument;
+            ppd.Document = this._printDocument;
             return ppd.ShowDialog(owner);
         }
 
 
         internal bool ShouldSerialize()
         {
-            return ShouldSerializePageSettings() || ShouldSerializePrintDocument();
+            return this.ShouldSerializePageSettings() || this.ShouldSerializePrintDocument();
         }
 
 
         private bool ShouldSerializePageSettings()
         {
-            return PageSettings.ShouldSerialize();
+            return this.PageSettings.ShouldSerialize();
         }
 
 
         private bool ShouldSerializePrintDocument()
         {
-            return _printDocument.ShouldSerialize();
+            return this._printDocument.ShouldSerialize();
         }
 
 
         public DialogResult ShowPageSetupDialog()
         {
-            var psd = new PageSetupDialog();
-            psd.PageSettings = PageSettings;
-            psd.PrinterSettings = PageSettings.PrinterSettings;
+            var psd = new PageSetupDialog
+            {
+                PageSettings = this.PageSettings,
+                PrinterSettings = this.PageSettings.PrinterSettings
+            };
             return psd.ShowDialog();
         }
 
 
         public DialogResult ShowPageSetupDialog(IWin32Window owner)
         {
-            var psd = new PageSetupDialog();
-            psd.AllowPrinter = true;
-            psd.PageSettings = PageSettings;
-            psd.PrinterSettings = PageSettings.PrinterSettings;
+            var psd = new PageSetupDialog
+            {
+                AllowPrinter = true,
+                PageSettings = this.PageSettings,
+                PrinterSettings = this.PageSettings.PrinterSettings
+            };
 
             return psd.ShowDialog(owner);
         }
@@ -123,11 +133,11 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _printDocument.DefaultPageSettings as PageSettings;
+                return this._printDocument.DefaultPageSettings as PageSettings;
             }
             set
             {
-                _printDocument.DefaultPageSettings = value;
+                this._printDocument.DefaultPageSettings = value;
             }
         }
 
@@ -137,11 +147,11 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _printDocument;
+                return this._printDocument;
             }
             set
             {
-                _printDocument = value;
+                this._printDocument = value;
             }
         }
 
@@ -152,7 +162,7 @@ namespace ARCed.Scintilla
 
         internal Printing(Scintilla scintilla) : base(scintilla)
         {
-            _printDocument = new PrintDocument(scintilla);
+            this._printDocument = new PrintDocument(scintilla);
         }
 
         #endregion Constructors

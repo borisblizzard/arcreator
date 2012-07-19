@@ -14,13 +14,13 @@ namespace ARCed.TEMP
 		/// </summary>
 		public CmdChangeTextOptions()
 		{
-			InitializeComponent();
+			this.InitializeComponent();
 		}
 
 		private void buttonOK_Click(object sender, EventArgs e)
 		{
-			this.DialogResult = DialogResult.OK;
-			this.Close();
+			DialogResult = DialogResult.OK;
+			Close();
 		}
 	}
 }

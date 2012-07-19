@@ -40,8 +40,8 @@ namespace ARCed.Settings
 		[XmlElement("GradientLeft")]
 		public string GradientLeftHtml 
 		{
-			get { return ColorTranslator.ToHtml(GradientLeft); }
-			set { GradientLeft = ColorTranslator.FromHtml(value); }
+			get { return ColorTranslator.ToHtml(this.GradientLeft); }
+			set { this.GradientLeft = ColorTranslator.FromHtml(value); }
 		}
 
 		/// <summary>
@@ -50,8 +50,8 @@ namespace ARCed.Settings
 		[XmlElement("GradientRight")]
 		public string GradientRightHtml
 		{
-			get { return ColorTranslator.ToHtml(GradientRight); }
-			set { GradientRight = ColorTranslator.FromHtml(value); }
+			get { return ColorTranslator.ToHtml(this.GradientRight); }
+			set { this.GradientRight = ColorTranslator.FromHtml(value); }
 		}
 
 		/// <summary>
@@ -60,8 +60,8 @@ namespace ARCed.Settings
 		[XmlElement("TextColor")]
 		public string TextColorHtml
 		{
-			get { return ColorTranslator.ToHtml(TextColor); }
-			set { TextColor = ColorTranslator.FromHtml(value); }
+			get { return ColorTranslator.ToHtml(this.TextColor); }
+			set { this.TextColor = ColorTranslator.FromHtml(value); }
 		}
 
 		/// <summary>
@@ -74,10 +74,10 @@ namespace ARCed.Settings
 		/// </summary>
 		public HeaderSettings()
 		{
-			GradientLeft = Color.Gray;
-			GradientRight = Color.DarkGray;
-			TextColor = Color.White;
-			Font = FontHelper.GetMemoryFont("Ethnocentric", 10, FontStyle.Regular);
+			this.GradientLeft = Color.Gray;
+			this.GradientRight = Color.DarkGray;
+			this.TextColor = Color.White;
+			this.Font = FontHelper.GetMemoryFont("Ethnocentric", 10, FontStyle.Regular);
 		}
 	}
 }

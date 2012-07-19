@@ -26,12 +26,12 @@ namespace ARCed.Dialogs
 		/// </summary>
 		public HeaderSettingsDialog()
 		{
-			InitializeComponent();
-			_settings = Util.CloneObject(Project.Settings.HeaderImage);
-			panelStartGradient.BackColor = _settings.GradientLeft;
-			panelEndGradient.BackColor = _settings.GradientRight;
-			panelTextColor.BackColor = _settings.TextColor;
-			fontSelector.UserFont = _settings.Font.FontValue;
+			this.InitializeComponent();
+			this._settings = Util.CloneObject(Project.Settings.HeaderImage);
+			this.panelStartGradient.BackColor = this._settings.GradientLeft;
+			this.panelEndGradient.BackColor = this._settings.GradientRight;
+			this.panelTextColor.BackColor = this._settings.TextColor;
+			this.fontSelector.UserFont = this._settings.Font.FontValue;
 		}
 
 		#endregion
@@ -40,20 +40,20 @@ namespace ARCed.Dialogs
 
 		private void panelStartGradient_DoubleClick(object sender, EventArgs e)
 		{
-			_settings.GradientLeft = GetColor(_settings.GradientLeft);
-			panelStartGradient.BackColor = _settings.GradientLeft;
+			this._settings.GradientLeft = GetColor(this._settings.GradientLeft);
+			this.panelStartGradient.BackColor = this._settings.GradientLeft;
 		}
 
 		private void panelEndGradient_DoubleClick(object sender, EventArgs e)
 		{
-			_settings.GradientRight = GetColor(_settings.GradientRight);
-			panelEndGradient.BackColor = _settings.GradientRight;
+			this._settings.GradientRight = GetColor(this._settings.GradientRight);
+			this.panelEndGradient.BackColor = this._settings.GradientRight;
 		}
 
 		private void panelTextColor_DoubleClick(object sender, EventArgs e)
 		{
-			_settings.TextColor = GetColor(_settings.TextColor);
-			panelTextColor.BackColor = _settings.TextColor;
+			this._settings.TextColor = GetColor(this._settings.TextColor);
+			this.panelTextColor.BackColor = this._settings.TextColor;
 		}
 
 		private static Color GetColor(Color color)
@@ -70,17 +70,17 @@ namespace ARCed.Dialogs
 
 		private void buttonOK_Click(object sender, EventArgs e)
 		{
-			Project.Settings.HeaderImage = _settings;
+			Project.Settings.HeaderImage = this._settings;
 			foreach (DatabaseWindow window in Windows.DatabaseForms)
 				window.RefreshHeader();
 			Windows.ScriptMenu.RefreshHeader();
-			this.DialogResult = DialogResult.OK;
-			this.Close();
+			DialogResult = DialogResult.OK;
+			Close();
 		}
 
 		private void fontSelector_OnUserFontChanged(object sender, EventArgs e)
 		{
-			_settings.Font = fontSelector.UserFont;
+			this._settings.Font = this.fontSelector.UserFont;
 		}
 
 		#endregion

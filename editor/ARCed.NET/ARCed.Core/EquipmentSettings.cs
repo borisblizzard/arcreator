@@ -67,10 +67,10 @@ namespace ARCed.Settings
         /// </summary>
 		public EquipSlotConfiguration()
 		{
-			EquipKind = 0;
-			Label = "";
-			RpgIdProperty = "";
-			RpgFixedProperty = "";
+			this.EquipKind = 0;
+			this.Label = "";
+			this.RpgIdProperty = "";
+			this.RpgFixedProperty = "";
 		}
 	}
 }

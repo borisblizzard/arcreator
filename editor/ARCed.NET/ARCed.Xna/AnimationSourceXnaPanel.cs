@@ -30,10 +30,10 @@ namespace ARCed.Controls
 		[Browsable(false)]
 		public int SelectedId
 		{
-			get { return _selectedId; }
+			get { return this._selectedId; }
 			set 
 			{
-				_selectedId = value;
+				this._selectedId = value;
 				Invalidate();
 			}
 		}
@@ -44,13 +44,13 @@ namespace ARCed.Controls
 		[Browsable(false)]
 		public Animation Animation 
 		{
-			get { return _animation; }
+			get { return this._animation; }
 			set
 			{
-				if (_animation != value)
+				if (this._animation != value)
 				{
-					_animation = value;
-					RefreshTexture();
+					this._animation = value;
+					this.RefreshTexture();
 					Invalidate();
 				}
 			}
@@ -63,7 +63,7 @@ namespace ARCed.Controls
 		/// </summary>
 		public AnimationSourceXnaPanel()
 		{
-			InitializeComponent();
+			this.InitializeComponent();
 		}
 
 		#endregion
@@ -75,17 +75,17 @@ namespace ARCed.Controls
 		/// </summary>
 		protected override void Initialize()
 		{
-			_batch = new SpriteBatch(GraphicsDevice);
-			_selectedId = -1;
+			this._batch = new SpriteBatch(GraphicsDevice);
+			this._selectedId = -1;
             // TODO: Edit this
             GraphicsDevice.Clear(TilesetXnaPanel.Settings.BackgroundColor);
-			this.MouseDown += this.AnimationSourceXnaPanel_MouseDown;
+			MouseDown += this.AnimationSourceXnaPanel_MouseDown;
 		}
 
 		void AnimationSourceXnaPanel_MouseDown(object sender, MouseEventArgs e)
 		{
-			if (_frames > 0)
-				SelectedId = e.X / (this.Width / _frames);
+			if (this._frames > 0)
+				this.SelectedId = e.X / (Width / this._frames);
 		}
 
 		/// <summary>
@@ -94,44 +94,44 @@ namespace ARCed.Controls
 		protected override void Draw()
 		{
 			GraphicsDevice.Clear(TilesetXnaPanel.Settings.BackgroundColor);
-			if (_srcTexture != null)
+			if (this._srcTexture != null)
 			{
 				int dim = Parent.ClientSize.Height;
-				this.Width = dim * _frames;
+				Width = dim * this._frames;
 				int x, y;
-				_batch.Begin();
-				for (int i = 0; i < _frames; i++)
+				this._batch.Begin();
+				for (int i = 0; i < this._frames; i++)
 				{
-					x = (i % (_srcTexture.Width / Constants.ANIMESIZE)) * Constants.ANIMESIZE;
-					y = (i / (_srcTexture.Width / Constants.ANIMESIZE)) * Constants.ANIMESIZE;
-					srcRect = new Rectangle(x, y, Constants.ANIMESIZE, Constants.ANIMESIZE);
-					destRect = new Rectangle(i * dim, 0, dim, dim);
-					_batch.Draw(_srcTexture, destRect, srcRect, Color.White);
-					_batch.DrawRectangle(i * dim - 1, 0, 1, dim + 1, Color.Black, 1);
-					if (SelectedId >= 0)
+					x = (i % (this._srcTexture.Width / Constants.ANIMESIZE)) * Constants.ANIMESIZE;
+					y = (i / (this._srcTexture.Width / Constants.ANIMESIZE)) * Constants.ANIMESIZE;
+					this.srcRect = new Rectangle(x, y, Constants.ANIMESIZE, Constants.ANIMESIZE);
+					this.destRect = new Rectangle(i * dim, 0, dim, dim);
+					this._batch.Draw(this._srcTexture, this.destRect, this.srcRect, Color.White);
+					this._batch.DrawRectangle(i * dim - 1, 0, 1, dim + 1, Color.Black, 1);
+					if (this.SelectedId >= 0)
 					{
-						var rect = new Rectangle(SelectedId * dim - 1, 0, dim + 1, dim);
-						_batch.DrawSelectionRect(rect, Color.White, 2);
+						var rect = new Rectangle(this.SelectedId * dim - 1, 0, dim + 1, dim);
+						this._batch.DrawSelectionRect(rect, Color.White, 2);
 					}
 				}
-				_batch.End();
+				this._batch.End();
 			}
 		}
 
 		private void RefreshTexture()
 		{
-			using (var image = Cache.Animation(_animation.animation_name, _animation.animation_hue))
+			using (var image = Cache.Animation(this._animation.animation_name, this._animation.animation_hue))
 			{
 				if (image == null)
 				{
-					_srcTexture = null;
-					_frames = 0;
-					this.Visible = false;
+					this._srcTexture = null;
+					this._frames = 0;
+					Visible = false;
 					return;
 				}
-				this.Visible = true;
-				_frames = (image.Width / Constants.ANIMESIZE) * (image.Height / Constants.ANIMESIZE);
-				_srcTexture = image.ToTexture(GraphicsDevice);
+				Visible = true;
+				this._frames = (image.Width / Constants.ANIMESIZE) * (image.Height / Constants.ANIMESIZE);
+				this._srcTexture = image.ToTexture(GraphicsDevice);
 			}
 		}
 

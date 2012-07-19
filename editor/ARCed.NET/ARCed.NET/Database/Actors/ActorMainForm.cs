@@ -14,7 +14,7 @@ using RPG;
 
 namespace ARCed.Database.Actors
 {
-	public partial class ActorMainForm : DatabaseWindow
+	public sealed partial class ActorMainForm : DatabaseWindow
 	{
 		#region Private Fields
 
@@ -29,7 +29,7 @@ namespace ARCed.Database.Actors
 		/// <summary>
 		/// Gets the object list control of this database panel.
 		/// </summary>
-		protected override DatabaseObjectListBox DataObjectList { get { return dataObjectList; } }
+		protected override DatabaseObjectListBox DataObjectList { get { return this.dataObjectList; } }
 
 		#endregion
 
@@ -46,13 +46,13 @@ namespace ARCed.Database.Actors
 
 		public ActorMainForm()
 		{
-			InitializeComponent();
-			InitializeParameters();
-			InitializeEquipmentSlots();
+			this.InitializeComponent();
+			this.InitializeParameters();
+			this.InitializeEquipmentSlots();
 			RefreshObjectList();
-			RefreshClasses();
-			dataObjectList.SelectedIndex = 0;
-			RefreshImages();
+			this.RefreshClasses();
+			this.dataObjectList.SelectedIndex = 0;
+			this.RefreshImages();
 		}
 
 		#endregion
@@ -61,23 +61,25 @@ namespace ARCed.Database.Actors
 
 		private void InitializeEquipmentSlots()
 		{
-			panelEquipment.SuspendLayout();
-			_equipSlots = new EquipSlot[Project.Settings.EquipmentSettings.Count];
-			int width = groupBoxEquipment.Width - 13;
+			this.panelEquipment.SuspendLayout();
+			this._equipSlots = new EquipSlot[Project.Settings.EquipmentSettings.Count];
+			int width = this.groupBoxEquipment.Width - 13;
 			for (int i = 0; i < Project.Settings.EquipmentSettings.Count; i++)
 			{
 				var slot = new EquipSlot
-				{ Parent = groupBoxEquipment };
-				slot.Configuration = Project.Settings.EquipmentSettings[i];
-				slot.Location = new Point(7, 19 + (i * 27));
-				slot.Size = new Size(width, slot.Size.Height);
+				{
+				    Parent = this.groupBoxEquipment,
+				    Configuration = Project.Settings.EquipmentSettings[i],
+				    Location = new Point(7, 19 + (i * 27))
+				};
+			    slot.Size = new Size(width, slot.Size.Height);
 				slot.Anchor = AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Top;
-				_equipSlots[i] = slot;
-				panelEquipment.Controls.Add(slot);
+				this._equipSlots[i] = slot;
+				this.panelEquipment.Controls.Add(slot);
 				slot.OnEquipmentChange += this.slot_OnEquipmentChange;
 				slot.OnEquipFixChange += this.slot_OnEquipFixChange;
 			}
-			panelEquipment.ResumeLayout();
+			this.panelEquipment.ResumeLayout();
 		}
 
 		/// <summary>
@@ -86,17 +88,19 @@ namespace ARCed.Database.Actors
 		private void InitializeParameters()
 		{
 			// TODO: Implement dynamic number of charts
-			List<string> parameterNames = Project.Settings.Parameters;
-			int count = parameterNames.Count;
-			_paramCharts = new ParameterMiniChart[count];
-			for (int i = 0; i < count; i++)
+			var parameterNames = Project.Settings.Parameters;
+			var count = parameterNames.Count;
+			this._paramCharts = new ParameterMiniChart[count];
+			for (var i = 0; i < count; i++)
 			{
-				var chart = new ParameterMiniChart();
-				chart.Dock = DockStyle.Fill;
-				chart.ParameterLabel = parameterNames[i];
-				chart.ParameterIndex = i;
-				_paramCharts[i] = chart;
-				tableLayoutPanel.Controls.Add(chart);
+				var chart = new ParameterMiniChart
+				{
+				    Dock = DockStyle.Fill,
+				    ParameterLabel = parameterNames[i],
+				    ParameterIndex = i
+				};
+			    this._paramCharts[i] = chart;
+				this.tableLayoutPanel.Controls.Add(chart);
 			}
 		}
 
@@ -106,57 +110,41 @@ namespace ARCed.Database.Actors
 
 		private void RefreshEquipmentSlots()
 		{
-			Class klass = Project.Data.Classes[_actor.class_id];
-			foreach (EquipSlot slot in _equipSlots)
+			Class klass = Project.Data.Classes[this._actor.class_id];
+			foreach (EquipSlot slot in this._equipSlots)
 			{
-				if (slot.EquipKind < 0)
-					slot.RefreshItems(klass.weapon_set);
-				else
-					slot.RefreshItems(klass.armor_set);
+			    slot.RefreshItems(slot.EquipKind < 0 ? klass.weapon_set : klass.armor_set);
 			}
 		}
 
 		private void RefreshClasses()
 		{
-			comboClass.Items.Clear();
-			ControlHelper.Populate(comboClass, Project.Data.Classes, false);
-			if (_actor != null)
+			this.comboClass.Items.Clear();
+			ControlHelper.Populate(this.comboClass, Project.Data.Classes, false);
+			if (this._actor != null)
 			{
-				if (_actor.class_id > Project.Data.Classes.Count)
-					_actor.class_id = 1;
-				comboClass.SelectedIndex = _actor.class_id - 1;
+				if (this._actor.class_id > Project.Data.Classes.Count)
+					this._actor.class_id = 1;
+				this.comboClass.SelectedIndex = this._actor.class_id - 1;
 			}
 		}
-
-        /*
-		private void RefreshChart(int index = -1)
-		{
-			if (index == -1)
-			{
-				foreach (ParameterMiniChart chart in _paramCharts)
-					chart.RefreshChart();
-			}
-			else
-				_paramCharts[index].RefreshChart();
-		}
-         */
 
 		private void RefreshImages()
 		{
-			pictureCharacter.Image =
-				Cache.CharacterStance(_actor.character_name, 0, 1, _actor.character_hue);
-			pictureBattler.Image = Cache.Battler(_actor.battler_name, _actor.battler_hue);
+			this.pictureCharacter.Image =
+				Cache.CharacterStance(this._actor.character_name, 0, 1, this._actor.character_hue);
+			this.pictureBattler.Image = Cache.Battler(this._actor.battler_name, this._actor.battler_hue);
 		}
 
 		private void RefreshGeneral()
 		{
 			SuppressEvents = true;
-			textBoxName.Text = _actor.name;
-			numericLevelInit.Value = _actor.initial_level;
-			numericLevelFinal.Value = _actor.final_level;
-			comboClass.SelectedIndex = _actor.class_id - 1;
-			textBoxExpCurve.Text = String.Format("Basis: {0}, Inflation: {1}",
-				_actor.exp_basis, _actor.exp_inflation);
+			this.textBoxName.Text = this._actor.name;
+			this.numericLevelInit.Value = this._actor.initial_level;
+			this.numericLevelFinal.Value = this._actor.final_level;
+			this.comboClass.SelectedIndex = this._actor.class_id - 1;
+			this.textBoxExpCurve.Text = String.Format("Basis: {0}, Inflation: {1}",
+				this._actor.exp_basis, this._actor.exp_inflation);
 			SuppressEvents = false;
 		}
 
@@ -164,16 +152,16 @@ namespace ARCed.Database.Actors
 		{
 			// Edit to allow dynamic slots
 			SuppressEvents = true;
-			_equipSlots[0].SetItemId(_actor.weapon_id);
-			_equipSlots[1].SetItemId(_actor.armor1_id);
-			_equipSlots[2].SetItemId(_actor.armor2_id);
-			_equipSlots[3].SetItemId(_actor.armor3_id);
-			_equipSlots[4].SetItemId(_actor.armor4_id);
-			_equipSlots[0].Fixed = _actor.weapon_fix;
-			_equipSlots[1].Fixed = _actor.armor1_fix;
-			_equipSlots[2].Fixed = _actor.armor2_fix;
-			_equipSlots[3].Fixed = _actor.armor3_fix;
-			_equipSlots[4].Fixed = _actor.armor4_fix;
+			this._equipSlots[0].SetItemId(this._actor.weapon_id);
+			this._equipSlots[1].SetItemId(this._actor.armor1_id);
+			this._equipSlots[2].SetItemId(this._actor.armor2_id);
+			this._equipSlots[3].SetItemId(this._actor.armor3_id);
+			this._equipSlots[4].SetItemId(this._actor.armor4_id);
+			this._equipSlots[0].Fixed = this._actor.weapon_fix;
+			this._equipSlots[1].Fixed = this._actor.armor1_fix;
+			this._equipSlots[2].Fixed = this._actor.armor2_fix;
+			this._equipSlots[3].Fixed = this._actor.armor3_fix;
+			this._equipSlots[4].Fixed = this._actor.armor4_fix;
 			SuppressEvents = false;
 		}
 
@@ -201,12 +189,12 @@ namespace ARCed.Database.Actors
 		public override void RefreshCurrentObject()
 		{
 			SuppressEvents = true;
-			RefreshGeneral();
-			RefreshEquipmentSlots();
-			RefreshEquipment();
-			RefreshImages();
-			foreach (ParameterMiniChart chart in _paramCharts)
-				chart.ChangeActor(_actor);
+			this.RefreshGeneral();
+			this.RefreshEquipmentSlots();
+			this.RefreshEquipment();
+			this.RefreshImages();
+			foreach (ParameterMiniChart chart in this._paramCharts)
+				chart.ChangeActor(this._actor);
 			SuppressEvents = false;
 		}
 
@@ -217,7 +205,7 @@ namespace ARCed.Database.Actors
 			if (!SuppressEvents)
 			{
 				if (!String.IsNullOrEmpty(e.PropertyName))
-					typeof(Actor).GetProperty(e.PropertyName).SetValue(_actor, e.Fixed, null);
+					typeof(Actor).GetProperty(e.PropertyName).SetValue(this._actor, e.Fixed, null);
 			}
 		}
 
@@ -226,107 +214,107 @@ namespace ARCed.Database.Actors
 			if (!SuppressEvents)
 			{
 				if (!String.IsNullOrEmpty(e.PropertyName))
-					typeof(Actor).GetProperty(e.PropertyName).SetValue(_actor, e.EquipmentId, null);
+					typeof(Actor).GetProperty(e.PropertyName).SetValue(this._actor, e.EquipmentId, null);
 			}
 		}
 
-		private void listBoxActors_SelectedIndexChanged(object sender, EventArgs e)
+		private void ListBoxActorsSelectedIndexChanged(object sender, EventArgs e)
 		{
-			int index = dataObjectList.SelectedIndex;
+			int index = this.dataObjectList.SelectedIndex;
 			if (index >= 0)
 			{
-				_actor = Data[index + 1];
-				RefreshCurrentObject();
+				this._actor = this.Data[index + 1];
+				this.RefreshCurrentObject();
 			}
 		}
 
-		private void contextImagesSizeMode_Clicked(object sender, EventArgs e)
+		private void ContextImagesSizeModeClicked(object sender, EventArgs e)
 		{
-			int num = Convert.ToInt32((sender as ToolStripMenuItem).Tag);
-			var mode = (PictureBoxSizeMode)num;
-			(contextMenuImages.SourceControl as PictureBox).SizeMode = mode;
+		    var toolStripMenuItem = sender as ToolStripMenuItem;
+		    if (toolStripMenuItem == null) return;
+		    var num = Convert.ToInt32(toolStripMenuItem.Tag);
+		    var mode = (PictureBoxSizeMode)num;
+		    var pictureBox = this.contextMenuImages.SourceControl as PictureBox;
+		    if (pictureBox != null)
+		        pictureBox.SizeMode = mode;
 		}
 
-		private void comboClass_SelectedIndexChanged(object sender, EventArgs e)
+	    private void ComboClassSelectedIndexChanged(object sender, EventArgs e)
+		{
+	        if (SuppressEvents) return;
+	        this._actor.class_id = this.comboClass.SelectedIndex + 1;
+	        this.RefreshEquipmentSlots();
+	        this.RefreshEquipment();
+		}
+
+		private void NumericLevelInitValueChanged(object sender, EventArgs e)
+		{
+			if (!SuppressEvents)
+				this._actor.initial_level = (int)this.numericLevelInit.Value;
+		}
+
+		private void NumericLevelFinalValueChanged(object sender, EventArgs e)
+		{
+			if (!SuppressEvents)
+				this._actor.final_level = (int)this.numericLevelFinal.Value;
+		}
+
+		private void TextBoxNameTextChanged(object sender, EventArgs e)
 		{
 			if (!SuppressEvents)
 			{
-				_actor.class_id = comboClass.SelectedIndex + 1;
-				RefreshEquipmentSlots();
-				RefreshEquipment();
+				this._actor.name = this.textBoxName.Text;
+				int index = this.dataObjectList.SelectedIndex;
+				this.dataObjectList.Items[index] = this._actor.ToString();
+				this.dataObjectList.Invalidate(this.dataObjectList.GetItemRectangle(index));
 			}
 		}
 
-		private void numericLevelInit_ValueChanged(object sender, EventArgs e)
+		private void ContextMenuImagesOpening(object sender, CancelEventArgs e)
 		{
-			if (!SuppressEvents)
-				_actor.initial_level = (int)numericLevelInit.Value;
+		    var pictureBox = this.contextMenuImages.SourceControl as PictureBox;
+		    if (pictureBox == null) return;
+		    PictureBoxSizeMode mode = pictureBox.SizeMode;
+		    this.contextImageNormal.Checked = mode == PictureBoxSizeMode.Normal;
+		    this.contextImageCenter.Checked = mode == PictureBoxSizeMode.CenterImage;
+		    this.contextImageStretch.Checked = mode == PictureBoxSizeMode.StretchImage;
+		    this.contextImageZoom.Checked = mode == PictureBoxSizeMode.Zoom;
 		}
 
-		private void numericLevelFinal_ValueChanged(object sender, EventArgs e)
-		{
-			if (!SuppressEvents)
-				_actor.final_level = (int)numericLevelFinal.Value;
-		}
-
-		private void textBoxName_TextChanged(object sender, EventArgs e)
-		{
-			if (!SuppressEvents)
-			{
-				_actor.name = textBoxName.Text;
-				int index = dataObjectList.SelectedIndex;
-				dataObjectList.Items[index] = _actor.ToString();
-				dataObjectList.Invalidate(dataObjectList.GetItemRectangle(index));
-			}
-		}
-
-		private void contextMenuImages_Opening(object sender, CancelEventArgs e)
-		{
-			PictureBoxSizeMode mode =
-				(contextMenuImages.SourceControl as PictureBox).SizeMode;
-			contextImageNormal.Checked = mode == PictureBoxSizeMode.Normal;
-			contextImageCenter.Checked = mode == PictureBoxSizeMode.CenterImage;
-			contextImageStretch.Checked = mode == PictureBoxSizeMode.StretchImage;
-			contextImageZoom.Checked = mode == PictureBoxSizeMode.Zoom;
-		}
-
-		private void buttonExperience_Click(object sender, EventArgs e)
+	    private void ButtonExperienceClick(object sender, EventArgs e)
 		{
 			var form = new ExperienceCurveForm();
-			form.ChangeActor(_actor);
+			form.ChangeActor(this._actor);
 			form.Show(Editor.MainDock);
 		}
 
-		private void pictureCharacter_DoubleClick(object sender, EventArgs e)
+		private void PictureCharacterDoubleClick(object sender, EventArgs e)
 		{
-			using (var dialog = 
-				new ImageSelectionForm(@"Characters", _actor.character_name))
+			using (var dialog = new ImageSelectionForm(@"Characters", this._actor.character_name))
 			{
-				dialog.Hue = _actor.character_hue;
+				dialog.Hue = this._actor.character_hue;
 				dialog.OptionsEnabled = false;
-				if (dialog.ShowDialog(this) == DialogResult.OK)
-				{
-					_actor.character_name = dialog.ImageName;
-					_actor.character_hue = dialog.Hue;
-					pictureCharacter.Image =
-						Cache.CharacterStance(_actor.character_name, 0, 1, _actor.character_hue);
-				}
+			    if (dialog.ShowDialog(this) != DialogResult.OK) return;
+			    this._actor.character_name = dialog.ImageName;
+			    this._actor.character_hue = dialog.Hue;
+			    this.pictureCharacter.Image =
+			        Cache.CharacterStance(this._actor.character_name, 0, 1, this._actor.character_hue);
 			}
 		}
 
-		private void pictureBattler_DoubleClick(object sender, EventArgs e)
+		private void PictureBattlerDoubleClick(object sender, EventArgs e)
 		{
 			using (var dialog =
-				new ImageSelectionForm(@"Battlers", _actor.battler_name))
+				new ImageSelectionForm(@"Battlers", this._actor.battler_name))
 			{
-				dialog.Hue = _actor.battler_hue;
+				dialog.Hue = this._actor.battler_hue;
 				dialog.OptionsEnabled = false;
 				if (dialog.ShowDialog(this) == DialogResult.OK)
 				{
-					_actor.battler_name = dialog.ImageName;
-					_actor.battler_hue = dialog.Hue;
-					pictureBattler.Image =
-						Cache.Battler(_actor.battler_name, _actor.battler_hue);
+					this._actor.battler_name = dialog.ImageName;
+					this._actor.battler_hue = dialog.Hue;
+					this.pictureBattler.Image =
+						Cache.Battler(this._actor.battler_name, this._actor.battler_hue);
 				}
 			}
 		}

@@ -23,11 +23,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _bits;
+                return this._bits;
             }
             set
             {
-                _bits = value;
+                this._bits = value;
             }
         }
 
@@ -36,11 +36,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _inherit;
+                return this._inherit;
             }
             set
             {
-                _inherit = value;
+                this._inherit = value;
             }
         }
 

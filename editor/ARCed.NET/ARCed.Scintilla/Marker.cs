@@ -27,7 +27,7 @@ namespace ARCed.Scintilla
 
         public MarkerInstance AddInstanceTo(int line)
         {
-            return new MarkerInstance(Scintilla, this, NativeScintilla.MarkerAdd(line, _number));
+            return new MarkerInstance(Scintilla, this, NativeScintilla.MarkerAdd(line, this._number));
         }
 
 
@@ -55,95 +55,95 @@ namespace ARCed.Scintilla
 
         public void Reset()
         {
-            ResetAlpha();
-            ResetBackColor();
-            ResetForeColor();
-            ResetSymbol();
+            this.ResetAlpha();
+            this.ResetBackColor();
+            this.ResetForeColor();
+            this.ResetSymbol();
         }
 
 
         private void ResetAlpha()
         {
-            Alpha = 0xff;
+            this.Alpha = 0xff;
         }
 
 
         private void ResetBackColor()
         {
-            BackColor = Color.White;
+            this.BackColor = Color.White;
         }
 
 
         private void ResetForeColor()
         {
-            ForeColor = Color.Black;
+            this.ForeColor = Color.Black;
         }
 
 
         private void ResetSymbol()
         {
-            Symbol = MarkerSymbol.Circle;
+            this.Symbol = MarkerSymbol.Circle;
         }
 
 
         internal void SetBackColorInternal(Color value)
         {
-            Scintilla.ColorBag[ToString() + ".BackColor"] = value;
-            NativeScintilla.MarkerSetBack(_number, Utilities.ColorToRgb(value));
+            Scintilla.ColorBag[this + ".BackColor"] = value;
+            NativeScintilla.MarkerSetBack(this._number, Utilities.ColorToRgb(value));
         }
 
 
         internal void SetForeColorInternal(Color value)
         {
-            Scintilla.ColorBag[ToString() + ".ForeColor"] = value;
-            NativeScintilla.MarkerSetFore(_number, Utilities.ColorToRgb(value));
+            Scintilla.ColorBag[this + ".ForeColor"] = value;
+            NativeScintilla.MarkerSetFore(this._number, Utilities.ColorToRgb(value));
         }
 
 
         public void SetImage(string xpmImage)
         {
-            NativeScintilla.MarkerDefinePixmap(_number, xpmImage);
+            NativeScintilla.MarkerDefinePixmap(this._number, xpmImage);
         }
 
 
         public void SetImage(Bitmap image)
         {
-            NativeScintilla.MarkerDefinePixmap(_number, XpmConverter.ConvertToXPM(image));
+            NativeScintilla.MarkerDefinePixmap(this._number, XpmConverter.ConvertToXPM(image));
         }
 
 
         public void SetImage(Bitmap image, Color transparentColor)
         {
-            NativeScintilla.MarkerDefinePixmap(_number, XpmConverter.ConvertToXPM(image, Utilities.ColorToHtml(transparentColor)));
+            NativeScintilla.MarkerDefinePixmap(this._number, XpmConverter.ConvertToXPM(image, Utilities.ColorToHtml(transparentColor)));
         }
 
 
         internal void SetSymbolInternal(MarkerSymbol value)
         {
-            Scintilla.PropertyBag[ToString() + ".Symbol"] = value;
-            NativeScintilla.MarkerDefine(_number, (int)value);
+            Scintilla.PropertyBag[this + ".Symbol"] = value;
+            NativeScintilla.MarkerDefine(this._number, (int)value);
         }
 
 
         internal bool ShouldSerialize()
         {
-            return ShouldSerializeAlpha() ||
-                ShouldSerializeBackColor() ||
-                ShouldSerializeForeColor() ||
-                ShouldSerializeSymbol();
+            return this.ShouldSerializeAlpha() ||
+                this.ShouldSerializeBackColor() ||
+                this.ShouldSerializeForeColor() ||
+                this.ShouldSerializeSymbol();
         }
 
 
         private bool ShouldSerializeAlpha()
         {
-            return Alpha != 0xff;
+            return this.Alpha != 0xff;
         }
 
 
         private bool ShouldSerializeBackColor()
         {
             if (Scintilla.Folding.MarkerScheme == FoldMarkerScheme.Custom)
-                return BackColor != Color.White;
+                return this.BackColor != Color.White;
 
             return false;
         }
@@ -152,7 +152,7 @@ namespace ARCed.Scintilla
         private bool ShouldSerializeForeColor()
         {
             if (Scintilla.Folding.MarkerScheme == FoldMarkerScheme.Custom)
-                return ForeColor != Color.Black;
+                return this.ForeColor != Color.Black;
 
             return false;
         }
@@ -161,7 +161,7 @@ namespace ARCed.Scintilla
         private bool ShouldSerializeSymbol()
         {
             if (Scintilla.Folding.MarkerScheme == FoldMarkerScheme.Custom)
-                return Symbol != MarkerSymbol.Circle;
+                return this.Symbol != MarkerSymbol.Circle;
 
             return false;
         }
@@ -169,7 +169,7 @@ namespace ARCed.Scintilla
 
         public override string ToString()
         {
-            return "MarkerNumber" + _number;
+            return "MarkerNumber" + this._number;
         }
 
         #endregion Methods
@@ -184,8 +184,8 @@ namespace ARCed.Scintilla
 
                 try
                 {
-                    if (Scintilla.PropertyBag.ContainsKey(ToString() + ".Alpha"))
-                        return (int)Scintilla.PropertyBag[ToString() + ".Alpha"];
+                    if (Scintilla.PropertyBag.ContainsKey(this + ".Alpha"))
+                        return (int)Scintilla.PropertyBag[this + ".Alpha"];
 
                     return 0xff;
                 }
@@ -197,8 +197,8 @@ namespace ARCed.Scintilla
             }
             set
             {
-                Scintilla.PropertyBag[ToString() + ".Alpha"] = value;
-                NativeScintilla.MarkerSetAlpha(_number, value);
+                Scintilla.PropertyBag[this + ".Alpha"] = value;
+                NativeScintilla.MarkerSetAlpha(this._number, value);
             }
         }
 
@@ -207,14 +207,14 @@ namespace ARCed.Scintilla
         {
             get
             {
-                if (Scintilla.ColorBag.ContainsKey(ToString() + ".BackColor"))
-                    return Scintilla.ColorBag[ToString() + ".BackColor"];
+                if (Scintilla.ColorBag.ContainsKey(this + ".BackColor"))
+                    return Scintilla.ColorBag[this + ".BackColor"];
 
                 return Color.White;
             }
             set
             {
-                SetBackColorInternal(value);
+                this.SetBackColorInternal(value);
                 Scintilla.Folding.MarkerScheme = FoldMarkerScheme.Custom;
             }
         }
@@ -224,14 +224,14 @@ namespace ARCed.Scintilla
         {
             get
             {
-                if (Scintilla.ColorBag.ContainsKey(ToString() + ".ForeColor"))
-                    return Scintilla.ColorBag[ToString() + ".ForeColor"];
+                if (Scintilla.ColorBag.ContainsKey(this + ".ForeColor"))
+                    return Scintilla.ColorBag[this + ".ForeColor"];
 
                 return Color.Black;
             }
             set
             {
-                SetForeColorInternal(value);
+                this.SetForeColorInternal(value);
                 Scintilla.Folding.MarkerScheme = FoldMarkerScheme.Custom;
             }
         }
@@ -241,7 +241,7 @@ namespace ARCed.Scintilla
         {
             get
             {
-                uint result = ((uint)1) << Number;
+                uint result = ((uint)1) << this.Number;
                 return result;
             }
         }
@@ -251,11 +251,11 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _number;
+                return this._number;
             }
             set
             {
-                _number = value;
+                this._number = value;
             }
         }
 
@@ -271,8 +271,8 @@ namespace ARCed.Scintilla
         {
             get
             {
-                if (Scintilla.PropertyBag.ContainsKey(ToString() + ".Symbol"))
-                    return (MarkerSymbol)Scintilla.PropertyBag[ToString() + ".Symbol"];
+                if (Scintilla.PropertyBag.ContainsKey(this + ".Symbol"))
+                    return (MarkerSymbol)Scintilla.PropertyBag[this + ".Symbol"];
 
                 return MarkerSymbol.Circle;
             }
@@ -281,9 +281,9 @@ namespace ARCed.Scintilla
                 if (!Enum.IsDefined(typeof(MarkerSymbol), value))
                     throw new InvalidEnumArgumentException("value", (int)value, typeof(MarkerSymbol));
 
-                if (value != Symbol)
+                if (value != this.Symbol)
                 {
-                    SetSymbolInternal(value);
+                    this.SetSymbolInternal(value);
                     Scintilla.Folding.MarkerScheme = FoldMarkerScheme.Custom;
                 }
             }
@@ -296,7 +296,7 @@ namespace ARCed.Scintilla
 
         internal Marker(Scintilla scintilla, int number) : base(scintilla)
         {
-            _number = number;
+            this._number = number;
         }
 
         #endregion Constructors

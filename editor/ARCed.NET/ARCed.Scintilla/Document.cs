@@ -27,7 +27,7 @@ namespace ARCed.Scintilla
         /// <remarks>No, you aren't looking at COM, move along.</remarks>
         public void AddRef()
         {
-            NativeScintilla.AddRefDocument(_handle);
+            NativeScintilla.AddRefDocument(this._handle);
         }
 
 
@@ -40,10 +40,10 @@ namespace ARCed.Scintilla
         {
             var d = obj as Document;
 
-            if (_handle == IntPtr.Zero)
+            if (this._handle == IntPtr.Zero)
                 return false;
 
-            return _handle.Equals(d._handle);
+            return this._handle.Equals(d._handle);
         }
 
 
@@ -53,7 +53,7 @@ namespace ARCed.Scintilla
         /// <returns>Document Pointer's hashcode</returns>
         public override int GetHashCode()
         {
-            return _handle.GetHashCode();
+            return this._handle.GetHashCode();
         }
 
 
@@ -65,7 +65,7 @@ namespace ARCed.Scintilla
         /// </remarks>
         public void Release()
         {
-            NativeScintilla.ReleaseDocument(_handle);
+            NativeScintilla.ReleaseDocument(this._handle);
         }
 
         #endregion Methods
@@ -80,11 +80,11 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _handle;
+                return this._handle;
             }
             set
             {
-                _handle = value;
+                this._handle = value;
             }
         }
 
@@ -95,7 +95,7 @@ namespace ARCed.Scintilla
 
         internal Document(Scintilla scintilla, IntPtr handle) : base(scintilla) 
         {
-            _handle = handle;
+            this._handle = handle;
         }
 
         #endregion Constructors

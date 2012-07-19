@@ -25,58 +25,58 @@ namespace ARCed.Scintilla
 
         private void ResetFlags()
         {
-            Flags = 0;
+            this.Flags = 0;
         }
 
 
         private void ResetIsEnabled()
         {
-            IsEnabled = true;
+            this.IsEnabled = true;
         }
 
 
         private void ResetMarkerScheme()
         {
-            MarkerScheme = FoldMarkerScheme.BoxPlusMinus;
+            this.MarkerScheme = FoldMarkerScheme.BoxPlusMinus;
         }
 
 
         private void ResetUseCompactFolding()
         {
-            UseCompactFolding = false;
+            this.UseCompactFolding = false;
         }
 
 
         internal bool ShouldSerialize()
         {
-            return ShouldSerializeFlags() ||
-                ShouldSerializeIsEnabled() ||
-                ShouldSerializeMarkerScheme() ||
-                ShouldSerializeUseCompactFolding();
+            return this.ShouldSerializeFlags() ||
+                this.ShouldSerializeIsEnabled() ||
+                this.ShouldSerializeMarkerScheme() ||
+                this.ShouldSerializeUseCompactFolding();
         }
 
 
         private bool ShouldSerializeFlags()
         {
-            return (int)Flags != 0;
+            return (int)this.Flags != 0;
         }
 
 
         private bool ShouldSerializeIsEnabled()
         {
-            return !IsEnabled;
+            return !this.IsEnabled;
         }
 
 
         private bool ShouldSerializeMarkerScheme()
         {
-            return _markerScheme != FoldMarkerScheme.BoxPlusMinus;
+            return this._markerScheme != FoldMarkerScheme.BoxPlusMinus;
         }
 
 
         private bool ShouldSerializeUseCompactFolding()
         {
-            return UseCompactFolding;
+            return this.UseCompactFolding;
         }
 
         #endregion Methods
@@ -92,11 +92,11 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _flags;
+                return this._flags;
             }
             set
             {
-                _flags = value;
+                this._flags = value;
                 NativeScintilla.SetFoldFlags((int)value);
             }
         }
@@ -131,11 +131,11 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _markerScheme;
+                return this._markerScheme;
             }
             set
             {
-                _markerScheme = value;
+                this._markerScheme = value;
 
                 if (value == FoldMarkerScheme.Custom)
                     return;
@@ -229,9 +229,9 @@ namespace ARCed.Scintilla
 
         internal Folding(Scintilla scintilla) : base(scintilla) 
         {
-            IsEnabled = true;
-            UseCompactFolding = false;
-            MarkerScheme = FoldMarkerScheme.BoxPlusMinus;
+            this.IsEnabled = true;
+            this.UseCompactFolding = false;
+            this.MarkerScheme = FoldMarkerScheme.BoxPlusMinus;
         }
 
         #endregion Constructors

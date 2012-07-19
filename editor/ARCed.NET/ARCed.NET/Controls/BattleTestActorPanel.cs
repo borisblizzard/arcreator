@@ -10,9 +10,9 @@ namespace ARCed.Controls
 	{
 		public BattleTestActorPanel()
 		{
-			InitializeComponent();
+			this.InitializeComponent();
 			
-			comboBoxActor.SelectedIndex = 0;
+			this.comboBoxActor.SelectedIndex = 0;
 		}
 	}
 }

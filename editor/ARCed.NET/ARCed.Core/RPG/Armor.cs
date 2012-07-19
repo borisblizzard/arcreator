@@ -81,22 +81,22 @@ namespace RPG
         /// </summary>
 		public Armor()
 		{
-			id = 0;
-			name = "";
-			icon_name = "";
-			description = "";
-			kind = 0;
-			auto_state_id = 0;
-			price = 0;
-			pdef = 0;
-			mdef = 0;
-			eva = 0;
-			str_plus = 0;
-			dex_plus = 0;
-			agi_plus = 0;
-			int_plus = 0;
-			guard_element_set = new List<dynamic> ();
-			guard_state_set = new List<dynamic> ();
+			this.id = 0;
+			this.name = "";
+			this.icon_name = "";
+			this.description = "";
+			this.kind = 0;
+			this.auto_state_id = 0;
+			this.price = 0;
+			this.pdef = 0;
+			this.mdef = 0;
+			this.eva = 0;
+			this.str_plus = 0;
+			this.dex_plus = 0;
+			this.agi_plus = 0;
+			this.int_plus = 0;
+			this.guard_element_set = new List<dynamic> ();
+			this.guard_state_set = new List<dynamic> ();
 		}
 
 		/// <summary>

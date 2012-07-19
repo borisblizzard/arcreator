@@ -121,32 +121,32 @@ namespace RPG
         /// </summary>
 		public Enemy() // Number One
 		{
-			id = 0;
-			name = "";
-			battler_name = "";
-			battler_hue = 0;
-			maxhp = 0;
-			maxsp = 0;
-			str = 50;
-			dex = 50;
-			agi = 50;
-			@int = 50;
-			atk = 100;
-			pdef = 100;
-			mdef = 100;
-			eva = 0;
-			animation1_id = 0;
-			animation2_id = 0;
-			element_ranks = new Table(1);
-			state_ranks = new Table(1);
-			actions = new List<dynamic>
+			this.id = 0;
+			this.name = "";
+			this.battler_name = "";
+			this.battler_hue = 0;
+			this.maxhp = 0;
+			this.maxsp = 0;
+			this.str = 50;
+			this.dex = 50;
+			this.agi = 50;
+			this.@int = 50;
+			this.atk = 100;
+			this.pdef = 100;
+			this.mdef = 100;
+			this.eva = 0;
+			this.animation1_id = 0;
+			this.animation2_id = 0;
+			this.element_ranks = new Table(1);
+			this.state_ranks = new Table(1);
+			this.actions = new List<dynamic>
 			{ new Action() };
-			exp = 0;
-			gold = 0;
-			item_id = 0;
-			weapon_id = 0;
-			armor_id = 0;
-			treasure_prob = 100;
+			this.exp = 0;
+			this.gold = 0;
+			this.item_id = 0;
+			this.weapon_id = 0;
+			this.armor_id = 0;
+			this.treasure_prob = 100;
 		}
 
 		/// <summary>
@@ -214,15 +214,15 @@ namespace RPG
             /// </summary>
 			public Action()
 			{
-				kind = 0;
-				basic = 0;
-				skill_id = 1;
-				condition_turn_a = 0;
-				condition_turn_b = 1;
-				condition_hp = 100;
-				condition_level = 1;
-				condition_switch_id = 0;
-				rating = 5;
+				this.kind = 0;
+				this.basic = 0;
+				this.skill_id = 1;
+				this.condition_turn_a = 0;
+				this.condition_turn_b = 1;
+				this.condition_hp = 100;
+				this.condition_level = 1;
+				this.condition_switch_id = 0;
+				this.rating = 5;
 			}
 		}
 

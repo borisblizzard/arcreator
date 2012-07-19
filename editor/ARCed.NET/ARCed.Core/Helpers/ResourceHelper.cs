@@ -48,7 +48,7 @@ namespace ARCed.Helpers
 		{
             get
             {
-                string filters = string.Join("|", Constants.IMAGEFILTERS, 
+                var filters = string.Join("|", Constants.IMAGEFILTERS, 
                     Constants.AUDIOFILTERS, Constants.SCRIPTFILTERS);
                 return filters.Split('|');
             }
@@ -181,9 +181,9 @@ namespace ARCed.Helpers
 		public static List<string> DirectorySearch(string rootDir, params string[] filters)
 		{
 			var fileList = new List<string>();
-			foreach (string filter in filters)
+			foreach (var filter in filters)
 				fileList.AddRange(Directory.GetFiles(rootDir, filter));
-			foreach (string dir in Directory.GetDirectories(rootDir))
+			foreach (var dir in Directory.GetDirectories(rootDir))
 				fileList.AddRange(DirectorySearch(dir, filters));
 			return fileList;
 		}
@@ -196,9 +196,9 @@ namespace ARCed.Helpers
 			_resources.RemoveAll(r => r.Location == Location.RTP);
 			var graphics = Path.Combine(Constants.RTPPath, "Graphics");
 			var audio = Path.Combine(Constants.RTPPath, "Audio");
-			foreach (string filename in DirectorySearch(graphics, Constants.IMAGEFILTERS.Split('|')))
+			foreach (var filename in DirectorySearch(graphics, Constants.IMAGEFILTERS.Split('|')))
 				_resources.Add(new GameResource(filename, Location.RTP, ResourceType.Graphics));
-            foreach (string filename in DirectorySearch(audio, Constants.AUDIOFILTERS.Split('|')))
+            foreach (var filename in DirectorySearch(audio, Constants.AUDIOFILTERS.Split('|')))
 				_resources.Add(new GameResource(filename, Location.RTP, ResourceType.Audio));
 		}
 
@@ -208,9 +208,9 @@ namespace ARCed.Helpers
 		public static void RefreshLocal()
 		{
 			_resources.RemoveAll(r => r.Location == Location.Local);
-            foreach (string filename in DirectorySearch("Graphics", Constants.IMAGEFILTERS.Split('|')))
+            foreach (var filename in DirectorySearch("Graphics", Constants.IMAGEFILTERS.Split('|')))
 				_resources.Add(new GameResource(filename, Location.Local, ResourceType.Graphics));
-            foreach (string filename in DirectorySearch("Audio", Constants.AUDIOFILTERS.Split('|')))
+            foreach (var filename in DirectorySearch("Audio", Constants.AUDIOFILTERS.Split('|')))
 				_resources.Add(new GameResource(filename, Location.Local, ResourceType.Audio));
 		}
 

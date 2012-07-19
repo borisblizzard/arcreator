@@ -18,20 +18,20 @@ namespace ARCed.Scripting
 
 		private ScriptStyle CurrentStyle
 		{
-			get { return Editor.Settings.Scripting.ScriptStyles[listBoxStyles.SelectedIndex]; }
+			get { return Editor.Settings.Scripting.ScriptStyles[this.listBoxStyles.SelectedIndex]; }
 		}
 
 		public ScriptStyleForm()
 		{
-			InitializeComponent();
-			this.Icon = Icon.FromHandle(Resources.Scintilla.GetHicon());
-			listBoxStyles.Items.Clear();
-			listBoxStyles.BeginUpdate();
+			this.InitializeComponent();
+			Icon = Icon.FromHandle(Resources.Scintilla.GetHicon());
+			this.listBoxStyles.Items.Clear();
+			this.listBoxStyles.BeginUpdate();
 			foreach (ScriptStyle style in Editor.Settings.Scripting.ScriptStyles)
-				listBoxStyles.Items.Add(style.Name);
-			listBoxStyles.EndUpdate();
-			panelCaretColor.BackColor = Editor.Settings.Scripting.CaretColor;
-			listBoxStyles.SelectedIndex = 0;
+				this.listBoxStyles.Items.Add(style.Name);
+			this.listBoxStyles.EndUpdate();
+			this.panelCaretColor.BackColor = Editor.Settings.Scripting.CaretColor;
+			this.listBoxStyles.SelectedIndex = 0;
 		}
 
 		private static Color ShowColorDialog(Color color)
@@ -39,9 +39,7 @@ namespace ARCed.Scripting
 			using (var dialog = new ColorChooserForm())
 			{
 				dialog.Color = color;
-				if (dialog.ShowDialog() == DialogResult.OK)
-					return dialog.Color;
-				return color;
+				return dialog.ShowDialog() == DialogResult.OK ? dialog.Color : color;
 			}
 		}
 
@@ -58,58 +56,58 @@ namespace ARCed.Scripting
 
 		private void UpdateFont(object sender, EventArgs e)
 		{
-			if (!_suppressEvents)
+			if (!this._suppressEvents)
 			{
-				CurrentStyle.Font = fontSelector.UserFont;
+				this.CurrentStyle.Font = this.fontSelector.UserFont;
 				UpdateOpenScripts();
 			}
 		}
 
 		private void panelCaretColor_DoubleClick(object sender, EventArgs e)
 		{
-			if (!_suppressEvents)
+			if (!this._suppressEvents)
 			{
 				Editor.Settings.Scripting.CaretColor = 
 					ShowColorDialog(Editor.Settings.Scripting.CaretColor);
-				panelCaretColor.BackColor = Editor.Settings.Scripting.CaretColor;
+				this.panelCaretColor.BackColor = Editor.Settings.Scripting.CaretColor;
 				UpdateOpenScripts();
 			}
 		}
 
 		private void panelColorFore_DoubleClick(object sender, EventArgs e)
 		{
-			if (!_suppressEvents)
+			if (!this._suppressEvents)
 			{
-				CurrentStyle.ForeColor = ShowColorDialog(CurrentStyle.ForeColor);
-				panelColorFore.BackColor = CurrentStyle.ForeColor;
+				this.CurrentStyle.ForeColor = ShowColorDialog(this.CurrentStyle.ForeColor);
+				this.panelColorFore.BackColor = this.CurrentStyle.ForeColor;
 				UpdateOpenScripts();
 			}
 		}
 
 		private void panelColorBack_DoubleClick(object sender, EventArgs e)
 		{
-			if (!_suppressEvents)
+			if (!this._suppressEvents)
 			{
-				CurrentStyle.BackColor = ShowColorDialog(CurrentStyle.BackColor);
-				panelColorFore.BackColor = CurrentStyle.BackColor;
+				this.CurrentStyle.BackColor = ShowColorDialog(this.CurrentStyle.BackColor);
+				this.panelColorFore.BackColor = this.CurrentStyle.BackColor;
 				UpdateOpenScripts();
 			}
 		}
 
 		private void listBoxStyles_SelectedIndexChanged(object sender, EventArgs e)
 		{
-			_suppressEvents = true;
-			ScriptStyle style = CurrentStyle;
-			fontSelector.UserFont = style.Font;
-			panelColorFore.BackColor = style.ForeColor;
-			panelColorBack.BackColor = style.BackColor;
-			_suppressEvents = false;
+			this._suppressEvents = true;
+			ScriptStyle style = this.CurrentStyle;
+			this.fontSelector.UserFont = style.Font;
+			this.panelColorFore.BackColor = style.ForeColor;
+			this.panelColorBack.BackColor = style.BackColor;
+			this._suppressEvents = false;
 		}
 
 		private void buttonDefault_Click(object sender, EventArgs e)
 		{
 			Editor.Settings.Scripting.ScriptStyles = ScriptSettings.DefaultStyles;
-			listBoxStyles_SelectedIndexChanged(null, null);
+			this.listBoxStyles_SelectedIndexChanged(null, null);
 			UpdateOpenScripts();
 		}
 

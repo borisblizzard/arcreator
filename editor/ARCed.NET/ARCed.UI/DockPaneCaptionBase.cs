@@ -30,17 +30,17 @@ namespace ARCed.UI
 
 		protected DockPane.AppearanceStyle Appearance
 		{
-			get	{	return DockPane.Appearance;	}
+			get	{	return this.DockPane.Appearance;	}
 		}
 
         protected bool HasTabPageContextMenu
         {
-            get { return DockPane.HasTabPageContextMenu; }
+            get { return this.DockPane.HasTabPageContextMenu; }
         }
 
         protected void ShowTabPageContextMenu(Point position)
         {
-            DockPane.ShowTabPageContextMenu(this, position);
+            this.DockPane.ShowTabPageContextMenu(this, position);
         }
 
         protected override void OnMouseUp(MouseEventArgs e)
@@ -48,7 +48,7 @@ namespace ARCed.UI
             base.OnMouseUp(e);
 
             if (e.Button == MouseButtons.Right)
-                ShowTabPageContextMenu(new Point(e.X, e.Y));
+                this.ShowTabPageContextMenu(new Point(e.X, e.Y));
         }
 
         protected override void OnMouseDown(MouseEventArgs e)
@@ -56,11 +56,11 @@ namespace ARCed.UI
             base.OnMouseDown(e);
 
             if (e.Button == MouseButtons.Left &&
-			    DockPane.DockPanel.AllowEndUserDocking &&
-                DockPane.AllowDockDragAndDrop &&
-				!DockHelper.IsDockStateAutoHide(DockPane.DockState) &&
-                DockPane.ActiveContent != null)
-				DockPane.DockPanel.BeginDrag(DockPane);
+			    this.DockPane.DockPanel.AllowEndUserDocking &&
+                this.DockPane.AllowDockDragAndDrop &&
+				!DockHelper.IsDockStateAutoHide(this.DockPane.DockState) &&
+                this.DockPane.ActiveContent != null)
+				this.DockPane.DockPanel.BeginDrag(this.DockPane);
         }
 
         [SecurityPermission(SecurityAction.LinkDemand, Flags = SecurityPermissionFlag.UnmanagedCode)]         
@@ -68,16 +68,16 @@ namespace ARCed.UI
         {
             if (m.Msg == (int)Msgs.WM_LBUTTONDBLCLK)
             {
-                if (DockHelper.IsDockStateAutoHide(DockPane.DockState))
+                if (DockHelper.IsDockStateAutoHide(this.DockPane.DockState))
                 {
-                    DockPane.DockPanel.ActiveAutoHideContent = null;
+                    this.DockPane.DockPanel.ActiveAutoHideContent = null;
                     return;
                 }
 
-                if (DockPane.IsFloat)
-                    DockPane.RestoreToPanel();
+                if (this.DockPane.IsFloat)
+                    this.DockPane.RestoreToPanel();
                 else
-                    DockPane.Float();
+                    this.DockPane.Float();
             }
             base.WndProc(ref m);
         }
@@ -87,7 +87,7 @@ namespace ARCed.UI
             if (IsDisposed)
                 return;
 
-			OnRefreshChanges();
+			this.OnRefreshChanges();
 		}
 
         protected virtual void OnRightToLeftLayoutChanged()

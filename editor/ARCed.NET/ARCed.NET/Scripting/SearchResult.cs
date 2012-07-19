@@ -31,8 +31,8 @@ namespace ARCed.Scripting
 		public SearchResult(Script script, string scriptTitle, int lineNumber, string lineText)
 			: base(new[] { scriptTitle, (lineNumber + 1).ToString(CultureInfo.InvariantCulture), lineText })
 		{
-			Script = script;
-			Line = lineNumber;
+			this.Script = script;
+			this.Line = lineNumber;
 		}
 	}
 }

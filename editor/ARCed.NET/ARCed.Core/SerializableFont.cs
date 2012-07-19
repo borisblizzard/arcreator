@@ -24,7 +24,7 @@ namespace ARCed.Core
         /// </summary>
 		public SerializableFont()
 		{
-			FontValue = null;
+			this.FontValue = null;
 		}
 
         /// <summary>
@@ -33,7 +33,7 @@ namespace ARCed.Core
         /// <param name="font"></param>
 		public SerializableFont(Font font)
 		{
-			FontValue = font;
+			this.FontValue = font;
 		}
 
         #endregion
@@ -53,8 +53,8 @@ namespace ARCed.Core
 		[XmlElement("Font")]
 		public string SerializeFontAttribute
 		{
-            get { return FontXmlConverter.ConvertToString(FontValue); }
-            set { FontValue = FontXmlConverter.ConvertToFont(value); }
+            get { return FontXmlConverter.ConvertToString(this.FontValue); }
+            set { this.FontValue = FontXmlConverter.ConvertToFont(value); }
 		}
 
         #endregion
@@ -67,11 +67,9 @@ namespace ARCed.Core
         /// <param name="serializeableFont">SerializableFont to cast from.</param>
         /// <returns>Font representation of the object.</returns>
 		public static implicit operator Font(SerializableFont serializeableFont)
-		{
-			if (serializeableFont == null)
-				return null;
-			return serializeableFont.FontValue;
-		}
+        {
+            return serializeableFont == null ? null : serializeableFont.FontValue;
+        }
 
         /// <summary>
         /// Implicit cast from a <see cref="Font"/> to a <see cref="SerializableFont"/>.
@@ -92,7 +90,7 @@ namespace ARCed.Core
 	public static class FontXmlConverter
 	{
         /// <summary>
-        /// Converts a <see cref="Font"/> to a <see cref="String"/>
+        /// Converts a <see cref="Font"/> to a <see cref="string"/>
         /// </summary>
         /// <param name="font">Font to convert</param>
         /// <returns>String representation of the font.</returns>
@@ -112,7 +110,7 @@ namespace ARCed.Core
 		}
 
         /// <summary>
-        /// Converts a <see cref="String"/> to a <see cref="Font"/> object.
+        /// Converts a <see cref="string"/> to a <see cref="Font"/> object.
         /// </summary>
         /// <param name="fontString">String to convert</param>
         /// <returns>Font representation of the string.</returns>

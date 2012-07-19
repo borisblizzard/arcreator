@@ -1,6 +1,6 @@
 ﻿namespace ARCed.Database.Actors
 {
-	partial class ActorMainForm
+    sealed partial class ActorMainForm
 	{
 		/// <summary>
 		/// Required designer variable.
@@ -109,7 +109,7 @@
 			this.pictureCharacter.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
 			this.pictureCharacter.TabIndex = 1;
 			this.pictureCharacter.TabStop = false;
-			this.pictureCharacter.DoubleClick += new System.EventHandler(this.pictureCharacter_DoubleClick);
+			this.pictureCharacter.DoubleClick += new System.EventHandler(this.PictureCharacterDoubleClick);
 			// 
 			// contextMenuImages
 			// 
@@ -122,7 +122,7 @@
             this.changeToolStripMenuItem});
 			this.contextMenuImages.Name = "contextMenuImages";
 			this.contextMenuImages.Size = new System.Drawing.Size(125, 120);
-			this.contextMenuImages.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuImages_Opening);
+			this.contextMenuImages.Opening += new System.ComponentModel.CancelEventHandler(this.ContextMenuImagesOpening);
 			// 
 			// contextImageNormal
 			// 
@@ -130,7 +130,7 @@
 			this.contextImageNormal.Size = new System.Drawing.Size(124, 22);
 			this.contextImageNormal.Tag = "0";
 			this.contextImageNormal.Text = "Normal";
-			this.contextImageNormal.Click += new System.EventHandler(this.contextImagesSizeMode_Clicked);
+			this.contextImageNormal.Click += new System.EventHandler(this.ContextImagesSizeModeClicked);
 			// 
 			// contextImageStretch
 			// 
@@ -138,7 +138,7 @@
 			this.contextImageStretch.Size = new System.Drawing.Size(124, 22);
 			this.contextImageStretch.Tag = "1";
 			this.contextImageStretch.Text = "Stretch";
-			this.contextImageStretch.Click += new System.EventHandler(this.contextImagesSizeMode_Clicked);
+			this.contextImageStretch.Click += new System.EventHandler(this.ContextImagesSizeModeClicked);
 			// 
 			// contextImageCenter
 			// 
@@ -146,7 +146,7 @@
 			this.contextImageCenter.Size = new System.Drawing.Size(124, 22);
 			this.contextImageCenter.Tag = "3";
 			this.contextImageCenter.Text = "Center";
-			this.contextImageCenter.Click += new System.EventHandler(this.contextImagesSizeMode_Clicked);
+			this.contextImageCenter.Click += new System.EventHandler(this.ContextImagesSizeModeClicked);
 			// 
 			// contextImageZoom
 			// 
@@ -154,7 +154,7 @@
 			this.contextImageZoom.Size = new System.Drawing.Size(124, 22);
 			this.contextImageZoom.Tag = "4";
 			this.contextImageZoom.Text = "Zoom";
-			this.contextImageZoom.Click += new System.EventHandler(this.contextImagesSizeMode_Clicked);
+			this.contextImageZoom.Click += new System.EventHandler(this.ContextImagesSizeModeClicked);
 			// 
 			// toolStripSeparator1
 			// 
@@ -178,7 +178,7 @@
 			this.pictureBattler.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
 			this.pictureBattler.TabIndex = 1;
 			this.pictureBattler.TabStop = false;
-			this.pictureBattler.DoubleClick += new System.EventHandler(this.pictureBattler_DoubleClick);
+			this.pictureBattler.DoubleClick += new System.EventHandler(this.PictureBattlerDoubleClick);
 			// 
 			// groupBoxEquipment
 			// 
@@ -291,7 +291,7 @@
 			this.comboClass.Name = "comboClass";
 			this.comboClass.Size = new System.Drawing.Size(168, 21);
 			this.comboClass.TabIndex = 17;
-			this.comboClass.SelectedIndexChanged += new System.EventHandler(this.comboClass_SelectedIndexChanged);
+			this.comboClass.SelectedIndexChanged += new System.EventHandler(this.ComboClassSelectedIndexChanged);
 			// 
 			// textBoxName
 			// 
@@ -301,7 +301,7 @@
 			this.textBoxName.Name = "textBoxName";
 			this.textBoxName.Size = new System.Drawing.Size(168, 20);
 			this.textBoxName.TabIndex = 15;
-			this.textBoxName.TextChanged += new System.EventHandler(this.textBoxName_TextChanged);
+			this.textBoxName.TextChanged += new System.EventHandler(this.TextBoxNameTextChanged);
 			// 
 			// splitContainerCombos
 			// 
@@ -331,7 +331,7 @@
 			this.numericLevelInit.Name = "numericLevelInit";
 			this.numericLevelInit.Size = new System.Drawing.Size(74, 20);
 			this.numericLevelInit.TabIndex = 1;
-			this.numericLevelInit.ValueChanged += new System.EventHandler(this.numericLevelInit_ValueChanged);
+			this.numericLevelInit.ValueChanged += new System.EventHandler(this.NumericLevelInitValueChanged);
 			// 
 			// labelLevelInit
 			// 
@@ -355,7 +355,7 @@
 			this.numericLevelFinal.Name = "numericLevelFinal";
 			this.numericLevelFinal.Size = new System.Drawing.Size(78, 20);
 			this.numericLevelFinal.TabIndex = 1;
-			this.numericLevelFinal.ValueChanged += new System.EventHandler(this.numericLevelFinal_ValueChanged);
+			this.numericLevelFinal.ValueChanged += new System.EventHandler(this.NumericLevelFinalValueChanged);
 			// 
 			// labelLevelFinal
 			// 
@@ -441,7 +441,7 @@
 			this.dataObjectList.Size = new System.Drawing.Size(165, 452);
 			this.dataObjectList.TabIndex = 0;
 			this.dataObjectList.TabStop = false;
-			this.dataObjectList.OnListBoxIndexChanged += new ARCed.Controls.DatabaseObjectListBox.ObjectListIndexChangedEventHandler(this.listBoxActors_SelectedIndexChanged);
+			this.dataObjectList.OnListBoxIndexChanged += new ARCed.Controls.DatabaseObjectListBox.ObjectListIndexChangedEventHandler(this.ListBoxActorsSelectedIndexChanged);
 			// 
 			// splitContainerRight
 			// 
@@ -515,7 +515,7 @@
 			this.textBoxExpCurve.Name = "textBoxExpCurve";
 			this.textBoxExpCurve.Size = new System.Drawing.Size(168, 20);
 			this.textBoxExpCurve.TabIndex = 20;
-			this.textBoxExpCurve.OnButtonClick += new ARCed.Controls.TextBoxButton.ButtonClickHandler(this.buttonExperience_Click);
+			this.textBoxExpCurve.OnButtonClick += new ARCed.Controls.TextBoxButton.ButtonClickHandler(this.ButtonExperienceClick);
 			// 
 			// ActorMainForm
 			// 

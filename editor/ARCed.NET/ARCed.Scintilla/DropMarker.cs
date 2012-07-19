@@ -31,7 +31,7 @@ namespace ARCed.Scintilla
         /// <param name="newEnd">Document _end position</param>
         public override void Change(int newStart, int newEnd)
         {
-            Invalidate();
+            this.Invalidate();
             // This actually changes Start and End
             base.Change(newStart, newEnd);
         }
@@ -43,7 +43,7 @@ namespace ARCed.Scintilla
         /// </summary>
         public bool Collect()
         {
-            return Collect(true);
+            return this.Collect(true);
         }
 
 
@@ -58,7 +58,7 @@ namespace ARCed.Scintilla
             GotoStart();
 
             if (dispose)
-                Dispose();
+                this.Dispose();
 
             return true;
         }
@@ -72,7 +72,7 @@ namespace ARCed.Scintilla
             if (!IsDisposed)
             {
                 Scintilla.DropMarkers.AllDocumentDropMarkers.Remove(this);
-                Invalidate();
+                this.Invalidate();
                 base.Dispose();
             }
         }
@@ -114,7 +114,7 @@ namespace ARCed.Scintilla
             if (Scintilla != null && Start > 0)
             {
                 //	Invalidate the old Marker Location so that we don't get "Ghosts"
-                Scintilla.Invalidate(GetClientRectangle());
+                Scintilla.Invalidate(this.GetClientRectangle());
             }
         }
 
@@ -158,11 +158,11 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _key;
+                return this._key;
             }
             set
             {
-                _key = value;
+                this._key = value;
             }
         }
 
@@ -174,11 +174,11 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _topOffset;
+                return this._topOffset;
             }
             set
             {
-                _topOffset = value;
+                this._topOffset = value;
             }
         }
 

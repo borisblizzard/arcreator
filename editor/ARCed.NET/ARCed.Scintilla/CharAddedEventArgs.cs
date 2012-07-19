@@ -28,7 +28,7 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _ch;
+                return this._ch;
             }
         }
 
@@ -43,7 +43,7 @@ namespace ARCed.Scintilla
         /// <param name="ch">The character that was added</param>
         public CharAddedEventArgs(char ch)
         {
-            _ch = ch;
+            this._ch = ch;
         }
 
         #endregion Constructors

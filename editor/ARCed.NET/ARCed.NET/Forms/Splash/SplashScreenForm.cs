@@ -23,10 +23,10 @@ namespace ARCed.Forms.Splash
 		/// </summary>
 		public SplashScreenForm()
 		{
-			InitializeComponent();
+			this.InitializeComponent();
 			this.labelStatus.Parent = this.pictureBoxSplash;
 			this.labelStatus.BackColor = Color.Transparent;
-			labelStatus.ForeColor = Color.AntiqueWhite;
+			this.labelStatus.ForeColor = Color.AntiqueWhite;
 		}
 
 		/// <summary>
@@ -37,10 +37,10 @@ namespace ARCed.Forms.Splash
 			if (InvokeRequired)
 			{
 				// We're not in the UI thread, so we need to call BeginInvoke
-				BeginInvoke(new SplashShowCloseDelegate(ShowSplashScreen));
+				BeginInvoke(new SplashShowCloseDelegate(this.ShowSplashScreen));
 				return;
 			}
-			this.Show();
+			Show();
 			Application.Run(this);
 		}
 
@@ -52,11 +52,11 @@ namespace ARCed.Forms.Splash
 			if (InvokeRequired)
 			{
 				// We're not in the UI thread, so we need to call BeginInvoke
-				BeginInvoke(new SplashShowCloseDelegate(CloseSplashScreen));
+				BeginInvoke(new SplashShowCloseDelegate(this.CloseSplashScreen));
 				return;
 			}
-			CloseSplashScreenFlag = true;
-			this.Close();
+			this.CloseSplashScreenFlag = true;
+			Close();
 		}
 
 		/// <summary>
@@ -68,11 +68,11 @@ namespace ARCed.Forms.Splash
 			if (InvokeRequired)
 			{
 				// We're not in the UI thread, so we need to call BeginInvoke
-				BeginInvoke(new StringParameterDelegate(UdpateStatusText), new object[] { Text });
+				BeginInvoke(new StringParameterDelegate(this.UdpateStatusText), new object[] { Text });
 				return;
 			}
-			labelStatus.ForeColor = Color.AntiqueWhite;
-			labelStatus.Text = Text;
+			this.labelStatus.ForeColor = Color.AntiqueWhite;
+			this.labelStatus.Text = Text;
 		}
 
 
@@ -86,22 +86,22 @@ namespace ARCed.Forms.Splash
 			if (InvokeRequired)
 			{
 				// We're not in the UI thread, so we need to call BeginInvoke
-				BeginInvoke(new StringParameterWithStatusDelegate(UdpateStatusTextWithStatus), new object[] { Text, tom });
+				BeginInvoke(new StringParameterWithStatusDelegate(this.UdpateStatusTextWithStatus), new object[] { Text, tom });
 				return;
 			}
 			switch (tom)
 			{
 				case TypeOfMessage.Error:
-					labelStatus.ForeColor = Color.Red;
+					this.labelStatus.ForeColor = Color.Red;
 					break;
 				case TypeOfMessage.Warning:
-					labelStatus.ForeColor = Color.Yellow;
+					this.labelStatus.ForeColor = Color.Yellow;
 					break;
 				case TypeOfMessage.Success:
-					labelStatus.ForeColor = Color.AntiqueWhite;
+					this.labelStatus.ForeColor = Color.AntiqueWhite;
 					break;
 			}
-			labelStatus.Text = Text;
+			this.labelStatus.Text = Text;
 
 		}
 
@@ -112,7 +112,7 @@ namespace ARCed.Forms.Splash
 		/// <param name="e"></param>
 		private void SplashForm_FormClosing(object sender, FormClosingEventArgs e)
 		{
-			if (CloseSplashScreenFlag == false)
+			if (this.CloseSplashScreenFlag == false)
 				e.Cancel = true;
 		}
 	}

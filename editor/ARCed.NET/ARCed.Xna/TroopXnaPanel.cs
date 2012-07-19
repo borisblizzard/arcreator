@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 using ARCed.Helpers;
 using Microsoft.Xna.Framework;
@@ -52,11 +53,11 @@ namespace ARCed.Controls
 		/// </summary>
 		public Image Image 
 		{ 
-			get { return _image; }
+			get { return this._image; }
 			set 
 			{ 
-				_image = value;
-				_texture = null;
+				this._image = value;
+				this._texture = null;
 			}
 		}
 		/// <summary>
@@ -66,14 +67,14 @@ namespace ARCed.Controls
 		{ 
 			get 
 			{
-				if (_texture == null)
+				if (this._texture == null)
 				{
-					if (_image != null)
-						_texture = _image.ToTexture(GraphicsDevice);
+					if (this._image != null)
+						this._texture = this._image.ToTexture(this.GraphicsDevice);
 					else
-						return new Texture2D(GraphicsDevice, 32, 32);
+						return new Texture2D(this.GraphicsDevice, 32, 32);
 				}
-				return _texture;
+				return this._texture;
 			} 
 		}
 		/// <summary>
@@ -81,35 +82,35 @@ namespace ARCed.Controls
 		/// </summary>
 		public Vector2 Vector
 		{
-			get { return new Vector2(X, Y); } 
+			get { return new Vector2(this.X, this.Y); } 
 		}
 		/// <summary>
 		/// Gets or sets the X-coordinate of the sprite
 		/// </summary>
 		public int X 
 		{
-			get { return _member.x - (Width / 2); }
-			set { _member.x = value + (Width / 2); }
+			get { return this._member.x - (this.Width / 2); }
+			set { this._member.x = value + (this.Width / 2); }
 		}
 		/// <summary>
 		/// Gets or sets the Y-coordinate of the sprite
 		/// </summary>
 		public int Y 
 		{
-			get { return _member.y - Height; }
-			set { _member.y = value + Height; }
+			get { return this._member.y - this.Height; }
+			set { this._member.y = value + this.Height; }
 		}
 		/// <summary>
 		/// Gets or sets the selected flag of the sprite
 		/// </summary>
 		public bool Selected 
 		{
-			get { return _selected; }
+			get { return this._selected; }
 			set
 			{
-				_selected = value;
-				if (OnSelectionChanged != null)
-					OnSelectionChanged(this, new EventArgs());
+				this._selected = value;
+				if (this.OnSelectionChanged != null)
+					this.OnSelectionChanged(this, new EventArgs());
 			}
 		}
 		/// <summary>
@@ -119,48 +120,48 @@ namespace ARCed.Controls
 		/// <summary>
 		/// Gets the width of the sprite
 		/// </summary>
-		public int Width { get { return Image == null ? 32 : Image.Width; } }
+		public int Width { get { return this.Image == null ? 32 : this.Image.Width; } }
 		/// <summary>
 		/// Gets the height of the sprite
 		/// </summary>
-		public int Height { get { return Image == null ? 32 : Image.Height; } }
+		public int Height { get { return this.Image == null ? 32 : this.Image.Height; } }
 		/// <summary>
 		/// Gets the rectangle of the sprite
 		/// </summary>
 		public XnaRect Rectangle 
 		{ 
-			get { return new XnaRect(X, Y, Width, Height); } 
+			get { return new XnaRect(this.X, this.Y, this.Width, this.Height); } 
 		}
 		/// <summary>
 		/// Gets or sets the immortal status of the RPG.Troop.Member
 		/// </summary>
 		public bool Immortal 
 		{ 
-			get { return _member.immortal; } 
-			set { _member.immortal = value; } 
+			get { return this._member.immortal; } 
+			set { this._member.immortal = value; } 
 		}
 		/// <summary>
 		/// Gets or sets the hidden status of the RPG.Troop.Member
 		/// </summary>
 		public bool Hidden 
 		{ 
-			get { return _member.hidden; } 
-			set {_member.hidden = value; } 
+			get { return this._member.hidden; } 
+			set {this._member.hidden = value; } 
 		}
 		/// <summary>
 		/// Gets the ID of the enemy the sprite represents
 		/// </summary>
 		public int EnemyId 
 		{ 
-			get { return _member.enemy_id; }  
+			get { return this._member.enemy_id; }  
 		}
 		/// <summary>
 		/// Gets or sets the RPG.Troop.Member the sprite represents
 		/// </summary>
 		public Troop.Member TroopMember
 		{
-			get { return _member; }
-			set { _member = value; }
+			get { return this._member; }
+			set { this._member = value; }
 		}
 		/// <summary>
 		/// Gets the disposed status of the sprite
@@ -177,11 +178,13 @@ namespace ARCed.Controls
 		/// <param name="enemy">RPG.Enemy instance to create from</param>
 		public EnemySprite(Enemy enemy) 
 		{
-			Image = Cache.Battler(enemy.battler_name, enemy.battler_hue);
-			_member = new Troop.Member();
-			_member.enemy_id = enemy.id;
-			_selected = false;
-			Moving = false;
+			this.Image = Cache.Battler(enemy.battler_name, enemy.battler_hue);
+			this._member = new Troop.Member
+			{
+			    enemy_id = enemy.id
+			};
+		    this._selected = false;
+			this.Moving = false;
 		}
 
 		#endregion
@@ -193,25 +196,25 @@ namespace ARCed.Controls
 		/// </summary>
 		public void Dispose()
 		{
-			Dispose(true);
+			this.Dispose(true);
 			GC.SuppressFinalize(this);
-			IsDisposed = true;
+			this.IsDisposed = true;
 		}
 
 		protected virtual void Dispose(bool disposing)
 		{
 			if (disposing)
 			{
-				if (_image != null)
-					_image.Dispose();
-				if (_texture != null)
-					_texture.Dispose();
+				if (this._image != null)
+					this._image.Dispose();
+				if (this._texture != null)
+					this._texture.Dispose();
 			}
 		}
 
 		~EnemySprite()
 		{
-			Dispose(false);
+			this.Dispose(false);
 		}
 
 		#endregion
@@ -306,7 +309,7 @@ namespace ARCed.Controls
 		/// Gets the collection of sprites on the control
 		/// </summary>
 		[Browsable(false)]
-		public List<EnemySprite> Sprites { get { return _sprites; } }
+		public List<EnemySprite> Sprites { get { return this._sprites; } }
 
 		/// <summary>
 		/// Gets the selected sprite or null if one are selected
@@ -316,7 +319,7 @@ namespace ARCed.Controls
 		{
 			get 
 			{
-				return _sprites.Find(delegate(EnemySprite s) { return s.Selected; });
+				return this._sprites.Find(s => s.Selected);
 			}
 		}
 
@@ -329,7 +332,7 @@ namespace ARCed.Controls
 		/// </summary>
 		public TroopXnaPanel()
 		{
-			InitializeComponent();
+			this.InitializeComponent();
 			Disposed += this.TroopXnaPanel_Disposed;
 		}
 
@@ -342,18 +345,16 @@ namespace ARCed.Controls
 		/// </summary>
 		public void AutoAlign()
 		{
-			if (_sprites.Count == 0)
+			if (this._sprites.Count == 0)
 				return;
-			int width = 0;
-			foreach (EnemySprite sprite in _sprites)
-				width += sprite.Width;
-			int left = Math.Max((_background.Width - width) / 2, 0);
-			int max = _background.Width / _sprites.Count;
-			for (int i = 0; i < _sprites.Count; i++)
+			int width = this._sprites.Sum(sprite => sprite.Width);
+		    int left = Math.Max((this._background.Width - width) / 2, 0);
+			int max = this._background.Width / this._sprites.Count;
+			for (int i = 0; i < this._sprites.Count; i++)
 			{
-				_sprites[i].X = left;
-				left += Math.Min(_sprites[i].Width, max);
-				_sprites[i].Y = 300 - _sprites[i].Height;
+				this._sprites[i].X = left;
+				left += Math.Min(this._sprites[i].Width, max);
+				this._sprites[i].Y = 300 - this._sprites[i].Height;
 			}
 
 			Invalidate();
@@ -370,13 +371,13 @@ namespace ARCed.Controls
 			sprite.OnSelectionChanged += this.sprite_OnSelectionChanged;
 			if (sprite.X < 0 && sprite.Y < 0)
 			{
-				sprite.X = (_background.Width - sprite.Width) / 2;
-				sprite.Y = (_background.Height - sprite.Height) / 2;
+				sprite.X = (this._background.Width - sprite.Width) / 2;
+				sprite.Y = (this._background.Height - sprite.Height) / 2;
 			}
-			_sprites.Add(sprite);
+			this._sprites.Add(sprite);
 			Invalidate();
-			if (OnTroopChanged != null)
-				OnTroopChanged(this, new EventArgs());
+			if (this.OnTroopChanged != null)
+				this.OnTroopChanged(this, new EventArgs());
 		}
 
 		/// <summary>
@@ -384,16 +385,16 @@ namespace ARCed.Controls
 		/// </summary>
 		public void RemoveSelected()
 		{
-			var selected = _sprites.FindAll(delegate(EnemySprite s) { return s.Selected; });
+			var selected = this._sprites.FindAll(s => s.Selected);
 			foreach (EnemySprite sprite in selected)
 			{
 				sprite.Selected = false;
 				sprite.Dispose();
 			}
-			_sprites.RemoveAll(delegate(EnemySprite s) { return s.IsDisposed; });
+			this._sprites.RemoveAll(s => s.IsDisposed);
 			Invalidate();
-			if (OnTroopChanged != null)
-				OnTroopChanged(this, new EventArgs());
+			if (this.OnTroopChanged != null)
+				this.OnTroopChanged(this, new EventArgs());
 		}
 
 		/// <summary>
@@ -402,11 +403,11 @@ namespace ARCed.Controls
 		/// <param name="sprite">EnemySprite to remove</param>
 		public void RemoveSprite(EnemySprite sprite)
 		{
-			_sprites.Remove(sprite);
+			this._sprites.Remove(sprite);
 			sprite.Dispose();
 			Invalidate();
-			if (OnTroopChanged != null)
-				OnTroopChanged(this, new EventArgs());
+			if (this.OnTroopChanged != null)
+				this.OnTroopChanged(this, new EventArgs());
 		}
 
 		/// <summary>
@@ -415,8 +416,8 @@ namespace ARCed.Controls
 		/// <param name="image">Image file</param>
 		public void SetBackground(Image image)
 		{
-			_background = image.ToTexture(GraphicsDevice);
-			this.Size = image.Size;
+			this._background = image.ToTexture(GraphicsDevice);
+			Size = image.Size;
 			Invalidate();
 		}
 
@@ -427,8 +428,8 @@ namespace ARCed.Controls
 		public void SetBackground(string path)
 		{
 			using (Stream str = File.OpenRead(path))
-				_background = Texture2D.FromStream(GraphicsDevice, str);
-			this.Size = new Size(_background.Width, _background.Height);
+				this._background = Texture2D.FromStream(GraphicsDevice, str);
+			Size = new Size(this._background.Width, this._background.Height);
 			Invalidate();
 		}
 
@@ -437,9 +438,9 @@ namespace ARCed.Controls
 		/// </summary>
 		public void RemoveAll()
 		{
-			foreach (EnemySprite sprite in _sprites)
+			foreach (EnemySprite sprite in this._sprites)
 				sprite.Dispose();
-			_sprites.Clear();
+			this._sprites.Clear();
 			Invalidate();
 		}
 
@@ -452,13 +453,13 @@ namespace ARCed.Controls
 		/// </summary>
 		protected override void Initialize()
 		{
-			_sprites = new List<EnemySprite>();
-			_batch = new SpriteBatch(GraphicsDevice);
+			this._sprites = new List<EnemySprite>();
+			this._batch = new SpriteBatch(GraphicsDevice);
 			GraphicsDevice.Clear(XnaColor.Gray);
 			_hiddenColor = new XnaColor(80, 80, 80, 60);
-			this.MouseDown += this.TroopXnaPanel_MouseDown;
-			this.MouseUp += this.TroopXnaPanel_MouseUp;
-			this.MouseMove += this.TroopXnaPanel_MouseMove;
+			MouseDown += this.TroopXnaPanel_MouseDown;
+			MouseUp += this.TroopXnaPanel_MouseUp;
+			MouseMove += this.TroopXnaPanel_MouseMove;
 		}
 
 		/// <summary>
@@ -466,20 +467,20 @@ namespace ARCed.Controls
 		/// </summary>
 		protected override void Draw()
 		{
-			if (_background != null)
+			if (this._background != null)
 			{
 				GraphicsDevice.Clear(XnaColor.Gray);
-				_batch.Begin();
-				_batch.Draw(_background, new Vector2(0, 0), XnaColor.White);
-				_sprites.Sort();
-				foreach (EnemySprite sprite in _sprites)
+				this._batch.Begin();
+				this._batch.Draw(this._background, new Vector2(0, 0), XnaColor.White);
+				this._sprites.Sort();
+				foreach (EnemySprite sprite in this._sprites)
 				{
-					_batch.Draw(sprite.Texture, sprite.Vector, 
+					this._batch.Draw(sprite.Texture, sprite.Vector, 
 						sprite.Hidden ? _hiddenColor : XnaColor.White);
 					if (sprite.Selected)
-						_batch.DrawSelectionRect(sprite.Rectangle, XnaColor.White, 2);
+						this._batch.DrawSelectionRect(sprite.Rectangle, XnaColor.White, 2);
 				}
-				_batch.End();
+				this._batch.End();
 			}
 		}
 
@@ -489,13 +490,13 @@ namespace ARCed.Controls
 
 		private void sprite_OnSelectionChanged(object sender, EventArgs e)
 		{
-			if (OnSelectionChanged != null)
-				OnSelectionChanged(sender, e);
+			if (this.OnSelectionChanged != null)
+				this.OnSelectionChanged(sender, e);
 		}
 
 		private void TroopXnaPanel_Disposed(object sender, EventArgs e)
 		{
-			foreach (EnemySprite sprite in _sprites)
+			foreach (EnemySprite sprite in this._sprites)
 			{
 				if (sprite != null)
 					sprite.Dispose();
@@ -504,21 +505,21 @@ namespace ARCed.Controls
 
 		private void TroopXnaPanel_MouseMove(object sender, MouseEventArgs e)
 		{
-			if (_mouseDown)
+			if (this._mouseDown)
 			{
-				_moveX = e.X - _lastX;
-				_moveY = e.Y - _lastY;
-				_lastX = e.X;
-				_lastY = e.Y;
-				foreach (EnemySprite sprite in _sprites)
+				this._moveX = e.X - this._lastX;
+				this._moveY = e.Y - this._lastY;
+				this._lastX = e.X;
+				this._lastY = e.Y;
+				foreach (EnemySprite sprite in this._sprites)
 				{	
 					if (sprite.Selected)
 					{
 						sprite.Moving = true;
-						sprite.X += _moveX;
-						sprite.Y += _moveY;
-						sprite.X = sprite.X.Clamp(-sprite.Width + 16, _background.Width - 16);
-						sprite.Y = sprite.Y.Clamp(-sprite.Height + 16, _background.Height - 16);
+						sprite.X += this._moveX;
+						sprite.Y += this._moveY;
+						sprite.X = sprite.X.Clamp(-sprite.Width + 16, this._background.Width - 16);
+						sprite.Y = sprite.Y.Clamp(-sprite.Height + 16, this._background.Height - 16);
 					}
 				}
 				Invalidate();
@@ -527,15 +528,15 @@ namespace ARCed.Controls
 
 		private void TroopXnaPanel_MouseUp(object sender, MouseEventArgs e)
 		{
-			_mouseDown = false;
-			foreach (EnemySprite sprite in _sprites)
+			this._mouseDown = false;
+			foreach (EnemySprite sprite in this._sprites)
 			{
 				if (sprite.Moving)
 				{
 					sprite.Moving = false;
 					sprite.Selected = true;
-					if (OnTroopChanged != null)
-						OnTroopChanged(this, new EventArgs());
+					if (this.OnTroopChanged != null)
+						this.OnTroopChanged(this, new EventArgs());
 				}
 			}
 			Invalidate();
@@ -543,12 +544,12 @@ namespace ARCed.Controls
 
 		private void TroopXnaPanel_MouseDown(object sender, MouseEventArgs e)
 		{
-			_mouseDown = true;
-			_lastX = e.X;
-			_lastY = e.Y;
+			this._mouseDown = true;
+			this._lastX = e.X;
+			this._lastY = e.Y;
 			bool found = false;
-			_sprites.Reverse();
-			foreach (EnemySprite sprite in _sprites)
+			this._sprites.Reverse();
+			foreach (EnemySprite sprite in this._sprites)
 			{
 				if (sprite.Rectangle.Contains(e.X, e.Y) && !found)
 					sprite.Selected = found = true;

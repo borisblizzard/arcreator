@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
 using ARCed.Helpers;
@@ -25,47 +26,47 @@ namespace ARCed.Forms
 
 		public ARChiveForm()
 		{
-			InitializeComponent();
-			this.Icon = Icon.FromHandle(Resources.SevenZip.GetHicon());
-			numericMaxBackups.DataBindings.Add("Value", Project.ARChiveSettings, 
+			this.InitializeComponent();
+			Icon = Icon.FromHandle(Resources.SevenZip.GetHicon());
+			this.numericMaxBackups.DataBindings.Add("Value", Project.ARChiveSettings, 
 				"MaxBackups", false, DataSourceUpdateMode.OnPropertyChanged);
-			numericInterval.DataBindings.Add("Value", Project.ARChiveSettings,
+			this.numericInterval.DataBindings.Add("Value", Project.ARChiveSettings,
 				"Interval", false, DataSourceUpdateMode.OnPropertyChanged);
-			checkBoxThreaded.DataBindings.Add("Checked", Project.ARChiveSettings,
+			this.checkBoxThreaded.DataBindings.Add("Checked", Project.ARChiveSettings,
 				"Threaded", false, DataSourceUpdateMode.OnPropertyChanged);
-			RefreshSettings();
+			this.RefreshSettings();
 		}
 
 		public void RefreshSettings()
 		{
-			checkBoxTypeAllData.Checked = Project.ARChiveSettings.Type.HasFlag(BackupType.AllData);
-			checkBoxTypeMaps.Checked = Project.ARChiveSettings.Type.HasFlag(BackupType.Maps);
-			checkBoxTypeScripts.Checked = Project.ARChiveSettings.Type.HasFlag(BackupType.Scripts);
+			this.checkBoxTypeAllData.Checked = Project.ARChiveSettings.Type.HasFlag(BackupType.AllData);
+			this.checkBoxTypeMaps.Checked = Project.ARChiveSettings.Type.HasFlag(BackupType.Maps);
+			this.checkBoxTypeScripts.Checked = Project.ARChiveSettings.Type.HasFlag(BackupType.Scripts);
 			switch (Project.ARChiveSettings.Frequency)
 			{
-				case BackupFrequency.Run: radioButtonRun.Checked = true; break;
-				case BackupFrequency.Debug: radioButtonDebug.Checked = true; break;
-				case BackupFrequency.Save: radioButtonSave.Checked = true; break;
-				case BackupFrequency.Timed: radioButtonInterval.Checked = true; break;
-				default: radioButtonNone.Checked = true; break;
+				case BackupFrequency.Run: this.radioButtonRun.Checked = true; break;
+				case BackupFrequency.Debug: this.radioButtonDebug.Checked = true; break;
+				case BackupFrequency.Save: this.radioButtonSave.Checked = true; break;
+				case BackupFrequency.Timed: this.radioButtonInterval.Checked = true; break;
+				default: this.radioButtonNone.Checked = true; break;
 			}
-			numericInterval.Enabled = radioButtonInterval.Checked;
-			SetDirectory();
+			this.numericInterval.Enabled = this.radioButtonInterval.Checked;
+			this.SetDirectory();
 		}
 
 
 		private void SetDirectory()
 		{
-			fileSystemWatcher.Path = Project.BackupDirectory;
-			RefreshARChiveList();
+			this.fileSystemWatcher.Path = Project.BackupDirectory;
+			this.RefreshARChiveList();
 		}
 
 		private void RefreshARChiveList()
 		{
-			listViewARChives.Items.Clear();
-			_archives = Directory.GetFiles(Project.BackupDirectory, "*.7z");
-			listViewARChives.BeginUpdate();
-			foreach (string filename in _archives)
+			this.listViewARChives.Items.Clear();
+			this._archives = Directory.GetFiles(Project.BackupDirectory, "*.7z");
+			this.listViewARChives.BeginUpdate();
+			foreach (string filename in this._archives)
 			{
 				var info = new FileInfo(filename);
 				string[] columns = 
@@ -74,32 +75,32 @@ namespace ARCed.Forms
 					(info.Length / 1000).ToString(),
 					Path.GetFileNameWithoutExtension(filename)
 				};
-				listViewARChives.Items.Add(new ListViewItem(columns) { ImageIndex = 0, Tag = filename });
+				this.listViewARChives.Items.Add(new ListViewItem(columns) { ImageIndex = 0, Tag = filename });
 			}
-			listViewARChives.EndUpdate();
+			this.listViewARChives.EndUpdate();
 		}
 
 		private void listViewARChives_SelectedIndexChanged(object sender, EventArgs e)
 		{
-			bool enable = listViewARChives.SelectedItems.Count > 0;
-			buttonRemove.Enabled = enable;
-			buttonRestore.Enabled = enable;
+			bool enable = this.listViewARChives.SelectedItems.Count > 0;
+			this.buttonRemove.Enabled = enable;
+			this.buttonRestore.Enabled = enable;
 		}
 
 		private void fileSystemWatcher_AnyChange(object sender, FileSystemEventArgs e)
 		{
-			RefreshARChiveList();
+			this.RefreshARChiveList();
 		}
 
 		#region ARChive Buttons
 
 		private void buttonRemove_Click(object sender, EventArgs e)
 		{
-			var indices = listViewARChives.SelectedIndices;
+			var indices = this.listViewARChives.SelectedIndices;
 			if (indices.Count > 0)
 			{
-				string file = listViewARChives.SelectedItems[0].Tag.ToString();
-				listViewARChives.SelectedItems[0].Selected = false;
+				string file = this.listViewARChives.SelectedItems[0].Tag.ToString();
+				this.listViewARChives.SelectedItems[0].Selected = false;
 				try { File.Delete(file); }
 				catch (IOException)
 				{
@@ -107,7 +108,7 @@ namespace ARCed.Forms
 						"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 				}
 			}
-			buttonRemove.Enabled = listViewARChives.SelectedItems.Count > 0;
+			this.buttonRemove.Enabled = this.listViewARChives.SelectedItems.Count > 0;
 		}
 
 		private void buttonCreateNew_Click(object sender, EventArgs e)
@@ -121,13 +122,13 @@ namespace ARCed.Forms
 				else if (result == DialogResult.Cancel)
 					return;
 			}
-			buttonCreateNew.Enabled = false;
-			CreateARChive(GetBackupType());
+			this.buttonCreateNew.Enabled = false;
+			this.CreateARChive(this.GetBackupType());
 		}
 
 		private void buttonRestore_Click(object sender, EventArgs e)
 		{
-			string file = listViewARChives.SelectedItems[0].Tag.ToString();
+			string file = this.listViewARChives.SelectedItems[0].Tag.ToString();
 			using (var dialog = new FolderBrowserDialog())
 			{
 				dialog.Description = "Select folder for ARChive extraction.";
@@ -144,10 +145,10 @@ namespace ARCed.Forms
 
 		private void checkBoxTypeAll_CheckedChanged(object sender, EventArgs e)
 		{
-			if (checkBoxTypeAllData.Checked)
+			if (this.checkBoxTypeAllData.Checked)
 			{
-				checkBoxTypeMaps.Checked = true;
-				checkBoxTypeScripts.Checked = true;
+				this.checkBoxTypeMaps.Checked = true;
+				this.checkBoxTypeScripts.Checked = true;
 			}
 		}
 
@@ -155,49 +156,51 @@ namespace ARCed.Forms
 		{
 			bool enable = (sender as CheckBox).Checked;
 			if (!enable)
-				checkBoxTypeAllData.Checked = false;
-			Project.ARChiveSettings.Type = GetBackupType();
+				this.checkBoxTypeAllData.Checked = false;
+			Project.ARChiveSettings.Type = this.GetBackupType();
 		}
 
 		private BackupType GetBackupType()
 		{
 			var type = BackupType.None;
-			if (checkBoxTypeAllData.Checked) type |= BackupType.AllData;
+			if (this.checkBoxTypeAllData.Checked) type |= BackupType.AllData;
 			else
 			{
-				if (checkBoxTypeMaps.Checked) type |= BackupType.Maps;
-				if (checkBoxTypeScripts.Checked) type |= BackupType.Scripts;
+				if (this.checkBoxTypeMaps.Checked) type |= BackupType.Maps;
+				if (this.checkBoxTypeScripts.Checked) type |= BackupType.Scripts;
 			}
 			return type;
 		}
 
 		private void groupBoxSettings_CollapseBoxClickedEvent(object sender)
 		{
-			int y = groupBoxSettings.FullHeight - groupBoxSettings.CollapsedHeight;
-			if (groupBoxSettings.IsCollapsed)
+			int y = this.groupBoxSettings.FullHeight - this.groupBoxSettings.CollapsedHeight;
+			if (this.groupBoxSettings.IsCollapsed)
 				y *= -1;
-			splitContainer2.Location = new Point(splitContainer2.Location.X, splitContainer2.Location.Y + y);
-			splitContainer2.Size = new Size(splitContainer2.Size.Width, splitContainer2.Size.Height - y);
+			this.splitContainer2.Location = new Point(this.splitContainer2.Location.X, this.splitContainer2.Location.Y + y);
+			this.splitContainer2.Size = new Size(this.splitContainer2.Size.Width, this.splitContainer2.Size.Height - y);
 		}
 
 		#endregion
 
 		private void CreateARChive(BackupType type)
 		{
-			if (compressor == null)
+			if (this.compressor == null)
 			{
 				SevenZipBase.SetLibraryPath(PathHelper.SevenZipLibrary);
-				compressor = new SevenZipCompressor(Path.GetTempPath());
-				compressor.ArchiveFormat = OutArchiveFormat.SevenZip;
-				compressor.CompressionLevel = CompressionLevel.Ultra;
-				compressor.CompressionMethod = CompressionMethod.Lzma2;
-				compressor.CompressionMode = CompressionMode.Create;
-				compressor.EventSynchronization = EventSynchronizationStrategy.AlwaysAsynchronous;
-				compressor.Compressing += this.compressor_Compressing;
-				compressor.CompressionFinished += this.compressor_CompressionFinished;
+				this.compressor = new SevenZipCompressor(Path.GetTempPath())
+				{
+				    ArchiveFormat = OutArchiveFormat.SevenZip,
+				    CompressionLevel = CompressionLevel.Ultra,
+				    CompressionMethod = CompressionMethod.Lzma2,
+				    CompressionMode = CompressionMode.Create,
+				    EventSynchronization = EventSynchronizationStrategy.AlwaysAsynchronous
+				};
+			    this.compressor.Compressing += this.compressor_Compressing;
+				this.compressor.CompressionFinished += this.compressor_CompressionFinished;
 			}
 			var paths = new List<string>();
-			_archiveName = Path.Combine(Project.BackupDirectory, String.Format("{0}.7z", Guid.NewGuid()));
+			this._archiveName = Path.Combine(Project.BackupDirectory, String.Format("{0}.7z", Guid.NewGuid()));
 			if (type.HasFlag(BackupType.AllData))
 				paths.Add(Path.Combine(Project.ProjectFolder, Project.DataDirectory));
 			else
@@ -206,15 +209,15 @@ namespace ARCed.Forms
 					paths.Add(Path.Combine(Project.ProjectFolder, Project.ScriptsDirectory));
 				if (type.HasFlag(BackupType.Maps))
 				{
-					var info = new DirectoryInfo(Project.DataDirectory);
-					foreach (FileInfo file in info.GetFiles("*Map*.arc"))
-						paths.Add(Path.Combine(Project.ProjectFolder, file.FullName));
-				}	
+				    var info = new DirectoryInfo(Project.DataDirectory);
+				    paths.AddRange(info.GetFiles("*Map*.arc").Select(file => 
+                        Path.Combine(Project.ProjectFolder, file.FullName)));
+				}
 			}
 			if (paths.Count == 0)
-				compressor_CompressionFinished(null, null);
+				this.compressor_CompressionFinished(null, null);
 			else
-				AddToArchive(_archiveName, paths);
+				this.AddToArchive(this._archiveName, paths);
 			Console.WriteLine(String.Join(",\n", paths));
 		}
 
@@ -222,49 +225,49 @@ namespace ARCed.Forms
 		{
 			foreach (string path in paths)
 			{
-				compressor.CompressionMode = File.Exists(archiveName) ?
+				this.compressor.CompressionMode = File.Exists(archiveName) ?
 					CompressionMode.Append : CompressionMode.Create;
 				if (Project.ARChiveSettings.Threaded)
 				{
 					if (Directory.Exists(path))
-						new Thread(lamda => compressor.CompressDirectory(path, _archiveName)).Start();
+						new Thread(lamda => this.compressor.CompressDirectory(path, this._archiveName)).Start();
 					else if (File.Exists(path))
-						new Thread(lamda => compressor.CompressFiles(_archiveName, path)).Start();
+						new Thread(lamda => this.compressor.CompressFiles(this._archiveName, path)).Start();
 				}
 				else
 				{
 					if (Directory.Exists(path))
-						compressor.CompressDirectory(path, _archiveName);
+						this.compressor.CompressDirectory(path, this._archiveName);
 					else if (File.Exists(path))
-						compressor.CompressFiles(_archiveName, path);
+						this.compressor.CompressFiles(this._archiveName, path);
 				}
 			}
 		}
 
-		private void EnableCreateButton(bool enable) { buttonCreateNew.Enabled = enable; }
+		private void EnableCreateButton(bool enable) { this.buttonCreateNew.Enabled = enable; }
 
 		void compressor_CompressionFinished(object sender, EventArgs e)
 		{
-			if (this.InvokeRequired)
+			if (InvokeRequired)
 			{
-				this.Invoke(new MethodInvoker(delegate { EnableCreateButton(true); }));
+				Invoke(new MethodInvoker(() => this.EnableCreateButton(true)));
 			}
 			else
 			{
-				buttonCreateNew.Enabled = true;
+				this.buttonCreateNew.Enabled = true;
 			}
             Project.CleanARChives();
 		}
 
 		private void compressor_Compressing(object sender, ProgressEventArgs e)
 		{
-			if (this.InvokeRequired)
+			if (InvokeRequired)
 			{
-				this.Invoke(new MethodInvoker(delegate { EnableCreateButton(false); }));
+				Invoke(new MethodInvoker(() => this.EnableCreateButton(false)));
 			}
 			else
 			{
-				buttonCreateNew.Enabled = false;
+				this.buttonCreateNew.Enabled = false;
 			}
 		}
 
@@ -272,7 +275,7 @@ namespace ARCed.Forms
 		{
 			if (e.Button == MouseButtons.Right)
 			{
-				var item = listViewARChives.GetItemAt(e.X, e.Y);
+				var item = this.listViewARChives.GetItemAt(e.X, e.Y);
 				if (item != null)
 					item.Selected = true;
 			}
@@ -285,34 +288,34 @@ namespace ARCed.Forms
 
 		private void shellOpenToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			string filename = listViewARChives.SelectedItems[0].Tag.ToString();
+			string filename = this.listViewARChives.SelectedItems[0].Tag.ToString();
 			if (File.Exists(filename))
 				Process.Start(filename);
 		}
 
 		private void contextMenuStrip_Opened(object sender, EventArgs e)
 		{
-			contextMenuStrip.Enabled = listViewARChives.SelectedItems.Count > 0;
+			this.contextMenuStrip.Enabled = this.listViewARChives.SelectedItems.Count > 0;
 		}
 
 		private void listViewARChives_DoubleClick(object sender, EventArgs e)
 		{
-			if (listViewARChives.SelectedItems.Count > 0)
-				buttonRestore_Click(null, null);
+			if (this.listViewARChives.SelectedItems.Count > 0)
+				this.buttonRestore_Click(null, null);
 		}
 
 		private void radioButtonFrequency_Click(object sender, EventArgs e)
 		{
-			numericInterval.Enabled = radioButtonInterval.Checked;
-			bool enable = !radioButtonNone.Checked;
-			groupBoxType.Enabled = enable;
-			numericMaxBackups.Enabled = enable;
-			checkBoxThreaded.Enabled = enable;
+			this.numericInterval.Enabled = this.radioButtonInterval.Checked;
+			bool enable = !this.radioButtonNone.Checked;
+			this.groupBoxType.Enabled = enable;
+			this.numericMaxBackups.Enabled = enable;
+			this.checkBoxThreaded.Enabled = enable;
 			BackupFrequency frequency;
-			if (radioButtonRun.Checked) frequency = BackupFrequency.Run;
-			else if (radioButtonDebug.Checked) frequency = BackupFrequency.Debug;
-			else if (radioButtonSave.Checked) frequency = BackupFrequency.Save;
-			else if (radioButtonInterval.Checked) frequency = BackupFrequency.Timed;
+			if (this.radioButtonRun.Checked) frequency = BackupFrequency.Run;
+			else if (this.radioButtonDebug.Checked) frequency = BackupFrequency.Debug;
+			else if (this.radioButtonSave.Checked) frequency = BackupFrequency.Save;
+			else if (this.radioButtonInterval.Checked) frequency = BackupFrequency.Timed;
 			else frequency = BackupFrequency.None;
 			Project.ARChiveSettings.Frequency = frequency;
 		}

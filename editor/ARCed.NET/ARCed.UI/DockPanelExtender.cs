@@ -132,17 +132,17 @@ namespace ARCed.UI
 		{
 			get
 			{
-				if (m_dockPaneFactory == null)
-					m_dockPaneFactory = new DefaultDockPaneFactory();
+				if (this.m_dockPaneFactory == null)
+					this.m_dockPaneFactory = new DefaultDockPaneFactory();
 
-				return m_dockPaneFactory;
+				return this.m_dockPaneFactory;
 			}
 			set
 			{
-				if (DockPanel.Panes.Count > 0)
+				if (this.DockPanel.Panes.Count > 0)
 					throw new InvalidOperationException();
 
-				m_dockPaneFactory = value;
+				this.m_dockPaneFactory = value;
 			}
 		}
 
@@ -151,17 +151,17 @@ namespace ARCed.UI
 		{
 			get
 			{
-				if (m_floatWindowFactory == null)
-					m_floatWindowFactory = new DefaultFloatWindowFactory();
+				if (this.m_floatWindowFactory == null)
+					this.m_floatWindowFactory = new DefaultFloatWindowFactory();
 
-				return m_floatWindowFactory;
+				return this.m_floatWindowFactory;
 			}
 			set
 			{
-				if (DockPanel.FloatWindows.Count > 0)
+				if (this.DockPanel.FloatWindows.Count > 0)
 					throw new InvalidOperationException();
 
-				m_floatWindowFactory = value;
+				this.m_floatWindowFactory = value;
 			}
 		}
 
@@ -170,17 +170,17 @@ namespace ARCed.UI
 		{	
 			get
 			{
-				if (m_dockPaneCaptionFactory == null)
-					m_dockPaneCaptionFactory = new DefaultDockPaneCaptionFactory();
+				if (this.m_dockPaneCaptionFactory == null)
+					this.m_dockPaneCaptionFactory = new DefaultDockPaneCaptionFactory();
 
-				return m_dockPaneCaptionFactory;
+				return this.m_dockPaneCaptionFactory;
 			}
 			set
 			{
-				if (DockPanel.Panes.Count > 0)
+				if (this.DockPanel.Panes.Count > 0)
 					throw new InvalidOperationException();
 
-				m_dockPaneCaptionFactory = value;
+				this.m_dockPaneCaptionFactory = value;
 			}
 		}
 
@@ -189,17 +189,17 @@ namespace ARCed.UI
 		{
 			get
 			{
-				if (m_dockPaneStripFactory == null)
-					m_dockPaneStripFactory = new DefaultDockPaneStripFactory();
+				if (this.m_dockPaneStripFactory == null)
+					this.m_dockPaneStripFactory = new DefaultDockPaneStripFactory();
 
-				return m_dockPaneStripFactory;
+				return this.m_dockPaneStripFactory;
 			}
 			set
 			{
-				if (DockPanel.Contents.Count > 0)
+				if (this.DockPanel.Contents.Count > 0)
 					throw new InvalidOperationException();
 
-				m_dockPaneStripFactory = value;
+				this.m_dockPaneStripFactory = value;
 			}
 		}
 
@@ -208,21 +208,21 @@ namespace ARCed.UI
 		{	
 			get
 			{
-				if (m_autoHideStripFactory == null)
-					m_autoHideStripFactory = new DefaultAutoHideStripFactory();
+				if (this.m_autoHideStripFactory == null)
+					this.m_autoHideStripFactory = new DefaultAutoHideStripFactory();
 
-				return m_autoHideStripFactory;
+				return this.m_autoHideStripFactory;
 			}
 			set
 			{
-				if (DockPanel.Contents.Count > 0)
+				if (this.DockPanel.Contents.Count > 0)
 					throw new InvalidOperationException();
 
-				if (m_autoHideStripFactory == value)
+				if (this.m_autoHideStripFactory == value)
 					return;
 
-				m_autoHideStripFactory = value;
-                DockPanel.ResetAutoHideStripControl();
+				this.m_autoHideStripFactory = value;
+                this.DockPanel.ResetAutoHideStripControl();
 			}
 		}
 	}

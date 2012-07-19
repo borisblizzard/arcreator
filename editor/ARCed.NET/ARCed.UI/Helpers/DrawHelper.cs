@@ -33,7 +33,7 @@ namespace ARCed.UI
             else
                 graphicsPath.Reset();
             
-            int curveSize = 6;
+            const int curveSize = 6;
             if (upCorner)
             {
                 graphicsPath.AddLine(rect.Left, rect.Bottom, rect.Left, rect.Top + curveSize / 2);

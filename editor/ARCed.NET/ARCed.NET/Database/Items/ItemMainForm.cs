@@ -29,7 +29,7 @@ namespace ARCed.Database.Items
 		/// <summary>
 		/// Gets the object list control of this database panel.
 		/// </summary>
-		protected override DatabaseObjectListBox DataObjectList { get { return dataObjectList; } }
+		protected override DatabaseObjectListBox DataObjectList { get { return this.dataObjectList; } }
 
 		#endregion
 
@@ -49,13 +49,13 @@ namespace ARCed.Database.Items
 		/// </summary>
 		public ItemMainForm()
 		{
-			InitializeComponent();
-			InitializeElements();
-			InitializeStates();
-			InitializeAnimations();
-			InitializeCommonEvents();
+			this.InitializeComponent();
+			this.InitializeElements();
+			this.InitializeStates();
+			this.InitializeAnimations();
+			this.InitializeCommonEvents();
 			RefreshObjectList();
-			dataObjectList.SelectedIndex = 0;
+			this.dataObjectList.SelectedIndex = 0;
 		}
 
         #endregion
@@ -104,17 +104,17 @@ namespace ARCed.Database.Items
         public override void RefreshCurrentObject()
         {
             SuppressEvents = true;
-            RefreshIcon();
-            textBoxName.Text = _item.name;
-            textBoxDescription.Text = _item.description;
-            RefreshElements();
-            RefreshStates();
-            comboBoxScope.SelectedIndex = _item.scope;
-            comboBoxOccasion.SelectedIndex = _item.occasion;
-            comboBoxCommonEvent.SelectedIndex = _item.common_event_id;
-            RefreshMenuSE();
-            RefreshAnimations();
-            RefreshParameters();
+            this.RefreshIcon();
+            this.textBoxName.Text = this._item.name;
+            this.textBoxDescription.Text = this._item.description;
+            this.RefreshElements();
+            this.RefreshStates();
+            this.comboBoxScope.SelectedIndex = this._item.scope;
+            this.comboBoxOccasion.SelectedIndex = this._item.occasion;
+            this.comboBoxCommonEvent.SelectedIndex = this._item.common_event_id;
+            this.RefreshMenuSE();
+            this.RefreshAnimations();
+            this.RefreshParameters();
             //noteTextBox.NoteText = _item.note;
             SuppressEvents = false;
         }
@@ -125,31 +125,31 @@ namespace ARCed.Database.Items
 
         private void InitializeElements()
 		{
-			checkGroupBoxElements.BeginUpdate();
-			checkGroupBoxElements.Items.Clear();
+			this.checkGroupBoxElements.BeginUpdate();
+			this.checkGroupBoxElements.Items.Clear();
 			for (int i = 1; i < Project.Data.System.elements.Count; i++)
-				checkGroupBoxElements.Items.Add(Project.Data.System.elements[i]);
-			checkGroupBoxElements.EndUpdate();
+				this.checkGroupBoxElements.Items.Add(Project.Data.System.elements[i]);
+			this.checkGroupBoxElements.EndUpdate();
 		}
 
 		private void InitializeStates()
 		{
-			checkedListBoxStates.ClearItems();
+			this.checkedListBoxStates.ClearItems();
 			List<dynamic> states = Project.Data.States;
 			for (int i = 1; i < states.Count; i++)
-				checkedListBoxStates.AddItem(states[i % states.Count].name);
+				this.checkedListBoxStates.AddItem(states[i % states.Count].name);
 		}
 
 		private void InitializeAnimations()
 		{
 #warning Fix this after loading of animations is fixed
 			return;
-			comboBoxUserAnimation.BeginUpdate();
-			comboBoxTargetAnimation.BeginUpdate();
-			comboBoxUserAnimation.Items.Clear();
-			comboBoxTargetAnimation.Items.Clear();
-			comboBoxUserAnimation.Items.Add("<None>");
-			comboBoxTargetAnimation.Items.Add("<None>");
+			this.comboBoxUserAnimation.BeginUpdate();
+			this.comboBoxTargetAnimation.BeginUpdate();
+			this.comboBoxUserAnimation.Items.Clear();
+			this.comboBoxTargetAnimation.Items.Clear();
+			this.comboBoxUserAnimation.Items.Add("<None>");
+			this.comboBoxTargetAnimation.Items.Add("<None>");
 			string name;
 			foreach (Animation animation in Project.Data.Animations.Cast<Animation>().Where(animation => animation != null))
 			{
@@ -157,75 +157,75 @@ namespace ARCed.Database.Items
 			    this.comboBoxUserAnimation.Items.Add(name);
 			    this.comboBoxTargetAnimation.Items.Add(name);
 			}
-			comboBoxUserAnimation.EndUpdate();
-			comboBoxTargetAnimation.EndUpdate();
+			this.comboBoxUserAnimation.EndUpdate();
+			this.comboBoxTargetAnimation.EndUpdate();
 		}
 
 		private void InitializeCommonEvents()
 		{
-			comboBoxCommonEvent.BeginUpdate();
-			comboBoxCommonEvent.Items.Clear();
-			comboBoxCommonEvent.Items.Add("<None>");
+			this.comboBoxCommonEvent.BeginUpdate();
+			this.comboBoxCommonEvent.Items.Clear();
+			this.comboBoxCommonEvent.Items.Add("<None>");
 			foreach (CommonEvent commonEvent in Project.Data.CommonEvents)
 			{
 				if (commonEvent != null)
-					comboBoxCommonEvent.Items.Add(commonEvent.ToString());
+					this.comboBoxCommonEvent.Items.Add(commonEvent.ToString());
 			}
-			comboBoxCommonEvent.EndUpdate();
+			this.comboBoxCommonEvent.EndUpdate();
 		}
 
 		private void RefreshParameters()
 		{
-			foreach (Control ctrl in flowPanel.Controls)
+			foreach (Control ctrl in this.flowPanel.Controls)
 			{
 				if (ctrl is ParamBox)
 				{
 					var param = ctrl as ParamBox;
 					var property = typeof(Item).GetProperty(param.RpgAttribute);
 					if (property != null)
-						param.Value = (int)property.GetValue(_item, null);	
+						param.Value = (int)property.GetValue(this._item, null);	
 				}
 			}
-			comboBoxConsumable.SelectedIndex = _item.consumable ? 0 : 1;
-			comboBoxParameter.SelectedIndex = _item.parameter_type;
+			this.comboBoxConsumable.SelectedIndex = this._item.consumable ? 0 : 1;
+			this.comboBoxParameter.SelectedIndex = this._item.parameter_type;
 		}
 
 		private void RefreshIcon()
 		{
-			if (_item.icon_name == "")
+			if (this._item.icon_name == "")
 			{
-				pictureBoxIcon.BackgroundImage = null;
-				textBoxIcon.Text = "<None>";
+				this.pictureBoxIcon.BackgroundImage = null;
+				this.textBoxIcon.Text = "<None>";
 			}
 			else
 			{
-				pictureBoxIcon.BackgroundImage = Cache.Icon(_item.icon_name);
-				textBoxIcon.Text = _item.icon_name;
+				this.pictureBoxIcon.BackgroundImage = Cache.Icon(this._item.icon_name);
+				this.textBoxIcon.Text = this._item.icon_name;
 			}
 		}
 
 		private void RefreshElements()
 		{
-			checkGroupBoxElements.CheckAll(false);
-			foreach (int id in _item.element_set)
-				checkGroupBoxElements.SetItemChecked(id - 1, true);
+			this.checkGroupBoxElements.CheckAll(false);
+			foreach (int id in this._item.element_set)
+				this.checkGroupBoxElements.SetItemChecked(id - 1, true);
 		}
 
 		private void RefreshStates()
 		{
-			checkedListBoxStates.SetAll(0);
-			foreach (int id in _item.plus_state_set)
-				checkedListBoxStates.SetItemIndex(id - 1, 1);
-			foreach (int id in _item.minus_state_set)
-				checkedListBoxStates.SetItemIndex(id - 1, 2);
+			this.checkedListBoxStates.SetAll(0);
+			foreach (int id in this._item.plus_state_set)
+				this.checkedListBoxStates.SetItemIndex(id - 1, 1);
+			foreach (int id in this._item.minus_state_set)
+				this.checkedListBoxStates.SetItemIndex(id - 1, 2);
 		}
 
 		private void RefreshAnimations()
 		{
 #warning Fix this after loading of animations is fixed
 			return;
-			comboBoxUserAnimation.SelectedIndex = _item.animation1_id;
-			comboBoxTargetAnimation.SelectedIndex = _item.animation2_id;
+			this.comboBoxUserAnimation.SelectedIndex = this._item.animation1_id;
+			this.comboBoxTargetAnimation.SelectedIndex = this._item.animation2_id;
 		}
 
 		private void RefreshMenuSE() 
@@ -236,7 +236,7 @@ namespace ARCed.Database.Items
 
 		private void ListBoxItemsOnListBoxIndexChanged(object sender, EventArgs e)
 		{
-			int index = dataObjectList.SelectedIndex;
+			int index = this.dataObjectList.SelectedIndex;
 		    if (index < 0) return;
 		    this._item = this.Data[index + 1];
 		    this.RefreshCurrentObject();
@@ -244,7 +244,7 @@ namespace ARCed.Database.Items
 
 		private void ButtonIconClick(object sender, EventArgs e)
 		{
-			using (var dialog = new ImageSelectionForm(@"Icons", _item.icon_name))
+			using (var dialog = new ImageSelectionForm(@"Icons", this._item.icon_name))
 			{
 			    if (dialog.ShowDialog(this) != DialogResult.OK) return;
 			    this._item.icon_name = dialog.ImageName;
@@ -264,7 +264,7 @@ namespace ARCed.Database.Items
 		private void TextBoxDescriptionTextChanged(object sender, EventArgs e)
 		{
 			if (!SuppressEvents)
-				_item.description = textBoxDescription.Text;
+				this._item.description = this.textBoxDescription.Text;
 		}
 
 		private void CheckGroupBoxElementsOnCheckChange(object sender, ItemCheckEventArgs e)
@@ -286,25 +286,25 @@ namespace ARCed.Database.Items
         private void ComboBoxScopeSelectedIndexChanged(object sender, EventArgs e)
 		{
 			if (!SuppressEvents)
-				_item.scope = comboBoxScope.SelectedIndex;
+				this._item.scope = this.comboBoxScope.SelectedIndex;
 		}
 
 		private void ComboBoxOccasionSelectedIndexChanged(object sender, EventArgs e)
 		{
 			if (!SuppressEvents)
-				_item.occasion = comboBoxOccasion.SelectedIndex;
+				this._item.occasion = this.comboBoxOccasion.SelectedIndex;
 		}
 
 		private void ComboBoxUserAnimationSelectedIndexChanged(object sender, EventArgs e)
 		{
 			if (!SuppressEvents)
-				_item.animation1_id = comboBoxUserAnimation.SelectedIndex;
+				this._item.animation1_id = this.comboBoxUserAnimation.SelectedIndex;
 		}
 
 		private void ComboBoxTargetAnimationSelectedIndexChanged(object sender, EventArgs e)
 		{
 			if (!SuppressEvents)
-				_item.animation2_id = comboBoxTargetAnimation.SelectedIndex;
+				this._item.animation2_id = this.comboBoxTargetAnimation.SelectedIndex;
 		}
 
 		private void ParamBoxOnValueChanged(object sender, ParameterEventArgs e)
@@ -334,7 +334,7 @@ namespace ARCed.Database.Items
 		private void ComboBoxCommonEventSelectedIndexChanged(object sender, EventArgs e)
 		{
 			if (!SuppressEvents)
-				_item.common_event_id = comboBoxCommonEvent.SelectedIndex;
+				this._item.common_event_id = this.comboBoxCommonEvent.SelectedIndex;
 		}
 
 		private void NoteTextBoxNoteTextChanged(object sender, EventArgs e)
@@ -346,14 +346,14 @@ namespace ARCed.Database.Items
 		private void ComboBoxConsumableSelectedIndexChanged(object sender, EventArgs e)
 		{
 			if (!SuppressEvents)
-				_item.consumable = (comboBoxConsumable.SelectedIndex == 0);
+				this._item.consumable = (this.comboBoxConsumable.SelectedIndex == 0);
 		}
 
 		private void ComboBoxParameterSelectedIndexChanged(object sender, EventArgs e)
 		{
 			if (!SuppressEvents)
-				_item.parameter_type = comboBoxParameter.SelectedIndex;
-			paramBoxParamInc.Enabled = _item.parameter_type > 0;
+				this._item.parameter_type = this.comboBoxParameter.SelectedIndex;
+			this.paramBoxParamInc.Enabled = this._item.parameter_type > 0;
 		}
 
 		private void TextBoxMenuSeOnButtonClick(object sender, EventArgs e)

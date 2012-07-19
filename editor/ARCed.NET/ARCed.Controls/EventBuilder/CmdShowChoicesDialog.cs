@@ -16,24 +16,24 @@ namespace ARCed.EventBuilder
 
 		public string[] Choices
 		{
-			get { return GetChoices(); }
-			set { SetChoices(value); }
+			get { return this.GetChoices(); }
+			set { this.SetChoices(value); }
 		}
 
 		public int CancelIndex 
 		{
-			get { return GetIndex(); }
-			set { SetIndex(value); }
+			get { return this.GetIndex(); }
+			set { this.SetIndex(value); }
 		}
 
 		public CmdShowChoicesDialog()
 		{
-			InitializeComponent();
+			this.InitializeComponent();
 		}
 
 		private void SetChoices(IList<string> choices)
 		{
-			var textBoxes = new[] { textBox1, textBox2, textBox3, textBox4 };
+			var textBoxes = new[] { this.textBox1, this.textBox2, this.textBox3, this.textBox4 };
 			for (int i = 0; i < choices.Count; i++)
 				textBoxes[i].Text = choices[i];
 		}
@@ -42,7 +42,7 @@ namespace ARCed.EventBuilder
 		{
 			var choices = new List<string>();
 			string text;
-			foreach (TextBox box in new[] { textBox1, textBox2, textBox3, textBox4 })
+			foreach (TextBox box in new[] { this.textBox1, this.textBox2, this.textBox3, this.textBox4 })
 			{
 				text = box.Text;
 				if (text != "")
@@ -53,13 +53,13 @@ namespace ARCed.EventBuilder
 
 		private void SetIndex(int index)
 		{
-			(groupBoxOnCancel.Controls[index] as RadioButton).Checked = true;
+			(this.groupBoxOnCancel.Controls[index] as RadioButton).Checked = true;
 		}
 
 		private int GetIndex()
 		{
 			int index = 0;
-			foreach (RadioButton button in groupBoxOnCancel.Controls)
+			foreach (RadioButton button in this.groupBoxOnCancel.Controls)
 			{
 				if (button.Checked)
 					return index;
@@ -70,8 +70,8 @@ namespace ARCed.EventBuilder
 
 		private void buttonOK_Click(object sender, EventArgs e)
 		{
-			this.DialogResult = DialogResult.OK;
-			this.Close();
+			DialogResult = DialogResult.OK;
+			Close();
 		}
 	}
 }

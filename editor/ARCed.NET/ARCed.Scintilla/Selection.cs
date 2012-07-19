@@ -31,55 +31,55 @@ namespace ARCed.Scintilla
 
         private void ResetBackColor()
         {
-            BackColor = SystemColors.Highlight;
+            this.BackColor = SystemColors.Highlight;
         }
 
 
         private void ResetBackColorUnfocused()
         {
-            BackColorUnfocused = Color.LightGray;
+            this.BackColorUnfocused = Color.LightGray;
         }
 
 
         private void ResetEnd()
         {
-            End = 0;
+            this.End = 0;
         }
 
 
         private void ResetForeColor()
         {
-            ForeColor = SystemColors.HighlightText;
+            this.ForeColor = SystemColors.HighlightText;
         }
 
 
         private void ResetForeColorUnfocused()
         {
-            ForeColorUnfocused = SystemColors.HighlightText;
+            this.ForeColorUnfocused = SystemColors.HighlightText;
         }
 
 
         private void ResetHidden()
         {
-            Hidden = false;
+            this.Hidden = false;
         }
 
 
         private void ResetHideSelection()
         {
-            _hideSelection = false;
+            this._hideSelection = false;
         }
 
 
         private void ResetMode()
         {
-            Mode = SelectionMode.Stream;
+            this.Mode = SelectionMode.Stream;
         }
 
 
         private void ResetStart()
         {
-            Start = 0;
+            this.Start = 0;
         }
 
 
@@ -97,67 +97,67 @@ namespace ARCed.Scintilla
 
         internal bool ShouldSerialize()
         {
-            return ShouldSerializeBackColor() | 
-                ShouldSerializeBackColorUnfocused() | 
-                ShouldSerializeForeColor() | 
-                ShouldSerializeForeColorUnfocused() | 
-                ShouldSerializeHidden() |
-                ShouldSerializeHideSelection() |
-                ShouldSerializeMode();
+            return this.ShouldSerializeBackColor() | 
+                this.ShouldSerializeBackColorUnfocused() | 
+                this.ShouldSerializeForeColor() | 
+                this.ShouldSerializeForeColorUnfocused() | 
+                this.ShouldSerializeHidden() |
+                this.ShouldSerializeHideSelection() |
+                this.ShouldSerializeMode();
         }
 
 
         private bool ShouldSerializeBackColor()
         {
-            return BackColor != SystemColors.Highlight;
+            return this.BackColor != SystemColors.Highlight;
         }
 
 
         private bool ShouldSerializeBackColorUnfocused()
         {
-            return BackColorUnfocused != Color.LightGray;
+            return this.BackColorUnfocused != Color.LightGray;
         }
 
 
         private bool ShouldSerializeEnd()
         {
-            return End != 0;
+            return this.End != 0;
         }
 
 
         private bool ShouldSerializeForeColor()
         {
-            return ForeColor != SystemColors.HighlightText;
+            return this.ForeColor != SystemColors.HighlightText;
         }
 
 
         private bool ShouldSerializeForeColorUnfocused()
         {
-            return ForeColorUnfocused != SystemColors.HighlightText;
+            return this.ForeColorUnfocused != SystemColors.HighlightText;
         }
 
 
         private bool ShouldSerializeHidden()
         {
-            return _hidden;
+            return this._hidden;
         }
 
 
         private bool ShouldSerializeHideSelection()
         {
-            return _hideSelection;
+            return this._hideSelection;
         }
 
 
         private bool ShouldSerializeMode()
         {
-            return Mode != SelectionMode.Stream;
+            return this.Mode != SelectionMode.Stream;
         }
 
 
         private bool ShouldSerializeStart()
         {
-            return Start != 0;
+            return this.Start != 0;
         }
 
         #endregion Methods
@@ -176,7 +176,7 @@ namespace ARCed.Scintilla
             }
             set
             {
-                if (value == BackColor)
+                if (value == this.BackColor)
                     return;
 
                 if (value == SystemColors.Highlight)
@@ -201,7 +201,7 @@ namespace ARCed.Scintilla
             }
             set
             {
-                if (value == BackColorUnfocused)
+                if (value == this.BackColorUnfocused)
                     return;
 
                 if (value == Color.LightGray)
@@ -261,7 +261,7 @@ namespace ARCed.Scintilla
             }
             set
             {
-                if (value == ForeColorUnfocused)
+                if (value == this.ForeColorUnfocused)
                     return;
 
                 if (value == SystemColors.HighlightText)
@@ -279,11 +279,11 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _hidden;
+                return this._hidden;
             }
             set
             {
-                _hidden = value;
+                this._hidden = value;
                 NativeScintilla.HideSelection(value);
             }
         }
@@ -293,11 +293,11 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _hideSelection;
+                return this._hideSelection;
             }
             set
             {
-                _hideSelection = value;
+                this._hideSelection = value;
                 
                 if (!Scintilla.ContainsFocus)
                     NativeScintilla.HideSelection(value);
@@ -320,7 +320,7 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return Math.Abs(End - Start);
+                return Math.Abs(this.End - this.Start);
             }
             set
             {
@@ -382,7 +382,7 @@ namespace ARCed.Scintilla
             set
             {
                 if(string.IsNullOrEmpty(value))
-                    Clear();
+                    this.Clear();
                 else
                     NativeScintilla.ReplaceSel(value);
             }
@@ -395,8 +395,8 @@ namespace ARCed.Scintilla
 
         protected internal Selection(Scintilla scintilla) : base(scintilla)
         {
-            NativeScintilla.SetSelBack(BackColor != Color.Transparent, Utilities.ColorToRgb(BackColor));
-            NativeScintilla.SetSelFore(ForeColor != Color.Transparent, Utilities.ColorToRgb(ForeColor));
+            NativeScintilla.SetSelBack(this.BackColor != Color.Transparent, Utilities.ColorToRgb(this.BackColor));
+            NativeScintilla.SetSelFore(this.ForeColor != Color.Transparent, Utilities.ColorToRgb(this.ForeColor));
         }
 
         #endregion Constructors

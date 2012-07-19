@@ -48,13 +48,13 @@ namespace ARCed.Scintilla
 
         public void CopyTo(Margin[] array, int arrayIndex)
         {
-            Array.Copy(ToArray(), 0, array, arrayIndex, 5);
+            Array.Copy(this.ToArray(), 0, array, arrayIndex, 5);
         }
 
 
         public IEnumerator<Margin> GetEnumerator()
         {
-            return new List<Margin>(ToArray()).GetEnumerator();
+            return new List<Margin>(this.ToArray()).GetEnumerator();
         }
 
 
@@ -66,139 +66,139 @@ namespace ARCed.Scintilla
 
         public void Reset()
         {
-            ResetMargin0();
-            ResetMargin1();
-            ResetMargin2();
-            ResetMargin3();
-            ResetMargin4();
+            this.ResetMargin0();
+            this.ResetMargin1();
+            this.ResetMargin2();
+            this.ResetMargin3();
+            this.ResetMargin4();
         }
 
 
         private void ResetFoldMarginColor()
         {
-            FoldMarginColor = Color.Transparent;
+            this.FoldMarginColor = Color.Transparent;
         }
 
 
         private void ResetFoldMarginHighlightColor()
         {
-            FoldMarginHighlightColor = Color.Transparent;
+            this.FoldMarginHighlightColor = Color.Transparent;
         }
 
 
         private void ResetLeft()
         {
-            Left = 1;
+            this.Left = 1;
         }
 
 
         private void ResetMargin0()
         {
-            _margin0.Reset();
+            this._margin0.Reset();
         }
 
 
         private void ResetMargin1()
         {
-            _margin0.Reset();
+            this._margin0.Reset();
         }
 
 
         private void ResetMargin2()
         {
-            _margin0.Reset();
+            this._margin0.Reset();
         }
 
 
         private void ResetMargin3()
         {
-            _margin0.Reset();
+            this._margin0.Reset();
         }
 
 
         private void ResetMargin4()
         {
-            _margin0.Reset();
+            this._margin0.Reset();
         }
 
 
         private void ResetRight()
         {
-            Right = 1;
+            this.Right = 1;
         }
 
 
         internal bool ShouldSerialize()
         {
-            return ShouldSerializeFoldMarginColor() ||
-                ShouldSerializeFoldMarginHighlightColor() ||
-                ShouldSerializeLeft() ||
-                ShouldSerializeRight() ||
-                ShouldSerializeMargin0() ||
-                ShouldSerializeMargin1() ||
-                ShouldSerializeMargin2() ||
-                ShouldSerializeMargin3() ||
-                ShouldSerializeMargin4();
+            return this.ShouldSerializeFoldMarginColor() ||
+                this.ShouldSerializeFoldMarginHighlightColor() ||
+                this.ShouldSerializeLeft() ||
+                this.ShouldSerializeRight() ||
+                this.ShouldSerializeMargin0() ||
+                this.ShouldSerializeMargin1() ||
+                this.ShouldSerializeMargin2() ||
+                this.ShouldSerializeMargin3() ||
+                this.ShouldSerializeMargin4();
         }
 
 
         private bool ShouldSerializeFoldMarginColor()
         {
-            return FoldMarginColor != Color.Transparent;
+            return this.FoldMarginColor != Color.Transparent;
         }
 
 
         private bool ShouldSerializeFoldMarginHighlightColor()
         {
-            return FoldMarginHighlightColor != Color.Transparent;
+            return this.FoldMarginHighlightColor != Color.Transparent;
         }
 
 
         private bool ShouldSerializeLeft()
         {
-            return Left != 1;
+            return this.Left != 1;
         }
 
 
         private bool ShouldSerializeMargin0()
         {
-            return _margin0.ShouldSerialize();
+            return this._margin0.ShouldSerialize();
         }
 
 
         private bool ShouldSerializeMargin1()
         {
-            return _margin1.ShouldSerialize();
+            return this._margin1.ShouldSerialize();
         }
 
 
         private bool ShouldSerializeMargin2()
         {
-            return _margin2.ShouldSerialize();
+            return this._margin2.ShouldSerialize();
         }
 
 
         private bool ShouldSerializeMargin3()
         {
-            return _margin3.ShouldSerialize();
+            return this._margin3.ShouldSerialize();
         }
 
 
         private bool ShouldSerializeMargin4()
         {
-            return _margin4.ShouldSerialize();
+            return this._margin4.ShouldSerialize();
         }
 
 
         private bool ShouldSerializeRight()
         {
-            return Right != 1;
+            return this.Right != 1;
         }
 
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return new List<Margin>(ToArray()).GetEnumerator();
+            return new List<Margin>(this.ToArray()).GetEnumerator();
         }
 
 
@@ -206,11 +206,11 @@ namespace ARCed.Scintilla
         {
             return new[]
             {
-                _margin0,
-                _margin1,
-                _margin2,
-                _margin3,
-                _margin4
+                this._margin0,
+                this._margin1,
+                this._margin2,
+                this._margin3,
+                this._margin4
             };
         }
 
@@ -297,7 +297,7 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _margin0;
+                return this._margin0;
             }
         }
 
@@ -307,7 +307,7 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _margin1;
+                return this._margin1;
             }
         }
 
@@ -317,7 +317,7 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _margin2;
+                return this._margin2;
             }
         }
 
@@ -327,7 +327,7 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _margin3;
+                return this._margin3;
             }
         }
 
@@ -337,7 +337,7 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _margin4;
+                return this._margin4;
             }
         }
 
@@ -365,15 +365,15 @@ namespace ARCed.Scintilla
                 switch (number)
                 {
                     case 0:
-                        return _margin0;
+                        return this._margin0;
                     case 1:
-                        return _margin1;
+                        return this._margin1;
                     case 2:
-                        return _margin2;
+                        return this._margin2;
                     case 3:
-                        return _margin3;
+                        return this._margin3;
                     case 4:
-                        return _margin4;
+                        return this._margin4;
                 }
 
                 throw new ArgumentException("number", "Number must be greater than or equal to 0 AND less than 5");
@@ -387,14 +387,14 @@ namespace ARCed.Scintilla
 
         protected internal MarginCollection(Scintilla scintilla) : base(scintilla)
         {
-            _margin0 = new Margin(scintilla, 0);
-            _margin1 = new Margin(scintilla, 1);
-            _margin2 = new Margin(scintilla, 2);
-            _margin3 = new Margin(scintilla, 3);
-            _margin4 = new Margin(scintilla, 4);
+            this._margin0 = new Margin(scintilla, 0);
+            this._margin1 = new Margin(scintilla, 1);
+            this._margin2 = new Margin(scintilla, 2);
+            this._margin3 = new Margin(scintilla, 3);
+            this._margin4 = new Margin(scintilla, 4);
 
-            _margin2.IsFoldMargin = true;
-            _margin2.IsClickable = true;
+            this._margin2.IsFoldMargin = true;
+            this._margin2.IsClickable = true;
         }
 
         #endregion Constructors

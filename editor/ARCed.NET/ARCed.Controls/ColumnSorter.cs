@@ -35,15 +35,15 @@ namespace ARCed.Controls
 		public ListViewColumnSorter()
 		{
 			// Initialize the column to '0'
-			ColumnToSort = 0;
+			this.ColumnToSort = 0;
 
 			// Initialize the sort order to 'none'
 			//OrderOfSort = SortOrder.None;
-			OrderOfSort = SortOrder.Ascending;
+			this.OrderOfSort = SortOrder.Ascending;
 
 			// Initialize the CaseInsensitiveComparer object
-			ObjectCompare = new NumberCaseInsensitiveComparer();//CaseInsensitiveComparer();
-			FirstObjectCompare = new ImageTextComparer();
+			this.ObjectCompare = new NumberCaseInsensitiveComparer();//CaseInsensitiveComparer();
+			this.FirstObjectCompare = new ImageTextComparer();
 		}
 
 		/// <summary>
@@ -60,31 +60,26 @@ namespace ARCed.Controls
 			var listviewX = (ListViewItem)x;
 			var listviewY = (ListViewItem)y;
 
-			if (ColumnToSort == 0)
+			if (this.ColumnToSort == 0)
 			{
-				compareResult = FirstObjectCompare.Compare(x,y);
+				compareResult = this.FirstObjectCompare.Compare(x,y);
 			}
 			else
 			{
 				// Compare the two items
-				compareResult = ObjectCompare.Compare(listviewX.SubItems[ColumnToSort].Text,listviewY.SubItems[ColumnToSort].Text);
+				compareResult = this.ObjectCompare.Compare(listviewX.SubItems[this.ColumnToSort].Text, 
+                    listviewY.SubItems[this.ColumnToSort].Text);
 			}
 
 			// Calculate correct return value based on object comparison
-			if (OrderOfSort == SortOrder.Ascending)
+			switch (this.OrderOfSort)
 			{
-				// Ascending sort is selected, return normal result of compare operation
-				return compareResult;
-			}
-			else if (OrderOfSort == SortOrder.Descending)
-			{
-				// Descending sort is selected, return negative result of compare operation
-				return (-compareResult);
-			}
-			else
-			{
-				// Return '0' to indicate they are equal
-				return 0;
+			    case SortOrder.Ascending:
+			        return compareResult;
+			    case SortOrder.Descending:
+			        return (-compareResult);
+			    default:
+			        return 0;
 			}
 		}
     
@@ -95,11 +90,11 @@ namespace ARCed.Controls
 		{
 			set
 			{
-				ColumnToSort = value;
+				this.ColumnToSort = value;
 			}
 			get
 			{
-				return ColumnToSort;
+				return this.ColumnToSort;
 			}
 		}
 
@@ -110,11 +105,11 @@ namespace ARCed.Controls
 		{
 			set
 			{
-				OrderOfSort = value;
+				this.OrderOfSort = value;
 			}
 			get
 			{
-				return OrderOfSort;
+				return this.OrderOfSort;
 			}
 		}
     
@@ -128,7 +123,7 @@ namespace ARCed.Controls
 		public ImageTextComparer()
 		{
 			// Initialize the CaseInsensitiveComparer object
-			ObjectCompare = new NumberCaseInsensitiveComparer();//CaseInsensitiveComparer();
+			this.ObjectCompare = new NumberCaseInsensitiveComparer();//CaseInsensitiveComparer();
 		}
 
 		public int Compare(object x, object y)
@@ -147,7 +142,7 @@ namespace ARCed.Controls
 			}
 			else if (image1 == image2)
 			{
-				return ObjectCompare.Compare(listviewX.Text,listviewY.Text);
+				return this.ObjectCompare.Compare(listviewX.Text,listviewY.Text);
 			}
 			else
 			{

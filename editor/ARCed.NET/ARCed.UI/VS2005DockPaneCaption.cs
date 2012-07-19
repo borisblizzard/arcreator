@@ -18,35 +18,35 @@ namespace ARCed.UI
 
             public InertButton(VS2005DockPaneCaption dockPaneCaption, Bitmap image, Bitmap imageAutoHide)
             {
-                m_dockPaneCaption = dockPaneCaption;
-                m_image = image;
-                m_imageAutoHide = imageAutoHide;
+                this.m_dockPaneCaption = dockPaneCaption;
+                this.m_image = image;
+                this.m_imageAutoHide = imageAutoHide;
                 RefreshChanges();
             }
 
             private readonly VS2005DockPaneCaption m_dockPaneCaption;
             private VS2005DockPaneCaption DockPaneCaption
             {
-                get { return m_dockPaneCaption; }
+                get { return this.m_dockPaneCaption; }
             }
 
             public bool IsAutoHide
             {
-                get { return DockPaneCaption.DockPane.IsAutoHide; }
+                get { return this.DockPaneCaption.DockPane.IsAutoHide; }
             }
 
             public override Bitmap Image
             {
-                get { return IsAutoHide ? m_imageAutoHide : m_image; }
+                get { return this.IsAutoHide ? this.m_imageAutoHide : this.m_image; }
             }
 
             protected override void OnRefreshChanges()
             {
-                if (DockPaneCaption.DockPane.DockPanel != null)
+                if (this.DockPaneCaption.DockPane.DockPanel != null)
                 {
-                    if (DockPaneCaption.TextColor != ForeColor)
+                    if (this.DockPaneCaption.TextColor != ForeColor)
                     {
-                        ForeColor = DockPaneCaption.TextColor;
+                        ForeColor = this.DockPaneCaption.TextColor;
                         Invalidate();
                     }
                 }
@@ -81,15 +81,15 @@ namespace ARCed.UI
         {
             get
             {
-                if (m_buttonClose == null)
+                if (this.m_buttonClose == null)
                 {
-                    m_buttonClose = new InertButton(this, ImageButtonClose, ImageButtonClose);
-                    m_toolTip.SetToolTip(m_buttonClose, ToolTipClose);
-                    m_buttonClose.Click += this.Close_Click;
-                    Controls.Add(m_buttonClose);
+                    this.m_buttonClose = new InertButton(this, ImageButtonClose, ImageButtonClose);
+                    this.m_toolTip.SetToolTip(this.m_buttonClose, ToolTipClose);
+                    this.m_buttonClose.Click += this.Close_Click;
+                    Controls.Add(this.m_buttonClose);
                 }
 
-                return m_buttonClose;
+                return this.m_buttonClose;
             }
         }
 
@@ -122,15 +122,15 @@ namespace ARCed.UI
         {
             get
             {
-                if (m_buttonAutoHide == null)
+                if (this.m_buttonAutoHide == null)
                 {
-                    m_buttonAutoHide = new InertButton(this, ImageButtonDock, ImageButtonAutoHide);
-                    m_toolTip.SetToolTip(m_buttonAutoHide, ToolTipAutoHide);
-                    m_buttonAutoHide.Click += this.AutoHide_Click;
-                    Controls.Add(m_buttonAutoHide);
+                    this.m_buttonAutoHide = new InertButton(this, ImageButtonDock, ImageButtonAutoHide);
+                    this.m_toolTip.SetToolTip(this.m_buttonAutoHide, ToolTipAutoHide);
+                    this.m_buttonAutoHide.Click += this.AutoHide_Click;
+                    Controls.Add(this.m_buttonAutoHide);
                 }
 
-                return m_buttonAutoHide;
+                return this.m_buttonAutoHide;
             }
         }
 
@@ -151,21 +151,21 @@ namespace ARCed.UI
         {
             get
             {
-                if (m_buttonOptions == null)
+                if (this.m_buttonOptions == null)
                 {
-                    m_buttonOptions = new InertButton(this, ImageButtonOptions, ImageButtonOptions);
-                    m_toolTip.SetToolTip(m_buttonOptions, ToolTipOptions);
-                    m_buttonOptions.Click += this.Options_Click;
-                    Controls.Add(m_buttonOptions);
+                    this.m_buttonOptions = new InertButton(this, ImageButtonOptions, ImageButtonOptions);
+                    this.m_toolTip.SetToolTip(this.m_buttonOptions, ToolTipOptions);
+                    this.m_buttonOptions.Click += this.Options_Click;
+                    Controls.Add(this.m_buttonOptions);
                 }
-                return m_buttonOptions;
+                return this.m_buttonOptions;
             }
         }
 
         private readonly IContainer m_components;
         private IContainer Components
         {
-            get { return m_components; }
+            get { return this.m_components; }
         }
 
         private readonly ToolTip m_toolTip;
@@ -174,8 +174,8 @@ namespace ARCed.UI
 		{
 			SuspendLayout();
 
-            m_components = new Container();
-            m_toolTip = new ToolTip(Components);
+            this.m_components = new Container();
+            this.m_toolTip = new ToolTip(this.Components);
 
 			ResumeLayout();
 		}
@@ -183,7 +183,7 @@ namespace ARCed.UI
         protected override void Dispose(bool disposing)
         {
             if (disposing)
-                Components.Dispose();
+                this.Components.Dispose();
             base.Dispose(disposing);
         }
 
@@ -278,10 +278,18 @@ namespace ARCed.UI
             {
                 if (_activeBackColorGradientBlend == null)
                 {
-                    var blend = new Blend(2);
+                    var blend = new Blend(2)
+                    {
+                        Factors = new[]
+                        {
+                            0.5F, 1.0F
+                        },
+                        Positions = new[]
+                        {
+                            0.0F, 1.0F
+                        }
+                    };
 
-                    blend.Factors = new[]{0.5F, 1.0F};
-                    blend.Positions = new[]{0.0F, 1.0F};
                     _activeBackColorGradientBlend = blend;
                 }
 
@@ -300,27 +308,25 @@ namespace ARCed.UI
             }
         }
 
-		private static TextFormatFlags _textFormat =
-            TextFormatFlags.SingleLine |
-            TextFormatFlags.EndEllipsis |
-            TextFormatFlags.VerticalCenter;
-		private TextFormatFlags TextFormat
+	    private const TextFormatFlags TEXT_FORMAT = TextFormatFlags.SingleLine | TextFormatFlags.EndEllipsis | TextFormatFlags.VerticalCenter;
+
+	    private TextFormatFlags TextFormat
 		{
             get
             {
                 if (RightToLeft == RightToLeft.No)
-                    return _textFormat;
+                    return TEXT_FORMAT;
                 else
-                    return _textFormat | TextFormatFlags.RightToLeft | TextFormatFlags.Right;
+                    return TEXT_FORMAT | TextFormatFlags.RightToLeft | TextFormatFlags.Right;
             }
 		}
 
 		protected internal override int MeasureHeight()
 		{
-			int height = TextFont.Height + TextGapTop + TextGapBottom;
+			int height = this.TextFont.Height + TextGapTop + TextGapBottom;
 
-			if (height < ButtonClose.Image.Height + ButtonGapTop + ButtonGapBottom)
-				height = ButtonClose.Image.Height + ButtonGapTop + ButtonGapBottom;
+			if (height < this.ButtonClose.Image.Height + ButtonGapTop + ButtonGapBottom)
+				height = this.ButtonClose.Image.Height + ButtonGapTop + ButtonGapBottom;
 
 			return height;
 		}
@@ -328,7 +334,7 @@ namespace ARCed.UI
 		protected override void OnPaint(PaintEventArgs e)
 		{
 			base.OnPaint (e);
-			DrawCaption(e.Graphics);
+			this.DrawCaption(e.Graphics);
 		}
 
 		private void DrawCaption(Graphics g)
@@ -363,11 +369,11 @@ namespace ARCed.UI
 			Rectangle rectCaptionText = rectCaption;
             rectCaptionText.X += TextGapLeft;
             rectCaptionText.Width -= TextGapLeft + TextGapRight;
-            rectCaptionText.Width -= ButtonGapLeft + ButtonClose.Width + ButtonGapRight;
-            if (ShouldShowAutoHideButton)
-                rectCaptionText.Width -= ButtonAutoHide.Width + ButtonGapBetween;
+            rectCaptionText.Width -= ButtonGapLeft + this.ButtonClose.Width + ButtonGapRight;
+            if (this.ShouldShowAutoHideButton)
+                rectCaptionText.Width -= this.ButtonAutoHide.Width + ButtonGapBetween;
             if (HasTabPageContextMenu)
-                rectCaptionText.Width -= ButtonOptions.Width + ButtonGapBetween;
+                rectCaptionText.Width -= this.ButtonOptions.Width + ButtonGapBetween;
 			rectCaptionText.Y += TextGapTop;
 			rectCaptionText.Height -= TextGapTop + TextGapBottom;
 
@@ -377,18 +383,18 @@ namespace ARCed.UI
             else
                 colorText = DockPane.DockPanel.Skin.DockPaneStripSkin.ToolWindowGradient.InactiveCaptionGradient.TextColor;
 
-            TextRenderer.DrawText(g, DockPane.CaptionText, TextFont, DrawHelper.RtlTransform(this, rectCaptionText), colorText, TextFormat);
+            TextRenderer.DrawText(g, DockPane.CaptionText, this.TextFont, DrawHelper.RtlTransform(this, rectCaptionText), colorText, this.TextFormat);
 		}
 
 		protected override void OnLayout(LayoutEventArgs levent)
 		{
-			SetButtonsPosition();
+			this.SetButtonsPosition();
 			base.OnLayout (levent);
 		}
 
 		protected override void OnRefreshChanges()
 		{
-			SetButtons();
+			this.SetButtons();
 			Invalidate();
 		}
 
@@ -412,23 +418,23 @@ namespace ARCed.UI
 
 		private void SetButtons()
 		{
-			ButtonClose.Enabled = CloseButtonEnabled;
-            ButtonClose.Visible = CloseButtonVisible;
-			ButtonAutoHide.Visible = ShouldShowAutoHideButton;
-            ButtonOptions.Visible = HasTabPageContextMenu;
-            ButtonClose.RefreshChanges();
-            ButtonAutoHide.RefreshChanges();
-            ButtonOptions.RefreshChanges();
+			this.ButtonClose.Enabled = this.CloseButtonEnabled;
+            this.ButtonClose.Visible = this.CloseButtonVisible;
+			this.ButtonAutoHide.Visible = this.ShouldShowAutoHideButton;
+            this.ButtonOptions.Visible = HasTabPageContextMenu;
+            this.ButtonClose.RefreshChanges();
+            this.ButtonAutoHide.RefreshChanges();
+            this.ButtonOptions.RefreshChanges();
 			
-			SetButtonsPosition();
+			this.SetButtonsPosition();
 		}
 
 		private void SetButtonsPosition()
 		{
 			// set the size and location for close and auto-hide buttons
 			Rectangle rectCaption = ClientRectangle;
-			int buttonWidth = ButtonClose.Image.Width;
-			int buttonHeight = ButtonClose.Image.Height;
+			int buttonWidth = this.ButtonClose.Image.Width;
+			int buttonHeight = this.ButtonClose.Image.Height;
 			int height = rectCaption.Height - ButtonGapTop - ButtonGapBottom;
 			if (buttonHeight < height)
 			{
@@ -436,20 +442,20 @@ namespace ARCed.UI
 				buttonHeight = height;
 			}
 			var buttonSize = new Size(buttonWidth, buttonHeight);
-			int x = rectCaption.X + rectCaption.Width - 1 - ButtonGapRight - m_buttonClose.Width;
+			int x = rectCaption.X + rectCaption.Width - 1 - ButtonGapRight - this.m_buttonClose.Width;
 			int y = rectCaption.Y + ButtonGapTop;
 			var point = new Point(x, y);
-            ButtonClose.Bounds = DrawHelper.RtlTransform(this, new Rectangle(point, buttonSize));
+            this.ButtonClose.Bounds = DrawHelper.RtlTransform(this, new Rectangle(point, buttonSize));
 
             // If the close button is not visible draw the auto hide button overtop.
             // Otherwise it is drawn to the left of the close button.
-            if (CloseButtonVisible)
+            if (this.CloseButtonVisible)
 			    point.Offset(-(buttonWidth + ButtonGapBetween), 0);
             
-            ButtonAutoHide.Bounds = DrawHelper.RtlTransform(this, new Rectangle(point, buttonSize));
-            if (ShouldShowAutoHideButton)
+            this.ButtonAutoHide.Bounds = DrawHelper.RtlTransform(this, new Rectangle(point, buttonSize));
+            if (this.ShouldShowAutoHideButton)
                 point.Offset(-(buttonWidth + ButtonGapBetween), 0);
-            ButtonOptions.Bounds = DrawHelper.RtlTransform(this, new Rectangle(point, buttonSize));
+            this.ButtonOptions.Bounds = DrawHelper.RtlTransform(this, new Rectangle(point, buttonSize));
 		}
 
 		private void Close_Click(object sender, EventArgs e)

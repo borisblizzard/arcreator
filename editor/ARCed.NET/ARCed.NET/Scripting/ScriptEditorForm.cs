@@ -42,27 +42,27 @@ namespace ARCed.Scripting
 		/// </summary>
 		public string Title 
 		{ 
-			get { return _title; }
-			set { SetTitle(value); }
+			get { return this._title; }
+			set { this.SetTitle(value); }
 		}
 		/// <summary>
 		/// Gets the Scintilla object from the window
 		/// </summary>
 		public Scintilla.Scintilla ScintillaControl
 		{
-			get { return _scintilla; }
+			get { return this._scintilla; }
 		}
 		/// <summary>
 		/// Gets the text from the scintilla control
 		/// </summary>
-		public string ScriptText { get { return _scintilla.Text; } }
+		public string ScriptText { get { return this._scintilla.Text; } }
 		/// <summary>
 		/// Gets or sets the flag for showing the script has been updated and requires saving
 		/// </summary>
 		public bool NeedSave 
 		{ 
-			get { return _needSave || NeedApplyChanges; } 
-			set { _needSave = value; UpdateTitle(); } 
+			get { return this._needSave || this.NeedApplyChanges; } 
+			set { this._needSave = value; this.UpdateTitle(); } 
 		}
 		/// <summary>
 		/// Gets the flag if changes need applied to the script text
@@ -71,7 +71,7 @@ namespace ARCed.Scripting
 		/// <summary>
         /// Gets or sets the window's associated <see cref="ARCed.Scripting.Script"/> object
 		/// </summary>
-		public Script Script { get { return _script; } set { ChangeScript(value); } }
+		public Script Script { get { return this._script; } set { this.ChangeScript(value); } }
 
 		#endregion
 
@@ -86,17 +86,17 @@ namespace ARCed.Scripting
 				Resources.UnIndentWords.Split(' ').ToList();
 			_suppressedChars = Resources.SuppressedChars.ToCharArray().ToList();
 			_suppressedChars.AddRange(new[] { ' ', '\n', '\r', '\t', '\\' });
-			InitializeComponent();
-			this.Icon = Icon.FromHandle(Resources.Ruby.GetHicon());
-			InitializeScintilla();
+			this.InitializeComponent();
+			Icon = Icon.FromHandle(Resources.Ruby.GetHicon());
+			this.InitializeScintilla();
 		
 
 			_suppressEvents = true;
-			buttonToggleAutoComplete.Checked = _settings.AutoComplete;
-			buttonToggleAutoIndent.Checked = _settings.AutoIndent;
-			buttonToggleCaret.Checked = _settings.Caret;
-			buttonToggleFolding.Checked = _settings.CodeFolding;
-			buttonToggleIndentGuides.Checked = _settings.GuideLines;
+			this.buttonToggleAutoComplete.Checked = _settings.AutoComplete;
+			this.buttonToggleAutoIndent.Checked = _settings.AutoIndent;
+			this.buttonToggleCaret.Checked = _settings.Caret;
+			this.buttonToggleFolding.Checked = _settings.CodeFolding;
+			this.buttonToggleIndentGuides.Checked = _settings.GuideLines;
 			_suppressEvents = false;
 		}
 
@@ -106,8 +106,8 @@ namespace ARCed.Scripting
 		/// <param name="script">The script to open</param>
 		public ScriptEditorForm(Script script) : this()
 		{
-			SetStyle();
-			ChangeScript(script);
+			this.SetStyle();
+			this.ChangeScript(script);
 		}
 
 		#endregion
@@ -137,10 +137,10 @@ namespace ARCed.Scripting
 		/// <param name="script"></param>
 		public void ChangeScript(Script script)
 		{
-			_script = script;
-			_scintilla.Text = _script.Text;
-			SetTitle(_script.Title);
-			_scintilla.UndoRedo.EmptyUndoBuffer();
+			this._script = script;
+			this._scintilla.Text = this._script.Text;
+			this.SetTitle(this._script.Title);
+			this._scintilla.UndoRedo.EmptyUndoBuffer();
 		}
 
 		private static ScriptSettings _settings
@@ -151,19 +151,19 @@ namespace ARCed.Scripting
 		private void InitializeScintilla()
 		{
 			// Lexer
-			_scintilla.ConfigurationManager.Language = "ruby";
-			_scintilla.Lexing.Lexer = Lexer.Ruby;
-			_scintilla.Lexing.SetKeywords(0, Resources.RubyKeywords);
+			this._scintilla.ConfigurationManager.Language = "ruby";
+			this._scintilla.Lexing.Lexer = Lexer.Ruby;
+			this._scintilla.Lexing.SetKeywords(0, Resources.RubyKeywords);
 			//Folding
-			_scintilla.Folding.Flags = FoldFlag.LineAfterContracted;
-			_scintilla.Folding.UseCompactFolding = true;
-			_scintilla.Folding.IsEnabled = true;
+			this._scintilla.Folding.Flags = FoldFlag.LineAfterContracted;
+			this._scintilla.Folding.UseCompactFolding = true;
+			this._scintilla.Folding.IsEnabled = true;
 			// Indentation
 			//_scintilla.Indentation.TabWidth = 2;
 			// AutoComplete
-			_scintilla.AutoComplete.DropRestOfWord = false;
-			_scintilla.AutoComplete.CancelAtStart = true;
-			_scintilla.AutoComplete.IsCaseSensitive = false;
+			this._scintilla.AutoComplete.DropRestOfWord = false;
+			this._scintilla.AutoComplete.CancelAtStart = true;
+			this._scintilla.AutoComplete.IsCaseSensitive = false;
 			// Margins
 			//_scintilla.Margins.Margin0.Width = 20;
 			//_scintilla.Margins.Margin1.Width = 2;
@@ -172,20 +172,20 @@ namespace ARCed.Scripting
 			//_scintilla.LongLines.EdgeMode = EdgeMode.Line;
 
 
-		    _scintilla.KeyDown += this.Scintilla_KeyDown;
+		    this._scintilla.KeyDown += this.Scintilla_KeyDown;
 
-			_scintilla.NativeInterface.UpdateUI += 
-				this.Scintilla_NativeInterface_UpdateUI;
+			this._scintilla.NativeInterface.UpdateUI += 
+				this.ScintillaNativeInterfaceUpdateUi;
 			// Setup
-			_scintilla.SupressControlCharacters = true;
-			_scintilla.ContextMenuStrip = contextMenu;
-			_scintilla.Dock = DockStyle.Fill;
-			UpdateSettings();
+			this._scintilla.SupressControlCharacters = true;
+			this._scintilla.ContextMenuStrip = this.contextMenu;
+			this._scintilla.Dock = DockStyle.Fill;
+			this.UpdateSettings();
 		}
 
 		private void ScriptEditorForm_FormClosing(object sender, FormClosingEventArgs e)
 		{
-			DeRegisterScript();
+			this.DeRegisterScript();
 		}
 
 		/// <summary>
@@ -193,18 +193,18 @@ namespace ARCed.Scripting
 		/// </summary>
 		public void UpdateSettings()
 		{
-			if (_scintilla != null)
+			if (this._scintilla != null)
 			{
-				_scintilla.AutoComplete.FillUpCharacters = _settings.FillUpCharacters;
-				_scintilla.Indentation.ShowGuides = _settings.GuideLines;
-				_scintilla.Margins.Margin1.Scintilla.Font = FontHelper.MonoFont;
-				_scintilla.Margins.Margin2.Width = _settings.CodeFolding ? 16 : 0;
-				_scintilla.Caret.CurrentLineBackgroundColor = _settings.CaretColor;
-				_scintilla.Caret.CurrentLineBackgroundAlpha = _settings.CaretColor.A;
-				_scintilla.Caret.HighlightCurrentLine = _settings.Caret;
-				_scintilla.Indentation.SmartIndentType = _settings.AutoIndent ? SmartIndent.None : SmartIndent.Simple;
+				this._scintilla.AutoComplete.FillUpCharacters = _settings.FillUpCharacters;
+				this._scintilla.Indentation.ShowGuides = _settings.GuideLines;
+				this._scintilla.Margins.Margin1.Scintilla.Font = FontHelper.MonoFont;
+				this._scintilla.Margins.Margin2.Width = _settings.CodeFolding ? 16 : 0;
+				this._scintilla.Caret.CurrentLineBackgroundColor = _settings.CaretColor;
+				this._scintilla.Caret.CurrentLineBackgroundAlpha = _settings.CaretColor.A;
+				this._scintilla.Caret.HighlightCurrentLine = _settings.Caret;
+				this._scintilla.Indentation.SmartIndentType = _settings.AutoIndent ? SmartIndent.None : SmartIndent.Simple;
 				if (!_settings.CodeFolding)
-					UnfoldAllLines();
+					this.UnfoldAllLines();
 			}
 		}
 
@@ -214,32 +214,32 @@ namespace ARCed.Scripting
 		/// <param name="styles">An array of script styles</param>
 		public void SetStyle(ScriptStyle[] styles)
 		{
-			if (_scintilla != null)
+			if (this._scintilla != null)
 			{
 				for (int i = 0; i < 19; i++)
 				{
 					if (i == 1)
 						continue;
-					_scintilla.Styles[i].ForeColor = styles[i].ForeColor;
-					_scintilla.Styles[i].BackColor = styles[i].BackColor;
-					_scintilla.Styles[i].Font = styles[i].Font;
+					this._scintilla.Styles[i].ForeColor = styles[i].ForeColor;
+					this._scintilla.Styles[i].BackColor = styles[i].BackColor;
+					this._scintilla.Styles[i].Font = styles[i].Font;
 				}
 				// demoted keywords style
-				_scintilla.Styles[29].ForeColor = _scintilla.Styles[5].ForeColor;
-				_scintilla.Styles[29].BackColor = _scintilla.Styles[5].BackColor;
-				_scintilla.Styles[29].Font = _scintilla.Styles[5].Font;
+				this._scintilla.Styles[29].ForeColor = this._scintilla.Styles[5].ForeColor;
+				this._scintilla.Styles[29].BackColor = this._scintilla.Styles[5].BackColor;
+				this._scintilla.Styles[29].Font = this._scintilla.Styles[5].Font;
 				// braces style
-				_scintilla.Styles.BraceLight.ForeColor = styles[1].ForeColor;
-				_scintilla.Styles.BraceLight.BackColor = styles[1].BackColor;
-				_scintilla.Styles.BraceLight.Font = styles[1].Font;
-				_scintilla.Styles.BraceBad.ForeColor = styles[1].BackColor;
-				_scintilla.Styles.BraceBad.BackColor = styles[1].ForeColor;
-				_scintilla.Styles.BraceBad.Font = styles[1].Font;
+				this._scintilla.Styles.BraceLight.ForeColor = styles[1].ForeColor;
+				this._scintilla.Styles.BraceLight.BackColor = styles[1].BackColor;
+				this._scintilla.Styles.BraceLight.Font = styles[1].Font;
+				this._scintilla.Styles.BraceBad.ForeColor = styles[1].BackColor;
+				this._scintilla.Styles.BraceBad.BackColor = styles[1].ForeColor;
+				this._scintilla.Styles.BraceBad.Font = styles[1].Font;
 				// left margin style
-				_scintilla.Styles.LineNumber.ForeColor = styles[19].ForeColor;
-				_scintilla.Styles.LineNumber.BackColor = styles[19].BackColor;
-				_scintilla.Styles.LineNumber.Font = styles[19].Font;
-				_scintilla.Margins.FoldMarginColor = styles[19].BackColor;
+				this._scintilla.Styles.LineNumber.ForeColor = styles[19].ForeColor;
+				this._scintilla.Styles.LineNumber.BackColor = styles[19].BackColor;
+				this._scintilla.Styles.LineNumber.Font = styles[19].Font;
+				this._scintilla.Margins.FoldMarginColor = styles[19].BackColor;
 			}
 		}
 
@@ -248,13 +248,13 @@ namespace ARCed.Scripting
 		/// </summary>
 		public void SetStyle()
 		{
-			SetStyle(_settings.ScriptStyles);
+			this.SetStyle(_settings.ScriptStyles);
 		}
 
 		private void SetTitle(string title)
 		{
-			_title = title;
-			UpdateTitle();
+			this._title = title;
+			this.UpdateTitle();
 		}
 
 		/// <summary>
@@ -263,17 +263,17 @@ namespace ARCed.Scripting
 		/// <returns>Return true if changes have been applied</returns>
 		public void StructureScript()
 		{
-			_scintilla.UndoRedo.BeginUndoAction();
-			foreach (Line line in _scintilla.Lines)
+			this._scintilla.UndoRedo.BeginUndoAction();
+			foreach (Line line in this._scintilla.Lines)
 			{
-				int indent = GetLineIndent(line);
+				int indent = this.GetLineIndent(line);
 				if (indent != -1)
 				{
 					line.Indentation = 0; // so even if the indent is the same thereafter it will replace "  " by "\t"
-					line.Indentation = indent * _scintilla.Indentation.TabWidth;
+					line.Indentation = indent * this._scintilla.Indentation.TabWidth;
 				}
 			}
-			_scintilla.UndoRedo.EndUndoAction();
+			this._scintilla.UndoRedo.EndUndoAction();
 		}
 
 		/// <summary>
@@ -282,20 +282,20 @@ namespace ARCed.Scripting
 		/// <returns>Return true if changes have been applied</returns>
 		public void RemoveEmptyLines()
 		{
-			_scintilla.UndoRedo.BeginUndoAction();
-			for (int i = _scintilla.Lines.Count - 1; i >= 0; i--)
-				if (_scintilla.Lines[i].Text.Trim().Length == 0)
+			this._scintilla.UndoRedo.BeginUndoAction();
+			for (int i = this._scintilla.Lines.Count - 1; i >= 0; i--)
+				if (this._scintilla.Lines[i].Text.Trim().Length == 0)
 				{
-					_scintilla.CurrentPos = _scintilla.Lines[i].StartPosition;
-					_scintilla.Commands.Execute(BindableCommand.LineDelete);
+					this._scintilla.CurrentPos = this._scintilla.Lines[i].StartPosition;
+					this._scintilla.Commands.Execute(BindableCommand.LineDelete);
 				}
-			Line lastLine = _scintilla.Lines[_scintilla.Lines.Count - 1];
+			Line lastLine = this._scintilla.Lines[this._scintilla.Lines.Count - 1];
 			if (lastLine.Text.Length == 0)
 			{
-				_scintilla.CurrentPos = lastLine.StartPosition;
-				_scintilla.Commands.Execute(BindableCommand.DeleteBack);
+				this._scintilla.CurrentPos = lastLine.StartPosition;
+				this._scintilla.Commands.Execute(BindableCommand.DeleteBack);
 			}
-			_scintilla.UndoRedo.EndUndoAction();
+			this._scintilla.UndoRedo.EndUndoAction();
 		}
 
 		/// <summary>
@@ -303,8 +303,8 @@ namespace ARCed.Scripting
 		/// </summary>
 		public void UnfoldAllLines()
 		{
-			if (_scintilla != null)
-				foreach (Line line in _scintilla.Lines)
+			if (this._scintilla != null)
+				foreach (Line line in this._scintilla.Lines)
 					if (!line.FoldExpanded)
 						line.ToggleFoldExpanded();
 		}
@@ -315,13 +315,13 @@ namespace ARCed.Scripting
 		private int GetLineIndent(Line line)
 		{
 			int pos = line.StartPosition - 1;
-			_scintilla.NativeInterface.Colourise(pos, pos + 1); // styles are used to determine indent so we must load them before proceeding
-			int style = _scintilla.Styles.GetStyleAt(pos);
+			this._scintilla.NativeInterface.Colourise(pos, pos + 1); // styles are used to determine indent so we must load them before proceeding
+			int style = this._scintilla.Styles.GetStyleAt(pos);
 			if (style == 3 || style == 6 || style == 7 || style == 12 || style == 18 || line.Text.StartsWith("=begin"))
 				return -1;
 			int indent = line.FoldLevel - 1024;
-			string w1 = _scintilla.GetWordFromPosition(line.IndentPosition);
-			string w2 = _scintilla.CharAt(line.IndentPosition).ToString();
+			string w1 = this._scintilla.GetWordFromPosition(line.IndentPosition);
+			string w2 = this._scintilla.CharAt(line.IndentPosition).ToString();
 			if (_unindentWords.Contains(w1) || _unindentWords.Contains(w2))
 				indent--;
 			return indent;
@@ -329,21 +329,21 @@ namespace ARCed.Scripting
 
 		private bool IsBrace(int pos)
 		{
-			return _scintilla != null && _braces.Contains(_scintilla.CharAt(pos)) && _scintilla.Styles.GetStyleAt(pos) == 10;
+			return this._scintilla != null && _braces.Contains(this._scintilla.CharAt(pos)) && this._scintilla.Styles.GetStyleAt(pos) == 10;
 		}
 
 
 		public void ApplyChanges()
 		{
-			if (NeedApplyChanges)
+			if (this.NeedApplyChanges)
 			{
-				NeedSave = true;
+				this.NeedSave = true;
 			}
 		}
 
 		private void UpdateTitle()
 		{
-			this.Text = NeedSave ? "* " + Title : Title;
+			Text = this.NeedSave ? "* " + this.Title : this.Title;
 		}
 
 		#region Scintilla Events
@@ -373,40 +373,40 @@ namespace ARCed.Scripting
 			if (_settings.AutoIndent && e.Ch == '\n')
 			{
 				// Correct previous line indent
-				string prevText = _scintilla.Lines.Current.Previous.Text.Trim();
+				string prevText = this._scintilla.Lines.Current.Previous.Text.Trim();
 				int prevIndent = -1;
 				if (prevText == "=begin" || prevText == "=end")
-					_scintilla.Lines.Current.Previous.Indentation = 0;
+					this._scintilla.Lines.Current.Previous.Indentation = 0;
 				else
-					prevIndent = GetLineIndent(_scintilla.Lines.Current.Previous);
+					prevIndent = this.GetLineIndent(this._scintilla.Lines.Current.Previous);
 				if (prevIndent != -1)
-					_scintilla.Lines.Current.Previous.Indentation = prevIndent * _scintilla.Indentation.TabWidth;
+					this._scintilla.Lines.Current.Previous.Indentation = prevIndent * this._scintilla.Indentation.TabWidth;
 				// Indent new line
 				string indentStr = "";
-				int indent = GetLineIndent(_scintilla.Lines.Current);
+				int indent = this.GetLineIndent(this._scintilla.Lines.Current);
 				for (int i = 0; i < indent; i++)
 					indentStr += "\t";
-				_scintilla.InsertText(indentStr);
+				this._scintilla.InsertText(indentStr);
 			}
 			// Update AutoComplete depending on the words typed
 			if (_settings.AutoComplete)
 			{
-				int pos = _scintilla.CurrentPos;
+				int pos = this._scintilla.CurrentPos;
 				// Prevents auto-complete for comments and strings
-				int style = _scintilla.Styles.GetStyleAt(pos - 2);
+				int style = this._scintilla.Styles.GetStyleAt(pos - 2);
 				if (style == 2 || style == 3 || style == 6 || style == 7 || style == 12 || style == 18)
 					return;
 				// Prevents certain characters from raising the auto-complete window
-				string word = _scintilla.GetWordFromPosition(pos).ToLower();
+				string word = this._scintilla.GetWordFromPosition(pos).ToLower();
 				if (_suppressedChars.Contains(e.Ch) || word.Length < _settings.AutoCompleteLength)
 					return;
 				// Select the matched words (we assume that Settings.AutoCompleteWords is already sorted)
-				_scintilla.AutoComplete.List = _settings.AutoCompleteWords.FindAll(
-					delegate(string listWord) { return (listWord.ToLower().Contains(word)); });
-				if (_scintilla.AutoComplete.List.Count > 0)
-					_scintilla.AutoComplete.Show();
+				this._scintilla.AutoComplete.List = _settings.AutoCompleteWords.FindAll(
+				    listWord => (listWord.ToLower().Contains(word)));
+				if (this._scintilla.AutoComplete.List.Count > 0)
+					this._scintilla.AutoComplete.Show();
 				else
-					_scintilla.AutoComplete.Cancel();
+					this._scintilla.AutoComplete.Cancel();
 			}
 		}
 
@@ -415,29 +415,30 @@ namespace ARCed.Scripting
 		/// </summary>
 		private void Scintilla_TextChanged(object sender, EventArgs e)
 		{
-			int lineNumber = _scintilla.Lines.Count;
+			int lineNumber = this._scintilla.Lines.Count;
 			if (lineNumber < 100)
-				_scintilla.Margins.Margin0.Width = 20;
+				this._scintilla.Margins.Margin0.Width = 20;
 			else if (lineNumber < 1000)
-				_scintilla.Margins.Margin0.Width = 30;
+				this._scintilla.Margins.Margin0.Width = 30;
 			else if (lineNumber < 10000)
-				_scintilla.Margins.Margin0.Width = 40;
+				this._scintilla.Margins.Margin0.Width = 40;
 			else if (lineNumber < 100000)
-				_scintilla.Margins.Margin0.Width = 50;
+				this._scintilla.Margins.Margin0.Width = 50;
 			else
-				_scintilla.Margins.Margin0.Width = 60;
-			UpdateTitle();
-			UpdateScriptStatus();
+				this._scintilla.Margins.Margin0.Width = 60;
+			this.UpdateTitle();
+			this.UpdateScriptStatus();
 		}
 
 		/// <summary>
 		/// Check if cursor is on a brace or not, highlighting if necessary
-		/// </summary>
-		private void Scintilla_NativeInterface_UpdateUI(object sender, NativeScintillaEventArgs e)
+        /// </summary>
+        #pragma warning disable 612, 618
+        private void ScintillaNativeInterfaceUpdateUi(object sender, NativeScintillaEventArgs e)
 		{
 			var scintilla = (Scintilla.Scintilla)sender;
 			int pos = scintilla.CurrentPos;
-			if (IsBrace(pos) || IsBrace(--pos))
+			if (this.IsBrace(pos) || this.IsBrace(--pos))
 			{
 				int match = scintilla.NativeInterface.BraceMatch(pos, 0);
 				if (match != -1)
@@ -448,12 +449,13 @@ namespace ARCed.Scripting
 			else
 				scintilla.NativeInterface.BraceHighlight(-1, -1);
 			Editor.StatusBar.Items[2].Text =
-				String.Format("Current Position: {0}", _scintilla.CurrentPos);
+				String.Format("Current Position: {0}", this._scintilla.CurrentPos);
 		}
+        #pragma warning restore 612, 618
 
-		#endregion
+        #endregion
 
-		private void buttonStyle_Click(object sender, EventArgs e)
+        private void buttonStyle_Click(object sender, EventArgs e)
 		{
 			Windows.ScriptStyleMenu.Show(Editor.MainDock);
 		}
@@ -468,7 +470,7 @@ namespace ARCed.Scripting
 			if (!_suppressEvents)
 			{
 				_suppressEvents = true;
-				_settings.AutoComplete = buttonToggleAutoComplete.Checked;
+				_settings.AutoComplete = this.buttonToggleAutoComplete.Checked;
 				foreach (ScriptEditorForm form in Windows.ScriptEditors)
 					form.buttonToggleAutoComplete.Checked = _settings.AutoComplete;
 				_suppressEvents = false;
@@ -480,7 +482,7 @@ namespace ARCed.Scripting
 			if (!_suppressEvents)
 			{
 				_suppressEvents = true;
-				_settings.AutoIndent = buttonToggleAutoIndent.Checked;
+				_settings.AutoIndent = this.buttonToggleAutoIndent.Checked;
 				foreach (ScriptEditorForm form in Windows.ScriptEditors)
 					form.buttonToggleAutoIndent.Checked = _settings.AutoIndent;
 				_suppressEvents = false;
@@ -489,12 +491,12 @@ namespace ARCed.Scripting
 
 		private void buttonToggleIndentGuides_Click(object sender, EventArgs e)
 		{
-			_settings.GuideLines = buttonToggleIndentGuides.Checked;
+			_settings.GuideLines = this.buttonToggleIndentGuides.Checked;
 		}
 
 		private void buttonToggleFolding_Click(object sender, EventArgs e)
 		{
-			_settings.CodeFolding = buttonToggleFolding.Checked;
+			_settings.CodeFolding = this.buttonToggleFolding.Checked;
 		}
 
 		private void buttonToggleCaret_Click(object sender, EventArgs e)
@@ -502,7 +504,7 @@ namespace ARCed.Scripting
 			if (!_suppressEvents)
 			{
 				_suppressEvents = true;
-				_settings.Caret = buttonToggleCaret.Checked;
+				_settings.Caret = this.buttonToggleCaret.Checked;
 				foreach (ScriptEditorForm form in Windows.ScriptEditors)
 				{
 					form.ScintillaControl.Caret.Style = _settings.Caret ? 
@@ -527,154 +529,154 @@ namespace ARCed.Scripting
 
 		private void buttonCut_Click(object sender, EventArgs e)
 		{
-			if (_scintilla.Clipboard.CanCut)
-				_scintilla.Clipboard.Cut();
+			if (this._scintilla.Clipboard.CanCut)
+				this._scintilla.Clipboard.Cut();
 		}
 
 		private void buttonCopy_Click(object sender, EventArgs e)
 		{
-			if (_scintilla.Clipboard.CanCopy)
-				_scintilla.Clipboard.Copy();
+			if (this._scintilla.Clipboard.CanCopy)
+				this._scintilla.Clipboard.Copy();
 		}
 
 		private void buttonPaste_Click(object sender, EventArgs e)
 		{
-			if (_scintilla.Clipboard.CanPaste)
-				_scintilla.Clipboard.Paste();
+			if (this._scintilla.Clipboard.CanPaste)
+				this._scintilla.Clipboard.Paste();
 		}
 
 		private void buttonUndo_Click(object sender, EventArgs e)
 		{
-			if (_scintilla.UndoRedo.CanUndo)
-				_scintilla.UndoRedo.Undo();
+			if (this._scintilla.UndoRedo.CanUndo)
+				this._scintilla.UndoRedo.Undo();
 		}
 
 		private void buttonRedo_Click(object sender, EventArgs e)
 		{
-			if (_scintilla.UndoRedo.CanRedo)
-				_scintilla.UndoRedo.Redo();
+			if (this._scintilla.UndoRedo.CanRedo)
+				this._scintilla.UndoRedo.Redo();
 		}
 
 		private void buttonDelete_Click(object sender, EventArgs e)
 		{
-			_scintilla.Commands.Execute(BindableCommand.DeleteBack);
+			this._scintilla.Commands.Execute(BindableCommand.DeleteBack);
 		}
 
 		private void buttonSelectAll_Click(object sender, EventArgs e)
 		{
-			_scintilla.Commands.Execute(BindableCommand.SelectAll);
+			this._scintilla.Commands.Execute(BindableCommand.SelectAll);
 		}
 
 		private void buttonIncrementalSearch_Click(object sender, EventArgs e)
 		{
-			_scintilla.Commands.Execute(BindableCommand.IncrementalSearch);
-			Point p = _scintilla.PointToClient(MousePosition);
-			if (_scintilla.Bounds.Contains(p))
-				_scintilla.FindReplace.IncrementalSearcher.Location = p;
+			this._scintilla.Commands.Execute(BindableCommand.IncrementalSearch);
+			Point p = this._scintilla.PointToClient(MousePosition);
+			if (this._scintilla.Bounds.Contains(p))
+				this._scintilla.FindReplace.IncrementalSearcher.Location = p;
 		}
 
 		private void buttonFind_Click(object sender, EventArgs e)
 		{
-			_scintilla.Commands.Execute(BindableCommand.ShowFind);
-			Point p = _scintilla.PointToClient(MousePosition);
-			if (_scintilla.Bounds.Contains(p))
-				_scintilla.FindReplace.Window.Location = p;
+			this._scintilla.Commands.Execute(BindableCommand.ShowFind);
+			Point p = this._scintilla.PointToClient(MousePosition);
+			if (this._scintilla.Bounds.Contains(p))
+				this._scintilla.FindReplace.Window.Location = p;
 		}
 
 		private void buttonFindNext_Click(object sender, EventArgs e)
 		{
-			_scintilla.Commands.Execute(BindableCommand.FindNext);
+			this._scintilla.Commands.Execute(BindableCommand.FindNext);
 		}
 
 		private void buttonFindPrevious_Click(object sender, EventArgs e)
 		{
-			_scintilla.Commands.Execute(BindableCommand.FindPrevious);
+			this._scintilla.Commands.Execute(BindableCommand.FindPrevious);
 		}
 
 		private void buttonReplace_Click(object sender, EventArgs e)
 		{
-			_scintilla.Commands.Execute(BindableCommand.ShowReplace);
-			Point p = _scintilla.PointToClient(MousePosition);
-			if (_scintilla.Bounds.Contains(p))
-				_scintilla.FindReplace.Window.Location = p;
+			this._scintilla.Commands.Execute(BindableCommand.ShowReplace);
+			Point p = this._scintilla.PointToClient(MousePosition);
+			if (this._scintilla.Bounds.Contains(p))
+				this._scintilla.FindReplace.Window.Location = p;
 		}
 
 		private void buttonGoto_Click(object sender, EventArgs e)
 		{
-			_scintilla.Commands.Execute(BindableCommand.ShowGoTo);
+			this._scintilla.Commands.Execute(BindableCommand.ShowGoTo);
 		}
 
 		private void buttonAddToAutocomplete_Click(object sender, EventArgs e)
 		{
-			Windows.AutoCompleteWindow.AddToAutocomplete(_scintilla.Selection.Text);
+			Windows.AutoCompleteWindow.AddToAutocomplete(this._scintilla.Selection.Text);
 		}
 
 		private void buttonComment_Click(object sender, EventArgs e)
 		{
-			_scintilla.Commands.Execute(BindableCommand.ToggleLineComment);
+			this._scintilla.Commands.Execute(BindableCommand.ToggleLineComment);
 		}
 
 		private void buttonStructure_Click(object sender, EventArgs e)
 		{
-			StructureScript();
+			this.StructureScript();
 		}
 
 		private void buttonRemoveEmpty_Click(object sender, EventArgs e)
 		{
-			RemoveEmptyLines();
+			this.RemoveEmptyLines();
 		}
 
 		#endregion
 
 		private void SaveChanges()
 		{
-			_script.Text = _scintilla.Text;
-			_script.Save();
-			_needSave = false;
-			UpdateTitle();
+			this._script.Text = this._scintilla.Text;
+			this._script.Save();
+			this._needSave = false;
+			this.UpdateTitle();
 		}
 
 		private void UpdateScriptStatus()
 		{
 			Editor.StatusBar.Items[0].Text = 
-				String.Format("Lines: {0}  Characters: {1}", _scintilla.Lines.Count, _scintilla.TextLength);
-			Editor.StatusBar.Items[1].Text = _scintilla.Selection.Length == 0 ? "" :
-				String.Format("Selection Length: {0}", _scintilla.Selection.Length);
+				String.Format("Lines: {0}  Characters: {1}", this._scintilla.Lines.Count, this._scintilla.TextLength);
+			Editor.StatusBar.Items[1].Text = this._scintilla.Selection.Length == 0 ? "" :
+				String.Format("Selection Length: {0}", this._scintilla.Selection.Length);
 			Editor.StatusBar.Items[2].Text = 
-				String.Format("Current Position: {0}", _scintilla.CurrentPos);
+				String.Format("Current Position: {0}", this._scintilla.CurrentPos);
 		}
 
 		private void ScriptEditorForm_Activated(object sender, EventArgs e)
 		{
-			_scintilla.FindReplace.Window = Windows.ScintillaFindReplace;
-			Windows.ScintillaFindReplace.Scintilla = _scintilla;
-			UpdateScriptStatus();
-			if (this.Pane != null && this.Pane.ContextMenuStrip == null)
-				this.Pane.ContextMenuStrip = Windows.ScriptTabContextMenu;
+			this._scintilla.FindReplace.Window = Windows.ScintillaFindReplace;
+			Windows.ScintillaFindReplace.Scintilla = this._scintilla;
+			this.UpdateScriptStatus();
+			if (Pane != null && Pane.ContextMenuStrip == null)
+				Pane.ContextMenuStrip = Windows.ScriptTabContextMenu;
 		}
 
 		private void _scintilla_SelectionChanged(object sender, EventArgs e)
 		{
-			copyToolStripButton.Enabled = _scintilla.Clipboard.CanCopy;
-			cutToolStripMenuItem.Enabled = _scintilla.Clipboard.CanCut;
-			pasteToolStripButton.Enabled = _scintilla.Clipboard.CanPaste;
-			Editor.StatusBar.Items[1].Text = _scintilla.Selection.Length == 0 ? "" :
-				String.Format("Selection Length: {0}", _scintilla.Selection.Length);
+			this.copyToolStripButton.Enabled = this._scintilla.Clipboard.CanCopy;
+			this.cutToolStripMenuItem.Enabled = this._scintilla.Clipboard.CanCut;
+			this.pasteToolStripButton.Enabled = this._scintilla.Clipboard.CanPaste;
+			Editor.StatusBar.Items[1].Text = this._scintilla.Selection.Length == 0 ? "" :
+				String.Format("Selection Length: {0}", this._scintilla.Selection.Length);
 		}
 
 		void contextMenu_Opening(object sender, CancelEventArgs e)
 		{
-			bool enable = _scintilla.Selection.Length > 0;
-			copyToolStripMenuItem.Enabled = enable;
-			cutToolStripMenuItem.Enabled = enable;
-			deleteToolStripMenuItem.Enabled = enable;
-			commentToolStripMenuItem.Enabled = enable;
-			addToAutoCompleteToolStripMenuItem.Enabled = enable;
+			bool enable = this._scintilla.Selection.Length > 0;
+			this.copyToolStripMenuItem.Enabled = enable;
+			this.cutToolStripMenuItem.Enabled = enable;
+			this.deleteToolStripMenuItem.Enabled = enable;
+			this.commentToolStripMenuItem.Enabled = enable;
+			this.addToAutoCompleteToolStripMenuItem.Enabled = enable;
 		}
 
 		private void buttonScriptStructure_Click(object sender, EventArgs e)
 		{
-			StructureScript();
+			this.StructureScript();
 		}
 	}
 }

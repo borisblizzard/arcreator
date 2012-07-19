@@ -34,7 +34,7 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _line;
+                return this._line;
             }
         }
 
@@ -46,7 +46,7 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _margin;
+                return this._margin;
             }
         }
 
@@ -59,7 +59,7 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _modifiers;
+                return this._modifiers;
             }
         }
 
@@ -71,7 +71,7 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _position;
+                return this._position;
             }
         }
 
@@ -83,11 +83,11 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _toggleFold;
+                return this._toggleFold;
             }
             set
             {
-                _toggleFold = value;
+                this._toggleFold = value;
             }
         }
 
@@ -99,11 +99,11 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _toggleMarkerNumber;
+                return this._toggleMarkerNumber;
             }
             set
             {
-                _toggleMarkerNumber = value;
+                this._toggleMarkerNumber = value;
             }
         }
 
@@ -126,12 +126,12 @@ namespace ARCed.Scintilla
         /// <param name="toggleFold">Whether the fold at the current line should be toggled</param>
         public MarginClickEventArgs(Keys modifiers, int position, Line line, Margin margin, int toggleMarkerNumber, bool toggleFold)
         {
-            _modifiers = modifiers;
-            _position = position;
-            _line = line;
-            _margin = margin;
-            _toggleMarkerNumber = toggleMarkerNumber;
-            _toggleFold = toggleFold;
+            this._modifiers = modifiers;
+            this._position = position;
+            this._line = line;
+            this._margin = margin;
+            this._toggleMarkerNumber = toggleMarkerNumber;
+            this._toggleFold = toggleFold;
         }
 
         #endregion Constructors

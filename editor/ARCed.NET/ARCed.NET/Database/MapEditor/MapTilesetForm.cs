@@ -10,7 +10,7 @@ namespace ARCed.Database.MapEditor
 	{
 		public MapTilesetForm()
 		{
-			InitializeComponent();
+			this.InitializeComponent();
 		}
 	}
 }

@@ -24,8 +24,8 @@ namespace RPG
         /// </summary>
         public float red
         {
-            get { return _red; }
-            set { _red = value.Clamp(-255, 255); }
+            get { return this._red; }
+            set { this._red = value.Clamp(-255, 255); }
         }
 
         /// <summary>
@@ -33,16 +33,16 @@ namespace RPG
         /// </summary>
         public float green
         {
-            get { return _green; }
-            set { _green = value.Clamp(-255, 255); }
+            get { return this._green; }
+            set { this._green = value.Clamp(-255, 255); }
         }
         /// <summary>
         /// The blue value (-255-255). Values out of range are automatically corrected.
         /// </summary>
         public float blue
         {
-            get { return _blue; }
-            set { _blue = value.Clamp(-255, 255); }
+            get { return this._blue; }
+            set { this._blue = value.Clamp(-255, 255); }
         }
 
         /// <summary>
@@ -90,7 +90,7 @@ namespace RPG
         /// <param name="blue">The blue value (-255-255)</param>
         public void set(float red, float green, float blue)
         {
-            set(red, green, blue, this.gray);
+            this.set(red, green, blue, this.gray);
         }
 
         /// <summary>
@@ -114,7 +114,7 @@ namespace RPG
         /// <returns>String representation of object.</returns>
         public override string ToString()
         {
-            return string.Format("{0}, {1}, {2}, {3}", red, green, blue, gray);
+            return string.Format("{0}, {1}, {2}, {3}", this.red, this.green, this.blue, this.gray);
         }
 
         #endregion

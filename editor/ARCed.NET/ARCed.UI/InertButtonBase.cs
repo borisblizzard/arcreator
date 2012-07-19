@@ -25,13 +25,13 @@ namespace ARCed.UI
         private bool m_isMouseOver;
         protected bool IsMouseOver
         {
-            get { return m_isMouseOver; }
+            get { return this.m_isMouseOver; }
             private set
             {
-                if (m_isMouseOver == value)
+                if (this.m_isMouseOver == value)
                     return;
 
-                m_isMouseOver = value;
+                this.m_isMouseOver = value;
                 Invalidate();
             }
         }
@@ -45,27 +45,27 @@ namespace ARCed.UI
         {
             base.OnMouseMove(e);
             bool over = ClientRectangle.Contains(e.X, e.Y);
-            if (IsMouseOver != over)
-                IsMouseOver = over;
+            if (this.IsMouseOver != over)
+                this.IsMouseOver = over;
         }
 
         protected override void OnMouseEnter(EventArgs e)
         {
             base.OnMouseEnter(e);
-            if (!IsMouseOver)
-                IsMouseOver = true;
+            if (!this.IsMouseOver)
+                this.IsMouseOver = true;
         }
 
         protected override void OnMouseLeave(EventArgs e)
         {
             base.OnMouseLeave(e);
-            if (IsMouseOver)
-                IsMouseOver = false;
+            if (this.IsMouseOver)
+                this.IsMouseOver = false;
         }
 
         protected override void OnPaint(PaintEventArgs e)
         {
-            if (IsMouseOver && Enabled)
+            if (this.IsMouseOver && Enabled)
             {
                 using (var pen = new Pen(ForeColor))
                 {
@@ -76,21 +76,25 @@ namespace ARCed.UI
             using (var imageAttributes = new ImageAttributes())
             {
                 var colorMap = new ColorMap[2];
-                colorMap[0] = new ColorMap();
-                colorMap[0].OldColor = Color.FromArgb(0, 0, 0);
-                colorMap[0].NewColor = ForeColor;
-                colorMap[1] = new ColorMap();
-                colorMap[1].OldColor = Image.GetPixel(0, 0);
-                colorMap[1].NewColor = Color.Transparent;
+                colorMap[0] = new ColorMap
+                {
+                    OldColor = Color.FromArgb(0, 0, 0),
+                    NewColor = ForeColor
+                };
+                colorMap[1] = new ColorMap
+                {
+                    OldColor = this.Image.GetPixel(0, 0),
+                    NewColor = Color.Transparent
+                };
 
                 imageAttributes.SetRemapTable(colorMap);
 
                 e.Graphics.DrawImage(
-                   Image,
-                   new Rectangle(0, 0, Image.Width, Image.Height),
+                   this.Image,
+                   new Rectangle(0, 0, this.Image.Width, this.Image.Height),
                    0, 0,
-                   Image.Width,
-                   Image.Height,
+                   this.Image.Width,
+                   this.Image.Height,
                    GraphicsUnit.Pixel,
                    imageAttributes);
             }
@@ -104,10 +108,10 @@ namespace ARCed.UI
                 return;
 
             bool mouseOver = ClientRectangle.Contains(PointToClient(MousePosition));
-            if (mouseOver != IsMouseOver)
-                IsMouseOver = mouseOver;
+            if (mouseOver != this.IsMouseOver)
+                this.IsMouseOver = mouseOver;
 
-            OnRefreshChanges();
+            this.OnRefreshChanges();
         }
 
         protected virtual void OnRefreshChanges()

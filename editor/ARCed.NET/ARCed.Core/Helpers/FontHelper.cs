@@ -34,12 +34,10 @@ namespace ARCed.Helpers
 		/// <remarks>This method also loads resource fonts embedded into the application.</remarks>
 		public static void LoadUserFonts()
 		{
-			string fontDir = Path.Combine(PathHelper.EditorDirectory, "Fonts");
-            if (Directory.Exists(fontDir))
-            {
-                foreach (string filename in Directory.GetFiles(fontDir, "*.ttf"))
-                    AddFileFont(filename);
-            }
+			var fontDir = Path.Combine(PathHelper.EditorDirectory, "Fonts");
+		    if (!Directory.Exists(fontDir)) return;
+		    foreach (string filename in Directory.GetFiles(fontDir, "*.ttf"))
+		        AddFileFont(filename);
 		}
 
 		/// <summary>
@@ -51,10 +49,8 @@ namespace ARCed.Helpers
 		/// <returns>Loaded font object</returns>
 		public static Font GetFont(string familyName, float size, FontStyle style)
 		{
-			Font font = GetMemoryFont(familyName, size, style);
-			if (font != null)
-				return font;
-			return new Font(new FontFamily(familyName), size, style);
+			var font = GetMemoryFont(familyName, size, style);
+			return font ?? new Font(new FontFamily(familyName), size, style);
 		}	
 	
 		/// <summary>
@@ -63,8 +59,8 @@ namespace ARCed.Helpers
 		/// <param name="bytes">Array of bytes to read</param>
 		public static void AddResourceFont(byte[] bytes)
 		{
-			int dataLength = bytes.Length;
-			IntPtr ptrData = Marshal.AllocCoTaskMem(dataLength);
+			var dataLength = bytes.Length;
+			var ptrData = Marshal.AllocCoTaskMem(dataLength);
 			Marshal.Copy(bytes, 0, ptrData, dataLength);
 			uint cFonts = 0;
 			NativeMethods.AddFontMemResourceEx(ptrData, (uint)dataLength, IntPtr.Zero, ref cFonts);
@@ -144,11 +140,9 @@ namespace ARCed.Helpers
 		/// <param name="filename">The path of the file</param>
 		public static void AddFileFont(string filename)
 		{
-			if (!_loadedPaths.Contains(filename))
-			{
-				AddFont(File.OpenRead(filename));
-				NativeMethods.AddFontResourceEx(filename, 0x10, IntPtr.Zero);
-			}
+		    if (_loadedPaths.Contains(filename)) return;
+		    AddFont(File.OpenRead(filename));
+		    NativeMethods.AddFontResourceEx(filename, 0x10, IntPtr.Zero);
 		}
 
 		/// <summary>
@@ -157,11 +151,9 @@ namespace ARCed.Helpers
 		/// <param name="resourceName">The full names, including namespaces, of the resource file</param>
 		public static void AddResourceFont(string resourceName)
 		{
-			if (!_loadedPaths.Contains(resourceName))
-			{
-				Assembly assembly = Assembly.GetExecutingAssembly();
-				AddFont(assembly.GetManifestResourceStream(resourceName));
-			}
+		    if (_loadedPaths.Contains(resourceName)) return;
+		    Assembly assembly = Assembly.GetExecutingAssembly();
+		    AddFont(assembly.GetManifestResourceStream(resourceName));
 		}
 
 		/// <summary>
@@ -171,7 +163,7 @@ namespace ARCed.Helpers
 		/// <remarks>The stream will be closed automatically after the font is loaded</remarks>
 		public static void AddFont(Stream stream)
 		{
-		    IntPtr ptr = Marshal.AllocCoTaskMem((int)stream.Length);
+		    var ptr = Marshal.AllocCoTaskMem((int)stream.Length);
 			var data = new byte[stream.Length];
 			stream.Read(data, 0, (int)stream.Length);
 			Marshal.Copy(data, 0, ptr, (int)stream.Length);

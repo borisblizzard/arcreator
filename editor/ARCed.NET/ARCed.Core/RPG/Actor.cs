@@ -103,29 +103,29 @@ namespace RPG
 		/// </summary>
 		public Actor()
 		{
-			id = 0;
-			name = "";
-			class_id = 1;
-			initial_level = 1;
-			final_level = 99;
-			exp_basis = 30;
-			exp_inflation = 30;
-			character_name = "";
-			character_hue = 0;
-			battler_name = "";
-			battler_hue = 0;
-			parameters = new Table(6, 100);
+			this.id = 0;
+			this.name = "";
+			this.class_id = 1;
+			this.initial_level = 1;
+			this.final_level = 99;
+			this.exp_basis = 30;
+			this.exp_inflation = 30;
+			this.character_name = "";
+			this.character_hue = 0;
+			this.battler_name = "";
+			this.battler_hue = 0;
+			this.parameters = new Table(6, 100);
 			for (int i = 0; i < 100; i++)
 			{
-				parameters[0, i] = 500 + i * 50;
-				parameters[1, i] = 500 + i * 50;
-				parameters[2, i] = 50 + i * 5;
-				parameters[3, i] = 50 + i * 5;
-				parameters[4, i] = 50 + i * 5;
-				parameters[5, i] = 50 + i * 5;
+				this.parameters[0, i] = 500 + i * 50;
+				this.parameters[1, i] = 500 + i * 50;
+				this.parameters[2, i] = 50 + i * 5;
+				this.parameters[3, i] = 50 + i * 5;
+				this.parameters[4, i] = 50 + i * 5;
+				this.parameters[5, i] = 50 + i * 5;
 			}
-			weapon_id = armor1_id = armor2_id = armor3_id = armor4_id = 0;
-			weapon_fix = armor1_fix = armor2_fix = armor3_fix = armor4_fix = false;
+			this.weapon_id = this.armor1_id = this.armor2_id = this.armor3_id = this.armor4_id = 0;
+			this.weapon_fix = this.armor1_fix = this.armor2_fix = this.armor3_fix = this.armor4_fix = false;
 		}
 
 		/// <summary>

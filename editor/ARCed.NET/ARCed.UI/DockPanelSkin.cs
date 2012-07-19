@@ -22,13 +22,13 @@ namespace ARCed.UI
 	[Serializable]
     public class DockPanelSkin
     {
-        private AutoHideStripSkin m_autoHideStripSkin;
-        private DockPaneStripSkin m_dockPaneStripSkin;
+        private AutoHideStripSkin _mAutoHideStripSkin;
+        private DockPaneStripSkin _mDockPaneStripSkin;
 
         public DockPanelSkin()
         {
-            m_autoHideStripSkin = new AutoHideStripSkin();
-            m_dockPaneStripSkin = new DockPaneStripSkin();
+            this._mAutoHideStripSkin = new AutoHideStripSkin();
+            this._mDockPaneStripSkin = new DockPaneStripSkin();
         }
 
         /// <summary>
@@ -36,8 +36,8 @@ namespace ARCed.UI
         /// </summary>
         public AutoHideStripSkin AutoHideStripSkin
         {
-            get { return m_autoHideStripSkin; }
-            set { m_autoHideStripSkin = value; }
+            get { return this._mAutoHideStripSkin; }
+            set { this._mAutoHideStripSkin = value; }
         }
 
         /// <summary>
@@ -45,8 +45,8 @@ namespace ARCed.UI
         /// </summary>
         public DockPaneStripSkin DockPaneStripSkin
         {
-            get { return m_dockPaneStripSkin; }
-            set { m_dockPaneStripSkin = value; }
+            get { return this._mDockPaneStripSkin; }
+            set { this._mDockPaneStripSkin = value; }
         }
     }
 
@@ -57,20 +57,24 @@ namespace ARCed.UI
 	[Serializable]
     public class AutoHideStripSkin
     {
-        private DockPanelGradient m_dockStripGradient;
-        private TabGradient m_TabGradient;
-        private Font m_textFont;
+        private DockPanelGradient _mDockStripGradient;
+        private TabGradient _mTabGradient;
+        private Font _mTextFont;
 
         public AutoHideStripSkin()
         {
-            m_dockStripGradient = new DockPanelGradient();
-            m_dockStripGradient.StartColor = SystemColors.ControlLight;
-            m_dockStripGradient.EndColor = SystemColors.ControlLight;
+            this._mDockStripGradient = new DockPanelGradient
+            {
+                StartColor = SystemColors.ControlLight,
+                EndColor = SystemColors.ControlLight
+            };
 
-            m_TabGradient = new TabGradient();
-            m_TabGradient.TextColor = SystemColors.ControlDarkDark;
+            this._mTabGradient = new TabGradient
+            {
+                TextColor = SystemColors.ControlDarkDark
+            };
 
-            m_textFont = SystemFonts.MenuFont;
+            this._mTextFont = SystemFonts.MenuFont;
         }
 
         /// <summary>
@@ -78,8 +82,8 @@ namespace ARCed.UI
         /// </summary>
         public DockPanelGradient DockStripGradient
         {
-            get { return m_dockStripGradient; }
-            set { m_dockStripGradient = value; }
+            get { return this._mDockStripGradient; }
+            set { this._mDockStripGradient = value; }
         }
 
         /// <summary>
@@ -87,8 +91,8 @@ namespace ARCed.UI
         /// </summary>
         public TabGradient TabGradient
         {
-            get { return m_TabGradient; }
-            set { m_TabGradient = value; }
+            get { return this._mTabGradient; }
+            set { this._mTabGradient = value; }
         }
 
 		/// <summary>
@@ -97,8 +101,8 @@ namespace ARCed.UI
 		[XmlElement("TextFont")]
 		public SerializableFont SerializedTextFont
 		{
-			get { return m_textFont; }
-			set { m_textFont = value; }
+			get { return this._mTextFont; }
+			set { this._mTextFont = value; }
 		}
 
         /// <summary>
@@ -107,8 +111,8 @@ namespace ARCed.UI
 		[XmlIgnore]
         public Font TextFont
         {
-            get { return m_textFont; }
-            set { m_textFont = value; }
+            get { return this._mTextFont; }
+            set { this._mTextFont = value; }
         }
     }
 
@@ -119,42 +123,66 @@ namespace ARCed.UI
 	[Serializable]
     public class DockPaneStripSkin
     {
-        private DockPaneStripGradient m_DocumentGradient;
-        private DockPaneStripToolWindowGradient m_ToolWindowGradient;
-        private Font m_textFont;
+        private DockPaneStripGradient _mDocumentGradient;
+        private DockPaneStripToolWindowGradient _mToolWindowGradient;
+        private Font _mTextFont;
 
         public DockPaneStripSkin()
         {
-            m_DocumentGradient = new DockPaneStripGradient();
-            m_DocumentGradient.DockStripGradient.StartColor = SystemColors.Control;
-            m_DocumentGradient.DockStripGradient.EndColor = SystemColors.Control;
-            m_DocumentGradient.ActiveTabGradient.StartColor = SystemColors.ControlLightLight;
-            m_DocumentGradient.ActiveTabGradient.EndColor = SystemColors.ControlLightLight;
-            m_DocumentGradient.InactiveTabGradient.StartColor = SystemColors.ControlLight;
-            m_DocumentGradient.InactiveTabGradient.EndColor = SystemColors.ControlLight;
+            this._mDocumentGradient = new DockPaneStripGradient
+            {
+                DockStripGradient =
+                {
+                    StartColor = SystemColors.Control,
+                    EndColor = SystemColors.Control
+                },
+                ActiveTabGradient =
+                {
+                    StartColor = SystemColors.ControlLightLight,
+                    EndColor = SystemColors.ControlLightLight
+                },
+                InactiveTabGradient =
+                {
+                    StartColor = SystemColors.ControlLight,
+                    EndColor = SystemColors.ControlLight
+                }
+            };
 
-            m_ToolWindowGradient = new DockPaneStripToolWindowGradient();
-            m_ToolWindowGradient.DockStripGradient.StartColor = SystemColors.ControlLight;
-            m_ToolWindowGradient.DockStripGradient.EndColor = SystemColors.ControlLight;
+            this._mToolWindowGradient = new DockPaneStripToolWindowGradient
+            {
+                DockStripGradient =
+                {
+                    StartColor = SystemColors.ControlLight,
+                    EndColor = SystemColors.ControlLight
+                },
+                ActiveTabGradient =
+                {
+                    StartColor = SystemColors.Control,
+                    EndColor = SystemColors.Control
+                },
+                InactiveTabGradient =
+                {
+                    StartColor = Color.Transparent,
+                    EndColor = Color.Transparent,
+                    TextColor = SystemColors.ControlDarkDark
+                },
+                ActiveCaptionGradient =
+                {
+                    StartColor = SystemColors.GradientActiveCaption,
+                    EndColor = SystemColors.ActiveCaption,
+                    LinearGradientMode = LinearGradientMode.Vertical,
+                    TextColor = SystemColors.ActiveCaptionText
+                },
+                InactiveCaptionGradient =
+                {
+                    StartColor = SystemColors.GradientInactiveCaption,
+                    EndColor = SystemColors.InactiveCaption,
+                    LinearGradientMode = LinearGradientMode.Vertical,
+                    TextColor = SystemColors.InactiveCaptionText
+                }
+            };
 
-            m_ToolWindowGradient.ActiveTabGradient.StartColor = SystemColors.Control;
-            m_ToolWindowGradient.ActiveTabGradient.EndColor = SystemColors.Control;
-
-            m_ToolWindowGradient.InactiveTabGradient.StartColor = Color.Transparent;
-            m_ToolWindowGradient.InactiveTabGradient.EndColor = Color.Transparent;
-            m_ToolWindowGradient.InactiveTabGradient.TextColor = SystemColors.ControlDarkDark;
-
-            m_ToolWindowGradient.ActiveCaptionGradient.StartColor = SystemColors.GradientActiveCaption;
-            m_ToolWindowGradient.ActiveCaptionGradient.EndColor = SystemColors.ActiveCaption;
-            m_ToolWindowGradient.ActiveCaptionGradient.LinearGradientMode = LinearGradientMode.Vertical;
-            m_ToolWindowGradient.ActiveCaptionGradient.TextColor = SystemColors.ActiveCaptionText;
-
-            m_ToolWindowGradient.InactiveCaptionGradient.StartColor = SystemColors.GradientInactiveCaption;
-            m_ToolWindowGradient.InactiveCaptionGradient.EndColor = SystemColors.InactiveCaption;
-            m_ToolWindowGradient.InactiveCaptionGradient.LinearGradientMode = LinearGradientMode.Vertical;
-            m_ToolWindowGradient.InactiveCaptionGradient.TextColor = SystemColors.InactiveCaptionText;
-
-            m_textFont = SystemFonts.MenuFont;
+            this._mTextFont = SystemFonts.MenuFont;
         }
 
         /// <summary>
@@ -162,8 +190,8 @@ namespace ARCed.UI
         /// </summary>
         public DockPaneStripGradient DocumentGradient
         {
-            get { return m_DocumentGradient; }
-            set { m_DocumentGradient = value; }
+            get { return this._mDocumentGradient; }
+            set { this._mDocumentGradient = value; }
         }
 
         /// <summary>
@@ -171,8 +199,8 @@ namespace ARCed.UI
         /// </summary>
         public DockPaneStripToolWindowGradient ToolWindowGradient
         {
-            get { return m_ToolWindowGradient; }
-            set { m_ToolWindowGradient = value; }
+            get { return this._mToolWindowGradient; }
+            set { this._mToolWindowGradient = value; }
         }
 
 		/// <summary>
@@ -181,8 +209,8 @@ namespace ARCed.UI
 		[XmlElement("TextFont")]
 		public SerializableFont SerializedTextFont
 		{
-			get { return m_textFont; }
-			set { m_textFont = value; }
+			get { return this._mTextFont; }
+			set { this._mTextFont = value; }
 		}
 
         /// <summary>
@@ -191,8 +219,8 @@ namespace ARCed.UI
 		[XmlIgnore]
         public Font TextFont
         {
-            get { return m_textFont; }
-            set { m_textFont = value; }
+            get { return this._mTextFont; }
+            set { this._mTextFont = value; }
         }
     }
 
@@ -203,13 +231,13 @@ namespace ARCed.UI
 	[Serializable]
     public class DockPaneStripToolWindowGradient : DockPaneStripGradient
     {
-        private TabGradient m_activeCaptionGradient;
-        private TabGradient m_inactiveCaptionGradient;
+        private TabGradient _mActiveCaptionGradient;
+        private TabGradient _mInactiveCaptionGradient;
 
         public DockPaneStripToolWindowGradient()
         {
-            m_activeCaptionGradient = new TabGradient();
-            m_inactiveCaptionGradient = new TabGradient();
+            this._mActiveCaptionGradient = new TabGradient();
+            this._mInactiveCaptionGradient = new TabGradient();
         }
 
         /// <summary>
@@ -217,8 +245,8 @@ namespace ARCed.UI
         /// </summary>
         public TabGradient ActiveCaptionGradient
         {
-            get { return m_activeCaptionGradient; }
-            set { m_activeCaptionGradient = value; }
+            get { return this._mActiveCaptionGradient; }
+            set { this._mActiveCaptionGradient = value; }
         }
 
         /// <summary>
@@ -226,8 +254,8 @@ namespace ARCed.UI
         /// </summary>
         public TabGradient InactiveCaptionGradient
         {
-            get { return m_inactiveCaptionGradient; }
-            set { m_inactiveCaptionGradient = value; }
+            get { return this._mInactiveCaptionGradient; }
+            set { this._mInactiveCaptionGradient = value; }
         }
     }
 
@@ -238,15 +266,15 @@ namespace ARCed.UI
 	[Serializable]
     public class DockPaneStripGradient
     {
-        private DockPanelGradient m_dockStripGradient;
-        private TabGradient m_activeTabGradient;
-        private TabGradient m_inactiveTabGradient;
+        private DockPanelGradient _mDockStripGradient;
+        private TabGradient _mActiveTabGradient;
+        private TabGradient _mInactiveTabGradient;
 
         public DockPaneStripGradient()
         {
-            m_dockStripGradient = new DockPanelGradient();
-            m_activeTabGradient = new TabGradient();
-            m_inactiveTabGradient = new TabGradient();
+            this._mDockStripGradient = new DockPanelGradient();
+            this._mActiveTabGradient = new TabGradient();
+            this._mInactiveTabGradient = new TabGradient();
         }
 
         /// <summary>
@@ -254,8 +282,8 @@ namespace ARCed.UI
         /// </summary>
         public DockPanelGradient DockStripGradient
         {
-            get { return m_dockStripGradient; }
-            set { m_dockStripGradient = value; }
+            get { return this._mDockStripGradient; }
+            set { this._mDockStripGradient = value; }
         }
 
         /// <summary>
@@ -263,8 +291,8 @@ namespace ARCed.UI
         /// </summary>
         public TabGradient ActiveTabGradient
         {
-            get { return m_activeTabGradient; }
-            set { m_activeTabGradient = value; }
+            get { return this._mActiveTabGradient; }
+            set { this._mActiveTabGradient = value; }
         }
 
         /// <summary>
@@ -272,8 +300,8 @@ namespace ARCed.UI
         /// </summary>
         public TabGradient InactiveTabGradient
         {
-            get { return m_inactiveTabGradient; }
-            set { m_inactiveTabGradient = value; }
+            get { return this._mInactiveTabGradient; }
+            set { this._mInactiveTabGradient = value; }
         }
     }
 
@@ -284,11 +312,11 @@ namespace ARCed.UI
 	[Serializable]
     public class TabGradient : DockPanelGradient
     {
-        private Color m_textColor;
+        private Color _mTextColor;
 
         public TabGradient()
         {
-            m_textColor = SystemColors.ControlText;
+            this._mTextColor = SystemColors.ControlText;
         }
 
 		/// <summary>
@@ -297,8 +325,8 @@ namespace ARCed.UI
 		[XmlElement("TextColor")]
 		public string SerializedTextColor
 		{
-			get { return ColorTranslator.ToHtml(m_textColor); }
-			set { m_textColor = ColorTranslator.FromHtml(value); }
+			get { return ColorTranslator.ToHtml(this._mTextColor); }
+			set { this._mTextColor = ColorTranslator.FromHtml(value); }
 		}
 
         /// <summary>
@@ -308,8 +336,8 @@ namespace ARCed.UI
 		[XmlIgnore]
         public Color TextColor
         {
-            get { return m_textColor; }
-            set { m_textColor = value; }
+            get { return this._mTextColor; }
+            set { this._mTextColor = value; }
         }
     }
 
@@ -320,15 +348,15 @@ namespace ARCed.UI
 	[Serializable]
     public class DockPanelGradient
     {
-        private Color m_startColor;
-        private Color m_endColor;
-        private LinearGradientMode m_linearGradientMode;
+        private Color _mStartColor;
+        private Color _mEndColor;
+        private LinearGradientMode _mLinearGradientMode;
 
         public DockPanelGradient()
         {
-            m_startColor = SystemColors.Control;
-            m_endColor = SystemColors.Control;
-            m_linearGradientMode = LinearGradientMode.Horizontal;
+            this._mStartColor = SystemColors.Control;
+            this._mEndColor = SystemColors.Control;
+            this._mLinearGradientMode = LinearGradientMode.Horizontal;
         }
 
 		/// <summary>
@@ -337,8 +365,8 @@ namespace ARCed.UI
 		[XmlElement("StartColor")]
 		public string SerializedStartColor
 		{
-			get { return ColorTranslator.ToHtml(m_startColor); }
-			set { m_startColor = ColorTranslator.FromHtml(value); }
+			get { return ColorTranslator.ToHtml(this._mStartColor); }
+			set { this._mStartColor = ColorTranslator.FromHtml(value); }
 		}
 
         /// <summary>
@@ -348,8 +376,8 @@ namespace ARCed.UI
 		[XmlIgnore]
         public Color StartColor
         {
-            get { return m_startColor; }
-            set { m_startColor = value; }
+            get { return this._mStartColor; }
+            set { this._mStartColor = value; }
         }
 
 		/// <summary>
@@ -358,8 +386,8 @@ namespace ARCed.UI
 		[XmlElement("EndColor")]
 		public string SerializedEndColor
 		{
-			get { return ColorTranslator.ToHtml(m_endColor); }
-			set { m_endColor = ColorTranslator.FromHtml(value); }
+			get { return ColorTranslator.ToHtml(this._mEndColor); }
+			set { this._mEndColor = ColorTranslator.FromHtml(value); }
 		}
 
         /// <summary>
@@ -369,8 +397,8 @@ namespace ARCed.UI
 		[XmlIgnore]
         public Color EndColor
         {
-            get { return m_endColor; }
-            set { m_endColor = value; }
+            get { return this._mEndColor; }
+            set { this._mEndColor = value; }
         }
 
 		/// <summary>
@@ -379,8 +407,8 @@ namespace ARCed.UI
 		[XmlElement("LinearGradientMode")]
 		public int SerializedLinearGradientMode
 		{
-			get { return (int)m_linearGradientMode; }
-			set { m_linearGradientMode = (LinearGradientMode)value; }
+			get { return (int)this._mLinearGradientMode; }
+			set { this._mLinearGradientMode = (LinearGradientMode)value; }
 		}
 
         /// <summary>
@@ -390,8 +418,8 @@ namespace ARCed.UI
 		[XmlIgnore]
         public LinearGradientMode LinearGradientMode
         {
-            get { return m_linearGradientMode; }
-            set { m_linearGradientMode = value; }
+            get { return this._mLinearGradientMode; }
+            set { this._mLinearGradientMode = value; }
         }
     }
 

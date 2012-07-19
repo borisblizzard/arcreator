@@ -64,17 +64,17 @@ namespace RPG
         /// <param name="height">The map height.</param>
 		public Map(int width = 20, int height = 15)
 		{
-			tileset_id = 0;
+			this.tileset_id = 0;
 			this.width = width;
 			this.height = height;
-			autoplay_bgm = false;
-			bgm = new AudioFile();
-			autoplay_bgs = false;
-			bgs = new AudioFile("", 80);
-			encounter_list = new List<dynamic>();
-			encounter_step = 30;
-			data = new Table(width, height, 3);
-			events = new Dictionary<int, Event>();
+			this.autoplay_bgm = false;
+			this.bgm = new AudioFile();
+			this.autoplay_bgs = false;
+			this.bgs = new AudioFile("", 80);
+			this.encounter_list = new List<dynamic>();
+			this.encounter_step = 30;
+			this.data = new Table(width, height, 3);
+			this.events = new Dictionary<int, Event>();
 		}
 	}
 }

@@ -33,7 +33,7 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _lineCountDelta;
+                return this._lineCountDelta;
             }
         }
 
@@ -46,7 +46,7 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _lineIndex;
+                return this._lineIndex;
             }
         }
 
@@ -62,7 +62,7 @@ namespace ARCed.Scintilla
         /// <param name="lineCountDelta">The number of lines added to or removed from the annotation that changed.</param>
         public AnnotationChangedEventArgs(int lineIndex, int lineCountDelta)
         {
-            _lineIndex = lineIndex;
+            this._lineIndex = lineIndex;
         }
 
         #endregion Constructors

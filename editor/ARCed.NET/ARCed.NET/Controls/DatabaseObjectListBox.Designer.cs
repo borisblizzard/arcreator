@@ -51,8 +51,8 @@
 			this.pictureBoxHeader.Size = new System.Drawing.Size(146, 29);
 			this.pictureBoxHeader.TabIndex = 2;
 			this.pictureBoxHeader.TabStop = false;
-			this.pictureBoxHeader.SizeChanged += new System.EventHandler(this.pictureBoxHeader_Resize);
-			this.pictureBoxHeader.DoubleClick += new System.EventHandler(this.pictureBoxHeader_DoubleClick);
+			this.pictureBoxHeader.SizeChanged += new System.EventHandler(this.PictureBoxHeaderResize);
+			this.pictureBoxHeader.DoubleClick += new System.EventHandler(this.PictureBoxHeaderDoubleClick);
 			// 
 			// contextMenuHeader
 			// 
@@ -79,7 +79,7 @@
 			this.listBoxObjects.Size = new System.Drawing.Size(146, 372);
 			this.listBoxObjects.TabIndex = 1;
 			this.toolTip.SetToolTip(this.listBoxObjects, "Select object to edit");
-			this.listBoxObjects.SelectedIndexChanged += new System.EventHandler(this.listBoxObjects_SelectedIndexChanged);
+			this.listBoxObjects.SelectedIndexChanged += new System.EventHandler(this.ListBoxObjectsSelectedIndexChanged);
 			// 
 			// buttonMaximum
 			// 
@@ -92,7 +92,7 @@
 			this.buttonMaximum.Text = "Change Maximum...";
 			this.toolTip.SetToolTip(this.buttonMaximum, "Change maximum amount of items");
 			this.buttonMaximum.UseVisualStyleBackColor = true;
-			this.buttonMaximum.Click += new System.EventHandler(this.buttonMaximum_Click);
+			this.buttonMaximum.Click += new System.EventHandler(this.ButtonMaximumClick);
 			// 
 			// DatabaseObjectListBox
 			// 

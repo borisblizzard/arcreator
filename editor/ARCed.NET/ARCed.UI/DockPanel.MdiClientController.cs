@@ -26,7 +26,7 @@ namespace ARCed.UI
 
             public void Dispose()
             {
-                Dispose(true);
+                this.Dispose(true);
                 GC.SuppressFinalize(this);
             }
 
@@ -36,27 +36,27 @@ namespace ARCed.UI
                 {
                     lock (this)
                     {
-                        if (Site != null && Site.Container != null)
-                            Site.Container.Remove(this);
+                        if (this.Site != null && this.Site.Container != null)
+                            this.Site.Container.Remove(this);
 
-                        if (Disposed != null)
-                            Disposed(this, EventArgs.Empty);
+                        if (this.Disposed != null)
+                            this.Disposed(this, EventArgs.Empty);
                     }
                 }
             }
 
             public bool AutoScroll
             {
-                get { return m_autoScroll; }
+                get { return this.m_autoScroll; }
                 set
                 {
                     // By default the MdiClient control scrolls. It can appear though that
                     // there are no scrollbars by turning them off when the non-client
                     // area is calculated. I decided to expose this method following
                     // the .NET vernacular of an AutoScroll property.
-                    m_autoScroll = value;
-                    if (MdiClient != null)
-                        UpdateStyles();
+                    this.m_autoScroll = value;
+                    if (this.MdiClient != null)
+                        this.UpdateStyles();
                 }
             }
 
@@ -68,15 +68,15 @@ namespace ARCed.UI
                     if (!Enum.IsDefined(typeof(BorderStyle), value))
                         throw new InvalidEnumArgumentException();
 
-                    m_borderStyle = value;
+                    this.m_borderStyle = value;
 
-                    if (MdiClient == null)
+                    if (this.MdiClient == null)
                         return;
 
                     // This property can actually be visible in design-mode,
                     // but to keep it consistent with the others,
                     // prevent this from being show at design-time.
-                    if (Site != null && Site.DesignMode)
+                    if (this.Site != null && this.Site.DesignMode)
                         return;
 
                     // There is no BorderStyle property exposed by the MdiClient class,
@@ -89,11 +89,11 @@ namespace ARCed.UI
                     // http://www.codeproject.com/cs/miscctrl/CsAddingBorders.asp
 
                     // Get styles using Win32 calls
-                    int style = NativeMethods.GetWindowLong(MdiClient.Handle, (int)GetWindowLongIndex.GWL_STYLE);
-                    int exStyle = NativeMethods.GetWindowLong(MdiClient.Handle, (int)GetWindowLongIndex.GWL_EXSTYLE);
+                    int style = NativeMethods.GetWindowLong(this.MdiClient.Handle, (int)GetWindowLongIndex.GWL_STYLE);
+                    int exStyle = NativeMethods.GetWindowLong(this.MdiClient.Handle, (int)GetWindowLongIndex.GWL_EXSTYLE);
 
                     // Add or remove style flags as necessary.
-                    switch (m_borderStyle)
+                    switch (this.m_borderStyle)
                     {
                         case BorderStyle.Fixed3D:
                             exStyle |= (int)WindowExStyles.WS_EX_CLIENTEDGE;
@@ -112,60 +112,60 @@ namespace ARCed.UI
                     }
 
                     // Set the styles using Win32 calls
-                    NativeMethods.SetWindowLong(MdiClient.Handle, (int)GetWindowLongIndex.GWL_STYLE, style);
-                    NativeMethods.SetWindowLong(MdiClient.Handle, (int)GetWindowLongIndex.GWL_EXSTYLE, exStyle);
+                    NativeMethods.SetWindowLong(this.MdiClient.Handle, (int)GetWindowLongIndex.GWL_STYLE, style);
+                    NativeMethods.SetWindowLong(this.MdiClient.Handle, (int)GetWindowLongIndex.GWL_EXSTYLE, exStyle);
 
                     // Cause an update of the non-client area.
-                    UpdateStyles();
+                    this.UpdateStyles();
                 }
             }
 
             public MdiClient MdiClient
             {
-                get { return m_mdiClient; }
+                get { return this.m_mdiClient; }
             }
 
             [Browsable(false)]
             public Form ParentForm
             {
-                get { return m_parentForm; }
+                get { return this.m_parentForm; }
                 set
                 {
                     // If the ParentForm has previously been set,
                     // unwire events connected to the old parent.
-                    if (m_parentForm != null)
+                    if (this.m_parentForm != null)
                     {
-                        m_parentForm.HandleCreated -= this.ParentFormHandleCreated;
-                        m_parentForm.MdiChildActivate -= this.ParentFormMdiChildActivate;
+                        this.m_parentForm.HandleCreated -= this.ParentFormHandleCreated;
+                        this.m_parentForm.MdiChildActivate -= this.ParentFormMdiChildActivate;
                     }
 
-                    m_parentForm = value;
+                    this.m_parentForm = value;
 
-                    if (m_parentForm == null)
+                    if (this.m_parentForm == null)
                         return;
 
                     // If the parent form has not been created yet,
                     // wait to initialize the MDI client until it is.
-                    if (m_parentForm.IsHandleCreated)
+                    if (this.m_parentForm.IsHandleCreated)
                     {
-                        InitializeMdiClient();
-                        RefreshProperties();
+                        this.InitializeMdiClient();
+                        this.RefreshProperties();
                     }
                     else
-                        m_parentForm.HandleCreated += this.ParentFormHandleCreated;
+                        this.m_parentForm.HandleCreated += this.ParentFormHandleCreated;
 
-                    m_parentForm.MdiChildActivate += this.ParentFormMdiChildActivate;
+                    this.m_parentForm.MdiChildActivate += this.ParentFormMdiChildActivate;
                 }
             }
 
             public ISite Site
             {
-                get { return m_site; }
+                get { return this.m_site; }
                 set
                 {
-                    m_site = value;
+                    this.m_site = value;
 
-                    if (m_site == null)
+                    if (this.m_site == null)
                         return;
 
                     // If the component is dropped onto a form during design-time,
@@ -175,7 +175,7 @@ namespace ARCed.UI
                     {
                         var parent = host.RootComponent as Form;
                         if (parent != null)
-                            ParentForm = parent;
+                            this.ParentForm = parent;
                     }
                 }
             }
@@ -183,8 +183,8 @@ namespace ARCed.UI
             public void RenewMdiClient()
             {
                 // Reinitialize the MdiClient and its properties.
-                InitializeMdiClient();
-                RefreshProperties();
+                this.InitializeMdiClient();
+                this.RefreshProperties();
             }
 
             public event EventHandler Disposed;
@@ -198,22 +198,22 @@ namespace ARCed.UI
             protected virtual void OnHandleAssigned(EventArgs e)
             {
                 // Raise the HandleAssigned event.
-                if (HandleAssigned != null)
-                    HandleAssigned(this, e);
+                if (this.HandleAssigned != null)
+                    this.HandleAssigned(this, e);
             }
 
             protected virtual void OnMdiChildActivate(EventArgs e)
             {
                 // Raise the MdiChildActivate event
-                if (MdiChildActivate != null)
-                    MdiChildActivate(this, e);
+                if (this.MdiChildActivate != null)
+                    this.MdiChildActivate(this, e);
             }
 
             protected virtual void OnLayout(LayoutEventArgs e)
             {
                 // Raise the Layout event
-                if (Layout != null)
-                    Layout(this, e);
+                if (this.Layout != null)
+                    this.Layout(this, e);
             }
 
             public event PaintEventHandler Paint;
@@ -221,8 +221,8 @@ namespace ARCed.UI
             protected virtual void OnPaint(PaintEventArgs e)
             {
                 // Raise the Paint event.
-                if (Paint != null)
-                    Paint(this, e);
+                if (this.Paint != null)
+                    this.Paint(this, e);
             }
 
             protected override void WndProc(ref Message m)
@@ -232,7 +232,7 @@ namespace ARCed.UI
                     case (int)Msgs.WM_NCCALCSIZE:
                         // If AutoScroll is set to false, hide the scrollbars when the control
                         // calculates its non-client area.
-                        if (!AutoScroll)
+                        if (!this.AutoScroll)
                             NativeMethods.ShowScrollBar(m.HWnd, (int)ScrollBars.SB_BOTH, 0 /*false*/);
                         break;
                 }
@@ -244,28 +244,28 @@ namespace ARCed.UI
             {
                 // The form has been created, unwire the event, and initialize the MdiClient.
                 this.m_parentForm.HandleCreated -= this.ParentFormHandleCreated;
-                InitializeMdiClient();
-                RefreshProperties();
+                this.InitializeMdiClient();
+                this.RefreshProperties();
             }
 
             private void ParentFormMdiChildActivate(object sender, EventArgs e)
             {
-                OnMdiChildActivate(e);
+                this.OnMdiChildActivate(e);
             }
 
             private void MdiClientLayout(object sender, LayoutEventArgs e)
             {
-                OnLayout(e);
+                this.OnLayout(e);
             }
 
             private void MdiClientHandleDestroyed(object sender, EventArgs e)
             {
                 // If the MdiClient handle has been released, drop the reference and
                 // release the handle.
-                if (m_mdiClient != null)
+                if (this.m_mdiClient != null)
                 {
-                    m_mdiClient.HandleDestroyed -= this.MdiClientHandleDestroyed;
-                    m_mdiClient = null;
+                    this.m_mdiClient.HandleDestroyed -= this.MdiClientHandleDestroyed;
+                    this.m_mdiClient = null;
                 }
 
                 ReleaseHandle();
@@ -275,35 +275,35 @@ namespace ARCed.UI
             {
                 // If the mdiClient has previously been set, unwire events connected
                 // to the old MDI.
-                if (MdiClient != null)
+                if (this.MdiClient != null)
                 {
-                    MdiClient.HandleDestroyed -= this.MdiClientHandleDestroyed;
-                    MdiClient.Layout -= this.MdiClientLayout;
+                    this.MdiClient.HandleDestroyed -= this.MdiClientHandleDestroyed;
+                    this.MdiClient.Layout -= this.MdiClientLayout;
                 }
 
-                if (ParentForm == null)
+                if (this.ParentForm == null)
                     return;
 
                 // Get the MdiClient from the parent form.
-                foreach (Control control in ParentForm.Controls)
+                foreach (Control control in this.ParentForm.Controls)
                 {
                     // If the form is an MDI container, it will contain an MdiClient control
                     // just as it would any other control.
 
-                    m_mdiClient = control as MdiClient;
-                    if (m_mdiClient == null)
+                    this.m_mdiClient = control as MdiClient;
+                    if (this.m_mdiClient == null)
                         continue;
 
                     // Assign the MdiClient Handle to the NativeWindow.
                     ReleaseHandle();
-                    AssignHandle(MdiClient.Handle);
+                    AssignHandle(this.MdiClient.Handle);
 
                     // Raise the HandleAssigned event.
-                    OnHandleAssigned(EventArgs.Empty);
+                    this.OnHandleAssigned(EventArgs.Empty);
 
                     // Monitor the MdiClient for when its handle is destroyed.
-                    MdiClient.HandleDestroyed += this.MdiClientHandleDestroyed;
-                    MdiClient.Layout += this.MdiClientLayout;
+                    this.MdiClient.HandleDestroyed += this.MdiClientHandleDestroyed;
+                    this.MdiClient.Layout += this.MdiClientLayout;
 
                     break;
                 }
@@ -312,8 +312,8 @@ namespace ARCed.UI
             private void RefreshProperties()
             {
                 // Refresh all the properties
-                BorderStyle = m_borderStyle;
-                AutoScroll = m_autoScroll;
+                this.BorderStyle = this.m_borderStyle;
+                this.AutoScroll = this.m_autoScroll;
             }
 
             private void UpdateStyles()
@@ -321,7 +321,7 @@ namespace ARCed.UI
                 // To show style changes, the non-client area must be repainted. Using the
                 // control's Invalidate method does not affect the non-client area.
                 // Instead use a Win32 call to signal the style has changed.
-                NativeMethods.SetWindowPos(MdiClient.Handle, IntPtr.Zero, 0, 0, 0, 0,
+                NativeMethods.SetWindowPos(this.MdiClient.Handle, IntPtr.Zero, 0, 0, 0, 0,
                     FlagsSetWindowPos.SWP_NOACTIVATE |
                     FlagsSetWindowPos.SWP_NOMOVE |
                     FlagsSetWindowPos.SWP_NOSIZE |
@@ -334,23 +334,23 @@ namespace ARCed.UI
         private MdiClientController m_mdiClientController;
         private MdiClientController GetMdiClientController()
         {
-            if (m_mdiClientController == null)
+            if (this.m_mdiClientController == null)
             {
-                m_mdiClientController = new MdiClientController();
-                m_mdiClientController.HandleAssigned += this.MdiClientHandleAssigned;
-                m_mdiClientController.MdiChildActivate += this.ParentFormMdiChildActivate;
-                m_mdiClientController.Layout += this.MdiClient_Layout;
+                this.m_mdiClientController = new MdiClientController();
+                this.m_mdiClientController.HandleAssigned += this.MdiClientHandleAssigned;
+                this.m_mdiClientController.MdiChildActivate += this.ParentFormMdiChildActivate;
+                this.m_mdiClientController.Layout += this.MdiClient_Layout;
             }
 
-            return m_mdiClientController;
+            return this.m_mdiClientController;
         }
 
         private void ParentFormMdiChildActivate(object sender, EventArgs e)
         {
-            if (GetMdiClientController().ParentForm == null)
+            if (this.GetMdiClientController().ParentForm == null)
                 return;
 
-            var content = GetMdiClientController().ParentForm.ActiveMdiChild as IDockContent;
+            var content = this.GetMdiClientController().ParentForm.ActiveMdiChild as IDockContent;
             if (content == null)
                 return;
 
@@ -360,30 +360,30 @@ namespace ARCed.UI
 
         private bool MdiClientExists
         {
-            get { return GetMdiClientController().MdiClient != null; }
+            get { return this.GetMdiClientController().MdiClient != null; }
         }
 
         private void SetMdiClientBounds(Rectangle bounds)
         {
-            GetMdiClientController().MdiClient.Bounds = bounds;
+            this.GetMdiClientController().MdiClient.Bounds = bounds;
         }
 
         private void SuspendMdiClientLayout()
         {
-            if (GetMdiClientController().MdiClient != null)
-                GetMdiClientController().MdiClient.SuspendLayout();
+            if (this.GetMdiClientController().MdiClient != null)
+                this.GetMdiClientController().MdiClient.SuspendLayout();
         }
 
         private void ResumeMdiClientLayout(bool perform)
         {
-            if (GetMdiClientController().MdiClient != null)
-                GetMdiClientController().MdiClient.ResumeLayout(perform);
+            if (this.GetMdiClientController().MdiClient != null)
+                this.GetMdiClientController().MdiClient.ResumeLayout(perform);
         }
 
         private void PerformMdiClientLayout()
         {
-            if (GetMdiClientController().MdiClient != null)
-                GetMdiClientController().MdiClient.PerformLayout();
+            if (this.GetMdiClientController().MdiClient != null)
+                this.GetMdiClientController().MdiClient.PerformLayout();
         }
 
         // Called when:
@@ -392,20 +392,20 @@ namespace ARCed.UI
         // 3. MdiClientController.Handle assigned
         private void SetMdiClient()
         {
-            MdiClientController controller = GetMdiClientController();
+            MdiClientController controller = this.GetMdiClientController();
 
             if (this.DocumentStyle == DocumentStyle.DockingMdi)
             {
                 controller.AutoScroll = false;
                 controller.BorderStyle = BorderStyle.None;
-                if (MdiClientExists)
+                if (this.MdiClientExists)
                     controller.MdiClient.Dock = DockStyle.Fill;
             }
-            else if (DocumentStyle == DocumentStyle.DockingSdi || DocumentStyle == DocumentStyle.DockingWindow)
+            else if (this.DocumentStyle == DocumentStyle.DockingSdi || this.DocumentStyle == DocumentStyle.DockingWindow)
             {
                 controller.AutoScroll = true;
                 controller.BorderStyle = BorderStyle.Fixed3D;
-                if (MdiClientExists)
+                if (this.MdiClientExists)
                     controller.MdiClient.Dock = DockStyle.Fill;
             }
             else if (this.DocumentStyle == DocumentStyle.SystemMdi)
@@ -415,15 +415,15 @@ namespace ARCed.UI
                 if (controller.MdiClient != null)
                 {
                     controller.MdiClient.Dock = DockStyle.None;
-                    controller.MdiClient.Bounds = SystemMdiClientBounds;
+                    controller.MdiClient.Bounds = this.SystemMdiClientBounds;
                 }
             }
         }
 
         internal Rectangle RectangleToMdiClient(Rectangle rect)
         {
-            if (MdiClientExists)
-                return GetMdiClientController().MdiClient.RectangleToClient(rect);
+            if (this.MdiClientExists)
+                return this.GetMdiClientController().MdiClient.RectangleToClient(rect);
             else
                 return Rectangle.Empty;
         }

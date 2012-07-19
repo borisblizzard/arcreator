@@ -24,10 +24,10 @@ namespace ARCed.Dialogs
         /// </summary>
         public bool AlphaEnabled
         {
-            get { return panelAlpha.Enabled; }
+            get { return this.panelAlpha.Enabled; }
             set
             {
-                panelAlpha.Enabled = value;
+                this.panelAlpha.Enabled = value;
             }
         }
 
@@ -36,7 +36,7 @@ namespace ARCed.Dialogs
         /// </summary>
         public Color Color
         {
-            get { return myColorWheel.Color; }
+            get { return this.myColorWheel.Color; }
             set
             {
                 this._changeType = ChangeStyle.RGB;
@@ -54,7 +54,7 @@ namespace ARCed.Dialogs
         /// </summary>
 		public ColorChooserForm()
 		{
-			InitializeComponent();
+			this.InitializeComponent();
 		}
 
         #endregion
@@ -66,23 +66,23 @@ namespace ARCed.Dialogs
 			SetStyle(ControlStyles.AllPaintingInWmPaint, true);
 			SetStyle(ControlStyles.UserPaint, true);
 			SetStyle(ControlStyles.DoubleBuffer, true);
-			pnlSelectedColor.Visible = false;
-			pnlBrightness.Visible = false;
-			pnlColor.Visible = false;
-			var selectedColorRectangle = new Rectangle(pnlSelectedColor.Location, pnlSelectedColor.Size);
-			var brightnessRectangle = new Rectangle(pnlBrightness.Location, pnlBrightness.Size);
-			var colorRectangle = new Rectangle(pnlColor.Location, pnlColor.Size);
-			myColorWheel = new ColorWheel(colorRectangle, brightnessRectangle, selectedColorRectangle);
-			myColorWheel.ColorChanged += MyColorWheelColorChanged;
-			if (!panelAlpha.Enabled)
+			this.pnlSelectedColor.Visible = false;
+			this.pnlBrightness.Visible = false;
+			this.pnlColor.Visible = false;
+			var selectedColorRectangle = new Rectangle(this.pnlSelectedColor.Location, this.pnlSelectedColor.Size);
+			var brightnessRectangle = new Rectangle(this.pnlBrightness.Location, this.pnlBrightness.Size);
+			var colorRectangle = new Rectangle(this.pnlColor.Location, this.pnlColor.Size);
+			this.myColorWheel = new ColorWheel(colorRectangle, brightnessRectangle, selectedColorRectangle);
+			this.myColorWheel.ColorChanged += this.MyColorWheelColorChanged;
+			if (!this.panelAlpha.Enabled)
 			{
 				if (this.Color.A != 255)
 					this.Color = Color.FromArgb(255, this.Color);
 			}
-			SetRGB(this._argb);
-			SetHSV(this._hsv);
-			SetRGBLabels(this._argb);
-			SetHSVLabels(this._hsv);
+			this.SetRGB(this._argb);
+			this.SetHSV(this._hsv);
+			this.SetRGBLabels(this._argb);
+			this.SetHSVLabels(this._hsv);
 		}
 
 		private void HandleMouse(object sender, MouseEventArgs e)
@@ -90,49 +90,49 @@ namespace ARCed.Dialogs
 			if (e.Button != MouseButtons.Left)
 				return;
 			this._changeType = ChangeStyle.MouseMove;
-			selectedPoint = new Point(e.X, e.Y);
+			this.selectedPoint = new Point(e.X, e.Y);
 			Invalidate();
 		}
 
 		private void FormMainMouseUp(object sender, MouseEventArgs e)
 		{
-			myColorWheel.SetMouseUp();
+			this.myColorWheel.SetMouseUp();
 			this._changeType = ChangeStyle.None;
 		}
 
 		private void SetRGBLabels(ColorHandler.ARGB argb)
 		{
-			RefreshText(lblRed, argb.Red);
-			RefreshText(lblBlue, argb.Blue);
-			RefreshText(lblGreen, argb.Green);
-			RefreshText(lblAlpha, argb.Alpha);
-			tbHexCode.Text = string.Format("{0:X2}{1:X2}{2:X2}{3:X2}", argb.Alpha, argb.Red, argb.Green, argb.Blue);
+			RefreshText(this.lblRed, argb.Red);
+			RefreshText(this.lblBlue, argb.Blue);
+			RefreshText(this.lblGreen, argb.Green);
+			RefreshText(this.lblAlpha, argb.Alpha);
+			this.tbHexCode.Text = string.Format("{0:X2}{1:X2}{2:X2}{3:X2}", argb.Alpha, argb.Red, argb.Green, argb.Blue);
 		}
 
 		private void SetHSVLabels(ColorHandler.HSV hsv)
 		{
-			RefreshText(lblHue, hsv.Hue);
-			RefreshText(lblSaturation, hsv.Saturation);
-			RefreshText(lblValue, hsv.Value);
-			RefreshText(lblAlpha, hsv.Alpha);
+			RefreshText(this.lblHue, hsv.Hue);
+			RefreshText(this.lblSaturation, hsv.Saturation);
+			RefreshText(this.lblValue, hsv.Value);
+			RefreshText(this.lblAlpha, hsv.Alpha);
 		}
 
 		private void SetRGB(ColorHandler.ARGB argb)
 		{
-			RefreshValue(tbRed, argb.Red);
-			RefreshValue(tbBlue, argb.Blue);
-			RefreshValue(tbGreen, argb.Green);
-			RefreshValue(tbAlpha, argb.Alpha);
-			SetRGBLabels(argb);
+			RefreshValue(this.tbRed, argb.Red);
+			RefreshValue(this.tbBlue, argb.Blue);
+			RefreshValue(this.tbGreen, argb.Green);
+			RefreshValue(this.tbAlpha, argb.Alpha);
+			this.SetRGBLabels(argb);
 		}
 
 		private void SetHSV(ColorHandler.HSV hsv)
 		{
-			RefreshValue(tbHue, hsv.Hue);
-			RefreshValue(tbSaturation, hsv.Saturation);
-			RefreshValue(tbValue, hsv.Value);
-			RefreshValue(tbAlpha, hsv.Alpha);
-			SetHSVLabels(hsv);
+			RefreshValue(this.tbHue, hsv.Hue);
+			RefreshValue(this.tbSaturation, hsv.Saturation);
+			RefreshValue(this.tbValue, hsv.Value);
+			RefreshValue(this.tbAlpha, hsv.Alpha);
+			this.SetHSVLabels(hsv);
 		}
 
 		private static void RefreshValue(TrackBar hsv, int value)
@@ -147,34 +147,34 @@ namespace ARCed.Dialogs
 
 		private void MyColorWheelColorChanged(object sender, ColorChangedEventArgs e)
 		{
-			SetRGB(e.ARGB);
-			SetHSV(e.HSV);
+			this.SetRGB(e.ARGB);
+			this.SetHSV(e.HSV);
 		}
 
 		private void HandleHSVScroll(object sender, EventArgs e)
 		{
 			this._changeType = ChangeStyle.HSV;
-			this._hsv = new ColorHandler.HSV(tbAlpha.Value, tbHue.Value, tbSaturation.Value, tbValue.Value);
-			SetRGB(ColorHandler.HSVtoRGB(this._hsv));
-			SetHSVLabels(this._hsv);
+			this._hsv = new ColorHandler.HSV(this.tbAlpha.Value, this.tbHue.Value, this.tbSaturation.Value, this.tbValue.Value);
+			this.SetRGB(ColorHandler.HSVtoRGB(this._hsv));
+			this.SetHSVLabels(this._hsv);
 			Invalidate();
 		}
 
 		private void HandleRGBScroll(object sender, EventArgs e)
 		{
 			this._changeType = ChangeStyle.RGB;
-			this._argb = new ColorHandler.ARGB(tbAlpha.Value, tbRed.Value, tbGreen.Value, tbBlue.Value);
-			SetHSV(ColorHandler.RGBtoHSV(this._argb));
-			SetRGBLabels(this._argb);
+			this._argb = new ColorHandler.ARGB(this.tbAlpha.Value, this.tbRed.Value, this.tbGreen.Value, this.tbBlue.Value);
+			this.SetHSV(ColorHandler.RGBtoHSV(this._argb));
+			this.SetRGBLabels(this._argb);
 			Invalidate();
 		}
 
 		private void TbAlphaScroll(object sender, EventArgs e)
 		{
 			this._changeType = ChangeStyle.RGB;
-			this._argb = new ColorHandler.ARGB(tbAlpha.Value, tbRed.Value, tbGreen.Value, tbBlue.Value);
-			RefreshText(lblAlpha, tbAlpha.Value);
-			tbHexCode.Text = string.Format("{0:X2}{1:X2}{2:X2}{3:X2}", this._argb.Alpha, this._argb.Red, this._argb.Green, this._argb.Blue);
+			this._argb = new ColorHandler.ARGB(this.tbAlpha.Value, this.tbRed.Value, this.tbGreen.Value, this.tbBlue.Value);
+			RefreshText(this.lblAlpha, this.tbAlpha.Value);
+			this.tbHexCode.Text = string.Format("{0:X2}{1:X2}{2:X2}{3:X2}", this._argb.Alpha, this._argb.Red, this._argb.Green, this._argb.Blue);
 			Invalidate();
 		}
 
@@ -183,22 +183,22 @@ namespace ARCed.Dialogs
 			switch (this._changeType)
 			{
 				case ChangeStyle.HSV:
-					myColorWheel.Draw(e.Graphics, this._hsv);
+					this.myColorWheel.Draw(e.Graphics, this._hsv);
 					break;
 				case ChangeStyle.MouseMove:
 				case ChangeStyle.None:
-					myColorWheel.Draw(e.Graphics, selectedPoint);
+					this.myColorWheel.Draw(e.Graphics, this.selectedPoint);
 					break;
 				case ChangeStyle.RGB:
-					myColorWheel.Draw(e.Graphics, this._argb);
+					this.myColorWheel.Draw(e.Graphics, this._argb);
 					break;
 			}
 		}
 
 		private void TbHexCodeMouseDown(object sender, MouseEventArgs e)
 		{
-			tbHexCode.SelectionStart = 0;
-			tbHexCode.SelectionLength = tbHexCode.Text.Length;
+			this.tbHexCode.SelectionStart = 0;
+			this.tbHexCode.SelectionLength = this.tbHexCode.Text.Length;
 		}
 
 		private void ButtonCaptureClick(object sender, EventArgs e)
@@ -211,10 +211,10 @@ namespace ARCed.Dialogs
 				captureForm.TakeSnapShot();
 				captureForm.ShowDialog();
 				this.Color = captureForm.CaptureColor;
-				SetRGBLabels(this._argb);
-				SetHSVLabels(this._hsv);
-				SetRGB(this._argb);
-				SetHSV(this._hsv);
+				this.SetRGBLabels(this._argb);
+				this.SetHSVLabels(this._hsv);
+				this.SetRGB(this._argb);
+				this.SetHSV(this._hsv);
 			}
 			Editor.MainInstance.Visible = true;
 			Visible = true;
@@ -222,22 +222,22 @@ namespace ARCed.Dialogs
 
 		private void GroupBoxRGBCollapseBoxClickedEvent(object sender)
 		{
-			int y = (groupBoxRGB.FullHeight - groupBoxRGB.CollapsedHeight);
-			if (groupBoxRGB.IsCollapsed) y *= -1;
+			int y = (this.groupBoxRGB.FullHeight - this.groupBoxRGB.CollapsedHeight);
+			if (this.groupBoxRGB.IsCollapsed) y *= -1;
 			Size = new Size(Width, Height + y);
-			groupBoxHSV.Location = new Point(groupBoxHSV.Location.X,
-				groupBoxHSV.Location.Y + y);
-			panelAlpha.Location = new Point(panelAlpha.Location.X,
-				panelAlpha.Location.Y + y);
+			this.groupBoxHSV.Location = new Point(this.groupBoxHSV.Location.X,
+				this.groupBoxHSV.Location.Y + y);
+			this.panelAlpha.Location = new Point(this.panelAlpha.Location.X,
+				this.panelAlpha.Location.Y + y);
 		}
 
 		private void GroupBoxHSVCollapseBoxClickedEvent(object sender)
 		{
-			int y = (groupBoxHSV.FullHeight - groupBoxHSV.CollapsedHeight);
-			if (groupBoxHSV.IsCollapsed) y *= -1;
+			int y = (this.groupBoxHSV.FullHeight - this.groupBoxHSV.CollapsedHeight);
+			if (this.groupBoxHSV.IsCollapsed) y *= -1;
 			Size = new Size(Width, Height + y);
-			panelAlpha.Location = new Point(panelAlpha.Location.X,
-				panelAlpha.Location.Y + y);
+			this.panelAlpha.Location = new Point(this.panelAlpha.Location.X,
+				this.panelAlpha.Location.Y + y);
 		}
 
         #endregion

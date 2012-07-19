@@ -103,7 +103,7 @@ namespace ARCed.Scintilla
 
         public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
         {
-            string val = ConvertTo(value.ToString());
+            string val = this.ConvertTo(value.ToString());
 
             if (destinationType == typeof(char))
                 return val[0];

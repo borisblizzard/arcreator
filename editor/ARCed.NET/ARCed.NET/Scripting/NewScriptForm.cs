@@ -21,48 +21,48 @@ namespace ARCed.Scripting
 			get
 			{
 				string text = "";
-				if (comboBoxTemplate.SelectedIndex > 0)
+				if (this.comboBoxTemplate.SelectedIndex > 0)
 				{
 					string path = Path.Combine(PathHelper.ScriptTemplateDirectory,
-						comboBoxTemplate.Text + ".rb");
-					try { text = String.Format(File.ReadAllText(path), textBoxName.Text); }
+						this.comboBoxTemplate.Text + ".rb");
+					try { text = String.Format(File.ReadAllText(path), this.textBoxName.Text); }
 					catch { }
 				}
 				var script = new Script
-				{ Title = textBoxName.Text, Text = text };
+				{ Title = this.textBoxName.Text, Text = text };
 				return script;
 			}
 		}
 
 		public NewScriptForm()
 		{
-			InitializeComponent();
-			RefreshTemplates();
-			comboBoxTemplate.SelectedIndex = 0;
+			this.InitializeComponent();
+			this.RefreshTemplates();
+			this.comboBoxTemplate.SelectedIndex = 0;
 		}
 
 		private void RefreshTemplates()
 		{
-			comboBoxTemplate.Items.Clear();
-			comboBoxTemplate.Items.Add("Empty");
+			this.comboBoxTemplate.Items.Clear();
+			this.comboBoxTemplate.Items.Add("Empty");
 			string dir = PathHelper.ScriptTemplateDirectory;
 			if (Directory.Exists(dir))
 			{
-				_templates = Directory.GetFiles(dir, "*.rb");
-				foreach (string filename in _templates)
-					comboBoxTemplate.Items.Add(Path.GetFileNameWithoutExtension(filename));
+				this._templates = Directory.GetFiles(dir, "*.rb");
+				foreach (string filename in this._templates)
+					this.comboBoxTemplate.Items.Add(Path.GetFileNameWithoutExtension(filename));
 			}
 		}
 
 		private void textBoxName_TextChanged(object sender, EventArgs e)
 		{
-			Util.ValidateTextBox(textBoxName, "");
+			Util.ValidateTextBox(this.textBoxName, "");
 		}
 
 		private void buttonOK_Click(object sender, EventArgs e)
 		{
-			this.DialogResult = DialogResult.OK;
-			this.Close();
+			DialogResult = DialogResult.OK;
+			Close();
 		}
 	}
 }

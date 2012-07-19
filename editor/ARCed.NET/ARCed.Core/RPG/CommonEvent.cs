@@ -37,11 +37,11 @@ namespace RPG
         /// </summary>
 		public CommonEvent()
 		{
-			id = 0;
-			name = "";
-			trigger = 0;
-			switch_id = 1;
-			list = new List<dynamic>
+			this.id = 0;
+			this.name = "";
+			this.trigger = 0;
+			this.switch_id = 1;
+			this.list = new List<dynamic>
 			{ new EventCommand() };
 		}
 

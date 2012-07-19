@@ -21,7 +21,7 @@ namespace ARCed.Controls
 		/// </summary>
 		[Browsable(false)]
 		[DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-		public NumericUpDown NumberBox { get { return numericParameter; } }
+		public NumericUpDown NumberBox { get { return this.numericParameter; } }
 
 		/// <summary>
 		/// Gets or sets the index of the parameter the control represents.
@@ -36,8 +36,8 @@ namespace ARCed.Controls
 		[Category("ARCed"), Description("Defines the label of the control.")]
 		public string ParameterLabel
 		{
-			get { return labelParameter.Text; }
-			set { labelParameter.Text = value; }
+			get { return this.labelParameter.Text; }
+			set { this.labelParameter.Text = value; }
 		}
 
 		/// <summary>
@@ -46,8 +46,8 @@ namespace ARCed.Controls
 		[Category("ARCed"), Description("Defines the maximum value the user can select.")]
 		public decimal Maximum
 		{
-			get { return numericParameter.Maximum; }
-			set { numericParameter.Maximum = value; }
+			get { return this.numericParameter.Maximum; }
+			set { this.numericParameter.Maximum = value; }
 		}
 
 		/// <summary>
@@ -56,8 +56,8 @@ namespace ARCed.Controls
 		[Category("ARCed"), Description("Defines the minimum value the user can select.")]
 		public decimal Minimum
 		{
-			get { return numericParameter.Minimum; }
-			set { numericParameter.Minimum = value; }
+			get { return this.numericParameter.Minimum; }
+			set { this.numericParameter.Minimum = value; }
 		}
 
 		/// <summary>
@@ -67,8 +67,8 @@ namespace ARCed.Controls
 		[DefaultValue(0)]
 		public decimal Value
 		{
-			get { return numericParameter.Value; }
-			set { numericParameter.Value = value; }
+			get { return this.numericParameter.Value; }
+			set { this.numericParameter.Value = value; }
 		}
 
 		/// <summary>
@@ -96,7 +96,7 @@ namespace ARCed.Controls
 		/// <summary>
 		/// Default constructor.
 		/// </summary>
-		public ParamBox() { InitializeComponent(); }
+		public ParamBox() { this.InitializeComponent(); }
 
 		/// <summary>
 		/// Constructor with arguments to set initial values;
@@ -105,9 +105,9 @@ namespace ARCed.Controls
 		/// <param name="value">Value of the control</param>
 		public ParamBox(int index, decimal value)
 		{
-			InitializeComponent();
-			ParameterIndex = index;
-			Value = value;
+			this.InitializeComponent();
+			this.ParameterIndex = index;
+			this.Value = value;
 		}
 
 		#endregion
@@ -116,8 +116,8 @@ namespace ARCed.Controls
 
 		private void numericParameter_ValueChanged(object sender, EventArgs e)
 		{
-			if (OnValueChanged != null)
-				OnValueChanged(this, new ParameterEventArgs(ParameterIndex, Value));
+			if (this.OnValueChanged != null)
+				this.OnValueChanged(this, new ParameterEventArgs(this.ParameterIndex, this.Value));
 		}
 
 		#endregion
@@ -144,8 +144,8 @@ namespace ARCed.Controls
 		/// <param name="value">Value of the control</param>
 		public ParameterEventArgs(int index, decimal value)
 		{
-			Index = index;
-			Value = value;
+			this.Index = index;
+			this.Value = value;
 		}
 
 	}

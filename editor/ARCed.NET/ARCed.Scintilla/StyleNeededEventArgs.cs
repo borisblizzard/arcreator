@@ -26,7 +26,7 @@ namespace ARCed.Scintilla
         /// </summary>
         public Range Range
         {
-            get { return _range; }
+            get { return this._range; }
         }
 
         #endregion Properties
@@ -40,7 +40,7 @@ namespace ARCed.Scintilla
         /// <param name="range">the document range that needs styling</param>
         public StyleNeededEventArgs(Range range)
         {
-            _range = range;
+            this._range = range;
         }
 
         #endregion Constructors

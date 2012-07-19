@@ -24,7 +24,7 @@ namespace ARCed.Core
 		/// <param name="text">Text added to the Logger</param>
 		public LogTextEventArgs(string text)
 		{
-			AddedText = text;
+			this.AddedText = text;
 		}
 	}
 
@@ -54,9 +54,9 @@ namespace ARCed.Core
 		/// <param name="flushed">Flag is buffer was cleared</param>
 		public LogSaveEventArgs(string filename, bool success, bool flushed)
 		{
-			Filename = filename;
-			Successful = success;
-			BufferCleared = flushed;
+			this.Filename = filename;
+			this.Successful = success;
+			this.BufferCleared = flushed;
 		}
 	}
 
@@ -96,27 +96,27 @@ namespace ARCed.Core
 		/// </summary>
 		public string Text
 		{
-			get { return _buffer.ToString(); }
+			get { return this._buffer.ToString(); }
 			set
 			{
-				_buffer.Clear();
-				_buffer.Append(value);
-				if (TextChanged != null)
-					TextChanged(this, new LogTextEventArgs(value));
+				this._buffer.Clear();
+				this._buffer.Append(value);
+				if (this.TextChanged != null)
+					this.TextChanged(this, new LogTextEventArgs(value));
 			}
 		}
 
 		/// <summary>
 		/// Gets the buffer
 		/// </summary>
-		public StringBuilder Buffer { get { return _buffer; } }
+		public StringBuilder Buffer { get { return this._buffer; } }
 
 		/// <summary>
 		/// Default contructor
 		/// </summary>
 		public Logger()
 		{
-			_buffer = new StringBuilder();
+			this._buffer = new StringBuilder();
 			_header = "------------------------------------------------\n";
 		}
 
@@ -130,14 +130,14 @@ namespace ARCed.Core
 			bool result;
 			try
 			{
-				File.WriteAllText(filename, _buffer.ToString(), Encoding.UTF8);
+				File.WriteAllText(filename, this._buffer.ToString(), Encoding.UTF8);
 				if (flushBuffer)
-					_buffer.Clear();
+					this._buffer.Clear();
 				result = true;
 			}
 			catch { result = false; }
-			if (OnSave != null)
-				OnSave(this, new LogSaveEventArgs(filename, result, flushBuffer));
+			if (this.OnSave != null)
+				this.OnSave(this, new LogSaveEventArgs(filename, result, flushBuffer));
 		}
 
 		/// <summary>
@@ -146,15 +146,15 @@ namespace ARCed.Core
 		/// <param name="message">The text within the header</param>
 		public void AppendHeader(string message)
 		{
-			_buffer.AppendLine(_header);
-			_buffer.AppendLine(message);
-			_buffer.AppendLine(_header);
-			if (TextChanged != null)
+			this._buffer.AppendLine(_header);
+			this._buffer.AppendLine(message);
+			this._buffer.AppendLine(_header);
+			if (this.TextChanged != null)
 			{
 				var args = new LogTextEventArgs(_header);
-				TextChanged(this, args);
-				TextChanged(this, new LogTextEventArgs(message + "\n"));
-				TextChanged(this, args);
+				this.TextChanged(this, args);
+				this.TextChanged(this, new LogTextEventArgs(message + "\n"));
+				this.TextChanged(this, args);
 			}
 		}
 
@@ -164,9 +164,9 @@ namespace ARCed.Core
 		/// <param name="notify">Flag to fire NoteTextChanged event</param>
 		public void Clear(bool notify = false)
 		{
-			_buffer.Clear();
-			if (notify && TextChanged != null)
-				TextChanged(this, new LogTextEventArgs(""));
+			this._buffer.Clear();
+			if (notify && this.TextChanged != null)
+				this.TextChanged(this, new LogTextEventArgs(""));
 		}
 
 		/// <summary>
@@ -175,9 +175,9 @@ namespace ARCed.Core
 		/// <param name="text">Text to append</param>
 		public void Append(string text)
 		{
-			_buffer.Append(text);
-			if (TextChanged != null)
-				TextChanged(this, new LogTextEventArgs(text));
+			this._buffer.Append(text);
+			if (this.TextChanged != null)
+				this.TextChanged(this, new LogTextEventArgs(text));
 			LogConsole(text);
 		}
 
@@ -187,9 +187,9 @@ namespace ARCed.Core
 		/// <param name="obj">Object to append</param>
 		public void Append(object obj)
 		{
-			_buffer.Append(obj);
-			if (TextChanged != null)
-				TextChanged(this, new LogTextEventArgs(obj.ToString()));
+			this._buffer.Append(obj);
+			if (this.TextChanged != null)
+				this.TextChanged(this, new LogTextEventArgs(obj.ToString()));
 			LogConsole(obj);
 		}
 
@@ -199,9 +199,9 @@ namespace ARCed.Core
 		/// <param name="text">Text to append</param>
 		public void AppendLine(string text)
 		{
-			_buffer.AppendLine(text);
-			if (TextChanged != null)
-				TextChanged(this, new LogTextEventArgs(text + "\n"));
+			this._buffer.AppendLine(text);
+			if (this.TextChanged != null)
+				this.TextChanged(this, new LogTextEventArgs(text + "\n"));
 			LogConsoleLine(text);
 		}
 
@@ -211,9 +211,9 @@ namespace ARCed.Core
 		/// <param name="obj">Object to append</param>
 		public void AppendLine(object obj)
 		{
-			_buffer.AppendLine(obj.ToString());
-			if (TextChanged != null)
-				TextChanged(this, new LogTextEventArgs(obj + "\n"));
+			this._buffer.AppendLine(obj.ToString());
+			if (this.TextChanged != null)
+				this.TextChanged(this, new LogTextEventArgs(obj + "\n"));
 			LogConsoleLine(obj);
 		}
 
@@ -225,9 +225,9 @@ namespace ARCed.Core
 		public void AppendFormat(string text, params object[] objs)
 		{
 			string str = String.Format(text, objs);
-			_buffer.Append(str);
-			if (TextChanged != null)
-				TextChanged(this, new LogTextEventArgs(str));
+			this._buffer.Append(str);
+			if (this.TextChanged != null)
+				this.TextChanged(this, new LogTextEventArgs(str));
 			LogConsole(str);
 		}
 

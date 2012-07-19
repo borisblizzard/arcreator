@@ -34,13 +34,13 @@ namespace ARCed.Scripting
 		public ScriptManager(string parentDirectory)
 		{
 			_scripts = new List<Script>();
-			LoadScripts(parentDirectory);
+			this.LoadScripts(parentDirectory);
 		}
 
 		/// <summary>
 		/// Loads scripts from the default directory
 		/// </summary>
-		public void LoadScripts() { LoadScripts(Project.ScriptsDirectory); }
+		public void LoadScripts() { this.LoadScripts(Project.ScriptsDirectory); }
 
 		/// <summary>
 		/// Loads scripts from the given directory
@@ -51,7 +51,7 @@ namespace ARCed.Scripting
 			_scripts.Clear();
 			foreach (string file in Directory.GetFiles(directory, "*.rb"))
 				_scripts.Add(new Script(file));
-			RefreshScriptIndices();
+			this.RefreshScriptIndices();
 		}
 
 		/// <summary>
@@ -60,8 +60,8 @@ namespace ARCed.Scripting
 		/// <param name="script">The script to add</param>
 		public void Add(Script script)
 		{
-			Scripts.Add(script);
-			RefreshScriptIndices();
+			this.Scripts.Add(script);
+			this.RefreshScriptIndices();
 		}
 
 		/// <summary>
@@ -73,8 +73,8 @@ namespace ARCed.Scripting
 		{
 			if (Path.GetExtension(filename) == ".rb")
 			{
-				Scripts.Add(new Script(filename));
-				RefreshScriptIndices();
+				this.Scripts.Add(new Script(filename));
+				this.RefreshScriptIndices();
 			}
 		}
 
@@ -85,8 +85,8 @@ namespace ARCed.Scripting
 		public void AddRange(IEnumerable<Script> scripts)
 		{
 			foreach (Script script in scripts)
-				Scripts.Add(script);
-			RefreshScriptIndices();
+				this.Scripts.Add(script);
+			this.RefreshScriptIndices();
 		}
 
 		/// <summary>
@@ -99,9 +99,9 @@ namespace ARCed.Scripting
 			foreach (string filename in filenames)
 			{
 				if (Path.GetExtension(filename) == ".rb")
-					Scripts.Add(new Script(filename));
+					this.Scripts.Add(new Script(filename));
 			}
-			RefreshScriptIndices();
+			this.RefreshScriptIndices();
 		}
 
 		/// <summary>
@@ -111,8 +111,8 @@ namespace ARCed.Scripting
 		/// <param name="index">The index where it will be inserted</param>
 		public void Insert(Script script, int index)
 		{
-			Scripts.Insert(index, script);
-			RefreshScriptIndices();
+			this.Scripts.Insert(index, script);
+			this.RefreshScriptIndices();
 		}
 
 		/// <summary>
@@ -121,8 +121,8 @@ namespace ARCed.Scripting
 		/// <param name="script">The script to remove</param>
 		public void Remove(Script script)
 		{
-			Scripts.Remove(script);
-			RefreshScriptIndices();
+			this.Scripts.Remove(script);
+			this.RefreshScriptIndices();
 		}
 
 		/// <summary>
@@ -131,8 +131,8 @@ namespace ARCed.Scripting
 		/// <param name="index">The index of the script</param>
 		public void Remove(int index)
 		{
-			Scripts.RemoveAt(index);
-			RefreshScriptIndices();
+			this.Scripts.RemoveAt(index);
+			this.RefreshScriptIndices();
 		}
 
 		/// <summary>
@@ -142,7 +142,7 @@ namespace ARCed.Scripting
 		/// <returns>Truth value of successful save</returns>
 		public bool Save(int index)
 		{
-			return Scripts[index].Save();
+			return this.Scripts[index].Save();
 		}
 
 		/// <summary>
@@ -151,11 +151,11 @@ namespace ARCed.Scripting
 		public void SaveAll()
 		{
 			var errors = new List<string>();
-			for (int i = 0; i < Scripts.Count; i++)
+			for (int i = 0; i < this.Scripts.Count; i++)
 			{
-				Scripts[i].Index = i;
-				if (!Scripts[i].Save())
-					errors.Add(Scripts[i].Title);
+				this.Scripts[i].Index = i;
+				if (!this.Scripts[i].Save())
+					errors.Add(this.Scripts[i].Title);
 			}
 			if (errors.Count > 0)
 			{
@@ -172,7 +172,7 @@ namespace ARCed.Scripting
 		{
 			get
 			{
-				var binding = new BindingList<Script>(Scripts)
+				var binding = new BindingList<Script>(this.Scripts)
 				{
 				    AllowNew = true
 				};
@@ -186,8 +186,8 @@ namespace ARCed.Scripting
 		/// </summary>
 		public void RefreshScriptIndices()
 		{
-			for (int i = 0; i < Scripts.Count; i++)
-				Scripts[i].Index = i;
+			for (int i = 0; i < this.Scripts.Count; i++)
+				this.Scripts[i].Index = i;
 		}
 
 		/// <summary>

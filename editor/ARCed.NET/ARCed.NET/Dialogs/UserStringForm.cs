@@ -26,8 +26,8 @@ namespace ARCed.Dialogs
 		/// </summary>
 		public string UserString
 		{
-			get { return textBoxString.Text; }
-			set { textBoxString.Text = value; }
+			get { return this.textBoxString.Text; }
+			set { this.textBoxString.Text = value; }
 		}
 
 		/// <summary>
@@ -35,8 +35,8 @@ namespace ARCed.Dialogs
 		/// </summary>
 		public string Label
 		{
-			get { return labelString.Text; }
-			set { labelString.Text = value; }
+			get { return this.labelString.Text; }
+			set { this.labelString.Text = value; }
 		}
 
         /// <summary>
@@ -61,11 +61,11 @@ namespace ARCed.Dialogs
 		/// <param name="validate">Flag to validate text for filenames</param>
 		public UserStringForm(string title, string defaultText, string label, bool validate = false)
 		{
-			InitializeComponent();
-			Text = title;
-			textBoxString.Text = defaultText;
-			labelString.Text = label;
-			_validate = validate;
+			this.InitializeComponent();
+			this.Text = title;
+			this.textBoxString.Text = defaultText;
+			this.labelString.Text = label;
+			this._validate = validate;
 		}
 
         #endregion
@@ -80,9 +80,9 @@ namespace ARCed.Dialogs
 
 		private void TextBoxStringTextChanged(object sender, EventArgs e)
 		{
-			if (_validate)
-				Util.ValidateTextBox(textBoxString);
-			buttonOK.Enabled = textBoxString.Text.Trim() != "";
+			if (this._validate)
+				Util.ValidateTextBox(this.textBoxString);
+			this.buttonOK.Enabled = this.textBoxString.Text.Trim() != "";
         }
 
         #endregion

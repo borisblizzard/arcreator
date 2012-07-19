@@ -58,8 +58,8 @@ namespace ARCed.UI
                 public event HookEventHandler HookInvoked;
                 protected void OnHookInvoked(HookEventArgs e)
                 {
-                    if (HookInvoked != null)
-                        HookInvoked(this, e);
+                    if (this.HookInvoked != null)
+                        this.HookInvoked(this, e);
                 }
 
                 public LocalWindowsHook(HookType hook)
@@ -75,11 +75,13 @@ namespace ARCed.UI
                         return NativeMethods.CallNextHookEx(this._mHHook, code, wParam, lParam);
 
                     // Let clients determine what to do
-                    var e = new HookEventArgs();
-                    e.HookCode = code;
-                    e.wParam = wParam;
-                    e.lParam = lParam;
-                    OnHookInvoked(e);
+                    var e = new HookEventArgs
+                    {
+                        HookCode = code,
+                        wParam = wParam,
+                        lParam = lParam
+                    };
+                    this.OnHookInvoked(e);
 
                     // Yield to the next hook in the chain
                     return NativeMethods.CallNextHookEx(this._mHHook, code, wParam, lParam);
@@ -89,7 +91,7 @@ namespace ARCed.UI
                 public void Install()
                 {
                     if (this._mHHook != IntPtr.Zero)
-                        Uninstall();
+                        this.Uninstall();
 
                     int threadId = NativeMethods.GetCurrentThreadId();
                     this._mHHook = NativeMethods.SetWindowsHookEx(this._mHookType, this._mFilterFunc, IntPtr.Zero, threadId);
@@ -107,18 +109,18 @@ namespace ARCed.UI
 
                 ~LocalWindowsHook()
                 {
-                    Dispose(false);
+                    this.Dispose(false);
                 }
 
                 public void Dispose()
                 {
-                    Dispose(true);
+                    this.Dispose(true);
                     GC.SuppressFinalize(this);
                 }
 
                 protected virtual void Dispose(bool disposing)
                 {
-                    Uninstall();
+                    this.Uninstall();
                 }
             }
 
@@ -145,10 +147,10 @@ namespace ARCed.UI
             {
                 lock (this)
                 {
-                    if (!m_disposed && disposing)
+                    if (!this.m_disposed && disposing)
                     {
                         this._mLocalWindowsHook.Dispose();
-                        m_disposed = true;
+                        this.m_disposed = true;
                     }
 
                     base.Dispose(disposing);
@@ -158,15 +160,15 @@ namespace ARCed.UI
             private IDockContent m_contentActivating;
             private IDockContent ContentActivating
             {
-                get { return m_contentActivating; }
-                set { m_contentActivating = value; }
+                get { return this.m_contentActivating; }
+                set { this.m_contentActivating = value; }
             }
 
             public void Activate(IDockContent content)
             {
-                if (IsFocusTrackingSuspended)
+                if (this.IsFocusTrackingSuspended)
                 {
-                    ContentActivating = content;
+                    this.ContentActivating = content;
                     return;
                 }
 
@@ -192,54 +194,54 @@ namespace ARCed.UI
             }
             public void AddToList(IDockContent content)
             {
-                if (ListContent.Contains(content) || IsInActiveList(content))
+                if (this.ListContent.Contains(content) || this.IsInActiveList(content))
                     return;
 
-                ListContent.Add(content);
+                this.ListContent.Add(content);
             }
 
             public void RemoveFromList(IDockContent content)
             {
-                if (IsInActiveList(content))
-                    RemoveFromActiveList(content);
-                if (ListContent.Contains(content))
-                    ListContent.Remove(content);
+                if (this.IsInActiveList(content))
+                    this.RemoveFromActiveList(content);
+                if (this.ListContent.Contains(content))
+                    this.ListContent.Remove(content);
             }
 
             private IDockContent m_lastActiveContent;
             private IDockContent LastActiveContent
             {
-                get { return m_lastActiveContent; }
-                set { m_lastActiveContent = value; }
+                get { return this.m_lastActiveContent; }
+                set { this.m_lastActiveContent = value; }
             }
 
             private bool IsInActiveList(IDockContent content)
             {
-                return !(content.DockHandler.NextActive == null && LastActiveContent != content);
+                return !(content.DockHandler.NextActive == null && this.LastActiveContent != content);
             }
 
             private void AddLastToActiveList(IDockContent content)
             {
-                IDockContent last = LastActiveContent;
+                IDockContent last = this.LastActiveContent;
                 if (last == content)
                     return;
 
                 DockContentHandler handler = content.DockHandler;
 
-                if (IsInActiveList(content))
-                    RemoveFromActiveList(content);
+                if (this.IsInActiveList(content))
+                    this.RemoveFromActiveList(content);
 
                 handler.PreviousActive = last;
                 handler.NextActive = null;
-                LastActiveContent = content;
+                this.LastActiveContent = content;
                 if (last != null)
-                    last.DockHandler.NextActive = LastActiveContent;
+                    last.DockHandler.NextActive = this.LastActiveContent;
             }
 
             private void RemoveFromActiveList(IDockContent content)
             {
-                if (LastActiveContent == content)
-                    LastActiveContent = content.DockHandler.PreviousActive;
+                if (this.LastActiveContent == content)
+                    this.LastActiveContent = content.DockHandler.PreviousActive;
 
                 IDockContent prev = content.DockHandler.PreviousActive;
                 IDockContent next = content.DockHandler.NextActive;
@@ -258,21 +260,21 @@ namespace ARCed.UI
                 if (!handler.Form.ContainsFocus)
                     return;
 
-                if (IsFocusTrackingSuspended)
-                    DockPanel.DummyControl.Focus();
+                if (this.IsFocusTrackingSuspended)
+                    this.DockPanel.DummyControl.Focus();
 
-                if (LastActiveContent == content)
+                if (this.LastActiveContent == content)
                 {
                     IDockContent prev = handler.PreviousActive;
                     if (prev != null)
-                        Activate(prev);
-                    else if (ListContent.Count > 0)
-                        Activate(ListContent[ListContent.Count - 1]);
+                        this.Activate(prev);
+                    else if (this.ListContent.Count > 0)
+                        this.Activate(this.ListContent[this.ListContent.Count - 1]);
                 }
-                else if (LastActiveContent != null)
-                    Activate(LastActiveContent);
-                else if (ListContent.Count > 0)
-                    Activate(ListContent[ListContent.Count - 1]);
+                else if (this.LastActiveContent != null)
+                    this.Activate(this.LastActiveContent);
+                else if (this.ListContent.Count > 0)
+                    this.Activate(this.ListContent[this.ListContent.Count - 1]);
             }
 
             private static bool ContentContains(IDockContent content, IntPtr hWnd)
@@ -288,31 +290,31 @@ namespace ARCed.UI
             private int m_countSuspendFocusTracking;
             public void SuspendFocusTracking()
             {
-                m_countSuspendFocusTracking++;
+                this.m_countSuspendFocusTracking++;
                 this._mLocalWindowsHook.HookInvoked -= this._mHookEventHandler;
             }
 
             public void ResumeFocusTracking()
             {
-                if (m_countSuspendFocusTracking > 0)
-                    m_countSuspendFocusTracking--;
+                if (this.m_countSuspendFocusTracking > 0)
+                    this.m_countSuspendFocusTracking--;
 
-                if (m_countSuspendFocusTracking == 0)
+                if (this.m_countSuspendFocusTracking == 0)
                 {
-                    if (ContentActivating != null)
+                    if (this.ContentActivating != null)
                     {
-                        Activate(ContentActivating);
-                        ContentActivating = null;
+                        this.Activate(this.ContentActivating);
+                        this.ContentActivating = null;
                     }
                     this._mLocalWindowsHook.HookInvoked += this._mHookEventHandler;
-                    if (!InRefreshActiveWindow)
-                        RefreshActiveWindow();
+                    if (!this.InRefreshActiveWindow)
+                        this.RefreshActiveWindow();
                 }
             }
 
             public bool IsFocusTrackingSuspended
             {
-                get { return m_countSuspendFocusTracking != 0; }
+                get { return this.m_countSuspendFocusTracking != 0; }
             }
 
             // Windows hook event handler
@@ -323,12 +325,12 @@ namespace ARCed.UI
                 if (msg == Msgs.WM_KILLFOCUS)
                 {
                     IntPtr wParam = Marshal.ReadIntPtr(e.lParam, IntPtr.Size * 2);
-                    DockPane pane = GetPaneFromHandle(wParam);
+                    DockPane pane = this.GetPaneFromHandle(wParam);
                     if (pane == null)
-                        RefreshActiveWindow();
+                        this.RefreshActiveWindow();
                 }
                 else if (msg == Msgs.WM_SETFOCUS)
-                    RefreshActiveWindow();
+                    this.RefreshActiveWindow();
             }
 
             private DockPane GetPaneFromHandle(IntPtr hWnd)
@@ -343,11 +345,11 @@ namespace ARCed.UI
                     if (content != null)
                         content.DockHandler.ActiveWindowHandle = hWnd;
 
-                    if (content != null && content.DockHandler.DockPanel == DockPanel)
+                    if (content != null && content.DockHandler.DockPanel == this.DockPanel)
                         return content.DockHandler.Pane;
 
                     pane = control as DockPane;
-                    if (pane != null && pane.DockPanel == DockPanel)
+                    if (pane != null && pane.DockPanel == this.DockPanel)
                         break;
                 }
 
@@ -357,131 +359,131 @@ namespace ARCed.UI
             private bool m_inRefreshActiveWindow;
             private bool InRefreshActiveWindow
             {
-                get { return m_inRefreshActiveWindow; }
+                get { return this.m_inRefreshActiveWindow; }
             }
 
             private void RefreshActiveWindow()
             {
-                SuspendFocusTracking();
-                m_inRefreshActiveWindow = true;
+                this.SuspendFocusTracking();
+                this.m_inRefreshActiveWindow = true;
 
-                DockPane oldActivePane = ActivePane;
-                IDockContent oldActiveContent = ActiveContent;
-                IDockContent oldActiveDocument = ActiveDocument;
+                DockPane oldActivePane = this.ActivePane;
+                IDockContent oldActiveContent = this.ActiveContent;
+                IDockContent oldActiveDocument = this.ActiveDocument;
 
-                SetActivePane();
-                SetActiveContent();
-                SetActiveDocumentPane();
-                SetActiveDocument();
-                DockPanel.AutoHideWindow.RefreshActivePane();
+                this.SetActivePane();
+                this.SetActiveContent();
+                this.SetActiveDocumentPane();
+                this.SetActiveDocument();
+                this.DockPanel.AutoHideWindow.RefreshActivePane();
 
-                ResumeFocusTracking();
-                m_inRefreshActiveWindow = false;
+                this.ResumeFocusTracking();
+                this.m_inRefreshActiveWindow = false;
 
-                if (oldActiveContent != ActiveContent)
-                    DockPanel.OnActiveContentChanged(EventArgs.Empty);
-                if (oldActiveDocument != ActiveDocument)
-                    DockPanel.OnActiveDocumentChanged(EventArgs.Empty);
-                if (oldActivePane != ActivePane)
-                    DockPanel.OnActivePaneChanged(EventArgs.Empty);
+                if (oldActiveContent != this.ActiveContent)
+                    this.DockPanel.OnActiveContentChanged(EventArgs.Empty);
+                if (oldActiveDocument != this.ActiveDocument)
+                    this.DockPanel.OnActiveDocumentChanged(EventArgs.Empty);
+                if (oldActivePane != this.ActivePane)
+                    this.DockPanel.OnActivePaneChanged(EventArgs.Empty);
             }
 
             private DockPane m_activePane;
             public DockPane ActivePane
             {
-                get { return m_activePane; }
+                get { return this.m_activePane; }
             }
 
             private void SetActivePane()
             {
-                DockPane value = GetPaneFromHandle(NativeMethods.GetFocus());
-                if (m_activePane == value)
+                DockPane value = this.GetPaneFromHandle(NativeMethods.GetFocus());
+                if (this.m_activePane == value)
                     return;
 
-                if (m_activePane != null)
-                    m_activePane.SetIsActivated(false);
+                if (this.m_activePane != null)
+                    this.m_activePane.SetIsActivated(false);
 
-                m_activePane = value;
+                this.m_activePane = value;
 
-                if (m_activePane != null)
-                    m_activePane.SetIsActivated(true);
+                if (this.m_activePane != null)
+                    this.m_activePane.SetIsActivated(true);
             }
 
             private IDockContent m_activeContent;
             public IDockContent ActiveContent
             {
-                get { return m_activeContent; }
+                get { return this.m_activeContent; }
             }
 
             internal void SetActiveContent()
             {
-                IDockContent value = ActivePane == null ? null : ActivePane.ActiveContent;
+                IDockContent value = this.ActivePane == null ? null : this.ActivePane.ActiveContent;
 
-                if (m_activeContent == value)
+                if (this.m_activeContent == value)
                     return;
 
-                if (m_activeContent != null)
-                    m_activeContent.DockHandler.IsActivated = false;
+                if (this.m_activeContent != null)
+                    this.m_activeContent.DockHandler.IsActivated = false;
 
-                m_activeContent = value;
+                this.m_activeContent = value;
 
-                if (m_activeContent != null)
+                if (this.m_activeContent != null)
                 {
-                    m_activeContent.DockHandler.IsActivated = true;
-                    if (!DockHelper.IsDockStateAutoHide((m_activeContent.DockHandler.DockState)))
-                        AddLastToActiveList(m_activeContent);
+                    this.m_activeContent.DockHandler.IsActivated = true;
+                    if (!DockHelper.IsDockStateAutoHide((this.m_activeContent.DockHandler.DockState)))
+                        this.AddLastToActiveList(this.m_activeContent);
                 }
             }
 
             private DockPane m_activeDocumentPane;
             public DockPane ActiveDocumentPane
             {
-                get { return m_activeDocumentPane; }
+                get { return this.m_activeDocumentPane; }
             }
 
             private void SetActiveDocumentPane()
             {
                 DockPane value = null;
 
-                if (ActivePane != null && ActivePane.DockState == DockState.Document)
-                    value = ActivePane;
+                if (this.ActivePane != null && this.ActivePane.DockState == DockState.Document)
+                    value = this.ActivePane;
 
-                if (value == null && DockPanel.DockWindows != null)
+                if (value == null && this.DockPanel.DockWindows != null)
                 {
-                    if (ActiveDocumentPane == null)
-                        value = DockPanel.DockWindows[DockState.Document].DefaultPane;
-                    else if (ActiveDocumentPane.DockPanel != DockPanel || ActiveDocumentPane.DockState != DockState.Document)
-                        value = DockPanel.DockWindows[DockState.Document].DefaultPane;
+                    if (this.ActiveDocumentPane == null)
+                        value = this.DockPanel.DockWindows[DockState.Document].DefaultPane;
+                    else if (this.ActiveDocumentPane.DockPanel != this.DockPanel || this.ActiveDocumentPane.DockState != DockState.Document)
+                        value = this.DockPanel.DockWindows[DockState.Document].DefaultPane;
                     else
-                        value = ActiveDocumentPane;
+                        value = this.ActiveDocumentPane;
                 }
 
-                if (m_activeDocumentPane == value)
+                if (this.m_activeDocumentPane == value)
                     return;
 
-                if (m_activeDocumentPane != null)
-                    m_activeDocumentPane.SetIsActiveDocumentPane(false);
+                if (this.m_activeDocumentPane != null)
+                    this.m_activeDocumentPane.SetIsActiveDocumentPane(false);
 
-                m_activeDocumentPane = value;
+                this.m_activeDocumentPane = value;
 
-                if (m_activeDocumentPane != null)
-                    m_activeDocumentPane.SetIsActiveDocumentPane(true);
+                if (this.m_activeDocumentPane != null)
+                    this.m_activeDocumentPane.SetIsActiveDocumentPane(true);
             }
 
             private IDockContent m_activeDocument;
             public IDockContent ActiveDocument
             {
-                get { return m_activeDocument; }
+                get { return this.m_activeDocument; }
             }
 
             private void SetActiveDocument()
             {
-                IDockContent value = ActiveDocumentPane == null ? null : ActiveDocumentPane.ActiveContent;
+                IDockContent value = this.ActiveDocumentPane == null ? null : this.ActiveDocumentPane.ActiveContent;
 
-                if (m_activeDocument == value)
+                if (this.m_activeDocument == value)
                     return;
 
-                m_activeDocument = value;
+                this.m_activeDocument = value;
             }
         }
 
@@ -497,31 +499,31 @@ namespace ARCed.UI
 
         internal void SaveFocus()
         {
-            DummyControl.Focus();
+            this.DummyControl.Focus();
         }
 
         [Browsable(false)]
         public IDockContent ActiveContent
         {
-            get { return FocusManager.ActiveContent; }
+            get { return this.FocusManager.ActiveContent; }
         }
 
         [Browsable(false)]
         public DockPane ActivePane
         {
-            get { return FocusManager.ActivePane; }
+            get { return this.FocusManager.ActivePane; }
         }
 
         [Browsable(false)]
         public IDockContent ActiveDocument
         {
-            get { return FocusManager.ActiveDocument; }
+            get { return this.FocusManager.ActiveDocument; }
         }
 
         [Browsable(false)]
         public DockPane ActiveDocumentPane
         {
-            get { return FocusManager.ActiveDocumentPane; }
+            get { return this.FocusManager.ActiveDocumentPane; }
         }
 
         private static readonly object ActiveDocumentChangedEvent = new object();

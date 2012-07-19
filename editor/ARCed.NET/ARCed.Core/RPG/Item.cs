@@ -120,31 +120,31 @@ namespace RPG
         /// </summary>
 		public Item()
 		{
-			id = 0;
-			name = "";
-			icon_name = "";
-			description = "";
-			scope = 0;
-			occasion = 0;
-			animation1_id = 0;
-			animation2_id = 0;
-			menu_se = new AudioFile("", 80);
-			common_event_id = 0;
-			price = 0;
-			consumable = false;
-			parameter_type = 0;
-			parameter_points = 0;
-			recover_hp_rate = 0;
-			recover_hp = 0;
-			recover_sp_rate = 0;
-			recover_sp = 0;
-			hit = 100;
-			pdef_f = 0;
-			mdef_f = 0;
-			variance = 0;
-			element_set = new List<dynamic>();
-			plus_state_set = new List<dynamic>();
-			minus_state_set = new List<dynamic>();
+			this.id = 0;
+			this.name = "";
+			this.icon_name = "";
+			this.description = "";
+			this.scope = 0;
+			this.occasion = 0;
+			this.animation1_id = 0;
+			this.animation2_id = 0;
+			this.menu_se = new AudioFile("", 80);
+			this.common_event_id = 0;
+			this.price = 0;
+			this.consumable = false;
+			this.parameter_type = 0;
+			this.parameter_points = 0;
+			this.recover_hp_rate = 0;
+			this.recover_hp = 0;
+			this.recover_sp_rate = 0;
+			this.recover_sp = 0;
+			this.hit = 100;
+			this.pdef_f = 0;
+			this.mdef_f = 0;
+			this.variance = 0;
+			this.element_set = new List<dynamic>();
+			this.plus_state_set = new List<dynamic>();
+			this.minus_state_set = new List<dynamic>();
 		}
 
 		/// <summary>

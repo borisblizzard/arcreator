@@ -22,7 +22,7 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _fileNames;
+                return this._fileNames;
             }
         }
 
@@ -36,7 +36,7 @@ namespace ARCed.Scintilla
         /// </summary>
         public FileDropEventArgs(string[] fileNames)
         {
-            _fileNames = fileNames;
+            this._fileNames = fileNames;
         }
 
         #endregion Constructors

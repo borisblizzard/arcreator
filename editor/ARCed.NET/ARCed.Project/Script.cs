@@ -31,20 +31,20 @@ namespace ARCed.Scripting
 		/// <summary>
 		/// Gets or sets the associated text of the script
 		/// </summary>
-		public string Text { get { return _text; } set { SetText(value); } }
+		public string Text { get { return this._text; } set { this.SetText(value); } }
 		/// <summary>
 		/// Gets or sets the title of the script.
 		/// </summary>
 		/// <remarks>Titles may not contain characters that are invalid for filenames</remarks>
-		public string Title { get { return _title; } set { SetTitle(value); } }
+		public string Title { get { return this._title; } set { this.SetTitle(value); } }
 		/// <summary>
 		/// Gets or sets the index of the script
 		/// </summary>
-		public int Index { get { return _index; } set { SetIndex(value); } }
+		public int Index { get { return this._index; } set { this.SetIndex(value); } }
 		/// <summary>
 		/// Gets the path to the script file, relative to the main project folder
 		/// </summary>
-		public string Filename { get { return GetFullPath(); } }
+		public string Filename { get { return this.GetFullPath(); } }
 		/// <summary>
 		/// Gets the flag if the script has been altered and requires saving the changes
 		/// </summary>
@@ -56,7 +56,7 @@ namespace ARCed.Scripting
 		{
 			get
 			{
-				try { return new FileInfo(Filename); }
+				try { return new FileInfo(this.Filename); }
 				catch { return null; }
 			}
 		}
@@ -70,10 +70,10 @@ namespace ARCed.Scripting
 		/// </summary>
 		public Script()
 		{
-			_index = 0;
-			_title = "";
-			_text = "";
-			NeedSaved = true;
+			this._index = 0;
+			this._title = "";
+			this._text = "";
+			this.NeedSaved = true;
 		}
 
 		/// <summary>
@@ -82,12 +82,12 @@ namespace ARCed.Scripting
 		/// <param name="filename">The filename of the script to load</param>
 		public Script(string filename) : this()
 		{
-			Load(filename);
+			this.Load(filename);
 			filename = Path.GetFileName(filename);
             if (String.IsNullOrEmpty(filename))
                 return;
-			try { _index = Convert.ToInt32(filename.Substring(0, 4)); }
-			catch { _index = 0; NeedSaved = true; }
+			try { this._index = Convert.ToInt32(filename.Substring(0, 4)); }
+			catch { this._index = 0; this.NeedSaved = true; }
 		}
 
 		#endregion
@@ -102,8 +102,8 @@ namespace ARCed.Scripting
 		{
 			try 
 			{ 
-				File.WriteAllText(GetFullPath(), _text, Encoding.UTF8);
-				NeedSaved = false;
+				File.WriteAllText(this.GetFullPath(), this._text, Encoding.UTF8);
+				this.NeedSaved = false;
 				return true;
 			}
 			catch (IOException) { return false; }
@@ -118,19 +118,19 @@ namespace ARCed.Scripting
 		{
 			try
 			{
-				_text = File.ReadAllText(filename, Encoding.UTF8).Replace("  ", "\t");
+				this._text = File.ReadAllText(filename, Encoding.UTF8).Replace("  ", "\t");
 				filename = Path.GetFileNameWithoutExtension(filename);
                 if (String.IsNullOrEmpty(filename))
                     return false;
-				_title = filename.Substring(5, filename.Length - 5);
-				NeedSaved = false;
+				this._title = filename.Substring(5, filename.Length - 5);
+				this.NeedSaved = false;
 				return true;
 			}
 			catch 
 			{
-				_text = "";
-				_title = "";
-				NeedSaved = true;
+				this._text = "";
+				this._title = "";
+				this.NeedSaved = true;
 				return false;
 			}
 		}
@@ -140,8 +140,8 @@ namespace ARCed.Scripting
 		/// </summary>
 		public void Reload()
 		{
-			if (File.Exists(Filename))
-				Load(Filename);
+			if (File.Exists(this.Filename))
+				this.Load(this.Filename);
 		}
 
 		/// <summary>
@@ -150,7 +150,7 @@ namespace ARCed.Scripting
 		/// <returns>The path for the script</returns>
 		public string GetFullPath()
 		{
-			string filename = String.Format("{0:d4}-{1}.rb", _index, _title);
+			string filename = String.Format("{0:d4}-{1}.rb", this._index, this._title);
 			return Path.Combine(Project.ScriptsDirectory, filename);
 		}
 
@@ -160,7 +160,7 @@ namespace ARCed.Scripting
 		/// <returns>Flag if script file exists for the script</returns>
 		public bool Exists()
 		{
-			return File.Exists(GetFullPath());
+			return File.Exists(this.GetFullPath());
 		}
 
 		#endregion
@@ -173,10 +173,10 @@ namespace ARCed.Scripting
 		/// <param name="title">The title of the script</param>
 		private void SetTitle(string title)
 		{
-			if (title != _title)
+			if (title != this._title)
 			{
-				_title = title;
-				NeedSaved = true;
+				this._title = title;
+				this.NeedSaved = true;
 			}
 		}
 
@@ -186,8 +186,8 @@ namespace ARCed.Scripting
 		/// <param name="text">The text of the script</param>
 		private void SetText(string text)
 		{
-			_text = text;
-			NeedSaved = true;
+			this._text = text;
+			this.NeedSaved = true;
 		}
 
 		/// <summary>
@@ -196,10 +196,10 @@ namespace ARCed.Scripting
 		/// <param name="index">The script index</param>
 		private void SetIndex(int index)
 		{
-			if (index != _index)
+			if (index != this._index)
 			{
-				_index = index;
-				NeedSaved = true;
+				this._index = index;
+				this.NeedSaved = true;
 			}
 		}
 

@@ -31,7 +31,7 @@ namespace ARCed.Controls
         /// </summary>
         public void AddService<T>(T service)
         {
-            services.Add(typeof(T), service);
+            this.services.Add(typeof(T), service);
         }
 
 
@@ -42,7 +42,7 @@ namespace ARCed.Controls
         {
             object service;
 
-            services.TryGetValue(serviceType, out service);
+            this.services.TryGetValue(serviceType, out service);
 
             return service;
         }

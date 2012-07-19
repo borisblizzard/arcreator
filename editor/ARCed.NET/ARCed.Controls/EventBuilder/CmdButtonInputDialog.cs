@@ -15,13 +15,10 @@ namespace ARCed.EventBuilder
 		/// </summary>
 		public int VariableId
 		{
-			get { return comboBoxVariables.SelectedIndex + 1; }
-			set
-			{
-				if (value < comboBoxVariables.Items.Count)
-					comboBoxVariables.SelectedIndex = value;
-				else
-					comboBoxVariables.SelectedIndex = 0;
+			get { return this.comboBoxVariables.SelectedIndex + 1; }
+			set {
+			    this.comboBoxVariables.SelectedIndex = 
+                    value < this.comboBoxVariables.Items.Count ? value : 0;
 			}
 		}
 
@@ -30,15 +27,15 @@ namespace ARCed.EventBuilder
 		/// </summary>
 		public CmdButtonInputDialog()
 		{
-			InitializeComponent();
-			ControlHelper.Populate(comboBoxVariables, Project.Variables, false);
-			comboBoxVariables.SelectedIndex = 0;
+			this.InitializeComponent();
+			ControlHelper.Populate(this.comboBoxVariables, Project.Variables, false);
+			this.comboBoxVariables.SelectedIndex = 0;
 		}
 
 		private void buttonOK_Click(object sender, EventArgs e)
 		{
-			this.DialogResult = DialogResult.OK;
-			this.Close();
+			DialogResult = DialogResult.OK;
+			Close();
 		}
 	}
 }

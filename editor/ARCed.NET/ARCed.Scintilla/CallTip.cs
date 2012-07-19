@@ -63,31 +63,31 @@ namespace ARCed.Scintilla
 
         private void ResetBackColor()
         {
-            BackColor = SystemColors.Info;
+            this.BackColor = SystemColors.Info;
         }
 
 
         private void ResetForeColor()
         {
-            ForeColor = SystemColors.InfoText;
+            this.ForeColor = SystemColors.InfoText;
         }
 
 
         private void ResetHighlightEnd()
         {
-            _highlightEnd = -1;
+            this._highlightEnd = -1;
         }
 
 
         private void ResetHighlightStart()
         {
-            _highlightStart = -1;
+            this._highlightStart = -1;
         }
 
 
         private void ResetHighlightTextColor()
         {
-            HighlightTextColor = SystemColors.Highlight;
+            this.HighlightTextColor = SystemColors.Highlight;
         }
 
 
@@ -115,41 +115,41 @@ namespace ARCed.Scintilla
 
         internal bool ShouldSerialize()
         {
-            return ShouldSerializeBackColor() ||
-                ShouldSerializeForeColor() ||
-                ShouldSerializeHighlightEnd() ||
-                ShouldSerializeHighlightStart() ||
-                ShouldSerializeHighlightTextColor();
+            return this.ShouldSerializeBackColor() ||
+                this.ShouldSerializeForeColor() ||
+                this.ShouldSerializeHighlightEnd() ||
+                this.ShouldSerializeHighlightStart() ||
+                this.ShouldSerializeHighlightTextColor();
         }
 
 
         private bool ShouldSerializeBackColor()
         {
-            return BackColor != SystemColors.Info;
+            return this.BackColor != SystemColors.Info;
         }
 
 
         private bool ShouldSerializeForeColor()
         {
-            return ForeColor != SystemColors.InfoText;
+            return this.ForeColor != SystemColors.InfoText;
         }
 
 
         private bool ShouldSerializeHighlightEnd()
         {
-            return _highlightEnd >= 0;
+            return this._highlightEnd >= 0;
         }
 
 
         private bool ShouldSerializeHighlightStart()
         {
-            return _highlightStart >= 0;
+            return this._highlightStart >= 0;
         }
 
 
         private bool ShouldSerializeHighlightTextColor()
         {
-            return HighlightTextColor != SystemColors.Highlight;
+            return this.HighlightTextColor != SystemColors.Highlight;
         }
 
 
@@ -162,7 +162,7 @@ namespace ARCed.Scintilla
         /// </remarks>
         public void Show()
         {
-            Show(_message, -1, -1, -1);
+            this.Show(this._message, -1, -1, -1);
         }
 
 
@@ -176,7 +176,7 @@ namespace ARCed.Scintilla
         /// </remarks>
         public void Show(int highlightStart, int highlightEnd)
         {
-            Show(_message, -1, highlightStart, highlightEnd);
+            this.Show(this._message, -1, highlightStart, highlightEnd);
         }
 
 
@@ -189,7 +189,7 @@ namespace ARCed.Scintilla
         /// </remarks>
         public void Show(int position)
         {
-            Show(_message, position, -1, -1);
+            this.Show(this._message, position, -1, -1);
         }
 
 
@@ -204,7 +204,7 @@ namespace ARCed.Scintilla
         /// </remarks>
         public void Show(int position, int highlightStart, int highlightEnd)
         {
-            Show(_message, position, highlightStart, highlightEnd);
+            this.Show(this._message, position, highlightStart, highlightEnd);
         }
 
 
@@ -217,7 +217,7 @@ namespace ARCed.Scintilla
         /// </remarks>
         public void Show(string message)
         {
-            Show(message, -1, -1, -1);
+            this.Show(message, -1, -1, -1);
         }
 
 
@@ -232,7 +232,7 @@ namespace ARCed.Scintilla
         /// </remarks>
         public void Show(string message, int highlightStart, int highlightEnd)
         {
-            Show(message, -1, highlightStart, highlightEnd);
+            this.Show(message, -1, highlightStart, highlightEnd);
         }
 
 
@@ -246,7 +246,7 @@ namespace ARCed.Scintilla
         /// </remarks>
         public void Show(string message, int position)
         {
-            Show(message, position, -1, -1);
+            this.Show(message, position, -1, -1);
         }
 
 
@@ -259,15 +259,15 @@ namespace ARCed.Scintilla
         /// <param name="highlightEnd">End posision of the part of the message that should be selected</param>
         public void Show(string message, int position, int highlightStart, int highlightEnd)
         {
-            _lastPos = position;
+            this._lastPos = position;
             if (position < 0)
                 position = NativeScintilla.GetCurrentPos();
 
-            _overloadList = null;
-            _message = message;
+            this._overloadList = null;
+            this._message = message;
             NativeScintilla.CallTipShow(position, message);
-            HighlightStart = highlightStart;
-            HighlightEnd = highlightEnd;
+            this.HighlightStart = highlightStart;
+            this.HighlightEnd = highlightEnd;
         }
 
 
@@ -282,7 +282,7 @@ namespace ARCed.Scintilla
         /// </remarks>
         public void ShowOverload()
         {
-            ShowOverload(_overloadList, -1, 0, -1, -1);
+            this.ShowOverload(this._overloadList, -1, 0, -1, -1);
         }
 
 
@@ -299,7 +299,7 @@ namespace ARCed.Scintilla
         /// </remarks>
         public void ShowOverload(int highlightStart, int highlightEnd)
         {
-            ShowOverload(_overloadList, -1, 0, highlightStart, highlightEnd);
+            this.ShowOverload(this._overloadList, -1, 0, highlightStart, highlightEnd);
         }
 
 
@@ -315,7 +315,7 @@ namespace ARCed.Scintilla
         /// </remarks>
         public void ShowOverload(int position)
         {
-            ShowOverload(_overloadList, position, 0, -1, -1);
+            this.ShowOverload(this._overloadList, position, 0, -1, -1);
         }
 
 
@@ -332,7 +332,7 @@ namespace ARCed.Scintilla
         /// </remarks>
         public void ShowOverload(int position, int highlightStart, int highlightEnd)
         {
-            ShowOverload(_overloadList, position, 0, highlightStart, highlightEnd);
+            this.ShowOverload(this._overloadList, position, 0, highlightStart, highlightEnd);
         }
 
 
@@ -349,7 +349,7 @@ namespace ARCed.Scintilla
         /// </remarks>
         public void ShowOverload(int position, uint startIndex)
         {
-            ShowOverload(_overloadList, position, startIndex, -1, -1);
+            this.ShowOverload(this._overloadList, position, startIndex, -1, -1);
         }
 
 
@@ -367,7 +367,7 @@ namespace ARCed.Scintilla
         /// </remarks>
         public void ShowOverload(int position, uint startIndex, int highlightStart, int highlightEnd)
         {
-            ShowOverload(_overloadList, position, startIndex, highlightStart, highlightEnd);
+            this.ShowOverload(this._overloadList, position, startIndex, highlightStart, highlightEnd);
         }
 
 
@@ -382,7 +382,7 @@ namespace ARCed.Scintilla
         /// </remarks>
         public void ShowOverload(OverloadList overloadList)
         {
-            ShowOverload(overloadList, -1, 0, -1, -1);
+            this.ShowOverload(overloadList, -1, 0, -1, -1);
         }
 
 
@@ -399,7 +399,7 @@ namespace ARCed.Scintilla
         /// </remarks>
         public void ShowOverload(OverloadList overloadList, int highlightStart, int highlightEnd)
         {
-            ShowOverload(overloadList, -1, 0, highlightStart, highlightEnd);
+            this.ShowOverload(overloadList, -1, 0, highlightStart, highlightEnd);
         }
 
 
@@ -415,7 +415,7 @@ namespace ARCed.Scintilla
         /// </remarks>
         public void ShowOverload(OverloadList overloadList, int position)
         {
-            ShowOverload(overloadList, position, 0, -1, -1);
+            this.ShowOverload(overloadList, position, 0, -1, -1);
         }
 
 
@@ -433,7 +433,7 @@ namespace ARCed.Scintilla
         /// </remarks>
         public void ShowOverload(OverloadList overloadList, int position, int highlightStart, int highlightEnd)
         {
-            ShowOverload(overloadList, position, 0, highlightStart, highlightEnd);
+            this.ShowOverload(overloadList, position, 0, highlightStart, highlightEnd);
         }
 
 
@@ -451,15 +451,15 @@ namespace ARCed.Scintilla
         /// </remarks>
         public void ShowOverload(OverloadList overloadList, int position, uint startIndex, int highlightStart, int highlightEnd)
         {
-            _lastPos = position;
-            _overloadList = overloadList;
+            this._lastPos = position;
+            this._overloadList = overloadList;
             unchecked
             {
-                _overloadList.CurrentIndex = (int)startIndex;
+                this._overloadList.CurrentIndex = (int)startIndex;
             }
-            _highlightEnd = highlightEnd;
-            _highlightStart = highlightStart;
-            ShowOverloadInternal();
+            this._highlightEnd = highlightEnd;
+            this._highlightStart = highlightStart;
+            this.ShowOverloadInternal();
         }
 
 
@@ -475,7 +475,7 @@ namespace ARCed.Scintilla
         /// </remarks>
         public void ShowOverload(OverloadList overloadList, uint startIndex)
         {
-            ShowOverload(overloadList, -1, startIndex, -1, -1);
+            this.ShowOverload(overloadList, -1, startIndex, -1, -1);
         }
 
 
@@ -493,7 +493,7 @@ namespace ARCed.Scintilla
         /// </remarks>
         public void ShowOverload(OverloadList overloadList, uint startIndex, int highlightStart, int highlightEnd)
         {
-            ShowOverload(overloadList, -1, startIndex, highlightStart, highlightEnd);
+            this.ShowOverload(overloadList, -1, startIndex, highlightStart, highlightEnd);
         }
 
 
@@ -509,7 +509,7 @@ namespace ARCed.Scintilla
         /// </remarks>
         public void ShowOverload(uint startIndex)
         {
-            ShowOverload(_overloadList, -1, startIndex, -1, -1);
+            this.ShowOverload(this._overloadList, -1, startIndex, -1, -1);
         }
 
 
@@ -527,23 +527,23 @@ namespace ARCed.Scintilla
         /// </remarks>
         public void ShowOverload(uint startIndex, int highlightStart, int highlightEnd)
         {
-            ShowOverload(_overloadList, -1, startIndex, highlightStart, highlightEnd);
+            this.ShowOverload(this._overloadList, -1, startIndex, highlightStart, highlightEnd);
         }
 
 
         internal void ShowOverloadInternal()
         {
-            int pos = _lastPos;
+            int pos = this._lastPos;
             if (pos < 0)
                 pos = NativeScintilla.GetCurrentPos();
 
             // Scintilla's way of handling "1 of n" type calltips
-            string prefix = string.Format(CultureInfo.CurrentUICulture, "\u0001 {0} of {1} \u0002 ", _overloadList.CurrentIndex + 1, _overloadList.Count);
+            string prefix = string.Format(CultureInfo.CurrentUICulture, "\u0001 {0} of {1} \u0002 ", this._overloadList.CurrentIndex + 1, this._overloadList.Count);
 
             // Show me the money
             NativeScintilla.CallTipCancel();
-            NativeScintilla.CallTipShow(pos, prefix + _overloadList.Current);
-            NativeScintilla.CallTipSetHlt(_highlightStart + prefix.Length, _highlightEnd + prefix.Length); // Adjust the highlight offsets
+            NativeScintilla.CallTipShow(pos, prefix + this._overloadList.Current);
+            NativeScintilla.CallTipSetHlt(this._highlightStart + prefix.Length, this._highlightEnd + prefix.Length); // Adjust the highlight offsets
         }
 
         #endregion Methods
@@ -558,14 +558,12 @@ namespace ARCed.Scintilla
         {
             get
             {
-                if (Scintilla.ColorBag.ContainsKey("CallTip.BackColor"))
-                    return Scintilla.ColorBag["CallTip.BackColor"];
-
-                return SystemColors.Info;
+                return Scintilla.ColorBag.ContainsKey("CallTip.BackColor") ? 
+                    Scintilla.ColorBag["CallTip.BackColor"] : SystemColors.Info;
             }
             set
             {
-                SetBackColorInternal(value);
+                this.SetBackColorInternal(value);
 
                 Scintilla.Styles.CallTip.SetBackColorInternal(value);
             }
@@ -579,14 +577,12 @@ namespace ARCed.Scintilla
         {
             get
             {
-                if (Scintilla.ColorBag.ContainsKey("CallTip.ForeColor"))
-                    return Scintilla.ColorBag["CallTip.ForeColor"];
-
-                return SystemColors.InfoText;
+                return Scintilla.ColorBag.ContainsKey("CallTip.ForeColor") ? 
+                    Scintilla.ColorBag["CallTip.ForeColor"] : SystemColors.InfoText;
             }
             set
             {
-                SetForeColorInternal(value);
+                this.SetForeColorInternal(value);
 
                 Scintilla.Styles.CallTip.SetForeColorInternal(value);
             }
@@ -600,12 +596,12 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _highlightEnd;
+                return this._highlightEnd;
             }
             set
             {
-                _highlightEnd = value;
-                NativeScintilla.CallTipSetHlt(_highlightStart, _highlightEnd);
+                this._highlightEnd = value;
+                NativeScintilla.CallTipSetHlt(this._highlightStart, this._highlightEnd);
             }
         }
 
@@ -617,12 +613,12 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _highlightStart;
+                return this._highlightStart;
             }
             set
             {
-                _highlightStart = value;
-                NativeScintilla.CallTipSetHlt(_highlightStart, _highlightEnd);
+                this._highlightStart = value;
+                NativeScintilla.CallTipSetHlt(this._highlightStart, this._highlightEnd);
             }
         }
 
@@ -638,10 +634,8 @@ namespace ARCed.Scintilla
             //	on the light InfoTip background is nearly impossible to see.
             get
             {
-                if (Scintilla.ColorBag.ContainsKey("CallTip.HighlightTextColor"))
-                    return Scintilla.ColorBag["CallTip.HighlightTextColor"];
-
-                return SystemColors.Highlight;
+                return Scintilla.ColorBag.ContainsKey("CallTip.HighlightTextColor") ? 
+                    Scintilla.ColorBag["CallTip.HighlightTextColor"] : SystemColors.Highlight;
             }
             set
             {
@@ -675,11 +669,11 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _message;
+                return this._message;
             }
             set
             {
-                _message = value;
+                this._message = value;
             }
         }
 
@@ -696,11 +690,11 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _overloadList;
+                return this._overloadList;
             }
             set
             {
-                _overloadList = value;
+                this._overloadList = value;
             }
         }
 
@@ -717,9 +711,9 @@ namespace ARCed.Scintilla
             NativeScintilla.CallTipUseStyle(10);
             Scintilla.BeginInvoke(new MethodInvoker(delegate
             {
-                HighlightTextColor = HighlightTextColor;
-                ForeColor = ForeColor;
-                BackColor = BackColor;
+                this.HighlightTextColor = this.HighlightTextColor;
+                this.ForeColor = this.ForeColor;
+                this.BackColor = this.BackColor;
             }));
         }
 

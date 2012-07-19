@@ -23,72 +23,72 @@ namespace ARCed.Scintilla
 
         private void brnPrevious_Click(object sender, EventArgs e)
         {
-            findPrevious();
+            this.findPrevious();
         }
 
 
         private void btnClearHighlights_Click(object sender, EventArgs e)
         {
-            if (Scintilla == null) 
+            if (this.Scintilla == null) 
                 return;
-            Scintilla.FindReplace.ClearAllHighlights();
+            this.Scintilla.FindReplace.ClearAllHighlights();
         }
 
 
         private void btnHighlightAll_Click(object sender, EventArgs e)
         {
-            if (txtFind.Text == string.Empty)
+            if (this.txtFind.Text == string.Empty)
                 return;
-            if (Scintilla == null)
+            if (this.Scintilla == null)
                 return;
-            Scintilla.FindReplace.HighlightAll(Scintilla.FindReplace.FindAll(txtFind.Text));
+            this.Scintilla.FindReplace.HighlightAll(this.Scintilla.FindReplace.FindAll(this.txtFind.Text));
         }
 
 
         private void btnNext_Click(object sender, EventArgs e)
         {
-            findNext();
+            this.findNext();
         }
 
 
         private void findNext()
         {
-            if (txtFind.Text == string.Empty)
+            if (this.txtFind.Text == string.Empty)
                 return;
-            if (Scintilla == null)
+            if (this.Scintilla == null)
                 return;
 
-            Range r = Scintilla.FindReplace.FindNext(txtFind.Text, true, Scintilla.FindReplace.Window.GetSearchFlags());
+            Range r = this.Scintilla.FindReplace.FindNext(this.txtFind.Text, true, this.Scintilla.FindReplace.Window.GetSearchFlags());
             if (r != null)
                 r.Select();
 
-            moveFormAwayFromSelection();
+            this.moveFormAwayFromSelection();
         }
 
 
         private void findPrevious()
         {
-            if (txtFind.Text == string.Empty)
+            if (this.txtFind.Text == string.Empty)
                 return;
-            if (Scintilla == null)
+            if (this.Scintilla == null)
                 return;
 
-            Range r = Scintilla.FindReplace.FindPrevious(txtFind.Text, true, Scintilla.FindReplace.Window.GetSearchFlags());
+            Range r = this.Scintilla.FindReplace.FindPrevious(this.txtFind.Text, true, this.Scintilla.FindReplace.Window.GetSearchFlags());
             if (r != null)
                 r.Select();
 
-            moveFormAwayFromSelection();
+            this.moveFormAwayFromSelection();
         }
 
 
         public void moveFormAwayFromSelection()
         {
-            if (!Visible || Scintilla == null)
+            if (!Visible || this.Scintilla == null)
                 return;
 
-            int pos = Scintilla.Caret.Position;
-            int x = Scintilla.PointXFromPosition(pos);
-            int y = Scintilla.PointYFromPosition(pos);
+            int pos = this.Scintilla.Caret.Position;
+            int x = this.Scintilla.PointXFromPosition(pos);
+            int y = this.Scintilla.PointYFromPosition(pos);
 
             var cursorPoint = new Point(x, y);
 
@@ -99,13 +99,13 @@ namespace ARCed.Scintilla
                 if (cursorPoint.Y < (Screen.PrimaryScreen.Bounds.Height / 2))
                 {
                     // Top half of the screen
-                    newLocation = new Point(Location.X, cursorPoint.Y + Scintilla.Lines.Current.Height * 2);
+                    newLocation = new Point(Location.X, cursorPoint.Y + this.Scintilla.Lines.Current.Height * 2);
                         
                 }
                 else
                 {
                     // FixedY half of the screen
-                    newLocation = new Point(Location.X, cursorPoint.Y - Height - (Scintilla.Lines.Current.Height * 2));
+                    newLocation = new Point(Location.X, cursorPoint.Y - Height - (this.Scintilla.Lines.Current.Height * 2));
                 }
                 
                 Location = newLocation;
@@ -116,15 +116,15 @@ namespace ARCed.Scintilla
         protected override void OnCreateControl()
         {
             base.OnCreateControl();
-            moveFormAwayFromSelection();
-            txtFind.Focus();
+            this.moveFormAwayFromSelection();
+            this.txtFind.Focus();
         }
 
 
         protected override void OnLeave(EventArgs e)
         {
             base.OnLostFocus(e);
-            if(!_toolItem)
+            if(!this._toolItem)
             Hide();
         }
 
@@ -133,15 +133,15 @@ namespace ARCed.Scintilla
         {
             base.OnVisibleChanged(e);
 
-            txtFind.Text = string.Empty;
-            txtFind.BackColor = SystemColors.Window;
+            this.txtFind.Text = string.Empty;
+            this.txtFind.BackColor = SystemColors.Window;
 
-            moveFormAwayFromSelection();
+            this.moveFormAwayFromSelection();
 
             if (Visible)
-                txtFind.Focus();
-            else if(Scintilla!=null)
-                Scintilla.Focus();
+                this.txtFind.Focus();
+            else if(this.Scintilla!=null)
+                this.Scintilla.Focus();
         }
 
 
@@ -151,15 +151,15 @@ namespace ARCed.Scintilla
             {
                 case Keys.Enter:
                 case Keys.Down:
-                    findNext();
+                    this.findNext();
                     e.Handled = true;
                     break;
                 case Keys.Up:
-                    findPrevious();
+                    this.findPrevious();
                     e.Handled = true;
                     break;
                 case Keys.Escape:
-                    if(!_toolItem)
+                    if(!this._toolItem)
                     Hide();
                     break;
             }
@@ -168,23 +168,23 @@ namespace ARCed.Scintilla
 
         private void txtFind_TextChanged(object sender, EventArgs e)
         {
-            txtFind.BackColor = SystemColors.Window;
-            if (txtFind.Text == string.Empty)
+            this.txtFind.BackColor = SystemColors.Window;
+            if (this.txtFind.Text == string.Empty)
                 return;
-            if (Scintilla == null)
+            if (this.Scintilla == null)
                 return;
 
-            int pos = Math.Min(Scintilla.Caret.Position, Scintilla.Caret.Anchor);
-            Range r = Scintilla.FindReplace.Find(pos, Scintilla.TextLength, txtFind.Text, Scintilla.FindReplace.Window.GetSearchFlags());
+            int pos = Math.Min(this.Scintilla.Caret.Position, this.Scintilla.Caret.Anchor);
+            Range r = this.Scintilla.FindReplace.Find(pos, this.Scintilla.TextLength, this.txtFind.Text, this.Scintilla.FindReplace.Window.GetSearchFlags());
             if (r == null)
-                r = Scintilla.FindReplace.Find(0, pos, txtFind.Text, Scintilla.FindReplace.Window.GetSearchFlags());
+                r = this.Scintilla.FindReplace.Find(0, pos, this.txtFind.Text, this.Scintilla.FindReplace.Window.GetSearchFlags());
 
             if (r != null)
                 r.Select();
             else
-                txtFind.BackColor = Color.Tomato;
+                this.txtFind.BackColor = Color.Tomato;
 
-            moveFormAwayFromSelection();
+            this.moveFormAwayFromSelection();
         }
 
         #endregion Methods
@@ -196,11 +196,11 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _scintilla;
+                return this._scintilla;
             }
             set
             {
-                _scintilla = value;
+                this._scintilla = value;
             }
         }
 
@@ -211,14 +211,14 @@ namespace ARCed.Scintilla
 
         public IncrementalSearcher()
         {
-            InitializeComponent();
+            this.InitializeComponent();
         }
 
 
         public IncrementalSearcher(bool toolItem)
         {
-            InitializeComponent();
-            _toolItem = toolItem;
+            this.InitializeComponent();
+            this._toolItem = toolItem;
             if (toolItem)
                 BackColor = Color.Transparent;
         }

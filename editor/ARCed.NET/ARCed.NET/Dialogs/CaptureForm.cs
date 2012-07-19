@@ -28,7 +28,7 @@ namespace ARCed.Dialogs
         /// <summary>
 		/// Gets the color under the mouse where the user clicked
 		/// </summary>
-		public Color CaptureColor { get { return _capturedColor; } }
+		public Color CaptureColor { get { return this._capturedColor; } }
 
         #endregion
 
@@ -39,9 +39,9 @@ namespace ARCed.Dialogs
 		/// </summary>
 		public CaptureForm()
 		{
-			InitializeComponent();
+			this.InitializeComponent();
 			Cursor = LoadCursorFromResource("ARCed.Files.CustomCross.cur");
-			_capturedColor = Color.Black;
+			this._capturedColor = Color.Black;
 		}
 
         #endregion
@@ -92,7 +92,7 @@ namespace ARCed.Dialogs
 
 		private void CaptureFormMouseMoved(object sender, MouseEventArgs e)
 		{
-			_capturedColor = this._screenCapture.GetPixel(MousePosition.X, MousePosition.Y);
+			this._capturedColor = this._screenCapture.GetPixel(MousePosition.X, MousePosition.Y);
         }
 
         #endregion

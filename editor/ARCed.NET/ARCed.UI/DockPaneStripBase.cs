@@ -28,7 +28,7 @@ namespace ARCed.UI
 
             ~Tab()
             {
-                Dispose(false);
+                this.Dispose(false);
             }
 
             public IDockContent Content
@@ -43,7 +43,7 @@ namespace ARCed.UI
 
             public void Dispose()
             {
-                Dispose(true);
+                this.Dispose(true);
                 GC.SuppressFinalize(this);
             }
 
@@ -58,13 +58,13 @@ namespace ARCed.UI
             #region IEnumerable Members
             IEnumerator<Tab> IEnumerable<Tab>.GetEnumerator()
             {
-                for (int i = 0; i < Count; i++)
+                for (int i = 0; i < this.Count; i++)
                     yield return this[i];
             }
 
             IEnumerator IEnumerable.GetEnumerator()
             {
-                for (int i = 0; i < Count; i++)
+                for (int i = 0; i < this.Count; i++)
                     yield return this[i];
             }
             #endregion
@@ -82,17 +82,17 @@ namespace ARCed.UI
 
             public int Count
             {
-                get { return DockPane.DisplayingContents.Count; }
+                get { return this.DockPane.DisplayingContents.Count; }
             }
 
             public Tab this[int index]
             {
                 get
                 {
-                    IDockContent content = DockPane.DisplayingContents[index];
+                    IDockContent content = this.DockPane.DisplayingContents[index];
                     if (content == null)
                         throw (new ArgumentOutOfRangeException("index"));
-                    return content.DockHandler.GetTab(DockPane.TabStripControl);
+                    return content.DockHandler.GetTab(this.DockPane.TabStripControl);
                 }
             }
 
@@ -111,12 +111,12 @@ namespace ARCed.UI
                 if (tab == null)
                     return -1;
 
-                return DockPane.DisplayingContents.IndexOf(tab.Content);
+                return this.DockPane.DisplayingContents.IndexOf(tab.Content);
             }
 
             public int IndexOf(IDockContent content)
             {
-                return DockPane.DisplayingContents.IndexOf(content);
+                return this.DockPane.DisplayingContents.IndexOf(content);
             }
         }
 
@@ -137,7 +137,7 @@ namespace ARCed.UI
 
 		protected DockPane.AppearanceStyle Appearance
 		{
-			get	{	return DockPane.Appearance;	}
+			get	{	return this.DockPane.Appearance;	}
 		}
 
         private TabCollection m_tabs;
@@ -145,10 +145,10 @@ namespace ARCed.UI
 		{
 			get
             {
-                if (m_tabs == null)
-                    m_tabs = new TabCollection(DockPane);
+                if (this.m_tabs == null)
+                    this.m_tabs = new TabCollection(this.DockPane);
 
-                return m_tabs;
+                return this.m_tabs;
             }
 		}
 
@@ -157,7 +157,7 @@ namespace ARCed.UI
             if (IsDisposed)
                 return;
 
-			OnRefreshChanges();
+			this.OnRefreshChanges();
 		}
 
 		protected virtual void OnRefreshChanges()
@@ -170,7 +170,7 @@ namespace ARCed.UI
 
 		protected int HitTest()
 		{
-			return HitTest(PointToClient(MousePosition));
+			return this.HitTest(PointToClient(MousePosition));
 		}
 
 		protected internal abstract int HitTest(Point point);
@@ -186,29 +186,29 @@ namespace ARCed.UI
         {
             base.OnMouseDown(e);
 
-            int index = HitTest();
+            int index = this.HitTest();
             if (index != -1)
             {
-                IDockContent content = Tabs[index].Content;
-                if (DockPane.ActiveContent != content)
-                    DockPane.ActiveContent = content;
+                IDockContent content = this.Tabs[index].Content;
+                if (this.DockPane.ActiveContent != content)
+                    this.DockPane.ActiveContent = content;
             }
 
             if (e.Button == MouseButtons.Left)
             {
-                if (DockPane.DockPanel.AllowEndUserDocking && DockPane.AllowDockDragAndDrop && DockPane.ActiveContent.DockHandler.AllowEndUserDocking)
-                    DockPane.DockPanel.BeginDrag(DockPane.ActiveContent.DockHandler);
+                if (this.DockPane.DockPanel.AllowEndUserDocking && this.DockPane.AllowDockDragAndDrop && this.DockPane.ActiveContent.DockHandler.AllowEndUserDocking)
+                    this.DockPane.DockPanel.BeginDrag(this.DockPane.ActiveContent.DockHandler);
             }
         }
 
         protected bool HasTabPageContextMenu
         {
-            get { return DockPane.HasTabPageContextMenu; }
+            get { return this.DockPane.HasTabPageContextMenu; }
         }
 
         protected void ShowTabPageContextMenu(Point position)
         {
-            DockPane.ShowTabPageContextMenu(this, position);
+            this.DockPane.ShowTabPageContextMenu(this, position);
         }
 
         protected override void OnMouseUp(MouseEventArgs e)
@@ -216,16 +216,16 @@ namespace ARCed.UI
             base.OnMouseUp(e);
 
             if (e.Button == MouseButtons.Right)
-                ShowTabPageContextMenu(new Point(e.X, e.Y));
-            else if ((e.Button == MouseButtons.Middle) && (DockPane.Appearance == DockPane.AppearanceStyle.Document))
+                this.ShowTabPageContextMenu(new Point(e.X, e.Y));
+            else if ((e.Button == MouseButtons.Middle) && (this.DockPane.Appearance == DockPane.AppearanceStyle.Document))
             {
                 // Get the content located under the click (if there is one)
-                int index = HitTest();
+                int index = this.HitTest();
                 if (index != -1)
                 {
                     // Close the specified content.
-                    IDockContent content = Tabs[index].Content;
-                    DockPane.CloseContent(content);
+                    IDockContent content = this.Tabs[index].Content;
+                    this.DockPane.CloseContent(content);
                 }
             }
         }
@@ -237,10 +237,10 @@ namespace ARCed.UI
 			{
 				base.WndProc(ref m);
 
-				int index = HitTest();
-				if (DockPane.DockPanel.AllowEndUserDocking && index != -1)
+				int index = this.HitTest();
+				if (this.DockPane.DockPanel.AllowEndUserDocking && index != -1)
 				{
-					IDockContent content = Tabs[index].Content;
+					IDockContent content = this.Tabs[index].Content;
                     if (content.DockHandler.CheckDockState(!content.DockHandler.IsFloat) != DockState.Unknown)
 					    content.DockHandler.IsFloat = !content.DockHandler.IsFloat;	
 				}
@@ -256,12 +256,12 @@ namespace ARCed.UI
         {
             base.OnDragOver(drgevent);
 
-            int index = HitTest();
+            int index = this.HitTest();
             if (index != -1)
             {
-                IDockContent content = Tabs[index].Content;
-                if (DockPane.ActiveContent != content)
-                    DockPane.ActiveContent = content;
+                IDockContent content = this.Tabs[index].Content;
+                if (this.DockPane.ActiveContent != content)
+                    this.DockPane.ActiveContent = content;
             }
         }
 	}

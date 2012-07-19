@@ -23,84 +23,84 @@ namespace ARCed.Scintilla
 
         private void ResetActiveBackColor()
         {
-            ActiveBackColor = SystemColors.Window;
+            this.ActiveBackColor = SystemColors.Window;
         }
 
 
         private void ResetActiveForeColor()
         {
-            ActiveForeColor = SystemColors.HotTrack;
+            this.ActiveForeColor = SystemColors.HotTrack;
         }
 
 
         private void ResetActiveUnderline()
         {
-            ActiveUnderline = true;
+            this.ActiveUnderline = true;
         }
 
 
         private void ResetSingleLine()
         {
-            SingleLine = true;
+            this.SingleLine = true;
         }
 
 
         private void ResetUseActiveBackColor()
         {
-            UseActiveBackColor = true;
+            this.UseActiveBackColor = true;
         }
 
 
         private void ResetUseActiveForeColor()
         {
-            UseActiveForeColor = true;
+            this.UseActiveForeColor = true;
         }
 
 
         internal bool ShouldSerialize()
         {
-            return ShouldSerializeActiveBackColor() ||
-                ShouldSerializeActiveForeColor() ||
-                ShouldSerializeActiveUnderline() ||
-                ShouldSerializeSingleLine() ||
-                ShouldSerializeUseActiveBackColor() ||
-                ShouldSerializeUseActiveForeColor();
+            return this.ShouldSerializeActiveBackColor() ||
+                this.ShouldSerializeActiveForeColor() ||
+                this.ShouldSerializeActiveUnderline() ||
+                this.ShouldSerializeSingleLine() ||
+                this.ShouldSerializeUseActiveBackColor() ||
+                this.ShouldSerializeUseActiveForeColor();
         }
 
 
         private bool ShouldSerializeActiveBackColor()
         {
-            return ActiveBackColor != SystemColors.Window;
+            return this.ActiveBackColor != SystemColors.Window;
         }
 
 
         private bool ShouldSerializeActiveForeColor()
         {
-            return ActiveForeColor != SystemColors.HotTrack;
+            return this.ActiveForeColor != SystemColors.HotTrack;
         }
 
 
         private bool ShouldSerializeActiveUnderline()
         {
-            return !ActiveUnderline;
+            return !this.ActiveUnderline;
         }
 
 
         private bool ShouldSerializeSingleLine()
         {
-            return !SingleLine;
+            return !this.SingleLine;
         }
 
 
         private bool ShouldSerializeUseActiveBackColor()
         {
-            return !UseActiveBackColor;
+            return !this.UseActiveBackColor;
         }
 
 
         private bool ShouldSerializeUseActiveForeColor()
         {
-            return !UseActiveForeColor;
+            return !this.UseActiveForeColor;
         }
 
         #endregion Methods
@@ -124,7 +124,7 @@ namespace ARCed.Scintilla
                 else
                     Scintilla.ColorBag.Remove("HotspotStyle.ActiveBackColor");
 
-                NativeScintilla.SetHotspotActiveBack(_useActiveBackColor, Utilities.ColorToRgb(value));
+                NativeScintilla.SetHotspotActiveBack(this._useActiveBackColor, Utilities.ColorToRgb(value));
             }
         }
 
@@ -145,7 +145,7 @@ namespace ARCed.Scintilla
                 else
                     Scintilla.ColorBag.Remove("HotspotStyle.ActiveForeColor");
 
-                NativeScintilla.SetHotspotActiveFore(_useActiveForeColor, Utilities.ColorToRgb(value));
+                NativeScintilla.SetHotspotActiveFore(this._useActiveForeColor, Utilities.ColorToRgb(value));
             }
         }
 
@@ -180,11 +180,11 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _useActiveBackColor;
+                return this._useActiveBackColor;
             }
             set
             {
-                _useActiveBackColor = value;
+                this._useActiveBackColor = value;
             }
         }
 
@@ -193,11 +193,11 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _useActiveForeColor;
+                return this._useActiveForeColor;
             }
             set
             {
-                _useActiveForeColor = value;
+                this._useActiveForeColor = value;
             }
         }
 
@@ -208,8 +208,8 @@ namespace ARCed.Scintilla
 
         internal HotspotStyle(Scintilla scintilla) : base(scintilla)
         {
-            ActiveForeColor = SystemColors.HotTrack;
-            ActiveBackColor = SystemColors.Window;
+            this.ActiveForeColor = SystemColors.HotTrack;
+            this.ActiveBackColor = SystemColors.Window;
         }
 
         #endregion Constructors

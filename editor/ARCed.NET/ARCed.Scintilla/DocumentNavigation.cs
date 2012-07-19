@@ -36,27 +36,27 @@ namespace ARCed.Scintilla
         /// </summary>
         public void NavigateBackward()
         {
-            if (_backwardStack.Count == 0)
+            if (this._backwardStack.Count == 0)
                 return;
 
             int currentPos = Scintilla.Caret.Position;
-            if (currentPos == _backwardStack.Current.Start && _backwardStack.Count == 1)
+            if (currentPos == this._backwardStack.Current.Start && this._backwardStack.Count == 1)
                 return;
 
-            int pos = _backwardStack.Pop().Start;
+            int pos = this._backwardStack.Pop().Start;
 
             if (pos != currentPos)
             {
-                _forewardStack.Push(NewRange(currentPos));
+                this._forewardStack.Push(this.NewRange(currentPos));
                 Scintilla.Caret.Goto(pos);
             }
             else
             {
-                _forewardStack.Push(NewRange(pos));
-                Scintilla.Caret.Goto(_backwardStack.Current.Start);
+                this._forewardStack.Push(this.NewRange(pos));
+                Scintilla.Caret.Goto(this._backwardStack.Current.Start);
             }
 
-            _supressNext = true;
+            this._supressNext = true;
         }
 
 
@@ -66,14 +66,14 @@ namespace ARCed.Scintilla
         /// </summary>
         public void NavigateForward()
         {
-            if (!CanNavigateForward)
+            if (!this.CanNavigateForward)
                 return;
 
-            int pos = _forewardStack.Pop().Start;
-            _backwardStack.Push(NewRange(pos));
+            int pos = this._forewardStack.Pop().Start;
+            this._backwardStack.Push(this.NewRange(pos));
             Scintilla.Caret.Goto(pos);
 
-            _supressNext = true;
+            this._supressNext = true;
         }
 
 
@@ -87,78 +87,78 @@ namespace ARCed.Scintilla
 
         public void Reset()
         {
-            _backwardStack.Clear();
-            _forewardStack.Clear();
-            ResetIsEnabled();
-            ResetMaxHistorySize();
+            this._backwardStack.Clear();
+            this._forewardStack.Clear();
+            this.ResetIsEnabled();
+            this.ResetMaxHistorySize();
         }
 
 
         private void ResetIsEnabled()
         {
-            _isEnabled = true;
+            this._isEnabled = true;
         }
 
 
         private void ResetMaxHistorySize()
         {
-            _maxHistorySize = 50;
+            this._maxHistorySize = 50;
         }
 
 
         private void ResetNavigationPointTimeout()
         {
-            _navigationPointTimeout = 200;
+            this._navigationPointTimeout = 200;
         }
 
 
         private void scintilla_SelectionChanged(object sender, EventArgs e)
         {
-            if (!_isEnabled)
+            if (!this._isEnabled)
                 return;
 
-            if (!_supressNext)
+            if (!this._supressNext)
             {
-                t.Enabled = false;
-                t.Enabled = true;
+                this.t.Enabled = false;
+                this.t.Enabled = true;
             }
             else
             {
-                _supressNext = false;
+                this._supressNext = false;
             }
         }
 
 
         internal bool ShouldSerialize()
         {
-            return ShouldSerializeIsEnabled() || ShouldSerializeMaxHistorySize();
+            return this.ShouldSerializeIsEnabled() || this.ShouldSerializeMaxHistorySize();
         }
 
 
         private bool ShouldSerializeIsEnabled()
         {
-            return !_isEnabled;
+            return !this._isEnabled;
         }
 
 
         private bool ShouldSerializeMaxHistorySize()
         {
-            return _maxHistorySize != 50;
+            return this._maxHistorySize != 50;
         }
 
 
         private bool ShouldSerializeNavigationPointTimeout()
         {
-            return _navigationPointTimeout != 200;
+            return this._navigationPointTimeout != 200;
         }
 
 
         private void t_Tick(object sender, EventArgs e)
         {
-            t.Enabled = false;
+            this.t.Enabled = false;
             int pos = NativeScintilla.GetCurrentPos();
-            if ((_forewardStack.Count == 0 || _forewardStack.Current.Start != pos) && (_backwardStack.Count == 0 || _backwardStack.Current.Start != pos))
-                _backwardStack.Push(NewRange(pos));
+            if ((this._forewardStack.Count == 0 || this._forewardStack.Current.Start != pos) && (this._backwardStack.Count == 0 || this._backwardStack.Current.Start != pos))
+                this._backwardStack.Push(this.NewRange(pos));
         }
 
         #endregion Methods
@@ -180,11 +180,11 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _backwardStack;
+                return this._backwardStack;
             }
             set
             {
-                _backwardStack = value;
+                this._backwardStack = value;
             }
         }
 
@@ -197,7 +197,7 @@ namespace ARCed.Scintilla
         {
             get
             {
-                if (_backwardStack.Count == 0 || (NativeScintilla.GetCurrentPos() == _backwardStack.Current.Start && _backwardStack.Count == 1))
+                if (this._backwardStack.Count == 0 || (NativeScintilla.GetCurrentPos() == this._backwardStack.Current.Start && this._backwardStack.Count == 1))
                     return false;
 
                 return true;
@@ -213,7 +213,7 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _forewardStack.Count > 0;
+                return this._forewardStack.Count > 0;
             }
         }
 
@@ -232,11 +232,11 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _forewardStack;
+                return this._forewardStack;
             }
             set
             {
-                _forewardStack = value;
+                this._forewardStack = value;
             }
         }
 
@@ -248,11 +248,11 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _isEnabled;
+                return this._isEnabled;
             }
             set
             {
-                _isEnabled = value;
+                this._isEnabled = value;
             }
         }
 
@@ -267,13 +267,13 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _maxHistorySize;
+                return this._maxHistorySize;
             }
             set
             {
-                _maxHistorySize = value;
-                _backwardStack.MaxCount = value;
-                _forewardStack.MaxCount = value;
+                this._maxHistorySize = value;
+                this._backwardStack.MaxCount = value;
+                this._forewardStack.MaxCount = value;
             }
         }
 
@@ -290,11 +290,11 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _navigationPointTimeout;
+                return this._navigationPointTimeout;
             }
             set
             {
-                _navigationPointTimeout = value;
+                this._navigationPointTimeout = value;
             }
         }
 
@@ -305,9 +305,11 @@ namespace ARCed.Scintilla
 
         internal DocumentNavigation(Scintilla scintilla) : base(scintilla) 
         {
-            t = new Timer();
-            t.Interval = _navigationPointTimeout;
-            t.Tick += this.t_Tick;
+            this.t = new Timer
+            {
+                Interval = this._navigationPointTimeout
+            };
+            this.t.Tick += this.t_Tick;
             scintilla.SelectionChanged += this.scintilla_SelectionChanged;
         }
 

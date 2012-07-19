@@ -34,7 +34,7 @@ namespace ARCed.Scintilla
         /// <remarks>This is equivalent to setting the <see cref="Annotation.Text" /> property to null for each line.</remarks>
         public virtual void ClearAll()
         {
-            _scintilla.DirectMessage(NativeMethods.SCI_ANNOTATIONCLEARALL, IntPtr.Zero, IntPtr.Zero);
+            this._scintilla.DirectMessage(NativeMethods.SCI_ANNOTATIONCLEARALL, IntPtr.Zero, IntPtr.Zero);
         }
 
 
@@ -79,7 +79,7 @@ namespace ARCed.Scintilla
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         protected virtual Annotation CreateAnnotationInstance(int lineIndex)
         {
-            return new Annotation(_scintilla, lineIndex);
+            return new Annotation(this._scintilla, lineIndex);
         }
 
 
@@ -95,7 +95,7 @@ namespace ARCed.Scintilla
 
         internal bool ShouldSerialize()
         {
-            return Visibility != AnnotationsVisibility.Hidden;
+            return this.Visibility != AnnotationsVisibility.Hidden;
         }
 
         #endregion Methods
@@ -116,7 +116,7 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _scintilla.Lines.Count;
+                return this._scintilla.Lines.Count;
             }
         }
 
@@ -159,13 +159,13 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _scintilla.DirectMessage(NativeMethods.SCI_ANNOTATIONGETSTYLEOFFSET, IntPtr.Zero, IntPtr.Zero).ToInt32();
+                return this._scintilla.DirectMessage(NativeMethods.SCI_ANNOTATIONGETSTYLEOFFSET, IntPtr.Zero, IntPtr.Zero).ToInt32();
             }
             set
             {
                 // I contemplated throwing an exception if the argument is out of range, however, this being an
                 // advanced feature I'm going to leave it for the advanced user to figure out for now.
-                _scintilla.DirectMessage(NativeMethods.SCI_ANNOTATIONSETSTYLEOFFSET, new IntPtr(value), IntPtr.Zero);
+                this._scintilla.DirectMessage(NativeMethods.SCI_ANNOTATIONSETSTYLEOFFSET, new IntPtr(value), IntPtr.Zero);
             }
         }
 
@@ -186,14 +186,14 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return (AnnotationsVisibility)_scintilla.DirectMessage(NativeMethods.SCI_ANNOTATIONGETVISIBLE, IntPtr.Zero, IntPtr.Zero);
+                return (AnnotationsVisibility)this._scintilla.DirectMessage(NativeMethods.SCI_ANNOTATIONGETVISIBLE, IntPtr.Zero, IntPtr.Zero);
             }
             set
             {
                 if (!Enum.IsDefined(typeof(AnnotationsVisibility), value))
                     throw new InvalidEnumArgumentException("value", (int)value, typeof(AnnotationsVisibility));
 
-                _scintilla.DirectMessage(NativeMethods.SCI_ANNOTATIONSETVISIBLE, new IntPtr((int)value), IntPtr.Zero);
+                this._scintilla.DirectMessage(NativeMethods.SCI_ANNOTATIONSETVISIBLE, new IntPtr((int)value), IntPtr.Zero);
             }
         }
 
@@ -215,11 +215,11 @@ namespace ARCed.Scintilla
         {
             get
             {
-                if (lineIndex < 0 || lineIndex > Count - 1)
+                if (lineIndex < 0 || lineIndex > this.Count - 1)
                     throw new ArgumentOutOfRangeException("lineIndex", Resources.Exception_IndexOutOfRange);
 
                 // Use our Create method so others can override this class and provide custom annotations
-                return CreateAnnotationInstance(lineIndex);
+                return this.CreateAnnotationInstance(lineIndex);
             }
         }
 
@@ -234,7 +234,7 @@ namespace ARCed.Scintilla
         /// <param name="scintilla">The <see cref="Scintilla" /> control that created this object.</param>
         protected internal AnnotationCollection(Scintilla scintilla)
         {
-            _scintilla = scintilla;
+            this._scintilla = scintilla;
         }
 
         #endregion Constructors
@@ -250,18 +250,15 @@ namespace ARCed.Scintilla
 
             public bool MoveNext()
             {
-                _index++;
+                this._index++;
 
-                if (_index >= _collection.Count)
-                    return false;
-
-                return true;
+                return this._index < this._collection.Count;
             }
 
 
             public void Reset()
             {
-                _index = -1;
+                this._index = -1;
             }
 
 
@@ -269,12 +266,12 @@ namespace ARCed.Scintilla
             {
                 get
                 {
-                    if (_index == -1)
+                    if (this._index == -1)
                         throw new InvalidOperationException(Resources.Exception_EnumeratorNotStarted);
 
                     try
                     {
-                        return _collection[_index];
+                        return this._collection[this._index];
                     }
                     catch(ArgumentOutOfRangeException)
                     {
@@ -286,8 +283,8 @@ namespace ARCed.Scintilla
 
             public AnnotationCollectionEnumerator(AnnotationCollection collection)
             {
-                _collection = collection;
-                Reset();
+                this._collection = collection;
+                this.Reset();
             }
         }
 

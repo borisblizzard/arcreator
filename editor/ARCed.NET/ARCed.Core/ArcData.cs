@@ -109,19 +109,8 @@ namespace ARCed
 			_stream = stream;
 			_stream.Write(HEADER.GetBytes(), 0, 4);
 			_stream.Write(VERSION.GetBytes(), 0, 2);
-			try { _dump(obj); }
-			catch { Console.WriteLine("ERROR: Failed to dump \"{0}\".", obj); }
+			try { ArcDump(obj); }
 			finally { Reset(); }
-		}
-
-		/// <summary>
-		/// Loads an object from the stream
-		/// </summary>
-		/// <param name="stream">Stream to read</param>
-		/// <returns>Deserialized object</returns>
-		public static object Load(Stream stream)
-		{
-			return Load(stream, Assembly.GetExecutingAssembly());
 		}
 
 		/// <summary>
@@ -150,9 +139,8 @@ namespace ARCed
 			CheckHeader();
 			_assemblyTypes = assemblyTypes;
 			_mappedTypes = new TypeMap();
-			object data = null;
-            try { data = _load(); }
-			catch { Console.WriteLine("ERROR: Stream Position: {0}", _stream.Position); }
+		    object data;
+            try { data = ArcLoad(); }
 			finally { Reset(); }
 			return data;
 		}
@@ -197,7 +185,7 @@ namespace ARCed
 			_arrays.Clear();
 			_arrays.Add(null);
 			_hashes.Clear();
-			_arrays.Add(null);
+            _hashes.Add(null);
 			_objects.Clear();
 			_objects.Add(null);
 		}
@@ -206,7 +194,7 @@ namespace ARCed
 		/// Identifies the object type and dumps it to the stream accordingly
 		/// </summary>
 		/// <param name="obj">Object to serialize</param>
-		private static void _dump(object obj)
+		private static void ArcDump(object obj)
 		{
 			if (obj == null) DumpNilClass();
 			else if (obj is bool)
@@ -235,7 +223,7 @@ namespace ARCed
 		/// Reads the type identifying byte marker from the current stream position, and loads the data accordingly
 		/// </summary>
 		/// <returns>Deserialized object</returns>
-		private static dynamic _load()
+		private static dynamic ArcLoad()
 		{
 			var type = (RubyTypes)_stream.ReadByte();
 			switch (type)
@@ -267,8 +255,7 @@ namespace ARCed
 			if (value is short) return true;
 			if (value is ushort) return true;
 			if (value is int) return true;
-			if (value is uint) return true;
-			return false;
+			return value is uint;
 		}
 
 		/// <summary>
@@ -279,8 +266,7 @@ namespace ARCed
 		private static bool IsRubyBignum(object value)
 		{
 			if (value is long) return true;
-			if (value is ulong) return true;
-			return false;
+			return value is ulong;
 		}
 
 		/// <summary>
@@ -292,8 +278,7 @@ namespace ARCed
 		{
 			if (value is float) return true;
 			if (value is double) return true;
-			if (value is decimal) return true;
-			return false;
+			return value is decimal;
 		}
 
 		#endregion
@@ -362,13 +347,10 @@ namespace ARCed
 			if (_mappedTypes.ContainsKey(classPath))
 				return _mappedTypes[classPath];
 			var regex = new Regex(String.Join(@"[\+|\.]", Regex.Split(classPath, "::")));
-			foreach (string typeName in _assemblyTypes.Keys)
+			foreach (string typeName in _assemblyTypes.Keys.Where(typeName => regex.Match(typeName).Success))
 			{
-				if (regex.Match(typeName).Success)
-				{
-					_mappedTypes[classPath] = _assemblyTypes[typeName];
-					return _mappedTypes[classPath];
-				}
+			    _mappedTypes[classPath] = _assemblyTypes[typeName];
+			    return _mappedTypes[classPath];
 			}
 			throw new TypeLoadException(String.Format("Type of \"{0}\" cannot be found in loaded assemblies.", classPath));
 		}
@@ -378,10 +360,10 @@ namespace ARCed
 		/// </summary>
 		/// <param name="list">Reference to the map to search</param>
 		/// <param name="id">ID of the object</param>
-		/// <returns>Object found with the given ID, or null if not found</returns>
-		private static object FindMapping(ref List<dynamic> list, int id)
+		/// <returns>Dynamic object found with the given ID, or null if not found</returns>
+		private static dynamic FindMapping(ref List<dynamic> list, int id)
 		{
-			return id < list.Count ? list[id] : null;
+            return id < list.Count ? list[id] : null;
 		}
 
 		/// <summary>
@@ -411,7 +393,7 @@ namespace ARCed
 		}
 
 		/// <summary>
-		/// Loads a 32-bit integer from the stream
+		/// Loads a <see cref="Int32"/> from the stream
 		/// </summary>
 		/// <returns>Integer value</returns>
 		private static int LoadInt32()
@@ -424,7 +406,7 @@ namespace ARCed
 		#region NilClass
 
 		/// <summary>
-		/// Writes a null-type to the stream
+		/// Writes a null-type marker to the stream.
 		/// </summary>
 		private static void DumpNilClass()
 		{
@@ -432,7 +414,7 @@ namespace ARCed
 		}
 
 		/// <summary>
-		/// Returns null
+        /// Returns <see langword="null"/>.
 		/// </summary>
 		/// <returns>null</returns>
 		private static object LoadNilClass() { return null; }
@@ -442,7 +424,7 @@ namespace ARCed
 		#region FalseClass
 
 		/// <summary>
-		/// Writes bool-type to the stream
+		/// Writes <see cref="Boolean"/> to the stream.
 		/// </summary>
 		private static void DumpFalseClass()
 		{
@@ -450,7 +432,7 @@ namespace ARCed
 		}
 
 		/// <summary>
-		/// Returns false
+		/// Returns <see langword="false"/>.
 		/// </summary>
 		/// <returns>false</returns>
 		private static bool LoadFalseClass() { return false; }
@@ -460,7 +442,7 @@ namespace ARCed
 		#region TrueClass
 
 		/// <summary>
-		/// Writes bool-type to the stram
+        /// Writes <see cref="Boolean"/> to the stream.
 		/// </summary>
 		private static void DumpTrueClass()
 		{
@@ -468,7 +450,7 @@ namespace ARCed
 		}
 
 		/// <summary>
-		/// Returns true
+        /// Returns <see langword="true"/>.
 		/// </summary>
 		/// <returns>true</returns>
 		private static bool LoadTrueClass() { return true; }
@@ -478,7 +460,7 @@ namespace ARCed
 		#region Fixnum
 
 		/// <summary>
-		/// Writes an object to the string as a Ruby Fixnum
+		/// Writes an object to the string as a Ruby Fixnum (<see cref="Int32"/>).
 		/// </summary>
 		/// <param name="obj">Object to serialize</param>
 		private static void DumpFixnum(object obj)
@@ -488,20 +470,17 @@ namespace ARCed
 		}
 
 		/// <summary>
-		/// Reads a number from the stream
+		/// Reads a <see cref="Int32"/> from the stream
 		/// </summary>
 		/// <returns>Integer value</returns>
-		private static int LoadFixnum()
-		{
-			return BitConverter.ToInt32(_stream.ReadBytes(4), 0);
-		}
+		private static int LoadFixnum() { return LoadInt32(); }
 
 		#endregion
 
 		#region Bignum
 
 		/// <summary>
-		/// Writes an object to the string as a Ruby Bignum
+        /// Writes an object to the string as a Ruby Bignum (<see cref="Int32"/>).
 		/// </summary>
 		/// <param name="obj">Object to serialize</param>
 		private static void DumpBignum(object obj)
@@ -511,20 +490,17 @@ namespace ARCed
 		}
 
 		/// <summary>
-		/// Reads a number from the stream
+        /// Reads a <see cref="Int32"/> from the stream
 		/// </summary>
 		/// <returns>Integer value</returns>
-		private static int LoadBignum()
-		{
-			return BitConverter.ToInt32(_stream.ReadBytes(4), 0);
-		}
+		private static int LoadBignum() { return LoadInt32(); }
 
 		#endregion
 
 		#region Float
 
 		/// <summary>
-		/// Writes a floating point decimal to the stream
+		/// Writes a <see cref="Single"/> to the stream
 		/// </summary>
 		/// <param name="obj">Object to serialize</param>
 		private static void DumpFloat(object obj)
@@ -537,7 +513,7 @@ namespace ARCed
 		}
 
 		/// <summary>
-		/// Reads a floating point decimal from the stream
+		/// Reads a <see cref="Single"/> from the stream
 		/// </summary>
 		/// <returns>Float value</returns>
 		private static float LoadFloat()
@@ -550,10 +526,10 @@ namespace ARCed
 		#region String
 
 		/// <summary>
-		/// Writes a string to the stream
+		/// Writes a <see cref="String"/> to the stream
 		/// </summary>
 		/// <param name="obj">Object to serialize</param>
-		/// <remarks>Strings are serialized in UTF-8 encoding</remarks>
+        /// <remarks>Strings are serialized in UTF-8 encoding (<see cref="System.Text.Encoding.UTF8"/>).</remarks>
 		private static void DumpString(object obj)
 		{
 			_stream.WriteByte((byte)RubyTypes.String);
@@ -566,13 +542,14 @@ namespace ARCed
 		}
 
 		/// <summary>
-		/// Reads a string from the stream
+		/// Reads a <see cref="String"/> from the stream
 		/// </summary>
 		/// <returns>String value</returns>
+        /// <remarks>Strings are returned in UTF-8 encoding (<see cref="System.Text.Encoding.UTF8"/>).</remarks>
 		private static string LoadString()
 		{
 			int id = LoadInt32();
-			var obj = (string)FindMapping(ref _strings, id);
+			string obj = FindMapping(ref _strings, id);
 			if (obj != null)
 				return String.Copy(obj);
 			int size = LoadInt32();
@@ -586,36 +563,38 @@ namespace ARCed
 		#region Array
 
 		/// <summary>
-		/// Writes an array-type to the stream
+		/// Writes an <see cref="Array"/> to the stream
 		/// </summary>
 		/// <param name="obj">Object to serialize</param>
-		private static void DumpArray(object obj)
+		private static void DumpArray(dynamic obj)
 		{
 			_stream.WriteByte((byte)RubyTypes.Array);
-			var array = obj as Array;
-            // TODO: Do not use HashCode
-			DumpInt32(array.GetHashCode());         // Dump ID
-			DumpInt32(array.Length);				// Dump array size
-			foreach (object data in array)			// Enumerate and dump each element
-				_dump(data);
+            if (TryMapIdentity(ref _arrays, obj))
+            {
+                DumpInt32(obj.Count);
+                foreach (dynamic data in obj)
+                    ArcDump(data);
+            }
 		}
 
 		/// <summary>
-		/// Reads an array from the stream
+		/// Reads an <see cref="Array"/> from the stream
 		/// </summary>
 		/// <returns>Array value</returns>
+		/// <remarks>All returned values that are of "Array" type are returned as 
+		/// a <see cref="List{dynamic}"/>.</remarks>
 		private static List<dynamic> LoadArray()
 		{
 			int id = LoadInt32();
-			dynamic obj = FindMapping(ref _arrays, id);
-			if (obj != null)
-				return obj;
+			List<dynamic> obj = FindMapping(ref _arrays, id);
+            if (obj != null)
+                return obj;
 			int size = LoadInt32();
-			var array = new List<dynamic>(size);
+			obj = new List<dynamic>(size);
 			for (int i = 0; i < size; i++)
-				array.Add(_load());
-			MapObject(ref _arrays, array);
-			return array;
+				obj.Add(ArcLoad());
+			MapObject(ref _arrays, obj);
+			return obj;
 		}
 
 		#endregion
@@ -626,39 +605,40 @@ namespace ARCed
 		/// Writes a dictionary-type to the stream
 		/// </summary>
 		/// <param name="obj">Object to serialize</param>
-		private static void DumpHash(object obj)
+		private static void DumpHash(dynamic obj)
 		{
 			_stream.WriteByte((byte)RubyTypes.Hash);
-			var dict = obj as Dictionary<object, object>;
-			DumpInt32(dict.GetHashCode());
-			DumpInt32(dict.Count);
-			foreach (var pair in dict)
-			{
-				_dump(pair.Key);
-				_dump(pair.Value);
-			}
+            if (TryMapIdentity(ref _hashes, obj))
+            {
+                DumpInt32(obj.Count);
+                foreach (var kvPair in obj)
+                {
+                    ArcDump(kvPair.Key);
+                    ArcDump(kvPair.Value);
+                }
+            }
 		}
 
 		/// <summary>
-		/// Reads a dictionary type from the stream
+        /// Reads a <see cref="Hash"/> type from the stream.
 		/// </summary>
-		/// <returns>Dictionary value</returns>
+		/// <returns>Hash value</returns>
 		private static Hash LoadHash()
 		{
 			int id = LoadInt32();
-			object obj = FindMapping(ref _hashes, id);
+			Hash obj = FindMapping(ref _hashes, id);
 			if (obj != null)
-				return (Hash)obj;
+				return obj;
 			int size = LoadInt32();
-			var hash = new Hash();
+			obj = new Hash();
 			object key;
 			for (int i = 0; i < size; i++)
 			{
-				key = _load();
-				hash[key] = _load();
+				key = ArcLoad();
+				obj[key] = ArcLoad();
 			}
-			MapObject(ref _hashes, hash);
-			return hash;
+			MapObject(ref _hashes, obj);
+			return obj;
 		}
 
 		#endregion
@@ -666,7 +646,7 @@ namespace ARCed
 		#region Object
 
 		/// <summary>
-		/// Writes an object to the stream
+		/// Writes an <see cref="Object"/> to the stream
 		/// </summary>
 		/// <param name="obj">Object to serialize</param>
 		private static void DumpObject(object obj)
@@ -718,29 +698,30 @@ namespace ARCed
 						obj,
 						null
 					);
-					_dump(value);
+					ArcDump(value);
 				}
 			}
 		}
 
 		/// <summary>
-		/// 
+		/// Loads an <see cref="Object"/> from the stream.
 		/// </summary>
-		/// <returns></returns>
+		/// <returns>Deserialized object.</returns>
 		private static dynamic LoadObject()
 		{
-			string mapString = _load();
+			string mapString = ArcLoad();
 			int id = LoadInt32();
 			dynamic obj = FindMapping(ref _objects, id);
 			if (obj != null)
 				return obj;
+            Type type = GetMappedType(mapString);
 			int size = LoadInt32();
-			Type type = GetMappedType(mapString);
 			if (type.GetMethod("_arc_load") != null)
 			{
 				obj = type.InvokeMember(
 					"_arc_load", BindingFlags.Public | BindingFlags.Static | BindingFlags.InvokeMethod,
 					null, type, new object[] { _stream.ReadBytes(size) });
+                MapObject(ref _objects, obj);
 				return obj;
 			}
 			obj = Activator.CreateInstance(type);
@@ -748,8 +729,8 @@ namespace ARCed
 			dynamic propertyValue;
 			for (int i = 0; i < size; i++)
 			{
-				propertyName = _load();		
-				propertyValue = _load();
+				propertyName = ArcLoad();		
+				propertyValue = ArcLoad();
 				PropertyInfo info = type.GetProperty(propertyName);
 				if (info != null)
 					info.SetValue(obj, propertyValue, null);

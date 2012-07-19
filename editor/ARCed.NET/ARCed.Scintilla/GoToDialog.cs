@@ -25,31 +25,31 @@ namespace ARCed.Scintilla
 
         private void btnOK_Click(object sender, EventArgs e)
         {
-            if (int.TryParse(txtGotoLine.Text, out _gotoLineNumber))
+            if (int.TryParse(this.txtGotoLine.Text, out this._gotoLineNumber))
             {
                 //	Line #s are 0 based but the users don't think that way
-                _gotoLineNumber--;
-                if (_gotoLineNumber < 0 || _gotoLineNumber >= _maximumLineNumber)
-                    err.SetError(txtGotoLine, "Go to line # must be greater than 0 and less than " + (_maximumLineNumber + 1).ToString());
+                this._gotoLineNumber--;
+                if (this._gotoLineNumber < 0 || this._gotoLineNumber >= this._maximumLineNumber)
+                    this.err.SetError(this.txtGotoLine, "Go to line # must be greater than 0 and less than " + (this._maximumLineNumber + 1).ToString());
                 else
                     DialogResult = DialogResult.OK;
             }
             else
             {
-                err.SetError(txtGotoLine, "Go to line # must be a numeric value");
+                this.err.SetError(this.txtGotoLine, "Go to line # must be a numeric value");
             }
         }
 
 
         private void GoToDialog_Load(object sender, EventArgs e)
         {
-            string displayLine = (_currentLineNumber + 1).ToString();
+            string displayLine = (this._currentLineNumber + 1).ToString();
 
-            txtCurrentLine.Text = displayLine;
-            txtMaxLine.Text = _maximumLineNumber.ToString();
-            txtGotoLine.Text = displayLine;
+            this.txtCurrentLine.Text = displayLine;
+            this.txtMaxLine.Text = this._maximumLineNumber.ToString();
+            this.txtGotoLine.Text = displayLine;
 
-            txtGotoLine.Select();
+            this.txtGotoLine.Select();
         }
 
 
@@ -64,11 +64,11 @@ namespace ARCed.Scintilla
             if (!Visible)
                 return;
 
-            int pos = Scintilla.Caret.Position;
-            int x = Scintilla.PointXFromPosition(pos);
-            int y = Scintilla.PointYFromPosition(pos);
+            int pos = this.Scintilla.Caret.Position;
+            int x = this.Scintilla.PointXFromPosition(pos);
+            int y = this.Scintilla.PointYFromPosition(pos);
 
-            Point cursorPoint = Scintilla.PointToScreen(new Point(x, y));
+            Point cursorPoint = this.Scintilla.PointToScreen(new Point(x, y));
 
             var r = new Rectangle(Location, Size);
             if (r.Contains(cursorPoint))
@@ -77,18 +77,18 @@ namespace ARCed.Scintilla
                 if (cursorPoint.Y < (Screen.PrimaryScreen.Bounds.Height / 2))
                 {
                     // Top half of the screen
-                    newLocation = Scintilla.PointToClient(
-                        new Point(Location.X, cursorPoint.Y + Scintilla.Lines.Current.Height * 2)
+                    newLocation = this.Scintilla.PointToClient(
+                        new Point(Location.X, cursorPoint.Y + this.Scintilla.Lines.Current.Height * 2)
                         );
                 }
                 else
                 {
                     // FixedY half of the screen
-                    newLocation = Scintilla.PointToClient(
-                        new Point(Location.X, cursorPoint.Y - Height - (Scintilla.Lines.Current.Height * 2))
+                    newLocation = this.Scintilla.PointToClient(
+                        new Point(Location.X, cursorPoint.Y - Height - (this.Scintilla.Lines.Current.Height * 2))
                         );
                 }
-                newLocation = Scintilla.PointToScreen(newLocation);
+                newLocation = this.Scintilla.PointToScreen(newLocation);
                 Location = newLocation;
             }
         }
@@ -97,7 +97,7 @@ namespace ARCed.Scintilla
         protected override void OnActivated(EventArgs e)
         {
             base.OnActivated(e);
-            MoveFormAwayFromSelection();
+            this.MoveFormAwayFromSelection();
         }
 
         #endregion Methods
@@ -107,38 +107,38 @@ namespace ARCed.Scintilla
 
         public int CurrentLineNumber
         {
-            get { return _currentLineNumber; }
+            get { return this._currentLineNumber; }
             set
             {
-                _currentLineNumber = value;
+                this._currentLineNumber = value;
             }
         }
 
 
         public int GotoLineNumber
         {
-            get { return _gotoLineNumber; }
+            get { return this._gotoLineNumber; }
             set
             {
-                _gotoLineNumber = value;
+                this._gotoLineNumber = value;
             }
         }
 
 
         public int MaximumLineNumber
         {
-            get { return _maximumLineNumber; }
+            get { return this._maximumLineNumber; }
             set
             {
-                _maximumLineNumber = value;
+                this._maximumLineNumber = value;
             }
         }
 
 
         public Scintilla Scintilla
         {
-            get { return _scintilla; }
-            set { _scintilla = value; }
+            get { return this._scintilla; }
+            set { this._scintilla = value; }
         }
 
         #endregion Properties
@@ -148,7 +148,7 @@ namespace ARCed.Scintilla
 
         public GoToDialog()
         {
-            InitializeComponent();
+            this.InitializeComponent();
         }
 
         #endregion Constructors

@@ -22,7 +22,7 @@ namespace ARCed.Database.Animations
 		/// <summary>
 		/// Gets the object list control of this database panel.
 		/// </summary>
-		protected override DatabaseObjectListBox DataObjectList { get { return dataObjectList; } }
+		protected override DatabaseObjectListBox DataObjectList { get { return this.dataObjectList; } }
 
 		public override List<dynamic> Data { get { return Project.Data.Animations; } }
 
@@ -33,7 +33,7 @@ namespace ARCed.Database.Animations
 			// TEST ////////////////////////////////////////////
 			
 			////////////////////////////////////////////////////
-			InitializeComponent();
+			this.InitializeComponent();
 		}
 
 		private void AnimationMainForm_Load(object sender, EventArgs e)
@@ -48,8 +48,8 @@ namespace ARCed.Database.Animations
 
 			// TEST ////////////////////////////////////////////
 			RefreshObjectList();
-			dataObjectList.SelectedIndex = 0;
-			listBoxFrames.SelectedIndex = 0;
+			this.dataObjectList.SelectedIndex = 0;
+			this.listBoxFrames.SelectedIndex = 0;
 		}
 
 		#endregion
@@ -78,15 +78,15 @@ namespace ARCed.Database.Animations
 		public override void RefreshCurrentObject()
 		{
 			SuppressEvents = true;
-			animeXnaPanel.Animation = _animation;
-			animeSrcXnaPanel.Animation = _animation;
-			textBoxName.Text = _animation.name;
-			textBoxGraphic.Text = String.IsNullOrWhiteSpace(_animation.animation_name) ?
-				"<None>" : _animation.animation_name;
-			numericUpDownFrames.Value = _animation.frame_max;
-			comboBoxPosition.SelectedIndex = _animation.position;
-			RefreshTimings();
-			RefreshFrameList();
+			this.animeXnaPanel.Animation = this._animation;
+			this.animeSrcXnaPanel.Animation = this._animation;
+			this.textBoxName.Text = this._animation.name;
+			this.textBoxGraphic.Text = String.IsNullOrWhiteSpace(this._animation.animation_name) ?
+				"<None>" : this._animation.animation_name;
+			this.numericUpDownFrames.Value = this._animation.frame_max;
+			this.comboBoxPosition.SelectedIndex = this._animation.position;
+			this.RefreshTimings();
+			this.RefreshFrameList();
 			SuppressEvents = false;
 		}
 
@@ -94,11 +94,11 @@ namespace ARCed.Database.Animations
 
 		private void RefreshTimings()
 		{
-			listViewTiming.BeginUpdate();
-			listViewTiming.Items.Clear();
+			this.listViewTiming.BeginUpdate();
+			this.listViewTiming.Items.Clear();
 			string[] items;
 			string flash, condition;
-			foreach (Animation.Timing timing in _animation.timings)
+			foreach (Animation.Timing timing in this._animation.timings)
 			{
 				switch (timing.flash_scope)
 				{
@@ -120,32 +120,32 @@ namespace ARCed.Database.Animations
 					flash,
 					new[] { "None", "Hit", "Miss"}[timing.condition]
 				};
-				listViewTiming.Items.Add(new ListViewItem(items));
+				this.listViewTiming.Items.Add(new ListViewItem(items));
 			}
-			listViewTiming.EndUpdate();
+			this.listViewTiming.EndUpdate();
 		}
 
 		private void RefreshFrameList()
 		{
-			int index = listBoxFrames.SelectedIndex;
-			listBoxFrames.BeginUpdate();
-			listBoxFrames.Items.Clear();
-			for (int i = 0; i < _animation.frames.Count; i++)
-				listBoxFrames.Items.Add(String.Format("#{0:d3}", i + 1));
-			listBoxFrames.SelectedIndex = index.Clamp(0, listBoxFrames.Items.Count - 1);
-			listBoxFrames.EndUpdate();
+			int index = this.listBoxFrames.SelectedIndex;
+			this.listBoxFrames.BeginUpdate();
+			this.listBoxFrames.Items.Clear();
+			for (int i = 0; i < this._animation.frames.Count; i++)
+				this.listBoxFrames.Items.Add(String.Format("#{0:d3}", i + 1));
+			this.listBoxFrames.SelectedIndex = index.Clamp(0, this.listBoxFrames.Items.Count - 1);
+			this.listBoxFrames.EndUpdate();
 		}
 
 		private void RefreshImages()
 		{
 			// TEST ////////////////////////////////////////////
 
-			_animation = new Animation
+			this._animation = new Animation
 			{
-				animation_hue = _animation.animation_hue,
-				animation_name = _animation.animation_name
+				animation_hue = this._animation.animation_hue,
+				animation_name = this._animation.animation_name
 			};
-			animeSrcXnaPanel.Animation = _animation;
+			this.animeSrcXnaPanel.Animation = this._animation;
 			////////////////////////////////////////////////////
 		}
 
@@ -153,47 +153,47 @@ namespace ARCed.Database.Animations
 		{
 			if (!SuppressEvents)
 			{
-				var frames = (int)numericUpDownFrames.Value;
-				if (_animation.frames.Count > frames)
+				var frames = (int)this.numericUpDownFrames.Value;
+				if (this._animation.frames.Count > frames)
 				{
-					for (int i = _animation.frames.Count; i > frames; i--)
-						_animation.frames.RemoveAt(i - 1);
+					for (int i = this._animation.frames.Count; i > frames; i--)
+						this._animation.frames.RemoveAt(i - 1);
 				}
-				else if (_animation.frames.Count < frames)
+				else if (this._animation.frames.Count < frames)
 				{
-					for (int i = _animation.frames.Count; i < frames; i++)
-						_animation.frames.Add(new Animation.Frame());
+					for (int i = this._animation.frames.Count; i < frames; i++)
+						this._animation.frames.Add(new Animation.Frame());
 				}
-				_animation.frame_max = frames;
-				RefreshFrameList();
+				this._animation.frame_max = frames;
+				this.RefreshFrameList();
 			}
 		}
 
 		private void textBoxGraphic_OnButtonClick(object sender, EventArgs e)
 		{
 			using (var dialog =
-				new ImageSelectionForm(@"Animations", _animation.animation_name))
+				new ImageSelectionForm(@"Animations", this._animation.animation_name))
 			{
-				dialog.Hue = _animation.animation_hue;
+				dialog.Hue = this._animation.animation_hue;
 				dialog.OptionsEnabled = false;
 				if (dialog.ShowDialog(this) == DialogResult.OK)
 				{
-					_animation.animation_name = dialog.ImageName;
-					_animation.animation_hue = dialog.Hue;
-					textBoxGraphic.Text = String.IsNullOrWhiteSpace(_animation.animation_name) ?
-						"<None>" : _animation.animation_name;
-					RefreshImages();
+					this._animation.animation_name = dialog.ImageName;
+					this._animation.animation_hue = dialog.Hue;
+					this.textBoxGraphic.Text = String.IsNullOrWhiteSpace(this._animation.animation_name) ?
+						"<None>" : this._animation.animation_name;
+					this.RefreshImages();
 				}
 			}
 		}
 
 		private void dataObjectList_OnListBoxIndexChanged(object sender, EventArgs e)
 		{
-			int index = dataObjectList.SelectedIndex;
+			int index = this.dataObjectList.SelectedIndex;
 			if (index >= 0)
 			{
-				_animation = Data[index + 1];
-				RefreshCurrentObject();
+				this._animation = this.Data[index + 1];
+				this.RefreshCurrentObject();
 			}
 		}
 
@@ -201,10 +201,10 @@ namespace ARCed.Database.Animations
 		{
 			if (!SuppressEvents)
 			{
-				_animation.name = textBoxName.Text;
-				int index = dataObjectList.SelectedIndex;
-				dataObjectList.Items[index] = _animation.ToString();
-				dataObjectList.Invalidate(dataObjectList.GetItemRectangle(index));
+				this._animation.name = this.textBoxName.Text;
+				int index = this.dataObjectList.SelectedIndex;
+				this.dataObjectList.Items[index] = this._animation.ToString();
+				this.dataObjectList.Invalidate(this.dataObjectList.GetItemRectangle(index));
 			}
 		}
 
@@ -225,19 +225,16 @@ namespace ARCed.Database.Animations
 				using (var dialog = new AnimationTimingDialog())
 				{
 					
-					var indices = listViewTiming.SelectedIndices;
+					var indices = this.listViewTiming.SelectedIndices;
 					int index = indices.Count > 0 ? indices[0] : -1;
-					if (index >= 0)
-						dialog.Timing = _animation.timings[index];
-					else
-						dialog.Timing = new Animation.Timing();
+					dialog.Timing = index >= 0 ? this._animation.timings[index] : new Animation.Timing();
 					if (dialog.ShowDialog() == DialogResult.OK)
 					{
 						if (index >= 0)
-							_animation.timings[index] = dialog.Timing;
+							this._animation.timings[index] = dialog.Timing;
 						else
-							_animation.timings.Add(dialog.Timing);
-						RefreshTimings();
+							this._animation.timings.Add(dialog.Timing);
+						this.RefreshTimings();
 					}
 				}
 			}

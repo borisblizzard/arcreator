@@ -23,11 +23,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _allowDuplicateBindings;
+                return this._allowDuplicateBindings;
             }
             set
             {
-                _allowDuplicateBindings = value;
+                this._allowDuplicateBindings = value;
             }
         }
 
@@ -36,11 +36,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _inherit;
+                return this._inherit;
             }
             set
             {
-                _inherit = value;
+                this._inherit = value;
             }
         }
 

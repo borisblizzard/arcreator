@@ -498,6 +498,8 @@ namespace ARCed.Scintilla
 
         #region Events
 
+        #pragma warning disable 612, 618
+
         event EventHandler<NativeScintillaEventArgs> AutoCSelection;
         event EventHandler<NativeScintillaEventArgs> CallTipClick;
         event EventHandler<NativeScintillaEventArgs> CharAdded;
@@ -521,6 +523,8 @@ namespace ARCed.Scintilla
         event EventHandler<NativeScintillaEventArgs> UserListSelection;
         event EventHandler<NativeScintillaEventArgs> Zoom;
 
+        #pragma warning restore 612, 618
+        
         #endregion Events
     }
 }

@@ -34,7 +34,7 @@ namespace ARCed.Scintilla
 
         public int CompareTo(Snippet other)
         {
-            return StringComparer.OrdinalIgnoreCase.Compare(_shortcut, other._shortcut);
+            return StringComparer.OrdinalIgnoreCase.Compare(this._shortcut, other._shortcut);
         }
 
         #endregion Methods
@@ -46,12 +46,12 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _code;
+                return this._code;
             }
             set
             {
-                _code = value;
-                _realCode = _code.Replace(_delimeter, RealDelimeter);
+                this._code = value;
+                this._realCode = this._code.Replace(this._delimeter, RealDelimeter);
             }
         }
 
@@ -60,11 +60,11 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _delimeter;
+                return this._delimeter;
             }
             set
             {
-                _delimeter = value;
+                this._delimeter = value;
             }
         }
 
@@ -73,11 +73,11 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _isSurroundsWith;
+                return this._isSurroundsWith;
             }
             set
             {
-                _isSurroundsWith = value;
+                this._isSurroundsWith = value;
             }
         }
 
@@ -86,11 +86,11 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _languages;
+                return this._languages;
             }
             set
             {
-                _languages = value;
+                this._languages = value;
             }
         }
 
@@ -99,11 +99,11 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _realCode;
+                return this._realCode;
             }
             set
             {
-                _realCode = value;
+                this._realCode = value;
             }
         }
 
@@ -112,11 +112,11 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _shortcut;
+                return this._shortcut;
             }
             set
             {
-                _shortcut = value;
+                this._shortcut = value;
             }
         }
 
@@ -132,10 +132,10 @@ namespace ARCed.Scintilla
 
         public Snippet(string shortcut, string code, char delimeter, bool isSurroundsWith)
         {
-            _isSurroundsWith = isSurroundsWith;
-            _shortcut = shortcut;
-            _delimeter = delimeter;
-            Code = code;
+            this._isSurroundsWith = isSurroundsWith;
+            this._shortcut = shortcut;
+            this._delimeter = delimeter;
+            this.Code = code;
         }
 
         #endregion Constructors

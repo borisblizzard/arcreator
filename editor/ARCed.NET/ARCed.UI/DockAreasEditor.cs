@@ -90,7 +90,7 @@ namespace ARCed.UI
 				this._checkBoxDockFill.Dock = DockStyle.Fill;
 				this._checkBoxDockFill.FlatStyle = FlatStyle.System;
 
-				this.Controls.AddRange(new Control[] {
+				Controls.AddRange(new Control[] {
 														 this._checkBoxDockFill,
 														 this._checkBoxDockBottom,
 														 this._checkBoxDockTop,
@@ -132,15 +132,15 @@ namespace ARCed.UI
 
 		public override object EditValue(ITypeDescriptorContext context, IServiceProvider sp, object value)
 		{
-			if (m_ui == null)
-				m_ui = new DockAreasEditorControl();
+			if (this.m_ui == null)
+				this.m_ui = new DockAreasEditorControl();
 
-			m_ui.SetStates((DockAreas)value);
+			this.m_ui.SetStates((DockAreas)value);
 
             var edSvc = (IWindowsFormsEditorService)sp.GetService(typeof(IWindowsFormsEditorService));
-			edSvc.DropDownControl(m_ui);
+			edSvc.DropDownControl(this.m_ui);
 
-			return m_ui.DockAreas;
+			return this.m_ui.DockAreas;
 		}
 	}
 }

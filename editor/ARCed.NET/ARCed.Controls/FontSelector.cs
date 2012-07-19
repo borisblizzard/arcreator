@@ -41,8 +41,8 @@ namespace ARCed.Controls
 		[DefaultValue("Font")]
 		public string GroupBoxText
 		{
-			get { return groupBoxFont.Text; }
-			set { groupBoxFont.Text = value; }
+			get { return this.groupBoxFont.Text; }
+			set { this.groupBoxFont.Text = value; }
 		}
 
 		/// <summary>
@@ -52,8 +52,8 @@ namespace ARCed.Controls
 		[DefaultValue(true)]
 		public bool StyleChangeEnabled
 		{
-			get { return groupBoxFont.Enabled; }
-			set { groupBoxFont.Enabled = value; }
+			get { return this.groupBoxFont.Enabled; }
+			set { this.groupBoxFont.Enabled = value; }
 		}
 
 		/// <summary>
@@ -63,8 +63,8 @@ namespace ARCed.Controls
 		[DefaultValue(true)]
 		public bool SizeChangeEnabled
 		{
-			get { return numericSize.Enabled; }
-			set { numericSize.Enabled = value; }
+			get { return this.numericSize.Enabled; }
+			set { this.numericSize.Enabled = value; }
 		}
 
 		/// <summary>
@@ -74,8 +74,8 @@ namespace ARCed.Controls
 		[DefaultValue(4.0f)]
 		public float MinimumFontSize
 		{
-			get { return (float)numericSize.Minimum; }
-			set { numericSize.Minimum = (decimal)value; }
+			get { return (float)this.numericSize.Minimum; }
+			set { this.numericSize.Minimum = (decimal)value; }
 		}
 
 		/// <summary>
@@ -85,8 +85,8 @@ namespace ARCed.Controls
 		[DefaultValue(72.0f)]
 		public float MaximimFontSize
 		{
-			get { return (float)numericSize.Maximum; }
-			set { numericSize.Maximum = (decimal)value; }
+			get { return (float)this.numericSize.Maximum; }
+			set { this.numericSize.Maximum = (decimal)value; }
 		}
 
 		/// <summary>
@@ -96,8 +96,8 @@ namespace ARCed.Controls
 		[DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
 		public Font UserFont 
 		{
-			get { return GetFont(); }
-			set { SetFont(value); }
+			get { return this.GetFont(); }
+			set { this.SetFont(value); }
 		}
 
 		#endregion
@@ -109,7 +109,7 @@ namespace ARCed.Controls
 		/// </summary>
 		public FontSelector()
 		{
-			InitializeComponent();
+			this.InitializeComponent();
 		}
 
 		#endregion
@@ -118,33 +118,33 @@ namespace ARCed.Controls
 
 		private void SetFont(Font font)
 		{
-			_suppressEvents = true;
-			fontComboBox.SelectedFontFamily = font.OriginalFontName;
-			numericSize.Value = (decimal)font.Size;
-			checkBoxBold.Checked = font.Style.HasFlag(FontStyle.Bold);
-			checkBoxItalic.Checked = font.Style.HasFlag(FontStyle.Italic);
-			checkBoxUnderline.Checked = font.Style.HasFlag(FontStyle.Underline);
-			_suppressEvents = false;
-			labelSample.Font = GetFont();
+			this._suppressEvents = true;
+			this.fontComboBox.SelectedFontFamily = font.OriginalFontName;
+			this.numericSize.Value = (decimal)font.Size;
+			this.checkBoxBold.Checked = font.Style.HasFlag(FontStyle.Bold);
+			this.checkBoxItalic.Checked = font.Style.HasFlag(FontStyle.Italic);
+			this.checkBoxUnderline.Checked = font.Style.HasFlag(FontStyle.Underline);
+			this._suppressEvents = false;
+			this.labelSample.Font = this.GetFont();
 		}
 
 		private Font GetFont()
 		{
 			var style = FontStyle.Regular;
-			if (checkBoxBold.Checked) style |= FontStyle.Bold;
-			if (checkBoxItalic.Checked) style |= FontStyle.Italic;
-			if (checkBoxUnderline.Checked) style |= FontStyle.Underline;
-			var size = (float)numericSize.Value;
-			string fontName = fontComboBox.SelectedFontFamily;
+			if (this.checkBoxBold.Checked) style |= FontStyle.Bold;
+			if (this.checkBoxItalic.Checked) style |= FontStyle.Italic;
+			if (this.checkBoxUnderline.Checked) style |= FontStyle.Underline;
+			var size = (float)this.numericSize.Value;
+			string fontName = this.fontComboBox.SelectedFontFamily;
 			return FontHelper.GetFont(fontName, size, style);
 		}
 
 		private void FontSetting_Changed(object sender, EventArgs e)
 		{
-			if (!_suppressEvents)
-				labelSample.Font = GetFont();
-			if (OnUserFontChanged != null)
-				OnUserFontChanged(this, e);
+			if (!this._suppressEvents)
+				this.labelSample.Font = this.GetFont();
+			if (this.OnUserFontChanged != null)
+				this.OnUserFontChanged(this, e);
 		}
 
 		#endregion

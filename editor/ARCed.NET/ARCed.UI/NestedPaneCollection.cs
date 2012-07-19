@@ -33,12 +33,12 @@ namespace ARCed.UI
 
 		public DockState DockState
 		{
-			get	{	return Container.DockState;	}
+			get	{	return this.Container.DockState;	}
 		}
 
 		public bool IsFloat
 		{
-			get	{	return DockState == DockState.Float;	}
+			get	{	return this.DockState == DockState.Float;	}
 		}
 
 		internal void Add(DockPane pane)
@@ -56,11 +56,11 @@ namespace ARCed.UI
 
 		private void CheckFloatWindowDispose()
 		{
-			if (Count == 0 && Container.DockState == DockState.Float)
+			if (Count == 0 && this.Container.DockState == DockState.Float)
 			{
-				var floatWindow = (FloatWindow)Container;
+				var floatWindow = (FloatWindow)this.Container;
 				if (!floatWindow.Disposing && !floatWindow.IsDisposed)
-					NativeMethods.PostMessage(((FloatWindow)Container).Handle, FloatWindow.WM_CHECKDISPOSE, 0, 0);
+					NativeMethods.PostMessage(((FloatWindow)this.Container).Handle, FloatWindow.WM_CHECKDISPOSE, 0, 0);
 			}
 		}
 
@@ -116,8 +116,8 @@ namespace ARCed.UI
 
 		internal void Remove(DockPane pane)
 		{
-			InternalRemove(pane);
-			CheckFloatWindowDispose();
+			this.InternalRemove(pane);
+			this.CheckFloatWindowDispose();
 		}
 
 		private void InternalRemove(DockPane pane)

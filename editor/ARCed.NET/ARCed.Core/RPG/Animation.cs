@@ -49,16 +49,14 @@ namespace RPG
         /// </summary>
 		public Animation()
 		{
-			id = 0;
-			name = "";
-			animation_name = "";
-			animation_hue = 0;
-			position = 1;
-			frame_max = 1;
-			frames = new List<dynamic>
-			{ new Frame() };
-			timings = new List<dynamic>
-			{  };
+			this.id = 0;
+			this.name = "";
+			this.animation_name = "";
+			this.animation_hue = 0;
+			this.position = 1;
+			this.frame_max = 1;
+			this.frames = new List<dynamic> { new Frame() };
+			this.timings = new List<dynamic> {  };
 		}
 
 		/// <summary>
@@ -94,8 +92,8 @@ namespace RPG
             /// </summary>
 			public Frame()
 			{
-				cell_max = 0;
-				cell_data = new Table(0, 0);
+				this.cell_max = 0;
+				this.cell_data = new Table(0, 0);
 			}
 		}
 
@@ -134,12 +132,12 @@ namespace RPG
             /// </summary>
 			public Timing()
 			{
-				frame = 0;
-				se = new AudioFile("", 80);
-				flash_scope = 0;
-				flash_color = new Color();
-				flash_duration = 5;
-				condition = 0;
+				this.frame = 0;
+				this.se = new AudioFile("", 80);
+				this.flash_scope = 0;
+				this.flash_color = new Color(0, 0, 0, 0);
+				this.flash_duration = 5;
+				this.condition = 0;
 			}
 		}
 	}

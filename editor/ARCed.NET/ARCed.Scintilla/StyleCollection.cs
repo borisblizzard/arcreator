@@ -41,7 +41,7 @@ namespace ARCed.Scintilla
 
         public string GetStyleNameAt(int position)
         {
-            int styleNumber = GetStyleAt(position);
+            int styleNumber = this.GetStyleAt(position);
             foreach (KeyValuePair<string, int> map in Scintilla.Lexing.StyleNameMap)
                 if (map.Value == styleNumber)
                     return map.Key;
@@ -60,7 +60,7 @@ namespace ARCed.Scintilla
         private void ResetBits()
         {
 #pragma warning disable 618
-            Bits = 7;
+            this.Bits = 7;
 #pragma warning restore 618
         }
 
@@ -73,23 +73,23 @@ namespace ARCed.Scintilla
 
         internal bool ShouldSerialize()
         {
-            return ShouldSerializeBits() ||
-                ShouldSerializeBraceBad() ||
-                ShouldSerializeBraceLight() ||
-                ShouldSerializeCallTip() ||
-                ShouldSerializeControlChar() ||
-                ShouldSerializeDefault() ||
-                ShouldSerializeIndentGuide() ||
-                ShouldSerializeLastPredefined() ||
-                ShouldSerializeLineNumber() ||
-                ShouldSerializeMax();
+            return this.ShouldSerializeBits() ||
+                this.ShouldSerializeBraceBad() ||
+                this.ShouldSerializeBraceLight() ||
+                this.ShouldSerializeCallTip() ||
+                this.ShouldSerializeControlChar() ||
+                this.ShouldSerializeDefault() ||
+                this.ShouldSerializeIndentGuide() ||
+                this.ShouldSerializeLastPredefined() ||
+                this.ShouldSerializeLineNumber() ||
+                this.ShouldSerializeMax();
         }
 
 
         private bool ShouldSerializeBits()
         {
 #pragma warning disable 618
-            return Bits != 7;
+            return this.Bits != 7;
 #pragma warning restore 618
 
         }
@@ -97,55 +97,55 @@ namespace ARCed.Scintilla
 
         private bool ShouldSerializeBraceBad()
         {
-            return BraceBad.ShouldSerialize();
+            return this.BraceBad.ShouldSerialize();
         }
 
 
         private bool ShouldSerializeBraceLight()
         {
-            return BraceLight.ShouldSerialize();
+            return this.BraceLight.ShouldSerialize();
         }
 
 
         private bool ShouldSerializeCallTip()
         {
-            return CallTip.ShouldSerialize();
+            return this.CallTip.ShouldSerialize();
         }
 
 
         private bool ShouldSerializeControlChar()
         {
-            return ControlChar.ShouldSerialize();
+            return this.ControlChar.ShouldSerialize();
         }
 
 
         private bool ShouldSerializeDefault()
         {
-            return BraceBad.ShouldSerialize();
+            return this.BraceBad.ShouldSerialize();
         }
 
 
         private bool ShouldSerializeIndentGuide()
         {
-            return IndentGuide.ShouldSerialize();
+            return this.IndentGuide.ShouldSerialize();
         }
 
 
         private bool ShouldSerializeLastPredefined()
         {
-            return LastPredefined.ShouldSerialize();
+            return this.LastPredefined.ShouldSerialize();
         }
 
 
         private bool ShouldSerializeLineNumber()
         {
-            return LineNumber.ShouldSerialize();
+            return this.LineNumber.ShouldSerialize();
         }
 
 
         private bool ShouldSerializeMax()
         {
-            return Max.ShouldSerialize();
+            return this.Max.ShouldSerialize();
         }
 
         #endregion Methods
@@ -298,18 +298,18 @@ namespace ARCed.Scintilla
         internal StyleCollection(Scintilla scintilla) : base(scintilla)
         {
 #pragma warning disable 618
-            Bits = 7;
+            this.Bits = 7;
 #pragma warning restore 618
 
             //	Defaulting CallTip Settings to Platform defaults
-            Style s = CallTip;
+            Style s = this.CallTip;
             s.ForeColor = SystemColors.InfoText;
             s.BackColor = SystemColors.Info;
             s.Font = SystemFonts.StatusFont;
 
             //	Making Line Number's BackColor have a named system color
             //	instead of just the value
-            LineNumber.BackColor = SystemColors.Control;
+            this.LineNumber.BackColor = SystemColors.Control;
         }
 
         #endregion Constructors

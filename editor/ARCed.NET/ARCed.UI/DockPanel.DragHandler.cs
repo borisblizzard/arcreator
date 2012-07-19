@@ -27,8 +27,8 @@ namespace ARCed.UI
             private Point m_startMousePosition = Point.Empty;
             protected Point StartMousePosition
             {
-                get { return m_startMousePosition; }
-                private set { m_startMousePosition = value; }
+                get { return this.m_startMousePosition; }
+                private set { this.m_startMousePosition = value; }
             }
 
             protected bool BeginDrag()
@@ -36,16 +36,16 @@ namespace ARCed.UI
                 // Avoid re-entrance;
                 lock (this)
                 {
-                    if (DragControl == null)
+                    if (this.DragControl == null)
                         return false;
 
-                    StartMousePosition = MousePosition;
+                    this.StartMousePosition = MousePosition;
 
-                    if (!NativeMethods.DragDetect(DragControl.Handle, StartMousePosition))
+                    if (!NativeMethods.DragDetect(this.DragControl.Handle, this.StartMousePosition))
                         return false;
 
-                    DragControl.FindForm().Capture = true;
-                    AssignHandle(DragControl.FindForm().Handle);
+                    this.DragControl.FindForm().Capture = true;
+                    AssignHandle(this.DragControl.FindForm().Handle);
                     Application.AddMessageFilter(this);
                     return true;
                 }
@@ -59,23 +59,23 @@ namespace ARCed.UI
             {
                 ReleaseHandle();
                 Application.RemoveMessageFilter(this);
-                DragControl.FindForm().Capture = false;
+                this.DragControl.FindForm().Capture = false;
 
-                OnEndDrag(abort);
+                this.OnEndDrag(abort);
             }
 
             bool IMessageFilter.PreFilterMessage(ref Message m)
             {
                 if (m.Msg == (int)Msgs.WM_MOUSEMOVE)
-                    OnDragging();
+                    this.OnDragging();
                 else if (m.Msg == (int)Msgs.WM_LBUTTONUP)
-                    EndDrag(false);
+                    this.EndDrag(false);
                 else if (m.Msg == (int)Msgs.WM_CAPTURECHANGED)
-                    EndDrag(true);
+                    this.EndDrag(true);
                 else if (m.Msg == (int)Msgs.WM_KEYDOWN && (int)m.WParam == (int)Keys.Escape)
-                    EndDrag(true);
+                    this.EndDrag(true);
 
-                return OnPreFilterMessage(ref m);
+                return this.OnPreFilterMessage(ref m);
             }
 
             protected virtual bool OnPreFilterMessage(ref Message m)
@@ -86,7 +86,7 @@ namespace ARCed.UI
             protected sealed override void WndProc(ref Message m)
             {
                 if (m.Msg == (int)Msgs.WM_CANCELMODE || m.Msg == (int)Msgs.WM_CAPTURECHANGED)
-                    EndDrag(true);
+                    this.EndDrag(true);
 
                 base.WndProc(ref m);
             }
@@ -109,13 +109,13 @@ namespace ARCed.UI
             private IDragSource m_dragSource;
             protected IDragSource DragSource
             {
-                get { return m_dragSource; }
-                set { m_dragSource = value; }
+                get { return this.m_dragSource; }
+                set { this.m_dragSource = value; }
             }
 
             protected sealed override Control DragControl
             {
-                get { return DragSource == null ? null : DragSource.DragControl; }
+                get { return this.DragSource == null ? null : this.DragSource.DragControl; }
             }
 
             protected sealed override bool OnPreFilterMessage(ref Message m)

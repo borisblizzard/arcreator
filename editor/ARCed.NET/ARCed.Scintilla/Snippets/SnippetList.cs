@@ -23,19 +23,19 @@ namespace ARCed.Scintilla
 
         public Snippet Add(string shortcut, string code)
         {
-            return Add(shortcut, code, _manager.DefaultDelimeter);
+            return this.Add(shortcut, code, this._manager.DefaultDelimeter);
         }
 
 
         public Snippet Add(string shortcut, string code, bool isSurroundsWith)
         {
-            return Add(shortcut, code, _manager.DefaultDelimeter, isSurroundsWith);
+            return this.Add(shortcut, code, this._manager.DefaultDelimeter, isSurroundsWith);
         }
 
 
         public Snippet Add(string shortcut, string code, char delimeter)
         {
-            return Add(shortcut, code, delimeter, false);
+            return this.Add(shortcut, code, delimeter, false);
         }
 
 
@@ -68,14 +68,14 @@ namespace ARCed.Scintilla
             Array.Sort(a);
 
             Clear();
-            AddRange(a);
+            this.AddRange(a);
         }
 
 
         public override string ToString()
         {
             var sb = new StringBuilder();
-            foreach (Snippet s in this.Items)
+            foreach (Snippet s in Items)
                 sb.Append(s.Shortcut).Append(" ");
 
             if (sb.Length > 0)
@@ -105,9 +105,9 @@ namespace ARCed.Scintilla
 
         internal SnippetList(SnippetManager manager)
         {
-            if (_manager != null)
+            if (this._manager != null)
             {
-                _manager = manager;
+                this._manager = manager;
             }
         }
 

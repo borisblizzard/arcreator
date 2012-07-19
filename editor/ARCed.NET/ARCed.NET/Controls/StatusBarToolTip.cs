@@ -11,13 +11,13 @@ namespace ARCed.Controls
 	{
 		public StatusBarToolTip()
 		{
-			InitializeComponent();
+			this.InitializeComponent();
 		}
 
 		public StatusBarToolTip(IContainer container)
 		{
 			container.Add(this);
-			InitializeComponent();
+			this.InitializeComponent();
 		}
 		
 		private void StatusBarToolTip_Popup(object sender, PopupEventArgs e)

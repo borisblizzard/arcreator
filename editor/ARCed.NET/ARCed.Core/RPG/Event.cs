@@ -39,11 +39,11 @@ namespace RPG
         /// <param name="y">The event's Y-coordinate on the map.</param>
 		public Event(int x = 0, int y = 0)
 		{
-			id = 0;
-			name = "";
+			this.id = 0;
+			this.name = "";
 			this.x = x;
 			this.y = y;
-            pages = new List<dynamic>
+            this.pages = new List<dynamic>
             { new Page() };
 		}
 
@@ -121,19 +121,19 @@ namespace RPG
             /// </summary>
 			public Page()
 			{
-				condition = new Condition();
-				graphic = new Graphic();
-				move_type = 0;
-				move_speed = 3;
-				move_frequency = 3;
-				move_route = new MoveRoute();
-				walk_anime = true;
-				step_anime = false;
-				direction_fix = false;
-				through = false;
-				always_on_top = false;
-				trigger = 0;
-                list = new List<dynamic>
+				this.condition = new Condition();
+				this.graphic = new Graphic();
+				this.move_type = 0;
+				this.move_speed = 3;
+				this.move_frequency = 3;
+				this.move_route = new MoveRoute();
+				this.walk_anime = true;
+				this.step_anime = false;
+				this.direction_fix = false;
+				this.through = false;
+				this.always_on_top = false;
+				this.trigger = 0;
+                this.list = new List<dynamic>
                 { new EventCommand() };
 			}
 
@@ -184,15 +184,15 @@ namespace RPG
                 /// </summary>
 				public Condition()
 				{
-					switch1_valid = false;
-					switch2_valid = false;
-					variable_valid = false;
-					self_switch_valid = false;
-					switch1_id = 1;
-					switch2_id = 1;
-					variable_id = 1;
-					variable_value = 0;
-					self_switch_ch = 'A';
+					this.switch1_valid = false;
+					this.switch2_valid = false;
+					this.variable_valid = false;
+					this.self_switch_valid = false;
+					this.switch1_id = 1;
+					this.switch2_id = 1;
+					this.variable_id = 1;
+					this.variable_value = 0;
+					this.self_switch_ch = 'A';
 				}
 			}
 
@@ -235,13 +235,13 @@ namespace RPG
                 /// </summary>
 				public Graphic()
 				{
-					tile_id = 0;
-					character_name = "";
-					character_hue = 0;
-					direction = 2;
-					pattern = 0;
-					opacity = 255;
-					blend_type = 0;
+					this.tile_id = 0;
+					this.character_name = "";
+					this.character_hue = 0;
+					this.direction = 2;
+					this.pattern = 0;
+					this.opacity = 255;
+					this.blend_type = 0;
 				}
 			}
 		}

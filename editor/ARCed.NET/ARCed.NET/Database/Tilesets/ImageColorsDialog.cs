@@ -16,16 +16,16 @@ namespace ARCed.Database.Tilesets
 	{
 		private readonly ImageColorSettings _original, _settings;
 
-		public ImageColorSettings Settings { get { return _settings; } }
-		public ImageColorSettings OriginalSettings { get { return _original; } }
+		public ImageColorSettings Settings { get { return this._settings; } }
+		public ImageColorSettings OriginalSettings { get { return this._original; } }
 		public GraphicsDeviceControl XnaPanel { get; set; }
 
 		public ImageColorsDialog(ImageColorSettings settings)
 		{
-			InitializeComponent();
-			_original = Util.CloneObject(settings);
-			_settings = settings;
-			RefreshColors();
+			this.InitializeComponent();
+			this._original = Util.CloneObject(settings);
+			this._settings = settings;
+			this.RefreshColors();
 		}
 
 		private static Color GetColor(Color color)
@@ -41,35 +41,35 @@ namespace ARCed.Database.Tilesets
 
 		private void RefreshColors()
 		{
-			panelBackground.BackColor = _settings.BackgroundColor.ToSystemColor();
-			panelSelector.BackColor = _settings.SelectorColor.ToSystemColor();
-			panelGrid.BackColor = _settings.GridColor.ToSystemColor();
-			if (XnaPanel != null)
-				XnaPanel.Invalidate();
+			this.panelBackground.BackColor = this._settings.BackgroundColor.ToSystemColor();
+			this.panelSelector.BackColor = this._settings.SelectorColor.ToSystemColor();
+			this.panelGrid.BackColor = this._settings.GridColor.ToSystemColor();
+			if (this.XnaPanel != null)
+				this.XnaPanel.Invalidate();
 		}
 
 		private void panelBackgroundColor_DoubleClick(object sender, EventArgs e)
 		{
-			_settings.BackgroundColor = GetColor(panelBackground.BackColor).ToXnaColor();
-			RefreshColors();
+			this._settings.BackgroundColor = GetColor(this.panelBackground.BackColor).ToXnaColor();
+			this.RefreshColors();
 		}
 
 		private void panelSelectorColor_DoubleClick(object sender, EventArgs e)
 		{
-			_settings.SelectorColor = GetColor(panelSelector.BackColor).ToXnaColor();
-			RefreshColors();
+			this._settings.SelectorColor = GetColor(this.panelSelector.BackColor).ToXnaColor();
+			this.RefreshColors();
 		}
 
 		private void panelGridColor_DoubleClick(object sender, EventArgs e)
 		{
-			_settings.GridColor = GetColor(panelGrid.BackColor).ToXnaColor();
-			RefreshColors();
+			this._settings.GridColor = GetColor(this.panelGrid.BackColor).ToXnaColor();
+			this.RefreshColors();
 		}
 
 		private void buttonOK_Click(object sender, EventArgs e)
 		{
-			this.DialogResult = DialogResult.OK;
-			this.Close();
+			DialogResult = DialogResult.OK;
+			Close();
 		}
 	}
 }

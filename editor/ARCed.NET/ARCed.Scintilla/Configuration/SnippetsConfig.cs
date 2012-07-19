@@ -29,11 +29,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _code;
+                return this._code;
             }
             set
             {
-                _code = value;
+                this._code = value;
             }
         }
 
@@ -42,11 +42,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _delimeter;
+                return this._delimeter;
             }
             set
             {
-                _delimeter = value;
+                this._delimeter = value;
             }
         }
 
@@ -55,11 +55,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _isSurroundsWith;
+                return this._isSurroundsWith;
             }
             set
             {
-                _isSurroundsWith = value;
+                this._isSurroundsWith = value;
             }
         }
 
@@ -68,11 +68,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _shortcut;
+                return this._shortcut;
             }
             set
             {
-                _shortcut = value;
+                this._shortcut = value;
             }
         }
 

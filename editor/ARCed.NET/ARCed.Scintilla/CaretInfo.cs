@@ -67,116 +67,116 @@ namespace ARCed.Scintilla
 
         private void ResetBlinkRate()
         {
-            BlinkRate = SystemInformation.CaretBlinkTime;
+            this.BlinkRate = SystemInformation.CaretBlinkTime;
         }
 
 
         private void ResetColor()
         {
-            Color = Color.Black;
+            this.Color = Color.Black;
         }
 
 
         private void ResetCurrentLineBackgroundAlpha()
         {
-            CurrentLineBackgroundAlpha = 256;
+            this.CurrentLineBackgroundAlpha = 256;
         }
 
 
         private void ResetCurrentLineBackgroundColor()
         {
-            CurrentLineBackgroundColor = Color.Yellow;
+            this.CurrentLineBackgroundColor = Color.Yellow;
         }
 
 
         private void ResetHighlightCurrentLine()
         {
-            HighlightCurrentLine = false;
+            this.HighlightCurrentLine = false;
         }
 
 
         private void ResetIsSticky()
         {
-            IsSticky = false;
+            this.IsSticky = false;
         }
 
 
         private void ResetStyle()
         {
-            Style = CaretStyle.Line;
+            this.Style = CaretStyle.Line;
         }
 
 
         private void ResetWidth()
         {
-            Width = SystemInformation.CaretWidth;
+            this.Width = SystemInformation.CaretWidth;
         }
 
 
         protected internal bool ShouldSerialize()
         {
-            return ShouldSerializeBlinkRate() ||
-                    ShouldSerializeColor() ||
-                    ShouldSerializeCurrentLineBackgroundColor() ||
-                    ShouldSerializeWidth() ||
-                    ShouldSerializeHighlightCurrentLine() ||
-                    ShouldSerializeCurrentLineBackgroundAlpha() ||
-                    ShouldSerializeStyle() ||
-                    ShouldSerializeIsSticky();
+            return this.ShouldSerializeBlinkRate() ||
+                    this.ShouldSerializeColor() ||
+                    this.ShouldSerializeCurrentLineBackgroundColor() ||
+                    this.ShouldSerializeWidth() ||
+                    this.ShouldSerializeHighlightCurrentLine() ||
+                    this.ShouldSerializeCurrentLineBackgroundAlpha() ||
+                    this.ShouldSerializeStyle() ||
+                    this.ShouldSerializeIsSticky();
         }
 
 
         private bool ShouldSerializeBlinkRate()
         {
-            return BlinkRate != SystemInformation.CaretBlinkTime;
+            return this.BlinkRate != SystemInformation.CaretBlinkTime;
         }
 
 
         private bool ShouldSerializeColor()
         {
-            return Color != Color.Black;
+            return this.Color != Color.Black;
         }
 
 
         private bool ShouldSerializeCurrentLineBackgroundAlpha()
         {
-            return CurrentLineBackgroundAlpha != 256;
+            return this.CurrentLineBackgroundAlpha != 256;
         }
 
 
         private bool ShouldSerializeCurrentLineBackgroundColor()
         {
-            return CurrentLineBackgroundColor != Color.Yellow;
+            return this.CurrentLineBackgroundColor != Color.Yellow;
         }
 
 
         private bool ShouldSerializeHighlightCurrentLine()
         {
-            return HighlightCurrentLine;
+            return this.HighlightCurrentLine;
         }
 
 
         private bool ShouldSerializeIsSticky()
         {
-            return IsSticky;
+            return this.IsSticky;
         }
 
 
         private bool ShouldSerializeStyle()
         {
-            return Style != CaretStyle.Line;
+            return this.Style != CaretStyle.Line;
         }
 
 
         private bool ShouldSerializeWidth()
         {
-            return Width != SystemInformation.CaretWidth;
+            return this.Width != SystemInformation.CaretWidth;
         }
 
 
         public override string ToString()
         {
-            return ShouldSerialize() ? base.ToString() : string.Empty;
+            return this.ShouldSerialize() ? base.ToString() : string.Empty;
         }
 
         #endregion Methods
@@ -237,19 +237,16 @@ namespace ARCed.Scintilla
 
                 Color c = Utilities.RgbToColor(NativeScintilla.GetCaretFore());
 
-                if (c == Color.FromArgb(0, 0, 0))
-                    return Color.Black;
-
-                return c;
+                return c == Color.FromArgb(0, 0, 0) ? Color.Black : c;
             }
             set
             {
-                if (value == Color)
+                if (value == this.Color)
                     return;
 
                 if (value.IsKnownColor)
                 {
-                    if (Color == Color.Black)
+                    if (this.Color == Color.Black)
                         Scintilla.ColorBag.Remove("Caret.Color");
                     else
                         Scintilla.ColorBag["Caret.Color"] = value;
@@ -295,21 +292,18 @@ namespace ARCed.Scintilla
 
                 Color c = Utilities.RgbToColor(NativeScintilla.GetCaretLineBack());
 
-                if (c.ToArgb() == Color.Yellow.ToArgb())
-                    return Color.Yellow;
-
-                return c;
+                return c.ToArgb() == Color.Yellow.ToArgb() ? Color.Yellow : c;
             }
             set
             {
 
 
-                if (value == Color)
+                if (value == this.Color)
                     return;
 
                 if (value.IsKnownColor)
                 {
-                    if (Color == Color.Yellow)
+                    if (this.Color == Color.Yellow)
                         Scintilla.ColorBag.Remove("Caret.CurrentLineBackgroundColor");
                     else
                         Scintilla.ColorBag["Caret.CurrentLineBackgroundColor"] = value;
@@ -434,8 +428,8 @@ namespace ARCed.Scintilla
         protected internal CaretInfo(Scintilla scintilla)
             : base(scintilla)
         {
-            BlinkRate = SystemInformation.CaretBlinkTime;
-            Width = SystemInformation.CaretWidth;
+            this.BlinkRate = SystemInformation.CaretBlinkTime;
+            this.Width = SystemInformation.CaretWidth;
         }
 
         #endregion Constructors

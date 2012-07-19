@@ -145,21 +145,21 @@
             this.fileMenuExit});
             this.menuStripFile.Name = "menuStripFile";
             resources.ApplyResources(this.menuStripFile, "menuStripFile");
-            this.menuStripFile.DropDownOpening += new System.EventHandler(this.menuItemFile_DropDownOpening);
+            this.menuStripFile.DropDownOpening += new System.EventHandler(this.MenuItemFileDropDownOpening);
             // 
             // fileMenuNewProject
             // 
             this.fileMenuNewProject.Image = global::ARCed.Properties.Resources.NewDocument;
             resources.ApplyResources(this.fileMenuNewProject, "fileMenuNewProject");
             this.fileMenuNewProject.Name = "fileMenuNewProject";
-            this.fileMenuNewProject.Click += new System.EventHandler(this.fileMenuNewProject_Clicked);
+            this.fileMenuNewProject.Click += new System.EventHandler(this.FileMenuNewProjectClicked);
             // 
             // fileMenuOpenProject
             // 
             this.fileMenuOpenProject.Image = global::ARCed.Properties.Resources.FolderOpen;
             resources.ApplyResources(this.fileMenuOpenProject, "fileMenuOpenProject");
             this.fileMenuOpenProject.Name = "fileMenuOpenProject";
-            this.fileMenuOpenProject.Click += new System.EventHandler(this.fileMenuOpenProject_Click);
+            this.fileMenuOpenProject.Click += new System.EventHandler(this.FileMenuOpenProjectClick);
             // 
             // fileMenuOpenRecent
             // 
@@ -171,7 +171,7 @@
             this.fileMenuCloseProject.Image = global::ARCed.Properties.Resources.Close;
             this.fileMenuCloseProject.Name = "fileMenuCloseProject";
             resources.ApplyResources(this.fileMenuCloseProject, "fileMenuCloseProject");
-            this.fileMenuCloseProject.Click += new System.EventHandler(this.fileMenuCloseProject_Click);
+            this.fileMenuCloseProject.Click += new System.EventHandler(this.FileMenuCloseProjectClick);
             // 
             // toolStripSeparator
             // 
@@ -183,14 +183,14 @@
             this.fileMenuSaveProject.Image = global::ARCed.Properties.Resources.Save;
             resources.ApplyResources(this.fileMenuSaveProject, "fileMenuSaveProject");
             this.fileMenuSaveProject.Name = "fileMenuSaveProject";
-            this.fileMenuSaveProject.Click += new System.EventHandler(this.fileMenuSaveProject_Click);
+            this.fileMenuSaveProject.Click += new System.EventHandler(this.FileMenuSaveProjectClick);
             // 
             // fileMenuSaveTemplate
             // 
             this.fileMenuSaveTemplate.Image = global::ARCed.Properties.Resources.SaveTemplate;
             this.fileMenuSaveTemplate.Name = "fileMenuSaveTemplate";
             resources.ApplyResources(this.fileMenuSaveTemplate, "fileMenuSaveTemplate");
-            this.fileMenuSaveTemplate.Click += new System.EventHandler(this.fileMenuSaveTemplate_Click);
+            this.fileMenuSaveTemplate.Click += new System.EventHandler(this.FileMenuSaveTemplateClick);
             // 
             // toolStripSeparator1
             // 
@@ -201,7 +201,7 @@
             // 
             this.fileMenuExit.Name = "fileMenuExit";
             resources.ApplyResources(this.fileMenuExit, "fileMenuExit");
-            this.fileMenuExit.Click += new System.EventHandler(this.fileMenuExit_Click);
+            this.fileMenuExit.Click += new System.EventHandler(this.FileMenuExitClick);
             // 
             // menuStripEdit
             // 
@@ -215,7 +215,7 @@
             this.toolStripSeparator4});
             this.menuStripEdit.Name = "menuStripEdit";
             resources.ApplyResources(this.menuStripEdit, "menuStripEdit");
-            this.menuStripEdit.DropDownOpening += new System.EventHandler(this.menuStripEdit_DropDownOpening);
+            this.menuStripEdit.DropDownOpening += new System.EventHandler(this.MenuStripEditDropDownOpening);
             // 
             // editMenuUndo
             // 
@@ -277,7 +277,7 @@
             this.toolMenuEditorOptions});
             this.menuStripTools.Name = "menuStripTools";
             resources.ApplyResources(this.menuStripTools, "menuStripTools");
-            this.menuStripTools.DropDownOpening += new System.EventHandler(this.menuStripTools_DropDownOpening);
+            this.menuStripTools.DropDownOpening += new System.EventHandler(this.MenuStripToolsDropDownOpening);
             // 
             // toolMenuDatabaseManager
             // 
@@ -290,7 +290,7 @@
             this.toolMenuScriptManager.Image = global::ARCed.Properties.Resources.Ruby;
             this.toolMenuScriptManager.Name = "toolMenuScriptManager";
             resources.ApplyResources(this.toolMenuScriptManager, "toolMenuScriptManager");
-            this.toolMenuScriptManager.Click += new System.EventHandler(this.toolMenuScriptManager_Click);
+            this.toolMenuScriptManager.Click += new System.EventHandler(this.ToolMenuScriptManagerClick);
             // 
             // toolStripSeparator2
             // 
@@ -318,14 +318,14 @@
             this.toolMenuARChiveUtility.Image = global::ARCed.Properties.Resources.SevenZip;
             this.toolMenuARChiveUtility.Name = "toolMenuARChiveUtility";
             resources.ApplyResources(this.toolMenuARChiveUtility, "toolMenuARChiveUtility");
-            this.toolMenuARChiveUtility.Click += new System.EventHandler(this.backupUtilityToolStripMenuItem_Click);
+            this.toolMenuARChiveUtility.Click += new System.EventHandler(this.BackupUtilityToolStripMenuItemClick);
             // 
             // toolMenuSkinManager
             // 
             this.toolMenuSkinManager.Image = global::ARCed.Properties.Resources.Theme;
             this.toolMenuSkinManager.Name = "toolMenuSkinManager";
             resources.ApplyResources(this.toolMenuSkinManager, "toolMenuSkinManager");
-            this.toolMenuSkinManager.Click += new System.EventHandler(this.toolMenuSkinManager_Click);
+            this.toolMenuSkinManager.Click += new System.EventHandler(this.ToolMenuSkinManagerClick);
             // 
             // toolMenuScriptSettings
             // 
@@ -341,14 +341,14 @@
             this.toolScriptMenuStyleSettings.Image = global::ARCed.Properties.Resources.Scintilla;
             this.toolScriptMenuStyleSettings.Name = "toolScriptMenuStyleSettings";
             resources.ApplyResources(this.toolScriptMenuStyleSettings, "toolScriptMenuStyleSettings");
-            this.toolScriptMenuStyleSettings.Click += new System.EventHandler(this.styleManagerToolStripMenuItem_Click);
+            this.toolScriptMenuStyleSettings.Click += new System.EventHandler(this.StyleManagerToolStripMenuItemClick);
             // 
             // toolScriptMenuAutoComplete
             // 
             this.toolScriptMenuAutoComplete.Image = global::ARCed.Properties.Resources.AutoComplete;
             this.toolScriptMenuAutoComplete.Name = "toolScriptMenuAutoComplete";
             resources.ApplyResources(this.toolScriptMenuAutoComplete, "toolScriptMenuAutoComplete");
-            this.toolScriptMenuAutoComplete.Click += new System.EventHandler(this.toolScriptMenuAutoComplete_Click);
+            this.toolScriptMenuAutoComplete.Click += new System.EventHandler(this.ToolScriptMenuAutoCompleteClick);
             // 
             // toolScriptMenuSnippetManager
             // 
@@ -360,7 +360,7 @@
             this.toolMenuEditorOptions.Image = global::ARCed.Properties.Resources.Settings;
             this.toolMenuEditorOptions.Name = "toolMenuEditorOptions";
             resources.ApplyResources(this.toolMenuEditorOptions, "toolMenuEditorOptions");
-            this.toolMenuEditorOptions.Click += new System.EventHandler(this.toolMenuEditorOptions_Click);
+            this.toolMenuEditorOptions.Click += new System.EventHandler(this.ToolMenuEditorOptionsClick);
             // 
             // menuStripGame
             // 
@@ -382,21 +382,21 @@
             this.gameMenuOpenFolder.Name = "gameMenuOpenFolder";
             resources.ApplyResources(this.gameMenuOpenFolder, "gameMenuOpenFolder");
             this.gameMenuOpenFolder.Tag = "Game";
-            this.gameMenuOpenFolder.Click += new System.EventHandler(this.buttonOpenGameDirectory_Click);
+            this.gameMenuOpenFolder.Click += new System.EventHandler(this.ButtonOpenGameDirectoryClick);
             // 
             // gameMenuOpenGraphics
             // 
             this.gameMenuOpenGraphics.Name = "gameMenuOpenGraphics";
             resources.ApplyResources(this.gameMenuOpenGraphics, "gameMenuOpenGraphics");
             this.gameMenuOpenGraphics.Tag = "Graphics";
-            this.gameMenuOpenGraphics.Click += new System.EventHandler(this.buttonOpenGameDirectory_Click);
+            this.gameMenuOpenGraphics.Click += new System.EventHandler(this.ButtonOpenGameDirectoryClick);
             // 
             // gameMenuOpenAudio
             // 
             this.gameMenuOpenAudio.Name = "gameMenuOpenAudio";
             resources.ApplyResources(this.gameMenuOpenAudio, "gameMenuOpenAudio");
             this.gameMenuOpenAudio.Tag = "Audio";
-            this.gameMenuOpenAudio.Click += new System.EventHandler(this.buttonOpenGameDirectory_Click);
+            this.gameMenuOpenAudio.Click += new System.EventHandler(this.ButtonOpenGameDirectoryClick);
             // 
             // gameMenuOpenData
             // 
@@ -405,14 +405,14 @@
             this.gameMenuOpenData.Name = "gameMenuOpenData";
             resources.ApplyResources(this.gameMenuOpenData, "gameMenuOpenData");
             this.gameMenuOpenData.Tag = "Data";
-            this.gameMenuOpenData.Click += new System.EventHandler(this.buttonOpenGameDirectory_Click);
+            this.gameMenuOpenData.Click += new System.EventHandler(this.ButtonOpenGameDirectoryClick);
             // 
             // gameMenuOpenScripts
             // 
             this.gameMenuOpenScripts.Name = "gameMenuOpenScripts";
             resources.ApplyResources(this.gameMenuOpenScripts, "gameMenuOpenScripts");
             this.gameMenuOpenScripts.Tag = "Scripts";
-            this.gameMenuOpenScripts.Click += new System.EventHandler(this.buttonOpenGameDirectory_Click);
+            this.gameMenuOpenScripts.Click += new System.EventHandler(this.ButtonOpenGameDirectoryClick);
             // 
             // gameMenuOpenTemplates
             // 
@@ -422,35 +422,35 @@
             this.gameMenuOpenTemplates.Name = "gameMenuOpenTemplates";
             resources.ApplyResources(this.gameMenuOpenTemplates, "gameMenuOpenTemplates");
             this.gameMenuOpenTemplates.Tag = "Templates";
-            this.gameMenuOpenTemplates.Click += new System.EventHandler(this.buttonOpenGameDirectory_Click);
+            this.gameMenuOpenTemplates.Click += new System.EventHandler(this.ButtonOpenGameDirectoryClick);
             // 
             // gameMenuOpenProjectTemplates
             // 
             this.gameMenuOpenProjectTemplates.Name = "gameMenuOpenProjectTemplates";
             resources.ApplyResources(this.gameMenuOpenProjectTemplates, "gameMenuOpenProjectTemplates");
             this.gameMenuOpenProjectTemplates.Tag = "TemplatesProjects";
-            this.gameMenuOpenProjectTemplates.Click += new System.EventHandler(this.buttonOpenGameDirectory_Click);
+            this.gameMenuOpenProjectTemplates.Click += new System.EventHandler(this.ButtonOpenGameDirectoryClick);
             // 
             // gameMenuOpenScriptTemplates
             // 
             this.gameMenuOpenScriptTemplates.Name = "gameMenuOpenScriptTemplates";
             resources.ApplyResources(this.gameMenuOpenScriptTemplates, "gameMenuOpenScriptTemplates");
             this.gameMenuOpenScriptTemplates.Tag = "TemplatesProjects";
-            this.gameMenuOpenScriptTemplates.Click += new System.EventHandler(this.buttonOpenGameDirectory_Click);
+            this.gameMenuOpenScriptTemplates.Click += new System.EventHandler(this.ButtonOpenGameDirectoryClick);
             // 
             // gameMenuOpenPlugins
             // 
             this.gameMenuOpenPlugins.Name = "gameMenuOpenPlugins";
             resources.ApplyResources(this.gameMenuOpenPlugins, "gameMenuOpenPlugins");
             this.gameMenuOpenPlugins.Tag = "Plugins";
-            this.gameMenuOpenPlugins.Click += new System.EventHandler(this.buttonOpenGameDirectory_Click);
+            this.gameMenuOpenPlugins.Click += new System.EventHandler(this.ButtonOpenGameDirectoryClick);
             // 
             // gameMenuOpenSettings
             // 
             this.gameMenuOpenSettings.Name = "gameMenuOpenSettings";
             resources.ApplyResources(this.gameMenuOpenSettings, "gameMenuOpenSettings");
             this.gameMenuOpenSettings.Tag = "Settings";
-            this.gameMenuOpenSettings.Click += new System.EventHandler(this.buttonOpenGameDirectory_Click);
+            this.gameMenuOpenSettings.Click += new System.EventHandler(this.ButtonOpenGameDirectoryClick);
             // 
             // menuStripHelp
             // 
@@ -471,7 +471,7 @@
             // 
             this.helpMenuAbout.Name = "helpMenuAbout";
             resources.ApplyResources(this.helpMenuAbout, "helpMenuAbout");
-            this.helpMenuAbout.Click += new System.EventHandler(this.helpMenuAbout_Click);
+            this.helpMenuAbout.Click += new System.EventHandler(this.HelpMenuAboutClick);
             // 
             // toolStripMenuDatabase
             // 
@@ -500,105 +500,105 @@
             this.actorsToolStripMenuItem.Name = "actorsToolStripMenuItem";
             resources.ApplyResources(this.actorsToolStripMenuItem, "actorsToolStripMenuItem");
             this.actorsToolStripMenuItem.Tag = "0";
-            this.actorsToolStripMenuItem.Click += new System.EventHandler(this.toolComboDatabaseItem_Click);
+            this.actorsToolStripMenuItem.Click += new System.EventHandler(this.ToolComboDatabaseItemClick);
             // 
             // classesToolStripMenuItem
             // 
             this.classesToolStripMenuItem.Name = "classesToolStripMenuItem";
             resources.ApplyResources(this.classesToolStripMenuItem, "classesToolStripMenuItem");
             this.classesToolStripMenuItem.Tag = "1";
-            this.classesToolStripMenuItem.Click += new System.EventHandler(this.toolComboDatabaseItem_Click);
+            this.classesToolStripMenuItem.Click += new System.EventHandler(this.ToolComboDatabaseItemClick);
             // 
             // skillsToolStripMenuItem
             // 
             this.skillsToolStripMenuItem.Name = "skillsToolStripMenuItem";
             resources.ApplyResources(this.skillsToolStripMenuItem, "skillsToolStripMenuItem");
             this.skillsToolStripMenuItem.Tag = "2";
-            this.skillsToolStripMenuItem.Click += new System.EventHandler(this.toolComboDatabaseItem_Click);
+            this.skillsToolStripMenuItem.Click += new System.EventHandler(this.ToolComboDatabaseItemClick);
             // 
             // itemsToolStripMenuItem
             // 
             this.itemsToolStripMenuItem.Name = "itemsToolStripMenuItem";
             resources.ApplyResources(this.itemsToolStripMenuItem, "itemsToolStripMenuItem");
             this.itemsToolStripMenuItem.Tag = "3";
-            this.itemsToolStripMenuItem.Click += new System.EventHandler(this.toolComboDatabaseItem_Click);
+            this.itemsToolStripMenuItem.Click += new System.EventHandler(this.ToolComboDatabaseItemClick);
             // 
             // weaponsToolStripMenuItem
             // 
             this.weaponsToolStripMenuItem.Name = "weaponsToolStripMenuItem";
             resources.ApplyResources(this.weaponsToolStripMenuItem, "weaponsToolStripMenuItem");
             this.weaponsToolStripMenuItem.Tag = "4";
-            this.weaponsToolStripMenuItem.Click += new System.EventHandler(this.toolComboDatabaseItem_Click);
+            this.weaponsToolStripMenuItem.Click += new System.EventHandler(this.ToolComboDatabaseItemClick);
             // 
             // armorsToolStripMenuItem
             // 
             this.armorsToolStripMenuItem.Name = "armorsToolStripMenuItem";
             resources.ApplyResources(this.armorsToolStripMenuItem, "armorsToolStripMenuItem");
             this.armorsToolStripMenuItem.Tag = "5";
-            this.armorsToolStripMenuItem.Click += new System.EventHandler(this.toolComboDatabaseItem_Click);
+            this.armorsToolStripMenuItem.Click += new System.EventHandler(this.ToolComboDatabaseItemClick);
             // 
             // enemiesToolStripMenuItem
             // 
             this.enemiesToolStripMenuItem.Name = "enemiesToolStripMenuItem";
             resources.ApplyResources(this.enemiesToolStripMenuItem, "enemiesToolStripMenuItem");
             this.enemiesToolStripMenuItem.Tag = "6";
-            this.enemiesToolStripMenuItem.Click += new System.EventHandler(this.toolComboDatabaseItem_Click);
+            this.enemiesToolStripMenuItem.Click += new System.EventHandler(this.ToolComboDatabaseItemClick);
             // 
             // troopsToolStripMenuItem
             // 
             this.troopsToolStripMenuItem.Name = "troopsToolStripMenuItem";
             resources.ApplyResources(this.troopsToolStripMenuItem, "troopsToolStripMenuItem");
             this.troopsToolStripMenuItem.Tag = "7";
-            this.troopsToolStripMenuItem.Click += new System.EventHandler(this.toolComboDatabaseItem_Click);
+            this.troopsToolStripMenuItem.Click += new System.EventHandler(this.ToolComboDatabaseItemClick);
             // 
             // statesToolStripMenuItem
             // 
             this.statesToolStripMenuItem.Name = "statesToolStripMenuItem";
             resources.ApplyResources(this.statesToolStripMenuItem, "statesToolStripMenuItem");
             this.statesToolStripMenuItem.Tag = "8";
-            this.statesToolStripMenuItem.Click += new System.EventHandler(this.toolComboDatabaseItem_Click);
+            this.statesToolStripMenuItem.Click += new System.EventHandler(this.ToolComboDatabaseItemClick);
             // 
             // animationsToolStripMenuItem
             // 
             this.animationsToolStripMenuItem.Name = "animationsToolStripMenuItem";
             resources.ApplyResources(this.animationsToolStripMenuItem, "animationsToolStripMenuItem");
             this.animationsToolStripMenuItem.Tag = "9";
-            this.animationsToolStripMenuItem.Click += new System.EventHandler(this.toolComboDatabaseItem_Click);
+            this.animationsToolStripMenuItem.Click += new System.EventHandler(this.ToolComboDatabaseItemClick);
             // 
             // tilesetsToolStripMenuItem
             // 
             this.tilesetsToolStripMenuItem.Name = "tilesetsToolStripMenuItem";
             resources.ApplyResources(this.tilesetsToolStripMenuItem, "tilesetsToolStripMenuItem");
             this.tilesetsToolStripMenuItem.Tag = "10";
-            this.tilesetsToolStripMenuItem.Click += new System.EventHandler(this.toolComboDatabaseItem_Click);
+            this.tilesetsToolStripMenuItem.Click += new System.EventHandler(this.ToolComboDatabaseItemClick);
             // 
             // commonEventsToolStripMenuItem
             // 
             this.commonEventsToolStripMenuItem.Name = "commonEventsToolStripMenuItem";
             resources.ApplyResources(this.commonEventsToolStripMenuItem, "commonEventsToolStripMenuItem");
             this.commonEventsToolStripMenuItem.Tag = "11";
-            this.commonEventsToolStripMenuItem.Click += new System.EventHandler(this.toolComboDatabaseItem_Click);
+            this.commonEventsToolStripMenuItem.Click += new System.EventHandler(this.ToolComboDatabaseItemClick);
             // 
             // systemToolStripMenuItem
             // 
             this.systemToolStripMenuItem.Name = "systemToolStripMenuItem";
             resources.ApplyResources(this.systemToolStripMenuItem, "systemToolStripMenuItem");
             this.systemToolStripMenuItem.Tag = "12";
-            this.systemToolStripMenuItem.Click += new System.EventHandler(this.toolComboDatabaseItem_Click);
+            this.systemToolStripMenuItem.Click += new System.EventHandler(this.ToolComboDatabaseItemClick);
             // 
             // switchesToolStripMenuItem
             // 
             this.switchesToolStripMenuItem.Name = "switchesToolStripMenuItem";
             resources.ApplyResources(this.switchesToolStripMenuItem, "switchesToolStripMenuItem");
             this.switchesToolStripMenuItem.Tag = "13";
-            this.switchesToolStripMenuItem.Click += new System.EventHandler(this.toolComboDatabaseItem_Click);
+            this.switchesToolStripMenuItem.Click += new System.EventHandler(this.ToolComboDatabaseItemClick);
             // 
             // variablesToolStripMenuItem
             // 
             this.variablesToolStripMenuItem.Name = "variablesToolStripMenuItem";
             resources.ApplyResources(this.variablesToolStripMenuItem, "variablesToolStripMenuItem");
             this.variablesToolStripMenuItem.Tag = "14";
-            this.variablesToolStripMenuItem.Click += new System.EventHandler(this.toolComboDatabaseItem_Click);
+            this.variablesToolStripMenuItem.Click += new System.EventHandler(this.ToolComboDatabaseItemClick);
             // 
             // toolStripSeparator5
             // 
@@ -649,20 +649,20 @@
             this.saveToolStripMenuItem.Image = global::ARCed.Properties.Resources.Save;
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
             resources.ApplyResources(this.saveToolStripMenuItem, "saveToolStripMenuItem");
-            this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
+            this.saveToolStripMenuItem.Click += new System.EventHandler(this.SaveToolStripMenuItemClick);
             // 
             // closeToolStripMenuItem
             // 
             this.closeToolStripMenuItem.Image = global::ARCed.Properties.Resources.Close;
             this.closeToolStripMenuItem.Name = "closeToolStripMenuItem";
             resources.ApplyResources(this.closeToolStripMenuItem, "closeToolStripMenuItem");
-            this.closeToolStripMenuItem.Click += new System.EventHandler(this.closeToolStripMenuItem_Click);
+            this.closeToolStripMenuItem.Click += new System.EventHandler(this.CloseToolStripMenuItemClick);
             // 
             // closeAllButThisToolStripMenuItem
             // 
             this.closeAllButThisToolStripMenuItem.Name = "closeAllButThisToolStripMenuItem";
             resources.ApplyResources(this.closeAllButThisToolStripMenuItem, "closeAllButThisToolStripMenuItem");
-            this.closeAllButThisToolStripMenuItem.Click += new System.EventHandler(this.closeAllButThisToolStripMenuItem_Click);
+            this.closeAllButThisToolStripMenuItem.Click += new System.EventHandler(this.CloseAllButThisToolStripMenuItemClick);
             // 
             // toolStripSeparator7
             // 
@@ -673,7 +673,7 @@
             // 
             this.floatToolStripMenuItem.Name = "floatToolStripMenuItem";
             resources.ApplyResources(this.floatToolStripMenuItem, "floatToolStripMenuItem");
-            this.floatToolStripMenuItem.Click += new System.EventHandler(this.floatToolStripMenuItem_Click);
+            this.floatToolStripMenuItem.Click += new System.EventHandler(this.FloatToolStripMenuItemClick);
             // 
             // toolStripSeparator8
             // 
@@ -712,7 +712,7 @@
             this.IsMdiContainer = true;
             this.MainMenuStrip = this.menuStripMain;
             this.Name = "Editor";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Editor_FormClosing);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.EditorFormClosing);
             this.menuStripMain.ResumeLayout(false);
             this.menuStripMain.PerformLayout();
             this.statusStripMain.ResumeLayout(false);

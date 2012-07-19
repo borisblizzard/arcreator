@@ -28,8 +28,8 @@ namespace ARCed.Scintilla
         /// </summary>
         public string UriText
         {
-            get { return _uriText; }
-            set { _uriText = value; }
+            get { return this._uriText; }
+            set { this._uriText = value; }
         }
 
         #endregion Properties
@@ -43,7 +43,7 @@ namespace ARCed.Scintilla
         /// <param name="uriText">Text of the dropped file or uri</param>
         public UriDroppedEventArgs(string uriText)
         {
-            _uriText = uriText;
+            this._uriText = uriText;
         }
 
         #endregion Constructors

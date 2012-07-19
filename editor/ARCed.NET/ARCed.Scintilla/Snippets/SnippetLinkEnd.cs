@@ -13,7 +13,7 @@ namespace ARCed.Scintilla
 
         public override void Change(int newStart, int newEnd)
         {
-            Invalidate();
+            this.Invalidate();
 
             //	This actually changes Start and End
             base.Change(newStart, newEnd);
@@ -24,7 +24,7 @@ namespace ARCed.Scintilla
         {
             if (!IsDisposed)
             {
-                Invalidate();
+                this.Invalidate();
                 base.Dispose();
             }
         }

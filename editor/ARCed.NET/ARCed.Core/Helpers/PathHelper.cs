@@ -87,7 +87,7 @@ namespace ARCed.Helpers
 		{
 			get 
 			{ 
-				string path = Path.Combine(EditorDirectory, PLUGIN_FOLDER);
+				var path = Path.Combine(EditorDirectory, PLUGIN_FOLDER);
 				if (!Directory.Exists(path))
 					Directory.CreateDirectory(path);
 				return path;
@@ -101,7 +101,7 @@ namespace ARCed.Helpers
 		{
 			get
 			{
-                string path = Path.Combine(ApplicationData, TEMPLATES_FOLDER);
+                var path = Path.Combine(ApplicationData, TEMPLATES_FOLDER);
 				if (!Directory.Exists(path))
 					Directory.CreateDirectory(path);
 				return path;
@@ -115,7 +115,7 @@ namespace ARCed.Helpers
 		{
 			get 
 			{ 
-				string path = Path.Combine(TemplateDirectory, PROJECT_TEMPLATE_FOLDER);
+				var path = Path.Combine(TemplateDirectory, PROJECT_TEMPLATE_FOLDER);
 				if (!Directory.Exists(path))
 					Directory.CreateDirectory(path);
 				return path;
@@ -129,7 +129,7 @@ namespace ARCed.Helpers
 		{
 			get 
 			{
-				string path = Path.Combine(TemplateDirectory, SCRIPT_TEMPLATE_FOLDER);
+				var path = Path.Combine(TemplateDirectory, SCRIPT_TEMPLATE_FOLDER);
 				if (!Directory.Exists(path))
 					Directory.CreateDirectory(path);
 				return path;
@@ -143,7 +143,7 @@ namespace ARCed.Helpers
 		{
 			get
 			{
-				string path = Path.Combine(ApplicationData, EDITOR_SETTINGS_FOLDER);
+				var path = Path.Combine(ApplicationData, EDITOR_SETTINGS_FOLDER);
 				if (!Directory.Exists(path))
 					Directory.CreateDirectory(path);
 				return path;
@@ -181,7 +181,7 @@ namespace ARCed.Helpers
 		{
 			get
 			{
-				string path = Path.Combine(
+				var path = Path.Combine(
 					Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), ARC_PROJECT_FOLDER);
 				if (!Directory.Exists(path))
 					Directory.CreateDirectory(path);

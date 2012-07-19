@@ -31,233 +31,233 @@ namespace ARCed.Scintilla
 
         private void AddFindMru()
         {
-            string find = cboFindF.Text;
-            _mruFind.Remove(find);
+            string find = this.cboFindF.Text;
+            this._mruFind.Remove(find);
 
-            _mruFind.Insert(0, find);
+            this._mruFind.Insert(0, find);
 
-            if (_mruFind.Count > _mruMaxCount)
-                _mruFind.RemoveAt(_mruFind.Count - 1);
+            if (this._mruFind.Count > this._mruMaxCount)
+                this._mruFind.RemoveAt(this._mruFind.Count - 1);
 
-            _bindingSourceFind.ResetBindings(false);
-            cboFindR.SelectedIndex = 0;
-            cboFindF.SelectedIndex = 0;
+            this._bindingSourceFind.ResetBindings(false);
+            this.cboFindR.SelectedIndex = 0;
+            this.cboFindF.SelectedIndex = 0;
         }
 
 
         private void AddReplacMru()
         {
-            string find = cboFindR.Text;
-            _mruFind.Remove(find);
+            string find = this.cboFindR.Text;
+            this._mruFind.Remove(find);
 
-            _mruFind.Insert(0, find);
+            this._mruFind.Insert(0, find);
 
-            if (_mruFind.Count > _mruMaxCount)
-                _mruFind.RemoveAt(_mruFind.Count - 1);
+            if (this._mruFind.Count > this._mruMaxCount)
+                this._mruFind.RemoveAt(this._mruFind.Count - 1);
 
-            string replace = cboReplace.Text;
+            string replace = this.cboReplace.Text;
             if (replace != string.Empty)
             {
-                _mruReplace.Remove(replace);
+                this._mruReplace.Remove(replace);
 
-                _mruReplace.Insert(0, replace);
+                this._mruReplace.Insert(0, replace);
 
-                if (_mruReplace.Count > _mruMaxCount)
-                    _mruReplace.RemoveAt(_mruReplace.Count - 1);
+                if (this._mruReplace.Count > this._mruMaxCount)
+                    this._mruReplace.RemoveAt(this._mruReplace.Count - 1);
             }
 
-            _bindingSourceFind.ResetBindings(false);
-            _bindingSourceReplace.ResetBindings(false);
-            cboFindR.SelectedIndex = 0;
-            cboFindF.SelectedIndex = 0;
-            cboReplace.SelectedIndex = 0;
+            this._bindingSourceFind.ResetBindings(false);
+            this._bindingSourceReplace.ResetBindings(false);
+            this.cboFindR.SelectedIndex = 0;
+            this.cboFindF.SelectedIndex = 0;
+            this.cboReplace.SelectedIndex = 0;
         }
 
 
         private void btnClear_Click(object sender, EventArgs e)
         {
-            Scintilla.Markers.DeleteAll(Scintilla.FindReplace.Marker);
-            Scintilla.FindReplace.ClearAllHighlights();
+            this.Scintilla.Markers.DeleteAll(this.Scintilla.FindReplace.Marker);
+            this.Scintilla.FindReplace.ClearAllHighlights();
         }
 
 
         private void btnFindAll_Click(object sender, EventArgs e)
         {
-            if (cboFindF.Text == string.Empty)
+            if (this.cboFindF.Text == string.Empty)
                 return;
 
-            AddFindMru();
+            this.AddFindMru();
 
-            lblStatus.Text = string.Empty;
+            this.lblStatus.Text = string.Empty;
 
             List<Range> foundRanges = null;
-            if (rdoRegexF.Checked)
+            if (this.rdoRegexF.Checked)
             {
                 Regex rr = null;
                 try
                 {
-                    rr = new Regex(cboFindF.Text, GetRegexOptions());
+                    rr = new Regex(this.cboFindF.Text, this.GetRegexOptions());
                 }
                 catch (ArgumentException ex)
                 {
-                    lblStatus.Text = "Error in Regular Expression: " + ex.Message;
+                    this.lblStatus.Text = "Error in Regular Expression: " + ex.Message;
                     return;
                 }
 
-                if (chkSearchSelectionF.Checked)
+                if (this.chkSearchSelectionF.Checked)
                 {
-                    if (_searchRange == null)
+                    if (this._searchRange == null)
                     {
-                        _searchRange = Scintilla.Selection.Range;
+                        this._searchRange = this.Scintilla.Selection.Range;
                     }
 
-                    foundRanges = Scintilla.FindReplace.FindAll(_searchRange, rr);
+                    foundRanges = this.Scintilla.FindReplace.FindAll(this._searchRange, rr);
                 }
                 else
                 {
-                    _searchRange = null;
-                    foundRanges = Scintilla.FindReplace.FindAll(rr);
+                    this._searchRange = null;
+                    foundRanges = this.Scintilla.FindReplace.FindAll(rr);
                 }
             }
             else
             {
-                if (chkSearchSelectionF.Checked)
+                if (this.chkSearchSelectionF.Checked)
                 {
-                    if (_searchRange == null)
-                        _searchRange = Scintilla.Selection.Range;
+                    if (this._searchRange == null)
+                        this._searchRange = this.Scintilla.Selection.Range;
 
-                    foundRanges = Scintilla.FindReplace.FindAll(_searchRange, cboFindF.Text, GetSearchFlags());
+                    foundRanges = this.Scintilla.FindReplace.FindAll(this._searchRange, this.cboFindF.Text, this.GetSearchFlags());
                 }
                 else
                 {
-                    _searchRange = null;
-                    foundRanges = Scintilla.FindReplace.FindAll(cboFindF.Text, GetSearchFlags());
+                    this._searchRange = null;
+                    foundRanges = this.Scintilla.FindReplace.FindAll(this.cboFindF.Text, this.GetSearchFlags());
                 }
             }
 
-            lblStatus.Text = "Total found: " + foundRanges.Count.ToString();
+            this.lblStatus.Text = "Total found: " + foundRanges.Count.ToString();
 
-            btnClear_Click(null, null);
+            this.btnClear_Click(null, null);
 
-            if (chkMarkLine.Checked)
-                Scintilla.FindReplace.MarkAll(foundRanges);
+            if (this.chkMarkLine.Checked)
+                this.Scintilla.FindReplace.MarkAll(foundRanges);
 
-            if (chkHighlightMatches.Checked)
-                Scintilla.FindReplace.HighlightAll(foundRanges);
+            if (this.chkHighlightMatches.Checked)
+                this.Scintilla.FindReplace.HighlightAll(foundRanges);
         }
 
 
         private void btnFindNext_Click(object sender, EventArgs e)
         {
-            FindNext();
+            this.FindNext();
         }
 
 
         private void btnFindPrevious_Click(object sender, EventArgs e)
         {
-            FindPrevious();
+            this.FindPrevious();
         }
 
 
         private void btnReplaceAll_Click(object sender, EventArgs e)
         {
-            if (cboFindR.Text == string.Empty)
+            if (this.cboFindR.Text == string.Empty)
                 return;
 
-            lblStatus.Text = string.Empty;
+            this.lblStatus.Text = string.Empty;
 
             List<Range> foundRanges = null;
 
-            if (rdoRegexR.Checked)
+            if (this.rdoRegexR.Checked)
             {
                 Regex rr = null;
                 try
                 {
-                    rr = new Regex(cboFindR.Text, GetRegexOptions());
+                    rr = new Regex(this.cboFindR.Text, this.GetRegexOptions());
                 }
                 catch (ArgumentException ex)
                 {
-                    lblStatus.Text = "Error in Regular Expression: " + ex.Message;
+                    this.lblStatus.Text = "Error in Regular Expression: " + ex.Message;
                     return;
                 }
 
-                if (chkSearchSelectionR.Checked)
+                if (this.chkSearchSelectionR.Checked)
                 {
-                    if (_searchRange == null)
+                    if (this._searchRange == null)
                     {
-                        _searchRange = Scintilla.Selection.Range;
+                        this._searchRange = this.Scintilla.Selection.Range;
                     }
 
-                    foundRanges = Scintilla.FindReplace.ReplaceAll(_searchRange, rr, cboReplace.Text);
+                    foundRanges = this.Scintilla.FindReplace.ReplaceAll(this._searchRange, rr, this.cboReplace.Text);
                 }
                 else
                 {
-                    _searchRange = null;
-                    foundRanges = Scintilla.FindReplace.ReplaceAll(rr, cboReplace.Text);
+                    this._searchRange = null;
+                    foundRanges = this.Scintilla.FindReplace.ReplaceAll(rr, this.cboReplace.Text);
                 }
             }
             else
             {
-                if (chkSearchSelectionR.Checked)
+                if (this.chkSearchSelectionR.Checked)
                 {
-                    if (_searchRange == null)
-                        _searchRange = Scintilla.Selection.Range;
+                    if (this._searchRange == null)
+                        this._searchRange = this.Scintilla.Selection.Range;
 
-                    foundRanges = Scintilla.FindReplace.ReplaceAll(_searchRange, cboFindR.Text, cboReplace.Text, GetSearchFlags());
+                    foundRanges = this.Scintilla.FindReplace.ReplaceAll(this._searchRange, this.cboFindR.Text, this.cboReplace.Text, this.GetSearchFlags());
                 }
                 else
                 {
-                    _searchRange = null;
-                    foundRanges = Scintilla.FindReplace.ReplaceAll(cboFindR.Text, cboReplace.Text, GetSearchFlags());
+                    this._searchRange = null;
+                    foundRanges = this.Scintilla.FindReplace.ReplaceAll(this.cboFindR.Text, this.cboReplace.Text, this.GetSearchFlags());
                 }
             }
 
-            lblStatus.Text = "Total Replaced: " + foundRanges.Count.ToString();
+            this.lblStatus.Text = "Total Replaced: " + foundRanges.Count.ToString();
         }
 
 
         private void btnReplaceNext_Click(object sender, EventArgs e)
         {
-            ReplaceNext();
+            this.ReplaceNext();
         }
 
 
         private void btnReplacePrevious_Click(object sender, EventArgs e)
         {
-            if (cboFindR.Text == string.Empty)
+            if (this.cboFindR.Text == string.Empty)
                 return;
 
-            AddReplacMru();
-            lblStatus.Text = string.Empty;
+            this.AddReplacMru();
+            this.lblStatus.Text = string.Empty;
 
             Range nextRange = null;
             try
             {
-                nextRange = ReplaceNext(true);
+                nextRange = this.ReplaceNext(true);
             }
             catch (ArgumentException ex)
             {
-                lblStatus.Text = "Error in Regular Expression: " + ex.Message;
+                this.lblStatus.Text = "Error in Regular Expression: " + ex.Message;
                 return;
             }
 
 
             if (nextRange == null)
             {
-                lblStatus.Text = "Match could not be found";
+                this.lblStatus.Text = "Match could not be found";
             }
             else
             {
-                if (nextRange.Start > Scintilla.Caret.Anchor)
+                if (nextRange.Start > this.Scintilla.Caret.Anchor)
                 {
-                    if (chkSearchSelectionR.Checked)
-                        lblStatus.Text = "Search match wrapped to the begining of the selection";
+                    if (this.chkSearchSelectionR.Checked)
+                        this.lblStatus.Text = "Search match wrapped to the begining of the selection";
                     else
-                        lblStatus.Text = "Search match wrapped to the begining of the document";
+                        this.lblStatus.Text = "Search match wrapped to the begining of the document";
                 }
 
                 nextRange.Select();
-                MoveFormAwayFromSelection();
+                this.MoveFormAwayFromSelection();
             }
         }
 
@@ -266,73 +266,73 @@ namespace ARCed.Scintilla
         {
             if (((CheckBox)sender).Checked)
             {
-                chkExplicitCaptureF.Checked = false;
-                chkExplicitCaptureR.Checked = false;
-                chkExplicitCaptureF.Enabled = false;
-                chkExplicitCaptureR.Enabled = false;
-                chkIgnorePatternWhitespaceF.Checked = false;
-                chkIgnorePatternWhitespaceR.Checked = false;
-                chkIgnorePatternWhitespaceF.Enabled = false;
-                chkIgnorePatternWhitespaceR.Enabled = false;
-                chkRightToLeftF.Checked = false;
-                chkRightToLeftR.Checked = false;
-                chkRightToLeftF.Enabled = false;
-                chkRightToLeftR.Enabled = false;
-                chkSinglelineF.Checked = false;
-                chkSinglelineR.Checked = false;
-                chkSinglelineF.Enabled = false;
-                chkSinglelineR.Enabled = false;
+                this.chkExplicitCaptureF.Checked = false;
+                this.chkExplicitCaptureR.Checked = false;
+                this.chkExplicitCaptureF.Enabled = false;
+                this.chkExplicitCaptureR.Enabled = false;
+                this.chkIgnorePatternWhitespaceF.Checked = false;
+                this.chkIgnorePatternWhitespaceR.Checked = false;
+                this.chkIgnorePatternWhitespaceF.Enabled = false;
+                this.chkIgnorePatternWhitespaceR.Enabled = false;
+                this.chkRightToLeftF.Checked = false;
+                this.chkRightToLeftR.Checked = false;
+                this.chkRightToLeftF.Enabled = false;
+                this.chkRightToLeftR.Enabled = false;
+                this.chkSinglelineF.Checked = false;
+                this.chkSinglelineR.Checked = false;
+                this.chkSinglelineF.Enabled = false;
+                this.chkSinglelineR.Enabled = false;
             }
             else
             {
-                chkExplicitCaptureF.Enabled = true;
-                chkIgnorePatternWhitespaceF.Enabled = true;
-                chkRightToLeftF.Enabled = true;
-                chkSinglelineF.Enabled = true;
-                chkExplicitCaptureR.Enabled = true;
-                chkIgnorePatternWhitespaceR.Enabled = true;
-                chkRightToLeftR.Enabled = true;
-                chkSinglelineR.Enabled = true;
+                this.chkExplicitCaptureF.Enabled = true;
+                this.chkIgnorePatternWhitespaceF.Enabled = true;
+                this.chkRightToLeftF.Enabled = true;
+                this.chkSinglelineF.Enabled = true;
+                this.chkExplicitCaptureR.Enabled = true;
+                this.chkIgnorePatternWhitespaceR.Enabled = true;
+                this.chkRightToLeftR.Enabled = true;
+                this.chkSinglelineR.Enabled = true;
             }
         }
 
 
         public void FindNext()
         {
-            if (cboFindF.Text == string.Empty)
+            if (this.cboFindF.Text == string.Empty)
                 return;
 
-            AddFindMru();
-            lblStatus.Text = string.Empty;
+            this.AddFindMru();
+            this.lblStatus.Text = string.Empty;
 
             Range foundRange = null;
 
             try
             {
-                foundRange = FindNextF(false);
+                foundRange = this.FindNextF(false);
             }
             catch (ArgumentException ex)
             {
-                lblStatus.Text = "Error in Regular Expression: " + ex.Message;
+                this.lblStatus.Text = "Error in Regular Expression: " + ex.Message;
                 return;
             }
 
             if (foundRange == null)
             {
-                lblStatus.Text = "Match could not be found";
+                this.lblStatus.Text = "Match could not be found";
             }
             else
             {
-                if (foundRange.Start < Scintilla.Caret.Anchor)
+                if (foundRange.Start < this.Scintilla.Caret.Anchor)
                 {
-                    if (chkSearchSelectionF.Checked)
-                        lblStatus.Text = "Search match wrapped to the begining of the selection";
+                    if (this.chkSearchSelectionF.Checked)
+                        this.lblStatus.Text = "Search match wrapped to the begining of the selection";
                     else
-                        lblStatus.Text = "Search match wrapped to the begining of the document";
+                        this.lblStatus.Text = "Search match wrapped to the begining of the document";
                 }
 
                 foundRange.Select();
-                MoveFormAwayFromSelection();
+                this.MoveFormAwayFromSelection();
             }
         }
 
@@ -341,48 +341,48 @@ namespace ARCed.Scintilla
         {
             Range foundRange;
 
-            if (rdoRegexF.Checked)
+            if (this.rdoRegexF.Checked)
             {
-                var rr = new Regex(cboFindF.Text, GetRegexOptions());
+                var rr = new Regex(this.cboFindF.Text, this.GetRegexOptions());
 
-                if (chkSearchSelectionF.Checked)
+                if (this.chkSearchSelectionF.Checked)
                 {
-                    if (_searchRange == null)
-                        _searchRange = Scintilla.Selection.Range;
+                    if (this._searchRange == null)
+                        this._searchRange = this.Scintilla.Selection.Range;
 
                     if (searchUp)
-                        foundRange = Scintilla.FindReplace.FindPrevious(rr, chkWrapF.Checked, _searchRange);
+                        foundRange = this.Scintilla.FindReplace.FindPrevious(rr, this.chkWrapF.Checked, this._searchRange);
                     else
-                        foundRange = Scintilla.FindReplace.FindNext(rr, chkWrapF.Checked, _searchRange);
+                        foundRange = this.Scintilla.FindReplace.FindNext(rr, this.chkWrapF.Checked, this._searchRange);
                 }
                 else
                 {
-                    _searchRange = null;
+                    this._searchRange = null;
                     if (searchUp)
-                        foundRange = Scintilla.FindReplace.FindPrevious(rr, chkWrapF.Checked);
+                        foundRange = this.Scintilla.FindReplace.FindPrevious(rr, this.chkWrapF.Checked);
                     else
-                        foundRange = Scintilla.FindReplace.FindNext(rr, chkWrapF.Checked);
+                        foundRange = this.Scintilla.FindReplace.FindNext(rr, this.chkWrapF.Checked);
                 }
             }
             else
             {
-                if (chkSearchSelectionF.Checked)
+                if (this.chkSearchSelectionF.Checked)
                 {
-                    if (_searchRange == null)
-                        _searchRange = Scintilla.Selection.Range;
+                    if (this._searchRange == null)
+                        this._searchRange = this.Scintilla.Selection.Range;
 
                     if (searchUp)
-                        foundRange = Scintilla.FindReplace.FindPrevious(cboFindF.Text, chkWrapF.Checked, GetSearchFlags(), _searchRange);
+                        foundRange = this.Scintilla.FindReplace.FindPrevious(this.cboFindF.Text, this.chkWrapF.Checked, this.GetSearchFlags(), this._searchRange);
                     else
-                        foundRange = Scintilla.FindReplace.FindNext(cboFindF.Text, chkWrapF.Checked, GetSearchFlags(), _searchRange);
+                        foundRange = this.Scintilla.FindReplace.FindNext(this.cboFindF.Text, this.chkWrapF.Checked, this.GetSearchFlags(), this._searchRange);
                 }
                 else
                 {
-                    _searchRange = null;
+                    this._searchRange = null;
                     if (searchUp)
-                        foundRange = Scintilla.FindReplace.FindPrevious(cboFindF.Text, chkWrapF.Checked, GetSearchFlags());
+                        foundRange = this.Scintilla.FindReplace.FindPrevious(this.cboFindF.Text, this.chkWrapF.Checked, this.GetSearchFlags());
                     else
-                        foundRange = Scintilla.FindReplace.FindNext(cboFindF.Text, chkWrapF.Checked, GetSearchFlags());
+                        foundRange = this.Scintilla.FindReplace.FindNext(this.cboFindF.Text, this.chkWrapF.Checked, this.GetSearchFlags());
                 }
             }
             return foundRange;
@@ -394,49 +394,49 @@ namespace ARCed.Scintilla
             Range foundRange;
 
 
-            if (rdoRegexR.Checked)
+            if (this.rdoRegexR.Checked)
             {
                 if (rr == null)
-                    rr = new Regex(cboFindR.Text, GetRegexOptions());
+                    rr = new Regex(this.cboFindR.Text, this.GetRegexOptions());
 
-                if (chkSearchSelectionR.Checked)
+                if (this.chkSearchSelectionR.Checked)
                 {
-                    if (_searchRange == null)
-                        _searchRange = Scintilla.Selection.Range;
+                    if (this._searchRange == null)
+                        this._searchRange = this.Scintilla.Selection.Range;
 
                     if (searchUp)
-                        foundRange = Scintilla.FindReplace.FindPrevious(rr, chkWrapR.Checked, _searchRange);
+                        foundRange = this.Scintilla.FindReplace.FindPrevious(rr, this.chkWrapR.Checked, this._searchRange);
                     else
-                        foundRange = Scintilla.FindReplace.FindNext(rr, chkWrapR.Checked, _searchRange);
+                        foundRange = this.Scintilla.FindReplace.FindNext(rr, this.chkWrapR.Checked, this._searchRange);
                 }
                 else
                 {
-                    _searchRange = null;
+                    this._searchRange = null;
                     if (searchUp)
-                        foundRange = Scintilla.FindReplace.FindPrevious(rr, chkWrapR.Checked);
+                        foundRange = this.Scintilla.FindReplace.FindPrevious(rr, this.chkWrapR.Checked);
                     else
-                        foundRange = Scintilla.FindReplace.FindNext(rr, chkWrapR.Checked);
+                        foundRange = this.Scintilla.FindReplace.FindNext(rr, this.chkWrapR.Checked);
                 }
             }
             else
             {
-                if (chkSearchSelectionF.Checked)
+                if (this.chkSearchSelectionF.Checked)
                 {
-                    if (_searchRange == null)
-                        _searchRange = Scintilla.Selection.Range;
+                    if (this._searchRange == null)
+                        this._searchRange = this.Scintilla.Selection.Range;
 
                     if (searchUp)
-                        foundRange = Scintilla.FindReplace.FindPrevious(cboFindR.Text, chkWrapR.Checked, GetSearchFlags(), _searchRange);
+                        foundRange = this.Scintilla.FindReplace.FindPrevious(this.cboFindR.Text, this.chkWrapR.Checked, this.GetSearchFlags(), this._searchRange);
                     else
-                        foundRange = Scintilla.FindReplace.FindNext(cboFindR.Text, chkWrapR.Checked, GetSearchFlags(), _searchRange);
+                        foundRange = this.Scintilla.FindReplace.FindNext(this.cboFindR.Text, this.chkWrapR.Checked, this.GetSearchFlags(), this._searchRange);
                 }
                 else
                 {
-                    _searchRange = null;
+                    this._searchRange = null;
                     if (searchUp)
-                        foundRange = Scintilla.FindReplace.FindPrevious(cboFindR.Text, chkWrapF.Checked, GetSearchFlags());
+                        foundRange = this.Scintilla.FindReplace.FindPrevious(this.cboFindR.Text, this.chkWrapF.Checked, this.GetSearchFlags());
                     else
-                        foundRange = Scintilla.FindReplace.FindNext(cboFindR.Text, chkWrapF.Checked, GetSearchFlags());
+                        foundRange = this.Scintilla.FindReplace.FindNext(this.cboFindR.Text, this.chkWrapF.Checked, this.GetSearchFlags());
                 }
             }
             return foundRange;
@@ -445,38 +445,38 @@ namespace ARCed.Scintilla
 
         public void FindPrevious()
         {
-            if (cboFindF.Text == string.Empty)
+            if (this.cboFindF.Text == string.Empty)
                 return;
 
-            AddFindMru();
-            lblStatus.Text = string.Empty;
+            this.AddFindMru();
+            this.lblStatus.Text = string.Empty;
             Range foundRange = null;
             try
             {
-                foundRange = FindNextF(true);
+                foundRange = this.FindNextF(true);
             }
             catch (ArgumentException ex)
             {
-                lblStatus.Text = "Error in Regular Expression: " + ex.Message;
+                this.lblStatus.Text = "Error in Regular Expression: " + ex.Message;
                 return;
             }
 
             if (foundRange == null)
             {
-                lblStatus.Text = "Match could not be found";
+                this.lblStatus.Text = "Match could not be found";
             }
             else
             {
-                if (foundRange.Start > Scintilla.Caret.Position)
+                if (foundRange.Start > this.Scintilla.Caret.Position)
                 {
-                    if (chkSearchSelectionF.Checked)
-                        lblStatus.Text = "Search match wrapped to the _end of the selection";
+                    if (this.chkSearchSelectionF.Checked)
+                        this.lblStatus.Text = "Search match wrapped to the _end of the selection";
                     else
-                        lblStatus.Text = "Search match wrapped to the _end of the document";
+                        this.lblStatus.Text = "Search match wrapped to the _end of the document";
                 }
 
                 foundRange.Select();
-                MoveFormAwayFromSelection();
+                this.MoveFormAwayFromSelection();
             }
         }
 
@@ -495,62 +495,62 @@ namespace ARCed.Scintilla
         {
             var ro = RegexOptions.None;
 
-            if (tabAll.SelectedTab == tpgFind)
+            if (this.tabAll.SelectedTab == this.tpgFind)
             {
-                if (chkCompiledF.Checked)
+                if (this.chkCompiledF.Checked)
                     ro |= RegexOptions.Compiled;
 
-                if (chkCultureInvariantF.Checked)
+                if (this.chkCultureInvariantF.Checked)
                     ro |= RegexOptions.Compiled;
 
-                if (chkEcmaScriptF.Checked)
+                if (this.chkEcmaScriptF.Checked)
                     ro |= RegexOptions.ECMAScript;
 
-                if (chkExplicitCaptureF.Checked)
+                if (this.chkExplicitCaptureF.Checked)
                     ro |= RegexOptions.ExplicitCapture;
 
-                if (chkIgnoreCaseF.Checked)
+                if (this.chkIgnoreCaseF.Checked)
                     ro |= RegexOptions.IgnoreCase;
 
-                if (chkIgnorePatternWhitespaceF.Checked)
+                if (this.chkIgnorePatternWhitespaceF.Checked)
                     ro |= RegexOptions.IgnorePatternWhitespace;
 
-                if (chkMultilineF.Checked)
+                if (this.chkMultilineF.Checked)
                     ro |= RegexOptions.Multiline;
 
-                if (chkRightToLeftF.Checked)
+                if (this.chkRightToLeftF.Checked)
                     ro |= RegexOptions.RightToLeft;
 
-                if (chkSinglelineF.Checked)
+                if (this.chkSinglelineF.Checked)
                     ro |= RegexOptions.Singleline;
             }
             else
             {
-                if (chkCompiledR.Checked)
+                if (this.chkCompiledR.Checked)
                     ro |= RegexOptions.Compiled;
 
-                if (chkCultureInvariantR.Checked)
+                if (this.chkCultureInvariantR.Checked)
                     ro |= RegexOptions.Compiled;
 
-                if (chkEcmaScriptR.Checked)
+                if (this.chkEcmaScriptR.Checked)
                     ro |= RegexOptions.ECMAScript;
 
-                if (chkExplicitCaptureR.Checked)
+                if (this.chkExplicitCaptureR.Checked)
                     ro |= RegexOptions.ExplicitCapture;
 
-                if (chkIgnoreCaseR.Checked)
+                if (this.chkIgnoreCaseR.Checked)
                     ro |= RegexOptions.IgnoreCase;
 
-                if (chkIgnorePatternWhitespaceR.Checked)
+                if (this.chkIgnorePatternWhitespaceR.Checked)
                     ro |= RegexOptions.IgnorePatternWhitespace;
 
-                if (chkMultilineR.Checked)
+                if (this.chkMultilineR.Checked)
                     ro |= RegexOptions.Multiline;
 
-                if (chkRightToLeftR.Checked)
+                if (this.chkRightToLeftR.Checked)
                     ro |= RegexOptions.RightToLeft;
 
-                if (chkSinglelineR.Checked)
+                if (this.chkSinglelineR.Checked)
                     ro |= RegexOptions.Singleline;
             }
 
@@ -562,26 +562,26 @@ namespace ARCed.Scintilla
         {
             var sf = SearchFlags.Empty;
 
-            if (tabAll.SelectedTab == tpgFind)
+            if (this.tabAll.SelectedTab == this.tpgFind)
             {
-                if (chkMatchCaseF.Checked)
+                if (this.chkMatchCaseF.Checked)
                     sf |= SearchFlags.MatchCase;
 
-                if (chkWholeWordF.Checked)
+                if (this.chkWholeWordF.Checked)
                     sf |= SearchFlags.WholeWord;
 
-                if (chkWordStartF.Checked)
+                if (this.chkWordStartF.Checked)
                     sf |= SearchFlags.WordStart;
             }
             else
             {
-                if (chkMatchCaseR.Checked)
+                if (this.chkMatchCaseR.Checked)
                     sf |= SearchFlags.MatchCase;
 
-                if (chkWholeWordR.Checked)
+                if (this.chkWholeWordR.Checked)
                     sf |= SearchFlags.WholeWord;
 
-                if (chkWordStartR.Checked)
+                if (this.chkWordStartR.Checked)
                     sf |= SearchFlags.WordStart;
             }
 
@@ -594,11 +594,11 @@ namespace ARCed.Scintilla
             if (!Visible)
                 return;
 
-            int pos = Scintilla.Caret.Position;
-            int x = Scintilla.PointXFromPosition(pos);
-            int y = Scintilla.PointYFromPosition(pos);
+            int pos = this.Scintilla.Caret.Position;
+            int x = this.Scintilla.PointXFromPosition(pos);
+            int y = this.Scintilla.PointYFromPosition(pos);
 
-            Point cursorPoint = Scintilla.PointToScreen(new Point(x, y));
+            Point cursorPoint = this.Scintilla.PointToScreen(new Point(x, y));
 
             var r = new Rectangle(Location, Size);
             if (r.Contains(cursorPoint))
@@ -607,18 +607,18 @@ namespace ARCed.Scintilla
                 if (cursorPoint.Y < (Screen.PrimaryScreen.Bounds.Height / 2))
                 {
                     // Top half of the screen
-                    newLocation = Scintilla.PointToClient(
-                        new Point(Location.X, cursorPoint.Y + Scintilla.Lines.Current.Height * 2)
+                    newLocation = this.Scintilla.PointToClient(
+                        new Point(Location.X, cursorPoint.Y + this.Scintilla.Lines.Current.Height * 2)
                         );
                 }
                 else
                 {
                     // FixedY half of the screen
-                    newLocation = Scintilla.PointToClient(
-                        new Point(Location.X, cursorPoint.Y - Height - (Scintilla.Lines.Current.Height * 2))
+                    newLocation = this.Scintilla.PointToClient(
+                        new Point(Location.X, cursorPoint.Y - Height - (this.Scintilla.Lines.Current.Height * 2))
                         );
                 }
-                newLocation = Scintilla.PointToScreen(newLocation);
+                newLocation = this.Scintilla.PointToScreen(newLocation);
                 Location = newLocation;
             }
         }
@@ -626,26 +626,26 @@ namespace ARCed.Scintilla
 
         protected override void OnActivated(EventArgs e)
         {
-            if (Scintilla.Selection.Length > 0)
+            if (this.Scintilla.Selection.Length > 0)
             {
-                chkSearchSelectionF.Enabled = true;
-                chkSearchSelectionR.Enabled = true;
+                this.chkSearchSelectionF.Enabled = true;
+                this.chkSearchSelectionR.Enabled = true;
             }
             else
             {
-                chkSearchSelectionF.Enabled = false;
-                chkSearchSelectionR.Enabled = false;
-                chkSearchSelectionF.Checked = false;
-                chkSearchSelectionR.Checked = false;
+                this.chkSearchSelectionF.Enabled = false;
+                this.chkSearchSelectionR.Enabled = false;
+                this.chkSearchSelectionF.Checked = false;
+                this.chkSearchSelectionR.Checked = false;
             }
 
             //	if they leave the dialog and come back any "Search Selection"
             //	range they might have had is invalidated
-            _searchRange = null;
+            this._searchRange = null;
 
-            lblStatus.Text = string.Empty;
+            this.lblStatus.Text = string.Empty;
 
-            MoveFormAwayFromSelection();
+            this.MoveFormAwayFromSelection();
 
             base.OnActivated(e);
         }
@@ -659,16 +659,16 @@ namespace ARCed.Scintilla
             //	way things like Find Next, Show Replace are all available from
             //	the dialog using Scintilla's configured Shortcuts
 
-            List<KeyBinding> findNextBinding = Scintilla.Commands.GetKeyBindings(BindableCommand.FindNext);
-            List<KeyBinding> findPrevBinding = Scintilla.Commands.GetKeyBindings(BindableCommand.FindPrevious);
-            List<KeyBinding> showFindBinding = Scintilla.Commands.GetKeyBindings(BindableCommand.ShowFind);
-            List<KeyBinding> showReplaceBinding = Scintilla.Commands.GetKeyBindings(BindableCommand.ShowReplace);
+            List<KeyBinding> findNextBinding = this.Scintilla.Commands.GetKeyBindings(BindableCommand.FindNext);
+            List<KeyBinding> findPrevBinding = this.Scintilla.Commands.GetKeyBindings(BindableCommand.FindPrevious);
+            List<KeyBinding> showFindBinding = this.Scintilla.Commands.GetKeyBindings(BindableCommand.ShowFind);
+            List<KeyBinding> showReplaceBinding = this.Scintilla.Commands.GetKeyBindings(BindableCommand.ShowReplace);
 
             var kb = new KeyBinding(e.KeyCode, e.Modifiers);
 
             if (findNextBinding.Contains(kb) || findPrevBinding.Contains(kb) || showFindBinding.Contains(kb) || showReplaceBinding.Contains(kb))
             {
-                Scintilla.FireKeyDown(e);
+                this.Scintilla.FireKeyDown(e);
             }
 
 
@@ -681,69 +681,69 @@ namespace ARCed.Scintilla
 
         private void rdoStandardF_CheckedChanged(object sender, EventArgs e)
         {
-			if (rdoStandardF.Checked)
+			if (this.rdoStandardF.Checked)
 			{
-				pnlStandardOptionsF.BringToFront();
-				pnlRegexpOptionsF.SendToBack();
+				this.pnlStandardOptionsF.BringToFront();
+				this.pnlRegexpOptionsF.SendToBack();
 			}
 			else
 			{
-				pnlRegexpOptionsF.BringToFront();
-				pnlStandardOptionsF.SendToBack();
+				this.pnlRegexpOptionsF.BringToFront();
+				this.pnlStandardOptionsF.SendToBack();
 			}
         }
 
 
         private void rdoStandardR_CheckedChanged(object sender, EventArgs e)
         {	
-			if (rdoStandardR.Checked)
+			if (this.rdoStandardR.Checked)
 			{
-				pnlStandardOptionsR.BringToFront();
-				pnlRegexpOptionsR.SendToBack();
+				this.pnlStandardOptionsR.BringToFront();
+				this.pnlRegexpOptionsR.SendToBack();
 			}
 			else
 			{
-				pnlRegexpOptionsR.BringToFront();
-				pnlStandardOptionsR.SendToBack();
+				this.pnlRegexpOptionsR.BringToFront();
+				this.pnlStandardOptionsR.SendToBack();
 			}
         }
 
 
         public void ReplaceNext()
         {
-            if (cboFindR.Text == string.Empty)
+            if (this.cboFindR.Text == string.Empty)
                 return;
 
-            AddReplacMru();
-            lblStatus.Text = string.Empty;
+            this.AddReplacMru();
+            this.lblStatus.Text = string.Empty;
 
             Range nextRange = null;
             try
             {
-                nextRange = ReplaceNext(false);
+                nextRange = this.ReplaceNext(false);
             }
             catch (ArgumentException ex)
             {
-                lblStatus.Text = "Error in Regular Expression: " + ex.Message;
+                this.lblStatus.Text = "Error in Regular Expression: " + ex.Message;
                 return;
             }
 
             if (nextRange == null)
             {
-                lblStatus.Text = "Match could not be found";
+                this.lblStatus.Text = "Match could not be found";
             }
             else
             {
-                if (nextRange.Start < Scintilla.Caret.Anchor)
+                if (nextRange.Start < this.Scintilla.Caret.Anchor)
                 {
-                    if (chkSearchSelectionR.Checked)
-                        lblStatus.Text = "Search match wrapped to the begining of the selection";
+                    if (this.chkSearchSelectionR.Checked)
+                        this.lblStatus.Text = "Search match wrapped to the begining of the selection";
                     else
-                        lblStatus.Text = "Search match wrapped to the begining of the document";
+                        this.lblStatus.Text = "Search match wrapped to the begining of the document";
                 }
 
                 nextRange.Select();
-                MoveFormAwayFromSelection();
+                this.MoveFormAwayFromSelection();
             }
         }
 
@@ -751,18 +751,18 @@ namespace ARCed.Scintilla
         private Range ReplaceNext(bool searchUp)
         {
             Regex rr = null;
-            Range selRange = Scintilla.Selection.Range;
+            Range selRange = this.Scintilla.Selection.Range;
 
             //	We only do the actual replacement if the current selection exactly
             //	matches the find.
             if (selRange.Length > 0)
             {
-                if (rdoRegexR.Checked)
+                if (this.rdoRegexR.Checked)
                 {
-                    rr = new Regex(cboFindR.Text, GetRegexOptions());
+                    rr = new Regex(this.cboFindR.Text, this.GetRegexOptions());
                     string selRangeText = selRange.Text;
 
-                    if (selRange.Equals(Scintilla.FindReplace.Find(selRange, rr, false)))
+                    if (selRange.Equals(this.Scintilla.FindReplace.Find(selRange, rr, false)))
                     {
                         //	If searching up we do the replacement using the range object.
                         //	Otherwise we use the selection object. The reason being if
@@ -772,79 +772,79 @@ namespace ARCed.Scintilla
                         //	becuase we don't want the new text to be potentially matched
                         //	in the next search.
                         if (searchUp)
-                            selRange.Text = rr.Replace(selRangeText, cboReplace.Text);
+                            selRange.Text = rr.Replace(selRangeText, this.cboReplace.Text);
                         else
-                            Scintilla.Selection.Text = rr.Replace(selRangeText, cboReplace.Text);
+                            this.Scintilla.Selection.Text = rr.Replace(selRangeText, this.cboReplace.Text);
                     }
                 }
                 else
                 {
-                    if (selRange.Equals(Scintilla.FindReplace.Find(selRange, cboFindR.Text, false)))
+                    if (selRange.Equals(this.Scintilla.FindReplace.Find(selRange, this.cboFindR.Text, false)))
                     {
                         if (searchUp)
-                            selRange.Text = cboReplace.Text;
+                            selRange.Text = this.cboReplace.Text;
                         else
-                            Scintilla.Selection.Text = cboReplace.Text;
+                            this.Scintilla.Selection.Text = this.cboReplace.Text;
                     }
                 }
             }
-            return FindNextR(searchUp, ref rr);
+            return this.FindNextR(searchUp, ref rr);
         }
 
 
         private void tabAll_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (tabAll.SelectedTab == tpgFind)
+            if (this.tabAll.SelectedTab == this.tpgFind)
             {
-                cboFindF.Text = cboFindR.Text;
+                this.cboFindF.Text = this.cboFindR.Text;
 
-                rdoStandardF.Checked = rdoStandardR.Checked;
-                rdoRegexF.Checked = rdoRegexR.Checked;
+                this.rdoStandardF.Checked = this.rdoStandardR.Checked;
+                this.rdoRegexF.Checked = this.rdoRegexR.Checked;
 
-                chkWrapF.Checked = chkWrapR.Checked;
-                chkSearchSelectionF.Checked = chkSearchSelectionR.Checked;
+                this.chkWrapF.Checked = this.chkWrapR.Checked;
+                this.chkSearchSelectionF.Checked = this.chkSearchSelectionR.Checked;
 
-                chkMatchCaseF.Checked = chkMatchCaseR.Checked;
-                chkWholeWordF.Checked = chkWholeWordR.Checked;
-                chkWordStartF.Checked = chkWordStartR.Checked;
+                this.chkMatchCaseF.Checked = this.chkMatchCaseR.Checked;
+                this.chkWholeWordF.Checked = this.chkWholeWordR.Checked;
+                this.chkWordStartF.Checked = this.chkWordStartR.Checked;
 
-                chkCompiledF.Checked = chkCompiledR.Checked;
-                chkCultureInvariantF.Checked = chkCultureInvariantR.Checked;
-                chkEcmaScriptF.Checked = chkEcmaScriptR.Checked;
-                chkExplicitCaptureF.Checked = chkExplicitCaptureR.Checked;
-                chkIgnoreCaseF.Checked = chkIgnoreCaseR.Checked;
-                chkIgnorePatternWhitespaceF.Checked = chkIgnorePatternWhitespaceR.Checked;
-                chkMultilineF.Checked = chkMultilineR.Checked;
-                chkRightToLeftF.Checked = chkRightToLeftR.Checked;
-                chkSinglelineF.Checked = chkSinglelineR.Checked;
+                this.chkCompiledF.Checked = this.chkCompiledR.Checked;
+                this.chkCultureInvariantF.Checked = this.chkCultureInvariantR.Checked;
+                this.chkEcmaScriptF.Checked = this.chkEcmaScriptR.Checked;
+                this.chkExplicitCaptureF.Checked = this.chkExplicitCaptureR.Checked;
+                this.chkIgnoreCaseF.Checked = this.chkIgnoreCaseR.Checked;
+                this.chkIgnorePatternWhitespaceF.Checked = this.chkIgnorePatternWhitespaceR.Checked;
+                this.chkMultilineF.Checked = this.chkMultilineR.Checked;
+                this.chkRightToLeftF.Checked = this.chkRightToLeftR.Checked;
+                this.chkSinglelineF.Checked = this.chkSinglelineR.Checked;
 
-                AcceptButton = btnFindNext;
+                AcceptButton = this.btnFindNext;
             }
             else
             {
-                cboFindR.Text = cboFindF.Text;
+                this.cboFindR.Text = this.cboFindF.Text;
 
-                rdoStandardR.Checked = rdoStandardF.Checked;
-                rdoRegexR.Checked = rdoRegexF.Checked;
+                this.rdoStandardR.Checked = this.rdoStandardF.Checked;
+                this.rdoRegexR.Checked = this.rdoRegexF.Checked;
 
-                chkWrapR.Checked = chkWrapF.Checked;
-                chkSearchSelectionR.Checked = chkSearchSelectionF.Checked;
+                this.chkWrapR.Checked = this.chkWrapF.Checked;
+                this.chkSearchSelectionR.Checked = this.chkSearchSelectionF.Checked;
 
-                chkMatchCaseR.Checked = chkMatchCaseF.Checked;
-                chkWholeWordR.Checked = chkWholeWordF.Checked;
-                chkWordStartR.Checked = chkWordStartF.Checked;
+                this.chkMatchCaseR.Checked = this.chkMatchCaseF.Checked;
+                this.chkWholeWordR.Checked = this.chkWholeWordF.Checked;
+                this.chkWordStartR.Checked = this.chkWordStartF.Checked;
 
-                chkCompiledR.Checked = chkCompiledF.Checked;
-                chkCultureInvariantR.Checked = chkCultureInvariantF.Checked;
-                chkEcmaScriptR.Checked = chkEcmaScriptF.Checked;
-                chkExplicitCaptureR.Checked = chkExplicitCaptureF.Checked;
-                chkIgnoreCaseR.Checked = chkIgnoreCaseF.Checked;
-                chkIgnorePatternWhitespaceR.Checked = chkIgnorePatternWhitespaceF.Checked;
-                chkMultilineR.Checked = chkMultilineF.Checked;
-                chkRightToLeftR.Checked = chkRightToLeftF.Checked;
-                chkSinglelineR.Checked = chkSinglelineF.Checked;
+                this.chkCompiledR.Checked = this.chkCompiledF.Checked;
+                this.chkCultureInvariantR.Checked = this.chkCultureInvariantF.Checked;
+                this.chkEcmaScriptR.Checked = this.chkEcmaScriptF.Checked;
+                this.chkExplicitCaptureR.Checked = this.chkExplicitCaptureF.Checked;
+                this.chkIgnoreCaseR.Checked = this.chkIgnoreCaseF.Checked;
+                this.chkIgnorePatternWhitespaceR.Checked = this.chkIgnorePatternWhitespaceF.Checked;
+                this.chkMultilineR.Checked = this.chkMultilineF.Checked;
+                this.chkRightToLeftR.Checked = this.chkRightToLeftF.Checked;
+                this.chkSinglelineR.Checked = this.chkSinglelineF.Checked;
 
-                AcceptButton = btnReplaceNext;
+                AcceptButton = this.btnReplaceNext;
             }
         }
 
@@ -857,20 +857,20 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _mruFind;
+                return this._mruFind;
             }
             set
             {
-                _mruFind = value;
-                _bindingSourceFind.DataSource = _mruFind;
+                this._mruFind = value;
+                this._bindingSourceFind.DataSource = this._mruFind;
             }
         }
 
 
         public int MruMaxCount
         {
-            get { return _mruMaxCount; }
-            set { _mruMaxCount = value; }
+            get { return this._mruMaxCount; }
+            set { this._mruMaxCount = value; }
         }
 
 
@@ -878,12 +878,12 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _mruReplace;
+                return this._mruReplace;
             }
             set
             {
-                _mruReplace = value;
-                _bindingSourceReplace.DataSource = _mruReplace;
+                this._mruReplace = value;
+                this._bindingSourceReplace.DataSource = this._mruReplace;
             }
         }
 
@@ -892,11 +892,11 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _scintilla;
+                return this._scintilla;
             }
             set
             {
-                _scintilla = value;
+                this._scintilla = value;
             }
         }
 
@@ -907,42 +907,42 @@ namespace ARCed.Scintilla
 
         public FindReplaceDialog()
         {
-            InitializeComponent();
-            _mruFind = new List<string>();
-            _mruReplace = new List<string>();
-            _bindingSourceFind.DataSource = _mruFind;
-            _bindingSourceReplace.DataSource = _mruReplace;
-            cboFindF.DataSource = _bindingSourceFind;
-            cboFindR.DataSource = _bindingSourceFind;
-            cboReplace.DataSource = _bindingSourceReplace;
+            this.InitializeComponent();
+            this._mruFind = new List<string>();
+            this._mruReplace = new List<string>();
+            this._bindingSourceFind.DataSource = this._mruFind;
+            this._bindingSourceReplace.DataSource = this._mruReplace;
+            this.cboFindF.DataSource = this._bindingSourceFind;
+            this.cboFindR.DataSource = this._bindingSourceFind;
+            this.cboReplace.DataSource = this._bindingSourceReplace;
         }
 
         #endregion Constructors
 
 		private void grpOptionsF_CollapseBoxClickedEvent(object sender)
 		{
-			int y = grpOptionsF.Location.Y + 6;
-			y += grpOptionsF.IsCollapsed ? grpOptionsF.CollapsedHeight : grpOptionsF.FullHeight;
-			grpFindAll.Location = new Point(grpFindAll.Location.X, y);
-			grpFindAll_CollapseBoxClickedEvent(sender);
+			int y = this.grpOptionsF.Location.Y + 6;
+			y += this.grpOptionsF.IsCollapsed ? this.grpOptionsF.CollapsedHeight : this.grpOptionsF.FullHeight;
+			this.grpFindAll.Location = new Point(this.grpFindAll.Location.X, y);
+			this.grpFindAll_CollapseBoxClickedEvent(sender);
 		}
 
 		private void grpFindAll_CollapseBoxClickedEvent(object sender)
 		{
-			int y = grpFindAll.Location.Y + 6;
-			y += grpFindAll.IsCollapsed ? grpFindAll.CollapsedHeight : grpFindAll.FullHeight;
-			btnFindNext.Location = new Point(btnFindNext.Location.X, y);
-			btnFindPrevious.Location = new Point(btnFindPrevious.Location.X, y);
+			int y = this.grpFindAll.Location.Y + 6;
+			y += this.grpFindAll.IsCollapsed ? this.grpFindAll.CollapsedHeight : this.grpFindAll.FullHeight;
+			this.btnFindNext.Location = new Point(this.btnFindNext.Location.X, y);
+			this.btnFindPrevious.Location = new Point(this.btnFindPrevious.Location.X, y);
 		}
 
 		private void grdOptionsR_CollapseBoxClickedEvent(object sender)
 		{
-			int y = grdOptionsR.Location.Y + 6;
-			y += grdOptionsR.IsCollapsed ? grdOptionsR.CollapsedHeight : grdOptionsR.FullHeight;
-			btnReplaceAll.Location = new Point(btnReplaceAll.Location.X, y);
-			btnReplacePrevious.Location = new Point(btnReplacePrevious.Location.X, y);
-			y += btnReplaceNext.Location.Y - btnReplacePrevious.Location.Y;
-			btnReplaceNext.Location = new Point(btnReplaceNext.Location.X, y);
+			int y = this.grdOptionsR.Location.Y + 6;
+			y += this.grdOptionsR.IsCollapsed ? this.grdOptionsR.CollapsedHeight : this.grdOptionsR.FullHeight;
+			this.btnReplaceAll.Location = new Point(this.btnReplaceAll.Location.X, y);
+			this.btnReplacePrevious.Location = new Point(this.btnReplacePrevious.Location.X, y);
+			y += this.btnReplaceNext.Location.Y - this.btnReplacePrevious.Location.Y;
+			this.btnReplaceNext.Location = new Point(this.btnReplaceNext.Location.X, y);
 		}
     }
 }

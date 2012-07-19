@@ -33,10 +33,10 @@ namespace ARCed.Scintilla
         public Rectangle GetClientRectangle()
         {
             int left = 0;
-            for (int i = 0; i < _number; i++)
+            for (int i = 0; i < this._number; i++)
                 left += NativeScintilla.GetMarginWidthN(i);
 
-            return new Rectangle(left, 0, Width, Scintilla.ClientSize.Height);
+            return new Rectangle(left, 0, this.Width, Scintilla.ClientSize.Height);
         }
 
 
@@ -48,107 +48,107 @@ namespace ARCed.Scintilla
 
         public void Reset()
         {
-            ResetAutoToggleMarkerNumber();
-            ResetIsClickable();
-            ResetIsFoldMargin();
-            ResetIsMarkerMargin();
-            ResetType();
-            ResetWidth();
+            this.ResetAutoToggleMarkerNumber();
+            this.ResetIsClickable();
+            this.ResetIsFoldMargin();
+            this.ResetIsMarkerMargin();
+            this.ResetType();
+            this.ResetWidth();
         }
 
 
         private void ResetAutoToggleMarkerNumber()
         {
-            _autoToggleMarkerNumber = -1;
+            this._autoToggleMarkerNumber = -1;
         }
 
 
         internal void ResetIsClickable()
         {
-            if (_number == 2)
-                IsClickable = true;
+            if (this._number == 2)
+                this.IsClickable = true;
             else
-                IsClickable = false;
+                this.IsClickable = false;
         }
 
 
         internal void ResetIsFoldMargin()
         {
-            if (_number == 2)
-                IsFoldMargin = true;
+            if (this._number == 2)
+                this.IsFoldMargin = true;
             else
-                IsFoldMargin = false;
+                this.IsFoldMargin = false;
         }
 
 
         internal void ResetIsMarkerMargin()
         {
-            if (_number == 1)
-                IsMarkerMargin = true;
+            if (this._number == 1)
+                this.IsMarkerMargin = true;
             else
-                IsMarkerMargin = false;
+                this.IsMarkerMargin = false;
         }
 
 
         internal void ResetType()
         {
-            if (_number == 0)
-                Type = MarginType.Number;
+            if (this._number == 0)
+                this.Type = MarginType.Number;
             else
-                Type = MarginType.Symbol;
+                this.Type = MarginType.Symbol;
         }
 
 
         internal void ResetWidth()
         {
-            if (_number == 1)
-                Width = 16;
+            if (this._number == 1)
+                this.Width = 16;
             else
-                Width = 0;
+                this.Width = 0;
         }
 
 
         internal bool ShouldSerialize()
         {
-            return ShouldSerializeIsFoldMargin() ||
-                ShouldSerializeIsClickable() ||
-                ShouldSerializeType() ||
-                ShouldSerializeWidth() ||
-                ShouldSerializeAutoToggleMarkerNumber() ||
-                ShouldSerializeIsMarkerMargin();
+            return this.ShouldSerializeIsFoldMargin() ||
+                this.ShouldSerializeIsClickable() ||
+                this.ShouldSerializeType() ||
+                this.ShouldSerializeWidth() ||
+                this.ShouldSerializeAutoToggleMarkerNumber() ||
+                this.ShouldSerializeIsMarkerMargin();
         }
 
 
         private bool ShouldSerializeAutoToggleMarkerNumber()
         {
-            return _autoToggleMarkerNumber != -1;
+            return this._autoToggleMarkerNumber != -1;
         }
 
 
         private bool ShouldSerializeIsClickable()
         {
-            if (_number == 2)
-                return !IsClickable;
+            if (this._number == 2)
+                return !this.IsClickable;
 
-            return IsClickable;
+            return this.IsClickable;
         }
 
 
         private bool ShouldSerializeIsFoldMargin()
         {
-            if (_number == 2)
-                return !IsFoldMargin;
+            if (this._number == 2)
+                return !this.IsFoldMargin;
 
-            return IsFoldMargin;
+            return this.IsFoldMargin;
         }
 
 
         private bool ShouldSerializeIsMarkerMargin()
         {
-            if (_number == 1)
-                return !IsMarkerMargin;
+            if (this._number == 1)
+                return !this.IsMarkerMargin;
             else
-                return IsMarkerMargin;
+                return this.IsMarkerMargin;
         }
 
 
@@ -156,10 +156,10 @@ namespace ARCed.Scintilla
         {
             // Margin 0 defaults to Number, all the rest
             // default to Symbol
-            if (_number == 0)
-                return Type != MarginType.Number;
+            if (this._number == 0)
+                return this.Type != MarginType.Number;
 
-            return Type != MarginType.Symbol;
+            return this.Type != MarginType.Symbol;
         }
 
 
@@ -167,20 +167,20 @@ namespace ARCed.Scintilla
         {
             // Margin 1 defaults to 16, all the rest
             // default to 0
-            if (_number == 1)
-                return Width != 16;
+            if (this._number == 1)
+                return this.Width != 16;
 
-            return Width != 0;
+            return this.Width != 0;
         }
 
 
         public override string ToString()
         {
-            if (_number == 0)
+            if (this._number == 0)
                 return "(Default Line Numbers)";
-            else if (_number == 1)
+            else if (this._number == 1)
                 return "(Default Markers)";
-            else if (_number == 2)
+            else if (this._number == 2)
                 return "(Default Folds)";
 
             return base.ToString();
@@ -195,11 +195,11 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _autoToggleMarkerNumber;
+                return this._autoToggleMarkerNumber;
             }
             set
             {
-                _autoToggleMarkerNumber = value;
+                this._autoToggleMarkerNumber = value;
             }
         }
 
@@ -208,11 +208,11 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return NativeScintilla.GetMarginSensitiveN(_number);
+                return NativeScintilla.GetMarginSensitiveN(this._number);
             }
             set
             {
-                NativeScintilla.SetMarginSensitiveN(_number, value);
+                NativeScintilla.SetMarginSensitiveN(this._number, value);
             }
         }
 
@@ -221,14 +221,14 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return (Mask & Constants.SC_MASK_FOLDERS) == Constants.SC_MASK_FOLDERS;
+                return (this.Mask & Constants.SC_MASK_FOLDERS) == Constants.SC_MASK_FOLDERS;
             }
             set
             {
                 if (value)
-                    Mask |= Constants.SC_MASK_FOLDERS;
+                    this.Mask |= Constants.SC_MASK_FOLDERS;
                 else
-                    Mask &= ~Constants.SC_MASK_FOLDERS;
+                    this.Mask &= ~Constants.SC_MASK_FOLDERS;
             }
         }
 
@@ -240,15 +240,15 @@ namespace ARCed.Scintilla
             // or even a constant defined for it though.
             get
             {
-                return (Mask & 0x1FFFFFF) == 0x1FFFFFF;
+                return (this.Mask & 0x1FFFFFF) == 0x1FFFFFF;
             }
 
             set
             {
                 if (value)
-                    Mask |= 0x1FFFFFF;
+                    this.Mask |= 0x1FFFFFF;
                 else
-                    Mask &= ~0x1FFFFFF;
+                    this.Mask &= ~0x1FFFFFF;
             }
         }
 
@@ -258,11 +258,11 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return NativeScintilla.GetMarginMaskN(_number);
+                return NativeScintilla.GetMarginMaskN(this._number);
             }
             set
             {
-                NativeScintilla.SetMarginMaskN(_number, value);
+                NativeScintilla.SetMarginMaskN(this._number, value);
             }
         }
 
@@ -272,7 +272,7 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _number;
+                return this._number;
             }
         }
 
@@ -281,11 +281,11 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return (MarginType)NativeScintilla.GetMarginTypeN(_number);
+                return (MarginType)NativeScintilla.GetMarginTypeN(this._number);
             }
             set
             {
-                NativeScintilla.SetMarginTypeN(_number, (int)value);
+                NativeScintilla.SetMarginTypeN(this._number, (int)value);
             }
         }
 
@@ -294,11 +294,11 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return NativeScintilla.GetMarginWidthN(_number);
+                return NativeScintilla.GetMarginWidthN(this._number);
             }
             set
             {
-                NativeScintilla.SetMarginWidthN(_number, value);
+                NativeScintilla.SetMarginWidthN(this._number, value);
             }
         }
 
@@ -309,7 +309,7 @@ namespace ARCed.Scintilla
 
         protected internal Margin(Scintilla scintilla, int number) : base(scintilla)
         {
-            _number = number;
+            this._number = number;
         }
 
         #endregion Constructors

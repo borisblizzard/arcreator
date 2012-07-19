@@ -33,38 +33,38 @@ namespace ARCed.UI
         {
             get
             {
-                if (DockPane == null)
+                if (this.DockPane == null)
                     return Items[index];
                 else
-                    return GetVisibleContent(index);
+                    return this.GetVisibleContent(index);
             }
         }
 
         public int Add(IDockContent content)
         {
 #if DEBUG
-			if (DockPane != null)
+			if (this.DockPane != null)
 				throw new InvalidOperationException();
 #endif
 
-            if (Contains(content))
-                return IndexOf(content);
+            if (this.Contains(content))
+                return this.IndexOf(content);
 
             Items.Add(content);
-            return Count - 1;
+            return this.Count - 1;
         }
 
         internal void AddAt(IDockContent content, int index)
         {
 #if DEBUG
-			if (DockPane != null)
+			if (this.DockPane != null)
 				throw new InvalidOperationException();
 #endif
 
             if (index < 0 || index > Items.Count - 1)
                 return;
 
-            if (Contains(content))
+            if (this.Contains(content))
                 return;
 
             Items.Insert(index, content);
@@ -72,42 +72,42 @@ namespace ARCed.UI
 
         public new bool Contains(IDockContent content)
         {
-            if (DockPane == null)
+            if (this.DockPane == null)
                 return Items.Contains(content);
             else
-                return (GetIndexOfVisibleContents(content) != -1);
+                return (this.GetIndexOfVisibleContents(content) != -1);
         }
 
         public new int Count
         {
             get
             {
-                if (DockPane == null)
+                if (this.DockPane == null)
                     return base.Count;
                 else
-                    return CountOfVisibleContents;
+                    return this.CountOfVisibleContents;
             }
         }
 
         public new int IndexOf(IDockContent content)
         {
-            if (DockPane == null)
+            if (this.DockPane == null)
             {
-                if (!Contains(content))
+                if (!this.Contains(content))
                     return -1;
                 else
                     return Items.IndexOf(content);
             }
             else
-                return GetIndexOfVisibleContents(content);
+                return this.GetIndexOfVisibleContents(content);
         }
 
         public void Remove(IDockContent content)
         {
-            if (DockPane != null)
+            if (this.DockPane != null)
                 throw new InvalidOperationException();
 
-            if (!Contains(content))
+            if (!this.Contains(content))
                 return;
 
             Items.Remove(content);
@@ -118,14 +118,14 @@ namespace ARCed.UI
             get
             {
 #if DEBUG
-				if (DockPane == null)
+				if (this.DockPane == null)
 					throw new InvalidOperationException();
 #endif
 
                 int count = 0;
-                foreach (IDockContent content in DockPane.Contents)
+                foreach (IDockContent content in this.DockPane.Contents)
                 {
-                    if (content.DockHandler.DockState == DockPane.DockState)
+                    if (content.DockHandler.DockState == this.DockPane.DockState)
                         count++;
                 }
                 return count;
@@ -135,14 +135,14 @@ namespace ARCed.UI
         private IDockContent GetVisibleContent(int index)
         {
 #if DEBUG
-			if (DockPane == null)
+			if (this.DockPane == null)
 				throw new InvalidOperationException();
 #endif
 
             int currentIndex = -1;
-            foreach (IDockContent content in DockPane.Contents)
+            foreach (IDockContent content in this.DockPane.Contents)
             {
-                if (content.DockHandler.DockState == DockPane.DockState)
+                if (content.DockHandler.DockState == this.DockPane.DockState)
                     currentIndex++;
 
                 if (currentIndex == index)
@@ -154,7 +154,7 @@ namespace ARCed.UI
         private int GetIndexOfVisibleContents(IDockContent content)
         {
 #if DEBUG
-			if (DockPane == null)
+			if (this.DockPane == null)
 				throw new InvalidOperationException();
 #endif
 
@@ -162,9 +162,9 @@ namespace ARCed.UI
                 return -1;
 
             int index = -1;
-            foreach (IDockContent c in DockPane.Contents)
+            foreach (IDockContent c in this.DockPane.Contents)
             {
-                if (c.DockHandler.DockState == DockPane.DockState)
+                if (c.DockHandler.DockState == this.DockPane.DockState)
                 {
                     index++;
 

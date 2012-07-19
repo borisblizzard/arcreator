@@ -19,7 +19,7 @@ namespace ARCed.Dialogs
 		/// <summary>
 		/// Gets or sets the text of the textbox control on the form
 		/// </summary>
-		public string NoteText { get { return textBoxNotes.Text; } set { textBoxNotes.Text = value; } }
+		public string NoteText { get { return this.textBoxNotes.Text; } set { this.textBoxNotes.Text = value; } }
 
 		#endregion
 
@@ -30,9 +30,9 @@ namespace ARCed.Dialogs
 		/// </summary>
 		public NoteForm()
 		{
-			InitializeComponent();
+			this.InitializeComponent();
 			Icon = Icon.FromHandle(Resources.NoteText.GetHicon());
-			textBoxNotes.DataBindings.Add("Font", Editor.Settings, "NoteFont",
+			this.textBoxNotes.DataBindings.Add("Font", Editor.Settings, "NoteFont",
 				false, DataSourceUpdateMode.OnPropertyChanged);
 		}
 
@@ -42,43 +42,43 @@ namespace ARCed.Dialogs
 
 		private void ButtonCutClick(object sender, EventArgs e)
 		{
-			if (textBoxNotes.SelectedText.Length > 0)
+			if (this.textBoxNotes.SelectedText.Length > 0)
 			{
-				Clipboard.SetText(textBoxNotes.SelectedText);
-				textBoxNotes.SelectedText = "";
+				Clipboard.SetText(this.textBoxNotes.SelectedText);
+				this.textBoxNotes.SelectedText = "";
 			}
 
 		}
 
 		private void ButtonCopyClick(object sender, EventArgs e)
 		{
-			if (textBoxNotes.SelectedText.Length > 0)
-				Clipboard.SetText(textBoxNotes.SelectedText);
+			if (this.textBoxNotes.SelectedText.Length > 0)
+				Clipboard.SetText(this.textBoxNotes.SelectedText);
 		}
 
 		private void ButtonPasteClick(object sender, EventArgs e)
 		{
 			if (Clipboard.ContainsText())
 			{
-				if (textBoxNotes.SelectedText.Length > 0)
-					textBoxNotes.SelectedText = Clipboard.GetText();
+				if (this.textBoxNotes.SelectedText.Length > 0)
+					this.textBoxNotes.SelectedText = Clipboard.GetText();
 				else
-					textBoxNotes.AppendText(Clipboard.GetText());
+					this.textBoxNotes.AppendText(Clipboard.GetText());
 			}
 		}
 
 		private void ButtonSelectAllClick(object sender, EventArgs e)
 		{
-			textBoxNotes.SelectAll();
+			this.textBoxNotes.SelectAll();
 		}
 
 		private void ButtonFontClick(object sender, EventArgs e)
 		{
 			using (var dialog = new FontSelectionDialog())
 			{
-				dialog.UserFont = textBoxNotes.Font;
+				dialog.UserFont = this.textBoxNotes.Font;
 				if (dialog.ShowDialog() == DialogResult.OK)
-					textBoxNotes.Font = dialog.UserFont;
+					this.textBoxNotes.Font = dialog.UserFont;
 			}
 		}
 

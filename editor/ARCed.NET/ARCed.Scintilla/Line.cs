@@ -19,19 +19,19 @@ namespace ARCed.Scintilla
 
         public MarkerInstance AddMarker(int markerNumber)
         {
-            return new MarkerInstance(Scintilla, new Marker(Scintilla, markerNumber), NativeScintilla.MarkerAdd(_number, markerNumber));
+            return new MarkerInstance(Scintilla, new Marker(Scintilla, markerNumber), NativeScintilla.MarkerAdd(this._number, markerNumber));
         }
 
 
         public MarkerInstance AddMarker(Marker marker)
         {
-            return new MarkerInstance(Scintilla, marker, NativeScintilla.MarkerAdd(_number, marker.Number));
+            return new MarkerInstance(Scintilla, marker, NativeScintilla.MarkerAdd(this._number, marker.Number));
         }
 
 
         public Line AddMarkerSet(uint markerMask)
         {
-            NativeScintilla.MarkerAddSet(_number, markerMask);
+            NativeScintilla.MarkerAddSet(this._number, markerMask);
             return this;
         }
 
@@ -52,21 +52,21 @@ namespace ARCed.Scintilla
 
         public Line DeleteAllMarkers()
         {
-            DeleteMarker(-1);
+            this.DeleteMarker(-1);
             return this;
         }
 
 
         public Line DeleteMarker(int markerNumber)
         {
-            NativeScintilla.MarkerDelete(_number, markerNumber);
+            NativeScintilla.MarkerDelete(this._number, markerNumber);
             return this;
         }
 
 
         public Line DeleteMarker(Marker marker)
         {
-            NativeScintilla.MarkerDelete(_number, marker.Number);
+            NativeScintilla.MarkerDelete(this._number, marker.Number);
             return this;
         }
 
@@ -74,7 +74,7 @@ namespace ARCed.Scintilla
         public Line DeleteMarkerSet(IEnumerable<int> markerNumbers)
         {
             foreach (int markerNumber in markerNumbers)
-                NativeScintilla.MarkerDelete(_number, markerNumber);
+                NativeScintilla.MarkerDelete(this._number, markerNumber);
 
             return this;
         }
@@ -83,7 +83,7 @@ namespace ARCed.Scintilla
         public Line DeleteMarkerSet(IEnumerable<Marker> markers)
         {
             foreach (Marker m in markers)
-                NativeScintilla.MarkerDelete(_number, m.Number);
+                NativeScintilla.MarkerDelete(this._number, m.Number);
 
             return this;
         }
@@ -91,7 +91,7 @@ namespace ARCed.Scintilla
 
         public void EnsureVisible()
         {
-            NativeScintilla.EnsureVisible(_number);
+            NativeScintilla.EnsureVisible(this._number);
         }
 
 
@@ -101,7 +101,7 @@ namespace ARCed.Scintilla
             if (l == null)
                 return false;
 
-            return l.Scintilla == Scintilla && l._number == _number;
+            return l.Scintilla == Scintilla && l._number == this._number;
         }
 
 
@@ -113,7 +113,7 @@ namespace ARCed.Scintilla
 
         public Line FindNextMarker(uint markerMask)
         {
-            int foundLine = NativeScintilla.MarkerNext(_number + 1, markerMask);
+            int foundLine = NativeScintilla.MarkerNext(this._number + 1, markerMask);
             if (foundLine < 0)
                 return null;
 
@@ -141,7 +141,7 @@ namespace ARCed.Scintilla
 
         public Line FindPreviousMarker(uint markerMask)
         {
-            int foundLine = NativeScintilla.MarkerPrevious(_number - 1, markerMask);
+            int foundLine = NativeScintilla.MarkerPrevious(this._number - 1, markerMask);
             if (foundLine < 0)
                 return null;
 
@@ -169,13 +169,13 @@ namespace ARCed.Scintilla
 
         public Line GetLastFoldChild()
         {
-            return GetLastFoldChild(-1);
+            return this.GetLastFoldChild(-1);
         }
 
 
         public Line GetLastFoldChild(int level)
         {
-            int num = NativeScintilla.GetLastChild(_number, level);
+            int num = NativeScintilla.GetLastChild(this._number, level);
             if (num < 0)
                 return null;
 
@@ -185,14 +185,14 @@ namespace ARCed.Scintilla
 
         public int GetMarkerMask()
         {
-            return NativeScintilla.MarkerGet(_number);
+            return NativeScintilla.MarkerGet(this._number);
         }
 
 
         public List<Marker> GetMarkers()
         {
             var ret = new List<Marker>();
-            int mask = GetMarkerMask();
+            int mask = this.GetMarkerMask();
             int bit = 1;
             for (int i = 0; i < 32; ++i)
             {
@@ -207,25 +207,25 @@ namespace ARCed.Scintilla
 
         public void Goto()
         {
-            NativeScintilla.GotoLine(_number);
+            NativeScintilla.GotoLine(this._number);
         }
 
 
         public void Select()
         {
-            NativeScintilla.SetSel(StartPosition, EndPosition);
+            NativeScintilla.SetSel(this.StartPosition, this.EndPosition);
         }
 
 
         public void ToggleFoldExpanded()
         {
-            NativeScintilla.ToggleFold(_number);
+            NativeScintilla.ToggleFold(this._number);
         }
 
 
         public override string ToString()
         {
-            return "Line " + _number.ToString();
+            return "Line " + this._number.ToString();
         }
 
         #endregion Methods
@@ -237,7 +237,7 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return NativeScintilla.GetLineEndPosition(_number);
+                return NativeScintilla.GetLineEndPosition(this._number);
             }
         }
 
@@ -246,11 +246,11 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return NativeScintilla.GetFoldExpanded(_number);
+                return NativeScintilla.GetFoldExpanded(this._number);
             }
             set
             {
-                NativeScintilla.SetFoldExpanded(_number, value);
+                NativeScintilla.SetFoldExpanded(this._number, value);
             }
         }
 
@@ -259,12 +259,12 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return (int)(NativeScintilla.GetFoldLevel(_number) & Constants.SC_FOLDLEVELNUMBERMASK);
+                return (int)(NativeScintilla.GetFoldLevel(this._number) & Constants.SC_FOLDLEVELNUMBERMASK);
             }
             set
             {
-                uint flags = NativeScintilla.GetFoldLevel(_number) & (Constants.SC_FOLDLEVELHEADERFLAG | Constants.SC_FOLDLEVELWHITEFLAG);
-                NativeScintilla.SetFoldLevel(_number, (uint)value | flags);
+                uint flags = NativeScintilla.GetFoldLevel(this._number) & (Constants.SC_FOLDLEVELHEADERFLAG | Constants.SC_FOLDLEVELWHITEFLAG);
+                NativeScintilla.SetFoldLevel(this._number, (uint)value | flags);
             }
         }
 
@@ -273,7 +273,7 @@ namespace ARCed.Scintilla
         {
             get
             {
-                int num = NativeScintilla.GetFoldParent(_number);
+                int num = NativeScintilla.GetFoldParent(this._number);
                 if (num < 0)
                     return null;
 
@@ -286,7 +286,7 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return NativeScintilla.TextHeight(_number);
+                return NativeScintilla.TextHeight(this._number);
             }
         }
 
@@ -295,11 +295,11 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return NativeScintilla.GetLineIndentation(_number);
+                return NativeScintilla.GetLineIndentation(this._number);
             }
             set
             {
-                NativeScintilla.SetLineIndentation(_number, value);
+                NativeScintilla.SetLineIndentation(this._number, value);
             }
         }
 
@@ -308,7 +308,7 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return NativeScintilla.GetLineIndentPosition(_number);
+                return NativeScintilla.GetLineIndentPosition(this._number);
             }
         }
 
@@ -317,14 +317,14 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return (NativeScintilla.GetFoldLevel(_number) & Constants.SC_FOLDLEVELHEADERFLAG) == Constants.SC_FOLDLEVELHEADERFLAG;
+                return (NativeScintilla.GetFoldLevel(this._number) & Constants.SC_FOLDLEVELHEADERFLAG) == Constants.SC_FOLDLEVELHEADERFLAG;
             }
             set
             {
                 if (value)
-                    NativeScintilla.SetFoldLevel(_number, NativeScintilla.GetFoldLevel(_number) | Constants.SC_FOLDLEVELHEADERFLAG);
+                    NativeScintilla.SetFoldLevel(this._number, NativeScintilla.GetFoldLevel(this._number) | Constants.SC_FOLDLEVELHEADERFLAG);
                 else
-                    NativeScintilla.SetFoldLevel(_number, NativeScintilla.GetFoldLevel(_number) & ~Constants.SC_FOLDLEVELHEADERFLAG);
+                    NativeScintilla.SetFoldLevel(this._number, NativeScintilla.GetFoldLevel(this._number) & ~Constants.SC_FOLDLEVELHEADERFLAG);
             }
         }
 
@@ -333,14 +333,14 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return (NativeScintilla.GetFoldLevel(_number) & Constants.SC_FOLDLEVELWHITEFLAG) == Constants.SC_FOLDLEVELWHITEFLAG;
+                return (NativeScintilla.GetFoldLevel(this._number) & Constants.SC_FOLDLEVELWHITEFLAG) == Constants.SC_FOLDLEVELWHITEFLAG;
             }
             set
             {
                 if (value)
-                    NativeScintilla.SetFoldLevel(_number, NativeScintilla.GetFoldLevel(_number) | Constants.SC_FOLDLEVELWHITEFLAG);
+                    NativeScintilla.SetFoldLevel(this._number, NativeScintilla.GetFoldLevel(this._number) | Constants.SC_FOLDLEVELWHITEFLAG);
                 else
-                    NativeScintilla.SetFoldLevel(_number, NativeScintilla.GetFoldLevel(_number) & ~Constants.SC_FOLDLEVELWHITEFLAG);
+                    NativeScintilla.SetFoldLevel(this._number, NativeScintilla.GetFoldLevel(this._number) & ~Constants.SC_FOLDLEVELWHITEFLAG);
             }
         }
 
@@ -349,14 +349,14 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return NativeScintilla.GetLineVisible(_number);
+                return NativeScintilla.GetLineVisible(this._number);
             }
             set
             {
                 if (value)
-                    NativeScintilla.ShowLines(_number, _number);
+                    NativeScintilla.ShowLines(this._number, this._number);
                 else
-                    NativeScintilla.HideLines(_number, _number);
+                    NativeScintilla.HideLines(this._number, this._number);
             }
         }
 
@@ -365,7 +365,7 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return NativeScintilla.LineLength(_number);
+                return NativeScintilla.LineLength(this._number);
             }
         }
 
@@ -374,11 +374,11 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return NativeScintilla.GetLineState(_number);
+                return NativeScintilla.GetLineState(this._number);
             }
             set
             {
-                NativeScintilla.SetLineState(_number, value);
+                NativeScintilla.SetLineState(this._number, value);
             }
         }
 
@@ -387,7 +387,7 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return new Line(Scintilla, _number + 1);
+                return new Line(Scintilla, this._number + 1);
             }
         }
 
@@ -396,11 +396,11 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _number;
+                return this._number;
             }
             set
             {
-                _number = value;
+                this._number = value;
             }
         }
 
@@ -409,7 +409,7 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return new Line(Scintilla, _number - 1);
+                return new Line(Scintilla, this._number - 1);
             }
         }
 
@@ -418,7 +418,7 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return Scintilla.GetRange(StartPosition, EndPosition);
+                return Scintilla.GetRange(this.StartPosition, this.EndPosition);
             }
         }
 
@@ -427,7 +427,7 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return NativeScintilla.GetLineSelEndPosition(_number);
+                return NativeScintilla.GetLineSelEndPosition(this._number);
             }
         }
 
@@ -436,7 +436,7 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return NativeScintilla.GetLineSelStartPosition(_number);
+                return NativeScintilla.GetLineSelStartPosition(this._number);
             }
         }
 
@@ -445,7 +445,7 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return NativeScintilla.PositionFromLine(_number);
+                return NativeScintilla.PositionFromLine(this._number);
             }
         }
 
@@ -455,13 +455,13 @@ namespace ARCed.Scintilla
             get
             {
                 string s;
-                NativeScintilla.GetLine(_number, out s);
+                NativeScintilla.GetLine(this._number, out s);
                 return s;
             }
             set
             {
-                NativeScintilla.SetTargetStart(StartPosition);
-                NativeScintilla.SetTargetEnd(EndPosition);
+                NativeScintilla.SetTargetStart(this.StartPosition);
+                NativeScintilla.SetTargetEnd(this.EndPosition);
                 NativeScintilla.ReplaceTarget(-1, value);
             }
         }
@@ -471,7 +471,7 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return NativeScintilla.VisibleFromDocLine(_number);
+                return NativeScintilla.VisibleFromDocLine(this._number);
             }
         }
 
@@ -482,7 +482,7 @@ namespace ARCed.Scintilla
 
         protected internal Line(Scintilla scintilla, int number) : base(scintilla)
         {
-            _number = number;
+            this._number = number;
         }
 
         #endregion Constructors

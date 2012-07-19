@@ -59,7 +59,7 @@ namespace ARCed.Scintilla
         /// </summary>
         public override string ToString()
         {
-            return string.Format(STRING_FORMAT, IsUndo, IsRedo, IsMultiStep, IsLastStep, IsMultiLine);
+            return string.Format(STRING_FORMAT, this.IsUndo, this.IsRedo, this.IsMultiStep, this.IsLastStep, this.IsMultiLine);
         }
 
         #endregion Methods
@@ -73,11 +73,11 @@ namespace ARCed.Scintilla
         /// <param name="modificationType">Specifies the modification type</param>
         public UndoRedoFlags(int modificationType)
         {
-            IsLastStep = (modificationType & Constants.SC_LASTSTEPINUNDOREDO) > 0;
-            IsMultiLine = (modificationType & Constants.SC_MULTILINEUNDOREDO) > 0;
-            IsMultiStep = (modificationType & Constants.SC_MULTISTEPUNDOREDO) > 0;
-            IsRedo = (modificationType & Constants.SC_PERFORMED_REDO) > 0;
-            IsUndo = (modificationType & Constants.SC_PERFORMED_UNDO) > 0;
+            this.IsLastStep = (modificationType & Constants.SC_LASTSTEPINUNDOREDO) > 0;
+            this.IsMultiLine = (modificationType & Constants.SC_MULTILINEUNDOREDO) > 0;
+            this.IsMultiStep = (modificationType & Constants.SC_MULTISTEPUNDOREDO) > 0;
+            this.IsRedo = (modificationType & Constants.SC_PERFORMED_REDO) > 0;
+            this.IsUndo = (modificationType & Constants.SC_PERFORMED_UNDO) > 0;
         }
 
         #endregion Constructors

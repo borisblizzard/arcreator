@@ -55,8 +55,8 @@ namespace ARCed.Controls
 		[Browsable(false)]
 		public int SelectedState
 		{
-			get { return _stateIndex; }
-			set { _stateIndex = value; Invalidate(); } 
+			get { return this._stateIndex; }
+			set { this._stateIndex = value; Invalidate(); } 
 		}
 
 		/// <summary>
@@ -67,10 +67,10 @@ namespace ARCed.Controls
 		{
 			get 
 			{
-				if (CharColors.Length > 0)
+				if (this.CharColors.Length > 0)
 				{
-					int colorIndex = _stateIndex % CharColors.Length;
-						return CharColors[colorIndex];
+					int colorIndex = this._stateIndex % this.CharColors.Length;
+						return this.CharColors[colorIndex];
 				}
 				return Color.Black;
 			}
@@ -82,7 +82,7 @@ namespace ARCed.Controls
 		[Browsable(false)]
 		public string SelectedCharacter
 		{
-			get { return Characters[_stateIndex]; }
+			get { return this.Characters[this._stateIndex]; }
 		}
 
 		#endregion
@@ -94,9 +94,9 @@ namespace ARCed.Controls
 		/// </summary>
 		public MultiStateCheckbox()
 		{
-			InitializeComponent();
+			this.InitializeComponent();
 			AutoCheck = false;
-			this.MouseDown += this.MultiStateCheckbox_MouseDown;
+			MouseDown += this.MultiStateCheckbox_MouseDown;
 		}
 
 		#endregion
@@ -110,7 +110,7 @@ namespace ARCed.Controls
 		/// <returns>Flag if point is within bounds</returns>
 		public bool IsPointInCheckBox(Point point)
 		{
-			return IsPointInCheckBox(point.X, point.Y);
+			return this.IsPointInCheckBox(point.X, point.Y);
 		}
 
 		/// <summary>
@@ -132,15 +132,15 @@ namespace ARCed.Controls
 
 		void MultiStateCheckbox_MouseDown(object sender, MouseEventArgs e)
 		{
-			if (IsPointInCheckBox(e.Location))
+			if (this.IsPointInCheckBox(e.Location))
 			{
 				if (e.Button.HasFlag(MouseButtons.Left))
-					_stateIndex = (_stateIndex + 1) % Characters.Length;
+					this._stateIndex = (this._stateIndex + 1) % this.Characters.Length;
 				else if (e.Button.HasFlag(MouseButtons.Right))
 				{
-					_stateIndex--;
-					if (_stateIndex < 0)
-						_stateIndex = Characters.Length - 1;
+					this._stateIndex--;
+					if (this._stateIndex < 0)
+						this._stateIndex = this.Characters.Length - 1;
 				}
 			}
 			Invalidate();
@@ -153,14 +153,14 @@ namespace ARCed.Controls
 		protected override void OnPaint(PaintEventArgs e)
 		{
 			base.OnPaint(e);
-			if (_stateIndex.IsBetween(0, Characters.Length - 1))
+			if (this._stateIndex.IsBetween(0, this.Characters.Length - 1))
 			{
-				string chr = Characters[_stateIndex];
+				string chr = this.Characters[this._stateIndex];
 				SizeF size = e.Graphics.MeasureString(chr, _font);
 				float x = (12 - size.Width) / 2 + Padding.Left;
 				float y = (Height - size.Height) / 2 + Padding.Top;
 				var pntF = new PointF(x, y);
-				using (var brush = new SolidBrush(CurrentColor))
+				using (var brush = new SolidBrush(this.CurrentColor))
 					e.Graphics.DrawString(chr, _font, brush, pntF);
 			}
 		}

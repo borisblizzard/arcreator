@@ -20,7 +20,7 @@ namespace ARCed.Controls
 	{
 		public EventTextBox()
 		{
-			InitializeComponent();
+			this.InitializeComponent();
 		}
 
 		/// <summary>
@@ -50,7 +50,7 @@ namespace ARCed.Controls
 			this.SuspendPainting();
 			Clear();
 			foreach (EventCommand command in list)
-				Translate(command.code, command.indent, command.parameters);
+				this.Translate(command.code, command.indent, command.parameters);
 			this.ResumePainting(true);
 		}
 
@@ -185,7 +185,7 @@ namespace ARCed.Controls
 		private void Command108(dynamic args)
 		{
 			AppendText("@>");
-			AppendText(String.Format("Comment: {0}", args[0]), Color.Green);
+			this.AppendText(String.Format("Comment: {0}", args[0]), Color.Green);
 		}
 
 		/// <summary>
@@ -195,7 +195,7 @@ namespace ARCed.Controls
 		private void Command408(dynamic args)
 		{
 			AppendText(" :");
-			AppendText(String.Format("       : {0}", args[0]), Color.Green);
+			this.AppendText(String.Format("       : {0}", args[0]), Color.Green);
 		}
 
 		/// <summary>
@@ -204,7 +204,7 @@ namespace ARCed.Controls
 		/// <param name="args">Array of game event parameters</param>
 		private void Command111(dynamic args)
 		{
-			AppendText("@>Conditional Branch: ", Color.Blue);
+			this.AppendText("@>Conditional Branch: ", Color.Blue);
 			string text = "";
 			int code = args[0];
 			switch (code)
@@ -333,7 +333,7 @@ namespace ARCed.Controls
 				}
 			}
 			if (!String.IsNullOrEmpty(text))
-				AppendText(text, Color.Blue);
+				this.AppendText(text, Color.Blue);
 		}
 
 		/// <summary>
@@ -343,7 +343,7 @@ namespace ARCed.Controls
 		private void Command411(dynamic args)
 		{
 			AppendText(" : ");
-			AppendText("Else", Color.Blue);
+			this.AppendText("Else", Color.Blue);
 		}
 
 		/// <summary>
@@ -353,7 +353,7 @@ namespace ARCed.Controls
 		private void Command412(dynamic args)
 		{
 			AppendText(" : ");
-			AppendText("Branch End", Color.Blue);
+			this.AppendText("Branch End", Color.Blue);
 		}
 
 		/// <summary>
@@ -363,7 +363,7 @@ namespace ARCed.Controls
 		private void Command112(dynamic args)
 		{
 			AppendText("@>");
-			AppendText("Loop", Color.Blue);
+			this.AppendText("Loop", Color.Blue);
 		}
 
 		/// <summary>
@@ -373,7 +373,7 @@ namespace ARCed.Controls
 		private void Command413(dynamic args)
 		{
 			AppendText(" : ");
-			AppendText("Repeat Above", Color.Blue);
+			this.AppendText("Repeat Above", Color.Blue);
 		}
 
 		/// <summary>
@@ -383,7 +383,7 @@ namespace ARCed.Controls
 		private void Command113(dynamic args)
 		{
 			AppendText("@>");
-			AppendText("Break Loop", Color.Blue);
+			this.AppendText("Break Loop", Color.Blue);
 		}
 
 		/// <summary>
@@ -393,7 +393,7 @@ namespace ARCed.Controls
 		private void Command115(dynamic args)
 		{
 			AppendText("@>");
-			AppendText("Exit Event Processing", Color.Blue);
+			this.AppendText("Exit Event Processing", Color.Blue);
 		}
 
 		/// <summary>
@@ -403,7 +403,7 @@ namespace ARCed.Controls
 		private void Command116(dynamic args)
 		{
 			AppendText("@>");
-			AppendText("Erase Event", Color.Blue);
+			this.AppendText("Erase Event", Color.Blue);
 		}
 
 		/// <summary>
@@ -413,7 +413,7 @@ namespace ARCed.Controls
 		private void Command117(dynamic args)
 		{
 			AppendText("@>");
-			AppendText(String.Format("Call Common Event: [{0}]",
+			this.AppendText(String.Format("Call Common Event: [{0}]",
 				Project.Data.CommonEvents[args[0]].ToString()), Color.Blue);
 		}
 
@@ -424,7 +424,7 @@ namespace ARCed.Controls
 		private void Command118(dynamic args)
 		{
 			AppendText("@>");
-			AppendText(String.Format("Label: {0}", args[0]), Color.Blue);
+			this.AppendText(String.Format("Label: {0}", args[0]), Color.Blue);
 		}
 
 		/// <summary>
@@ -434,7 +434,7 @@ namespace ARCed.Controls
 		private void Command119(dynamic args)
 		{
 			AppendText("@>");
-			AppendText(String.Format("JumpToLabel: {0}", args[0]), Color.Blue);
+			this.AppendText(String.Format("JumpToLabel: {0}", args[0]), Color.Blue);
 		}
 
 		/// <summary>
@@ -449,12 +449,12 @@ namespace ARCed.Controls
 			AppendText("@>");
 			if (id1 == id2)
 			{
-				AppendText(String.Format("Control Switches: [{0}] = {1}",
+				this.AppendText(String.Format("Control Switches: [{0}] = {1}",
 					Project.Switches[id1].ToString(), oper), Color.Red);
 			}
 			else
 			{
-				AppendText(String.Format("Control Switches: [{0}..{1}] = {2}",
+				this.AppendText(String.Format("Control Switches: [{0}..{1}] = {2}",
 					id1, id2, oper), Color.Red);
 			}
 		}
@@ -506,7 +506,7 @@ namespace ARCed.Controls
 						"Play Time", "Timer", "Save Count" }[args[4]];
 				break;
 			}
-			AppendText(String.Format("{0} {1} {2}", var, oper, operand), Color.Red);
+			this.AppendText(String.Format("{0} {1} {2}", var, oper, operand), Color.Red);
 		}
 
 		/// <summary>
@@ -516,7 +516,7 @@ namespace ARCed.Controls
 		private void Command123(dynamic args)
 		{
 			AppendText("@>");
-			AppendText(String.Format("Control Self Switch: {0} = {1}",
+			this.AppendText(String.Format("Control Self Switch: {0} = {1}",
 				args[0], args[1] == 0 ? "ON" : "OFF"), Color.Red);
 		}
 
@@ -530,11 +530,11 @@ namespace ARCed.Controls
 			if (args[0] == 0)
 			{
 				int secs = args[1];
-				AppendText(String.Format("Control Timer: Startup ({0} min. {1} sec.)",
+				this.AppendText(String.Format("Control Timer: Startup ({0} min. {1} sec.)",
 					secs / 60, secs % 60), Color.Red);
 			}
 			else
-				AppendText("Control Timer: Stop", Color.Red);
+				this.AppendText("Control Timer: Stop", Color.Red);
 		}
 
 		/// <summary>
@@ -547,11 +547,11 @@ namespace ARCed.Controls
 			string oper = args[0] == 0 ? "+" : "-";
 			if (args[1] == 0) // Constant
 			{
-				AppendText(String.Format("Change Gold: {0}{1}", oper, args[2]), Color.Red);
+				this.AppendText(String.Format("Change Gold: {0}{1}", oper, args[2]), Color.Red);
 			}
 			else // Variable
 			{
-				AppendText(String.Format("Change Gold: {0}Variable [{1}]",
+				this.AppendText(String.Format("Change Gold: {0}Variable [{1}]",
 					oper, Project.Variables[args[2]].ToString()), Color.Red);
 			}
 		}
@@ -567,12 +567,12 @@ namespace ARCed.Controls
 			string oper = args[1] == 0 ? "+" : "-";
 			if (args[2] == 0) // Constant
 			{
-				AppendText(String.Format("Change Items: [{0}], {1}{2}",
+				this.AppendText(String.Format("Change Items: [{0}], {1}{2}",
 					name, oper, args[3]), Color.Red);
 			}
 			else // Variable
 			{
-				AppendText(String.Format("Change Items: [{0}], {1}Variable [{2}]",
+				this.AppendText(String.Format("Change Items: [{0}], {1}Variable [{2}]",
 					name, oper, Project.Variables[args[3]].ToString()), Color.Red);
 			}
 		}
@@ -588,12 +588,12 @@ namespace ARCed.Controls
 			string oper = args[1] == 0 ? "+" : "-";
 			if (args[2] == 0) // Constant
 			{
-				AppendText(String.Format("Change Weapons: [{0}], {1}{2}",
+				this.AppendText(String.Format("Change Weapons: [{0}], {1}{2}",
 					name, oper, args[3]), Color.Red);
 			}
 			else // Variable
 			{
-				AppendText(String.Format("Change Weapons: [{0}], {1}Variable [{2}]",
+				this.AppendText(String.Format("Change Weapons: [{0}], {1}Variable [{2}]",
 					name, oper, Project.Variables[args[3]].ToString()), Color.Red);
 			}
 		}
@@ -609,12 +609,12 @@ namespace ARCed.Controls
 			string oper = args[1] == 0 ? "+" : "-";
 			if (args[2] == 0) // Constant
 			{
-				AppendText(String.Format("Change Armors: [{0}], {1}{2}",
+				this.AppendText(String.Format("Change Armors: [{0}], {1}{2}",
 					name, oper, args[3]), Color.Red);
 			}
 			else // Variable
 			{
-				AppendText(String.Format("Change Armors: [{0}], {1}Variable [{2}]",
+				this.AppendText(String.Format("Change Armors: [{0}], {1}Variable [{2}]",
 					name, oper, Project.Variables[args[3]].ToString()), Color.Red);
 			}
 		}
@@ -629,12 +629,12 @@ namespace ARCed.Controls
 			string actorName = Project.Data.Actors[args[0]].ToString();
 			if (args[1] == 0) // Add
 			{
-				AppendText(String.Format("Change Party Member: Add [{0}]{1}",
+				this.AppendText(String.Format("Change Party Member: Add [{0}]{1}",
 					actorName, args[2] == 0 ? ", Initialize" : ""), Color.Red);
 			}
 			else // Remove
 			{
-				AppendText(String.Format("Change Party Member: Remove [{0}]",
+				this.AppendText(String.Format("Change Party Member: Remove [{0}]",
 					actorName), Color.Red);
 			}
 		}
@@ -646,7 +646,7 @@ namespace ARCed.Controls
 		private void Command131(dynamic args)
 		{
 			AppendText("@>");
-			AppendText(String.Format("Change Windowskin: '{0}'", args[0]), Color.Magenta);
+			this.AppendText(String.Format("Change Windowskin: '{0}'", args[0]), Color.Magenta);
 		}
 
 		/// <summary>
@@ -657,7 +657,7 @@ namespace ARCed.Controls
 		{
 			AppendText("@>");
 			AudioFile bgm = args[0];
-			AppendText(String.Format("Change Battle BGM: '{0}', {1}, {2}",
+			this.AppendText(String.Format("Change Battle BGM: '{0}', {1}, {2}",
 				bgm.name, bgm.volume, bgm.pitch), Color.Magenta);
 		}
 
@@ -669,7 +669,7 @@ namespace ARCed.Controls
 		{
 			AppendText("@>");
 			AudioFile me = args[0];
-			AppendText(String.Format("Change Battle End ME: '{0}', {1}, {2}",
+			this.AppendText(String.Format("Change Battle End ME: '{0}', {1}, {2}",
 				me.name, me.volume, me.pitch), Color.Magenta);
 		}
 
@@ -680,7 +680,7 @@ namespace ARCed.Controls
 		private void Command134(dynamic args)
 		{
 			AppendText("@>");
-			AppendText(String.Format("Change Save Access: {0}",
+			this.AppendText(String.Format("Change Save Access: {0}",
 				args[0] == 0 ? "Disable" : "Enable"), Color.Magenta);
 		}
 
@@ -691,7 +691,7 @@ namespace ARCed.Controls
 		private void Command135(dynamic args)
 		{
 			AppendText("@>");
-			AppendText(String.Format("Change Menu Access: {0}",
+			this.AppendText(String.Format("Change Menu Access: {0}",
 				args[0] == 0 ? "Disable" : "Enable"), Color.Magenta);
 		}
 
@@ -702,7 +702,7 @@ namespace ARCed.Controls
 		private void Command136(dynamic args)
 		{
 			AppendText("@>");
-			AppendText(String.Format("Change Encounter: {0}",
+			this.AppendText(String.Format("Change Encounter: {0}",
 				args[0] == 0 ? "Disable" : "Enable"), Color.Magenta);
 		}
 
@@ -730,7 +730,7 @@ namespace ARCed.Controls
 					Project.Variables[mapId], Project.Variables[mapX],
 					Project.Variables[mapY], dir, fade);
 			}
-			AppendText(text, Color.Brown);
+			this.AppendText(text, Color.Brown);
 		}
 
 		/// <summary>
@@ -750,7 +750,7 @@ namespace ARCed.Controls
 		{
 			AppendText("@>");
 			string dir = new[] { "", "Down", "Left", "Right", "Up" }[args[0]];
-			AppendText(String.Format("Scroll Map: {0}, {1}, {2}",
+			this.AppendText(String.Format("Scroll Map: {0}, {1}, {2}",
 				dir, args[1], args[2]), Color.Brown);
 		}
 
@@ -777,7 +777,7 @@ namespace ARCed.Controls
 				text += String.Format("Battleback = '{0}'", args[1]);
 				break;
 			}
-			AppendText(text, Color.Brown);
+			this.AppendText(text, Color.Brown);
 		}
 
 		/// <summary>
@@ -787,7 +787,7 @@ namespace ARCed.Controls
 		private void Command205(dynamic args)
 		{
 			AppendText("@>");
-			AppendText(String.Format("Change Fog Color Tone: {0}, @{1}",
+			this.AppendText(String.Format("Change Fog Color Tone: {0}, @{1}",
 				args[0], args[1]), Color.Brown);
 		}
 
@@ -798,7 +798,7 @@ namespace ARCed.Controls
 		private void Command206(dynamic args)
 		{
 			AppendText("@>");
-			AppendText(String.Format("Change Fog Opacity: {0}, @{1}",
+			this.AppendText(String.Format("Change Fog Opacity: {0}, @{1}",
 				args[0], args[1]), Color.Brown);
 		}
 
@@ -812,7 +812,7 @@ namespace ARCed.Controls
 			int id = args[0];
 			// TODO: Implement getting map event names
 			string name = (id == -1 ? "Player" : (id == 0 ? "This Event" : "[IMPLEMENT]"));
-			AppendText(String.Format("Show Animation: {0}, [{1}]", name,
+			this.AppendText(String.Format("Show Animation: {0}, [{1}]", name,
 				Project.Data.Animations[args[1]]), Color.Brown);
 		}
 
@@ -822,7 +822,7 @@ namespace ARCed.Controls
 		/// <param name="args">Array of game event parameters</param>
 		private void Command208(dynamic args)
 		{
-			AppendText(String.Format("Change Transparent Flag: {0}",
+			this.AppendText(String.Format("Change Transparent Flag: {0}",
 				args[0] == 0 ? "Transparency" : "Normal"), Color.Brown);
 		}
 
@@ -841,11 +841,11 @@ namespace ARCed.Controls
 			{
 				string repeat = route.repeat ? "Repeat" : "";
 				string skip = route.skippable ? ", Ignore If Can't Move" : "";
-				AppendText(String.Format("Set Move Route: {0} ({1}{2})",
+				this.AppendText(String.Format("Set Move Route: {0} ({1}{2})",
 					name, repeat, skip), Color.Brown);
 			}
 			else
-				AppendText(String.Format("Set Move Route: {0}", name), Color.Brown);
+				this.AppendText(String.Format("Set Move Route: {0}", name), Color.Brown);
 		}
 
 		/// <summary>
@@ -855,7 +855,7 @@ namespace ARCed.Controls
 		private void Command509(dynamic args)
 		{
 			AppendText(" :");
-			AppendText(String.Format("              :$>{0}",
+			this.AppendText(String.Format("              :$>{0}",
 				TranslateMove(args[0])), Color.Brown);
 		}
 
@@ -875,7 +875,7 @@ namespace ARCed.Controls
 		private void Command221(dynamic args)
 		{
 			AppendText("@>");
-			AppendText("Prepare for Transition", Color.YellowGreen);
+			this.AppendText("Prepare for Transition", Color.YellowGreen);
 		}
 
 		/// <summary>
@@ -885,7 +885,7 @@ namespace ARCed.Controls
 		private void Command222(dynamic args)
 		{
 			AppendText("@>");
-			AppendText(String.Format("Execute Transition: '{0}'", args[0]), Color.YellowGreen);
+			this.AppendText(String.Format("Execute Transition: '{0}'", args[0]), Color.YellowGreen);
 		}
 
 		/// <summary>
@@ -895,7 +895,7 @@ namespace ARCed.Controls
 		private void Command223(dynamic args)
 		{
 			AppendText("@>");
-			AppendText(String.Format("Change Screen Color Tone: ({0}), @{1}",
+			this.AppendText(String.Format("Change Screen Color Tone: ({0}), @{1}",
 				args[0], args[1]), Color.YellowGreen);
 		}
 
@@ -906,7 +906,7 @@ namespace ARCed.Controls
 		private void Command224(dynamic args)
 		{
 			AppendText("@>");
-			AppendText(String.Format("Screen Flash: ({0}), @{1}",
+			this.AppendText(String.Format("Screen Flash: ({0}), @{1}",
 				args[0], args[1]), Color.YellowGreen);
 		}
 
@@ -917,7 +917,7 @@ namespace ARCed.Controls
 		private void Command225(dynamic args)
 		{
 			AppendText("@>");
-			AppendText(String.Format("Screen Shake: {0}, {1}, @{2}",
+			this.AppendText(String.Format("Screen Shake: {0}, {1}, @{2}",
 				args[0], args[1]), Color.YellowGreen);
 		}
 
@@ -948,7 +948,7 @@ namespace ARCed.Controls
 				text = String.Format("Show Picture: {0}, '{1}', {2} (Variable [{3:d4}][{4:d4}]), ({5}%, {6}%), {7}, {8}",
 					picNum, name, origin, x, y, zoomX, zoomY, opacity, blend);
 			}
-			AppendText(text, Color.Purple);
+			this.AppendText(text, Color.Purple);
 		}
 
 		/// <summary>
@@ -978,7 +978,7 @@ namespace ARCed.Controls
 				text = String.Format("Move Picture: {0}, @{1}, {2} (Variable [{3:d4}][{4:d4}]), ({5}%, {6}%), {7}, {8}",
 					picNum, frames, origin, x, y, zoomX, zoomY, opacity, blend);
 			}
-			AppendText(text, Color.Purple);
+			this.AppendText(text, Color.Purple);
 		}
 
 		/// <summary>
@@ -989,7 +989,7 @@ namespace ARCed.Controls
 		{
 			AppendText("@>");
 			string oper = args[1] >= 0 ? "+" : "";
-			AppendText(String.Format("Rotate Picture: {0}, {1}{2}",
+			this.AppendText(String.Format("Rotate Picture: {0}, {1}{2}",
 				args[0], oper, args[1]), Color.Purple);
 		}
 
@@ -1000,7 +1000,7 @@ namespace ARCed.Controls
 		private void Command234(dynamic args)
 		{
 			AppendText("@>");
-			AppendText(String.Format("Change Picture Color Tone: {0}, ({1}), @{2}",
+			this.AppendText(String.Format("Change Picture Color Tone: {0}, ({1}), @{2}",
 				args[0], args[1], args[2]), Color.Purple);
 		}
 
@@ -1011,7 +1011,7 @@ namespace ARCed.Controls
 		private void Command235(dynamic args)
 		{
 			AppendText("@>");
-			AppendText(String.Format("Erase Picture: {0}", args[0]), Color.Purple);
+			this.AppendText(String.Format("Erase Picture: {0}", args[0]), Color.Purple);
 		}
 
 		/// <summary>
@@ -1023,7 +1023,7 @@ namespace ARCed.Controls
 			AppendText("@>");
 			string type = new[] { "None", "Rain", "Storm", "Snow" }[args[0]];
 			int power = args[0] == 0 ? "" : ", " + args[1];
-			AppendText(String.Format("Set Weather Effects: {0}{1}, @{2}",
+			this.AppendText(String.Format("Set Weather Effects: {0}{1}, @{2}",
 				args[0], power, args[2]), Color.Purple);
 		}
 
@@ -1034,7 +1034,7 @@ namespace ARCed.Controls
 		private void Command241(dynamic args)
 		{
 			AppendText("@>");
-			AppendText(String.Format("Play BGM: {0}", args[0]), Color.Teal);
+			this.AppendText(String.Format("Play BGM: {0}", args[0]), Color.Teal);
 		}
 
 		/// <summary>
@@ -1044,7 +1044,7 @@ namespace ARCed.Controls
 		private void Command242(dynamic args)
 		{
 			AppendText("@>");
-			AppendText(String.Format("Fade Out BGM: {0} sec.", args[0]), Color.Teal);
+			this.AppendText(String.Format("Fade Out BGM: {0} sec.", args[0]), Color.Teal);
 		}
 
 		/// <summary>
@@ -1054,7 +1054,7 @@ namespace ARCed.Controls
 		private void Command245(dynamic args)
 		{
 			AppendText("@>");
-			AppendText(String.Format("Play BGS: {0}", args[0]), Color.Teal);
+			this.AppendText(String.Format("Play BGS: {0}", args[0]), Color.Teal);
 		}
 
 		/// <summary>
@@ -1064,7 +1064,7 @@ namespace ARCed.Controls
 		private void Command246(dynamic args)
 		{
 			AppendText("@>");
-			AppendText(String.Format("Fade Out BGS: {0} sec.", args[0]), Color.Teal);
+			this.AppendText(String.Format("Fade Out BGS: {0} sec.", args[0]), Color.Teal);
 		}
 
 		/// <summary>
@@ -1074,7 +1074,7 @@ namespace ARCed.Controls
 		private void Command247(dynamic args)
 		{
 			AppendText("@>");
-			AppendText("Memorize BGM/BGS", Color.Teal);
+			this.AppendText("Memorize BGM/BGS", Color.Teal);
 		}
 
 		/// <summary>
@@ -1084,7 +1084,7 @@ namespace ARCed.Controls
 		private void Command248(dynamic args)
 		{
 			AppendText("@>");
-			AppendText("Restore BGM/BGS", Color.Teal);
+			this.AppendText("Restore BGM/BGS", Color.Teal);
 		}
 
 		/// <summary>
@@ -1094,7 +1094,7 @@ namespace ARCed.Controls
 		private void Command249(dynamic args)
 		{
 			AppendText("@>");
-			AppendText(String.Format("Play ME: {0}", args[0]), Color.Teal);
+			this.AppendText(String.Format("Play ME: {0}", args[0]), Color.Teal);
 		}
 
 		/// <summary>
@@ -1104,7 +1104,7 @@ namespace ARCed.Controls
 		private void Command250(dynamic args)
 		{
 			AppendText("@>");
-			AppendText(String.Format("Play SE: {0}", args[0]), Color.Teal);
+			this.AppendText(String.Format("Play SE: {0}", args[0]), Color.Teal);
 		}
 
 		/// <summary>
@@ -1114,7 +1114,7 @@ namespace ARCed.Controls
 		private void Command251(dynamic args)
 		{
 			AppendText("@>");
-			AppendText("Stop SE", Color.Teal);
+			this.AppendText("Stop SE", Color.Teal);
 		}
 
 		/// <summary>
@@ -1124,7 +1124,7 @@ namespace ARCed.Controls
 		private void Command301(dynamic args)
 		{
 			AppendText("@>");
-			AppendText(String.Format("Battle Processing: {0}",
+			this.AppendText(String.Format("Battle Processing: {0}",
 				Project.Data.Troops[args[0]].name), Color.Orange);
 		}
 
@@ -1135,7 +1135,7 @@ namespace ARCed.Controls
 		private void Command601(dynamic args)
 		{
 			AppendText(" : ");
-			AppendText("If Win", Color.Orange);
+			this.AppendText("If Win", Color.Orange);
 		}
 
 		/// <summary>
@@ -1145,7 +1145,7 @@ namespace ARCed.Controls
 		private void Command602(dynamic args)
 		{
 			AppendText(" : ");
-			AppendText("If Escape", Color.Orange);
+			this.AppendText("If Escape", Color.Orange);
 		}
 
 		/// <summary>
@@ -1155,7 +1155,7 @@ namespace ARCed.Controls
 		private void Command603(dynamic args)
 		{
 			AppendText(" : ");
-			AppendText("If Lose", Color.Orange);
+			this.AppendText("If Lose", Color.Orange);
 		}
 
 		/// <summary>
@@ -1165,7 +1165,7 @@ namespace ARCed.Controls
 		private void Command604(dynamic args)
 		{
 			AppendText(" : ");
-			AppendText("Branch End", Color.Orange);
+			this.AppendText("Branch End", Color.Orange);
 		}
 
 		/// <summary>
@@ -1175,7 +1175,7 @@ namespace ARCed.Controls
 		private void Command302(dynamic args)
 		{
 			AppendText("@>");
-			AppendText(String.Format("Shop Processing: [{0}]",
+			this.AppendText(String.Format("Shop Processing: [{0}]",
 				GetItemName(args[0], args[1])), Color.Orange);
 		}
 
@@ -1186,7 +1186,7 @@ namespace ARCed.Controls
 		private void Command605(dynamic args)
 		{
 			AppendText(" :");
-			AppendText(String.Format("               : [{0}]",
+			this.AppendText(String.Format("               : [{0}]",
 				GetItemName(args[0], args[1])), Color.Orange);
 		}
 
@@ -1197,7 +1197,7 @@ namespace ARCed.Controls
 		private void Command303(dynamic args)
 		{
 			AppendText("@>");
-			AppendText(String.Format("Name Input Processing: [{0}], {1} characters",
+			this.AppendText(String.Format("Name Input Processing: [{0}], {1} characters",
 				Project.Data.Actors[args[0]], args[1]), Color.Orange);
 		}
 
@@ -1217,7 +1217,7 @@ namespace ARCed.Controls
 				value = Math.Abs(args[3]).ToString();
 			else // Variable
 				value = String.Format("Variable [{0}]", Project.Variables[args[3]]);
-			AppendText(String.Format("Change HP: {0}, {1}{2}",
+			this.AppendText(String.Format("Change HP: {0}, {1}{2}",
 				name, oper, value), Color.DeepSkyBlue);
 		}
 
@@ -1237,7 +1237,7 @@ namespace ARCed.Controls
 				value = Math.Abs(args[3]).ToString();
 			else // Variable
 				value = String.Format("Variable [{0}]", Project.Variables[args[3]]);
-			AppendText(String.Format("Change SP: {0}, {1}{2}",
+			this.AppendText(String.Format("Change SP: {0}, {1}{2}",
 				name, oper, value), Color.DeepSkyBlue);
 		}
 
@@ -1251,7 +1251,7 @@ namespace ARCed.Controls
 			string name = args[0] == 0 ? "Entire Party" :
 				String.Format("[{0}]", Project.Data.Actors[args[0]]);
 			string oper = args[1] == 0 ? "+" : "-";
-			AppendText(String.Format("Change State: {0}, {1}[{2}]",
+			this.AppendText(String.Format("Change State: {0}, {1}[{2}]",
 				name, oper, Project.Data.States[args[2]]), Color.DeepSkyBlue);
 		}
 
@@ -1264,7 +1264,7 @@ namespace ARCed.Controls
 			AppendText("@>");
 			string text = args[0] == 0 ? "Recover All: Entire Party" :
 				String.Format("Recover All: [{0}]", Project.Data.Actors[args[0]]);
-			AppendText(text, Color.DeepSkyBlue);
+			this.AppendText(text, Color.DeepSkyBlue);
 		}
 
 		/// <summary>
@@ -1283,7 +1283,7 @@ namespace ARCed.Controls
 				value = Math.Abs(args[3]).ToString();
 			else // Variable
 				value = String.Format("Variable [{0}]", Project.Variables[args[3]]);
-			AppendText(String.Format("Change EXP: {0}, {1}{2}",
+			this.AppendText(String.Format("Change EXP: {0}, {1}{2}",
 				name, oper, value), Color.DeepSkyBlue);
 		}
 
@@ -1303,7 +1303,7 @@ namespace ARCed.Controls
 				value = Math.Abs(args[3]).ToString();
 			else // Variable
 				value = String.Format("Variable [{0}]", Project.Variables[args[3]]);
-			AppendText(String.Format("Change Level: {0}, {1}{2}",
+			this.AppendText(String.Format("Change Level: {0}, {1}{2}",
 				name, oper, value), Color.DeepSkyBlue);
 		}
 
@@ -1322,7 +1322,7 @@ namespace ARCed.Controls
 				value = Math.Abs(args[4]).ToString();
 			else
 				value = String.Format("Variable [{0}]", Project.Variables[args[4]]);
-			AppendText(String.Format("Change Parameters: [{0}], {1} {2}{3}",
+			this.AppendText(String.Format("Change Parameters: [{0}], {1} {2}{3}",
 				name, param, oper, value), Color.DeepSkyBlue);
 		}
 
@@ -1336,7 +1336,7 @@ namespace ARCed.Controls
 			string name = Project.Data.Actors[args[0]].ToString();
 			string oper = args[1] == 0 ? "+" : "-";
 			string skill = Project.Data.Skills[args[2]].ToString();
-			AppendText(String.Format("Change Skills: [{0}], {1}[{2}]",
+			this.AppendText(String.Format("Change Skills: [{0}], {1}[{2}]",
 				name, oper, skill), Color.DeepSkyBlue);
 		}
 
@@ -1354,7 +1354,7 @@ namespace ARCed.Controls
 			else
 				equip = Project.Data.Armors[args[2]].ToString();
 			string type = new[] { "Weapon", "Shield", "Helmet", "Body Armor", "Accessory" }[args[1]];
-			AppendText(String.Format("Change Equipment: [{0}], {1} = [{2}]",
+			this.AppendText(String.Format("Change Equipment: [{0}], {1} = [{2}]",
 				name, type, equip), Color.DeepSkyBlue);
 		}
 
@@ -1365,7 +1365,7 @@ namespace ARCed.Controls
 		private void Command320(dynamic args)
 		{
 			AppendText("@>");
-			AppendText(String.Format("Change Actor Name: [{0}], '{1}'",
+			this.AppendText(String.Format("Change Actor Name: [{0}], '{1}'",
 				Project.Data.Actors[args[0]], args[1]), Color.DeepSkyBlue);
 		}
 
@@ -1376,7 +1376,7 @@ namespace ARCed.Controls
 		private void Command321(dynamic args)
 		{
 			AppendText("@>");
-			AppendText(String.Format("Change Actor Class: [{0}], [{1}]",
+			this.AppendText(String.Format("Change Actor Class: [{0}], [{1}]",
 				Project.Data.Actors[args[0]], Project.Data.Classes[args[1]]), Color.DeepSkyBlue);
 		}
 
@@ -1387,7 +1387,7 @@ namespace ARCed.Controls
 		private void Command322(dynamic args)
 		{
 			AppendText("@>");
-			AppendText(String.Format("Change Actor Graphic: [{0}], '{1}', {2}, '{3}', {4}",
+			this.AppendText(String.Format("Change Actor Graphic: [{0}], '{1}', {2}, '{3}', {4}",
 				Project.Data.Actors[args[0]], args[1], args[2], args[3], args[4]), Color.DeepSkyBlue);
 		}
 
@@ -1407,7 +1407,7 @@ namespace ARCed.Controls
 				value = Math.Abs(args[3]).ToString();
 			else // Variable
 				value = String.Format("Variable [{0}]", Project.Variables[args[3]]);
-			AppendText(String.Format("Change Enemy HP: {0}, {1}{2}",
+			this.AppendText(String.Format("Change Enemy HP: {0}, {1}{2}",
 				name, oper, value), Color.DarkViolet);
 		}
 
@@ -1427,7 +1427,7 @@ namespace ARCed.Controls
 				value = Math.Abs(args[3]).ToString();
 			else // Variable
 				value = String.Format("Variable [{0}]", Project.Variables[args[3]]);
-			AppendText(String.Format("Change Enemy SP: {0}, {1}{2}",
+			this.AppendText(String.Format("Change Enemy SP: {0}, {1}{2}",
 				name, oper, value), Color.DarkViolet);
 		}
 
@@ -1441,7 +1441,7 @@ namespace ARCed.Controls
 			string name = args[0] == -1 ? "Entire Troop" :
 				String.Format("[{0}]", "IMPLEMENT"); // TODO: Implement
 			string oper = args[1] == 0 ? "+" : "-";
-			AppendText(String.Format("Change State: {0}, {1}[{2}]",
+			this.AppendText(String.Format("Change State: {0}, {1}[{2}]",
 				name, oper, Project.Data.States[args[2]]), Color.DarkViolet);
 		}
 
@@ -1454,7 +1454,7 @@ namespace ARCed.Controls
 			AppendText("@>");
 			string text = args[0] == 0 ? "Enemy Recover All: Entire Troop" :
 				String.Format("Enemy Recover All: [{0}]", "IMPLEMENT"); // TODO: Implement
-			AppendText(text, Color.DarkViolet);
+			this.AppendText(text, Color.DarkViolet);
 		}
 
 		/// <summary>
@@ -1464,7 +1464,7 @@ namespace ARCed.Controls
 		private void Command335(dynamic args)
 		{
 			AppendText("@>");
-			AppendText(String.Format("Enemy Appearance: [{0}. {1}]",
+			this.AppendText(String.Format("Enemy Appearance: [{0}. {1}]",
 				args[0] + 1, "IMPLEMENT"), Color.DarkViolet);
 		}
 
@@ -1475,7 +1475,7 @@ namespace ARCed.Controls
 		private void Command336(dynamic args)
 		{
 			AppendText("@>");
-			AppendText(String.Format("Enemy Transform: [{0}. {1}], [{2}]",
+			this.AppendText(String.Format("Enemy Transform: [{0}. {1}], [{2}]",
 				args[0] + 1, "IMPLEMENT", Project.Data.Enemies[args[1]]), Color.DarkViolet);
 		}
 
@@ -1495,7 +1495,7 @@ namespace ARCed.Controls
 			else // Actor
 				name = String.Format("Actor No. {0}", args[1] + 1);
 			string anime = Project.Data.Animations[args[2]].ToString();
-			AppendText(String.Format("Show Battle Animation: {0}, [{1}]",
+			this.AppendText(String.Format("Show Battle Animation: {0}, [{1}]",
 				name, anime), Color.DarkViolet);
 		}
 
@@ -1519,7 +1519,7 @@ namespace ARCed.Controls
 				value = args[3];
 			else // Variable
 				value = String.Format("Variable [{0}]", Project.Variables[args[3]]);
-			AppendText(String.Format("Deal Damage: {0}, {1}",
+			this.AppendText(String.Format("Deal Damage: {0}, {1}",
 				name, value), Color.DarkViolet);
 		}
 
@@ -1542,7 +1542,7 @@ namespace ARCed.Controls
 			string target = args[4] == -1 ? "Random" : "Index " + args[4].ToString();
 			string seq = args[5] == 0 ? "" : ", Execute Now";
 			string text = String.Format("Force Action: {0}, {1}, {2}{3}", name, cmd, target, seq);
-			AppendText(text, Color.DarkViolet);
+			this.AppendText(text, Color.DarkViolet);
 		}
 
 		/// <summary>
@@ -1552,7 +1552,7 @@ namespace ARCed.Controls
 		private void Command340(dynamic args)
 		{
 			AppendText("@>");
-			AppendText("Abort Battle", Color.DarkViolet);
+			this.AppendText("Abort Battle", Color.DarkViolet);
 		}
 
 		/// <summary>
@@ -1562,7 +1562,7 @@ namespace ARCed.Controls
 		private void Command351(dynamic args)
 		{
 			AppendText("@>");
-			AppendText("Call Menu Screen", Color.DarkGray);
+			this.AppendText("Call Menu Screen", Color.DarkGray);
 		}
 
 		/// <summary>
@@ -1572,7 +1572,7 @@ namespace ARCed.Controls
 		private void Command352(dynamic args)
 		{
 			AppendText("@>");
-			AppendText("Call Save Screen", Color.DarkGray);
+			this.AppendText("Call Save Screen", Color.DarkGray);
 		}
 
 		/// <summary>
@@ -1582,7 +1582,7 @@ namespace ARCed.Controls
 		private void Command353(dynamic args)
 		{
 			AppendText("@>");
-			AppendText("Game Over", Color.DarkGray);
+			this.AppendText("Game Over", Color.DarkGray);
 		}
 
 		/// <summary>
@@ -1592,7 +1592,7 @@ namespace ARCed.Controls
 		private void Command354(dynamic args)
 		{
 			AppendText("@>");
-			AppendText("Return to Title Screen", Color.DarkGray);
+			this.AppendText("Return to Title Screen", Color.DarkGray);
 		}
 
 		/// <summary>
@@ -1602,7 +1602,7 @@ namespace ARCed.Controls
 		private void Command355(dynamic args)
 		{
 			AppendText("@>");
-			AppendText(String.Format("Script: {0}", args[0]), Color.DarkGray);
+			this.AppendText(String.Format("Script: {0}", args[0]), Color.DarkGray);
 		}
 
 		/// <summary>
@@ -1612,7 +1612,7 @@ namespace ARCed.Controls
 		private void Command655(dynamic args)
 		{
 			AppendText(" :");
-			AppendText(String.Format("      : {0}", args[0]), Color.DarkGray);
+			this.AppendText(String.Format("      : {0}", args[0]), Color.DarkGray);
 		}
 
 		/// <summary>
@@ -1688,16 +1688,20 @@ namespace ARCed.Controls
 		/// <returns>Formatted name of item</returns>
 		private static string GetItemName(int type, int id)
 		{
-			if (type == 0)
-				return Project.Data.Items[id].ToString();
-			else if (type == 1)
-				return Project.Data.Weapons[id].ToString();
-			else if (type == 2)
-				return Project.Data.Armors[id].ToString();
-			return "";
+		    switch (type)
+		    {
+		        case 0:
+		            return Project.Data.Items[id].ToString();
+		        case 1:
+		            return Project.Data.Weapons[id].ToString();
+		        case 2:
+		            return Project.Data.Armors[id].ToString();
+                default:
+		            return "";
+		    }
 		}
 
-		#endregion
+	    #endregion
 
 		private void EventTextBox_Click(object sender, EventArgs e)
 		{

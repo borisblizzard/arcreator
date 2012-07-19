@@ -135,7 +135,7 @@ namespace ARCed.Database
 		{
 			get
 			{
-			    if (String.IsNullOrEmpty(RpgTypeName))
+			    if (String.IsNullOrEmpty(this.RpgTypeName))
 					return null;
 			    return this._rpgType ?? (this._rpgType = Util.ARCedAssembly.GetType(this.RpgTypeName));
 			}
@@ -175,7 +175,7 @@ namespace ARCed.Database
 		/// </summary>
 		public void RefreshHeader()
 		{
-			DataObjectList.RefreshHeader();
+			this.DataObjectList.RefreshHeader();
 		}
 
         /// <summary>
@@ -193,8 +193,8 @@ namespace ARCed.Database
 		/// </summary>
 		public virtual void RefreshObjectList()
 		{
-			if (Data != null && DataObjectList != null)
-				DataObjectList.PopulateList(Data);
+			if (this.Data != null && this.DataObjectList != null)
+				this.DataObjectList.PopulateList(this.Data);
 		}
 
 		/// <summary>
@@ -203,7 +203,7 @@ namespace ARCed.Database
 		/// <param name="image">Bitmap to create Icon from.</param>
 		public virtual void SetWindowIcon(Image image)
 		{
-			_imageIcon = image;
+			this._imageIcon = image;
 			Icon = Icon.FromHandle(((Bitmap)image).GetHicon());
 		}
 
@@ -216,9 +216,9 @@ namespace ARCed.Database
 		{
 			if (!Windows.DatabaseForms.Contains(this))
 				Windows.DatabaseForms.Add(this);
-			if (DataObjectList != null)
+			if (this.DataObjectList != null)
 			{
-				DataObjectList.OnButtonMaxClick += (s, ev) => this.ChangeCapacity();
+				this.DataObjectList.OnButtonMaxClick += (s, ev) => this.ChangeCapacity();
 			}
 		}
 
@@ -238,9 +238,9 @@ namespace ARCed.Database
 		/// </summary>
 		protected void ChangeCapacity()
 		{
-			if (RpgType == null || DataObjectList == null)
+			if (this.RpgType == null || this.DataObjectList == null)
 				return;
-			var current = Data.Count - 1;
+			var current = this.Data.Count - 1;
 			var max = current;
 			using (var dialog = new ChangeMaxDialog(current, 1, 9999))
 			{
@@ -249,22 +249,22 @@ namespace ARCed.Database
 			}
 			if (current == max)
 				return;
-			var listBoxGeneration = GC.GetGeneration(DataObjectList);
-			var listGeneration = GC.GetGeneration(Data);
-			var index = DataObjectList.SelectedIndex;
+			var listBoxGeneration = GC.GetGeneration(this.DataObjectList);
+			var listGeneration = GC.GetGeneration(this.Data);
+			var index = this.DataObjectList.SelectedIndex;
 			if (current > max)
-				Data.RemoveRange(max + 1, current - max);
+				this.Data.RemoveRange(max + 1, current - max);
 			else if (current < max)
 			{
 				for (int i = current; i < max; i++)
 				{
-					dynamic obj = Activator.CreateInstance(RpgType);
+					dynamic obj = Activator.CreateInstance(this.RpgType);
 					obj.id = i + 1;
-					Data.Add(obj);
+					this.Data.Add(obj);
 				}
 			}
-			DataObjectList.PopulateList(Data);
-			DataObjectList.SelectedIndex = index.Clamp(0, DataObjectList.Items.Count - 1);
+			this.DataObjectList.PopulateList(this.Data);
+			this.DataObjectList.SelectedIndex = index.Clamp(0, this.DataObjectList.Items.Count - 1);
 			GC.Collect(listGeneration, GCCollectionMode.Forced);
 			GC.Collect(listBoxGeneration, GCCollectionMode.Forced);
 		}

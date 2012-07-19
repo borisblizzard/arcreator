@@ -21,9 +21,7 @@ namespace ARCed.Controls
 			get
 			{
 				int index = SelectedIndex;
-				if (index >= -1)
-					return Items[index].ToString();
-				return null;
+				return index >= -1 ? Items[index].ToString() : null;
 			}
 			set { SelectedIndex = Math.Max(FindStringExact(value), 0); }
 		}
@@ -35,7 +33,7 @@ namespace ARCed.Controls
 			Sorted = false;
 			DropDownStyle = ComboBoxStyle.DropDownList;
 			DrawMode = DrawMode.OwnerDrawVariable;
-			Populate();
+			this.Populate();
 		}
 
 		public void Populate()
@@ -122,7 +120,7 @@ namespace ARCed.Controls
 
 		protected override void OnDropDown(EventArgs e)
 		{
-			this.DropDownWidth = this._maxwid + 30;
+			DropDownWidth = this._maxwid + 30;
 		}
 	}
 }

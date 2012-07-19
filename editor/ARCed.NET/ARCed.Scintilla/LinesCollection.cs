@@ -23,7 +23,7 @@ namespace ARCed.Scintilla
             if(index >= array.Length)
                 throw new ArgumentException("index is equal to or greater than the _length of array.");
 
-            int count = Count;
+            int count = this.Count;
             if(count > array.Length - index)
                 throw new ArgumentException("The number of elements in the source ICollection is greater than the available space from number to the _end of the destination array.");
 
@@ -151,14 +151,14 @@ namespace ARCed.Scintilla
                 // taking into account that there may not be that many lines defined in 
                 // the document.
                 int min = NativeScintilla.GetFirstVisibleLine();
-                int max = min + VisibleCount + 1;
+                int max = min + this.VisibleCount + 1;
                 if (max > this.Count)
                     max = this.Count;
 
                 var ret = new Line[max - min];
 
                 for (int i = min; i < max; i++)
-                    ret[i - min] = FromVisibleLineNumber(i);
+                    ret[i - min] = this.FromVisibleLineNumber(i);
 
                 return ret;
             }
@@ -191,7 +191,7 @@ namespace ARCed.Scintilla
 
             public bool MoveNext()
             {
-                if(++_index >= _count)
+                if(++this._index >= this._count)
                     return false;
 
                 return true;
@@ -200,7 +200,7 @@ namespace ARCed.Scintilla
 
             public void Reset()
             {
-                _index = -1;
+                this._index = -1;
             }
 
             #endregion Methods
@@ -210,7 +210,7 @@ namespace ARCed.Scintilla
 
             public object Current
             {
-                get { return _lines[_index]; }
+                get { return this._lines[this._index]; }
             }
 
             #endregion Properties
@@ -220,8 +220,8 @@ namespace ARCed.Scintilla
 
             public LinesEnumerator(LineCollection lines)
             {
-                _lines = lines;
-                _count = lines.Count;
+                this._lines = lines;
+                this._count = lines.Count;
             }
 
             #endregion Constructors

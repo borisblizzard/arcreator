@@ -39,6 +39,7 @@ namespace ARCed
 		/// <summary>
 		/// Possible editor modes
 		/// </summary>
+		[Flags]
 		public enum EditorMode
 		{
 			/// <summary>
@@ -63,7 +64,7 @@ namespace ARCed
 
 		#region Properties
 
-		public DockPanel DockPanel { get { return dockMain; } }
+		public DockPanel DockPanel { get { return this.dockMain; } }
 
 		#endregion
 
@@ -90,45 +91,42 @@ namespace ARCed
             LoadSettings();
             //Log.AppendFormat("ARCed Log File: {0}\n\n", DateTime.Now);
             // Create editor form and set the icon to match the executable
-            InitializeComponent();
+            this.InitializeComponent();
             MainInstance = this;
             Registry.Host = this;
             ///////////////////////////////
-            MainDock = dockMain;
+            MainDock = this.dockMain;
             TilesetXnaPanel.Settings = Settings.ImageColorSettings;
             //////////////////////////////
-            FindReplace.ParentDock = dockMain;
+            FindReplace.ParentDock = this.dockMain;
             StatusBar = this.statusStripMain;
             Windows.ScriptTabContextMenu = this.contextMenuScriptTab;
-            dockMain.Skin = Settings.WindowSkin;
-            try
-            {
-                this.Icon = Icon.ExtractAssociatedIcon(PathHelper.EditorPath);
-                if (Mode.HasFlag(EditorMode.Debug))
-                    new Thread(lamda => NativeMethods.SetConsoleIcon(this.Icon.Handle)).Start();
-            }
-            catch { }
+            this.dockMain.Skin = Settings.WindowSkin;
+
+            Icon = Icon.ExtractAssociatedIcon(PathHelper.EditorPath);
+            if (Mode.HasFlag(EditorMode.Debug))
+                new Thread(lamda => NativeMethods.SetConsoleIcon(Icon.Handle)).Start();
+
             // Show the splash screen
             if (Settings.ShowSplash)
             {
-                this.Hide();
-                var splashthread = new Thread(SplashScreen.ShowSplashScreen);
-                splashthread.IsBackground = true;
+                Hide();
+                var splashthread = new Thread(SplashScreen.ShowSplashScreen)
+                {
+                    IsBackground = true
+                };
                 splashthread.Start();
-                StartSplash(filename);
+                this.StartSplash(filename);
             }
             else
             {
-                RestoreWindowLocation();
+                this.RestoreWindowLocation();
                 if (File.Exists(filename) && Path.GetExtension(filename) == ".arcproj")
-                    LoadProject(filename);
+                    this.LoadProject(filename);
             }
-
-
-
             Registry.LoadAll();
             // Set deserializer for restoring window layout.
-            _deserializeDockContent = GetContentFromPersistString;
+            this._deserializeDockContent = GetContentFromPersistString;
 
             Project.Settings = new ProjectSettings();
 
@@ -137,7 +135,8 @@ namespace ARCed
             string testPath = Path.Combine(PathHelper.EditorDirectory,
                 @"Chronicles of Sir Lag-A-Lot\Chronicles of Sir Lag-A-Lot.arcproj");
             if (File.Exists(testPath))
-                LoadProject(testPath);
+                this.LoadProject(testPath);
+
             Console.WriteLine(File.Exists(testPath));
             new AnimationMainForm().Show(MainDock);
             new TilesetsMainForm().Show(MainDock);
@@ -146,8 +145,8 @@ namespace ARCed
             // TEST /////////////////////////////////////////////////////////////////////////////////////
 
             // Suspend child controls from resizing every pixel
-            this.ResizeBegin += (s, e) => { SuspendLayout(); };
-            this.ResizeEnd += (s, e) => { ResumeLayout(true); };
+            ResizeBegin += (s, e) => SuspendLayout();
+            ResizeEnd += (s, e) => ResumeLayout(true);
 
         }
 
@@ -157,11 +156,11 @@ namespace ARCed
 		private void RestoreWindowLocation()
 		{
 			if (Settings.WindowState.HasFlag(FormWindowState.Maximized))
-				this.WindowState = FormWindowState.Maximized;
+				WindowState = FormWindowState.Maximized;
 			else
 			{
-				this.Size = Settings.Size;
-				this.Location = Settings.Location;
+				Size = Settings.Size;
+				Location = Settings.Location;
 			}
 		}
 
@@ -170,7 +169,7 @@ namespace ARCed
 		/// </summary>
 		/// <param name="persistString">The string representation of the window</param>
 		/// <returns>The created window</returns>
-		/// <remarks>It is important that any plugin have a parameterless constructor, else
+		/// <remarks>It is important that any plug-in have a parameterless constructor, else
 		/// it will fail to load from a saved layout.</remarks>
 		private static IDockContent GetContentFromPersistString(string persistString)
 		{
@@ -180,26 +179,26 @@ namespace ARCed
 				{
 					string file = Project.Settings.OpenScripts[0];
 					Project.Settings.OpenScripts.RemoveAt(0);
-					return OpenScript(file, false);
+					return OpenScript(file);
 				}
 				return null;
 			}
-			else if (persistString == typeof(FindReplaceDialog).ToString())
+			if (persistString == typeof(FindReplaceDialog).ToString())
 				return Windows.ScintillaFindReplace;
-			else if (persistString == typeof(ScriptStyleForm).ToString())
+			if (persistString == typeof(ScriptStyleForm).ToString())
 				return Windows.ScriptStyleMenu;
-			else if (persistString == typeof(ScriptMenuForm).ToString())
+			if (persistString == typeof(ScriptMenuForm).ToString())
 				return Windows.ScriptMenu;
-			else if (persistString == typeof(ARChiveForm).ToString())
+			if (persistString == typeof(ARChiveForm).ToString())
 				return Windows.ARChiveForm;
-			else if (persistString == typeof(EditorOptionsForm).ToString())
+			if (persistString == typeof(EditorOptionsForm).ToString())
 				return Windows.EditorOptionsMenu;
-			else if (persistString == typeof(SkinSettingsForm).ToString())
+			if (persistString == typeof(SkinSettingsForm).ToString())
 				return Windows.SkinSettingForm;
-			else if (persistString == typeof(AutoCompleteForm).ToString())
+			if (persistString == typeof(AutoCompleteForm).ToString())
 				return Windows.AutoCompleteWindow;
 
-			// Attempt to create windows not defined, searching plugin assemblies
+			// Attempt to create windows not defined, searching plug-in assemblies
 			try
 			{
 				Type type = null;
@@ -225,18 +224,18 @@ namespace ARCed
 			{
 				SplashScreen.UdpateStatusText("Initializing Ruby engine...");
 				Thread.Sleep(500);
-				RestoreWindowLocation();
+				this.RestoreWindowLocation();
 				if (File.Exists(filename) && Path.GetExtension(filename) == ".arcproj")
 				{
-					LoadProject(filename);
+					this.LoadProject(filename);
 					SplashScreen.UdpateStatusText("Opening project...");
 					Thread.Sleep(500);
 				}
 				SplashScreen.UdpateStatusText("Restoring layout...");
 				Thread.Sleep(500);
-				this.Show();
+				Show();
 				SplashScreen.CloseSplashScreen();
-				this.Activate();
+				Activate();
 			}
 		}
 
@@ -260,17 +259,17 @@ namespace ARCed
 			if (Project.IsLoaded)
 				Project.Close();
 			Project.NeedSaved = false;
-            this.Cursor = Cursors.WaitCursor;
+            Cursor = Cursors.WaitCursor;
 			Project.Load(path);
-            this.Cursor = Cursors.Default;
+            Cursor = Cursors.Default;
 			//try
 			//{
 				
 				if (File.Exists(Project.LayoutSettings))
-					dockMain.LoadFromXml(Project.LayoutSettings, _deserializeDockContent);
+					this.dockMain.LoadFromXml(Project.LayoutSettings, this._deserializeDockContent);
 				Windows.ScriptMenu.ScriptsDirectory = Project.ScriptsDirectory;
 				Windows.ARChiveForm.RefreshSettings();
-				this.Text = Project.Title;
+				Text = Project.Title;
 				Settings.AddToRecent(path);
 			//}
 			//catch
@@ -286,11 +285,11 @@ namespace ARCed
 		/// </summary>
 		private void CloseProject()
 		{
-			var contents = dockMain.Contents;
+			var contents = this.dockMain.Contents;
 			for (int i = 0; i < contents.Count; i++)
-				dockMain.RemoveContent(contents[i]);
+				this.dockMain.RemoveContent(contents[i]);
 			Project.Close();
-			this.Text = "ARCed.NET";
+			Text = @"ARCed.NET";
 			Windows.DisposeAll();
 		}
 
@@ -300,7 +299,7 @@ namespace ARCed
 			{
 				Project.Save();
 				Project.ScriptManager.SaveAll();
-				dockMain.SaveAsXml(Project.LayoutSettings, Encoding.UTF8);
+				this.dockMain.SaveAsXml(Project.LayoutSettings, Encoding.UTF8);
 				Project.NeedSaved = false;
 			}
 			catch
@@ -318,28 +317,33 @@ namespace ARCed
 			if (!Project.NeedSaved)
 				return true;
 			DialogResult result = MessageBox.Show(String.Format("Save changes to {0}?", Project.Title), 
-				"Advanced RPG Creator", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Exclamation);
-			if (result == DialogResult.Yes)
+				@"Advanced RPG Creator", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Exclamation);
+			switch (result)
 			{
-				SaveProject();
-				return true;
+			    case DialogResult.Yes:
+			        this.SaveProject();
+			        return true;
+			    case DialogResult.No:
+			        return true;
+			    default:
+			        return false;
 			}
-			else if (result == DialogResult.No) return true;
-			else return false;
 		}
 
-		private void Editor_FormClosing(object sender, FormClosingEventArgs e)
+		private void EditorFormClosing(object sender, FormClosingEventArgs e)
 		{
-			Settings.Location = this.Location;
-			Settings.Size = this.Size;
-			Settings.WindowState = this.WindowState;
+			Settings.Location = Location;
+			Settings.Size = Size;
+			Settings.WindowState = WindowState;
 			Settings.Save();
 			Properties.Settings.Default.Save();
 		}
 
-		private void buttonOpenGameDirectory_Click(object sender, EventArgs e)
+		private void ButtonOpenGameDirectoryClick(object sender, EventArgs e)
 		{
-			string tag = (sender as ToolStripMenuItem).Tag.ToString();
+			var toolStripMenuItem = sender as ToolStripMenuItem;
+			if (toolStripMenuItem == null) return;
+			var tag = toolStripMenuItem.Tag.ToString();
 			string dir;
 			switch (tag)
 			{
@@ -356,28 +360,27 @@ namespace ARCed
 				default: dir = PathHelper.EditorDirectory; break;
 			}
 			Process.Start(dir + @"\");
-
 		}
 
-		private void styleManagerToolStripMenuItem_Click(object sender, EventArgs e)
+		private void StyleManagerToolStripMenuItemClick(object sender, EventArgs e)
 		{
 			if (Windows.ScriptStyleMenu.IsHidden)
-				Windows.ScriptStyleMenu.Show(dockMain);
+				Windows.ScriptStyleMenu.Show(this.dockMain);
 			Windows.ScriptStyleMenu.Show();
 		}
 
-		private void backupUtilityToolStripMenuItem_Click(object sender, EventArgs e)
+		private void BackupUtilityToolStripMenuItemClick(object sender, EventArgs e)
 		{
 			Windows.ARChiveForm.RefreshSettings();
 			Show(Windows.ARChiveForm);
 		}
 
-		private void toolMenuScriptManager_Click(object sender, EventArgs e)
+		private void ToolMenuScriptManagerClick(object sender, EventArgs e)
 		{
 			Show(Windows.ScriptMenu);
 		}
 
-		private void toolMenuEditorOptions_Click(object sender, EventArgs e)
+		private void ToolMenuEditorOptionsClick(object sender, EventArgs e)
 		{
 			Show(Windows.EditorOptionsMenu);
 		}
@@ -388,33 +391,35 @@ namespace ARCed
 		/// Invoked when "File" drop-down is opening on menu strip, 
 		/// enabling/disabling specific options as needed.
 		/// </summary>
-		private void menuItemFile_DropDownOpening(object sender, EventArgs e)
+		private void MenuItemFileDropDownOpening(object sender, EventArgs e)
 		{
 			bool enable = Project.IsLoaded;
-			fileMenuSaveProject.Enabled = enable;
-			fileMenuSaveTemplate.Enabled = enable;
-			fileMenuCloseProject.Enabled = enable;
-			fileMenuOpenRecent.DropDownItems.Clear();
+			this.fileMenuSaveProject.Enabled = enable;
+			this.fileMenuSaveTemplate.Enabled = enable;
+			this.fileMenuCloseProject.Enabled = enable;
+			this.fileMenuOpenRecent.DropDownItems.Clear();
 			foreach (string filename in Settings.RecentlyOpened)
 			{
 				// TODO: Implement custom game icon to tool item?
 				var item = new ToolStripMenuItem(Path.GetFileNameWithoutExtension(filename));
-				item.Click += this.openRecentFile_Click;
+				item.Click += this.OpenRecentFileClick;
 				item.ToolTipText = filename;
-				fileMenuOpenRecent.DropDownItems.Add(item);
+				this.fileMenuOpenRecent.DropDownItems.Add(item);
 			}
 			//
 		}
 
-		private void openRecentFile_Click(object sender, EventArgs e)
+		private void OpenRecentFileClick(object sender, EventArgs e)
 		{
-			string filename = (sender as ToolStripMenuItem).ToolTipText;
+			var toolStripMenuItem = sender as ToolStripMenuItem;
+			if (toolStripMenuItem == null) return;
+			var filename = toolStripMenuItem.ToolTipText;
 			if (File.Exists(filename))
-				LoadProject(filename);
+				this.LoadProject(filename);
 			else
 			{
 				MessageBox.Show("Project cannot be found.", 
-					"Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				                "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 				Settings.RecentlyOpened.Remove(filename);
 			}
 		}
@@ -422,9 +427,9 @@ namespace ARCed
 		/// <summary>
 		/// Menu: File -> New Project...
 		/// </summary>
-		private void fileMenuNewProject_Clicked(object sender, EventArgs e)
+		private void FileMenuNewProjectClicked(object sender, EventArgs e)
 		{
-			if (ConfirmProjectClose())
+			if (this.ConfirmProjectClose())
 			{
 				using (var dialog = new NewProjectForm())
 				{
@@ -444,7 +449,7 @@ namespace ARCed
                             Path.Combine(PathHelper.EditorDirectory, @"x64\7z64.dll") :
                             Path.Combine(PathHelper.EditorDirectory, @"x86\7z.dll");
 						string proj = Project.CreateProject(lib, dir, dialog.ProjectTitle, template);
-						LoadProject(proj);
+						this.LoadProject(proj);
 					}
 				}
 			}
@@ -453,22 +458,22 @@ namespace ARCed
 		/// <summary>
 		/// Menu: File -> Open Project...
 		/// </summary>
-		private void fileMenuOpenProject_Click(object sender, EventArgs e)
+		private void FileMenuOpenProjectClick(object sender, EventArgs e)
 		{
-			if (ConfirmProjectClose())
+			if (this.ConfirmProjectClose())
 			{
 				using (var loadDialog = new OpenFileDialog())
 				{
 					loadDialog.DefaultExt = "";
-					loadDialog.Filter = "ARC Project File|*.arcproj|All Documents|*.*";
+					loadDialog.Filter = @"ARC Project File|*.arcproj|All Documents|*.*";
 					loadDialog.InitialDirectory = PathHelper.DefaultSaveDirectory;
 					loadDialog.Title = "Open ARC Project...";
 					if (loadDialog.ShowDialog() == DialogResult.OK)
 					{
-						if (Project.IsLoaded && !ConfirmProjectClose())
+						if (Project.IsLoaded && !this.ConfirmProjectClose())
 							return;
-						CloseProject();
-						LoadProject(loadDialog.FileName);
+						this.CloseProject();
+						this.LoadProject(loadDialog.FileName);
 					}
 				}
 			}
@@ -477,24 +482,24 @@ namespace ARCed
 		/// <summary>
 		/// Menu: File -> Close Project
 		/// </summary>
-		private void fileMenuCloseProject_Click(object sender, EventArgs e)
+		private void FileMenuCloseProjectClick(object sender, EventArgs e)
 		{
-			if (ConfirmProjectClose())
-				CloseProject();
+			if (this.ConfirmProjectClose())
+				this.CloseProject();
 		}
 
 		/// <summary>
 		/// Menu: File -> Save Project
 		/// </summary>
-		private void fileMenuSaveProject_Click(object sender, EventArgs e)
+		private void FileMenuSaveProjectClick(object sender, EventArgs e)
 		{
-			SaveProject();
+			this.SaveProject();
 		}
 
 		/// <summary>
 		/// Menu: File -> Save As Template...
 		/// </summary>
-		private void fileMenuSaveTemplate_Click(object sender, EventArgs e)
+		private void FileMenuSaveTemplateClick(object sender, EventArgs e)
 		{
 			const string title = "Save Project Template";
 			const string label = "Template Name:";
@@ -522,10 +527,10 @@ namespace ARCed
 		/// <summary>
 		/// Menu: File -> Exit
 		/// </summary>
-		private void fileMenuExit_Click(object sender, EventArgs e)
+		private void FileMenuExitClick(object sender, EventArgs e)
 		{
-			if (ConfirmProjectClose())
-				this.Close();
+			if (this.ConfirmProjectClose())
+				Close();
 		}
 
 		#endregion
@@ -536,61 +541,72 @@ namespace ARCed
 		/// Invoked when the "Tools" drop-down is opening on menu strip, 
 		/// enabling/disabling specific options as needed.
 		/// </summary>
-		private void menuStripEdit_DropDownOpening(object sender, EventArgs e)
+		private void MenuStripEditDropDownOpening(object sender, EventArgs e)
 		{
 			bool enable = Project.IsLoaded;
-
+			// TODO: Enable/disable items as needed.
 		}
 
 		#endregion
 
 		#region Menu Strip: Tools
 
-		private void menuStripTools_DropDownOpening(object sender, EventArgs e)
+		private void MenuStripToolsDropDownOpening(object sender, EventArgs e)
 		{
 			bool enable = Project.IsLoaded;
-			toolMenuARChiveUtility.Enabled = enable;
-			toolMenuDatabaseManager.Enabled = enable;
-			toolMenuPlugins.Enabled = enable;
-			toolMenuScriptManager.Enabled = enable;
-			toolMenuSkinManager.Enabled = enable;
+			this.toolMenuARChiveUtility.Enabled = enable;
+			this.toolMenuDatabaseManager.Enabled = enable;
+			this.toolMenuPlugins.Enabled = enable;
+			this.toolMenuScriptManager.Enabled = enable;
+			this.toolMenuSkinManager.Enabled = enable;
 
 			// Add plugins to dropdown
-			toolMenuPlugins.DropDownItems.Clear();
+			this.toolMenuPlugins.DropDownItems.Clear();
 			foreach (RegistryEntry entry in Registry.Entries)
 			{
-				var item = new ToolStripMenuItem(entry.Name);
-				item.Image = Icon.ExtractAssociatedIcon(entry.Plugin.Filename).ToBitmap();
-				item.ToolTipText = entry.Description;
-				item.Tag = entry;
-				item.Click += menuStripPlugins_Clicked;
-				toolMenuPlugins.DropDownItems.Add(item);
+				var extractAssociatedIcon = Icon.ExtractAssociatedIcon(entry.Plugin.Filename);
+				if (extractAssociatedIcon == null) continue;
+				var item = new ToolStripMenuItem(entry.Name)
+				{
+					Image = extractAssociatedIcon.ToBitmap(),
+					ToolTipText = entry.Description,
+					Tag = entry
+				};
+				item.Click += MenuStripPluginsClicked;
+				this.toolMenuPlugins.DropDownItems.Add(item);
 			}
 		}
 
-		private static void menuStripPlugins_Clicked(object sender, EventArgs e)
+		private static void MenuStripPluginsClicked(object sender, EventArgs e)
 		{
-			((sender as ToolStripMenuItem).Tag as RegistryEntry).Show();
+			var toolStripMenuItem = sender as ToolStripMenuItem;
+			if (toolStripMenuItem != null)
+			{
+				var registryEntry = toolStripMenuItem.Tag as RegistryEntry;
+				if (registryEntry != null) registryEntry.Show();
+			}
 		}
 
 		#endregion
 
 		#region Script Context Menu
 
-		private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+		private void SaveToolStripMenuItemClick(object sender, EventArgs e)
 		{
-			(MainDock.ActivePane.ActiveContent as ScriptEditorForm).Script.Save();
+			var scriptEditorForm = MainDock.ActivePane.ActiveContent as ScriptEditorForm;
+			if (scriptEditorForm != null)
+				scriptEditorForm.Script.Save();
 		}
 
-		private void closeToolStripMenuItem_Click(object sender, EventArgs e)
+		private void CloseToolStripMenuItemClick(object sender, EventArgs e)
 		{
 			MainDock.ActivePane.CloseActiveContent();
 		}
 
-		private void closeAllButThisToolStripMenuItem_Click(object sender, EventArgs e)
+		private void CloseAllButThisToolStripMenuItemClick(object sender, EventArgs e)
 		{
-			var keepForm = dockMain.ActiveDocumentPane.ActiveContent;
-			if (dockMain.DocumentStyle == DocumentStyle.SystemMdi)
+			var keepForm = this.dockMain.ActiveDocumentPane.ActiveContent;
+			if (this.dockMain.DocumentStyle == DocumentStyle.SystemMdi)
 			{
 				foreach (Form form in MdiChildren)
 					if (form != keepForm)
@@ -598,14 +614,14 @@ namespace ARCed
 			}
 			else
 			{
-                IDockContent[] documents = dockMain.DocumentsToArray();
+                IDockContent[] documents = this.dockMain.DocumentsToArray();
 				foreach (IDockContent content in documents)
 					if (content != keepForm)
 						content.DockHandler.Close();
 			}
 		}
 
-		private void floatToolStripMenuItem_Click(object sender, EventArgs e)
+		private void FloatToolStripMenuItemClick(object sender, EventArgs e)
 		{
 			var size = new Size(720, 512);
 			Rectangle screenRect = Screen.FromControl(this).Bounds;
@@ -615,17 +631,17 @@ namespace ARCed
 
 		#endregion
 
-		private void toolMenuSkinManager_Click(object sender, EventArgs e)
+		private void ToolMenuSkinManagerClick(object sender, EventArgs e)
 		{
 			Show(Windows.SkinSettingForm);
 		}
 
-		private void toolScriptMenuAutoComplete_Click(object sender, EventArgs e)
+		private void ToolScriptMenuAutoCompleteClick(object sender, EventArgs e)
 		{
 			Show(Windows.AutoCompleteWindow);
 		}
 
-		private void helpMenuAbout_Click(object sender, EventArgs e)
+		private void HelpMenuAboutClick(object sender, EventArgs e)
 		{
 			using (var aboutDialog = new AboutBox())
 				aboutDialog.ShowDialog(this);
@@ -636,9 +652,11 @@ namespace ARCed
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
-		private void toolComboDatabaseItem_Click(object sender, EventArgs e)
+		private void ToolComboDatabaseItemClick(object sender, EventArgs e)
 		{
-			int index = Convert.ToInt32((sender as ToolStripMenuItem).Tag);
+			var toolStripMenuItem = sender as ToolStripMenuItem;
+			if (toolStripMenuItem == null) return;
+			var index = Convert.ToInt32(toolStripMenuItem.Tag);
 			DatabaseWindow window = null;
 			switch (index)
 			{
