@@ -21,7 +21,7 @@ namespace ARCed.Scintilla
 
         public void Delete()
         {
-            NativeScintilla.MarkerDeleteHandle(_handle);
+            NativeScintilla.MarkerDeleteHandle(this._handle);
         }
 
 
@@ -48,7 +48,7 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _handle;
+                return this._handle;
             }
         }
 
@@ -57,7 +57,7 @@ namespace ARCed.Scintilla
         {
             get
             {
-                int lineNo = NativeScintilla.MarkerLineFromHandle(_handle);
+                int lineNo = NativeScintilla.MarkerLineFromHandle(this._handle);
                 if (lineNo < 0)
                     return null;
 
@@ -71,7 +71,7 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _marker;
+                return this._marker;
             }
         }
 
@@ -82,8 +82,8 @@ namespace ARCed.Scintilla
 
         internal MarkerInstance(Scintilla scintilla, Marker marker, int handle) : base(scintilla)
         {
-            _marker = marker;
-            _handle = handle;
+            this._marker = marker;
+            this._handle = handle;
         }
 
         #endregion Constructors

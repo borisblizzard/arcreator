@@ -40,41 +40,41 @@ namespace ARCed.Dialogs
 		public int Hue
 		{
 			get { return this.trackBarHue.Value; }
-			set { trackBarHue.Value = value.Clamp(0, 359); }
+			set { this.trackBarHue.Value = value.Clamp(0, 359); }
 		}
 
 		public int ImageOpacity
 		{
-			get { return (int)numericOpacity.Value; }
+			get { return (int)this.numericOpacity.Value; }
 			set 
 			{ 
-				numericOpacity.Value = value.Clamp(0, 255);
-				pictureBox.ImageOpacity = value.Clamp(0, 255);
+				this.numericOpacity.Value = value.Clamp(0, 255);
+				this.pictureBox.ImageOpacity = value.Clamp(0, 255);
 			}
 		}
 
 		public int Zoom
 		{
-			get { return (int)numericZoom.Value; }
-			set { numericZoom.Value = value.Clamp(100, 800); }
+			get { return (int)this.numericZoom.Value; }
+			set { this.numericZoom.Value = value.Clamp(100, 800); }
 		}
 
 		public int ScrollX
 		{
-			get { return (int)numericSX.Value; }
-			set { numericSX.Value = value.Clamp(-480, 480); }
+			get { return (int)this.numericSX.Value; }
+			set { this.numericSX.Value = value.Clamp(-480, 480); }
 		}
 
 		public int ScrollY
 		{
-			get { return (int)numericSY.Value; }
-			set { numericSY.Value = value.Clamp(-480, 480); }
+			get { return (int)this.numericSY.Value; }
+			set { this.numericSY.Value = value.Clamp(-480, 480); }
 		}
 
 		public int BlendMode
 		{
-			get { return comboBoxBlend.SelectedIndex; }
-			set { comboBoxBlend.SelectedIndex = value.Clamp(0, 2); }
+			get { return this.comboBoxBlend.SelectedIndex; }
+			set { this.comboBoxBlend.SelectedIndex = value.Clamp(0, 2); }
 		}
 
 		/// <summary>
@@ -82,8 +82,8 @@ namespace ARCed.Dialogs
 		/// </summary>
 		public string ImageFolder 
 		{
-			get { return _folder; }
-			set { SetFolder(value); }
+			get { return this._folder; }
+			set { this.SetFolder(value); }
 		}
 
 		/// <summary>
@@ -91,8 +91,8 @@ namespace ARCed.Dialogs
 		/// </summary>
 		public string ImageName
 		{
-			get { return Path.GetFileNameWithoutExtension(_filename); }
-			set { SetFilename(value); }
+			get { return Path.GetFileNameWithoutExtension(this._filename); }
+			set { this.SetFilename(value); }
 		}
 
 		/// <summary>
@@ -100,8 +100,8 @@ namespace ARCed.Dialogs
 		/// </summary>
 		public bool SelectionEnabled 
 		{
-			get { return pictureBox.SelectionEnabled; }
-			set { pictureBox.SelectionEnabled = value; }
+			get { return this.pictureBox.SelectionEnabled; }
+			set { this.pictureBox.SelectionEnabled = value; }
 		}
 
 		/// <summary>
@@ -109,8 +109,8 @@ namespace ARCed.Dialogs
 		/// </summary>
 		public bool HueEnabled 
 		{
-			get { return groupBoxHue.Enabled; }
-			set { groupBoxHue.Enabled = value; }
+			get { return this.groupBoxHue.Enabled; }
+			set { this.groupBoxHue.Enabled = value; }
 		}
 
 		/// <summary>
@@ -118,8 +118,8 @@ namespace ARCed.Dialogs
 		/// </summary>
 		public bool OptionsEnabled
 		{
-			get { return groupBoxOptions.Enabled; }
-			set { groupBoxOptions.Enabled = value; }
+			get { return this.groupBoxOptions.Enabled; }
+			set { this.groupBoxOptions.Enabled = value; }
 		}
 
 		/// <summary>
@@ -127,8 +127,8 @@ namespace ARCed.Dialogs
 		/// </summary>
 		public bool AdvancedOptionEnabled
 		{
-			get { return pictureBox.AdvancedEnabled; }
-			set { pictureBox.AdvancedEnabled = panelAdvanced.Enabled = value; }
+			get { return this.pictureBox.AdvancedEnabled; }
+			set { this.pictureBox.AdvancedEnabled = this.panelAdvanced.Enabled = value; }
 		}
 
 		#endregion
@@ -140,9 +140,9 @@ namespace ARCed.Dialogs
 			var hue = new List<string> { "Animations", "Battlers", "Characters",
 				"Fogs", "Panoramas", "Pictures" };
 			var options = new List<string> { "Battlers", "Fogs" };
-			OptionsEnabled = options.Contains(folder);
-			HueEnabled = hue.Contains(folder);
-			AdvancedOptionEnabled = (folder == "Fogs");
+			this.OptionsEnabled = options.Contains(folder);
+			this.HueEnabled = hue.Contains(folder);
+			this.AdvancedOptionEnabled = (folder == "Fogs");
 		}
 
 		/// <summary>
@@ -153,8 +153,8 @@ namespace ARCed.Dialogs
 		public ImageSelectionForm(string folder, string filename) : this()
 		{
 			// Find all valid filenames
-			_folder = folder;
-			_filename = filename;
+			this._folder = folder;
+			this._filename = filename;
 		}
 
 		/// <summary>
@@ -162,26 +162,26 @@ namespace ARCed.Dialogs
 		/// </summary>
 		public ImageSelectionForm()
 		{
-			InitializeComponent();
+			this.InitializeComponent();
 			ResizeBegin += (s, e) => SuspendLayout();
 			ResizeEnd += (s, e) => ResumeLayout();
 		}
 
 		private void ImageSelectionFormLoad(object sender, EventArgs e)
 		{
-			if (_folder != null)
+			if (this._folder != null)
 			{
-				SetDefaultOptions(_folder);
-				if (!_folder.StartsWith("Graphics"))
-					_folder = Path.Combine("Graphics", _folder);
-				_resources = ResourceHelper.GetTypes(_folder);
-				SetFolder(_folder);
+				this.SetDefaultOptions(this._folder);
+				if (!this._folder.StartsWith("Graphics"))
+					this._folder = Path.Combine("Graphics", this._folder);
+				this._resources = ResourceHelper.GetTypes(this._folder);
+				this.SetFolder(this._folder);
 			}
 			else
-				_resources = new List<GameResource>();
-			_initialized = true;
-			if (_filename != null)
-				SetFilename(_filename);
+				this._resources = new List<GameResource>();
+			this._initialized = true;
+			if (this._filename != null)
+				this.SetFilename(this._filename);
 		}
 
 		#endregion
@@ -190,89 +190,89 @@ namespace ARCed.Dialogs
 
 		private void SetFolder(string folder)
 		{
-			listBoxGraphics.BeginUpdate();
-			listBoxGraphics.Items.Clear();
-		    _folder = folder;
-			foreach (GameResource rsx in _resources)
-				listBoxGraphics.Items.Add(rsx.Name);
-			_resources.Insert(0, null);
-			listBoxGraphics.Items.Insert(0, "<None>");
-			listBoxGraphics.EndUpdate();
+			this.listBoxGraphics.BeginUpdate();
+			this.listBoxGraphics.Items.Clear();
+		    this._folder = folder;
+			foreach (GameResource rsx in this._resources)
+				this.listBoxGraphics.Items.Add(rsx.Name);
+			this._resources.Insert(0, null);
+			this.listBoxGraphics.Items.Insert(0, "<None>");
+			this.listBoxGraphics.EndUpdate();
 		}
 
 		private void SetFilename(string filename)
 		{
-			var index = listBoxGraphics.FindStringExact(filename, 1);
-			listBoxGraphics.SelectedIndex = Math.Max(0, index);
+			var index = this.listBoxGraphics.FindStringExact(filename, 1);
+			this.listBoxGraphics.SelectedIndex = Math.Max(0, index);
 		}
 
 		// TODO: Improve this to me more dyanamic
 		private void RefreshPicture()
 		{
-			if (!_initialized)
+			if (!this._initialized)
 				return;
-			if (OptionsEnabled)
+			if (this.OptionsEnabled)
 			{
-				pictureBox.BlendMode = comboBoxBlend.SelectedIndex;
-				if (AdvancedOptionEnabled)
+				this.pictureBox.BlendMode = this.comboBoxBlend.SelectedIndex;
+				if (this.AdvancedOptionEnabled)
 				{
-					pictureBox.Zoom = (int)numericZoom.Value;
-					pictureBox.ScrollX = (int)numericSX.Value;
-					pictureBox.ScrollY = (int)numericSY.Value;
+					this.pictureBox.Zoom = (int)this.numericZoom.Value;
+					this.pictureBox.ScrollX = (int)this.numericSX.Value;
+					this.pictureBox.ScrollY = (int)this.numericSY.Value;
 				}
 			}
-			switch (_folder)
+			switch (this._folder)
 			{
 				case @"Graphics\Animations":
-					pictureBox.Image = new Bitmap(Cache.Animation(_filename, this.trackBarHue.Value));
+					this.pictureBox.Image = new Bitmap(Cache.Animation(this._filename, this.trackBarHue.Value));
 					break;
 				case @"Graphics\Characters": 
-					pictureBox.Image = new Bitmap(Cache.Character(_filename, this.trackBarHue.Value));
+					this.pictureBox.Image = new Bitmap(Cache.Character(this._filename, this.trackBarHue.Value));
 					break;
 				case @"Graphics\Battlers":
-					pictureBox.Image = new Bitmap(Cache.Battler(_filename, this.trackBarHue.Value));
+					this.pictureBox.Image = new Bitmap(Cache.Battler(this._filename, this.trackBarHue.Value));
 					break;
 				case @"Graphics\Icons":
-					pictureBox.Image = new Bitmap(Cache.Icon(_filename));
+					this.pictureBox.Image = new Bitmap(Cache.Icon(this._filename));
 					break;
 				case @"Graphics\Battlebacks":
-					pictureBox.Image = new Bitmap(Cache.Battleback(_filename));
+					this.pictureBox.Image = new Bitmap(Cache.Battleback(this._filename));
 					break;
 				case @"Graphics\Tilesets":
-					pictureBox.Image = new Bitmap(Cache.Tileset(_filename));
+					this.pictureBox.Image = new Bitmap(Cache.Tileset(this._filename));
 					break;
 				case @"Graphics\Autotiles":
-					pictureBox.Image = new Bitmap(Cache.Autotile(_filename));
+					this.pictureBox.Image = new Bitmap(Cache.Autotile(this._filename));
 					break;
 				case @"Graphics\Fogs":
-					pictureBox.Image = 
-						new Bitmap(Cache.Fog(_filename, this.trackBarHue.Value));
+					this.pictureBox.Image = 
+						new Bitmap(Cache.Fog(this._filename, this.trackBarHue.Value));
 					break;
 				case @"Graphics\Panoramas":
-					pictureBox.Image = new Bitmap(Cache.Panorama(_filename, this.trackBarHue.Value));
+					this.pictureBox.Image = new Bitmap(Cache.Panorama(this._filename, this.trackBarHue.Value));
 					break;
 			}
 		}
 
 		private void ListBoxGraphicsSelectedIndexChanged(object sender, EventArgs e)
 		{
-			var index = listBoxGraphics.SelectedIndex;
+			var index = this.listBoxGraphics.SelectedIndex;
 			if (index > 0)
 			{
-				_filename = _resources[listBoxGraphics.SelectedIndex].Name;
-				RefreshPicture();
+				this._filename = this._resources[this.listBoxGraphics.SelectedIndex].Name;
+				this.RefreshPicture();
 			}
 			else
 			{
-				pictureBox.Image = null;
-				_filename = "";
+				this.pictureBox.Image = null;
+				this._filename = "";
 			}
 		}
 
 		private void ImageOptionChanged(object sender, EventArgs e)
 		{
-			if (_initialized)
-				RefreshPicture();
+			if (this._initialized)
+				this.RefreshPicture();
 		}
 
 		private void ButtonOkClick(object sender, EventArgs e)
@@ -286,7 +286,7 @@ namespace ARCed.Dialogs
 		private void ListBoxGraphicsDrawItem(object sender, DrawItemEventArgs e)
 		{
 			var index = e.Index;
-			var str = (index == 0) ? "<None>" : _resources[e.Index].Name;
+			var str = (index == 0) ? "<None>" : this._resources[e.Index].Name;
 			using (e.Graphics)
 			{
 				e.DrawBackground();
@@ -304,13 +304,13 @@ namespace ARCed.Dialogs
 
 		private void CheckAlphaPreviewCheckedChanged(object sender, EventArgs e)
 		{
-			pictureBox.AlphaPreview = checkAlphaPreview.Checked;
-			pictureBox.Invalidate();
+			this.pictureBox.AlphaPreview = this.checkAlphaPreview.Checked;
+			this.pictureBox.Invalidate();
 		}
 
 		private void NumericOpacityValueChanged(object sender, EventArgs e)
 		{
-			pictureBox.ImageOpacity = (int)numericOpacity.Value;
+			this.pictureBox.ImageOpacity = (int)this.numericOpacity.Value;
 		}
 
 		private void ButtonColorClick(object sender, EventArgs e)

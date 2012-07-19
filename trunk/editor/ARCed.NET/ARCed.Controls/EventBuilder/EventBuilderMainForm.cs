@@ -11,7 +11,7 @@ namespace ARCed.EventBuilder
 	{
 		public EventBuilderMainForm()
 		{
-			InitializeComponent();
+			this.InitializeComponent();
 		}
 
 		private void buttonCommand_Clicked(object sender, EventArgs e)

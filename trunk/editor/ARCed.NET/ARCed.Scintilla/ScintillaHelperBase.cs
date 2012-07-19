@@ -23,13 +23,13 @@ namespace ARCed.Scintilla
 
         private void scintilla_Load(object sender, EventArgs e)
         {
-            Initialize();
+            this.Initialize();
         }
 
 
         public virtual void Dispose()
         {
-            _isDisposed = true;
+            this._isDisposed = true;
         }
 
 
@@ -68,13 +68,13 @@ namespace ARCed.Scintilla
             if (other == null)
                 return false;
 
-            if (_scintilla == null || other._scintilla == null)
+            if (this._scintilla == null || other._scintilla == null)
                 return false;
 
              if(!this._scintilla.Equals(other._scintilla))
                  return false;
 
-             return this.GetType().IsAssignableFrom(obj.GetType());
+             return GetType().IsAssignableFrom(obj.GetType());
         }
 
         #endregion Methods
@@ -87,28 +87,28 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _isDisposed;
+                return this._isDisposed;
             }
             set
             {
-                _isDisposed = value;
+                this._isDisposed = value;
             }
         }
 
 
         protected internal INativeScintilla NativeScintilla
         {
-            get { return _nativeScintilla; }
+            get { return this._nativeScintilla; }
         }
 
 
         public Scintilla Scintilla
         {
-            get { return _scintilla; }
+            get { return this._scintilla; }
             set 
             { 
-                _scintilla = value;
-                _nativeScintilla = this._scintilla;
+                this._scintilla = value;
+                this._nativeScintilla = this._scintilla;
             }
         }
 
@@ -119,8 +119,8 @@ namespace ARCed.Scintilla
 
         protected internal ScintillaHelperBase(Scintilla scintilla)
         {
-            _scintilla = scintilla;
-            _nativeScintilla = scintilla;
+            this._scintilla = scintilla;
+            this._nativeScintilla = scintilla;
         }
 
         #endregion Constructors

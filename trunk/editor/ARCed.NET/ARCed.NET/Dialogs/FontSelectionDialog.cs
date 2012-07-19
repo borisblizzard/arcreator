@@ -21,8 +21,8 @@ namespace ARCed.Dialogs
 		/// </summary>
 		public Font UserFont 
 		{ 
-			get { return fontSelector.UserFont; }
-			set { fontSelector.UserFont = value; }
+			get { return this.fontSelector.UserFont; }
+			set { this.fontSelector.UserFont = value; }
 		}
 
 		#endregion
@@ -34,7 +34,7 @@ namespace ARCed.Dialogs
 		/// </summary>
 		public FontSelectionDialog()
 		{
-			InitializeComponent();
+			this.InitializeComponent();
 		}
 
 		#endregion

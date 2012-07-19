@@ -23,9 +23,9 @@ namespace ARCed.Controls
 		/// </summary>
 		public SearchControl()
 		{
-			InitializeComponent();
+			this.InitializeComponent();
 			Dock = DockStyle.Fill;
-			toolStripComboBox_Scope.SelectedIndex = 0;
+			this.toolStripComboBox_Scope.SelectedIndex = 0;
 		}
 
 		#endregion
@@ -34,7 +34,7 @@ namespace ARCed.Controls
 
 		private void toolStripMenuItem_OptionsItem_Click(object sender, EventArgs e)
 		{
-			toolStripDropDownButton_Options.ShowDropDown();
+			this.toolStripDropDownButton_Options.ShowDropDown();
 			((ToolStripMenuItem)sender).Select();
 		}
 
@@ -42,7 +42,7 @@ namespace ARCed.Controls
 		{
 			if (e.KeyCode == Keys.Enter)
 			{
-				buttonSearch.PerformClick();
+				this.buttonSearch.PerformClick();
 				e.Handled = true;
 				e.SuppressKeyPress = true;
 			}

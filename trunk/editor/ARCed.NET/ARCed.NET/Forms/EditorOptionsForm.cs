@@ -10,7 +10,7 @@ namespace ARCed.Forms
 	{
 		public EditorOptionsForm()
 		{
-			InitializeComponent();
+			this.InitializeComponent();
 		}
 
 	}

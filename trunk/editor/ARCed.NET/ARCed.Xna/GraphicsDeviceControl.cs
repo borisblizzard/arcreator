@@ -47,7 +47,7 @@ namespace ARCed.Controls
         /// </summary>
         public GraphicsDevice GraphicsDevice
         {
-            get { return graphicsDeviceService.GraphicsDevice; }
+            get { return this.graphicsDeviceService.GraphicsDevice; }
         }
 
 
@@ -58,7 +58,7 @@ namespace ARCed.Controls
         /// </summary>
         public ServiceContainer Services
         {
-            get { return services; }
+            get { return this.services; }
         }
 
         private readonly ServiceContainer services = new ServiceContainer();
@@ -77,15 +77,15 @@ namespace ARCed.Controls
             // Don't initialize the graphics device if we are running in the designer.
             if (!DesignMode)
             {
-                graphicsDeviceService = GraphicsDeviceService.AddRef(Handle,
+                this.graphicsDeviceService = GraphicsDeviceService.AddRef(Handle,
                                                                      ClientSize.Width,
                                                                      ClientSize.Height);
 
                 // Register the service, so components like ContentManager can find it.
-                services.AddService<IGraphicsDeviceService>(graphicsDeviceService);
+                this.services.AddService<IGraphicsDeviceService>(this.graphicsDeviceService);
 
                 // Give derived classes a chance to initialize themselves.
-                Initialize();
+                this.Initialize();
             }
 
             base.OnCreateControl();
@@ -97,10 +97,10 @@ namespace ARCed.Controls
         /// </summary>
         protected override void Dispose(bool disposing)
         {
-            if (graphicsDeviceService != null)
+            if (this.graphicsDeviceService != null)
             {
-                graphicsDeviceService.Release(disposing);
-                graphicsDeviceService = null;
+                this.graphicsDeviceService.Release(disposing);
+                this.graphicsDeviceService = null;
             }
 
             base.Dispose(disposing);
@@ -117,18 +117,18 @@ namespace ARCed.Controls
         /// </summary>
         protected override void OnPaint(PaintEventArgs e)
         {
-            string beginDrawError = BeginDraw();
+            string beginDrawError = this.BeginDraw();
 
             if (string.IsNullOrEmpty(beginDrawError))
             {
                 // Draw the control using the GraphicsDevice.
-                Draw();
-                EndDraw();
+                this.Draw();
+                this.EndDraw();
             }
             else
             {
                 // If BeginDraw failed, show an error message using System.Drawing.
-                PaintUsingSystemDrawing(e.Graphics, beginDrawError);
+                this.PaintUsingSystemDrawing(e.Graphics, beginDrawError);
             }
         }
 
@@ -141,13 +141,13 @@ namespace ARCed.Controls
         string BeginDraw()
         {
             // If we have no graphics device, we must be running in the designer.
-            if (graphicsDeviceService == null)
+            if (this.graphicsDeviceService == null)
             {
                 return Text + "\n\n" + GetType();
             }
 
             // Make sure the graphics device is big enough, and is not lost.
-            string deviceResetError = HandleDeviceReset();
+            string deviceResetError = this.HandleDeviceReset();
 
             if (!string.IsNullOrEmpty(deviceResetError))
             {
@@ -159,18 +159,17 @@ namespace ARCed.Controls
             // largest of these controls. But what if we are currently drawing
             // a smaller control? To avoid unwanted stretching, we set the
             // viewport to only use the top left portion of the full backbuffer.
-            var viewport = new Viewport();
+            var viewport = new Viewport
+            {
+                X = 0,
+                Y = 0,
+                Width = ClientSize.Width,
+                Height = ClientSize.Height,
+                MinDepth = 0,
+                MaxDepth = 1
+            };
 
-            viewport.X = 0;
-            viewport.Y = 0;
-
-            viewport.Width = ClientSize.Width;
-            viewport.Height = ClientSize.Height;
-
-            viewport.MinDepth = 0;
-            viewport.MaxDepth = 1;
-
-            GraphicsDevice.Viewport = viewport;
+            this.GraphicsDevice.Viewport = viewport;
 
             return null;
         }
@@ -189,7 +188,7 @@ namespace ARCed.Controls
                 var sourceRectangle = new Rectangle(0, 0, ClientSize.Width,
                                                                 ClientSize.Height);
 
-                GraphicsDevice.Present(sourceRectangle, null, this.Handle);
+                this.GraphicsDevice.Present(sourceRectangle, null, Handle);
             }
             catch
             {
@@ -210,7 +209,7 @@ namespace ARCed.Controls
         {
             bool deviceNeedsReset = false;
 
-            switch (GraphicsDevice.GraphicsDeviceStatus)
+            switch (this.GraphicsDevice.GraphicsDeviceStatus)
             {
                 case GraphicsDeviceStatus.Lost:
                     // If the graphics device is lost, we cannot use it at all.
@@ -223,7 +222,7 @@ namespace ARCed.Controls
 
                 default:
                     // If the device state is ok, check whether it is big enough.
-                    PresentationParameters pp = GraphicsDevice.PresentationParameters;
+                    PresentationParameters pp = this.GraphicsDevice.PresentationParameters;
 
                     deviceNeedsReset = (ClientSize.Width > pp.BackBufferWidth) ||
                                        (ClientSize.Height > pp.BackBufferHeight);
@@ -235,7 +234,7 @@ namespace ARCed.Controls
             {
                 try
                 {
-                    graphicsDeviceService.ResetDevice(ClientSize.Width,
+                    this.graphicsDeviceService.ResetDevice(ClientSize.Width,
                                                       ClientSize.Height);
                 }
                 catch (Exception e)

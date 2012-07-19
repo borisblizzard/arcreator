@@ -35,7 +35,7 @@ namespace ARCed.Scintilla
         public void Push(NavigationPont value)
         {
             Add(value);
-            if (Count > MaxCount)
+            if (Count > this.MaxCount)
                 RemoveAt(0);
         }
 
@@ -57,11 +57,11 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _maxCount;
+                return this._maxCount;
             }
             set
             {
-                _maxCount = value;
+                this._maxCount = value;
             }
         }
 

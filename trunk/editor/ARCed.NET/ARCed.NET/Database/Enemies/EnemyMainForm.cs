@@ -33,7 +33,7 @@ namespace ARCed.Database.Enemies
 		/// <summary>
 		/// Gets the object list control of this database panel.
 		/// </summary>
-		protected override DatabaseObjectListBox DataObjectList { get { return dataObjectList; } }
+		protected override DatabaseObjectListBox DataObjectList { get { return this.dataObjectList; } }
 
 		#endregion
 
@@ -53,13 +53,13 @@ namespace ARCed.Database.Enemies
         /// </summary>
 		public EnemyMainForm()
 		{
-			InitializeComponent();
-			InitializeElements();
-			InitializeStates();
+			this.InitializeComponent();
+			this.InitializeElements();
+			this.InitializeStates();
 			RefreshObjectList();
-			_listViewSorter = new ListViewColumnSorter();
-			listViewActions.ListViewItemSorter = _listViewSorter;
-			dataObjectList.SelectedIndex = 0;
+			this._listViewSorter = new ListViewColumnSorter();
+			this.listViewActions.ListViewItemSorter = this._listViewSorter;
+			this.dataObjectList.SelectedIndex = 0;
 		}
 
 		#endregion
@@ -116,15 +116,15 @@ namespace ARCed.Database.Enemies
 		public override void RefreshCurrentObject()
 		{
 			SuppressEvents = true;
-			textBoxName.Text = _enemy.name;
-			RefreshParameters();
-			RefreshImages();
-			numericUpDownExp.Value = _enemy.exp;
-			numericUpDownGold.Value = _enemy.gold;
-			RefreshTreasure();
-			RefreshElements();
-			RefreshStates();
-			RefreshActions();
+			this.textBoxName.Text = this._enemy.name;
+			this.RefreshParameters();
+			this.RefreshImages();
+			this.numericUpDownExp.Value = this._enemy.exp;
+			this.numericUpDownGold.Value = this._enemy.gold;
+			this.RefreshTreasure();
+			this.RefreshElements();
+			this.RefreshStates();
+			this.RefreshActions();
 			SuppressEvents = false;
 		}
 
@@ -134,27 +134,27 @@ namespace ARCed.Database.Enemies
 
 		private void InitializeElements()
 		{
-			checkedListElements.ClearItems();
+			this.checkedListElements.ClearItems();
 			List<dynamic> elements = Project.Data.System.elements;
 			for (int i = 1; i < elements.Count; i++)
-				checkedListElements.AddItem(elements[i % elements.Count]);
+				this.checkedListElements.AddItem(elements[i % elements.Count]);
 		}
 
 		private void InitializeStates()
 		{
-			checkedListStates.ClearItems();
+			this.checkedListStates.ClearItems();
 			List<dynamic> states = Project.Data.States;
 			for (int i = 1; i < states.Count; i++)
-				checkedListStates.AddItem(states[i % states.Count].name);
+				this.checkedListStates.AddItem(states[i % states.Count].name);
 		}
 
 		private void RefreshActions()
 		{
-			listViewActions.BeginUpdate();
-			listViewActions.Items.Clear();
-			foreach (Enemy.Action action in _enemy.actions)
-				listViewActions.Items.Add(MakeActionItem(action));
-			listViewActions.EndUpdate();
+			this.listViewActions.BeginUpdate();
+			this.listViewActions.Items.Clear();
+			foreach (Enemy.Action action in this._enemy.actions)
+				this.listViewActions.Items.Add(MakeActionItem(action));
+			this.listViewActions.EndUpdate();
 		}
 
 		private static ListViewItem MakeActionItem(Enemy.Action action)
@@ -183,32 +183,32 @@ namespace ARCed.Database.Enemies
 		private void RefreshElements()
 		{
 			for (int i = 1; i < Project.Data.System.elements.Count; i++)
-				checkedListElements.SetItemIndex(i - 1, _enemy.element_ranks[i]);
+				this.checkedListElements.SetItemIndex(i - 1, this._enemy.element_ranks[i]);
 		}
 
 		private void RefreshStates()
 		{
 			for (int i = 1; i < Project.Data.States.Count; i++)
-				checkedListStates.SetItemIndex(i - 1, _enemy.state_ranks[i]);
+				this.checkedListStates.SetItemIndex(i - 1, this._enemy.state_ranks[i]);
 		}
 
 		private void RefreshTreasure()
 		{
 			IRpgObject obj;
-			if (_enemy.item_id > 0) obj = Project.Data.Items[_enemy.item_id];
-			else if (_enemy.weapon_id > 0) obj = Project.Data.Weapons[_enemy.weapon_id];
-			else if (_enemy.armor_id > 0) obj = Project.Data.Armors[_enemy.armor_id];
+			if (this._enemy.item_id > 0) obj = Project.Data.Items[this._enemy.item_id];
+			else if (this._enemy.weapon_id > 0) obj = Project.Data.Weapons[this._enemy.weapon_id];
+			else if (this._enemy.armor_id > 0) obj = Project.Data.Armors[this._enemy.armor_id];
 			else
 			{
-				textBoxTreasure.Text = "<None>";
+				this.textBoxTreasure.Text = "<None>";
 				return;
 			}
-			textBoxTreasure.Text = String.Format("{0}% {1}", _enemy.treasure_prob, obj.name);
+			this.textBoxTreasure.Text = String.Format("{0}% {1}", this._enemy.treasure_prob, obj.name);
 		}
 
 		private void RefreshParameters()
 		{
-			foreach (Control ctrl in flowPanel.Controls)
+			foreach (Control ctrl in this.flowPanel.Controls)
 			{
 			    if (!(ctrl is ParamBox)) continue;
 			    var param = ctrl as ParamBox;
@@ -220,7 +220,7 @@ namespace ARCed.Database.Enemies
 
 		private void RefreshImages()
 		{
-			pictureBattler.Image = Cache.Battler(_enemy.battler_name, _enemy.battler_hue);
+			this.pictureBattler.Image = Cache.Battler(this._enemy.battler_name, this._enemy.battler_hue);
 		}
 
 		private void ParamBoxOnValueChanged(object sender, ParameterEventArgs e)
@@ -237,11 +237,11 @@ namespace ARCed.Database.Enemies
 
 		private void DataObjectListOnListBoxIndexChanged(object sender, EventArgs e)
 		{
-			int index = dataObjectList.SelectedIndex;
+			int index = this.dataObjectList.SelectedIndex;
 			if (index >= 0)
 			{
-				_enemy = Data[index + 1];
-				RefreshCurrentObject();
+				this._enemy = this.Data[index + 1];
+				this.RefreshCurrentObject();
 			}
 		}
 
@@ -249,10 +249,10 @@ namespace ARCed.Database.Enemies
 		{
 			if (!SuppressEvents)
 			{
-				_enemy.name = textBoxName.Text;
-				int index = dataObjectList.SelectedIndex;
-				dataObjectList.Items[index] = _enemy.ToString();
-				dataObjectList.Invalidate(dataObjectList.GetItemRectangle(index));
+				this._enemy.name = this.textBoxName.Text;
+				int index = this.dataObjectList.SelectedIndex;
+				this.dataObjectList.Items[index] = this._enemy.ToString();
+				this.dataObjectList.Invalidate(this.dataObjectList.GetItemRectangle(index));
 			}
 		}
 
@@ -274,15 +274,15 @@ namespace ARCed.Database.Enemies
 
 		private void ListViewSkillsColumnClick(object sender, ColumnClickEventArgs e)
 		{
-			if (e.Column == _listViewSorter.SortColumn)
+			if (e.Column == this._listViewSorter.SortColumn)
 			{
-				_listViewSorter.Order = (_listViewSorter.Order == SortOrder.Ascending) ?
+				this._listViewSorter.Order = (this._listViewSorter.Order == SortOrder.Ascending) ?
 					SortOrder.Descending : SortOrder.Ascending;
 			}
 			else
 			{
-				_listViewSorter.SortColumn = e.Column;
-				_listViewSorter.Order = SortOrder.Ascending;
+				this._listViewSorter.SortColumn = e.Column;
+				this._listViewSorter.Order = SortOrder.Ascending;
 			}
 			((ListView)sender).Sort();
 		}
@@ -299,81 +299,81 @@ namespace ARCed.Database.Enemies
 			{
 				if (dialog.ShowDialog(this) == DialogResult.OK)
 				{
-					_enemy.actions.Add(dialog.EnemyAction);
-					RefreshActions();
+					this._enemy.actions.Add(dialog.EnemyAction);
+					this.RefreshActions();
 				}
 			}
 		}
 
 		private void ButtonRemoveActionClick(object sender, EventArgs e)
 		{
-			int index = GetActionIndex();
-			if (_enemy != null && index >= 0)
+			int index = this.GetActionIndex();
+			if (this._enemy != null && index >= 0)
 			{
-				_enemy.actions.RemoveAt(index);
-				RefreshActions();
-				listViewActions.Focus();
+				this._enemy.actions.RemoveAt(index);
+				this.RefreshActions();
+				this.listViewActions.Focus();
 				this.ListViewActionsSelectedIndexChanged(sender, e);
 			}
-			if (listViewActions.Items.Count > 0)
-				listViewActions.Items[index.Clamp(0, listViewActions.Items.Count - 1)].Selected = true;
+			if (this.listViewActions.Items.Count > 0)
+				this.listViewActions.Items[index.Clamp(0, this.listViewActions.Items.Count - 1)].Selected = true;
 		}
 
 		private int GetActionIndex()
 		{
-			if (listViewActions.SelectedIndices.Count > 0)
-				return listViewActions.SelectedIndices[0];
+			if (this.listViewActions.SelectedIndices.Count > 0)
+				return this.listViewActions.SelectedIndices[0];
 			return -1;
 		}
 
 		private void ButtonEditActionClick(object sender, EventArgs e)
 		{
-			int index = GetActionIndex();
+			int index = this.GetActionIndex();
 			using (var dialog = new EditActionDialog())
 			{
-				dialog.EnemyAction = _enemy.actions[index];
+				dialog.EnemyAction = this._enemy.actions[index];
 				if (dialog.ShowDialog(this) == DialogResult.OK)
 				{
-					_enemy.actions[index] = dialog.EnemyAction;
-					RefreshActions();
+					this._enemy.actions[index] = dialog.EnemyAction;
+					this.RefreshActions();
 				}
 			}
 		}
 
 		private void ListViewActionsDoubleClick(object sender, EventArgs e)
 		{
-			Point pnt = listViewActions.PointToClient(MousePosition);
-			ListViewHitTestInfo info = listViewActions.HitTest(pnt);
+			Point pnt = this.listViewActions.PointToClient(MousePosition);
+			ListViewHitTestInfo info = this.listViewActions.HitTest(pnt);
 			if (info.Item != null)
 				this.ButtonEditActionClick(sender, e);
 		}
 
 		private void ListViewActionsSelectedIndexChanged(object sender, EventArgs e)
 		{
-			bool enable = listViewActions.SelectedItems.Count > 0;
-			buttonEditAction.Enabled = enable;
-			buttonRemoveAction.Enabled = enable;
-			contextButtonActionEdit.Enabled = enable;
-			contextButtonActionRemove.Enabled = enable;
+			bool enable = this.listViewActions.SelectedItems.Count > 0;
+			this.buttonEditAction.Enabled = enable;
+			this.buttonRemoveAction.Enabled = enable;
+			this.contextButtonActionEdit.Enabled = enable;
+			this.contextButtonActionRemove.Enabled = enable;
 		}
 
 		private void ButtonTreasureClick(object sender, EventArgs e)
 		{
 			using (var dialog = new TreasureSelectDialog())
 			{
-				dialog.SetTreasure(_enemy.treasure_prob, _enemy.item_id,
-					_enemy.weapon_id, _enemy.armor_id);
+				dialog.SetTreasure(this._enemy.treasure_prob, this._enemy.item_id,
+					this._enemy.weapon_id, this._enemy.armor_id);
 				if (dialog.ShowDialog() == DialogResult.OK)
 				{
-					_enemy.treasure_prob = dialog.TreasureProbablity;
-					_enemy.item_id = _enemy.weapon_id = _enemy.armor_id = 0;
+					this._enemy.treasure_prob = dialog.TreasureProbablity;
+					this._enemy.item_id = this._enemy.weapon_id = this._enemy.armor_id = 0;
 					if (dialog.ItemId > 0)
-						_enemy.item_id = dialog.ItemId;
+						this._enemy.item_id = dialog.ItemId;
 					else if (dialog.WeaponId > 0)
-						_enemy.weapon_id = dialog.WeaponId;
+						this._enemy.weapon_id = dialog.WeaponId;
 					else if (dialog.ArmorId > 0)
-						_enemy.armor_id = dialog.ArmorId;
-					RefreshTreasure();
+						this._enemy.armor_id = dialog.ArmorId;
+					this.RefreshTreasure();
 				}
 			}
 		}
@@ -381,15 +381,15 @@ namespace ARCed.Database.Enemies
 		private void PictureBattlerDoubleClick(object sender, EventArgs e)
 		{
 			using (var dialog =
-				new ImageSelectionForm(@"Battlers", _enemy.battler_name))
+				new ImageSelectionForm(@"Battlers", this._enemy.battler_name))
 			{
-				dialog.Hue = _enemy.battler_hue;
+				dialog.Hue = this._enemy.battler_hue;
 				if (dialog.ShowDialog(this) == DialogResult.OK)
 				{
-					_enemy.battler_name = dialog.ImageName;
-					_enemy.battler_hue = dialog.Hue;
-					pictureBattler.Image =
-						Cache.Battler(_enemy.battler_name, _enemy.battler_hue);
+					this._enemy.battler_name = dialog.ImageName;
+					this._enemy.battler_hue = dialog.Hue;
+					this.pictureBattler.Image =
+						Cache.Battler(this._enemy.battler_name, this._enemy.battler_hue);
 				}
 			}
 		}

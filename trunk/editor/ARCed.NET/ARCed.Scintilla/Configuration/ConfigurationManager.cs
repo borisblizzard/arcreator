@@ -49,46 +49,46 @@ namespace ARCed.Scintilla.Configuration
                 userDefault = null, 
                 userLang = null;
 
-            if (_isBuiltInEnabled)
+            if (this._isBuiltInEnabled)
             {
                 using(Stream s = GetType().Assembly.GetManifestResourceStream("ARCed.Scintilla.Configuration.Builtin.default.xml"))
-                    builtInDefault = new Configuration(s, "default", _useXmlReader);
-                if (!string.IsNullOrEmpty(_language))
-                    using (Stream s = GetType().Assembly.GetManifestResourceStream("ARCed.Scintilla.Configuration.Builtin." + _language + ".xml"))
+                    builtInDefault = new Configuration(s, "default", this._useXmlReader);
+                if (!string.IsNullOrEmpty(this._language))
+                    using (Stream s = GetType().Assembly.GetManifestResourceStream("ARCed.Scintilla.Configuration.Builtin." + this._language + ".xml"))
                         if (s != null)
-                            builtInLang = new Configuration(s, _language, _useXmlReader);
+                            builtInLang = new Configuration(s, this._language, this._useXmlReader);
             }
 
-            if (_isUserEnabled)
+            if (this._isUserEnabled)
             {
-                string defPath = Path.Combine(UserFolder, "default.xml");
+                string defPath = Path.Combine(this.UserFolder, "default.xml");
                 if (File.Exists(defPath))
-                    userDefault = new Configuration(defPath, "default", _useXmlReader);
+                    userDefault = new Configuration(defPath, "default", this._useXmlReader);
 
-                if (!string.IsNullOrEmpty(_language))
+                if (!string.IsNullOrEmpty(this._language))
                 {
-                    string langPath = Path.Combine(UserFolder, _language + ".xml");
+                    string langPath = Path.Combine(this.UserFolder, this._language + ".xml");
                     if (File.Exists(langPath))
-                        userLang = new Configuration(langPath, _language, _useXmlReader);
+                        userLang = new Configuration(langPath, this._language, this._useXmlReader);
                 }
             }
 
-            if (!string.IsNullOrEmpty(_customLocation))
+            if (!string.IsNullOrEmpty(this._customLocation))
             {
-                string customDefaultPath = GetCustomConfigPath("default");
-                string customLanguagePath = GetCustomConfigPath(_language);
+                string customDefaultPath = this.GetCustomConfigPath("default");
+                string customLanguagePath = this.GetCustomConfigPath(this._language);
 
                 if (!string.IsNullOrEmpty(customDefaultPath))
-                    customDefault = new Configuration(customDefaultPath, "default", _useXmlReader);
+                    customDefault = new Configuration(customDefaultPath, "default", this._useXmlReader);
 
                 if (!string.IsNullOrEmpty(customLanguagePath))
-                    customLang = new Configuration(customLanguagePath, _language, _useXmlReader);
+                    customLang = new Configuration(customLanguagePath, this._language, this._useXmlReader);
                 else
-                    throw new FileNotFoundException("Could not find the custom configuration file.", _customLocation);
+                    throw new FileNotFoundException("Could not find the custom configuration file.", this._customLocation);
             }
 
             var configList = new List<Configuration>();
-            if (_loadOrder == ConfigurationLoadOrder.BuiltInCustomUser)
+            if (this._loadOrder == ConfigurationLoadOrder.BuiltInCustomUser)
             {
                 if (builtInDefault != null && builtInDefault.HasData)
                     configList.Add(builtInDefault);
@@ -108,7 +108,7 @@ namespace ARCed.Scintilla.Configuration
                 if (userLang != null && userLang.HasData)
                     configList.Add(userLang);
             }
-            else if (_loadOrder == ConfigurationLoadOrder.BuiltInUserCustom)
+            else if (this._loadOrder == ConfigurationLoadOrder.BuiltInUserCustom)
             {
                 if (builtInDefault != null && builtInDefault.HasData)
                     configList.Add(builtInDefault);
@@ -128,7 +128,7 @@ namespace ARCed.Scintilla.Configuration
                 if (customLang != null && customLang.HasData)
                     configList.Add(customLang);
             }
-            else if (_loadOrder == ConfigurationLoadOrder.CustomBuiltInUser)
+            else if (this._loadOrder == ConfigurationLoadOrder.CustomBuiltInUser)
             {
                 if (customDefault != null && customDefault.HasData)
                     configList.Add(customDefault);
@@ -148,7 +148,7 @@ namespace ARCed.Scintilla.Configuration
                 if (userLang != null && userLang.HasData)
                     configList.Add(userLang);
             }
-            else if (_loadOrder == ConfigurationLoadOrder.CustomUserBuiltIn)
+            else if (this._loadOrder == ConfigurationLoadOrder.CustomUserBuiltIn)
             {
                 if (customDefault != null && customDefault.HasData)
                     configList.Add(customDefault);
@@ -168,7 +168,7 @@ namespace ARCed.Scintilla.Configuration
                 if (builtInLang != null && builtInLang.HasData)
                     configList.Add(builtInLang);
             }
-            else if (_loadOrder == ConfigurationLoadOrder.UserBuiltInCustom)
+            else if (this._loadOrder == ConfigurationLoadOrder.UserBuiltInCustom)
             {
                 if (userDefault != null && userDefault.HasData)
                     configList.Add(userDefault);
@@ -189,7 +189,7 @@ namespace ARCed.Scintilla.Configuration
                     configList.Add(customLang);
 
             }
-            else if (_loadOrder == ConfigurationLoadOrder.UserCustomBuiltIn)
+            else if (this._loadOrder == ConfigurationLoadOrder.UserCustomBuiltIn)
             {
                 if (userDefault != null && userDefault.HasData)
                     configList.Add(userDefault);
@@ -216,7 +216,7 @@ namespace ARCed.Scintilla.Configuration
 
         public void Configure(Configuration config)
         {
-            Configure(new List<Configuration>(new[] { config }));
+            this.Configure(new List<Configuration>(new[] { config }));
         }
 
 
@@ -491,7 +491,7 @@ namespace ARCed.Scintilla.Configuration
             if (b.HasValue)
                 Scintilla.Commands.AllowDuplicateBindings = b.Value;
 
-            if (_clearKeyBindings)
+            if (this._clearKeyBindings)
                 Scintilla.Commands.RemoveAllBindings();
 
             var cbcl = new CommandBindingConfigList();
@@ -696,7 +696,7 @@ namespace ARCed.Scintilla.Configuration
             if (si.HasValue)
                 Scintilla.Indentation.SmartIndentType = si.Value;
 
-            if (_clearIndicators)
+            if (this._clearIndicators)
                 Scintilla.Indicators.Reset();
 
             var resolvedIndicators = new IndicatorConfigList();
@@ -812,19 +812,19 @@ namespace ARCed.Scintilla.Configuration
             {
                 //	None of the configs specified a lexer. First let's see if
                 //	we have a Language-Lexer map defined:
-                if (Scintilla.Lexing.LexerLanguageMap.ContainsKey(_language))
+                if (Scintilla.Lexing.LexerLanguageMap.ContainsKey(this._language))
                 {
-                    s = Scintilla.Lexing.LexerLanguageMap[_language];
+                    s = Scintilla.Lexing.LexerLanguageMap[this._language];
                 }
                 else
                 {
                     try
                     {
-                        Enum.Parse(typeof(Lexer), _language, true);
+                        Enum.Parse(typeof(Lexer), this._language, true);
 
                         //	If we made it here, the language matches one of
                         //	the lexer names, just use that.
-                        s = _language;
+                        s = this._language;
                     }
                     catch (ArgumentException) 
                     { 
@@ -924,7 +924,7 @@ namespace ARCed.Scintilla.Configuration
                 Scintilla.LongLines.EdgeMode = em.Value;
 
             
-            if (_clearMargins)
+            if (this._clearMargins)
                 Scintilla.Margins.Reset();
 
             var margins = new Dictionary<int, MarginConfig>();
@@ -989,7 +989,7 @@ namespace ARCed.Scintilla.Configuration
                     m.Width = mc.Width.Value;
             }
 
-            if (_clearMarkers)
+            if (this._clearMarkers)
                 Scintilla.Markers.Reset();
 
             var resolvedMarkers = new MarkersConfigList();
@@ -1165,7 +1165,7 @@ namespace ARCed.Scintilla.Configuration
                 Scintilla.Selection.Mode = selectionMode.Value;
 
 
-            if (_clearSnippets)
+            if (this._clearSnippets)
                 Scintilla.Snippets.List.Clear();
 
             b = null;
@@ -1341,7 +1341,7 @@ namespace ARCed.Scintilla.Configuration
             //	strict lexical order. Styles! This is really the section
             //	that people care about most in the config, and is also
             //	the most complex.
-            if (_clearStyles)
+            if (this._clearStyles)
                 Scintilla.Styles.Reset();
 
             i = null;
@@ -1559,14 +1559,14 @@ namespace ARCed.Scintilla.Configuration
                 {
                     //	Nope, well maybe its an absolute path to a folder.
                     //	Add [language name].xml to the path and try that
-                    langPath = Path.Combine(_customLocation, language + ".xml");
+                    langPath = Path.Combine(this._customLocation, language + ".xml");
 
                     if (!File.Exists(langPath))
                     {
                         //	Not that either. Now assume its a relative path with the
                         //	path specified in the string
                         string basePath = new FileInfo(Assembly.GetExecutingAssembly().Location).DirectoryName;
-                        langPath = Path.Combine(basePath, _customLocation);
+                        langPath = Path.Combine(basePath, this._customLocation);
 
                         if (!File.Exists(langPath))
                         {
@@ -1584,154 +1584,154 @@ namespace ARCed.Scintilla.Configuration
 
         protected internal override void Initialize()
         {
-            if (_language != null)
-                Configure();
+            if (this._language != null)
+                this.Configure();
         }
 
 
         private void ResetClearIndicators()
         {
-            _clearIndicators = false;
+            this._clearIndicators = false;
         }
 
 
         private void ResetClearKeyBindings()
         {
-            _clearKeyBindings = false;
+            this._clearKeyBindings = false;
         }
 
 
         private void ResetClearMargins()
         {
-            _clearMargins = true;
+            this._clearMargins = true;
         }
 
 
         private void ResetClearMarkers()
         {
-            _clearMarkers = false;
+            this._clearMarkers = false;
         }
 
 
         private void ResetClearSnippets()
         {
-            _clearSnippets = false;
+            this._clearSnippets = false;
         }
 
 
         private void ResetClearStyles()
         {
-            _clearStyles = false;
+            this._clearStyles = false;
         }
 
 
         private void ResetCustomLocation()
         {
-            _customLocation = string.Empty;
+            this._customLocation = string.Empty;
         }
 
 
         private void ResetIsBuiltInEnabled()
         {
-            _isBuiltInEnabled = true;
+            this._isBuiltInEnabled = true;
         }
 
 
         private void ResetIsUserEnabled()
         {
-            _isUserEnabled = true;
+            this._isUserEnabled = true;
         }
 
 
         private void ResetLanguage()
         {
-            _language = null;
+            this._language = null;
         }
 
 
         private void ResetLoadOrder()
         {
-            _loadOrder = ConfigurationLoadOrder.BuiltInCustomUser;
+            this._loadOrder = ConfigurationLoadOrder.BuiltInCustomUser;
         }
 
 
         internal bool ShouldSerialize()
         {
-            return ShouldSerializeClearKeyBindings() ||
-                ShouldSerializeClearMargins() ||
-                ShouldSerializeClearSnippets() ||
-                ShouldSerializeClearStyles() ||
-                ShouldSerializeCustomLocation() ||
-                ShouldSerializeIsBuiltInEnabled() ||
-                ShouldSerializeIsUserEnabled() ||
-                ShouldSerializeLanguage() ||
-                ShouldSerializeLoadOrder();
+            return this.ShouldSerializeClearKeyBindings() ||
+                this.ShouldSerializeClearMargins() ||
+                this.ShouldSerializeClearSnippets() ||
+                this.ShouldSerializeClearStyles() ||
+                this.ShouldSerializeCustomLocation() ||
+                this.ShouldSerializeIsBuiltInEnabled() ||
+                this.ShouldSerializeIsUserEnabled() ||
+                this.ShouldSerializeLanguage() ||
+                this.ShouldSerializeLoadOrder();
         }
 
 
         private bool ShouldSerializeClearIndicators()
         {
-            return _clearIndicators;
+            return this._clearIndicators;
         }
 
 
         private bool ShouldSerializeClearKeyBindings()
         {
-            return _clearKeyBindings;
+            return this._clearKeyBindings;
         }
 
 
         private bool ShouldSerializeClearMargins()
         {
-            return _clearMargins;
+            return this._clearMargins;
         }
 
 
         private bool ShouldSerializeClearMarkers()
         {
-            return _clearMarkers;
+            return this._clearMarkers;
         }
 
 
         private bool ShouldSerializeClearSnippets()
         {
-            return _clearSnippets;
+            return this._clearSnippets;
         }
 
 
         private bool ShouldSerializeClearStyles()
         {
-            return _clearStyles;
+            return this._clearStyles;
         }
 
 
         private bool ShouldSerializeCustomLocation()
         {
-            return !string.IsNullOrEmpty(_customLocation);
+            return !string.IsNullOrEmpty(this._customLocation);
         }
 
 
         private bool ShouldSerializeIsBuiltInEnabled()
         {
-            return !_isBuiltInEnabled;
+            return !this._isBuiltInEnabled;
         }
 
 
         private bool ShouldSerializeIsUserEnabled()
         {
-            return !_isUserEnabled;
+            return !this._isUserEnabled;
         }
 
 
         private bool ShouldSerializeLanguage()
         {
-            return !string.IsNullOrEmpty(_language);
+            return !string.IsNullOrEmpty(this._language);
         }
 
 
         private bool ShouldSerializeLoadOrder()
         {
-            return _loadOrder != ConfigurationLoadOrder.BuiltInCustomUser;
+            return this._loadOrder != ConfigurationLoadOrder.BuiltInCustomUser;
         }
 
         #endregion Methods
@@ -1743,11 +1743,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _clearIndicators;
+                return this._clearIndicators;
             }
             set
             {
-                _clearIndicators = value;
+                this._clearIndicators = value;
             }
         }
 
@@ -1756,11 +1756,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _clearKeyBindings;
+                return this._clearKeyBindings;
             }
             set
             {
-                _clearKeyBindings = value;
+                this._clearKeyBindings = value;
             }
         }
 
@@ -1769,11 +1769,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _clearMargins;
+                return this._clearMargins;
             }
             set
             {
-                _clearMargins = value;
+                this._clearMargins = value;
             }
         }
 
@@ -1782,11 +1782,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _clearMarkers;
+                return this._clearMarkers;
             }
             set
             {
-                _clearMarkers = value;
+                this._clearMarkers = value;
             }
         }
 
@@ -1795,11 +1795,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _clearSnippets;
+                return this._clearSnippets;
             }
             set
             {
-                _clearSnippets = value;
+                this._clearSnippets = value;
             }
         }
 
@@ -1808,11 +1808,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _clearStyles;
+                return this._clearStyles;
             }
             set
             {
-                _clearStyles = value;
+                this._clearStyles = value;
             }
         }
 
@@ -1821,11 +1821,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _customLocation;
+                return this._customLocation;
             }
             set
             {
-                _customLocation = value;
+                this._customLocation = value;
             }
         }
 
@@ -1834,11 +1834,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _isBuiltInEnabled;
+                return this._isBuiltInEnabled;
             }
             set
             {
-                _isBuiltInEnabled = value;
+                this._isBuiltInEnabled = value;
             }
         }
 
@@ -1847,11 +1847,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _isUserEnabled;
+                return this._isUserEnabled;
             }
             set
             {
-                _isUserEnabled = value;
+                this._isUserEnabled = value;
             }
         }
 
@@ -1860,14 +1860,14 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _language;
+                return this._language;
             }
             set
             {
-                _language = value;
+                this._language = value;
 
                 if (!Scintilla.IsDesignMode)
-                    Configure();
+                    this.Configure();
             }
         }
 
@@ -1876,11 +1876,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _loadOrder;
+                return this._loadOrder;
             }
             set
             {
-                _loadOrder = value;
+                this._loadOrder = value;
             }
         }
 
@@ -1889,17 +1889,17 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                if (_appDataFolder == null)
-                    _appDataFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+                if (this._appDataFolder == null)
+                    this._appDataFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
 
-                if (_userFolder == null)
+                if (this._userFolder == null)
                 {
                     Version v = GetType().Assembly.GetName().Version;
                     
-                    _userFolder = Path.Combine(Path.Combine(_appDataFolder, "ARCed.Scintilla"), v.Major.ToString() + "." + v.Minor.ToString());
+                    this._userFolder = Path.Combine(Path.Combine(this._appDataFolder, "ARCed.Scintilla"), v.Major.ToString() + "." + v.Minor.ToString());
                 }
 
-                return _userFolder;
+                return this._userFolder;
             }
         }
 
@@ -1907,10 +1907,10 @@ namespace ARCed.Scintilla.Configuration
         [DefaultValue(true)]
         public bool UseXmlReader
         {
-            get { return _useXmlReader; }
+            get { return this._useXmlReader; }
             set
             {
-                _useXmlReader = value;
+                this._useXmlReader = value;
             }
         }
 

@@ -49,8 +49,8 @@ namespace ARCed.Settings
 		/// <remarks>The maximum number of recently items is 16</remarks>
 		public int MaxRecent 
 		{
-			get { return _maxRecent; }
-			set { _maxRecent = value.Clamp(0, 16); }
+			get { return this._maxRecent; }
+			set { this._maxRecent = value.Clamp(0, 16); }
 		}
 		/// <summary>
         /// Gets or sets the <see cref="DockPanelSkin"/> property. These 
@@ -76,8 +76,8 @@ namespace ARCed.Settings
 		[XmlIgnore]
 		public Font NoteFont 
 		{ 
-			get { return SerializedNoteFont; }
-			set { SerializedNoteFont = value; }
+			get { return this.SerializedNoteFont; }
+			set { this.SerializedNoteFont = value; }
 		}
 		/// <summary>
 		/// Gets or sets the font used for notepads
@@ -94,17 +94,17 @@ namespace ARCed.Settings
 		/// </summary>
 		public EditorSettings()
 		{
-			_maxRecent = 8;
-			Location = new Point();
-			Size = new Size(800, 600);
-			WindowState = FormWindowState.Maximized;
-			ShowSplash = false; // TODO: Change back to "true"
-			RecentlyOpened = new List<string>(16);
-			WindowSkin = new DockPanelSkin();
-			Scripting = new ScriptSettings();
-			Charting = new ChartSettings();
-			SerializedNoteFont = FontHelper.MonoFont;
-			ImageColorSettings = new ImageColorSettings();
+			this._maxRecent = 8;
+			this.Location = new Point();
+			this.Size = new Size(800, 600);
+			this.WindowState = FormWindowState.Maximized;
+			this.ShowSplash = false; // TODO: Change back to "true"
+			this.RecentlyOpened = new List<string>(16);
+			this.WindowSkin = new DockPanelSkin();
+			this.Scripting = new ScriptSettings();
+			this.Charting = new ChartSettings();
+			this.SerializedNoteFont = FontHelper.MonoFont;
+			this.ImageColorSettings = new ImageColorSettings();
 		}
 
 		/// <summary>
@@ -113,11 +113,11 @@ namespace ARCed.Settings
 		/// <param name="filename">The filename to add</param>
 		public void AddToRecent(string filename)
 		{
-			if (RecentlyOpened.Contains(filename))
-				RecentlyOpened.Remove(filename);
-			RecentlyOpened.Insert(0, filename);
-			if (RecentlyOpened.Count > MaxRecent)
-				RecentlyOpened.RemoveRange(MaxRecent - 1, RecentlyOpened.Count - MaxRecent);
+			if (this.RecentlyOpened.Contains(filename))
+				this.RecentlyOpened.Remove(filename);
+			this.RecentlyOpened.Insert(0, filename);
+			if (this.RecentlyOpened.Count > this.MaxRecent)
+				this.RecentlyOpened.RemoveRange(this.MaxRecent - 1, this.RecentlyOpened.Count - this.MaxRecent);
 		}
 
 		/// <summary>
@@ -131,8 +131,8 @@ namespace ARCed.Settings
 			try
 			{
 				Util.SaveXML(PathHelper.EditorSettings, this);
-				Util.SaveXML(PathHelper.SkinSettings, WindowSkin);
-				Util.SaveXML(PathHelper.ScriptSettings, Scripting);
+				Util.SaveXML(PathHelper.SkinSettings, this.WindowSkin);
+				Util.SaveXML(PathHelper.ScriptSettings, this.Scripting);
 			}
 			catch (IOException)
 			{

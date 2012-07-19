@@ -25,14 +25,15 @@ namespace ARCed.Scintilla
 
         public void ShowGoToDialog()
         {
-            var gd = new GoToDialog();
-
-            gd.CurrentLineNumber = Scintilla.Lines.Current.Number;
-            gd.MaximumLineNumber = Scintilla.Lines.Count;
-            gd.Scintilla = Scintilla;
+            var gd = new GoToDialog
+            {
+                CurrentLineNumber = Scintilla.Lines.Current.Number,
+                MaximumLineNumber = Scintilla.Lines.Count,
+                Scintilla = Scintilla
+            };
 
             if (gd.ShowDialog() == DialogResult.OK)
-                Line(gd.GotoLineNumber);
+                this.Line(gd.GotoLineNumber);
 
             Scintilla.Focus();
         }

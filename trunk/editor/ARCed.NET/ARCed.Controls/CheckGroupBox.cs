@@ -25,7 +25,7 @@ namespace ARCed.Controls
 		[Description("Edit the items contained in the control")]
 		public CheckedListBox.ObjectCollection Items
 		{
-			get { return checkedList.Items; }
+			get { return this.checkedList.Items; }
 		}
 
 		/// <summary>
@@ -34,7 +34,7 @@ namespace ARCed.Controls
 		[Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
 		public CheckedListBox CheckListBox
 		{
-			get { return checkedList; }
+			get { return this.checkedList; }
 		}
 
 		/// <summary>
@@ -43,8 +43,8 @@ namespace ARCed.Controls
 		[Browsable(false)]
 		public int SelectedIndex
 		{
-			get { return checkedList.SelectedIndex; }
-			set { checkedList.SelectedIndex = value; }
+			get { return this.checkedList.SelectedIndex; }
+			set { this.checkedList.SelectedIndex = value; }
 		}
 
 		#endregion
@@ -68,7 +68,7 @@ namespace ARCed.Controls
 		/// </summary>
 		public CheckGroupBox()
 		{
-			InitializeComponent();
+			this.InitializeComponent();
 		}
 
 		/// <summary>
@@ -77,7 +77,7 @@ namespace ARCed.Controls
 		/// <param name="container">Container for components</param>
 		public CheckGroupBox(IContainer container)
 		{
-			InitializeComponent();
+			this.InitializeComponent();
 		}
 
 		#endregion
@@ -90,7 +90,7 @@ namespace ARCed.Controls
 		/// </summary>
 		public void BeginUpdate()
 		{
-			checkedList.BeginUpdate();
+			this.checkedList.BeginUpdate();
 		}
 
 		/// <summary>
@@ -99,7 +99,7 @@ namespace ARCed.Controls
 		/// </summary>
 		public void EndUpdate()
 		{
-			checkedList.EndUpdate();
+			this.checkedList.EndUpdate();
 		}
 
 		/// <summary>
@@ -108,8 +108,8 @@ namespace ARCed.Controls
 		/// <param name="checkState">State to set the checkboxes</param>
 		public void CheckAll(bool checkState)
 		{
-			for (int i = 0; i < checkedList.Items.Count; i++)
-				checkedList.SetItemChecked(i, checkState);
+			for (int i = 0; i < this.checkedList.Items.Count; i++)
+				this.checkedList.SetItemChecked(i, checkState);
 		}
 
 		/// <summary>
@@ -119,7 +119,7 @@ namespace ARCed.Controls
 		/// <param name="checkState">State to set checkbox</param>
 		public void SetItemChecked(int index, bool checkState)
 		{
-			checkedList.SetItemChecked(index, checkState);
+			this.checkedList.SetItemChecked(index, checkState);
 		}
 
 		/// <summary>
@@ -129,7 +129,7 @@ namespace ARCed.Controls
 		/// <returns>State of the checkbox</returns>
 		public bool GetItemChecked(int index)
 		{
-			return checkedList.GetItemChecked(index);
+			return this.checkedList.GetItemChecked(index);
 		}
 
 		#endregion
@@ -138,18 +138,18 @@ namespace ARCed.Controls
 
 		private void buttonNone_Click(object sender, EventArgs e)
 		{
-			CheckAll(false);
+			this.CheckAll(false);
 		}
 
 		private void buttonAll_Click(object sender, EventArgs e)
 		{
-			CheckAll(true);
+			this.CheckAll(true);
 		}
 
 		private void checkedList_ItemCheck(object sender, ItemCheckEventArgs e)
 		{
-			if (OnCheckChange != null)
-				OnCheckChange(this, e);
+			if (this.OnCheckChange != null)
+				this.OnCheckChange(this, e);
 		}
 
 		#endregion

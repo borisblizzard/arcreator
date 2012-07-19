@@ -19,8 +19,8 @@ namespace ARCed.Dialogs
         /// </summary>
         public int LanguageIndex
         {
-            get { return comboBoxLanguage.SelectedIndex; }
-            set { comboBoxLanguage.SelectedIndex = value; }
+            get { return this.comboBoxLanguage.SelectedIndex; }
+            set { this.comboBoxLanguage.SelectedIndex = value; }
         }
 
         /// <summary>
@@ -28,13 +28,13 @@ namespace ARCed.Dialogs
         /// </summary>
         public LocalizationDialog()
         {
-            InitializeComponent();
+            this.InitializeComponent();
         }
 
         private void ButtonOkClick(object sender, EventArgs e)
         {
             CultureInfo info;
-            switch (comboBoxLanguage.SelectedIndex)
+            switch (this.comboBoxLanguage.SelectedIndex)
             {
                 case 1: info = new CultureInfo("es-ES"); break;
                 case 2: info = new CultureInfo("de-DE"); break;

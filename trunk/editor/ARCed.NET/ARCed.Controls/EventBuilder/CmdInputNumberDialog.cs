@@ -18,8 +18,8 @@ namespace ARCed.EventBuilder
 		/// </summary>
 		public int Digits 
 		{
-			get { return (int)numericUpDownDigits.Value; }
-			set { numericUpDownDigits.Value = value.Clamp(0, 12); }
+			get { return (int)this.numericUpDownDigits.Value; }
+			set { this.numericUpDownDigits.Value = value.Clamp(0, 12); }
 		}
 
 		/// <summary>
@@ -27,13 +27,13 @@ namespace ARCed.EventBuilder
 		/// </summary>
 		public int VariableId
 		{
-			get { return comboBoxVariable.SelectedIndex + 1; }
+			get { return this.comboBoxVariable.SelectedIndex + 1; }
 			set 
 			{
-				if (comboBoxVariable.Items.Count < (value - 1))
-					comboBoxVariable.SelectedIndex = value - 1;
+				if (this.comboBoxVariable.Items.Count < (value - 1))
+					this.comboBoxVariable.SelectedIndex = value - 1;
 				else
-					comboBoxVariable.SelectedIndex = 0;
+					this.comboBoxVariable.SelectedIndex = 0;
 			}
 		}
 
@@ -42,14 +42,14 @@ namespace ARCed.EventBuilder
 		/// </summary>
 		public CmdInputNumberDialog()
 		{
-			InitializeComponent();
-			ControlHelper.Populate(comboBoxVariable, Project.Variables, false);
+			this.InitializeComponent();
+			ControlHelper.Populate(this.comboBoxVariable, Project.Variables, false);
 		}
 
 		private void OK_Click(object sender, EventArgs e)
 		{
-			this.DialogResult = DialogResult.OK;
-			this.Close();
+			DialogResult = DialogResult.OK;
+			Close();
 		}
 	}
 }

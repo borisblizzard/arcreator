@@ -30,7 +30,7 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _position;
+                return this._position;
             }
         }
 
@@ -45,7 +45,7 @@ namespace ARCed.Scintilla
         /// <param name="position">The byte offset in the document of the character that was clicked.</param>
         public HotspotClickEventArgs(int position)
         {
-            _position = position;
+            this._position = position;
         }
 
         #endregion Constructors

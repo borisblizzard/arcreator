@@ -17,7 +17,7 @@ namespace ARCed.Dialogs
         /// <summary>
 		/// Gets the maximum value defined by the user on the form
 		/// </summary>
-		public int MaxValue { get { return (int)numericMax.Value; } }
+		public int MaxValue { get { return (int)this.numericMax.Value; } }
 
         #endregion
 
@@ -31,11 +31,11 @@ namespace ARCed.Dialogs
 		/// <param name="max">Maximim allowed value</param>
 		public ChangeMaxDialog(int current, int min, int max)
 		{
-			InitializeComponent();
-			numericMax.Maximum = max;
-			numericMax.Minimum = min;
-			numericMax.Value = current.Clamp(min, max);
-			labelCurrent.Text = String.Format("Current: {0}", current);
+			this.InitializeComponent();
+			this.numericMax.Maximum = max;
+			this.numericMax.Minimum = min;
+			this.numericMax.Value = current.Clamp(min, max);
+			this.labelCurrent.Text = String.Format("Current: {0}", current);
 		}
 
         #endregion

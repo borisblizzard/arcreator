@@ -34,7 +34,7 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _callTipArrow;
+                return this._callTipArrow;
             }
         }
 
@@ -46,11 +46,11 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _cancel;
+                return this._cancel;
             }
             set
             {
-                _cancel = value;
+                this._cancel = value;
             }
         }
 
@@ -62,7 +62,7 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _currentIndex;
+                return this._currentIndex;
             }
         }
 
@@ -74,11 +74,11 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _highlightEnd;
+                return this._highlightEnd;
             }
             set
             {
-                _highlightEnd = value;
+                this._highlightEnd = value;
             }
         }
 
@@ -90,11 +90,11 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _highlightStart;
+                return this._highlightStart;
             }
             set
             {
-                _highlightStart = value;
+                this._highlightStart = value;
             }
         }
 
@@ -106,11 +106,11 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _newIndex;
+                return this._newIndex;
             }
             set
             {
-                _newIndex = value;
+                this._newIndex = value;
             }
         }
 
@@ -122,7 +122,7 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _overloadList;
+                return this._overloadList;
             }
         }
 
@@ -142,12 +142,12 @@ namespace ARCed.Scintilla
         /// <param name="highlightEnd">End position of the highlighted text</param>
         public CallTipClickEventArgs(CallTipArrow callTipArrow, int currentIndex, int newIndex, OverloadList overloadList, int highlightStart, int highlightEnd)
         {
-            _callTipArrow = callTipArrow;
-            _currentIndex = currentIndex;
-            _newIndex = newIndex;
-            _overloadList = overloadList;
-            _highlightStart = highlightStart;
-            _highlightEnd = highlightEnd;
+            this._callTipArrow = callTipArrow;
+            this._currentIndex = currentIndex;
+            this._newIndex = newIndex;
+            this._overloadList = overloadList;
+            this._highlightStart = highlightStart;
+            this._highlightEnd = highlightEnd;
         }
 
         #endregion Constructors

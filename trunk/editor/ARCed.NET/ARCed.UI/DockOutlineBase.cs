@@ -11,92 +11,92 @@ namespace ARCed.UI
     {
         public DockOutlineBase()
         {
-            Init();
+            this.Init();
         }
 
         private void Init()
         {
-            SetValues(Rectangle.Empty, null, DockStyle.None, -1);
-            SaveOldValues();
+            this.SetValues(Rectangle.Empty, null, DockStyle.None, -1);
+            this.SaveOldValues();
         }
 
         private Rectangle m_oldFloatWindowBounds;
         protected Rectangle OldFloatWindowBounds
         {
-            get { return m_oldFloatWindowBounds; }
+            get { return this.m_oldFloatWindowBounds; }
         }
 
         private Control m_oldDockTo;
         protected Control OldDockTo
         {
-            get { return m_oldDockTo; }
+            get { return this.m_oldDockTo; }
         }
 
         private DockStyle m_oldDock;
         protected DockStyle OldDock
         {
-            get { return m_oldDock; }
+            get { return this.m_oldDock; }
         }
 
         private int m_oldContentIndex;
         protected int OldContentIndex
         {
-            get { return m_oldContentIndex; }
+            get { return this.m_oldContentIndex; }
         }
 
         protected bool SameAsOldValue
         {
             get
             {
-                return FloatWindowBounds == OldFloatWindowBounds &&
-                    DockTo == OldDockTo &&
-                    Dock == OldDock &&
-                    ContentIndex == OldContentIndex;
+                return this.FloatWindowBounds == this.OldFloatWindowBounds &&
+                    this.DockTo == this.OldDockTo &&
+                    this.Dock == this.OldDock &&
+                    this.ContentIndex == this.OldContentIndex;
             }
         }
 
         private Rectangle m_floatWindowBounds;
         public Rectangle FloatWindowBounds
         {
-            get { return m_floatWindowBounds; }
+            get { return this.m_floatWindowBounds; }
         }
 
         private Control m_dockTo;
         public Control DockTo
         {
-            get { return m_dockTo; }
+            get { return this.m_dockTo; }
         }
 
         private DockStyle m_dock;
         public DockStyle Dock
         {
-            get { return m_dock; }
+            get { return this.m_dock; }
         }
 
         private int m_contentIndex;
         public int ContentIndex
         {
-            get { return m_contentIndex; }
+            get { return this.m_contentIndex; }
         }
 
         public bool FlagFullEdge
         {
-            get { return m_contentIndex != 0; }
+            get { return this.m_contentIndex != 0; }
         }
 
         private bool m_flagTestDrop;
         public bool FlagTestDrop
         {
-            get { return m_flagTestDrop; }
-            set { m_flagTestDrop = value; }
+            get { return this.m_flagTestDrop; }
+            set { this.m_flagTestDrop = value; }
         }
 
         private void SaveOldValues()
         {
-            m_oldDockTo = m_dockTo;
-            m_oldDock = m_dock;
-            m_oldContentIndex = m_contentIndex;
-            m_oldFloatWindowBounds = m_floatWindowBounds;
+            this.m_oldDockTo = this.m_dockTo;
+            this.m_oldDock = this.m_dock;
+            this.m_oldContentIndex = this.m_contentIndex;
+            this.m_oldFloatWindowBounds = this.m_floatWindowBounds;
         }
 
         protected abstract void OnShow();
@@ -105,60 +105,60 @@ namespace ARCed.UI
 
         private void SetValues(Rectangle floatWindowBounds, Control dockTo, DockStyle dock, int contentIndex)
         {
-            m_floatWindowBounds = floatWindowBounds;
-            m_dockTo = dockTo;
-            m_dock = dock;
-            m_contentIndex = contentIndex;
-            FlagTestDrop = true;
+            this.m_floatWindowBounds = floatWindowBounds;
+            this.m_dockTo = dockTo;
+            this.m_dock = dock;
+            this.m_contentIndex = contentIndex;
+            this.FlagTestDrop = true;
         }
 
         private void TestChange()
         {
-            if (m_floatWindowBounds != m_oldFloatWindowBounds ||
-                m_dockTo != m_oldDockTo ||
-                m_dock != m_oldDock ||
-                m_contentIndex != m_oldContentIndex)
-                OnShow();
+            if (this.m_floatWindowBounds != this.m_oldFloatWindowBounds ||
+                this.m_dockTo != this.m_oldDockTo ||
+                this.m_dock != this.m_oldDock ||
+                this.m_contentIndex != this.m_oldContentIndex)
+                this.OnShow();
         }
 
         public void Show()
         {
-            SaveOldValues();
-            SetValues(Rectangle.Empty, null, DockStyle.None, -1);
-            TestChange();
+            this.SaveOldValues();
+            this.SetValues(Rectangle.Empty, null, DockStyle.None, -1);
+            this.TestChange();
         }
 
         public void Show(DockPane pane, DockStyle dock)
         {
-            SaveOldValues();
-            SetValues(Rectangle.Empty, pane, dock, -1);
-            TestChange();
+            this.SaveOldValues();
+            this.SetValues(Rectangle.Empty, pane, dock, -1);
+            this.TestChange();
         }
 
         public void Show(DockPane pane, int contentIndex)
         {
-            SaveOldValues();
-            SetValues(Rectangle.Empty, pane, DockStyle.Fill, contentIndex);
-            TestChange();
+            this.SaveOldValues();
+            this.SetValues(Rectangle.Empty, pane, DockStyle.Fill, contentIndex);
+            this.TestChange();
         }
 
         public void Show(DockPanel dockPanel, DockStyle dock, bool fullPanelEdge)
         {
-            SaveOldValues();
-            SetValues(Rectangle.Empty, dockPanel, dock, fullPanelEdge ? -1 : 0);
-            TestChange();
+            this.SaveOldValues();
+            this.SetValues(Rectangle.Empty, dockPanel, dock, fullPanelEdge ? -1 : 0);
+            this.TestChange();
         }
 
         public void Show(Rectangle floatWindowBounds)
         {
-            SaveOldValues();
-            SetValues(floatWindowBounds, null, DockStyle.None, -1);
-            TestChange();
+            this.SaveOldValues();
+            this.SetValues(floatWindowBounds, null, DockStyle.None, -1);
+            this.TestChange();
         }
 
         public void Close()
         {
-            OnClose();
+            this.OnClose();
         }
     }
 }

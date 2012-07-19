@@ -24,10 +24,10 @@ namespace ARCed.Scintilla
 
         #region Properties
 
-        public int Height { get { return Bottom - Top; } }
-        public Point Location { get { return new Point(Left, Top); } }
-        public Size Size { get { return new Size(Width, Height); } }
-        public int Width { get { return Right - Left; } }
+        public int Height { get { return this.Bottom - this.Top; } }
+        public Point Location { get { return new Point(this.Left, this.Top); } }
+        public Size Size { get { return new Size(this.Width, this.Height); } }
+        public int Width { get { return this.Right - this.Left; } }
 
         #endregion Properties
 
@@ -42,16 +42,16 @@ namespace ARCed.Scintilla
 
         public override int GetHashCode()
         {
-            return Left ^ ((Top << 13) | (Top >> 0x13))
-              ^ ((Width << 0x1a) | (Width >> 6))
-              ^ ((Height << 7) | (Height >> 0x19));
+            return this.Left ^ ((this.Top << 13) | (this.Top >> 0x13))
+              ^ ((this.Width << 0x1a) | (this.Width >> 6))
+              ^ ((this.Height << 7) | (this.Height >> 0x19));
         }
 
 
         // Handy method for converting to a System.Drawing.Rectangle
         public Rectangle ToRectangle()
         {
-            return Rectangle.FromLTRB(Left, Top, Right, Bottom);
+            return Rectangle.FromLTRB(this.Left, this.Top, this.Right, this.Bottom);
         }
 
         #endregion Methods
@@ -77,10 +77,10 @@ namespace ARCed.Scintilla
 
         public RECT(int left_, int top_, int right_, int bottom_)
         {
-            Left = left_;
-            Top = top_;
-            Right = right_;
-            Bottom = bottom_;
+            this.Left = left_;
+            this.Top = top_;
+            this.Right = right_;
+            this.Bottom = bottom_;
         }
 
         #endregion Constructors

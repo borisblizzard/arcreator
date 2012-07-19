@@ -28,43 +28,43 @@ namespace ARCed.UI
                 private double m_dockLeftPortion;
                 public double DockLeftPortion
                 {
-                    get { return m_dockLeftPortion; }
-                    set { m_dockLeftPortion = value; }
+                    get { return this.m_dockLeftPortion; }
+                    set { this.m_dockLeftPortion = value; }
                 }
 
                 private double m_dockRightPortion;
                 public double DockRightPortion
                 {
-                    get { return m_dockRightPortion; }
-                    set { m_dockRightPortion = value; }
+                    get { return this.m_dockRightPortion; }
+                    set { this.m_dockRightPortion = value; }
                 }
 
                 private double m_dockTopPortion;
                 public double DockTopPortion
                 {
-                    get { return m_dockTopPortion; }
-                    set { m_dockTopPortion = value; }
+                    get { return this.m_dockTopPortion; }
+                    set { this.m_dockTopPortion = value; }
                 }
 
                 private double m_dockBottomPortion;
                 public double DockBottomPortion
                 {
-                    get { return m_dockBottomPortion; }
-                    set { m_dockBottomPortion = value; }
+                    get { return this.m_dockBottomPortion; }
+                    set { this.m_dockBottomPortion = value; }
                 }
 
                 private int m_indexActiveDocumentPane;
                 public int IndexActiveDocumentPane
                 {
-                    get { return m_indexActiveDocumentPane; }
-                    set { m_indexActiveDocumentPane = value; }
+                    get { return this.m_indexActiveDocumentPane; }
+                    set { this.m_indexActiveDocumentPane = value; }
                 }
 
                 private int m_indexActivePane;
                 public int IndexActivePane
                 {
-                    get { return m_indexActivePane; }
-                    set { m_indexActivePane = value; }
+                    get { return this.m_indexActivePane; }
+                    set { this.m_indexActivePane = value; }
                 }
             }
 
@@ -73,29 +73,29 @@ namespace ARCed.UI
                 private string m_persistString;
                 public string PersistString
                 {
-                    get { return m_persistString; }
-                    set { m_persistString = value; }
+                    get { return this.m_persistString; }
+                    set { this.m_persistString = value; }
                 }
 
                 private double m_autoHidePortion;
                 public double AutoHidePortion
                 {
-                    get { return m_autoHidePortion; }
-                    set { m_autoHidePortion = value; }
+                    get { return this.m_autoHidePortion; }
+                    set { this.m_autoHidePortion = value; }
                 }
 
                 private bool m_isHidden;
                 public bool IsHidden
                 {
-                    get { return m_isHidden; }
-                    set { m_isHidden = value; }
+                    get { return this.m_isHidden; }
+                    set { this.m_isHidden = value; }
                 }
 
                 private bool m_isFloat;
                 public bool IsFloat
                 {
-                    get { return m_isFloat; }
-                    set { m_isFloat = value; }
+                    get { return this.m_isFloat; }
+                    set { this.m_isFloat = value; }
                 }
             }
 
@@ -104,29 +104,29 @@ namespace ARCed.UI
                 private DockState m_dockState;
                 public DockState DockState
                 {
-                    get { return m_dockState; }
-                    set { m_dockState = value; }
+                    get { return this.m_dockState; }
+                    set { this.m_dockState = value; }
                 }
 
                 private int m_indexActiveContent;
                 public int IndexActiveContent
                 {
-                    get { return m_indexActiveContent; }
-                    set { m_indexActiveContent = value; }
+                    get { return this.m_indexActiveContent; }
+                    set { this.m_indexActiveContent = value; }
                 }
 
                 private int[] m_indexContents;
                 public int[] IndexContents
                 {
-                    get { return m_indexContents; }
-                    set { m_indexContents = value; }
+                    get { return this.m_indexContents; }
+                    set { this.m_indexContents = value; }
                 }
 
                 private int m_zOrderIndex;
                 public int ZOrderIndex
                 {
-                    get { return m_zOrderIndex; }
-                    set { m_zOrderIndex = value; }
+                    get { return this.m_zOrderIndex; }
+                    set { this.m_zOrderIndex = value; }
                 }
             }
 
@@ -135,29 +135,29 @@ namespace ARCed.UI
                 private int m_indexPane;
                 public int IndexPane
                 {
-                    get { return m_indexPane; }
-                    set { m_indexPane = value; }
+                    get { return this.m_indexPane; }
+                    set { this.m_indexPane = value; }
                 }
 
                 private int m_indexPrevPane;
                 public int IndexPrevPane
                 {
-                    get { return m_indexPrevPane; }
-                    set { m_indexPrevPane = value; }
+                    get { return this.m_indexPrevPane; }
+                    set { this.m_indexPrevPane = value; }
                 }
 
                 private DockAlignment m_alignment;
                 public DockAlignment Alignment
                 {
-                    get { return m_alignment; }
-                    set { m_alignment = value; }
+                    get { return this.m_alignment; }
+                    set { this.m_alignment = value; }
                 }
 
                 private double m_proportion;
                 public double Proportion
                 {
-                    get { return m_proportion; }
-                    set { m_proportion = value; }
+                    get { return this.m_proportion; }
+                    set { this.m_proportion = value; }
                 }
             }
 
@@ -166,22 +166,22 @@ namespace ARCed.UI
                 private DockState m_dockState;
                 public DockState DockState
                 {
-                    get { return m_dockState; }
-                    set { m_dockState = value; }
+                    get { return this.m_dockState; }
+                    set { this.m_dockState = value; }
                 }
 
                 private int m_zOrderIndex;
                 public int ZOrderIndex
                 {
-                    get { return m_zOrderIndex; }
-                    set { m_zOrderIndex = value; }
+                    get { return this.m_zOrderIndex; }
+                    set { this.m_zOrderIndex = value; }
                 }
 
                 private NestedPane[] m_nestedPanes;
                 public NestedPane[] NestedPanes
                 {
-                    get { return m_nestedPanes; }
-                    set { m_nestedPanes = value; }
+                    get { return this.m_nestedPanes; }
+                    set { this.m_nestedPanes = value; }
                 }
             }
 
@@ -190,22 +190,22 @@ namespace ARCed.UI
                 private Rectangle m_bounds;
                 public Rectangle Bounds
                 {
-                    get { return m_bounds; }
-                    set { m_bounds = value; }
+                    get { return this.m_bounds; }
+                    set { this.m_bounds = value; }
                 }
 
                 private int m_zOrderIndex;
                 public int ZOrderIndex
                 {
-                    get { return m_zOrderIndex; }
-                    set { m_zOrderIndex = value; }
+                    get { return this.m_zOrderIndex; }
+                    set { this.m_zOrderIndex = value; }
                 }
 
                 private NestedPane[] m_nestedPanes;
                 public NestedPane[] NestedPanes
                 {
-                    get { return m_nestedPanes; }
-                    set { m_nestedPanes = value; }
+                    get { return this.m_nestedPanes; }
+                    set { this.m_nestedPanes = value; }
                 }
             }
 
@@ -234,10 +234,12 @@ namespace ARCed.UI
 
             public static void SaveAsXml(DockPanel dockPanel, Stream stream, Encoding encoding, bool upstream)
             {
-                var xmlOut = new XmlTextWriter(stream, encoding);
+                var xmlOut = new XmlTextWriter(stream, encoding)
+                {
+                    Formatting = Formatting.Indented
+                };
 
                 // Use indenting for readability
-                xmlOut.Formatting = Formatting.Indented;
 
                 if (!upstream)
                     xmlOut.WriteStartDocument();
@@ -517,8 +519,10 @@ namespace ARCed.UI
                 if (dockPanel.Contents.Count != 0)
                     throw new InvalidOperationException(Strings.DockPanel_LoadFromXml_AlreadyInitialized);
 
-                var xmlIn = new XmlTextReader(stream);
-                xmlIn.WhitespaceHandling = WhitespaceHandling.None;
+                var xmlIn = new XmlTextReader(stream)
+                {
+                    WhitespaceHandling = WhitespaceHandling.None
+                };
                 xmlIn.MoveToContent();
 
                 while (!xmlIn.Name.Equals("DockPanel"))
@@ -531,13 +535,20 @@ namespace ARCed.UI
                 if (!IsFormatVersionValid(formatVersion))
                     throw new ArgumentException(Strings.DockPanel_LoadFromXml_InvalidFormatVersion);
 
-                var dockPanelStruct = new DockPanelStruct();
-                dockPanelStruct.DockLeftPortion = Convert.ToDouble(xmlIn.GetAttribute("DockLeftPortion"), CultureInfo.InvariantCulture);
-                dockPanelStruct.DockRightPortion = Convert.ToDouble(xmlIn.GetAttribute("DockRightPortion"), CultureInfo.InvariantCulture);
-                dockPanelStruct.DockTopPortion = Convert.ToDouble(xmlIn.GetAttribute("DockTopPortion"), CultureInfo.InvariantCulture);
-                dockPanelStruct.DockBottomPortion = Convert.ToDouble(xmlIn.GetAttribute("DockBottomPortion"), CultureInfo.InvariantCulture);
-                dockPanelStruct.IndexActiveDocumentPane = Convert.ToInt32(xmlIn.GetAttribute("ActiveDocumentPane"), CultureInfo.InvariantCulture);
-                dockPanelStruct.IndexActivePane = Convert.ToInt32(xmlIn.GetAttribute("ActivePane"), CultureInfo.InvariantCulture);
+                var dockPanelStruct = new DockPanelStruct
+                {
+                    DockLeftPortion =
+                        Convert.ToDouble(xmlIn.GetAttribute("DockLeftPortion"), CultureInfo.InvariantCulture),
+                    DockRightPortion =
+                        Convert.ToDouble(xmlIn.GetAttribute("DockRightPortion"), CultureInfo.InvariantCulture),
+                    DockTopPortion =
+                        Convert.ToDouble(xmlIn.GetAttribute("DockTopPortion"), CultureInfo.InvariantCulture),
+                    DockBottomPortion =
+                        Convert.ToDouble(xmlIn.GetAttribute("DockBottomPortion"), CultureInfo.InvariantCulture),
+                    IndexActiveDocumentPane =
+                        Convert.ToInt32(xmlIn.GetAttribute("ActiveDocumentPane"), CultureInfo.InvariantCulture),
+                    IndexActivePane = Convert.ToInt32(xmlIn.GetAttribute("ActivePane"), CultureInfo.InvariantCulture)
+                };
 
                 // Load Contents
                 MoveToNextElement(xmlIn);

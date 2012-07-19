@@ -255,7 +255,7 @@ namespace ARCed.Controls
 		public HighPrecisionTimer(IContainer container)
 		{
 			container.Add(this);
-			Initialize();
+			this.Initialize();
 		}
 
 		/// <summary>
@@ -263,15 +263,15 @@ namespace ARCed.Controls
 		/// </summary>
 		public HighPrecisionTimer()
 		{
-			Initialize();
+			this.Initialize();
 		}
 
 		~HighPrecisionTimer()
 		{
-			if (IsRunning)
+			if (this.IsRunning)
 			{
 				// Stop and destroy timer.
-				timeKillEvent(timerID);
+				timeKillEvent(this.timerID);
 			}
 		}
 
@@ -282,11 +282,11 @@ namespace ARCed.Controls
 			this.period = Capabilities.periodMin;
 			this.resolution = 1;
 
-			running = false;
+			this.running = false;
 
-			timeProcPeriodic = this.TimerPeriodicEventCallback;
-			timeProcOneShot = this.TimerOneShotEventCallback;
-			tickRaiser = this.OnTick;
+			this.timeProcPeriodic = this.TimerPeriodicEventCallback;
+			this.timeProcOneShot = this.TimerOneShotEventCallback;
+			this.tickRaiser = this.OnTick;
 		}
 
 		#endregion
@@ -306,7 +306,7 @@ namespace ARCed.Controls
 		{
 			#region Require
 
-			if (disposed)
+			if (this.disposed)
 			{
 				throw new ObjectDisposedException("Timer");
 			}
@@ -315,7 +315,7 @@ namespace ARCed.Controls
 
 			#region Guard
 
-			if (IsRunning)
+			if (this.IsRunning)
 			{
 				return;
 			}
@@ -323,32 +323,32 @@ namespace ARCed.Controls
 			#endregion
 
 			// If the periodic event callback should be used.
-			if (Mode == TimerMode.Periodic)
+			if (this.Mode == TimerMode.Periodic)
 			{
 				// Create and start timer.
-				timerID = timeSetEvent(Period, Resolution, timeProcPeriodic, 0, (int)Mode);
+				this.timerID = timeSetEvent(this.Period, this.Resolution, this.timeProcPeriodic, 0, (int)this.Mode);
 			}
 			// Else the one shot event callback should be used.
 			else
 			{
 				// Create and start timer.
-				timerID = timeSetEvent(Period, Resolution, timeProcOneShot, 0, (int)Mode);
+				this.timerID = timeSetEvent(this.Period, this.Resolution, this.timeProcOneShot, 0, (int)this.Mode);
 			}
 
 			// If the timer was created successfully.
-			if (timerID != 0)
+			if (this.timerID != 0)
 			{
-				running = true;
+				this.running = true;
 
-				if (SynchronizingObject != null && SynchronizingObject.InvokeRequired)
+				if (this.SynchronizingObject != null && this.SynchronizingObject.InvokeRequired)
 				{
-					SynchronizingObject.BeginInvoke(
-						new EventRaiser(OnStarted),
+					this.SynchronizingObject.BeginInvoke(
+						new EventRaiser(this.OnStarted),
 						new object[] { EventArgs.Empty });
 				}
 				else
 				{
-					OnStarted(EventArgs.Empty);
+					this.OnStarted(EventArgs.Empty);
 				}
 			}
 			else
@@ -367,7 +367,7 @@ namespace ARCed.Controls
 		{
 			#region Require
 
-			if (disposed)
+			if (this.disposed)
 			{
 				throw new ObjectDisposedException("Timer");
 			}
@@ -376,7 +376,7 @@ namespace ARCed.Controls
 
 			#region Guard
 
-			if (!running)
+			if (!this.running)
 			{
 				return;
 			}
@@ -384,21 +384,21 @@ namespace ARCed.Controls
 			#endregion
 
 			// Stop and destroy timer.
-			int result = timeKillEvent(timerID);
+			int result = timeKillEvent(this.timerID);
 
 			Debug.Assert(result == TIMERR_NOERROR);
 
-			running = false;
+			this.running = false;
 
-			if (SynchronizingObject != null && SynchronizingObject.InvokeRequired)
+			if (this.SynchronizingObject != null && this.SynchronizingObject.InvokeRequired)
 			{
-				SynchronizingObject.BeginInvoke(
-					new EventRaiser(OnStopped),
+				this.SynchronizingObject.BeginInvoke(
+					new EventRaiser(this.OnStopped),
 					new object[] { EventArgs.Empty });
 			}
 			else
 			{
-				OnStopped(EventArgs.Empty);
+				this.OnStopped(EventArgs.Empty);
 			}
 		}
 
@@ -408,13 +408,13 @@ namespace ARCed.Controls
 		// periodic event occurs.
 		private void TimerPeriodicEventCallback(int id, int msg, int user, int param1, int param2)
 		{
-			if (synchronizingObject != null)
+			if (this.synchronizingObject != null)
 			{
-				synchronizingObject.BeginInvoke(tickRaiser, new object[] { EventArgs.Empty });
+				this.synchronizingObject.BeginInvoke(this.tickRaiser, new object[] { EventArgs.Empty });
 			}
 			else
 			{
-				OnTick(EventArgs.Empty);
+				this.OnTick(EventArgs.Empty);
 			}
 		}
 
@@ -422,15 +422,15 @@ namespace ARCed.Controls
 		// one shot event occurs.
 		private void TimerOneShotEventCallback(int id, int msg, int user, int param1, int param2)
 		{
-			if (synchronizingObject != null)
+			if (this.synchronizingObject != null)
 			{
-				synchronizingObject.BeginInvoke(tickRaiser, new object[] { EventArgs.Empty });
-				Stop();
+				this.synchronizingObject.BeginInvoke(this.tickRaiser, new object[] { EventArgs.Empty });
+				this.Stop();
 			}
 			else
 			{
-				OnTick(EventArgs.Empty);
-				Stop();
+				this.OnTick(EventArgs.Empty);
+				this.Stop();
 			}
 		}
 
@@ -441,7 +441,7 @@ namespace ARCed.Controls
 		// Raises the Disposed event.
 		private void OnDisposed(EventArgs e)
 		{
-			EventHandler handler = Disposed;
+			EventHandler handler = this.Disposed;
 
 			if (handler != null)
 			{
@@ -452,7 +452,7 @@ namespace ARCed.Controls
 		// Raises the Started event.
 		private void OnStarted(EventArgs e)
 		{
-			EventHandler handler = Started;
+			EventHandler handler = this.Started;
 
 			if (handler != null)
 			{
@@ -463,7 +463,7 @@ namespace ARCed.Controls
 		// Raises the Stopped event.
 		private void OnStopped(EventArgs e)
 		{
-			EventHandler handler = Stopped;
+			EventHandler handler = this.Stopped;
 
 			if (handler != null)
 			{
@@ -474,7 +474,7 @@ namespace ARCed.Controls
 		// Raises the Tick event.
 		private void OnTick(EventArgs e)
 		{
-			EventHandler handler = Tick;
+			EventHandler handler = this.Tick;
 
 			if (handler != null)
 			{
@@ -497,27 +497,27 @@ namespace ARCed.Controls
 			{
 				#region Require
 
-				if (disposed)
+				if (this.disposed)
 				{
 					throw new ObjectDisposedException("Timer");
 				}
 
 				#endregion
 
-				return synchronizingObject;
+				return this.synchronizingObject;
 			}
 			set
 			{
 				#region Require
 
-				if (disposed)
+				if (this.disposed)
 				{
 					throw new ObjectDisposedException("Timer");
 				}
 
 				#endregion
 
-				synchronizingObject = value;
+				this.synchronizingObject = value;
 			}
 		}
 
@@ -533,20 +533,20 @@ namespace ARCed.Controls
 			{
 				#region Require
 
-				if (disposed)
+				if (this.disposed)
 				{
 					throw new ObjectDisposedException("Timer");
 				}
 
 				#endregion
 
-				return period;
+				return this.period;
 			}
 			set
 			{
 				#region Require
 
-				if (disposed)
+				if (this.disposed)
 				{
 					throw new ObjectDisposedException("Timer");
 				}
@@ -558,12 +558,12 @@ namespace ARCed.Controls
 
 				#endregion
 
-				period = value;
+				this.period = value;
 
-				if (IsRunning)
+				if (this.IsRunning)
 				{
-					Stop();
-					Start();
+					this.Stop();
+					this.Start();
 				}
 			}
 		}
@@ -587,20 +587,20 @@ namespace ARCed.Controls
 			{
 				#region Require
 
-				if (disposed)
+				if (this.disposed)
 				{
 					throw new ObjectDisposedException("Timer");
 				}
 
 				#endregion
 
-				return resolution;
+				return this.resolution;
 			}
 			set
 			{
 				#region Require
 
-				if (disposed)
+				if (this.disposed)
 				{
 					throw new ObjectDisposedException("Timer");
 				}
@@ -612,12 +612,12 @@ namespace ARCed.Controls
 
 				#endregion
 
-				resolution = value;
+				this.resolution = value;
 
-				if (IsRunning)
+				if (this.IsRunning)
 				{
-					Stop();
-					Start();
+					this.Stop();
+					this.Start();
 				}
 			}
 		}
@@ -634,32 +634,32 @@ namespace ARCed.Controls
 			{
 				#region Require
 
-				if (disposed)
+				if (this.disposed)
 				{
 					throw new ObjectDisposedException("Timer");
 				}
 
 				#endregion
 
-				return mode;
+				return this.mode;
 			}
 			set
 			{
 				#region Require
 
-				if (disposed)
+				if (this.disposed)
 				{
 					throw new ObjectDisposedException("Timer");
 				}
 
 				#endregion
 
-				mode = value;
+				this.mode = value;
 
-				if (IsRunning)
+				if (this.IsRunning)
 				{
-					Stop();
-					Start();
+					this.Stop();
+					this.Start();
 				}
 			}
 		}
@@ -671,7 +671,7 @@ namespace ARCed.Controls
 		{
 			get
 			{
-				return running;
+				return this.running;
 			}
 		}
 
@@ -698,11 +698,11 @@ namespace ARCed.Controls
 		{
 			get
 			{
-				return site;
+				return this.site;
 			}
 			set
 			{
-				site = value;
+				this.site = value;
 			}
 		}
 
@@ -717,21 +717,21 @@ namespace ARCed.Controls
 		{
 			#region Guard
 
-			if (disposed)
+			if (this.disposed)
 			{
 				return;
 			}
 
 			#endregion
 
-			if (IsRunning)
+			if (this.IsRunning)
 			{
-				Stop();
+				this.Stop();
 			}
 
-			disposed = true;
+			this.disposed = true;
 
-			OnDisposed(EventArgs.Empty);
+			this.OnDisposed(EventArgs.Empty);
 		}
 
 		#endregion

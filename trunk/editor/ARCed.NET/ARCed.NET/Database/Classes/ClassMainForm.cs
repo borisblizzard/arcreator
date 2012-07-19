@@ -28,7 +28,7 @@ namespace ARCed.Database.Classes
 		/// <summary>
 		/// Gets the object list control of this database panel.
 		/// </summary>
-		protected override DatabaseObjectListBox DataObjectList { get { return dataObjectList; } }
+		protected override DatabaseObjectListBox DataObjectList { get { return this.dataObjectList; } }
 
 		#endregion
 
@@ -48,14 +48,14 @@ namespace ARCed.Database.Classes
 		/// </summary>
 		public ClassMainForm()
 		{
-			InitializeComponent();
-			InitializeElements();
-			InitializeStates();
+			this.InitializeComponent();
+			this.InitializeElements();
+			this.InitializeStates();
 			RefreshObjectList();
-			RefreshAvailableEquipment();
-			_listViewSorter = new ListViewColumnSorter();
-			listViewSkills.ListViewItemSorter = _listViewSorter;
-			dataObjectList.SelectedIndex = 0;
+			this.RefreshAvailableEquipment();
+			this._listViewSorter = new ListViewColumnSorter();
+			this.listViewSkills.ListViewItemSorter = this._listViewSorter;
+			this.dataObjectList.SelectedIndex = 0;
 		}
 
         #endregion
@@ -96,12 +96,12 @@ namespace ARCed.Database.Classes
         public override void RefreshCurrentObject()
         {
             SuppressEvents = true;
-            textBoxName.Text = _class.name;
-            comboBoxPosition.SelectedIndex = _class.position;
-            RefreshEquipment();
-            RefreshSkills();
-            RefreshElements();
-            RefreshStates();
+            this.textBoxName.Text = this._class.name;
+            this.comboBoxPosition.SelectedIndex = this._class.position;
+            this.RefreshEquipment();
+            this.RefreshSkills();
+            this.RefreshElements();
+            this.RefreshStates();
             SuppressEvents = false;
         }
 
@@ -111,57 +111,57 @@ namespace ARCed.Database.Classes
 
         private void InitializeElements()
 		{
-			checkedListElements.ClearItems();
+			this.checkedListElements.ClearItems();
 			List<dynamic> elements = Project.Data.System.elements;
 			for (int i = 1; i < elements.Count; i++)
-				checkedListElements.AddItem(elements[i % elements.Count]);
+				this.checkedListElements.AddItem(elements[i % elements.Count]);
 		}
 
 		private void InitializeStates()
 		{
-			checkedListStates.ClearItems();
+			this.checkedListStates.ClearItems();
 			List<dynamic> states = Project.Data.States;
 			for (int i = 1; i < states.Count; i++)
-				checkedListStates.AddItem(states[i % states.Count].name);
+				this.checkedListStates.AddItem(states[i % states.Count].name);
 		}
 
 		private void RefreshElements()
 		{
 			for (int i = 1; i < Project.Data.System.elements.Count; i++)
-				checkedListElements.SetItemIndex(i - 1, _class.element_ranks[i]);
+				this.checkedListElements.SetItemIndex(i - 1, this._class.element_ranks[i]);
 		}
 
 		private void RefreshStates()
 		{
 			for (int i = 1; i < Project.Data.States.Count; i++)
-				checkedListStates.SetItemIndex(i - 1, _class.state_ranks[i]);
+				this.checkedListStates.SetItemIndex(i - 1, this._class.state_ranks[i]);
 		}
 
 		private void RefreshSkills()
 		{
-			listViewSkills.BeginUpdate();
-			listViewSkills.Items.Clear();
-			if (_class != null)
+			this.listViewSkills.BeginUpdate();
+			this.listViewSkills.Items.Clear();
+			if (this._class != null)
 			{
 				string name;
-				foreach (Class.Learning learning in _class.learnings)
+				foreach (Class.Learning learning in this._class.learnings)
 				{
 					name = Project.Data.Skills[learning.skill_id].name;
 					var item = new ListViewItem(new[] { learning.level.ToString(CultureInfo.InvariantCulture), 
 						learning.skill_id.ToString(CultureInfo.InvariantCulture), name });
-					listViewSkills.Items.Add(item);
+					this.listViewSkills.Items.Add(item);
 				}
 			}
-			listViewSkills.EndUpdate();
+			this.listViewSkills.EndUpdate();
 		}
 
         private void ListBoxClassesSelectedIndexChanged(object sender, EventArgs e)
         {
-            int index = dataObjectList.SelectedIndex;
+            int index = this.dataObjectList.SelectedIndex;
             if (index >= 0)
             {
-                _class = Data[index + 1];
-                RefreshCurrentObject();
+                this._class = this.Data[index + 1];
+                this.RefreshCurrentObject();
             }
         }
 
@@ -169,67 +169,67 @@ namespace ARCed.Database.Classes
 		{
 			if (!SuppressEvents)
 			{
-				_class.name = textBoxName.Text;
-				int index = dataObjectList.SelectedIndex;
-				dataObjectList.Items[index] = _class.ToString();
-				dataObjectList.Invalidate(dataObjectList.GetItemRectangle(index));
+				this._class.name = this.textBoxName.Text;
+				int index = this.dataObjectList.SelectedIndex;
+				this.dataObjectList.Items[index] = this._class.ToString();
+				this.dataObjectList.Invalidate(this.dataObjectList.GetItemRectangle(index));
 			}
 		}
 
 		private void RefreshAvailableEquipment()
 		{
-			checkGroupWeapons.BeginUpdate();
-			checkGroupWeapons.Items.Clear();
+			this.checkGroupWeapons.BeginUpdate();
+			this.checkGroupWeapons.Items.Clear();
 			foreach (Weapon weapon in Project.Data.Weapons)
 			{
 				if (weapon != null)
-					checkGroupWeapons.Items.Add(weapon.name);
+					this.checkGroupWeapons.Items.Add(weapon.name);
 			}
-			checkGroupWeapons.EndUpdate();
-			checkGroupArmor.BeginUpdate();
-			checkGroupArmor.Items.Clear();
+			this.checkGroupWeapons.EndUpdate();
+			this.checkGroupArmor.BeginUpdate();
+			this.checkGroupArmor.Items.Clear();
 			foreach (Armor armor in Project.Data.Armors)
 			{
 				if (armor != null)
-					checkGroupArmor.Items.Add(armor.name);
+					this.checkGroupArmor.Items.Add(armor.name);
 			}
-			checkGroupArmor.EndUpdate();
+			this.checkGroupArmor.EndUpdate();
 		}
 
 		private void RefreshEquipment()
 		{
 			SuppressEvents = true;
-			checkGroupWeapons.CheckAll(false);
-			foreach (int id in _class.weapon_set)
-				checkGroupWeapons.SetItemChecked(id - 1, true);
-			checkGroupArmor.CheckAll(false);
-			foreach (int id in _class.armor_set)
-				checkGroupArmor.SetItemChecked(id - 1, true);
+			this.checkGroupWeapons.CheckAll(false);
+			foreach (int id in this._class.weapon_set)
+				this.checkGroupWeapons.SetItemChecked(id - 1, true);
+			this.checkGroupArmor.CheckAll(false);
+			foreach (int id in this._class.armor_set)
+				this.checkGroupArmor.SetItemChecked(id - 1, true);
 			SuppressEvents = false;
 		}
 
 		private void ComboBoxPositionSelectedIndexChanged(object sender, EventArgs e)
 		{
 			if (!SuppressEvents)
-				_class.position = comboBoxPosition.SelectedIndex;
+				this._class.position = this.comboBoxPosition.SelectedIndex;
 		}
 
 		private void CheckGroupWeaponsOnCheckChange(object sender, ItemCheckEventArgs e)
 		{
 			int id = e.Index + 1;
-			if (e.NewValue == CheckState.Checked && !_class.weapon_set.Contains(id))
-				_class.weapon_set.Add(id);
-			else if (e.NewValue == CheckState.Unchecked && _class.weapon_set.Contains(id))
-				_class.weapon_set.Remove(id);
+			if (e.NewValue == CheckState.Checked && !this._class.weapon_set.Contains(id))
+				this._class.weapon_set.Add(id);
+			else if (e.NewValue == CheckState.Unchecked && this._class.weapon_set.Contains(id))
+				this._class.weapon_set.Remove(id);
 		}
 
 		private void CheckGroupArmorOnCheckChange(object sender, ItemCheckEventArgs e)
 		{
 			int id = e.Index + 1;
-			if (e.NewValue == CheckState.Checked && !_class.armor_set.Contains(id))
-				_class.armor_set.Add(id);
-			else if (e.NewValue == CheckState.Unchecked && _class.armor_set.Contains(id))
-				_class.armor_set.Remove(id);
+			if (e.NewValue == CheckState.Checked && !this._class.armor_set.Contains(id))
+				this._class.armor_set.Add(id);
+			else if (e.NewValue == CheckState.Unchecked && this._class.armor_set.Contains(id))
+				this._class.armor_set.Remove(id);
 		}
 
 		private void CheckGroupFocusLeave(object sender, EventArgs e)
@@ -250,24 +250,24 @@ namespace ARCed.Database.Classes
 
 		private void ButtonRemoveSkillClick(object sender, EventArgs e)
 		{
-			var index = GetSkillIndex();
-			if (_class != null && index >= 0)
+			var index = this.GetSkillIndex();
+			if (this._class != null && index >= 0)
 			{
-				_class.learnings.RemoveAt(index);
-				RefreshSkills();
-				listViewSkills.Focus();
+				this._class.learnings.RemoveAt(index);
+				this.RefreshSkills();
+				this.listViewSkills.Focus();
 				this.ListViewSkillsSelectedIndexChanged(sender, e);
 			}
-			if (listViewSkills.Items.Count > 0)
-				listViewSkills.Items[index.Clamp(0, listViewSkills.Items.Count - 1)].Selected = true;
+			if (this.listViewSkills.Items.Count > 0)
+				this.listViewSkills.Items[index.Clamp(0, this.listViewSkills.Items.Count - 1)].Selected = true;
 		}
 
 		private void ButtonEditSkillClick(object sender, EventArgs e)
 		{
-			var index = GetSkillIndex();
+			var index = this.GetSkillIndex();
 			using (var dialog = new EditSkillDialog())
 			{
-				Class.Learning learning = _class.learnings[index];
+				Class.Learning learning = this._class.learnings[index];
 				dialog.Learning = learning;
 			    if (dialog.ShowDialog(this) != DialogResult.OK) return;
 			    this._class.learnings[index] = dialog.Learning;
@@ -277,39 +277,39 @@ namespace ARCed.Database.Classes
 
 		private int GetSkillIndex()
 		{
-			if (listViewSkills.SelectedIndices.Count > 0)
-				return listViewSkills.SelectedIndices[0];
+			if (this.listViewSkills.SelectedIndices.Count > 0)
+				return this.listViewSkills.SelectedIndices[0];
 			return -1;
 		}
 
 		private void ListViewSkillsSelectedIndexChanged(object sender, EventArgs e)
 		{
-			var enable = listViewSkills.SelectedItems.Count > 0;
-			buttonEditSkill.Enabled = enable;
-			buttonRemoveSkill.Enabled = enable;
-			contextButtonSkillEdit.Enabled = enable;
-			contextButtonSkillRemove.Enabled = enable;
+			var enable = this.listViewSkills.SelectedItems.Count > 0;
+			this.buttonEditSkill.Enabled = enable;
+			this.buttonRemoveSkill.Enabled = enable;
+			this.contextButtonSkillEdit.Enabled = enable;
+			this.contextButtonSkillRemove.Enabled = enable;
 		}
 
 		private void ListViewSkillsDoubleClick(object sender, EventArgs e)
 		{
-			var pnt = listViewSkills.PointToClient(MousePosition);
-			var info = listViewSkills.HitTest(pnt);
+			var pnt = this.listViewSkills.PointToClient(MousePosition);
+			var info = this.listViewSkills.HitTest(pnt);
 			if (info.Item != null)
 				this.ButtonEditSkillClick(sender, e);
 		}
 
 		private void ListViewSkillsColumnClick(object sender, ColumnClickEventArgs e)
 		{
-			if (e.Column == _listViewSorter.SortColumn)
+			if (e.Column == this._listViewSorter.SortColumn)
 			{
-				_listViewSorter.Order = (_listViewSorter.Order == SortOrder.Ascending) ? 
+				this._listViewSorter.Order = (this._listViewSorter.Order == SortOrder.Ascending) ? 
 					SortOrder.Descending : SortOrder.Ascending;
 			}
 			else
 			{
-				_listViewSorter.SortColumn = e.Column;
-				_listViewSorter.Order = SortOrder.Ascending;
+				this._listViewSorter.SortColumn = e.Column;
+				this._listViewSorter.Order = SortOrder.Ascending;
 			}
 			((ListView)sender).Sort();
 		}

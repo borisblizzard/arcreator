@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Security.Principal;
 using System.Windows.Forms;
@@ -42,12 +43,9 @@ namespace ARCed
         {
             get
             {
-                var assemblies = new List<Assembly>();
                 string dir = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "Assemblies");
-                foreach (string path in Directory.GetFiles(dir, "*.dll"))
-                    assemblies.Add(Assembly.LoadFile(path));
-                foreach (Plugin plugin in Registry.Plugins)
-                    assemblies.Add(plugin.Assembly);
+                var assemblies = Directory.GetFiles(dir, "*.dll").Select(Assembly.LoadFile).ToList();
+                assemblies.AddRange(Registry.Plugins.Select(plugin => plugin.Assembly));
                 return assemblies;
             }
         }
@@ -105,12 +103,7 @@ namespace ARCed
 		/// </summary>
 		public static List<Process> ChildProcesses
 		{
-			get
-			{
-				if (_childProcesses == null)
-					_childProcesses = new List<Process>();
-				return _childProcesses;
-			}
+			get { return _childProcesses ?? (_childProcesses = new List<Process>()); }
 		}
 		/// <summary>
 		/// Notifies all open database windows that objects of a given type need refreshed
@@ -158,10 +151,8 @@ namespace ARCed
 		/// <returns>The instance of the associated script window</returns>
 		public static ScriptEditorForm OpenScript(string file, bool show = false)
 		{
-		    Script script = Project.ScriptManager.WithPath(file);
-			if (script == null)
-				script = new Script(file);
-			ScriptEditorForm editor = Windows.ScriptEditors.Find(delegate(ScriptEditorForm e) { return e.Script == script; });
+		    Script script = Project.ScriptManager.WithPath(file) ?? new Script(file);
+		    ScriptEditorForm editor = Windows.ScriptEditors.Find(e => e.Script == script);
 			if (editor == null)
 			{
 				editor = new ScriptEditorForm(script);
@@ -201,8 +192,7 @@ namespace ARCed
 		{
 			var info = new ProcessStartInfo(filename);
 
-			Process found = ChildProcesses.Find(
-				delegate(Process p) { return p.StartInfo.FileName == filename; });
+			Process found = ChildProcesses.Find(p => p.StartInfo.FileName == filename);
 			if (found != null && !hidden)
 			{
 				NativeMethods.SetForegroundWindow(found.MainWindowHandle);

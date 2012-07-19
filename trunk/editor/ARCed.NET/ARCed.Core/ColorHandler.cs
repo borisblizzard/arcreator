@@ -199,10 +199,10 @@ namespace ARCed.Core
 			public ARGB(int a, int r, int g, int b)
 				: this()
 			{
-				Alpha = a.Clamp(0, 255);
-                Red = r.Clamp(0, 255);
-                Green = g.Clamp(0, 255);
-                Blue = b.Clamp(0, 255);
+				this.Alpha = a.Clamp(0, 255);
+                this.Red = r.Clamp(0, 255);
+                this.Green = g.Clamp(0, 255);
+                this.Blue = b.Clamp(0, 255);
 			}
 
             /// <summary>
@@ -211,7 +211,7 @@ namespace ARCed.Core
             /// <returns>String representation</returns>
             public override string ToString()
 			{
-				return String.Format("({0}, {1}, {2} {3})", Alpha, Red, Green, Blue);
+				return String.Format("({0}, {1}, {2} {3})", this.Alpha, this.Red, this.Green, this.Blue);
 			}
 		}
 
@@ -258,10 +258,10 @@ namespace ARCed.Core
 			public HSV(int a, int h, int s, int v)
 				: this()
 			{
-				Alpha = a;
-				Hue = h;
-				Saturation = s;
-				Value = v;
+				this.Alpha = a;
+				this.Hue = h;
+				this.Saturation = s;
+				this.Value = v;
 			}
 
             /// <summary>
@@ -270,7 +270,7 @@ namespace ARCed.Core
             /// <returns>String representation</returns>
 			public override string ToString()
 			{
-				return String.Format("({0}, {1}, {2})", Hue, Saturation, Value);
+				return String.Format("({0}, {1}, {2})", this.Hue, this.Saturation, this.Value);
 			}
 		}
 
@@ -289,8 +289,8 @@ namespace ARCed.Core
         /// <param name="hsv">HSV color value</param>
 		public ColorChangedEventArgs(ColorHandler.ARGB argb, ColorHandler.HSV hsv)
 		{
-			ARGB = argb;
-			HSV = hsv;
+			this.ARGB = argb;
+			this.HSV = hsv;
 		}
 
         /// <summary>

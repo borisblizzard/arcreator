@@ -42,10 +42,10 @@ namespace ARCed.Scintilla
 
         public PrintRectangle(int iLeft, int iTop, int iRight, int iBottom)
         {
-            Left = iLeft;
-            Top = iTop;
-            Right = iRight;
-            Bottom = iBottom;
+            this.Left = iLeft;
+            this.Top = iTop;
+            this.Right = iRight;
+            this.Bottom = iBottom;
         }
 
         #endregion Constructors

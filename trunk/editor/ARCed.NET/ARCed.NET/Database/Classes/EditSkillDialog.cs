@@ -21,8 +21,8 @@ namespace ARCed.Database.Classes
 		/// </summary>
 		public Class.Learning Learning 
 		{
-			get { return GetLearning(); }
-			set { SetLearning(value); }
+			get { return this.GetLearning(); }
+			set { this.SetLearning(value); }
 		}
 
         #endregion
@@ -34,9 +34,9 @@ namespace ARCed.Database.Classes
 		/// </summary>
 		public EditSkillDialog()
 		{
-			InitializeComponent();
-			ControlHelper.Populate(comboBoxSkill, Project.Data.Skills, false);
-			comboBoxSkill.SelectedIndex = 0;
+			this.InitializeComponent();
+			ControlHelper.Populate(this.comboBoxSkill, Project.Data.Skills, false);
+			this.comboBoxSkill.SelectedIndex = 0;
 		}
 
         #endregion
@@ -45,8 +45,8 @@ namespace ARCed.Database.Classes
 
         private void SetLearning(Class.Learning learning)
 		{
-			comboBoxSkill.SelectedIndex = learning.skill_id - 1;
-			numericLevel.Value = learning.level;
+			this.comboBoxSkill.SelectedIndex = learning.skill_id - 1;
+			this.numericLevel.Value = learning.level;
 		}
 
 		private Class.Learning GetLearning()

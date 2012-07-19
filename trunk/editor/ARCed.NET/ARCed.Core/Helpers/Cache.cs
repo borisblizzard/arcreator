@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.Linq;
 using ARCed.Core;
 
 #endregion
@@ -21,18 +22,11 @@ namespace ARCed.Helpers
 		/// The internal dictionary that contains all the cached images
 		/// </summary>
 		private static readonly Dictionary<string, Image> _cache = new Dictionary<string, Image>();
-		/// <summary>
-		/// The cached _srcTexture of the currently loaded tileset graphic
-		/// </summary>
-		private static string currentTilesetName;
-		/// <summary>
-		/// The name of the currently loaded tileset graphic
-		/// </summary>
-		private static Image currentTilesetBitmap;
-		/// <summary>
-		/// The index to reference for building autotile graphics
-		/// </summary>
-		private static readonly int[][] AUTOINDEX = new[] { 
+
+        /// <summary>
+        /// The index to reference for building autotile graphics
+        /// </summary>
+        private static readonly int[][] _autoindex = new[] { 
 			new[] { 27,28,33,34 },   new[] { 5,28,33,34 },   new[] { 27,6,33,34 },  
 			new[] { 5,6,33,34 },     new[] { 27,28,33,12 },  new[] { 5,28,33,12 },  
 			new[] { 27,6,33,12 },    new[] { 5,6,33,12 },    new[] { 27,28,11,34 },  
@@ -155,10 +149,10 @@ namespace ARCed.Helpers
 		/// <param name="filename">Full path of the autotile graphic</param>
 		/// <param name="hue">Hue rotation to apply to graphic, with 360 degrees of displacment</param>
 		/// <param name="opacity">Opacity of the returned _srcTexture</param>
-		/// <returns>Cached image with effects applied</returns>
+		/// <returns>Cached <see cref="Image"/> with effects applied</returns>
 		public static Image Autotile(string filename, int hue = 0, int opacity = 255)
 		{
-			Image bitmap = LoadBitmap(@"Graphics\Autotiles", filename);
+			var bitmap = LoadBitmap(@"Graphics\Autotiles", filename);
 			if (bitmap == null)
 				return null;
 			using (Image image = new Bitmap(bitmap))
@@ -178,10 +172,10 @@ namespace ARCed.Helpers
 		/// <param name="filename">Full path of the icon graphic</param>
 		/// <param name="hue">Hue rotation to apply to graphic, with 360 degrees of displacment</param>
 		/// <param name="opacity">Opacity of the returned _srcTexture</param>
-		/// <returns>Cached image with effects applied</returns>
+		/// <returns>Cached <see cref="Image"/> with effects applied</returns>
 		public static Image Icon(string filename, int hue = 0, int opacity = 255)
 		{
-			Image bitmap = LoadBitmap(@"Graphics\Icons", filename);
+			var bitmap = LoadBitmap(@"Graphics\Icons", filename);
 			if (bitmap == null)
 				return null;
 			using (Image image = new Bitmap(bitmap))
@@ -201,10 +195,10 @@ namespace ARCed.Helpers
 		/// <param name="filename">Full path of the character graphic</param>
 		/// <param name="hue">Hue rotation to apply to graphic, with 360 degrees of displacment</param>
 		/// <param name="opacity">Opacity of the returned _srcTexture</param>
-		/// <returns>Cached image with effects applied</returns>
+		/// <returns>Cached <see cref="Image"/> with effects applied</returns>
 		public static Image Character(string filename, int hue = 0, int opacity = 255)
 		{
-			Image bitmap = LoadBitmap(@"Graphics\Characters", filename);
+			var bitmap = LoadBitmap(@"Graphics\Characters", filename);
 			if (bitmap == null)
 				return null;
 			using (Image image = new Bitmap(bitmap))
@@ -224,10 +218,10 @@ namespace ARCed.Helpers
 		/// <param name="filename">Relative path of the tileset graphic</param>
 		/// <param name="hue">Hue rotation to apply to graphic, with 360 degrees of displacment</param>
 		/// <param name="opacity">Opacity of the returned _srcTexture</param>
-		/// <returns>Cached image with effects applied</returns>
+		/// <returns>Cached <see cref="Image"/> with effects applied</returns>
 		public static Image Tileset(string filename, int hue = 0, int opacity = 255)
 		{
-			Image bitmap = LoadBitmap(@"Graphics\Tilesets", filename);
+			var bitmap = LoadBitmap(@"Graphics\Tilesets", filename);
 			if (bitmap == null)
 				return null;
 			using (Image image = new Bitmap(bitmap))
@@ -247,10 +241,10 @@ namespace ARCed.Helpers
 		/// <param name="filename">Relative path of the animation graphic</param>
 		/// <param name="hue">Hue rotation to apply to graphic, with 360 degrees of displacment</param>
 		/// <param name="opacity">Opacity of the returned _srcTexture</param>
-		/// <returns>Cached image with effects applied</returns>
+		/// <returns>Cached <see cref="Image"/> with effects applied</returns>
 		public static Image Animation(string filename, int hue = 0, int opacity = 255)
 		{
-			Image bitmap = LoadBitmap(@"Graphics\Animations", filename);
+			var bitmap = LoadBitmap(@"Graphics\Animations", filename);
 			if (bitmap == null)
 				return null;
 			using (Image image = new Bitmap(bitmap))
@@ -270,10 +264,10 @@ namespace ARCed.Helpers
 		/// <param name="filename">Full path of the fog graphic</param>
 		/// <param name="hue">Hue rotation to apply to graphic, with 360 degrees of displacment</param>
 		/// <param name="opacity">Opacity of the returned _srcTexture</param>
-		/// <returns>Cached image with effects applied</returns>
+		/// <returns>Cached <see cref="Image"/> with effects applied</returns>
 		public static Image Fog(string filename, int hue = 0, int opacity = 255)
 		{
-			Image bitmap = LoadBitmap(@"Graphics\Fogs", filename);
+			var bitmap = LoadBitmap(@"Graphics\Fogs", filename);
 			if (bitmap == null)
 				return null;
 			using (Image image = new Bitmap(bitmap))
@@ -293,10 +287,10 @@ namespace ARCed.Helpers
 		/// <param name="filename">Full path of the panorama graphic</param>
 		/// <param name="hue">Hue rotation to apply to graphic, with 360 degrees of displacment</param>
 		/// <param name="opacity">Opacity of the returned _srcTexture</param>
-		/// <returns>Cached image with effects applied</returns>
+		/// <returns>Cached <see cref="Image"/> with effects applied</returns>
 		public static Image Panorama(string filename, int hue = 0, int opacity = 255)
 		{
-			Image bitmap = LoadBitmap(@"Graphics\Panoramas", filename);
+			var bitmap = LoadBitmap(@"Graphics\Panoramas", filename);
 			if (bitmap == null)
 				return null;
 			using (Image image = new Bitmap(bitmap))
@@ -316,10 +310,10 @@ namespace ARCed.Helpers
 		/// <param name="filename">Full path of the battleback graphic</param>
 		/// <param name="hue">Hue rotation to apply to graphic, with 360 degrees of displacment</param>
 		/// <param name="opacity">Opacity of the returned image</param>
-		/// <returns>Cached image with effects applied</returns>
+		/// <returns>Cached <see cref="Image"/> with effects applied</returns>
 		public static Image Battleback(string filename, int hue = 0, int opacity = 255)
 		{
-			Image bitmap = LoadBitmap(@"Graphics\Battlebacks", filename);
+			var bitmap = LoadBitmap(@"Graphics\Battlebacks", filename);
 			if (bitmap == null)
 				return null;
 			using (Image image = new Bitmap(bitmap))
@@ -363,10 +357,10 @@ namespace ARCed.Helpers
 		/// <param name="filename">FullPath of the character graphic</param>
 		/// <param name="hue">Hue rotation to apply to graphic, with 360 degrees of displacment</param>
 		/// <param name="opacity">Opacity of the returned _srcTexture</param>
-		/// <returns>Cached image with effects applied</returns>
+		/// <returns>Cached <see cref="Image"/> with effects applied</returns>
 		public static Image Battler(string filename, int hue = 0, int opacity = 255)
 		{
-			Image bitmap = LoadBitmap(@"Graphics\Battlers", filename);
+			var bitmap = LoadBitmap(@"Graphics\Battlers", filename);
 			if (bitmap == null)
 				return null;
 			using (Image image = new Bitmap(bitmap))
@@ -380,42 +374,35 @@ namespace ARCed.Helpers
 			}
 		}
 
-
-		/*
-
-		public static Image Tile(string filename, int tileId)
-		{
-			return Tile(filename, tileId, 255);
-		}
-
 		/// <summary>
 		/// Retrieves the tile with ID of the specified tileset
 		/// </summary>
 		/// <param name="filename">The filename of the tileset</param>
 		/// <param name="tileId">The ID of the tile</param>
+		/// <param name="hue">Hue rotation to apply to graphic, with 360 degrees of displacment</param>
+		/// <param name="opacity">Opacity of the returned _srcTexture</param>
 		/// <returns>A 32x32 image</returns>
-		public static Image Tile(string filename, int tileId, int opacity)
+		public static Image Tile(string filename, int tileId, int hue = 0, int opacity = 0)
 		{
-			string key = String.Format("Tile\\{0}, {1}, {2}", filename, tileId, opacity);
+		    var tileset = Tileset(filename, hue, opacity);
+			var key = String.Format("Tile\\{0}, {1}, {2}", filename, tileId, opacity);
 			if (!_cache.ContainsKey(key))
 			{
-				if (filename != currentTilesetName)
-					LoadTilesetSource(filename);
 				_cache[key] = new Bitmap(32, 32);
-				int srcX = (tileId - 384) % 8 * 32;
-				int srcY = (tileId - 384) / 8 * 32;
-				Rectangle srcRect = new Rectangle(srcX, srcY, 32, 32);
-				Rectangle destRect = new Rectangle(0, 0, 32, 32);
-				using (Graphics g = Graphics.FromImage(_cache[key]))
-					g.DrawImage(currentTilesetBitmap, destRect, srcRect, GraphicsUnit.Pixel);
+				var srcX = (tileId - 384) % 8 * 32;
+				var srcY = (tileId - 384) / 8 * 32;
+				var srcRect = new Rectangle(srcX, srcY, 32, 32);
+				var destRect = new Rectangle(0, 0, 32, 32);
+				using (var g = Graphics.FromImage(_cache[key]))
+					g.DrawImage(tileset, destRect, srcRect, GraphicsUnit.Pixel);
 				if (opacity != 255)
 				{
-					Bitmap opaqueBitmap = new Bitmap(_cache[key].Width, _cache[key].Height);
-					ImageAttributes imageAttr = new ImageAttributes();
-					QColorMatrix qm = new QColorMatrix();
+					var opaqueBitmap = new Bitmap(_cache[key].Width, _cache[key].Height);
+					var imageAttr = new ImageAttributes();
+					var qm = new QColorMatrix();
 					qm.ScaleOpacity(opacity / 255.0f);
 					imageAttr.SetColorMatrix(qm.ToColorMatrix());
-					using (Graphics g = Graphics.FromImage(opaqueBitmap))
+					using (var g = Graphics.FromImage(opaqueBitmap))
 						g.DrawImage(_cache[key], destRect, 0, 0, _cache[key].Width,
 							_cache[key].Height, GraphicsUnit.Pixel, imageAttr);
 					_cache[key] = opaqueBitmap;
@@ -430,20 +417,21 @@ namespace ARCed.Helpers
 		/// <param name="filename">The filename of the autotile</param>
 		public static void LoadAutotile(string filename)
 		{
-			Image autotile = Bitmap.FromFile(Util.GetLocation(filename, "Autotiles"));
+            // TODO: Improve this and load autotile indices as needed instead of pre-caching all
+		    var autotile = Autotile(filename);
 			int x, y, num, index, sx, sy;
 			Rectangle destRect, srcRect;
-			for (int frame = 0; frame < (autotile.Width / 96); frame++)
+			for (var frame = 0; frame < (autotile.Width / 96); frame++)
 			{
-				using (Image template = new Bitmap(256, 192))
+				using (var template = new Bitmap(256, 192))
 				{
-					for (int lvl = 0; lvl < 6; lvl++)
+					for (var lvl = 0; lvl < 6; lvl++)
 					{
-						for (int j = 0; j < 8; j++)
+						for (var j = 0; j < 8; j++)
 						{
-							using (Graphics g = Graphics.FromImage(template))
+							using (var g = Graphics.FromImage(template))
 							{
-								foreach (int number in AUTOINDEX[8 * lvl + j])
+								foreach (var number in _autoindex[8 * lvl + j])
 								{
 									num = number - 1;
 									x = 16 * (num % 6);
@@ -454,12 +442,12 @@ namespace ARCed.Helpers
 								}
 							}
 							index = 8 * lvl + j;
-							string key = String.Format("Autotile\\{0}, {1}, {2}", filename, index, frame);
+							var key = String.Format("Autotile\\{0}, {1}, {2}", filename, index, frame);
 							_cache[key] = new Bitmap(32, 32);
 							sx = 32 * (index % 8);
 							sy = 32 * (index / 8);
 							srcRect = new Rectangle(sx, sy, 32, 32);
-							using (Graphics g = Graphics.FromImage(_cache[key]))
+							using (var g = Graphics.FromImage(_cache[key]))
 								g.DrawImage(template, new Rectangle(0, 0, 32, 32), srcRect, GraphicsUnit.Pixel);
 						}
 					}
@@ -472,16 +460,17 @@ namespace ARCed.Helpers
 		/// </summary>
 		public static void Clear()
 		{
+		    var cacheGeneration = GC.GetGeneration(_cache);
 			try
 			{
-				foreach (Image image in _cache.Values)
-					image.Dispose();
-				currentTilesetBitmap.Dispose();
+				foreach (var image in _cache.Values.Where(image => image != null))
+				    image.Dispose();
 			}
-			catch { }
-			_cache.Clear();
-			GC.Collect();
+            finally 
+            { 
+                _cache.Clear();
+                GC.Collect(cacheGeneration, GCCollectionMode.Forced);
+            }
 		}
-		*/
 	}
 }

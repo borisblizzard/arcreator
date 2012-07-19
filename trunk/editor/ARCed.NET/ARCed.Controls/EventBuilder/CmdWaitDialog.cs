@@ -14,8 +14,8 @@ namespace ARCed.EventBuilder
 		/// </summary>
 		public int Frames
 		{
-			get { return (int)numericUpDownFrames.Value; }
-			set { numericUpDownFrames.Value = value.Clamp(1, 1000); }
+			get { return (int)this.numericUpDownFrames.Value; }
+			set { this.numericUpDownFrames.Value = value.Clamp(1, 1000); }
 		}
 
 		/// <summary>
@@ -23,13 +23,13 @@ namespace ARCed.EventBuilder
 		/// </summary>
 		public CmdWaitDialog()
 		{
-			InitializeComponent();
+			this.InitializeComponent();
 		}
 
 		private void buttonOK_Click(object sender, EventArgs e)
 		{
-			this.DialogResult = DialogResult.OK;
-			this.Close();
+			DialogResult = DialogResult.OK;
+			Close();
 		}
 	}
 }

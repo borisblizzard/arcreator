@@ -18,12 +18,12 @@ namespace ARCed.UI
 
 		internal protected FloatWindow(DockPanel dockPanel, DockPane pane)
 		{
-			InternalConstruct(dockPanel, pane, false, Rectangle.Empty);
+			this.InternalConstruct(dockPanel, pane, false, Rectangle.Empty);
 		}
 
 		internal protected FloatWindow(DockPanel dockPanel, DockPane pane, Rectangle bounds)
 		{
-			InternalConstruct(dockPanel, pane, true, bounds);
+			this.InternalConstruct(dockPanel, pane, true, bounds);
 		}
 
 		private void InternalConstruct(DockPanel dockPanel, DockPane pane, bool boundsSpecified, Rectangle bounds)
@@ -32,7 +32,7 @@ namespace ARCed.UI
 			if (dockPanel == null)
 				throw(new ArgumentNullException(Strings.FloatWindow_Constructor_NullDockPanel));
 
-			m_nestedPanes = new NestedPaneCollection(this);
+			this.m_nestedPanes = new NestedPaneCollection(this);
 
 			FormBorderStyle = FormBorderStyle.SizableToolWindow;
 			ShowInTaskbar = false;
@@ -56,15 +56,15 @@ namespace ARCed.UI
 			if (pane != null)
 				pane.FloatWindow = this;
 
-			m_dockPanel = dockPanel;
-			Owner = DockPanel.FindForm();
+			this.m_dockPanel = dockPanel;
+			Owner = this.DockPanel.FindForm();
 
-			this.Size = bounds.Size;
+			Size = bounds.Size;
 			// Suspend child controls from resizing every pixel
-			this.ResizeBegin += (s, e) => { SuspendLayout(); };
-			this.ResizeEnd += (s, e) => { ResumeLayout(true); };
+			ResizeBegin += (s, e) => SuspendLayout();
+			ResizeEnd += (s, e) => ResumeLayout(true);
 
-			DockPanel.AddFloatWindow(this);
+			this.DockPanel.AddFloatWindow(this);
 
 			ResumeLayout();
 		}
@@ -73,9 +73,9 @@ namespace ARCed.UI
 		{
 			if (disposing)
 			{
-				if (DockPanel != null)
-					DockPanel.RemoveFloatWindow(this);
-				m_dockPanel = null;
+				if (this.DockPanel != null)
+					this.DockPanel.RemoveFloatWindow(this);
+				this.m_dockPanel = null;
 			}
 			base.Dispose(disposing);
 		}
@@ -83,24 +83,24 @@ namespace ARCed.UI
 		private bool m_allowEndUserDocking = true;
 		public bool AllowEndUserDocking
 		{
-			get	{	return m_allowEndUserDocking;	}
-			set	{	m_allowEndUserDocking = value;	}
+			get	{	return this.m_allowEndUserDocking;	}
+			set	{	this.m_allowEndUserDocking = value;	}
 		}
 
 		public NestedPaneCollection NestedPanes
 		{
-			get	{	return m_nestedPanes;	}
+			get	{	return this.m_nestedPanes;	}
 		}
 
 		public VisibleNestedPaneCollection VisibleNestedPanes
 		{
-			get	{	return NestedPanes.VisibleNestedPanes;	}
+			get	{	return this.NestedPanes.VisibleNestedPanes;	}
 		}
 
 		private DockPanel m_dockPanel;
 		public DockPanel DockPanel
 		{
-			get	{	return m_dockPanel;	}
+			get	{	return this.m_dockPanel;	}
 		}
 
 		public DockState DockState
@@ -110,12 +110,12 @@ namespace ARCed.UI
 	
 		public bool IsFloat
 		{
-			get	{	return DockState == DockState.Float;	}
+			get	{	return this.DockState == DockState.Float;	}
 		}
 
 		internal bool IsDockStateValid(DockState dockState)
 		{
-			foreach (DockPane pane in NestedPanes)
+			foreach (DockPane pane in this.NestedPanes)
 				foreach (IDockContent content in pane.Contents)
 					if (!DockHelper.IsDockStateValid(dockState, content.DockHandler.DockAreas))
 						return false;
@@ -125,10 +125,10 @@ namespace ARCed.UI
 
 		protected override void OnActivated(EventArgs e)
 		{
-			DockPanel.FloatWindows.BringWindowToFront(this);
+			this.DockPanel.FloatWindows.BringWindowToFront(this);
 			base.OnActivated (e);
 			// Propagate the Activated event to the visible panes content objects
-			foreach (DockPane pane in VisibleNestedPanes)
+			foreach (DockPane pane in this.VisibleNestedPanes)
 				foreach (IDockContent content in pane.Contents)
 					content.OnActivated(e);
 		}
@@ -137,17 +137,17 @@ namespace ARCed.UI
 		{
 			base.OnDeactivate(e);
 			// Propagate the Deactivate event to the visible panes content objects
-			foreach (DockPane pane in VisibleNestedPanes)
+			foreach (DockPane pane in this.VisibleNestedPanes)
 				foreach (IDockContent content in pane.Contents)
 					content.OnDeactivate(e);
 		}
 
 		protected override void OnLayout(LayoutEventArgs levent)
 		{
-			VisibleNestedPanes.Refresh();
-			RefreshChanges();
-            Visible = (VisibleNestedPanes.Count > 0);
-            SetText();
+			this.VisibleNestedPanes.Refresh();
+			this.RefreshChanges();
+            Visible = (this.VisibleNestedPanes.Count > 0);
+            this.SetText();
 
 			base.OnLayout(levent);
 		}
@@ -156,7 +156,7 @@ namespace ARCed.UI
         [SuppressMessage("Microsoft.Globalization", "CA1303:DoNotPassLiteralsAsLocalizedParameters", MessageId = "System.Windows.Forms.Control.set_Text(System.String)")]
         internal void SetText()
 		{
-			DockPane theOnlyPane = (VisibleNestedPanes.Count == 1) ? VisibleNestedPanes[0] : null;
+			DockPane theOnlyPane = (this.VisibleNestedPanes.Count == 1) ? this.VisibleNestedPanes[0] : null;
 
 			if (theOnlyPane == null)
 				Text = " ";	// use " " instead of string.Empty because the whole title bar will disappear when ControlBox is set to false.
@@ -187,11 +187,11 @@ namespace ARCed.UI
 				if (IsDisposed)
 					return;
 
-				uint result = NativeMethods.SendMessage(this.Handle, (int)Msgs.WM_NCHITTEST, 0, (uint)m.LParam);
-				if (result == 2 && DockPanel.AllowEndUserDocking && this.AllowEndUserDocking)	// HITTEST_CAPTION
+				uint result = NativeMethods.SendMessage(Handle, (int)Msgs.WM_NCHITTEST, 0, (uint)m.LParam);
+				if (result == 2 && this.DockPanel.AllowEndUserDocking && this.AllowEndUserDocking)	// HITTEST_CAPTION
 				{
 					Activate();
-					m_dockPanel.BeginDrag(this);
+					this.m_dockPanel.BeginDrag(this);
 				}
 				else
 					base.WndProc(ref m);
@@ -200,10 +200,10 @@ namespace ARCed.UI
 			}
             else if (m.Msg == (int)Msgs.WM_NCRBUTTONDOWN)
             {
-                uint result = NativeMethods.SendMessage(this.Handle, (int)Msgs.WM_NCHITTEST, 0, (uint)m.LParam);
+                uint result = NativeMethods.SendMessage(Handle, (int)Msgs.WM_NCHITTEST, 0, (uint)m.LParam);
                 if (result == 2)	// HITTEST_CAPTION
                 {
-                    DockPane theOnlyPane = (VisibleNestedPanes.Count == 1) ? VisibleNestedPanes[0] : null;
+                    DockPane theOnlyPane = (this.VisibleNestedPanes.Count == 1) ? this.VisibleNestedPanes[0] : null;
                     if (theOnlyPane != null && theOnlyPane.ActiveContent != null)
                     {
                         theOnlyPane.ShowTabPageContextMenu(this, PointToClient(MousePosition));
@@ -216,15 +216,15 @@ namespace ARCed.UI
             }
             else if (m.Msg == (int)Msgs.WM_CLOSE)
             {
-                if (NestedPanes.Count == 0)
+                if (this.NestedPanes.Count == 0)
                 {
                     base.WndProc(ref m);
                     return;
                 }
 
-                for (int i = NestedPanes.Count - 1; i >= 0; i--)
+                for (int i = this.NestedPanes.Count - 1; i >= 0; i--)
                 {
-                    DockContentCollection contents = NestedPanes[i].Contents;
+                    DockContentCollection contents = this.NestedPanes[i].Contents;
                     for (int j = contents.Count - 1; j >= 0; j--)
                     {
                         IDockContent content = contents[j];
@@ -245,17 +245,17 @@ namespace ARCed.UI
             }
             else if (m.Msg == (int)Msgs.WM_NCLBUTTONDBLCLK)
             {
-                uint result = NativeMethods.SendMessage(this.Handle, (int)Msgs.WM_NCHITTEST, 0, (uint)m.LParam);
+                uint result = NativeMethods.SendMessage(Handle, (int)Msgs.WM_NCHITTEST, 0, (uint)m.LParam);
                 if (result != 2)	// HITTEST_CAPTION
                 {
                     base.WndProc(ref m);
                     return;
                 }
 
-                DockPanel.SuspendLayout(true);
+                this.DockPanel.SuspendLayout(true);
 
                 // Restore to panel
-                foreach (DockPane pane in NestedPanes)
+                foreach (DockPane pane in this.NestedPanes)
                 {
                     if (pane.DockState != DockState.Float)
                         continue;
@@ -263,12 +263,12 @@ namespace ARCed.UI
                 }
 
 
-                DockPanel.ResumeLayout(true, true);
+                this.DockPanel.ResumeLayout(true, true);
                 return;
             }
             else if (m.Msg == WM_CHECKDISPOSE)
             {
-                if (NestedPanes.Count == 0)
+                if (this.NestedPanes.Count == 0)
                     Dispose();
 
                 return;
@@ -282,15 +282,15 @@ namespace ARCed.UI
             if (IsDisposed)
                 return;
 
-			if (VisibleNestedPanes.Count == 0)
+			if (this.VisibleNestedPanes.Count == 0)
 			{
 				ControlBox = true;
 				return;
 			}
 
-			for (int i=VisibleNestedPanes.Count - 1; i>=0; i--)
+			for (int i=this.VisibleNestedPanes.Count - 1; i>=0; i--)
 			{
-				DockContentCollection contents = VisibleNestedPanes[i].Contents;
+				DockContentCollection contents = this.VisibleNestedPanes[i].Contents;
 				for (int j=contents.Count - 1; j>=0; j--)
 				{
 					IDockContent content = contents[j];
@@ -317,16 +317,16 @@ namespace ARCed.UI
 
 		internal void TestDrop(IDockDragSource dragSource, DockOutlineBase dockOutline)
 		{
-            if (VisibleNestedPanes.Count == 1)
+            if (this.VisibleNestedPanes.Count == 1)
             {
-                DockPane pane = VisibleNestedPanes[0];
+                DockPane pane = this.VisibleNestedPanes[0];
                 if (!dragSource.CanDockTo(pane))
                     return;
 
                 Point ptMouse = MousePosition;
                 uint lParam = Win32Helper.MakeLong(ptMouse.X, ptMouse.Y);
                 if (NativeMethods.SendMessage(Handle, (int)Msgs.WM_NCHITTEST, 0, lParam) == (uint)HitTest.HTCAPTION)
-                    dockOutline.Show(VisibleNestedPanes[0], -1);
+                    dockOutline.Show(this.VisibleNestedPanes[0], -1);
             }
 		}
 
@@ -343,12 +343,12 @@ namespace ARCed.UI
 
         bool IDockDragSource.IsDockStateValid(DockState dockState)
         {
-            return IsDockStateValid(dockState);
+            return this.IsDockStateValid(dockState);
         }
 
         bool IDockDragSource.CanDockTo(DockPane pane)
         {
-            if (!IsDockStateValid(pane.DockState))
+            if (!this.IsDockStateValid(pane.DockState))
                 return false;
 
             if (pane.FloatWindow == this)
@@ -371,9 +371,9 @@ namespace ARCed.UI
         {
             if (dockStyle == DockStyle.Fill)
             {
-                for (int i = NestedPanes.Count - 1; i >= 0; i--)
+                for (int i = this.NestedPanes.Count - 1; i >= 0; i--)
                 {
-                    DockPane paneFrom = NestedPanes[i];
+                    DockPane paneFrom = this.NestedPanes[i];
                     for (int j = paneFrom.Contents.Count - 1; j >= 0; j--)
                     {
                         IDockContent c = paneFrom.Contents[j];
@@ -396,33 +396,33 @@ namespace ARCed.UI
                 else if (dockStyle == DockStyle.Bottom)
                     alignment = DockAlignment.Bottom;
 
-                MergeNestedPanes(VisibleNestedPanes, pane.NestedPanesContainer.NestedPanes, pane, alignment, 0.5);
+                MergeNestedPanes(this.VisibleNestedPanes, pane.NestedPanesContainer.NestedPanes, pane, alignment, 0.5);
             }
         }
 
         public void DockTo(DockPanel panel, DockStyle dockStyle)
         {
-            if (panel != DockPanel)
+            if (panel != this.DockPanel)
                 throw new ArgumentException(Strings.IDockDragSource_DockTo_InvalidPanel, "panel");
 
             NestedPaneCollection nestedPanesTo = null;
 
             if (dockStyle == DockStyle.Top)
-                nestedPanesTo = DockPanel.DockWindows[DockState.DockTop].NestedPanes;
+                nestedPanesTo = this.DockPanel.DockWindows[DockState.DockTop].NestedPanes;
             else if (dockStyle == DockStyle.Bottom)
-                nestedPanesTo = DockPanel.DockWindows[DockState.DockBottom].NestedPanes;
+                nestedPanesTo = this.DockPanel.DockWindows[DockState.DockBottom].NestedPanes;
             else if (dockStyle == DockStyle.Left)
-                nestedPanesTo = DockPanel.DockWindows[DockState.DockLeft].NestedPanes;
+                nestedPanesTo = this.DockPanel.DockWindows[DockState.DockLeft].NestedPanes;
             else if (dockStyle == DockStyle.Right)
-                nestedPanesTo = DockPanel.DockWindows[DockState.DockRight].NestedPanes;
+                nestedPanesTo = this.DockPanel.DockWindows[DockState.DockRight].NestedPanes;
             else if (dockStyle == DockStyle.Fill)
-                nestedPanesTo = DockPanel.DockWindows[DockState.Document].NestedPanes;
+                nestedPanesTo = this.DockPanel.DockWindows[DockState.Document].NestedPanes;
 
             DockPane prevPane = null;
             for (int i = nestedPanesTo.Count - 1; i >= 0; i--)
-                if (nestedPanesTo[i] != VisibleNestedPanes[0])
+                if (nestedPanesTo[i] != this.VisibleNestedPanes[0])
                     prevPane = nestedPanesTo[i];
-            MergeNestedPanes(VisibleNestedPanes, nestedPanesTo, prevPane, DockAlignment.Left, 0.5);
+            MergeNestedPanes(this.VisibleNestedPanes, nestedPanesTo, prevPane, DockAlignment.Left, 0.5);
         }
 
         private static void MergeNestedPanes(VisibleNestedPaneCollection nestedPanesFrom, NestedPaneCollection nestedPanesTo, DockPane prevPane, DockAlignment alignment, double proportion)

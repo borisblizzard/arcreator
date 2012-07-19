@@ -15,84 +15,84 @@ namespace ARCed.Scintilla
 
         private void ResetBorder()
         {
-            Border = PageInformationBorder.Top;
+            this.Border = PageInformationBorder.Top;
         }
 
 
         private void ResetCenter()
         {
-            Center = InformationType.Nothing;
+            this.Center = InformationType.Nothing;
         }
 
 
         private void ResetFont()
         {
-            Font = DefaultFont;
+            this.Font = DefaultFont;
         }
 
 
         private void ResetLeft()
         {
-            Left = InformationType.Nothing;
+            this.Left = InformationType.Nothing;
         }
 
 
         private void ResetMargin()
         {
-            Margin = 3;
+            this.Margin = 3;
         }
 
 
         private void ResetRight()
         {
-            Right = InformationType.Nothing;
+            this.Right = InformationType.Nothing;
         }
 
 
         internal bool ShouldSerialize()
         {
-            return ShouldSerializeBorder() ||
-                ShouldSerializeCenter() ||
-                ShouldSerializeFont() ||
-                ShouldSerializeLeft() ||
-                ShouldSerializeMargin() ||
-                ShouldSerializeRight();
+            return this.ShouldSerializeBorder() ||
+                this.ShouldSerializeCenter() ||
+                this.ShouldSerializeFont() ||
+                this.ShouldSerializeLeft() ||
+                this.ShouldSerializeMargin() ||
+                this.ShouldSerializeRight();
         }
 
 
         private bool ShouldSerializeBorder()
         {
-            return Border != PageInformationBorder.Top;
+            return this.Border != PageInformationBorder.Top;
         }
 
 
         private bool ShouldSerializeCenter()
         {
-            return Center != InformationType.Nothing;
+            return this.Center != InformationType.Nothing;
         }
 
 
         private bool ShouldSerializeFont()
         {
-            return !DefaultFont.Equals(Font);
+            return !DefaultFont.Equals(this.Font);
         }
 
 
         private bool ShouldSerializeLeft()
         {
-            return Left != InformationType.Nothing;
+            return this.Left != InformationType.Nothing;
         }
 
 
         private bool ShouldSerializeMargin()
         {
-            return Margin != 3;
+            return this.Margin != 3;
         }
 
 
         private bool ShouldSerializeRight()
         {
-            return Right != InformationType.Nothing;
+            return this.Right != InformationType.Nothing;
         }
 
         #endregion Methods

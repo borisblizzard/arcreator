@@ -28,11 +28,11 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _line;
+                return this._line;
             }
             set
             {
-                _line = value;
+                this._line = value;
             }
         }
 
@@ -48,7 +48,7 @@ namespace ARCed.Scintilla
         /// <param name="modificationType">What type of Scintilla modification occured</param>
         public MarkerChangedEventArgs(int line, int modificationType) : base(modificationType)
         {
-            _line = line;
+            this._line = line;
         }
 
         #endregion Constructors

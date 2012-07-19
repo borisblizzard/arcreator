@@ -15,7 +15,7 @@ namespace ARCed.Scintilla.Configuration
         public StyleConfig FindByName(string name)
         {
 
-            foreach (StyleConfig item in this.Values)
+            foreach (StyleConfig item in Values)
             {
                 if (item.Name.Equals(name, StringComparison.OrdinalIgnoreCase))
                     return item;

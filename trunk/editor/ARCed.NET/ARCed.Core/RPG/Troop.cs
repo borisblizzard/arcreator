@@ -33,10 +33,10 @@ namespace RPG
         /// </summary>
 		public Troop()
 		{
-			id = 0;
-			name = "";
-			members = new List<dynamic>();
-			pages = new List<dynamic>
+			this.id = 0;
+			this.name = "";
+			this.members = new List<dynamic>();
+			this.pages = new List<dynamic>
 			{ new Page() };
 		}
 
@@ -80,11 +80,11 @@ namespace RPG
             /// </summary>
 			public Member()
 			{
-				enemy_id = 0;
-				x = 0;
-				y = 0;
-				hidden = false;
-				immortal = false;
+				this.enemy_id = 0;
+				this.x = 0;
+				this.y = 0;
+				this.hidden = false;
+				this.immortal = false;
 			}
 		}
 
@@ -111,9 +111,9 @@ namespace RPG
             /// </summary>
 			public Page()
 			{
-				condition = new Condition();
-				span = 0;
-				list = new List<dynamic>
+				this.condition = new Condition();
+				this.span = 0;
+				this.list = new List<dynamic>
 				{ new EventCommand() };
 			}
 
@@ -174,17 +174,17 @@ namespace RPG
                 /// </summary>
 				public Condition()
 				{
-					turn_valid = false;
-					enemy_valid = false;
-					actor_valid = false;
-					switch_valid = false;
-					turn_a = 0;
-					turn_b = 0;
-					enemy_index = 0;
-					enemy_hp = 50;
-					actor_id = 1;
-					actor_hp = 50;
-					switch_id = 1;
+					this.turn_valid = false;
+					this.enemy_valid = false;
+					this.actor_valid = false;
+					this.switch_valid = false;
+					this.turn_a = 0;
+					this.turn_b = 0;
+					this.enemy_index = 0;
+					this.enemy_hp = 50;
+					this.actor_id = 1;
+					this.actor_hp = 50;
+					this.switch_id = 1;
 				}
 			}
 		}

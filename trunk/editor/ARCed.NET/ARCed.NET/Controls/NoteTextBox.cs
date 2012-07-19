@@ -42,8 +42,8 @@ namespace ARCed.Controls
 		[Category("ARCed"), Description("Gets or sets the note text of the control")]
 		public string NoteText 
 		{ 
-			get { return textBoxNotes.Text; } 
-			set { textBoxNotes.Text = value; } 
+			get { return this.textBoxNotes.Text; } 
+			set { this.textBoxNotes.Text = value; } 
 		}
 
 		#endregion
@@ -55,7 +55,7 @@ namespace ARCed.Controls
 		/// </summary>
 		public NoteTextBox()
 		{
-			InitializeComponent();
+			this.InitializeComponent();
 		}
 
 		#endregion
@@ -66,9 +66,9 @@ namespace ARCed.Controls
 		{
 			using (var dialog = new FontSelectionDialog())
 			{
-				dialog.UserFont = textBoxNotes.Font;
+				dialog.UserFont = this.textBoxNotes.Font;
 				if (dialog.ShowDialog() == DialogResult.OK)
-					textBoxNotes.Font = dialog.UserFont;
+					this.textBoxNotes.Font = dialog.UserFont;
 			}
 		}
 
@@ -76,72 +76,72 @@ namespace ARCed.Controls
 		{
 			using (var dialog = new NoteForm())
 			{
-				dialog.NoteText = textBoxNotes.Text;
+				dialog.NoteText = this.textBoxNotes.Text;
 				if (dialog.ShowDialog() == DialogResult.OK)
-					textBoxNotes.Text = dialog.NoteText;
+					this.textBoxNotes.Text = dialog.NoteText;
 			}
 		}
 
 		private void NoteTextBox_Load(object sender, EventArgs e)
 		{
-			if (!DesignMode && textBoxNotes.DataBindings.Count == 0)
+			if (!DesignMode && this.textBoxNotes.DataBindings.Count == 0)
 			{
-				textBoxNotes.DataBindings.Add("Font", Editor.Settings, "NoteFont",
+				this.textBoxNotes.DataBindings.Add("Font", Editor.Settings, "NoteFont",
 					false, DataSourceUpdateMode.OnPropertyChanged);
-				textBoxNotes.ContextMenuStrip = contextMenuNotes;
+				this.textBoxNotes.ContextMenuStrip = this.contextMenuNotes;
 			}
 		}
 
 		private void buttonCut_Click(object sender, EventArgs e)
 		{
-			if (textBoxNotes.SelectedText.Length > 0)
+			if (this.textBoxNotes.SelectedText.Length > 0)
 			{
-				Clipboard.SetText(textBoxNotes.SelectedText);
-				textBoxNotes.SelectedText = "";
+				Clipboard.SetText(this.textBoxNotes.SelectedText);
+				this.textBoxNotes.SelectedText = "";
 			}
 		}
 
 		private void buttonCopy_Click(object sender, EventArgs e)
 		{
-			if (textBoxNotes.SelectedText.Length > 0)
-				Clipboard.SetText(textBoxNotes.SelectedText);
+			if (this.textBoxNotes.SelectedText.Length > 0)
+				Clipboard.SetText(this.textBoxNotes.SelectedText);
 		}
 
 		private void buttonPaste_Click(object sender, EventArgs e)
 		{
 			if (Clipboard.ContainsText())
 			{
-				if (textBoxNotes.SelectedText.Length > 0)
-					textBoxNotes.SelectedText = Clipboard.GetText();
+				if (this.textBoxNotes.SelectedText.Length > 0)
+					this.textBoxNotes.SelectedText = Clipboard.GetText();
 				else
-					textBoxNotes.AppendText(Clipboard.GetText());
+					this.textBoxNotes.AppendText(Clipboard.GetText());
 			}
 		}
 
 		private void buttonSelectAll_Click(object sender, EventArgs e)
 		{
-			textBoxNotes.SelectAll();
+			this.textBoxNotes.SelectAll();
 		}
 
 		private void textBoxNotes_ClientSizeChanged(object sender, EventArgs e)
 		{
-			if (NoteTextChanged != null)
-				NoteTextChanged(this, e);
-			if (!_busy)
+			if (this.NoteTextChanged != null)
+				this.NoteTextChanged(this, e);
+			if (!this._busy)
 			{
-				_busy = true;
-				Size tS = TextRenderer.MeasureText(textBoxNotes.Text, textBoxNotes.Font);
-				bool Hsb = textBoxNotes.ClientSize.Height < tS.Height + Convert.ToInt32(textBoxNotes.Font.Size);
-				bool Vsb = textBoxNotes.ClientSize.Width < tS.Width;
-				if (Hsb && Vsb && textBoxNotes.ScrollBars != ScrollBars.Both)
-					textBoxNotes.ScrollBars = ScrollBars.Both;
-				else if (!Hsb && !Vsb && textBoxNotes.ScrollBars != ScrollBars.None)
-					textBoxNotes.ScrollBars = ScrollBars.None;
-				else if (Hsb && !Vsb && textBoxNotes.ScrollBars != ScrollBars.Vertical)
-					textBoxNotes.ScrollBars = ScrollBars.Vertical;
-				else if (!Hsb && Vsb && textBoxNotes.ScrollBars != ScrollBars.Horizontal)
-					textBoxNotes.ScrollBars = ScrollBars.Horizontal;
-				_busy = false;
+				this._busy = true;
+				Size tS = TextRenderer.MeasureText(this.textBoxNotes.Text, this.textBoxNotes.Font);
+				bool Hsb = this.textBoxNotes.ClientSize.Height < tS.Height + Convert.ToInt32(this.textBoxNotes.Font.Size);
+				bool Vsb = this.textBoxNotes.ClientSize.Width < tS.Width;
+				if (Hsb && Vsb && this.textBoxNotes.ScrollBars != ScrollBars.Both)
+					this.textBoxNotes.ScrollBars = ScrollBars.Both;
+				else if (!Hsb && !Vsb && this.textBoxNotes.ScrollBars != ScrollBars.None)
+					this.textBoxNotes.ScrollBars = ScrollBars.None;
+				else if (Hsb && !Vsb && this.textBoxNotes.ScrollBars != ScrollBars.Vertical)
+					this.textBoxNotes.ScrollBars = ScrollBars.Vertical;
+				else if (!Hsb && Vsb && this.textBoxNotes.ScrollBars != ScrollBars.Horizontal)
+					this.textBoxNotes.ScrollBars = ScrollBars.Horizontal;
+				this._busy = false;
 			}
 		}
 

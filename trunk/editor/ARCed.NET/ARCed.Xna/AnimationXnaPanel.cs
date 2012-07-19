@@ -25,37 +25,37 @@ namespace ARCed.Controls
 
 		public Texture2D Texture 
 		{
-			get { return _texture; }
+			get { return this._texture; }
 			set
 			{
-				_texture = value;
-				_rect.Width = value.Width;
-				_rect.Height = value.Height;
+				this._texture = value;
+				this._rect.Width = value.Width;
+				this._rect.Height = value.Height;
 			}
 		}
 
-		public Rectangle Rectangle { get { return _rect; } }
+		public Rectangle Rectangle { get { return this._rect; } }
 
-		public int Width { get { return _rect.Width; } }
-		public int Height { get { return _rect.Height; } }
+		public int Width { get { return this._rect.Width; } }
+		public int Height { get { return this._rect.Height; } }
 
 		public int X 
 		{ 
-			get { return _rect.X; }
-			set { _rect.X = value; }
+			get { return this._rect.X; }
+			set { this._rect.X = value; }
 		}
 
 		public int Y
 		{
-			get { return _rect.Y; }
-			set { _rect.Y = value; }
+			get { return this._rect.Y; }
+			set { this._rect.Y = value; }
 		}
 
 		public FrameSprite(Texture2D texture, int x, int y)
 		{
 			this.Texture = texture;
-			_rect.X = x;
-			_rect.Y = y;
+			this._rect.X = x;
+			this._rect.Y = y;
 		}
 
 		#region IDisposable Members
@@ -65,23 +65,23 @@ namespace ARCed.Controls
 		/// </summary>
 		public void Dispose()
 		{
-			Dispose(true);
+			this.Dispose(true);
 			GC.SuppressFinalize(this);
-			IsDisposed = true;
+			this.IsDisposed = true;
 		}
 
 		protected virtual void Dispose(bool disposing)
 		{
 			if (disposing)
 			{
-				if (_texture != null)
-					_texture.Dispose();
+				if (this._texture != null)
+					this._texture.Dispose();
 			}
 		}
 
 		~FrameSprite()
 		{
-			Dispose(false);
+			this.Dispose(false);
 		}
 
 		#endregion
@@ -104,18 +104,18 @@ namespace ARCed.Controls
 
 		public List<FrameSprite> Sprites 
 		{
-			get { return _sprites; }
-			set { _sprites = value; }
+			get { return this._sprites; }
+			set { this._sprites = value; }
 		}
 
 		public Animation Animation 
 		{
-			get { return _animation; }
+			get { return this._animation; }
 			set
 			{
-				if (_animation != value)
+				if (this._animation != value)
 				{
-					_animation = value;
+					this._animation = value;
 					Invalidate();
 				}
 			}
@@ -128,7 +128,7 @@ namespace ARCed.Controls
 		/// </summary>
 		public AnimationXnaPanel()
 		{
-			InitializeComponent();
+			this.InitializeComponent();
 		}
 
 		#endregion
@@ -140,9 +140,9 @@ namespace ARCed.Controls
 		/// </summary>
 		protected override void Initialize()
 		{
-			_sprites = new List<FrameSprite>();
-			_font = new Font("Courier New", 8.25f, FontStyle.Regular);
-			_batch = new SpriteBatch(GraphicsDevice);
+			this._sprites = new List<FrameSprite>();
+			this._font = new Font("Courier New", 8.25f, FontStyle.Regular);
+			this._batch = new SpriteBatch(GraphicsDevice);
 			GraphicsDevice.Clear(Color.Black);
 			VIEWPORT = new Rectangle(0, 0, 320, 160);
 			Disposed += this.AnimationXnaPanel_Disposed;
@@ -150,10 +150,10 @@ namespace ARCed.Controls
 
 		void AnimationXnaPanel_Disposed(object sender, EventArgs e)
 		{
-			foreach (FrameSprite sprite in _sprites)
+			foreach (FrameSprite sprite in this._sprites)
 				sprite.Dispose();
-			_font.Dispose();
-			_batch.Dispose();
+			this._font.Dispose();
+			this._batch.Dispose();
 		}
 
 		/// <summary>
@@ -163,36 +163,36 @@ namespace ARCed.Controls
 		{
 			GraphicsDevice.Clear(Color.Black);
 
-			_batch.Begin();
-			DrawBackground();
+			this._batch.Begin();
+			this.DrawBackground();
 
 
 			Rectangle destRect;
 			Rectangle srcRect;
-			foreach (FrameSprite sprite in _sprites)
+			foreach (FrameSprite sprite in this._sprites)
 			{
 				srcRect = new Rectangle(0, 0, sprite.Width, sprite.Height);
 				destRect = new Rectangle(sprite.X / 2, sprite.Y / 2, sprite.Width / 2, sprite.Height / 2);
-				_batch.Draw(sprite.Texture, destRect, srcRect, Color.White);
-				_batch.DrawRectangle(destRect, Color.Blue, 2);
-				_batch.FillTriangle(
+				this._batch.Draw(sprite.Texture, destRect, srcRect, Color.White);
+				this._batch.DrawRectangle(destRect, Color.Blue, 2);
+				this._batch.FillTriangle(
 					new Vector2(destRect.X, destRect.Y),
 					new Vector2(destRect.X + 16, destRect.Y),
 					new Vector2(destRect.X, destRect.Y + 16),
 					Color.Blue);
-				_batch.DrawString(sprite.Index.ToString(), _font, Color.Black, 
+				this._batch.DrawString(sprite.Index.ToString(), this._font, Color.Black, 
 					new Rectangle(destRect.X, destRect.Y - 2, 16, 16));
 			}
-			_batch.End();	
+			this._batch.End();	
 		}
 
 		public void DrawBackground()
 		{
 			VIEWPORT.X = (Width - 320) / 2;
 			VIEWPORT.Y = (Height - 160) / 2;
-			_batch.DrawRectangle(VIEWPORT, Color.DarkGreen, 1);
-			_batch.DrawRectangle(VIEWPORT.X, VIEWPORT.Y + 80, 320, 1, Color.DarkGreen, 1);
-			_batch.DrawRectangle(VIEWPORT.X + 160, VIEWPORT.Y, 1, 160, Color.DarkGreen, 1);
+			this._batch.DrawRectangle(VIEWPORT, Color.DarkGreen, 1);
+			this._batch.DrawRectangle(VIEWPORT.X, VIEWPORT.Y + 80, 320, 1, Color.DarkGreen, 1);
+			this._batch.DrawRectangle(VIEWPORT.X + 160, VIEWPORT.Y, 1, 160, Color.DarkGreen, 1);
 		}
 
 		#endregion

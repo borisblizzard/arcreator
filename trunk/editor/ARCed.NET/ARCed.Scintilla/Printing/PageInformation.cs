@@ -49,7 +49,7 @@ namespace ARCed.Scintilla
             Brush oBrush = Brushes.Black;
 
             // Draw border
-            switch (_eBorder)
+            switch (this._eBorder)
             {
                 case PageInformationBorder.Top:
                     oGraphics.DrawLine(oPen, oBounds.Left, oBounds.Top, oBounds.Right, oBounds.Top);
@@ -71,13 +71,13 @@ namespace ARCed.Scintilla
 
             // Draw left side
             oFormat.Alignment = StringAlignment.Near;
-            switch (_eLeft)
+            switch (this._eLeft)
             {
                 case InformationType.DocumentName:
-                    oGraphics.DrawString(strDocumentName, _oFont, oBrush, oBounds, oFormat);
+                    oGraphics.DrawString(strDocumentName, this._oFont, oBrush, oBounds, oFormat);
                     break;
                 case InformationType.PageNumber:
-                    oGraphics.DrawString("Page " + iPageNumber, _oFont, oBrush, oBounds, oFormat);
+                    oGraphics.DrawString("Page " + iPageNumber, this._oFont, oBrush, oBounds, oFormat);
                     break;
                 case InformationType.Nothing:
                 default:
@@ -86,13 +86,13 @@ namespace ARCed.Scintilla
 
             // Draw center
             oFormat.Alignment = StringAlignment.Center;
-            switch (_eCenter)
+            switch (this._eCenter)
             {
                 case InformationType.DocumentName:
-                    oGraphics.DrawString(strDocumentName, _oFont, oBrush, oBounds, oFormat);
+                    oGraphics.DrawString(strDocumentName, this._oFont, oBrush, oBounds, oFormat);
                     break;
                 case InformationType.PageNumber:
-                    oGraphics.DrawString("Page " + iPageNumber, _oFont, oBrush, oBounds, oFormat);
+                    oGraphics.DrawString("Page " + iPageNumber, this._oFont, oBrush, oBounds, oFormat);
                     break;
                 case InformationType.Nothing:
                 default:
@@ -101,13 +101,13 @@ namespace ARCed.Scintilla
 
             // Draw right side
             oFormat.Alignment = StringAlignment.Far;
-            switch (_eRight)
+            switch (this._eRight)
             {
                 case InformationType.DocumentName:
-                    oGraphics.DrawString(strDocumentName, _oFont, oBrush, oBounds, oFormat);
+                    oGraphics.DrawString(strDocumentName, this._oFont, oBrush, oBounds, oFormat);
                     break;
                 case InformationType.PageNumber:
-                    oGraphics.DrawString("Page " + iPageNumber, _oFont, oBrush, oBounds, oFormat);
+                    oGraphics.DrawString("Page " + iPageNumber, this._oFont, oBrush, oBounds, oFormat);
                     break;
                 case InformationType.Nothing:
                 default:
@@ -125,8 +125,8 @@ namespace ARCed.Scintilla
         /// </summary>
         public virtual PageInformationBorder Border
         {
-            get { return _eBorder; }
-            set { _eBorder = value; }
+            get { return this._eBorder; }
+            set { this._eBorder = value; }
         }
 
 
@@ -135,8 +135,8 @@ namespace ARCed.Scintilla
         /// </summary>
         public virtual InformationType Center
         {
-            get { return _eCenter; }
-            set { _eCenter = value; }
+            get { return this._eCenter; }
+            set { this._eCenter = value; }
         }
 
 
@@ -148,9 +148,9 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return (_eLeft != InformationType.Nothing) ||
-                    (_eCenter != InformationType.Nothing) ||
-                    (_eRight != InformationType.Nothing);
+                return (this._eLeft != InformationType.Nothing) ||
+                    (this._eCenter != InformationType.Nothing) ||
+                    (this._eRight != InformationType.Nothing);
             }
         }
 
@@ -160,8 +160,8 @@ namespace ARCed.Scintilla
         /// </summary>
         public virtual Font Font
         {
-            get { return _oFont; }
-            set { _oFont = value; }
+            get { return this._oFont; }
+            set { this._oFont = value; }
         }
 
 
@@ -173,9 +173,9 @@ namespace ARCed.Scintilla
         {
             get
             {
-                int iHeight = Font.Height;
+                int iHeight = this.Font.Height;
 
-                switch (_eBorder)
+                switch (this._eBorder)
                 {
                     case PageInformationBorder.Top:
                     case PageInformationBorder.Bottom:
@@ -201,8 +201,8 @@ namespace ARCed.Scintilla
         /// </summary>
         public virtual InformationType Left
         {
-            get { return _eLeft; }
-            set { _eLeft = value; }
+            get { return this._eLeft; }
+            set { this._eLeft = value; }
         }
 
 
@@ -211,8 +211,8 @@ namespace ARCed.Scintilla
         /// </summary>
         public virtual int Margin
         {
-            get { return _iMargin; }
-            set { _iMargin = value; }
+            get { return this._iMargin; }
+            set { this._iMargin = value; }
         }
 
 
@@ -221,8 +221,8 @@ namespace ARCed.Scintilla
         /// </summary>
         public virtual InformationType Right
         {
-            get { return _eRight; }
-            set { _eRight = value; }
+            get { return this._eRight; }
+            set { this._eRight = value; }
         }
 
         #endregion Properties
@@ -249,12 +249,12 @@ namespace ARCed.Scintilla
         /// <param name="eRight">What to print on the right side of the page</param>
         public PageInformation(int iMargin, Font oFont, PageInformationBorder eBorder, InformationType eLeft, InformationType eCenter, InformationType eRight)
         {
-            _iMargin = iMargin;
-            _oFont = oFont;
-            _eBorder = eBorder;
-            _eLeft = eLeft;
-            _eCenter = eCenter;
-            _eRight = eRight;
+            this._iMargin = iMargin;
+            this._oFont = oFont;
+            this._eBorder = eBorder;
+            this._eLeft = eLeft;
+            this._eCenter = eCenter;
+            this._eRight = eRight;
         }
 
 

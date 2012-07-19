@@ -70,7 +70,7 @@ namespace ARCed.Scintilla
             this.txtSnippet.TabIndex = 1;
             this.txtSnippet.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtSnippet_KeyDown);
             this.txtSnippet.AutoCompleteAccepted += new System.EventHandler<ARCed.Scintilla.AutoCompleteAcceptedEventArgs>(this.txtSnippet_AutoCompleteAccepted);
-            this.txtSnippet.DocumentChange += new System.EventHandler<ARCed.Scintilla.NativeScintillaEventArgs>(this.txtSnippet_DocumentChange);
+            this.txtSnippet.DocumentChange += new System.EventHandler<ARCed.Scintilla.NativeScintillaEventArgs>(this.TextSnippetDocumentChange);
             // 
             // SnippetChooser
             // 

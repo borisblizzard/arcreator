@@ -23,11 +23,11 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _key;
+                return this._key;
             }
             set
             {
-                _key = value;
+                this._key = value;
             }
         }
 
@@ -36,11 +36,11 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _ranges;
+                return this._ranges;
             }
             set
             {
-                _ranges = value;
+                this._ranges = value;
             }
         }
 
@@ -51,7 +51,7 @@ namespace ARCed.Scintilla
 
         public SnippetLink(string key)
         {
-            _key = key;
+            this._key = key;
         }
 
         #endregion Constructors

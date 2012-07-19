@@ -26,10 +26,10 @@ namespace ARCed.Scintilla
         private int GetKeyowrdSetIndex(string name)
         {
             string lexerName = Scintilla.Lexing.Lexer.ToString().ToLower();
-            if (_lexerKeywordListMap.ContainsKey(lexerName))
+            if (this._lexerKeywordListMap.ContainsKey(lexerName))
                 throw new ApplicationException("lexer " + lexerName + " does not support named keyword lists");
 
-            int index = ((IList)_lexerKeywordListMap[lexerName]).IndexOf(name);
+            int index = ((IList)this._lexerKeywordListMap[lexerName]).IndexOf(name);
 
             if (index < 0)
                 throw new ArgumentException("Keyword Set name does not exist for lexer " + lexerName, "keywordSetName");
@@ -46,11 +46,11 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _keywords[keywordSet];
+                return this._keywords[keywordSet];
             }
             set
             {
-                _keywords[keywordSet] = value;
+                this._keywords[keywordSet] = value;
                 NativeScintilla.SetKeywords(keywordSet, value);
             }
         }
@@ -60,11 +60,11 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return this[GetKeyowrdSetIndex(keywordSetName)];
+                return this[this.GetKeyowrdSetIndex(keywordSetName)];
             }
             set
             {
-                this[GetKeyowrdSetIndex(keywordSetName)] = value;
+                this[this.GetKeyowrdSetIndex(keywordSetName)] = value;
             }
         }
 
@@ -81,17 +81,27 @@ namespace ARCed.Scintilla
             // name since it's easier to use, consistent and will always have valid characters.
             // However its still valid to access the lexers by this name (as SetLexerLanguage
             // uses this value) so we'll create a lookup.
-            _lexerAliasMap = new Dictionary<string, Lexer>(StringComparer.OrdinalIgnoreCase);
+            this._lexerAliasMap = new Dictionary<string, Lexer>(StringComparer.OrdinalIgnoreCase)
+            {
+                {
+                    "PL/M", Lexer.Plm
+                    },
+                {
+                    "props", Lexer.Properties
+                    },
+                {
+                    "inno", Lexer.InnoSetup
+                    },
+                {
+                    "clarion", Lexer.Clw
+                    },
+                {
+                    "clarionnocase", Lexer.ClwNoCase
+                    }
+            };
 
             // I have no idea how Progress fits into this. It's defined with the PS lexer const
             // and a name of "progress"
-
-            _lexerAliasMap.Add("PL/M", Lexer.Plm);
-            _lexerAliasMap.Add("props", Lexer.Properties);
-            _lexerAliasMap.Add("inno", Lexer.InnoSetup);
-            _lexerAliasMap.Add("clarion", Lexer.Clw);
-            _lexerAliasMap.Add("clarionnocase", Lexer.ClwNoCase);
-
 
             //_lexerKeywordListMap = new Dictionary<string,string[]>(StringComparer.OrdinalIgnoreCase);
 

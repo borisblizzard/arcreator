@@ -28,7 +28,7 @@ namespace ARCed.Controls
 		[Browsable(false)]
 		public Chart Chart 
 		{
-			get { return chartParameter; }
+			get { return this.chartParameter; }
 		}
 
 		/// <summary>
@@ -37,8 +37,8 @@ namespace ARCed.Controls
 		[Category("ARCed"), Description("Defines the color of the chart."), DefaultValue(typeof(Color), "Tomato")]
 		public Color ChartColor
 		{
-			get { return chartParameter.Series[0].Color; }
-			set { chartParameter.Series[0].Color = value; RefreshChart(); }
+			get { return this.chartParameter.Series[0].Color; }
+			set { this.chartParameter.Series[0].Color = value; this.RefreshChart(); }
 		}
 
 		/// <summary>
@@ -48,8 +48,8 @@ namespace ARCed.Controls
 		[Browsable(false)]
 		public int ParameterIndex
 		{
-			get { return _paramIndex; }
-			set { SetParameterIndex(value); }
+			get { return this._paramIndex; }
+			set { this.SetParameterIndex(value); }
 		}
 
 		/// <summary>
@@ -78,8 +78,8 @@ namespace ARCed.Controls
 		/// </summary>
 		public ParameterMiniChart()
 		{
-			InitializeComponent();
-			Controls.Add(chartParameter);
+			this.InitializeComponent();
+			Controls.Add(this.chartParameter);
 			this.chartParameter.Series[0]["ShowMarkerLines"] = false.ToString();
 			this.chartParameter.Series[0]["LineTension"] = "0.0";
 		}
@@ -93,14 +93,14 @@ namespace ARCed.Controls
 		/// </summary>
 		public void RefreshChart()
 		{
-			if (_actor != null)
+			if (this._actor != null)
 			{
 				this.chartParameter.BeginInit();
 				this.chartParameter.Series[0].Points.Clear();
 				this.chartParameter.ChartAreas[0].AxisY.Minimum = 0;
-				this.chartParameter.ChartAreas[0].AxisY.Maximum = Project.Settings.GetMaxValue(_paramIndex);
-				for (int lvl = 1; lvl < _actor.final_level; lvl++)
-					chartParameter.Series[0].Points.AddXY(lvl, _actor.parameters[_paramIndex, lvl]);
+				this.chartParameter.ChartAreas[0].AxisY.Maximum = Project.Settings.GetMaxValue(this._paramIndex);
+				for (int lvl = 1; lvl < this._actor.final_level; lvl++)
+					this.chartParameter.Series[0].Points.AddXY(lvl, this._actor.parameters[this._paramIndex, lvl]);
 				this.chartParameter.EndInit();
 			}
 		}
@@ -111,8 +111,8 @@ namespace ARCed.Controls
 		/// <param name="actor"></param>
 		public void ChangeActor(Actor actor)
 		{
-			_actor = actor;
-			RefreshChart();
+			this._actor = actor;
+			this.RefreshChart();
 		}
 
 		#endregion
@@ -123,16 +123,16 @@ namespace ARCed.Controls
 		{
 		    var window = Windows.ChartForms.Find(f => f.Actor == this._actor) ??
 		        new ActorParametersForm(this._actor, this._paramIndex);
-		    window.ParameterIndex = _paramIndex;
+		    window.ParameterIndex = this._paramIndex;
 		    window.Show(Editor.MainDock);
 		}
 
 	    private void SetParameterIndex(int index)
 		{
-			_paramIndex = index % Project.Settings.Parameters.Count;
-			Text = Project.Settings.Parameters[_paramIndex];
-			chartParameter.Series[0].Color = Editor.Settings.Charting.Colors[_paramIndex];
-			RefreshChart();
+			this._paramIndex = index % Project.Settings.Parameters.Count;
+			Text = Project.Settings.Parameters[this._paramIndex];
+			this.chartParameter.Series[0].Color = Editor.Settings.Charting.Colors[this._paramIndex];
+			this.RefreshChart();
 		}
 
 		#endregion

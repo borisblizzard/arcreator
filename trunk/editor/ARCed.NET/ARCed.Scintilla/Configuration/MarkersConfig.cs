@@ -27,11 +27,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _alpha;
+                return this._alpha;
             }
             set
             {
-                _alpha = value;
+                this._alpha = value;
             }
         }
 
@@ -40,11 +40,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _backColor;
+                return this._backColor;
             }
             set
             {
-                _backColor = value;
+                this._backColor = value;
             }
         }
 
@@ -53,11 +53,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _foreColor;
+                return this._foreColor;
             }
             set
             {
-                _foreColor = value;
+                this._foreColor = value;
             }
         }
 
@@ -66,11 +66,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _inherit;
+                return this._inherit;
             }
             set
             {
-                _inherit = value;
+                this._inherit = value;
             }
         }
 
@@ -79,11 +79,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _name;
+                return this._name;
             }
             set
             {
-                _name = value;
+                this._name = value;
             }
         }
 
@@ -92,11 +92,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _number;
+                return this._number;
             }
             set
             {
-                _number = value;
+                this._number = value;
             }
         }
 
@@ -105,11 +105,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _symbol;
+                return this._symbol;
             }
             set
             {
-                _symbol = value;
+                this._symbol = value;
             }
         }
 

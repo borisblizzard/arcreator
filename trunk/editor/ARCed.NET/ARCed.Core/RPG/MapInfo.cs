@@ -35,12 +35,12 @@
         /// </summary>
 		public MapInfo()
 		{
-			name = "";
-			parent_id = 0;
-			order = 0;
-			expanded = false;
-			scroll_x = 0;
-			scroll_y = 0;
+			this.name = "";
+			this.parent_id = 0;
+			this.order = 0;
+			this.expanded = false;
+			this.scroll_x = 0;
+			this.scroll_y = 0;
 		}
 	}
 }

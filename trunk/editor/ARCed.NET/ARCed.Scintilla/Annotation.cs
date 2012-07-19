@@ -36,7 +36,7 @@ namespace ARCed.Scintilla
         {
             // Are we in a state where we can no longer accurately
             // represent the annotation we were originally created for?
-            if (_lineIndex == -1)
+            if (this._lineIndex == -1)
                 throw new InvalidOperationException(Resources.Exception_InvalidAnnotation);
         }
 
@@ -46,10 +46,10 @@ namespace ARCed.Scintilla
         /// </summary>
         public virtual void Clear()
         {
-            CheckInvalid();
+            this.CheckInvalid();
 
             // Remove the annotation
-            _scintilla.DirectMessage(NativeMethods.SCI_ANNOTATIONSETTEXT, new IntPtr(_lineIndex), IntPtr.Zero);
+            this._scintilla.DirectMessage(NativeMethods.SCI_ANNOTATIONSETTEXT, new IntPtr(this._lineIndex), IntPtr.Zero);
         }
 
 
@@ -68,7 +68,7 @@ namespace ARCed.Scintilla
                 // If another annotation has the same Scintilla
                 // control and line index--it is the same.
                 var a = (Annotation)obj;
-                if (a._scintilla == _scintilla && a._lineIndex == _lineIndex)
+                if (a._scintilla == this._scintilla && a._lineIndex == this._lineIndex)
                     return true;
             }
 
@@ -92,7 +92,7 @@ namespace ARCed.Scintilla
             if (a != null)
             {
                 // Just remember to keep in sync with standard Equals above
-                if (a._scintilla == _scintilla && a._lineIndex == _lineIndex)
+                if (a._scintilla == this._scintilla && a._lineIndex == this._lineIndex)
                     return true;
             }
 
@@ -106,7 +106,7 @@ namespace ARCed.Scintilla
         /// <returns>A hash code for the current <see cref="object" />.</returns>
         public override int GetHashCode()
         {
-            return _scintilla.GetHashCode() ^ _lineIndex;
+            return this._scintilla.GetHashCode() ^ this._lineIndex;
         }
 
 
@@ -120,27 +120,27 @@ namespace ARCed.Scintilla
         /// </returns>
         public virtual IEnumerable<StyleRun> GetStyles()
         {
-            CheckInvalid();
+            this.CheckInvalid();
 
             // We need to translate the array Scintilla gives us representing the style of each text
             // byte into a list of style runs. Our run lengths, however, are measured in characters,
             // not bytes, so we need to also read the annotation text and adjust as necessary when we find
             // characters that span more than one byte.
 
-            int length = _scintilla.DirectMessage(NativeMethods.SCI_ANNOTATIONGETTEXT, new IntPtr(_lineIndex), IntPtr.Zero).ToInt32();
+            int length = this._scintilla.DirectMessage(NativeMethods.SCI_ANNOTATIONGETTEXT, new IntPtr(this._lineIndex), IntPtr.Zero).ToInt32();
             var textBuffer = new byte[length];
             var stylesBuffer = new byte[length];
 
             unsafe
             {
                 fixed (byte* bp = textBuffer)
-                    _scintilla.DirectMessage(NativeMethods.SCI_ANNOTATIONGETTEXT, new IntPtr(_lineIndex), new IntPtr(bp)).ToInt32();
+                    this._scintilla.DirectMessage(NativeMethods.SCI_ANNOTATIONGETTEXT, new IntPtr(this._lineIndex), new IntPtr(bp)).ToInt32();
                 fixed (byte* bp = stylesBuffer)
-                    _scintilla.DirectMessage(NativeMethods.SCI_ANNOTATIONGETSTYLES, new IntPtr(_lineIndex), new IntPtr(bp)).ToInt32();
+                    this._scintilla.DirectMessage(NativeMethods.SCI_ANNOTATIONGETSTYLES, new IntPtr(this._lineIndex), new IntPtr(bp)).ToInt32();
             }
 
             var styles = new List<StyleRun>();
-            Decoder decoder = _scintilla.Encoding.GetDecoder();
+            Decoder decoder = this._scintilla.Encoding.GetDecoder();
             var sr = new StyleRun
             { Style = -1 };
             int index = 0;
@@ -155,8 +155,10 @@ namespace ARCed.Scintilla
                     if (sr.Length > 0)
                         styles.Add(sr);
 
-                    sr = new StyleRun();
-                    sr.Style = stylesBuffer[index];
+                    sr = new StyleRun
+                    {
+                        Style = stylesBuffer[index]
+                    };
                 }
 
                 // At the end of this loop, the 'count' variable will tell us
@@ -204,7 +206,7 @@ namespace ARCed.Scintilla
         /// </remarks>
         public virtual void SetStyles(IEnumerable<StyleRun> styles)
         {
-            CheckInvalid();
+            this.CheckInvalid();
 
             if (styles == null)
                 throw new ArgumentNullException("styles");
@@ -215,17 +217,17 @@ namespace ARCed.Scintilla
             // annotation text and determine if any of our character lengths span more than
             // one byte and fill the array accordingly.
 
-            int length = _scintilla.DirectMessage(NativeMethods.SCI_ANNOTATIONGETTEXT, new IntPtr(_lineIndex), IntPtr.Zero).ToInt32();
+            int length = this._scintilla.DirectMessage(NativeMethods.SCI_ANNOTATIONGETTEXT, new IntPtr(this._lineIndex), IntPtr.Zero).ToInt32();
             var textBuffer = new byte[length];
             var stylesBuffer = new byte[length];
 
             unsafe
             {
                 fixed (byte* bp = textBuffer)
-                    _scintilla.DirectMessage(NativeMethods.SCI_ANNOTATIONGETTEXT, new IntPtr(_lineIndex), new IntPtr(bp)).ToInt32();
+                    this._scintilla.DirectMessage(NativeMethods.SCI_ANNOTATIONGETTEXT, new IntPtr(this._lineIndex), new IntPtr(bp)).ToInt32();
             }
 
-            Decoder decoder = _scintilla.Encoding.GetDecoder();
+            Decoder decoder = this._scintilla.Encoding.GetDecoder();
             StyleRun sr;
             int index = 0;
             int count = 1;
@@ -261,7 +263,7 @@ namespace ARCed.Scintilla
             unsafe
             {
                 fixed (byte* bp = stylesBuffer)
-                    _scintilla.DirectMessage(NativeMethods.SCI_ANNOTATIONSETSTYLES, new IntPtr(_lineIndex), new IntPtr(bp));
+                    this._scintilla.DirectMessage(NativeMethods.SCI_ANNOTATIONSETSTYLES, new IntPtr(this._lineIndex), new IntPtr(bp));
             }
         }
 
@@ -278,8 +280,8 @@ namespace ARCed.Scintilla
         {
             get
             {
-                CheckInvalid();
-                return _scintilla.DirectMessage(NativeMethods.SCI_ANNOTATIONGETLINES, new IntPtr(_lineIndex), IntPtr.Zero).ToInt32();
+                this.CheckInvalid();
+                return this._scintilla.DirectMessage(NativeMethods.SCI_ANNOTATIONGETLINES, new IntPtr(this._lineIndex), IntPtr.Zero).ToInt32();
             }
         }
 
@@ -296,7 +298,7 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _lineIndex;
+                return this._lineIndex;
             }
         }
 
@@ -312,11 +314,11 @@ namespace ARCed.Scintilla
         {
             get
             {
-                CheckInvalid();
+                this.CheckInvalid();
 
                 // By default Scintilla will return a value of 256 when there are individual styles. In the .NET
                 // world that would be a little weird for our users. A more common pattern would be to return -1.
-                int style = _scintilla.DirectMessage(NativeMethods.SCI_ANNOTATIONGETSTYLE, new IntPtr(_lineIndex), IntPtr.Zero).ToInt32();
+                int style = this._scintilla.DirectMessage(NativeMethods.SCI_ANNOTATIONGETSTYLE, new IntPtr(this._lineIndex), IntPtr.Zero).ToInt32();
                 if (style == INDIVIDUAL_STYLES)
                     return -1;
 
@@ -324,8 +326,8 @@ namespace ARCed.Scintilla
             }
             set
             {
-                CheckInvalid();
-                _scintilla.DirectMessage(NativeMethods.SCI_ANNOTATIONSETSTYLE, new IntPtr(_lineIndex), new IntPtr(value)).ToInt32();
+                this.CheckInvalid();
+                this._scintilla.DirectMessage(NativeMethods.SCI_ANNOTATIONSETSTYLE, new IntPtr(this._lineIndex), new IntPtr(value)).ToInt32();
             }
         }
 
@@ -342,7 +344,7 @@ namespace ARCed.Scintilla
         {
             get
             {
-                CheckInvalid();
+                this.CheckInvalid();
 
                 // Normally you wouldn't want to return null from a text property because
                 // an empty string usually means the same thing and avoids null reference
@@ -350,11 +352,11 @@ namespace ARCed.Scintilla
                 // from an empty string in the way they are rendered. For that reason we have
                 // to support returning null from this property and this is the only reliable
                 // way that I've found to do it.
-                if (LineCount == 0)
+                if (this.LineCount == 0)
                     return null;
 
                 // Determine the buffer size, fill it, and convert it to a string
-                int length = _scintilla.DirectMessage(NativeMethods.SCI_ANNOTATIONGETTEXT, new IntPtr(_lineIndex), IntPtr.Zero).ToInt32();
+                int length = this._scintilla.DirectMessage(NativeMethods.SCI_ANNOTATIONGETTEXT, new IntPtr(this._lineIndex), IntPtr.Zero).ToInt32();
                 var buffer = new byte[length];
                 unsafe
                 {
@@ -362,24 +364,24 @@ namespace ARCed.Scintilla
                         length = this._scintilla.DirectMessage(NativeMethods.SCI_ANNOTATIONGETTEXT, new IntPtr(this._lineIndex), new IntPtr(bp)).ToInt32();
                 }
 
-                return _scintilla.Encoding.GetString(buffer, 0, length);
+                return this._scintilla.Encoding.GetString(buffer, 0, length);
             }
             set
             {
-                CheckInvalid();
+                this.CheckInvalid();
 
                 if (value == null)
                 {
                     // Same thing...
-                    Clear();
+                    this.Clear();
                     return;
                 }
 
                 unsafe
                 {
                     // Set the annotation text
-                    fixed (byte* bp = Utilities.GetZeroTerminatedBytes(value, _scintilla.Encoding))
-                        _scintilla.DirectMessage(NativeMethods.SCI_ANNOTATIONSETTEXT, new IntPtr(_lineIndex), new IntPtr(bp));
+                    fixed (byte* bp = Utilities.GetZeroTerminatedBytes(value, this._scintilla.Encoding))
+                        this._scintilla.DirectMessage(NativeMethods.SCI_ANNOTATIONSETTEXT, new IntPtr(this._lineIndex), new IntPtr(bp));
                 }
             }
         }
@@ -432,8 +434,8 @@ namespace ARCed.Scintilla
         /// <param name="lineIndex">The zero-based index of the document line containing the annotation.</param>
         protected internal Annotation(Scintilla scintilla, int lineIndex)
         {
-            _lineIndex = lineIndex;
-            _scintilla = scintilla;
+            this._lineIndex = lineIndex;
+            this._scintilla = scintilla;
             /*_scintilla.NoteTextChanged += new EventHandler(ScintillaTextChangedHandler);*/
         }
 

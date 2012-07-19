@@ -27,7 +27,7 @@ namespace ARCed.Scintilla
         /// </summary>
         public int FirstLine
         {
-            get { return _firstLine; }
+            get { return this._firstLine; }
         }
 
 
@@ -36,8 +36,8 @@ namespace ARCed.Scintilla
         /// </summary>
         public int LastLine
         {
-            get { return _lastLine; }
-            set { _lastLine = value; }
+            get { return this._lastLine; }
+            set { this._lastLine = value; }
         }
 
         #endregion Properties
@@ -52,8 +52,8 @@ namespace ARCed.Scintilla
         /// <param name="endLine">the last (bottom) line that needs to be shown</param>
         public LinesNeedShownEventArgs(int startLine, int endLine)
         {
-            _firstLine = startLine;
-            _lastLine = endLine;
+            this._firstLine = startLine;
+            this._lastLine = endLine;
         }
 
         #endregion Constructors

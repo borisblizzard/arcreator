@@ -28,7 +28,7 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _dropMarker;
+                return this._dropMarker;
             }
         }
 
@@ -42,7 +42,7 @@ namespace ARCed.Scintilla
         /// </summary>
         public DropMarkerCollectEventArgs(DropMarker dropMarker)
         {
-            _dropMarker = dropMarker;
+            this._dropMarker = dropMarker;
         }
 
         #endregion Constructors

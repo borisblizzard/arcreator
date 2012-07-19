@@ -32,11 +32,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _activeSnippetColor;
+                return this._activeSnippetColor;
             }
             set
             {
-                _activeSnippetColor = value;
+                this._activeSnippetColor = value;
             }
         }
 
@@ -45,11 +45,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _activeSnippetIndicator;
+                return this._activeSnippetIndicator;
             }
             set
             {
-                _activeSnippetIndicator = value;
+                this._activeSnippetIndicator = value;
             }
         }
 
@@ -58,11 +58,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _activeSnippetIndicatorStyle;
+                return this._activeSnippetIndicatorStyle;
             }
             set
             {
-                _activeSnippetIndicatorStyle = value;
+                this._activeSnippetIndicatorStyle = value;
             }
         }
 
@@ -71,11 +71,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _defaultDelimeter;
+                return this._defaultDelimeter;
             }
             set
             {
-                _defaultDelimeter = value;
+                this._defaultDelimeter = value;
             }
         }
 
@@ -84,11 +84,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _inactiveSnippetColor;
+                return this._inactiveSnippetColor;
             }
             set
             {
-                _inactiveSnippetColor = value;
+                this._inactiveSnippetColor = value;
             }
         }
 
@@ -97,11 +97,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _inactiveSnippetIndicator;
+                return this._inactiveSnippetIndicator;
             }
             set
             {
-                _inactiveSnippetIndicator = value;
+                this._inactiveSnippetIndicator = value;
             }
         }
 
@@ -110,11 +110,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _inactiveSnippetIndicatorStyle;
+                return this._inactiveSnippetIndicatorStyle;
             }
             set
             {
-                _inactiveSnippetIndicatorStyle = value;
+                this._inactiveSnippetIndicatorStyle = value;
             }
         }
 
@@ -123,11 +123,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _inherit;
+                return this._inherit;
             }
             set
             {
-                _inherit = value;
+                this._inherit = value;
             }
         }
 
@@ -136,11 +136,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _isEnabled;
+                return this._isEnabled;
             }
             set
             {
-                _isEnabled = value;
+                this._isEnabled = value;
             }
         }
 
@@ -149,11 +149,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _isOneKeySelectionEmbedEnabled;
+                return this._isOneKeySelectionEmbedEnabled;
             }
             set
             {
-                _isOneKeySelectionEmbedEnabled = value;
+                this._isOneKeySelectionEmbedEnabled = value;
             }
         }
 

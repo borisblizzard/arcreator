@@ -30,11 +30,11 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _line;
+                return this._line;
             }
             set
             {
-                _line = value;
+                this._line = value;
             }
         }
 
@@ -46,7 +46,7 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _newFoldLevel;
+                return this._newFoldLevel;
             }
         }
 
@@ -58,7 +58,7 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _previousFoldLevel;
+                return this._previousFoldLevel;
             }
 
         }
@@ -77,9 +77,9 @@ namespace ARCed.Scintilla
         /// <param name="modificationType">What kind of fold modification occured</param>
         public FoldChangedEventArgs(int line, int newFoldLevel, int previousFoldLevel, int modificationType) : base(modificationType)
         {
-            _line = line;
-            _newFoldLevel = newFoldLevel;
-            _previousFoldLevel = previousFoldLevel;
+            this._line = line;
+            this._newFoldLevel = newFoldLevel;
+            this._previousFoldLevel = previousFoldLevel;
         }
 
         #endregion Constructors

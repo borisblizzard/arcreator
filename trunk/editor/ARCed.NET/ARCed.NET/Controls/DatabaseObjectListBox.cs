@@ -56,8 +56,8 @@ namespace ARCed.Controls
 		[Browsable(false)]
 		public int SelectedIndex 
 		{
-			get { return listBoxObjects.SelectedIndex; }
-			set { listBoxObjects.SelectedIndex = value; }
+			get { return this.listBoxObjects.SelectedIndex; }
+			set { this.listBoxObjects.SelectedIndex = value; }
 		}
 
 		/// <summary>
@@ -65,28 +65,28 @@ namespace ARCed.Controls
 		/// </summary>
 		[Browsable(false)]
 		[DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-		public Button ButtonMaximum { get { return buttonMaximum; } }
+		public Button ButtonMaximum { get { return this.buttonMaximum; } }
 
 		/// <summary>
 		/// Gets the listbox on the control
 		/// </summary>
 		[Browsable(false)]
 		[DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-		public ListBox ListBox { get { return listBoxObjects; } }
+		public ListBox ListBox { get { return this.listBoxObjects; } }
 
 		/// <summary>
 		/// Gets the picture box on the control
 		/// </summary>
 		[Browsable(false)]
 		[DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-		public PictureBox PictureBox { get { return pictureBoxHeader; } }
+		public PictureBox PictureBox { get { return this.pictureBoxHeader; } }
 
 		/// <summary>
 		/// Gets the items in the listbox on the control
 		/// </summary>
 		[Browsable(false)]
 		[DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-		public ListBox.ObjectCollection Items { get { return listBoxObjects.Items; } }
+		public ListBox.ObjectCollection Items { get { return this.listBoxObjects.Items; } }
 
 		#endregion
 
@@ -97,8 +97,8 @@ namespace ARCed.Controls
 		/// </summary>
 		public DatabaseObjectListBox()
 		{
-			InitializeComponent();
-			toolStripMenuItemEdit.Click += this.pictureBoxHeader_DoubleClick;
+			this.InitializeComponent();
+			this.toolStripMenuItemEdit.Click += this.PictureBoxHeaderDoubleClick;
 		}
 
 		#endregion
@@ -112,7 +112,7 @@ namespace ARCed.Controls
 		/// <returns>Rectangle of the item</returns>
 		public Rectangle GetItemRectangle(int index)
 		{
-			return listBoxObjects.GetItemRectangle(index);
+			return this.listBoxObjects.GetItemRectangle(index);
 		}
 
 		/// <summary>
@@ -121,7 +121,7 @@ namespace ARCed.Controls
 		/// <param name="objectList">Collection of items</param>
 		public void PopulateList(List<dynamic> objectList)
 		{
-			ControlHelper.Populate(listBoxObjects, objectList, false);
+			ControlHelper.Populate(this.listBoxObjects, objectList, false);
 		}
 
 		/// <summary>
@@ -130,7 +130,7 @@ namespace ARCed.Controls
 		/// </summary>
 		public void BeginUpdate()
 		{
-			listBoxObjects.BeginUpdate();
+			this.listBoxObjects.BeginUpdate();
 		}
 
 		/// <summary>
@@ -139,7 +139,7 @@ namespace ARCed.Controls
 		/// </summary>
 		public void EndUpdate()
 		{
-			listBoxObjects.EndUpdate();
+			this.listBoxObjects.EndUpdate();
 		}
 
 		/// <summary>
@@ -147,35 +147,35 @@ namespace ARCed.Controls
 		/// </summary>
 		public void RefreshHeader()
 		{
-			ControlHelper.RenderHeaderImage(pictureBoxHeader, HeaderText);
+			ControlHelper.RenderHeaderImage(this.pictureBoxHeader, this.HeaderText);
 		}
 
 		#endregion
 
 		#region Private Methods
 
-		private void pictureBoxHeader_DoubleClick(object sender, EventArgs e)
+		private void PictureBoxHeaderDoubleClick(object sender, EventArgs e)
 		{
 			using (var dialog = new HeaderSettingsDialog())
 				dialog.ShowDialog();
 		}
 
-		private void listBoxObjects_SelectedIndexChanged(object sender, EventArgs e)
+		private void ListBoxObjectsSelectedIndexChanged(object sender, EventArgs e)
 		{
-			if (OnListBoxIndexChanged != null)
-				OnListBoxIndexChanged(sender, e);
+			if (this.OnListBoxIndexChanged != null)
+				this.OnListBoxIndexChanged(sender, e);
 		}
 
-		private void pictureBoxHeader_Resize(object sender, EventArgs e)
+		private void PictureBoxHeaderResize(object sender, EventArgs e)
 		{
 			if (!DesignMode)
-				ControlHelper.RenderHeaderImage(pictureBoxHeader, HeaderText);
+				ControlHelper.RenderHeaderImage(this.pictureBoxHeader, this.HeaderText);
 		}
 
-		private void buttonMaximum_Click(object sender, EventArgs e)
+		private void ButtonMaximumClick(object sender, EventArgs e)
 		{
-			if (OnButtonMaxClick != null)
-				OnButtonMaxClick(sender, e);
+			if (this.OnButtonMaxClick != null)
+				this.OnButtonMaxClick(sender, e);
 		}
 
 		#endregion

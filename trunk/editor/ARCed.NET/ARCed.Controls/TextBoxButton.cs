@@ -39,8 +39,8 @@ namespace ARCed.Controls
 		/// </summary>
 		public override string Text
 		{
-			get { return textBox.Text; }
-			set { textBox.Text = value; }
+			get { return this.textBox.Text; }
+			set { this.textBox.Text = value; }
 		}
 
 		#endregion
@@ -52,8 +52,8 @@ namespace ARCed.Controls
 		/// </summary>
 		public TextBoxButton()
 		{
-			InitializeComponent();
-			button.Parent = textBox;
+			this.InitializeComponent();
+			this.button.Parent = this.textBox;
 		}
 
 		#endregion
@@ -62,14 +62,14 @@ namespace ARCed.Controls
 
 		private void button_Click(object sender, EventArgs e)
 		{
-			if (OnButtonClick != null)
-				OnButtonClick(this, new EventArgs());
+			if (this.OnButtonClick != null)
+				this.OnButtonClick(this, new EventArgs());
 		}
 
 		private void textBox_TextChanged(object sender, EventArgs e)
 		{
-			if (OnTextChanged != null)
-				OnTextChanged(this, new EventArgs());
+			if (this.OnTextChanged != null)
+				this.OnTextChanged(this, new EventArgs());
 		}
 
 		#endregion

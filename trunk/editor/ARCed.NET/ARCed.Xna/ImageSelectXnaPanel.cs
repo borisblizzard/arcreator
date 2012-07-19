@@ -44,7 +44,7 @@ namespace ARCed.Controls
 		{
 			get
 			{
-				switch (_blendMode)
+				switch (this._blendMode)
 				{
 					case 1: return _addBlend;
 					case 2: return _subBlend;
@@ -69,20 +69,20 @@ namespace ARCed.Controls
 		[Browsable(false)]
 		public Image Image 
 		{
-			get { return _image; }
+			get { return this._image; }
 			set 
 			{
-				_image = value; 
+				this._image = value; 
 				if (value == null)
 				{
-					_texture = null;
-					this.Size = new Size(0, 0);
+					this._texture = null;
+					Size = new Size(0, 0);
 				}
 				else
 				{
-					_texture = value.ToTexture(GraphicsDevice);
-					if (!AdvancedEnabled)
-						this.Size = value.Size;
+					this._texture = value.ToTexture(GraphicsDevice);
+					if (!this.AdvancedEnabled)
+						Size = value.Size;
 				}
 				Invalidate(); 
 			}
@@ -95,11 +95,11 @@ namespace ARCed.Controls
 		[Browsable(false)]
 		public int ImageOpacity 
 		{
-			get { return _opacity; }
+			get { return this._opacity; }
 			set 
 			{
-				_opacity = value;
-				if (_alphaPreview)
+				this._opacity = value;
+				if (this._alphaPreview)
 				{
 					_blendColor = XnaColor.White * (value / 255.0f);
 					Invalidate();
@@ -113,11 +113,11 @@ namespace ARCed.Controls
 		[Browsable(false)]
 		public bool AlphaPreview 
 		{
-			get { return _alphaPreview; }
+			get { return this._alphaPreview; }
 			set
 			{
-				_alphaPreview = value;
-				_blendColor = value ? XnaColor.White * (_opacity / 255.0f) : XnaColor.White;
+				this._alphaPreview = value;
+				_blendColor = value ? XnaColor.White * (this._opacity / 255.0f) : XnaColor.White;
 				Invalidate();
 			}
 		}
@@ -128,8 +128,8 @@ namespace ARCed.Controls
 		[Browsable(false)]
 		public int ScrollX 
 		{
-			get { return _sx; }
-			set { _sx = value; planeSx = value / 8.0f; Invalidate(); }
+			get { return this._sx; }
+			set { this._sx = value; this.planeSx = value / 8.0f; Invalidate(); }
 		}
 
 		/// <summary>
@@ -138,8 +138,8 @@ namespace ARCed.Controls
 		[Browsable(false)]
 		public int ScrollY
 		{
-			get { return _sy; }
-			set { _sy = value; planeSy = value / 8.0f;  Invalidate(); }
+			get { return this._sy; }
+			set { this._sy = value; this.planeSy = value / 8.0f;  Invalidate(); }
 		}
 
 		/// <summary>
@@ -148,8 +148,8 @@ namespace ARCed.Controls
 		[Browsable(false)]
 		public int Zoom 
 		{
-			get { return _zoom; }
-			set { _zoom = value; Invalidate(); }
+			get { return this._zoom; }
+			set { this._zoom = value; Invalidate(); }
 		}
 
 		/// <summary>
@@ -158,8 +158,8 @@ namespace ARCed.Controls
 		[Browsable(false)]
 		public int BlendMode
 		{
-			get { return _blendMode; }
-			set { _blendMode = value; Invalidate(); }
+			get { return this._blendMode; }
+			set { this._blendMode = value; Invalidate(); }
 		}
 
 		/// <summary>
@@ -168,31 +168,31 @@ namespace ARCed.Controls
 		[Browsable(false)]
 		public bool AdvancedEnabled 
 		{
-			get { return _advanced; }
+			get { return this._advanced; }
 			set 
 			{
-				_advanced = value;
+				this._advanced = value;
 				if (value)
 				{
-					this.Dock = DockStyle.Fill;
-					if (_timer == null)
+					Dock = DockStyle.Fill;
+					if (this._timer == null)
 					{
-						_timer = new Timer();
-						_timer.Tick += this._timer_Tick;
-						if (components == null)
+						this._timer = new Timer();
+						this._timer.Tick += this._timer_Tick;
+						if (this.components == null)
 						{
-							components = new Container();
-							this.components.Add(_timer);
+							this.components = new Container();
+							this.components.Add(this._timer);
 						}
 					}
-					_timer.Interval = 1000 / Constants.FRAMERATE;
-					_timer.Start();
+					this._timer.Interval = 1000 / Constants.FRAMERATE;
+					this._timer.Start();
 				}
 				else
 				{
-					this.Dock = DockStyle.None;
-					if (_image != null)
-						this.Size = _image.Size;
+					Dock = DockStyle.None;
+					if (this._image != null)
+						Size = this._image.Size;
 				}
 			}
 		}
@@ -211,10 +211,10 @@ namespace ARCed.Controls
 		{
 			get
 			{
-				int sx = Math.Min(_originPoint.X, _endPoint.X).RoundFloor(Constants.TILESIZE);
-				int ex = Math.Max(_originPoint.X, _endPoint.X).RoundCeil(Constants.TILESIZE);
-				int sy = Math.Min(_originPoint.Y, _endPoint.Y).RoundFloor(Constants.TILESIZE);
-				int ey = Math.Max(_originPoint.Y, _endPoint.Y).RoundCeil(Constants.TILESIZE);
+				int sx = Math.Min(this._originPoint.X, this._endPoint.X).RoundFloor(Constants.TILESIZE);
+				int ex = Math.Max(this._originPoint.X, this._endPoint.X).RoundCeil(Constants.TILESIZE);
+				int sy = Math.Min(this._originPoint.Y, this._endPoint.Y).RoundFloor(Constants.TILESIZE);
+				int ey = Math.Max(this._originPoint.Y, this._endPoint.Y).RoundCeil(Constants.TILESIZE);
 				return new XnaRect(Math.Max(0, sx), Math.Max(0, sy),
 					Math.Min(Constants.MAXWIDTH, ex - sx + 1), Math.Min(ey - sy, Height) + 1);
 			}
@@ -229,8 +229,8 @@ namespace ARCed.Controls
 		/// </summary>
 		public ImageSelectXnaPanel()
 		{
-			InitializeComponent();
-			ResetPoints();
+			this.InitializeComponent();
+			this.ResetPoints();
 		}
 
 		#endregion
@@ -257,7 +257,7 @@ namespace ARCed.Controls
 		/// <returns>ID of the tile that contains the coordinates.</returns>
 		public int GetTileAtPoint(Point point)
 		{
-			return GetTileAtPoint(point.X, point.Y);
+			return this.GetTileAtPoint(point.X, point.Y);
 		}
 
 		#endregion
@@ -289,12 +289,12 @@ namespace ARCed.Controls
 			};
             _backColor = XnaColor.White;
 			IconCache.GraphicsDevice = GraphicsDevice;
-			_batch = new SpriteBatch(GraphicsDevice);
+			this._batch = new SpriteBatch(GraphicsDevice);
 			GraphicsDevice.Clear(XnaColor.DarkGray);
-			this.Disposed += this.imageSelectXnaPanel_Disposed;
-			this.MouseDown += this.imageXnaPanel_MouseDown;
-			this.MouseUp += this.imageXnaPanel_MouseUp;
-			this.MouseMove += this.imageXnaPanel_MouseMove;
+			Disposed += this.imageSelectXnaPanel_Disposed;
+			MouseDown += this.imageXnaPanel_MouseDown;
+			MouseUp += this.imageXnaPanel_MouseUp;
+			MouseMove += this.imageXnaPanel_MouseMove;
 		}
 
 		/// <summary>
@@ -303,19 +303,19 @@ namespace ARCed.Controls
 		protected override void Draw()
 		{
 			GraphicsDevice.Clear(XnaColor.DarkGray);
-			if (_texture != null)
+			if (this._texture != null)
 			{
 				GraphicsDevice.Clear(_backColor);
-				if (AdvancedEnabled)
+				if (this.AdvancedEnabled)
 				{
-					_batch.Begin(SpriteSortMode.Immediate, CurrentBlendState,
+					this._batch.Begin(SpriteSortMode.Immediate, this.CurrentBlendState,
 						SamplerState.LinearWrap, null, null);
-					int zw = _texture.Width;
-					int zh = _texture.Height;
+					int zw = this._texture.Width;
+					int zh = this._texture.Height;
 					XnaRect destRect, srcRect;
-					if (_zoom > 100)
+					if (this._zoom > 100)
 					{
-						float factor = _zoom / 100.0f;
+						float factor = this._zoom / 100.0f;
 						zw = (int)(zw * factor);
 						zh = (int)(zh * factor);
 					}
@@ -325,27 +325,27 @@ namespace ARCed.Controls
 						{
 							destRect = new XnaRect(x, y, zw, zh);
 							srcRect = new XnaRect(
-								Convert.ToInt32((-_cx - planeSx) / 4), 
-								Convert.ToInt32((-_cy - planeSy) / 4), 
-								_texture.Width, _texture.Height);
-							_batch.Draw(_texture, destRect, srcRect, _blendColor);
+								Convert.ToInt32((-this._cx - this.planeSx) / 4), 
+								Convert.ToInt32((-this._cy - this.planeSy) / 4), 
+								this._texture.Width, this._texture.Height);
+							this._batch.Draw(this._texture, destRect, srcRect, _blendColor);
 						}
 					}
-					_cx %= _texture.Width * 8;
-					_cy %= _texture.Height * 8;
+					this._cx %= this._texture.Width * 8;
+					this._cy %= this._texture.Height * 8;
 				}
 				else
 				{
-					_batch.Begin();
-					_batch.FillRectangle(0, 0, _texture.Width, _texture.Height, _backColor);
-					_batch.End();
-					_batch.Begin(SpriteSortMode.Immediate, CurrentBlendState);
-					_batch.Draw(_texture, new Vector2(0, 0), _blendColor);
+					this._batch.Begin();
+					this._batch.FillRectangle(0, 0, this._texture.Width, this._texture.Height, _backColor);
+					this._batch.End();
+					this._batch.Begin(SpriteSortMode.Immediate, this.CurrentBlendState);
+					this._batch.Draw(this._texture, new Vector2(0, 0), _blendColor);
 				}
 
-				if (_originPoint != _endPoint)
-					_batch.DrawSelectionRect(SelectionRectangle, XnaColor.White, 2);
-				_batch.End();
+				if (this._originPoint != this._endPoint)
+					this._batch.DrawSelectionRect(this.SelectionRectangle, XnaColor.White, 2);
+				this._batch.End();
 			}
 		}
 
@@ -355,49 +355,49 @@ namespace ARCed.Controls
 
 		private void imageSelectXnaPanel_Disposed(object sender, EventArgs e)
 		{
-			if (_image != null)
-				_image.Dispose();
-			if (_texture != null)
-				_texture.Dispose();
-			_batch.Dispose();
+			if (this._image != null)
+				this._image.Dispose();
+			if (this._texture != null)
+				this._texture.Dispose();
+			this._batch.Dispose();
 		}
 
 		private void _timer_Tick(object sender, EventArgs e)
 		{
-			if (_texture != null)
+			if (this._texture != null)
 			{
-				_cx+= _sx;
-				_cy+= _sy;
+				this._cx+= this._sx;
+				this._cy+= this._sy;
 				Invalidate();
 			}
 		}
 
 		private void ResetPoints()
 		{
-			_originPoint = _endPoint = new Point(-1, -1);
+			this._originPoint = this._endPoint = new Point(-1, -1);
 		}
 
 		private void imageXnaPanel_MouseMove(object sender, MouseEventArgs e)
 		{
-			if (SelectionEnabled && _mouseDown)
+			if (this.SelectionEnabled && this._mouseDown)
 			{
-				_endPoint.X = e.X;
-				_endPoint.Y = e.Y;
+				this._endPoint.X = e.X;
+				this._endPoint.Y = e.Y;
 				Invalidate();
 			}
 		}
 
 		private void imageXnaPanel_MouseUp(object sender, MouseEventArgs e)
 		{
-			_mouseDown = false;
+			this._mouseDown = false;
 		}
 
 		private void imageXnaPanel_MouseDown(object sender, MouseEventArgs e)
 		{
-			_mouseDown = true;
-			_originPoint.X = _endPoint.X = e.X;
-			_originPoint.Y = _endPoint.Y = e.Y;
-			if (SelectionEnabled)
+			this._mouseDown = true;
+			this._originPoint.X = this._endPoint.X = e.X;
+			this._originPoint.Y = this._endPoint.Y = e.Y;
+			if (this.SelectionEnabled)
 				Invalidate();
 		}
 

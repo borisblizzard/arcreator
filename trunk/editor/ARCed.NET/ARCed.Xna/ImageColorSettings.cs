@@ -41,8 +41,8 @@ namespace ARCed.Settings
 		[XmlElement("BackgroundColor")]
 		public string BackgroundColorHtml
 		{
-			get { return ColorTranslator.ToHtml(BackgroundColor.ToSystemColor()); }
-			set { BackgroundColor = ColorTranslator.FromHtml(value).ToXnaColor(); }
+			get { return ColorTranslator.ToHtml(this.BackgroundColor.ToSystemColor()); }
+			set { this.BackgroundColor = ColorTranslator.FromHtml(value).ToXnaColor(); }
 		}
 
 		/// <summary>
@@ -51,8 +51,8 @@ namespace ARCed.Settings
 		[XmlElement("SelectorColor")]
 		public string SelectorColorHtml
 		{
-			get { return ColorTranslator.ToHtml(SelectorColor.ToSystemColor()); }
-			set { SelectorColor = ColorTranslator.FromHtml(value).ToXnaColor(); }
+			get { return ColorTranslator.ToHtml(this.SelectorColor.ToSystemColor()); }
+			set { this.SelectorColor = ColorTranslator.FromHtml(value).ToXnaColor(); }
 		}
 
 		/// <summary>
@@ -61,8 +61,8 @@ namespace ARCed.Settings
 		[XmlElement("GridColor")]
 		public string GridColorHtml
 		{
-			get { return ColorTranslator.ToHtml(GridColor.ToSystemColor()); }
-			set { GridColor = ColorTranslator.FromHtml(value).ToXnaColor(); }
+			get { return ColorTranslator.ToHtml(this.GridColor.ToSystemColor()); }
+			set { this.GridColor = ColorTranslator.FromHtml(value).ToXnaColor(); }
 		}
 
 		/// <summary>
@@ -72,11 +72,11 @@ namespace ARCed.Settings
 
 		public ImageColorSettings()
 		{
-			BackgroundColor = XnaColor.White;
-			SelectorColor = XnaColor.White;
-			GridColor = XnaColor.Black;
-			SelectorThickness = 2;
-			ShowGrid = true;
+			this.BackgroundColor = XnaColor.White;
+			this.SelectorColor = XnaColor.White;
+			this.GridColor = XnaColor.Black;
+			this.SelectorThickness = 2;
+			this.ShowGrid = true;
 		}
 	}
 }

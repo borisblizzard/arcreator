@@ -58,10 +58,10 @@ namespace ARCed.Settings
 		{
 			get 
 			{
-				string color = ColorTranslator.ToHtml(CaretColor);
-				return color.Insert(1, CaretColor.A.ToString("X"));
+				string color = ColorTranslator.ToHtml(this.CaretColor);
+				return color.Insert(1, this.CaretColor.A.ToString("X"));
 			}
-			set { CaretColor = ColorTranslator.FromHtml(value); }
+			set { this.CaretColor = ColorTranslator.FromHtml(value); }
 		}
 		/// <summary>
 		/// Gets or sets the flag to use code folding
@@ -81,16 +81,16 @@ namespace ARCed.Settings
 		/// </summary>
 		public ScriptSettings()
 		{
-			AutoComplete = true;
-			AutoCompleteLength = 2;
-			AutoCompleteFlag = 0;
-			AutoCompleteWords = new List<string>();
-			AutoIndent = true;
-			GuideLines = true;
-			Caret = false;
-			CaretColor = Color.FromArgb(32, 0, 0, 0);
-			ScriptStyles = DefaultStyles;
-			FillUpCharacters = " )]}.";
+			this.AutoComplete = true;
+			this.AutoCompleteLength = 2;
+			this.AutoCompleteFlag = 0;
+			this.AutoCompleteWords = new List<string>();
+			this.AutoIndent = true;
+			this.GuideLines = true;
+			this.Caret = false;
+			this.CaretColor = Color.FromArgb(32, 0, 0, 0);
+			this.ScriptStyles = DefaultStyles;
+			this.FillUpCharacters = " )]}.";
 		}
 
 		/// <summary>

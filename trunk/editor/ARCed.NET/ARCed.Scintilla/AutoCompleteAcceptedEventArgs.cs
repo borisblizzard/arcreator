@@ -31,11 +31,11 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _cancel;
+                return this._cancel;
             }
             set
             {
-                _cancel = value;
+                this._cancel = value;
             }
         }
 
@@ -45,7 +45,7 @@ namespace ARCed.Scintilla
         /// </summary>
         public string Text
         {
-            get { return _text; }
+            get { return this._text; }
         }
 
 
@@ -60,7 +60,7 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _wordStartPosition;
+                return this._wordStartPosition;
             }
         }
 
@@ -69,12 +69,13 @@ namespace ARCed.Scintilla
 
         #region Constructors
 
+        #pragma warning disable 612, 618
         internal AutoCompleteAcceptedEventArgs(SCNotification eventSource, Encoding encoding)
         {
-            _wordStartPosition = (int)eventSource.lParam;
-            _text = Utilities.IntPtrToString(encoding, eventSource.text);
+            this._wordStartPosition = (int)eventSource.lParam;
+            this._text = Utilities.IntPtrToString(encoding, eventSource.text);
         }
-
+        #pragma warning restore 612, 618
 
         /// <summary>
         ///     Initializes a new instance of the AutoCompleteAcceptedEventArgs class.
@@ -82,7 +83,7 @@ namespace ARCed.Scintilla
         /// <param name="text">Text of the selected autocomplete entry selected</param>
         public AutoCompleteAcceptedEventArgs(string text)
         {
-            _text = text;
+            this._text = text;
         }
 
         #endregion Constructors

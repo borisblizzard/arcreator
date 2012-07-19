@@ -28,11 +28,11 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return this[_currentIndex];
+                return this[this._currentIndex];
             }
             set
             {
-                _currentIndex = this.IndexOf(value);
+                this._currentIndex = IndexOf(value);
             }
         }
 
@@ -44,11 +44,11 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _currentIndex;
+                return this._currentIndex;
             }
             internal set
             {
-                _currentIndex = value;
+                this._currentIndex = value;
             }
         }
 

@@ -94,16 +94,16 @@ namespace ARCed.Core
         {
             get
             {
-                if (_alphaImage == null)
+                if (this._alphaImage == null)
                 {
-                    _alphaImage = new Bitmap(16, 16);
-                    using (var g = Graphics.FromImage(_alphaImage))
+                    this._alphaImage = new Bitmap(16, 16);
+                    using (var g = Graphics.FromImage(this._alphaImage))
                     {
                         g.FillRectangle(Brushes.Gray, 0, 0, 8, 8);
                         g.FillRectangle(Brushes.Gray, 8, 8, 8, 8);
                     }
                 }
-                return new TextureBrush(_alphaImage, WrapMode.Tile, new Rectangle(0, 0, 16, 16));
+                return new TextureBrush(this._alphaImage, WrapMode.Tile, new Rectangle(0, 0, 16, 16));
             }
         }
 
@@ -117,7 +117,7 @@ namespace ARCed.Core
         /// </summary>
         public Color Color
         {
-            get { return _selectedColor; }
+            get { return this._selectedColor; }
         }
 
         #endregion
@@ -134,24 +134,24 @@ namespace ARCed.Core
 		{
 			using (var path = new GraphicsPath())
 			{
-				_colorRectangle = colorRectangle;
-				_brightnessRectangle = brightnessRectangle;
-				_selectedColorRectangle = selectedColorRectangle;
-				_radius = Math.Min(colorRectangle.Width, colorRectangle.Height) / 2;
-				_centerPoint = colorRectangle.Location;
-				_centerPoint.Offset(_radius, _radius);
-				_colorPoint = _centerPoint;
+				this._colorRectangle = colorRectangle;
+				this._brightnessRectangle = brightnessRectangle;
+				this._selectedColorRectangle = selectedColorRectangle;
+				this._radius = Math.Min(colorRectangle.Width, colorRectangle.Height) / 2;
+				this._centerPoint = colorRectangle.Location;
+				this._centerPoint.Offset(this._radius, this._radius);
+				this._colorPoint = this._centerPoint;
 				path.AddEllipse(colorRectangle);
-				_colorRegion = new Region(path);
-				_brightnessMin = _brightnessRectangle.Top;
-				_brightnessMax = _brightnessRectangle.Bottom;
+				this._colorRegion = new Region(path);
+				this._brightnessMin = this._brightnessRectangle.Top;
+				this._brightnessMax = this._brightnessRectangle.Bottom;
 				path.AddRectangle(new Rectangle(brightnessRectangle.Left, brightnessRectangle.Top - 10,
 					brightnessRectangle.Width + 10, brightnessRectangle.Height + 20));
-				_brightnessRegion = new Region(path);
-				_brightnessX = brightnessRectangle.Left + brightnessRectangle.Width;
-				_brightnessScaling = (double)255 / (_brightnessMax - _brightnessMin);
-				_brightnessPoint = new Point(_brightnessX, _brightnessMax);
-				CreateGradient();
+				this._brightnessRegion = new Region(path);
+				this._brightnessX = brightnessRectangle.Left + brightnessRectangle.Width;
+				this._brightnessScaling = (double)255 / (this._brightnessMax - this._brightnessMin);
+				this._brightnessPoint = new Point(this._brightnessX, this._brightnessMax);
+				this.CreateGradient();
 			}
 		}
 
@@ -161,14 +161,14 @@ namespace ARCed.Core
 
         void IDisposable.Dispose()
 		{
-			if (_colorImage != null)
-				_colorImage.Dispose();
-			if (_colorRegion != null)
-				_colorRegion.Dispose();
-			if (_brightnessRegion != null)
-				_brightnessRegion.Dispose();
-			if (_graphics != null)
-				_graphics.Dispose();
+			if (this._colorImage != null)
+				this._colorImage.Dispose();
+			if (this._colorRegion != null)
+				this._colorRegion.Dispose();
+			if (this._brightnessRegion != null)
+				this._brightnessRegion.Dispose();
+			if (this._graphics != null)
+				this._graphics.Dispose();
 		}
 
 		#endregion
@@ -180,7 +180,7 @@ namespace ARCed.Core
         /// </summary>
         public void SetMouseUp()
         {
-            _currentState = MouseState.MouseUp;
+            this._currentState = MouseState.MouseUp;
         }
 
         /// <summary>
@@ -190,10 +190,10 @@ namespace ARCed.Core
         /// <param name="hsv">HSV color to draw</param>
         public void Draw(Graphics g, ColorHandler.HSV hsv)
         {
-            _graphics = g;
-            _hsv = hsv;
-            CalcCoordsAndUpdate(_hsv);
-            UpdateDisplay();
+            this._graphics = g;
+            this._hsv = hsv;
+            this.CalcCoordsAndUpdate(this._hsv);
+            this.UpdateDisplay();
         }
 
         /// <summary>
@@ -203,10 +203,10 @@ namespace ARCed.Core
         /// <param name="argb">ARGB color to draw</param>
         public void Draw(Graphics g, ColorHandler.ARGB argb)
         {
-            _graphics = g;
-            _hsv = ColorHandler.RGBtoHSV(argb);
-            CalcCoordsAndUpdate(_hsv);
-            UpdateDisplay();
+            this._graphics = g;
+            this._hsv = ColorHandler.RGBtoHSV(argb);
+            this.CalcCoordsAndUpdate(this._hsv);
+            this.UpdateDisplay();
         }
 
         /// <summary>
@@ -216,78 +216,78 @@ namespace ARCed.Core
         /// <param name="mousePoint">MousePoint to draw</param>
         public void Draw(Graphics g, Point mousePoint)
         {
-            var newColorPoint = _colorPoint;
-            var newBrightnessPoint = _brightnessPoint;
-            _graphics = g;
-            if (_currentState == MouseState.MouseUp)
+            var newColorPoint = this._colorPoint;
+            var newBrightnessPoint = this._brightnessPoint;
+            this._graphics = g;
+            if (this._currentState == MouseState.MouseUp)
             {
                 if (!mousePoint.IsEmpty)
                 {
-                    if (_colorRegion.IsVisible(mousePoint))
-                        _currentState = MouseState.ClickOnColor;
-                    else if (_brightnessRegion.IsVisible(mousePoint))
-                        _currentState = MouseState.ClickOnBrightness;
+                    if (this._colorRegion.IsVisible(mousePoint))
+                        this._currentState = MouseState.ClickOnColor;
+                    else if (this._brightnessRegion.IsVisible(mousePoint))
+                        this._currentState = MouseState.ClickOnBrightness;
                     else
-                        _currentState = MouseState.ClickOutsideRegion;
+                        this._currentState = MouseState.ClickOutsideRegion;
                 }
             }
-            switch (_currentState)
+            switch (this._currentState)
             {
                 case MouseState.ClickOnBrightness:
                 case MouseState.DragInBrightness:
                     var newPoint = mousePoint;
-                    if (newPoint.Y < _brightnessMin)
+                    if (newPoint.Y < this._brightnessMin)
                     {
-                        newPoint.Y = _brightnessMin;
+                        newPoint.Y = this._brightnessMin;
                     }
-                    else if (newPoint.Y > _brightnessMax)
+                    else if (newPoint.Y > this._brightnessMax)
                     {
-                        newPoint.Y = _brightnessMax;
+                        newPoint.Y = this._brightnessMax;
                     }
-                    newBrightnessPoint = new Point(_brightnessX, newPoint.Y);
-                    _brightness = (int)((_brightnessMax - newPoint.Y) * _brightnessScaling);
-                    _hsv.Value = _brightness;
-                    _argb = ColorHandler.HSVtoRGB(_hsv);
+                    newBrightnessPoint = new Point(this._brightnessX, newPoint.Y);
+                    this._brightness = (int)((this._brightnessMax - newPoint.Y) * this._brightnessScaling);
+                    this._hsv.Value = this._brightness;
+                    this._argb = ColorHandler.HSVtoRGB(this._hsv);
                     break;
 
                 case MouseState.ClickOnColor:
                 case MouseState.DragInColor:
                     newColorPoint = mousePoint;
-                    var delta = new Point(mousePoint.X - _centerPoint.X, mousePoint.Y - _centerPoint.Y);
+                    var delta = new Point(mousePoint.X - this._centerPoint.X, mousePoint.Y - this._centerPoint.Y);
                     var degrees = CalcDegrees(delta);
-                    var distance = Math.Sqrt(delta.X * delta.X + delta.Y * delta.Y) / _radius;
-                    if (_currentState == MouseState.DragInColor)
+                    var distance = Math.Sqrt(delta.X * delta.X + delta.Y * delta.Y) / this._radius;
+                    if (this._currentState == MouseState.DragInColor)
                     {
                         if (distance > 1)
                         {
                             distance = 1;
-                            newColorPoint = GetPoint(degrees, _radius, _centerPoint);
+                            newColorPoint = GetPoint(degrees, this._radius, this._centerPoint);
                         }
                     }
-                    _hsv.Hue = (degrees * 255 / 360);
-                    _hsv.Saturation = (int)(distance * 255);
-                    _hsv.Value = _brightness;
-                    _argb = ColorHandler.HSVtoRGB(_hsv);
-                    _fullColor = ColorHandler.HSVtoColor(_hsv.Alpha, _hsv.Hue, _hsv.Saturation, 255);
+                    this._hsv.Hue = (degrees * 255 / 360);
+                    this._hsv.Saturation = (int)(distance * 255);
+                    this._hsv.Value = this._brightness;
+                    this._argb = ColorHandler.HSVtoRGB(this._hsv);
+                    this._fullColor = ColorHandler.HSVtoColor(this._hsv.Alpha, this._hsv.Hue, this._hsv.Saturation, 255);
                     break;
             }
-            _selectedColor = ColorHandler.HSVtoColor(_hsv);
-            OnColorChanged(_argb, _hsv);
-            switch (_currentState)
+            this._selectedColor = ColorHandler.HSVtoColor(this._hsv);
+            this.OnColorChanged(this._argb, this._hsv);
+            switch (this._currentState)
             {
                 case MouseState.ClickOnBrightness:
-                    _currentState = MouseState.DragInBrightness;
+                    this._currentState = MouseState.DragInBrightness;
                     break;
                 case MouseState.ClickOnColor:
-                    _currentState = MouseState.DragInColor;
+                    this._currentState = MouseState.DragInColor;
                     break;
                 case MouseState.ClickOutsideRegion:
-                    _currentState = MouseState.DragOutsideRegion;
+                    this._currentState = MouseState.DragOutsideRegion;
                     break;
             }
-            _colorPoint = newColorPoint;
-            _brightnessPoint = newBrightnessPoint;
-            UpdateDisplay();
+            this._colorPoint = newColorPoint;
+            this._brightnessPoint = newBrightnessPoint;
+            this.UpdateDisplay();
         }
 
         #endregion
@@ -297,48 +297,48 @@ namespace ARCed.Core
         protected void OnColorChanged(ColorHandler.ARGB argb, ColorHandler.HSV hsv)
 		{
 			var e = new ColorChangedEventArgs(argb, hsv);
-			ColorChanged(this, e);
+			this.ColorChanged(this, e);
 		}
 
 		private Point CalcBrightnessPoint(int brightness)
 		{
-			return new Point(_brightnessX,
-				(int)(_brightnessMax - brightness / _brightnessScaling));
+			return new Point(this._brightnessX,
+				(int)(this._brightnessMax - brightness / this._brightnessScaling));
 		}
 
 		private void UpdateDisplay()
 		{
-			using (Brush selectedBrush = new SolidBrush(_selectedColor))
+			using (Brush selectedBrush = new SolidBrush(this._selectedColor))
 			{
-				_graphics.DrawImage(_colorImage, _colorRectangle);
-                _graphics.FillRectangle(AlphaBrush, _selectedColorRectangle);
-				_graphics.FillRectangle(selectedBrush, _selectedColorRectangle);
-				_graphics.DrawRectangle(Pens.Black, _selectedColorRectangle);
-				DrawLinearGradient(_fullColor);
-				DrawColorPointer(_colorPoint);
-				DrawBrightnessPointer(_brightnessPoint);
+				this._graphics.DrawImage(this._colorImage, this._colorRectangle);
+                this._graphics.FillRectangle(this.AlphaBrush, this._selectedColorRectangle);
+				this._graphics.FillRectangle(selectedBrush, this._selectedColorRectangle);
+				this._graphics.DrawRectangle(Pens.Black, this._selectedColorRectangle);
+				this.DrawLinearGradient(this._fullColor);
+				this.DrawColorPointer(this._colorPoint);
+				this.DrawBrightnessPointer(this._brightnessPoint);
 			}
 		}
 
 		private void CalcCoordsAndUpdate(ColorHandler.HSV hsv)
 		{
-			_colorPoint = GetPoint((double)hsv.Hue / 255 * 360,
-				(double)hsv.Saturation / 255 * _radius,
-				_centerPoint);
-			_brightnessPoint = CalcBrightnessPoint(hsv.Value);
-			_brightness = hsv.Value;
-			_selectedColor = ColorHandler.HSVtoColor(hsv);
-			_argb = ColorHandler.HSVtoRGB(hsv);
-			_fullColor = ColorHandler.HSVtoColor(hsv.Alpha, hsv.Hue, hsv.Saturation, 255);
+			this._colorPoint = GetPoint((double)hsv.Hue / 255 * 360,
+				(double)hsv.Saturation / 255 * this._radius,
+				this._centerPoint);
+			this._brightnessPoint = this.CalcBrightnessPoint(hsv.Value);
+			this._brightness = hsv.Value;
+			this._selectedColor = ColorHandler.HSVtoColor(hsv);
+			this._argb = ColorHandler.HSVtoRGB(hsv);
+			this._fullColor = ColorHandler.HSVtoColor(hsv.Alpha, hsv.Hue, hsv.Saturation, 255);
 		}
 
 		private void DrawLinearGradient(Color topColor)
 		{
 			using (var lgb =
-				new LinearGradientBrush(_brightnessRectangle, topColor,
+				new LinearGradientBrush(this._brightnessRectangle, topColor,
 					Color.Black, LinearGradientMode.Vertical))
 			{
-				_graphics.FillRectangle(lgb, _brightnessRectangle);
+				this._graphics.FillRectangle(lgb, this._brightnessRectangle);
 			}
 		}
 
@@ -364,18 +364,18 @@ namespace ARCed.Core
 		private void CreateGradient()
 		{
 			using (var pgb =
-				new PathGradientBrush(GetPoints(_radius, new Point(_radius, _radius))))
+				new PathGradientBrush(GetPoints(this._radius, new Point(this._radius, this._radius))))
 			{
 				pgb.CenterColor = Color.White;
-				pgb.CenterPoint = new PointF(_radius, _radius);
+				pgb.CenterPoint = new PointF(this._radius, this._radius);
 				pgb.SurroundColors = GetColors();
-				_colorImage = new Bitmap(
-					_colorRectangle.Width, _colorRectangle.Height,
+				this._colorImage = new Bitmap(
+					this._colorRectangle.Width, this._colorRectangle.Height,
 					PixelFormat.Format32bppArgb);
-				using (var newGraphics = Graphics.FromImage(_colorImage))
+				using (var newGraphics = Graphics.FromImage(this._colorImage))
 				{
 					newGraphics.FillEllipse(pgb, 0, 0,
-						_colorRectangle.Width, _colorRectangle.Height);
+						this._colorRectangle.Width, this._colorRectangle.Height);
 				}
 			}
 		}
@@ -406,7 +406,7 @@ namespace ARCed.Core
 		private void DrawColorPointer(Point pt)
 		{
 			const int size = 3;
-			_graphics.DrawRectangle(Pens.Black,
+			this._graphics.DrawRectangle(Pens.Black,
 				pt.X - size, pt.Y - size, size * 2, size * 2);
 		}
 
@@ -418,7 +418,7 @@ namespace ARCed.Core
 			points[0] = pt;
 			points[1] = new Point(pt.X + width, pt.Y + height / 2);
 			points[2] = new Point(pt.X + width, pt.Y - height / 2);
-			_graphics.FillPolygon(Brushes.Black, points);
+			this._graphics.FillPolygon(Brushes.Black, points);
         }
 
         #endregion

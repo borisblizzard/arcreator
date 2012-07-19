@@ -25,39 +25,39 @@ namespace ARCed.UI
 
 		public INestedPanesContainer Container
 		{
-			get	{	return NestedPanes.Container;	}
+			get	{	return this.NestedPanes.Container;	}
 		}
 
 		public DockState DockState
 		{
-			get	{	return NestedPanes.DockState;	}
+			get	{	return this.NestedPanes.DockState;	}
 		}
 
 		public bool IsFloat
 		{
-			get	{	return NestedPanes.IsFloat;	}
+			get	{	return this.NestedPanes.IsFloat;	}
 		}
 
 		internal void Refresh()
 		{
 			Items.Clear();
-			for (int i=0; i<NestedPanes.Count; i++)
+			for (int i=0; i<this.NestedPanes.Count; i++)
 			{
-				DockPane pane = NestedPanes[i];
+				DockPane pane = this.NestedPanes[i];
 				NestedDockingStatus status = pane.NestedDockingStatus;
 				status.SetDisplayingStatus(true, status.PreviousPane, status.Alignment, status.Proportion);
 				Items.Add(pane);
 			}
 
-			foreach (DockPane pane in NestedPanes)
-				if (pane.DockState != DockState || pane.IsHidden)
+			foreach (DockPane pane in this.NestedPanes)
+				if (pane.DockState != this.DockState || pane.IsHidden)
 				{
 					pane.Bounds = Rectangle.Empty;
 					pane.SplitterBounds = Rectangle.Empty;
-					Remove(pane);
+					this.Remove(pane);
 				}
 
-			CalculateBounds();
+			this.CalculateBounds();
 
 			foreach (DockPane pane in this)
 			{
@@ -109,7 +109,7 @@ namespace ARCed.UI
 			if (Count == 0)
 				return;
 
-			this[0].NestedDockingStatus.SetDisplayingBounds(Container.DisplayingRectangle, Container.DisplayingRectangle, Rectangle.Empty);
+			this[0].NestedDockingStatus.SetDisplayingBounds(this.Container.DisplayingRectangle, this.Container.DisplayingRectangle, Rectangle.Empty);
 
 			for (int i=1; i<Count; i++)
 			{

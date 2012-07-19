@@ -35,11 +35,11 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _length;
+                return this._length;
             }
             set
             {
-                _length = value;
+                this._length = value;
             }
         }
 
@@ -52,11 +52,11 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _style;
+                return this._style;
             }
             set
             {
-                _style = value;
+                this._style = value;
             }
         }
 
@@ -72,8 +72,8 @@ namespace ARCed.Scintilla
         /// <param name="style">The zero-based index of the style that the run represents.</param>
         public StyleRun(int length, int style)
         {
-            _length = length;
-            _style = style;
+            this._length = length;
+            this._style = style;
         }
 
         #endregion Constructors

@@ -34,7 +34,7 @@ namespace ARCed.Scintilla
 
             var kb = (KeyBinding)obj;
 
-            return _keycode == kb._keycode && _modifiers == kb._modifiers;
+            return this._keycode == kb._keycode && this._modifiers == kb._modifiers;
         }
 
         /// <summary>
@@ -43,7 +43,7 @@ namespace ARCed.Scintilla
         /// <returns>Hashcode of ToString()</returns>
         public override int GetHashCode()
         {
-            return ToString().GetHashCode();
+            return this.ToString().GetHashCode();
         }
 
 
@@ -53,7 +53,7 @@ namespace ARCed.Scintilla
         /// <returns>Returns string representation of the Keyboard shortcut</returns>
         public override string ToString()
         {
-            return ((int)_keycode).ToString() + ((int)_modifiers).ToString();
+            return ((int)this._keycode).ToString() + ((int)this._modifiers).ToString();
         }
 
         #endregion Methods
@@ -68,11 +68,11 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _keycode;
+                return this._keycode;
             }
             set
             {
-                _keycode = value;
+                this._keycode = value;
             }
         }
 
@@ -84,11 +84,11 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _modifiers;
+                return this._modifiers;
             }
             set
             {
-                _modifiers = value;
+                this._modifiers = value;
             }
         }
 
@@ -104,8 +104,8 @@ namespace ARCed.Scintilla
         /// <param name="modifiers"> key modifiers to the Keyboard shortcut</param>
         public KeyBinding(Keys keycode, Keys modifiers)
         {
-            _keycode = keycode;
-            _modifiers = modifiers;
+            this._keycode = keycode;
+            this._modifiers = modifiers;
         }
 
         #endregion Constructors

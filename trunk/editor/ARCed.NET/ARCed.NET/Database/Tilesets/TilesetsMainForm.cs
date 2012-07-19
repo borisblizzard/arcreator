@@ -28,7 +28,7 @@ namespace ARCed.Database.Tilesets
 		/// <summary>
 		/// Gets the object list control of this database panel.
 		/// </summary>
-		protected override DatabaseObjectListBox DataObjectList { get { return dataObjectList; } }
+		protected override DatabaseObjectListBox DataObjectList { get { return this.dataObjectList; } }
 
 		#endregion
 
@@ -48,7 +48,7 @@ namespace ARCed.Database.Tilesets
 		/// </summary>
 		public TilesetsMainForm()
 		{
-			InitializeComponent();
+			this.InitializeComponent();
 		}
 
 		#endregion
@@ -70,21 +70,21 @@ namespace ARCed.Database.Tilesets
 		public override void RefreshCurrentObject()
 		{
 			SuppressEvents = true;
-			tilesetXnaPanel.Tileset = _tileset;
-			textBoxName.Text = _tileset.name;
-			textBoxTileset.Text = String.IsNullOrWhiteSpace(_tileset.tileset_name) ?
-				"<None>" : _tileset.tileset_name; 
-			textBoxFog.Text = String.IsNullOrWhiteSpace(_tileset.fog_name) ?
-				"<None>" : _tileset.fog_name;
-			textBoxPanorama.Text = String.IsNullOrWhiteSpace(_tileset.panorama_name) ?
-				"<None>" : _tileset.panorama_name;
-			textBoxBattleback.Text = String.IsNullOrWhiteSpace(_tileset.battleback_name) ?
-				"<None>" : _tileset.battleback_name;
+			this.tilesetXnaPanel.Tileset = this._tileset;
+			this.textBoxName.Text = this._tileset.name;
+			this.textBoxTileset.Text = String.IsNullOrWhiteSpace(this._tileset.tileset_name) ?
+				"<None>" : this._tileset.tileset_name; 
+			this.textBoxFog.Text = String.IsNullOrWhiteSpace(this._tileset.fog_name) ?
+				"<None>" : this._tileset.fog_name;
+			this.textBoxPanorama.Text = String.IsNullOrWhiteSpace(this._tileset.panorama_name) ?
+				"<None>" : this._tileset.panorama_name;
+			this.textBoxBattleback.Text = String.IsNullOrWhiteSpace(this._tileset.battleback_name) ?
+				"<None>" : this._tileset.battleback_name;
 			//noteTextBox.NoteText = _tileset.note;
 			string autotile;
-			for (int i = 0; i < _tileset.autotile_names.Count; i++)
+			for (int i = 0; i < this._tileset.autotile_names.Count; i++)
 			{
-			    autotile = _tileset.autotile_names[i];
+			    autotile = this._tileset.autotile_names[i];
 			    var textBoxButton = this.panelAutotiles.Controls[i] as TextBoxButton;
 			    if (textBoxButton != null)
 			        textBoxButton.Text = String.IsNullOrWhiteSpace(autotile) ? "<None>" : autotile;
@@ -98,10 +98,10 @@ namespace ARCed.Database.Tilesets
 
         private void TilesetsMainFormLoad(object sender, EventArgs e)
         {
-            checkBoxGrid.Checked = Editor.Settings.ImageColorSettings.ShowGrid;
+            this.checkBoxGrid.Checked = Editor.Settings.ImageColorSettings.ShowGrid;
             RefreshObjectList();
-            InitializeAutotiles();
-            dataObjectList.SelectedIndex = 0;
+            this.InitializeAutotiles();
+            this.dataObjectList.SelectedIndex = 0;
         }
 
 		private void InitializeAutotiles()
@@ -115,7 +115,7 @@ namespace ARCed.Database.Tilesets
 				    Size = new Size(this.panelAutotiles.ClientSize.Width - 12, 20),
 				    Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right
 				};
-			    panelAutotiles.Controls.Add(textBox);
+			    this.panelAutotiles.Controls.Add(textBox);
 				textBox.OnButtonClick += this.TextBoxAutotileButtonClick;
 			}
 		}
@@ -138,7 +138,7 @@ namespace ARCed.Database.Tilesets
 
         private void DataObjectListOnListBoxIndexChanged(object sender, EventArgs e)
 		{
-			var index = dataObjectList.SelectedIndex;
+			var index = this.dataObjectList.SelectedIndex;
             if (index < 0) return;
             this._tileset = this.Data[index + 1];
             this.RefreshCurrentObject();
@@ -148,7 +148,7 @@ namespace ARCed.Database.Tilesets
 		{
 			using (var dialog = new ImageColorsDialog(Editor.Settings.ImageColorSettings))
 			{
-				dialog.XnaPanel = tilesetXnaPanel;
+				dialog.XnaPanel = this.tilesetXnaPanel;
 			    if (dialog.ShowDialog() == DialogResult.OK) return;
 			    Editor.Settings.ImageColorSettings = dialog.OriginalSettings;
 			    this.tilesetXnaPanel.Invalidate();
@@ -157,14 +157,14 @@ namespace ARCed.Database.Tilesets
 
 		private void CheckBoxGridCheckedChanged(object sender, EventArgs e)
 		{
-			Editor.Settings.ImageColorSettings.ShowGrid = checkBoxGrid.Checked;
-			tilesetXnaPanel.Invalidate();
+			Editor.Settings.ImageColorSettings.ShowGrid = this.checkBoxGrid.Checked;
+			this.tilesetXnaPanel.Invalidate();
 		}
 
 		private void TilesetsMainFormKeyDown(object sender, KeyEventArgs e)
 		{
 			if (e.KeyCode == Keys.ControlKey)
-				checkBoxBatch.Checked = !checkBoxBatch.Checked;
+				this.checkBoxBatch.Checked = !this.checkBoxBatch.Checked;
 		}
 
 		private void RadioModeClicked(object sender, EventArgs e)
@@ -177,7 +177,7 @@ namespace ARCed.Database.Tilesets
 
         private void TextBoxTilesetOnButtonClick(object sender, EventArgs e)
 		{
-			using (var dialog = new ImageSelectionForm(@"Tilesets", _tileset.tileset_name))
+			using (var dialog = new ImageSelectionForm(@"Tilesets", this._tileset.tileset_name))
 			{
 				dialog.Height = 640;
 			    if (dialog.ShowDialog(this) != DialogResult.OK) return;
@@ -189,21 +189,21 @@ namespace ARCed.Database.Tilesets
 
 		private void ResizeTileset()
 		{
-			tilesetXnaPanel.Tileset = _tileset;
-			Size size = tilesetXnaPanel.Size;
+			this.tilesetXnaPanel.Tileset = this._tileset;
+			Size size = this.tilesetXnaPanel.Size;
 			int ids = (size.Height / Constants.TILESIZE) * (size.Width / Constants.TILESIZE);
 			ids += Constants.AUTO_IDS;
-			_tileset.priorities.resize(ids);
-			_tileset.passages.resize(ids);
-			_tileset.terrain_tags.resize(ids);
-			RefreshCurrentObject();
+			this._tileset.priorities.resize(ids);
+			this._tileset.passages.resize(ids);
+			this._tileset.terrain_tags.resize(ids);
+			this.RefreshCurrentObject();
 		}	
 	
 		private void TextBoxPanoramaOnButtonClick(object sender, EventArgs e)
 		{
-			using (var dialog = new ImageSelectionForm(@"Panoramas", _tileset.panorama_name))
+			using (var dialog = new ImageSelectionForm(@"Panoramas", this._tileset.panorama_name))
 			{
-				dialog.Hue = _tileset.panorama_hue;
+				dialog.Hue = this._tileset.panorama_hue;
 			    if (dialog.ShowDialog(this) != DialogResult.OK) return;
 			    this._tileset.panorama_name = dialog.ImageName;
 			    this._tileset.panorama_hue = dialog.Hue;
@@ -213,7 +213,7 @@ namespace ARCed.Database.Tilesets
 
 		private void TextBoxBattlebackOnButtonClick(object sender, EventArgs e)
 		{
-			using (var dialog = new ImageSelectionForm(@"Battlebacks", _tileset.battleback_name))
+			using (var dialog = new ImageSelectionForm(@"Battlebacks", this._tileset.battleback_name))
 			{
 				dialog.Width = 800;
 			    if (dialog.ShowDialog(this) != DialogResult.OK) return;
@@ -224,14 +224,14 @@ namespace ARCed.Database.Tilesets
 
 		private void TextBoxFogOnTextBoxFogOnButtonClick(object sender, EventArgs e)
 		{
-			using (var dialog = new ImageSelectionForm(@"Fogs", _tileset.fog_name))
+			using (var dialog = new ImageSelectionForm(@"Fogs", this._tileset.fog_name))
 			{
-				dialog.Hue = _tileset.fog_hue;
-				dialog.ScrollX = _tileset.fog_sx;
-				dialog.ScrollY = _tileset.fog_sy;
-				dialog.Zoom = _tileset.fog_zoom;
-				dialog.ImageOpacity = _tileset.fog_opacity;
-				dialog.BlendMode = _tileset.fog_blend_type;
+				dialog.Hue = this._tileset.fog_hue;
+				dialog.ScrollX = this._tileset.fog_sx;
+				dialog.ScrollY = this._tileset.fog_sy;
+				dialog.Zoom = this._tileset.fog_zoom;
+				dialog.ImageOpacity = this._tileset.fog_opacity;
+				dialog.BlendMode = this._tileset.fog_blend_type;
 			    if (dialog.ShowDialog(this) != DialogResult.OK) return;
 			    this._tileset.fog_name = dialog.ImageName;
 			    this._tileset.fog_hue = dialog.Hue;
@@ -254,12 +254,12 @@ namespace ARCed.Database.Tilesets
 
 		private void CheckBoxBatchCheckedChanged(object sender, EventArgs e)
 		{
-			tilesetXnaPanel.SelectionEnabled = checkBoxBatch.Checked;
+			this.tilesetXnaPanel.SelectionEnabled = this.checkBoxBatch.Checked;
 		}
 
 		private void CheckBoxIconsCheckedChanged(object sender, EventArgs e)
 		{
-			tilesetXnaPanel.DisplayIcons = checkBoxIcons.Checked;
+			this.tilesetXnaPanel.DisplayIcons = this.checkBoxIcons.Checked;
 		}
 
 		private void NoteTextBoxNoteTextChanged(object sender, EventArgs e)

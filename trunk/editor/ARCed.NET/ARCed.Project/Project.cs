@@ -395,25 +395,26 @@ namespace ARCed
             {
                 Data = new GameData();
                 TypeMap map = Util.RpgTypes;
-                Data.Tilesets = LoadArcData<List<dynamic>>("Tilesets.arc", map);
-                Data.Animations = LoadArcData<List<dynamic>>("Animations.arc", map);
-                Data.Actors = LoadArcData<List<dynamic>>("Actors.arc", map);
-                Data.Classes = LoadArcData<List<dynamic>>("Classes.arc", map);
-                Data.Items = LoadArcData<List<dynamic>>("Items.arc", map);
-                Data.Weapons = LoadArcData<List<dynamic>>("Weapons.arc", map);
-                Data.Armors = LoadArcData<List<dynamic>>("Armors.arc", map);
-                Data.Skills = LoadArcData<List<dynamic>>("Skills.arc", map);
-                Data.States = LoadArcData<List<dynamic>>("States.arc", map);
-                Data.CommonEvents = LoadArcData<List<dynamic>>("CommonEvents.arc", map);
-                Data.System = LoadArcData<RPG.System>("System.arc", map);
-                Data.Enemies = LoadArcData<List<dynamic>>("Enemies.arc", map);
-                Data.Troops = LoadArcData<List<dynamic>>("Troops.arc", map);
+				Data.Tilesets = LoadArcData<List<dynamic>>(@"Data\Tilesets.arc", map);
+                Data.Items = LoadArcData<List<dynamic>>(@"Data\Items.arc", map);
+                Data.Animations = LoadArcData<List<dynamic>>(@"Data\Animations.arc", map);
+                Data.Actors = LoadArcData<List<dynamic>>(@"Data\Actors.arc", map);
+                Data.Classes = LoadArcData<List<dynamic>>(@"Data\Classes.arc", map);
+                Data.Weapons = LoadArcData<List<dynamic>>(@"Data\Weapons.arc", map);
+                Data.Armors = LoadArcData<List<dynamic>>(@"Data\Armors.arc", map);
+                Data.Skills = LoadArcData<List<dynamic>>(@"Data\Skills.arc", map);
+                Data.States = LoadArcData<List<dynamic>>(@"Data\States.arc", map);
+                Data.CommonEvents = LoadArcData<List<dynamic>>(@"Data\CommonEvents.arc", map);
+                Data.System = LoadArcData<RPG.System>(@"Data\System.arc", map);
+                Data.Enemies = LoadArcData<List<dynamic>>(@"Data\Enemies.arc", map);
+                Data.Troops = LoadArcData<List<dynamic>>(@"Data\Troops.arc", map);
+
                 return true;
             }
             catch
             {
                 _title = _filename = "";
-                Data = null;
+                //Data = null;
                 return false;
             }
         }
@@ -431,8 +432,8 @@ namespace ARCed
             try
             {
                 T data;
-                using (Stream s = File.OpenRead(Path.Combine(DataDirectory, filename)))
-                    data = (map == null) ? (T)ArcData.Load(s) : (T)ArcData.Load(s, map);
+                using (Stream s = File.OpenRead(filename))
+                    data = (T)ArcData.Load(s, map);
                 return data;
             }
             catch (Exception error) { throw new ARCedException(error.Message); }

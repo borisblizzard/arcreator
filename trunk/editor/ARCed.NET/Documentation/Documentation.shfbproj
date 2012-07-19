@@ -122,6 +122,59 @@
       <DocumentationSource sourceFile="..\ARCed.UI\ARCed.UI.csproj" />
       <DocumentationSource sourceFile="..\ARCed.Xna\ARCed.Xna.csproj" />
     </DocumentationSources>
+    <NamespaceSummaries>
+      <NamespaceSummaryItem name="ARCed" isDocumented="True" xmlns="">The primary namespace the is parent to all other ARCed namespaces.
+This namespace also contains its own members such as utility classes and extension methods.</NamespaceSummaryItem>
+<NamespaceSummaryItem name="ARCed.Controls" isDocumented="True" xmlns="">Namespace that contains all the custom Windows Forms and XNA controls used in the editor.</NamespaceSummaryItem>
+<NamespaceSummaryItem name="ARCed.Core" isDocumented="True" xmlns="">The core namespace contains classes and types that are common to all other ARCed assemblies.</NamespaceSummaryItem>
+<NamespaceSummaryItem name="ARCed.Core.Win32" isDocumented="True" xmlns="">Namespace that contains static classes for performing native functions outside of managed code. 
+This namespace relies heavily upon P/Invoke to use Windows API functions, as well as use of native libraries.</NamespaceSummaryItem>
+<NamespaceSummaryItem name="ARCed.Database" isDocumented="True" xmlns="">Namespace that contains all the namespaces pertaining to the editor database forms.</NamespaceSummaryItem>
+<NamespaceSummaryItem name="ARCed.Database.Actors" isDocumented="True" xmlns="">Namespace containg the forms used for modifying Actor data.</NamespaceSummaryItem>
+<NamespaceSummaryItem name="ARCed.Database.Animations" isDocumented="True" xmlns="">Namespace containg the forms used for modifying Animation data.</NamespaceSummaryItem>
+<NamespaceSummaryItem name="ARCed.Database.Armors" isDocumented="True" xmlns="">Namespace containg the forms used for modifying Armor data.</NamespaceSummaryItem>
+<NamespaceSummaryItem name="ARCed.Database.Classes" isDocumented="True" xmlns="">Namespace containg the forms used for modifying Class data.</NamespaceSummaryItem>
+<NamespaceSummaryItem name="ARCed.Database.Enemies" isDocumented="True" xmlns="">Namespace containg the forms used for modifying Enemy data.</NamespaceSummaryItem>
+<NamespaceSummaryItem name="ARCed.Database.Items" isDocumented="True" xmlns="">Namespace containg the forms used for modifying Item data.</NamespaceSummaryItem>
+<NamespaceSummaryItem name="ARCed.Database.MapEditor" isDocumented="True" xmlns="">Namespace containg the forms used for modifying Map data.</NamespaceSummaryItem>
+<NamespaceSummaryItem name="ARCed.Database.Skills" isDocumented="True" xmlns="">Namespace containg the forms used for modifying Skill data.</NamespaceSummaryItem>
+<NamespaceSummaryItem name="ARCed.Database.Sys" isDocumented="True" xmlns="">Namespace containg the forms used for modifying System data.</NamespaceSummaryItem>
+<NamespaceSummaryItem name="ARCed.Database.Tilesets" isDocumented="True" xmlns="">Namespace containg the forms used for modifying Tileset data.</NamespaceSummaryItem>
+<NamespaceSummaryItem name="ARCed.Database.Troops" isDocumented="True" xmlns="">Namespace containg the forms used for modifying Troop data.</NamespaceSummaryItem>
+<NamespaceSummaryItem name="ARCed.Database.Weapons" isDocumented="True" xmlns="">Namespace containg the forms used for modifying Weapon data.</NamespaceSummaryItem>
+<NamespaceSummaryItem name="ARCed.Dialogs" isDocumented="True" xmlns="">Namespace containg the classes used for common dialogs used in ARCed.</NamespaceSummaryItem>
+<NamespaceSummaryItem name="ARCed.EventBuilder" isDocumented="True" xmlns="">Namespace containg the classes and forms used for building Events.</NamespaceSummaryItem>
+<NamespaceSummaryItem name="ARCed.Forms" isDocumented="True" xmlns="">Namespace containing various forms used in the editor that are not database related.</NamespaceSummaryItem>
+<NamespaceSummaryItem name="ARCed.Forms.Splash" isDocumented="True" xmlns="">Namespace that contains the splash screen forms and classes.</NamespaceSummaryItem>
+<NamespaceSummaryItem name="ARCed.Helpers" isDocumented="True" xmlns="">Namespace that contains classes that are used for simplifying functions that are common to various classes.</NamespaceSummaryItem>
+<NamespaceSummaryItem name="ARCed.Plugins" isDocumented="True" xmlns="">Namespace that contains the classes and interfaces that control plugin logic.
+The Registry and is also found here.
+This namespace must be imported by all extensions made for ARCed.</NamespaceSummaryItem>
+<NamespaceSummaryItem name="ARCed.Scintilla" isDocumented="True" xmlns="">Namespace containing the wrapper for the native Scintilla library that is used for syntax highlighting in script controls.</NamespaceSummaryItem>
+<NamespaceSummaryItem name="ARCed.Scintilla.Configuration" isDocumented="True" xmlns="">Namespace containing configutaion classes for the native Scintilla library.</NamespaceSummaryItem>
+<NamespaceSummaryItem name="ARCed.Scintilla.Design" isDocumented="True" xmlns="">Namespace containg designer code for the native Scintilla library.</NamespaceSummaryItem>
+<NamespaceSummaryItem name="ARCed.Scripting" isDocumented="True" xmlns="">Namespace containing classes and forms used for script related control.</NamespaceSummaryItem>
+<NamespaceSummaryItem name="ARCed.Settings" isDocumented="True" xmlns="">Namespace containing various classes that contain settings used by the editor.</NamespaceSummaryItem>
+<NamespaceSummaryItem name="ARCed.UI" isDocumented="True" xmlns="">Namespace containing the controls and logic to create ARCed.NET's advanced user interface.</NamespaceSummaryItem>
+<NamespaceSummaryItem name="RPG" isDocumented="True" xmlns="">Namespace containing all the RPG data types. This namespace provides all the classes that give ARC backwards compatibiity with RMXP.</NamespaceSummaryItem></NamespaceSummaries>
+    <HelpFileFormat>HtmlHelp1</HelpFileFormat>
+    <IndentHtml>False</IndentHtml>
+    <FrameworkVersion>.NET 4.0.30319</FrameworkVersion>
+    <KeepLogFile>False</KeepLogFile>
+    <DisableCodeBlockComponent>False</DisableCodeBlockComponent>
+    <CppCommentsFixup>False</CppCommentsFixup>
+    <CleanIntermediates>True</CleanIntermediates>
+    <ApiFilter>
+      <Filter entryType="Namespace" fullName="" isExposed="False" xmlns="">
+  <Filter entryType="Class" fullName="Table" isExposed="True" />
+</Filter>
+<Filter entryType="Namespace" fullName="ARCed" isExposed="True" xmlns="">
+  <Filter entryType="Class" fullName="ARCed.ExtensionMethods" filterName="ExtensionMethods" isExposed="False" />
+</Filter>
+<Filter entryType="Namespace" fullName="System" isExposed="True" xmlns="">
+  <Filter entryType="Class" fullName="System.Object" filterName="Object" isExposed="False" />
+</Filter></ApiFilter>
+    <VisibleItems>InheritedMembers, InheritedFrameworkMembers, Protected, SealedProtected</VisibleItems>
   </PropertyGroup>
   <!-- There are no properties for these groups.  AnyCPU needs to appear in
        order for Visual Studio to perform the build.  The others are optional

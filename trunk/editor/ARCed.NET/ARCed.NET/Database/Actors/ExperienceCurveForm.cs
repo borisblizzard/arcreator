@@ -33,11 +33,11 @@ namespace ARCed.Database.Actors
         /// </summary>
 		public ExperienceCurveForm()
 		{
-			InitializeComponent();
-			listBoxExperience.Font = new Font(FontHelper.MonoFont.FontFamily, 7.5f, FontStyle.Regular);
-			numericBasis.DataBindings.Add("Value", trackBarBasis, "Value",
+			this.InitializeComponent();
+			this.listBoxExperience.Font = new Font(FontHelper.MonoFont.FontFamily, 7.5f, FontStyle.Regular);
+			this.numericBasis.DataBindings.Add("Value", this.trackBarBasis, "Value",
 				false, DataSourceUpdateMode.OnPropertyChanged);
-			numericInflation.DataBindings.Add("Value", trackBarInflation, "Value",
+			this.numericInflation.DataBindings.Add("Value", this.trackBarInflation, "Value",
 				false, DataSourceUpdateMode.OnPropertyChanged);
 		}
 
@@ -51,12 +51,12 @@ namespace ARCed.Database.Actors
         /// <param name="actor">RPG.Actor instance</param>
         public void ChangeActor(Actor actor)
 		{
-			_actor = actor;
-			listBoxExperience.ColumnWidth = _actor.final_level <= 100 ? 96 : 136;
-			_expList = new long[_actor.final_level + 1];
-			trackBarBasis.Value = _actor.exp_basis;
-			trackBarInflation.Value = _actor.exp_inflation;
-			_startValues = new[] { _actor.exp_basis, _actor.exp_inflation };
+			this._actor = actor;
+			this.listBoxExperience.ColumnWidth = this._actor.final_level <= 100 ? 96 : 136;
+			this._expList = new long[this._actor.final_level + 1];
+			this.trackBarBasis.Value = this._actor.exp_basis;
+			this.trackBarInflation.Value = this._actor.exp_inflation;
+			this._startValues = new[] { this._actor.exp_basis, this._actor.exp_inflation };
 		}
 
         /// <summary>
@@ -66,16 +66,16 @@ namespace ARCed.Database.Actors
         /// <param name="inflation">Rate of inflation</param>
 		public void CalculateInflation(int basis, int inflation)
 		{
-			_expList = new long[_actor.final_level + 1];
+			this._expList = new long[this._actor.final_level + 1];
 			double powI = 2.4d + inflation / 100.0d;
 			double n;
-			for (int i = 2; i <= _actor.final_level; i++)
+			for (int i = 2; i <= this._actor.final_level; i++)
 			{
 				n = basis * (Math.Pow(i + 3, powI) / Math.Pow(5, powI));
-				_expList[i] = _expList[i - 1] + Convert.ToInt64(n);
+				this._expList[i] = this._expList[i - 1] + Convert.ToInt64(n);
 			}
-			var digits = _expList[_expList.Length - 1].ToString(CultureInfo.InvariantCulture).Length + 5;
-			_fStr = @"{0," + digits.ToString(CultureInfo.InvariantCulture) + @"}";
+			var digits = this._expList[this._expList.Length - 1].ToString(CultureInfo.InvariantCulture).Length + 5;
+			this._fStr = @"{0," + digits.ToString(CultureInfo.InvariantCulture) + @"}";
 		}
 
         /// <summary>
@@ -83,27 +83,27 @@ namespace ARCed.Database.Actors
         /// </summary>
 		public void RefreshTable()
 		{
-			if (_actor != null)
+			if (this._actor != null)
 			{
-				int topIndex = listBoxExperience.TopIndex;
-				listBoxExperience.BeginUpdate();
-				listBoxExperience.Items.Clear();
-				CalculateInflation((int)numericBasis.Value, (int)numericInflation.Value);
-				if (radioButtonNext.Checked)
+				int topIndex = this.listBoxExperience.TopIndex;
+				this.listBoxExperience.BeginUpdate();
+				this.listBoxExperience.Items.Clear();
+				this.CalculateInflation((int)this.numericBasis.Value, (int)this.numericInflation.Value);
+				if (this.radioButtonNext.Checked)
 				{
-					for (int i = 1; i < _actor.final_level; i++)
-						listBoxExperience.Items.Add(_expList[i + 1] - _expList[i]);
+					for (int i = 1; i < this._actor.final_level; i++)
+						this.listBoxExperience.Items.Add(this._expList[i + 1] - this._expList[i]);
 				}
 				else
 				{
-					for (int i = 1; i <= _actor.final_level; i++)
-						listBoxExperience.Items.Add(_expList[i]);
+					for (int i = 1; i <= this._actor.final_level; i++)
+						this.listBoxExperience.Items.Add(this._expList[i]);
 				}
-				listBoxExperience.TopIndex = topIndex;
-				listBoxExperience.EndUpdate();
+				this.listBoxExperience.TopIndex = topIndex;
+				this.listBoxExperience.EndUpdate();
 			}
 			else
-				listBoxExperience.Items.Clear();
+				this.listBoxExperience.Items.Clear();
 		}
 
         #endregion
@@ -112,22 +112,22 @@ namespace ARCed.Database.Actors
 
         private void NumericBasisValueChanged(object sender, EventArgs e)
 		{
-			RefreshTable();
-			if (_actor != null)
-				_actor.exp_basis = (int)numericBasis.Value;
+			this.RefreshTable();
+			if (this._actor != null)
+				this._actor.exp_basis = (int)this.numericBasis.Value;
 		}
 
 		private void NumericInflationValueChanged(object sender, EventArgs e)
 		{
-			RefreshTable();
-			if (_actor != null)
-				_actor.exp_inflation = (int)numericInflation.Value;
+			this.RefreshTable();
+			if (this._actor != null)
+				this._actor.exp_inflation = (int)this.numericInflation.Value;
 		}
 
 		private void ButtonApplyClick(object sender, EventArgs e)
 		{
-			_actor.exp_basis = (int)numericBasis.Value;
-			_actor.exp_inflation = (int)numericInflation.Value;
+			this._actor.exp_basis = (int)this.numericBasis.Value;
+			this._actor.exp_inflation = (int)this.numericInflation.Value;
 		}
 
 		private void ListBoxExperienceDrawItem(object sender, DrawItemEventArgs e)
@@ -135,22 +135,22 @@ namespace ARCed.Database.Actors
 			using (e.Graphics)
 			{
 				string lvl = String.Format("{0,3}:", "L" + (e.Index + 1));
-				string exp = String.Format(_fStr, listBoxExperience.Items[e.Index]);
+				string exp = String.Format(this._fStr, this.listBoxExperience.Items[e.Index]);
 				e.Graphics.DrawString(lvl, e.Font, Brushes.Black, e.Bounds);
 				e.Graphics.DrawString(exp, e.Font, 
-					radioButtonNext.Checked ? Brushes.Green : Brushes.Red, e.Bounds);
+					this.radioButtonNext.Checked ? Brushes.Green : Brushes.Red, e.Bounds);
 			}
 		}
 
 		private void RadioButtonCheckedChanged(object sender, EventArgs e)
 		{
-			RefreshTable();
+			this.RefreshTable();
 		}
 
 		private void ButtonCancelClick(object sender, EventArgs e)
 		{
-			trackBarBasis.Value = _startValues[0];
-			trackBarInflation.Value = _startValues[1];
+			this.trackBarBasis.Value = this._startValues[0];
+			this.trackBarInflation.Value = this._startValues[1];
         }
 
         #endregion

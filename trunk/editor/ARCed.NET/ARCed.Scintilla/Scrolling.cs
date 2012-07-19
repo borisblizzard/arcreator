@@ -15,25 +15,25 @@ namespace ARCed.Scintilla
 
         internal void ResetEndAtLastLine()
         {
-            EndAtLastLine = true;
+            this.EndAtLastLine = true;
         }
 
 
         internal void ResetHorizontalWidth()
         {
-            HorizontalWidth = 2000;
+            this.HorizontalWidth = 2000;
         }
 
 
         private void ResetScrollBars()
         {
-            ScrollBars = ScrollBars.Both;
+            this.ScrollBars = ScrollBars.Both;
         }
 
 
         internal void ResetXOffset()
         {
-            XOffset = 0;
+            this.XOffset = 0;
         }
 
 
@@ -51,34 +51,34 @@ namespace ARCed.Scintilla
 
         internal bool ShouldSerialize()
         {
-            return ShouldSerializeEndAtLastLine() ||
-                ShouldSerializeHorizontalWidth() ||
-                ShouldSerializeScrollBars() ||
-                ShouldSerializeXOffset();
+            return this.ShouldSerializeEndAtLastLine() ||
+                this.ShouldSerializeHorizontalWidth() ||
+                this.ShouldSerializeScrollBars() ||
+                this.ShouldSerializeXOffset();
         }
 
 
         private bool ShouldSerializeEndAtLastLine()
         {
-            return !EndAtLastLine;
+            return !this.EndAtLastLine;
         }
 
 
         private bool ShouldSerializeHorizontalWidth()
         {
-            return HorizontalWidth != 2000;
+            return this.HorizontalWidth != 2000;
         }
 
 
         private bool ShouldSerializeScrollBars()
         {
-            return ScrollBars != ScrollBars.Both;
+            return this.ScrollBars != ScrollBars.Both;
         }
 
 
         private bool ShouldSerializeXOffset()
         {
-            return XOffset != 0;
+            return this.XOffset != 0;
         }
 
         #endregion Methods

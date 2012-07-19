@@ -35,7 +35,7 @@ namespace ARCed.Scintilla
         {
             char newline = (Scintilla.EndOfLine.Mode == EndOfLineMode.CR) ? '\r' : '\n';
 
-            switch (SmartIndentType)
+            switch (this.SmartIndentType)
             {
                 case SmartIndent.None:
                     return;
@@ -70,7 +70,7 @@ namespace ARCed.Scintilla
                             int bracePos = Scintilla.CurrentPos - 1;
                             while (bracePos > 0 && Scintilla.CharAt(bracePos) != '{') bracePos--;
                             if (bracePos > 0 && Scintilla.Styles.GetStyleAt(bracePos) == 10)
-                                previousIndent += TabWidth;
+                                previousIndent += this.TabWidth;
                         }
                         curLine.Indentation = previousIndent;
                         Scintilla.CurrentPos =  curLine.IndentPosition;
@@ -151,97 +151,97 @@ namespace ARCed.Scintilla
 
         private void ResetBackspaceUnindents()
         {
-            BackspaceUnindents = false;
+            this.BackspaceUnindents = false;
         }
 
 
         private void ResetIndentWidth()
         {
-            IndentWidth = 0;
+            this.IndentWidth = 0;
         }
 
 
         private void ResetShowGuides()
         {
-            ShowGuides = false;
+            this.ShowGuides = false;
         }
 
 
         private void ResetSmartIndentType()
         {
-            _smartIndentType = SmartIndent.None;
+            this._smartIndentType = SmartIndent.None;
         }
 
 
         private void ResetTabIndents()
         {
-            TabIndents = false;
+            this.TabIndents = false;
         }
 
 
         private void ResetTabWidth()
         {
-            TabWidth = 8;
+            this.TabWidth = 8;
         }
 
 
         private void ResetUseTabs()
         {
-            UseTabs = true;
+            this.UseTabs = true;
         }
 
 
         internal bool ShouldSerialize()
         {
-            return ShouldSerializeBackspaceUnindents() ||
-                ShouldSerializeIndentWidth() ||
-                ShouldSerializeShowGuides() || 
-                ShouldSerializeTabIndents() ||
-                ShouldSerializeTabWidth() ||
-                ShouldSerializeUseTabs();
+            return this.ShouldSerializeBackspaceUnindents() ||
+                this.ShouldSerializeIndentWidth() ||
+                this.ShouldSerializeShowGuides() || 
+                this.ShouldSerializeTabIndents() ||
+                this.ShouldSerializeTabWidth() ||
+                this.ShouldSerializeUseTabs();
         }
 
 
         private bool ShouldSerializeBackspaceUnindents()
         {
-            return BackspaceUnindents;
+            return this.BackspaceUnindents;
 
         }
 
 
         private bool ShouldSerializeIndentWidth()
         {
-            return IndentWidth != 0;
+            return this.IndentWidth != 0;
         }
 
 
         private bool ShouldSerializeShowGuides()
         {
-            return ShowGuides;
+            return this.ShowGuides;
         }
 
 
         private bool ShouldSerializeSmartIndentType()
         {
-            return _smartIndentType != SmartIndent.None;
+            return this._smartIndentType != SmartIndent.None;
         }
 
 
         private bool ShouldSerializeTabIndents()
         {
-            return !TabIndents;
+            return !this.TabIndents;
         }
 
 
         private bool ShouldSerializeTabWidth()
         {
-            return TabWidth != 8;
+            return this.TabWidth != 8;
         }
 
 
         private bool ShouldSerializeUseTabs()
         {
-            return !UseTabs;
+            return !this.UseTabs;
         }
 
         #endregion Methods
@@ -290,10 +290,10 @@ namespace ARCed.Scintilla
 
         public SmartIndent SmartIndentType
         {
-            get { return _smartIndentType; }
+            get { return this._smartIndentType; }
             set
             {
-                _smartIndentType = value;
+                this._smartIndentType = value;
             }
         }
 

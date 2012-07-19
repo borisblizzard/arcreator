@@ -61,11 +61,11 @@ namespace ARCed.Core
 		/// <summary>
 		/// Directory relative to the main directory the resource is found in
 		/// </summary>
-		public string Directory { get { return FileInfo.DirectoryName; } }
+		public string Directory { get { return this.FileInfo.DirectoryName; } }
 		/// <summary>
 		/// FullPath of the resource
 		/// </summary>
-		public string FullPath { get { return FileInfo.FullName; } }
+		public string FullPath { get { return this.FileInfo.FullName; } }
 		/// <summary>
 		/// The type of the resource
 		/// </summary>
@@ -77,11 +77,11 @@ namespace ARCed.Core
 		/// <summary>
 		/// Gets the name of the file without directory or extension
 		/// </summary>
-		public string Name { get { return Path.GetFileNameWithoutExtension(FileInfo.Name); } }
+		public string Name { get { return Path.GetFileNameWithoutExtension(this.FileInfo.Name); } }
 		/// <summary>
 		/// Gets the extension of the file
 		/// </summary>
-		public string FileExtension { get { return FileInfo.Extension; } }
+		public string FileExtension { get { return this.FileInfo.Extension; } }
 		/// <summary>
 		/// Gets a path that is relative to both the project and RTP directory
 		/// </summary>
@@ -89,7 +89,7 @@ namespace ARCed.Core
 		{
 			get 
 			{
-			    var path = FullPath.Replace(this.Location == Location.Local ? 
+			    var path = this.FullPath.Replace(this.Location == Location.Local ? 
                     System.IO.Directory.GetCurrentDirectory() : Constants.RTPPath, "");
 			    return path.TrimStart('\\', '.');
 			}
@@ -97,7 +97,7 @@ namespace ARCed.Core
 		/// <summary>
 		/// Returns the relative directory of the resource from the root folder
 		/// </summary>
-		public string RelativeDirectory { get { return Path.GetDirectoryName(RelativePath); } }
+		public string RelativeDirectory { get { return Path.GetDirectoryName(this.RelativePath); } }
 
 		/// <summary>
 		/// Gets the FileInfo object for the file
@@ -117,8 +117,8 @@ namespace ARCed.Core
 		public GameResource(string filename, Location location, ResourceType type)
 		{
 			if (!string.IsNullOrWhiteSpace(filename))
-				FileInfo = new FileInfo(filename);
-			Location = location;
+				this.FileInfo = new FileInfo(filename);
+			this.Location = location;
 			if (type == ResourceType.Unknown)
 			{
 				// Try to determine type based off file extension
@@ -126,7 +126,7 @@ namespace ARCed.Core
 				if (Constants.IMAGEFILTERS.Split('|').Contains(ext)) type = ResourceType.Graphics;
 				else if (Constants.AUDIOFILTERS.Split('|').Contains(ext)) type = ResourceType.Audio;
 			}
-			ResourceType = type;
+			this.ResourceType = type;
 		}
 
 		/// <summary>

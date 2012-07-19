@@ -27,11 +27,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _foldMarginColor;
+                return this._foldMarginColor;
             }
             set
             {
-                _foldMarginColor = value;
+                this._foldMarginColor = value;
             }
         }
 
@@ -40,11 +40,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _foldMarginHighlightColor;
+                return this._foldMarginHighlightColor;
             }
             set
             {
-                _foldMarginHighlightColor = value;
+                this._foldMarginHighlightColor = value;
             }
         }
 
@@ -53,11 +53,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _inherit;
+                return this._inherit;
             }
             set
             {
-                _inherit = value;
+                this._inherit = value;
             }
         }
 
@@ -66,11 +66,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _left;
+                return this._left;
             }
             set
             {
-                _left = value;
+                this._left = value;
             }
         }
 
@@ -79,11 +79,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _right;
+                return this._right;
             }
             set
             {
-                _right = value;
+                this._right = value;
             }
         }
 

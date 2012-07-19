@@ -24,6 +24,12 @@ namespace RPG
         /// <summary>
         /// Creates a new instance of an RPG.AudioFile.
         /// </summary>
+        /// <remarks>This empty constructor is required for deserialization purposes.</remarks>
+        public AudioFile() : this("", 100, 100) { }
+
+        /// <summary>
+        /// Creates a new instance of an RPG.AudioFile.
+        /// </summary>
         /// <param name="name">Name of the sound file.</param>
         /// <param name="volume">The sound's volume.</param>
         /// <param name="pitch">The sound's pitch.</param>
@@ -40,7 +46,7 @@ namespace RPG
         /// <returns>String representation of object.</returns>
 		public override string ToString()
 		{
-			return string.Format("\"{0}\", {1}, {2}", name, volume, pitch);
+			return string.Format("\"{0}\", {1}, {2}", this.name, this.volume, this.pitch);
 		}
 	}
 }

@@ -47,14 +47,14 @@ namespace ARCed.Forms
 		/// <summary>
 		/// Gets the text from the calculator textbox and returns it as a double
 		/// </summary>
-		private double InputValue { get { return Convert.ToDouble(textBox.Text); } }
+		private double InputValue { get { return Convert.ToDouble(this.textBox.Text); } }
 
 		/// <summary>
 		/// Gets the current display mode of the calculator
 		/// </summary>
 		public CalculatorMode Mode
 		{
-			get { return groupBoxScientific.IsCollapsed ? CalculatorMode.Basic : CalculatorMode.Full; } 
+			get { return this.groupBoxScientific.IsCollapsed ? CalculatorMode.Basic : CalculatorMode.Full; } 
 		}
 
 		#endregion
@@ -66,13 +66,13 @@ namespace ARCed.Forms
 		/// </summary>
 		public CalculatorForm() 
 		{
-			InitializeComponent();
-			number1 = number2 = 0.0;
-			textBox.ReadOnly = true;
-			textBox.RightToLeft = RightToLeft.Yes;
-			textBox.Text = "0";
-			radioDegree.Checked = true;
-			this.Icon = Icon.FromHandle(Resources.Calculator.GetHicon());
+			this.InitializeComponent();
+			this.number1 = this.number2 = 0.0;
+			this.textBox.ReadOnly = true;
+			this.textBox.RightToLeft = RightToLeft.Yes;
+			this.textBox.Text = "0";
+			this.radioDegree.Checked = true;
+			Icon = Icon.FromHandle(Resources.Calculator.GetHicon());
 			this.checkBoxTopMost.DataBindings.Add("Checked", this,
 				"Topmost", false, DataSourceUpdateMode.OnPropertyChanged);
 		}
@@ -83,59 +83,59 @@ namespace ARCed.Forms
 
 		private void buttonNumber_Click(object sender, EventArgs e)
 		{
-			if (!inputstatus || textBox.Text == "0")
+			if (!this.inputstatus || this.textBox.Text == "0")
 			{
-				textBox.Text = (sender as Button).Text;
-				inputstatus = true;
+				this.textBox.Text = (sender as Button).Text;
+				this.inputstatus = true;
 			}
 			else
-				textBox.Text += (sender as Button).Text;
+				this.textBox.Text += (sender as Button).Text;
 		}
 
         private void buttonEquals_Click(object sender, EventArgs e)
         {
-            CalculateFunction();
-            inputstatus = false;
+            this.CalculateFunction();
+            this.inputstatus = false;
         }
 
         private void buttonSquared_Click(object sender, EventArgs e)
         {
-			double num = InputValue;
-			textBox.Text = Convert.ToString(num * num);
-            inputstatus = false;
+			double num = this.InputValue;
+			this.textBox.Text = Convert.ToString(num * num);
+            this.inputstatus = false;
         }
 
         private void buttonCubed_Click(object sender, EventArgs e)
         {
-			double num = InputValue;
-            textBox.Text = Convert.ToString(num * num * num);
-            inputstatus = false;
+			double num = this.InputValue;
+            this.textBox.Text = Convert.ToString(num * num * num);
+            this.inputstatus = false;
         }
 
         private void buttonSquareRoot_Click(object sender, EventArgs e)
         {
-            textBox.Text = Convert.ToString(Math.Sqrt(InputValue));
-            inputstatus = false;
+            this.textBox.Text = Convert.ToString(Math.Sqrt(this.InputValue));
+            this.inputstatus = false;
         }
 
         private void buttonPi_Click(object sender, EventArgs e)
         {
-            textBox.Text = Convert.ToString(Math.PI);
+            this.textBox.Text = Convert.ToString(Math.PI);
         }
 
 		private void buttonBackspace_Click(object sender, EventArgs e)
 		{
-			int n = textBox.Text.Length;
+			int n = this.textBox.Text.Length;
 			if (n == 1)
-				textBox.Text = "0";
+				this.textBox.Text = "0";
 			else if (n > 0)
-				textBox.Text = textBox.Text.Substring(0, n - 1);
+				this.textBox.Text = this.textBox.Text.Substring(0, n - 1);
 		}
 
 		private void buttonOperator_Click(object sender, EventArgs e)
 		{
-			textBox.Text = (InputValue * -1).ToString();
-			inputstatus = false;
+			this.textBox.Text = (this.InputValue * -1).ToString();
+			this.inputstatus = false;
 		}
 
 		#endregion
@@ -144,50 +144,50 @@ namespace ARCed.Forms
 
 		private void buttonSine_Click(object sender, EventArgs e)
         {
-			number1 = InputValue;
-			if (radioDegree.Checked) number1 *= RADIAN;
-			textBox.Text = Convert.ToString(Math.Sin(number1));
-			inputstatus = false;
+			this.number1 = this.InputValue;
+			if (this.radioDegree.Checked) this.number1 *= RADIAN;
+			this.textBox.Text = Convert.ToString(Math.Sin(this.number1));
+			this.inputstatus = false;
         }
 
         private void buttonCosine_Click(object sender, EventArgs e)
         {
-			number1 = InputValue;
-			if (radioDegree.Checked) number1 *= RADIAN;
-			textBox.Text = Convert.ToString(Math.Cos(number1));
-			inputstatus = false;
+			this.number1 = this.InputValue;
+			if (this.radioDegree.Checked) this.number1 *= RADIAN;
+			this.textBox.Text = Convert.ToString(Math.Cos(this.number1));
+			this.inputstatus = false;
         }
 
         private void buttonTangent_Click(object sender, EventArgs e)
         {
-			number1 = InputValue;
-			if (radioDegree.Checked) number1 *= RADIAN;
-			textBox.Text = Convert.ToString(Math.Tan(number1));
-			inputstatus = false;
+			this.number1 = this.InputValue;
+			if (this.radioDegree.Checked) this.number1 *= RADIAN;
+			this.textBox.Text = Convert.ToString(Math.Tan(this.number1));
+			this.inputstatus = false;
         }
 
 		private void buttonInverseSine_Click(object sender, EventArgs e)
 		{
-			number1 = InputValue;
-			if (radioDegree.Checked) number1 *= RADIAN;
-			textBox.Text = Convert.ToString(Math.Asin(number1));
-			inputstatus = false;
+			this.number1 = this.InputValue;
+			if (this.radioDegree.Checked) this.number1 *= RADIAN;
+			this.textBox.Text = Convert.ToString(Math.Asin(this.number1));
+			this.inputstatus = false;
 		}
 
 		private void buttonInverseCosine_Click(object sender, EventArgs e)
 		{
-			number1 = InputValue;
-			if (radioDegree.Checked) number1 *= RADIAN;
-			textBox.Text = Convert.ToString(Math.Acos(number1));
-			inputstatus = false;
+			this.number1 = this.InputValue;
+			if (this.radioDegree.Checked) this.number1 *= RADIAN;
+			this.textBox.Text = Convert.ToString(Math.Acos(this.number1));
+			this.inputstatus = false;
 		}
 
 		private void buttonInverseTangent_Click(object sender, EventArgs e)
 		{
-			number1 = InputValue;
-			if (radioDegree.Checked) number1 *= RADIAN;
-			textBox.Text = Convert.ToString(Math.Atan(number1));
-			inputstatus = false;
+			this.number1 = this.InputValue;
+			if (this.radioDegree.Checked) this.number1 *= RADIAN;
+			this.textBox.Text = Convert.ToString(Math.Atan(this.number1));
+			this.inputstatus = false;
 		}
 
 		#endregion
@@ -196,29 +196,29 @@ namespace ARCed.Forms
 
 		private void button1DividedBy_Click(object sender, EventArgs e)
         {
-			textBox.Text = Convert.ToString(1.0 / InputValue);
-			inputstatus = false;
+			this.textBox.Text = Convert.ToString(1.0 / this.InputValue);
+			this.inputstatus = false;
         }
 
         private void buttonFactor_Click(object sender, EventArgs e)
         {
             int num = 1;
-            for (int i = 1; i <= Convert.ToInt32(InputValue); i++)
+            for (int i = 1; i <= Convert.ToInt32(this.InputValue); i++)
                 num = num * i;
-            textBox.Text = Convert.ToString(num);
-            inputstatus = false;
+            this.textBox.Text = Convert.ToString(num);
+            this.inputstatus = false;
         }
 
         private void buttonLog10_Click(object sender, EventArgs e)
         {
-            textBox.Text = Convert.ToString(Math.Log10(InputValue));
-            inputstatus=false;
+            this.textBox.Text = Convert.ToString(Math.Log10(this.InputValue));
+            this.inputstatus=false;
         }
 
         private void buttonNaturalLog_Click(object sender, EventArgs e)
         {
-            textBox.Text = Convert.ToString(Math.Log(InputValue));
-            inputstatus = false;
+            this.textBox.Text = Convert.ToString(Math.Log(this.InputValue));
+            this.inputstatus = false;
         }
 
 		#endregion
@@ -227,14 +227,14 @@ namespace ARCed.Forms
 
 		private void buttonCopy_Click(object sender, EventArgs e)
         {
-			Clipboard.SetText(textBox.Text);
+			Clipboard.SetText(this.textBox.Text);
         }
 
 		private void buttonPaste_Click(object sender, EventArgs e)
 		{
 			if (Clipboard.ContainsText())
 			{
-				try { textBox.Text = Clipboard.GetText(); }
+				try { this.textBox.Text = Clipboard.GetText(); }
 				catch { Console.WriteLine("TEXT"); }
 			}
 		}
@@ -245,67 +245,67 @@ namespace ARCed.Forms
 
 		private void buttonClear_Click(object sender, EventArgs e)
 		{
-			textBox.Enabled = true;
-			textBox.Text = "0";
+			this.textBox.Enabled = true;
+			this.textBox.Text = "0";
 		}
 
 		private void groupBoxScientific_CollapseBoxClickedEvent(object sender)
 		{
-			int y = groupBoxScientific.FullHeight - groupBoxScientific.CollapsedHeight;
-			if (groupBoxScientific.IsCollapsed) y *= -1;
-			panelBasic.Location =
-				new Point(panelBasic.Location.X, panelBasic.Location.Y + y);
+			int y = this.groupBoxScientific.FullHeight - this.groupBoxScientific.CollapsedHeight;
+			if (this.groupBoxScientific.IsCollapsed) y *= -1;
+			this.panelBasic.Location =
+				new Point(this.panelBasic.Location.X, this.panelBasic.Location.Y + y);
 		}
 
 		private void SetFunction(object sender, EventArgs e)
 		{
-			number1 = InputValue;
-			textBox.Text = "";
-			function = (sender as Button).Text;
+			this.number1 = this.InputValue;
+			this.textBox.Text = "";
+			this.function = (sender as Button).Text;
 		}
 
 		private void CalculateFunction()
 		{
 			double var1, var2, var3;
-			number2 = InputValue;
-			switch (function)
+			this.number2 = this.InputValue;
+			switch (this.function)
 			{
 				case "+":
-					result = number1 + number2;
+					this.result = this.number1 + this.number2;
 					break;
 				case "-":
-					result = number1 - number2;
+					this.result = this.number1 - this.number2;
 					break;
 				case "*":
-					result = number1 * number2;
+					this.result = this.number1 * this.number2;
 					break;
 				case "/":
-					if (number2 == 0)
+					if (this.number2 == 0)
 					{
-						textBox.Text = "ERROR";
+						this.textBox.Text = "ERROR";
 						return;
 					}
-					result = number1 / number2;
+					this.result = this.number1 / this.number2;
 					break;
 				case "x^y":
-					result = Math.Pow(number1, number2);
+					this.result = Math.Pow(this.number1, this.number2);
 					break;
 				case "%":
-					result = number1 % number2;
+					this.result = this.number1 % this.number2;
 					break;
 				case "nPr":
-					var1 = Factorial((int)number1);
-					var2 = Factorial((int)(number1 - number2));
-					result = var1 / var2;
+					var1 = Factorial((int)this.number1);
+					var2 = Factorial((int)(this.number1 - this.number2));
+					this.result = var1 / var2;
 					break;
 				case "nCr":
-					var1 = Factorial((int)number1);
-					var2 = Factorial((int)(number1 - number2));
-					var3 = Factorial((int)number2);
-					result = var1 / (var3 * var2);
+					var1 = Factorial((int)this.number1);
+					var2 = Factorial((int)(this.number1 - this.number2));
+					var3 = Factorial((int)this.number2);
+					this.result = var1 / (var3 * var2);
 					break;
 			}
-			textBox.Text = Convert.ToString(result);
+			this.textBox.Text = Convert.ToString(this.result);
 		}
 
 		private static int Factorial(int x)

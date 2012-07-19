@@ -59,9 +59,14 @@ namespace ARCed.Scintilla
 
         public unsafe Range Find(int startPos, int endPos, string searchString, SearchFlags flags)
         {
-            var ttf = new TextToFind();
-            ttf.chrg.cpMin = startPos;
-            ttf.chrg.cpMax = endPos;
+            var ttf = new TextToFind
+            {
+                chrg =
+                {
+                    cpMin = startPos,
+                    cpMax = endPos
+                }
+            };
 
             fixed (byte* pb = Scintilla.Encoding.GetBytes(searchString))
             {
@@ -119,16 +124,16 @@ namespace ARCed.Scintilla
 
         public Range Find(Range rangeToSearch, string searchString)
         {
-            return Find(rangeToSearch.Start, rangeToSearch.End, searchString, _flags);
+            return this.Find(rangeToSearch.Start, rangeToSearch.End, searchString, this._flags);
         }
 
 
         public Range Find(Range rangeToSearch, string searchString, bool searchUp)
         {
             if (searchUp)
-                return Find(rangeToSearch.End, rangeToSearch.Start, searchString, _flags);
+                return this.Find(rangeToSearch.End, rangeToSearch.Start, searchString, this._flags);
             else
-                return Find(rangeToSearch.Start, rangeToSearch.End, searchString, _flags);
+                return this.Find(rangeToSearch.Start, rangeToSearch.End, searchString, this._flags);
         }
 
 
@@ -161,16 +166,16 @@ namespace ARCed.Scintilla
 
         public Range Find(string searchString)
         {
-            return Find(0, NativeScintilla.GetTextLength(), searchString, _flags);
+            return this.Find(0, NativeScintilla.GetTextLength(), searchString, this._flags);
         }
 
 
         public Range Find(string searchString, bool searchUp)
         {
             if (searchUp)
-                return Find(NativeScintilla.GetTextLength(), 0, searchString, _flags);
+                return this.Find(NativeScintilla.GetTextLength(), 0, searchString, this._flags);
             else
-                return Find(0, NativeScintilla.GetTextLength(), searchString, _flags);
+                return this.Find(0, NativeScintilla.GetTextLength(), searchString, this._flags);
         }
 
 
@@ -239,31 +244,31 @@ namespace ARCed.Scintilla
 
         public List<Range> FindAll(Range rangeToSearch, string searchString)
         {
-            return FindAll(rangeToSearch.Start, rangeToSearch.End, searchString, _flags);
+            return this.FindAll(rangeToSearch.Start, rangeToSearch.End, searchString, this._flags);
         }
 
 
         public List<Range> FindAll(Range rangeToSearch, string searchString, SearchFlags flags)
         {
-            return FindAll(rangeToSearch.Start, rangeToSearch.End, searchString, _flags);
+            return this.FindAll(rangeToSearch.Start, rangeToSearch.End, searchString, this._flags);
         }
 
 
         public List<Range> FindAll(Regex findExpression)
         {
-            return FindAll(0, NativeScintilla.GetTextLength(), findExpression);
+            return this.FindAll(0, NativeScintilla.GetTextLength(), findExpression);
         }
 
 
         public List<Range> FindAll(string searchString)
         {
-            return FindAll(searchString, _flags);
+            return this.FindAll(searchString, this._flags);
         }
 
 
         public List<Range> FindAll(string searchString, SearchFlags flags)
         {
-            return FindAll(0, NativeScintilla.GetTextLength(), searchString, flags);
+            return this.FindAll(0, NativeScintilla.GetTextLength(), searchString, flags);
         }
 
 
@@ -275,11 +280,11 @@ namespace ARCed.Scintilla
 
         public Range FindNext(Regex findExpression, bool wrap)
         {
-            Range r = Find(NativeScintilla.GetCurrentPos(), NativeScintilla.GetTextLength(), findExpression);
+            Range r = this.Find(NativeScintilla.GetCurrentPos(), NativeScintilla.GetTextLength(), findExpression);
             if (r != null)
                 return r;
             else if (wrap)
-                return Find(0, NativeScintilla.GetCurrentPos(), findExpression);
+                return this.Find(0, NativeScintilla.GetCurrentPos(), findExpression);
             else
                 return null;
         }
@@ -303,13 +308,13 @@ namespace ARCed.Scintilla
 
         public Range FindNext(string searchString)
         {
-            return FindNext(searchString, true, _flags);
+            return this.FindNext(searchString, true, this._flags);
         }
 
 
         public Range FindNext(string searchString, bool wrap)
         {
-            return FindNext(searchString, wrap, _flags);
+            return this.FindNext(searchString, wrap, this._flags);
         }
 
 
@@ -355,11 +360,11 @@ namespace ARCed.Scintilla
 
         public Range FindPrevious(Regex findExpression, bool wrap)
         {
-            Range r = Find(0, NativeScintilla.GetAnchor(), findExpression, true);
+            Range r = this.Find(0, NativeScintilla.GetAnchor(), findExpression, true);
             if (r != null)
                 return r;
             else if (wrap)
-                return Find(NativeScintilla.GetCurrentPos(), NativeScintilla.GetTextLength(), findExpression, true);
+                return this.Find(NativeScintilla.GetCurrentPos(), NativeScintilla.GetTextLength(), findExpression, true);
             else
                 return null;
 
@@ -388,13 +393,13 @@ namespace ARCed.Scintilla
 
         public Range FindPrevious(string searchString)
         {
-            return FindPrevious(searchString, true, _flags);
+            return this.FindPrevious(searchString, true, this._flags);
         }
 
 
         public Range FindPrevious(string searchString, bool wrap)
         {
-            return FindPrevious(searchString, wrap, _flags);
+            return this.FindPrevious(searchString, wrap, this._flags);
         }
 
 
@@ -440,14 +445,14 @@ namespace ARCed.Scintilla
         {
             foreach (Range r in foundRanges)
             {
-                r.SetIndicator(Indicator.Number);
+                r.SetIndicator(this.Indicator.Number);
             }
         }
 
 
         public void IncrementalSearch()
         {
-            _incrementalSearcher.Show();
+            this._incrementalSearcher.Show();
         }
 
 
@@ -462,7 +467,7 @@ namespace ARCed.Scintilla
                 //	line. We don't want to mark this line more than once.
                 Line line = r.StartingLine;
                 if (line.Number > lastLine.Number)
-                    ret.Add(Marker.AddInstanceTo(r.StartingLine));
+                    ret.Add(this.Marker.AddInstanceTo(r.StartingLine));
                 lastLine = line;
             }
 
@@ -512,20 +517,20 @@ namespace ARCed.Scintilla
             //	I tried using an anonymous delegate for this but it didn't work too well.
             //	It's too bad because it was a lot cleaner than using member variables as
             //	psuedo globals.
-            _lastReplaceAllMatches = new List<Range>();
-            _lastReplaceAllReplaceString = replaceString;
-            _lastReplaceAllRangeToSearch = rangeToSearch;
-            _lastReplaceAllOffset = 0;
+            this._lastReplaceAllMatches = new List<Range>();
+            this._lastReplaceAllReplaceString = replaceString;
+            this._lastReplaceAllRangeToSearch = rangeToSearch;
+            this._lastReplaceAllOffset = 0;
 
             findExpression.Replace(rangeToSearch.Text, this.ReplaceAllEvaluator);
 
             Scintilla.UndoRedo.EndUndoAction();
 
             //	No use having these values hanging around wasting memory :)
-            List<Range> ret = _lastReplaceAllMatches;
-            _lastReplaceAllMatches = null;
-            _lastReplaceAllReplaceString = null;
-            _lastReplaceAllRangeToSearch = null;
+            List<Range> ret = this._lastReplaceAllMatches;
+            this._lastReplaceAllMatches = null;
+            this._lastReplaceAllReplaceString = null;
+            this._lastReplaceAllRangeToSearch = null;
 
             return ret;
         }
@@ -533,31 +538,31 @@ namespace ARCed.Scintilla
 
         public List<Range> ReplaceAll(Range rangeToSearch, string searchString, string replaceString)
         {
-            return ReplaceAll(rangeToSearch.Start, rangeToSearch.End, searchString, replaceString, _flags);
+            return this.ReplaceAll(rangeToSearch.Start, rangeToSearch.End, searchString, replaceString, this._flags);
         }
 
 
         public List<Range> ReplaceAll(Range rangeToSearch, string searchString, string replaceString, SearchFlags flags)
         {
-            return ReplaceAll(rangeToSearch.Start, rangeToSearch.End, searchString, replaceString, _flags);
+            return this.ReplaceAll(rangeToSearch.Start, rangeToSearch.End, searchString, replaceString, this._flags);
         }
 
 
         public List<Range> ReplaceAll(Regex findExpression, string replaceString)
         {
-            return ReplaceAll(0, NativeScintilla.GetTextLength(), findExpression, replaceString);
+            return this.ReplaceAll(0, NativeScintilla.GetTextLength(), findExpression, replaceString);
         }
 
 
         public List<Range> ReplaceAll(string searchString, string replaceString)
         {
-            return ReplaceAll(searchString, replaceString, _flags);
+            return this.ReplaceAll(searchString, replaceString, this._flags);
         }
 
 
         public List<Range> ReplaceAll(string searchString, string replaceString, SearchFlags flags)
         {
-            return ReplaceAll(0, NativeScintilla.GetTextLength(), searchString, replaceString, flags);
+            return this.ReplaceAll(0, NativeScintilla.GetTextLength(), searchString, replaceString, flags);
         }
 
 
@@ -567,31 +572,31 @@ namespace ARCed.Scintilla
 
             //	We make a replacement in the range based upon
             //	the match range.
-            string replacement = m.Result(_lastReplaceAllReplaceString);
-            int start = _lastReplaceAllRangeToSearch.Start + m.Index + _lastReplaceAllOffset;
+            string replacement = m.Result(this._lastReplaceAllReplaceString);
+            int start = this._lastReplaceAllRangeToSearch.Start + m.Index + this._lastReplaceAllOffset;
             int end = start + m.Length;
 
             var r = new Range(start, end, Scintilla);
-            _lastReplaceAllMatches.Add(r);
+            this._lastReplaceAllMatches.Add(r);
             r.Text = replacement;
 
             //	But because we've modified the document, the RegEx
             //	match ranges are going to be different from the
             //	document ranges. We need to compensate
-            _lastReplaceAllOffset += replacement.Length - m.Value.Length;
+            this._lastReplaceAllOffset += replacement.Length - m.Value.Length;
             return replacement;
         }
 
 
         public Range ReplaceNext(string searchString, string replaceString)
         {
-            return ReplaceNext(searchString, replaceString, true, _flags);
+            return this.ReplaceNext(searchString, replaceString, true, this._flags);
         }
 
 
         public Range ReplaceNext(string searchString, string replaceString, bool wrap)
         {
-            return ReplaceNext(searchString, replaceString, wrap, _flags);
+            return this.ReplaceNext(searchString, replaceString, wrap, this._flags);
         }
 
 
@@ -611,19 +616,19 @@ namespace ARCed.Scintilla
 
         public Range ReplaceNext(string searchString, string replaceString, SearchFlags flags)
         {
-            return ReplaceNext(searchString, replaceString, true, flags);
+            return this.ReplaceNext(searchString, replaceString, true, flags);
         }
 
 
         public Range ReplacePrevious(string searchString, string replaceString)
         {
-            return ReplacePrevious(searchString, replaceString, true, _flags);
+            return this.ReplacePrevious(searchString, replaceString, true, this._flags);
         }
 
 
         public Range ReplacePrevious(string searchString, string replaceString, bool wrap)
         {
-            return ReplacePrevious(searchString, replaceString, wrap, _flags);
+            return this.ReplacePrevious(searchString, replaceString, wrap, this._flags);
         }
 
 
@@ -643,100 +648,100 @@ namespace ARCed.Scintilla
 
         public Range ReplacePrevious(string searchString, string replaceString, SearchFlags flags)
         {
-            return ReplacePrevious(searchString, replaceString, true, flags);
+            return this.ReplacePrevious(searchString, replaceString, true, flags);
         }
 
 
         private void ResetFlags()
         {
-            _flags = SearchFlags.Empty;
+            this._flags = SearchFlags.Empty;
         }
 
 
         private void ResetIndicator()
         {
-            _indicator.Reset();
+            this._indicator.Reset();
         }
 
 
         private void ResetMarker()
         {
-            _marker.Reset();
-            _marker.Number = 10;
+            this._marker.Reset();
+            this._marker.Number = 10;
         }
 
 
         internal bool ShouldSerialize()
         {
-            return ShouldSerializeFlags() ||
-                ShouldSerializeIndicator() ||
-                ShouldSerializeMarker();
+            return this.ShouldSerializeFlags() ||
+                this.ShouldSerializeIndicator() ||
+                this.ShouldSerializeMarker();
         }
 
 
         private bool ShouldSerializeFlags()
         {
-            return _flags != SearchFlags.Empty;
+            return this._flags != SearchFlags.Empty;
         }
 
 
         private bool ShouldSerializeIndicator()
         {
-            return _indicator.Number != 16 || _indicator.Color != Color.Purple || _indicator.IsDrawnUnder;
+            return this._indicator.Number != 16 || this._indicator.Color != Color.Purple || this._indicator.IsDrawnUnder;
         }
 
 
         private bool ShouldSerializeMarker()
         {
-            return _marker.Number != 10 || _marker.ForeColor != Color.White || _marker.BackColor != Color.Black || _marker.Symbol != MarkerSymbol.Arrows;
+            return this._marker.Number != 10 || this._marker.ForeColor != Color.White || this._marker.BackColor != Color.Black || this._marker.Symbol != MarkerSymbol.Arrows;
         }
 
 
         public void ShowFind()
         {
-            if (!_window.Visible)
+            if (!this._window.Visible)
                 //_window.Show(Scintilla.FindForm());
                 if (ParentDock == null)
                     return;
-				_window.Show(ParentDock);
-            _window.tabAll.SelectedTab = _window.tabAll.TabPages["tpgFind"];
+				this._window.Show(ParentDock);
+            this._window.tabAll.SelectedTab = this._window.tabAll.TabPages["tpgFind"];
 
             Range selRange = Scintilla.Selection.Range;
             if (selRange.IsMultiLine)
             {
-                _window.chkSearchSelectionF.Checked = true;
+                this._window.chkSearchSelectionF.Checked = true;
             }
             else if (selRange.Length > 0)
             {
-                _window.cboFindF.Text = selRange.Text;
+                this._window.cboFindF.Text = selRange.Text;
             }
 
-            _window.cboFindF.Select();
-            _window.cboFindF.SelectAll();
+            this._window.cboFindF.Select();
+            this._window.cboFindF.SelectAll();
         }
 
 
         public void ShowReplace()
         {
-            if (!_window.Visible)
+            if (!this._window.Visible)
                 if (ParentDock == null)
                     return;
-				_window.Show(ParentDock);
+				this._window.Show(ParentDock);
                 //_window.Show(Scintilla.FindForm());
-            _window.tabAll.SelectedTab = _window.tabAll.TabPages["tpgReplace"];
+            this._window.tabAll.SelectedTab = this._window.tabAll.TabPages["tpgReplace"];
 
             Range selRange = Scintilla.Selection.Range;
             if (selRange.IsMultiLine)
             {
-                _window.chkSearchSelectionR.Checked = true;
+                this._window.chkSearchSelectionR.Checked = true;
             }
             else if (selRange.Length > 0)
             {
-                _window.cboFindR.Text = selRange.Text;
+                this._window.cboFindR.Text = selRange.Text;
             }
 
-            _window.cboFindR.Select();
-            _window.cboFindR.SelectAll();
+            this._window.cboFindR.Select();
+            this._window.cboFindR.SelectAll();
         }
 
         #endregion Methods
@@ -749,11 +754,11 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _flags;
+                return this._flags;
             }
             set
             {
-                _flags = value;
+                this._flags = value;
             }
         }
 
@@ -763,11 +768,11 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _incrementalSearcher;
+                return this._incrementalSearcher;
             }
             set
             {
-                _incrementalSearcher = value;
+                this._incrementalSearcher = value;
             }
         }
 
@@ -776,11 +781,11 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _indicator;
+                return this._indicator;
             }
             set
             {
-                _indicator = value;
+                this._indicator = value;
             }
         }
 
@@ -789,11 +794,11 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _marker;
+                return this._marker;
             }
             set
             {
-                _marker = value;
+                this._marker = value;
             }
         }
 
@@ -803,11 +808,11 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _window;
+                return this._window;
             }
             set
             {
-                _window = value;
+                this._window = value;
             }
         }
 
@@ -818,21 +823,24 @@ namespace ARCed.Scintilla
 
         internal FindReplace(Scintilla scintilla) : base(scintilla) 
         {
-            _marker = scintilla.Markers[10];
-            _marker.SetSymbolInternal(MarkerSymbol.Arrows);
-            _indicator = scintilla.Indicators[16];
-            _indicator.Color = Color.Purple;
-            _indicator.Style = IndicatorStyle.RoundBox;
+            this._marker = scintilla.Markers[10];
+            this._marker.SetSymbolInternal(MarkerSymbol.Arrows);
+            this._indicator = scintilla.Indicators[16];
+            this._indicator.Color = Color.Purple;
+            this._indicator.Style = IndicatorStyle.RoundBox;
 
 
-            _window = new FindReplaceDialog();
-			//_window = Windows.ScintillaFindReplace;
-            _window.Scintilla = scintilla;
+            this._window = new FindReplaceDialog
+            {
+                Scintilla = scintilla
+            };
 
-            _incrementalSearcher = new IncrementalSearcher();
-            _incrementalSearcher.Scintilla = scintilla;
-            _incrementalSearcher.Visible = false;
-            scintilla.Controls.Add(_incrementalSearcher);
+            this._incrementalSearcher = new IncrementalSearcher
+            {
+                Scintilla = scintilla,
+                Visible = false
+            };
+            scintilla.Controls.Add(this._incrementalSearcher);
         }
 
         #endregion Constructors

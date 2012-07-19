@@ -3,6 +3,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Windows.Forms;
 
 #endregion
@@ -74,11 +75,11 @@ namespace ARCed.Scintilla
         public void AddBinding(Keys shortcut, Keys modifiers, BindableCommand command)
         {
             var kb = new KeyBinding(shortcut, modifiers);
-            if (!_boundCommands.ContainsKey(kb))
-                _boundCommands.Add(kb, new List<BindableCommand>());
+            if (!this._boundCommands.ContainsKey(kb))
+                this._boundCommands.Add(kb, new List<BindableCommand>());
 
-            List<BindableCommand> l = _boundCommands[kb];
-            if (_allowDuplicateBindings || !l.Contains(command))
+            List<BindableCommand> l = this._boundCommands[kb];
+            if (this._allowDuplicateBindings || !l.Contains(command))
                 l.Add(command);
         }
 
@@ -237,10 +238,8 @@ namespace ARCed.Scintilla
         private List<BindableCommand> GetCommands(Keys shortcut, Keys modifiers)
         {
             var kb = new KeyBinding(shortcut, modifiers);
-            if (!_boundCommands.ContainsKey(kb))
-                return new List<BindableCommand>();
-
-            return _boundCommands[kb];
+            return !this._boundCommands.ContainsKey(kb) ? new List<BindableCommand>() : 
+                this._boundCommands[kb];
         }
 
 
@@ -251,37 +250,31 @@ namespace ARCed.Scintilla
         /// <returns>List of KeyBindings bound to the given command</returns>
         public List<KeyBinding> GetKeyBindings(BindableCommand command)
         {
-            var ret = new List<KeyBinding>();
-            foreach (KeyValuePair<KeyBinding, List<BindableCommand>> item in _boundCommands)
-            {
-                if (item.Value.Contains(command))
-                    ret.Add(item.Key);
-            }
-
-            return ret;
+            return (from item in this._boundCommands
+                where item.Value.Contains(command)
+                select item.Key).ToList();
         }
-
 
         internal bool ProcessKey(KeyEventArgs e)
         {
-            StopProcessingCommands = false;
+            this.StopProcessingCommands = false;
 
             var kb = new KeyBinding(e.KeyCode, e.Modifiers);
-            if (!_boundCommands.ContainsKey(kb))
+            if (!this._boundCommands.ContainsKey(kb))
                 return false;
 
-            List<BindableCommand> cmds = _boundCommands[kb];
+            List<BindableCommand> cmds = this._boundCommands[kb];
             if (cmds.Count == 0)
                 return false;
 
-            cmds.Sort(_commandComparer);
+            cmds.Sort(this._commandComparer);
 
             bool ret = false;
             foreach (BindableCommand cmd in cmds)
             {
-                ret |= Execute(cmd);
+                ret |= this.Execute(cmd);
 
-                if (StopProcessingCommands)
+                if (this.StopProcessingCommands)
                     return ret;
             }
 
@@ -298,7 +291,7 @@ namespace ARCed.Scintilla
         /// </remarks>
         public void RemoveAllBindings()
         {
-            _boundCommands.Clear();
+            this._boundCommands.Clear();
         }
 
 
@@ -374,7 +367,7 @@ namespace ARCed.Scintilla
         /// <param name="modifiers">Shift, alt, ctrl</param>
         public void RemoveBinding(Keys shortcut, Keys modifiers)
         {
-            _boundCommands.Remove(new KeyBinding(shortcut, modifiers));
+            this._boundCommands.Remove(new KeyBinding(shortcut, modifiers));
         }
 
 
@@ -387,28 +380,28 @@ namespace ARCed.Scintilla
         public void RemoveBinding(Keys shortcut, Keys modifiers, BindableCommand command)
         {
             var kb = new KeyBinding(shortcut, modifiers);
-            if (!_boundCommands.ContainsKey(kb))
+            if (!this._boundCommands.ContainsKey(kb))
                 return;
 
-            _boundCommands[kb].Remove(command);
+            this._boundCommands[kb].Remove(command);
         }
 
 
         private void ResetAllowDuplicateBindings()
         {
-            _allowDuplicateBindings = true;
+            this._allowDuplicateBindings = true;
         }
 
 
         internal bool ShouldSerialize()
         {
-            return ShouldSerializeAllowDuplicateBindings();
+            return this.ShouldSerializeAllowDuplicateBindings();
         }
 
 
         private bool ShouldSerializeAllowDuplicateBindings()
         {
-            return !_allowDuplicateBindings;
+            return !this._allowDuplicateBindings;
         }
 
         #endregion Methods
@@ -427,11 +420,11 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _allowDuplicateBindings;
+                return this._allowDuplicateBindings;
             }
             set
             {
-                _allowDuplicateBindings = value;
+                this._allowDuplicateBindings = value;
             }
         }
 
@@ -470,121 +463,121 @@ namespace ARCed.Scintilla
             //	Since all the native Scintilla Commands already know how to work together
             //	properly they all have the same order. But our commands have to execute first
 
-            _commandComparer.CommandOrder.Add(BindableCommand.AutoCShow, 100);
-            _commandComparer.CommandOrder.Add(BindableCommand.AutoCComplete, 100);
-            _commandComparer.CommandOrder.Add(BindableCommand.AutoCCancel, 100);
-            _commandComparer.CommandOrder.Add(BindableCommand.DoSnippetCheck, 200);
-            _commandComparer.CommandOrder.Add(BindableCommand.AcceptActiveSnippets, 200);
-            _commandComparer.CommandOrder.Add(BindableCommand.CancelActiveSnippets, 200);
-            _commandComparer.CommandOrder.Add(BindableCommand.NextSnippetRange, 200);
-            _commandComparer.CommandOrder.Add(BindableCommand.PreviousSnippetRange, 200);
+            this._commandComparer.CommandOrder.Add(BindableCommand.AutoCShow, 100);
+            this._commandComparer.CommandOrder.Add(BindableCommand.AutoCComplete, 100);
+            this._commandComparer.CommandOrder.Add(BindableCommand.AutoCCancel, 100);
+            this._commandComparer.CommandOrder.Add(BindableCommand.DoSnippetCheck, 200);
+            this._commandComparer.CommandOrder.Add(BindableCommand.AcceptActiveSnippets, 200);
+            this._commandComparer.CommandOrder.Add(BindableCommand.CancelActiveSnippets, 200);
+            this._commandComparer.CommandOrder.Add(BindableCommand.NextSnippetRange, 200);
+            this._commandComparer.CommandOrder.Add(BindableCommand.PreviousSnippetRange, 200);
 
-            AddBinding(Keys.Down , Keys.None, BindableCommand.LineDown);
-            AddBinding(Keys.Down , Keys.Shift, BindableCommand.LineDownExtend);
-            AddBinding(Keys.Down , Keys.Control, BindableCommand.LineScrollDown);
-            AddBinding(Keys.Down , Keys.Alt | Keys.Shift, BindableCommand.LineDownRectExtend);
-            AddBinding(Keys.Up , Keys.None, BindableCommand.LineUp);
-            AddBinding(Keys.Up , Keys.Shift, BindableCommand.LineUpExtend);
-            AddBinding(Keys.Up , Keys.Control, BindableCommand.LineScrollUp);
-            AddBinding(Keys.Up , Keys.Alt | Keys.Shift, BindableCommand.LineUpRectExtend);
-            AddBinding('[',  Keys.Control, BindableCommand.ParaUp);
-            AddBinding('[' , Keys.Control | Keys.Shift, BindableCommand.ParaUpExtend);
-            AddBinding(']' , Keys.Control, BindableCommand.ParaDown);
-            AddBinding(']' , Keys.Control | Keys.Shift, BindableCommand.ParaDownExtend);
-            AddBinding(Keys.Left , Keys.None, BindableCommand.CharLeft);
-            AddBinding(Keys.Left , Keys.Shift, BindableCommand.CharLeftExtend);
-            AddBinding(Keys.Left , Keys.Control, BindableCommand.WordLeft);
-            AddBinding(Keys.Left , Keys.Control | Keys.Shift, BindableCommand.WordLeftExtend);
-            AddBinding(Keys.Left , Keys.Alt | Keys.Shift, BindableCommand.CharLeftRectExtend);
-            AddBinding(Keys.Right , Keys.None, BindableCommand.CharRight);
-            AddBinding(Keys.Right , Keys.Shift, BindableCommand.CharRightExtend);
-            AddBinding(Keys.Right , Keys.Control, BindableCommand.WordRight);
-            AddBinding(Keys.Right , Keys.Control | Keys.Shift, BindableCommand.WordRightExtend);
-            AddBinding(Keys.Right , Keys.Alt | Keys.Shift, BindableCommand.CharRightRectExtend);
-            AddBinding('/' , Keys.Control, BindableCommand.WordPartLeft);
-            AddBinding('/' , Keys.Control | Keys.Shift, BindableCommand.WordPartLeftExtend);
-            AddBinding('\\' , Keys.Control, BindableCommand.WordPartRight);
-            AddBinding('\\' , Keys.Control | Keys.Shift, BindableCommand.WordPartRightExtend);
-            AddBinding(Keys.Home , Keys.None, BindableCommand.VCHome);
-            AddBinding(Keys.Home , Keys.Shift, BindableCommand.VCHomeExtend);
-            AddBinding(Keys.Home , Keys.Control, BindableCommand.DocumentStart);
-            AddBinding(Keys.Home , Keys.Control | Keys.Shift, BindableCommand.DocumentStartExtend);
-            AddBinding(Keys.Home , Keys.Alt, BindableCommand.HomeDisplay);
-            AddBinding(Keys.Home , Keys.Alt | Keys.Shift, BindableCommand.VCHomeRectExtend);
-            AddBinding(Keys.End , Keys.None, BindableCommand.LineEnd);
-            AddBinding(Keys.End , Keys.Shift, BindableCommand.LineEndExtend);
-            AddBinding(Keys.End , Keys.Control, BindableCommand.DocumentEnd);
-            AddBinding(Keys.End , Keys.Control | Keys.Shift, BindableCommand.DocumentEndExtend);
-            AddBinding(Keys.End , Keys.Alt, BindableCommand.LineEndDisplay);
-            AddBinding(Keys.End , Keys.Alt | Keys.Shift, BindableCommand.LineEndRectExtend);
-            AddBinding(Keys.PageUp , Keys.None, BindableCommand.PageUp);
-            AddBinding(Keys.PageUp , Keys.Shift, BindableCommand.PageUpExtend);
-            AddBinding(Keys.PageUp , Keys.Alt | Keys.Shift, BindableCommand.PageUpRectExtend);
-            AddBinding(Keys.PageDown , Keys.None, BindableCommand.PageDown);
-            AddBinding(Keys.PageDown , Keys.Shift, BindableCommand.PageDownExtend);
-            AddBinding(Keys.PageDown , Keys.Alt | Keys.Shift, BindableCommand.PageDownRectExtend);
-            AddBinding(Keys.Delete , Keys.None, BindableCommand.Clear);
-            AddBinding(Keys.Delete , Keys.Shift, BindableCommand.Cut);
-            AddBinding(Keys.Delete , Keys.Control, BindableCommand.DelWordRight);
-            AddBinding(Keys.Delete , Keys.Control | Keys.Shift, BindableCommand.DelLineRight);
-            AddBinding(Keys.Insert , Keys.None, BindableCommand.EditToggleOvertype);
-            AddBinding(Keys.Insert , Keys.Shift, BindableCommand.Paste);
-            AddBinding(Keys.Insert , Keys.Control, BindableCommand.Copy);
-            AddBinding(Keys.Escape , Keys.None, BindableCommand.Cancel);
-            AddBinding(Keys.Back , Keys.None, BindableCommand.DeleteBack);
-            AddBinding(Keys.Back , Keys.Shift, BindableCommand.DeleteBack);
-            AddBinding(Keys.Back , Keys.Control, BindableCommand.DelWordLeft);
-            AddBinding(Keys.Back , Keys.Alt, BindableCommand.Undo);
-            AddBinding(Keys.Back , Keys.Control | Keys.Shift, BindableCommand.DelLineLeft);
-            AddBinding(Keys.Z, Keys.Control, BindableCommand.Undo);
-            AddBinding(Keys.Y, Keys.Control, BindableCommand.Redo);
-            AddBinding(Keys.X, Keys.Control, BindableCommand.Cut);
-            AddBinding(Keys.C, Keys.Control, BindableCommand.Copy);
-            AddBinding(Keys.V, Keys.Control, BindableCommand.Paste);
-            AddBinding(Keys.A, Keys.Control, BindableCommand.SelectAll);
-            AddBinding(Keys.Tab , Keys.None, BindableCommand.Tab);
-            AddBinding(Keys.Tab , Keys.Shift, BindableCommand.BackTab);
-            AddBinding(Keys.Enter , Keys.None, BindableCommand.NewLine);
-            AddBinding(Keys.Enter , Keys.Shift, BindableCommand.NewLine);
-            AddBinding(Keys.Add , Keys.Control, BindableCommand.ZoomIn);
-            AddBinding(Keys.Subtract , Keys.Control, BindableCommand.ZoomOut);
-            AddBinding(Keys.Divide, Keys.Control, BindableCommand.SetZoom);
-            AddBinding(Keys.L, Keys.Control, BindableCommand.LineCut);
-            AddBinding(Keys.L, Keys.Control | Keys.Shift, BindableCommand.LineDelete);
-            AddBinding(Keys.T , Keys.Control | Keys.Shift, BindableCommand.LineCopy);
-            AddBinding(Keys.T, Keys.Control, BindableCommand.LineTranspose);
-            AddBinding(Keys.D, Keys.Control, BindableCommand.SelectionDuplicate);
-            AddBinding(Keys.U, Keys.Control, BindableCommand.LowerCase);
-            AddBinding(Keys.U, Keys.Control | Keys.Shift, BindableCommand.UpperCase);
+            this.AddBinding(Keys.Down , Keys.None, BindableCommand.LineDown);
+            this.AddBinding(Keys.Down , Keys.Shift, BindableCommand.LineDownExtend);
+            this.AddBinding(Keys.Down , Keys.Control, BindableCommand.LineScrollDown);
+            this.AddBinding(Keys.Down , Keys.Alt | Keys.Shift, BindableCommand.LineDownRectExtend);
+            this.AddBinding(Keys.Up , Keys.None, BindableCommand.LineUp);
+            this.AddBinding(Keys.Up , Keys.Shift, BindableCommand.LineUpExtend);
+            this.AddBinding(Keys.Up , Keys.Control, BindableCommand.LineScrollUp);
+            this.AddBinding(Keys.Up , Keys.Alt | Keys.Shift, BindableCommand.LineUpRectExtend);
+            this.AddBinding('[',  Keys.Control, BindableCommand.ParaUp);
+            this.AddBinding('[' , Keys.Control | Keys.Shift, BindableCommand.ParaUpExtend);
+            this.AddBinding(']' , Keys.Control, BindableCommand.ParaDown);
+            this.AddBinding(']' , Keys.Control | Keys.Shift, BindableCommand.ParaDownExtend);
+            this.AddBinding(Keys.Left , Keys.None, BindableCommand.CharLeft);
+            this.AddBinding(Keys.Left , Keys.Shift, BindableCommand.CharLeftExtend);
+            this.AddBinding(Keys.Left , Keys.Control, BindableCommand.WordLeft);
+            this.AddBinding(Keys.Left , Keys.Control | Keys.Shift, BindableCommand.WordLeftExtend);
+            this.AddBinding(Keys.Left , Keys.Alt | Keys.Shift, BindableCommand.CharLeftRectExtend);
+            this.AddBinding(Keys.Right , Keys.None, BindableCommand.CharRight);
+            this.AddBinding(Keys.Right , Keys.Shift, BindableCommand.CharRightExtend);
+            this.AddBinding(Keys.Right , Keys.Control, BindableCommand.WordRight);
+            this.AddBinding(Keys.Right , Keys.Control | Keys.Shift, BindableCommand.WordRightExtend);
+            this.AddBinding(Keys.Right , Keys.Alt | Keys.Shift, BindableCommand.CharRightRectExtend);
+            this.AddBinding('/' , Keys.Control, BindableCommand.WordPartLeft);
+            this.AddBinding('/' , Keys.Control | Keys.Shift, BindableCommand.WordPartLeftExtend);
+            this.AddBinding('\\' , Keys.Control, BindableCommand.WordPartRight);
+            this.AddBinding('\\' , Keys.Control | Keys.Shift, BindableCommand.WordPartRightExtend);
+            this.AddBinding(Keys.Home , Keys.None, BindableCommand.VCHome);
+            this.AddBinding(Keys.Home , Keys.Shift, BindableCommand.VCHomeExtend);
+            this.AddBinding(Keys.Home , Keys.Control, BindableCommand.DocumentStart);
+            this.AddBinding(Keys.Home , Keys.Control | Keys.Shift, BindableCommand.DocumentStartExtend);
+            this.AddBinding(Keys.Home , Keys.Alt, BindableCommand.HomeDisplay);
+            this.AddBinding(Keys.Home , Keys.Alt | Keys.Shift, BindableCommand.VCHomeRectExtend);
+            this.AddBinding(Keys.End , Keys.None, BindableCommand.LineEnd);
+            this.AddBinding(Keys.End , Keys.Shift, BindableCommand.LineEndExtend);
+            this.AddBinding(Keys.End , Keys.Control, BindableCommand.DocumentEnd);
+            this.AddBinding(Keys.End , Keys.Control | Keys.Shift, BindableCommand.DocumentEndExtend);
+            this.AddBinding(Keys.End , Keys.Alt, BindableCommand.LineEndDisplay);
+            this.AddBinding(Keys.End , Keys.Alt | Keys.Shift, BindableCommand.LineEndRectExtend);
+            this.AddBinding(Keys.PageUp , Keys.None, BindableCommand.PageUp);
+            this.AddBinding(Keys.PageUp , Keys.Shift, BindableCommand.PageUpExtend);
+            this.AddBinding(Keys.PageUp , Keys.Alt | Keys.Shift, BindableCommand.PageUpRectExtend);
+            this.AddBinding(Keys.PageDown , Keys.None, BindableCommand.PageDown);
+            this.AddBinding(Keys.PageDown , Keys.Shift, BindableCommand.PageDownExtend);
+            this.AddBinding(Keys.PageDown , Keys.Alt | Keys.Shift, BindableCommand.PageDownRectExtend);
+            this.AddBinding(Keys.Delete , Keys.None, BindableCommand.Clear);
+            this.AddBinding(Keys.Delete , Keys.Shift, BindableCommand.Cut);
+            this.AddBinding(Keys.Delete , Keys.Control, BindableCommand.DelWordRight);
+            this.AddBinding(Keys.Delete , Keys.Control | Keys.Shift, BindableCommand.DelLineRight);
+            this.AddBinding(Keys.Insert , Keys.None, BindableCommand.EditToggleOvertype);
+            this.AddBinding(Keys.Insert , Keys.Shift, BindableCommand.Paste);
+            this.AddBinding(Keys.Insert , Keys.Control, BindableCommand.Copy);
+            this.AddBinding(Keys.Escape , Keys.None, BindableCommand.Cancel);
+            this.AddBinding(Keys.Back , Keys.None, BindableCommand.DeleteBack);
+            this.AddBinding(Keys.Back , Keys.Shift, BindableCommand.DeleteBack);
+            this.AddBinding(Keys.Back , Keys.Control, BindableCommand.DelWordLeft);
+            this.AddBinding(Keys.Back , Keys.Alt, BindableCommand.Undo);
+            this.AddBinding(Keys.Back , Keys.Control | Keys.Shift, BindableCommand.DelLineLeft);
+            this.AddBinding(Keys.Z, Keys.Control, BindableCommand.Undo);
+            this.AddBinding(Keys.Y, Keys.Control, BindableCommand.Redo);
+            this.AddBinding(Keys.X, Keys.Control, BindableCommand.Cut);
+            this.AddBinding(Keys.C, Keys.Control, BindableCommand.Copy);
+            this.AddBinding(Keys.V, Keys.Control, BindableCommand.Paste);
+            this.AddBinding(Keys.A, Keys.Control, BindableCommand.SelectAll);
+            this.AddBinding(Keys.Tab , Keys.None, BindableCommand.Tab);
+            this.AddBinding(Keys.Tab , Keys.Shift, BindableCommand.BackTab);
+            this.AddBinding(Keys.Enter , Keys.None, BindableCommand.NewLine);
+            this.AddBinding(Keys.Enter , Keys.Shift, BindableCommand.NewLine);
+            this.AddBinding(Keys.Add , Keys.Control, BindableCommand.ZoomIn);
+            this.AddBinding(Keys.Subtract , Keys.Control, BindableCommand.ZoomOut);
+            this.AddBinding(Keys.Divide, Keys.Control, BindableCommand.SetZoom);
+            this.AddBinding(Keys.L, Keys.Control, BindableCommand.LineCut);
+            this.AddBinding(Keys.L, Keys.Control | Keys.Shift, BindableCommand.LineDelete);
+            this.AddBinding(Keys.T , Keys.Control | Keys.Shift, BindableCommand.LineCopy);
+            this.AddBinding(Keys.T, Keys.Control, BindableCommand.LineTranspose);
+            this.AddBinding(Keys.D, Keys.Control, BindableCommand.SelectionDuplicate);
+            this.AddBinding(Keys.U, Keys.Control, BindableCommand.LowerCase);
+            this.AddBinding(Keys.U, Keys.Control | Keys.Shift, BindableCommand.UpperCase);
 
-            AddBinding(Keys.Space, Keys.Control, BindableCommand.AutoCShow);
-            AddBinding(Keys.Tab, BindableCommand.DoSnippetCheck);
-            AddBinding(Keys.Tab, BindableCommand.NextSnippetRange);
-            AddBinding(Keys.Tab, Keys.Shift, BindableCommand.PreviousSnippetRange);
-            AddBinding(Keys.Escape, BindableCommand.CancelActiveSnippets);
-            AddBinding(Keys.Enter, BindableCommand.AcceptActiveSnippets);
+            this.AddBinding(Keys.Space, Keys.Control, BindableCommand.AutoCShow);
+            this.AddBinding(Keys.Tab, BindableCommand.DoSnippetCheck);
+            this.AddBinding(Keys.Tab, BindableCommand.NextSnippetRange);
+            this.AddBinding(Keys.Tab, Keys.Shift, BindableCommand.PreviousSnippetRange);
+            this.AddBinding(Keys.Escape, BindableCommand.CancelActiveSnippets);
+            this.AddBinding(Keys.Enter, BindableCommand.AcceptActiveSnippets);
 
-            AddBinding(Keys.P, Keys.Control, BindableCommand.Print);
-            AddBinding(Keys.P, Keys.Control | Keys.Shift, BindableCommand.PrintPreview);
+            this.AddBinding(Keys.P, Keys.Control, BindableCommand.Print);
+            this.AddBinding(Keys.P, Keys.Control | Keys.Shift, BindableCommand.PrintPreview);
 
-            AddBinding(Keys.F, Keys.Control, BindableCommand.ShowFind);
-            AddBinding(Keys.H, Keys.Control, BindableCommand.ShowReplace);
-            AddBinding(Keys.F3, BindableCommand.FindNext);
-            AddBinding(Keys.F3, Keys.Shift, BindableCommand.FindPrevious);
-            AddBinding(Keys.I, Keys.Control, BindableCommand.IncrementalSearch);
+            this.AddBinding(Keys.F, Keys.Control, BindableCommand.ShowFind);
+            this.AddBinding(Keys.H, Keys.Control, BindableCommand.ShowReplace);
+            this.AddBinding(Keys.F3, BindableCommand.FindNext);
+            this.AddBinding(Keys.F3, Keys.Shift, BindableCommand.FindPrevious);
+            this.AddBinding(Keys.I, Keys.Control, BindableCommand.IncrementalSearch);
 
-            AddBinding(Keys.Q, Keys.Control, BindableCommand.LineComment);
-            AddBinding(Keys.Q, Keys.Control | Keys.Shift, BindableCommand.LineUncomment);
+            this.AddBinding(Keys.Q, Keys.Control, BindableCommand.LineComment);
+            this.AddBinding(Keys.Q, Keys.Control | Keys.Shift, BindableCommand.LineUncomment);
 
-            AddBinding('-', Keys.Control, BindableCommand.DocumentNavigateBackward);
-            AddBinding('-', Keys.Control | Keys.Shift, BindableCommand.DocumentNavigateForward);
+            this.AddBinding('-', Keys.Control, BindableCommand.DocumentNavigateBackward);
+            this.AddBinding('-', Keys.Control | Keys.Shift, BindableCommand.DocumentNavigateForward);
 
-            AddBinding(Keys.J, Keys.Control, BindableCommand.ShowSnippetList);
+            this.AddBinding(Keys.J, Keys.Control, BindableCommand.ShowSnippetList);
 
-            AddBinding(Keys.M, Keys.Control, BindableCommand.DropMarkerDrop);
-            AddBinding(Keys.Escape, BindableCommand.DropMarkerCollect);
+            this.AddBinding(Keys.M, Keys.Control, BindableCommand.DropMarkerDrop);
+            this.AddBinding(Keys.Escape, BindableCommand.DropMarkerCollect);
 
-            AddBinding(Keys.G, Keys.Control, BindableCommand.ShowGoTo);
+            this.AddBinding(Keys.G, Keys.Control, BindableCommand.ShowGoTo);
         }
 
         #endregion Constructors
@@ -605,15 +598,13 @@ namespace ARCed.Scintilla
 
             public int Compare(BindableCommand x, BindableCommand y)
             {
-                return GetCommandOrder(y).CompareTo(GetCommandOrder(x));
+                return this.GetCommandOrder(y).CompareTo(this.GetCommandOrder(x));
             }
 
 
             private int GetCommandOrder(BindableCommand cmd)
             {
-                if (!_commandOrder.ContainsKey(cmd))
-                    return 0;
-                return _commandOrder[cmd];
+                return !this._commandOrder.ContainsKey(cmd) ? 0 : this._commandOrder[cmd];
             }
 
             #endregion Methods
@@ -625,11 +616,11 @@ namespace ARCed.Scintilla
             {
                 get
                 {
-                    return _commandOrder;
+                    return this._commandOrder;
                 }
                 set
                 {
-                    _commandOrder = value;
+                    this._commandOrder = value;
                 }
             }
 

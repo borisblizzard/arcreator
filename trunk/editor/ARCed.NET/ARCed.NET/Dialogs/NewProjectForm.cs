@@ -24,15 +24,15 @@ namespace ARCed.Dialogs
 		/// <summary>
 		/// Gets the path to the defined project directory from the text control
 		/// </summary>
-		public string ProjectDirectory { get { return textBoxLocation.Text; } }
+		public string ProjectDirectory { get { return this.textBoxLocation.Text; } }
 		/// <summary>
 		/// Gets the title of the game from the text control
 		/// </summary>
-		public string ProjectTitle { get { return textBoxTitle.Text; } }
+		public string ProjectTitle { get { return this.textBoxTitle.Text; } }
 		/// <summary>
 		/// Gets the name of the selected template from the combo control
 		/// </summary>
-		public string ProjectTemplate { get { return comboTemplates.Text; } }
+		public string ProjectTemplate { get { return this.comboTemplates.Text; } }
 		#endregion
 
 		#region Construction
@@ -42,7 +42,7 @@ namespace ARCed.Dialogs
 		/// </summary>
 		public NewProjectForm()
 		{
-			InitializeComponent();
+			this.InitializeComponent();
 		}
 
 		/// <summary>
@@ -63,10 +63,10 @@ namespace ARCed.Dialogs
 				if (!Directory.Exists(path))
 					break;
 			}
-			_location = Path.GetDirectoryName(path);
-			_folder = textBoxFolderName.Text = name;
-			RefreshTemplates();
-			comboTemplates.SelectedIndex = 0;
+			this._location = Path.GetDirectoryName(path);
+			this._folder = this.textBoxFolderName.Text = name;
+			this.RefreshTemplates();
+			this.comboTemplates.SelectedIndex = 0;
 		}
 
 		#endregion
@@ -78,8 +78,8 @@ namespace ARCed.Dialogs
 		/// </summary>
 		private void RefreshTemplates()
 		{
-			comboTemplates.Items.Clear();
-			comboTemplates.Items.Add("Default");
+			this.comboTemplates.Items.Clear();
+			this.comboTemplates.Items.Add("Default");
 			var templateDir = PathHelper.ProjectTemplateDirectory;
 		    if (!Directory.Exists(templateDir)) return;
 		    string name;
@@ -105,8 +105,8 @@ namespace ARCed.Dialogs
 				dialog.SelectedPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
 				if (dialog.ShowDialog() == DialogResult.OK)
 				{
-					textBoxLocation.Text = Path.Combine(dialog.SelectedPath, _folder);
-					_location = dialog.SelectedPath;
+					this.textBoxLocation.Text = Path.Combine(dialog.SelectedPath, this._folder);
+					this._location = dialog.SelectedPath;
 				}
 			}
 		}
@@ -129,9 +129,9 @@ namespace ARCed.Dialogs
 		/// <param name="e">Event arguments</param>
 		private void TextBoxFolderNameTextChanged(object sender, EventArgs e)
 		{
-			_folder = textBoxFolderName.Text;
-			textBoxTitle.Text = _folder;
-			textBoxLocation.Text = Path.Combine(_location, _folder);
+			this._folder = this.textBoxFolderName.Text;
+			this.textBoxTitle.Text = this._folder;
+			this.textBoxLocation.Text = Path.Combine(this._location, this._folder);
 		}
 
 		/// <summary>
@@ -141,8 +141,8 @@ namespace ARCed.Dialogs
 		/// <param name="e">Event arguments</param>
 		private void TextBoxLocationTextChanged(object sender, EventArgs e)
 		{
-			if (ActiveControl != null && !textBoxFolderName.Focused)
-				_location = textBoxLocation.Text;
+			if (ActiveControl != null && !this.textBoxFolderName.Focused)
+				this._location = this.textBoxLocation.Text;
 		}
 
 		#endregion

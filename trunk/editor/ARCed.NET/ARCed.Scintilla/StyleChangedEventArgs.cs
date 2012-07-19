@@ -33,7 +33,7 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _length;
+                return this._length;
             }
         }
 
@@ -45,7 +45,7 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _position;
+                return this._position;
             }
         }
 
@@ -56,8 +56,8 @@ namespace ARCed.Scintilla
 
         internal StyleChangedEventArgs(int position, int length, int modificationType) : base(modificationType)
         {
-            _position = position;
-            _length = length;
+            this._position = position;
+            this._length = length;
         }
 
         #endregion Constructors

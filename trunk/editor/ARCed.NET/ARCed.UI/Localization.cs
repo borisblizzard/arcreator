@@ -20,14 +20,14 @@ namespace ARCed.UI
 		{
 			get
 			{	
-				if (!m_initialized)
+				if (!this.m_initialized)
 				{
 					string key = base.Description;
 					DescriptionValue = ResourceHelper.GetString(key);
 					if (DescriptionValue == null)
 						DescriptionValue = String.Empty;
 
-					m_initialized = true;
+					this.m_initialized = true;
 				}
 
 				return DescriptionValue;

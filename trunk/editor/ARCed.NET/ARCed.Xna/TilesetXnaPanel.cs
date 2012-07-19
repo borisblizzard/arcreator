@@ -121,7 +121,7 @@ namespace ARCed.Controls
 			{
 				_selectionEnabled = value;
 				if (!value)
-					ResetPoints();
+					this.ResetPoints();
 				Invalidate();
 			}
 		}
@@ -135,7 +135,7 @@ namespace ARCed.Controls
 			get { return _tileset; }
 			set
 			{
-				ResetPoints();
+				this.ResetPoints();
 				if (value != null)
 				{
 					_tileset = value;
@@ -144,13 +144,13 @@ namespace ARCed.Controls
 					{
 						GraphicsDevice.Clear(Color.White);
 						_tilesetTexture = null;
-						this.Size = Size.Empty;
+						Size = Size.Empty;
 						Refresh();
 					}
 					else
 					{
 						_tilesetTexture = image.ToTexture(GraphicsDevice);
-						this.Size = image.Size;
+						Size = image.Size;
 						Invalidate();
 					}
 				}
@@ -165,7 +165,7 @@ namespace ARCed.Controls
 		{
 			get
 			{
-				Rectangle rect = SelectionRectangle;
+				Rectangle rect = this.SelectionRectangle;
 				rect.Width--;
 				rect.Height--;
 				int size = (rect.Width / Constants.TILESIZE) * (rect.Height / Constants.TILESIZE);
@@ -176,7 +176,7 @@ namespace ARCed.Controls
 					{
 						for (int y = rect.Y; y < rect.Y + rect.Height; y += Constants.TILESIZE)
 						{
-							tiles.Add(GetTileAtPoint(x, y));
+							tiles.Add(this.GetTileAtPoint(x, y));
 						}
 					}
 					return tiles;
@@ -204,8 +204,8 @@ namespace ARCed.Controls
 		/// </summary>
 		public TilesetXnaPanel()
 		{
-			InitializeComponent();
-			ResetPoints();
+			this.InitializeComponent();
+			this.ResetPoints();
 		}
 
 		#endregion
@@ -232,7 +232,7 @@ namespace ARCed.Controls
 		/// <returns>ID of the tile that contains the coordinates.</returns>
 		public int GetTileAtPoint(Point point)
 		{
-			return GetTileAtPoint(point.X, point.Y);
+			return this.GetTileAtPoint(point.X, point.Y);
 		}
 
 		public Vector2 GetTileVector(int tileId)
@@ -256,10 +256,10 @@ namespace ARCed.Controls
 			_displayIcons = true;
 			GraphicsDevice.Clear(Color.White);
 			Disposed += this.TroopXnaPanel_Disposed;
-			this.MouseDown += this.TroopXnaPanel_MouseDown;
-			this.MouseUp += this.TroopXnaPanel_MouseUp;
-			this.MouseMove += this.TroopXnaPanel_MouseMove;
-			this.MouseLeave += this.TilesetXnaPanel_MouseLeave;
+			MouseDown += this.TroopXnaPanel_MouseDown;
+			MouseUp += this.TroopXnaPanel_MouseUp;
+			MouseMove += this.TroopXnaPanel_MouseMove;
+			MouseLeave += this.TilesetXnaPanel_MouseLeave;
 		}
 
 		/// <summary>
@@ -288,18 +288,18 @@ namespace ARCed.Controls
 				}
 				if (_displayIcons)
 				{
-					switch (TilesetMode)
+					switch (this.TilesetMode)
 					{
-						case TilesetMode.Passage: RefreshPassage(); break;
-						case TilesetMode.Passage4Dir: RefreshPassage4Dir(); break;
-						case TilesetMode.Priority: RefreshPriority(); break;
-						case TilesetMode.Counter: RefreshCounter(); break;
-						case TilesetMode.Bush: RefreshBush(); break;
-						case TilesetMode.Terrain: RefreshTerrain(); break;
+						case TilesetMode.Passage: this.RefreshPassage(); break;
+						case TilesetMode.Passage4Dir: this.RefreshPassage4Dir(); break;
+						case TilesetMode.Priority: this.RefreshPriority(); break;
+						case TilesetMode.Counter: this.RefreshCounter(); break;
+						case TilesetMode.Bush: this.RefreshBush(); break;
+						case TilesetMode.Terrain: this.RefreshTerrain(); break;
 					}
 				}
-				if (SelectionEnabled && _originPoint != _endPoint)
-					_batch.DrawSelectionRect(SelectionRectangle, Settings.SelectorColor, 2);
+				if (this.SelectionEnabled && _originPoint != _endPoint)
+					_batch.DrawSelectionRect(this.SelectionRectangle, Settings.SelectorColor, 2);
 				_batch.End();
 			}
 		}
@@ -313,68 +313,68 @@ namespace ARCed.Controls
 		private void RefreshPassage()
 		{
 			int passage;
-			for (int i = Constants.AUTO_IDS; i < Tileset.passages.xsize; i++)
+			for (int i = Constants.AUTO_IDS; i < this.Tileset.passages.xsize; i++)
 			{
-				passage = Tileset.passages[i];
+				passage = this.Tileset.passages[i];
 				_currentColor = (_currentId == i) ? Color.White : _semiTransparent;
-				_batch.Draw(IconCache.Passage(passage), GetTileVector(i), _currentColor);
+				_batch.Draw(IconCache.Passage(passage), this.GetTileVector(i), _currentColor);
 			}
 		}
 
 		private void RefreshPassage4Dir()
 		{
 			int passage;
-			for (int i = Constants.AUTO_IDS; i < Tileset.passages.xsize; i++)
+			for (int i = Constants.AUTO_IDS; i < this.Tileset.passages.xsize; i++)
 			{
-				passage = Tileset.passages[i];
+				passage = this.Tileset.passages[i];
 				if (_currentId != i)
-					_batch.Draw(IconCache.Passage4Dir(passage), GetTileVector(i), _semiTransparent);
+					_batch.Draw(IconCache.Passage4Dir(passage), this.GetTileVector(i), _semiTransparent);
 				else
-					_batch.Draw(IconCache.Passage4Dir(passage), GetTileVector(i), Color.White);
+					_batch.Draw(IconCache.Passage4Dir(passage), this.GetTileVector(i), Color.White);
 			}
 		}
 
 		private void RefreshPriority()
 		{
 			int priority;
-			for (int i = Constants.AUTO_IDS; i < Tileset.priorities.xsize; i++)
+			for (int i = Constants.AUTO_IDS; i < this.Tileset.priorities.xsize; i++)
 			{
-				priority = Tileset.priorities[i];
+				priority = this.Tileset.priorities[i];
 				_currentColor = (_currentId == i) ? Color.White : _semiTransparent;
-				_batch.Draw(IconCache.Priority(priority), GetTileVector(i), _currentColor);
+				_batch.Draw(IconCache.Priority(priority), this.GetTileVector(i), _currentColor);
 			}
 		}
 
 		private void RefreshBush()
 		{
 			int passage;
-			for (int i = Constants.AUTO_IDS; i < Tileset.passages.xsize; i++)
+			for (int i = Constants.AUTO_IDS; i < this.Tileset.passages.xsize; i++)
 			{
-				passage = Tileset.passages[i];
+				passage = this.Tileset.passages[i];
 				_currentColor = (_currentId == i) ? Color.White : _semiTransparent;
-				_batch.Draw(IconCache.Bush(passage), GetTileVector(i), _currentColor);
+				_batch.Draw(IconCache.Bush(passage), this.GetTileVector(i), _currentColor);
 			}
 		}
 
 		private void RefreshCounter()
 		{
 			int passage;
-			for (int i = Constants.AUTO_IDS; i < Tileset.passages.xsize; i++)
+			for (int i = Constants.AUTO_IDS; i < this.Tileset.passages.xsize; i++)
 			{
-				passage = Tileset.passages[i];
+				passage = this.Tileset.passages[i];
 				_currentColor = (_currentId == i) ? Color.White : _semiTransparent;
-				_batch.Draw(IconCache.Counter(passage), GetTileVector(i), _currentColor);
+				_batch.Draw(IconCache.Counter(passage), this.GetTileVector(i), _currentColor);
 			}
 		}
 
 		private void RefreshTerrain()
 		{
 			int terrain;
-			for (int i = Constants.AUTO_IDS; i < Tileset.terrain_tags.xsize; i++)
+			for (int i = Constants.AUTO_IDS; i < this.Tileset.terrain_tags.xsize; i++)
 			{
-				terrain = Tileset.terrain_tags[i];
+				terrain = this.Tileset.terrain_tags[i];
 				_currentColor = (_currentId == i) ? Color.White : _semiTransparent;
-				_batch.Draw(IconCache.Terrain(terrain), GetTileVector(i), _currentColor);
+				_batch.Draw(IconCache.Terrain(terrain), this.GetTileVector(i), _currentColor);
 			}
 		}
 
@@ -387,8 +387,8 @@ namespace ARCed.Controls
 
 		private void sprite_OnSelectionChanged(object sender, EventArgs e)
 		{
-			if (OnSelectionChanged != null)
-				OnSelectionChanged(sender, e);
+			if (this.OnSelectionChanged != null)
+				this.OnSelectionChanged(sender, e);
 		}
 
 		private void TroopXnaPanel_Disposed(object sender, EventArgs e)
@@ -406,8 +406,8 @@ namespace ARCed.Controls
 			{
 				int x = e.X.Clamp(0, _tilesetTexture.Width);
 				int y = e.Y.Clamp(0, _tilesetTexture.Height);
-				_currentId = GetTileAtPoint(x, y);
-				if (SelectionEnabled && _mouseDown && _selectionActive)
+				_currentId = this.GetTileAtPoint(x, y);
+				if (this.SelectionEnabled && _mouseDown && _selectionActive)
 				{
 					_endPoint.X = x;
 					_endPoint.Y = y;
@@ -425,21 +425,21 @@ namespace ARCed.Controls
 		private void TroopXnaPanel_MouseDown(object sender, MouseEventArgs e)
 		{
 			_mouseDown = true;
-			if (SelectionEnabled && _originPoint.X < 0 && _originPoint.Y < 0)
+			if (this.SelectionEnabled && _originPoint.X < 0 && _originPoint.Y < 0)
 			{
 				_originPoint.X = _endPoint.X = e.X;
 				_originPoint.Y = _endPoint.Y = e.Y;
 				_selectionActive = true;
 				Invalidate();
 			}
-			else if (!SelectionEnabled)
-				ChangeData(e);
-			else if (SelectionRectangle.Contains(e.X, e.Y))
+			else if (!this.SelectionEnabled)
+				this.ChangeData(e);
+			else if (this.SelectionRectangle.Contains(e.X, e.Y))
 			{
-				foreach (int id in SelectedTileIds)
+				foreach (int id in this.SelectedTileIds)
 				{
-					Vector2 vector = GetTileVector(id);
-					ChangeData(new MouseEventArgs(e.Button, 1, 
+					Vector2 vector = this.GetTileVector(id);
+					this.ChangeData(new MouseEventArgs(e.Button, 1, 
 						(int)vector.X + (e.X % Constants.TILESIZE),
 						(int)vector.Y + (e.Y % Constants.TILESIZE), 
 						0));
@@ -463,68 +463,67 @@ namespace ARCed.Controls
 		{
 			if (e.Button != MouseButtons.Left && e.Button != MouseButtons.Right)
 				return;
-			int id = GetTileAtPoint(e.X, e.Y);
-			if (TilesetMode == TilesetMode.Passage)
+			int id = this.GetTileAtPoint(e.X, e.Y);
+			switch (this.TilesetMode)
 			{
-				if ((_tileset.passages[id] & ~0x40 & ~0x80) == 0)
-					_tileset.passages[id] |= 0x01 | 0x02 | 0x04 | 0x08;
-				else
-					_tileset.passages[id] &= ~(0x01 | 0x02 | 0x04 | 0x08);
-			}
-			else if (TilesetMode == TilesetMode.Passage4Dir)
-			{
-				int half = Constants.TILESIZE / 2;
-				int x = 1 + e.X % Constants.TILESIZE;
-				int y = 1 + e.Y % Constants.TILESIZE;
-				var dist = new List<double>
-				{
-					Math.Pow(half - x, 2) + Math.Pow(Constants.TILESIZE - y, 2), // Bottom
-					Math.Pow(x, 2) + Math.Pow(half - y, 2),            // Left
-					Math.Pow(Constants.TILESIZE - x, 2) + Math.Pow(half - y, 2), // Right
-					Math.Pow(half - x, 2) + Math.Pow(y, 2)             // Top
-				};
-				int index = dist.IndexOf(dist.Min());
-				int bit = new[] { 0x01, 0x02, 0x04, 0x08 }[index];
-				if ((_tileset.passages[id] & bit) == bit)
-					_tileset.passages[id] &= ~bit;
-				else
-					_tileset.passages[id] |= bit;
-			}
-			else if (TilesetMode == TilesetMode.Priority)
-			{
-				if (e.Button == MouseButtons.Left)
-					_tileset.priorities[id] = (_tileset.priorities[id] + 1) % Constants.PRIORITIES;
-				else 
-				{
-					_tileset.priorities[id]--;
-					if (_tileset.priorities[id] < 0)
-						_tileset.priorities[id] = Constants.PRIORITIES - 1;
-				}
-			}
-			else if (TilesetMode == TilesetMode.Bush)
-			{
-				if ((_tileset.passages[id] & 0x40) == 0x40)
-					_tileset.passages[id] &= ~0x40;
-				else
-					_tileset.passages[id] |= 0x40;
-			}
-			else if (TilesetMode == TilesetMode.Counter)
-			{
-				if ((_tileset.passages[id] & 0x80) == 0x80)
-					_tileset.passages[id] &= ~0x80;
-				else
-					_tileset.passages[id] |= 0x80;
-			}
-			else if (TilesetMode == TilesetMode.Terrain)
-			{
-				if (e.Button == MouseButtons.Left)
-					_tileset.terrain_tags[id] = (_tileset.terrain_tags[id] + 1) % Constants.TERRAINS;
-				else
-				{
-					_tileset.terrain_tags[id]--;
-					if (_tileset.terrain_tags[id] < 0)
-						_tileset.terrain_tags[id] = Constants.TERRAINS - 1;
-				}
+			    case TilesetMode.Passage:
+			        if ((_tileset.passages[id] & ~0x40 & ~0x80) == 0)
+			            _tileset.passages[id] |= 0x01 | 0x02 | 0x04 | 0x08;
+			        else
+			            _tileset.passages[id] &= ~(0x01 | 0x02 | 0x04 | 0x08);
+			        break;
+			    case TilesetMode.Passage4Dir:
+			    {
+			        const int half = Constants.TILESIZE / 2;
+			        int x = 1 + e.X % Constants.TILESIZE;
+			        int y = 1 + e.Y % Constants.TILESIZE;
+			        var dist = new List<double>
+			        {
+			            Math.Pow(half - x, 2) + Math.Pow(Constants.TILESIZE - y, 2), // Bottom
+			            Math.Pow(x, 2) + Math.Pow(half - y, 2),            // Left
+			            Math.Pow(Constants.TILESIZE - x, 2) + Math.Pow(half - y, 2), // Right
+			            Math.Pow(half - x, 2) + Math.Pow(y, 2)             // Top
+			        };
+			        int index = dist.IndexOf(dist.Min());
+			        int bit = new[] { 0x01, 0x02, 0x04, 0x08 }[index];
+			        if ((_tileset.passages[id] & bit) == bit)
+			            _tileset.passages[id] &= ~bit;
+			        else
+			            _tileset.passages[id] |= bit;
+			    }
+			        break;
+			    case TilesetMode.Priority:
+			        if (e.Button == MouseButtons.Left)
+			            _tileset.priorities[id] = (_tileset.priorities[id] + 1) % Constants.PRIORITIES;
+			        else 
+			        {
+			            _tileset.priorities[id]--;
+			            if (_tileset.priorities[id] < 0)
+			                _tileset.priorities[id] = Constants.PRIORITIES - 1;
+			        }
+			        break;
+			    case TilesetMode.Bush:
+			        if ((_tileset.passages[id] & 0x40) == 0x40)
+			            _tileset.passages[id] &= ~0x40;
+			        else
+			            _tileset.passages[id] |= 0x40;
+			        break;
+			    case TilesetMode.Counter:
+			        if ((_tileset.passages[id] & 0x80) == 0x80)
+			            _tileset.passages[id] &= ~0x80;
+			        else
+			            _tileset.passages[id] |= 0x80;
+			        break;
+			    case TilesetMode.Terrain:
+			        if (e.Button == MouseButtons.Left)
+			            _tileset.terrain_tags[id] = (_tileset.terrain_tags[id] + 1) % Constants.TERRAINS;
+			        else
+			        {
+			            _tileset.terrain_tags[id]--;
+			            if (_tileset.terrain_tags[id] < 0)
+			                _tileset.terrain_tags[id] = Constants.TERRAINS - 1;
+			        }
+			        break;
 			}
 			Invalidate(); 
 		}

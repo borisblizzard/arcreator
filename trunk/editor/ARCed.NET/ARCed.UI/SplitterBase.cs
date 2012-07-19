@@ -23,16 +23,16 @@ namespace ARCed.UI
 				SuspendLayout();
 				base.Dock = value;
 
-				if (Dock == DockStyle.Left || Dock == DockStyle.Right)
-					Width = SplitterSize;
-				else if (Dock == DockStyle.Top || Dock == DockStyle.Bottom)
-					Height = SplitterSize;
+				if (this.Dock == DockStyle.Left || this.Dock == DockStyle.Right)
+					Width = this.SplitterSize;
+				else if (this.Dock == DockStyle.Top || this.Dock == DockStyle.Bottom)
+					Height = this.SplitterSize;
 				else
 					Bounds = Rectangle.Empty;
 
-				if (Dock == DockStyle.Left || Dock == DockStyle.Right)
+				if (this.Dock == DockStyle.Left || this.Dock == DockStyle.Right)
 					Cursor = Cursors.VSplit;
-				else if (Dock == DockStyle.Top || Dock == DockStyle.Bottom)
+				else if (this.Dock == DockStyle.Top || this.Dock == DockStyle.Bottom)
 					Cursor = Cursors.HSplit;
 				else
 					Cursor = Cursors.Default;
@@ -53,7 +53,7 @@ namespace ARCed.UI
 			if (e.Button != MouseButtons.Left)
 				return;
 
-			StartDrag();
+			this.StartDrag();
 		}
 
 		protected virtual void StartDrag()

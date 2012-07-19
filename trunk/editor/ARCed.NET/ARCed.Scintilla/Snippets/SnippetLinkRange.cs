@@ -24,7 +24,7 @@ namespace ARCed.Scintilla
         {
             if (!IsDisposed)
             {
-                _parent.Remove(this);
+                this._parent.Remove(this);
                 base.Dispose();
             }
         }
@@ -44,11 +44,11 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _active;
+                return this._active;
             }
             set
             {
-                _active = value;
+                this._active = value;
 
                 if (value)
                 {
@@ -68,11 +68,11 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _key;
+                return this._key;
             }
             set
             {
-                _key = value;
+                this._key = value;
             }
         }
 
@@ -81,11 +81,11 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _parent;
+                return this._parent;
             }
             set
             {
-                _parent = value;
+                this._parent = value;
             }
         }
 
@@ -99,7 +99,7 @@ namespace ARCed.Scintilla
             Scintilla = scintilla;
             Start = start;
             End = end;
-            _key = key;
+            this._key = key;
         }
 
         #endregion Constructors

@@ -35,7 +35,7 @@ namespace ARCed.Scintilla.Configuration
 
         public override string ToString()
         {
-            return "Name = \"" + _name + "\" Number=" + _number.ToString();
+            return "Name = \"" + this._name + "\" Number=" + this._number.ToString();
         }
 
         #endregion Methods
@@ -47,11 +47,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _backColor;
+                return this._backColor;
             }
             set
             {
-                _backColor = value;
+                this._backColor = value;
             }
         }
 
@@ -60,11 +60,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _bold;
+                return this._bold;
             }
             set
             {
-                _bold = value;
+                this._bold = value;
             }
         }
 
@@ -73,11 +73,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _case;
+                return this._case;
             }
             set
             {
-                _case = value;
+                this._case = value;
             }
         }
 
@@ -86,11 +86,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _characterSet;
+                return this._characterSet;
             }
             set
             {
-                _characterSet = value;
+                this._characterSet = value;
             }
         }
 
@@ -99,11 +99,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _fontName;
+                return this._fontName;
             }
             set
             {
-                _fontName = value;
+                this._fontName = value;
             }
         }
 
@@ -112,11 +112,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _foreColor;
+                return this._foreColor;
             }
             set
             {
-                _foreColor = value;
+                this._foreColor = value;
             }
         }
 
@@ -125,11 +125,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _inherit;
+                return this._inherit;
             }
             set
             {
-                _inherit = value;
+                this._inherit = value;
             }
         }
 
@@ -138,11 +138,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _isChangeable;
+                return this._isChangeable;
             }
             set
             {
-                _isChangeable = value;
+                this._isChangeable = value;
             }
         }
 
@@ -151,11 +151,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _isHotspot;
+                return this._isHotspot;
             }
             set
             {
-                _isHotspot = value;
+                this._isHotspot = value;
             }
         }
 
@@ -164,11 +164,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _isSelectionEolFilled;
+                return this._isSelectionEolFilled;
             }
             set
             {
-                _isSelectionEolFilled = value;
+                this._isSelectionEolFilled = value;
             }
         }
 
@@ -177,11 +177,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _isVisible;
+                return this._isVisible;
             }
             set
             {
-                _isVisible = value;
+                this._isVisible = value;
             }
         }
 
@@ -190,11 +190,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _italic;
+                return this._italic;
             }
             set
             {
-                _italic = value;
+                this._italic = value;
             }
         }
 
@@ -203,11 +203,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _name;
+                return this._name;
             }
             set
             {
-                _name = value;
+                this._name = value;
             }
         }
 
@@ -216,11 +216,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _number;
+                return this._number;
             }
             set
             {
-                _number = value;
+                this._number = value;
             }
         }
 
@@ -229,11 +229,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _size;
+                return this._size;
             }
             set
             {
-                _size = value;
+                this._size = value;
             }
         }
 
@@ -242,11 +242,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _underline;
+                return this._underline;
             }
             set
             {
-                _underline = value;
+                this._underline = value;
             }
         }
 

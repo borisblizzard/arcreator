@@ -28,8 +28,8 @@ namespace ARCed.Scripting
 		[XmlElement("ForeColor")]
 		public string ForeColorHtml
 		{
-			get { return ColorTranslator.ToHtml(ForeColor); }
-			set { ForeColor = ColorTranslator.FromHtml(value); }
+			get { return ColorTranslator.ToHtml(this.ForeColor); }
+			set { this.ForeColor = ColorTranslator.FromHtml(value); }
 		}
 		/// <summary>
 		/// Gets or sets the background color of the style
@@ -42,8 +42,8 @@ namespace ARCed.Scripting
 		[XmlElement("BackColor")]
 		public string BackColorHtml
 		{
-			get { return ColorTranslator.ToHtml(BackColor); }
-			set { BackColor = ColorTranslator.FromHtml(value); }
+			get { return ColorTranslator.ToHtml(this.BackColor); }
+			set { this.BackColor = ColorTranslator.FromHtml(value); }
 		}
 		/// <summary>
 		/// Gets or sets the font used for the style
@@ -73,10 +73,10 @@ namespace ARCed.Scripting
 		/// <param name="font">The font used for the style</param>
 		public ScriptStyle(string name, Color fore, Color back, Font font)
 		{
-			Name = name;
-			ForeColor = fore;
-			BackColor = back;
-			Font = font;
+			this.Name = name;
+			this.ForeColor = fore;
+			this.BackColor = back;
+			this.Font = font;
 		}
 
 		#endregion

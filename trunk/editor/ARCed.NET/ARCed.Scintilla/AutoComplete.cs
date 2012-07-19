@@ -70,7 +70,7 @@ namespace ARCed.Scintilla
 
         private int GetLengthEntered()
         {
-            if (!_automaticLengthEntered)
+            if (!this._automaticLengthEntered)
                 return 0;
 
             int pos = NativeScintilla.GetCurrentPos();
@@ -83,7 +83,7 @@ namespace ARCed.Scintilla
             var listString = new StringBuilder();
             foreach (string s in list)
             {
-                listString.Append(s).Append(ListSeparator);
+                listString.Append(s).Append(this.ListSeparator);
             }
             if (listString.Length > 1)
                 listString.Remove(listString.Length - 1, 1);
@@ -147,7 +147,7 @@ namespace ARCed.Scintilla
         public void RegisterImages(IList<Bitmap> images, Color transparentColor)
         {
             for (int i = 0; i < images.Count; i++)
-                RegisterImage(i, images[i], transparentColor);
+                this.RegisterImage(i, images[i], transparentColor);
         }
 
 
@@ -188,161 +188,161 @@ namespace ARCed.Scintilla
 
         private void ResetAutoHide()
         {
-            AutoHide = true;
+            this.AutoHide = true;
         }
 
 
         private void ResetAutomaticLengthEntered()
         {
-            AutomaticLengthEntered = true;
+            this.AutomaticLengthEntered = true;
         }
 
 
         private void ResetCancelAtStart()
         {
-            CancelAtStart = true;
+            this.CancelAtStart = true;
         }
 
 
         private void ResetDropRestOfWord()
         {
-            DropRestOfWord = false;
+            this.DropRestOfWord = false;
         }
 
 
         private void ResetFillUpCharacters()
         {
-            _fillUpCharacters = string.Empty;
+            this._fillUpCharacters = string.Empty;
         }
 
 
         private void ResetImageSeparator()
         {
-            ImageSeparator = '?';
+            this.ImageSeparator = '?';
         }
 
 
         private void ResetIsCaseSensitive()
         {
-            IsCaseSensitive = true;
+            this.IsCaseSensitive = true;
         }
 
 
         private void ResetListSeparator()
         {
-            ListSeparator = ' ';
+            this.ListSeparator = ' ';
         }
 
 
         private void ResetMaxHeight()
         {
-            MaxHeight = 5;
+            this.MaxHeight = 5;
         }
 
 
         private void ResetMaxWidth()
         {
-            MaxWidth = 0;
+            this.MaxWidth = 0;
         }
 
 
         private void ResetSingleLineAccept()
         {
-            SingleLineAccept = false;
+            this.SingleLineAccept = false;
         }
 
 
         private void ResetStopCharacters()
         {
-            _stopCharacters = string.Empty;
+            this._stopCharacters = string.Empty;
         }
 
 
         internal bool ShouldSerialize()
         {
-            return ShouldSerializeAutoHide() ||
-                ShouldSerializeCancelAtStart() ||
-                ShouldSerializeDropRestOfWord() ||
-                ShouldSerializeFillUpCharacters() ||
-                ShouldSerializeImageSeparator() ||
-                ShouldSerializeIsCaseSensitive() ||
-                ShouldSerializeListSeparator() ||
-                ShouldSerializeMaxHeight() ||
-                ShouldSerializeMaxWidth() ||
-                ShouldSerializeSingleLineAccept() ||
-                ShouldSerializeStopCharacters();
+            return this.ShouldSerializeAutoHide() ||
+                this.ShouldSerializeCancelAtStart() ||
+                this.ShouldSerializeDropRestOfWord() ||
+                this.ShouldSerializeFillUpCharacters() ||
+                this.ShouldSerializeImageSeparator() ||
+                this.ShouldSerializeIsCaseSensitive() ||
+                this.ShouldSerializeListSeparator() ||
+                this.ShouldSerializeMaxHeight() ||
+                this.ShouldSerializeMaxWidth() ||
+                this.ShouldSerializeSingleLineAccept() ||
+                this.ShouldSerializeStopCharacters();
         }
 
 
         private bool ShouldSerializeAutoHide()
         {
-            return !AutoHide;
+            return !this.AutoHide;
         }
 
 
         private bool ShouldSerializeAutomaticLengthEntered()
         {
-            return !AutomaticLengthEntered;
+            return !this.AutomaticLengthEntered;
         }
 
 
         private bool ShouldSerializeCancelAtStart()
         {
-            return !CancelAtStart;
+            return !this.CancelAtStart;
         }
 
 
         private bool ShouldSerializeDropRestOfWord()
         {
-            return DropRestOfWord;
+            return this.DropRestOfWord;
         }
 
 
         private bool ShouldSerializeFillUpCharacters()
         {
-            return _fillUpCharacters != string.Empty;
+            return this._fillUpCharacters != string.Empty;
         }
 
 
         private bool ShouldSerializeImageSeparator()
         {
-            return ImageSeparator != '?';
+            return this.ImageSeparator != '?';
         }
 
 
         private bool ShouldSerializeIsCaseSensitive()
         {
-            return !IsCaseSensitive;
+            return !this.IsCaseSensitive;
         }
 
 
         private bool ShouldSerializeListSeparator()
         {
-            return ListSeparator != ' ';
+            return this.ListSeparator != ' ';
         }
 
 
         private bool ShouldSerializeMaxHeight()
         {
-            return MaxHeight != 5;
+            return this.MaxHeight != 5;
         }
 
 
         private bool ShouldSerializeMaxWidth()
         {
-            return MaxWidth != 0;
+            return this.MaxWidth != 0;
         }
 
 
         private bool ShouldSerializeSingleLineAccept()
         {
-            return SingleLineAccept;
+            return this.SingleLineAccept;
         }
 
 
         private bool ShouldSerializeStopCharacters()
         {
-            return _stopCharacters != string.Empty;
+            return this._stopCharacters != string.Empty;
         }
 
 
@@ -355,7 +355,7 @@ namespace ARCed.Scintilla
         /// </remarks>
         public void Show()
         {
-            Show(-1, GetListString(_list), false);
+            this.Show(-1, this.GetListString(this._list), false);
         }
 
 
@@ -368,8 +368,8 @@ namespace ARCed.Scintilla
         /// </param>
         public void Show(IEnumerable<string> list)
         {
-            _list = new List<string>(list);
-            Show(-1);
+            this._list = new List<string>(list);
+            this.Show(-1);
         }
 
 
@@ -382,7 +382,7 @@ namespace ARCed.Scintilla
         /// </remarks>
         public void Show(int lengthEntered)
         {
-            Show(lengthEntered, GetListString(_list), false);
+            this.Show(lengthEntered, this.GetListString(this._list), false);
         }
 
 
@@ -393,8 +393,8 @@ namespace ARCed.Scintilla
         /// <param name="list">Sets the <see cref="List"/> property. </param>
         public void Show(int lengthEntered, IEnumerable<string> list)
         {
-            _list = new List<string>(list);
-            Show(-1);
+            this._list = new List<string>(list);
+            this.Show(-1);
         }
 
 
@@ -405,13 +405,10 @@ namespace ARCed.Scintilla
         /// <param name="list">Sets the <see cref="ListString"/> property. </param>
         public void Show(int lengthEntered, string list)
         {
-            if (list == string.Empty)
-                _list = new List<string>();
-            else
-                _list = new List<string>(list.Split(ListSeparator));
-            Show(lengthEntered, list, true);
+            this._list = list == string.Empty ? new List<string>() : 
+                new List<string>(list.Split(this.ListSeparator));
+            this.Show(lengthEntered, list, true);
         }
-
 
         internal void Show(int lengthEntered, string list, bool dontSplit)
         {
@@ -419,7 +416,7 @@ namespace ARCed.Scintilla
             //	look for the last word character as the _start
             int le = lengthEntered;
             if (le < 0)
-                le = GetLengthEntered();
+                le = this.GetLengthEntered();
 
             NativeScintilla.AutoCShow(le, list);
 
@@ -427,7 +424,7 @@ namespace ARCed.Scintilla
             //	caused to AutoCShow call to fail becuase no words matched
             //	the letters we autodetected. In this case just show the
             //	list with a 0 lengthEntered to make sure it will show
-            if (!IsActive && lengthEntered < 0)
+            if (!this.IsActive && lengthEntered < 0)
                 NativeScintilla.AutoCShow(0, list);
         }
 
@@ -455,7 +452,7 @@ namespace ARCed.Scintilla
         /// </remarks>
         public void ShowUserList(int listType, IEnumerable<string> list)
         {
-            Show(listType, GetListString(list), true);
+            this.Show(listType, this.GetListString(list), true);
         }
 
 
@@ -502,11 +499,11 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _automaticLengthEntered;
+                return this._automaticLengthEntered;
             }
             set
             {
-                _automaticLengthEntered = value;
+                this._automaticLengthEntered = value;
             }
         }
 
@@ -553,11 +550,11 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _fillUpCharacters;
+                return this._fillUpCharacters;
             }
             set
             {
-                _fillUpCharacters = value;
+                this._fillUpCharacters = value;
                 NativeScintilla.AutoCSetFillUps(value);
             }
         }
@@ -632,14 +629,14 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _list;
+                return this._list;
             }
             set
             {
                 if (value == null)
                     value = new List<string>();
 
-                _list = value;
+                this._list = value;
             }
         }
 
@@ -672,11 +669,11 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return GetListString(_list);
+                return this.GetListString(this._list);
             }
             set
             {
-                _list = new List<string>(value.Split(ListSeparator));
+                this._list = new List<string>(value.Split(this.ListSeparator));
             }
         }
 
@@ -730,7 +727,7 @@ namespace ARCed.Scintilla
             }
             set
             {
-                SelectedText = _list[value];
+                this.SelectedText = this._list[value];
             }
         }
 
@@ -748,7 +745,7 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _list[NativeScintilla.AutoCGetCurrent()];
+                return this._list[NativeScintilla.AutoCGetCurrent()];
             }
             set
             {
@@ -781,11 +778,11 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _stopCharacters;
+                return this._stopCharacters;
             }
             set
             {
-                _stopCharacters = value;
+                this._stopCharacters = value;
                 NativeScintilla.AutoCStops(value);
             }
         }

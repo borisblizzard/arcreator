@@ -3,6 +3,7 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using ARCed.Helpers;
 using ARCed.Properties;
 using ARCed.Scintilla;
@@ -24,46 +25,45 @@ namespace ARCed.Scripting
 		/// </summary>
 		public ScriptSearchForm()
 		{
-			InitializeComponent();
-			this.Icon = Icon.FromHandle(Resources.Find3.GetHicon());
-			results = new List<SearchResult>();
-			searchControl.buttonSearch.Click += this.buttonSearch_Click;
-			searchControl.listViewResults.DoubleClick += this.listViewResults_DoubleClick;
-			searchControl.listViewResults.Font = FontHelper.MonoFont;
+			this.InitializeComponent();
+			Icon = Icon.FromHandle(Resources.Find3.GetHicon());
+			this.results = new List<SearchResult>();
+			this.searchControl.buttonSearch.Click += this.buttonSearch_Click;
+			this.searchControl.listViewResults.DoubleClick += this.listViewResults_DoubleClick;
+			this.searchControl.listViewResults.Font = FontHelper.MonoFont;
 		}
 
 		private void listViewResults_DoubleClick(object sender, EventArgs e)
 		{
-			Point p = searchControl.listViewResults.PointToClient(MousePosition);
-			int index = searchControl.listViewResults.GetItemAt(p.X, p.Y).Index;
+			Point p = this.searchControl.listViewResults.PointToClient(MousePosition);
+			int index = this.searchControl.listViewResults.GetItemAt(p.X, p.Y).Index;
 			if (index >= 0)
 			{
-				Script script = results[index].Script;
+				Script script = this.results[index].Script;
 				var page = new ScriptEditorForm(script);
 				page.Show(Editor.MainDock);
-				page.ScintillaControl.Lines[results[index].Line].Select();
+				page.ScintillaControl.Lines[this.results[index].Line].Select();
 			}
 		}
 
 		private void buttonSearch_Click(object sender, EventArgs e)
 		{
-			results.Clear();
+			this.results.Clear();
 			// Create list of scripts to search
 			var searchScripts = new List<Script>();
-			if (searchControl.toolStripComboBox_Scope.SelectedIndex == 0) // Open
+			if (this.searchControl.toolStripComboBox_Scope.SelectedIndex == 0) // Open
 			{
-				foreach (ScriptEditorForm form in Windows.ScriptEditors)
-					searchScripts.Add(form.Script);
+			    searchScripts.AddRange(Windows.ScriptEditors.Select(form => form.Script));
 			}
 			else // All
 				searchScripts = Project.ScriptManager.Scripts;
-			string searchString = searchControl.textBoxSearch.Text;
+			string searchString = this.searchControl.textBoxSearch.Text;
 			// Set flags
 			var flag = SearchFlags.Empty;
-			if (searchControl.toolStripMenuItem_MatchCase.Checked) flag |= SearchFlags.MatchCase;
-			if (searchControl.toolStripMenuItem_RegExp.Checked) flag |= SearchFlags.RegExp;
-			if (searchControl.toolStripMenuItem_WholeWord.Checked) flag |= SearchFlags.WholeWord;
-			if (searchControl.toolStripMenuItem_WordStart.Checked) flag |= SearchFlags.WordStart;
+			if (this.searchControl.toolStripMenuItem_MatchCase.Checked) flag |= SearchFlags.MatchCase;
+			if (this.searchControl.toolStripMenuItem_RegExp.Checked) flag |= SearchFlags.RegExp;
+			if (this.searchControl.toolStripMenuItem_WholeWord.Checked) flag |= SearchFlags.WholeWord;
+			if (this.searchControl.toolStripMenuItem_WordStart.Checked) flag |= SearchFlags.WordStart;
 			// Perform search using SciLexer's unmanaged library for improved perfomance
 			using (var scintilla = new Scintilla.Scintilla())
 			{
@@ -72,21 +72,21 @@ namespace ARCed.Scripting
 					scintilla.Text = script.Text;
 					foreach (Range r in scintilla.FindReplace.FindAll(searchString, flag))
 					{
-						results.Add(new SearchResult(script, script.Title,
+						this.results.Add(new SearchResult(script, script.Title,
 							r.StartingLine.Number, r.StartingLine.Text));
 					}
 				}
 			}
-			RefreshResults();
+			this.RefreshResults();
 		}
 
 		private void RefreshResults()
 		{
-			searchControl.listViewResults.BeginUpdate();
-			searchControl.listViewResults.Items.Clear();
-			foreach (SearchResult result in results)
-				searchControl.listViewResults.Items.Add(result);
-			searchControl.listViewResults.EndUpdate();
+			this.searchControl.listViewResults.BeginUpdate();
+			this.searchControl.listViewResults.Items.Clear();
+			foreach (SearchResult result in this.results)
+				this.searchControl.listViewResults.Items.Add(result);
+			this.searchControl.listViewResults.EndUpdate();
 		}
 	}
 }

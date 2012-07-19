@@ -27,18 +27,18 @@ namespace ARCed.UI
             private DockAlignment m_alignment;
             public DockAlignment Alignment
             {
-                get { return m_alignment; }
+                get { return this.m_alignment; }
                 set
                 {
-                    m_alignment = value;
-                    if (m_alignment == DockAlignment.Left || m_alignment == DockAlignment.Right)
+                    this.m_alignment = value;
+                    if (this.m_alignment == DockAlignment.Left || this.m_alignment == DockAlignment.Right)
                         Cursor = Cursors.VSplit;
-                    else if (m_alignment == DockAlignment.Top || m_alignment == DockAlignment.Bottom)
+                    else if (this.m_alignment == DockAlignment.Top || this.m_alignment == DockAlignment.Bottom)
                         Cursor = Cursors.HSplit;
                     else
                         Cursor = Cursors.Default;
 
-                    if (DockPane.DockState == DockState.Document)
+                    if (this.DockPane.DockState == DockState.Document)
                         Invalidate();
                 }
             }
@@ -47,14 +47,14 @@ namespace ARCed.UI
             {
                 base.OnPaint(e);
 
-                if (DockPane.DockState != DockState.Document)
+                if (this.DockPane.DockState != DockState.Document)
                     return;
 
                 Graphics g = e.Graphics;
                 Rectangle rect = ClientRectangle;
-                if (Alignment == DockAlignment.Top || Alignment == DockAlignment.Bottom)
+                if (this.Alignment == DockAlignment.Top || this.Alignment == DockAlignment.Bottom)
                     g.DrawLine(SystemPens.ControlDark, rect.Left, rect.Bottom - 1, rect.Right, rect.Bottom - 1);
-                else if (Alignment == DockAlignment.Left || Alignment == DockAlignment.Right)
+                else if (this.Alignment == DockAlignment.Left || this.Alignment == DockAlignment.Right)
                     g.DrawLine(SystemPens.ControlDarkDark, rect.Right - 1, rect.Top, rect.Right - 1, rect.Bottom);
             }
 
@@ -65,7 +65,7 @@ namespace ARCed.UI
                 if (e.Button != MouseButtons.Left)
                     return;
 
-                DockPane.DockPanel.BeginDrag(this, Parent.RectangleToScreen(Bounds));
+                this.DockPane.DockPanel.BeginDrag(this, Parent.RectangleToScreen(Bounds));
             }
 
             #region ISplitterDragSource Members
@@ -82,7 +82,7 @@ namespace ARCed.UI
             {
                 get
                 {
-                    NestedDockingStatus status = DockPane.NestedDockingStatus;
+                    NestedDockingStatus status = this.DockPane.NestedDockingStatus;
                     return (status.DisplayingAlignment == DockAlignment.Left ||
                         status.DisplayingAlignment == DockAlignment.Right);
                 }
@@ -92,7 +92,7 @@ namespace ARCed.UI
             {
                 get
                 {
-                    NestedDockingStatus status = DockPane.NestedDockingStatus;
+                    NestedDockingStatus status = this.DockPane.NestedDockingStatus;
                     Rectangle rectLimit = Parent.RectangleToScreen(status.LogicalBounds);
                     if (((ISplitterDragSource)this).IsVertical)
                     {
@@ -111,7 +111,7 @@ namespace ARCed.UI
 
             void ISplitterDragSource.MoveSplitter(int offset)
             {
-                NestedDockingStatus status = DockPane.NestedDockingStatus;
+                NestedDockingStatus status = this.DockPane.NestedDockingStatus;
                 double proportion = status.Proportion;
                 if (status.LogicalBounds.Width <= 0 || status.LogicalBounds.Height <= 0)
                     return;
@@ -124,7 +124,7 @@ namespace ARCed.UI
                 else
                     proportion -= (offset) / (double)status.LogicalBounds.Height;
 
-                DockPane.SetNestedDockingProportion(proportion);
+                this.DockPane.SetNestedDockingProportion(proportion);
             }
 
             #region IDragSource Members
@@ -142,17 +142,17 @@ namespace ARCed.UI
         private SplitterControl m_splitter;
         private SplitterControl Splitter
         {
-            get { return m_splitter; }
+            get { return this.m_splitter; }
         }
 
         internal Rectangle SplitterBounds
         {
-            set { Splitter.Bounds = value; }
+            set { this.Splitter.Bounds = value; }
         }
 
         internal DockAlignment SplitterAlignment
         {
-            set { Splitter.Alignment = value; }
+            set { this.Splitter.Alignment = value; }
         }
     }
 }

@@ -29,7 +29,7 @@ namespace ARCed.Database.Sys
 
 		public SystemMainForm()
 		{
-			InitializeComponent();
+			this.InitializeComponent();
 		}
 
 		/// <summary>

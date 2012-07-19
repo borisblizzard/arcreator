@@ -32,8 +32,8 @@ namespace ARCed.Database.Actors
         /// </summary>
 		public ChartSettingsForm()
 		{
-			InitializeComponent();
-			AddDataBinding();
+			this.InitializeComponent();
+			this.AddDataBinding();
 			Icon = Icon.FromHandle(Resources.Chart.GetHicon());
 		}
 
@@ -47,7 +47,7 @@ namespace ARCed.Database.Actors
         /// <param name="charts">Reference to an array of <see cref="Chart"/> object.</param>
         public void SetCharts(ref Chart[] charts)
 		{
-			_charts = charts;
+			this._charts = charts;
 		}
 
         /// <summary>
@@ -55,7 +55,7 @@ namespace ARCed.Database.Actors
         /// </summary>
 		public void ClearCharts()
 		{
-			_charts = null;
+			this._charts = null;
 		}
 
         /// <summary>
@@ -120,31 +120,31 @@ namespace ARCed.Database.Actors
 
         private void AddDataBinding()
 		{
-			listBoxColors.DataSource = Editor.Settings.Charting.ColorsHtml;
+			this.listBoxColors.DataSource = Editor.Settings.Charting.ColorsHtml;
 			//comboBoxType.DataBindings.Add("SelectedIndex", Editor.Settings.Charting, "Type",
 				//false, DataSourceUpdateMode.OnValidation | DataSourceUpdateMode.OnPropertyChanged);
-			numericTension.DataBindings.Add("Value", Editor.Settings.Charting, "SplineTension",
+			this.numericTension.DataBindings.Add("Value", Editor.Settings.Charting, "SplineTension",
 				false, DataSourceUpdateMode.OnPropertyChanged);
-			numericInclination.DataBindings.Add("Value", Editor.Settings.Charting, "Inclination",
+			this.numericInclination.DataBindings.Add("Value", Editor.Settings.Charting, "Inclination",
 				false, DataSourceUpdateMode.OnPropertyChanged);
-			numericDepth.DataBindings.Add("Value", Editor.Settings.Charting, "Depth",
+			this.numericDepth.DataBindings.Add("Value", Editor.Settings.Charting, "Depth",
 				false, DataSourceUpdateMode.OnPropertyChanged);
-			comboBoxLighting.DataBindings.Add("SelectedIndex", Editor.Settings.Charting, "Lighting",
+			this.comboBoxLighting.DataBindings.Add("SelectedIndex", Editor.Settings.Charting, "Lighting",
 				false, DataSourceUpdateMode.OnPropertyChanged);
-			numericPerspective.DataBindings.Add("Value", Editor.Settings.Charting, "Perspective",
+			this.numericPerspective.DataBindings.Add("Value", Editor.Settings.Charting, "Perspective",
 				false, DataSourceUpdateMode.OnPropertyChanged);
-			numericRotation.DataBindings.Add("Value", Editor.Settings.Charting, "Rotation",
+			this.numericRotation.DataBindings.Add("Value", Editor.Settings.Charting, "Rotation",
 				false, DataSourceUpdateMode.OnPropertyChanged);
-			checkBox3D.DataBindings.Add("Checked", Editor.Settings.Charting, "ThreeD",
+			this.checkBox3D.DataBindings.Add("Checked", Editor.Settings.Charting, "ThreeD",
 				false, DataSourceUpdateMode.OnPropertyChanged);
-			checkBoxMarkerLines.DataBindings.Add("Checked", Editor.Settings.Charting, "Markers",
+			this.checkBoxMarkerLines.DataBindings.Add("Checked", Editor.Settings.Charting, "Markers",
 				false, DataSourceUpdateMode.OnPropertyChanged);
 		}
 
 		private void ComboBoxTypeSelectedIndexChanged(object sender, EventArgs e)
 		{
 			SeriesChartType type;
-			switch (comboBoxType.SelectedIndex)
+			switch (this.comboBoxType.SelectedIndex)
 			{
 				case 1: type = SeriesChartType.SplineArea; break;
 				case 2: type = SeriesChartType.Spline; break;
@@ -154,72 +154,72 @@ namespace ARCed.Database.Actors
 				default: type = SeriesChartType.SplineRange; break;
 			}
 			Editor.Settings.Charting.Type = type;
-			if (_charts != null)
-				SetChartType(type, ref _charts);
+			if (this._charts != null)
+				SetChartType(type, ref this._charts);
 		}
 
 		private void NumericTensionValueChanged(object sender, EventArgs e)
 		{
-			Editor.Settings.Charting.SplineTension = numericTension.Value;
-			if (_charts != null)
+			Editor.Settings.Charting.SplineTension = this.numericTension.Value;
+			if (this._charts != null)
 			{
-				foreach (Chart chart in _charts)
-					chart.Series[0]["LineTension"] = numericTension.Value.ToString(CultureInfo.InvariantCulture);
+				foreach (Chart chart in this._charts)
+					chart.Series[0]["LineTension"] = this.numericTension.Value.ToString(CultureInfo.InvariantCulture);
 			}
 		}
 
 		private void ComboBoxLightingSelectedIndexChanged(object sender, EventArgs e)
 		{
-			Editor.Settings.Charting.Lighting = (LightStyle)comboBoxLighting.SelectedIndex;
-			if (_charts != null)
+			Editor.Settings.Charting.Lighting = (LightStyle)this.comboBoxLighting.SelectedIndex;
+			if (this._charts != null)
 			{
-				SetChartLighting((LightStyle)comboBoxLighting.SelectedIndex, ref _charts);
+				SetChartLighting((LightStyle)this.comboBoxLighting.SelectedIndex, ref this._charts);
 			}
 		}
 
 		private void NumericInclinationValueChanged(object sender, EventArgs e)
 		{
-			Editor.Settings.Charting.Inclination = numericInclination.Value;
-			if (_charts != null)
+			Editor.Settings.Charting.Inclination = this.numericInclination.Value;
+			if (this._charts != null)
 			{
-				foreach (Chart chart in _charts)
-					chart.ChartAreas[0].Area3DStyle.Inclination = (int)numericInclination.Value;
+				foreach (Chart chart in this._charts)
+					chart.ChartAreas[0].Area3DStyle.Inclination = (int)this.numericInclination.Value;
 			}
 		}
 
 		private void NumericRotationValueChanged(object sender, EventArgs e)
 		{
-			Editor.Settings.Charting.Rotation = numericRotation.Value;
-			if (_charts != null)
+			Editor.Settings.Charting.Rotation = this.numericRotation.Value;
+			if (this._charts != null)
 			{
-				foreach (Chart chart in _charts)
-					chart.ChartAreas[0].Area3DStyle.Rotation = (int)numericRotation.Value;
+				foreach (Chart chart in this._charts)
+					chart.ChartAreas[0].Area3DStyle.Rotation = (int)this.numericRotation.Value;
 			}
 		}
 
 		private void NumericPerspectiveValueChanged(object sender, EventArgs e)
 		{
-			Editor.Settings.Charting.Perspective = numericPerspective.Value;
-			if (_charts != null)
+			Editor.Settings.Charting.Perspective = this.numericPerspective.Value;
+			if (this._charts != null)
 			{
-				foreach (Chart chart in _charts)
-					chart.ChartAreas[0].Area3DStyle.Perspective = (int)numericPerspective.Value;
+				foreach (Chart chart in this._charts)
+					chart.ChartAreas[0].Area3DStyle.Perspective = (int)this.numericPerspective.Value;
 			}
 		}
 
 		private void CheckBoxMarkerLinesCheckedChanged(object sender, EventArgs e)
 		{
-			Editor.Settings.Charting.Markers = checkBoxMarkerLines.Checked;
-			if (_charts != null)
+			Editor.Settings.Charting.Markers = this.checkBoxMarkerLines.Checked;
+			if (this._charts != null)
 			{
-				foreach (Chart chart in _charts)
-					chart.Series[0]["ShowMarkerLines"] = checkBoxMarkerLines.Checked.ToString();
+				foreach (Chart chart in this._charts)
+					chart.Series[0]["ShowMarkerLines"] = this.checkBoxMarkerLines.Checked.ToString();
 			}
 		}
 
 		private void NumericDepthValueChanged(object sender, EventArgs e)
 		{
-			Editor.Settings.Charting.Depth = numericDepth.Value;
+			Editor.Settings.Charting.Depth = this.numericDepth.Value;
 		    if (this._charts == null) return;
 		    foreach (Chart chart in this._charts)
 		        chart.ChartAreas[0].Area3DStyle.PointDepth = (int)this.numericDepth.Value;
@@ -227,7 +227,7 @@ namespace ARCed.Database.Actors
 
 		private void CheckBox3DCheckedChanged(object sender, EventArgs e)
 		{
-			Editor.Settings.Charting.ThreeD = checkBox3D.Checked;
+			Editor.Settings.Charting.ThreeD = this.checkBox3D.Checked;
 		    if (this._charts == null) return;
 		    foreach (Chart chart in this._charts)
 		        chart.ChartAreas[0].Area3DStyle.Enable3D = this.checkBox3D.Checked;
@@ -235,7 +235,7 @@ namespace ARCed.Database.Actors
 
 		private void ListBoxColorsDoubleClick(object sender, EventArgs e)
 		{
-			var index = listBoxColors.SelectedIndex;
+			var index = this.listBoxColors.SelectedIndex;
 		    if (index < 0) return;
 		    using (var dialog = new ColorChooserForm())
 		    {
@@ -261,19 +261,19 @@ namespace ARCed.Database.Actors
 
 		private void ButtonRemoveClick(object sender, EventArgs e)
 		{
-			int index = listBoxColors.SelectedIndex;
+			int index = this.listBoxColors.SelectedIndex;
 			if (index > 0)
 			{
-				listBoxColors.DataSource = null;
+				this.listBoxColors.DataSource = null;
 				Editor.Settings.Charting.Colors.RemoveAt(index);
-				RefreshColors();
+				this.RefreshColors();
 			}
-			listBoxColors.SelectedIndex = index.Clamp(0, Editor.Settings.Charting.Colors.Count - 1);
+			this.listBoxColors.SelectedIndex = index.Clamp(0, Editor.Settings.Charting.Colors.Count - 1);
 		}
 
 		private void ButtonUpClick(object sender, EventArgs e)
 		{
-			int index = listBoxColors.SelectedIndex;
+			int index = this.listBoxColors.SelectedIndex;
 		    if (index <= 0) return;
 		    this.listBoxColors.DataSource = null;
 		    Color color = Editor.Settings.Charting.Colors[index % Editor.Settings.Charting.Colors.Count];
@@ -285,38 +285,38 @@ namespace ARCed.Database.Actors
 
 		private void ButtonDownClick(object sender, EventArgs e)
 		{
-			int index = listBoxColors.SelectedIndex;
+			int index = this.listBoxColors.SelectedIndex;
 			if (index < Editor.Settings.Charting.Colors.Count - 1)
 			{
-				listBoxColors.DataSource = null;
+				this.listBoxColors.DataSource = null;
 				Color color = Editor.Settings.Charting.Colors[index];
 				Editor.Settings.Charting.Colors.RemoveAt(index);
 				Editor.Settings.Charting.Colors.Insert(index + 1, color);
-				RefreshColors();
-				listBoxColors.SelectedIndex = index + 1;
+				this.RefreshColors();
+				this.listBoxColors.SelectedIndex = index + 1;
 			}
 		}
 
 		private void RefreshColors()
 		{
-			listBoxColors.BeginUpdate();
-			listBoxColors.DataSource = Editor.Settings.Charting.ColorsHtml;
-			listBoxColors.EndUpdate();	
+			this.listBoxColors.BeginUpdate();
+			this.listBoxColors.DataSource = Editor.Settings.Charting.ColorsHtml;
+			this.listBoxColors.EndUpdate();	
 		}
 
 		private void ListBoxColorsSelectedIndexChanged(object sender, EventArgs e)
 		{
-			bool enable = listBoxColors.SelectedIndex >= 0 && listBoxColors.Items.Count > 1;
-			buttonDown.Enabled = enable;
-			buttonUp.Enabled = enable;
-			buttonRemove.Enabled = enable;
+			bool enable = this.listBoxColors.SelectedIndex >= 0 && this.listBoxColors.Items.Count > 1;
+			this.buttonDown.Enabled = enable;
+			this.buttonUp.Enabled = enable;
+			this.buttonRemove.Enabled = enable;
 		}
 
 		private void ButtonDefaultColorsClick(object sender, EventArgs e)
 		{
-			listBoxColors.DataSource = null;
+			this.listBoxColors.DataSource = null;
 			Editor.Settings.Charting.Colors = ChartSettings.DefaultColors;
-			RefreshColors();
+			this.RefreshColors();
         }
 
         #endregion

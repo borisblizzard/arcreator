@@ -1,7 +1,6 @@
 #region Using Directives
 
 using System.Drawing;
-using System.Windows.Forms;
 
 #endregion
 
@@ -16,10 +15,10 @@ namespace ARCed.UI
                 public SplitterOutline()
                 {
                     this._mDragForm = new DragForm();
-                    SetDragForm(Rectangle.Empty);
-                    DragForm.BackColor = Color.Black;
-                    DragForm.Opacity = 0.7;
-                    DragForm.Show(false);
+                    this.SetDragForm(Rectangle.Empty);
+                    this.DragForm.BackColor = Color.Black;
+                    this.DragForm.Opacity = 0.7;
+                    this.DragForm.Show(false);
                 }
 
                 readonly DragForm _mDragForm;
@@ -30,21 +29,21 @@ namespace ARCed.UI
 
                 public void Show(Rectangle rect)
                 {
-                    SetDragForm(rect);
+                    this.SetDragForm(rect);
                 }
 
                 public void Close()
                 {
-                    DragForm.Close();
+                    this.DragForm.Close();
                 }
 
                 private void SetDragForm(Rectangle rect)
                 {
-                    DragForm.Bounds = rect;
+                    this.DragForm.Bounds = rect;
                     if (rect == Rectangle.Empty)
-                        DragForm.Region = new Region(Rectangle.Empty);
-                    else if (DragForm.Region != null)
-                        DragForm.Region = null;
+                        this.DragForm.Region = new Region(Rectangle.Empty);
+                    else if (this.DragForm.Region != null)
+                        this.DragForm.Region = null;
                 }
             }
 
@@ -62,69 +61,69 @@ namespace ARCed.UI
             private SplitterOutline m_outline;
             private SplitterOutline Outline
             {
-                get { return m_outline; }
-                set { m_outline = value; }
+                get { return this.m_outline; }
+                set { this.m_outline = value; }
             }
 
             private Rectangle m_rectSplitter;
             private Rectangle RectSplitter
             {
-                get { return m_rectSplitter; }
-                set { m_rectSplitter = value; }
+                get { return this.m_rectSplitter; }
+                set { this.m_rectSplitter = value; }
             }
 
             public void BeginDrag(ISplitterDragSource dragSource, Rectangle rectSplitter)
             {
-                DragSource = dragSource;
-                RectSplitter = rectSplitter;
+                this.DragSource = dragSource;
+                this.RectSplitter = rectSplitter;
 
                 if (!BeginDrag())
                 {
-                    DragSource = null;
+                    this.DragSource = null;
                     return;
                 }
 
-                Outline = new SplitterOutline();
-                Outline.Show(rectSplitter);
-                DragSource.BeginDrag(rectSplitter);
+                this.Outline = new SplitterOutline();
+                this.Outline.Show(rectSplitter);
+                this.DragSource.BeginDrag(rectSplitter);
             }
 
             protected override void OnDragging()
             {
-                Outline.Show(GetSplitterOutlineBounds(MousePosition));
+                this.Outline.Show(this.GetSplitterOutlineBounds(MousePosition));
             }
 
             protected override void OnEndDrag(bool abort)
             {
                 DockPanel.SuspendLayout(true);
 
-                Outline.Close();
+                this.Outline.Close();
 
                 if (!abort)
-                    DragSource.MoveSplitter(GetMovingOffset(MousePosition));
+                    this.DragSource.MoveSplitter(this.GetMovingOffset(MousePosition));
 
-                DragSource.EndDrag();
+                this.DragSource.EndDrag();
                 DockPanel.ResumeLayout(true, true);
             }
 
             private int GetMovingOffset(Point ptMouse)
             {
-                Rectangle rect = GetSplitterOutlineBounds(ptMouse);
-                if (DragSource.IsVertical)
-                    return rect.X - RectSplitter.X;
+                Rectangle rect = this.GetSplitterOutlineBounds(ptMouse);
+                if (this.DragSource.IsVertical)
+                    return rect.X - this.RectSplitter.X;
                 else
-                    return rect.Y - RectSplitter.Y;
+                    return rect.Y - this.RectSplitter.Y;
             }
 
             private Rectangle GetSplitterOutlineBounds(Point ptMouse)
             {
-                Rectangle rectLimit = DragSource.DragLimitBounds;
+                Rectangle rectLimit = this.DragSource.DragLimitBounds;
 
-                Rectangle rect = RectSplitter;
+                Rectangle rect = this.RectSplitter;
                 if (rectLimit.Width <= 0 || rectLimit.Height <= 0)
                     return rect;
 
-                if (DragSource.IsVertical)
+                if (this.DragSource.IsVertical)
                 {
                     rect.X += ptMouse.X - StartMousePosition.X;
                     rect.Height = rectLimit.Height;
@@ -151,14 +150,14 @@ namespace ARCed.UI
         private SplitterDragHandler m_splitterDragHandler;
         private SplitterDragHandler GetSplitterDragHandler()
         {
-            if (m_splitterDragHandler == null)
-                m_splitterDragHandler = new SplitterDragHandler(this);
-            return m_splitterDragHandler;
+            if (this.m_splitterDragHandler == null)
+                this.m_splitterDragHandler = new SplitterDragHandler(this);
+            return this.m_splitterDragHandler;
         }
 
         internal void BeginDrag(ISplitterDragSource dragSource, Rectangle rectSplitter)
         {
-            GetSplitterDragHandler().BeginDrag(dragSource, rectSplitter);
+            this.GetSplitterDragHandler().BeginDrag(dragSource, rectSplitter);
         }
     }
 }

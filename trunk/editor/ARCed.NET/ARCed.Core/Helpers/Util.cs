@@ -113,16 +113,16 @@ namespace ARCed.Helpers
 		{
 			speed = speed.Clamp(-10, 10);
 			float curve;
-			int pRange = max - min;
-			float lRange = Convert.ToSingle(final - initial);
-			int linear = Convert.ToInt32(min + pRange * ((level - initial) / lRange));
+			var pRange = max - min;
+			var lRange = Convert.ToSingle(final - initial);
+			var linear = Convert.ToInt32(min + pRange * ((level - initial) / lRange));
 			if (speed == 0)
 				return linear;
-			else if (speed < 0)
-				curve = min + pRange * (float)Math.Pow(((level - initial) / lRange), 2);
-			else
-				curve = max - pRange * (float)Math.Pow(((final - level) / lRange), 2);
-			return ((Convert.ToInt32(curve) * Math.Abs(speed) + linear * (10 - Math.Abs(speed))) / 10);
+		    if (speed < 0)
+		        curve = min + pRange * (float)Math.Pow(((level - initial) / lRange), 2);
+		    else
+		        curve = max - pRange * (float)Math.Pow(((final - level) / lRange), 2);
+		    return ((Convert.ToInt32(curve) * Math.Abs(speed) + linear * (10 - Math.Abs(speed))) / 10);
 		}
 
 		/// <summary>
@@ -179,15 +179,13 @@ namespace ARCed.Helpers
 		/// <param name="beep">Flag to play system beep if invalid characters are found</param>
 		public static void ValidateTextBox(TextBox textBox, string replace = "", bool beep = true)
 		{
-			string text = ValidateFilename(textBox.Text, replace);
-			if (text != textBox.Text)
-			{
-				int pos = textBox.SelectionStart - 1;
-				textBox.Text = text;
-				if (beep)
-					SystemSounds.Beep.Play();
-				textBox.SelectionStart = pos;
-			}
+			var text = ValidateFilename(textBox.Text, replace);
+		    if (text == textBox.Text) return;
+		    int pos = textBox.SelectionStart - 1;
+		    textBox.Text = text;
+		    if (beep)
+		        SystemSounds.Beep.Play();
+		    textBox.SelectionStart = pos;
 		}
 
 		/// <summary>
@@ -235,7 +233,7 @@ namespace ARCed.Helpers
                 using (TextWriter writer = new StreamWriter(path, false, Encoding.UTF8))
                     serializer.Serialize(writer, data);
             }
-            catch (Exception error) { ShowErrorBox(error, path); }
+            catch (Exception error) { ShowErrorBox(error); }
         }
 
         /// <summary>
@@ -254,7 +252,7 @@ namespace ARCed.Helpers
                     data = (T)serializer.Deserialize(reader);
                 return data;
             }
-            catch (Exception error) { ShowErrorBox(error, path); }
+            catch (Exception error) { ShowErrorBox(error); }
             return null;
         }
 
@@ -271,7 +269,7 @@ namespace ARCed.Helpers
                 using (Stream stream = File.OpenWrite(path))
                     formatter.Serialize(stream, data);
             }
-            catch (Exception error) { ShowErrorBox(error, path); }
+            catch (Exception error) { ShowErrorBox(error); }
         }
 
         /// <summary>
@@ -290,15 +288,15 @@ namespace ARCed.Helpers
                     data = (T)formatter.Deserialize(stream);
                 return data;
             }
-            catch (Exception error) { ShowErrorBox(error, path); }
+            catch (Exception error) { ShowErrorBox(error); }
             return null;
         }
 
-        private static void ShowErrorBox(Exception error, string path)
+        private static void ShowErrorBox(Exception error)
         {
-            string msg = String.Format("The following error during serialization:\n\n{1}\n\nStack Trace:\n{2}",
-                path, error.Message, error.StackTrace);
-            MessageBox.Show(msg, "Serialization Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            var msg = String.Format("The following error during serialization:\n\n{0}\n\nStack Trace:\n{1}",
+                error.Message, error.StackTrace);
+            MessageBox.Show(msg, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 	}
 }

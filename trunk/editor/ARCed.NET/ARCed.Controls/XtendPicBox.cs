@@ -47,13 +47,13 @@ namespace ARCed.Controls
 		[DefaultValue(typeof(Color), "Black")]
 		public Color SelectorOutlineColor
 		{
-			get { return _outerPen.Color; }
+			get { return this._outerPen.Color; }
 			set
 			{
-				if (_outerPen.Color != value)
+				if (this._outerPen.Color != value)
 				{
-					_outerPen.Color = value;
-					RefreshImage();
+					this._outerPen.Color = value;
+					this.RefreshImage();
 				}
 			}
 		}
@@ -65,13 +65,13 @@ namespace ARCed.Controls
 		[DefaultValue(typeof(Color), "White")]
 		public Color SelectorInnerColor
 		{
-			get { return _innerPen.Color; }
+			get { return this._innerPen.Color; }
 			set
 			{
-				if (_innerPen.Color != value)
+				if (this._innerPen.Color != value)
 				{
-					_innerPen.Color = value;
-					RefreshImage();
+					this._innerPen.Color = value;
+					this.RefreshImage();
 				}
 			}
 		}
@@ -83,8 +83,8 @@ namespace ARCed.Controls
 		[DefaultValue(true)]
 		public bool SelectionEnabled
 		{
-			get { return _selectable; }
-			set { _selectable = value; RefreshImage(); }
+			get { return this._selectable; }
+			set { this._selectable = value; this.RefreshImage(); }
 		}
 
 		/// <summary>
@@ -94,8 +94,8 @@ namespace ARCed.Controls
 		[DefaultValue(typeof(Color), "LightGray")]
 		public Color ImageBackColor
 		{
-			get { return picBox.BackColor; }
-			set { picBox.BackColor = value; }
+			get { return this.picBox.BackColor; }
+			set { this.picBox.BackColor = value; }
 		}
 
 		/// <summary>
@@ -112,8 +112,8 @@ namespace ARCed.Controls
 				if (!String.IsNullOrEmpty(value) && File.Exists(value))
 				{
 					this._picturePath = value;
-					_image = Image.FromFile(value);
-					RefreshImage();
+					this._image = Image.FromFile(value);
+					this.RefreshImage();
 				}
 			}
 		}
@@ -125,14 +125,14 @@ namespace ARCed.Controls
 		[DefaultValue(typeof(Point), "0, 0")]
 		public Point SelectionCoordinate
 		{
-			get { return new Point(_x, _y); }
+			get { return new Point(this._x, this._y); }
 			set
 			{
-				if (_x != value.X || _y != value.Y)
+				if (this._x != value.X || this._y != value.Y)
 				{
-					_x = value.X;
-					_y = value.Y;
-					RefreshImage();
+					this._x = value.X;
+					this._y = value.Y;
+					this.RefreshImage();
 				}
 			}
 		}
@@ -143,11 +143,11 @@ namespace ARCed.Controls
 		[Category("ARCed"), Description("Set the image used by the control")]
 		public Image Image
 		{
-			get { return _image; }
+			get { return this._image; }
 			set
 			{
-				_image = value;
-				RefreshImage();
+				this._image = value;
+				this.RefreshImage();
 			}
 		}
 
@@ -159,10 +159,10 @@ namespace ARCed.Controls
 		{
 			get
 			{
-				var rect = new Rectangle(_x, _y, _tWidth, _tHeight);
+				var rect = new Rectangle(this._x, this._y, this._tWidth, this._tHeight);
 				Image image = new Bitmap(rect.Width, rect.Height);
 				using (Graphics g = Graphics.FromImage(image))
-					g.DrawImage(_image, rect);
+					g.DrawImage(this._image, rect);
 				return image;
 			}
 		}
@@ -176,16 +176,16 @@ namespace ARCed.Controls
 		/// </summary>
         public CharSelectionControl()
         {
-            InitializeComponent();
-			_selectable = true;
-            picBox.Top = 0;
-            picBox.Left = 0;
-			_x = _y = 0;
-			picBox.Visible = false;
-            picBox.SizeMode = PictureBoxSizeMode.Normal;
-			picBox.BorderStyle = BorderStyle.None;
-            Controls.Add(picBox);
-			picBox.MouseClick += this.picBox_MouseClick;
+            this.InitializeComponent();
+			this._selectable = true;
+            this.picBox.Top = 0;
+            this.picBox.Left = 0;
+			this._x = this._y = 0;
+			this.picBox.Visible = false;
+            this.picBox.SizeMode = PictureBoxSizeMode.Normal;
+			this.picBox.BorderStyle = BorderStyle.None;
+            Controls.Add(this.picBox);
+			this.picBox.MouseClick += this.picBox_MouseClick;
         }
 
 		#endregion
@@ -194,41 +194,41 @@ namespace ARCed.Controls
 
 		private void RefreshImage()
 		{
-			if (_image != null)
+			if (this._image != null)
 			{
-				picBox.Visible = true;
-				picBox.Image = new Bitmap(_image);
-				picBox.Size = picBox.Image.Size;
-				_tWidth = _image.Width / COLUMNS;
-				_tHeight = _image.Height / ROWS;
+				this.picBox.Visible = true;
+				this.picBox.Image = new Bitmap(this._image);
+				this.picBox.Size = this.picBox.Image.Size;
+				this._tWidth = this._image.Width / COLUMNS;
+				this._tHeight = this._image.Height / ROWS;
 
-				if (_selectable)
+				if (this._selectable)
 				{
-					using (Graphics g = Graphics.FromImage(picBox.Image))
+					using (Graphics g = Graphics.FromImage(this.picBox.Image))
 					{
-						int x = _x * _tWidth;
-						int y = _y * _tHeight;
-						g.DrawRectangle(_outerPen, x + 2, y + 2, _tWidth - 4, _tHeight - 4);
-						g.DrawRectangle(_innerPen, x + 2, y + 2, _tWidth - 4, _tHeight - 4);
+						int x = this._x * this._tWidth;
+						int y = this._y * this._tHeight;
+						g.DrawRectangle(this._outerPen, x + 2, y + 2, this._tWidth - 4, this._tHeight - 4);
+						g.DrawRectangle(this._innerPen, x + 2, y + 2, this._tWidth - 4, this._tHeight - 4);
 					}
 				}
 			}
 			else
-				picBox.Visible = false;
+				this.picBox.Visible = false;
 		}
 
 		private void picBox_MouseClick(object sender, MouseEventArgs e)
 		{
-			Point pnt = picBox.PointToClient(MousePosition);
-			if (pnt.X < picBox.Image.Width && pnt.Y < picBox.Image.Height)
+			Point pnt = this.picBox.PointToClient(MousePosition);
+			if (pnt.X < this.picBox.Image.Width && pnt.Y < this.picBox.Image.Height)
 			{
-				int x = pnt.X / _tWidth;
-				int y = pnt.Y / _tHeight;
-				if (x != _x || y != _y)
+				int x = pnt.X / this._tWidth;
+				int y = pnt.Y / this._tHeight;
+				if (x != this._x || y != this._y)
 				{
-					_x = x;
-					_y = y;
-					RefreshImage();
+					this._x = x;
+					this._y = y;
+					this.RefreshImage();
 				}
 			}
 		}

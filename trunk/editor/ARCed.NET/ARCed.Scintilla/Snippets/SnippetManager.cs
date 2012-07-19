@@ -42,11 +42,11 @@ namespace ARCed.Scintilla
 
         public bool AcceptActiveSnippets()
         {
-            if (_snippetLinks.IsActive && !Scintilla.AutoComplete.IsActive)
+            if (this._snippetLinks.IsActive && !Scintilla.AutoComplete.IsActive)
             {
                 int pos = Scintilla.Caret.Position;
                 bool end = false;
-                foreach (SnippetLink sl in _snippetLinks.Values)
+                foreach (SnippetLink sl in this._snippetLinks.Values)
                 {
                     foreach (SnippetLinkRange sr in sl.Ranges)
                     {
@@ -62,12 +62,12 @@ namespace ARCed.Scintilla
 
                 if (end)
                 {
-                    cascadeSnippetLinkRangeChange(_snippetLinks.ActiveSnippetLink, _snippetLinks.ActiveRange);
+                    this.cascadeSnippetLinkRangeChange(this._snippetLinks.ActiveSnippetLink, this._snippetLinks.ActiveRange);
 
-                    if (_snippetLinks.EndPoint != null)
-                        Scintilla.Caret.Goto(_snippetLinks.EndPoint.Start);
+                    if (this._snippetLinks.EndPoint != null)
+                        Scintilla.Caret.Goto(this._snippetLinks.EndPoint.Start);
 
-                    IsActive = false;
+                    this.IsActive = false;
                     Scintilla.Commands.StopProcessingCommands = true;
                     return true;
                 }
@@ -81,18 +81,18 @@ namespace ARCed.Scintilla
         {
             string key = range.Key;
             SnippetLink sl = null;
-            for (int i = 0; i < _snippetLinks.Count; i++)
+            for (int i = 0; i < this._snippetLinks.Count; i++)
             {
-                if (_snippetLinks[i].Key.Equals(key, StringComparison.CurrentCultureIgnoreCase))
+                if (this._snippetLinks[i].Key.Equals(key, StringComparison.CurrentCultureIgnoreCase))
                 {
-                    sl = _snippetLinks[i];
+                    sl = this._snippetLinks[i];
                     break;
                 }
             }
             if (sl == null)
             {
                 sl = new SnippetLink(key);
-                _snippetLinks.Add(sl);
+                this._snippetLinks.Add(sl);
             }
 
             sl.Ranges.Add(range);
@@ -104,9 +104,9 @@ namespace ARCed.Scintilla
 
         public bool CancelActiveSnippets()
         {
-            if (_snippetLinks.IsActive && !Scintilla.AutoComplete.IsActive)
+            if (this._snippetLinks.IsActive && !Scintilla.AutoComplete.IsActive)
             {
-                IsActive = false;
+                this.IsActive = false;
                 Scintilla.Commands.StopProcessingCommands = true;
                 return true;
             }
@@ -146,7 +146,7 @@ namespace ARCed.Scintilla
 
         public bool DoSnippetCheck()
         {
-            if (!_isEnabled || _snippetLinks.IsActive || Scintilla.AutoComplete.IsActive || Scintilla.Selection.Length > 0)
+            if (!this._isEnabled || this._snippetLinks.IsActive || Scintilla.AutoComplete.IsActive || Scintilla.Selection.Length > 0)
                 return false;
 
             int pos = Scintilla.NativeInterface.GetCurrentPos();
@@ -175,13 +175,13 @@ namespace ARCed.Scintilla
             string keyworkCandidate = snipRange.Text;
 
             Snippet snip;
-            if (!_list.TryGetValue(keyworkCandidate, out snip))
+            if (!this._list.TryGetValue(keyworkCandidate, out snip))
             {
                 //	Not a match. Buh-bye
                 return false;
             }
 
-            InsertSnippet(snip, newPos);
+            this.InsertSnippet(snip, newPos);
             Scintilla.Commands.StopProcessingCommands = true;
             return true;
         }
@@ -190,26 +190,26 @@ namespace ARCed.Scintilla
         public void InsertSnippet(string shortcut)
         {
             Snippet snip;
-            if (!_list.TryGetValue(shortcut, out snip))
+            if (!this._list.TryGetValue(shortcut, out snip))
             {
                 //	Not a match. Buh-bye
                 return;
             }
 
-            InsertSnippet(snip, Math.Min(NativeScintilla.GetCurrentPos(), NativeScintilla.GetAnchor()));
+            this.InsertSnippet(snip, Math.Min(NativeScintilla.GetCurrentPos(), NativeScintilla.GetAnchor()));
         }
 
 
         public void InsertSnippet(Snippet snip)
         {
-            InsertSnippet(snip, Math.Min(NativeScintilla.GetCurrentPos(), NativeScintilla.GetAnchor()));
+            this.InsertSnippet(snip, Math.Min(NativeScintilla.GetCurrentPos(), NativeScintilla.GetAnchor()));
         }
 
 
         internal void InsertSnippet(Snippet snip, int startPos)
         {
             NativeScintilla.BeginUndoAction();
-            IsActive = false;
+            this.IsActive = false;
 
             string snippet = snip.RealCode;
 
@@ -256,7 +256,7 @@ namespace ARCed.Scintilla
             var dropMarkers = new SortedList<int, int>();
             var indexedRangesToActivate = new SortedList<int, SnippetLinkRange>();
             var unindexedRangesToActivate = new List<SnippetLinkRange>();
-            Match m = snippetRegex1.Match(snippet);
+            Match m = this.snippetRegex1.Match(snippet);
 
             while (m.Success)
             {
@@ -380,7 +380,7 @@ namespace ARCed.Scintilla
                 //	Any more matches? Note that I'm rerunning the regexp query
                 //	on the snippet string becuase it's contents have been modified
                 //	and we need to get the updated index values.
-                m = snippetRegex1.Match(snippet);
+                m = this.snippetRegex1.Match(snippet);
             }
 
             //	Replace the snippet Keyword with the snippet text. Or if this
@@ -402,7 +402,7 @@ namespace ARCed.Scintilla
                 allLinks[i + indexedRangesToActivate.Count] = unindexedRangesToActivate[i];
 
             foreach (SnippetLinkRange slr in allLinks)
-                addSnippetLink(slr);
+                this.addSnippetLink(slr);
 
             foreach (SnippetLinkRange slr in allLinks)
                 slr.Init();
@@ -412,10 +412,12 @@ namespace ARCed.Scintilla
             //	SQL Lexer styles the newly added text it won't get styled. So to
             //	make sure we set the Indicator Styles after we put the call on
             //	a timer.
-            if (_snippetLinks.Count > 0)
+            if (this._snippetLinks.Count > 0)
             {
-                var t = new Timer();
-                t.Interval = 10;
+                var t = new Timer
+                {
+                    Interval = 10
+                };
 
                 //	Oh how I love anonymous delegates, this is starting to remind
                 //	me of JavaScript and SetTimeout...
@@ -453,7 +455,7 @@ namespace ARCed.Scintilla
                 {
                     var eci = new SnippetLinkEnd(endPos + startPos, Scintilla);
                     Scintilla.ManagedRanges.Add(eci);
-                    _snippetLinks.EndPoint = eci;
+                    this._snippetLinks.EndPoint = eci;
                 }
                 else
                 {
@@ -474,13 +476,13 @@ namespace ARCed.Scintilla
             //	irregardlessly of if the SnippetLinks are active. Since we may not have
             //	a valid context to execute we don't necessarily want to eat the
             //	keystroke in all circumstances, hence the bool return
-            if (!_snippetLinks.IsActive || Scintilla.AutoComplete.IsActive)
+            if (!this._snippetLinks.IsActive || Scintilla.AutoComplete.IsActive)
                 return false;
 
             //	OK So we want to find the next SnippetLink in
             //	whatever order they are in and then select it
             //	so that they can fill it out.
-            SnippetLink sl = _snippetLinks.NextActiveSnippetLink;
+            SnippetLink sl = this._snippetLinks.NextActiveSnippetLink;
             if (sl != null)
             {
                 //	However it is possible that all of this Snippet Links'
@@ -490,8 +492,8 @@ namespace ARCed.Scintilla
 
                 while (sl.Ranges.Count == 0)
                 {
-                    _snippetLinks.Remove(sl);
-                    sl = _snippetLinks.NextActiveSnippetLink;
+                    this._snippetLinks.Remove(sl);
+                    sl = this._snippetLinks.NextActiveSnippetLink;
 
                     //	No more snippet links? Nothing to do but quit
                     if (sl == null)
@@ -514,16 +516,16 @@ namespace ARCed.Scintilla
         public bool PreviousSnippetRange()
         {
             //	Same as NextSnippetRange but going in the opposite direction
-            if (!_snippetLinks.IsActive || Scintilla.AutoComplete.IsActive)
+            if (!this._snippetLinks.IsActive || Scintilla.AutoComplete.IsActive)
                 return false;
 
-            SnippetLink sl = _snippetLinks.PreviousActiveSnippetLink;
+            SnippetLink sl = this._snippetLinks.PreviousActiveSnippetLink;
             if (sl != null)
             {
                 while (sl.Ranges.Count == 0)
                 {
-                    _snippetLinks.Remove(sl);
-                    sl = _snippetLinks.PreviousActiveSnippetLink;
+                    this._snippetLinks.Remove(sl);
+                    sl = this._snippetLinks.PreviousActiveSnippetLink;
                     if (sl == null)
                     {
                         Scintilla.Commands.StopProcessingCommands = true;
@@ -542,72 +544,72 @@ namespace ARCed.Scintilla
 
         private void ResetActiveSnippetColor()
         {
-            _activeSnippetColor = Color.Lime;
+            this._activeSnippetColor = Color.Lime;
         }
 
 
         private void ResetActiveSnippetIndicator()
         {
-            _activeSnippetIndicator = 15;
+            this._activeSnippetIndicator = 15;
         }
 
 
         private void ResetActiveSnippetIndicatorStyle()
         {
-            _activeSnippetIndicatorStyle = IndicatorStyle.RoundBox;
+            this._activeSnippetIndicatorStyle = IndicatorStyle.RoundBox;
         }
 
 
         private void ResetDefaultDelimeter()
         {
-            _defaultDelimeter = '$';
+            this._defaultDelimeter = '$';
         }
 
 
         private void ResetInactiveSnippetColor()
         {
-            _inactiveSnippetColor = Color.Lime;
+            this._inactiveSnippetColor = Color.Lime;
         }
 
 
         private void ResetInactiveSnippetIndicator()
         {
-            _inactiveSnippetIndicator = 16;
+            this._inactiveSnippetIndicator = 16;
         }
 
 
         private void ResetInactiveSnippetIndicatorStyle()
         {
-            _inactiveSnippetIndicatorStyle = IndicatorStyle.Box;
+            this._inactiveSnippetIndicatorStyle = IndicatorStyle.Box;
         }
 
 
         private void ResetIsEnabled()
         {
-            _isEnabled = true;
+            this._isEnabled = true;
         }
 
 
         private void ResetIsOneKeySelectionEmbedEnabled()
         {
-            _isOneKeySelectionEmbedEnabled = false;
+            this._isOneKeySelectionEmbedEnabled = false;
         }
 
 
         private void Scintilla_BeforeTextDelete(object sender, TextModifiedEventArgs e)
         {
-            if (!_isEnabled)
+            if (!this._isEnabled)
                 return;
 
-            if (_snippetLinks.IsActive && !_pendingUndo && !(e.UndoRedoFlags.IsUndo || e.UndoRedoFlags.IsRedo))
+            if (this._snippetLinks.IsActive && !this._pendingUndo && !(e.UndoRedoFlags.IsUndo || e.UndoRedoFlags.IsRedo))
             {
-                _pendingUndo = true;
+                this._pendingUndo = true;
                 Scintilla.UndoRedo.BeginUndoAction();
-                _snippetLinkTimer.Enabled = true;
+                this._snippetLinkTimer.Enabled = true;
             }
 
             ManagedRange undoneSnippetLinkRange = null;
-            if (e.UndoRedoFlags.IsUndo && _snippetLinks.IsActive)
+            if (e.UndoRedoFlags.IsUndo && this._snippetLinks.IsActive)
             {
                 foreach (ManagedRange mr in Scintilla.ManagedRanges)
                 {
@@ -625,11 +627,11 @@ namespace ARCed.Scintilla
             //	is an ultra persistent marker that cannot be deleted until the Snippet
             //	Link mode is deactivated. Place a new EndPoint at the begining of the
             //	deleted range.
-            if (_snippetLinks.IsActive && _snippetLinks.EndPoint != null && _snippetLinks.EndPoint.Scintilla == null)
+            if (this._snippetLinks.IsActive && this._snippetLinks.EndPoint != null && this._snippetLinks.EndPoint.Scintilla == null)
             {
                 var eci = new SnippetLinkEnd(e.Position, Scintilla);
                 Scintilla.ManagedRanges.Add(eci);
-                _snippetLinks.EndPoint = eci;
+                this._snippetLinks.EndPoint = eci;
             }
 
             //	Now collapse the Undone range in preparation for the
@@ -642,7 +644,7 @@ namespace ARCed.Scintilla
             //	mode.
 
             bool deactivate = true;
-            foreach (SnippetLink sl in _snippetLinks.Values)
+            foreach (SnippetLink sl in this._snippetLinks.Values)
             {
                 if (sl.Ranges.Count > 0)
                 {
@@ -659,18 +661,18 @@ namespace ARCed.Scintilla
                     break;
             }
 
-            if (deactivate && IsActive)
-                IsActive = false;
+            if (deactivate && this.IsActive)
+                this.IsActive = false;
         }
 
 
         private void Scintilla_BeforeTextInsert(object sender, TextModifiedEventArgs e)
         {
-            if (_snippetLinks.IsActive && !_pendingUndo && !(e.UndoRedoFlags.IsUndo || e.UndoRedoFlags.IsRedo))
+            if (this._snippetLinks.IsActive && !this._pendingUndo && !(e.UndoRedoFlags.IsUndo || e.UndoRedoFlags.IsRedo))
             {
-                _pendingUndo = true;
+                this._pendingUndo = true;
                 Scintilla.UndoRedo.BeginUndoAction();
-                _snippetLinkTimer.Enabled = true;
+                this._snippetLinkTimer.Enabled = true;
             }
         }
 
@@ -679,36 +681,36 @@ namespace ARCed.Scintilla
         {
             Range sr = Scintilla.Selection.Range;
 
-            if (_snippetLinks.IsActive)
+            if (this._snippetLinks.IsActive)
             {
-                SnippetLink oldActiveSnippetLink = _snippetLinks.ActiveSnippetLink;
-                SnippetLinkRange oldActiveRange = _snippetLinks.ActiveRange;
+                SnippetLink oldActiveSnippetLink = this._snippetLinks.ActiveSnippetLink;
+                SnippetLinkRange oldActiveRange = this._snippetLinks.ActiveRange;
 
-                _snippetLinks.ActiveSnippetLink = null;
-                _snippetLinks.ActiveRange = null;
+                this._snippetLinks.ActiveSnippetLink = null;
+                this._snippetLinks.ActiveRange = null;
 
-                for (int i = 0; i < _snippetLinks.Count; i++)
+                for (int i = 0; i < this._snippetLinks.Count; i++)
                 {
 
-                    SnippetLink sl = _snippetLinks[i];
+                    SnippetLink sl = this._snippetLinks[i];
 
                     foreach (SnippetLinkRange r in sl.Ranges)
                     {
                         if (r.IntersectsWith(sr))
                         {
-                            _snippetLinks.ActiveSnippetLink = sl;
-                            _snippetLinks.ActiveRange = r;
+                            this._snippetLinks.ActiveSnippetLink = sl;
+                            this._snippetLinks.ActiveRange = r;
                             break;
                         }
                     }
-                    if (_snippetLinks.ActiveRange != null)
+                    if (this._snippetLinks.ActiveRange != null)
                         break;
                 }
 
-                foreach (SnippetLink sl in _snippetLinks.Values)
+                foreach (SnippetLink sl in this._snippetLinks.Values)
                     foreach (Range r in sl.Ranges)
                     {
-                        if (sl == _snippetLinks.ActiveSnippetLink)
+                        if (sl == this._snippetLinks.ActiveSnippetLink)
                         {
                             r.ClearIndicator(Scintilla.Snippets.InactiveSnippetIndicator);
                             r.SetIndicator(Scintilla.Snippets.ActiveSnippetIndicator);
@@ -727,110 +729,112 @@ namespace ARCed.Scintilla
         {
             //	I'm going to have to look into making this a little less "sledge hammer to
             //	the entire documnet"ish
-            if (_snippetLinks.IsActive && (e.UndoRedoFlags.IsUndo || e.UndoRedoFlags.IsRedo))
+            if (this._snippetLinks.IsActive && (e.UndoRedoFlags.IsUndo || e.UndoRedoFlags.IsRedo))
                 Scintilla.NativeInterface.Colourise(0, -1);
         }
 
 
         internal void SetIndicators()
         {
-            Scintilla.Indicators[_activeSnippetIndicator].Style = _activeSnippetIndicatorStyle;
-            Scintilla.Indicators[_activeSnippetIndicator].Color = _activeSnippetColor;
+            Scintilla.Indicators[this._activeSnippetIndicator].Style = this._activeSnippetIndicatorStyle;
+            Scintilla.Indicators[this._activeSnippetIndicator].Color = this._activeSnippetColor;
 
-            Scintilla.Indicators[_inactiveSnippetIndicator].Style = _inactiveSnippetIndicatorStyle;
-            Scintilla.Indicators[_inactiveSnippetIndicator].Color = _inactiveSnippetColor;
+            Scintilla.Indicators[this._inactiveSnippetIndicator].Style = this._inactiveSnippetIndicatorStyle;
+            Scintilla.Indicators[this._inactiveSnippetIndicator].Color = this._inactiveSnippetColor;
         }
 
 
         internal bool ShouldSerialize()
         {
-            return ShouldSerializeActiveSnippetColor() ||
-                ShouldSerializeActiveSnippetIndicator() ||
-                ShouldSerializeActiveSnippetIndicatorStyle() ||
-                ShouldSerializeInactiveSnippetColor() ||
-                ShouldSerializeInactiveSnippetIndicator() ||
-                ShouldSerializeInactiveSnippetIndicatorStyle()||
-                ShouldSerializeIsOneKeySelectionEmbedEnabled() ||
-                ShouldSerializeIsEnabled() ||
-                ShouldSerializeDefaultDelimeter();
+            return this.ShouldSerializeActiveSnippetColor() ||
+                this.ShouldSerializeActiveSnippetIndicator() ||
+                this.ShouldSerializeActiveSnippetIndicatorStyle() ||
+                this.ShouldSerializeInactiveSnippetColor() ||
+                this.ShouldSerializeInactiveSnippetIndicator() ||
+                this.ShouldSerializeInactiveSnippetIndicatorStyle()||
+                this.ShouldSerializeIsOneKeySelectionEmbedEnabled() ||
+                this.ShouldSerializeIsEnabled() ||
+                this.ShouldSerializeDefaultDelimeter();
         }
 
 
         private bool ShouldSerializeActiveSnippetColor()
         {
-            return _activeSnippetColor != Color.Lime;
+            return this._activeSnippetColor != Color.Lime;
         }
 
 
         private bool ShouldSerializeActiveSnippetIndicator()
         {
-            return _activeSnippetIndicator != 15;
+            return this._activeSnippetIndicator != 15;
         }
 
 
         private bool ShouldSerializeActiveSnippetIndicatorStyle()
         {
-            return _activeSnippetIndicatorStyle != IndicatorStyle.RoundBox;
+            return this._activeSnippetIndicatorStyle != IndicatorStyle.RoundBox;
         }
 
 
         private bool ShouldSerializeDefaultDelimeter()
         {
-            return _defaultDelimeter != '$';
+            return this._defaultDelimeter != '$';
         }
 
 
         private bool ShouldSerializeInactiveSnippetColor()
         {
-            return _inactiveSnippetColor != Color.Lime;
+            return this._inactiveSnippetColor != Color.Lime;
         }
 
 
         private bool ShouldSerializeInactiveSnippetIndicator()
         {
-            return _inactiveSnippetIndicator != 16;
+            return this._inactiveSnippetIndicator != 16;
         }
 
 
         private bool ShouldSerializeInactiveSnippetIndicatorStyle()
         {
-            return _inactiveSnippetIndicatorStyle != IndicatorStyle.Box;
+            return this._inactiveSnippetIndicatorStyle != IndicatorStyle.Box;
         }
 
 
         private bool ShouldSerializeIsEnabled()
         {
-            return !_isEnabled;
+            return !this._isEnabled;
         }
 
 
         private bool ShouldSerializeIsOneKeySelectionEmbedEnabled()
         {
-            return _isOneKeySelectionEmbedEnabled;
+            return this._isOneKeySelectionEmbedEnabled;
         }
 
 
          public void ShowSnippetList()
         {
-            if (_list.Count == 0)
+            if (this._list.Count == 0)
                 return;
 
-            if (_snipperChooser == null)
+            if (this._snipperChooser == null)
             {
-                _snipperChooser = new SnippetChooser();
-                _snipperChooser.Scintilla = Scintilla;
-                _snipperChooser.SnippetList = _list.ToString();
-                _snipperChooser.Scintilla.Controls.Add(_snipperChooser);
+                this._snipperChooser = new SnippetChooser
+                {
+                    Scintilla = Scintilla,
+                    SnippetList = this._list.ToString()
+                };
+                this._snipperChooser.Scintilla.Controls.Add(this._snipperChooser);
             }
-            _snipperChooser.SnippetList = _list.ToString();
-            _snipperChooser.Show();
+            this._snipperChooser.SnippetList = this._list.ToString();
+            this._snipperChooser.Show();
         }
 
 
         public void ShowSurroundWithList()
         {
             var sl = new SnippetList(null);
-            foreach (Snippet s in _list)
+            foreach (Snippet s in this._list)
             {
                 if (s.IsSurroundsWith)
                     sl.Add(s);
@@ -839,38 +843,40 @@ namespace ARCed.Scintilla
             if (sl.Count == 0)
                 return;
 
-            if (_snipperChooser == null)
+            if (this._snipperChooser == null)
             {
-                _snipperChooser = new SnippetChooser();
-                _snipperChooser.Scintilla = Scintilla;
-                _snipperChooser.SnippetList = _list.ToString();
-                _snipperChooser.Scintilla.Controls.Add(_snipperChooser);
+                this._snipperChooser = new SnippetChooser
+                {
+                    Scintilla = Scintilla,
+                    SnippetList = this._list.ToString()
+                };
+                this._snipperChooser.Scintilla.Controls.Add(this._snipperChooser);
             }
-            _snipperChooser.SnippetList = sl.ToString();
-            _snipperChooser.Show();
+            this._snipperChooser.SnippetList = sl.ToString();
+            this._snipperChooser.Show();
         }
 
 
         private void snippetLinkTimer_Tick(object sender, EventArgs e)
         {
-            _snippetLinkTimer.Enabled = false;
+            this._snippetLinkTimer.Enabled = false;
             Range sr = Scintilla.Selection.Range;
 
-            if (_snippetLinks.IsActive)
+            if (this._snippetLinks.IsActive)
             {
-                SnippetLink oldActiveSnippetLink = _snippetLinks.ActiveSnippetLink;
-                SnippetLinkRange oldActiveRange = _snippetLinks.ActiveRange;
+                SnippetLink oldActiveSnippetLink = this._snippetLinks.ActiveSnippetLink;
+                SnippetLinkRange oldActiveRange = this._snippetLinks.ActiveRange;
 
                 if (oldActiveRange != null && (oldActiveRange.IntersectsWith(sr) || oldActiveRange.Equals(sr)))
                 {
                     Scintilla.BeginInvoke(new MethodInvoker(delegate
                     {
-                        cascadeSnippetLinkRangeChange(oldActiveSnippetLink, oldActiveRange);
+                        this.cascadeSnippetLinkRangeChange(oldActiveSnippetLink, oldActiveRange);
 
-                        foreach (SnippetLink sl in _snippetLinks.Values)
+                        foreach (SnippetLink sl in this._snippetLinks.Values)
                             foreach (Range r in sl.Ranges)
                             {
-                                if (sl == _snippetLinks.ActiveSnippetLink)
+                                if (sl == this._snippetLinks.ActiveSnippetLink)
                                 {
                                     r.ClearIndicator(Scintilla.Snippets.InactiveSnippetIndicator);
                                     r.SetIndicator(Scintilla.Snippets.ActiveSnippetIndicator);
@@ -883,9 +889,9 @@ namespace ARCed.Scintilla
 
                             }
 
-                        if (_pendingUndo)
+                        if (this._pendingUndo)
                         {
-                            _pendingUndo = false;
+                            this._pendingUndo = false;
                             Scintilla.UndoRedo.EndUndoAction();
                         }
 
@@ -904,11 +910,11 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _activeSnippetColor;
+                return this._activeSnippetColor;
             }
             set
             {
-                _activeSnippetColor = value;
+                this._activeSnippetColor = value;
             }
         }
 
@@ -917,11 +923,11 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _activeSnippetIndicator;
+                return this._activeSnippetIndicator;
             }
             set
             {
-                _activeSnippetIndicator = value;
+                this._activeSnippetIndicator = value;
             }
         }
 
@@ -930,11 +936,11 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _activeSnippetIndicatorStyle;
+                return this._activeSnippetIndicatorStyle;
             }
             set
             {
-                _activeSnippetIndicatorStyle = value;
+                this._activeSnippetIndicatorStyle = value;
             }
         }
 
@@ -943,11 +949,11 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _defaultDelimeter;
+                return this._defaultDelimeter;
             }
             set
             {
-                _defaultDelimeter = value;
+                this._defaultDelimeter = value;
             }
         }
 
@@ -956,11 +962,11 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _inactiveSnippetColor;
+                return this._inactiveSnippetColor;
             }
             set
             {
-                _inactiveSnippetColor = value;
+                this._inactiveSnippetColor = value;
             }
         }
 
@@ -969,11 +975,11 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _inactiveSnippetIndicator;
+                return this._inactiveSnippetIndicator;
             }
             set
             {
-                _inactiveSnippetIndicator = value;
+                this._inactiveSnippetIndicator = value;
             }
         }
 
@@ -982,11 +988,11 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _inactiveSnippetIndicatorStyle;
+                return this._inactiveSnippetIndicatorStyle;
             }
             set
             {
-                _inactiveSnippetIndicatorStyle = value;
+                this._inactiveSnippetIndicatorStyle = value;
             }
         }
 
@@ -996,22 +1002,22 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _snippetLinks.IsActive;
+                return this._snippetLinks.IsActive;
             }
             internal set
             {
-                _snippetLinks.IsActive = value;
+                this._snippetLinks.IsActive = value;
 
                 if (value)
                 {
-                    SetIndicators();
-                    _snippetLinks[0].Ranges[0].Select();
+                    this.SetIndicators();
+                    this._snippetLinks[0].Ranges[0].Select();
                 }
                 else
                 {
                     //	Deactivating Snippet Link mode. First make sure all
                     //	the snippet link ranges have their indicators cleared
-                    foreach (SnippetLink sl in _snippetLinks.Values)
+                    foreach (SnippetLink sl in this._snippetLinks.Values)
                         foreach (Range r in sl.Ranges)
                         {
                             r.ClearIndicator(Scintilla.Snippets.InactiveSnippetIndicator);
@@ -1019,12 +1025,12 @@ namespace ARCed.Scintilla
                         }
 
                     //	Then clear out the _snippetLinks list cuz we're done with them
-                    _snippetLinks.Clear();
+                    this._snippetLinks.Clear();
 
-                    if (_snippetLinks.EndPoint != null)
+                    if (this._snippetLinks.EndPoint != null)
                     {
-                        _snippetLinks.EndPoint.Dispose();
-                        _snippetLinks.EndPoint = null;
+                        this._snippetLinks.EndPoint.Dispose();
+                        this._snippetLinks.EndPoint = null;
                     }
                 }
             }
@@ -1036,11 +1042,11 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _isEnabled;
+                return this._isEnabled;
             }
             set
             {
-                _isEnabled = value;
+                this._isEnabled = value;
 
                 if (value)
                 {
@@ -1064,11 +1070,11 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _isOneKeySelectionEmbedEnabled;
+                return this._isOneKeySelectionEmbedEnabled;
             }
             set
             {
-                _isOneKeySelectionEmbedEnabled = value;
+                this._isOneKeySelectionEmbedEnabled = value;
             }
         }
 
@@ -1078,11 +1084,11 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _list;
+                return this._list;
             }
             set
             {
-                _list = value;
+                this._list = value;
             }
         }
 
@@ -1093,12 +1099,12 @@ namespace ARCed.Scintilla
 
         public SnippetManager(Scintilla scintilla) : base(scintilla)
         {
-            _list = new SnippetList(this);
+            this._list = new SnippetList(this);
 
-            _snippetLinkTimer.Interval = 1;
-            _snippetLinkTimer.Tick += this.snippetLinkTimer_Tick;
+            this._snippetLinkTimer.Interval = 1;
+            this._snippetLinkTimer.Tick += this.snippetLinkTimer_Tick;
 
-            IsEnabled = _isEnabled;
+            this.IsEnabled = this._isEnabled;
         }
 
         #endregion Constructors

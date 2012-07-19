@@ -30,7 +30,7 @@ namespace ARCed.Scintilla
         /// <returns>The underlying <see cref="StringBuilder" /> if one was provided; otherwise, null.</returns>
         public StringBuilder GetStringBuilder()
         {
-            return _stringBuilder;
+            return this._stringBuilder;
         }
 
 
@@ -40,7 +40,7 @@ namespace ARCed.Scintilla
         /// <returns>A <see cref="StyleRun" /> enumerable representing the style runs written thus far.</returns>
         public IEnumerable<StyleRun> GetStyles()
         {
-            return _styleRuns.ToArray();
+            return this._styleRuns.ToArray();
         }
 
 
@@ -86,9 +86,9 @@ namespace ARCed.Scintilla
             if (string.IsNullOrEmpty(value))
                 return;
 
-            _styleRuns.Add(new StyleRun(value.Length, style));
-            if (_stringBuilder != null)
-                _stringBuilder.Append(value);
+            this._styleRuns.Add(new StyleRun(value.Length, style));
+            if (this._stringBuilder != null)
+                this._stringBuilder.Append(value);
         }
 
         #endregion Methods
@@ -102,8 +102,8 @@ namespace ARCed.Scintilla
         /// <param name="stringBuilder">The optional <see cref="StringBuilder" /> to write to.</param>
         public StyleRunWriter(StringBuilder stringBuilder = null)
         {
-            _styleRuns = new List<StyleRun>();
-            _stringBuilder = stringBuilder;
+            this._styleRuns = new List<StyleRun>();
+            this._stringBuilder = stringBuilder;
         }
 
         #endregion Constructors

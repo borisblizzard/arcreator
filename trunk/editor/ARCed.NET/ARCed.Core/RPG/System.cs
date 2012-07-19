@@ -165,46 +165,46 @@ namespace RPG
         /// </summary>
 		public System()
 		{
-			magic_number = 0;
-			party_members = new List<dynamic>
+			this.magic_number = 0;
+			this.party_members = new List<dynamic>
 			{ 1 };
-			elements = new List<dynamic>
+			this.elements = new List<dynamic>
 			{ null, "" };
-			switches = new List<dynamic>
+			this.switches = new List<dynamic>
 			{ null, "" };
-			variables = new List<dynamic>
+			this.variables = new List<dynamic>
 			{ null, "" };
-			windowskin_name = "";
-			title_name = "";
-			gameover_name = "";
-			battle_transition = "";
-			title_bgm = new AudioFile();
-			battle_bgm = new AudioFile();
-			battle_end_me = new AudioFile();
-			gameover_me = new AudioFile();
-			cursor_se = new AudioFile("", 80);
-			decision_se = new AudioFile("", 80);
-			cancel_se = new AudioFile("", 80);
-			buzzer_se = new AudioFile("", 80);
-			equip_se = new AudioFile("", 80);
-			shop_se = new AudioFile("", 80);
-			save_se = new AudioFile("", 80);
-			load_se = new AudioFile("", 80);
-			battle_start_se = new AudioFile("", 80);
-			escape_se = new AudioFile("", 80);
-			actor_collapse_se = new AudioFile("", 80);
-			enemy_collapse_se = new AudioFile("", 80);
-			words = new Words();
-			test_battlers = new List<dynamic>
+			this.windowskin_name = "";
+			this.title_name = "";
+			this.gameover_name = "";
+			this.battle_transition = "";
+			this.title_bgm = new AudioFile();
+			this.battle_bgm = new AudioFile();
+			this.battle_end_me = new AudioFile();
+			this.gameover_me = new AudioFile();
+			this.cursor_se = new AudioFile("", 80);
+			this.decision_se = new AudioFile("", 80);
+			this.cancel_se = new AudioFile("", 80);
+			this.buzzer_se = new AudioFile("", 80);
+			this.equip_se = new AudioFile("", 80);
+			this.shop_se = new AudioFile("", 80);
+			this.save_se = new AudioFile("", 80);
+			this.load_se = new AudioFile("", 80);
+			this.battle_start_se = new AudioFile("", 80);
+			this.escape_se = new AudioFile("", 80);
+			this.actor_collapse_se = new AudioFile("", 80);
+			this.enemy_collapse_se = new AudioFile("", 80);
+			this.words = new Words();
+			this.test_battlers = new List<dynamic>
 			{};
-			test_troop_id = 1;
-			start_map_id = 1;
-			start_x = 0;
-			start_y = 0;
-			battleback_name = "";
-			battler_name = "";
-			battler_hue = 0;
-			edit_map_id = 1;
+			this.test_troop_id = 1;
+			this.start_map_id = 1;
+			this.start_x = 0;
+			this.start_y = 0;
+			this.battleback_name = "";
+			this.battler_name = "";
+			this.battler_hue = 0;
+			this.edit_map_id = 1;
 		}
 
         /// <summary>
@@ -246,13 +246,13 @@ namespace RPG
             /// </summary>
 			public TestBattler()
 			{
-				actor_id = 0;
-				level = 0;
-				weapon_id = 0;
-				armor1_id = 0;
-				armor2_id = 0;
-				armor3_id = 0;
-				armor4_id = 0;
+				this.actor_id = 0;
+				this.level = 0;
+				this.weapon_id = 0;
+				this.armor1_id = 0;
+				this.armor2_id = 0;
+				this.armor3_id = 0;
+				this.armor4_id = 0;
 			}
 		}
 
@@ -347,26 +347,26 @@ namespace RPG
             /// </summary>
 			public Words()
 			{
-				gold = "";
-				hp = "";
-				sp = "";
-				str = "";
-				dex = "";
-				agi = "";
-				@int = "";
-				atk = "";
-				pdef = "";
-				mdef = "";
-				weapon = "";
-				armor1 = "";
-				armor2 = "";
-				armor3 = "";
-				armor4 = "";
-				attack = "";
-				skill = "";
-				guard = "";
-				item = "";
-				equip = "";
+				this.gold = "";
+				this.hp = "";
+				this.sp = "";
+				this.str = "";
+				this.dex = "";
+				this.agi = "";
+				this.@int = "";
+				this.atk = "";
+				this.pdef = "";
+				this.mdef = "";
+				this.weapon = "";
+				this.armor1 = "";
+				this.armor2 = "";
+				this.armor3 = "";
+				this.armor4 = "";
+				this.attack = "";
+				this.skill = "";
+				this.guard = "";
+				this.item = "";
+				this.equip = "";
 			}
 		}
 	}

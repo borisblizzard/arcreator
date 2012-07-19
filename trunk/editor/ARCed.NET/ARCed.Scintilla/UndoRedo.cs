@@ -38,19 +38,19 @@ namespace ARCed.Scintilla
 
         private void ResetIsUndoEnabled()
         {
-            IsUndoEnabled = true;
+            this.IsUndoEnabled = true;
         }
 
 
         internal bool ShouldSerialize()
         {
-            return ShouldSerializeIsUndoEnabled();
+            return this.ShouldSerializeIsUndoEnabled();
         }
 
 
         private bool ShouldSerializeIsUndoEnabled()
         {
-            return !IsUndoEnabled;
+            return !this.IsUndoEnabled;
         }
 
 

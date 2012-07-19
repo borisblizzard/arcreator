@@ -28,7 +28,7 @@ namespace ARCed.Forms
 			"Tool Window Inactive Caption"
 		};
 
-		private DockPanelSkin Skin
+		private static DockPanelSkin Skin
 		{
 			get { return Editor.Settings.WindowSkin; }
 			set { Editor.Settings.WindowSkin = value; }
@@ -38,8 +38,8 @@ namespace ARCed.Forms
 		{
 			get
 			{
-				int index = listBoxGradients.SelectedIndex;
-				if (radioDockPanel.Checked)
+				int index = this.listBoxGradients.SelectedIndex;
+				if (this.radioDockPanel.Checked)
 				{
 					switch (index)
 					{
@@ -66,7 +66,7 @@ namespace ARCed.Forms
 		{
 			get
 			{
-				return radioDockPanel.Checked ? Skin.DockPaneStripSkin.TextFont :
+				return this.radioDockPanel.Checked ? Skin.DockPaneStripSkin.TextFont :
 					Skin.AutoHideStripSkin.TextFont;
 			}
 		}
@@ -76,79 +76,87 @@ namespace ARCed.Forms
 		/// </summary>
 		public SkinSettingsForm()
 		{
-			InitializeComponent();
-			radioPanel_CheckedChanged(null, null);
-			listBoxGradients.SelectedIndex = 0;
+			this.InitializeComponent();
+			this.radioPanel_CheckedChanged(null, null);
+			this.listBoxGradients.SelectedIndex = 0;
 		}
 
 		private void listBoxGradients_SelectedIndexChanged(object sender, EventArgs e)
 		{
-			RefreshDisplay();
+			this.RefreshDisplay();
 		}
 
 		private void RefreshDisplay()
 		{
-			DockPanelGradient gradient = CurrentGradient;
+			DockPanelGradient gradient = this.CurrentGradient;
 			bool enable = gradient != null;
-			bool docGradient = listBoxGradients.SelectedIndex > 3;
+			bool docGradient = this.listBoxGradients.SelectedIndex > 3;
 			if (enable)
 			{
-				panelStartColor.BackColor = gradient.StartColor;
-				panelEndColor.BackColor = gradient.EndColor;
-				comboBoxGradient.SelectedIndex = (int)gradient.LinearGradientMode;
+				this.panelStartColor.BackColor = gradient.StartColor;
+				this.panelEndColor.BackColor = gradient.EndColor;
+				this.comboBoxGradient.SelectedIndex = (int)gradient.LinearGradientMode;
 				if (docGradient)
-					panelTextColor.BackColor = (gradient as TabGradient).TextColor;
+					this.panelTextColor.BackColor = (gradient as TabGradient).TextColor;
 			}
-			panelStartColor.Enabled = enable;
-			panelEndColor.Enabled = enable;
-			panelTextColor.Enabled = enable && docGradient;
-			labelTextColor.ForeColor = enable && docGradient ?
+			this.panelStartColor.Enabled = enable;
+			this.panelEndColor.Enabled = enable;
+			this.panelTextColor.Enabled = enable && docGradient;
+			this.labelTextColor.ForeColor = enable && docGradient ?
 				SystemColors.ControlText : SystemColors.GrayText;
 		}
 
 		private void radioPanel_CheckedChanged(object sender, EventArgs e)
 		{
-			labelFont.Text = CurrentFont.SerializeFontAttribute;
-			listBoxGradients.Items.Clear();
-			listBoxGradients.Items.AddRange(radioDockPanel.Checked ?
+			this.labelFont.Text = this.CurrentFont.SerializeFontAttribute;
+			this.listBoxGradients.Items.Clear();
+			this.listBoxGradients.Items.AddRange(this.radioDockPanel.Checked ?
 			DockPaneStripGradients : AutoHideGradients);
-			listBoxGradients.SelectedIndex = 0;
+			this.listBoxGradients.SelectedIndex = 0;
 		}
 
 		private void panelColor_DoubleClick(object sender, EventArgs e)
 		{
 			string tag = (sender as Control).Tag.ToString();
 			Color color;
-			if (tag == "START") color = panelStartColor.BackColor;
-			else if (tag == "END") color = panelEndColor.BackColor;
-			else color = panelTextColor.BackColor;
+			switch (tag)
+			{
+			    case "START":
+			        color = this.panelStartColor.BackColor;
+			        break;
+			    case "END":
+			        color = this.panelEndColor.BackColor;
+			        break;
+			    default:
+			        color = this.panelTextColor.BackColor;
+			        break;
+			}
 			using (var dialog = new ColorChooserForm())
 			{
 				dialog.Color = color;
 				if (dialog.ShowDialog() == DialogResult.OK)
 				{
-					if (tag == "START") CurrentGradient.StartColor = dialog.Color;
-					else if (tag == "END") CurrentGradient.EndColor = dialog.Color;
-					else color = (CurrentGradient as TabGradient).TextColor = dialog.Color;
-					RefreshDisplay();
+					if (tag == "START") this.CurrentGradient.StartColor = dialog.Color;
+					else if (tag == "END") this.CurrentGradient.EndColor = dialog.Color;
+					this.RefreshDisplay();
 				}
 			}
 		}
 
 		private void comboBoxGradient_SelectedIndexChanged(object sender, EventArgs e)
 		{
-			CurrentGradient.LinearGradientMode = 
-				(LinearGradientMode)comboBoxGradient.SelectedIndex;
+			this.CurrentGradient.LinearGradientMode = 
+				(LinearGradientMode)this.comboBoxGradient.SelectedIndex;
 		}
 
 		private void buttonFont_Click(object sender, EventArgs e)
 		{
 			using (var dialog = new FontSelectionDialog())
 			{
-				dialog.UserFont = CurrentFont;
+				dialog.UserFont = this.CurrentFont;
 				if (dialog.ShowDialog() == DialogResult.OK)
 				{
-					if (radioDockPanel.Checked)
+					if (this.radioDockPanel.Checked)
 						Skin.DockPaneStripSkin.TextFont = dialog.UserFont;
 					else
 						Skin.AutoHideStripSkin.TextFont = dialog.UserFont;
@@ -159,7 +167,7 @@ namespace ARCed.Forms
 		private void buttonDefault_Click(object sender, EventArgs e)
 		{
 			Skin = new DockPanelSkin();
-			RefreshDisplay();
+			this.RefreshDisplay();
 			Editor.MainDock.Refresh();
 		}
 
@@ -170,30 +178,30 @@ namespace ARCed.Forms
 
 		private void groupBoxSkinType_CollapseBoxClickedEvent(object sender)
 		{
-			int y = groupBoxSkinType.FullHeight - groupBoxSkinType.CollapsedHeight;
-			if (groupBoxSkinType.IsCollapsed)
+			int y = this.groupBoxSkinType.FullHeight - this.groupBoxSkinType.CollapsedHeight;
+			if (this.groupBoxSkinType.IsCollapsed)
 				y *= -1;
-			Control[] ctrls = { groupBoxFontSettings, groupBoxGradientSettings, buttonApply, buttonDefault };
+			Control[] ctrls = { this.groupBoxFontSettings, this.groupBoxGradientSettings, this.buttonApply, this.buttonDefault };
 			foreach (Control ctrl in ctrls)
 				ctrl.Location = new Point(ctrl.Location.X, ctrl.Location.Y + y);
 		}
 
 		private void groupBoxFontSettings_CollapseBoxClickedEvent(object sender)
 		{
-			int y = groupBoxFontSettings.FullHeight - groupBoxFontSettings.CollapsedHeight;
-			if (groupBoxFontSettings.IsCollapsed)
+			int y = this.groupBoxFontSettings.FullHeight - this.groupBoxFontSettings.CollapsedHeight;
+			if (this.groupBoxFontSettings.IsCollapsed)
 				y *= -1;
-			Control[] ctrls = { groupBoxGradientSettings, buttonApply, buttonDefault };
+			Control[] ctrls = { this.groupBoxGradientSettings, this.buttonApply, this.buttonDefault };
 			foreach (Control ctrl in ctrls)
 				ctrl.Location = new Point(ctrl.Location.X, ctrl.Location.Y + y);
 		}
 
 		private void groupBoxGradientSettings_CollapseBoxClickedEvent(object sender)
 		{
-			int y = groupBoxGradientSettings.FullHeight - groupBoxGradientSettings.CollapsedHeight;
-			if (groupBoxGradientSettings.IsCollapsed)
+			int y = this.groupBoxGradientSettings.FullHeight - this.groupBoxGradientSettings.CollapsedHeight;
+			if (this.groupBoxGradientSettings.IsCollapsed)
 				y *= -1;
-			Control[] ctrls = { buttonApply, buttonDefault };
+			Control[] ctrls = { this.buttonApply, this.buttonDefault };
 			foreach (Control ctrl in ctrls)
 				ctrl.Location = new Point(ctrl.Location.X, ctrl.Location.Y + y);
 		}

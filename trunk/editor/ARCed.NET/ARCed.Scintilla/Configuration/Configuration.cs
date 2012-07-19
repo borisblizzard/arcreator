@@ -3,6 +3,7 @@
 using System;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using System.Xml;
@@ -158,12 +159,8 @@ namespace ARCed.Scintilla.Configuration
 
         private string getString(XmlAttribute a)
         {
-            if (a == null)
-                return null;
-
-            return a.Value;
+            return a == null ? null : a.Value;
         }
-
 
         private StyleConfig getStyleConfigFromElement(XmlReader reader)
         {
@@ -179,13 +176,13 @@ namespace ARCed.Scintilla.Configuration
                             sc.Name = reader.Value;
                             break;
                         case "number":
-                            sc.Number = getInt(reader.Value);
+                            sc.Number = this.getInt(reader.Value);
                             break;
                         case "backcolor":
-                            sc.BackColor = getColor(reader.Value);
+                            sc.BackColor = this.getColor(reader.Value);
                             break;
                         case "bold":
-                            sc.Bold = getBool(reader.Value);
+                            sc.Bold = this.getBool(reader.Value);
                             break;
                         case "case":
                             sc.Case = (StyleCase)Enum.Parse(typeof(StyleCase), reader.Value, true);
@@ -197,31 +194,31 @@ namespace ARCed.Scintilla.Configuration
                             sc.FontName = reader.Value;
                             break;
                         case "forecolor":
-                            sc.ForeColor = getColor(reader.Value);
+                            sc.ForeColor = this.getColor(reader.Value);
                             break;
                         case "ischangeable":
-                            sc.IsChangeable = getBool(reader.Value);
+                            sc.IsChangeable = this.getBool(reader.Value);
                             break;
                         case "ishotspot":
-                            sc.IsHotspot = getBool(reader.Value);
+                            sc.IsHotspot = this.getBool(reader.Value);
                             break;
                         case "isselectioneolfilled":
-                            sc.IsSelectionEolFilled = getBool(reader.Value);
+                            sc.IsSelectionEolFilled = this.getBool(reader.Value);
                             break;
                         case "isvisible":
-                            sc.IsVisible = getBool(reader.Value);
+                            sc.IsVisible = this.getBool(reader.Value);
                             break;
                         case "italic":
-                            sc.Italic = getBool(reader.Value);
+                            sc.Italic = this.getBool(reader.Value);
                             break;
                         case "size":
-                            sc.Size = getInt(reader.Value);
+                            sc.Size = this.getInt(reader.Value);
                             break;
                         case "underline":
-                            sc.Underline = getBool(reader.Value);
+                            sc.Underline = this.getBool(reader.Value);
                             break;
                         case "inherit":
-                            sc.Inherit = getBool(reader.Value);
+                            sc.Inherit = this.getBool(reader.Value);
                             break;
                     }
                 }
@@ -234,8 +231,10 @@ namespace ARCed.Scintilla.Configuration
 
         public void Load(TextReader txtReader)
         {
-            var configDocument = new XmlDocument();
-            configDocument.PreserveWhitespace = true;
+            var configDocument = new XmlDocument
+            {
+                PreserveWhitespace = true
+            };
             configDocument.Load(txtReader);
             Load(configDocument);
         }
@@ -252,14 +251,14 @@ namespace ARCed.Scintilla.Configuration
                 {
                     while (reader.MoveToNextAttribute())
                     {
-                        if (reader.Name.Equals("name", StringComparison.OrdinalIgnoreCase) && reader.Value.Equals(_language, StringComparison.OrdinalIgnoreCase))
+                        if (reader.Name.Equals("name", StringComparison.OrdinalIgnoreCase) && reader.Value.Equals(this._language, StringComparison.OrdinalIgnoreCase))
                         {
-                            ReadLanguage(reader);
-                            _hasData = true;
+                            this.ReadLanguage(reader);
+                            this._hasData = true;
                         }
                     }
 
-                    if (_hasData)
+                    if (this._hasData)
                         reader.Skip();
                 }
                 else
@@ -278,31 +277,31 @@ namespace ARCed.Scintilla.Configuration
 
         public void Load(XmlDocument configDocument)
         {
-            var langNode = configDocument.DocumentElement.SelectSingleNode("./Language[@Name='" + _language + "']") as XmlElement;
+            var langNode = configDocument.DocumentElement.SelectSingleNode("./Language[@Name='" + this._language + "']") as XmlElement;
             if (langNode == null)
                 return;
 
             var autoCNode = langNode.SelectSingleNode("AutoComplete") as XmlElement;
             if (autoCNode != null)
             {
-                _autoComplete_AutoHide = getBool(autoCNode.GetAttribute("AutoHide"));
-                _autoComplete_AutomaticLengthEntered = getBool(autoCNode.GetAttribute("AutomaticLengthEntered"));
-                _autoComplete_cancelAtStart = getBool(autoCNode.GetAttribute("CancelAtStart"));
-                _autoComplete_DropRestOfWord = getBool(autoCNode.GetAttribute("DropRestOfWord"));
-                _autoComplete_fillUpCharacters = getString(autoCNode.GetAttributeNode("FillUpCharacters"));
-                _autoComplete_ImageSeperator = getChar(autoCNode.GetAttribute("AutomaticLengthEntered"));
-                _autoComplete_IsCaseSensitive = getBool(autoCNode.GetAttribute("IsCaseSensitive"));
-                _autoComplete_ListSeperator = getChar(autoCNode.GetAttribute("ListSeperator"));
-                _autoComplete_MaxHeight = getInt(autoCNode.GetAttribute("MaxHeight"));
-                _autoComplete_MaxWidth = getInt(autoCNode.GetAttribute("MaxWidth"));
-                _autoComplete_singleLineAccept = getBool(autoCNode.GetAttribute("SingleLineAccept"));
-                _autoComplete_StopCharacters = getString(autoCNode.GetAttributeNode("StopCharacters"));
+                this._autoComplete_AutoHide = this.getBool(autoCNode.GetAttribute("AutoHide"));
+                this._autoComplete_AutomaticLengthEntered = this.getBool(autoCNode.GetAttribute("AutomaticLengthEntered"));
+                this._autoComplete_cancelAtStart = this.getBool(autoCNode.GetAttribute("CancelAtStart"));
+                this._autoComplete_DropRestOfWord = this.getBool(autoCNode.GetAttribute("DropRestOfWord"));
+                this._autoComplete_fillUpCharacters = this.getString(autoCNode.GetAttributeNode("FillUpCharacters"));
+                this._autoComplete_ImageSeperator = this.getChar(autoCNode.GetAttribute("AutomaticLengthEntered"));
+                this._autoComplete_IsCaseSensitive = this.getBool(autoCNode.GetAttribute("IsCaseSensitive"));
+                this._autoComplete_ListSeperator = this.getChar(autoCNode.GetAttribute("ListSeperator"));
+                this._autoComplete_MaxHeight = this.getInt(autoCNode.GetAttribute("MaxHeight"));
+                this._autoComplete_MaxWidth = this.getInt(autoCNode.GetAttribute("MaxWidth"));
+                this._autoComplete_singleLineAccept = this.getBool(autoCNode.GetAttribute("SingleLineAccept"));
+                this._autoComplete_StopCharacters = this.getString(autoCNode.GetAttributeNode("StopCharacters"));
 
                 var listNode = autoCNode.SelectSingleNode("./List") as XmlElement;
                 if (listNode != null)
                 {
-                    _autoComplete_ListInherit = getBool(listNode.GetAttribute("Inherit"));
-                    _autoComplete_List = new Regex("\\s+").Replace(listNode.InnerText, " ").Trim();
+                    this._autoComplete_ListInherit = this.getBool(listNode.GetAttribute("Inherit"));
+                    this._autoComplete_List = new Regex("\\s+").Replace(listNode.InnerText, " ").Trim();
 
                 }
             }
@@ -311,9 +310,9 @@ namespace ARCed.Scintilla.Configuration
             var callTipNode = langNode.SelectSingleNode("CallTip") as XmlElement;
             if (callTipNode != null)
             {
-                _callTip_BackColor = getColor(callTipNode.GetAttribute("BackColor"));
-                _callTip_ForeColor = getColor(callTipNode.GetAttribute("ForeColor"));
-                _callTip_HighlightTextColor = getColor(callTipNode.GetAttribute("HighlightTextColor"));
+                this._callTip_BackColor = this.getColor(callTipNode.GetAttribute("BackColor"));
+                this._callTip_ForeColor = this.getColor(callTipNode.GetAttribute("ForeColor"));
+                this._callTip_HighlightTextColor = this.getColor(callTipNode.GetAttribute("HighlightTextColor"));
             }
             callTipNode = null;
 
@@ -324,41 +323,43 @@ namespace ARCed.Scintilla.Configuration
                 //	and we need some way of using the OS value.
                 string blinkRate = caretNode.GetAttribute("BlinkRate");
                 if (blinkRate.ToLower() == "system")
-                    _caret_BlinkRate = SystemInformation.CaretBlinkTime;
+                    this._caret_BlinkRate = SystemInformation.CaretBlinkTime;
                 else
-                    _caret_BlinkRate = getInt(blinkRate);
+                    this._caret_BlinkRate = this.getInt(blinkRate);
 
-                _caret_Color = getColor(caretNode.GetAttribute("Color"));
-                _caret_CurrentLineBackgroundAlpha = getInt(caretNode.GetAttribute("CurrentLineBackgroundAlpha"));
-                _caret_CurrentLineBackgroundColor = getColor(caretNode.GetAttribute("CurrentLineBackgroundColor"));
-                _caret_HighlightCurrentLine = getBool(caretNode.GetAttribute("HighlightCurrentLine"));
-                _caret_IsSticky = getBool(caretNode.GetAttribute("IsSticky"));
+                this._caret_Color = this.getColor(caretNode.GetAttribute("Color"));
+                this._caret_CurrentLineBackgroundAlpha = this.getInt(caretNode.GetAttribute("CurrentLineBackgroundAlpha"));
+                this._caret_CurrentLineBackgroundColor = this.getColor(caretNode.GetAttribute("CurrentLineBackgroundColor"));
+                this._caret_HighlightCurrentLine = this.getBool(caretNode.GetAttribute("HighlightCurrentLine"));
+                this._caret_IsSticky = this.getBool(caretNode.GetAttribute("IsSticky"));
                 try
                 {
-                    _caret_Style = (CaretStyle)Enum.Parse(typeof(CaretStyle), caretNode.GetAttribute("Style"), true);
+                    this._caret_Style = (CaretStyle)Enum.Parse(typeof(CaretStyle), caretNode.GetAttribute("Style"), true);
                 }
                 catch (ArgumentException) { }
-                _caret_Width = getInt(caretNode.GetAttribute("Width"));
+                this._caret_Width = this.getInt(caretNode.GetAttribute("Width"));
             }
             caretNode = null;
 
             var clipboardNode = langNode.SelectSingleNode("Clipboard") as XmlElement;
             if (clipboardNode != null)
             {
-                _clipboard_ConvertLineBreaksOnPaste = getBool(clipboardNode.GetAttribute("ConvertLineBreaksOnPaste"));
+                this._clipboard_ConvertLineBreaksOnPaste = this.getBool(clipboardNode.GetAttribute("ConvertLineBreaksOnPaste"));
             }
             clipboardNode = null;
 
-            _commands_KeyBindingList = new CommandBindingConfigList();
+            this._commands_KeyBindingList = new CommandBindingConfigList();
             var commandsNode = langNode.SelectSingleNode("Commands") as XmlElement;
             if (commandsNode != null)
             {
-                _commands_KeyBindingList.Inherit = getBool(commandsNode.GetAttribute("Inherit"));
-                _commands_KeyBindingList.AllowDuplicateBindings = getBool(commandsNode.GetAttribute("AllowDuplicateBindings"));
+                this._commands_KeyBindingList.Inherit = this.getBool(commandsNode.GetAttribute("Inherit"));
+                this._commands_KeyBindingList.AllowDuplicateBindings = this.getBool(commandsNode.GetAttribute("AllowDuplicateBindings"));
                 foreach (XmlElement el in commandsNode.SelectNodes("./Binding"))
                 {
-                    var kb = new KeyBinding();
-                    kb.KeyCode = Utilities.GetKeys(el.GetAttribute("Key"));
+                    var kb = new KeyBinding
+                    {
+                        KeyCode = Utilities.GetKeys(el.GetAttribute("Key"))
+                    };
 
                     string modifiers = el.GetAttribute("Modifier");
                     if (modifiers != string.Empty)
@@ -368,8 +369,8 @@ namespace ARCed.Scintilla.Configuration
                     }
 
                     var cmd = (BindableCommand)Enum.Parse(typeof(BindableCommand), el.GetAttribute("Command"), true);
-                    var cfg = new CommandBindingConfig(kb, getBool(el.GetAttribute("ReplaceCurrent")), cmd);
-                    _commands_KeyBindingList.Add(cfg);
+                    var cfg = new CommandBindingConfig(kb, this.getBool(el.GetAttribute("ReplaceCurrent")), cmd);
+                    this._commands_KeyBindingList.Add(cfg);
                 }
             }
             commandsNode = null;
@@ -377,11 +378,11 @@ namespace ARCed.Scintilla.Configuration
             var endOfLineNode = langNode.SelectSingleNode("EndOfLine") as XmlElement;
             if (endOfLineNode != null)
             {
-                _endOfLine_IsVisisble = getBool(endOfLineNode.GetAttribute("IsVisible"));
+                this._endOfLine_IsVisisble = this.getBool(endOfLineNode.GetAttribute("IsVisible"));
 
                 try
                 {
-                    _endOfLine_Mode = (EndOfLineMode)Enum.Parse(typeof(EndOfLineMode), endOfLineNode.GetAttribute("Mode"), true);
+                    this._endOfLine_Mode = (EndOfLineMode)Enum.Parse(typeof(EndOfLineMode), endOfLineNode.GetAttribute("Mode"), true);
                 }
                 catch (ArgumentException) { }
             }
@@ -393,50 +394,49 @@ namespace ARCed.Scintilla.Configuration
                 string flags = foldingNode.GetAttribute("Flags").Trim();
                 if (flags != string.Empty)
                 {
-                    FoldFlag? ff = null;
-                    foreach (string flag in flags.Split(' '))
-                        ff |= (FoldFlag)Enum.Parse(typeof(FoldFlag), flag.Trim(), true);
+                    FoldFlag? ff = flags.Split(' ').Aggregate<string, FoldFlag?>(null, 
+                        (current, flag) => current | (FoldFlag)Enum.Parse(typeof (FoldFlag), flag.Trim(), true));
 
                     if (ff.HasValue)
-                        _folding_Flags = ff;
+                        this._folding_Flags = ff;
                 }
 
-                _folding_IsEnabled = getBool(foldingNode.GetAttribute("IsEnabled"));
+                this._folding_IsEnabled = this.getBool(foldingNode.GetAttribute("IsEnabled"));
                 try
                 {
-                    _folding_MarkerScheme = (FoldMarkerScheme)Enum.Parse(typeof(FoldMarkerScheme), foldingNode.GetAttribute("MarkerScheme"), true);
+                    this._folding_MarkerScheme = (FoldMarkerScheme)Enum.Parse(typeof(FoldMarkerScheme), foldingNode.GetAttribute("MarkerScheme"), true);
                 }
                 catch (ArgumentException) { }
 
-                _folding_UseCompactFolding = getBool(foldingNode.GetAttribute("UseCompactFolding"));
+                this._folding_UseCompactFolding = this.getBool(foldingNode.GetAttribute("UseCompactFolding"));
             }
             foldingNode = null;
 
             var hotSpotNode = langNode.SelectSingleNode("Hotspot") as XmlElement;
             if (hotSpotNode != null)
             {
-                _hotspot_ActiveBackColor = getColor(hotSpotNode.GetAttribute("ActiveBackColor"));
-                _hotspot_ActiveForeColor = getColor(hotSpotNode.GetAttribute("ActiveForeColor"));
-                _hotspot_ActiveUnderline = getBool(hotSpotNode.GetAttribute("ActiveUnderline"));
-                _hotspot_SingleLine = getBool(hotSpotNode.GetAttribute("SingleLine"));
-                _hotspot_UseActiveBackColor = getBool(hotSpotNode.GetAttribute("UseActiveBackColor"));
-                _hotspot_UseActiveForeColor = getBool(hotSpotNode.GetAttribute("UseActiveForeColor"));
+                this._hotspot_ActiveBackColor = this.getColor(hotSpotNode.GetAttribute("ActiveBackColor"));
+                this._hotspot_ActiveForeColor = this.getColor(hotSpotNode.GetAttribute("ActiveForeColor"));
+                this._hotspot_ActiveUnderline = this.getBool(hotSpotNode.GetAttribute("ActiveUnderline"));
+                this._hotspot_SingleLine = this.getBool(hotSpotNode.GetAttribute("SingleLine"));
+                this._hotspot_UseActiveBackColor = this.getBool(hotSpotNode.GetAttribute("UseActiveBackColor"));
+                this._hotspot_UseActiveForeColor = this.getBool(hotSpotNode.GetAttribute("UseActiveForeColor"));
             }
             hotSpotNode = null;
 
             var indentationNode = langNode.SelectSingleNode("Indentation") as XmlElement;
             if (indentationNode != null)
             {
-                _indentation_BackspaceUnindents = getBool(indentationNode.GetAttribute("BackspaceUnindents"));
-                _indentation_IndentWidth = getInt(indentationNode.GetAttribute("IndentWidth"));
-                _indentation_ShowGuides = getBool(indentationNode.GetAttribute("ShowGuides"));
-                _indentation_TabIndents = getBool(indentationNode.GetAttribute("TabIndents"));
-                _indentation_TabWidth = getInt(indentationNode.GetAttribute("TabWidth"));
-                _indentation_UseTabs = getBool(indentationNode.GetAttribute("UseTabs"));
+                this._indentation_BackspaceUnindents = this.getBool(indentationNode.GetAttribute("BackspaceUnindents"));
+                this._indentation_IndentWidth = this.getInt(indentationNode.GetAttribute("IndentWidth"));
+                this._indentation_ShowGuides = this.getBool(indentationNode.GetAttribute("ShowGuides"));
+                this._indentation_TabIndents = this.getBool(indentationNode.GetAttribute("TabIndents"));
+                this._indentation_TabWidth = this.getInt(indentationNode.GetAttribute("TabWidth"));
+                this._indentation_UseTabs = this.getBool(indentationNode.GetAttribute("UseTabs"));
 
                 try
                 {
-                    _indentation_SmartIndentType = (SmartIndent)Enum.Parse(typeof(SmartIndent), indentationNode.GetAttribute("SmartIndentType"), true);
+                    this._indentation_SmartIndentType = (SmartIndent)Enum.Parse(typeof(SmartIndent), indentationNode.GetAttribute("SmartIndentType"), true);
                 }
                 catch (ArgumentException) { }
 
@@ -446,47 +446,49 @@ namespace ARCed.Scintilla.Configuration
             var indicatorNode = langNode.SelectSingleNode("Indicators") as XmlElement;
             if (indicatorNode != null)
             {
-                _indicator_List.Inherit = getBool(indicatorNode.GetAttribute("Inherit"));
+                this._indicator_List.Inherit = this.getBool(indicatorNode.GetAttribute("Inherit"));
                 foreach (XmlElement el in indicatorNode.SelectNodes("Indicator"))
                 {
-                    var ic = new IndicatorConfig();
-                    ic.Number = int.Parse(el.GetAttribute("Number"));
-                    ic.Color = getColor(el.GetAttribute("Color"));
-                    ic.Inherit = getBool(el.GetAttribute("Inherit"));
-                    ic.IsDrawnUnder = getBool(el.GetAttribute("IsDrawnUnder"));
+                    var ic = new IndicatorConfig
+                    {
+                        Number = int.Parse(el.GetAttribute("Number")),
+                        Color = this.getColor(el.GetAttribute("Color")),
+                        Inherit = this.getBool(el.GetAttribute("Inherit")),
+                        IsDrawnUnder = this.getBool(el.GetAttribute("IsDrawnUnder"))
+                    };
                     try
                     {
                         ic.Style = (IndicatorStyle)Enum.Parse(typeof(IndicatorStyle), el.GetAttribute("Style"), true);
                     }
                     catch (ArgumentException) { }
 
-                    _indicator_List.Add(ic);
+                    this._indicator_List.Add(ic);
                 }
             }
 
-            _lexing_Properties = new LexerPropertiesConfig();
-            _lexing_Keywords = new KeyWordConfigList();
+            this._lexing_Properties = new LexerPropertiesConfig();
+            this._lexing_Keywords = new KeyWordConfigList();
             var lexerNode = langNode.SelectSingleNode("Lexer") as XmlElement;
             if (lexerNode != null)
             {
-                _lexing_WhitespaceChars = getString(lexerNode.GetAttributeNode("WhitespaceChars"));
-                _lexing_WordChars = getString(lexerNode.GetAttributeNode("WordChars"));
-                _lexing_Language = getString(lexerNode.GetAttributeNode("LexerName"));
-                _lexing_LineCommentPrefix = getString(lexerNode.GetAttributeNode("LineCommentPrefix"));
-                _lexing_StreamCommentPrefix = getString(lexerNode.GetAttributeNode("StreamCommentPrefix"));
-                _lexing_StreamCommentSuffix = getString(lexerNode.GetAttributeNode("StreamCommentSuffix"));
+                this._lexing_WhitespaceChars = this.getString(lexerNode.GetAttributeNode("WhitespaceChars"));
+                this._lexing_WordChars = this.getString(lexerNode.GetAttributeNode("WordChars"));
+                this._lexing_Language = this.getString(lexerNode.GetAttributeNode("LexerName"));
+                this._lexing_LineCommentPrefix = this.getString(lexerNode.GetAttributeNode("LineCommentPrefix"));
+                this._lexing_StreamCommentPrefix = this.getString(lexerNode.GetAttributeNode("StreamCommentPrefix"));
+                this._lexing_StreamCommentSuffix = this.getString(lexerNode.GetAttributeNode("StreamCommentSuffix"));
 
                 var propNode = lexerNode.SelectSingleNode("Properties") as XmlElement;
                 if (propNode != null)
                 {
-                    _lexing_Properties.Inherit = getBool(propNode.GetAttribute("Inherit"));
+                    this._lexing_Properties.Inherit = this.getBool(propNode.GetAttribute("Inherit"));
 
                     foreach (XmlElement el in propNode.SelectNodes("Property"))
-                        _lexing_Properties.Add(el.GetAttribute("Name"), el.GetAttribute("Value"));
+                        this._lexing_Properties.Add(el.GetAttribute("Name"), el.GetAttribute("Value"));
                 }
 
                 foreach (XmlElement el in lexerNode.SelectNodes("Keywords"))
-                    _lexing_Keywords.Add(new KeyWordConfig(getInt(el.GetAttribute("List")).Value, el.InnerText.Trim(), getBool(el.GetAttribute("Inherit"))));
+                    this._lexing_Keywords.Add(new KeyWordConfig(this.getInt(el.GetAttribute("List")).Value, el.InnerText.Trim(), this.getBool(el.GetAttribute("Inherit"))));
 
             }
             lexerNode = null;
@@ -496,15 +498,15 @@ namespace ARCed.Scintilla.Configuration
             {
                 try
                 {
-                    _lineWrapping_Mode = (LineWrappingMode)Enum.Parse(typeof(LineWrappingMode), lineWrapNode.GetAttribute("Mode"), true);
+                    this._lineWrapping_Mode = (LineWrappingMode)Enum.Parse(typeof(LineWrappingMode), lineWrapNode.GetAttribute("Mode"), true);
                 }
                 catch (ArgumentException) { }
 
-                _lineWrapping_IndentSize = getInt(lineWrapNode.GetAttribute("IndentSize"));
+                this._lineWrapping_IndentSize = this.getInt(lineWrapNode.GetAttribute("IndentSize"));
 
                 try
                 {
-                    _lineWrapping_IndentMode = (LineWrappingIndentMode)Enum.Parse(typeof(LineWrappingIndentMode), lineWrapNode.GetAttribute("IndentMode"), true);
+                    this._lineWrapping_IndentMode = (LineWrappingIndentMode)Enum.Parse(typeof(LineWrappingIndentMode), lineWrapNode.GetAttribute("IndentMode"), true);
                 }
                 catch (ArgumentException) { }
 
@@ -516,12 +518,12 @@ namespace ARCed.Scintilla.Configuration
                         wvf |= (LineWrappingVisualFlags)Enum.Parse(typeof(LineWrappingVisualFlags), flag.Trim(), true);
 
                     if (wvf.HasValue)
-                        _lineWrapping_VisualFlags = wvf;
+                        this._lineWrapping_VisualFlags = wvf;
                 }
 
                 try
                 {
-                    _lineWrapping_VisualFlagsLocations = (LineWrappingVisualFlagsLocations)Enum.Parse(typeof(LineWrappingVisualFlagsLocations), lineWrapNode.GetAttribute("VisualFlagsLocations"), true);
+                    this._lineWrapping_VisualFlagsLocations = (LineWrappingVisualFlagsLocations)Enum.Parse(typeof(LineWrappingVisualFlagsLocations), lineWrapNode.GetAttribute("VisualFlagsLocations"), true);
                 }
                 catch (ArgumentException) { }
             }
@@ -530,77 +532,81 @@ namespace ARCed.Scintilla.Configuration
             var longLinesNode = langNode.SelectSingleNode("LongLines") as XmlElement;
             if (longLinesNode != null)
             {
-                _longLines_EdgeColor = getColor(longLinesNode.GetAttribute("EdgeColor"));
-                _longLines_EdgeColumn = getInt(longLinesNode.GetAttribute("EdgeColumn"));
+                this._longLines_EdgeColor = this.getColor(longLinesNode.GetAttribute("EdgeColor"));
+                this._longLines_EdgeColumn = this.getInt(longLinesNode.GetAttribute("EdgeColumn"));
                 try
                 {
-                    _longLines_EdgeMode = (EdgeMode)Enum.Parse(typeof(EdgeMode), longLinesNode.GetAttribute("EdgeMode"), true);
+                    this._longLines_EdgeMode = (EdgeMode)Enum.Parse(typeof(EdgeMode), longLinesNode.GetAttribute("EdgeMode"), true);
                 }
                 catch (ArgumentException) { }
             }
             longLinesNode = null;
 
-            _margin_List = new MarginConfigList();
+            this._margin_List = new MarginConfigList();
             var marginNode = langNode.SelectSingleNode("Margins") as XmlElement;
             if (marginNode != null)
             {
-                _margin_List.FoldMarginColor = getColor(marginNode.GetAttribute("FoldMarginColor"));
-                _margin_List.FoldMarginHighlightColor = getColor(marginNode.GetAttribute("FoldMarginHighlightColor"));
-                _margin_List.Left = getInt(marginNode.GetAttribute("Left"));
-                _margin_List.Right = getInt(marginNode.GetAttribute("Right"));
-                _margin_List.Inherit = getBool(marginNode.GetAttribute("Inherit"));
+                this._margin_List.FoldMarginColor = this.getColor(marginNode.GetAttribute("FoldMarginColor"));
+                this._margin_List.FoldMarginHighlightColor = this.getColor(marginNode.GetAttribute("FoldMarginHighlightColor"));
+                this._margin_List.Left = this.getInt(marginNode.GetAttribute("Left"));
+                this._margin_List.Right = this.getInt(marginNode.GetAttribute("Right"));
+                this._margin_List.Inherit = this.getBool(marginNode.GetAttribute("Inherit"));
 
                 foreach (XmlElement el in marginNode.SelectNodes("./Margin"))
                 {
-                    var mc = new MarginConfig();
-                    mc.Number = int.Parse(el.GetAttribute("Number"));
-                    mc.Inherit = getBool(el.GetAttribute("Inherit"));
-                    mc.AutoToggleMarkerNumber = getInt(el.GetAttribute("AutoToggleMarkerNumber"));
-                    mc.IsClickable = getBool(el.GetAttribute("IsClickable"));
-                    mc.IsFoldMargin = getBool(el.GetAttribute("IsFoldMargin"));
-                    mc.IsMarkerMargin = getBool(el.GetAttribute("IsMarkerMargin"));
+                    var mc = new MarginConfig
+                    {
+                        Number = int.Parse(el.GetAttribute("Number")),
+                        Inherit = this.getBool(el.GetAttribute("Inherit")),
+                        AutoToggleMarkerNumber = this.getInt(el.GetAttribute("AutoToggleMarkerNumber")),
+                        IsClickable = this.getBool(el.GetAttribute("IsClickable")),
+                        IsFoldMargin = this.getBool(el.GetAttribute("IsFoldMargin")),
+                        IsMarkerMargin = this.getBool(el.GetAttribute("IsMarkerMargin"))
+                    };
                     try
                     {
                         mc.Type = (MarginType)Enum.Parse(typeof(MarginType), el.GetAttribute("Type"), true);
                     }
                     catch (ArgumentException) { }
 
-                    mc.Width = getInt(el.GetAttribute("Width"));
+                    mc.Width = this.getInt(el.GetAttribute("Width"));
 
-                    _margin_List.Add(mc);
+                    this._margin_List.Add(mc);
                 }
             }
             marginNode = null;
 
             var markersNode = langNode.SelectSingleNode("Markers") as XmlElement;
-            _markers_List = new MarkersConfigList();
+            this._markers_List = new MarkersConfigList();
             if (markersNode != null)
             {
-                _markers_List.Inherit = getBool(markersNode.GetAttribute("Inherit"));
+                this._markers_List.Inherit = this.getBool(markersNode.GetAttribute("Inherit"));
 
                 foreach (XmlElement el in markersNode.SelectNodes("Marker"))
                 {
-                    var mc = new MarkersConfig();
-                    mc.Alpha = getInt(el.GetAttribute("Alpha"));
-                    mc.BackColor = getColor(el.GetAttribute("BackColor"));
-                    mc.ForeColor = getColor(el.GetAttribute("ForeColor"));
-                    mc.Name = getString(el.GetAttributeNode("Name"));
-                    mc.Number = getInt(el.GetAttribute("Number"));
-                    mc.Inherit = getBool(el.GetAttribute("Inherit"));
+                    var mc = new MarkersConfig
+                    {
+                        Alpha = this.getInt(el.GetAttribute("Alpha")),
+                        BackColor = this.getColor(el.GetAttribute("BackColor")),
+                        ForeColor = this.getColor(el.GetAttribute("ForeColor")),
+                        Name = this.getString(el.GetAttributeNode("Name")),
+                        Number = this.getInt(el.GetAttribute("Number")),
+                        Inherit = this.getBool(el.GetAttribute("Inherit"))
+                    };
                     try
                     {
                         mc.Symbol = (MarkerSymbol)Enum.Parse(typeof(MarkerSymbol), el.GetAttribute("Symbol"), true);
                     }
                     catch (ArgumentException) { }
-                    _markers_List.Add(mc);
+                    this._markers_List.Add(mc);
                 }
             }
 
             var scrollingNode = langNode.SelectSingleNode("Scrolling") as XmlElement;
             if (scrollingNode != null)
             {
-                _scrolling_EndAtLastLine = getBool(scrollingNode.GetAttribute("EndAtLastLine"));
-                _scrolling_HorizontalWidth = getInt(scrollingNode.GetAttribute("HorizontalWidth"));
+                this._scrolling_EndAtLastLine = this.getBool(scrollingNode.GetAttribute("EndAtLastLine"));
+                this._scrolling_HorizontalWidth = this.getInt(scrollingNode.GetAttribute("HorizontalWidth"));
 
                 string flags = scrollingNode.GetAttribute("ScrollBars").Trim();
                 if (flags != string.Empty)
@@ -610,10 +616,10 @@ namespace ARCed.Scintilla.Configuration
                         sb |= (ScrollBars)Enum.Parse(typeof(ScrollBars), flag.Trim(), true);
 
                     if (sb.HasValue)
-                        _scrolling_ScrollBars = sb;
+                        this._scrolling_ScrollBars = sb;
                 }
 
-                _scrolling_XOffset = getInt(scrollingNode.GetAttribute("XOffset"));
+                this._scrolling_XOffset = this.getInt(scrollingNode.GetAttribute("XOffset"));
             }
             scrollingNode = null;
 
@@ -621,69 +627,73 @@ namespace ARCed.Scintilla.Configuration
             var selectionNode = langNode.SelectSingleNode("Selection") as XmlElement;
             if (selectionNode != null)
             {
-                _selection_BackColor = getColor(selectionNode.GetAttribute("BackColor"));
-                _selection_BackColorUnfocused = getColor(selectionNode.GetAttribute("BackColorUnfocused"));
-                _selection_ForeColor = getColor(selectionNode.GetAttribute("ForeColor"));
-                _selection_ForeColorUnfocused = getColor(selectionNode.GetAttribute("ForeColorUnfocused"));
-                _selection_Hidden = getBool(selectionNode.GetAttribute("Hidden"));
-                _selection_HideSelection = getBool(selectionNode.GetAttribute("HideSelection"));
+                this._selection_BackColor = this.getColor(selectionNode.GetAttribute("BackColor"));
+                this._selection_BackColorUnfocused = this.getColor(selectionNode.GetAttribute("BackColorUnfocused"));
+                this._selection_ForeColor = this.getColor(selectionNode.GetAttribute("ForeColor"));
+                this._selection_ForeColorUnfocused = this.getColor(selectionNode.GetAttribute("ForeColorUnfocused"));
+                this._selection_Hidden = this.getBool(selectionNode.GetAttribute("Hidden"));
+                this._selection_HideSelection = this.getBool(selectionNode.GetAttribute("HideSelection"));
                 try
                 {
-                    _selection_Mode = (SelectionMode)Enum.Parse(typeof(SelectionMode), selectionNode.GetAttribute("Mode"), true);
+                    this._selection_Mode = (SelectionMode)Enum.Parse(typeof(SelectionMode), selectionNode.GetAttribute("Mode"), true);
                 }
                 catch (ArgumentException) { }
             }
             selectionNode = null;
 
-            _snippetsConfigList = new SnippetsConfigList();
+            this._snippetsConfigList = new SnippetsConfigList();
             var snippetsNode = langNode.SelectSingleNode("Snippets") as XmlElement;
             if (snippetsNode != null)
             {
-                _snippetsConfigList.ActiveSnippetColor = getColor(snippetsNode.GetAttribute("ActiveSnippetColor"));
-                _snippetsConfigList.ActiveSnippetIndicator = getInt(snippetsNode.GetAttribute("ActiveSnippetIndicator"));
-                _snippetsConfigList.InactiveSnippetColor = getColor(snippetsNode.GetAttribute("InactiveSnippetColor"));
-                _snippetsConfigList.InactiveSnippetIndicator = getInt(snippetsNode.GetAttribute("InactiveSnippetIndicator"));
+                this._snippetsConfigList.ActiveSnippetColor = this.getColor(snippetsNode.GetAttribute("ActiveSnippetColor"));
+                this._snippetsConfigList.ActiveSnippetIndicator = this.getInt(snippetsNode.GetAttribute("ActiveSnippetIndicator"));
+                this._snippetsConfigList.InactiveSnippetColor = this.getColor(snippetsNode.GetAttribute("InactiveSnippetColor"));
+                this._snippetsConfigList.InactiveSnippetIndicator = this.getInt(snippetsNode.GetAttribute("InactiveSnippetIndicator"));
 
                 try
                 {
-                    _snippetsConfigList.ActiveSnippetIndicatorStyle = (IndicatorStyle)Enum.Parse(typeof(IndicatorStyle), snippetsNode.GetAttribute("ActiveSnippetIndicatorStyle"), true);
+                    this._snippetsConfigList.ActiveSnippetIndicatorStyle = (IndicatorStyle)Enum.Parse(typeof(IndicatorStyle), snippetsNode.GetAttribute("ActiveSnippetIndicatorStyle"), true);
                 }
                 catch (ArgumentException) { }
 
                 try
                 {
-                    _snippetsConfigList.InactiveSnippetIndicatorStyle = (IndicatorStyle)Enum.Parse(typeof(IndicatorStyle), snippetsNode.GetAttribute("InactiveSnippetIndicatorStyle"), true);
+                    this._snippetsConfigList.InactiveSnippetIndicatorStyle = (IndicatorStyle)Enum.Parse(typeof(IndicatorStyle), snippetsNode.GetAttribute("InactiveSnippetIndicatorStyle"), true);
                 }
                 catch (ArgumentException) { }
 
-                _snippetsConfigList.DefaultDelimeter = getChar(snippetsNode.GetAttribute("DefaultDelimeter"));
-                _snippetsConfigList.IsEnabled = getBool(snippetsNode.GetAttribute("IsEnabled"));
-                _snippetsConfigList.IsOneKeySelectionEmbedEnabled = getBool(snippetsNode.GetAttribute("IsOneKeySelectionEmbedEnabled"));
+                this._snippetsConfigList.DefaultDelimeter = this.getChar(snippetsNode.GetAttribute("DefaultDelimeter"));
+                this._snippetsConfigList.IsEnabled = this.getBool(snippetsNode.GetAttribute("IsEnabled"));
+                this._snippetsConfigList.IsOneKeySelectionEmbedEnabled = this.getBool(snippetsNode.GetAttribute("IsOneKeySelectionEmbedEnabled"));
 
                 foreach (XmlElement el in snippetsNode.SelectNodes("Snippet"))
                 {
-                    var sc = new SnippetsConfig();
-                    sc.Shortcut = el.GetAttribute("Shortcut");
-                    sc.Code = el.InnerText;
-                    sc.Delimeter = getChar(el.GetAttribute("Delimeter"));
-                    sc.IsSurroundsWith = getBool(el.GetAttribute("IsSurroundsWith"));
-                    _snippetsConfigList.Add(sc);
+                    var sc = new SnippetsConfig
+                    {
+                        Shortcut = el.GetAttribute("Shortcut"),
+                        Code = el.InnerText,
+                        Delimeter = this.getChar(el.GetAttribute("Delimeter")),
+                        IsSurroundsWith = this.getBool(el.GetAttribute("IsSurroundsWith"))
+                    };
+                    this._snippetsConfigList.Add(sc);
                 }
             }
             snippetsNode = null;
 
-            _styles = new StyleConfigList();
+            this._styles = new StyleConfigList();
             var stylesNode = langNode.SelectSingleNode("Styles") as XmlElement;
             if (stylesNode != null)
             {
-                _styles.Bits = getInt(stylesNode.GetAttribute("Bits"));
+                this._styles.Bits = this.getInt(stylesNode.GetAttribute("Bits"));
                 foreach (XmlElement el in stylesNode.SelectNodes("Style"))
                 {
-                    var sc = new StyleConfig();
-                    sc.Name = el.GetAttribute("Name");
-                    sc.Number = getInt(el.GetAttribute("Number"));
-                    sc.BackColor = getColor(el.GetAttribute("BackColor"));
-                    sc.Bold = getBool(el.GetAttribute("Bold"));
+                    var sc = new StyleConfig
+                    {
+                        Name = el.GetAttribute("Name"),
+                        Number = this.getInt(el.GetAttribute("Number")),
+                        BackColor = this.getColor(el.GetAttribute("BackColor")),
+                        Bold = this.getBool(el.GetAttribute("Bold"))
+                    };
                     try
                     {
                         sc.Case = (StyleCase)Enum.Parse(typeof(StyleCase), el.GetAttribute("Case"), true);
@@ -696,18 +706,18 @@ namespace ARCed.Scintilla.Configuration
                     }
                     catch (ArgumentException) { }
 
-                    sc.FontName = getString(el.GetAttributeNode("FontName"));
-                    sc.ForeColor = getColor(el.GetAttribute("ForeColor"));
-                    sc.IsChangeable = getBool(el.GetAttribute("IsChangeable"));
-                    sc.IsHotspot = getBool(el.GetAttribute("IsHotspot"));
-                    sc.IsSelectionEolFilled = getBool(el.GetAttribute("IsSelectionEolFilled"));
-                    sc.IsVisible = getBool(el.GetAttribute("IsVisible"));
-                    sc.Italic = getBool(el.GetAttribute("Italic"));
-                    sc.Size = getInt(el.GetAttribute("Size"));
-                    sc.Underline = getBool(el.GetAttribute("Underline"));
-                    sc.Inherit = getBool(el.GetAttribute("Inherit"));
+                    sc.FontName = this.getString(el.GetAttributeNode("FontName"));
+                    sc.ForeColor = this.getColor(el.GetAttribute("ForeColor"));
+                    sc.IsChangeable = this.getBool(el.GetAttribute("IsChangeable"));
+                    sc.IsHotspot = this.getBool(el.GetAttribute("IsHotspot"));
+                    sc.IsSelectionEolFilled = this.getBool(el.GetAttribute("IsSelectionEolFilled"));
+                    sc.IsVisible = this.getBool(el.GetAttribute("IsVisible"));
+                    sc.Italic = this.getBool(el.GetAttribute("Italic"));
+                    sc.Size = this.getInt(el.GetAttribute("Size"));
+                    sc.Underline = this.getBool(el.GetAttribute("Underline"));
+                    sc.Inherit = this.getBool(el.GetAttribute("Inherit"));
                     
-                    _styles.Add(sc);
+                    this._styles.Add(sc);
                 }
 
                 //	This is a nifty added on hack made specifically for HTML.
@@ -737,11 +747,13 @@ namespace ARCed.Scintilla.Configuration
                     string subLanguageName = subLanguage.GetAttribute("Name");
                     foreach (XmlElement el in subLanguage.SelectNodes("Style"))
                     {
-                        var sc = new StyleConfig();
-                        sc.Name = subLanguageName + "." + el.GetAttribute("Name");
-                        sc.Number = getInt(el.GetAttribute("Number"));
-                        sc.BackColor = getColor(el.GetAttribute("BackColor"));
-                        sc.Bold = getBool(el.GetAttribute("Bold"));
+                        var sc = new StyleConfig
+                        {
+                            Name = subLanguageName + "." + el.GetAttribute("Name"),
+                            Number = this.getInt(el.GetAttribute("Number")),
+                            BackColor = this.getColor(el.GetAttribute("BackColor")),
+                            Bold = this.getBool(el.GetAttribute("Bold"))
+                        };
                         try
                         {
                             sc.Case = (StyleCase)Enum.Parse(typeof(StyleCase), el.GetAttribute("Case"), true);
@@ -754,18 +766,18 @@ namespace ARCed.Scintilla.Configuration
                         }
                         catch (ArgumentException) { }
 
-                        sc.FontName = getString(el.GetAttributeNode("FontName"));
-                        sc.ForeColor = getColor(el.GetAttribute("ForeColor"));
-                        sc.IsChangeable = getBool(el.GetAttribute("IsChangeable"));
-                        sc.IsHotspot = getBool(el.GetAttribute("IsHotspot"));
-                        sc.IsSelectionEolFilled = getBool(el.GetAttribute("IsSelectionEolFilled"));
-                        sc.IsVisible = getBool(el.GetAttribute("IsVisible"));
-                        sc.Italic = getBool(el.GetAttribute("Italic"));
-                        sc.Size = getInt(el.GetAttribute("Size"));
-                        sc.Underline = getBool(el.GetAttribute("Underline"));
-                        sc.Inherit = getBool(el.GetAttribute("Inherit"));
+                        sc.FontName = this.getString(el.GetAttributeNode("FontName"));
+                        sc.ForeColor = this.getColor(el.GetAttribute("ForeColor"));
+                        sc.IsChangeable = this.getBool(el.GetAttribute("IsChangeable"));
+                        sc.IsHotspot = this.getBool(el.GetAttribute("IsHotspot"));
+                        sc.IsSelectionEolFilled = this.getBool(el.GetAttribute("IsSelectionEolFilled"));
+                        sc.IsVisible = this.getBool(el.GetAttribute("IsVisible"));
+                        sc.Italic = this.getBool(el.GetAttribute("Italic"));
+                        sc.Size = this.getInt(el.GetAttribute("Size"));
+                        sc.Underline = this.getBool(el.GetAttribute("Underline"));
+                        sc.Inherit = this.getBool(el.GetAttribute("Inherit"));
 
-                        _styles.Add(sc);
+                        this._styles.Add(sc);
                     }
                 }
             }
@@ -774,7 +786,7 @@ namespace ARCed.Scintilla.Configuration
             var undoRedoNode = langNode.SelectSingleNode("UndoRedo") as XmlElement;
             if (undoRedoNode != null)
             {
-                _undoRedoIsUndoEnabled = getBool(undoRedoNode.GetAttribute("IsUndoEnabled"));
+                this._undoRedoIsUndoEnabled = this.getBool(undoRedoNode.GetAttribute("IsUndoEnabled"));
             }
             undoRedoNode = null;
 
@@ -782,9 +794,9 @@ namespace ARCed.Scintilla.Configuration
             var whitespaceNode = langNode.SelectSingleNode("Whitespace") as XmlElement;
             if (whitespaceNode != null)
             {
-                _whitespace_BackColor = getColor(whitespaceNode.GetAttribute("BackColor"));
-                _whitespace_ForeColor = getColor(whitespaceNode.GetAttribute("ForeColor"));
-                _whitespace_Mode = (WhitespaceMode)Enum.Parse(typeof(WhitespaceMode), whitespaceNode.GetAttribute("Mode"), true);
+                this._whitespace_BackColor = this.getColor(whitespaceNode.GetAttribute("BackColor"));
+                this._whitespace_ForeColor = this.getColor(whitespaceNode.GetAttribute("ForeColor"));
+                this._whitespace_Mode = (WhitespaceMode)Enum.Parse(typeof(WhitespaceMode), whitespaceNode.GetAttribute("Mode"), true);
             }
             whitespaceNode = null;
 
@@ -796,16 +808,20 @@ namespace ARCed.Scintilla.Configuration
         {
             if (useXmlReader)
             {
-                var s = new XmlReaderSettings();
-                s.IgnoreComments = true;
-                s.IgnoreWhitespace = true;
+                var s = new XmlReaderSettings
+                {
+                    IgnoreComments = true,
+                    IgnoreWhitespace = true
+                };
 
                 Load(XmlReader.Create(fileName, s));
             }
             else
             {
-                var doc = new XmlDocument();
-                doc.PreserveWhitespace = true;
+                var doc = new XmlDocument
+                {
+                    PreserveWhitespace = true
+                };
                 doc.Load(fileName);
                 Load(doc);
             }
@@ -816,15 +832,19 @@ namespace ARCed.Scintilla.Configuration
         {
             if (useXmlReader)
             {
-                var s = new XmlReaderSettings();
-                s.IgnoreComments = true;
-                s.IgnoreWhitespace = true;
-				Load(XmlReader.Create(inStream, s));
+                var s = new XmlReaderSettings
+                {
+                    IgnoreComments = true,
+                    IgnoreWhitespace = true
+                };
+                Load(XmlReader.Create(inStream, s));
             }
             else
             {
-                var doc = new XmlDocument();
-                doc.PreserveWhitespace = true;
+                var doc = new XmlDocument
+                {
+                    PreserveWhitespace = true
+                };
                 doc.Load(inStream);
                 Load(doc);
             }
@@ -842,40 +862,40 @@ namespace ARCed.Scintilla.Configuration
                     switch (attrName)
                     {
                         case "autohide":
-                            _autoComplete_AutoHide = getBool(reader.Value);
+                            this._autoComplete_AutoHide = this.getBool(reader.Value);
                             break;
                         case "automaticlengthentered":
-                            _autoComplete_AutomaticLengthEntered = getBool(reader.Value);
+                            this._autoComplete_AutomaticLengthEntered = this.getBool(reader.Value);
                             break;
                         case "cancelatstart":
-                            _autoComplete_cancelAtStart = getBool(reader.Value);
+                            this._autoComplete_cancelAtStart = this.getBool(reader.Value);
                             break;
                         case "droprestofword":
-                            _autoComplete_DropRestOfWord = getBool(reader.Value);
+                            this._autoComplete_DropRestOfWord = this.getBool(reader.Value);
                             break;
                         case "fillupcharacters":
-                            _autoComplete_fillUpCharacters = reader.Value;
+                            this._autoComplete_fillUpCharacters = reader.Value;
                             break;
                         case "imageseperator":
-                            _autoComplete_ImageSeperator = getChar(reader.Value);
+                            this._autoComplete_ImageSeperator = this.getChar(reader.Value);
                             break;
                         case "iscasesensitive":
-                            _autoComplete_IsCaseSensitive= getBool(reader.Value);
+                            this._autoComplete_IsCaseSensitive= this.getBool(reader.Value);
                             break;
                         case "listseperator":
-                            _autoComplete_ListSeperator = getChar(reader.Value);
+                            this._autoComplete_ListSeperator = this.getChar(reader.Value);
                             break;
                         case "maxheight":
-                            _autoComplete_MaxHeight = getInt(reader.Value);
+                            this._autoComplete_MaxHeight = this.getInt(reader.Value);
                             break;
                         case "maxwidth":
-                            _autoComplete_MaxWidth = getInt(reader.Value);
+                            this._autoComplete_MaxWidth = this.getInt(reader.Value);
                             break;
                         case "singlelineaccept":
-                            _autoComplete_singleLineAccept = getBool(reader.Value);
+                            this._autoComplete_singleLineAccept = this.getBool(reader.Value);
                             break;
                         case "stopcharacters":
-                            _autoComplete_StopCharacters = reader.Value;
+                            this._autoComplete_StopCharacters = reader.Value;
                             break;
                     }
                 }
@@ -894,11 +914,11 @@ namespace ARCed.Scintilla.Configuration
                         {
                             while (reader.MoveToNextAttribute())
                                 if (reader.Name.Equals("inherit", StringComparison.OrdinalIgnoreCase))
-                                    _autoComplete_ListInherit = getBool(reader.Value);
+                                    this._autoComplete_ListInherit = this.getBool(reader.Value);
                             
                             reader.MoveToElement();
                         }
-                        _autoComplete_List = new Regex("\\s+").Replace(reader.ReadString(), " ").Trim();
+                        this._autoComplete_List = new Regex("\\s+").Replace(reader.ReadString(), " ").Trim();
                     }
                 }
             }
@@ -916,13 +936,13 @@ namespace ARCed.Scintilla.Configuration
                     switch (attrName)
                     {
                         case "backcolor":
-                            _callTip_BackColor = getColor(reader.Value);
+                            this._callTip_BackColor = this.getColor(reader.Value);
                             break;
                         case "forecolor":
-                            _callTip_ForeColor = getColor(reader.Value);
+                            this._callTip_ForeColor = this.getColor(reader.Value);
                             break;
                         case "highlighttextcolor":
-                            _callTip_HighlightTextColor = getColor(reader.Value);
+                            this._callTip_HighlightTextColor = this.getColor(reader.Value);
                             break;
                     }
                 }
@@ -947,31 +967,29 @@ namespace ARCed.Scintilla.Configuration
                             //	This guy is a bit of an oddball becuase null means "I don't Care"
                             //	and we need some way of using the OS value.
                             string blinkRate = reader.Value;
-                            if (blinkRate.ToLower() == "system")
-                                _caret_BlinkRate = SystemInformation.CaretBlinkTime;
-                            else
-                                _caret_BlinkRate = getInt(blinkRate);
+                            this._caret_BlinkRate = blinkRate.ToLower() == "system" ? 
+                                SystemInformation.CaretBlinkTime : this.getInt(blinkRate);
                             break;
                         case "color":
-                            _caret_Color = getColor(reader.Value);
+                            this._caret_Color = this.getColor(reader.Value);
                             break;
                         case "currentlinebackgroundalpha":
-                            _caret_CurrentLineBackgroundAlpha = getInt(reader.Value);
+                            this._caret_CurrentLineBackgroundAlpha = this.getInt(reader.Value);
                             break;
                         case "currentlinebackgroundcolor":
-                            _caret_CurrentLineBackgroundColor = getColor(reader.Value);
+                            this._caret_CurrentLineBackgroundColor = this.getColor(reader.Value);
                             break;
                         case "highlightcurrentline":
-                            _caret_HighlightCurrentLine = getBool(reader.Value);
+                            this._caret_HighlightCurrentLine = this.getBool(reader.Value);
                             break;
                         case "issticky":
-                            _caret_IsSticky = getBool(reader.Value);
+                            this._caret_IsSticky = this.getBool(reader.Value);
                             break;
                         case "style":
-                            _caret_Style = (CaretStyle)Enum.Parse(typeof(CaretStyle), reader.Value, true);
+                            this._caret_Style = (CaretStyle)Enum.Parse(typeof(CaretStyle), reader.Value, true);
                             break;
                         case "width":
-                            _caret_Width = getInt(reader.Value);
+                            this._caret_Width = this.getInt(reader.Value);
                             break;
                     }
                 }
@@ -991,7 +1009,7 @@ namespace ARCed.Scintilla.Configuration
                     switch (attrName)
                     {
                         case "convertlinebreaksonpaste":
-                            _clipboard_ConvertLineBreaksOnPaste = getBool(reader.Value);
+                            this._clipboard_ConvertLineBreaksOnPaste = this.getBool(reader.Value);
                             break;
                     }
                 }
@@ -1011,10 +1029,10 @@ namespace ARCed.Scintilla.Configuration
                     switch (attrName)
                     {
                         case "Inherit":
-                            _commands_KeyBindingList.Inherit = getBool(reader.Value);
+                            this._commands_KeyBindingList.Inherit = this.getBool(reader.Value);
                             break;
                         case "AllowDuplicateBindings":
-                            _commands_KeyBindingList.AllowDuplicateBindings = getBool(reader.Value);
+                            this._commands_KeyBindingList.AllowDuplicateBindings = this.getBool(reader.Value);
                             break;
                     }
                 }
@@ -1054,12 +1072,12 @@ namespace ARCed.Scintilla.Configuration
                                         cmd = (BindableCommand)Enum.Parse(typeof(BindableCommand), reader.Value, true);
                                         break;
                                     case "replacecurrent":
-                                        replaceCurrent = getBool(reader.Value);
+                                        replaceCurrent = this.getBool(reader.Value);
                                         break;
                                 }
                             }
 
-                            _commands_KeyBindingList.Add(new CommandBindingConfig(kb, replaceCurrent, cmd));
+                            this._commands_KeyBindingList.Add(new CommandBindingConfig(kb, replaceCurrent, cmd));
                         }
 
                         reader.MoveToElement();
@@ -1080,10 +1098,10 @@ namespace ARCed.Scintilla.Configuration
                     switch (attrName)
                     {
                         case "isvisible":
-                            _endOfLine_IsVisisble = getBool(reader.Value);
+                            this._endOfLine_IsVisisble = this.getBool(reader.Value);
                             break;
                         case "mode":
-                            _endOfLine_Mode = (EndOfLineMode)Enum.Parse(typeof(EndOfLineMode), reader.Value, true);
+                            this._endOfLine_Mode = (EndOfLineMode)Enum.Parse(typeof(EndOfLineMode), reader.Value, true);
                             break;
                     }
                 }
@@ -1113,14 +1131,14 @@ namespace ARCed.Scintilla.Configuration
                                     ff |= (FoldFlag)Enum.Parse(typeof(FoldFlag), flag.Trim(), true);
 
                                 if (ff.HasValue)
-                                    _folding_Flags = ff;
+                                    this._folding_Flags = ff;
                             }
                             break;
                         case "IsEnabled":
-                            _folding_MarkerScheme = (FoldMarkerScheme)Enum.Parse(typeof(FoldMarkerScheme), reader.Value, true);
+                            this._folding_MarkerScheme = (FoldMarkerScheme)Enum.Parse(typeof(FoldMarkerScheme), reader.Value, true);
                             break;
                         case "usecompactfolding":
-                            _folding_UseCompactFolding = getBool(reader.Value);
+                            this._folding_UseCompactFolding = this.getBool(reader.Value);
                             break;
                     }
                 }
@@ -1142,22 +1160,22 @@ namespace ARCed.Scintilla.Configuration
                     switch (attrName)
                     {
                         case "activebackcolor":
-                            _hotspot_ActiveBackColor = getColor(reader.Value);
+                            this._hotspot_ActiveBackColor = this.getColor(reader.Value);
                             break;
                         case "activeforecolor":
-                            _hotspot_ActiveForeColor = getColor(reader.Value);
+                            this._hotspot_ActiveForeColor = this.getColor(reader.Value);
                             break;
                         case "activeunderline":
-                            _hotspot_ActiveUnderline = getBool(reader.Value);
+                            this._hotspot_ActiveUnderline = this.getBool(reader.Value);
                             break;
                         case "singleline":
-                            _hotspot_SingleLine = getBool(reader.Value);
+                            this._hotspot_SingleLine = this.getBool(reader.Value);
                             break;
                         case "useactivebackcolor":
-                            _hotspot_UseActiveBackColor = getBool(reader.Value);
+                            this._hotspot_UseActiveBackColor = this.getBool(reader.Value);
                             break;
                         case "useactiveforecolor":
-                            _hotspot_UseActiveForeColor = getBool(reader.Value);
+                            this._hotspot_UseActiveForeColor = this.getBool(reader.Value);
                             break;
                     }
                 }
@@ -1179,25 +1197,25 @@ namespace ARCed.Scintilla.Configuration
                     switch (attrName)
                     {
                         case "backspaceunindents":
-                            _indentation_BackspaceUnindents = getBool(reader.Value);
+                            this._indentation_BackspaceUnindents = this.getBool(reader.Value);
                             break;
                         case "indentwidth":
-                            _indentation_IndentWidth = getInt(reader.Value);
+                            this._indentation_IndentWidth = this.getInt(reader.Value);
                             break;
                         case "showguides":
-                            _indentation_ShowGuides = getBool(reader.Value);
+                            this._indentation_ShowGuides = this.getBool(reader.Value);
                             break;
                         case "tabindents":
-                            _indentation_TabIndents = getBool(reader.Value);
+                            this._indentation_TabIndents = this.getBool(reader.Value);
                             break;
                         case "tabwidth":
-                            _indentation_TabWidth = getInt(reader.Value);
+                            this._indentation_TabWidth = this.getInt(reader.Value);
                             break;
                         case "usetabs":
-                            _indentation_UseTabs = getBool(reader.Value);
+                            this._indentation_UseTabs = this.getBool(reader.Value);
                             break;
                         case "smartindenttype":
-                            _indentation_SmartIndentType = (SmartIndent)Enum.Parse(typeof(SmartIndent), reader.Value, true);
+                            this._indentation_SmartIndentType = (SmartIndent)Enum.Parse(typeof(SmartIndent), reader.Value, true);
                             break;
                     }
                 }
@@ -1219,7 +1237,7 @@ namespace ARCed.Scintilla.Configuration
                     switch (attrName)
                     {
                         case "inherit":
-                            _indicator_List.Inherit = getBool(reader.Value);
+                            this._indicator_List.Inherit = this.getBool(reader.Value);
                             break;
                     }
                 }
@@ -1245,20 +1263,20 @@ namespace ARCed.Scintilla.Configuration
                                         ic.Number = int.Parse(reader.Value);
                                         break;
                                     case "color":
-                                        ic.Color = getColor(reader.Value);
+                                        ic.Color = this.getColor(reader.Value);
                                         break;
                                     case "inherit":
-                                        ic.Inherit = getBool(reader.Value);
+                                        ic.Inherit = this.getBool(reader.Value);
                                         break;
                                     case "isdrawnunder":
-                                        ic.IsDrawnUnder = getBool(reader.Value);
+                                        ic.IsDrawnUnder = this.getBool(reader.Value);
                                         break;
                                     case "style":
                                         ic.Style = (IndicatorStyle)Enum.Parse(typeof(IndicatorStyle), reader.Value, true);
                                         break;
                                 }
                             }
-                            _indicator_List.Add(ic);
+                            this._indicator_List.Add(ic);
                             reader.MoveToElement();
                         }
                     }
@@ -1270,13 +1288,13 @@ namespace ARCed.Scintilla.Configuration
 
         private void ReadLanguage(XmlReader reader)
         {
-            _commands_KeyBindingList = new CommandBindingConfigList();
-            _lexing_Properties = new LexerPropertiesConfig();
-            _lexing_Keywords = new KeyWordConfigList();
-            _margin_List = new MarginConfigList();
-            _markers_List = new MarkersConfigList();
-            _snippetsConfigList = new SnippetsConfigList();
-            _styles = new StyleConfigList();
+            this._commands_KeyBindingList = new CommandBindingConfigList();
+            this._lexing_Properties = new LexerPropertiesConfig();
+            this._lexing_Keywords = new KeyWordConfigList();
+            this._margin_List = new MarginConfigList();
+            this._markers_List = new MarkersConfigList();
+            this._snippetsConfigList = new SnippetsConfigList();
+            this._styles = new StyleConfigList();
 
             reader.Read();
             while (reader.NodeType == XmlNodeType.Element)
@@ -1285,67 +1303,67 @@ namespace ARCed.Scintilla.Configuration
                 switch (elName)
                 {
                     case "autocomplete":
-                        ReadAutoComplete(reader);
+                        this.ReadAutoComplete(reader);
                         break;
                     case "calltip":
-                        ReadCallTip(reader);
+                        this.ReadCallTip(reader);
                         break;
                     case "caret":
-                        ReadCaret(reader);
+                        this.ReadCaret(reader);
                         break;
                     case "clipboard":
-                        ReadClipboard(reader);
+                        this.ReadClipboard(reader);
                         break;
                     case "commands":
-                        ReadCommands(reader);
+                        this.ReadCommands(reader);
                         break;
                     case "endofline":
-                        ReadEndOfLine(reader);
+                        this.ReadEndOfLine(reader);
                         break;
                     case "folding":
-                        ReadFolding(reader);
+                        this.ReadFolding(reader);
                         break;
                     case "hotspot":
-                        ReadHotspot(reader);
+                        this.ReadHotspot(reader);
                         break;
                     case "indentation":
-                        ReadIndentation(reader);
+                        this.ReadIndentation(reader);
                         break;
                     case "indicators":
-                        ReadIndicators(reader);
+                        this.ReadIndicators(reader);
                         break;
                     case "lexer":
-                        ReadLexer(reader);
+                        this.ReadLexer(reader);
                         break;
                     case "linewrapping":
-                        ReadLineWrapping(reader);
+                        this.ReadLineWrapping(reader);
                         break;
                     case "longlines":
-                        ReadLongLines(reader);
+                        this.ReadLongLines(reader);
                         break;
                     case "margins":
-                        ReadMargins(reader);
+                        this.ReadMargins(reader);
                         break;
                     case "markers":
-                        ReadMarkers(reader);
+                        this.ReadMarkers(reader);
                         break;
                     case "scrolling":
-                        ReadScrolling(reader);
+                        this.ReadScrolling(reader);
                         break;
                     case "selection":
-                        ReadSelection(reader);
+                        this.ReadSelection(reader);
                         break;
                     case "snippets":
-                        ReadSnippets(reader);
+                        this.ReadSnippets(reader);
                         break;
                     case "styles":
-                        ReadStyles(reader);
+                        this.ReadStyles(reader);
                         break;
                     case "undoredo":
-                        ReadUndoRedo(reader);
+                        this.ReadUndoRedo(reader);
                         break;
                     case "whitespace":
-                        ReadWhitespace(reader);
+                        this.ReadWhitespace(reader);
                         break;
                     default:
                         reader.Skip();
@@ -1366,22 +1384,22 @@ namespace ARCed.Scintilla.Configuration
                     switch (attrName)
                     {
                         case "whitespacechars":
-                            _lexing_WhitespaceChars = reader.Value;
+                            this._lexing_WhitespaceChars = reader.Value;
                             break;
                         case "wordchars":
-                            _lexing_WordChars = reader.Value;
+                            this._lexing_WordChars = reader.Value;
                             break;
                         case "lexername":
-                            _lexing_Language = reader.Value;
+                            this._lexing_Language = reader.Value;
                             break;
                         case "linecommentprefix":
-                            _lexing_LineCommentPrefix = reader.Value;
+                            this._lexing_LineCommentPrefix = reader.Value;
                             break;
                         case "streamcommentprefix":
-                            _lexing_StreamCommentPrefix = reader.Value;
+                            this._lexing_StreamCommentPrefix = reader.Value;
                             break;
                         case "streamcommentsuffix":
-                            _lexing_StreamCommentSuffix = reader.Value;
+                            this._lexing_StreamCommentSuffix = reader.Value;
                             break;
                     }
                 }
@@ -1396,9 +1414,9 @@ namespace ARCed.Scintilla.Configuration
                     if (reader.NodeType == XmlNodeType.Element)
                     {
                         if (reader.Name.Equals("properties", StringComparison.OrdinalIgnoreCase))
-                            ReadLexerProperties(reader);
+                            this.ReadLexerProperties(reader);
                         else if (reader.Name.Equals("keywords", StringComparison.OrdinalIgnoreCase))
-                            ReadLexerKeywords(reader);
+                            this.ReadLexerKeywords(reader);
                     }
                 }
             }
@@ -1420,10 +1438,10 @@ namespace ARCed.Scintilla.Configuration
                     switch (attrName)
                     {
                         case "inherit":
-                            inherit = getBool(reader.Value);
+                            inherit = this.getBool(reader.Value);
                             break;
                         case "list":
-                            list = getInt(reader.Value);
+                            list = this.getInt(reader.Value);
                             break;
                     }
                 }
@@ -1434,7 +1452,7 @@ namespace ARCed.Scintilla.Configuration
             if (!reader.IsEmptyElement)
                 keywords = reader.ReadString().Trim();
 
-            _lexing_Keywords.Add(new KeyWordConfig(list.Value, keywords, inherit));
+            this._lexing_Keywords.Add(new KeyWordConfig(list.Value, keywords, inherit));
 
             reader.Read();
         }
@@ -1446,7 +1464,7 @@ namespace ARCed.Scintilla.Configuration
             {
                 while (reader.MoveToNextAttribute())
                     if (reader.Name.ToLower() == "inherit")
-                        _lexing_Properties.Inherit = getBool(reader.Value);
+                        this._lexing_Properties.Inherit = this.getBool(reader.Value);
 
                 reader.MoveToElement();
             }
@@ -1475,7 +1493,7 @@ namespace ARCed.Scintilla.Configuration
                                         break;
                                 }
                             }
-                            _lexing_Properties.Add(name, value);
+                            this._lexing_Properties.Add(name, value);
                             reader.MoveToElement();
                         }
                     }
@@ -1496,13 +1514,13 @@ namespace ARCed.Scintilla.Configuration
                     switch (attrName)
                     {
                         case "mode":
-                            _lineWrapping_Mode = (LineWrappingMode)Enum.Parse(typeof(LineWrappingMode), reader.Value, true);
+                            this._lineWrapping_Mode = (LineWrappingMode)Enum.Parse(typeof(LineWrappingMode), reader.Value, true);
                             break;
                         case "indentsize":
-                            _lineWrapping_IndentSize = getInt(reader.Value);
+                            this._lineWrapping_IndentSize = this.getInt(reader.Value);
                             break;
                         case "indentmode":
-                            _lineWrapping_IndentMode = (LineWrappingIndentMode)Enum.Parse(typeof(LineWrappingIndentMode), reader.Value, true);
+                            this._lineWrapping_IndentMode = (LineWrappingIndentMode)Enum.Parse(typeof(LineWrappingIndentMode), reader.Value, true);
                             break;
                         case "visualflags":
                             string flags = reader.Value.Trim();
@@ -1513,11 +1531,11 @@ namespace ARCed.Scintilla.Configuration
                                     wvf |= (LineWrappingVisualFlags)Enum.Parse(typeof(LineWrappingVisualFlags), flag.Trim(), true);
 
                                 if (wvf.HasValue)
-                                    _lineWrapping_VisualFlags = wvf;
+                                    this._lineWrapping_VisualFlags = wvf;
                             }
                             break;
                         case "visualflagslocations":
-                            _lineWrapping_VisualFlagsLocations = (LineWrappingVisualFlagsLocations)Enum.Parse(typeof(LineWrappingVisualFlagsLocations), reader.Value, true);
+                            this._lineWrapping_VisualFlagsLocations = (LineWrappingVisualFlagsLocations)Enum.Parse(typeof(LineWrappingVisualFlagsLocations), reader.Value, true);
                             break;
                     }
                 }
@@ -1538,13 +1556,13 @@ namespace ARCed.Scintilla.Configuration
                     switch (attrName)
                     {
                         case "edgecolor":
-                            _longLines_EdgeColor = getColor(reader.Value);
+                            this._longLines_EdgeColor = this.getColor(reader.Value);
                             break;
                         case "edgecolumn":
-                            _longLines_EdgeColumn = getInt(reader.Value);
+                            this._longLines_EdgeColumn = this.getInt(reader.Value);
                             break;
                         case "edgemode":
-                            _longLines_EdgeMode = (EdgeMode)Enum.Parse(typeof(EdgeMode), reader.Value, true);
+                            this._longLines_EdgeMode = (EdgeMode)Enum.Parse(typeof(EdgeMode), reader.Value, true);
                             break;
                     }
                 }
@@ -1564,19 +1582,19 @@ namespace ARCed.Scintilla.Configuration
                     switch (attrName)
                     {
                         case "foldmargincolor":
-                            _margin_List.FoldMarginColor = getColor(reader.Value);
+                            this._margin_List.FoldMarginColor = this.getColor(reader.Value);
                             break;
                         case "foldmarginhighlightcolor":
-                            _margin_List.FoldMarginHighlightColor = getColor(reader.Value);
+                            this._margin_List.FoldMarginHighlightColor = this.getColor(reader.Value);
                             break;
                         case "left":
-                            _margin_List.Left = getInt(reader.Value);
+                            this._margin_List.Left = this.getInt(reader.Value);
                             break;
                         case "right":
-                            _margin_List.Right = getInt(reader.Value);
+                            this._margin_List.Right = this.getInt(reader.Value);
                             break;
                         case "inherit":
-                            _margin_List.Inherit = getBool(reader.Value);
+                            this._margin_List.Inherit = this.getBool(reader.Value);
                             break;
                     }
                 }
@@ -1603,29 +1621,29 @@ namespace ARCed.Scintilla.Configuration
                                         mc.Number = int.Parse(reader.Value);
                                         break;
                                     case "inherit":
-                                        mc.Inherit = getBool(reader.Value);
+                                        mc.Inherit = this.getBool(reader.Value);
                                         break;
                                     case "autotogglemarkernumber":
-                                        mc.AutoToggleMarkerNumber = getInt(reader.Value);
+                                        mc.AutoToggleMarkerNumber = this.getInt(reader.Value);
                                         break;
                                     case "isclickable":
-                                        mc.IsClickable = getBool(reader.Value);
+                                        mc.IsClickable = this.getBool(reader.Value);
                                         break;
                                     case "isfoldmargin":
-                                        mc.IsFoldMargin = getBool(reader.Value);
+                                        mc.IsFoldMargin = this.getBool(reader.Value);
                                         break;
                                     case "ismarkermargin":
-                                        mc.IsMarkerMargin = getBool(reader.Value);
+                                        mc.IsMarkerMargin = this.getBool(reader.Value);
                                         break;
                                     case "type":
                                         mc.Type = (MarginType)Enum.Parse(typeof(MarginType), reader.Value, true);
                                         break;
                                     case "width":
-                                        mc.Width = getInt(reader.Value);
+                                        mc.Width = this.getInt(reader.Value);
                                         break;
                                 }
                             }
-                            _margin_List.Add(mc);
+                            this._margin_List.Add(mc);
                             reader.MoveToElement();
                         }
                     }
@@ -1642,7 +1660,7 @@ namespace ARCed.Scintilla.Configuration
             {
                 while (reader.MoveToNextAttribute())
                     if(reader.Name.ToLower() == "inherit")
-                        _markers_List.Inherit = getBool(reader.Value);
+                        this._markers_List.Inherit = this.getBool(reader.Value);
 
                 reader.MoveToElement();
             }
@@ -1663,22 +1681,22 @@ namespace ARCed.Scintilla.Configuration
                                 switch (attrName)
                                 {
                                     case "alpha":
-                                        mc.Alpha = getInt(reader.Value);
+                                        mc.Alpha = this.getInt(reader.Value);
                                         break;
                                     case "backcolor":
-                                        mc.BackColor = getColor(reader.Value);
+                                        mc.BackColor = this.getColor(reader.Value);
                                         break;
                                     case "forecolor":
-                                        mc.ForeColor = getColor(reader.Value);
+                                        mc.ForeColor = this.getColor(reader.Value);
                                         break;
                                     case "name":
                                         mc.Name = reader.Value;
                                         break;
                                     case "number":
-                                        mc.Number = getInt(reader.Value);
+                                        mc.Number = this.getInt(reader.Value);
                                         break;
                                     case "inherit":
-                                        mc.Inherit = getBool(reader.Value);
+                                        mc.Inherit = this.getBool(reader.Value);
                                         break;
                                     case "symbol":
                                         mc.Symbol = (MarkerSymbol)Enum.Parse(typeof(MarkerSymbol), reader.Value, true);
@@ -1687,7 +1705,7 @@ namespace ARCed.Scintilla.Configuration
                             }
                             
                             reader.MoveToElement();
-                            _markers_List.Add(mc);
+                            this._markers_List.Add(mc);
                         }
                     }
                 }
@@ -1706,10 +1724,10 @@ namespace ARCed.Scintilla.Configuration
                     switch (attrName)
                     {
                         case "endatlastline":
-                            _scrolling_EndAtLastLine = getBool(reader.Value);
+                            this._scrolling_EndAtLastLine = this.getBool(reader.Value);
                             break;
                         case "horizontalwidth":
-                            _scrolling_HorizontalWidth = getInt(reader.Value);
+                            this._scrolling_HorizontalWidth = this.getInt(reader.Value);
                             break;
                         case "scrollbars":
                             string flags = reader.Value.Trim();
@@ -1720,11 +1738,11 @@ namespace ARCed.Scintilla.Configuration
                                     sb |= (ScrollBars)Enum.Parse(typeof(ScrollBars), flag.Trim(), true);
 
                                 if (sb.HasValue)
-                                    _scrolling_ScrollBars = sb;
+                                    this._scrolling_ScrollBars = sb;
                             }
                             break;
                         case "xoffset":
-                            _scrolling_XOffset = getInt(reader.Value);
+                            this._scrolling_XOffset = this.getInt(reader.Value);
                             break;
                     }
                 }
@@ -1745,25 +1763,25 @@ namespace ARCed.Scintilla.Configuration
                     switch (attrName)
                     {
                         case "backcolor":
-                            _selection_BackColor = getColor(reader.Value);
+                            this._selection_BackColor = this.getColor(reader.Value);
                             break;
                         case "backcolorunfocused":
-                            _selection_BackColorUnfocused = getColor(reader.Value);
+                            this._selection_BackColorUnfocused = this.getColor(reader.Value);
                             break;
                         case "forecolor":
-                            _selection_ForeColor = getColor(reader.Value);
+                            this._selection_ForeColor = this.getColor(reader.Value);
                             break;
                         case "forecolorunfocused":
-                            _selection_ForeColorUnfocused = getColor(reader.Value);
+                            this._selection_ForeColorUnfocused = this.getColor(reader.Value);
                             break;
                         case "hidden":
-                            _selection_Hidden = getBool(reader.Value);
+                            this._selection_Hidden = this.getBool(reader.Value);
                             break;
                         case "hideselection":
-                            _selection_HideSelection = getBool(reader.Value);
+                            this._selection_HideSelection = this.getBool(reader.Value);
                             break;
                         case "mode":
-                            _selection_Mode = (SelectionMode)Enum.Parse(typeof(SelectionMode), reader.Value, true);
+                            this._selection_Mode = (SelectionMode)Enum.Parse(typeof(SelectionMode), reader.Value, true);
                             break;
                     }
                 }
@@ -1784,31 +1802,31 @@ namespace ARCed.Scintilla.Configuration
                     switch (attrName)
                     {
                         case "activesnippetcolor":
-                            _snippetsConfigList.ActiveSnippetColor = getColor(reader.Value);
+                            this._snippetsConfigList.ActiveSnippetColor = this.getColor(reader.Value);
                             break;
                         case "activesnippetindicator":
-                            _snippetsConfigList.ActiveSnippetIndicator = getInt(reader.Value);
+                            this._snippetsConfigList.ActiveSnippetIndicator = this.getInt(reader.Value);
                             break;
                         case "inactivesnippetcolor":
-                            _snippetsConfigList.InactiveSnippetColor = getColor(reader.Value);
+                            this._snippetsConfigList.InactiveSnippetColor = this.getColor(reader.Value);
                             break;
                         case "inactivesnippetindicator":
-                            _snippetsConfigList.InactiveSnippetIndicator = getInt(reader.Value);
+                            this._snippetsConfigList.InactiveSnippetIndicator = this.getInt(reader.Value);
                             break;
                         case "activesnippetindicatorstyle":
-                            _snippetsConfigList.ActiveSnippetIndicatorStyle = (IndicatorStyle)Enum.Parse(typeof(IndicatorStyle), reader.Value, true);
+                            this._snippetsConfigList.ActiveSnippetIndicatorStyle = (IndicatorStyle)Enum.Parse(typeof(IndicatorStyle), reader.Value, true);
                             break;
                         case "inactivesnippetindicatorstyle":
-                            _snippetsConfigList.InactiveSnippetIndicatorStyle = (IndicatorStyle)Enum.Parse(typeof(IndicatorStyle), reader.Value, true);
+                            this._snippetsConfigList.InactiveSnippetIndicatorStyle = (IndicatorStyle)Enum.Parse(typeof(IndicatorStyle), reader.Value, true);
                             break;
                         case "defaultdelimeter":
-                            _snippetsConfigList.DefaultDelimeter = getChar(reader.Value);
+                            this._snippetsConfigList.DefaultDelimeter = this.getChar(reader.Value);
                             break;
                         case "isenabled":
-                            _snippetsConfigList.IsEnabled = getBool(reader.Value);
+                            this._snippetsConfigList.IsEnabled = this.getBool(reader.Value);
                             break;
                         case "isonekeyselectionembedenabled":
-                            _snippetsConfigList.IsOneKeySelectionEmbedEnabled = getBool(reader.Value);
+                            this._snippetsConfigList.IsOneKeySelectionEmbedEnabled = this.getBool(reader.Value);
                             break;
                     }
                 }
@@ -1838,17 +1856,17 @@ namespace ARCed.Scintilla.Configuration
                                             sc.Shortcut = reader.Value;
                                             break;
                                         case "delimeter":
-                                            sc.Delimeter = getChar(reader.Value);
+                                            sc.Delimeter = this.getChar(reader.Value);
                                             break;
                                         case "issurroundswith":
-                                            sc.IsSurroundsWith = getBool(reader.Value);
+                                            sc.IsSurroundsWith = this.getBool(reader.Value);
                                             break;
                                     }
                                 }
                             }
                             reader.MoveToElement();
                             sc.Code = reader.ReadString();
-                            _snippetsConfigList.Add(sc);
+                            this._snippetsConfigList.Add(sc);
                         }
                     }
                 }
@@ -1864,7 +1882,7 @@ namespace ARCed.Scintilla.Configuration
             {
                 while (reader.MoveToNextAttribute())
                     if (reader.Name.ToLower() == "bits")
-                        _undoRedoIsUndoEnabled = getBool(reader.Value);
+                        this._undoRedoIsUndoEnabled = this.getBool(reader.Value);
 
                 reader.MoveToElement();
             }
@@ -1876,11 +1894,11 @@ namespace ARCed.Scintilla.Configuration
                     reader.Read();
                     if (reader.NodeType == XmlNodeType.Element && reader.Name.Equals("style", StringComparison.OrdinalIgnoreCase))
                     {
-                        _styles.Add(getStyleConfigFromElement(reader));
+                        this._styles.Add(this.getStyleConfigFromElement(reader));
                     }
                     else if (reader.NodeType == XmlNodeType.Element && reader.Name.Equals("sublanguage", StringComparison.OrdinalIgnoreCase))
                     {
-                        ReadSubLanguage(reader);
+                        this.ReadSubLanguage(reader);
                     }
                 }
             }
@@ -1927,9 +1945,9 @@ namespace ARCed.Scintilla.Configuration
                     reader.Read();
                     if (reader.NodeType == XmlNodeType.Element && reader.Name.Equals("style", StringComparison.OrdinalIgnoreCase))
                     {
-                        StyleConfig sc = getStyleConfigFromElement(reader);
+                        StyleConfig sc = this.getStyleConfigFromElement(reader);
                         sc.Name = subLanguageName + "." + sc.Name;
-                        _styles.Add(sc);
+                        this._styles.Add(sc);
                     }
                 }
             }
@@ -1944,7 +1962,7 @@ namespace ARCed.Scintilla.Configuration
             {
                 while (reader.MoveToNextAttribute())
                     if (reader.Name.ToLower() == "isundoenabled")
-                        _undoRedoIsUndoEnabled = getBool(reader.Value);
+                        this._undoRedoIsUndoEnabled = this.getBool(reader.Value);
 
                 reader.MoveToElement();
             }
@@ -1962,13 +1980,13 @@ namespace ARCed.Scintilla.Configuration
                     switch (attrName)
                     {
                         case "backcolor":
-                            _whitespace_BackColor = getColor(reader.Value);
+                            this._whitespace_BackColor = this.getColor(reader.Value);
                             break;
                         case "forecolor":
-                            _whitespace_ForeColor = getColor(reader.Value);
+                            this._whitespace_ForeColor = this.getColor(reader.Value);
                             break;
                         case "mode":
-                            _whitespace_Mode = (WhitespaceMode)Enum.Parse(typeof(WhitespaceMode), reader.Value, true);
+                            this._whitespace_Mode = (WhitespaceMode)Enum.Parse(typeof(WhitespaceMode), reader.Value, true);
                             break;
                     }
                 }
@@ -1985,11 +2003,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _autoComplete_AutoHide;
+                return this._autoComplete_AutoHide;
             }
             set
             {
-                _autoComplete_AutoHide = value;
+                this._autoComplete_AutoHide = value;
             }
         }
 
@@ -1998,11 +2016,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _autoComplete_AutomaticLengthEntered;
+                return this._autoComplete_AutomaticLengthEntered;
             }
             set
             {
-                _autoComplete_AutomaticLengthEntered = value;
+                this._autoComplete_AutomaticLengthEntered = value;
             }
         }
 
@@ -2011,11 +2029,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _autoComplete_cancelAtStart;
+                return this._autoComplete_cancelAtStart;
             }
             set
             {
-                _autoComplete_cancelAtStart = value;
+                this._autoComplete_cancelAtStart = value;
             }
         }
 
@@ -2024,11 +2042,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _autoComplete_DropRestOfWord;
+                return this._autoComplete_DropRestOfWord;
             }
             set
             {
-                _autoComplete_DropRestOfWord = value;
+                this._autoComplete_DropRestOfWord = value;
             }
         }
 
@@ -2037,11 +2055,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _autoComplete_fillUpCharacters;
+                return this._autoComplete_fillUpCharacters;
             }
             set
             {
-                _autoComplete_fillUpCharacters = value;
+                this._autoComplete_fillUpCharacters = value;
             }
         }
 
@@ -2050,11 +2068,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _autoComplete_ImageSeperator;
+                return this._autoComplete_ImageSeperator;
             }
             set
             {
-                _autoComplete_ImageSeperator = value;
+                this._autoComplete_ImageSeperator = value;
             }
         }
 
@@ -2063,11 +2081,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _autoComplete_IsCaseSensitive;
+                return this._autoComplete_IsCaseSensitive;
             }
             set
             {
-                _autoComplete_IsCaseSensitive = value;
+                this._autoComplete_IsCaseSensitive = value;
             }
         }
 
@@ -2076,11 +2094,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _autoComplete_List;
+                return this._autoComplete_List;
             }
             set
             {
-                _autoComplete_List = value;
+                this._autoComplete_List = value;
             }
         }
 
@@ -2089,11 +2107,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _autoComplete_ListInherit;
+                return this._autoComplete_ListInherit;
             }
             set
             {
-                _autoComplete_ListInherit = value;
+                this._autoComplete_ListInherit = value;
             }
         }
 
@@ -2102,11 +2120,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _autoComplete_ListSeperator;
+                return this._autoComplete_ListSeperator;
             }
             set
             {
-                _autoComplete_ListSeperator = value;
+                this._autoComplete_ListSeperator = value;
             }
         }
 
@@ -2115,11 +2133,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _autoComplete_MaxHeight;
+                return this._autoComplete_MaxHeight;
             }
             set
             {
-                _autoComplete_MaxHeight = value;
+                this._autoComplete_MaxHeight = value;
             }
         }
 
@@ -2128,11 +2146,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _autoComplete_MaxWidth;
+                return this._autoComplete_MaxWidth;
             }
             set
             {
-                _autoComplete_MaxWidth = value;
+                this._autoComplete_MaxWidth = value;
             }
         }
 
@@ -2141,11 +2159,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _autoComplete_singleLineAccept;
+                return this._autoComplete_singleLineAccept;
             }
             set
             {
-                _autoComplete_singleLineAccept = value;
+                this._autoComplete_singleLineAccept = value;
             }
         }
 
@@ -2154,11 +2172,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _autoComplete_StopCharacters;
+                return this._autoComplete_StopCharacters;
             }
             set
             {
-                _autoComplete_StopCharacters = value;
+                this._autoComplete_StopCharacters = value;
             }
         }
 
@@ -2167,11 +2185,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _callTip_BackColor;
+                return this._callTip_BackColor;
             }
             set
             {
-                _callTip_BackColor = value;
+                this._callTip_BackColor = value;
             }
         }
 
@@ -2180,11 +2198,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _callTip_ForeColor;
+                return this._callTip_ForeColor;
             }
             set
             {
-                _callTip_ForeColor = value;
+                this._callTip_ForeColor = value;
             }
         }
 
@@ -2193,11 +2211,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _callTip_HighlightTextColor;
+                return this._callTip_HighlightTextColor;
             }
             set
             {
-                _callTip_HighlightTextColor = value;
+                this._callTip_HighlightTextColor = value;
             }
         }
 
@@ -2206,11 +2224,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _caret_BlinkRate;
+                return this._caret_BlinkRate;
             }
             set
             {
-                _caret_BlinkRate = value;
+                this._caret_BlinkRate = value;
             }
         }
 
@@ -2219,11 +2237,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _caret_Color;
+                return this._caret_Color;
             }
             set
             {
-                _caret_Color = value;
+                this._caret_Color = value;
             }
         }
 
@@ -2232,11 +2250,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _caret_CurrentLineBackgroundAlpha;
+                return this._caret_CurrentLineBackgroundAlpha;
             }
             set
             {
-                _caret_CurrentLineBackgroundAlpha = value;
+                this._caret_CurrentLineBackgroundAlpha = value;
             }
         }
 
@@ -2245,11 +2263,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _caret_CurrentLineBackgroundColor;
+                return this._caret_CurrentLineBackgroundColor;
             }
             set
             {
-                _caret_CurrentLineBackgroundColor = value;
+                this._caret_CurrentLineBackgroundColor = value;
             }
         }
 
@@ -2258,11 +2276,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _caret_HighlightCurrentLine;
+                return this._caret_HighlightCurrentLine;
             }
             set
             {
-                _caret_HighlightCurrentLine = value;
+                this._caret_HighlightCurrentLine = value;
             }
         }
 
@@ -2271,11 +2289,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _caret_IsSticky;
+                return this._caret_IsSticky;
             }
             set
             {
-                _caret_IsSticky = value;
+                this._caret_IsSticky = value;
             }
         }
 
@@ -2284,11 +2302,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _caret_Style;
+                return this._caret_Style;
             }
             set
             {
-                _caret_Style = value;
+                this._caret_Style = value;
             }
         }
 
@@ -2297,11 +2315,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _caret_Width;
+                return this._caret_Width;
             }
             set
             {
-                _caret_Width = value;
+                this._caret_Width = value;
             }
         }
 
@@ -2310,11 +2328,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _clipboard_ConvertLineBreaksOnPaste;
+                return this._clipboard_ConvertLineBreaksOnPaste;
             }
             set
             {
-                _clipboard_ConvertLineBreaksOnPaste = value;
+                this._clipboard_ConvertLineBreaksOnPaste = value;
             }
         }
 
@@ -2323,11 +2341,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _commands_KeyBindingList;
+                return this._commands_KeyBindingList;
             }
             set
             {
-                _commands_KeyBindingList = value;
+                this._commands_KeyBindingList = value;
             }
         }
 
@@ -2336,11 +2354,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _dropMarkers_SharedStackName;
+                return this._dropMarkers_SharedStackName;
             }
             set
             {
-                _dropMarkers_SharedStackName = value;
+                this._dropMarkers_SharedStackName = value;
             }
         }
 
@@ -2349,11 +2367,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _endOfLine_IsVisisble;
+                return this._endOfLine_IsVisisble;
             }
             set
             {
-                _endOfLine_IsVisisble = value;
+                this._endOfLine_IsVisisble = value;
             }
         }
 
@@ -2362,11 +2380,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _endOfLine_Mode;
+                return this._endOfLine_Mode;
             }
             set
             {
-                _endOfLine_Mode = value;
+                this._endOfLine_Mode = value;
             }
         }
 
@@ -2375,11 +2393,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _folding_Flags;
+                return this._folding_Flags;
             }
             set
             {
-                _folding_Flags = value;
+                this._folding_Flags = value;
             }
         }
 
@@ -2388,11 +2406,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _folding_IsEnabled;
+                return this._folding_IsEnabled;
             }
             set
             {
-                _folding_IsEnabled = value;
+                this._folding_IsEnabled = value;
             }
         }
 
@@ -2401,11 +2419,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _folding_MarkerScheme;
+                return this._folding_MarkerScheme;
             }
             set
             {
-                _folding_MarkerScheme = value;
+                this._folding_MarkerScheme = value;
             }
         }
 
@@ -2414,21 +2432,21 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _folding_UseCompactFolding;
+                return this._folding_UseCompactFolding;
             }
             set
             {
-                _folding_UseCompactFolding = value;
+                this._folding_UseCompactFolding = value;
             }
         }
 
 
         public bool HasData
         {
-            get { return _hasData; }
+            get { return this._hasData; }
             set
             {
-                _hasData = value;
+                this._hasData = value;
             }
         }
 
@@ -2437,11 +2455,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _hotspot_ActiveBackColor;
+                return this._hotspot_ActiveBackColor;
             }
             set
             {
-                _hotspot_ActiveBackColor = value;
+                this._hotspot_ActiveBackColor = value;
             }
         }
 
@@ -2450,11 +2468,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _hotspot_ActiveForeColor;
+                return this._hotspot_ActiveForeColor;
             }
             set
             {
-                _hotspot_ActiveForeColor = value;
+                this._hotspot_ActiveForeColor = value;
             }
         }
 
@@ -2463,11 +2481,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _hotspot_ActiveUnderline;
+                return this._hotspot_ActiveUnderline;
             }
             set
             {
-                _hotspot_ActiveUnderline = value;
+                this._hotspot_ActiveUnderline = value;
             }
         }
 
@@ -2476,11 +2494,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _hotspot_SingleLine;
+                return this._hotspot_SingleLine;
             }
             set
             {
-                _hotspot_SingleLine = value;
+                this._hotspot_SingleLine = value;
             }
         }
 
@@ -2489,11 +2507,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _hotspot_UseActiveBackColor;
+                return this._hotspot_UseActiveBackColor;
             }
             set
             {
-                _hotspot_UseActiveBackColor = value;
+                this._hotspot_UseActiveBackColor = value;
             }
         }
 
@@ -2502,11 +2520,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _hotspot_UseActiveForeColor;
+                return this._hotspot_UseActiveForeColor;
             }
             set
             {
-                _hotspot_UseActiveForeColor = value;
+                this._hotspot_UseActiveForeColor = value;
             }
         }
 
@@ -2515,11 +2533,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _indentation_BackspaceUnindents;
+                return this._indentation_BackspaceUnindents;
             }
             set
             {
-                _indentation_BackspaceUnindents = value;
+                this._indentation_BackspaceUnindents = value;
             }
         }
 
@@ -2528,11 +2546,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _indentation_IndentWidth;
+                return this._indentation_IndentWidth;
             }
             set
             {
-                _indentation_IndentWidth = value;
+                this._indentation_IndentWidth = value;
             }
         }
 
@@ -2541,11 +2559,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _indentation_ShowGuides;
+                return this._indentation_ShowGuides;
             }
             set
             {
-                _indentation_ShowGuides = value;
+                this._indentation_ShowGuides = value;
             }
         }
 
@@ -2554,11 +2572,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _indentation_SmartIndentType;
+                return this._indentation_SmartIndentType;
             }
             set
             {
-                _indentation_SmartIndentType = value;
+                this._indentation_SmartIndentType = value;
             }
         }
 
@@ -2567,11 +2585,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _indentation_TabIndents;
+                return this._indentation_TabIndents;
             }
             set
             {
-                _indentation_TabIndents = value;
+                this._indentation_TabIndents = value;
             }
         }
 
@@ -2580,11 +2598,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _indentation_TabWidth;
+                return this._indentation_TabWidth;
             }
             set
             {
-                _indentation_TabWidth = value;
+                this._indentation_TabWidth = value;
             }
         }
 
@@ -2593,11 +2611,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _indentation_UseTabs;
+                return this._indentation_UseTabs;
             }
             set
             {
-                _indentation_UseTabs = value;
+                this._indentation_UseTabs = value;
             }
         }
 
@@ -2606,11 +2624,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _indicator_List;
+                return this._indicator_List;
             }
             set
             {
-                _indicator_List = value;
+                this._indicator_List = value;
             }
         }
 
@@ -2619,11 +2637,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _language;
+                return this._language;
             }
             set
             {
-                _language = value;
+                this._language = value;
             }
         }
 
@@ -2632,11 +2650,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _lexing_Keywords;
+                return this._lexing_Keywords;
             }
             set
             {
-                _lexing_Keywords = value;
+                this._lexing_Keywords = value;
             }
         }
 
@@ -2645,11 +2663,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _lexing_Language;
+                return this._lexing_Language;
             }
             set
             {
-                _lexing_Language = value;
+                this._lexing_Language = value;
             }
         }
 
@@ -2658,11 +2676,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _lexing_LineCommentPrefix;
+                return this._lexing_LineCommentPrefix;
             }
             set
             {
-                _lexing_LineCommentPrefix = value;
+                this._lexing_LineCommentPrefix = value;
             }
         }
 
@@ -2671,11 +2689,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _lexing_Properties;
+                return this._lexing_Properties;
             }
             set
             {
-                _lexing_Properties = value;
+                this._lexing_Properties = value;
             }
         }
 
@@ -2684,11 +2702,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _lexing_StreamCommentPrefix;
+                return this._lexing_StreamCommentPrefix;
             }
             set
             {
-                _lexing_StreamCommentPrefix = value;
+                this._lexing_StreamCommentPrefix = value;
             }
         }
 
@@ -2697,11 +2715,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _lexing_StreamCommentSuffix;
+                return this._lexing_StreamCommentSuffix;
             }
             set
             {
-                _lexing_StreamCommentSuffix = value;
+                this._lexing_StreamCommentSuffix = value;
             }
         }
 
@@ -2710,11 +2728,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _lexing_WhitespaceChars;
+                return this._lexing_WhitespaceChars;
             }
             set
             {
-                _lexing_WhitespaceChars = value;
+                this._lexing_WhitespaceChars = value;
             }
         }
 
@@ -2723,11 +2741,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _lexing_WordChars;
+                return this._lexing_WordChars;
             }
             set
             {
-                _lexing_WordChars = value;
+                this._lexing_WordChars = value;
             }
         }
 
@@ -2735,11 +2753,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _lineWrapping_IndentMode;
+                return this._lineWrapping_IndentMode;
             }
             set
             {
-                _lineWrapping_IndentMode = value;
+                this._lineWrapping_IndentMode = value;
             }
         }
 
@@ -2748,11 +2766,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _lineWrapping_IndentSize;
+                return this._lineWrapping_IndentSize;
             }
             set
             {
-                _lineWrapping_IndentSize = value;
+                this._lineWrapping_IndentSize = value;
             }
         }
 
@@ -2761,11 +2779,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _lineWrapping_Mode;
+                return this._lineWrapping_Mode;
             }
             set
             {
-                _lineWrapping_Mode = value;
+                this._lineWrapping_Mode = value;
             }
         }
 
@@ -2774,11 +2792,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _lineWrapping_VisualFlags;
+                return this._lineWrapping_VisualFlags;
             }
             set
             {
-                _lineWrapping_VisualFlags = value;
+                this._lineWrapping_VisualFlags = value;
             }
         }
 
@@ -2787,11 +2805,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _lineWrapping_VisualFlagsLocations;
+                return this._lineWrapping_VisualFlagsLocations;
             }
             set
             {
-                _lineWrapping_VisualFlagsLocations = value;
+                this._lineWrapping_VisualFlagsLocations = value;
             }
         }
 
@@ -2800,11 +2818,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _longLines_EdgeColor;
+                return this._longLines_EdgeColor;
             }
             set
             {
-                _longLines_EdgeColor = value;
+                this._longLines_EdgeColor = value;
             }
         }
 
@@ -2813,11 +2831,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _longLines_EdgeColumn;
+                return this._longLines_EdgeColumn;
             }
             set
             {
-                _longLines_EdgeColumn = value;
+                this._longLines_EdgeColumn = value;
             }
         }
 
@@ -2826,11 +2844,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _longLines_EdgeMode;
+                return this._longLines_EdgeMode;
             }
             set
             {
-                _longLines_EdgeMode = value;
+                this._longLines_EdgeMode = value;
             }
         }
 
@@ -2839,11 +2857,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _margin_List;
+                return this._margin_List;
             }
             set
             {
-                _margin_List = value;
+                this._margin_List = value;
             }
         }
 
@@ -2852,11 +2870,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _markers_List;
+                return this._markers_List;
             }
             set
             {
-                _markers_List = value;
+                this._markers_List = value;
             }
         }
 
@@ -2865,11 +2883,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _scrolling_EndAtLastLine;
+                return this._scrolling_EndAtLastLine;
             }
             set
             {
-                _scrolling_EndAtLastLine = value;
+                this._scrolling_EndAtLastLine = value;
             }
         }
 
@@ -2878,11 +2896,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _scrolling_HorizontalWidth;
+                return this._scrolling_HorizontalWidth;
             }
             set
             {
-                _scrolling_HorizontalWidth = value;
+                this._scrolling_HorizontalWidth = value;
             }
         }
 
@@ -2891,11 +2909,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _scrolling_ScrollBars;
+                return this._scrolling_ScrollBars;
             }
             set
             {
-                _scrolling_ScrollBars = value;
+                this._scrolling_ScrollBars = value;
             }
         }
 
@@ -2904,11 +2922,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _scrolling_XOffset;
+                return this._scrolling_XOffset;
             }
             set
             {
-                _scrolling_XOffset = value;
+                this._scrolling_XOffset = value;
             }
         }
 
@@ -2917,11 +2935,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _selection_BackColor;
+                return this._selection_BackColor;
             }
             set
             {
-                _selection_BackColor = value;
+                this._selection_BackColor = value;
             }
         }
 
@@ -2930,11 +2948,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _selection_BackColorUnfocused;
+                return this._selection_BackColorUnfocused;
             }
             set
             {
-                _selection_BackColorUnfocused = value;
+                this._selection_BackColorUnfocused = value;
             }
         }
 
@@ -2943,11 +2961,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _selection_ForeColor;
+                return this._selection_ForeColor;
             }
             set
             {
-                _selection_ForeColor = value;
+                this._selection_ForeColor = value;
             }
         }
 
@@ -2956,11 +2974,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _selection_ForeColorUnfocused;
+                return this._selection_ForeColorUnfocused;
             }
             set
             {
-                _selection_ForeColorUnfocused = value;
+                this._selection_ForeColorUnfocused = value;
             }
         }
 
@@ -2969,11 +2987,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _selection_Hidden;
+                return this._selection_Hidden;
             }
             set
             {
-                _selection_Hidden = value;
+                this._selection_Hidden = value;
             }
         }
 
@@ -2982,11 +3000,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _selection_HideSelection;
+                return this._selection_HideSelection;
             }
             set
             {
-                _selection_HideSelection = value;
+                this._selection_HideSelection = value;
             }
         }
 
@@ -2995,11 +3013,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _selection_Mode;
+                return this._selection_Mode;
             }
             set
             {
-                _selection_Mode = value;
+                this._selection_Mode = value;
             }
         }
 
@@ -3008,11 +3026,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _snippetsConfigList;
+                return this._snippetsConfigList;
             }
             set
             {
-                _snippetsConfigList = value;
+                this._snippetsConfigList = value;
             }
         }
 
@@ -3021,11 +3039,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _styles;
+                return this._styles;
             }
             set
             {
-                _styles = value;
+                this._styles = value;
             }
         }
 
@@ -3034,11 +3052,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _undoRedoIsUndoEnabled;
+                return this._undoRedoIsUndoEnabled;
             }
             set
             {
-                _undoRedoIsUndoEnabled = value;
+                this._undoRedoIsUndoEnabled = value;
             }
         }
 
@@ -3047,11 +3065,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _whitespace_BackColor;
+                return this._whitespace_BackColor;
             }
             set
             {
-                _whitespace_BackColor = value;
+                this._whitespace_BackColor = value;
             }
         }
 
@@ -3060,11 +3078,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _whitespace_ForeColor;
+                return this._whitespace_ForeColor;
             }
             set
             {
-                _whitespace_ForeColor = value;
+                this._whitespace_ForeColor = value;
             }
         }
 
@@ -3073,11 +3091,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _whitespace_Mode;
+                return this._whitespace_Mode;
             }
             set
             {
-                _whitespace_Mode = value;
+                this._whitespace_Mode = value;
             }
         }
 
@@ -3088,41 +3106,41 @@ namespace ARCed.Scintilla.Configuration
 
         public Configuration(string language)
         {
-            _language = language;
+            this._language = language;
         }
 
 
         public Configuration(XmlDocument configDocument, string language)
         {
-            _language = language;
+            this._language = language;
             Load(configDocument);
         }
 
 
         public Configuration(TextReader txtReader, string language)
         {
-            _language = language;
+            this._language = language;
             Load(txtReader);
         }
 
 
         public Configuration(XmlReader reader, string language)
         {
-            _language = language;
+            this._language = language;
             Load(reader);
         }
 
 
         public Configuration(string fileName, string language, bool useXmlReader)
         {
-            _language = language;
+            this._language = language;
             Load(fileName, useXmlReader);
         }
 
 
         public Configuration(Stream inStream, string language, bool useXmlReader)
         {
-            _language = language;
+            this._language = language;
             Load(inStream, useXmlReader);
         }
 

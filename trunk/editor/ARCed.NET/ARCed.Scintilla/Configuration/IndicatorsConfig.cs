@@ -26,11 +26,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _color;
+                return this._color;
             }
             set
             {
-                _color = value;
+                this._color = value;
             }
         }
 
@@ -39,11 +39,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _inherit;
+                return this._inherit;
             }
             set
             {
-                _inherit = value;
+                this._inherit = value;
             }
         }
 
@@ -52,11 +52,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _isDrawnUnder;
+                return this._isDrawnUnder;
             }
             set
             {
-                _isDrawnUnder = value;
+                this._isDrawnUnder = value;
             }
         }
 
@@ -65,11 +65,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _number;
+                return this._number;
             }
             set
             {
-                _number = value;
+                this._number = value;
             }
         }
 
@@ -78,11 +78,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _style;
+                return this._style;
             }
             set
             {
-                _style = value;
+                this._style = value;
             }
         }
 

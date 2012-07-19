@@ -28,8 +28,8 @@ namespace ARCed.Scintilla
         /// </summary>
         public int Position
         {
-            get { return _position; }
-            set { _position = value; }
+            get { return this._position; }
+            set { this._position = value; }
         }
 
 
@@ -38,8 +38,8 @@ namespace ARCed.Scintilla
         /// </summary>
         public int X
         {
-            get { return _x; }
-            set { _x = value; }
+            get { return this._x; }
+            set { this._x = value; }
         }
 
 
@@ -48,8 +48,8 @@ namespace ARCed.Scintilla
         /// </summary>
         public int Y
         {
-            get { return _y; }
-            set { _y = value; }
+            get { return this._y; }
+            set { this._y = value; }
         }
 
         #endregion Properties
@@ -65,9 +65,9 @@ namespace ARCed.Scintilla
         /// <param name="position"> Document position</param>
         public ScintillaMouseEventArgs(int x, int y, int position)
         {
-            _x = x;
-            _y = y;
-            _position = position;
+            this._x = x;
+            this._y = y;
+            this._position = position;
         }
 
         #endregion Constructors

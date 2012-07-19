@@ -84,6 +84,7 @@ namespace RPG
         /// The tile ID is used as a subscript.
         /// </summary>
 		public Table priorities { get; set; }
+        /// <summary>
         /// Priority table. A 1-dimensional <see cref="Table"/> containing terrain tag data.
         /// The tile ID is used as a subscript.
         /// </summary>
@@ -94,24 +95,24 @@ namespace RPG
         /// </summary>
 		public Tileset()
 		{
-			id = 0;
-			name = "";
-			tileset_name = "";
-			autotile_names = new List<dynamic>(7);
-			panorama_name = "";
-			panorama_hue = 0;
-			fog_name = "";
-			fog_hue = 0;
-			fog_opacity = 64;
-			fog_blend_type = 0;
-			fog_zoom = 200;
-			fog_sx = 0;
-			fog_sy = 0;
-			battleback_name = "";
-			passages = new Table(384);
-			priorities = new Table(384);
-			priorities[0] = 5;
-			terrain_tags = new Table(384);
+			this.id = 0;
+			this.name = "";
+			this.tileset_name = "";
+			this.autotile_names = new List<dynamic>(7);
+			this.panorama_name = "";
+			this.panorama_hue = 0;
+			this.fog_name = "";
+			this.fog_hue = 0;
+			this.fog_opacity = 64;
+			this.fog_blend_type = 0;
+			this.fog_zoom = 200;
+			this.fog_sx = 0;
+			this.fog_sy = 0;
+			this.battleback_name = "";
+			this.passages = new Table(384);
+			this.priorities = new Table(384);
+			this.priorities[0] = 5;
+			this.terrain_tags = new Table(384);
 		}
 
 		/// <summary>

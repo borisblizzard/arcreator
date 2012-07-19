@@ -47,16 +47,16 @@ namespace ARCed.Settings
 		/// </summary>
 		public ProjectSettings()
 		{
-			OpenScripts = new List<string>();
-			ARChiveSettings = new ARChiveSettings();
-			Guid = Guid.NewGuid();
-			MaxLevel = 99;
-			Parameters = new List<string>
+			this.OpenScripts = new List<string>();
+			this.ARChiveSettings = new ARChiveSettings();
+			this.Guid = Guid.NewGuid();
+			this.MaxLevel = 99;
+			this.Parameters = new List<string>
 			{
 				"MaxHP", "MaxSP", "STR", "DEX", "AGI", "INT"
 			};
-			EquipmentSettings = EquipmentSettings.RmxpConfiguration;
-            HeaderImage = new HeaderSettings();
+			this.EquipmentSettings = EquipmentSettings.RmxpConfiguration;
+            this.HeaderImage = new HeaderSettings();
 		}
 
         /// <summary>

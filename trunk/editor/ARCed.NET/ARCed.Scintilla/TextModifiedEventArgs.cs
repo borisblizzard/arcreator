@@ -46,7 +46,7 @@ namespace ARCed.Scintilla
         /// </summary>
         public override string ToString()
         {
-            return string.Format(STRING_FORMAT, ModificationType, _position, _length, _linesAddedCount, _text, _isUserChange, _markerChangedLine) + Environment.NewLine + UndoRedoFlags.ToString();
+            return string.Format(STRING_FORMAT, ModificationType, this._position, this._length, this._linesAddedCount, this._text, this._isUserChange, this._markerChangedLine) + Environment.NewLine + UndoRedoFlags.ToString();
         }
 
         #endregion Methods
@@ -61,7 +61,7 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _isUserChange;
+                return this._isUserChange;
             }
         }
 
@@ -73,7 +73,7 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _length;
+                return this._length;
             }
         }
 
@@ -85,7 +85,7 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _linesAddedCount;
+                return this._linesAddedCount;
             }
         }
 
@@ -97,7 +97,7 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _markerChangedLine;
+                return this._markerChangedLine;
             }
         }
 
@@ -109,7 +109,7 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _position;
+                return this._position;
             }
         }
 
@@ -121,7 +121,7 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _text;
+                return this._text;
             }
         }
 
@@ -142,12 +142,12 @@ namespace ARCed.Scintilla
         /// <param name="text">affected text of the change</param>
         public TextModifiedEventArgs(int modificationType, bool isUserChange, int markerChangedLine, int position, int length, int linesAddedCount, string text) : base(modificationType)
         {
-            _isUserChange = isUserChange;
-            _markerChangedLine = markerChangedLine;
-            _position = position;
-            _length = length;
-            _linesAddedCount = linesAddedCount;
-            _text = text;
+            this._isUserChange = isUserChange;
+            this._markerChangedLine = markerChangedLine;
+            this._position = position;
+            this._length = length;
+            this._linesAddedCount = linesAddedCount;
+            this._text = text;
         }
 
         #endregion Constructors

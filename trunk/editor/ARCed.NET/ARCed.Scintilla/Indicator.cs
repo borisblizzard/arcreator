@@ -32,11 +32,11 @@ namespace ARCed.Scintilla
 
         private Color GetDefaultColor()
         {
-            if (_number == 0)
+            if (this._number == 0)
                 return Color.FromArgb(0, 127, 0);
-            else if (_number == 1)
+            else if (this._number == 1)
                 return Color.FromArgb(0, 0, 255);
-            else if (_number == 2)
+            else if (this._number == 2)
                 return Color.FromArgb(255, 0, 0);
             else
                 return Color.FromArgb(0, 0, 0);
@@ -45,9 +45,9 @@ namespace ARCed.Scintilla
 
         private IndicatorStyle GetDefaultStyle()
         {
-            if (_number == 0)
+            if (this._number == 0)
                 return IndicatorStyle.Squiggle;
-            else if (_number == 1)
+            else if (this._number == 1)
                 return IndicatorStyle.TT;
             else
                 return IndicatorStyle.Plain;
@@ -62,40 +62,40 @@ namespace ARCed.Scintilla
 
         public void Reset()
         {
-            ResetColor();
-            ResetIsDrawnUnder();
-            ResetStyle();
+            this.ResetColor();
+            this.ResetIsDrawnUnder();
+            this.ResetStyle();
         }
 
 
         public void ResetColor()
         {
-            Color = GetDefaultColor();
+            this.Color = this.GetDefaultColor();
         }
 
 
         public void ResetIsDrawnUnder()
         {
-            IsDrawnUnder = false;
+            this.IsDrawnUnder = false;
         }
 
 
         public void ResetStyle()
         {
-            Style = GetDefaultStyle();
+            this.Style = this.GetDefaultStyle();
         }
 
 
         public Range Search()
         {
-            return Search(Scintilla.GetRange());
+            return this.Search(Scintilla.GetRange());
         }
 
 
         public Range Search(Range searchRange)
         {
-            int foundStart = NativeScintilla.IndicatorEnd(_number, searchRange.Start);
-            int foundEnd = NativeScintilla.IndicatorEnd(_number, foundStart);
+            int foundStart = NativeScintilla.IndicatorEnd(this._number, searchRange.Start);
+            int foundEnd = NativeScintilla.IndicatorEnd(this._number, foundStart);
             if (foundStart < 0 || foundStart > searchRange.End || foundStart == foundEnd)
                 return null;
 
@@ -110,8 +110,8 @@ namespace ARCed.Scintilla
             if (start > NativeScintilla.GetTextLength())
                 return null;
 
-            int foundStart = NativeScintilla.IndicatorEnd(_number, start);
-            int foundEnd = NativeScintilla.IndicatorEnd(_number, foundStart);
+            int foundStart = NativeScintilla.IndicatorEnd(this._number, start);
+            int foundEnd = NativeScintilla.IndicatorEnd(this._number, foundStart);
             if (foundStart < 0 || foundStart > searchRange.End || foundStart == foundEnd)
                 return null;
             
@@ -121,7 +121,7 @@ namespace ARCed.Scintilla
 
         public List<Range> SearchAll()
         {
-            return SearchAll(Scintilla.GetRange());
+            return this.SearchAll(Scintilla.GetRange());
         }
 
 
@@ -132,7 +132,7 @@ namespace ARCed.Scintilla
             var ret = new List<Range>();
             do
             {
-                foundRange = Search(searchRange, foundRange);
+                foundRange = this.Search(searchRange, foundRange);
                 if (foundRange != null)
                     ret.Add(foundRange);
             }
@@ -143,33 +143,33 @@ namespace ARCed.Scintilla
 
         internal bool ShouldSerialize()
         {
-            return ShouldSerializeColor() ||
-                ShouldSerializeIsDrawnUnder() ||
-                ShouldSerializeStyle();
+            return this.ShouldSerializeColor() ||
+                this.ShouldSerializeIsDrawnUnder() ||
+                this.ShouldSerializeStyle();
         }
 
 
         private bool ShouldSerializeColor()
         {
-            return Color != GetDefaultColor();
+            return this.Color != this.GetDefaultColor();
         }
 
 
         private bool ShouldSerializeIsDrawnUnder()
         {
-            return IsDrawnUnder;
+            return this.IsDrawnUnder;
         }
 
 
         private bool ShouldSerializeStyle()
         {
-            return Style != GetDefaultStyle();
+            return this.Style != this.GetDefaultStyle();
         }
 
 
         public override string ToString()
         {
-            return "Indicator" + _number;
+            return "Indicator" + this._number;
         }
 
         #endregion Methods
@@ -181,15 +181,15 @@ namespace ARCed.Scintilla
         {
             get
             {
-                if (Scintilla.ColorBag.ContainsKey(ToString() + ".Color"))
-                    return Scintilla.ColorBag[ToString() + ".Color"];
+                if (Scintilla.ColorBag.ContainsKey(this + ".Color"))
+                    return Scintilla.ColorBag[this + ".Color"];
 
-                return Utilities.RgbToColor(NativeScintilla.IndicGetFore(_number));
+                return Utilities.RgbToColor(NativeScintilla.IndicGetFore(this._number));
             }
             set
             {
-                Scintilla.ColorBag[ToString() + ".Color"] = value;
-                NativeScintilla.IndicSetFore(_number, Utilities.ColorToRgb(value));
+                Scintilla.ColorBag[this + ".Color"] = value;
+                NativeScintilla.IndicSetFore(this._number, Utilities.ColorToRgb(value));
             }
         }
 
@@ -198,11 +198,11 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return NativeScintilla.IndicGetUnder(_number);
+                return NativeScintilla.IndicGetUnder(this._number);
             }
             set
             {
-                NativeScintilla.IndicSetUnder(_number, value);
+                NativeScintilla.IndicSetUnder(this._number, value);
             }
         }
 
@@ -211,11 +211,11 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _number;
+                return this._number;
             }
             set
             {
-                _number = value;
+                this._number = value;
             }
         }
 
@@ -224,11 +224,11 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return (IndicatorStyle)NativeScintilla.IndicGetStyle(_number);
+                return (IndicatorStyle)NativeScintilla.IndicGetStyle(this._number);
             }
             set
             {
-                NativeScintilla.IndicSetStyle(_number, (int)value);
+                NativeScintilla.IndicSetStyle(this._number, (int)value);
             }
         }
 
@@ -239,7 +239,7 @@ namespace ARCed.Scintilla
 
         internal Indicator(int number, Scintilla scintilla) : base(scintilla)
         {
-            _number = number;
+            this._number = number;
         }
 
         #endregion Constructors

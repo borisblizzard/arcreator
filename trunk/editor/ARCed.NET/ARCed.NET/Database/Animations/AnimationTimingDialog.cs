@@ -23,8 +23,8 @@ namespace ARCed.Database.Animations
 		/// </summary>
 		public Animation.Timing Timing 
 		{
-			get { return GetTiming(); }
-			set { SetTiming(value); }
+			get { return this.GetTiming(); }
+			set { this.SetTiming(value); }
 		}
 
 		#endregion
@@ -36,9 +36,9 @@ namespace ARCed.Database.Animations
 		/// </summary>
 		public AnimationTimingDialog()
 		{
-			InitializeComponent();
-			numericUpDownStrength.DataBindings.Add("Value", trackBarStrength, "Value", false,
-				DataSourceUpdateMode.OnPropertyChanged | DataSourceUpdateMode.OnValidation);
+			this.InitializeComponent();
+			this.numericUpDownStrength.DataBindings.Add("Value", this.trackBarStrength, "Value", false,
+				DataSourceUpdateMode.OnPropertyChanged);
 		}
 
 		#endregion
@@ -47,41 +47,43 @@ namespace ARCed.Database.Animations
 
 		private Animation.Timing GetTiming()
 		{
-			var timing = new Animation.Timing();
-			timing.frame = (int)numericUpDownFrame.Value;
-			timing.condition = comboBoxCondition.SelectedIndex;
-			timing.flash_duration = (int)numericUpDownDuration.Value;
-            timing.flash_color = panelColor.BackColor;
-			timing.flash_color.alpha = (float)numericUpDownStrength.Value;
-			var btns = new List<RadioButton> { radioNone, radioTarget, radioScreen, radioHide };
-			timing.flash_scope = btns.FindIndex(delegate(RadioButton btn) { return btn.Checked; });
-			timing.se = textBoxSE.Tag == null ? new AudioFile() : (AudioFile)textBoxSE.Tag;
+			var timing = new Animation.Timing
+			{
+			    frame = (int)this.numericUpDownFrame.Value,
+			    condition = this.comboBoxCondition.SelectedIndex,
+			    flash_duration = (int)this.numericUpDownDuration.Value,
+			    flash_color = this.panelColor.BackColor
+			};
+		    timing.flash_color.alpha = (float)this.numericUpDownStrength.Value;
+			var btns = new List<RadioButton> { this.radioNone, this.radioTarget, this.radioScreen, this.radioHide };
+			timing.flash_scope = btns.FindIndex(btn => btn.Checked);
+			timing.se = this.textBoxSE.Tag == null ? new AudioFile() : (AudioFile)this.textBoxSE.Tag;
 			return timing;
 		}
 
 		private void SetTiming(Animation.Timing timing)
 		{
-			numericUpDownFrame.Value = timing.frame.Clamp(1, 999);
-			numericUpDownDuration.Value = timing.flash_duration;
-			trackBarStrength.Value = (int)timing.flash_color.alpha;
-			panelColor.BackColor = Color.FromArgb(255, (int)timing.flash_color.red, 
+			this.numericUpDownFrame.Value = timing.frame.Clamp(1, 999);
+			this.numericUpDownDuration.Value = timing.flash_duration;
+			this.trackBarStrength.Value = (int)timing.flash_color.alpha;
+			this.panelColor.BackColor = Color.FromArgb(255, (int)timing.flash_color.red, 
 				(int)timing.flash_color.green, (int)timing.flash_color.blue); 
-			comboBoxCondition.SelectedIndex = timing.condition;
-			textBoxSE.Tag = timing.se;
-			textBoxSE.Text = timing.se.ToString();
+			this.comboBoxCondition.SelectedIndex = timing.condition;
+			this.textBoxSE.Tag = timing.se;
+			this.textBoxSE.Text = timing.se.ToString();
 			switch (timing.flash_scope)
 			{
-				case 1: radioTarget.Checked = true; break;
-				case 2: radioScreen.Checked = true; break;
-				case 3: radioHide.Checked = true; break;
-				default: radioNone.Checked = true; break;
+				case 1: this.radioTarget.Checked = true; break;
+				case 2: this.radioScreen.Checked = true; break;
+				case 3: this.radioHide.Checked = true; break;
+				default: this.radioNone.Checked = true; break;
 			}
 		}
 
 		private void buttonOK_Click(object sender, EventArgs e)
 		{
-			this.DialogResult = DialogResult.OK;
-			this.Close();
+			DialogResult = DialogResult.OK;
+			Close();
 		}
 
 		private void panelColor_DoubleClick(object sender, EventArgs e)
@@ -89,10 +91,10 @@ namespace ARCed.Database.Animations
 			using (var dialog = new ColorChooserForm())
 			{
 				dialog.AlphaEnabled = false;
-				Color c = panelColor.BackColor;
+				Color c = this.panelColor.BackColor;
 				dialog.Color = Color.FromArgb(255, c.R, c.G, c.B);
 				if (dialog.ShowDialog() == DialogResult.OK)
-					panelColor.BackColor = dialog.Color;
+					this.panelColor.BackColor = dialog.Color;
 			}
 		}
 

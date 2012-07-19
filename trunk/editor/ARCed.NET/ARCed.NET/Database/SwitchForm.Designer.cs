@@ -1,6 +1,6 @@
 ﻿namespace ARCed.Database
 {
-	partial class SwitchForm
+    sealed partial class SwitchForm
 	{
 		/// <summary>
 		/// Required designer variable.

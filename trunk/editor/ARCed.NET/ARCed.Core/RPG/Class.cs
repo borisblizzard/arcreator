@@ -53,14 +53,14 @@ namespace RPG
         /// </summary>
 		public Class()
 		{
-			id = 0;
-			name = "";
-			position = 0;
-			weapon_set = new List<dynamic>();
-			armor_set = new List<dynamic>();
-			element_ranks = new Table(1);
-			state_ranks = new Table(1);
-			learnings = new List<dynamic>();
+			this.id = 0;
+			this.name = "";
+			this.position = 0;
+			this.weapon_set = new List<dynamic>();
+			this.armor_set = new List<dynamic>();
+			this.element_ranks = new Table(1);
+			this.state_ranks = new Table(1);
+			this.learnings = new List<dynamic>();
 		}
 
 		/// <summary>
@@ -91,8 +91,8 @@ namespace RPG
             /// </summary>
 			public Learning()
 			{
-				level = 1;
-				skill_id = 1;
+				this.level = 1;
+				this.skill_id = 1;
 			}
 		}
 	}

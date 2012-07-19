@@ -63,7 +63,7 @@ namespace ARCed.Scintilla
                 if (value != Color.Empty && value.A < Byte.MaxValue)
                     throw new ArgumentException(ALPHA_EXCEPTION);
 
-                if (value != BackColor)
+                if (value != this.BackColor)
                 {
                     if (value == Color.Empty)
                     {
@@ -110,7 +110,7 @@ namespace ARCed.Scintilla
                 if (value != Color.Empty && value.A < Byte.MaxValue)
                     throw new ArgumentException(ALPHA_EXCEPTION);
 
-                if (value != ForeColor)
+                if (value != this.ForeColor)
                 {
                     if (value == Color.Empty)
                     {
@@ -144,7 +144,7 @@ namespace ARCed.Scintilla
                 if (!Enum.IsDefined(typeof(WhitespaceMode), value))
                     throw new InvalidEnumArgumentException("value", (int)value, typeof(WhitespaceMode));
 
-                if (value != Mode)
+                if (value != this.Mode)
                     NativeScintilla.SetViewWs((int)value);
             }
         }

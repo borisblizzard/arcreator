@@ -38,7 +38,7 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _msg;
+                return this._msg;
             }
         }
 
@@ -50,7 +50,7 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _notification;
+                return this._notification;
             }
         }
 
@@ -66,8 +66,8 @@ namespace ARCed.Scintilla
         /// <param name="notification">SCNotification structure sent from Scintilla that contains the event data</param>
         public NativeScintillaEventArgs(Message msg, SCNotification notification)
         {
-            _msg = msg;
-            _notification = notification;
+            this._msg = msg;
+            this._notification = notification;
         }
 
         #endregion Constructors

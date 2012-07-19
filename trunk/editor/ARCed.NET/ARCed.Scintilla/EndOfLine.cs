@@ -27,25 +27,25 @@ namespace ARCed.Scintilla
 
         private void ResetIsVisible()
         {
-            IsVisible = false;
+            this.IsVisible = false;
         }
 
 
         private void ResetMode()
         {
-            Mode = EndOfLineMode.Crlf;
+            this.Mode = EndOfLineMode.Crlf;
         }
 
 
         internal bool ShouldSerialize()
         {
-            return ShouldSerializeIsVisible() || ShouldSerializeMode();
+            return this.ShouldSerializeIsVisible() || this.ShouldSerializeMode();
         }
 
 
         private bool ShouldSerializeIsVisible()
         {
-            return IsVisible;
+            return this.IsVisible;
         }
 
 
@@ -53,7 +53,7 @@ namespace ARCed.Scintilla
         {
             // Yeah I'm assuming Windows, if this does ever make it to another platform 
             // a check should be made to make it platform specific
-            return Mode != EndOfLineMode.Crlf;
+            return this.Mode != EndOfLineMode.Crlf;
         }
 
         #endregion Methods
@@ -70,7 +70,7 @@ namespace ARCed.Scintilla
         {
             get
             {
-                switch (Mode)
+                switch (this.Mode)
                 {
                     case EndOfLineMode.CR:
                         return "\r";

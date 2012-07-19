@@ -229,7 +229,7 @@
             enabling/disabling specific options as needed.
             </summary>
         </member>
-        <member name="M:ARCed.Editor.toolComboDatabaseItem_Click(System.Object,System.EventArgs)">
+        <member name="M:ARCed.Editor.ToolComboDatabaseItemClick(System.Object,System.EventArgs)">
             <summary>
             TEST PURPOSES ONLY
             </summary>

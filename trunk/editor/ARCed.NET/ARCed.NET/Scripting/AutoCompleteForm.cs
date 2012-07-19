@@ -21,74 +21,74 @@ namespace ARCed.Scripting
 		/// </summary>
 		public AutoCompleteForm()
 		{
-			InitializeComponent();
-			_wordList = new BindingList<string>(Editor.Settings.Scripting.AutoCompleteWords);
-			this.Icon = Icon.FromHandle(Resources.AutoComplete.GetHicon());
-			textBoxFillUp.Text = Editor.Settings.Scripting.FillUpCharacters;
-			textBoxFillUp.Font = FontHelper.MonoFont;
-			numericAutoLength.Value = Editor.Settings.Scripting.AutoCompleteLength;
-			listBoxWords.DataSource = _wordList; 
+			this.InitializeComponent();
+			this._wordList = new BindingList<string>(Editor.Settings.Scripting.AutoCompleteWords);
+			Icon = Icon.FromHandle(Resources.AutoComplete.GetHicon());
+			this.textBoxFillUp.Text = Editor.Settings.Scripting.FillUpCharacters;
+			this.textBoxFillUp.Font = FontHelper.MonoFont;
+			this.numericAutoLength.Value = Editor.Settings.Scripting.AutoCompleteLength;
+			this.listBoxWords.DataSource = this._wordList; 
 		}
 
 		public void AddToAutocomplete(string text)
 		{
 			string[] words = text.Split(' ', '\n', '\t', '.', '@', '$');
-			listBoxWords.BeginUpdate();
+			this.listBoxWords.BeginUpdate();
 			string currentWord;
 			foreach (string word in words)
 			{
 				currentWord = word.Trim();
 				if (currentWord == "" || currentWord.Length < 2) continue;
-				if (!_wordList.Contains(currentWord))
-					_wordList.Add(currentWord);
+				if (!this._wordList.Contains(currentWord))
+					this._wordList.Add(currentWord);
 			}
-			listBoxWords.EndUpdate();
+			this.listBoxWords.EndUpdate();
 		}
 
 		private void buttonAdd_Click(object sender, EventArgs e)
 		{
-			AddToAutocomplete(textBoxWords.Text);
-			textBoxWords.Clear();
+			this.AddToAutocomplete(this.textBoxWords.Text);
+			this.textBoxWords.Clear();
 		}
 
 		private void buttonClear_Click(object sender, EventArgs e)
 		{
-			textBoxWords.Clear();
+			this.textBoxWords.Clear();
 		}
 
 		private void numericAutoLength_ValueChanged(object sender, EventArgs e)
 		{
-			Editor.Settings.Scripting.AutoCompleteLength = (int)numericAutoLength.Value;
+			Editor.Settings.Scripting.AutoCompleteLength = (int)this.numericAutoLength.Value;
 		}
 
 		private void removeSelectedToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			listBoxWords.BeginUpdate();
-			var words = new string[listBoxWords.SelectedItems.Count];
-			for (int i = 0; i < listBoxWords.SelectedItems.Count; i++)
-				words[i] = listBoxWords.SelectedItems[i].ToString();
+			this.listBoxWords.BeginUpdate();
+			var words = new string[this.listBoxWords.SelectedItems.Count];
+			for (int i = 0; i < this.listBoxWords.SelectedItems.Count; i++)
+				words[i] = this.listBoxWords.SelectedItems[i].ToString();
 			foreach (string word in words)
-				_wordList.Remove(word);
-			listBoxWords.EndUpdate();
+				this._wordList.Remove(word);
+			this.listBoxWords.EndUpdate();
 		}
 
 		private void listBoxWords_KeyDown(object sender, KeyEventArgs e)
 		{
 			if (e.KeyData == Keys.Delete)
-				removeSelectedToolStripMenuItem_Click(null, null);
+				this.removeSelectedToolStripMenuItem_Click(null, null);
 		}
 
 		private void textBoxFillUp_TextChanged(object sender, EventArgs e)
 		{
-			Editor.Settings.Scripting.FillUpCharacters = textBoxFillUp.Text;
+			Editor.Settings.Scripting.FillUpCharacters = this.textBoxFillUp.Text;
 			foreach (ScriptEditorForm form in Windows.ScriptEditors)
-				form.ScintillaControl.AutoComplete.FillUpCharacters = textBoxFillUp.Text;
+				form.ScintillaControl.AutoComplete.FillUpCharacters = this.textBoxFillUp.Text;
 		}
 
 		private void buttonPaste_Click(object sender, EventArgs e)
 		{
 			if (Clipboard.ContainsText())
-				textBoxWords.Text = Clipboard.GetText();
+				this.textBoxWords.Text = Clipboard.GetText();
 		}
 	}
 }

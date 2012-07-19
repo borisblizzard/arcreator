@@ -22,8 +22,8 @@ namespace ARCed.Database.Enemies
 		{
 			get
 			{
-				if (radioButtonItem.Checked)
-					return comboBoxItem.SelectedIndex + 1;
+				if (this.radioButtonItem.Checked)
+					return this.comboBoxItem.SelectedIndex + 1;
 				return 0;
 			}
 		}
@@ -35,8 +35,8 @@ namespace ARCed.Database.Enemies
 		{
 			get
 			{
-				if (radioButtonWeapon.Checked)
-					return comboBoxWeapon.SelectedIndex + 1;
+				if (this.radioButtonWeapon.Checked)
+					return this.comboBoxWeapon.SelectedIndex + 1;
 				return 0;
 			}
 		}
@@ -48,8 +48,8 @@ namespace ARCed.Database.Enemies
 		{
 			get
 			{
-				if (radioButtonArmor.Checked)
-					return comboBoxArmor.SelectedIndex + 1;
+				if (this.radioButtonArmor.Checked)
+					return this.comboBoxArmor.SelectedIndex + 1;
 				return 0;
 			}
 		}
@@ -59,7 +59,7 @@ namespace ARCed.Database.Enemies
 		/// </summary>
 		public int TreasureProbablity
 		{
-			get { return (int)numericUpDownPropability.Value; } 
+			get { return (int)this.numericUpDownPropability.Value; } 
 		}
 
 		#endregion
@@ -71,10 +71,10 @@ namespace ARCed.Database.Enemies
 		/// </summary>
 		public TreasureSelectDialog()
 		{
-			InitializeComponent();
-			ControlHelper.Populate(comboBoxItem, Project.Data.Items, false);
-			ControlHelper.Populate(comboBoxWeapon, Project.Data.Weapons, false);
-			ControlHelper.Populate(comboBoxArmor, Project.Data.Armors, false);
+			this.InitializeComponent();
+			ControlHelper.Populate(this.comboBoxItem, Project.Data.Items, false);
+			ControlHelper.Populate(this.comboBoxWeapon, Project.Data.Weapons, false);
+			ControlHelper.Populate(this.comboBoxArmor, Project.Data.Armors, false);
 		}
 
 		#endregion
@@ -90,21 +90,21 @@ namespace ARCed.Database.Enemies
 		/// <param name="armorId">ID of armor to be obtained</param>
 		public void SetTreasure(int prob, int itemId, int weaponId, int armorId)
 		{
-			numericUpDownPropability.Value = prob;
-			if (itemId > 0 && itemId < comboBoxItem.Items.Count)
+			this.numericUpDownPropability.Value = prob;
+			if (itemId > 0 && itemId < this.comboBoxItem.Items.Count)
 			{
-				radioButtonItem.Checked = true;
-				comboBoxItem.SelectedIndex = itemId - 1;
+				this.radioButtonItem.Checked = true;
+				this.comboBoxItem.SelectedIndex = itemId - 1;
 			}
-			else if (weaponId > 0 && weaponId < comboBoxWeapon.Items.Count)
+			else if (weaponId > 0 && weaponId < this.comboBoxWeapon.Items.Count)
 			{
-				radioButtonWeapon.Checked = true;
-				comboBoxWeapon.SelectedIndex = weaponId - 1;
+				this.radioButtonWeapon.Checked = true;
+				this.comboBoxWeapon.SelectedIndex = weaponId - 1;
 			}
-			else if (armorId > 0 && armorId < comboBoxArmor.Items.Count)
+			else if (armorId > 0 && armorId < this.comboBoxArmor.Items.Count)
 			{
-				radioButtonArmor.Checked = true;
-				comboBoxArmor.SelectedIndex = armorId - 1;
+				this.radioButtonArmor.Checked = true;
+				this.comboBoxArmor.SelectedIndex = armorId - 1;
 			}
 		}
 
@@ -120,12 +120,12 @@ namespace ARCed.Database.Enemies
 
 		private void RadioButtonCheckChanged(object sender, EventArgs e)
 		{
-			bool disableAll = radioButtonNone.Checked;
-			comboBoxItem.Enabled = radioButtonItem.Checked && !disableAll;
-			comboBoxWeapon.Enabled = radioButtonWeapon.Checked && !disableAll;
-			comboBoxArmor.Enabled = radioButtonArmor.Checked && !disableAll;
-			numericUpDownPropability.Enabled = !disableAll;
-			foreach (ComboBox box in new[] { comboBoxItem, comboBoxWeapon, comboBoxArmor })
+			bool disableAll = this.radioButtonNone.Checked;
+			this.comboBoxItem.Enabled = this.radioButtonItem.Checked && !disableAll;
+			this.comboBoxWeapon.Enabled = this.radioButtonWeapon.Checked && !disableAll;
+			this.comboBoxArmor.Enabled = this.radioButtonArmor.Checked && !disableAll;
+			this.numericUpDownPropability.Enabled = !disableAll;
+			foreach (ComboBox box in new[] { this.comboBoxItem, this.comboBoxWeapon, this.comboBoxArmor })
 			{
 				if (box.Enabled && box.SelectedIndex < 0)
 					box.SelectedIndex = 0;

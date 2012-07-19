@@ -26,14 +26,14 @@ namespace ARCed.Scintilla
         public void ClearIndicator(int indicator)
         {
             NativeScintilla.SetIndicatorCurrent(indicator);
-            NativeScintilla.IndicatorClearRange(_start, Length);
+            NativeScintilla.IndicatorClearRange(this._start, this.Length);
         }
 
 
         public void ClearIndicator(Indicator indicator)
         {
             NativeScintilla.SetIndicatorCurrent(indicator.Number);
-            NativeScintilla.IndicatorClearRange(_start, Length);
+            NativeScintilla.IndicatorClearRange(this._start, this.Length);
         }
 
 
@@ -42,7 +42,7 @@ namespace ARCed.Scintilla
         /// </summary>
         public void CollapseAllFolds()
         {
-            for (int i = startingLine; i < endingLine; i++)
+            for (int i = this.startingLine; i < this.endingLine; i++)
             {
                 int maxSubOrd = NativeScintilla.GetLastChild(i, -1);
                 NativeScintilla.SetFoldExpanded(i, false);
@@ -53,7 +53,7 @@ namespace ARCed.Scintilla
 
         public void Colorize()
         {
-            NativeScintilla.Colourise(_start, _end);
+            NativeScintilla.Colourise(this._start, this._end);
         }
 
 
@@ -64,15 +64,15 @@ namespace ARCed.Scintilla
             if(other == null)
                 return 1;
 
-            if(other._start < _start)
+            if(other._start < this._start)
                 return 1;
-            else if(other._start > _start)
+            else if(other._start > this._start)
                 return -1;
 
             //	Starts must equal, lets try ends
-            if(other._end < _end)
+            if(other._end < this._end)
                 return 1;
-            else if(other._end > _end)
+            else if(other._end > this._end)
                 return -1;
 
             //	Start and End equal. Comparitavely the same
@@ -82,7 +82,7 @@ namespace ARCed.Scintilla
 
         public void Copy() 
         {
-            Copy(CopyFormat.Text);
+            this.Copy(CopyFormat.Text);
         }
 
 
@@ -90,7 +90,7 @@ namespace ARCed.Scintilla
         {
             if(format == CopyFormat.Text)
             {
-                Scintilla.Clipboard.Copy(_start, _end);
+                Scintilla.Clipboard.Copy(this._start, this._end);
             }
             else if(format == CopyFormat.Rtf)
             {
@@ -109,7 +109,7 @@ namespace ARCed.Scintilla
             if(r == null)
                 return false;
 
-            return r._start == _start && r._end == _end;
+            return r._start == this._start && r._end == this._end;
         }
 
 
@@ -118,7 +118,7 @@ namespace ARCed.Scintilla
         /// </summary>
         public void ExpandAllFolds()
         {
-            for (int i = startingLine; i < endingLine; i++)
+            for (int i = this.startingLine; i < this.endingLine; i++)
             {
                 NativeScintilla.SetFoldExpanded(i, true);
                 NativeScintilla.ShowLines(i + 1, i + 1);
@@ -134,37 +134,37 @@ namespace ARCed.Scintilla
 
         public void GotoEnd()
         {
-            NativeScintilla.GotoPos(_end);
+            NativeScintilla.GotoPos(this._end);
         }
 
 
         public void GotoStart()
         {
-            NativeScintilla.GotoPos(_start);
+            NativeScintilla.GotoPos(this._start);
         }
 
 
         public void HideLines()
         {
-            NativeScintilla.HideLines(startingLine, endingLine);
+            NativeScintilla.HideLines(this.startingLine, this.endingLine);
         }
 
 
         public bool IntersectsWith(Range otherRange)
         {
-            return otherRange.PositionInRange(_start) | otherRange.PositionInRange(_end) | PositionInRange(otherRange.Start) | PositionInRange(otherRange.End);
+            return otherRange.PositionInRange(this._start) | otherRange.PositionInRange(this._end) | this.PositionInRange(otherRange.Start) | this.PositionInRange(otherRange.End);
         }
 
 
         public bool PositionInRange(int position)
         {
-            return position >= _start && position <= _end;
+            return position >= this._start && position <= this._end;
         }
 
 
         public void Select()
         {
-            NativeScintilla.SetSel(_start, _end);
+            NativeScintilla.SetSel(this._start, this._end);
         }
 
 
@@ -175,7 +175,7 @@ namespace ARCed.Scintilla
         public void SetIndicator(int indicator)
         {
             NativeScintilla.SetIndicatorCurrent(indicator);
-            NativeScintilla.IndicatorFillRange(_start, Length);
+            NativeScintilla.IndicatorFillRange(this._start, this.Length);
         }
 
 
@@ -186,13 +186,13 @@ namespace ARCed.Scintilla
         {
             NativeScintilla.SetIndicatorValue(value);
             NativeScintilla.SetIndicatorCurrent(indicator);
-            NativeScintilla.IndicatorFillRange(_start, Length);
+            NativeScintilla.IndicatorFillRange(this._start, this.Length);
         }
 
 
         public void SetStyle(string styleName)
         {
-            SetStyle(Scintilla.Lexing.StyleNameMap[styleName]);
+            this.SetStyle(Scintilla.Lexing.StyleNameMap[styleName]);
         }
 
 
@@ -204,20 +204,20 @@ namespace ARCed.Scintilla
 
         public void SetStyle(byte styleMask, string styleName)
         {
-            SetStyle(styleMask, Scintilla.Lexing.StyleNameMap[styleName]);
+            this.SetStyle(styleMask, Scintilla.Lexing.StyleNameMap[styleName]);
         }
 
 
         public void SetStyle(byte styleMask, int style)
         {
-            NativeScintilla.StartStyling(_start, styleMask);
-            NativeScintilla.SetStyling(Length, style);
+            NativeScintilla.StartStyling(this._start, styleMask);
+            NativeScintilla.SetStyling(this.Length, style);
         }
 
 
         public void ShowLines()
         {
-            NativeScintilla.ShowLines(startingLine, endingLine);
+            NativeScintilla.ShowLines(this.startingLine, this.endingLine);
         }
 
 
@@ -228,7 +228,7 @@ namespace ARCed.Scintilla
         {
             NativeScintilla.BeginUndoAction();
 
-            for (int line = startingLine; line < endingLine; line++)
+            for (int line = this.startingLine; line < this.endingLine; line++)
             {
                 int lineStart = NativeScintilla.PositionFromLine(line);
                 int lineEnd = NativeScintilla.GetLineEndPosition(line);
@@ -262,7 +262,7 @@ namespace ARCed.Scintilla
         public override string ToString()
         {
         
-            return "{Start=" + _start + ", End=" + _end + ", Length=" + Length + "}";
+            return "{Start=" + this._start + ", End=" + this._end + ", Length=" + this.Length + "}";
         }
 
         #endregion Methods
@@ -272,7 +272,7 @@ namespace ARCed.Scintilla
 
         public bool Collapsed
         {
-            get { return _start == _end; }
+            get { return this._start == this._end; }
         }
 
 
@@ -280,11 +280,11 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _end;
+                return this._end;
             }
             set
             {
-                _end = value;
+                this._end = value;
             }
         }
 
@@ -293,7 +293,7 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return NativeScintilla.LineFromPosition(_end);
+                return NativeScintilla.LineFromPosition(this._end);
             }
         }
 
@@ -302,7 +302,7 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return new Line(Scintilla, endingLine);
+                return new Line(Scintilla, this.endingLine);
             }
         }
 
@@ -311,7 +311,7 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return !StartingLine.Equals(EndingLine);
+                return !this.StartingLine.Equals(this.EndingLine);
             }
         }
 
@@ -320,7 +320,7 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _end - _start;
+                return this._end - this._start;
             }
         }
 
@@ -329,11 +329,11 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _start;
+                return this._start;
             }
             set
             {
-                _start = value;
+                this._start = value;
             }
         }
 
@@ -342,7 +342,7 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return NativeScintilla.LineFromPosition(_start);
+                return NativeScintilla.LineFromPosition(this._start);
             }
         }
 
@@ -351,7 +351,7 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return new Line(Scintilla, startingLine);
+                return new Line(Scintilla, this.startingLine);
             }
         }
 
@@ -360,15 +360,20 @@ namespace ARCed.Scintilla
         {
             get
             {
-                if(Start < 0 || End < 0 || Scintilla == null)
+                if(this.Start < 0 || this.End < 0 || Scintilla == null)
                     return new byte[0];
 
-                int bufferLength    = (Length * 2) + 2;
-                var rng       = new TextRange();
-                rng.lpstrText       = Marshal.AllocHGlobal(bufferLength);
-                rng.chrg.cpMin      = _start;
-                rng.chrg.cpMax      = _end;
-                
+                int bufferLength    = (this.Length * 2) + 2;
+                var rng       = new TextRange
+                {
+                    lpstrText = Marshal.AllocHGlobal(bufferLength),
+                    chrg =
+                    {
+                        cpMin = this._start,
+                        cpMax = this._end
+                    }
+                };
+
                 NativeScintilla.GetStyledText(ref rng);
 
                 var ret = new byte[bufferLength];
@@ -384,15 +389,15 @@ namespace ARCed.Scintilla
         {
             get
             {
-                if (Start < 0 || End < 0 || Scintilla == null)
+                if (this.Start < 0 || this.End < 0 || Scintilla == null)
                     return String.Empty;
 
                 var rng = new TextRange();
                 try
                 {
-                    rng.lpstrText = Marshal.AllocHGlobal(Length + 1);
-                    rng.chrg.cpMin = _start;
-                    rng.chrg.cpMax = _end;
+                    rng.lpstrText = Marshal.AllocHGlobal(this.Length + 1);
+                    rng.chrg.cpMin = this._start;
+                    rng.chrg.cpMax = this._end;
                     
                     int len = NativeScintilla.GetTextRange(ref rng);
                     string ret = Utilities.IntPtrToString(Scintilla.Encoding, rng.lpstrText, len);
@@ -405,8 +410,8 @@ namespace ARCed.Scintilla
             }
             set
             {
-                NativeScintilla.SetTargetStart(_start);
-                NativeScintilla.SetTargetEnd(_end);
+                NativeScintilla.SetTargetStart(this._start);
+                NativeScintilla.SetTargetEnd(this._end);
                 NativeScintilla.ReplaceTarget(-1, value);
             }
         }
@@ -423,13 +428,13 @@ namespace ARCed.Scintilla
         {
             if (start < end)
             {
-                _start = start;
-                _end = end;
+                this._start = start;
+                this._end = end;
             }
             else
             {
-                _start = end;
-                _end = start;
+                this._start = end;
+                this._end = start;
             }
         }
 

@@ -69,32 +69,32 @@ namespace ARCed.Scintilla
         {
             unchecked
             {
-                return FindNextMarker(NextLine(), UInt32.MaxValue);
+                return this.FindNextMarker(this.NextLine(), UInt32.MaxValue);
             }
         }
 
 
         public Line FindNextMarker(Marker marker)
         {
-            return FindNextMarker(NextLine(), (uint)marker.Number);
+            return this.FindNextMarker(this.NextLine(), (uint)marker.Number);
         }
 
 
         public Line FindNextMarker(uint markerMask)
         {
-            return FindNextMarker(NextLine(), markerMask);
+            return FindNextMarker(this.NextLine(), markerMask);
         }
 
 
         public Line FindNextMarker(IEnumerable<int> markers)
         {
-            return FindNextMarker(NextLine(), Utilities.GetMarkerMask(markers));
+            return FindNextMarker(this.NextLine(), Utilities.GetMarkerMask(markers));
         }
 
 
         public Line FindNextMarker(IEnumerable<Marker> markers)
         {
-            return FindNextMarker(NextLine(), Utilities.GetMarkerMask(markers));
+            return FindNextMarker(this.NextLine(), Utilities.GetMarkerMask(markers));
         }
 
 
@@ -152,19 +152,19 @@ namespace ARCed.Scintilla
 
         public Line FindPreviousMarker()
         {
-            return FindPreviousMarker(PrevLine(), UInt32.MaxValue);
+            return this.FindPreviousMarker(this.PrevLine(), UInt32.MaxValue);
         }
 
 
         public Line FindPreviousMarker(Marker marker)
         {
-            return FindPreviousMarker(PrevLine(), (uint)marker.Number);
+            return this.FindPreviousMarker(this.PrevLine(), (uint)marker.Number);
         }
 
 
         public Line FindPreviousMarker(uint markerMask)
         {
-            return FindPreviousMarker(PrevLine(), markerMask);
+            return FindPreviousMarker(this.PrevLine(), markerMask);
         }
 
 
@@ -176,13 +176,13 @@ namespace ARCed.Scintilla
 
         public Line FindPreviousMarker(IEnumerable<int> markers)
         {
-            return FindPreviousMarker(PrevLine(), Utilities.GetMarkerMask(markers));
+            return FindPreviousMarker(this.PrevLine(), Utilities.GetMarkerMask(markers));
         }
 
 
         public Line FindPreviousMarker(IEnumerable<Marker> markers)
         {
-            return FindPreviousMarker(NextLine(), Utilities.GetMarkerMask(markers));
+            return FindPreviousMarker(this.NextLine(), Utilities.GetMarkerMask(markers));
         }
 
 
@@ -283,55 +283,55 @@ namespace ARCed.Scintilla
 
         internal bool ShouldSerialize()
         {
-            return ShouldSerializeFolder() ||
-                ShouldSerializeFolderEnd() ||
-                ShouldSerializeFolderOpen() ||
-                ShouldSerializeFolderOpenMid() ||
-                ShouldSerializeFolderOpenMidTail() ||
-                ShouldSerializeFolderSub() ||
-                ShouldSerializeFolderTail();
+            return this.ShouldSerializeFolder() ||
+                this.ShouldSerializeFolderEnd() ||
+                this.ShouldSerializeFolderOpen() ||
+                this.ShouldSerializeFolderOpenMid() ||
+                this.ShouldSerializeFolderOpenMidTail() ||
+                this.ShouldSerializeFolderSub() ||
+                this.ShouldSerializeFolderTail();
         }
 
 
         private bool ShouldSerializeFolder()
         {
-            return Folder.ShouldSerialize();
+            return this.Folder.ShouldSerialize();
         }
 
 
         private bool ShouldSerializeFolderEnd()
         {
-            return FolderEnd.ShouldSerialize();
+            return this.FolderEnd.ShouldSerialize();
         }
 
 
         private bool ShouldSerializeFolderOpen()
         {
-            return FolderOpen.ShouldSerialize();
+            return this.FolderOpen.ShouldSerialize();
         }
 
 
         private bool ShouldSerializeFolderOpenMid()
         {
-            return FolderOpenMid.ShouldSerialize();
+            return this.FolderOpenMid.ShouldSerialize();
         }
 
 
         private bool ShouldSerializeFolderOpenMidTail()
         {
-            return FolderOpenMidTail.ShouldSerialize();
+            return this.FolderOpenMidTail.ShouldSerialize();
         }
 
 
         private bool ShouldSerializeFolderSub()
         {
-            return FolderSub.ShouldSerialize();
+            return this.FolderSub.ShouldSerialize();
         }
 
 
         private bool ShouldSerializeFolderTail()
         {
-            return FolderTail.ShouldSerialize();
+            return this.FolderTail.ShouldSerialize();
         }
 
         #endregion Methods

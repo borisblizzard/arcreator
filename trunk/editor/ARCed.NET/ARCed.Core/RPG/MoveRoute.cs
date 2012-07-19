@@ -29,9 +29,9 @@ namespace RPG
         /// </summary>
 		public MoveRoute()
 		{
-			repeat = true;
-			skippable = false;
-			list = new List<dynamic>
+			this.repeat = true;
+			this.skippable = false;
+			this.list = new List<dynamic>
 			{ new MoveCommand() };
 		}
 	}

@@ -14,8 +14,8 @@ namespace ARCed.EventBuilder
 		/// </summary>
 		public string[] Lines 
 		{
-			get { return textBoxText.Lines; }
-			set { textBoxText.Lines = value; }
+			get { return this.textBoxText.Lines; }
+			set { this.textBoxText.Lines = value; }
 		}
 
 		/// <summary>
@@ -23,13 +23,13 @@ namespace ARCed.EventBuilder
 		/// </summary>
 		public CmdShowTextDialog()
 		{
-			InitializeComponent();
+			this.InitializeComponent();
 		}
 
 		private void buttonOK_Click(object sender, EventArgs e)
 		{
-			this.DialogResult = DialogResult.OK;
-			this.Close();
+			DialogResult = DialogResult.OK;
+			Close();
 		}
 	}
 }

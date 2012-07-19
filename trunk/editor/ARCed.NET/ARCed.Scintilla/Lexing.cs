@@ -42,7 +42,7 @@ namespace ARCed.Scintilla
 
         public void Colorize()
         {
-            Colorize(0, -1);
+            this.Colorize(0, -1);
         }
 
 
@@ -56,7 +56,7 @@ namespace ARCed.Scintilla
         {
             for (int i = 0; i < s.Length; i++)
             {
-                if (s[i].ToString().IndexOfAny(WhitespaceCharsArr) == -1)
+                if (s[i].ToString().IndexOfAny(this.WhitespaceCharsArr) == -1)
                     return i;
             }
 
@@ -82,7 +82,7 @@ namespace ARCed.Scintilla
 
         public int GetPropertyInt(string name)
         {
-            return GetPropertyInt(name, 0);
+            return this.GetPropertyInt(name, 0);
         }
 
 
@@ -94,7 +94,7 @@ namespace ARCed.Scintilla
 
         public void LineComment()
         {
-            if (string.IsNullOrEmpty(_lineCommentPrefix))
+            if (string.IsNullOrEmpty(this._lineCommentPrefix))
                 return;
 
             // So the theory behind line commenting is that for every selected line
@@ -108,15 +108,15 @@ namespace ARCed.Scintilla
 
             // We're tracking the new _end of the selection range including
             // the amount it expands because we're inserting new text.
-            int offset = _lineCommentPrefix.Length;
+            int offset = this._lineCommentPrefix.Length;
 
             for (int i = start; i <= end; i++)
             {
                 Line l = Scintilla.Lines[i];
-                int firstWordChar = FindFirstNonWhitespaceChar(l.Text);
+                int firstWordChar = this.FindFirstNonWhitespaceChar(l.Text);
                 if (firstWordChar >= 0)
                 {
-                    Scintilla.InsertText(l.StartPosition + firstWordChar, _lineCommentPrefix);
+                    Scintilla.InsertText(l.StartPosition + firstWordChar, this._lineCommentPrefix);
                     selRange.End += offset;
                 }
             }
@@ -132,7 +132,7 @@ namespace ARCed.Scintilla
 
         public void LineUncomment()
         {
-            if (string.IsNullOrEmpty(_lineCommentPrefix))
+            if (string.IsNullOrEmpty(this._lineCommentPrefix))
                 return;
 
             NativeScintilla.BeginUndoAction();
@@ -145,17 +145,17 @@ namespace ARCed.Scintilla
             int start = selRange.StartingLine.Number;
             int end = selRange.EndingLine.Number;
 
-            int offset = _lineCommentPrefix.Length;
+            int offset = this._lineCommentPrefix.Length;
 
             for (int i = start; i <= end; i++)
             {
                 Line l = Scintilla.Lines[i];
-                int firstWordChar = FindFirstNonWhitespaceChar(l.Text);
+                int firstWordChar = this.FindFirstNonWhitespaceChar(l.Text);
                 if (firstWordChar >= 0)
                 {
                     int startPos = l.StartPosition + firstWordChar;
                     Range commentRange = Scintilla.GetRange(startPos, startPos + offset);
-                    if (commentRange.Text == _lineCommentPrefix)
+                    if (commentRange.Text == this._lineCommentPrefix)
                         commentRange.Text = string.Empty;
                 }
             }
@@ -175,15 +175,15 @@ namespace ARCed.Scintilla
             if (Scintilla.IsDesignMode)
                 return;
 
-            _styleNameMap.Clear();
+            this._styleNameMap.Clear();
 
             // These are global constants that always apply
-            _styleNameMap.Add("BRACEBAD",Constants.STYLE_BRACEBAD);
-            _styleNameMap.Add("BRACELIGHT",Constants.STYLE_BRACELIGHT);
-            _styleNameMap.Add("CALLTIP",Constants.STYLE_CALLTIP);
-            _styleNameMap.Add("CONTROLCHAR",Constants.STYLE_CONTROLCHAR);
-            _styleNameMap.Add("DEFAULT",Constants.STYLE_DEFAULT);
-            _styleNameMap.Add("LINENUMBER",Constants.STYLE_LINENUMBER);
+            this._styleNameMap.Add("BRACEBAD",Constants.STYLE_BRACEBAD);
+            this._styleNameMap.Add("BRACELIGHT",Constants.STYLE_BRACELIGHT);
+            this._styleNameMap.Add("CALLTIP",Constants.STYLE_CALLTIP);
+            this._styleNameMap.Add("CONTROLCHAR",Constants.STYLE_CONTROLCHAR);
+            this._styleNameMap.Add("DEFAULT",Constants.STYLE_DEFAULT);
+            this._styleNameMap.Add("LINENUMBER",Constants.STYLE_LINENUMBER);
 
             string lexname = this.Lexer.ToString().ToLower();
 
@@ -203,8 +203,8 @@ namespace ARCed.Scintilla
                         string key = arr[0].Trim();
                         int value = int.Parse(arr[1].Trim());
                         
-                        _styleNameMap.Remove(key);
-                        _styleNameMap.Add(key, value);
+                        this._styleNameMap.Remove(key);
+                        this._styleNameMap.Add(key, value);
                     }
                 }
             }
@@ -214,25 +214,25 @@ namespace ARCed.Scintilla
 
         private void ResetLexer()
         {
-            Lexer = Lexer.Container;
+            this.Lexer = Lexer.Container;
         }
 
 
         private void ResetLexerName()
         {
-            LexerName = "container";
+            this.LexerName = "container";
         }
 
 
         private void ResetWhitespaceChars()
         {
-            _whitespaceChars = DEFAULT_WHITECHARS;
+            this._whitespaceChars = DEFAULT_WHITECHARS;
         }
 
 
         private void ResetWordChars()
         {
-            WordChars = DEFAULT_WORDCHARS;
+            this.WordChars = DEFAULT_WORDCHARS;
         }
 
 
@@ -250,48 +250,48 @@ namespace ARCed.Scintilla
 
         internal bool ShouldSerialize()
         {
-            return ShouldSerializeLexerName() ||
-                ShouldSerializeLexer() ||
-                ShouldSerializeWhitespaceChars() ||
-                ShouldSerializeWordChars();
+            return this.ShouldSerializeLexerName() ||
+                this.ShouldSerializeLexer() ||
+                this.ShouldSerializeWhitespaceChars() ||
+                this.ShouldSerializeWordChars();
         }
 
 
         private bool ShouldSerializeLexer()
         {
-            return Lexer != Lexer.Container;
+            return this.Lexer != Lexer.Container;
         }
 
 
         private bool ShouldSerializeLexerName()
         {
-            return LexerName != "container";
+            return this.LexerName != "container";
         }
 
 
         private bool ShouldSerializeWhitespaceChars()
         {
-            return _whitespaceChars != DEFAULT_WHITECHARS;
+            return this._whitespaceChars != DEFAULT_WHITECHARS;
         }
 
 
         private bool ShouldSerializeWordChars()
         {
-            return _wordChars != DEFAULT_WORDCHARS;
+            return this._wordChars != DEFAULT_WORDCHARS;
         }
 
 
         public void StreamComment()
         {
-            if (string.IsNullOrEmpty(_streamCommentPrefix) || string.IsNullOrEmpty(_streamCommentSufix))
+            if (string.IsNullOrEmpty(this._streamCommentPrefix) || string.IsNullOrEmpty(this._streamCommentSufix))
                 return;
 
             NativeScintilla.BeginUndoAction();
             
             Range selRange = Scintilla.Selection.Range;
-            Scintilla.InsertText(selRange.Start, _streamCommentPrefix);
-            Scintilla.InsertText(selRange.End+ _streamCommentPrefix.Length, _streamCommentSufix);
-            selRange.End += _streamCommentPrefix.Length + _streamCommentSufix.Length;
+            Scintilla.InsertText(selRange.Start, this._streamCommentPrefix);
+            Scintilla.InsertText(selRange.End+ this._streamCommentPrefix.Length, this._streamCommentSufix);
+            selRange.End += this._streamCommentPrefix.Length + this._streamCommentSufix.Length;
             selRange.Select();
 
             NativeScintilla.EndUndoAction();
@@ -300,7 +300,7 @@ namespace ARCed.Scintilla
 
         public void ToggleLineComment()
         {
-            if (string.IsNullOrEmpty(_lineCommentPrefix))
+            if (string.IsNullOrEmpty(this._lineCommentPrefix))
                 return;
 
             NativeScintilla.BeginUndoAction();
@@ -309,24 +309,24 @@ namespace ARCed.Scintilla
             int start = selRange.StartingLine.Number;
             int end = selRange.EndingLine.Number;
 
-            int offset = _lineCommentPrefix.Length;
+            int offset = this._lineCommentPrefix.Length;
 
             for (int i = start; i <= end; i++)
             {
                 Line l = Scintilla.Lines[i];
-                int firstWordChar = FindFirstNonWhitespaceChar(l.Text);
+                int firstWordChar = this.FindFirstNonWhitespaceChar(l.Text);
                 if (firstWordChar >= 0)
                 {
                     int startPos = l.StartPosition + firstWordChar;
                     Range commentRange = Scintilla.GetRange(startPos, startPos + offset);
-                    if (commentRange.Text == _lineCommentPrefix)
+                    if (commentRange.Text == this._lineCommentPrefix)
                     {
                         commentRange.Text = string.Empty;
                         selRange.End -= offset;
                     }
                     else
                     {
-                        Scintilla.InsertText(l.StartPosition + firstWordChar, _lineCommentPrefix);
+                        Scintilla.InsertText(l.StartPosition + firstWordChar, this._lineCommentPrefix);
                         selRange.End += offset;
                     }
                 }
@@ -346,7 +346,7 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _keywords;
+                return this._keywords;
             }
         }
 
@@ -360,11 +360,11 @@ namespace ARCed.Scintilla
             set
             {
                 NativeScintilla.SetLexer((int)value);
-                _lexerName = value.ToString().ToLower();
-                if (_lexerName == "null")
-                    _lexerName = "";
+                this._lexerName = value.ToString().ToLower();
+                if (this._lexerName == "null")
+                    this._lexerName = "";
 
-                loadStyleMap();
+                this.loadStyleMap();
             }
         }
 
@@ -374,7 +374,7 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _lexerLanguageMap;
+                return this._lexerLanguageMap;
             }
         }
 
@@ -383,7 +383,7 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _lexerName;
+                return this._lexerName;
             }
             set
             {
@@ -392,9 +392,9 @@ namespace ARCed.Scintilla
                     
                 NativeScintilla.SetLexerLanguage(value.ToLower());
 
-                _lexerName = value;
+                this._lexerName = value;
 
-                loadStyleMap();
+                this.loadStyleMap();
             }
         }
 
@@ -403,14 +403,14 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _lineCommentPrefix;
+                return this._lineCommentPrefix;
             }
             set
             {
                 if (value == null)
                     value = string.Empty;
 
-                _lineCommentPrefix = value;
+                this._lineCommentPrefix = value;
             }
         }
 
@@ -419,14 +419,14 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _streamCommentPrefix;
+                return this._streamCommentPrefix;
             }
             set
             {
                 if (value == null)
                     value = string.Empty;
 
-                _streamCommentPrefix = value;
+                this._streamCommentPrefix = value;
             }
         }
 
@@ -435,14 +435,14 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _streamCommentSufix;
+                return this._streamCommentSufix;
             }
             set
             {
                 if (value == null)
                     value = string.Empty;
 
-                _streamCommentSufix = value;
+                this._streamCommentSufix = value;
             }
         }
 
@@ -452,7 +452,7 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _styleNameMap;
+                return this._styleNameMap;
             }
         }
 
@@ -462,12 +462,12 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _whitespaceChars;
+                return this._whitespaceChars;
             }
             set
             {
-                _whitespaceChars = value;
-                WhitespaceCharsArr = _whitespaceChars.ToCharArray();
+                this._whitespaceChars = value;
+                this.WhitespaceCharsArr = this._whitespaceChars.ToCharArray();
                 NativeScintilla.SetWhitespaceChars(value);
             }
         }
@@ -477,12 +477,12 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _wordChars;
+                return this._wordChars;
             }
             set
             {
-                _wordChars = value;
-                WordCharsArr = _wordChars.ToCharArray();
+                this._wordChars = value;
+                this.WordCharsArr = this._wordChars.ToCharArray();
                 NativeScintilla.SetWordChars(value);
             }
         }
@@ -494,18 +494,18 @@ namespace ARCed.Scintilla
 
         internal Lexing(Scintilla scintilla) : base(scintilla)
         {
-            WhitespaceChars = DEFAULT_WHITECHARS;
-            WordChars = DEFAULT_WORDCHARS;
-            _keywords = new KeywordCollection(scintilla);
+            this.WhitespaceChars = DEFAULT_WHITECHARS;
+            this.WordChars = DEFAULT_WORDCHARS;
+            this._keywords = new KeywordCollection(scintilla);
 
             // Language names are a superset lexer names. For instance the chr and cs (chr#)
             // langauges both use the cpp lexer (by default). Languages are kind of a 
             // SCite concept, while Scintilla only cares about Lexers. However we don't
             // need to explicetly map a language to a lexer if they are the same name
             // like cpp.
-            _lexerLanguageMap.Add("cs", "cpp");
-            _lexerLanguageMap.Add("html", "hypertext");
-            _lexerLanguageMap.Add("xml", "hypertext");
+            this._lexerLanguageMap.Add("cs", "cpp");
+            this._lexerLanguageMap.Add("html", "hypertext");
+            this._lexerLanguageMap.Add("xml", "hypertext");
         }
 
         #endregion Constructors

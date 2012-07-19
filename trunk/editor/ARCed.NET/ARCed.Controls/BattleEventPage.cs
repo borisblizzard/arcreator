@@ -12,7 +12,7 @@ namespace ARCed.Controls
 	public partial class BattleEventPage : UserControl
 	{
 		[Browsable(false)]
-		public EventTextBox Editor { get { return eventTextBox; } }
+		public EventTextBox Editor { get { return this.eventTextBox; } }
 
 		private Troop.Page _page;
 
@@ -22,26 +22,26 @@ namespace ARCed.Controls
 		[Browsable(false)]
 		public Troop.Page EventPage 
 		{
-			get { return _page; }
-			set { SetPage(value); }
+			get { return this._page; }
+			set { this.SetPage(value); }
 		}
 
 		public BattleEventPage()
 		{
-			InitializeComponent();
-			_page = new Troop.Page();
-			comboBoxSpan.SelectedIndex = 0;
+			this.InitializeComponent();
+			this._page = new Troop.Page();
+			this.comboBoxSpan.SelectedIndex = 0;
 		}
 
 		public void SetPage(Troop.Page page)
 		{
-			_page = page;
-			eventTextBox.Parse(page.list);
+			this._page = page;
+			this.eventTextBox.Parse(page.list);
 		}
 
 		private void comboBoxSpan_SelectedIndexChanged(object sender, EventArgs e)
 		{
-			_page.span = comboBoxSpan.SelectedIndex;
+			this._page.span = this.comboBoxSpan.SelectedIndex;
 		}
 	}
 }

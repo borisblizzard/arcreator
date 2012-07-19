@@ -13,7 +13,7 @@ namespace ARCed.Helpers
     /// </summary>
 	public static class FileAssociator
 	{
-		private const string ProgramID = "ARCed.NET";
+		private const string PROGRAM_ID = "ARCed.NET";
 
 		/// <summary>
         /// Associate file extension with progID, description, icon and application
@@ -26,28 +26,24 @@ namespace ARCed.Helpers
 		{
 		    var registryKey = Registry.ClassesRoot.CreateSubKey(extension);
 		    if (registryKey != null)
-		        registryKey.SetValue("", ProgramID);
-		    if (!string.IsNullOrEmpty(ProgramID))
-				using (var key = Registry.ClassesRoot.CreateSubKey(ProgramID))
-				{
-                    if (key != null)
-                    {
-                        if (description != null)
-                            key.SetValue("", description);
-                        if (icon != null)
-                        {
-                            var subKey = key.CreateSubKey("DefaultIcon");
-                            if (subKey != null)
-                                subKey.SetValue("", ToShortPathName(icon));
-                        }
-                        if (application != null)
-                        {
-                            var regKey = key.CreateSubKey(@"Shell\Open\Command");
-                            if (regKey != null)
-                                regKey.SetValue("", ToShortPathName(application) + " \"%1\"");
-                        }
-                    }
-				}
+		        registryKey.SetValue("", PROGRAM_ID);
+		    if (string.IsNullOrEmpty(PROGRAM_ID)) return;
+		    using (var key = Registry.ClassesRoot.CreateSubKey(PROGRAM_ID))
+		    {
+		        if (key == null) return;
+		        if (description != null)
+		            key.SetValue("", description);
+		        if (icon != null)
+		        {
+		            var subKey = key.CreateSubKey("DefaultIcon");
+		            if (subKey != null)
+		                subKey.SetValue("", ToShortPathName(icon));
+		        }
+		        if (application == null) return;
+		        var regKey = key.CreateSubKey(@"Shell\Open\Command");
+		        if (regKey != null)
+		            regKey.SetValue("", ToShortPathName(application) + " \"%1\"");
+		    }
 		}
 
         /// <summary>

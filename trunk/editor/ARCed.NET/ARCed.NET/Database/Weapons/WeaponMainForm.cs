@@ -27,7 +27,7 @@ namespace ARCed.Database.Weapons
 
         #region Protected Properties
 
-        protected override DatabaseObjectListBox DataObjectList { get { return dataObjectList; } }
+        protected override DatabaseObjectListBox DataObjectList { get { return this.dataObjectList; } }
 
         #endregion
 
@@ -44,12 +44,12 @@ namespace ARCed.Database.Weapons
 		/// </summary>
 		public WeaponMainForm()
 		{
-			InitializeComponent();
-			InitializeElements();
-			InitializeStates();
-			InitializeAnimations();
+			this.InitializeComponent();
+			this.InitializeElements();
+			this.InitializeStates();
+			this.InitializeAnimations();
 			RefreshObjectList();
-			dataObjectList.SelectedIndex = 0;
+			this.dataObjectList.SelectedIndex = 0;
 		}
 
 		#endregion
@@ -78,14 +78,14 @@ namespace ARCed.Database.Weapons
 		public override void RefreshCurrentObject()
 		{
 			SuppressEvents = true;
-			textBoxName.Text = _weapon.name;
-			textBoxDescription.Text = _weapon.description;
+			this.textBoxName.Text = this._weapon.name;
+			this.textBoxDescription.Text = this._weapon.description;
 			//comboBoxUserAnimation.SelectedIndex = _armor.animation1_id;
 			//comboBoxTargetAnimation.SelectedIndex = _armor.animation2_id;
-			RefreshIcon();
-			RefreshParameters();
-			RefreshElements();
-			RefreshStates();
+			this.RefreshIcon();
+			this.RefreshParameters();
+			this.RefreshElements();
+			this.RefreshStates();
 			SuppressEvents = false;
 		}
 
@@ -95,31 +95,31 @@ namespace ARCed.Database.Weapons
 
         private void InitializeElements()
         {
-            checkGroupBoxElements.BeginUpdate();
-            checkGroupBoxElements.Items.Clear();
+            this.checkGroupBoxElements.BeginUpdate();
+            this.checkGroupBoxElements.Items.Clear();
             for (int i = 1; i < Project.Data.System.elements.Count; i++)
-                checkGroupBoxElements.Items.Add(Project.Data.System.elements[i]);
-            checkGroupBoxElements.EndUpdate();
+                this.checkGroupBoxElements.Items.Add(Project.Data.System.elements[i]);
+            this.checkGroupBoxElements.EndUpdate();
         }
 
         private void InitializeStates()
         {
-            checkedListBoxStates.ClearItems();
+            this.checkedListBoxStates.ClearItems();
             var states = Project.Data.States;
             for (int i = 1; i < states.Count; i++)
-                checkedListBoxStates.AddItem(states[i % states.Count].name);
+                this.checkedListBoxStates.AddItem(states[i % states.Count].name);
         }
 
         private void InitializeAnimations()
         {
 #warning Fix this after loading of animations is fixed
             return;
-            comboBoxUserAnimation.BeginUpdate();
-            comboBoxTargetAnimation.BeginUpdate();
-            comboBoxUserAnimation.Items.Clear();
-            comboBoxTargetAnimation.Items.Clear();
-            comboBoxUserAnimation.Items.Add("<None>");
-            comboBoxTargetAnimation.Items.Add("<None>");
+            this.comboBoxUserAnimation.BeginUpdate();
+            this.comboBoxTargetAnimation.BeginUpdate();
+            this.comboBoxUserAnimation.Items.Clear();
+            this.comboBoxTargetAnimation.Items.Clear();
+            this.comboBoxUserAnimation.Items.Add("<None>");
+            this.comboBoxTargetAnimation.Items.Add("<None>");
             string name;
             foreach (Animation animation in Project.Data.Animations.Cast<Animation>().Where(animation => animation != null))
             {
@@ -127,29 +127,29 @@ namespace ARCed.Database.Weapons
                 this.comboBoxUserAnimation.Items.Add(name);
                 this.comboBoxTargetAnimation.Items.Add(name);
             }
-            comboBoxUserAnimation.EndUpdate();
-            comboBoxTargetAnimation.EndUpdate();
+            this.comboBoxUserAnimation.EndUpdate();
+            this.comboBoxTargetAnimation.EndUpdate();
         }
 
         private void RefreshElements()
 		{
-			checkGroupBoxElements.CheckAll(false);
-			foreach (int id in _weapon.element_set)
-				checkGroupBoxElements.SetItemChecked(id - 1, true);
+			this.checkGroupBoxElements.CheckAll(false);
+			foreach (int id in this._weapon.element_set)
+				this.checkGroupBoxElements.SetItemChecked(id - 1, true);
 		}
 
 		private void RefreshStates()
 		{
-			checkedListBoxStates.SetAll(0);
-			foreach (int id in _weapon.plus_state_set)
-				checkedListBoxStates.SetItemIndex(id - 1, 1);
-			foreach (int id in _weapon.minus_state_set)
-				checkedListBoxStates.SetItemIndex(id - 1, 2);
+			this.checkedListBoxStates.SetAll(0);
+			foreach (int id in this._weapon.plus_state_set)
+				this.checkedListBoxStates.SetItemIndex(id - 1, 1);
+			foreach (int id in this._weapon.minus_state_set)
+				this.checkedListBoxStates.SetItemIndex(id - 1, 2);
 		}
 
 		private void RefreshParameters()
 		{
-			foreach (Control ctrl in flowPanel.Controls)
+			foreach (Control ctrl in this.flowPanel.Controls)
 			{
 			    if (!(ctrl is ParamBox)) continue;
 			    var param = ctrl as ParamBox;
@@ -161,21 +161,21 @@ namespace ARCed.Database.Weapons
 
 		private void RefreshIcon()
 		{
-			if (_weapon.icon_name == "")
+			if (this._weapon.icon_name == "")
 			{
-				pictureBoxIcon.BackgroundImage = null;
-				textBoxIcon.Text = "<None>";
+				this.pictureBoxIcon.BackgroundImage = null;
+				this.textBoxIcon.Text = "<None>";
 			}
 			else
 			{
-				pictureBoxIcon.BackgroundImage = Cache.Icon(_weapon.icon_name);
-				textBoxIcon.Text = _weapon.icon_name;
+				this.pictureBoxIcon.BackgroundImage = Cache.Icon(this._weapon.icon_name);
+				this.textBoxIcon.Text = this._weapon.icon_name;
 			}
 		}
 
 		private void ListBoxWeaponsOnListBoxIndexChanged(object sender, EventArgs e)
 		{
-			var index = dataObjectList.SelectedIndex;
+			var index = this.dataObjectList.SelectedIndex;
 		    if (index < 0) return;
 		    this._weapon = this.Data[index + 1];
 		    this.RefreshCurrentObject();
@@ -193,12 +193,12 @@ namespace ARCed.Database.Weapons
 		private void TextBoxDescriptionTextChanged(object sender, EventArgs e)
 		{
 			if (!SuppressEvents)
-				_weapon.description = textBoxDescription.Text;
+				this._weapon.description = this.textBoxDescription.Text;
 		}
 
 		private void ButtonIconClick(object sender, EventArgs e)
 		{
-			using (var dialog = new ImageSelectionForm(@"Icons", _weapon.icon_name))
+			using (var dialog = new ImageSelectionForm(@"Icons", this._weapon.icon_name))
 			{
 			    if (dialog.ShowDialog(this) != DialogResult.OK) return;
 			    this._weapon.icon_name = dialog.ImageName;
@@ -209,13 +209,13 @@ namespace ARCed.Database.Weapons
 		private void ComboBoxUserAnimationSelectedIndexChanged(object sender, EventArgs e)
 		{
 			if (!SuppressEvents)
-				_weapon.animation1_id = comboBoxUserAnimation.SelectedIndex;
+				this._weapon.animation1_id = this.comboBoxUserAnimation.SelectedIndex;
 		}
 
 		private void ComboBoxTargetAnimationSelectedIndexChanged(object sender, EventArgs e)
 		{
 			if (!SuppressEvents)
-				_weapon.animation2_id = comboBoxTargetAnimation.SelectedIndex;
+				this._weapon.animation2_id = this.comboBoxTargetAnimation.SelectedIndex;
 		}
 
 		private void ParamBoxOnValueChanged(object sender, ParameterEventArgs e)

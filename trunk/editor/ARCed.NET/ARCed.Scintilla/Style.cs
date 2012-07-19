@@ -22,38 +22,38 @@ namespace ARCed.Scintilla
 
         public void Apply(int length)
         {
-            Apply(NativeScintilla.GetCurrentPos(), length);
+            this.Apply(NativeScintilla.GetCurrentPos(), length);
         }
 
 
         public void Apply(int position, int length)
         {
             NativeScintilla.StartStyling(position, 0xff);
-            NativeScintilla.SetStyling(length, _index);
+            NativeScintilla.SetStyling(length, this._index);
         }
 
 
         internal bool BackColorNotSet()
         {
-            return !Scintilla.ColorBag.ContainsKey(ToString() + ".BackColor");
+            return !Scintilla.ColorBag.ContainsKey(this + ".BackColor");
         }
 
 
         public void CopyTo(Style target)
         {
-            target.BackColor = BackColor;
-            target.Bold = Bold;
-            target.Case = Case;
-            target.CharacterSet = CharacterSet;
-            target.FontName = FontName;
-            target.ForeColor = ForeColor;
-            target.IsChangeable = IsChangeable;
-            target.IsHotspot = IsHotspot;
-            target.IsSelectionEolFilled = IsSelectionEolFilled;
-            target.IsVisible = IsVisible;
-            target.Italic = Italic;
-            target.Size = Size;
-            target.Underline = Underline;
+            target.BackColor = this.BackColor;
+            target.Bold = this.Bold;
+            target.Case = this.Case;
+            target.CharacterSet = this.CharacterSet;
+            target.FontName = this.FontName;
+            target.ForeColor = this.ForeColor;
+            target.IsChangeable = this.IsChangeable;
+            target.IsHotspot = this.IsHotspot;
+            target.IsSelectionEolFilled = this.IsSelectionEolFilled;
+            target.IsVisible = this.IsVisible;
+            target.Italic = this.Italic;
+            target.Size = this.Size;
+            target.Underline = this.Underline;
         }
 
 
@@ -68,21 +68,21 @@ namespace ARCed.Scintilla
 
         internal bool FontNotSet()
         {
-            return !Scintilla.PropertyBag.ContainsKey(ToString() + ".FontSet");
+            return !Scintilla.PropertyBag.ContainsKey(this + ".FontSet");
         }
 
 
         internal bool ForeColorNotSet()
         {
-            return !Scintilla.ColorBag.ContainsKey(ToString() + ".ForeColor");
+            return !Scintilla.ColorBag.ContainsKey(this + ".ForeColor");
         }
 
 
         private Color getDefaultBackColor()
         {
-            if (_index == (int)StylesCommon.CallTip)
+            if (this._index == (int)StylesCommon.CallTip)
                 return SystemColors.Info;
-            else if (_index == (int)StylesCommon.LineNumber)
+            else if (this._index == (int)StylesCommon.LineNumber)
                 return SystemColors.Control;
 
             return Color.FromArgb(0xff, 0xff, 0xff);
@@ -91,13 +91,13 @@ namespace ARCed.Scintilla
 
         private CharacterSet getDefaultCharacterSet()
         {
-            return (CharacterSet)getDefaultFont().GdiCharSet;
+            return (CharacterSet)this.getDefaultFont().GdiCharSet;
         }
 
 
         private Font getDefaultFont()
         {
-            if (_index == (int)StylesCommon.CallTip)
+            if (this._index == (int)StylesCommon.CallTip)
                 return SystemFonts.StatusFont;
 
             return new Font("Verdana", 8F); 
@@ -106,7 +106,7 @@ namespace ARCed.Scintilla
 
         private Color getDefaultForeColor()
         {
-            if (_index == (int)StylesCommon.CallTip)
+            if (this._index == (int)StylesCommon.CallTip)
                 return SystemColors.InfoText;
 
             return Color.FromArgb(0, 0, 0);
@@ -121,172 +121,172 @@ namespace ARCed.Scintilla
 
         public int GetTextWidth(string text)
         {
-            return NativeScintilla.TextWidth(_index, text);
+            return NativeScintilla.TextWidth(this._index, text);
         }
 
 
         public void Reset()
         {
-            ResetBackColor();
-            ResetBold();
-            ResetCase();
-            ResetCharacterSet();
-            ResetFontName();
-            ResetForeColor();
-            ResetIsChangeable();
-            ResetIsHotspot();
-            ResetIsSelectionEolFilled();
-            ResetIsVisible();
-            ResetItalic();
-            ResetSize();
-            ResetUnderline();
+            this.ResetBackColor();
+            this.ResetBold();
+            this.ResetCase();
+            this.ResetCharacterSet();
+            this.ResetFontName();
+            this.ResetForeColor();
+            this.ResetIsChangeable();
+            this.ResetIsHotspot();
+            this.ResetIsSelectionEolFilled();
+            this.ResetIsVisible();
+            this.ResetItalic();
+            this.ResetSize();
+            this.ResetUnderline();
         }
 
 
         private void ResetBackColor()
         {
-            BackColor = getDefaultBackColor();
+            this.BackColor = this.getDefaultBackColor();
         }
 
 
         private void ResetBold()
         {
-            Bold = getDefaultFont().Bold;
+            this.Bold = this.getDefaultFont().Bold;
         }
 
 
         private void ResetCase()
         {
-            Case = StyleCase.Mixed;
+            this.Case = StyleCase.Mixed;
         }
 
 
         private void ResetCharacterSet()
         {
-            CharacterSet = getDefaultCharacterSet();
+            this.CharacterSet = this.getDefaultCharacterSet();
         }
 
 
         internal void ResetFont()
         {
-            Font = getDefaultFont();
-            Scintilla.PropertyBag.Remove(ToString() + ".FontSet");
+            this.Font = this.getDefaultFont();
+            Scintilla.PropertyBag.Remove(this + ".FontSet");
         }
 
 
         private void ResetFontName()
         {
-            FontName = getDefaultFont().Name;
+            this.FontName = this.getDefaultFont().Name;
         }
 
 
         private void ResetForeColor()
         {
-            ForeColor = getDefaultForeColor();
+            this.ForeColor = this.getDefaultForeColor();
         }
 
 
         private void ResetIsChangeable()
         {
-            IsChangeable = true;
+            this.IsChangeable = true;
         }
 
 
         private void ResetIsHotspot()
         {
-            IsHotspot = false;
+            this.IsHotspot = false;
         }
 
 
         private void ResetIsSelectionEolFilled()
         {
-            IsSelectionEolFilled = false;
+            this.IsSelectionEolFilled = false;
         }
 
 
         private void ResetIsVisible()
         {
-            IsVisible = true;
+            this.IsVisible = true;
         }
 
 
         private void ResetItalic()
         {
-            Italic = getDefaultFont().Italic;
+            this.Italic = this.getDefaultFont().Italic;
         }
 
 
         private void ResetSize()
         {
-            Size = getDefaultFont().SizeInPoints;
+            this.Size = this.getDefaultFont().SizeInPoints;
         }
 
 
         private void ResetUnderline()
         {
-            Underline = getDefaultFont().Underline;
+            this.Underline = this.getDefaultFont().Underline;
         }
 
 
         internal void SetBackColorInternal(Color value)
         {
-            NativeScintilla.StyleSetBack(_index, Utilities.ColorToRgb(value));
-            Scintilla.ColorBag[ToString() + ".BackColor"] = value;
+            NativeScintilla.StyleSetBack(this._index, Utilities.ColorToRgb(value));
+            Scintilla.ColorBag[this + ".BackColor"] = value;
 
-            if (_index == (int)StylesCommon.CallTip)
+            if (this._index == (int)StylesCommon.CallTip)
                 NativeScintilla.CallTipSetBack(Utilities.ColorToRgb(value));
         }
 
 
         internal void SetForeColorInternal(Color value)
         {
-            Scintilla.ColorBag[ToString() + ".ForeColor"] = value;
-            NativeScintilla.StyleSetFore(_index, Utilities.ColorToRgb(value));
+            Scintilla.ColorBag[this + ".ForeColor"] = value;
+            NativeScintilla.StyleSetFore(this._index, Utilities.ColorToRgb(value));
 
-            if (_index == (int)StylesCommon.CallTip)
+            if (this._index == (int)StylesCommon.CallTip)
                 NativeScintilla.CallTipSetFore(Utilities.ColorToRgb(value));
         }
 
 
         internal bool ShouldSerialize()
         {
-            return ShouldSerializeBackColor() ||
-                ShouldSerializeBold() ||
-                ShouldSerializeCase() ||
-                ShouldSerializeCharacterSet() ||
-                ShouldSerializeFontName() ||
-                ShouldSerializeForeColor() ||
-                ShouldSerializeIsChangeable() ||
-                ShouldSerializeIsHotspot() ||
-                ShouldSerializeIsSelectionEolFilled() ||
-                ShouldSerializeIsVisible() ||
-                ShouldSerializeItalic() ||
-                ShouldSerializeSize() ||
-                ShouldSerializeUnderline();
+            return this.ShouldSerializeBackColor() ||
+                this.ShouldSerializeBold() ||
+                this.ShouldSerializeCase() ||
+                this.ShouldSerializeCharacterSet() ||
+                this.ShouldSerializeFontName() ||
+                this.ShouldSerializeForeColor() ||
+                this.ShouldSerializeIsChangeable() ||
+                this.ShouldSerializeIsHotspot() ||
+                this.ShouldSerializeIsSelectionEolFilled() ||
+                this.ShouldSerializeIsVisible() ||
+                this.ShouldSerializeItalic() ||
+                this.ShouldSerializeSize() ||
+                this.ShouldSerializeUnderline();
         }
 
 
         private bool ShouldSerializeBackColor()
         {
-            return BackColor != getDefaultBackColor();
+            return this.BackColor != this.getDefaultBackColor();
         }
 
 
         private bool ShouldSerializeBold()
         {
-            return Bold != getDefaultFont().Bold;
+            return this.Bold != this.getDefaultFont().Bold;
         }
 
 
         private bool ShouldSerializeCase()
         {
-            return Case != StyleCase.Mixed;
+            return this.Case != StyleCase.Mixed;
         }
 
 
         private bool ShouldSerializeCharacterSet()
         {
-            return CharacterSet != getDefaultCharacterSet();
+            return this.CharacterSet != this.getDefaultCharacterSet();
         }
 
 
@@ -300,61 +300,61 @@ namespace ARCed.Scintilla
 
         private bool ShouldSerializeFontName()
         {
-            return FontName != getDefaultFont().Name;
+            return this.FontName != this.getDefaultFont().Name;
         }
 
 
         private bool ShouldSerializeForeColor()
         {
-            return ForeColor != getDefaultForeColor();
+            return this.ForeColor != this.getDefaultForeColor();
         }
 
 
         private bool ShouldSerializeIsChangeable()
         {
-            return !IsChangeable;
+            return !this.IsChangeable;
         }
 
 
         private bool ShouldSerializeIsHotspot()
         {
-            return IsHotspot;
+            return this.IsHotspot;
         }
 
 
         private bool ShouldSerializeIsSelectionEolFilled()
         {
-            return IsSelectionEolFilled;
+            return this.IsSelectionEolFilled;
         }
 
 
         private bool ShouldSerializeIsVisible()
         {
-            return !IsVisible;
+            return !this.IsVisible;
         }
 
 
         private bool ShouldSerializeItalic()
         {
-            return Italic != getDefaultFont().Italic;
+            return this.Italic != this.getDefaultFont().Italic;
         }
 
 
         private bool ShouldSerializeSize()
         {
-            return Size != getDefaultFont().SizeInPoints;
+            return this.Size != this.getDefaultFont().SizeInPoints;
         }
 
 
         private bool ShouldSerializeUnderline()
         {
-            return Underline != getDefaultFont().Underline;
+            return this.Underline != this.getDefaultFont().Underline;
         }
 
 
         public override string ToString()
         {
-             return "Style" + _index.ToString();
+             return "Style" + this._index.ToString();
         }
 
         #endregion Methods
@@ -366,16 +366,16 @@ namespace ARCed.Scintilla
         {
             get
             {
-                if (Scintilla.ColorBag.ContainsKey(ToString() + ".BackColor"))
-                    return Scintilla.ColorBag[ToString() + ".BackColor"];
+                if (Scintilla.ColorBag.ContainsKey(this + ".BackColor"))
+                    return Scintilla.ColorBag[this + ".BackColor"];
 
-                return Utilities.RgbToColor(NativeScintilla.StyleGetBack(_index));
+                return Utilities.RgbToColor(NativeScintilla.StyleGetBack(this._index));
             }
             set
             {
-                SetBackColorInternal(value);
+                this.SetBackColorInternal(value);
 
-                if (_index == (int)StylesCommon.CallTip)
+                if (this._index == (int)StylesCommon.CallTip)
                     Scintilla.CallTip.SetBackColorInternal(value);
             }
         }
@@ -383,11 +383,11 @@ namespace ARCed.Scintilla
 
         public bool Bold
         {
-            get { return NativeScintilla.StyleGetBold(_index); }
+            get { return NativeScintilla.StyleGetBold(this._index); }
             set
             {
-                NativeScintilla.StyleSetBold(_index, value);
-                Scintilla.PropertyBag[ToString() + ".FontSet"] = true;
+                NativeScintilla.StyleSetBold(this._index, value);
+                Scintilla.PropertyBag[this + ".FontSet"] = true;
             }
         }
 
@@ -396,22 +396,22 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return (StyleCase)NativeScintilla.StyleGetCase(_index);
+                return (StyleCase)NativeScintilla.StyleGetCase(this._index);
             }
             set
             {
-                NativeScintilla.StyleSetCase(_index, (int)value);
+                NativeScintilla.StyleSetCase(this._index, (int)value);
             }
         }
 
 
         public CharacterSet CharacterSet
         {
-            get { return (CharacterSet)NativeScintilla.StyleGetCharacterSet(_index); }
+            get { return (CharacterSet)NativeScintilla.StyleGetCharacterSet(this._index); }
             set
             {
-                NativeScintilla.StyleSetCharacterSet(_index, (int)value);
-                Scintilla.PropertyBag[ToString() + ".FontSet"] = true;
+                NativeScintilla.StyleSetCharacterSet(this._index, (int)value);
+                Scintilla.PropertyBag[this + ".FontSet"] = true;
             }
         }
 
@@ -421,20 +421,20 @@ namespace ARCed.Scintilla
             get
             {
                 var fs = FontStyle.Regular;
-                if (Bold) fs |= FontStyle.Bold;
-                if (Italic) fs |= FontStyle.Italic;
-                if (Underline) fs |= FontStyle.Underline;
+                if (this.Bold) fs |= FontStyle.Bold;
+                if (this.Italic) fs |= FontStyle.Italic;
+                if (this.Underline) fs |= FontStyle.Underline;
 
-                return new Font(FontName, Size, fs, GraphicsUnit.Point, (byte)CharacterSet);
+                return new Font(this.FontName, this.Size, fs, GraphicsUnit.Point, (byte)this.CharacterSet);
             }
             set
             {
-                CharacterSet = (CharacterSet)value.GdiCharSet;
-                FontName = value.Name;
-                Size = value.SizeInPoints;
-                Bold = value.Bold;
-                Italic = value.Italic;
-                Underline = value.Underline;
+                this.CharacterSet = (CharacterSet)value.GdiCharSet;
+                this.FontName = value.Name;
+                this.Size = value.SizeInPoints;
+                this.Bold = value.Bold;
+                this.Italic = value.Italic;
+                this.Underline = value.Underline;
             }
         }
 
@@ -447,20 +447,20 @@ namespace ARCed.Scintilla
                 //	with spaces in it. They get truncated. So we're storing ourselves.
                 //	Oh yeah I wrote the code for SCI_STYLEGETFONT in Scintilla so what 
                 //	does that tell you?
-                if (!Scintilla.PropertyBag.ContainsKey(ToString() + ".FontName"))
+                if (!Scintilla.PropertyBag.ContainsKey(this + ".FontName"))
                 {
                     string fontName;
-                    NativeScintilla.StyleGetFont(_index, out fontName);
+                    NativeScintilla.StyleGetFont(this._index, out fontName);
                     return fontName;
                 }
 
-                return Scintilla.PropertyBag[ToString() + ".FontName"].ToString();
+                return Scintilla.PropertyBag[this + ".FontName"].ToString();
             }
             set
             {
-                NativeScintilla.StyleSetFont(_index, value);
-                Scintilla.PropertyBag[ToString() + ".FontName"] = value;
-                Scintilla.PropertyBag[ToString() + ".FontSet"] = true;
+                NativeScintilla.StyleSetFont(this._index, value);
+                Scintilla.PropertyBag[this + ".FontName"] = value;
+                Scintilla.PropertyBag[this + ".FontSet"] = true;
 
             }
         }
@@ -470,16 +470,16 @@ namespace ARCed.Scintilla
         {
             get
             {
-                if (Scintilla.ColorBag.ContainsKey(ToString() + ".ForeColor"))
-                    return Scintilla.ColorBag[ToString() + ".ForeColor"];
+                if (Scintilla.ColorBag.ContainsKey(this + ".ForeColor"))
+                    return Scintilla.ColorBag[this + ".ForeColor"];
 
-                return Utilities.RgbToColor(NativeScintilla.StyleGetFore(_index));
+                return Utilities.RgbToColor(NativeScintilla.StyleGetFore(this._index));
             }
             set
             {
-                SetForeColorInternal(value);
+                this.SetForeColorInternal(value);
 
-                if (_index == (int)StylesCommon.CallTip)
+                if (this._index == (int)StylesCommon.CallTip)
                     Scintilla.CallTip.SetForeColorInternal(value);
             }
         }
@@ -490,7 +490,7 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _index;
+                return this._index;
             }
         }
 
@@ -499,11 +499,11 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return NativeScintilla.StyleGetChangeable(_index); 
+                return NativeScintilla.StyleGetChangeable(this._index); 
             }
             set
             {
-                NativeScintilla.StyleSetChangeable(_index, value);
+                NativeScintilla.StyleSetChangeable(this._index, value);
             }
         }
 
@@ -512,11 +512,11 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return NativeScintilla.StyleGetHotspot(_index);
+                return NativeScintilla.StyleGetHotspot(this._index);
             }
             set
             {
-                NativeScintilla.StyleSetHotspot(_index, value);
+                NativeScintilla.StyleSetHotspot(this._index, value);
             }
         }
 
@@ -525,11 +525,11 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return NativeScintilla.StyleGetEOLFilled(_index);
+                return NativeScintilla.StyleGetEOLFilled(this._index);
             }
             set
             {
-                NativeScintilla.StyleSetEOLFilled(_index, value);
+                NativeScintilla.StyleSetEOLFilled(this._index, value);
             }
         }
 
@@ -538,22 +538,22 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return NativeScintilla.StyleGetVisible(_index);
+                return NativeScintilla.StyleGetVisible(this._index);
             }
             set
             {
-                NativeScintilla.StyleSetVisible(_index, value);
+                NativeScintilla.StyleSetVisible(this._index, value);
             }
         }
 
 
         public bool Italic
         {
-            get { return NativeScintilla.StyleGetItalic(_index); }
+            get { return NativeScintilla.StyleGetItalic(this._index); }
             set
             {
-                NativeScintilla.StyleSetItalic(_index, value);
-                Scintilla.PropertyBag[ToString() + ".FontSet"] = true;
+                NativeScintilla.StyleSetItalic(this._index, value);
+                Scintilla.PropertyBag[this + ".FontSet"] = true;
             }
         }
 
@@ -567,27 +567,27 @@ namespace ARCed.Scintilla
         {
             get
             {
-                if (!Scintilla.PropertyBag.ContainsKey(ToString() + ".Size"))
+                if (!Scintilla.PropertyBag.ContainsKey(this + ".Size"))
                     return NativeScintilla.StyleGetSize(this._index);
 
-                return (float)Scintilla.PropertyBag[ToString() + ".Size"];
+                return (float)Scintilla.PropertyBag[this + ".Size"];
             }
             set
             {
-                NativeScintilla.StyleSetSize(_index, (int)value);
-                Scintilla.PropertyBag[ToString() + ".Size"] = value;
-                Scintilla.PropertyBag[ToString() + ".FontSet"] = true;
+                NativeScintilla.StyleSetSize(this._index, (int)value);
+                Scintilla.PropertyBag[this + ".Size"] = value;
+                Scintilla.PropertyBag[this + ".FontSet"] = true;
             }
         }
 
 
         public bool Underline
         {
-            get { return NativeScintilla.StyleGetUnderline(_index); }
+            get { return NativeScintilla.StyleGetUnderline(this._index); }
             set
             {
-                NativeScintilla.StyleSetUnderline(_index, value);
-                Scintilla.PropertyBag[ToString() + ".FontSet"] = true;
+                NativeScintilla.StyleSetUnderline(this._index, value);
+                Scintilla.PropertyBag[this + ".FontSet"] = true;
             }
         }
 
@@ -598,7 +598,7 @@ namespace ARCed.Scintilla
 
          internal Style(int index, Scintilla scintilla) : base(scintilla)
          {
-             _index = index;
+             this._index = index;
          }
 
         #endregion Constructors

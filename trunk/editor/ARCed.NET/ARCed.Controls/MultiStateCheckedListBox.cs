@@ -48,8 +48,8 @@ namespace ARCed.Controls
 		/// </summary>
 		public MultiStateCheckedListBox()
 		{
-			InitializeComponent();
-			flowPanel.Padding = new Padding(0);
+			this.InitializeComponent();
+			this.flowPanel.Padding = new Padding(0);
 		}
 
 		#endregion
@@ -79,7 +79,7 @@ namespace ARCed.Controls
 		/// </summary>
 		public void ClearItems()
 		{
-			flowPanel.Controls.Clear();
+			this.flowPanel.Controls.Clear();
 		}
 
 		/// <summary>
@@ -88,7 +88,7 @@ namespace ARCed.Controls
 		/// <param name="label">Label to apply to the slot</param>
 		public void AddItem(string label)
 		{
-			AddItem(label, -1);
+			this.AddItem(label, -1);
 		}
 
 		/// <summary>
@@ -98,16 +98,18 @@ namespace ARCed.Controls
 		/// <param name="valueIndex">Index of the slot's value</param>
 		public void AddItem(string label, int valueIndex)
 		{
-			var checkBox = new MultiStateCheckbox();
-			checkBox.Margin = _padding;
-			checkBox.Characters = Items;
-			checkBox.CharColors = Colors;
-			checkBox.Height = 16;
-			checkBox.Text = label;
-			if (valueIndex >= 0)
+			var checkBox = new MultiStateCheckbox
+			{
+			    Margin = _padding,
+			    Characters = this.Items,
+			    CharColors = this.Colors,
+			    Height = 16,
+			    Text = label
+			};
+		    if (valueIndex >= 0)
 				checkBox.SelectedState = valueIndex;
 			checkBox.MouseDown += this.slot_OnTextChange;
-			flowPanel.Controls.Add(checkBox);
+			this.flowPanel.Controls.Add(checkBox);
 		}
 
 		/// <summary>
@@ -117,13 +119,13 @@ namespace ARCed.Controls
 		/// <param name="valueIndex">Index of the slot's value</param>
 		public void SetItemIndex(int itemIndex, int valueIndex)
 		{
-			_suppressEvents = true;
-			if (itemIndex.IsBetween(0, flowPanel.Controls.Count - 1))
+			this._suppressEvents = true;
+			if (itemIndex.IsBetween(0, this.flowPanel.Controls.Count - 1))
 			{
-				(flowPanel.Controls[itemIndex] as MultiStateCheckbox).SelectedState =
-					valueIndex.Clamp(0, Items.Length - 1);
+				(this.flowPanel.Controls[itemIndex] as MultiStateCheckbox).SelectedState =
+					valueIndex.Clamp(0, this.Items.Length - 1);
 			}
-			_suppressEvents = false;
+			this._suppressEvents = false;
 		}
 
 		/// <summary>
@@ -133,10 +135,10 @@ namespace ARCed.Controls
 		/// <remarks>This methods does not raise events</remarks>
 		public void SetAll(int index)
 		{
-			_suppressEvents = true;
-			foreach (MultiStateCheckbox cBox in flowPanel.Controls)
+			this._suppressEvents = true;
+			foreach (MultiStateCheckbox cBox in this.flowPanel.Controls)
 				cBox.SelectedState = index;
-			_suppressEvents = false;
+			this._suppressEvents = false;
 		}
 
 		#endregion
@@ -145,12 +147,12 @@ namespace ARCed.Controls
 
 		private void slot_OnTextChange(object sender, EventArgs e)
 		{
-			if (OnItemChanged != null && !_suppressEvents)
+			if (this.OnItemChanged != null && !this._suppressEvents)
 			{
 				var checkBox = sender as MultiStateCheckbox;
 				int vIndex = checkBox.SelectedState;
-				int index = flowPanel.Controls.IndexOf(checkBox);
-				OnItemChanged(sender, new MultiStateCheckEventArgs(index, vIndex));
+				int index = this.flowPanel.Controls.IndexOf(checkBox);
+				this.OnItemChanged(sender, new MultiStateCheckEventArgs(index, vIndex));
 			}
 		}
 
@@ -178,8 +180,8 @@ namespace ARCed.Controls
 		/// <param name="valueIndex">Index of the slot's value</param>
 		public MultiStateCheckEventArgs(int index, int valueIndex)
 		{
-			Index = index;
-			ValueIndex = valueIndex;
+			this.Index = index;
+			this.ValueIndex = valueIndex;
 		}
 	}
 }

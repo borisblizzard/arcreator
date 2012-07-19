@@ -24,11 +24,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _inherit;
+                return this._inherit;
             }
             set
             {
-                _inherit = value;
+                this._inherit = value;
             }
         }
 
@@ -37,11 +37,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _list;
+                return this._list;
             }
             set
             {
-                _list = value;
+                this._list = value;
             }
         }
 
@@ -50,11 +50,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _value;
+                return this._value;
             }
             set
             {
-                _value = value;
+                this._value = value;
             }
         }
 
@@ -71,9 +71,9 @@ namespace ARCed.Scintilla.Configuration
         /// <param name="inherit"></param>
         public KeyWordConfig(int list, string value, bool? inherit)
         {
-            _list = list;
-            _value = value;
-            _inherit = inherit;
+            this._list = list;
+            this._value = value;
+            this._inherit = inherit;
         }
 
         #endregion Constructors

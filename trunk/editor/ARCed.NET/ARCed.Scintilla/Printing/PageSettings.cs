@@ -42,85 +42,85 @@ namespace ARCed.Scintilla
 
         private void ResetColor()
         {
-            Color = _baseColor;
+            this.Color = this._baseColor;
         }
 
 
         private void ResetColorMode()
         {
-            _eColorMode = PrintColorMode.Normal;
+            this._eColorMode = PrintColorMode.Normal;
         }
 
 
         private void ResetFontMagnification()
         {
-            _sFontMagnification = 0;
+            this._sFontMagnification = 0;
         }
 
 
         private void ResetLandscape()
         {
-            Landscape = false;
+            this.Landscape = false;
         }
 
 
         private void ResetMargins()
         {
-            Margins = new Margins(50,50,50,50);
+            this.Margins = new Margins(50,50,50,50);
         }
 
 
         internal bool ShouldSerialize()
         {
-            return ShouldSerializeColor() ||
-                ShouldSerializeColorMode() ||
-                ShouldSerializeFontMagnification() ||
-                ShouldSerializeFooter() ||
-                ShouldSerializeHeader() ||
-                ShouldSerializeLandscape() ||
-                ShouldSerializeMargins();
+            return this.ShouldSerializeColor() ||
+                this.ShouldSerializeColorMode() ||
+                this.ShouldSerializeFontMagnification() ||
+                this.ShouldSerializeFooter() ||
+                this.ShouldSerializeHeader() ||
+                this.ShouldSerializeLandscape() ||
+                this.ShouldSerializeMargins();
         }
 
 
         private bool ShouldSerializeColor()
         {
-            return Color != _baseColor;
+            return this.Color != this._baseColor;
         }
 
 
         private bool ShouldSerializeColorMode()
         {
-            return _eColorMode != PrintColorMode.Normal;
+            return this._eColorMode != PrintColorMode.Normal;
         }
 
 
         private bool ShouldSerializeFontMagnification()
         {
-            return _sFontMagnification != 0;
+            return this._sFontMagnification != 0;
         }
 
 
         private bool ShouldSerializeFooter()
         {
-            return _oFooter.ShouldSerialize();
+            return this._oFooter.ShouldSerialize();
         }
 
 
         private bool ShouldSerializeHeader()
         {
-            return _oHeader.ShouldSerialize();
+            return this._oHeader.ShouldSerialize();
         }
 
 
         private bool ShouldSerializeLandscape()
         {
-            return Landscape;
+            return this.Landscape;
         }
 
 
         private bool ShouldSerializeMargins()
         {
-            return Margins.Bottom != 50 ||Margins.Left != 50 || Margins.Right != 50 || Margins.Bottom != 50;
+            return this.Margins.Bottom != 50 ||this.Margins.Left != 50 || this.Margins.Right != 50 || this.Margins.Bottom != 50;
         }
 
         #endregion Methods
@@ -159,8 +159,8 @@ namespace ARCed.Scintilla
         /// </summary>
         public PrintColorMode ColorMode
         {
-            get { return _eColorMode; }
-            set { _eColorMode = value; }
+            get { return this._eColorMode; }
+            set { this._eColorMode = value; }
         }
 
 
@@ -169,8 +169,8 @@ namespace ARCed.Scintilla
         /// </summary>
         public short FontMagnification
         {
-            get { return _sFontMagnification; }
-            set { _sFontMagnification = value; }
+            get { return this._sFontMagnification; }
+            set { this._sFontMagnification = value; }
         }
 
 
@@ -180,8 +180,8 @@ namespace ARCed.Scintilla
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         public FooterInformation Footer
         {
-            get { return _oFooter; }
-            set { _oFooter = value; }
+            get { return this._oFooter; }
+            set { this._oFooter = value; }
         }
 
 
@@ -211,8 +211,8 @@ namespace ARCed.Scintilla
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         public HeaderInformation Header
         {
-            get { return _oHeader; }
-            set { _oHeader = value; }
+            get { return this._oHeader; }
+            set { this._oHeader = value; }
         }
 
 
@@ -319,13 +319,13 @@ namespace ARCed.Scintilla
         {
             // Keep track of the base color for designer serialization. This is a workaround that should
             // last until the PageSettings can be redesigned.
-            _baseColor = base.Color;
+            this._baseColor = base.Color;
 
 
-            _oHeader = new HeaderInformation(PageInformationBorder.Bottom, InformationType.DocumentName, InformationType.Nothing, InformationType.PageNumber);
-            _oFooter = new FooterInformation(PageInformationBorder.Top, InformationType.Nothing, InformationType.Nothing, InformationType.Nothing);
-            _sFontMagnification = 0;
-            _eColorMode = PrintColorMode.Normal;
+            this._oHeader = new HeaderInformation(PageInformationBorder.Bottom, InformationType.DocumentName, InformationType.Nothing, InformationType.PageNumber);
+            this._oFooter = new FooterInformation(PageInformationBorder.Top, InformationType.Nothing, InformationType.Nothing, InformationType.Nothing);
+            this._sFontMagnification = 0;
+            this._eColorMode = PrintColorMode.Normal;
 
             // Set default margins to 1/2 inch (50/100ths)
             base.Margins.Top = 50;

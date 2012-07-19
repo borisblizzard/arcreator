@@ -23,11 +23,11 @@ namespace ARCed.Scintilla
 
         protected override void OnCreateControl()
         {
-            SetPosition();
+            this.SetPosition();
             base.OnCreateControl();
             
-            txtSnippet.Focus();
-            txtSnippet.AutoComplete.Show(0, _snippetList);
+            this.txtSnippet.Focus();
+            this.txtSnippet.AutoComplete.Show(0, this._snippetList);
         }
 
 
@@ -43,16 +43,16 @@ namespace ARCed.Scintilla
         {
             base.OnVisibleChanged(e);
 
-            txtSnippet.Text = string.Empty;
-            SetPosition();
+            this.txtSnippet.Text = string.Empty;
+            this.SetPosition();
 
             if (Visible)
             {
-                txtSnippet.Focus();
-                txtSnippet.AutoComplete.Show(0, _snippetList);
+                this.txtSnippet.Focus();
+                this.txtSnippet.AutoComplete.Show(0, this._snippetList);
             }
             else
-                Scintilla.Focus();
+                this.Scintilla.Focus();
         }
 
 
@@ -61,11 +61,11 @@ namespace ARCed.Scintilla
             if (!Visible)
                 return;
             
-            int pos = Scintilla.Caret.Position;
-            int x = Scintilla.PointXFromPosition(pos);
-            int y = Scintilla.PointYFromPosition(pos);
+            int pos = this.Scintilla.Caret.Position;
+            int x = this.Scintilla.PointXFromPosition(pos);
+            int y = this.Scintilla.PointYFromPosition(pos);
 
-            this.Location = new Point(x, y);
+            Location = new Point(x, y);
         }
 
 
@@ -75,44 +75,44 @@ namespace ARCed.Scintilla
             //	Scintilla's AutoComplete system is very sensitive when it comes to
             //	dismissing the window, almost anything will do it and there's really
             //	no practical way to prevent it.
-            txtSnippet.Commands.RemoveAllBindings();
+            this.txtSnippet.Commands.RemoveAllBindings();
 
-            txtSnippet.Commands.AddBinding(Keys.Delete, Keys.None, BindableCommand.Clear);
-            txtSnippet.Commands.AddBinding(Keys.Back, Keys.None, BindableCommand.DeleteBack);
-            txtSnippet.Commands.AddBinding('Z', Keys.Control, BindableCommand.Undo);
-            txtSnippet.Commands.AddBinding('Y', Keys.Control, BindableCommand.Redo);
-            txtSnippet.Commands.AddBinding('X', Keys.Control, BindableCommand.Cut);
-            txtSnippet.Commands.AddBinding('C', Keys.Control, BindableCommand.Copy);
-            txtSnippet.Commands.AddBinding('V', Keys.Control, BindableCommand.Paste);
-            txtSnippet.Commands.AddBinding('A', Keys.Control, BindableCommand.SelectAll);
+            this.txtSnippet.Commands.AddBinding(Keys.Delete, Keys.None, BindableCommand.Clear);
+            this.txtSnippet.Commands.AddBinding(Keys.Back, Keys.None, BindableCommand.DeleteBack);
+            this.txtSnippet.Commands.AddBinding('Z', Keys.Control, BindableCommand.Undo);
+            this.txtSnippet.Commands.AddBinding('Y', Keys.Control, BindableCommand.Redo);
+            this.txtSnippet.Commands.AddBinding('X', Keys.Control, BindableCommand.Cut);
+            this.txtSnippet.Commands.AddBinding('C', Keys.Control, BindableCommand.Copy);
+            this.txtSnippet.Commands.AddBinding('V', Keys.Control, BindableCommand.Paste);
+            this.txtSnippet.Commands.AddBinding('A', Keys.Control, BindableCommand.SelectAll);
 
-            txtSnippet.Commands.AddBinding(Keys.Down, Keys.None, BindableCommand.LineDown);
-            txtSnippet.Commands.AddBinding(Keys.Up, Keys.None, BindableCommand.LineUp);
+            this.txtSnippet.Commands.AddBinding(Keys.Down, Keys.None, BindableCommand.LineDown);
+            this.txtSnippet.Commands.AddBinding(Keys.Up, Keys.None, BindableCommand.LineUp);
 
         }
 
 
         private void txtSnippet_AutoCompleteAccepted(object sender, AutoCompleteAcceptedEventArgs e)
         {
-            string shortcut = txtSnippet.AutoComplete.SelectedText;
+            string shortcut = this.txtSnippet.AutoComplete.SelectedText;
             Hide();
-            Scintilla.Snippets.InsertSnippet(shortcut);
+            this.Scintilla.Snippets.InsertSnippet(shortcut);
         }
 
-
-        private void txtSnippet_DocumentChange(object sender, NativeScintillaEventArgs e)
+        #pragma warning disable 612, 618
+        private void TextSnippetDocumentChange(object sender, NativeScintillaEventArgs e)
         {
             ////	If for any reason the window DOES manage to hide itself
             ////	we merely reshow it.
-            if (!txtSnippet.AutoComplete.IsActive && Visible)
+            if (!this.txtSnippet.AutoComplete.IsActive && Visible)
             {
-                int pos = Scintilla.Caret.Position;
-                Scintilla.Caret.Goto(0);
-                txtSnippet.AutoComplete.Show(0, _snippetList);
-                Scintilla.Caret.Goto(pos);
+                int pos = this.Scintilla.Caret.Position;
+                this.Scintilla.Caret.Goto(0);
+                this.txtSnippet.AutoComplete.Show(0, this._snippetList);
+                this.Scintilla.Caret.Goto(pos);
             }
         }
-
+        #pragma warning restore 612, 618
 
         private void txtSnippet_KeyDown(object sender, KeyEventArgs e)
         {
@@ -123,15 +123,15 @@ namespace ARCed.Scintilla
             switch (e.KeyCode)
             {
                 case Keys.Right:
-                    txtSnippet.Caret.Goto(txtSnippet.Caret.Position + 1);
+                    this.txtSnippet.Caret.Goto(this.txtSnippet.Caret.Position + 1);
                     break;
                 case Keys.Left:
-                    txtSnippet.Caret.Goto(txtSnippet.Caret.Position - 1);
+                    this.txtSnippet.Caret.Goto(this.txtSnippet.Caret.Position - 1);
                     break;
                 case Keys.Enter:
                 case Keys.Tab:
-                    if (txtSnippet.AutoComplete.SelectedIndex >= 0)
-                        txtSnippet.AutoComplete.Accept();
+                    if (this.txtSnippet.AutoComplete.SelectedIndex >= 0)
+                        this.txtSnippet.AutoComplete.Accept();
                     break;
                 case Keys.Escape:
                     Hide();
@@ -148,11 +148,11 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _scintilla;
+                return this._scintilla;
             }
             set
             {
-                _scintilla = value;
+                this._scintilla = value;
             }
         }
 
@@ -161,11 +161,11 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _snippetList;
+                return this._snippetList;
             }
             set
             {
-                _snippetList = value;
+                this._snippetList = value;
             }
         }
 
@@ -176,7 +176,7 @@ namespace ARCed.Scintilla
 
         public SnippetChooser()
         {
-            InitializeComponent();
+            this.InitializeComponent();
         }
 
         #endregion Constructors

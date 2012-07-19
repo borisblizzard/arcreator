@@ -29,11 +29,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _autoToggleMarkerNumber;
+                return this._autoToggleMarkerNumber;
             }
             set
             {
-                _autoToggleMarkerNumber = value;
+                this._autoToggleMarkerNumber = value;
             }
         }
 
@@ -42,11 +42,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _inherit;
+                return this._inherit;
             }
             set
             {
-                _inherit = value;
+                this._inherit = value;
             }
         }
 
@@ -55,11 +55,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _isClickable;
+                return this._isClickable;
             }
             set
             {
-                _isClickable = value;
+                this._isClickable = value;
             }
         }
 
@@ -68,11 +68,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _isFoldMargin;
+                return this._isFoldMargin;
             }
             set
             {
-                _isFoldMargin = value;
+                this._isFoldMargin = value;
             }
         }
 
@@ -81,11 +81,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _isMarkerMargin;
+                return this._isMarkerMargin;
             }
             set
             {
-                _isMarkerMargin = value;
+                this._isMarkerMargin = value;
             }
         }
 
@@ -94,11 +94,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _number;
+                return this._number;
             }
             set
             {
-                _number = value;
+                this._number = value;
             }
         }
 
@@ -107,11 +107,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _type;
+                return this._type;
             }
             set
             {
-                _type = value;
+                this._type = value;
             }
         }
 
@@ -120,11 +120,11 @@ namespace ARCed.Scintilla.Configuration
         {
             get
             {
-                return _width;
+                return this._width;
             }
             set
             {
-                _width = value;
+                this._width = value;
             }
         }
 

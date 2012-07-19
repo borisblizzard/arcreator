@@ -32,11 +32,11 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _modificationType;
+                return this._modificationType;
             }
             set
             {
-                _modificationType = value;
+                this._modificationType = value;
             }
         }
 
@@ -45,11 +45,11 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _undoRedoFlags;
+                return this._undoRedoFlags;
             }
             set
             {
-                _undoRedoFlags = value;
+                this._undoRedoFlags = value;
             }
         }
 
@@ -60,8 +60,8 @@ namespace ARCed.Scintilla
 
         public ModifiedEventArgs(int modificationType)
         {
-            _modificationType = modificationType;
-            _undoRedoFlags = new UndoRedoFlags(modificationType);
+            this._modificationType = modificationType;
+            this._undoRedoFlags = new UndoRedoFlags(modificationType);
         }
 
         #endregion Constructors

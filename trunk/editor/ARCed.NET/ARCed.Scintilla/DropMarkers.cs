@@ -36,9 +36,9 @@ namespace ARCed.Scintilla
         /// </remarks>
         public void Collect()
         {
-            while (_markerStack.Count > 0)
+            while (this._markerStack.Count > 0)
             {
-                DropMarker dm = _markerStack.Pop();
+                DropMarker dm = this._markerStack.Pop();
 
                 //	If the Drop Marker was deleted in the document by
                 //	a user action it will be disposed but not removed
@@ -53,7 +53,7 @@ namespace ARCed.Scintilla
                 //	on the stack so that it will still be collected in
                 //	the future.
                 if (!dm.Collect())
-                    _markerStack.Push(dm);
+                    this._markerStack.Push(dm);
 
                 return;
             }
@@ -70,7 +70,7 @@ namespace ARCed.Scintilla
         /// <returns>The newly created DropMarker</returns>
         public DropMarker Drop()
         {
-            return Drop(NativeScintilla.GetCurrentPos());
+            return this.Drop(NativeScintilla.GetCurrentPos());
         }
 
 
@@ -85,9 +85,9 @@ namespace ARCed.Scintilla
         /// </remarks>
         public DropMarker Drop(int position)
         {
-            var dm = new DropMarker(position, position, GetCurrentTopOffset(), Scintilla);
-            _allDocumentDropMarkers.Add(dm);
-            _markerStack.Push(dm);
+            var dm = new DropMarker(position, position, this.GetCurrentTopOffset(), Scintilla);
+            this._allDocumentDropMarkers.Add(dm);
+            this._markerStack.Push(dm);
             Scintilla.ManagedRanges.Add(dm);
 
             //	Force the Drop Marker to paint
@@ -104,19 +104,19 @@ namespace ARCed.Scintilla
 
         private void ResetSharedStackName()
         {
-            _sharedStackName = string.Empty;
+            this._sharedStackName = string.Empty;
         }
 
 
         internal bool ShouldSerialize()
         {
-            return ShouldSerializeSharedStackName();
+            return this.ShouldSerializeSharedStackName();
         }
 
 
         private bool ShouldSerializeSharedStackName()
         {
-            return _sharedStackName != string.Empty;
+            return this._sharedStackName != string.Empty;
         }
 
         #endregion Methods
@@ -132,11 +132,11 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _allDocumentDropMarkers;
+                return this._allDocumentDropMarkers;
             }
             set
             {
-                _allDocumentDropMarkers = value;
+                this._allDocumentDropMarkers = value;
             }
         }
 
@@ -154,7 +154,7 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _markerStack;
+                return this._markerStack;
             }
 
             //  That's right kids you can actually provide your own MarkerStack. This
@@ -164,7 +164,7 @@ namespace ARCed.Scintilla
             //  setting the SharedStackName property of multiple instances.
             set
             {
-                _markerStack = value;
+                this._markerStack = value;
             }
         }
 
@@ -181,14 +181,14 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _sharedStackName;
+                return this._sharedStackName;
             }
             set
             {
                 if (value == null)
                     value = string.Empty;
 
-                if (_sharedStackName == value)
+                if (this._sharedStackName == value)
                     return;
 
 
@@ -196,24 +196,24 @@ namespace ARCed.Scintilla
                 {
                     // If we had a shared stack name but are now clearing it
                     // we need to create our own private DropMarkerStack again
-                    _markerStack = new Stack<DropMarker>();
+                    this._markerStack = new Stack<DropMarker>();
 
                     // If this was the last subscriber of a shared stack
                     // remove the name to free up resources
-                    if (_sharedStack.ContainsKey(_sharedStackName) && _sharedStack[_sharedStackName].Count == 1)
-                        _sharedStack.Remove(_sharedStackName);
+                    if (_sharedStack.ContainsKey(this._sharedStackName) && _sharedStack[this._sharedStackName].Count == 1)
+                        _sharedStack.Remove(this._sharedStackName);
                 }
                 else
                 {
                     // We're using one of the shared stacks. Of course if it hasn't 
                     // already been registered with the list we need to create it.
-                    if (!_sharedStack.ContainsKey(_sharedStackName))
-                        _sharedStack[_sharedStackName] = new Stack<DropMarker>();
+                    if (!_sharedStack.ContainsKey(this._sharedStackName))
+                        _sharedStack[this._sharedStackName] = new Stack<DropMarker>();
 
-                    _markerStack = _sharedStack[_sharedStackName];
+                    this._markerStack = _sharedStack[this._sharedStackName];
                 }
 
-                _sharedStackName = value;
+                this._sharedStackName = value;
             }
         }
 

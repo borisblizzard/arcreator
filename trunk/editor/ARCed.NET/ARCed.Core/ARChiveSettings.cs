@@ -99,8 +99,8 @@ namespace ARCed.Settings
 		[EditorBrowsable(EditorBrowsableState.Never), Browsable(false)]
 		public int TypeToInt32
 		{
-			get { return (int)Type; }
-			set { Type = (BackupType)value; }
+			get { return (int)this.Type; }
+			set { this.Type = (BackupType)value; }
 		}
 
         /// <summary>
@@ -108,11 +108,11 @@ namespace ARCed.Settings
         /// </summary>
 		public ARChiveSettings()
 		{
-			Type = BackupType.AllData;
-			Frequency = BackupFrequency.Timed;
-			Interval = 10;
-			Threaded = true;
-			MaxBackups = 5;
+			this.Type = BackupType.AllData;
+			this.Frequency = BackupFrequency.Timed;
+			this.Interval = 10;
+			this.Threaded = true;
+			this.MaxBackups = 5;
 		}
 	}
 }

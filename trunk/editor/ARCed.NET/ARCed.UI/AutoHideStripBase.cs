@@ -21,22 +21,22 @@ namespace ARCed.UI
 
             protected internal Tab(IDockContent content)
             {
-                m_content = content;
+                this.m_content = content;
             }
 
             ~Tab()
             {
-                Dispose(false);
+                this.Dispose(false);
             }
 
             public IDockContent Content
             {
-                get { return m_content; }
+                get { return this.m_content; }
             }
 
             public void Dispose()
             {
-                Dispose(true);
+                this.Dispose(true);
                 GC.SuppressFinalize(this);
             }
 
@@ -51,47 +51,47 @@ namespace ARCed.UI
             #region IEnumerable Members
             IEnumerator<Tab> IEnumerable<Tab>.GetEnumerator()
             {
-                for (int i = 0; i < Count; i++)
+                for (int i = 0; i < this.Count; i++)
                     yield return this[i];
             }
 
             IEnumerator IEnumerable.GetEnumerator()
             {
-                for (int i = 0; i < Count; i++)
+                for (int i = 0; i < this.Count; i++)
                     yield return this[i];
             }
             #endregion
 
             internal TabCollection(DockPane pane)
             {
-                m_dockPane = pane;
+                this.m_dockPane = pane;
             }
 
             private readonly DockPane m_dockPane;
             public DockPane DockPane
             {
-                get { return m_dockPane; }
+                get { return this.m_dockPane; }
             }
 
             public DockPanel DockPanel
             {
-                get { return DockPane.DockPanel; }
+                get { return this.DockPane.DockPanel; }
             }
 
             public int Count
             {
-                get { return DockPane.DisplayingContents.Count; }
+                get { return this.DockPane.DisplayingContents.Count; }
             }
 
             public Tab this[int index]
             {
                 get
                 {
-                    IDockContent content = DockPane.DisplayingContents[index];
+                    IDockContent content = this.DockPane.DisplayingContents[index];
                     if (content == null)
                         throw (new ArgumentOutOfRangeException("index"));
                     if (content.DockHandler.AutoHideTab == null)
-                        content.DockHandler.AutoHideTab = (DockPanel.AutoHideStripControl.CreateTab(content));
+                        content.DockHandler.AutoHideTab = (this.DockPanel.AutoHideStripControl.CreateTab(content));
                     return content.DockHandler.AutoHideTab as Tab;
                 }
             }
@@ -116,7 +116,7 @@ namespace ARCed.UI
 
             public int IndexOf(IDockContent content)
             {
-                return DockPane.DisplayingContents.IndexOf(content);
+                return this.DockPane.DisplayingContents.IndexOf(content);
             }
         }
 
@@ -127,32 +127,32 @@ namespace ARCed.UI
 
             protected internal Pane(DockPane dockPane)
             {
-                m_dockPane = dockPane;
+                this.m_dockPane = dockPane;
             }
 
             ~Pane()
             {
-                Dispose(false);
+                this.Dispose(false);
             }
 
             public DockPane DockPane
             {
-                get { return m_dockPane; }
+                get { return this.m_dockPane; }
             }
 
             public TabCollection AutoHideTabs
             {
                 get
                 {
-                    if (DockPane.AutoHideTabs == null)
-                        DockPane.AutoHideTabs = new TabCollection(DockPane);
-                    return DockPane.AutoHideTabs as TabCollection;
+                    if (this.DockPane.AutoHideTabs == null)
+                        this.DockPane.AutoHideTabs = new TabCollection(this.DockPane);
+                    return this.DockPane.AutoHideTabs as TabCollection;
                 }
             }
 
             public void Dispose()
             {
-                Dispose(true);
+                this.Dispose(true);
                 GC.SuppressFinalize(this);
             }
 
@@ -231,10 +231,10 @@ namespace ARCed.UI
             {
                 this._mDockPanel = panel;
                 this._mStates = new AutoHideStateCollection();
-                States[DockState.DockTopAutoHide].Selected = (dockState == DockState.DockTopAutoHide);
-                States[DockState.DockBottomAutoHide].Selected = (dockState == DockState.DockBottomAutoHide);
-                States[DockState.DockLeftAutoHide].Selected = (dockState == DockState.DockLeftAutoHide);
-                States[DockState.DockRightAutoHide].Selected = (dockState == DockState.DockRightAutoHide);
+                this.States[DockState.DockTopAutoHide].Selected = (dockState == DockState.DockTopAutoHide);
+                this.States[DockState.DockBottomAutoHide].Selected = (dockState == DockState.DockBottomAutoHide);
+                this.States[DockState.DockLeftAutoHide].Selected = (dockState == DockState.DockLeftAutoHide);
+                this.States[DockState.DockRightAutoHide].Selected = (dockState == DockState.DockRightAutoHide);
             }
 
             private readonly DockPanel _mDockPanel;
@@ -254,9 +254,9 @@ namespace ARCed.UI
                 get
                 {
                     int count = 0;
-                    foreach (DockPane pane in DockPanel.Panes)
+                    foreach (DockPane pane in this.DockPanel.Panes)
                     {
-                        if (States.ContainsPane(pane))
+                        if (this.States.ContainsPane(pane))
                             count++;
                     }
 
@@ -269,15 +269,15 @@ namespace ARCed.UI
                 get
                 {
                     int count = 0;
-                    foreach (DockPane pane in DockPanel.Panes)
+                    foreach (DockPane pane in this.DockPanel.Panes)
                     {
-                        if (!States.ContainsPane(pane))
+                        if (!this.States.ContainsPane(pane))
                             continue;
 
                         if (count == index)
                         {
                             if (pane.AutoHidePane == null)
-                                pane.AutoHidePane = DockPanel.AutoHideStripControl.CreatePane(pane);
+                                pane.AutoHidePane = this.DockPanel.AutoHideStripControl.CreatePane(pane);
                             return pane.AutoHidePane as Pane;
                         }
 
@@ -289,7 +289,7 @@ namespace ARCed.UI
 
             public bool Contains(Pane pane)
             {
-                return (IndexOf(pane) != -1);
+                return (this.IndexOf(pane) != -1);
             }
 
             public int IndexOf(Pane pane)
@@ -298,9 +298,9 @@ namespace ARCed.UI
                     return -1;
 
                 int index = 0;
-                foreach (DockPane dockPane in DockPanel.Panes)
+                foreach (DockPane dockPane in this.DockPanel.Panes)
                 {
-                    if (!States.ContainsPane(pane.DockPane))
+                    if (!this.States.ContainsPane(pane.DockPane))
                         continue;
 
                     if (pane == dockPane.AutoHidePane)
@@ -315,13 +315,13 @@ namespace ARCed.UI
 
             IEnumerator<Pane> IEnumerable<Pane>.GetEnumerator()
             {
-                for (int i = 0; i < Count; i++)
+                for (int i = 0; i < this.Count; i++)
                     yield return this[i];
             }
 
             IEnumerator IEnumerable.GetEnumerator()
             {
-                for (int i = 0; i < Count; i++)
+                for (int i = 0; i < this.Count; i++)
                     yield return this[i];
             }
 
@@ -373,28 +373,28 @@ namespace ARCed.UI
 		protected PaneCollection GetPanes(DockState dockState)
 		{
 			if (dockState == DockState.DockTopAutoHide)
-				return PanesTop;
+				return this.PanesTop;
 			else if (dockState == DockState.DockBottomAutoHide)
-				return PanesBottom;
+				return this.PanesBottom;
 			else if (dockState == DockState.DockLeftAutoHide)
-				return PanesLeft;
+				return this.PanesLeft;
 			else if (dockState == DockState.DockRightAutoHide)
-				return PanesRight;
+				return this.PanesRight;
 			else
 				throw new ArgumentOutOfRangeException("dockState");
 		}
 
         internal int GetNumberOfPanes(DockState dockState)
         {
-            return GetPanes(dockState).Count;
+            return this.GetPanes(dockState).Count;
         }
 
 		protected Rectangle RectangleTopLeft
 		{
 			get
 			{	
-				int height = MeasureHeight();
-				return PanesTop.Count > 0 && PanesLeft.Count > 0 ? new Rectangle(0, 0, height, height) : Rectangle.Empty;
+				int height = this.MeasureHeight();
+				return this.PanesTop.Count > 0 && this.PanesLeft.Count > 0 ? new Rectangle(0, 0, height, height) : Rectangle.Empty;
 			}
 		}
 
@@ -402,8 +402,8 @@ namespace ARCed.UI
 		{
 			get
 			{
-				int height = MeasureHeight();
-				return PanesTop.Count > 0 && PanesRight.Count > 0 ? new Rectangle(Width - height, 0, height, height) : Rectangle.Empty;
+				int height = this.MeasureHeight();
+				return this.PanesTop.Count > 0 && this.PanesRight.Count > 0 ? new Rectangle(Width - height, 0, height, height) : Rectangle.Empty;
 			}
 		}
 
@@ -411,8 +411,8 @@ namespace ARCed.UI
 		{
 			get
 			{
-				int height = MeasureHeight();
-				return PanesBottom.Count > 0 && PanesLeft.Count > 0 ? new Rectangle(0, Height - height, height, height) : Rectangle.Empty;
+				int height = this.MeasureHeight();
+				return this.PanesBottom.Count > 0 && this.PanesLeft.Count > 0 ? new Rectangle(0, Height - height, height, height) : Rectangle.Empty;
 			}
 		}
 
@@ -420,22 +420,22 @@ namespace ARCed.UI
 		{
 			get
 			{
-				int height = MeasureHeight();
-				return PanesBottom.Count > 0 && PanesRight.Count > 0 ? new Rectangle(Width - height, Height - height, height, height) : Rectangle.Empty;
+				int height = this.MeasureHeight();
+				return this.PanesBottom.Count > 0 && this.PanesRight.Count > 0 ? new Rectangle(Width - height, Height - height, height, height) : Rectangle.Empty;
 			}
 		}
 
 		protected internal Rectangle GetTabStripRectangle(DockState dockState)
 		{
-			int height = MeasureHeight();
-			if (dockState == DockState.DockTopAutoHide && PanesTop.Count > 0)
-				return new Rectangle(RectangleTopLeft.Width, 0, Width - RectangleTopLeft.Width - RectangleTopRight.Width, height);
-			else if (dockState == DockState.DockBottomAutoHide && PanesBottom.Count > 0)
-				return new Rectangle(RectangleBottomLeft.Width, Height - height, Width - RectangleBottomLeft.Width - RectangleBottomRight.Width, height);
-			else if (dockState == DockState.DockLeftAutoHide && PanesLeft.Count > 0)
-				return new Rectangle(0, RectangleTopLeft.Width, height, Height - RectangleTopLeft.Height - RectangleBottomLeft.Height);
-			else if (dockState == DockState.DockRightAutoHide && PanesRight.Count > 0)
-				return new Rectangle(Width - height, RectangleTopRight.Width, height, Height - RectangleTopRight.Height - RectangleBottomRight.Height);
+			int height = this.MeasureHeight();
+			if (dockState == DockState.DockTopAutoHide && this.PanesTop.Count > 0)
+				return new Rectangle(this.RectangleTopLeft.Width, 0, Width - this.RectangleTopLeft.Width - this.RectangleTopRight.Width, height);
+			else if (dockState == DockState.DockBottomAutoHide && this.PanesBottom.Count > 0)
+				return new Rectangle(this.RectangleBottomLeft.Width, Height - height, Width - this.RectangleBottomLeft.Width - this.RectangleBottomRight.Width, height);
+			else if (dockState == DockState.DockLeftAutoHide && this.PanesLeft.Count > 0)
+				return new Rectangle(0, this.RectangleTopLeft.Width, height, Height - this.RectangleTopLeft.Height - this.RectangleBottomLeft.Height);
+			else if (dockState == DockState.DockRightAutoHide && this.PanesRight.Count > 0)
+				return new Rectangle(Width - height, this.RectangleTopRight.Width, height, Height - this.RectangleTopRight.Height - this.RectangleBottomRight.Height);
 			else
 				return Rectangle.Empty;
 		}
@@ -445,25 +445,25 @@ namespace ARCed.UI
 		{
 			get
 			{
-				if (m_displayingArea == null)
-					m_displayingArea = new GraphicsPath();
+				if (this.m_displayingArea == null)
+					this.m_displayingArea = new GraphicsPath();
 
-				return m_displayingArea;
+				return this.m_displayingArea;
 			}
 		}
 
 		private void SetRegion()
 		{
-			DisplayingArea.Reset();
-			DisplayingArea.AddRectangle(RectangleTopLeft);
-			DisplayingArea.AddRectangle(RectangleTopRight);
-			DisplayingArea.AddRectangle(RectangleBottomLeft);
-			DisplayingArea.AddRectangle(RectangleBottomRight);
-			DisplayingArea.AddRectangle(GetTabStripRectangle(DockState.DockTopAutoHide));
-			DisplayingArea.AddRectangle(GetTabStripRectangle(DockState.DockBottomAutoHide));
-			DisplayingArea.AddRectangle(GetTabStripRectangle(DockState.DockLeftAutoHide));
-			DisplayingArea.AddRectangle(GetTabStripRectangle(DockState.DockRightAutoHide));
-			Region = new Region(DisplayingArea);
+			this.DisplayingArea.Reset();
+			this.DisplayingArea.AddRectangle(this.RectangleTopLeft);
+			this.DisplayingArea.AddRectangle(this.RectangleTopRight);
+			this.DisplayingArea.AddRectangle(this.RectangleBottomLeft);
+			this.DisplayingArea.AddRectangle(this.RectangleBottomRight);
+			this.DisplayingArea.AddRectangle(this.GetTabStripRectangle(DockState.DockTopAutoHide));
+			this.DisplayingArea.AddRectangle(this.GetTabStripRectangle(DockState.DockBottomAutoHide));
+			this.DisplayingArea.AddRectangle(this.GetTabStripRectangle(DockState.DockLeftAutoHide));
+			this.DisplayingArea.AddRectangle(this.GetTabStripRectangle(DockState.DockRightAutoHide));
+			Region = new Region(this.DisplayingArea);
 		}
 
 		protected override void OnMouseDown(MouseEventArgs e)
@@ -473,7 +473,7 @@ namespace ARCed.UI
 			if (e.Button != MouseButtons.Left)
 				return;
 
-			IDockContent content = HitTest();
+			IDockContent content = this.HitTest();
 			if (content == null)
 				return;
 
@@ -484,9 +484,9 @@ namespace ARCed.UI
 		{
 			base.OnMouseHover(e);
 
-			IDockContent content = HitTest();
-			if (content != null && DockPanel.ActiveAutoHideContent != content)
-				DockPanel.ActiveAutoHideContent = content;
+			IDockContent content = this.HitTest();
+			if (content != null && this.DockPanel.ActiveAutoHideContent != content)
+				this.DockPanel.ActiveAutoHideContent = content;
 
 			// requires further tracking of mouse hover behavior,
             ResetMouseEventArgs();
@@ -494,7 +494,7 @@ namespace ARCed.UI
 
 		protected override void OnLayout(LayoutEventArgs levent)
 		{
-			RefreshChanges();
+			this.RefreshChanges();
 			base.OnLayout (levent);
 		}
 
@@ -503,8 +503,8 @@ namespace ARCed.UI
             if (IsDisposed)
                 return;
 
-			SetRegion();
-			OnRefreshChanges();
+			this.SetRegion();
+			this.OnRefreshChanges();
 		}
 
 		protected virtual void OnRefreshChanges()
@@ -516,7 +516,7 @@ namespace ARCed.UI
 		private IDockContent HitTest()
 		{
 			Point ptMouse = PointToClient(MousePosition);
-			return HitTest(ptMouse);
+			return this.HitTest(ptMouse);
 		}
 
         protected virtual Tab CreateTab(IDockContent content)

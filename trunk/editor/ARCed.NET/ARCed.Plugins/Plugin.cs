@@ -24,7 +24,7 @@ namespace ARCed.Plugins
 		/// <summary>
 		/// Gets the filename to the plugin assembly
 		/// </summary>
-		public string Filename { get { return _assembly.Location; } }
+		public string Filename { get { return this._assembly.Location; } }
 		/// <summary>
 		/// Gets a flag indicating the plugin loaded without errors
 		/// </summary>
@@ -32,23 +32,23 @@ namespace ARCed.Plugins
 		/// <summary>
 		/// The associated <see cref="System.Reflection.Assembly"/> instance of the plugin
 		/// </summary>
-		public Assembly Assembly { get { return _assembly; } }
+		public Assembly Assembly { get { return this._assembly; } }
 		/// <summary>
         /// The associated <see cref="System.Reflection.AssemblyName"/> instance of the plugin
 		/// </summary>
-		public AssemblyName AssemblyName { get { return _assembly.GetName(); } }
+		public AssemblyName AssemblyName { get { return this._assembly.GetName(); } }
 		/// <summary>
         /// Gets the file <see cref="System.Version"/> of the associated assembly 
 		/// </summary>
-		public Version Version { get { return _assembly.GetName().Version; } }
+		public Version Version { get { return this._assembly.GetName().Version; } }
 		/// <summary>
 		/// Gets the simple name of the associated assembly
 		/// </summary>
-		public string Name { get { return _assembly.GetName().Name; } }
+		public string Name { get { return this._assembly.GetName().Name; } }
 		/// <summary>
 		/// Gets the plugin's host
 		/// </summary>
-		public IPluginHost Host { get { return _host; } }
+		public IPluginHost Host { get { return this._host; } }
 
 		#endregion
 
@@ -71,14 +71,14 @@ namespace ARCed.Plugins
 		{
 			try
 			{
-				_host = host;
-				_assembly = Assembly.LoadFile(filename);
-				var config = ReadResourceConfiguration(_assembly);
-				_data = GetRegistryClasses(config);
-				GetEntries();
-				IsLoaded = true;
+				this._host = host;
+				this._assembly = Assembly.LoadFile(filename);
+				var config = ReadResourceConfiguration(this._assembly);
+				this._data = GetRegistryClasses(config);
+				this.GetEntries();
+				this.IsLoaded = true;
 			}
-			catch { IsLoaded = false; }
+			catch { this.IsLoaded = false; }
 		}
 
 		#endregion
@@ -91,7 +91,7 @@ namespace ARCed.Plugins
 		/// <returns>The list of entries</returns>
 		public List<RegistryEntry> GetEntries()
 		{
-			var entries = new List<RegistryEntry>(_data.Count);
+			var entries = new List<RegistryEntry>(this._data.Count);
 		    entries.AddRange(from kvp in this._data
 		        let type = this._assembly.GetType(kvp.Value)
 		        select new RegistryEntry(this, type, kvp.Key, kvp.Value));

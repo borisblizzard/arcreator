@@ -130,34 +130,34 @@ namespace RPG
         /// </summary>
 		public State()
 		{
-			id = 0;
-			name = "";
-			animation_id = 0;
-			restriction = 0;
-			nonresistance = false;
-			zero_hp = false;
-			cant_get_exp = false;
-			cant_evade = false;
-			slip_damage = false;
-			rating = 5;
-			hit_rate = 100;
-			maxhp_rate = 100;
-			maxsp_rate = 100;
-			str_rate = 100;
-			dex_rate = 100;
-			agi_rate = 100;
-			int_rate = 100;
-			atk_rate = 100;
-			pdef_rate = 100;
-			mdef_rate = 100;
-			eva = 0;
-			battle_only = true;
-			hold_turn = 0;
-			auto_release_prob = 0;
-			shock_release_prob = 0;
-			guard_element_set = new List<dynamic>();
-			plus_state_set = new List<dynamic>();
-			minus_state_set = new List<dynamic>();
+			this.id = 0;
+			this.name = "";
+			this.animation_id = 0;
+			this.restriction = 0;
+			this.nonresistance = false;
+			this.zero_hp = false;
+			this.cant_get_exp = false;
+			this.cant_evade = false;
+			this.slip_damage = false;
+			this.rating = 5;
+			this.hit_rate = 100;
+			this.maxhp_rate = 100;
+			this.maxsp_rate = 100;
+			this.str_rate = 100;
+			this.dex_rate = 100;
+			this.agi_rate = 100;
+			this.int_rate = 100;
+			this.atk_rate = 100;
+			this.pdef_rate = 100;
+			this.mdef_rate = 100;
+			this.eva = 0;
+			this.battle_only = true;
+			this.hold_turn = 0;
+			this.auto_release_prob = 0;
+			this.shock_release_prob = 0;
+			this.guard_element_set = new List<dynamic>();
+			this.plus_state_set = new List<dynamic>();
+			this.minus_state_set = new List<dynamic>();
 		}
 
 		/// <summary>

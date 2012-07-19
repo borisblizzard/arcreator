@@ -21,6 +21,7 @@ using ARCed.Scintilla.Design;
 
 namespace ARCed.Scintilla
 {
+    #pragma warning disable 612, 618
     /// <summary>
     ///     Represents a Scintilla text editor control.
     /// </summary>
@@ -154,7 +155,7 @@ namespace ARCed.Scintilla
         /// </summary>
         public void AddLastLineEnd()
         {
-            EndOfLineMode eolMode = _endOfLine.Mode;
+            EndOfLineMode eolMode = this._endOfLine.Mode;
             string eolMarker = "\r\n";
 
             if (eolMode == EndOfLineMode.CR)
@@ -162,11 +163,11 @@ namespace ARCed.Scintilla
             else if (eolMode == EndOfLineMode.LF)
                 eolMarker = "\n";
 
-            int tl = TextLength;
+            int tl = this.TextLength;
             int start = tl - eolMarker.Length;
 
-            if (start < 0 || GetRange(start, start + eolMarker.Length).Text != eolMarker)
-                AppendText(eolMarker);
+            if (start < 0 || this.GetRange(start, start + eolMarker.Length).Text != eolMarker)
+                this.AppendText(eolMarker);
         }
 
 
@@ -177,21 +178,21 @@ namespace ARCed.Scintilla
         /// <returns>A <see cref="Range"/> representing the appended text.</returns>
         public Range AppendText(string text)
         {
-            int oldLength = TextLength;
-            NativeInterface.AppendText(Encoding.GetByteCount(text), text);
-            return GetRange(oldLength, TextLength);
+            int oldLength = this.TextLength;
+            this.NativeInterface.AppendText(this.Encoding.GetByteCount(text), text);
+            return this.GetRange(oldLength, this.TextLength);
         }
 
 
         public void BeginInit()
         {
-            _isInitializing = true;
+            this._isInitializing = true;
         }
 
 
         public char CharAt(int position)
         {
-            return _ns.GetCharAt(position);
+            return this._ns.GetCharAt(position);
         }
 
 
@@ -243,7 +244,7 @@ namespace ARCed.Scintilla
             }
 
             // Call the direct function delegate
-            return _directFunction(_directPointer, msg, wParam, lParam);
+            return _directFunction(this._directPointer, msg, wParam, lParam);
         }
 
 
@@ -254,7 +255,7 @@ namespace ARCed.Scintilla
         /// <param name="disposing"><chr>true</chr> to release both managed and unmanaged resources; <chr>false</chr> to release only unmanaged resources.</param>
         protected override void Dispose(bool disposing)
         {
-            foreach (ScintillaHelperBase heler in _helpers)
+            foreach (ScintillaHelperBase heler in this._helpers)
             {
                 heler.Dispose();
             }
@@ -265,9 +266,11 @@ namespace ARCed.Scintilla
                 // Since we eat the destroy message in WndProc
                 // we have to manually let Scintilla know to
                 // clean up its resources.
-                var destroyMessage = new Message();
-                destroyMessage.Msg = NativeMethods.WM_DESTROY;
-                destroyMessage.HWnd = Handle;
+                var destroyMessage = new Message
+                {
+                    Msg = NativeMethods.WM_DESTROY,
+                    HWnd = Handle
+                };
                 base.DefWndProc(ref destroyMessage);
             }
 
@@ -277,8 +280,8 @@ namespace ARCed.Scintilla
 
         public void EndInit()
         {
-            _isInitializing = false;
-            foreach (ScintillaHelperBase helper in _helpers)
+            this._isInitializing = false;
+            foreach (ScintillaHelperBase helper in this._helpers)
             {
                 helper.Initialize();
             }
@@ -294,7 +297,7 @@ namespace ARCed.Scintilla
         {
             var sb = new StringBuilder();
             using (var sw = new StringWriter(sb))
-                ExportHtml(sw, "Untitled", false);
+                this.ExportHtml(sw, "Untitled", false);
 
             return sb.ToString();
         }
@@ -316,7 +319,7 @@ namespace ARCed.Scintilla
             // Lexing.Colorize();
 
             // Get the styles used
-            int length = NativeInterface.GetLength();
+            int length = this.NativeInterface.GetLength();
             var stylesUsed = new bool[(int)StylesCommon.Max + 1];
             if (allStyles)
             {
@@ -327,11 +330,11 @@ namespace ARCed.Scintilla
             {
                 // Record all the styles used
                 for (int i = 0; i < length; i++)
-                    stylesUsed[Styles.GetStyleAt(i) & (int)StylesCommon.Max] = true;
+                    stylesUsed[this.Styles.GetStyleAt(i) & (int)StylesCommon.Max] = true;
             }
 
             // The tab width
-            int tabWidth = Indentation.TabWidth;
+            int tabWidth = this.Indentation.TabWidth;
 
             // Start writing
             writer.WriteLine(@"<!DOCTYPE HTML PUBLIC ""-//W3C//DTD HTML 4.01 Transitional//EN"" ""http://www.w3.org/TR/html4/loose.dtd"">");
@@ -343,8 +346,8 @@ namespace ARCed.Scintilla
 
             // Write the body style
             writer.WriteLine("body {");
-            writer.WriteLine("background-color: {0};", Utilities.ColorToHtml(Styles.Default.BackColor));
-            if (LineWrapping.Mode == LineWrappingMode.None)
+            writer.WriteLine("background-color: {0};", Utilities.ColorToHtml(this.Styles.Default.BackColor));
+            if (this.LineWrapping.Mode == LineWrappingMode.None)
                 writer.WriteLine("white-space: nowrap;");
             writer.WriteLine("}");
             writer.WriteLine();
@@ -355,7 +358,7 @@ namespace ARCed.Scintilla
                 if (!stylesUsed[i])
                     continue;
 
-                Style s = Styles[i];
+                Style s = this.Styles[i];
                 writer.WriteLine("span.s{0} {{", i);
                 writer.WriteLine("font-family: \"" + s.FontName + "\";");
                 writer.WriteLine("font-size: {0}pt;", s.Size);
@@ -384,8 +387,8 @@ namespace ARCed.Scintilla
             for (int i = 0; i < length; i++)
             {
                 lc = c;
-                c = NativeInterface.GetCharAt(i);
-                int style = Styles.GetStyleAt(i);
+                c = this.NativeInterface.GetCharAt(i);
+                int style = this.Styles.GetStyleAt(i);
                 if(style != lastStyle)
                 {
                     if(lastStyle != -1)
@@ -414,7 +417,7 @@ namespace ARCed.Scintilla
 
                     case '\r':
                     case '\n':
-                        if (c == '\r' && i < length - 1 && NativeInterface.GetCharAt(i + 1) == '\n')
+                        if (c == '\r' && i < length - 1 && this.NativeInterface.GetCharAt(i + 1) == '\n')
                             i++;
 
                         if (lastStyle != -1)
@@ -453,19 +456,19 @@ namespace ARCed.Scintilla
 
         public int FindColumn(int line, int column)
         {
-            return _ns.FindColumn(line, column);
+            return this._ns.FindColumn(line, column);
         }
 
 
         internal void FireCallTipClick(int arrow)
         {
             var a = (CallTipArrow)arrow;
-            OverloadList ol = CallTip.OverloadList;
+            OverloadList ol = this.CallTip.OverloadList;
             CallTipClickEventArgs e;
 
             if (ol == null)
             {
-                e = new CallTipClickEventArgs(a, -1, -1, null, CallTip.HighlightStart, CallTip.HighlightEnd);
+                e = new CallTipClickEventArgs(a, -1, -1, null, this.CallTip.HighlightStart, this.CallTip.HighlightEnd);
             }
             else
             {
@@ -486,14 +489,14 @@ namespace ARCed.Scintilla
                         newIndex--;
                 }
 
-                e = new CallTipClickEventArgs(a, ol.CurrentIndex, newIndex, ol, CallTip.HighlightStart, CallTip.HighlightEnd);
+                e = new CallTipClickEventArgs(a, ol.CurrentIndex, newIndex, ol, this.CallTip.HighlightStart, this.CallTip.HighlightEnd);
             }
 
-            OnCallTipClick(e);
+            this.OnCallTipClick(e);
 
             if (e.Cancel)
             {
-                CallTip.Cancel();
+                this.CallTip.Cancel();
             }
             else
             {
@@ -501,9 +504,9 @@ namespace ARCed.Scintilla
                 {
                     // We allow them to alse replace the list entirely or just
                     // manipulate the New Index
-                    CallTip.OverloadList = e.OverloadList;
-                    CallTip.OverloadList.CurrentIndex = e.NewIndex;
-                    CallTip.ShowOverloadInternal();
+                    this.CallTip.OverloadList = e.OverloadList;
+                    this.CallTip.OverloadList.CurrentIndex = e.NewIndex;
+                    this.CallTip.ShowOverloadInternal();
                 }
             }
         }
@@ -511,13 +514,13 @@ namespace ARCed.Scintilla
 
         internal void FireKeyDown(KeyEventArgs e)
         {
-            OnKeyDown(e);
+            this.OnKeyDown(e);
         }
 
 
         internal void FireMarginClick(SCNotification n)
         {
-            Margin m = Margins[n.margin];
+            Margin m = this.Margins[n.margin];
             var k = Keys.None;
 
             if ((n.modifiers & (int)KeyMod.Alt) == (int)KeyMod.Alt)
@@ -529,13 +532,13 @@ namespace ARCed.Scintilla
             if ((n.modifiers & (int)KeyMod.Shift) == (int)KeyMod.Shift)
                 k |= Keys.Shift;
 
-            OnMarginClick(new MarginClickEventArgs(k, n.position, Lines.FromPosition(n.position), m, m.AutoToggleMarkerNumber, m.IsFoldMargin));
+            this.OnMarginClick(new MarginClickEventArgs(k, n.position, this.Lines.FromPosition(n.position), m, m.AutoToggleMarkerNumber, m.IsFoldMargin));
         }
 
 
         public int GetColumn(int position)
         {
-            return _ns.GetColumn(position);
+            return this._ns.GetColumn(position);
         }
 
 
@@ -546,7 +549,7 @@ namespace ARCed.Scintilla
         public string GetCurrentLine()
         {
             int tmp;
-            return GetCurrentLine(out tmp);
+            return this.GetCurrentLine(out tmp);
         }
 
 
@@ -557,18 +560,18 @@ namespace ARCed.Scintilla
         /// <returns>A <see cref="String" /> representing the text of the line containing the caret.</returns>
         public unsafe string GetCurrentLine(out int caretPosition)
         {
-            int length = DirectMessage(NativeMethods.SCI_GETCURLINE, IntPtr.Zero, IntPtr.Zero).ToInt32();
+            int length = this.DirectMessage(NativeMethods.SCI_GETCURLINE, IntPtr.Zero, IntPtr.Zero).ToInt32();
             var buffer = new byte[length];
             fixed (byte* bp = buffer)
-                caretPosition = DirectMessage(NativeMethods.SCI_GETCURLINE, new IntPtr(buffer.Length), new IntPtr(bp)).ToInt32();
+                caretPosition = this.DirectMessage(NativeMethods.SCI_GETCURLINE, new IntPtr(buffer.Length), new IntPtr(bp)).ToInt32();
 
-            return Encoding.GetString(buffer, 0, length - 1);
+            return this.Encoding.GetString(buffer, 0, length - 1);
         }
 
 
         public Range GetRange()
         {
-            return new Range(0, _ns.GetTextLength(), this);
+            return new Range(0, this._ns.GetTextLength(), this);
         }
 
 
@@ -599,9 +602,9 @@ namespace ARCed.Scintilla
             // shouldn't throw and we REALLY shouldn't be eating exceptions at the
             // System.Exception level. If some _start popping up I can add some
             // conditionals or catch more specific Exceptions.
-            int startPosition = NativeInterface.WordStartPosition(position, true);
-            int endPosition = NativeInterface.WordEndPosition(position, true);
-            return GetRange(startPosition, endPosition).Text;
+            int startPosition = this.NativeInterface.WordStartPosition(position, true);
+            int endPosition = this.NativeInterface.WordEndPosition(position, true);
+            return this.GetRange(startPosition, endPosition).Text;
         }
 
 
@@ -619,7 +622,7 @@ namespace ARCed.Scintilla
             }
             NativeMethods.DragFinish(hDrop);
 
-            OnFileDrop(new FileDropEventArgs(files.ToArray()));
+            this.OnFileDrop(new FileDropEventArgs(files.ToArray()));
         }
 
 
@@ -630,8 +633,8 @@ namespace ARCed.Scintilla
         /// <returns>The range inserted</returns>
         public Range InsertText(string text)
         {
-            NativeInterface.AddText(Encoding.GetByteCount(text), text);
-            return GetRange(_caret.Position, Encoding.GetByteCount(text));
+            this.NativeInterface.AddText(this.Encoding.GetByteCount(text), text);
+            return this.GetRange(this._caret.Position, this.Encoding.GetByteCount(text));
         }
 
 
@@ -643,8 +646,8 @@ namespace ARCed.Scintilla
         /// <returns>The text range inserted</returns>
         public Range InsertText(int position, string text)
         {
-            NativeInterface.InsertText(position, text);
-            return GetRange(position, Encoding.GetByteCount(text));
+            this.NativeInterface.InsertText(position, text);
+            return this.GetRange(position, this.Encoding.GetByteCount(text));
         }
 
 
@@ -659,9 +662,9 @@ namespace ARCed.Scintilla
             switch (keyData)
             {
                 case Keys.Tab:
-                    return _state[_acceptsTabState];
+                    return this._state[_acceptsTabState];
                 case Keys.Enter:
-                    return _state[_acceptsReturnState];
+                    return this._state[_acceptsReturnState];
                 case Keys.Up:
                 case Keys.Down:
                 case Keys.Left:
@@ -707,7 +710,7 @@ namespace ARCed.Scintilla
             // search. This is fine for a few markers per document but
             // can be greatly improved if there are a large # of markers
             var ret = new List<ManagedRange>();
-            foreach (ManagedRange mr in _managedRanges)
+            foreach (ManagedRange mr in this._managedRanges)
                 if (mr.Start >= firstPos && mr.Start <= lastPos)
                     ret.Add(mr);
 
@@ -738,7 +741,7 @@ namespace ARCed.Scintilla
                 handler(this, e);
 
             if (e.Cancel)
-                AutoComplete.Cancel();
+                this.AutoComplete.Cancel();
         }
 
 
@@ -748,7 +751,7 @@ namespace ARCed.Scintilla
         /// <param name="e">An <see cref="EventArgs"/> that contains the event data. </param>
         protected override void OnBackColorChanged(EventArgs e)
         {
-            ResetStyles();
+            this.ResetStyles();
             base.OnBackColorChanged(e);
         }
 
@@ -763,7 +766,7 @@ namespace ARCed.Scintilla
             int lastPos = firstPos + e.Length;
 
             var deletedRanges = new List<ManagedRange>();
-            foreach (ManagedRange mr in _managedRanges)
+            foreach (ManagedRange mr in this._managedRanges)
             {
 
                 //	These ranges lie within the deleted range so
@@ -825,13 +828,13 @@ namespace ARCed.Scintilla
         protected virtual void OnBeforeTextInsert(TextModifiedEventArgs e)
         {
             var offsetRanges = new List<ManagedRange>();
-            foreach (ManagedRange mr in _managedRanges)
+            foreach (ManagedRange mr in this._managedRanges)
             {
                 if (mr.Start == e.Position && mr.PendingDeletion)
                 {
                     mr.PendingDeletion = false;
                     ManagedRange lmr = mr;
-                    BeginInvoke(new MethodInvoker(delegate { lmr.Change(e.Position, e.Position + e.Length); }));
+                    BeginInvoke(new MethodInvoker(() => lmr.Change(e.Position, e.Position + e.Length)));
                 }
 
                 //	If the Range is a single point we treat it slightly
@@ -904,8 +907,8 @@ namespace ARCed.Scintilla
             if (handler != null)
                 handler(this, e);
 
-            if (_indentation.SmartIndentType != SmartIndent.None)
-                _indentation.CheckSmartIndent(e.Ch);
+            if (this._indentation.SmartIndentType != SmartIndent.None)
+                this._indentation.CheckSmartIndent(e.Ch);
         }
 
 
@@ -915,7 +918,7 @@ namespace ARCed.Scintilla
         protected override void OnCreateControl()
         {
             base.OnCreateControl();
-            OnLoad(EventArgs.Empty);
+            this.OnLoad(EventArgs.Empty);
         }
 
 
@@ -938,9 +941,9 @@ namespace ARCed.Scintilla
         {
             base.OnDoubleClick(e);
 
-            if (_isBraceMatching)
+            if (this._isBraceMatching)
             {
-                int position = CurrentPos - 1,
+                int position = this.CurrentPos - 1,
                        bracePosStart = -1,
                        bracePosEnd = -1;
 
@@ -954,9 +957,9 @@ namespace ARCed.Scintilla
                         if (!this.PositionIsOnComment(position))
                         {
                             bracePosStart = position;
-                            bracePosEnd = _ns.BraceMatch(position, 0) + 1;
-                            _selection.Start = bracePosStart;
-                            _selection.End = bracePosEnd;
+                            bracePosEnd = this._ns.BraceMatch(position, 0) + 1;
+                            this._selection.Start = bracePosStart;
+                            this._selection.End = bracePosEnd;
                         }
                         break;
                 }
@@ -1030,7 +1033,7 @@ namespace ARCed.Scintilla
         /// <param name="e">An <see cref="EventArgs"/> that contains the event data.</param>
         protected override void OnFontChanged(EventArgs e)
         {
-            ResetStyles();
+            this.ResetStyles();
             base.OnFontChanged(e);
         }
 
@@ -1041,7 +1044,7 @@ namespace ARCed.Scintilla
         /// <param name="e">An <see cref="EventArgs"/> that contains the event data. </param>
         protected override void OnForeColorChanged(EventArgs e)
         {
-            ResetStyles();
+            this.ResetStyles();
             base.OnForeColorChanged(e);
         }
 
@@ -1051,11 +1054,11 @@ namespace ARCed.Scintilla
         /// </summary>
         protected override void OnGotFocus(EventArgs e)
         {
-            if (!Selection.Hidden)
-                _ns.HideSelection(false);
+            if (!this.Selection.Hidden)
+                this._ns.HideSelection(false);
 
-            _ns.SetSelBack(Selection.BackColor != Color.Transparent, Utilities.ColorToRgb(Selection.BackColor));
-            _ns.SetSelFore(Selection.ForeColor != Color.Transparent, Utilities.ColorToRgb(Selection.ForeColor));
+            this._ns.SetSelBack(this.Selection.BackColor != Color.Transparent, Utilities.ColorToRgb(this.Selection.BackColor));
+            this._ns.SetSelFore(this.Selection.ForeColor != Color.Transparent, Utilities.ColorToRgb(this.Selection.ForeColor));
 
             base.OnGotFocus(e);
         }
@@ -1070,8 +1073,8 @@ namespace ARCed.Scintilla
             // TODO Recreating handle?
 
             // Get the Scintilla direct pointer
-            _directPointer = NativeMethods.SendMessage(Handle, NativeMethods.SCI_GETDIRECTPOINTER, IntPtr.Zero, IntPtr.Zero);
-            if (_directPointer == IntPtr.Zero)
+            this._directPointer = NativeMethods.SendMessage(Handle, NativeMethods.SCI_GETDIRECTPOINTER, IntPtr.Zero, IntPtr.Zero);
+            if (this._directPointer == IntPtr.Zero)
                 throw new Win32Exception(Resources.Exception_CannotCreateDirectFunction);
 
             base.OnHandleCreated(e);
@@ -1133,7 +1136,7 @@ namespace ARCed.Scintilla
         {
             base.OnKeyDown(e);
             if (!e.Handled)
-                e.SuppressKeyPress = _commands.ProcessKey(e);
+                e.SuppressKeyPress = this._commands.ProcessKey(e);
         }
 
 
@@ -1142,17 +1145,17 @@ namespace ARCed.Scintilla
         /// </summary>
         protected override void OnKeyPress(KeyPressEventArgs e)
         {
-            if (_supressControlCharacters && e.KeyChar < 32)
+            if (this._supressControlCharacters && e.KeyChar < 32)
                 e.Handled = true;
 
-            if (_snippets.IsEnabled && _snippets.IsOneKeySelectionEmbedEnabled && _selection.Length > 0)
+            if (this._snippets.IsEnabled && this._snippets.IsOneKeySelectionEmbedEnabled && this._selection.Length > 0)
             {
                 Snippet s;
-                if (_snippets.List.TryGetValue(e.KeyChar.ToString(), out s))
+                if (this._snippets.List.TryGetValue(e.KeyChar.ToString(), out s))
                 {
                     if (s.IsSurroundsWith)
                     {
-                        _snippets.InsertSnippet(s);
+                        this._snippets.InsertSnippet(s);
                         e.Handled = true;
                     }
                 }
@@ -1191,11 +1194,11 @@ namespace ARCed.Scintilla
         /// </summary>
         protected override void OnLostFocus(EventArgs e)
         {
-            if (Selection.HideSelection)
-                _ns.HideSelection(true);
+            if (this.Selection.HideSelection)
+                this._ns.HideSelection(true);
 
-            _ns.SetSelBack(Selection.BackColorUnfocused != Color.Transparent, Utilities.ColorToRgb(Selection.BackColorUnfocused));
-            _ns.SetSelFore(Selection.ForeColorUnfocused != Color.Transparent, Utilities.ColorToRgb(Selection.ForeColorUnfocused));
+            this._ns.SetSelBack(this.Selection.BackColorUnfocused != Color.Transparent, Utilities.ColorToRgb(this.Selection.BackColorUnfocused));
+            this._ns.SetSelFore(this.Selection.ForeColorUnfocused != Color.Transparent, Utilities.ColorToRgb(this.Selection.ForeColorUnfocused));
 
             base.OnLostFocus(e);
         }
@@ -1268,7 +1271,7 @@ namespace ARCed.Scintilla
         {
             base.OnPaint(e);
 
-            paintRanges(e.Graphics);
+            this.paintRanges(e.Graphics);
         }
 
 
@@ -1307,9 +1310,9 @@ namespace ARCed.Scintilla
             if (handler != null)
                 handler(this, e);
 
-            if (_isBraceMatching && (_selection.Length == 0))
+            if (this._isBraceMatching && (this._selection.Length == 0))
             {
-                int position = CurrentPos - 1,
+                int position = this.CurrentPos - 1,
                     bracePosStart = -1,
                     bracePosEnd = -1;
 
@@ -1326,22 +1329,22 @@ namespace ARCed.Scintilla
                         if (!this.PositionIsOnComment(position))
                         {
                             bracePosStart = position;
-                            bracePosEnd = _ns.BraceMatch(position,0);
+                            bracePosEnd = this._ns.BraceMatch(position,0);
 
                             if(bracePosEnd >= 0)
                             {
-                                _ns.BraceHighlight(bracePosStart, bracePosEnd);
+                                this._ns.BraceHighlight(bracePosStart, bracePosEnd);
                             }
                             else
                             {
-                                _ns.BraceBadLight(bracePosStart);
+                                this._ns.BraceBadLight(bracePosStart);
                             }
                         }
                         break;
                     default:
-                        position = CurrentPos;
+                        position = this.CurrentPos;
                         character = this.CharAt(position); //this is not being used anywhere... --Cory
-                        _ns.BraceHighlight(bracePosStart, bracePosEnd);
+                        this._ns.BraceHighlight(bracePosStart, bracePosEnd);
                         break;
                 }
             }
@@ -1400,17 +1403,17 @@ namespace ARCed.Scintilla
         {
             //	First we want to get the range (in positions) of what
             //	will be painted so that we know which markers to paint
-            int firstLine = _ns.GetFirstVisibleLine();
-            int lastLine = firstLine + _ns.LinesOnScreen();
-            int firstPos = _ns.PositionFromLine(firstLine);
-            int lastPos = _ns.PositionFromLine(lastLine + 1) - 1;
+            int firstLine = this._ns.GetFirstVisibleLine();
+            int lastLine = firstLine + this._ns.LinesOnScreen();
+            int firstPos = this._ns.PositionFromLine(firstLine);
+            int lastPos = this._ns.PositionFromLine(lastLine + 1) - 1;
 
             //	If the lastLine was outside the defined document range it will
             //	contain -1, defualt it to the last doc position
             if (lastPos < 0)
-                lastPos = _ns.GetLength();
+                lastPos = this._ns.GetLength();
 
-            List<ManagedRange> mrs = ManagedRangesInRange(firstPos, lastPos);
+            List<ManagedRange> mrs = this.ManagedRangesInRange(firstPos, lastPos);
 
 
             g.SmoothingMode = SmoothingMode.AntiAlias;
@@ -1423,25 +1426,25 @@ namespace ARCed.Scintilla
 
         public int PointXFromPosition(int position)
         {
-            return _ns.PointXFromPosition(position);
+            return this._ns.PointXFromPosition(position);
         }
 
 
         public int PointYFromPosition(int position)
         {
-            return _ns.PointYFromPosition(position);
+            return this._ns.PointYFromPosition(position);
         }
 
 
         public int PositionFromPoint(int x, int y)
         {
-            return _ns.PositionFromPoint(x, y);
+            return this._ns.PositionFromPoint(x, y);
         }
 
 
         public int PositionFromPointClose(int x, int y)
         {
-            return _ns.PositionFromPointClose(x, y);
+            return this._ns.PositionFromPointClose(x, y);
         }
 
 
@@ -1451,7 +1454,7 @@ namespace ARCed.Scintilla
         public bool PositionIsOnComment(int position)
         {
             //this.Colorize(0, -1);
-            return PositionIsOnComment(position, _lexing.Lexer);
+            return this.PositionIsOnComment(position, this._lexing.Lexer);
         }
 
 
@@ -1460,7 +1463,7 @@ namespace ARCed.Scintilla
         /// </summary>
         public bool PositionIsOnComment(int position, Lexer lexer)
         {
-            int style = _styles.GetStyleAt(position);
+            int style = this._styles.GetStyleAt(position);
             if ((lexer == Lexer.Python || lexer == Lexer.Lisp)
                 && (style == 1
                 || style == 12))
@@ -1618,7 +1621,7 @@ namespace ARCed.Scintilla
         {
             //	For some reason IsInputKey isn't working for
             //	Key.Enter. This seems to make it work as expected
-            if ((int)m.WParam == (int)Keys.Enter && !AcceptsReturn)
+            if ((int)m.WParam == (int)Keys.Enter && !this.AcceptsReturn)
             {
                 return true;
             }
@@ -1631,13 +1634,13 @@ namespace ARCed.Scintilla
 
         private void ResetCaption()
         {
-            Caption = GetType().FullName;
+            this.Caption = GetType().FullName;
         }
 
 
         private void ResetMargins()
         {
-            _margins.Reset();
+            this._margins.Reset();
         }
 
 
@@ -1646,13 +1649,13 @@ namespace ARCed.Scintilla
             // One of the core appearance properties has changed. When this happens
             // we restyle the document (overriding any existing styling) in the core
             // appearance properties. This behavior is consistent with the RichTextBox.
-            NativeInterface.StartStyling(0, 0x7F);
-            NativeInterface.SetStyling(NativeInterface.GetLength(), 0);
-            Styles[0].Reset();
-            Styles[0].Font = Font;
-            Styles[0].ForeColor = ForeColor;
-            Styles[0].BackColor = BackColor;
-            Styles.Default.BackColor = BackColor;
+            this.NativeInterface.StartStyling(0, 0x7F);
+            this.NativeInterface.SetStyling(this.NativeInterface.GetLength(), 0);
+            this.Styles[0].Reset();
+            this.Styles[0].Font = Font;
+            this.Styles[0].ForeColor = this.ForeColor;
+            this.Styles[0].BackColor = this.BackColor;
+            this.Styles.Default.BackColor = this.BackColor;
         }
 
 
@@ -1663,12 +1666,12 @@ namespace ARCed.Scintilla
         {
             int match = this.CharAt(position);
             int toMatch = 0;
-            int length = TextLength;
+            int length = this.TextLength;
             int ch;
             int sub = 0;
-            Lexer lexer = _lexing.Lexer;
-            _lexing.Colorize(0, -1);
-            bool comment = PositionIsOnComment(position, lexer);
+            Lexer lexer = this._lexing.Lexer;
+            this._lexing.Colorize(0, -1);
+            bool comment = this.PositionIsOnComment(position, lexer);
             switch (match)
             {
                 case '{':
@@ -1696,12 +1699,12 @@ namespace ARCed.Scintilla
             while (position >= 0)
             {
                 position--;
-                ch = CharAt(position);
+                ch = this.CharAt(position);
                 if (ch == match)
                 {
-                    if (comment == PositionIsOnComment(position, lexer)) sub++;
+                    if (comment == this.PositionIsOnComment(position, lexer)) sub++;
                 }
-                else if (ch == toMatch && comment == PositionIsOnComment(position, lexer))
+                else if (ch == toMatch && comment == this.PositionIsOnComment(position, lexer))
                 {
                     sub--;
                     if (sub < 0) return position;
@@ -1713,12 +1716,12 @@ namespace ARCed.Scintilla
             while (position < length)
             {
                 position++;
-                ch = CharAt(position);
+                ch = this.CharAt(position);
                 if (ch == match)
                 {
-                    if (comment == PositionIsOnComment(position, lexer)) sub++;
+                    if (comment == this.PositionIsOnComment(position, lexer)) sub++;
                 }
-                else if (ch == toMatch && comment == PositionIsOnComment(position, lexer))
+                else if (ch == toMatch && comment == this.PositionIsOnComment(position, lexer))
                 {
                     sub--;
                     if (sub < 0) return position;
@@ -1733,7 +1736,7 @@ namespace ARCed.Scintilla
             if ((scn.modificationType & NativeMethods.SC_MOD_CHANGEANNOTATION) == NativeMethods.SC_MOD_CHANGEANNOTATION)
             {
                 var acea = new AnnotationChangedEventArgs(scn.line, scn.annotationLinesAdded);
-                OnAnnotationChanged(acea);
+                this.OnAnnotationChanged(acea);
             }
         }
 
@@ -1765,157 +1768,157 @@ namespace ARCed.Scintilla
 
         private bool ShouldSerializeAnnotations()
         {
-            return _annotations != null && _annotations.ShouldSerialize();
+            return this._annotations != null && this._annotations.ShouldSerialize();
         }
 
 
         private bool ShouldSerializeAutoComplete()
         {
-            return _autoComplete.ShouldSerialize();
+            return this._autoComplete.ShouldSerialize();
         }
 
 
         private bool ShouldSerializeCallTip()
         {
-            return _callTip.ShouldSerialize();
+            return this._callTip.ShouldSerialize();
         }
 
 
         private bool ShouldSerializeCaption()
         {
-            return Caption != GetType().FullName;
+            return this.Caption != GetType().FullName;
         }
 
 
         private bool ShouldSerializeCaret()
         {
-            return _caret.ShouldSerialize();
+            return this._caret.ShouldSerialize();
         }
 
 
         private bool ShouldSerializeClipboard()
         {
-            return _clipboard.ShouldSerialize();
+            return this._clipboard.ShouldSerialize();
         }
 
 
         private bool ShouldSerializeCommands()
         {
-            return _commands.ShouldSerialize();
+            return this._commands.ShouldSerialize();
         }
 
 
         private bool ShouldSerializeConfigurationManager()
         {
-            return _configurationManager.ShouldSerialize();
+            return this._configurationManager.ShouldSerialize();
         }
 
 
         private bool ShouldSerializeDocumentNavigation()
         {
-            return _documentNavigation.ShouldSerialize();
+            return this._documentNavigation.ShouldSerialize();
         }
 
 
         private bool ShouldSerializeDropMarkers()
         {
-            return _dropMarkers.ShouldSerialize();
+            return this._dropMarkers.ShouldSerialize();
         }
 
 
         private bool ShouldSerializeEndOfLine()
         {
-            return _endOfLine.ShouldSerialize();
+            return this._endOfLine.ShouldSerialize();
         }
 
 
         private bool ShouldSerializeFindReplace()
         {
-            return _findReplace.ShouldSerialize();
+            return this._findReplace.ShouldSerialize();
         }
 
 
         private bool ShouldSerializeFolding()
         {
-            return _folding.ShouldSerialize();
+            return this._folding.ShouldSerialize();
         }
 
 
         private bool ShouldSerializeHotspotStyle()
         {
-            return _hotspotStyle.ShouldSerialize();
+            return this._hotspotStyle.ShouldSerialize();
         }
 
 
         private bool ShouldSerializeIndentation()
         {
-            return _indentation.ShouldSerialize();
+            return this._indentation.ShouldSerialize();
         }
 
 
         private bool ShouldSerializeLexing()
         {
-            return _lexing.ShouldSerialize();
+            return this._lexing.ShouldSerialize();
         }
 
 
         private bool ShouldSerializeLineWrapping()
         {
-            return LineWrapping.ShouldSerialize();
+            return this.LineWrapping.ShouldSerialize();
         }
 
 
         private bool ShouldSerializeLongLines()
         {
-            return _longLines.ShouldSerialize();
+            return this._longLines.ShouldSerialize();
         }
 
 
         private bool ShouldSerializeMargins()
         {
-            return _margins.ShouldSerialize();
+            return this._margins.ShouldSerialize();
         }
 
 
         private bool ShouldSerializeMarkers()
         {
-            return _markers.ShouldSerialize();
+            return this._markers.ShouldSerialize();
         }
 
 
         private bool ShouldSerializePrinting()
         {
-            return _printing.ShouldSerialize();
+            return this._printing.ShouldSerialize();
         }
 
 
         private bool ShouldSerializeScrolling()
         {
-            return _scrolling.ShouldSerialize();
+            return this._scrolling.ShouldSerialize();
         }
 
 
         private bool ShouldSerializeSelection()
         {
-            return _selection.ShouldSerialize();
+            return this._selection.ShouldSerialize();
         }
 
 
         private bool ShouldSerializeSnippets()
         {
-            return _snippets.ShouldSerialize();
+            return this._snippets.ShouldSerialize();
         }
 
 
         private bool ShouldSerializeStyles()
         {
-            return _styles.ShouldSerialize();
+            return this._styles.ShouldSerialize();
         }
 
 
         public bool ShouldSerializeUndoRedo()
         {
-            return _undoRedo.ShouldSerialize();
+            return this._undoRedo.ShouldSerialize();
         }
 
 
@@ -1948,7 +1951,7 @@ namespace ARCed.Scintilla
             switch (scnOld.nmhdr.code)
             {
                 case Constants.SCN_AUTOCSELECTION:
-                    FireAutoCSelection(nsea);
+                    this.FireAutoCSelection(nsea);
                     break;
 
                 case Constants.SCN_CALLTIPCLICK:
@@ -1956,47 +1959,47 @@ namespace ARCed.Scintilla
                     break;
 
                 case Constants.SCN_CHARADDED:
-                    FireCharAdded(nsea);
+                    this.FireCharAdded(nsea);
                     break;
 
                 case Constants.SCN_DOUBLECLICK:
-                    FireDoubleClick(nsea);
+                    this.FireDoubleClick(nsea);
                     break;
 
                 case Constants.SCN_DWELLEND:
-                    FireDwellEnd(nsea);
+                    this.FireDwellEnd(nsea);
                     break;
 
                 case Constants.SCN_DWELLSTART:
-                    FireDwellStart(nsea);
+                    this.FireDwellStart(nsea);
                     break;
 
                 case NativeMethods.SCN_HOTSPOTCLICK:
-                    OnHotspotClick(new HotspotClickEventArgs(scn.position));
+                    this.OnHotspotClick(new HotspotClickEventArgs(scn.position));
                     break;
 
                 case NativeMethods.SCN_HOTSPOTDOUBLECLICK:
-                    OnHotspotDoubleClick(new HotspotClickEventArgs(scn.position));
+                    this.OnHotspotDoubleClick(new HotspotClickEventArgs(scn.position));
                     break;
 
                 case NativeMethods.SCN_HOTSPOTRELEASECLICK:
-                    OnHotspotReleaseClick(new HotspotClickEventArgs(scn.position));
+                    this.OnHotspotReleaseClick(new HotspotClickEventArgs(scn.position));
                     break;
 
                 case Constants.SCN_INDICATORCLICK:
-                    FireIndicatorClick(nsea);
+                    this.FireIndicatorClick(nsea);
                     break;
 
                 case Constants.SCN_INDICATORRELEASE:
-                    FireIndicatorRelease(nsea);
+                    this.FireIndicatorRelease(nsea);
                     break;
 
                 case Constants.SCN_KEY:
-                    FireKey(nsea);
+                    this.FireKey(nsea);
                     break;
 
                 case Constants.SCN_MACRORECORD:
-                    FireMacroRecord(nsea);
+                    this.FireMacroRecord(nsea);
                     break;
 
                 case Constants.SCN_MARGINCLICK:
@@ -2004,48 +2007,48 @@ namespace ARCed.Scintilla
                     break;
 
                 case Constants.SCN_MODIFIED:
-                    ScnModified(ref scn);
-                    FireModified(nsea);
+                    this.ScnModified(ref scn);
+                    this.FireModified(nsea);
                     break;
 
                 case Constants.SCN_MODIFYATTEMPTRO:
-                    FireModifyAttemptRO(nsea);
+                    this.FireModifyAttemptRO(nsea);
                     break;
 
                 case Constants.SCN_NEEDSHOWN:
-                    FireNeedShown(nsea);
+                    this.FireNeedShown(nsea);
                     break;
 
                 case Constants.SCN_PAINTED:
-                    FirePainted(nsea);
+                    this.FirePainted(nsea);
                     break;
 
                 case Constants.SCN_SAVEPOINTLEFT:
-                    FireSavePointLeft(nsea);
+                    this.FireSavePointLeft(nsea);
                     break;
 
                 case Constants.SCN_SAVEPOINTREACHED:
-                    FireSavePointReached(nsea);
+                    this.FireSavePointReached(nsea);
                     break;
 
                 case Constants.SCN_STYLENEEDED:
-                    FireStyleNeeded(nsea);
+                    this.FireStyleNeeded(nsea);
                     break;
 
                 case Constants.SCN_UPDATEUI:
-                    FireUpdateUI(nsea);
+                    this.FireUpdateUI(nsea);
                     break;
 
                 case Constants.SCN_URIDROPPED:
-                    FireUriDropped(nsea);
+                    this.FireUriDropped(nsea);
                     break;
 
                 case Constants.SCN_USERLISTSELECTION:
-                    FireUserListSelection(nsea);
+                    this.FireUserListSelection(nsea);
                     break;
 
                 case Constants.SCN_ZOOM:
-                    FireZoom(nsea);
+                    this.FireZoom(nsea);
                     break;
             }
         }
@@ -2059,21 +2062,21 @@ namespace ARCed.Scintilla
             if (m.Msg == NativeMethods.WM_HSCROLL)
             {
                 so = ScrollOrientation.HorizontalScroll;
-                oldScroll = _ns.GetXOffset();
+                oldScroll = this._ns.GetXOffset();
 
                 //	Let Scintilla Handle the scroll Message to actually perform scrolling
                 base.WndProc(ref m);
-                newScroll = _ns.GetXOffset();
+                newScroll = this._ns.GetXOffset();
             }
             else
             {
                 so = ScrollOrientation.VerticalScroll;
-                oldScroll = _ns.GetFirstVisibleLine();
+                oldScroll = this._ns.GetFirstVisibleLine();
                 base.WndProc(ref m);
-                newScroll = _ns.GetFirstVisibleLine();
+                newScroll = this._ns.GetFirstVisibleLine();
             }
 
-            OnScroll(new ScrollEventArgs(set, oldScroll, newScroll, so));
+            this.OnScroll(new ScrollEventArgs(set, oldScroll, newScroll, so));
         }
 
 
@@ -2093,9 +2096,9 @@ namespace ARCed.Scintilla
                     // resources when this control is actually done with. Credit (blame :) goes to tom103 for figuring
                     // this one out.
 
-                    if (this.IsHandleCreated)
+                    if (IsHandleCreated)
                     {
-                        NativeMethods.SetParent(this.Handle, NativeMethods.HWND_MESSAGE);
+                        NativeMethods.SetParent(Handle, NativeMethods.HWND_MESSAGE);
                         return;
                     }
 
@@ -2111,7 +2114,7 @@ namespace ARCed.Scintilla
                     // over by Scintilla. This technique I use below seems to work perfectly.
 
                     base.WndProc(ref m);
-                    if (_isCustomPaintingEnabled)
+                    if (this._isCustomPaintingEnabled)
                     {
                         RECT r;
                         if (!NativeMethods.GetUpdateRect(Handle, out r, false))
@@ -2120,12 +2123,12 @@ namespace ARCed.Scintilla
                         Graphics g = CreateGraphics();
                         g.SetClip(r);
 
-                        OnPaint(new PaintEventArgs(CreateGraphics(), r));
+                        this.OnPaint(new PaintEventArgs(CreateGraphics(), r));
                     }
                     break;
 
                 case NativeMethods.WM_DROPFILES:
-                    HandleFileDrop(m.WParam);
+                    this.HandleFileDrop(m.WParam);
                     break;
 
                 case NativeMethods.WM_SETCURSOR:
@@ -2133,32 +2136,32 @@ namespace ARCed.Scintilla
                     break;
 
                 case NativeMethods.WM_GETTEXT:
-                    m.WParam = (IntPtr)(Caption.Length + 1);
-                    Marshal.Copy(Caption.ToCharArray(), 0, m.LParam, Caption.Length);
-                    m.Result = (IntPtr)Caption.Length;
+                    m.WParam = (IntPtr)(this.Caption.Length + 1);
+                    Marshal.Copy(this.Caption.ToCharArray(), 0, m.LParam, this.Caption.Length);
+                    m.Result = (IntPtr)this.Caption.Length;
                     break;
 
                 case NativeMethods.WM_GETTEXTLENGTH:
-                    m.Result = (IntPtr)Caption.Length;
+                    m.Result = (IntPtr)this.Caption.Length;
                     break;
 
                 case NativeMethods.WM_REFLECT + NativeMethods.WM_NOTIFY:
-                    WmReflectNotify(ref m);
+                    this.WmReflectNotify(ref m);
                     break;
 
                 case NativeMethods.WM_REFLECT + NativeMethods.WM_COMMAND:
-                    WmReflectCommand(ref m);
+                    this.WmReflectCommand(ref m);
                     break;
 
                 case NativeMethods.WM_HSCROLL:
                 case NativeMethods.WM_VSCROLL:
-                    WmScroll(ref m);
+                    this.WmScroll(ref m);
                     break;
 
                 default:
                     if (m.Msg >= 10000) // TODO Remove "magic number"
                     {
-                        _commands.Execute((BindableCommand)m.Msg);
+                        this._commands.Execute((BindableCommand)m.Msg);
                         return;
                     }
 
@@ -2170,13 +2173,13 @@ namespace ARCed.Scintilla
 
         public void ZoomIn()
         {
-            _ns.ZoomIn();
+            this._ns.ZoomIn();
         }
 
 
         private void ZoomOut()
         {
-            _ns.ZoomOut();
+            this._ns.ZoomOut();
         }
 
         #endregion Methods
@@ -2196,8 +2199,8 @@ namespace ARCed.Scintilla
         [Description("Indicates if return characters are accepted as text input.")]
         public bool AcceptsReturn
         {
-            get { return _state[_acceptsReturnState]; }
-            set { _state[_acceptsReturnState] = value; }
+            get { return this._state[_acceptsReturnState]; }
+            set { this._state[_acceptsReturnState] = value; }
         }
 
 
@@ -2213,8 +2216,8 @@ namespace ARCed.Scintilla
         [Description("Indicates if tab characters are accepted as text input.")]
         public bool AcceptsTab
         {
-            get { return _state[_acceptsTabState]; }
-            set { _state[_acceptsTabState] = value; }
+            get { return this._state[_acceptsTabState]; }
+            set { this._state[_acceptsTabState] = value; }
         }
 
 
@@ -2225,12 +2228,12 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _allowDrop;
+                return this._allowDrop;
             }
             set
             {
                 NativeMethods.DragAcceptFiles(Handle, value);
-                _allowDrop = value;
+                this._allowDrop = value;
             }
         }
 
@@ -2248,10 +2251,10 @@ namespace ARCed.Scintilla
         {
             get
             {
-                if (_annotations == null)
-                    _annotations = CreateAnnotationsInstance();
+                if (this._annotations == null)
+                    this._annotations = this.CreateAnnotationsInstance();
 
-                return _annotations;
+                return this._annotations;
             }
         }
 
@@ -2264,7 +2267,7 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _autoComplete;
+                return this._autoComplete;
             }
         }
 
@@ -2323,21 +2326,21 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _borderStyle;
+                return this._borderStyle;
             }
             set
             {
                 if (!Enum.IsDefined(typeof(BorderStyle), value))
                     throw new InvalidEnumArgumentException("value", (int)value, typeof(BorderStyle));
 
-                if (value != _borderStyle)
+                if (value != this._borderStyle)
                 {
-                    _borderStyle = value;
+                    this._borderStyle = value;
 
                     // This will cause the CreateParams to be reapplied
                     UpdateStyles();
 
-                    OnBorderStyleChanged(EventArgs.Empty);
+                    this.OnBorderStyleChanged(EventArgs.Empty);
                 }
             }
         }
@@ -2351,11 +2354,11 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _callTip;
+                return this._callTip;
             }
             set
             {
-                _callTip = value;
+                this._callTip = value;
             }
         }
 
@@ -2367,12 +2370,12 @@ namespace ARCed.Scintilla
         [Description("Win32 Window Caption")]
         public string Caption
         {
-            get { return _caption; }
+            get { return this._caption; }
             set
             {
-                if (_caption != value)
+                if (this._caption != value)
                 {
-                    _caption = value;
+                    this._caption = value;
 
                     //	Triggers a new WM_GETTEXT query
                     base.Text = value;
@@ -2390,7 +2393,7 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _caret;
+                return this._caret;
             }
         }
 
@@ -2406,12 +2409,12 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _clipboard;
+                return this._clipboard;
             }
         }
 
 
-        internal Dictionary<string, Color> ColorBag { get { return _colorBag; } }
+        internal Dictionary<string, Color> ColorBag { get { return this._colorBag; } }
 
 
         /// <summary>
@@ -2422,11 +2425,11 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _commands;
+                return this._commands;
             }
             set
             {
-                _commands = value;
+                this._commands = value;
             }
         }
 
@@ -2439,11 +2442,11 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _configurationManager;
+                return this._configurationManager;
             }
             set
             {
-                _configurationManager = value;
+                this._configurationManager = value;
             }
         }
 
@@ -2474,7 +2477,7 @@ namespace ARCed.Scintilla
 
                 // Set the window style or extended style
                 // to the appropriate border type.
-                switch (_borderStyle)
+                switch (this._borderStyle)
                 {
                     case BorderStyle.Fixed3D:
                         cp.ExStyle |= NativeMethods.WS_EX_CLIENTEDGE;
@@ -2506,11 +2509,11 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return NativeInterface.GetCurrentPos();
+                return this.NativeInterface.GetCurrentPos();
             }
             set
             {
-                NativeInterface.GotoPos(value);
+                this.NativeInterface.GotoPos(value);
             }
         }
 
@@ -2546,11 +2549,11 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _documentHandler;
+                return this._documentHandler;
             }
             set
             {
-                _documentHandler = value;
+                this._documentHandler = value;
             }
         }
 
@@ -2563,11 +2566,11 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _documentNavigation;
+                return this._documentNavigation;
             }
             set
             {
-                _documentNavigation = value;
+                this._documentNavigation = value;
             }
         }
 
@@ -2580,7 +2583,7 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _dropMarkers;
+                return this._dropMarkers;
             }
         }
 
@@ -2593,7 +2596,7 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _encoding;
+                return this._encoding;
             }
             set
             {
@@ -2602,8 +2605,8 @@ namespace ARCed.Scintilla
                 if (!ValidCodePages.Contains(value))
                     throw new EncoderFallbackException("Scintilla only supports the following Encodings: " + ValidCodePages);
 
-                _encoding = value;
-                _ns.SetCodePage(_encoding.CodePage);
+                this._encoding = value;
+                this._ns.SetCodePage(this._encoding.CodePage);
             }
         }
 
@@ -2616,11 +2619,11 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _endOfLine;
+                return this._endOfLine;
             }
             set
             {
-                _endOfLine = value;
+                this._endOfLine = value;
             }
         }
 
@@ -2630,11 +2633,11 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _findReplace;
+                return this._findReplace;
             }
             set
             {
-                _findReplace = value;
+                this._findReplace = value;
             }
         }
 
@@ -2644,11 +2647,11 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _folding;
+                return this._folding;
             }
             set
             {
-                _folding = value;
+                this._folding = value;
             }
         }
 
@@ -2689,11 +2692,11 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _goto;
+                return this._goto;
             }
             set
             {
-                _goto = value;
+                this._goto = value;
             }
         }
 
@@ -2702,11 +2705,11 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _helpers;
+                return this._helpers;
             }
             set
             {
-                _helpers = value;
+                this._helpers = value;
             }
         }
 
@@ -2716,11 +2719,11 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _hotspotStyle;
+                return this._hotspotStyle;
             }
             set
             {
-                _hotspotStyle = value;
+                this._hotspotStyle = value;
             }
         }
 
@@ -2730,11 +2733,11 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _indentation;
+                return this._indentation;
             }
             set
             {
-                _indentation = value;
+                this._indentation = value;
             }
         }
 
@@ -2742,15 +2745,15 @@ namespace ARCed.Scintilla
         [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public IndicatorCollection Indicators
         {
-            get { return _indicators; }
+            get { return this._indicators; }
         }
 
 
         [DefaultValue(false), Category("Behavior")]
         public bool IsBraceMatching
         {
-            get { return _isBraceMatching; }
-            set { _isBraceMatching = value; }
+            get { return this._isBraceMatching; }
+            set { this._isBraceMatching = value; }
         }
 
 
@@ -2759,11 +2762,11 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _isCustomPaintingEnabled;
+                return this._isCustomPaintingEnabled;
             }
             set
             {
-                _isCustomPaintingEnabled = value;
+                this._isCustomPaintingEnabled = value;
             }
         }
 
@@ -2782,11 +2785,11 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _isInitializing;
+                return this._isInitializing;
             }
             set
             {
-                _isInitializing = value;
+                this._isInitializing = value;
             }
         }
 
@@ -2796,12 +2799,12 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _ns.GetReadOnly();
+                return this._ns.GetReadOnly();
 
             }
             set
             {
-                _ns.SetReadOnly(value);
+                this._ns.SetReadOnly(value);
             }
         }
 
@@ -2824,14 +2827,14 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return (LayoutCacheMode)DirectMessage(NativeMethods.SCI_GETLAYOUTCACHE, IntPtr.Zero, IntPtr.Zero);
+                return (LayoutCacheMode)this.DirectMessage(NativeMethods.SCI_GETLAYOUTCACHE, IntPtr.Zero, IntPtr.Zero);
             }
             set
             {
                 if (!Enum.IsDefined(typeof(LayoutCacheMode), value))
                     throw new InvalidEnumArgumentException("value", (int)value, typeof(LayoutCacheMode));
 
-                DirectMessage(NativeMethods.SCI_SETLAYOUTCACHE, new IntPtr((int)value), IntPtr.Zero);
+                this.DirectMessage(NativeMethods.SCI_SETLAYOUTCACHE, new IntPtr((int)value), IntPtr.Zero);
             }
         }
 
@@ -2841,11 +2844,11 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _lexing;
+                return this._lexing;
             }
             set
             {
-                _lexing = value;
+                this._lexing = value;
             }
         }
 
@@ -2856,7 +2859,7 @@ namespace ARCed.Scintilla
             get
             {
 
-                return _lines;
+                return this._lines;
             }
         }
 
@@ -2872,10 +2875,10 @@ namespace ARCed.Scintilla
         {
             get
             {
-                if (_lineWrapping == null)
-                    _lineWrapping = CreateLineWrappingInstance();
+                if (this._lineWrapping == null)
+                    this._lineWrapping = this.CreateLineWrappingInstance();
 
-                return _lineWrapping;
+                return this._lineWrapping;
             }
         }
 
@@ -2885,11 +2888,11 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _longLines;
+                return this._longLines;
             }
             set
             {
-                _longLines = value;
+                this._longLines = value;
             }
         }
 
@@ -2897,7 +2900,7 @@ namespace ARCed.Scintilla
         [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public List<ManagedRange> ManagedRanges
         {
-            get { return _managedRanges; }
+            get { return this._managedRanges; }
         }
 
 
@@ -2906,7 +2909,7 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _margins;
+                return this._margins;
             }
         }
 
@@ -2920,11 +2923,11 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _markers;
+                return this._markers;
             }
             set
             {
-                _markers = value;
+                this._markers = value;
             }
         }
 
@@ -2934,15 +2937,15 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _matchBraces;
+                return this._matchBraces;
             }
             set
             {
-                _matchBraces = value;
+                this._matchBraces = value;
 
                 //	Clear any active Brace matching that may exist
                 if (!value)
-                    _ns.BraceHighlight(-1, -1);
+                    this._ns.BraceHighlight(-1, -1);
             }
         }
 
@@ -2958,17 +2961,17 @@ namespace ARCed.Scintilla
         [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public bool Modified
         {
-            get { return _state[_modifiedState]; }
+            get { return this._state[_modifiedState]; }
             set
             {
-                if (_state[_modifiedState] != value)
+                if (this._state[_modifiedState] != value)
                 {
                     // Update the local (and native) state
-                    _state[_modifiedState] = value;
+                    this._state[_modifiedState] = value;
                     if (!value)
-                        _ns.SetSavePoint();
+                        this._ns.SetSavePoint();
 
-                    OnModifiedChanged(EventArgs.Empty);
+                    this.OnModifiedChanged(EventArgs.Empty);
                 }
             }
         }
@@ -2979,11 +2982,11 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return NativeInterface.GetMouseDownCaptures();
+                return this.NativeInterface.GetMouseDownCaptures();
             }
             set
             {
-                NativeInterface.SetMouseDownCaptures(value);
+                this.NativeInterface.SetMouseDownCaptures(value);
             }
         }
 
@@ -3003,11 +3006,11 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _ns.GetOvertype();
+                return this._ns.GetOvertype();
             }
             set
             {
-                _ns.SetOvertype(value);
+                this._ns.SetOvertype(value);
             }
         }
 
@@ -3024,12 +3027,12 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return DirectMessage(NativeMethods.SCI_GETPOSITIONCACHE, IntPtr.Zero, IntPtr.Zero).ToInt32();
+                return this.DirectMessage(NativeMethods.SCI_GETPOSITIONCACHE, IntPtr.Zero, IntPtr.Zero).ToInt32();
             }
             set
             {
                 // TODO Some range checking? Scintilla provides no guidance
-                DirectMessage(NativeMethods.SCI_SETPOSITIONCACHE, new IntPtr(value), IntPtr.Zero);
+                this.DirectMessage(NativeMethods.SCI_SETPOSITIONCACHE, new IntPtr(value), IntPtr.Zero);
             }
         }
 
@@ -3039,16 +3042,16 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _printing;
+                return this._printing;
             }
             set
             {
-                _printing = value;
+                this._printing = value;
             }
         }
 
 
-        internal Hashtable PropertyBag { get { return _propertyBag; } }
+        internal Hashtable PropertyBag { get { return this._propertyBag; } }
 
 
         [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
@@ -3056,7 +3059,7 @@ namespace ARCed.Scintilla
         {
             get
             {
-                int length = NativeInterface.GetTextLength() + 1;
+                int length = this.NativeInterface.GetTextLength() + 1;
 
                 //	May as well avoid all the crap below if we know what the outcome
                 //	is going to be :)
@@ -3073,7 +3076,7 @@ namespace ARCed.Scintilla
                 //  Scintilla will fill the buffer with string data.
                 fixed (byte* bp = buffer)
                 {
-                    _ns.SendMessageDirect(Constants.SCI_GETTEXT, (IntPtr)length, (IntPtr)bp);
+                    this._ns.SendMessageDirect(Constants.SCI_GETTEXT, (IntPtr)length, (IntPtr)bp);
                     return buffer;
                 }
             }
@@ -3081,7 +3084,7 @@ namespace ARCed.Scintilla
             {
                 if (value == null || value.Length == 0)
                 {
-                    _ns.ClearAll();
+                    this._ns.ClearAll();
                 }
                 else
                 {
@@ -3095,7 +3098,7 @@ namespace ARCed.Scintilla
                         value[value.Length - 1] = 0;
                     }
                     fixed (byte* bp = value)
-                        _ns.SendMessageDirect(Constants.SCI_SETTEXT, IntPtr.Zero, (IntPtr)bp);
+                        this._ns.SendMessageDirect(Constants.SCI_SETTEXT, IntPtr.Zero, (IntPtr)bp);
                 }
             }
         }
@@ -3106,11 +3109,11 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _scrolling;
+                return this._scrolling;
             }
             set
             {
-                _scrolling = value;
+                this._scrolling = value;
             }
         }
 
@@ -3121,11 +3124,11 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _searchFlags;
+                return this._searchFlags;
             }
             set
             {
-                _searchFlags = value;
+                this._searchFlags = value;
             }
         }
 
@@ -3135,7 +3138,7 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _selection;
+                return this._selection;
             }
         }
 
@@ -3145,7 +3148,7 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _snippets;
+                return this._snippets;
             }
         }
 
@@ -3155,11 +3158,11 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _styles;
+                return this._styles;
             }
             set
             {
-                _styles = value;
+                this._styles = value;
             }
         }
 
@@ -3177,11 +3180,11 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _supressControlCharacters;
+                return this._supressControlCharacters;
             }
             set
             {
-                _supressControlCharacters = value;
+                this._supressControlCharacters = value;
             }
         }
 
@@ -3196,16 +3199,16 @@ namespace ARCed.Scintilla
             get
             {
                 string s;
-                _ns.GetText(_ns.GetLength() + 1, out s);
+                this._ns.GetText(this._ns.GetLength() + 1, out s);
                 return s;
             }
 
             set
             {
                 if (string.IsNullOrEmpty(value))
-                    _ns.ClearAll();
+                    this._ns.ClearAll();
                 else
-                    _ns.SetText(value);
+                    this._ns.SetText(value);
             }
         }
 
@@ -3219,7 +3222,7 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return NativeInterface.GetTextLength();
+                return this.NativeInterface.GetTextLength();
             }
         }
 
@@ -3229,7 +3232,7 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _undoRedo;
+                return this._undoRedo;
             }
         }
 
@@ -3245,9 +3248,9 @@ namespace ARCed.Scintilla
                 base.UseWaitCursor = value;
 
                 if (value)
-                    NativeInterface.SetCursor(Constants.SC_CURSORWAIT);
+                    this.NativeInterface.SetCursor(Constants.SC_CURSORWAIT);
                 else
-                    NativeInterface.SetCursor(Constants.SC_CURSORNORMAL);
+                    this.NativeInterface.SetCursor(Constants.SC_CURSORNORMAL);
             }
         }
 
@@ -3260,7 +3263,7 @@ namespace ARCed.Scintilla
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         public Whitespace Whitespace
         {
-            get { return _whitespace; }
+            get { return this._whitespace; }
         }
 
 
@@ -3274,11 +3277,11 @@ namespace ARCed.Scintilla
         {
             get
             {
-                return _ns.GetZoom();
+                return this._ns.GetZoom();
             }
             set
             {
-                _ns.SetZoom(value);
+                this._ns.SetZoom(value);
             }
         }
 
@@ -3662,76 +3665,76 @@ namespace ARCed.Scintilla
             this._state[_acceptsReturnState] = true;
             this._state[_acceptsTabState] = true;
 
-            _ns = this;
+            this._ns = this;
 
-            _caption = GetType().FullName;
+            this._caption = GetType().FullName;
 
             // Set up default encoding to UTF-8 which is the Scintilla's best supported.
             // .NET strings are UTF-16 but should be able to convert without any problems
             this.Encoding = Encoding.UTF8;
 
             // Ensure all style values have at least defaults
-            _ns.StyleClearAll();
+            this._ns.StyleClearAll();
 
-            _caret = new CaretInfo(this);
-            _lines = new LineCollection(this);
-            _selection = new Selection(this);
-            _indicators = new IndicatorCollection(this);
-            _snippets = new SnippetManager(this);
-            _margins = new MarginCollection(this);
-            _scrolling = new Scrolling(this);
-            _whitespace = new Whitespace(this);
-            _endOfLine = new EndOfLine(this);
-            _clipboard = new Clipboard(this);
-            _undoRedo = new UndoRedo(this);
-            _dropMarkers = new DropMarkers(this);
-            _hotspotStyle = new HotspotStyle(this);
-            _callTip = new CallTip(this);
-            _styles = new StyleCollection(this);
-            _indentation = new Indentation(this);
-            _markers = new MarkerCollection(this);
-            _autoComplete = new AutoComplete(this);
-            _documentHandler = new DocumentHandler(this);
-            _lexing = new Lexing(this);
-            _longLines = new LongLines(this);
-            _commands = new Commands(this);
-            _folding = new Folding(this);
-            _configurationManager = new ConfigurationManager(this);
-            _printing = new Printing(this);
-            _findReplace = new FindReplace(this);
-            _documentNavigation = new DocumentNavigation(this);
-            _goto = new GoTo(this);
+            this._caret = new CaretInfo(this);
+            this._lines = new LineCollection(this);
+            this._selection = new Selection(this);
+            this._indicators = new IndicatorCollection(this);
+            this._snippets = new SnippetManager(this);
+            this._margins = new MarginCollection(this);
+            this._scrolling = new Scrolling(this);
+            this._whitespace = new Whitespace(this);
+            this._endOfLine = new EndOfLine(this);
+            this._clipboard = new Clipboard(this);
+            this._undoRedo = new UndoRedo(this);
+            this._dropMarkers = new DropMarkers(this);
+            this._hotspotStyle = new HotspotStyle(this);
+            this._callTip = new CallTip(this);
+            this._styles = new StyleCollection(this);
+            this._indentation = new Indentation(this);
+            this._markers = new MarkerCollection(this);
+            this._autoComplete = new AutoComplete(this);
+            this._documentHandler = new DocumentHandler(this);
+            this._lexing = new Lexing(this);
+            this._longLines = new LongLines(this);
+            this._commands = new Commands(this);
+            this._folding = new Folding(this);
+            this._configurationManager = new ConfigurationManager(this);
+            this._printing = new Printing(this);
+            this._findReplace = new FindReplace(this);
+            this._documentNavigation = new DocumentNavigation(this);
+            this._goto = new GoTo(this);
 
 
-            _helpers.AddRange(new TopLevelHelper[]
+            this._helpers.AddRange(new TopLevelHelper[]
             {
-                _caret,
-                _lines,
-                _selection,
-                _indicators,
-                _snippets,
-                _margins,
-                _scrolling,
-                _whitespace,
-                _endOfLine,
-                _clipboard,
-                _undoRedo,
-                _dropMarkers,
-                _hotspotStyle,
-                _styles,
-                _indentation,
-                _markers,
-                _autoComplete,
-                _documentHandler,
-                _lexing,
-                _longLines,
-                _commands,
-                _folding,
-                _configurationManager,
-                _printing,
-                _findReplace,
-                _documentNavigation,
-                _goto
+                this._caret,
+                this._lines,
+                this._selection,
+                this._indicators,
+                this._snippets,
+                this._margins,
+                this._scrolling,
+                this._whitespace,
+                this._endOfLine,
+                this._clipboard,
+                this._undoRedo,
+                this._dropMarkers,
+                this._hotspotStyle,
+                this._styles,
+                this._indentation,
+                this._markers,
+                this._autoComplete,
+                this._documentHandler,
+                this._lexing,
+                this._longLines,
+                this._commands,
+                this._folding,
+                this._configurationManager,
+                this._printing,
+                this._findReplace,
+                this._documentNavigation,
+                this._goto
             });
 
 
@@ -3740,12 +3743,13 @@ namespace ARCed.Scintilla
             base.BackColor = SystemColors.Window;
             base.ForeColor = SystemColors.WindowText;
 
-            Styles[0].Font = Font;
-            Styles[0].ForeColor = ForeColor;
-            Styles[0].BackColor = BackColor;
-            Styles.Default.BackColor = BackColor;
+            this.Styles[0].Font = Font;
+            this.Styles[0].ForeColor = this.ForeColor;
+            this.Styles[0].BackColor = this.BackColor;
+            this.Styles.Default.BackColor = this.BackColor;
         }
 
         #endregion Constructors
     }
+    #pragma warning restore 612, 618
 }
