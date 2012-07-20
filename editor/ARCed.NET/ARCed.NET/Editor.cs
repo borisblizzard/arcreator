@@ -17,6 +17,7 @@ using ARCed.Database.Classes;
 using ARCed.Database.Enemies;
 using ARCed.Database.Items;
 using ARCed.Database.Skills;
+using ARCed.Database.States;
 using ARCed.Database.Tilesets;
 using ARCed.Database.Troops;
 using ARCed.Database.Weapons;
@@ -138,6 +139,7 @@ namespace ARCed
                 this.LoadProject(testPath);
 
             Console.WriteLine(File.Exists(testPath));
+			new StateMainForm().Show(MainDock);
             new AnimationMainForm().Show(MainDock);
             new TilesetsMainForm().Show(MainDock);
             //new Database.Troops.TroopMainForm().Show(Editor.MainDock);
@@ -668,7 +670,7 @@ namespace ARCed
 				case 5: window = Windows.DatabaseForm<ArmorMainForm>(); break;
 				case 6: window = Windows.DatabaseForm<EnemyMainForm>(); break;
 				case 7: window = Windows.DatabaseForm<TroopMainForm>(); break;
-				case 8: window = Windows.DatabaseForm<ActorMainForm>(); break;
+				case 8: window = Windows.DatabaseForm<StateMainForm>(); break;
 				case 9: window = Windows.DatabaseForm<ActorMainForm>(); break;
 				case 10: window = Windows.DatabaseForm<ActorMainForm>(); break;
 				case 11: window = Windows.DatabaseForm<ActorMainForm>(); break;
