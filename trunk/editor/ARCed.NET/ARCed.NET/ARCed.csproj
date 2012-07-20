@@ -203,6 +203,12 @@
     <Compile Include="Database\MapEditor\MapTilesetForm.Designer.cs">
       <DependentUpon>MapTilesetForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Database\States\StateMainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Database\States\StateMainForm.Designer.cs">
+      <DependentUpon>StateMainForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Database\Sys\SystemMainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -482,6 +488,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Database\MapEditor\MapTilesetForm.resx">
       <DependentUpon>MapTilesetForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Database\States\StateMainForm.resx">
+      <DependentUpon>StateMainForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Database\Tilesets\ImageColorsDialog.resx">
       <DependentUpon>ImageColorsDialog.cs</DependentUpon>
