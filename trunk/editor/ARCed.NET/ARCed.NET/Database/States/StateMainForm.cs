@@ -106,7 +106,7 @@ namespace ARCed.Database.States
 
 		#region Private Methods
 
-		private void dataObjectList_OnListBoxIndexChanged(object sender, EventArgs e)
+		private void DataObjectListIndexChanged(object sender, EventArgs e)
 		{
 			int index = this.dataObjectList.SelectedIndex;
 			if (index < 0) return;
@@ -230,6 +230,17 @@ namespace ARCed.Database.States
 				this._state.plus_state_set.Add(id);
 			if (e.ValueIndex == 2)
 				this._state.minus_state_set.Add(id);
+		}
+
+		private void CheckBoxFlagsCheckChanged(object sender, EventArgs e)
+		{
+			if (SuppressEvents) return;
+			var checkBox = sender as CheckBox;
+			if (checkBox != null)
+			{
+				string propertyName = checkBox.Tag.ToString();
+				typeof(State).GetProperty(propertyName).SetValue(this._state, checkBox.Checked, null);
+			}
 		}
 
 		private void NoteTextBoxNoteTextChanged(object sender, EventArgs e)
