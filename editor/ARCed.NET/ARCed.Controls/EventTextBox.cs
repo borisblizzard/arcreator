@@ -73,8 +73,6 @@ namespace ARCed.Controls
 				BindingFlags.NonPublic | BindingFlags.Instance);
 			if (info != null)
 				info.Invoke(this, new object[] { args });
-			else 
-				Console.WriteLine("Missing Method: {0}", methodName);
 			AppendText("\n");
 		}
 
@@ -204,7 +202,8 @@ namespace ARCed.Controls
 		/// <param name="args">Array of game event parameters</param>
 		private void Command111(dynamic args)
 		{
-			this.AppendText("@>Conditional Branch: ", Color.Blue);
+			this.AppendText("@>");
+			this.AppendText("Conditional Branch: ", Color.Blue);
 			string text = "";
 			int code = args[0];
 			switch (code)
@@ -918,7 +917,7 @@ namespace ARCed.Controls
 		{
 			AppendText("@>");
 			this.AppendText(String.Format("Screen Shake: {0}, {1}, @{2}",
-				args[0], args[1]), Color.YellowGreen);
+				args[0], args[1], args[2]), Color.YellowGreen);
 		}
 
 		/// <summary>
@@ -1703,20 +1702,37 @@ namespace ARCed.Controls
 
 	    #endregion
 
-		private void EventTextBox_Click(object sender, EventArgs e)
-		{
-
+		private void EventTextBoxClick(object sender, EventArgs e) 
+		{ 
+			this.HighlightCurrentLine();
 		}
 
-		private void EventTextBox_DoubleClick(object sender, EventArgs e)
+		private void EventTextBoxDoubleClick(object sender, EventArgs e)
 		{
 			var form = new EventBuilderMainForm();
 			form.ShowDialog();
 		}
 
-		private void EventTextBox_KeyDown(object sender, KeyEventArgs e)
+		private void EventTextBoxKeyDown(object sender, KeyEventArgs e)
 		{
 
+		}
+
+		private void HighlightCurrentLine()
+		{
+			// This is all kinda "meh". I need to implement a full-row highlight like a caret.
+			int lineNum = GetLineFromCharIndex(SelectionStart);
+			if (lineNum >= Lines.Length - 1)
+				return;
+			int indent = Lines[lineNum].Length - Lines[lineNum].TrimStart(' ').Length;
+			do
+			{
+				lineNum++;
+			}
+			while ((Lines[lineNum].Length - Lines[lineNum].TrimStart(' ').Length) > indent);
+			int end = GetFirstCharIndexFromLine(lineNum) - 1;
+			int start = GetFirstCharIndexOfCurrentLine();
+			Select(start, end - start);
 		}
 	}
 }
