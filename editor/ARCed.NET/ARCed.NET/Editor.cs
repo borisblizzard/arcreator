@@ -14,10 +14,12 @@ using ARCed.Database.Actors;
 using ARCed.Database.Animations;
 using ARCed.Database.Armors;
 using ARCed.Database.Classes;
+using ARCed.Database.CommonEvents;
 using ARCed.Database.Enemies;
 using ARCed.Database.Items;
 using ARCed.Database.Skills;
 using ARCed.Database.States;
+using ARCed.Database.Sys;
 using ARCed.Database.Tilesets;
 using ARCed.Database.Troops;
 using ARCed.Database.Weapons;
@@ -671,10 +673,10 @@ namespace ARCed
 				case 6: window = Windows.DatabaseForm<EnemyMainForm>(); break;
 				case 7: window = Windows.DatabaseForm<TroopMainForm>(); break;
 				case 8: window = Windows.DatabaseForm<StateMainForm>(); break;
-				case 9: window = Windows.DatabaseForm<ActorMainForm>(); break;
-				case 10: window = Windows.DatabaseForm<ActorMainForm>(); break;
-				case 11: window = Windows.DatabaseForm<ActorMainForm>(); break;
-				case 12: window = Windows.DatabaseForm<ActorMainForm>(); break;
+				case 9: window = Windows.DatabaseForm<AnimationMainForm>(); break;
+				case 10: window = Windows.DatabaseForm<TilesetsMainForm>(); break;
+				case 11: window = Windows.DatabaseForm<CommonEventMainForm>(); break;
+				case 12: window = Windows.DatabaseForm<SystemMainForm>(); break;
 			}
 			if (window != null)
 				window.Show(MainDock);

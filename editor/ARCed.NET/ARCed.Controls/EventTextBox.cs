@@ -67,7 +67,7 @@ namespace ARCed.Controls
 		/// <returns>Formatted string.</returns>
 		private void Translate(int code, int indent, dynamic args)
 		{
-			AppendText(new string('\t', indent));
+			AppendText(new string(' ', indent *  4));
 			string methodName = String.Format("Command{0}", code);
 			MethodInfo info = typeof(EventTextBox).GetMethod(methodName, 
 				BindingFlags.NonPublic | BindingFlags.Instance);

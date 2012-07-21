@@ -170,6 +170,12 @@
     <Compile Include="Database\Classes\EditSkillDialog.Designer.cs">
       <DependentUpon>EditSkillDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="Database\CommonEvents\CommonEventMainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Database\CommonEvents\CommonEventMainForm.Designer.cs">
+      <DependentUpon>CommonEventMainForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Database\DatabaseWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -476,6 +482,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Database\Classes\EditSkillDialog.resx">
       <DependentUpon>EditSkillDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Database\CommonEvents\CommonEventMainForm.resx">
+      <DependentUpon>CommonEventMainForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Database\Enemies\EditActionDialog.resx">
       <DependentUpon>EditActionDialog.cs</DependentUpon>

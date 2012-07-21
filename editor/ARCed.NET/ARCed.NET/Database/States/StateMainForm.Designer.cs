@@ -127,7 +127,7 @@
 			this.dataObjectList.Size = new System.Drawing.Size(193, 556);
 			this.dataObjectList.TabIndex = 0;
 			this.dataObjectList.TabStop = false;
-			this.dataObjectList.OnListBoxIndexChanged += new ARCed.Controls.DatabaseObjectListBox.ObjectListIndexChangedEventHandler(this.dataObjectList_OnListBoxIndexChanged);
+			this.dataObjectList.OnListBoxIndexChanged += new ARCed.Controls.DatabaseObjectListBox.ObjectListIndexChangedEventHandler(this.DataObjectListIndexChanged);
 			// 
 			// splitContainer1
 			// 
@@ -673,8 +673,10 @@
 			this.checkBoxSlipDamage.Name = "checkBoxSlipDamage";
 			this.checkBoxSlipDamage.Size = new System.Drawing.Size(86, 17);
 			this.checkBoxSlipDamage.TabIndex = 4;
+			this.checkBoxSlipDamage.Tag = "slip_damage";
 			this.checkBoxSlipDamage.Text = "Slip Damage";
 			this.checkBoxSlipDamage.UseVisualStyleBackColor = true;
+			this.checkBoxSlipDamage.CheckedChanged += new System.EventHandler(this.CheckBoxFlagsCheckChanged);
 			// 
 			// checkBoxNoEvade
 			// 
@@ -683,8 +685,10 @@
 			this.checkBoxNoEvade.Name = "checkBoxNoEvade";
 			this.checkBoxNoEvade.Size = new System.Drawing.Size(84, 17);
 			this.checkBoxNoEvade.TabIndex = 3;
+			this.checkBoxNoEvade.Tag = "cant_evade";
 			this.checkBoxNoEvade.Text = "Can\'t Evade";
 			this.checkBoxNoEvade.UseVisualStyleBackColor = true;
+			this.checkBoxNoEvade.CheckedChanged += new System.EventHandler(this.CheckBoxFlagsCheckChanged);
 			// 
 			// checkBoxNoExp
 			// 
@@ -693,8 +697,10 @@
 			this.checkBoxNoExp.Name = "checkBoxNoExp";
 			this.checkBoxNoExp.Size = new System.Drawing.Size(92, 17);
 			this.checkBoxNoExp.TabIndex = 2;
+			this.checkBoxNoExp.Tag = "cant_get_exp";
 			this.checkBoxNoExp.Text = "Can\'t get EXP";
 			this.checkBoxNoExp.UseVisualStyleBackColor = true;
+			this.checkBoxNoExp.CheckedChanged += new System.EventHandler(this.CheckBoxFlagsCheckChanged);
 			// 
 			// checkBoxRegardHp0
 			// 
@@ -703,8 +709,10 @@
 			this.checkBoxRegardHp0.Name = "checkBoxRegardHp0";
 			this.checkBoxRegardHp0.Size = new System.Drawing.Size(102, 17);
 			this.checkBoxRegardHp0.TabIndex = 1;
+			this.checkBoxRegardHp0.Tag = "zero_hp";
 			this.checkBoxRegardHp0.Text = "Regard as HP 0";
 			this.checkBoxRegardHp0.UseVisualStyleBackColor = true;
+			this.checkBoxRegardHp0.CheckedChanged += new System.EventHandler(this.CheckBoxFlagsCheckChanged);
 			// 
 			// checkBoxNonrestistance
 			// 
@@ -713,8 +721,10 @@
 			this.checkBoxNonrestistance.Name = "checkBoxNonrestistance";
 			this.checkBoxNonrestistance.Size = new System.Drawing.Size(94, 17);
 			this.checkBoxNonrestistance.TabIndex = 0;
+			this.checkBoxNonrestistance.Tag = "nonresistance";
 			this.checkBoxNonrestistance.Text = "Nonresistance";
 			this.checkBoxNonrestistance.UseVisualStyleBackColor = true;
+			this.checkBoxNonrestistance.CheckedChanged += new System.EventHandler(this.CheckBoxFlagsCheckChanged);
 			// 
 			// textBoxName
 			// 
