@@ -40,7 +40,6 @@ namespace ARCed.Helpers
                         _rpgTypes[type.ToString()] = type;
                     _rpgTypes.Add("Table", typeof(Table));
                     _rpgTypes.Add("Color", typeof(Color));
-                    //_rpgTypes.Add("Tone", typeof(RPG.Tone));
                 }
                 return _rpgTypes;
             }
@@ -54,8 +53,7 @@ namespace ARCed.Helpers
         /// <returns>Array of found types</returns>
         public static Type[] GetTypesInNamespace(Assembly assembly, string @namespace)
         {
-            return assembly.GetTypes().Where(t => 
-                String.Equals(t.Namespace, @namespace, StringComparison.Ordinal)).ToArray();
+            return assembly.GetTypes().Where(t => t.Namespace == @namespace).ToArray();
         }
 
         /// <summary>

@@ -1,6 +1,6 @@
 ﻿namespace ARCed.Controls
 {
-	partial class ImageSelectXnaPanel
+	partial class MapEditorXnaPanel
 	{
 		/// <summary> 
 		/// Required designer variable.
@@ -30,12 +30,11 @@
 		{
 			this.SuspendLayout();
 			// 
-			// ImageSelectXnaPanel
+			// MapEditorXnaPanel
 			// 
 			this.Name = "XnaPanel";
 			this.Size = new System.Drawing.Size(210, 188);
 			this.ResumeLayout(false);
-
 		}
 
 		#endregion

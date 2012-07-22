@@ -32,7 +32,12 @@ namespace RPG
         /// </summary>
         public List<dynamic> pages { get; set; }
 
-        /// <summary>
+		/// <summary>
+		/// Creates a new instance of an RPG.Event.
+		/// </summary>
+		public Event() : this(0, 0) { }
+
+	    /// <summary>
         /// Creates a new instance of an RPG.Event.
         /// </summary>
         /// <param name="x">The event's X-coordinate on the map.</param>
@@ -177,7 +182,7 @@ namespace RPG
                 /// <summary>
                 /// If the [Self Switch] condition is valid, the letter of that self switch ("A".."D").
                 /// </summary>
-				public char self_switch_ch { get; set; }
+				public string self_switch_ch { get; set; }
 
                 /// <summary>
                 /// Creates a new instance of an RPG.Event.Page.Condition.
@@ -192,7 +197,7 @@ namespace RPG
 					this.switch2_id = 1;
 					this.variable_id = 1;
 					this.variable_value = 0;
-					this.self_switch_ch = 'A';
+					this.self_switch_ch = "A";
 				}
 			}
 

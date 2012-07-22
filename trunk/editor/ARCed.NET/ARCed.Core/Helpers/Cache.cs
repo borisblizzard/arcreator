@@ -375,43 +375,6 @@ namespace ARCed.Helpers
 		}
 
 		/// <summary>
-		/// Retrieves the tile with ID of the specified tileset
-		/// </summary>
-		/// <param name="filename">The filename of the tileset</param>
-		/// <param name="tileId">The ID of the tile</param>
-		/// <param name="hue">Hue rotation to apply to graphic, with 360 degrees of displacment</param>
-		/// <param name="opacity">Opacity of the returned _srcTexture</param>
-		/// <returns>A 32x32 image</returns>
-		public static Image Tile(string filename, int tileId, int hue = 0, int opacity = 0)
-		{
-		    var tileset = Tileset(filename, hue, opacity);
-			var key = String.Format("Tile\\{0}, {1}, {2}", filename, tileId, opacity);
-			if (!_cache.ContainsKey(key))
-			{
-				_cache[key] = new Bitmap(32, 32);
-				var srcX = (tileId - 384) % 8 * 32;
-				var srcY = (tileId - 384) / 8 * 32;
-				var srcRect = new Rectangle(srcX, srcY, 32, 32);
-				var destRect = new Rectangle(0, 0, 32, 32);
-				using (var g = Graphics.FromImage(_cache[key]))
-					g.DrawImage(tileset, destRect, srcRect, GraphicsUnit.Pixel);
-				if (opacity != 255)
-				{
-					var opaqueBitmap = new Bitmap(_cache[key].Width, _cache[key].Height);
-					var imageAttr = new ImageAttributes();
-					var qm = new QColorMatrix();
-					qm.ScaleOpacity(opacity / 255.0f);
-					imageAttr.SetColorMatrix(qm.ToColorMatrix());
-					using (var g = Graphics.FromImage(opaqueBitmap))
-						g.DrawImage(_cache[key], destRect, 0, 0, _cache[key].Width,
-							_cache[key].Height, GraphicsUnit.Pixel, imageAttr);
-					_cache[key] = opaqueBitmap;
-				}
-			}
-			return _cache[key];
-		}
-
-		/// <summary>
 		/// Loads the basic autotile image and formats it into 48 separate tiles
 		/// </summary>
 		/// <param name="filename">The filename of the autotile</param>

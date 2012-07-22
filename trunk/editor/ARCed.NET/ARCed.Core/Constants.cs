@@ -89,6 +89,10 @@ namespace ARCed
         /// Number of terrains for a tileset
         /// </summary>
 		public const int TERRAINS = 8;
+		/// <summary>
+		/// Number of layers that maps contain.
+		/// </summary>
+	    public const int MAP_LAYERS = 3;
         /// <summary>
         /// Width and height of a animation source graphic frame
         /// </summary>

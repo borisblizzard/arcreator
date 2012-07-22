@@ -346,12 +346,28 @@ namespace ARCed
 		{
 			if (_mappedTypes.ContainsKey(classPath))
 				return _mappedTypes[classPath];
+
+
+			string[] nameArray = Regex.Split(classPath, "::");
+			foreach (string typeName in _assemblyTypes.Keys)
+			{
+				string[] typeArray = Regex.Split(typeName, @"[\+|\.]");
+				if (typeArray.SequenceEqual(nameArray))
+				{
+					_mappedTypes[classPath] = _assemblyTypes[typeName];
+					return _mappedTypes[classPath];
+				}
+			}
+
+
+			/*
 			var regex = new Regex(String.Join(@"[\+|\.]", Regex.Split(classPath, "::")));
 			foreach (string typeName in _assemblyTypes.Keys.Where(typeName => regex.Match(typeName).Success))
 			{
 			    _mappedTypes[classPath] = _assemblyTypes[typeName];
 			    return _mappedTypes[classPath];
 			}
+			*/
 			throw new TypeLoadException(String.Format("Type of \"{0}\" cannot be found in loaded assemblies.", classPath));
 		}
 
