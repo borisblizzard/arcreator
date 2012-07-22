@@ -17,6 +17,7 @@ using ARCed.Database.Classes;
 using ARCed.Database.CommonEvents;
 using ARCed.Database.Enemies;
 using ARCed.Database.Items;
+using ARCed.Database.MapEditor;
 using ARCed.Database.Skills;
 using ARCed.Database.States;
 using ARCed.Database.Sys;
@@ -140,7 +141,7 @@ namespace ARCed
             if (File.Exists(testPath))
                 this.LoadProject(testPath);
 
-            Console.WriteLine(File.Exists(testPath));
+			new MapEditorMainForm().Show(MainDock);
 			new StateMainForm().Show(MainDock);
             new AnimationMainForm().Show(MainDock);
             new TilesetsMainForm().Show(MainDock);

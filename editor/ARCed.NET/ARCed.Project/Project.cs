@@ -407,7 +407,7 @@ namespace ARCed
                 Data.CommonEvents = LoadArcData<List<dynamic>>(@"Data\CommonEvents.arc", map);
                 Data.System = LoadArcData<RPG.System>(@"Data\System.arc", map);
                 Data.Enemies = LoadArcData<List<dynamic>>(@"Data\Enemies.arc", map);
-                Data.Troops = LoadArcData<List<dynamic>>(@"Data\Troops.arc", map);
+	            Data.Troops = LoadArcData<List<dynamic>>(@"Data\Troops.arc", map);
 
                 return true;
             }

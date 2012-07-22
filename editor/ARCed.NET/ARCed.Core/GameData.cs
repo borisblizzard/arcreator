@@ -70,6 +70,6 @@ namespace ARCed
 		/// <summary>
 		/// Dictionary whose key is the map ID and value is an RPG.Map object.
 		/// </summary>
-		public Dictionary<int, dynamic> Maps { get; set; }
+		public Dictionary<int, RPG.Map> Maps { get; set; }
 	}
 }
