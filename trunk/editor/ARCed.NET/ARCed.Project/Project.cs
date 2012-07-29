@@ -395,6 +395,7 @@ namespace ARCed
             {
                 Data = new GameData();
                 TypeMap map = Util.RpgTypes;
+				Data.MapInfos = LoadArcData<Hash>(@"Data\MapInfos.arc", map);
 				Data.Tilesets = LoadArcData<List<dynamic>>(@"Data\Tilesets.arc", map);
                 Data.Items = LoadArcData<List<dynamic>>(@"Data\Items.arc", map);
                 //Data.Animations = LoadArcData<List<dynamic>>(@"Data\Animations.arc", map);

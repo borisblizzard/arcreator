@@ -109,6 +109,12 @@
     <Compile Include="AnimationXnaPanel.Designer.cs">
       <DependentUpon>AnimationXnaPanel.cs</DependentUpon>
     </Compile>
+    <Compile Include="TilesetSelectionPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TilesetSelectionPanel.Designer.cs">
+      <DependentUpon>TilesetSelectionPanel.cs</DependentUpon>
+    </Compile>
     <Compile Include="GraphicsDeviceControl.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -165,6 +171,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AnimationXnaPanel.resx">
       <DependentUpon>AnimationXnaPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TilesetSelectionPanel.resx">
+      <DependentUpon>TilesetSelectionPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ImageSelectXnaPanel.resx">
       <DependentUpon>ImageSelectXnaPanel.cs</DependentUpon>

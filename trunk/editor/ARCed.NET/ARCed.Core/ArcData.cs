@@ -16,7 +16,13 @@ namespace ARCed
 	/// <summary>
 	/// Wrapper for standard Dictionary with dynamic key-value pairs
 	/// </summary>
-	public class Hash : Dictionary<dynamic, dynamic> { }
+	public class Hash : Dictionary<dynamic, dynamic>
+	{
+		public dynamic GetKey(dynamic value)
+		{
+			return Keys.FirstOrDefault(key => value == this[key]);
+		}
+	}
 
 	/// <summary>
     /// Wrapper for a Dictionary containing name-type pairs

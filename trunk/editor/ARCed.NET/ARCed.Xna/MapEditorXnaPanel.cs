@@ -1,4 +1,6 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
 using ARCed.Helpers;
 using System.Linq;
 using Microsoft.Xna.Framework;
@@ -15,6 +17,10 @@ namespace ARCed.Controls
 	{
 		#region Private Fields
 
+		private Point _originPoint, _endPoint;
+
+		private bool _selectionEnabled, _selectionActive, _mouseDown;
+
 		private RPG.Map _map;
 		private RPG.MapInfo _mapInfo;
 		private static Color _backColor;
@@ -22,6 +28,9 @@ namespace ARCed.Controls
 		private Texture2D _srcTexture;
 		private Texture2D[][] _autotiles;
 		private RPG.Tileset _tileset;
+
+		private static readonly Dictionary<string, Texture2D[]> _autotileCache =
+			new Dictionary<string, Texture2D[]>();
 		private static readonly int[][] _autoindex = new[] { 
 			new[] { 27,28,33,34 },   new[] { 5,28,33,34 },   new[] { 27,6,33,34 },  
 			new[] { 5,6,33,34 },     new[] { 27,28,33,12 },  new[] { 5,28,33,12 },  
@@ -44,6 +53,33 @@ namespace ARCed.Controls
 		#endregion
 
 		#region Public Properties
+
+		/// <summary>
+		/// Gets the rectangle of the selector
+		/// </summary>
+		[Browsable(false)]
+		public Rectangle SelectionRectangle
+		{
+			get
+			{
+				int sx = Math.Min(_originPoint.X, _endPoint.X).RoundFloor(Constants.TILESIZE);
+				int ex = Math.Max(_originPoint.X, _endPoint.X).RoundCeil(Constants.TILESIZE);
+				int sy = Math.Min(_originPoint.Y, _endPoint.Y).RoundFloor(Constants.TILESIZE);
+				int ey = Math.Max(_originPoint.Y, _endPoint.Y).RoundCeil(Constants.TILESIZE);
+				return new Rectangle(Math.Max(0, sx), Math.Max(0, sy),
+					ex - sx + 1, ey - sy + 1);
+			}
+		}
+
+		/// <summary>
+		/// Gets or sets the ability to select regions on the control.
+		/// </summary>
+		[Browsable(false)]
+		public bool SelectionEnabled
+		{
+			get { return _selectionEnabled; }
+			set { _selectionEnabled = value; Invalidate(); }
+		}
 
 		/// <summary>
 		/// Gets the width of the map in pixels. 
@@ -108,6 +144,7 @@ namespace ARCed.Controls
 		/// </summary>
 		public MapEditorXnaPanel()
 		{
+			_selectionEnabled = true;
 			InitializeComponent();
 		}
 
@@ -123,10 +160,22 @@ namespace ARCed.Controls
 			_batch = new SpriteBatch(GraphicsDevice);
 			_autotiles = new Texture2D[Constants.AUTOTILES + 1][];
 			_backColor = Color.Black;
+			Disposed += MapEditorXnaPanelDisposed;
+			MouseDown += this.MapEditorXnaPanelMouseDown;
+			MouseMove += this.MapEditorXnaPanelMouseMove;
+			MouseUp += this.MapEditorXnaPanelMouseUp;
+			ResetPoints();
 		}
 
-		public Texture2D[] Autotile(string filename)
+		/// <summary>
+		/// Creates an internal texture used for blit operations from the autotile graphic.
+		/// </summary>
+		/// <param name="filename">Filename of the autotile graphic</param>
+		/// <returns>A 48 element array of <see cref="Texture2D"/> objects.</returns>
+		public Texture2D[] CreateAutotile(string filename)
 		{
+			const int w = Constants.TILESIZE;
+			const int hw = Constants.TILESIZE / 2;
 			var data = new Texture2D[48];
 			var autotile = Cache.Autotile(filename);
 			if (autotile == null)
@@ -148,19 +197,19 @@ namespace ARCed.Controls
 									num = number - 1;
 									x = 16 * (num % 6);
 									y = 16 * (num / 6);
-									srcRect = new SysRect(x + (frame * 96), y, 16, 16);
-									destRect = new SysRect(32 * j + x % 32, 32 * lvl + y % 32, 16, 16); // 16, 16?
+									srcRect = new SysRect(x + (frame * 96), y, hw, hw);
+									destRect = new SysRect(w * j + x % w, w * lvl + y % w, hw, hw); 
 									g.DrawImage(autotile, destRect, srcRect, System.Drawing.GraphicsUnit.Pixel);
 								}
 							}
 							index = 8 * lvl + j;
-							using (var b = new Bitmap(32, 32))
+							using (var b = new Bitmap(w, w))
 							{
-								sx = 32 * (index % 8);
-								sy = 32 * (index / 8);
-								srcRect = new SysRect(sx, sy, 32, 32);
+								sx = w * (index % 8);
+								sy = w * (index / 8);
+								srcRect = new SysRect(sx, sy, w, w);
 								using (var g = Graphics.FromImage(b))
-									g.DrawImage(template, new SysRect(0, 0, 32, 32), srcRect, System.Drawing.GraphicsUnit.Pixel);
+									g.DrawImage(template, new SysRect(0, 0, w, w), srcRect, System.Drawing.GraphicsUnit.Pixel);
 								data[index] = b.ToTexture(GraphicsDevice);
 							}
 						}
@@ -222,9 +271,79 @@ namespace ARCed.Controls
 				}
 			}
 			_batch.End();
+			if (SelectionEnabled && _originPoint != _endPoint)
+			{
+				_batch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
+				_batch.DrawSelectionRect(SelectionRectangle, Color.White, 2);
+				_batch.End();
+			}
 		}
 
 		#endregion
+
+		private void ResetPoints()
+		{
+			_originPoint = _endPoint = new Point(-1, -1);
+		}
+
+		#region Mouse Events
+
+		private void MapEditorXnaPanelMouseUp(object sender, System.Windows.Forms.MouseEventArgs e)
+		{
+			_mouseDown = false;
+			_selectionActive = false;
+		}
+
+		private void MapEditorXnaPanelMouseDown(object sender, System.Windows.Forms.MouseEventArgs e)
+		{
+			_mouseDown = true;
+			ResetPoints();
+			if (SelectionEnabled)
+			{
+				_originPoint.X = _endPoint.X = e.X;
+				_originPoint.Y = _endPoint.Y = e.Y;
+				_selectionActive = true;
+				Invalidate();
+			}
+			/*
+			else if (!this.SelectionEnabled)
+				this.ChangeData(e);
+			else if (this.SelectionRectangle.Contains(e.X, e.Y))
+			{
+				foreach (int id in this.SelectedTileIds)
+				{
+					Vector2 vector = this.GetTileVector(id);
+					this.ChangeData(new MouseEventArgs(e.Button, 1,
+						(int)vector.X + (e.X % Constants.TILESIZE),
+						(int)vector.Y + (e.Y % Constants.TILESIZE),
+						0));
+				}
+			}
+			 */
+		}
+
+		private void MapEditorXnaPanelMouseMove(object sender, System.Windows.Forms.MouseEventArgs e)
+		{
+			if (_map != null)
+			{
+				int x = e.X.Clamp(0, Width);
+				int y = e.Y.Clamp(0, Height);
+				if (SelectionEnabled && _mouseDown && _selectionActive)
+				{
+					_endPoint.X = x;
+					_endPoint.Y = y;
+				}
+				Invalidate();
+			}
+		}
+
+		#endregion
+
+		private void MapEditorXnaPanelDisposed(object sender, System.EventArgs e)
+		{
+			if (!_batch.IsDisposed) _batch.Dispose();
+			if (!_srcTexture.IsDisposed) _srcTexture.Dispose();
+		}
 
 		private void LoadNewMap(RPG.Map map)
 		{
@@ -241,7 +360,9 @@ namespace ARCed.Controls
 			for (int i = 1; i <= _tileset.autotile_names.Count; i++)
 			{
 				string name = _tileset.autotile_names[i - 1];
-				_autotiles[i] = this.Autotile(name);
+				if (!_autotileCache.ContainsKey(name))
+					_autotileCache[name] = CreateAutotile(name);
+				_autotiles[i] = _autotileCache[name];
 			}
 			Invalidate();
 		}

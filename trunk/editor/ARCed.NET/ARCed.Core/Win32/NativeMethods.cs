@@ -15,64 +15,201 @@ namespace ARCed.Core.Win32
     /// </summary>
     public static class NativeMethods
     {
+		/// <summary>
+		/// Constant flag used for suspending and resuming drawing of controls.
+		/// </summary>
 		public const int WM_SETREDRAW = 0x0B;
+
+		/// <summary>
+		/// Delegate representing the hook procedure method.
+		/// </summary>
+		/// <param name="code">The type of hook procedure to be installed</param>
+		/// <param name="wParam">Additional message-specific information.</param>
+		/// <param name="lParam">Additional message-specific information.</param>
+		/// <returns>Value specifying the result of the hook processing</returns>
 		public delegate IntPtr HookProc(int code, IntPtr wParam, IntPtr lParam);
 
+		/// <summary>
+		/// Captures the mouse and tracks its movement until the user releases the left button, presses the ESC key, 
+		/// or moves the mouse outside the drag rectangle around the specified point.
+		/// </summary>
+		/// <param name="hWnd">A handle to the window receiving mouse input.</param>
+		/// <param name="pt">Initial position of the mouse, in screen coordinates.</param>
+		/// <returns>If the user moved the mouse outside of the drag rectangle while holding down the left button, 
+		/// the return value is nonzero, else 0.</returns>
 		[DllImport("User32.dll", CharSet = CharSet.Unicode)]
         [return: MarshalAs(UnmanagedType.Bool)]
 		public static extern bool DragDetect(IntPtr hWnd, Point pt);
 
+		/// <summary>
+		/// Retrieves the handle to the window that has the keyboard focus.
+		/// </summary>
+		/// <returns>Handle to the window with the keyboard focus.</returns>
 		[DllImport("User32.dll", CharSet = CharSet.Unicode)]
         public static extern IntPtr GetFocus();
 
+		/// <summary>
+		/// Sets the keyboard focus to the specified window.
+		/// </summary>
+		/// <param name="hWnd">A handle to the window that will receive the keyboard input.</param>
+		/// <returns>If the function succeeds, the return value is the handle to the window that previously had the keyboard focus.</returns>
 		[DllImport("User32.dll", CharSet = CharSet.Unicode)]
         public static extern IntPtr SetFocus(IntPtr hWnd);
 
+		/// <summary>
+		/// Places (posts) a message in the message queue associated with the thread that created the specified 
+		/// window and returns without waiting for the thread to process the message.
+		/// </summary>
+		/// <param name="hWnd">A handle to the window whose window procedure is to receive the message.</param>
+		/// <param name="msg">The message to be posted.</param>
+		/// <param name="wParam">Additional message-specific information.</param>
+		/// <param name="lParam">Additional message-specific information.</param>
+		/// <returns>If the function succeeds, the return value is nonzero, else 0.</returns>
 		[DllImport("User32.dll", CharSet = CharSet.Unicode)]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool PostMessage(IntPtr hWnd, int msg, uint wParam, uint lParam);
 
+		/// <summary>
+		/// Sends the specified message to a window or windows.
+		/// </summary>
+		/// <param name="hWnd">Handle to the window whose window procedure will receive the message</param>
+		/// <param name="wMsg">Message to be sent</param>
+		/// <param name="wParam">Additional message-specific information</param>
+		/// <param name="lParam">Additional message-specific information</param>
+		/// <returns>The return value specifies the result of the message processing; it depends on the message sent</returns>
 		[DllImport("User32.dll", CharSet = CharSet.Unicode)]
-        public static extern uint SendMessage(IntPtr hWnd, int msg, uint wParam, uint lParam);
+        public static extern uint SendMessage(IntPtr hWnd, int wMsg, uint wParam, uint lParam);
 
+		/// <summary>
+		/// Sends the specified message to a window or windows.
+		/// </summary>
+		/// <param name="hWnd">Handle to the window whose window procedure will receive the message</param>
+		/// <param name="wMsg">Message to be sent</param>
+		/// <param name="wParam">Additional message-specific information</param>
+		/// <param name="lParam">Additional message-specific information</param>
+		/// <returns>The return value specifies the result of the message processing; it depends on the message sent</returns>
+		[DllImport("User32.dll", CharSet = CharSet.Unicode)]
+		public static extern int SendMessage(IntPtr hWnd, Int32 wMsg, bool wParam, Int32 lParam);
+
+		/// <summary>
+		/// Sets the specified window's show state.
+		/// </summary>
+		/// <param name="hWnd">A handle to the window.</param>
+		/// <param name="cmdShow">Controls how the window is to be shown.</param>
+		/// <returns>If the window was previously visible, the return value is nonzero, else 0.</returns>
         [DllImport("User32.dll", CharSet = CharSet.Unicode)]
         public static extern int ShowWindow(IntPtr hWnd, short cmdShow);
 
+		/// <summary>
+		/// Changes the size, position, and Z order of a child, pop-up, or top-level window.
+		/// </summary>
+		/// <param name="hWnd">Handle to the window.</param>
+		/// <param name="hWndAfter">A handle to the window to precede the positioned window in the Z order.</param>
+		/// <param name="x">The new position of the left side of the window, in client coordinates.</param>
+		/// <param name="y">The new position of the top of the window, in client coordinates.</param>
+		/// <param name="width">The new width of the window, in pixels.</param>
+		/// <param name="height">The new height of the window, in pixels.</param>
+		/// <param name="flags">The window sizing and positioning flags.</param>
+		/// <returns>If the function succeeds, the return value is nonzero.</returns>
         [DllImport("User32.dll", CharSet = CharSet.Unicode)]
         public static extern int SetWindowPos(IntPtr hWnd, IntPtr hWndAfter, int x, int y, int width, int height, FlagsSetWindowPos flags);
 
-		[DllImport("user32.dll", CharSet = CharSet.Unicode)]
+		/// <summary>
+		/// Retrieves information about the specified window.
+		/// </summary>
+		/// <param name="hWnd">A handle to the window and, indirectly, the class to which the window belongs.</param>
+		/// <param name="index">The zero-based offset to the value to be get.</param>
+		/// <returns>If the function succeeds, the return value is the requested value, else 0.</returns>
+		[DllImport("User32.dll", CharSet = CharSet.Unicode)]
 		public static extern int GetWindowLong(IntPtr hWnd, int index);
 
-		[DllImport("user32.dll", CharSet = CharSet.Unicode)]
+		/// <summary>
+		/// Changes an attribute of the specified window.
+		/// </summary>
+		/// <param name="hWnd">A handle to the window and, indirectly, the class to which the window belongs.</param>
+		/// <param name="index">The zero-based offset to the value to be set.</param>
+		/// <param name="value">The replacement value.</param>
+		/// <returns>If the function succeeds, the return value is the previous value of the specified 32-bit integer, else 0.</returns>
+		[DllImport("User32.dll", CharSet = CharSet.Unicode)]
 		public static extern int SetWindowLong(IntPtr hWnd, int index, int value);
 
-		[DllImport("user32.dll", CharSet = CharSet.Unicode)]
+		/// <summary>
+		/// Shows or hides the specified scroll bar.
+		/// </summary>
+		/// <param name="hWnd">Handle to a scroll bar control or a window with a standard scroll bar.</param>
+		/// <param name="wBar">Specifies the scroll bar(s) to be shown or hidden.</param>
+		/// <param name="bShow">Specifies whether the scroll bar is shown or hidden</param>
+		/// <returns>If the function succeeds, the return value is nonzero.</returns>
+		[DllImport("User32.dll", CharSet = CharSet.Unicode)]
 		public static extern int ShowScrollBar(IntPtr hWnd, int wBar, int bShow);
 
-		[DllImport("user32.dll", CharSet = CharSet.Unicode)]
+		/// <summary>
+		/// Retrieves a handle to the window that contains the specified point.
+		/// </summary>
+		/// <param name="point">The point to be checked.</param>
+		/// <returns>Handle to the window that contains the point, or null if none found.</returns>
+		[DllImport("User32.dll", CharSet = CharSet.Unicode)]
         [SuppressMessage("Microsoft.Portability", "CA1901:PInvokeDeclarationsShouldBePortable", MessageId = "0")]
 		public static extern IntPtr WindowFromPoint(Point point);
 
+		/// <summary>
+		/// Retrieves the thread identifier of the calling thread.
+		/// </summary>
+		/// <returns>Thread identifier of the calling thread.</returns>
         [DllImport("Kernel32.dll", CharSet = CharSet.Unicode)]
         public static extern int GetCurrentThreadId();
 
-		[DllImport("user32.dll", CharSet = CharSet.Unicode)]
+		/// <summary>
+		/// Installs an application-defined hook procedure into a hook chain.
+		/// </summary>
+		/// <param name="code">The type of hook procedure to be installed.</param>
+		/// <param name="func">A pointer to the hook procedure.</param>
+		/// <param name="hInstance">A handle to the DLL containing the hook procedure pointed to by the <see cref="func"/> parameter.</param>
+		/// <param name="threadID">The identifier of the thread with which the hook procedure is to be associated.</param>
+		/// <returns>If the function succeeds, the return value is the handle to the hook procedure.</returns>
+		[DllImport("User32.dll", CharSet = CharSet.Unicode)]
         public static extern IntPtr SetWindowsHookEx(HookType code, HookProc func, IntPtr hInstance, int threadID);
 
-		[DllImport("user32.dll", CharSet = CharSet.Unicode)]
+		/// <summary>
+		/// Removes a hook procedure installed in a hook chain by the <see cref="SetWindowsHookEx"/> function.
+		/// </summary>
+		/// <param name="hhook">Handle to the hook to be removed.</param>
+		/// <returns>If the function succeeds, the return value is nonzero.</returns>
+		[DllImport("User32.dll", CharSet = CharSet.Unicode)]
         public static extern int UnhookWindowsHookEx(IntPtr hhook);
 
-		[DllImport("user32.dll", CharSet = CharSet.Unicode)]
+		/// <summary>
+		/// Passes the hook information to the next hook procedure in the current hook chain
+		/// </summary>
+		/// <param name="hhook">This parameter is ignored</param>
+		/// <param name="code">The hook code passed to the current hook procedure</param>
+		/// <param name="wParam">Value passed to the current hook procedure. 
+		/// The meaning of this parameter depends on the type of hook associated with the current hook chain</param>
+		/// <param name="lParam">Value passed to the current hook procedure. 
+		/// The meaning of this parameter depends on the type of hook associated with the current hook chain</param>
+		/// <returns>Value is returned by the next hook procedure in the chain</returns>
+		[DllImport("User32.dll", CharSet = CharSet.Unicode)]
         public static extern IntPtr CallNextHookEx(IntPtr hhook, int code, IntPtr wParam, IntPtr lParam);
 
-		[DllImport("User32.dll", CharSet = CharSet.Unicode)]
-        public static extern int SendMessage(IntPtr hWnd, Int32 wMsg, bool wParam, Int32 lParam);
-
+		/// <summary>
+		/// Adds a font resource from a memory image to the system.
+		/// </summary>
+		/// <param name="pbFont">A pointer to a font resource</param>
+		/// <param name="cbFont">The number of bytes in the font resource that is pointed to by pbFont</param>
+		/// <param name="pdv">Reserved. Must be 0</param>
+		/// <param name="pcFonts">A pointer to a variable that specifies the number of fonts installed</param>
+		/// <returns>If the function succeeds, the return value specifies the number of fonts added, else 0</returns>
 		[DllImport("Gdi32.dll", CharSet = CharSet.Unicode)]
         public static extern IntPtr AddFontMemResourceEx(IntPtr pbFont, uint cbFont, IntPtr pdv,
             [In] ref uint pcFonts);
 
+		/// <summary>
+		/// Adds a font resource into the system. The font will be marked private non enumerable.
+		/// </summary>
+		/// <param name="lpszFilename">Filename of the font resource file</param>
+		/// <param name="fl">The characteristics of the font to be added to the system</param>
+		/// <param name="pdv">Reserved. Must be zero.</param>
+		/// <returns>If the function succeeds, the return value specifies the number of fonts added, else 0</returns>
 		[DllImport("Gdi32.dll", CharSet = CharSet.Unicode)]
         public static extern int AddFontResourceEx(string lpszFilename, uint fl, IntPtr pdv);
 
