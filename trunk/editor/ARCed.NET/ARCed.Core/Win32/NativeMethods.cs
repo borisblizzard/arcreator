@@ -15,69 +15,65 @@ namespace ARCed.Core.Win32
     /// </summary>
     public static class NativeMethods
     {
-		[DllImport("User32.dll", CharSet=CharSet.Auto)]
+		public const int WM_SETREDRAW = 0x0B;
+		public delegate IntPtr HookProc(int code, IntPtr wParam, IntPtr lParam);
+
+		[DllImport("User32.dll", CharSet = CharSet.Unicode)]
         [return: MarshalAs(UnmanagedType.Bool)]
 		public static extern bool DragDetect(IntPtr hWnd, Point pt);
 
-        [DllImport("User32.dll", CharSet=CharSet.Auto)]
+		[DllImport("User32.dll", CharSet = CharSet.Unicode)]
         public static extern IntPtr GetFocus();
 
-        [DllImport("User32.dll", CharSet=CharSet.Auto)]
+		[DllImport("User32.dll", CharSet = CharSet.Unicode)]
         public static extern IntPtr SetFocus(IntPtr hWnd);
 
-        [DllImport("User32.dll", CharSet=CharSet.Auto)]
+		[DllImport("User32.dll", CharSet = CharSet.Unicode)]
         [return: MarshalAs(UnmanagedType.Bool)]
-        public static extern bool PostMessage(IntPtr hWnd, int Msg, uint wParam, uint lParam);
+        public static extern bool PostMessage(IntPtr hWnd, int msg, uint wParam, uint lParam);
 
-        [DllImport("User32.dll", CharSet=CharSet.Auto)]
-        public static extern uint SendMessage(IntPtr hWnd, int Msg, uint wParam, uint lParam);
+		[DllImport("User32.dll", CharSet = CharSet.Unicode)]
+        public static extern uint SendMessage(IntPtr hWnd, int msg, uint wParam, uint lParam);
 
-        [DllImport("User32.dll", CharSet=CharSet.Auto)]
+        [DllImport("User32.dll", CharSet = CharSet.Unicode)]
         public static extern int ShowWindow(IntPtr hWnd, short cmdShow);
 
-        [DllImport("User32.dll", CharSet=CharSet.Auto)]
-        public static extern int SetWindowPos(IntPtr hWnd, IntPtr hWndAfter, int X, int Y, int Width, int Height, FlagsSetWindowPos flags);
+        [DllImport("User32.dll", CharSet = CharSet.Unicode)]
+        public static extern int SetWindowPos(IntPtr hWnd, IntPtr hWndAfter, int x, int y, int width, int height, FlagsSetWindowPos flags);
 
-		[DllImport("user32.dll", CharSet = CharSet.Auto)]
-		public static extern int GetWindowLong(IntPtr hWnd, int Index);
+		[DllImport("user32.dll", CharSet = CharSet.Unicode)]
+		public static extern int GetWindowLong(IntPtr hWnd, int index);
 
-		[DllImport("user32.dll", CharSet = CharSet.Auto)]
-		public static extern int SetWindowLong(IntPtr hWnd, int Index, int Value);
+		[DllImport("user32.dll", CharSet = CharSet.Unicode)]
+		public static extern int SetWindowLong(IntPtr hWnd, int index, int value);
 
-		[DllImport("user32.dll", CharSet=CharSet.Auto)]
+		[DllImport("user32.dll", CharSet = CharSet.Unicode)]
 		public static extern int ShowScrollBar(IntPtr hWnd, int wBar, int bShow);
 
-		[DllImport("user32.dll", CharSet=CharSet.Auto)]
-        //*********************************
-        // FxCop bug, suppress the message
-        //*********************************
+		[DllImport("user32.dll", CharSet = CharSet.Unicode)]
         [SuppressMessage("Microsoft.Portability", "CA1901:PInvokeDeclarationsShouldBePortable", MessageId = "0")]
 		public static extern IntPtr WindowFromPoint(Point point);
 
-        [DllImport("Kernel32.dll", CharSet = CharSet.Auto)]
+        [DllImport("Kernel32.dll", CharSet = CharSet.Unicode)]
         public static extern int GetCurrentThreadId();
 
-        public delegate IntPtr HookProc(int code, IntPtr wParam, IntPtr lParam);
-
-        [DllImport("user32.dll")]
+		[DllImport("user32.dll", CharSet = CharSet.Unicode)]
         public static extern IntPtr SetWindowsHookEx(HookType code, HookProc func, IntPtr hInstance, int threadID);
 
-        [DllImport("user32.dll")]
+		[DllImport("user32.dll", CharSet = CharSet.Unicode)]
         public static extern int UnhookWindowsHookEx(IntPtr hhook);
 
-        [DllImport("user32.dll")]
+		[DllImport("user32.dll", CharSet = CharSet.Unicode)]
         public static extern IntPtr CallNextHookEx(IntPtr hhook, int code, IntPtr wParam, IntPtr lParam);
 
-        public const int WM_SETREDRAW = 11;
-
-        [DllImport("User32.dll")]
+		[DllImport("User32.dll", CharSet = CharSet.Unicode)]
         public static extern int SendMessage(IntPtr hWnd, Int32 wMsg, bool wParam, Int32 lParam);
 
-        [DllImport("Gdi32.dll")]
+		[DllImport("Gdi32.dll", CharSet = CharSet.Unicode)]
         public static extern IntPtr AddFontMemResourceEx(IntPtr pbFont, uint cbFont, IntPtr pdv,
             [In] ref uint pcFonts);
 
-        [DllImport("Gdi32.dll")]
+		[DllImport("Gdi32.dll", CharSet = CharSet.Unicode)]
         public static extern int AddFontResourceEx(string lpszFilename, uint fl, IntPtr pdv);
 
         /// <summary>
@@ -88,7 +84,7 @@ namespace ARCed.Core.Win32
         /// <param name="val">The value to write</param>
         /// <param name="filePath">The path to the file</param>
         /// <returns>Error code</returns>
-        [DllImport("Kernel32.dll")]
+		[DllImport("Kernel32.dll", CharSet = CharSet.Unicode)]
         public static extern long WritePrivateProfileString(string section,
             string key, string val, string filePath);
 
@@ -102,16 +98,16 @@ namespace ARCed.Core.Win32
         /// <param name="size">The maximum buffer size</param>
         /// <param name="filePath">The path to the file</param>
         /// <returns>Error code</returns>
-        [DllImport("Kernel32.dll")]
+        [DllImport("Kernel32.dll", CharSet = CharSet.Unicode)]
         public static extern int GetPrivateProfileString(string section,
                  string key, string def, StringBuilder retVal, int size, string filePath);
 
         /// <summary>
         /// Creates a cursor object and returns it
         /// </summary>
-        /// <param name="str">The name of the resouce file</param>
+        /// <param name="str">The name of the resource file</param>
         /// <returns>A handle to a cursor object</returns>
-        [DllImport("User32.dll", CharSet = CharSet.Ansi, BestFitMapping = false, ThrowOnUnmappableChar = true)]
+        [DllImport("User32.dll", CharSet = CharSet.Unicode)]
         public static extern IntPtr LoadCursorFromFile(String str);
 
         /// <summary>
@@ -119,7 +115,7 @@ namespace ARCed.Core.Win32
         /// </summary>
         /// <param name="hWnd">A handle to a window</param>
         /// <returns>Flag if error occurred</returns>
-        [DllImport("User32.dll")]
+        [DllImport("User32.dll", CharSet = CharSet.Unicode)]
         public static extern bool SetForegroundWindow(IntPtr hWnd);
 
         /// <summary>
@@ -127,7 +123,7 @@ namespace ARCed.Core.Win32
         /// </summary>
         /// <param name="hIcon">A handle to an icon</param>
         /// <returns>Flag if error occurred</returns>
-        [DllImport("Kernel32.dll")]
+		[DllImport("Kernel32.dll", CharSet = CharSet.Unicode)]
         public static extern bool SetConsoleIcon(IntPtr hIcon);
 
         /// <summary>
@@ -139,7 +135,7 @@ namespace ARCed.Core.Win32
         /// short form of the path specified by lpszLongPath</param>
         /// <param name="cchBuffer">The size of the buffer that lpszShortPath points to</param>
         /// <returns>Value is the length, in characters, of the string copied to lpszShortPath</returns>
-        [DllImport("Kernel32.dll")]
+		[DllImport("Kernel32.dll", CharSet = CharSet.Unicode)]
         public static extern uint GetShortPathName(string lpszLongPath,
             [Out] StringBuilder lpszShortPath, uint cchBuffer);
 
@@ -147,7 +143,7 @@ namespace ARCed.Core.Win32
         /// Allocates a new console for the calling process
         /// </summary>
         /// <returns>Non-zero if successful, zero otherwise</returns>
-        [DllImport("Kernel32.dll", EntryPoint = "AllocConsole")]
+		[DllImport("Kernel32.dll", EntryPoint = "AllocConsole", CharSet = CharSet.Unicode)]
         public static extern int AllocConsole();
 	}
 }

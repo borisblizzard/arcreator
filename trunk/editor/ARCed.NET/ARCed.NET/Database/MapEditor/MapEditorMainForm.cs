@@ -26,7 +26,7 @@ namespace ARCed.Database.MapEditor
 			if (DesignMode) return;
 
 			Project.Data.Maps = new Dictionary<int, Map>();
-			Map map = Project.LoadArcData<RPG.Map>(@"Data\Map023.arc", Util.RpgTypes);
+			Map map = Project.LoadArcData<RPG.Map>(@"Data\Map017.arc", Util.RpgTypes);
 			xnaPanel.Map = map;
 		}
 	}

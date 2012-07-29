@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using ARCed.Helpers;
-using System.Diagnostics;
 using System.Linq;
-using System.Text;
-
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-
 using SysRect = System.Drawing.Rectangle;
 using Bitmap = System.Drawing.Bitmap;
 using Graphics = System.Drawing.Graphics;
@@ -133,10 +127,7 @@ namespace ARCed.Controls
 
 		public Texture2D[] Autotile(string filename)
 		{
-			Color[] cData = Enumerable.Repeat(Color.AliceBlue, 32 * 32).ToArray();
-			Texture2D test = new Texture2D(GraphicsDevice, 32, 32);
-			test.SetData(cData);
-			Texture2D[] data = Enumerable.Repeat(test, 48).ToArray();
+			var data = new Texture2D[48];
 			var autotile = Cache.Autotile(filename);
 			if (autotile == null)
 				return data;
@@ -163,7 +154,7 @@ namespace ARCed.Controls
 								}
 							}
 							index = 8 * lvl + j;
-							using (Bitmap b = new Bitmap(32, 32))
+							using (var b = new Bitmap(32, 32))
 							{
 								sx = 32 * (index % 8);
 								sy = 32 * (index / 8);
@@ -185,9 +176,11 @@ namespace ARCed.Controls
 		protected override void Draw()
 		{
 			GraphicsDevice.Clear(_backColor);
+			const float mod = Constants.MAP_LAYERS + Constants.PRIORITIES;
 			if (_map == null) return;
-			_batch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
+			_batch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend);
 			int tileId;
+			float depth;
 			Rectangle srcRect, destRect;
 			for (int z = 0; z < Constants.MAP_LAYERS; z++)
 			{
@@ -196,7 +189,8 @@ namespace ARCed.Controls
 					for (int x = 0; x < _map.width; x++)
 					{
 						tileId = _map.data[x, y, z];
-						destRect = new Rectangle()
+						depth = (_tileset.priorities[tileId] + z) / mod;
+						destRect = new Rectangle
 						{
 							X = x * Constants.TILESIZE,
 							Y = y * Constants.TILESIZE,
@@ -205,21 +199,24 @@ namespace ARCed.Controls
 						};
 						if (tileId >= Constants.AUTO_IDS)
 						{
-							srcRect = new Rectangle()
+							srcRect = new Rectangle
 							{
 								X = ((tileId - Constants.AUTO_IDS) % 8) * Constants.TILESIZE,
 								Y = ((tileId - Constants.AUTO_IDS) / 8) * Constants.TILESIZE,
 								Width = Constants.TILESIZE,
 								Height = Constants.TILESIZE
 							};
-							_batch.Draw(_srcTexture, destRect, srcRect, Color.White);
+							_batch.Draw(_srcTexture, destRect, srcRect, Color.White, 0.0f, Vector2.Zero,
+								SpriteEffects.None, depth);
 						}
 						else
 						{
 							int index = tileId / 48;
 							if (index == 0) continue;
 							Texture2D src = _autotiles[index][tileId % 48];
-							_batch.Draw(src, destRect, src.Bounds, Color.White);
+							if (src != null)
+								_batch.Draw(src, destRect, src.Bounds, Color.White, 0.0f, Vector2.Zero,
+								SpriteEffects.None, depth);
 						}
 					}
 				}
