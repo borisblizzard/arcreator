@@ -42,7 +42,7 @@ namespace ARCed
 		/// <summary>
 		/// List of RPG.MapInfo objects. First element is null.
 		/// </summary>
-		public List<dynamic> MapInfos { get; set; }
+		public Hash MapInfos { get; set; }
 		/// <summary>
 		/// List of RPG.Skills objects. First element is null.
 		/// </summary>

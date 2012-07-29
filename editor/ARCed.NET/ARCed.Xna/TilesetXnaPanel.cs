@@ -256,10 +256,10 @@ namespace ARCed.Controls
 			_displayIcons = true;
 			GraphicsDevice.Clear(Color.White);
 			Disposed += this.TroopXnaPanel_Disposed;
-			MouseDown += this.TroopXnaPanel_MouseDown;
-			MouseUp += this.TroopXnaPanel_MouseUp;
-			MouseMove += this.TroopXnaPanel_MouseMove;
-			MouseLeave += this.TilesetXnaPanel_MouseLeave;
+			MouseDown += this.TroopXnaPanelMouseDown;
+			MouseUp += this.TroopXnaPanelMouseUp;
+			MouseMove += this.TroopXnaPanelMouseMove;
+			MouseLeave += this.TilesetXnaPanelMouseLeave;
 		}
 
 		/// <summary>
@@ -400,7 +400,7 @@ namespace ARCed.Controls
 
 		#region Mouse Events
 
-		private void TroopXnaPanel_MouseMove(object sender, MouseEventArgs e)
+		private void TroopXnaPanelMouseMove(object sender, MouseEventArgs e)
 		{
 			if (_tilesetTexture != null)
 			{
@@ -416,13 +416,13 @@ namespace ARCed.Controls
 			}
 		}
 
-		private void TroopXnaPanel_MouseUp(object sender, MouseEventArgs e)
+		private void TroopXnaPanelMouseUp(object sender, MouseEventArgs e)
 		{
 			_mouseDown = false;
 			_selectionActive = false;
 		}
 
-		private void TroopXnaPanel_MouseDown(object sender, MouseEventArgs e)
+		private void TroopXnaPanelMouseDown(object sender, MouseEventArgs e)
 		{
 			_mouseDown = true;
 			if (this.SelectionEnabled && _originPoint.X < 0 && _originPoint.Y < 0)
@@ -447,7 +447,7 @@ namespace ARCed.Controls
 			}
 		}
 
-		private void TilesetXnaPanel_MouseLeave(object sender, EventArgs e)
+		private void TilesetXnaPanelMouseLeave(object sender, EventArgs e)
 		{
 			_currentId = -1;
 			Invalidate();

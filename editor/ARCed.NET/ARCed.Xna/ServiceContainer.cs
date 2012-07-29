@@ -31,9 +31,8 @@ namespace ARCed.Controls
         /// </summary>
         public void AddService<T>(T service)
         {
-            this.services.Add(typeof(T), service);
+			this.services.Add(typeof(T), service);
         }
-
 
         /// <summary>
         /// Looks up the specified service.

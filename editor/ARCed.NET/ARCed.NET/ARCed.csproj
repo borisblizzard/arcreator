@@ -2003,6 +2003,7 @@
     <EmbeddedResource Include="Resources\Variable.png" />
     <EmbeddedResource Include="Resources\Skill.png" />
     <EmbeddedResource Include="Resources\Weapon.png" />
+    <Content Include="Commit Log.txt" />
     <Content Include="x86\7z.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

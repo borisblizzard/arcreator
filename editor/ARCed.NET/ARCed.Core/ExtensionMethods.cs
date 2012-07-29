@@ -1,8 +1,10 @@
 ﻿#region Using Directives
 
 using System;
+using System.Collections;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Windows.Forms;
@@ -30,7 +32,7 @@ namespace ARCed
 
 		#endregion
 
-        /// <summary>
+		/// <summary>
         /// Rounds an <seealso langword="int"/> down to the nearest multiple.
         /// </summary>
         /// <param name="value">Integer to round</param>
@@ -174,7 +176,7 @@ namespace ARCed
 		/// <param name="value">Integer value to compare</param>
 		/// <param name="lower">Lower limit to check</param>
 		/// <param name="upper">Upper limit to check</param>
-		/// <returns>True if value is withing range, otherwise false</returns>
+		/// <returns>True if value is within range, otherwise false</returns>
 		/// <remarks>Comparison is inclusive for upper and lower</remarks>
 		public static bool IsBetween(this int value, int lower, int upper) 
 		{
@@ -202,16 +204,16 @@ namespace ARCed
 		/// <returns>Flag if object is numerical or not</returns>
 		public static bool IsNumber(this object value)
 		{
-			if (value is sbyte) return true;
-			if (value is byte) return true;
-			if (value is short) return true;
-			if (value is ushort) return true;
 			if (value is int) return true;
-			if (value is uint) return true;
 			if (value is long) return true;
-			if (value is ulong) return true;
 			if (value is float) return true;
 			if (value is double) return true;
+			if (value is byte) return true;
+			if (value is short) return true;
+			if (value is sbyte) return true;
+			if (value is ushort) return true;
+			if (value is uint) return true;
+			if (value is ulong) return true;
 			return value is decimal;
 		}
 

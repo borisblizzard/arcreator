@@ -127,12 +127,12 @@ namespace ARCed
 		/// <param name="border">Width of the border in pixels</param>
 		public static void DrawRectangle(this SpriteBatch batch, Rectangle rect, Color color, int border = 1)
 		{
-			var _texture = new Texture2D(batch.GraphicsDevice, 1, 1);
-			_texture.SetData(new[] { Color.White });
-			batch.Draw(_texture, new Rectangle(rect.Left, rect.Top, rect.Width, border), color);
-			batch.Draw(_texture, new Rectangle(rect.Left, rect.Bottom - border, rect.Width, border), color);
-			batch.Draw(_texture, new Rectangle(rect.Left, rect.Top, border, rect.Height), color);
-			batch.Draw(_texture, new Rectangle(rect.Right - border, rect.Top, border, rect.Height - border), color);
+			var texture = new Texture2D(batch.GraphicsDevice, 1, 1);
+			texture.SetData(new[] { Color.White });
+			batch.Draw(texture, new Rectangle(rect.Left, rect.Top, rect.Width, border), color);
+			batch.Draw(texture, new Rectangle(rect.Left, rect.Bottom - border, rect.Width, border), color);
+			batch.Draw(texture, new Rectangle(rect.Left, rect.Top, border, rect.Height), color);
+			batch.Draw(texture, new Rectangle(rect.Right - border, rect.Top, border, rect.Height - border), color);
 		}
 
 		/// <summary>

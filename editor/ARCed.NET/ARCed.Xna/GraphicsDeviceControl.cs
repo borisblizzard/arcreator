@@ -77,14 +77,13 @@ namespace ARCed.Controls
             // Don't initialize the graphics device if we are running in the designer.
             if (!DesignMode)
             {
-                this.graphicsDeviceService = GraphicsDeviceService.AddRef(Handle,
-                                                                     ClientSize.Width,
-                                                                     ClientSize.Height);
-
-                // Register the service, so components like ContentManager can find it.
-                this.services.AddService<IGraphicsDeviceService>(this.graphicsDeviceService);
-
-                // Give derived classes a chance to initialize themselves.
+	            this.graphicsDeviceService = GraphicsDeviceService.AddRef(Handle,
+	                                                                      ClientSize.Width,
+	                                                                      ClientSize.Height);
+	            // Register the service, so components like ContentManager can find it.
+	            this.services.AddService<IGraphicsDeviceService>(this.graphicsDeviceService);
+    
+				// Give derived classes a chance to initialize themselves.
                 this.Initialize();
             }
 
@@ -102,7 +101,6 @@ namespace ARCed.Controls
                 this.graphicsDeviceService.Release(disposing);
                 this.graphicsDeviceService = null;
             }
-
             base.Dispose(disposing);
         }
 
