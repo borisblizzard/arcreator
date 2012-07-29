@@ -459,7 +459,7 @@ class ConverterFrame < Wx::Frame
       for script in scripts
         script_name = "%04d" % i
         name = script[1]
-        name.force_encoding("US-ASCII")
+        name.force_encoding("UTF-8")
         script_name += "-#{name.gsub(/[\x00\/\\:\*\?\"<>\|]/, '_').gsub(/[\n\r]/, '')}"
         script_file_path = File.join(scripts_folder, script_name) + ".rb"
         log("        - Writing #{script_file_path} ...")
@@ -482,6 +482,7 @@ class ConverterFrame < Wx::Frame
   def do_convertion
     @convertionrunning = true
     @log = ""
+    Wx::begin_busy_cursor
     rmxp_dir, rmxp_projectfile = File.split(@rmxp_path)
     log("===============================================")
     log("Beginning convertion on RMXP project located at #{rmxp_dir}")
@@ -518,6 +519,7 @@ class ConverterFrame < Wx::Frame
     log("        - Writing project file")
     writeARCProjectFile(@arc_path, project_title)
     log("============== Convertion Finished =================")
+    Wx::end_busy_cursor
     display_end_message
   end
   
