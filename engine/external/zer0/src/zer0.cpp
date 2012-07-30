@@ -200,7 +200,6 @@ namespace zer0
 			april::init(april::RS_DEFAULT, april::WS_DEFAULT);
 			april::createRenderSystem();
 			april::createWindow(resolution[0], resolution[1], fullscreen, zer0::system->Title);
-			aprilui::setTextureIdleUnloadTime(TEXTURE_UNLOAD_TIME);
 			grect viewport(0.0f, 0.0f, (float)resolution[0], (float)resolution[1]);
 			april::rendersys->setOrthoProjection(viewport);
 			april::window->setKeyboardCallbacks(&zer0::Context::onKeyDown, &zer0::Context::onKeyUp, &zer0::Context::onChar);
@@ -221,6 +220,7 @@ namespace zer0
 			aprilui::setLimitCursorToViewport(false);
 			aprilui::setViewport(viewport);
 			aprilui::setScreenViewport(aprilui::getViewport());
+			aprilui::setTextureIdleUnloadTime(TEXTURE_UNLOAD_TIME);
 #endif
 			// xal
 #ifndef _NOSOUND
