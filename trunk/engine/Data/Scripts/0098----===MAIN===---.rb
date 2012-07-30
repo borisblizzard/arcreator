@@ -18,5 +18,5 @@ rescue Errno::ENOENT
   # Supplement Errno::ENOENT exception
   # If unable to open file, display message and end
   filename = $!.message.sub("No such file or directory - ", "")
-  print("Unable to find file #{filename}.")
+  p "Unable to find file #{filename}."
 end

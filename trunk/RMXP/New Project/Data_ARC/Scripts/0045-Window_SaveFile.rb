@@ -19,7 +19,7 @@ class Window_SaveFile < Window_Base
     super(0, 64 + file_index % 4 * 104, 640, 104)
     self.contents = Bitmap.new(width - 32, height - 32)
     @file_index = file_index
-    @filename = "Save#{@file_index + 1}.sav"
+    @filename = "Save#{@file_index + 1}.dat"
     @time_stamp = Time.at(0)
     @file_exist = FileTest.exist?(@filename)
     if @file_exist
