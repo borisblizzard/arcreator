@@ -46,7 +46,7 @@ class Scene_Title
     # If enabled, make @continue_enabled true; if disabled, make it false
     @continue_enabled = false
     for i in 0..3
-      if FileTest.exist?("Save#{i+1}.arc")
+      if FileTest.exist?("Save#{i+1}.dat")
         @continue_enabled = true
       end
     end
