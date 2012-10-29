@@ -8,9 +8,10 @@
 
 namespace zer0
 {
-	zer0FnExport bool init(void (*fnptr)(chstr, chstr));
+	extern hstr logTag;
+
+	zer0FnExport bool init();
 	zer0FnExport bool destroy();
-	zer0FnExport void log(chstr message, chstr prefix = "[zer0] ");
 	zer0FnExport int enterMainLoop(harray<hstr> args);
 	zer0FnExport bool isDebugMode();
 	zer0FnExport void setDebugMode(bool value);

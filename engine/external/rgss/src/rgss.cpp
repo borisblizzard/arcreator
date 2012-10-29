@@ -1,4 +1,6 @@
 #include <april/PixelShader.h>
+#include <hltypes/hlog.h>
+#include <hltypes/hstring.h>
 
 #include "Audio.h"
 #include "Bitmap.h"
@@ -20,26 +22,12 @@
 
 namespace rgss
 {
+	hstr logTag = "rgss";
+
 	hmap<hstr, hstr> parameters;
 	bool debugMode;
 	april::PixelShader* pixelShader;
 	
-	void rgss_writelog(chstr message)
-	{
-	}
-
-	void (*g_logFunction)(chstr) = rgss_writelog;
-	
-	void setLogFunction(void (*function)(chstr))
-	{
-		g_logFunction = function;
-	}
-	
-	void log(chstr message, chstr prefix)
-	{
-		g_logFunction(prefix + message);
-	}
-
 	bool isDebugMode()
 	{
 		return debugMode;
@@ -53,7 +41,7 @@ namespace rgss
 	void init(hmap<hstr, hstr> parameters)
 	{
 		rgss::parameters = parameters;
-		rgss::log("initializing Zer0 RGSS");
+		hlog::write(rgss::logTag, "Initializing Zer0 RGSS.");
 		// creating Ruby interfaces of C++ classes created for Ruby
 		Audio::createRubyInterface();
 		Bitmap::createRubyInterface();
@@ -90,7 +78,7 @@ namespace rgss
 
 	void destroy()
 	{
-		rgss::log("destroying Zer0 RGSS");
+		hlog::write(rgss::logTag, "Destroying Zer0 RGSS.");
 		Audio::destroy();
 		Bitmap::destroy();
 		Color::destroy();

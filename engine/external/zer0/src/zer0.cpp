@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <time.h>
 
 #include <ruby/extensions.h>
 #include <ruby/ruby.h>
@@ -20,6 +19,7 @@
 #include <hltypes/exception.h>
 #include <hltypes/hdir.h>
 #include <hltypes/hfile.h>
+#include <hltypes/hlog.h>
 #include <hltypes/hltypesUtil.h>
 #include <hltypes/hstring.h>
 #include <rgss/ApplicationExitException.h>
@@ -40,29 +40,14 @@
 
 namespace zer0
 {
+	hstr logTag = "zer0";
+
 	bool result;
 	grect drawRect;
 	bool debugMode;
 	april::VertexShader* vertexShader = NULL;
 	april::PixelShader* pixelShader = NULL;
-	void (*g_logFunction)(chstr, chstr);
 	
-	void logLib(chstr message)
-	{
-		if ((bool)zer0::system->Parameters[CFG_LOGGING])
-		{
-			g_logFunction(zer0::system->Path, message);
-		}
-	}
-
-	void log(chstr message, chstr prefix)
-	{
-		if ((bool)zer0::system->Parameters[CFG_LOGGING])
-		{
-			g_logFunction(zer0::system->Path, prefix + message);
-		}
-	}
-
 	void displayRubyError()
 	{
 		VALUE error = rb_gv_get("$!");
@@ -73,7 +58,7 @@ namespace zer0
 		VALUE rb_mDir = rb_const_get(rb_mKernel, rb_intern("Dir")); \
 		rb_funcall_2(backtraceMessage, "gsub!", rb_funcall_0(rb_mDir, "pwd"), rb_str_new2(""));
 		text += hstr("\n") + StringValueCStr(backtraceMessage);
-		zer0::log(text, "");
+		hlog::error(zer0::logTag, text);
 		april::messageBox(zer0::system->Title, text, april::AMSGBTN_OK, april::AMSGSTYLE_WARNING);
 	}
 
@@ -101,7 +86,7 @@ namespace zer0
 			data += StringValueCStr(string);
 		}
 		hstr text = data.join(delimiter);
-		zer0::log(text, "");
+		hlog::write(zer0::logTag, text);
 		return Qnil;
 	}
 	
@@ -132,7 +117,7 @@ namespace zer0
 			}
 			text = data.join(delimiter);
 		}
-		zer0::log(text, "");
+		hlog::write(zer0::logTag, text);
 		april::messageBox(zer0::system->Title, text, april::AMSGBTN_OK, april::AMSGSTYLE_INFORMATION);
 		return result;
 	}
@@ -145,7 +130,6 @@ namespace zer0
 	
 	VALUE rb_Kernel_loadData(VALUE self, VALUE filename)
 	{
-		
 		VALUE file = rb_file_open(StringValueCStr(filename), "rb");
 		int exception;
 		VALUE data = rb_protect(&_safe_loadData, file, &exception);
@@ -177,25 +161,20 @@ namespace zer0
 		debugMode = value;
 	}
 
-	bool init(void (*function)(chstr, chstr))
+	bool init()
 	{
-		g_logFunction = function;
 		zer0::system = new zer0::System();
 		harray<int> resolution = zer0::system->Parameters[CFG_RESOLUTION].split("x").cast<int>();
 		bool fullscreen = (bool)zer0::system->Parameters[CFG_FULLSCREEN];
 		debugMode = false;
 		bool result = true;
-		srand((unsigned int)time(NULL));
+		srand(get_system_time());
+		if ((bool)zer0::system->Parameters[CFG_LOGGING])
+		{
+			hlog::setFilename(zer0::system->Path + "log.txt");
+		}
 		try
 		{
-#ifdef _DEBUG
-			april::setLogFunction(&zer0::logLib);
-#endif
-			atres::setLogFunction(&zer0::logLib);
-#ifndef LEGACY_ONLY
-			aprilui::setLogFunction(&zer0::logLib);
-#endif
-			xal::setLogFunction(&zer0::logLib);
 			// april
 			april::init(april::RS_DEFAULT, april::WS_DEFAULT);
 			april::createRenderSystem();
@@ -219,7 +198,6 @@ namespace zer0
 			aprilui::init();
 			aprilui::setLimitCursorToViewport(false);
 			aprilui::setViewport(viewport);
-			aprilui::setScreenViewport(aprilui::getViewport());
 			aprilui::setTextureIdleUnloadTime(TEXTURE_UNLOAD_TIME);
 #endif
 			// xal
@@ -229,18 +207,18 @@ namespace zer0
 			xal::init(XAL_AS_DISABLED, april::window->getBackendId(), false);
 #endif
 			// zer0 related data
-			zer0::log("initializing Zer0 Division Engine");
+			hlog::write(zer0::logTag, "Initializing Zer0 Division Engine.");
 			zer0::context = new zer0::Context();
 			zer0::transitionManager = new zer0::TransitionManager();
 		}
 		catch (hltypes::exception e)
 		{
-			zer0::log(e.message());
+			hlog::error(zer0::logTag, e.message());
 			result = false;
 		}
 		catch (hstr e)
 		{
-			zer0::log(e);
+			hlog::error(zer0::logTag, e);
 			result = false;
 		}
 		return result;
@@ -253,7 +231,7 @@ namespace zer0
 		{
 			delete zer0::vertexShader;
 			delete zer0::pixelShader;
-			zer0::log("destroying Zer0 Division Engine");
+			hlog::write(zer0::logTag, "Destroying Zer0 Division Engine.");
 			// destroy other
 			delete zer0::context;
 			delete zer0::transitionManager;
@@ -268,12 +246,12 @@ namespace zer0
 		}
 		catch (hltypes::exception e)
 		{
-			zer0::log(e.message());
+			hlog::error(zer0::logTag, e.message());
 			result = false;
 		}
 		catch (hstr e)
 		{
-			zer0::log(e);
+			hlog::error(zer0::logTag, e);
 			result = false;
 		}
 		return result;
@@ -290,9 +268,6 @@ namespace zer0
 		ARC_Data::init();
 		ARC_Error::init();
 		// running RGSS
-#ifdef _DEBUG
-		rgss::setLogFunction(&zer0::logLib);
-#endif
 		rgss::init(zer0::system->Parameters);
 		rgss::setPixelShader(zer0::pixelShader);
 		// running the Ruby scripts
@@ -374,15 +349,15 @@ namespace zer0
 		catch (rgss::ApplicationExitException e)
 		{
 			// ALT+F4 exit or window close button exit
-			zer0::log("application exit");
+			hlog::write(zer0::logTag, "Application Exit.");
 		}
 		catch (hltypes::exception e)
 		{
-			zer0::log(e.message());
+			hlog::error(zer0::logTag, e.message());
 		}
 		catch (hstr e)
 		{
-			zer0::log(e);
+			hlog::error(zer0::logTag, e);
 		}
 		rb_gc();
 		return ruby_cleanup(exception);

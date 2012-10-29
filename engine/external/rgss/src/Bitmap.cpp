@@ -10,6 +10,7 @@
 #include <hltypes/exception.h>
 #include <hltypes/harray.h>
 #include <hltypes/hfile.h>
+#include <hltypes/hlog.h>
 #include <hltypes/hltypesUtil.h>
 
 #include "CodeSnippets.h"
@@ -162,7 +163,8 @@ namespace rgss
 		hstr fontName = this->font->getAtresFontName();
 		if (fontName == "") // font does not exist
 		{
-			rgss::log(hsprintf("Warning! Font '%s' could not be found", this->font->getName().c_str()));
+			
+			hlog::warn(rgss::logTag, "Font could not be found: " + this->font->getName());
 			return;
 		}
 		atres::Alignment horizontal;
