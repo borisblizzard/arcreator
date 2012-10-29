@@ -13,10 +13,10 @@ namespace april
 
 namespace rgss
 {
+	extern hstr logTag;
+
 	rgssFnExport void init(hmap<hstr, hstr> parameters);
 	rgssFnExport void destroy();
-	rgssFnExport void setLogFunction(void (*fnptr)(chstr));
-	rgssFnExport void log(chstr message, chstr prefix = "[rgss] ");
 	rgssFnExport bool isDebugMode();
 	rgssFnExport void setDebugMode(bool value);
 	rgssFnExport void setPixelShader(april::PixelShader* value);

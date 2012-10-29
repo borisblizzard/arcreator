@@ -2,7 +2,9 @@
 
 #include <hltypes/exception.h>
 #include <hltypes/harray.h>
+#include <hltypes/hlog.h>
 #include <hltypes/hltypesUtil.h>
+#include <hltypes/hstring.h>
 #include <xal/AudioManager.h>
 #include <xal/Player.h>
 #include <xal/Sound.h>
@@ -120,8 +122,8 @@ namespace rgss
 		}
 		catch (hltypes::exception e)
 		{
-			rgss::log(hsprintf("file %s could not be played", filename.c_str()));
-			rgss::log(e.message());
+			hlog::error(rgss::logTag, "File could not be played: " + filename);
+			hlog::error(rgss::logTag, e.message());
 		}
 		return Qnil;
 	}
@@ -193,8 +195,8 @@ namespace rgss
 		}
 		catch (hltypes::exception e)
 		{
-			rgss::log(hsprintf("file %s could not be played", filename.c_str()));
-			rgss::log(e.message());
+			hlog::write(rgss::logTag, "File could not be played: " + filename);
+			hlog::write(rgss::logTag, e.message());
 		}
 		return Qnil;
 	}
@@ -264,8 +266,8 @@ namespace rgss
 		}
 		catch (hltypes::exception e)
 		{
-			rgss::log(hsprintf("file %s could not be played", filename.c_str()));
-			rgss::log(e.message());
+			hlog::write(rgss::logTag, "File could not be played: " + filename);
+			hlog::write(rgss::logTag, e.message());
 		}
 		return Qnil;
 	}
@@ -336,8 +338,8 @@ namespace rgss
 		}
 		catch (hltypes::exception e)
 		{
-			rgss::log(hsprintf("file %s could not be played", filename.c_str()));
-			rgss::log(e.message());
+			hlog::write(rgss::logTag, "File could not be played: " + filename);
+			hlog::write(rgss::logTag, e.message());
 		}
 		return Qnil;
 	}

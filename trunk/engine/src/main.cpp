@@ -6,22 +6,13 @@
 #include <hltypes/hstring.h>
 #include <zer0/zer0.h>
 
-void log(chstr path, chstr message)
-{
-#ifdef _CONSOLE
-	printf("%s\n", message.c_str());
-#endif
-	hfile file((path + "log.txt"), hfile::APPEND);
-	file.writef("%s\n", message.c_str());
-}
-
 #if !defined(_CONSOLE) && defined(_WIN32)
 int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 #else
 int main(int argc, char** argv)
 #endif
 {
-	bool initialized = zer0::init(&log);
+	bool initialized = zer0::init();
 	if (!initialized)
 	{
 		return 1;
