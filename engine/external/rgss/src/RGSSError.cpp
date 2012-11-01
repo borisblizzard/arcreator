@@ -49,7 +49,7 @@ namespace rgss
 
 	VALUE RGSSError::rb_arcDump(VALUE self)
 	{
-		rb_raise(rb_eTypeError, "can't arc-dump RGSSError");
+		rb_raise(rb_eTypeError, "Can't arc-dump: RGSSError");
 		return Qnil;
 	}
 

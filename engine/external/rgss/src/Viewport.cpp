@@ -206,8 +206,7 @@ namespace rgss
 	{
 		if (argc != 1 && argc != 4)
 		{
-			hstr message = hsprintf("wrong number of arguments (%d for 1 or 4)", argc);
-			rb_raise(rb_eArgError, message.c_str());
+			rb_raise(rb_eArgError, hsprintf("Wrong number of arguments: %d for 1 or 4", argc).c_str());
 		}
 		RB_SELF2CPP(Viewport, viewport);
 		viewport->initialize(argc, argv);
