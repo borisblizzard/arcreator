@@ -149,7 +149,7 @@ namespace zer0
 		if (rb_obj_is_kind_of(obj, rb_cHash)) return ARC_Data::_dump_hash(obj);
 		if (rb_obj_is_kind_of(obj, rb_cObject)) return ARC_Data::_dump_object(obj);
 		VALUE class_name = rb_class_name(rb_class_of(obj));
-		rb_raise(rb_eARC_Error, hsprintf("Error: %s cannot be dumped!", StringValueCStr(class_name)).c_str());
+		rb_raise(rb_eARC_Error, hsprintf("ERROR: %s cannot be dumped!", StringValueCStr(class_name)).c_str());
 	}
 		
 	VALUE ARC_Data::_load()
@@ -165,7 +165,7 @@ namespace zer0
 		if (type == Types[rb_cArray]) return ARC_Data::_load_array();
 		if (type == Types[rb_cHash]) return ARC_Data::_load_hash();
 		if (type == Types[rb_cObject]) return ARC_Data::_load_object();
-		rb_raise(rb_eARC_Error, hsprintf("Error: Unknown type 0x%02X detected!", type).c_str());
+		rb_raise(rb_eARC_Error, hsprintf("ERROR: Unknown type 0x%02X detected!", type).c_str());
 		return Qnil;
 	}
 
@@ -469,7 +469,7 @@ namespace zer0
 			{
 				rb_gc_enable();
 			}
-			rb_raise(rb_eARC_Error, hsprintf("Error: ARC::Data header mismatch! Excepted: \"%s\" Found: \"%s\"",
+			rb_raise(rb_eARC_Error, hsprintf("ERROR: ARC::Data header mismatch! Excepted: \"%s\" Found: \"%s\"",
 				Header.c_str(), header.c_str()).c_str());
 			return Qnil;
 		}
@@ -491,7 +491,7 @@ namespace zer0
 			{
 				rb_gc_enable();
 			}
-			rb_raise(rb_eARC_Error, hsprintf("Error: ARC::Data version mismatch! Excepted: \"%s\" Found: \"%s\"",
+			rb_raise(rb_eARC_Error, hsprintf("ERROR: ARC::Data version mismatch! Excepted: \"%s\" Found: \"%s\"",
 				Version.c_str(), version.c_str()).c_str());
 			return Qnil;
 		}

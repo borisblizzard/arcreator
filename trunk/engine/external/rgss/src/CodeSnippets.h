@@ -111,18 +111,18 @@
 /// @brief Throws a cloning error.
 /// @param[in] value Value that can't be cloned.
 #define RB_CANT_CLONE_ERROR(value) \
-	rb_raise(rb_eTypeError, ("can't clone " + value->typeName).c_str());
+	rb_raise(rb_eTypeError, ("Can't clone: " + value->typeName).c_str());
 /// @brief Throws a duping error.
 /// @param[in] value Value that can't be duplicated.
 #define RB_CANT_DUP_ERROR(value) \
-	rb_raise(rb_eTypeError, ("can't dup " + value->typeName).c_str());
+	rb_raise(rb_eTypeError, ("Can't dup: " + value->typeName).c_str());
 
 /// @brief Automatically does a disposed check.
 /// @param[in] value Value to check.
 #define RB_CHECK_DISPOSED(value) \
 	if (value->disposed) \
 	{ \
-		rb_raise(rb_eRGSSError, ("disposed " + value->typeName).c_str()); \
+		rb_raise(rb_eRGSSError, ("Disposed: " + value->typeName).c_str()); \
 	}
 
 /// @brief Automatically does a type check (and throw an exception if failed) with 1 acceptable type.
@@ -133,7 +133,7 @@
 	{ \
 		VALUE varClass = rb_class_name(rb_class_of(var)); \
 		VALUE class1 = rb_class_name(type1); \
-		hstr message = hsprintf("cannot convert %s into %s", StringValueCStr(varClass), \
+		hstr message = hsprintf("Cannot convert: %s into %s", StringValueCStr(varClass), \
 			StringValueCStr(class1)); \
 		rb_raise(rb_eTypeError, message.c_str()); \
 	}

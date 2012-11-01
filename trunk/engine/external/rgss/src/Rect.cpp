@@ -196,7 +196,7 @@ namespace rgss
 
 	VALUE Rect::rb_arcDump(VALUE self)
 	{
-		rb_raise(rb_eTypeError, "can't arc-dump Rect");
+		rb_raise(rb_eTypeError, "Can't arc-dump: Rect");
 		return Qnil;
 	}
 

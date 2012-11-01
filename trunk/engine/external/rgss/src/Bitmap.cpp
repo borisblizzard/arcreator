@@ -81,7 +81,7 @@ namespace rgss
 			int h = NUM2INT(arg2);
 			if (w < 1 || h < 1)
 			{
-				rb_raise(rb_eRGSSError, hsprintf("failed to create Bitmap, dimensions: %d, %d", w, h).c_str());
+				rb_raise(rb_eRGSSError, hsprintf("Failed to create Bitmap %dx%d!", w, h).c_str());
 			}
 			this->texture = april::rendersys->createTexture(
 				w, h, april::Texture::FORMAT_ARGB, april::Texture::TYPE_RENDER_TARGET);
@@ -481,8 +481,7 @@ namespace rgss
 	{
 		if (argc != 2 && argc != 5)
 		{
-			hstr message = hsprintf("wrong number of arguments (%d for 2 or 5)", argc);
-			rb_raise(rb_eArgError, message.c_str());
+			rb_raise(rb_eArgError, hsprintf("Wrong number of arguments: %d for 2 or 5", argc).c_str());
 		}
 		RB_SELF2CPP(Bitmap, bitmap);
 		RB_CHECK_DISPOSED(bitmap);
@@ -574,8 +573,7 @@ namespace rgss
 	{
 		if (argc != 2 && argc != 3 && argc != 5 && argc != 6)
 		{
-			hstr message = hsprintf("wrong number of arguments (%d for 2, 3, 5 or 6)", argc);
-			rb_raise(rb_eArgError, message.c_str());
+			rb_raise(rb_eArgError, hsprintf("Wrong number of arguments: %d for 2, 3, 5 or 6", argc).c_str());
 		}
 		RB_SELF2CPP(Bitmap, bitmap);
 		RB_CHECK_DISPOSED(bitmap);
@@ -631,7 +629,7 @@ namespace rgss
 
 	VALUE Bitmap::rb_arcDump(VALUE self)
 	{
-		rb_raise(rb_eTypeError, "can't arc-dump Bitmap");
+		rb_raise(rb_eTypeError, "Can't arc-dump: Bitmap");
 		return Qnil;
 	}
 

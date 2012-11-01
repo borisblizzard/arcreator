@@ -365,7 +365,7 @@ namespace rgss
 	
 	VALUE Font::rb_arcDump(VALUE self)
 	{
-		rb_raise(rb_eTypeError, "can't arc-dump Font");
+		rb_raise(rb_eTypeError, "Can't arc-dump: Font");
 		return Qnil;
 	}
 

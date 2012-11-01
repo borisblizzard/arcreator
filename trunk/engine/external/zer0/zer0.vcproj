@@ -62,7 +62,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="msvcr90-ruby192.lib ws2_32.lib zdll.lib rb-win32api.lib rb-socket.lib rb-zlib.lib libgtypes.lib libhltypes.lib libapril.lib libatres.lib libatresttf.lib libaprilui.lib libxal.lib zer0rgss.lib"
+				AdditionalDependencies="msvcr90-ruby192.lib ws2_32.lib zlib1.lib rb-win32api.lib rb-socket.lib rb-zlib.lib libgtypes.lib libhltypes.lib libapril.lib libatres.lib libatresttf.lib libaprilui.lib libxal.lib zer0rgss.lib"
 				OutputFile="$(OutDir)zer0division.dll"
 				AdditionalLibraryDirectories="..\lib\msvc90;$(SolutionDir)bin\$(PlatformName)"
 				GenerateDebugInformation="true"
@@ -138,7 +138,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="msvcr90-ruby192.lib ws2_32.lib zdll.lib rb-win32api.lib rb-socket.lib rb-zlib.lib libgtypes.lib libhltypes.lib libapril.lib libatres.lib libatresttf.lib libaprilui.lib libxal.lib zer0rgss.lib"
+				AdditionalDependencies="msvcr90-ruby192.lib ws2_32.lib zlib1.lib rb-win32api.lib rb-socket.lib rb-zlib.lib libgtypes.lib libhltypes.lib libapril.lib libatres.lib libatresttf.lib libaprilui.lib libxal.lib zer0rgss.lib"
 				OutputFile="$(OutDir)zer0division.dll"
 				AdditionalLibraryDirectories="..\lib\msvc90;$(SolutionDir)bin\$(PlatformName)"
 				ImportLibrary="$(TargetDir)zer0division.lib"
@@ -213,7 +213,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="msvcr90-ruby192.lib ws2_32.lib zdll.lib rb-win32api.lib rb-socket.lib rb-zlib.lib libgtypes.lib libhltypes.lib libapril.lib libatres.lib libatresttf.lib libxal.lib zer0rgss.lib"
+				AdditionalDependencies="msvcr90-ruby192.lib ws2_32.lib zlib1.lib rb-win32api.lib rb-socket.lib rb-zlib.lib libgtypes.lib libhltypes.lib libapril.lib libatres.lib libatresttf.lib libxal.lib zer0rgss.lib"
 				OutputFile="$(OutDir)zer0division.dll"
 				AdditionalLibraryDirectories="..\lib\msvc90;$(SolutionDir)bin\$(PlatformName)"
 				ImportLibrary="$(TargetDir)zer0division.lib"
