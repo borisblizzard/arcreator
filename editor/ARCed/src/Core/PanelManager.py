@@ -7,14 +7,8 @@ TODO: create show and hide methods
 
 '''
 import wx
+import wx.lib.agw.aui as aui
 
-try:
-    from agw import aui
-    from agw.aui import aui_switcherdialog as ASD
-except ImportError: # if it's not there locally, try the wxPython lib.
-    import wx.lib.agw.aui as aui
-    from wx.lib.agw.aui import aui_switcherdialog as ASD
-    
 import Kernel
 from Kernel import Manager as KM
     

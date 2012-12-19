@@ -1,52 +1,238 @@
 ++++++++++++++++++++++++++ UNFINISHED ++++++++++++++++++++++++++++
 
-- Writing database actions (requires framework to be finished)
-	- action to write data to project for all panels
+- Writing database actions [PARTIAL]
+	- action to write data to project for RPG Data types [PARTIAL]
+		- Table                                [DONE] 
+		- Map
+		- MapInfo
+		- Event
+		- Event::Page
+		- Event::Page::Condition
+		- Event::Page::Condtion::Graphic
+		- EventCommand
+		- MoveRoute
+		- MoveCommad
+		- Actor                                [DONE]
+		- Class                                [DONE]
+		- Class::Learning                      [DONE]
+		- Skill                                [DONE]
+		- Item
+		- Weapon                               [DONE]
+		- Armor                                [DONE]
+		- Enemy
+		- Enemy::Action
+		- Troop                                [DONE]
+		- Troop::Member
+		- Troop::Page
+		- Troop::Page::Condition
+		- State
+		- Animation
+		- Animation::Frame
+		- Animation::Timing
+		- Tileset
+		- CommonEvent
+		- System
+		- System::Words
+		- System::TestBattler
+		- AudioFile
 	- can combine individual items into one action
 	
-- interfface panels (requiers action fram work and actions for that panel to be done)
+- interface Database panels [PARTIAL]
+	- make panels refelct selected data
+		- Actors Panel       [DONE]
+		- Classes Panel      [DONE]
+		- Skills Panel       [DONE]
+		- Items Panel        [DONE]
+		- Weapons Panel      [DONE] 
+		- Armors Panel       [DONE]
+		- Enemies Panel      [DONE]  
+		- Troops Panel       
+		- States Panel
+		- Animations Panel
+		- Tilesets Panel
+		- Common Events Panel (requires even editor)
+		- System Panel 
+	- make editing data in a panel update the changes to a panel
+		- Actors Panel       [DONE]
+		- Classes Panel      [DONE]
+		- Skills Panel       [DONE]
+		- Items Panel        [DONE]
+		- Weapons Panel      [DONE] 
+		- Armors Panel       [DONE]
+		- Enemies Panel      [PARTIAL]  (graphic, actions)
+		- Troops Panel       
+		- States Panel
+		- Animations Panel
+		- Tilesets Panel
+		- Common Events Panel (requires even editor)
+		- System Panel 
 	- make it so that editing data in a panel generates an action and applys it
+		- Actors Panel       
+		- Classes Panel      
+		- Skills Panel       
+		- Items Panel        
+		- Weapons Panel      
+		- Armors Panel       
+		- Enemies Panel      
+		- Troops Panel       
+		- States Panel
+		- Animations Panel
+		- Tilesets Panel
+		- Common Events Panel (requires even editor)
+		- System Panel 
 	
-- brush frame work (requires action framework)
+- brush framework
+	- panels for selecting tile to draw
 	- three brush source modes (paint form tileset selection, brush, or from map selection)
 	- tools
-	- action to apply the changes to the project
+		- Pencle
+		- Rectangle
+		- Eclipus
+		- Fill
+		- Selection
+	- bind brushes to an action to apply the changes to the project
 	
-- event editor (requiers action framework0
-	- write the control
-	- write actions
-	- interface
+- event editor
+	- Ruby like event langauge standard
+	- event language phraser
+	- Syntax hilighting editor panel
+	- interface event command panels
 	 
-- script editor (requires action framework)
-	- styles text controll
-	- auto indent
-	easy script ordering
+- script editor [PARTIAL]
+	- Syntex hilighting     [DONE]
+	- code folding          [DONE]
+	- controll for configuring styleing [DONE]   
+	- auto indent           [DONE]
+	- easy script ordering
 	
 - map list viewer
 	- easy map oardering and nameing / genral properties changes
 	 
-- random custome controls
-	- the nonstandered controlls in the data base panels need to be written
-		- common event panel (will use the normal event editor as a base)
-		- tileset panel (setting piority and pasibility data)
-		- animation panal
-		- troops panel
 		
 - genral testing to make sure we got everything
 
-- Wrap XAL with cython
-
 - add Redo and Undo menu hooks
 
-- call the Clear method for the cache when an open project even is raised
+- call the Clear method for the cache when an open project event is raised
 
 - Wrap the rest of XAL when it is compleated
 
 
 ================== DONE =============================
+- Layouts for Panels & Dialogs  [DONE]
+	- Panels                [DONE]
+		- Actors_Panel            [DONE]
+ 		- Animations_Panel        [DONE]
+		- ARCed_Templates         [DONE]
+		- Armors_Panel            [DONE]
+		- AudioPlayer_Panel       [DONE]
+		- BattleTestActor_Panel   [DONE]
+ 		- Classes_Panel           [DONE] 
+ 		- CommonEvents_Panel      [DONE]
+ 		- Configuration_Panel     [DONE]
+		- Enemies_Panel           [DONE]
+		- EventCommands1_Panel    [DONE]
+ 		- EventCommands2_Panel    [DONE] 
+		- EventCommands3_Panel    [DONE]
+		- EventEditor_Panel       [DONE] 
+		- EventPage_Panel         [DONE]  
+ 		- Items_Panel             [DONE]
+ 		- ParameterGraph_Panel    [DONE]
+ 		- Skills_Panel            [DONE]
+ 		- States_Panel            [DONE]
+ 		- System_Panel            [DONE]
+ 		- Tilesets_Panel          [DONE]
+ 		- Troops_Panel            [DONE]
+		- Weapons_Panel           [DONE]
+	- Dialogs               [DONE] 
+		- AddParameter_Dialog           [DONE]
+		- AnimationCellBatch_Dialog     [DONE] 
+		- AnimationCellProperties_Dial  [DONE]
+		- AnimationEntireSlide_Dialog   [DONE]
+		- AnimationTiming_Dialog        [DONE]
+		- AnimationTweening_Dialog      [DONE]
+		- BattleAnimation_Dialog        [DONE]
+		- BattleProcessing_Dialog       [DONE]
+		- BattleTest_Dialog             [DONE]
+		- ButonProcessing_Dialog        [DONE]
+		- ButtonProcessing_Dialog       [DONE]
+		- CallCommonEvent_Dialog        [DONE]
+		- ChangeAccess_Dialog           [DONE]
+		- ChangeActorClass_Dialog       [DONE]
+		- ChangeActorGraphic_Dialog     [DONE]
+		- ChangeActorName_Dialog        [DONE]
+		- ChangeBlending_Dialog         [DONE]
+		- ChangeEquipment_Dialog        [DONE]
+		- ChangeFogOpacity_Dialog       [DONE]
+		- ChangeFrequency_Dialog        [DONE]
+		- ChangeHP_Dialog               [DONE]
+		- ChangelGold_Dialog            [DONE]
+		- ChangelPartyEquipment_Dialog  [DONE]
+		- ChangeMapSettings_Dialog      [DONE]
+		- ChangeMaximum_Dialog          [DONE]
+		- ChangeParameters_Dialog       [DONE]
+		- ChangePartyMember_Dialog      [DONE]
+		- ChangePictureColorTone_Dialog [DONE]
+		- ChangeSkills_Dialog           [DONE]
+		- ChangeSpeed_Dialog            [DONE]
+		- ChangeState_Dialog            [DONE]
+		- ChangeStat_Dialog             [DONE]
+		- ChangeTextOptions_Dialog      [DONE]
+		- ChangeTone_Dialog             [DONE]
+		- ChooseActor_Dialog            [DONE]
+		- ChooseFogGraphic_Dialog       [DONE]
+		- ChooseGraphic_Dialog          [DONE]
+		- ChooseGraphic_Dialog_NoHue    [DONE]
+		- ChooseSwitchVariable_Dialog   [DONE]
+		- ChooseTreasure_Dialog         [DONE]
+		- Comment_Dialog                [DONE]
+		- ConditionalBranch_Dialog      [DONE]
+		- ControlSelfSwitches_Dialog    [DONE]
+		- ControlSwitches_Dialog        [DONE]
+		- ControlTimer_Dialog           [DONE]
+		- ControlVariables_Dialog       [DONE]
+		- DealDamage_Dialog             [DONE]
+		- EnemyAction_Dialog            [DONE]
+		- EnemyAppearance_Dialog        [DONE]
+		- EnemyExpGold_Dialog           [DONE]
+		- EnemyTransform_Dialog         [DONE]
+		- ErasePicture_Dialog           [DONE]
+		- EventCondition_Dialog         [DONE]
+		- ExpGrid_Dialog                [DONE]
+		- FadeOutAudio_Dialog           [DONE]
+		- FindReplace_Dialog            [DONE]
+		- ForceAction_Dialog            [DONE]
+		- GenerateCurve_Dialog          [DONE]
+		- InputNumber_Dialog            [DONE]
+		- Jump_Dialog                   [DONE]
+		- Label_Dialog                  [DONE]
+		- MovePicture_Dialog            [DONE]
+		- MoveRoute_Dialog              [DONE]
+		- NameProcessing_Dialog         [DONE]
+		- RecoverAll_Dialog             [DONE]
+		- RotatePicture_Dialog          [DONE]
+		- ScreenShake_Dialog            [DONE]
+		- ScriptCall_Dialog             [DONE]
+		- ScriptSettings_Dialog         [DONE]
+		- ScrollMap_Dialog              [DONE]
+		- SetEventLocation_Dialog       [DONE]
+		- ShopGoods_Dialog              [DONE]
+		- ShopProcessing_Dialog         [DONE] 
+		- ShowAnimation_Dialog          [DONE]
+		- ShowChoices_Dialog            [DONE]
+		- ShowPicture_Dialog            [DONE]
+		- ShowText_Dialog               [DONE]
+		- Skill_Dialog                  [DONE]
+		- TransferEventTilemap_Dialog   [DONE]
+		- TransferPlayerTilemap_Dialog  [DONE]
+		- TransferPlayer_Dialog         [DONE]
+		- TransparentFlag_Dialog        [DONE]
+		- Wait_Dialog                   [DONE]
+		- WeatherEffects_Dialog         [DONE]
 
-- finished project interface[DONE] (with error)
-	- loading projects[DONE] (with error) ARC format isn't being read properly
+
+- project interface[DONE]
+	- loading projects[DONE]
 	- acessing data [DONE]
 	- saving projects [DONE]
 	- creating new projects [DONE]

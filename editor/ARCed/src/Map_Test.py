@@ -70,7 +70,7 @@ if __name__ == '__main__':
             #config = Kernel.GlobalObjects.get_value("ARCed_config")
             #path = config.get("RTPs", "core")
             RTP_PATH = Kernel.GlobalObjects.get_value("ARCed_config").get_section("RTPs").get('Standard')
-            TEST_PATH = os.path.join(RTP_PATH, "Templates", "Chonicles of Sir Lag-A-Lot", "Chronicles of Sir Lag-A-Lot.arcproj")
+            TEST_PATH = os.path.join(RTP_PATH, "Templates", "Chronicles of Sir Lag-A-Lot", "Chronicles of Sir Lag-A-Lot.arcproj")
             print TEST_PATH
             #get a project loader
             projectloader = KM.get_component("ARCProjectLoader").object()

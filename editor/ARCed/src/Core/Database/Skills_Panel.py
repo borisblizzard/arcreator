@@ -173,11 +173,14 @@ class Skills_Panel( Templates.Skills_Panel, PanelBase  ):
 
     def bitmapButtonIcon_Clicked( self, event ):
         """Opens dialog to select an icon for the selected skill"""
-        DM.ChooseGraphic('Graphics/Icon/', self.SelectedSkill.icon_name, 0, False)
+        filename = DM.ChooseGraphic(self, 'Icons', self.SelectedSkill.icon_name)
+        if filename:
+            self.SelectedSkill.icon_name = filename
+        self.refreshValues()
 
     def bitmapButtonAudioTest_Clicked( self, event ):
         """Plays the sound effect as a quick test without opening the dialog"""
-        DM.TestSFX(self.SelectedSkill.menu_se)
+        DM.QuickPlay(self.SelectedSkill.menu_se, 'SE')
 
     def textCtrlDescription_TextChange( self, event ):
         """Set the selected skill's description"""
@@ -194,8 +197,9 @@ class Skills_Panel( Templates.Skills_Panel, PanelBase  ):
     def comboBoxMenuSE_Clicked( self, event ):
         """Opens the dialog for selecting the audio file to use"""
         audio = DM.ChooseAudio(self, self.SelectedSkill.menu_se, 'SE')
-        self.SelectedSkill.menu_se = audio
-        self.comboBoxMenuSE.SetValue(audio.name)
+        if audio:
+            self.SelectedSkill.menu_se = audio
+            self.comboBoxMenuSE.SetValue(audio.name)
 
     def comboBoxOccasion_SelectionChanged( self, event ):
         """Set the selected skill's occasion"""

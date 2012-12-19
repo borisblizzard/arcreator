@@ -155,7 +155,10 @@ class Weapons_Panel( Templates.Weapons_Panel, PanelBase ):
     
     def bitmapButtonIcon_Clicked( self, event ):
         """Opens dialog to select an icon for the selected skill"""
-        DM.ChooseGraphic('Graphics/Icon/', self.SelectedWeapon.icon_name, 0, False)
+        filename = DM.ChooseGraphic(self, 'Icons', self.SelectedWeapon.icon_name)
+        if filename:
+            self.SelectedWeapon.icon_name = filename
+        self.refreshValues()
     
     def textCtrlDescription_TextChange( self, event ):
         """Set the selected weapon's description"""

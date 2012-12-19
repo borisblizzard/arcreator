@@ -134,7 +134,7 @@ class EditorGLPanel(PygletGLPanel):
 			pygletimage.blit(x / 2, y / 2, 0, w - diff_w, h - diff_h)
 		else:
 			pygletimage.blit(x, y, 0, w, h)
-		pygletimage.delete()
+		del (pygletimage)
 
 	def Shrink( self, pygletimage ):
 		"""Scales image down if too large, else the image is simply centered"""

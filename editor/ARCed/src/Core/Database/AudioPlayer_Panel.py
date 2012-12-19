@@ -11,8 +11,6 @@ from Core.Database import Manager as DM
 import Kernel
 from Kernel import Manager as KM
 
-PyXAL = KM.get_component("PyXAL").object
-
 # Simple flag since currently pitch changing is only compatible with DirectSound
 PITCH_ENABLED = sys.platform == 'win32'
 
@@ -27,6 +25,8 @@ else:
 class AudioPlayer_Panel( Templates.AudioPlayer_Panel, PanelBase ):
     def __init__( self, parent, rpgfile=None, directory=None ):
         """Basic constructor for the AudioPlayer"""
+
+        # obtain a PyXAL interface
         Templates.AudioPlayer_Panel.__init__( self, parent )
         # Set up the panel
         self.AudioIndex = 0
@@ -52,7 +52,6 @@ class AudioPlayer_Panel( Templates.AudioPlayer_Panel, PanelBase ):
         # Disable scroll function if pitch changing is not permitted
         self.sliderPitch.Enable(PITCH_ENABLED)
         # Set the passed audio file, if, any, as the current selection"""
-        PyXAL.Init(self.GetHandle(), True)
         self.Channels = [AudioChannel() for i in AUDIO_DIRECTORIES]
         if rpgfile is not None and dir is not None:
             self.Channels[self.AudioIndex].rpgaudio = rpgfile
@@ -64,10 +63,6 @@ class AudioPlayer_Panel( Templates.AudioPlayer_Panel, PanelBase ):
     def GetAudio( self ):
         # TODO: Implement
         return RPG.AudioFile()
-
-    def __del__( self ):
-        """Destroy PyXAL"""
-        PyXAL.Destroy()
 
     def Update( self, event ):
         """Updates the scrolling for the position slide control"""
@@ -229,6 +224,8 @@ class AudioChannel(object):
 
     def __init__(self):
         """Basic constructor for an AudioChannel object"""
+        # obtain a PyXAL interface
+        self.PyXAL = DM.getPyXAL()
         self.player = None
         self.sound = None
         self.rpgaudio = RPG.AudioFile()
@@ -242,16 +239,16 @@ class AudioChannel(object):
         self.rpgaudio = rpgfile
         self.file = str(filepath)
         if self.sound is not None:
-            PyXAL.Mgr.destroySound(self.sound)
+            self.PyXAL.Mgr.destroySound(self.sound)
             del (self.sound)
         if self.player is not None:
-            PyXAL.Mgr.destroyPlayer(self.player)
+            self.PyXAL.Mgr.destroyPlayer(self.player)
             del(self.player)
         if filepath == '' or rpgfile.name == '':
             self.sound = self.player = self.RightChannel = self.LeftChannel = None
             return
-        self.sound = PyXAL.Mgr.createSound(self.file)
-        self.player = PyXAL.Mgr.createPlayer(self.sound)
+        self.sound = self.PyXAL.Mgr.createSound(self.file)
+        self.player = self.PyXAL.Mgr.createPlayer(self.sound)
         array = self._getsoundarray(self.sound)
         self.RightChannel = self._shorten_array(array[:, 0])
         self.LeftChannel = self._shorten_array(array[:, 1])
@@ -292,7 +289,7 @@ class AudioChannel(object):
     def GetOffset( self ):
         """Returns the offset, if any, of the current sound"""
         if self.player is not None:
-            return self.player.getOffset()
+            return self.player.getTimePosition()
         return 0
 
     def GetChannels( self ):
@@ -327,7 +324,7 @@ class AudioChannel(object):
                       16 : np.int16, # AUDIO_S16
                       24 : np.int32  # 24 bit integers! oh god!
                     }
-        size, raw_data = self.sound.readRawData()
+        size, raw_data = self.sound.readPcmData()
         if size > 0:
             typecode = typecodes[sound.getBitsPerSample()]
             if sound.getBitsPerSample() == 24: 

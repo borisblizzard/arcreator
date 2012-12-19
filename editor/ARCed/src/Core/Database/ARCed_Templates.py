@@ -5415,7 +5415,7 @@ class ChooseGraphic_Dialog ( wx.Dialog ):
         self.panelGraphic.SetScrollRate( 5, 5 )
         sizerGLGraphic = wx.BoxSizer( wx.VERTICAL )
         
-        from ImageCanvas import EditorGLPanel
+        from Core.Database.Controls import EditorGLPanel
         parent = self.panelGraphic
         self.glCanvasGraphic = EditorGLPanel(parent, -1, 1, 1, (0, 0,), 1)
         sizerGLGraphic.Add( self.glCanvasGraphic, 1, wx.ALL|wx.EXPAND, 0 )
@@ -5467,6 +5467,81 @@ class ChooseGraphic_Dialog ( wx.Dialog ):
     
     def sliderHue_Scrolled( self, event ):
         pass
+    
+    def buttonOK_Clicked( self, event ):
+        pass
+    
+    def buttonCancel_Clicked( self, event ):
+        pass
+
+###########################################################################
+## Class ChooseGraphic_Dialog_NoHue
+###########################################################################
+
+class ChooseGraphic_Dialog_NoHue ( wx.Dialog ):
+    
+    def __init__( self, parent ):
+        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Choose Graphic", pos = wx.DefaultPosition, size = wx.Size( 640,480 ), style = wx.DEFAULT_DIALOG_STYLE|wx.RESIZE_BORDER )
+        
+        self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
+        
+        MainSizer = wx.BoxSizer( wx.VERTICAL )
+        
+        sizerControls = wx.BoxSizer( wx.HORIZONTAL )
+        
+        listBoxGraphicsChoices = []
+        self.listBoxGraphics = wx.ListBox( self, wx.ID_ANY, wx.DefaultPosition, wx.Size( 160,-1 ), listBoxGraphicsChoices, 0 )
+        sizerControls.Add( self.listBoxGraphics, 0, wx.ALL|wx.EXPAND, 5 )
+        
+        sizerGraphic = wx.BoxSizer( wx.VERTICAL )
+        
+        self.panelGraphic = wx.ScrolledWindow( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.HSCROLL|wx.SUNKEN_BORDER|wx.VSCROLL )
+        self.panelGraphic.SetScrollRate( 5, 5 )
+        sizerGLGraphic = wx.BoxSizer( wx.VERTICAL )
+        
+        from Core.Database.Controls import EditorGLPanel
+        parent = self.panelGraphic
+        self.glCanvasGraphic = EditorGLPanel(parent, -1, 1, 1, (0, 0,), 1)
+        sizerGLGraphic.Add( self.glCanvasGraphic, 1, wx.ALL|wx.EXPAND, 0 )
+        
+        self.panelGraphic.SetSizer( sizerGLGraphic )
+        self.panelGraphic.Layout()
+        sizerGLGraphic.Fit( self.panelGraphic )
+        sizerGraphic.Add( self.panelGraphic, 1, wx.EXPAND |wx.ALL, 5 )
+        
+        sizerControls.Add( sizerGraphic, 1, wx.EXPAND, 5 )
+        
+        MainSizer.Add( sizerControls, 1, wx.EXPAND, 5 )
+        
+        sizerOKCancel = wx.BoxSizer( wx.HORIZONTAL )
+        
+        self.buttonOK = wx.Button( self, wx.ID_ANY, u"OK", wx.DefaultPosition, wx.DefaultSize, 0 )
+        sizerOKCancel.Add( self.buttonOK, 0, wx.ALL, 5 )
+        
+        self.buttonCancel = wx.Button( self, wx.ID_ANY, u"Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
+        sizerOKCancel.Add( self.buttonCancel, 0, wx.ALL, 5 )
+        
+        MainSizer.Add( sizerOKCancel, 0, wx.ALIGN_RIGHT, 5 )
+        
+        self.SetSizer( MainSizer )
+        self.Layout()
+        
+        self.Centre( wx.BOTH )
+        
+        # Connect Events
+        self.listBoxGraphics.Bind( wx.EVT_LISTBOX, self.listBoxGraphics_SelectionChanged )
+        self.buttonOK.Bind( wx.EVT_BUTTON, self.buttonOK_Clicked )
+        self.buttonCancel.Bind( wx.EVT_BUTTON, self.buttonCancel_Clicked )
+    
+    def __del__( self ):
+        pass
+    
+    
+    # Virtual event handlers, overide them in your derived class
+    def listBoxGraphics_SelectionChanged( self, event ):
+        pass
+    
+
     
     def buttonOK_Clicked( self, event ):
         pass

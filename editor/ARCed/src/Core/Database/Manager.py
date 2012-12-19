@@ -16,6 +16,8 @@ class Manager(object):
     GRADIENT_LEFT = wx.Color(100, 100, 100)
     GRADIENT_RIGHT = wx.Color(60, 60, 60)
 
+    PYXAL = None
+
     #----------------------------------------------------------------------------------
     @staticmethod
     def RenderImage( glCanvas, filename, hue=0, type='battler'):
@@ -241,6 +243,34 @@ class Manager(object):
         dialog.Destroy()
 
     #----------------------------------------------------------------------------------
+    #----------------------------------------------------------------------------------
+    @staticmethod
+    def ChooseGraphic(parent, folder, current, hue=None):
+        """Creates the Choose Graphic dialog
+        
+        Arguments:
+        folder -- The root folder that contains audio files to populate the list
+        audio -- The RPG.AudioFile instance that is currently defined
+        
+        Returns:
+        Returns the chosen RPG.AudioFile
+
+        """
+        from Core.Database.Dialogs import ChooseGraphic_Dialog, ChooseGraphic_Dialog_NoHue
+        if hue is not None:
+            dlg = ChooseGraphic_Dialog(parent, folder, current, hue)
+        else:
+            dlg = ChooseGraphic_Dialog_NoHue(parent, folder, current)
+        if dlg.ShowModal() == wx.ID_OK:
+            if hue is not None:
+                filename, hue = dlg.GetSelection()
+                return (filename, hue)
+            else:
+                filename = dlg.GetSelection()
+                return filename
+        dlg.Destroy()
+
+    #----------------------------------------------------------------------------------
     @staticmethod
     def GetAudioLabel(rpgaudio):
         """Returns a formatted string for displaying the audio file
@@ -260,14 +290,19 @@ class Manager(object):
         return label
 
     #----------------------------------------------------------------------------------
+    @staticmethod
+    def getPyXAL():
+        PyXAL = KM.get_component("PyXAL").object
+        return PyXAL
+
+    #----------------------------------------------------------------------------------
     @staticmethod 
-    def QuickPlay(parent, rpgaudio, folder):
+    def QuickPlay(rpgaudio, folder):
         try:
             path = RTPFunctions.FindAudioFile(os.path.join('Audio', folder), rpgaudio.name)
             if path == '':
                 return
-            PyXAL = KM.get_component("PyXAL").object
-            PyXAL.Init(parent.GetHandle(), True)
+            PyXAL = Manager.getPyXAL()
             sound = PyXAL.Mgr.createSound(path)
             player = PyXAL.Mgr.createPlayer(sound)
             player.play()
@@ -283,10 +318,8 @@ class Manager(object):
         """Destroys the player and sound objects, and frees the PyXAL instance"""
         pyxal.Mgr.destroySound(sound)
         pyxal.Mgr.destroyPlayer(player)
-        pyxal.Destroy()
         del (sound)
         del (player)
-        del (pyxal)
 
     #----------------------------------------------------------------------------------
     @staticmethod

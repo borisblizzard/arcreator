@@ -109,6 +109,7 @@
     <Compile Include="src\Core\Database\Dialogs\ChooseActor_Dialog.py" />
     <Compile Include="src\Core\Database\Dialogs\ChooseFogGraphic_Dialog.py" />
     <Compile Include="src\Core\Database\Dialogs\ChooseGraphic_Dialog.py" />
+    <Compile Include="src\Core\Database\Dialogs\ChooseGraphic_Dialog_NoHue.py" />
     <Compile Include="src\Core\Database\Dialogs\ChooseSwitchVariable_Dialog.py" />
     <Compile Include="src\Core\Database\Dialogs\ChooseTreasure_Dialog.py" />
     <Compile Include="src\Core\Database\Dialogs\Comment_Dialog.py" />

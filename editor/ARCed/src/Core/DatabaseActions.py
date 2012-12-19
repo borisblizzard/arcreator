@@ -51,9 +51,9 @@ class TableEditAction(Actions.ActionTemplate):
         index = self.data['index']
         value = self.data['value']
         if dim > 3:
-            raise TypeError("dim can't be less than 0")
+            raise TypeError("dim can't be greater than 3")
         if dim < 0:
-            raise TypeError("dim can't be greater than 3 or less than 0")
+            raise TypeError("dim can't be less than 0")  
         if isinstance(index, int):
             if dim > 1:
                 raise TypeError("wrong number of arguments (%d for %d)" % (1, dim))

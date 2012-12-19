@@ -339,25 +339,23 @@ class Actors_Panel( Templates.Actors_Panel, PanelBase ):
 
     def glCanvasCharacter_DoubleClick( self, event ):
         """Opens dialog to change the character graphic"""
-        from Core.Database.Dialogs import ChooseGraphic_Dialog
-        dlg = ChooseGraphic_Dialog(self, 'Characters',
-            self.SelectedActor.character_name, self.SelectedActor.character_hue)
-        if dlg.ShowModal() == wx.ID_OK:
-            filename, hue = dlg.GetSelection()
-            self.SelectedActor.character_name = filename
-            self.SelectedActor.character_hue = hue
-            self.refreshGraphics()
+        result = DM.ChooseGraphic(self, 'Characters', self.SelectedActor.character_name, self.SelectedActor.character_hue)
+        if result:
+            filename, hue = result
+            if filename is not None and hue is not None:
+                self.SelectedActor.character_name = filename
+                self.SelectedActor.character_hue = hue
+                self.refreshGraphics()
 
     def glCanvasBattler_DoubleClick( self, event ):
         """Opens dialog to change the battler graphic"""
-        from Core.Database.Dialogs import ChooseGraphic_Dialog
-        dlg = ChooseGraphic_Dialog(self, 'Battlers',
-            self.SelectedActor.battler_name, self.SelectedActor.battler_hue)
-        if dlg.ShowModal() == wx.ID_OK:
-            filename, hue = dlg.GetSelection()
-            self.SelectedActor.battler_name = filename
-            self.SelectedActor.battler_hue = hue
-            self.refreshGraphics()
+        result = DM.ChooseGraphic(self, 'Battlers', self.SelectedActor.battler_name, self.SelectedActor.battler_hue)
+        if result:
+            filename, hue = result
+            if filename is not None and hue is not None:
+                self.SelectedActor.battler_name = filename
+                self.SelectedActor.battler_hue = hue
+                self.refreshGraphics()
 
     def comboBoxEquipment_SelectionChanged( self, event ):
         """Updates the weapon/armor id for the selected type for the actor"""
