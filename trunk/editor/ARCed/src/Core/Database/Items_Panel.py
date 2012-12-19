@@ -162,11 +162,14 @@ class Items_Panel( Templates.Items_Panel, PanelBase ):
 
     def bitmapButtonIcon_Clicked( self, event ):
         """Opens dialog to select an icon for the selected skill"""
-        DM.ChooseGraphic('Graphics/Icon/', self.SelectedItem.icon_name, 0, False)
+        filename = DM.ChooseGraphic(self, 'Icons', self.SelectedItem.icon_name)
+        if filename:
+            self.SelectedItem.icon_name = filename
+        self.refreshValues()
 
     def bitmapButtonAudioTest_Clicked( self, event ):
         """Plays the sound effect as a quick test without opening the dialog"""
-        DM.QuickPlay(self, self.SelectedItem.menu_se, 'SE')
+        DM.QuickPlay(self.SelectedItem.menu_se, 'SE')
 
     def textCtrlDescription_TextChange( self, event ):
         """Updates the selected item's description"""

@@ -3,13 +3,7 @@ Created on Jan 14, 2011
 
 '''
 import wx
-
-try:
-    from agw import aui
-    from agw.aui import aui_switcherdialog as ASD
-except ImportError: # if it's not there locally, try the wxPython lib.
-    import wx.lib.agw.aui as aui
-    from wx.lib.agw.aui import aui_switcherdialog as ASD
+import wx.lib.agw.aui as aui
 
 import Kernel
 from Kernel import Manager as KM

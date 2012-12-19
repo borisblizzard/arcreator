@@ -22,7 +22,9 @@ class ScriptEditor_Panel( Templates.ScriptEditor_Panel, PanelBase ):
         """Basic constructor for the ScriptEditor_Panel"""
         Templates.ScriptEditor_Panel.__init__( self, parent )
         self.CreateToolBar()
-        self.statusBar = parent.CreateStatusBar()
+        #self.statusBar = parent.CreateStatusBar()
+        # TODO: give teh script editor it's own status bar
+        self.statusBar = Kernel.GlobalObjects.get_value("MainStatusBar")
         self.statusBar.SetFieldsCount(3)
         self.statusBar.SetStatusWidths([-4, -4, -2])
         # TODO: Get path by using project path + Data/Scripts/

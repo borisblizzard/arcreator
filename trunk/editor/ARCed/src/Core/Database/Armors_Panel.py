@@ -153,7 +153,10 @@ class Armors_Panel( Templates.Armors_Panel, PanelBase ):
     
     def bitmapButtonIcon_Clicked( self, event ):
         """Opens dialog to select an icon for the selected skill"""
-        DM.ChooseGraphic('Graphics/Icon/', self.SelectedArmor.icon_name, 0, False)
+        filename = DM.ChooseGraphic(self, 'Icons', self.SelectedArmor.icon_name)
+        if filename:
+            self.SelectedArmor.icon_name = filename
+        self.refreshValues()
     
     def textCtrlDescription_TextChange( self, event ):
         """Set the selected armor's description"""

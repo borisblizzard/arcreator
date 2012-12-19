@@ -72,6 +72,8 @@ class Test(wx.App):
             exec('page = ' + data[1] + '(nb)')
             nb.AddPage(page, data[0])
         nb.SetSelection(PAGE_INDEX)
+        PyXAL = KM.get_component("PyXAL").object
+        PyXAL.Init(self.frame.GetHandle(), True)
         self.frame.Show()
 
     def load_project(self):

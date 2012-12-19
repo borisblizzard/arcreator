@@ -181,7 +181,9 @@ class RTPFunctions(object):
         rtps = Kernel.GlobalObjects.get_value("ARCed_config").get_section("RTPs")
         directories.extend([os.path.expandvars(path[1]) for path in rtps.iteritems()])
         for dir in directories:
-            entries.extend(os.listdir(os.path.join(dir, folder)))
+            path = os.path.join(dir, folder)
+            if os.path.exists(path):
+                entries.extend(os.listdir(path))
         for entry in entries:
             file, ext = os.path.splitext(entry)
             if ext in extensions:

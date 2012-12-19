@@ -35,6 +35,7 @@ from ChangeTone_Dialog import ChangeTone_Dialog
 from ChooseActor_Dialog import ChooseActor_Dialog
 from ChooseFogGraphic_Dialog import ChooseFogGraphic_Dialog
 from ChooseGraphic_Dialog import ChooseGraphic_Dialog
+from ChooseGraphic_Dialog_NoHue import ChooseGraphic_Dialog_NoHue
 from ChooseSwitchVariable_Dialog import ChooseSwitchVariable_Dialog
 from ChooseTreasure_Dialog import ChooseTreasure_Dialog
 from Comment_Dialog import Comment_Dialog

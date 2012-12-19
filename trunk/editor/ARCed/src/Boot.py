@@ -228,6 +228,8 @@ class ARCSplashScreen(AS.AdvancedSplash):
             
         # ok were all set up. bring up the main window and close the splash screen
         self.ShowMain()
+        #lets start up PyXAL so we can use it
+        self.BindPyXAL()
         self.fc = wx.FutureCall(1000, self.Close)
 
     def Close(self):
@@ -240,6 +242,10 @@ class ARCSplashScreen(AS.AdvancedSplash):
         MainWindow = KM.get_component("EditorMainWindow").object
         self.frame = MainWindow(None, wx.ID_ANY, 'ARCed')
         self.frame.Show(True)
+
+    def BindPyXAL(self):
+        PyXAL = KM.get_component("PyXAL").object
+        PyXAL.Init(self.frame.GetHandle(), True)
         
         #wx.lib.inspection.InspectionTool().Show()
 
@@ -267,7 +273,15 @@ def Run(programDir):
     wx.HelpProvider.Set(provider)
 
     app = ARC_App(False)
+    #start up the app, we wont be comming back till the app is closed
     app.MainLoop()
+    # we want to clean up PyXAL as much as we can, it's dead now anyway as the window it was bound to is gone
+    try:
+        PyXAL = KM.get_component("PyXAL").object
+        PyXAL.Destroy()
+    except:
+        Kernel.Log("Error destroying PyXAL Binding", "[Main]", error=True)
+    #lets try to save the user's current config before we leave
     try:
         ConfigManager.SaveConfig()
     except:

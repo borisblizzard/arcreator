@@ -49,3 +49,13 @@
 [xal] destroying XAL
 [xal] stopping audio update thread
 [xal] destroying DirectSound
+[xal] initializing XAL
+[xal] initializing DirectSound
+[xal] audio system created: DirectSound
+[xal] starting audio update thread
+[xal] loading file E:\Dropbox\RTP\Standard\Audio\Ambient\Void01.ogg
+[xal] loading file E:\Dropbox\RTP\Standard\Audio\Ambient\Void01.ogg
+[xal] loading file E:\Dropbox\RTP\Standard\Audio\Ambient\Void01.ogg
+[xal] destroying XAL
+[xal] stopping audio update thread
+[xal] destroying DirectSound
