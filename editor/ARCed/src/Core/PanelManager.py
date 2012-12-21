@@ -59,14 +59,12 @@ class PanelManager(object):
         '''
         return KM.get_type("PanelManagerType").get_type(type_name).get_default_component().object
     
-    def dispatch_panel(self, type, id, arguments=[], info="", data={}):
+    def dispatch_panel(self, type, id, arguments=[], info="", data={}, overwrite=False):
         '''
         gets a panel instance and dispatches it to the window storing it in the dispatched array mapped to id, 
         if id already exists the panel currently mapped to id is removed before the new panel is dispatched
         '''
-        #build the window instance
         panel = self.get_panel_object(type)
-        panel_instance = panel(self.parent, *arguments)
         #generate the AUI info
         info_obj = None
         if hasattr(panel, "_arc_panel_info_string"):
@@ -75,20 +73,38 @@ class PanelManager(object):
             else:
                 info_obj = self.generate_info(panel._arc_panel_info_string, info=info_obj)
         info_obj = self.generate_info(info, data, info_obj)
-        #Check to see if we should dock or float this panel
+        
+        #find were we might be docking this pane
         docktarget = None
+        #Check to see if we should dock or float this panel
         if not info_obj.IsFloating():
             targetid = self.LastActive[info_obj.dock_direction_get()]
             if (self.dispached.has_key(targetid)) and (self.dispached[targetid] != None):
                 docktarget = self.getPanelInfo(targetid)
-        panel_instance._ARC_Panel_Info = info_obj
-        #store the panel
-        if self.dispached.has_key(id):
-            self.remove_panel(id)
-        self.dispached[id] = panel_instance
-        self.IDs[panel_instance] = id
-        #add the panel to the AUI interface
-        self.manager.AddPane(panel_instance, info_obj, target=docktarget)
+
+        #check to see if the pane exists already
+        pane_info = self.manager.GetPane(info_obj.name)
+        if pane_info.IsOk() and not overwrite:
+            info_obj.Show()
+            panel_instance = pane_info.window
+            self.manager.DetachPane(panel_instance)
+            self.manager.AddPane(panel_instance, info_obj, target=docktarget)
+            self.manager.RequestUserAttention(panel_instance)
+        else:
+            
+            # prevent duplicates
+            if self.dispached.has_key(id):
+                self.remove_panel(id)
+            #build the window instance
+            panel_instance = panel(self.parent, *arguments)
+            
+            panel_instance._ARC_Panel_Info = info_obj
+            #store the panel
+            self.dispached[id] = panel_instance
+            self.IDs[panel_instance] = id
+            #add the panel to the AUI interface
+
+            self.manager.AddPane(panel_instance, info_obj, target=docktarget)
         self.Update()
         return panel_instance    
     

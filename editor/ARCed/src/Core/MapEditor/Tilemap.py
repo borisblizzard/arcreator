@@ -168,7 +168,9 @@ class EventGrid(object):
         loops through every event and removes sprites for events that have been deleted, 
         then calls the updateEvent method for the rest of the events
         '''
-        removed = list(set(self.events.keys()) - set(self.map.events.keys()))
+        b = set(self.map.events.keys())
+        a = self.events.keys()
+        removed = [x for x in a if x not in b]
         for key in removed:
             self.graphics.remove(self.sprites[key][0])
             self.backgrounds.remove(self.sprites[key][1])
@@ -912,19 +914,36 @@ class TilemapPanel(PygletGLPanel):
         self.canvas.Bind(wx.EVT_LEFT_DOWN, self.OnLeftButtonEvent)
         self.canvas.Bind(wx.EVT_LEFT_UP, self.OnLeftButtonEvent)
         self.canvas.Bind(wx.EVT_MOTION, self.OnLeftButtonEvent)
+        self.canvas.Bind(wx.EVT_LEFT_DCLICK, self.OnLeftButtonDEvent)
         # UI update
         self.Bind(wx.EVT_UPDATE_UI, self.Update) 
 
+    def OnLeftButtonDEvent(self, event):
+        if self.onEventLayer():
+            mgr = Kernel.GlobalObjects.get_value("PanelManager")
+            x, y = self.ConvertEventCoords(event)
+            event = self.FindEvent(x, y)
+            if event:
+                pass
+            else:
+                pass
+            #mgr.dispatch_panel("MainActorsPanel", "Main Actors Panel") 
+    
+    def FindEvent(self, x, y):
+        for event in self.map.events:
+            if event.x == x and event.y == y:
+                return event
+        return None
+
     def OnLeftButtonEvent(self, event):
-        onEventLayer = (self.activeLayer == (self.map.data.getShape()[2] + 1))
-        if not onEventLayer:
+        if not self.onEventLayer():
             if not self.drawing:
                 self.SetTopLeftXY(event)
             self.SetBottomRightXY(event)
         if event.LeftDown():
             self.SetFocus()
             self.canvas.CaptureMouse()
-            if onEventLayer:
+            if self.onEventLayer():
                 self.SetTopLeftXY(event)
             self.drawing = True
         elif event.LeftUp():
@@ -935,6 +954,9 @@ class TilemapPanel(PygletGLPanel):
         if self.NeedRedraw:
             self.ForceRedraw()
         event.Skip()
+
+    def onEventLayer(self):
+        return (self.activeLayer == (self.map.data.getShape()[2] + 1))
         
     def SetTopLeftXY(self, event):
         x, y = self.ConvertEventCoords(event)
