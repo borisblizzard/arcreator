@@ -36,6 +36,7 @@ from Core.Database import Animations_Panel
 from Core.Database import Tilesets_Panel
 from Core.Database import CommonEvents_Panel
 from Core.Database import System_Panel
+from Core.Database import EventEditor_Panel
 from Core.Database.ScriptEditor import ScriptEditor_Panel
 
 #=============================================================================
@@ -85,7 +86,9 @@ class PanelManagerType(SuperType):
     MainTilesetsPanel = Type("MainTilesetsPanel")
     MainCommonEventsPanel = Type("MainCommonEventsPanel")
     MainSystemPanel = Type("MainSystemPanel")
-
+    # Event Editor
+    MainEventEditor = Type("MainEventEditor")
+    # ScriptEditor
     MainScriptEditorPanel = Type("MainScriptEditorPanel")
     
     def __init__(self):
@@ -99,7 +102,9 @@ class PanelManagerType(SuperType):
                        self.MainItemsPanel, self.MainWeaponsPanel, self.MainArmorsPanel, self.MainEnemiesPanel, 
                        self.MainTroopsPanel, self.MainStatesPanel, self.MainAnimationsPanel, self.MainTilesetsPanel, 
                        self.MainCommonEventsPanel, self.MainSystemPanel)
-
+        #Event Editor
+        self.add_types(self.MainEventEditor)
+        #Script Editor
         self.add_types(self.MainScriptEditorPanel)
         #--------------------------------- Toolbars ----------------------------------
         self.add_types(self.MainToolbar, self.DatabaseToolbar)
@@ -244,7 +249,7 @@ class CorePackage(Package):
                         CoreEventARCExtendNamespaceOnLoad, CoreExitMainWindow, CoreEventAutoSave)
         
         #=====================================================================
-        # * add even hooks to be registered
+        # * add event hooks to be registered
         #=====================================================================
         self.add_event_hook("CoreEventARCExtendNamespaceOnLoad", RMXP.RGSS1_RPG.extend_namespace,  RMXP.RGSS1_RPG)
 
@@ -409,7 +414,7 @@ class CorePackage(Package):
         self.add_component(Component(Panels.DatabaseToolbar, "DatabaseToolbar", "PanelManagerType",
                                      "CoreDatabaseToolbar", "CORE", 1.0, self))
 
-        
+        # Database
         self.add_component(Component(Actors_Panel, "MainActorsPanel", "PanelManagerType", 
                                      "COREMainActorsPanel", "CORE", 1.0, self))
         self.add_component(Component(Classes_Panel, "MainClassesPanel", "PanelManagerType", 
@@ -437,6 +442,11 @@ class CorePackage(Package):
         self.add_component(Component(System_Panel, "MainSystemPanel", "PanelManagerType", 
                                      "COREMainSystemPanel", "CORE", 1.0, self))
 
+        #Event Editor
+        self.add_component(Component(EventEditor_Panel, "MainEventEditorPanel", "PanelManagerType",
+                                     "COREMainEventEditorPanel", "CORE", 1.0, self))
+
+        #Script Editor
         self.add_component(Component(ScriptEditor_Panel, "MainScriptEditorPanel", "PanelManagerType", 
                                      "COREMainScriptEditorPanel", "CORE", 1.0, self))
         

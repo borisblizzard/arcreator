@@ -42,7 +42,7 @@ class AuiManager_DCP_ARC(aui.AuiManager_DCP):
 class CoreEditorMainWindow(wx.Frame):
     
     def __init__(self, parent, id=wx.ID_ANY, title="", pos=wx.DefaultPosition,
-                 size=MinEditorSize, style=wx.DEFAULT_FRAME_STYLE | wx.SUNKEN_BORDER):
+                    size=MinEditorSize, style=wx.DEFAULT_FRAME_STYLE | wx.SUNKEN_BORDER):
 
         wx.Frame.__init__(self, parent, id, title, pos, size, style)
 
@@ -57,6 +57,8 @@ class CoreEditorMainWindow(wx.Frame):
         self.SetIcon(IconManager.getIcon("arcicon"))
 
         self._mgr = AuiManager_DCP_ARC()
+        if wx.Platform == "__WXMSW__":
+            self._mgr.SetArtProvider(aui.ModernDockArt(self))
         # tell AuiManager to manage this frame
         self._mgr.SetManagedWindow(self)
         self.layout_mgr = None
@@ -157,7 +159,7 @@ class CoreEditorMainWindow(wx.Frame):
                 message = "There are unsaved changes in the currently open project Do you want to save these changes?"
                 caption = "There is an open project"
                 dlg = wx.MessageDialog(self, message, caption, style=wx.YES_NO |
-                                       wx.YES_DEFAULT)
+                                        wx.YES_DEFAULT)
                 result = dlg.ShowModal()
                 dlg.Destroy()
                 if result == wx.YES:
