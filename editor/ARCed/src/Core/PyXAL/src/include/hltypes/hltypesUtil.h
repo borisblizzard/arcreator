@@ -2,7 +2,7 @@
 /// @author  Kresimir Spes
 /// @author  Boris Mikic
 /// @author  Ivan Vucica
-/// @version 1.56
+/// @version 2.0
 /// 
 /// @section LICENSE
 /// 
@@ -24,12 +24,58 @@
 namespace hltypes
 {
 	template <class T> class Array;
+	class StreamBase;
 }
 
 /// @brief Used for optimized and quick calculation from RAD to DEG.
 #define HL_RAD_TO_DEG_RATIO 57.295779513082320876798154814105
 /// @brief Used for optimized and quick calculation from DEG to RAD.
 #define HL_DEG_TO_RAD_RATIO 0.01745329251994329576923690768489
+
+/// @brief Calculates sin from angle given in degrees.
+/// @param[in] degrees Angle in degrees.
+/// @return sin(degrees).
+#define dsin(degrees) sin((degrees) * HL_DEG_TO_RAD_RATIO)
+/// @brief Calculates cos from angle given in degrees.
+/// @param[in] degrees Angle in degrees.
+/// @return cos(degrees).
+#define dcos(degrees) cos((degrees) * HL_DEG_TO_RAD_RATIO)
+/// @brief Calculates asin in degrees.
+/// @param[in] value sin value.
+/// @return asin in degrees.
+#define dasin(value) (asin(value) * HL_RAD_TO_DEG_RATIO)
+/// @brief Calculates acos in degrees.
+/// @param[in] value cos value.
+/// @return acos in degrees.
+#define dacos(value) (acos(value) * HL_RAD_TO_DEG_RATIO)
+/// @brief hltypes e-tolerance.
+#define HL_E_TOLERANCE 0.01
+
+/// @brief Utility macro for quick getter definition.
+/// @param[in] type Variable type.
+/// @param[in] name Variable name.
+/// @param[in] capsName Variable name with capital beginning letter.
+#define HL_DEFINE_GET(type, name, capsName) type get ## capsName() { return this->name; }
+/// @brief Utility macro for quick getter (with "is") definition.
+/// @param[in] type Variable type.
+/// @param[in] name Variable name.
+/// @param[in] capsName Variable name with capital beginning letter.
+#define HL_DEFINE_IS(type, name, capsName) type is ## capsName() { return this->name; }
+/// @brief Utility macro for quick setter definition.
+/// @param[in] type Variable type.
+/// @param[in] name Variable name.
+/// @param[in] capsName Variable name with capital beginning letter.
+#define HL_DEFINE_SET(type, name, capsName) void set ## capsName(type value) { this->name = value; }
+/// @brief Utility macro for quick getter and setter definition.
+/// @param[in] type Variable type.
+/// @param[in] name Variable name.
+/// @param[in] capsName Variable name with capital beginning letter.
+#define HL_DEFINE_GETSET(type, name, capsName) HL_DEFINE_GET(type, name, capsName) HL_DEFINE_SET(type, name, capsName)
+/// @brief Utility macro for quick getter (with "is") and setter definition.
+/// @param[in] type Variable type.
+/// @param[in] name Variable name.
+/// @param[in] capsName Variable name with capital beginning letter.
+#define HL_DEFINE_ISSET(type, name, capsName) HL_DEFINE_IS(type, name, capsName) HL_DEFINE_SET(type, name, capsName)
 
 /// @brief Provides a simpler syntax for iteration.
 /// @param[in] name Name of the iteration variable.
@@ -119,51 +165,14 @@ namespace hltypes
 /// @note The iteration variable has to be declared previously.
 #define for_iterx_step_r(name, max, min, step) for (name = max - 1; name >= min; name -= step)
 
-/// @brief Utility macro for quick getter definition.
-/// @param[in] type Variable type.
-/// @param[in] name Variable name.
-/// @param[in] capsName Variable name with capital beginning letter.
-#define HL_DEFINE_GET(type, name, capsName) type get ## capsName() { return this->name; }
-/// @brief Utility macro for quick getter (with "is") definition.
-/// @param[in] type Variable type.
-/// @param[in] name Variable name.
-/// @param[in] capsName Variable name with capital beginning letter.
-#define HL_DEFINE_IS(type, name, capsName) type is ## capsName() { return this->name; }
-/// @brief Utility macro for quick setter definition.
-/// @param[in] type Variable type.
-/// @param[in] name Variable name.
-/// @param[in] capsName Variable name with capital beginning letter.
-#define HL_DEFINE_SET(type, name, capsName) void set ## capsName(type value) { this->name = value; }
-/// @brief Utility macro for quick getter and setter definition.
-/// @param[in] type Variable type.
-/// @param[in] name Variable name.
-/// @param[in] capsName Variable name with capital beginning letter.
-#define HL_DEFINE_GETSET(type, name, capsName) HL_DEFINE_GET(type, name, capsName) HL_DEFINE_SET(type, name, capsName)
-/// @brief Utility macro for quick getter (with "is") and setter definition.
-/// @param[in] type Variable type.
-/// @param[in] name Variable name.
-/// @param[in] capsName Variable name with capital beginning letter.
-#define HL_DEFINE_ISSET(type, name, capsName) HL_DEFINE_IS(type, name, capsName) HL_DEFINE_SET(type, name, capsName)
-
-/// @brief Calculates sin from angle given in degrees.
-/// @param[in] degrees Angle in degrees.
-/// @return sin(degrees).
-#define dsin(degrees) sin((degrees) * HL_DEG_TO_RAD_RATIO)
-/// @brief Calculates cos from angle given in degrees.
-/// @param[in] degrees Angle in degrees.
-/// @return cos(degrees).
-#define dcos(degrees) cos((degrees) * HL_DEG_TO_RAD_RATIO)
-/// @brief Calculates asin in degrees.
-/// @param[in] value sin value.
-/// @return asin in degrees.
-#define dasin(value) (asin(value) * HL_RAD_TO_DEG_RATIO)
-/// @brief Calculates acos in degrees.
-/// @param[in] value cos value.
-/// @return acos in degrees.
-#define dacos(value) (acos(value) * HL_RAD_TO_DEG_RATIO)
-/// @brief hltypes e-tolerance.
-#define HL_E_TOLERANCE 0.01
-
+/// @brief Gets the number of seconds passed since 1970/01/01 UTC.
+/// @return Number of seconds passed since 1970/01/01 UTC.
+/// @note Useful for rand operations, like setting the rand generator with srand().
+hltypesFnExport unsigned int get_system_time();
+/// @brief Gets the number of miliseconds passed since the system boot.
+/// @brief Number of miliseconds passed since the system boot.
+/// @note Useful for rand operations, like setting the rand generator with srand().
+hltypesFnExport unsigned int get_system_tick_count();
 /// @brief Returns a random int number.
 /// @param[in] min Inclusive lower boundary.
 /// @param[in] max Exclusive upper boundary.
@@ -280,6 +289,26 @@ hltypesFnExport float hmodf(float f, float m);
 /// @param[in] m Modulo value.
 /// @return The always-positive value of d mod m.
 hltypesFnExport double hmodd(double d, double m);
+/// @brief Calculates the double length of the hypotenuse of a right-angles triangle.
+/// @param[in] a First cathetus.
+/// @param[in] b Second cathetus.
+/// @return The double length of the hypotenuse of a right-angles triangle.
+hltypesFnExport double hhypot(double a, double b);
+/// @brief Calculates the float length of the hypotenuse of a right-angles triangle.
+/// @param[in] a First cathetus.
+/// @param[in] b Second cathetus.
+/// @return The float length of the hypotenuse of a right-angles triangle.
+hltypesFnExport float hhypot(float a, float b);
+/// @brief Calculates the double squared length of the hypotenuse of a right-angles triangle.
+/// @param[in] a First cathetus.
+/// @param[in] b Second cathetus.
+/// @return The double squared length of the hypotenuse of a right-angles triangle.
+hltypesFnExport double hhypotSquared(double a, double b);
+/// @brief Calculates the float squared length of the hypotenuse of a right-angles triangle.
+/// @param[in] a First cathetus.
+/// @param[in] b Second cathetus.
+/// @return The float squared length of the hypotenuse of a right-angles triangle.
+hltypesFnExport float hhypotSquared(float a, float b);
 /// @brief Compares 2 float values within using a tolerance factor.
 /// @param[in] a First float value.
 /// @param[in] b Second float value.
@@ -314,58 +343,99 @@ hltypesFnExport hstr normalize_path(chstr path);
 hltypesFnExport hstr get_basedir(chstr path);
 /// @brief Gets the base filename/directory without the prepended directory path.
 /// @param[in] filename The path.
-/// @return Base directory of the filename/directory.
+/// @return Base filename/directory without the prepended directory path.
 hltypesFnExport hstr get_basename(chstr path);
+/// @brief Gets an environment variable as String.
+/// @param[in] env The environment variable.
+/// @return Environment variable as String.
+hltypesFnExport hstr get_environment_variable(chstr name);
+
 /// @brief Converts a unicode unsigned int to a UTF8 string.
 /// @param[in] value The unsigned int value.
 /// @return UTF8 string.
 hltypesFnExport hstr unicode_to_utf8(unsigned int value);
-/// @brief Converts a unicode unsigned int string to a UTF8 string.
-/// @param[in] string The unsigned int string.
-/// @return UTF8 string.
-hltypesFnExport hstr unicode_to_utf8(const unsigned int* string);
-/// @brief Converts a unicode unsigned int Array to a UTF8 string.
-/// @param[in] string The unsigned int characters.
-/// @return UTF8 string.
-hltypesFnExport hstr unicode_to_utf8(hltypes::Array<unsigned int> chars);
+#ifndef _ANDROID
 /// @brief Converts a unicode wchar to a UTF8 string.
 /// @param[in] value The wchar value.
 /// @return UTF8 string.
 hltypesFnExport hstr unicode_to_utf8(wchar_t value);
+#endif
+/// @brief Converts a char to a UTF8 string.
+/// @param[in] string The char.
+/// @return UTF8 string.
+hltypesFnExport hstr unicode_to_utf8(char value);
+/// @brief Converts an unsigned char to a UTF8 string.
+/// @param[in] string The unsigned char.
+/// @return UTF8 string.
+hltypesFnExport hstr unicode_to_utf8(unsigned char value);
+/// @brief Converts a unicode unsigned int string to a UTF8 string.
+/// @param[in] string The unsigned int string.
+/// @return UTF8 string.
+hltypesFnExport hstr unicode_to_utf8(const unsigned int* string);
+#ifndef _ANDROID
 /// @brief Converts a unicode wchar string to a UTF8 string.
 /// @param[in] string The wchar string.
 /// @return UTF8 string.
 hltypesFnExport hstr unicode_to_utf8(const wchar_t* string);
+#endif
+/// @brief Converts a char string to a UTF8 string.
+/// @param[in] string The char string.
+/// @return UTF8 string.
+hltypesFnExport hstr unicode_to_utf8(const char* string);
+/// @brief Converts an unsigned char string to a UTF8 string.
+/// @param[in] string The unsigned char string.
+/// @return UTF8 string.
+hltypesFnExport hstr unicode_to_utf8(const unsigned char* string);
+/// @brief Converts a unicode unsigned int Array to a UTF8 string.
+/// @param[in] string The unsigned int characters.
+/// @return UTF8 string.
+hltypesFnExport hstr unicode_to_utf8(hltypes::Array<unsigned int> chars);
+#ifndef _ANDROID
 /// @brief Converts a unicode wchar Array to a UTF8 string.
 /// @param[in] string The wchar characters.
 /// @return UTF8 string.
-hltypesFnExport hstr unicode_to_utf8(hltypes::Array<unsigned int> chars);
+hltypesFnExport hstr unicode_to_utf8(hltypes::Array<wchar_t> chars);
+#endif
+/// @brief Converts a char Array to a UTF8 string.
+/// @param[in] string The char characters.
+/// @return UTF8 string.
+hltypesFnExport hstr unicode_to_utf8(hltypes::Array<char> chars);
+/// @brief Converts an unsigned char Array to a UTF8 string.
+/// @param[in] string The unsigned char characters.
+/// @return UTF8 string.
+hltypesFnExport hstr unicode_to_utf8(hltypes::Array<unsigned char> chars);
 /// @brief Converts a UTF8 character into the corresponding character code.
 /// @param[in] input The UTF8 character as C string.
 /// @param[out] character_length Length of character in bytes.
 /// @return Charcter code.
 hltypesFnExport unsigned int utf8_to_uint(chstr input, int* character_length = NULL);
-/// @brief Converts a UTF8 string into a unicode string.
+/// @brief Converts a UTF8 string into a unicode Array.
 /// @param[in] input The UTF8 string.
 /// @param[out] lenght Length of the string.
 /// @return The unsigned int string.
-/// @note Make sure to use "delete []" on the result to prevent memory leaks.
-hltypesFnExport unsigned int* utf8_to_unicode(chstr input, int* length = NULL);
+hltypesFnExport std::basic_string<unsigned int> utf8_to_unicode(chstr input);
+#ifndef _ANDROID
 /// @brief Converts a UTF8 string into a wchar string.
 /// @param[in] input The UTF8 string.
 /// @param[out] lenght Length of the string.
 /// @return The wchar_t string.
-/// @note Make sure to use "delete []" on the result to prevent memory leaks.
-hltypesFnExport wchar_t* utf8_to_wchars(chstr input, int* length = NULL);
+hltypesFnExport std::basic_string<wchar_t> utf8_to_wchars(chstr input);
+#endif
+
 /// @brief Calculates CRC32 from a byte stream.
 /// @param[in] data Data stream.
 /// @param[in] size Size of the data stream.
 /// @return CRC32 value of the stream.
-hltypesFnExport unsigned int calc_crc32(unsigned char* data, int size);
-/// @brief Calculates CRC32 from a byte stream.
-/// @param[in] filename Filename of the file to calculate the CRC32 from.
-/// @return CRC32 value of the file.
-hltypesFnExport unsigned int calc_crc32(chstr filename);
+hltypesFnExport unsigned int calc_crc32(unsigned char* data, long size);
+/// @brief Calculates CRC32 from a StreamBase.
+/// @param[in] stream StreamBase from which to calculate the CRC32.
+/// @param[in] size Number of bytes to read for CRC32.
+/// @return CRC32 value of the StreamBase.
+hltypesFnExport unsigned int calc_crc32(hltypes::StreamBase* stream, long size);
+/// @brief Calculates CRC32 from a StreamBase.
+/// @param[in] stream StreamBase from which to calculate the CRC32.
+/// @return CRC32 value of the StreamBase.
+hltypesFnExport unsigned int calc_crc32(hltypes::StreamBase* stream);
 
 /// @brief Returns the lesser of two elements.
 /// @param[in] a First element.

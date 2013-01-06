@@ -1,6 +1,6 @@
 /// @file
 /// @author  Boris Mikic
-/// @version 1.66
+/// @version 2.0
 /// 
 /// @section LICENSE
 /// 
@@ -32,11 +32,11 @@ namespace hltypes
 		enum SeekMode
 		{
 			/// @brief Seek from current position. (SEEK_CUR)
-			CURRENT,
+			CURRENT = 0,
 			/// @brief Seek from start position. (SEEK_SET)
-			START,
+			START = 1,
 			/// @brief Seek from current position. (SEEK_END)
-			END
+			END = 2
 		};
 		
 		/// @brief Basic constructor.

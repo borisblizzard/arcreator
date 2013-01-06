@@ -1,6 +1,6 @@
 /// @file
 /// @author  Boris Mikic
-/// @version 1.4
+/// @version 2.0
 /// 
 /// @section LICENSE
 /// 
@@ -20,9 +20,9 @@
 #include "hstring.h"
 
 /// @brief Provides a simpler syntax to iterate through a Map.
-#define foreach_map(type_key, type_value, name, container) for (std::map<type_key, type_value>::iterator name = container.begin(); name != container.end(); name++)
+#define foreach_map(type_key, type_value, name, container) for (std::map<type_key, type_value >::iterator name = container.begin(); name != container.end(); name++)
 /// @brief Provides a simpler syntax to iterate through a Map with String as key.
-#define foreach_m(type, name, container) for (std::map<hstr, type>::iterator name = container.begin(); name != container.end(); name++)
+#define foreach_m(type, name, container) for (std::map<hstr, type >::iterator name = container.begin(); name != container.end(); name++)
 /// @brief Internal provider for simpler syntax to iterate through a Map with String as key.
 #define __foreach_this_map_it(name) for (iterator_map_t name = stdmap::begin(); name != stdmap::end(); name++)
 /// @brief Internal provider for simpler syntax to iterate through a Map with String as key.
@@ -345,7 +345,7 @@ namespace hltypes
 		{
 			if (this->size() == 0)
 			{
-				throw size_error("random()");
+				throw container_empty_error("random()");
 			}
 			K key = this->keys()[hrand(this->size())];
 			if (value != NULL)
@@ -383,7 +383,7 @@ namespace hltypes
 		{
 			if (this->size() == 0)
 			{
-				throw size_error("pop_random()");
+				throw container_empty_error("pop_random()");
 			}
 			K key = this->keys()[hrand(this->size())];
 			if (value != NULL)
@@ -531,14 +531,14 @@ namespace hltypes
 			}
 			return result;
 		}
-        /// @brief Finds and returns value stored at key. In case no value is found, returns the given default value.
+		/// @brief Finds and returns value stored at key. In case no value is found, returns the given default value.
 		/// @param[in] key Key to retrieve the value of.
-        /// @param[in] defaultValue Default value to return if key does not exist.
+		/// @param[in] defaultValue Default value to return if key does not exist.
 		/// @return Value stored at key or given default value.
-        V try_get_by_key(K key, V defaultValue) const
-        {
-            return (this->has_key(key) ? stdmap::find(key)->second : defaultValue);
-        }
+		V try_get_by_key(K key, V defaultValue) const
+		{
+			return (this->has_key(key) ? stdmap::find(key)->second : defaultValue);
+		}
 		/// @brief Same as insert.
 		/// @see insert(const Map<K, V>& other)
 		Map<K, V>& operator+=(const Map<K, V>& other)

@@ -2,7 +2,7 @@
 /// @author  Kresimir Spes
 /// @author  Boris Mikic
 /// @author  Ivan Vucica
-/// @version 1.55
+/// @version 2.0
 /// 
 /// @section LICENSE
 /// 
@@ -74,21 +74,24 @@ namespace hltypes
 		/// @brief Renames a file.
 		/// @param[in] old_filename Old name of the file.
 		/// @param[in] new_filename New name of the file.
+		/// @param[in] overwrite Whether to overwrite an already existing file.
 		/// @return True if file was renamed. False if old file does not exist or file with the new name already exists.
 		/// @note If path to new file does not exist, it will be created.
-		static bool rename(chstr old_filename, chstr new_filename);
+		static bool rename(chstr old_filename, chstr new_filename, bool overwrite = false);
 		/// @brief Moves a file to another path.
 		/// @param[in] filename Name of the file.
 		/// @param[in] path Path where the file should be moved.
+		/// @param[in] overwrite Whether to overwrite an already existing file.
 		/// @return True if file was moved. False if file does not exist or file with the same name already exists in path.
 		/// @note If path does not exist, it will be created.
-		static bool move(chstr filename, chstr path);
+		static bool move(chstr filename, chstr path, bool overwrite = false);
 		/// @brief Copies a file recursively.
 		/// @param[in] old_filename Old name of the file.
 		/// @param[in] new_filename New name of the file.
+		/// @param[in] overwrite Whether to overwrite an already existing file.
 		/// @return True if file was copied. False if old file does not exist or file with the new name already exists.
 		/// @note If path does not exist, it will be created.
-		static bool copy(chstr old_filename, chstr new_filename);
+		static bool copy(chstr old_filename, chstr new_filename, bool overwrite = false);
 		/// @brief Opens file, gets size and closes file.
 		/// @see size
 		static long hsize(chstr filename);
