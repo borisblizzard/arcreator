@@ -2,7 +2,7 @@
 /// @author  Kresimir Spes
 /// @author  Boris Mikic
 /// @author  Ivan Vucica
-/// @version 2.7
+/// @version 3.0
 /// 
 /// @section LICENSE
 /// 
@@ -102,6 +102,7 @@ namespace xal
 		Category* getCategoryByName(chstr name);
 		float getCategoryGain(chstr category);
 		void setCategoryGain(chstr category, float gain);
+		bool hasCategory(chstr category);
 		
 		Sound* createSound(chstr filename, chstr categoryName, chstr prefix = "");
 		Sound* getSound(chstr name);
@@ -127,10 +128,8 @@ namespace xal
 
 		void clearMemory();
 
-		void suspendAudio();
-		void resumeAudio();
-
-		void queueMessage(chstr message);
+		virtual void suspendAudio();
+		virtual void resumeAudio();
 
 		void addAudioExtension(chstr extension);
 		hstr findAudioFile(chstr _filename);
@@ -211,15 +210,16 @@ namespace xal
 		void _suspendAudio();
 		void _resumeAudio();
 
-		virtual void _convertStream(Buffer* buffer, unsigned char** stream, int *streamSize) { }
+		/// @brief Depending on the audio manager implementation, this method may convert audio data to the appropriate format (bit rate, channel number, sampling rate).
+		/// @param[in] buffer Buffer object that describes the data.
+		/// @param[in,out] stream The data stream buffer.
+		/// @param[in,out] streamSize The size of the stream itself.
+		/// @param[in] dataSize The size of the data within the stream.
+		/// @return dataSize if no conversion was done or a positive integer for the size of the new data.
+		virtual int _convertStream(Buffer* buffer, unsigned char** stream, int *streamSize, int dataSize) { return dataSize; }
 
 		virtual void _suspendSystem() { }
 		virtual void _resumeSystem() { }
-
-	private:
-		harray<hstr> _queuedMessages;
-
-		void _flushQueuedMessages();
 
 	};
 	

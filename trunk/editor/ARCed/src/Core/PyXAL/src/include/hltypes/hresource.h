@@ -1,6 +1,6 @@
 /// @file
 /// @author  Boris Mikic
-/// @version 1.55
+/// @version 2.0
 /// 
 /// @section LICENSE
 /// 
@@ -75,7 +75,7 @@ namespace hltypes
 		static hstr getArchive() { return archive; }
 		/// @brief Sets the resource archive's filename.
 		/// @param[in] value New value.
-		static void setArchive(chstr value) { archive = value; }
+		static void setArchive(chstr value);
 		/// @brief Gets the resource archive's filename.
 		/// @return Resource archive's filename.
 		static bool hasZip();
