@@ -1012,6 +1012,7 @@ def Log(message=None, prefix="[Kernel]", inform=False, error=False):
         else:
             error_text = ""
         f.write(time_str + prefix + " " + message + error_text + "\n")
+        print prefix + " " + message + error_text
         f.close()
         if inform:
             Inform(prefix, message, error)

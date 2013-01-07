@@ -311,7 +311,7 @@ class Manager(object):
             Timer(sound.getDuration(), Manager._DestroyQuickPlay, 
                 [PyXAL, player, sound]).start()
         except:
-            Kernel.Log('QuickPlay failed to play sound file.', '[PyXAL]', False, False)
+            Kernel.Log('QuickPlay failed to play sound file.', '[PyXAL]', False, True)
 
     @staticmethod
     def _DestroyQuickPlay(pyxal, player, sound):
