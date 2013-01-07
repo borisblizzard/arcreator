@@ -102,6 +102,18 @@ cdef extern from *:
 
 Mgr = None
 
+cdef hstr Py_to_Hstr (string):
+    py_byte_string = string.encode('UTF-8')
+    cdef char* c_str = py_byte_string
+    cdef hstr hstring = hstr(c_str)
+    return hstring
+    
+cdef Hstr_to_Py (hstr string):
+    cdef const_char_ptr c_str = string.c_str()
+    py_byte_string = c_str
+    pystring = py_byte_string.decode('UTF-8')
+    return pystring
+    
 
 cdef class PyAudioManager:
     '''
@@ -161,8 +173,8 @@ cdef class SoundWrapper:
             raise RuntimeError("XAL is not Initialized")
         if self.destroyed:
             raise RuntimeError("the C++ interface for this object has been destroyed")
-        cdef String hl_name = self._pointer.getName()
-        cdef const_char_ptr name = hl_name.c_str()
+        cdef hstr hl_name = self._pointer.getName()
+        name = Hstr_to_Py(hl_name)
         return name
         
     def getFilename(self):
@@ -173,8 +185,8 @@ cdef class SoundWrapper:
             raise RuntimeError("XAL is not Initialized")
         if self.destroyed:
             raise RuntimeError("the C++ interface for this object has been destroyed")
-        cdef String hl_name = self._pointer.getFilename()
-        cdef const_char_ptr name = hl_name.c_str()
+        cdef hstr hl_name = self._pointer.getFilename()
+        name = Hstr_to_Py(hl_name)
         return name
     
     def getRealFilename(self):
@@ -185,8 +197,8 @@ cdef class SoundWrapper:
             raise RuntimeError("XAL is not Initialized")
         if self.destroyed:
             raise RuntimeError("the C++ interface for this object has been destroyed")
-        cdef String hl_name = self._pointer.getRealFilename()
-        cdef const_char_ptr name = hl_name.c_str()
+        cdef hstr hl_name = self._pointer.getRealFilename()
+        name = Hstr_to_Py(hl_name)
         return name
         
     def getSize(self):
@@ -378,8 +390,8 @@ cdef class PlayerWrapper:
             raise RuntimeError("XAL is not Initialized")
         if self.destroyed:
             raise RuntimeError("the C++ interface for this object has been destroyed")
-        cdef String hl_name = self._pointer.getName()
-        cdef const_char_ptr name = hl_name.c_str()
+        cdef hstr hl_name = self._pointer.getName()
+        name = Hstr_to_Py(hl_name)
         return name
         
     def getFilename(self):
@@ -390,8 +402,8 @@ cdef class PlayerWrapper:
             raise RuntimeError("XAL is not Initialized")
         if self.destroyed:
             raise RuntimeError("the C++ interface for this object has been destroyed")
-        cdef String hl_name = self._pointer.getFilename()
-        cdef const_char_ptr name = hl_name.c_str()
+        cdef hstr hl_name = self._pointer.getFilename()
+        name = Hstr_to_Py(hl_name)
         return name
     
     def getRealFilename(self):
@@ -402,8 +414,8 @@ cdef class PlayerWrapper:
             raise RuntimeError("XAL is not Initialized")
         if self.destroyed:
             raise RuntimeError("the C++ interface for this object has been destroyed")
-        cdef String hl_name = self._pointer.getRealFilename()
-        cdef const_char_ptr name = hl_name.c_str()
+        cdef hstr hl_name = self._pointer.getRealFilename()
+        name = Hstr_to_Py(hl_name)
         return name
         
     def getDuration(self):
@@ -557,19 +569,16 @@ class PySound(object):
     _wrapper = None
     destroyed = False
     
-    def __init__(self, bytes filename):
+    def __init__(self, filename):
         '''
         this creates a sound object from a file name
         '''
         if not self.isXALInitialized():
             raise RuntimeError("XAL is not Initialized")
-        cdef char* file = filename
-        s = os.path.split(filename)[0]
-        cdef char* path = s
-        cdef char* cat_str = self.CATEGORY_STR
-        cdef String file_str = String(file)
-        cdef String path_str = String(path)
-        cdef String category = String(cat_str)
+        path = os.path.split(filename)[0]
+        cdef hstr file_str = Py_to_Hstr(filename)
+        cdef hstr path_str = Py_to_Hstr(path)
+        cdef hstr category = Py_to_Hstr(self.CATEGORY_STR)
         cdef XAL.Sound* sound 
         sound = XAL.mgr.createSound(file_str, category, path_str)
         if sound == NULL:
@@ -729,8 +738,7 @@ class PyPlayer(object):
         if not isinstance(sound, PySound):
             raise TypeError("Expected argument 1 to be of type PySound got %s" % type(sound))
         sound_name = sound.getName()
-        cdef char* name = sound_name
-        cdef String hl_name = String(name)
+        cdef hstr hl_name = Py_to_Hstr(sound_name)
         cdef XAL.Player* player 
         player = XAL.mgr.createPlayer(hl_name)
         if player == NULL:
@@ -1010,8 +1018,8 @@ cdef class XALManagerWrapper(object):
         if Mgr is not None:
             raise RuntimeError("Only one XALManager interface allowed at a time, use the one at PyXAL.Mgr")
         self.CATEGORY_STR = "default"
-        cdef String name = String(systemname)
-        cdef String dname = String(deviceName)
+        cdef hstr name = hstr(systemname)
+        cdef hstr dname = hstr(deviceName)
         self._destroyXAL()
         XAL.init(name, <void*>backendId, threaded, updateTime, dname)
         self.inited = True
@@ -1039,7 +1047,7 @@ cdef class XALManagerWrapper(object):
         '''
         if not self.isXALInitialized():
             raise RuntimeError("XAL is not Initialized")
-        cdef String category = String(self.CATEGORY_STR)
+        cdef hstr category = hstr(self.CATEGORY_STR)
         self._category = XAL.mgr.createCategory(category, FULL, DISK)
     
     def _destroyXAL(self):
@@ -1103,7 +1111,7 @@ class XALManager(object):
             XAL.mgr.stopAll(fade)
             XAL.mgr.clear()
             
-    def createSound(self, bytes filename):
+    def createSound(self, filename):
         '''
         create a sound object
         raises a runtime error if the sound fails to load so be sure to put this call in a try except block
@@ -1179,7 +1187,7 @@ class XALManager(object):
                 return self._players[name][0]
         return None
         
-    def play(self, bytes name, float fadeTime = 0.0, bool looping = False, float gain = 1.0):
+    def play(self, name, float fadeTime = 0.0, bool looping = False, float gain = 1.0):
         '''
         play the sound identified by the name passed (it must of alrady been created)
         
@@ -1190,11 +1198,10 @@ class XALManager(object):
         '''
         if not self.isXALInitialized():
             raise RuntimeError("XAL is not Initialized")
-        cdef char* name_str = name
-        cdef String hl_name = String(name_str)
+        cdef hstr hl_name = Py_to_Hstr(name)
         XAL.mgr.play(hl_name, fadeTime, looping, gain)
         
-    def stop(self, bytes name, float fadeTime = 0.0):
+    def stop(self, name, float fadeTime = 0.0):
         '''
         stop playing the sound identifed by the name passed
         
@@ -1203,11 +1210,10 @@ class XALManager(object):
         '''
         if not self.isXALInitialized():
             raise RuntimeError("XAL is not Initialized")
-        cdef char* name_str = name
-        cdef String hl_name = String(name_str)
+        cdef hstr hl_name = Py_to_Hstr(name)
         XAL.mgr.stop(hl_name, fadeTime)
     
-    def stopFirst(self, bytes name, float fadeTime = 0.0):
+    def stopFirst(self, name, float fadeTime = 0.0):
         '''
         stop playing the first player of the sound identifed by the name passed
         
@@ -1216,8 +1222,7 @@ class XALManager(object):
         '''
         if not self.isXALInitialized():
             raise RuntimeError("XAL is not Initialized")
-        cdef char* name_str = name
-        cdef String hl_name = String(name_str)
+        cdef hstr hl_name = Py_to_Hstr(name)
         XAL.mgr.stopFirst(hl_name, fadeTime)
     
     def stopAll(self, float fadeTime = 0.0):
@@ -1231,51 +1236,47 @@ class XALManager(object):
             raise RuntimeError("XAL is not Initialized")
         XAL.mgr.stopAll(fadeTime)
     
-    def isAnyPlaying(self, bytes name):
+    def isAnyPlaying(self, name):
         '''
         @param name: sting name of sound to check
         @return: bool True if there is a sound by this name playing
         '''
         if not self.isXALInitialized():
             raise RuntimeError("XAL is not Initialized")
-        cdef char* name_str = name
-        cdef String hl_name = String(name_str)
+        cdef hstr hl_name = Py_to_Hstr(name)
         cdef bint result = XAL.mgr.isAnyPlaying(hl_name)
         return result
         
-    def isAnyFading(self, bytes name):
+    def isAnyFading(self, name):
         '''
         @param name: sting name of sound to check
         @return: bool True if there is a sound by this name fading in or out
         '''
         if not self.isXALInitialized():
             raise RuntimeError("XAL is not Initialized")
-        cdef char* name_str = name
-        cdef String hl_name = String(name_str)
+        cdef hstr hl_name = Py_to_Hstr(name)
         cdef bint result = XAL.mgr.isAnyFading(hl_name)
         return result
     
-    def isAnyFadingIn(self, bytes name):
+    def isAnyFadingIn(self, name):
         '''
         @param name: sting name of sound to check
         @return: bool True if there is a sound by this name fading in
         '''
         if not self.isXALInitialized():
             raise RuntimeError("XAL is not Initialized")
-        cdef char* name_str = name
-        cdef String hl_name = String(name_str)
+        cdef hstr hl_name = Py_to_Hstr(name)
         cdef bint result = XAL.mgr.isAnyFadingIn(hl_name)
         return result
     
-    def isAnyFadingOut(self, bytes name):
+    def isAnyFadingOut(self, name):
         '''
         @param name: sting name of sound to check
         @return: bool True if there is a sound by this name fading out
         '''
         if not self.isXALInitialized():
             raise RuntimeError("XAL is not Initialized")
-        cdef char* name_str = name
-        cdef String hl_name = String(name_str)
+        cdef hstr hl_name = Py_to_Hstr(name)
         cdef bint result = XAL.mgr.isAnyFadingOut(hl_name)
         return result
 

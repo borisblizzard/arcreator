@@ -237,22 +237,23 @@ class AudioChannel(object):
     def SetFile( self, rpgfile, filepath ): 
         """Sets the current player and sound"""
         self.rpgaudio = rpgfile
-        self.file = str(filepath)
-        if self.sound is not None:
-            self.PyXAL.Mgr.destroySound(self.sound)
-            del (self.sound)
-        if self.player is not None:
-            self.PyXAL.Mgr.destroyPlayer(self.player)
-            del(self.player)
-        if filepath == '' or rpgfile.name == '':
-            self.sound = self.player = self.RightChannel = self.LeftChannel = None
-            return
-        self.sound = self.PyXAL.Mgr.createSound(self.file)
-        self.player = self.PyXAL.Mgr.createPlayer(self.sound)
-        array = self._getsoundarray(self.sound)
-        self.RightChannel = self._shorten_array(array[:, 0])
-        self.LeftChannel = self._shorten_array(array[:, 1])
-        del (array)
+        if not (self.file == filepath): 
+            self.file = filepath
+            if self.sound is not None:
+                self.PyXAL.Mgr.destroySound(self.sound)
+                del (self.sound)
+            if self.player is not None:
+                self.PyXAL.Mgr.destroyPlayer(self.player)
+                del(self.player)
+            if filepath == '' or rpgfile.name == '':
+                self.sound = self.player = self.RightChannel = self.LeftChannel = None
+                return
+            self.sound = self.PyXAL.Mgr.createSound(self.file)
+            self.player = self.PyXAL.Mgr.createPlayer(self.sound)
+            array = self._getsoundarray(self.sound)
+            self.RightChannel = self._shorten_array(array[:, 0])
+            self.LeftChannel = self._shorten_array(array[:, 1])
+            del (array)
 
     def SetVolume( self, volume ):
         """Sets the volume of the audio file"""
