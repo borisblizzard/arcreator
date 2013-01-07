@@ -101,7 +101,7 @@ class XALTestFrame ( wx.Frame ):
         
 
     def SetUpXAL(self): 
-        PyXAL.EnableLogging(True, os.path.abspath("log"))
+        #PyXAL.EnableLogging(True, os.path.abspath("log"))
         PyXAL.Init(self.GetHandle(), True)
         print "XAL Setup"
     

@@ -6,8 +6,9 @@ from Core.Database import ARCed_Templates as Templates
 
 # Implementing EventEditor_Panel
 class EventEditor_Panel( Templates.EventEditor_Panel ):
-    def __init__( self, parent ):
+    def __init__( self, parent, event):
         Templates.EventEditor_Panel.__init__( self, parent )
+        self.event = event
     
     # Handlers for EventEditor_Panel events.
     def buttonNewPage_Clicked( self, event ):
