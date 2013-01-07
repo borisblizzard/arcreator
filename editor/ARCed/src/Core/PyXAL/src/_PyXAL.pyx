@@ -36,67 +36,69 @@ cdef extern from *:
     ctypedef char* const_char_ptr "const char*"
     ctypedef unsigned char* const_unsigned_char_ptr "const unsigned char*"
     ctypedef String& chstr "chstr"
+    ctypedef String hstr "hstr"
+    ctypedef Array harray "harray"
     
-cdef str LOG_PATH = ""
-cdef bool LOG_ENABLED = False
+# cdef str LOG_PATH = ""
+# cdef bool LOG_ENABLED = False
 
-cpdef SetLogPath(str path):
-    '''
-    Sets the path where XAL should create a log file. 
-    the path should not include the file
-    PyXAL will try to create a folder at the path if the path doesn't exist and will save it's log in that folder as a file named XAL.log
+# cpdef SetLogPath(str path):
+    # '''
+    # Sets the path where XAL should create a log file. 
+    # the path should not include the file
+    # PyXAL will try to create a folder at the path if the path doesn't exist and will save it's log in that folder as a file named XAL.log
     
-    @param path: string path to the folder where the log should be made
-    @return: returns True or False if the path was set
-    '''
-    global LOG_PATH
-    cdef str blank = ""
-    cdef bint result = False
-    if not LOG_PATH == blank and not os.path.exists(path) or not os.path.isdir(path):
-        try:
-            os.makedirs(path)
-        except Exception:
-            return result
-    LOG_PATH = path
-    result = True
-    return result
+    # @param path: string path to the folder where the log should be made
+    # @return: returns True or False if the path was set
+    # '''
+    # global LOG_PATH
+    # cdef str blank = ""
+    # cdef bint result = False
+    # if not LOG_PATH == blank and not os.path.exists(path) or not os.path.isdir(path):
+        # try:
+            # os.makedirs(path)
+        # except Exception:
+            # return result
+    # LOG_PATH = path
+    # result = True
+    # return result
        
-cpdef EnableLogging(bool state = True, str path = ""):
-    '''
-    sets the logging state of PyXAL by default it is off
+# cpdef EnableLogging(bool state = True, str path = ""):
+    # '''
+    # sets the logging state of PyXAL by default it is off
     
-    @param state: bool True or False if XAL should be logging data default is True so calling
-        PyXAL.EnableLogging will turn logging on (by default PyXAL does not log)
-    @param path: string path to the folder where PyXAL should create the log 
-        it is an empty string by default so that should mean the log will be made in the 
-        current working directory. calling PyXAL.EnableLogging will set the path to an empty string if the paramater is not included
-    @return: returns True or False if the path was set
-    '''
-    global LOG_ENABLED
-    LOG_ENABLED = state
-    cdef bint result = False
-    result = SetLogPath(path)
-    return result
+    # @param state: bool True or False if XAL should be logging data default is True so calling
+        # PyXAL.EnableLogging will turn logging on (by default PyXAL does not log)
+    # @param path: string path to the folder where PyXAL should create the log 
+        # it is an empty string by default so that should mean the log will be made in the 
+        # current working directory. calling PyXAL.EnableLogging will set the path to an empty string if the paramater is not included
+    # @return: returns True or False if the path was set
+    # '''
+    # global LOG_ENABLED
+    # LOG_ENABLED = state
+    # cdef bint result = False
+    # result = SetLogPath(path)
+    # return result
     
-cdef void Log(chstr logMessage):
-    global LOG_PATH
-    global LOG_ENABLED
-    if not LOG_ENABLED:
-        return
-    cdef const_char_ptr message
-    cdef const_char_ptr line_end = "\n"
-    message = logMessage.c_str()
-    pymessage = message + line_end
-    if os.path.exists(LOG_PATH):
-        try:
-            path = os.path.join(LOG_PATH, "XAL.log")
-            file = open(path, "ab")
-            file.write(pymessage)
-            file.close()
-        except Exception:
-            pass
+# cdef void Log(chstr logMessage):
+    # global LOG_PATH
+    # global LOG_ENABLED
+    # if not LOG_ENABLED:
+        # return
+    # cdef const_char_ptr message
+    # cdef const_char_ptr line_end = "\n"
+    # message = logMessage.c_str()
+    # pymessage = message + line_end
+    # if os.path.exists(LOG_PATH):
+        # try:
+            # path = os.path.join(LOG_PATH, "XAL.log")
+            # file = open(path, "ab")
+            # file.write(pymessage)
+            # file.close()
+        # except Exception:
+            # pass
             
-XAL.setLogFunction(Log)
+# XAL.setLogFunction(Log)
 
 Mgr = None
 

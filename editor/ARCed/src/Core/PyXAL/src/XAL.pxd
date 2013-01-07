@@ -6,6 +6,7 @@ cdef extern from *:
     ctypedef unsigned char* const_unsigned_char_ptr "const unsigned char*"
     ctypedef String& chstr "chstr"
     ctypedef String hstr "hstr"
+    ctypedef Array harray "harray"
 
 cdef extern from "<xal/AudioManager.h>" namespace "xal":
 
@@ -55,7 +56,7 @@ cdef extern from "<xal/AudioManager.h>" namespace "xal":
         float getUpdateTime() except +
         float getGlobalGain() except +
         void setGlobalGain(float value) except +
-        Array[Player*] getPlayers() except +
+        harray[Player*] getPlayers() except +
 
         void update() except +
         void update(float k) except +
@@ -64,13 +65,14 @@ cdef extern from "<xal/AudioManager.h>" namespace "xal":
         Category* getCategoryByName(chstr name) except +
         float getCategoryGain(chstr category) except +
         void setCategoryGain(chstr category, float gain) except +
+        bool hasCategory(chstr category) except +
         
         Sound* createSound(chstr filename, chstr categoryName, chstr prefix) except +
         Sound* getSound(chstr name) except +
         void destroySound(Sound* sound) except +
         void destroySoundsWithPrefix(chstr prefix) except +
-        Array[hstr] createSoundsFromPath(chstr path, chstr prefix) except +
-        Array[hstr] createSoundsFromPath(chstr path, chstr category, chstr prefix) except +
+        harray[hstr] createSoundsFromPath(chstr path, chstr prefix) except +
+        harray[hstr] createSoundsFromPath(chstr path, chstr category, chstr prefix) except +
 
         Player* createPlayer(chstr name) except +
         void destroyPlayer(Player* player) except +
@@ -91,8 +93,6 @@ cdef extern from "<xal/AudioManager.h>" namespace "xal":
 
         void suspendAudio() except +
         void resumeAudio() except +
-
-        void queueMessage(chstr message) except +
 
         void addAudioExtension(chstr extension) except +
         hstr findAudioFile(chstr _filename) except +
@@ -202,6 +202,7 @@ cdef extern from "<xal/xal.h>" namespace "xal":
     DEF XAL_AS_DIRECTSOUND = "DirectSound"
     DEF XAL_AS_OPENAL = "OpenAL"
     DEF XAL_AS_SDL = "SDL"
+    DEF XAL_AS_XAUDIO2 = "XAudio2"
     DEF XAL_AS_AVFOUNDATION = "AVFoundation"
     DEF XAL_AS_COREAUDIO = "CoreAudio"
     DEF XAL_AS_DISABLED = "Disabled"
@@ -209,8 +210,6 @@ cdef extern from "<xal/xal.h>" namespace "xal":
     
     void init(chstr systemName, void* backendId, bool threaded, float updateTime, chstr deviceName) except +
     void destroy() except +
-    void setLogFunction(void (*function)(chstr)) except +
-    void log(chstr message, chstr prefix) except +
     bool hasAudioSystem(chstr name) except +
     
     AudioManager* mgr
