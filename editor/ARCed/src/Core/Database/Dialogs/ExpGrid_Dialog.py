@@ -25,8 +25,8 @@ class ExpGrid_Dialog( Templates.ExpGrid_Dialog ):
 		font = wx.Font(8, wx.FONTFAMILY_TELETYPE, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL)
 		self.expGrid.SetDefaultCellFont(font)
 		self.PageIndex = 0
-		self.NextColor = wx.Color(0, 128, 0)
-		self.TotalColor = wx.Color(128, 0, 0)
+		self.NextColor = wx.Colour(0, 128, 0)
+		self.TotalColor = wx.Colour(128, 0, 0)
 		self.Actor = actor
 		rowCount = self.Actor.final_level / 4
 		self.spinCtrlBasis.SetValue(actor.exp_basis)

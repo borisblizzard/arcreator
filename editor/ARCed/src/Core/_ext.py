@@ -19,5 +19,5 @@ import math
 import ConfigParser
 from wx.lib.embeddedimage import PyEmbeddedImage
 import wx.lib.agw.advancedsplash as AS
-import wxPython.stc
+import wx.stc
 import wx.lib.agw.floatspin as floatspin
