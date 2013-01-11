@@ -12,9 +12,9 @@ class Manager(object):
 
     ARC_FORMAT = False
     
-    TEXT_COLOR = wx.Color(241, 243, 248)
-    GRADIENT_LEFT = wx.Color(100, 100, 100)
-    GRADIENT_RIGHT = wx.Color(60, 60, 60)
+    TEXT_COLOR = wx.Colour(241, 243, 248)
+    GRADIENT_LEFT = wx.Colour(100, 100, 100)
+    GRADIENT_RIGHT = wx.Colour(60, 60, 60)
 
     PYXAL = None
 

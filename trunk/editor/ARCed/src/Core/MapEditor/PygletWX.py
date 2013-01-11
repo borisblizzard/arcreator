@@ -28,6 +28,8 @@ class PygletGLPanel(wx.Panel):
         # Create the canvas
         self.sizer = wx.BoxSizer(wx.HORIZONTAL)
         self.canvas = glcanvas.GLCanvas(self, attribList=attribList)
+        if wx.VERSION >= (2,6):
+            self.context = glcanvas.GLContext(self.canvas)
         self.sizer.Add(self.canvas, 1, wx.EXPAND)
         self.SetSizer(self.sizer)
         self.Layout()
@@ -59,11 +61,18 @@ class PygletGLPanel(wx.Panel):
 
     def processSizeEvent(self, event):
         '''Process the resize event.'''
-        self.PrepareGL()
-        if self.canvas.GetContext():
+        if wx.VERSION >= (2,6):
+            wx.CallAfter(self.doSetViewport)
+        else:
+            self.doSetViewport()
+        event.Skip()
+
+    def doSetViewport(self):
+        if wx.VERSION >= (2,6):
+            self.PrepareGL()
             # Make sure the frame is shown before calling SetCurrent.
             self.Show()
-            self.canvas.SetCurrent()
+            self.canvas.SetCurrent(self.context)
             size = self.GetGLExtents()
             self.winsize = (size.width, size.height)
             self.width, self.height = size.width, size.height
@@ -73,10 +82,28 @@ class PygletGLPanel(wx.Panel):
                 self.height = 1
             self.OnReshape(size.width, size.height)
             self.canvas.Refresh(False)
-        event.Skip()
+        else:
+            self.PrepareGL()
+            if self.canvas.GetContext():
+                # Make sure the frame is shown before calling SetCurrent.
+                self.Show()
+                self.canvas.SetCurrent()
+                size = self.GetGLExtents()
+                self.winsize = (size.width, size.height)
+                self.width, self.height = size.width, size.height
+                if self.width < 0:
+                    self.width = 1
+                if self.height < 0:
+                    self.height = 1
+                self.OnReshape(size.width, size.height)
+                self.canvas.Refresh(False)
+
 
     def PrepareGL(self):
-        self.canvas.SetCurrent()
+        if wx.VERSION >= (2,6):
+            self.canvas.SetCurrent(self.context)
+        else:
+            self.canvas.SetCurrent()
 
         #initialize OpenGL only if we need to
         if not self.GLinitialized:

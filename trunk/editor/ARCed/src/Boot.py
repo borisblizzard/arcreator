@@ -254,8 +254,6 @@ class ARC_App(wx.App):
     def OnInit(self):
         self.SetAppName("ARCed")
 
-        wx.InitAllImageHandlers()
-
         self.SplashScreen = ARCSplashScreen()
         self.SplashScreen.Show()
         self.fc = wx.FutureCall(10, Kernel.Protect(self.SplashScreen.Do_Setup, exit_on_fail=True))

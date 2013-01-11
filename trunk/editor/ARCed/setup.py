@@ -1,7 +1,9 @@
-import sys, os, stat, commands, shutil
+import sys, os, stat, commands, shutil, time
 from distutils.core import setup
 from distutils.extension import Extension
 from Cython.Distutils import build_ext
+
+start_time = time.time()
 
 #pop down to the source folder
 os.chdir("src")
@@ -43,7 +45,7 @@ extNames = new_names
 print "============================================="
 print "Cython Compileing Core"
 print "============================================="
-print "Compleling these modules:"
+print "Compileing these modules:"
 for name in extNames:
     print "\t" + name
 print "\tCore.PyXAL._PyXAL"
@@ -108,4 +110,5 @@ move_compiled_dir("./", os.path.abspath(r"..\compiled"))
 print ""
 print "============================================="
 print "Done with Compileation"
+print "%s Seconds" % (time.time() - start_time ) 
 print "============================================="

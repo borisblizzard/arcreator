@@ -1,4 +1,5 @@
 import wx
+from wx import stc
 import os
 from Core.Panels import PanelBase	
 import Core.Database
@@ -40,7 +41,7 @@ class ScriptEditor_Panel( Templates.ScriptEditor_Panel, PanelBase ):
         if index >= 0:
             self.OpenScript(index=index)
         self.scriptCtrl.Bind(wx.EVT_KEY_DOWN, Kernel.Protect(self.RefreshStatus))
-        self.scriptCtrl.Bind(ScriptTextCtrl.SCRIPT_UPDATEUI, self.RefreshStatus)
+        self.scriptCtrl.Bind(stc.EVT_STC_UPDATEUI, self.RefreshStatus)
         self.comboBoxScripts.AppendItems([script.GetName() for script in Scripts])
         self.comboBoxScripts.SetSelection(index)
         self.scriptCtrl.CalculateLineNumberMargin()

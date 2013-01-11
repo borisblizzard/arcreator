@@ -1,5 +1,5 @@
 import wx
-from wxPython.stc import *
+from wx import stc
 import Kernel
 from Core.Database.ScriptEditor import Manager as SM
 from Core.Database.Dialogs import FindReplace_Dialog
@@ -21,14 +21,13 @@ BRACES = ['(', ')', '[', ']', '{', '}', '<', '>']
 INDENT_WORDS = ['if', 'unless', 'def', 'module', 'class', 'begin', 'while', 'until', 'for']
 UNINDENT_WORDS = ['elsif', 'else', 'when', 'rescue', 'ensure']
 
-class ScriptTextCtrl(wxStyledTextCtrl):
+class ScriptTextCtrl(stc.StyledTextCtrl):
 
-	SCRIPT_UPDATEUI = wx.PyEventBinder(wxEVT_STC_UPDATEUI, 1)
 
 	def __init__(self, parent):
 		"""Basic constructor for the ScriptTextCtrl"""
 		super(ScriptTextCtrl, self).__init__(parent, 
-			style=wxSTC_STYLE_LINENUMBER|wxSTC_STYLE_INDENTGUIDE)
+			style=stc.STC_STYLE_LINENUMBER|stc.STC_STYLE_INDENTGUIDE)
 		from Core.Database.ScriptEditor import FindReplaceData
 		global Config
 		Config = Kernel.GlobalObjects.get_value('ARCed_config').get_section('ScriptEditor')
@@ -38,8 +37,8 @@ class ScriptTextCtrl(wxStyledTextCtrl):
 		self.BindHotKeys()
 		self.Bind(wx.EVT_KEY_DOWN, self.KeyPressed)
 		self.Bind(wx.EVT_TEXT_PASTE, self.CalculateLineNumberMargin)
-		self.Bind(self.SCRIPT_UPDATEUI, self.UpdateUI)
-		self.Bind(wx.PyEventBinder(wxEVT_STC_MARGINCLICK, 1), self.MarginClicked)
+		self.Bind(stc.EVT_STC_UPDATEUI, self.UpdateUI)
+		self.Bind(stc.EVT_STC_MARGINCLICK, self.MarginClicked)
 		
 	def UpdateUI( self, event ):
 		"""Updates brace matching"""
@@ -91,7 +90,7 @@ class ScriptTextCtrl(wxStyledTextCtrl):
 			text = self.GetCurLine()[0]
 			indent = self.GetLineIndentation(thisLine)
 			indent += self.DetermineIndentChange(text, thisLine, indent)
-			self.CmdKeyExecute(wxSTC_CMD_NEWLINE)
+			self.CmdKeyExecute(stc.STC_CMD_NEWLINE)
 			self.SetLineIndentation(nextLine, indent)
 			self.GotoPos(self.GetLineEndPosition(nextLine))
 			self.CalculateLineNumberMargin()
@@ -145,35 +144,35 @@ class ScriptTextCtrl(wxStyledTextCtrl):
 		
 	def BindHotKeys( self ):
 		"""Binds hotkey commands to the script control"""
-		self.CmdKeyAssign(ord('Z'), wxSTC_SCMOD_ALT, wxSTC_CMD_ZOOMIN)
-		self.CmdKeyAssign(ord('X'), wxSTC_SCMOD_ALT, wxSTC_CMD_ZOOMOUT)
+		self.CmdKeyAssign(ord('Z'), stc.STC_SCMOD_ALT, stc.STC_CMD_ZOOMIN)
+		self.CmdKeyAssign(ord('X'), stc.STC_SCMOD_ALT, stc.STC_CMD_ZOOMOUT)
 
 	def ApplySettings( self ):
 		"""Applies default setting to the script control"""
-		self.SetLexer(wxSTC_LEX_RUBY)
+		self.SetLexer(stc.STC_LEX_RUBY)
 		self.SetKeyWords(0, RUBY_KEYWORDS)
 		SM.ApplyUserSettings(self)
-		self.SetEdgeMode(wxSTC_EDGE_LINE)
-		self.SetMarginType(2, wxSTC_MARGIN_NUMBER)
+		self.SetEdgeMode(stc.STC_EDGE_LINE)
+		self.SetMarginType(2, stc.STC_MARGIN_NUMBER)
 		if Config.get('folding').lower() == 'true':
 			self.SetupMargins()
 		
 	def SetupMargins( self ):
 		"""Sets up the margins for folding"""
-		self.SetMarginType(3, wxSTC_MARGIN_SYMBOL)
+		self.SetMarginType(3, stc.STC_MARGIN_SYMBOL)
 		self.SetMarginWidth(3, 16)
 		self.SetProperty("fold", "3")
-		self.SetMarginType(3, wxSTC_MARGIN_SYMBOL)
-		self.SetMarginMask(3, wxSTC_MASK_FOLDERS)
+		self.SetMarginType(3, stc.STC_MARGIN_SYMBOL)
+		self.SetMarginMask(3, stc.STC_MASK_FOLDERS)
 		self.SetMarginSensitive(3, True)
 		self.SetMarginWidth(3, 12)
-		self.MarkerDefine(wxSTC_MARKNUM_FOLDEROPEN, wxSTC_MARK_BOXMINUS, "white", "#808080")
-		self.MarkerDefine(wxSTC_MARKNUM_FOLDER, wxSTC_MARK_BOXPLUS, "white", "#808080")
-		self.MarkerDefine(wxSTC_MARKNUM_FOLDEROPENMID, wxSTC_MARK_BOXMINUSCONNECTED, "white", "#808080")
-		self.MarkerDefine(wxSTC_MARKNUM_FOLDEREND, wxSTC_MARK_BOXPLUSCONNECTED, "white", "#808080")
-		self.MarkerDefine(wxSTC_MARKNUM_FOLDERTAIL, wxSTC_MARK_LCORNER, "white", "#808080")
-		self.MarkerDefine(wxSTC_MARKNUM_FOLDERSUB, wxSTC_MARK_VLINE, "white", "#808080")
-		self.MarkerDefine(wxSTC_MARKNUM_FOLDERMIDTAIL, wxSTC_MARK_TCORNER, "white", "#808080")
+		self.MarkerDefine(stc.STC_MARKNUM_FOLDEROPEN, stc.STC_MARK_BOXMINUS, "white", "#808080")
+		self.MarkerDefine(stc.STC_MARKNUM_FOLDER, stc.STC_MARK_BOXPLUS, "white", "#808080")
+		self.MarkerDefine(stc.STC_MARKNUM_FOLDEROPENMID, stc.STC_MARK_BOXMINUSCONNECTED, "white", "#808080")
+		self.MarkerDefine(stc.STC_MARKNUM_FOLDEREND, stc.STC_MARK_BOXPLUSCONNECTED, "white", "#808080")
+		self.MarkerDefine(stc.STC_MARKNUM_FOLDERTAIL, stc.STC_MARK_LCORNER, "white", "#808080")
+		self.MarkerDefine(stc.STC_MARKNUM_FOLDERSUB, stc.STC_MARK_VLINE, "white", "#808080")
+		self.MarkerDefine(stc.STC_MARKNUM_FOLDERMIDTAIL, stc.STC_MARK_TCORNER, "white", "#808080")
 
 	def NormalizeIndenting( self ):
 		"""Automatically applies conventional indent levels to the script"""
@@ -219,10 +218,10 @@ class ScriptTextCtrl(wxStyledTextCtrl):
 				self.SetCurrentPos(0)
 		self.SearchAnchor()
 		flags = 0
-		if matchcase: flags |= wxSTC_FIND_MATCHCASE
-		if wholeword: flags |= wxSTC_FIND_WHOLEWORD
+		if matchcase: flags |= stc.STC_FIND_MATCHCASE
+		if wholeword: flags |= stc.STC_FIND_WHOLEWORD
 		if regex: 
-			flags |= wxSTC_FIND_REGEXP
+			flags |= stc.STC_FIND_REGEXP
 			if wildcards:
 				text = text.replace('*', '.')
 		pos = find(flags, text)
