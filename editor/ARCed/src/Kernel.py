@@ -942,7 +942,8 @@ class Protect(object):
 
      def __call__(self, *args, **kwargs):
         try:
-            self.fn(*args, **kwargs)
+            result = self.fn(*args, **kwargs)
+            return result
         except Exception, excp:
             if inspect.ismethod(self.fn):
                 message = "Exception in protected method  '%s' bound to class '%s'" % (self.fn.__name__, self.fn.im_self.__class__.__name__ )
@@ -953,6 +954,7 @@ class Protect(object):
             Log(message, inform=True, error=True)
             if self.exit_on_fail:
                 wx.Exit()
+            return None
 
 #====================================================================================
 # * Kernel Functions

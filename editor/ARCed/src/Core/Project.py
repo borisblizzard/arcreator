@@ -181,14 +181,14 @@ class Project(object):
 
     def saveData(self, key):
         if (self.save_func != None) and callable(self.save_func):
-            self.save_func(os.path.dirname(self.project_path), key, self.getData(key))
+            Kernel.Protect(self.save_func)(os.path.dirname(self.project_path), key, self.getData(key))
             self.setChangedData(key, False)
         else:
             Kernel.Log("Warning: no save function set for project. Data files NOT saved", "[Project]")
                 
     def saveDeferredData(self, key):
         if (self.save_func != None) and callable(self.save_func):
-            self.save_func(os.path.dirname(self.project_path), key, self.getDeferredData(key))
+            Kernel.Protect(self.save_func)(os.path.dirname(self.project_path), key, self.getDeferredData(key))
             self.setChangedDeferredData(key, False)
         else:
             Kernel.Log("Warning: no save function set for project. Data files NOT saved", "[Project]")
@@ -245,7 +245,7 @@ class Project(object):
                 if file_name != "":
                     if not self.testAdvancedHandlersLoad(file_name):
                         if (self.load_func != None) and callable(self.load_func):
-                            self.setData(file_name, self.load_func(os.path.dirname(self.project_path), file_name), False)
+                            self.setData(file_name, Kernel.Protect(self.load_func)(os.path.dirname(self.project_path), file_name), False)
                         else:
                             self.setData(file_name, None, False)
                             Kernel.Log("Warning: no load function set for project. Data for %s set to None" % file_name, "[Project]")

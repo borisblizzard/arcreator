@@ -245,7 +245,8 @@ class ARCSplashScreen(AS.AdvancedSplash):
 
     def BindPyXAL(self):
         PyXAL = KM.get_component("PyXAL").object
-        PyXAL.Init(self.frame.GetHandle(), True)
+        if PyXAL is not None:
+            PyXAL.Init(self.frame.GetHandle(), True)
         
         #wx.lib.inspection.InspectionTool().Show()
 
@@ -253,6 +254,8 @@ class ARC_App(wx.App):
 
     def OnInit(self):
         self.SetAppName("ARCed")
+
+        wx.InitAllImageHandlers()
 
         self.SplashScreen = ARCSplashScreen()
         self.SplashScreen.Show()

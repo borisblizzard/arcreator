@@ -3,4 +3,8 @@ try:
     del numpy
 except ImportError:
     raise ImportError("Numpy is required for PyXAL")
-import _PyXAL
+try :
+    import _PyXAL
+except ImportError:
+    _PyXAL = None
+    print "PyXAL not loaded"
