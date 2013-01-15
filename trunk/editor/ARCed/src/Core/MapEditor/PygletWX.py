@@ -61,14 +61,14 @@ class PygletGLPanel(wx.Panel):
 
     def processSizeEvent(self, event):
         '''Process the resize event.'''
-        if wx.VERSION >= (2,6):
+        if wx.VERSION >= (2,9):
             wx.CallAfter(self.doSetViewport)
         else:
             self.doSetViewport()
         event.Skip()
 
     def doSetViewport(self):
-        if wx.VERSION >= (2,6):
+        if wx.VERSION >= (2,9):
             self.PrepareGL()
             # Make sure the frame is shown before calling SetCurrent.
             self.Show()
@@ -100,7 +100,7 @@ class PygletGLPanel(wx.Panel):
 
 
     def PrepareGL(self):
-        if wx.VERSION >= (2,6):
+        if wx.VERSION >= (2,9):
             self.canvas.SetCurrent(self.context)
         else:
             self.canvas.SetCurrent()
@@ -123,10 +123,10 @@ class PygletGLPanel(wx.Panel):
     def Destroy(self):
         #clean up the pyglet OpenGL context
         self.pygletcontext.destroy()
-        #call the super method
+        #call the super metho
         super(wx.Panel, self).Destroy()
 
-    #==========================================================================
+    #==========================================================================f
     # GLFrame OpenGL Event Handlers
     #==========================================================================
  
@@ -134,7 +134,10 @@ class PygletGLPanel(wx.Panel):
         '''Initialize OpenGL for use in the window.'''
         #create a pyglet context for this panel
         #self.pygletcontext = gl.Context(gl.current_context)
-        self.pygletcontext = gl.Context()
+        if Kernel.parseFloat(pyglet.version) > 1.1:
+            self.pygletcontext = PygletWXContext()
+        else:
+            self.pygletcontext = gl.Context()
         self.pygletcontext.set_current()
         #normal gl init
         gl.glEnable(gl.GL_BLEND)
@@ -187,3 +190,54 @@ class PygletGLPanel(wx.Panel):
     def draw_objects(self):
         '''called in the middle of ondraw after the buffer has been cleared'''
         pass
+
+
+class PygletWXContext(gl.Context):
+    
+    def __init__(self, config=None, context_share=None):
+        self.config = config
+        self.context_share = context_share
+        self.canvas = None
+        
+        if context_share:
+            self.object_space = context_share.object_space
+        else:
+            self.object_space = gl.ObjectSpace()
+    
+    
+    def attach(self, canvas=None):
+        pass
+
+    def detach(self):
+        pass
+    
+    def set_current(self):        
+        # XXX not per-thread
+        gl.current_context = self
+        
+        # XXX
+        gl.gl_info.set_active_context()
+        gl.glu_info.set_active_context()
+        
+        # Implement workarounds
+        if not self._info:
+            self._info = gl.gl_info.GLInfo()
+            self._info.set_active_context()
+            for attr, check in self._workaround_checks:
+                setattr(self, attr, check(self._info))
+        
+        # Release textures and buffers on this context scheduled for deletion.
+        # Note that the garbage collector may introduce a race condition,
+        # so operate on a copy of the textures/buffers and remove the deleted
+        # items using list slicing (which is an atomic operation)
+        if self.object_space._doomed_textures:
+            textures = self.object_space._doomed_textures[:]
+            textures = (gl.GLuint * len(textures))(*textures)
+            gl.glDeleteTextures(len(textures), textures)
+            self.object_space._doomed_textures[0:len(textures)] = []
+        if self.object_space._doomed_buffers:
+            buffers = self.object_space._doomed_buffers[:]
+            buffers = (gl.GLuint * len(buffers))(*buffers)
+            gl.glDeleteBuffers(len(buffers), buffers)
+            self.object_space._doomed_buffers[0:len(buffers)] = []
+    

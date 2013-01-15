@@ -970,9 +970,10 @@ def GetDataFolder():
         if sys.platform.startswith('lynix'): 
             path = os.path.join("", "etc") 
         elif sys.platform.startswith('darwin'): 
-            path = os.path.expandvars(os.path.join("~", "Library")) 
+            path = os.path.expanduser(os.path.join("~", "Library", "Application Support"))
         path = os.path.join(path, "Chaos Project", "ARCed") 
-    if path != "" and not os.path.exists(path) or not os.path.isdir(path): 
+    if path != "" and not os.path.exists(path) or not os.path.isdir(path):
+        print path
         os.makedirs(path) 
     return path
 
@@ -1093,3 +1094,26 @@ def Inform(title, message, error=False):
     except Exception:
         #if this fails lets log it with out an inform
         Log("Inform failed: [Message] %s  [Error?] %s" % (message, error), "[Kernel Inform]", error=True)
+
+def parseInt(string):
+    hitint = False
+    ints = []
+    for x in string:
+        
+        if x.isdigit():
+            ints.append(x)
+            hitint = True
+        else:
+            if hitint: break
+    return int(''.join(ints))
+
+def parseFloat(string):
+    hitint = False
+    chars = []
+    for x in string:
+        if x.isdigit() or x == ".":
+            chars.append(x)
+            hitint = True
+        else:
+            if hitint: break
+    return float(''.join(chars))
