@@ -246,6 +246,8 @@
     /* Use the defaults, or define PNG*API on the command line (but
      * this will have to be done for every compile!)
      */
+#    define PNG_DLL_EXPORT
+#    define PNG_DLL_IMPORT
 #  endif /* other system, !OS/2 */
 #endif /* !Windows/x86 */
 

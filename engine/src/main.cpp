@@ -4,7 +4,7 @@
 
 #include <hltypes/hfile.h>
 #include <hltypes/hstring.h>
-#include <zer0/zer0.h>
+#include <reactor/reactor.h>
 
 #if !defined(_CONSOLE) && defined(_WIN32)
 int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
@@ -12,7 +12,7 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 int main(int argc, char** argv)
 #endif
 {
-	bool initialized = zer0::init();
+	bool initialized = reactor::init();
 	if (!initialized)
 	{
 		return 1;
@@ -32,7 +32,7 @@ int main(int argc, char** argv)
 		args += hstr(argv[i]);
 	}
 #endif
-	int result = zer0::enterMainLoop(args);
-	zer0::destroy();
+	int result = reactor::enterMainLoop(args);
+	reactor::destroy();
 	return result;
 }
