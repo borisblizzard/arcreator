@@ -62,7 +62,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>src;include/reactor;../gtypes/include;../hltypes/include;../atres/include;../atres/atresttf/include;../april/include;../aprilui/include;../xal/include;../legacy/include;../include;../include/ruby192-msvcr110;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;include/reactor;../gtypes/include;../hltypes/include;../atres/include;../atres/atresttf/include;../april/include;../aprilui/include;../xal/include;../legacy/include;../include;../include/ruby210-msvcr110;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_WIN32;_DEBUG;_DESKTOP;REACTOR_EXPORTS;WIN32_LEAN_AND_MEAN;_ALLOW_KEYWORD_MACROS;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>true</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -74,7 +74,7 @@
       <DisableSpecificWarnings>4251</DisableSpecificWarnings>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>ruby192.lib;ws2_32.lib;zlib1.lib;win32api.lib;socket.lib;zlib.lib;libgtypes.lib;libhltypes.lib;libapril.lib;libatres.lib;libatresttf.lib;libaprilui.lib;libxal.lib;liblegacy.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>ruby210.lib;libgtypes.lib;libhltypes.lib;libapril.lib;libatres.lib;libatresttf.lib;libaprilui.lib;libxal.lib;liblegacy.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
       <AdditionalLibraryDirectories>..\lib\msvc110;$(SolutionDir)bin\$(Platform);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -88,7 +88,7 @@
     <ClCompile>
       <Optimization>Full</Optimization>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <AdditionalIncludeDirectories>src;include/reactor;../gtypes/include;../hltypes/include;../atres/include;../atres/atresttf/include;../april/include;../aprilui/include;../xal/include;../legacy/include;../include;../include/ruby192-msvcr110;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;include/reactor;../gtypes/include;../hltypes/include;../atres/include;../atres/atresttf/include;../april/include;../aprilui/include;../xal/include;../legacy/include;../include;../include/ruby210-msvcr110;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_WIN32;_DESKTOP;REACTOR_EXPORTS;WIN32_LEAN_AND_MEAN;_ALLOW_KEYWORD_MACROS;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -101,7 +101,7 @@
       <MinimalRebuild>false</MinimalRebuild>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>ruby192.lib;ws2_32.lib;zlib1.lib;win32api.lib;socket.lib;zlib.lib;libgtypes.lib;libhltypes.lib;libapril.lib;libatres.lib;libatresttf.lib;libaprilui.lib;libxal.lib;liblegacy.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>ruby210.lib;libgtypes.lib;libhltypes.lib;libapril.lib;libatres.lib;libatresttf.lib;libaprilui.lib;libxal.lib;liblegacy.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>..\lib\msvc110;$(SolutionDir)bin\$(Platform);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
       <UACUIAccess>false</UACUIAccess>
@@ -118,7 +118,7 @@
     <ClCompile>
       <Optimization>Full</Optimization>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <AdditionalIncludeDirectories>src;include/reactor;../gtypes/include;../hltypes/include;../atres/include;../atres/atresttf/include;../april/include;../aprilui/include;../xal/include;../legacy/include;../include;../include/ruby192-msvcr110;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;include/reactor;../gtypes/include;../hltypes/include;../atres/include;../atres/atresttf/include;../april/include;../aprilui/include;../xal/include;../legacy/include;../include;../include/ruby210-msvcr110;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_WIN32;_DESKTOP;REACTOR_EXPORTS;LEGACY_ONLY;WIN32_LEAN_AND_MEAN;_ALLOW_KEYWORD_MACROS;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -131,7 +131,7 @@
       <MinimalRebuild>false</MinimalRebuild>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>ruby192.lib;ws2_32.lib;zlib1.lib;win32api.lib;socket.lib;zlib.lib;libgtypes.lib;libhltypes.lib;libapril.lib;libatres.lib;libatresttf.lib;libxal.lib;liblegacy.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>ruby210.lib;libgtypes.lib;libhltypes.lib;libapril.lib;libatres.lib;libatresttf.lib;libxal.lib;liblegacy.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>..\lib\msvc110;$(SolutionDir)bin\$(Platform);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
       <UACUIAccess>false</UACUIAccess>
@@ -150,21 +150,77 @@
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ProjectReference Include="..\aprilui\libaprilui.vcxproj">
+      <Project>{56ff74d1-34d0-4ddb-8b89-f6f9200842b8}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <Private>false</Private>
+      <CopyLocalSatelliteAssemblies>false</CopyLocalSatelliteAssemblies>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+      <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
+    </ProjectReference>
     <ProjectReference Include="..\april\libapril.vcxproj">
       <Project>{2d053cda-686b-4b36-80eb-1da5f0cef8f9}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <Private>false</Private>
+      <CopyLocalSatelliteAssemblies>false</CopyLocalSatelliteAssemblies>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+      <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
+    </ProjectReference>
+    <ProjectReference Include="..\atres\atresttf\libatresttf.vcxproj">
+      <Project>{bd643e5e-72ff-4004-bd69-31dc02e5d417}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <Private>false</Private>
+      <CopyLocalSatelliteAssemblies>false</CopyLocalSatelliteAssemblies>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+      <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
     </ProjectReference>
     <ProjectReference Include="..\atres\libatres.vcxproj">
       <Project>{a1e808a0-fe36-47fe-9e3b-cf195ea31f0a}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <Private>false</Private>
+      <CopyLocalSatelliteAssemblies>false</CopyLocalSatelliteAssemblies>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+      <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
     </ProjectReference>
     <ProjectReference Include="..\gtypes\libgtypes.vcxproj">
       <Project>{9c043b29-db40-48d5-97d8-1bc44128e3ba}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <Private>false</Private>
+      <CopyLocalSatelliteAssemblies>false</CopyLocalSatelliteAssemblies>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+      <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
+    </ProjectReference>
+    <ProjectReference Include="..\hltypes\hlxml\libhlxml.vcxproj">
+      <Project>{601bcb9e-aaf2-412e-8aeb-9fc77d0505d8}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <Private>false</Private>
+      <CopyLocalSatelliteAssemblies>false</CopyLocalSatelliteAssemblies>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+      <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
     </ProjectReference>
     <ProjectReference Include="..\hltypes\libhltypes.vcxproj">
       <Project>{e4d373bf-e227-48b9-99e6-84987e8674ec}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <Private>false</Private>
+      <CopyLocalSatelliteAssemblies>false</CopyLocalSatelliteAssemblies>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+      <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
+    </ProjectReference>
+    <ProjectReference Include="..\legacy\liblegacy.vcxproj">
+      <Project>{58c3a996-27e7-485e-ae81-2025c3ec65be}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <Private>false</Private>
+      <CopyLocalSatelliteAssemblies>false</CopyLocalSatelliteAssemblies>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+      <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
+    </ProjectReference>
+    <ProjectReference Include="..\xal\libxal.vcxproj">
+      <Project>{6b6c070b-7dd7-41b9-8dd7-12afbf0f6c08}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <Private>false</Private>
+      <CopyLocalSatelliteAssemblies>false</CopyLocalSatelliteAssemblies>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+      <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -205,7 +205,6 @@ xcopy arc.cfg $(SolutionDir)bin\$(Platform)\ARC_$(Configuration) /y
 
 del $(SolutionDir)bin\$(Platform)\ARC_$(Configuration)\libaprilui.dll
 del $(SolutionDir)bin\$(Platform)\ARC_$(Configuration)\libhlxml.dll
-del $(SolutionDir)bin\$(Platform)\ARC_$(Configuration)\libxml2.dll
 </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -221,25 +220,21 @@ del $(SolutionDir)bin\$(Platform)\ARC_$(Configuration)\libxml2.dll
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="external\april\libapril.vcxproj">
-      <Project>{2d053cda-686b-4b36-80eb-1da5f0cef8f9}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
-    <ProjectReference Include="external\atres\libatres.vcxproj">
-      <Project>{a1e808a0-fe36-47fe-9e3b-cf195ea31f0a}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
-    <ProjectReference Include="external\gtypes\libgtypes.vcxproj">
-      <Project>{9c043b29-db40-48d5-97d8-1bc44128e3ba}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
     <ProjectReference Include="external\hltypes\libhltypes.vcxproj">
       <Project>{e4d373bf-e227-48b9-99e6-84987e8674ec}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <Private>false</Private>
+      <CopyLocalSatelliteAssemblies>false</CopyLocalSatelliteAssemblies>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+      <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
     </ProjectReference>
-    <ProjectReference Include="external\xal\libxal.vcxproj">
-      <Project>{6b6c070b-7dd7-41b9-8dd7-12afbf0f6c08}</Project>
+    <ProjectReference Include="external\reactor\libreactor.vcxproj">
+      <Project>{2aab8e59-ca6d-40f3-9006-547341626727}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <Private>false</Private>
+      <CopyLocalSatelliteAssemblies>false</CopyLocalSatelliteAssemblies>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+      <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

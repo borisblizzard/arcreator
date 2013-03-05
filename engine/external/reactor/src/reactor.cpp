@@ -1,6 +1,5 @@
 #include <stdio.h>
 
-#include <ruby/extensions.h>
 #include <ruby/ruby.h>
 
 #include <april/april.h>
@@ -326,10 +325,6 @@ namespace reactor
 			reactor::setDebugMode(true);
 			legacy::setDebugMode(true);
 		}
-		// initializing statically linked Ruby extensions
-		Init_win32api();
-		Init_socket();
-		Init_zlib();
 		// additional Ruby stuff
 		rb_define_method(rb_mKernel, "print", RUBY_METHOD_FUNC(&rb_Kernel_print), -1);
 		rb_define_method(rb_mKernel, "puts", RUBY_METHOD_FUNC(&rb_Kernel_print), -1);
@@ -346,7 +341,7 @@ namespace reactor
 				displayRubyError();
 			}
 		}
-		catch (legacy::ApplicationExitException& e)
+		catch (legacy::ApplicationExitException&)
 		{
 			// ALT+F4 exit or window close button exit
 			hlog::write(reactor::logTag, "Application Exit.");
