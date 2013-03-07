@@ -220,6 +220,7 @@ namespace legacy
 		if (active)
 		{
 			april::rendersys->clear();
+			april::rendersys->setOrthoProjection(grect(0.0f, 0.0f, (float)april::window->getWidth(), (float)april::window->getHeight()));
 			renderQueue->draw();
 			april::rendersys->presentFrame();
 		}
