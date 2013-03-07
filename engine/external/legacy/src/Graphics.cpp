@@ -142,6 +142,7 @@ namespace legacy
 		focused = true;
 		renderQueue = new RenderQueue();
 		timer = new april::Timer();
+		timer->update();
 		timer->diff();
 		fpsDisplay = false;
 		fpsTimer = new april::Timer();
