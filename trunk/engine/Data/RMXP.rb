@@ -2,6 +2,8 @@
 $:.clear
 $:.push(Dir.getwd)
 
+require 'socket'
+
 # wrapper for RMXP's Win32API class
 class Win32API
   

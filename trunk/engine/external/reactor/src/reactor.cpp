@@ -1,6 +1,7 @@
 #include <stdio.h>
 
 #include <ruby/ruby.h>
+#include <ruby/_extensions.h>
 
 #include <april/april.h>
 #include <april/PixelShader.h>
@@ -325,6 +326,10 @@ namespace reactor
 			reactor::setDebugMode(true);
 			legacy::setDebugMode(true);
 		}
+		// initializing extensions
+		Init_xwin32api();
+		Init_socket();
+		Init_zlib();
 		// additional Ruby stuff
 		rb_define_method(rb_mKernel, "print", RUBY_METHOD_FUNC(&rb_Kernel_print), -1);
 		rb_define_method(rb_mKernel, "puts", RUBY_METHOD_FUNC(&rb_Kernel_print), -1);
