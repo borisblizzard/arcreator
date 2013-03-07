@@ -74,7 +74,7 @@
       <DisableSpecificWarnings>4251</DisableSpecificWarnings>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>ruby210.lib;ws2_32.lib;zlib1.lib;xwin32api.lib;socket.lib;zlib.lib;libgtypes.lib;libhltypes.lib;libapril.lib;libatres.lib;libatresttf.lib;libaprilui.lib;libxal.lib;liblegacy.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>ruby210.lib;ws2_32.lib;zlib1.lib;libgtypes.lib;libhltypes.lib;libapril.lib;libatres.lib;libatresttf.lib;libaprilui.lib;libxal.lib;liblegacy.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>..\lib\msvc110;$(SolutionDir)bin\$(Platform);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
@@ -100,7 +100,7 @@
       <MinimalRebuild>false</MinimalRebuild>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>ruby210.lib;ws2_32.lib;zlib1.lib;xwin32api.lib;socket.lib;zlib.lib;libgtypes.lib;libhltypes.lib;libapril.lib;libatres.lib;libatresttf.lib;libaprilui.lib;libxal.lib;liblegacy.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>ruby210.lib;ws2_32.lib;zlib1.lib;libgtypes.lib;libhltypes.lib;libapril.lib;libatres.lib;libatresttf.lib;libaprilui.lib;libxal.lib;liblegacy.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>..\lib\msvc110;$(SolutionDir)bin\$(Platform);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <UACUIAccess>false</UACUIAccess>
       <GenerateDebugInformation>false</GenerateDebugInformation>
@@ -129,7 +129,7 @@
       <MinimalRebuild>false</MinimalRebuild>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>ruby210.lib;ws2_32.lib;zlib1.lib;xwin32api.lib;socket.lib;zlib.lib;libgtypes.lib;libhltypes.lib;libapril.lib;libatres.lib;libatresttf.lib;libxal.lib;liblegacy.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>ruby210.lib;ws2_32.lib;zlib1.lib;libgtypes.lib;libhltypes.lib;libapril.lib;libatres.lib;libatresttf.lib;libxal.lib;liblegacy.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>..\lib\msvc110;$(SolutionDir)bin\$(Platform);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <UACUIAccess>false</UACUIAccess>
       <GenerateDebugInformation>false</GenerateDebugInformation>

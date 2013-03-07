@@ -1,9 +1,3 @@
-# this makes sure that Kernel#require and Kernel#load don't need (but still accept) a full path anymore
-$:.clear
-$:.push(Dir.getwd)
-
-require 'socket'
-
 # wrapper for RMXP's Win32API class
 class Win32API
   

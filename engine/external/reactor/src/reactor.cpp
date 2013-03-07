@@ -283,8 +283,16 @@ namespace reactor
 			}
 		}
 		scripts.sort();
-		rb_load(rb_str_new2("./Data/RMXP.rb"), 0); // TODO - will be removed later
-		rb_load(rb_str_new2("./Data/System.rb"), 0); // TODO - will be removed later
+		// this makes sure that Kernel#require and Kernel#load don't need a full path anymore (but still accept it)
+		rb_eval_string("$:.clear; $:.push(Dir.getwd); $:.push(Dir.getwd + '/lib')");
+		// initializing extensions
+		rb_require_safe(rb_str_new2("socket.so"), 0);
+		rb_require_safe(rb_str_new2("xwin32api.so"), 0);
+		rb_require_safe(rb_str_new2("zlib.so"), 0);
+		// other source files
+		rb_load(rb_str_new2("./lib/Compatibility.rb"), 0); // TODO - will be removed later
+		rb_load(rb_str_new2("./lib/RMXP.rb"), 0); // TODO - will be removed later
+		// loading scripts
 		foreach (hstr, it, scripts)
 		{
 			rb_load(rb_str_new2((*it).c_str()), 0);
@@ -326,10 +334,6 @@ namespace reactor
 			reactor::setDebugMode(true);
 			legacy::setDebugMode(true);
 		}
-		// initializing extensions
-		Init_xwin32api();
-		Init_socket();
-		Init_zlib();
 		// additional Ruby stuff
 		rb_define_method(rb_mKernel, "print", RUBY_METHOD_FUNC(&rb_Kernel_print), -1);
 		rb_define_method(rb_mKernel, "puts", RUBY_METHOD_FUNC(&rb_Kernel_print), -1);
