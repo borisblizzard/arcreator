@@ -37,10 +37,10 @@ class ARC_Dump(object):
         _io.write(ARC_Dump._VERSION)
         try:
             ARC_Dump._dump(obj)
-        except Exception:
+        except StandardError:
             try:
                 print "stream position: %s" % _io.tell()
-            except Exception:
+            except StandardError:
                 pass
             raise
         ARC_Dump._reset()
@@ -61,10 +61,10 @@ class ARC_Dump(object):
             raise TypeError("Error: version mismatch! Expected: %s Found: %s" %(repr(ARC_Dump._VERSION), repr(version)))
         try:
             data = ARC_Dump._load()
-        except Exception:
+        except StandardError:
             try:
                 print "stream position: %s" % ARC_Dump._io.tell()
-            except Exception:
+            except StandardError:
                 pass
             raise
         ARC_Dump._reset()

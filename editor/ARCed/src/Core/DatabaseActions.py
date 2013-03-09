@@ -1,4 +1,5 @@
 import types
+from copy import copy, deepcopy
 import numpy
 
 import Kernel
@@ -6,8 +7,102 @@ from Kernel import Manager as KM
 
 import Actions
 
-class TableEditAction(Actions.ActionTemplate):
+class DatabaseAction(Actions.ActionManager):
+    ''' an action that edits RGSS Datatypes'''
 
+    def __init__(self, data={}, sub_action=False):
+        super(DatabaseAction, self).__init__(sub_action)
+        if not isinstance(data, types.DictType):
+            raise TypeError("Error: Expected dict type for 'data'")
+        self.data = data
+        self.keys = []
+        self.old_data = {}
+        self.obj = None
+        self.type = None
+
+    def setType(self, type):
+        self.type = type
+
+    def setKeys(self, *args):
+        self.keys = []
+        val = args
+        if len(args) == 1 and isinstance(args[0], (types.ListType, types.TupleType)):
+            val = args[0]
+        self.keys.extend(val)
+
+    def addKeys(self, *args):
+        val = args
+        if len(args) == 1 and isinstance(args[0], (types.ListType, types.TupleType)):
+            val = args[0]
+        self.keys.extend(val)
+
+    def setObj(self, obj):
+        self.obj = obj
+
+    def do_apply(self):
+        result = self.apply_keys()
+        if not result: return result
+        result &= self.apply_extra()
+        if not result: self.undo_keys()
+        return result
+
+    def do_undo(self):
+        result = self.undo_keys()
+        if not result: return result
+        result &= self.undo_extra()
+        if not result: self.apply_keys()
+        return result
+
+    def apply_keys(self):
+        keys_applyed = []
+        try:
+            for key, value in self.data:
+                if key in self.keys:
+                    if hasattr(self.obj, key):
+                        self.old_data[key] = copy(getattr(self.obj, key))
+                        setattr(self.obj, key, copy(value))
+                        keys_applyed.append(key)
+            return True
+        except StandardError:
+            Kernel.Log("Exception applying Database Action(%s), will atempt to revert" % self.type, "[DatabaseAction]", True, True)
+            try:
+                for key in keys_applyed:
+                    self.data[key] = getattr(self.obj, key)
+                    setattr(self.obj, key, self.old_data[key])
+                Kernel.Log("'Apply' Database Action(%s) sucessfuly reverted" % self.type, "[DatabaseAction]", True)
+            except StandardError:
+                Kernel.Log("Exception reverting failed 'Apply' Database Action(%s), Possible Project coruption" % self.type, "[DatabaseAction]", True, True)
+        return False
+
+    def apply_extra(self):
+        return True
+
+    def undo_keys(self):
+        keys_applyed = []
+        try:
+            for key, value in self.old_data:
+                if key in self.keys:
+                    if hasattr(self.obj, key):
+                        self.data[key] = copy(getattr(self.obj, key))
+                        setattr(self.obj, key, copy(value))
+                        keys_applyed.append(key)
+            return True
+        except StandardError:
+            Kernel.Log("Exception undoing Database Action(%s), will atempt to revert" % self.type, "[DatabaseAction]", True, True)
+            try:
+                for key in keys_applyed:
+                    self.old_data[key] = getattr(self.obj, key)
+                    setattr(self.obj, key, self.data[key])
+                Kernel.Log("'Undo' Database Action(%s) sucessfuly reverted" % self.type, "[DatabaseAction]", True)
+            except StandardError:
+                Kernel.Log("Exception reverting failed 'Undo' Database Action(%s), Possible Project coruption" % self.type, "[DatabaseAction]", True, True)
+        return False
+
+    def undo_extra(self):
+        return True
+    
+class TableEditAction(Actions.ActionTemplate):
+    ''' an action that edits a RGSS Table'''
     def __init__(self, table, data={}, sub_action=False):
         super(TableEditAction, self).__init__(sub_action)
         if not isinstance(data, types.DictType):
@@ -24,7 +119,7 @@ class TableEditAction(Actions.ActionTemplate):
         # for a slice ((x1,x2), (y1,y2), (z1,z2))) or for a slice with a step ((x1,x2,xstep), (y1,y2,ystep), (z1,z2,zstep)) 
         # the values in a slice may be none just like in real slice notation ie.
         # [::2, 0, 0] (every other value in the array) would look like ((None,None,2), 0, 0) 
-        # remember Tables are basically a dimension limited numpy array of of dtype int17 use numpy. they indexing so look at the numpy documentation for more information
+        # remember Tables are basically a dimension limited numpy array of of dtype int16 use numpy. they indexing so look at the numpy documentation for more information
         # note that unlike full numpy arrays you can't use less indexes than the dim of the table so you must explicitly slice the remaining dimensions
         # ie a index of [0:2, 0:3] on a 3d numpy would implicitly slice the missing dim but in the table you must state it explicitly or you'll get dim errors
         # so use this index instead [0:2, 0:3, :] in the tuple syntax for the data hash it would look like so ((0,2), (0,3), (None, None))
@@ -184,915 +279,639 @@ class TableEditAction(Actions.ActionTemplate):
             self.table[x, y, z] = self.oldvalue
         else:
             raise TypeError("wrong number of arguments (%d for %d)" % (len(index), dim))
-        return True
+        return True     
+            
+class ArmorEditAction(DatabaseAction):
+    ''' edits an Armor object '''
 
-class LearningEditAction(Actions.ActionTemplate):
-    def __init__(self, id, index, data={}, sub_action=False):
-        super(LearningEditAction, self).__init__(sub_action)
-        if not isinstance(data, types.DictType):
-            raise TypeError("Error: Expected dict type for 'data'")
-        elif not isinstance(id, types.IntType):
-            raise TypeError("Error: Expected int type for 'id'")
-        else:
-            self.id = id
-            self.index = index
-            self.data = data
-            self.old_data = {}
-            
-            
-    def do_apply(self):
-        if Kernel.GlobalObjects.has_key("PROJECT"):
-            project = Kernel.GlobalObjects.get_value("PROJECT")
-            if project is not None:
-                klass = project.getData("Classes")[self.id]
-                if klass is not None:
-                    if self.data.has_key("level"):
-                        self.old_data["level"] = klass.learnings[self.index].level
-                        klass.learnings[self.index].level = self.data["level"]
-                    if self.data.has_key("skill_id"):
-                        self.old_data["skill_id"] = klass.learnings[self.index].skill_id
-                        klass.learnings[self.index].level = self.data["skill_id"]
-                    return True
-                else:
-                    return False
-            else:
-                return False
-                
-                
-    def do_undo(self):
-        if Kernel.GlobalObjects.has_key("PROJECT"):
-            project = Kernel.GlobalObjects.get_value("PROJECT")
-            if project is not None:
-                klass = project.getData("Classes")[self.id]
-                if klass is not None:
-                    if self.old_data.has_key("level"):
-                        self.data["level"] = klass.learnings[self.index].level
-                        klass.learnings[self.index].level = self.old_data["level"]
-                    if self.old_data.has_key("skill_id"):
-                        self.data["skill_id"] = klass.learnings[self.index].skill_id
-                        klass.learnings[self.index].level = self.old_data["skill_id"]
-                    return True
-                else:
-                    return False
-            else:
-                return False
-                
-class LearningsEditAction(Actions.ActionTemplate):
-
-    def __init__(self, id, data={}, sub_action=False):
-        super(LearningsEditAction, self).__init__(sub_action)
-        if not isinstance(data, types.DictType):
-            raise TypeError("Error: Expected dict type for 'data'")
-        elif not isinstance(id, types.IntType):
-            raise TypeError("Error: Expected int type for 'id'")
-        else:
-            self.id = id
-            self.data = data
-            self.old_data = {}
-            self.learning_actions = []
-    
-    def do_apply(self):
-        if Kernel.GlobalObjects.has_key("PROJECT"):
-            project = Kernel.GlobalObjects.get_value("PROJECT")
-            if project is not None:
-                klass = project.getData("Classes")[self.id]
-                if klass is not None:
-                    if self.data.has_key("learnings"):
-                        self.old_data = klass.learnings
-                        for i in range(len(self.data["learnings"])):
-                            learning = {"level" : self.data["learnings"][i].level, "skill_id" : self.data["learnings"][i].skill_id}
-                            self.learning_actions[i] = LearningEditAction(self.id, i, learning, sub_action=True)
-                            self.learning_actions[i].apply();
-                    return True
-                else:
-                    return False
-            else:
-                return False
-                        
-                        
-    def do_undo(self):
-        if Kernel.GlobalObjects.has_key("PROJECT"):
-            project = Kernel.GlobalObjects.get_value("PROJECT")
-            if project is not None:
-                klass = project.getData("Classes")[self.id]
-                if klass is not None:
-                    if self.old_data.has_key("learnings"):
-                        self.data = klass.learnings
-                        for i in range(len(self.old_data["learnings"])):
-                            if self.learning_actions[i] is not None:
-                                self.learning_actions[i].undo()
-                    return True
-                else:
-                    return False
-            else:
-                return False
-            
-class ArmorEditAction(Actions.ActionTemplate):
-
-    def __init__(self, id, data={}, sub_action=False):
-        super(ArmorEditAction, self).__init__(sub_action)
-        if not isinstance(data, types.DictType):
-            raise TypeError("Error: Expected dict type for 'data'")
-        elif not isinstance(id, types.IntType):
-            raise TypeError("Error: Expected int type for 'id'")
-        else:
-            self.id = id
-            self.data = data
-            self.old_data = {}
-            
-    def do_apply(self):
-        if Kernel.GlobalObjects.has_key("PROJECT"):
-            project = Kernel.GlobalObjects.get_value("PROJECT")
-            if project is not None:
-                armors = project.getData("Armors")
-                if armors is not None:
-                    armor = armors[self.id]
-                    if armor is not None:
-                        if self.data.has_key("id"):
-                            self.old_data["id"] = armor.id
-                            armor.id = self.data["id"]
-                        if self.data.has_key("name"):
-                            self.old_data["name"] = armor.name
-                            armor.name = self.data["name"]
-                        if self.data.has_key("icon_name"):
-                            self.old_data["icon_name"] = armor.icon_name
-                            armor.icon_name = self.data["icon_name"]
-                        if self.data.has_key("description"):
-                            self.old_data["description"] = armor.description
-                            armor.description = self.data["description"]
-                        if self.data.has_key("kind"):
-                            self.old_data["kind"] = armor.kind
-                            armor.kind = self.data["kind"]
-                        if self.data.has_key("auto_state_id"):
-                            self.old_data["auto_state_id"] = armor.auto_state_id
-                            armor.auto_state_id = self.data["armor_state_id"]
-                        if self.data.has_key("price"):
-                            self.old_data["price"] = armor.price
-                            armor.price = self.data["price"]
-                        if self.data.has_key("pdef"):
-                            self.old_data["pdef"] = armor.pdef
-                            armor.pdef = self.data["pdef"]
-                        if self.data.has_key("mdef"):
-                            self.old_data["mdef"] = armor.mdef
-                            armor.mdef = self.data["mdef"]
-                        if self.data.has_key("eva"):
-                            self.old_data["eva"] = armor.eva
-                            armor.eva = self.data["eva"]
-                        if self.data.has_key("str_plus"):
-                            self.old_data["str_plus"] = armor.str_plus
-                            armor.str_plus = self.data["str_plus"]
-                        if self.data.has_key("dex_plus"):
-                            self.old_data["dex_plus"] = armor.dex_plus
-                            armor.dex_plus = self.data["dex_plus"]
-                        if self.data.has_key("agi_plus"):
-                            self.old_data["agi_plus"] = armor.agi_plus
-                            armor.agi_plus = self.data["agi_plus"]
-                        if self.data.has_key("int_plus"):
-                            self.old_data["int_plus"] = armor.int_plus
-                            armor.int_plus = self.data["int_plus"]
-                        if self.data.has_key("guard_element_set"):
-                            self.old_data["guard_element_set"] = armor.guard_element_set
-                            armor.guard_element_set = self.data["guard_element_set"]
-                        if self.data.has_key("guard_state_set"):
-                            self.old_data["guard_state_set"] = armor.guard_state_set
-                            armor.guard_state_set = self.data["guard_state_set"]
-                        return True
-                    else:
-                        Kernel.log("Warning: ArmorEditAction apply not completed successfully, Armor ID %s is none" % self.id, "[ArmorEditAction]")
-                        return False
-                else:
-                     Kernel.log("Warning: ArmorEditAction apply not completed successfully, Armors array from project is none", "[ArmorEditAction]")
-                     return False
-            else:
-                Kernel.log("Warning: ArmorEditAction apply not completed successfully, Project is None", "[ArmorEditAction]")
-                return False
-    
-    def do_undo(self):
-        if Kernel.GlobalObjects.has("PROJECT"):
-            project = Kernel.GlobalObjects.get_value("PROJECT")
-            if project is not None:
-                armors = project.getData("Armors")
-                if armors is not None:
-                    armor = armors[self.id]
-                    if armor is not None:
-                        if self.old_data.has_key("id"):
-                            self.data["id"] = armor.id
-                            armor.id = self.old_data["id"]
-                        if self.old_data.has_key("name"):
-                            self.data["name"] = armor.name
-                            armor.name = self.old_data["name"]
-                        if self.old_data.has_key("icon_name"):
-                            self.data["icon_name"] = armor.icon_name
-                            armor.icon_name = self.old_data["icon_name"]
-                        if self.old_data.has_key("description"):
-                            self.data["description"] = armor.description
-                            armor.description = self.old_data["description"]
-                        if self.old_data.has_key("kind"):
-                            self.data["kind"] = armor.kind
-                            armor.kind = self.old_data["kind"]
-                        if self.old_data.has_key("auto_state_id"):
-                            self.data["auto_state_id"] = armor.auto_state_id
-                            armor.auto_state_id = self.old_data["armor_state_id"]
-                        if self.old_data.has_key("price"):
-                            self.data["price"] = armor.price
-                            armor.price = self.old_data["price"]
-                        if self.data.has_key("pdef"):
-                            self.data["pdef"] = armor.pdef
-                            armor.pdef = self.old_data["pdef"]
-                        if self.old_data.has_key("mdef"):
-                            self.data["mdef"] = armor.mdef
-                            armor.mdef = self.old_data["mdef"]
-                        if self.old_data.has_key("eva"):
-                            self.data["eva"] = armor.eva
-                            armor.eva = self.old_data["eva"]
-                        if self.old_data.has_key("str_plus"):
-                            self.data["str_plus"] = armor.str_plus
-                            armor.str_plus = self.old_data["str_plus"]
-                        if self.old_data.has_key("dex_plus"):
-                            self.data["dex_plus"] = armor.dex_plus
-                            armor.dex_plus = self.old_data["dex_plus"]
-                        if self.old_data.has_key("agi_plus"):
-                            self.data["agi_plus"] = armor.agi_plus
-                            armor.agi_plus = self.old_data["agi_plus"]
-                        if self.old_data.has_key("int_plus"):
-                            self.data["int_plus"] = armor.int_plus
-                            armor.int_plus = self.old_data["int_plus"]
-                        if self.old_data.has_key("guard_element_set"):
-                            self.data["guard_element_set"] = armor.guard_element_set
-                            armor.guard_element_set = self.old_data["guard_element_set"]
-                        if self.old_data.has_key("guard_state_set"):
-                            self.data["guard_state_set"] = armor.guard_state_set
-                            armor.guard_state_set = self.old_data["guard_state_set"]
-                        return True
-                    else:
-                        Kernel.log("Warning: ArmorEditAction apply not completed successfully, Armor ID %s is none" % self.id, "[ArmorEditAction]")
-                        return False
-                else:
-                     Kernel.log("Warning: ArmorEditAction apply not completed successfully, Armors array from project is none", "[ArmorEditAction]")
-                     return False
-            else:
-                Kernel.log("Warning: ArmorEditAction apply not completed successfully, Project is None", "[ArmorEditAction]")
-                return False
+    def __init__(self, obj, data={}, sub_action=False):
+        super(ArmorEditAction, self).__init__(data, sub_action)
+        self.setObj(obj)
+        self.setType("Armor")
+        self.addKeys("id", "name", "icon_name", "description", "kind", 
+                     "auto_state_id", "price", "pdef", "mdef", "eva", 
+                     "str_plus", "dex_plus", "agi_plus", "int_plus", 
+                     "guard_element_set", "guard_state_set")
                      
-class ActorEditAction(Actions.ActionTemplate):
+class ActorEditAction(DatabaseAction):
+    ''' edits an Actor object '''
 
-    def __init__(self, id, data={}, sub_action=False):
-        super(ActorEditAction, self).__init__(sub_action)
-        if not isinstance(data, types.DictType):
-            raise TypeError("Error: Expected dict type for 'data'")
-        elif not isinstance(id, types.IntType):
-            raise TypeError("Error: Expected int type for 'id'")
-        else:
-            self.id = id
-            self.data = data
-            self.old_data = {}
-            self.parameters_action = None
+    def __init__(self, obj, data={}, sub_action=False):
+        super(ActorEditAction, self).__init__(data, sub_action)
+        self.setType("Actor")
+        self.parameters_action = None
+        self.setObj(obj)
+        self.addKeys("id", "name", "initial_level", "final_level", "exp_basis", "exp_inflation", "character_name", 
+                     "character_hue", "battler_name", "battler_hue", "weapon_id", "armor1_id", "armor2_id",
+                     "armor3_id", "armor4_id", "weapon_fix", "armor1_fix", "armor2_fix", "armor3_fix", "armor4_fix")
 
-    def do_apply(self):
-        if Kernel.GlobalObjects.has_key("PROJECT"):
-            project = Kernel.GlobalObjects.get_value("PROJECT")
-            if project is not None:
-                actors = project.getData("Actors")
-                if actors is not None:
-                    actor = actors[self.id]
-                    if actor is not None:
-                        if self.data.has_key("id"):
-                            self.old_data["id"] = actor.id
-                            actor.id = self.data["id"]
-                        if self.data.has_key("name"):
-                            self.old_data["name"] = actor.name
-                            actor.name = self.data["name"]
-                        if self.data.has_key("initial_level"):
-                            self.old_data["initial_level"] = actor.initial_level
-                            actor.initial_level = self.data["initial_level"]
-                        if self.data.has_key("final_level"):
-                            self.old_data["final_level"] = actor.final_level
-                            actor.final_level = self.data["final_level"]
-                        if self.data.has_key("exp_basis"):
-                            self.old_data["exp_basis"] = actor.exp_basis
-                            actor.exp_basis = self.data["exp_basis"]
-                        if self.data.has_key("exp_inflation"):
-                            self.old_data["exp_inflation"] = actor.exp_inflation
-                            actor.exp_inflation = self.data["exp_inflation"]
-                        if self.data.has_key("character_name"):
-                            self.old_data["character_name"] = actor.character_name
-                            actor.character_name = self.data["character_name"]
-                        if self.data.has_key("character_hue"):
-                            self.old_data["character_hue"] = actor.character_hue
-                            actor.character_hue = self.data["character_hue"]
-                        if self.data.has_key("battler_name"):
-                            self.old_data["battler_name"] = actor.battler_name
-                            actor.battler_name = self.data["battler_name"]
-                        if self.data.has_key("battler_hue"):
-                            self.old_data["battler_hue"] = actor.battler_hue
-                            actor.battler_hue = self.data["battler_hue"]
-                        if self.data.has_key("parameters"):
-                            self.parameters_action = KM.get_component("TableEditAction").object(actor.parameters, self.data["parameters"], sub_action=True)
-                            self.parameters_action.apply()
-                        if self.data.has_key("weapon_id"):
-                            self.old_data["weapon_id"] = actor.weapon_id
-                            actor.weapon_id = self.data["weapon_id"]
-                        if self.data.has_key("armor1_id"):
-                            self.old_data["armor1_id"] = actor.armor1_id
-                            actor.armor1_id = self.data["armor1_id"]
-                        if self.data.has_key("armor2_id"):
-                            self.old_data["armor2_id"] = actor.armor2_id
-                            actor.armor2_id = self.data["armor2_id"]
-                        if self.data.has_key("armor3_id"):
-                            self.old_data["armor3_id"] = actor.armor3_id
-                            actor.armor3_id = self.data["armor3_id"]
-                        if self.data.has_key("armor4_id"):
-                            self.old_data["armor4_id"] = actor.armor4_id
-                            actor.armor4_id = self.data["armor4_id"]
-                        if self.data.has_key("weapon_fix"):
-                            self.old_data["weapon_fix"] = actor.weapon_fix
-                            actor.weapon_fix = self.data["weapon_fix"]
-                        if self.data.has_key("armor1_fix"):
-                            self.old_data["armor1_fix"] = actor.armor1_fix
-                            actor.armor1_fix = self.data["armor1_fix"]
-                        if self.data.has_key("armor2_fix"):
-                            self.old_data["armor2_fix"] = actor.armor2_fix
-                            actor.armor2_fix = self.data["armor2_fix"]
-                        if self.data.has_key("armor3_fix"):
-                            self.old_data["armor3_fix"] = actor.armor3_fix
-                            actor.armor3_fix = self.data["armor3_fix"]
-                        if self.data.has_key("armor4_fix"):
-                            self.old_data["armor4_fix"] = actor.armor4_fix
-                            actor.armor4_fix = self.data["armor4_fix"]
-                        return True
-                    else:
-                        Kernel.log("Warning: ActorEditAction apply not completed successfully, Actor ID %s is none" % self.id, "[ActorEditAction]")
-                        return False
-                else:
-                     Kernel.log("Warning: ActorEditAction apply not completed successfully, Actors array from project is none", "[ActorEditAction]")
-                     return False
-            else:
-                Kernel.log("Warning: ActorEditAction apply not completed successfully, Project is None", "[ActorEditAction]")
-                return False
+    def apply_extra(self):
+        result = True
+        actions_now = []
+        try:
+            if self.data.has_key("parameters"):
+                self.parameters_action = KM.get_component("TableEditAction").object(self.obj.parameters, self.data["parameters"], sub_action=True)
+                result &= self.parameters_action.apply()
+                actions_now.append(self.parameters_action)
+                if not result:
+                    raise StandardError("'Apply' Sub action failed: %s" %  self.parameters_action)
+        except StandardError:
+            Kernel.Log("Exception applying Actor Edit Action, will atempt to revert", "[DatabaseAction]", True, True)
+            try:
+                for action in actions_now:
+                    test = action.undo()
+                    if not test:
+                        raise StandardError("'Apply' Sub action revert failed: %s" % action)
+                Kernel.Log("'Apply' Actor Edit Action sucessfuly reverted", "[DatabaseAction]", True)
+            except StandardError:
+                Kernel.Log("Exception reverting failed 'Apply' Actor Edit Action, Possible Project coruption", "[DatabaseAction]", True, True)
+            result = False
+        return result
 
-    def do_undo(self):
-        if Kernel.GlobalObjects.has_key("PROJECT"):
-            project = Kernel.GlobalObjects.get_value("PROJECT")
-            if project is not None:
-                actors = project.getData("Actors")
-                if actors is not None:
-                    actor = actors[self.id]
-                    if actor is not None:
-                        if self.old_data.has_key("id"):
-                            self.data["id"] = actor.id
-                            actor.id = self.old_data["id"]
-                        if self.old_data.has_key("name"):
-                            self.data["name"] = actor.name
-                            actor.name = self.old_data["name"]
-                        if self.old_data.has_key("initial_level"):
-                            self.data["initial_level"] = actor.initial_level
-                            actor.initial_level = self.old_data["initial_level"]
-                        if self.old_data.has_key("final_level"):
-                            self.data["final_level"] = actor.final_level
-                            actor.final_level = self.old_data["final_level"]
-                        if self.old_data.has_key("exp_basis"):
-                            self.data["exp_basis"] = actor.exp_basis
-                            actor.exp_basis = self.old_data["exp_basis"]
-                        if self.old_data.has_key("exp_inflation"):
-                            self.data["exp_inflation"] = actor.exp_inflation
-                            actor.exp_inflation = self.old_data["exp_inflation"]
-                        if self.old_data.has_key("character_name"):
-                            self.data["character_name"] = actor.character_name
-                            actor.character_name = self.old_data["character_name"]
-                        if self.old_data.has_key("character_hue"):
-                            self.data["character_hue"] = actor.character_hue
-                            actor.character_hue = self.old_data["character_hue"]
-                        if self.old_data.has_key("battler_name"):
-                            self.data["battler_name"] = actor.battler_name
-                            actor.battler_name = self.old_data["battler_name"]
-                        if self.old_data.has_key("battler_hue"):
-                            self.data["battler_hue"] = actor.battler_hue
-                            actor.battler_hue = self.old_data["battler_hue"]
-                        if self.parameters_action is not None:
-                            self.parameters_action.undo()
-                        if self.old_data.has_key("weapon_id"):
-                            self.data["weapon_id"] = actor.weapon_id
-                            actor.weapon_id = self.old_data["weapon_id"]
-                        if self.old_data.has_key("armor1_id"):
-                            self.data["armor1_id"] = actor.armor1_id
-                            actor.armor1_id = self.old_data["armor1_id"]
-                        if self.old_data.has_key("armor2_id"):
-                            self.data["armor2_id"] = actor.armor2_id
-                            actor.armor2_id = self.old_data["armor2_id"]
-                        if self.old_data.has_key("armor3_id"):
-                            self.data["armor3_id"] = actor.armor3_id
-                            actor.armor3_id = self.old_data["armor3_id"]
-                        if self.old_data.has_key("armor4_id"):
-                            self.data["armor4_id"] = actor.armor4_id
-                            actor.armor4_id = self.old_data["armor4_id"]
-                        if self.old_data.has_key("weapon_fix"):
-                            self.data["weapon_fix"] = actor.weapon_fix
-                            actor.weapon_fix = self.old_data["weapon_fix"]
-                        if self.old_data.has_key("armor1_fix"):
-                            self.data["armor1_fix"] = actor.armor1_fix
-                            actor.armor1_fix = self.old_data["armor1_fix"]
-                        if self.old_data.has_key("armor2_fix"):
-                            self.data["armor2_fix"] = actor.armor2_fix
-                            actor.armor2_fix = self.old_data["armor2_fix"]
-                        if self.old_data.has_key("armor3_fix"):
-                            self.data["armor3_fix"] = actor.armor3_fix
-                            actor.armor3_fix = self.old_data["armor3_fix"]
-                        if self.old_data.has_key("armor4_fix"):
-                            self.data["armor4_fix"] = actor.armor4_fix
-                            actor.armor4_fix = self.old_data["armor4_fix"]
-                        return True
-                    else:
-                        Kernel.log("Warning: ActorEditAction undo not completed successfully, Actor ID %s is none" % self.id, "[ActorEditAction]")
-                        return False
-                else:
-                     Kernel.log("Warning: ActorEditAction undo not completed successfully, Actors array from project is none", "[ActorEditAction]")
-                     return False
-            else:
-                Kernel.log("Warning: ActorEditAction undo not completed successfully, Project is None", "[ActorEditAction]")
-                return False
+    def undo_extra(self):
+        actions_now = []
+        result = True
+        try:
+            if self.parameters_action is not None:
+                result &= self.parameters_action.undo()
+                actions_now.append(self.parameters_action)
+                if not result:
+                    raise StandardError("'Undo' Sub action failed: %s" %  self.parameters_action)
+        except StandardError:
+            Kernel.Log("Exception undoing Actor Edit Action, will atempt to revert", "[DatabaseAction]", True, True)
+            try:
+                for action in actions_now:
+                    test = action.apply()
+                    if not test:
+                        raise StandardError("'Undo' Sub action revert failed: %s" % action)
+                Kernel.Log("'Undo' Actor Edit Action sucessfuly reverted", "[DatabaseAction]", True)
+            except StandardError:
+                Kernel.Log("Exception reverting failed 'Undo' Actor Edit Action, Possible Project coruption", "[DatabaseAction]", True, True)
+        return result
                                                
-class ClassEditAction(Actions.ActionTemplate):
-    def __init__(self, id, data={}, sub_action=False):
-        super(ClassEditAction, self).__init__(sub_action)
-        if not isinstance(data, types.DictType):
-            raise TypeError("Error: Expected dict type for 'data'")
-        elif not isinstance(id, types.IntType):
-            raise TypeError("Error: Expected int type for 'id'")
-        else:
-            self.id = id
-            self.data = data
-            self.old_data = {}
-            self.element_ranks_action = None
-            self.state_ranks_action = None
-            self.learnings_action = None
-            
-    def do_apply(self):
-        if Kernel.GlobalObjects.has_key("PROJECT"):
-            project = Kernel.GlobalObjects.get_value("PROJECT")
-            if project is not None:
-                classes = project.getData("Classes")
-                if classes is not None:
-                    klass = classes[self.id]
-                    if klass is not None:
-                        if self.data.has_key("id"):
-                            self.old_data["id"] = klass.id
-                            klass.id = self.data["id"]
-                        if self.data.has_key("name"):
-                            self.old_data["name"] = klass.name
-                            klass.name = self.data["name"]
-                        if self.data.has_key("position"):
-                            self.old_data["position"] = klass.position
-                            klass.position = self.data["position"]
-                        if self.data.has_key("weapon_set"):
-                            self.old_data["weapon_set"] = klass.weapon_set
-                            klass.weapon_set = self.data["weapon_set"]
-                        if self.data.has_key("armor_set"):
-                            self.old_data["armor_set"] = klass.armor_set
-                            klass.armor_set = self.data["armor_set"]
-                        if self.data.has_key("learnings"):
-                            self.learnings_action = LearningsEditAction(self.id, data={"learnings" : self.data["learnings"]}, sub_action=True)
-                            self.learnings_action.apply()
-                        if self.data.has_key("element_ranks"):
-                            self.element_ranks_action = TableEditAction(klass.element_ranks, self.data["element_ranks"], sub_action = True)
-                            self.element_ranks_action.apply()
-                        if self.data.has_key("state_ranks"):
-                            self.state_ranks_action = TableEditAction(klass.state_ranks, self.data["state_ranks"], sub_action = True)
-                            self.state_ranks_action.apply()
-                        return True
-                    else:
-                        return False
-                else:
-                    return False
-            else:
-                return False
-    
-    def do_undo(self):
-        if Kernel.GlobalObjects.has_key("PROJECT"):
-            project = Kernel.GlobalObjects.get_value("PROJECT")
-            if project is not None:
-                classes = project.getData("Classes")
-                if classes is not None:
-                    klass = classes[self.id]
-                    if klass is not None:
-                        if self.old_data.has_key("id"):
-                            self.data["id"] = klass.id
-                            klass.id = self.old_data["id"]
-                        if self.old_data.has_key("name"):
-                            self.data["name"] = klass.name
-                            klass.name = self.old_data["name"]
-                        if self.old_data.has_key("position"):
-                            self.data["position"] = klass.position
-                            klass.position = self.old_data["position"]
-                        if self.learnings_action is not None:
-                            self.learnings_action.undo()
-                        if self.old_data.has_key("weapon_set"):
-                            self.data["weapon_set"] = klass.weapon_set
-                            klass.weapon_set = self.old_data["weapon_set"]
-                        if self.old_data.has_key("armor_set"):
-                            self.data["armor_set"] = klass.armor_set
-                            klass.armor_set = self.old_data["armor_set"]
-                        if self.state_ranks_action is not None:
-                            self.state_ranks_action.undo()
-                        if self.element_ranks_action is not None:
-                            self.element_ranks_action.undo()
-                        return True
-                    else:
-                        return False
-                else:
-                    return False
-            else:
-                return False
+class ClassEditAction(DatabaseAction):
+    ''' edits a Class object '''
+
+    def __init__(self, obj, data={}, sub_action=False):
+        super(ClassEditAction, self).__init__(data, sub_action)
+        self.setType("Class")
+        self.setObj(obj)
+        self.addKeys("id", "name", "position", "weapon_set", "armor_set", "learnings")
+        self.element_ranks_action = None
+        self.state_ranks_action = None
+
+    def apply_extra(self):
+        result = True
+        actions_now = []
+        try:
+            if self.data.has_key("element_ranks"):
+                self.element_ranks_action = TableEditAction(self.obj.element_ranks, self.data["element_ranks"], sub_action = True)
+                result &= self.element_ranks_action.apply()
+                actions_now.append(self.element_ranks_action)
+                if not result:
+                    raise StandardError("'Apply' Sub action failed: %s" %  self.element_ranks_action)
+            if self.data.has_key("state_ranks"):
+                self.state_ranks_action = TableEditAction(self.obj.state_ranks, self.data["state_ranks"], sub_action = True)
+                result &= self.element_ranks_action.apply()
+                actions_now.append(self.element_ranks_action)
+                if not result:
+                    raise StandardError("'Apply' Sub action failed: %s" %  self.element_ranks_action)
+        except StandardError:
+            Kernel.Log("Exception applying Class Edit Action, will atempt to revert", "[DatabaseAction]", True, True)
+            try:
+                for action in actions_now:
+                    test = action.undo()
+                    if not test:
+                        raise StandardError("'Apply' Sub action revert failed: %s" % action)
+                Kernel.Log("'Apply' Class Edit Action sucessfuly reverted", "[DatabaseAction]", True)
+            except StandardError:
+                Kernel.Log("Exception reverting failed 'Apply' Class Edit Action, Possible Project coruption", "[DatabaseAction]", True, True)
+            result = False
+        return result
+
+    def undo_extra(self):
+        actions_now = []
+        result = True
+        try:
+            if self.state_ranks_action is not None:
+                result &= self.state_ranks_action.undo()
+                actions_now.append(self.state_ranks_action)
+                if not result:
+                    raise StandardError("'Undo' Sub action failed: %s" %  self.state_ranks_action)
+            if self.element_ranks_action is not None:
+                result &= self.element_ranks_action.undo()
+                actions_now.append(self.element_ranks_action)
+                if not result:
+                    raise StandardError("'Undo' Sub action failed: %s" %  self.element_ranks_action)
+        except StandardError:
+            Kernel.Log("Exception undoing Class Edit Action, will atempt to revert", "[DatabaseAction]", True, True)
+            try:
+                for action in actions_now:
+                    test = action.apply()
+                    if not test:
+                        raise StandardError("'Undo' Sub action revert failed: %s" % action)
+                Kernel.Log("'Undo' Class Edit Action sucessfuly reverted", "[DatabaseAction]", True)
+            except StandardError:
+                Kernel.Log("Exception reverting failed 'Undo' Class Edit Action, Possible Project coruption", "[DatabaseAction]", True, True)
+        return result
      
-class TroopEditAction(Actions.ActionTemplate):
-    def __init(self, id, data={}, sub_action=False):
-        super(TroopEditAction, self).__init__(sub_action)
-        if not isinstance(data, types.DictType):
-            raise TypeError("Error: Expected dict type for 'data'")
-        elif not isinstance(id, types.IntType):
-            raise TypeError("Error: Expected int type for 'id'")
-        else:
-            self.id = id
-            self.data = data
-            self.old_data = {}
-            
+class LearningEditAction(DatabaseAction):
+    ''' Edits a single Learning object'''
+
+    def __init__(self, obj, data={}, sub_action=False):
+        super(LearningEditAction, self).__init__(data, sub_action)
+        self.setType("Learning")
+        self.setObj(obj)
+        self.addKeys("level", "skill_id")
+        self.setType("Learning")      
+
+class TroopEditAction(DatabaseAction):
+    ''' edits a Troop object '''
+
+    def __init__(self, obj, data={}, sub_action=False):
+        super(TroopEditAction, self).__init__(data, sub_action)
+        self.setType("Troop")
+        self.setObj(obj)
+        self.addKeys("id", "name", "members" ,"pages", "note")
      
-    def do_apply(self):
-        if Kernel.GlobalObjects.has_key("PROJECT"):
-            project = Kernel.GlobalObjects.get_value("PROJECT")
-            if project is not None:
-                troops = project.getData("Troops")
-                if troops is not None:
-                    troop = troops[self.id]
-                    if troop is not None:
-                        if self.data.has_key("id"):
-                            self.old_data["id"] = troop.id
-                            troop.id = self.data["id"]
-                        if self.data.has_key("name"):
-                            self.old_data["name"] = troop.name
-                            troop.name = self.data["name"]
-                        if self.data.has_key("members"):
-                            self.old_data["members"] = troop.members
-                            troop.members = self.data["members"]
-                        if self.data.has_key("pages"):
-                            self.old_data["pages"] = troop.pages
-                            troop.pages = self.data["pages"]
-                        if self.data.has_key("note"):
-                            self.old_data["note"] = troop.note
-                            troop.note = self.data["note"]
-    
-    def do_undo(self):
-        if Kernel.GlobalObjects.has_key("PROJECT"):
-            project = Kernel.GlobalObjects.get_value("PROJECT")
-            if project is not None:
-                troops = project.getData("Troops")
-                if troops is not None:
-                    troop = troops[self.id]
-                    if troop is not None:
-                        if self.old_data.has_key("id"):
-                            self.data["id"] = troop.id
-                            troop.id = self.old_data["id"]
-                        if self.old_data.has_key("name"):
-                            self.data["name"] = troop.name
-                            troop.name = self.old_data["name"]
-                        if self.old_data.has_key("members"):
-                            self.data["members"] = troop.members
-                            troop.members = self.old_data["members"]
-                        if self.old_data.has_key("pages"):
-                            self.data["pages"] = troop.pages
-                            troop.pages = self.old_data["pages"]
-                        if self.old_data.has_key("note"):
-                            self.data["note"] = troop.note
-                            troop.note = self.old_data["note"]
-     
-class SkillEditAction(Actions.ActionTemplate):
-    def __init(self, id, data={}, sub_action=False):
-        super(SkillEditAction, self).__init__(sub_action)
-        if not isinstance(data, types.DictType):
-            raise TypeError("Error: Expected dict type for 'data'")
-        elif not isinstance(id, types.IntType):
-            raise TypeError("Error: Expected int type for 'id'")
-        else:
-            self.id = id
-            self.data = data
-            self.old_data = {}
-            
-    def do_apply(self):
-        if Kernel.GlobalObjects.has_key("PROJECT"):
-            project = Kernel.GlobalObjects.get_value("PROJECT")
-            if project is not None:
-                skills = project.getData("Skills")
-                if skills is not None:
-                    skill = skills[self.id]
-                    if skill is not None:
-                        if self.data.has_key("id"):
-                            self.old_data["id"] = skill.id
-                            skill.id = self.data["id"]
-                        if self.data.has_key("name"):
-                            self.old_data["name"] = skill.name
-                            skill.name = self.data["name"]
-                        if self.data.has_key("icon_name"):
-                            self.old_data["icon_name"] = skill.icon_name
-                            skill.icon_name = self.data["icon_name"]
-                        if self.data.has_key("description"):
-                            self.old_data["description"] = skill.description
-                            skill.description = self.data["description"]
-                        if self.data.has_key("scope"):
-                            self.old_data["scope"] = skill.scope
-                            skill.scope = self.data["scope"]
-                        if self.data.has_key("occasion"):
-                            self.old_data["occasion"] = skill.occasion
-                            skill.occasion = self.data["occasion"]
-                        if self.data.has_key("animation1_id"):
-                            self.old_data["animation1_id"] = skill.animation1_id
-                            skill.animation1_id = self.data["animation1_id"]
-                        if self.data.has_key("animation2_id"):
-                            self.old_data["animation2_"] = skill.animation2_
-                            skill.animation2_ = self.data["animation2_"]
-                        if self.data.has_key("menu_se"):
-                            self.old_data["menu_se"] = skill.menu_se
-                            skill.menu_se = self.data["menu_se"]
-                        if self.data.has_key("common_event_id"):
-                            self.old_data["common_event_id"] = skill.common_event_id
-                            skill.common_event_id = self.data["common_event_id"]
-                        if self.data.has_key("sp_cost"):
-                            self.old_data["sp_cost"] = skill.sp_cost
-                            skill.sp_cost = self.data["sp_cost"]
-                        if self.data.has_key("power"):
-                            self.old_data["power"] = skill.power
-                            skill.power = self.data["power"]
-                        if self.data.has_key("atk_f"):
-                            self.old_data["atk_f"] = skill.atk_f
-                            skill.atk_f = self.data["atk_f"]
-                        if self.data.has_key("eva_f"):
-                            self.old_data["eva_f"] = skill.eva_f
-                            skill.eva_f = self.data["eva_f"]
-                        if self.data.has_key("str_f"):
-                            self.old_data["str_f"] = skill.str_f
-                            skill.str_f = self.data["str_f"]
-                        if self.data.has_key("dex_f"):
-                            self.old_data["dex_f"] = skill.dex_f
-                            skill.dex_f = self.data["dex_f"]
-                        if self.data.has_key("agi_f"):
-                            self.old_data["agi_f"] = skill.agi_f
-                            skill.agi_f = self.data["agi_f"]
-                        if self.data.has_key("int_f"):
-                            self.old_data["int_f"] = skill.int_f
-                            skill.int_f = self.data["int_f"]
-                        if self.data.has_key("hit"):
-                            self.old_data["hit"] = skill.hit
-                            skill.hit = self.data["hit"]
-                        if self.data.has_key("pdef_f"):
-                            self.old_data["pdef_f"] = skill.pdef_f
-                            skill.pdef_f = self.data["pdef_f"]
-                        if self.data.has_key("mdef_f"):
-                            self.old_data["mdef_f"] = skill.mdef_f
-                            skill.mdef_f = self.data["mdef_f"]
-                        if self.data.has_key("variance"):
-                            self.old_data["variance"] = skill.variance
-                            skill.variance = self.data["variance"]
-                        if self.data.has_key("element_set"):
-                            self.old_data["element_set"] = skill.element_set
-                            skill.element_set = self.data["element_set"]
-                        if self.data.has_key("plus_state_set"):
-                            self.old_data["plus_state_set"] = skill.plus_state_set
-                            skill.plus_state_set = self.data["plus_state_set"]
-                        if self.data.has_key("minus_state_set"):
-                            self.old_data["minus_state_set"] = skill.minus_state_set
-                            skill.minus_state_set = self.data["minus_state_set"]
-                        if self.data.has_key("note"):
-                            self.old_data["note"] = skill.note
-                            skill.note = self.data["note"]
-                            
-                            
-    def do_undo(self):
-        if Kernel.GlobalObjects.has_key("PROJECT"):
-            project = Kernel.GlobalObjects.get_value("PROJECT")
-            if project is not None:
-                skills = project.getData("Skills")
-                if skills is not None:
-                    skill = skills[self.id]
-                    if skill is not None:
-                        if self.old_data.has_key("id"):
-                            self.data["id"] = skill.id
-                            skill.id = self.old_data["id"]
-                        if self.old_data.has_key("name"):
-                            self.data["name"] = skill.name
-                            skill.name = self.old_data["name"]
-                        if self.old_data.has_key("icon_name"):
-                            self.data["icon_name"] = skill.icon_name
-                            skill.icon_name = self.old_data["icon_name"]
-                        if self.old_data.has_key("description"):
-                            self.data["description"] = skill.description
-                            skill.description = self.old_data["description"]
-                        if self.old_data.has_key("scope"):
-                            self.data["scope"] = skill.scope
-                            skill.scope = self.old_data["scope"]
-                        if self.old_data.has_key("occasion"):
-                            self.data["occasion"] = skill.occasion
-                            skill.occasion = self.old_data["occasion"]
-                        if self.data.has_key("animation1_id"):
-                            self.data["animation1_id"] = skill.animation1_id
-                            skill.animation1_id = self.data["animation1_id"]
-                        if self.old_data.has_key("animation2_id"):
-                            self.data["animation2_"] = skill.animation2_
-                            skill.animation2_ = self.old_data["animation2_"]
-                        if self.old_data.has_key("menu_se"):
-                            self.data["menu_se"] = skill.menu_se
-                            skill.menu_se = self.old_data["menu_se"]
-                        if self.old_data.has_key("common_event_id"):
-                            self.data["common_event_id"] = skill.common_event_id
-                            skill.common_event_id = self.old_data["common_event_id"]
-                        if self.old_data.has_key("sp_cost"):
-                            self.data["sp_cost"] = skill.sp_cost
-                            skill.sp_cost = self.old_data["sp_cost"]
-                        if self.old_data.has_key("power"):
-                            self.data["power"] = skill.power
-                            skill.power = self.old_data["power"]
-                        if self.old_data.has_key("atk_f"):
-                            self.data["atk_f"] = skill.atk_f
-                            skill.atk_f = self.old_data["atk_f"]
-                        if self.old_data.has_key("eva_f"):
-                            self.data["eva_f"] = skill.eva_f
-                            skill.eva_f = self.old_data["eva_f"]
-                        if self.old_data.has_key("str_f"):
-                            self.data["str_f"] = skill.str_f
-                            skill.str_f = self.old_data["str_f"]
-                        if self.old_data.has_key("dex_f"):
-                            self.data["dex_f"] = skill.dex_f
-                            skill.dex_f = self.old_data["dex_f"]
-                        if self.old_data.has_key("agi_f"):
-                            self.data["agi_f"] = skill.agi_f
-                            skill.agi_f = self.old_data["agi_f"]
-                        if self.old_data.has_key("int_f"):
-                            self.data["int_f"] = skill.int_f
-                            skill.int_f = self.old_data["int_f"]
-                        if self.old_data.has_key("hit"):
-                            self.data["hit"] = skill.hit
-                            skill.hit = self.old_data["hit"]
-                        if self.old_data.has_key("pdef_f"):
-                            self.data["pdef_f"] = skill.pdef_f
-                            skill.pdef_f = self.old_data["pdef_f"]
-                        if self.old_data.has_key("mdef_f"):
-                            self.data["mdef_f"] = skill.mdef_f
-                            skill.mdef_f = self.old_data["mdef_f"]
-                        if self.old_data.has_key("variance"):
-                            self.data["variance"] = skill.variance
-                            skill.variance = self.old_data["variance"]
-                        if self.old_data.has_key("element_set"):
-                            self.data["element_set"] = skill.element_set
-                            skill.element_set = self.old_data["element_set"]
-                        if self.old_data.has_key("plus_state_set"):
-                            self.data["plus_state_set"] = skill.plus_state_set
-                            skill.plus_state_set = self.old_data["plus_state_set"]
-                        if self.old_data.has_key("minus_state_set"):
-                            self.data["minus_state_set"] = skill.minus_state_set
-                            skill.minus_state_set = self.old_data["minus_state_set"]
-                        if self.old_data.has_key("note"):
-                            self.data["note"] = skill.note
-                            skill.note = self.old_data["note"]
+class SkillEditAction(DatabaseAction):
+    ''' edits a Skill object '''
+
+    def __init__(self, obj, data={}, sub_action=False):
+        super(SkillEditAction, self).__init__(data,sub_action)
+        self.setType(Skill)
+        self.setObj(obj)
+        self.addKeys("id", "name", "icon_name", "description", "scope", "occasion", "animation1_id", "animation2_id", 
+                     "menu_se", "common_event_id", "sp_cost", "power", "atk_f", "eva_f", "str_f", "dex_f", "agi_f",
+                     "int_f", "hit", "pdef_f", "mdef_f", "variance", "element_set", "plus_state_set", "minus_state_set", 
+                     "note")
           
-class WeaponEditAction(Actions.ActionTemplate):
-    def __init(self, id, data={}, sub_action=False):
-        super(ClassEditAction, self).__init__(sub_action)
-        if not isinstance(data, types.DictType):
-            raise TypeError("Error: Expected dict type for 'data'")
-        elif not isinstance(id, types.IntType):
-            raise TypeError("Error: Expected int type for 'id'")
-        else:
-            self.id = id
-            self.data = data
-            self.old_data = {}
-    
-    def do_apply(self):
-        if Kernel.GlobalObjects.has_key("PROJECT"):
-            project = Kernel.GlobalObjects.get_value("PROJECT")
-            if project is not None:
-                weapons = project.getData("Weapons")
-                if weapons is not None:
-                    weapon = weapons[self.id]
-                    if weapon is not None:
-                        if self.data.has_key("id"):
-                            self.old_data["id"] = weapon.id
-                            weapon.id = self.data["id"]
-                        if self.data.has_key("name"):
-                            self.old_data["name"] = weapon.name
-                            weapon.name = self.data["name"]
-                        if self.data.has_key("icon_name"):
-                            self.old_data["icon_name"] = weapon.icon_name
-                            weapon.icon_name = self.data["icon_name"]
-                        if self.data.has_key("description"):
-                            self.old_data["description"] = weapon.description
-                            weapon.description = self.data["description"]
-                        if self.data.has_key("animation1_id"):
-                            self.old_data["animation1_id"] = weapon.animation1_id
-                            weapon.animation1_id = self.data["animation1_id"]
-                        if self.data.has_key("animation2_id"):
-                            self.old_Data["animation2_id"] = weapon.animation2_id
-                            weapon.animation2_id = self.data["animation2_id"]
-                        if self.data.has_key("price"):
-                            self.old_data["price"] = weapon.price
-                            weapon.price = self.data["price"]
-                        if self.data.has_key("atk"):
-                            self.old_data["atk"] = weapon.atk
-                            weapon.atk = self.data["atk"]
-                        if self.data.has_key("pdef"):
-                            self.old_data["pdef"] = weapon.pdef
-                            weapon.pdef = self.data["pdef"]
-                        if self.data.has_key("mdef"):
-                            self.old_data["mdef"] = weapon.mdef
-                            weapon.mdef = self.data["mdef"]
-                        if self.data.has_key("str_plus"):
-                            self.old_data["str_plus"] = weapon.str_plus
-                            weapon.str_plus = self.data["str_plus"]
-                        if self.data.has_key("int_plus"):
-                            self.old_data["int_plus"] = weapon.int_plus
-                            weapon.int_plus = self.data["int_plus"]
-                        if self.data.has_key("dex_plus"):
-                            self.old_data["dex_plus"] = weapon.dex_plus
-                            weapon.dex_plus = self.data["dex_plus"]
-                        if self.data.has_key("agi_plus"):
-                            self.old_data["agi_plus"] = weapon.agi_plus
-                            weapon.agi_plus = self.data["agi_plus"]
-                        if self.data.has_key("element_set"):
-                            self.old_data["element_set"] = weapon.element_set
-                            weapon.element_set = self.data["element_set"]
-                        if self.data.has_key("plus_state_set"):
-                            self.old_data["plus_state_set"] = weapon.plus_state_set
-                            weapon.plus_state_set = self.data["plus_state_set"]
-                        if self.data.has_key("minus_state_set"):
-                            self.old_data["minus_state_set"] = weapon.minus_state_set
-                            weapon.minus_state_set = self.data["minus_state_set"]
-                        return True
-                    else:
-                        return False
-                else:
-                    return False
-            else:
-                return False
-    
-    def do_undo(self):
-        if Kernel.GlobalObjects.has_key("PROJECT"):
-            project = Kernel.GlobalObjects.get_value("PROJECT")
-            if project is not None:
-                weapons = project.getData("Weapons")
-                if weapons is not None:
-                    weapon = weapons[self.id]
-                    if weapon is not None:
-                        if self.old_data.has_key("id"):
-                            self.data["id"] = weapon.id
-                            weapon.id = self.old_data["id"]
-                        if self.old_data.has_key("name"):
-                            self.data["name"] = weapon.name
-                            weapon.name = self.old_data["name"]
-                        if self.old_data.has_key("icon_name"):
-                            self.data["icon_name"] = weapon.icon_name
-                            weapon.icon_name = self.old_data["icon_name"]
-                        if self.old_data.has_key("description"):
-                            self.data["description"] = weapon.description
-                            weapon.description = self.old_data["description"]
-                        if self.old_data.has_key("animation1_id"):
-                            self.data["animation1_id"] = weapon.animation1_id
-                            weapon.animation1_id = self.old_data["animation1_id"]
-                        if self.old_data.has_key("animation2_id"):
-                            self.Data["animation2_id"] = weapon.animation2_id
-                            weapon.animation2_id = self.old_data["animation2_id"]
-                        if self.old_data.has_key("price"):
-                            self.data["price"] = weapon.price
-                            weapon.price = self.old_data["price"]
-                        if self.old_data.has_key("atk"):
-                            self.data["atk"] = weapon.atk
-                            weapon.atk = self.old_data["atk"]
-                        if self.old_data.has_key("pdef"):
-                            self.data["pdef"] = weapon.pdef
-                            weapon.pdef = self.old_data["pdef"]
-                        if self.old_data.has_key("mdef"):
-                            self.data["mdef"] = weapon.mdef
-                            weapon.mdef = self.old_data["mdef"]
-                        if self.old_data.has_key("str_plus"):
-                            self.data["str_plus"] = weapon.str_plus
-                            weapon.str_plus = self.old_data["str_plus"]
-                        if self.old_data.has_key("int_plus"):
-                            self.data["int_plus"] = weapon.int_plus
-                            weapon.int_plus = self.old_data["int_plus"]
-                        if self.old_data.has_key("dex_plus"):
-                            self.data["dex_plus"] = weapon.dex_plus
-                            weapon.dex_plus = self.old_data["dex_plus"]
-                        if self.old_data.has_key("agi_plus"):
-                            self.data["agi_plus"] = weapon.agi_plus
-                            weapon.agi_plus = self.old_data["agi_plus"]
-                        if self.old_data.has_key("element_set"):
-                            self.data["element_set"] = weapon.element_set
-                            weapon.element_set = self.old_data["element_set"]
-                        if self.old_data.has_key("plus_state_set"):
-                            self.data["plus_state_set"] = weapon.plus_state_set
-                            weapon.plus_state_set = self.old_data["plus_state_set"]
-                        if self.old_data.has_key("minus_state_set"):
-                            self.data["minus_state_set"] = weapon.minus_state_set
-                            weapon.minus_state_set = self.old_data["minus_state_set"]
-                        return True
-                    else:
-                        return False
-                else:
-                    return False
-            else:
-                return False
+class WeaponEditAction(DatabaseAction):
+    ''' edits a Weapon object'''
+
+    def __init__(self, obj, data={}, sub_action=False):
+        super(ClassEditAction, self).__init__(data, sub_action)
+        self.setType("Weapon")
+        self.setObj(obj)
+        self.addKeys("id", "name", "icon_name", "description", "animation1_id", "animation2_id", "price", "atk", "pdef",
+                     "mdef", "str_plus", "int_plus", "dex_plus", "agi_plus", "element_set", "plus_state_set", "minus_state_set")
+ 
+class ItemEditActon(DatabaseAction):
+    ''' edits a Item object'''
+
+    def __init__(self, obj, data = {}, sub_action=False):
+        super(ItemEditActon, self).__init__(data, sub_action)
+        self.setType("Item")
+        self.setObj(obj)
+        self.addKeys('id', 'name', 'icon_name', 'description', 'scope', 'occasion', 'animation1_id',
+                     'animation2_id', 'menu_se', 'common_event_id', 'price', 'consumable', 'parameter_type',
+                     'parameter_points', 'recover_hp_rate', 'recover_hp', 'recover_sp_rate', 'recover_sp',
+                     'hit', 'pdef_f', 'mdef_f', 'variance', 'element_set', 'plus_state_set', 'minus_state_set', 'note')
+
+class AnimationFrameEditAction(DatabaseAction):
+    ''' edits a Animation::Frame object '''
+
+    def __init__(self, obj, data = {}, sub_action = False):
+        super(AnimationFrameEditAction, self).__init__(data, sub_action)
+        self.setType("AnimationFrame")
+        self.setObj(obj)
+        self.addKeys('cell_max')
+        self.cell_data_action = None
+
+    def apply_extra(self):
+        result = True
+        actions_now = []
+        try:
+            if self.data.has_key("cell_data"):
+                self.cell_data_action = KM.get_component("TableEditAction").object(self.obj.cell_data, self.data["cell_data"], sub_action=True)
+                result &= self.cell_data_action.apply()
+                actions_now.append(self.cell_data_action)
+                if not result:
+                    raise StandardError("'Apply' Sub action failed: %s" %  self.cell_data_action)
+        except StandardError:
+            Kernel.Log("Exception applying Animation Frame Edit Action, will atempt to revert", "[DatabaseAction]", True, True)
+            try:
+                for action in actions_now:
+                    test = action.undo()
+                    if not test:
+                        raise StandardError("'Apply' Sub action revert failed: %s" % action)
+                Kernel.Log("'Apply' Animation Frame Edit Action sucessfuly reverted", "[DatabaseAction]", True)
+            except StandardError:
+                Kernel.Log("Exception reverting failed 'Apply' Animation Frame Edit Action, Possible Project coruption", "[DatabaseAction]", True, True)
+            result = False
+        return result
+
+    def undo_extra(self):
+        actions_now = []
+        result = True
+        try:
+            if self.cell_data_action is not None:
+                result &= self.cell_data_action.undo()
+                actions_now.append(self.cell_data_action)
+                if not result:
+                    raise StandardError("'Undo' Sub action failed: %s" %  self.cell_data_action)
+        except StandardError:
+            Kernel.Log("Exception undoing Animation Frame Edit Action, will atempt to revert", "[DatabaseAction]", True, True)
+            try:
+                for action in actions_now:
+                    test = action.apply()
+                    if not test:
+                        raise StandardError("'Undo' Sub action revert failed: %s" % action)
+                Kernel.Log("'Undo' Animation Frame Edit Action sucessfuly reverted", "[DatabaseAction]", True)
+            except StandardError:
+                Kernel.Log("Exception reverting failed 'Undo' Animation Frame Edit Action, Possible Project coruption", "[DatabaseAction]", True, True)
+        return result
+
+class AnimationEditAction(DatabaseAction):
+    ''' edits an Animation object '''
+
+    def __init__(self, obj, data = {}, sub_action = False):
+        super(AnimationEditAction, self).__init__(data, sub_action)
+        self.setType("Animation")
+        self.setObj(obj)
+        self.addKeys('id', 'name', 'animation_name', 'animation_hue', 'position', 'frame_max', 'frames', 'timings')
+
+class AnimationTimingEditAction(DatabaseAction):
+    ''' edits an Animation Timing object '''
+
+    def __init__(self, obj, data = {}, sub_action = False):
+        super(AnimationTimingEditAction, self).__init__(data, sub_action)
+        self.setType("AnimationTiming")
+        self.setObj(obj)
+        self.addKeys('frame', 'se', 'flash_scope', 'flash_color', 'flash_duration', 'condition')
+
+class AudioFileEditAction(DatabaseAction):
+    ''' edits a RPg Audiofile object '''
+
+    def __init__(self, obj, data = {}, sub_action = False):
+        super(AudioFileEditAction, self).__init__(data, sub_action)
+        self.setType("AudioFile")
+        self.setObj(obj)
+        self.addKeys('name', 'volume', 'pitch')
+        self.element_ranks_action = None
+        self.state_ranks_action = None
+
+class EnemyEditAction(DatabaseAction):
+    ''' edits an Enemy object'''
+
+    def __init__(self, obj, data = {}, sub_action = False):
+        super(EnemyEditAction, self).__init__(data, sub_action)
+        self.setType("Enemy")
+        self.setObj(obj)
+        self.addKeys('id', 'name', 'battler_name', 'battler_hue', 'maxhp', 'maxsp', 'str', 'dex', 'agi', 'int',
+                     'atk', 'pdef', 'mdef', 'eva', 'animation1_id', 'animation2_id', 'actions', 'exp', 'gold', 
+                     'item_id', 'weapon_id', 'armor_id', 'treasure_prob', 'note')
+        self.element_ranks_action = None
+        self.state_ranks_action = None
+
+    def apply_extra(self):
+        result = True
+        actions_now = []
+        try:
+            if self.data.has_key("element_ranks"):
+                self.element_ranks_action = TableEditAction(self.obj.element_ranks, self.data["element_ranks"], sub_action = True)
+                result &= self.element_ranks_action.apply()
+                actions_now.append(self.element_ranks_action)
+                if not result:
+                    raise StandardError("'Apply' Sub action failed: %s" %  self.element_ranks_action)
+            if self.data.has_key("state_ranks"):
+                self.state_ranks_action = TableEditAction(self.obj.state_ranks, self.data["state_ranks"], sub_action = True)
+                result &= self.element_ranks_action.apply()
+                actions_now.append(self.element_ranks_action)
+                if not result:
+                    raise StandardError("'Apply' Sub action failed: %s" %  self.element_ranks_action)
+        except StandardError:
+            Kernel.Log("Exception applying Enemy Edit Action, will atempt to revert", "[DatabaseAction]", True, True)
+            try:
+                for action in actions_now:
+                    test = action.undo()
+                    if not test:
+                        raise StandardError("'Apply' Sub action revert failed: %s" % action)
+                Kernel.Log("'Apply' Enemy Edit Action sucessfuly reverted", "[DatabaseAction]", True)
+            except StandardError:
+                Kernel.Log("Exception reverting failed 'Apply' Enemy Edit Action, Possible Project coruption", "[DatabaseAction]", True, True)
+            result = False
+        return result
+
+    def undo_extra(self):
+        actions_now = []
+        result = True
+        try:
+            if self.state_ranks_action is not None:
+                result &= self.state_ranks_action.undo()
+                actions_now.append(self.state_ranks_action)
+                if not result:
+                    raise StandardError("'Undo' Sub action failed: %s" %  self.state_ranks_action)
+            if self.element_ranks_action is not None:
+                result &= self.element_ranks_action.undo()
+                actions_now.append(self.element_ranks_action)
+                if not result:
+                    raise StandardError("'Undo' Sub action failed: %s" %  self.element_ranks_action)
+        except StandardError:
+            Kernel.Log("Exception undoing Enemy Edit Action, will atempt to revert", "[DatabaseAction]", True, True)
+            try:
+                for action in actions_now:
+                    test = action.apply()
+                    if not test:
+                        raise StandardError("'Undo' Sub action revert failed: %s" % action)
+                Kernel.Log("'Undo' Enemy Edit Action sucessfuly reverted", "[DatabaseAction]", True)
+            except StandardError:
+                Kernel.Log("Exception reverting failed 'Undo' Enemy Edit Action, Possible Project coruption", "[DatabaseAction]", True, True)
+        return result
+
+class EnemyActionEditAction(DatabaseAction):
+    ''' edits a Enemy::Action object'''
+
+    def __init__(self, obj, data = {}, sub_action = False):
+        super(EnemyActionEditAction, self).__init__(data, sub_action)
+        self.setType("EnemyAction")
+        self.setObj(obj)
+        self.addKeys('kind', 'basic', 'skill_id', 'condition_turn_a', 'condition_turn_b', 
+                     'condition_hp', 'condition_level', 'condition_switch_id', 'rating')
+
+class EventEditAction(DatabaseAction):
+    ''' edits an Event Object '''
+    def __init__(self, obj, data = {}, sub_action = False):
+        super(EventEditAction, self).__init__(data, sub_action)
+        self.setType("Event")
+        self.setObj(obj)
+        self.addKeys('id', 'name', 'x', 'y', 'pages')
+
+class EventPageEditAction(DatabaseAction):
+    ''' edits a Event::Page object '''
+
+    def __init__(self, obj, data = {}, sub_action = False):
+        super(EventPageEditAction, self).__init__(data, sub_action)
+        self.setType("EventPage")
+        self.setObj(obj)
+        self.addKeys('condition', 'graphic', 'move_type', 'move_speed', 'move_frequency', 
+                     'move_route', 'walk_anime', 'step_anime',  'direction_fix', 'through', 
+                     'always_on_top', 'trigger', 'list')
+
+class EventConditionEditAction(DatabaseAction):
+    ''' edits a Event::Page::Condition object'''
+
+    def __init__(self, obj, data = {}, sub_action = False):
+        super(EventConditionEditAction, self).__init__(data, sub_action)
+        self.setType("EventCondition")
+        self.setObj(obj)
+        self.addKeys('switch1_valid', 'switch2_valid', 'variable_valid', 'self_switch_valid', 'switch1_id', 
+                     'switch2_id', 'variable_id', 'variable_value', 'self_switch_ch')
+
+class EventGraphicEditAction(DatabaseAction):
+    ''' edits a Event::Page::Graphic '''
+
+    def __init__(self, obj, data = {}, sub_action = False):
+        super(EventGraphicEditAction, self).__init__(data, sub_action)
+        self.setType("EventGraphic")
+        self.setObj(obj)
+        self.addKeys('tile_id', 'character_name', 'character_hue', 'direction', 'pattern', 'opacity', 'blend_type')
+
+class EventCommandEditAction(DatabaseAction):
+    ''' edits a EventCommand object '''
+
+    def __init__(self, obj, data = {}, sub_action = False):
+        super(EventCommandEditAction, self).__init__(data, sub_action)
+        self.setType("EventCommand")
+        self.setObj(obj)
+        self.addKeys('code', 'indent', 'parameters')
+
+class CommonEventEditAction(DatabaseAction):
+    ''' edits a CommonEvent object '''
+
+    def __init__(self, obj, data = {}, sub_action = False):
+        super(CommonEventEditAction, self).__init__(data, sub_action)
+        self.setType("CommonEvent")
+        self.setObj(obj)
+        self.addKeys('id', 'name', 'trigger', 'switch_id', 'list')
+
+class MapEditAction(DatabaseAction):
+    ''' edits a Map object '''
+
+    def __init__(self, obj, data = {}, sub_action = False):
+        super(MapEditAction, self).__init__(data, sub_action)
+        self.setType(Map)
+        self.setObj(obj)
+        self.addKeys('tileset_id', 'width', 'height', 'autoplay_bgm', 'bgs', 
+                     'encounter_list', 'encounter_step', 'data', 'events')
+        self.data_action = None
+
+    def apply_extra(self):
+        result = True
+        actions_now = []
+        try:
+            if self.data.has_key("data"):
+                self.data_action = TableEditAction(self.obj.data, self.data["data"], sub_action = True)
+                result &= self.data_action.apply()
+                actions_now.append(self.data_action)
+                if not result:
+                    raise StandardError("'Apply' Sub action failed: %s" %  self.element_ranks_action)
+        except StandardError:
+            Kernel.Log("Exception applying Map Edit Action, will atempt to revert", "[DatabaseAction]", True, True)
+            try:
+                for action in actions_now:
+                    test = action.undo()
+                    if not test:
+                        raise StandardError("'Apply' Sub action revert failed: %s" % action)
+                Kernel.Log("'Apply' Map Edit Action sucessfuly reverted", "[DatabaseAction]", True)
+            except StandardError:
+                Kernel.Log("Exception reverting failed 'Apply' Map Edit Action, Possible Project coruption", "[DatabaseAction]", True, True)
+            result = False
+        return result
+
+    def undo_extra(self):
+        actions_now = []
+        result = True
+        try:
+            if self.data_action is not None:
+                result &= self.data_action.undo()
+                actions_now.append(self.data_action)
+                if not result:
+                    raise StandardError("'Undo' Sub action failed: %s" %  self.state_ranks_action)
+        except StandardError:
+            Kernel.Log("Exception undoing Map Edit Action, will atempt to revert", "[DatabaseAction]", True, True)
+            try:
+                for action in actions_now:
+                    test = action.apply()
+                    if not test:
+                        raise StandardError("'Undo' Sub action revert failed: %s" % action)
+                Kernel.Log("'Undo' Map Edit Action sucessfuly reverted", "[DatabaseAction]", True)
+            except StandardError:
+                Kernel.Log("Exception reverting failed 'Undo' Map Edit Action, Possible Project coruption", "[DatabaseAction]", True, True)
+        return result
+
+class MapInfoEditAction(DatabaseAction):
+    ''' edits a Mapinfo object'''
+    def __init__(self, obj, data = {}, sub_action = False):
+        super(MapInfoEditAction, self).__init__(data, sub_action)
+        self.setType("MapInfo")
+        self.setObj(obj)
+        self.addKeys('name', 'parent_id', 'order', 'expanded', 'scroll_x', 'scroll_y')
+
+class MoveCommandEditAction(DatabaseAction):
+    ''' edits a MoveCommand object '''
+
+    def __init__(self, obj, data = {}, sub_action = False):
+        super(MoveCommandEditAction, self).__init__(data, sub_action)
+        self.setType("MoveCommand")
+        self.setObj(obj)
+        self.addKeys('code', 'parameters')
+
+class MoveRouteEditAction(DatabaseAction):
+    ''' edits a MoveRoute object '''
+    def __init__(self, obj, data = {}, sub_action = False):
+        super(MoveRouteEditAction, self).__init__(data, sub_action)
+        self.setType("MoveRoute")
+        self.setObj(obj)
+        self.addKeys('repeat', 'skippable', 'list')
+
+class StateEditAction(DatabaseAction):
+    ''' edits a State object '''
+
+    def __init__(self, obj, data = {}, sub_action = False):
+        super(StateEditAction, self).__init__(data, sub_action)
+        self.setType("State")
+        self.setObj(obj)
+        self.addKeys('id', 'name', 'animation_id', 'restriction', 'nonresistance', 'zero_hp', 'cant_get_exp', 'cant_evade', 
+                     'slip_damage', 'rating', 'hit_rate', 'maxhp_rate', 'maxsp_rate', 'str_rate', 'dex_rate', 'int_rate', 
+                     'atk_rate', 'pdef_rate', 'mdef_rate', 'eva', 'battle_only', 'hold_turn', 'auto_release_prob', 
+                     'shock_release_prob', 'guard_element_set', 'plus_state_set', 'minus_state_set', 'note')
+
+class SystemEditAction(DatabaseAction):
+    ''' edits a System object '''
+    def __init__(self, obj, data = {}, sub_action = False):
+        super(SystemEditAction, self).__init__(data, sub_action)
+        self.setType("System")
+        self.setObj(obj)
+        self.addKeys('magic_number', 'party_members', 'elements', 'switches', 'variables', 'windowskin_name', 'title_name', 
+                     'gameover_name',  'battle_transition', 'title_bgm', 'battle_bgm', 'battle_end_me', 'gameover_me', 
+                     'cursor_se', 'decision_se', 'cancel_se', 'buzzer_se', 'equip_se', 'shop_se', 'save_se', 'load_se', 
+                     'battle_start_se', 'escape_se', 'actor_collapse_se', 'words', 'test_battlers', 'test_troop_id', 
+                     'start_map_id', 'start_x', 'start_y', 'battleback_name', 'battler_name', 'battler_hue', 'edit_map_id')
+
+class TestBattlerEditAction(DatabaseAction):
+    ''' edits a TestBattler object '''
+
+    def __init__(self, obj, data = {}, sub_action = False):
+        super(TestBattlerEditAction, self).__init__(data, sub_action)
+        self.setType("TestBattler")
+        self.setObj(obj)
+        self.addKeys('actor_id', 'level', 'weapon_id', 'armor1_id', 'armor2_id', 'armor3_id', 'armor4_id')
+
+class WordsEditAction(DatabaseAction):
+    ''' edits a System::Words object '''
+
+    def __init__(self, obj, data = {}, sub_action = False):
+        super(WordsEditAction, self).__init__(data, sub_action)
+        self.setType(Words)
+        self.setObj(obj)
+        self.addKeys('gold', 'hp', 'sp', 'str', 'dex', 'agi', 'int', 'atk', 'pdef', 'mdef', 'weapon', 
+                     'armor1', 'armor2', 'armor3', 'armor4', 'attack', 'skill', 'guard', 'item', 'equip')
+
+class TilesetEditAction(DatabaseAction):
+    ''' edits a Tileset object '''
+
+    def __init__(self, obj, data = {}, sub_action = False):
+        super(TilesetEditAction, self).__init__(data, sub_action)
+        self.setType("Tileset")
+        self.setObj(obj)
+        self.addKeys('id', 'name', 'tileset_name', 'autotile_names', 'panorama_name', 'panorama_hue', 
+                     'fog_name', 'fog_hue', 'fog_opacity', 'fog_blend_type', 'fog_zoom', 'fog_sx', 
+                     'fog_sy', 'battleback_name')
+        self.passages_action = None
+        self.priorities_action = None
+        self.terrain_tags_action = None
+
+    def apply_extra(self):
+        result = True
+        actions_now = []
+        try:
+            if self.data.has_key("passages"):
+                self.passages_action = TableEditAction(self.obj.passages, self.data["passages"], sub_action = True)
+                result &= self.passages_action.apply()
+                actions_now.append(self.passages_action)
+                if not result:
+                    raise StandardError("'Apply' Sub action failed: %s" %  self.element_ranks_action)
+            if self.data.has_key("priorities"):
+                self.priorities_action = TableEditAction(self.obj.priorities, self.data["priorities"], sub_action = True)
+                result &= self.priorities_action.apply()
+                actions_now.append(self.priorities_action)
+                if not result:
+                    raise StandardError("'Apply' Sub action failed: %s" %  self.element_ranks_action)
+            if self.data.has_key("terrain_tags"):
+                self.terrain_tags_action = TableEditAction(self.obj.terrain_tags, self.data["terrain_tags"], sub_action = True)
+                result &= self.terrain_tags_action.apply()
+                actions_now.append(self.terrain_tags_action)
+                if not result:
+                    raise StandardError("'Apply' Sub action failed: %s" %  self.element_ranks_action)
+        except StandardError:
+            Kernel.Log("Exception applying Tileset Edit Action, will atempt to revert", "[DatabaseAction]", True, True)
+            try:
+                for action in actions_now:
+                    test = action.undo()
+                    if not test:
+                        raise StandardError("'Apply' Sub action revert failed: %s" % action)
+                Kernel.Log("'Apply' Tileset Edit Action sucessfuly reverted", "[DatabaseAction]", True)
+            except StandardError:
+                Kernel.Log("Exception reverting failed 'Apply' Tileset Edit Action, Possible Project coruption", "[DatabaseAction]", True, True)
+            result = False
+        return result
+
+    def undo_extra(self):
+        actions_now = []
+        result = True
+        try:
+            if self.passages_action is not None:
+                result &= self.passages_action.undo()
+                actions_now.append(self.passages_action)
+                if not result:
+                    raise StandardError("'Undo' Sub action failed: %s" %  self.state_ranks_action)
+            if self.priorities_action is not None:
+                result &= self.priorities_action.undo()
+                actions_now.append(self.priorities_action)
+                if not result:
+                    raise StandardError("'Undo' Sub action failed: %s" %  self.element_ranks_action)
+            if self.terrain_tags_action is not None:
+                result &= self.terrain_tags_action.undo()
+                actions_now.append(self.terrain_tags_action)
+                if not result:
+                    raise StandardError("'Undo' Sub action failed: %s" %  self.element_ranks_action)
+        except StandardError:
+            Kernel.Log("Exception undoing Tileset Edit Action, will atempt to revert", "[DatabaseAction]", True, True)
+            try:
+                for action in actions_now:
+                    test = action.apply()
+                    if not test:
+                        raise StandardError("'Undo' Sub action revert failed: %s" % action)
+                Kernel.Log("'Undo' Tileset Edit Action sucessfuly reverted", "[DatabaseAction]", True)
+            except StandardError:
+                Kernel.Log("Exception reverting failed 'Undo' Tileset Edit Action, Possible Project coruption", "[DatabaseAction]", True, True)
+        return result
+
+class TroopPageEditAction(DatabaseAction):
+    ''' edits a Troop::Page object '''
+
+    def __init__(self, obj, data = {}, sub_action = False):
+        super(TroopPageEditAction, self).__init__(data, sub_action)
+        self.setType("TroopPage")
+        self.setObj(obj)
+        self.addKeys('span', 'list')
+
+class TroopConditionEditAction(DatabaseAction):
+    ''' edits a Troop::Condition'''
+
+    def __init__(self, obj, data = {}, sub_action = False):
+        super(TroopConditionEditAction, self).__init__(data, sub_action)
+        self.setType("TroopCondition")
+        self.setObj(obj)
+        self.addKeys('turn_valid', 'enemy_valid', 'actor_valid', 'switch_valid', 'turn_a', 
+                     'turn_b', 'enemy_index', 'enemy_hp', 'actor_id', 'actor_hp', 'switch_id')
+
+class MemberEditAction(DatabaseAction):
+    ''' edits a Troop::Member object '''
+
+    def __init__(self, obj, data = {}, sub_action = False):
+        super(MemberEditAction, self).__init__(data, sub_action)
+        self.setType("Member")
+        self.setObj(obj)
+        self.addKeys('enemy_id', 'x', 'y', 'hidden', 'immortal')

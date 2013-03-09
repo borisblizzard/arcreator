@@ -93,7 +93,7 @@ class Project(object):
                 if not self.testAdvancedHandlersLoad(key):
                     self._deferred_data[key] = [False, self.load_func(os.path.dirname(self.project_path), key)]
                 return self._deferred_data[key][1]
-            except Exception:
+            except StandardError:
                 Kernel.Log("Warning: Deferred data '%s' does not exist. Returned None" % key, "[Project]")
                 return None
     
@@ -326,7 +326,7 @@ class Project(object):
                                 os.mkdir(targetpath)
                             continue
                         zip.extract(file, local_path)
-            except Exception:
+            except StandardError:
                 Kernel.Log("There was an error restoring the backup, your project data may be corrupted. A backup was made before the restore was attempted, this backup can be found at %s" % backup, "[Project]", True, True)
         else:
             Kernel.Log("Backup file is not a valid zip file", "[Project]", True)

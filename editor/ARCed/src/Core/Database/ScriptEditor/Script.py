@@ -108,7 +108,7 @@ class Script(object):
 			file.write(self.GetText().encode('utf-8'))
 			file.close()
 			return True
-		except Exception:
+		except StandardError:
 			return False
 
 	def SaveScript( self, id ):

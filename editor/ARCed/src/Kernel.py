@@ -944,7 +944,7 @@ class Protect(object):
         try:
             result = self.fn(*args, **kwargs)
             return result
-        except Exception, excp:
+        except StandardError, excp:
             if inspect.ismethod(self.fn):
                 message = "Exception in protected method  '%s' bound to class '%s'" % (self.fn.__name__, self.fn.im_self.__class__.__name__ )
             elif inspect.isfunction(self.fn):
@@ -1019,7 +1019,7 @@ def Log(message=None, prefix="[Kernel]", inform=False, error=False):
         f.close()
         if inform:
             Inform(prefix, message, error)
-    except Exception:
+    except StandardError:
         #if this failed then we have no choice but to print the exception and hope for the best. perhaps wx will cache it and print to it's stdout window
         print "There has been an error"
         print traceback.format_exc()
@@ -1091,7 +1091,7 @@ def Inform(title, message, error=False):
                 style = wx.OK|wx.STAY_ON_TOP|wx.ICON_INFORMATION
                 dlg = wx.MessageDialog(None, message, caption="ARCed "+ title, style=style)
                 dlg.ShowModal()
-    except Exception:
+    except StandardError:
         #if this fails lets log it with out an inform
         Log("Inform failed: [Message] %s  [Error?] %s" % (message, error), "[Kernel Inform]", error=True)
 

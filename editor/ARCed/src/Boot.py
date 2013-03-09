@@ -105,7 +105,7 @@ class ConfigManager(object):
             user_arced_path = os.path.join(Kernel.GetConfigFolder(), "ARCed.cfg")
             if os.path.exists(user_arced_path):
                 arced_cfg = ConfigManager.PhraseCFGFile(user_arced_path, arced_cfg)
-        except Exception:
+        except StandardError:
             Kernel.Log("Failed to load user config", "[Main]", error=True)
         if Kernel.GlobalObjects.has_key("ARCed_config"):
             Kernel.GlobalObjects.set_value("ARCed_config", arced_cfg)
@@ -125,7 +125,7 @@ class ConfigManager(object):
             user_defaults_path = os.path.join(Kernel.GetConfigFolder(), "user_defaults.ini")
             if os.path.exists(user_defaults_path):
                 template = Kernel.KernelConfig.build_from_file(user_defaults_path, template)
-        except Exception:
+        except StandardError:
             Kernel.Log("Failed to load user component defaults", "[Main]", error=True)
         if Kernel.GlobalObjects.has_key("DefaultComponentTemplate"):
             Kernel.GlobalObjects.set_value("DefaultComponentTemplate", template)
@@ -181,7 +181,7 @@ class ConfigManager(object):
                             execfile(os.path.join(name, "__init__.py"), globals())
                     #else:
                     #    execfile(os.path.join(name, "__init__.py"), globals())
-            except Exception:
+            except StandardError:
                 ConfigManager.HandelErrorLoadingPlugin(name, plugin_path)
             
     @staticmethod
