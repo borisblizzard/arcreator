@@ -87,7 +87,7 @@ class PanelManagerType(SuperType):
     MainCommonEventsPanel = Type("MainCommonEventsPanel")
     MainSystemPanel = Type("MainSystemPanel")
     # Event Editor
-    MainEventEditor = Type("MainEventEditor")
+    MainEventEditorPanel = Type("MainEventEditorPanel")
     # ScriptEditor
     MainScriptEditorPanel = Type("MainScriptEditorPanel")
     
@@ -103,7 +103,7 @@ class PanelManagerType(SuperType):
                        self.MainTroopsPanel, self.MainStatesPanel, self.MainAnimationsPanel, self.MainTilesetsPanel, 
                        self.MainCommonEventsPanel, self.MainSystemPanel)
         #Event Editor
-        self.add_types(self.MainEventEditor)
+        self.add_types(self.MainEventEditorPanel)
         #Script Editor
         self.add_types(self.MainScriptEditorPanel)
         #--------------------------------- Toolbars ----------------------------------
@@ -176,8 +176,38 @@ class CorePackage(Package):
         ActionManager = Type("ActionManager")
         ActionTemplate = Type("ActionTemplate")
 
-        TableEditAction = Type("TableEditAction")
-        ARCActorEditAction = Type("ARCActorEditAction")
+        TableEditAction           = Type("ARCTableEditAction")
+        ARCArmorEditAction           = Type("ARCArmorEditAction")
+        ARCActorEditAction           = Type("ARCActorEditAction")
+        ARCClassEditAction           = Type("ARCClassEditAction")
+        ARCLearningEditAction        = Type("ARCLearningEditAction")
+        ARCTroopEditAction           = Type("ARCTroopEditAction")
+        ARCSkillEditAction           = Type("ARCSkillEditAction")
+        ARCWeaponEditAction          = Type("ARCWeaponEditAction")
+        ARCAnimationFrameEditAction  = Type("ARCAnimationFrameEditAction")
+        ARCAnimationEditAction       = Type("ARCAnimationEditAction")
+        ARCAnimationTimingEditAction = Type("ARCAnimationTimingEditAction")
+        ARCAudioFileEditAction       = Type("ARCAudioFileEditAction")
+        ARCEnemyEditAction           = Type("ARCEnemyEditAction")
+        ARCEnemyActionEditAction     = Type("ARCEnemyActionEditAction")
+        ARCEventEditAction           = Type("ARCEventEditAction")
+        ARCEventPageEditAction       = Type("ARCEventPageEditAction")
+        ARCEventConditionEditAction  = Type("ARCEventConditionEditAction")
+        ARCEventGraphicEditAction    = Type("ARCEventGraphicEditAction")
+        ARCEventCommandEditAction    = Type("ARCEventCommandEditAction")
+        ARCCommonEventEditAction     = Type("ARCCommonEventEditAction")
+        ARCMapEditAction             = Type("ARCMapEditAction")
+        ARCMapInfoEditAction         = Type("ARCMapInfoEditAction")
+        ARCMoveCommandEditAction     = Type("ARCMoveCommandEditAction")
+        ARCMoveRouteEditAction       = Type("ARCMoveRouteEditAction")
+        ARCStateEditAction           = Type("ARCStateEditAction")
+        ARCSystemEditAction          = Type("ARCSystemEditAction")
+        ARCTestBattlerEditAction     = Type("ARCTestBattlerEditAction")
+        ARCWordsEditAction           = Type("ARCWordsEditAction")
+        ARCTilesetEditAction         = Type("ARCTilesetEditAction")
+        ARCTroopPageEditAction       = Type("ARCTroopPageEditAction")
+        ARCTroopConditionEditAction  = Type("ARCTroopConditionEditAction")
+        ARCMemberEditAction          = Type("ARCMemberEditAction")
 
         #------------------------------ utilities ------------------------------------
         PyXAL = Type("PyXAL")
@@ -220,6 +250,15 @@ class CorePackage(Package):
         self.add_types(ActionManager, ActionTemplate)
 
         self.add_types(TableEditAction)
+
+        self.add_types(ARCArmorEditAction, ARCActorEditAction, ARCClassEditAction, ARCLearningEditAction, 
+                       ARCTroopEditAction, ARCSkillEditAction, ARCWeaponEditAction, ARCAnimationFrameEditAction, 
+                       ARCAnimationEditAction, ARCAnimationTimingEditAction, ARCAudioFileEditAction, ARCEnemyEditAction, 
+                       ARCEnemyActionEditAction, ARCEventEditAction, ARCEventPageEditAction, ARCEventConditionEditAction, 
+                       ARCEventGraphicEditAction, ARCEventCommandEditAction, ARCCommonEventEditAction, ARCMapEditAction, 
+                       ARCMapInfoEditAction, ARCMoveCommandEditAction, ARCMoveRouteEditAction, ARCStateEditAction, 
+                       ARCSystemEditAction, ARCTestBattlerEditAction, ARCWordsEditAction, ARCTilesetEditAction, 
+                       ARCTroopPageEditAction, ARCTroopConditionEditAction, ARCMemberEditAction)
 
         self.add_types(ARCActorEditAction)
 
@@ -367,11 +406,70 @@ class CorePackage(Package):
         self.add_component(Component(Actions.ActionTemplate, "ActionTemplate",
                                      None, "CoreActionTemplate", "CORE", 1.0, self))
         
-        self.add_component(Component(DatabaseActions.TableEditAction, "TableEditAction",
+        self.add_component(Component(DatabaseActions.TableEditAction, "ARCTableEditAction",
                                      None, "CoreTableEditAction", "CORE", 1.0, self))
-
+        self.add_component(Component(DatabaseActions.ArmorEditAction, "ARCArmorEditAction",
+                                     None, "CoreArmorEditAction", "CORE", 1.0, self))
         self.add_component(Component(DatabaseActions.ActorEditAction, "ARCActorEditAction",
-                                     None, "CoreARCActorEditAction", "CORE", 1.0, self))
+                                     None, "CoreActorEditAction", "CORE", 1.0, self))
+        self.add_component(Component(DatabaseActions.ClassEditAction, "ARCClassEditAction",
+                                     None, "CoreClassEditAction", "CORE", 1.0, self))
+        self.add_component(Component(DatabaseActions.LearningEditAction, "ARCLearningEditAction",
+                                     None, "CoreLearningEditAction", "CORE", 1.0, self))
+        self.add_component(Component(DatabaseActions.TroopEditAction, "ARCTroopEditAction",
+                                     None, "CoreTroopEditAction", "CORE", 1.0, self))
+        self.add_component(Component(DatabaseActions.SkillEditAction, "ARCSkillEditAction",
+                                     None, "CoreSkillEditAction", "CORE", 1.0, self))
+        self.add_component(Component(DatabaseActions.WeaponEditAction, "ARCWeaponEditAction",
+                                     None, "CoreWeaponEditAction", "CORE", 1.0, self))
+        self.add_component(Component(DatabaseActions.AnimationFrameEditAction, "ARCAnimationFrameEditAction",
+                                     None, "CoreAnimationFrameEditAction", "CORE", 1.0, self))
+        self.add_component(Component(DatabaseActions.AnimationEditAction, "ARCAnimationEditAction",
+                                     None, "CoreAnimationEditAction", "CORE", 1.0, self))
+        self.add_component(Component(DatabaseActions.AnimationTimingEditAction, "ARCAnimationTimingEditAction",
+                                     None, "CoreAnimationTimingEditAction", "CORE", 1.0, self))
+        self.add_component(Component(DatabaseActions.AudioFileEditAction, "ARCAudioFileEditAction",
+                                     None, "CoreAudioFileEditAction", "CORE", 1.0, self))
+        self.add_component(Component(DatabaseActions.EnemyEditAction, "ARCEnemyEditAction",
+                                     None, "CoreEnemyEditAction", "CORE", 1.0, self))
+        self.add_component(Component(DatabaseActions.EnemyActionEditAction, "ARCEnemyActionEditAction",
+                                     None, "CoreEnemyActionEditAction", "CORE", 1.0, self))
+        self.add_component(Component(DatabaseActions.EventEditAction, "ARCEventEditAction",
+                                     None, "CoreEventEditAction", "CORE", 1.0, self))
+        self.add_component(Component(DatabaseActions.EventPageEditAction, "ARCEventPageEditAction",
+                                     None, "CoreEventPageEditAction", "CORE", 1.0, self))
+        self.add_component(Component(DatabaseActions.EventConditionEditAction, "ARCEventConditionEditAction",
+                                     None, "CoreEventConditionEditAction", "CORE", 1.0, self))
+        self.add_component(Component(DatabaseActions.EventGraphicEditAction, "ARCEventGraphicEditAction",
+                                     None, "CoreEventGraphicEditAction", "CORE", 1.0, self))
+        self.add_component(Component(DatabaseActions.EventCommandEditAction, "ARCEventCommandEditAction",
+                                     None, "CoreEventCommandEditAction", "CORE", 1.0, self))
+        self.add_component(Component(DatabaseActions.CommonEventEditAction, "ARCCommonEventEditAction",
+                                     None, "CoreCommonEventEditAction", "CORE", 1.0, self))
+        self.add_component(Component(DatabaseActions.MapEditAction, "ARCMapEditAction",
+                                     None, "CoreMapEditAction", "CORE", 1.0, self))
+        self.add_component(Component(DatabaseActions.MapInfoEditAction, "ARCMapInfoEditAction",
+                                     None, "CoreMapInfoEditAction", "CORE", 1.0, self))
+        self.add_component(Component(DatabaseActions.MoveCommandEditAction, "ARCMoveCommandEditAction",
+                                     None, "CoreMoveCommandEditAction", "CORE", 1.0, self))
+        self.add_component(Component(DatabaseActions.MoveRouteEditAction, "ARCMoveRouteEditAction",
+                                     None, "CoreMoveRouteEditAction", "CORE", 1.0, self))
+        self.add_component(Component(DatabaseActions.StateEditAction, "ARCStateEditAction",
+                                     None, "CoreStateEditAction", "CORE", 1.0, self))
+        self.add_component(Component(DatabaseActions.SystemEditAction, "ARCSystemEditAction",
+                                     None, "CoreSystemEditAction", "CORE", 1.0, self))
+        self.add_component(Component(DatabaseActions.TestBattlerEditAction, "ARCTestBattlerEditAction",
+                                     None, "CoreTestBattlerEditAction", "CORE", 1.0, self))
+        self.add_component(Component(DatabaseActions.WordsEditAction, "ARCWordsEditAction",
+                                     None, "CoreWordsEditAction", "CORE", 1.0, self))
+        self.add_component(Component(DatabaseActions.TilesetEditAction, "ARCTilesetEditAction",
+                                     None, "CoreTilesetEditAction", "CORE", 1.0, self))
+        self.add_component(Component(DatabaseActions.TroopPageEditAction, "ARCTroopPageEditAction",
+                                     None, "CoreTroopPageEditAction", "CORE", 1.0, self))
+        self.add_component(Component(DatabaseActions.TroopConditionEditAction, "ARCTroopConditionEditAction",
+                                     None, "CoreTroopConditionEditAction", "CORE", 1.0, self))
+        self.add_component(Component(DatabaseActions.MemberEditAction, "ARCMemberEditAction",
+                                     None, "CoreMemberEditAction", "CORE", 1.0, self))
 
         #------------------------------ utilities ------------------------------------
         self.add_component(Component(PyXAL, "PyXAL", None, "CorePyXAL", "CORE", 1.0, self))

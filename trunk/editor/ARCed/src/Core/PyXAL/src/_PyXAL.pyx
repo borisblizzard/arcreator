@@ -57,7 +57,7 @@ cdef extern from *:
     # if not LOG_PATH == blank and not os.path.exists(path) or not os.path.isdir(path):
         # try:
             # os.makedirs(path)
-        # except Exception:
+        # except StandardError:
             # return result
     # LOG_PATH = path
     # result = True
@@ -95,7 +95,7 @@ cdef extern from *:
             # file = open(path, "ab")
             # file.write(pymessage)
             # file.close()
-        # except Exception:
+        # except StandardError:
             # pass
             
 # XAL.setLogFunction(Log)

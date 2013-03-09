@@ -279,7 +279,7 @@ class NewProjectDialog(wx.Dialog):
         if not os.path.exists(string) and not os.path.isdir(string):
             try:
                 os.mkdir(string)
-            except Exception:
+            except StandardError:
                 caption = "ARCed"
                 message = "Failed to make Project folder, please provide a " \
                           "valid folder name."
