@@ -77,7 +77,7 @@ module Input
   #  key - the ASCII number of the key
   #  This method checks if the key is being pressed.
   #-------------------------------------------------------------------------- 
-  def Input.get_current_state(key)
+  def self.get_current_state(key)
     return State.call(key).between?(0, 1)
   end
   #--------------------------------------------------------------------------
@@ -85,7 +85,7 @@ module Input
   #  key - the ASCII number of the key
   #  This method checks if the key was pressed.
   #-------------------------------------------------------------------------- 
-  def Input.test_key(key)
+  def self.test_key(key)
     Key.call(key) & 0x01 == 1
   end
   #--------------------------------------------------------------------------
@@ -93,14 +93,14 @@ module Input
   #  sym - the given symbol
   #  Transforms given number into ASCII character.
   #-------------------------------------------------------------------------- 
-  def Input.get_symbol(sym)
+  def self.get_symbol(sym)
     return ((sym != 0 && sym != nil) ? sym.chr : '')
   end
   #--------------------------------------------------------------------------
   # update
   #  Updates input.
   #-------------------------------------------------------------------------- 
-  def Input.update
+  def self.update
     # storing old keys
     @_keys = (@_keys == nil ? [] : @_keys) | (@keys == nil ? [] : @keys.clone)
     # empty current keys
@@ -130,21 +130,21 @@ module Input
   # triggered?
   #  Internal method to check the trigger state.
   #-------------------------------------------------------------------------- 
-  def Input.triggered?(key)
+  def self.triggered?(key)
     return (@keys.include?(key) && !@_keys.include?(key))
   end
   #--------------------------------------------------------------------------
   # pressed?
   #  Internal method to check the pressed state.
   #-------------------------------------------------------------------------- 
-  def Input.pressed?(key)
+  def self.pressed?(key)
     return (@pressed.include?(key))
   end
   #--------------------------------------------------------------------------
   # repeated?
   #  Internal method to check the pressed state for repeat?.
   #-------------------------------------------------------------------------- 
-  def Input.repeated?(key)
+  def self.repeated?(key)
     return ([1, 16].include?(@repeating[key]))
   end
   #--------------------------------------------------------------------------
@@ -162,7 +162,7 @@ module Input
   # dir8
   #  8 direction check.
   #-------------------------------------------------------------------------- 
-  def Input.dir8
+  def self.dir8
     return 1 if Input.press?(Down) && Input.press?(Left)
     return 3 if Input.press?(Down) && Input.press?(Right)
     return 7 if Input.press?(Up) && Input.press?(Left)
@@ -177,7 +177,7 @@ module Input
   # trigger?
   #  Test if key was triggered once.
   #-------------------------------------------------------------------------- 
-  def Input.trigger?(keys)
+  def self.trigger?(keys)
     if keys.is_a?(Array)
       keys.each {|key| Input.check_old_keys(key).each {|k|
           return true if Input.triggered?(k)}}
@@ -190,7 +190,7 @@ module Input
   # press?
   #  Test if key is being pressed.
   #-------------------------------------------------------------------------- 
-  def Input.press?(keys)
+  def self.press?(keys)
     if keys.is_a?(Array)
       keys.each {|key| Input.check_old_keys(key).each {|k|
           return true if Input.pressed?(k)}}
@@ -203,7 +203,7 @@ module Input
   # repeat?
   #  Test if key is being pressed for repeating.
   #-------------------------------------------------------------------------- 
-  def Input.repeat?(keys)
+  def self.repeat?(keys)
     if keys.is_a?(Array)
       keys.each {|key| Input.check_old_keys(key).each {|k|
           return true if Input.repeated?(k)}}
@@ -217,7 +217,7 @@ module Input
   #  Converts all the old keys into the new format if not overriding RMXP's
   #  controls.
   #-------------------------------------------------------------------------- 
-  def Input.check_old_keys(key)
+  def self.check_old_keys(key)
     if BlizzABS::Control::DISABLE_DEFAULT
       case key
       when UP then return Up
@@ -261,7 +261,7 @@ module Input
   # Anykey
   #  Checks if ANY key was pressed.
   #-------------------------------------------------------------------------- 
-  def Input.Anykey
+  def self.Anykey
     return (@keys != [])
   end
   

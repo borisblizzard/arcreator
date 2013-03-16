@@ -175,10 +175,18 @@ namespace reactor
 		}
 		try
 		{
-			// april
 			april::init(april::RS_DEFAULT, april::WS_DEFAULT);
 			april::createRenderSystem();
 			april::createWindow(resolution[0], resolution[1], fullscreen, reactor::system->Title);
+			atres::init();
+			atresttf::init();
+			aprilui::init();
+#ifndef _NOSOUND
+			xal::init(XAL_AS_DEFAULT, april::window->getBackendId(), true);
+#else
+			xal::init(XAL_AS_DISABLED, april::window->getBackendId(), false);
+#endif
+			// april
 			grect viewport(0.0f, 0.0f, (float)resolution[0], (float)resolution[1]);
 			april::rendersys->setOrthoProjection(viewport);
 			april::window->setKeyboardCallbacks(&reactor::Context::onKeyDown, &reactor::Context::onKeyUp, &reactor::Context::onChar);
@@ -190,22 +198,14 @@ namespace reactor
 			reactor::pixelShader = april::rendersys->createPixelShader();
 			reactor::pixelShader->compile(ARC_PIXEL_SHADER);
 			// atres
-			atres::init();
-			atresttf::init();
 			atres::renderer->setGlobalOffsets(true);
 			// aprilui
 #ifndef LEGACY_ONLY
-			aprilui::init();
 			aprilui::setLimitCursorToViewport(false);
 			aprilui::setViewport(viewport);
 			aprilui::setTextureIdleUnloadTime(TEXTURE_UNLOAD_TIME);
 #endif
 			// xal
-#ifndef _NOSOUND
-			xal::init(XAL_AS_DEFAULT, april::window->getBackendId(), true);
-#else
-			xal::init(XAL_AS_DISABLED, april::window->getBackendId(), false);
-#endif
 			// reactor related data
 			hlog::write(reactor::logTag, "Initializing ARC Reactor Engine.");
 			reactor::context = new reactor::Context();
@@ -284,14 +284,14 @@ namespace reactor
 		}
 		scripts.sort();
 		// this makes sure that Kernel#require and Kernel#load don't need a full path anymore (but still accept it)
-		rb_eval_string("$:.clear; $:.push(Dir.getwd); $:.push(Dir.getwd + '/lib')");
+		rb_eval_string("$:.clear; $:.push(Dir.getwd); $:.push(Dir.getwd + '/lib');");
 		// initializing extensions
 		rb_require_safe(rb_str_new2("socket.so"), 0);
 		rb_require_safe(rb_str_new2("xwin32api.so"), 0);
 		rb_require_safe(rb_str_new2("zlib.so"), 0);
 		// other source files
-		rb_load(rb_str_new2("./lib/Compatibility.rb"), 0); // TODO - will be removed later
-		rb_load(rb_str_new2("./lib/RMXP.rb"), 0); // TODO - will be removed later
+		rb_load(rb_str_new2("Compatibility.rb"), 0); // TODO - will be removed later
+		rb_load(rb_str_new2("RMXP.rb"), 0); // TODO - will be removed later
 		// loading scripts
 		foreach (hstr, it, scripts)
 		{
