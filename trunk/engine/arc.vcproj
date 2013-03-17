@@ -41,7 +41,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="external/hltypes/include;external/zer0/include"
+				AdditionalIncludeDirectories="external/hltypes/include;external/reactor/include"
 				PreprocessorDefinitions="_WIN32;_DESKTOP;_DEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -62,7 +62,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="libhltypes.lib zer0division.lib"
+				AdditionalDependencies="libhltypes.lib libreactor.lib"
 				OutputFile="$(OutDir)Game.exe"
 				AdditionalLibraryDirectories="external\lib\msvc90;$(SolutionDir)bin\$(PlatformName)"
 				GenerateDebugInformation="true"
@@ -119,7 +119,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
-				AdditionalIncludeDirectories="external/hltypes/include;external/zer0/include"
+				AdditionalIncludeDirectories="external/hltypes/include;external/reactor/include"
 				PreprocessorDefinitions="_WIN32;_DESKTOP;_CRT_SECURE_NO_WARNINGS"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
@@ -139,7 +139,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="libhltypes.lib zer0division.lib"
+				AdditionalDependencies="libhltypes.lib libreactor.lib"
 				OutputFile="$(OutDir)Game.exe"
 				AdditionalLibraryDirectories="external\lib\msvc90;$(SolutionDir)bin\$(PlatformName)"
 				SubSystem="2"
@@ -195,7 +195,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
-				AdditionalIncludeDirectories="external/hltypes/include;external/zer0/include"
+				AdditionalIncludeDirectories="external/hltypes/include;external/reactor/include"
 				PreprocessorDefinitions="_WIN32;_DESKTOP;_CRT_SECURE_NO_WARNINGS"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
@@ -215,7 +215,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="libhltypes.lib zer0division.lib"
+				AdditionalDependencies="libhltypes.lib libreactor.lib"
 				OutputFile="$(OutDir)Game.exe"
 				AdditionalLibraryDirectories="external\lib\msvc90;$(SolutionDir)bin\$(PlatformName)"
 				SubSystem="2"

@@ -19,7 +19,7 @@
 		<Configuration
 			Name="Debug|Win32"
 			OutputDirectory="$(SolutionDir)bin\$(PlatformName)\"
-			IntermediateDirectory="$(SolutionDir)bin\$(PlatformName)\lib\$(ProjectName)\$(ConfigurationName)"
+			IntermediateDirectory="$(SolutionDir)bin\$(PlatformName)\lib\$(ProjectName)\$(ConfigurationName)\"
 			ConfigurationType="2"
 			CharacterSet="1"
 			>
@@ -41,7 +41,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="src;include/legacy;../gtypes/include;../hltypes/include;../april/include;../atres/include;../atres/atresttf/include;../xal/include;../include;../include/ruby192-msvcr90"
+				AdditionalIncludeDirectories="src;include/legacy;../gtypes/include;../hltypes/include;../april/include;../atres/include;../atres/atresttf/include;../xal/include;../include;../include/ruby210-msvcr90"
 				PreprocessorDefinitions="_WIN32;_DEBUG;LEGACY_EXPORTS;WIN32_LEAN_AND_MEAN;_CRT_SECURE_NO_WARNINGS;"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -62,11 +62,10 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="ruby192.lib libgtypes.lib libhltypes.lib libapril.lib libatres.lib libatresttf.lib libxal.lib"
-				OutputFile="$(ProjectName).dll"
+				AdditionalDependencies="ruby210.lib libgtypes.lib libhltypes.lib libapril.lib libatres.lib libatresttf.lib libxal.lib"
+				OutputFile="$(OutDir)$(ProjectName).dll"
 				AdditionalLibraryDirectories="..\lib\msvc90;$(SolutionDir)bin\$(PlatformName)"
 				GenerateDebugInformation="true"
-				ImportLibrary="$(TargetDir)liblegacy.lib"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -94,7 +93,7 @@
 		<Configuration
 			Name="Release|Win32"
 			OutputDirectory="$(SolutionDir)bin\$(PlatformName)\"
-			IntermediateDirectory="$(SolutionDir)bin\$(PlatformName)\lib\$(ProjectName)\$(ConfigurationName)"
+			IntermediateDirectory="$(SolutionDir)bin\$(PlatformName)\lib\$(ProjectName)\$(ConfigurationName)\"
 			ConfigurationType="2"
 			CharacterSet="1"
 			WholeProgramOptimization="1"
@@ -118,7 +117,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
-				AdditionalIncludeDirectories="src;include/legacy;../gtypes/include;../hltypes/include;../april/include;../atres/include;../atres/atresttf/include;../xal/include;../include;../include/ruby192-msvcr90"
+				AdditionalIncludeDirectories="src;include/legacy;../gtypes/include;../hltypes/include;../april/include;../atres/include;../atres/atresttf/include;../xal/include;../include;../include/ruby210-msvcr90"
 				PreprocessorDefinitions="_WIN32;LEGACY_EXPORTS;WIN32_LEAN_AND_MEAN;_CRT_SECURE_NO_WARNINGS;"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
@@ -138,10 +137,9 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="ruby192.lib libgtypes.lib libhltypes.lib libapril.lib libatres.lib libatresttf.lib libxal.lib"
-				OutputFile="$(ProjectName).dll"
+				AdditionalDependencies="ruby210.lib libgtypes.lib libhltypes.lib libapril.lib libatres.lib libatresttf.lib libxal.lib"
+				OutputFile="$(OutDir)$(ProjectName).dll"
 				AdditionalLibraryDirectories="..\lib\msvc90;$(SolutionDir)bin\$(PlatformName)"
-				ImportLibrary="$(TargetDir)liblegacy.lib"
 			/>
 			<Tool
 				Name="VCALinkTool"
