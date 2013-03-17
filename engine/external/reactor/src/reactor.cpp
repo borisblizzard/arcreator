@@ -1,7 +1,6 @@
 #include <stdio.h>
 
 #include <ruby/ruby.h>
-#include <ruby/_extensions.h>
 
 #include <april/april.h>
 #include <april/PixelShader.h>
@@ -286,12 +285,12 @@ namespace reactor
 		// this makes sure that Kernel#require and Kernel#load don't need a full path anymore (but still accept it)
 		rb_eval_string("$:.clear; $:.push(Dir.getwd); $:.push(Dir.getwd + '/lib');");
 		// initializing extensions
+		rb_require_safe(rb_str_new2("dl.so"), 0);
 		rb_require_safe(rb_str_new2("socket.so"), 0);
-		rb_require_safe(rb_str_new2("xwin32api.so"), 0);
 		rb_require_safe(rb_str_new2("zlib.so"), 0);
-		// other source files
-		rb_load(rb_str_new2("Compatibility.rb"), 0); // TODO - will be removed later
-		rb_load(rb_str_new2("RMXP.rb"), 0); // TODO - will be removed later
+		rb_require_safe(rb_str_new2("Win32API"), 0);
+		rb_require_safe(rb_str_new2("socket"), 0);
+		rb_require_safe(rb_str_new2("RMXP"), 0);
 		// loading scripts
 		foreach (hstr, it, scripts)
 		{

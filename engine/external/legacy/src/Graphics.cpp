@@ -115,9 +115,12 @@ namespace legacy
 		{
 			if (time - fpsTime > 1000.0f)
 			{
+				april::window->setFps(fpsCount);
+				/*
 				april::window->setTitle(hsprintf("%s [FPS:%d]", windowTitle.c_str(), fpsCount));
 				fpsCount = 0;
 				fpsTime = time;
+				*/
 			}
 			else
 			{
