@@ -23,7 +23,7 @@ int main(int argc, char** argv)
 	wchar_t** argv = CommandLineToArgvW(GetCommandLineW(), &argc);
 	for_iter (i, 0, argc)
 	{
-		args += unicode_to_utf8(argv[i]);
+		args += hstr::from_unicode(argv[i]);
 	}
 	LocalFree(argv);
 #else
