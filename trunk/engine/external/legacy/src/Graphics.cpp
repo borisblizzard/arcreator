@@ -57,14 +57,8 @@ namespace legacy
 		if (legacy::isDebugMode())
 		{
 			fpsDisplay = !fpsDisplay;
-			if (fpsDisplay)
-			{
-				april::window->setTitle(windowTitle + " [FPS:0]");
-			}
-			else
-			{
-				april::window->setTitle(windowTitle);
-			}
+			april::window->setFps(0);
+			april::window->setTitle(windowTitle);
 		}
 	}
 
@@ -116,11 +110,9 @@ namespace legacy
 			if (time - fpsTime > 1000.0f)
 			{
 				april::window->setFps(fpsCount);
-				/*
-				april::window->setTitle(hsprintf("%s [FPS:%d]", windowTitle.c_str(), fpsCount));
+				april::window->setTitle(windowTitle);
 				fpsCount = 0;
 				fpsTime = time;
-				*/
 			}
 			else
 			{

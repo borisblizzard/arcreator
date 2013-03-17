@@ -179,7 +179,9 @@ namespace reactor
 			april::createWindow(resolution[0], resolution[1], fullscreen, reactor::system->Title);
 			atres::init();
 			atresttf::init();
+#ifndef LEGACY_ONLY
 			aprilui::init();
+#endif
 #ifndef _NOSOUND
 			xal::init(XAL_AS_DEFAULT, april::window->getBackendId(), true);
 #else
