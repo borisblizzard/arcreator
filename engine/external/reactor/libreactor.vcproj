@@ -41,7 +41,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="src;include/reactor;../gtypes/include;../hltypes/include;../atres/include;../atres/atresttf/include;../april/include;../aprilui/include;../xal/include;../legacy/include;../include;../include/ruby192-msvcr90"
+				AdditionalIncludeDirectories="src;include/reactor;../gtypes/include;../hltypes/include;../atres/include;../atres/atresttf/include;../april/include;../aprilui/include;../xal/include;../legacy/include;../include;../include/ruby210-msvcr90"
 				PreprocessorDefinitions="_WIN32;_DEBUG;_DESKTOP;REACTOR_EXPORTS;WIN32_LEAN_AND_MEAN;_CRT_SECURE_NO_WARNINGS"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -62,11 +62,10 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="ruby192.lib ws2_32.lib zlib1.lib win32api.lib socket.lib zlib.lib libgtypes.lib libhltypes.lib libapril.lib libatres.lib libatresttf.lib libaprilui.lib libxal.lib liblegacy.lib"
-				OutputFile="$(ProjectName).dll"
+				AdditionalDependencies="ruby210.lib libgtypes.lib libhltypes.lib libapril.lib libatres.lib libatresttf.lib libaprilui.lib libxal.lib liblegacy.lib"
+				OutputFile="$(OutDir)$(ProjectName).dll"
 				AdditionalLibraryDirectories="..\lib\msvc90;$(SolutionDir)bin\$(PlatformName)"
 				GenerateDebugInformation="true"
-				ImportLibrary="$(TargetDir)$(ProjectName).lib"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -118,7 +117,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
-				AdditionalIncludeDirectories="src;include/reactor;../gtypes/include;../hltypes/include;../atres/include;../atres/atresttf/include;../april/include;../aprilui/include;../xal/include;../legacy/include;../include;../include/ruby192-msvcr90"
+				AdditionalIncludeDirectories="src;include/reactor;../gtypes/include;../hltypes/include;../atres/include;../atres/atresttf/include;../april/include;../aprilui/include;../xal/include;../legacy/include;../include;../include/ruby210-msvcr90"
 				PreprocessorDefinitions="_WIN32;_DESKTOP;REACTOR_EXPORTS;WIN32_LEAN_AND_MEAN;_CRT_SECURE_NO_WARNINGS"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
@@ -138,10 +137,9 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="ruby192.lib ws2_32.lib zlib1.lib win32api.lib socket.lib zlib.lib libgtypes.lib libhltypes.lib libapril.lib libatres.lib libatresttf.lib libaprilui.lib libxal.lib liblegacy.lib"
-				OutputFile="$(ProjectName).dll"
+				AdditionalDependencies="ruby210.lib libgtypes.lib libhltypes.lib libapril.lib libatres.lib libatresttf.lib libaprilui.lib libxal.lib liblegacy.lib"
+				OutputFile="$(OutDir)$(ProjectName).dll"
 				AdditionalLibraryDirectories="..\lib\msvc90;$(SolutionDir)bin\$(PlatformName)"
-				ImportLibrary="$(TargetDir)$(ProjectName).lib"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -193,7 +191,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
-				AdditionalIncludeDirectories="src;include/reactor;../gtypes/include;../hltypes/include;../atres/include;../atres/atresttf/include;../april/include;../xal/include;../legacy/include;../include;../include/ruby192-msvcr90"
+				AdditionalIncludeDirectories="src;include/reactor;../gtypes/include;../hltypes/include;../atres/include;../atres/atresttf/include;../april/include;../aprilui/include;../xal/include;../legacy/include;../include;../include/ruby210-msvcr90"
 				PreprocessorDefinitions="_WIN32;_DESKTOP;REACTOR_EXPORTS;LEGACY_ONLY;WIN32_LEAN_AND_MEAN;_CRT_SECURE_NO_WARNINGS"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
@@ -213,10 +211,9 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="ruby192.lib ws2_32.lib zlib1.lib win32api.lib socket.lib zlib.lib libgtypes.lib libhltypes.lib libapril.lib libatres.lib libatresttf.lib libxal.lib liblegacy.lib"
-				OutputFile="$(ProjectName).dll"
+				AdditionalDependencies="ruby210.lib libgtypes.lib libhltypes.lib libapril.lib libatres.lib libatresttf.lib libxal.lib liblegacy.lib"
+				OutputFile="$(OutDir)$(ProjectName).dll"
 				AdditionalLibraryDirectories="..\lib\msvc90;$(SolutionDir)bin\$(PlatformName)"
-				ImportLibrary="$(TargetDir)$(ProjectName).lib"
 			/>
 			<Tool
 				Name="VCALinkTool"
