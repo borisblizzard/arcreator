@@ -1,0 +1,2491 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ARCed.Controls</name>
+    </assembly>
+    <members>
+        <member name="T:ARCed.Controls.MultiStateCheckbox">
+            <summary>
+            Control that provides functionality for user-defined checkbox values and markers
+            </summary>
+        </member>
+        <member name="F:ARCed.Controls.MultiStateCheckbox.components">
+            <summary> 
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:ARCed.Controls.MultiStateCheckbox.Dispose(System.Boolean)">
+            <summary> 
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:ARCed.Controls.MultiStateCheckbox.InitializeComponent">
+            <summary> 
+            Required method for Designer support - do not modify 
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="M:ARCed.Controls.MultiStateCheckbox.#ctor">
+            <summary>
+            Default constructor
+            </summary>
+        </member>
+        <member name="M:ARCed.Controls.MultiStateCheckbox.IsPointInCheckBox(System.Drawing.Point)">
+            <summary>
+            Returns true/false if given point is within the bounds of the checkbox rectangle.
+            </summary>
+            <param name="point">Point to check</param>
+            <returns>Flag if point is within bounds</returns>
+        </member>
+        <member name="M:ARCed.Controls.MultiStateCheckbox.IsPointInCheckBox(System.Int32,System.Int32)">
+            <summary>
+            Returns true/false if given coordinates are within the bounds of the checkbox rectangle.
+            </summary>
+            <param name="x">X value to check</param>
+            <param name="y">Y value to check</param>
+            <returns>Flag if point is within bounds</returns>
+        </member>
+        <member name="P:ARCed.Controls.MultiStateCheckbox.CheckState">
+            <summary>
+            This property is not used with multi-state checkboxes.
+            </summary>
+        </member>
+        <member name="P:ARCed.Controls.MultiStateCheckbox.Checked">
+            <summary>
+            This property is not used with multi-state checkboxes.
+            </summary>
+        </member>
+        <member name="P:ARCed.Controls.MultiStateCheckbox.Characters">
+            <summary>
+            Gets or sets the letters or characters used in the checkboxes as glyphs.
+            </summary>
+        </member>
+        <member name="P:ARCed.Controls.MultiStateCheckbox.CharColors">
+            <summary>
+            Gets or sets the array of colors used for painting the markers.
+            </summary>
+        </member>
+        <member name="P:ARCed.Controls.MultiStateCheckbox.SelectedState">
+            <summary>
+            Gets or sets the index of the selected state.
+            </summary>
+        </member>
+        <member name="P:ARCed.Controls.MultiStateCheckbox.CurrentColor">
+            <summary>
+            Gets the current color used to draw the item.
+            </summary>
+        </member>
+        <member name="P:ARCed.Controls.MultiStateCheckbox.SelectedCharacter">
+            <summary>
+            Gets the currently selected letter/character.
+            </summary>
+        </member>
+        <member name="T:ARCed.EventBuilder.CmdInputNumberDialog">
+            <summary>
+            Dialog for creating a user-defined Input Number event.
+            </summary>
+        </member>
+        <member name="F:ARCed.EventBuilder.CmdInputNumberDialog.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:ARCed.EventBuilder.CmdInputNumberDialog.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:ARCed.EventBuilder.CmdInputNumberDialog.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="M:ARCed.EventBuilder.CmdInputNumberDialog.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="P:ARCed.EventBuilder.CmdInputNumberDialog.Digits">
+            <summary>
+            Gets or sets the number of possible digits.
+            </summary>
+        </member>
+        <member name="P:ARCed.EventBuilder.CmdInputNumberDialog.VariableId">
+            <summary>
+            Gets or sets the currently selected variable ID.
+            </summary>
+        </member>
+        <member name="T:ARCed.Controls.CheckGroupBox">
+            <summary>
+            Groupbox control that contains a CheckedListBox with buttons for selecting/deseleting all items
+            </summary>
+        </member>
+        <member name="F:ARCed.Controls.CheckGroupBox.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:ARCed.Controls.CheckGroupBox.Dispose(System.Boolean)">
+            <summary> 
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:ARCed.Controls.CheckGroupBox.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="M:ARCed.Controls.CheckGroupBox.#ctor">
+            <summary>
+            Default constructor
+            </summary>
+        </member>
+        <member name="M:ARCed.Controls.CheckGroupBox.#ctor(System.ComponentModel.IContainer)">
+            <summary>
+            Constructor with arguments
+            </summary>
+            <param name="container">Container for components</param>
+        </member>
+        <member name="M:ARCed.Controls.CheckGroupBox.BeginUpdate">
+            <summary>
+            Maintains performance while items are added to the control's 
+            CheckedListBox one at a time by preventing painting until EndUpdate() is called.
+            </summary>
+        </member>
+        <member name="M:ARCed.Controls.CheckGroupBox.EndUpdate">
+            <summary>
+            Resumes painting of the control's CheckedListBox after painting 
+            is suspended from calling BeginUpdate().
+            </summary>
+        </member>
+        <member name="M:ARCed.Controls.CheckGroupBox.CheckAll(System.Boolean)">
+            <summary>
+            Sets all checkboxes to the given state
+            </summary>
+            <param name="checkState">State to set the checkboxes</param>
+        </member>
+        <member name="M:ARCed.Controls.CheckGroupBox.SetItemChecked(System.Int32,System.Boolean)">
+            <summary>
+            Sets a checkbox to the given state
+            </summary>
+            <param name="index">Index of the checkbox</param>
+            <param name="checkState">State to set checkbox</param>
+        </member>
+        <member name="M:ARCed.Controls.CheckGroupBox.GetItemChecked(System.Int32)">
+            <summary>
+            Gets the state of a checkbox
+            </summary>
+            <param name="index">Index of the checkbox</param>
+            <returns>State of the checkbox</returns>
+        </member>
+        <member name="P:ARCed.Controls.CheckGroupBox.Items">
+            <summary>
+            Gets the items of the control's CheckedListBox
+            </summary>
+        </member>
+        <member name="P:ARCed.Controls.CheckGroupBox.CheckListBox">
+            <summary>
+            Gets the instance of the control's CheckedListBox
+            </summary>
+        </member>
+        <member name="P:ARCed.Controls.CheckGroupBox.SelectedIndex">
+            <summary>
+            Gets the selected index of the control's CheckedListBox
+            </summary>
+        </member>
+        <member name="E:ARCed.Controls.CheckGroupBox.OnCheckChange">
+            <summary>
+            Event raised when a checkbox state is changed in the list control
+            </summary>
+        </member>
+        <member name="T:ARCed.Controls.MultiStateCheckedListBox">
+            <summary>
+            CheckedListBox control that allows multiple states and markers.
+            </summary>
+        </member>
+        <member name="M:ARCed.Controls.MultiStateCheckedListBox.#ctor">
+            <summary>
+            Default constructor
+            </summary>
+        </member>
+        <member name="M:ARCed.Controls.MultiStateCheckedListBox.ClearItems">
+            <summary>
+            Clears the controls of the container
+            </summary>
+        </member>
+        <member name="M:ARCed.Controls.MultiStateCheckedListBox.AddItem(System.String)">
+            <summary>
+            Adds a new slot to the container
+            </summary>
+            <param name="label">Label to apply to the slot</param>
+        </member>
+        <member name="M:ARCed.Controls.MultiStateCheckedListBox.AddItem(System.String,System.Int32)">
+            <summary>
+            Adds a new slot to the container
+            </summary>
+            <param name="label">Label to apply to the slot</param>
+            <param name="valueIndex">Index of the slot's value</param>
+        </member>
+        <member name="M:ARCed.Controls.MultiStateCheckedListBox.SetItemIndex(System.Int32,System.Int32)">
+            <summary>
+            Sets the value index of the MultiStateCheckBox at the given index
+            </summary>
+            <param name="itemIndex">Index of the control in the parent container</param>
+            <param name="valueIndex">Index of the slot's value</param>
+        </member>
+        <member name="M:ARCed.Controls.MultiStateCheckedListBox.SetAll(System.Int32)">
+            <summary>
+            Sets all checkbox controls to the given state
+            </summary>
+            <param name="index">State to set the checkboxes</param>
+            <remarks>This methods does not raise events</remarks>
+        </member>
+        <member name="F:ARCed.Controls.MultiStateCheckedListBox.components">
+            <summary> 
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:ARCed.Controls.MultiStateCheckedListBox.Dispose(System.Boolean)">
+            <summary> 
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:ARCed.Controls.MultiStateCheckedListBox.InitializeComponent">
+            <summary> 
+            Required method for Designer support - do not modify 
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="E:ARCed.Controls.MultiStateCheckedListBox.OnItemChanged">
+            <summary>
+            Event raised when an item is changed on the control
+            </summary>
+        </member>
+        <member name="P:ARCed.Controls.MultiStateCheckedListBox.Items">
+            <summary>
+            Gets or sets the string values that can be selected
+            </summary>
+        </member>
+        <member name="P:ARCed.Controls.MultiStateCheckedListBox.Colors">
+            <summary>
+            Gets or sets the colors used for the text for different items
+            </summary>
+        </member>
+        <member name="T:ARCed.Controls.MultiStateCheckedListBox.ItemValueChangedEventHandler">
+            <summary>
+            Handler for events raised when an item is changed on the control
+            </summary>
+            <param name="sender">Invoker of the event</param>
+            <param name="e">Event arguments</param>
+        </member>
+        <member name="T:ARCed.Controls.MultiStateCheckEventArgs">
+            <summary>
+            Arguments for EfficiencySlot events
+            </summary>
+        </member>
+        <member name="M:ARCed.Controls.MultiStateCheckEventArgs.#ctor(System.Int32,System.Int32)">
+            <summary>
+            Default constructor
+            </summary>
+            <param name="index">Index of the control in the parent container</param>
+            <param name="valueIndex">Index of the slot's value</param>
+        </member>
+        <member name="P:ARCed.Controls.MultiStateCheckEventArgs.Index">
+            <summary>
+            Index of the control in the parent container
+            </summary>
+        </member>
+        <member name="P:ARCed.Controls.MultiStateCheckEventArgs.ValueIndex">
+            <summary>
+            Index of the slot's value
+            </summary>
+        </member>
+        <member name="T:ARCed.Controls.EventTextBox">
+            <summary>
+            Control for parsing and displaying RPG.EventCommands formatted and colorized
+            </summary>
+        </member>
+        <member name="M:ARCed.Controls.EventTextBox.AppendText(System.String,System.Drawing.Color)">
+            <summary>
+            Appends the given string and draws it in the specified color
+            </summary>
+            <param name="text">String to append to the end of the current text.</param>
+            <param name="color">Color to use to draw the string.</param>
+        </member>
+        <member name="M:ARCed.Controls.EventTextBox.Parse(System.Collections.Generic.List{System.Object})">
+            <summary>
+            Converts an array list of RPG.EventCommands and converts it into 
+            a format that can be displayed in the event editor.
+            </summary>
+            <param name="list">Collection of commands</param>
+            <remarks>Painting of the TextBox is automatically suspended until 
+            all commands are translated and added to the control.</remarks>
+        </member>
+        <member name="M:ARCed.Controls.EventTextBox.Translate(System.Int32,System.Int32,System.Object)">
+            <summary>
+            Translates the specified event code and arguments into a formatted string
+            </summary>
+            <param name="code">Event code.</param>
+            <param name="indent">Indent level</param>
+            <param name="args">Array of game event parameters.</param>
+            <returns>Formatted string.</returns>
+        </member>
+        <member name="M:ARCed.Controls.EventTextBox.Command0(System.Object)">
+            <summary>
+            Blank Command
+            </summary>
+        </member>
+        <member name="M:ARCed.Controls.EventTextBox.Command101(System.Object)">
+            <summary>
+            Show Text
+            </summary>
+            <param name="args">Array of game event parameters</param>
+        </member>
+        <member name="M:ARCed.Controls.EventTextBox.Command401(System.Object)">
+            <summary>
+            Show Text (Multi-Line)
+            </summary>
+            <param name="args">Array of game event parameters</param>
+        </member>
+        <member name="M:ARCed.Controls.EventTextBox.Command102(System.Object)">
+            <summary>
+            Show Choices
+            </summary>
+            <param name="args">Array of game event parameters</param>
+        </member>
+        <member name="M:ARCed.Controls.EventTextBox.Command402(System.Object)">
+            <summary>
+            When [**]
+            </summary>
+            <param name="args">Array of game event parameters</param>
+        </member>
+        <member name="M:ARCed.Controls.EventTextBox.Command403(System.Object)">
+            <summary>
+            When Cancel
+            </summary>
+            <param name="args">Array of game event parameters</param>
+        </member>
+        <member name="M:ARCed.Controls.EventTextBox.Command404(System.Object)">
+            <summary>
+            Branch End (Choices)
+            </summary>
+        </member>
+        <member name="M:ARCed.Controls.EventTextBox.Command103(System.Object)">
+            <summary>
+            Input Number
+            </summary>
+            <param name="args">Array of game event parameters</param>
+        </member>
+        <member name="M:ARCed.Controls.EventTextBox.Command104(System.Object)">
+            <summary>
+            Change Text Options
+            </summary>
+            <param name="args">Array of game event parameters</param>
+        </member>
+        <member name="M:ARCed.Controls.EventTextBox.Command105(System.Object)">
+            <summary>
+            Button Input Processing
+            </summary>
+            <param name="args">Array of game event parameters</param>
+        </member>
+        <member name="M:ARCed.Controls.EventTextBox.Command106(System.Object)">
+            <summary>
+            Wait
+            </summary>
+            <param name="args">Array of game event parameters</param>
+        </member>
+        <member name="M:ARCed.Controls.EventTextBox.Command108(System.Object)">
+            <summary>
+            Comment
+            </summary>
+            <param name="args">Array of game event parameters</param>
+        </member>
+        <member name="M:ARCed.Controls.EventTextBox.Command408(System.Object)">
+            <summary>
+            Comment (Multi-line)
+            </summary>
+            <param name="args">Array of game event parameters</param>
+        </member>
+        <member name="M:ARCed.Controls.EventTextBox.Command111(System.Object)">
+            <summary>
+            Conditional Branch
+            </summary>
+            <param name="args">Array of game event parameters</param>
+        </member>
+        <member name="M:ARCed.Controls.EventTextBox.Command411(System.Object)">
+            <summary>
+            Else
+            </summary>
+            <param name="args">Array of game event parameters</param>
+        </member>
+        <member name="M:ARCed.Controls.EventTextBox.Command412(System.Object)">
+            <summary>
+            Branch End (Conditional Branch)
+            </summary>
+            <param name="args">Array of game event parameters</param>
+        </member>
+        <member name="M:ARCed.Controls.EventTextBox.Command112(System.Object)">
+            <summary>
+            Loop
+            </summary>
+            <param name="args">Array of game event parameters</param>
+        </member>
+        <member name="M:ARCed.Controls.EventTextBox.Command413(System.Object)">
+            <summary>
+            End Loop
+            </summary>
+            <param name="args">Array of game event parameters</param>
+        </member>
+        <member name="M:ARCed.Controls.EventTextBox.Command113(System.Object)">
+            <summary>
+            Break Loop
+            </summary>
+            <param name="args">Array of game event parameters</param>
+        </member>
+        <member name="M:ARCed.Controls.EventTextBox.Command115(System.Object)">
+            <summary>
+            Exit Event Processing
+            </summary>
+            <param name="args">Array of game event parameters</param>
+        </member>
+        <member name="M:ARCed.Controls.EventTextBox.Command116(System.Object)">
+            <summary>
+            Erase Event
+            </summary>
+            <param name="args">Array of game event parameters</param>
+        </member>
+        <member name="M:ARCed.Controls.EventTextBox.Command117(System.Object)">
+            <summary>
+            Call Common Event
+            </summary>
+            <param name="args">Array of game event parameters</param>
+        </member>
+        <member name="M:ARCed.Controls.EventTextBox.Command118(System.Object)">
+            <summary>
+            Label
+            </summary>
+            <param name="args">Array of game event parameters</param>
+        </member>
+        <member name="M:ARCed.Controls.EventTextBox.Command119(System.Object)">
+            <summary>
+            Jump to Label
+            </summary>
+            <param name="args">Array of game event parameters</param>
+        </member>
+        <member name="M:ARCed.Controls.EventTextBox.Command121(System.Object)">
+            <summary>
+            Control Switches
+            </summary>
+            <param name="args">Array of game event parameters</param>
+        </member>
+        <member name="M:ARCed.Controls.EventTextBox.Command122(System.Object)">
+            <summary>
+            Control Variables
+            </summary>
+            <param name="args">Array of game event parameters</param>
+        </member>
+        <member name="M:ARCed.Controls.EventTextBox.Command123(System.Object)">
+            <summary>
+            Control Self-Switch
+            </summary>
+            <param name="args">Array of game event parameters</param>
+        </member>
+        <member name="M:ARCed.Controls.EventTextBox.Command124(System.Object)">
+            <summary>
+            Control Timer
+            </summary>
+            <param name="args">Array of game event parameters</param>
+        </member>
+        <member name="M:ARCed.Controls.EventTextBox.Command125(System.Object)">
+            <summary>
+            Change Gold
+            </summary>
+            <param name="args">Array of game event parameters</param>
+        </member>
+        <member name="M:ARCed.Controls.EventTextBox.Command126(System.Object)">
+            <summary>
+            Change Items
+            </summary>
+            <param name="args">Array of game event parameters</param>
+        </member>
+        <member name="M:ARCed.Controls.EventTextBox.Command127(System.Object)">
+            <summary>
+            Change Weapons
+            </summary>
+            <param name="args">Array of game event parameters</param>
+        </member>
+        <member name="M:ARCed.Controls.EventTextBox.Command128(System.Object)">
+            <summary>
+            Change Armors
+            </summary>
+            <param name="args">Array of game event parameters</param>
+        </member>
+        <member name="M:ARCed.Controls.EventTextBox.Command129(System.Object)">
+            <summary>
+            Change Party Member
+            </summary>
+            <param name="args">Array of game event parameters</param>
+        </member>
+        <member name="M:ARCed.Controls.EventTextBox.Command131(System.Object)">
+            <summary>
+            Change Windowskin
+            </summary>
+            <param name="args">Array of game event parameters</param>
+        </member>
+        <member name="M:ARCed.Controls.EventTextBox.Command132(System.Object)">
+            <summary>
+            Change Battle BGM
+            </summary>
+            <param name="args">Array of game event parameters</param>
+        </member>
+        <member name="M:ARCed.Controls.EventTextBox.Command133(System.Object)">
+            <summary>
+            Change Battle End ME
+            </summary>
+            <param name="args">Array of game event parameters</param>
+        </member>
+        <member name="M:ARCed.Controls.EventTextBox.Command134(System.Object)">
+            <summary>
+            Change Save Access
+            </summary>
+            <param name="args">Array of game event parameters</param>
+        </member>
+        <member name="M:ARCed.Controls.EventTextBox.Command135(System.Object)">
+            <summary>
+            Change Menu Access
+            </summary>
+            <param name="args">Array of game event parameters</param>
+        </member>
+        <member name="M:ARCed.Controls.EventTextBox.Command136(System.Object)">
+            <summary>
+            Change Encounter
+            </summary>
+            <param name="args">Array of game event parameters</param>
+        </member>
+        <member name="M:ARCed.Controls.EventTextBox.Command201(System.Object)">
+            <summary>
+            Transfer Player
+            </summary>
+            <param name="args">Array of game event parameters</param>
+        </member>
+        <member name="M:ARCed.Controls.EventTextBox.Command202(System.Object)">
+            <summary>
+            Set Event Location
+            </summary>
+            <param name="args">Array of game event parameters</param>
+        </member>
+        <member name="M:ARCed.Controls.EventTextBox.Command203(System.Object)">
+            <summary>
+            Scroll Map
+            </summary>
+            <param name="args">Array of game event parameters</param>
+        </member>
+        <member name="M:ARCed.Controls.EventTextBox.Command204(System.Object)">
+            <summary>
+            Change Map Settings
+            </summary>
+            <param name="args">Array of game event parameters</param>
+        </member>
+        <member name="M:ARCed.Controls.EventTextBox.Command205(System.Object)">
+            <summary>
+            Change Fog Color Tone
+            </summary>
+            <param name="args">Array of game event parameters</param>
+        </member>
+        <member name="M:ARCed.Controls.EventTextBox.Command206(System.Object)">
+            <summary>
+            Change Fog Opacity
+            </summary>
+            <param name="args">Array of game event parameters</param>
+        </member>
+        <member name="M:ARCed.Controls.EventTextBox.Command207(System.Object)">
+            <summary>
+            Show Animation
+            </summary>
+            <param name="args">Array of game event parameters</param>
+        </member>
+        <member name="M:ARCed.Controls.EventTextBox.Command208(System.Object)">
+            <summary>
+            Change Transparent Flag
+            </summary>
+            <param name="args">Array of game event parameters</param>
+        </member>
+        <member name="M:ARCed.Controls.EventTextBox.Command209(System.Object)">
+            <summary>
+            Set Move Route
+            </summary>
+            <param name="args">Array of game event parameters</param>
+        </member>
+        <member name="M:ARCed.Controls.EventTextBox.Command509(System.Object)">
+            <summary>
+            Move Command
+            </summary>
+            <param name="args">Array of game event parameters</param>
+        </member>
+        <member name="M:ARCed.Controls.EventTextBox.Command210(System.Object)">
+            <summary>
+            Wait for Move's Completion
+            </summary>
+            <param name="args">Array of game event parameters</param>
+        </member>
+        <member name="M:ARCed.Controls.EventTextBox.Command221(System.Object)">
+            <summary>
+            Prepare for Transition
+            </summary>
+            <param name="args">Array of game event parameters</param>
+        </member>
+        <member name="M:ARCed.Controls.EventTextBox.Command222(System.Object)">
+            <summary>
+            Execute Transition
+            </summary>
+            <param name="args">Array of game event parameters</param>
+        </member>
+        <member name="M:ARCed.Controls.EventTextBox.Command223(System.Object)">
+            <summary>
+            Change Screen Color Tone
+            </summary>
+            <param name="args">Array of game event parameters</param>
+        </member>
+        <member name="M:ARCed.Controls.EventTextBox.Command224(System.Object)">
+            <summary>
+            Screen Flash
+            </summary>
+            <param name="args">Array of game event parameters</param>
+        </member>
+        <member name="M:ARCed.Controls.EventTextBox.Command225(System.Object)">
+            <summary>
+            Screen Shake
+            </summary>
+            <param name="args">Array of game event parameters</param>
+        </member>
+        <member name="M:ARCed.Controls.EventTextBox.Command231(System.Object)">
+            <summary>
+            Show Picture
+            </summary>
+            <param name="args">Array of game event parameters</param>
+        </member>
+        <member name="M:ARCed.Controls.EventTextBox.Command232(System.Object)">
+            <summary>
+            Move Picture
+            </summary>
+            <param name="args">Array of game event parameters</param>
+        </member>
+        <member name="M:ARCed.Controls.EventTextBox.Command233(System.Object)">
+            <summary>
+            Rotate Picture
+            </summary>
+            <param name="args">Array of game event parameters</param>
+        </member>
+        <member name="M:ARCed.Controls.EventTextBox.Command234(System.Object)">
+            <summary>
+            Change Picture Color Tone
+            </summary>
+            <param name="args">Array of game event parameters</param>
+        </member>
+        <member name="M:ARCed.Controls.EventTextBox.Command235(System.Object)">
+            <summary>
+            Erase Picture
+            </summary>
+            <param name="args">Array of game event parameters</param>
+        </member>
+        <member name="M:ARCed.Controls.EventTextBox.Command236(System.Object)">
+            <summary>
+            Set Weather Effects
+            </summary>
+            <param name="args">Array of game event parameters</param>
+        </member>
+        <member name="M:ARCed.Controls.EventTextBox.Command241(System.Object)">
+            <summary>
+            Play BGM
+            </summary>
+            <param name="args">Array of game event parameters</param>
+        </member>
+        <member name="M:ARCed.Controls.EventTextBox.Command242(System.Object)">
+            <summary>
+            Fade Out BGM
+            </summary>
+            <param name="args">Array of game event parameters</param>
+        </member>
+        <member name="M:ARCed.Controls.EventTextBox.Command245(System.Object)">
+            <summary>
+            Play BGS
+            </summary>
+            <param name="args">Array of game event parameters</param>
+        </member>
+        <member name="M:ARCed.Controls.EventTextBox.Command246(System.Object)">
+            <summary>
+            Fade Out BGS
+            </summary>
+            <param name="args">Array of game event parameters</param>
+        </member>
+        <member name="M:ARCed.Controls.EventTextBox.Command247(System.Object)">
+            <summary>
+            Memorize BGM/BGS
+            </summary>
+            <param name="args">Array of game event parameters</param>
+        </member>
+        <member name="M:ARCed.Controls.EventTextBox.Command248(System.Object)">
+            <summary>
+            Restore BGM/BGS
+            </summary>
+            <param name="args">Array of game event parameters</param>
+        </member>
+        <member name="M:ARCed.Controls.EventTextBox.Command249(System.Object)">
+            <summary>
+            Play ME
+            </summary>
+            <param name="args">Array of game event parameters</param>
+        </member>
+        <member name="M:ARCed.Controls.EventTextBox.Command250(System.Object)">
+            <summary>
+            Play SE
+            </summary>
+            <param name="args">Array of game event parameters</param>
+        </member>
+        <member name="M:ARCed.Controls.EventTextBox.Command251(System.Object)">
+            <summary>
+            Stop SE
+            </summary>
+            <param name="args">Array of game event parameters</param>
+        </member>
+        <member name="M:ARCed.Controls.EventTextBox.Command301(System.Object)">
+            <summary>
+            Battle Processing
+            </summary>
+            <param name="args">Array of game event parameters</param>
+        </member>
+        <member name="M:ARCed.Controls.EventTextBox.Command601(System.Object)">
+            <summary>
+            If Win
+            </summary>
+            <param name="args">Array of game event parameters</param>
+        </member>
+        <member name="M:ARCed.Controls.EventTextBox.Command602(System.Object)">
+            <summary>
+            If Escape
+            </summary>
+            <param name="args">Array of game event parameters</param>
+        </member>
+        <member name="M:ARCed.Controls.EventTextBox.Command603(System.Object)">
+            <summary>
+            If Lose
+            </summary>
+            <param name="args">Array of game event parameters</param>
+        </member>
+        <member name="M:ARCed.Controls.EventTextBox.Command604(System.Object)">
+            <summary>
+            End Branch (Battle Processing)
+            </summary>
+            <param name="args">Array of game event parameters</param>
+        </member>
+        <member name="M:ARCed.Controls.EventTextBox.Command302(System.Object)">
+            <summary>
+            Shop Processing
+            </summary>
+            <param name="args">Array of game event parameters</param>
+        </member>
+        <member name="M:ARCed.Controls.EventTextBox.Command605(System.Object)">
+            <summary>
+            Shop Good
+            </summary>
+            <param name="args">Array of game event parameters</param>
+        </member>
+        <member name="M:ARCed.Controls.EventTextBox.Command303(System.Object)">
+            <summary>
+            Name Input Processing
+            </summary>
+            <param name="args">Array of game event parameters</param>
+        </member>
+        <member name="M:ARCed.Controls.EventTextBox.Command311(System.Object)">
+            <summary>
+            Change HP
+            </summary>
+            <param name="args">Array of game event parameters</param>
+        </member>
+        <member name="M:ARCed.Controls.EventTextBox.Command312(System.Object)">
+            <summary>
+            Change SP
+            </summary>
+            <param name="args">Array of game event parameters</param>
+        </member>
+        <member name="M:ARCed.Controls.EventTextBox.Command313(System.Object)">
+            <summary>
+            Change State
+            </summary>
+            <param name="args">Array of game event parameters</param>
+        </member>
+        <member name="M:ARCed.Controls.EventTextBox.Command314(System.Object)">
+            <summary>
+            Recover All
+            </summary>
+            <param name="args">Array of game event parameters</param>
+        </member>
+        <member name="M:ARCed.Controls.EventTextBox.Command315(System.Object)">
+            <summary>
+            Change Experience
+            </summary>
+            <param name="args">Array of game event parameters</param>
+        </member>
+        <member name="M:ARCed.Controls.EventTextBox.Command316(System.Object)">
+            <summary>
+            Change Level
+            </summary>
+            <param name="args">Array of game event parameters</param>
+        </member>
+        <member name="M:ARCed.Controls.EventTextBox.Command317(System.Object)">
+            <summary>
+            Change Parameters
+            </summary>
+            <param name="args">Array of game event parameters</param>
+        </member>
+        <member name="M:ARCed.Controls.EventTextBox.Command318(System.Object)">
+            <summary>
+            Change Skills
+            </summary>
+            <param name="args">Array of game event parameters</param>
+        </member>
+        <member name="M:ARCed.Controls.EventTextBox.Command319(System.Object)">
+            <summary>
+            Change Equipment
+            </summary>
+            <param name="args">Array of game event parameters</param>
+        </member>
+        <member name="M:ARCed.Controls.EventTextBox.Command320(System.Object)">
+            <summary>
+            Change Actor Name
+            </summary>
+            <param name="args">Array of game event parameters</param>
+        </member>
+        <member name="M:ARCed.Controls.EventTextBox.Command321(System.Object)">
+            <summary>
+            Change Actor Class
+            </summary>
+            <param name="args">Array of game event parameters</param>
+        </member>
+        <member name="M:ARCed.Controls.EventTextBox.Command322(System.Object)">
+            <summary>
+            Change Actor Graphic
+            </summary>
+            <param name="args">Array of game event parameters</param>
+        </member>
+        <member name="M:ARCed.Controls.EventTextBox.Command331(System.Object)">
+            <summary>
+            Change Enemy HP
+            </summary>
+            <param name="args">Array of game event parameters</param>
+        </member>
+        <member name="M:ARCed.Controls.EventTextBox.Command332(System.Object)">
+            <summary>
+            Change Enemy SP
+            </summary>
+            <param name="args">Array of game event parameters</param>
+        </member>
+        <member name="M:ARCed.Controls.EventTextBox.Command333(System.Object)">
+            <summary>
+            Change Enemy State
+            </summary>
+            <param name="args">Array of game event parameters</param>
+        </member>
+        <member name="M:ARCed.Controls.EventTextBox.Command334(System.Object)">
+            <summary>
+            Enemy Recover All
+            </summary>
+            <param name="args">Array of game event parameters</param>
+        </member>
+        <member name="M:ARCed.Controls.EventTextBox.Command335(System.Object)">
+            <summary>
+            Enemy Appearance
+            </summary>
+            <param name="args">Array of game event parameters</param>
+        </member>
+        <member name="M:ARCed.Controls.EventTextBox.Command336(System.Object)">
+            <summary>
+            Enemy Transform
+            </summary>
+            <param name="args">Array of game event parameters</param>
+        </member>
+        <member name="M:ARCed.Controls.EventTextBox.Command337(System.Object)">
+            <summary>
+            Show Battle Animation
+            </summary>
+            <param name="args">Array of game event parameters</param>
+        </member>
+        <member name="M:ARCed.Controls.EventTextBox.Command338(System.Object)">
+            <summary>
+            Deal Damage
+            </summary>
+            <param name="args">Array of game event parameters</param>
+        </member>
+        <member name="M:ARCed.Controls.EventTextBox.Command339(System.Object)">
+            <summary>
+            Force Action
+            </summary>
+            <param name="args">Array of game event parameters</param>
+        </member>
+        <member name="M:ARCed.Controls.EventTextBox.Command340(System.Object)">
+            <summary>
+            Abort Battle
+            </summary>
+            <param name="args">Array of game event parameters</param>
+        </member>
+        <member name="M:ARCed.Controls.EventTextBox.Command351(System.Object)">
+            <summary>
+            Call Menu Screen
+            </summary>
+            <param name="args">Array of game event parameters</param>
+        </member>
+        <member name="M:ARCed.Controls.EventTextBox.Command352(System.Object)">
+            <summary>
+            Call Save Screen
+            </summary>
+            <param name="args">Array of game event parameters</param>
+        </member>
+        <member name="M:ARCed.Controls.EventTextBox.Command353(System.Object)">
+            <summary>
+            Gameover
+            </summary>
+            <param name="args">Array of game event parameters</param>
+        </member>
+        <member name="M:ARCed.Controls.EventTextBox.Command354(System.Object)">
+            <summary>
+            Return to Title Screen
+            </summary>
+            <param name="args">Array of game event parameters</param>
+        </member>
+        <member name="M:ARCed.Controls.EventTextBox.Command355(System.Object)">
+            <summary>
+            Script
+            </summary>
+            <param name="args">Array of game event parameters</param>
+        </member>
+        <member name="M:ARCed.Controls.EventTextBox.Command655(System.Object)">
+            <summary>
+            Script (Multi-Line)
+            </summary>
+            <param name="args">Array of game event parameters</param>
+        </member>
+        <member name="M:ARCed.Controls.EventTextBox.TranslateMove(RPG.MoveCommand)">
+            <summary>
+            Translates an RPG.MoveCommand into a string to display in the editor.
+            </summary>
+            <param name="cmd">RPG.MoveCommand to translate</param>
+            <returns>String representation of command and parameters</returns>
+        </member>
+        <member name="M:ARCed.Controls.EventTextBox.GetItemName(System.Int32,System.Int32)">
+            <summary>
+            Gets an item by ID and integer type
+            </summary>
+            <param name="type">Type of item: 0 = Item, 1 = Weapon, 2 = Armor</param>
+            <param name="id">ID of the item</param>
+            <returns>Formatted name of item</returns>
+        </member>
+        <member name="F:ARCed.Controls.EventTextBox.components">
+            <summary> 
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:ARCed.Controls.EventTextBox.Dispose(System.Boolean)">
+            <summary> 
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:ARCed.Controls.EventTextBox.InitializeComponent">
+            <summary> 
+            Required method for Designer support - do not modify 
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:ARCed.EventBuilder.CmdShowChoicesDialog">
+            <summary>
+            TEMPORARY until dynamic number of choices is implemented
+            </summary>
+        </member>
+        <member name="F:ARCed.EventBuilder.CmdShowChoicesDialog.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:ARCed.EventBuilder.CmdShowChoicesDialog.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:ARCed.EventBuilder.CmdShowChoicesDialog.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:ARCed.Controls.CollapsibleGroupBox">
+            <summary>
+            GroupBox control that provides functionality to allow it to be collapsed.
+            </summary>
+        </member>
+        <member name="F:ARCed.Controls.CollapsibleGroupBox.components">
+            <summary> 
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:ARCed.Controls.CollapsibleGroupBox.Dispose(System.Boolean)">
+            <summary> 
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:ARCed.Controls.CollapsibleGroupBox.InitializeComponent">
+            <summary> 
+            Required method for Designer support - do not modify 
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="M:ARCed.Controls.CollapsibleGroupBox.#ctor">
+            <summary>
+            Default constructor
+            </summary>
+        </member>
+        <member name="M:ARCed.Controls.CollapsibleGroupBox.ToggleCollapsed">
+            <summary>
+            Toggles the collapsed state of the groupbox
+            </summary>
+        </member>
+        <member name="E:ARCed.Controls.CollapsibleGroupBox.CollapseBoxClickedEvent">
+            <summary>
+            Fired when the Collapse Toggle button is pressed
+            </summary>
+        </member>
+        <member name="P:ARCed.Controls.CollapsibleGroupBox.FullHeight">
+            <summary>
+            Gets the height of the groupbox when expanded
+            </summary>
+        </member>
+        <member name="P:ARCed.Controls.CollapsibleGroupBox.CollapsedHeight">
+            <summary>
+            Gets the height of the groupbox when collapsed
+            </summary>
+        </member>
+        <member name="P:ARCed.Controls.CollapsibleGroupBox.IsCollapsed">
+            <summary>
+            Gets the collapsed state of the control
+            </summary>
+        </member>
+        <member name="F:ARCed.TEMP.CmdChangeTextOptions.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:ARCed.TEMP.CmdChangeTextOptions.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:ARCed.TEMP.CmdChangeTextOptions.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="M:ARCed.TEMP.CmdChangeTextOptions.#ctor">
+            <summary>
+            Default constructor
+            </summary>
+        </member>
+        <member name="T:ARCed.Controls.ListViewColumnSorter">
+            <summary>
+            This class is an implementation of the 'IComparer' interface.
+            </summary>
+        </member>
+        <member name="F:ARCed.Controls.ListViewColumnSorter.ColumnToSort">
+            <summary>
+            Specifies the column to be sorted
+            </summary>
+        </member>
+        <member name="F:ARCed.Controls.ListViewColumnSorter.OrderOfSort">
+            <summary>
+            Specifies the order in which to sort (i.e. 'Ascending').
+            </summary>
+        </member>
+        <member name="F:ARCed.Controls.ListViewColumnSorter.ObjectCompare">
+            <summary>
+            Case insensitive comparer object
+            </summary>
+        </member>
+        <member name="M:ARCed.Controls.ListViewColumnSorter.#ctor">
+            <summary>
+            Class constructor.  Initializes various elements
+            </summary>
+        </member>
+        <member name="M:ARCed.Controls.ListViewColumnSorter.Compare(System.Object,System.Object)">
+            <summary>
+            This method is inherited from the IComparer interface.  It compares the two objects passed using a case insensitive comparison.
+            </summary>
+            <param name="x">First object to be compared</param>
+            <param name="y">Second object to be compared</param>
+            <returns>The result of the comparison. "0" if equal, negative if 'x' is less than 'y' and positive if 'x' is greater than 'y'</returns>
+        </member>
+        <member name="P:ARCed.Controls.ListViewColumnSorter.SortColumn">
+            <summary>
+            Gets or sets the number of the column to which to apply the sorting operation (Defaults to '0').
+            </summary>
+        </member>
+        <member name="P:ARCed.Controls.ListViewColumnSorter.Order">
+            <summary>
+            Gets or sets the order of sorting to apply (for example, 'Ascending' or 'Descending').
+            </summary>
+        </member>
+        <member name="T:ARCed.Controls.FontSelector">
+            <summary>
+            Font selection control that allows selecting of TrueType fonts with size and style settings.
+            </summary>
+        </member>
+        <member name="M:ARCed.Controls.FontSelector.#ctor">
+            <summary>
+            Default constructor
+            </summary>
+        </member>
+        <member name="F:ARCed.Controls.FontSelector.components">
+            <summary> 
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:ARCed.Controls.FontSelector.Dispose(System.Boolean)">
+            <summary> 
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:ARCed.Controls.FontSelector.InitializeComponent">
+            <summary> 
+            Required method for Designer support - do not modify 
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="E:ARCed.Controls.FontSelector.OnUserFontChanged">
+            <summary>
+            Fired whenever the selected font is changed
+            </summary>
+        </member>
+        <member name="P:ARCed.Controls.FontSelector.GroupBoxText">
+            <summary>
+            Gets or sets the text of the groupbox
+            </summary>
+        </member>
+        <member name="P:ARCed.Controls.FontSelector.StyleChangeEnabled">
+            <summary>
+            Enables/disables the style GroupBox.
+            </summary>
+        </member>
+        <member name="P:ARCed.Controls.FontSelector.SizeChangeEnabled">
+            <summary>
+            Enables/disables the size NumericUpDown.
+            </summary>
+        </member>
+        <member name="P:ARCed.Controls.FontSelector.MinimumFontSize">
+            <summary>
+            Gets or sets the minimum font size the user can select.
+            </summary>
+        </member>
+        <member name="P:ARCed.Controls.FontSelector.MaximimFontSize">
+            <summary>
+            Gets or sets the maximum font size the user can select.
+            </summary>
+        </member>
+        <member name="P:ARCed.Controls.FontSelector.UserFont">
+            <summary>
+            Gets or sets the selected font for the control
+            </summary>
+        </member>
+        <member name="T:ARCed.Controls.DoubleBufferedListBox">
+            <summary>
+            ListBox control with double-buffering
+            </summary>
+        </member>
+        <member name="F:ARCed.Controls.DoubleBufferedListBox.components">
+            <summary> 
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:ARCed.Controls.DoubleBufferedListBox.Dispose(System.Boolean)">
+            <summary> 
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:ARCed.Controls.DoubleBufferedListBox.InitializeComponent">
+            <summary> 
+            Required method for Designer support - do not modify 
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="P:ARCed.Controls.FontComboBox.SelectedFontFamily">
+            <summary>
+            Gets the name of the selected font family
+            </summary>
+        </member>
+        <member name="F:ARCed.EventBuilder.CmdWaitDialog.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:ARCed.EventBuilder.CmdWaitDialog.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:ARCed.EventBuilder.CmdWaitDialog.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="M:ARCed.EventBuilder.CmdWaitDialog.#ctor">
+            <summary>
+            Default constructor
+            </summary>
+        </member>
+        <member name="P:ARCed.EventBuilder.CmdWaitDialog.Frames">
+            <summary>
+            Gets or sets the number of frames defined.
+            </summary>
+        </member>
+        <member name="F:ARCed.EventBuilder.CmdCommentDialog.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:ARCed.EventBuilder.CmdCommentDialog.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:ARCed.EventBuilder.CmdCommentDialog.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="M:ARCed.EventBuilder.CmdCommentDialog.#ctor">
+            <summary>
+            Default constructor
+            </summary>
+        </member>
+        <member name="P:ARCed.EventBuilder.CmdCommentDialog.Lines">
+            <summary>
+            Gets or sets the lines of text in the form's text control.
+            </summary>
+        </member>
+        <member name="F:ARCed.EventBuilder.CmdButtonInputDialog.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:ARCed.EventBuilder.CmdButtonInputDialog.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:ARCed.EventBuilder.CmdButtonInputDialog.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="M:ARCed.EventBuilder.CmdButtonInputDialog.#ctor">
+            <summary>
+            Default constructor
+            </summary>
+        </member>
+        <member name="P:ARCed.EventBuilder.CmdButtonInputDialog.VariableId">
+            <summary>
+            Gets or sets the selected variable ID.
+            </summary>
+        </member>
+        <member name="T:ARCed.Controls.SearchControl">
+            <summary>
+            Control for advanced searching script files for strings.
+            </summary>
+        </member>
+        <member name="M:ARCed.Controls.SearchControl.#ctor">
+            <summary>
+            Default constructor
+            </summary>
+        </member>
+        <member name="F:ARCed.Controls.SearchControl.components">
+            <summary> 
+            Variable nécessaire au concepteur.
+            </summary>
+        </member>
+        <member name="M:ARCed.Controls.SearchControl.Dispose(System.Boolean)">
+            <summary> 
+            Nettoyage des ressources utilisées.
+            </summary>
+            <param name="disposing">true si les ressources managées doivent être supprimées ; sinon, false.</param>
+        </member>
+        <member name="M:ARCed.Controls.SearchControl.InitializeComponent">
+            <summary> 
+            Méthode requise pour la prise en charge du concepteur - ne modifiez pas 
+            le contenu de cette méthode avec l'éditeur de code.
+            </summary>
+        </member>
+        <member name="T:ARCed.EventBuilder.Params">
+            <summary>
+            A compiler bug in VS prevents a simple "using" alias for this, hence the inclusion 
+            of this class.
+            </summary>
+        </member>
+        <member name="T:ARCed.EventBuilder.EventCommandEditor">
+            <summary>
+            Static class for building event commands. 
+            </summary>
+        </member>
+        <member name="M:ARCed.EventBuilder.EventCommandEditor.CreateCommand(System.Int32,System.Int32)">
+            <summary>
+            Starts the appropriate dialog, if any, and returns a user-defined command based 
+            on the specified code and indent level.
+            </summary>
+            <param name="code">Event command code to get a command for.</param>
+            <param name="indent">Current indent level to set for the commands.</param>
+            <returns>List of user-defined event commands</returns>
+        </member>
+        <member name="M:ARCed.EventBuilder.EventCommandEditor.EditCommand(System.Collections.Generic.List{RPG.EventCommand})">
+            <summary>
+            Begins edit of an existing event command.
+            </summary>
+            <param name="commands">List of event commands to edit.</param>
+            <returns>Modified commands, or null if unchanged.</returns>
+        </member>
+        <member name="M:ARCed.EventBuilder.EventCommandEditor.Command101(System.Collections.Generic.List{RPG.EventCommand})">
+            <summary>
+            Show Text
+            </summary>
+            <param name="commands">List of commands to modify.</param>
+            <returns>List of user-defined event commands</returns>
+        </member>
+        <member name="M:ARCed.EventBuilder.EventCommandEditor.Command102(System.Collections.Generic.List{RPG.EventCommand})">
+            <summary>
+            Show Choices
+            </summary>
+            <param name="commands">List of commands to modify.</param>
+            <returns>List of user-defined event commands</returns>
+        </member>
+        <member name="M:ARCed.EventBuilder.EventCommandEditor.Command103(System.Collections.Generic.List{RPG.EventCommand})">
+            <summary>
+            Input Number
+            </summary>
+            <param name="commands">List of commands to modify.</param>
+            <returns>List of user-defined event commands</returns>
+        </member>
+        <member name="M:ARCed.EventBuilder.EventCommandEditor.Command104(System.Collections.Generic.List{RPG.EventCommand})">
+            <summary>
+            Change Text Options
+            </summary>
+            <param name="commands">List of commands to modify.</param>
+            <returns>List of user-defined event commands</returns>
+        </member>
+        <member name="M:ARCed.EventBuilder.EventCommandEditor.Command105(System.Collections.Generic.List{RPG.EventCommand})">
+            <summary>
+            Button Input Processing
+            </summary>
+            <param name="commands">List of commands to modify.</param>
+            <returns>List of user-defined event commands</returns>
+        </member>
+        <member name="M:ARCed.EventBuilder.EventCommandEditor.Command106(System.Collections.Generic.List{RPG.EventCommand})">
+            <summary>
+            Wait
+            </summary>
+            <param name="commands">List of commands to modify.</param>
+            <returns>List of user-defined event commands</returns>
+        </member>
+        <member name="M:ARCed.EventBuilder.EventCommandEditor.Command108(System.Collections.Generic.List{RPG.EventCommand})">
+            <summary>
+            Comment
+            </summary>
+            <param name="commands">List of commands to modify.</param>
+            <returns>List of user-defined event commands</returns>
+        </member>
+        <member name="M:ARCed.EventBuilder.EventCommandEditor.Command111(System.Collections.Generic.List{RPG.EventCommand})">
+            <summary>
+            Conditional Branch
+            </summary>
+            <param name="commands">List of commands to modify.</param>
+            <returns>List of user-defined event commands</returns>
+        </member>
+        <member name="M:ARCed.EventBuilder.EventCommandEditor.Command112(System.Collections.Generic.List{RPG.EventCommand})">
+            <summary>
+            Loop
+            </summary>
+            <param name="commands">List of commands to modify.</param>
+            <returns>List of user-defined event commands</returns>
+        </member>
+        <member name="M:ARCed.EventBuilder.EventCommandEditor.Command113(System.Collections.Generic.List{RPG.EventCommand})">
+            <summary>
+            Break Loop
+            </summary>
+            <param name="commands">List of commands to modify.</param>
+            <returns>List of user-defined event commands</returns>
+        </member>
+        <member name="M:ARCed.EventBuilder.EventCommandEditor.Command115(System.Collections.Generic.List{RPG.EventCommand})">
+            <summary>
+            Exit Event Processing
+            </summary>
+            <param name="commands">List of commands to modify.</param>
+            <returns>List of user-defined event commands</returns>
+        </member>
+        <member name="M:ARCed.EventBuilder.EventCommandEditor.Command116(System.Collections.Generic.List{RPG.EventCommand})">
+            <summary>
+            Erase Event
+            </summary>
+            <param name="commands">List of commands to modify.</param>
+            <returns>List of user-defined event commands</returns>
+        </member>
+        <member name="M:ARCed.EventBuilder.EventCommandEditor.Command117(System.Collections.Generic.List{RPG.EventCommand})">
+            <summary>
+            Call Common Event
+            </summary>
+            <param name="commands">List of commands to modify.</param>
+            <returns>List of user-defined event commands</returns>
+        </member>
+        <member name="M:ARCed.EventBuilder.EventCommandEditor.Command118(System.Collections.Generic.List{RPG.EventCommand})">
+            <summary>
+            Label
+            </summary>
+            <param name="commands">List of commands to modify.</param>
+            <returns>List of user-defined event commands</returns>
+        </member>
+        <member name="M:ARCed.EventBuilder.EventCommandEditor.Command119(System.Collections.Generic.List{RPG.EventCommand})">
+            <summary>
+            Jump to Label
+            </summary>
+            <param name="commands">List of commands to modify.</param>
+            <returns>List of user-defined event commands</returns>
+        </member>
+        <member name="M:ARCed.EventBuilder.EventCommandEditor.Command121(System.Collections.Generic.List{RPG.EventCommand})">
+            <summary>
+            Control Switches
+            </summary>
+            <param name="commands">List of commands to modify.</param>
+            <returns>List of user-defined event commands</returns>
+        </member>
+        <member name="M:ARCed.EventBuilder.EventCommandEditor.Command122(System.Collections.Generic.List{RPG.EventCommand})">
+            <summary>
+            Control Variables
+            </summary>
+            <param name="commands">List of commands to modify.</param>
+            <returns>List of user-defined event commands</returns>
+        </member>
+        <member name="M:ARCed.EventBuilder.EventCommandEditor.Command123(System.Collections.Generic.List{RPG.EventCommand})">
+            <summary>
+            Control Self-Switch
+            </summary>
+            <param name="commands">List of commands to modify.</param>
+            <returns>List of user-defined event commands</returns>
+        </member>
+        <member name="M:ARCed.EventBuilder.EventCommandEditor.Command124(System.Collections.Generic.List{RPG.EventCommand})">
+            <summary>
+            Control Timer
+            </summary>
+            <param name="commands">List of commands to modify.</param>
+            <returns>List of user-defined event commands</returns>
+        </member>
+        <member name="M:ARCed.EventBuilder.EventCommandEditor.Command125(System.Collections.Generic.List{RPG.EventCommand})">
+            <summary>
+            Change Gold
+            </summary>
+            <param name="commands">List of commands to modify.</param>
+            <returns>List of user-defined event commands</returns>
+        </member>
+        <member name="M:ARCed.EventBuilder.EventCommandEditor.Command126(System.Collections.Generic.List{RPG.EventCommand})">
+            <summary>
+            Change Items
+            </summary>
+            <param name="commands">List of commands to modify.</param>
+            <returns>List of user-defined event commands</returns>
+        </member>
+        <member name="M:ARCed.EventBuilder.EventCommandEditor.Command127(System.Collections.Generic.List{RPG.EventCommand})">
+            <summary>
+            Change Weapons
+            </summary>
+            <param name="commands">List of commands to modify.</param>
+            <returns>List of user-defined event commands</returns>
+        </member>
+        <member name="M:ARCed.EventBuilder.EventCommandEditor.Command128(System.Collections.Generic.List{RPG.EventCommand})">
+            <summary>
+            Change Armors
+            </summary>
+            <param name="commands">List of commands to modify.</param>
+            <returns>List of user-defined event commands</returns>
+        </member>
+        <member name="M:ARCed.EventBuilder.EventCommandEditor.Command129(System.Collections.Generic.List{RPG.EventCommand})">
+            <summary>
+            Change Party Member
+            </summary>
+            <param name="commands">List of commands to modify.</param>
+            <returns>List of user-defined event commands</returns>
+        </member>
+        <member name="M:ARCed.EventBuilder.EventCommandEditor.Command131(System.Collections.Generic.List{RPG.EventCommand})">
+            <summary>
+            Change Windowskin
+            </summary>
+            <param name="commands">List of commands to modify.</param>
+            <returns>List of user-defined event commands</returns>
+        </member>
+        <member name="M:ARCed.EventBuilder.EventCommandEditor.Command132(System.Collections.Generic.List{RPG.EventCommand})">
+            <summary>
+            Change Battle BGM
+            </summary>
+            <param name="commands">List of commands to modify.</param>
+            <returns>List of user-defined event commands</returns>
+        </member>
+        <member name="M:ARCed.EventBuilder.EventCommandEditor.Command133(System.Collections.Generic.List{RPG.EventCommand})">
+            <summary>
+            Change Battle End ME
+            </summary>
+            <param name="commands">List of commands to modify.</param>
+            <returns>List of user-defined event commands</returns>
+        </member>
+        <member name="M:ARCed.EventBuilder.EventCommandEditor.Command134(System.Collections.Generic.List{RPG.EventCommand})">
+            <summary>
+            Change Save Access
+            </summary>
+            <param name="commands">List of commands to modify.</param>
+            <returns>List of user-defined event commands</returns>
+        </member>
+        <member name="M:ARCed.EventBuilder.EventCommandEditor.Command135(System.Collections.Generic.List{RPG.EventCommand})">
+            <summary>
+            Change Menu Access
+            </summary>
+            <param name="commands">List of commands to modify.</param>
+            <returns>List of user-defined event commands</returns>
+        </member>
+        <member name="M:ARCed.EventBuilder.EventCommandEditor.Command136(System.Collections.Generic.List{RPG.EventCommand})">
+            <summary>
+            Change Encounter
+            </summary>
+            <param name="commands">List of commands to modify.</param>
+            <returns>List of user-defined event commands</returns>
+        </member>
+        <member name="M:ARCed.EventBuilder.EventCommandEditor.Command201(System.Collections.Generic.List{RPG.EventCommand})">
+            <summary>
+            Transfer Player
+            </summary>
+            <param name="commands">List of commands to modify.</param>
+            <returns>List of user-defined event commands</returns>
+        </member>
+        <member name="M:ARCed.EventBuilder.EventCommandEditor.Command202(System.Collections.Generic.List{RPG.EventCommand})">
+            <summary>
+            Set Event Location
+            </summary>
+            <param name="commands">List of commands to modify.</param>
+            <returns>List of user-defined event commands</returns>
+        </member>
+        <member name="M:ARCed.EventBuilder.EventCommandEditor.Command208(System.Collections.Generic.List{RPG.EventCommand})">
+            <summary>
+            Change Transparency
+            </summary>
+            <param name="commands">List of commands to modify.</param>
+            <returns>List of user-defined event commands</returns>
+        </member>
+        <member name="M:ARCed.EventBuilder.EventCommandEditor.Command209(System.Collections.Generic.List{RPG.EventCommand})">
+            <summary>
+            Set Move Route
+            </summary>
+            <param name="commands">List of commands to modify.</param>
+            <returns>List of user-defined event commands</returns>
+        </member>
+        <member name="M:ARCed.EventBuilder.EventCommandEditor.Command207(System.Collections.Generic.List{RPG.EventCommand})">
+            <summary>
+            Show Animation
+            </summary>
+            <param name="commands">List of commands to modify.</param>
+            <returns>List of user-defined event commands</returns>
+        </member>
+        <member name="M:ARCed.EventBuilder.EventCommandEditor.Command210(System.Collections.Generic.List{RPG.EventCommand})">
+            <summary>
+            Wait for Move's Completion
+            </summary>
+            <param name="commands">List of commands to modify.</param>
+            <returns>List of user-defined event commands</returns>
+        </member>
+        <member name="M:ARCed.EventBuilder.EventCommandEditor.Command203(System.Collections.Generic.List{RPG.EventCommand})">
+            <summary>
+            Scroll Map
+            </summary>
+            <param name="commands">List of commands to modify.</param>
+            <returns>List of user-defined event commands</returns>
+        </member>
+        <member name="M:ARCed.EventBuilder.EventCommandEditor.Command204(System.Collections.Generic.List{RPG.EventCommand})">
+            <summary>
+            Change Map Settings
+            </summary>
+            <param name="commands">List of commands to modify.</param>
+            <returns>List of user-defined event commands</returns>
+        </member>
+        <member name="M:ARCed.EventBuilder.EventCommandEditor.Command206(System.Collections.Generic.List{RPG.EventCommand})">
+            <summary>
+            Change Fog Opacity
+            </summary>
+            <param name="commands">List of commands to modify.</param>
+            <returns>List of user-defined event commands</returns>
+        </member>
+        <member name="M:ARCed.EventBuilder.EventCommandEditor.Command205(System.Collections.Generic.List{RPG.EventCommand})">
+            <summary>
+            Change Fog Color Tone
+            </summary>
+            <param name="commands">List of commands to modify.</param>
+            <returns>List of user-defined event commands</returns>
+        </member>
+        <member name="M:ARCed.EventBuilder.EventCommandEditor.Command221(System.Collections.Generic.List{RPG.EventCommand})">
+            <summary>
+            Prepare for Transition
+            </summary>
+            <param name="commands">List of commands to modify.</param>
+            <returns>List of user-defined event commands</returns>
+        </member>
+        <member name="M:ARCed.EventBuilder.EventCommandEditor.Command222(System.Collections.Generic.List{RPG.EventCommand})">
+            <summary>
+            Execute Transition
+            </summary>
+            <param name="commands">List of commands to modify.</param>
+            <returns>List of user-defined event commands</returns>
+        </member>
+        <member name="M:ARCed.EventBuilder.EventCommandEditor.Command223(System.Collections.Generic.List{RPG.EventCommand})">
+            <summary>
+            Change Screen Color Tone
+            </summary>
+            <param name="commands">List of commands to modify.</param>
+            <returns>List of user-defined event commands</returns>
+        </member>
+        <member name="M:ARCed.EventBuilder.EventCommandEditor.Command224(System.Collections.Generic.List{RPG.EventCommand})">
+            <summary>
+            Screen Flash
+            </summary>
+            <param name="commands">List of commands to modify.</param>
+            <returns>List of user-defined event commands</returns>
+        </member>
+        <member name="M:ARCed.EventBuilder.EventCommandEditor.Command225(System.Collections.Generic.List{RPG.EventCommand})">
+            <summary>
+            Screen Shake
+            </summary>
+            <param name="commands">List of commands to modify.</param>
+            <returns>List of user-defined event commands</returns>
+        </member>
+        <member name="M:ARCed.EventBuilder.EventCommandEditor.Command236(System.Collections.Generic.List{RPG.EventCommand})">
+            <summary>
+            Set Weather Effects
+            </summary>
+            <param name="commands">List of commands to modify.</param>
+            <returns>List of user-defined event commands</returns>
+        </member>
+        <member name="M:ARCed.EventBuilder.EventCommandEditor.Command231(System.Collections.Generic.List{RPG.EventCommand})">
+            <summary>
+            Show Picture
+            </summary>
+            <param name="commands">List of commands to modify.</param>
+            <returns>List of user-defined event commands</returns>
+        </member>
+        <member name="M:ARCed.EventBuilder.EventCommandEditor.Command232(System.Collections.Generic.List{RPG.EventCommand})">
+            <summary>
+            Move Picture
+            </summary>
+            <param name="commands">List of commands to modify.</param>
+            <returns>List of user-defined event commands</returns>
+        </member>
+        <member name="M:ARCed.EventBuilder.EventCommandEditor.Command233(System.Collections.Generic.List{RPG.EventCommand})">
+            <summary>
+            Rotate Picture
+            </summary>
+            <param name="commands">List of commands to modify.</param>
+            <returns>List of user-defined event commands</returns>
+        </member>
+        <member name="M:ARCed.EventBuilder.EventCommandEditor.Command234(System.Collections.Generic.List{RPG.EventCommand})">
+            <summary>
+            Change Picture Color Tone
+            </summary>
+            <param name="commands">List of commands to modify.</param>
+            <returns>List of user-defined event commands</returns>
+        </member>
+        <member name="M:ARCed.EventBuilder.EventCommandEditor.Command235(System.Collections.Generic.List{RPG.EventCommand})">
+            <summary>
+            Erase Picture
+            </summary>
+            <param name="commands">List of commands to modify.</param>
+            <returns>List of user-defined event commands</returns>
+        </member>
+        <member name="M:ARCed.EventBuilder.EventCommandEditor.Command241(System.Collections.Generic.List{RPG.EventCommand})">
+            <summary>
+            Play BGM
+            </summary>
+            <param name="commands">List of commands to modify.</param>
+            <returns>List of user-defined event commands</returns>
+        </member>
+        <member name="M:ARCed.EventBuilder.EventCommandEditor.Command242(System.Collections.Generic.List{RPG.EventCommand})">
+            <summary>
+            Fade Out BGM
+            </summary>
+            <param name="commands">List of commands to modify.</param>
+            <returns>List of user-defined event commands</returns>
+        </member>
+        <member name="M:ARCed.EventBuilder.EventCommandEditor.Command245(System.Collections.Generic.List{RPG.EventCommand})">
+            <summary>
+            Play BGS
+            </summary>
+            <param name="commands">List of commands to modify.</param>
+            <returns>List of user-defined event commands</returns>
+        </member>
+        <member name="M:ARCed.EventBuilder.EventCommandEditor.Command246(System.Collections.Generic.List{RPG.EventCommand})">
+            <summary>
+            Fade Out BGS
+            </summary>
+            <param name="commands">List of commands to modify.</param>
+            <returns>List of user-defined event commands</returns>
+        </member>
+        <member name="M:ARCed.EventBuilder.EventCommandEditor.Command247(System.Collections.Generic.List{RPG.EventCommand})">
+            <summary>
+            Memorize BGM/BGS
+            </summary>
+            <param name="commands">List of commands to modify.</param>
+            <returns>List of user-defined event commands</returns>
+        </member>
+        <member name="M:ARCed.EventBuilder.EventCommandEditor.Command248(System.Collections.Generic.List{RPG.EventCommand})">
+            <summary>
+            Restore BGM/BGS
+            </summary>
+            <param name="commands">List of commands to modify.</param>
+            <returns>List of user-defined event commands</returns>
+        </member>
+        <member name="M:ARCed.EventBuilder.EventCommandEditor.Command249(System.Collections.Generic.List{RPG.EventCommand})">
+            <summary>
+            Play ME
+            </summary>
+            <param name="commands">List of commands to modify.</param>
+            <returns>List of user-defined event commands</returns>
+        </member>
+        <member name="M:ARCed.EventBuilder.EventCommandEditor.Command250(System.Collections.Generic.List{RPG.EventCommand})">
+            <summary>
+            Play SE
+            </summary>
+            <param name="commands">List of commands to modify.</param>
+            <returns>List of user-defined event commands</returns>
+        </member>
+        <member name="M:ARCed.EventBuilder.EventCommandEditor.Command251(System.Collections.Generic.List{RPG.EventCommand})">
+            <summary>
+            Stop SE
+            </summary>
+            <param name="commands">List of commands to modify.</param>
+            <returns>List of user-defined event commands</returns>
+        </member>
+        <member name="M:ARCed.EventBuilder.EventCommandEditor.Command301(System.Collections.Generic.List{RPG.EventCommand})">
+            <summary>
+            Battle Processing
+            </summary>
+            <param name="commands">List of commands to modify.</param>
+            <returns>List of user-defined event commands</returns>
+        </member>
+        <member name="M:ARCed.EventBuilder.EventCommandEditor.Command302(System.Collections.Generic.List{RPG.EventCommand})">
+            <summary>
+            Shop Processing
+            </summary>
+            <param name="commands">List of commands to modify.</param>
+            <returns>List of user-defined event commands</returns>
+        </member>
+        <member name="M:ARCed.EventBuilder.EventCommandEditor.Command303(System.Collections.Generic.List{RPG.EventCommand})">
+            <summary>
+            Name Input Processing
+            </summary>
+            <param name="commands">List of commands to modify.</param>
+            <returns>List of user-defined event commands</returns>
+        </member>
+        <member name="M:ARCed.EventBuilder.EventCommandEditor.Command351(System.Collections.Generic.List{RPG.EventCommand})">
+            <summary>
+            Call Menu Screen
+            </summary>
+            <param name="commands">List of commands to modify.</param>
+            <returns>List of user-defined event commands</returns>
+        </member>
+        <member name="M:ARCed.EventBuilder.EventCommandEditor.Command352(System.Collections.Generic.List{RPG.EventCommand})">
+            <summary>
+            Call Save Screen
+            </summary>
+            <param name="commands">List of commands to modify.</param>
+            <returns>List of user-defined event commands</returns>
+        </member>
+        <member name="M:ARCed.EventBuilder.EventCommandEditor.Command353(System.Collections.Generic.List{RPG.EventCommand})">
+            <summary>
+            Game Over
+            </summary>
+            <param name="commands">List of commands to modify.</param>
+            <returns>List of user-defined event commands</returns>
+        </member>
+        <member name="M:ARCed.EventBuilder.EventCommandEditor.Command354(System.Collections.Generic.List{RPG.EventCommand})">
+            <summary>
+            Return to Title Screen
+            </summary>
+            <param name="commands">List of commands to modify.</param>
+            <returns>List of user-defined event commands</returns>
+        </member>
+        <member name="M:ARCed.EventBuilder.EventCommandEditor.Command331(System.Collections.Generic.List{RPG.EventCommand})">
+            <summary>
+            Change Enemy HP
+            </summary>
+            <param name="commands">List of commands to modify.</param>
+            <returns>List of user-defined event commands</returns>
+        </member>
+        <member name="M:ARCed.EventBuilder.EventCommandEditor.Command332(System.Collections.Generic.List{RPG.EventCommand})">
+            <summary>
+            Change Enemy SP
+            </summary>
+            <param name="commands">List of commands to modify.</param>
+            <returns>List of user-defined event commands</returns>
+        </member>
+        <member name="M:ARCed.EventBuilder.EventCommandEditor.Command333(System.Collections.Generic.List{RPG.EventCommand})">
+            <summary>
+            Change Enemy State
+            </summary>
+            <param name="commands">List of commands to modify.</param>
+            <returns>List of user-defined event commands</returns>
+        </member>
+        <member name="M:ARCed.EventBuilder.EventCommandEditor.Command334(System.Collections.Generic.List{RPG.EventCommand})">
+            <summary>
+            Enemy Recover All
+            </summary>
+            <param name="commands">List of commands to modify.</param>
+            <returns>List of user-defined event commands</returns>
+        </member>
+        <member name="M:ARCed.EventBuilder.EventCommandEditor.Command335(System.Collections.Generic.List{RPG.EventCommand})">
+            <summary>
+            Enemy Appearance
+            </summary>
+            <param name="commands">List of commands to modify.</param>
+            <returns>List of user-defined event commands</returns>
+        </member>
+        <member name="M:ARCed.EventBuilder.EventCommandEditor.Command336(System.Collections.Generic.List{RPG.EventCommand})">
+            <summary>
+            Enemy Transform
+            </summary>
+            <param name="commands">List of commands to modify.</param>
+            <returns>List of user-defined event commands</returns>
+        </member>
+        <member name="M:ARCed.EventBuilder.EventCommandEditor.Command337(System.Collections.Generic.List{RPG.EventCommand})">
+            <summary>
+            Show Battle Animation
+            </summary>
+            <param name="commands">List of commands to modify.</param>
+            <returns>List of user-defined event commands</returns>
+        </member>
+        <member name="M:ARCed.EventBuilder.EventCommandEditor.Command338(System.Collections.Generic.List{RPG.EventCommand})">
+            <summary>
+            Deal Damage
+            </summary>
+            <param name="commands">List of commands to modify.</param>
+            <returns>List of user-defined event commands</returns>
+        </member>
+        <member name="M:ARCed.EventBuilder.EventCommandEditor.Command339(System.Collections.Generic.List{RPG.EventCommand})">
+            <summary>
+            Force Action
+            </summary>
+            <param name="commands">List of commands to modify.</param>
+            <returns>List of user-defined event commands</returns>
+        </member>
+        <member name="M:ARCed.EventBuilder.EventCommandEditor.Command340(System.Collections.Generic.List{RPG.EventCommand})">
+            <summary>
+            Abort Battle
+            </summary>
+            <param name="commands">List of commands to modify.</param>
+            <returns>List of user-defined event commands</returns>
+        </member>
+        <member name="M:ARCed.EventBuilder.EventCommandEditor.Command311(System.Collections.Generic.List{RPG.EventCommand})">
+            <summary>
+            Change HP
+            </summary>
+            <param name="commands">List of commands to modify.</param>
+            <returns>List of user-defined event commands</returns>
+        </member>
+        <member name="M:ARCed.EventBuilder.EventCommandEditor.Command312(System.Collections.Generic.List{RPG.EventCommand})">
+            <summary>
+            Change SP
+            </summary>
+            <param name="commands">List of commands to modify.</param>
+            <returns>List of user-defined event commands</returns>
+        </member>
+        <member name="M:ARCed.EventBuilder.EventCommandEditor.Command313(System.Collections.Generic.List{RPG.EventCommand})">
+            <summary>
+            Change State
+            </summary>
+            <param name="commands">List of commands to modify.</param>
+            <returns>List of user-defined event commands</returns>
+        </member>
+        <member name="M:ARCed.EventBuilder.EventCommandEditor.Command314(System.Collections.Generic.List{RPG.EventCommand})">
+            <summary>
+            Recover All
+            </summary>
+            <param name="commands">List of commands to modify.</param>
+            <returns>List of user-defined event commands</returns>
+        </member>
+        <member name="M:ARCed.EventBuilder.EventCommandEditor.Command315(System.Collections.Generic.List{RPG.EventCommand})">
+            <summary>
+            Change EXP
+            </summary>
+            <param name="commands">List of commands to modify.</param>
+            <returns>List of user-defined event commands</returns>
+        </member>
+        <member name="M:ARCed.EventBuilder.EventCommandEditor.Command316(System.Collections.Generic.List{RPG.EventCommand})">
+            <summary>
+            Change Level
+            </summary>
+            <param name="commands">List of commands to modify.</param>
+            <returns>List of user-defined event commands</returns>
+        </member>
+        <member name="M:ARCed.EventBuilder.EventCommandEditor.Command317(System.Collections.Generic.List{RPG.EventCommand})">
+            <summary>
+            Change Parameters
+            </summary>
+            <param name="commands">List of commands to modify.</param>
+            <returns>List of user-defined event commands</returns>
+        </member>
+        <member name="M:ARCed.EventBuilder.EventCommandEditor.Command318(System.Collections.Generic.List{RPG.EventCommand})">
+            <summary>
+            Change Skills
+            </summary>
+            <param name="commands">List of commands to modify.</param>
+            <returns>List of user-defined event commands</returns>
+        </member>
+        <member name="M:ARCed.EventBuilder.EventCommandEditor.Command319(System.Collections.Generic.List{RPG.EventCommand})">
+            <summary>
+            Change Equipment
+            </summary>
+            <param name="commands">List of commands to modify.</param>
+            <returns>List of user-defined event commands</returns>
+        </member>
+        <member name="M:ARCed.EventBuilder.EventCommandEditor.Command320(System.Collections.Generic.List{RPG.EventCommand})">
+            <summary>
+            Change Actor Name
+            </summary>
+            <param name="commands">List of commands to modify.</param>
+            <returns>List of user-defined event commands</returns>
+        </member>
+        <member name="M:ARCed.EventBuilder.EventCommandEditor.Command321(System.Collections.Generic.List{RPG.EventCommand})">
+            <summary>
+            Change Actor Class
+            </summary>
+            <param name="commands">List of commands to modify.</param>
+            <returns>List of user-defined event commands</returns>
+        </member>
+        <member name="M:ARCed.EventBuilder.EventCommandEditor.Command322(System.Collections.Generic.List{RPG.EventCommand})">
+            <summary>
+            Change Actor Graphic
+            </summary>
+            <param name="commands">List of commands to modify.</param>
+            <returns>List of user-defined event commands</returns>
+        </member>
+        <member name="M:ARCed.EventBuilder.EventCommandEditor.Command355(System.Collections.Generic.List{RPG.EventCommand})">
+            <summary>
+            Script
+            </summary>
+            <param name="commands">List of commands to modify.</param>
+            <returns>List of user-defined event commands</returns>
+        </member>
+        <member name="T:ARCed.Controls.TimeType">
+            <summary>
+            Defines constants representing the timing format used by the Time struct.
+            </summary>
+        </member>
+        <member name="T:ARCed.Controls.Time">
+            <summary>
+            Represents the Windows Multimedia MMTIME structure.
+            </summary>
+        </member>
+        <member name="T:ARCed.Controls.TimerMode">
+            <summary>
+            Defines constants for the multimedia Timer's event types.
+            </summary>
+        </member>
+        <member name="F:ARCed.Controls.TimerMode.OneShot">
+            <summary>
+            Timer event occurs once.
+            </summary>
+        </member>
+        <member name="F:ARCed.Controls.TimerMode.Periodic">
+            <summary>
+            Timer event occurs periodically.
+            </summary>
+        </member>
+        <member name="T:ARCed.Controls.TimerCaps">
+            <summary>
+            Represents information about the multimedia Timer's capabilities.
+            </summary>
+        </member>
+        <member name="F:ARCed.Controls.TimerCaps.periodMin">
+            <summary>
+            Minimum supported period in milliseconds.
+            </summary>
+        </member>
+        <member name="F:ARCed.Controls.TimerCaps.periodMax">
+            <summary>
+            Maximum supported period in milliseconds.
+            </summary>
+        </member>
+        <member name="T:ARCed.Controls.HighPrecisionTimer">
+            <summary>
+            Represents the Windows multimedia timer.
+            </summary>
+        </member>
+        <member name="M:ARCed.Controls.HighPrecisionTimer.#cctor">
+            <summary>
+            Initialize class.
+            </summary>
+        </member>
+        <member name="M:ARCed.Controls.HighPrecisionTimer.#ctor(System.ComponentModel.IContainer)">
+            <summary>
+            Initializes a new instance of the Timer class with the specified IContainer.
+            </summary>
+            <param name="container">
+            The IContainer to which the Timer will add itself.
+            </param>
+        </member>
+        <member name="M:ARCed.Controls.HighPrecisionTimer.#ctor">
+            <summary>
+            Initializes a new instance of the Timer class.
+            </summary>
+        </member>
+        <member name="M:ARCed.Controls.HighPrecisionTimer.Start">
+            <summary>
+            Starts the timer.
+            </summary>
+            <exception cref="T:System.ObjectDisposedException">
+            The timer has already been disposed.
+            </exception>
+            <exception cref="T:ARCed.Controls.TimerStartException">
+            The timer failed to start.
+            </exception>
+        </member>
+        <member name="M:ARCed.Controls.HighPrecisionTimer.Stop">
+            <summary>
+            Stops timer.
+            </summary>
+            <exception cref="T:System.ObjectDisposedException">
+            If the timer has already been disposed.
+            </exception>
+        </member>
+        <member name="M:ARCed.Controls.HighPrecisionTimer.Dispose">
+            <summary>
+            Frees timer resources.
+            </summary>
+        </member>
+        <member name="E:ARCed.Controls.HighPrecisionTimer.Started">
+            <summary>
+            Occurs when the Timer has started;
+            </summary>
+        </member>
+        <member name="E:ARCed.Controls.HighPrecisionTimer.Stopped">
+            <summary>
+            Occurs when the Timer has stopped;
+            </summary>
+        </member>
+        <member name="E:ARCed.Controls.HighPrecisionTimer.Tick">
+            <summary>
+            Occurs when the time period has elapsed.
+            </summary>
+        </member>
+        <member name="P:ARCed.Controls.HighPrecisionTimer.SynchronizingObject">
+            <summary>
+            Gets or sets the object used to marshal event-handler calls.
+            </summary>
+        </member>
+        <member name="P:ARCed.Controls.HighPrecisionTimer.Period">
+            <summary>
+            Gets or sets the time between Tick events.
+            </summary>
+            <exception cref="T:System.ObjectDisposedException">
+            If the timer has already been disposed.
+            </exception>   
+        </member>
+        <member name="P:ARCed.Controls.HighPrecisionTimer.Resolution">
+            <summary>
+            Gets or sets the timer resolution.
+            </summary>
+            <exception cref="T:System.ObjectDisposedException">
+            If the timer has already been disposed.
+            </exception>        
+            <remarks>
+            The resolution is in milliseconds. The resolution increases 
+            with smaller values; a resolution of 0 indicates periodic events 
+            should occur with the greatest possible accuracy. To reduce system 
+            overhead, however, you should use the maximum value appropriate 
+            for your application.
+            </remarks>
+        </member>
+        <member name="P:ARCed.Controls.HighPrecisionTimer.Mode">
+            <summary>
+            Gets the timer mode.
+            </summary>
+            <exception cref="T:System.ObjectDisposedException">
+            If the timer has already been disposed.
+            </exception>
+        </member>
+        <member name="P:ARCed.Controls.HighPrecisionTimer.IsRunning">
+            <summary>
+            Gets a value indicating whether the Timer is running.
+            </summary>
+        </member>
+        <member name="P:ARCed.Controls.HighPrecisionTimer.Capabilities">
+            <summary>
+            Gets the timer capabilities.
+            </summary>
+        </member>
+        <member name="T:ARCed.Controls.TimerStartException">
+            <summary>
+            The exception that is thrown when a timer fails to start.
+            </summary>
+        </member>
+        <member name="M:ARCed.Controls.TimerStartException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the TimerStartException class.
+            </summary>
+            <param name="message">
+            The error message that explains the reason for the exception. 
+            </param>
+        </member>
+        <member name="F:ARCed.EventBuilder.EventBuilderMainForm.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:ARCed.EventBuilder.EventBuilderMainForm.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:ARCed.EventBuilder.EventBuilderMainForm.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="M:ARCed.EventBuilder.CmdChangeTextOptionsDialog.#ctor">
+            <summary>
+            Default constructor
+            </summary>
+        </member>
+        <member name="F:ARCed.EventBuilder.CmdChangeTextOptionsDialog.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:ARCed.EventBuilder.CmdChangeTextOptionsDialog.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:ARCed.EventBuilder.CmdChangeTextOptionsDialog.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="P:ARCed.EventBuilder.CmdChangeTextOptionsDialog.Position">
+            <summary>
+            Gets or sets the position setting of the window.
+            </summary>
+        </member>
+        <member name="P:ARCed.EventBuilder.CmdChangeTextOptionsDialog.WindowVisibility">
+            <summary>
+            Gets or sets the visiblity state of the window.
+            </summary>
+        </member>
+        <member name="M:ARCed.Helpers.ControlHelper.Populate(System.Windows.Forms.ListBox,System.Collections.Generic.IList{System.Object},System.Boolean)">
+            <summary>
+            Clears and fills the control with the given data. 
+            </summary>
+            <param name="ctrl">Listbox control to fill</param>
+            <param name="data">List of data</param>
+            <param name="none">Flag to fill the first position with "None"</param>
+            <remarks>Painting is suspended until after items have been added</remarks>
+        </member>
+        <member name="M:ARCed.Helpers.ControlHelper.Populate(System.Windows.Forms.ComboBox,System.Collections.Generic.IList{System.Object},System.Boolean)">
+            <summary>
+            Clears and fills the control with the given data. 
+            </summary>
+            <param name="ctrl">Combobox control to fill</param>
+            <param name="data">List of data</param>
+            <param name="none">Flag to fill the first position with "None"</param>
+            <remarks>Painting is suspended until after items have been added</remarks>
+        </member>
+        <member name="M:ARCed.Helpers.ControlHelper.RenderHeaderImage(System.Windows.Forms.PictureBox,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="picBox"></param>
+            <param name="text"></param>
+        </member>
+        <member name="M:ARCed.Helpers.ControlHelper.RenderHeaderImage(System.Windows.Forms.PictureBox,System.String,System.Drawing.Font,System.Drawing.Brush,System.Drawing.Color,System.Drawing.Color)">
+            <summary>
+            
+            </summary>
+            <param name="picBox"></param>
+            <param name="text"></param>
+            <param name="font"></param>
+            <param name="textBrush"></param>
+            <param name="gradient1"></param>
+            <param name="gradient2"></param>
+        </member>
+        <member name="M:ARCed.EventBuilder.CmdConditionDialog.#ctor">
+            <summary>
+            Default constructor
+            </summary>
+        </member>
+        <member name="F:ARCed.EventBuilder.CmdConditionDialog.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:ARCed.EventBuilder.CmdConditionDialog.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:ARCed.EventBuilder.CmdConditionDialog.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:ARCed.Controls.TextBoxButton">
+            <summary>
+            Control that combines a read-only, unselectable textbox and a button.
+            </summary>
+        </member>
+        <member name="F:ARCed.Controls.TextBoxButton.components">
+            <summary> 
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:ARCed.Controls.TextBoxButton.Dispose(System.Boolean)">
+            <summary> 
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:ARCed.Controls.TextBoxButton.InitializeComponent">
+            <summary> 
+            Required method for Designer support - do not modify 
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="M:ARCed.Controls.TextBoxButton.#ctor">
+            <summary>
+            Default constructor
+            </summary>
+        </member>
+        <member name="E:ARCed.Controls.TextBoxButton.OnButtonClick">
+            <summary>
+            Event raised when the button is clicked on the control.
+            </summary>
+        </member>
+        <member name="E:ARCed.Controls.TextBoxButton.OnTextChanged">
+            <summary>
+            Event raised when the text is changed.
+            </summary>
+        </member>
+        <member name="P:ARCed.Controls.TextBoxButton.Text">
+            <summary>
+            Gets or sets the text on the control.
+            </summary>
+        </member>
+        <member name="M:ARCed.EventBuilder.CmdShowTextDialog.#ctor">
+            <summary>
+            Default constructor
+            </summary>
+        </member>
+        <member name="F:ARCed.EventBuilder.CmdShowTextDialog.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:ARCed.EventBuilder.CmdShowTextDialog.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:ARCed.EventBuilder.CmdShowTextDialog.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="P:ARCed.EventBuilder.CmdShowTextDialog.Lines">
+            <summary>
+            Gets or sets the lines of text in the form's text control.
+            </summary>
+        </member>
+        <member name="T:ARCed.Controls.CharSelectionControl">
+            <summary>
+            PictureBox control with automatic scroll functions.
+            </summary>
+        </member>
+        <member name="F:ARCed.Controls.CharSelectionControl.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:ARCed.Controls.CharSelectionControl.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:ARCed.Controls.CharSelectionControl.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify 
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="M:ARCed.Controls.CharSelectionControl.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="P:ARCed.Controls.CharSelectionControl.SelectorOutlineColor">
+            <summary>
+            Gets or sets the color used for the outline of the selection rectangle
+            </summary>
+        </member>
+        <member name="P:ARCed.Controls.CharSelectionControl.SelectorInnerColor">
+            <summary>
+            Gets or sets the inner color used for the selection rectangle
+            </summary>
+        </member>
+        <member name="P:ARCed.Controls.CharSelectionControl.SelectionEnabled">
+            <summary>
+            Gets or sets the property to enable the selection of individual tiles
+            </summary>
+        </member>
+        <member name="P:ARCed.Controls.CharSelectionControl.ImageBackColor">
+            <summary>
+            Gets or sets the background color of the _srcTexture area
+            </summary>
+        </member>
+        <member name="P:ARCed.Controls.CharSelectionControl.PictureFile">
+            <summary>
+            Gets or sets the path to the _srcTexture file used in the panel
+            </summary>
+        </member>
+        <member name="P:ARCed.Controls.CharSelectionControl.SelectionCoordinate">
+            <summary>
+            Gets or sets the coordinate relative to tiles of the selected tile
+            </summary>
+        </member>
+        <member name="P:ARCed.Controls.CharSelectionControl.Image">
+            <summary>
+            Gets or sets the _srcTexture used in the control
+            </summary>
+        </member>
+        <member name="P:ARCed.Controls.CharSelectionControl.SelectionImage">
+            <summary>
+            Gets a image copied from the main _srcTexture file that was contained in the selection rectangle
+            </summary>
+        </member>
+        <member name="T:ARCed.Controls.EfficiencySlot">
+            <summary>
+            Control used for displaying and modifying a efficiency value
+            </summary>
+        </member>
+        <member name="M:ARCed.Controls.EfficiencySlot.#ctor(System.String,System.Collections.Generic.IEnumerable{System.String},System.Drawing.Color[])">
+            <summary>
+            Default constructor.
+            </summary>
+            <param name="label">Label applied to the slot</param>
+            <param name="items">Values that can be selected</param>
+            <param name="colors">Text colors used for corresponding values</param>
+        </member>
+        <member name="F:ARCed.Controls.EfficiencySlot.components">
+            <summary> 
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:ARCed.Controls.EfficiencySlot.Dispose(System.Boolean)">
+            <summary> 
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:ARCed.Controls.EfficiencySlot.InitializeComponent">
+            <summary> 
+            Required method for Designer support - do not modify 
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="P:ARCed.Controls.EfficiencySlot.TextColors">
+            <summary>
+            Gets or sets the colors used for drawing the corresponding values.
+            </summary>
+        </member>
+        <member name="P:ARCed.Controls.EfficiencySlot.Items">
+            <summary>
+            Gets or sets the items that can be selected in the control.
+            </summary>
+        </member>
+        <member name="P:ARCed.Controls.EfficiencySlot.SelectedIndex">
+            <summary>
+            Gets or sets the selected index of the spin control.
+            </summary>
+        </member>
+        <member name="E:ARCed.Controls.EfficiencySlot.OnItemChange">
+            <summary>
+            Event raised whenever a value of an efficiency slot is changed.
+            </summary>
+        </member>
+        <member name="T:ARCed.Controls.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:ARCed.Controls.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:ARCed.Controls.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="F:ARCed.Controls.BattleEventPage.components">
+            <summary> 
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:ARCed.Controls.BattleEventPage.Dispose(System.Boolean)">
+            <summary> 
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:ARCed.Controls.BattleEventPage.InitializeComponent">
+            <summary> 
+            Required method for Designer support - do not modify 
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="P:ARCed.Controls.BattleEventPage.EventPage">
+            <summary>
+            Gets or sets the instance of the RPG.Troop.Page this control represents.
+            </summary>
+        </member>
+    </members>
+</doc>

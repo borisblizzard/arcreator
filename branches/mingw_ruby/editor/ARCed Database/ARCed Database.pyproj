@@ -1,0 +1,165 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{acb5e8a5-ec45-446e-b426-ad15be86400a}</ProjectGuid>
+    <ProjectHome>.</ProjectHome>
+    <StartupFile>Database\__main__.py</StartupFile>
+    <SearchPath>C:\Users\Eric\Desktop\ARC\editor\ARCed\src\;C:\Users\Eric\Desktop\ARC\editor\ARCed Database\src\;C:\Users\Eric\Desktop\ARC\editor\ARCed Database\src</SearchPath>
+    <WorkingDirectory>
+    </WorkingDirectory>
+    <AssemblyName>ARCed Database</AssemblyName>
+    <Name>ARCed Database</Name>
+    <RootNamespace>ARCed Database</RootNamespace>
+    <IsWindowsApplication>False</IsWindowsApplication>
+    <InterpreterId>2af0f10d-7135-4994-9156-5d01c9c11b7e</InterpreterId>
+    <InterpreterVersion>2.7</InterpreterVersion>
+    <LaunchProvider>Standard Python launcher</LaunchProvider>
+    <CommandLineArguments />
+    <InterpreterPath>C:\Python27\python.exe</InterpreterPath>
+    <InterpreterArguments />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DebugSymbols>true</DebugSymbols>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DebugSymbols>true</DebugSymbols>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="Database\Actors_Panel.py" />
+    <Compile Include="Database\Animations_Panel.py" />
+    <Compile Include="Database\ARCed_Templates.py" />
+    <Compile Include="Database\Armors_Panel.py" />
+    <Compile Include="Database\AudioPlayer_Panel.py" />
+    <Compile Include="Database\BattleTestActor_Panel.py" />
+    <Compile Include="Database\Classes_Panel.py" />
+    <Compile Include="Database\CommonEvents_Panel.py" />
+    <Compile Include="Database\Configuration_Panel.py" />
+    <Compile Include="Database\Controls\EditorGLPanel.py" />
+    <Compile Include="Database\Controls\ImageCheckList.py" />
+    <Compile Include="Database\Controls\ParameterGraph.py" />
+    <Compile Include="Database\Controls\ParameterPanel.py" />
+    <Compile Include="Database\Controls\ParameterPlotGraphics.py" />
+    <Compile Include="Database\Controls\ScriptTextCtrl.py" />
+    <Compile Include="Database\Controls\WaveForm_Panel.py" />
+    <Compile Include="Database\Controls\__init__.py" />
+    <Compile Include="Database\DatabasePackage.py" />
+    <Compile Include="Database\Dialogs\AddParameter_Dialog.py" />
+    <Compile Include="Database\Dialogs\AnimationCellBatch_Dialog.py" />
+    <Compile Include="Database\Dialogs\AnimationCellProperties_Dialog.py" />
+    <Compile Include="Database\Dialogs\AnimationEntireSlide_Dialog.py" />
+    <Compile Include="Database\Dialogs\AnimationTiming_Dialog.py" />
+    <Compile Include="Database\Dialogs\AnimationTweening_Dialog.py" />
+    <Compile Include="Database\Dialogs\BattleAnimation_Dialog.py" />
+    <Compile Include="Database\Dialogs\BattleProcessing_Dialog.py" />
+    <Compile Include="Database\Dialogs\BattleTest_Dialog.py" />
+    <Compile Include="Database\Dialogs\ButonProcessing_Dialog.py" />
+    <Compile Include="Database\Dialogs\ButtonProcessing_Dialog.py" />
+    <Compile Include="Database\Dialogs\CallCommonEvent_Dialog.py" />
+    <Compile Include="Database\Dialogs\ChangeAccess_Dialog.py" />
+    <Compile Include="Database\Dialogs\ChangeActorClass_Dialog.py" />
+    <Compile Include="Database\Dialogs\ChangeActorGraphic_Dialog.py" />
+    <Compile Include="Database\Dialogs\ChangeActorName_Dialog.py" />
+    <Compile Include="Database\Dialogs\ChangeBlending_Dialog.py" />
+    <Compile Include="Database\Dialogs\ChangeEquipment_Dialog.py" />
+    <Compile Include="Database\Dialogs\ChangeFogOpacity_Dialog.py" />
+    <Compile Include="Database\Dialogs\ChangeFrequency_Dialog.py" />
+    <Compile Include="Database\Dialogs\ChangeHP_Dialog.py" />
+    <Compile Include="Database\Dialogs\ChangelGold_Dialog.py" />
+    <Compile Include="Database\Dialogs\ChangelPartyEquipment_Dialog.py" />
+    <Compile Include="Database\Dialogs\ChangeMapSettings_Dialog.py" />
+    <Compile Include="Database\Dialogs\ChangeMaximum_Dialog.py" />
+    <Compile Include="Database\Dialogs\ChangeParameters_Dialog.py" />
+    <Compile Include="Database\Dialogs\ChangePartyMember_Dialog.py" />
+    <Compile Include="Database\Dialogs\ChangePictureColorTone_Dialog.py" />
+    <Compile Include="Database\Dialogs\ChangeSkills_Dialog.py" />
+    <Compile Include="Database\Dialogs\ChangeSpeed_Dialog.py" />
+    <Compile Include="Database\Dialogs\ChangeState_Dialog.py" />
+    <Compile Include="Database\Dialogs\ChangeStat_Dialog.py" />
+    <Compile Include="Database\Dialogs\ChangeTextOptions_Dialog.py" />
+    <Compile Include="Database\Dialogs\ChangeTone_Dialog.py" />
+    <Compile Include="Database\Dialogs\ChooseActor_Dialog.py" />
+    <Compile Include="Database\Dialogs\ChooseFogGraphic_Dialog.py" />
+    <Compile Include="Database\Dialogs\ChooseGraphic_Dialog.py" />
+    <Compile Include="Database\Dialogs\ChooseSwitchVariable_Dialog.py" />
+    <Compile Include="Database\Dialogs\ChooseTreasure_Dialog.py" />
+    <Compile Include="Database\Dialogs\Comment_Dialog.py" />
+    <Compile Include="Database\Dialogs\ConditionalBranch_Dialog.py" />
+    <Compile Include="Database\Dialogs\ControlSelfSwitches_Dialog.py" />
+    <Compile Include="Database\Dialogs\ControlSwitches_Dialog.py" />
+    <Compile Include="Database\Dialogs\ControlTimer_Dialog.py" />
+    <Compile Include="Database\Dialogs\ControlVariables_Dialog.py" />
+    <Compile Include="Database\Dialogs\DealDamage_Dialog.py" />
+    <Compile Include="Database\Dialogs\EnemyAction_Dialog.py" />
+    <Compile Include="Database\Dialogs\EnemyAppearance_Dialog.py" />
+    <Compile Include="Database\Dialogs\EnemyExpGold_Dialog.py" />
+    <Compile Include="Database\Dialogs\EnemyTransform_Dialog.py" />
+    <Compile Include="Database\Dialogs\ErasePicture_Dialog.py" />
+    <Compile Include="Database\Dialogs\EventCondition_Dialog.py" />
+    <Compile Include="Database\Dialogs\ExpGrid_Dialog.py" />
+    <Compile Include="Database\Dialogs\FadeOutAudio_Dialog.py" />
+    <Compile Include="Database\Dialogs\FindReplace_Dialog.py" />
+    <Compile Include="Database\Dialogs\ForceAction_Dialog.py" />
+    <Compile Include="Database\Dialogs\GenerateCurve_Dialog.py" />
+    <Compile Include="Database\Dialogs\InputNumber_Dialog.py" />
+    <Compile Include="Database\Dialogs\Jump_Dialog.py" />
+    <Compile Include="Database\Dialogs\Label_Dialog.py" />
+    <Compile Include="Database\Dialogs\MovePicture_Dialog.py" />
+    <Compile Include="Database\Dialogs\MoveRoute_Dialog.py" />
+    <Compile Include="Database\Dialogs\NameProcessing_Dialog.py" />
+    <Compile Include="Database\Dialogs\RecoverAll_Dialog.py" />
+    <Compile Include="Database\Dialogs\RotatePicture_Dialog.py" />
+    <Compile Include="Database\Dialogs\ScreenShake_Dialog.py" />
+    <Compile Include="Database\Dialogs\ScriptCall_Dialog.py" />
+    <Compile Include="Database\Dialogs\ScriptSettings_Dialog.py" />
+    <Compile Include="Database\Dialogs\ScrollMap_Dialog.py" />
+    <Compile Include="Database\Dialogs\SetEventLocation_Dialog.py" />
+    <Compile Include="Database\Dialogs\ShopGoods_Dialog.py" />
+    <Compile Include="Database\Dialogs\ShopProcessing_Dialog.py" />
+    <Compile Include="Database\Dialogs\ShowAnimation_Dialog.py" />
+    <Compile Include="Database\Dialogs\ShowChoices_Dialog.py" />
+    <Compile Include="Database\Dialogs\ShowPicture_Dialog.py" />
+    <Compile Include="Database\Dialogs\ShowText_Dialog.py" />
+    <Compile Include="Database\Dialogs\Skill_Dialog.py" />
+    <Compile Include="Database\Dialogs\TransferEventTilemap_Dialog.py" />
+    <Compile Include="Database\Dialogs\TransferPlayerTilemap_Dialog.py" />
+    <Compile Include="Database\Dialogs\TransferPlayer_Dialog.py" />
+    <Compile Include="Database\Dialogs\TransparentFlag_Dialog.py" />
+    <Compile Include="Database\Dialogs\Wait_Dialog.py" />
+    <Compile Include="Database\Dialogs\WeatherEffects_Dialog.py" />
+    <Compile Include="Database\Dialogs\__init__.py" />
+    <Compile Include="Database\Enemies_Panel.py" />
+    <Compile Include="Database\EventCommands1_Panel.py" />
+    <Compile Include="Database\EventCommands2_Panel.py" />
+    <Compile Include="Database\EventCommands3_Panel.py" />
+    <Compile Include="Database\EventEditor_Panel.py" />
+    <Compile Include="Database\EventPage_Panel.py" />
+    <Compile Include="Database\Items_Panel.py" />
+    <Compile Include="Database\Manager.py" />
+    <Compile Include="Database\ParameterGraph_Panel.py" />
+    <Compile Include="Database\ScriptEditor\FindReplaceData.py" />
+    <Compile Include="Database\ScriptEditor\Manager.py" />
+    <Compile Include="Database\ScriptEditor\Script.py" />
+    <Compile Include="Database\ScriptEditor\ScriptEditor_Panel.py" />
+    <Compile Include="Database\ScriptEditor\__init__.py" />
+    <Compile Include="Database\Skills_Panel.py" />
+    <Compile Include="Database\States_Panel.py" />
+    <Compile Include="Database\System_Panel.py" />
+    <Compile Include="Database\Tilesets_Panel.py" />
+    <Compile Include="Database\Troops_Panel.py" />
+    <Compile Include="Database\Weapons_Panel.py" />
+    <Compile Include="Database\__init__.py" />
+    <Compile Include="Database\__main__.py" />
+    <Compile Include="Database\__test__.py" />
+    <Compile Include="utf8 converter.py" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Database" />
+    <Folder Include="Database\Dialogs" />
+    <Folder Include="Database\Controls" />
+    <Folder Include="Database\ScriptEditor" />
+  </ItemGroup>
+</Project>

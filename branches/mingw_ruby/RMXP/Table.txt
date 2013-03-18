@@ -1,0 +1,20 @@
+Instance variables:
+Methods:
+	[]
+	[]=
+	_dump
+	resize
+	xsize
+	ysize
+	zsize
+Public Methods:
+	[]
+	[]=
+	_dump
+	resize
+	xsize
+	ysize
+	zsize
+Private Methods:
+Protected Methods:
+Singleton Methods:

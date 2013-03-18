@@ -1,0 +1,44 @@
+[size=14pt][b]Project Management:[/b][/size]
+
+[list]
+[li]Boris "Blizzard" Mikiæ[/li]
+[/list]
+
+[size=14pt][b]Engine Design & Programming:[/b][/size]
+
+[list]
+[li]Boris "Blizzard" Mikiæ[/li]
+[li]Benjamin "Ryex" Powers[/li]
+[/list]
+
+[size=14pt][b]ARC Editor Design & Programming:[/b][/size]
+
+[list]
+[li]Eric "ForeverZer0" Freed[/li]
+[li]Benjamin "Ryex" Powers[/li]
+[/list]
+
+[size=14pt][b]Special Thanks:[/b][/size]
+
+[list]
+[li]nathmatt (for ARC icon artwork)[/li]
+[li]Xuroth (for ARC logo artwork)[/li]
+[li]Chaos Project Community (for the ideas and general support)[/li]
+[/list]
+
+[size=14pt][b]Other Work:[/b][/size]
+
+[list]
+[li]High Level C++ Types (HLTypes), licensed under BSD license, http://sourceforge.net/projects/libhltypes[/li]
+[li]C++ Geometry Types (GTypes), licensed under BSD license, http://sourceforge.net/projects/libgtypes[/li]
+[li]Awesome Portable Rendering Interface (APRIL), http://sourceforge.net/projects/libapril[/li]
+[li]Advanced Text Rendering System (ATRES), licensed under BSD license, http://sourceforge.net/projects/libatres[/li]
+[li]APRIL User Interface (APRILUI), licensed under BSD license, http://sourceforge.net/projects/libaprilui[/li]
+[li]Extensible Audio Library (XAL), licensed under BSD license, http://code.google.com/p/libxal[/li]
+[li]Win32-API Ruby extension, licensed under Artistic License 2.0, (C) Daniel J. Berger, Park Heesob, All rights reserved[/li]
+[/list]
+
+
+
+to be added later:
+- Tom L. Claridge Jr. and SaGa Horizon Production Company (for their major donations and support)
