@@ -286,6 +286,8 @@ namespace reactor
 		scripts.sort();
 		// this makes sure that Kernel#require and Kernel#load don't need a full path anymore (but still accept it)
 		rb_eval_string("$:.clear; $:.push(Dir.getwd); $:.push(Dir.getwd + '/lib');");
+		// Print out our ruby version
+		rb_eval_string("puts \"\n[ruby] Useing Ruby '#{RUBY_VERSION}' built for '#{RUBY_PLATFORM}' released on '#{RUBY_RELEASE_DATE}'\n\"");
 		// initializing extensions
 		rb_require_safe(rb_str_new2("dl.so"), 0);
 		rb_require_safe(rb_str_new2("socket.so"), 0);

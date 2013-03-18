@@ -139,7 +139,7 @@ namespace legacy
 		timer = new april::Timer();
 		timer->update();
 		timer->diff();
-		fpsDisplay = false;
+		fpsDisplay = true;
 		fpsTimer = new april::Timer();
 		fpsTime = fpsTimer->getTime();
 		fpsCount = 0;
