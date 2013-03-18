@@ -25,7 +25,7 @@ class ScriptEditor_Panel( Templates.ScriptEditor_Panel, PanelBase ):
         self.CreateToolBar()
         #self.statusBar = parent.CreateStatusBar()
         # TODO: give teh script editor it's own status bar
-        self.statusBar = Kernel.GlobalObjects.get_value("MainStatusBar")
+        #self.statusBar = Kernel.GlobalObjects.get_value("MainStatusBar")
         self.statusBar.SetFieldsCount(3)
         self.statusBar.SetStatusWidths([-4, -4, -2])
         # TODO: Get path by using project path + Data/Scripts/
@@ -50,7 +50,7 @@ class ScriptEditor_Panel( Templates.ScriptEditor_Panel, PanelBase ):
         
     def OpenScript( self, event=None, index=None ):
         if self.ScriptIndex >= 0:
-            Scripts[self.ScriptIndex].SetText(self.scriptCtrl.GetTextUTF8())
+            Scripts[self.ScriptIndex].SetText(self.scriptCtrl.GetText())
         if event is not None: i = event.GetInt()
         elif index is not None: i = index
         else: return

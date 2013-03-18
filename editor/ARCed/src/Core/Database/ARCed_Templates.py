@@ -14265,7 +14265,11 @@ class ScriptEditor_Panel ( wx.Panel ):
         self.scriptCtrl = ScriptTextCtrl(self.scriptPanel)
         
         sizerScript.Add( self.scriptCtrl, 1, wx.EXPAND, 5 )
-        
+
+        self.statusBar = wx.StatusBar(self.scriptPanel, wx.ID_ANY)
+
+        sizerScript.Add( self.statusBar, 0, wx.EXPAND, 5 )
+
         self.scriptPanel.SetSizer( sizerScript )
         self.scriptPanel.Layout()
         sizerScript.Fit( self.scriptPanel )
