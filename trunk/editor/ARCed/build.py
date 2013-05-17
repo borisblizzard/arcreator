@@ -25,8 +25,6 @@ os.chdir("compiled")
 # Remove the build folder
 shutil.rmtree("build", ignore_errors=True)
 
-
-
 MANIFEST_TEMPLATE = """
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <assembly xmlns="urn:schemas-microsoft-com:asm.v1" manifestVersion="1.0">
@@ -73,6 +71,7 @@ MANIFEST_TEMPLATE = """
 </assembly>
 """
 
+
 class Target(object):
     """ A simple class that holds information on our executable file. """
     def __init__(self, **kw):
@@ -99,7 +98,7 @@ excludes = ['_gtkagg', '_tkagg', 'bsddb', 'curses', 'email', 'pywin.debugger',
 packages = []
 dll_excludes = ['libgdk-win32-2.0-0.dll', 'libgobject-2.0-0.dll', 'tcl84.dll',
                 'tk84.dll',
-                'MSVCP90.dll', 'mswsock.dll', 'powrprof.dll',]
+                'MSVCP90.dll', 'mswsock.dll', 'powrprof.dll']
 extra_dlls, extra_dll_paths = scandirfordll(".")
 print extra_dlls
 dll_excludes.extend(extra_dlls)
@@ -112,92 +111,89 @@ other_resources = [(24, 1, MANIFEST_TEMPLATE % dict(prog="ARCed", version="0.0.0
 
 ARCedTarget = Target(
     # what to build
-    script = "__main__.py",
-    icon_resources = icon_resources,
-    bitmap_resources = bitmap_resources,
-    other_resources = other_resources,
-    dest_base = "ARCed",
-    version = "0.6.1.469",
-    company_name = "ARC Developers",
-    copyright = "© 2011 ARC Developers arc@chaos-project.com",
-    name = "ARCed (Advanced RPG Creator Editor)"
-    )
+    script="__main__.py",
+    icon_resources=icon_resources,
+    bitmap_resources=bitmap_resources,
+    other_resources=other_resources,
+    dest_base="ARCed",
+    version="0.6.1.469",
+    company_name="ARC Developers",
+    copyright="© 2011 ARC Developers arc@chaos-project.com",
+    name="ARCed (Advanced RPG Creator Editor)"
+)
 
 maptestTargert = Target(
     # what to build
-    script = "Map_Test.py",
-    icon_resources = icon_resources,
-    bitmap_resources = bitmap_resources,
-    other_resources = other_resources,
-    dest_base = "maptest",
-    version = "0.6.1.469",
-    company_name = "ARC Developers",
-    copyright = "© 2011 ARC Developers arc@chaos-project.com",
-    name = "ARCed (Advanced RPG Creator Editor)"
-    )
-	
+    script="Map_Test.py",
+    icon_resources=icon_resources,
+    bitmap_resources=bitmap_resources,
+    other_resources=other_resources,
+    dest_base="maptest",
+    version="0.6.1.469",
+    company_name="ARC Developers",
+    copyright="© 2011 ARC Developers arc@chaos-project.com",
+    name="ARCed (Advanced RPG Creator Editor)"
+)
+
 DatabaseTestTargert = Target(
     # what to build
-    script = "Database_Test.py",
-    icon_resources = icon_resources,
-    bitmap_resources = bitmap_resources,
-    other_resources = other_resources,
-    dest_base = "maptest",
-    version = "0.6.1.469",
-    company_name = "ARC Developers",
-    copyright = "© 2011 ARC Developers arc@chaos-project.com",
-    name = "ARCed (Advanced RPG Creator Editor)"
-    )
-    
+    script="Database_Test.py",
+    icon_resources=icon_resources,
+    bitmap_resources=bitmap_resources,
+    other_resources=other_resources,
+    dest_base="maptest",
+    version="0.6.1.469",
+    company_name="ARC Developers",
+    copyright="© 2011 ARC Developers arc@chaos-project.com",
+    name="ARCed (Advanced RPG Creator Editor)"
+)
+
 PyXALTargert = Target(
     # what to build
-    script = "PyXAL_Test.py",
-    icon_resources = icon_resources,
-    bitmap_resources = bitmap_resources,
-    other_resources = other_resources,
-    dest_base = "PyXAL Test",
-    version = "0.6.1.469",
-    company_name = "ARC Developers",
-    copyright = "© 2011 ARC Developers arc@chaos-project.com",
-    name = "ARCed (Advanced RPG Creator Editor)"
-    )
+    script="PyXAL_Test.py",
+    icon_resources=icon_resources,
+    bitmap_resources=bitmap_resources,
+    other_resources=other_resources,
+    dest_base="PyXAL Test",
+    version="0.6.1.469",
+    company_name="ARC Developers",
+    copyright="© 2011 ARC Developers arc@chaos-project.com",
+    name="ARCed (Advanced RPG Creator Editor)"
+)
 
 setup(
+    data_files=data_files,
+    options={"py2exe": {"compressed": 1,
+                        "optimize": 2,
+                        "includes": includes,
+                        "excludes": excludes,
+                        "packages": packages,
+                        "dll_excludes": dll_excludes,
+                        "bundle_files": 2,
+                        "dist_dir": "dist",
+                        "xref": False,
+                        "skip_archive": False,
+                        "ascii": False,
+                        "custom_boot_script": '',
+                        }
+            },
+    zipfile=None,
+    console=[],
+    windows=[ARCedTarget, maptestTargert, DatabaseTestTargert, PyXALTargert]
+)
 
-    data_files = data_files,
 
-    options = {"py2exe": {"compressed": 1,
-                          "optimize": 2,
-                          "includes": includes,
-                          "excludes": excludes,
-                          "packages": packages,
-                          "dll_excludes": dll_excludes,
-                          "bundle_files": 2,
-                          "dist_dir": "dist",
-                          "xref": False,
-                          "skip_archive": False,
-                          "ascii": False,
-                          "custom_boot_script": '',
-                         }
-              },
-
-    zipfile = None,
-    console = [],
-    windows = [ARCedTarget, maptestTargert, DatabaseTestTargert, PyXALTargert]
-    )
-    
-
-def movePaths(paths, dest):
+def copyPaths(paths, dest):
     for path in paths:
         name = os.path.split(path)[1]
         to = os.path.abspath(os.path.join(dest, name))
         print "Moving %s  to => %s" % (path, to)
         shutil.copyfile(path, to)
 
-print "======Moving extra dlls and cfg=========="
-paths_to_move = ["ARCed.cfg"]
-paths_to_move.extend(extra_dll_paths) 
-movePaths(paths_to_move, "dist")
+print "======Copying extra dlls and cfg=========="
+paths_to_copy = ["ARCed.cfg"]
+paths_to_copy.extend(extra_dll_paths)
+copyPaths(paths_to_copy, "dist")
 
 #pop back to our dir
 os.chdir("..")

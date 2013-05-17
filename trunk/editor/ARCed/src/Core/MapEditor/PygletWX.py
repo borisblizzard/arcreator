@@ -134,7 +134,7 @@ class PygletGLPanel(wx.Panel):
         '''Initialize OpenGL for use in the window.'''
         #create a pyglet context for this panel
         #self.pygletcontext = gl.Context(gl.current_context)
-        if Kernel.parseFloat(pyglet.version) > 1.1:
+        if pyglet.version > "1.1.4":
             self.pygletcontext = PygletWXContext()
         else:
             self.pygletcontext = gl.Context()
