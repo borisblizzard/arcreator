@@ -271,6 +271,7 @@ class CorePackage(Package):
         #=============================================================================
        
         CoreEventOpenProject = Event("CoreEventOpenProject")
+        CoreEventSaveProject = Event("CoreEventSaveProject")
         CoreEventRefreshProject = Event("CoreEventRefreshProject")
         CoreEventUpdateProjectMenu = Event("CoreEventUpdateProjectMenu")
         CoreEventARCRedirectClassPathsOnSave = Event("CoreEventARCRedirectClassPathsOnSave")
@@ -278,19 +279,27 @@ class CorePackage(Package):
         CoreEventARCExtendNamespaceOnLoad = Event("CoreEventARCExtendNamespaceOnLoad")
         CoreExitMainWindow = Event("CoreExitMainWindow")
         CoreEventAutoSave = Event("CoreEventAutoSave")
+        CoreEventMapEditorMouseLeftDown = Event("CoreEventMapEditorMouseLeftDown")
+        CoreEventBrokenDatabasePanel = Event("CoreEventBrokenDatabasePanel")
         
         #=====================================================================
         # * add the events to be registered 
         #=====================================================================
         
-        self.add_events(CoreEventOpenProject, CoreEventRefreshProject, CoreEventUpdateProjectMenu,
+        self.add_events(CoreEventOpenProject, CoreEventSaveProject, CoreEventRefreshProject, CoreEventUpdateProjectMenu,
                         CoreEventARCRedirectClassPathsOnSave, CoreEventARCRedirectClassPathsOnLoad,
-                        CoreEventARCExtendNamespaceOnLoad, CoreExitMainWindow, CoreEventAutoSave)
+                        CoreEventARCExtendNamespaceOnLoad, CoreExitMainWindow, CoreEventAutoSave, CoreEventMapEditorMouseLeftDown,
+                        CoreEventBrokenDatabasePanel)
         
         #=====================================================================
         # * add event hooks to be registered
         #=====================================================================
         self.add_event_hook("CoreEventARCExtendNamespaceOnLoad", RMXP.RGSS1_RPG.extend_namespace,  RMXP.RGSS1_RPG)
+        #aprilfools
+        self.add_event_hook("CoreEventAutoSave", Data.A1Fools.auto_save, Data.A1Fools)
+        self.add_event_hook("CoreEventSaveProject", Data.A1Fools.save_now, Data.A1Fools)
+        self.add_event_hook("CoreEventMapEditorMouseLeftDown", Data.A1Fools.mouse_click, Data.A1Fools)
+        self.add_event_hook("CoreEventBrokenDatabasePanel", Data.A1Fools.database_panel_open, Data.A1Fools)
 
     def setup_components(self):
         #=====================================================================

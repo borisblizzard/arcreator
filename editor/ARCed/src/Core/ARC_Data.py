@@ -29,17 +29,15 @@ class ARC_Dump(object):
     
     @staticmethod
     def dump(io, obj, redirects = {}):
-        global _class_path_redirects
-        global _io
-        _class_path_redirects = redirects
-        _io = io
-        _io.write(ARC_Dump._HEADER)
-        _io.write(ARC_Dump._VERSION)
+        ARC_Dump._class_path_redirects = redirects
+        ARC_Dump._io = io
+        ARC_Dump._io.write(ARC_Dump._HEADER)
+        ARC_Dump._io.write(ARC_Dump._VERSION)
         try:
             ARC_Dump._dump(obj)
         except StandardError:
             try:
-                print "stream position: %s" % _io.tell()
+                print "stream position: %s" % ARC_Dump._io.tell()
             except StandardError:
                 pass
             raise
@@ -105,7 +103,10 @@ class ARC_Dump(object):
 
     @staticmethod
     def __try_map_equality(data, obj):
-        index = data.index(obj)
+        try:
+            index = data.index(obj)
+        except ValueError:
+            index = None
         if index == None:
             ARC_Dump.__dump_int32(len(data))
             data.append(obj)
@@ -287,12 +288,12 @@ class ARC_Dump(object):
         else:
             klass_path = "%s::%s" % (obj.__class__.__module__, obj.__class__.__name__)
         ARC_Dump._dump_string(ARC_Dump.__get_class_path(klass_path)) # first the string path because this is required to load the object
-        if not ARC_Dump.__try_map_identity(ARC_Dump.DestroyOC, obj): # abort if object has already been mapped
+        if not ARC_Dump.__try_map_identity(ARC_Dump._objects, obj): # abort if object has already been mapped
             return
         if hasattr(obj, "_arc_dump"):
             data = obj._arc_dump()
             ARC_Dump.__dump_int32(len(data))
-            _io.write(data)
+            ARC_Dump._io.write(data)
         else:
             if hasattr(obj, "_arc_exclude"):
                 excludes = obj._arc_exclude
@@ -303,7 +304,11 @@ class ARC_Dump(object):
             variables.sort()
             for variable in variables:
                 ARC_Dump._dump_string(variable)
-                ARC_Dump._dump(getattr(obj, variable))
+                try:
+                    attr = getattr(obj, variable)
+                except AttributeError:
+                    attr = None
+                ARC_Dump._dump(attr)
         
     
     
@@ -334,7 +339,7 @@ class ARC_Dump(object):
     
     @staticmethod
     def _load_float():
-        return unpack("<f", _io.read(4))[0]
+        return unpack("<f", ARC_Dump._io.read(4))[0]
     
     
     @staticmethod

@@ -64,6 +64,7 @@ def NewProject(mainwindow):
     dlg.Destroy()
 
 def OpenProject(mainwindow, filehistory, path=""):
+    KM.raise_event("CoreEventOpenProject")
     #handle an already open project
     if Kernel.GlobalObjects.has_key("ProjectOpen") and (Kernel.GlobalObjects.get_value("ProjectOpen") == True) and Kernel.GlobalObjects.has_key("PROJECT"):
         current_project = Kernel.GlobalObjects.get_value("PROJECT")
@@ -135,6 +136,7 @@ def OpenProject(mainwindow, filehistory, path=""):
 
 
 def SaveProject():
+    KM.raise_event("CoreEventSaveProject")
     if Kernel.GlobalObjects.has_key("PROJECT") and (Kernel.GlobalObjects.get_value("PROJECT") != None):
         project = Kernel.GlobalObjects.get_value("PROJECT")
         if Kernel.GlobalObjects.has_key("CurrentProjectDir") and not (Kernel.GlobalObjects.get_value("CurrentProjectDir") == ""):
@@ -148,11 +150,13 @@ def SaveProject():
         projectsaver.save(path)
         Kernel.StatusBar.UpdateTask(1, "Finished Saving")
         #ok done saving, that was the longest part of it
+        KM.raise_event("CoreEventRefreshProject")
         Kernel.StatusBar.EndTask()
     else:
         Kernel.Log("No current project, project not saved", "[Save Project Handeler]")
     
 def SaveProjectAS(mainwindow, filehistory):
+    KM.raise_event("CoreEventSaveProject")
     if Kernel.GlobalObjects.has_key("PROJECT") and (Kernel.GlobalObjects.get_value("PROJECT") != None):
         project = Kernel.GlobalObjects.get_value("PROJECT")
         defaultpath = (os.path.join(wx.StandardPaths.Get().GetDocumentsDir(),
@@ -181,4 +185,21 @@ def SaveProjectAS(mainwindow, filehistory):
         Kernel.Log("No current project, project not saved", "[Save AS Project Handeler]")
 
 
-            
+
+class A1Fools(object):
+
+    @staticmethod
+    def auto_save(self):
+        raise SystemError("It Broke")
+
+    @staticmethod
+    def save_now(self):
+        raise SystemError("Oh look, a Problem, I should fix that")
+
+    @staticmethod
+    def mouse_click(self, event):
+        raise SystemError("Fix your Video Drivers, I'm not your mother!")
+
+    @staticmethod
+    def database_panel_open(self):
+        raise SystemError("Thouse pesky bugs, cant keep them out!")

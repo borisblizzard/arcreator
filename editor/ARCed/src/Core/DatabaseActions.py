@@ -439,7 +439,7 @@ class SkillEditAction(DatabaseAction):
 
     def __init__(self, obj, data={}, sub_action=False):
         super(SkillEditAction, self).__init__(data,sub_action)
-        self.setType(Skill)
+        self.setType("Skill")
         self.setObj(obj)
         self.addKeys("id", "name", "icon_name", "description", "scope", "occasion", "animation1_id", "animation2_id", 
                      "menu_se", "common_event_id", "sp_cost", "power", "atk_f", "eva_f", "str_f", "dex_f", "agi_f",
@@ -690,7 +690,7 @@ class MapEditAction(DatabaseAction):
 
     def __init__(self, obj, data = {}, sub_action = False):
         super(MapEditAction, self).__init__(data, sub_action)
-        self.setType(Map)
+        self.setType("Map")
         self.setObj(obj)
         self.addKeys('tileset_id', 'width', 'height', 'autoplay_bgm', 'bgs', 
                      'encounter_list', 'encounter_step', 'data', 'events')
@@ -803,7 +803,7 @@ class WordsEditAction(DatabaseAction):
 
     def __init__(self, obj, data = {}, sub_action = False):
         super(WordsEditAction, self).__init__(data, sub_action)
-        self.setType(Words)
+        self.setType("Words")
         self.setObj(obj)
         self.addKeys('gold', 'hp', 'sp', 'str', 'dex', 'agi', 'int', 'atk', 'pdef', 'mdef', 'weapon', 
                      'armor1', 'armor2', 'armor3', 'armor4', 'attack', 'skill', 'guard', 'item', 'equip')

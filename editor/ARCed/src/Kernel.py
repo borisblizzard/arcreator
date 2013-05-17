@@ -354,9 +354,9 @@ class Event(object):
         call'''
         for function in self.registered:
             if function[1] != None:
-                function[0](function[1], *args, **kwargs)
+                Protect(function[0], True)(function[1], *args, **kwargs)
             else:
-                function[0](*args, **kwargs)
+                Protect(function[0], True)(*args, **kwargs)
 
 class SuperType(object):
     '''a data class that is used for grouping types into larger groups, super 
