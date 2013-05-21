@@ -1,0 +1,209 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>5af6d2ab-4ea3-43c2-950a-da29614e2bd5</ProjectGuid>
+    <ProjectHome>..\src\</ProjectHome>
+    <StartupFile>__main__.py</StartupFile>
+    <SearchPath>
+    </SearchPath>
+    <WorkingDirectory>.</WorkingDirectory>
+    <OutputPath>.</OutputPath>
+    <InterpreterId>2af0f10d-7135-4994-9156-5d01c9c11b7e</InterpreterId>
+    <InterpreterVersion>2.7</InterpreterVersion>
+    <Name>Welder</Name>
+    <RootNamespace>Welder</RootNamespace>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DebugSymbols>true</DebugSymbols>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DebugSymbols>true</DebugSymbols>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="Boot.py" />
+    <Compile Include="Core\Database\ScriptEditor\ScriptTextCtrl.py" />
+    <Compile Include="Core\Database\Welder_Templates.py" />
+    <Compile Include="Core\PygletWX.py" />
+    <Compile Include="Database_Test.py" />
+    <Compile Include="Kernel.py" />
+    <Compile Include="Logo.py" />
+    <Compile Include="Map_Test.py" />
+    <Compile Include="PyXAL_Test.py" />
+    <Compile Include="Welder.py" />
+    <Compile Include="__main__.py" />
+    <Compile Include="Core\Actions.py" />
+    <Compile Include="Core\ARC_Data.py" />
+    <Compile Include="Core\Cache.py" />
+    <Compile Include="Core\Controls.py" />
+    <Compile Include="Core\Data.py" />
+    <Compile Include="Core\DatabaseActions.py" />
+    <Compile Include="Core\Dialogs.py" />
+    <Compile Include="Core\Frames.py" />
+    <Compile Include="Core\Icons.py" />
+    <Compile Include="Core\Layouts.py" />
+    <Compile Include="Core\Menues.py" />
+    <Compile Include="Core\PanelManager.py" />
+    <Compile Include="Core\Panels.py" />
+    <Compile Include="Core\Project.py" />
+    <Compile Include="Core\register.py" />
+    <Compile Include="Core\RPGutil.py" />
+    <Compile Include="Core\_ext.py" />
+    <Compile Include="Core\__init__.py" />
+    <Compile Include="Core\Database\Actors_Panel.py" />
+    <Compile Include="Core\Database\Animations_Panel.py" />
+    <Compile Include="Core\Database\Armors_Panel.py" />
+    <Compile Include="Core\Database\AudioPlayer_Panel.py" />
+    <Compile Include="Core\Database\BattleTestActor_Panel.py" />
+    <Compile Include="Core\Database\Classes_Panel.py" />
+    <Compile Include="Core\Database\CommonEvents_Panel.py" />
+    <Compile Include="Core\Database\Configuration_Panel.py" />
+    <Compile Include="Core\Database\Enemies_Panel.py" />
+    <Compile Include="Core\Database\EventCommands1_Panel.py" />
+    <Compile Include="Core\Database\EventCommands2_Panel.py" />
+    <Compile Include="Core\Database\EventCommands3_Panel.py" />
+    <Compile Include="Core\Database\EventEditor_Panel.py" />
+    <Compile Include="Core\Database\EventPage_Panel.py" />
+    <Compile Include="Core\Database\Items_Panel.py" />
+    <Compile Include="Core\Database\Manager.py" />
+    <Compile Include="Core\Database\ParameterGraph_Panel.py" />
+    <Compile Include="Core\Database\Skills_Panel.py" />
+    <Compile Include="Core\Database\States_Panel.py" />
+    <Compile Include="Core\Database\System_Panel.py" />
+    <Compile Include="Core\Database\Tilesets_Panel.py" />
+    <Compile Include="Core\Database\Troops_Panel.py" />
+    <Compile Include="Core\Database\Weapons_Panel.py" />
+    <Compile Include="Core\Database\__init__.py" />
+    <Compile Include="Core\Database\Controls\EditorGLPanel.py" />
+    <Compile Include="Core\Database\Controls\ImageCheckList.py" />
+    <Compile Include="Core\Database\Controls\ParameterGraph.py" />
+    <Compile Include="Core\Database\Controls\ParameterPanel.py" />
+    <Compile Include="Core\Database\Controls\ParameterPlotGraphics.py" />
+    <Compile Include="Core\Database\Controls\ProportionalSplitter.py" />
+    <Compile Include="Core\Database\Controls\WaveForm_Panel.py" />
+    <Compile Include="Core\Database\Controls\__init__.py" />
+    <Compile Include="Core\Database\Dialogs\AddParameter_Dialog.py" />
+    <Compile Include="Core\Database\Dialogs\AnimationCellBatch_Dialog.py" />
+    <Compile Include="Core\Database\Dialogs\AnimationCellProperties_Dialog.py" />
+    <Compile Include="Core\Database\Dialogs\AnimationEntireSlide_Dialog.py" />
+    <Compile Include="Core\Database\Dialogs\AnimationTiming_Dialog.py" />
+    <Compile Include="Core\Database\Dialogs\AnimationTweening_Dialog.py" />
+    <Compile Include="Core\Database\Dialogs\BattleAnimation_Dialog.py" />
+    <Compile Include="Core\Database\Dialogs\BattleProcessing_Dialog.py" />
+    <Compile Include="Core\Database\Dialogs\BattleTest_Dialog.py" />
+    <Compile Include="Core\Database\Dialogs\ButonProcessing_Dialog.py" />
+    <Compile Include="Core\Database\Dialogs\ButtonProcessing_Dialog.py" />
+    <Compile Include="Core\Database\Dialogs\CallCommonEvent_Dialog.py" />
+    <Compile Include="Core\Database\Dialogs\ChangeAccess_Dialog.py" />
+    <Compile Include="Core\Database\Dialogs\ChangeActorClass_Dialog.py" />
+    <Compile Include="Core\Database\Dialogs\ChangeActorGraphic_Dialog.py" />
+    <Compile Include="Core\Database\Dialogs\ChangeActorName_Dialog.py" />
+    <Compile Include="Core\Database\Dialogs\ChangeBlending_Dialog.py" />
+    <Compile Include="Core\Database\Dialogs\ChangeEquipment_Dialog.py" />
+    <Compile Include="Core\Database\Dialogs\ChangeFogOpacity_Dialog.py" />
+    <Compile Include="Core\Database\Dialogs\ChangeFrequency_Dialog.py" />
+    <Compile Include="Core\Database\Dialogs\ChangeHP_Dialog.py" />
+    <Compile Include="Core\Database\Dialogs\ChangelGold_Dialog.py" />
+    <Compile Include="Core\Database\Dialogs\ChangelPartyEquipment_Dialog.py" />
+    <Compile Include="Core\Database\Dialogs\ChangeMapSettings_Dialog.py" />
+    <Compile Include="Core\Database\Dialogs\ChangeMaximum_Dialog.py" />
+    <Compile Include="Core\Database\Dialogs\ChangeParameters_Dialog.py" />
+    <Compile Include="Core\Database\Dialogs\ChangePartyMember_Dialog.py" />
+    <Compile Include="Core\Database\Dialogs\ChangePictureColorTone_Dialog.py" />
+    <Compile Include="Core\Database\Dialogs\ChangeSkills_Dialog.py" />
+    <Compile Include="Core\Database\Dialogs\ChangeSpeed_Dialog.py" />
+    <Compile Include="Core\Database\Dialogs\ChangeState_Dialog.py" />
+    <Compile Include="Core\Database\Dialogs\ChangeStat_Dialog.py" />
+    <Compile Include="Core\Database\Dialogs\ChangeTextOptions_Dialog.py" />
+    <Compile Include="Core\Database\Dialogs\ChangeTone_Dialog.py" />
+    <Compile Include="Core\Database\Dialogs\ChooseActor_Dialog.py" />
+    <Compile Include="Core\Database\Dialogs\ChooseFogGraphic_Dialog.py" />
+    <Compile Include="Core\Database\Dialogs\ChooseGraphic_Dialog.py" />
+    <Compile Include="Core\Database\Dialogs\ChooseGraphic_Dialog_NoHue.py" />
+    <Compile Include="Core\Database\Dialogs\ChooseSwitchVariable_Dialog.py" />
+    <Compile Include="Core\Database\Dialogs\ChooseTreasure_Dialog.py" />
+    <Compile Include="Core\Database\Dialogs\Comment_Dialog.py" />
+    <Compile Include="Core\Database\Dialogs\ConditionalBranch_Dialog.py" />
+    <Compile Include="Core\Database\Dialogs\ControlSelfSwitches_Dialog.py" />
+    <Compile Include="Core\Database\Dialogs\ControlSwitches_Dialog.py" />
+    <Compile Include="Core\Database\Dialogs\ControlTimer_Dialog.py" />
+    <Compile Include="Core\Database\Dialogs\ControlVariables_Dialog.py" />
+    <Compile Include="Core\Database\Dialogs\DealDamage_Dialog.py" />
+    <Compile Include="Core\Database\Dialogs\EnemyAction_Dialog.py" />
+    <Compile Include="Core\Database\Dialogs\EnemyAppearance_Dialog.py" />
+    <Compile Include="Core\Database\Dialogs\EnemyExpGold_Dialog.py" />
+    <Compile Include="Core\Database\Dialogs\EnemyTransform_Dialog.py" />
+    <Compile Include="Core\Database\Dialogs\ErasePicture_Dialog.py" />
+    <Compile Include="Core\Database\Dialogs\EventCondition_Dialog.py" />
+    <Compile Include="Core\Database\Dialogs\ExpGrid_Dialog.py" />
+    <Compile Include="Core\Database\Dialogs\FadeOutAudio_Dialog.py" />
+    <Compile Include="Core\Database\Dialogs\FindReplace_Dialog.py" />
+    <Compile Include="Core\Database\Dialogs\ForceAction_Dialog.py" />
+    <Compile Include="Core\Database\Dialogs\GenerateCurve_Dialog.py" />
+    <Compile Include="Core\Database\Dialogs\InputNumber_Dialog.py" />
+    <Compile Include="Core\Database\Dialogs\Jump_Dialog.py" />
+    <Compile Include="Core\Database\Dialogs\Label_Dialog.py" />
+    <Compile Include="Core\Database\Dialogs\MovePicture_Dialog.py" />
+    <Compile Include="Core\Database\Dialogs\MoveRoute_Dialog.py" />
+    <Compile Include="Core\Database\Dialogs\NameProcessing_Dialog.py" />
+    <Compile Include="Core\Database\Dialogs\RecoverAll_Dialog.py" />
+    <Compile Include="Core\Database\Dialogs\RotatePicture_Dialog.py" />
+    <Compile Include="Core\Database\Dialogs\ScreenShake_Dialog.py" />
+    <Compile Include="Core\Database\Dialogs\ScriptCall_Dialog.py" />
+    <Compile Include="Core\Database\Dialogs\ScriptSettings_Dialog.py" />
+    <Compile Include="Core\Database\Dialogs\ScrollMap_Dialog.py" />
+    <Compile Include="Core\Database\Dialogs\SetEventLocation_Dialog.py" />
+    <Compile Include="Core\Database\Dialogs\ShopGoods_Dialog.py" />
+    <Compile Include="Core\Database\Dialogs\ShopProcessing_Dialog.py" />
+    <Compile Include="Core\Database\Dialogs\ShowAnimation_Dialog.py" />
+    <Compile Include="Core\Database\Dialogs\ShowChoices_Dialog.py" />
+    <Compile Include="Core\Database\Dialogs\ShowPicture_Dialog.py" />
+    <Compile Include="Core\Database\Dialogs\ShowText_Dialog.py" />
+    <Compile Include="Core\Database\Dialogs\Skill_Dialog.py" />
+    <Compile Include="Core\Database\Dialogs\TransferEventTilemap_Dialog.py" />
+    <Compile Include="Core\Database\Dialogs\TransferPlayerTilemap_Dialog.py" />
+    <Compile Include="Core\Database\Dialogs\TransferPlayer_Dialog.py" />
+    <Compile Include="Core\Database\Dialogs\TransparentFlag_Dialog.py" />
+    <Compile Include="Core\Database\Dialogs\Wait_Dialog.py" />
+    <Compile Include="Core\Database\Dialogs\WeatherEffects_Dialog.py" />
+    <Compile Include="Core\Database\Dialogs\__init__.py" />
+    <Compile Include="Core\Database\ScriptEditor\FindReplaceData.py" />
+    <Compile Include="Core\Database\ScriptEditor\Manager.py" />
+    <Compile Include="Core\Database\ScriptEditor\Script.py" />
+    <Compile Include="Core\Database\ScriptEditor\ScriptEditor_Panel.py" />
+    <Compile Include="Core\Database\ScriptEditor\__init__.py" />
+    <Compile Include="Core\EventEditor\HTMLTemplates.py" />
+    <Compile Include="Core\EventEditor\PageList.py" />
+    <Compile Include="Core\EventEditor\__init__.py" />
+    <Compile Include="Core\MapEditor\BrushPanels.py" />
+    <Compile Include="Core\MapEditor\MapEditorPanel.py" />
+    <Compile Include="Core\MapEditor\Tilemap.py" />
+    <Compile Include="Core\MapEditor\__init__.py" />
+    <Compile Include="Core\PyXAL\__init__.py" />
+    <Compile Include="Core\PyXAL\src\setup.py" />
+    <Compile Include="Core\RMXP\RGSS1_RPG.py" />
+    <Compile Include="Core\RMXP\__init__.py" />
+    <Content Include="Core\PyXAL\PyXAL_Help.txt" />
+    <Content Include="Core\PyXAL\src\hltypes.pxd" />
+    <Content Include="Core\PyXAL\src\Release\BuildLog.htm" />
+    <Content Include="Core\PyXAL\src\XAL.pxd" />
+    <Content Include="Core\PyXAL\src\_PyXAL.pyx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Core" />
+    <Folder Include="Core\Database" />
+    <Folder Include="Core\Database\Controls" />
+    <Folder Include="Core\Database\Dialogs" />
+    <Folder Include="Core\Database\ScriptEditor" />
+    <Folder Include="Core\EventEditor" />
+    <Folder Include="Core\MapEditor" />
+    <Folder Include="Core\PyXAL" />
+    <Folder Include="Core\PyXAL\src" />
+    <Folder Include="Core\PyXAL\src\Release" />
+    <Folder Include="Core\RMXP" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" />
+</Project>
