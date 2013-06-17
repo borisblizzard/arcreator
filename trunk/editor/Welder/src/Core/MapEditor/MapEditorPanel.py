@@ -23,7 +23,6 @@ class MapPanel(wx.Panel, Panels.PanelBase):
         self.Show(False)
         #set data
         self.map = map
-        Kernel.Log("we are in the map editor now", "[MapEditor]", error=True)
         self.caption = "Map Editor:"
         self.panel_name = "Map Editor:"
         self.tilesets = tilesets

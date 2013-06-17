@@ -25,6 +25,7 @@ else:
     except:
         dirName = os.path.dirname(os.path.abspath(sys.argv[0]))
 LOCAL_PATH = os.path.split(dirName)[0]
+print LOCAL_PATH
 
 
 
@@ -35,6 +36,7 @@ if __name__ == '__main__':
     Boot.ConfigManager.LoadConfig()
 
     Core = WelderImport('Core')
+    Core.late_bind()
 
     MapPanel = Core.MapEditor.MapEditorPanel.MapPanel
 
@@ -59,7 +61,7 @@ if __name__ == '__main__':
             
             self.load_project()
             project = Kernel.GlobalObjects.get_value("PROJECT")
-            self.map = project.getMapData(9)
+            self.map = project.getMapData(8)
             self.tilesets = project.getData("Tilesets")
         
             self.MapEditorPanel = MapPanel(self, self.map, self.tilesets)
@@ -102,7 +104,7 @@ if __name__ == '__main__':
     
 
     app = wx.App(redirect=False)
-    frame = TestFrame(None, wx.ID_ANY, 'GL Window')
+    frame = TestFrame(None, wx.ID_ANY, 'Map Test')
     frame.Show()
 
     app.MainLoop()

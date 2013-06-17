@@ -492,7 +492,7 @@ class Package(object):
         self.__manager.register_types(*self.types)
         self.__manager.register_events(*self.events)
         for component in self.components:
-            Package.__manager.get_type(component.type, component.super).add_component(component, self)
+            self.__manager.get_type(component.type, component.super).add_component(component, self)
         for event_hook in self.event_hooks:
             event = self.__manager.get_event(event_hook[0])
             if event != None:
