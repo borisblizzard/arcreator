@@ -1,6 +1,6 @@
 def late_bind():
 
-    global HTMLTemplates, PageList
-    
-    import HTMLTemplates
+    global Formater, PageList
+
+    import Formater
     import PageList

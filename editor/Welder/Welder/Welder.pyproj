@@ -27,8 +27,10 @@
     <Compile Include="Boot.py" />
     <Compile Include="Core\Database\ScriptEditor\ScriptTextCtrl.py" />
     <Compile Include="Core\Database\Welder_Templates.py" />
+    <Compile Include="Core\EventEditor\Formater.py" />
     <Compile Include="Core\PygletWX.py" />
     <Compile Include="Database_Test.py" />
+    <Compile Include="Event_Test.py" />
     <Compile Include="Kernel.py" />
     <Compile Include="Logo.py" />
     <Compile Include="Map_Test.py" />
@@ -175,7 +177,6 @@
     <Compile Include="Core\Database\ScriptEditor\Script.py" />
     <Compile Include="Core\Database\ScriptEditor\ScriptEditor_Panel.py" />
     <Compile Include="Core\Database\ScriptEditor\__init__.py" />
-    <Compile Include="Core\EventEditor\HTMLTemplates.py" />
     <Compile Include="Core\EventEditor\PageList.py" />
     <Compile Include="Core\EventEditor\__init__.py" />
     <Compile Include="Core\MapEditor\BrushPanels.py" />
