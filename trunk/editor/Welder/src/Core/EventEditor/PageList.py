@@ -6,19 +6,18 @@ KM = Kernel.Manager
 
 import wx
 
+
 class EventListCtrl(wx.HtmlListBox):
 
-    __KNOWN_FILLER = [509, 0]
+    __KNOWN_FILLER = []
 
     def __init__(self, parent, list):
         wx.HtmlListBox.__init__(self, parent, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.LB_MULTIPLE)
         self.list = list
         self.strip_filler()
         self.SetItemCount(len(self.list))
-        
 
     def strip_filler(self):
-        indexes = []
         for command in list(self.list):
             if command.code in self.__KNOWN_FILLER:
                 self.list.remove(command)
@@ -30,5 +29,5 @@ class EventListCtrl(wx.HtmlListBox):
 
     def OnGetItemMarkup(self, n):
         html = self.OnGetItem(n)
-        body = '<font face="Courier New">%s</font>' % html
+        body = '<font face="Courier New" size="3">%s</font>' % html
         return body
