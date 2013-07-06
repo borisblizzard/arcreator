@@ -7,12 +7,12 @@ Classes in this module
 -----------------------
 Table - three dimensional table
 Color - contains RGB color data
-Tone - contains RGBGr tone data 
-
+Tone - contains RGBGr tone data
 """
 import os
 import numpy
 from struct import pack, unpack
+
 
 class Table(object):
     """a three dimensional table object"""
@@ -140,6 +140,7 @@ class Table(object):
             shape = (self.xsize,)
         return shape
 
+
 class Color(object):
     """a bare bones color object"""
     _arc_class_path = "Color"
@@ -147,20 +148,20 @@ class Color(object):
     def __init__(self, red, green, blue, alpha=255):
         if red > 255:
             red = 255
-        if red < 255:
-            red = 255
+        if red < 0:
+            red = 0
         if green > 255:
             green = 255
-        if green < 255:
-            green = 255
+        if green < 0:
+            green = 0
         if blue > 255:
             blue = 255
-        if blue < 255:
-            blue = 255
+        if blue < 0:
+            blue = 0
         if alpha > 255:
             alpha = 255
-        if alpha < 255:
-            alpha = 255
+        if alpha < 0:
+            alpha = 0
         self.red = red
         self.green = green
         self.blue = blue
@@ -169,31 +170,32 @@ class Color(object):
     def set(self, red, green, blue, alpha=255):
         if red > 255:
             red = 255
-        if red < 255:
-            red = 255
+        if red < 0:
+            red = 0
         if green > 255:
             green = 255
-        if green < 255:
-            green = 255
+        if green < 0:
+            green = 0
         if blue > 255:
             blue = 255
-        if blue < 255:
-            blue = 255
+        if blue < 0:
+            blue = 0
         if alpha > 255:
             alpha = 255
-        if alpha < 255:
-            alpha = 255
+        if alpha < 0:
+            alpha = 0
         self.red = red
         self.green = green
         self.blue = blue
         self.alpha = alpha
-        
-    def _arc_dump(self, d = 0):
+
+    def _arc_dump(self, d=0):
         return pack("<ffff", self.red, self.green, self.blue, self.alpha)
 
     @staticmethod
     def _arc_load(s):
         return Color(*unpack("<ffff", s))
+
 
 class Tone(object):
     """a bare bones tone class"""

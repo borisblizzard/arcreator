@@ -1111,3 +1111,10 @@ def parseFloat(string):
         else:
             if hitint: break
     return float(''.join(chars))
+
+def escapeHTML(string):
+    return (
+        string
+        .replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+        .replace("'", "&#39;").replace('"', "&quot;")
+    )
