@@ -29,6 +29,7 @@ Weapon
 import wx
 import os
 import gc
+import types
 
 from Boot import WelderImport
 Core = WelderImport('Core')
@@ -668,7 +669,24 @@ class _Weapon(object):
         self.minus_state_set = []
         self.note = ''
 
+def instance_repr(self):
+    results = []
+    for key, value in self.__dict__.items():
+        if key[0] != "_":
+            if not isinstance(value, (types.FunctionType, types.ClassType, types.MethodType, 
+                                      types.ModuleType, types.SliceType, types.LambdaType, 
+                                      types.GeneratorType)):
+                results.append(key)
+    parts = []
+    for key in results:
+        parts.append("%s:%s" % (key, repr(getattr(self, key))))
+    template =  ("%s, " * (len(results) - 1)) + "%s"
+    data =  tuple(parts)
+    instane_vars = template % data
+    return "<%s instance at %s: %s>" % (self.__class__.__name__, id(self), instane_vars)
+
 class RPG(object):
+    __repr__ = instance_repr
     _arc_class_path = "RPG"
     Actor = _Actor
     Animation = _Animation
@@ -702,10 +720,40 @@ class RPG(object):
     CommonEvent = _CommonEvent
     Class = _Class
     Class.Learning = _Learning
+
+    Actor.__repr__ = instance_repr
+    Animation.__repr__ = instance_repr
+    Animation.Frame.__repr__ = instance_repr
+    Animation.Timing.__repr__ = instance_repr
+    Armor.__repr__ = instance_repr
+    AudioFile.__repr__ = instance_repr
+    Weapon.__repr__ = instance_repr
+    Troop.__repr__ = instance_repr
+    Troop.Member.__repr__ = instance_repr
+    Troop.Page.__repr__ = instance_repr
+    Troop.Page.Condition.__repr__ = instance_repr
+    Tileset.__repr__ = instance_repr
+    System.__repr__ = instance_repr
+    System.TestBattler.__repr__ = instance_repr
+    System.Words.__repr__ = instance_repr
+    State.__repr__ = instance_repr
+    Skill.__repr__ = instance_repr
+    MoveRoute.__repr__ = instance_repr
+    MoveCommand.__repr__ = instance_repr
+    MapInfo.__repr__ = instance_repr
+    Map.__repr__ = instance_repr
+    Item.__repr__ = instance_repr
+    EventCommand.__repr__ = instance_repr
+    Event.__repr__ = instance_repr
+    Event.Page.__repr__ = instance_repr
+    Event.Page.Graphic.__repr__ = instance_repr
+    Event.Page.Condition.__repr__ = instance_repr
+    Enemy.__repr__ = instance_repr
+    Enemy.Action.__repr__ = instance_repr
+    CommonEvent.__repr__ = instance_repr
+    Class.__repr__ = instance_repr
+    Class.Learning.__repr__ = instance_repr
     
+
 def extend_namespace(self, namespace):
     namespace.update(self.__dict__)
-        
-
-
-

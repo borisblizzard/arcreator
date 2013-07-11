@@ -56,7 +56,7 @@ class Enemies_Panel( Templates.Enemies_Panel, PanelBase ):
         self.listBoxEnemies.SetSelection(enemy_index)
         DM.DrawHeaderBitmap(self.bitmapEnemies, 'Enemies')
 
-        # Bind the panel tot he Panel Manager
+        # Bind the panel to the Panel Manager
         self.BindPanelManager()
 
     def setRanges( self ):

@@ -961,13 +961,12 @@ def GetDataFolder():
             path += "\\" + os.path.expandvars("%APPDATA%").split("\\", -1)[-1] 
         path = os.path.join(path, "Chaos Project", "Welder", os.path.expandvars("%USERNAME%")) 
     else: 
-        if sys.platform.startswith('lynix'): 
-            path = os.path.join("", "etc") 
+        if sys.platform.startswith('linux'): 
+            path = os.path.expanduser(os.path.join("~", ".arc_config"))
         elif sys.platform.startswith('darwin'): 
             path = os.path.expanduser(os.path.join("~", "Library", "Application Support"))
-        path = os.path.join(path, "Chaos Project", "Welder") 
-    if path != "" and not os.path.exists(path) or not os.path.isdir(path):
-        print path
+        path = os.path.join(path, "Chaos Project", "Welder")
+    if path != "" and (not os.path.exists(path) or not os.path.isdir(path)):
         os.makedirs(path) 
     return path
 
@@ -1118,3 +1117,6 @@ def escapeHTML(string):
         .replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
         .replace("'", "&#39;").replace('"', "&quot;")
     )
+
+def normConfigPath(path):
+    return path.replace('/', os.sep)

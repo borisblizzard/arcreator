@@ -25,13 +25,18 @@ else:
         dirName = os.path.dirname(os.path.abspath(__file__))
     except:
         dirName = os.path.dirname(os.path.abspath(sys.argv[0]))
-LOCAL_PATH = os.path.split(dirName)[0]
+
+if not os.path.isdir(dirName):
+    LOCAL_PATH = os.path.split(dirName)[0]
+else:
+    LOCAL_PATH = dirName
+
 
     
   
 
 ##Kernel.GlobalObjects.get_value("Welder_config").get_section("RTPs").set('RMXP', rtpDir)
-TEST_PATH = os.path.join(LOCAL_PATH, "src", "RTP", "Templates", "Default Project", "Default Project.arcproj")
+TEST_PATH = os.path.join(LOCAL_PATH, "RTP", "Templates", "Default Project", "Default Project.arcproj")
 PAGE_INDEX = 0
 #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
@@ -70,12 +75,13 @@ class Test(wx.App):
         for data in Panels:
             if data is None:
                 continue
-            exec('import Core.Database.' + data[1] + ' as ' + data[1])
-            exec('page = ' + data[1] + '(nb)')
+            exec('page = Core.Database.' + data[1] + '(nb)')
+            print page
             nb.AddPage(page, data[0])
         nb.SetSelection(PAGE_INDEX)
         PyXAL = KM.get_component("PyXAL").object
-        PyXAL.Init(self.frame.GetHandle(), True)
+        if PyXAL is not None:
+            PyXAL.Init(self.frame.GetHandle(), True)
         self.frame.Show()
 
     def load_project(self):
@@ -106,11 +112,20 @@ class Test(wx.App):
 # Create window and execute the main loop
 if __name__ == '__main__':
 
-    
-    import Core
+    if Kernel.GlobalObjects.has_key("Program_Dir"):
+        Kernel.GlobalObjects.set_value("Program_Dir", LOCAL_PATH)
+    else:
+        Kernel.GlobalObjects.request_new_key("Program_Dir", "CORE", LOCAL_PATH)
+
+    print "[BOOT] Programming Running in %s" % dirName
+    print "[BOOT] LOCAL PATH: %s" % LOCAL_PATH
+    print "[BOOT] CONFIG PATH: %s" % Kernel.GetConfigFolder()
 
     import Boot
     Boot.ConfigManager.LoadConfig()
+
+    Core = WelderImport('Core')
+    Core.late_bind()
 
     provider = wx.SimpleHelpProvider()
     wx.HelpProvider.Set(provider)

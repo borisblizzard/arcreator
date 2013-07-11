@@ -24,12 +24,24 @@ else:
         dirName = os.path.dirname(os.path.abspath(__file__))
     except:
         dirName = os.path.dirname(os.path.abspath(sys.argv[0]))
-LOCAL_PATH = os.path.split(dirName)[0]
-print LOCAL_PATH
+        
+if not os.path.isdir(dirName):
+    LOCAL_PATH = os.path.split(dirName)[0]
+else:
+    LOCAL_PATH = dirName
 
 
 
 if __name__ == '__main__':
+
+    if Kernel.GlobalObjects.has_key("Program_Dir"):
+        Kernel.GlobalObjects.set_value("Program_Dir", LOCAL_PATH)
+    else:
+        Kernel.GlobalObjects.request_new_key("Program_Dir", "CORE", LOCAL_PATH)
+
+    print "[BOOT] Programming Running in %s" % dirName
+    print "[BOOT] LOCAL PATH: %s" % LOCAL_PATH
+    print "[BOOT] CONFIG PATH: %s" % Kernel.GetConfigFolder()
 
     import Boot
     from Boot import WelderImport

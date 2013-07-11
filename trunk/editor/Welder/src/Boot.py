@@ -113,6 +113,7 @@ class ConfigManager(object):
     def LoadConfig():
         #main Config
         local_Welder_path = os.path.join(Kernel.GlobalObjects.get_value("Program_Dir"), "Welder.cfg")
+        print "[BOOT] CFG FILE: %s" % local_Welder_path
         Welder_cfg = ConfigManager.PhraseCFGFile(local_Welder_path, dict={"INSTALLDIR": Kernel.GlobalObjects.get_value("Program_Dir"), "COMMONPROGRAMFILES": "%COMMONPROGRAMFILES%"})
         try:
             user_Welder_path = os.path.join(Kernel.GetConfigFolder(), "Welder.cfg")
@@ -281,6 +282,8 @@ def Run(programDir):
         Kernel.GlobalObjects.set_value("Program_Dir", programDir)
     else:
         Kernel.GlobalObjects.request_new_key("Program_Dir", "CORE", programDir)
+
+    print "[BOOT] Programming Running in %s" % programDir
     
     provider = wx.SimpleHelpProvider()
     wx.HelpProvider.Set(provider)

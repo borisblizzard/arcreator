@@ -82,12 +82,13 @@ class Actors_Panel( Templates.Actors_Panel, PanelBase ):
             self.AddParameterPage(param)
         self.noteBookActorParameters.ChangeSelection(0)
         self.comboBoxExpCurve.SetCursor(wx.STANDARD_CURSOR)
-        self.refreshAll()
         DM.DrawHeaderBitmap(self.bitmapActors, 'Actors')
-        # Set the initial selection of the list control 
+        self.refreshAll()
+        # Set the initial selection of the list control
         self.listBoxActors.SetSelection(actorIndex)
         # Bind the panel to the Panel Manager
         self.BindPanelManager()
+        
 
     def AddParameterPage( self, title, activate=False ):
         """Creates a page and adds it to the notebook control"""
