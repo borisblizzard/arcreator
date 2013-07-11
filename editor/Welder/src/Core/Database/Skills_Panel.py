@@ -8,16 +8,16 @@ KM = Kernel.Manager
 
 Templates = Core.Database.Welder_Templates
 DM = Core.Database.Manager
-RPG	= Core.RMXP.RGSS1_RPG.RPG
+RPG = Core.RMXP.RGSS1_RPG.RPG
 
 ChooseGraphic_Dialog = Core.Database.Dialogs.ChooseGraphic_Dialog
 
-PanelBase = Core.Panels.PanelBase	
+PanelBase = Core.Panels.PanelBase
 #--------------------------------------------------------------------------------------
 # Skills_Panel
 #--------------------------------------------------------------------------------------
 
-class Skills_Panel( Templates.Skills_Panel, PanelBase  ):
+class Skills_Panel( Templates.Skills_Panel, PanelBase):
 
     _arc_panel_info_string = "Name Caption Center CloseB CaptionV DestroyOC Floatable Float IconARCM MaximizeB MinimizeM MinimizeB Movable NotebookD Resizable Snappable"
     _arc_panel_info_data = {"Name": "Skills Panel", "Caption": "Skills Panel", "CaptionV": True,  "MinimizeM": ["POS_SMART", "CAPT_SMART",], 
@@ -55,7 +55,7 @@ class Skills_Panel( Templates.Skills_Panel, PanelBase  ):
         self.listBoxSkills.SetSelection(skill_index)
         DM.DrawHeaderBitmap(self.bitmapSkills, 'Skills')
 
-        # Bind the panel tot he Panel Manager
+        # Bind the panel to the Panel Manager
         self.BindPanelManager()
 
     def refreshSkillList( self ):
