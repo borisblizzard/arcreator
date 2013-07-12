@@ -83,8 +83,9 @@ class EditorGLPanel(PygletGLPanel):
         """Changes the displayed image"""
         self._image = pilImage
         del (pilImage)
-        self.PrepareGL()
-        self.OnDraw()
+        if self.FIRST_PAINT:
+            self.PrepareGL()
+            self.OnDraw()
 
     def GetDrawMode( self ):
         """Returns the integer value that represents the current drawing mode"""
@@ -93,8 +94,9 @@ class EditorGLPanel(PygletGLPanel):
     def SetDrawMode( self, drawmode ):
         """Sets the drawing mode and refreshes the display"""
         self._drawmode = drawmode
-        self.PrepareGL()
-        self.OnDraw()
+        if self.FIRST_PAINT:
+            self.PrepareGL()
+            self.OnDraw()
 
     def draw_objects( self ):
         """Draws the objects on the canvas"""
