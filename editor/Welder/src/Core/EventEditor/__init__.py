@@ -1,6 +1,7 @@
 def late_bind():
 
-    global Formater, PageList
+    global Formater, PageList, EventPanel
 
     import Formater
     import PageList
+    import EventPanel
