@@ -1,7 +1,6 @@
 def late_bind():
-    global EditorGLPanel, ImageCheckList, ParameterGraph, ParameterPanel, ParameterPlotGraphics, WaveFormPanel, ProportionalSplitter
+    global ImageCheckList, ParameterGraph, ParameterPanel, ParameterPlotGraphics, WaveFormPanel, ProportionalSplitter
 
-    from EditorGLPanel import EditorGLPanel
     from ImageCheckList import ImageCheckList 
     from ParameterGraph import ParameterGraph
     from ParameterPanel import ParameterPanel
