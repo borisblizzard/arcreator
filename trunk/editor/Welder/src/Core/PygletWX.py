@@ -31,7 +31,7 @@ class PygletGLPanel(wx.Panel):
         # Create the canvas
         self.sizer = wx.BoxSizer(wx.HORIZONTAL)
         self.canvas = glcanvas.GLCanvas(self, attribList=attribList)
-        if wx.VERSION >= (2,6):
+        if wx.VERSION >= (2, 9):
             self.context = glcanvas.GLContext(self.canvas)
         self.sizer.Add(self.canvas, 1, wx.EXPAND)
         self.SetSizer(self.sizer)
@@ -39,7 +39,7 @@ class PygletGLPanel(wx.Panel):
         # bind events
         self.canvas.Bind(wx.EVT_ERASE_BACKGROUND, self.processEraseBackgroundEvent)
         self.canvas.Bind(wx.EVT_SIZE, self.processSizeEvent)
-        self.canvas.Bind(wx.EVT_PAINT, self.processPaintEvent)        
+        self.canvas.Bind(wx.EVT_PAINT, self.processPaintEvent)
         
     #==========================================================================
     # Canvas Proxy Methods
@@ -63,18 +63,18 @@ class PygletGLPanel(wx.Panel):
 
     def processSizeEvent(self, event):
         '''Process the resize event.'''
-        if self.FIRST_PAINT:
-            if wx.VERSION >= (2,9):
-                wx.CallAfter(self.doSetViewport)
-            else:
-                self.doSetViewport()
+        
+        if wx.VERSION >= (2, 9):
+            wx.CallAfter(self.doSetViewport)
+        else:
+            self.doSetViewport()
         event.Skip()
 
     def doSetViewport(self):
-        if wx.VERSION >= (2,9):
+        if wx.VERSION >= (2, 9):
+            self.Show()
             self.PrepareGL()
             # Make sure the frame is shown before calling SetCurrent.
-            self.Show()
             self.canvas.SetCurrent(self.context)
             size = self.GetGLExtents()
             self.winsize = (size.width, size.height)
@@ -86,10 +86,10 @@ class PygletGLPanel(wx.Panel):
             self.OnReshape(size.width, size.height)
             self.canvas.Refresh(False)
         else:
-            self.PrepareGL()
             if self.canvas.GetContext():
                 # Make sure the frame is shown before calling SetCurrent.
                 self.Show()
+                self.PrepareGL()
                 self.canvas.SetCurrent()
                 size = self.GetGLExtents()
                 self.winsize = (size.width, size.height)

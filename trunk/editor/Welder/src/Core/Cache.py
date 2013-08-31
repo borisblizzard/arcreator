@@ -4,6 +4,7 @@ import colorsys
 import time
 import collections
 
+import wx
 import pyglet
 import numpy
 import PIL

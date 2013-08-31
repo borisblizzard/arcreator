@@ -13,10 +13,6 @@ ChooseGraphic_Dialog = Core.Database.Dialogs.ChooseGraphic_Dialog
 BattleTest_Dialog = Core.Database.Dialogs.BattleTest_Dialog
 EventCondition_Dialog = Core.Database.Dialogs.EventCondition_Dialog
 
-import EventCommands1_Panel
-import EventCommands2_Panel
-import EventCommands3_Panel
-
 #--------------------------------------------------------------------------------------
 # Troops_Panel
 #--------------------------------------------------------------------------------------

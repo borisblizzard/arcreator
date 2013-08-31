@@ -9,7 +9,9 @@ import _ext
 
 def late_bind():
     global Actions, ARC_Data, Panels, MapEditor, Cache, Controls, Data, Database, DatabaseActions, Dialogs, Frames
-    global Icons, Layouts, Menues, PanelManager, Project, PyXAL, RPGutil, RMXP, PygletWX
+    global Icons, Layouts, Menues, PanelManager, Project, PyXAL, RPGutil, RMXP, PygletWX, EditorGLPanel
+
+    import PygletWX
 
     import Actions
     import ARC_Data
@@ -25,10 +27,13 @@ def late_bind():
     import RPGutil
     import RMXP
     RMXP.late_bind()
+    
+    import EditorGLPanel
 
     import Data
     import Database
     import DatabaseActions
+
     
     
     import Dialogs
@@ -41,7 +46,7 @@ def late_bind():
 
     import PyXAL
 
-    import PygletWX
+    
 
     
 

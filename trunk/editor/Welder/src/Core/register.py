@@ -46,7 +46,6 @@ Animations_Panel   = Core.Database.Animations_Panel
 Tilesets_Panel     = Core.Database.Tilesets_Panel
 CommonEvents_Panel = Core.Database.CommonEvents_Panel
 System_Panel       = Core.Database.System_Panel 
-EventEditor_Panel  = Core.Database.EventEditor_Panel
 ScriptEditor_Panel = Core.Database.ScriptEditor.ScriptEditor_Panel
 
 #=============================================================================
@@ -562,8 +561,6 @@ class CorePackage(Package):
                                      "COREMainSystemPanel", "CORE", 1.0, self))
 
         #Event Editor
-        self.add_component(Component(EventEditor_Panel, "MainEventEditorPanel", "PanelManagerType",
-                                     "COREMainEventEditorPanel", "CORE", 1.0, self))
 
         #Script Editor
         self.add_component(Component(ScriptEditor_Panel, "MainScriptEditorPanel", "PanelManagerType", 

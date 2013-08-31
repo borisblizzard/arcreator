@@ -1,7 +1,4 @@
 import wx
-import EventCommands1_Panel
-import EventCommands2_Panel
-import EventCommands3_Panel
 
 from Boot import WelderImport
 

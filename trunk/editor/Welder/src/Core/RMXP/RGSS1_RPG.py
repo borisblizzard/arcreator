@@ -182,6 +182,7 @@ class _CommonEvent(object):
         self.trigger = 0
         self.switch_id = 1
         self.list = [RPG.EventCommand()]
+        self._common = True
 
 class _Enemy(object):
     _arc_class_path = "RPG::Enemy"
@@ -246,6 +247,7 @@ class _Event(object):
         self.x = x
         self.y = y
         self.pages = [RPG.Event.Page()]
+        self._common = False
 
 class _EventPage(object):
     _arc_class_path = "RPG::Event::Page"
@@ -272,10 +274,10 @@ class _EventPage(object):
 class _EventCondition(object):
     _arc_class_path = "RPG::Event::Page::Condition"
     _arc_instance_variables = ['switch1_valid', 'switch2_valid',
-                             'variable_valid', 'self_switch_valid',
-                             'switch1_id', 'switch2_id',
-                             'variable_id', 'variable_value',
-                             'self_switch_ch']
+                               'variable_valid', 'self_switch_valid',
+                               'switch1_id', 'switch2_id',
+                               'variable_id', 'variable_value',
+                               'self_switch_ch']
     def __init__(self):
         self.switch1_valid = False
         self.switch2_valid = False
@@ -287,11 +289,13 @@ class _EventCondition(object):
         self.variable_value = 0
         self.self_switch_ch = "A"
 
+
 class _EventGraphic(object):
     _arc_class_path = "RPG::Event::Page::Graphic"
     _arc_instance_variables = ['tile_id', 'character_name',
-                             'character_hue', 'direction',
-                             'pattern', 'opacity', 'blend_type']
+                               'character_hue', 'direction',
+                               'pattern', 'opacity', 'blend_type']
+
     def __init__(self):
         self.tile_id = 0
         self.character_name = ""
@@ -301,25 +305,29 @@ class _EventGraphic(object):
         self.opacity = 255
         self.blend_type = 0
 
+
 class _EventCommand(object):
     _arc_class_path = "RPG::EventCommand"
     _arc_instance_variables = ['code', 'indent', 'parameters']
+
     def __init__(self, code=0, indent=0, parameters=[]):
         self.code = code
         self.indent = indent
         self.parameters = parameters
 
+
 class _Item(object):
     _arc_class_path = "RPG::Item"
     _arc_instance_variables = ['id', 'name', 'icon_name', 'description',
-                             'scope', 'occasion', 'animation1_id',
-                             'animation2_id', 'menu_se', 'common_event_id',
-                             'price', 'consumable', 'parameter_type',
-                             'parameter_points', 'recover_hp_rate',
-                             'recover_hp', 'recover_sp_rate', 'recover_sp',
-                             'hit', 'pdef_f', 'mdef_f', 'variance',
-                             'element_set', 'plus_state_set',
-                             'minus_state_set', 'note']
+                               'scope', 'occasion', 'animation1_id',
+                               'animation2_id', 'menu_se', 'common_event_id',
+                               'price', 'consumable', 'parameter_type',
+                               'parameter_points', 'recover_hp_rate',
+                               'recover_hp', 'recover_sp_rate', 'recover_sp',
+                               'hit', 'pdef_f', 'mdef_f', 'variance',
+                               'element_set', 'plus_state_set',
+                               'minus_state_set', 'note']
+
     def __init__(self):
         self.id = 0
         self.name = ""

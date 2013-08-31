@@ -66,12 +66,12 @@ class Actors_Panel( Templates.Actors_Panel, PanelBase ):
         self.spinCtrlInitialLevel.SetRange(1, max)
         self.spinCtrlFinalLevel.SetRange(1, max)
         self.spinCtrlLevel.SetRange(1, max)
-        self.glCanvasCharacter.canvas.Bind( wx.EVT_LEFT_DCLICK, 
-            Kernel.Protect(self.glCanvasCharacter_DoubleClick))
-        self.glCanvasBattler.canvas.Bind( wx.EVT_LEFT_DCLICK, 
-            Kernel.Protect(self.glCanvasBattler_DoubleClick))
-        self.parameterGraph.canvas.Bind(wx.EVT_LEFT_DCLICK, 
-            Kernel.Protect(self.parameterGraph_DoubleClicked))
+        self.glCanvasCharacter.canvas.Bind(wx.EVT_LEFT_DCLICK,
+                                           Kernel.Protect(self.glCanvasCharacter_DoubleClick))
+        self.glCanvasBattler.canvas.Bind(wx.EVT_LEFT_DCLICK,
+                                         Kernel.Protect(self.glCanvasBattler_DoubleClick))
+        self.parameterGraph.canvas.Bind(wx.EVT_LEFT_DCLICK,
+                                        Kernel.Protect(self.parameterGraph_DoubleClicked))
         # Initialize the selected actor attribute
         if actorIndex >= len(DataActors):
             actorIndex = 0

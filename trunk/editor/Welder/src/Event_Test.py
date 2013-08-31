@@ -5,6 +5,7 @@ import math
 import wx
 from wx import glcanvas
 
+
 import pyglet
 from pyglet import gl
 
@@ -33,6 +34,8 @@ else:
 
 if __name__ == '__main__':
 
+    app = wx.App(redirect=False)
+
     if Kernel.GlobalObjects.has_key("Program_Dir"):
         Kernel.GlobalObjects.set_value("Program_Dir", LOCAL_PATH)
     else:
@@ -49,34 +52,29 @@ if __name__ == '__main__':
     Core = WelderImport('Core')
     Core.late_bind()
 
-    EventPanel = Core.EventEditor.PageList.EventListCtrl
-
-
+    EventPanel = Core.EventEditor.EventPanel.EventPanel
 
     class TestFrame(wx.Frame):
 
         def __init__(self, parent, id, title, pos=wx.DefaultPosition,
-                     size=wx.Size(800, 600), style=wx.DEFAULT_FRAME_STYLE,
+                     size=wx.Size(800, 800), style=wx.DEFAULT_FRAME_STYLE,
                      name='frame'):
             super(TestFrame, self).__init__(parent, id, title, pos, size, style, name)
-        
+
             self.mainsizer = wx.BoxSizer(wx.HORIZONTAL)
-            
+
             self.load_project()
             project = Kernel.GlobalObjects.get_value("PROJECT")
             self.map = project.getMapData(46)
             self.events = self.map.events
 
             self.tilesets = project.getData("Tilesets")
-            print repr(self.events[7].pages[0])
-            self.EventEditorPanel = EventPanel(self, self.events[7].pages[0].list)
+            self.EventEditorPanel = EventPanel(self, self.events[7])
 
             self.mainsizer.Add(self.EventEditorPanel, 1, wx.EXPAND, 0)
-        
             self.SetSizer(self.mainsizer)
             self.Layout()
 
-        
         def load_project(self):
             #config = Kernel.GlobalObjects.get_value("Welder_config")
             #path = config.get("RTPs", "core")
@@ -110,8 +108,8 @@ if __name__ == '__main__':
 
     provider = wx.SimpleHelpProvider()
     wx.HelpProvider.Set(provider)
-                
-    app = wx.App(redirect=False)
+       
+    
     frame = TestFrame(None, wx.ID_ANY, 'Event Test')
     frame.Show()
 
