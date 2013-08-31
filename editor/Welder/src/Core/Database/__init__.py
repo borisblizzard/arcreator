@@ -5,14 +5,14 @@ def late_bind():
     import Controls
     Controls.late_bind()
 
+    from Manager import Manager
+
     global Welder_Templates, Dialogs, ScriptEditor, Manager
 
     import Welder_Templates
     import Dialogs
     import ScriptEditor
 
-    from Manager import Manager
-    
     #late_binding
     Dialogs.late_bind()
     ScriptEditor.late_bind()
@@ -32,11 +32,6 @@ def late_bind():
     from CommonEvents_Panel import CommonEvents_Panel
     from Configuration_Panel import Configuration_Panel
     from Enemies_Panel import Enemies_Panel
-    from EventCommands1_Panel import EventCommands1_Panel
-    from EventCommands2_Panel import EventCommands2_Panel
-    from EventCommands3_Panel import EventCommands3_Panel
-    from EventEditor_Panel import EventEditor_Panel
-    from EventPage_Panel import EventPage_Panel
     from Items_Panel import Items_Panel
     from ParameterGraph_Panel import ParameterGraph_Panel
     from Skills_Panel import Skills_Panel
@@ -46,5 +41,5 @@ def late_bind():
     from Troops_Panel import Troops_Panel
     from Weapons_Panel import Weapons_Panel
 
-    
+    Welder_Templates.late_bind()
     

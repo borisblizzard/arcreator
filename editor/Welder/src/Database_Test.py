@@ -76,7 +76,6 @@ class Test(wx.App):
             if data is None:
                 continue
             exec('page = Core.Database.' + data[1] + '(nb)')
-            print page
             nb.AddPage(page, data[0])
         nb.SetSelection(PAGE_INDEX)
         PyXAL = KM.get_component("PyXAL").object

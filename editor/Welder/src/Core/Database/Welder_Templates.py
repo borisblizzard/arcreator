@@ -11,6 +11,28 @@ import wx
 import wx.xrc
 import wx.combo
 import wx.grid
+from wx.lib.agw.floatspin import FloatSpin
+
+from Boot import WelderImport
+                    
+Kernel = WelderImport('Kernel')
+Core = WelderImport('Core')
+
+
+
+def late_bind():
+
+    global WaveFormPanel, EditorGLPanel, ProportionalSplitter, ParameterGraph, ParameterPanel, ImageCheckList, DM, ScriptTextCtrl
+
+    from AudioPlayer_Panel import WaveFormPanel
+    EditorGLPanel = Core.EditorGLPanel
+    ProportionalSplitter = Core.Database.Controls.ProportionalSplitter
+    ParameterGraph = Core.Database.Controls.ParameterGraph
+    ParameterPanel = Core.Database.Controls.ParameterPanel
+    ImageCheckList = Core.Database.Controls.ImageCheckList
+    DM = Core.Database.Manager
+    ScriptTextCtrl = Core.Database.ScriptEditor.ScriptTextCtrl
+
 
 ###########################################################################
 ## Class Actors_Panel
@@ -99,7 +121,7 @@ class Actors_Panel ( wx.Panel ):
         self.labelGraphics.Wrap( -1 )
         sizer3.Add( self.labelGraphics, 0, wx.ALL|wx.EXPAND, 5 )
         
-        from Core.Database.Controls import ProportionalSplitter
+        
         self.splitterGraphics = ProportionalSplitter( self, wx.ID_ANY, 0.5, wx.DefaultSize, style=wx.SP_BORDER )
         self.splitterGraphics.SetSashGravity( 0.5 )
         self.splitterGraphics.Bind( wx.EVT_IDLE, self.splitterGraphicsOnIdle )
@@ -108,7 +130,6 @@ class Actors_Panel ( wx.Panel ):
         self.panelCharacter = wx.Panel( self.splitterGraphics, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.SUNKEN_BORDER|wx.TAB_TRAVERSAL )
         sizerCharacter = wx.BoxSizer( wx.VERTICAL )
         
-        from Core.Database.Controls import EditorGLPanel
         parent, id = self.panelCharacter, wx.ID_ANY
         self.glCanvasCharacter = EditorGLPanel(parent, id, 4, 4, (0, 0,), 1)
         self.glCanvasCharacter.SetHelpText( u"The graphic used for the actor on the map. Double-click to edit." )
@@ -192,7 +213,7 @@ class Actors_Panel ( wx.Panel ):
         
         bSizer613 = wx.BoxSizer( wx.HORIZONTAL )
         
-        from Core.Database.Controls import ParameterGraph
+        
         self.parameterGraph = ParameterGraph(self.pageParameters)
         bSizer613.Add( self.parameterGraph, 1, wx.EXPAND|wx.RIGHT|wx.LEFT, 0 )
         
@@ -773,7 +794,7 @@ class Skills_Panel ( wx.Panel ):
         
         sizerParameters = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Parameters" ), wx.VERTICAL )
         
-        from Core.Database.Controls import ParameterPanel
+        
         self.panelParameters = ParameterPanel(self)
         sizerParameters.Add( self.panelParameters, 1, wx.EXPAND, 5 )
         
@@ -791,8 +812,7 @@ class Skills_Panel ( wx.Panel ):
         self.labelElements.Wrap( -1 )
         sizerElements.Add( self.labelElements, 0, wx.ALL|wx.EXPAND, 5 )
         
-        from Core.Database.Controls import  ImageCheckList
-        from Core.Database import Manager as DM
+        
         states = [False, True]
         images = DM.GetNormalCheckImageList()
         self.checkListElements= ImageCheckList(self, states, images)
@@ -1184,8 +1204,7 @@ class Items_Panel ( wx.Panel ):
         
         sizer15 = wx.BoxSizer( wx.HORIZONTAL )
         
-        from Core.Database.Controls import ImageCheckList
-        from Core.Database import Manager as DM
+
         states = [False, True]
         images = DM.GetNormalCheckImageList()
         self.checkListElements= ImageCheckList(self, states, images)
@@ -1437,7 +1456,6 @@ class Weapons_Panel ( wx.Panel ):
         
         sizerParameters = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Parameters" ), wx.VERTICAL )
         
-        from Core.Database.Controls import ParameterPanel
         self.panelParameters = ParameterPanel(self)
         sizerParameters.Add( self.panelParameters, 1, wx.EXPAND, 5 )
         
@@ -1461,8 +1479,6 @@ class Weapons_Panel ( wx.Panel ):
         
         sizer15 = wx.BoxSizer( wx.HORIZONTAL )
         
-        from Core.Database.Controls import ImageCheckList
-        from Core.Database import Manager as DM
         states = [False, True]
         images = DM.GetNormalCheckImageList()
         self.checkListElements= ImageCheckList(self, states, images)
@@ -1646,7 +1662,6 @@ class Armors_Panel ( wx.Panel ):
         
         sizerParameters = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Parameters" ), wx.VERTICAL )
         
-        from Core.Database.Controls import ParameterPanel
         self.panelParameters = ParameterPanel(self)
         sizerParameters.Add( self.panelParameters, 1, wx.EXPAND, 5 )
         
@@ -1670,8 +1685,6 @@ class Armors_Panel ( wx.Panel ):
         
         sizer15 = wx.BoxSizer( wx.HORIZONTAL )
         
-        from Core.Database.Controls import ImageCheckList
-        from Core.Database import Manager as DM
         states = [False, True]
         images = DM.GetNormalCheckImageList()
         self.checkListElements= ImageCheckList(self, states, images)
@@ -1800,7 +1813,6 @@ class Enemies_Panel ( wx.Panel ):
         self.panelEnemyGraphic = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.SUNKEN_BORDER|wx.TAB_TRAVERSAL )
         sizerEnemyGraphic = wx.BoxSizer( wx.VERTICAL )
         
-        from Core.Database.Controls import EditorGLPanel
         parent = self.panelEnemyGraphic
         self.glCanvasEnemyGraphic = EditorGLPanel(parent, -1, 1, 1, (0, 0,), 1)
         sizerEnemyGraphic.Add( self.glCanvasEnemyGraphic, 1, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 0 )
@@ -1841,7 +1853,6 @@ class Enemies_Panel ( wx.Panel ):
         
         sizerParameters = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Parameters" ), wx.VERTICAL )
         
-        from Core.Database.Controls import ParameterPanel
         self.panelParameters = ParameterPanel(self)
         sizerParameters.Add( self.panelParameters, 1, wx.EXPAND, 5 )
         
@@ -1892,8 +1903,6 @@ class Enemies_Panel ( wx.Panel ):
         self.labelElements.Wrap( -1 )
         sizer4.Add( self.labelElements, 0, wx.ALL|wx.EXPAND, 5 )
         
-        from Core.Database.Controls import ImageCheckList
-        from Core.Database import Manager as DM
         states = [0, 1, -1]
         images = DM.GetAddSubImageList()
         self.checkListElements= ImageCheckList(self, states, images)
@@ -3791,1126 +3800,8 @@ class System_Panel ( wx.Panel ):
     
     def textCtrlEquip_TextChanged( self, event ):
         pass
-    
 
-###########################################################################
-## Class EventCommands1_Panel
-###########################################################################
-
-class EventCommands1_Panel ( wx.Panel ):
-    
-    def __init__( self, parent ):
-        wx.Panel.__init__ ( self, parent, id = wx.ID_ANY, pos = wx.DefaultPosition, size = wx.Size( 400,450 ), style = wx.TAB_TRAVERSAL )
         
-        MainSizer = wx.BoxSizer( wx.HORIZONTAL )
-        
-        sizerLeft = wx.BoxSizer( wx.VERTICAL )
-        
-        sizerMessages = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Message" ), wx.VERTICAL )
-        
-        self.buttonShowText = wx.Button( self, wx.ID_ANY, u"Show Text...", wx.DefaultPosition, wx.Size( 150,-1 ), 0 )
-        sizerMessages.Add( self.buttonShowText, 0, wx.EXPAND|wx.RIGHT|wx.LEFT, 5 )
-        
-        self.buttonShowChoices = wx.Button( self, wx.ID_ANY, u"Show Choices...", wx.DefaultPosition, wx.Size( 150,-1 ), 0 )
-        sizerMessages.Add( self.buttonShowChoices, 0, wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
-        
-        self.buttonInputNumber = wx.Button( self, wx.ID_ANY, u"Input Number...", wx.DefaultPosition, wx.Size( 150,-1 ), 0 )
-        sizerMessages.Add( self.buttonInputNumber, 0, wx.EXPAND|wx.RIGHT|wx.LEFT, 5 )
-        
-        self.buttonChangeTextOptions = wx.Button( self, wx.ID_ANY, u"Change Text Options...", wx.DefaultPosition, wx.Size( 150,-1 ), 0 )
-        sizerMessages.Add( self.buttonChangeTextOptions, 0, wx.EXPAND|wx.RIGHT|wx.LEFT, 5 )
-        
-        self.buttonChangeWindowskin = wx.Button( self, wx.ID_ANY, u"Change Windowskin...", wx.DefaultPosition, wx.DefaultSize, 0 )
-        sizerMessages.Add( self.buttonChangeWindowskin, 0, wx.EXPAND|wx.RIGHT|wx.LEFT, 5 )
-        
-        sizerLeft.Add( sizerMessages, 0, wx.ALL|wx.EXPAND, 5 )
-        
-        sizerFlowControl = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Flow Control" ), wx.VERTICAL )
-        
-        self.buttonConditionalBranch = wx.Button( self, wx.ID_ANY, u"Conditional Branch...", wx.DefaultPosition, wx.DefaultSize, 0 )
-        sizerFlowControl.Add( self.buttonConditionalBranch, 0, wx.RIGHT|wx.LEFT|wx.ALIGN_CENTER_HORIZONTAL|wx.EXPAND, 5 )
-        
-        self.buttonWait = wx.Button( self, wx.ID_ANY, u"Wait...", wx.DefaultPosition, wx.DefaultSize, 0 )
-        sizerFlowControl.Add( self.buttonWait, 0, wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
-        
-        self.buttonLoop = wx.Button( self, wx.ID_ANY, u"Loop", wx.DefaultPosition, wx.DefaultSize, 0 )
-        sizerFlowControl.Add( self.buttonLoop, 0, wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
-        
-        self.buttonBreakLoop = wx.Button( self, wx.ID_ANY, u"Break Loop", wx.DefaultPosition, wx.DefaultSize, 0 )
-        sizerFlowControl.Add( self.buttonBreakLoop, 0, wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
-        
-        self.buttonExitEventProcessing = wx.Button( self, wx.ID_ANY, u"Exit Event Processing", wx.DefaultPosition, wx.DefaultSize, 0 )
-        sizerFlowControl.Add( self.buttonExitEventProcessing, 0, wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
-        
-        self.buttonCallCommonEvent = wx.Button( self, wx.ID_ANY, u"Call Common Event...", wx.DefaultPosition, wx.DefaultSize, 0 )
-        sizerFlowControl.Add( self.buttonCallCommonEvent, 0, wx.EXPAND|wx.RIGHT|wx.LEFT, 5 )
-        
-        self.buttonLabel = wx.Button( self, wx.ID_ANY, u"Label...", wx.DefaultPosition, wx.DefaultSize, 0 )
-        sizerFlowControl.Add( self.buttonLabel, 0, wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
-        
-        self.buttonJumpToLabel = wx.Button( self, wx.ID_ANY, u"Jump To Label...", wx.DefaultPosition, wx.DefaultSize, 0 )
-        sizerFlowControl.Add( self.buttonJumpToLabel, 0, wx.EXPAND|wx.RIGHT|wx.LEFT, 5 )
-        
-        self.buttonComment = wx.Button( self, wx.ID_ANY, u"Comment...", wx.DefaultPosition, wx.DefaultSize, 0 )
-        sizerFlowControl.Add( self.buttonComment, 0, wx.EXPAND|wx.RIGHT|wx.LEFT, 5 )
-        
-        sizerLeft.Add( sizerFlowControl, 0, wx.EXPAND|wx.ALL, 5 )
-        
-        sizerScript = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Advanced" ), wx.VERTICAL )
-        
-        self.buttonScript = wx.Button( self, wx.ID_ANY, u"Script...", wx.DefaultPosition, wx.DefaultSize, 0 )
-        sizerScript.Add( self.buttonScript, 0, wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
-        
-        sizerLeft.Add( sizerScript, 0, wx.EXPAND|wx.ALL, 5 )
-        
-        MainSizer.Add( sizerLeft, 1, wx.EXPAND, 5 )
-        
-        sizerRight = wx.BoxSizer( wx.VERTICAL )
-        
-        sizerGameProgression = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Game Progression" ), wx.VERTICAL )
-        
-        self.buttonControlSwitches = wx.Button( self, wx.ID_ANY, u"Control Switches...", wx.DefaultPosition, wx.Size( 150,-1 ), 0 )
-        sizerGameProgression.Add( self.buttonControlSwitches, 0, wx.EXPAND|wx.RIGHT|wx.LEFT, 5 )
-        
-        self.buttonControlVariables = wx.Button( self, wx.ID_ANY, u"Control Variables...", wx.DefaultPosition, wx.Size( 150,-1 ), 0 )
-        sizerGameProgression.Add( self.buttonControlVariables, 0, wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
-        
-        self.buttonControlSelfSwitch = wx.Button( self, wx.ID_ANY, u"Control Self-Switch...", wx.DefaultPosition, wx.Size( 150,-1 ), 0 )
-        sizerGameProgression.Add( self.buttonControlSelfSwitch, 0, wx.EXPAND|wx.RIGHT|wx.LEFT, 5 )
-        
-        self.buttonControlTimer = wx.Button( self, wx.ID_ANY, u"Control Timer...", wx.DefaultPosition, wx.Size( 150,-1 ), 0 )
-        sizerGameProgression.Add( self.buttonControlTimer, 0, wx.EXPAND|wx.RIGHT|wx.LEFT, 5 )
-        
-        sizerRight.Add( sizerGameProgression, 0, wx.ALL|wx.EXPAND|wx.ALIGN_CENTER_HORIZONTAL, 5 )
-        
-        sizerAudio = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Audio" ), wx.VERTICAL )
-        
-        self.buttonPlayBGM = wx.Button( self, wx.ID_ANY, u"Play BGM...", wx.DefaultPosition, wx.DefaultSize, 0 )
-        sizerAudio.Add( self.buttonPlayBGM, 0, wx.EXPAND|wx.RIGHT|wx.LEFT, 5 )
-        
-        self.buttonFadeOutBGM = wx.Button( self, wx.ID_ANY, u"Fade Out BGM...", wx.DefaultPosition, wx.DefaultSize, 0 )
-        sizerAudio.Add( self.buttonFadeOutBGM, 0, wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
-        
-        self.buttonPlayBGS = wx.Button( self, wx.ID_ANY, u"Play BGS...", wx.DefaultPosition, wx.DefaultSize, 0 )
-        sizerAudio.Add( self.buttonPlayBGS, 0, wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
-        
-        self.buttonFadeOutBGS = wx.Button( self, wx.ID_ANY, u"Fade Out BGS...", wx.DefaultPosition, wx.DefaultSize, 0 )
-        sizerAudio.Add( self.buttonFadeOutBGS, 0, wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
-        
-        self.buttonMemorizeBGMBGS = wx.Button( self, wx.ID_ANY, u"Memorize BGM/BGS", wx.DefaultPosition, wx.DefaultSize, 0 )
-        sizerAudio.Add( self.buttonMemorizeBGMBGS, 0, wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
-        
-        self.m_button158 = wx.Button( self, wx.ID_ANY, u"Restore BGS/BGM", wx.DefaultPosition, wx.DefaultSize, 0 )
-        sizerAudio.Add( self.m_button158, 0, wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
-        
-        self.buttonPlayME = wx.Button( self, wx.ID_ANY, u"Play ME...", wx.DefaultPosition, wx.DefaultSize, 0 )
-        sizerAudio.Add( self.buttonPlayME, 0, wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
-        
-        self.buttonPlaySE = wx.Button( self, wx.ID_ANY, u"Play SE...", wx.DefaultPosition, wx.DefaultSize, 0 )
-        sizerAudio.Add( self.buttonPlaySE, 0, wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
-        
-        self.buttonStopSE = wx.Button( self, wx.ID_ANY, u"Stop SE...", wx.DefaultPosition, wx.DefaultSize, 0 )
-        sizerAudio.Add( self.buttonStopSE, 0, wx.EXPAND|wx.RIGHT|wx.LEFT, 5 )
-        
-        self.buttonChangeBattleBGM = wx.Button( self, wx.ID_ANY, u"Change Battle BGM...", wx.DefaultPosition, wx.DefaultSize, 0 )
-        sizerAudio.Add( self.buttonChangeBattleBGM, 0, wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
-        
-        self.buttonChangeBattleEndME = wx.Button( self, wx.ID_ANY, u"Change Battle End ME...", wx.DefaultPosition, wx.DefaultSize, 0 )
-        sizerAudio.Add( self.buttonChangeBattleEndME, 0, wx.EXPAND|wx.RIGHT|wx.LEFT, 5 )
-        
-        sizerRight.Add( sizerAudio, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL|wx.EXPAND, 5 )
-        
-        MainSizer.Add( sizerRight, 1, wx.EXPAND, 5 )
-        
-        self.SetSizer( MainSizer )
-        self.Layout()
-        
-        # Connect Events
-        self.buttonShowText.Bind( wx.EVT_BUTTON, self.buttonShowText_Clicked )
-        self.buttonShowChoices.Bind( wx.EVT_BUTTON, self.buttonShowChoices_Clicked )
-        self.buttonInputNumber.Bind( wx.EVT_BUTTON, self.buttonInputNumber_Clicked )
-        self.buttonChangeTextOptions.Bind( wx.EVT_BUTTON, self.buttonChangeTextOptions_Clicked )
-        self.buttonChangeWindowskin.Bind( wx.EVT_BUTTON, self.buttonChangeWindowskin_Clicked )
-        self.buttonConditionalBranch.Bind( wx.EVT_BUTTON, self.buttonConditionalBranch_Clicked )
-        self.buttonWait.Bind( wx.EVT_BUTTON, self.buttonWait_Clicked )
-        self.buttonLoop.Bind( wx.EVT_BUTTON, self.buttonLoop_Clicked )
-        self.buttonBreakLoop.Bind( wx.EVT_BUTTON, self.buttonBreakLoop_Clicked )
-        self.buttonExitEventProcessing.Bind( wx.EVT_BUTTON, self.buttonExitEventProcessing_Clicked )
-        self.buttonCallCommonEvent.Bind( wx.EVT_BUTTON, self.buttonCallCommonEvent_Clicked )
-        self.buttonLabel.Bind( wx.EVT_BUTTON, self.buttonLabel_Clicked )
-        self.buttonJumpToLabel.Bind( wx.EVT_BUTTON, self.button_ClickedJumpToLabel )
-        self.buttonComment.Bind( wx.EVT_BUTTON, self.buttonComment_Clicked )
-        self.buttonScript.Bind( wx.EVT_BUTTON, self.buttonScript_Clicked )
-        self.buttonControlSwitches.Bind( wx.EVT_BUTTON, self.buttonControlSwitches_Clicked )
-        self.buttonControlVariables.Bind( wx.EVT_BUTTON, self.buttonControlVariables_Clicked )
-        self.buttonControlSelfSwitch.Bind( wx.EVT_BUTTON, self.buttonControlSelfSwitch_Clicked )
-        self.buttonControlTimer.Bind( wx.EVT_BUTTON, self.buttonControlTimer_Clicked )
-        self.buttonPlayBGM.Bind( wx.EVT_BUTTON, self.buttonPlayBGM_Clicked )
-        self.buttonFadeOutBGM.Bind( wx.EVT_BUTTON, self.buttonFadeOutBGM_Clicked )
-        self.buttonPlayBGS.Bind( wx.EVT_BUTTON, self.buttonPlayBGS_Clicked )
-        self.buttonFadeOutBGS.Bind( wx.EVT_BUTTON, self.buttonFadeOutBGS_Clicked )
-        self.buttonMemorizeBGMBGS.Bind( wx.EVT_BUTTON, self.buttonMemorizeBGMBGS_Clicked )
-        self.m_button158.Bind( wx.EVT_BUTTON, self.buttonRestoreBGMBGS_Clicked )
-        self.buttonPlayME.Bind( wx.EVT_BUTTON, self.buttonPlayME_Clicked )
-        self.buttonPlaySE.Bind( wx.EVT_BUTTON, self.buttonPlaySE_Clicked )
-        self.buttonStopSE.Bind( wx.EVT_BUTTON, self.buttonStopSE_Clicked )
-        self.buttonChangeBattleBGM.Bind( wx.EVT_BUTTON, self.buttonChangeBattleBGM_Clicked )
-        self.buttonChangeBattleEndME.Bind( wx.EVT_BUTTON, self.buttonChangeBattleEndME_Clicked )
-    
-    def __del__( self ):
-        pass
-    
-    
-    # Virtual event handlers, overide them in your derived class
-    def buttonShowText_Clicked( self, event ):
-        pass
-    
-    def buttonShowChoices_Clicked( self, event ):
-        pass
-    
-    def buttonInputNumber_Clicked( self, event ):
-        pass
-    
-    def buttonChangeTextOptions_Clicked( self, event ):
-        pass
-    
-    def buttonChangeWindowskin_Clicked( self, event ):
-        pass
-    
-    def buttonConditionalBranch_Clicked( self, event ):
-        pass
-    
-    def buttonWait_Clicked( self, event ):
-        pass
-    
-    def buttonLoop_Clicked( self, event ):
-        pass
-    
-    def buttonBreakLoop_Clicked( self, event ):
-        pass
-    
-    def buttonExitEventProcessing_Clicked( self, event ):
-        pass
-    
-    def buttonCallCommonEvent_Clicked( self, event ):
-        pass
-    
-    def buttonLabel_Clicked( self, event ):
-        pass
-    
-    def button_ClickedJumpToLabel( self, event ):
-        pass
-    
-    def buttonComment_Clicked( self, event ):
-        pass
-    
-    def buttonScript_Clicked( self, event ):
-        pass
-    
-    def buttonControlSwitches_Clicked( self, event ):
-        pass
-    
-    def buttonControlVariables_Clicked( self, event ):
-        pass
-    
-    def buttonControlSelfSwitch_Clicked( self, event ):
-        pass
-    
-    def buttonControlTimer_Clicked( self, event ):
-        pass
-    
-    def buttonPlayBGM_Clicked( self, event ):
-        pass
-    
-    def buttonFadeOutBGM_Clicked( self, event ):
-        pass
-    
-    def buttonPlayBGS_Clicked( self, event ):
-        pass
-    
-    def buttonFadeOutBGS_Clicked( self, event ):
-        pass
-    
-    def buttonMemorizeBGMBGS_Clicked( self, event ):
-        pass
-    
-    def buttonRestoreBGMBGS_Clicked( self, event ):
-        pass
-    
-    def buttonPlayME_Clicked( self, event ):
-        pass
-    
-    def buttonPlaySE_Clicked( self, event ):
-        pass
-    
-    def buttonStopSE_Clicked( self, event ):
-        pass
-    
-    def buttonChangeBattleBGM_Clicked( self, event ):
-        pass
-    
-    def buttonChangeBattleEndME_Clicked( self, event ):
-        pass
-    
-
-###########################################################################
-## Class EventCommands2_Panel
-###########################################################################
-
-class EventCommands2_Panel ( wx.Panel ):
-    
-    def __init__( self, parent ):
-        wx.Panel.__init__ ( self, parent, id = wx.ID_ANY, pos = wx.DefaultPosition, size = wx.Size( 400,450 ), style = wx.TAB_TRAVERSAL )
-        
-        MainSizer = wx.BoxSizer( wx.HORIZONTAL )
-        
-        sizerLeft = wx.BoxSizer( wx.VERTICAL )
-        
-        sizerMovement = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Movement" ), wx.VERTICAL )
-        
-        self.buttonTransferPlayer = wx.Button( self, wx.ID_ANY, u"Transfer Player...", wx.DefaultPosition, wx.DefaultSize, 0 )
-        sizerMovement.Add( self.buttonTransferPlayer, 0, wx.EXPAND|wx.RIGHT|wx.LEFT, 5 )
-        
-        self.buttonSetMoveRoute = wx.Button( self, wx.ID_ANY, u"Set Move Route...", wx.DefaultPosition, wx.DefaultSize, 0 )
-        sizerMovement.Add( self.buttonSetMoveRoute, 0, wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
-        
-        self.buttonSentEventLocation = wx.Button( self, wx.ID_ANY, u"Set Event Location...", wx.DefaultPosition, wx.DefaultSize, 0 )
-        sizerMovement.Add( self.buttonSentEventLocation, 0, wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
-        
-        self.buttonScrollMap = wx.Button( self, wx.ID_ANY, u"Scroll Map...", wx.DefaultPosition, wx.DefaultSize, 0 )
-        sizerMovement.Add( self.buttonScrollMap, 0, wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
-        
-        self.buttonWaitForMovesCompletion = wx.Button( self, wx.ID_ANY, u"Wait For Move's Completion", wx.DefaultPosition, wx.DefaultSize, 0 )
-        sizerMovement.Add( self.buttonWaitForMovesCompletion, 0, wx.EXPAND|wx.RIGHT|wx.LEFT, 5 )
-        
-        sizerLeft.Add( sizerMovement, 0, wx.ALL|wx.EXPAND, 5 )
-        
-        sizerScreen = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Screen" ), wx.VERTICAL )
-        
-        self.buttonPrepareForTransition = wx.Button( self, wx.ID_ANY, u"Prepare For Transition", wx.DefaultPosition, wx.DefaultSize, 0 )
-        sizerScreen.Add( self.buttonPrepareForTransition, 0, wx.EXPAND|wx.RIGHT|wx.LEFT, 5 )
-        
-        self.buttonExecuteTransition = wx.Button( self, wx.ID_ANY, u"Execute Transition", wx.DefaultPosition, wx.DefaultSize, 0 )
-        sizerScreen.Add( self.buttonExecuteTransition, 0, wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
-        
-        self.buttonChangeScreenTone = wx.Button( self, wx.ID_ANY, u"Change Screen Tone...", wx.DefaultPosition, wx.DefaultSize, 0 )
-        sizerScreen.Add( self.buttonChangeScreenTone, 0, wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
-        
-        self.buttonScreenFlash = wx.Button( self, wx.ID_ANY, u"Screen Flash...", wx.DefaultPosition, wx.DefaultSize, 0 )
-        sizerScreen.Add( self.buttonScreenFlash, 0, wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
-        
-        self.buttonScreenShake = wx.Button( self, wx.ID_ANY, u"Screen Shake...", wx.DefaultPosition, wx.DefaultSize, 0 )
-        sizerScreen.Add( self.buttonScreenShake, 0, wx.EXPAND|wx.RIGHT|wx.LEFT, 5 )
-        
-        sizerLeft.Add( sizerScreen, 0, wx.EXPAND|wx.ALL, 5 )
-        
-        sizerParty = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Party" ), wx.VERTICAL )
-        
-        self.buttonChangePartyMember = wx.Button( self, wx.ID_ANY, u"Change Party Member...", wx.DefaultPosition, wx.DefaultSize, 0 )
-        sizerParty.Add( self.buttonChangePartyMember, 0, wx.EXPAND|wx.RIGHT|wx.LEFT, 5 )
-        
-        self.buttonChangeGold = wx.Button( self, wx.ID_ANY, u"Change Gold...", wx.DefaultPosition, wx.DefaultSize, 0 )
-        sizerParty.Add( self.buttonChangeGold, 0, wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
-        
-        self.buttonChangeItem = wx.Button( self, wx.ID_ANY, u"Change Item...", wx.DefaultPosition, wx.DefaultSize, 0 )
-        sizerParty.Add( self.buttonChangeItem, 0, wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
-        
-        self.buttonChangeWeapon = wx.Button( self, wx.ID_ANY, u"Change Weapon...", wx.DefaultPosition, wx.DefaultSize, 0 )
-        sizerParty.Add( self.buttonChangeWeapon, 0, wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
-        
-        self.buttonChangeArmor = wx.Button( self, wx.ID_ANY, u"Change Armor...", wx.DefaultPosition, wx.DefaultSize, 0 )
-        sizerParty.Add( self.buttonChangeArmor, 0, wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
-        
-        sizerLeft.Add( sizerParty, 0, wx.EXPAND|wx.ALL, 5 )
-        
-        MainSizer.Add( sizerLeft, 1, wx.EXPAND, 5 )
-        
-        sizerRight = wx.BoxSizer( wx.VERTICAL )
-        
-        sizerMap = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Map" ), wx.VERTICAL )
-        
-        self.buttonChangeMapSettings = wx.Button( self, wx.ID_ANY, u"Change Map Settings...", wx.DefaultPosition, wx.DefaultSize, 0 )
-        sizerMap.Add( self.buttonChangeMapSettings, 0, wx.EXPAND|wx.RIGHT|wx.LEFT, 5 )
-        
-        self.buttonSetWeatherEffects = wx.Button( self, wx.ID_ANY, u"Set Weather Effects...", wx.DefaultPosition, wx.DefaultSize, 0 )
-        sizerMap.Add( self.buttonSetWeatherEffects, 0, wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
-        
-        self.buttonChangeFogColorTone = wx.Button( self, wx.ID_ANY, u"Change Fog Color Tone...", wx.DefaultPosition, wx.DefaultSize, 0 )
-        sizerMap.Add( self.buttonChangeFogColorTone, 0, wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
-        
-        self.buttonChangeFogOpacity = wx.Button( self, wx.ID_ANY, u"Change Fog Opacity...", wx.DefaultPosition, wx.DefaultSize, 0 )
-        sizerMap.Add( self.buttonChangeFogOpacity, 0, wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
-        
-        self.buttonChangeEncounter = wx.Button( self, wx.ID_ANY, u"Change Encounter...", wx.DefaultPosition, wx.DefaultSize, 0 )
-        sizerMap.Add( self.buttonChangeEncounter, 0, wx.EXPAND|wx.RIGHT|wx.LEFT, 5 )
-        
-        sizerRight.Add( sizerMap, 0, wx.EXPAND|wx.ALL, 5 )
-        
-        sizerSceneControl = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Scene Control" ), wx.VERTICAL )
-        
-        self.buttonBattleProcessing = wx.Button( self, wx.ID_ANY, u"Battle Processing...", wx.DefaultPosition, wx.DefaultSize, 0 )
-        sizerSceneControl.Add( self.buttonBattleProcessing, 0, wx.EXPAND|wx.RIGHT|wx.LEFT, 5 )
-        
-        self.buttonShopProcessing = wx.Button( self, wx.ID_ANY, u"Shop Processing...", wx.DefaultPosition, wx.DefaultSize, 0 )
-        sizerSceneControl.Add( self.buttonShopProcessing, 0, wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
-        
-        self.buttonNameInputProcessing = wx.Button( self, wx.ID_ANY, u"Name Input Processing...", wx.DefaultPosition, wx.DefaultSize, 0 )
-        sizerSceneControl.Add( self.buttonNameInputProcessing, 0, wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
-        
-        self.buttonButtonInputProcessing = wx.Button( self, wx.ID_ANY, u"Button Input Processing...", wx.DefaultPosition, wx.DefaultSize, 0 )
-        sizerSceneControl.Add( self.buttonButtonInputProcessing, 0, wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
-        
-        self.buttonGameOver = wx.Button( self, wx.ID_ANY, u"Game Over", wx.DefaultPosition, wx.DefaultSize, 0 )
-        sizerSceneControl.Add( self.buttonGameOver, 0, wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
-        
-        self.buttonReturnToTitleScreen = wx.Button( self, wx.ID_ANY, u"Return To Title Screen", wx.DefaultPosition, wx.DefaultSize, 0 )
-        sizerSceneControl.Add( self.buttonReturnToTitleScreen, 0, wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
-        
-        self.buttonChangeMenuAccess = wx.Button( self, wx.ID_ANY, u"Change Menu Access...", wx.DefaultPosition, wx.DefaultSize, 0 )
-        sizerSceneControl.Add( self.buttonChangeMenuAccess, 0, wx.EXPAND|wx.RIGHT|wx.LEFT, 5 )
-        
-        self.buttonChangeSaveAccess = wx.Button( self, wx.ID_ANY, u"Change Save Access...", wx.DefaultPosition, wx.DefaultSize, 0 )
-        sizerSceneControl.Add( self.buttonChangeSaveAccess, 0, wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
-        
-        self.buttonCallMenuScreen = wx.Button( self, wx.ID_ANY, u"Call Menu Screen", wx.DefaultPosition, wx.DefaultSize, 0 )
-        sizerSceneControl.Add( self.buttonCallMenuScreen, 0, wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
-        
-        self.buttonCallSaveScreen = wx.Button( self, wx.ID_ANY, u"Call Save Screen", wx.DefaultPosition, wx.DefaultSize, 0 )
-        sizerSceneControl.Add( self.buttonCallSaveScreen, 0, wx.EXPAND|wx.RIGHT|wx.LEFT, 5 )
-        
-        sizerRight.Add( sizerSceneControl, 0, wx.EXPAND|wx.ALL, 5 )
-        
-        MainSizer.Add( sizerRight, 1, wx.EXPAND, 5 )
-        
-        self.SetSizer( MainSizer )
-        self.Layout()
-        
-        # Connect Events
-        self.buttonTransferPlayer.Bind( wx.EVT_BUTTON, self.buttonTransferPlayer_Clicked )
-        self.buttonSetMoveRoute.Bind( wx.EVT_BUTTON, self.buttonSetMoveRoute_Clicked )
-        self.buttonSentEventLocation.Bind( wx.EVT_BUTTON, self.buttonSetEventLocation_Clicked )
-        self.buttonScrollMap.Bind( wx.EVT_BUTTON, self.buttonScrollMap_Clicked )
-        self.buttonWaitForMovesCompletion.Bind( wx.EVT_BUTTON, self.buttonWaitForMovesCompletion_Clicked )
-        self.buttonPrepareForTransition.Bind( wx.EVT_BUTTON, self.buttonPrepareForTransition_Clicked )
-        self.buttonExecuteTransition.Bind( wx.EVT_BUTTON, self.buttonExecuteTransition_Clicked )
-        self.buttonChangeScreenTone.Bind( wx.EVT_BUTTON, self.buttonChangeScreenTone_Clicked )
-        self.buttonScreenFlash.Bind( wx.EVT_BUTTON, self.buttonScreenFlash_Clicked )
-        self.buttonScreenShake.Bind( wx.EVT_BUTTON, self.buttonScreenShake_Clicked )
-        self.buttonChangePartyMember.Bind( wx.EVT_BUTTON, self.buttonChangePartyMember_Clicked )
-        self.buttonChangeGold.Bind( wx.EVT_BUTTON, self.buttonChangeGold_Clicked )
-        self.buttonChangeItem.Bind( wx.EVT_BUTTON, self.buttonChangeItem_Clicked )
-        self.buttonChangeWeapon.Bind( wx.EVT_BUTTON, self.buttonChangeWeapon_Clicked )
-        self.buttonChangeArmor.Bind( wx.EVT_BUTTON, self.buttonArmor_Clicked )
-        self.buttonChangeMapSettings.Bind( wx.EVT_BUTTON, self.buttonChangeMapSettings_Clicked )
-        self.buttonSetWeatherEffects.Bind( wx.EVT_BUTTON, self.buttonSetWeatherEffects_Clicked )
-        self.buttonChangeFogColorTone.Bind( wx.EVT_BUTTON, self.buttonChangeFogColorTone_Clicked )
-        self.buttonChangeFogOpacity.Bind( wx.EVT_BUTTON, self.buttonChangeFogOpacity_Clicked )
-        self.buttonChangeEncounter.Bind( wx.EVT_BUTTON, self.buttonChangeEncounter_Clicked )
-        self.buttonBattleProcessing.Bind( wx.EVT_BUTTON, self.buttonBattleProcessing_Clicked )
-        self.buttonShopProcessing.Bind( wx.EVT_BUTTON, self.buttonShopProcessing_Clicked )
-        self.buttonNameInputProcessing.Bind( wx.EVT_BUTTON, self.buttonNameInputProcessing_Clicked )
-        self.buttonButtonInputProcessing.Bind( wx.EVT_BUTTON, self.buttonButtonInputProcessing_Clicked )
-        self.buttonGameOver.Bind( wx.EVT_BUTTON, self.buttonGameOver_Clicked )
-        self.buttonReturnToTitleScreen.Bind( wx.EVT_BUTTON, self.buttonReturnToTitleScreen_Clicked )
-        self.buttonChangeMenuAccess.Bind( wx.EVT_BUTTON, self.buttonChangeMenuAccess_Clicked )
-        self.buttonChangeSaveAccess.Bind( wx.EVT_BUTTON, self.buttonChangeSaveAccess_Clicked )
-        self.buttonCallMenuScreen.Bind( wx.EVT_BUTTON, self.buttonCallMenuScreen_Clicked )
-        self.buttonCallSaveScreen.Bind( wx.EVT_BUTTON, self.buttonCallSaveScreen_Clicked )
-    
-    def __del__( self ):
-        pass
-    
-    
-    # Virtual event handlers, overide them in your derived class
-    def buttonTransferPlayer_Clicked( self, event ):
-        pass
-    
-    def buttonSetMoveRoute_Clicked( self, event ):
-        pass
-    
-    def buttonSetEventLocation_Clicked( self, event ):
-        pass
-    
-    def buttonScrollMap_Clicked( self, event ):
-        pass
-    
-    def buttonWaitForMovesCompletion_Clicked( self, event ):
-        pass
-    
-    def buttonPrepareForTransition_Clicked( self, event ):
-        pass
-    
-    def buttonExecuteTransition_Clicked( self, event ):
-        pass
-    
-    def buttonChangeScreenTone_Clicked( self, event ):
-        pass
-    
-    def buttonScreenFlash_Clicked( self, event ):
-        pass
-    
-    def buttonScreenShake_Clicked( self, event ):
-        pass
-    
-    def buttonChangePartyMember_Clicked( self, event ):
-        pass
-    
-    def buttonChangeGold_Clicked( self, event ):
-        pass
-    
-    def buttonChangeItem_Clicked( self, event ):
-        pass
-    
-    def buttonChangeWeapon_Clicked( self, event ):
-        pass
-    
-    def buttonArmor_Clicked( self, event ):
-        pass
-    
-    def buttonChangeMapSettings_Clicked( self, event ):
-        pass
-    
-    def buttonSetWeatherEffects_Clicked( self, event ):
-        pass
-    
-    def buttonChangeFogColorTone_Clicked( self, event ):
-        pass
-    
-    def buttonChangeFogOpacity_Clicked( self, event ):
-        pass
-    
-    def buttonChangeEncounter_Clicked( self, event ):
-        pass
-    
-    def buttonBattleProcessing_Clicked( self, event ):
-        pass
-    
-    def buttonShopProcessing_Clicked( self, event ):
-        pass
-    
-    def buttonNameInputProcessing_Clicked( self, event ):
-        pass
-    
-    def buttonButtonInputProcessing_Clicked( self, event ):
-        pass
-    
-    def buttonGameOver_Clicked( self, event ):
-        pass
-    
-    def buttonReturnToTitleScreen_Clicked( self, event ):
-        pass
-    
-    def buttonChangeMenuAccess_Clicked( self, event ):
-        pass
-    
-    def buttonChangeSaveAccess_Clicked( self, event ):
-        pass
-    
-    def buttonCallMenuScreen_Clicked( self, event ):
-        pass
-    
-    def buttonCallSaveScreen_Clicked( self, event ):
-        pass
-    
-
-###########################################################################
-## Class EventCommands3_Panel
-###########################################################################
-
-class EventCommands3_Panel ( wx.Panel ):
-    
-    def __init__( self, parent ):
-        wx.Panel.__init__ ( self, parent, id = wx.ID_ANY, pos = wx.DefaultPosition, size = wx.Size( 400,450 ), style = wx.TAB_TRAVERSAL )
-        
-        MainSizer = wx.BoxSizer( wx.HORIZONTAL )
-        
-        sizerLeft = wx.BoxSizer( wx.VERTICAL )
-        
-        sizerCharacter = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Character" ), wx.VERTICAL )
-        
-        self.buttonChangeTransparency = wx.Button( self, wx.ID_ANY, u"Change Transparency...", wx.DefaultPosition, wx.DefaultSize, 0 )
-        sizerCharacter.Add( self.buttonChangeTransparency, 0, wx.EXPAND|wx.RIGHT|wx.LEFT, 5 )
-        
-        self.buttonShowAnimation = wx.Button( self, wx.ID_ANY, u"Show Animation...", wx.DefaultPosition, wx.DefaultSize, 0 )
-        sizerCharacter.Add( self.buttonShowAnimation, 0, wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
-        
-        self.buttonEraseEvent = wx.Button( self, wx.ID_ANY, u"Erase Event", wx.DefaultPosition, wx.DefaultSize, 0 )
-        sizerCharacter.Add( self.buttonEraseEvent, 0, wx.EXPAND|wx.RIGHT|wx.LEFT, 5 )
-        
-        sizerLeft.Add( sizerCharacter, 0, wx.ALL|wx.EXPAND, 5 )
-        
-        sizerActor = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Actor" ), wx.VERTICAL )
-        
-        self.buttonChangeHP = wx.Button( self, wx.ID_ANY, u"Change HP...", wx.DefaultPosition, wx.DefaultSize, 0 )
-        sizerActor.Add( self.buttonChangeHP, 0, wx.EXPAND|wx.RIGHT|wx.LEFT, 5 )
-        
-        self.buttonChangeSP = wx.Button( self, wx.ID_ANY, u"Change SP...", wx.DefaultPosition, wx.DefaultSize, 0 )
-        sizerActor.Add( self.buttonChangeSP, 0, wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
-        
-        self.buttonChangeState = wx.Button( self, wx.ID_ANY, u"Change State...", wx.DefaultPosition, wx.DefaultSize, 0 )
-        sizerActor.Add( self.buttonChangeState, 0, wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
-        
-        self.buttonRecoverAll = wx.Button( self, wx.ID_ANY, u"Recover All", wx.DefaultPosition, wx.DefaultSize, 0 )
-        sizerActor.Add( self.buttonRecoverAll, 0, wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
-        
-        self.buttonChangeExperience = wx.Button( self, wx.ID_ANY, u"Change Experience...", wx.DefaultPosition, wx.DefaultSize, 0 )
-        sizerActor.Add( self.buttonChangeExperience, 0, wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
-        
-        self.buttonChangeLevel = wx.Button( self, wx.ID_ANY, u"Change Level...", wx.DefaultPosition, wx.DefaultSize, 0 )
-        sizerActor.Add( self.buttonChangeLevel, 0, wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
-        
-        self.buttonChangeParamters = wx.Button( self, wx.ID_ANY, u"Change Parameters...", wx.DefaultPosition, wx.DefaultSize, 0 )
-        sizerActor.Add( self.buttonChangeParamters, 0, wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
-        
-        self.buttonChangeSkills = wx.Button( self, wx.ID_ANY, u"Change Skills...", wx.DefaultPosition, wx.DefaultSize, 0 )
-        sizerActor.Add( self.buttonChangeSkills, 0, wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
-        
-        self.buttonChangeEquipment = wx.Button( self, wx.ID_ANY, u"Change Equipment...", wx.DefaultPosition, wx.DefaultSize, 0 )
-        sizerActor.Add( self.buttonChangeEquipment, 0, wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
-        
-        self.buttonChangeActorName = wx.Button( self, wx.ID_ANY, u"Change Actor Name...", wx.DefaultPosition, wx.DefaultSize, 0 )
-        sizerActor.Add( self.buttonChangeActorName, 0, wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
-        
-        self.buttonChangeActorClass = wx.Button( self, wx.ID_ANY, u"Change Actor Class...", wx.DefaultPosition, wx.DefaultSize, 0 )
-        sizerActor.Add( self.buttonChangeActorClass, 0, wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
-        
-        self.buttonChangeActorGraphic = wx.Button( self, wx.ID_ANY, u"Change Actor Graphic...", wx.DefaultPosition, wx.DefaultSize, 0 )
-        sizerActor.Add( self.buttonChangeActorGraphic, 0, wx.EXPAND|wx.RIGHT|wx.LEFT, 5 )
-        
-        sizerLeft.Add( sizerActor, 0, wx.EXPAND|wx.ALL, 5 )
-        
-        MainSizer.Add( sizerLeft, 1, wx.EXPAND, 5 )
-        
-        sizerRight = wx.BoxSizer( wx.VERTICAL )
-        
-        sizerPicture = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Picture" ), wx.VERTICAL )
-        
-        self.buttonShowPicture = wx.Button( self, wx.ID_ANY, u"Show Picture...", wx.DefaultPosition, wx.DefaultSize, 0 )
-        sizerPicture.Add( self.buttonShowPicture, 0, wx.EXPAND|wx.RIGHT|wx.LEFT, 5 )
-        
-        self.buttonMovePicture = wx.Button( self, wx.ID_ANY, u"Move Picture...", wx.DefaultPosition, wx.DefaultSize, 0 )
-        sizerPicture.Add( self.buttonMovePicture, 0, wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
-        
-        self.buttonRotatePicture = wx.Button( self, wx.ID_ANY, u"Rotate Picture...", wx.DefaultPosition, wx.DefaultSize, 0 )
-        sizerPicture.Add( self.buttonRotatePicture, 0, wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
-        
-        self.buttonChangePictureColorTone = wx.Button( self, wx.ID_ANY, u"Change Picture Color Tone...", wx.DefaultPosition, wx.DefaultSize, 0 )
-        sizerPicture.Add( self.buttonChangePictureColorTone, 0, wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
-        
-        self.buttonErasePicture = wx.Button( self, wx.ID_ANY, u"Erase Picture...", wx.DefaultPosition, wx.DefaultSize, 0 )
-        sizerPicture.Add( self.buttonErasePicture, 0, wx.EXPAND|wx.RIGHT|wx.LEFT, 5 )
-        
-        sizerRight.Add( sizerPicture, 0, wx.EXPAND|wx.ALL, 5 )
-        
-        sizerBattle = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Battle" ), wx.VERTICAL )
-        
-        self.buttonChangeEnemyHP = wx.Button( self, wx.ID_ANY, u"Change Enemy HP...", wx.DefaultPosition, wx.DefaultSize, 0 )
-        sizerBattle.Add( self.buttonChangeEnemyHP, 0, wx.EXPAND|wx.RIGHT|wx.LEFT, 5 )
-        
-        self.buttonChangeEnemySP = wx.Button( self, wx.ID_ANY, u"Change Enemy SP...", wx.DefaultPosition, wx.DefaultSize, 0 )
-        sizerBattle.Add( self.buttonChangeEnemySP, 0, wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
-        
-        self.buttonChangeEnemyState = wx.Button( self, wx.ID_ANY, u"Change Enemy State...", wx.DefaultPosition, wx.DefaultSize, 0 )
-        sizerBattle.Add( self.buttonChangeEnemyState, 0, wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
-        
-        self.buttonEnemyRecoverAll = wx.Button( self, wx.ID_ANY, u"Enemy Recover All...", wx.DefaultPosition, wx.DefaultSize, 0 )
-        sizerBattle.Add( self.buttonEnemyRecoverAll, 0, wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
-        
-        self.buttonEnemyApperance = wx.Button( self, wx.ID_ANY, u"Enemy Appearance...", wx.DefaultPosition, wx.DefaultSize, 0 )
-        sizerBattle.Add( self.buttonEnemyApperance, 0, wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
-        
-        self.buttonEnemyTransform = wx.Button( self, wx.ID_ANY, u"Enemy Transform...", wx.DefaultPosition, wx.DefaultSize, 0 )
-        sizerBattle.Add( self.buttonEnemyTransform, 0, wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
-        
-        self.buttonShowBattleAnimation = wx.Button( self, wx.ID_ANY, u"Show Battle Animation...", wx.DefaultPosition, wx.DefaultSize, 0 )
-        sizerBattle.Add( self.buttonShowBattleAnimation, 0, wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
-        
-        self.buttonDealDamage = wx.Button( self, wx.ID_ANY, u"Deal Damage...", wx.DefaultPosition, wx.DefaultSize, 0 )
-        sizerBattle.Add( self.buttonDealDamage, 0, wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
-        
-        self.buttonForceAction = wx.Button( self, wx.ID_ANY, u"Force Action...", wx.DefaultPosition, wx.DefaultSize, 0 )
-        sizerBattle.Add( self.buttonForceAction, 0, wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
-        
-        self.buttonAbortBattle = wx.Button( self, wx.ID_ANY, u"Abort Battle", wx.DefaultPosition, wx.DefaultSize, 0 )
-        sizerBattle.Add( self.buttonAbortBattle, 0, wx.EXPAND|wx.RIGHT|wx.LEFT, 5 )
-        
-        sizerRight.Add( sizerBattle, 0, wx.EXPAND|wx.ALL, 5 )
-        
-        MainSizer.Add( sizerRight, 1, wx.EXPAND, 5 )
-        
-        self.SetSizer( MainSizer )
-        self.Layout()
-        
-        # Connect Events
-        self.buttonChangeTransparency.Bind( wx.EVT_BUTTON, self.buttonChangeTransparency_Clicked )
-        self.buttonShowAnimation.Bind( wx.EVT_BUTTON, self.buttonShowAnimation_Clicked )
-        self.buttonEraseEvent.Bind( wx.EVT_BUTTON, self.buttonEraseEvent_Clicked )
-        self.buttonChangeHP.Bind( wx.EVT_BUTTON, self.buttonChangeHP_Clicked )
-        self.buttonChangeSP.Bind( wx.EVT_BUTTON, self.buttonChangeSP_Clicked )
-        self.buttonChangeState.Bind( wx.EVT_BUTTON, self.buttonChangeState_Clicked )
-        self.buttonRecoverAll.Bind( wx.EVT_BUTTON, self.buttonRecoverAll_Clicked )
-        self.buttonChangeExperience.Bind( wx.EVT_BUTTON, self.buttonChangeExperience_Clicked )
-        self.buttonChangeLevel.Bind( wx.EVT_BUTTON, self.buttonChangeLevel_Clicked )
-        self.buttonChangeParamters.Bind( wx.EVT_BUTTON, self.buttonChangeParameters_Clicked )
-        self.buttonChangeSkills.Bind( wx.EVT_BUTTON, self.buttonChangeSkills_Clicked )
-        self.buttonChangeEquipment.Bind( wx.EVT_BUTTON, self.buttonChangeEquipment_Clicked )
-        self.buttonChangeActorName.Bind( wx.EVT_BUTTON, self.buttonChangeActorName_Clicked )
-        self.buttonChangeActorClass.Bind( wx.EVT_BUTTON, self.buttonChangeActorClass_Clicked )
-        self.buttonChangeActorGraphic.Bind( wx.EVT_BUTTON, self.buttonChangeActorGraphic_Clicked )
-        self.buttonShowPicture.Bind( wx.EVT_BUTTON, self.buttonShowPicture_Clicked )
-        self.buttonMovePicture.Bind( wx.EVT_BUTTON, self.buttonMovePicture_Clicked )
-        self.buttonRotatePicture.Bind( wx.EVT_BUTTON, self.buttonRotatePicture_Clicked )
-        self.buttonChangePictureColorTone.Bind( wx.EVT_BUTTON, self.buttonChangePictureColorTone_Clicked )
-        self.buttonErasePicture.Bind( wx.EVT_BUTTON, self.buttonErasePicture_Clicked )
-        self.buttonChangeEnemyHP.Bind( wx.EVT_BUTTON, self.buttonChangeEnemyHP_Clicked )
-        self.buttonChangeEnemySP.Bind( wx.EVT_BUTTON, self.buttonChangeEnemySP_Clicked )
-        self.buttonChangeEnemyState.Bind( wx.EVT_BUTTON, self.buttonChangeEnemyState_Clicked )
-        self.buttonEnemyRecoverAll.Bind( wx.EVT_BUTTON, self.buttonEnemyRecoverAll_Clicked )
-        self.buttonEnemyApperance.Bind( wx.EVT_BUTTON, self.buttonEnemyAppearance_Clicked )
-        self.buttonEnemyTransform.Bind( wx.EVT_BUTTON, self.buttonEnemyTransform_Clicked )
-        self.buttonShowBattleAnimation.Bind( wx.EVT_BUTTON, self.buttonShowBattleAnimation_Clicked )
-        self.buttonDealDamage.Bind( wx.EVT_BUTTON, self.buttonDealDamage_Clicked )
-        self.buttonForceAction.Bind( wx.EVT_BUTTON, self.buttonForceAction_Clicked )
-        self.buttonAbortBattle.Bind( wx.EVT_BUTTON, self.buttonAbortBattle_Clicked )
-    
-    def __del__( self ):
-        pass
-    
-    
-    # Virtual event handlers, overide them in your derived class
-    def buttonChangeTransparency_Clicked( self, event ):
-        pass
-    
-    def buttonShowAnimation_Clicked( self, event ):
-        pass
-    
-    def buttonEraseEvent_Clicked( self, event ):
-        pass
-    
-    def buttonChangeHP_Clicked( self, event ):
-        pass
-    
-    def buttonChangeSP_Clicked( self, event ):
-        pass
-    
-    def buttonChangeState_Clicked( self, event ):
-        pass
-    
-    def buttonRecoverAll_Clicked( self, event ):
-        pass
-    
-    def buttonChangeExperience_Clicked( self, event ):
-        pass
-    
-    def buttonChangeLevel_Clicked( self, event ):
-        pass
-    
-    def buttonChangeParameters_Clicked( self, event ):
-        pass
-    
-    def buttonChangeSkills_Clicked( self, event ):
-        pass
-    
-    def buttonChangeEquipment_Clicked( self, event ):
-        pass
-    
-    def buttonChangeActorName_Clicked( self, event ):
-        pass
-    
-    def buttonChangeActorClass_Clicked( self, event ):
-        pass
-    
-    def buttonChangeActorGraphic_Clicked( self, event ):
-        pass
-    
-    def buttonShowPicture_Clicked( self, event ):
-        pass
-    
-    def buttonMovePicture_Clicked( self, event ):
-        pass
-    
-    def buttonRotatePicture_Clicked( self, event ):
-        pass
-    
-    def buttonChangePictureColorTone_Clicked( self, event ):
-        pass
-    
-    def buttonErasePicture_Clicked( self, event ):
-        pass
-    
-    def buttonChangeEnemyHP_Clicked( self, event ):
-        pass
-    
-    def buttonChangeEnemySP_Clicked( self, event ):
-        pass
-    
-    def buttonChangeEnemyState_Clicked( self, event ):
-        pass
-    
-    def buttonEnemyRecoverAll_Clicked( self, event ):
-        pass
-    
-    def buttonEnemyAppearance_Clicked( self, event ):
-        pass
-    
-    def buttonEnemyTransform_Clicked( self, event ):
-        pass
-    
-    def buttonShowBattleAnimation_Clicked( self, event ):
-        pass
-    
-    def buttonDealDamage_Clicked( self, event ):
-        pass
-    
-    def buttonForceAction_Clicked( self, event ):
-        pass
-    
-    def buttonAbortBattle_Clicked( self, event ):
-        pass
-    
-
-###########################################################################
-## Class EventEditor_Panel
-###########################################################################
-
-class EventEditor_Panel ( wx.Panel ):
-    
-    def __init__( self, parent ):
-        wx.Panel.__init__ ( self, parent, id = wx.ID_ANY, pos = wx.DefaultPosition, size = wx.Size( 683,479 ), style = wx.TAB_TRAVERSAL )
-        
-        MainSizer = wx.BoxSizer( wx.VERTICAL )
-        
-        sizerControls = wx.BoxSizer( wx.HORIZONTAL )
-        
-        sizerName = wx.BoxSizer( wx.VERTICAL )
-        
-        self.labelName = wx.StaticText( self, wx.ID_ANY, u"Name:", wx.DefaultPosition, wx.DefaultSize, 0 )
-        self.labelName.Wrap( -1 )
-        sizerName.Add( self.labelName, 0, wx.ALL|wx.EXPAND, 5 )
-        
-        self.textCtrlName = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( -1,-1 ), 0 )
-        sizerName.Add( self.textCtrlName, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
-        
-        sizerControls.Add( sizerName, 1, wx.EXPAND, 5 )
-        
-        self.buttonNewPage = wx.Button( self, wx.ID_ANY, u"New\nEvent Page", wx.DefaultPosition, wx.Size( -1,42 ), 0 )
-        sizerControls.Add( self.buttonNewPage, 0, wx.ALL, 5 )
-        
-        self.buttonCopyPage = wx.Button( self, wx.ID_ANY, u"Copy\nEvent Page", wx.DefaultPosition, wx.Size( -1,42 ), 0 )
-        sizerControls.Add( self.buttonCopyPage, 0, wx.ALL, 5 )
-        
-        self.buttonPastePage = wx.Button( self, wx.ID_ANY, u"Paste\nEvent Page", wx.DefaultPosition, wx.Size( -1,42 ), 0 )
-        sizerControls.Add( self.buttonPastePage, 0, wx.ALL, 5 )
-        
-        self.buttonDeletePage = wx.Button( self, wx.ID_ANY, u"Delete\nEvent Page", wx.DefaultPosition, wx.Size( -1,42 ), 0 )
-        sizerControls.Add( self.buttonDeletePage, 0, wx.ALL, 5 )
-        
-        self.buttonClearPage = wx.Button( self, wx.ID_ANY, u"Clear\nEvent Page", wx.DefaultPosition, wx.Size( -1,42 ), 0 )
-        sizerControls.Add( self.buttonClearPage, 0, wx.ALL, 5 )
-        
-        MainSizer.Add( sizerControls, 0, wx.EXPAND, 5 )
-        
-        self.noteBookEventPages = wx.Notebook( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, 0 )
-        
-        MainSizer.Add( self.noteBookEventPages, 1, wx.EXPAND |wx.ALL, 5 )
-        
-        sizerOKCancel = wx.BoxSizer( wx.HORIZONTAL )
-        
-        self.buttonOK = wx.Button( self, wx.ID_ANY, u"OK", wx.DefaultPosition, wx.DefaultSize, 0 )
-        sizerOKCancel.Add( self.buttonOK, 0, wx.ALL, 5 )
-        
-        self.buttonCancel = wx.Button( self, wx.ID_ANY, u"Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
-        sizerOKCancel.Add( self.buttonCancel, 0, wx.ALL, 5 )
-        
-        self.buttonApply = wx.Button( self, wx.ID_ANY, u"Apply", wx.DefaultPosition, wx.DefaultSize, 0 )
-        sizerOKCancel.Add( self.buttonApply, 0, wx.ALL, 5 )
-        
-        MainSizer.Add( sizerOKCancel, 0, wx.ALIGN_RIGHT, 5 )
-        
-        self.SetSizer( MainSizer )
-        self.Layout()
-        
-        # Connect Events
-        self.buttonNewPage.Bind( wx.EVT_BUTTON, self.buttonNewPage_Clicked )
-        self.buttonCopyPage.Bind( wx.EVT_BUTTON, self.buttonCopyPage_Clicked )
-        self.buttonPastePage.Bind( wx.EVT_BUTTON, self.buttonPastePage_Clicked )
-        self.buttonDeletePage.Bind( wx.EVT_BUTTON, self.buttonDeletePage_Clicked )
-        self.buttonClearPage.Bind( wx.EVT_BUTTON, self.buttonClearPage_Clicked )
-        self.buttonOK.Bind( wx.EVT_BUTTON, self.buttonOK_Clicked )
-        self.buttonCancel.Bind( wx.EVT_BUTTON, self.buttonCancel_Clicked )
-        self.buttonApply.Bind( wx.EVT_BUTTON, self.buttonApply_Clicked )
-    
-    def __del__( self ):
-        pass
-    
-    
-    # Virtual event handlers, overide them in your derived class
-    def buttonNewPage_Clicked( self, event ):
-        pass
-    
-    def buttonCopyPage_Clicked( self, event ):
-        pass
-    
-    def buttonPastePage_Clicked( self, event ):
-        pass
-    
-    def buttonDeletePage_Clicked( self, event ):
-        pass
-    
-    def buttonClearPage_Clicked( self, event ):
-        pass
-    
-    def buttonOK_Clicked( self, event ):
-        pass
-    
-    def buttonCancel_Clicked( self, event ):
-        pass
-    
-    def buttonApply_Clicked( self, event ):
-        pass
-    
-
-###########################################################################
-## Class EventPage_Panel
-###########################################################################
-
-class EventPage_Panel ( wx.Panel ):
-    
-    def __init__( self, parent ):
-        wx.Panel.__init__ ( self, parent, id = wx.ID_ANY, pos = wx.DefaultPosition, size = wx.Size( 742,509 ), style = wx.TAB_TRAVERSAL )
-        
-        MainSizer = wx.BoxSizer( wx.HORIZONTAL )
-        
-        sizerSettings = wx.BoxSizer( wx.VERTICAL )
-        
-        sizerConditions = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Conditions" ), wx.VERTICAL )
-        
-        sizerSwitch1 = wx.BoxSizer( wx.HORIZONTAL )
-        
-        self.checkBoxSwitch1 = wx.CheckBox( self, wx.ID_ANY, u"Switch", wx.DefaultPosition, wx.Size( 76,-1 ), 0 )
-        sizerSwitch1.Add( self.checkBoxSwitch1, 0, wx.ALIGN_CENTER_VERTICAL|wx.ALL, 5 )
-        
-        comboBoxSwitch1Choices = []
-        self.comboBoxSwitch1 = wx.ComboBox( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, comboBoxSwitch1Choices, 0 )
-        sizerSwitch1.Add( self.comboBoxSwitch1, 0, wx.ALL, 5 )
-        
-        self.labelSwitchOn1 = wx.StaticText( self, wx.ID_ANY, u"is ON", wx.DefaultPosition, wx.DefaultSize, 0 )
-        self.labelSwitchOn1.Wrap( -1 )
-        sizerSwitch1.Add( self.labelSwitchOn1, 0, wx.ALIGN_CENTER_VERTICAL|wx.ALL, 5 )
-        
-        sizerConditions.Add( sizerSwitch1, 0, wx.EXPAND, 5 )
-        
-        sizerSwitch2 = wx.BoxSizer( wx.HORIZONTAL )
-        
-        self.checkBoxSwitch2 = wx.CheckBox( self, wx.ID_ANY, u"Switch", wx.DefaultPosition, wx.Size( 76,-1 ), 0 )
-        sizerSwitch2.Add( self.checkBoxSwitch2, 0, wx.ALIGN_CENTER_VERTICAL|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
-        
-        comboBoxSwitch2Choices = []
-        self.comboBoxSwitch2 = wx.ComboBox( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, comboBoxSwitch2Choices, 0 )
-        sizerSwitch2.Add( self.comboBoxSwitch2, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
-        
-        self.labelSwitchOn2 = wx.StaticText( self, wx.ID_ANY, u"is ON", wx.DefaultPosition, wx.DefaultSize, 0 )
-        self.labelSwitchOn2.Wrap( -1 )
-        sizerSwitch2.Add( self.labelSwitchOn2, 0, wx.ALIGN_CENTER_VERTICAL|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
-        
-        sizerConditions.Add( sizerSwitch2, 0, wx.EXPAND, 5 )
-        
-        sizerVariable1 = wx.BoxSizer( wx.HORIZONTAL )
-        
-        self.checkBoxVariable = wx.CheckBox( self, wx.ID_ANY, u"Variable", wx.DefaultPosition, wx.Size( 76,-1 ), 0 )
-        sizerVariable1.Add( self.checkBoxVariable, 0, wx.ALIGN_CENTER_VERTICAL|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
-        
-        comboBoxVariableChoices = []
-        self.comboBoxVariable = wx.ComboBox( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, comboBoxVariableChoices, 0 )
-        sizerVariable1.Add( self.comboBoxVariable, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
-        
-        self.labeVariable1 = wx.StaticText( self, wx.ID_ANY, u"is", wx.DefaultPosition, wx.DefaultSize, 0 )
-        self.labeVariable1.Wrap( -1 )
-        sizerVariable1.Add( self.labeVariable1, 0, wx.ALIGN_CENTER_VERTICAL|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
-        
-        sizerConditions.Add( sizerVariable1, 0, wx.EXPAND, 5 )
-        
-        sizerVariable2 = wx.BoxSizer( wx.HORIZONTAL )
-        
-        self.labelDummy = wx.StaticText( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( 76,-1 ), 0 )
-        self.labelDummy.Wrap( -1 )
-        sizerVariable2.Add( self.labelDummy, 0, wx.ALL, 5 )
-        
-        self.spinCtrlVariable = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( 96,-1 ), wx.SP_ARROW_KEYS, 0, 10, 0 )
-        sizerVariable2.Add( self.spinCtrlVariable, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
-        
-        self.labelVariable2 = wx.StaticText( self, wx.ID_ANY, u"or Higher", wx.DefaultPosition, wx.DefaultSize, 0 )
-        self.labelVariable2.Wrap( -1 )
-        sizerVariable2.Add( self.labelVariable2, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.ALIGN_CENTER_VERTICAL, 5 )
-        
-        sizerConditions.Add( sizerVariable2, 0, wx.EXPAND, 5 )
-        
-        sizerSelfSwitch = wx.BoxSizer( wx.HORIZONTAL )
-        
-        self.checkBoxSelfSwitch = wx.CheckBox( self, wx.ID_ANY, u"Self Switch", wx.DefaultPosition, wx.Size( 76,-1 ), 0 )
-        sizerSelfSwitch.Add( self.checkBoxSelfSwitch, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.ALIGN_CENTER_VERTICAL, 5 )
-        
-        comboBoxSelfSwitchChoices = [ u"A", u"B", u"C", u"D", u"E", u"F", u"G", u"H", u"I", u"J", u"K", u"L", u"M", u"N", u"O", u"P", u"Q", u"R", u"S", u"T", u"U", u"V", u"W", u"X", u"Y", u"Z" ]
-        self.comboBoxSelfSwitch = wx.Choice( self, wx.ID_ANY, wx.DefaultPosition, wx.Size( 96,-1 ), comboBoxSelfSwitchChoices, 0 )
-        self.comboBoxSelfSwitch.SetSelection( 0 )
-        sizerSelfSwitch.Add( self.comboBoxSelfSwitch, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
-        
-        self.labelSelfSwitch = wx.StaticText( self, wx.ID_ANY, u"is ON", wx.DefaultPosition, wx.DefaultSize, 0 )
-        self.labelSelfSwitch.Wrap( -1 )
-        sizerSelfSwitch.Add( self.labelSelfSwitch, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.ALIGN_CENTER_VERTICAL, 5 )
-        
-        sizerConditions.Add( sizerSelfSwitch, 0, wx.EXPAND, 5 )
-        
-        sizerSelfVariable = wx.BoxSizer( wx.HORIZONTAL )
-        
-        self.checkBoxSelfVariable = wx.CheckBox( self, wx.ID_ANY, u"Self Variable", wx.DefaultPosition, wx.Size( 76,-1 ), 0 )
-        sizerSelfVariable.Add( self.checkBoxSelfVariable, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.ALIGN_CENTER_VERTICAL, 5 )
-        
-        self.spinCtrlSelfVariable = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( 96,-1 ), wx.SP_ARROW_KEYS, 0, 10, 0 )
-        sizerSelfVariable.Add( self.spinCtrlSelfVariable, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
-        
-        self.labelSelfVariable = wx.StaticText( self, wx.ID_ANY, u"or Higher", wx.DefaultPosition, wx.DefaultSize, 0 )
-        self.labelSelfVariable.Wrap( -1 )
-        sizerSelfVariable.Add( self.labelSelfVariable, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.ALIGN_CENTER_VERTICAL, 5 )
-        
-        sizerConditions.Add( sizerSelfVariable, 0, 0, 5 )
-        
-        sizerScript = wx.BoxSizer( wx.HORIZONTAL )
-        
-        self.labelScript = wx.CheckBox( self, wx.ID_ANY, u"Script", wx.DefaultPosition, wx.Size( 76,-1 ), 0 )
-        sizerScript.Add( self.labelScript, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.ALIGN_CENTER_VERTICAL, 5 )
-        
-        comboBoxScriptChoices = []
-        self.comboBoxScript = wx.ComboBox( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( 96,-1 ), comboBoxScriptChoices, 0 )
-        sizerScript.Add( self.comboBoxScript, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
-        
-        self.labelScript = wx.StaticText( self, wx.ID_ANY, u"is TRUE", wx.DefaultPosition, wx.DefaultSize, 0 )
-        self.labelScript.Wrap( -1 )
-        sizerScript.Add( self.labelScript, 0, wx.ALIGN_CENTER_VERTICAL|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
-        
-        sizerConditions.Add( sizerScript, 0, wx.EXPAND, 5 )
-        
-        sizerSettings.Add( sizerConditions, 0, wx.ALL|wx.EXPAND, 5 )
-        
-        sizerLookRoute = wx.BoxSizer( wx.HORIZONTAL )
-        
-        sizerGraphic = wx.BoxSizer( wx.VERTICAL )
-        
-        self.labelGraphic = wx.StaticText( self, wx.ID_ANY, u"Graphic:", wx.DefaultPosition, wx.DefaultSize, 0 )
-        self.labelGraphic.Wrap( -1 )
-        sizerGraphic.Add( self.labelGraphic, 0, wx.ALL, 5 )
-        
-        self.bitmapGraphic = wx.StaticBitmap( self, wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.Size( 90,120 ), wx.SUNKEN_BORDER )
-        sizerGraphic.Add( self.bitmapGraphic, 1, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
-        
-        sizerLookRoute.Add( sizerGraphic, 0, 0, 5 )
-        
-        sizerMovement = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Autonomous Movement" ), wx.VERTICAL )
-        
-        sizerMoveType = wx.BoxSizer( wx.HORIZONTAL )
-        
-        self.labelMoveType = wx.StaticText( self, wx.ID_ANY, u"Type:", wx.DefaultPosition, wx.Size( 36,-1 ), 0 )
-        self.labelMoveType.Wrap( -1 )
-        sizerMoveType.Add( self.labelMoveType, 0, wx.ALIGN_CENTER_VERTICAL|wx.ALL, 5 )
-        
-        comboBoxMoveTypeChoices = [ u"Fixed", u"Random", u"Approach", u"Custom" ]
-        self.comboBoxMoveType = wx.Choice( self, wx.ID_ANY, wx.DefaultPosition, wx.Size( 64,-1 ), comboBoxMoveTypeChoices, 0 )
-        self.comboBoxMoveType.SetSelection( 0 )
-        sizerMoveType.Add( self.comboBoxMoveType, 1, wx.EXPAND|wx.ALIGN_BOTTOM|wx.ALL, 5 )
-        
-        sizerMovement.Add( sizerMoveType, 0, wx.EXPAND, 5 )
-        
-        sizerMoveRoute = wx.BoxSizer( wx.HORIZONTAL )
-        
-        self.labelMoveDummy = wx.StaticText( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( 36,-1 ), 0 )
-        self.labelMoveDummy.Wrap( -1 )
-        sizerMoveRoute.Add( self.labelMoveDummy, 0, wx.ALL, 5 )
-        
-        self.buttonMoveRoute = wx.Button( self, wx.ID_ANY, u"Move Route...", wx.DefaultPosition, wx.DefaultSize, 0 )
-        sizerMoveRoute.Add( self.buttonMoveRoute, 1, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.ALIGN_RIGHT, 5 )
-        
-        sizerMovement.Add( sizerMoveRoute, 0, wx.EXPAND, 5 )
-        
-        sizerMoveSpeed = wx.BoxSizer( wx.HORIZONTAL )
-        
-        self.labelMoveSpeed = wx.StaticText( self, wx.ID_ANY, u"Speed:", wx.DefaultPosition, wx.Size( 36,-1 ), 0 )
-        self.labelMoveSpeed.Wrap( -1 )
-        sizerMoveSpeed.Add( self.labelMoveSpeed, 0, wx.ALIGN_CENTER_VERTICAL|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
-        
-        comboBoxMoveSpeedChoices = [ u"1: Slowest", u"2: Slower", u"3: Slow", u"4: Fast", u"5: Faster", u"6: Fastest" ]
-        self.comboBoxMoveSpeed = wx.Choice( self, wx.ID_ANY, wx.DefaultPosition, wx.Size( 64,-1 ), comboBoxMoveSpeedChoices, 0 )
-        self.comboBoxMoveSpeed.SetSelection( 3 )
-        sizerMoveSpeed.Add( self.comboBoxMoveSpeed, 1, wx.EXPAND|wx.ALIGN_BOTTOM|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
-        
-        sizerMovement.Add( sizerMoveSpeed, 0, wx.EXPAND, 5 )
-        
-        sizerMoveFreq = wx.BoxSizer( wx.HORIZONTAL )
-        
-        self.labelMoveFreq = wx.StaticText( self, wx.ID_ANY, u"Freq:", wx.DefaultPosition, wx.Size( 36,-1 ), 0 )
-        self.labelMoveFreq.Wrap( -1 )
-        sizerMoveFreq.Add( self.labelMoveFreq, 0, wx.ALIGN_CENTER_VERTICAL|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
-        
-        comboBoxMoveFreqChoices = [ u"1: Lowest", u"2: Lower", u"3: Low", u"4: High", u"5: Higher", u"6: Highest" ]
-        self.comboBoxMoveFreq = wx.Choice( self, wx.ID_ANY, wx.DefaultPosition, wx.Size( 64,-1 ), comboBoxMoveFreqChoices, 0 )
-        self.comboBoxMoveFreq.SetSelection( 3 )
-        sizerMoveFreq.Add( self.comboBoxMoveFreq, 1, wx.EXPAND|wx.ALIGN_BOTTOM|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
-        
-        sizerMovement.Add( sizerMoveFreq, 0, wx.EXPAND, 5 )
-        
-        sizerLookRoute.Add( sizerMovement, 1, wx.ALL|wx.EXPAND, 5 )
-        
-        sizerSettings.Add( sizerLookRoute, 0, wx.EXPAND, 5 )
-        
-        sizerOptionsTrigger = wx.BoxSizer( wx.HORIZONTAL )
-        
-        sizerOptions = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Options" ), wx.VERTICAL )
-        
-        self.checkBoxMoveAnimation = wx.CheckBox( self, wx.ID_ANY, u"Move Animation", wx.DefaultPosition, wx.DefaultSize, 0 )
-        self.checkBoxMoveAnimation.SetValue(True) 
-        sizerOptions.Add( self.checkBoxMoveAnimation, 0, wx.ALL, 5 )
-        
-        self.checkBoxStopAnimation = wx.CheckBox( self, wx.ID_ANY, u"Stop Animation", wx.DefaultPosition, wx.DefaultSize, 0 )
-        sizerOptions.Add( self.checkBoxStopAnimation, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
-        
-        self.checkBoxDirectionFix = wx.CheckBox( self, wx.ID_ANY, u"Direction Fix", wx.DefaultPosition, wx.DefaultSize, 0 )
-        sizerOptions.Add( self.checkBoxDirectionFix, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
-        
-        self.checkBoxThrough = wx.CheckBox( self, wx.ID_ANY, u"Through", wx.DefaultPosition, wx.DefaultSize, 0 )
-        sizerOptions.Add( self.checkBoxThrough, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
-        
-        self.checkBoxAlwaysTop = wx.CheckBox( self, wx.ID_ANY, u"Always on Top", wx.DefaultPosition, wx.DefaultSize, 0 )
-        sizerOptions.Add( self.checkBoxAlwaysTop, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
-        
-        sizerOptionsTrigger.Add( sizerOptions, 1, wx.EXPAND|wx.ALL, 5 )
-        
-        radioBoxTriggerChoices = [ u"Action Button", u"Player Touch", u"Event Touch", u"Autorun", u"Parallel Process" ]
-        self.radioBoxTrigger = wx.RadioBox( self, wx.ID_ANY, u"Trigger", wx.DefaultPosition, wx.DefaultSize, radioBoxTriggerChoices, 1, wx.RA_SPECIFY_COLS )
-        self.radioBoxTrigger.SetSelection( 0 )
-        sizerOptionsTrigger.Add( self.radioBoxTrigger, 1, wx.ALL|wx.EXPAND, 5 )
-        
-        sizerSettings.Add( sizerOptionsTrigger, 0, wx.EXPAND, 5 )
-        
-        MainSizer.Add( sizerSettings, 0, wx.EXPAND, 5 )
-        
-        sizerCommands = wx.BoxSizer( wx.VERTICAL )
-        
-        self.labelCommands = wx.StaticText( self, wx.ID_ANY, u"List of Event Commands:", wx.DefaultPosition, wx.DefaultSize, 0 )
-        self.labelCommands.Wrap( -1 )
-        sizerCommands.Add( self.labelCommands, 0, wx.ALL, 5 )
-        
-        listBoxCommandsChoices = [ u"@>" ]
-        self.listBoxCommands = wx.ListBox( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, listBoxCommandsChoices, 0 )
-        sizerCommands.Add( self.listBoxCommands, 1, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
-        
-        MainSizer.Add( sizerCommands, 1, wx.EXPAND, 5 )
-        
-        self.SetSizer( MainSizer )
-        self.Layout()
-    
-    def __del__( self ):
-        pass
-    
-
 ###########################################################################
 ## Class BattleTestActor_Panel
 ###########################################################################
@@ -5345,7 +4236,6 @@ class GenerateCurve_Dialog ( wx.Dialog ):
         self.spinCtrlFinal = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0 )
         sizerControls.Add( self.spinCtrlFinal, 1, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
         
-        from wx.lib.agw.floatspin import FloatSpin
         self.spinCtrlSpeed = FloatSpin(self)
         sizerControls.Add( self.spinCtrlSpeed, 1, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
         
@@ -5414,8 +4304,7 @@ class ChooseGraphic_Dialog ( wx.Dialog ):
         self.panelGraphic = wx.ScrolledWindow( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.HSCROLL|wx.SUNKEN_BORDER|wx.VSCROLL )
         self.panelGraphic.SetScrollRate( 5, 5 )
         sizerGLGraphic = wx.BoxSizer( wx.VERTICAL )
-        
-        from Core.Database.Controls import EditorGLPanel
+
         parent = self.panelGraphic
         self.glCanvasGraphic = EditorGLPanel(parent, -1, 1, 1, (0, 0,), 1)
         sizerGLGraphic.Add( self.glCanvasGraphic, 1, wx.ALL|wx.EXPAND, 0 )
@@ -5498,8 +4387,7 @@ class ChooseGraphic_Dialog_NoHue ( wx.Dialog ):
         self.panelGraphic = wx.ScrolledWindow( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.HSCROLL|wx.SUNKEN_BORDER|wx.VSCROLL )
         self.panelGraphic.SetScrollRate( 5, 5 )
         sizerGLGraphic = wx.BoxSizer( wx.VERTICAL )
-        
-        from Core.Database.Controls import EditorGLPanel
+
         parent = self.panelGraphic
         self.glCanvasGraphic = EditorGLPanel(parent, -1, 1, 1, (0, 0,), 1)
         sizerGLGraphic.Add( self.glCanvasGraphic, 1, wx.ALL|wx.EXPAND, 0 )
@@ -13555,7 +12443,6 @@ class ParameterGraph_Panel ( wx.Panel ):
         self.panelMaxHP = wx.Panel( self.noteBookParameters, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
         sizerGraph = wx.BoxSizer( wx.VERTICAL )
         
-        from Core.Database.Controls import ParameterGraph
         self.interactiveGraph = ParameterGraph(self.panelMaxHP)
         sizerGraph.Add( self.interactiveGraph, 1, wx.EXPAND, 0 )
         
@@ -13781,7 +12668,6 @@ class AudioPlayer_Panel ( wx.Panel ):
         
         bSizer632 = wx.BoxSizer( wx.VERTICAL )
         
-        from AudioPlayer_Panel import WaveFormPanel
         color = wx.Colour(100, 100, 220, 255)
         self.waveFormPanelLeft = WaveFormPanel(self, color=color)
         self.waveFormPanelLeft.SetHelpText( u"Visual representation of the left audio channel" )
@@ -13789,7 +12675,6 @@ class AudioPlayer_Panel ( wx.Panel ):
         
         bSizer632.Add( self.waveFormPanelLeft, 0, wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
         
-        from AudioPlayer_Panel import WaveFormPanel
         color = wx.Colour(220, 100, 100, 255)
         self.waveFormPanelRight = WaveFormPanel(self, color=color)
         self.waveFormPanelRight.SetHelpText( u"Visual representation of the right audio channel" )
@@ -13987,7 +12872,6 @@ class ExpGraph_Dialog ( wx.Dialog ):
         
         MainSizer = wx.BoxSizer( wx.VERTICAL )
         
-        from Core.Database.Controls import ParameterGraph
         self.graphPanel = ParameterGraph(self)
         MainSizer.Add( self.graphPanel, 1, wx.ALL|wx.EXPAND, 5 )
         
@@ -14138,7 +13022,6 @@ class ExpGrid_Dialog ( wx.Dialog ):
         
         sizerControls1.Add( self.spinCtrlMaxValue, 45, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
         
-        from wx.lib.agw.floatspin import FloatSpin
         self.spinCtrlSpeed = FloatSpin(self)
         self.spinCtrlSpeed.Enable( False )
         
@@ -14261,7 +13144,6 @@ class ScriptEditor_Panel ( wx.Panel ):
         
         sizerScript.Add( self.toolBar, 0, wx.EXPAND|wx.TOP, 5 )
         
-        from Core.Database.Controls import ScriptTextCtrl
         self.scriptCtrl = ScriptTextCtrl(self.scriptPanel)
         
         sizerScript.Add( self.scriptCtrl, 1, wx.EXPAND, 5 )
