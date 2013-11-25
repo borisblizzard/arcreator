@@ -65,11 +65,24 @@ if __name__ == '__main__':
 
             self.load_project()
             project = Kernel.GlobalObjects.get_value("PROJECT")
-            self.map = project.getMapData(46)
+            #---------------------------------
+            #self.map = project.getMapData(46)
+            #---------------------------------
+            self.map = project.getMapData(1)
             self.events = self.map.events
 
             self.tilesets = project.getData("Tilesets")
-            self.EventEditorPanel = EventPanel(self, self.events[7])
+            #---------------------------------
+            #self.EventEditorPanel = EventPanel(self, self.events[7])
+            #---------------------------------
+            # Test Event IDs 1 through 6
+            # 1 = First Page of Event Commands
+            # 2 = Change Variable commands
+            # 3 = Conditional Branches
+            # 4 = Second Page of Event Commands
+            # 5 = Non-Actor/Enemy altering Commands
+            # 6 = Actor/Enemy altering Commands
+            self.EventEditorPanel = EventPanel(self, self.events[3]) 
 
             self.mainsizer.Add(self.EventEditorPanel, 1, wx.EXPAND, 0)
             self.SetSizer(self.mainsizer)
@@ -80,7 +93,10 @@ if __name__ == '__main__':
             #path = config.get("RTPs", "core")
             RTP_PATH = Kernel.GlobalObjects.get_value("Welder_config").get_section("RTPs").get('Standard')
             print "[EVENT TEST] RTP PATH: %s" % RTP_PATH
-            TEST_PATH = os.path.join(Kernel.normConfigPath(RTP_PATH), "Templates", "Chronicles of Sir Lag-A-Lot", "Chronicles of Sir Lag-A-Lot.arcproj")
+            #---------------------------------
+            #TEST_PATH = os.path.join(Kernel.normConfigPath(RTP_PATH), "Templates", "Chronicles of Sir Lag-A-Lot", "Chronicles of Sir Lag-A-Lot.arcproj")
+            #---------------------------------
+            TEST_PATH = os.path.join(Kernel.normConfigPath(RTP_PATH), "Templates", "EventTest", "EventTest.arcproj")
             print TEST_PATH
             #get a project loader
             projectloader = KM.get_component("ARCProjectLoader").object()
