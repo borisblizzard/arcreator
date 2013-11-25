@@ -74,7 +74,7 @@ class Format(object):
 
     @staticmethod
     def audioFile(audiofile):
-        template = Format.color('black', '<b>Audio</b>{:name => %s, :volume => %s,  :pitch => %s}')
+        template = Format.color('black', '<b>Audio</b>{:name => %s, :volume => %s, :pitch => %s}')
         colors = (
             Format.green('%s'),
             Format.red('%3d'),
@@ -208,7 +208,7 @@ class Command403(object):
 
     @staticmethod
     def template(format):  
-        return '&nbsp;&nbsp;%s %s' %  (Format.blue(Format.bold('When')), Format.green('Cancel'))
+        return '&nbsp;&nbsp;%s %s' % (Format.blue(Format.bold('When')), Format.green('Cancel'))
 
 
 class Command103(object):
@@ -216,12 +216,21 @@ class Command103(object):
 
     @staticmethod
     def format(params):
+        project = Kernel.GlobalObjects.get_value("PROJECT")
+        system = project.getData('System')
         format = {}
+        format['variable_id'] = params[0]
+        format['variable_name'] = system.variables[params[0]]
+        format['digits'] = params[1]
         return format
 
     @staticmethod
     def template(format):
-        return ''
+        template = '%s Variable[%s: %s], (%s digit(s))' % (Format.blue('Input Number:'),
+            Format.red('%(variable_id)04d'),
+            Format.green('%(variable_name)s'),
+            Format.bold('%(digits)s'))
+        return template % format
 
 
 class Command104(object):
@@ -230,11 +239,20 @@ class Command104(object):
     @staticmethod
     def format(params):
         format = {}
+        pos_dict = {
+            0: 'Top',  1: 'Middle', 2: 'Bottom'
+        }
+        visible_dict = {
+            0: 'Show',  1: 'Hide'
+        }
+        format['msg_pos'] = pos_dict[params[0]]
+        format['msg_frame'] = visible_dict[params[1]]
         return format
 
     @staticmethod
     def template(format):
-        return ''
+        template = '%s [%s, %s]' % (Format.italic('Change Text Options:'), Format.bold('%(msg_pos)s'), Format.bold('%(msg_frame)s'))
+        return template % format
 
 
 class Command105(object):
@@ -242,12 +260,18 @@ class Command105(object):
 
     @staticmethod
     def format(params):
+        project = Kernel.GlobalObjects.get_value("PROJECT")
+        system = project.getData('System')
+
         format = {}
+        format['var_id'] = params[0]
+        format['var_name'] = system.variables[params[0]]
         return format
 
     @staticmethod
     def template(format):
-        return ''
+        template = '%s Variable[%s: %s]' % (Format.bold(Format.red('Button Input Processing: ')), Format.red('%(var_id)04d'), Format.green('%(var_name)s'))
+        return template % format
 
 
 class Command106(object):
@@ -256,11 +280,43 @@ class Command106(object):
     @staticmethod
     def format(params):
         format = {}
+        format['frames'] = params[0]
         return format
 
     @staticmethod
     def template(format):
-        return ''
+        template = '%s %s %s' % (Format.blue(Format.bold('Wait:')), Format.red('%(frames)s'), Format.red('Frame(s)'))
+        return template % format
+
+
+class Command108(object):
+    """Comment"""
+
+    @staticmethod
+    def format(params):
+        format = {}
+        format['text'] = params[0]
+        return format
+
+    @staticmethod
+    def template(format):
+        template = '%s %s' % (Format.green('Comment:'), Format.italic(Format.green('%(text)s')))
+        return template % format
+
+
+class Command408(object):
+    """Comment Extra Lines"""
+
+    @staticmethod
+    def format(params):
+        format = {}
+        format['text'] = params[0]
+        return format
+
+    @staticmethod
+    def template(format):
+        template = '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;%s %s' % (Format.green(':'), Format.italic(Format.green('%(text)s')))
+        return template % format
 
 
 class Command111(object):
@@ -328,10 +384,11 @@ class Command111(object):
                 format['armor_id'] = params[3]
                 format['armor_name'] = armors[params[3]].name
             elif params[2] == 5:  # state
-                states = system.states
+                states = project.getData('States') #system.states
                 format['state_id'] = params[3]
-                format['state_name'] = states[params[3]]
-            format['actor_condition'] = params[3]
+                format['state_name'] = states[params[3]].name
+            if params[2] != 0:
+                format['actor_condition'] = params[3]
         elif mode == 5:  # enemy
             format['enemy_position'] = params[1]
             format['enemy_mode'] = params[2]
@@ -527,7 +584,7 @@ class Command411(object):
 
     @staticmethod
     def template(format):
-        return ''
+        return '%s' %  (Format.blue('Else'))
 
 
 class Command112(object):
@@ -540,7 +597,7 @@ class Command112(object):
 
     @staticmethod
     def template(format):
-        return ''
+        return '%s' % (Format.blue('Loop'))
 
 
 class Command413(object):
@@ -553,7 +610,7 @@ class Command413(object):
 
     @staticmethod
     def template(format):
-        return ''
+        return '%s' % (Format.blue('Repeat Above'))
 
 
 class Command113(object):
@@ -566,7 +623,7 @@ class Command113(object):
 
     @staticmethod
     def template(format):
-        return ''
+        return '%s' % (Format.blue('Break Loop'))
 
 
 class Command115(object):
@@ -579,7 +636,7 @@ class Command115(object):
 
     @staticmethod
     def template(format):
-        return ''
+        return '%s' % (Format.red(Format.bold('Exit Event Processing')))
 
 
 class Command116(object):
@@ -592,7 +649,7 @@ class Command116(object):
 
     @staticmethod
     def template(format):
-        return ''
+        return '%s' % (Format.red(Format.bold('Erase Event')))
 
 
 class Command117(object):
@@ -601,11 +658,13 @@ class Command117(object):
     @staticmethod
     def format(params):
         format = {}
+        format['commonevent_id'] = params[0]
         return format
 
     @staticmethod
     def template(format):
-        return ''
+        template = '%s: ID [%s]' % (Format.red('Call Common Event'), Format.red(Format.bold('%(commonevent_id)s')))
+        return template % format
 
 
 class Command118(object):
@@ -614,11 +673,13 @@ class Command118(object):
     @staticmethod
     def format(params):
         format = {}
+        format['label_name'] = params[0]
         return format
 
     @staticmethod
     def template(format):
-        return ''
+        template = '%s: %s' % (Format.blue('Label'), Format.green('%(label_name)s'))
+        return template % format
 
 
 class Command119(object):
@@ -627,11 +688,13 @@ class Command119(object):
     @staticmethod
     def format(params):
         format = {}
+        format['jump_to_name'] = params[0]
         return format
 
     @staticmethod
     def template(format):
-        return ''
+        template = '%s: %s' % (Format.blue('Jump to Label'), Format.green(Format.italic('%(jump_to_name)s')))
+        return template % format
 
 
 class Command121(object):
@@ -663,7 +726,7 @@ class Command121(object):
                 Format.blue(Format.bold('%(switch_state)s'))
             )
         else:
-            template = '%s [%s: %s] -> [%s:%s] %s' % (
+            template = '%s [%s: %s] -> [%s:%s] = %s' % (
                 Format.red('Control Switchs:'),
                 Format.red('%(switch_1_id)s'),
                 Format.green('%(switch_1_name)s'),
@@ -680,11 +743,146 @@ class Command122(object):
     @staticmethod
     def format(params):
         format = {}
+        format['batch_low'] = params[0]
+        format['batch_high'] = params[1]
+
+        operator_dict = {
+            0: '= ', 1: '+= ', 2: '-= ', 3: '*= ', 4: '/= ', 5: '%= '
+        }
+        format['operation'] = operator_dict[params[2]]
+        format['operand'] = params[3]
+
+        if(params[4] & 0x80000000):
+            format['op_param1'] = -0x100000000 + params[4]
+        else:
+            format['op_param1'] = params[4]
+
+        if params[3] == 2 or params[3] == 4 or params[3] == 5 or params[3] == 6:
+            if(params[5] & 0x80000000):
+                format['op_param2'] = -0x100000000 + params[5]
+            else:
+                format['op_param2'] = params[5]
+
         return format
 
     @staticmethod
     def template(format):
-        return ''
+        template = '%s: ' % (Format.red('Control Variables'))
+        project = Kernel.GlobalObjects.get_value("PROJECT")
+        system = project.getData('System')
+        # Draw variable or batch
+        if format['batch_low'] == format['batch_high']:
+            format['var_name'] = system.variables[format['batch_low']]
+            template += '[%s: %s] ' % (Format.bold('%(batch_low)04d'), Format.red('%(var_name)s'))
+        else:
+            template += '[%s..%s] ' % (Format.red('%(batch_low)04d'), Format.red('%(batch_high)04d'))
+        # Draw operation symbol
+        template += '%s' % (Format.red('%(operation)s'))
+        # Draw operand
+        if format['operand'] == 0: # constant
+            template += '%s' % (Format.red(Format.italic('%(op_param1)s')))
+        elif format['operand'] == 1: # variable
+            format['opr_var_name'] = system.variables[format['op_param1']]
+            template += '[%s: %s] ' % (Format.bold('%(op_param1)04d'), Format.red('%(opr_var_name)s'))
+        elif format['operand'] == 2: # random number
+            template += '%s(%s, %s)' % (Format.bold('rand'), Format.red('%(op_param1)s'), Format.red('%(op_param2)s'))
+        elif format['operand'] == 3: # item
+            items = project.getData('Items')
+            format['item_name'] = items[format['op_param1']].name
+            template += '[%s: %s] In Inventory' % (Format.red('%(op_param1)04d'), Format.red('%(item_name)s'))
+        elif format['operand'] == 4: # actor
+            actors = project.getData('Actors')
+            format['actor_name'] = actors[format['op_param1']].name
+            template += '[%s: %s].' % (Format.red('%(op_param1)04d'), Format.red('%(actor_name)s'))
+            if format['op_param2'] == 0: # Level
+                template += '%s' % (Format.bold('level'))
+            elif format['op_param2'] == 1: # EXP
+                template += '%s' % (Format.bold('exp'))
+            elif format['op_param2'] == 2: # HP
+                template += '%s' % (Format.bold('hp'))
+            elif format['op_param2'] == 3: # SP
+                template += '%s' % (Format.bold('sp'))
+            elif format['op_param2'] == 4: # MaxHP
+                template += '%s' % (Format.bold('maxhp'))
+            elif format['op_param2'] == 5: # MaxSP
+                template += '%s' % (Format.bold('maxsp'))
+            elif format['op_param2'] == 6: # STR
+                template += '%s' % (Format.bold('str'))
+            elif format['op_param2'] == 7: # DEX
+                template += '%s' % (Format.bold('dex'))
+            elif format['op_param2'] == 8: # AGI
+                template += '%s' % (Format.bold('agi'))
+            elif format['op_param2'] == 9: # INT
+                template += '%s' % (Format.bold('int'))
+            elif format['op_param2'] == 10: # ATK
+                template += '%s' % (Format.bold('atk'))
+            elif format['op_param2'] == 11: # PDEF
+                template += '%s' % (Format.bold('pdef'))
+            elif format['op_param2'] == 12: # MDEF
+                template += '%s' % (Format.bold('mdef'))
+            elif format['op_param2'] == 13: # EVA
+                template += '%s' % (Format.bold('eva'))
+        elif format['operand'] == 5: # enemy
+            template += 'Enemy at positon [%s].' % (Format.red('%(op_param1)s'))
+            if format['op_param2'] == 0:
+                template += '%s' % (Format.bold('hp'))
+            elif format['op_param2'] == 1: # SP
+                template += '%s' % (Format.bold('sp'))
+            elif format['op_param2'] == 2: # MaxHP
+                template += '%s' % (Format.bold('maxhp'))
+            elif format['op_param2'] == 3: # MaxSP
+                template += '%s' % (Format.bold('maxsp'))
+            elif format['op_param2'] == 4: # STR
+                template += '%s' % (Format.bold('str'))
+            elif format['op_param2'] == 5: # DEX
+                template += '%s' % (Format.bold('dex'))
+            elif format['op_param2'] == 6: # AGI
+                template += '%s' % (Format.bold('agi'))
+            elif format['op_param2'] == 7: # INT
+                template += '%s' % (Format.bold('int'))
+            elif format['op_param2'] == 8: # PDEF
+                template += '%s' % (Format.bold('pdef'))
+            elif format['op_param2'] == 9: # MDEF
+                template += '%s' % (Format.bold('mdef'))
+            elif format['op_param2'] == 10: # EVA
+                template += '%s' % (Format.bold('eva'))
+        elif format['operand'] == 6: # character
+            if format['op_param1'] == -1: # player
+                template += '[Player].'
+            elif format['op_param1'] == 0: # this event
+                template += '[This Event].'
+            else:
+                template += 'Event[%s].' % (Format.red('%(op_param1)04d'))
+            # Choice
+            if format['op_param2'] == 0: # Map X
+                template += '%s' % (Format.bold('map_x'))
+            elif format['op_param2'] == 1: # Map Y
+                template += '%s' % (Format.bold('map_y'))
+            elif format['op_param2'] == 2: # Direction
+                template += '%s' % (Format.bold('direction'))
+            elif format['op_param2'] == 3: # Screen X
+                template += '%s' % (Format.bold('screen_x'))
+            elif format['op_param2'] == 4: # Screen Y
+                template += '%s' % (Format.bold('screen_y'))
+            elif format['op_param2'] == 5: # Terrain Tag
+                template += '%s' % (Format.bold('terrain_tag'))
+        elif format['operand'] == 7: # other
+            if format['op_param1'] == 0: # Map ID
+                template += '%s' % (Format.bold('Map ID'))
+            elif format['op_param1'] == 1: # Party Members
+                template += '%s' % (Format.bold('Party Members'))
+            elif format['op_param1'] == 2: # Gold
+                template += '%s' % (Format.bold('Gold'))
+            elif format['op_param1'] == 3: # Steps
+                template += '%s' % (Format.bold('Steps'))
+            elif format['op_param1'] == 4: # Play Time
+                template += '%s' % (Format.bold('Play Time'))
+            elif format['op_param1'] == 5: # Timer
+                template += '%s' % (Format.bold('Timer'))
+            elif format['op_param1'] == 6: # Save Count
+                template += '%s' % (Format.bold('Save Count'))
+
+        return template % format
 
 
 class Command123(object):
@@ -693,11 +891,20 @@ class Command123(object):
     @staticmethod
     def format(params):
         format = {}
+        format['self_switch'] = params[0]
+        if params[1] == 0:
+            format['switch_state'] = 'True'
+        else:
+            format['switch_state'] = 'False'
         return format
 
     @staticmethod
     def template(format):
-        return ''
+        template = '%s: %s %s %s' % (Format.red('Control Self Switch'),
+                                     Format.green('%(self_switch)s'),
+                                     Format.bold('='),
+                                     Format.green('%(switch_state)s'))
+        return template % format
 
 
 class Command124(object):
@@ -706,11 +913,20 @@ class Command124(object):
     @staticmethod
     def format(params):
         format = {}
+        format['timer_state'] = params[0]
+        if params[0] == 0:
+            format['timer_countdown'] = params[1]
         return format
 
     @staticmethod
     def template(format):
-        return ''
+        if format['timer_state'] == 0:
+            template = '%s: %s (%s seconds)' % (Format.bold('Control Timer'), 
+                                                Format.red(Format.italic('Start')),
+                                                Format.red('%(timer_countdown)s'))
+        else:
+            template = '%s: %s' % (Format.bold('Control Timer'), Format.red(Format.italic('Stop')))
+        return template % format
 
 
 class Command125(object):
@@ -719,11 +935,23 @@ class Command125(object):
     @staticmethod
     def format(params):
         format = {}
+        operation = {0: '+', 1: '-'}
+        format['operation'] = operation[params[0]]
+        format['operand_type'] = params[1]
+        format['operand'] = params[2]
         return format
 
     @staticmethod
     def template(format):
-        return ''
+        template = '%s: %s' % (Format.italic(Format.green('Change Gold')), Format.bold('%(operation)s'))
+        if format['operand_type'] == 0: # constant
+            template += '%s' % (Format.bold(Format.red('%(operand)s')))
+        else:                           # variable
+            project = Kernel.GlobalObjects.get_value("PROJECT")
+            system = project.getData('System')
+            format['var_name'] = system.variables[format['operand']]
+            template += 'Variable [%s: %s]' % (Format.bold('%(operand)04d'), Format.red('%(var_name)s'))
+        return template % format
 
 
 class Command126(object):
@@ -732,11 +960,27 @@ class Command126(object):
     @staticmethod
     def format(params):
         format = {}
+        format['item_id'] = params[0]
+        operation = {0: '+', 1: '-'}
+        format['operation'] = operation[params[1]]
+        format['operand_type'] = params[2]
+        format['operand'] = params[3]
         return format
 
     @staticmethod
     def template(format):
-        return ''
+        project = Kernel.GlobalObjects.get_value("PROJECT")
+        items = project.getData('Items')
+        format['item_name'] = items[format['item_id']].name
+        template = '%s: [%s: %s], %s' % (Format.italic(Format.green('Change Items')), Format.blue('%(item_id)04d'),
+                                         Format.blue('%(item_name)s'), Format.bold('%(operation)s'))
+        if format['operand_type'] == 0: # constant
+            template += '%s' % (Format.bold(Format.red('%(operand)s')))
+        else:                           # variable
+            system = project.getData('System')
+            format['var_name'] = system.variables[format['operand']]
+            template += 'Variable [%s: %s]' % (Format.bold('%(operand)04d'), Format.red('%(var_name)s'))
+        return template % format
 
 
 class Command127(object):
@@ -745,11 +989,27 @@ class Command127(object):
     @staticmethod
     def format(params):
         format = {}
+        format['weapon_id'] = params[0]
+        operation = {0: '+', 1: '-'}
+        format['operation'] = operation[params[1]]
+        format['operand_type'] = params[2]
+        format['operand'] = params[3]
         return format
 
     @staticmethod
     def template(format):
-        return ''
+        project = Kernel.GlobalObjects.get_value("PROJECT")
+        weapons = project.getData('Weapons')
+        format['weapon_name'] = weapons[format['weapon_id']].name
+        template = '%s: [%s: %s], %s' % (Format.italic(Format.green('Change Weapons')), Format.blue('%(weapon_id)04d'),
+                                         Format.blue('%(weapon_name)s'), Format.bold('%(operation)s'))
+        if format['operand_type'] == 0: # constant
+            template += '%s' % (Format.bold(Format.red('%(operand)s')))
+        else:                           # variable
+            system = project.getData('System')
+            format['var_name'] = system.variables[format['operand']]
+            template += 'Variable [%s: %s]' % (Format.bold('%(operand)04d'), Format.red('%(var_name)s'))
+        return template % format
 
 
 class Command128(object):
@@ -758,11 +1018,27 @@ class Command128(object):
     @staticmethod
     def format(params):
         format = {}
+        format['armor_id'] = params[0]
+        operation = {0: '+', 1: '-'}
+        format['operation'] = operation[params[1]]
+        format['operand_type'] = params[2]
+        format['operand'] = params[3]
         return format
 
     @staticmethod
     def template(format):
-        return ''
+        project = Kernel.GlobalObjects.get_value("PROJECT")
+        armors = project.getData('Armors')
+        format['armor_name'] = armors[format['armor_id']].name
+        template = '%s: [%s: %s], %s' % (Format.italic(Format.green('Change Armors')), Format.blue('%(armor_id)04d'),
+                                         Format.blue('%(armor_name)s'), Format.bold('%(operation)s'))
+        if format['operand_type'] == 0: # constant
+            template += '%s' % (Format.bold(Format.red('%(operand)s')))
+        else:                           # variable
+            system = project.getData('System')
+            format['var_name'] = system.variables[format['operand']]
+            template += 'Variable [%s: %s]' % (Format.bold('%(operand)04d'), Format.red('%(var_name)s'))
+        return template % format
 
 
 class Command129(object):
@@ -771,11 +1047,22 @@ class Command129(object):
     @staticmethod
     def format(params):
         format = {}
+        format['actor_id'] = params[0]
+        project = Kernel.GlobalObjects.get_value("PROJECT")
+        actors = project.getData('Actors')
+        format['actor_name'] = actors[params[0]].name
+        operation = {0: 'Add', 1: 'Remove'}
+        format['operation'] = operation[params[1]]
+        format['initialize'] = params[2]
         return format
 
     @staticmethod
     def template(format):
-        return ''
+        template = '%s: %s Actor[%s: %s]' % (Format.blue('Change Party Member'), Format.red('%(operation)s'),
+                                             Format.red('%(actor_id)04d'), Format.red('%(actor_name)s'))
+        if format['initialize'] == 1: #Initialize Actor
+            template += ', Initialize'
+        return template % format
 
 
 class Command131(object):
@@ -784,11 +1071,13 @@ class Command131(object):
     @staticmethod
     def format(params):
         format = {}
+        format['winskin_name'] = params[0]
         return format
 
     @staticmethod
     def template(format):
-        return ''
+        template = '%s: %s' % (Format.bold('Change Windowskin'), Format.green('%(winskin_name)s'))
+        return template % format
 
 
 class Command132(object):
@@ -797,11 +1086,17 @@ class Command132(object):
     @staticmethod
     def format(params):
         format = {}
+        format['params'] = params
+        format['se_file'] = params[0]
         return format
 
     @staticmethod
     def template(format):
-        return ''
+        template = '%s %s' % (
+            Format.color('#348781', 'Change Battle BGM:'),
+            Format.audioFile(format['se_file'])
+        )
+        return template % format
 
 
 class Command133(object):
@@ -810,11 +1105,17 @@ class Command133(object):
     @staticmethod
     def format(params):
         format = {}
+        format['params'] = params
+        format['se_file'] = params[0]
         return format
 
     @staticmethod
     def template(format):
-        return ''
+        template = '%s %s' % (
+            Format.color('#348781', 'Change Battle End ME:'),
+            Format.audioFile(format['se_file'])
+        )
+        return template % format
 
 
 class Command134(object):
@@ -823,11 +1124,15 @@ class Command134(object):
     @staticmethod
     def format(params):
         format = {}
+        format['can_save'] = params[0]
         return format
 
     @staticmethod
     def template(format):
-        return ''
+        if format['can_save'] == 0:
+             return '%s: %s' % (Format.bold(Format.blue('Change Save Access')), Format.red('Disabled'))
+        else:
+             return '%s: %s' % (Format.bold(Format.blue('Change Save Access')), Format.green('Enabled'))
 
 
 class Command135(object):
@@ -836,11 +1141,15 @@ class Command135(object):
     @staticmethod
     def format(params):
         format = {}
+        format['access_menu'] = params[0]
         return format
 
     @staticmethod
     def template(format):
-        return ''
+        if format['access_menu'] == 0:
+             return '%s: %s' % (Format.bold(Format.blue('Change Menu Access')), Format.red('Disabled'))
+        else:
+             return '%s: %s' % (Format.bold(Format.blue('Change Menu Access')), Format.green('Enabled'))
 
 
 class Command136(object):
@@ -849,11 +1158,15 @@ class Command136(object):
     @staticmethod
     def format(params):
         format = {}
+        format['can_encounter'] = params[0]
         return format
 
     @staticmethod
     def template(format):
-        return ''
+        if format['can_encounter'] == 0:
+             return '%s: %s' % (Format.bold(Format.blue('Change Encounter')), Format.red('Disabled'))
+        else:
+             return '%s: %s' % (Format.bold(Format.blue('Change Encounter')), Format.green('Enabled'))
 
 
 class Command201(object):
@@ -862,11 +1175,29 @@ class Command201(object):
     @staticmethod
     def format(params):
         format = {}
+        format['appoint'] = params[0]
+        format['map_id'] = params[1]
+        format['x_coord'] = params[2]
+        format['y_coord'] = params[3]
+        direction = {0: 'Retain', 2: 'Down', 4: 'Left', 6: 'Right', 8: 'Up'}
+        format['direction'] = direction[params[4]]
+        boolean_dict = {0: 'True', 1: 'False'}
+        format['fade'] = boolean_dict[params[5]]
         return format
 
     @staticmethod
     def template(format):
-        return ''
+        template = '%s: ' % (Format.blue('Transfer Player'))
+        if format['appoint'] == 0:
+            template += 'Map ID (%s) at (%s, %s), ' % (Format.red('%(map_id)s'),
+                        Format.blue('%(x_coord)s'), Format.blue('%(y_coord)s'))
+        else:
+            template += '[Variables] Map ID ([%s]) at ([%s], [%s]), ' % (Format.red('%(map_id)04d'),
+                        Format.blue('%(x_coord)04d'), Format.blue('%(y_coord)04d'))
+
+        template += 'Direction %s %s, Fade %s %s' % (Format.bold('='), Format.italic('%(direction)s'),
+                                                     Format.bold('='), Format.blue(Format.bold('%(fade)s')))
+        return template % format
 
 
 class Command202(object):
@@ -983,7 +1314,7 @@ class Command210(object):
 
     @staticmethod
     def template(format):
-        return ''
+        return '%s' % (Format.bold('Wait for Move\'s Completion'))
 
 
 class Command221(object):
@@ -996,7 +1327,7 @@ class Command221(object):
 
     @staticmethod
     def template(format):
-        return ''
+        return '%s' % (Format.bold('Prepare for Transition'))
 
 
 class Command222(object):
@@ -1201,7 +1532,7 @@ class Command247(object):
 
     @staticmethod
     def template(format):
-        return ''
+        return '%s' % (Format.bold('Memorize BGM/BGS'))
 
 
 class Command248(object):
@@ -1214,7 +1545,7 @@ class Command248(object):
 
     @staticmethod
     def template(format):
-        return ''
+        return '%s' % (Format.bold('Restore BGM/BGS'))
 
 
 class Command249(object):
@@ -1259,7 +1590,7 @@ class Command251(object):
 
     @staticmethod
     def template(format):
-        return ''
+        return '%s' % (Format.bold('Stop SE'))
 
 
 class Command301(object):
@@ -1702,7 +2033,7 @@ class Command340(object):
 
     @staticmethod
     def template(format):
-        return ''
+        return '%s' % (Format.bold('Abort Battle'))
 
 
 class Command351(object):
@@ -1715,7 +2046,7 @@ class Command351(object):
 
     @staticmethod
     def template(format):
-        return ''
+        return '%s' % (Format.bold('Call Menu Screen'))
 
 
 class Command352(object):
@@ -1742,7 +2073,7 @@ class Command353(object):
 
     @staticmethod
     def template(format):
-        return ''
+        return '%s' % (Format.bold(Font.color('Game Over')))
 
 
 class Command354(object):
@@ -1755,7 +2086,7 @@ class Command354(object):
 
     @staticmethod
     def template(format):
-        return ''
+        return '%s' % (Format.bold('Return to Title Screen'))
 
 
 class Command355(object):
@@ -1812,6 +2143,8 @@ class EventFormaterType(SuperType):
         Command104 = Type("Command104")
         Command105 = Type("Command105")
         Command106 = Type("Command106")
+        Command108 = Type("Command108")
+        Command408 = Type("Command408")
         Command111 = Type("Command111")
         Command411 = Type("Command411")
         Command112 = Type("Command112")
@@ -1906,20 +2239,20 @@ class EventFormaterType(SuperType):
 
         self.add_types(
             Command000, Command101, Command102, Command402, Command403, Command103, Command104, Command105,
-            Command106, Command111, Command411, Command112, Command413, Command113, Command115,
-            Command116, Command117, Command118, Command119, Command121, Command122, Command123,
-            Command124, Command125, Command126, Command127, Command128, Command129, Command131,
-            Command132, Command133, Command134, Command135, Command136, Command201, Command202,
-            Command203, Command204, Command205, Command206, Command207, Command208, Command209,
-            Command210, Command221, Command222, Command223, Command224, Command225, Command231,
-            Command232, Command233, Command234, Command235, Command236, Command241, Command242,
-            Command245, Command246, Command247, Command248, Command249, Command250, Command251,
-            Command301, Command601, Command602, Command603, Command302, Command303, Command311,
-            Command312, Command313, Command314, Command315, Command316, Command317, Command318,
-            Command319, Command320, Command321, Command322, Command331, Command332, Command333,
-            Command334, Command335, Command336, Command337, Command338, Command339, Command340,
-            Command351, Command352, Command353, Command354, Command355, Command401, Command412,
-            Command605, Command404
+            Command106, Command108, Command408, Command111, Command411, Command112, Command413,
+            Command113, Command115, Command116, Command117, Command118, Command119, Command121,
+            Command122, Command123, Command124, Command125, Command126, Command127, Command128,
+            Command129, Command131, Command132, Command133, Command134, Command135, Command136,
+            Command201, Command202, Command203, Command204, Command205, Command206, Command207,
+            Command208, Command209, Command210, Command221, Command222, Command223, Command224,
+            Command225, Command231, Command232, Command233, Command234, Command235, Command236,
+            Command241, Command242, Command245, Command246, Command247, Command248, Command249,
+            Command250, Command251, Command301, Command601, Command602, Command603, Command302,
+            Command303, Command311, Command312, Command313, Command314, Command315, Command316,
+            Command317, Command318, Command319, Command320, Command321, Command322, Command331,
+            Command332, Command333, Command334, Command335, Command336, Command337, Command338,
+            Command339, Command340, Command351, Command352, Command353, Command354, Command355,
+            Command401, Command412, Command605, Command404
         )
 
 
@@ -1950,6 +2283,8 @@ class CoreEventPackage(Package):
             ["Command104", Command104],
             ["Command105", Command105],
             ["Command106", Command106],
+            ["Command108", Command108],
+            ["Command408", Command408],
             ["Command111", Command111],
             ["Command411", Command411],
             ["Command112", Command112],
