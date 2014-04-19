@@ -100,8 +100,8 @@ namespace legacy
 		}
 		if (needsTextureUpdate)
 		{
-			this->texture = april::rendersys->createTexture(this->rect->width,
-				this->rect->height, april::Texture::FORMAT_ARGB, april::Texture::TYPE_RENDER_TARGET);
+			this->texture = april::rendersys->createTexture(this->rect->width, this->rect->height,
+				april::Color::Clear, april::Image::FORMAT_RGBA, april::Texture::TYPE_RENDER_TARGET);
 			this->texture->setFilter(april::Texture::FILTER_NEAREST);
 		}
 		// rendering
@@ -128,7 +128,7 @@ namespace legacy
 			(float)this->texture->getWidth(), (float)this->texture->getHeight());
 		april::rendersys->setOrthoProjection(drawRect);
 		april::rendersys->clear();
-		april::rendersys->setTextureBlendMode(april::DEFAULT);
+		april::rendersys->setTextureBlendMode(april::BM_DEFAULT);
 		if (this->zoom.x != 1.0f || this->zoom.y != 1.0f)
 		{
 			april::rendersys->translate((float)this->ox, (float)this->oy);
@@ -142,7 +142,7 @@ namespace legacy
 
 	void Viewport::_render()
 	{
-		april::rendersys->setTextureBlendMode(april::DEFAULT);
+		april::rendersys->setTextureBlendMode(april::BM_DEFAULT);
 		grect drawRect(0.0f, 0.0f, (float)this->rect->width, (float)this->rect->height);
 		grect srcRect(0.0f, 0.0f, 1.0f, 1.0f);
 		this->_renderTexture(drawRect, srcRect, this->texture, 255);

@@ -1,189 +1,308 @@
 #include <april/Keys.h>
-#ifndef LEGACY_ONLY
-#include <aprilui/aprilui.h>
-#endif
+#include <april/Window.h>
+#include <gtypes/Vector2.h>
 #include <hltypes/harray.h>
-#include <legacy/Input.h>
+#include <hltypes/hlog.h>
+#include <hltypes/hstring.h>
 
-#include "CodeSnippets.h"
 #include "Context.h"
-#include "System.h"
 
 namespace reactor
 {
-	Context* context = NULL;
+	Input* input = NULL;
 	
 	/****************************************************************************************
-	 * Construct/Destruct
-	 ****************************************************************************************/
-
-	Context::Context() : mouse(IDLE)
+		* Construct/Destruct
+		****************************************************************************************/
+		
+	Input::Input() : april::InputDelegate() // not initializing any variables, reset() takes care of that
 	{
-		for_iter (i, 0, MAX_KEYS)
-		{
-			this->controlKeys += i;
-		}
 		this->reset();
+		this->confirmKeys += april::AK_RETURN;
+		this->cancelKeys += april::AK_ESCAPE;
 	}
-
-	Context::~Context()
+		
+	Input::~Input()
 	{
 	}
-
+		
 	/****************************************************************************************
 	 * Properties
 	 ****************************************************************************************/
-
-	Context::State Context::getState()
+		
+	gvec2 Input::getCursorPosition()
 	{
-		return (this->states.size() == 0 ? Context::DEFAULT : this->states.back());
+		return april::window->getCursorPosition();
 	}
-	
-	void Context::setState(Context::State value)
-	{
-		this->states += value;
-	}
-	
+		
 	/****************************************************************************************
 	 * Update
 	 ****************************************************************************************/
-	
-	void Context::update()
+		
+	void Input::update()
 	{
-		switch (this->mouse)
+		// mouse input update
+		if (this->mouseDown == ACTIVATED)
 		{
-		case TRIGGER:
-			this->mouse = PRESS;
-			break;
-		case RELEASE:
-			this->mouse = IDLE;
-			break;
+			this->mouseDown = ACTIVE;
 		}
-		foreach (unsigned int, it, this->controlKeys)
+		if (this->mouseDown == ACTIVE || this->mouseDown == DEACTIVATED)
 		{
-            if (this->keys[*it])
+			this->mouseState = (this->mouseState == TRIGGER || this->mouseState == PRESS ? PRESS : TRIGGER);
+		}
+		else // INACTIVE
+		{
+			if (this->mouseState == TRIGGER || this->mouseState == PRESS)
 			{
-                this->released[*it] = false;
-                if (!this->pressed[*it])
-				{
-                    this->pressed[*it] = true;
-                    this->triggered[*it] = true;
-				}
-                else
-				{
-                    this->triggered[*it] = false;
-				}
+				this->mouseState = RELEASE;
 			}
-            else if (!this->released[*it])
+			else if (this->mouseState == RELEASE)
 			{
-                this->triggered[*it] = false;
-                if (this->pressed[*it])
-				{
-                    this->pressed[*it] = false;
-                    this->released[*it] = true;
-				}
-			}
-            else
-			{
-                this->released[*it] = false;
+				this->mouseState = IDLE;
 			}
 		}
-	}
-
-	void Context::reset()
-	{
-		this->mouse = IDLE;
-		for_iter (i, 0, MAX_KEYS)
+		if (this->mouseDown == DEACTIVATED)
 		{
-			this->triggered[i] = false;
-			this->pressed[i] = false;
-			this->released[i] = false;
-			this->keys[i] = false;
+			this->mouseDown = INACTIVE;
 		}
-		this->states.clear();
+		// key input update
+		foreach (april::Key, it, this->controlKeys)
+		{
+			if (this->keyDowns[*it] == ACTIVATED)
+			{
+				this->keyDowns[*it] = ACTIVE;
+			}
+			if (this->keyDowns[*it] == ACTIVE || this->keyDowns[*it] == DEACTIVATED)
+			{
+				this->keyStates[*it] = (this->keyStates[*it] == TRIGGER || this->keyStates[*it] == PRESS ? PRESS : TRIGGER);
+			}
+			else // INACTIVE
+			{
+				if (this->keyStates[*it] == TRIGGER || this->keyStates[*it] == PRESS)
+				{
+					this->keyStates[*it] = RELEASE;
+				}
+				else if (this->keyStates[*it] == RELEASE)
+				{
+					this->keyStates[*it] = IDLE;
+				}
+			}
+			if (this->keyDowns[*it] == DEACTIVATED)
+			{
+				this->keyDowns[*it] = INACTIVE;
+			}
+		}
+		// button input update
+		foreach (april::Button, it, this->controlButtons)
+		{
+			if (this->buttonDowns[*it] == ACTIVATED)
+			{
+				this->buttonDowns[*it] = ACTIVE;
+			}
+			if (this->buttonDowns[*it] == ACTIVE || this->buttonDowns[*it] == DEACTIVATED)
+			{
+				this->buttonStates[*it] = (this->buttonStates[*it] == TRIGGER || this->buttonStates[*it] == PRESS ? PRESS : TRIGGER);
+			}
+			else // INACTIVE
+			{
+				if (this->buttonStates[*it] == TRIGGER || this->buttonStates[*it] == PRESS)
+				{
+					this->buttonStates[*it] = RELEASE;
+				}
+				else if (this->buttonStates[*it] == RELEASE)
+				{
+					this->buttonStates[*it] = IDLE;
+				}
+			}
+			if (this->buttonDowns[*it] == DEACTIVATED)
+			{
+				this->buttonDowns[*it] = INACTIVE;
+			}
+		}
+	}
+		
+	void Input::reset()
+	{
+		this->mouseDown = INACTIVE;
+		this->mouseState = IDLE;
+		for_iter (i, 0, REACTOR_INPUT_MAX_KEYS)
+		{
+			this->keyDowns[i] = INACTIVE;
+			this->keyStates[i] = IDLE;
+			this->buttonDowns[i] = INACTIVE;
+			this->buttonStates[i] = IDLE;
+		}
+		this->resetState();
 	}
 
-	void Context::onMouseDown(float x, float y, int button)
-	{
-		reactor::context->mouse = TRIGGER;
-	}
-
-	void Context::onMouseUp(float x, float y, int button)
-	{
-		reactor::context->mouse = RELEASE;
-	}
-	
-	void Context::onMouseMove(float x, float y)
-	{
-#ifndef LEGACY_ONLY
-		aprilui::updateCursorPosition();
-#endif
-	}
-	
-	void Context::onKeyDown(unsigned int keycode)
-	{
-		reactor::context->keys[keycode] = true;
-		legacy::Input::onKeyDown(keycode);
-	}
-
-	void Context::onKeyUp(unsigned int keycode)
-	{
-		reactor::context->keys[keycode] = false;
-		legacy::Input::onKeyUp(keycode);
-	}
-	
-	void Context::onChar(unsigned int charcode)
-	{
-	}
-	
 	/****************************************************************************************
 	 * Mouse States
 	 ****************************************************************************************/
-
-	bool Context::isMouseTriggered()
+		
+	bool Input::isMouseTriggered()
 	{
-		return (this->mouse == TRIGGER);
+		return (this->mouseState == TRIGGER);
 	}
-
-	bool Context::isMousePressed()
+		
+	bool Input::isMouseTriggered(april::Key keyCode)
 	{
-		return (this->mouse == TRIGGER || this->mouse == PRESS);
+		return (this->mouseState == TRIGGER && this->keyStates[keyCode] == TRIGGER);
 	}
-
-	bool Context::isMouseReleased()
+		
+	bool Input::isMousePressed()
 	{
-		return (this->mouse == RELEASE);
+		return (this->mouseState == TRIGGER || this->mouseState == PRESS);
 	}
-
+		
+	bool Input::isMousePressed(april::Key keyCode)
+	{
+		return ((this->mouseState == TRIGGER && this->keyStates[keyCode] == TRIGGER) ||
+			(this->mouseState == PRESS && this->keyStates[keyCode] == PRESS));
+	}
+		
+	bool Input::isMouseReleased()
+	{
+		return (this->mouseState == RELEASE);
+	}
+		
+	bool Input::isMouseReleased(april::Key keyCode)
+	{
+		return (this->mouseState == RELEASE && this->keyStates[keyCode] == RELEASE);
+	}
+		
 	/****************************************************************************************
 	 * Keyboard States
 	 ****************************************************************************************/
-
-	bool Context::isKeyTriggered(unsigned int keycode)
+		
+	bool Input::isKeyTriggered(april::Key keyCode)
 	{
-		return this->triggered[keycode];
+		return (this->keyStates[keyCode] == TRIGGER);
 	}
-	
-	bool Context::isKeyPressed(unsigned int keycode)
+		
+	bool Input::isKeyPressed(april::Key keyCode)
 	{
-		return this->pressed[keycode];
+		return (this->keyStates[keyCode] == TRIGGER || this->keyStates[keyCode] == PRESS);
 	}
-	
-	bool Context::isKeyReleased(unsigned int keycode)
+		
+	bool Input::isKeyReleased(april::Key keyCode)
 	{
-		return this->released[keycode];
+		return (this->keyStates[keyCode] == RELEASE);
 	}
-
+		
+	bool Input::isButtonTriggered(april::Button buttonCode)
+	{
+		return (this->buttonStates[buttonCode] == TRIGGER);
+	}
+		
+	bool Input::isButtonPressed(april::Button buttonCode)
+	{
+		return (this->buttonStates[buttonCode] == TRIGGER || this->buttonStates[buttonCode] == PRESS);
+	}
+		
+	bool Input::isButtonReleased(april::Button buttonCode)
+	{
+		return (this->buttonStates[buttonCode] == RELEASE);
+	}
+		
 	/****************************************************************************************
-	 * Context States setters
+	 * Context States
 	 ****************************************************************************************/
-
-	void Context::setPrevious()
+		
+	void Input::addState(chstr newContext)
 	{
-		if (this->states.size() > 0)
+		this->stateStack += newContext;
+	}
+		
+	hstr Input::removeState()
+	{
+		hstr result = REACTOR_INPUT_STATE_DEFAULT;
+		if (this->stateStack.size() > 0)
 		{
-			this->states.pop_back();
+			result = this->stateStack.remove_last();
 		}
+		return result;
+	}
+		
+	hstr Input::getCurrentState()
+	{
+		return (this->stateStack.size() == 0 ? REACTOR_INPUT_STATE_DEFAULT : this->stateStack.last());
+	}
+		
+	void Input::resetState()
+	{
+		this->stateStack.clear();
+	}
+		
+	/****************************************************************************************
+	 * Methods
+	 ****************************************************************************************/
+		
+	void Input::addKey(april::Key keyCode)
+	{
+		this->controlKeys |= keyCode;
+	}
+		
+	void Input::addButton(april::Button buttonCode)
+	{
+		this->controlButtons |= buttonCode;
+	}
+		
+	/****************************************************************************************
+	 * Static Callbacks
+	 ****************************************************************************************/
+		
+	void Input::onMouseDown(april::Key keyCode)
+	{
+		this->mouseDown = ACTIVATED;
+		this->keyDowns[keyCode] = ACTIVATED;
+	}
+		
+	void Input::onMouseUp(april::Key keyCode)
+	{
+		this->mouseDown = (this->mouseDown == ACTIVATED ? DEACTIVATED : INACTIVE);
+		this->keyDowns[keyCode] = (this->keyDowns[keyCode] == ACTIVATED ? DEACTIVATED : INACTIVE);
+	}
+		
+	void Input::onMouseCancel(april::Key keyCode)
+	{
+		this->mouseDown = INACTIVE;
+		this->keyDowns[keyCode] = INACTIVE;
+	}
+		
+	void Input::onMouseMove()
+	{
+	}
+		
+	void Input::onMouseScroll(float x, float y)
+	{
+	}
+		
+	void Input::onKeyDown(april::Key keyCode)
+	{
+		this->keyDowns[keyCode] = ACTIVATED;
+	}
+		
+	void Input::onKeyUp(april::Key keyCode)
+	{
+		this->keyDowns[keyCode] = (this->keyDowns[keyCode] == ACTIVATED ? DEACTIVATED : INACTIVE);
+	}
+		
+	void Input::onChar(unsigned int charCode)
+	{
+	}
+		
+	void Input::onTouch(const harray<gvec2>& touches)
+	{
+	}
+		
+	void Input::onButtonDown(april::Button buttonCode)
+	{
+		this->buttonDowns[buttonCode] = ACTIVATED;
+	}
+		
+	void Input::onButtonUp(april::Button buttonCode)
+	{
+		this->buttonDowns[buttonCode] = (this->buttonDowns[buttonCode] == ACTIVATED ? DEACTIVATED : INACTIVE);
 	}
 
 }

@@ -1,6 +1,7 @@
 #ifndef REACTOR_SYSTEM_H
 #define REACTOR_SYSTEM_H
 
+#include <april/SystemDelegate.h>
 #include <hltypes/hmap.h>
 #include <hltypes/hstring.h>
 
@@ -11,7 +12,7 @@ namespace aprilui
 
 namespace reactor
 {
-	class System
+	class System : public april::SystemDelegate
 	{
 	public:
 		System();
@@ -24,8 +25,8 @@ namespace reactor
 		bool Exiting;
 		bool Focused;
 		
-		static bool onQuit(bool canCancel);
-		static void onFocusChange(bool focused);
+		bool onQuit(bool canCancel);
+		void onWindowFocusChanged(bool focused);
 
 	protected:
 		hmap<hstr, hstr> _readCfgFile(chstr filename);

@@ -114,7 +114,7 @@ namespace legacy
 		{
 			return "";
 		}
-		float fontHeight = atres::renderer->getFontHeight(result);
+		float fontHeight = atres::renderer->getFontResource(result)->getHeight();
 		if (this->size != fontHeight)
 		{
 			result += hsprintf(":%f", this->size / fontHeight);

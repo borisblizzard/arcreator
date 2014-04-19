@@ -57,16 +57,16 @@ namespace legacy
 		switch (this->blendType)
 		{
 		case Normal:
-			april::rendersys->setTextureBlendMode(april::DEFAULT);
+			april::rendersys->setTextureBlendMode(april::BM_DEFAULT);
 			break;
 		case Positive:
-			april::rendersys->setTextureBlendMode(april::ADD);
+			april::rendersys->setTextureBlendMode(april::BM_ADD);
 			break;
 		case Negative:
-			april::rendersys->setTextureBlendMode(april::SUBTRACT);
+			april::rendersys->setTextureBlendMode(april::BM_SUBTRACT);
 			break;
 		default:
-			april::rendersys->setTextureBlendMode(april::DEFAULT);
+			april::rendersys->setTextureBlendMode(april::BM_DEFAULT);
 			break;
 		}
 		grect drawRect = this->_getRenderRect().toGRect();
@@ -78,7 +78,7 @@ namespace legacy
 		srcRect.w = drawRect.w / w;
 		srcRect.h = drawRect.h / h;
 		this->_renderTexture(drawRect, srcRect, this->bitmap->getTexture(), this->opacity);
-		april::rendersys->setTextureBlendMode(april::DEFAULT);
+		april::rendersys->setTextureBlendMode(april::BM_DEFAULT);
 	}
 
 	Rect Plane::_getRenderRect()

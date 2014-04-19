@@ -214,7 +214,7 @@ namespace legacy
 		{
 			return;
 		}
-		april::Texture* texture = this->windowskinBackground->getTexture();
+		april::Texture* texture = this->windowskinBackground->texture;
 		april::Texture::Filter filter = texture->getFilter();
 		texture->setFilter(april::Texture::FILTER_LINEAR);
 		april::rendersys->setTexture(texture);
@@ -231,7 +231,7 @@ namespace legacy
 		}
 		else
 		{
-			april::Color color(APRIL_COLOR_WHITE, (unsigned char)(this->opacity * this->backOpacity / 255));
+			april::Color color(april::Color::White, (unsigned char)(this->opacity * this->backOpacity / 255));
 			april::rendersys->drawTexturedRect(drawRect, srcRect, color);
 		}
 		texture->setFilter(filter);
@@ -243,9 +243,9 @@ namespace legacy
 		grect srcRect;
 		float w = this->width - 16.0f;
 		float h = this->height - 16.0f;
-		april::Color color(APRIL_COLOR_WHITE, (unsigned char)this->opacity);
+		april::Color color(april::Color::White, (unsigned char)this->opacity);
 		// horizontal borders
-		april::rendersys->setTexture(this->windowskinHorizontalBorders->getTexture());
+		april::rendersys->setTexture(this->windowskinHorizontalBorders->texture);
 		// top border
 		drawRect.set(8.0f, 0.0f, w, 16.0f);
 		srcRect.set(0.0f, 0.0f, w / 32, 0.5f);
@@ -269,7 +269,7 @@ namespace legacy
 			april::rendersys->drawTexturedRect(drawRect, srcRect, color);
 		}
 		// vertical borders
-		april::rendersys->setTexture(this->windowskinVerticalBorders->getTexture());
+		april::rendersys->setTexture(this->windowskinVerticalBorders->texture);
 		// left border
 		drawRect.set(0.0f, 8.0f, 16.0f, h);
 		srcRect.set(0.0f, 0.0f, 0.5f, h / 32);
@@ -300,8 +300,8 @@ namespace legacy
 		grect srcRect;
 		float w = this->width - 16.0f;
 		float h = this->height - 16.0f;
-		april::Color color(APRIL_COLOR_WHITE, (unsigned char)this->opacity);
-		april::rendersys->setTexture(this->windowskinCorners->getTexture());
+		april::Color color(april::Color::White, (unsigned char)this->opacity);
+		april::rendersys->setTexture(this->windowskinCorners->texture);
 		// top left corner
 		drawRect.set(0.0f, 0.0f, 16.0f, 16.0f);
 		srcRect.set(0.0f, 0.0f, 0.5f, 0.5f);
@@ -367,26 +367,28 @@ namespace legacy
 		{
 			return;
 		}
+		april::rendersys->setTextureBlendMode(april::BM_OVERWRITE);
 		// windowskin background
 		this->windowskinBackground = new Bitmap(127, 127);
-		this->windowskinBackground->bltOver(0, 0, this->windowskin, 0, 0, 127, 127);
+		this->windowskinBackground->_renderToTexture(0, 0, 127, 127, 0, 0, this->windowskin->texture);
 		// windowskin horizontal borders
 		this->windowskinHorizontalBorders = new Bitmap(32, 32);
-		this->windowskinHorizontalBorders->bltOver(0, 0, this->windowskin, 144, 0, 32, 16);
-		this->windowskinHorizontalBorders->bltOver(0, 16, this->windowskin, 144, 48, 32, 16);
+		this->windowskinHorizontalBorders->_renderToTexture(144, 0, 32, 16, 0, 0, this->windowskin->texture);
+		this->windowskinHorizontalBorders->_renderToTexture(144, 48, 32, 16, 0, 16, this->windowskin->texture);
 		// windowskin vertical borders
 		this->windowskinVerticalBorders = new Bitmap(32, 32);
-		this->windowskinVerticalBorders->bltOver(0, 0, this->windowskin, 128, 16, 16, 32);
-		this->windowskinVerticalBorders->bltOver(16, 0, this->windowskin, 176, 16, 16, 32);
+		this->windowskinVerticalBorders->_renderToTexture(128, 16, 16, 32, 0, 0, this->windowskin->texture);
+		this->windowskinVerticalBorders->_renderToTexture(176, 16, 16, 32, 16, 0, this->windowskin->texture);
 		// corners
 		this->windowskinCorners = new Bitmap(32, 32);
-		this->windowskinCorners->bltOver(0, 0, this->windowskin, 128, 0, 16, 16);
-		this->windowskinCorners->bltOver(16, 0, this->windowskin, 176, 0, 16, 16);
-		this->windowskinCorners->bltOver(0, 16, this->windowskin, 128, 48, 16, 16);
-		this->windowskinCorners->bltOver(16, 16, this->windowskin, 176, 48, 16, 16);
+		this->windowskinCorners->_renderToTexture(128, 0, 16, 16, 0, 0, this->windowskin->texture);
+		this->windowskinCorners->_renderToTexture(176, 0, 16, 16, 16, 0, this->windowskin->texture);
+		this->windowskinCorners->_renderToTexture(128, 48, 16, 16, 0, 16, this->windowskin->texture);
+		this->windowskinCorners->_renderToTexture(176, 48, 16, 16, 16, 16, this->windowskin->texture);
 		// cursor
 		this->windowskinCursor = new Bitmap(32, 32);
-		this->windowskinCursor->bltOver(0, 0, this->windowskin, 128, 64, 32, 32);
+		this->windowskinCursor->_renderToTexture(128, 64, 32, 32, 0, 0, this->windowskin->texture);
+		april::rendersys->setTextureBlendMode(april::BM_DEFAULT);
 	}
 
 	void Window::_updateContentsSprite()
@@ -437,24 +439,26 @@ namespace legacy
 		// blit cursor image onto new bitmap
 		int w = hmax(this->cursorRect->width - 4, 0);
 		int h = hmax(this->cursorRect->height - 4, 0);
-		this->cursorBitmap->bltOver(0, 0, this->windowskinCursor, 0, 0, 2, 2);
-		this->cursorBitmap->bltOver(w + 2, 0, this->windowskinCursor, 30, 0, 2, 2);
-		this->cursorBitmap->bltOver(0, h + 2, this->windowskinCursor, 0, 30, 2, 2);
-		this->cursorBitmap->bltOver(w + 2, h + 2, this->windowskinCursor, 30, 30, 2, 2);
+		april::rendersys->setTextureBlendMode(april::BM_OVERWRITE);
+		this->cursorBitmap->_renderToTexture(0, 0, 2, 2, 0, 0, this->windowskinCursor->texture);
+		this->cursorBitmap->_renderToTexture(30, 0, 2, 2, w + 2, 0, this->windowskinCursor->texture);
+		this->cursorBitmap->_renderToTexture(0, 30, 2, 2, 0, h + 2, this->windowskinCursor->texture);
+		this->cursorBitmap->_renderToTexture(30, 30, 2, 2, w + 2, h + 2, this->windowskinCursor->texture);
 		if (w > 0)
 		{
-			this->cursorBitmap->stretchBltOver(2, 0, w, 2, this->windowskinCursor, 2, 0, 28, 2);
-			this->cursorBitmap->stretchBltOver(2, h + 2, w, 2, this->windowskinCursor, 2, 30, 28, 2);
+			this->cursorBitmap->_renderToTexture(2, 0, 28, 2, 2, 0, w, 2, this->windowskinCursor->texture);
+			this->cursorBitmap->_renderToTexture(2, 30, 28, 2, 2, h + 2, w, 2, this->windowskinCursor->texture);
 		}
 		if (h > 0)
 		{
-			this->cursorBitmap->stretchBltOver(0, 2, 2, h, this->windowskinCursor, 0, 2, 2, 28);
-			this->cursorBitmap->stretchBltOver(w + 2, 2, 2, h, this->windowskinCursor, 30, 2, 2, 28);
+			this->cursorBitmap->_renderToTexture(0, 2, 2, 28, 0, 2, 2, h, this->windowskinCursor->texture);
+			this->cursorBitmap->_renderToTexture(30, 2, 2, 28, w + 2, 2, 2, h, this->windowskinCursor->texture);
 		}
 		if (w > 0 && h > 0)
 		{
-			this->cursorBitmap->stretchBltOver(2, 2, w, h, this->windowskinCursor, 2, 2, 28, 28);
+			this->cursorBitmap->_renderToTexture(2, 2, 28, 28, 2, 2, w, h, this->windowskinCursor->texture);
 		}
+		april::rendersys->setTextureBlendMode(april::BM_DEFAULT);
 	}
 
 	void Window::_updatePauseSprite()
