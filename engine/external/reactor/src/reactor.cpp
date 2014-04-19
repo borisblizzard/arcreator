@@ -285,7 +285,7 @@ namespace reactor
 		}
 		scripts.sort();
 		// this makes sure that Kernel#require and Kernel#load don't need a full path anymore (but still accept it)
-		rb_eval_string("$:.clear; $:.push(Dir.getwd); $:.push(Dir.getwd + '/lib');");
+		rb_eval_string("$:.clear; $:.push(Dir.getwd); $:.push(Dir.getwd + '/libs');");
 		// initializing extensions
 		rb_require_safe(rb_str_new2("dl.so"), 0);
 		rb_require_safe(rb_str_new2("socket.so"), 0);
