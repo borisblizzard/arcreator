@@ -3,6 +3,7 @@
 
 #include <ruby.h>
 
+#include <hltypes/hltypesUtil.h>
 #include <hltypes/hstring.h>
 
 #include "Color.h"
@@ -49,21 +50,14 @@ namespace legacy
 		/// @brief Ruby garbage collector marking.
 		void mark();
 
-		/// @brief Gets the april::Texture.
-		/// @return april::Texture used to draw.
-		april::Texture* getTexture() { return this->texture; }
-		/// @brief Sets the april::Texture.
-		/// @param[in] value april::Texture used to draw.
-		void setTexture(april::Texture* value) { this->texture = value; }
+		HL_DEFINE_GETSET(april::Texture*, texture, Texture);
+		HL_DEFINE_IS(disposed, Disposed);
 		/// @brief Gets the width.
 		/// @return The width.
 		int getWidth();
 		/// @brief Gets the height.
 		/// @return The height.
 		int getHeight();
-		/// @brief Gets the disposed flag.
-		/// @return The disposed flag.
-		bool isDisposed() { return this->disposed; }
 
 		/// @brief Clears the entire bitmap.
 		void clear();

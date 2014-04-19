@@ -37,7 +37,7 @@ namespace legacy
 
 		/// @brief Gets the collection flag.
 		/// @return True if this object is not to be actually rendered.
-		bool isCollection() { return true; }
+		inline bool isCollection() { return true; }
 
 		/// @brief Makes sure all sprites are up to date.
 		void update();

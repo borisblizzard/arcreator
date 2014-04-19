@@ -9,4 +9,8 @@ namespace reactor
 	{
 	}
 
+	ApplicationExitException::~ApplicationExitException()
+	{
+	}
+
 }
