@@ -10,25 +10,25 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "arc", "arc.vcxproj", "{E981
 		{56FF74D1-34D0-4DDB-8B89-F6F9200842B8} = {56FF74D1-34D0-4DDB-8B89-F6F9200842B8}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libapril", "external\april\libapril.vcxproj", "{2D053CDA-686B-4B36-80EB-1DA5F0CEF8F9}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libapril", "lib\april\libapril.vcxproj", "{2D053CDA-686B-4B36-80EB-1DA5F0CEF8F9}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libaprilui", "external\aprilui\libaprilui.vcxproj", "{56FF74D1-34D0-4DDB-8B89-F6F9200842B8}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libaprilui", "lib\aprilui\libaprilui.vcxproj", "{56FF74D1-34D0-4DDB-8B89-F6F9200842B8}"
 	ProjectSection(ProjectDependencies) = postProject
 		{601BCB9E-AAF2-412E-8AEB-9FC77D0505D8} = {601BCB9E-AAF2-412E-8AEB-9FC77D0505D8}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libatres", "external\atres\libatres.vcxproj", "{A1E808A0-FE36-47FE-9E3B-CF195EA31F0A}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libatres", "lib\atres\libatres.vcxproj", "{A1E808A0-FE36-47FE-9E3B-CF195EA31F0A}"
 	ProjectSection(ProjectDependencies) = postProject
 		{9C043B29-DB40-48D5-97D8-1BC44128E3BA} = {9C043B29-DB40-48D5-97D8-1BC44128E3BA}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libgtypes", "external\gtypes\libgtypes.vcxproj", "{9C043B29-DB40-48D5-97D8-1BC44128E3BA}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libgtypes", "lib\gtypes\libgtypes.vcxproj", "{9C043B29-DB40-48D5-97D8-1BC44128E3BA}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libhltypes", "external\hltypes\libhltypes.vcxproj", "{E4D373BF-E227-48B9-99E6-84987E8674EC}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libhltypes", "lib\hltypes\libhltypes.vcxproj", "{E4D373BF-E227-48B9-99E6-84987E8674EC}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libxal", "external\xal\libxal.vcxproj", "{6B6C070B-7DD7-41B9-8DD7-12AFBF0F6C08}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libxal", "lib\xal\libxal.vcxproj", "{6B6C070B-7DD7-41B9-8DD7-12AFBF0F6C08}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libreactor", "external\reactor\libreactor.vcxproj", "{2AAB8E59-CA6D-40F3-9006-547341626727}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libreactor", "lib\reactor\libreactor.vcxproj", "{2AAB8E59-CA6D-40F3-9006-547341626727}"
 	ProjectSection(ProjectDependencies) = postProject
 		{6B6C070B-7DD7-41B9-8DD7-12AFBF0F6C08} = {6B6C070B-7DD7-41B9-8DD7-12AFBF0F6C08}
 		{BD643E5E-72FF-4004-BD69-31DC02E5D417} = {BD643E5E-72FF-4004-BD69-31DC02E5D417}
@@ -37,20 +37,20 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libreactor", "external\reac
 		{56FF74D1-34D0-4DDB-8B89-F6F9200842B8} = {56FF74D1-34D0-4DDB-8B89-F6F9200842B8}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "liblegacy", "external\legacy\liblegacy.vcxproj", "{58C3A996-27E7-485E-AE81-2025C3EC65BE}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "liblegacy", "lib\legacy\liblegacy.vcxproj", "{58C3A996-27E7-485E-AE81-2025C3EC65BE}"
 	ProjectSection(ProjectDependencies) = postProject
 		{6B6C070B-7DD7-41B9-8DD7-12AFBF0F6C08} = {6B6C070B-7DD7-41B9-8DD7-12AFBF0F6C08}
 		{BD643E5E-72FF-4004-BD69-31DC02E5D417} = {BD643E5E-72FF-4004-BD69-31DC02E5D417}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libatresttf", "external\atres\atresttf\libatresttf.vcxproj", "{BD643E5E-72FF-4004-BD69-31DC02E5D417}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libatresttf", "lib\atres\atresttf\libatresttf.vcxproj", "{BD643E5E-72FF-4004-BD69-31DC02E5D417}"
 	ProjectSection(ProjectDependencies) = postProject
 		{9C043B29-DB40-48D5-97D8-1BC44128E3BA} = {9C043B29-DB40-48D5-97D8-1BC44128E3BA}
 		{A1E808A0-FE36-47FE-9E3B-CF195EA31F0A} = {A1E808A0-FE36-47FE-9E3B-CF195EA31F0A}
 		{2D053CDA-686B-4B36-80EB-1DA5F0CEF8F9} = {2D053CDA-686B-4B36-80EB-1DA5F0CEF8F9}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libhlxml", "external\hltypes\hlxml\libhlxml.vcxproj", "{601BCB9E-AAF2-412E-8AEB-9FC77D0505D8}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libhlxml", "lib\hltypes\hlxml\libhlxml.vcxproj", "{601BCB9E-AAF2-412E-8AEB-9FC77D0505D8}"
 	ProjectSection(ProjectDependencies) = postProject
 		{E4D373BF-E227-48B9-99E6-84987E8674EC} = {E4D373BF-E227-48B9-99E6-84987E8674EC}
 	EndProjectSection

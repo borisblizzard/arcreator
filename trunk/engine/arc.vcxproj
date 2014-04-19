@@ -72,7 +72,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>external/hltypes/include;external/reactor/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>lib/hltypes/include;lib/reactor/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_WIN32;_DESKTOP;_DEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>true</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -85,7 +85,7 @@
     <Link>
       <AdditionalDependencies>libhltypes.lib;libreactor.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
-      <AdditionalLibraryDirectories>external\lib\msvc110;$(SolutionDir)bin\$(Platform);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>lib\lib\msvc110;$(SolutionDir)bin\$(Platform);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalManifestDependencies>%(AdditionalManifestDependencies)</AdditionalManifestDependencies>
       <UACExecutionLevel>AsInvoker</UACExecutionLevel>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -98,7 +98,7 @@
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy external\lib\msvc110\*.dll $(SolutionDir)bin\$(Platform)\ /d /y
+      <Command>xcopy lib\lib\msvc110\*.dll $(SolutionDir)bin\$(Platform)\ /d /y
 xcopy bin\$(Platform)\*.dll $(SolutionDir)bin\$(Platform)\$(Configuration)\ /d /y
 </Command>
     </PostBuildEvent>
@@ -110,7 +110,7 @@ xcopy bin\$(Platform)\*.dll $(SolutionDir)bin\$(Platform)\$(Configuration)\ /d /
     <ClCompile>
       <Optimization>Full</Optimization>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <AdditionalIncludeDirectories>external/hltypes/include;external/reactor/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>lib/hltypes/include;lib/reactor/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_WIN32;_DESKTOP;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -125,7 +125,7 @@ xcopy bin\$(Platform)\*.dll $(SolutionDir)bin\$(Platform)\$(Configuration)\ /d /
     <Link>
       <AdditionalDependencies>libhltypes.lib;libreactor.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
-      <AdditionalLibraryDirectories>external\lib\msvc110;$(SolutionDir)bin\$(Platform);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>lib\lib\msvc110;$(SolutionDir)bin\$(Platform);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalManifestDependencies>%(AdditionalManifestDependencies)</AdditionalManifestDependencies>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
@@ -143,8 +143,8 @@ xcopy bin\$(Platform)\*.dll $(SolutionDir)bin\$(Platform)\$(Configuration)\ /d /
       </AdditionalManifestFiles>
     </Manifest>
     <PostBuildEvent>
-      <Command>xcopy external\lib\msvc110\*.dll $(SolutionDir)bin\$(Platform)\ /d /y
-xcopy external\lib\msvc110\Microsoft.VC110.CRT\* $(SolutionDir)bin\$(Platform)\ /d /y
+      <Command>xcopy lib\lib\msvc110\*.dll $(SolutionDir)bin\$(Platform)\ /d /y
+xcopy lib\lib\msvc110\Microsoft.VC110.CRT\* $(SolutionDir)bin\$(Platform)\ /d /y
 xcopy bin\$(Platform)\*.dll $(SolutionDir)bin\$(Platform)\$(Configuration)\ /d /y
 
 mkdir $(SolutionDir)bin\$(Platform)\ARC_$(Configuration)
@@ -161,7 +161,7 @@ xcopy arc.cfg $(SolutionDir)bin\$(Platform)\ARC_$(Configuration) /y
     <ClCompile>
       <Optimization>Full</Optimization>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <AdditionalIncludeDirectories>external/hltypes/include;external/reactor/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>lib/hltypes/include;lib/reactor/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_WIN32;_DESKTOP;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -176,7 +176,7 @@ xcopy arc.cfg $(SolutionDir)bin\$(Platform)\ARC_$(Configuration) /y
     <Link>
       <AdditionalDependencies>libhltypes.lib;libreactor.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
-      <AdditionalLibraryDirectories>external\lib\msvc110;$(SolutionDir)bin\$(Platform);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>lib\lib\msvc110;$(SolutionDir)bin\$(Platform);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalManifestDependencies>%(AdditionalManifestDependencies)</AdditionalManifestDependencies>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
@@ -194,8 +194,8 @@ xcopy arc.cfg $(SolutionDir)bin\$(Platform)\ARC_$(Configuration) /y
       </AdditionalManifestFiles>
     </Manifest>
     <PostBuildEvent>
-      <Command>xcopy external\lib\msvc110\*.dll $(SolutionDir)bin\$(Platform)\ /d /y
-xcopy external\lib\msvc110\Microsoft.VC110.CRT\* $(SolutionDir)bin\$(Platform)\ /d /y
+      <Command>xcopy lib\lib\msvc110\*.dll $(SolutionDir)bin\$(Platform)\ /d /y
+xcopy lib\lib\msvc110\Microsoft.VC110.CRT\* $(SolutionDir)bin\$(Platform)\ /d /y
 xcopy bin\$(Platform)\*.dll $(SolutionDir)bin\$(Platform)\$(Configuration)\ /d /y
 
 mkdir $(SolutionDir)bin\$(Platform)\ARC_$(Configuration)
@@ -220,7 +220,7 @@ del $(SolutionDir)bin\$(Platform)\ARC_$(Configuration)\libhlxml.dll
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="external\hltypes\libhltypes.vcxproj">
+    <ProjectReference Include="lib\hltypes\libhltypes.vcxproj">
       <Project>{e4d373bf-e227-48b9-99e6-84987e8674ec}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
       <Private>false</Private>
@@ -228,7 +228,7 @@ del $(SolutionDir)bin\$(Platform)\ARC_$(Configuration)\libhlxml.dll
       <LinkLibraryDependencies>false</LinkLibraryDependencies>
       <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
     </ProjectReference>
-    <ProjectReference Include="external\reactor\libreactor.vcxproj">
+    <ProjectReference Include="lib\reactor\libreactor.vcxproj">
       <Project>{2aab8e59-ca6d-40f3-9006-547341626727}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
       <Private>false</Private>
