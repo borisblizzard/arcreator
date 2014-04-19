@@ -203,7 +203,13 @@ namespace legacy
 		/// @param[in] dh Destination height.
 		/// @param[in] source Source Texture.
 		void _renderToTexture(int sx, int sy, int sw, int sh, int dx, int dy, int dw, int dh, april::Texture* source, unsigned char alpha = 255);
-
+		/// @brief Renders a color quad to texture of this bitmap.
+		/// @param[in] x Destination X coordinate.
+		/// @param[in] y Destination Y coordinate.
+		/// @param[in] w Destination width.
+		/// @param[in] h Destination height.
+		/// @param[in] color Color.
+		void _renderColor(int x, int y, int w, int h, april::Color color);
 	};
 
 }

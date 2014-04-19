@@ -205,7 +205,7 @@ namespace legacy
 
 		this->texture = april::rendersys->createTextureFromResource(filename,
 			april::Image::FORMAT_RGBA, april::Texture::TYPE_RENDER_TARGET);
-		// TODO - remove
+		// TODO - remove if not needed anymore
 		/*
 		april::Texture* loadTexture = april::rendersys->loadTexture(filename);
 		int w = loadTexture->getWidth();
@@ -262,7 +262,6 @@ namespace legacy
 		april::rendersys->setModelviewMatrix(viewMatrix);
 	}
 
-	// TODO - might be obsolete
 	void Bitmap::_renderToTexture(int sx, int sy, int sw, int sh, int dx, int dy, int dw, int dh, april::Texture* source, unsigned char alpha)
 	{
 		if (alpha == 0)
@@ -298,6 +297,21 @@ namespace legacy
 		}
 		april::rendersys->setRenderTarget(target);
 		source->setFilter(filter);
+		april::rendersys->setProjectionMatrix(projectionMatrix);
+		april::rendersys->setModelviewMatrix(viewMatrix);
+	}
+
+	void Bitmap::_renderColor(int x, int y, int w, int h, april::Color color)
+	{
+		gmat4 viewMatrix = april::rendersys->getModelviewMatrix();
+		gmat4 projectionMatrix = april::rendersys->getProjectionMatrix();
+		april::Texture* target = april::rendersys->getRenderTarget();
+		april::rendersys->setRenderTarget(this->texture);
+		april::rendersys->setIdentityTransform();
+		april::rendersys->setOrthoProjection(grect(0.0f, 0.0f,
+			(float)this->texture->getWidth(), (float)this->texture->getHeight()));
+		april::rendersys->clear(false, grect((float)x, (float)y, (float)w, (float)h), color);
+		april::rendersys->setRenderTarget(target);
 		april::rendersys->setProjectionMatrix(projectionMatrix);
 		april::rendersys->setModelviewMatrix(viewMatrix);
 	}
@@ -451,7 +465,7 @@ namespace legacy
 		RB_CHECK_DISPOSED(bitmap);
 		RB_CHECK_TYPE(color, rb_cColor);
 		RB_VAR2CPP(color, Color, cColor);
-		bitmap->texture->setPixel(NUM2INT(x), NUM2INT(y), cColor->toAprilColor());
+		bitmap->_renderColor(NUM2INT(x), NUM2INT(y), 1, 1, cColor->toAprilColor());
 		return Qnil;
 	}
 
@@ -485,7 +499,7 @@ namespace legacy
 		}
 		RB_CHECK_TYPE(color, rb_cColor);
 		RB_VAR2CPP(color, Color, cColor);
-		bitmap->texture->fillRect(x, y, w, h, cColor->toAprilColor());
+		bitmap->_renderColor(x, y, w, h, cColor->toAprilColor());
 		return Qnil;
 	}
 
