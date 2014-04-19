@@ -53,7 +53,7 @@
     <ClInclude Include="include\reactor\ARC_Error.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\reactor\Context.h">
+    <ClInclude Include="include\reactor\Input.h">
       <Filter>Header Files\System</Filter>
     </ClInclude>
   </ItemGroup>
@@ -79,7 +79,7 @@
     <ClCompile Include="src\ARC_Error.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\Context.cpp">
+    <ClCompile Include="src\Input.cpp">
       <Filter>Source Files\System</Filter>
     </ClCompile>
   </ItemGroup>

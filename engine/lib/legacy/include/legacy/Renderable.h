@@ -6,6 +6,7 @@
 #include <april/Color.h>
 #include <gtypes/Rectangle.h>
 #include <gtypes/Vector2.h>
+#include <hltypes/hltypesUtil.h>
 
 #include "legacyExport.h"
 #include "RubyObject.h"
@@ -40,30 +41,14 @@ namespace legacy
 		/// @brief Ruby garbage collector marking.
 		void mark();
 
-		/// @brief Sets the visible flag.
-		/// @param[in] value The visible flag.
-		void setVisible(bool value) { this->visible = value; }
-		/// @brief Gets the Z coordinate.
-		/// @return The Z coordinate.
-		int getZ() { return this->z; }
-		/// @brief Sets the Z coordinate.
-		/// @param[in] value The Z coordinate.
+		HL_DEFINE_SET(bool, visible, Visible);
+		HL_DEFINE_GET(int, z, Z);
 		void setZ(int value);
-		/// @brief Sets the offset X coordinate.
-		/// @param[in] value The offset X coordinate.
-		void setOX(int value) { this->ox = value; }
-		/// @brief Sets the offset Y coordinate.
-		/// @param[in] value The offset Y coordinate.
-		void setOY(int value) { this->oy = value; }
-		/// @brief Gets the disposed flag.
-		/// @return The disposed flag.
-		bool isDisposed() { return this->disposed; }
-		/// @brief Gets the counter ID.
-		/// @return The counter ID.
-		unsigned int getCounterId() { return this->counterId; }
-		/// @brief Gets the renderable collection flag.
-		/// @return True if this object is not to be actually rendered.
-		virtual bool isCollection() { return false; }
+		HL_DEFINE_SET(int, ox, OX);
+		HL_DEFINE_SET(int, oy, OY);
+		HL_DEFINE_IS(disposed, Disposed);
+		HL_DEFINE_GET(int, counterId, CounterId);
+		virtual inline bool isCollection() { return false; }
 
 		/// @brief Draws this renderable on the screen.
 		virtual void draw();

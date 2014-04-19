@@ -3,6 +3,8 @@
 
 #include <ruby.h>
 
+#include <hltypes/hltypesUtil.h>
+
 #include "Renderable.h"
 #include "legacyExport.h"
 
@@ -38,9 +40,7 @@ namespace legacy
 		/// @brief Ruby garbage collector marking.
 		void mark();
 
-		/// @brief Gets the Rect.
-		/// @return The Rect.
-		Rect* getRect() { return this->rect; }
+		HL_DEFINE_GET(Rect*, rect, Rect);
 
 		/// @brief Draws this sprite on the screen.
 		void draw();

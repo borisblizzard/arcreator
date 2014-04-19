@@ -25,16 +25,16 @@ namespace legacy
 
 		/// @brief Gets the render window width.
 		/// @result The render window width.
-		static int getWidth() { return width; }
+		static inline int getWidth() { return width; }
 		/// @brief Sets the render window height.
 		/// @result The render window height.
-		static int getHeight() { return height; }
+		static inline int getHeight() { return height; }
 		/// @brief Sets whether Graphics is still running.
 		/// @param[in] value The new value.
-		static void setRunning(bool value) { running = value; }
+		static inline void setRunning(bool value) { running = value; }
 		/// @brief Sets whether the window is in focus.
 		/// @param[in] value The new value.
-		static void setFocused(bool value) { focused = value; }
+		static inline void setFocused(bool value) { focused = value; }
 
 		/// @brief Toggles the FPS display.
 		static void toggleFpsDisplay();

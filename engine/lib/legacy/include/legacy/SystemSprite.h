@@ -1,6 +1,8 @@
 #ifndef LEGACY_SYSTEM_SPRITE_H
 #define LEGACY_SYSTEM_SPRITE_H
 
+#include <hltypes/hltypesUtil.h>
+
 #include "SourceRenderer.h"
 #include "legacyExport.h"
 
@@ -23,24 +25,10 @@ namespace legacy
 		/// @brief Disposes this object.
 		void dispose();
 
-		/// @brief Gets the X coordinate.
-		/// @return The X coordinate.
-		int getX() { return this->x; }
-		/// @brief Sets the X coordinate.
-		/// @param[in] value The X coordinate.
-		void setX(int value) { this->x = value; }
-		/// @brief Gets the Y coordinate.
-		/// @return The Y coordinate.
-		int getY() { return this->y; }
-		/// @brief Sets the Y coordinate.
-		/// @param[in] value The Y coordinate.
-		void setY(int value) { this->y = value; }
-		/// @brief Gets the source rectangle.
-		/// @return Source Rectangle.
-		Rect* getSrcRect() { return this->srcRect; }
-		/// @brief Sets the Bitmap.
-		/// @param[in] value The Bitmap.
-		void setBitmap(Bitmap* value) { this->bitmap = value; }
+		HL_DEFINE_GETSET(int, x, X);
+		HL_DEFINE_GETSET(int, y, Y);
+		HL_DEFINE_GET(Rect*, srcRect, SrcRect);
+		HL_DEFINE_SET(Bitmap*, bitmap, Bitmap);
 
 		/// @brief Draws this sprite on the screen.
 		void draw();

@@ -32,7 +32,7 @@
 #include "ARC_Error.h"
 #include "CodeSnippets.h"
 #include "Constants.h"
-#include "Context.h"
+#include "Input.h"
 #include "System.h"
 #include "TransitionManager.h"
 #include "reactor.h"

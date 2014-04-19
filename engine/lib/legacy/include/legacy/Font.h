@@ -4,6 +4,7 @@
 #include <ruby.h>
 
 #include <hltypes/harray.h>
+#include <hltypes/hltypesUtil.h>
 #include <hltypes/hstring.h>
 
 #include "legacyExport.h"
@@ -37,21 +38,11 @@ namespace legacy
 		/// @brief Ruby garbage collector marking.
 		void mark();
 
-		/// @brief Gets the name.
-		/// @return The name.
-		hstr getName() { return this->name; }
-		/// @brief Gets the size.
-		/// @return The size.
-		int getSize() { return this->size; }
-		/// @brief Gets the bold flag.
-		/// @return The bold flag.
-		bool getBold() { return this->bold; }
-		/// @brief Gets the bold flag.
-		/// @return The bold flag.
-		bool getItalic() { return this->italic; }
-		/// @brief Gets the color.
-		/// @return The color.
-		Color* getColor() { return this->color; }
+		HL_DEFINE_GET(hstr, name, Name);
+		HL_DEFINE_GET(int, size, Size);
+		HL_DEFINE_GET(bool, bold, Bold);
+		HL_DEFINE_GET(bool, italic, Italic);
+		HL_DEFINE_GET(Color*, color, Color);
 		/// @brief Gets the Atres font name.
 		/// @return Atres font name.
 		hstr getAtresFontName();

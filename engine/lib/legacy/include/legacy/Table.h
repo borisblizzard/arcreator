@@ -22,7 +22,7 @@ namespace legacy
 
 		/// @brief Gets the Z size.
 		/// @return The Z size.
-		int getZSize() { return this->zSize; }
+		HL_DEFINE_GET(int, zSize, ZSize);
 
 		/// @brief Gets the table entry at a specific position.
 		/// @param[in] x X coordinate.

@@ -11,6 +11,7 @@ namespace reactor
 	{
 	public:
 		ApplicationExitException();
+		~ApplicationExitException();
 
 	};
 
