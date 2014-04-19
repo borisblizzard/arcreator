@@ -227,12 +227,12 @@ namespace legacy
 							ty = y * 32 + j / 2 * 16;
 							sx = position % 6 * 16;
 							sy = position / 6 * 16;
-							generated->bltOver(tx, ty, autotile, sx, sy, 16, 16);
+							generated->_renderToTexture(sx, sy, 16, 16, tx, ty, autotile->texture);
 							if (animated)
 							{
-								generated->bltOver(tx, ty + 192, autotile, sx + 96, sy, 16, 16);
-								generated->bltOver(tx, ty + 384, autotile, sx + 192, sy, 16, 16);
-								generated->bltOver(tx, ty + 576, autotile, sx + 288, sy, 16, 16);
+								generated->_renderToTexture(sx + 96, sy, 16, 16, tx, ty + 192, autotile->texture);
+								generated->_renderToTexture(sx + 192, sy, 16, 16, tx, ty + 384, autotile->texture);
+								generated->_renderToTexture(sx + 288, sy, 16, 16, tx, ty + 576, autotile->texture);
 							}
 						}
 					}

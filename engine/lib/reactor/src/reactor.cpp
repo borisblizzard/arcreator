@@ -58,7 +58,7 @@ namespace reactor
 		rb_funcall_2(backtraceMessage, "gsub!", rb_funcall_0(rb_mDir, "pwd"), rb_str_new2(""));
 		text += hstr("\n") + StringValueCStr(backtraceMessage);
 		hlog::error(reactor::logTag, text);
-		april::messageBox(reactor::system->Title, text, april::AMSGBTN_OK, april::AMSGSTYLE_WARNING);
+		april::messageBox(reactor::system->Title, text, april::MESSAGE_BUTTON_OK, april::MESSAGE_STYLE_WARNING);
 	}
 
 	VALUE rb_Kernel_print(int argc, VALUE* argv, VALUE self)
@@ -117,7 +117,7 @@ namespace reactor
 			text = data.join(delimiter);
 		}
 		hlog::write(reactor::logTag, text);
-		april::messageBox(reactor::system->Title, text, april::AMSGBTN_OK, april::AMSGSTYLE_INFORMATION);
+		april::messageBox(reactor::system->Title, text, april::MESSAGE_BUTTON_OK, april::MESSAGE_STYLE_INFO);
 		return result;
 	}
 	
@@ -190,14 +190,12 @@ namespace reactor
 			// april
 			grect viewport(0.0f, 0.0f, (float)resolution[0], (float)resolution[1]);
 			april::rendersys->setOrthoProjection(viewport);
-			april::window->setKeyboardCallbacks(&reactor::Context::onKeyDown, &reactor::Context::onKeyUp, &reactor::Context::onChar);
-			april::window->setQuitCallback(&System::onQuit);
-			april::window->setFocusChangeCallback(&System::onFocusChange);
+			april::window->setSystemDelegate(reactor::system);
+			april::window->setKeyboardDelegate(reactor::input);
+			april::window->setMouseDelegate(reactor::input);
 			// TODO
-			reactor::vertexShader = april::rendersys->createVertexShader();
-			reactor::vertexShader->compile(ARC_VERTEX_SHADER);
-			reactor::pixelShader = april::rendersys->createPixelShader();
-			reactor::pixelShader->compile(ARC_PIXEL_SHADER);
+			reactor::vertexShader = april::rendersys->createVertexShader("system/vertexShader-Default.cso");
+			reactor::pixelShader = april::rendersys->createPixelShader("system/pixelShader-Default.cso");
 			// atres
 			atres::renderer->setGlobalOffsets(true);
 			// aprilui
@@ -209,7 +207,7 @@ namespace reactor
 			// xal
 			// reactor related data
 			hlog::write(reactor::logTag, "Initializing ARC Reactor Engine.");
-			reactor::context = new reactor::Context();
+			reactor::input = new reactor::Input();
 			reactor::transitionManager = new reactor::TransitionManager();
 		}
 		catch (hltypes::exception& e)
@@ -234,7 +232,7 @@ namespace reactor
 			delete reactor::pixelShader;
 			hlog::write(reactor::logTag, "Destroying ARC Reactor Engine.");
 			// destroy other
-			delete reactor::context;
+			delete reactor::input;
 			delete reactor::transitionManager;
 			xal::destroy();
 #ifndef LEGACY_ONLY
@@ -298,6 +296,7 @@ namespace reactor
 		{
 			rb_load(rb_str_new2((*it).c_str()), 0);
 		}
+		//rb_load(rb_str_new2("test.rb"), 0);
 		legacy::destroy();
 		ARC::destroy();
 		ARC_Data::destroy();

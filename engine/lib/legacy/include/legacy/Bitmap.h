@@ -18,11 +18,17 @@ namespace april
 
 namespace legacy
 {
+	class Tilemap;
+	class Window;
+
 	extern VALUE rb_cBitmap;
 
 	class legacyExport Bitmap : public RubyObject
 	{
 	public:
+		friend class Tilemap;
+		friend class Window;
+
 		/// @brief Constructor.
 		Bitmap();
 		/// @brief Constructor.
@@ -59,26 +65,6 @@ namespace legacy
 		/// @return The disposed flag.
 		bool isDisposed() { return this->disposed; }
 
-		/// @brief Blits rect from source bitmap to this one and overwrites data below.
-		/// @param[in] x Destination X coordinate.
-		/// @param[in] y Destination Y coordinate.
-		/// @param[in] source Source Bitmap.
-		/// @param[in] sx Source X coordinate.
-		/// @param[in] sy Source Y coordinate.
-		/// @param[in] sw Source width.
-		/// @param[in] sh Source height.
-		void bltOver(int x, int y, Bitmap* source, int sx, int sy, int sw, int sh);
-		/// @brief Blits rect from source bitmap to this one and overwrites data below.
-		/// @param[in] x Destination X coordinate.
-		/// @param[in] y Destination Y coordinate.
-		/// @param[in] w Destination width.
-		/// @param[in] h Destination height.
-		/// @param[in] source Source Bitmap.
-		/// @param[in] sx Source X coordinate.
-		/// @param[in] sy Source Y coordinate.
-		/// @param[in] sw Source width.
-		/// @param[in] sh Source height.
-		void stretchBltOver(int x, int y, int w, int h, Bitmap* source, int sx, int sy, int sw, int sh);
 		/// @brief Clears the entire bitmap.
 		void clear();
 
@@ -198,29 +184,25 @@ namespace legacy
 		/// @param[in] filename Filename of the texture to load.
 		void _loadTexture(chstr filename);
 		/// @brief Blits rect from source bitmap to this one.
-		/// @param[in] x Destination X coordinate.
-		/// @param[in] y Destination Y coordinate.
-		/// @param[in] source Source Texture.
 		/// @param[in] sx Source X coordinate.
 		/// @param[in] sy Source Y coordinate.
 		/// @param[in] sw Source width.
 		/// @param[in] sh Source height.
-		void _renderToTexture(int x, int y, april::Texture* source, int sx, int sy, int sw, int sh, unsigned char alpha = 255);
+		/// @param[in] dx Destination X coordinate.
+		/// @param[in] dy Destination Y coordinate.
+		/// @param[in] source Source Texture.
+		void _renderToTexture(int sx, int sy, int sw, int sh, int dx, int dy, april::Texture* source, unsigned char alpha = 255);
 		/// @brief Blits rect from source bitmap to this one.
-		/// @param[in] x Destination X coordinate.
-		/// @param[in] y Destination Y coordinate.
-		/// @param[in] w Destination width.
-		/// @param[in] h Destination height.
-		/// @param[in] source Source Texture.
 		/// @param[in] sx Source X coordinate.
 		/// @param[in] sy Source Y coordinate.
 		/// @param[in] sw Source width.
 		/// @param[in] sh Source height.
-		void _renderToTexture(int x, int y, int w, int h, april::Texture* source, int sx, int sy, int sw, int sh, unsigned char alpha = 255);
-		/// @brief Renders a color quad to texture of this bitmap.
-		/// @param[in] rect Destination rectangle.
-		/// @param[in] color Color.
-		void _renderColor(grect rect, april::Color color);
+		/// @param[in] dx Destination X coordinate.
+		/// @param[in] dy Destination Y coordinate.
+		/// @param[in] dw Destination width.
+		/// @param[in] dh Destination height.
+		/// @param[in] source Source Texture.
+		void _renderToTexture(int sx, int sy, int sw, int sh, int dx, int dy, int dw, int dh, april::Texture* source, unsigned char alpha = 255);
 
 	};
 

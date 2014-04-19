@@ -1,6 +1,6 @@
 #include <ruby.h>
 
-#include <april/ImageSource.h>
+#include <april/Image.h>
 #include <april/RenderSystem.h>
 #include <april/Texture.h>
 #include <april/Timer.h>
@@ -250,10 +250,10 @@ namespace legacy
 		VALUE argv[2] = {INT2FIX(width), INT2FIX(height)};
 		VALUE rb_bitmap = Bitmap::create(2, argv);
 		RB_VAR2CPP(rb_bitmap, Bitmap, bitmap);
-		april::ImageSource* imageSource = april::rendersys->takeScreenshot(4);
+		april::Image* image = april::rendersys->takeScreenshot(april::Image::FORMAT_RGBA);
 		delete bitmap->getTexture();
-		bitmap->setTexture(april::rendersys->createTexture(width, height, imageSource->data));
-		delete imageSource;
+		bitmap->setTexture(april::rendersys->createTexture(image->w, image->h, image->data, april::Image::FORMAT_RGBA));
+		delete image;
 		return rb_bitmap;
 	}
 
@@ -276,17 +276,17 @@ namespace legacy
 		int vague = (NIL_P(arg3) ? 40 : NUM2INT(arg3));
 		grect drawRect(0.0f, 0.0f, (float)width, (float)height);
 		grect srcRect(0.0f, 0.0f, 1.0f, 1.0f);
-		april::Color color = APRIL_COLOR_WHITE;
+		april::Color color = april::Color::White;
 		// capture old screen
-		april::ImageSource* imageSource = april::rendersys->takeScreenshot(4);
-		april::Texture* oldScreen = april::rendersys->createTexture(width, height, imageSource->data);
-		delete imageSource;
+		april::Image* image = april::rendersys->takeScreenshot(april::Image::FORMAT_RGBA);
+		april::Texture* oldScreen = april::rendersys->createTexture(image->w, image->h, image->data, april::Image::FORMAT_RGBA);
+		delete image;
 		// capture new screen
 		april::rendersys->clear();
 		renderQueue->draw();
-		imageSource = april::rendersys->takeScreenshot(4);
-		april::Texture* newScreen = april::rendersys->createTexture(width, height, imageSource->data);
-		delete imageSource;
+		image = april::rendersys->takeScreenshot(april::Image::FORMAT_RGBA);
+		april::Texture* newScreen = april::rendersys->createTexture(image->w, image->h, image->data, april::Image::FORMAT_RGBA);
+		delete image;
 		float time;
 		TRY_RUN_GC;
 		if (filename == "")
@@ -316,7 +316,7 @@ namespace legacy
 			april::Texture* transition = bitmap->getTexture();
 			bitmap->setTexture(NULL);
 			delete bitmap;
-			april::rendersys->setTextureBlendMode(april::DEFAULT);
+			april::rendersys->setTextureBlendMode(april::BM_DEFAULT);
 			int ambiguity = vague * 2;
 			// fade between old and new screen
 			for_iter (i, 0, duration)
@@ -326,7 +326,7 @@ namespace legacy
 				april::rendersys->clear();
 				april::rendersys->setTexture(oldScreen);
 				april::rendersys->drawTexturedRect(drawRect, srcRect);
-				newScreen->insertAsAlphaMap(transition, (i + 1) * 255 / duration, ambiguity);
+				newScreen->insertAlphaMap(transition, (i + 1) * 255 / duration, ambiguity);
 				april::rendersys->setTexture(newScreen);
 				april::rendersys->drawTexturedRect(drawRect, srcRect);
 				april::rendersys->presentFrame();

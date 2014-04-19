@@ -115,16 +115,16 @@ namespace legacy
 		switch (this->blendType)
 		{
 		case Normal:
-			april::rendersys->setTextureBlendMode(april::DEFAULT);
+			april::rendersys->setTextureBlendMode(april::BM_DEFAULT);
 			break;
 		case Positive:
-			april::rendersys->setTextureBlendMode(april::ADD);
+			april::rendersys->setTextureBlendMode(april::BM_ADD);
 			break;
 		case Negative:
-			april::rendersys->setTextureBlendMode(april::SUBTRACT);
+			april::rendersys->setTextureBlendMode(april::BM_SUBTRACT);
 			break;
 		default:
-			april::rendersys->setTextureBlendMode(april::DEFAULT);
+			april::rendersys->setTextureBlendMode(april::BM_DEFAULT);
 			break;
 		}
 		int dw = hmin(this->srcRect->width, this->bitmap->getWidth());
@@ -143,7 +143,7 @@ namespace legacy
 			srcRect.w = -srcRect.w;
 		}
 		this->_renderTexture(drawRect, srcRect, this->bitmap->getTexture(), this->opacity);
-		april::rendersys->setTextureBlendMode(april::DEFAULT);
+		april::rendersys->setTextureBlendMode(april::BM_DEFAULT);
 	}
 
 	/****************************************************************************************

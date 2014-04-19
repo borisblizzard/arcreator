@@ -26,9 +26,6 @@
     <ClInclude Include="include\reactor\ApplicationExitException.h">
       <Filter>Header Files\System</Filter>
     </ClInclude>
-    <ClInclude Include="include\reactor\Context.h">
-      <Filter>Header Files\System</Filter>
-    </ClInclude>
     <ClInclude Include="include\reactor\System.h">
       <Filter>Header Files\System</Filter>
     </ClInclude>
@@ -56,12 +53,12 @@
     <ClInclude Include="include\reactor\ARC_Error.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\reactor\Context.h">
+      <Filter>Header Files\System</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\ApplicationExitException.cpp">
-      <Filter>Source Files\System</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Context.cpp">
       <Filter>Source Files\System</Filter>
     </ClCompile>
     <ClCompile Include="src\System.cpp">
@@ -81,6 +78,9 @@
     </ClCompile>
     <ClCompile Include="src\ARC_Error.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Context.cpp">
+      <Filter>Source Files\System</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -174,7 +174,7 @@ namespace reactor
 		return true;
 	}
 	
-	void System::onFocusChange(bool focused)
+	void System::onWindowFocusChanged(bool focused)
 	{
 		reactor::system->Focused = focused;
 		legacy::Graphics::setFocused(focused);
