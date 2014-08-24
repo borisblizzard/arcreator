@@ -203,3 +203,12 @@
 /engine/lib/reactor/*.sdf
 /engine/lib/reactor/*.opensdf
 /engine/lib/reactor/bin
+
+
+/engine/lib/gtypes/
+/engine/lib/hltypes/
+/engine/lib/april/
+/engine/lib/atres/
+/engine/lib/aprilui/
+/engine/lib/aprilparticle/
+/engine/lib/xal/
