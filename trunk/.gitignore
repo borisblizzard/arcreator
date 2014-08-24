@@ -1,0 +1,205 @@
+
+# /
+/*.metadata
+/CodeAnalyzer-0.7.0.jar
+/desktop.ini
+
+# /RMXP/Chaos Project/Data_ARC/
+
+# /RMXP/Chaos Project/Data_ARC/Scripts/
+
+# /RMXP/Chronicles of Sir Lag-A-Lot/
+/RMXP/Chronicles of Sir Lag-A-Lot/Backups
+/RMXP/Chronicles of Sir Lag-A-Lot/Settings
+
+# /RMXP/Chronicles of Sir Lag-A-Lot/Data/
+/RMXP/Chronicles of Sir Lag-A-Lot/Data/Scripts
+
+# /RMXP/Chronicles of Sir Lag-A-Lot/Data_ARC/
+
+# /RMXP/Chronicles of Sir Lag-A-Lot/Data_ARC/Scripts/
+
+# /editor/
+/editor/*.metadata
+/editor/.metadata
+/editor/temp
+
+# /editor/ARCed Database/
+/editor/ARCed Database/ARCed Database.suo
+
+# /editor/ARCed.NET/
+/editor/ARCed.NET/*.suo
+/editor/ARCed.NET/PluginTestForm
+/editor/ARCed.NET/_ReSharper.ARCed.NET
+/editor/ARCed.NET/*.user
+
+# /editor/ARCed.NET/ARCed.Controls/
+/editor/ARCed.NET/ARCed.Controls/bin
+/editor/ARCed.NET/ARCed.Controls/obj
+/editor/ARCed.NET/ARCed.Controls/*.user
+/editor/ARCed.NET/ARCed.Controls/*.DotSettings
+
+# /editor/ARCed.NET/ARCed.Core/
+/editor/ARCed.NET/ARCed.Core/bin
+/editor/ARCed.NET/ARCed.Core/obj
+/editor/ARCed.NET/ARCed.Core/*.user
+/editor/ARCed.NET/ARCed.Core/*.DotSettings
+
+# /editor/ARCed.NET/ARCed.NET/
+/editor/ARCed.NET/ARCed.NET/bin
+/editor/ARCed.NET/ARCed.NET/obj
+/editor/ARCed.NET/ARCed.NET/*.user
+/editor/ARCed.NET/ARCed.NET/*.DotSettings
+/editor/ARCed.NET/ARCed.NET/Commit Log.txt
+
+# /editor/ARCed.NET/ARCed.Plugins/
+/editor/ARCed.NET/ARCed.Plugins/bin
+/editor/ARCed.NET/ARCed.Plugins/obj
+/editor/ARCed.NET/ARCed.Plugins/*.user
+/editor/ARCed.NET/ARCed.Plugins/*.DotSettings
+
+# /editor/ARCed.NET/ARCed.Project/
+/editor/ARCed.NET/ARCed.Project/bin
+/editor/ARCed.NET/ARCed.Project/obj
+/editor/ARCed.NET/ARCed.Project/*.user
+/editor/ARCed.NET/ARCed.Project/*.DotSettings
+
+# /editor/ARCed.NET/ARCed.Scintilla/
+/editor/ARCed.NET/ARCed.Scintilla/bin
+/editor/ARCed.NET/ARCed.Scintilla/obj
+/editor/ARCed.NET/ARCed.Scintilla/*.user
+/editor/ARCed.NET/ARCed.Scintilla/*.DotSettings
+
+# /editor/ARCed.NET/ARCed.UI/
+/editor/ARCed.NET/ARCed.UI/*.user
+/editor/ARCed.NET/ARCed.UI/bin
+/editor/ARCed.NET/ARCed.UI/obj
+/editor/ARCed.NET/ARCed.UI/*.DotSettings
+
+# /editor/ARCed.NET/ARCed.Xna/
+/editor/ARCed.NET/ARCed.Xna/bin
+/editor/ARCed.NET/ARCed.Xna/obj
+/editor/ARCed.NET/ARCed.Xna/*.user
+/editor/ARCed.NET/ARCed.Xna/*.DotSettings
+
+# /editor/ARCed.NET/Documentation/Help/
+/editor/ARCed.NET/Documentation/Help/LastBuild.log
+/editor/ARCed.NET/Documentation/Help/ARCed.NET Help.chm
+
+# /editor/RMXP Project Converter/
+/editor/RMXP Project Converter/*.project
+/editor/RMXP Project Converter/*.buildpath
+
+# /editor/Welder/
+/editor/Welder/compiled
+/editor/Welder/dist
+
+# /editor/Welder/EditorIcons/
+
+# /editor/Welder/Welder/
+/editor/Welder/Welder/*.suo
+
+# /editor/Welder/src/
+/editor/Welder/src/*.cpp
+/editor/Welder/src/build
+/editor/Welder/src/dist
+
+# /editor/Welder/src/Core/
+/editor/Welder/src/Core/*.cpp
+
+# /editor/Welder/src/Core/Database/
+/editor/Welder/src/Core/Database/*.cpp
+
+# /editor/Welder/src/Core/Database/Controls/
+/editor/Welder/src/Core/Database/Controls/*.cpp
+
+# /editor/Welder/src/Core/Database/Dialogs/
+/editor/Welder/src/Core/Database/Dialogs/*.cpp
+
+# /editor/Welder/src/Core/Database/ScriptEditor/
+/editor/Welder/src/Core/Database/ScriptEditor/*.cpp
+
+# /editor/Welder/src/Core/EventEditor/
+/editor/Welder/src/Core/EventEditor/*.cpp
+
+# /editor/Welder/src/Core/MapEditor/
+/editor/Welder/src/Core/MapEditor/*.cpp
+
+# /editor/Welder/src/Core/PyXAL/
+/editor/Welder/src/Core/PyXAL/build
+
+# /editor/Welder/src/Core/PyXAL/src/
+/editor/Welder/src/Core/PyXAL/src/build
+/editor/Welder/src/Core/PyXAL/src/Release
+/editor/Welder/src/Core/PyXAL/src/_PyXAL.pyd
+/editor/Welder/src/Core/PyXAL/src/*.ncb
+/editor/Welder/src/Core/PyXAL/src/*.suo
+/editor/Welder/src/Core/PyXAL/src/*.user
+
+# /editor/Welder/src/Core/PyXAL/src/bin/
+/editor/Welder/src/Core/PyXAL/src/bin/PyXAL.exp
+/editor/Welder/src/Core/PyXAL/src/bin/PyXAL.lib
+/editor/Welder/src/Core/PyXAL/src/bin/*.pdb
+
+# /editor/Welder/src/Core/RMXP/
+/editor/Welder/src/Core/RMXP/*.cpp
+
+# /editor/Welder/src/RTP/Audio/
+/editor/Welder/src/RTP/Audio/BGM
+/editor/Welder/src/RTP/Audio/BGS
+/editor/Welder/src/RTP/Audio/ME
+/editor/Welder/src/RTP/Audio/SE
+
+# /editor/Welder/src/RTP/Templates/Chronicles of Sir Lag-A-Lot/Backups/
+/editor/Welder/src/RTP/Templates/Chronicles of Sir Lag-A-Lot/Backups/*.zip
+
+# /editor/Welder/src/RTP/Templates/Default Project/
+/editor/Welder/src/RTP/Templates/Default Project/Backups
+
+# /editor/Welder/src/RTP/Templates/Default Project/Backups/
+/editor/Welder/src/RTP/Templates/Default Project/Backups/*.zip
+
+# /engine/
+/engine/*.lnk
+/engine/*.mk
+/engine/*.user
+/engine/*.ncb
+/engine/*.suo
+/engine/*.tags
+/engine/*.session
+/engine/*.sdf
+/engine/*.opensdf
+/engine/*.log
+/engine/bin
+/engine/log
+/engine/ipch
+/engine/Debug
+/engine/_ReSharper.arc_2010
+
+# /engine/Data/Scripts/
+
+# /engine/lib/
+
+# /engine/lib/legacy/
+/engine/lib/legacy/*.lnk
+/engine/lib/legacy/*.mk
+/engine/lib/legacy/*.user
+/engine/lib/legacy/*.ncb
+/engine/lib/legacy/*.suo
+/engine/lib/legacy/*.tags
+/engine/lib/legacy/*.session
+/engine/lib/legacy/*.sdf
+/engine/lib/legacy/*.opensdf
+/engine/lib/legacy/bin
+
+# /engine/lib/reactor/
+/engine/lib/reactor/*.lnk
+/engine/lib/reactor/*.mk
+/engine/lib/reactor/*.user
+/engine/lib/reactor/*.ncb
+/engine/lib/reactor/*.suo
+/engine/lib/reactor/*.tags
+/engine/lib/reactor/*.session
+/engine/lib/reactor/*.sdf
+/engine/lib/reactor/*.opensdf
+/engine/lib/reactor/bin
