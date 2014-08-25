@@ -57,7 +57,7 @@ class Table(object):
         try:
             self._data[key] = value
         except:
-            print '__SETITEM__ THREW EXCEPTION'
+            print('__SETITEM__ THREW EXCEPTION')
 
     def resize(self, *args):
         # should work to increase and decrease the table size

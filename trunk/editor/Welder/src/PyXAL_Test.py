@@ -54,16 +54,16 @@ class XALTestFrame ( wx.Frame ):
         self.mainpanel = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
         panelsizer = wx.BoxSizer( wx.VERTICAL )
         
-        self.filepicker = wx.FilePickerCtrl( self.mainpanel, wx.ID_ANY, wx.EmptyString, u"Select a file", u"*.*", wx.DefaultPosition, wx.DefaultSize, wx.FLP_DEFAULT_STYLE )
+        self.filepicker = wx.FilePickerCtrl( self.mainpanel, wx.ID_ANY, wx.EmptyString, "Select a file", "*.*", wx.DefaultPosition, wx.DefaultSize, wx.FLP_DEFAULT_STYLE )
         panelsizer.Add( self.filepicker, 0, wx.RIGHT|wx.LEFT|wx.EXPAND|wx.ALL, 5 )
         
-        self.playbt = wx.Button( self.mainpanel, wx.ID_ANY, u"play", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.playbt = wx.Button( self.mainpanel, wx.ID_ANY, "play", wx.DefaultPosition, wx.DefaultSize, 0 )
         panelsizer.Add( self.playbt, 0, wx.ALL, 5 )
         
-        self.pausebt = wx.Button( self.mainpanel, wx.ID_ANY, u"pause", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.pausebt = wx.Button( self.mainpanel, wx.ID_ANY, "pause", wx.DefaultPosition, wx.DefaultSize, 0 )
         panelsizer.Add( self.pausebt, 0, wx.ALL, 5 )
         
-        self.stopbt = wx.Button( self.mainpanel, wx.ID_ANY, u"stop", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.stopbt = wx.Button( self.mainpanel, wx.ID_ANY, "stop", wx.DefaultPosition, wx.DefaultSize, 0 )
         panelsizer.Add( self.stopbt, 0, wx.ALL, 5 )
 
         color = wx.Colour(100, 100, 220, 255)
@@ -106,11 +106,11 @@ class XALTestFrame ( wx.Frame ):
     def SetUpXAL(self): 
         #PyXAL.EnableLogging(True, os.path.abspath("log"))
         PyXAL.Init(self.GetHandle(), True)
-        print "XAL Setup"
+        print("XAL Setup")
     
     def __del__( self ):
         PyXAL.Destroy()
-        print "XAL Destroyed"
+        print("XAL Destroyed")
     
     def on_change_file( self, event ):
         self.file = str(self.filepicker.GetPath())
@@ -120,7 +120,7 @@ class XALTestFrame ( wx.Frame ):
             PyXAL.Mgr.destroySound(self.sound)
         self.sound = PyXAL.Mgr.createSound(self.file)
         self.player = PyXAL.Mgr.createPlayer(self.sound)
-        print "XAL opened File"
+        print("XAL opened File")
         array = self.getsoundarray(self.sound)
         right = self.shorten_array(array[:, 0])
         left = self.shorten_array(array[:, 1])
@@ -148,13 +148,13 @@ class XALTestFrame ( wx.Frame ):
         data = self.sound.readPcmData()
         size = data[0]
         raw_data = data[1]
-        print "length: %s" % len(raw_data)
-        print "calc duration: %s" % (float(sound.getSize()) / sound.getChannels() / (sound.getBitsPerSample() / 8) / sound.getSamplingRate())
-        print "duration: %s" % sound.getDuration()
-        print "sample rate: %s" % sound.getSamplingRate()
-        print "samples in data: %s" % (sound.getSize() / sound.getChannels() / (sound.getBitsPerSample() / 8))
-        print "bits per sample: %s" % sound.getBitsPerSample()
-        print "channels: %s" % sound.getChannels()
+        print("length: %s" % len(raw_data))
+        print("calc duration: %s" % (float(sound.getSize()) / sound.getChannels() / (sound.getBitsPerSample() / 8) / sound.getSamplingRate()))
+        print("duration: %s" % sound.getDuration())
+        print("sample rate: %s" % sound.getSamplingRate())
+        print("samples in data: %s" % (sound.getSize() / sound.getChannels() / (sound.getBitsPerSample() / 8)))
+        print("bits per sample: %s" % sound.getBitsPerSample())
+        print("channels: %s" % sound.getChannels())
         if size > 0:
             typecode = typecodes[sound.getBitsPerSample()]
             if sound.getBitsPerSample() == 24: # ugg 24 bit intergers...
@@ -221,23 +221,23 @@ class XALTestFrame ( wx.Frame ):
                     array = np.column_stack((array, array))
         else: # we didn't get any data so lets just return a 1 element 2d array of zeros
             array = np.zeros((1, 2), dtype=np.int8)
-        print "array size: %s" % len(array)
+        print("array size: %s" % len(array))
         return array
     
     def on_play( self, event ):
         if (self.player is not None) and (self.sound is not None):
             self.player.play()
-            print "playing"
+            print("playing")
     
     def on_pause( self, event ):
         if (self.player is not None) and (self.sound is not None):
             self.player.pause()
-            print "pauseing"
+            print("pauseing")
         
     def on_stop( self, event):
         if (self.player is not None) and (self.sound is not None):
             self.player.stop()
-            print "stoping"
+            print("stoping")
         
         
 if __name__ == '__main__':

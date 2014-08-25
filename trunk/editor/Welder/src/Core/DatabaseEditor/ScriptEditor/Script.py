@@ -21,9 +21,9 @@ class Script(object):
 
 	def CompareStrings(self, str1, str2):
 		"""Ensures both strings are unicode strings in UTF-8 format and compares them"""
-		if not type(str1) == unicode:
+		if not type(str1) == str:
 			str1 = str1.decode('utf-8')
-		if not type(str2) == unicode:
+		if not type(str2) == str:
 			str2 = str2.decode('utf-8')
 		return str1 == str2
 
@@ -111,7 +111,7 @@ class Script(object):
 			file.write(self.GetText().encode('utf-8'))
 			file.close()
 			return True
-		except StandardError:
+		except Exception:
 			return False
 
 	def SaveScript( self, id ):

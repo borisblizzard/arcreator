@@ -196,22 +196,22 @@ class ScriptSettings_Dialog( Templates.ScriptSettings_Dialog ):
     
     def textCtrlCaretFore_TextChanged( self, event ):
         # TODO: Implement textCtrlCaretColor_TextChanged
-        print 'text fore'
+        print('text fore')
         pass
 
     def textCtrlCaretBack_TextChanged( self, event ):
         # TODO: Implement textCtrlCaretColor_TextChanged
-        print 'text back'
+        print('text back')
         pass
     
     def buttonCaretFore_Clicked( self, event ):
         # TODO: Implement buttonCaretColor_Clicked
-        print 'button fore'
+        print('button fore')
         pass
 
     def buttonCaretBack_Clicked( self, event ):
         # TODO: Implement buttonCaretColor_Clicked
-        print 'button back'
+        print('button back')
         pass
     
     def spinCtrlCaretAlpha_ValueChanged( self, event ):

@@ -1,6 +1,6 @@
 import wx
 import wx.lib.plot as plot
-from ParameterPlotGraphics import ParameterPlotGraphics	
+from .ParameterPlotGraphics import ParameterPlotGraphics	
 
 from Boot import WelderImport
 				

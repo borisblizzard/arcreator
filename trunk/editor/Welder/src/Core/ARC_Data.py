@@ -35,10 +35,10 @@ class ARC_Dump(object):
         ARC_Dump._io.write(ARC_Dump._VERSION)
         try:
             ARC_Dump._dump(obj)
-        except StandardError:
+        except Exception:
             try:
-                print "stream position: %s" % ARC_Dump._io.tell()
-            except StandardError:
+                print("stream position: %s" % ARC_Dump._io.tell())
+            except Exception:
                 pass
             raise
         ARC_Dump._reset()
@@ -59,10 +59,10 @@ class ARC_Dump(object):
             raise TypeError("Error: version mismatch! Expected: %s Found: %s" %(repr(ARC_Dump._VERSION), repr(version)))
         try:
             data = ARC_Dump._load()
-        except StandardError:
+        except Exception:
             try:
-                print "stream position: %s" % ARC_Dump._io.tell()
-            except StandardError:
+                print("stream position: %s" % ARC_Dump._io.tell())
+            except Exception:
                 pass
             raise
         ARC_Dump._reset()
@@ -82,7 +82,7 @@ class ARC_Dump(object):
 
     @staticmethod
     def __get_class_path(name):
-        if ARC_Dump._class_path_redirects.has_key(name):
+        if name in ARC_Dump._class_path_redirects:
             return ARC_Dump._class_path_redirects[name]
         else: 
             return name
@@ -91,11 +91,11 @@ class ARC_Dump(object):
     @staticmethod
     def __get_class_object(class_path):
         classes = class_path.split("::")
-        if not ARC_Dump._extended_namespace.has_key(classes[0]):
+        if classes[0] not in ARC_Dump._extended_namespace:
             raise TypeError("Class not defined: %s" % classes[0])	
         classe = ARC_Dump._extended_namespace[classes.pop(0)]
         for c in classes:
-            if not classe.__dict__.has_key(c):
+            if c not in classe.__dict__:
                 raise TypeError("Class not defined: %s" % c)
             classe = classe.__dict__[c]
         return classe
@@ -118,7 +118,7 @@ class ARC_Dump(object):
     @staticmethod
     def __try_map_identity(data, obj):
         index = None
-        for i in xrange(len(data)):
+        for i in range(len(data)):
             if data[i] is obj:
                 index = i
                 break
@@ -161,17 +161,17 @@ class ARC_Dump(object):
             return ARC_Dump._dump_false(obj) 
         if obj == True:
             return ARC_Dump._dump_true(obj)
-        if isinstance(obj, types.IntType):
+        if isinstance(obj, int):
             return ARC_Dump._dump_fixnum(obj)
-        if isinstance(obj, types.LongType):
+        if isinstance(obj, int):
             return ARC_Dump._dump_bignum(obj)
-        if isinstance(obj, types.FloatType):
+        if isinstance(obj, float):
             return ARC_Dump._dump_float(obj)
-        if isinstance(obj, types.StringTypes):
+        if isinstance(obj, str):
             return ARC_Dump._dump_string(obj)
-        if isinstance(obj, (types.ListType, types.TupleType)):
+        if isinstance(obj, (list, tuple)):
             return ARC_Dump._dump_array(obj)
-        if isinstance(obj, types.DictType):
+        if isinstance(obj, dict):
             return ARC_Dump._dump_hash(obj)
         if isinstance(obj, object):
             return ARC_Dump._dump_object(obj)
@@ -262,7 +262,7 @@ class ARC_Dump(object):
         if not ARC_Dump.__try_map_identity(ARC_Dump._hashes, obj): # abort if object has already been mapped
             return 
         ARC_Dump.__dump_int32(len(obj))
-        for key, value in obj.items():
+        for key, value in list(obj.items()):
             ARC_Dump._dump(key)
             ARC_Dump._dump(value)
         
@@ -272,10 +272,10 @@ class ARC_Dump(object):
         if hasattr(obj, "_arc_instance_variables"):
             return obj._arc_instance_variables
         result = []
-        for key, value in obj.__dict__.items():
+        for key, value in list(obj.__dict__.items()):
             if key[0] != "_":
-                if not isinstance(value, (types.FunctionType, types.ClassType, types.MethodType, 
-                                          types.ModuleType, types.SliceType, types.LambdaType, 
+                if not isinstance(value, (types.FunctionType, type, types.MethodType, 
+                                          types.ModuleType, slice, types.LambdaType, 
                                           types.GeneratorType)):
                     result.append(key)
         return result
@@ -363,7 +363,7 @@ class ARC_Dump(object):
         size = ARC_Dump.__load_int32()
         obj = []
         ARC_Dump.__map(ARC_Dump._arrays, obj)
-        for i in xrange(size):
+        for i in range(size):
             obj.append(ARC_Dump._load())
         return obj
     
@@ -377,7 +377,7 @@ class ARC_Dump(object):
         size = ARC_Dump.__load_int32()
         obj = {}
         ARC_Dump.__map(ARC_Dump._hashes, obj)
-        for i in xrange(size):
+        for i in range(size):
             # obj[key] can be evaluated after the second ARC_Dump._load, this makes sure the key is loaded first
             key = ARC_Dump._load()
             obj[key] = ARC_Dump._load()
@@ -398,7 +398,7 @@ class ARC_Dump(object):
             return obj
         obj = classe.__new__(classe)
         ARC_Dump.__map(ARC_Dump._objects, obj)
-        for i in xrange(size):
+        for i in range(size):
             setattr(obj, ARC_Dump._load(), ARC_Dump._load())
         return obj
     

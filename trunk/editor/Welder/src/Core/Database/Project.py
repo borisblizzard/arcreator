@@ -7,11 +7,12 @@ Contains data for a open project
 import os
 import sys
 import time
-import ConfigParser
+import configparser
 import zipfile
 import re
 
 from Boot import WelderImport
+import collections
 
 Kernel = WelderImport('Kernel')
 KM = Kernel.Manager
@@ -34,7 +35,7 @@ class Project(object):
         del self.advanced_handlers[name]
         
     def testAdvancedHandlersLoad(self, key):
-        for handler in self.advanced_handlers.itervalues():
+        for handler in self.advanced_handlers.values():
             if handler.test():
                 handler.loadData(key)
                 handler.finalize()
@@ -43,7 +44,7 @@ class Project(object):
                 return False
 
     def testAdvancedHandlersSave(self, key):
-        for handler in self.advanced_handlers.itervalues():
+        for handler in self.advanced_handlers.values():
             if handler.test():
                 handler.finalize()
                 handler.saveData(key)
@@ -64,90 +65,90 @@ class Project(object):
         return self.project_path
         
     def setData(self, key, value, changed=True):
-        if self._data.has_key(key):
+        if key in self._data:
             self._data[key][0] = changed
             self._data[key][1] = value
         else:
             self._data[key] = [changed, value]
     
     def getData(self, key):
-        if self._data.has_key(key):
+        if key in self._data:
             return self._data[key][1]
         else:
             Kernel.Log("Warning: data key %s does not exist. Returned None" % key, "[Project]")
             return None
 
     def hasData(self, key):
-        return self._data.has_key(key)
+        return key in self._data
         
     def setDeferredData(self, key, value, changed=True):
-        if self._deferred_data.has_key(key):
+        if key in self._deferred_data:
             self._deferred_data[key][0] = changed
             self._deferred_data[key][1] = value
         else:
             self._deferred_data[key] = [changed, value]
             
     def getDeferredData(self, key):
-        if self._deferred_data.has_key(key):
+        if key in self._deferred_data:
             return self._deferred_data[key][1]
         else:
             try:
                 if not self.testAdvancedHandlersLoad(key):
                     self._deferred_data[key] = [False, self.load_func(os.path.dirname(self.project_path), key)]
                 return self._deferred_data[key][1]
-            except StandardError:
+            except Exception:
                 Kernel.Log("Warning: Deferred data '%s' does not exist. Returned None" % key, "[Project]")
                 return None
     
     def setInfo(self, key, value, changed=True):
-        if self._info.has_key(key.lower()):
+        if key.lower() in self._info:
             self._info[key.lower()][0] = changed
             self._info[key.lower()][1] = value
         else:
             self._info[key.lower()] = [changed, value]
         
     def getInfo(self, key):
-        if self._info.has_key(key.lower()):
+        if key.lower() in self._info:
             return self._info[key.lower()][1]
         else:
             Kernel.Log("Warning: info key %s does not exist. Returned None" % key, "[Project]")
             return None
 
     def hasInfo(self, key):
-        return self._info.has_key(key.lower())
+        return key.lower() in self._info
         
     def setChangedInfo(self, key, value):
-        if self._info.has_key(key.lower()):
+        if key.lower() in self._info:
             self._info[key.lower()][0] = value
         else:
             Kernel.Log("Info key %s does not exist. change flag not set" % key, "[Project]")
     
     def getChangedInfo(self, key):
-        if self._info.has_key(key.lower()):
+        if key.lower() in self._info:
             return self._info[key.lower()][0]
         else:
             return False
         
     def setChangedData(self, key, value):
-        if self._data.has_key(key):
+        if key in self._data:
             self._data[key][0] = value
         else:
             Kernel.Log("Data key %s does not exist. changed flag not set" % key, "[Project]")
         
     def getChangedData(self, key):
-        if self._data.has_key(key):
+        if key in self._data:
             return self._data[key][0]
         else:
             return False
         
     def setChangedDeferredData(self, key, value):
-        if self._deferred_data.has_key(key):
+        if key in self._deferred_data:
             self._deferred_data[key][0] = value
         else:
             Kernel.Log("Deferred data key %s does not exist. changed flag not set" % key, "[Project]")
             
     def getChangedDeferredData(self, key):
-        if self._deferred_data.has_key(key):
+        if key in self._deferred_data:
             return self._deferred_data[key][0]
         else:
             return False
@@ -166,51 +167,51 @@ class Project(object):
 
     def hasDataChanged(self):
         changed_flag = False
-        for key, value in self._data.items():
+        for key, value in list(self._data.items()):
             if value[0]:
                 changed_flag = True
-        for key, vlaue in self._deferred_data.items():
+        for key, vlaue in list(self._deferred_data.items()):
             if value[0]:
                 changed_flag = True
         return changed_flag
 
     def hasInfoChanged(self):
         changed_flag = False
-        for key, value in self._info.items():
+        for key, value in list(self._info.items()):
             if value[0]:
                 changed_flag = True
         return changed_flag
 
     def saveData(self, key):
-        if (self.save_func != None) and callable(self.save_func):
+        if (self.save_func != None) and isinstance(self.save_func, collections.Callable):
             Kernel.Protect(self.save_func)(os.path.dirname(self.project_path), key, self.getData(key))
             self.setChangedData(key, False)
         else:
             Kernel.Log("Warning: no save function set for project. Data files NOT saved", "[Project]")
                 
     def saveDeferredData(self, key):
-        if (self.save_func != None) and callable(self.save_func):
+        if (self.save_func != None) and isinstance(self.save_func, collections.Callable):
             Kernel.Protect(self.save_func)(os.path.dirname(self.project_path), key, self.getDeferredData(key))
             self.setChangedDeferredData(key, False)
         else:
             Kernel.Log("Warning: no save function set for project. Data files NOT saved", "[Project]")
 
     def saveMapData(self, id_num):
-        if (self.save_func != None) and callable(self.save_func):
+        if (self.save_func != None) and isinstance(self.save_func, collections.Callable):
             self.save_func(os.path.dirname(self.project_path), "Map%03d" % id_num, self.getDeferredData("Map%03d" % id_num))
             self.setChangedDeferredData("Map%03d" % id_num, False)
         else:
             Kernel.Log("Warning: no save function set for project. Data files NOT saved", "[Project]")
 
     def saveInfo(self):
-        config = ConfigParser.ConfigParser()
+        config = configparser.ConfigParser()
         config.add_section("Project")
-        for key, value in self._info.items():
+        for key, value in list(self._info.items()):
             config.set("Project", str(key), str(value[1]))
         filename = os.path.normpath(self.project_path)
         config.add_section("Files")
         filelist = ""
-        files = self._data.keys()
+        files = list(self._data.keys())
         i = 0
         for file_name in files:
             filelist += str(file_name)
@@ -236,7 +237,7 @@ class Project(object):
     def loadProject(self, backup=True):
         if os.path.exists(self.project_path):
             if backup: self.Backup()
-            config = ConfigParser.ConfigParser()
+            config = configparser.ConfigParser()
             config.read(os.path.normpath(self.project_path))
             infos = config.items("Project")
             for info in infos:
@@ -246,7 +247,7 @@ class Project(object):
             for file_name in files:
                 if file_name != "":
                     if not self.testAdvancedHandlersLoad(file_name):
-                        if (self.load_func != None) and callable(self.load_func):
+                        if (self.load_func != None) and isinstance(self.load_func, collections.Callable):
                             self.setData(file_name, Kernel.Protect(self.load_func)(os.path.dirname(self.project_path), file_name), False)
                         else:
                             self.setData(file_name, None, False)
@@ -328,7 +329,7 @@ class Project(object):
                                 os.mkdir(targetpath)
                             continue
                         zip.extract(file, local_path)
-            except StandardError:
+            except Exception:
                 Kernel.Log("There was an error restoring the backup, your project data may be corrupted. A backup was made before the restore was attempted, this backup can be found at %s" % backup, "[Project]", True, True)
         else:
             Kernel.Log("Backup file is not a valid zip file", "[Project]", True)

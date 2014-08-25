@@ -1,6 +1,6 @@
 import wx
-import Tilemap
-from Tilemap import TilemapPanel
+from . import Tilemap
+from .Tilemap import TilemapPanel
 import numpy
 
 from Boot import WelderImport
@@ -91,7 +91,7 @@ class MapToolbar(wx.ToolBar):
     def GenLayerChoices(self):
         choices = []
         self.layerChoiceIDs = {}
-        for z in xrange(self.map.data.getShape()[2]):
+        for z in range(self.map.data.getShape()[2]):
             choice = "Layer %s" % (z + 1)
             self.layerChoiceIDs[choice] = z
             choices.append(choice)

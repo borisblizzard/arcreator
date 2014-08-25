@@ -45,7 +45,7 @@ class Manager(object):
             if fnmatch(file, '*.rb'):
                 paths.append(os.path.join(dir, file))
         scripts = [Script(i, path, False) for i, path in enumerate(sorted(paths))]
-        if Kernel.GlobalObjects.has_key('Scripts'):
+        if 'Scripts' in Kernel.GlobalObjects:
             Kernel.GlobalObjects.set_value('Scripts', scripts)
         else:
             Kernel.GlobalObjects.request_new_key('Scripts', 'CORE', scripts)
@@ -62,7 +62,7 @@ class Manager(object):
         Bool value if all scripts were saved successfully
 
         """
-        if not Kernel.GlobalObjects.has_key('Scripts'):
+        if 'Scripts' not in Kernel.GlobalObjects:
             return False
         result = True
         scripts = Kernel.GlobalObjects.get_value('Scripts')
@@ -87,7 +87,7 @@ class Manager(object):
             (Number of Scripts, Total Lines, Total Words, Total Characters)
 
         """
-        if not Kernel.GlobalObjects.has_key('Scripts'):
+        if 'Scripts' not in Kernel.GlobalObjects:
             return (0, 0, 0, 0)
         else:
             scripts = Kernel.GlobalObjects.get_value('Scripts')
@@ -236,7 +236,7 @@ class Manager(object):
         default = Manager.GetDefaultSettings()
         styles = Manager.GetStyles()
         cfg = Kernel.GlobalObjects.get_value('Welder_config').get_section('ScriptEditor')
-        for i in xrange(len(styles)):
+        for i in range(len(styles)):
             style = styles[i]
             try:
                 setting = cfg.get(style[1])
@@ -279,7 +279,7 @@ class Manager(object):
         default = Manager.GetDefaultSettings()
         styles = Manager.GetStyles()
         cfg = Kernel.GlobalObjects.get_value('Welder_config').get_section('ScriptEditor')
-        for i in xrange(len(default)):
+        for i in range(len(default)):
             scriptcontrol.StyleSetSpec(styles[i][0], default[i])
             cfg.set(styles[i][1], default[i])
         scriptcontrol.SetTabWidth(2)

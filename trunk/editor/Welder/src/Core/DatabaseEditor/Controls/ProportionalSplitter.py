@@ -6,7 +6,7 @@ class ProportionalSplitter(wx.SplitterWindow):
                 self.SetMinimumPaneSize(50) #the minimum size of a pane.
                 self.proportion = proportion
                 if not 0 < self.proportion < 1:
-                        raise ValueError, "proportion value for ProportionalSplitter must be between 0 and 1."
+                        raise ValueError("proportion value for ProportionalSplitter must be between 0 and 1.")
                 self.ResetSash()
                 self.Bind(wx.EVT_SIZE, self.OnReSize)
                 self.Bind(wx.EVT_SPLITTER_SASH_POS_CHANGED, self.OnSashChanged, id=id)

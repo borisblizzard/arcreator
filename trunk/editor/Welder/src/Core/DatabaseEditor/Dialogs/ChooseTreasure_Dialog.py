@@ -37,7 +37,7 @@ class ChooseTreasure_Dialog( Templates.ChooseTreasure_Dialog ):
 		"""Refreshes the list of treasures in the lict control"""
 		count = 0
 		self.listCtrlTreasure.DeleteAllItems()
-		for i in xrange(3):
+		for i in range(3):
 			if i == 0: type, src = 'Item', DataItems
 			elif i == 1: type, src = 'Weapon', DataWeapons
 			else: type, src = 'Armor', DataArmors
@@ -89,7 +89,7 @@ class ChooseTreasure_Dialog( Templates.ChooseTreasure_Dialog ):
 	def activateTreasureBox( self, index ):
 		"""Sets the active combo box depending on the selected radio button"""
 		self._treasureIndex = index
-		for i in xrange(3):
+		for i in range(3):
 			if i == self._treasureIndex:
 				self._combos[i].Enable()
 			else:

@@ -10,7 +10,7 @@ from Boot import WelderImport
 
 Kernel = WelderImport('Kernel')
 KM = Kernel.Manager
-import ConfigParser
+import configparser
 
 
 
@@ -43,7 +43,7 @@ class FileMenu(wx.Menu):
         self.filehistory = wx.FileHistory(file_history_length)
         self.filehistory.Load(Kernel.GlobalObjects.get_value("WX_config"))
 
-        if Kernel.GlobalObjects.has_key("FileHistory"):
+        if "FileHistory" in Kernel.GlobalObjects:
             Kernel.GlobalObjects.set_value("FileHistory", self.filehistory)
         else:
             Kernel.GlobalObjects.request_new_key("FileHistory", "CORE", self.filehistory)
@@ -112,7 +112,7 @@ class FileMenu(wx.Menu):
         openproject(self.mainwindow, self.filehistory, path)
 
     def update(self, event):
-        if Kernel.GlobalObjects.has_key("ProjectOpen") and (Kernel.GlobalObjects.get_value("ProjectOpen") == True):
+        if "ProjectOpen" in Kernel.GlobalObjects and (Kernel.GlobalObjects.get_value("ProjectOpen") == True):
             event.Enable(True)
         else:
             event.Enable(False)

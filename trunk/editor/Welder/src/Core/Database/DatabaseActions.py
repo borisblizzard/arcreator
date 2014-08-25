@@ -14,7 +14,7 @@ class DatabaseAction(Actions.ActionManager):
 
     def __init__(self, data={}, sub_action=False):
         super(DatabaseAction, self).__init__(sub_action)
-        if not isinstance(data, types.DictType):
+        if not isinstance(data, dict):
             raise TypeError("Error: Expected dict type for 'data'")
         self.data = data
         self.keys = []
@@ -28,13 +28,13 @@ class DatabaseAction(Actions.ActionManager):
     def setKeys(self, *args):
         self.keys = []
         val = args
-        if len(args) == 1 and isinstance(args[0], (types.ListType, types.TupleType)):
+        if len(args) == 1 and isinstance(args[0], (list, tuple)):
             val = args[0]
         self.keys.extend(val)
 
     def addKeys(self, *args):
         val = args
-        if len(args) == 1 and isinstance(args[0], (types.ListType, types.TupleType)):
+        if len(args) == 1 and isinstance(args[0], (list, tuple)):
             val = args[0]
         self.keys.extend(val)
 
@@ -65,14 +65,14 @@ class DatabaseAction(Actions.ActionManager):
                         setattr(self.obj, key, copy(value))
                         keys_applyed.append(key)
             return True
-        except StandardError:
+        except Exception:
             Kernel.Log("Exception applying Database Action(%s), will atempt to revert" % self.type, "[DatabaseAction]", True, True)
             try:
                 for key in keys_applyed:
                     self.data[key] = getattr(self.obj, key)
                     setattr(self.obj, key, self.old_data[key])
                 Kernel.Log("'Apply' Database Action(%s) sucessfuly reverted" % self.type, "[DatabaseAction]", True)
-            except StandardError:
+            except Exception:
                 Kernel.Log("Exception reverting failed 'Apply' Database Action(%s), Possible Project coruption" % self.type, "[DatabaseAction]", True, True)
         return False
 
@@ -89,14 +89,14 @@ class DatabaseAction(Actions.ActionManager):
                         setattr(self.obj, key, copy(value))
                         keys_applyed.append(key)
             return True
-        except StandardError:
+        except Exception:
             Kernel.Log("Exception undoing Database Action(%s), will atempt to revert" % self.type, "[DatabaseAction]", True, True)
             try:
                 for key in keys_applyed:
                     self.old_data[key] = getattr(self.obj, key)
                     setattr(self.obj, key, self.data[key])
                 Kernel.Log("'Undo' Database Action(%s) sucessfuly reverted" % self.type, "[DatabaseAction]", True)
-            except StandardError:
+            except Exception:
                 Kernel.Log("Exception reverting failed 'Undo' Database Action(%s), Possible Project coruption" % self.type, "[DatabaseAction]", True, True)
         return False
 
@@ -107,7 +107,7 @@ class TableEditAction(Actions.ActionTemplate):
     ''' an action that edits a RGSS Table'''
     def __init__(self, table, data={}, sub_action=False):
         super(TableEditAction, self).__init__(sub_action)
-        if not isinstance(data, types.DictType):
+        if not isinstance(data, dict):
             raise TypeError("Error: Expected dict type for 'data'")
         table_class = KM.get_component("Table").object
         if not isinstance(table, table_class):
@@ -128,7 +128,7 @@ class TableEditAction(Actions.ActionTemplate):
         # if your doing a slice on a id table you need to put the slice tupel or list in a tuple or list like so ((0,2),) 
         # note the , after the inside tupel this is to force the creation of the outer tupel. you could also do a list for the outer tuple instead in which case you don;t need the ,
         # [(0,2)] or [[0,2]]
-        if self.data.has_key('resize'):
+        if 'resize' in self.data:
             if self.data['resize']:
                 return self.resize_apply()
             else:
@@ -207,7 +207,7 @@ class TableEditAction(Actions.ActionTemplate):
         return True
         
     def do_undo(self):
-        if self.data.has_key('resize'):
+        if 'resize' in self.data:
             if self.data['resize']:
                 return self.resize_undo()
             else:
@@ -311,21 +311,21 @@ class ActorEditAction(DatabaseAction):
         result = True
         actions_now = []
         try:
-            if self.data.has_key("parameters"):
+            if "parameters" in self.data:
                 self.parameters_action = KM.get_component("TableEditAction").object(self.obj.parameters, self.data["parameters"], sub_action=True)
                 result &= self.parameters_action.apply()
                 actions_now.append(self.parameters_action)
                 if not result:
-                    raise StandardError("'Apply' Sub action failed: %s" %  self.parameters_action)
-        except StandardError:
+                    raise Exception("'Apply' Sub action failed: %s" %  self.parameters_action)
+        except Exception:
             Kernel.Log("Exception applying Actor Edit Action, will atempt to revert", "[DatabaseAction]", True, True)
             try:
                 for action in actions_now:
                     test = action.undo()
                     if not test:
-                        raise StandardError("'Apply' Sub action revert failed: %s" % action)
+                        raise Exception("'Apply' Sub action revert failed: %s" % action)
                 Kernel.Log("'Apply' Actor Edit Action sucessfuly reverted", "[DatabaseAction]", True)
-            except StandardError:
+            except Exception:
                 Kernel.Log("Exception reverting failed 'Apply' Actor Edit Action, Possible Project coruption", "[DatabaseAction]", True, True)
             result = False
         return result
@@ -338,16 +338,16 @@ class ActorEditAction(DatabaseAction):
                 result &= self.parameters_action.undo()
                 actions_now.append(self.parameters_action)
                 if not result:
-                    raise StandardError("'Undo' Sub action failed: %s" %  self.parameters_action)
-        except StandardError:
+                    raise Exception("'Undo' Sub action failed: %s" %  self.parameters_action)
+        except Exception:
             Kernel.Log("Exception undoing Actor Edit Action, will atempt to revert", "[DatabaseAction]", True, True)
             try:
                 for action in actions_now:
                     test = action.apply()
                     if not test:
-                        raise StandardError("'Undo' Sub action revert failed: %s" % action)
+                        raise Exception("'Undo' Sub action revert failed: %s" % action)
                 Kernel.Log("'Undo' Actor Edit Action sucessfuly reverted", "[DatabaseAction]", True)
-            except StandardError:
+            except Exception:
                 Kernel.Log("Exception reverting failed 'Undo' Actor Edit Action, Possible Project coruption", "[DatabaseAction]", True, True)
         return result
                                                
@@ -366,27 +366,27 @@ class ClassEditAction(DatabaseAction):
         result = True
         actions_now = []
         try:
-            if self.data.has_key("element_ranks"):
+            if "element_ranks" in self.data:
                 self.element_ranks_action = TableEditAction(self.obj.element_ranks, self.data["element_ranks"], sub_action = True)
                 result &= self.element_ranks_action.apply()
                 actions_now.append(self.element_ranks_action)
                 if not result:
-                    raise StandardError("'Apply' Sub action failed: %s" %  self.element_ranks_action)
-            if self.data.has_key("state_ranks"):
+                    raise Exception("'Apply' Sub action failed: %s" %  self.element_ranks_action)
+            if "state_ranks" in self.data:
                 self.state_ranks_action = TableEditAction(self.obj.state_ranks, self.data["state_ranks"], sub_action = True)
                 result &= self.element_ranks_action.apply()
                 actions_now.append(self.element_ranks_action)
                 if not result:
-                    raise StandardError("'Apply' Sub action failed: %s" %  self.element_ranks_action)
-        except StandardError:
+                    raise Exception("'Apply' Sub action failed: %s" %  self.element_ranks_action)
+        except Exception:
             Kernel.Log("Exception applying Class Edit Action, will atempt to revert", "[DatabaseAction]", True, True)
             try:
                 for action in actions_now:
                     test = action.undo()
                     if not test:
-                        raise StandardError("'Apply' Sub action revert failed: %s" % action)
+                        raise Exception("'Apply' Sub action revert failed: %s" % action)
                 Kernel.Log("'Apply' Class Edit Action sucessfuly reverted", "[DatabaseAction]", True)
-            except StandardError:
+            except Exception:
                 Kernel.Log("Exception reverting failed 'Apply' Class Edit Action, Possible Project coruption", "[DatabaseAction]", True, True)
             result = False
         return result
@@ -399,21 +399,21 @@ class ClassEditAction(DatabaseAction):
                 result &= self.state_ranks_action.undo()
                 actions_now.append(self.state_ranks_action)
                 if not result:
-                    raise StandardError("'Undo' Sub action failed: %s" %  self.state_ranks_action)
+                    raise Exception("'Undo' Sub action failed: %s" %  self.state_ranks_action)
             if self.element_ranks_action is not None:
                 result &= self.element_ranks_action.undo()
                 actions_now.append(self.element_ranks_action)
                 if not result:
-                    raise StandardError("'Undo' Sub action failed: %s" %  self.element_ranks_action)
-        except StandardError:
+                    raise Exception("'Undo' Sub action failed: %s" %  self.element_ranks_action)
+        except Exception:
             Kernel.Log("Exception undoing Class Edit Action, will atempt to revert", "[DatabaseAction]", True, True)
             try:
                 for action in actions_now:
                     test = action.apply()
                     if not test:
-                        raise StandardError("'Undo' Sub action revert failed: %s" % action)
+                        raise Exception("'Undo' Sub action revert failed: %s" % action)
                 Kernel.Log("'Undo' Class Edit Action sucessfuly reverted", "[DatabaseAction]", True)
-            except StandardError:
+            except Exception:
                 Kernel.Log("Exception reverting failed 'Undo' Class Edit Action, Possible Project coruption", "[DatabaseAction]", True, True)
         return result
      
@@ -484,21 +484,21 @@ class AnimationFrameEditAction(DatabaseAction):
         result = True
         actions_now = []
         try:
-            if self.data.has_key("cell_data"):
+            if "cell_data" in self.data:
                 self.cell_data_action = KM.get_component("TableEditAction").object(self.obj.cell_data, self.data["cell_data"], sub_action=True)
                 result &= self.cell_data_action.apply()
                 actions_now.append(self.cell_data_action)
                 if not result:
-                    raise StandardError("'Apply' Sub action failed: %s" %  self.cell_data_action)
-        except StandardError:
+                    raise Exception("'Apply' Sub action failed: %s" %  self.cell_data_action)
+        except Exception:
             Kernel.Log("Exception applying Animation Frame Edit Action, will atempt to revert", "[DatabaseAction]", True, True)
             try:
                 for action in actions_now:
                     test = action.undo()
                     if not test:
-                        raise StandardError("'Apply' Sub action revert failed: %s" % action)
+                        raise Exception("'Apply' Sub action revert failed: %s" % action)
                 Kernel.Log("'Apply' Animation Frame Edit Action sucessfuly reverted", "[DatabaseAction]", True)
-            except StandardError:
+            except Exception:
                 Kernel.Log("Exception reverting failed 'Apply' Animation Frame Edit Action, Possible Project coruption", "[DatabaseAction]", True, True)
             result = False
         return result
@@ -511,16 +511,16 @@ class AnimationFrameEditAction(DatabaseAction):
                 result &= self.cell_data_action.undo()
                 actions_now.append(self.cell_data_action)
                 if not result:
-                    raise StandardError("'Undo' Sub action failed: %s" %  self.cell_data_action)
-        except StandardError:
+                    raise Exception("'Undo' Sub action failed: %s" %  self.cell_data_action)
+        except Exception:
             Kernel.Log("Exception undoing Animation Frame Edit Action, will atempt to revert", "[DatabaseAction]", True, True)
             try:
                 for action in actions_now:
                     test = action.apply()
                     if not test:
-                        raise StandardError("'Undo' Sub action revert failed: %s" % action)
+                        raise Exception("'Undo' Sub action revert failed: %s" % action)
                 Kernel.Log("'Undo' Animation Frame Edit Action sucessfuly reverted", "[DatabaseAction]", True)
-            except StandardError:
+            except Exception:
                 Kernel.Log("Exception reverting failed 'Undo' Animation Frame Edit Action, Possible Project coruption", "[DatabaseAction]", True, True)
         return result
 
@@ -570,27 +570,27 @@ class EnemyEditAction(DatabaseAction):
         result = True
         actions_now = []
         try:
-            if self.data.has_key("element_ranks"):
+            if "element_ranks" in self.data:
                 self.element_ranks_action = TableEditAction(self.obj.element_ranks, self.data["element_ranks"], sub_action = True)
                 result &= self.element_ranks_action.apply()
                 actions_now.append(self.element_ranks_action)
                 if not result:
-                    raise StandardError("'Apply' Sub action failed: %s" %  self.element_ranks_action)
-            if self.data.has_key("state_ranks"):
+                    raise Exception("'Apply' Sub action failed: %s" %  self.element_ranks_action)
+            if "state_ranks" in self.data:
                 self.state_ranks_action = TableEditAction(self.obj.state_ranks, self.data["state_ranks"], sub_action = True)
                 result &= self.element_ranks_action.apply()
                 actions_now.append(self.element_ranks_action)
                 if not result:
-                    raise StandardError("'Apply' Sub action failed: %s" %  self.element_ranks_action)
-        except StandardError:
+                    raise Exception("'Apply' Sub action failed: %s" %  self.element_ranks_action)
+        except Exception:
             Kernel.Log("Exception applying Enemy Edit Action, will atempt to revert", "[DatabaseAction]", True, True)
             try:
                 for action in actions_now:
                     test = action.undo()
                     if not test:
-                        raise StandardError("'Apply' Sub action revert failed: %s" % action)
+                        raise Exception("'Apply' Sub action revert failed: %s" % action)
                 Kernel.Log("'Apply' Enemy Edit Action sucessfuly reverted", "[DatabaseAction]", True)
-            except StandardError:
+            except Exception:
                 Kernel.Log("Exception reverting failed 'Apply' Enemy Edit Action, Possible Project coruption", "[DatabaseAction]", True, True)
             result = False
         return result
@@ -603,21 +603,21 @@ class EnemyEditAction(DatabaseAction):
                 result &= self.state_ranks_action.undo()
                 actions_now.append(self.state_ranks_action)
                 if not result:
-                    raise StandardError("'Undo' Sub action failed: %s" %  self.state_ranks_action)
+                    raise Exception("'Undo' Sub action failed: %s" %  self.state_ranks_action)
             if self.element_ranks_action is not None:
                 result &= self.element_ranks_action.undo()
                 actions_now.append(self.element_ranks_action)
                 if not result:
-                    raise StandardError("'Undo' Sub action failed: %s" %  self.element_ranks_action)
-        except StandardError:
+                    raise Exception("'Undo' Sub action failed: %s" %  self.element_ranks_action)
+        except Exception:
             Kernel.Log("Exception undoing Enemy Edit Action, will atempt to revert", "[DatabaseAction]", True, True)
             try:
                 for action in actions_now:
                     test = action.apply()
                     if not test:
-                        raise StandardError("'Undo' Sub action revert failed: %s" % action)
+                        raise Exception("'Undo' Sub action revert failed: %s" % action)
                 Kernel.Log("'Undo' Enemy Edit Action sucessfuly reverted", "[DatabaseAction]", True)
-            except StandardError:
+            except Exception:
                 Kernel.Log("Exception reverting failed 'Undo' Enemy Edit Action, Possible Project coruption", "[DatabaseAction]", True, True)
         return result
 
@@ -702,21 +702,21 @@ class MapEditAction(DatabaseAction):
         result = True
         actions_now = []
         try:
-            if self.data.has_key("data"):
+            if "data" in self.data:
                 self.data_action = TableEditAction(self.obj.data, self.data["data"], sub_action = True)
                 result &= self.data_action.apply()
                 actions_now.append(self.data_action)
                 if not result:
-                    raise StandardError("'Apply' Sub action failed: %s" %  self.element_ranks_action)
-        except StandardError:
+                    raise Exception("'Apply' Sub action failed: %s" %  self.element_ranks_action)
+        except Exception:
             Kernel.Log("Exception applying Map Edit Action, will atempt to revert", "[DatabaseAction]", True, True)
             try:
                 for action in actions_now:
                     test = action.undo()
                     if not test:
-                        raise StandardError("'Apply' Sub action revert failed: %s" % action)
+                        raise Exception("'Apply' Sub action revert failed: %s" % action)
                 Kernel.Log("'Apply' Map Edit Action sucessfuly reverted", "[DatabaseAction]", True)
-            except StandardError:
+            except Exception:
                 Kernel.Log("Exception reverting failed 'Apply' Map Edit Action, Possible Project coruption", "[DatabaseAction]", True, True)
             result = False
         return result
@@ -729,16 +729,16 @@ class MapEditAction(DatabaseAction):
                 result &= self.data_action.undo()
                 actions_now.append(self.data_action)
                 if not result:
-                    raise StandardError("'Undo' Sub action failed: %s" %  self.state_ranks_action)
-        except StandardError:
+                    raise Exception("'Undo' Sub action failed: %s" %  self.state_ranks_action)
+        except Exception:
             Kernel.Log("Exception undoing Map Edit Action, will atempt to revert", "[DatabaseAction]", True, True)
             try:
                 for action in actions_now:
                     test = action.apply()
                     if not test:
-                        raise StandardError("'Undo' Sub action revert failed: %s" % action)
+                        raise Exception("'Undo' Sub action revert failed: %s" % action)
                 Kernel.Log("'Undo' Map Edit Action sucessfuly reverted", "[DatabaseAction]", True)
-            except StandardError:
+            except Exception:
                 Kernel.Log("Exception reverting failed 'Undo' Map Edit Action, Possible Project coruption", "[DatabaseAction]", True, True)
         return result
 
@@ -828,33 +828,33 @@ class TilesetEditAction(DatabaseAction):
         result = True
         actions_now = []
         try:
-            if self.data.has_key("passages"):
+            if "passages" in self.data:
                 self.passages_action = TableEditAction(self.obj.passages, self.data["passages"], sub_action = True)
                 result &= self.passages_action.apply()
                 actions_now.append(self.passages_action)
                 if not result:
-                    raise StandardError("'Apply' Sub action failed: %s" %  self.element_ranks_action)
-            if self.data.has_key("priorities"):
+                    raise Exception("'Apply' Sub action failed: %s" %  self.element_ranks_action)
+            if "priorities" in self.data:
                 self.priorities_action = TableEditAction(self.obj.priorities, self.data["priorities"], sub_action = True)
                 result &= self.priorities_action.apply()
                 actions_now.append(self.priorities_action)
                 if not result:
-                    raise StandardError("'Apply' Sub action failed: %s" %  self.element_ranks_action)
-            if self.data.has_key("terrain_tags"):
+                    raise Exception("'Apply' Sub action failed: %s" %  self.element_ranks_action)
+            if "terrain_tags" in self.data:
                 self.terrain_tags_action = TableEditAction(self.obj.terrain_tags, self.data["terrain_tags"], sub_action = True)
                 result &= self.terrain_tags_action.apply()
                 actions_now.append(self.terrain_tags_action)
                 if not result:
-                    raise StandardError("'Apply' Sub action failed: %s" %  self.element_ranks_action)
-        except StandardError:
+                    raise Exception("'Apply' Sub action failed: %s" %  self.element_ranks_action)
+        except Exception:
             Kernel.Log("Exception applying Tileset Edit Action, will atempt to revert", "[DatabaseAction]", True, True)
             try:
                 for action in actions_now:
                     test = action.undo()
                     if not test:
-                        raise StandardError("'Apply' Sub action revert failed: %s" % action)
+                        raise Exception("'Apply' Sub action revert failed: %s" % action)
                 Kernel.Log("'Apply' Tileset Edit Action sucessfuly reverted", "[DatabaseAction]", True)
-            except StandardError:
+            except Exception:
                 Kernel.Log("Exception reverting failed 'Apply' Tileset Edit Action, Possible Project coruption", "[DatabaseAction]", True, True)
             result = False
         return result
@@ -867,26 +867,26 @@ class TilesetEditAction(DatabaseAction):
                 result &= self.passages_action.undo()
                 actions_now.append(self.passages_action)
                 if not result:
-                    raise StandardError("'Undo' Sub action failed: %s" %  self.state_ranks_action)
+                    raise Exception("'Undo' Sub action failed: %s" %  self.state_ranks_action)
             if self.priorities_action is not None:
                 result &= self.priorities_action.undo()
                 actions_now.append(self.priorities_action)
                 if not result:
-                    raise StandardError("'Undo' Sub action failed: %s" %  self.element_ranks_action)
+                    raise Exception("'Undo' Sub action failed: %s" %  self.element_ranks_action)
             if self.terrain_tags_action is not None:
                 result &= self.terrain_tags_action.undo()
                 actions_now.append(self.terrain_tags_action)
                 if not result:
-                    raise StandardError("'Undo' Sub action failed: %s" %  self.element_ranks_action)
-        except StandardError:
+                    raise Exception("'Undo' Sub action failed: %s" %  self.element_ranks_action)
+        except Exception:
             Kernel.Log("Exception undoing Tileset Edit Action, will atempt to revert", "[DatabaseAction]", True, True)
             try:
                 for action in actions_now:
                     test = action.apply()
                     if not test:
-                        raise StandardError("'Undo' Sub action revert failed: %s" % action)
+                        raise Exception("'Undo' Sub action revert failed: %s" % action)
                 Kernel.Log("'Undo' Tileset Edit Action sucessfuly reverted", "[DatabaseAction]", True)
-            except StandardError:
+            except Exception:
                 Kernel.Log("Exception reverting failed 'Undo' Tileset Edit Action, Possible Project coruption", "[DatabaseAction]", True, True)
         return result
 

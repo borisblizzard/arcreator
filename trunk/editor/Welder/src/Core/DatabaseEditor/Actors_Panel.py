@@ -100,7 +100,7 @@ class Actors_Panel( Templates.Actors_Panel, PanelBase ):
             if actor == None:
                 actor = RPG.Actor()
             actor.parameters.resize(index + 1, maxlevel + 1)
-            for j in xrange(1, maxlevel):
+            for j in range(1, maxlevel):
                 actor.parameters[index, j] = 50 + 5 * j
         if activate:
             self.noteBookActorParameters.SetSelection(index)
@@ -115,7 +115,7 @@ class Actors_Panel( Templates.Actors_Panel, PanelBase ):
         sizerEquipment = wx.BoxSizer( wx.VERTICAL )
         self.EquipmentBoxes = []
         self.FixedCheckBoxes = []
-        for i in xrange(len(equipment)):
+        for i in range(len(equipment)):
             sizer = wx.BoxSizer( wx.HORIZONTAL )
             label = wx.StaticText( self.scrolledWindowEquipment, wx.ID_ANY, 
                 equipment[i], wx.DefaultPosition, wx.Size( 80,-1 ), wx.ALIGN_LEFT )
@@ -129,7 +129,7 @@ class Actors_Panel( Templates.Actors_Panel, PanelBase ):
             comboBox.Bind( wx.EVT_ERASE_BACKGROUND, self.OnEraseBackground )
             self.EquipmentBoxes.append(comboBox)
             sizer.Add( comboBox, 1, wx.RIGHT|wx.LEFT, 5 )
-            checkBox = wx.CheckBox( self.scrolledWindowEquipment, wx.ID_ANY, u"Fixed", 
+            checkBox = wx.CheckBox( self.scrolledWindowEquipment, wx.ID_ANY, "Fixed", 
                 wx.DefaultPosition, wx.DefaultSize, 0 )
             checkBox.Bind( wx.EVT_CHECKBOX, 
                  Kernel.Protect(self.checkBoxFixedEquipment_CheckChanged) )
@@ -156,7 +156,7 @@ class Actors_Panel( Templates.Actors_Panel, PanelBase ):
         """Sets the weapon combobox(s) data determined by the actor's class"""
         weaponSlots = len(Config.getlist('GameSetup', 'WeaponSlots'))
         digits = len(Config.get('GameObjects', 'Weapons'))
-        for i in xrange(weaponSlots):
+        for i in range(weaponSlots):
             items = ['(None)']
             ids = self.GetWeaponIDs()
             for id in ids:
@@ -187,7 +187,7 @@ class Actors_Panel( Templates.Actors_Panel, PanelBase ):
         cypher = [int(k) for k in Config.getlist('GameSetup', 'ArmorSlotKinds')]
         for k in Config.getlist('GameSetup', 'ArmorSlotKinds'):
             key = int(k)
-            if not kinds.has_key(key):
+            if key not in kinds:
                 values = ['(None)']
                 ids = self.GetArmorIDs(key)
                 for id in ids:
@@ -197,7 +197,7 @@ class Actors_Panel( Templates.Actors_Panel, PanelBase ):
                   [''.join([str(id).zfill(digits), ': ', 
                     DataArmors[id].name]) for id in ids])
                 kinds[key] = values
-        for i in xrange(weaponSlots, len(self.EquipmentBoxes)):
+        for i in range(weaponSlots, len(self.EquipmentBoxes)):
             kind = cypher[i - weaponSlots]
             items = kinds[kind]
             self.EquipmentBoxes[i].Clear()
@@ -303,7 +303,7 @@ class Actors_Panel( Templates.Actors_Panel, PanelBase ):
                 if actor == None:
                     actor = RPG.Actor()
                 actor.parameters.resize(index + 1, maxlevel + 1)
-                for j in xrange(1, maxlevel):
+                for j in range(1, maxlevel):
                     actor.parameters[index, j] = 50 + 5 * j
         return self.SelectedActor.parameters[index, level]
 
@@ -437,7 +437,7 @@ class Actors_Panel( Templates.Actors_Panel, PanelBase ):
         dlg = GenerateCurve_Dialog(self, vRange, lRange, max)
         if dlg.ShowModal() == wx.ID_OK:
             curve = dlg.GenerateCurve()
-            for j in xrange(len(curve)):
+            for j in range(len(curve)):
                 lvl = j + actor.initial_level
                 actor.parameters[i, j] = curve[j]
             self.refreshGraph()
@@ -501,9 +501,9 @@ class Actors_Panel( Templates.Actors_Panel, PanelBase ):
 
     def parameterGraph_DoubleClicked( self, event ):
         """Opens the larger graph panel for interactive editing"""
-        from ParameterGraph_Panel import ParameterGraph_Panel
+        from .ParameterGraph_Panel import ParameterGraph_Panel
         tabs, data = [], self.SelectedActor.parameters
-        for i in xrange(2, self.noteBookActorParameters.GetPageCount()):
+        for i in range(2, self.noteBookActorParameters.GetPageCount()):
             tabs.append(self.noteBookActorParameters.GetPageText(i))
         dlg = wx.Dialog(self, title='Parameter Growth', size=(640,480), 
             style=wx.DEFAULT_DIALOG_STYLE|wx.RESIZE_BORDER )
@@ -528,7 +528,7 @@ class Actors_Panel( Templates.Actors_Panel, PanelBase ):
     def buttonRemoveParameter_Clicked( self, event ):
         """Removes the selected page from the tab control and resizes the actors' parameter tables"""
         params = self.SelectedActor.parameters
-        for i in xrange(self.ParamTab, params.xsize - 1):
+        for i in range(self.ParamTab, params.xsize - 1):
             params[i, :] = params[i + 1, :]
         params.resize(params.xsize - 1, Config.getint('DatabaseLimits', 'ActorLevel') + 1)
         try:

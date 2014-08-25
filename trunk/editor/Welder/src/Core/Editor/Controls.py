@@ -142,15 +142,15 @@ class MapTreeCtrl(wx.TreeCtrl):
         mapinfos = project.getData("MapInfos")
         self.struct = {0 : []}
         stack = []
-        for key, value in mapinfos.iteritems():
+        for key, value in mapinfos.items():
             self.struct[key] = []
-            if self.struct.has_key(value.parent_id):
+            if value.parent_id in self.struct:
                 self.struct[value.parent_id].append(key)
             else:
                 stack.append([key, value])
         while len(stack) > 0:
             key, value = stack.pop()
-            if self.struct.has_key(value.parent_id):
+            if value.parent_id in self.struct:
                 self.struct[value.parent_id].append(key)
             else:
                 stack.append([key, value])
@@ -187,16 +187,16 @@ class MapTreeCtrl(wx.TreeCtrl):
             if key == 0 or mapinfos[key].parent_id == 0:
                 #skip the top level maps as they have already been added
                 continue
-            if not self.maps.has_key(key):
+            if key not in self.maps:
                 self.maps[key] = self.AppendItem(self.maps[mapinfos[key].parent_id], mapinfos[key].name, 1, data=wx.TreeItemData([key, mapinfos[key].name]))
             for id in self.struct[key]:
-                if self.maps.has_key(mapinfos[id].parent_id):
+                if mapinfos[id].parent_id in self.maps:
                     self.maps[id] = self.AppendItem(self.maps[mapinfos[id].parent_id], mapinfos[id].name, 1, data=wx.TreeItemData([id, mapinfos[id].name]))
                 else:
                     stack.append([id, mapinfos[id]])
         while len(stack) > 0:
             key, value = stack.pop()
-            if self.maps.has_key(value.parent_id):
+            if value.parent_id in self.maps:
                 self.maps[key] = self.AppendItem(self.maps[value.parent_id], value.name, 1, data=wx.TreeItemData([key, value.name]))
             else:
                 stack.append([key, value])
@@ -407,7 +407,7 @@ class WxRMXPMapWindow(wx.ScrolledWindow):
         if layerflags.any():
             self.data._data[:] = self.map.data._data
         #test events
-        if self.Project.Event_redraw_flags.has_key(self.map_id):
+        if self.map_id in self.Project.Event_redraw_flags:
             if self.Project.Event_redraw_flags[self.map_id]:
                 layerEflag = True
         #test active
@@ -615,9 +615,9 @@ class WxRMXPMapWindow(wx.ScrolledWindow):
             path.AddRectangle(0, 0, 31, 31)
             dc.SetPen(wx.Pen(wx.Colour(0, 0, 0, 80), 1))
             dc.SetBrush(wx.Brush(wx.Colour(0, 0, 0, 255)))
-            for x in xrange(0, self.map.width - 1):
+            for x in range(0, self.map.width - 1):
                 # Passes Through Z Coordinates
-                for y in xrange(0, self.map.height - 1):
+                for y in range(0, self.map.height - 1):
                     dc.PushState()             # save current translation/scale/other state 
                     dc.Scale(self.zoom, self.zoom)
                     dc.Translate(x * 32 * self.zoom, y * 32 * self.zoom)
@@ -625,7 +625,7 @@ class WxRMXPMapWindow(wx.ScrolledWindow):
                     dc.PopState()              # restore saved state
 
     def load_autotiles(self):
-        for i in xrange(7):
+        for i in range(7):
             autotile_name = self.autotile_names[i]
             self.autotiles_b[i] = self.Cache.Autotile(autotile_name, self.Project.Location)
             if not self.autotiles_b[i]:
@@ -678,13 +678,13 @@ class WxRMXPMapWindow(wx.ScrolledWindow):
                 tileset = self.Cache.Tileset(self.tileset_name, self.Project.RTP_Location)
             if not tileset:
                 tileset = wx.EmptyBitmapRGBA(32 * 6, 32)
-            for p in xrange(0, 5):
+            for p in range(0, 5):
                 # Passes Through Layers
-                for z in xrange(0, 2):
+                for z in range(0, 2):
                     # Passes Through X Coordinates
-                    for x in xrange(0, self.map.width - 1):
+                    for x in range(0, self.map.width - 1):
                         # Passes Through Z Coordinates
-                        for y in xrange(0, self.map.height - 1):
+                        for y in range(0, self.map.height - 1):
                             # Collects Tile ID
                             id = self.data[x, y, z]
                             # if not 0 tile
@@ -704,7 +704,7 @@ class WxRMXPMapWindow(wx.ScrolledWindow):
                                             tiles = self.Autotiles[tile_id / 8][tile_id % 8]
                                             dc_at = wx.MemoryDC()
                                             dc_at.SelectObject(bitmap)
-                                            for i in xrange(4):
+                                            for i in range(4):
                                                 tile_position = tiles[i] - 1
                                                 src_rect = wx.Rect(tile_position % 6 * 16, tile_position / 6 * 16, 16, 16)
                                                 sub_at_bitmap = autotile.GetSubBitmap(src_rect)
@@ -731,7 +731,7 @@ class WxRMXPMapWindow(wx.ScrolledWindow):
         gc.SetPen(wx.Pen("white", 1))
         gc.SetBrush(wx.Brush(wx.Colour(255, 255, 255, 80)))
         path.AddRectangle(4, 4, 23, 23)
-        for key in self.events.iterkeys():
+        for key in self.events.keys():
             event = self.events[key]
             eventGraphic = self.events[key].pages[0].graphic
             if eventGraphic.tile_id >= 384:
@@ -781,8 +781,8 @@ class WxRMXPMapWindow(wx.ScrolledWindow):
         if not tileset:
             tileset = wx.EmptyBitmapRGBA(32 * 8, 32)
             emptybitmap = True
-        for x in xrange(self.map.width):
-            for y in xrange(self.map.height):
+        for x in range(self.map.width):
+            for y in range(self.map.height):
                 id = int(self.data[x, y, 0])
                 if id != 0:
                     if id < 384:
@@ -793,7 +793,7 @@ class WxRMXPMapWindow(wx.ScrolledWindow):
                             tiles = self.Autotiles[tile_id / 8][tile_id % 8]
                             t_x = x * 32
                             t_y = y * 32
-                            for i in xrange(4):
+                            for i in range(4):
                                 tile_position = tiles[i] - 1
                                 src_rect = wx.Rect(tile_position % 6 * 16, tile_position / 6 * 16, 16, 16)
                                 sub_at_bitmap = autotile.GetSubBitmap(src_rect)
@@ -821,8 +821,8 @@ class WxRMXPMapWindow(wx.ScrolledWindow):
         if not tileset:
             tileset = wx.EmptyBitmapRGBA(32 * 8, 32)
             emptybitmap = True
-        for x in xrange(self.map.width):
-            for y in xrange(self.map.height):
+        for x in range(self.map.width):
+            for y in range(self.map.height):
                 id = int(self.data[x, y, 1])
                 if id != 0:
                     if id < 384:
@@ -833,7 +833,7 @@ class WxRMXPMapWindow(wx.ScrolledWindow):
                             tiles = self.Autotiles[tile_id / 8][tile_id % 8]
                             t_x = x * 32
                             t_y = y * 32
-                            for i in xrange(4):
+                            for i in range(4):
                                 tile_position = tiles[i] - 1
                                 src_rect = wx.Rect(tile_position % 6 * 16, tile_position / 6 * 16, 16, 16)
                                 sub_at_bitmap = autotile.GetSubBitmap(src_rect)
@@ -861,8 +861,8 @@ class WxRMXPMapWindow(wx.ScrolledWindow):
         if not tileset:
             tileset = wx.EmptyBitmapRGBA(32 * 8, 32)
             emptybitmap = True
-        for x in xrange(self.map.width):
-            for y in xrange(self.map.height):
+        for x in range(self.map.width):
+            for y in range(self.map.height):
                 id = int(self.data[x, y, 2])
                 if id != 0:
                     if id < 384:
@@ -873,7 +873,7 @@ class WxRMXPMapWindow(wx.ScrolledWindow):
                             tiles = self.Autotiles[tile_id / 8][tile_id % 8]
                             t_x = x * 32
                             t_y = y * 32
-                            for i in xrange(4):
+                            for i in range(4):
                                 tile_position = tiles[i] - 1
                                 src_rect = wx.Rect(tile_position % 6 * 16, tile_position / 6 * 16, 16, 16)
                                 sub_at_bitmap = autotile.GetSubBitmap(src_rect)

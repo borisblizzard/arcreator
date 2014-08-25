@@ -7,7 +7,7 @@ class IconManager(object):
 
     @staticmethod
     def getIcon(name):
-        if IconManager._catalog.has_key(name):
+        if name in IconManager._catalog:
             return IconManager._catalog[name].GetIcon()
         else:
             empty_bitmap = wx.EmptyBitmap(16, 16)
@@ -15,21 +15,21 @@ class IconManager(object):
 
     @staticmethod
     def getBitmap(name):
-        if IconManager._catalog.has_key(name):
+        if name in IconManager._catalog:
             return IconManager._catalog[name].GetBitmap()
         else:
             return wx.EmptyBitmap(16, 16)
 
     @staticmethod
     def getImage(name):
-        if IconManager._catalog.has_key(name):
+        if name in IconManager._catalog:
             return IconManager._catalog[name].GetImage()
         else:
             return wx.EmptyImage(16, 16)
 
     @staticmethod
     def Names():
-        return IconManager._catalog.keys()
+        return list(IconManager._catalog.keys())
 
 
 

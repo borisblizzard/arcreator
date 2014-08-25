@@ -168,7 +168,7 @@ class ScriptEditor_Panel( Templates.ScriptEditor_Panel, PanelBase ):
         if dlg.ShowModal() == wx.ID_OK:
             config = Kernel.GlobalObjects.get_value('Welder_config').get_section('ScriptEditor')
             new_config = dlg.GetConfiguration()
-            for key, value in new_config.iteritems():
+            for key, value in new_config.items():
                 config.set(key, value)
             SM.ApplyUserSettings(self.scriptCtrl)
 
@@ -185,7 +185,7 @@ class ScriptEditor_Panel( Templates.ScriptEditor_Panel, PanelBase ):
 
     def OnHelp( self, event ):
         self.statusBar.SetStatusText('Opening Help...', 0)
-        print Scripts[self.ScriptIndex].IsModified()
+        print(Scripts[self.ScriptIndex].IsModified())
 
     def OnSave( self, event ):
         """Saves the open script to disk"""

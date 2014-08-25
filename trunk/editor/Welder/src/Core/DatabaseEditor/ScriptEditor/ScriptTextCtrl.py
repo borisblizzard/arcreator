@@ -49,8 +49,8 @@ class ScriptTextCtrl(stc.StyledTextCtrl):
 		"""Updates brace matching"""
 		if Config.get('brace_match').lower() == 'true':
 			pos = self.GetCurrentPos() - 1
-			chr = unichr(self.GetCharAt(pos))
-			if chr in BRACES:
+			ch = chr(self.GetCharAt(pos))
+			if ch in BRACES:
 				has_match = self.BraceMatch(pos)
 				if  has_match > -1:
 					self.BraceHighlight(has_match, pos)
@@ -58,8 +58,8 @@ class ScriptTextCtrl(stc.StyledTextCtrl):
 					self.BraceBadLight(pos)
 			else:
 				pos += 1
-				chr = unichr(self.GetCharAt(pos))
-				if chr in BRACES:
+				ch = chr(self.GetCharAt(pos))
+				if ch in BRACES:
 					has_match = self.BraceMatch(pos)
 					if  has_match > -1:
 						self.BraceHighlight(has_match, pos)
@@ -184,27 +184,27 @@ class ScriptTextCtrl(stc.StyledTextCtrl):
 		new_text = ''
 		flag = False
 		currentIndent = 0
-		for i in xrange(self.LineCount):
+		for i in range(self.LineCount):
 			line = self.GetLine(i).strip()
 			words = line.split()
 			if line.startswith('=begin') or line.startswith('=end'):
 				flag = line.startswith('=begin')
-				new_text += u'\t' * currentIndent + line + '\r\n'
+				new_text += '\t' * currentIndent + line + '\r\n'
 			elif line.startswith('#') or flag:
-				new_text += u'\t' * currentIndent + line + '\r\n'
+				new_text += '\t' * currentIndent + line + '\r\n'
 			elif len(words) > 0 and not line.startswith('#') and not flag:
 				first_word = words[0]
 				if first_word in INDENT_WORDS or 'do' in words or 'case' in words:
-					new_text += u'\t' * currentIndent + line + '\r\n'
+					new_text += '\t' * currentIndent + line + '\r\n'
 					if not 'end' in words or not ';end' in words:
 						currentIndent += 1
 				elif first_word in UNINDENT_WORDS:
-					new_text += u'\t' * (currentIndent - 1)  + line + '\r\n'
+					new_text += '\t' * (currentIndent - 1)  + line + '\r\n'
 				elif first_word.strip(';)}') == 'end':
 					currentIndent -= 1
-					new_text += u'\t' * currentIndent + line + '\r\n'
+					new_text += '\t' * currentIndent + line + '\r\n'
 				else:
-					new_text += u'\t' * currentIndent + line + '\r\n'
+					new_text += '\t' * currentIndent + line + '\r\n'
 			else:
 				new_text += '\r\n'
 		self.ClearAll()

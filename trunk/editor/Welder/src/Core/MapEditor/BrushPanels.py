@@ -53,7 +53,7 @@ class MapTreePanel(wx.Panel, Panels.PanelBase):
                 project = Kernel.GlobalObjects.get_value("PROJECT")
                 map = project.getMapData(map_id)
                 tilesets = project.getData("Tilesets")
-                if Kernel.GlobalObjects.has_key("PanelManager"):
+                if "PanelManager" in Kernel.GlobalObjects:
                     Kernel.GlobalObjects.get_value("PanelManager").dispatch_panel("MapEditorPanel", "Map Editor Panel " + str(map_id), 
                                                                                   arguments=[map, tilesets], 
                                                                                   info="Name Caption", 

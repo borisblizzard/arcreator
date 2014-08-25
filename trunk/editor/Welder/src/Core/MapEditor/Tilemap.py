@@ -99,7 +99,7 @@ class EventGrid(object):
             image.blit_into(reagion, 5, 5, 0)
         xpos = event.x * 32  + 16
         ypos = ((self.map.height - event.y) * 32) - 32  + 16
-        if not self.sprites.has_key(key) or self.sprites[key][0] == None:
+        if key not in self.sprites or self.sprites[key][0] == None:
             sprite = None
             if bitmap: 
                sprite = rabbyt.Sprite(image, x=xpos, y=ypos)
@@ -123,7 +123,7 @@ class EventGrid(object):
         flag = False
         mapEvent = self.map.events[key]
         graphic = self.map.events[key].pages[0].graphic
-        if not self.events.has_key(key):
+        if key not in self.events:
             event = EventStruct(mapEvent.x, mapEvent.y, graphic.tile_id, graphic.character_name,  
                                 graphic.character_hue, graphic.direction, graphic.pattern)
             self.events[key] = event
@@ -136,7 +136,7 @@ class EventGrid(object):
                 event.y = mapEvent.y
             xpos = event.x * 32 + 16
             ypos = ((self.map.height - event.y) * 32) - 32 + 16
-            if self.sprites.has_key(key):
+            if key in self.sprites:
                 if self.sprites[key][0] != None:
                     if self.sprites[key][0].x != xpos or self.sprites[key][0].y != ypos:
                         self.sprites[key][0].xy = xpos, ypos
@@ -167,14 +167,14 @@ class EventGrid(object):
         then calls the updateEvent method for the rest of the events
         '''
         b = set(self.map.events.keys())
-        a = self.events.keys()
+        a = list(self.events.keys())
         removed = [x for x in a if x not in b]
         for key in removed:
             self.graphics.remove(self.sprites[key][0])
             self.backgrounds.remove(self.sprites[key][1])
             del self.events[key]
             del self.sprites[key]
-        for key in self.map.events.iterkeys():
+        for key in self.map.events.keys():
             self.updateEvent(key)
             
     def Draw(self):
@@ -216,8 +216,8 @@ class TileGrid(object):
         '''
         shape = (self.map.width, self.map.height)
         sprites = numpy.empty(shape, dtype=object)
-        for x in xrange(shape[0]):
-            for y in xrange(shape[1]):
+        for x in range(shape[0]):
+            for y in range(shape[1]):
                 sprite = self.makeSprite(x, y)
                 sprites[x, y] = sprite
         return sprites
@@ -261,8 +261,8 @@ class TileGrid(object):
         newdata[:mask[0], :mask[1]] = self.sprites[:mask[0], :mask[1]]
         self.sprites = newdata
         shape = self.sprites.shape
-        for x in xrange(shape[0]):
-            for y in xrange(shape[1]):
+        for x in range(shape[0]):
+            for y in range(shape[1]):
                 if self.sprites[x, y] == None:
                     self.sprites[x, y] = self.makeSprite(x, y)
                 else:
@@ -329,9 +329,9 @@ class Tilemap(object):
         '''
         shape = self.table.getShape()
         sprites = numpy.empty(shape, dtype=object, order='F')
-        for x in xrange(shape[0]):
-            for y in xrange(shape[1]):
-                for z in xrange(shape[2]):
+        for x in range(shape[0]):
+            for y in range(shape[1]):
+                for z in range(shape[2]):
                     sprites[x, y, z] = self.makeSprite(x, y, z)
         return sprites
 
@@ -452,11 +452,11 @@ class Tilemap(object):
         '''
         self.activeLayer = layer
         if layer == (self.table.getShape()[2] + 1):
-            for z in xrange(self.table.getShape()[2]):
+            for z in range(self.table.getShape()[2]):
                 self.SetLayerOpacity(z, 1.0)
         else:
             if self.LayerDimming:
-                for z in xrange(self.table.getShape()[2]):
+                for z in range(self.table.getShape()[2]):
                     if z <= self.activeLayer:
                         self.SetLayerOpacity(z, 1.0)
                     else:
@@ -468,13 +468,13 @@ class Tilemap(object):
         '''
         self.LayerDimming = bool
         if self.LayerDimming:
-            for z in xrange(self.table.getShape()[2]):
+            for z in range(self.table.getShape()[2]):
                 if z <= self.activeLayer:
                     self.SetLayerOpacity(z, 1.0)
                 else:
                     self.SetLayerOpacity(z, 0.3)
         else:
-            for z in xrange(self.table.getShape()[2]):
+            for z in range(self.table.getShape()[2]):
                 self.SetLayerOpacity(z, 1.0)
         
     def Draw(self, x, y, width, height):
@@ -485,7 +485,7 @@ class Tilemap(object):
         if not self.LayerDimming or self.activeLayer > on_screen.shape[2]:
             #draw the dimlayer first
             self.dimmingSprite.render()
-        for z in xrange(on_screen.shape[2]):
+        for z in range(on_screen.shape[2]):
             if z == self.activeLayer and self.LayerDimming:
                 if self.dimmingSprite != None:
                     self.dimmingSprite.render()
@@ -636,7 +636,7 @@ class MouseSprite(object):
         self.singleTileSprite = rabbyt.Sprite(self.singleImage.get_texture(), x=-1, y=-1)
         self.sprites.append(self.singleTileSprite)
         #make corner sprites
-        for type in xrange(4): 
+        for type in range(4): 
             self.cornerSprites.append(self.makeSprite(type))
         #add the left right corners
         self.LRCorners.append(self.makeSprite(8))
@@ -702,7 +702,7 @@ class MouseSprite(object):
         if horizontalFlag:
             #make sure that there is the right number of top row sprites
             if len(self.topRowSprites) < abs(width) - 1:
-                for i in xrange(abs(width) - 1 - len(self.topRowSprites)):
+                for i in range(abs(width) - 1 - len(self.topRowSprites)):
                     self.topRowSprites.append(self.makeSprite(4))
             else:
                 sprites = self.topRowSprites
@@ -711,7 +711,7 @@ class MouseSprite(object):
                     self.sprites.remove(sprite)
             #make sure that there is the right number of bottom row sprites
             if len(self.bottomRowSprites) < abs(width) - 1:
-                for i in xrange(abs(width) - 1 - len(self.bottomRowSprites)):
+                for i in range(abs(width) - 1 - len(self.bottomRowSprites)):
                     self.bottomRowSprites.append(self.makeSprite(5))
             else:
                 sprites = self.bottomRowSprites
@@ -719,14 +719,14 @@ class MouseSprite(object):
                 for sprite in sprites[abs(width) - 1:]:
                     self.sprites.remove(sprite)
             #update the positions of the horizontal sprites
-            for x in xrange(len(self.topRowSprites)):
+            for x in range(len(self.topRowSprites)):
                 self.topRowSprites[x].xy = (TLx + x + 1) * 32 + 16, (TLy * 32) - 32 + 16
                 self.bottomRowSprites[x].xy = (TLx + x + 1) * 32 + 16, (BRy * 32) - 32 + 16         
         if verticalFlag:
             sprites = self.leftRowSprites
             #make sure that there is the right number of left row sprites
             if len(self.leftRowSprites) < abs(height) - 1:
-                for i in xrange(abs(height) - 1 - len(self.leftRowSprites)):
+                for i in range(abs(height) - 1 - len(self.leftRowSprites)):
                     self.leftRowSprites.append(self.makeSprite(6))
             else:
                 sprites = self.leftRowSprites
@@ -735,7 +735,7 @@ class MouseSprite(object):
                     self.sprites.remove(sprite)
             #make sure that there is the right number of right row sprites
             if len(self.rightRowSprites) < abs(height) - 1:
-                for i in xrange(abs(height) - 1 - len(self.rightRowSprites)):
+                for i in range(abs(height) - 1 - len(self.rightRowSprites)):
                     self.rightRowSprites.append(self.makeSprite(7))
             else:
                 sprites = self.rightRowSprites
@@ -743,7 +743,7 @@ class MouseSprite(object):
                 for sprite in sprites[abs(height) - 1:]:
                     self.sprites.remove(sprite)
             #update the positions vertical sprites
-            for y in xrange(len(self.leftRowSprites)):
+            for y in range(len(self.leftRowSprites)):
                 self.leftRowSprites[y].xy = TLx * 32 + 16, ((TLy - y - 1) * 32) - 32 + 16
                 self.rightRowSprites[y].xy = BRx * 32 + 16, ((TLy - y - 1) * 32) - 32 + 16
         if TBFlag:
@@ -1102,10 +1102,10 @@ class TilemapPanel(PygletGLPanel):
         self.OnScroll(orient, new_pos)
         
     def scroll_top(self, event):
-        print 'Scroll Top'
+        print('Scroll Top')
    
     def scroll_bottom(self, event):
-        print 'Scroll Bottom'
+        print('Scroll Bottom')
         
     def OnScroll(self, orient, pos):
         size = self.GetVirtualSizeTuple()

@@ -157,7 +157,7 @@ class Manager(object):
             start = Manager.FixedIndex(start)
         defaults.extend([
             ''.join([str(i).zfill(digits), ': ',
-            dataSource[i].name]) for i in xrange(start, len(dataSource))])
+            dataSource[i].name]) for i in range(start, len(dataSource))])
         wxContainer.AppendItems(defaults)
     
     #----------------------------------------------------------------------------------
@@ -182,7 +182,7 @@ class Manager(object):
             wxContainer.Clear()
         if fixed:
             start = Manager.FixedIndex(start)
-        defaults.extend([dataSource[i].name for i in xrange(start, len(dataSource))])
+        defaults.extend([dataSource[i].name for i in range(start, len(dataSource))])
         wxContainer.AppendItems(defaults)
 
     #----------------------------------------------------------------------------------
@@ -208,11 +208,11 @@ class Manager(object):
             newMax = dialog.spinCtrlMaximum.GetValue()
             if newMax != currentMax: 
                 if newMax > currentMax:
-                    data.extend([None for i in xrange(newMax - currentMax)])
+                    data.extend([None for i in range(newMax - currentMax)])
                     start = currentMax + 1
                     labels = [
                         ''.join([str(start + i).zfill(digits), ':'])
-                        for i in xrange(newMax - currentMax)]
+                        for i in range(newMax - currentMax)]
                     wxList.AppendItems(labels)
                 else:
                     index = wxList.GetSelection()
@@ -236,7 +236,7 @@ class Manager(object):
         Returns the chosen RPG.AudioFile
 
         """
-        from AudioPlayer_Panel import AudioPlayer_Panel
+        from .AudioPlayer_Panel import AudioPlayer_Panel
         dialog = wx.Dialog(parent, style = wx.DEFAULT_DIALOG_STYLE|wx.RESIZE_BORDER)
         panel = AudioPlayer_Panel(dialog, rpgfile, directory)
         panel.Layout()
@@ -438,7 +438,7 @@ class Manager(object):
             parameters.extend(['STR', 'DEX', 'AGI', 'INT'])
         objectList = []
         mainsizer = parent.GetSizer()
-        rows = [parameters[i:i+rowcount] for i in xrange(0, len(parameters), rowcount)]
+        rows = [parameters[i:i+rowcount] for i in range(0, len(parameters), rowcount)]
         percent = 100 / rowcount
         # Iterate through each of the rows and create the controls
         for row in rows:

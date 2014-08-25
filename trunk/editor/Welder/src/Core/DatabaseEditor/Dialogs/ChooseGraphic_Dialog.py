@@ -43,7 +43,7 @@ class ChooseGraphic_Dialog( Templates.ChooseGraphic_Dialog ):
 
 	def glCanvas_LeftMouse( self, event ):
 
-		print 'LEFT DOWN'
+		print('LEFT DOWN')
 
 	def listBoxGraphics_SelectionChanged( self, event ):
 		"""Changes the image index and refreshes the canvas"""

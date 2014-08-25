@@ -40,7 +40,7 @@ class EventPanel(wx.Panel, Panels.PanelBase):
         self.SetSizer(self.mainsizer)
         self.mainsizer.Layout()
 
-        for i in reversed(xrange(len(self._event.pages))):
+        for i in reversed(range(len(self._event.pages))):
             self.AddPage(i, False)
         self.pageNotebook.SetSelection(0)
 
@@ -56,7 +56,7 @@ class EventPanel(wx.Panel, Panels.PanelBase):
         return page
 
     def OnPageChanged(self, event):
-        print ("Page Changed To %d" % event.GetSelection())
+        print(("Page Changed To %d" % event.GetSelection()))
         event.Skip()
 
 
@@ -183,14 +183,14 @@ class EventCondidtionsPropertiesPanel(wx.Panel):
         elif self.type == 0:  # switch
             sizerSwitch = wx.BoxSizer(wx.VERTICAL)
 
-            self.checkBoxSwitch = wx.CheckBox(self, wx.ID_ANY, u"Switch", wx.DefaultPosition, wx.DefaultSize, 0)
+            self.checkBoxSwitch = wx.CheckBox(self, wx.ID_ANY, "Switch", wx.DefaultPosition, wx.DefaultSize, 0)
             sizerSwitch.Add(self.checkBoxSwitch, 1, wx.ALIGN_CENTER_VERTICAL | wx.ALL, 5)
 
             comboBoxSwitchChoices = []
             self.comboBoxSwitch = wx.ComboBox(self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, comboBoxSwitchChoices, 0)
             sizerSwitch.Add(self.comboBoxSwitch, 1, wx.ALIGN_CENTER_VERTICAL | wx.ALL, 5)
 
-            self.labelSwitchOn = wx.StaticText(self, wx.ID_ANY, u"is ON", wx.DefaultPosition, wx.DefaultSize, 0)
+            self.labelSwitchOn = wx.StaticText(self, wx.ID_ANY, "is ON", wx.DefaultPosition, wx.DefaultSize, 0)
             self.labelSwitchOn.Wrap(-1)
             sizerSwitch.Add(self.labelSwitchOn, 1, wx.ALIGN_CENTER_VERTICAL | wx.ALL, 5)
 
@@ -200,14 +200,14 @@ class EventCondidtionsPropertiesPanel(wx.Panel):
 
             sizerVariable1 = wx.BoxSizer(wx.VERTICAL)
 
-            self.checkBoxVariable = wx.CheckBox(self, wx.ID_ANY, u"Variable", wx.DefaultPosition, wx.DefaultSize, 0)
+            self.checkBoxVariable = wx.CheckBox(self, wx.ID_ANY, "Variable", wx.DefaultPosition, wx.DefaultSize, 0)
             sizerVariable1.Add(self.checkBoxVariable, 0, wx.ALIGN_CENTER_VERTICAL | wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
 
             comboBoxVariableChoices = []
             self.comboBoxVariable = wx.ComboBox(self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, comboBoxVariableChoices, 0)
             sizerVariable1.Add(self.comboBoxVariable, 0, wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
 
-            self.labeVariable1 = wx.StaticText(self, wx.ID_ANY, u"is", wx.DefaultPosition, wx.DefaultSize, 0)
+            self.labeVariable1 = wx.StaticText(self, wx.ID_ANY, "is", wx.DefaultPosition, wx.DefaultSize, 0)
             self.labeVariable1.Wrap(-1)
             sizerVariable1.Add(self.labeVariable1, 0, wx.ALIGN_CENTER_VERTICAL | wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
 
@@ -222,7 +222,7 @@ class EventCondidtionsPropertiesPanel(wx.Panel):
             self.spinCtrlVariable = wx.SpinCtrl(self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0)
             sizerVariable2.Add(self.spinCtrlVariable, 0, wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
 
-            self.labelVariable2 = wx.StaticText(self, wx.ID_ANY, u"or Higher", wx.DefaultPosition, wx.DefaultSize, 0)
+            self.labelVariable2 = wx.StaticText(self, wx.ID_ANY, "or Higher", wx.DefaultPosition, wx.DefaultSize, 0)
             self.labelVariable2.Wrap(-1)
             sizerVariable2.Add(self.labelVariable2, 0, wx.BOTTOM | wx.RIGHT | wx.LEFT | wx.ALIGN_CENTER_VERTICAL, 5)
 
@@ -232,16 +232,16 @@ class EventCondidtionsPropertiesPanel(wx.Panel):
 
             sizerSelfSwitch = wx.BoxSizer(wx.VERTICAL)
 
-            self.checkBoxSelfSwitch = wx.CheckBox(self, wx.ID_ANY, u"Self Switch", wx.DefaultPosition, wx.DefaultSize, 0)
+            self.checkBoxSelfSwitch = wx.CheckBox(self, wx.ID_ANY, "Self Switch", wx.DefaultPosition, wx.DefaultSize, 0)
             sizerSelfSwitch.Add(self.checkBoxSelfSwitch, 0, wx.BOTTOM | wx.RIGHT | wx.LEFT | wx.ALIGN_CENTER_VERTICAL, 5)
 
-            comboBoxSelfSwitchChoices = [u"A", u"B", u"C", u"D", u"E", u"F", u"G", u"H", u"I", u"J", u"K", u"L", u"M",
-                                         u"N", u"O", u"P", u"Q", u"R", u"S", u"T", u"U", u"V", u"W", u"X", u"Y", u"Z"]
+            comboBoxSelfSwitchChoices = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M",
+                                         "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
             self.comboBoxSelfSwitch = wx.Choice(self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxSelfSwitchChoices, 0)
             self.comboBoxSelfSwitch.SetSelection(0)
             sizerSelfSwitch.Add(self.comboBoxSelfSwitch, 0, wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
 
-            self.labelSelfSwitch = wx.StaticText(self, wx.ID_ANY, u"is ON", wx.DefaultPosition, wx.DefaultSize, 0)
+            self.labelSelfSwitch = wx.StaticText(self, wx.ID_ANY, "is ON", wx.DefaultPosition, wx.DefaultSize, 0)
             self.labelSelfSwitch.Wrap(-1)
             sizerSelfSwitch.Add(self.labelSelfSwitch, 0, wx.BOTTOM | wx.RIGHT | wx.LEFT | wx.ALIGN_CENTER_VERTICAL, 5)
 
@@ -251,13 +251,13 @@ class EventCondidtionsPropertiesPanel(wx.Panel):
 
             sizerSelfVariable = wx.BoxSizer(wx.VERTICAL)
 
-            self.checkBoxSelfVariable = wx.CheckBox(self, wx.ID_ANY, u"Self Variable", wx.DefaultPosition, wx.DefaultSize, 0)
+            self.checkBoxSelfVariable = wx.CheckBox(self, wx.ID_ANY, "Self Variable", wx.DefaultPosition, wx.DefaultSize, 0)
             sizerSelfVariable.Add(self.checkBoxSelfVariable, 0, wx.BOTTOM | wx.RIGHT | wx.LEFT | wx.ALIGN_CENTER_VERTICAL, 5)
 
             self.spinCtrlSelfVariable = wx.SpinCtrl(self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0)
             sizerSelfVariable.Add(self.spinCtrlSelfVariable, 0, wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
 
-            self.labelSelfVariable = wx.StaticText(self, wx.ID_ANY, u"or Higher", wx.DefaultPosition, wx.DefaultSize, 0)
+            self.labelSelfVariable = wx.StaticText(self, wx.ID_ANY, "or Higher", wx.DefaultPosition, wx.DefaultSize, 0)
             self.labelSelfVariable.Wrap(-1)
             sizerSelfVariable.Add(self.labelSelfVariable, 0, wx.BOTTOM | wx.RIGHT | wx.LEFT | wx.ALIGN_CENTER_VERTICAL, 5)
 
@@ -267,14 +267,14 @@ class EventCondidtionsPropertiesPanel(wx.Panel):
 
             sizerScript = wx.BoxSizer(wx.VERTICAL)
 
-            self.labelScript = wx.CheckBox(self, wx.ID_ANY, u"Script", wx.DefaultPosition, wx.DefaultSize, 0)
+            self.labelScript = wx.CheckBox(self, wx.ID_ANY, "Script", wx.DefaultPosition, wx.DefaultSize, 0)
             sizerScript.Add(self.labelScript, 0, wx.BOTTOM | wx.RIGHT | wx.LEFT | wx.ALIGN_CENTER_VERTICAL, 5)
 
             comboBoxScriptChoices = []
             self.comboBoxScript = wx.ComboBox(self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, comboBoxScriptChoices, 0)
             sizerScript.Add(self.comboBoxScript, 0, wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
 
-            self.labelScript = wx.StaticText(self, wx.ID_ANY, u"is TRUE", wx.DefaultPosition, wx.DefaultSize, 0)
+            self.labelScript = wx.StaticText(self, wx.ID_ANY, "is TRUE", wx.DefaultPosition, wx.DefaultSize, 0)
             self.labelScript.Wrap(-1)
             sizerScript.Add(self.labelScript, 0, wx.ALIGN_CENTER_VERTICAL | wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
 
@@ -309,20 +309,20 @@ class EventOptionsPanel(wx.Panel):
 
         sizerOptions = wx.BoxSizer(wx.VERTICAL)
 
-        self.checkBoxMoveAnimation = wx.CheckBox(self, wx.ID_ANY, u"Move Animation", wx.DefaultPosition, (-1, -1), 0)
+        self.checkBoxMoveAnimation = wx.CheckBox(self, wx.ID_ANY, "Move Animation", wx.DefaultPosition, (-1, -1), 0)
         self.checkBoxMoveAnimation.SetValue(True)
         sizerOptions.Add(self.checkBoxMoveAnimation, 0, wx.RIGHT | wx.LEFT | wx.EXPAND | wx.ALL, 5)
 
-        self.checkBoxStopAnimation = wx.CheckBox(self, wx.ID_ANY, u"Stop Animation", wx.DefaultPosition, (-1, -1), 0)
+        self.checkBoxStopAnimation = wx.CheckBox(self, wx.ID_ANY, "Stop Animation", wx.DefaultPosition, (-1, -1), 0)
         sizerOptions.Add(self.checkBoxStopAnimation, 0, wx.RIGHT | wx.LEFT | wx.EXPAND | wx.ALL, 5)
 
-        self.checkBoxDirectionFix = wx.CheckBox(self, wx.ID_ANY, u"Direction Fix", wx.DefaultPosition, (-1, -1), 0)
+        self.checkBoxDirectionFix = wx.CheckBox(self, wx.ID_ANY, "Direction Fix", wx.DefaultPosition, (-1, -1), 0)
         sizerOptions.Add(self.checkBoxDirectionFix, 0, wx.RIGHT | wx.LEFT | wx.EXPAND | wx.ALL, 5)
 
-        self.checkBoxThrough = wx.CheckBox(self, wx.ID_ANY, u"Through", wx.DefaultPosition, (-1, -1), 0)
+        self.checkBoxThrough = wx.CheckBox(self, wx.ID_ANY, "Through", wx.DefaultPosition, (-1, -1), 0)
         sizerOptions.Add(self.checkBoxThrough, 0, wx.RIGHT | wx.LEFT | wx.EXPAND | wx.ALL, 5)
 
-        self.checkBoxAlwaysTop = wx.CheckBox(self, wx.ID_ANY, u"Always on Top", wx.DefaultPosition, (-1, -1), 0)
+        self.checkBoxAlwaysTop = wx.CheckBox(self, wx.ID_ANY, "Always on Top", wx.DefaultPosition, (-1, -1), 0)
         sizerOptions.Add(self.checkBoxAlwaysTop, 0, wx.RIGHT | wx.LEFT | wx.EXPAND | wx.ALL, 5)
 
         self.SetSizer(sizerOptions)
@@ -334,8 +334,8 @@ class EventTriggerPanel(wx.Panel):
         wx.Panel.__init__(self, parent, size=(-1, 150))
         self._page = page
 
-        radioBoxTriggerChoices = [ u"Action Button", u"Player Touch", u"Event Touch", u"Autorun", u"Parallel Process" ]
-        self.radioBoxTrigger = wx.RadioBox(self, wx.ID_ANY, u"Trigger", wx.DefaultPosition, wx.DefaultSize, radioBoxTriggerChoices, 1, wx.RA_SPECIFY_COLS)
+        radioBoxTriggerChoices = [ "Action Button", "Player Touch", "Event Touch", "Autorun", "Parallel Process" ]
+        self.radioBoxTrigger = wx.RadioBox(self, wx.ID_ANY, "Trigger", wx.DefaultPosition, wx.DefaultSize, radioBoxTriggerChoices, 1, wx.RA_SPECIFY_COLS)
         self.radioBoxTrigger.SetSelection(0)
 
 
@@ -351,26 +351,26 @@ class EventButtonsPanel(wx.Panel):
 
         sizerName = wx.BoxSizer(wx.VERTICAL)
 
-        self.labelName = wx.StaticText(self, wx.ID_ANY, u"Name:", wx.DefaultPosition, wx.DefaultSize, 0)
+        self.labelName = wx.StaticText(self, wx.ID_ANY, "Name:", wx.DefaultPosition, wx.DefaultSize, 0)
         self.labelName.Wrap(-1)
         sizerName.Add(self.labelName, 0, wx.ALL | wx.EXPAND, 5)
 
         self.textCtrlName = wx.TextCtrl(self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size(200, -1), 0)
         sizerName.Add(self.textCtrlName, 0, wx.BOTTOM | wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
 
-        self.buttonNewPage = wx.Button(self, wx.ID_ANY, u"New\nEvent Page", wx.DefaultPosition, wx.DefaultSize, 0)
+        self.buttonNewPage = wx.Button(self, wx.ID_ANY, "New\nEvent Page", wx.DefaultPosition, wx.DefaultSize, 0)
         sizerControls.Add(self.buttonNewPage, 0, wx.ALL | wx.CENTER, 5)
 
-        self.buttonCopyPage = wx.Button(self, wx.ID_ANY, u"Export\nEvent Page", wx.DefaultPosition, wx.DefaultSize, 0)
+        self.buttonCopyPage = wx.Button(self, wx.ID_ANY, "Export\nEvent Page", wx.DefaultPosition, wx.DefaultSize, 0)
         sizerControls.Add(self.buttonCopyPage, 0, wx.ALL | wx.CENTER, 5)
 
-        self.buttonPastePage = wx.Button(self, wx.ID_ANY, u"Import\nEvent Page", wx.DefaultPosition, wx.DefaultSize, 0)
+        self.buttonPastePage = wx.Button(self, wx.ID_ANY, "Import\nEvent Page", wx.DefaultPosition, wx.DefaultSize, 0)
         sizerControls.Add(self.buttonPastePage, 0, wx.ALL | wx.CENTER, 5)
 
-        self.buttonDeletePage = wx.Button(self, wx.ID_ANY, u"Delete\nEvent Page", wx.DefaultPosition, wx.DefaultSize, 0)
+        self.buttonDeletePage = wx.Button(self, wx.ID_ANY, "Delete\nEvent Page", wx.DefaultPosition, wx.DefaultSize, 0)
         sizerControls.Add(self.buttonDeletePage, 0, wx.ALL | wx.CENTER, 5)
 
-        self.buttonClearPage = wx.Button(self, wx.ID_ANY, u"Clear\nEvent Page", wx.DefaultPosition, wx.DefaultSize, 0)
+        self.buttonClearPage = wx.Button(self, wx.ID_ANY, "Clear\nEvent Page", wx.DefaultPosition, wx.DefaultSize, 0)
         sizerControls.Add(self.buttonClearPage, 0, wx.ALL | wx.CENTER, 5)
 
         self.mainsizer.Add(sizerName, 0, wx.ALL | wx.EXPAND, 5)
@@ -414,15 +414,15 @@ class EventMoveRoutePanel(wx.Panel):
 
         self.mainsizer = wx.BoxSizer(wx.VERTICAL)
 
-        sizerMovement = wx.StaticBoxSizer(wx.StaticBox( self, wx.ID_ANY, u"Autonomous Movement"), wx.VERTICAL)
+        sizerMovement = wx.StaticBoxSizer(wx.StaticBox( self, wx.ID_ANY, "Autonomous Movement"), wx.VERTICAL)
         
         sizerMoveType = wx.BoxSizer(wx.HORIZONTAL)
         
-        self.labelMoveType = wx.StaticText(self, wx.ID_ANY, u"Type:", wx.DefaultPosition, wx.Size( 36,-1 ), 0)
+        self.labelMoveType = wx.StaticText(self, wx.ID_ANY, "Type:", wx.DefaultPosition, wx.Size( 36,-1 ), 0)
         self.labelMoveType.Wrap( -1 )
         sizerMoveType.Add( self.labelMoveType, 0, wx.ALIGN_CENTER_VERTICAL|wx.ALL, 5 )
         
-        comboBoxMoveTypeChoices = [ u"Fixed", u"Random", u"Approach", u"Custom" ]
+        comboBoxMoveTypeChoices = [ "Fixed", "Random", "Approach", "Custom" ]
         self.comboBoxMoveType = wx.Choice( self, wx.ID_ANY, wx.DefaultPosition, wx.Size( 64,-1 ), comboBoxMoveTypeChoices, 0 )
         self.comboBoxMoveType.SetSelection( 0 )
         sizerMoveType.Add( self.comboBoxMoveType, 1, wx.EXPAND|wx.ALIGN_BOTTOM|wx.ALL, 5 )
@@ -435,18 +435,18 @@ class EventMoveRoutePanel(wx.Panel):
         self.labelMoveDummy.Wrap( -1 )
         sizerMoveRoute.Add( self.labelMoveDummy, 0, wx.ALL, 5 )
         
-        self.buttonMoveRoute = wx.Button( self, wx.ID_ANY, u"Move Route...", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonMoveRoute = wx.Button( self, wx.ID_ANY, "Move Route...", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerMoveRoute.Add( self.buttonMoveRoute, 1, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.ALIGN_RIGHT, 5 )
         
         sizerMovement.Add( sizerMoveRoute, 0, wx.EXPAND, 5 )
         
         sizerMoveSpeed = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.labelMoveSpeed = wx.StaticText( self, wx.ID_ANY, u"Speed:", wx.DefaultPosition, wx.Size( 36,-1 ), 0 )
+        self.labelMoveSpeed = wx.StaticText( self, wx.ID_ANY, "Speed:", wx.DefaultPosition, wx.Size( 36,-1 ), 0 )
         self.labelMoveSpeed.Wrap( -1 )
         sizerMoveSpeed.Add( self.labelMoveSpeed, 0, wx.ALIGN_CENTER_VERTICAL|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
         
-        comboBoxMoveSpeedChoices = [ u"1: Slowest", u"2: Slower", u"3: Slow", u"4: Fast", u"5: Faster", u"6: Fastest" ]
+        comboBoxMoveSpeedChoices = [ "1: Slowest", "2: Slower", "3: Slow", "4: Fast", "5: Faster", "6: Fastest" ]
         self.comboBoxMoveSpeed = wx.Choice( self, wx.ID_ANY, wx.DefaultPosition, wx.Size( 64,-1 ), comboBoxMoveSpeedChoices, 0 )
         self.comboBoxMoveSpeed.SetSelection( 3 )
         sizerMoveSpeed.Add( self.comboBoxMoveSpeed, 1, wx.EXPAND|wx.ALIGN_BOTTOM|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
@@ -455,11 +455,11 @@ class EventMoveRoutePanel(wx.Panel):
         
         sizerMoveFreq = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.labelMoveFreq = wx.StaticText( self, wx.ID_ANY, u"Freq:", wx.DefaultPosition, wx.Size( 36,-1 ), 0 )
+        self.labelMoveFreq = wx.StaticText( self, wx.ID_ANY, "Freq:", wx.DefaultPosition, wx.Size( 36,-1 ), 0 )
         self.labelMoveFreq.Wrap( -1 )
         sizerMoveFreq.Add( self.labelMoveFreq, 0, wx.ALIGN_CENTER_VERTICAL|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
         
-        comboBoxMoveFreqChoices = [ u"1: Lowest", u"2: Lower", u"3: Low", u"4: High", u"5: Higher", u"6: Highest" ]
+        comboBoxMoveFreqChoices = [ "1: Lowest", "2: Lower", "3: Low", "4: High", "5: Higher", "6: Highest" ]
         self.comboBoxMoveFreq = wx.Choice( self, wx.ID_ANY, wx.DefaultPosition, wx.Size( 64,-1 ), comboBoxMoveFreqChoices, 0 )
         self.comboBoxMoveFreq.SetSelection( 3 )
         sizerMoveFreq.Add( self.comboBoxMoveFreq, 1, wx.EXPAND|wx.ALIGN_BOTTOM|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )

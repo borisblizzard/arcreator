@@ -167,7 +167,7 @@ class Command102(object):
     @staticmethod
     def template(format):
         choices = ''
-        for i in xrange(format['choice_number']):
+        for i in range(format['choice_number']):
             choices += '(%s)%s' % (Format.red(i), Format.green(format['choice_choices'][i]))
             if i < format['choice_number'] - 1:
                 choices += ', '
@@ -2073,7 +2073,7 @@ class Command353(object):
 
     @staticmethod
     def template(format):
-        return '%s' % (Format.bold(Font.color('Game Over')))
+        return '%s' % (Format.bold(Format.red('Game Over')))
 
 
 class Command354(object):

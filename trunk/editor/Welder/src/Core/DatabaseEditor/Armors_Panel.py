@@ -58,7 +58,7 @@ class Armors_Panel( Templates.Armors_Panel, PanelBase ):
         """Applies the range of values allowed fir the controls on the panel"""
         self.ParameterControls[0].SetRange(0, Config.getint('DatabaseLimits', 'Gold'))
         max = Config.getint('DatabaseLimits', 'ActorParameter')
-        for i in xrange(1, len(self.ParameterControls)):
+        for i in range(1, len(self.ParameterControls)):
             self.ParameterControls[i].SetRange(-max, max)
 
     def refreshAll( self ):

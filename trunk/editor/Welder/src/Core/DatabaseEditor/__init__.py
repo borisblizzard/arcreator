@@ -2,16 +2,16 @@ def late_bind():
 
     global Controls
 
-    import Controls
+    from . import Controls
     Controls.late_bind()
 
-    from Manager import Manager
+    from .Manager import Manager
 
     global Welder_Templates, Dialogs, ScriptEditor, Manager
 
-    import Welder_Templates
-    import Dialogs
-    import ScriptEditor
+    from . import Welder_Templates
+    from . import Dialogs
+    from . import ScriptEditor
 
     #late_binding
     Dialogs.late_bind()
@@ -23,23 +23,23 @@ def late_bind():
     global Items_Panel, ParameterGraph_Panel, Skills_Panel, States_Panel, System_Panel, Tilesets_Panel, Troops_Panel, Weapons_Panel
 
     
-    from Actors_Panel import Actors_Panel
-    from Animations_Panel import Animations_Panel
-    from Armors_Panel import Armors_Panel
-    from AudioPlayer_Panel import AudioPlayer_Panel
-    from BattleTestActor_Panel import BattleTestActor_Panel
-    from Classes_Panel import Classes_Panel
-    from CommonEvents_Panel import CommonEvents_Panel
-    from Configuration_Panel import Configuration_Panel
-    from Enemies_Panel import Enemies_Panel
-    from Items_Panel import Items_Panel
-    from ParameterGraph_Panel import ParameterGraph_Panel
-    from Skills_Panel import Skills_Panel
-    from States_Panel import States_Panel
-    from System_Panel import System_Panel
-    from Tilesets_Panel import Tilesets_Panel
-    from Troops_Panel import Troops_Panel
-    from Weapons_Panel import Weapons_Panel
+    from .Actors_Panel import Actors_Panel
+    from .Animations_Panel import Animations_Panel
+    from .Armors_Panel import Armors_Panel
+    from .AudioPlayer_Panel import AudioPlayer_Panel
+    from .BattleTestActor_Panel import BattleTestActor_Panel
+    from .Classes_Panel import Classes_Panel
+    from .CommonEvents_Panel import CommonEvents_Panel
+    from .Configuration_Panel import Configuration_Panel
+    from .Enemies_Panel import Enemies_Panel
+    from .Items_Panel import Items_Panel
+    from .ParameterGraph_Panel import ParameterGraph_Panel
+    from .Skills_Panel import Skills_Panel
+    from .States_Panel import States_Panel
+    from .System_Panel import System_Panel
+    from .Tilesets_Panel import Tilesets_Panel
+    from .Troops_Panel import Troops_Panel
+    from .Weapons_Panel import Weapons_Panel
 
     Welder_Templates.late_bind()
     
