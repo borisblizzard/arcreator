@@ -61,7 +61,7 @@ class _Actor(object):
         self.battler_name = ""
         self.battler_hue = 0
         self.parameters = Table(6, 100)
-        for i in xrange(1, 100):
+        for i in range(1, 100):
             self.parameters[0, i] = 500 + i * 50
             self.parameters[1, i] = 500 + i * 50
             self.parameters[2, i] = 50 + i * 5
@@ -679,10 +679,10 @@ class _Weapon(object):
 
 def instance_repr(self):
     results = []
-    for key, value in self.__dict__.items():
+    for key, value in list(self.__dict__.items()):
         if key[0] != "_":
-            if not isinstance(value, (types.FunctionType, types.ClassType, types.MethodType, 
-                                      types.ModuleType, types.SliceType, types.LambdaType, 
+            if not isinstance(value, (types.FunctionType, type, types.MethodType, 
+                                      types.ModuleType, slice, types.LambdaType, 
                                       types.GeneratorType)):
                 results.append(key)
     parts = []

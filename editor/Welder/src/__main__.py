@@ -7,7 +7,7 @@ import traceback
 import inspect
 import platform
 
-import ConfigParser
+import configparser
 import re
 
 import wx

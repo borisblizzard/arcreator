@@ -67,7 +67,7 @@ class Items_Panel( Templates.Items_Panel, PanelBase ):
     def refreshStates( self ):
         """Clears and refreshes the list of states in the checklist"""
         self.checkListStates.DeleteAllItems()
-        names = [DataStates[i].name for i in xrange(DM.FixedIndex(0), len(DataStates))]
+        names = [DataStates[i].name for i in range(DM.FixedIndex(0), len(DataStates))]
         self.checkListStates.AppendItems(names)
 
     def refreshParameters( self ):
@@ -127,7 +127,7 @@ class Items_Panel( Templates.Items_Panel, PanelBase ):
             minusstates = [id - 1 for id in item.minus_state_set]
             indices = [i - 1 for i in item.element_set]
         self.checkListElements.SetChecked(indices)
-        for i in xrange(self.checkListStates.GetItemCount()):
+        for i in range(self.checkListStates.GetItemCount()):
             if i in addstates:
                 self.checkListStates.SetItemImage(i, 1)
             elif i in minusstates:

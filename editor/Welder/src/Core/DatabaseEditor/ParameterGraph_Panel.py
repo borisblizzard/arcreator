@@ -1,6 +1,6 @@
 import wx
 
-from Actors_Panel import GRAPH_COLORS
+from .Actors_Panel import GRAPH_COLORS
 
 import numpy as np
 
@@ -119,7 +119,7 @@ class ParameterGraph_Panel( Templates.ParameterGraph_Panel, PanelBase ):
         dlg = GenerateCurve_Dialog(self, vRange, lRange, max)
         if dlg.ShowModal() == wx.ID_OK:
             curve = dlg.GenerateCurve()
-            for j in xrange(len(curve)):
+            for j in range(len(curve)):
                 lvl = j + actor.initial_level
                 self.Data[i, j] = curve[j]
             self.RefreshGraph()

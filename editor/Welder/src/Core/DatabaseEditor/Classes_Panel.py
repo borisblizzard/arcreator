@@ -145,9 +145,9 @@ class Classes_Panel( Templates.Classes_Panel, PanelBase ):
             if DM.ARC_FORMAT: data = 100
             klass.element_ranks = RPGutil.Table(len(DataElements))
             klass.state_ranks = RPGutil.Table(len(DataStates))
-            for i in xrange(start, len(DataElements)):
+            for i in range(start, len(DataElements)):
                 klass.element_ranks[i] = default
-            for i in xrange(start, len(DataStates)):
+            for i in range(start, len(DataStates)):
                 klass.state_ranks[i] = default
             DataClasses[index] = klass
         self.SelectedClass = DataClasses[index]
@@ -170,14 +170,14 @@ class Classes_Panel( Templates.Classes_Panel, PanelBase ):
 
     def buttonWeaponAll_Clicked( self, event ):
         """Checks all weapons and adds each weapon's ID to the class weapon set"""
-        for i in xrange(self.checkListWeapons.GetCount()):
+        for i in range(self.checkListWeapons.GetCount()):
             self.checkListWeapons.Check(i, True)
         ids = np.arange(DM.FixedIndex(0), len(DataWeapons), dtype=int)
         self.SelectedClass.weapon_set = ids
 
     def buttonWeaponNone_Clicked( self, event ):
         """Unchecks all weapons and clears the class weapon set"""
-        for i in xrange(self.checkListWeapons.GetCount()):
+        for i in range(self.checkListWeapons.GetCount()):
             self.checkListWeapons.Check(i, False)
         self.SelectedClass.weapon_set = []
 
@@ -197,7 +197,7 @@ class Classes_Panel( Templates.Classes_Panel, PanelBase ):
 
     def buttonArmorNone_Clicked( self, event ):
         """Unchecks all armors and clears the class armor set"""
-        for i in xrange(self.checkListArmors.GetCount()):
+        for i in range(self.checkListArmors.GetCount()):
             self.checkListArmors.Check(i, False)
         self.SelectedClass.armor_set = []
 
@@ -217,7 +217,7 @@ class Classes_Panel( Templates.Classes_Panel, PanelBase ):
         """Sets the selected element rank for the class"""
         index = DM.FixedIndex(self.listBoxElements.GetSelection())
         self.SelectedClass.element_ranks[index] = event.GetInt()
-        print self.SelectedClass.element_ranks[index]
+        print(self.SelectedClass.element_ranks[index])
 
     def spinCtrlStates_ValueChanged( self, event ):
         """Sets the selected state rank for the class"""

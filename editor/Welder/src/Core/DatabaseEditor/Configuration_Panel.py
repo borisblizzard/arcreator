@@ -43,7 +43,7 @@ class Configuration_Panel ( wx.Panel, PanelBase  ):
             sectionheader.SetFont(headerFont)
             sizerConfig.Add( sectionheader, 0, wx.ALL, 5 )
             # Iterate through each section's items
-            for option in section[1].iteritems():
+            for option in section[1].items():
                 # Create label
                 optionSizer = wx.BoxSizer( wx.HORIZONTAL )
                 optionlabel = wx.StaticText( self.scrolledWindowEquipment, wx.ID_ANY, 

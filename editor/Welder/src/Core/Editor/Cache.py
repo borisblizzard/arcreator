@@ -157,7 +157,7 @@ class RTPFunctions(object):
             return testpath
         else:
             rtps = Kernel.GlobalObjects.get_value("Welder_config").get_section("RTPs")
-            for rtp_name, path in rtps.iteritems():
+            for rtp_name, path in rtps.items():
                 flag, testpath = RTPFunctions.TestImageFiles(path, folder_name, name)
             if flag:
                 return testpath
@@ -180,7 +180,7 @@ class RTPFunctions(object):
         else: return files
         directories = [Kernel.GlobalObjects.get_value('CurrentProjectDir')]
         rtps = Kernel.GlobalObjects.get_value("Welder_config").get_section("RTPs")
-        directories.extend([os.path.expandvars(path[1]) for path in rtps.iteritems()])
+        directories.extend([os.path.expandvars(path[1]) for path in rtps.items()])
         for dir in directories:
             path = os.path.join(dir, folder)
             if os.path.exists(path):
@@ -200,7 +200,7 @@ class RTPFunctions(object):
         directories = []
         directories.extend(extra_paths)
         rtps = Kernel.GlobalObjects.get_value("Welder_config").get_section("RTPs")
-        directories.extend([os.path.expandvars(path[1]) for path in rtps.iteritems()])
+        directories.extend([os.path.expandvars(path[1]) for path in rtps.items()])
         for dir in directories:
             target = os.path.join(dir, "Templates")
             if os.path.isdir(target):
@@ -223,7 +223,7 @@ class RTPFunctions(object):
             return testpath
         else:
             rtps = Kernel.GlobalObjects.get_value("Welder_config").get_section("RTPs")
-            for rtp_name, path in rtps.iteritems():
+            for rtp_name, path in rtps.items():
                 flag, testpath = RTPFunctions.TestAudioFiles(path, folder_name, name)
             if flag:
                 return testpath
@@ -302,29 +302,29 @@ class PILCache(object):
     @staticmethod
     def NormalCacheLimit():
         if len(PILCache._NormalCache) > PILCache._normal_limit:
-            for i in xrange(len(PILCache._NormalCache) - PILCache._normal_limit):
+            for i in range(len(PILCache._NormalCache) - PILCache._normal_limit):
                 item = PILCache._NormalCache.popitem(False)
                 del item
 
     @staticmethod
     def TileCacheLimit():
         if len(PILCache._TileCache) > PILCache._tile_limit:
-            for i in xrange(len(PILCache._TileCache) - PILCache._tile_limit):
+            for i in range(len(PILCache._TileCache) - PILCache._tile_limit):
                 item = PILCache._TileCache.popitem(False)
                 del item
 
     @staticmethod
     def AutotileCacheLimit():
         if len(PILCache._AutoTileCache) > PILCache._autotile_limit:
-            for i in xrange(len(PILCache._AutoTileCache) - PILCache._autotile_limit):
+            for i in range(len(PILCache._AutoTileCache) - PILCache._autotile_limit):
                 item = PILCache._AutoTileCache.popitem(False)
                 del item
 
     @staticmethod
     def HueCacheLimit(cache, key):
-        if cache.has_key(key):
+        if key in cache:
             if len(cache[key]) > PILCache._hue_limit:
-                for i in xrange(len(cache[key]) - PILCache._hue_limit):
+                for i in range(len(cache[key]) - PILCache._hue_limit):
                     item = cache[key].popitem(False)
                     del item
 
@@ -337,7 +337,7 @@ class PILCache(object):
     @staticmethod  
     def Load_bitmap(folder_name, filename, hue=0):
         key = (folder_name, filename)
-        if not PILCache._NormalCache.has_key(key):
+        if key not in PILCache._NormalCache:
             PILCache._NormalCache[key] = collections.OrderedDict()
         try:
             return PILCache._NormalCache[key][hue]
@@ -374,7 +374,7 @@ class PILCache(object):
                 # Collects Auto-Tile Tile Layout
                 tiles = PILCache.Autotiles[int(pattern) / 8][int(pattern) % 8]
                 PILCache._AutoTileCache[key] = Image.new('RGBA', (32, 32), (0, 0, 0, 0))
-                for i in xrange(4):
+                for i in range(4):
                     tile_position = tiles[i] - 1
                     x = tile_position % 6 * 16
                     y = tile_position / 6 * 16
@@ -438,7 +438,7 @@ class PILCache(object):
     @staticmethod
     def Tile(filename, tile_id, hue):
         key = (filename, int(tile_id))
-        if not PILCache._TileCache.has_key(key):
+        if key not in PILCache._TileCache:
             PILCache._TileCache[key] = collections.OrderedDict()
         try:
             return PILCache._TileCache[key][hue]
@@ -481,7 +481,7 @@ class PygletCache(object):
 
     def CacheLimit(self):
         if len(self._Cache) > self.limit:
-            for i in xrange(len(self._Cache) - self.limit):
+            for i in range(len(self._Cache) - self.limit):
                 item = self._Cache.popitem(False)
                 del item
         

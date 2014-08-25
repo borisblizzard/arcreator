@@ -53,7 +53,7 @@ class Weapons_Panel( Templates.Weapons_Panel, PanelBase ):
         """Applies the range of values allowed fir the controls on the panel"""
         self.ParameterControls[0].SetRange(0, Config.getint('DatabaseLimits', 'Gold'))
         max = Config.getint('DatabaseLimits', 'ActorParameter')
-        for i in xrange(1, len(self.ParameterControls)):
+        for i in range(1, len(self.ParameterControls)):
             self.ParameterControls[i].SetRange(-max, max)
 
     def refreshAll( self ):
@@ -77,7 +77,7 @@ class Weapons_Panel( Templates.Weapons_Panel, PanelBase ):
     def refreshStates( self ):
         """Clears and refreshes the list of states in the checklist"""
         self.checkListStates.DeleteAllItems()
-        names = [DataStates[i].name for i in xrange(DM.FixedIndex(0), len(DataStates))]
+        names = [DataStates[i].name for i in range(DM.FixedIndex(0), len(DataStates))]
         self.checkListStates.AppendItems(names)
 
     def refreshAnimations( self ):
@@ -112,7 +112,7 @@ class Weapons_Panel( Templates.Weapons_Panel, PanelBase ):
             self.ParameterControls[6].SetValue(weapon.agi_plus)
             self.ParameterControls[7].SetValue(weapon.int_plus)
         self.checkListElements.SetChecked(checked)
-        for i in xrange(self.checkListStates.GetItemCount()):
+        for i in range(self.checkListStates.GetItemCount()):
             if i in addstates:
                 self.checkListStates.SetItemImage(i, 1)
             elif i in minusstates:
@@ -130,7 +130,7 @@ class Weapons_Panel( Templates.Weapons_Panel, PanelBase ):
             # TODO: Implement
             pass
         else:
-            print index
+            print(index)
             value = event.GetInt()
             if index == 0: weapon.price = value
             elif index == 1: weapon.atk = value

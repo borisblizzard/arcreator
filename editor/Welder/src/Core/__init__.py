@@ -4,53 +4,53 @@ Created on Dec 20, 2010
 core plugin module
 '''
 #preimport these so that they are there when the compiled copmponents try 
-import _ext
+from . import _ext
 
 
 def late_bind():
     global Actions, ARC_Data, Panels, MapEditor, Cache, Controls, Data, Database, DatabaseActions, Dialogs, Frames
     global Icons, Layouts, Menues, PanelManager, Project, PyXAL, RPGutil, RMXP, PygletWX, EditorGLPanel
 
-    import PygletWX
+    from . import PygletWX
 
-    import Actions
-    import ARC_Data
+    from . import Actions
+    from . import ARC_Data
 
-    import Panels
-    import PanelManager
+    from . import Panels
+    from . import PanelManager
 
-    import MapEditor
-    import EventEditor
+    from . import MapEditor
+    from . import EventEditor
 
-    import Cache
+    from . import Cache
     
-    import RPGutil
-    import RMXP
+    from . import RPGutil
+    from . import RMXP
     RMXP.late_bind()
     
-    import EditorGLPanel
+    from . import EditorGLPanel
 
-    import Data
-    import Database
-    import DatabaseActions
-
-    
-    
-    import Dialogs
-    import Controls
-    import Frames
-    import Layouts
-    import Menues
-
-    import Icons 
-
-    import PyXAL
+    from . import Data
+    from . import Database
+    from . import DatabaseActions
 
     
+    
+    from . import Dialogs
+    from . import Controls
+    from . import Frames
+    from . import Layouts
+    from . import Menues
+
+    from . import Icons 
+
+    from . import PyXAL
 
     
 
-    import Project
+    
+
+    from . import Project
     
     #late binding
     Database.late_bind()
@@ -60,6 +60,6 @@ def late_bind():
 
 
     #===== Regester the Core ======
-    import register
+    from . import register
 
 

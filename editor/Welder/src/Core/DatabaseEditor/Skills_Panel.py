@@ -77,7 +77,7 @@ class Skills_Panel( Templates.Skills_Panel, PanelBase):
     def refreshStates( self ):
         """Clears and refreshes the list of states in the checklist"""
         self.checkListStates.DeleteAllItems()
-        names = [DataStates[i].name for i in xrange(DM.FixedIndex(0), len(DataStates))]
+        names = [DataStates[i].name for i in range(DM.FixedIndex(0), len(DataStates))]
         self.checkListStates.AppendItems(names)
 
     def refreshCommonEvents( self ):
@@ -120,7 +120,7 @@ class Skills_Panel( Templates.Skills_Panel, PanelBase):
             self.ParameterControls[10].SetValue(skill.agi_f)
             self.ParameterControls[11].SetValue(skill.int_f)
         # Update elements
-        for i in xrange(self.checkListElements.GetItemCount()):
+        for i in range(self.checkListElements.GetItemCount()):
             checked = skill.element_set
             if not DM.ARC_FORMAT:
                 checked = [i - 1 for i in checked]
@@ -132,7 +132,7 @@ class Skills_Panel( Templates.Skills_Panel, PanelBase):
         else:
             addstates = [id - 1 for id in skill.plus_state_set]
             minusstates = [id - 1 for id in skill.minus_state_set]
-        for i in xrange(self.checkListStates.GetItemCount()):
+        for i in range(self.checkListStates.GetItemCount()):
             if i in addstates:
                 self.checkListStates.SetItemImage(i, 1)
             elif i in minusstates:
@@ -157,7 +157,7 @@ class Skills_Panel( Templates.Skills_Panel, PanelBase):
         self.ParameterControls[0].SetRange(0, Config.getint('DatabaseLimits', 'ActorSP'))
         max = Config.getint('DatabaseLimits', 'ActorParameter')
         self.ParameterControls[1].SetRange(-max, max)
-        for i in xrange(2, len(self.ParameterControls)):
+        for i in range(2, len(self.ParameterControls)):
             self.ParameterControls[i].SetRange(0, max)
 
     def listBoxSkills_SelectionChanged( self, event ):

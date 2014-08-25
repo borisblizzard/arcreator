@@ -36,14 +36,14 @@ if __name__ == '__main__':
 
     app = wx.App(redirect=False)
 
-    if Kernel.GlobalObjects.has_key("Program_Dir"):
+    if "Program_Dir" in Kernel.GlobalObjects:
         Kernel.GlobalObjects.set_value("Program_Dir", LOCAL_PATH)
     else:
         Kernel.GlobalObjects.request_new_key("Program_Dir", "CORE", LOCAL_PATH)
 
-    print "[BOOT] Programming Running in %s" % dirName
-    print "[BOOT] LOCAL PATH: %s" % LOCAL_PATH
-    print "[BOOT] CONFIG PATH: %s" % Kernel.GetConfigFolder()
+    print("[BOOT] Programming Running in %s" % dirName)
+    print("[BOOT] LOCAL PATH: %s" % LOCAL_PATH)
+    print("[BOOT] CONFIG PATH: %s" % Kernel.GetConfigFolder())
 
     import Boot
     from Boot import WelderImport
@@ -82,7 +82,7 @@ if __name__ == '__main__':
             # 4 = Second Page of Event Commands
             # 5 = Non-Actor/Enemy altering Commands
             # 6 = Actor/Enemy altering Commands
-            self.EventEditorPanel = EventPanel(self, self.events[3]) 
+            self.EventEditorPanel = EventPanel(self, self.events[4]) 
 
             self.mainsizer.Add(self.EventEditorPanel, 1, wx.EXPAND, 0)
             self.SetSizer(self.mainsizer)
@@ -92,32 +92,32 @@ if __name__ == '__main__':
             #config = Kernel.GlobalObjects.get_value("Welder_config")
             #path = config.get("RTPs", "core")
             RTP_PATH = Kernel.GlobalObjects.get_value("Welder_config").get_section("RTPs").get('Standard')
-            print "[EVENT TEST] RTP PATH: %s" % RTP_PATH
+            print("[EVENT TEST] RTP PATH: %s" % RTP_PATH)
             #---------------------------------
             #TEST_PATH = os.path.join(Kernel.normConfigPath(RTP_PATH), "Templates", "Chronicles of Sir Lag-A-Lot", "Chronicles of Sir Lag-A-Lot.arcproj")
             #---------------------------------
             TEST_PATH = os.path.join(Kernel.normConfigPath(RTP_PATH), "Templates", "EventTest", "EventTest.arcproj")
-            print TEST_PATH
+            print(TEST_PATH)
             #get a project loader
             projectloader = KM.get_component("ARCProjectLoader").object()
             projectloader.load(TEST_PATH)
             #place the project in the global namespace
-            if Kernel.GlobalObjects.has_key("PROJECT"):
+            if "PROJECT" in Kernel.GlobalObjects:
                 Kernel.GlobalObjects.set_value("PROJECT", projectloader.getProject())
             else:
                 Kernel.GlobalObjects.request_new_key("PROJECT", "CORE", projectloader.getProject())
             #set the Project Title
-            if Kernel.GlobalObjects.has_key("Title"):
+            if "Title" in Kernel.GlobalObjects:
                 Kernel.GlobalObjects.set_value("Title", projectloader.getProject().getInfo("Title"))
             else:
                 Kernel.GlobalObjects.request_new_key("Title", "CORE", projectloader.getProject().getInfo("Title"))
             #set the current project directory
-            if Kernel.GlobalObjects.has_key("CurrentProjectDir"):
+            if "CurrentProjectDir" in Kernel.GlobalObjects:
                 Kernel.GlobalObjects.set_value("CurrentProjectDir", os.path.dirname(TEST_PATH))
             else:
                 Kernel.GlobalObjects.request_new_key("CurrentProjectDir", "CORE", os.path.dirname(TEST_PATH))
             #set that there is an open project
-            if Kernel.GlobalObjects.has_key("ProjectOpen"):
+            if "ProjectOpen" in Kernel.GlobalObjects:
                 Kernel.GlobalObjects.set_value("ProjectOpen", True)
             else:
                 Kernel.GlobalObjects.request_new_key("ProjectOpen", "CORE", True)

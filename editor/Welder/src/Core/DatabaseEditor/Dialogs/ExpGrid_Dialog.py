@@ -47,7 +47,7 @@ class ExpGrid_Dialog( Templates.ExpGrid_Dialog ):
 			rowCount += 1
 		self.expGrid.AppendRows(rowCount)
 		levelColumns, valueColumns = [0, 2, 4, 6, 8], [1, 3, 5, 7, 9] 
-		for i in xrange(actor.final_level):
+		for i in range(actor.final_level):
 			row = i % rowCount
 			vCol = valueColumns[i / rowCount]
 			lCol = levelColumns[i / rowCount]
@@ -66,7 +66,7 @@ class ExpGrid_Dialog( Templates.ExpGrid_Dialog ):
 		else: 
 			expList = self.Actor.exp_list = self.GenerateInflationList()
 		self.expGrid.BeginBatch()
-		for i in xrange(self.Actor.final_level):
+		for i in range(self.Actor.final_level):
 			row = i % rowCount
 			column = valueColumns[i / rowCount]
 			if self.PageIndex == 0: value = str(expList[i + 1] - expList[i])
@@ -87,7 +87,7 @@ class ExpGrid_Dialog( Templates.ExpGrid_Dialog ):
 		final = self.Actor.final_level
 		speed = self.spinCtrlSpeed.GetValue()
 		values = np.zeros(final + 1, dtype=int)
-		for i in xrange(2, final + 1):
+		for i in range(2, final + 1):
 			values[i] = int(DM.CalculateParameter(min, max, speed, i, 2, final))
 		return values
 
@@ -97,7 +97,7 @@ class ExpGrid_Dialog( Templates.ExpGrid_Dialog ):
 		basis = self.spinCtrlBasis.GetValue()
 		inflation = self.spinCtrlInflation.GetValue()
 		pow_i = 2.4 + inflation / 100.0 
-		for i in xrange(2, self.Actor.final_level + 1):
+		for i in range(2, self.Actor.final_level + 1):
 			n = basis * ((i + 3) ** pow_i) / (5 ** pow_i)
 			expList[i] = min(expList[i - 1] + int(n), 2147483647)
 		return expList
@@ -107,14 +107,14 @@ class ExpGrid_Dialog( Templates.ExpGrid_Dialog ):
 		rows = len(list) / columns
 		if len(list) % columns:
 			rows += 1
-		return [list[i::rows] for i in xrange(rows)]
+		return [list[i::rows] for i in range(rows)]
 
 	def noteBookExpCurve_PageChanged( self, event ):
 		"""Changes the page index and refreshes the table"""
 		self.PageIndex = event.GetSelection()
 		if self.PageIndex == 0: color = self.NextColor
 		else: color = self.TotalColor
-		for row in xrange(self.expGrid.NumberRows):
+		for row in range(self.expGrid.NumberRows):
 			for col in [1, 3, 5, 7, 9]:
 				self.expGrid.SetCellTextColour(row, col, color)
 		self.RefreshTable()
@@ -169,7 +169,7 @@ class ExpGrid_Dialog( Templates.ExpGrid_Dialog ):
 		"""Opens the dialog to display a visual representation of the experience table"""
 		init, final = self.Actor.initial_level, self.Actor.final_level
 		expList = self.GenerateInflationList()[init:final]
-		levels = [i for i in xrange(init, final)]
+		levels = [i for i in range(init, final)]
 		data = np.column_stack((levels, expList))
 		maxV = max(expList)
 		dlg = ExpGraphEditor_Dialog(self, data, 'Experience', 'blue', maxV, final, init)

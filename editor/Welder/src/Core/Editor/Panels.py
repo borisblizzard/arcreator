@@ -29,7 +29,7 @@ class PanelBase(object):
 
 
     def OnFocus(self, event):
-        if Kernel.GlobalObjects.has_key("PanelManager"):
+        if "PanelManager" in Kernel.GlobalObjects:
             PM = Kernel.GlobalObjects.get_value("PanelManager")
             if PM is not None:
                 id = PM.getPanelID(self)
@@ -147,7 +147,7 @@ class MainToolbar(aui.AuiToolBar):
         pass
 
     def uiupdate(self, event):
-        if Kernel.GlobalObjects.has_key("ProjectOpen") and (Kernel.GlobalObjects.get_value("ProjectOpen") == True):
+        if "ProjectOpen" in Kernel.GlobalObjects and (Kernel.GlobalObjects.get_value("ProjectOpen") == True):
             event.Enable(True)
         else:
             event.Enable(False)
@@ -290,7 +290,7 @@ class DatabaseToolbar(aui.AuiToolBar):
         self.Bind(wx.EVT_UPDATE_UI, self.uiupdate, id=self.scriptid)
 
     def uiupdate(self, event):
-        if Kernel.GlobalObjects.has_key("ProjectOpen") and (Kernel.GlobalObjects.get_value("ProjectOpen") == True):
+        if "ProjectOpen" in Kernel.GlobalObjects and (Kernel.GlobalObjects.get_value("ProjectOpen") == True):
             event.Enable(True)
         else:
             event.Enable(False)

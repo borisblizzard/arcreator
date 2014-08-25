@@ -81,7 +81,7 @@ class PanelManager(object):
         #Check to see if we should dock or float this panel
         if not info_obj.IsFloating():
             targetid = self.LastActive[info_obj.dock_direction_get()]
-            if (self.dispached.has_key(targetid)) and (self.dispached[targetid] != None):
+            if (targetid in self.dispached) and (self.dispached[targetid] != None):
                 docktarget = self.getPanelInfo(targetid)
 
         #check to see if the pane exists already
@@ -95,7 +95,7 @@ class PanelManager(object):
         else:
             
             # prevent duplicates
-            if self.dispached.has_key(id):
+            if id in self.dispached:
                 self.remove_panel(id)
             #build the window instance
             panel_instance = panel(self.parent, *arguments)
@@ -115,7 +115,7 @@ class PanelManager(object):
         removes the panel mapped to id from the AUI manager and destroys it
         then removed id from the dispatched dict
         '''
-        if (self.dispached.has_key(id)) and (self.dispached[id] != None):
+        if (id in self.dispached) and (self.dispached[id] != None):
             info = self.getPanelInfo(id)
             if info is not None:
                 info.Float()
@@ -159,31 +159,31 @@ class PanelManager(object):
                 info_obj.Center()
             #caption
             if "CaptionV" in word:
-                if data.has_key("CaptionV"):
+                if "CaptionV" in data:
                     info_obj.CaptionVisible(data["CaptionV"])
                 else:
                     info_obj.CaptionVisible(True)
             elif "Caption" in word:
-                if data.has_key("Caption"):
+                if "Caption" in data:
                     info_obj.Caption(data["Caption"])
             #best size
             if "BestS" in word:
-                if data.has_key("BestS"):
+                if "BestS" in data:
                     info_obj.BestSize(data["BestS"])
             #close button
             if "CloseB" in word:
-                if data.has_key("CloseB"):
+                if "CloseB" in data:
                     info_obj.CloseButton(data["CloseB"])
                 else:
                     info_obj.CloseButton(True)
             #bottom
             if "BottomD" in word:
-                if data.has_key("BottomD"):
+                if "BottomD" in data:
                     info_obj.BottomDockable(data["BottomD"])
                 else:
                     info_obj.BottomDockable(True)
             elif "BottomS" in word:
-                if data.has_key("BottomS"):
+                if "BottomS" in data:
                     info_obj.BottomSnappable(data["BottomS"])
                 else:
                     info_obj.BottomSnappable(True)
@@ -194,18 +194,18 @@ class PanelManager(object):
                 info_obj.DefaultPane()
             #destroy on close
             if "DestroyOC" in word:
-                if data.has_key("DestroyOC"):
+                if "DestroyOC" in data:
                     info_obj.DestroyOnClose(data["DestroyOC"])
                 else:
                     info_obj.DestroyOnClose(True)
             #dock
             if "DockF" in word:
-                if data.has_key("DockF"):
+                if "DockF" in data:
                     info_obj.DockFixed(data["DockF"])
                 else:
                     info_obj.DockFixed(True)
             elif "Dockable" in word:
-                if data.has_key("Dockable"):
+                if "Dockable" in data:
                     info_obj.Dockable(data["Dockable"])
                 else:
                     info_obj.Dockable(True)
@@ -216,32 +216,32 @@ class PanelManager(object):
                 info_obj.Fixed()
             #float
             if "Floatable" in word:
-                if data.has_key("Floatable"):
+                if "Floatable" in data:
                     info_obj.Floatable(data["Floatable"])
                 else:
                     info_obj.Floatable(True)
             elif "FloatingP" in word:
-                if data.has_key("FloatingP"):
+                if "FloatingP" in data:
                     info_obj.FloatingPosition(data["FloatingP"])
             elif "FloatingS" in word:
-                if data.has_key("FloatingS"):
+                if "FloatingS" in data:
                     info_obj.FloatingSize(data["FloatingS"])
             elif "Float" in word:
                 info_obj.Float()
             #flyout
             if "FlyOut" in word:
-                if data.has_key("FlyOut"):
+                if "FlyOut" in data:
                     info_obj.FlyOut(data["FlyOut"])
                 else:
                     info_obj.FlyOut(True)
             #gripper
             if "GripperT" in word:
-                if data.has_key("GripperT"):
+                if "GripperT" in data:
                     info_obj.GripperTop(data["GripperT"])
                 else:
                     info_obj.GripperTop(True)
             elif "Gripper" in word:
-                if data.has_key("Gripper"):
+                if "Gripper" in data:
                     info_obj.Gripper(data["Gripper"])
                 else:
                     info_obj.Gripper()
@@ -250,25 +250,25 @@ class PanelManager(object):
                 info_obj.Hide()
             #icon
             if "IconARCM" in word:
-                if data.has_key("IconARCM"):
+                if "IconARCM" in data:
                     IconManager = KM.get_component("IconManager").object
                     icon = IconManager.getBitmap(data["IconARCM"])
                     info_obj.Icon(icon)
             elif "Icon" in word:
-                if data.has_key("Icon"):
+                if "Icon" in data:
                     info_obj.Icon(data["Icon"])
             #layer
             if "Layer" in word:
-                if data.has_key("Layer"):
+                if "Layer" in data:
                     info_obj.Layer(data["Layer"])
             #left
             if "LeftD" in word:
-                if data.has_key("LeftD"):
+                if "LeftD" in data:
                     info_obj.LeftDockable(data["LeftD"])
                 else:
                     info_obj.LeftDockable(True)
             elif "LeftS" in word:
-                if data.has_key("LeftS"):
+                if "LeftS" in data:
                     info_obj.LeftSnappable(data["LeftS"])
                 else:
                     info_obj.LeftSnappable(True)
@@ -276,11 +276,11 @@ class PanelManager(object):
                 info_obj.Left()
             #max size
             if "MaxS" in word:
-                if data.has_key("MaxS"):
+                if "MaxS" in data:
                     info_obj.MaxSize(data["MaxS"])
             #maximize
             if "MaximizeB" in word:
-                if data.has_key("MaximizeB"):
+                if "MaximizeB" in data:
                     info_obj.MaximizeButton(data["MaximizeB"])
                 else:
                     info_obj.MaximizeButton(True)
@@ -288,16 +288,16 @@ class PanelManager(object):
                 info_obj.Maximize()
             #min size
             if "MinS" in word:
-                if data.has_key("MinS"):
+                if "MinS" in data:
                     info_obj.MinSize(*data["MinS"])
             #minimize
             if "MinimizeB" in word:
-                if data.has_key("MinimizeB"):
+                if "MinimizeB" in data:
                     info_obj.MinimizeButton(data["MinimizeB"])
                 else:
                     info_obj.MinimizeButton(True)
             elif "MinimizeM" in word:
-                if data.has_key("MinimizeM"):
+                if "MinimizeM" in data:
                     mode = 0
                     for flag in data["MinimizeM"]:
                         mode |= self.minmodes[flag]
@@ -306,52 +306,52 @@ class PanelManager(object):
                 info_obj.Minimize()
             #movable
             if "Movable" in word:
-                if data.has_key("Movable"):
+                if "Movable" in data:
                     info_obj.Movable(data["Movable"])
                 else:
                     info_obj.Movable(True)
             #name
             if "Name" in word:
-                if data.has_key("Name"):
+                if "Name" in data:
                     info_obj.Name(data["Name"])
             #notebook
             if "NotebookC" in word:
-                if data.has_key("NotebookC"):
+                if "NotebookC" in data:
                     info_obj.NotebookControl(data["NotebookC"])
             elif "NotebookD" in word:
-                if data.has_key("NotebookD"):
+                if "NotebookD" in data:
                     info_obj.NotebookDockable(data["NotebookD"])
                 else:
                     info_obj.NotebookDockable(True)
             elif "NotebookP" in word:
-                if data.has_key("NotebookP"):
+                if "NotebookP" in data:
                     info_obj.NotebookPage(*data["NotebookP"])
             #pane border
             if "PaneB" in word:
-                if data.has_key("PaneB"):
+                if "PaneB" in data:
                     info_obj.PaneBorder(data["PaneB"])
                 else:
                     info_obj.PaneBorder(True)
             #pin
             if "PinB" in word:
-                if data.has_key("PinB"):
+                if "PinB" in data:
                     info_obj.PinButton(data["PinB"])
                 else:
                     info_obj.PinButton(True)
             #resizeable
             if "Resizable" in word:
-                if data.has_key("Resizable"):
+                if "Resizable" in data:
                     info_obj.Resizable(data["Resizable"])
                 else:
                     info_obj.Resizable(True)
             #right
             if "RightD" in word:
-                if data.has_key("RightD"):
+                if "RightD" in data:
                     info_obj.RightDockable(data["RightD"])
                 else:
                     info_obj.RightDockable(True)
             elif "RightS" in word:
-                if data.has_key("RightS"):
+                if "RightS" in data:
                     info_obj.RightSnappable(data["RightS"])
                 else:
                     info_obj.RightSnappable(True)
@@ -359,14 +359,14 @@ class PanelManager(object):
                 info_obj.Right()
             #row
             if "Row" in word:
-                if data.has_key("Row"):
+                if "Row" in data:
                     info_obj.Row(data["Row"])
             #show
             if "Show" in word:
                 info_obj.Show(True)
             #snappable
             if "Snappable" in word:
-                if data.has_key("Snappable"):
+                if "Snappable" in data:
                     info_obj.Snappable(data["Snappable"])
                 else:
                     info_obj.Snappable(True)
@@ -375,12 +375,12 @@ class PanelManager(object):
                 info_obj.ToolbarPane()
             #top
             if "TopD" in word:
-                if data.has_key("TopD"):
+                if "TopD" in data:
                     info_obj.TopDockable(data["TopD"])
                 else:
                     info_obj.TopDockable(True)
             elif "TopS" in word:
-                if data.has_key("TopS"):
+                if "TopS" in data:
                     info_obj.TopSnappable(data["TopS"])
                 else:
                     info_obj.TopSnappable(True)
@@ -388,7 +388,7 @@ class PanelManager(object):
                 info_obj.Top()
             #Transparent
             if "Transparent" in word:
-                if data.has_key("Transparent"):
+                if "Transparent" in data:
                     info_obj.Transparent(data["Transparent"])
 
         return info_obj
@@ -397,7 +397,7 @@ class PanelManager(object):
         '''
         retrives the Window object of a panel from the idea it was dispatched with, other wise returns None
         '''
-        if (self.dispached.has_key(id)) and (self.dispached[id] != None):
+        if (id in self.dispached) and (self.dispached[id] != None):
             return self.dispached[id]
         return None
 
@@ -414,7 +414,7 @@ class PanelManager(object):
 
     def getPanelID(self, window):
         ''' gets the id a panel was dispatched with '''
-        if (self.IDs.has_key(window)) and (self.IDs[window] != None):
+        if (window in self.IDs) and (self.IDs[window] != None):
             return self.IDs[window]
         return None
 
@@ -439,7 +439,7 @@ class PanelManager(object):
         returns the number of center direction panels that are still docked
         '''
         i = 0
-        for id in self.dispached.iterkeys():
+        for id in self.dispached.keys():
             info = self.getPanelInfo(id)
             if info.dock_direction_get() == aui.AUI_DOCK_CENTER:
                 if not info.IsFloating():

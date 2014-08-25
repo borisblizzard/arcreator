@@ -63,7 +63,7 @@ class Enemies_Panel( Templates.Enemies_Panel, PanelBase ):
         """Sets the ranges of allowed values for the controls"""
         self.ParameterControls[0].SetRange(1, Config.getint('DatabaseLimits', 'EnemyHP'))
         self.ParameterControls[1].SetRange(1, Config.getint('DatabaseLimits', 'EnemySP'))
-        for i in xrange(2, len(self.ParameterControls)):
+        for i in range(2, len(self.ParameterControls)):
             self.ParameterControls[i].SetRange(0, 
                 Config.getint('DatabaseLimits', 'EnemyParameter'))
 
@@ -95,7 +95,7 @@ class Enemies_Panel( Templates.Enemies_Panel, PanelBase ):
     def refreshStates( self ):
         """Clears and refreshes the list of states in the checklist"""
         self.checkListStates.DeleteAllItems()
-        names = [DataStates[i].name for i in xrange(DM.FixedIndex(0), len(DataStates))]
+        names = [DataStates[i].name for i in range(DM.FixedIndex(0), len(DataStates))]
         self.checkListStates.AppendItems(names)
 
     def refreshElements( self ):

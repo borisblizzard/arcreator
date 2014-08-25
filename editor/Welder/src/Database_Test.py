@@ -56,7 +56,7 @@ class Test(wx.App):
         
         nb = wx.Notebook( self.frame )
 
-        Panels = [None for i in xrange(14)]
+        Panels = [None for i in range(14)]
         Panels[0] = ('Actors', 'Actors_Panel')
         Panels[1] = ('Classes', 'Classes_Panel')
         Panels[2] = ('Skills', 'Skills_Panel')
@@ -88,22 +88,22 @@ class Test(wx.App):
         projectloader = KM.get_component("ARCProjectLoader").object()
         projectloader.load(TEST_PATH)
         #place the project in the global namespace
-        if Kernel.GlobalObjects.has_key("PROJECT"):
+        if "PROJECT" in Kernel.GlobalObjects:
             Kernel.GlobalObjects.set_value("PROJECT", projectloader.getProject())
         else:
             Kernel.GlobalObjects.request_new_key("PROJECT", "CORE", projectloader.getProject())
         #set the Project Title
-        if Kernel.GlobalObjects.has_key("Title"):
+        if "Title" in Kernel.GlobalObjects:
             Kernel.GlobalObjects.set_value("Title", projectloader.getProject().getInfo("Title"))
         else:
             Kernel.GlobalObjects.request_new_key("Title", "CORE", projectloader.getProject().getInfo("Title"))
         #set the current project directory
-        if Kernel.GlobalObjects.has_key("CurrentProjectDir"):
+        if "CurrentProjectDir" in Kernel.GlobalObjects:
             Kernel.GlobalObjects.set_value("CurrentProjectDir", os.path.dirname(TEST_PATH))
         else:
             Kernel.GlobalObjects.request_new_key("CurrentProjectDir", "CORE", os.path.dirname(TEST_PATH))
         #set that there is an open project
-        if Kernel.GlobalObjects.has_key("ProjectOpen"):
+        if "ProjectOpen" in Kernel.GlobalObjects:
             Kernel.GlobalObjects.set_value("ProjectOpen", True)
         else:
             Kernel.GlobalObjects.request_new_key("ProjectOpen", "CORE", True)
@@ -111,14 +111,14 @@ class Test(wx.App):
 # Create window and execute the main loop
 if __name__ == '__main__':
 
-    if Kernel.GlobalObjects.has_key("Program_Dir"):
+    if "Program_Dir" in Kernel.GlobalObjects:
         Kernel.GlobalObjects.set_value("Program_Dir", LOCAL_PATH)
     else:
         Kernel.GlobalObjects.request_new_key("Program_Dir", "CORE", LOCAL_PATH)
 
-    print "[BOOT] Programming Running in %s" % dirName
-    print "[BOOT] LOCAL PATH: %s" % LOCAL_PATH
-    print "[BOOT] CONFIG PATH: %s" % Kernel.GetConfigFolder()
+    print("[BOOT] Programming Running in %s" % dirName)
+    print("[BOOT] LOCAL PATH: %s" % LOCAL_PATH)
+    print("[BOOT] CONFIG PATH: %s" % Kernel.GetConfigFolder())
 
     import Boot
     Boot.ConfigManager.LoadConfig()

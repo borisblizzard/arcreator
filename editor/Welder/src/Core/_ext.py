@@ -1,6 +1,6 @@
 import wx
 from wx import glcanvas
-from wx import xrc, combo, grid
+from wx import xrc, grid
 import PIL 
 from PIL import Image
 import numpy as np
@@ -16,7 +16,7 @@ import os
 import sys
 import copy
 import math
-import ConfigParser
+import configparser
 from wx.lib.embeddedimage import PyEmbeddedImage
 import wx.lib.agw.advancedsplash as AS
 import wx.stc

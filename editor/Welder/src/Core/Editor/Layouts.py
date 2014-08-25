@@ -17,7 +17,7 @@ class MainWindowLayout(object):
         self.parent = parent
         self.aui_mgr = aui_mgr
         self.mgr = KM.get_component("PanelManager").object(self.parent, self.aui_mgr)
-        if Kernel.GlobalObjects.has_key("PanelManager"):
+        if "PanelManager" in Kernel.GlobalObjects:
             Kernel.GlobalObjects.set_value("PanelManager", self.mgr)
         else:
             Kernel.GlobalObjects.request_new_key("PanelManager", "CORE", self.mgr)
@@ -46,7 +46,7 @@ class ARCModeLayout(object):
     
     def __init__(self):
 
-        if Kernel.GlobalObjects.has_key("PanelManager"):
+        if "PanelManager" in Kernel.GlobalObjects:
             self.mgr = Kernel.GlobalObjects.get_value("PanelManager")
         else:
             raise RuntimeError("The Panel Manager hasn't been created yet")
@@ -55,7 +55,7 @@ class ARCModeLayout(object):
 
 
     def BuildPanes(self):
-        if Kernel.GlobalObjects.has_key("ProjectOpen") and (Kernel.GlobalObjects.get_value("ProjectOpen") == True) and Kernel.GlobalObjects.has_key("PROJECT"):
+        if "ProjectOpen" in Kernel.GlobalObjects and (Kernel.GlobalObjects.get_value("ProjectOpen") == True) and "PROJECT" in Kernel.GlobalObjects:
             self.CreateTilesetView()
             self.CreateTreeCtrl()
             #self.regesterParts()

@@ -26,7 +26,7 @@ class Skill_Dialog( Templates.Skill_Dialog ):
 			start = 1
 			skill_id -= 1
 		items = ["".join([str(i).zfill(digits), ': ', 
-			skills[i].name]) for i in xrange(start, len(skills))]
+			skills[i].name]) for i in range(start, len(skills))]
 		self.comboBoxSkills.AppendItems(items)
 		self.comboBoxSkills.SetSelection(skill_id)
 	

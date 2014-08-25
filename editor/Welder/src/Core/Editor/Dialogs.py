@@ -5,7 +5,7 @@ Created on Jan 16, 2011
 '''
 import os
 import sys
-import ConfigParser
+import configparser
 import re
 
 import wx
@@ -199,7 +199,7 @@ class NewProjectDialog(wx.Dialog):
         self.Bind(wx.EVT_BUTTON, self.OnFolder, self.folderBtn)
 
     def getTemplateProjectName(self, path):
-        config = ConfigParser.ConfigParser()
+        config = configparser.ConfigParser()
         config.read(os.path.normpath(path))
         title = config.get("Project", "Title")
         return title
@@ -281,7 +281,7 @@ class NewProjectDialog(wx.Dialog):
         if not os.path.exists(string) and not os.path.isdir(string):
             try:
                 os.mkdir(string)
-            except StandardError:
+            except Exception:
                 caption = "Welder"
                 message = "Failed to make Project folder, please provide a " \
                           "valid folder name."

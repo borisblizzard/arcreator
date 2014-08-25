@@ -19,7 +19,7 @@ class ImageCheckList(wx.ListCtrl):
 		self.DeleteAllItems()
 
 	def AppendItems(self, items ):
-		for i in xrange(len(items)):
+		for i in range(len(items)):
 			self.InsertStringItem(i, items[i], 0)
 
 	def GetNumberStates( self ):
@@ -31,7 +31,7 @@ class ImageCheckList(wx.ListCtrl):
 	def SetStates( self, states, imagelist ):
 		if len(states) != imagelist.GetImageCount():
 			from exceptions import ValueError
-			raise(ValueError('List of states and images must be same length!'))
+			raise ValueError
 		self._states = states
 		self.AssignImageList( imagelist, wx.IMAGE_LIST_SMALL)
 
@@ -46,13 +46,13 @@ class ImageCheckList(wx.ListCtrl):
 
 	def GetChecked( self ):
 		checked = []
-		for i in xrange(self.GetItemCount()):
+		for i in range(self.GetItemCount()):
 			if self.GetItem(i).GetImage() != self.NullState:
 				checked.append(i)
 		return checked
 
 	def SetChecked( self, indices, state=1):
-		for i in xrange(self.GetItemCount()):
+		for i in range(self.GetItemCount()):
 			if i in indices:
 				self.SetItemImage(i, state)
 			else:

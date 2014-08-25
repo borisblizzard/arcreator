@@ -12,7 +12,7 @@ import os
 import sys
 import types
 
-import ConfigParser
+import configparser
 
 import importlib
 
@@ -45,7 +45,7 @@ class Config(object):
         self.sections = {}
 
     def has_section(self, key):
-        return self.sections.has_key(str(key).lower())
+        return str(key).lower() in self.sections
 
     def add_section(self, key):
         if not self.has_section(key):
@@ -58,7 +58,7 @@ class Config(object):
             return self.sections[str(key).lower()]
         else:
             Kernel.Log("No config section '%s'" % key, "[Config]")
-            return  ConfigSection()
+            return ConfigSection()
 
     def get(self, key, item):
         if self.has_section(key):
@@ -92,7 +92,7 @@ class ConfigSection(object):
         self.items = {}
 
     def has_item(self, key):
-        return self.items.has_key(str(key).lower())
+        return str(key).lower() in self.items
 
     def set(self, key, value):
         self.items[str(key).lower()] = str(value)
@@ -113,22 +113,22 @@ class ConfigManager(object):
     def LoadConfig():
         #main Config
         local_Welder_path = os.path.join(Kernel.GlobalObjects.get_value("Program_Dir"), "Welder.cfg")
-        print "[BOOT] CFG FILE: %s" % local_Welder_path
+        print("[BOOT] CFG FILE: %s" % local_Welder_path)
         Welder_cfg = ConfigManager.PhraseCFGFile(local_Welder_path, dict={"INSTALLDIR": Kernel.GlobalObjects.get_value("Program_Dir"), "COMMONPROGRAMFILES": "%COMMONPROGRAMFILES%"})
         try:
             user_Welder_path = os.path.join(Kernel.GetConfigFolder(), "Welder.cfg")
             if os.path.exists(user_Welder_path):
                 Welder_cfg = ConfigManager.PhraseCFGFile(user_Welder_path, Welder_cfg)
-        except StandardError:
+        except Exception:
             Kernel.Log("Failed to load user config", "[Main]", error=True)
-        if Kernel.GlobalObjects.has_key("Welder_config"):
+        if "Welder_config" in Kernel.GlobalObjects:
             Kernel.GlobalObjects.set_value("Welder_config", Welder_cfg)
         else:
             Kernel.GlobalObjects.request_new_key("Welder_config", "CORE", Welder_cfg)
         #wx config
         wx_config = wx.FileConfig(appName="Welder", vendorName="arc@chaos-project.com", 
                                     localFilename=os.path.join(Kernel.GetConfigFolder(), "filehistory.cfg"))
-        if Kernel.GlobalObjects.has_key("WX_config"):
+        if "WX_config" in Kernel.GlobalObjects:
             Kernel.GlobalObjects.set_value("WX_config", wx_config)
         else:
             Kernel.GlobalObjects.request_new_key("WX_config", "CORE", wx_config)
@@ -139,9 +139,9 @@ class ConfigManager(object):
             user_defaults_path = os.path.join(Kernel.GetConfigFolder(), "user_defaults.ini")
             if os.path.exists(user_defaults_path):
                 template = Kernel.KernelConfig.build_from_file(user_defaults_path, template)
-        except StandardError:
+        except Exception:
             Kernel.Log("Failed to load user component defaults", "[Main]", error=True)
-        if Kernel.GlobalObjects.has_key("DefaultComponentTemplate"):
+        if "DefaultComponentTemplate" in Kernel.GlobalObjects:
             Kernel.GlobalObjects.set_value("DefaultComponentTemplate", template)
         else:
             Kernel.GlobalObjects.request_new_key("DefaultComponentTemplate", "CORE", template)
@@ -158,7 +158,7 @@ class ConfigManager(object):
     def PhraseCFGFile(file_path, config=None, dict=None):
         if config is None:
             config = Config()
-        configphraser = ConfigParser.ConfigParser()
+        configphraser = configparser.ConfigParser()
         configphraser.read(file_path)
         for section in configphraser.sections():
             if not config.has_section(section):
@@ -172,10 +172,10 @@ class ConfigManager(object):
 
     @staticmethod
     def SaveCFGFile(file_path, config_obj):
-        config = ConfigParser.ConfigParser()
+        config = configparser.ConfigParser()
         for section_name, section in config_obj.itersections():
             config.add_section(str(section_name))
-            for name, value in section.iteritems():
+            for name, value in section.items():
                 config.set(str(section_name), str(name), str(value))
         f = open(file_path, "wb")
         config.write(f)
@@ -192,10 +192,10 @@ class ConfigManager(object):
                 if os.path.exists(name):
                     if os.path.isdir(name):
                         if os.path.exists(os.path.join(name, "__init__.py")) and not os.path.isdir(os.path.join(name, "__init__.py")):
-                            execfile(os.path.join(name, "__init__.py"), globals())
+                            exec(compile(open(os.path.join(name, "__init__.py")).read(), os.path.join(name, "__init__.py"), 'exec'), globals())
                     #else:
                     #    execfile(os.path.join(name, "__init__.py"), globals())
-            except StandardError:
+            except Exception:
                 ConfigManager.HandelErrorLoadingPlugin(name, plugin_path)
             
     @staticmethod
@@ -206,7 +206,7 @@ class ARCSplashScreen(AS.AdvancedSplash):
     def __init__(self):
         #get the splashscreen logo
         #bmp = bitmap = wx.Bitmap(os.path.join(Kernel.GlobalObjects.get_value("Program_Dir"), "arc-logo.png"), wx.BITMAP_TYPE_PNG)
-        bmp = Logo.getlogoImage().ConvertToBitmap()
+        bmp = Logo.getlogoBitmap()
         shadow = wx.WHITE
         AS.AdvancedSplash.__init__(self, None, bitmap=bmp,
                                    agwStyle=AS.AS_NOTIMEOUT| 
@@ -272,18 +272,18 @@ class ARC_App(wx.App):
 
         self.SplashScreen = ARCSplashScreen()
         self.SplashScreen.Show()
-        self.fc = wx.FutureCall(10, Kernel.Protect(self.SplashScreen.Do_Setup, exit_on_fail=True))
+        self.fc = wx.CallLater(10, Kernel.Protect(self.SplashScreen.Do_Setup, exit_on_fail=True))
 
         self.keepGoing = True
         return True
 
 def Run(programDir):
-    if Kernel.GlobalObjects.has_key("Program_Dir"):
+    if "Program_Dir" in Kernel.GlobalObjects:
         Kernel.GlobalObjects.set_value("Program_Dir", programDir)
     else:
         Kernel.GlobalObjects.request_new_key("Program_Dir", "CORE", programDir)
 
-    print "[BOOT] Programming Running in %s" % programDir
+    print("[BOOT] Programming Running in %s" % programDir)
     
     provider = wx.SimpleHelpProvider()
     wx.HelpProvider.Set(provider)

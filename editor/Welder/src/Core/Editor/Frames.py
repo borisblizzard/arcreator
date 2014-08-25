@@ -104,7 +104,7 @@ class CoreEditorMainWindow(wx.Frame):
     def CreateMenuBar(self):
         self.menubar = KM.get_component("MainMenuBar").object(self)
         self.SetMenuBar(self.menubar) #Adding the MenuBar to the Frame.
-        if Kernel.GlobalObjects.has_key("MainMenuBar"):
+        if "MainMenuBar" in Kernel.GlobalObjects:
             Kernel.GlobalObjects.set_value("MainMenuBar", self.menubar)
         else:
             Kernel.GlobalObjects.request_new_key("MainMenuBar", "CORE", self.menubar)
@@ -112,7 +112,7 @@ class CoreEditorMainWindow(wx.Frame):
     def CreateStatusBar(self):
         self.statusbar = (KM.get_component("MainStatusBar").object(self))
         self.SetStatusBar(self.statusbar)
-        if Kernel.GlobalObjects.has_key("MainStatusBar"):
+        if "MainStatusBar" in Kernel.GlobalObjects:
             Kernel.GlobalObjects.set_value("MainStatusBar", self.menubar)
         else:
             Kernel.GlobalObjects.request_new_key("MainStatusBar", "CORE", self.statusbar)
@@ -123,7 +123,7 @@ class CoreEditorMainWindow(wx.Frame):
         self._mgr.Update()
 
     def UpdateUI(self, event):
-        if Kernel.GlobalObjects.has_key("Title"):
+        if "Title" in Kernel.GlobalObjects:
             if Kernel.GlobalObjects.get_value("Title") != "":
                 title = self.main_title + " - " + Kernel.GlobalObjects.get_value("Title")
                 if self.GetTitle() !=  title:
@@ -155,7 +155,7 @@ class CoreEditorMainWindow(wx.Frame):
     def ProcessClose(self):
         #handle an open project
         KM.raise_event("CoreExitMainWindow")
-        if Kernel.GlobalObjects.has_key("ProjectOpen") and (Kernel.GlobalObjects.get_value("ProjectOpen") == True) and Kernel.GlobalObjects.has_key("PROJECT"):
+        if "ProjectOpen" in Kernel.GlobalObjects and (Kernel.GlobalObjects.get_value("ProjectOpen") == True) and "PROJECT" in Kernel.GlobalObjects:
             current_project = Kernel.GlobalObjects.get_value("PROJECT")
             if current_project.hasDataChanged() or current_project.hasInfoChanged():
                 message = "There are unsaved changes in the currently open project Do you want to save these changes?"
@@ -191,7 +191,7 @@ class CoreEditorMainWindow(wx.Frame):
         pass
 
     def OnFocus(self, event):
-        if Kernel.GlobalObjects.has_key("PanelManager"):
+        if "PanelManager" in Kernel.GlobalObjects:
             PM = Kernel.GlobalObjects.get_value("PanelManager")
             id = PM.getPanelID(self)
             info = PM.getPanelInfo(id)

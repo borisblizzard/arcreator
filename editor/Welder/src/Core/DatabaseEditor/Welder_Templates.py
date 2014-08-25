@@ -24,7 +24,7 @@ def late_bind():
 
     global WaveFormPanel, EditorGLPanel, ProportionalSplitter, ParameterGraph, ParameterPanel, ImageCheckList, DM, ScriptTextCtrl
 
-    from AudioPlayer_Panel import WaveFormPanel
+    from .AudioPlayer_Panel import WaveFormPanel
     EditorGLPanel = Core.EditorGLPanel
     ProportionalSplitter = Core.Database.Controls.ProportionalSplitter
     ParameterGraph = Core.Database.Controls.ParameterGraph
@@ -57,11 +57,11 @@ class Actors_Panel ( wx.Panel ):
         
         listBoxActorsChoices = []
         self.listBoxActors = wx.ListBox( self, wx.ID_ANY, wx.DefaultPosition, wx.Size( 184,-1 ), listBoxActorsChoices, wx.LB_SINGLE|wx.CLIP_CHILDREN )
-        self.listBoxActors.SetHelpText( u"TEST HELP STRING" )
+        self.listBoxActors.SetHelpText( "TEST HELP STRING" )
         
         ActorListSizer.Add( self.listBoxActors, 1, wx.EXPAND|wx.RIGHT|wx.LEFT, 5 )
         
-        self.buttonMaximum = wx.Button( self, wx.ID_ANY, u"Change Maximum...", wx.DefaultPosition, wx.Size( 150,-1 ), 0 )
+        self.buttonMaximum = wx.Button( self, wx.ID_ANY, "Change Maximum...", wx.DefaultPosition, wx.Size( 150,-1 ), 0 )
         ActorListSizer.Add( self.buttonMaximum, 0, wx.ALL|wx.EXPAND, 5 )
         
         MainSizer.Add( ActorListSizer, 0, wx.EXPAND, 5 )
@@ -72,14 +72,14 @@ class Actors_Panel ( wx.Panel ):
         
         sizer3 = wx.BoxSizer( wx.VERTICAL )
         
-        self.labelName = wx.StaticText( self, wx.ID_ANY, u"Name:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelName = wx.StaticText( self, wx.ID_ANY, "Name:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelName.Wrap( -1 )
         sizer3.Add( self.labelName, 0, wx.ALL|wx.EXPAND, 5 )
         
         self.textCtrlName = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
         sizer3.Add( self.textCtrlName, 0, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
         
-        self.labelClass = wx.StaticText( self, wx.ID_ANY, u"Class:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelClass = wx.StaticText( self, wx.ID_ANY, "Class:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelClass.Wrap( -1 )
         sizer3.Add( self.labelClass, 0, wx.ALL, 5 )
         
@@ -90,11 +90,11 @@ class Actors_Panel ( wx.Panel ):
         
         sizer4 = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.labelInitialLevel = wx.StaticText( self, wx.ID_ANY, u"Initial Level:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelInitialLevel = wx.StaticText( self, wx.ID_ANY, "Initial Level:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelInitialLevel.Wrap( -1 )
         sizer4.Add( self.labelInitialLevel, 1, wx.EXPAND|wx.ALL, 5 )
         
-        self.labelFinalLevel = wx.StaticText( self, wx.ID_ANY, u"Final Level:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelFinalLevel = wx.StaticText( self, wx.ID_ANY, "Final Level:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelFinalLevel.Wrap( -1 )
         sizer4.Add( self.labelFinalLevel, 1, wx.ALL|wx.EXPAND, 5 )
         
@@ -110,14 +110,14 @@ class Actors_Panel ( wx.Panel ):
         
         sizer3.Add( sizer5, 0, wx.EXPAND, 5 )
         
-        self.labelExpCurve = wx.StaticText( self, wx.ID_ANY, u"Experience Curve:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelExpCurve = wx.StaticText( self, wx.ID_ANY, "Experience Curve:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelExpCurve.Wrap( -1 )
         sizer3.Add( self.labelExpCurve, 0, wx.ALL, 5 )
         
         self.comboBoxExpCurve = wx.combo.BitmapComboBox( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, "", wx.CB_READONLY|wx.CLIP_CHILDREN ) 
         sizer3.Add( self.comboBoxExpCurve, 0, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
         
-        self.labelGraphics = wx.StaticText( self, wx.ID_ANY, u"Actor Graphics:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelGraphics = wx.StaticText( self, wx.ID_ANY, "Actor Graphics:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelGraphics.Wrap( -1 )
         sizer3.Add( self.labelGraphics, 0, wx.ALL|wx.EXPAND, 5 )
         
@@ -132,7 +132,7 @@ class Actors_Panel ( wx.Panel ):
         
         parent, id = self.panelCharacter, wx.ID_ANY
         self.glCanvasCharacter = EditorGLPanel(parent, id, 4, 4, (0, 0,), 1)
-        self.glCanvasCharacter.SetHelpText( u"The graphic used for the actor on the map. Double-click to edit." )
+        self.glCanvasCharacter.SetHelpText( "The graphic used for the actor on the map. Double-click to edit." )
         
         sizerCharacter.Add( self.glCanvasCharacter, 1, wx.ALL|wx.EXPAND, 0 )
         
@@ -144,7 +144,7 @@ class Actors_Panel ( wx.Panel ):
         
         parent, id = self.panelBattler, wx.ID_ANY
         self.glCanvasBattler = EditorGLPanel(parent, id, 1, 1, (0, 0,), 1)
-        self.glCanvasBattler.SetHelpText( u"The graphic used for the actor in battle. Double-click to edit." )
+        self.glCanvasBattler.SetHelpText( "The graphic used for the actor in battle. Double-click to edit." )
         
         sizerBattler.Add( self.glCanvasBattler, 1, wx.ALL|wx.EXPAND, 0 )
         
@@ -168,28 +168,28 @@ class Actors_Panel ( wx.Panel ):
         
         sizerConrolsParameter = wx.BoxSizer( wx.HORIZONTAL )
         
-        sizerQuickSettings = wx.StaticBoxSizer( wx.StaticBox( self.pageParameters, wx.ID_ANY, u"Quick Settings" ), wx.HORIZONTAL )
+        sizerQuickSettings = wx.StaticBoxSizer( wx.StaticBox( self.pageParameters, wx.ID_ANY, "Quick Settings" ), wx.HORIZONTAL )
         
-        self.buttonQuickA = wx.Button( self.pageParameters, wx.ID_ANY, u"A", wx.DefaultPosition, wx.Size( 23,23 ), 0 )
+        self.buttonQuickA = wx.Button( self.pageParameters, wx.ID_ANY, "A", wx.DefaultPosition, wx.Size( 23,23 ), 0 )
         sizerQuickSettings.Add( self.buttonQuickA, 0, wx.ALL, 5 )
         
-        self.buttonQuickB = wx.Button( self.pageParameters, wx.ID_ANY, u"B", wx.DefaultPosition, wx.Size( 23,23 ), 0 )
+        self.buttonQuickB = wx.Button( self.pageParameters, wx.ID_ANY, "B", wx.DefaultPosition, wx.Size( 23,23 ), 0 )
         sizerQuickSettings.Add( self.buttonQuickB, 0, wx.TOP|wx.BOTTOM|wx.RIGHT, 5 )
         
-        self.buttonQuickC = wx.Button( self.pageParameters, wx.ID_ANY, u"C", wx.DefaultPosition, wx.Size( 23,23 ), 0 )
+        self.buttonQuickC = wx.Button( self.pageParameters, wx.ID_ANY, "C", wx.DefaultPosition, wx.Size( 23,23 ), 0 )
         sizerQuickSettings.Add( self.buttonQuickC, 0, wx.TOP|wx.BOTTOM|wx.RIGHT, 5 )
         
-        self.buttonQuickD = wx.Button( self.pageParameters, wx.ID_ANY, u"D", wx.DefaultPosition, wx.Size( 23,23 ), 0 )
+        self.buttonQuickD = wx.Button( self.pageParameters, wx.ID_ANY, "D", wx.DefaultPosition, wx.Size( 23,23 ), 0 )
         sizerQuickSettings.Add( self.buttonQuickD, 0, wx.TOP|wx.BOTTOM|wx.RIGHT, 5 )
         
-        self.buttonQuickE = wx.Button( self.pageParameters, wx.ID_ANY, u"E", wx.DefaultPosition, wx.Size( 23,23 ), 0 )
+        self.buttonQuickE = wx.Button( self.pageParameters, wx.ID_ANY, "E", wx.DefaultPosition, wx.Size( 23,23 ), 0 )
         sizerQuickSettings.Add( self.buttonQuickE, 0, wx.TOP|wx.BOTTOM|wx.RIGHT, 5 )
         
         sizerConrolsParameter.Add( sizerQuickSettings, 0, wx.ALL, 5 )
         
         sizerLevel = wx.BoxSizer( wx.VERTICAL )
         
-        self.labelLevel = wx.StaticText( self.pageParameters, wx.ID_ANY, u"Level:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelLevel = wx.StaticText( self.pageParameters, wx.ID_ANY, "Level:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelLevel.Wrap( -1 )
         sizerLevel.Add( self.labelLevel, 0, wx.ALL|wx.EXPAND, 5 )
         
@@ -200,7 +200,7 @@ class Actors_Panel ( wx.Panel ):
         
         sizerValue = wx.BoxSizer( wx.VERTICAL )
         
-        self.labelValue = wx.StaticText( self.pageParameters, wx.ID_ANY, u"Value:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelValue = wx.StaticText( self.pageParameters, wx.ID_ANY, "Value:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelValue.Wrap( -1 )
         sizerValue.Add( self.labelValue, 0, wx.ALL|wx.EXPAND, 5 )
         
@@ -219,20 +219,20 @@ class Actors_Panel ( wx.Panel ):
         
         bSizer640 = wx.BoxSizer( wx.VERTICAL )
         
-        self.buttonAddParameter = wx.Button( self.pageParameters, wx.ID_ANY, u"Add...", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonAddParameter = wx.Button( self.pageParameters, wx.ID_ANY, "Add...", wx.DefaultPosition, wx.DefaultSize, 0 )
         bSizer640.Add( self.buttonAddParameter, 0, wx.TOP|wx.RIGHT|wx.LEFT, 5 )
         
-        self.buttonRemoveParameter = wx.Button( self.pageParameters, wx.ID_ANY, u"Remove", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonRemoveParameter = wx.Button( self.pageParameters, wx.ID_ANY, "Remove", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.buttonRemoveParameter.Enable( False )
         
         bSizer640.Add( self.buttonRemoveParameter, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
         
         bSizer641 = wx.BoxSizer( wx.VERTICAL )
         
-        self.checkBoxScaled = wx.CheckBox( self.pageParameters, wx.ID_ANY, u"Scaled", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.checkBoxScaled = wx.CheckBox( self.pageParameters, wx.ID_ANY, "Scaled", wx.DefaultPosition, wx.DefaultSize, 0 )
         bSizer641.Add( self.checkBoxScaled, 1, wx.ALL|wx.ALIGN_RIGHT|wx.EXPAND, 5 )
         
-        self.buttonGenerate = wx.Button( self.pageParameters, wx.ID_ANY, u"Generate...", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonGenerate = wx.Button( self.pageParameters, wx.ID_ANY, "Generate...", wx.DefaultPosition, wx.DefaultSize, 0 )
         bSizer641.Add( self.buttonGenerate, 0, wx.ALL|wx.ALIGN_BOTTOM, 5 )
         
         bSizer640.Add( bSizer641, 1, wx.ALIGN_RIGHT, 5 )
@@ -244,15 +244,15 @@ class Actors_Panel ( wx.Panel ):
         self.pageParameters.SetSizer( MainSizerParamter )
         self.pageParameters.Layout()
         MainSizerParamter.Fit( self.pageParameters )
-        self.noteBookActorParameters.AddPage( self.pageParameters, u"MaxHP", True )
+        self.noteBookActorParameters.AddPage( self.pageParameters, "MaxHP", True )
         self.pageSP = wx.Panel( self.noteBookActorParameters, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
-        self.noteBookActorParameters.AddPage( self.pageSP, u"MaxSP", False )
+        self.noteBookActorParameters.AddPage( self.pageSP, "MaxSP", False )
         
         sizerParameters.Add( self.noteBookActorParameters, 1, wx.EXPAND |wx.ALL, 5 )
         
         sizer2.Add( sizerParameters, 45, wx.EXPAND, 5 )
         
-        sizerEquipment = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Initial Equipment" ), wx.VERTICAL )
+        sizerEquipment = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, "Initial Equipment" ), wx.VERTICAL )
         
         self.scrolledWindowEquipment = wx.ScrolledWindow( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.CLIP_CHILDREN|wx.VSCROLL )
         self.scrolledWindowEquipment.SetScrollRate( 5, 5 )
@@ -265,7 +265,7 @@ class Actors_Panel ( wx.Panel ):
         
         sizer2.Add( sizerEquipment, 35, wx.EXPAND|wx.ALL, 5 )
         
-        self.labelNotes = wx.StaticText( self, wx.ID_ANY, u"Notes:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelNotes = wx.StaticText( self, wx.ID_ANY, "Notes:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelNotes.Wrap( -1 )
         sizer2.Add( self.labelNotes, 0, wx.ALL, 5 )
         
@@ -416,7 +416,7 @@ class Classes_Panel ( wx.Panel ):
         self.listBoxClasses = wx.ListBox( self, wx.ID_ANY, wx.DefaultPosition, wx.Size( 184,-1 ), listBoxClassesChoices, wx.LB_SINGLE|wx.CLIP_CHILDREN )
         ClassListSizer.Add( self.listBoxClasses, 1, wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
         
-        self.buttonMaximum = wx.Button( self, wx.ID_ANY, u"Change Maximum...", wx.DefaultPosition, wx.Size( 150,-1 ), 0 )
+        self.buttonMaximum = wx.Button( self, wx.ID_ANY, "Change Maximum...", wx.DefaultPosition, wx.Size( 150,-1 ), 0 )
         ClassListSizer.Add( self.buttonMaximum, 0, wx.ALL|wx.EXPAND, 5 )
         
         MainSizer.Add( ClassListSizer, 0, wx.EXPAND, 5 )
@@ -429,14 +429,14 @@ class Classes_Panel ( wx.Panel ):
         
         bSizer65 = wx.BoxSizer( wx.VERTICAL )
         
-        self.labelName = wx.StaticText( self, wx.ID_ANY, u"Name:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelName = wx.StaticText( self, wx.ID_ANY, "Name:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelName.Wrap( -1 )
         bSizer65.Add( self.labelName, 0, wx.ALL|wx.EXPAND, 5 )
         
         self.textCtrlName = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
         bSizer65.Add( self.textCtrlName, 0, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
         
-        self.labelWeapons = wx.StaticText( self, wx.ID_ANY, u"Equippable Weapons:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelWeapons = wx.StaticText( self, wx.ID_ANY, "Equippable Weapons:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelWeapons.Wrap( -1 )
         bSizer65.Add( self.labelWeapons, 0, wx.ALL|wx.EXPAND, 5 )
         
@@ -446,10 +446,10 @@ class Classes_Panel ( wx.Panel ):
         
         bSizer68 = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.buttonWeaponAll = wx.Button( self, wx.ID_ANY, u"All", wx.DefaultPosition, wx.Size( -1,19 ), 0 )
+        self.buttonWeaponAll = wx.Button( self, wx.ID_ANY, "All", wx.DefaultPosition, wx.Size( -1,19 ), 0 )
         bSizer68.Add( self.buttonWeaponAll, 1, wx.BOTTOM|wx.LEFT|wx.EXPAND, 5 )
         
-        self.buttonWeaponNone = wx.Button( self, wx.ID_ANY, u"None", wx.DefaultPosition, wx.Size( -1,19 ), 0 )
+        self.buttonWeaponNone = wx.Button( self, wx.ID_ANY, "None", wx.DefaultPosition, wx.Size( -1,19 ), 0 )
         bSizer68.Add( self.buttonWeaponNone, 1, wx.EXPAND|wx.BOTTOM|wx.RIGHT, 5 )
         
         bSizer65.Add( bSizer68, 0, wx.EXPAND, 5 )
@@ -460,7 +460,7 @@ class Classes_Panel ( wx.Panel ):
         
         bSizer651 = wx.BoxSizer( wx.VERTICAL )
         
-        self.labelPosition = wx.StaticText( self, wx.ID_ANY, u"Position:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelPosition = wx.StaticText( self, wx.ID_ANY, "Position:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelPosition.Wrap( -1 )
         bSizer651.Add( self.labelPosition, 0, wx.ALL|wx.EXPAND, 5 )
         
@@ -469,7 +469,7 @@ class Classes_Panel ( wx.Panel ):
         self.comboBoxPosition.SetSelection( 0 )
         bSizer651.Add( self.comboBoxPosition, 0, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
         
-        self.labelArmors = wx.StaticText( self, wx.ID_ANY, u"Equippable Armors:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelArmors = wx.StaticText( self, wx.ID_ANY, "Equippable Armors:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelArmors.Wrap( -1 )
         bSizer651.Add( self.labelArmors, 0, wx.ALL|wx.EXPAND, 5 )
         
@@ -479,10 +479,10 @@ class Classes_Panel ( wx.Panel ):
         
         sizerOKRemove = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.buttonArmorAll = wx.Button( self, wx.ID_ANY, u"All", wx.DefaultPosition, wx.Size( -1,19 ), 0 )
+        self.buttonArmorAll = wx.Button( self, wx.ID_ANY, "All", wx.DefaultPosition, wx.Size( -1,19 ), 0 )
         sizerOKRemove.Add( self.buttonArmorAll, 1, wx.EXPAND|wx.BOTTOM|wx.LEFT, 5 )
         
-        self.buttonArmorNone = wx.Button( self, wx.ID_ANY, u"None", wx.DefaultPosition, wx.Size( -1,19 ), 0 )
+        self.buttonArmorNone = wx.Button( self, wx.ID_ANY, "None", wx.DefaultPosition, wx.Size( -1,19 ), 0 )
         sizerOKRemove.Add( self.buttonArmorNone, 1, wx.EXPAND|wx.BOTTOM|wx.RIGHT, 5 )
         
         bSizer651.Add( sizerOKRemove, 0, wx.EXPAND, 5 )
@@ -493,7 +493,7 @@ class Classes_Panel ( wx.Panel ):
         
         bSizer616.Add( bSizer6171, 75, wx.EXPAND, 5 )
         
-        self.labelNotes = wx.StaticText( self, wx.ID_ANY, u"Notes:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelNotes = wx.StaticText( self, wx.ID_ANY, "Notes:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelNotes.Wrap( -1 )
         bSizer616.Add( self.labelNotes, 0, wx.ALL, 5 )
         
@@ -506,11 +506,11 @@ class Classes_Panel ( wx.Panel ):
         
         bSizer74 = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.labelElements = wx.StaticText( self, wx.ID_ANY, u"Element Efficiency:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelElements = wx.StaticText( self, wx.ID_ANY, "Element Efficiency:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelElements.Wrap( -1 )
         bSizer74.Add( self.labelElements, 1, wx.ALL|wx.EXPAND, 5 )
         
-        self.labelStates = wx.StaticText( self, wx.ID_ANY, u"State Efficiency:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelStates = wx.StaticText( self, wx.ID_ANY, "State Efficiency:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelStates.Wrap( -1 )
         bSizer74.Add( self.labelStates, 1, wx.ALL|wx.EXPAND, 5 )
         
@@ -538,7 +538,7 @@ class Classes_Panel ( wx.Panel ):
         
         bSizer67.Add( bSizer617, 0, wx.EXPAND, 5 )
         
-        self.labelSkills = wx.StaticText( self, wx.ID_ANY, u"Skills to Learn:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelSkills = wx.StaticText( self, wx.ID_ANY, "Skills to Learn:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelSkills.Wrap( -1 )
         bSizer67.Add( self.labelSkills, 0, wx.ALL, 5 )
         
@@ -547,10 +547,10 @@ class Classes_Panel ( wx.Panel ):
         
         bSizer618 = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.buttonSkillAdd = wx.Button( self, wx.ID_ANY, u"Add", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonSkillAdd = wx.Button( self, wx.ID_ANY, "Add", wx.DefaultPosition, wx.DefaultSize, 0 )
         bSizer618.Add( self.buttonSkillAdd, 0, wx.BOTTOM|wx.LEFT, 5 )
         
-        self.buttonSkillRemove = wx.Button( self, wx.ID_ANY, u"Remove", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonSkillRemove = wx.Button( self, wx.ID_ANY, "Remove", wx.DefaultPosition, wx.DefaultSize, 0 )
         bSizer618.Add( self.buttonSkillRemove, 0, wx.BOTTOM|wx.RIGHT, 5 )
         
         bSizer67.Add( bSizer618, 0, wx.ALIGN_RIGHT, 5 )
@@ -671,7 +671,7 @@ class Skills_Panel ( wx.Panel ):
         self.listBoxSkills = wx.ListBox( self, wx.ID_ANY, wx.DefaultPosition, wx.Size( 184,-1 ), listBoxSkillsChoices, wx.LB_SINGLE|wx.CLIP_CHILDREN )
         SkillListSizer.Add( self.listBoxSkills, 100, wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
         
-        self.buttonMaximum = wx.Button( self, wx.ID_ANY, u"Change Maximum...", wx.DefaultPosition, wx.Size( 150,-1 ), 0 )
+        self.buttonMaximum = wx.Button( self, wx.ID_ANY, "Change Maximum...", wx.DefaultPosition, wx.Size( 150,-1 ), 0 )
         SkillListSizer.Add( self.buttonMaximum, 0, wx.ALL|wx.EXPAND, 5 )
         
         MainSizer.Add( SkillListSizer, 0, wx.EXPAND, 5 )
@@ -684,7 +684,7 @@ class Skills_Panel ( wx.Panel ):
         
         bSizer621 = wx.BoxSizer( wx.VERTICAL )
         
-        self.labelName = wx.StaticText( self, wx.ID_ANY, u"Name:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelName = wx.StaticText( self, wx.ID_ANY, "Name:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelName.Wrap( -1 )
         bSizer621.Add( self.labelName, 0, wx.ALL|wx.EXPAND, 5 )
         
@@ -695,11 +695,11 @@ class Skills_Panel ( wx.Panel ):
         
         bSizer622 = wx.BoxSizer( wx.VERTICAL )
         
-        self.labelIcon = wx.StaticText( self, wx.ID_ANY, u"Icon:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelIcon = wx.StaticText( self, wx.ID_ANY, "Icon:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelIcon.Wrap( -1 )
         bSizer622.Add( self.labelIcon, 0, wx.ALL|wx.EXPAND, 5 )
         
-        self.labelIconName = wx.StaticText( self, wx.ID_ANY, u"(Name of Icon)", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelIconName = wx.StaticText( self, wx.ID_ANY, "(Name of Icon)", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelIconName.Wrap( -1 )
         bSizer622.Add( self.labelIconName, 0, wx.ALL|wx.EXPAND, 5 )
         
@@ -710,7 +710,7 @@ class Skills_Panel ( wx.Panel ):
         
         sizer1.Add( bSizer620, 0, wx.EXPAND, 5 )
         
-        self.labelDescription = wx.StaticText( self, wx.ID_ANY, u"Description:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelDescription = wx.StaticText( self, wx.ID_ANY, "Description:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelDescription.Wrap( -1 )
         sizer1.Add( self.labelDescription, 0, wx.ALL|wx.EXPAND, 5 )
         
@@ -721,20 +721,20 @@ class Skills_Panel ( wx.Panel ):
         
         sizer8 = wx.BoxSizer( wx.VERTICAL )
         
-        self.labelScope = wx.StaticText( self, wx.ID_ANY, u"Scope:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelScope = wx.StaticText( self, wx.ID_ANY, "Scope:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelScope.Wrap( -1 )
         sizer8.Add( self.labelScope, 0, wx.ALL|wx.EXPAND, 5 )
         
-        comboBoxScopeChoices = [ u"None", u"One Enemy", u"All Enemies", u"One Ally", u"All Allies", u"One Ally (HP 0)", u"All Allies (HP 0)", u"The User", u"One Ally or Enemy", u"Everyone" ]
+        comboBoxScopeChoices = [ "None", "One Enemy", "All Enemies", "One Ally", "All Allies", "One Ally (HP 0)", "All Allies (HP 0)", "The User", "One Ally or Enemy", "Everyone" ]
         self.comboBoxScope = wx.Choice( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxScopeChoices, 0 )
         self.comboBoxScope.SetSelection( 0 )
         sizer8.Add( self.comboBoxScope, 1, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
         
-        self.labelUserAnimation = wx.StaticText( self, wx.ID_ANY, u"User Animation:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelUserAnimation = wx.StaticText( self, wx.ID_ANY, "User Animation:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelUserAnimation.Wrap( -1 )
         sizer8.Add( self.labelUserAnimation, 0, wx.ALL|wx.EXPAND, 5 )
         
-        comboBoxUserAnimationChoices = [ u"(None)" ]
+        comboBoxUserAnimationChoices = [ "(None)" ]
         self.comboBoxUserAnimation = wx.Choice( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxUserAnimationChoices, 0 )
         self.comboBoxUserAnimation.SetSelection( 0 )
         sizer8.Add( self.comboBoxUserAnimation, 1, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
@@ -743,7 +743,7 @@ class Skills_Panel ( wx.Panel ):
         
         bSizer624 = wx.BoxSizer( wx.VERTICAL )
         
-        self.labelMenuSE = wx.StaticText( self, wx.ID_ANY, u"Menu Use SE:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelMenuSE = wx.StaticText( self, wx.ID_ANY, "Menu Use SE:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelMenuSE.Wrap( -1 )
         bSizer624.Add( self.labelMenuSE, 0, wx.ALL|wx.EXPAND, 5 )
         
@@ -761,29 +761,29 @@ class Skills_Panel ( wx.Panel ):
         
         sizer9 = wx.BoxSizer( wx.VERTICAL )
         
-        self.labelOccasion = wx.StaticText( self, wx.ID_ANY, u"Occasion:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelOccasion = wx.StaticText( self, wx.ID_ANY, "Occasion:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelOccasion.Wrap( -1 )
         sizer9.Add( self.labelOccasion, 0, wx.ALL|wx.EXPAND, 5 )
         
-        comboBoxOccasionChoices = [ u"Always", u"Only in Battle", u"Only from Menu", u"Never" ]
+        comboBoxOccasionChoices = [ "Always", "Only in Battle", "Only from Menu", "Never" ]
         self.comboBoxOccasion = wx.Choice( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxOccasionChoices, 0 )
         self.comboBoxOccasion.SetSelection( 0 )
         sizer9.Add( self.comboBoxOccasion, 1, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
         
-        self.labelTargetAnimation = wx.StaticText( self, wx.ID_ANY, u"Target Animation:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelTargetAnimation = wx.StaticText( self, wx.ID_ANY, "Target Animation:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelTargetAnimation.Wrap( -1 )
         sizer9.Add( self.labelTargetAnimation, 0, wx.ALL|wx.EXPAND, 5 )
         
-        comboBoxTargetAnimationChoices = [ u"(None)" ]
+        comboBoxTargetAnimationChoices = [ "(None)" ]
         self.comboBoxTargetAnimation = wx.Choice( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxTargetAnimationChoices, 0 )
         self.comboBoxTargetAnimation.SetSelection( 0 )
         sizer9.Add( self.comboBoxTargetAnimation, 1, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
         
-        self.labelCommonEvent = wx.StaticText( self, wx.ID_ANY, u"Common Event:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelCommonEvent = wx.StaticText( self, wx.ID_ANY, "Common Event:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelCommonEvent.Wrap( -1 )
         sizer9.Add( self.labelCommonEvent, 0, wx.ALL|wx.EXPAND, 5 )
         
-        comboBoxCommonEventChoices = [ u"(None)" ]
+        comboBoxCommonEventChoices = [ "(None)" ]
         self.comboBoxCommonEvent = wx.Choice( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxCommonEventChoices, 0 )
         self.comboBoxCommonEvent.SetSelection( 0 )
         sizer9.Add( self.comboBoxCommonEvent, 1, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
@@ -792,7 +792,7 @@ class Skills_Panel ( wx.Panel ):
         
         sizer1.Add( sizer6, 0, wx.EXPAND, 5 )
         
-        sizerParameters = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Parameters" ), wx.VERTICAL )
+        sizerParameters = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, "Parameters" ), wx.VERTICAL )
         
         
         self.panelParameters = ParameterPanel(self)
@@ -808,7 +808,7 @@ class Skills_Panel ( wx.Panel ):
         
         sizerElements = wx.BoxSizer( wx.VERTICAL )
         
-        self.labelElements = wx.StaticText( self, wx.ID_ANY, u"Element:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelElements = wx.StaticText( self, wx.ID_ANY, "Element:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelElements.Wrap( -1 )
         sizerElements.Add( self.labelElements, 0, wx.ALL|wx.EXPAND, 5 )
         
@@ -823,7 +823,7 @@ class Skills_Panel ( wx.Panel ):
         
         sizerStates = wx.BoxSizer( wx.VERTICAL )
         
-        self.labelStates = wx.StaticText( self, wx.ID_ANY, u"State Change:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelStates = wx.StaticText( self, wx.ID_ANY, "State Change:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelStates.Wrap( -1 )
         sizerStates.Add( self.labelStates, 0, wx.ALL|wx.EXPAND, 5 )
         
@@ -836,7 +836,7 @@ class Skills_Panel ( wx.Panel ):
         
         sizer2.Add( sizerEfficiency, 60, wx.EXPAND, 5 )
         
-        self.labelNotes = wx.StaticText( self, wx.ID_ANY, u"Notes:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelNotes = wx.StaticText( self, wx.ID_ANY, "Notes:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelNotes.Wrap( -1 )
         sizer2.Add( self.labelNotes, 0, wx.ALL, 5 )
         
@@ -949,7 +949,7 @@ class Items_Panel ( wx.Panel ):
         self.listBoxItems = wx.ListBox( self, wx.ID_ANY, wx.DefaultPosition, wx.Size( 184,-1 ), listBoxItemsChoices, wx.LB_SINGLE|wx.CLIP_CHILDREN )
         ItemListSizer.Add( self.listBoxItems, 1, wx.EXPAND|wx.RIGHT|wx.LEFT, 5 )
         
-        self.buttonMaximum = wx.Button( self, wx.ID_ANY, u"Change Maximum...", wx.DefaultPosition, wx.Size( 150,-1 ), 0 )
+        self.buttonMaximum = wx.Button( self, wx.ID_ANY, "Change Maximum...", wx.DefaultPosition, wx.Size( 150,-1 ), 0 )
         ItemListSizer.Add( self.buttonMaximum, 0, wx.ALL|wx.EXPAND, 5 )
         
         MainSizer.Add( ItemListSizer, 0, wx.EXPAND, 5 )
@@ -962,7 +962,7 @@ class Items_Panel ( wx.Panel ):
         
         bSizer621 = wx.BoxSizer( wx.VERTICAL )
         
-        self.labelName = wx.StaticText( self, wx.ID_ANY, u"Name:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelName = wx.StaticText( self, wx.ID_ANY, "Name:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelName.Wrap( -1 )
         bSizer621.Add( self.labelName, 0, wx.ALL|wx.EXPAND, 5 )
         
@@ -973,11 +973,11 @@ class Items_Panel ( wx.Panel ):
         
         bSizer622 = wx.BoxSizer( wx.VERTICAL )
         
-        self.labelIcon = wx.StaticText( self, wx.ID_ANY, u"Icon:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelIcon = wx.StaticText( self, wx.ID_ANY, "Icon:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelIcon.Wrap( -1 )
         bSizer622.Add( self.labelIcon, 0, wx.ALL|wx.EXPAND, 5 )
         
-        self.labelIconName = wx.StaticText( self, wx.ID_ANY, u"(Name of Icon)", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelIconName = wx.StaticText( self, wx.ID_ANY, "(Name of Icon)", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelIconName.Wrap( -1 )
         bSizer622.Add( self.labelIconName, 0, wx.ALL|wx.EXPAND, 5 )
         
@@ -988,7 +988,7 @@ class Items_Panel ( wx.Panel ):
         
         sizer1.Add( bSizer620, 0, wx.EXPAND, 5 )
         
-        self.labelDescription = wx.StaticText( self, wx.ID_ANY, u"Description:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelDescription = wx.StaticText( self, wx.ID_ANY, "Description:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelDescription.Wrap( -1 )
         sizer1.Add( self.labelDescription, 0, wx.ALL|wx.EXPAND, 5 )
         
@@ -999,20 +999,20 @@ class Items_Panel ( wx.Panel ):
         
         sizer8 = wx.BoxSizer( wx.VERTICAL )
         
-        self.labelScope = wx.StaticText( self, wx.ID_ANY, u"Scope:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelScope = wx.StaticText( self, wx.ID_ANY, "Scope:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelScope.Wrap( -1 )
         sizer8.Add( self.labelScope, 0, wx.ALL|wx.EXPAND, 5 )
         
-        comboBoxScopeChoices = [ u"None", u"One Enemy", u"All Enemies", u"One Ally", u"All Allies", u"One Ally (HP 0)", u"All Allies (HP 0)", u"The User", u"One Ally or Enemy", u"Everyone" ]
+        comboBoxScopeChoices = [ "None", "One Enemy", "All Enemies", "One Ally", "All Allies", "One Ally (HP 0)", "All Allies (HP 0)", "The User", "One Ally or Enemy", "Everyone" ]
         self.comboBoxScope = wx.Choice( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxScopeChoices, 0 )
         self.comboBoxScope.SetSelection( 0 )
         sizer8.Add( self.comboBoxScope, 1, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
         
-        self.labelUserAnimation = wx.StaticText( self, wx.ID_ANY, u"User Animation:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelUserAnimation = wx.StaticText( self, wx.ID_ANY, "User Animation:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelUserAnimation.Wrap( -1 )
         sizer8.Add( self.labelUserAnimation, 0, wx.ALL|wx.EXPAND, 5 )
         
-        comboBoxUserAnimationChoices = [ u"(None)" ]
+        comboBoxUserAnimationChoices = [ "(None)" ]
         self.comboBoxUserAnimation = wx.Choice( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxUserAnimationChoices, 0 )
         self.comboBoxUserAnimation.SetSelection( 0 )
         sizer8.Add( self.comboBoxUserAnimation, 1, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
@@ -1021,7 +1021,7 @@ class Items_Panel ( wx.Panel ):
         
         bSizer624 = wx.BoxSizer( wx.VERTICAL )
         
-        self.labelMenuSE = wx.StaticText( self, wx.ID_ANY, u"Menu Use SE:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelMenuSE = wx.StaticText( self, wx.ID_ANY, "Menu Use SE:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelMenuSE.Wrap( -1 )
         bSizer624.Add( self.labelMenuSE, 0, wx.ALL|wx.EXPAND, 5 )
         
@@ -1039,29 +1039,29 @@ class Items_Panel ( wx.Panel ):
         
         sizer9 = wx.BoxSizer( wx.VERTICAL )
         
-        self.labelOccasion = wx.StaticText( self, wx.ID_ANY, u"Occasion:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelOccasion = wx.StaticText( self, wx.ID_ANY, "Occasion:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelOccasion.Wrap( -1 )
         sizer9.Add( self.labelOccasion, 0, wx.ALL|wx.EXPAND, 5 )
         
-        comboBoxOccasionChoices = [ u"Always", u"Only in Battle", u"Only from Menu", u"Never" ]
+        comboBoxOccasionChoices = [ "Always", "Only in Battle", "Only from Menu", "Never" ]
         self.comboBoxOccasion = wx.Choice( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxOccasionChoices, 0 )
         self.comboBoxOccasion.SetSelection( 0 )
         sizer9.Add( self.comboBoxOccasion, 1, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
         
-        self.labelTargetAnimation = wx.StaticText( self, wx.ID_ANY, u"Target Animation:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelTargetAnimation = wx.StaticText( self, wx.ID_ANY, "Target Animation:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelTargetAnimation.Wrap( -1 )
         sizer9.Add( self.labelTargetAnimation, 0, wx.ALL|wx.EXPAND, 5 )
         
-        comboBoxTargetAnimationChoices = [ u"(None)" ]
+        comboBoxTargetAnimationChoices = [ "(None)" ]
         self.comboBoxTargetAnimation = wx.Choice( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxTargetAnimationChoices, 0 )
         self.comboBoxTargetAnimation.SetSelection( 0 )
         sizer9.Add( self.comboBoxTargetAnimation, 1, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
         
-        self.labelCommonEvent = wx.StaticText( self, wx.ID_ANY, u"Common Event:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelCommonEvent = wx.StaticText( self, wx.ID_ANY, "Common Event:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelCommonEvent.Wrap( -1 )
         sizer9.Add( self.labelCommonEvent, 0, wx.ALL|wx.EXPAND, 5 )
         
-        comboBoxCommonEventChoices = [ u"(None)" ]
+        comboBoxCommonEventChoices = [ "(None)" ]
         self.comboBoxCommonEvent = wx.Choice( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxCommonEventChoices, 0 )
         self.comboBoxCommonEvent.SetSelection( 0 )
         sizer9.Add( self.comboBoxCommonEvent, 1, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
@@ -1070,23 +1070,23 @@ class Items_Panel ( wx.Panel ):
         
         sizer1.Add( sizer6, 0, wx.EXPAND, 5 )
         
-        sizerParameters = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Parameters" ), wx.VERTICAL )
+        sizerParameters = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, "Parameters" ), wx.VERTICAL )
         
         bSizer651 = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.labelPrice = wx.StaticText( self, wx.ID_ANY, u"Price:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelPrice = wx.StaticText( self, wx.ID_ANY, "Price:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelPrice.Wrap( -1 )
         bSizer651.Add( self.labelPrice, 1, wx.ALL, 5 )
         
-        self.labelConsumable = wx.StaticText( self, wx.ID_ANY, u"Consumable:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelConsumable = wx.StaticText( self, wx.ID_ANY, "Consumable:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelConsumable.Wrap( -1 )
         bSizer651.Add( self.labelConsumable, 1, wx.ALL, 5 )
         
-        self.labelParameter = wx.StaticText( self, wx.ID_ANY, u"Parameter:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelParameter = wx.StaticText( self, wx.ID_ANY, "Parameter:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelParameter.Wrap( -1 )
         bSizer651.Add( self.labelParameter, 1, wx.ALL, 5 )
         
-        self.labelParameterInc = wx.StaticText( self, wx.ID_ANY, u"Param Inc:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelParameterInc = wx.StaticText( self, wx.ID_ANY, "Param Inc:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelParameterInc.Wrap( -1 )
         bSizer651.Add( self.labelParameterInc, 1, wx.ALL, 5 )
         
@@ -1097,12 +1097,12 @@ class Items_Panel ( wx.Panel ):
         self.spinCtrlPrice = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 999999999, 0 )
         bSizer652.Add( self.spinCtrlPrice, 1, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
         
-        comboBoxConsumableChoices = [ u"Yes", u"No" ]
+        comboBoxConsumableChoices = [ "Yes", "No" ]
         self.comboBoxConsumable = wx.Choice( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxConsumableChoices, 0 )
         self.comboBoxConsumable.SetSelection( 0 )
         bSizer652.Add( self.comboBoxConsumable, 1, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
         
-        comboBoxParameterChoices = [ u"(None)", u"MaxHP", u"MaxSP", u"STR", u"DEX", u"AGI", u"INT" ]
+        comboBoxParameterChoices = [ "(None)", "MaxHP", "MaxSP", "STR", "DEX", "AGI", "INT" ]
         self.comboBoxParameter = wx.Choice( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxParameterChoices, 0 )
         self.comboBoxParameter.SetSelection( 0 )
         bSizer652.Add( self.comboBoxParameter, 1, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
@@ -1114,19 +1114,19 @@ class Items_Panel ( wx.Panel ):
         
         bSizer653 = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.labelRecrHPPercent = wx.StaticText( self, wx.ID_ANY, u"Rcvr HP %:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelRecrHPPercent = wx.StaticText( self, wx.ID_ANY, "Rcvr HP %:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelRecrHPPercent.Wrap( -1 )
         bSizer653.Add( self.labelRecrHPPercent, 1, wx.ALL, 5 )
         
-        self.labelRecrHP = wx.StaticText( self, wx.ID_ANY, u"Rcvr HP:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelRecrHP = wx.StaticText( self, wx.ID_ANY, "Rcvr HP:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelRecrHP.Wrap( -1 )
         bSizer653.Add( self.labelRecrHP, 1, wx.ALL, 5 )
         
-        self.labelRcvrRate = wx.StaticText( self, wx.ID_ANY, u"Rcvr SP %:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelRcvrRate = wx.StaticText( self, wx.ID_ANY, "Rcvr SP %:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelRcvrRate.Wrap( -1 )
         bSizer653.Add( self.labelRcvrRate, 1, wx.ALL, 5 )
         
-        self.labelRecrSP = wx.StaticText( self, wx.ID_ANY, u"Recr SP:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelRecrSP = wx.StaticText( self, wx.ID_ANY, "Recr SP:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelRecrSP.Wrap( -1 )
         bSizer653.Add( self.labelRecrSP, 1, wx.ALL, 5 )
         
@@ -1150,19 +1150,19 @@ class Items_Panel ( wx.Panel ):
         
         bSizer655 = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.labelHitRate = wx.StaticText( self, wx.ID_ANY, u"Hit Rate:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelHitRate = wx.StaticText( self, wx.ID_ANY, "Hit Rate:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelHitRate.Wrap( -1 )
         bSizer655.Add( self.labelHitRate, 1, wx.ALL, 5 )
         
-        self.labelPDEF = wx.StaticText( self, wx.ID_ANY, u"PDEF-F:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelPDEF = wx.StaticText( self, wx.ID_ANY, "PDEF-F:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelPDEF.Wrap( -1 )
         bSizer655.Add( self.labelPDEF, 1, wx.ALL, 5 )
         
-        self.labelMDEF = wx.StaticText( self, wx.ID_ANY, u"MDEF-F:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelMDEF = wx.StaticText( self, wx.ID_ANY, "MDEF-F:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelMDEF.Wrap( -1 )
         bSizer655.Add( self.labelMDEF, 1, wx.ALL, 5 )
         
-        self.labelVariance = wx.StaticText( self, wx.ID_ANY, u"Variance:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelVariance = wx.StaticText( self, wx.ID_ANY, "Variance:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelVariance.Wrap( -1 )
         bSizer655.Add( self.labelVariance, 1, wx.ALL, 5 )
         
@@ -1192,11 +1192,11 @@ class Items_Panel ( wx.Panel ):
         
         sizer14 = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.labelElements = wx.StaticText( self, wx.ID_ANY, u"Element:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelElements = wx.StaticText( self, wx.ID_ANY, "Element:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelElements.Wrap( -1 )
         sizer14.Add( self.labelElements, 1, wx.ALL|wx.EXPAND, 5 )
         
-        self.labelStates = wx.StaticText( self, wx.ID_ANY, u"State Change:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelStates = wx.StaticText( self, wx.ID_ANY, "State Change:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelStates.Wrap( -1 )
         sizer14.Add( self.labelStates, 1, wx.ALL|wx.EXPAND, 5 )
         
@@ -1217,7 +1217,7 @@ class Items_Panel ( wx.Panel ):
         
         sizer2.Add( sizer15, 1, wx.EXPAND, 5 )
         
-        self.labelNotes = wx.StaticText( self, wx.ID_ANY, u"Notes:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelNotes = wx.StaticText( self, wx.ID_ANY, "Notes:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelNotes.Wrap( -1 )
         sizer2.Add( self.labelNotes, 0, wx.ALL, 5 )
         
@@ -1378,7 +1378,7 @@ class Weapons_Panel ( wx.Panel ):
         self.listBoxWeapons = wx.ListBox( self, wx.ID_ANY, wx.DefaultPosition, wx.Size( 184,-1 ), listBoxWeaponsChoices, wx.LB_SINGLE|wx.CLIP_CHILDREN )
         WeaponsListSizer.Add( self.listBoxWeapons, 1, wx.EXPAND|wx.RIGHT|wx.LEFT, 5 )
         
-        self.buttonMaximum = wx.Button( self, wx.ID_ANY, u"Change Maximum...", wx.DefaultPosition, wx.Size( 150,-1 ), 0 )
+        self.buttonMaximum = wx.Button( self, wx.ID_ANY, "Change Maximum...", wx.DefaultPosition, wx.Size( 150,-1 ), 0 )
         WeaponsListSizer.Add( self.buttonMaximum, 0, wx.ALL|wx.EXPAND, 5 )
         
         MainSizer.Add( WeaponsListSizer, 0, wx.EXPAND, 5 )
@@ -1391,7 +1391,7 @@ class Weapons_Panel ( wx.Panel ):
         
         bSizer621 = wx.BoxSizer( wx.VERTICAL )
         
-        self.labelName = wx.StaticText( self, wx.ID_ANY, u"Name:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelName = wx.StaticText( self, wx.ID_ANY, "Name:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelName.Wrap( -1 )
         bSizer621.Add( self.labelName, 0, wx.ALL|wx.EXPAND, 5 )
         
@@ -1402,11 +1402,11 @@ class Weapons_Panel ( wx.Panel ):
         
         bSizer622 = wx.BoxSizer( wx.VERTICAL )
         
-        self.labelIcon = wx.StaticText( self, wx.ID_ANY, u"Icon:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelIcon = wx.StaticText( self, wx.ID_ANY, "Icon:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelIcon.Wrap( -1 )
         bSizer622.Add( self.labelIcon, 0, wx.ALL|wx.EXPAND, 5 )
         
-        self.labelIconName = wx.StaticText( self, wx.ID_ANY, u"(Name of Icon)", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelIconName = wx.StaticText( self, wx.ID_ANY, "(Name of Icon)", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelIconName.Wrap( -1 )
         bSizer622.Add( self.labelIconName, 0, wx.ALL|wx.EXPAND, 5 )
         
@@ -1417,7 +1417,7 @@ class Weapons_Panel ( wx.Panel ):
         
         sizer1.Add( bSizer620, 0, wx.EXPAND, 5 )
         
-        self.labelDescription = wx.StaticText( self, wx.ID_ANY, u"Description:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelDescription = wx.StaticText( self, wx.ID_ANY, "Description:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelDescription.Wrap( -1 )
         sizer1.Add( self.labelDescription, 0, wx.ALL|wx.EXPAND, 5 )
         
@@ -1428,11 +1428,11 @@ class Weapons_Panel ( wx.Panel ):
         
         sizer8 = wx.BoxSizer( wx.VERTICAL )
         
-        self.labelUserAnimation = wx.StaticText( self, wx.ID_ANY, u"User Animation:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelUserAnimation = wx.StaticText( self, wx.ID_ANY, "User Animation:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelUserAnimation.Wrap( -1 )
         sizer8.Add( self.labelUserAnimation, 0, wx.ALL|wx.EXPAND, 5 )
         
-        comboBoxUserAnimationChoices = [ u"(None)" ]
+        comboBoxUserAnimationChoices = [ "(None)" ]
         self.comboBoxUserAnimation = wx.Choice( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxUserAnimationChoices, 0 )
         self.comboBoxUserAnimation.SetSelection( 0 )
         sizer8.Add( self.comboBoxUserAnimation, 1, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
@@ -1441,11 +1441,11 @@ class Weapons_Panel ( wx.Panel ):
         
         sizer9 = wx.BoxSizer( wx.VERTICAL )
         
-        self.labelTargetAnimation = wx.StaticText( self, wx.ID_ANY, u"Target Animation:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelTargetAnimation = wx.StaticText( self, wx.ID_ANY, "Target Animation:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelTargetAnimation.Wrap( -1 )
         sizer9.Add( self.labelTargetAnimation, 0, wx.ALL|wx.EXPAND, 5 )
         
-        comboBoxTargetAnimationChoices = [ u"(None)" ]
+        comboBoxTargetAnimationChoices = [ "(None)" ]
         self.comboBoxTargetAnimation = wx.Choice( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxTargetAnimationChoices, 0 )
         self.comboBoxTargetAnimation.SetSelection( 0 )
         sizer9.Add( self.comboBoxTargetAnimation, 1, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
@@ -1454,7 +1454,7 @@ class Weapons_Panel ( wx.Panel ):
         
         sizer1.Add( sizer6, 0, wx.EXPAND, 5 )
         
-        sizerParameters = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Parameters" ), wx.VERTICAL )
+        sizerParameters = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, "Parameters" ), wx.VERTICAL )
         
         self.panelParameters = ParameterPanel(self)
         sizerParameters.Add( self.panelParameters, 1, wx.EXPAND, 5 )
@@ -1467,11 +1467,11 @@ class Weapons_Panel ( wx.Panel ):
         
         sizer14 = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.labelElements = wx.StaticText( self, wx.ID_ANY, u"Element:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelElements = wx.StaticText( self, wx.ID_ANY, "Element:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelElements.Wrap( -1 )
         sizer14.Add( self.labelElements, 1, wx.ALL|wx.EXPAND, 5 )
         
-        self.labelStates = wx.StaticText( self, wx.ID_ANY, u"State Change:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelStates = wx.StaticText( self, wx.ID_ANY, "State Change:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelStates.Wrap( -1 )
         sizer14.Add( self.labelStates, 1, wx.ALL|wx.EXPAND, 5 )
         
@@ -1491,7 +1491,7 @@ class Weapons_Panel ( wx.Panel ):
         
         sizer2.Add( sizer15, 1, wx.EXPAND, 5 )
         
-        self.labelNotes = wx.StaticText( self, wx.ID_ANY, u"Notes:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelNotes = wx.StaticText( self, wx.ID_ANY, "Notes:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelNotes.Wrap( -1 )
         sizer2.Add( self.labelNotes, 0, wx.ALL, 5 )
         
@@ -1584,7 +1584,7 @@ class Armors_Panel ( wx.Panel ):
         self.listBoxArmors = wx.ListBox( self, wx.ID_ANY, wx.DefaultPosition, wx.Size( 184,-1 ), listBoxArmorsChoices, wx.LB_SINGLE|wx.CLIP_CHILDREN )
         ArmorsListSizer.Add( self.listBoxArmors, 1, wx.EXPAND|wx.RIGHT|wx.LEFT, 5 )
         
-        self.buttonMaximum = wx.Button( self, wx.ID_ANY, u"Change Maximum...", wx.DefaultPosition, wx.Size( 150,-1 ), 0 )
+        self.buttonMaximum = wx.Button( self, wx.ID_ANY, "Change Maximum...", wx.DefaultPosition, wx.Size( 150,-1 ), 0 )
         ArmorsListSizer.Add( self.buttonMaximum, 0, wx.ALL|wx.EXPAND, 5 )
         
         MainSizer.Add( ArmorsListSizer, 0, wx.EXPAND, 5 )
@@ -1597,7 +1597,7 @@ class Armors_Panel ( wx.Panel ):
         
         bSizer621 = wx.BoxSizer( wx.VERTICAL )
         
-        self.labelName = wx.StaticText( self, wx.ID_ANY, u"Name:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelName = wx.StaticText( self, wx.ID_ANY, "Name:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelName.Wrap( -1 )
         bSizer621.Add( self.labelName, 0, wx.ALL|wx.EXPAND, 5 )
         
@@ -1608,11 +1608,11 @@ class Armors_Panel ( wx.Panel ):
         
         bSizer622 = wx.BoxSizer( wx.VERTICAL )
         
-        self.labelIcon = wx.StaticText( self, wx.ID_ANY, u"Icon:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelIcon = wx.StaticText( self, wx.ID_ANY, "Icon:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelIcon.Wrap( -1 )
         bSizer622.Add( self.labelIcon, 0, wx.ALL|wx.EXPAND, 5 )
         
-        self.labelIconName = wx.StaticText( self, wx.ID_ANY, u"(Name of Icon)", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelIconName = wx.StaticText( self, wx.ID_ANY, "(Name of Icon)", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelIconName.Wrap( -1 )
         bSizer622.Add( self.labelIconName, 0, wx.ALL|wx.EXPAND, 5 )
         
@@ -1623,7 +1623,7 @@ class Armors_Panel ( wx.Panel ):
         
         sizer1.Add( bSizer620, 0, wx.EXPAND|wx.ALIGN_RIGHT, 5 )
         
-        self.labelDescription = wx.StaticText( self, wx.ID_ANY, u"Description:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelDescription = wx.StaticText( self, wx.ID_ANY, "Description:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelDescription.Wrap( -1 )
         sizer1.Add( self.labelDescription, 0, wx.ALL|wx.EXPAND, 5 )
         
@@ -1634,11 +1634,11 @@ class Armors_Panel ( wx.Panel ):
         
         sizer8 = wx.BoxSizer( wx.VERTICAL )
         
-        self.labelKindAnimation = wx.StaticText( self, wx.ID_ANY, u"Kind:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelKindAnimation = wx.StaticText( self, wx.ID_ANY, "Kind:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelKindAnimation.Wrap( -1 )
         sizer8.Add( self.labelKindAnimation, 0, wx.ALL|wx.EXPAND, 5 )
         
-        comboBoxKindChoices = [ u"Shield", u"Helmet", u"Body Armor", u"Accessory" ]
+        comboBoxKindChoices = [ "Shield", "Helmet", "Body Armor", "Accessory" ]
         self.comboBoxKind = wx.Choice( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxKindChoices, 0 )
         self.comboBoxKind.SetSelection( 0 )
         sizer8.Add( self.comboBoxKind, 1, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
@@ -1647,11 +1647,11 @@ class Armors_Panel ( wx.Panel ):
         
         sizer9 = wx.BoxSizer( wx.VERTICAL )
         
-        self.labelAutoState = wx.StaticText( self, wx.ID_ANY, u"Auto State:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelAutoState = wx.StaticText( self, wx.ID_ANY, "Auto State:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelAutoState.Wrap( -1 )
         sizer9.Add( self.labelAutoState, 0, wx.ALL|wx.EXPAND, 5 )
         
-        comboBoxAutoStateChoices = [ u"(None)" ]
+        comboBoxAutoStateChoices = [ "(None)" ]
         self.comboBoxAutoState = wx.Choice( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxAutoStateChoices, 0 )
         self.comboBoxAutoState.SetSelection( 0 )
         sizer9.Add( self.comboBoxAutoState, 1, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
@@ -1660,7 +1660,7 @@ class Armors_Panel ( wx.Panel ):
         
         sizer1.Add( sizer6, 0, wx.EXPAND, 5 )
         
-        sizerParameters = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Parameters" ), wx.VERTICAL )
+        sizerParameters = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, "Parameters" ), wx.VERTICAL )
         
         self.panelParameters = ParameterPanel(self)
         sizerParameters.Add( self.panelParameters, 1, wx.EXPAND, 5 )
@@ -1673,11 +1673,11 @@ class Armors_Panel ( wx.Panel ):
         
         sizer14 = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.labelElements = wx.StaticText( self, wx.ID_ANY, u"Element Defense:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelElements = wx.StaticText( self, wx.ID_ANY, "Element Defense:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelElements.Wrap( -1 )
         sizer14.Add( self.labelElements, 1, wx.ALL|wx.EXPAND, 5 )
         
-        self.labelStates = wx.StaticText( self, wx.ID_ANY, u"State Defense:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelStates = wx.StaticText( self, wx.ID_ANY, "State Defense:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelStates.Wrap( -1 )
         sizer14.Add( self.labelStates, 1, wx.ALL|wx.EXPAND, 5 )
         
@@ -1697,7 +1697,7 @@ class Armors_Panel ( wx.Panel ):
         
         sizer2.Add( sizer15, 1, wx.EXPAND, 5 )
         
-        self.labelNotes = wx.StaticText( self, wx.ID_ANY, u"Notes:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelNotes = wx.StaticText( self, wx.ID_ANY, "Notes:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelNotes.Wrap( -1 )
         sizer2.Add( self.labelNotes, 0, wx.ALL, 5 )
         
@@ -1788,7 +1788,7 @@ class Enemies_Panel ( wx.Panel ):
         self.listBoxEnemies = wx.ListBox( self, wx.ID_ANY, wx.DefaultPosition, wx.Size( 184,-1 ), listBoxEnemiesChoices, wx.LB_SINGLE|wx.CLIP_CHILDREN )
         EnemiesListSizer.Add( self.listBoxEnemies, 1, wx.EXPAND|wx.RIGHT|wx.LEFT, 5 )
         
-        self.buttonMaximum = wx.Button( self, wx.ID_ANY, u"Change Maximum...", wx.DefaultPosition, wx.Size( 150,-1 ), 0 )
+        self.buttonMaximum = wx.Button( self, wx.ID_ANY, "Change Maximum...", wx.DefaultPosition, wx.Size( 150,-1 ), 0 )
         EnemiesListSizer.Add( self.buttonMaximum, 0, wx.ALL|wx.EXPAND, 5 )
         
         MainSizer.Add( EnemiesListSizer, 0, wx.EXPAND, 5 )
@@ -1799,14 +1799,14 @@ class Enemies_Panel ( wx.Panel ):
         
         sizer2 = wx.BoxSizer( wx.VERTICAL )
         
-        self.labelName = wx.StaticText( self, wx.ID_ANY, u"Name:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelName = wx.StaticText( self, wx.ID_ANY, "Name:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelName.Wrap( -1 )
         sizer2.Add( self.labelName, 0, wx.ALL, 5 )
         
         self.textCtrlName = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
         sizer2.Add( self.textCtrlName, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
         
-        self.labelBattlerGraphic = wx.StaticText( self, wx.ID_ANY, u"Battler Graphic:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelBattlerGraphic = wx.StaticText( self, wx.ID_ANY, "Battler Graphic:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelBattlerGraphic.Wrap( -1 )
         sizer2.Add( self.labelBattlerGraphic, 0, wx.ALL, 5 )
         
@@ -1822,20 +1822,20 @@ class Enemies_Panel ( wx.Panel ):
         sizerEnemyGraphic.Fit( self.panelEnemyGraphic )
         sizer2.Add( self.panelEnemyGraphic, 1, wx.EXPAND |wx.ALL, 5 )
         
-        self.labelAttackAnimation = wx.StaticText( self, wx.ID_ANY, u"Attack Animation:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelAttackAnimation = wx.StaticText( self, wx.ID_ANY, "Attack Animation:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelAttackAnimation.Wrap( -1 )
         sizer2.Add( self.labelAttackAnimation, 0, wx.ALL|wx.EXPAND, 5 )
         
-        comboBoxAttackAnimationChoices = [ u"(None)" ]
+        comboBoxAttackAnimationChoices = [ "(None)" ]
         self.comboBoxAttackAnimation = wx.Choice( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxAttackAnimationChoices, 0 )
         self.comboBoxAttackAnimation.SetSelection( 0 )
         sizer2.Add( self.comboBoxAttackAnimation, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
         
-        self.labelTargetAnimation = wx.StaticText( self, wx.ID_ANY, u"Target Animation:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelTargetAnimation = wx.StaticText( self, wx.ID_ANY, "Target Animation:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelTargetAnimation.Wrap( -1 )
         sizer2.Add( self.labelTargetAnimation, 0, wx.ALL|wx.EXPAND, 5 )
         
-        comboBoxTargetAnimationChoices = [ u"(None)" ]
+        comboBoxTargetAnimationChoices = [ "(None)" ]
         self.comboBoxTargetAnimation = wx.Choice( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxTargetAnimationChoices, 0 )
         self.comboBoxTargetAnimation.SetSelection( 0 )
         sizer2.Add( self.comboBoxTargetAnimation, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
@@ -1844,14 +1844,14 @@ class Enemies_Panel ( wx.Panel ):
         
         sizer3 = wx.BoxSizer( wx.VERTICAL )
         
-        self.labelDescription = wx.StaticText( self, wx.ID_ANY, u"Description:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelDescription = wx.StaticText( self, wx.ID_ANY, "Description:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelDescription.Wrap( -1 )
         sizer3.Add( self.labelDescription, 0, wx.ALL, 5 )
         
         self.textCtrlDescription = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
         sizer3.Add( self.textCtrlDescription, 0, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
         
-        sizerParameters = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Parameters" ), wx.VERTICAL )
+        sizerParameters = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, "Parameters" ), wx.VERTICAL )
         
         self.panelParameters = ParameterPanel(self)
         sizerParameters.Add( self.panelParameters, 1, wx.EXPAND, 5 )
@@ -1866,7 +1866,7 @@ class Enemies_Panel ( wx.Panel ):
         
         bSizer629 = wx.BoxSizer( wx.VERTICAL )
         
-        self.labelExp = wx.StaticText( self, wx.ID_ANY, u"Experience:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelExp = wx.StaticText( self, wx.ID_ANY, "Experience:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelExp.Wrap( -1 )
         bSizer629.Add( self.labelExp, 0, wx.ALL, 5 )
         
@@ -1877,7 +1877,7 @@ class Enemies_Panel ( wx.Panel ):
         
         bSizer630 = wx.BoxSizer( wx.VERTICAL )
         
-        self.labelGold = wx.StaticText( self, wx.ID_ANY, u"Gold:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelGold = wx.StaticText( self, wx.ID_ANY, "Gold:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelGold.Wrap( -1 )
         bSizer630.Add( self.labelGold, 0, wx.ALL, 5 )
         
@@ -1888,7 +1888,7 @@ class Enemies_Panel ( wx.Panel ):
         
         sizer3.Add( bSizer628, 0, wx.EXPAND, 5 )
         
-        self.labelTreasure = wx.StaticText( self, wx.ID_ANY, u"Treasure(s):", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelTreasure = wx.StaticText( self, wx.ID_ANY, "Treasure(s):", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelTreasure.Wrap( -1 )
         sizer3.Add( self.labelTreasure, 0, wx.ALL|wx.EXPAND, 5 )
         
@@ -1899,7 +1899,7 @@ class Enemies_Panel ( wx.Panel ):
         
         sizer4 = wx.BoxSizer( wx.VERTICAL )
         
-        self.labelElements = wx.StaticText( self, wx.ID_ANY, u"Element Efficiency:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelElements = wx.StaticText( self, wx.ID_ANY, "Element Efficiency:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelElements.Wrap( -1 )
         sizer4.Add( self.labelElements, 0, wx.ALL|wx.EXPAND, 5 )
         
@@ -1908,7 +1908,7 @@ class Enemies_Panel ( wx.Panel ):
         self.checkListElements= ImageCheckList(self, states, images)
         sizer4.Add( self.checkListElements, 1, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
         
-        self.labelStates = wx.StaticText( self, wx.ID_ANY, u"State Efficiency:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelStates = wx.StaticText( self, wx.ID_ANY, "State Efficiency:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelStates.Wrap( -1 )
         sizer4.Add( self.labelStates, 0, wx.ALL|wx.EXPAND, 5 )
         
@@ -1925,7 +1925,7 @@ class Enemies_Panel ( wx.Panel ):
         
         bSizer625 = wx.BoxSizer( wx.VERTICAL )
         
-        self.labelAction = wx.StaticText( self, wx.ID_ANY, u"Action:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelAction = wx.StaticText( self, wx.ID_ANY, "Action:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelAction.Wrap( -1 )
         bSizer625.Add( self.labelAction, 0, wx.ALL|wx.EXPAND, 5 )
         
@@ -1936,12 +1936,12 @@ class Enemies_Panel ( wx.Panel ):
         
         bSizer626 = wx.BoxSizer( wx.VERTICAL )
         
-        self.labelNotes = wx.StaticText( self, wx.ID_ANY, u"Notes:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelNotes = wx.StaticText( self, wx.ID_ANY, "Notes:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelNotes.Wrap( -1 )
         bSizer626.Add( self.labelNotes, 0, wx.ALL, 5 )
         
         self.textCtrlNotes = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.TE_MULTILINE|wx.CLIP_CHILDREN )
-        self.textCtrlNotes.SetToolTipString( u"Any user notes for this item. These notes can also be referenced via scripts." )
+        self.textCtrlNotes.SetToolTipString( "Any user notes for this item. These notes can also be referenced via scripts." )
         
         bSizer626.Add( self.textCtrlNotes, 1, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
         
@@ -2043,14 +2043,14 @@ class Troops_Panel ( wx.Panel ):
         self.listBoxTroops = wx.ListBox( self, wx.ID_ANY, wx.DefaultPosition, wx.Size( 184,-1 ), listBoxTroopsChoices, wx.LB_SINGLE|wx.CLIP_CHILDREN )
         TroopsListSizer.Add( self.listBoxTroops, 1, wx.EXPAND|wx.RIGHT|wx.LEFT, 5 )
         
-        self.buttonMaximum = wx.Button( self, wx.ID_ANY, u"Change Maximum...", wx.DefaultPosition, wx.Size( 150,-1 ), 0 )
+        self.buttonMaximum = wx.Button( self, wx.ID_ANY, "Change Maximum...", wx.DefaultPosition, wx.Size( 150,-1 ), 0 )
         TroopsListSizer.Add( self.buttonMaximum, 0, wx.ALL|wx.EXPAND, 5 )
         
         MainSizer.Add( TroopsListSizer, 0, wx.EXPAND, 5 )
         
         staticSizerEnemies = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, wx.EmptyString ), wx.VERTICAL )
         
-        self.labelName = wx.StaticText( self, wx.ID_ANY, u"Name:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelName = wx.StaticText( self, wx.ID_ANY, "Name:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelName.Wrap( -1 )
         staticSizerEnemies.Add( self.labelName, 0, wx.ALL, 5 )
         
@@ -2059,13 +2059,13 @@ class Troops_Panel ( wx.Panel ):
         self.textCtrlName = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
         sizer1.Add( self.textCtrlName, 40, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
         
-        self.buttonAutoname = wx.Button( self, wx.ID_ANY, u"Autoname", wx.DefaultPosition, wx.Size( -1,-1 ), 0 )
+        self.buttonAutoname = wx.Button( self, wx.ID_ANY, "Autoname", wx.DefaultPosition, wx.Size( -1,-1 ), 0 )
         sizer1.Add( self.buttonAutoname, 20, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
         
-        self.buttonBattleback = wx.Button( self, wx.ID_ANY, u"[ED] Battleback...", wx.DefaultPosition, wx.Size( -1,-1 ), 0 )
+        self.buttonBattleback = wx.Button( self, wx.ID_ANY, "[ED] Battleback...", wx.DefaultPosition, wx.Size( -1,-1 ), 0 )
         sizer1.Add( self.buttonBattleback, 20, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
         
-        self.buttonBattleTest = wx.Button( self, wx.ID_ANY, u"Battle Test...", wx.DefaultPosition, wx.Size( -1,-1 ), 0 )
+        self.buttonBattleTest = wx.Button( self, wx.ID_ANY, "Battle Test...", wx.DefaultPosition, wx.Size( -1,-1 ), 0 )
         sizer1.Add( self.buttonBattleTest, 20, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
         
         staticSizerEnemies.Add( sizer1, 0, wx.EXPAND, 5 )
@@ -2077,16 +2077,16 @@ class Troops_Panel ( wx.Panel ):
         
         sizer4 = wx.BoxSizer( wx.VERTICAL )
         
-        self.buttonAddEnemy = wx.Button( self, wx.ID_ANY, u"<", wx.DefaultPosition, wx.Size( 23,-1 ), 0 )
+        self.buttonAddEnemy = wx.Button( self, wx.ID_ANY, "<", wx.DefaultPosition, wx.Size( 23,-1 ), 0 )
         sizer4.Add( self.buttonAddEnemy, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
         
-        self.buttonRemoveEnemy = wx.Button( self, wx.ID_ANY, u">", wx.DefaultPosition, wx.Size( 23,-1 ), 0 )
+        self.buttonRemoveEnemy = wx.Button( self, wx.ID_ANY, ">", wx.DefaultPosition, wx.Size( 23,-1 ), 0 )
         sizer4.Add( self.buttonRemoveEnemy, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
         
-        self.buttonClearTroops = wx.Button( self, wx.ID_ANY, u"C", wx.DefaultPosition, wx.Size( 23,-1 ), 0 )
+        self.buttonClearTroops = wx.Button( self, wx.ID_ANY, "C", wx.DefaultPosition, wx.Size( 23,-1 ), 0 )
         sizer4.Add( self.buttonClearTroops, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
         
-        self.buttonAlignTroops = wx.Button( self, wx.ID_ANY, u"A", wx.DefaultPosition, wx.Size( 23,-1 ), 0 )
+        self.buttonAlignTroops = wx.Button( self, wx.ID_ANY, "A", wx.DefaultPosition, wx.Size( 23,-1 ), 0 )
         sizer4.Add( self.buttonAlignTroops, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
         
         sizer2.Add( sizer4, 0, wx.ALIGN_CENTER_VERTICAL, 5 )
@@ -2101,23 +2101,23 @@ class Troops_Panel ( wx.Panel ):
         
         sizer5 = wx.BoxSizer( wx.VERTICAL )
         
-        self.labelBattleEvent = wx.StaticText( self, wx.ID_ANY, u"Battle Event:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelBattleEvent = wx.StaticText( self, wx.ID_ANY, "Battle Event:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelBattleEvent.Wrap( -1 )
         sizer5.Add( self.labelBattleEvent, 0, wx.ALL, 5 )
         
-        self.buttonNewPage = wx.Button( self, wx.ID_ANY, u"New\nEvent Page", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonNewPage = wx.Button( self, wx.ID_ANY, "New\nEvent Page", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizer5.Add( self.buttonNewPage, 1, wx.ALL, 5 )
         
-        self.buttonCopyPage = wx.Button( self, wx.ID_ANY, u"Copy\nEvent Page", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonCopyPage = wx.Button( self, wx.ID_ANY, "Copy\nEvent Page", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizer5.Add( self.buttonCopyPage, 1, wx.ALL, 5 )
         
-        self.buttonPastePage = wx.Button( self, wx.ID_ANY, u"Paste\nEvent Page", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonPastePage = wx.Button( self, wx.ID_ANY, "Paste\nEvent Page", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizer5.Add( self.buttonPastePage, 1, wx.ALL, 5 )
         
-        self.buttonDeletePage = wx.Button( self, wx.ID_ANY, u"Delete\nEvent Page", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonDeletePage = wx.Button( self, wx.ID_ANY, "Delete\nEvent Page", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizer5.Add( self.buttonDeletePage, 1, wx.ALL, 5 )
         
-        self.buttonClearPage = wx.Button( self, wx.ID_ANY, u"Clear\nEvent Page", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonClearPage = wx.Button( self, wx.ID_ANY, "Clear\nEvent Page", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizer5.Add( self.buttonClearPage, 1, wx.ALL, 5 )
         
         sizer3.Add( sizer5, 0, wx.EXPAND, 5 )
@@ -2128,33 +2128,33 @@ class Troops_Panel ( wx.Panel ):
         
         sizerPageControls = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.labelCondition = wx.StaticText( self.panelEventPageTemplate, wx.ID_ANY, u"Condition:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelCondition = wx.StaticText( self.panelEventPageTemplate, wx.ID_ANY, "Condition:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelCondition.Wrap( -1 )
         sizerPageControls.Add( self.labelCondition, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
         comboBoxConditionChoices = []
-        self.comboBoxCondition = wx.ComboBox( self.panelEventPageTemplate, wx.ID_ANY, u"Don't Run", wx.DefaultPosition, wx.DefaultSize, comboBoxConditionChoices, 0 )
+        self.comboBoxCondition = wx.ComboBox( self.panelEventPageTemplate, wx.ID_ANY, "Don't Run", wx.DefaultPosition, wx.DefaultSize, comboBoxConditionChoices, 0 )
         sizerPageControls.Add( self.comboBoxCondition, 1, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
-        self.labelSpan = wx.StaticText( self.panelEventPageTemplate, wx.ID_ANY, u"Span:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelSpan = wx.StaticText( self.panelEventPageTemplate, wx.ID_ANY, "Span:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelSpan.Wrap( -1 )
         sizerPageControls.Add( self.labelSpan, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
-        comboBoxSpanChoices = [ u"Battle", u"Turn", u"Moment" ]
+        comboBoxSpanChoices = [ "Battle", "Turn", "Moment" ]
         self.comboBoxSpan = wx.Choice( self.panelEventPageTemplate, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxSpanChoices, 0 )
         self.comboBoxSpan.SetSelection( 0 )
         sizerPageControls.Add( self.comboBoxSpan, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
         sizerPage.Add( sizerPageControls, 0, wx.EXPAND, 5 )
         
-        listBoxEventsChoices = [ u">@" ]
+        listBoxEventsChoices = [ ">@" ]
         self.listBoxEvents = wx.ListBox( self.panelEventPageTemplate, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, listBoxEventsChoices, 0 )
         sizerPage.Add( self.listBoxEvents, 1, wx.ALL|wx.EXPAND, 5 )
         
         self.panelEventPageTemplate.SetSizer( sizerPage )
         self.panelEventPageTemplate.Layout()
         sizerPage.Fit( self.panelEventPageTemplate )
-        self.notebookEventsTabControl.AddPage( self.panelEventPageTemplate, u"1", False )
+        self.notebookEventsTabControl.AddPage( self.panelEventPageTemplate, "1", False )
         
         sizer3.Add( self.notebookEventsTabControl, 1, wx.ALL|wx.EXPAND, 5 )
         
@@ -2276,7 +2276,7 @@ class States_Panel ( wx.Panel ):
         self.listBoxStates = wx.ListBox( self, wx.ID_ANY, wx.DefaultPosition, wx.Size( 184,-1 ), listBoxStatesChoices, wx.LB_SINGLE|wx.CLIP_CHILDREN )
         StatesListSizer.Add( self.listBoxStates, 1, wx.EXPAND|wx.RIGHT|wx.LEFT, 5 )
         
-        self.buttonMaximum = wx.Button( self, wx.ID_ANY, u"Change Maximum...", wx.DefaultPosition, wx.Size( 150,-1 ), 0 )
+        self.buttonMaximum = wx.Button( self, wx.ID_ANY, "Change Maximum...", wx.DefaultPosition, wx.Size( 150,-1 ), 0 )
         StatesListSizer.Add( self.buttonMaximum, 0, wx.ALL|wx.EXPAND, 5 )
         
         MainSizer.Add( StatesListSizer, 0, wx.EXPAND, 5 )
@@ -2289,14 +2289,14 @@ class States_Panel ( wx.Panel ):
         
         sizer12 = wx.BoxSizer( wx.VERTICAL )
         
-        self.labelName = wx.StaticText( self, wx.ID_ANY, u"Name:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelName = wx.StaticText( self, wx.ID_ANY, "Name:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelName.Wrap( -1 )
         sizer12.Add( self.labelName, 0, wx.ALL|wx.EXPAND, 5 )
         
         self.textCtrlName = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
         sizer12.Add( self.textCtrlName, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
         
-        self.labelAnimation = wx.StaticText( self, wx.ID_ANY, u"Animation:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelAnimation = wx.StaticText( self, wx.ID_ANY, "Animation:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelAnimation.Wrap( -1 )
         sizer12.Add( self.labelAnimation, 0, wx.ALL|wx.EXPAND, 5 )
         
@@ -2305,7 +2305,7 @@ class States_Panel ( wx.Panel ):
         self.comboBoxAnimation.SetSelection( 0 )
         sizer12.Add( self.comboBoxAnimation, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
         
-        self.labelRestriction = wx.StaticText( self, wx.ID_ANY, u"Restriction:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelRestriction = wx.StaticText( self, wx.ID_ANY, "Restriction:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelRestriction.Wrap( -1 )
         sizer12.Add( self.labelRestriction, 0, wx.ALL|wx.EXPAND, 5 )
         
@@ -2318,19 +2318,19 @@ class States_Panel ( wx.Panel ):
         
         sizerParameters = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, wx.EmptyString ), wx.VERTICAL )
         
-        self.checkBoxNonresistance = wx.CheckBox( self, wx.ID_ANY, u"Nonresistance", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.checkBoxNonresistance = wx.CheckBox( self, wx.ID_ANY, "Nonresistance", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerParameters.Add( self.checkBoxNonresistance, 0, wx.ALL|wx.EXPAND, 5 )
         
-        self.checkBoxRegardHP0 = wx.CheckBox( self, wx.ID_ANY, u"Regard as HP 0", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.checkBoxRegardHP0 = wx.CheckBox( self, wx.ID_ANY, "Regard as HP 0", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerParameters.Add( self.checkBoxRegardHP0, 0, wx.ALL|wx.EXPAND, 5 )
         
-        self.checkBoxNoExp = wx.CheckBox( self, wx.ID_ANY, u"Can't Get EXP", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.checkBoxNoExp = wx.CheckBox( self, wx.ID_ANY, "Can't Get EXP", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerParameters.Add( self.checkBoxNoExp, 0, wx.ALL, 5 )
         
-        self.checkBoxNoEvade = wx.CheckBox( self, wx.ID_ANY, u"Can't Evade", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.checkBoxNoEvade = wx.CheckBox( self, wx.ID_ANY, "Can't Evade", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerParameters.Add( self.checkBoxNoEvade, 0, wx.ALL, 5 )
         
-        self.checkBoxSlipDamage = wx.CheckBox( self, wx.ID_ANY, u"Slip Damage", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.checkBoxSlipDamage = wx.CheckBox( self, wx.ID_ANY, "Slip Damage", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerParameters.Add( self.checkBoxSlipDamage, 0, wx.ALL, 5 )
         
         sizer4.Add( sizerParameters, 1, wx.ALL, 5 )
@@ -2339,19 +2339,19 @@ class States_Panel ( wx.Panel ):
         
         sizer5 = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.labelRating = wx.StaticText( self, wx.ID_ANY, u"Rating:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelRating = wx.StaticText( self, wx.ID_ANY, "Rating:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelRating.Wrap( -1 )
         sizer5.Add( self.labelRating, 1, wx.ALL, 5 )
         
-        self.labelHitPercentage = wx.StaticText( self, wx.ID_ANY, u"Hit Rate %:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelHitPercentage = wx.StaticText( self, wx.ID_ANY, "Hit Rate %:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelHitPercentage.Wrap( -1 )
         sizer5.Add( self.labelHitPercentage, 1, wx.ALL, 5 )
         
-        self.labelMaxHPPercentage = wx.StaticText( self, wx.ID_ANY, u"MaxHP %:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelMaxHPPercentage = wx.StaticText( self, wx.ID_ANY, "MaxHP %:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelMaxHPPercentage.Wrap( -1 )
         sizer5.Add( self.labelMaxHPPercentage, 1, wx.ALL, 5 )
         
-        self.labelMaxSPPercentage = wx.StaticText( self, wx.ID_ANY, u"MaxSP %:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelMaxSPPercentage = wx.StaticText( self, wx.ID_ANY, "MaxSP %:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelMaxSPPercentage.Wrap( -1 )
         sizer5.Add( self.labelMaxSPPercentage, 1, wx.ALL, 5 )
         
@@ -2375,19 +2375,19 @@ class States_Panel ( wx.Panel ):
         
         sizer7 = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.labelStrPercentage = wx.StaticText( self, wx.ID_ANY, u"STR %:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelStrPercentage = wx.StaticText( self, wx.ID_ANY, "STR %:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelStrPercentage.Wrap( -1 )
         sizer7.Add( self.labelStrPercentage, 1, wx.ALL, 5 )
         
-        self.labelDexPercentage = wx.StaticText( self, wx.ID_ANY, u"DEX %:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelDexPercentage = wx.StaticText( self, wx.ID_ANY, "DEX %:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelDexPercentage.Wrap( -1 )
         sizer7.Add( self.labelDexPercentage, 1, wx.ALL, 5 )
         
-        self.labelAgiPercentage = wx.StaticText( self, wx.ID_ANY, u"AGI %:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelAgiPercentage = wx.StaticText( self, wx.ID_ANY, "AGI %:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelAgiPercentage.Wrap( -1 )
         sizer7.Add( self.labelAgiPercentage, 1, wx.ALL, 5 )
         
-        self.labelIntPercentage = wx.StaticText( self, wx.ID_ANY, u"INT %:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelIntPercentage = wx.StaticText( self, wx.ID_ANY, "INT %:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelIntPercentage.Wrap( -1 )
         sizer7.Add( self.labelIntPercentage, 1, wx.ALL, 5 )
         
@@ -2411,19 +2411,19 @@ class States_Panel ( wx.Panel ):
         
         sizer9 = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.labelAtkPercentage = wx.StaticText( self, wx.ID_ANY, u"ATK %:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelAtkPercentage = wx.StaticText( self, wx.ID_ANY, "ATK %:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelAtkPercentage.Wrap( -1 )
         sizer9.Add( self.labelAtkPercentage, 1, wx.ALL, 5 )
         
-        self.labelPdefPercentage = wx.StaticText( self, wx.ID_ANY, u"PDEF %:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelPdefPercentage = wx.StaticText( self, wx.ID_ANY, "PDEF %:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelPdefPercentage.Wrap( -1 )
         sizer9.Add( self.labelPdefPercentage, 1, wx.ALL, 5 )
         
-        self.labelMdefPercentage = wx.StaticText( self, wx.ID_ANY, u"MDEF %:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelMdefPercentage = wx.StaticText( self, wx.ID_ANY, "MDEF %:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelMdefPercentage.Wrap( -1 )
         sizer9.Add( self.labelMdefPercentage, 1, wx.ALL, 5 )
         
-        self.lavelEvaPercentage = wx.StaticText( self, wx.ID_ANY, u"EVA %:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.lavelEvaPercentage = wx.StaticText( self, wx.ID_ANY, "EVA %:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.lavelEvaPercentage.Wrap( -1 )
         sizer9.Add( self.lavelEvaPercentage, 1, wx.ALL, 5 )
         
@@ -2445,28 +2445,28 @@ class States_Panel ( wx.Panel ):
         
         sizer1.Add( sizer10, 0, wx.EXPAND, 5 )
         
-        sizer11 = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Release Conditions" ), wx.VERTICAL )
+        sizer11 = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, "Release Conditions" ), wx.VERTICAL )
         
-        self.lcheckBoxReleaseEnd = wx.CheckBox( self, wx.ID_ANY, u"Release at the end of battle", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.lcheckBoxReleaseEnd = wx.CheckBox( self, wx.ID_ANY, "Release at the end of battle", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizer11.Add( self.lcheckBoxReleaseEnd, 0, wx.ALL, 5 )
         
         sizer13 = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.labelAfter = wx.StaticText( self, wx.ID_ANY, u"After", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelAfter = wx.StaticText( self, wx.ID_ANY, "After", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelAfter.Wrap( -1 )
         sizer13.Add( self.labelAfter, 0, wx.TOP|wx.BOTTOM|wx.LEFT|wx.ALIGN_CENTER_VERTICAL, 5 )
         
         self.spinCtrlConditionTurns = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0 )
         sizer13.Add( self.spinCtrlConditionTurns, 1, wx.TOP|wx.BOTTOM, 5 )
         
-        self.labelTurns = wx.StaticText( self, wx.ID_ANY, u"turns,", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelTurns = wx.StaticText( self, wx.ID_ANY, "turns,", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelTurns.Wrap( -1 )
         sizer13.Add( self.labelTurns, 0, wx.ALIGN_CENTER_VERTICAL|wx.ALL, 5 )
         
         self.spinCtrlConditionTurnPercent = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0 )
         sizer13.Add( self.spinCtrlConditionTurnPercent, 1, wx.TOP|wx.BOTTOM, 5 )
         
-        self.labelChance1 = wx.StaticText( self, wx.ID_ANY, u"% chance.", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelChance1 = wx.StaticText( self, wx.ID_ANY, "% chance.", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelChance1.Wrap( -1 )
         sizer13.Add( self.labelChance1, 0, wx.ALIGN_CENTER_VERTICAL|wx.ALL, 5 )
         
@@ -2474,14 +2474,14 @@ class States_Panel ( wx.Panel ):
         
         sizer14 = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.labelPhysical = wx.StaticText( self, wx.ID_ANY, u"Each physical damage deal,", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelPhysical = wx.StaticText( self, wx.ID_ANY, "Each physical damage deal,", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelPhysical.Wrap( -1 )
         sizer14.Add( self.labelPhysical, 0, wx.ALIGN_CENTER_VERTICAL|wx.ALL, 5 )
         
         self.spinCtrlConditionPhysical = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0 )
         sizer14.Add( self.spinCtrlConditionPhysical, 1, wx.TOP|wx.BOTTOM, 5 )
         
-        self.labelChance2 = wx.StaticText( self, wx.ID_ANY, u"% chance.", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelChance2 = wx.StaticText( self, wx.ID_ANY, "% chance.", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelChance2.Wrap( -1 )
         sizer14.Add( self.labelChance2, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
@@ -2493,7 +2493,7 @@ class States_Panel ( wx.Panel ):
         
         sizer2 = wx.BoxSizer( wx.VERTICAL )
         
-        self.labelElements = wx.StaticText( self, wx.ID_ANY, u"Element Defense:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelElements = wx.StaticText( self, wx.ID_ANY, "Element Defense:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelElements.Wrap( -1 )
         sizer2.Add( self.labelElements, 0, wx.ALL, 5 )
         
@@ -2505,7 +2505,7 @@ class States_Panel ( wx.Panel ):
         
         sizer3 = wx.BoxSizer( wx.VERTICAL )
         
-        self.labelStates = wx.StaticText( self, wx.ID_ANY, u"State Change:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelStates = wx.StaticText( self, wx.ID_ANY, "State Change:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelStates.Wrap( -1 )
         sizer3.Add( self.labelStates, 0, wx.ALL, 5 )
         
@@ -2665,7 +2665,7 @@ class Animations_Panel ( wx.Panel ):
         self.listBoxAnimations = wx.ListBox( self, wx.ID_ANY, wx.DefaultPosition, wx.Size( 184,-1 ), listBoxAnimationsChoices, wx.LB_SINGLE|wx.CLIP_CHILDREN )
         AnimationsListSizer.Add( self.listBoxAnimations, 1, wx.EXPAND|wx.RIGHT|wx.LEFT, 5 )
         
-        self.buttonMaximum = wx.Button( self, wx.ID_ANY, u"Change Maximum...", wx.DefaultPosition, wx.Size( 150,-1 ), 0 )
+        self.buttonMaximum = wx.Button( self, wx.ID_ANY, "Change Maximum...", wx.DefaultPosition, wx.Size( 150,-1 ), 0 )
         AnimationsListSizer.Add( self.buttonMaximum, 0, wx.ALL|wx.EXPAND, 5 )
         
         MainSizer.Add( AnimationsListSizer, 0, wx.EXPAND, 5 )
@@ -2676,28 +2676,28 @@ class Animations_Panel ( wx.Panel ):
         
         sizer4 = wx.BoxSizer( wx.VERTICAL )
         
-        self.labelName = wx.StaticText( self, wx.ID_ANY, u"Name:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelName = wx.StaticText( self, wx.ID_ANY, "Name:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelName.Wrap( -1 )
         sizer4.Add( self.labelName, 0, wx.ALL|wx.EXPAND, 5 )
         
         self.textCtrlName = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
         sizer4.Add( self.textCtrlName, 0, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
         
-        self.labelGraphic = wx.StaticText( self, wx.ID_ANY, u"Animation Graphic:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelGraphic = wx.StaticText( self, wx.ID_ANY, "Animation Graphic:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelGraphic.Wrap( -1 )
         sizer4.Add( self.labelGraphic, 0, wx.ALL|wx.EXPAND, 5 )
         
-        comboBoxGraphicChoices = [ u"(None)" ]
-        self.comboBoxGraphic = wx.ComboBox( self, wx.ID_ANY, u"(None)", wx.DefaultPosition, wx.DefaultSize, comboBoxGraphicChoices, 0 )
+        comboBoxGraphicChoices = [ "(None)" ]
+        self.comboBoxGraphic = wx.ComboBox( self, wx.ID_ANY, "(None)", wx.DefaultPosition, wx.DefaultSize, comboBoxGraphicChoices, 0 )
         sizer4.Add( self.comboBoxGraphic, 0, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
         
         sizer7 = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.labelPosition = wx.StaticText( self, wx.ID_ANY, u"Position:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelPosition = wx.StaticText( self, wx.ID_ANY, "Position:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelPosition.Wrap( -1 )
         sizer7.Add( self.labelPosition, 1, wx.ALL|wx.EXPAND, 5 )
         
-        self.labelFrames = wx.StaticText( self, wx.ID_ANY, u"Frames:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelFrames = wx.StaticText( self, wx.ID_ANY, "Frames:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelFrames.Wrap( -1 )
         sizer7.Add( self.labelFrames, 1, wx.ALL|wx.EXPAND, 5 )
         
@@ -2705,13 +2705,13 @@ class Animations_Panel ( wx.Panel ):
         
         sizer8 = wx.BoxSizer( wx.HORIZONTAL )
         
-        comboBoxPositionChoices = [ u"Top", u"Middle", u"Bottom", u"Screen" ]
+        comboBoxPositionChoices = [ "Top", "Middle", "Bottom", "Screen" ]
         self.comboBoxPosition = wx.Choice( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxPositionChoices, 0 )
         self.comboBoxPosition.SetSelection( 0 )
         sizer8.Add( self.comboBoxPosition, 1, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
         
         comboBoxFramesChoices = []
-        self.comboBoxFrames = wx.ComboBox( self, wx.ID_ANY, u"16", wx.DefaultPosition, wx.DefaultSize, comboBoxFramesChoices, 0 )
+        self.comboBoxFrames = wx.ComboBox( self, wx.ID_ANY, "16", wx.DefaultPosition, wx.DefaultSize, comboBoxFramesChoices, 0 )
         sizer8.Add( self.comboBoxFrames, 1, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
         
         sizer4.Add( sizer8, 0, wx.EXPAND, 5 )
@@ -2727,14 +2727,14 @@ class Animations_Panel ( wx.Panel ):
         
         sizer5 = wx.BoxSizer( wx.VERTICAL )
         
-        self.buttonBack = wx.Button( self, wx.ID_ANY, u"Back", wx.DefaultPosition, wx.Size( 56,-1 ), 0 )
+        self.buttonBack = wx.Button( self, wx.ID_ANY, "Back", wx.DefaultPosition, wx.Size( 56,-1 ), 0 )
         sizer5.Add( self.buttonBack, 0, wx.ALL, 5 )
         
         listBoxFrameChoices = []
         self.listBoxFrame = wx.ListBox( self, wx.ID_ANY, wx.DefaultPosition, wx.Size( 56,-1 ), listBoxFrameChoices, wx.LB_ALWAYS_SB )
         sizer5.Add( self.listBoxFrame, 1, wx.RIGHT|wx.LEFT, 5 )
         
-        self.buttonNext = wx.Button( self, wx.ID_ANY, u"Next", wx.DefaultPosition, wx.Size( 56,-1 ), 0 )
+        self.buttonNext = wx.Button( self, wx.ID_ANY, "Next", wx.DefaultPosition, wx.Size( 56,-1 ), 0 )
         sizer5.Add( self.buttonNext, 0, wx.ALL, 5 )
         
         sizer2.Add( sizer5, 0, wx.EXPAND, 5 )
@@ -2745,31 +2745,31 @@ class Animations_Panel ( wx.Panel ):
         sizer6 = wx.BoxSizer( wx.VERTICAL )
         
         sizer6.SetMinSize( wx.Size( 100,-1 ) ) 
-        self.buttonBattler = wx.Button( self, wx.ID_ANY, u"[ED] Battler...", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonBattler = wx.Button( self, wx.ID_ANY, "[ED] Battler...", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizer6.Add( self.buttonBattler, 0, wx.ALL|wx.EXPAND, 5 )
         
-        self.buttonPaste = wx.Button( self, wx.ID_ANY, u"Paste Last", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonPaste = wx.Button( self, wx.ID_ANY, "Paste Last", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizer6.Add( self.buttonPaste, 0, wx.TOP|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
         
-        self.buttonCopy = wx.Button( self, wx.ID_ANY, u"Copy Frames...", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonCopy = wx.Button( self, wx.ID_ANY, "Copy Frames...", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizer6.Add( self.buttonCopy, 0, wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
         
-        self.buttonClear = wx.Button( self, wx.ID_ANY, u"Clear Frames...", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonClear = wx.Button( self, wx.ID_ANY, "Clear Frames...", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizer6.Add( self.buttonClear, 0, wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
         
-        self.buttonTweening = wx.Button( self, wx.ID_ANY, u"Tweening...", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonTweening = wx.Button( self, wx.ID_ANY, "Tweening...", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizer6.Add( self.buttonTweening, 0, wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
         
-        self.buttonCellBatch = wx.Button( self, wx.ID_ANY, u"Cell Batch...", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonCellBatch = wx.Button( self, wx.ID_ANY, "Cell Batch...", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizer6.Add( self.buttonCellBatch, 0, wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
         
-        self.buttonEntireSlide = wx.Button( self, wx.ID_ANY, u"Entire Slide...", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonEntireSlide = wx.Button( self, wx.ID_ANY, "Entire Slide...", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizer6.Add( self.buttonEntireSlide, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
         
-        self.buttonPlayHit = wx.Button( self, wx.ID_ANY, u"Play Hit", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonPlayHit = wx.Button( self, wx.ID_ANY, "Play Hit", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizer6.Add( self.buttonPlayHit, 0, wx.TOP|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
         
-        self.buttonPlayMiss = wx.Button( self, wx.ID_ANY, u"Play Miss", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonPlayMiss = wx.Button( self, wx.ID_ANY, "Play Miss", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizer6.Add( self.buttonPlayMiss, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
         
         sizer2.Add( sizer6, 0, wx.ALIGN_CENTER_VERTICAL, 5 )
@@ -2910,7 +2910,7 @@ class Tilesets_Panel ( wx.Panel ):
         self.listBoxTilesets = wx.ListBox( self, wx.ID_ANY, wx.DefaultPosition, wx.Size( 184,-1 ), listBoxTilesetsChoices, wx.LB_SINGLE|wx.CLIP_CHILDREN )
         TilesetsListSizer.Add( self.listBoxTilesets, 1, wx.EXPAND|wx.RIGHT|wx.LEFT, 5 )
         
-        self.buttonMaximum = wx.Button( self, wx.ID_ANY, u"Change Maximum...", wx.DefaultPosition, wx.Size( 150,-1 ), 0 )
+        self.buttonMaximum = wx.Button( self, wx.ID_ANY, "Change Maximum...", wx.DefaultPosition, wx.Size( 150,-1 ), 0 )
         TilesetsListSizer.Add( self.buttonMaximum, 0, wx.ALL|wx.EXPAND, 5 )
         
         MainSizer.Add( TilesetsListSizer, 0, wx.EXPAND, 5 )
@@ -2919,21 +2919,21 @@ class Tilesets_Panel ( wx.Panel ):
         
         sizer1 = wx.BoxSizer( wx.VERTICAL )
         
-        self.labelName = wx.StaticText( self, wx.ID_ANY, u"Name:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelName = wx.StaticText( self, wx.ID_ANY, "Name:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelName.Wrap( -1 )
         sizer1.Add( self.labelName, 0, wx.ALL|wx.EXPAND, 5 )
         
         self.textCtrlName = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
         sizer1.Add( self.textCtrlName, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
         
-        self.labelTileset = wx.StaticText( self, wx.ID_ANY, u"Tileset Graphic:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelTileset = wx.StaticText( self, wx.ID_ANY, "Tileset Graphic:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelTileset.Wrap( -1 )
         sizer1.Add( self.labelTileset, 0, wx.ALL|wx.EXPAND, 5 )
         
         self.comboBoxTileset = wx.combo.BitmapComboBox( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, "", 0 ) 
         sizer1.Add( self.comboBoxTileset, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
         
-        self.labelAutotiles = wx.StaticText( self, wx.ID_ANY, u"Autotile Graphics:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelAutotiles = wx.StaticText( self, wx.ID_ANY, "Autotile Graphics:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelAutotiles.Wrap( -1 )
         sizer1.Add( self.labelAutotiles, 0, wx.ALL|wx.EXPAND, 5 )
         
@@ -2958,7 +2958,7 @@ class Tilesets_Panel ( wx.Panel ):
         self.comboBoxAutotiles7 = wx.combo.BitmapComboBox( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, "", 0 ) 
         sizer1.Add( self.comboBoxAutotiles7, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
         
-        self.labelPanorama = wx.StaticText( self, wx.ID_ANY, u"Panorama Graphic:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelPanorama = wx.StaticText( self, wx.ID_ANY, "Panorama Graphic:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelPanorama.Wrap( -1 )
         sizer1.Add( self.labelPanorama, 0, wx.ALL|wx.EXPAND, 5 )
         
@@ -2966,7 +2966,7 @@ class Tilesets_Panel ( wx.Panel ):
         self.comboBoxPanorama = wx.ComboBox( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, comboBoxPanoramaChoices, 0 )
         sizer1.Add( self.comboBoxPanorama, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
         
-        self.labelFog = wx.StaticText( self, wx.ID_ANY, u"Fog Graphic:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelFog = wx.StaticText( self, wx.ID_ANY, "Fog Graphic:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelFog.Wrap( -1 )
         sizer1.Add( self.labelFog, 0, wx.ALL|wx.EXPAND, 5 )
         
@@ -2974,7 +2974,7 @@ class Tilesets_Panel ( wx.Panel ):
         self.comboBoxFog = wx.ComboBox( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, comboBoxFogChoices, 0 )
         sizer1.Add( self.comboBoxFog, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
         
-        self.labelBattleback = wx.StaticText( self, wx.ID_ANY, u"Battleback Graphic:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelBattleback = wx.StaticText( self, wx.ID_ANY, "Battleback Graphic:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelBattleback.Wrap( -1 )
         sizer1.Add( self.labelBattleback, 0, wx.ALL|wx.EXPAND, 5 )
         
@@ -3003,22 +3003,22 @@ class Tilesets_Panel ( wx.Panel ):
         
         sizer2 = wx.BoxSizer( wx.VERTICAL )
         
-        self.buttonPassage = wx.Button( self, wx.ID_ANY, u"Passage", wx.DefaultPosition, wx.Size( -1,46 ), 0 )
+        self.buttonPassage = wx.Button( self, wx.ID_ANY, "Passage", wx.DefaultPosition, wx.Size( -1,46 ), 0 )
         sizer2.Add( self.buttonPassage, 0, wx.ALL, 5 )
         
-        self.buttonPassage4Dir = wx.Button( self, wx.ID_ANY, u"Passage\n(4 Dir)", wx.DefaultPosition, wx.Size( -1,46 ), 0 )
+        self.buttonPassage4Dir = wx.Button( self, wx.ID_ANY, "Passage\n(4 Dir)", wx.DefaultPosition, wx.Size( -1,46 ), 0 )
         sizer2.Add( self.buttonPassage4Dir, 0, wx.ALL, 5 )
         
-        self.buttonPriority = wx.Button( self, wx.ID_ANY, u"Priority", wx.DefaultPosition, wx.Size( -1,46 ), 0 )
+        self.buttonPriority = wx.Button( self, wx.ID_ANY, "Priority", wx.DefaultPosition, wx.Size( -1,46 ), 0 )
         sizer2.Add( self.buttonPriority, 0, wx.ALL, 5 )
         
-        self.buttonBushFlag = wx.Button( self, wx.ID_ANY, u"Bush\nFlag", wx.DefaultPosition, wx.Size( -1,46 ), 0 )
+        self.buttonBushFlag = wx.Button( self, wx.ID_ANY, "Bush\nFlag", wx.DefaultPosition, wx.Size( -1,46 ), 0 )
         sizer2.Add( self.buttonBushFlag, 0, wx.ALL, 5 )
         
-        self.buttonCounter = wx.Button( self, wx.ID_ANY, u"Counter\nFlag", wx.DefaultPosition, wx.Size( -1,46 ), 0 )
+        self.buttonCounter = wx.Button( self, wx.ID_ANY, "Counter\nFlag", wx.DefaultPosition, wx.Size( -1,46 ), 0 )
         sizer2.Add( self.buttonCounter, 0, wx.ALL, 5 )
         
-        self.buttonTerrainTag = wx.Button( self, wx.ID_ANY, u"Terrain\nTag", wx.DefaultPosition, wx.Size( -1,46 ), 0 )
+        self.buttonTerrainTag = wx.Button( self, wx.ID_ANY, "Terrain\nTag", wx.DefaultPosition, wx.Size( -1,46 ), 0 )
         sizer2.Add( self.buttonTerrainTag, 0, wx.ALL, 5 )
         
         staticSizerTilesets.Add( sizer2, 0, wx.EXPAND, 5 )
@@ -3165,7 +3165,7 @@ class CommonEvents_Panel ( wx.Panel ):
         self.listBoxCommonEvents = wx.ListBox( self, wx.ID_ANY, wx.DefaultPosition, wx.Size( 184,-1 ), listBoxCommonEventsChoices, wx.LB_SINGLE|wx.CLIP_CHILDREN )
         CommonEventsListSizer.Add( self.listBoxCommonEvents, 1, wx.EXPAND|wx.RIGHT|wx.LEFT, 5 )
         
-        self.buttonMaximum = wx.Button( self, wx.ID_ANY, u"Change Maximum...", wx.DefaultPosition, wx.Size( 150,-1 ), 0 )
+        self.buttonMaximum = wx.Button( self, wx.ID_ANY, "Change Maximum...", wx.DefaultPosition, wx.Size( 150,-1 ), 0 )
         CommonEventsListSizer.Add( self.buttonMaximum, 0, wx.ALL|wx.EXPAND, 5 )
         
         MainSizer.Add( CommonEventsListSizer, 0, wx.EXPAND, 5 )
@@ -3174,15 +3174,15 @@ class CommonEvents_Panel ( wx.Panel ):
         
         sizer1 = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.labelName = wx.StaticText( self, wx.ID_ANY, u"Name:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelName = wx.StaticText( self, wx.ID_ANY, "Name:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelName.Wrap( -1 )
         sizer1.Add( self.labelName, 35, wx.ALL, 5 )
         
-        self.labelTrigger = wx.StaticText( self, wx.ID_ANY, u"Trigger:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelTrigger = wx.StaticText( self, wx.ID_ANY, "Trigger:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelTrigger.Wrap( -1 )
         sizer1.Add( self.labelTrigger, 30, wx.ALL, 5 )
         
-        self.labelCondition = wx.StaticText( self, wx.ID_ANY, u"Condition Switch:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelCondition = wx.StaticText( self, wx.ID_ANY, "Condition Switch:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelCondition.Wrap( -1 )
         sizer1.Add( self.labelCondition, 35, wx.ALL, 5 )
         
@@ -3193,7 +3193,7 @@ class CommonEvents_Panel ( wx.Panel ):
         self.textCtrlName = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
         sizer2.Add( self.textCtrlName, 35, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
         
-        comboBoxTriggerChoices = [ u"None", u"Autorun", u"Parallel" ]
+        comboBoxTriggerChoices = [ "None", "Autorun", "Parallel" ]
         self.comboBoxTrigger = wx.Choice( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxTriggerChoices, 0 )
         self.comboBoxTrigger.SetSelection( 0 )
         sizer2.Add( self.comboBoxTrigger, 30, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
@@ -3204,7 +3204,7 @@ class CommonEvents_Panel ( wx.Panel ):
         
         staticSizerCommonEvents.Add( sizer2, 0, wx.EXPAND, 5 )
         
-        listBoxPageChoices = [ u">@" ]
+        listBoxPageChoices = [ ">@" ]
         self.listBoxPage = wx.ListBox( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, listBoxPageChoices, 0 )
         staticSizerCommonEvents.Add( self.listBoxPage, 1, wx.ALL|wx.EXPAND, 5 )
         
@@ -3264,14 +3264,14 @@ class System_Panel ( wx.Panel ):
         
         sizer1 = wx.BoxSizer( wx.VERTICAL )
         
-        self.labelInitialParty = wx.StaticText( self, wx.ID_ANY, u"Initial Party:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelInitialParty = wx.StaticText( self, wx.ID_ANY, "Initial Party:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelInitialParty.Wrap( -1 )
         sizer1.Add( self.labelInitialParty, 0, wx.ALL|wx.EXPAND, 5 )
         
         self.listCtrlInitialParty = wx.ListCtrl( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.LC_REPORT )
         sizer1.Add( self.listCtrlInitialParty, 40, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
         
-        self.labelElements = wx.StaticText( self, wx.ID_ANY, u"Element Names:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelElements = wx.StaticText( self, wx.ID_ANY, "Element Names:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelElements.Wrap( -1 )
         sizer1.Add( self.labelElements, 0, wx.ALL|wx.EXPAND, 5 )
         
@@ -3282,16 +3282,16 @@ class System_Panel ( wx.Panel ):
         self.textControlElementName = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
         sizer1.Add( self.textControlElementName, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
         
-        self.buttonMaximum = wx.Button( self, wx.ID_ANY, u"Change Maximum...", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonMaximum = wx.Button( self, wx.ID_ANY, "Change Maximum...", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizer1.Add( self.buttonMaximum, 0, wx.ALL|wx.EXPAND, 5 )
         
         MainSizer.Add( sizer1, 25, wx.EXPAND, 5 )
         
-        sizer2 = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"System Graphics / BGM / SE / ME" ), wx.HORIZONTAL )
+        sizer2 = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, "System Graphics / BGM / SE / ME" ), wx.HORIZONTAL )
         
         sizer4 = wx.BoxSizer( wx.VERTICAL )
         
-        self.labelWindowskinGraphic = wx.StaticText( self, wx.ID_ANY, u"Windowskin Graphic:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelWindowskinGraphic = wx.StaticText( self, wx.ID_ANY, "Windowskin Graphic:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelWindowskinGraphic.Wrap( -1 )
         sizer4.Add( self.labelWindowskinGraphic, 0, wx.ALL|wx.EXPAND, 5 )
         
@@ -3299,7 +3299,7 @@ class System_Panel ( wx.Panel ):
         self.comboBoxWindowskinGraphic = wx.ComboBox( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, comboBoxWindowskinGraphicChoices, 0 )
         sizer4.Add( self.comboBoxWindowskinGraphic, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
         
-        self.labelTitleGraphic = wx.StaticText( self, wx.ID_ANY, u"Title Graphic:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelTitleGraphic = wx.StaticText( self, wx.ID_ANY, "Title Graphic:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelTitleGraphic.Wrap( -1 )
         sizer4.Add( self.labelTitleGraphic, 0, wx.ALL|wx.EXPAND, 5 )
         
@@ -3307,7 +3307,7 @@ class System_Panel ( wx.Panel ):
         self.comboBoxTitleGraphic = wx.ComboBox( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, comboBoxTitleGraphicChoices, 0 )
         sizer4.Add( self.comboBoxTitleGraphic, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
         
-        self.labelGameoverGraphic = wx.StaticText( self, wx.ID_ANY, u"Gameover Graphic:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelGameoverGraphic = wx.StaticText( self, wx.ID_ANY, "Gameover Graphic:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelGameoverGraphic.Wrap( -1 )
         sizer4.Add( self.labelGameoverGraphic, 0, wx.ALL|wx.EXPAND, 5 )
         
@@ -3315,7 +3315,7 @@ class System_Panel ( wx.Panel ):
         self.comboBoxGameoverGraphic = wx.ComboBox( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, comboBoxGameoverGraphicChoices, 0 )
         sizer4.Add( self.comboBoxGameoverGraphic, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
         
-        self.labelBattleTransitionGraphic = wx.StaticText( self, wx.ID_ANY, u"Battle Transition Graphic:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelBattleTransitionGraphic = wx.StaticText( self, wx.ID_ANY, "Battle Transition Graphic:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelBattleTransitionGraphic.Wrap( -1 )
         sizer4.Add( self.labelBattleTransitionGraphic, 0, wx.ALL|wx.EXPAND, 5 )
         
@@ -3323,7 +3323,7 @@ class System_Panel ( wx.Panel ):
         self.comboBoxBattleTransitionGraphic = wx.ComboBox( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, comboBoxBattleTransitionGraphicChoices, 0 )
         sizer4.Add( self.comboBoxBattleTransitionGraphic, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
         
-        self.labelTitleBGM = wx.StaticText( self, wx.ID_ANY, u"Title BGM:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelTitleBGM = wx.StaticText( self, wx.ID_ANY, "Title BGM:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelTitleBGM.Wrap( -1 )
         sizer4.Add( self.labelTitleBGM, 0, wx.ALL|wx.EXPAND, 5 )
         
@@ -3331,7 +3331,7 @@ class System_Panel ( wx.Panel ):
         self.comboBoxTitleBGM = wx.ComboBox( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, comboBoxTitleBGMChoices, 0 )
         sizer4.Add( self.comboBoxTitleBGM, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
         
-        self.labelBattleBGM = wx.StaticText( self, wx.ID_ANY, u"Battle BGM:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelBattleBGM = wx.StaticText( self, wx.ID_ANY, "Battle BGM:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelBattleBGM.Wrap( -1 )
         sizer4.Add( self.labelBattleBGM, 0, wx.ALL|wx.EXPAND, 5 )
         
@@ -3339,7 +3339,7 @@ class System_Panel ( wx.Panel ):
         self.comboBoxBattleBGM = wx.ComboBox( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, comboBoxBattleBGMChoices, 0 )
         sizer4.Add( self.comboBoxBattleBGM, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
         
-        self.labelBattleEndME = wx.StaticText( self, wx.ID_ANY, u"Battle End ME:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelBattleEndME = wx.StaticText( self, wx.ID_ANY, "Battle End ME:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelBattleEndME.Wrap( -1 )
         sizer4.Add( self.labelBattleEndME, 0, wx.ALL|wx.EXPAND, 5 )
         
@@ -3347,7 +3347,7 @@ class System_Panel ( wx.Panel ):
         self.comboBoxBattleEndME = wx.ComboBox( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, comboBoxBattleEndMEChoices, 0 )
         sizer4.Add( self.comboBoxBattleEndME, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
         
-        self.labelGameoverME = wx.StaticText( self, wx.ID_ANY, u"Gameover ME:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelGameoverME = wx.StaticText( self, wx.ID_ANY, "Gameover ME:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelGameoverME.Wrap( -1 )
         sizer4.Add( self.labelGameoverME, 0, wx.ALL|wx.EXPAND, 5 )
         
@@ -3355,7 +3355,7 @@ class System_Panel ( wx.Panel ):
         self.comboBoxGameoverME = wx.ComboBox( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, comboBoxGameoverMEChoices, 0 )
         sizer4.Add( self.comboBoxGameoverME, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
         
-        self.labelCursorSE = wx.StaticText( self, wx.ID_ANY, u"Cursor SE:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelCursorSE = wx.StaticText( self, wx.ID_ANY, "Cursor SE:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelCursorSE.Wrap( -1 )
         sizer4.Add( self.labelCursorSE, 0, wx.ALL|wx.EXPAND, 5 )
         
@@ -3363,7 +3363,7 @@ class System_Panel ( wx.Panel ):
         self.comboBoxCursorSE = wx.ComboBox( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, comboBoxCursorSEChoices, 0 )
         sizer4.Add( self.comboBoxCursorSE, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
         
-        self.labelDecisionSE = wx.StaticText( self, wx.ID_ANY, u"Decision SE:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelDecisionSE = wx.StaticText( self, wx.ID_ANY, "Decision SE:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelDecisionSE.Wrap( -1 )
         sizer4.Add( self.labelDecisionSE, 0, wx.ALL|wx.EXPAND, 5 )
         
@@ -3375,7 +3375,7 @@ class System_Panel ( wx.Panel ):
         
         sizer5 = wx.BoxSizer( wx.VERTICAL )
         
-        self.labelCancelSE = wx.StaticText( self, wx.ID_ANY, u"Cancel SE:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelCancelSE = wx.StaticText( self, wx.ID_ANY, "Cancel SE:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelCancelSE.Wrap( -1 )
         sizer5.Add( self.labelCancelSE, 0, wx.ALL|wx.EXPAND, 5 )
         
@@ -3383,7 +3383,7 @@ class System_Panel ( wx.Panel ):
         self.comboBoxCancelSE = wx.ComboBox( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, comboBoxCancelSEChoices, 0 )
         sizer5.Add( self.comboBoxCancelSE, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
         
-        self.labelBuzzerSE = wx.StaticText( self, wx.ID_ANY, u"Buzzer SE:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelBuzzerSE = wx.StaticText( self, wx.ID_ANY, "Buzzer SE:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelBuzzerSE.Wrap( -1 )
         sizer5.Add( self.labelBuzzerSE, 0, wx.ALL|wx.EXPAND, 5 )
         
@@ -3391,7 +3391,7 @@ class System_Panel ( wx.Panel ):
         self.comboBoxBuzzerSE = wx.ComboBox( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, comboBoxBuzzerSEChoices, 0 )
         sizer5.Add( self.comboBoxBuzzerSE, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
         
-        self.labelEquipSE = wx.StaticText( self, wx.ID_ANY, u"Equip SE:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelEquipSE = wx.StaticText( self, wx.ID_ANY, "Equip SE:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelEquipSE.Wrap( -1 )
         sizer5.Add( self.labelEquipSE, 0, wx.ALL|wx.EXPAND, 5 )
         
@@ -3399,7 +3399,7 @@ class System_Panel ( wx.Panel ):
         self.comboBoxEquipSE = wx.ComboBox( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, comboBoxEquipSEChoices, 0 )
         sizer5.Add( self.comboBoxEquipSE, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
         
-        self.labelShopSE = wx.StaticText( self, wx.ID_ANY, u"Shop SE:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelShopSE = wx.StaticText( self, wx.ID_ANY, "Shop SE:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelShopSE.Wrap( -1 )
         sizer5.Add( self.labelShopSE, 0, wx.ALL|wx.EXPAND, 5 )
         
@@ -3407,7 +3407,7 @@ class System_Panel ( wx.Panel ):
         self.comboBoxShopSE = wx.ComboBox( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, comboBoxShopSEChoices, 0 )
         sizer5.Add( self.comboBoxShopSE, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
         
-        self.labelSaveSE = wx.StaticText( self, wx.ID_ANY, u"Save SE:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelSaveSE = wx.StaticText( self, wx.ID_ANY, "Save SE:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelSaveSE.Wrap( -1 )
         sizer5.Add( self.labelSaveSE, 0, wx.ALL|wx.EXPAND, 5 )
         
@@ -3415,7 +3415,7 @@ class System_Panel ( wx.Panel ):
         self.comboBoxSaveSE = wx.ComboBox( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, comboBoxSaveSEChoices, 0 )
         sizer5.Add( self.comboBoxSaveSE, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
         
-        self.labelLoadSE = wx.StaticText( self, wx.ID_ANY, u"Load SE:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelLoadSE = wx.StaticText( self, wx.ID_ANY, "Load SE:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelLoadSE.Wrap( -1 )
         sizer5.Add( self.labelLoadSE, 0, wx.ALL|wx.EXPAND, 5 )
         
@@ -3423,7 +3423,7 @@ class System_Panel ( wx.Panel ):
         self.comboBoxLoadSE = wx.ComboBox( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, comboBoxLoadSEChoices, 0 )
         sizer5.Add( self.comboBoxLoadSE, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
         
-        self.labelBattleStartSE = wx.StaticText( self, wx.ID_ANY, u"Battle Start SE:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelBattleStartSE = wx.StaticText( self, wx.ID_ANY, "Battle Start SE:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelBattleStartSE.Wrap( -1 )
         sizer5.Add( self.labelBattleStartSE, 0, wx.ALL|wx.EXPAND, 5 )
         
@@ -3431,7 +3431,7 @@ class System_Panel ( wx.Panel ):
         self.comboBoxBattleStartSE = wx.ComboBox( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, comboBoxBattleStartSEChoices, 0 )
         sizer5.Add( self.comboBoxBattleStartSE, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
         
-        self.labelEscapeSE = wx.StaticText( self, wx.ID_ANY, u"Escape SE:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelEscapeSE = wx.StaticText( self, wx.ID_ANY, "Escape SE:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelEscapeSE.Wrap( -1 )
         sizer5.Add( self.labelEscapeSE, 0, wx.ALL|wx.EXPAND, 5 )
         
@@ -3439,7 +3439,7 @@ class System_Panel ( wx.Panel ):
         self.comboBoxEscapeSE = wx.ComboBox( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, comboBoxEscapeSEChoices, 0 )
         sizer5.Add( self.comboBoxEscapeSE, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
         
-        self.labelActorCollapseSE = wx.StaticText( self, wx.ID_ANY, u"Actor Collapse SE:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelActorCollapseSE = wx.StaticText( self, wx.ID_ANY, "Actor Collapse SE:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelActorCollapseSE.Wrap( -1 )
         sizer5.Add( self.labelActorCollapseSE, 0, wx.ALL|wx.EXPAND, 5 )
         
@@ -3447,7 +3447,7 @@ class System_Panel ( wx.Panel ):
         self.comboBoxActorCollapseSE = wx.ComboBox( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, comboBoxActorCollapseSEChoices, 0 )
         sizer5.Add( self.comboBoxActorCollapseSE, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
         
-        self.labelEnemyCollapseSE = wx.StaticText( self, wx.ID_ANY, u"Enemy Collapse SE:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelEnemyCollapseSE = wx.StaticText( self, wx.ID_ANY, "Enemy Collapse SE:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelEnemyCollapseSE.Wrap( -1 )
         sizer5.Add( self.labelEnemyCollapseSE, 0, wx.ALL|wx.EXPAND, 5 )
         
@@ -3459,74 +3459,74 @@ class System_Panel ( wx.Panel ):
         
         MainSizer.Add( sizer2, 45, wx.EXPAND|wx.ALL, 5 )
         
-        sizer3 = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Words" ), wx.HORIZONTAL )
+        sizer3 = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, "Words" ), wx.HORIZONTAL )
         
         sizer6 = wx.BoxSizer( wx.VERTICAL )
         
-        self.labelGold = wx.StaticText( self, wx.ID_ANY, u"G (currency):", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelGold = wx.StaticText( self, wx.ID_ANY, "G (currency):", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelGold.Wrap( -1 )
         sizer6.Add( self.labelGold, 0, wx.ALL|wx.EXPAND, 5 )
         
         self.textCtrlGold = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
         sizer6.Add( self.textCtrlGold, 0, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
         
-        self.labelHP = wx.StaticText( self, wx.ID_ANY, u"HP:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelHP = wx.StaticText( self, wx.ID_ANY, "HP:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelHP.Wrap( -1 )
         sizer6.Add( self.labelHP, 0, wx.ALL|wx.EXPAND, 5 )
         
         self.textCtrlHP = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
         sizer6.Add( self.textCtrlHP, 0, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
         
-        self.labelSP = wx.StaticText( self, wx.ID_ANY, u"SP:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelSP = wx.StaticText( self, wx.ID_ANY, "SP:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelSP.Wrap( -1 )
         sizer6.Add( self.labelSP, 0, wx.ALL|wx.EXPAND, 5 )
         
         self.textCtrlSP = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
         sizer6.Add( self.textCtrlSP, 0, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
         
-        self.labelStr = wx.StaticText( self, wx.ID_ANY, u"STR:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelStr = wx.StaticText( self, wx.ID_ANY, "STR:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelStr.Wrap( -1 )
         sizer6.Add( self.labelStr, 0, wx.ALL|wx.EXPAND, 5 )
         
         self.textCtrlStr = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
         sizer6.Add( self.textCtrlStr, 0, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
         
-        self.labelDex = wx.StaticText( self, wx.ID_ANY, u"DEX:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelDex = wx.StaticText( self, wx.ID_ANY, "DEX:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelDex.Wrap( -1 )
         sizer6.Add( self.labelDex, 0, wx.ALL|wx.EXPAND, 5 )
         
         self.textCtrlDex = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
         sizer6.Add( self.textCtrlDex, 0, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
         
-        self.labelAgi = wx.StaticText( self, wx.ID_ANY, u"AGI:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelAgi = wx.StaticText( self, wx.ID_ANY, "AGI:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelAgi.Wrap( -1 )
         sizer6.Add( self.labelAgi, 0, wx.ALL|wx.EXPAND, 5 )
         
         self.textCtrlAgi = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
         sizer6.Add( self.textCtrlAgi, 0, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
         
-        self.labelInt = wx.StaticText( self, wx.ID_ANY, u"INT:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelInt = wx.StaticText( self, wx.ID_ANY, "INT:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelInt.Wrap( -1 )
         sizer6.Add( self.labelInt, 0, wx.ALL|wx.EXPAND, 5 )
         
         self.textCtrlInt = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
         sizer6.Add( self.textCtrlInt, 0, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
         
-        self.labelAtk = wx.StaticText( self, wx.ID_ANY, u"ATK:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelAtk = wx.StaticText( self, wx.ID_ANY, "ATK:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelAtk.Wrap( -1 )
         sizer6.Add( self.labelAtk, 0, wx.ALL|wx.EXPAND, 5 )
         
         self.textCtrlAtk = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
         sizer6.Add( self.textCtrlAtk, 0, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
         
-        self.labelPdef = wx.StaticText( self, wx.ID_ANY, u"PDEF:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelPdef = wx.StaticText( self, wx.ID_ANY, "PDEF:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelPdef.Wrap( -1 )
         sizer6.Add( self.labelPdef, 0, wx.ALL|wx.EXPAND, 5 )
         
         self.textCtrlPdef = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
         sizer6.Add( self.textCtrlPdef, 0, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
         
-        self.labelMdef = wx.StaticText( self, wx.ID_ANY, u"MDEF:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelMdef = wx.StaticText( self, wx.ID_ANY, "MDEF:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelMdef.Wrap( -1 )
         sizer6.Add( self.labelMdef, 0, wx.ALL|wx.EXPAND, 5 )
         
@@ -3537,70 +3537,70 @@ class System_Panel ( wx.Panel ):
         
         sizer7 = wx.BoxSizer( wx.VERTICAL )
         
-        self.labelWeapon = wx.StaticText( self, wx.ID_ANY, u"Weapon:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelWeapon = wx.StaticText( self, wx.ID_ANY, "Weapon:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelWeapon.Wrap( -1 )
         sizer7.Add( self.labelWeapon, 0, wx.ALL|wx.EXPAND, 5 )
         
         self.textCtrlWeapon = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
         sizer7.Add( self.textCtrlWeapon, 0, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
         
-        self.labelShield = wx.StaticText( self, wx.ID_ANY, u"Shield:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelShield = wx.StaticText( self, wx.ID_ANY, "Shield:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelShield.Wrap( -1 )
         sizer7.Add( self.labelShield, 0, wx.ALL|wx.EXPAND, 5 )
         
         self.textCtrlShield = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
         sizer7.Add( self.textCtrlShield, 0, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
         
-        self.labelHelmet = wx.StaticText( self, wx.ID_ANY, u"Helmet:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelHelmet = wx.StaticText( self, wx.ID_ANY, "Helmet:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelHelmet.Wrap( -1 )
         sizer7.Add( self.labelHelmet, 0, wx.ALL|wx.EXPAND, 5 )
         
         self.textCtrlHelmet = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
         sizer7.Add( self.textCtrlHelmet, 0, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
         
-        self.labelBodyArmor = wx.StaticText( self, wx.ID_ANY, u"Body Armor:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelBodyArmor = wx.StaticText( self, wx.ID_ANY, "Body Armor:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelBodyArmor.Wrap( -1 )
         sizer7.Add( self.labelBodyArmor, 0, wx.ALL|wx.EXPAND, 5 )
         
         self.textCtrlBodyArmor = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
         sizer7.Add( self.textCtrlBodyArmor, 0, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
         
-        self.labelAccessory = wx.StaticText( self, wx.ID_ANY, u"Accessory:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelAccessory = wx.StaticText( self, wx.ID_ANY, "Accessory:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelAccessory.Wrap( -1 )
         sizer7.Add( self.labelAccessory, 0, wx.ALL|wx.EXPAND, 5 )
         
         self.textCtrlAccessory = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
         sizer7.Add( self.textCtrlAccessory, 0, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
         
-        self.labelAttack = wx.StaticText( self, wx.ID_ANY, u"Attack:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelAttack = wx.StaticText( self, wx.ID_ANY, "Attack:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelAttack.Wrap( -1 )
         sizer7.Add( self.labelAttack, 0, wx.ALL|wx.EXPAND, 5 )
         
         self.textCtrlAttack = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
         sizer7.Add( self.textCtrlAttack, 0, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
         
-        self.labelSkill = wx.StaticText( self, wx.ID_ANY, u"Skill:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelSkill = wx.StaticText( self, wx.ID_ANY, "Skill:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelSkill.Wrap( -1 )
         sizer7.Add( self.labelSkill, 0, wx.ALL|wx.EXPAND, 5 )
         
         self.textCtrlSkill = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
         sizer7.Add( self.textCtrlSkill, 0, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
         
-        self.labelDefend = wx.StaticText( self, wx.ID_ANY, u"Defend:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelDefend = wx.StaticText( self, wx.ID_ANY, "Defend:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelDefend.Wrap( -1 )
         sizer7.Add( self.labelDefend, 0, wx.ALL|wx.EXPAND, 5 )
         
         self.textCtrlDefend = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
         sizer7.Add( self.textCtrlDefend, 0, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
         
-        self.labelItem = wx.StaticText( self, wx.ID_ANY, u"Item:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelItem = wx.StaticText( self, wx.ID_ANY, "Item:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelItem.Wrap( -1 )
         sizer7.Add( self.labelItem, 0, wx.ALL|wx.EXPAND, 5 )
         
         self.textCtrlItem = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
         sizer7.Add( self.textCtrlItem, 0, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
         
-        self.labelEquip = wx.StaticText( self, wx.ID_ANY, u"Equip:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelEquip = wx.StaticText( self, wx.ID_ANY, "Equip:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelEquip.Wrap( -1 )
         sizer7.Add( self.labelEquip, 0, wx.ALL|wx.EXPAND, 5 )
         
@@ -3819,7 +3819,7 @@ class BattleTestActor_Panel ( wx.Panel ):
         
         sizerActor = wx.BoxSizer( wx.VERTICAL )
         
-        self.labelActor = wx.StaticText( self, wx.ID_ANY, u"Actor:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelActor = wx.StaticText( self, wx.ID_ANY, "Actor:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelActor.Wrap( -1 )
         sizerActor.Add( self.labelActor, 0, wx.ALL, 5 )
         
@@ -3832,7 +3832,7 @@ class BattleTestActor_Panel ( wx.Panel ):
         
         sizerLevel = wx.BoxSizer( wx.VERTICAL )
         
-        self.labelLevel = wx.StaticText( self, wx.ID_ANY, u"Level:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelLevel = wx.StaticText( self, wx.ID_ANY, "Level:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelLevel.Wrap( -1 )
         sizerLevel.Add( self.labelLevel, 0, wx.ALL, 5 )
         
@@ -3843,11 +3843,11 @@ class BattleTestActor_Panel ( wx.Panel ):
         
         sizerSettings.Add( sizerSelection, 0, wx.EXPAND, 5 )
         
-        sizerEquipment = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Equipment" ), wx.VERTICAL )
+        sizerEquipment = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, "Equipment" ), wx.VERTICAL )
         
         sizerWeapon = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.labelWeapon = wx.StaticText( self, wx.ID_ANY, u"Weapon:", wx.DefaultPosition, wx.Size( 64,-1 ), 0 )
+        self.labelWeapon = wx.StaticText( self, wx.ID_ANY, "Weapon:", wx.DefaultPosition, wx.Size( 64,-1 ), 0 )
         self.labelWeapon.Wrap( -1 )
         sizerWeapon.Add( self.labelWeapon, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
@@ -3860,7 +3860,7 @@ class BattleTestActor_Panel ( wx.Panel ):
         
         sizerShield = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.labelShield = wx.StaticText( self, wx.ID_ANY, u"Shield:", wx.DefaultPosition, wx.Size( 64,-1 ), 0 )
+        self.labelShield = wx.StaticText( self, wx.ID_ANY, "Shield:", wx.DefaultPosition, wx.Size( 64,-1 ), 0 )
         self.labelShield.Wrap( -1 )
         sizerShield.Add( self.labelShield, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
@@ -3873,7 +3873,7 @@ class BattleTestActor_Panel ( wx.Panel ):
         
         sizerHelmet = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.labelHelmet = wx.StaticText( self, wx.ID_ANY, u"Helmet:", wx.DefaultPosition, wx.Size( 64,-1 ), 0 )
+        self.labelHelmet = wx.StaticText( self, wx.ID_ANY, "Helmet:", wx.DefaultPosition, wx.Size( 64,-1 ), 0 )
         self.labelHelmet.Wrap( -1 )
         sizerHelmet.Add( self.labelHelmet, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
@@ -3886,7 +3886,7 @@ class BattleTestActor_Panel ( wx.Panel ):
         
         sizerArmor = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.labelBodyArmor = wx.StaticText( self, wx.ID_ANY, u"Body Armor:", wx.DefaultPosition, wx.Size( 64,-1 ), 0 )
+        self.labelBodyArmor = wx.StaticText( self, wx.ID_ANY, "Body Armor:", wx.DefaultPosition, wx.Size( 64,-1 ), 0 )
         self.labelBodyArmor.Wrap( -1 )
         sizerArmor.Add( self.labelBodyArmor, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
@@ -3899,7 +3899,7 @@ class BattleTestActor_Panel ( wx.Panel ):
         
         sizerAccessory = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.labelAccessory = wx.StaticText( self, wx.ID_ANY, u"Accessory:", wx.DefaultPosition, wx.Size( 64,-1 ), 0 )
+        self.labelAccessory = wx.StaticText( self, wx.ID_ANY, "Accessory:", wx.DefaultPosition, wx.Size( 64,-1 ), 0 )
         self.labelAccessory.Wrap( -1 )
         sizerAccessory.Add( self.labelAccessory, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
@@ -3916,43 +3916,43 @@ class BattleTestActor_Panel ( wx.Panel ):
         
         sizerStats = wx.BoxSizer( wx.VERTICAL )
         
-        sizerStatus = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Status" ), wx.HORIZONTAL )
+        sizerStatus = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, "Status" ), wx.HORIZONTAL )
         
         sizerStatName = wx.BoxSizer( wx.VERTICAL )
         
-        self.labelNameMaxHP = wx.StaticText( self, wx.ID_ANY, u"MaxHP:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelNameMaxHP = wx.StaticText( self, wx.ID_ANY, "MaxHP:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelNameMaxHP.Wrap( -1 )
         sizerStatName.Add( self.labelNameMaxHP, 0, wx.ALL, 5 )
         
-        self.labelNameMaxSP = wx.StaticText( self, wx.ID_ANY, u"MaxSP:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelNameMaxSP = wx.StaticText( self, wx.ID_ANY, "MaxSP:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelNameMaxSP.Wrap( -1 )
         sizerStatName.Add( self.labelNameMaxSP, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
         
-        self.labelNameStr = wx.StaticText( self, wx.ID_ANY, u"STR:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelNameStr = wx.StaticText( self, wx.ID_ANY, "STR:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelNameStr.Wrap( -1 )
         sizerStatName.Add( self.labelNameStr, 0, wx.ALL, 5 )
         
-        self.labelNameDex = wx.StaticText( self, wx.ID_ANY, u"DEX:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelNameDex = wx.StaticText( self, wx.ID_ANY, "DEX:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelNameDex.Wrap( -1 )
         sizerStatName.Add( self.labelNameDex, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
         
-        self.labelNameAgi = wx.StaticText( self, wx.ID_ANY, u"AGI:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelNameAgi = wx.StaticText( self, wx.ID_ANY, "AGI:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelNameAgi.Wrap( -1 )
         sizerStatName.Add( self.labelNameAgi, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
         
-        self.labelNameInt = wx.StaticText( self, wx.ID_ANY, u"INT:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelNameInt = wx.StaticText( self, wx.ID_ANY, "INT:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelNameInt.Wrap( -1 )
         sizerStatName.Add( self.labelNameInt, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
         
-        self.labelNameAtk = wx.StaticText( self, wx.ID_ANY, u"ATK:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelNameAtk = wx.StaticText( self, wx.ID_ANY, "ATK:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelNameAtk.Wrap( -1 )
         sizerStatName.Add( self.labelNameAtk, 0, wx.ALL, 5 )
         
-        self.labelNamePdef = wx.StaticText( self, wx.ID_ANY, u"PDEF:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelNamePdef = wx.StaticText( self, wx.ID_ANY, "PDEF:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelNamePdef.Wrap( -1 )
         sizerStatName.Add( self.labelNamePdef, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
         
-        self.labelNameMdef = wx.StaticText( self, wx.ID_ANY, u"MDEF:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelNameMdef = wx.StaticText( self, wx.ID_ANY, "MDEF:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelNameMdef.Wrap( -1 )
         sizerStatName.Add( self.labelNameMdef, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
         
@@ -3960,39 +3960,39 @@ class BattleTestActor_Panel ( wx.Panel ):
         
         sizerStatValue = wx.BoxSizer( wx.VERTICAL )
         
-        self.labelValueMaxHP = wx.StaticText( self, wx.ID_ANY, u"(Value)", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelValueMaxHP = wx.StaticText( self, wx.ID_ANY, "(Value)", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelValueMaxHP.Wrap( -1 )
         sizerStatValue.Add( self.labelValueMaxHP, 0, wx.ALL|wx.ALIGN_RIGHT, 5 )
         
-        self.labelValueMaxSP = wx.StaticText( self, wx.ID_ANY, u"(Value)", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelValueMaxSP = wx.StaticText( self, wx.ID_ANY, "(Value)", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelValueMaxSP.Wrap( -1 )
         sizerStatValue.Add( self.labelValueMaxSP, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.ALIGN_RIGHT, 5 )
         
-        self.labelValueStr = wx.StaticText( self, wx.ID_ANY, u"(Value)", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelValueStr = wx.StaticText( self, wx.ID_ANY, "(Value)", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelValueStr.Wrap( -1 )
         sizerStatValue.Add( self.labelValueStr, 0, wx.ALL|wx.ALIGN_RIGHT, 5 )
         
-        self.labelValueDex = wx.StaticText( self, wx.ID_ANY, u"(Value)", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelValueDex = wx.StaticText( self, wx.ID_ANY, "(Value)", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelValueDex.Wrap( -1 )
         sizerStatValue.Add( self.labelValueDex, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.ALIGN_RIGHT, 5 )
         
-        self.labelValueAgi = wx.StaticText( self, wx.ID_ANY, u"(Value)", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelValueAgi = wx.StaticText( self, wx.ID_ANY, "(Value)", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelValueAgi.Wrap( -1 )
         sizerStatValue.Add( self.labelValueAgi, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.ALIGN_RIGHT, 5 )
         
-        self.labelValueInt = wx.StaticText( self, wx.ID_ANY, u"(Value)", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelValueInt = wx.StaticText( self, wx.ID_ANY, "(Value)", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelValueInt.Wrap( -1 )
         sizerStatValue.Add( self.labelValueInt, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.ALIGN_RIGHT, 5 )
         
-        self.labelValueAtk = wx.StaticText( self, wx.ID_ANY, u"(Value)", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelValueAtk = wx.StaticText( self, wx.ID_ANY, "(Value)", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelValueAtk.Wrap( -1 )
         sizerStatValue.Add( self.labelValueAtk, 0, wx.ALL|wx.ALIGN_RIGHT, 5 )
         
-        self.labelValuePdef = wx.StaticText( self, wx.ID_ANY, u"(Value)", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelValuePdef = wx.StaticText( self, wx.ID_ANY, "(Value)", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelValuePdef.Wrap( -1 )
         sizerStatValue.Add( self.labelValuePdef, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.ALIGN_RIGHT, 5 )
         
-        self.labelValueMdef = wx.StaticText( self, wx.ID_ANY, u"(Value)", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelValueMdef = wx.StaticText( self, wx.ID_ANY, "(Value)", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelValueMdef.Wrap( -1 )
         sizerStatValue.Add( self.labelValueMdef, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.ALIGN_RIGHT, 5 )
         
@@ -4000,7 +4000,7 @@ class BattleTestActor_Panel ( wx.Panel ):
         
         sizerStats.Add( sizerStatus, 1, wx.EXPAND|wx.ALL, 5 )
         
-        self.buttonIntialize = wx.Button( self, wx.ID_ANY, u"Initialize", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonIntialize = wx.Button( self, wx.ID_ANY, "Initialize", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerStats.Add( self.buttonIntialize, 0, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
         
         MainSizer.Add( sizerStats, 35, wx.EXPAND, 5 )
@@ -4035,13 +4035,13 @@ class BattleTestActor_Panel ( wx.Panel ):
 class ChangeMaximum_Dialog ( wx.Dialog ):
     
     def __init__( self, parent ):
-        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Change Maximum...", pos = wx.DefaultPosition, size = wx.Size( 181,115 ), style = wx.DEFAULT_DIALOG_STYLE )
+        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = "Change Maximum...", pos = wx.DefaultPosition, size = wx.Size( 181,115 ), style = wx.DEFAULT_DIALOG_STYLE )
         
         self.SetSizeHintsSz( wx.DefaultSize, wx.Size( -1,-1 ) )
         
         MainSizer = wx.BoxSizer( wx.VERTICAL )
         
-        self.labelMaximum = wx.StaticText( self, wx.ID_ANY, u"Maximum:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelMaximum = wx.StaticText( self, wx.ID_ANY, "Maximum:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelMaximum.Wrap( -1 )
         MainSizer.Add( self.labelMaximum, 0, wx.ALL, 5 )
         
@@ -4050,10 +4050,10 @@ class ChangeMaximum_Dialog ( wx.Dialog ):
         
         sizerOKCancel = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.buttonOK = wx.Button( self, wx.ID_ANY, u"OK", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonOK = wx.Button( self, wx.ID_ANY, "OK", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonOK, 0, wx.ALIGN_BOTTOM|wx.ALL, 5 )
         
-        self.buttonCancel = wx.Button( self, wx.ID_ANY, u"Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonCancel = wx.Button( self, wx.ID_ANY, "Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonCancel, 0, wx.ALIGN_BOTTOM|wx.ALL, 5 )
         
         MainSizer.Add( sizerOKCancel, 1, wx.ALIGN_BOTTOM|wx.FIXED_MINSIZE|wx.EXPAND|wx.ALIGN_CENTER_HORIZONTAL, 5 )
@@ -4086,7 +4086,7 @@ class ChangeMaximum_Dialog ( wx.Dialog ):
 class ExpCurve_Dialog ( wx.Dialog ):
     
     def __init__( self, parent ):
-        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Experience Curve", pos = wx.DefaultPosition, size = wx.Size( 449,460 ), style = wx.DEFAULT_DIALOG_STYLE|wx.RESIZE_BORDER )
+        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = "Experience Curve", pos = wx.DefaultPosition, size = wx.Size( 449,460 ), style = wx.DEFAULT_DIALOG_STYLE|wx.RESIZE_BORDER )
         
         self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
         
@@ -4102,20 +4102,20 @@ class ExpCurve_Dialog ( wx.Dialog ):
         self.panelNextLevel.SetSizer( panelSizerNextLevel )
         self.panelNextLevel.Layout()
         panelSizerNextLevel.Fit( self.panelNextLevel )
-        self.noteBookExpList.AddPage( self.panelNextLevel, u"To Next Level", True )
+        self.noteBookExpList.AddPage( self.panelNextLevel, "To Next Level", True )
         self.panelTotal = wx.Panel( self.noteBookExpList, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
         panelSizerTotal = wx.BoxSizer( wx.VERTICAL )
         
         self.panelTotal.SetSizer( panelSizerTotal )
         self.panelTotal.Layout()
         panelSizerTotal.Fit( self.panelTotal )
-        self.noteBookExpList.AddPage( self.panelTotal, u"Total", False )
+        self.noteBookExpList.AddPage( self.panelTotal, "Total", False )
         
         MainSizer.Add( self.noteBookExpList, 1, wx.EXPAND |wx.ALL, 5 )
         
         sizerControls = wx.BoxSizer( wx.HORIZONTAL )
         
-        sizerBasis = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Basis" ), wx.HORIZONTAL )
+        sizerBasis = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, "Basis" ), wx.HORIZONTAL )
         
         self.sliderBasis = wx.Slider( self, wx.ID_ANY, 35, 10, 50, wx.DefaultPosition, wx.DefaultSize, wx.SL_HORIZONTAL )
         sizerBasis.Add( self.sliderBasis, 1, wx.ALL, 5 )
@@ -4125,7 +4125,7 @@ class ExpCurve_Dialog ( wx.Dialog ):
         
         sizerControls.Add( sizerBasis, 1, wx.ALL, 5 )
         
-        sizerInflation = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Inflation" ), wx.HORIZONTAL )
+        sizerInflation = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, "Inflation" ), wx.HORIZONTAL )
         
         self.sliderInflation = wx.Slider( self, wx.ID_ANY, 35, 10, 50, wx.DefaultPosition, wx.DefaultSize, wx.SL_HORIZONTAL )
         sizerInflation.Add( self.sliderInflation, 1, wx.ALL, 5 )
@@ -4141,15 +4141,15 @@ class ExpCurve_Dialog ( wx.Dialog ):
         
         sizerGraphButton = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.buttonViewGraph = wx.Button( self, wx.ID_ANY, u"View Graph...", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonViewGraph = wx.Button( self, wx.ID_ANY, "View Graph...", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerGraphButton.Add( self.buttonViewGraph, 0, wx.ALL, 5 )
         
         sizerButtons.Add( sizerGraphButton, 1, 0, 5 )
         
-        self.buttonOK = wx.Button( self, wx.ID_ANY, u"OK", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonOK = wx.Button( self, wx.ID_ANY, "OK", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerButtons.Add( self.buttonOK, 0, wx.ALL, 5 )
         
-        self.buttonCancel = wx.Button( self, wx.ID_ANY, u"Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonCancel = wx.Button( self, wx.ID_ANY, "Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerButtons.Add( self.buttonCancel, 0, wx.ALL, 5 )
         
         MainSizer.Add( sizerButtons, 0, wx.ALIGN_RIGHT|wx.ALIGN_BOTTOM|wx.EXPAND, 5 )
@@ -4206,7 +4206,7 @@ class ExpCurve_Dialog ( wx.Dialog ):
 class GenerateCurve_Dialog ( wx.Dialog ):
     
     def __init__( self, parent ):
-        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Generate Curve", pos = wx.DefaultPosition, size = wx.Size( 275,177 ), style = wx.DEFAULT_DIALOG_STYLE )
+        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = "Generate Curve", pos = wx.DefaultPosition, size = wx.Size( 275,177 ), style = wx.DEFAULT_DIALOG_STYLE )
         
         self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
         
@@ -4214,15 +4214,15 @@ class GenerateCurve_Dialog ( wx.Dialog ):
         
         sizerLabels = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.labelLevel1 = wx.StaticText( self, wx.ID_ANY, u"Level 1:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelLevel1 = wx.StaticText( self, wx.ID_ANY, "Level 1:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelLevel1.Wrap( -1 )
         sizerLabels.Add( self.labelLevel1, 1, wx.ALL, 5 )
         
-        self.labelMaxLevel = wx.StaticText( self, wx.ID_ANY, u"Max Level:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelMaxLevel = wx.StaticText( self, wx.ID_ANY, "Max Level:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelMaxLevel.Wrap( -1 )
         sizerLabels.Add( self.labelMaxLevel, 1, wx.ALL, 5 )
         
-        self.labelSpeed = wx.StaticText( self, wx.ID_ANY, u"Speed:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelSpeed = wx.StaticText( self, wx.ID_ANY, "Speed:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelSpeed.Wrap( -1 )
         sizerLabels.Add( self.labelSpeed, 1, wx.ALL, 5 )
         
@@ -4246,11 +4246,11 @@ class GenerateCurve_Dialog ( wx.Dialog ):
         
         sizerOKCancel = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.buttonOK = wx.Button( self, wx.ID_ANY, u"OK", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonOK = wx.Button( self, wx.ID_ANY, "OK", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.buttonOK.SetDefault() 
         sizerOKCancel.Add( self.buttonOK, 0, wx.TOP|wx.BOTTOM|wx.LEFT, 5 )
         
-        self.buttonCancel = wx.Button( self, wx.ID_ANY, u"Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonCancel = wx.Button( self, wx.ID_ANY, "Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonCancel, 0, wx.TOP|wx.BOTTOM|wx.RIGHT, 5 )
         
         MainSizer.Add( sizerOKCancel, 1, wx.ALIGN_RIGHT, 5 )
@@ -4287,7 +4287,7 @@ class GenerateCurve_Dialog ( wx.Dialog ):
 class ChooseGraphic_Dialog ( wx.Dialog ):
     
     def __init__( self, parent ):
-        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Choose Graphic", pos = wx.DefaultPosition, size = wx.Size( 640,480 ), style = wx.DEFAULT_DIALOG_STYLE|wx.RESIZE_BORDER )
+        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = "Choose Graphic", pos = wx.DefaultPosition, size = wx.Size( 640,480 ), style = wx.DEFAULT_DIALOG_STYLE|wx.RESIZE_BORDER )
         
         self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
         
@@ -4314,7 +4314,7 @@ class ChooseGraphic_Dialog ( wx.Dialog ):
         sizerGLGraphic.Fit( self.panelGraphic )
         sizerGraphic.Add( self.panelGraphic, 1, wx.EXPAND |wx.ALL, 5 )
         
-        sizerHue = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Hue" ), wx.VERTICAL )
+        sizerHue = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, "Hue" ), wx.VERTICAL )
         
         self.sliderHue = wx.Slider( self, wx.ID_ANY, 0, 0, 359, wx.DefaultPosition, wx.DefaultSize, wx.SL_HORIZONTAL )
         sizerHue.Add( self.sliderHue, 0, wx.ALL|wx.EXPAND, 5 )
@@ -4327,10 +4327,10 @@ class ChooseGraphic_Dialog ( wx.Dialog ):
         
         sizerOKCancel = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.buttonOK = wx.Button( self, wx.ID_ANY, u"OK", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonOK = wx.Button( self, wx.ID_ANY, "OK", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonOK, 0, wx.ALL, 5 )
         
-        self.buttonCancel = wx.Button( self, wx.ID_ANY, u"Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonCancel = wx.Button( self, wx.ID_ANY, "Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonCancel, 0, wx.ALL, 5 )
         
         MainSizer.Add( sizerOKCancel, 0, wx.ALIGN_RIGHT, 5 )
@@ -4370,7 +4370,7 @@ class ChooseGraphic_Dialog ( wx.Dialog ):
 class ChooseGraphic_Dialog_NoHue ( wx.Dialog ):
     
     def __init__( self, parent ):
-        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Choose Graphic", pos = wx.DefaultPosition, size = wx.Size( 640,480 ), style = wx.DEFAULT_DIALOG_STYLE|wx.RESIZE_BORDER )
+        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = "Choose Graphic", pos = wx.DefaultPosition, size = wx.Size( 640,480 ), style = wx.DEFAULT_DIALOG_STYLE|wx.RESIZE_BORDER )
         
         self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
         
@@ -4403,10 +4403,10 @@ class ChooseGraphic_Dialog_NoHue ( wx.Dialog ):
         
         sizerOKCancel = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.buttonOK = wx.Button( self, wx.ID_ANY, u"OK", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonOK = wx.Button( self, wx.ID_ANY, "OK", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonOK, 0, wx.ALL, 5 )
         
-        self.buttonCancel = wx.Button( self, wx.ID_ANY, u"Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonCancel = wx.Button( self, wx.ID_ANY, "Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonCancel, 0, wx.ALL, 5 )
         
         MainSizer.Add( sizerOKCancel, 0, wx.ALIGN_RIGHT, 5 )
@@ -4445,42 +4445,42 @@ class ChooseGraphic_Dialog_NoHue ( wx.Dialog ):
 class Skill_Dialog ( wx.Dialog ):
     
     def __init__( self, parent ):
-        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Skill", pos = wx.DefaultPosition, size = wx.Size( 244,160 ), style = wx.DEFAULT_DIALOG_STYLE )
+        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = "Skill", pos = wx.DefaultPosition, size = wx.Size( 244,160 ), style = wx.DEFAULT_DIALOG_STYLE )
         
         self.SetSizeHintsSz( wx.DefaultSize, wx.Size( -1,-1 ) )
         
         MainSizer = wx.BoxSizer( wx.VERTICAL )
         
-        self.labelLevel = wx.StaticText( self, wx.ID_ANY, u"Level:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelLevel = wx.StaticText( self, wx.ID_ANY, "Level:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelLevel.Wrap( -1 )
         MainSizer.Add( self.labelLevel, 0, wx.ALL, 5 )
         
         self.spinCtrlLevel = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( 65,-1 ), wx.SP_ARROW_KEYS|wx.SP_WRAP, 0, 65535, 1 )
-        self.spinCtrlLevel.SetToolTipString( u"Level of the character when the skill is mastered" )
+        self.spinCtrlLevel.SetToolTipString( "Level of the character when the skill is mastered" )
         
         MainSizer.Add( self.spinCtrlLevel, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
         
-        self.labelSkills = wx.StaticText( self, wx.ID_ANY, u"Skill to Learn:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelSkills = wx.StaticText( self, wx.ID_ANY, "Skill to Learn:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelSkills.Wrap( -1 )
         MainSizer.Add( self.labelSkills, 0, wx.ALL, 5 )
         
         comboBoxSkillsChoices = []
         self.comboBoxSkills = wx.Choice( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxSkillsChoices, 0 )
         self.comboBoxSkills.SetSelection( 0 )
-        self.comboBoxSkills.SetToolTipString( u"The skill to learn" )
+        self.comboBoxSkills.SetToolTipString( "The skill to learn" )
         
         MainSizer.Add( self.comboBoxSkills, 0, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
         
         sizerOKCancel = wx.BoxSizer( wx.HORIZONTAL )
         
         sizerOKCancel.SetMinSize( wx.Size( 1,1 ) ) 
-        self.buttonOK = wx.Button( self, wx.ID_ANY, u"OK", wx.DefaultPosition, wx.DefaultSize, 0 )
-        self.buttonOK.SetToolTipString( u"Add skill to learn" )
+        self.buttonOK = wx.Button( self, wx.ID_ANY, "OK", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonOK.SetToolTipString( "Add skill to learn" )
         
         sizerOKCancel.Add( self.buttonOK, 0, wx.ALIGN_BOTTOM|wx.ALL, 5 )
         
-        self.buttonCancel = wx.Button( self, wx.ID_ANY, u"Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
-        self.buttonCancel.SetToolTipString( u"Cancel changes and return" )
+        self.buttonCancel = wx.Button( self, wx.ID_ANY, "Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonCancel.SetToolTipString( "Cancel changes and return" )
         
         sizerOKCancel.Add( self.buttonCancel, 0, wx.ALIGN_BOTTOM|wx.ALL, 5 )
         
@@ -4514,30 +4514,30 @@ class Skill_Dialog ( wx.Dialog ):
 class EnemyAction_Dialog ( wx.Dialog ):
     
     def __init__( self, parent ):
-        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Action", pos = wx.DefaultPosition, size = wx.Size( 309,387 ), style = wx.DEFAULT_DIALOG_STYLE )
+        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = "Action", pos = wx.DefaultPosition, size = wx.Size( 309,387 ), style = wx.DEFAULT_DIALOG_STYLE )
         
         self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
         
         MainSizer = wx.BoxSizer( wx.VERTICAL )
         
-        sizerCondition = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Condition" ), wx.VERTICAL )
+        sizerCondition = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, "Condition" ), wx.VERTICAL )
         
         sizerTurm = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.checkBoxTurn = wx.CheckBox( self, wx.ID_ANY, u"Turn", wx.DefaultPosition, wx.Size( 64,-1 ), 0 )
+        self.checkBoxTurn = wx.CheckBox( self, wx.ID_ANY, "Turn", wx.DefaultPosition, wx.Size( 64,-1 ), 0 )
         sizerTurm.Add( self.checkBoxTurn, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
         self.spinCtrlTurn1 = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( 75,-1 ), wx.SP_ARROW_KEYS, 0, 10, 1 )
         sizerTurm.Add( self.spinCtrlTurn1, 0, wx.ALL, 5 )
         
-        self.labelPlus = wx.StaticText( self, wx.ID_ANY, u"+", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelPlus = wx.StaticText( self, wx.ID_ANY, "+", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelPlus.Wrap( -1 )
         sizerTurm.Add( self.labelPlus, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
         self.spinCtrlTurn2 = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( 75,-1 ), wx.SP_ARROW_KEYS, 0, 10, 0 )
         sizerTurm.Add( self.spinCtrlTurn2, 0, wx.ALL, 5 )
         
-        self.labelX = wx.StaticText( self, wx.ID_ANY, u"X", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelX = wx.StaticText( self, wx.ID_ANY, "X", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelX.Wrap( -1 )
         sizerTurm.Add( self.labelX, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
@@ -4545,13 +4545,13 @@ class EnemyAction_Dialog ( wx.Dialog ):
         
         sizerHP = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.checkBoxTurn = wx.CheckBox( self, wx.ID_ANY, u"HP", wx.DefaultPosition, wx.Size( 64,-1 ), 0 )
+        self.checkBoxTurn = wx.CheckBox( self, wx.ID_ANY, "HP", wx.DefaultPosition, wx.Size( 64,-1 ), 0 )
         sizerHP.Add( self.checkBoxTurn, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
         self.spinCtrlHP = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( 75,-1 ), wx.SP_ARROW_KEYS, 0, 10, 0 )
         sizerHP.Add( self.spinCtrlHP, 0, wx.ALL, 5 )
         
-        self.labelBelow = wx.StaticText( self, wx.ID_ANY, u"% or below", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelBelow = wx.StaticText( self, wx.ID_ANY, "% or below", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelBelow.Wrap( -1 )
         sizerHP.Add( self.labelBelow, 0, wx.ALIGN_CENTER_VERTICAL|wx.TOP|wx.BOTTOM|wx.RIGHT, 5 )
         
@@ -4559,13 +4559,13 @@ class EnemyAction_Dialog ( wx.Dialog ):
         
         sizerLevel = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.checkBoxLevel = wx.CheckBox( self, wx.ID_ANY, u"Level", wx.DefaultPosition, wx.Size( 64,-1 ), 0 )
+        self.checkBoxLevel = wx.CheckBox( self, wx.ID_ANY, "Level", wx.DefaultPosition, wx.Size( 64,-1 ), 0 )
         sizerLevel.Add( self.checkBoxLevel, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
         self.spinCtrlLevel = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( 75,-1 ), wx.SP_ARROW_KEYS, 0, 10, 0 )
         sizerLevel.Add( self.spinCtrlLevel, 0, wx.ALL, 5 )
         
-        self.labelAbove = wx.StaticText( self, wx.ID_ANY, u"or above", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelAbove = wx.StaticText( self, wx.ID_ANY, "or above", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelAbove.Wrap( -1 )
         sizerLevel.Add( self.labelAbove, 0, wx.ALIGN_CENTER_VERTICAL|wx.TOP|wx.BOTTOM|wx.RIGHT, 5 )
         
@@ -4573,7 +4573,7 @@ class EnemyAction_Dialog ( wx.Dialog ):
         
         sizerSwitch = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.checkBoxSwitch = wx.CheckBox( self, wx.ID_ANY, u"Switch", wx.DefaultPosition, wx.Size( 64,-1 ), 0 )
+        self.checkBoxSwitch = wx.CheckBox( self, wx.ID_ANY, "Switch", wx.DefaultPosition, wx.Size( 64,-1 ), 0 )
         sizerSwitch.Add( self.checkBoxSwitch, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
         comboBoxSwitchChoices = []
@@ -4581,7 +4581,7 @@ class EnemyAction_Dialog ( wx.Dialog ):
         self.comboBoxSwitch.SetSelection( 0 )
         sizerSwitch.Add( self.comboBoxSwitch, 1, wx.ALL, 5 )
         
-        self.labelON = wx.StaticText( self, wx.ID_ANY, u"is ON", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelON = wx.StaticText( self, wx.ID_ANY, "is ON", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelON.Wrap( -1 )
         sizerSwitch.Add( self.labelON, 0, wx.ALIGN_CENTER_VERTICAL|wx.TOP|wx.BOTTOM|wx.RIGHT, 5 )
         
@@ -4589,11 +4589,11 @@ class EnemyAction_Dialog ( wx.Dialog ):
         
         MainSizer.Add( sizerCondition, 0, wx.ALL|wx.EXPAND, 5 )
         
-        sizerAction = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Action" ), wx.VERTICAL )
+        sizerAction = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, "Action" ), wx.VERTICAL )
         
         sizerBasic = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.radioBtnBasic = wx.RadioButton( self, wx.ID_ANY, u"Basic", wx.DefaultPosition, wx.Size( 64,-1 ), 0 )
+        self.radioBtnBasic = wx.RadioButton( self, wx.ID_ANY, "Basic", wx.DefaultPosition, wx.Size( 64,-1 ), 0 )
         sizerBasic.Add( self.radioBtnBasic, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
         comboBoxBasicChoices = []
@@ -4605,7 +4605,7 @@ class EnemyAction_Dialog ( wx.Dialog ):
         
         sizerSkill = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.radioBtnSkill = wx.RadioButton( self, wx.ID_ANY, u"Skill", wx.DefaultPosition, wx.Size( 64,-1 ), 0 )
+        self.radioBtnSkill = wx.RadioButton( self, wx.ID_ANY, "Skill", wx.DefaultPosition, wx.Size( 64,-1 ), 0 )
         sizerSkill.Add( self.radioBtnSkill, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
         comboBoxSkillChoices = []
@@ -4617,7 +4617,7 @@ class EnemyAction_Dialog ( wx.Dialog ):
         
         MainSizer.Add( sizerAction, 0, wx.EXPAND|wx.ALL, 5 )
         
-        sizerRating = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Rating" ), wx.HORIZONTAL )
+        sizerRating = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, "Rating" ), wx.HORIZONTAL )
         
         self.sliderRating = wx.Slider( self, wx.ID_ANY, 5, 0, 10, wx.DefaultPosition, wx.DefaultSize, wx.SL_AUTOTICKS|wx.SL_HORIZONTAL )
         sizerRating.Add( self.sliderRating, 1, wx.ALL, 5 )
@@ -4629,10 +4629,10 @@ class EnemyAction_Dialog ( wx.Dialog ):
         
         sizerOKCancel = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.buttonOK = wx.Button( self, wx.ID_ANY, u"OK", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonOK = wx.Button( self, wx.ID_ANY, "OK", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonOK, 0, wx.ALL, 5 )
         
-        self.buttonCancel = wx.Button( self, wx.ID_ANY, u"Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonCancel = wx.Button( self, wx.ID_ANY, "Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonCancel, 0, wx.ALL, 5 )
         
         MainSizer.Add( sizerOKCancel, 0, wx.ALIGN_RIGHT, 5 )
@@ -4697,7 +4697,7 @@ class EnemyAction_Dialog ( wx.Dialog ):
 class ChooseTreasure_Dialog ( wx.Dialog ):
     
     def __init__( self, parent ):
-        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Treasure", pos = wx.DefaultPosition, size = wx.Size( 395,348 ), style = wx.DEFAULT_DIALOG_STYLE|wx.RESIZE_BORDER )
+        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = "Treasure", pos = wx.DefaultPosition, size = wx.Size( 395,348 ), style = wx.DEFAULT_DIALOG_STYLE|wx.RESIZE_BORDER )
         
         self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
         
@@ -4706,20 +4706,20 @@ class ChooseTreasure_Dialog ( wx.Dialog ):
         self.listCtrlTreasure = wx.ListCtrl( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.LC_HRULES|wx.LC_REPORT|wx.LC_VRULES )
         MainSizer.Add( self.listCtrlTreasure, 1, wx.ALL|wx.EXPAND, 5 )
         
-        sizerTreasure = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Select Treasure" ), wx.HORIZONTAL )
+        sizerTreasure = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, "Select Treasure" ), wx.HORIZONTAL )
         
         bSizer618 = wx.BoxSizer( wx.VERTICAL )
         
         bSizer623 = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.labelProbability = wx.StaticText( self, wx.ID_ANY, u"Probability:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelProbability = wx.StaticText( self, wx.ID_ANY, "Probability:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelProbability.Wrap( -1 )
         bSizer623.Add( self.labelProbability, 0, wx.ALIGN_CENTER_VERTICAL|wx.TOP|wx.BOTTOM|wx.LEFT, 5 )
         
         self.spinCtrlProbability = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( 56,-1 ), wx.SP_ARROW_KEYS|wx.SP_WRAP, 0, 100, 50 )
         bSizer623.Add( self.spinCtrlProbability, 0, wx.TOP|wx.BOTTOM|wx.RIGHT, 5 )
         
-        self.labelQuantity = wx.StaticText( self, wx.ID_ANY, u"Quantity:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelQuantity = wx.StaticText( self, wx.ID_ANY, "Quantity:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelQuantity.Wrap( -1 )
         bSizer623.Add( self.labelQuantity, 0, wx.ALIGN_CENTER_VERTICAL|wx.TOP|wx.BOTTOM|wx.LEFT, 5 )
         
@@ -4730,7 +4730,7 @@ class ChooseTreasure_Dialog ( wx.Dialog ):
         
         sizerItem = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.radioBtnItem = wx.RadioButton( self, wx.ID_ANY, u"Item", wx.DefaultPosition, wx.Size( 80,-1 ), wx.RB_GROUP )
+        self.radioBtnItem = wx.RadioButton( self, wx.ID_ANY, "Item", wx.DefaultPosition, wx.Size( 80,-1 ), wx.RB_GROUP )
         self.radioBtnItem.SetValue( True ) 
         sizerItem.Add( self.radioBtnItem, 0, wx.ALL|wx.EXPAND, 5 )
         
@@ -4743,7 +4743,7 @@ class ChooseTreasure_Dialog ( wx.Dialog ):
         
         sizerWeapon = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.radioBtnWeapon = wx.RadioButton( self, wx.ID_ANY, u"Weapon", wx.DefaultPosition, wx.Size( 80,-1 ), 0 )
+        self.radioBtnWeapon = wx.RadioButton( self, wx.ID_ANY, "Weapon", wx.DefaultPosition, wx.Size( 80,-1 ), 0 )
         sizerWeapon.Add( self.radioBtnWeapon, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
         
         comboBoxWeaponChoices = []
@@ -4757,7 +4757,7 @@ class ChooseTreasure_Dialog ( wx.Dialog ):
         
         sizerArmor = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.radioBtnArmor = wx.RadioButton( self, wx.ID_ANY, u"Armor", wx.DefaultPosition, wx.Size( 80,-1 ), 0 )
+        self.radioBtnArmor = wx.RadioButton( self, wx.ID_ANY, "Armor", wx.DefaultPosition, wx.Size( 80,-1 ), 0 )
         sizerArmor.Add( self.radioBtnArmor, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
         
         comboBoxArmorChoices = []
@@ -4773,10 +4773,10 @@ class ChooseTreasure_Dialog ( wx.Dialog ):
         
         bSizer619 = wx.BoxSizer( wx.VERTICAL )
         
-        self.buttonAdd = wx.Button( self, wx.ID_ANY, u"Add", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonAdd = wx.Button( self, wx.ID_ANY, "Add", wx.DefaultPosition, wx.DefaultSize, 0 )
         bSizer619.Add( self.buttonAdd, 0, wx.TOP|wx.RIGHT|wx.LEFT, 5 )
         
-        self.buttonRemove = wx.Button( self, wx.ID_ANY, u"Remove", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonRemove = wx.Button( self, wx.ID_ANY, "Remove", wx.DefaultPosition, wx.DefaultSize, 0 )
         bSizer619.Add( self.buttonRemove, 0, wx.ALL, 5 )
         
         sizerTreasure.Add( bSizer619, 0, wx.EXPAND, 5 )
@@ -4785,10 +4785,10 @@ class ChooseTreasure_Dialog ( wx.Dialog ):
         
         sizerOKCancel = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.buttonOK = wx.Button( self, wx.ID_ANY, u"OK", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonOK = wx.Button( self, wx.ID_ANY, "OK", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonOK, 0, wx.TOP|wx.BOTTOM|wx.LEFT, 5 )
         
-        self.buttonCancel = wx.Button( self, wx.ID_ANY, u"Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonCancel = wx.Button( self, wx.ID_ANY, "Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonCancel, 0, wx.TOP|wx.BOTTOM|wx.RIGHT, 5 )
         
         MainSizer.Add( sizerOKCancel, 0, wx.ALIGN_RIGHT, 5 )
@@ -4845,7 +4845,7 @@ class ChooseTreasure_Dialog ( wx.Dialog ):
 class EventCondition_Dialog ( wx.Dialog ):
     
     def __init__( self, parent ):
-        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Condition", pos = wx.DefaultPosition, size = wx.Size( 310,259 ), style = wx.DEFAULT_DIALOG_STYLE )
+        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = "Condition", pos = wx.DefaultPosition, size = wx.Size( 310,259 ), style = wx.DEFAULT_DIALOG_STYLE )
         
         self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
         
@@ -4855,20 +4855,20 @@ class EventCondition_Dialog ( wx.Dialog ):
         
         sizerTurn = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.checkBoxTurn = wx.CheckBox( self, wx.ID_ANY, u"Turn", wx.DefaultPosition, wx.Size( 72,-1 ), 0 )
+        self.checkBoxTurn = wx.CheckBox( self, wx.ID_ANY, "Turn", wx.DefaultPosition, wx.Size( 72,-1 ), 0 )
         sizerTurn.Add( self.checkBoxTurn, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
         self.spinCtrlTurn1 = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( 75,-1 ), wx.SP_ARROW_KEYS, 0, 10, 0 )
         sizerTurn.Add( self.spinCtrlTurn1, 0, wx.ALL, 5 )
         
-        self.labelPlus = wx.StaticText( self, wx.ID_ANY, u"+", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelPlus = wx.StaticText( self, wx.ID_ANY, "+", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelPlus.Wrap( -1 )
         sizerTurn.Add( self.labelPlus, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
         self.spinCtrlTurn2 = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( 75,-1 ), wx.SP_ARROW_KEYS, 0, 10, 0 )
         sizerTurn.Add( self.spinCtrlTurn2, 0, wx.ALL, 5 )
         
-        self.labelX = wx.StaticText( self, wx.ID_ANY, u"X", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelX = wx.StaticText( self, wx.ID_ANY, "X", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelX.Wrap( -1 )
         sizerTurn.Add( self.labelX, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
@@ -4876,7 +4876,7 @@ class EventCondition_Dialog ( wx.Dialog ):
         
         sizerEnemy1 = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.checkBoxEnemy = wx.CheckBox( self, wx.ID_ANY, u"Enemy", wx.DefaultPosition, wx.Size( 72,-1 ), 0 )
+        self.checkBoxEnemy = wx.CheckBox( self, wx.ID_ANY, "Enemy", wx.DefaultPosition, wx.Size( 72,-1 ), 0 )
         sizerEnemy1.Add( self.checkBoxEnemy, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
         comboBoxEnemyChoices = []
@@ -4884,7 +4884,7 @@ class EventCondition_Dialog ( wx.Dialog ):
         self.comboBoxEnemy.SetSelection( 0 )
         sizerEnemy1.Add( self.comboBoxEnemy, 0, wx.ALL, 5 )
         
-        self.labelHP1 = wx.StaticText( self, wx.ID_ANY, u"'s HP is", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelHP1 = wx.StaticText( self, wx.ID_ANY, "'s HP is", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelHP1.Wrap( -1 )
         sizerEnemy1.Add( self.labelHP1, 0, wx.ALIGN_CENTER_VERTICAL|wx.TOP|wx.BOTTOM|wx.RIGHT, 5 )
         
@@ -4899,7 +4899,7 @@ class EventCondition_Dialog ( wx.Dialog ):
         self.spinCtrlEnemyHPPercent = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( 75,-1 ), wx.SP_ARROW_KEYS, 0, 10, 0 )
         sizerEnemy2.Add( self.spinCtrlEnemyHPPercent, 0, wx.ALL, 5 )
         
-        self.labelBelow1 = wx.StaticText( self, wx.ID_ANY, u"% or below", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelBelow1 = wx.StaticText( self, wx.ID_ANY, "% or below", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelBelow1.Wrap( -1 )
         sizerEnemy2.Add( self.labelBelow1, 0, wx.ALIGN_CENTER_VERTICAL|wx.TOP|wx.BOTTOM|wx.RIGHT, 5 )
         
@@ -4907,7 +4907,7 @@ class EventCondition_Dialog ( wx.Dialog ):
         
         sizerActor1 = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.checkBoxActor = wx.CheckBox( self, wx.ID_ANY, u"Actor", wx.DefaultPosition, wx.Size( 72,-1 ), 0 )
+        self.checkBoxActor = wx.CheckBox( self, wx.ID_ANY, "Actor", wx.DefaultPosition, wx.Size( 72,-1 ), 0 )
         sizerActor1.Add( self.checkBoxActor, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
         comboBoxActorChoices = []
@@ -4915,7 +4915,7 @@ class EventCondition_Dialog ( wx.Dialog ):
         self.comboBoxActor.SetSelection( 0 )
         sizerActor1.Add( self.comboBoxActor, 0, wx.ALL, 5 )
         
-        self.labelHP2 = wx.StaticText( self, wx.ID_ANY, u"'s HP is", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelHP2 = wx.StaticText( self, wx.ID_ANY, "'s HP is", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelHP2.Wrap( -1 )
         sizerActor1.Add( self.labelHP2, 0, wx.ALIGN_CENTER_VERTICAL|wx.TOP|wx.BOTTOM|wx.RIGHT, 5 )
         
@@ -4930,7 +4930,7 @@ class EventCondition_Dialog ( wx.Dialog ):
         self.spinCtrlActorHPPercent = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( 75,-1 ), wx.SP_ARROW_KEYS, 0, 10, 0 )
         sizerActor2.Add( self.spinCtrlActorHPPercent, 0, wx.ALL, 5 )
         
-        self.labelBelow2 = wx.StaticText( self, wx.ID_ANY, u"% or below", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelBelow2 = wx.StaticText( self, wx.ID_ANY, "% or below", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelBelow2.Wrap( -1 )
         sizerActor2.Add( self.labelBelow2, 0, wx.ALIGN_CENTER_VERTICAL|wx.TOP|wx.BOTTOM|wx.RIGHT, 5 )
         
@@ -4938,7 +4938,7 @@ class EventCondition_Dialog ( wx.Dialog ):
         
         sizerSwitch = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.checkBoxSwitch = wx.CheckBox( self, wx.ID_ANY, u"Switch", wx.DefaultPosition, wx.Size( 72,-1 ), 0 )
+        self.checkBoxSwitch = wx.CheckBox( self, wx.ID_ANY, "Switch", wx.DefaultPosition, wx.Size( 72,-1 ), 0 )
         sizerSwitch.Add( self.checkBoxSwitch, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
         comboBoxSwitchChoices = []
@@ -4946,7 +4946,7 @@ class EventCondition_Dialog ( wx.Dialog ):
         self.comboBoxSwitch.SetSelection( 0 )
         sizerSwitch.Add( self.comboBoxSwitch, 0, wx.ALL, 5 )
         
-        self.labelON = wx.StaticText( self, wx.ID_ANY, u"is ON", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelON = wx.StaticText( self, wx.ID_ANY, "is ON", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelON.Wrap( -1 )
         sizerSwitch.Add( self.labelON, 0, wx.ALIGN_CENTER_VERTICAL|wx.TOP|wx.BOTTOM|wx.RIGHT, 5 )
         
@@ -4956,10 +4956,10 @@ class EventCondition_Dialog ( wx.Dialog ):
         
         sizerOKCancel = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.buttonOK = wx.Button( self, wx.ID_ANY, u"OK", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonOK = wx.Button( self, wx.ID_ANY, "OK", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonOK, 0, wx.ALL, 5 )
         
-        self.buttonCancel = wx.Button( self, wx.ID_ANY, u"Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonCancel = wx.Button( self, wx.ID_ANY, "Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonCancel, 0, wx.ALL, 5 )
         
         MainSizer.Add( sizerOKCancel, 0, wx.ALIGN_RIGHT, 5 )
@@ -5008,7 +5008,7 @@ class EventCondition_Dialog ( wx.Dialog ):
 class AnimationTiming_Dialog ( wx.Dialog ):
     
     def __init__( self, parent ):
-        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"SE and Flash Timing", pos = wx.DefaultPosition, size = wx.Size( 418,335 ), style = wx.DEFAULT_DIALOG_STYLE )
+        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = "SE and Flash Timing", pos = wx.DefaultPosition, size = wx.Size( 418,335 ), style = wx.DEFAULT_DIALOG_STYLE )
         
         self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
         
@@ -5018,7 +5018,7 @@ class AnimationTiming_Dialog ( wx.Dialog ):
         
         sizer1 = wx.BoxSizer( wx.VERTICAL )
         
-        self.labelFrame = wx.StaticText( self, wx.ID_ANY, u"Frame:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelFrame = wx.StaticText( self, wx.ID_ANY, "Frame:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelFrame.Wrap( -1 )
         sizer1.Add( self.labelFrame, 0, wx.ALL|wx.EXPAND, 5 )
         
@@ -5029,7 +5029,7 @@ class AnimationTiming_Dialog ( wx.Dialog ):
         
         sizer2 = wx.BoxSizer( wx.VERTICAL )
         
-        self.labelSE = wx.StaticText( self, wx.ID_ANY, u"SE:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelSE = wx.StaticText( self, wx.ID_ANY, "SE:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelSE.Wrap( -1 )
         sizer2.Add( self.labelSE, 0, wx.ALL|wx.EXPAND, 5 )
         
@@ -5041,7 +5041,7 @@ class AnimationTiming_Dialog ( wx.Dialog ):
         
         sizer3 = wx.BoxSizer( wx.VERTICAL )
         
-        self.labelCondition = wx.StaticText( self, wx.ID_ANY, u"Condition:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelCondition = wx.StaticText( self, wx.ID_ANY, "Condition:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelCondition.Wrap( -1 )
         sizer3.Add( self.labelCondition, 0, wx.ALL|wx.EXPAND, 5 )
         
@@ -5054,20 +5054,20 @@ class AnimationTiming_Dialog ( wx.Dialog ):
         
         MainSizer.Add( sizerFrame, 0, wx.EXPAND, 5 )
         
-        sizerFlash = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Flash" ), wx.VERTICAL )
+        sizerFlash = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, "Flash" ), wx.VERTICAL )
         
         sizerFlashArea = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.radioButtonNone = wx.RadioButton( self, wx.ID_ANY, u"None", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.radioButtonNone = wx.RadioButton( self, wx.ID_ANY, "None", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerFlashArea.Add( self.radioButtonNone, 0, wx.ALL, 5 )
         
-        self.radioButtonTarget = wx.RadioButton( self, wx.ID_ANY, u"Target", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.radioButtonTarget = wx.RadioButton( self, wx.ID_ANY, "Target", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerFlashArea.Add( self.radioButtonTarget, 0, wx.ALL, 5 )
         
-        self.radioButtonScreen = wx.RadioButton( self, wx.ID_ANY, u"Screen", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.radioButtonScreen = wx.RadioButton( self, wx.ID_ANY, "Screen", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerFlashArea.Add( self.radioButtonScreen, 0, wx.ALL, 5 )
         
-        self.radioButtonHideTarget = wx.RadioButton( self, wx.ID_ANY, u"Hide Target", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.radioButtonHideTarget = wx.RadioButton( self, wx.ID_ANY, "Hide Target", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerFlashArea.Add( self.radioButtonHideTarget, 0, wx.ALL, 5 )
         
         sizerFlash.Add( sizerFlashArea, 0, wx.EXPAND, 5 )
@@ -5080,7 +5080,7 @@ class AnimationTiming_Dialog ( wx.Dialog ):
         
         sizerRed = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.labelRed = wx.StaticText( self, wx.ID_ANY, u"Red:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelRed = wx.StaticText( self, wx.ID_ANY, "Red:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelRed.Wrap( -1 )
         sizerRed.Add( self.labelRed, 20, wx.ALL|wx.EXPAND|wx.ALIGN_CENTER_VERTICAL, 5 )
         
@@ -5094,7 +5094,7 @@ class AnimationTiming_Dialog ( wx.Dialog ):
         
         sizerGreen = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.labelGreen = wx.StaticText( self, wx.ID_ANY, u"Green:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelGreen = wx.StaticText( self, wx.ID_ANY, "Green:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelGreen.Wrap( -1 )
         sizerGreen.Add( self.labelGreen, 20, wx.ALL|wx.EXPAND|wx.ALIGN_CENTER_VERTICAL, 5 )
         
@@ -5108,7 +5108,7 @@ class AnimationTiming_Dialog ( wx.Dialog ):
         
         sizerBlue = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.labelBlue = wx.StaticText( self, wx.ID_ANY, u"Blue:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelBlue = wx.StaticText( self, wx.ID_ANY, "Blue:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelBlue.Wrap( -1 )
         sizerBlue.Add( self.labelBlue, 20, wx.ALL|wx.EXPAND|wx.ALIGN_CENTER_VERTICAL, 5 )
         
@@ -5122,7 +5122,7 @@ class AnimationTiming_Dialog ( wx.Dialog ):
         
         sizerStrength = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.labelStrength = wx.StaticText( self, wx.ID_ANY, u"Strength:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelStrength = wx.StaticText( self, wx.ID_ANY, "Strength:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelStrength.Wrap( -1 )
         sizerStrength.Add( self.labelStrength, 20, wx.ALL|wx.EXPAND|wx.ALIGN_CENTER_VERTICAL, 5 )
         
@@ -5145,14 +5145,14 @@ class AnimationTiming_Dialog ( wx.Dialog ):
         
         sizer5 = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.labelDuration = wx.StaticText( self, wx.ID_ANY, u"Duration:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelDuration = wx.StaticText( self, wx.ID_ANY, "Duration:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelDuration.Wrap( -1 )
         sizer5.Add( self.labelDuration, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
         self.spinCtrlDurationFrames = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( 64,-1 ), wx.SP_ARROW_KEYS, 0, 10, 0 )
         sizer5.Add( self.spinCtrlDurationFrames, 0, wx.ALL, 5 )
         
-        self.labelFrames = wx.StaticText( self, wx.ID_ANY, u"Frames", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelFrames = wx.StaticText( self, wx.ID_ANY, "Frames", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelFrames.Wrap( -1 )
         sizer5.Add( self.labelFrames, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
@@ -5162,10 +5162,10 @@ class AnimationTiming_Dialog ( wx.Dialog ):
         
         sizerOKCancel = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.buttonOK = wx.Button( self, wx.ID_ANY, u"OK", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonOK = wx.Button( self, wx.ID_ANY, "OK", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonOK, 0, wx.ALL, 5 )
         
-        self.buttonCancel = wx.Button( self, wx.ID_ANY, u"Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonCancel = wx.Button( self, wx.ID_ANY, "Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonCancel, 0, wx.ALL, 5 )
         
         MainSizer.Add( sizerOKCancel, 0, wx.ALIGN_RIGHT, 5 )
@@ -5262,13 +5262,13 @@ class AnimationTiming_Dialog ( wx.Dialog ):
 class AnimationTweening_Dialog ( wx.Dialog ):
     
     def __init__( self, parent ):
-        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Tweening", pos = wx.DefaultPosition, size = wx.Size( 179,263 ), style = wx.DEFAULT_DIALOG_STYLE )
+        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = "Tweening", pos = wx.DefaultPosition, size = wx.Size( 179,263 ), style = wx.DEFAULT_DIALOG_STYLE )
         
         self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
         
         MainSizer = wx.BoxSizer( wx.VERTICAL )
         
-        self.labelFrames = wx.StaticText( self, wx.ID_ANY, u"Frames:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelFrames = wx.StaticText( self, wx.ID_ANY, "Frames:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelFrames.Wrap( -1 )
         MainSizer.Add( self.labelFrames, 0, wx.ALL, 5 )
         
@@ -5277,7 +5277,7 @@ class AnimationTweening_Dialog ( wx.Dialog ):
         self.spinCtrlFramesStart = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( 64,-1 ), wx.SP_ARROW_KEYS, 0, 10, 0 )
         sizerFrames.Add( self.spinCtrlFramesStart, 1, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
         
-        self.labelTilde1 = wx.StaticText( self, wx.ID_ANY, u"~", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelTilde1 = wx.StaticText( self, wx.ID_ANY, "~", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelTilde1.Wrap( -1 )
         sizerFrames.Add( self.labelTilde1, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
@@ -5286,7 +5286,7 @@ class AnimationTweening_Dialog ( wx.Dialog ):
         
         MainSizer.Add( sizerFrames, 0, wx.EXPAND, 5 )
         
-        self.labelCells = wx.StaticText( self, wx.ID_ANY, u"Cells:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelCells = wx.StaticText( self, wx.ID_ANY, "Cells:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelCells.Wrap( -1 )
         MainSizer.Add( self.labelCells, 0, wx.ALL, 5 )
         
@@ -5295,7 +5295,7 @@ class AnimationTweening_Dialog ( wx.Dialog ):
         self.spinCtrlCellsStart = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( 64,-1 ), wx.SP_ARROW_KEYS, 0, 10, 0 )
         sizerCells.Add( self.spinCtrlCellsStart, 1, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
         
-        self.labelTilde2 = wx.StaticText( self, wx.ID_ANY, u"~", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelTilde2 = wx.StaticText( self, wx.ID_ANY, "~", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelTilde2.Wrap( -1 )
         sizerCells.Add( self.labelTilde2, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
@@ -5304,25 +5304,25 @@ class AnimationTweening_Dialog ( wx.Dialog ):
         
         MainSizer.Add( sizerCells, 0, wx.EXPAND, 5 )
         
-        sizerTweeningItems = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Tweening Items" ), wx.VERTICAL )
+        sizerTweeningItems = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, "Tweening Items" ), wx.VERTICAL )
         
-        self.checkBoxPattern = wx.CheckBox( self, wx.ID_ANY, u"Pattern", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.checkBoxPattern = wx.CheckBox( self, wx.ID_ANY, "Pattern", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerTweeningItems.Add( self.checkBoxPattern, 0, wx.ALL, 5 )
         
-        self.checkBoxPosition = wx.CheckBox( self, wx.ID_ANY, u"Position / Zoom / Angle", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.checkBoxPosition = wx.CheckBox( self, wx.ID_ANY, "Position / Zoom / Angle", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerTweeningItems.Add( self.checkBoxPosition, 0, wx.ALL, 5 )
         
-        self.checkBoxOpacity = wx.CheckBox( self, wx.ID_ANY, u"Opacity / Blending", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.checkBoxOpacity = wx.CheckBox( self, wx.ID_ANY, "Opacity / Blending", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerTweeningItems.Add( self.checkBoxOpacity, 0, wx.ALL, 5 )
         
         MainSizer.Add( sizerTweeningItems, 0, wx.EXPAND|wx.ALL, 5 )
         
         sizerOKCancel = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.buttonOK = wx.Button( self, wx.ID_ANY, u"OK", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonOK = wx.Button( self, wx.ID_ANY, "OK", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonOK, 0, wx.ALL, 5 )
         
-        self.buttonCancel = wx.Button( self, wx.ID_ANY, u"Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonCancel = wx.Button( self, wx.ID_ANY, "Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonCancel, 0, wx.ALL, 5 )
         
         MainSizer.Add( sizerOKCancel, 0, wx.ALIGN_RIGHT, 5 )
@@ -5371,13 +5371,13 @@ class AnimationTweening_Dialog ( wx.Dialog ):
 class AnimationEntireSlide_Dialog ( wx.Dialog ):
     
     def __init__( self, parent ):
-        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Entire Slide", pos = wx.DefaultPosition, size = wx.Size( 179,200 ), style = wx.DEFAULT_DIALOG_STYLE )
+        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = "Entire Slide", pos = wx.DefaultPosition, size = wx.Size( 179,200 ), style = wx.DEFAULT_DIALOG_STYLE )
         
         self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
         
         MainSizer = wx.BoxSizer( wx.VERTICAL )
         
-        self.labelFrames = wx.StaticText( self, wx.ID_ANY, u"Frames:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelFrames = wx.StaticText( self, wx.ID_ANY, "Frames:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelFrames.Wrap( -1 )
         MainSizer.Add( self.labelFrames, 0, wx.ALL, 5 )
         
@@ -5386,7 +5386,7 @@ class AnimationEntireSlide_Dialog ( wx.Dialog ):
         self.sinCtrlFramesStart = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0 )
         sizerFrames.Add( self.sinCtrlFramesStart, 1, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
         
-        self.labelTilde = wx.StaticText( self, wx.ID_ANY, u"~", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelTilde = wx.StaticText( self, wx.ID_ANY, "~", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelTilde.Wrap( -1 )
         sizerFrames.Add( self.labelTilde, 0, wx.ALL, 5 )
         
@@ -5395,11 +5395,11 @@ class AnimationEntireSlide_Dialog ( wx.Dialog ):
         
         MainSizer.Add( sizerFrames, 0, wx.EXPAND, 5 )
         
-        sizerMovement = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Movement Amount" ), wx.HORIZONTAL )
+        sizerMovement = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, "Movement Amount" ), wx.HORIZONTAL )
         
         bSizer258 = wx.BoxSizer( wx.VERTICAL )
         
-        self.labelMoveX = wx.StaticText( self, wx.ID_ANY, u"X:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelMoveX = wx.StaticText( self, wx.ID_ANY, "X:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelMoveX.Wrap( -1 )
         bSizer258.Add( self.labelMoveX, 0, wx.ALL|wx.EXPAND, 5 )
         
@@ -5410,7 +5410,7 @@ class AnimationEntireSlide_Dialog ( wx.Dialog ):
         
         bSizer259 = wx.BoxSizer( wx.VERTICAL )
         
-        self.labelMoveY = wx.StaticText( self, wx.ID_ANY, u"Y:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelMoveY = wx.StaticText( self, wx.ID_ANY, "Y:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelMoveY.Wrap( -1 )
         bSizer259.Add( self.labelMoveY, 0, wx.ALL|wx.EXPAND, 5 )
         
@@ -5423,10 +5423,10 @@ class AnimationEntireSlide_Dialog ( wx.Dialog ):
         
         sizerOKCancel = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.buttonOK = wx.Button( self, wx.ID_ANY, u"OK", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonOK = wx.Button( self, wx.ID_ANY, "OK", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonOK, 0, wx.ALL, 5 )
         
-        self.buttonCancel = wx.Button( self, wx.ID_ANY, u"Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonCancel = wx.Button( self, wx.ID_ANY, "Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonCancel, 0, wx.ALL, 5 )
         
         MainSizer.Add( sizerOKCancel, 0, wx.ALIGN_RIGHT, 5 )
@@ -5467,13 +5467,13 @@ class AnimationEntireSlide_Dialog ( wx.Dialog ):
 class AnimationCellBatch_Dialog ( wx.Dialog ):
     
     def __init__( self, parent ):
-        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Cell Batch", pos = wx.DefaultPosition, size = wx.Size( 335,284 ), style = wx.DEFAULT_DIALOG_STYLE )
+        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = "Cell Batch", pos = wx.DefaultPosition, size = wx.Size( 335,284 ), style = wx.DEFAULT_DIALOG_STYLE )
         
         self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
         
         MainSizer = wx.BoxSizer( wx.VERTICAL )
         
-        self.labelFrames = wx.StaticText( self, wx.ID_ANY, u"Frames:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelFrames = wx.StaticText( self, wx.ID_ANY, "Frames:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelFrames.Wrap( -1 )
         MainSizer.Add( self.labelFrames, 0, wx.ALL, 5 )
         
@@ -5482,7 +5482,7 @@ class AnimationCellBatch_Dialog ( wx.Dialog ):
         self.spinCtrlFramesStart = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( 64,-1 ), wx.SP_ARROW_KEYS, 0, 10, 0 )
         sizerFrames.Add( self.spinCtrlFramesStart, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
         
-        self.labelTilde1 = wx.StaticText( self, wx.ID_ANY, u"~", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelTilde1 = wx.StaticText( self, wx.ID_ANY, "~", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelTilde1.Wrap( -1 )
         sizerFrames.Add( self.labelTilde1, 0, wx.ALL, 5 )
         
@@ -5491,7 +5491,7 @@ class AnimationCellBatch_Dialog ( wx.Dialog ):
         
         MainSizer.Add( sizerFrames, 0, wx.EXPAND, 5 )
         
-        self.labelCells = wx.StaticText( self, wx.ID_ANY, u"Cells:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelCells = wx.StaticText( self, wx.ID_ANY, "Cells:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelCells.Wrap( -1 )
         MainSizer.Add( self.labelCells, 0, wx.ALL, 5 )
         
@@ -5500,7 +5500,7 @@ class AnimationCellBatch_Dialog ( wx.Dialog ):
         self.spinCtrlCellsStart = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( 64,-1 ), wx.SP_ARROW_KEYS, 0, 10, 0 )
         sizerCells.Add( self.spinCtrlCellsStart, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
         
-        self.labelTilde2 = wx.StaticText( self, wx.ID_ANY, u"~", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelTilde2 = wx.StaticText( self, wx.ID_ANY, "~", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelTilde2.Wrap( -1 )
         sizerCells.Add( self.labelTilde2, 0, wx.ALL, 5 )
         
@@ -5513,13 +5513,13 @@ class AnimationCellBatch_Dialog ( wx.Dialog ):
         
         bSizer268 = wx.BoxSizer( wx.VERTICAL )
         
-        self.checkBoxPattern = wx.CheckBox( self, wx.ID_ANY, u"Pattern", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.checkBoxPattern = wx.CheckBox( self, wx.ID_ANY, "Pattern", wx.DefaultPosition, wx.DefaultSize, 0 )
         bSizer268.Add( self.checkBoxPattern, 0, wx.ALL|wx.EXPAND, 5 )
         
         self.spinCtrlPattern = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0 )
         bSizer268.Add( self.spinCtrlPattern, 0, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
         
-        self.checkBoxAngle = wx.CheckBox( self, wx.ID_ANY, u"Angle", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.checkBoxAngle = wx.CheckBox( self, wx.ID_ANY, "Angle", wx.DefaultPosition, wx.DefaultSize, 0 )
         bSizer268.Add( self.checkBoxAngle, 0, wx.ALL|wx.EXPAND, 5 )
         
         self.spinCtrlAngle = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0 )
@@ -5529,13 +5529,13 @@ class AnimationCellBatch_Dialog ( wx.Dialog ):
         
         bSizer2681 = wx.BoxSizer( wx.VERTICAL )
         
-        self.checkBoxX = wx.CheckBox( self, wx.ID_ANY, u"X", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.checkBoxX = wx.CheckBox( self, wx.ID_ANY, "X", wx.DefaultPosition, wx.DefaultSize, 0 )
         bSizer2681.Add( self.checkBoxX, 0, wx.ALL|wx.EXPAND, 5 )
         
         self.spinCtrlX = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0 )
         bSizer2681.Add( self.spinCtrlX, 0, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
         
-        self.checkBoxFlip = wx.CheckBox( self, wx.ID_ANY, u"Flip", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.checkBoxFlip = wx.CheckBox( self, wx.ID_ANY, "Flip", wx.DefaultPosition, wx.DefaultSize, 0 )
         bSizer2681.Add( self.checkBoxFlip, 0, wx.ALL|wx.EXPAND, 5 )
         
         self.spinCtrlFlip = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0 )
@@ -5545,13 +5545,13 @@ class AnimationCellBatch_Dialog ( wx.Dialog ):
         
         bSizer2682 = wx.BoxSizer( wx.VERTICAL )
         
-        self.checkBoxY = wx.CheckBox( self, wx.ID_ANY, u"Y", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.checkBoxY = wx.CheckBox( self, wx.ID_ANY, "Y", wx.DefaultPosition, wx.DefaultSize, 0 )
         bSizer2682.Add( self.checkBoxY, 0, wx.ALL|wx.EXPAND, 5 )
         
         self.spinCtrlY = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0 )
         bSizer2682.Add( self.spinCtrlY, 0, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
         
-        self.checkBoxOpacity = wx.CheckBox( self, wx.ID_ANY, u"Opacity", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.checkBoxOpacity = wx.CheckBox( self, wx.ID_ANY, "Opacity", wx.DefaultPosition, wx.DefaultSize, 0 )
         bSizer2682.Add( self.checkBoxOpacity, 0, wx.ALL|wx.EXPAND, 5 )
         
         self.spinCtrlOpacity = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0 )
@@ -5561,13 +5561,13 @@ class AnimationCellBatch_Dialog ( wx.Dialog ):
         
         bSizer2683 = wx.BoxSizer( wx.VERTICAL )
         
-        self.checkBoxZoom = wx.CheckBox( self, wx.ID_ANY, u"Zoom", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.checkBoxZoom = wx.CheckBox( self, wx.ID_ANY, "Zoom", wx.DefaultPosition, wx.DefaultSize, 0 )
         bSizer2683.Add( self.checkBoxZoom, 0, wx.ALL|wx.EXPAND, 5 )
         
         self.spinCtrlZoom = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0 )
         bSizer2683.Add( self.spinCtrlZoom, 0, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
         
-        self.checkBoxBlending = wx.CheckBox( self, wx.ID_ANY, u"Blending", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.checkBoxBlending = wx.CheckBox( self, wx.ID_ANY, "Blending", wx.DefaultPosition, wx.DefaultSize, 0 )
         bSizer2683.Add( self.checkBoxBlending, 0, wx.ALL|wx.EXPAND, 5 )
         
         self.spinCtrlBlending = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0 )
@@ -5579,10 +5579,10 @@ class AnimationCellBatch_Dialog ( wx.Dialog ):
         
         sizerOKCancel = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.buttonOK = wx.Button( self, wx.ID_ANY, u"OK", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonOK = wx.Button( self, wx.ID_ANY, "OK", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonOK, 0, wx.ALL, 5 )
         
-        self.buttonCancel = wx.Button( self, wx.ID_ANY, u"Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonCancel = wx.Button( self, wx.ID_ANY, "Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonCancel, 0, wx.ALL, 5 )
         
         MainSizer.Add( sizerOKCancel, 0, wx.ALIGN_RIGHT, 5 )
@@ -5663,7 +5663,7 @@ class AnimationCellBatch_Dialog ( wx.Dialog ):
 class AnimationCellProperties_Dialog ( wx.Dialog ):
     
     def __init__( self, parent ):
-        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Cell Properties", pos = wx.DefaultPosition, size = wx.Size( 321,160 ), style = wx.DEFAULT_DIALOG_STYLE )
+        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = "Cell Properties", pos = wx.DefaultPosition, size = wx.Size( 321,160 ), style = wx.DEFAULT_DIALOG_STYLE )
         
         self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
         
@@ -5671,19 +5671,19 @@ class AnimationCellProperties_Dialog ( wx.Dialog ):
         
         sizerLabels1 = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.labelPattern = wx.StaticText( self, wx.ID_ANY, u"Pattern:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelPattern = wx.StaticText( self, wx.ID_ANY, "Pattern:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelPattern.Wrap( -1 )
         sizerLabels1.Add( self.labelPattern, 1, wx.ALL, 5 )
         
-        self.labelX = wx.StaticText( self, wx.ID_ANY, u"X:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelX = wx.StaticText( self, wx.ID_ANY, "X:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelX.Wrap( -1 )
         sizerLabels1.Add( self.labelX, 1, wx.ALL, 5 )
         
-        self.labelY = wx.StaticText( self, wx.ID_ANY, u"Y:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelY = wx.StaticText( self, wx.ID_ANY, "Y:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelY.Wrap( -1 )
         sizerLabels1.Add( self.labelY, 1, wx.ALL, 5 )
         
-        self.labelZoom = wx.StaticText( self, wx.ID_ANY, u"Zoom:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelZoom = wx.StaticText( self, wx.ID_ANY, "Zoom:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelZoom.Wrap( -1 )
         sizerLabels1.Add( self.labelZoom, 1, wx.ALL, 5 )
         
@@ -5707,19 +5707,19 @@ class AnimationCellProperties_Dialog ( wx.Dialog ):
         
         sizerLabels2 = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.labelAngle = wx.StaticText( self, wx.ID_ANY, u"Angle:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelAngle = wx.StaticText( self, wx.ID_ANY, "Angle:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelAngle.Wrap( -1 )
         sizerLabels2.Add( self.labelAngle, 1, wx.ALL, 5 )
         
-        self.labelFlip = wx.StaticText( self, wx.ID_ANY, u"Flip:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelFlip = wx.StaticText( self, wx.ID_ANY, "Flip:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelFlip.Wrap( -1 )
         sizerLabels2.Add( self.labelFlip, 1, wx.ALL, 5 )
         
-        self.labelOpacity = wx.StaticText( self, wx.ID_ANY, u"Opacity:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelOpacity = wx.StaticText( self, wx.ID_ANY, "Opacity:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelOpacity.Wrap( -1 )
         sizerLabels2.Add( self.labelOpacity, 1, wx.ALL, 5 )
         
-        self.labelBlending = wx.StaticText( self, wx.ID_ANY, u"Blending:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelBlending = wx.StaticText( self, wx.ID_ANY, "Blending:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelBlending.Wrap( -1 )
         sizerLabels2.Add( self.labelBlending, 1, wx.ALL, 5 )
         
@@ -5743,10 +5743,10 @@ class AnimationCellProperties_Dialog ( wx.Dialog ):
         
         sizerOKCancel = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.buttonOK = wx.Button( self, wx.ID_ANY, u"OK", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonOK = wx.Button( self, wx.ID_ANY, "OK", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonOK, 0, wx.ALL, 5 )
         
-        self.buttonCancel = wx.Button( self, wx.ID_ANY, u"Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonCancel = wx.Button( self, wx.ID_ANY, "Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonCancel, 0, wx.ALL, 5 )
         
         MainSizer.Add( sizerOKCancel, 0, wx.ALIGN_RIGHT, 5 )
@@ -5779,7 +5779,7 @@ class AnimationCellProperties_Dialog ( wx.Dialog ):
 class ChooseFogGraphic_Dialog ( wx.Dialog ):
     
     def __init__( self, parent ):
-        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Fog Graphic", pos = wx.DefaultPosition, size = wx.Size( 714,468 ), style = wx.DEFAULT_DIALOG_STYLE )
+        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = "Fog Graphic", pos = wx.DefaultPosition, size = wx.Size( 714,468 ), style = wx.DEFAULT_DIALOG_STYLE )
         
         self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
         
@@ -5798,39 +5798,39 @@ class ChooseFogGraphic_Dialog ( wx.Dialog ):
         self.bitmapGraphic = wx.StaticBitmap( self, wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.DefaultSize, wx.SUNKEN_BORDER )
         sizerGraphic.Add( self.bitmapGraphic, 1, wx.EXPAND|wx.ALL, 5 )
         
-        sizerOptions = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Options" ), wx.VERTICAL )
+        sizerOptions = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, "Options" ), wx.VERTICAL )
         
-        self.labelOpacity = wx.StaticText( self, wx.ID_ANY, u"Opacity:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelOpacity = wx.StaticText( self, wx.ID_ANY, "Opacity:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelOpacity.Wrap( -1 )
         sizerOptions.Add( self.labelOpacity, 0, wx.ALL|wx.EXPAND, 5 )
         
         self.spinCtrlOpacity = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( 64,-1 ), wx.SP_ARROW_KEYS, 0, 255, 255 )
         sizerOptions.Add( self.spinCtrlOpacity, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
         
-        self.labelBlending = wx.StaticText( self, wx.ID_ANY, u"Blending:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelBlending = wx.StaticText( self, wx.ID_ANY, "Blending:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelBlending.Wrap( -1 )
         sizerOptions.Add( self.labelBlending, 0, wx.ALL|wx.EXPAND, 5 )
         
-        comboBoxBlendingChoices = [ u"Normal", u"Addition", u"Subtraction" ]
+        comboBoxBlendingChoices = [ "Normal", "Addition", "Subtraction" ]
         self.comboBoxBlending = wx.Choice( self, wx.ID_ANY, wx.DefaultPosition, wx.Size( 64,-1 ), comboBoxBlendingChoices, 0 )
         self.comboBoxBlending.SetSelection( 0 )
         sizerOptions.Add( self.comboBoxBlending, 0, wx.ALL, 5 )
         
-        self.labelZoom = wx.StaticText( self, wx.ID_ANY, u"Zoom:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelZoom = wx.StaticText( self, wx.ID_ANY, "Zoom:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelZoom.Wrap( -1 )
         sizerOptions.Add( self.labelZoom, 0, wx.ALL|wx.EXPAND, 5 )
         
         self.spinCtrlZoom = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( 64,-1 ), wx.SP_ARROW_KEYS, 0, 10, 0 )
         sizerOptions.Add( self.spinCtrlZoom, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
         
-        self.labelSX = wx.StaticText( self, wx.ID_ANY, u"SX:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelSX = wx.StaticText( self, wx.ID_ANY, "SX:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelSX.Wrap( -1 )
         sizerOptions.Add( self.labelSX, 0, wx.ALL|wx.EXPAND, 5 )
         
         self.spinCtrlSX = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( 64,-1 ), wx.SP_ARROW_KEYS, 0, 10, 0 )
         sizerOptions.Add( self.spinCtrlSX, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
         
-        self.labelSY = wx.StaticText( self, wx.ID_ANY, u"SY:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelSY = wx.StaticText( self, wx.ID_ANY, "SY:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelSY.Wrap( -1 )
         sizerOptions.Add( self.labelSY, 0, wx.ALL|wx.EXPAND, 5 )
         
@@ -5841,7 +5841,7 @@ class ChooseFogGraphic_Dialog ( wx.Dialog ):
         
         sizerPreview.Add( sizerGraphic, 1, wx.EXPAND, 5 )
         
-        sizerHue = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Hue" ), wx.VERTICAL )
+        sizerHue = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, "Hue" ), wx.VERTICAL )
         
         self.sliderHue = wx.Slider( self, wx.ID_ANY, 0, 0, 359, wx.DefaultPosition, wx.DefaultSize, wx.SL_HORIZONTAL )
         sizerHue.Add( self.sliderHue, 0, wx.ALL|wx.EXPAND, 5 )
@@ -5854,10 +5854,10 @@ class ChooseFogGraphic_Dialog ( wx.Dialog ):
         
         sizerOKCancel = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.buttonOK = wx.Button( self, wx.ID_ANY, u"OK", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonOK = wx.Button( self, wx.ID_ANY, "OK", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonOK, 0, wx.ALL, 5 )
         
-        self.buttonCancel = wx.Button( self, wx.ID_ANY, u"Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonCancel = wx.Button( self, wx.ID_ANY, "Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonCancel, 0, wx.ALL, 5 )
         
         MainSizer.Add( sizerOKCancel, 0, wx.ALIGN_RIGHT, 5 )
@@ -5918,7 +5918,7 @@ class ChooseFogGraphic_Dialog ( wx.Dialog ):
 class ChooseActor_Dialog ( wx.Dialog ):
     
     def __init__( self, parent ):
-        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Initial Party", pos = wx.DefaultPosition, size = wx.Size( 290,99 ), style = wx.DEFAULT_DIALOG_STYLE )
+        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = "Initial Party", pos = wx.DefaultPosition, size = wx.Size( 290,99 ), style = wx.DEFAULT_DIALOG_STYLE )
         
         self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
         
@@ -5926,7 +5926,7 @@ class ChooseActor_Dialog ( wx.Dialog ):
         
         sizerActor = wx.BoxSizer( wx.VERTICAL )
         
-        self.labelActor = wx.StaticText( self, wx.ID_ANY, u"Actor:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelActor = wx.StaticText( self, wx.ID_ANY, "Actor:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelActor.Wrap( -1 )
         sizerActor.Add( self.labelActor, 0, wx.ALL, 5 )
         
@@ -5939,10 +5939,10 @@ class ChooseActor_Dialog ( wx.Dialog ):
         
         sizerOKCancel = wx.BoxSizer( wx.VERTICAL )
         
-        self.buttonOK = wx.Button( self, wx.ID_ANY, u"OK", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonOK = wx.Button( self, wx.ID_ANY, "OK", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonOK, 0, wx.ALL, 5 )
         
-        self.buttonCancel = wx.Button( self, wx.ID_ANY, u"Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonCancel = wx.Button( self, wx.ID_ANY, "Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonCancel, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
         
         MainSizer.Add( sizerOKCancel, 0, wx.ALIGN_CENTER_VERTICAL, 5 )
@@ -5975,7 +5975,7 @@ class ChooseActor_Dialog ( wx.Dialog ):
 class ChooseSwitchVariable_Dialog ( wx.Dialog ):
     
     def __init__( self, parent ):
-        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Switch", pos = wx.DefaultPosition, size = wx.Size( 317,398 ), style = wx.DEFAULT_DIALOG_STYLE )
+        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = "Switch", pos = wx.DefaultPosition, size = wx.Size( 317,398 ), style = wx.DEFAULT_DIALOG_STYLE )
         
         self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
         
@@ -5985,14 +5985,14 @@ class ChooseSwitchVariable_Dialog ( wx.Dialog ):
         
         sizerGroup = wx.BoxSizer( wx.VERTICAL )
         
-        self.bitmapHeader = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( u"../Database Panel Images/Switch.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.bitmapHeader = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( "../Database Panel Images/Switch.png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerGroup.Add( self.bitmapHeader, 0, wx.ALL|wx.EXPAND, 5 )
         
         listBoxGroupChoices = []
         self.listBoxGroup = wx.ListBox( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, listBoxGroupChoices, 0 )
         sizerGroup.Add( self.listBoxGroup, 1, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
         
-        self.buttonChangeMax = wx.Button( self, wx.ID_ANY, u"Change Max...", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonChangeMax = wx.Button( self, wx.ID_ANY, "Change Max...", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerGroup.Add( self.buttonChangeMax, 0, wx.ALL|wx.EXPAND, 5 )
         
         sizerControls.Add( sizerGroup, 40, wx.EXPAND, 5 )
@@ -6005,7 +6005,7 @@ class ChooseSwitchVariable_Dialog ( wx.Dialog ):
         
         sizerName = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.labelName = wx.StaticText( self, wx.ID_ANY, u"Name:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelName = wx.StaticText( self, wx.ID_ANY, "Name:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelName.Wrap( -1 )
         sizerName.Add( self.labelName, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
@@ -6020,13 +6020,13 @@ class ChooseSwitchVariable_Dialog ( wx.Dialog ):
         
         sizerOKCancel = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.buttonOK = wx.Button( self, wx.ID_ANY, u"OK", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonOK = wx.Button( self, wx.ID_ANY, "OK", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonOK, 0, wx.ALL, 5 )
         
-        self.buttonCancel = wx.Button( self, wx.ID_ANY, u"Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonCancel = wx.Button( self, wx.ID_ANY, "Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonCancel, 0, wx.ALL, 5 )
         
-        self.buttonApply = wx.Button( self, wx.ID_ANY, u"Apply", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonApply = wx.Button( self, wx.ID_ANY, "Apply", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonApply, 0, wx.ALL, 5 )
         
         MainSizer.Add( sizerOKCancel, 0, wx.ALIGN_RIGHT, 5 )
@@ -6079,7 +6079,7 @@ class ChooseSwitchVariable_Dialog ( wx.Dialog ):
 class ShowText_Dialog ( wx.Dialog ):
     
     def __init__( self, parent ):
-        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Show Text", pos = wx.DefaultPosition, size = wx.Size( 322,160 ), style = wx.DEFAULT_DIALOG_STYLE )
+        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = "Show Text", pos = wx.DefaultPosition, size = wx.Size( 322,160 ), style = wx.DEFAULT_DIALOG_STYLE )
         
         self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
         
@@ -6090,10 +6090,10 @@ class ShowText_Dialog ( wx.Dialog ):
         
         sizerOKCancel = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.buttonOK = wx.Button( self, wx.ID_ANY, u"OK", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonOK = wx.Button( self, wx.ID_ANY, "OK", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonOK, 0, wx.ALL, 5 )
         
-        self.buttonCancel = wx.Button( self, wx.ID_ANY, u"Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonCancel = wx.Button( self, wx.ID_ANY, "Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonCancel, 0, wx.ALL, 5 )
         
         MainSizer.Add( sizerOKCancel, 0, wx.ALIGN_RIGHT, 5 )
@@ -6126,7 +6126,7 @@ class ShowText_Dialog ( wx.Dialog ):
 class ShowChoices_Dialog ( wx.Dialog ):
     
     def __init__( self, parent ):
-        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Show Choices", pos = wx.DefaultPosition, size = wx.Size( 315,268 ), style = wx.DEFAULT_DIALOG_STYLE )
+        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = "Show Choices", pos = wx.DefaultPosition, size = wx.Size( 315,268 ), style = wx.DEFAULT_DIALOG_STYLE )
         
         self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
         
@@ -6136,28 +6136,28 @@ class ShowChoices_Dialog ( wx.Dialog ):
         
         sizerChoices = wx.BoxSizer( wx.VERTICAL )
         
-        self.labelChoice1 = wx.StaticText( self, wx.ID_ANY, u"Choice 1:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelChoice1 = wx.StaticText( self, wx.ID_ANY, "Choice 1:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelChoice1.Wrap( -1 )
         sizerChoices.Add( self.labelChoice1, 0, wx.ALL|wx.EXPAND, 5 )
         
         self.textCtrlChoice1 = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerChoices.Add( self.textCtrlChoice1, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
         
-        self.labelChoice2 = wx.StaticText( self, wx.ID_ANY, u"Choice 2:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelChoice2 = wx.StaticText( self, wx.ID_ANY, "Choice 2:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelChoice2.Wrap( -1 )
         sizerChoices.Add( self.labelChoice2, 0, wx.ALL|wx.EXPAND, 5 )
         
         self.textCtrlChoice2 = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerChoices.Add( self.textCtrlChoice2, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
         
-        self.labelChoice3 = wx.StaticText( self, wx.ID_ANY, u"Choice 3:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelChoice3 = wx.StaticText( self, wx.ID_ANY, "Choice 3:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelChoice3.Wrap( -1 )
         sizerChoices.Add( self.labelChoice3, 0, wx.ALL|wx.EXPAND, 5 )
         
         self.textCtrlChoice3 = wx.TextCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerChoices.Add( self.textCtrlChoice3, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
         
-        self.labelChoice4 = wx.StaticText( self, wx.ID_ANY, u"Choice 4:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelChoice4 = wx.StaticText( self, wx.ID_ANY, "Choice 4:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelChoice4.Wrap( -1 )
         sizerChoices.Add( self.labelChoice4, 0, wx.ALL|wx.EXPAND, 5 )
         
@@ -6166,8 +6166,8 @@ class ShowChoices_Dialog ( wx.Dialog ):
         
         sizerControls.Add( sizerChoices, 1, wx.EXPAND, 5 )
         
-        radioBoxCancelChoices = [ u"Disallow", u"Choice 1", u"Choice 2", u"Choice 3", u"Choice 4", u"Branch" ]
-        self.radioBoxCancel = wx.RadioBox( self, wx.ID_ANY, u"When Cancel", wx.DefaultPosition, wx.DefaultSize, radioBoxCancelChoices, 1, wx.RA_SPECIFY_COLS )
+        radioBoxCancelChoices = [ "Disallow", "Choice 1", "Choice 2", "Choice 3", "Choice 4", "Branch" ]
+        self.radioBoxCancel = wx.RadioBox( self, wx.ID_ANY, "When Cancel", wx.DefaultPosition, wx.DefaultSize, radioBoxCancelChoices, 1, wx.RA_SPECIFY_COLS )
         self.radioBoxCancel.SetSelection( 0 )
         sizerControls.Add( self.radioBoxCancel, 0, wx.ALL, 5 )
         
@@ -6175,10 +6175,10 @@ class ShowChoices_Dialog ( wx.Dialog ):
         
         sizerOKCancel = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.buttonOK = wx.Button( self, wx.ID_ANY, u"OK", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonOK = wx.Button( self, wx.ID_ANY, "OK", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonOK, 0, wx.ALL, 5 )
         
-        self.buttonCancel = wx.Button( self, wx.ID_ANY, u"Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonCancel = wx.Button( self, wx.ID_ANY, "Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonCancel, 0, wx.ALL, 5 )
         
         MainSizer.Add( sizerOKCancel, 0, wx.ALIGN_RIGHT, 5 )
@@ -6211,7 +6211,7 @@ class ShowChoices_Dialog ( wx.Dialog ):
 class InputNumber_Dialog ( wx.Dialog ):
     
     def __init__( self, parent ):
-        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Input Number", pos = wx.DefaultPosition, size = wx.Size( 284,130 ), style = wx.DEFAULT_DIALOG_STYLE )
+        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = "Input Number", pos = wx.DefaultPosition, size = wx.Size( 284,130 ), style = wx.DEFAULT_DIALOG_STYLE )
         
         self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
         
@@ -6219,7 +6219,7 @@ class InputNumber_Dialog ( wx.Dialog ):
         
         sizerVariable = wx.BoxSizer( wx.VERTICAL )
         
-        self.labelVariable = wx.StaticText( self, wx.ID_ANY, u"Variable for Number:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelVariable = wx.StaticText( self, wx.ID_ANY, "Variable for Number:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelVariable.Wrap( -1 )
         sizerVariable.Add( self.labelVariable, 0, wx.ALL, 5 )
         
@@ -6227,7 +6227,7 @@ class InputNumber_Dialog ( wx.Dialog ):
         self.comboBoxVariable = wx.ComboBox( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, comboBoxVariableChoices, 0 )
         sizerVariable.Add( self.comboBoxVariable, 0, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
         
-        self.labelDigits = wx.StaticText( self, wx.ID_ANY, u"Digits:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelDigits = wx.StaticText( self, wx.ID_ANY, "Digits:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelDigits.Wrap( -1 )
         sizerVariable.Add( self.labelDigits, 0, wx.ALL, 5 )
         
@@ -6238,10 +6238,10 @@ class InputNumber_Dialog ( wx.Dialog ):
         
         sizerOKCancel = wx.BoxSizer( wx.VERTICAL )
         
-        self.buttonOK = wx.Button( self, wx.ID_ANY, u"OK", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonOK = wx.Button( self, wx.ID_ANY, "OK", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonOK, 0, wx.ALL, 5 )
         
-        self.buttonCancel = wx.Button( self, wx.ID_ANY, u"Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonCancel = wx.Button( self, wx.ID_ANY, "Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonCancel, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
         
         MainSizer.Add( sizerOKCancel, 0, 0, 5 )
@@ -6278,28 +6278,28 @@ class InputNumber_Dialog ( wx.Dialog ):
 class ChangeTextOptions_Dialog ( wx.Dialog ):
     
     def __init__( self, parent ):
-        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Change Text Options", pos = wx.DefaultPosition, size = wx.Size( 238,119 ), style = wx.DEFAULT_DIALOG_STYLE )
+        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = "Change Text Options", pos = wx.DefaultPosition, size = wx.Size( 238,119 ), style = wx.DEFAULT_DIALOG_STYLE )
         
         self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
         
         MainSizer = wx.BoxSizer( wx.HORIZONTAL )
         
-        radioBoxPositionChoices = [ u"Top", u"Middle", u"Bottom" ]
-        self.radioBoxPosition = wx.RadioBox( self, wx.ID_ANY, u"Position", wx.DefaultPosition, wx.DefaultSize, radioBoxPositionChoices, 1, wx.RA_SPECIFY_COLS )
+        radioBoxPositionChoices = [ "Top", "Middle", "Bottom" ]
+        self.radioBoxPosition = wx.RadioBox( self, wx.ID_ANY, "Position", wx.DefaultPosition, wx.DefaultSize, radioBoxPositionChoices, 1, wx.RA_SPECIFY_COLS )
         self.radioBoxPosition.SetSelection( 0 )
         MainSizer.Add( self.radioBoxPosition, 0, wx.ALL, 5 )
         
-        radioBoxWindowChoices = [ u"Show", u"Hide" ]
-        self.radioBoxWindow = wx.RadioBox( self, wx.ID_ANY, u"Window", wx.DefaultPosition, wx.DefaultSize, radioBoxWindowChoices, 1, wx.RA_SPECIFY_COLS )
+        radioBoxWindowChoices = [ "Show", "Hide" ]
+        self.radioBoxWindow = wx.RadioBox( self, wx.ID_ANY, "Window", wx.DefaultPosition, wx.DefaultSize, radioBoxWindowChoices, 1, wx.RA_SPECIFY_COLS )
         self.radioBoxWindow.SetSelection( 0 )
         MainSizer.Add( self.radioBoxWindow, 0, wx.ALL, 5 )
         
         sizerOKCancel = wx.BoxSizer( wx.VERTICAL )
         
-        self.buttonOK = wx.Button( self, wx.ID_ANY, u"OK", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonOK = wx.Button( self, wx.ID_ANY, "OK", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonOK, 0, wx.ALL, 5 )
         
-        self.buttonCancel = wx.Button( self, wx.ID_ANY, u"Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonCancel = wx.Button( self, wx.ID_ANY, "Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonCancel, 0, wx.ALL, 5 )
         
         MainSizer.Add( sizerOKCancel, 0, wx.EXPAND, 5 )
@@ -6332,7 +6332,7 @@ class ChangeTextOptions_Dialog ( wx.Dialog ):
 class ButtonProcessing_Dialog ( wx.Dialog ):
     
     def __init__( self, parent ):
-        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Button Input Processing", pos = wx.DefaultPosition, size = wx.Size( 274,97 ), style = wx.DEFAULT_DIALOG_STYLE )
+        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = "Button Input Processing", pos = wx.DefaultPosition, size = wx.Size( 274,97 ), style = wx.DEFAULT_DIALOG_STYLE )
         
         self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
         
@@ -6340,7 +6340,7 @@ class ButtonProcessing_Dialog ( wx.Dialog ):
         
         sizerVariable = wx.BoxSizer( wx.VERTICAL )
         
-        self.labelVariable = wx.StaticText( self, wx.ID_ANY, u"Variable for Button Code:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelVariable = wx.StaticText( self, wx.ID_ANY, "Variable for Button Code:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelVariable.Wrap( -1 )
         sizerVariable.Add( self.labelVariable, 0, wx.ALL, 5 )
         
@@ -6352,10 +6352,10 @@ class ButtonProcessing_Dialog ( wx.Dialog ):
         
         sizerOKCancel = wx.BoxSizer( wx.VERTICAL )
         
-        self.buttonOK = wx.Button( self, wx.ID_ANY, u"OK", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonOK = wx.Button( self, wx.ID_ANY, "OK", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonOK, 0, wx.ALL, 5 )
         
-        self.buttonCancel = wx.Button( self, wx.ID_ANY, u"Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonCancel = wx.Button( self, wx.ID_ANY, "Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonCancel, 0, wx.ALL, 5 )
         
         MainSizer.Add( sizerOKCancel, 0, wx.EXPAND, 5 )
@@ -6392,7 +6392,7 @@ class ButtonProcessing_Dialog ( wx.Dialog ):
 class Wait_Dialog ( wx.Dialog ):
     
     def __init__( self, parent ):
-        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Wait", pos = wx.DefaultPosition, size = wx.Size( 242,94 ), style = wx.DEFAULT_DIALOG_STYLE )
+        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = "Wait", pos = wx.DefaultPosition, size = wx.Size( 242,94 ), style = wx.DEFAULT_DIALOG_STYLE )
         
         self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
         
@@ -6400,7 +6400,7 @@ class Wait_Dialog ( wx.Dialog ):
         
         sizerControls = wx.BoxSizer( wx.VERTICAL )
         
-        self.labelTime = wx.StaticText( self, wx.ID_ANY, u"Time:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelTime = wx.StaticText( self, wx.ID_ANY, "Time:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelTime.Wrap( -1 )
         sizerControls.Add( self.labelTime, 0, wx.ALL, 5 )
         
@@ -6409,7 +6409,7 @@ class Wait_Dialog ( wx.Dialog ):
         self.spinCtrlFrames = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( 64,-1 ), wx.SP_ARROW_KEYS, 0, 10, 0 )
         sizerWait.Add( self.spinCtrlFrames, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
         
-        self.labelFrames = wx.StaticText( self, wx.ID_ANY, u"Frames", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelFrames = wx.StaticText( self, wx.ID_ANY, "Frames", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelFrames.Wrap( -1 )
         sizerWait.Add( self.labelFrames, 0, wx.ALL, 5 )
         
@@ -6419,10 +6419,10 @@ class Wait_Dialog ( wx.Dialog ):
         
         sizerOKCancel = wx.BoxSizer( wx.VERTICAL )
         
-        self.buttonOK = wx.Button( self, wx.ID_ANY, u"OK", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonOK = wx.Button( self, wx.ID_ANY, "OK", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonOK, 0, wx.ALL, 5 )
         
-        self.buttonCancel = wx.Button( self, wx.ID_ANY, u"Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonCancel = wx.Button( self, wx.ID_ANY, "Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonCancel, 0, wx.ALL, 5 )
         
         MainSizer.Add( sizerOKCancel, 0, 0, 5 )
@@ -6455,7 +6455,7 @@ class Wait_Dialog ( wx.Dialog ):
 class Comment_Dialog ( wx.Dialog ):
     
     def __init__( self, parent ):
-        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Comment", pos = wx.DefaultPosition, size = wx.Size( 256,177 ), style = wx.DEFAULT_DIALOG_STYLE )
+        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = "Comment", pos = wx.DefaultPosition, size = wx.Size( 256,177 ), style = wx.DEFAULT_DIALOG_STYLE )
         
         self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
         
@@ -6466,10 +6466,10 @@ class Comment_Dialog ( wx.Dialog ):
         
         sizerOKCancel = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.buttonOK = wx.Button( self, wx.ID_ANY, u"OK", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonOK = wx.Button( self, wx.ID_ANY, "OK", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonOK, 0, wx.ALL, 5 )
         
-        self.buttonCancel = wx.Button( self, wx.ID_ANY, u"Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonCancel = wx.Button( self, wx.ID_ANY, "Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonCancel, 0, wx.ALL, 5 )
         
         MainSizer.Add( sizerOKCancel, 0, wx.ALIGN_RIGHT, 5 )
@@ -6502,7 +6502,7 @@ class Comment_Dialog ( wx.Dialog ):
 class CallCommonEvent_Dialog ( wx.Dialog ):
     
     def __init__( self, parent ):
-        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Call Common Event", pos = wx.DefaultPosition, size = wx.Size( 290,94 ), style = wx.DEFAULT_DIALOG_STYLE )
+        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = "Call Common Event", pos = wx.DefaultPosition, size = wx.Size( 290,94 ), style = wx.DEFAULT_DIALOG_STYLE )
         
         self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
         
@@ -6510,7 +6510,7 @@ class CallCommonEvent_Dialog ( wx.Dialog ):
         
         sizerCommonEvent = wx.BoxSizer( wx.VERTICAL )
         
-        self.labelCommonEvent = wx.StaticText( self, wx.ID_ANY, u"Common Event:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelCommonEvent = wx.StaticText( self, wx.ID_ANY, "Common Event:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelCommonEvent.Wrap( -1 )
         sizerCommonEvent.Add( self.labelCommonEvent, 0, wx.ALL, 5 )
         
@@ -6523,10 +6523,10 @@ class CallCommonEvent_Dialog ( wx.Dialog ):
         
         sizerOKCancel = wx.BoxSizer( wx.VERTICAL )
         
-        self.buttonOK = wx.Button( self, wx.ID_ANY, u"OK", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonOK = wx.Button( self, wx.ID_ANY, "OK", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonOK, 0, wx.ALL, 5 )
         
-        self.buttonCancel = wx.Button( self, wx.ID_ANY, u"Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonCancel = wx.Button( self, wx.ID_ANY, "Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonCancel, 0, wx.ALL, 5 )
         
         MainSizer.Add( sizerOKCancel, 0, 0, 5 )
@@ -6559,7 +6559,7 @@ class CallCommonEvent_Dialog ( wx.Dialog ):
 class ConditionalBranch_Dialog ( wx.Dialog ):
     
     def __init__( self, parent ):
-        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Conditional Branch", pos = wx.DefaultPosition, size = wx.Size( 375,340 ), style = wx.DEFAULT_DIALOG_STYLE )
+        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = "Conditional Branch", pos = wx.DefaultPosition, size = wx.Size( 375,340 ), style = wx.DEFAULT_DIALOG_STYLE )
         
         self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
         
@@ -6571,18 +6571,18 @@ class ConditionalBranch_Dialog ( wx.Dialog ):
         
         sizerLineSwitch = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.radioButtonSwitch = wx.RadioButton( self.panelConditions1, wx.ID_ANY, u"Switch", wx.DefaultPosition, wx.Size( 72,-1 ), wx.RB_SINGLE )
+        self.radioButtonSwitch = wx.RadioButton( self.panelConditions1, wx.ID_ANY, "Switch", wx.DefaultPosition, wx.Size( 72,-1 ), wx.RB_SINGLE )
         sizerLineSwitch.Add( self.radioButtonSwitch, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
         comboBoxSwitchChoices = []
-        self.comboBoxSwitch = wx.ComboBox( self.panelConditions1, wx.ID_ANY, u"Combo!", wx.DefaultPosition, wx.Size( 160,-1 ), comboBoxSwitchChoices, 0 )
+        self.comboBoxSwitch = wx.ComboBox( self.panelConditions1, wx.ID_ANY, "Combo!", wx.DefaultPosition, wx.Size( 160,-1 ), comboBoxSwitchChoices, 0 )
         sizerLineSwitch.Add( self.comboBoxSwitch, 0, wx.ALL, 5 )
         
-        self.labelIsONOFF = wx.StaticText( self.panelConditions1, wx.ID_ANY, u"is", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelIsONOFF = wx.StaticText( self.panelConditions1, wx.ID_ANY, "is", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelIsONOFF.Wrap( -1 )
         sizerLineSwitch.Add( self.labelIsONOFF, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
-        comboBoxSwitchValueChoices = [ u"ON", u"OFF" ]
+        comboBoxSwitchValueChoices = [ "ON", "OFF" ]
         self.comboBoxSwitchValue = wx.Choice( self.panelConditions1, wx.ID_ANY, wx.DefaultPosition, wx.Size( 64,-1 ), comboBoxSwitchValueChoices, 0 )
         self.comboBoxSwitchValue.SetSelection( 0 )
         sizerLineSwitch.Add( self.comboBoxSwitchValue, 0, wx.ALL, 5 )
@@ -6591,14 +6591,14 @@ class ConditionalBranch_Dialog ( wx.Dialog ):
         
         sizerLineVariable1 = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.radioButtonVariable = wx.RadioButton( self.panelConditions1, wx.ID_ANY, u"Variable", wx.DefaultPosition, wx.Size( 72,-1 ), wx.RB_SINGLE )
+        self.radioButtonVariable = wx.RadioButton( self.panelConditions1, wx.ID_ANY, "Variable", wx.DefaultPosition, wx.Size( 72,-1 ), wx.RB_SINGLE )
         sizerLineVariable1.Add( self.radioButtonVariable, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
         comboBoxVariableChoices = []
-        self.comboBoxVariable = wx.ComboBox( self.panelConditions1, wx.ID_ANY, u"Combo!", wx.DefaultPosition, wx.Size( 160,-1 ), comboBoxVariableChoices, 0 )
+        self.comboBoxVariable = wx.ComboBox( self.panelConditions1, wx.ID_ANY, "Combo!", wx.DefaultPosition, wx.Size( 160,-1 ), comboBoxVariableChoices, 0 )
         sizerLineVariable1.Add( self.comboBoxVariable, 0, wx.ALL, 5 )
         
-        self.labelIsValue = wx.StaticText( self.panelConditions1, wx.ID_ANY, u"is", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelIsValue = wx.StaticText( self.panelConditions1, wx.ID_ANY, "is", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelIsValue.Wrap( -1 )
         sizerLineVariable1.Add( self.labelIsValue, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
@@ -6611,7 +6611,7 @@ class ConditionalBranch_Dialog ( wx.Dialog ):
         sizerLineVariable2.Add( self.labelDummy1, 0, wx.ALL, 5 )
         
         comboBoxVariableModifierChoices = []
-        self.comboBoxVariableModifier = wx.ComboBox( self.panelConditions1, wx.ID_ANY, u"Combo!", wx.DefaultPosition, wx.Size( 192,-1 ), comboBoxVariableModifierChoices, 0 )
+        self.comboBoxVariableModifier = wx.ComboBox( self.panelConditions1, wx.ID_ANY, "Combo!", wx.DefaultPosition, wx.Size( 192,-1 ), comboBoxVariableModifierChoices, 0 )
         sizerLineVariable2.Add( self.comboBoxVariableModifier, 0, wx.ALL, 5 )
         
         sizerTab1.Add( sizerLineVariable2, 0, wx.EXPAND, 5 )
@@ -6622,7 +6622,7 @@ class ConditionalBranch_Dialog ( wx.Dialog ):
         self.labelDummy2.Wrap( -1 )
         sizerLineVariable3.Add( self.labelDummy2, 0, wx.ALL, 5 )
         
-        self.radioButtonConstant = wx.RadioButton( self.panelConditions1, wx.ID_ANY, u"Constant", wx.DefaultPosition, wx.Size( 72,-1 ), wx.RB_GROUP )
+        self.radioButtonConstant = wx.RadioButton( self.panelConditions1, wx.ID_ANY, "Constant", wx.DefaultPosition, wx.Size( 72,-1 ), wx.RB_GROUP )
         sizerLineVariable3.Add( self.radioButtonConstant, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
         self.spinCtrlConstantValue = wx.SpinCtrl( self.panelConditions1, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( 110,-1 ), wx.SP_ARROW_KEYS, 0, 10, 0 )
@@ -6636,30 +6636,30 @@ class ConditionalBranch_Dialog ( wx.Dialog ):
         self.labelDummy3.Wrap( -1 )
         sizerLineVariable4.Add( self.labelDummy3, 0, wx.ALL, 5 )
         
-        self.radioButtonVariableValue = wx.RadioButton( self.panelConditions1, wx.ID_ANY, u"Variable", wx.DefaultPosition, wx.Size( 72,-1 ), 0 )
+        self.radioButtonVariableValue = wx.RadioButton( self.panelConditions1, wx.ID_ANY, "Variable", wx.DefaultPosition, wx.Size( 72,-1 ), 0 )
         sizerLineVariable4.Add( self.radioButtonVariableValue, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
         comboBoxVariableValueChoices = []
-        self.comboBoxVariableValue = wx.ComboBox( self.panelConditions1, wx.ID_ANY, u"Combo!", wx.DefaultPosition, wx.DefaultSize, comboBoxVariableValueChoices, 0 )
+        self.comboBoxVariableValue = wx.ComboBox( self.panelConditions1, wx.ID_ANY, "Combo!", wx.DefaultPosition, wx.DefaultSize, comboBoxVariableValueChoices, 0 )
         sizerLineVariable4.Add( self.comboBoxVariableValue, 1, wx.ALL, 5 )
         
         sizerTab1.Add( sizerLineVariable4, 0, wx.EXPAND, 5 )
         
         sizerSelfSwitch = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.radioButtonSelfSwitch = wx.RadioButton( self.panelConditions1, wx.ID_ANY, u"Self-Switch", wx.DefaultPosition, wx.Size( 72,-1 ), wx.RB_GROUP|wx.RB_SINGLE )
+        self.radioButtonSelfSwitch = wx.RadioButton( self.panelConditions1, wx.ID_ANY, "Self-Switch", wx.DefaultPosition, wx.Size( 72,-1 ), wx.RB_GROUP|wx.RB_SINGLE )
         sizerSelfSwitch.Add( self.radioButtonSelfSwitch, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
-        comboBoxLettersChoices = [ u"A", u"B", u"C", u"D", u"E", u"F", u"G", u"H", u"I", u"J", u"K", u"L", u"M", u"N", u"O", u"P", u"Q", u"R", u"S", u"T", u"U", u"V", u"W", u"X", u"Y", u"Z" ]
+        comboBoxLettersChoices = [ "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z" ]
         self.comboBoxLetters = wx.Choice( self.panelConditions1, wx.ID_ANY, wx.DefaultPosition, wx.Size( 64,-1 ), comboBoxLettersChoices, 0 )
         self.comboBoxLetters.SetSelection( 0 )
         sizerSelfSwitch.Add( self.comboBoxLetters, 0, wx.ALL, 5 )
         
-        self.labelIsSelfSwitch = wx.StaticText( self.panelConditions1, wx.ID_ANY, u"is", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelIsSelfSwitch = wx.StaticText( self.panelConditions1, wx.ID_ANY, "is", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelIsSelfSwitch.Wrap( -1 )
         sizerSelfSwitch.Add( self.labelIsSelfSwitch, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
-        comboBoxSelfSwitchValueChoices = [ u"ON", u"OFF" ]
+        comboBoxSelfSwitchValueChoices = [ "ON", "OFF" ]
         self.comboBoxSelfSwitchValue = wx.Choice( self.panelConditions1, wx.ID_ANY, wx.DefaultPosition, wx.Size( 64,-1 ), comboBoxSelfSwitchValueChoices, 0 )
         self.comboBoxSelfSwitchValue.SetSelection( 0 )
         sizerSelfSwitch.Add( self.comboBoxSelfSwitchValue, 0, wx.ALL, 5 )
@@ -6668,24 +6668,24 @@ class ConditionalBranch_Dialog ( wx.Dialog ):
         
         sizerTimer = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.radioButtonTimer = wx.RadioButton( self.panelConditions1, wx.ID_ANY, u"Timer", wx.DefaultPosition, wx.Size( 72,-1 ), wx.RB_SINGLE )
+        self.radioButtonTimer = wx.RadioButton( self.panelConditions1, wx.ID_ANY, "Timer", wx.DefaultPosition, wx.Size( 72,-1 ), wx.RB_SINGLE )
         sizerTimer.Add( self.radioButtonTimer, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
         self.spinCtrlMinutes = wx.SpinCtrl( self.panelConditions1, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( 64,-1 ), wx.SP_ARROW_KEYS, 0, 10, 0 )
         sizerTimer.Add( self.spinCtrlMinutes, 0, wx.ALL, 5 )
         
-        self.labelMinutes = wx.StaticText( self.panelConditions1, wx.ID_ANY, u"Min", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelMinutes = wx.StaticText( self.panelConditions1, wx.ID_ANY, "Min", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelMinutes.Wrap( -1 )
         sizerTimer.Add( self.labelMinutes, 0, wx.ALIGN_CENTER_VERTICAL|wx.TOP|wx.BOTTOM, 5 )
         
         self.spinCtrlSeconds = wx.SpinCtrl( self.panelConditions1, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( 64,-1 ), wx.SP_ARROW_KEYS, 0, 10, 0 )
         sizerTimer.Add( self.spinCtrlSeconds, 0, wx.ALL, 5 )
         
-        self.labelSeconds = wx.StaticText( self.panelConditions1, wx.ID_ANY, u"Sec", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelSeconds = wx.StaticText( self.panelConditions1, wx.ID_ANY, "Sec", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelSeconds.Wrap( -1 )
         sizerTimer.Add( self.labelSeconds, 0, wx.ALIGN_CENTER_VERTICAL|wx.TOP|wx.BOTTOM, 5 )
         
-        spinCtrlTimerValueChoices = [ u"or More", u"or Less" ]
+        spinCtrlTimerValueChoices = [ "or More", "or Less" ]
         self.spinCtrlTimerValue = wx.Choice( self.panelConditions1, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, spinCtrlTimerValueChoices, 0 )
         self.spinCtrlTimerValue.SetSelection( 0 )
         sizerTimer.Add( self.spinCtrlTimerValue, 1, wx.ALL, 5 )
@@ -6694,13 +6694,13 @@ class ConditionalBranch_Dialog ( wx.Dialog ):
         
         self.panelConditions1.SetSizer( sizerTab1 )
         self.panelConditions1.Layout()
-        self.noteBookConditions.AddPage( self.panelConditions1, u"1", False )
+        self.noteBookConditions.AddPage( self.panelConditions1, "1", False )
         self.panelConditions2 = wx.Panel( self.noteBookConditions, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
         sizerTab2 = wx.BoxSizer( wx.VERTICAL )
         
         sizerActor = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.radioButtonActor = wx.RadioButton( self.panelConditions2, wx.ID_ANY, u"Actor", wx.DefaultPosition, wx.DefaultSize, wx.RB_USE_CHECKBOX )
+        self.radioButtonActor = wx.RadioButton( self.panelConditions2, wx.ID_ANY, "Actor", wx.DefaultPosition, wx.DefaultSize, wx.RB_USE_CHECKBOX )
         sizerActor.Add( self.radioButtonActor, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
         comboBoxActorsChoices = []
@@ -6708,7 +6708,7 @@ class ConditionalBranch_Dialog ( wx.Dialog ):
         self.comboBoxActors.SetSelection( 0 )
         sizerActor.Add( self.comboBoxActors, 0, wx.ALL, 5 )
         
-        self.labelIsActor = wx.StaticText( self.panelConditions2, wx.ID_ANY, u"is", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelIsActor = wx.StaticText( self.panelConditions2, wx.ID_ANY, "is", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelIsActor.Wrap( -1 )
         sizerActor.Add( self.labelIsActor, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
@@ -6720,7 +6720,7 @@ class ConditionalBranch_Dialog ( wx.Dialog ):
         self.labelDummy4.Wrap( -1 )
         sizerInParty.Add( self.labelDummy4, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
-        self.radioButtonInParty = wx.RadioButton( self.panelConditions2, wx.ID_ANY, u"In the Party", wx.DefaultPosition, wx.DefaultSize, wx.RB_GROUP )
+        self.radioButtonInParty = wx.RadioButton( self.panelConditions2, wx.ID_ANY, "In the Party", wx.DefaultPosition, wx.DefaultSize, wx.RB_GROUP )
         sizerInParty.Add( self.radioButtonInParty, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
         sizerTab2.Add( sizerInParty, 0, wx.EXPAND, 5 )
@@ -6731,7 +6731,7 @@ class ConditionalBranch_Dialog ( wx.Dialog ):
         self.labelDummy5.Wrap( -1 )
         sizerActorName.Add( self.labelDummy5, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
-        self.radioButtonActorName = wx.RadioButton( self.panelConditions2, wx.ID_ANY, u"Name", wx.DefaultPosition, wx.Size( 64,-1 ), 0 )
+        self.radioButtonActorName = wx.RadioButton( self.panelConditions2, wx.ID_ANY, "Name", wx.DefaultPosition, wx.Size( 64,-1 ), 0 )
         sizerActorName.Add( self.radioButtonActorName, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
         comboBoxActorNameChoices = []
@@ -6739,7 +6739,7 @@ class ConditionalBranch_Dialog ( wx.Dialog ):
         self.comboBoxActorName.SetSelection( 0 )
         sizerActorName.Add( self.comboBoxActorName, 1, wx.ALL, 5 )
         
-        self.labelNameApplied = wx.StaticText( self.panelConditions2, wx.ID_ANY, u"Applied", wx.DefaultPosition, wx.Size( 64,-1 ), 0 )
+        self.labelNameApplied = wx.StaticText( self.panelConditions2, wx.ID_ANY, "Applied", wx.DefaultPosition, wx.Size( 64,-1 ), 0 )
         self.labelNameApplied.Wrap( -1 )
         sizerActorName.Add( self.labelNameApplied, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
@@ -6751,7 +6751,7 @@ class ConditionalBranch_Dialog ( wx.Dialog ):
         self.labelDummy6.Wrap( -1 )
         sizerActorSkill.Add( self.labelDummy6, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
-        self.radioButtonActorSkill = wx.RadioButton( self.panelConditions2, wx.ID_ANY, u"Skill", wx.DefaultPosition, wx.Size( 64,-1 ), 0 )
+        self.radioButtonActorSkill = wx.RadioButton( self.panelConditions2, wx.ID_ANY, "Skill", wx.DefaultPosition, wx.Size( 64,-1 ), 0 )
         sizerActorSkill.Add( self.radioButtonActorSkill, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
         comboBoxActorSkillChoices = []
@@ -6759,7 +6759,7 @@ class ConditionalBranch_Dialog ( wx.Dialog ):
         self.comboBoxActorSkill.SetSelection( 0 )
         sizerActorSkill.Add( self.comboBoxActorSkill, 1, wx.ALL, 5 )
         
-        self.labelSkillLearned = wx.StaticText( self.panelConditions2, wx.ID_ANY, u"Learned", wx.DefaultPosition, wx.Size( 64,-1 ), 0 )
+        self.labelSkillLearned = wx.StaticText( self.panelConditions2, wx.ID_ANY, "Learned", wx.DefaultPosition, wx.Size( 64,-1 ), 0 )
         self.labelSkillLearned.Wrap( -1 )
         sizerActorSkill.Add( self.labelSkillLearned, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
@@ -6771,7 +6771,7 @@ class ConditionalBranch_Dialog ( wx.Dialog ):
         self.labelDummy7.Wrap( -1 )
         SizerActorWeapon.Add( self.labelDummy7, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
-        self.radioButtonActorWeapon = wx.RadioButton( self.panelConditions2, wx.ID_ANY, u"Weapons", wx.DefaultPosition, wx.Size( 64,-1 ), 0 )
+        self.radioButtonActorWeapon = wx.RadioButton( self.panelConditions2, wx.ID_ANY, "Weapons", wx.DefaultPosition, wx.Size( 64,-1 ), 0 )
         SizerActorWeapon.Add( self.radioButtonActorWeapon, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
         comboBoxActorWeaponChoices = []
@@ -6779,7 +6779,7 @@ class ConditionalBranch_Dialog ( wx.Dialog ):
         self.comboBoxActorWeapon.SetSelection( 0 )
         SizerActorWeapon.Add( self.comboBoxActorWeapon, 1, wx.ALL, 5 )
         
-        self.labelActorEquipped1 = wx.StaticText( self.panelConditions2, wx.ID_ANY, u"Equipped", wx.DefaultPosition, wx.Size( 64,-1 ), 0 )
+        self.labelActorEquipped1 = wx.StaticText( self.panelConditions2, wx.ID_ANY, "Equipped", wx.DefaultPosition, wx.Size( 64,-1 ), 0 )
         self.labelActorEquipped1.Wrap( -1 )
         SizerActorWeapon.Add( self.labelActorEquipped1, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
@@ -6791,7 +6791,7 @@ class ConditionalBranch_Dialog ( wx.Dialog ):
         self.labelDummy8.Wrap( -1 )
         sizerActorArmor.Add( self.labelDummy8, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
-        self.radioButtonActorArmor = wx.RadioButton( self.panelConditions2, wx.ID_ANY, u"Armor", wx.DefaultPosition, wx.Size( 64,-1 ), 0 )
+        self.radioButtonActorArmor = wx.RadioButton( self.panelConditions2, wx.ID_ANY, "Armor", wx.DefaultPosition, wx.Size( 64,-1 ), 0 )
         sizerActorArmor.Add( self.radioButtonActorArmor, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
         comboBoxActorArmorChoices = []
@@ -6799,7 +6799,7 @@ class ConditionalBranch_Dialog ( wx.Dialog ):
         self.comboBoxActorArmor.SetSelection( 0 )
         sizerActorArmor.Add( self.comboBoxActorArmor, 1, wx.ALL, 5 )
         
-        self.labelActorEquipped2 = wx.StaticText( self.panelConditions2, wx.ID_ANY, u"Equipped", wx.DefaultPosition, wx.Size( 64,-1 ), 0 )
+        self.labelActorEquipped2 = wx.StaticText( self.panelConditions2, wx.ID_ANY, "Equipped", wx.DefaultPosition, wx.Size( 64,-1 ), 0 )
         self.labelActorEquipped2.Wrap( -1 )
         sizerActorArmor.Add( self.labelActorEquipped2, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
@@ -6811,7 +6811,7 @@ class ConditionalBranch_Dialog ( wx.Dialog ):
         self.labelDummy9.Wrap( -1 )
         sizerActorState.Add( self.labelDummy9, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
-        self.radioButtonActorState = wx.RadioButton( self.panelConditions2, wx.ID_ANY, u"State", wx.DefaultPosition, wx.Size( 64,-1 ), 0 )
+        self.radioButtonActorState = wx.RadioButton( self.panelConditions2, wx.ID_ANY, "State", wx.DefaultPosition, wx.Size( 64,-1 ), 0 )
         sizerActorState.Add( self.radioButtonActorState, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
         comboBoxActorStateChoices = []
@@ -6819,7 +6819,7 @@ class ConditionalBranch_Dialog ( wx.Dialog ):
         self.comboBoxActorState.SetSelection( 0 )
         sizerActorState.Add( self.comboBoxActorState, 1, wx.ALL, 5 )
         
-        self.labelStateInflicted = wx.StaticText( self.panelConditions2, wx.ID_ANY, u"Inflicted", wx.DefaultPosition, wx.Size( 64,-1 ), 0 )
+        self.labelStateInflicted = wx.StaticText( self.panelConditions2, wx.ID_ANY, "Inflicted", wx.DefaultPosition, wx.Size( 64,-1 ), 0 )
         self.labelStateInflicted.Wrap( -1 )
         sizerActorState.Add( self.labelStateInflicted, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
@@ -6828,13 +6828,13 @@ class ConditionalBranch_Dialog ( wx.Dialog ):
         self.panelConditions2.SetSizer( sizerTab2 )
         self.panelConditions2.Layout()
         sizerTab2.Fit( self.panelConditions2 )
-        self.noteBookConditions.AddPage( self.panelConditions2, u"2", False )
+        self.noteBookConditions.AddPage( self.panelConditions2, "2", False )
         self.panelConditions3 = wx.Panel( self.noteBookConditions, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
         sizerTab3 = wx.BoxSizer( wx.VERTICAL )
         
         sizerEnemy = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.labelEnemy = wx.RadioButton( self.panelConditions3, wx.ID_ANY, u"Enemy", wx.DefaultPosition, wx.Size( 72,-1 ), 0 )
+        self.labelEnemy = wx.RadioButton( self.panelConditions3, wx.ID_ANY, "Enemy", wx.DefaultPosition, wx.Size( 72,-1 ), 0 )
         sizerEnemy.Add( self.labelEnemy, 0, wx.ALL|wx.EXPAND, 5 )
         
         comboBoxEnemyChoices = []
@@ -6842,7 +6842,7 @@ class ConditionalBranch_Dialog ( wx.Dialog ):
         self.comboBoxEnemy.SetSelection( 0 )
         sizerEnemy.Add( self.comboBoxEnemy, 0, wx.ALL, 5 )
         
-        self.labelIsEnemy = wx.StaticText( self.panelConditions3, wx.ID_ANY, u"is", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelIsEnemy = wx.StaticText( self.panelConditions3, wx.ID_ANY, "is", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelIsEnemy.Wrap( -1 )
         sizerEnemy.Add( self.labelIsEnemy, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
@@ -6854,7 +6854,7 @@ class ConditionalBranch_Dialog ( wx.Dialog ):
         self.labelDummy10.Wrap( -1 )
         sizerEnemyAppeared.Add( self.labelDummy10, 0, wx.ALL, 5 )
         
-        self.radioButtonEnemyAppeared = wx.RadioButton( self.panelConditions3, wx.ID_ANY, u"Appeared", wx.DefaultPosition, wx.DefaultSize, wx.RB_GROUP )
+        self.radioButtonEnemyAppeared = wx.RadioButton( self.panelConditions3, wx.ID_ANY, "Appeared", wx.DefaultPosition, wx.DefaultSize, wx.RB_GROUP )
         sizerEnemyAppeared.Add( self.radioButtonEnemyAppeared, 0, wx.ALL, 5 )
         
         sizerTab3.Add( sizerEnemyAppeared, 0, wx.EXPAND, 5 )
@@ -6865,7 +6865,7 @@ class ConditionalBranch_Dialog ( wx.Dialog ):
         self.labelDummy11.Wrap( -1 )
         sizerEnemyState.Add( self.labelDummy11, 0, wx.ALL, 5 )
         
-        self.radioButtonEnemyState = wx.RadioButton( self.panelConditions3, wx.ID_ANY, u"State", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.radioButtonEnemyState = wx.RadioButton( self.panelConditions3, wx.ID_ANY, "State", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerEnemyState.Add( self.radioButtonEnemyState, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
         comboBoxEnemyStateChoices = []
@@ -6873,7 +6873,7 @@ class ConditionalBranch_Dialog ( wx.Dialog ):
         self.comboBoxEnemyState.SetSelection( 0 )
         sizerEnemyState.Add( self.comboBoxEnemyState, 1, wx.ALL, 5 )
         
-        self.labelEnemyStateInflicted = wx.StaticText( self.panelConditions3, wx.ID_ANY, u"Inflicted", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelEnemyStateInflicted = wx.StaticText( self.panelConditions3, wx.ID_ANY, "Inflicted", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelEnemyStateInflicted.Wrap( -1 )
         sizerEnemyState.Add( self.labelEnemyStateInflicted, 0, wx.ALIGN_CENTER_VERTICAL|wx.TOP|wx.BOTTOM|wx.RIGHT, 5 )
         
@@ -6881,7 +6881,7 @@ class ConditionalBranch_Dialog ( wx.Dialog ):
         
         sizerCharacter = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.labelCharacter = wx.RadioButton( self.panelConditions3, wx.ID_ANY, u"Character", wx.DefaultPosition, wx.Size( 72,-1 ), wx.RB_GROUP|wx.RB_SINGLE )
+        self.labelCharacter = wx.RadioButton( self.panelConditions3, wx.ID_ANY, "Character", wx.DefaultPosition, wx.Size( 72,-1 ), wx.RB_GROUP|wx.RB_SINGLE )
         sizerCharacter.Add( self.labelCharacter, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
         comboBoxCharacterChoices = []
@@ -6889,7 +6889,7 @@ class ConditionalBranch_Dialog ( wx.Dialog ):
         self.comboBoxCharacter.SetSelection( -1 )
         sizerCharacter.Add( self.comboBoxCharacter, 0, wx.ALL, 5 )
         
-        self.labelIsCharacter = wx.StaticText( self.panelConditions3, wx.ID_ANY, u"is", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelIsCharacter = wx.StaticText( self.panelConditions3, wx.ID_ANY, "is", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelIsCharacter.Wrap( -1 )
         sizerCharacter.Add( self.labelIsCharacter, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
@@ -6901,11 +6901,11 @@ class ConditionalBranch_Dialog ( wx.Dialog ):
         self.labelDummy12.Wrap( -1 )
         sizerCharacterFacing.Add( self.labelDummy12, 0, wx.ALL, 5 )
         
-        self.labelFacing = wx.StaticText( self.panelConditions3, wx.ID_ANY, u"Facing", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelFacing = wx.StaticText( self.panelConditions3, wx.ID_ANY, "Facing", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelFacing.Wrap( -1 )
         sizerCharacterFacing.Add( self.labelFacing, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
-        comboBoxFacingChoices = [ u"LEFT", u"RIGHT", u"UP", u"DOWN" ]
+        comboBoxFacingChoices = [ "LEFT", "RIGHT", "UP", "DOWN" ]
         self.comboBoxFacing = wx.Choice( self.panelConditions3, wx.ID_ANY, wx.DefaultPosition, wx.Size( 64,-1 ), comboBoxFacingChoices, 0 )
         self.comboBoxFacing.SetSelection( 0 )
         sizerCharacterFacing.Add( self.comboBoxFacing, 0, wx.ALL, 5 )
@@ -6915,19 +6915,19 @@ class ConditionalBranch_Dialog ( wx.Dialog ):
         self.panelConditions3.SetSizer( sizerTab3 )
         self.panelConditions3.Layout()
         sizerTab3.Fit( self.panelConditions3 )
-        self.noteBookConditions.AddPage( self.panelConditions3, u"3", False )
+        self.noteBookConditions.AddPage( self.panelConditions3, "3", False )
         self.panelConditions4 = wx.Panel( self.noteBookConditions, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
         sizerTab4 = wx.BoxSizer( wx.VERTICAL )
         
         sizerInventoryGold = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.radioButtonGold = wx.RadioButton( self.panelConditions4, wx.ID_ANY, u"Gold", wx.DefaultPosition, wx.Size( 72,-1 ), 0 )
+        self.radioButtonGold = wx.RadioButton( self.panelConditions4, wx.ID_ANY, "Gold", wx.DefaultPosition, wx.Size( 72,-1 ), 0 )
         sizerInventoryGold.Add( self.radioButtonGold, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
         self.spinCtrlGold = wx.SpinCtrl( self.panelConditions4, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0 )
         sizerInventoryGold.Add( self.spinCtrlGold, 0, wx.ALL, 5 )
         
-        comboBoxGoldModifierChoices = [ u"or More", u"or Less" ]
+        comboBoxGoldModifierChoices = [ "or More", "or Less" ]
         self.comboBoxGoldModifier = wx.Choice( self.panelConditions4, wx.ID_ANY, wx.DefaultPosition, wx.Size( 72,-1 ), comboBoxGoldModifierChoices, 0 )
         self.comboBoxGoldModifier.SetSelection( 0 )
         sizerInventoryGold.Add( self.comboBoxGoldModifier, 0, wx.ALL, 5 )
@@ -6936,7 +6936,7 @@ class ConditionalBranch_Dialog ( wx.Dialog ):
         
         sizerInventoryItem = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.radioButtonItem = wx.RadioButton( self.panelConditions4, wx.ID_ANY, u"Item", wx.DefaultPosition, wx.Size( 72,-1 ), 0 )
+        self.radioButtonItem = wx.RadioButton( self.panelConditions4, wx.ID_ANY, "Item", wx.DefaultPosition, wx.Size( 72,-1 ), 0 )
         sizerInventoryItem.Add( self.radioButtonItem, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
         comboBoxInventoryItemChoices = []
@@ -6944,7 +6944,7 @@ class ConditionalBranch_Dialog ( wx.Dialog ):
         self.comboBoxInventoryItem.SetSelection( 0 )
         sizerInventoryItem.Add( self.comboBoxInventoryItem, 1, wx.ALL, 5 )
         
-        self.labelInventoryItem = wx.StaticText( self.panelConditions4, wx.ID_ANY, u"In Inventory", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelInventoryItem = wx.StaticText( self.panelConditions4, wx.ID_ANY, "In Inventory", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelInventoryItem.Wrap( -1 )
         sizerInventoryItem.Add( self.labelInventoryItem, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
@@ -6952,7 +6952,7 @@ class ConditionalBranch_Dialog ( wx.Dialog ):
         
         sizerInventoryWeapon = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.radioButtonWeapon = wx.RadioButton( self.panelConditions4, wx.ID_ANY, u"Weapon", wx.DefaultPosition, wx.Size( 72,-1 ), 0 )
+        self.radioButtonWeapon = wx.RadioButton( self.panelConditions4, wx.ID_ANY, "Weapon", wx.DefaultPosition, wx.Size( 72,-1 ), 0 )
         sizerInventoryWeapon.Add( self.radioButtonWeapon, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
         comboBoxInventoryWeaponChoices = []
@@ -6960,7 +6960,7 @@ class ConditionalBranch_Dialog ( wx.Dialog ):
         self.comboBoxInventoryWeapon.SetSelection( 0 )
         sizerInventoryWeapon.Add( self.comboBoxInventoryWeapon, 1, wx.ALL, 5 )
         
-        self.labelInventoryWeapon = wx.StaticText( self.panelConditions4, wx.ID_ANY, u"In Inventory", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelInventoryWeapon = wx.StaticText( self.panelConditions4, wx.ID_ANY, "In Inventory", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelInventoryWeapon.Wrap( -1 )
         sizerInventoryWeapon.Add( self.labelInventoryWeapon, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
@@ -6968,7 +6968,7 @@ class ConditionalBranch_Dialog ( wx.Dialog ):
         
         sizerInventoryArmor = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.radioButtonArmor = wx.RadioButton( self.panelConditions4, wx.ID_ANY, u"Armor", wx.DefaultPosition, wx.Size( 72,-1 ), 0 )
+        self.radioButtonArmor = wx.RadioButton( self.panelConditions4, wx.ID_ANY, "Armor", wx.DefaultPosition, wx.Size( 72,-1 ), 0 )
         sizerInventoryArmor.Add( self.radioButtonArmor, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
         comboBoxInventoryArmorChoices = []
@@ -6976,7 +6976,7 @@ class ConditionalBranch_Dialog ( wx.Dialog ):
         self.comboBoxInventoryArmor.SetSelection( 0 )
         sizerInventoryArmor.Add( self.comboBoxInventoryArmor, 1, wx.ALL, 5 )
         
-        self.labelInventoryArmor = wx.StaticText( self.panelConditions4, wx.ID_ANY, u"In Inventory", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelInventoryArmor = wx.StaticText( self.panelConditions4, wx.ID_ANY, "In Inventory", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelInventoryArmor.Wrap( -1 )
         sizerInventoryArmor.Add( self.labelInventoryArmor, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
@@ -6984,7 +6984,7 @@ class ConditionalBranch_Dialog ( wx.Dialog ):
         
         sizerButtonPress = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.radioButtonButton = wx.RadioButton( self.panelConditions4, wx.ID_ANY, u"Button", wx.DefaultPosition, wx.Size( 72,-1 ), 0 )
+        self.radioButtonButton = wx.RadioButton( self.panelConditions4, wx.ID_ANY, "Button", wx.DefaultPosition, wx.Size( 72,-1 ), 0 )
         sizerButtonPress.Add( self.radioButtonButton, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
         comboBoxButtonPressChoices = []
@@ -6992,7 +6992,7 @@ class ConditionalBranch_Dialog ( wx.Dialog ):
         self.comboBoxButtonPress.SetSelection( -1 )
         sizerButtonPress.Add( self.comboBoxButtonPress, 0, wx.ALL, 5 )
         
-        self.labelButtonPressed = wx.StaticText( self.panelConditions4, wx.ID_ANY, u"Is Being Pressed", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelButtonPressed = wx.StaticText( self.panelConditions4, wx.ID_ANY, "Is Being Pressed", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelButtonPressed.Wrap( -1 )
         sizerButtonPress.Add( self.labelButtonPressed, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
@@ -7000,7 +7000,7 @@ class ConditionalBranch_Dialog ( wx.Dialog ):
         
         sizerScriptCondition = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.radioButtonScript = wx.RadioButton( self.panelConditions4, wx.ID_ANY, u"Script", wx.DefaultPosition, wx.Size( 72,-1 ), 0 )
+        self.radioButtonScript = wx.RadioButton( self.panelConditions4, wx.ID_ANY, "Script", wx.DefaultPosition, wx.Size( 72,-1 ), 0 )
         sizerScriptCondition.Add( self.radioButtonScript, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
         self.textCtrlScriptCondition = wx.TextCtrl( self.panelConditions4, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
@@ -7011,20 +7011,20 @@ class ConditionalBranch_Dialog ( wx.Dialog ):
         self.panelConditions4.SetSizer( sizerTab4 )
         self.panelConditions4.Layout()
         sizerTab4.Fit( self.panelConditions4 )
-        self.noteBookConditions.AddPage( self.panelConditions4, u"4", True )
+        self.noteBookConditions.AddPage( self.panelConditions4, "4", True )
         
         MainSizer.Add( self.noteBookConditions, 1, wx.EXPAND |wx.ALL, 5 )
         
-        self.labelElseCondition = wx.CheckBox( self, wx.ID_ANY, u"Set handling when conditions do not apply", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelElseCondition = wx.CheckBox( self, wx.ID_ANY, "Set handling when conditions do not apply", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelElseCondition.SetValue(True) 
         MainSizer.Add( self.labelElseCondition, 0, wx.ALL, 5 )
         
         sizerOKCancel = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.buttonOK = wx.Button( self, wx.ID_ANY, u"OK", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonOK = wx.Button( self, wx.ID_ANY, "OK", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonOK, 0, wx.ALL, 5 )
         
-        self.buttonCancel = wx.Button( self, wx.ID_ANY, u"Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonCancel = wx.Button( self, wx.ID_ANY, "Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonCancel, 0, wx.ALL, 5 )
         
         MainSizer.Add( sizerOKCancel, 0, wx.ALIGN_RIGHT, 5 )
@@ -7153,7 +7153,7 @@ class Label_Dialog ( wx.Dialog ):
         
         sizerLabel = wx.BoxSizer( wx.VERTICAL )
         
-        self.labelLabel = wx.StaticText( self, wx.ID_ANY, u"Label Name:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelLabel = wx.StaticText( self, wx.ID_ANY, "Label Name:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelLabel.Wrap( -1 )
         sizerLabel.Add( self.labelLabel, 0, wx.ALL, 5 )
         
@@ -7164,10 +7164,10 @@ class Label_Dialog ( wx.Dialog ):
         
         sizerOKCancel = wx.BoxSizer( wx.VERTICAL )
         
-        self.buttonOK = wx.Button( self, wx.ID_ANY, u"OK", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonOK = wx.Button( self, wx.ID_ANY, "OK", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonOK, 0, wx.ALL, 5 )
         
-        self.buttonCancel = wx.Button( self, wx.ID_ANY, u"Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonCancel = wx.Button( self, wx.ID_ANY, "Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonCancel, 0, wx.ALL, 5 )
         
         MainSizer.Add( sizerOKCancel, 0, 0, 5 )
@@ -7200,17 +7200,17 @@ class Label_Dialog ( wx.Dialog ):
 class ControlSwitches_Dialog ( wx.Dialog ):
     
     def __init__( self, parent ):
-        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Control Switches", pos = wx.DefaultPosition, size = wx.Size( 310,213 ), style = wx.DEFAULT_DIALOG_STYLE )
+        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = "Control Switches", pos = wx.DefaultPosition, size = wx.Size( 310,213 ), style = wx.DEFAULT_DIALOG_STYLE )
         
         self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
         
         MainSizer = wx.BoxSizer( wx.VERTICAL )
         
-        sizerSwitch = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Switch" ), wx.VERTICAL )
+        sizerSwitch = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, "Switch" ), wx.VERTICAL )
         
         sizerSingleSwitch = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.radioButtonSingleSwitch = wx.RadioButton( self, wx.ID_ANY, u"Single", wx.DefaultPosition, wx.Size( 64,-1 ), 0 )
+        self.radioButtonSingleSwitch = wx.RadioButton( self, wx.ID_ANY, "Single", wx.DefaultPosition, wx.Size( 64,-1 ), 0 )
         sizerSingleSwitch.Add( self.radioButtonSingleSwitch, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
         comboBoxSingleSwitchChoices = []
@@ -7222,13 +7222,13 @@ class ControlSwitches_Dialog ( wx.Dialog ):
         
         sizerBatchSwitch = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.radioButtonBatchSwitch = wx.RadioButton( self, wx.ID_ANY, u"Batch", wx.DefaultPosition, wx.Size( 64,-1 ), 0 )
+        self.radioButtonBatchSwitch = wx.RadioButton( self, wx.ID_ANY, "Batch", wx.DefaultPosition, wx.Size( 64,-1 ), 0 )
         sizerBatchSwitch.Add( self.radioButtonBatchSwitch, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
         self.spinCtrlBatchStart = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0 )
         sizerBatchSwitch.Add( self.spinCtrlBatchStart, 1, wx.ALL, 5 )
         
-        self.labelTilde = wx.StaticText( self, wx.ID_ANY, u"~", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelTilde = wx.StaticText( self, wx.ID_ANY, "~", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelTilde.Wrap( -1 )
         sizerBatchSwitch.Add( self.labelTilde, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
@@ -7239,17 +7239,17 @@ class ControlSwitches_Dialog ( wx.Dialog ):
         
         MainSizer.Add( sizerSwitch, 1, wx.EXPAND|wx.ALL, 5 )
         
-        radioBoxOperationChoices = [ u"ON", u"OFF" ]
-        self.radioBoxOperation = wx.RadioBox( self, wx.ID_ANY, u"Operation", wx.DefaultPosition, wx.DefaultSize, radioBoxOperationChoices, 1, wx.RA_SPECIFY_ROWS )
+        radioBoxOperationChoices = [ "ON", "OFF" ]
+        self.radioBoxOperation = wx.RadioBox( self, wx.ID_ANY, "Operation", wx.DefaultPosition, wx.DefaultSize, radioBoxOperationChoices, 1, wx.RA_SPECIFY_ROWS )
         self.radioBoxOperation.SetSelection( 0 )
         MainSizer.Add( self.radioBoxOperation, 0, wx.ALL, 5 )
         
         sizerOKCancel = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.buttonOK = wx.Button( self, wx.ID_ANY, u"OK", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonOK = wx.Button( self, wx.ID_ANY, "OK", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonOK, 0, wx.ALL, 5 )
         
-        self.buttonCancel = wx.Button( self, wx.ID_ANY, u"Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonCancel = wx.Button( self, wx.ID_ANY, "Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonCancel, 0, wx.ALL, 5 )
         
         MainSizer.Add( sizerOKCancel, 0, wx.ALIGN_RIGHT, 5 )
@@ -7290,17 +7290,17 @@ class ControlSwitches_Dialog ( wx.Dialog ):
 class ControlVariables_Dialog ( wx.Dialog ):
     
     def __init__( self, parent ):
-        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Control Variables", pos = wx.DefaultPosition, size = wx.Size( 359,490 ), style = wx.DEFAULT_DIALOG_STYLE )
+        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = "Control Variables", pos = wx.DefaultPosition, size = wx.Size( 359,490 ), style = wx.DEFAULT_DIALOG_STYLE )
         
         self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
         
         MainSizer = wx.BoxSizer( wx.VERTICAL )
         
-        sizerVariableSelect = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Variable" ), wx.VERTICAL )
+        sizerVariableSelect = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, "Variable" ), wx.VERTICAL )
         
         sizerSingleSwitch = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.radioButtonSingleVariable = wx.RadioButton( self, wx.ID_ANY, u"Single", wx.DefaultPosition, wx.Size( 64,-1 ), 0 )
+        self.radioButtonSingleVariable = wx.RadioButton( self, wx.ID_ANY, "Single", wx.DefaultPosition, wx.Size( 64,-1 ), 0 )
         sizerSingleSwitch.Add( self.radioButtonSingleVariable, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
         comboBoxSingleVariableChoices = []
@@ -7312,13 +7312,13 @@ class ControlVariables_Dialog ( wx.Dialog ):
         
         sizerBatchVariable = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.radioButtonBatchVariable = wx.RadioButton( self, wx.ID_ANY, u"Batch", wx.DefaultPosition, wx.Size( 64,-1 ), 0 )
+        self.radioButtonBatchVariable = wx.RadioButton( self, wx.ID_ANY, "Batch", wx.DefaultPosition, wx.Size( 64,-1 ), 0 )
         sizerBatchVariable.Add( self.radioButtonBatchVariable, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
         self.spinCtrlBatchStart = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0 )
         sizerBatchVariable.Add( self.spinCtrlBatchStart, 1, wx.ALL, 5 )
         
-        self.labelTilde1 = wx.StaticText( self, wx.ID_ANY, u"~", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelTilde1 = wx.StaticText( self, wx.ID_ANY, "~", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelTilde1.Wrap( -1 )
         sizerBatchVariable.Add( self.labelTilde1, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
@@ -7329,16 +7329,16 @@ class ControlVariables_Dialog ( wx.Dialog ):
         
         MainSizer.Add( sizerVariableSelect, 0, wx.ALL|wx.EXPAND, 5 )
         
-        radioBoxOperationChoices = [ u"Set", u"Add", u"Sub", u"Mul", u"Div", u"Mod" ]
-        self.radioBoxOperation = wx.RadioBox( self, wx.ID_ANY, u"Operation", wx.DefaultPosition, wx.DefaultSize, radioBoxOperationChoices, 1, wx.RA_SPECIFY_ROWS )
+        radioBoxOperationChoices = [ "Set", "Add", "Sub", "Mul", "Div", "Mod" ]
+        self.radioBoxOperation = wx.RadioBox( self, wx.ID_ANY, "Operation", wx.DefaultPosition, wx.DefaultSize, radioBoxOperationChoices, 1, wx.RA_SPECIFY_ROWS )
         self.radioBoxOperation.SetSelection( 5 )
         MainSizer.Add( self.radioBoxOperation, 0, wx.ALL|wx.EXPAND, 5 )
         
-        sizerOperand = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Operand" ), wx.VERTICAL )
+        sizerOperand = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, "Operand" ), wx.VERTICAL )
         
         sizerConstant = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.radioButtonConstant = wx.RadioButton( self, wx.ID_ANY, u"Constant", wx.DefaultPosition, wx.Size( 72,-1 ), 0 )
+        self.radioButtonConstant = wx.RadioButton( self, wx.ID_ANY, "Constant", wx.DefaultPosition, wx.Size( 72,-1 ), 0 )
         sizerConstant.Add( self.radioButtonConstant, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
         self.spinCtrlConstant = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( 96,-1 ), wx.SP_ARROW_KEYS, 0, 10, 0 )
@@ -7348,7 +7348,7 @@ class ControlVariables_Dialog ( wx.Dialog ):
         
         sizerVariable = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.radioButtonVariable = wx.RadioButton( self, wx.ID_ANY, u"Variable", wx.DefaultPosition, wx.Size( 72,-1 ), 0 )
+        self.radioButtonVariable = wx.RadioButton( self, wx.ID_ANY, "Variable", wx.DefaultPosition, wx.Size( 72,-1 ), 0 )
         sizerVariable.Add( self.radioButtonVariable, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
         comboBoxVariableChoices = []
@@ -7360,13 +7360,13 @@ class ControlVariables_Dialog ( wx.Dialog ):
         
         sizerRandom = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.radioButtonRandom = wx.RadioButton( self, wx.ID_ANY, u"Random", wx.DefaultPosition, wx.Size( 72,-1 ), 0 )
+        self.radioButtonRandom = wx.RadioButton( self, wx.ID_ANY, "Random", wx.DefaultPosition, wx.Size( 72,-1 ), 0 )
         sizerRandom.Add( self.radioButtonRandom, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
         self.spinCtrlRandomStart = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0 )
         sizerRandom.Add( self.spinCtrlRandomStart, 1, wx.ALL, 5 )
         
-        self.labelTilde2 = wx.StaticText( self, wx.ID_ANY, u"~", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelTilde2 = wx.StaticText( self, wx.ID_ANY, "~", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelTilde2.Wrap( -1 )
         sizerRandom.Add( self.labelTilde2, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
@@ -7377,7 +7377,7 @@ class ControlVariables_Dialog ( wx.Dialog ):
         
         sizerItem = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.radioButtonItem = wx.RadioButton( self, wx.ID_ANY, u"Item", wx.DefaultPosition, wx.Size( 72,-1 ), 0 )
+        self.radioButtonItem = wx.RadioButton( self, wx.ID_ANY, "Item", wx.DefaultPosition, wx.Size( 72,-1 ), 0 )
         sizerItem.Add( self.radioButtonItem, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
         comboBoxItemChoices = []
@@ -7385,7 +7385,7 @@ class ControlVariables_Dialog ( wx.Dialog ):
         self.comboBoxItem.SetSelection( 0 )
         sizerItem.Add( self.comboBoxItem, 1, wx.ALL, 5 )
         
-        self.labelItemInInventory = wx.StaticText( self, wx.ID_ANY, u"In Inventory", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelItemInInventory = wx.StaticText( self, wx.ID_ANY, "In Inventory", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelItemInInventory.Wrap( -1 )
         sizerItem.Add( self.labelItemInInventory, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
@@ -7393,7 +7393,7 @@ class ControlVariables_Dialog ( wx.Dialog ):
         
         sizerActor = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.radioButtonActor = wx.RadioButton( self, wx.ID_ANY, u"Actor", wx.DefaultPosition, wx.Size( 72,-1 ), 0 )
+        self.radioButtonActor = wx.RadioButton( self, wx.ID_ANY, "Actor", wx.DefaultPosition, wx.Size( 72,-1 ), 0 )
         sizerActor.Add( self.radioButtonActor, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
         comboBoxActorChoices = []
@@ -7401,11 +7401,11 @@ class ControlVariables_Dialog ( wx.Dialog ):
         self.comboBoxActor.SetSelection( 0 )
         sizerActor.Add( self.comboBoxActor, 0, wx.ALL, 5 )
         
-        self.labelPossessive1 = wx.StaticText( self, wx.ID_ANY, u"'s", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelPossessive1 = wx.StaticText( self, wx.ID_ANY, "'s", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelPossessive1.Wrap( -1 )
         sizerActor.Add( self.labelPossessive1, 0, wx.ALIGN_CENTER_VERTICAL|wx.TOP|wx.BOTTOM|wx.RIGHT, 5 )
         
-        comboBoxActorParametersChoices = [ u"Level", u"EXP", u"HP", u"SP", u"MaxHP", u"MaxSP", u"STR", u"DEX", u"AGI", u"INT", u"PDEF", u"MDEF" ]
+        comboBoxActorParametersChoices = [ "Level", "EXP", "HP", "SP", "MaxHP", "MaxSP", "STR", "DEX", "AGI", "INT", "PDEF", "MDEF" ]
         self.comboBoxActorParameters = wx.Choice( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxActorParametersChoices, 0 )
         self.comboBoxActorParameters.SetSelection( 0 )
         sizerActor.Add( self.comboBoxActorParameters, 1, wx.ALL, 5 )
@@ -7414,7 +7414,7 @@ class ControlVariables_Dialog ( wx.Dialog ):
         
         sizerEnemy = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.radioButtonEnemy = wx.RadioButton( self, wx.ID_ANY, u"Enemy", wx.DefaultPosition, wx.Size( 72,-1 ), 0 )
+        self.radioButtonEnemy = wx.RadioButton( self, wx.ID_ANY, "Enemy", wx.DefaultPosition, wx.Size( 72,-1 ), 0 )
         sizerEnemy.Add( self.radioButtonEnemy, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
         comboBoxEnemyChoices = []
@@ -7422,11 +7422,11 @@ class ControlVariables_Dialog ( wx.Dialog ):
         self.comboBoxEnemy.SetSelection( 0 )
         sizerEnemy.Add( self.comboBoxEnemy, 0, wx.ALL, 5 )
         
-        self.labelPossessive2 = wx.StaticText( self, wx.ID_ANY, u"'s", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelPossessive2 = wx.StaticText( self, wx.ID_ANY, "'s", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelPossessive2.Wrap( -1 )
         sizerEnemy.Add( self.labelPossessive2, 0, wx.ALIGN_CENTER_VERTICAL|wx.TOP|wx.BOTTOM|wx.RIGHT, 5 )
         
-        comboBoxEnemyParametersChoices = [ u"HP", u"SP", u"MaxHP", u"MaxSP", u"STR", u"DEX", u"AGI", u"INT", u"PDEF", u"MDEF" ]
+        comboBoxEnemyParametersChoices = [ "HP", "SP", "MaxHP", "MaxSP", "STR", "DEX", "AGI", "INT", "PDEF", "MDEF" ]
         self.comboBoxEnemyParameters = wx.Choice( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxEnemyParametersChoices, 0 )
         self.comboBoxEnemyParameters.SetSelection( 0 )
         sizerEnemy.Add( self.comboBoxEnemyParameters, 1, wx.ALL, 5 )
@@ -7435,7 +7435,7 @@ class ControlVariables_Dialog ( wx.Dialog ):
         
         sizerCharacter = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.radioButtonCharacter = wx.RadioButton( self, wx.ID_ANY, u"Character", wx.DefaultPosition, wx.Size( 72,-1 ), 0 )
+        self.radioButtonCharacter = wx.RadioButton( self, wx.ID_ANY, "Character", wx.DefaultPosition, wx.Size( 72,-1 ), 0 )
         sizerCharacter.Add( self.radioButtonCharacter, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
         comboBoxCharacterChoices = []
@@ -7443,11 +7443,11 @@ class ControlVariables_Dialog ( wx.Dialog ):
         self.comboBoxCharacter.SetSelection( 0 )
         sizerCharacter.Add( self.comboBoxCharacter, 0, wx.ALL, 5 )
         
-        self.labelPossessive3 = wx.StaticText( self, wx.ID_ANY, u"'s", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelPossessive3 = wx.StaticText( self, wx.ID_ANY, "'s", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelPossessive3.Wrap( -1 )
         sizerCharacter.Add( self.labelPossessive3, 0, wx.ALIGN_CENTER_VERTICAL|wx.TOP|wx.BOTTOM|wx.RIGHT, 5 )
         
-        comboBoxCharacterParametersChoices = [ u"Map X", u"Map Y", u"Direction", u"Screen X", u"Screen Y", u"Terrain Tag" ]
+        comboBoxCharacterParametersChoices = [ "Map X", "Map Y", "Direction", "Screen X", "Screen Y", "Terrain Tag" ]
         self.comboBoxCharacterParameters = wx.Choice( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxCharacterParametersChoices, 0 )
         self.comboBoxCharacterParameters.SetSelection( 5 )
         sizerCharacter.Add( self.comboBoxCharacterParameters, 1, wx.ALL, 5 )
@@ -7456,10 +7456,10 @@ class ControlVariables_Dialog ( wx.Dialog ):
         
         sizerOther = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.radioButtonOther = wx.RadioButton( self, wx.ID_ANY, u"Other", wx.DefaultPosition, wx.Size( 72,-1 ), 0 )
+        self.radioButtonOther = wx.RadioButton( self, wx.ID_ANY, "Other", wx.DefaultPosition, wx.Size( 72,-1 ), 0 )
         sizerOther.Add( self.radioButtonOther, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
-        comboBoxOtherChoices = [ u"Map ID", u"Party Members", u"Gold", u"Steps", u"Play Time", u"Timer", u"Save Count" ]
+        comboBoxOtherChoices = [ "Map ID", "Party Members", "Gold", "Steps", "Play Time", "Timer", "Save Count" ]
         self.comboBoxOther = wx.Choice( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxOtherChoices, 0 )
         self.comboBoxOther.SetSelection( 0 )
         sizerOther.Add( self.comboBoxOther, 0, wx.ALL, 5 )
@@ -7470,10 +7470,10 @@ class ControlVariables_Dialog ( wx.Dialog ):
         
         sizerOKCancel = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.buttonOK = wx.Button( self, wx.ID_ANY, u"OK", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonOK = wx.Button( self, wx.ID_ANY, "OK", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonOK, 0, wx.ALL, 5 )
         
-        self.buttonCancel = wx.Button( self, wx.ID_ANY, u"Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonCancel = wx.Button( self, wx.ID_ANY, "Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonCancel, 0, wx.ALL, 5 )
         
         MainSizer.Add( sizerOKCancel, 0, wx.ALIGN_RIGHT, 5 )
@@ -7546,7 +7546,7 @@ class ControlVariables_Dialog ( wx.Dialog ):
 class ControlSelfSwitches_Dialog ( wx.Dialog ):
     
     def __init__( self, parent ):
-        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Control Self Switch", pos = wx.DefaultPosition, size = wx.Size( 208,139 ), style = wx.DEFAULT_DIALOG_STYLE )
+        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = "Control Self Switch", pos = wx.DefaultPosition, size = wx.Size( 208,139 ), style = wx.DEFAULT_DIALOG_STYLE )
         
         self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
         
@@ -7554,17 +7554,17 @@ class ControlSelfSwitches_Dialog ( wx.Dialog ):
         
         sizerSelfSwitch = wx.BoxSizer( wx.VERTICAL )
         
-        self.labelSelfSwicth = wx.StaticText( self, wx.ID_ANY, u"Self Switch:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelSelfSwicth = wx.StaticText( self, wx.ID_ANY, "Self Switch:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelSelfSwicth.Wrap( -1 )
         sizerSelfSwitch.Add( self.labelSelfSwicth, 0, wx.ALL, 5 )
         
-        comboBoxLettersChoices = [ u"A", u"B", u"C", u"D", u"E", u"F", u"G", u"H", u"I", u"J", u"K", u"L", u"M", u"N", u"O", u"P", u"Q", u"R", u"S", u"T", u"U", u"V", u"W", u"X", u"Y", u"Z" ]
+        comboBoxLettersChoices = [ "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z" ]
         self.comboBoxLetters = wx.Choice( self, wx.ID_ANY, wx.DefaultPosition, wx.Size( 64,-1 ), comboBoxLettersChoices, 0 )
         self.comboBoxLetters.SetSelection( 0 )
         sizerSelfSwitch.Add( self.comboBoxLetters, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
         
-        radioBoxOperationChoices = [ u"ON", u"OFF" ]
-        self.radioBoxOperation = wx.RadioBox( self, wx.ID_ANY, u"Operation", wx.DefaultPosition, wx.DefaultSize, radioBoxOperationChoices, 1, wx.RA_SPECIFY_ROWS )
+        radioBoxOperationChoices = [ "ON", "OFF" ]
+        self.radioBoxOperation = wx.RadioBox( self, wx.ID_ANY, "Operation", wx.DefaultPosition, wx.DefaultSize, radioBoxOperationChoices, 1, wx.RA_SPECIFY_ROWS )
         self.radioBoxOperation.SetSelection( 0 )
         sizerSelfSwitch.Add( self.radioBoxOperation, 0, wx.ALL, 5 )
         
@@ -7572,10 +7572,10 @@ class ControlSelfSwitches_Dialog ( wx.Dialog ):
         
         sizerOKCancel = wx.BoxSizer( wx.VERTICAL )
         
-        self.buttonOK = wx.Button( self, wx.ID_ANY, u"OK", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonOK = wx.Button( self, wx.ID_ANY, "OK", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonOK, 0, wx.ALL, 5 )
         
-        self.buttonCancel = wx.Button( self, wx.ID_ANY, u"Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonCancel = wx.Button( self, wx.ID_ANY, "Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonCancel, 0, wx.ALL, 5 )
         
         MainSizer.Add( sizerOKCancel, 0, 0, 5 )
@@ -7608,7 +7608,7 @@ class ControlSelfSwitches_Dialog ( wx.Dialog ):
 class ControlTimer_Dialog ( wx.Dialog ):
     
     def __init__( self, parent ):
-        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Control Timer", pos = wx.DefaultPosition, size = wx.Size( 296,116 ), style = wx.DEFAULT_DIALOG_STYLE )
+        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = "Control Timer", pos = wx.DefaultPosition, size = wx.Size( 296,116 ), style = wx.DEFAULT_DIALOG_STYLE )
         
         self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
         
@@ -7616,8 +7616,8 @@ class ControlTimer_Dialog ( wx.Dialog ):
         
         sizerControls = wx.BoxSizer( wx.VERTICAL )
         
-        radioBoxOperationChoices = [ u"Start", u"Stop" ]
-        self.radioBoxOperation = wx.RadioBox( self, wx.ID_ANY, u"Operation", wx.DefaultPosition, wx.DefaultSize, radioBoxOperationChoices, 1, wx.RA_SPECIFY_ROWS )
+        radioBoxOperationChoices = [ "Start", "Stop" ]
+        self.radioBoxOperation = wx.RadioBox( self, wx.ID_ANY, "Operation", wx.DefaultPosition, wx.DefaultSize, radioBoxOperationChoices, 1, wx.RA_SPECIFY_ROWS )
         self.radioBoxOperation.SetSelection( 0 )
         sizerControls.Add( self.radioBoxOperation, 0, wx.ALL, 5 )
         
@@ -7626,14 +7626,14 @@ class ControlTimer_Dialog ( wx.Dialog ):
         self.spinCtrlTimerMin = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 9999, 0 )
         sizerTimer.Add( self.spinCtrlTimerMin, 1, wx.ALL, 5 )
         
-        self.labelMinutes = wx.StaticText( self, wx.ID_ANY, u"Min", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelMinutes = wx.StaticText( self, wx.ID_ANY, "Min", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelMinutes.Wrap( -1 )
         sizerTimer.Add( self.labelMinutes, 0, wx.ALIGN_CENTER_VERTICAL|wx.TOP|wx.BOTTOM|wx.RIGHT, 5 )
         
         self.spinCtrlTimerSec = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 59, 0 )
         sizerTimer.Add( self.spinCtrlTimerSec, 1, wx.ALL, 5 )
         
-        self.labelSeconds = wx.StaticText( self, wx.ID_ANY, u"Sec", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelSeconds = wx.StaticText( self, wx.ID_ANY, "Sec", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelSeconds.Wrap( -1 )
         sizerTimer.Add( self.labelSeconds, 0, wx.ALIGN_CENTER_VERTICAL|wx.TOP|wx.BOTTOM|wx.RIGHT, 5 )
         
@@ -7643,10 +7643,10 @@ class ControlTimer_Dialog ( wx.Dialog ):
         
         sizerOKCancel = wx.BoxSizer( wx.VERTICAL )
         
-        self.buttonOK = wx.Button( self, wx.ID_ANY, u"OK", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonOK = wx.Button( self, wx.ID_ANY, "OK", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonOK, 0, wx.ALL, 5 )
         
-        self.buttonCancel = wx.Button( self, wx.ID_ANY, u"Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonCancel = wx.Button( self, wx.ID_ANY, "Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonCancel, 0, wx.ALL, 5 )
         
         MainSizer.Add( sizerOKCancel, 0, 0, 5 )
@@ -7679,22 +7679,22 @@ class ControlTimer_Dialog ( wx.Dialog ):
 class ChangelGold_Dialog ( wx.Dialog ):
     
     def __init__( self, parent ):
-        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Change Gold", pos = wx.DefaultPosition, size = wx.Size( 287,211 ), style = wx.DEFAULT_DIALOG_STYLE )
+        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = "Change Gold", pos = wx.DefaultPosition, size = wx.Size( 287,211 ), style = wx.DEFAULT_DIALOG_STYLE )
         
         self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
         
         MainSizer = wx.BoxSizer( wx.VERTICAL )
         
-        radioBoxOperationChoices = [ u"Increase", u"Decrease" ]
-        self.radioBoxOperation = wx.RadioBox( self, wx.ID_ANY, u"Operation", wx.DefaultPosition, wx.DefaultSize, radioBoxOperationChoices, 1, wx.RA_SPECIFY_ROWS )
+        radioBoxOperationChoices = [ "Increase", "Decrease" ]
+        self.radioBoxOperation = wx.RadioBox( self, wx.ID_ANY, "Operation", wx.DefaultPosition, wx.DefaultSize, radioBoxOperationChoices, 1, wx.RA_SPECIFY_ROWS )
         self.radioBoxOperation.SetSelection( 0 )
         MainSizer.Add( self.radioBoxOperation, 0, wx.ALL, 5 )
         
-        sizerOperand = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Operand" ), wx.VERTICAL )
+        sizerOperand = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, "Operand" ), wx.VERTICAL )
         
         sizerConstant = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.radioButtonConstant = wx.RadioButton( self, wx.ID_ANY, u"Constant", wx.DefaultPosition, wx.Size( 72,-1 ), 0 )
+        self.radioButtonConstant = wx.RadioButton( self, wx.ID_ANY, "Constant", wx.DefaultPosition, wx.Size( 72,-1 ), 0 )
         sizerConstant.Add( self.radioButtonConstant, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
         self.spinCtrlConstant = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0 )
@@ -7704,7 +7704,7 @@ class ChangelGold_Dialog ( wx.Dialog ):
         
         sizerVariable = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.radioButtonVariable = wx.RadioButton( self, wx.ID_ANY, u"Variable", wx.DefaultPosition, wx.Size( 72,-1 ), 0 )
+        self.radioButtonVariable = wx.RadioButton( self, wx.ID_ANY, "Variable", wx.DefaultPosition, wx.Size( 72,-1 ), 0 )
         sizerVariable.Add( self.radioButtonVariable, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
         comboBoxVariableChoices = []
@@ -7718,10 +7718,10 @@ class ChangelGold_Dialog ( wx.Dialog ):
         
         sizerOKCancel = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.buttonOK = wx.Button( self, wx.ID_ANY, u"OK", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonOK = wx.Button( self, wx.ID_ANY, "OK", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonOK, 0, wx.ALL, 5 )
         
-        self.buttonCancel = wx.Button( self, wx.ID_ANY, u"Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonCancel = wx.Button( self, wx.ID_ANY, "Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonCancel, 0, wx.ALL, 5 )
         
         MainSizer.Add( sizerOKCancel, 0, wx.ALIGN_RIGHT, 5 )
@@ -7762,13 +7762,13 @@ class ChangelGold_Dialog ( wx.Dialog ):
 class ChangelPartyEquipment_Dialog ( wx.Dialog ):
     
     def __init__( self, parent ):
-        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Change (Equipment Type)", pos = wx.DefaultPosition, size = wx.Size( 287,261 ), style = wx.DEFAULT_DIALOG_STYLE )
+        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = "Change (Equipment Type)", pos = wx.DefaultPosition, size = wx.Size( 287,261 ), style = wx.DEFAULT_DIALOG_STYLE )
         
         self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
         
         MainSizer = wx.BoxSizer( wx.VERTICAL )
         
-        self.labelEquipmentType = wx.StaticText( self, wx.ID_ANY, u"(Equipment Type):", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelEquipmentType = wx.StaticText( self, wx.ID_ANY, "(Equipment Type):", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelEquipmentType.Wrap( -1 )
         MainSizer.Add( self.labelEquipmentType, 0, wx.ALL, 5 )
         
@@ -7777,16 +7777,16 @@ class ChangelPartyEquipment_Dialog ( wx.Dialog ):
         self.comboBoxEquipment.SetSelection( 0 )
         MainSizer.Add( self.comboBoxEquipment, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
         
-        radioBoxOperationChoices = [ u"Increase", u"Decrease" ]
-        self.radioBoxOperation = wx.RadioBox( self, wx.ID_ANY, u"Operation", wx.DefaultPosition, wx.DefaultSize, radioBoxOperationChoices, 1, wx.RA_SPECIFY_ROWS )
+        radioBoxOperationChoices = [ "Increase", "Decrease" ]
+        self.radioBoxOperation = wx.RadioBox( self, wx.ID_ANY, "Operation", wx.DefaultPosition, wx.DefaultSize, radioBoxOperationChoices, 1, wx.RA_SPECIFY_ROWS )
         self.radioBoxOperation.SetSelection( 0 )
         MainSizer.Add( self.radioBoxOperation, 0, wx.ALL, 5 )
         
-        sizerOperand = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Operand" ), wx.VERTICAL )
+        sizerOperand = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, "Operand" ), wx.VERTICAL )
         
         sizerConstant = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.radioButtonConstant = wx.RadioButton( self, wx.ID_ANY, u"Constant", wx.DefaultPosition, wx.Size( 72,-1 ), 0 )
+        self.radioButtonConstant = wx.RadioButton( self, wx.ID_ANY, "Constant", wx.DefaultPosition, wx.Size( 72,-1 ), 0 )
         sizerConstant.Add( self.radioButtonConstant, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
         self.spinCtrlConstant = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0 )
@@ -7796,7 +7796,7 @@ class ChangelPartyEquipment_Dialog ( wx.Dialog ):
         
         sizerVariable = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.radioButtonVariable = wx.RadioButton( self, wx.ID_ANY, u"Variable", wx.DefaultPosition, wx.Size( 72,-1 ), 0 )
+        self.radioButtonVariable = wx.RadioButton( self, wx.ID_ANY, "Variable", wx.DefaultPosition, wx.Size( 72,-1 ), 0 )
         sizerVariable.Add( self.radioButtonVariable, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
         comboBoxVariableChoices = []
@@ -7810,10 +7810,10 @@ class ChangelPartyEquipment_Dialog ( wx.Dialog ):
         
         sizerOKCancel = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.buttonOK = wx.Button( self, wx.ID_ANY, u"OK", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonOK = wx.Button( self, wx.ID_ANY, "OK", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonOK, 0, wx.ALL, 5 )
         
-        self.buttonCancel = wx.Button( self, wx.ID_ANY, u"Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonCancel = wx.Button( self, wx.ID_ANY, "Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonCancel, 0, wx.ALL, 5 )
         
         MainSizer.Add( sizerOKCancel, 0, wx.ALIGN_RIGHT, 5 )
@@ -7854,7 +7854,7 @@ class ChangelPartyEquipment_Dialog ( wx.Dialog ):
 class ChangePartyMember_Dialog ( wx.Dialog ):
     
     def __init__( self, parent ):
-        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Change Party Member", pos = wx.DefaultPosition, size = wx.Size( 283,157 ), style = wx.DEFAULT_DIALOG_STYLE )
+        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = "Change Party Member", pos = wx.DefaultPosition, size = wx.Size( 283,157 ), style = wx.DEFAULT_DIALOG_STYLE )
         
         self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
         
@@ -7862,7 +7862,7 @@ class ChangePartyMember_Dialog ( wx.Dialog ):
         
         sizerActor = wx.BoxSizer( wx.VERTICAL )
         
-        self.labelActor = wx.StaticText( self, wx.ID_ANY, u"Actor:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelActor = wx.StaticText( self, wx.ID_ANY, "Actor:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelActor.Wrap( -1 )
         sizerActor.Add( self.labelActor, 0, wx.ALL, 5 )
         
@@ -7871,12 +7871,12 @@ class ChangePartyMember_Dialog ( wx.Dialog ):
         self.comboBoxActor.SetSelection( 0 )
         sizerActor.Add( self.comboBoxActor, 0, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
         
-        radioBoxOperationChoices = [ u"Add", u"Remove" ]
-        self.radioBoxOperation = wx.RadioBox( self, wx.ID_ANY, u"Operation", wx.DefaultPosition, wx.DefaultSize, radioBoxOperationChoices, 1, wx.RA_SPECIFY_ROWS )
+        radioBoxOperationChoices = [ "Add", "Remove" ]
+        self.radioBoxOperation = wx.RadioBox( self, wx.ID_ANY, "Operation", wx.DefaultPosition, wx.DefaultSize, radioBoxOperationChoices, 1, wx.RA_SPECIFY_ROWS )
         self.radioBoxOperation.SetSelection( 0 )
         sizerActor.Add( self.radioBoxOperation, 0, wx.ALL|wx.EXPAND, 5 )
         
-        self.checkBoxInitialize = wx.CheckBox( self, wx.ID_ANY, u"Initialize", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.checkBoxInitialize = wx.CheckBox( self, wx.ID_ANY, "Initialize", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.checkBoxInitialize.SetValue(True) 
         sizerActor.Add( self.checkBoxInitialize, 0, wx.ALL, 5 )
         
@@ -7884,10 +7884,10 @@ class ChangePartyMember_Dialog ( wx.Dialog ):
         
         sizerOKCancel = wx.BoxSizer( wx.VERTICAL )
         
-        self.buttonOK = wx.Button( self, wx.ID_ANY, u"OK", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonOK = wx.Button( self, wx.ID_ANY, "OK", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonOK, 0, wx.ALL, 5 )
         
-        self.buttonCancel = wx.Button( self, wx.ID_ANY, u"Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonCancel = wx.Button( self, wx.ID_ANY, "Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonCancel, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
         
         MainSizer.Add( sizerOKCancel, 0, 0, 5 )
@@ -7920,23 +7920,23 @@ class ChangePartyMember_Dialog ( wx.Dialog ):
 class ChangeAccess_Dialog ( wx.Dialog ):
     
     def __init__( self, parent ):
-        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Change (Menu/Save/Encounter)", pos = wx.DefaultPosition, size = wx.Size( 241,93 ), style = wx.DEFAULT_DIALOG_STYLE )
+        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = "Change (Menu/Save/Encounter)", pos = wx.DefaultPosition, size = wx.Size( 241,93 ), style = wx.DEFAULT_DIALOG_STYLE )
         
         self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
         
         MainSizer = wx.BoxSizer( wx.HORIZONTAL )
         
-        radioBoxOperationChoices = [ u"Enable", u"Disable" ]
-        self.radioBoxOperation = wx.RadioBox( self, wx.ID_ANY, u"Operation", wx.DefaultPosition, wx.DefaultSize, radioBoxOperationChoices, 1, wx.RA_SPECIFY_ROWS )
+        radioBoxOperationChoices = [ "Enable", "Disable" ]
+        self.radioBoxOperation = wx.RadioBox( self, wx.ID_ANY, "Operation", wx.DefaultPosition, wx.DefaultSize, radioBoxOperationChoices, 1, wx.RA_SPECIFY_ROWS )
         self.radioBoxOperation.SetSelection( 0 )
         MainSizer.Add( self.radioBoxOperation, 1, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
         sizerOKCancel = wx.BoxSizer( wx.VERTICAL )
         
-        self.buttonOK = wx.Button( self, wx.ID_ANY, u"OK", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonOK = wx.Button( self, wx.ID_ANY, "OK", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonOK, 0, wx.ALL, 5 )
         
-        self.buttonCancel = wx.Button( self, wx.ID_ANY, u"Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonCancel = wx.Button( self, wx.ID_ANY, "Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonCancel, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
         
         MainSizer.Add( sizerOKCancel, 0, 0, 5 )
@@ -7969,13 +7969,13 @@ class ChangeAccess_Dialog ( wx.Dialog ):
 class TransferPlayer_Dialog ( wx.Dialog ):
     
     def __init__( self, parent ):
-        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Transfer Player", pos = wx.DefaultPosition, size = wx.Size( 251,283 ), style = wx.DEFAULT_DIALOG_STYLE )
+        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = "Transfer Player", pos = wx.DefaultPosition, size = wx.Size( 251,283 ), style = wx.DEFAULT_DIALOG_STYLE )
         
         self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
         
         MainSizer = wx.BoxSizer( wx.VERTICAL )
         
-        self.labelDirect = wx.RadioButton( self, wx.ID_ANY, u"Direct Appointment", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelDirect = wx.RadioButton( self, wx.ID_ANY, "Direct Appointment", wx.DefaultPosition, wx.DefaultSize, 0 )
         MainSizer.Add( self.labelDirect, 0, wx.ALL, 5 )
         
         sizerDirect = wx.BoxSizer( wx.HORIZONTAL )
@@ -7990,7 +7990,7 @@ class TransferPlayer_Dialog ( wx.Dialog ):
         
         MainSizer.Add( sizerDirect, 0, wx.EXPAND, 5 )
         
-        self.comboBoxVaribleAppointment = wx.RadioButton( self, wx.ID_ANY, u"Appoint with Variables", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.comboBoxVaribleAppointment = wx.RadioButton( self, wx.ID_ANY, "Appoint with Variables", wx.DefaultPosition, wx.DefaultSize, 0 )
         MainSizer.Add( self.comboBoxVaribleAppointment, 0, wx.ALL, 5 )
         
         sizerMapID = wx.BoxSizer( wx.HORIZONTAL )
@@ -7999,7 +7999,7 @@ class TransferPlayer_Dialog ( wx.Dialog ):
         self.labelDummy2.Wrap( -1 )
         sizerMapID.Add( self.labelDummy2, 0, wx.ALL, 5 )
         
-        self.labelMapID = wx.StaticText( self, wx.ID_ANY, u"Map ID:", wx.DefaultPosition, wx.Size( 48,-1 ), 0 )
+        self.labelMapID = wx.StaticText( self, wx.ID_ANY, "Map ID:", wx.DefaultPosition, wx.Size( 48,-1 ), 0 )
         self.labelMapID.Wrap( -1 )
         sizerMapID.Add( self.labelMapID, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
@@ -8015,7 +8015,7 @@ class TransferPlayer_Dialog ( wx.Dialog ):
         self.labelDummy3.Wrap( -1 )
         sizerMapX.Add( self.labelDummy3, 0, wx.ALL, 5 )
         
-        self.labelMapX = wx.StaticText( self, wx.ID_ANY, u"Map X:", wx.DefaultPosition, wx.Size( 48,-1 ), 0 )
+        self.labelMapX = wx.StaticText( self, wx.ID_ANY, "Map X:", wx.DefaultPosition, wx.Size( 48,-1 ), 0 )
         self.labelMapX.Wrap( -1 )
         sizerMapX.Add( self.labelMapX, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
@@ -8031,7 +8031,7 @@ class TransferPlayer_Dialog ( wx.Dialog ):
         self.labelDummy4.Wrap( -1 )
         sizerMapY.Add( self.labelDummy4, 0, wx.ALL, 5 )
         
-        self.labelMapY = wx.StaticText( self, wx.ID_ANY, u"Map Y:", wx.DefaultPosition, wx.Size( 48,-1 ), 0 )
+        self.labelMapY = wx.StaticText( self, wx.ID_ANY, "Map Y:", wx.DefaultPosition, wx.Size( 48,-1 ), 0 )
         self.labelMapY.Wrap( -1 )
         sizerMapY.Add( self.labelMapY, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
@@ -8045,11 +8045,11 @@ class TransferPlayer_Dialog ( wx.Dialog ):
         
         sizerDirection = wx.BoxSizer( wx.VERTICAL )
         
-        self.labelDirection = wx.StaticText( self, wx.ID_ANY, u"Direction:", wx.DefaultPosition, wx.Size( 72,-1 ), 0 )
+        self.labelDirection = wx.StaticText( self, wx.ID_ANY, "Direction:", wx.DefaultPosition, wx.Size( 72,-1 ), 0 )
         self.labelDirection.Wrap( -1 )
         sizerDirection.Add( self.labelDirection, 0, wx.ALL, 5 )
         
-        comboBoxDirectionChoices = [ u"Retain", u"Left", u"Right", u"Up", u"Down" ]
+        comboBoxDirectionChoices = [ "Retain", "Left", "Right", "Up", "Down" ]
         self.comboBoxDirection = wx.Choice( self, wx.ID_ANY, wx.DefaultPosition, wx.Size( 72,-1 ), comboBoxDirectionChoices, 0 )
         self.comboBoxDirection.SetSelection( 0 )
         sizerDirection.Add( self.comboBoxDirection, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
@@ -8058,11 +8058,11 @@ class TransferPlayer_Dialog ( wx.Dialog ):
         
         sizerFading = wx.BoxSizer( wx.VERTICAL )
         
-        self.labelFading = wx.StaticText( self, wx.ID_ANY, u"Fading:", wx.DefaultPosition, wx.Size( 72,-1 ), 0 )
+        self.labelFading = wx.StaticText( self, wx.ID_ANY, "Fading:", wx.DefaultPosition, wx.Size( 72,-1 ), 0 )
         self.labelFading.Wrap( -1 )
         sizerFading.Add( self.labelFading, 0, wx.ALL, 5 )
         
-        comboBoxFadingChoices = [ u"Yes", u"No" ]
+        comboBoxFadingChoices = [ "Yes", "No" ]
         self.comboBoxFading = wx.Choice( self, wx.ID_ANY, wx.DefaultPosition, wx.Size( 72,-1 ), comboBoxFadingChoices, 0 )
         self.comboBoxFading.SetSelection( 0 )
         sizerFading.Add( self.comboBoxFading, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
@@ -8073,10 +8073,10 @@ class TransferPlayer_Dialog ( wx.Dialog ):
         
         sizerOKCancel = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.buttonOK = wx.Button( self, wx.ID_ANY, u"OK", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonOK = wx.Button( self, wx.ID_ANY, "OK", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonOK, 0, wx.ALL, 5 )
         
-        self.buttonCancel = wx.Button( self, wx.ID_ANY, u"Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonCancel = wx.Button( self, wx.ID_ANY, "Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonCancel, 0, wx.ALL, 5 )
         
         MainSizer.Add( sizerOKCancel, 0, wx.ALIGN_RIGHT, 5 )
@@ -8139,7 +8139,7 @@ class SetEventLocation_Dialog ( wx.Dialog ):
         
         MainSizer = wx.BoxSizer( wx.VERTICAL )
         
-        self.labelEvent = wx.StaticText( self, wx.ID_ANY, u"Event:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelEvent = wx.StaticText( self, wx.ID_ANY, "Event:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelEvent.Wrap( -1 )
         MainSizer.Add( self.labelEvent, 0, wx.ALL, 5 )
         
@@ -8148,7 +8148,7 @@ class SetEventLocation_Dialog ( wx.Dialog ):
         self.comboBoxEvent.SetSelection( 0 )
         MainSizer.Add( self.comboBoxEvent, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
         
-        self.labelDirect = wx.RadioButton( self, wx.ID_ANY, u"Direct Appointment", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelDirect = wx.RadioButton( self, wx.ID_ANY, "Direct Appointment", wx.DefaultPosition, wx.DefaultSize, 0 )
         MainSizer.Add( self.labelDirect, 0, wx.ALL, 5 )
         
         bSizer510 = wx.BoxSizer( wx.HORIZONTAL )
@@ -8163,7 +8163,7 @@ class SetEventLocation_Dialog ( wx.Dialog ):
         
         MainSizer.Add( bSizer510, 0, wx.EXPAND, 5 )
         
-        self.comboBoxVaribleAppointment = wx.RadioButton( self, wx.ID_ANY, u"Appoint with Variables", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.comboBoxVaribleAppointment = wx.RadioButton( self, wx.ID_ANY, "Appoint with Variables", wx.DefaultPosition, wx.DefaultSize, 0 )
         MainSizer.Add( self.comboBoxVaribleAppointment, 0, wx.ALL, 5 )
         
         bSizer511 = wx.BoxSizer( wx.HORIZONTAL )
@@ -8172,7 +8172,7 @@ class SetEventLocation_Dialog ( wx.Dialog ):
         self.labelDummy2.Wrap( -1 )
         bSizer511.Add( self.labelDummy2, 0, wx.ALL, 5 )
         
-        self.labelMapID = wx.StaticText( self, wx.ID_ANY, u"Map ID:", wx.DefaultPosition, wx.Size( 48,-1 ), 0 )
+        self.labelMapID = wx.StaticText( self, wx.ID_ANY, "Map ID:", wx.DefaultPosition, wx.Size( 48,-1 ), 0 )
         self.labelMapID.Wrap( -1 )
         bSizer511.Add( self.labelMapID, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
@@ -8188,7 +8188,7 @@ class SetEventLocation_Dialog ( wx.Dialog ):
         self.labelDummy3.Wrap( -1 )
         bSizer5111.Add( self.labelDummy3, 0, wx.ALL, 5 )
         
-        self.labelMapX = wx.StaticText( self, wx.ID_ANY, u"Map X:", wx.DefaultPosition, wx.Size( 48,-1 ), 0 )
+        self.labelMapX = wx.StaticText( self, wx.ID_ANY, "Map X:", wx.DefaultPosition, wx.Size( 48,-1 ), 0 )
         self.labelMapX.Wrap( -1 )
         bSizer5111.Add( self.labelMapX, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
@@ -8204,7 +8204,7 @@ class SetEventLocation_Dialog ( wx.Dialog ):
         self.labelDummy4.Wrap( -1 )
         bSizer5112.Add( self.labelDummy4, 0, wx.ALL, 5 )
         
-        self.labelMapY = wx.StaticText( self, wx.ID_ANY, u"Map Y:", wx.DefaultPosition, wx.Size( 48,-1 ), 0 )
+        self.labelMapY = wx.StaticText( self, wx.ID_ANY, "Map Y:", wx.DefaultPosition, wx.Size( 48,-1 ), 0 )
         self.labelMapY.Wrap( -1 )
         bSizer5112.Add( self.labelMapY, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
@@ -8214,7 +8214,7 @@ class SetEventLocation_Dialog ( wx.Dialog ):
         
         MainSizer.Add( bSizer5112, 0, wx.EXPAND, 5 )
         
-        self.radioButtonExchange = wx.RadioButton( self, wx.ID_ANY, u"Exchange with another event", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.radioButtonExchange = wx.RadioButton( self, wx.ID_ANY, "Exchange with another event", wx.DefaultPosition, wx.DefaultSize, 0 )
         MainSizer.Add( self.radioButtonExchange, 0, wx.ALL, 5 )
         
         sizerExchange = wx.BoxSizer( wx.HORIZONTAL )
@@ -8230,21 +8230,21 @@ class SetEventLocation_Dialog ( wx.Dialog ):
         
         MainSizer.Add( sizerExchange, 0, wx.EXPAND, 5 )
         
-        self.labelDirection = wx.StaticText( self, wx.ID_ANY, u"Direction:", wx.DefaultPosition, wx.Size( 72,-1 ), 0 )
+        self.labelDirection = wx.StaticText( self, wx.ID_ANY, "Direction:", wx.DefaultPosition, wx.Size( 72,-1 ), 0 )
         self.labelDirection.Wrap( -1 )
         MainSizer.Add( self.labelDirection, 0, wx.ALL, 5 )
         
-        comboBoxDirectionChoices = [ u"Retain", u"Left", u"Right", u"Up", u"Down" ]
+        comboBoxDirectionChoices = [ "Retain", "Left", "Right", "Up", "Down" ]
         self.comboBoxDirection = wx.Choice( self, wx.ID_ANY, wx.DefaultPosition, wx.Size( 72,-1 ), comboBoxDirectionChoices, 0 )
         self.comboBoxDirection.SetSelection( 0 )
         MainSizer.Add( self.comboBoxDirection, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
         
         sizerOKCancel = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.buttonOK = wx.Button( self, wx.ID_ANY, u"OK", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonOK = wx.Button( self, wx.ID_ANY, "OK", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonOK, 0, wx.ALL, 5 )
         
-        self.buttonCancel = wx.Button( self, wx.ID_ANY, u"Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonCancel = wx.Button( self, wx.ID_ANY, "Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonCancel, 0, wx.ALL, 5 )
         
         MainSizer.Add( sizerOKCancel, 0, wx.ALIGN_RIGHT, 5 )
@@ -8305,7 +8305,7 @@ class SetEventLocation_Dialog ( wx.Dialog ):
 class TransferPlayerTilemap_Dialog ( wx.Dialog ):
     
     def __init__( self, parent ):
-        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Transfer Player", pos = wx.DefaultPosition, size = wx.Size( 692,467 ), style = wx.DEFAULT_DIALOG_STYLE|wx.RESIZE_BORDER )
+        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = "Transfer Player", pos = wx.DefaultPosition, size = wx.Size( 692,467 ), style = wx.DEFAULT_DIALOG_STYLE|wx.RESIZE_BORDER )
         
         self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
         
@@ -8321,16 +8321,16 @@ class TransferPlayerTilemap_Dialog ( wx.Dialog ):
         
         sizerZoom = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.buttonFull = wx.Button( self, wx.ID_ANY, u"1/1", wx.DefaultPosition, wx.Size( 64,32 ), 0 )
+        self.buttonFull = wx.Button( self, wx.ID_ANY, "1/1", wx.DefaultPosition, wx.Size( 64,32 ), 0 )
         sizerZoom.Add( self.buttonFull, 0, wx.TOP|wx.BOTTOM|wx.LEFT, 5 )
         
-        self.buttonThreeQuarter = wx.Button( self, wx.ID_ANY, u"3/4", wx.DefaultPosition, wx.Size( 64,32 ), 0 )
+        self.buttonThreeQuarter = wx.Button( self, wx.ID_ANY, "3/4", wx.DefaultPosition, wx.Size( 64,32 ), 0 )
         sizerZoom.Add( self.buttonThreeQuarter, 0, wx.TOP|wx.BOTTOM|wx.LEFT, 5 )
         
-        self.buttonHalf = wx.Button( self, wx.ID_ANY, u"1/2", wx.DefaultPosition, wx.Size( 64,32 ), 0 )
+        self.buttonHalf = wx.Button( self, wx.ID_ANY, "1/2", wx.DefaultPosition, wx.Size( 64,32 ), 0 )
         sizerZoom.Add( self.buttonHalf, 0, wx.TOP|wx.BOTTOM|wx.LEFT, 5 )
         
-        self.buttonQuarter = wx.Button( self, wx.ID_ANY, u"1/4", wx.DefaultPosition, wx.Size( 64,32 ), 0 )
+        self.buttonQuarter = wx.Button( self, wx.ID_ANY, "1/4", wx.DefaultPosition, wx.Size( 64,32 ), 0 )
         sizerZoom.Add( self.buttonQuarter, 0, wx.ALL, 5 )
         
         self.labelDummy = wx.StaticText( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
@@ -8340,7 +8340,7 @@ class TransferPlayerTilemap_Dialog ( wx.Dialog ):
         self.panelCoordinates = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.Size( -1,-1 ), wx.SUNKEN_BORDER|wx.TAB_TRAVERSAL )
         sizerCoodinates = wx.BoxSizer( wx.VERTICAL )
         
-        self.labelCoordinates = wx.StaticText( self.panelCoordinates, wx.ID_ANY, u"(Coordinates)", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelCoordinates = wx.StaticText( self.panelCoordinates, wx.ID_ANY, "(Coordinates)", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelCoordinates.Wrap( -1 )
         sizerCoodinates.Add( self.labelCoordinates, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
         
@@ -8360,10 +8360,10 @@ class TransferPlayerTilemap_Dialog ( wx.Dialog ):
         
         sizerOKCancel = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.buttonOK = wx.Button( self, wx.ID_ANY, u"OK", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonOK = wx.Button( self, wx.ID_ANY, "OK", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonOK, 0, wx.ALL, 5 )
         
-        self.buttonCancel = wx.Button( self, wx.ID_ANY, u"Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonCancel = wx.Button( self, wx.ID_ANY, "Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonCancel, 0, wx.ALL, 5 )
         
         MainSizer.Add( sizerOKCancel, 0, wx.ALIGN_RIGHT, 5 )
@@ -8427,16 +8427,16 @@ class TransferEventTilemap_Dialog ( wx.Dialog ):
         
         sizerZoom = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.buttonFull = wx.Button( self, wx.ID_ANY, u"1/1", wx.DefaultPosition, wx.Size( 64,32 ), 0 )
+        self.buttonFull = wx.Button( self, wx.ID_ANY, "1/1", wx.DefaultPosition, wx.Size( 64,32 ), 0 )
         sizerZoom.Add( self.buttonFull, 0, wx.TOP|wx.BOTTOM|wx.LEFT, 5 )
         
-        self.buttonThreeQuarter = wx.Button( self, wx.ID_ANY, u"3/4", wx.DefaultPosition, wx.Size( 64,32 ), 0 )
+        self.buttonThreeQuarter = wx.Button( self, wx.ID_ANY, "3/4", wx.DefaultPosition, wx.Size( 64,32 ), 0 )
         sizerZoom.Add( self.buttonThreeQuarter, 0, wx.TOP|wx.BOTTOM|wx.LEFT, 5 )
         
-        self.buttonHalf = wx.Button( self, wx.ID_ANY, u"1/2", wx.DefaultPosition, wx.Size( 64,32 ), 0 )
+        self.buttonHalf = wx.Button( self, wx.ID_ANY, "1/2", wx.DefaultPosition, wx.Size( 64,32 ), 0 )
         sizerZoom.Add( self.buttonHalf, 0, wx.TOP|wx.BOTTOM|wx.LEFT, 5 )
         
-        self.buttonQuarter = wx.Button( self, wx.ID_ANY, u"1/4", wx.DefaultPosition, wx.Size( 64,32 ), 0 )
+        self.buttonQuarter = wx.Button( self, wx.ID_ANY, "1/4", wx.DefaultPosition, wx.Size( 64,32 ), 0 )
         sizerZoom.Add( self.buttonQuarter, 0, wx.ALL, 5 )
         
         self.labelDummy = wx.StaticText( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
@@ -8446,7 +8446,7 @@ class TransferEventTilemap_Dialog ( wx.Dialog ):
         self.panelCoordinates = wx.Panel( self, wx.ID_ANY, wx.DefaultPosition, wx.Size( -1,-1 ), wx.SUNKEN_BORDER|wx.TAB_TRAVERSAL )
         sizerCoodinates = wx.BoxSizer( wx.VERTICAL )
         
-        self.labelCoordinates = wx.StaticText( self.panelCoordinates, wx.ID_ANY, u"(Coordinates)", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelCoordinates = wx.StaticText( self.panelCoordinates, wx.ID_ANY, "(Coordinates)", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelCoordinates.Wrap( -1 )
         sizerCoodinates.Add( self.labelCoordinates, 0, wx.ALL|wx.ALIGN_CENTER_HORIZONTAL, 5 )
         
@@ -8464,10 +8464,10 @@ class TransferEventTilemap_Dialog ( wx.Dialog ):
         
         sizerOKCancel = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.buttonOK = wx.Button( self, wx.ID_ANY, u"OK", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonOK = wx.Button( self, wx.ID_ANY, "OK", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonOK, 0, wx.ALL, 5 )
         
-        self.buttonCancel = wx.Button( self, wx.ID_ANY, u"Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonCancel = wx.Button( self, wx.ID_ANY, "Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonCancel, 0, wx.ALL, 5 )
         
         MainSizer.Add( sizerOKCancel, 0, wx.ALIGN_RIGHT, 5 )
@@ -8516,7 +8516,7 @@ class TransferEventTilemap_Dialog ( wx.Dialog ):
 class ScrollMap_Dialog ( wx.Dialog ):
     
     def __init__( self, parent ):
-        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Scroll Map", pos = wx.DefaultPosition, size = wx.Size( 265,130 ), style = wx.DEFAULT_DIALOG_STYLE )
+        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = "Scroll Map", pos = wx.DefaultPosition, size = wx.Size( 265,130 ), style = wx.DEFAULT_DIALOG_STYLE )
         
         self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
         
@@ -8524,7 +8524,7 @@ class ScrollMap_Dialog ( wx.Dialog ):
         
         sizerControls = wx.BoxSizer( wx.HORIZONTAL )
         
-        sizerDirection = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Direction" ), wx.HORIZONTAL )
+        sizerDirection = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, "Direction" ), wx.HORIZONTAL )
         
         sizerDirColumn1 = wx.BoxSizer( wx.VERTICAL )
         
@@ -8570,7 +8570,7 @@ class ScrollMap_Dialog ( wx.Dialog ):
         
         sizerDistance = wx.BoxSizer( wx.VERTICAL )
         
-        self.labelDistance = wx.StaticText( self, wx.ID_ANY, u"Distance:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelDistance = wx.StaticText( self, wx.ID_ANY, "Distance:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelDistance.Wrap( -1 )
         sizerDistance.Add( self.labelDistance, 0, wx.ALL, 5 )
         
@@ -8581,11 +8581,11 @@ class ScrollMap_Dialog ( wx.Dialog ):
         
         sizerSpeed = wx.BoxSizer( wx.VERTICAL )
         
-        self.labelSpeed = wx.StaticText( self, wx.ID_ANY, u"Speed:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelSpeed = wx.StaticText( self, wx.ID_ANY, "Speed:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelSpeed.Wrap( -1 )
         sizerSpeed.Add( self.labelSpeed, 0, wx.ALL, 5 )
         
-        comboBoxSpeedChoices = [ u"1: Slowest", u"2: Slower", u"3: Slow", u"4: Fast", u"5: Faster", u"6: Fastest" ]
+        comboBoxSpeedChoices = [ "1: Slowest", "2: Slower", "3: Slow", "4: Fast", "5: Faster", "6: Fastest" ]
         self.comboBoxSpeed = wx.Choice( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxSpeedChoices, 0 )
         self.comboBoxSpeed.SetSelection( 5 )
         sizerSpeed.Add( self.comboBoxSpeed, 0, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
@@ -8596,10 +8596,10 @@ class ScrollMap_Dialog ( wx.Dialog ):
         
         sizerOKCancel = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.buttonOK = wx.Button( self, wx.ID_ANY, u"OK", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonOK = wx.Button( self, wx.ID_ANY, "OK", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonOK, 0, wx.ALL, 5 )
         
-        self.buttonCancel = wx.Button( self, wx.ID_ANY, u"Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonCancel = wx.Button( self, wx.ID_ANY, "Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonCancel, 0, wx.ALL, 5 )
         
         MainSizer.Add( sizerOKCancel, 0, wx.ALIGN_RIGHT, 5 )
@@ -8632,13 +8632,13 @@ class ScrollMap_Dialog ( wx.Dialog ):
 class ChangeMapSettings_Dialog ( wx.Dialog ):
     
     def __init__( self, parent ):
-        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Change Map Settings", pos = wx.DefaultPosition, size = wx.Size( 207,212 ), style = wx.DEFAULT_DIALOG_STYLE )
+        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = "Change Map Settings", pos = wx.DefaultPosition, size = wx.Size( 207,212 ), style = wx.DEFAULT_DIALOG_STYLE )
         
         self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
         
         MainSizer = wx.BoxSizer( wx.VERTICAL )
         
-        self.radioButtonPanorama = wx.RadioButton( self, wx.ID_ANY, u"Panorama Graphic", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.radioButtonPanorama = wx.RadioButton( self, wx.ID_ANY, "Panorama Graphic", wx.DefaultPosition, wx.DefaultSize, 0 )
         MainSizer.Add( self.radioButtonPanorama, 0, wx.ALL, 5 )
         
         sizerPanorama = wx.BoxSizer( wx.HORIZONTAL )
@@ -8653,7 +8653,7 @@ class ChangeMapSettings_Dialog ( wx.Dialog ):
         
         MainSizer.Add( sizerPanorama, 0, wx.EXPAND, 5 )
         
-        self.radioButtonFog = wx.RadioButton( self, wx.ID_ANY, u"Fog Graphic", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.radioButtonFog = wx.RadioButton( self, wx.ID_ANY, "Fog Graphic", wx.DefaultPosition, wx.DefaultSize, 0 )
         MainSizer.Add( self.radioButtonFog, 0, wx.ALL, 5 )
         
         sizerFog = wx.BoxSizer( wx.HORIZONTAL )
@@ -8668,7 +8668,7 @@ class ChangeMapSettings_Dialog ( wx.Dialog ):
         
         MainSizer.Add( sizerFog, 0, wx.EXPAND, 5 )
         
-        self.radioButtonBattleback = wx.RadioButton( self, wx.ID_ANY, u"Battleback Graphic", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.radioButtonBattleback = wx.RadioButton( self, wx.ID_ANY, "Battleback Graphic", wx.DefaultPosition, wx.DefaultSize, 0 )
         MainSizer.Add( self.radioButtonBattleback, 0, wx.ALL, 5 )
         
         sizerBattleback = wx.BoxSizer( wx.HORIZONTAL )
@@ -8685,10 +8685,10 @@ class ChangeMapSettings_Dialog ( wx.Dialog ):
         
         sizerOKCancel = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.buttonOK = wx.Button( self, wx.ID_ANY, u"OK", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonOK = wx.Button( self, wx.ID_ANY, "OK", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonOK, 0, wx.ALL, 5 )
         
-        self.buttonCancel = wx.Button( self, wx.ID_ANY, u"Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonCancel = wx.Button( self, wx.ID_ANY, "Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonCancel, 0, wx.ALL, 5 )
         
         MainSizer.Add( sizerOKCancel, 0, wx.ALIGN_RIGHT, 5 )
@@ -8745,7 +8745,7 @@ class ChangeMapSettings_Dialog ( wx.Dialog ):
 class ChangeFogOpacity_Dialog ( wx.Dialog ):
     
     def __init__( self, parent ):
-        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Change Fog Opacity", pos = wx.DefaultPosition, size = wx.Size( 208,112 ), style = wx.DEFAULT_DIALOG_STYLE )
+        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = "Change Fog Opacity", pos = wx.DefaultPosition, size = wx.Size( 208,112 ), style = wx.DEFAULT_DIALOG_STYLE )
         
         self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
         
@@ -8755,7 +8755,7 @@ class ChangeFogOpacity_Dialog ( wx.Dialog ):
         
         sizerOpacity = wx.BoxSizer( wx.VERTICAL )
         
-        self.labelOpacity = wx.StaticText( self, wx.ID_ANY, u"Opacity:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelOpacity = wx.StaticText( self, wx.ID_ANY, "Opacity:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelOpacity.Wrap( -1 )
         sizerOpacity.Add( self.labelOpacity, 0, wx.ALL, 5 )
         
@@ -8766,7 +8766,7 @@ class ChangeFogOpacity_Dialog ( wx.Dialog ):
         
         sizerTime = wx.BoxSizer( wx.VERTICAL )
         
-        self.labelTime = wx.StaticText( self, wx.ID_ANY, u"Time:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelTime = wx.StaticText( self, wx.ID_ANY, "Time:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelTime.Wrap( -1 )
         sizerTime.Add( self.labelTime, 0, wx.ALL, 5 )
         
@@ -8775,7 +8775,7 @@ class ChangeFogOpacity_Dialog ( wx.Dialog ):
         self.spinCtrlTime = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( 64,-1 ), wx.SP_ARROW_KEYS, 0, 2000, 200 )
         sizerFrames.Add( self.spinCtrlTime, 0, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
         
-        self.labelFrames = wx.StaticText( self, wx.ID_ANY, u"Frames", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelFrames = wx.StaticText( self, wx.ID_ANY, "Frames", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelFrames.Wrap( -1 )
         sizerFrames.Add( self.labelFrames, 0, wx.TOP|wx.BOTTOM|wx.RIGHT|wx.ALIGN_CENTER_VERTICAL, 5 )
         
@@ -8787,10 +8787,10 @@ class ChangeFogOpacity_Dialog ( wx.Dialog ):
         
         sizerOKCancel = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.buttonOK = wx.Button( self, wx.ID_ANY, u"OK", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonOK = wx.Button( self, wx.ID_ANY, "OK", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonOK, 0, wx.ALL, 5 )
         
-        self.buttonCancel = wx.Button( self, wx.ID_ANY, u"Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonCancel = wx.Button( self, wx.ID_ANY, "Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonCancel, 0, wx.ALL, 5 )
         
         MainSizer.Add( sizerOKCancel, 0, wx.ALIGN_RIGHT, 5 )
@@ -8831,16 +8831,16 @@ class ShowAnimation_Dialog ( wx.Dialog ):
         
         sizerAnimation = wx.BoxSizer( wx.VERTICAL )
         
-        self.labelCharacter = wx.StaticText( self, wx.ID_ANY, u"Character:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelCharacter = wx.StaticText( self, wx.ID_ANY, "Character:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelCharacter.Wrap( -1 )
         sizerAnimation.Add( self.labelCharacter, 0, wx.ALL, 5 )
         
-        comboBoxCharacterChoices = [ u"Player", u"This Event" ]
+        comboBoxCharacterChoices = [ "Player", "This Event" ]
         self.comboBoxCharacter = wx.Choice( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxCharacterChoices, 0 )
         self.comboBoxCharacter.SetSelection( 0 )
         sizerAnimation.Add( self.comboBoxCharacter, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
         
-        self.labelAnimation = wx.StaticText( self, wx.ID_ANY, u"Animation:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelAnimation = wx.StaticText( self, wx.ID_ANY, "Animation:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelAnimation.Wrap( -1 )
         sizerAnimation.Add( self.labelAnimation, 0, wx.ALL, 5 )
         
@@ -8853,10 +8853,10 @@ class ShowAnimation_Dialog ( wx.Dialog ):
         
         sizerOKCancel = wx.BoxSizer( wx.VERTICAL )
         
-        self.buttonOK = wx.Button( self, wx.ID_ANY, u"OK", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonOK = wx.Button( self, wx.ID_ANY, "OK", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonOK, 0, wx.ALL, 5 )
         
-        self.buttonCancel = wx.Button( self, wx.ID_ANY, u"Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonCancel = wx.Button( self, wx.ID_ANY, "Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonCancel, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
         
         MainSizer.Add( sizerOKCancel, 0, 0, 5 )
@@ -8889,23 +8889,23 @@ class ShowAnimation_Dialog ( wx.Dialog ):
 class TransparentFlag_Dialog ( wx.Dialog ):
     
     def __init__( self, parent ):
-        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Change Transparent Flag", pos = wx.DefaultPosition, size = wx.Size( 278,91 ), style = wx.DEFAULT_DIALOG_STYLE )
+        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = "Change Transparent Flag", pos = wx.DefaultPosition, size = wx.Size( 278,91 ), style = wx.DEFAULT_DIALOG_STYLE )
         
         self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
         
         MainSizer = wx.BoxSizer( wx.HORIZONTAL )
         
-        radioBoxTranparentFlagChoices = [ u"Transparent", u"Normal" ]
-        self.radioBoxTranparentFlag = wx.RadioBox( self, wx.ID_ANY, u"Tranparent Flag", wx.DefaultPosition, wx.DefaultSize, radioBoxTranparentFlagChoices, 1, wx.RA_SPECIFY_ROWS )
+        radioBoxTranparentFlagChoices = [ "Transparent", "Normal" ]
+        self.radioBoxTranparentFlag = wx.RadioBox( self, wx.ID_ANY, "Tranparent Flag", wx.DefaultPosition, wx.DefaultSize, radioBoxTranparentFlagChoices, 1, wx.RA_SPECIFY_ROWS )
         self.radioBoxTranparentFlag.SetSelection( 0 )
         MainSizer.Add( self.radioBoxTranparentFlag, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
         sizerOKCancel = wx.BoxSizer( wx.VERTICAL )
         
-        self.buttonOK = wx.Button( self, wx.ID_ANY, u"OK", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonOK = wx.Button( self, wx.ID_ANY, "OK", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonOK, 0, wx.ALL, 5 )
         
-        self.buttonCancel = wx.Button( self, wx.ID_ANY, u"Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonCancel = wx.Button( self, wx.ID_ANY, "Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonCancel, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
         
         MainSizer.Add( sizerOKCancel, 0, 0, 5 )
@@ -8938,7 +8938,7 @@ class TransparentFlag_Dialog ( wx.Dialog ):
 class MoveRoute_Dialog ( wx.Dialog ):
     
     def __init__( self, parent ):
-        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Move Route", pos = wx.DefaultPosition, size = wx.Size( 670,418 ), style = wx.DEFAULT_DIALOG_STYLE )
+        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = "Move Route", pos = wx.DefaultPosition, size = wx.Size( 670,418 ), style = wx.DEFAULT_DIALOG_STYLE )
         
         self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
         
@@ -8948,11 +8948,11 @@ class MoveRoute_Dialog ( wx.Dialog ):
         
         sizerSettings = wx.BoxSizer( wx.VERTICAL )
         
-        self.labelCharacter = wx.StaticText( self, wx.ID_ANY, u"Character:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelCharacter = wx.StaticText( self, wx.ID_ANY, "Character:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelCharacter.Wrap( -1 )
         sizerSettings.Add( self.labelCharacter, 0, wx.ALL, 5 )
         
-        comboBoxCharacterChoices = [ u"This Event", u"Player" ]
+        comboBoxCharacterChoices = [ "This Event", "Player" ]
         self.comboBoxCharacter = wx.Choice( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxCharacterChoices, 0 )
         self.comboBoxCharacter.SetSelection( 0 )
         sizerSettings.Add( self.comboBoxCharacter, 0, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
@@ -8961,12 +8961,12 @@ class MoveRoute_Dialog ( wx.Dialog ):
         self.listBoxMoveRoute = wx.ListBox( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, listBoxMoveRouteChoices, 0 )
         sizerSettings.Add( self.listBoxMoveRoute, 1, wx.ALL|wx.EXPAND, 5 )
         
-        sizerOptions = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Options" ), wx.VERTICAL )
+        sizerOptions = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, "Options" ), wx.VERTICAL )
         
-        self.checkBoxRepeatAction = wx.CheckBox( self, wx.ID_ANY, u"Repeat Action", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.checkBoxRepeatAction = wx.CheckBox( self, wx.ID_ANY, "Repeat Action", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOptions.Add( self.checkBoxRepeatAction, 0, wx.ALL, 5 )
         
-        self.checkBoxIgnore = wx.CheckBox( self, wx.ID_ANY, u"Ignore If Can't Move ", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.checkBoxIgnore = wx.CheckBox( self, wx.ID_ANY, "Ignore If Can't Move ", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOptions.Add( self.checkBoxIgnore, 0, wx.ALL, 5 )
         
         sizerSettings.Add( sizerOptions, 0, wx.ALL|wx.EXPAND, 5 )
@@ -8975,147 +8975,147 @@ class MoveRoute_Dialog ( wx.Dialog ):
         
         sizerButtons1 = wx.BoxSizer( wx.VERTICAL )
         
-        self.buttonMoveDown = wx.Button( self, wx.ID_ANY, u"Move Down", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonMoveDown = wx.Button( self, wx.ID_ANY, "Move Down", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerButtons1.Add( self.buttonMoveDown, 0, wx.EXPAND|wx.RIGHT|wx.LEFT, 5 )
         
-        self.buttonMoveLeft = wx.Button( self, wx.ID_ANY, u"Move Left", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonMoveLeft = wx.Button( self, wx.ID_ANY, "Move Left", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerButtons1.Add( self.buttonMoveLeft, 0, wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
         
-        self.buttonMoveRight = wx.Button( self, wx.ID_ANY, u"Move Right", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonMoveRight = wx.Button( self, wx.ID_ANY, "Move Right", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerButtons1.Add( self.buttonMoveRight, 0, wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
         
-        self.buttonMoveUp = wx.Button( self, wx.ID_ANY, u"Move Up", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonMoveUp = wx.Button( self, wx.ID_ANY, "Move Up", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerButtons1.Add( self.buttonMoveUp, 0, wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
         
-        self.buttonMoveLowerLeft = wx.Button( self, wx.ID_ANY, u"Move Lower Left", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonMoveLowerLeft = wx.Button( self, wx.ID_ANY, "Move Lower Left", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerButtons1.Add( self.buttonMoveLowerLeft, 0, wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
         
-        self.buttonMoveLowerRight = wx.Button( self, wx.ID_ANY, u"Move Lower Right", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonMoveLowerRight = wx.Button( self, wx.ID_ANY, "Move Lower Right", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerButtons1.Add( self.buttonMoveLowerRight, 0, wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
         
-        self.buttonMoveUpperLeft = wx.Button( self, wx.ID_ANY, u"Move Upper Left", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonMoveUpperLeft = wx.Button( self, wx.ID_ANY, "Move Upper Left", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerButtons1.Add( self.buttonMoveUpperLeft, 0, wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
         
-        self.buttonMoveUpperRight = wx.Button( self, wx.ID_ANY, u"Move Upper Right", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonMoveUpperRight = wx.Button( self, wx.ID_ANY, "Move Upper Right", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerButtons1.Add( self.buttonMoveUpperRight, 0, wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
         
-        self.buttonMoveRandom = wx.Button( self, wx.ID_ANY, u"Move at Random", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonMoveRandom = wx.Button( self, wx.ID_ANY, "Move at Random", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerButtons1.Add( self.buttonMoveRandom, 0, wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
         
-        self.buttonMoveTowardPlayer = wx.Button( self, wx.ID_ANY, u"Move Toward Player", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonMoveTowardPlayer = wx.Button( self, wx.ID_ANY, "Move Toward Player", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerButtons1.Add( self.buttonMoveTowardPlayer, 0, wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
         
-        self.buttonMoveAwayPlayer = wx.Button( self, wx.ID_ANY, u"Move Away from Player", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonMoveAwayPlayer = wx.Button( self, wx.ID_ANY, "Move Away from Player", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerButtons1.Add( self.buttonMoveAwayPlayer, 0, wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
         
-        self.buttonStepForward = wx.Button( self, wx.ID_ANY, u"1 Step Forward", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonStepForward = wx.Button( self, wx.ID_ANY, "1 Step Forward", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerButtons1.Add( self.buttonStepForward, 0, wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
         
-        self.buttonStepBackward = wx.Button( self, wx.ID_ANY, u"1 Step Backward", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonStepBackward = wx.Button( self, wx.ID_ANY, "1 Step Backward", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerButtons1.Add( self.buttonStepBackward, 0, wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
         
-        self.buttonJump = wx.Button( self, wx.ID_ANY, u"Jump...", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonJump = wx.Button( self, wx.ID_ANY, "Jump...", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerButtons1.Add( self.buttonJump, 0, wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
         
-        self.buttonWait = wx.Button( self, wx.ID_ANY, u"Wait...", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonWait = wx.Button( self, wx.ID_ANY, "Wait...", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerButtons1.Add( self.buttonWait, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
         
         sizerMoveRoute.Add( sizerButtons1, 1, 0, 5 )
         
         sizerButtons2 = wx.BoxSizer( wx.VERTICAL )
         
-        self.buttonTurnDown = wx.Button( self, wx.ID_ANY, u"Turn Down", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonTurnDown = wx.Button( self, wx.ID_ANY, "Turn Down", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerButtons2.Add( self.buttonTurnDown, 0, wx.EXPAND|wx.RIGHT|wx.LEFT, 5 )
         
-        self.buttonTurnLeft = wx.Button( self, wx.ID_ANY, u"Turn Left", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonTurnLeft = wx.Button( self, wx.ID_ANY, "Turn Left", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerButtons2.Add( self.buttonTurnLeft, 0, wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
         
-        self.buttonTurnRight = wx.Button( self, wx.ID_ANY, u"Turn Right", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonTurnRight = wx.Button( self, wx.ID_ANY, "Turn Right", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerButtons2.Add( self.buttonTurnRight, 0, wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
         
-        self.buttonTurnUp = wx.Button( self, wx.ID_ANY, u"Turn Up", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonTurnUp = wx.Button( self, wx.ID_ANY, "Turn Up", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerButtons2.Add( self.buttonTurnUp, 0, wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
         
-        self.buttonTurn90Left = wx.Button( self, wx.ID_ANY, u"Turn 90º Left", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonTurn90Left = wx.Button( self, wx.ID_ANY, "Turn 90º Left", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerButtons2.Add( self.buttonTurn90Left, 0, wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
         
-        self.buttonTurn90Right = wx.Button( self, wx.ID_ANY, u"Turn 90º Right", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonTurn90Right = wx.Button( self, wx.ID_ANY, "Turn 90º Right", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerButtons2.Add( self.buttonTurn90Right, 0, wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
         
-        self.buttonTurn180 = wx.Button( self, wx.ID_ANY, u"Turn 180º", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonTurn180 = wx.Button( self, wx.ID_ANY, "Turn 180º", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerButtons2.Add( self.buttonTurn180, 0, wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
         
-        self.buttonTurn90 = wx.Button( self, wx.ID_ANY, u"Turn 90º Right or Left", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonTurn90 = wx.Button( self, wx.ID_ANY, "Turn 90º Right or Left", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerButtons2.Add( self.buttonTurn90, 0, wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
         
-        self.buttonTurnRandom = wx.Button( self, wx.ID_ANY, u"Turn at Random", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonTurnRandom = wx.Button( self, wx.ID_ANY, "Turn at Random", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerButtons2.Add( self.buttonTurnRandom, 0, wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
         
-        self.buttonTurnTowardPlayer = wx.Button( self, wx.ID_ANY, u"Turn Toward Player", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonTurnTowardPlayer = wx.Button( self, wx.ID_ANY, "Turn Toward Player", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerButtons2.Add( self.buttonTurnTowardPlayer, 0, wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
         
-        self.buttonTurnAwayPlayer = wx.Button( self, wx.ID_ANY, u"Turn Away from Player", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonTurnAwayPlayer = wx.Button( self, wx.ID_ANY, "Turn Away from Player", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerButtons2.Add( self.buttonTurnAwayPlayer, 0, wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
         
-        self.buttonSwitchOn = wx.Button( self, wx.ID_ANY, u"Switch ON...", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonSwitchOn = wx.Button( self, wx.ID_ANY, "Switch ON...", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerButtons2.Add( self.buttonSwitchOn, 0, wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
         
-        self.buttonSwitchOff = wx.Button( self, wx.ID_ANY, u"Switch OFF...", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonSwitchOff = wx.Button( self, wx.ID_ANY, "Switch OFF...", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerButtons2.Add( self.buttonSwitchOff, 0, wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
         
-        self.buttonChangeSpeed = wx.Button( self, wx.ID_ANY, u"Change Speed...", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonChangeSpeed = wx.Button( self, wx.ID_ANY, "Change Speed...", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerButtons2.Add( self.buttonChangeSpeed, 0, wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
         
-        self.buttonChangeFreq = wx.Button( self, wx.ID_ANY, u"Change Frequency...", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonChangeFreq = wx.Button( self, wx.ID_ANY, "Change Frequency...", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerButtons2.Add( self.buttonChangeFreq, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
         
         sizerMoveRoute.Add( sizerButtons2, 1, wx.EXPAND, 5 )
         
         sizerButtons3 = wx.BoxSizer( wx.VERTICAL )
         
-        self.buttonMoveAnimationOn = wx.Button( self, wx.ID_ANY, u"Move Animation ON", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonMoveAnimationOn = wx.Button( self, wx.ID_ANY, "Move Animation ON", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerButtons3.Add( self.buttonMoveAnimationOn, 0, wx.EXPAND|wx.RIGHT|wx.LEFT, 5 )
         
-        self.buttonMoveAnimationOff = wx.Button( self, wx.ID_ANY, u"Move Animation OFF", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonMoveAnimationOff = wx.Button( self, wx.ID_ANY, "Move Animation OFF", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerButtons3.Add( self.buttonMoveAnimationOff, 0, wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
         
-        self.buttonStopAnimationOn = wx.Button( self, wx.ID_ANY, u"Stop Animation ON", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonStopAnimationOn = wx.Button( self, wx.ID_ANY, "Stop Animation ON", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerButtons3.Add( self.buttonStopAnimationOn, 0, wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
         
-        self.buttonStopAnimationOff = wx.Button( self, wx.ID_ANY, u"Stop Animation OFF", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonStopAnimationOff = wx.Button( self, wx.ID_ANY, "Stop Animation OFF", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerButtons3.Add( self.buttonStopAnimationOff, 0, wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
         
-        self.buttonDirectionFixOn = wx.Button( self, wx.ID_ANY, u"Direction Fix ON", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonDirectionFixOn = wx.Button( self, wx.ID_ANY, "Direction Fix ON", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerButtons3.Add( self.buttonDirectionFixOn, 0, wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
         
-        self.buttonDirectionFixOff = wx.Button( self, wx.ID_ANY, u"Direction Fix OFF", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonDirectionFixOff = wx.Button( self, wx.ID_ANY, "Direction Fix OFF", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerButtons3.Add( self.buttonDirectionFixOff, 0, wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
         
-        self.buttonThroughOn = wx.Button( self, wx.ID_ANY, u"Through ON", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonThroughOn = wx.Button( self, wx.ID_ANY, "Through ON", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerButtons3.Add( self.buttonThroughOn, 0, wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
         
-        self.buttonThroughOff = wx.Button( self, wx.ID_ANY, u"Through OFF", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonThroughOff = wx.Button( self, wx.ID_ANY, "Through OFF", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerButtons3.Add( self.buttonThroughOff, 0, wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
         
-        self.buttonAlwaysTopOn = wx.Button( self, wx.ID_ANY, u"Always on Top ON", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonAlwaysTopOn = wx.Button( self, wx.ID_ANY, "Always on Top ON", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerButtons3.Add( self.buttonAlwaysTopOn, 0, wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
         
-        self.buttonAlwaysTopOff = wx.Button( self, wx.ID_ANY, u"Always on Top OFF", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonAlwaysTopOff = wx.Button( self, wx.ID_ANY, "Always on Top OFF", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerButtons3.Add( self.buttonAlwaysTopOff, 0, wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
         
-        self.buttonChangeGraphic = wx.Button( self, wx.ID_ANY, u"Change Graphic...", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonChangeGraphic = wx.Button( self, wx.ID_ANY, "Change Graphic...", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerButtons3.Add( self.buttonChangeGraphic, 0, wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
         
-        self.buttonChangeOpacity = wx.Button( self, wx.ID_ANY, u"Change Opacity...", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonChangeOpacity = wx.Button( self, wx.ID_ANY, "Change Opacity...", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerButtons3.Add( self.buttonChangeOpacity, 0, wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
         
-        self.buttonChangeBlending = wx.Button( self, wx.ID_ANY, u"Change Blending...", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonChangeBlending = wx.Button( self, wx.ID_ANY, "Change Blending...", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerButtons3.Add( self.buttonChangeBlending, 0, wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
         
-        self.buttonPlaySE = wx.Button( self, wx.ID_ANY, u"Play SE...", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonPlaySE = wx.Button( self, wx.ID_ANY, "Play SE...", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerButtons3.Add( self.buttonPlaySE, 0, wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
         
-        self.buttonScript = wx.Button( self, wx.ID_ANY, u"Script...", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonScript = wx.Button( self, wx.ID_ANY, "Script...", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerButtons3.Add( self.buttonScript, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
         
         sizerMoveRoute.Add( sizerButtons3, 1, wx.EXPAND, 5 )
@@ -9124,10 +9124,10 @@ class MoveRoute_Dialog ( wx.Dialog ):
         
         sizerOKCancel = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.buttonOK = wx.Button( self, wx.ID_ANY, u"OK", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonOK = wx.Button( self, wx.ID_ANY, "OK", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonOK, 0, wx.ALL, 5 )
         
-        self.buttonCancel = wx.Button( self, wx.ID_ANY, u"Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonCancel = wx.Button( self, wx.ID_ANY, "Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonCancel, 0, wx.ALL, 5 )
         
         MainSizer.Add( sizerOKCancel, 0, wx.ALIGN_RIGHT, 5 )
@@ -9344,7 +9344,7 @@ class MoveRoute_Dialog ( wx.Dialog ):
 class ChangeBlending_Dialog ( wx.Dialog ):
     
     def __init__( self, parent ):
-        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Change Blending", pos = wx.DefaultPosition, size = wx.Size( 255,93 ), style = wx.DEFAULT_DIALOG_STYLE )
+        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = "Change Blending", pos = wx.DefaultPosition, size = wx.Size( 255,93 ), style = wx.DEFAULT_DIALOG_STYLE )
         
         self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
         
@@ -9352,11 +9352,11 @@ class ChangeBlending_Dialog ( wx.Dialog ):
         
         sizerBlending = wx.BoxSizer( wx.VERTICAL )
         
-        self.labelBlending = wx.StaticText( self, wx.ID_ANY, u"Blending:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelBlending = wx.StaticText( self, wx.ID_ANY, "Blending:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelBlending.Wrap( -1 )
         sizerBlending.Add( self.labelBlending, 0, wx.ALL, 5 )
         
-        comboBoxBlendingChoices = [ u"Normal", u"Add", u"Subtract" ]
+        comboBoxBlendingChoices = [ "Normal", "Add", "Subtract" ]
         self.comboBoxBlending = wx.Choice( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxBlendingChoices, 0 )
         self.comboBoxBlending.SetSelection( 0 )
         sizerBlending.Add( self.comboBoxBlending, 0, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
@@ -9365,10 +9365,10 @@ class ChangeBlending_Dialog ( wx.Dialog ):
         
         sizerOKCancel = wx.BoxSizer( wx.VERTICAL )
         
-        self.buttonOK = wx.Button( self, wx.ID_ANY, u"OK", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonOK = wx.Button( self, wx.ID_ANY, "OK", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonOK, 0, wx.ALL, 5 )
         
-        self.buttonCancel = wx.Button( self, wx.ID_ANY, u"Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonCancel = wx.Button( self, wx.ID_ANY, "Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonCancel, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
         
         MainSizer.Add( sizerOKCancel, 0, 0, 5 )
@@ -9401,7 +9401,7 @@ class ChangeBlending_Dialog ( wx.Dialog ):
 class Jump_Dialog ( wx.Dialog ):
     
     def __init__( self, parent ):
-        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Jump", pos = wx.DefaultPosition, size = wx.Size( 185,131 ), style = wx.DEFAULT_DIALOG_STYLE )
+        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = "Jump", pos = wx.DefaultPosition, size = wx.Size( 185,131 ), style = wx.DEFAULT_DIALOG_STYLE )
         
         self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
         
@@ -9409,14 +9409,14 @@ class Jump_Dialog ( wx.Dialog ):
         
         sizerJump = wx.BoxSizer( wx.VERTICAL )
         
-        self.labelJumpX = wx.StaticText( self, wx.ID_ANY, u"X+:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelJumpX = wx.StaticText( self, wx.ID_ANY, "X+:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelJumpX.Wrap( -1 )
         sizerJump.Add( self.labelJumpX, 0, wx.ALL, 5 )
         
         self.spinCtrlJumpX = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0 )
         sizerJump.Add( self.spinCtrlJumpX, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
         
-        self.labelJumpY = wx.StaticText( self, wx.ID_ANY, u"Y+:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelJumpY = wx.StaticText( self, wx.ID_ANY, "Y+:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelJumpY.Wrap( -1 )
         sizerJump.Add( self.labelJumpY, 0, wx.ALL, 5 )
         
@@ -9427,10 +9427,10 @@ class Jump_Dialog ( wx.Dialog ):
         
         sizerOKCancel = wx.BoxSizer( wx.VERTICAL )
         
-        self.buttonOK = wx.Button( self, wx.ID_ANY, u"OK", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonOK = wx.Button( self, wx.ID_ANY, "OK", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonOK, 0, wx.ALL, 5 )
         
-        self.buttonCancel = wx.Button( self, wx.ID_ANY, u"Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonCancel = wx.Button( self, wx.ID_ANY, "Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonCancel, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
         
         MainSizer.Add( sizerOKCancel, 0, 0, 5 )
@@ -9463,7 +9463,7 @@ class Jump_Dialog ( wx.Dialog ):
 class ChangeSpeed_Dialog ( wx.Dialog ):
     
     def __init__( self, parent ):
-        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Change Speed", pos = wx.DefaultPosition, size = wx.Size( 256,89 ), style = wx.DEFAULT_DIALOG_STYLE )
+        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = "Change Speed", pos = wx.DefaultPosition, size = wx.Size( 256,89 ), style = wx.DEFAULT_DIALOG_STYLE )
         
         self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
         
@@ -9471,11 +9471,11 @@ class ChangeSpeed_Dialog ( wx.Dialog ):
         
         sizerSpeed = wx.BoxSizer( wx.VERTICAL )
         
-        self.labelMoveSpeed = wx.StaticText( self, wx.ID_ANY, u"Move Speed:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelMoveSpeed = wx.StaticText( self, wx.ID_ANY, "Move Speed:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelMoveSpeed.Wrap( -1 )
         sizerSpeed.Add( self.labelMoveSpeed, 0, wx.ALL, 5 )
         
-        comboBoxMoveSpeedChoices = [ u"1: Slowest", u"2: Slower", u"3: Slow", u"4: Fast", u"5: Faster", u"6: Fastest" ]
+        comboBoxMoveSpeedChoices = [ "1: Slowest", "2: Slower", "3: Slow", "4: Fast", "5: Faster", "6: Fastest" ]
         self.comboBoxMoveSpeed = wx.Choice( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxMoveSpeedChoices, 0 )
         self.comboBoxMoveSpeed.SetSelection( 0 )
         sizerSpeed.Add( self.comboBoxMoveSpeed, 0, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
@@ -9484,10 +9484,10 @@ class ChangeSpeed_Dialog ( wx.Dialog ):
         
         sizerOKCancel = wx.BoxSizer( wx.VERTICAL )
         
-        self.buttonOK = wx.Button( self, wx.ID_ANY, u"OK", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonOK = wx.Button( self, wx.ID_ANY, "OK", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonOK, 0, wx.ALL, 5 )
         
-        self.buttonCancel = wx.Button( self, wx.ID_ANY, u"Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonCancel = wx.Button( self, wx.ID_ANY, "Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonCancel, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
         
         MainSizer.Add( sizerOKCancel, 0, 0, 5 )
@@ -9520,7 +9520,7 @@ class ChangeSpeed_Dialog ( wx.Dialog ):
 class ChangeFrequency_Dialog ( wx.Dialog ):
     
     def __init__( self, parent ):
-        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Change Frequency", pos = wx.DefaultPosition, size = wx.Size( 256,89 ), style = wx.DEFAULT_DIALOG_STYLE )
+        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = "Change Frequency", pos = wx.DefaultPosition, size = wx.Size( 256,89 ), style = wx.DEFAULT_DIALOG_STYLE )
         
         self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
         
@@ -9528,11 +9528,11 @@ class ChangeFrequency_Dialog ( wx.Dialog ):
         
         sizerFrequency = wx.BoxSizer( wx.VERTICAL )
         
-        self.labelMoveFrequency = wx.StaticText( self, wx.ID_ANY, u"Move Frequency:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelMoveFrequency = wx.StaticText( self, wx.ID_ANY, "Move Frequency:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelMoveFrequency.Wrap( -1 )
         sizerFrequency.Add( self.labelMoveFrequency, 0, wx.ALL, 5 )
         
-        comboBoxMoveFrequencyChoices = [ u"1: Lowest", u"2: Lower", u"3: Low", u"4: High", u"5: Higher", u"6: Highest" ]
+        comboBoxMoveFrequencyChoices = [ "1: Lowest", "2: Lower", "3: Low", "4: High", "5: Higher", "6: Highest" ]
         self.comboBoxMoveFrequency = wx.Choice( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxMoveFrequencyChoices, 0 )
         self.comboBoxMoveFrequency.SetSelection( 0 )
         sizerFrequency.Add( self.comboBoxMoveFrequency, 0, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
@@ -9541,10 +9541,10 @@ class ChangeFrequency_Dialog ( wx.Dialog ):
         
         sizerOKCancel = wx.BoxSizer( wx.VERTICAL )
         
-        self.buttonOK = wx.Button( self, wx.ID_ANY, u"OK", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonOK = wx.Button( self, wx.ID_ANY, "OK", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonOK, 0, wx.ALL, 5 )
         
-        self.buttonCancel = wx.Button( self, wx.ID_ANY, u"Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonCancel = wx.Button( self, wx.ID_ANY, "Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonCancel, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
         
         MainSizer.Add( sizerOKCancel, 0, 0, 5 )
@@ -9577,7 +9577,7 @@ class ChangeFrequency_Dialog ( wx.Dialog ):
 class ChangeTone_Dialog ( wx.Dialog ):
     
     def __init__( self, parent ):
-        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"(Change Screen Tone / Screen Flash)", pos = wx.DefaultPosition, size = wx.Size( 424,226 ), style = wx.DEFAULT_DIALOG_STYLE )
+        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = "(Change Screen Tone / Screen Flash)", pos = wx.DefaultPosition, size = wx.Size( 424,226 ), style = wx.DEFAULT_DIALOG_STYLE )
         
         self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
         
@@ -9589,7 +9589,7 @@ class ChangeTone_Dialog ( wx.Dialog ):
         
         sizerRed = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.labelRed = wx.StaticText( self, wx.ID_ANY, u"Red:", wx.DefaultPosition, wx.Size( 48,-1 ), 0 )
+        self.labelRed = wx.StaticText( self, wx.ID_ANY, "Red:", wx.DefaultPosition, wx.Size( 48,-1 ), 0 )
         self.labelRed.Wrap( -1 )
         sizerRed.Add( self.labelRed, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
@@ -9603,7 +9603,7 @@ class ChangeTone_Dialog ( wx.Dialog ):
         
         sizerGreen = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.labelGreen = wx.StaticText( self, wx.ID_ANY, u"Green:", wx.DefaultPosition, wx.Size( 48,-1 ), 0 )
+        self.labelGreen = wx.StaticText( self, wx.ID_ANY, "Green:", wx.DefaultPosition, wx.Size( 48,-1 ), 0 )
         self.labelGreen.Wrap( -1 )
         sizerGreen.Add( self.labelGreen, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
@@ -9617,7 +9617,7 @@ class ChangeTone_Dialog ( wx.Dialog ):
         
         sizerBlue = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.labelBlue = wx.StaticText( self, wx.ID_ANY, u"Blue:", wx.DefaultPosition, wx.Size( 48,-1 ), 0 )
+        self.labelBlue = wx.StaticText( self, wx.ID_ANY, "Blue:", wx.DefaultPosition, wx.Size( 48,-1 ), 0 )
         self.labelBlue.Wrap( -1 )
         sizerBlue.Add( self.labelBlue, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
@@ -9631,7 +9631,7 @@ class ChangeTone_Dialog ( wx.Dialog ):
         
         sizerStrGray = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.labelStrGray = wx.StaticText( self, wx.ID_ANY, u"Str/Gray:", wx.DefaultPosition, wx.Size( 48,-1 ), 0 )
+        self.labelStrGray = wx.StaticText( self, wx.ID_ANY, "Str/Gray:", wx.DefaultPosition, wx.Size( 48,-1 ), 0 )
         self.labelStrGray.Wrap( -1 )
         sizerStrGray.Add( self.labelStrGray, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
@@ -9652,14 +9652,14 @@ class ChangeTone_Dialog ( wx.Dialog ):
         
         sizerFrames = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.labelTime = wx.StaticText( self, wx.ID_ANY, u"Time:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelTime = wx.StaticText( self, wx.ID_ANY, "Time:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelTime.Wrap( -1 )
         sizerFrames.Add( self.labelTime, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
         self.spinCtrlFrames = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( 72,-1 ), wx.SP_ARROW_KEYS, 0, 2000, 200 )
         sizerFrames.Add( self.spinCtrlFrames, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
         
-        self.labelFrames = wx.StaticText( self, wx.ID_ANY, u"Frames", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelFrames = wx.StaticText( self, wx.ID_ANY, "Frames", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelFrames.Wrap( -1 )
         sizerFrames.Add( self.labelFrames, 0, wx.ALIGN_CENTER_VERTICAL|wx.TOP|wx.BOTTOM|wx.RIGHT, 5 )
         
@@ -9667,10 +9667,10 @@ class ChangeTone_Dialog ( wx.Dialog ):
         
         sizerOKCancel = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.buttonOK = wx.Button( self, wx.ID_ANY, u"OK", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonOK = wx.Button( self, wx.ID_ANY, "OK", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonOK, 0, wx.ALL, 5 )
         
-        self.buttonCancel = wx.Button( self, wx.ID_ANY, u"Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonCancel = wx.Button( self, wx.ID_ANY, "Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonCancel, 0, wx.ALL, 5 )
         
         MainSizer.Add( sizerOKCancel, 0, wx.ALIGN_RIGHT, 5 )
@@ -9735,7 +9735,7 @@ class ChangeTone_Dialog ( wx.Dialog ):
 class ChangePictureColorTone_Dialog ( wx.Dialog ):
     
     def __init__( self, parent ):
-        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Change Picture Color Tone", pos = wx.DefaultPosition, size = wx.Size( 424,285 ), style = wx.DEFAULT_DIALOG_STYLE )
+        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = "Change Picture Color Tone", pos = wx.DefaultPosition, size = wx.Size( 424,285 ), style = wx.DEFAULT_DIALOG_STYLE )
         
         self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
         
@@ -9745,7 +9745,7 @@ class ChangePictureColorTone_Dialog ( wx.Dialog ):
         
         sizerNumber = wx.BoxSizer( wx.VERTICAL )
         
-        self.labelNumber = wx.StaticText( self, wx.ID_ANY, u"Number:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelNumber = wx.StaticText( self, wx.ID_ANY, "Number:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelNumber.Wrap( -1 )
         sizerNumber.Add( self.labelNumber, 0, wx.ALL, 5 )
         
@@ -9756,7 +9756,7 @@ class ChangePictureColorTone_Dialog ( wx.Dialog ):
         
         sizerTime = wx.BoxSizer( wx.VERTICAL )
         
-        self.labelTime = wx.StaticText( self, wx.ID_ANY, u"Time:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelTime = wx.StaticText( self, wx.ID_ANY, "Time:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelTime.Wrap( -1 )
         sizerTime.Add( self.labelTime, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
@@ -9765,7 +9765,7 @@ class ChangePictureColorTone_Dialog ( wx.Dialog ):
         self.spinCtrlFrames = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( 72,-1 ), wx.SP_ARROW_KEYS, 0, 2000, 200 )
         sizerFrames.Add( self.spinCtrlFrames, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
         
-        self.labelFrames = wx.StaticText( self, wx.ID_ANY, u"Frames", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelFrames = wx.StaticText( self, wx.ID_ANY, "Frames", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelFrames.Wrap( -1 )
         sizerFrames.Add( self.labelFrames, 0, wx.ALIGN_CENTER_VERTICAL|wx.TOP|wx.BOTTOM|wx.RIGHT, 5 )
         
@@ -9775,13 +9775,13 @@ class ChangePictureColorTone_Dialog ( wx.Dialog ):
         
         MainSizer.Add( sizerPicture, 0, wx.EXPAND, 5 )
         
-        sizerColorTone = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Color Tone" ), wx.HORIZONTAL )
+        sizerColorTone = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, "Color Tone" ), wx.HORIZONTAL )
         
         sizerSettings = wx.BoxSizer( wx.VERTICAL )
         
         sizerRed = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.labelRed = wx.StaticText( self, wx.ID_ANY, u"Red:", wx.DefaultPosition, wx.Size( 48,-1 ), 0 )
+        self.labelRed = wx.StaticText( self, wx.ID_ANY, "Red:", wx.DefaultPosition, wx.Size( 48,-1 ), 0 )
         self.labelRed.Wrap( -1 )
         sizerRed.Add( self.labelRed, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
@@ -9795,7 +9795,7 @@ class ChangePictureColorTone_Dialog ( wx.Dialog ):
         
         sizerGreen = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.labelGreen = wx.StaticText( self, wx.ID_ANY, u"Green:", wx.DefaultPosition, wx.Size( 48,-1 ), 0 )
+        self.labelGreen = wx.StaticText( self, wx.ID_ANY, "Green:", wx.DefaultPosition, wx.Size( 48,-1 ), 0 )
         self.labelGreen.Wrap( -1 )
         sizerGreen.Add( self.labelGreen, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
@@ -9809,7 +9809,7 @@ class ChangePictureColorTone_Dialog ( wx.Dialog ):
         
         sizerBlue = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.labelBlue = wx.StaticText( self, wx.ID_ANY, u"Blue:", wx.DefaultPosition, wx.Size( 48,-1 ), 0 )
+        self.labelBlue = wx.StaticText( self, wx.ID_ANY, "Blue:", wx.DefaultPosition, wx.Size( 48,-1 ), 0 )
         self.labelBlue.Wrap( -1 )
         sizerBlue.Add( self.labelBlue, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
@@ -9823,7 +9823,7 @@ class ChangePictureColorTone_Dialog ( wx.Dialog ):
         
         sizerGray = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.labelGray = wx.StaticText( self, wx.ID_ANY, u"Gray:", wx.DefaultPosition, wx.Size( 48,-1 ), 0 )
+        self.labelGray = wx.StaticText( self, wx.ID_ANY, "Gray:", wx.DefaultPosition, wx.Size( 48,-1 ), 0 )
         self.labelGray.Wrap( -1 )
         sizerGray.Add( self.labelGray, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
@@ -9844,10 +9844,10 @@ class ChangePictureColorTone_Dialog ( wx.Dialog ):
         
         sizerOKCancel = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.buttonOK = wx.Button( self, wx.ID_ANY, u"OK", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonOK = wx.Button( self, wx.ID_ANY, "OK", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonOK, 0, wx.ALL, 5 )
         
-        self.buttonCancel = wx.Button( self, wx.ID_ANY, u"Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonCancel = wx.Button( self, wx.ID_ANY, "Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonCancel, 0, wx.ALL, 5 )
         
         MainSizer.Add( sizerOKCancel, 0, wx.ALIGN_RIGHT, 5 )
@@ -9912,7 +9912,7 @@ class ChangePictureColorTone_Dialog ( wx.Dialog ):
 class ScreenShake_Dialog ( wx.Dialog ):
     
     def __init__( self, parent ):
-        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Screen Shake", pos = wx.DefaultPosition, size = wx.Size( 338,179 ), style = wx.DEFAULT_DIALOG_STYLE )
+        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = "Screen Shake", pos = wx.DefaultPosition, size = wx.Size( 338,179 ), style = wx.DEFAULT_DIALOG_STYLE )
         
         self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
         
@@ -9920,7 +9920,7 @@ class ScreenShake_Dialog ( wx.Dialog ):
         
         sizerPower = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.labelPower = wx.StaticText( self, wx.ID_ANY, u"Power:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelPower = wx.StaticText( self, wx.ID_ANY, "Power:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelPower.Wrap( -1 )
         sizerPower.Add( self.labelPower, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
@@ -9934,7 +9934,7 @@ class ScreenShake_Dialog ( wx.Dialog ):
         
         sizerSpeed = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.labelSpeed = wx.StaticText( self, wx.ID_ANY, u"Speed:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelSpeed = wx.StaticText( self, wx.ID_ANY, "Speed:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelSpeed.Wrap( -1 )
         sizerSpeed.Add( self.labelSpeed, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
@@ -9948,14 +9948,14 @@ class ScreenShake_Dialog ( wx.Dialog ):
         
         sizerDuration = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.labelTime = wx.StaticText( self, wx.ID_ANY, u"Time:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelTime = wx.StaticText( self, wx.ID_ANY, "Time:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelTime.Wrap( -1 )
         sizerDuration.Add( self.labelTime, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
         self.spinCtrlFrames = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( 64,-1 ), wx.SP_ARROW_KEYS, 0, 2000, 200 )
         sizerDuration.Add( self.spinCtrlFrames, 0, wx.ALL, 5 )
         
-        self.labelFrames = wx.StaticText( self, wx.ID_ANY, u"Frames", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelFrames = wx.StaticText( self, wx.ID_ANY, "Frames", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelFrames.Wrap( -1 )
         sizerDuration.Add( self.labelFrames, 0, wx.ALIGN_CENTER_VERTICAL|wx.TOP|wx.BOTTOM|wx.RIGHT, 5 )
         
@@ -9963,10 +9963,10 @@ class ScreenShake_Dialog ( wx.Dialog ):
         
         sizerOKCancel = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.buttonOK = wx.Button( self, wx.ID_ANY, u"OK", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonOK = wx.Button( self, wx.ID_ANY, "OK", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonOK, 0, wx.ALL, 5 )
         
-        self.buttonCancel = wx.Button( self, wx.ID_ANY, u"Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonCancel = wx.Button( self, wx.ID_ANY, "Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonCancel, 0, wx.ALL, 5 )
         
         MainSizer.Add( sizerOKCancel, 0, wx.ALIGN_RIGHT, 5 )
@@ -10015,7 +10015,7 @@ class ScreenShake_Dialog ( wx.Dialog ):
 class ShowPicture_Dialog ( wx.Dialog ):
     
     def __init__( self, parent ):
-        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Show Picture", pos = wx.DefaultPosition, size = wx.Size( 288,418 ), style = wx.DEFAULT_DIALOG_STYLE )
+        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = "Show Picture", pos = wx.DefaultPosition, size = wx.Size( 288,418 ), style = wx.DEFAULT_DIALOG_STYLE )
         
         self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
         
@@ -10025,7 +10025,7 @@ class ShowPicture_Dialog ( wx.Dialog ):
         
         sizerNumber = wx.BoxSizer( wx.VERTICAL )
         
-        self.labelNumber = wx.StaticText( self, wx.ID_ANY, u"Number:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelNumber = wx.StaticText( self, wx.ID_ANY, "Number:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelNumber.Wrap( -1 )
         sizerNumber.Add( self.labelNumber, 0, wx.ALL, 5 )
         
@@ -10036,7 +10036,7 @@ class ShowPicture_Dialog ( wx.Dialog ):
         
         sizerGraphic = wx.BoxSizer( wx.VERTICAL )
         
-        self.labelGraphic = wx.StaticText( self, wx.ID_ANY, u"Picture Graphic:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelGraphic = wx.StaticText( self, wx.ID_ANY, "Picture Graphic:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelGraphic.Wrap( -1 )
         sizerGraphic.Add( self.labelGraphic, 0, wx.ALL, 5 )
         
@@ -10048,19 +10048,19 @@ class ShowPicture_Dialog ( wx.Dialog ):
         
         MainSizer.Add( sizerPicture, 0, wx.EXPAND, 5 )
         
-        sizerDisplayOrigin = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Display Origin" ), wx.VERTICAL )
+        sizerDisplayOrigin = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, "Display Origin" ), wx.VERTICAL )
         
-        radioBoxOriginChoices = [ u"Upper-Left Corner", u"Center" ]
-        self.radioBoxOrigin = wx.RadioBox( self, wx.ID_ANY, u"Origin Point", wx.DefaultPosition, wx.DefaultSize, radioBoxOriginChoices, 1, wx.RA_SPECIFY_ROWS )
+        radioBoxOriginChoices = [ "Upper-Left Corner", "Center" ]
+        self.radioBoxOrigin = wx.RadioBox( self, wx.ID_ANY, "Origin Point", wx.DefaultPosition, wx.DefaultSize, radioBoxOriginChoices, 1, wx.RA_SPECIFY_ROWS )
         self.radioBoxOrigin.SetSelection( 0 )
         sizerDisplayOrigin.Add( self.radioBoxOrigin, 0, wx.ALL, 5 )
         
         sizerConstantX = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.radioButtonConstant = wx.RadioButton( self, wx.ID_ANY, u"Constant", wx.DefaultPosition, wx.Size( 72,-1 ), 0 )
+        self.radioButtonConstant = wx.RadioButton( self, wx.ID_ANY, "Constant", wx.DefaultPosition, wx.Size( 72,-1 ), 0 )
         sizerConstantX.Add( self.radioButtonConstant, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
-        self.labelConstantX = wx.StaticText( self, wx.ID_ANY, u"X:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelConstantX = wx.StaticText( self, wx.ID_ANY, "X:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelConstantX.Wrap( -1 )
         sizerConstantX.Add( self.labelConstantX, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
@@ -10075,7 +10075,7 @@ class ShowPicture_Dialog ( wx.Dialog ):
         self.labelDummy1.Wrap( -1 )
         sizerConstantY.Add( self.labelDummy1, 0, wx.ALL, 5 )
         
-        self.labelConstantY = wx.StaticText( self, wx.ID_ANY, u"Y:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelConstantY = wx.StaticText( self, wx.ID_ANY, "Y:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelConstantY.Wrap( -1 )
         sizerConstantY.Add( self.labelConstantY, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
@@ -10086,10 +10086,10 @@ class ShowPicture_Dialog ( wx.Dialog ):
         
         sizerVariableX = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.radioButtonVariable = wx.RadioButton( self, wx.ID_ANY, u"Variable", wx.DefaultPosition, wx.Size( 72,-1 ), 0 )
+        self.radioButtonVariable = wx.RadioButton( self, wx.ID_ANY, "Variable", wx.DefaultPosition, wx.Size( 72,-1 ), 0 )
         sizerVariableX.Add( self.radioButtonVariable, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
-        self.labelVariableX = wx.StaticText( self, wx.ID_ANY, u"X:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelVariableX = wx.StaticText( self, wx.ID_ANY, "X:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelVariableX.Wrap( -1 )
         sizerVariableX.Add( self.labelVariableX, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
@@ -10105,7 +10105,7 @@ class ShowPicture_Dialog ( wx.Dialog ):
         self.abelDummy2.Wrap( -1 )
         sizerVariableY.Add( self.abelDummy2, 0, wx.ALL, 5 )
         
-        self.labelVariableY = wx.StaticText( self, wx.ID_ANY, u"Y:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelVariableY = wx.StaticText( self, wx.ID_ANY, "Y:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelVariableY.Wrap( -1 )
         sizerVariableY.Add( self.labelVariableY, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
@@ -10119,11 +10119,11 @@ class ShowPicture_Dialog ( wx.Dialog ):
         
         sizerSettings = wx.BoxSizer( wx.HORIZONTAL )
         
-        sizerZoom = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Zoom" ), wx.VERTICAL )
+        sizerZoom = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, "Zoom" ), wx.VERTICAL )
         
         sizerZoomX = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.labelZoomX = wx.StaticText( self, wx.ID_ANY, u"X:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelZoomX = wx.StaticText( self, wx.ID_ANY, "X:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelZoomX.Wrap( -1 )
         sizerZoomX.Add( self.labelZoomX, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
@@ -10134,7 +10134,7 @@ class ShowPicture_Dialog ( wx.Dialog ):
         
         sizerZoomY = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.labelZoomY = wx.StaticText( self, wx.ID_ANY, u"Y:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelZoomY = wx.StaticText( self, wx.ID_ANY, "Y:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelZoomY.Wrap( -1 )
         sizerZoomY.Add( self.labelZoomY, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
@@ -10147,7 +10147,7 @@ class ShowPicture_Dialog ( wx.Dialog ):
         
         sizerOpacity = wx.BoxSizer( wx.VERTICAL )
         
-        self.labelOpacity = wx.StaticText( self, wx.ID_ANY, u"Opacity:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelOpacity = wx.StaticText( self, wx.ID_ANY, "Opacity:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelOpacity.Wrap( -1 )
         sizerOpacity.Add( self.labelOpacity, 0, wx.ALL, 5 )
         
@@ -10158,11 +10158,11 @@ class ShowPicture_Dialog ( wx.Dialog ):
         
         sizerBlending = wx.BoxSizer( wx.VERTICAL )
         
-        self.labelBlending = wx.StaticText( self, wx.ID_ANY, u"Blending:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelBlending = wx.StaticText( self, wx.ID_ANY, "Blending:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelBlending.Wrap( -1 )
         sizerBlending.Add( self.labelBlending, 0, wx.ALL, 5 )
         
-        comboBoxBlendingChoices = [ u"Normal", u"Add", u"Subtract" ]
+        comboBoxBlendingChoices = [ "Normal", "Add", "Subtract" ]
         self.comboBoxBlending = wx.Choice( self, wx.ID_ANY, wx.DefaultPosition, wx.Size( 80,-1 ), comboBoxBlendingChoices, 0 )
         self.comboBoxBlending.SetSelection( 0 )
         sizerBlending.Add( self.comboBoxBlending, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
@@ -10173,10 +10173,10 @@ class ShowPicture_Dialog ( wx.Dialog ):
         
         sizerOKCancel = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.buttonOK = wx.Button( self, wx.ID_ANY, u"OK", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonOK = wx.Button( self, wx.ID_ANY, "OK", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonOK, 0, wx.ALL, 5 )
         
-        self.buttonCancel = wx.Button( self, wx.ID_ANY, u"Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonCancel = wx.Button( self, wx.ID_ANY, "Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonCancel, 0, wx.ALL, 5 )
         
         MainSizer.Add( sizerOKCancel, 0, wx.ALIGN_RIGHT, 5 )
@@ -10221,7 +10221,7 @@ class ShowPicture_Dialog ( wx.Dialog ):
 class MovePicture_Dialog ( wx.Dialog ):
     
     def __init__( self, parent ):
-        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Move Picture", pos = wx.DefaultPosition, size = wx.Size( 288,418 ), style = wx.DEFAULT_DIALOG_STYLE )
+        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = "Move Picture", pos = wx.DefaultPosition, size = wx.Size( 288,418 ), style = wx.DEFAULT_DIALOG_STYLE )
         
         self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
         
@@ -10231,7 +10231,7 @@ class MovePicture_Dialog ( wx.Dialog ):
         
         sizerNumber = wx.BoxSizer( wx.VERTICAL )
         
-        self.labelNumber = wx.StaticText( self, wx.ID_ANY, u"Number:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelNumber = wx.StaticText( self, wx.ID_ANY, "Number:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelNumber.Wrap( -1 )
         sizerNumber.Add( self.labelNumber, 0, wx.ALL, 5 )
         
@@ -10242,7 +10242,7 @@ class MovePicture_Dialog ( wx.Dialog ):
         
         sizerTime = wx.BoxSizer( wx.VERTICAL )
         
-        self.labelTime = wx.StaticText( self, wx.ID_ANY, u"Time:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelTime = wx.StaticText( self, wx.ID_ANY, "Time:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelTime.Wrap( -1 )
         sizerTime.Add( self.labelTime, 0, wx.ALL, 5 )
         
@@ -10251,7 +10251,7 @@ class MovePicture_Dialog ( wx.Dialog ):
         self.m_spinCtrl163 = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( 64,-1 ), wx.SP_ARROW_KEYS, 0, 10, 0 )
         sizerFrames.Add( self.m_spinCtrl163, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
         
-        self.labelFrames = wx.StaticText( self, wx.ID_ANY, u"Frames", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelFrames = wx.StaticText( self, wx.ID_ANY, "Frames", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelFrames.Wrap( -1 )
         sizerFrames.Add( self.labelFrames, 0, wx.TOP|wx.BOTTOM|wx.RIGHT, 5 )
         
@@ -10261,19 +10261,19 @@ class MovePicture_Dialog ( wx.Dialog ):
         
         MainSizer.Add( sizerPicture, 0, 0, 5 )
         
-        sizerDisplayOrigin = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Display Origin" ), wx.VERTICAL )
+        sizerDisplayOrigin = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, "Display Origin" ), wx.VERTICAL )
         
-        radioBoxOriginChoices = [ u"Upper-Left Corner", u"Center" ]
-        self.radioBoxOrigin = wx.RadioBox( self, wx.ID_ANY, u"Origin Point", wx.DefaultPosition, wx.DefaultSize, radioBoxOriginChoices, 1, wx.RA_SPECIFY_ROWS )
+        radioBoxOriginChoices = [ "Upper-Left Corner", "Center" ]
+        self.radioBoxOrigin = wx.RadioBox( self, wx.ID_ANY, "Origin Point", wx.DefaultPosition, wx.DefaultSize, radioBoxOriginChoices, 1, wx.RA_SPECIFY_ROWS )
         self.radioBoxOrigin.SetSelection( 0 )
         sizerDisplayOrigin.Add( self.radioBoxOrigin, 0, wx.ALL, 5 )
         
         sizerConstantX = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.radioButtonConstant = wx.RadioButton( self, wx.ID_ANY, u"Constant", wx.DefaultPosition, wx.Size( 72,-1 ), 0 )
+        self.radioButtonConstant = wx.RadioButton( self, wx.ID_ANY, "Constant", wx.DefaultPosition, wx.Size( 72,-1 ), 0 )
         sizerConstantX.Add( self.radioButtonConstant, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
-        self.labelConstantX = wx.StaticText( self, wx.ID_ANY, u"X:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelConstantX = wx.StaticText( self, wx.ID_ANY, "X:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelConstantX.Wrap( -1 )
         sizerConstantX.Add( self.labelConstantX, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
@@ -10288,7 +10288,7 @@ class MovePicture_Dialog ( wx.Dialog ):
         self.labelDummy1.Wrap( -1 )
         sizerConstantY.Add( self.labelDummy1, 0, wx.ALL, 5 )
         
-        self.labelConstantY = wx.StaticText( self, wx.ID_ANY, u"Y:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelConstantY = wx.StaticText( self, wx.ID_ANY, "Y:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelConstantY.Wrap( -1 )
         sizerConstantY.Add( self.labelConstantY, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
@@ -10299,10 +10299,10 @@ class MovePicture_Dialog ( wx.Dialog ):
         
         sizerVariableX = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.radioButtonVariable = wx.RadioButton( self, wx.ID_ANY, u"Variable", wx.DefaultPosition, wx.Size( 72,-1 ), 0 )
+        self.radioButtonVariable = wx.RadioButton( self, wx.ID_ANY, "Variable", wx.DefaultPosition, wx.Size( 72,-1 ), 0 )
         sizerVariableX.Add( self.radioButtonVariable, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
-        self.labelVariableX = wx.StaticText( self, wx.ID_ANY, u"X:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelVariableX = wx.StaticText( self, wx.ID_ANY, "X:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelVariableX.Wrap( -1 )
         sizerVariableX.Add( self.labelVariableX, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
@@ -10318,7 +10318,7 @@ class MovePicture_Dialog ( wx.Dialog ):
         self.abelDummy2.Wrap( -1 )
         sizerVariableY.Add( self.abelDummy2, 0, wx.ALL, 5 )
         
-        self.labelVariableY = wx.StaticText( self, wx.ID_ANY, u"Y:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelVariableY = wx.StaticText( self, wx.ID_ANY, "Y:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelVariableY.Wrap( -1 )
         sizerVariableY.Add( self.labelVariableY, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
@@ -10332,11 +10332,11 @@ class MovePicture_Dialog ( wx.Dialog ):
         
         sizerSettings = wx.BoxSizer( wx.HORIZONTAL )
         
-        sizerZoom = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Zoom" ), wx.VERTICAL )
+        sizerZoom = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, "Zoom" ), wx.VERTICAL )
         
         sizerZoomX = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.labelZoomX = wx.StaticText( self, wx.ID_ANY, u"X:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelZoomX = wx.StaticText( self, wx.ID_ANY, "X:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelZoomX.Wrap( -1 )
         sizerZoomX.Add( self.labelZoomX, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
@@ -10347,7 +10347,7 @@ class MovePicture_Dialog ( wx.Dialog ):
         
         sizerZoomY = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.labelZoomY = wx.StaticText( self, wx.ID_ANY, u"Y:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelZoomY = wx.StaticText( self, wx.ID_ANY, "Y:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelZoomY.Wrap( -1 )
         sizerZoomY.Add( self.labelZoomY, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
@@ -10360,7 +10360,7 @@ class MovePicture_Dialog ( wx.Dialog ):
         
         sizerOpacity = wx.BoxSizer( wx.VERTICAL )
         
-        self.labelOpacity = wx.StaticText( self, wx.ID_ANY, u"Opacity:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelOpacity = wx.StaticText( self, wx.ID_ANY, "Opacity:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelOpacity.Wrap( -1 )
         sizerOpacity.Add( self.labelOpacity, 0, wx.ALL, 5 )
         
@@ -10371,11 +10371,11 @@ class MovePicture_Dialog ( wx.Dialog ):
         
         sizerBlending = wx.BoxSizer( wx.VERTICAL )
         
-        self.labelBlending = wx.StaticText( self, wx.ID_ANY, u"Blending:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelBlending = wx.StaticText( self, wx.ID_ANY, "Blending:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelBlending.Wrap( -1 )
         sizerBlending.Add( self.labelBlending, 0, wx.ALL, 5 )
         
-        comboBoxBlendingChoices = [ u"Normal", u"Add", u"Subtract" ]
+        comboBoxBlendingChoices = [ "Normal", "Add", "Subtract" ]
         self.comboBoxBlending = wx.Choice( self, wx.ID_ANY, wx.DefaultPosition, wx.Size( 80,-1 ), comboBoxBlendingChoices, 0 )
         self.comboBoxBlending.SetSelection( 0 )
         sizerBlending.Add( self.comboBoxBlending, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
@@ -10386,10 +10386,10 @@ class MovePicture_Dialog ( wx.Dialog ):
         
         sizerOKCancel = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.buttonOK = wx.Button( self, wx.ID_ANY, u"OK", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonOK = wx.Button( self, wx.ID_ANY, "OK", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonOK, 0, wx.ALL, 5 )
         
-        self.buttonCancel = wx.Button( self, wx.ID_ANY, u"Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonCancel = wx.Button( self, wx.ID_ANY, "Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonCancel, 0, wx.ALL, 5 )
         
         MainSizer.Add( sizerOKCancel, 0, wx.ALIGN_RIGHT, 5 )
@@ -10430,7 +10430,7 @@ class MovePicture_Dialog ( wx.Dialog ):
 class RotatePicture_Dialog ( wx.Dialog ):
     
     def __init__( self, parent ):
-        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Rotate Picture", pos = wx.DefaultPosition, size = wx.Size( 277,91 ), style = wx.DEFAULT_DIALOG_STYLE )
+        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = "Rotate Picture", pos = wx.DefaultPosition, size = wx.Size( 277,91 ), style = wx.DEFAULT_DIALOG_STYLE )
         
         self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
         
@@ -10438,7 +10438,7 @@ class RotatePicture_Dialog ( wx.Dialog ):
         
         sizerNumber = wx.BoxSizer( wx.VERTICAL )
         
-        self.labelNumber = wx.StaticText( self, wx.ID_ANY, u"Number:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelNumber = wx.StaticText( self, wx.ID_ANY, "Number:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelNumber.Wrap( -1 )
         sizerNumber.Add( self.labelNumber, 0, wx.ALL, 5 )
         
@@ -10449,7 +10449,7 @@ class RotatePicture_Dialog ( wx.Dialog ):
         
         sizerSpeed = wx.BoxSizer( wx.VERTICAL )
         
-        self.labelSpeed = wx.StaticText( self, wx.ID_ANY, u"Speed:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelSpeed = wx.StaticText( self, wx.ID_ANY, "Speed:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelSpeed.Wrap( -1 )
         sizerSpeed.Add( self.labelSpeed, 0, wx.ALL, 5 )
         
@@ -10460,10 +10460,10 @@ class RotatePicture_Dialog ( wx.Dialog ):
         
         sizerOKCancel = wx.BoxSizer( wx.VERTICAL )
         
-        self.buttonOK = wx.Button( self, wx.ID_ANY, u"OK", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonOK = wx.Button( self, wx.ID_ANY, "OK", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonOK, 0, wx.ALL, 5 )
         
-        self.buttonCancel = wx.Button( self, wx.ID_ANY, u"Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonCancel = wx.Button( self, wx.ID_ANY, "Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonCancel, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
         
         MainSizer.Add( sizerOKCancel, 0, 0, 5 )
@@ -10496,7 +10496,7 @@ class RotatePicture_Dialog ( wx.Dialog ):
 class ErasePicture_Dialog ( wx.Dialog ):
     
     def __init__( self, parent ):
-        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Erase Picture", pos = wx.DefaultPosition, size = wx.Size( 200,93 ), style = wx.DEFAULT_DIALOG_STYLE )
+        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = "Erase Picture", pos = wx.DefaultPosition, size = wx.Size( 200,93 ), style = wx.DEFAULT_DIALOG_STYLE )
         
         self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
         
@@ -10504,7 +10504,7 @@ class ErasePicture_Dialog ( wx.Dialog ):
         
         sizerNumber = wx.BoxSizer( wx.VERTICAL )
         
-        self.labelNumber = wx.StaticText( self, wx.ID_ANY, u"Number:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelNumber = wx.StaticText( self, wx.ID_ANY, "Number:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelNumber.Wrap( -1 )
         sizerNumber.Add( self.labelNumber, 0, wx.ALL, 5 )
         
@@ -10515,10 +10515,10 @@ class ErasePicture_Dialog ( wx.Dialog ):
         
         sizerOKCancel = wx.BoxSizer( wx.VERTICAL )
         
-        self.buttonOK = wx.Button( self, wx.ID_ANY, u"OK", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonOK = wx.Button( self, wx.ID_ANY, "OK", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonOK, 0, wx.ALL, 5 )
         
-        self.buttonCancel = wx.Button( self, wx.ID_ANY, u"Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonCancel = wx.Button( self, wx.ID_ANY, "Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonCancel, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
         
         MainSizer.Add( sizerOKCancel, 0, 0, 5 )
@@ -10551,19 +10551,19 @@ class ErasePicture_Dialog ( wx.Dialog ):
 class WeatherEffects_Dialog ( wx.Dialog ):
     
     def __init__( self, parent ):
-        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Set Weather Effects", pos = wx.DefaultPosition, size = wx.Size( 305,273 ), style = wx.DEFAULT_DIALOG_STYLE )
+        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = "Set Weather Effects", pos = wx.DefaultPosition, size = wx.Size( 305,273 ), style = wx.DEFAULT_DIALOG_STYLE )
         
         self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
         
         MainSizer = wx.BoxSizer( wx.VERTICAL )
         
-        listCtrlEffectsChoices = [ u"None", u"Rain", u"Storm", u"Snow", u"Blizzard", u"Hail", u"Green Leaves", u"Autumn Leaves", u"Rose Petals", u"Sakura Petals" ]
+        listCtrlEffectsChoices = [ "None", "Rain", "Storm", "Snow", "Blizzard", "Hail", "Green Leaves", "Autumn Leaves", "Rose Petals", "Sakura Petals" ]
         self.listCtrlEffects = wx.ListBox( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, listCtrlEffectsChoices, wx.LB_NEEDED_SB|wx.LB_SINGLE )
         MainSizer.Add( self.listCtrlEffects, 1, wx.ALL|wx.EXPAND, 5 )
         
         sizerPower = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.labelPower = wx.StaticText( self, wx.ID_ANY, u"Power:", wx.DefaultPosition, wx.Size( -1,-1 ), 0 )
+        self.labelPower = wx.StaticText( self, wx.ID_ANY, "Power:", wx.DefaultPosition, wx.Size( -1,-1 ), 0 )
         self.labelPower.Wrap( -1 )
         sizerPower.Add( self.labelPower, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
@@ -10577,14 +10577,14 @@ class WeatherEffects_Dialog ( wx.Dialog ):
         
         sizerTime = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.labelTime = wx.StaticText( self, wx.ID_ANY, u"Time:  ", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelTime = wx.StaticText( self, wx.ID_ANY, "Time:  ", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelTime.Wrap( -1 )
         sizerTime.Add( self.labelTime, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
         self.spinCtrlFrames = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( 64,-1 ), wx.SP_ARROW_KEYS, 0, 2000, 200 )
         sizerTime.Add( self.spinCtrlFrames, 0, wx.ALL, 5 )
         
-        self.labelFrames = wx.StaticText( self, wx.ID_ANY, u"Frames", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelFrames = wx.StaticText( self, wx.ID_ANY, "Frames", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelFrames.Wrap( -1 )
         sizerTime.Add( self.labelFrames, 0, wx.ALIGN_CENTER_VERTICAL|wx.TOP|wx.BOTTOM|wx.RIGHT, 5 )
         
@@ -10592,10 +10592,10 @@ class WeatherEffects_Dialog ( wx.Dialog ):
         
         sizerOKCancel = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.buttonOK = wx.Button( self, wx.ID_ANY, u"OK", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonOK = wx.Button( self, wx.ID_ANY, "OK", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonOK, 0, wx.ALL, 5 )
         
-        self.buttonCancel = wx.Button( self, wx.ID_ANY, u"Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonCancel = wx.Button( self, wx.ID_ANY, "Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonCancel, 0, wx.ALL, 5 )
         
         MainSizer.Add( sizerOKCancel, 0, wx.ALIGN_RIGHT, 5 )
@@ -10636,7 +10636,7 @@ class WeatherEffects_Dialog ( wx.Dialog ):
 class FadeOutAudio_Dialog ( wx.Dialog ):
     
     def __init__( self, parent ):
-        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Fade Out (BGM/BGS)", pos = wx.DefaultPosition, size = wx.Size( 241,91 ), style = wx.DEFAULT_DIALOG_STYLE )
+        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = "Fade Out (BGM/BGS)", pos = wx.DefaultPosition, size = wx.Size( 241,91 ), style = wx.DEFAULT_DIALOG_STYLE )
         
         self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
         
@@ -10644,7 +10644,7 @@ class FadeOutAudio_Dialog ( wx.Dialog ):
         
         sizerFade = wx.BoxSizer( wx.VERTICAL )
         
-        self.labelTime = wx.StaticText( self, wx.ID_ANY, u"Time:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelTime = wx.StaticText( self, wx.ID_ANY, "Time:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelTime.Wrap( -1 )
         sizerFade.Add( self.labelTime, 0, wx.ALL, 5 )
         
@@ -10653,7 +10653,7 @@ class FadeOutAudio_Dialog ( wx.Dialog ):
         self.spinCtrlSeconds = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( 64,-1 ), wx.SP_ARROW_KEYS, 0, 10, 0 )
         sizerSeconds.Add( self.spinCtrlSeconds, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
         
-        self.labelSeconds = wx.StaticText( self, wx.ID_ANY, u"Sec", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelSeconds = wx.StaticText( self, wx.ID_ANY, "Sec", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelSeconds.Wrap( -1 )
         sizerSeconds.Add( self.labelSeconds, 0, wx.ALIGN_CENTER_VERTICAL|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
         
@@ -10663,10 +10663,10 @@ class FadeOutAudio_Dialog ( wx.Dialog ):
         
         sizerOKCancel = wx.BoxSizer( wx.VERTICAL )
         
-        self.buttonOK = wx.Button( self, wx.ID_ANY, u"OK", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonOK = wx.Button( self, wx.ID_ANY, "OK", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonOK, 0, wx.ALL, 5 )
         
-        self.buttonCancel = wx.Button( self, wx.ID_ANY, u"Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonCancel = wx.Button( self, wx.ID_ANY, "Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonCancel, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
         
         MainSizer.Add( sizerOKCancel, 0, 0, 5 )
@@ -10699,7 +10699,7 @@ class FadeOutAudio_Dialog ( wx.Dialog ):
 class BattleProcessing_Dialog ( wx.Dialog ):
     
     def __init__( self, parent ):
-        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Battle Processing", pos = wx.DefaultPosition, size = wx.Size( 301,128 ), style = wx.DEFAULT_DIALOG_STYLE )
+        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = "Battle Processing", pos = wx.DefaultPosition, size = wx.Size( 301,128 ), style = wx.DEFAULT_DIALOG_STYLE )
         
         self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
         
@@ -10707,7 +10707,7 @@ class BattleProcessing_Dialog ( wx.Dialog ):
         
         sizerTroop = wx.BoxSizer( wx.VERTICAL )
         
-        self.labelTroop = wx.StaticText( self, wx.ID_ANY, u"Troop:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelTroop = wx.StaticText( self, wx.ID_ANY, "Troop:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelTroop.Wrap( -1 )
         sizerTroop.Add( self.labelTroop, 0, wx.ALL, 5 )
         
@@ -10716,21 +10716,21 @@ class BattleProcessing_Dialog ( wx.Dialog ):
         self.comboBoxTroop.SetSelection( 0 )
         sizerTroop.Add( self.comboBoxTroop, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
         
-        self.checkBoxCanEscape = wx.CheckBox( self, wx.ID_ANY, u"Can Escape", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.checkBoxCanEscape = wx.CheckBox( self, wx.ID_ANY, "Can Escape", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.checkBoxCanEscape.SetValue(True) 
         sizerTroop.Add( self.checkBoxCanEscape, 0, wx.ALL, 5 )
         
-        self.checkBoxContinueLost = wx.CheckBox( self, wx.ID_ANY, u"Continue After Loss", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.checkBoxContinueLost = wx.CheckBox( self, wx.ID_ANY, "Continue After Loss", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerTroop.Add( self.checkBoxContinueLost, 0, wx.ALL, 5 )
         
         MainSizer.Add( sizerTroop, 1, wx.EXPAND, 5 )
         
         sizerOKCancel = wx.BoxSizer( wx.VERTICAL )
         
-        self.buttonOK = wx.Button( self, wx.ID_ANY, u"OK", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonOK = wx.Button( self, wx.ID_ANY, "OK", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonOK, 0, wx.ALL, 5 )
         
-        self.buttonCancel = wx.Button( self, wx.ID_ANY, u"Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonCancel = wx.Button( self, wx.ID_ANY, "Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonCancel, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
         
         MainSizer.Add( sizerOKCancel, 0, 0, 5 )
@@ -10763,7 +10763,7 @@ class BattleProcessing_Dialog ( wx.Dialog ):
 class ShopProcessing_Dialog ( wx.Dialog ):
     
     def __init__( self, parent ):
-        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Shop Processing", pos = wx.DefaultPosition, size = wx.Size( 276,316 ), style = wx.DEFAULT_DIALOG_STYLE )
+        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = "Shop Processing", pos = wx.DefaultPosition, size = wx.Size( 276,316 ), style = wx.DEFAULT_DIALOG_STYLE )
         
         self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
         
@@ -10774,10 +10774,10 @@ class ShopProcessing_Dialog ( wx.Dialog ):
         
         sizerOKCancel = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.buttonOK = wx.Button( self, wx.ID_ANY, u"OK", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonOK = wx.Button( self, wx.ID_ANY, "OK", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonOK, 0, wx.ALL, 5 )
         
-        self.buttonCancel = wx.Button( self, wx.ID_ANY, u"Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonCancel = wx.Button( self, wx.ID_ANY, "Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonCancel, 0, wx.ALL, 5 )
         
         MainSizer.Add( sizerOKCancel, 0, wx.ALIGN_RIGHT, 5 )
@@ -10814,7 +10814,7 @@ class ShopProcessing_Dialog ( wx.Dialog ):
 class ShopGoods_Dialog ( wx.Dialog ):
     
     def __init__( self, parent ):
-        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Goods", pos = wx.DefaultPosition, size = wx.Size( 281,157 ), style = wx.DEFAULT_DIALOG_STYLE )
+        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = "Goods", pos = wx.DefaultPosition, size = wx.Size( 281,157 ), style = wx.DEFAULT_DIALOG_STYLE )
         
         self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
         
@@ -10822,7 +10822,7 @@ class ShopGoods_Dialog ( wx.Dialog ):
         
         sizerItem = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.radioButtonItem = wx.RadioButton( self, wx.ID_ANY, u"Item", wx.DefaultPosition, wx.Size( 72,-1 ), 0 )
+        self.radioButtonItem = wx.RadioButton( self, wx.ID_ANY, "Item", wx.DefaultPosition, wx.Size( 72,-1 ), 0 )
         sizerItem.Add( self.radioButtonItem, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
         comboBoxItemChoices = []
@@ -10834,7 +10834,7 @@ class ShopGoods_Dialog ( wx.Dialog ):
         
         sizerWeapons = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.radioButtonWeapon = wx.RadioButton( self, wx.ID_ANY, u"Weapon", wx.DefaultPosition, wx.Size( 72,-1 ), 0 )
+        self.radioButtonWeapon = wx.RadioButton( self, wx.ID_ANY, "Weapon", wx.DefaultPosition, wx.Size( 72,-1 ), 0 )
         sizerWeapons.Add( self.radioButtonWeapon, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
         comboBoxWeaponChoices = []
@@ -10846,7 +10846,7 @@ class ShopGoods_Dialog ( wx.Dialog ):
         
         sizerArmor = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.radioButtonArmor = wx.RadioButton( self, wx.ID_ANY, u"Armor", wx.DefaultPosition, wx.Size( 72,-1 ), 0 )
+        self.radioButtonArmor = wx.RadioButton( self, wx.ID_ANY, "Armor", wx.DefaultPosition, wx.Size( 72,-1 ), 0 )
         sizerArmor.Add( self.radioButtonArmor, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
         comboBoxArmorChoices = []
@@ -10858,10 +10858,10 @@ class ShopGoods_Dialog ( wx.Dialog ):
         
         sizerOKCancel = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.buttonOK = wx.Button( self, wx.ID_ANY, u"OK", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonOK = wx.Button( self, wx.ID_ANY, "OK", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonOK, 0, wx.ALL, 5 )
         
-        self.buttonCancel = wx.Button( self, wx.ID_ANY, u"Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonCancel = wx.Button( self, wx.ID_ANY, "Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonCancel, 0, wx.ALL, 5 )
         
         MainSizer.Add( sizerOKCancel, 0, wx.ALIGN_RIGHT, 5 )
@@ -10906,7 +10906,7 @@ class ShopGoods_Dialog ( wx.Dialog ):
 class NameProcessing_Dialog ( wx.Dialog ):
     
     def __init__( self, parent ):
-        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Name Input Processing", pos = wx.DefaultPosition, size = wx.Size( 276,136 ), style = wx.DEFAULT_DIALOG_STYLE )
+        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = "Name Input Processing", pos = wx.DefaultPosition, size = wx.Size( 276,136 ), style = wx.DEFAULT_DIALOG_STYLE )
         
         self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
         
@@ -10914,7 +10914,7 @@ class NameProcessing_Dialog ( wx.Dialog ):
         
         sizerName = wx.BoxSizer( wx.VERTICAL )
         
-        self.labelActor = wx.StaticText( self, wx.ID_ANY, u"Actor:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelActor = wx.StaticText( self, wx.ID_ANY, "Actor:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelActor.Wrap( -1 )
         sizerName.Add( self.labelActor, 0, wx.ALL, 5 )
         
@@ -10923,7 +10923,7 @@ class NameProcessing_Dialog ( wx.Dialog ):
         self.comboBoxActor.SetSelection( 0 )
         sizerName.Add( self.comboBoxActor, 0, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
         
-        self.labelMaxCharacters = wx.StaticText( self, wx.ID_ANY, u"Max Characters:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelMaxCharacters = wx.StaticText( self, wx.ID_ANY, "Max Characters:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelMaxCharacters.Wrap( -1 )
         sizerName.Add( self.labelMaxCharacters, 0, wx.ALL, 5 )
         
@@ -10934,10 +10934,10 @@ class NameProcessing_Dialog ( wx.Dialog ):
         
         sizerOKCancel = wx.BoxSizer( wx.VERTICAL )
         
-        self.buttonOK = wx.Button( self, wx.ID_ANY, u"OK", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonOK = wx.Button( self, wx.ID_ANY, "OK", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonOK, 0, wx.ALL, 5 )
         
-        self.buttonCancel = wx.Button( self, wx.ID_ANY, u"Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonCancel = wx.Button( self, wx.ID_ANY, "Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonCancel, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
         
         MainSizer.Add( sizerOKCancel, 0, wx.EXPAND|wx.ALIGN_BOTTOM, 5 )
@@ -10970,13 +10970,13 @@ class NameProcessing_Dialog ( wx.Dialog ):
 class ChangeHP_Dialog ( wx.Dialog ):
     
     def __init__( self, parent ):
-        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Change HP", pos = wx.DefaultPosition, size = wx.Size( 241,283 ), style = wx.DEFAULT_DIALOG_STYLE )
+        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = "Change HP", pos = wx.DefaultPosition, size = wx.Size( 241,283 ), style = wx.DEFAULT_DIALOG_STYLE )
         
         self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
         
         MainSizer = wx.BoxSizer( wx.VERTICAL )
         
-        self.labelActor = wx.StaticText( self, wx.ID_ANY, u"Actor:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelActor = wx.StaticText( self, wx.ID_ANY, "Actor:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelActor.Wrap( -1 )
         MainSizer.Add( self.labelActor, 0, wx.ALL, 5 )
         
@@ -10985,16 +10985,16 @@ class ChangeHP_Dialog ( wx.Dialog ):
         self.comboBoxActor.SetSelection( 0 )
         MainSizer.Add( self.comboBoxActor, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
         
-        radioBoxOperationChoices = [ u"Increase", u"Decrease" ]
-        self.radioBoxOperation = wx.RadioBox( self, wx.ID_ANY, u"Operation", wx.DefaultPosition, wx.DefaultSize, radioBoxOperationChoices, 1, wx.RA_SPECIFY_ROWS )
+        radioBoxOperationChoices = [ "Increase", "Decrease" ]
+        self.radioBoxOperation = wx.RadioBox( self, wx.ID_ANY, "Operation", wx.DefaultPosition, wx.DefaultSize, radioBoxOperationChoices, 1, wx.RA_SPECIFY_ROWS )
         self.radioBoxOperation.SetSelection( 0 )
         MainSizer.Add( self.radioBoxOperation, 0, wx.ALL, 5 )
         
-        sizerOperand = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Operand" ), wx.VERTICAL )
+        sizerOperand = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, "Operand" ), wx.VERTICAL )
         
         sizerConstant = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.radioButtonConstant = wx.RadioButton( self, wx.ID_ANY, u"Constant", wx.DefaultPosition, wx.Size( 72,-1 ), wx.RB_GROUP )
+        self.radioButtonConstant = wx.RadioButton( self, wx.ID_ANY, "Constant", wx.DefaultPosition, wx.Size( 72,-1 ), wx.RB_GROUP )
         sizerConstant.Add( self.radioButtonConstant, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
         self.spinCtrlConstant = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0 )
@@ -11004,7 +11004,7 @@ class ChangeHP_Dialog ( wx.Dialog ):
         
         sizerVariable = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.radioButtonVariable = wx.RadioButton( self, wx.ID_ANY, u"Variable", wx.DefaultPosition, wx.Size( 72,-1 ), 0 )
+        self.radioButtonVariable = wx.RadioButton( self, wx.ID_ANY, "Variable", wx.DefaultPosition, wx.Size( 72,-1 ), 0 )
         sizerVariable.Add( self.radioButtonVariable, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
         comboBoxVariableChoices = []
@@ -11015,16 +11015,16 @@ class ChangeHP_Dialog ( wx.Dialog ):
         
         MainSizer.Add( sizerOperand, 0, wx.EXPAND|wx.ALL, 5 )
         
-        self.checkBoxKnockout = wx.CheckBox( self, wx.ID_ANY, u"Allow Knockout in Battle", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.checkBoxKnockout = wx.CheckBox( self, wx.ID_ANY, "Allow Knockout in Battle", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.checkBoxKnockout.SetValue(True) 
         MainSizer.Add( self.checkBoxKnockout, 0, wx.ALL, 5 )
         
         sizerOKCancel = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.buttonOK = wx.Button( self, wx.ID_ANY, u"OK", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonOK = wx.Button( self, wx.ID_ANY, "OK", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonOK, 0, wx.ALL, 5 )
         
-        self.buttonCancel = wx.Button( self, wx.ID_ANY, u"Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonCancel = wx.Button( self, wx.ID_ANY, "Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonCancel, 0, wx.ALL, 5 )
         
         MainSizer.Add( sizerOKCancel, 0, wx.ALIGN_RIGHT, 5 )
@@ -11069,13 +11069,13 @@ class ChangeHP_Dialog ( wx.Dialog ):
 class ChangeStat_Dialog ( wx.Dialog ):
     
     def __init__( self, parent ):
-        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Change (SP/Exp/Level)", pos = wx.DefaultPosition, size = wx.Size( 241,260 ), style = wx.DEFAULT_DIALOG_STYLE )
+        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = "Change (SP/Exp/Level)", pos = wx.DefaultPosition, size = wx.Size( 241,260 ), style = wx.DEFAULT_DIALOG_STYLE )
         
         self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
         
         MainSizer = wx.BoxSizer( wx.VERTICAL )
         
-        self.labelActor = wx.StaticText( self, wx.ID_ANY, u"Actor:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelActor = wx.StaticText( self, wx.ID_ANY, "Actor:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelActor.Wrap( -1 )
         MainSizer.Add( self.labelActor, 0, wx.ALL, 5 )
         
@@ -11084,16 +11084,16 @@ class ChangeStat_Dialog ( wx.Dialog ):
         self.comboBoxActor.SetSelection( 0 )
         MainSizer.Add( self.comboBoxActor, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
         
-        radioBoxOperationChoices = [ u"Increase", u"Decrease" ]
-        self.radioBoxOperation = wx.RadioBox( self, wx.ID_ANY, u"Operation", wx.DefaultPosition, wx.DefaultSize, radioBoxOperationChoices, 1, wx.RA_SPECIFY_ROWS )
+        radioBoxOperationChoices = [ "Increase", "Decrease" ]
+        self.radioBoxOperation = wx.RadioBox( self, wx.ID_ANY, "Operation", wx.DefaultPosition, wx.DefaultSize, radioBoxOperationChoices, 1, wx.RA_SPECIFY_ROWS )
         self.radioBoxOperation.SetSelection( 0 )
         MainSizer.Add( self.radioBoxOperation, 0, wx.ALL, 5 )
         
-        sizerOperand = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Operand" ), wx.VERTICAL )
+        sizerOperand = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, "Operand" ), wx.VERTICAL )
         
         sizerConstant = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.radioButtonConstant = wx.RadioButton( self, wx.ID_ANY, u"Constant", wx.DefaultPosition, wx.Size( 72,-1 ), wx.RB_GROUP )
+        self.radioButtonConstant = wx.RadioButton( self, wx.ID_ANY, "Constant", wx.DefaultPosition, wx.Size( 72,-1 ), wx.RB_GROUP )
         sizerConstant.Add( self.radioButtonConstant, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
         self.spinCtrlConstant = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0 )
@@ -11103,7 +11103,7 @@ class ChangeStat_Dialog ( wx.Dialog ):
         
         sizerVariable = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.radioButtonVariable = wx.RadioButton( self, wx.ID_ANY, u"Variable", wx.DefaultPosition, wx.Size( 72,-1 ), 0 )
+        self.radioButtonVariable = wx.RadioButton( self, wx.ID_ANY, "Variable", wx.DefaultPosition, wx.Size( 72,-1 ), 0 )
         sizerVariable.Add( self.radioButtonVariable, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
         comboBoxVariableChoices = []
@@ -11116,10 +11116,10 @@ class ChangeStat_Dialog ( wx.Dialog ):
         
         sizerOKCancel = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.buttonOK = wx.Button( self, wx.ID_ANY, u"OK", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonOK = wx.Button( self, wx.ID_ANY, "OK", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonOK, 0, wx.ALL, 5 )
         
-        self.buttonCancel = wx.Button( self, wx.ID_ANY, u"Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonCancel = wx.Button( self, wx.ID_ANY, "Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonCancel, 0, wx.ALL, 5 )
         
         MainSizer.Add( sizerOKCancel, 0, wx.ALIGN_RIGHT, 5 )
@@ -11164,13 +11164,13 @@ class ChangeStat_Dialog ( wx.Dialog ):
 class ChangeParameters_Dialog ( wx.Dialog ):
     
     def __init__( self, parent ):
-        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Change Parameters", pos = wx.DefaultPosition, size = wx.Size( 248,309 ), style = wx.DEFAULT_DIALOG_STYLE )
+        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = "Change Parameters", pos = wx.DefaultPosition, size = wx.Size( 248,309 ), style = wx.DEFAULT_DIALOG_STYLE )
         
         self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
         
         MainSizer = wx.BoxSizer( wx.VERTICAL )
         
-        self.labelActor = wx.StaticText( self, wx.ID_ANY, u"Actor:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelActor = wx.StaticText( self, wx.ID_ANY, "Actor:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelActor.Wrap( -1 )
         MainSizer.Add( self.labelActor, 0, wx.ALL, 5 )
         
@@ -11179,25 +11179,25 @@ class ChangeParameters_Dialog ( wx.Dialog ):
         self.comboBoxActor.SetSelection( 0 )
         MainSizer.Add( self.comboBoxActor, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
         
-        self.labelParameter = wx.StaticText( self, wx.ID_ANY, u"Parameter:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelParameter = wx.StaticText( self, wx.ID_ANY, "Parameter:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelParameter.Wrap( -1 )
         MainSizer.Add( self.labelParameter, 0, wx.ALL, 5 )
         
-        comboBoxParameterChoices = [ u"MaxHP", u"MaxSP", u"STR", u"DEX", u"AGI", u"INT" ]
+        comboBoxParameterChoices = [ "MaxHP", "MaxSP", "STR", "DEX", "AGI", "INT" ]
         self.comboBoxParameter = wx.Choice( self, wx.ID_ANY, wx.DefaultPosition, wx.Size( 72,-1 ), comboBoxParameterChoices, 0 )
         self.comboBoxParameter.SetSelection( 0 )
         MainSizer.Add( self.comboBoxParameter, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
         
-        radioBoxOperationChoices = [ u"Increase", u"Decrease" ]
-        self.radioBoxOperation = wx.RadioBox( self, wx.ID_ANY, u"Operation", wx.DefaultPosition, wx.DefaultSize, radioBoxOperationChoices, 1, wx.RA_SPECIFY_ROWS )
+        radioBoxOperationChoices = [ "Increase", "Decrease" ]
+        self.radioBoxOperation = wx.RadioBox( self, wx.ID_ANY, "Operation", wx.DefaultPosition, wx.DefaultSize, radioBoxOperationChoices, 1, wx.RA_SPECIFY_ROWS )
         self.radioBoxOperation.SetSelection( 0 )
         MainSizer.Add( self.radioBoxOperation, 0, wx.ALL, 5 )
         
-        sizerOperand = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Operand" ), wx.VERTICAL )
+        sizerOperand = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, "Operand" ), wx.VERTICAL )
         
         sizerConstant = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.radioButtonConstant = wx.RadioButton( self, wx.ID_ANY, u"Constant", wx.DefaultPosition, wx.Size( 72,-1 ), wx.RB_GROUP )
+        self.radioButtonConstant = wx.RadioButton( self, wx.ID_ANY, "Constant", wx.DefaultPosition, wx.Size( 72,-1 ), wx.RB_GROUP )
         sizerConstant.Add( self.radioButtonConstant, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
         self.spinCtrlConstant = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0 )
@@ -11207,7 +11207,7 @@ class ChangeParameters_Dialog ( wx.Dialog ):
         
         sizerVariable = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.radioButtonVariable = wx.RadioButton( self, wx.ID_ANY, u"Variable", wx.DefaultPosition, wx.Size( 72,-1 ), 0 )
+        self.radioButtonVariable = wx.RadioButton( self, wx.ID_ANY, "Variable", wx.DefaultPosition, wx.Size( 72,-1 ), 0 )
         sizerVariable.Add( self.radioButtonVariable, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
         comboBoxVariableChoices = []
@@ -11220,10 +11220,10 @@ class ChangeParameters_Dialog ( wx.Dialog ):
         
         sizerOKCancel = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.buttonOK = wx.Button( self, wx.ID_ANY, u"OK", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonOK = wx.Button( self, wx.ID_ANY, "OK", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonOK, 0, wx.ALL, 5 )
         
-        self.buttonCancel = wx.Button( self, wx.ID_ANY, u"Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonCancel = wx.Button( self, wx.ID_ANY, "Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonCancel, 0, wx.ALL, 5 )
         
         MainSizer.Add( sizerOKCancel, 0, wx.ALIGN_RIGHT, 5 )
@@ -11268,7 +11268,7 @@ class ChangeParameters_Dialog ( wx.Dialog ):
 class ChangeState_Dialog ( wx.Dialog ):
     
     def __init__( self, parent ):
-        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Change State", pos = wx.DefaultPosition, size = wx.Size( 249,186 ), style = wx.DEFAULT_DIALOG_STYLE )
+        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = "Change State", pos = wx.DefaultPosition, size = wx.Size( 249,186 ), style = wx.DEFAULT_DIALOG_STYLE )
         
         self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
         
@@ -11276,7 +11276,7 @@ class ChangeState_Dialog ( wx.Dialog ):
         
         sizerState = wx.BoxSizer( wx.VERTICAL )
         
-        self.labelActor = wx.StaticText( self, wx.ID_ANY, u"Actor:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelActor = wx.StaticText( self, wx.ID_ANY, "Actor:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelActor.Wrap( -1 )
         sizerState.Add( self.labelActor, 0, wx.ALL, 5 )
         
@@ -11285,12 +11285,12 @@ class ChangeState_Dialog ( wx.Dialog ):
         self.comboBoxActor.SetSelection( 0 )
         sizerState.Add( self.comboBoxActor, 0, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
         
-        radioBoxOperationChoices = [ u"Add", u"Remove" ]
-        self.radioBoxOperation = wx.RadioBox( self, wx.ID_ANY, u"Operation", wx.DefaultPosition, wx.DefaultSize, radioBoxOperationChoices, 1, wx.RA_SPECIFY_ROWS )
+        radioBoxOperationChoices = [ "Add", "Remove" ]
+        self.radioBoxOperation = wx.RadioBox( self, wx.ID_ANY, "Operation", wx.DefaultPosition, wx.DefaultSize, radioBoxOperationChoices, 1, wx.RA_SPECIFY_ROWS )
         self.radioBoxOperation.SetSelection( 0 )
         sizerState.Add( self.radioBoxOperation, 0, wx.ALL|wx.EXPAND, 5 )
         
-        self.labelState = wx.StaticText( self, wx.ID_ANY, u"State:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelState = wx.StaticText( self, wx.ID_ANY, "State:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelState.Wrap( -1 )
         sizerState.Add( self.labelState, 0, wx.ALL, 5 )
         
@@ -11303,10 +11303,10 @@ class ChangeState_Dialog ( wx.Dialog ):
         
         sizerOKCancel = wx.BoxSizer( wx.VERTICAL )
         
-        self.buttonOK = wx.Button( self, wx.ID_ANY, u"OK", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonOK = wx.Button( self, wx.ID_ANY, "OK", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonOK, 0, wx.ALL, 5 )
         
-        self.buttonCancel = wx.Button( self, wx.ID_ANY, u"Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonCancel = wx.Button( self, wx.ID_ANY, "Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonCancel, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
         
         MainSizer.Add( sizerOKCancel, 0, 0, 5 )
@@ -11339,7 +11339,7 @@ class ChangeState_Dialog ( wx.Dialog ):
 class ChangeSkills_Dialog ( wx.Dialog ):
     
     def __init__( self, parent ):
-        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Change Skills", pos = wx.DefaultPosition, size = wx.Size( 275,183 ), style = wx.DEFAULT_DIALOG_STYLE )
+        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = "Change Skills", pos = wx.DefaultPosition, size = wx.Size( 275,183 ), style = wx.DEFAULT_DIALOG_STYLE )
         
         self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
         
@@ -11347,7 +11347,7 @@ class ChangeSkills_Dialog ( wx.Dialog ):
         
         sizerSkill = wx.BoxSizer( wx.VERTICAL )
         
-        self.labelActor = wx.StaticText( self, wx.ID_ANY, u"Actor:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelActor = wx.StaticText( self, wx.ID_ANY, "Actor:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelActor.Wrap( -1 )
         sizerSkill.Add( self.labelActor, 0, wx.ALL, 5 )
         
@@ -11356,12 +11356,12 @@ class ChangeSkills_Dialog ( wx.Dialog ):
         self.comboBoxActor.SetSelection( 0 )
         sizerSkill.Add( self.comboBoxActor, 0, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
         
-        radioBoxOperationChoices = [ u"Learn", u"Forget" ]
-        self.radioBoxOperation = wx.RadioBox( self, wx.ID_ANY, u"Operation", wx.DefaultPosition, wx.DefaultSize, radioBoxOperationChoices, 1, wx.RA_SPECIFY_ROWS )
+        radioBoxOperationChoices = [ "Learn", "Forget" ]
+        self.radioBoxOperation = wx.RadioBox( self, wx.ID_ANY, "Operation", wx.DefaultPosition, wx.DefaultSize, radioBoxOperationChoices, 1, wx.RA_SPECIFY_ROWS )
         self.radioBoxOperation.SetSelection( 0 )
         sizerSkill.Add( self.radioBoxOperation, 0, wx.ALL|wx.EXPAND, 5 )
         
-        self.labelSkill = wx.StaticText( self, wx.ID_ANY, u"Skill:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelSkill = wx.StaticText( self, wx.ID_ANY, "Skill:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelSkill.Wrap( -1 )
         sizerSkill.Add( self.labelSkill, 0, wx.ALL, 5 )
         
@@ -11374,10 +11374,10 @@ class ChangeSkills_Dialog ( wx.Dialog ):
         
         sizerOKCancel = wx.BoxSizer( wx.VERTICAL )
         
-        self.buttonOK = wx.Button( self, wx.ID_ANY, u"OK", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonOK = wx.Button( self, wx.ID_ANY, "OK", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonOK, 0, wx.ALL, 5 )
         
-        self.buttonCancel = wx.Button( self, wx.ID_ANY, u"Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonCancel = wx.Button( self, wx.ID_ANY, "Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonCancel, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
         
         MainSizer.Add( sizerOKCancel, 0, 0, 5 )
@@ -11410,13 +11410,13 @@ class ChangeSkills_Dialog ( wx.Dialog ):
 class ChangeEquipment_Dialog ( wx.Dialog ):
     
     def __init__( self, parent ):
-        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Change Equipment", pos = wx.DefaultPosition, size = wx.Size( 283,299 ), style = wx.DEFAULT_DIALOG_STYLE )
+        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = "Change Equipment", pos = wx.DefaultPosition, size = wx.Size( 283,299 ), style = wx.DEFAULT_DIALOG_STYLE )
         
         self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
         
         MainSizer = wx.BoxSizer( wx.VERTICAL )
         
-        self.labelActor = wx.StaticText( self, wx.ID_ANY, u"Actor:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelActor = wx.StaticText( self, wx.ID_ANY, "Actor:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelActor.Wrap( -1 )
         MainSizer.Add( self.labelActor, 0, wx.ALL, 5 )
         
@@ -11425,11 +11425,11 @@ class ChangeEquipment_Dialog ( wx.Dialog ):
         self.comboBoxActor.SetSelection( 0 )
         MainSizer.Add( self.comboBoxActor, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
         
-        sizerEquipment = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Equipment" ), wx.VERTICAL )
+        sizerEquipment = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, "Equipment" ), wx.VERTICAL )
         
         sizerWeapon = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.radioButtonWeapon = wx.RadioButton( self, wx.ID_ANY, u"Weapon", wx.DefaultPosition, wx.Size( 72,-1 ), 0 )
+        self.radioButtonWeapon = wx.RadioButton( self, wx.ID_ANY, "Weapon", wx.DefaultPosition, wx.Size( 72,-1 ), 0 )
         sizerWeapon.Add( self.radioButtonWeapon, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
         comboBoxWeaponChoices = []
@@ -11441,7 +11441,7 @@ class ChangeEquipment_Dialog ( wx.Dialog ):
         
         sizerShield = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.radioButtonShield = wx.RadioButton( self, wx.ID_ANY, u"Shield", wx.DefaultPosition, wx.Size( 72,-1 ), 0 )
+        self.radioButtonShield = wx.RadioButton( self, wx.ID_ANY, "Shield", wx.DefaultPosition, wx.Size( 72,-1 ), 0 )
         sizerShield.Add( self.radioButtonShield, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
         comboBoxShieldChoices = []
@@ -11453,7 +11453,7 @@ class ChangeEquipment_Dialog ( wx.Dialog ):
         
         sizerHelmet = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.radioButtonHelmet = wx.RadioButton( self, wx.ID_ANY, u"Helmet", wx.DefaultPosition, wx.Size( 72,-1 ), 0 )
+        self.radioButtonHelmet = wx.RadioButton( self, wx.ID_ANY, "Helmet", wx.DefaultPosition, wx.Size( 72,-1 ), 0 )
         sizerHelmet.Add( self.radioButtonHelmet, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
         comboBoxHelmetChoices = []
@@ -11465,7 +11465,7 @@ class ChangeEquipment_Dialog ( wx.Dialog ):
         
         sizerBodyArmor = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.radioButtonBodyArmor = wx.RadioButton( self, wx.ID_ANY, u"Body Armor", wx.DefaultPosition, wx.Size( 72,-1 ), 0 )
+        self.radioButtonBodyArmor = wx.RadioButton( self, wx.ID_ANY, "Body Armor", wx.DefaultPosition, wx.Size( 72,-1 ), 0 )
         sizerBodyArmor.Add( self.radioButtonBodyArmor, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
         comboBoxBodyArmorChoices = []
@@ -11477,7 +11477,7 @@ class ChangeEquipment_Dialog ( wx.Dialog ):
         
         sizerAccessory = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.radioButtonAccessory = wx.RadioButton( self, wx.ID_ANY, u"Accessory", wx.DefaultPosition, wx.Size( 72,-1 ), 0 )
+        self.radioButtonAccessory = wx.RadioButton( self, wx.ID_ANY, "Accessory", wx.DefaultPosition, wx.Size( 72,-1 ), 0 )
         sizerAccessory.Add( self.radioButtonAccessory, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
         comboBoxAccessoryChoices = []
@@ -11491,10 +11491,10 @@ class ChangeEquipment_Dialog ( wx.Dialog ):
         
         sizerOKCancel = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.buttonOK = wx.Button( self, wx.ID_ANY, u"OK", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonOK = wx.Button( self, wx.ID_ANY, "OK", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonOK, 0, wx.ALL, 5 )
         
-        self.buttonCancel = wx.Button( self, wx.ID_ANY, u"Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonCancel = wx.Button( self, wx.ID_ANY, "Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonCancel, 0, wx.ALL, 5 )
         
         MainSizer.Add( sizerOKCancel, 0, wx.ALIGN_RIGHT, 5 )
@@ -11547,7 +11547,7 @@ class ChangeEquipment_Dialog ( wx.Dialog ):
 class ChangeActorName_Dialog ( wx.Dialog ):
     
     def __init__( self, parent ):
-        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Change Actor Name:", pos = wx.DefaultPosition, size = wx.Size( 261,128 ), style = wx.DEFAULT_DIALOG_STYLE )
+        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = "Change Actor Name:", pos = wx.DefaultPosition, size = wx.Size( 261,128 ), style = wx.DEFAULT_DIALOG_STYLE )
         
         self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
         
@@ -11555,7 +11555,7 @@ class ChangeActorName_Dialog ( wx.Dialog ):
         
         sizerName = wx.BoxSizer( wx.VERTICAL )
         
-        self.labelActor = wx.StaticText( self, wx.ID_ANY, u"Actor:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelActor = wx.StaticText( self, wx.ID_ANY, "Actor:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelActor.Wrap( -1 )
         sizerName.Add( self.labelActor, 0, wx.ALL, 5 )
         
@@ -11564,7 +11564,7 @@ class ChangeActorName_Dialog ( wx.Dialog ):
         self.comboBoxActor.SetSelection( 0 )
         sizerName.Add( self.comboBoxActor, 0, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
         
-        self.labelName = wx.StaticText( self, wx.ID_ANY, u"Name:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelName = wx.StaticText( self, wx.ID_ANY, "Name:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelName.Wrap( -1 )
         sizerName.Add( self.labelName, 0, wx.ALL, 5 )
         
@@ -11575,10 +11575,10 @@ class ChangeActorName_Dialog ( wx.Dialog ):
         
         sizerOKCancel = wx.BoxSizer( wx.VERTICAL )
         
-        self.buttonOK = wx.Button( self, wx.ID_ANY, u"OK", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonOK = wx.Button( self, wx.ID_ANY, "OK", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonOK, 0, wx.ALL, 5 )
         
-        self.buttonCancel = wx.Button( self, wx.ID_ANY, u"Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonCancel = wx.Button( self, wx.ID_ANY, "Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonCancel, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
         
         MainSizer.Add( sizerOKCancel, 0, 0, 5 )
@@ -11611,7 +11611,7 @@ class ChangeActorName_Dialog ( wx.Dialog ):
 class ChangeActorClass_Dialog ( wx.Dialog ):
     
     def __init__( self, parent ):
-        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Change Actor Class", pos = wx.DefaultPosition, size = wx.Size( 258,129 ), style = wx.DEFAULT_DIALOG_STYLE )
+        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = "Change Actor Class", pos = wx.DefaultPosition, size = wx.Size( 258,129 ), style = wx.DEFAULT_DIALOG_STYLE )
         
         self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
         
@@ -11619,7 +11619,7 @@ class ChangeActorClass_Dialog ( wx.Dialog ):
         
         sizerClass = wx.BoxSizer( wx.VERTICAL )
         
-        self.labelActor = wx.StaticText( self, wx.ID_ANY, u"Actor:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelActor = wx.StaticText( self, wx.ID_ANY, "Actor:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelActor.Wrap( -1 )
         sizerClass.Add( self.labelActor, 0, wx.ALL, 5 )
         
@@ -11628,7 +11628,7 @@ class ChangeActorClass_Dialog ( wx.Dialog ):
         self.comboBoxActor.SetSelection( 0 )
         sizerClass.Add( self.comboBoxActor, 0, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
         
-        self.labelClass = wx.StaticText( self, wx.ID_ANY, u"Class:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelClass = wx.StaticText( self, wx.ID_ANY, "Class:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelClass.Wrap( -1 )
         sizerClass.Add( self.labelClass, 0, wx.ALL, 5 )
         
@@ -11641,10 +11641,10 @@ class ChangeActorClass_Dialog ( wx.Dialog ):
         
         sizerOKCancel = wx.BoxSizer( wx.VERTICAL )
         
-        self.buttonOK = wx.Button( self, wx.ID_ANY, u"OK", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonOK = wx.Button( self, wx.ID_ANY, "OK", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonOK, 0, wx.ALL, 5 )
         
-        self.buttonCancel = wx.Button( self, wx.ID_ANY, u"Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonCancel = wx.Button( self, wx.ID_ANY, "Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonCancel, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
         
         MainSizer.Add( sizerOKCancel, 0, 0, 5 )
@@ -11677,7 +11677,7 @@ class ChangeActorClass_Dialog ( wx.Dialog ):
 class ChangeActorGraphic_Dialog ( wx.Dialog ):
     
     def __init__( self, parent ):
-        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Change Actor Graphic", pos = wx.DefaultPosition, size = wx.Size( 254,179 ), style = wx.DEFAULT_DIALOG_STYLE )
+        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = "Change Actor Graphic", pos = wx.DefaultPosition, size = wx.Size( 254,179 ), style = wx.DEFAULT_DIALOG_STYLE )
         
         self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
         
@@ -11685,7 +11685,7 @@ class ChangeActorGraphic_Dialog ( wx.Dialog ):
         
         sizerGraphic = wx.BoxSizer( wx.VERTICAL )
         
-        self.labelActor = wx.StaticText( self, wx.ID_ANY, u"Actor:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelActor = wx.StaticText( self, wx.ID_ANY, "Actor:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelActor.Wrap( -1 )
         sizerGraphic.Add( self.labelActor, 0, wx.ALL, 5 )
         
@@ -11694,7 +11694,7 @@ class ChangeActorGraphic_Dialog ( wx.Dialog ):
         self.m_choice90.SetSelection( 0 )
         sizerGraphic.Add( self.m_choice90, 0, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
         
-        self.labelCharacterGraphic = wx.StaticText( self, wx.ID_ANY, u"Character Graphic:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelCharacterGraphic = wx.StaticText( self, wx.ID_ANY, "Character Graphic:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelCharacterGraphic.Wrap( -1 )
         sizerGraphic.Add( self.labelCharacterGraphic, 0, wx.ALL, 5 )
         
@@ -11702,7 +11702,7 @@ class ChangeActorGraphic_Dialog ( wx.Dialog ):
         self.comboBoxCharacter = wx.ComboBox( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, comboBoxCharacterChoices, 0 )
         sizerGraphic.Add( self.comboBoxCharacter, 0, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
         
-        self.labelBattlerGraphic = wx.StaticText( self, wx.ID_ANY, u"Battler Graphic:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelBattlerGraphic = wx.StaticText( self, wx.ID_ANY, "Battler Graphic:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelBattlerGraphic.Wrap( -1 )
         sizerGraphic.Add( self.labelBattlerGraphic, 0, wx.ALL, 5 )
         
@@ -11714,10 +11714,10 @@ class ChangeActorGraphic_Dialog ( wx.Dialog ):
         
         sizerOKCancel = wx.BoxSizer( wx.VERTICAL )
         
-        self.buttonOK = wx.Button( self, wx.ID_ANY, u"OK", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonOK = wx.Button( self, wx.ID_ANY, "OK", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonOK, 0, wx.ALL, 5 )
         
-        self.buttonCancel = wx.Button( self, wx.ID_ANY, u"Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonCancel = wx.Button( self, wx.ID_ANY, "Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonCancel, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
         
         MainSizer.Add( sizerOKCancel, 0, 0, 5 )
@@ -11758,7 +11758,7 @@ class ChangeActorGraphic_Dialog ( wx.Dialog ):
 class RecoverAll_Dialog ( wx.Dialog ):
     
     def __init__( self, parent ):
-        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Recover All", pos = wx.DefaultPosition, size = wx.Size( 275,90 ), style = wx.DEFAULT_DIALOG_STYLE )
+        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = "Recover All", pos = wx.DefaultPosition, size = wx.Size( 275,90 ), style = wx.DEFAULT_DIALOG_STYLE )
         
         self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
         
@@ -11766,7 +11766,7 @@ class RecoverAll_Dialog ( wx.Dialog ):
         
         sizerControls = wx.BoxSizer( wx.VERTICAL )
         
-        self.labelBattler = wx.StaticText( self, wx.ID_ANY, u"(Actor/Enemy)", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelBattler = wx.StaticText( self, wx.ID_ANY, "(Actor/Enemy)", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelBattler.Wrap( -1 )
         sizerControls.Add( self.labelBattler, 0, wx.ALL, 5 )
         
@@ -11779,10 +11779,10 @@ class RecoverAll_Dialog ( wx.Dialog ):
         
         sizerOKCancel = wx.BoxSizer( wx.VERTICAL )
         
-        self.buttonOK = wx.Button( self, wx.ID_ANY, u"OK", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonOK = wx.Button( self, wx.ID_ANY, "OK", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonOK, 0, wx.ALL, 5 )
         
-        self.buttonCancel = wx.Button( self, wx.ID_ANY, u"Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonCancel = wx.Button( self, wx.ID_ANY, "Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonCancel, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
         
         MainSizer.Add( sizerOKCancel, 0, 0, 5 )
@@ -11815,7 +11815,7 @@ class RecoverAll_Dialog ( wx.Dialog ):
 class EnemyAppearance_Dialog ( wx.Dialog ):
     
     def __init__( self, parent ):
-        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Enemy Appearance", pos = wx.DefaultPosition, size = wx.Size( 275,90 ), style = wx.DEFAULT_DIALOG_STYLE )
+        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = "Enemy Appearance", pos = wx.DefaultPosition, size = wx.Size( 275,90 ), style = wx.DEFAULT_DIALOG_STYLE )
         
         self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
         
@@ -11823,7 +11823,7 @@ class EnemyAppearance_Dialog ( wx.Dialog ):
         
         sizerControls = wx.BoxSizer( wx.VERTICAL )
         
-        self.labelEnemy = wx.StaticText( self, wx.ID_ANY, u"Enemy:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelEnemy = wx.StaticText( self, wx.ID_ANY, "Enemy:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelEnemy.Wrap( -1 )
         sizerControls.Add( self.labelEnemy, 0, wx.ALL, 5 )
         
@@ -11836,10 +11836,10 @@ class EnemyAppearance_Dialog ( wx.Dialog ):
         
         sizerOKCancel = wx.BoxSizer( wx.VERTICAL )
         
-        self.buttonOK = wx.Button( self, wx.ID_ANY, u"OK", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonOK = wx.Button( self, wx.ID_ANY, "OK", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonOK, 0, wx.ALL, 5 )
         
-        self.buttonCancel = wx.Button( self, wx.ID_ANY, u"Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonCancel = wx.Button( self, wx.ID_ANY, "Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonCancel, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
         
         MainSizer.Add( sizerOKCancel, 0, 0, 5 )
@@ -11872,7 +11872,7 @@ class EnemyAppearance_Dialog ( wx.Dialog ):
 class EnemyTransform_Dialog ( wx.Dialog ):
     
     def __init__( self, parent ):
-        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Enemy Transformation", pos = wx.DefaultPosition, size = wx.Size( 305,129 ), style = wx.DEFAULT_DIALOG_STYLE )
+        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = "Enemy Transformation", pos = wx.DefaultPosition, size = wx.Size( 305,129 ), style = wx.DEFAULT_DIALOG_STYLE )
         
         self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
         
@@ -11880,7 +11880,7 @@ class EnemyTransform_Dialog ( wx.Dialog ):
         
         sizerControls = wx.BoxSizer( wx.VERTICAL )
         
-        self.labelEnemy = wx.StaticText( self, wx.ID_ANY, u"Enemy:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelEnemy = wx.StaticText( self, wx.ID_ANY, "Enemy:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelEnemy.Wrap( -1 )
         sizerControls.Add( self.labelEnemy, 0, wx.ALL, 5 )
         
@@ -11888,7 +11888,7 @@ class EnemyTransform_Dialog ( wx.Dialog ):
         self.comboBoxEnemy = wx.ComboBox( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, comboBoxEnemyChoices, 0 )
         sizerControls.Add( self.comboBoxEnemy, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
         
-        self.labelTransform = wx.StaticText( self, wx.ID_ANY, u"Transform to:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelTransform = wx.StaticText( self, wx.ID_ANY, "Transform to:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelTransform.Wrap( -1 )
         sizerControls.Add( self.labelTransform, 0, wx.ALL, 5 )
         
@@ -11901,10 +11901,10 @@ class EnemyTransform_Dialog ( wx.Dialog ):
         
         sizerOKCancel = wx.BoxSizer( wx.VERTICAL )
         
-        self.buttonOK = wx.Button( self, wx.ID_ANY, u"OK", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonOK = wx.Button( self, wx.ID_ANY, "OK", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonOK, 0, wx.ALL, 5 )
         
-        self.buttonCancel = wx.Button( self, wx.ID_ANY, u"Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonCancel = wx.Button( self, wx.ID_ANY, "Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonCancel, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
         
         MainSizer.Add( sizerOKCancel, 0, 0, 5 )
@@ -11941,20 +11941,20 @@ class EnemyTransform_Dialog ( wx.Dialog ):
 class BattleAnimation_Dialog ( wx.Dialog ):
     
     def __init__( self, parent ):
-        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Show Battle Animation", pos = wx.DefaultPosition, size = wx.Size( 267,205 ), style = wx.DEFAULT_DIALOG_STYLE )
+        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = "Show Battle Animation", pos = wx.DefaultPosition, size = wx.Size( 267,205 ), style = wx.DEFAULT_DIALOG_STYLE )
         
         self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
         
         MainSizer = wx.BoxSizer( wx.VERTICAL )
         
-        sizerTarget = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Target" ), wx.VERTICAL )
+        sizerTarget = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, "Target" ), wx.VERTICAL )
         
         sizerEnemy = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.radioButtonEnemy = wx.RadioButton( self, wx.ID_ANY, u"Enemy", wx.DefaultPosition, wx.Size( 72,-1 ), 0 )
+        self.radioButtonEnemy = wx.RadioButton( self, wx.ID_ANY, "Enemy", wx.DefaultPosition, wx.Size( 72,-1 ), 0 )
         sizerEnemy.Add( self.radioButtonEnemy, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
-        comboBoxEnemyChoices = [ u"Entire Troop" ]
+        comboBoxEnemyChoices = [ "Entire Troop" ]
         self.comboBoxEnemy = wx.Choice( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxEnemyChoices, 0 )
         self.comboBoxEnemy.SetSelection( 0 )
         sizerEnemy.Add( self.comboBoxEnemy, 1, wx.ALL, 5 )
@@ -11963,10 +11963,10 @@ class BattleAnimation_Dialog ( wx.Dialog ):
         
         sizerActor = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.radioButtonActor = wx.RadioButton( self, wx.ID_ANY, u"Actor", wx.DefaultPosition, wx.Size( 72,-1 ), 0 )
+        self.radioButtonActor = wx.RadioButton( self, wx.ID_ANY, "Actor", wx.DefaultPosition, wx.Size( 72,-1 ), 0 )
         sizerActor.Add( self.radioButtonActor, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
-        comboBoxActorChoices = [ u"Entire Party", u"Actor 1", u"Actor 2", u"Actor 3", u"Actor 4", u"Actor 5", u"Actor 6", u"Actor 7", u"Actor 8", u"Actor 9", u"Actor 10" ]
+        comboBoxActorChoices = [ "Entire Party", "Actor 1", "Actor 2", "Actor 3", "Actor 4", "Actor 5", "Actor 6", "Actor 7", "Actor 8", "Actor 9", "Actor 10" ]
         self.comboBoxActor = wx.Choice( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxActorChoices, 0 )
         self.comboBoxActor.SetSelection( 0 )
         sizerActor.Add( self.comboBoxActor, 1, wx.ALL, 5 )
@@ -11975,7 +11975,7 @@ class BattleAnimation_Dialog ( wx.Dialog ):
         
         MainSizer.Add( sizerTarget, 0, wx.EXPAND|wx.ALL, 5 )
         
-        self.labelAnimation = wx.StaticText( self, wx.ID_ANY, u"Animation:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelAnimation = wx.StaticText( self, wx.ID_ANY, "Animation:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelAnimation.Wrap( -1 )
         MainSizer.Add( self.labelAnimation, 0, wx.ALL, 5 )
         
@@ -11986,10 +11986,10 @@ class BattleAnimation_Dialog ( wx.Dialog ):
         
         sizerOKCancel = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.buttonOK = wx.Button( self, wx.ID_ANY, u"OK", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonOK = wx.Button( self, wx.ID_ANY, "OK", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonOK, 0, wx.ALL, 5 )
         
-        self.buttonCancel = wx.Button( self, wx.ID_ANY, u"Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonCancel = wx.Button( self, wx.ID_ANY, "Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonCancel, 0, wx.ALL, 5 )
         
         MainSizer.Add( sizerOKCancel, 0, wx.ALIGN_RIGHT, 5 )
@@ -12030,20 +12030,20 @@ class BattleAnimation_Dialog ( wx.Dialog ):
 class DealDamage_Dialog ( wx.Dialog ):
     
     def __init__( self, parent ):
-        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Deal Damage", pos = wx.DefaultPosition, size = wx.Size( 284,252 ), style = wx.DEFAULT_DIALOG_STYLE )
+        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = "Deal Damage", pos = wx.DefaultPosition, size = wx.Size( 284,252 ), style = wx.DEFAULT_DIALOG_STYLE )
         
         self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
         
         MainSizer = wx.BoxSizer( wx.VERTICAL )
         
-        sizerTarget = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Target" ), wx.VERTICAL )
+        sizerTarget = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, "Target" ), wx.VERTICAL )
         
         sizerEnemy = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.radioButtonEnemy = wx.RadioButton( self, wx.ID_ANY, u"Enemy", wx.DefaultPosition, wx.Size( 72,-1 ), 0 )
+        self.radioButtonEnemy = wx.RadioButton( self, wx.ID_ANY, "Enemy", wx.DefaultPosition, wx.Size( 72,-1 ), 0 )
         sizerEnemy.Add( self.radioButtonEnemy, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
-        comboBoxEnemyChoices = [ u"Entire Troop" ]
+        comboBoxEnemyChoices = [ "Entire Troop" ]
         self.comboBoxEnemy = wx.Choice( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxEnemyChoices, 0 )
         self.comboBoxEnemy.SetSelection( 0 )
         sizerEnemy.Add( self.comboBoxEnemy, 1, wx.ALL, 5 )
@@ -12052,10 +12052,10 @@ class DealDamage_Dialog ( wx.Dialog ):
         
         sizerActor = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.radioButtonActor = wx.RadioButton( self, wx.ID_ANY, u"Actor", wx.DefaultPosition, wx.Size( 72,-1 ), 0 )
+        self.radioButtonActor = wx.RadioButton( self, wx.ID_ANY, "Actor", wx.DefaultPosition, wx.Size( 72,-1 ), 0 )
         sizerActor.Add( self.radioButtonActor, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
-        comboBoxActorChoices = [ u"Entire Party", u"Actor 1", u"Actor 2", u"Actor 3", u"Actor 4", u"Actor 5", u"Actor 6", u"Actor 7", u"Actor 8", u"Actor 9", u"Actor 10" ]
+        comboBoxActorChoices = [ "Entire Party", "Actor 1", "Actor 2", "Actor 3", "Actor 4", "Actor 5", "Actor 6", "Actor 7", "Actor 8", "Actor 9", "Actor 10" ]
         self.comboBoxActor = wx.Choice( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxActorChoices, 0 )
         self.comboBoxActor.SetSelection( 0 )
         sizerActor.Add( self.comboBoxActor, 1, wx.ALL, 5 )
@@ -12064,11 +12064,11 @@ class DealDamage_Dialog ( wx.Dialog ):
         
         MainSizer.Add( sizerTarget, 0, wx.EXPAND|wx.ALL, 5 )
         
-        sizerOperand = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Operand" ), wx.VERTICAL )
+        sizerOperand = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, "Operand" ), wx.VERTICAL )
         
         sizerConstant = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.radioButtonConstant = wx.RadioButton( self, wx.ID_ANY, u"Constant", wx.DefaultPosition, wx.Size( 72,-1 ), wx.RB_GROUP )
+        self.radioButtonConstant = wx.RadioButton( self, wx.ID_ANY, "Constant", wx.DefaultPosition, wx.Size( 72,-1 ), wx.RB_GROUP )
         sizerConstant.Add( self.radioButtonConstant, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
         self.spinCtrlConstant = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 0, 10, 0 )
@@ -12078,7 +12078,7 @@ class DealDamage_Dialog ( wx.Dialog ):
         
         sizerVariable = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.radioButtonVariable = wx.RadioButton( self, wx.ID_ANY, u"Variable", wx.DefaultPosition, wx.Size( 72,-1 ), 0 )
+        self.radioButtonVariable = wx.RadioButton( self, wx.ID_ANY, "Variable", wx.DefaultPosition, wx.Size( 72,-1 ), 0 )
         sizerVariable.Add( self.radioButtonVariable, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
         comboBoxVariableChoices = []
@@ -12091,10 +12091,10 @@ class DealDamage_Dialog ( wx.Dialog ):
         
         sizerOKCancel = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.buttonOK = wx.Button( self, wx.ID_ANY, u"OK", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonOK = wx.Button( self, wx.ID_ANY, "OK", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonOK, 0, wx.ALL, 5 )
         
-        self.buttonCancel = wx.Button( self, wx.ID_ANY, u"Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonCancel = wx.Button( self, wx.ID_ANY, "Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonCancel, 0, wx.ALL, 5 )
         
         MainSizer.Add( sizerOKCancel, 0, wx.ALIGN_RIGHT, 5 )
@@ -12147,20 +12147,20 @@ class DealDamage_Dialog ( wx.Dialog ):
 class ForceAction_Dialog ( wx.Dialog ):
     
     def __init__( self, parent ):
-        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Force Action", pos = wx.DefaultPosition, size = wx.Size( 307,367 ), style = wx.DEFAULT_DIALOG_STYLE )
+        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = "Force Action", pos = wx.DefaultPosition, size = wx.Size( 307,367 ), style = wx.DEFAULT_DIALOG_STYLE )
         
         self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
         
         MainSizer = wx.BoxSizer( wx.VERTICAL )
         
-        sizerBattler = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Battler" ), wx.VERTICAL )
+        sizerBattler = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, "Battler" ), wx.VERTICAL )
         
         sizerEnemy = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.radioButtonEnemy = wx.RadioButton( self, wx.ID_ANY, u"Enemy", wx.DefaultPosition, wx.Size( 72,-1 ), 0 )
+        self.radioButtonEnemy = wx.RadioButton( self, wx.ID_ANY, "Enemy", wx.DefaultPosition, wx.Size( 72,-1 ), 0 )
         sizerEnemy.Add( self.radioButtonEnemy, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
-        comboBoxEnemiesChoices = [ u"Entire Troop" ]
+        comboBoxEnemiesChoices = [ "Entire Troop" ]
         self.comboBoxEnemies = wx.Choice( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxEnemiesChoices, 0 )
         self.comboBoxEnemies.SetSelection( 0 )
         sizerEnemy.Add( self.comboBoxEnemies, 1, wx.ALL, 5 )
@@ -12169,10 +12169,10 @@ class ForceAction_Dialog ( wx.Dialog ):
         
         sizerActor = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.radioButtonActor = wx.RadioButton( self, wx.ID_ANY, u"Actor", wx.DefaultPosition, wx.Size( 72,-1 ), 0 )
+        self.radioButtonActor = wx.RadioButton( self, wx.ID_ANY, "Actor", wx.DefaultPosition, wx.Size( 72,-1 ), 0 )
         sizerActor.Add( self.radioButtonActor, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
-        comboBoxActorsChoices = [ u"Entire Party", u"Actor 1", u"Actor 2", u"Actor 3", u"Actor 4", u"Actor 5", u"Actor 6", u"Actor 7", u"Actor 8", u"Actor 9", u"Actor 10" ]
+        comboBoxActorsChoices = [ "Entire Party", "Actor 1", "Actor 2", "Actor 3", "Actor 4", "Actor 5", "Actor 6", "Actor 7", "Actor 8", "Actor 9", "Actor 10" ]
         self.comboBoxActors = wx.Choice( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxActorsChoices, 0 )
         self.comboBoxActors.SetSelection( 0 )
         sizerActor.Add( self.comboBoxActors, 1, wx.ALL, 5 )
@@ -12181,14 +12181,14 @@ class ForceAction_Dialog ( wx.Dialog ):
         
         MainSizer.Add( sizerBattler, 0, wx.EXPAND|wx.ALL, 5 )
         
-        sizerAction = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Action" ), wx.VERTICAL )
+        sizerAction = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, "Action" ), wx.VERTICAL )
         
         sizerBasic = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.radioButtonBasic = wx.RadioButton( self, wx.ID_ANY, u"Basic", wx.DefaultPosition, wx.Size( 72,-1 ), wx.RB_GROUP )
+        self.radioButtonBasic = wx.RadioButton( self, wx.ID_ANY, "Basic", wx.DefaultPosition, wx.Size( 72,-1 ), wx.RB_GROUP )
         sizerBasic.Add( self.radioButtonBasic, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
-        comboBoxBasicChoices = [ u"Attack", u"Defend", u"Escape", u"Do Nothing" ]
+        comboBoxBasicChoices = [ "Attack", "Defend", "Escape", "Do Nothing" ]
         self.comboBoxBasic = wx.Choice( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxBasicChoices, 0 )
         self.comboBoxBasic.SetSelection( 0 )
         sizerBasic.Add( self.comboBoxBasic, 1, wx.ALL, 5 )
@@ -12197,7 +12197,7 @@ class ForceAction_Dialog ( wx.Dialog ):
         
         sizerSkill = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.radioButtonSkill = wx.RadioButton( self, wx.ID_ANY, u"Skill", wx.DefaultPosition, wx.Size( 72,-1 ), 0 )
+        self.radioButtonSkill = wx.RadioButton( self, wx.ID_ANY, "Skill", wx.DefaultPosition, wx.Size( 72,-1 ), 0 )
         sizerSkill.Add( self.radioButtonSkill, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
         comboBoxSkillChoices = []
@@ -12212,11 +12212,11 @@ class ForceAction_Dialog ( wx.Dialog ):
         
         sizerTarget = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.labelTarget = wx.StaticText( self, wx.ID_ANY, u"Action Target:", wx.DefaultPosition, wx.Size( 72,-1 ), 0 )
+        self.labelTarget = wx.StaticText( self, wx.ID_ANY, "Action Target:", wx.DefaultPosition, wx.Size( 72,-1 ), 0 )
         self.labelTarget.Wrap( -1 )
         sizerTarget.Add( self.labelTarget, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
-        comboBoxTargetChoices = [ u"Last Target", u"Random", u"Index 1", u"Index 2", u"Index 3", u"Index 4", u"Index 5", u"Index 6", u"Index 7", u"Index 8", u"Index 9", u"Index 10" ]
+        comboBoxTargetChoices = [ "Last Target", "Random", "Index 1", "Index 2", "Index 3", "Index 4", "Index 5", "Index 6", "Index 7", "Index 8", "Index 9", "Index 10" ]
         self.comboBoxTarget = wx.Choice( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxTargetChoices, 0 )
         self.comboBoxTarget.SetSelection( 0 )
         sizerTarget.Add( self.comboBoxTarget, 1, wx.ALL, 5 )
@@ -12225,17 +12225,17 @@ class ForceAction_Dialog ( wx.Dialog ):
         
         MainSizer.Add( sizerAction, 0, wx.EXPAND|wx.ALL, 5 )
         
-        radioBoxTimingChoices = [ u"Execute in Normal Sequence", u"Execute Now" ]
-        self.radioBoxTiming = wx.RadioBox( self, wx.ID_ANY, u"Timing", wx.DefaultPosition, wx.DefaultSize, radioBoxTimingChoices, 1, wx.RA_SPECIFY_COLS )
+        radioBoxTimingChoices = [ "Execute in Normal Sequence", "Execute Now" ]
+        self.radioBoxTiming = wx.RadioBox( self, wx.ID_ANY, "Timing", wx.DefaultPosition, wx.DefaultSize, radioBoxTimingChoices, 1, wx.RA_SPECIFY_COLS )
         self.radioBoxTiming.SetSelection( 0 )
         MainSizer.Add( self.radioBoxTiming, 0, wx.ALL|wx.EXPAND, 5 )
         
         sizerOKCancel = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.buttonOK = wx.Button( self, wx.ID_ANY, u"OK", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonOK = wx.Button( self, wx.ID_ANY, "OK", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonOK, 0, wx.ALL, 5 )
         
-        self.buttonCancel = wx.Button( self, wx.ID_ANY, u"Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonCancel = wx.Button( self, wx.ID_ANY, "Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonCancel, 0, wx.ALL, 5 )
         
         MainSizer.Add( sizerOKCancel, 0, wx.ALIGN_RIGHT, 5 )
@@ -12284,7 +12284,7 @@ class ForceAction_Dialog ( wx.Dialog ):
 class ScriptCall_Dialog ( wx.Dialog ):
     
     def __init__( self, parent ):
-        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Script", pos = wx.DefaultPosition, size = wx.Size( 338,253 ), style = wx.DEFAULT_DIALOG_STYLE|wx.RESIZE_BORDER )
+        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = "Script", pos = wx.DefaultPosition, size = wx.Size( 338,253 ), style = wx.DEFAULT_DIALOG_STYLE|wx.RESIZE_BORDER )
         
         self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
         
@@ -12296,10 +12296,10 @@ class ScriptCall_Dialog ( wx.Dialog ):
         
         sizerOKCancel = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.buttonOK = wx.Button( self, wx.ID_ANY, u"OK", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonOK = wx.Button( self, wx.ID_ANY, "OK", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonOK, 0, wx.ALL, 5 )
         
-        self.buttonCancel = wx.Button( self, wx.ID_ANY, u"Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonCancel = wx.Button( self, wx.ID_ANY, "Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonCancel, 0, wx.ALL, 5 )
         
         MainSizer.Add( sizerOKCancel, 0, wx.ALIGN_RIGHT, 5 )
@@ -12332,7 +12332,7 @@ class ScriptCall_Dialog ( wx.Dialog ):
 class BattleTest_Dialog ( wx.Dialog ):
     
     def __init__( self, parent ):
-        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Battle Test", pos = wx.DefaultPosition, size = wx.Size( 380,305 ), style = wx.DEFAULT_DIALOG_STYLE )
+        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = "Battle Test", pos = wx.DefaultPosition, size = wx.Size( 380,305 ), style = wx.DEFAULT_DIALOG_STYLE )
         
         self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
         
@@ -12340,16 +12340,16 @@ class BattleTest_Dialog ( wx.Dialog ):
         
         self.noteBookBattler = wx.Notebook( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, 0 )
         self.panelDummyTab = wx.Panel( self.noteBookBattler, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
-        self.noteBookBattler.AddPage( self.panelDummyTab, u"1", False )
+        self.noteBookBattler.AddPage( self.panelDummyTab, "1", False )
         
         MainSizer.Add( self.noteBookBattler, 1, wx.EXPAND |wx.ALL, 5 )
         
         sizerOKCancel = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.bittonOK = wx.Button( self, wx.ID_ANY, u"OK", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.bittonOK = wx.Button( self, wx.ID_ANY, "OK", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.bittonOK, 0, wx.ALL, 5 )
         
-        self.buttonCancel = wx.Button( self, wx.ID_ANY, u"Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonCancel = wx.Button( self, wx.ID_ANY, "Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonCancel, 0, wx.ALL, 5 )
         
         MainSizer.Add( sizerOKCancel, 0, wx.BOTTOM|wx.ALIGN_RIGHT, 5 )
@@ -12382,13 +12382,13 @@ class BattleTest_Dialog ( wx.Dialog ):
 class AddParameter_Dialog ( wx.Dialog ):
     
     def __init__( self, parent ):
-        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Add Parameter", pos = wx.DefaultPosition, size = wx.Size( 257,110 ), style = wx.DEFAULT_DIALOG_STYLE )
+        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = "Add Parameter", pos = wx.DefaultPosition, size = wx.Size( 257,110 ), style = wx.DEFAULT_DIALOG_STYLE )
         
         self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
         
         MainSizer = wx.BoxSizer( wx.VERTICAL )
         
-        self.labelParameterName = wx.StaticText( self, wx.ID_ANY, u"Parameter Name:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelParameterName = wx.StaticText( self, wx.ID_ANY, "Parameter Name:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelParameterName.Wrap( -1 )
         MainSizer.Add( self.labelParameterName, 0, wx.ALL, 5 )
         
@@ -12397,10 +12397,10 @@ class AddParameter_Dialog ( wx.Dialog ):
         
         sizerOKCancel = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.buttonOK = wx.Button( self, wx.ID_ANY, u"OK", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonOK = wx.Button( self, wx.ID_ANY, "OK", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonOK, 0, wx.TOP|wx.BOTTOM|wx.LEFT, 5 )
         
-        self.buttonCancel = wx.Button( self, wx.ID_ANY, u"Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonCancel = wx.Button( self, wx.ID_ANY, "Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonCancel, 0, wx.ALL, 5 )
         
         MainSizer.Add( sizerOKCancel, 0, wx.ALIGN_RIGHT, 5 )
@@ -12449,9 +12449,9 @@ class ParameterGraph_Panel ( wx.Panel ):
         self.panelMaxHP.SetSizer( sizerGraph )
         self.panelMaxHP.Layout()
         sizerGraph.Fit( self.panelMaxHP )
-        self.noteBookParameters.AddPage( self.panelMaxHP, u"MaxHP", False )
+        self.noteBookParameters.AddPage( self.panelMaxHP, "MaxHP", False )
         self.panelMaxSP = wx.Panel( self.noteBookParameters, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
-        self.noteBookParameters.AddPage( self.panelMaxSP, u"MaxSP", False )
+        self.noteBookParameters.AddPage( self.panelMaxSP, "MaxSP", False )
         
         sizerNoteBook.Add( self.noteBookParameters, 1, wx.EXPAND |wx.ALL, 5 )
         
@@ -12461,19 +12461,19 @@ class ParameterGraph_Panel ( wx.Panel ):
         
         sizerGenerate = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.buttonGenerate = wx.Button( self, wx.ID_ANY, u"Generate", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonGenerate = wx.Button( self, wx.ID_ANY, "Generate", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerGenerate.Add( self.buttonGenerate, 0, wx.ALL, 5 )
         
-        self.checkBoxScaled = wx.CheckBox( self, wx.ID_ANY, u"Scaled", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.checkBoxScaled = wx.CheckBox( self, wx.ID_ANY, "Scaled", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerGenerate.Add( self.checkBoxScaled, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
         bSizer639 = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.labelX = wx.StaticText( self, wx.ID_ANY, u"Level:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelX = wx.StaticText( self, wx.ID_ANY, "Level:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelX.Wrap( -1 )
         bSizer639.Add( self.labelX, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
-        self.labelValueX = wx.StaticText( self, wx.ID_ANY, u"VALUE_X", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelValueX = wx.StaticText( self, wx.ID_ANY, "VALUE_X", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelValueX.Wrap( -1 )
         bSizer639.Add( self.labelValueX, 1, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
@@ -12481,11 +12481,11 @@ class ParameterGraph_Panel ( wx.Panel ):
         
         bSizer640 = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.labelY = wx.StaticText( self, wx.ID_ANY, u"Value:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelY = wx.StaticText( self, wx.ID_ANY, "Value:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelY.Wrap( -1 )
         bSizer640.Add( self.labelY, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
-        self.labelValueY = wx.StaticText( self, wx.ID_ANY, u"VALUE_Y", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelValueY = wx.StaticText( self, wx.ID_ANY, "VALUE_Y", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelValueY.Wrap( -1 )
         bSizer640.Add( self.labelValueY, 1, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
@@ -12495,10 +12495,10 @@ class ParameterGraph_Panel ( wx.Panel ):
         
         sizerOKCancel = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.buttonApply = wx.Button( self, wx.ID_ANY, u"Apply", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonApply = wx.Button( self, wx.ID_ANY, "Apply", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonApply, 0, wx.TOP|wx.BOTTOM|wx.LEFT, 5 )
         
-        self.buttonClose = wx.Button( self, wx.ID_ANY, u"Close", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonClose = wx.Button( self, wx.ID_ANY, "Close", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonClose, 0, wx.TOP|wx.BOTTOM|wx.RIGHT, 5 )
         
         sizerButtons.Add( sizerOKCancel, 0, wx.EXPAND, 5 )
@@ -12543,7 +12543,7 @@ class ParameterGraph_Panel ( wx.Panel ):
 class EnemyExpGold_Dialog ( wx.Dialog ):
     
     def __init__( self, parent ):
-        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Enemy (Exp/Gold)", pos = wx.DefaultPosition, size = wx.Size( 280,112 ), style = wx.DEFAULT_DIALOG_STYLE )
+        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = "Enemy (Exp/Gold)", pos = wx.DefaultPosition, size = wx.Size( 280,112 ), style = wx.DEFAULT_DIALOG_STYLE )
         
         self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
         
@@ -12551,11 +12551,11 @@ class EnemyExpGold_Dialog ( wx.Dialog ):
         
         bSizer637 = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.labelType = wx.StaticText( self, wx.ID_ANY, u"(Gold/Experience):", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelType = wx.StaticText( self, wx.ID_ANY, "(Gold/Experience):", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelType.Wrap( -1 )
         bSizer637.Add( self.labelType, 70, wx.ALL, 5 )
         
-        self.labelVariance = wx.StaticText( self, wx.ID_ANY, u"Variance:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelVariance = wx.StaticText( self, wx.ID_ANY, "Variance:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelVariance.Wrap( -1 )
         bSizer637.Add( self.labelVariance, 30, wx.ALL, 5 )
         
@@ -12573,10 +12573,10 @@ class EnemyExpGold_Dialog ( wx.Dialog ):
         
         sizerOKCancel = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.buttonOK = wx.Button( self, wx.ID_ANY, u"OK", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonOK = wx.Button( self, wx.ID_ANY, "OK", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonOK, 0, wx.TOP|wx.BOTTOM|wx.LEFT, 5 )
         
-        self.buttonCancel = wx.Button( self, wx.ID_ANY, u"Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonCancel = wx.Button( self, wx.ID_ANY, "Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonCancel, 0, wx.ALL, 5 )
         
         MainSizer.Add( sizerOKCancel, 0, wx.ALIGN_RIGHT, 5 )
@@ -12623,40 +12623,40 @@ class AudioPlayer_Panel ( wx.Panel ):
         
         listBoxAudioChoices = []
         self.listBoxAudio = wx.ListBox( self.panelBGM, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, listBoxAudioChoices, wx.LB_SINGLE|wx.CLIP_CHILDREN )
-        self.listBoxAudio.SetHelpText( u"Select the file to play" )
+        self.listBoxAudio.SetHelpText( "Select the file to play" )
         
         bSizer6311.Add( self.listBoxAudio, 1, wx.EXPAND, 5 )
         
         self.panelBGM.SetSizer( bSizer6311 )
         self.panelBGM.Layout()
         bSizer6311.Fit( self.panelBGM )
-        self.notebookAudio.AddPage( self.panelBGM, u"BGM", False )
+        self.notebookAudio.AddPage( self.panelBGM, "BGM", False )
         
         sizerSelection.Add( self.notebookAudio, 1, wx.EXPAND|wx.TOP|wx.BOTTOM, 5 )
         
-        sizerVolume = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Volume" ), wx.VERTICAL )
+        sizerVolume = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, "Volume" ), wx.VERTICAL )
         
         self.sliderVolume = wx.Slider( self, wx.ID_ANY, 80, 0, 100, wx.DefaultPosition, wx.DefaultSize, wx.SL_INVERSE|wx.SL_LABELS|wx.SL_VERTICAL )
-        self.sliderVolume.SetHelpText( u"Adjust the volume to play the sound at" )
+        self.sliderVolume.SetHelpText( "Adjust the volume to play the sound at" )
         
         sizerVolume.Add( self.sliderVolume, 1, wx.ALL, 5 )
         
         self.spinCtrlVolume = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( 54,-1 ), wx.SP_ARROW_KEYS, 0, 100, 80 )
-        self.spinCtrlVolume.SetHelpText( u"Adjust the volume to play the sound at" )
+        self.spinCtrlVolume.SetHelpText( "Adjust the volume to play the sound at" )
         
         sizerVolume.Add( self.spinCtrlVolume, 0, wx.ALL, 5 )
         
         sizerSelection.Add( sizerVolume, 0, wx.ALL|wx.EXPAND, 5 )
         
-        sizerPitch = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Pitch" ), wx.VERTICAL )
+        sizerPitch = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, "Pitch" ), wx.VERTICAL )
         
         self.sliderPitch = wx.Slider( self, wx.ID_ANY, 100, 25, 300, wx.DefaultPosition, wx.DefaultSize, wx.SL_INVERSE|wx.SL_LABELS|wx.SL_VERTICAL )
-        self.sliderPitch.SetHelpText( u"Adjust the pitch shift to apply to the sound" )
+        self.sliderPitch.SetHelpText( "Adjust the pitch shift to apply to the sound" )
         
         sizerPitch.Add( self.sliderPitch, 1, wx.ALL, 5 )
         
         self.spinCtrlPitch = wx.SpinCtrl( self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.Size( 48,-1 ), wx.SP_ARROW_KEYS, 25, 300, 100 )
-        self.spinCtrlPitch.SetHelpText( u"Adjust the pitch shift to apply to the sound" )
+        self.spinCtrlPitch.SetHelpText( "Adjust the pitch shift to apply to the sound" )
         
         sizerPitch.Add( self.spinCtrlPitch, 0, wx.ALL, 5 )
         
@@ -12670,14 +12670,14 @@ class AudioPlayer_Panel ( wx.Panel ):
         
         color = wx.Colour(100, 100, 220, 255)
         self.waveFormPanelLeft = WaveFormPanel(self, color=color)
-        self.waveFormPanelLeft.SetHelpText( u"Visual representation of the left audio channel" )
+        self.waveFormPanelLeft.SetHelpText( "Visual representation of the left audio channel" )
         self.waveFormPanelLeft.SetMinSize( wx.Size( -1,56 ) )
         
         bSizer632.Add( self.waveFormPanelLeft, 0, wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
         
         color = wx.Colour(220, 100, 100, 255)
         self.waveFormPanelRight = WaveFormPanel(self, color=color)
-        self.waveFormPanelRight.SetHelpText( u"Visual representation of the right audio channel" )
+        self.waveFormPanelRight.SetHelpText( "Visual representation of the right audio channel" )
         self.waveFormPanelRight.SetMinSize( wx.Size( -1,56 ) )
         
         bSizer632.Add( self.waveFormPanelRight, 0, wx.EXPAND|wx.TOP|wx.RIGHT|wx.LEFT, 5 )
@@ -12686,26 +12686,26 @@ class AudioPlayer_Panel ( wx.Panel ):
         
         self.sliderPosition = wx.Slider( self, wx.ID_ANY, 0, 0, 10, wx.DefaultPosition, wx.DefaultSize, wx.SL_HORIZONTAL )
         self.sliderPosition.Enable( False )
-        self.sliderPosition.SetHelpText( u"Adjust the offset that playback will begin from" )
+        self.sliderPosition.SetHelpText( "Adjust the offset that playback will begin from" )
         
         bSizer6301.Add( self.sliderPosition, 0, wx.ALL|wx.EXPAND, 5 )
         
         bSizer631 = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.checkBoxRepeat = wx.CheckBox( self, wx.ID_ANY, u"Repeat", wx.DefaultPosition, wx.DefaultSize, 0 )
-        self.checkBoxRepeat.SetHelpText( u"Check to loop playback when the end of the stream is reached" )
+        self.checkBoxRepeat = wx.CheckBox( self, wx.ID_ANY, "Repeat", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.checkBoxRepeat.SetHelpText( "Check to loop playback when the end of the stream is reached" )
         
         bSizer631.Add( self.checkBoxRepeat, 0, wx.ALL|wx.EXPAND, 5 )
         
         sizerLabel = wx.BoxSizer( wx.VERTICAL )
         
-        self.labelFileName = wx.StaticText( self, wx.ID_ANY, u"FILENAME", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelFileName = wx.StaticText( self, wx.ID_ANY, "FILENAME", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelFileName.Wrap( -1 )
-        self.labelFileName.SetHelpText( u"The currently loaded file and duration of playback" )
+        self.labelFileName.SetHelpText( "The currently loaded file and duration of playback" )
         
         sizerLabel.Add( self.labelFileName, 0, wx.ALIGN_CENTER_VERTICAL|wx.EXPAND|wx.ALL, 5 )
         
-        self.labelFileDuration = wx.StaticText( self, wx.ID_ANY, u"[0.00.00]", wx.DefaultPosition, wx.DefaultSize, wx.ALIGN_LEFT )
+        self.labelFileDuration = wx.StaticText( self, wx.ID_ANY, "[0.00.00]", wx.DefaultPosition, wx.DefaultSize, wx.ALIGN_LEFT )
         self.labelFileDuration.Wrap( -1 )
         self.labelFileDuration.SetFont( wx.Font( wx.NORMAL_FONT.GetPointSize(), 76, 90, 90, False, wx.EmptyString ) )
         
@@ -12714,17 +12714,17 @@ class AudioPlayer_Panel ( wx.Panel ):
         bSizer631.Add( sizerLabel, 1, 0, 5 )
         
         self.buttonPlay = wx.BitmapButton( self, wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.DefaultSize, wx.BU_AUTODRAW )
-        self.buttonPlay.SetHelpText( u"Play the sound on the current channel" )
+        self.buttonPlay.SetHelpText( "Play the sound on the current channel" )
         
         bSizer631.Add( self.buttonPlay, 0, wx.ALL, 5 )
         
         self.buttonPause = wx.BitmapButton( self, wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.DefaultSize, wx.BU_AUTODRAW )
-        self.buttonPause.SetHelpText( u"Pause playback on the current channel" )
+        self.buttonPause.SetHelpText( "Pause playback on the current channel" )
         
         bSizer631.Add( self.buttonPause, 0, wx.TOP|wx.BOTTOM, 5 )
         
         self.buttonStop = wx.BitmapButton( self, wx.ID_ANY, wx.NullBitmap, wx.DefaultPosition, wx.DefaultSize, wx.BU_AUTODRAW )
-        self.buttonStop.SetHelpText( u"Stop playback on the current channel" )
+        self.buttonStop.SetHelpText( "Stop playback on the current channel" )
         
         bSizer631.Add( self.buttonStop, 0, wx.ALL, 5 )
         
@@ -12742,25 +12742,25 @@ class AudioPlayer_Panel ( wx.Panel ):
         
         sizerStop = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.buttonStopAll = wx.Button( self, wx.ID_ANY, u"Stop All", wx.DefaultPosition, wx.DefaultSize, 0 )
-        self.buttonStopAll.SetHelpText( u"Stop playback on all channels" )
+        self.buttonStopAll = wx.Button( self, wx.ID_ANY, "Stop All", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonStopAll.SetHelpText( "Stop playback on all channels" )
         
         sizerStop.Add( self.buttonStopAll, 0, wx.ALL, 5 )
         
-        self.checkBoxMicroseconds = wx.CheckBox( self, wx.ID_ANY, u"Display Microseconds", wx.DefaultPosition, wx.DefaultSize, 0 )
-        self.checkBoxMicroseconds.SetHelpText( u"Check to have microseconds displayed in the duration label" )
+        self.checkBoxMicroseconds = wx.CheckBox( self, wx.ID_ANY, "Display Microseconds", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.checkBoxMicroseconds.SetHelpText( "Check to have microseconds displayed in the duration label" )
         
         sizerStop.Add( self.checkBoxMicroseconds, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
         sizerOKCancel.Add( sizerStop, 1, wx.EXPAND, 5 )
         
-        self.buttonOK = wx.Button( self, wx.ID_ANY, u"OK", wx.DefaultPosition, wx.DefaultSize, 0 )
-        self.buttonOK.SetHelpText( u"Apply settings and close window" )
+        self.buttonOK = wx.Button( self, wx.ID_ANY, "OK", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonOK.SetHelpText( "Apply settings and close window" )
         
         sizerOKCancel.Add( self.buttonOK, 0, wx.TOP|wx.BOTTOM|wx.LEFT, 5 )
         
-        self.buttonCancel = wx.Button( self, wx.ID_ANY, u"Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
-        self.buttonCancel.SetHelpText( u"Cancel settings and close window" )
+        self.buttonCancel = wx.Button( self, wx.ID_ANY, "Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonCancel.SetHelpText( "Cancel settings and close window" )
         
         sizerOKCancel.Add( self.buttonCancel, 0, wx.TOP|wx.BOTTOM|wx.RIGHT, 5 )
         
@@ -12866,7 +12866,7 @@ class AudioPlayer_Panel ( wx.Panel ):
 class ExpGraph_Dialog ( wx.Dialog ):
     
     def __init__( self, parent ):
-        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Experience Graph", pos = wx.DefaultPosition, size = wx.Size( 405,311 ), style = wx.DEFAULT_DIALOG_STYLE|wx.RESIZE_BORDER )
+        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = "Experience Graph", pos = wx.DefaultPosition, size = wx.Size( 405,311 ), style = wx.DEFAULT_DIALOG_STYLE|wx.RESIZE_BORDER )
         
         self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
         
@@ -12877,11 +12877,11 @@ class ExpGraph_Dialog ( wx.Dialog ):
         
         sizerClose = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.buttonOK = wx.Button( self, wx.ID_ANY, u"OK", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonOK = wx.Button( self, wx.ID_ANY, "OK", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.buttonOK.SetDefault() 
         sizerClose.Add( self.buttonOK, 0, wx.TOP|wx.BOTTOM|wx.LEFT, 5 )
         
-        self.buttonCancel = wx.Button( self, wx.ID_ANY, u"Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonCancel = wx.Button( self, wx.ID_ANY, "Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerClose.Add( self.buttonCancel, 0, wx.TOP|wx.BOTTOM|wx.RIGHT, 5 )
         
         MainSizer.Add( sizerClose, 0, wx.ALIGN_RIGHT, 5 )
@@ -12914,7 +12914,7 @@ class ExpGraph_Dialog ( wx.Dialog ):
 class ExpGrid_Dialog ( wx.Dialog ):
     
     def __init__( self, parent ):
-        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Experience Curve", pos = wx.DefaultPosition, size = wx.Size( 540,496 ), style = wx.DEFAULT_DIALOG_STYLE|wx.RESIZE_BORDER )
+        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = "Experience Curve", pos = wx.DefaultPosition, size = wx.Size( 540,496 ), style = wx.DEFAULT_DIALOG_STYLE|wx.RESIZE_BORDER )
         
         self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
         
@@ -12955,14 +12955,14 @@ class ExpGrid_Dialog ( wx.Dialog ):
         self.panelNextLevel.SetSizer( panelSizerNextLevel )
         self.panelNextLevel.Layout()
         panelSizerNextLevel.Fit( self.panelNextLevel )
-        self.noteBookExpList.AddPage( self.panelNextLevel, u"To Next Level", True )
+        self.noteBookExpList.AddPage( self.panelNextLevel, "To Next Level", True )
         self.panelTotal = wx.Panel( self.noteBookExpList, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
         panelSizerTotal = wx.BoxSizer( wx.VERTICAL )
         
         self.panelTotal.SetSizer( panelSizerTotal )
         self.panelTotal.Layout()
         panelSizerTotal.Fit( self.panelTotal )
-        self.noteBookExpList.AddPage( self.panelTotal, u"Total", False )
+        self.noteBookExpList.AddPage( self.panelTotal, "Total", False )
         
         MainSizer.Add( self.noteBookExpList, 1, wx.EXPAND |wx.ALL, 5 )
         
@@ -12970,7 +12970,7 @@ class ExpGrid_Dialog ( wx.Dialog ):
         
         sizerControls = wx.BoxSizer( wx.VERTICAL )
         
-        sizerBasis = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Basis" ), wx.HORIZONTAL )
+        sizerBasis = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, "Basis" ), wx.HORIZONTAL )
         
         self.sliderBasis = wx.Slider( self, wx.ID_ANY, 35, 5, 50, wx.DefaultPosition, wx.DefaultSize, wx.SL_HORIZONTAL )
         sizerBasis.Add( self.sliderBasis, 1, wx.ALL, 5 )
@@ -12980,7 +12980,7 @@ class ExpGrid_Dialog ( wx.Dialog ):
         
         sizerControls.Add( sizerBasis, 1, wx.ALL|wx.EXPAND, 5 )
         
-        sizerInflation = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Inflation" ), wx.HORIZONTAL )
+        sizerInflation = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, "Inflation" ), wx.HORIZONTAL )
         
         self.sliderInflation = wx.Slider( self, wx.ID_ANY, 35, 5, 50, wx.DefaultPosition, wx.DefaultSize, wx.SL_HORIZONTAL )
         sizerInflation.Add( self.sliderInflation, 1, wx.ALL, 5 )
@@ -12992,19 +12992,19 @@ class ExpGrid_Dialog ( wx.Dialog ):
         
         bSizer638.Add( sizerControls, 50, wx.EXPAND, 5 )
         
-        sizerCurveGeneration = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, u"Curve Generation" ), wx.VERTICAL )
+        sizerCurveGeneration = wx.StaticBoxSizer( wx.StaticBox( self, wx.ID_ANY, "Curve Generation" ), wx.VERTICAL )
         
         sizerLabels = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.labelMinValue = wx.StaticText( self, wx.ID_ANY, u"First Level:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelMinValue = wx.StaticText( self, wx.ID_ANY, "First Level:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelMinValue.Wrap( -1 )
         sizerLabels.Add( self.labelMinValue, 30, wx.ALL, 5 )
         
-        self.labelMaxLevel = wx.StaticText( self, wx.ID_ANY, u"Final Level:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelMaxLevel = wx.StaticText( self, wx.ID_ANY, "Final Level:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelMaxLevel.Wrap( -1 )
         sizerLabels.Add( self.labelMaxLevel, 45, wx.ALL, 5 )
         
-        self.labelSpeed = wx.StaticText( self, wx.ID_ANY, u"Speed:", wx.DefaultPosition, wx.Size( -1,-1 ), 0 )
+        self.labelSpeed = wx.StaticText( self, wx.ID_ANY, "Speed:", wx.DefaultPosition, wx.Size( -1,-1 ), 0 )
         self.labelSpeed.Wrap( -1 )
         sizerLabels.Add( self.labelSpeed, 25, wx.ALL, 5 )
         
@@ -13034,7 +13034,7 @@ class ExpGrid_Dialog ( wx.Dialog ):
         
         sizerCurveGeneration.Add( self.sliderSpeed, 0, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
         
-        self.buttonGraphEditor = wx.Button( self, wx.ID_ANY, u"Graph Editor...", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonGraphEditor = wx.Button( self, wx.ID_ANY, "Graph Editor...", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.buttonGraphEditor.Enable( False )
         
         sizerCurveGeneration.Add( self.buttonGraphEditor, 0, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
@@ -13047,15 +13047,15 @@ class ExpGrid_Dialog ( wx.Dialog ):
         
         sizerGraphButton = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.checkBoxCurveGeneration = wx.CheckBox( self, wx.ID_ANY, u"Use Curve Generation", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.checkBoxCurveGeneration = wx.CheckBox( self, wx.ID_ANY, "Use Curve Generation", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerGraphButton.Add( self.checkBoxCurveGeneration, 0, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
         sizerButtons.Add( sizerGraphButton, 1, wx.EXPAND, 5 )
         
-        self.buttonOK = wx.Button( self, wx.ID_ANY, u"OK", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonOK = wx.Button( self, wx.ID_ANY, "OK", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerButtons.Add( self.buttonOK, 0, wx.TOP|wx.BOTTOM|wx.LEFT, 5 )
         
-        self.buttonCancel = wx.Button( self, wx.ID_ANY, u"Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonCancel = wx.Button( self, wx.ID_ANY, "Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerButtons.Add( self.buttonCancel, 0, wx.TOP|wx.BOTTOM|wx.RIGHT, 5 )
         
         MainSizer.Add( sizerButtons, 0, wx.ALIGN_RIGHT|wx.ALIGN_BOTTOM|wx.EXPAND, 5 )
@@ -13175,7 +13175,7 @@ class ScriptEditor_Panel ( wx.Panel ):
 class FindReplace_Dialog ( wx.Dialog ):
     
     def __init__( self, parent ):
-        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Find & Replace", pos = wx.DefaultPosition, size = wx.Size( 295,365 ), style = wx.DEFAULT_DIALOG_STYLE|wx.RESIZE_BORDER )
+        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = "Find & Replace", pos = wx.DefaultPosition, size = wx.Size( 295,365 ), style = wx.DEFAULT_DIALOG_STYLE|wx.RESIZE_BORDER )
         
         self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
         
@@ -13187,37 +13187,37 @@ class FindReplace_Dialog ( wx.Dialog ):
         self.panelFind = wx.Panel( self.noteBookFindReplace, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
         sizerFind = wx.BoxSizer( wx.VERTICAL )
         
-        self.labelFind = wx.StaticText( self.panelFind, wx.ID_ANY, u"Find what:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelFind = wx.StaticText( self.panelFind, wx.ID_ANY, "Find what:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelFind.Wrap( -1 )
         sizerFind.Add( self.labelFind, 0, wx.ALL, 5 )
         
         self.textCtrlFindSearch = wx.TextCtrl( self.panelFind, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerFind.Add( self.textCtrlFindSearch, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
         
-        self.labelLookFind = wx.StaticText( self.panelFind, wx.ID_ANY, u"Look in:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelLookFind = wx.StaticText( self.panelFind, wx.ID_ANY, "Look in:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelLookFind.Wrap( -1 )
         sizerFind.Add( self.labelLookFind, 0, wx.ALL, 5 )
         
-        comboBoxLookChoices = [ u"Current Script", u"All Scripts" ]
+        comboBoxLookChoices = [ "Current Script", "All Scripts" ]
         self.comboBoxLook = wx.Choice( self.panelFind, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxLookChoices, 0 )
         self.comboBoxLook.SetSelection( 0 )
         sizerFind.Add( self.comboBoxLook, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
         
-        sizerFindOptions = wx.StaticBoxSizer( wx.StaticBox( self.panelFind, wx.ID_ANY, u"Options" ), wx.VERTICAL )
+        sizerFindOptions = wx.StaticBoxSizer( wx.StaticBox( self.panelFind, wx.ID_ANY, "Options" ), wx.VERTICAL )
         
-        self.checkBoxFindMatchCase = wx.CheckBox( self.panelFind, wx.ID_ANY, u"Match case", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.checkBoxFindMatchCase = wx.CheckBox( self.panelFind, wx.ID_ANY, "Match case", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerFindOptions.Add( self.checkBoxFindMatchCase, 0, wx.ALL, 5 )
         
-        self.checkBoxFindWholeWord = wx.CheckBox( self.panelFind, wx.ID_ANY, u"Match whole word", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.checkBoxFindWholeWord = wx.CheckBox( self.panelFind, wx.ID_ANY, "Match whole word", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerFindOptions.Add( self.checkBoxFindWholeWord, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
         
-        self.checkBoxFindSearchUp = wx.CheckBox( self.panelFind, wx.ID_ANY, u"Search up", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.checkBoxFindSearchUp = wx.CheckBox( self.panelFind, wx.ID_ANY, "Search up", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerFindOptions.Add( self.checkBoxFindSearchUp, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
         
-        self.checkBoxFindFlags = wx.CheckBox( self.panelFind, wx.ID_ANY, u"Use:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.checkBoxFindFlags = wx.CheckBox( self.panelFind, wx.ID_ANY, "Use:", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerFindOptions.Add( self.checkBoxFindFlags, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
         
-        comboBoxFindFlagsChoices = [ u"Regular Expressions", u"Wild Cards" ]
+        comboBoxFindFlagsChoices = [ "Regular Expressions", "Wild Cards" ]
         self.comboBoxFindFlags = wx.Choice( self.panelFind, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxFindFlagsChoices, 0 )
         self.comboBoxFindFlags.SetSelection( 0 )
         self.comboBoxFindFlags.Enable( False )
@@ -13226,54 +13226,54 @@ class FindReplace_Dialog ( wx.Dialog ):
         
         sizerFind.Add( sizerFindOptions, 0, wx.EXPAND|wx.ALL, 5 )
         
-        self.buttonFind = wx.Button( self.panelFind, wx.ID_ANY, u"Find Next", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonFind = wx.Button( self.panelFind, wx.ID_ANY, "Find Next", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerFind.Add( self.buttonFind, 0, wx.ALL|wx.ALIGN_RIGHT, 5 )
         
         self.panelFind.SetSizer( sizerFind )
         self.panelFind.Layout()
         sizerFind.Fit( self.panelFind )
-        self.noteBookFindReplace.AddPage( self.panelFind, u"Find", False )
+        self.noteBookFindReplace.AddPage( self.panelFind, "Find", False )
         self.panelReplace = wx.Panel( self.noteBookFindReplace, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
         sizerReplace = wx.BoxSizer( wx.VERTICAL )
         
-        self.labelReplace = wx.StaticText( self.panelReplace, wx.ID_ANY, u"Find what:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelReplace = wx.StaticText( self.panelReplace, wx.ID_ANY, "Find what:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelReplace.Wrap( -1 )
         sizerReplace.Add( self.labelReplace, 0, wx.ALL, 5 )
         
         self.textCtrlReplaceSearch = wx.TextCtrl( self.panelReplace, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerReplace.Add( self.textCtrlReplaceSearch, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
         
-        self.labelReplaceWith = wx.StaticText( self.panelReplace, wx.ID_ANY, u"Replace with:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelReplaceWith = wx.StaticText( self.panelReplace, wx.ID_ANY, "Replace with:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelReplaceWith.Wrap( -1 )
         sizerReplace.Add( self.labelReplaceWith, 0, wx.ALL, 5 )
         
         self.textCtrlReplace = wx.TextCtrl( self.panelReplace, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerReplace.Add( self.textCtrlReplace, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
         
-        self.labelLookReplace = wx.StaticText( self.panelReplace, wx.ID_ANY, u"Look in:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelLookReplace = wx.StaticText( self.panelReplace, wx.ID_ANY, "Look in:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelLookReplace.Wrap( -1 )
         sizerReplace.Add( self.labelLookReplace, 0, wx.ALL, 5 )
         
-        comboBoxLookReplaceChoices = [ u"Current Script", u"All Scripts" ]
+        comboBoxLookReplaceChoices = [ "Current Script", "All Scripts" ]
         self.comboBoxLookReplace = wx.Choice( self.panelReplace, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxLookReplaceChoices, 0 )
         self.comboBoxLookReplace.SetSelection( 0 )
         sizerReplace.Add( self.comboBoxLookReplace, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
         
-        sizerReplaceOptions = wx.StaticBoxSizer( wx.StaticBox( self.panelReplace, wx.ID_ANY, u"Options" ), wx.VERTICAL )
+        sizerReplaceOptions = wx.StaticBoxSizer( wx.StaticBox( self.panelReplace, wx.ID_ANY, "Options" ), wx.VERTICAL )
         
-        self.checkBoxReplaceMatchCase = wx.CheckBox( self.panelReplace, wx.ID_ANY, u"Match case", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.checkBoxReplaceMatchCase = wx.CheckBox( self.panelReplace, wx.ID_ANY, "Match case", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerReplaceOptions.Add( self.checkBoxReplaceMatchCase, 0, wx.ALL, 5 )
         
-        self.checkBoxReplaceWholeWord = wx.CheckBox( self.panelReplace, wx.ID_ANY, u"Match whole word", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.checkBoxReplaceWholeWord = wx.CheckBox( self.panelReplace, wx.ID_ANY, "Match whole word", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerReplaceOptions.Add( self.checkBoxReplaceWholeWord, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
         
-        self.checkBoxReplaceSearchUp = wx.CheckBox( self.panelReplace, wx.ID_ANY, u"Search up", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.checkBoxReplaceSearchUp = wx.CheckBox( self.panelReplace, wx.ID_ANY, "Search up", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerReplaceOptions.Add( self.checkBoxReplaceSearchUp, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
         
-        self.checkBoxReplaceFlags = wx.CheckBox( self.panelReplace, wx.ID_ANY, u"Use:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.checkBoxReplaceFlags = wx.CheckBox( self.panelReplace, wx.ID_ANY, "Use:", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerReplaceOptions.Add( self.checkBoxReplaceFlags, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
         
-        comboBoxReplaceFlagsChoices = [ u"Regular Expressions", u"Wild Cards" ]
+        comboBoxReplaceFlagsChoices = [ "Regular Expressions", "Wild Cards" ]
         self.comboBoxReplaceFlags = wx.Choice( self.panelReplace, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxReplaceFlagsChoices, 0 )
         self.comboBoxReplaceFlags.SetSelection( 0 )
         self.comboBoxReplaceFlags.Enable( False )
@@ -13284,13 +13284,13 @@ class FindReplace_Dialog ( wx.Dialog ):
         
         bSizer653 = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.buttonFindNext = wx.Button( self.panelReplace, wx.ID_ANY, u"Find Next", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonFindNext = wx.Button( self.panelReplace, wx.ID_ANY, "Find Next", wx.DefaultPosition, wx.DefaultSize, 0 )
         bSizer653.Add( self.buttonFindNext, 0, wx.ALIGN_RIGHT|wx.TOP|wx.BOTTOM|wx.LEFT, 5 )
         
-        self.buttonReplace = wx.Button( self.panelReplace, wx.ID_ANY, u"Replace", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonReplace = wx.Button( self.panelReplace, wx.ID_ANY, "Replace", wx.DefaultPosition, wx.DefaultSize, 0 )
         bSizer653.Add( self.buttonReplace, 0, wx.TOP|wx.BOTTOM|wx.LEFT, 5 )
         
-        self.buttonReplaceAll = wx.Button( self.panelReplace, wx.ID_ANY, u"Replace All", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonReplaceAll = wx.Button( self.panelReplace, wx.ID_ANY, "Replace All", wx.DefaultPosition, wx.DefaultSize, 0 )
         bSizer653.Add( self.buttonReplaceAll, 0, wx.TOP|wx.BOTTOM|wx.RIGHT, 5 )
         
         sizerReplace.Add( bSizer653, 1, wx.ALIGN_RIGHT, 5 )
@@ -13298,7 +13298,7 @@ class FindReplace_Dialog ( wx.Dialog ):
         self.panelReplace.SetSizer( sizerReplace )
         self.panelReplace.Layout()
         sizerReplace.Fit( self.panelReplace )
-        self.noteBookFindReplace.AddPage( self.panelReplace, u"Replace", True )
+        self.noteBookFindReplace.AddPage( self.panelReplace, "Replace", True )
         
         sizerNotebook.Add( self.noteBookFindReplace, 1, wx.EXPAND, 5 )
         
@@ -13426,7 +13426,7 @@ class FindReplace_Dialog ( wx.Dialog ):
 class ScriptSettings_Dialog ( wx.Dialog ):
     
     def __init__( self, parent ):
-        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = u"Script Editor Settings", pos = wx.DefaultPosition, size = wx.Size( 423,309 ), style = wx.DEFAULT_DIALOG_STYLE|wx.RESIZE_BORDER )
+        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = "Script Editor Settings", pos = wx.DefaultPosition, size = wx.Size( 423,309 ), style = wx.DEFAULT_DIALOG_STYLE|wx.RESIZE_BORDER )
         
         self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
         
@@ -13438,11 +13438,11 @@ class ScriptSettings_Dialog ( wx.Dialog ):
         
         sizerFontLabels = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.labelFont = wx.StaticText( self.panelFont, wx.ID_ANY, u"Font:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelFont = wx.StaticText( self.panelFont, wx.ID_ANY, "Font:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelFont.Wrap( -1 )
         sizerFontLabels.Add( self.labelFont, 75, wx.ALL|wx.EXPAND, 5 )
         
-        self.labelSize = wx.StaticText( self.panelFont, wx.ID_ANY, u"Size:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelSize = wx.StaticText( self.panelFont, wx.ID_ANY, "Size:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelSize.Wrap( -1 )
         sizerFontLabels.Add( self.labelSize, 25, wx.ALL|wx.EXPAND, 5 )
         
@@ -13455,7 +13455,7 @@ class ScriptSettings_Dialog ( wx.Dialog ):
         self.comboBoxFont.SetSelection( 0 )
         sizerFontSelection.Add( self.comboBoxFont, 75, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
         
-        comboBoxSizeChoices = [ u"6", u"7", u"8", u"9", u"10", u"11", u"12", u"13", u"14", u"15", u"16", u"17", u"18", u"19", u"20", u"21", u"22", u"23", u"24" ]
+        comboBoxSizeChoices = [ "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24" ]
         self.comboBoxSize = wx.Choice( self.panelFont, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, comboBoxSizeChoices, 0 )
         self.comboBoxSize.SetSelection( 4 )
         sizerFontSelection.Add( self.comboBoxSize, 25, wx.BOTTOM|wx.RIGHT|wx.LEFT|wx.EXPAND, 5 )
@@ -13466,11 +13466,11 @@ class ScriptSettings_Dialog ( wx.Dialog ):
         
         sizerDisplayItem = wx.BoxSizer( wx.VERTICAL )
         
-        self.labelDisplayItem = wx.StaticText( self.panelFont, wx.ID_ANY, u"Display Item:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelDisplayItem = wx.StaticText( self.panelFont, wx.ID_ANY, "Display Item:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelDisplayItem.Wrap( -1 )
         sizerDisplayItem.Add( self.labelDisplayItem, 0, wx.ALL|wx.EXPAND, 5 )
         
-        listBoxDisplayItemsChoices = [ u"Global Default", u"Line Number", u"Control Character", u"Brace Light", u"Brace Bad", u"Comment Block", u"Comment Line", u"Number", u"Double Quote String", u"Single Quote String", u"Keyword", u"Class Name", u"Module Name", u"Method Name", u"Operator", u"Normal Text", u"Global Variable", u"Instance Variable", u"Class Variable", u"Regular Expression", u"Symbol", u"Back Tick", u"Data Section", u"Error" ]
+        listBoxDisplayItemsChoices = [ "Global Default", "Line Number", "Control Character", "Brace Light", "Brace Bad", "Comment Block", "Comment Line", "Number", "Double Quote String", "Single Quote String", "Keyword", "Class Name", "Module Name", "Method Name", "Operator", "Normal Text", "Global Variable", "Instance Variable", "Class Variable", "Regular Expression", "Symbol", "Back Tick", "Data Section", "Error" ]
         self.listBoxDisplayItems = wx.ListBox( self.panelFont, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, listBoxDisplayItemsChoices, wx.LB_SINGLE )
         sizerDisplayItem.Add( self.listBoxDisplayItems, 1, wx.EXPAND|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
         
@@ -13478,7 +13478,7 @@ class ScriptSettings_Dialog ( wx.Dialog ):
         
         sizerFontStyle = wx.BoxSizer( wx.VERTICAL )
         
-        self.labelItemForeground = wx.StaticText( self.panelFont, wx.ID_ANY, u"Item Foreground:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelItemForeground = wx.StaticText( self.panelFont, wx.ID_ANY, "Item Foreground:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelItemForeground.Wrap( -1 )
         sizerFontStyle.Add( self.labelItemForeground, 0, wx.ALL, 5 )
         
@@ -13490,12 +13490,12 @@ class ScriptSettings_Dialog ( wx.Dialog ):
         self.textCtrlForeColor = wx.TextCtrl( self.panelFont, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerForeground.Add( self.textCtrlForeColor, 1, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
-        self.buttonForeColor = wx.Button( self.panelFont, wx.ID_ANY, u"Choose...", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonForeColor = wx.Button( self.panelFont, wx.ID_ANY, "Choose...", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerForeground.Add( self.buttonForeColor, 1, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
         sizerFontStyle.Add( sizerForeground, 0, wx.EXPAND, 5 )
         
-        self.labelItemBackground = wx.StaticText( self.panelFont, wx.ID_ANY, u"Item Background:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelItemBackground = wx.StaticText( self.panelFont, wx.ID_ANY, "Item Background:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelItemBackground.Wrap( -1 )
         sizerFontStyle.Add( self.labelItemBackground, 0, wx.ALL, 5 )
         
@@ -13507,23 +13507,23 @@ class ScriptSettings_Dialog ( wx.Dialog ):
         self.textCtrlBackColor = wx.TextCtrl( self.panelFont, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerBackground.Add( self.textCtrlBackColor, 1, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
-        self.buttonBackColor = wx.Button( self.panelFont, wx.ID_ANY, u"Choose...", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonBackColor = wx.Button( self.panelFont, wx.ID_ANY, "Choose...", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerBackground.Add( self.buttonBackColor, 1, wx.ALL|wx.ALIGN_CENTER_VERTICAL, 5 )
         
         sizerFontStyle.Add( sizerBackground, 0, wx.EXPAND, 5 )
         
         sizerBoldItalic = wx.BoxSizer( wx.VERTICAL )
         
-        self.labelItemStyle = wx.StaticText( self.panelFont, wx.ID_ANY, u"Item Style:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelItemStyle = wx.StaticText( self.panelFont, wx.ID_ANY, "Item Style:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelItemStyle.Wrap( -1 )
         sizerBoldItalic.Add( self.labelItemStyle, 0, wx.ALL, 5 )
         
         sizerStyleChecks = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.checkBoxBold = wx.CheckBox( self.panelFont, wx.ID_ANY, u"Bold", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.checkBoxBold = wx.CheckBox( self.panelFont, wx.ID_ANY, "Bold", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerStyleChecks.Add( self.checkBoxBold, 1, wx.ALL, 5 )
         
-        self.checkBoxItalic = wx.CheckBox( self.panelFont, wx.ID_ANY, u"Italic", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.checkBoxItalic = wx.CheckBox( self.panelFont, wx.ID_ANY, "Italic", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerStyleChecks.Add( self.checkBoxItalic, 1, wx.ALL, 5 )
         
         sizerBoldItalic.Add( sizerStyleChecks, 1, wx.EXPAND, 5 )
@@ -13537,43 +13537,43 @@ class ScriptSettings_Dialog ( wx.Dialog ):
         self.panelFont.SetSizer( sizerFontMain )
         self.panelFont.Layout()
         sizerFontMain.Fit( self.panelFont )
-        self.noteBookSettings.AddPage( self.panelFont, u"Font Settings", True )
+        self.noteBookSettings.AddPage( self.panelFont, "Font Settings", True )
         self.panelEditor = wx.Panel( self.noteBookSettings, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TAB_TRAVERSAL )
         panelEditorMainSizer = wx.BoxSizer( wx.HORIZONTAL )
         
         sizerEditor = wx.BoxSizer( wx.VERTICAL )
         
-        self.labelTabWidth = wx.StaticText( self.panelEditor, wx.ID_ANY, u"Tab Width:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelTabWidth = wx.StaticText( self.panelEditor, wx.ID_ANY, "Tab Width:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelTabWidth.Wrap( -1 )
         sizerEditor.Add( self.labelTabWidth, 0, wx.ALL, 5 )
         
         self.spinCtrlTabWidth = wx.SpinCtrl( self.panelEditor, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS|wx.SP_WRAP, 1, 20, 2 )
         sizerEditor.Add( self.spinCtrlTabWidth, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
         
-        self.labelEdgeColumn = wx.StaticText( self.panelEditor, wx.ID_ANY, u"Edge Column:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelEdgeColumn = wx.StaticText( self.panelEditor, wx.ID_ANY, "Edge Column:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelEdgeColumn.Wrap( -1 )
         sizerEditor.Add( self.labelEdgeColumn, 0, wx.ALL, 5 )
         
         self.spinCtrlEdgeColumn = wx.SpinCtrl( self.panelEditor, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.SP_ARROW_KEYS, 1, 240, 80 )
         sizerEditor.Add( self.spinCtrlEdgeColumn, 0, wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
         
-        self.checkBoxIndentGuides = wx.CheckBox( self.panelEditor, wx.ID_ANY, u"Indent Guides", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.checkBoxIndentGuides = wx.CheckBox( self.panelEditor, wx.ID_ANY, "Indent Guides", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.checkBoxIndentGuides.SetValue(True) 
         sizerEditor.Add( self.checkBoxIndentGuides, 0, wx.ALL, 5 )
         
-        self.checkBoxCaret = wx.CheckBox( self.panelEditor, wx.ID_ANY, u"Caret", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.checkBoxCaret = wx.CheckBox( self.panelEditor, wx.ID_ANY, "Caret", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.checkBoxCaret.SetValue(True) 
         sizerEditor.Add( self.checkBoxCaret, 0, wx.ALL, 5 )
         
-        self.checkBoxBraceMatch = wx.CheckBox( self.panelEditor, wx.ID_ANY, u"Brace Matching", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.checkBoxBraceMatch = wx.CheckBox( self.panelEditor, wx.ID_ANY, "Brace Matching", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.checkBoxBraceMatch.SetValue(True) 
         sizerEditor.Add( self.checkBoxBraceMatch, 0, wx.ALL, 5 )
         
         panelEditorMainSizer.Add( sizerEditor, 1, wx.EXPAND, 5 )
         
-        sizerCaret = wx.StaticBoxSizer( wx.StaticBox( self.panelEditor, wx.ID_ANY, u"Caret Settings" ), wx.VERTICAL )
+        sizerCaret = wx.StaticBoxSizer( wx.StaticBox( self.panelEditor, wx.ID_ANY, "Caret Settings" ), wx.VERTICAL )
         
-        self.labelCaretFore = wx.StaticText( self.panelEditor, wx.ID_ANY, u"Forecolor:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelCaretFore = wx.StaticText( self.panelEditor, wx.ID_ANY, "Forecolor:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelCaretFore.Wrap( -1 )
         sizerCaret.Add( self.labelCaretFore, 0, wx.ALL, 5 )
         
@@ -13589,12 +13589,12 @@ class ScriptSettings_Dialog ( wx.Dialog ):
         
         sizerCaret2 = wx.BoxSizer( wx.VERTICAL )
         
-        self.buttonCaretFore = wx.Button( self.panelEditor, wx.ID_ANY, u"Choose...", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonCaretFore = wx.Button( self.panelEditor, wx.ID_ANY, "Choose...", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerCaret2.Add( self.buttonCaretFore, 0, wx.ALIGN_RIGHT|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
         
         sizerCaret.Add( sizerCaret2, 0, wx.EXPAND, 5 )
         
-        self.labelCaretBack = wx.StaticText( self.panelEditor, wx.ID_ANY, u"Background:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelCaretBack = wx.StaticText( self.panelEditor, wx.ID_ANY, "Background:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelCaretBack.Wrap( -1 )
         sizerCaret.Add( self.labelCaretBack, 0, wx.ALL, 5 )
         
@@ -13610,14 +13610,14 @@ class ScriptSettings_Dialog ( wx.Dialog ):
         
         sizerCaret21 = wx.BoxSizer( wx.VERTICAL )
         
-        self.buttonCaretBack = wx.Button( self.panelEditor, wx.ID_ANY, u"Choose...", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonCaretBack = wx.Button( self.panelEditor, wx.ID_ANY, "Choose...", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerCaret21.Add( self.buttonCaretBack, 0, wx.ALIGN_RIGHT|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
         
         sizerCaret.Add( sizerCaret21, 0, wx.EXPAND, 5 )
         
         sizerCaret3 = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.labelCaretAlpha = wx.StaticText( self.panelEditor, wx.ID_ANY, u"Caret Alpha:", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.labelCaretAlpha = wx.StaticText( self.panelEditor, wx.ID_ANY, "Caret Alpha:", wx.DefaultPosition, wx.DefaultSize, 0 )
         self.labelCaretAlpha.Wrap( -1 )
         sizerCaret3.Add( self.labelCaretAlpha, 0, wx.ALIGN_CENTER_VERTICAL|wx.BOTTOM|wx.RIGHT|wx.LEFT, 5 )
         
@@ -13631,7 +13631,7 @@ class ScriptSettings_Dialog ( wx.Dialog ):
         self.panelEditor.SetSizer( panelEditorMainSizer )
         self.panelEditor.Layout()
         panelEditorMainSizer.Fit( self.panelEditor )
-        self.noteBookSettings.AddPage( self.panelEditor, u"Editor Settings", False )
+        self.noteBookSettings.AddPage( self.panelEditor, "Editor Settings", False )
         
         MainSizer.Add( self.noteBookSettings, 1, wx.EXPAND |wx.ALL, 5 )
         
@@ -13639,17 +13639,17 @@ class ScriptSettings_Dialog ( wx.Dialog ):
         
         bSizer674 = wx.BoxSizer( wx.VERTICAL )
         
-        self.buttonDefault = wx.Button( self, wx.ID_ANY, u"Apply Default", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonDefault = wx.Button( self, wx.ID_ANY, "Apply Default", wx.DefaultPosition, wx.DefaultSize, 0 )
         bSizer674.Add( self.buttonDefault, 0, wx.ALL, 5 )
         
         bSizer673.Add( bSizer674, 1, 0, 5 )
         
         sizerOKCancel = wx.BoxSizer( wx.HORIZONTAL )
         
-        self.buttonOK = wx.Button( self, wx.ID_ANY, u"OK", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonOK = wx.Button( self, wx.ID_ANY, "OK", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonOK, 0, wx.TOP|wx.BOTTOM|wx.LEFT, 5 )
         
-        self.buttonCancel = wx.Button( self, wx.ID_ANY, u"Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.buttonCancel = wx.Button( self, wx.ID_ANY, "Cancel", wx.DefaultPosition, wx.DefaultSize, 0 )
         sizerOKCancel.Add( self.buttonCancel, 0, wx.ALL, 5 )
         
         bSizer673.Add( sizerOKCancel, 0, wx.ALIGN_RIGHT|wx.ALIGN_BOTTOM, 5 )
