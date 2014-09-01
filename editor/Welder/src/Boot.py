@@ -1,262 +1,184 @@
 #!/usr/bin/env python
 """
-Created on Sep 11, 2010
-
-the main program module. load the wx libary and runs the application
-
-Classes in this module
------------------------
-ARC_App - main application class
+The main Boot code,
+shows a splash screen during load 
+loads genral and plugin configuration
+builds the plugin system
+loads the main window
 """
 import os
-import sys
-import types
+import json
+from pathlib import Path
 
-import configparser
-
-import importlib
 
 import wx
-from wx.lib.embeddedimage import PyEmbeddedImage
-import wx.lib.agw.advancedsplash as AS
+
+import Kernel
+import Welder
+
 import wx.lib.inspection
 
-import Welder
-import Logo
 
-def WelderImport(name):
-    if Welder.IMPORT_MODE == "SOURCE":
-        return importlib.import_module(name, package=None)
-    elif Welder.IMPORT_MODE == "COMPIL":
-        return importlib.import_module("Compiled." + name, package=None)
-    else:
-        return importlib.import_module(name, package=None)
-
-Kernel = WelderImport('Kernel')
-#Kernel = WelderImport('Kernel')
-KM = Kernel.Manager
-#KM = Kernel.Manager
-#import Core
-
-
-class Config(object):
-
+class ARCSplashScreen(wx.Frame):
     def __init__(self):
-        self.sections = {}
+        wx.Frame.__init__(self, None, -1, "Welder",
+                style = wx.FRAME_SHAPED | wx.NO_BORDER)
 
-    def has_section(self, key):
-        return str(key).lower() in self.sections
+        self.hasShape = False
+        self.delta = wx.Point(0,0)
 
-    def add_section(self, key):
-        if not self.has_section(key):
-            self.sections[str(key).lower()] = ConfigSection()
+        # Load the image
+        splash = Path(Kernel.GlobalObjects["Program_Dir"], 'splash.png')
+        image = wx.Image(str(splash), wx.BITMAP_TYPE_PNG)         
+        self.bmp = wx.Bitmap(image)
+
+        self.SetClientSize((self.bmp.GetWidth(), self.bmp.GetHeight()))
+        self.CenterOnScreen()
+
+        dc = wx.ClientDC(self)
+        self.Paint(dc)
+
+        self.SetWindowShape()
+
+        self.Bind(wx.EVT_LEFT_DCLICK, self.OnDoubleClick)
+        self.Bind(wx.EVT_LEFT_DOWN, self.OnLeftDown)
+        self.Bind(wx.EVT_LEFT_UP, self.OnLeftUp)
+        self.Bind(wx.EVT_MOTION, self.OnMouseMove)
+        self.Bind(wx.EVT_RIGHT_UP, self.OnExit)
+        self.Bind(wx.EVT_PAINT, self.OnPaint)
+        self.Bind(wx.EVT_WINDOW_CREATE, self.SetWindowShape)
+
+    def SetWindowShape(self, evt=None):
+        r = wx.Region(self.bmp)
+        self.hasShape = self.SetShape(r)
+
+    def OnDoubleClick(self, evt):
+        if self.hasShape:
+            self.SetShape(wx.Region())
+            self.hasShape = False
         else:
-            Kernel.Log("Config Section '%s' already exists" % key, "[Config]")
+            self.SetWindowShape()
 
-    def get_section(self, key):
-        if self.has_section(key):
-            return self.sections[str(key).lower()]
-        else:
-            Kernel.Log("No config section '%s'" % key, "[Config]")
-            return ConfigSection()
+    def OnPaint(self, evt):
+        dc = wx.PaintDC(self)
+        self.Paint(dc)
 
-    def get(self, key, item):
-        if self.has_section(key):
-            return self.get_section(key).get(item)
-        else:
-            return None
+    def Paint(self, dc):
+        
+        dc.DrawBitmap(self.bmp, 0,0, True)
 
-    def getint(self, key, item):
-        if self.has_section(key):
-            return int(self.get_section(key).get(item))
-        else:
-            return None
+        string1 = "Version: %s" % Welder.VERSION
+        string2 = "\n %s %s (%s)" % (Welder.COPYRIGHT, Welder.AUTHOR, Welder.EMAIL)
 
-    def getlist(self, key, item, separator='|'):
-        if self.has_section(key):
-            return self.get_section(key).get(item).split(separator)
-        else:
-            return None
+        dc.SetFont(wx.Font(wx.FontInfo(10)))
+        dc.SetTextBackground(wx.Colour(0, 0, 0))
+        dc.SetTextForeground(wx.Colour(255, 255, 255))
 
-    def set(self, key, item, value):
-        if self.has_section(key):
-            self.get_section(key).set(item, value)
+        text_size1 = dc.GetFullMultiLineTextExtent(string2)
+        text_x = self.bmp.GetWidth() - text_size1[0] - 2
+        text_y = self.bmp.GetHeight() - text_size1[1] - 2
 
-    def itersections(self):
-        for section in self.sections:
-            yield section, self.sections[section]
+        dc.DrawText(string2, text_x, text_y)
 
-class ConfigSection(object):
+        text_size2 = dc.GetFullMultiLineTextExtent(string1)
+        text_x = self.bmp.GetWidth() - text_size2[0] - 2
+        text_y = self.bmp.GetHeight() - text_size2[1] -  text_size1[2] - 2
 
-    def __init__(self):
-        self.items = {}
+        dc.DrawText(string1, text_x, text_y)
 
-    def has_item(self, key):
-        return str(key).lower() in self.items
+    def OnExit(self, evt):
+        self.Close()
 
-    def set(self, key, value):
-        self.items[str(key).lower()] = str(value)
+    def OnLeftDown(self, evt):
+        self.CaptureMouse()
+        pos = self.ClientToScreen(evt.GetPosition())
+        origin = self.GetPosition()
+        self.delta = wx.Point(pos.x - origin.x, pos.y - origin.y)
 
-    def get(self, key):
-        if self.has_item(key):
-            return self.items[str(key).lower()]
-        else:
-            return None
+    def OnMouseMove(self, evt):
+        if evt.Dragging() and evt.LeftIsDown():
+            pos = self.ClientToScreen(evt.GetPosition())
+            newPos = (pos.x - self.delta.x, pos.y - self.delta.y)
+            self.Move(newPos)
 
-    def iteritems(self):
-        for item in self.items:
-            yield item, self.items[item]
-
-class ConfigManager(object):
-
-    @staticmethod
-    def LoadConfig():
-        #main Config
-        local_Welder_path = os.path.join(Kernel.GlobalObjects.get_value("Program_Dir"), "Welder.cfg")
-        print("[BOOT] CFG FILE: %s" % local_Welder_path)
-        Welder_cfg = ConfigManager.PhraseCFGFile(local_Welder_path, dict={"INSTALLDIR": Kernel.GlobalObjects.get_value("Program_Dir"), "COMMONPROGRAMFILES": "%COMMONPROGRAMFILES%"})
-        try:
-            user_Welder_path = os.path.join(Kernel.GetConfigFolder(), "Welder.cfg")
-            if os.path.exists(user_Welder_path):
-                Welder_cfg = ConfigManager.PhraseCFGFile(user_Welder_path, Welder_cfg)
-        except Exception:
-            Kernel.Log("Failed to load user config", "[Main]", error=True)
-        if "Welder_config" in Kernel.GlobalObjects:
-            Kernel.GlobalObjects.set_value("Welder_config", Welder_cfg)
-        else:
-            Kernel.GlobalObjects.request_new_key("Welder_config", "CORE", Welder_cfg)
-        #wx config
-        wx_config = wx.FileConfig(appName="Welder", vendorName="arc@chaos-project.com", 
-                                    localFilename=os.path.join(Kernel.GetConfigFolder(), "filehistory.cfg"))
-        if "WX_config" in Kernel.GlobalObjects:
-            Kernel.GlobalObjects.set_value("WX_config", wx_config)
-        else:
-            Kernel.GlobalObjects.request_new_key("WX_config", "CORE", wx_config)
-        #default component config
-        local_defaults_path = os.path.join(Kernel.GlobalObjects.get_value("Program_Dir"), "defaults.ini")
-        template = Kernel.KernelConfig.build_from_file(local_defaults_path)
-        try:
-            user_defaults_path = os.path.join(Kernel.GetConfigFolder(), "user_defaults.ini")
-            if os.path.exists(user_defaults_path):
-                template = Kernel.KernelConfig.build_from_file(user_defaults_path, template)
-        except Exception:
-            Kernel.Log("Failed to load user component defaults", "[Main]", error=True)
-        if "DefaultComponentTemplate" in Kernel.GlobalObjects:
-            Kernel.GlobalObjects.set_value("DefaultComponentTemplate", template)
-        else:
-            Kernel.GlobalObjects.request_new_key("DefaultComponentTemplate", "CORE", template)
-
-    @staticmethod
-    def SaveConfig():
-        user_Welder_path = os.path.join(Kernel.GetConfigFolder(), "Welder.cfg")
-        ConfigManager.SaveCFGFile(user_Welder_path, Kernel.GlobalObjects.get_value("Welder_config"))
-        Kernel.GlobalObjects.get_value("WX_config").Flush()
-        user_defaults_path = os.path.join(Kernel.GetConfigFolder(), "user_defaults.ini")
-        Kernel.KernelConfig.save_to_file(Kernel.KernelConfig.BuildFromKernel(), user_defaults_path)
-    
-    @staticmethod    
-    def PhraseCFGFile(file_path, config=None, dict=None):
-        if config is None:
-            config = Config()
-        configphraser = configparser.ConfigParser()
-        configphraser.read(file_path)
-        for section in configphraser.sections():
-            if not config.has_section(section):
-                config.add_section(section)
-            for item, value in configphraser.items(section, True):
-                if dict is None:
-                    config.set(section, item, value)
-                else:
-                    config.set(section, item, value % dict)
-        return config
-
-    @staticmethod
-    def SaveCFGFile(file_path, config_obj):
-        config = configparser.ConfigParser()
-        for section_name, section in config_obj.itersections():
-            config.add_section(str(section_name))
-            for name, value in section.items():
-                config.set(str(section_name), str(name), str(value))
-        f = open(file_path, "wb")
-        config.write(f)
-        f.close()
-
-    @staticmethod
-    def LoadPlugins():
-        plugin_path = Kernel.GetPluginFolder()
-        if not os.path.exists(plugin_path) and not os.path.isdir(plugin_path):
-            os.mkdir(plugin_path)
-        names = os.listdir(plugin_path)
-        for name in names:
-            try:
-                if os.path.exists(name):
-                    if os.path.isdir(name):
-                        if os.path.exists(os.path.join(name, "__init__.py")) and not os.path.isdir(os.path.join(name, "__init__.py")):
-                            exec(compile(open(os.path.join(name, "__init__.py")).read(), os.path.join(name, "__init__.py"), 'exec'), globals())
-                    #else:
-                    #    execfile(os.path.join(name, "__init__.py"), globals())
-            except Exception:
-                ConfigManager.HandelErrorLoadingPlugin(name, plugin_path)
-            
-    @staticmethod
-    def HandelErrorLoadingPlugin(name, plugin_path):
-        Kernel.Log("Error Loading plugin %s from path %s" % (name, plugin_path), "[Main Loader]", error=True)
-
-class ARCSplashScreen(AS.AdvancedSplash):
-    def __init__(self):
-        #get the splashscreen logo
-        #bmp = bitmap = wx.Bitmap(os.path.join(Kernel.GlobalObjects.get_value("Program_Dir"), "arc-logo.png"), wx.BITMAP_TYPE_PNG)
-        bmp = Logo.getlogoBitmap()
-        shadow = wx.WHITE
-        AS.AdvancedSplash.__init__(self, None, bitmap=bmp,
-                                   agwStyle=AS.AS_NOTIMEOUT| 
-                                   AS.AS_CENTER_ON_SCREEN|
-                                   AS.AS_SHADOW_BITMAP,
-                                   shadowcolour=shadow)      
+    def OnLeftUp(self, evt):
+        if self.HasCapture():
+            self.ReleaseMouse()
 
     def Do_Setup(self):
         #load up the editor
-        #load the configuration
+
+        wx_config = wx.FileConfig(appName="Welder", vendorName="arc@chaos-project.com", 
+                                    localFilename=os.path.join(Kernel.GetConfigFolder(), "filehistory.cfg"))
+        if "WX_config" in Kernel.GlobalObjects:
+            Kernel.GlobalObjects["WX_config"] = wx_config
+        else:
+            Kernel.GlobalObjects.request_new_key("WX_config", "CORE", wx_config)
+
+        #load the plugin configuration
         try:
-            ConfigManager.LoadConfig()
+            programpath = Path(Kernel.GlobalObjects["Program_Dir"], "Plugins.cfg")
+            userpath = Path(Kernel.GetConfigFolder(), "Plugins.cfg")
+            
+            if programpath.exists():
+                with programpath.open() as f:
+                    Kernel.PluginCFG.updateProgram(json.load(f))
+            if userpath.exists():
+                with userpath.open() as f:
+                    Kernel.PluginCFG.updateUser(json.load(f))
+        except:
+            #we can theoreticly continue even with out plugin defaults, log and continue
+            Kernel.Log("Error Loading Plugin Configuration", "[Main]", True, True)
+
+        #load the genral configuration
+        try:
+            programpath = Path(Kernel.GlobalObjects["Program_Dir"], "Welder.cfg")
+            userpath = Path(Kernel.GetConfigFolder(), "Welder.cfg")
+            
+            if programpath.exists():
+                with programpath.open() as f:
+                    Kernel.Config.updateProgram(json.load(f))
+            if userpath.exists():
+                with userpath.open() as f:
+                    Kernel.Config.updateUser(json.load(f))
         except:
             Kernel.Log("Error Loading Configuration", "[Main]", True, True)
-            #sadly there is a tone of thing that won't work if the configuration didn't load properly so we have to exit
+            #sadly there is also a ton of things that won't work if the genral configuration didn't load properly so we have to exit
             wx.Exit()
-        #import the core and register it
+
+        #build the plugin system
         try:
-            WelderImport('Core').late_bind()
+            #build the system setting up the plugin configuration
+            Kernel.buildSystem(Kernel.PluginCFG.getUnified())
+
+            #bind some plugin system informative events
+            Kernel.System.bind_event('plugin_found', self.onPluginFound)
+
+            #search the Core for all Core plugins
+            Kernel.System.search(str(Path(Kernel.GlobalObjects["Program_Dir"], "Core")))
+            #search the user Plugin folder for plugins
+            Kernel.System.search(Kernel.GetPluginFolder())
         except:
-            Kernel.Log("Error Loading Core", "[Main]", True, True)
+            Kernel.Log("Error Loading Plugins", "[Main]", True, True)
             #we can't recover from this so exit out
             wx.Exit()
 
-        #load plugins
-        #ConfigManager.LoadPlugins()
-        #apply the default component template
-        try:
-            template = Kernel.GlobalObjects.get_value("DefaultComponentTemplate")
-            Kernel.KernelConfig.load(template)
-        except:
-            #even if this fails we should be good to go, plugins probably won;t work though
-            Kernel.Log("Error Applying the Default Component Template, Plugins may not work", "[Main]", True, True)
+
+
+        #ok first bind our close method to a system event to be fired when the main editor is fully loaded
+        Kernel.System.bind_event("EditorReady", self.Close)
             
-        # ok were all set up. bring up the main window and close the splash screen
-        self.ShowMain()
-        #lets start up PyXAL so we can use it
-        self.BindPyXAL()
-        self.fc = wx.FutureCall(1000, self.Close)
+        #load up the main editor component and show the window
+        MainWindow = Kernel.System.load("EditorMainWindow")
+        editor = MainWindow(None, wx.ID_ANY, 'Welder')
+        if "EditorMainWindow" in Kernel.GlobalObjects:
+            Kernel.GlobalObjects["EditorMainWindow"] = editor
+        else:
+            Kernel.GlobalObjects.request_new_key("EditorMainWindow", "CORE", editor)
 
-    def Close(self):
-        self.Hide()
-        self.Destroy()
-        
-    
+    def onPluginFound (self, path, plugin):
+        print("plugin `%s` found at `%s`" % (plugin, path))
 
-    def ShowMain(self):
-        MainWindow = KM.get_component("EditorMainWindow").object
-        self.frame = MainWindow(None, wx.ID_ANY, 'Welder')
-        self.frame.Show(True)
 
     def BindPyXAL(self):
         PyXAL = KM.get_component("PyXAL").object
@@ -272,18 +194,24 @@ class ARC_App(wx.App):
 
         self.SplashScreen = ARCSplashScreen()
         self.SplashScreen.Show()
-        self.fc = wx.CallLater(10, Kernel.Protect(self.SplashScreen.Do_Setup, exit_on_fail=True))
+        self.fc = wx.CallLater(1, Kernel.Protect(self.SplashScreen.Do_Setup, exit_on_fail=True))
 
         self.keepGoing = True
         return True
 
-def Run(programDir):
+def Run(programDir, argv):
+    if "ARGV" in Kernel.GlobalObjects:
+        Kernel.GlobalObjects["ARGV"] = argv
+    else:
+        Kernel.GlobalObjects.request_new_key("ARGV", "CORE", argv)
+
     if "Program_Dir" in Kernel.GlobalObjects:
-        Kernel.GlobalObjects.set_value("Program_Dir", programDir)
+        Kernel.GlobalObjects["Program_Dir"] = programDir
     else:
         Kernel.GlobalObjects.request_new_key("Program_Dir", "CORE", programDir)
 
-    print("[BOOT] Programming Running in %s" % programDir)
+    print("[BOOT] Programming running in %s" % programDir)
+    print("[BOOT] Running with rguments: %s" % argv)
     
     provider = wx.SimpleHelpProvider()
     wx.HelpProvider.Set(provider)
@@ -291,15 +219,17 @@ def Run(programDir):
     app = ARC_App(False)
     #start up the app, we wont be comming back till the app is closed
     app.MainLoop()
+
+    Kernel.GlobalObjects["WX_config"].Flush()
     # we want to clean up PyXAL as much as we can, it's dead now anyway as the window it was bound to is gone
-    try:
-        PyXAL = KM.get_component("PyXAL").object
-        if PyXAL is not None:
-            PyXAL.Destroy()
-    except:
-        Kernel.Log("Error destroying PyXAL Binding", "[Main]", error=True)
-    #lets try to save the user's current config before we leave
-    try:
-        ConfigManager.SaveConfig()
-    except:
-        Kernel.Log("Error saving Configs", "[Main]", error=True)
+    # try:
+    #     PyXAL = KM.get_component("PyXAL").object
+    #     if PyXAL is not None:
+    #         PyXAL.Destroy()
+    # except:
+    #     Kernel.Log("Error destroying PyXAL Binding", "[Main]", error=True)
+    # #lets try to save the user's current config before we leave
+    # try:
+    #     ConfigManager.SaveConfig()
+    # except:
+    #     Kernel.Log("Error saving Configs", "[Main]", error=True)

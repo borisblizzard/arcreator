@@ -3,16 +3,10 @@ Created on Jan 17, 2011
 
 '''
 
-import os
-import sys
-import copy
-
 import wx
 
 
 import wx.lib.agw.aui as aui
-    
-import  wx.lib.scrolledpanel as scrolled
     
 
 
@@ -27,10 +21,7 @@ import  wx.lib.scrolledpanel as scrolled
 #    screen = pygame.display.set_mode((1, 1))
 #===============================================================================
 
-from Boot import WelderImport
-
-Kernel = WelderImport('Kernel')
-KM = Kernel.Manager
+import Kernel
 
 
 class MainStatusBar(wx.StatusBar):
@@ -45,8 +36,6 @@ class MainStatusBar(wx.StatusBar):
         #field 4 is main status text
         #set the relative widths of the fields
         self.SetStatusWidths([-3, -3, -5, -5])
-        #set the styles of the fields
-        self.SetStatusStyles([wx.SB_NORMAL, wx.SB_FLAT, wx.SB_NORMAL, wx.SB_NORMAL])
         #set default text
         self.SetStatusText("Welder - Advanced RPG Creator Editor", 3)
         self.SetStatusText("Idle", 2)

@@ -1,0 +1,13 @@
+{
+    "name": "Layouts",
+    "author": "Ryex",
+    "version": "1.0.0",
+    "file" : "Layouts.py",
+    "consumes": {
+    	"PanelManager": ""
+    },
+    "provides": {
+        "MainWindowLayout": "",
+        "ARCModeLayout": ""
+    }
+}

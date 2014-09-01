@@ -6,13 +6,12 @@ PanelManger
 TODO: create show and hide methods
 
 '''
-import wx
+
 import wx.lib.agw.aui as aui
 
-from Boot import WelderImport
+import Kernel
 
-Kernel = WelderImport('Kernel')
-KM = Kernel.Manager
+from PyitectConsumes import IconManager
     
 class PanelManager(object):
     
@@ -55,11 +54,11 @@ class PanelManager(object):
         if info is not None:
             self.LastActive[info.dock_direction_get()] = id
     
-    def get_panel_object(self, type_name):
+    def get_panel_object(self, component_name):
         '''
         gets the default component panel class form the plugin framework
         '''
-        return KM.get_type("PanelManagerType").get_type(type_name).get_default_component().object
+        return Kernel.System.load(component_name)
     
     def dispatch_panel(self, type, id, arguments=[], info="", data={}, overwrite=False):
         '''
@@ -251,7 +250,6 @@ class PanelManager(object):
             #icon
             if "IconARCM" in word:
                 if "IconARCM" in data:
-                    IconManager = KM.get_component("IconManager").object
                     icon = IconManager.getBitmap(data["IconARCM"])
                     info_obj.Icon(icon)
             elif "Icon" in word:

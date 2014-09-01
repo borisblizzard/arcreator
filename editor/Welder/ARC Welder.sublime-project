@@ -2,7 +2,15 @@
 	"folders":
 	[
 		{
-			"path": "src"
+			"path": "src",
+           	"folder_exclude_patterns": ["__pycache__"]
+		},
+		{
+			"path": "tests"
+		},
+		{
+			"path": ".",
+			"folder_exclude_patterns": ["__pycache__", "src", "tests", "Welder.xcodeproj", "VS_Project"]
 		}
 	]
 }

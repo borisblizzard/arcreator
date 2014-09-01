@@ -1,0 +1,15 @@
+{
+    "name": "Panels",
+    "author": "Ryex",
+    "version": "1.0.0",
+    "file" : "Panels.py",
+    "consumes": {
+    	"IconManager": ""
+    },
+    "provides": {
+        "PanelBase": "",
+        "MainToolbar": "",
+        "DatabaseToolbar": "",
+        "StartPanel": ""
+    }
+}
