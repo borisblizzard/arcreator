@@ -1,0 +1,12 @@
+{
+    "name": "PanelManager",
+    "author": "Ryex",
+    "version": "1.0.0",
+    "file" : "PanelManager.py",
+    "consumes": {
+        "IconManager": ""
+    },
+    "provides": {
+        "PanelManager": ""
+    }
+}

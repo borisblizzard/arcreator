@@ -19,12 +19,25 @@ import traceback
 import inspect
 import platform
 
+import pyitect
+
 import configparser
 import re
 
 import wx
 import wx.lib.agw.pycollapsiblepane as PCP
 import collections
+
+#====================================================================================
+# Plugin System
+#====================================================================================
+global System
+
+System = None
+
+def buildSystem(cfg):
+    global System
+    System = pyitect.System(cfg)
 
 #====================================================================================
 # Global Object Storage
@@ -38,20 +51,6 @@ class GlobalObjectsContainer(object):
 
     def __init__(self):
         self._objects = {
-            "PROJECT":["CORE", None],
-            "ProjectOpen":["CORE", False],
-            "FileHistory":["CORE", None],
-            "CurrentProjectDir":["CORE", ""],
-            "Program_Dir":["CORE", ""],
-            "Title":["CORE", ""],
-            "Mode":["CORE", ""],
-            "Components_config":["CORE", None],
-            "Welder_config":["CORE", None],
-            "WX_config":["CORE", None],
-            "DefaultComponentTemplate":["CORE", None],
-            "ProjectModes":["CORE", {}],
-            "ProjectCreators":["CORE", {}],
-            "PanelManager": ["CORE", None],
         }
 
 
@@ -126,6 +125,45 @@ class GlobalObjectsContainer(object):
 global GlobalObjects
 GlobalObjects = GlobalObjectsContainer()
 
+#====================================================================================
+# Global Config Storage
+#====================================================================================
+class ConfigContainer(object):
+    '''
+    a container to store the config
+    '''
+
+    def __init__(self):
+        self.user = {}
+        self.program = {}
+
+    def updateUser(self, cfg):
+        self.user.update(cfg)
+
+    def updateProgram(self, cfg):
+        self.program.update(cfg)
+
+    def getUser(self):
+        return self.user
+
+    def getProgram(self):
+        return self.program
+
+    def getUnified(self):
+        '''return the program and user cfg's unified'''
+        unif = {}
+        unif.update(self.program)
+        unif.update(self.user)
+        return unif
+
+global Config, PluginCFG
+Config = ConfigContainer()
+PluginCFG = ConfigContainer()
+
+
+#====================================================================================
+# Status Bar Manager (move to plugin?)
+#====================================================================================
 class StatusBar(object):
     ''' Manages the interface to the Status Bar '''
 
@@ -229,7 +267,7 @@ class Manager(object):
     def get_event(name):
         try:
             return Manager.events[str(name)]
-        except KeyError as err:
+        except KeyError:
             Log("Event '%s' not registered with Kernel" % name)
             return Event("None")
 
@@ -304,17 +342,15 @@ class Protect(object):
 def GetDataFolder(): 
     path = "" 
     if sys.platform.startswith('win32'): 
-        path = os.path.expandvars("%ALLUSERSPROFILE%") 
-        if platform.release() == "XP": 
-            path += "\\" + os.path.expandvars("%APPDATA%").split("\\", -1)[-1] 
-        path = os.path.join(path, "Chaos Project", "Welder", os.path.expandvars("%USERNAME%")) 
-    else: 
-        if sys.platform.startswith('linux'): 
-            path = os.path.expanduser(os.path.join("~", ".arc_config"))
-        elif sys.platform.startswith('darwin'): 
-            path = os.path.expanduser(os.path.join("~", "Library", "Application Support"))
-        path = os.path.join(path, "Chaos Project", "Welder")
-    if path != "" and (not os.path.exists(path) or not os.path.isdir(path)):
+        path = os.path.expandvars("%APPDATA%")
+    elif sys.platform.startswith('linux'): 
+        path = os.path.expanduser(os.path.join("~", ".arc_config"))
+    elif sys.platform.startswith('darwin'): 
+        path = os.path.expanduser(os.path.join("~", "Library", "Application Support"))
+    else:
+        raise RuntimeError("Unknown Platform: %s" % sys.platform)
+    path = os.path.join(path, "ARC", "Welder")
+    if (not os.path.exists(path) or not os.path.isdir(path)):
         os.makedirs(path) 
     return path
 
@@ -373,7 +409,7 @@ class ErrorDialog (wx.Dialog):
         mainsizer = wx.BoxSizer(wx.VERTICAL)
         message_sizer = wx.BoxSizer(wx.HORIZONTAL)
         
-        self.cp = cp = PCP.PyCollapsiblePane(self, label="Details",
+        self.cp = PCP.PyCollapsiblePane(self, label="Details",
                                              agwStyle= wx.CP_NO_TLW_RESIZE|wx.CP_USE_STATICBOX)
         self.btn = wx.Button(self.cp, -1, "Details")
         self.cp.SetButton(self.btn)

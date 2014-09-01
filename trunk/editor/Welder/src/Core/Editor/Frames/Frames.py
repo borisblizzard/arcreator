@@ -8,20 +8,13 @@ Classes in this module
 CoreEditorMainWindow - main window class
 
 '''
-import os
-import sys
-
 import wx
 
 import wx.lib.agw.aui as aui
 
-from Boot import WelderImport
 
-Kernel = WelderImport('Kernel')
-Core = WelderImport('Core')
-KM = Kernel.Manager
-
-Panels = Core.Panels
+import Kernel
+from PyitectConsumes import IconManager, MainWindowLayout, MainStatusBar, MainMenuBar
 
 MinEditorSize = (1000, 500)
 
@@ -37,11 +30,11 @@ class AuiManager_DCP_ARC(aui.AuiManager_DCP):
             return
 
         self.hasDummyPane = True
-        dummy = Panels.ShadowPanel(self.GetManagedWindow())
+        #dummy = ShadowPanel(self.GetManagedWindow())
         info = aui.AuiPaneInfo().CenterPane().NotebookDockable(True).Name('dummyCenterPane').DestroyOnClose(True)
-        self.AddPane(dummy, info)
+        #self.AddPane(dummy, info)
 
-class CoreEditorMainWindow(wx.Frame):
+class EditorMainWindow(wx.Frame):
     
     def __init__(self, parent, id=wx.ID_ANY, title="", pos=wx.DefaultPosition,
                     size=MinEditorSize, style=wx.DEFAULT_FRAME_STYLE | wx.SUNKEN_BORDER):
@@ -55,7 +48,6 @@ class CoreEditorMainWindow(wx.Frame):
         self.main_title = title
 
         #set the frame icon
-        IconManager = KM.get_component("IconManager").object
         self.SetIcon(IconManager.getIcon("arcicon"))
 
         self._mgr = AuiManager_DCP_ARC()
@@ -72,7 +64,7 @@ class CoreEditorMainWindow(wx.Frame):
         
         self.SetMinSize(wx.Size(1000, 500))
 
-        KM.get_event("CoreEventRefreshProject").register(self.CallLayout)
+        # KM.get_event("CoreEventRefreshProject").register(self.CallLayout)
 
         self.Bind(wx.EVT_UPDATE_UI, self.UpdateUI)
         self.Bind(wx.EVT_CLOSE, self.OnClose, self)
@@ -85,9 +77,10 @@ class CoreEditorMainWindow(wx.Frame):
 
         #start The autosave Time
         self.AutoSaveTimer = wx.Timer(self)
-        save_intervel = Kernel.GlobalObjects.get_value("Welder_config").getint("Main", "Autosave")
-        self.Bind(wx.EVT_TIMER, self.ProcessAutoSave, self.AutoSaveTimer)
-        self.AutoSaveTimer.Start(save_intervel * 60000, False)
+        #TODO: fix autosave
+        #save_intervel = Kernel.GlobalObjects.get_value("Welder_config").getint("Main", "Autosave")
+        #self.Bind(wx.EVT_TIMER, self.ProcessAutoSave, self.AutoSaveTimer)
+        #self.AutoSaveTimer.Start(save_intervel * 60000, False)
 
         #show the window
         wx.GetApp().SetTopWindow(self)
@@ -98,11 +91,10 @@ class CoreEditorMainWindow(wx.Frame):
             self.layout_mgr.Refresh()
         else:
             #get the layout component
-            layout = KM.get_component("EditorMainWindowLayout").object
-            self.layout_mgr = layout(self, self._mgr)
+            self.layout_mgr = MainWindowLayout(self, self._mgr)
 
     def CreateMenuBar(self):
-        self.menubar = KM.get_component("MainMenuBar").object(self)
+        self.menubar = MainMenuBar(self)
         self.SetMenuBar(self.menubar) #Adding the MenuBar to the Frame.
         if "MainMenuBar" in Kernel.GlobalObjects:
             Kernel.GlobalObjects.set_value("MainMenuBar", self.menubar)
@@ -110,7 +102,7 @@ class CoreEditorMainWindow(wx.Frame):
             Kernel.GlobalObjects.request_new_key("MainMenuBar", "CORE", self.menubar)
 
     def CreateStatusBar(self):
-        self.statusbar = (KM.get_component("MainStatusBar").object(self))
+        self.statusbar = MainStatusBar(self)
         self.SetStatusBar(self.statusbar)
         if "MainStatusBar" in Kernel.GlobalObjects:
             Kernel.GlobalObjects.set_value("MainStatusBar", self.menubar)

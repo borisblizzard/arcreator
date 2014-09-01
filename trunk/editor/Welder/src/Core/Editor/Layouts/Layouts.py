@@ -2,13 +2,9 @@
 Created on Jan 14, 2011
 
 '''
-import wx
-import wx.lib.agw.aui as aui
+import Kernel
 
-from Boot import WelderImport
-
-Kernel = WelderImport('Kernel')
-KM = Kernel.Manager
+from PyitectConsumes import PanelManager
 
 class MainWindowLayout(object):
 
@@ -16,7 +12,7 @@ class MainWindowLayout(object):
 
         self.parent = parent
         self.aui_mgr = aui_mgr
-        self.mgr = KM.get_component("PanelManager").object(self.parent, self.aui_mgr)
+        self.mgr = PanelManager(self.parent, self.aui_mgr)
         if "PanelManager" in Kernel.GlobalObjects:
             Kernel.GlobalObjects.set_value("PanelManager", self.mgr)
         else:
@@ -24,7 +20,7 @@ class MainWindowLayout(object):
 
         self.CreateToolbars()
         self.CreateStartPanel()
-        self.layout = KM.get_component("ARCModeLayout").object()
+        self.layout = ARCModeLayout()
         
 
     def CreateToolbars(self):

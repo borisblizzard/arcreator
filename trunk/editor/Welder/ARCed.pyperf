@@ -1,8 +1,0 @@
-<?xml version="1.0"?>
-<ProfilingTarget xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <ProjectTarget>
-    <TargetProject>d772c392-e7b6-4c18-8c5f-49bac2a1e237</TargetProject>
-    <FriendlyName>ARCed</FriendlyName>
-  </ProjectTarget>
-  <Reports />
-</ProfilingTarget>

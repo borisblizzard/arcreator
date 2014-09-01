@@ -2,7 +2,7 @@
 # * ARC Constants
 #====================================================================================
 
-VERSION = "0.8.5.760"
-
-IMPORT_MODE = "SOURCE"
-#IMPORT_MODE = "COMPIL"
+VERSION = "0.8.5-r760"
+AUTHOR = "ARC Developers"
+EMAIL = "arc@gmail.com"
+COPYRIGHT = "© 2014"

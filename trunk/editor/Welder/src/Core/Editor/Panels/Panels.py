@@ -4,18 +4,13 @@ Panels
 Containes the panel classes dispatched by the Panel Manager
 '''
 
-import os
-import sys
-import copy
-
 import wx
 
 import wx.lib.agw.aui as aui
 
-from Boot import WelderImport
+import Kernel
 
-Kernel = WelderImport('Kernel')
-KM = Kernel.Manager
+from PyitectConsumes import IconManager
 
 class PanelBase(object):
 
@@ -60,7 +55,7 @@ class MainToolbar(aui.AuiToolBar):
         self.BindEvents()
 
     def AddTools(self):
-        IconManager = KM.get_component("IconManager").object
+
         #get bitmaps
         newbmp = IconManager.getBitmap("newicon")
         openbmp = IconManager.getBitmap("openicon")
@@ -188,7 +183,6 @@ class DatabaseToolbar(aui.AuiToolBar):
         self.BindEvents()
 
     def AddTools(self):
-        IconManager = KM.get_component("IconManager").object
         #get bitmaps
         actorsbmp = IconManager.getBitmap("actorsicon")
         classesbmp = IconManager.getBitmap("classesicon")
@@ -382,11 +376,11 @@ class StartPanel(wx.Panel, PanelBase):
         self.BindPanelManager()
 
 
-class ShadowPanel(wx.Panel, PanelBase):
+# class ShadowPanel(wx.Panel, PanelBase):
 
-    _arc_panel_info_string = "Name Caption CloseB CaptionV BestS MinimizeB Floatable Resizable Snappable NotebookD Movable DestroyOC"
-    _arc_panel_info_data = {"Name": "Shadow Panel", "Caption": "Shadow Panel", "CaptionV": False, "BestS": (1000 - 8, 500), "MinimizeB": False, "CloseB": False, "Floatable" : False,}
+#     _arc_panel_info_string = "Name Caption CloseB CaptionV BestS MinimizeB Floatable Resizable Snappable NotebookD Movable DestroyOC"
+#     _arc_panel_info_data = {"Name": "Shadow Panel", "Caption": "Shadow Panel", "CaptionV": False, "BestS": (1000 - 8, 500), "MinimizeB": False, "CloseB": False, "Floatable" : False,}
     
-    def __init__(self, parent):
-        wx.Panel.__init__(self, parent)
-        self.BindPanelManager()
+#     def __init__(self, parent):
+#         wx.Panel.__init__(self, parent)
+#         self.BindPanelManager()

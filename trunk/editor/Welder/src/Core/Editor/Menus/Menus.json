@@ -1,0 +1,12 @@
+{
+    "name": "Menus",
+    "author": "Ryex",
+    "version": "1.0.0",
+    "file" : "Menus.py",
+    "consumes": {
+
+    },
+    "provides": {
+        "MainMenuBar": ""
+    }
+}

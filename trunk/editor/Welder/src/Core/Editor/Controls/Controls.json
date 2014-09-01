@@ -1,0 +1,13 @@
+{
+    "name": "Controls",
+    "author": "Ryex",
+    "version": "1.0.0",
+    "file" : "Controls.py",
+    "consumes": {
+        "IconManager": ""
+    },
+    "provides": {
+        "MainStatusBar": "",
+        "MapTreeCtrl": ""
+    }
+}

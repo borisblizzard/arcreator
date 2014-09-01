@@ -2,19 +2,11 @@
 Created on Dec 21, 2010
 
 '''
-import os
-import sys
 import wx
 
-from Boot import WelderImport
+import Kernel
 
-Kernel = WelderImport('Kernel')
-KM = Kernel.Manager
-import configparser
-
-
-
-class CoreMainMenuBar(wx.MenuBar):
+class MainMenuBar(wx.MenuBar):
     """the main menu bar for the application"""
     def __init__(self, mainwindow):
         wx.MenuBar.__init__(self)
@@ -32,15 +24,16 @@ class FileMenu(wx.Menu):
 
     def __init__(self, mainwindow):
         wx.Menu.__init__(self)
-        config = Kernel.GlobalObjects.get_value("Welder_config")
-        file_history_length = None
-        try:
-            file_history_length = config.getint("Main", "FileHistory")
-        except:
-            Kernel.Log("Invalid setting for FileHistory in configuration", "[FileHistory]", error=True)
-        if file_history_length  is None:
-            file_history_length = 5
-        self.filehistory = wx.FileHistory(file_history_length)
+        config = Kernel.Config.getUnified()
+        filehistory = None
+        if "filehistory" in config:
+            if isinstance(config["filehistory"], int):
+                filehistory = config["filehistory"]
+            else:
+                Kernel.Log("Invalid setting for FileHistory in configuration", "[FileHistory]", error=True)
+        if filehistory is None:
+            filehistory = 5
+        self.filehistory = wx.FileHistory(filehistory)
         self.filehistory.Load(Kernel.GlobalObjects.get_value("WX_config"))
 
         if "FileHistory" in Kernel.GlobalObjects:
