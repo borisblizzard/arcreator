@@ -40,6 +40,11 @@ class ARCSplashScreen(wx.Frame):
 
         self.SetWindowShape()
 
+        textctl_size = (self.bmp.GetWidth() / 2 + 32, self.bmp.GetHeight() / 4 - 32)
+        textctl_pos = (16, self.bmp.GetHeight() / 4 * 3 + 16)
+
+        self.logctl = wx.TextCtrl(self, wx.ID_ANY, "", textctl_pos, textctl_size, wx.TE_MULTILINE|wx.TE_READONLY|wx.TE_DONTWRAP )
+
         self.Bind(wx.EVT_LEFT_DCLICK, self.OnDoubleClick)
         self.Bind(wx.EVT_LEFT_DOWN, self.OnLeftDown)
         self.Bind(wx.EVT_LEFT_UP, self.OnLeftUp)
@@ -153,6 +158,8 @@ class ARCSplashScreen(wx.Frame):
 
             #bind some plugin system informative events
             Kernel.System.bind_event('plugin_found', self.onPluginFound)
+            Kernel.System.bind_event('plugin_loaded', self.onPluginLoad)
+            Kernel.System.bind_event('component_loaded', self.onComponentLoad)
 
             #search the Core for all Core plugins
             Kernel.System.search(str(Path(Kernel.GlobalObjects["Program_Dir"], "Core")))
@@ -177,8 +184,18 @@ class ARCSplashScreen(wx.Frame):
             Kernel.GlobalObjects.request_new_key("EditorMainWindow", "CORE", editor)
 
     def onPluginFound (self, path, plugin):
-        print("plugin `%s` found at `%s`" % (plugin, path))
+        self.log("Plugin '%s' found at '%s'" % (plugin, path))
 
+    def onPluginLoad (self, plugin, plugin_required, component_needed):
+        self.log("Plugin '%s' was loaded by plugin '%s' during a request for the '%s' component" % (plugin, plugin_required, component_needed))
+
+    def onComponentLoad (self, component, plugin_required, plugin_loaded):
+        self.log("Component '%s' loaded, required by plugin '%s', loaded from plugin '%s'" % (component, plugin_required, plugin_loaded) )
+
+    def log(self, message):
+        self.logctl.AppendText(message + "\n")
+        wx.SafeYield()
+        print("[Pyitect] %s" % message)
 
     def BindPyXAL(self):
         PyXAL = KM.get_component("PyXAL").object
@@ -211,7 +228,7 @@ def Run(programDir, argv):
         Kernel.GlobalObjects.request_new_key("Program_Dir", "CORE", programDir)
 
     print("[BOOT] Programming running in %s" % programDir)
-    print("[BOOT] Running with rguments: %s" % argv)
+    print("[BOOT] Running with arguments: %s" % argv)
     
     provider = wx.SimpleHelpProvider()
     wx.HelpProvider.Set(provider)

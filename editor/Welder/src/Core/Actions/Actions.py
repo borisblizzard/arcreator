@@ -2,9 +2,7 @@
 Created on Oct 10, 2011
 
 '''
-from Boot import WelderImport
-
-Kernel = WelderImport('Kernel')
+import Kernel
 
 class ActionManager(object):
     

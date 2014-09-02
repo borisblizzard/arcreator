@@ -4,17 +4,15 @@ Created on Jan 16, 2011
 
 '''
 import os
-import sys
+
 import configparser
 import re
 
 import wx
 
-from Boot import WelderImport
+import Kernel
 
-Kernel = WelderImport('Kernel')
-KM = Kernel.Manager
-
+from PyitectConsumes import RTPFunctions
 
 class NewProjectDialog(wx.Dialog):
 
@@ -69,7 +67,6 @@ class NewProjectDialog(wx.Dialog):
         self.templateRadiobt = wx.RadioButton(self, wx.ID_ANY, 'From Template', style=wx.RB_GROUP)
         templatesizer.Add(self.templateRadiobt, 0, wx.ALL, 5)
 
-        RTPFunctions = KM.get_component("ARCRTPFunctions").object
         templates_path = os.path.join(wx.StandardPaths.Get().GetDocumentsDir(), "ARC", "Templates")
         if not os.path.isdir(templates_path):
             os.makedirs(templates_path)
@@ -291,22 +288,3 @@ class NewProjectDialog(wx.Dialog):
                 dlg.ShowModal()
                 return False
         return True
-
-
-
-
-#=======================================================================
-# NOTE: the below is for testing purposes only
-#=======================================================================
-
-if __name__ == '__main__':
-    import Core
-
-    provider = wx.SimpleHelpProvider()
-    wx.HelpProvider.Set(provider)
-
-
-    app = wx.PySimpleApp()
-    frame = NewProjectDialog(None)
-    frame.Show()
-    app.MainLoop()

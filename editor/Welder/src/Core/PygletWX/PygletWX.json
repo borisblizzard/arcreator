@@ -1,0 +1,13 @@
+{
+    "name": "PygletWX",
+    "author": "Ryex",
+    "version": "1.0.0",
+    "file" : "PygletWX.py",
+    "consumes": {
+
+    },
+    "provides": {
+        "PygletWXContext": "",
+        "PygletGLPanel": ""
+    }
+}

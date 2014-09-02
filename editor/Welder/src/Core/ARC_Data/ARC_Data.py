@@ -402,3 +402,6 @@ class ARC_Dump(object):
             setattr(obj, ARC_Dump._load(), ARC_Dump._load())
         return obj
     
+global Dump, Load
+Dump = ARC_Dump.dump
+Load = ARC_Dump.load
