@@ -51,7 +51,7 @@ class FileMenu(wx.Menu):
         self.filehistory.UseMenu(recent)
         self.filehistory.AddFilesToMenu()
 
-        self.AppendMenu(wx.ID_ANY, "&Recent Files", recent)
+        self.Append(wx.ID_ANY, "&Recent Files", recent)
 
         #add items
         self.new = self.Append(wx.ID_NEW, "&New\tCtrl+N")

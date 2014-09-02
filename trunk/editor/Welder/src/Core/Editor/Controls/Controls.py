@@ -110,7 +110,7 @@ class MapTreeCtrl(wx.TreeCtrl):
             style |= wx.TR_EDIT_LABELS | wx.WANTS_CHARS
         wx.TreeCtrl.__init__(self, parent, id, pos, size, style)
         self.parent = parent
-        KM.get_event("CoreEventRefreshProject").register(self.Refresh_Map_List)
+        KM.get_event("RefreshProject").register(self.Refresh_Map_List)
         IconManager = KM.get_component("IconManager").object
         imglist = wx.ImageList(16, 16, True, 2)
         imglist.Add(IconManager.getBitmap("project_icon"))
@@ -192,7 +192,7 @@ class MapTreeCtrl(wx.TreeCtrl):
         self.Expand(root)
 
     def onClose(self, event):
-        KM.get_event("CoreEventRefreshProject").unregister(self.Refresh_Map_List)
+        KM.get_event("RefreshProject").unregister(self.Refresh_Map_List)
         event.Skip()
 
 class WxRMXPMapWindow(wx.ScrolledWindow):

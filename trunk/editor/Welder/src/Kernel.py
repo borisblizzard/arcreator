@@ -272,7 +272,6 @@ class Manager(object):
             return Event("None")
 
 
-
 class Event(object):
     '''A data class used as a container for organizing events as their 
     registered methods and methods'''

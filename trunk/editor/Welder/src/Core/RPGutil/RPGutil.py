@@ -9,7 +9,6 @@ Table - three dimensional table
 Color - contains RGB color data
 Tone - contains RGBGr tone data
 """
-import os
 import numpy
 from struct import pack, unpack
 

@@ -5,17 +5,16 @@ Contains data for a open project
 
 '''
 import os
-import sys
 import time
 import configparser
 import zipfile
 import re
 
-from Boot import WelderImport
 import collections
 
-Kernel = WelderImport('Kernel')
-KM = Kernel.Manager
+import Kernel
+
+from PyitectConsumes import ARCDataDumpFunction, ARCDataLoadFunction
 
 class Project(object):
     
@@ -364,7 +363,6 @@ class AdvancedDataHandler(object):
         dir_name = os.path.join(self.project.getProjectPath(), "Data")
         return dir_name
                 
-
 class ARCProjectCreator(object):
     
     def __init__(self):
@@ -372,11 +370,11 @@ class ARCProjectCreator(object):
         
     def Create(self, path, title, template):
         #create a project object
-        self.project = KM.get_component("ARCProjectHolder").object()
+        self.project = Project()
         if template[0]:
             #load the template
             self.project.setProjectPath(template[1])
-            self.project.setLoadFunc(KM.get_component("ARCProjectLoadFunction").object)
+            self.project.setLoadFunc(ARCProjectLoadFunction)
             self.project.loadProject(backup=False)
             mapinfos = self.project.getData("MapInfos")
             for key in mapinfos:
@@ -402,7 +400,7 @@ class ARCProjectCreator(object):
         self.project.setInfo("Title", title)
         self.project.setChangedInfo("Title", False)
         #set the save function
-        self.project.setSaveFunc(KM.get_component("ARCProjectSaveFunction").object)
+        self.project.setSaveFunc(ARCProjectSaveFunction)
         #set the project path
         self.project.setProjectPath(path)
         #save the project
@@ -422,9 +420,8 @@ def ARCProjectSaveFunction(dir_name, filename, obj):
     try:
         f = open(path, "wb")
         redirects = {}
-        KM.raise_event("CoreEventARCRedirectClassPathsOnSave", redirects)
-        save_func = KM.get_component("ARCDataDumpFunction").object
-        save_func(f, obj, redirects)
+        Kernel.System.fire_event("ARCRedirectClassPathsOnSave", redirects)
+        ARCDataDumpFunction(f, obj, redirects)
         f.close()
     except IOError:
         Kernel.Log("IO Error encountered Saving file %s" % path, "[ARC Save Function]", True)
@@ -435,11 +432,10 @@ def ARCProjectLoadFunction(dir_name, filename):
         try:
             f = open(path, "rb")
             redirects = {}
-            KM.raise_event("CoreEventARCRedirectClassPathsOnLoad", redirects)
+            Kernel.System.fire_event("ARCRedirectClassPathsOnLoad", redirects)
             extended_namespace = {}
-            KM.raise_event("CoreEventARCExtendNamespaceOnLoad", extended_namespace)
-            load_func = KM.get_component("ARCDataLoadFunction").object
-            obj = load_func(f, redirects, extended_namespace)
+            Kernel.System.fire_event("ARCExtendNamespaceOnLoad", extended_namespace)
+            obj = ARCDataLoadFunction(f, redirects, extended_namespace)
             f.close()
             return obj
         except IOError:
@@ -458,7 +454,7 @@ class ARCProjectSaver(object):
     def save(self, path=""):
         if not path == "":
             self.project.setProjectPath(path)
-        self.project.setSaveFunc(KM.get_component("ARCProjectSaveFunction").object)
+        self.project.setSaveFunc(ARCProjectSaveFunction)
         self.project.saveProject()
 
     def getProject(self):
@@ -470,11 +466,11 @@ class ARCProjectSaver(object):
 class ARCProjectLoader(object):
 
     def __init__(self):
-        self.project = KM.get_component("ARCProjectHolder").object()
+        self.project = Project()
 
     def load(self, path):
         self.project.setProjectPath(path)
-        self.project.setLoadFunc(KM.get_component("ARCProjectLoadFunction").object)
+        self.project.setLoadFunc(ARCProjectLoadFunction)
         self.project.loadProject()
         
 

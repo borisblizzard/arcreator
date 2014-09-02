@@ -64,7 +64,7 @@ class EditorMainWindow(wx.Frame):
         
         self.SetMinSize(wx.Size(1000, 500))
 
-        # KM.get_event("CoreEventRefreshProject").register(self.CallLayout)
+        # KM.get_event("RefreshProject").register(self.CallLayout)
 
         self.Bind(wx.EVT_UPDATE_UI, self.UpdateUI)
         self.Bind(wx.EVT_CLOSE, self.OnClose, self)
@@ -160,7 +160,7 @@ class EditorMainWindow(wx.Frame):
                     KM.get_component("SaveProjectHandler").object()
 
     def ProcessAutoSave(self, event):
-        KM.raise_event("CoreEventAutoSave")
+        KM.raise_event("AutoSave")
 
     def OnFloating(self, event):
         pass

@@ -1,19 +1,13 @@
 import os
 import gc
-import colorsys
-import time
 import collections
 
 import wx
 import pyglet
 import numpy
-import PIL
 from PIL import Image
 
-from Boot import WelderImport
-
-Kernel = WelderImport('Kernel')
-KM = Kernel.Manager
+import Kernel
 
 class ImageFunctions(object):
 
@@ -387,7 +381,6 @@ class PILCache(object):
                 del autotile
                 return PILCache._AutoTileCache[key]
             else:
-                del autotile
                 return None
         
 
@@ -454,7 +447,6 @@ class PILCache(object):
                 return PILCache._TileCache[key][hue]
                 
             else:
-                del tileset
                 return None
         
 
@@ -502,7 +494,6 @@ class PygletCache(object):
                 del image
                 return self._Cache[key]
             else:
-                del image
                 return None
             
     def Animation(self, filename, hue):
@@ -528,7 +519,6 @@ class PygletCache(object):
                 del pygletimage
                 return self._Cache[key]
             else:
-                del image
                 return None
 
     def Battleback(self, filename):
@@ -581,9 +571,12 @@ class PygletCache(object):
                 del pygletimage
                 return self._Cache[key]
             else:
-                del image
                 return None
 
     def Clear(self):
         self._Cache = collections.OrderedDict()
         gc.collect()
+
+global RTPCache, RTPPygletCache
+RTPCache = PILCache
+RTPPygletCache = PygletCache

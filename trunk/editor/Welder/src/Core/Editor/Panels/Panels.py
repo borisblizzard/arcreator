@@ -292,7 +292,7 @@ class DatabaseToolbar(aui.AuiToolBar):
     def paneldispatch(self, event):
         broken = [self.troopsid, self.animationsid, self.tilesetsid, self.commoneventsid, self.systemid]
         if event.Id in broken:
-            KM.raise_event("CoreEventBrokenDatabasePanel")
+            KM.raise_event("BrokenDatabasePanel")
         if event.Id == self.actorsid:
             if self.actorspanel:
                 self.mgr.RequestUserAttention(self.actorspanel) 

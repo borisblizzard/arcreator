@@ -3,14 +3,8 @@ from wx import glcanvas
 import pyglet
 pyglet.options['shadow_window'] = False
 from pyglet import gl
-from pyglet.gl import GLException
-import numpy
-import rabbyt
 
-from Boot import WelderImport
-
-Kernel = WelderImport('Kernel')
-KM = Kernel.Manager
+import Kernel
 
 class PygletGLPanel(wx.Panel):
 

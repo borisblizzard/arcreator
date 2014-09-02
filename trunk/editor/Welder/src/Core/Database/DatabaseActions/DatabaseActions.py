@@ -1,15 +1,11 @@
-import types
-from copy import copy, deepcopy
+from copy import copy
 import numpy
 
-from Boot import WelderImport
+import Kernel
 
-Kernel = WelderImport('Kernel')
-KM = Kernel.Manager
+from PyitectConsumes import Table, ActionTemplate
 
-import Actions
-
-class DatabaseAction(Actions.ActionManager):
+class DatabaseAction(ActionTemplate):
     ''' an action that edits RGSS Datatypes'''
 
     def __init__(self, data={}, sub_action=False):
@@ -103,15 +99,14 @@ class DatabaseAction(Actions.ActionManager):
     def undo_extra(self):
         return True
     
-class TableEditAction(Actions.ActionTemplate):
+class TableEditAction(ActionTemplate):
     ''' an action that edits a RGSS Table'''
     def __init__(self, table, data={}, sub_action=False):
         super(TableEditAction, self).__init__(sub_action)
         if not isinstance(data, dict):
             raise TypeError("Error: Expected dict type for 'data'")
-        table_class = KM.get_component("Table").object
-        if not isinstance(table, table_class):
-            raise TypeError("Error: Expected %s type for 'table'" % table_class)
+        if not isinstance(table, Table):
+            raise TypeError("Error: Expected %s type for 'table'" % Table)
         self.table = table
         self.data = data
         self.oldvalue = None
@@ -312,7 +307,7 @@ class ActorEditAction(DatabaseAction):
         actions_now = []
         try:
             if "parameters" in self.data:
-                self.parameters_action = KM.get_component("TableEditAction").object(self.obj.parameters, self.data["parameters"], sub_action=True)
+                self.parameters_action = TableEditAction(self.obj.parameters, self.data["parameters"], sub_action=True)
                 result &= self.parameters_action.apply()
                 actions_now.append(self.parameters_action)
                 if not result:
@@ -485,7 +480,7 @@ class AnimationFrameEditAction(DatabaseAction):
         actions_now = []
         try:
             if "cell_data" in self.data:
-                self.cell_data_action = KM.get_component("TableEditAction").object(self.obj.cell_data, self.data["cell_data"], sub_action=True)
+                self.cell_data_action = TableEditAction(self.obj.cell_data, self.data["cell_data"], sub_action=True)
                 result &= self.cell_data_action.apply()
                 actions_now.append(self.cell_data_action)
                 if not result:
@@ -917,3 +912,4 @@ class MemberEditAction(DatabaseAction):
         self.setType("Member")
         self.setObj(obj)
         self.addKeys('enemy_id', 'x', 'y', 'hidden', 'immortal')
+        

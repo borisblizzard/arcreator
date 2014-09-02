@@ -2256,7 +2256,7 @@ class EventFormaterType(SuperType):
         )
 
 
-class CoreEventPackage(Package):
+class Package(Package):
     '''Core event Package, Contains event command processing'''
     def __init__(self):
         Package.__init__(self, "CORE_EVENTS_FORMAT", "CORE_EVENTS_FORMAT")
@@ -2378,12 +2378,12 @@ class CoreEventPackage(Package):
             ["Command404", Command404]
         ]
         for command in commands:
-            component = Component(command[1], command[0], "EventFormaterType", "CoreEvent" + command[0], "CORE_EVENTS_FORMAT", 1.0, self)
+            component = Component(command[1], command[0], "EventFormaterType", "" + command[0], "CORE_EVENTS_FORMAT", 1.0, self)
             self.add_component(component)
 
-        self.add_component(Component(EventCommandFormater, "EventCommandFormater", None, "CoreEventCommandFormater", "CORE_EVENTS_FORMAT", 1.0, self))
+        self.add_component(Component(EventCommandFormater, "EventCommandFormater", None, "CommandFormater", "CORE_EVENTS_FORMAT", 1.0, self))
 
-package = CoreEventPackage()
+package = Package()
 key = package.add_to_kernel()
 
 # this line is only here because it is the core and should be enabled by default,

@@ -939,7 +939,7 @@ class TilemapPanel(PygletGLPanel):
                 self.SetTopLeftXY(event)
             self.SetBottomRightXY(event)
         if event.LeftDown():
-            KM.raise_event("CoreEventMapEditorMouseLeftDown", event)
+            KM.raise_event("MapEditorMouseLeftDown", event)
             self.SetFocus()
             self.canvas.CaptureMouse()
             if self.onEventLayer():

@@ -26,17 +26,9 @@ Tileset
 Troop
 Weapon
 '''
-import wx
-import os
-import gc
 import types
 
-from Boot import WelderImport
-Core = WelderImport('Core')
-
-Table = Core.RPGutil.Table
-Color = Core.RPGutil.Color
-Tone = Core.RPGutil.Tone
+from PyitectConsumes import Table, Color, Tone
 
 class _Actor(object):
     _arc_class_path = "RPG::Actor"

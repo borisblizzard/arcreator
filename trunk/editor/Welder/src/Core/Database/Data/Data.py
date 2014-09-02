@@ -3,16 +3,11 @@ Created on Jan 18, 2011
 
 '''
 import os
-import sys
-
-import configparser
-
 import wx
 
-from Boot import WelderImport
+import Kernel
 
-Kernel = WelderImport('Kernel')
-KM = Kernel.Manager
+from PyitectConsumes import NewProjectDialog, SaveProjectHandler, ARCProjectCreator, ARCProjectLoader, ARCProjectSaver
 
 def NewProject(mainwindow):
     #handle an already open project
@@ -27,15 +22,15 @@ def NewProject(mainwindow):
                                wx.YES_DEFAULT)
         result = dlg.ShowModal()
         if result == wx.YES:
-            KM.get_component("SaveProjectHandler").object()
+            SaveProjectHandler()
     #pull the dialog for the newproject
-    dlg = KM.get_component("NewProjectDialog").object(mainwindow)
+    dlg = NewProjectDialog(mainwindow)
     result = dlg.ShowModal()
     if result == wx.ID_OK:
         #lets create the project
         template, name, folder = dlg.getdata()
         path = os.path.join(folder, "%s.arcproj" % os.path.basename(folder))
-        projectcreator = KM.get_component("ARCProjectCreator").object()
+        projectcreator = ARCProjectCreator()
         Kernel.StatusBar.BeginTask(2, "Creating Project")
         projectcreator.Create(path, name, template)
         Kernel.StatusBar.UpdateTask(1, "Finished Creating Project")
@@ -61,12 +56,12 @@ def NewProject(mainwindow):
             Kernel.GlobalObjects.request_new_key("ProjectOpen", "CORE", True)
         #refresh the interface on project data change
         Kernel.StatusBar.UpdateTask(1, "Refreshing Interface")
-        KM.raise_event("CoreEventRefreshProject")
+        Kernel.System.fire_event("RefreshProject")
         Kernel.StatusBar.EndTask()
     dlg.Destroy()
 
 def OpenProject(mainwindow, filehistory, path=""):
-    KM.raise_event("CoreEventOpenProject")
+    Kernel.System.fire_event("OpenProject")
     #handle an already open project
     if "ProjectOpen" in Kernel.GlobalObjects and (Kernel.GlobalObjects.get_value("ProjectOpen") == True) and "PROJECT" in Kernel.GlobalObjects:
         current_project = Kernel.GlobalObjects.get_value("PROJECT")
@@ -79,7 +74,7 @@ def OpenProject(mainwindow, filehistory, path=""):
                                wx.YES_DEFAULT)
         result = dlg.ShowModal()
         if result == wx.YES:
-            KM.get_component("SaveProjectHandler").object()
+            SaveProjectHandler()
     #now lets open a project
     if path == "":
         #if we open the project through file history we alrady have a path 
@@ -105,7 +100,7 @@ def OpenProject(mainwindow, filehistory, path=""):
     if "CurrentProjectDir" in Kernel.GlobalObjects:
         Kernel.GlobalObjects.set_value("CurrentProjectDir", path)
     #get a project loader
-    projectloader = KM.get_component("ARCProjectLoader").object()
+    projectloader = ARCProjectLoader()
     #this might take a while lets say we busy
     Kernel.StatusBar.BeginTask(2, "Loading Project")
     projectloader.load(path)
@@ -133,12 +128,11 @@ def OpenProject(mainwindow, filehistory, path=""):
         Kernel.GlobalObjects.request_new_key("ProjectOpen", "CORE", True)
     #refresh the interface on project data change
     Kernel.StatusBar.UpdateTask(1, "Refreshing Interface")
-    KM.raise_event("CoreEventRefreshProject")
+    Kernel.System.fire_event("RefreshProject")
     Kernel.StatusBar.EndTask()
 
-
 def SaveProject():
-    KM.raise_event("CoreEventSaveProject")
+    Kernel.System.fire_event("SaveProject")
     if "PROJECT" in Kernel.GlobalObjects and (Kernel.GlobalObjects.get_value("PROJECT") != None):
         project = Kernel.GlobalObjects.get_value("PROJECT")
         if "CurrentProjectDir" in Kernel.GlobalObjects and not (Kernel.GlobalObjects.get_value("CurrentProjectDir") == ""):
@@ -146,19 +140,19 @@ def SaveProject():
         else:
             path = os.path.join(wx.StandardPaths.Get().GetDocumentsDir(),
                                     "ARC", "TEMP_No_project_dirrectory_save")
-        projectsaver = KM.get_component("ARCProjectSaver").object(project)
+        projectsaver = ARCProjectSaver(project)
         #this might take a while lets say we busy
         Kernel.StatusBar.BeginTask(1, "Saving Project")
         projectsaver.save(path)
         Kernel.StatusBar.UpdateTask(1, "Finished Saving")
         #ok done saving, that was the longest part of it
-        KM.raise_event("CoreEventRefreshProject")
+        Kernel.System.fire_event("RefreshProject")
         Kernel.StatusBar.EndTask()
     else:
         Kernel.Log("No current project, project not saved", "[Save Project Handeler]")
     
 def SaveProjectAS(mainwindow, filehistory):
-    KM.raise_event("CoreEventSaveProject")
+    Kernel.System.fire_event("SaveProject")
     if "PROJECT" in Kernel.GlobalObjects and (Kernel.GlobalObjects.get_value("PROJECT") != None):
         project = Kernel.GlobalObjects.get_value("PROJECT")
         defaultpath = (os.path.join(wx.StandardPaths.Get().GetDocumentsDir(),
@@ -171,7 +165,7 @@ def SaveProjectAS(mainwindow, filehistory):
             location = dlg.GetPath()
             path = os.path.join(location, "Project.arcproj")
             filehistory.AddFileToHistory(path)
-            projectsaver = KM.get_component("ARCProjectSaver").object()
+            projectsaver = ARCProjectSaver()
             #this might take a while lets say we busy
             Kernel.StatusBar.BeginTask(1, "Saving Project")
             projectsaver.save(path)
@@ -185,23 +179,3 @@ def SaveProjectAS(mainwindow, filehistory):
             Kernel.StatusBar.EndTask()
     else:
         Kernel.Log("No current project, project not saved", "[Save AS Project Handeler]")
-
-
-
-class A1Fools(object):
-
-    @staticmethod
-    def auto_save(self):
-        raise SystemError("It Broke")
-
-    @staticmethod
-    def save_now(self):
-        raise SystemError("Oh look, a Problem, I should fix that")
-
-    @staticmethod
-    def mouse_click(self, event):
-        raise SystemError("Fix your Video Drivers, I'm not your mother!")
-
-    @staticmethod
-    def database_panel_open(self):
-        raise SystemError("Thouse pesky bugs, cant keep them out!")

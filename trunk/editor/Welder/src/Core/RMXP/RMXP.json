@@ -1,0 +1,14 @@
+{
+    "name": "RMXP",
+    "author": "Ryex",
+    "version": "1.0.0",
+    "file" : "__init__.py",
+    "consumes": {
+        "Table": "",
+        "Color": "",
+        "Tone": ""
+    },
+    "provides": {
+        "RGSS1_RPG": ""
+    }
+}
