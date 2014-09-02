@@ -40,11 +40,12 @@ class ARCSplashScreen(wx.Frame):
 
         self.SetWindowShape()
 
-        textctl_size = (self.bmp.GetWidth() / 2 + 32, self.bmp.GetHeight() / 4 - 32)
-        textctl_pos = (16, self.bmp.GetHeight() / 4 * 3 + 16)
+        self.textctl_size = (self.bmp.GetWidth() / 2 + 32, self.bmp.GetHeight() / 4 - 32)
+        self.textctl_pos = (16, self.bmp.GetHeight() / 4 * 3 + 16)
 
-        self.logctl = wx.TextCtrl(self, wx.ID_ANY, "", textctl_pos, textctl_size, wx.TE_MULTILINE|wx.TE_READONLY|wx.TE_DONTWRAP )
-
+        self.logctl = wx.TextCtrl(self, wx.ID_ANY, "", self.textctl_pos, self.textctl_size, wx.TE_MULTILINE|wx.TE_READONLY|wx.TE_DONTWRAP )
+        self.logctl.SetSize(self.textctl_size)
+        self.logctl.SetPosition(self.textctl_pos)
         self.Bind(wx.EVT_LEFT_DCLICK, self.OnDoubleClick)
         self.Bind(wx.EVT_LEFT_DOWN, self.OnLeftDown)
         self.Bind(wx.EVT_LEFT_UP, self.OnLeftUp)
@@ -67,6 +68,8 @@ class ARCSplashScreen(wx.Frame):
     def OnPaint(self, evt):
         dc = wx.PaintDC(self)
         self.Paint(dc)
+        self.logctl.SetSize(self.textctl_size)
+        self.logctl.SetPosition(self.textctl_pos)
 
     def Paint(self, dc):
         
@@ -90,6 +93,7 @@ class ARCSplashScreen(wx.Frame):
         text_y = self.bmp.GetHeight() - text_size2[1] -  text_size1[2] - 2
 
         dc.DrawText(string1, text_x, text_y)
+        
 
     def OnExit(self, evt):
         self.Close()
