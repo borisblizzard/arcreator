@@ -44,7 +44,7 @@ class WaveFormPanel(plot.PlotCanvas):
         self.SetXSpec('none')
         self.SetYSpec('none')
         self.SetFontSizeAxis(1)
-        self.SetCursor(wx.StockCursor(wx.CURSOR_ARROW))
+        self.SetCursor(wx.Cursor(wx.CURSOR_ARROW))
         self.DrawColor = color
         self.SetEnableAntiAliasing(True)
         self.SetEnableHiRes(True)
