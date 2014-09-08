@@ -1,11 +1,10 @@
 /// @file
-/// @author  Boris Mikic
-/// @version 2.0
+/// @version 2.3
 /// 
 /// @section LICENSE
 /// 
 /// This program is free software; you can redistribute it and/or modify it under
-/// the terms of the BSD license: http://www.opensource.org/licenses/bsd-license.php
+/// the terms of the BSD license: http://opensource.org/licenses/BSD-3-Clause
 /// 
 /// @section DESCRIPTION
 /// 
@@ -21,7 +20,6 @@ namespace hltypes
 {
 	template <class T> class Array;
 	/// @brief Provides high level data streaming.
-	/// @author Boris Mikic
 	class hltypesExport Stream : public StreamBase
 	{
 	public:
@@ -31,6 +29,10 @@ namespace hltypes
 		~Stream();
 		/// @brief Clears the stream.
 		void clear();
+		/// @brief Gets a direct reference to the internal steam.
+		/// @param[in] index Reference to a specific element.
+		/// @return Direct reference to the internal steam.
+		const unsigned char& operator[](int index);
 
 	protected:
 		/// @brief Data stream container.
@@ -48,13 +50,13 @@ namespace hltypes
 		/// @brief Reads data from the stream.
 		/// @param[in] src Destination data buffer.
 		/// @param[in] size Size in bytes of a single buffer element.
-		/// @param[in] sound Number of elements to read.
+		/// @param[in] count Number of elements to read.
 		/// @return Number of bytes read.
 		long _read(void* buffer, int size, int count);
 		/// @brief Writes data to the stream.
 		/// @param[in] src Source data buffer.
 		/// @param[in] size Size in bytes of a single buffer element.
-		/// @param[in] sound Number of elements contained in buffer.
+		/// @param[in] count Number of elements contained in buffer.
 		/// @return Number of bytes written.
 		long _write(const void* buffer, int size, int count);
 		/// @brief Checks if stream is open.

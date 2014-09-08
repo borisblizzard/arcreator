@@ -16,7 +16,7 @@ cdef extern from "<xal/AudioManager.h>" namespace "xal":
         FLAC,
         M4A,
         OGG,
-        SPX,
+        SPX, #not suported yet
         WAV,
         UNKNOWN
     
@@ -96,6 +96,8 @@ cdef extern from "<xal/AudioManager.h>" namespace "xal":
 
         void addAudioExtension(chstr extension) except +
         hstr findAudioFile(chstr _filename) except +
+
+    AudioManager* mgr
         
 cdef extern from "<xal/Sound.h>" namespace "xal":
 
@@ -198,18 +200,26 @@ cdef extern from "<xal/Buffer.h>" namespace "xal":
         int readPcmData(unsigned char** output) except +
         
 cdef extern from "<xal/xal.h>" namespace "xal":
-    DEF XAL_AS_ANDROID = "Android"
+    DEF XAL_AS_DISABLED = "Disabled"
     DEF XAL_AS_DIRECTSOUND = "DirectSound"
     DEF XAL_AS_OPENAL = "OpenAL"
+    DEF XAL_AS_OPENSLES = "OpenSLES"
     DEF XAL_AS_SDL = "SDL"
     DEF XAL_AS_XAUDIO2 = "XAudio2"
     DEF XAL_AS_AVFOUNDATION = "AVFoundation"
     DEF XAL_AS_COREAUDIO = "CoreAudio"
-    DEF XAL_AS_DISABLED = "Disabled"
-    DEF XAL_AS_DEFAULT = ""
+
+    enum AudioSystemType:
+        AS_DEFAULT = 0,
+        AS_DISABLED = 1,
+        AS_DIRECTSOUND = 2,
+        AS_OPENAL = 3,
+        AS_OPENSLES = 4,
+        AS_SDL = 5,
+        AS_XAUDIO2 = 6,
+        AS_AVFOUNDATION = 7,
+        AS_COREAUDIO = 8
     
-    void init(chstr systemName, void* backendId, bool threaded, float updateTime, chstr deviceName) except +
+    void init(AudioSystemType type, void* backendId, bool threaded, float updateTime, chstr deviceName) except +
     void destroy() except +
     bool hasAudioSystem(chstr name) except +
-    
-    AudioManager* mgr

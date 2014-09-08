@@ -43,9 +43,11 @@ class ARCSplashScreen(wx.Frame):
         self.textctl_size = (self.bmp.GetWidth() / 2 + 32, self.bmp.GetHeight() / 4 - 32)
         self.textctl_pos = (16, self.bmp.GetHeight() / 4 * 3 + 16)
 
+
         self.logctl = wx.TextCtrl(self, wx.ID_ANY, "", self.textctl_pos, self.textctl_size, wx.TE_MULTILINE|wx.TE_READONLY|wx.TE_DONTWRAP )
         self.logctl.SetSize(self.textctl_size)
         self.logctl.SetPosition(self.textctl_pos)
+        
         self.Bind(wx.EVT_LEFT_DCLICK, self.OnDoubleClick)
         self.Bind(wx.EVT_LEFT_DOWN, self.OnLeftDown)
         self.Bind(wx.EVT_LEFT_UP, self.OnLeftUp)

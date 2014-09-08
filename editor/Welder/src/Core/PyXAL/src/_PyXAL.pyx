@@ -7,14 +7,15 @@ cimport XAL
 
 import os
 
-cdef char* XAL_AS_ANDROID = "Android"
-cdef char* XAL_AS_DIRECTSOUND = "DirectSound"
-cdef char* XAL_AS_OPENAL = "OpenAL"
-cdef char* XAL_AS_SDL = "SDL"
-cdef char* XAL_AS_AVFOUNDATION = "AVFoundation"
-cdef char* XAL_AS_COREAUDIO = "CoreAudio"
-cdef char* XAL_AS_DISABLED = "Disabled"
-cdef char* XAL_AS_DEFAULT = ""
+cdef XAL_AS_DEFAULT = XAL.AS_DEFAULT
+cdef XAL_AS_DISABLED = XAL.AS_DISABLED
+cdef XAL_AS_DIRECTSOUND = XAL.AS_DIRECTSOUND
+cdef XAL_AS_OPENAL = XAL.AS_OPENAL
+cdef XAL_AS_OPENSLES = XAL.AS_OPENSLES
+cdef XAL_AS_SDL = XAL.AS_SDL
+cdef XAL_AS_XAUDIO2 = XAL.AS_XAUDIO2
+cdef XAL_AS_AVFOUNDATION = XAL.AS_AVFOUNDATION
+cdef XAL_AS_COREAUDIO = XAL.AS_COREAUDIO
 
 cdef XAL.BufferMode FULL = XAL.FULL
 cdef XAL.BufferMode LAZY = XAL.LAZY
@@ -1003,7 +1004,7 @@ cdef class XALManagerWrapper(object):
     cdef XAL.Category *_category
     cdef char* CATEGORY_STR
 
-    def __init__(self, char* systemname, int backendId, bint threaded = False, float updateTime = 0.01, char* deviceName = ""):
+    def __init__(self, XAL.AudioSystemType type, int backendId, bint threaded = False, float updateTime = 0.01, char* deviceName = ""):
         '''
         sets up the interface and initializes XAL you SHOULD NOT BE CREATING THIS CLASS YOUR SELF call PyXAL.Init and use the object created at PyXAL.Mgr
         if PyXAL.Mgr is None call PyXAL.Destroy and then PyXAL.Init to set up the interface again
@@ -1018,10 +1019,9 @@ cdef class XALManagerWrapper(object):
         if Mgr is not None:
             raise RuntimeError("Only one XALManager interface allowed at a time, use the one at PyXAL.Mgr")
         self.CATEGORY_STR = "default"
-        cdef hstr name = hstr(systemname)
         cdef hstr dname = hstr(deviceName)
         self._destroyXAL()
-        XAL.init(name, <void*>backendId, threaded, updateTime, dname)
+        XAL.init(type, <void*>backendId, threaded, updateTime, dname)
         self.inited = True
         self.destroyed = False
         self.SetupXAL()
@@ -1089,7 +1089,7 @@ class XALManager(object):
         '''
         returns true if the C++ side of the interface to XAL exists
         '''
-        if XAL.mgr != NULL:
+        if XAL.mgr is not NULL:
             return True
         else:
             return False
@@ -1309,7 +1309,7 @@ def Init(int backendId, bint threaded = True):
     '''
     global Mgr
     if Mgr is None:
-        if XAL.mgr != NULL:
+        if XAL.mgr is not NULL:
             fade = 0.0
             XAL.mgr.stopAll(fade)
             XAL.destroy()
@@ -1320,7 +1320,7 @@ def Destroy():
     Destroy XAL and remove the interface at PyXAL setting it to None
     '''
     global Mgr
-    if XAL.mgr != NULL:
+    if XAL.mgr is not NULL:
         fade = 0.0
         XAL.mgr.stopAll(fade)
         XAL.destroy()

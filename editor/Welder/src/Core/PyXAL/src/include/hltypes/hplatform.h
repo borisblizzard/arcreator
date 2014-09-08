@@ -1,11 +1,10 @@
 /// @file
-/// @author  Boris Mikic
-/// @version 2.0
+/// @version 2.3
 /// 
 /// @section LICENSE
 /// 
 /// This program is free software; you can redistribute it and/or modify it under
-/// the terms of the BSD license: http://www.opensource.org/licenses/bsd-license.php
+/// the terms of the BSD license: http://opensource.org/licenses/BSD-3-Clause
 /// 
 /// @section DESCRIPTION
 /// 
@@ -21,18 +20,28 @@
 #ifdef min
 #undef min
 #endif
+#ifndef NOMINMAX
 #define NOMINMAX
+#endif
 #ifndef _NO_WIN_H
 #include <windows.h>
 #endif
-#if defined(WINAPI_FAMILY) && defined(WINAPI_FAMILY_PARTITION)
+
+// define _WINRT for external projects just in case
+#if !defined(_WINRT) && defined(WINAPI_FAMILY) && defined(WINAPI_FAMILY_PARTITION)
 #if !WINAPI_FAMILY_PARTITION(WINAPI_PARTITION_DESKTOP)
-#define _HL_WINRT 1
+#define _WINRT
+#endif
+#endif
+
+#ifdef _WINRT
+#if !defined(_WINP8) && !defined(_OPENKODE)
 #using <Windows.winmd>
+#endif
 #include <wrl.h>
 #define _HL_HSTR_TO_PSTR(string) ref new Platform::String((string).w_str().c_str())
 #define _HL_HSTR_TO_PSTR_DEF(string) Platform::String^ p ## string = _HL_HSTR_TO_PSTR(string)
-#define _HL_PSTR_TO_HSTR(string) unicode_to_utf8((string)->Data())
+#define _HL_PSTR_TO_HSTR(string) hstr::from_unicode((string)->Data())
 #define _HL_TRY_DELETE(name) \
 	if (name != NULL) \
 	{ \
@@ -53,10 +62,6 @@
 	}
 #endif
 #endif
-#endif
-#ifndef _HL_WINRT
-#define _HL_WINRT 0
-#endif
 
 #include "hstring.h"
 
@@ -66,7 +71,7 @@ namespace hltypes
 	/// @param[in] tag The message tag.
 	/// @param[in] message The message to log.
 	/// @param[in] level Log level (required for Android).
-	void _platform_print(chstr tag, chstr message, int level);
+	void _platform_print(const String& tag, const String& message, int level);
 
 }
 

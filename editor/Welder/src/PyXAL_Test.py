@@ -1,16 +1,33 @@
 # -*- coding: utf-8 -*- 
-import os
+import os, sys
 import wx
 import wx.lib.plot as plot
 import numpy as np
 
-from Boot import WelderImport
+from pathlib import Path
 
-Kernel = WelderImport('Kernel')
-KM = Kernel.Manager
-import Core
 
-PyXAL = KM.get_component("PyXAL").object
+import Kernel
+
+
+if hasattr(sys, 'frozen'): 
+    dirName = sys.executable
+else:
+    try:
+        dirName = os.path.dirname(os.path.abspath(__file__))
+    except:
+        dirName = os.path.dirname(os.path.abspath(sys.argv[0]))
+sys.path.append(dirName)
+
+#build the system setting up the plugin configuration
+Kernel.buildSystem(Kernel.PluginCFG.getUnified())
+
+#search the Core for all Core plugins
+Kernel.System.search(str(Path(dirName, "Core")))
+#search the user Plugin folder for plugins
+Kernel.System.search(Kernel.GetPluginFolder())
+
+PyXAL = Kernel.System.load("PyXAL")
 
 #--------------------------------------------------------------------------------------
 # WaveFormPanel
@@ -47,7 +64,7 @@ class XALTestFrame ( wx.Frame ):
     def __init__( self, parent ):
         wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = wx.EmptyString, pos = wx.DefaultPosition, size = wx.Size( 500,300 ), style = wx.DEFAULT_FRAME_STYLE|wx.TAB_TRAVERSAL )
         
-        self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
+        self.SetSizeHints( wx.DefaultSize, wx.DefaultSize )
         
         mainsizer = wx.BoxSizer( wx.VERTICAL )
         
@@ -239,9 +256,7 @@ class XALTestFrame ( wx.Frame ):
             self.player.stop()
             print("stoping")
         
-        
-if __name__ == '__main__':
-
+def test():
     provider = wx.SimpleHelpProvider()
     wx.HelpProvider.Set(provider)
 
@@ -253,3 +268,7 @@ if __name__ == '__main__':
     frame.Show(True)
     
     app.MainLoop()
+        
+if __name__ == '__main__':
+
+    test()

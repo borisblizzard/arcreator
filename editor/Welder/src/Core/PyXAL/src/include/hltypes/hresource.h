@@ -1,11 +1,10 @@
 /// @file
-/// @author  Boris Mikic
-/// @version 2.0
+/// @version 2.32
 /// 
 /// @section LICENSE
 /// 
 /// This program is free software; you can redistribute it and/or modify it under
-/// the terms of the BSD license: http://www.opensource.org/licenses/bsd-license.php
+/// the terms of the BSD license: http://opensource.org/licenses/BSD-3-Clause
 /// 
 /// @section DESCRIPTION
 /// 
@@ -25,16 +24,13 @@ namespace hltypes
 {
 	template <class T> class Array;
 	/// @brief Provides high level resource file handling.
-	/// @author Kresimir Spes
-	/// @author Boris Mikic
-	/// @author Ivan Vucica
 	/// @note When writing, \\r may be used, but \\r will be removed during read.
 	class hltypesExport Resource : public FileBase
 	{
 	public:
 		/// @brief Constructor that immediately opens a resource file.
 		/// @param[in] filename Name of the resource file (may include path).
-		Resource(chstr filename);
+		Resource(const String& filename);
 		/// @brief Basic constructor.
 		Resource();
 		/// @brief Destructor.
@@ -42,42 +38,51 @@ namespace hltypes
 		/// @brief Opens a resource file.
 		/// @param[in] filename Name of the resource file (may include path).
 		/// @note If this instance is already working with an opened resource file handle, that resource file handle will be closed.
-		void open(chstr filename);
+		void open(const String& filename);
 		/// @brief Closes resource file.
 		void close();
 		
 		/// @brief Checks if a resource file exists.
 		/// @param[in] filename Name of the resource file.
+		/// @param[in] case_sensitive Whether to check case sensitive files if file was not found.
 		/// @return True if resource file exists.
-		static bool exists(chstr filename);
+		/// @note Disabling case_sensitive is somewhat costly if the given file is not found at first.
+		static bool exists(const String& filename, bool case_sensitive = true);
 		/// @brief Opens file, gets size and closes file.
 		/// @see size
-		static long hsize(chstr filename);
+		static long hsize(const String& filename);
 		/// @brief Opens file, reads data and closes file.
 		/// @see read(int count)
-		static hstr hread(chstr filename, int count);
+		static String hread(const String& filename, int count);
 		/// @brief Opens file, reads data and closes file.
-		/// @see read(chstr delimiter = "")
-		static hstr hread(chstr filename, chstr delimiter = "");
+		/// @see read
+		static String hread(const String& filename, const String& delimiter = "");
+		/// @brief Gets the file information provided by the implementation.
+		/// @param[in] filename The filename of the file.
+		/// @return File information provided by the implementation.
+		static FileInfo get_info(const String& filename);
 		/// @brief Create a full filename.
 		/// @params[in] filename Original filename.
-		/// @returns Full filename.
-		static hstr make_full_path(chstr filename);
+		/// @return Full filename.
+		static String make_full_path(const String& filename);
 		
 		/// @brief Gets the interal current working directory within a possible archive.
 		/// @return Interal current working directory.
-		static hstr getCwd() { return cwd; }
+		static inline String getCwd() { return cwd; }
 		/// @brief Sets the interal current working directory within a possible archive.
 		/// @param[in] value New value.
-		static void setCwd(chstr value) { cwd = value; }
+		static inline void setCwd(const String& value) { cwd = value; }
 		/// @brief Gets the resource archive's filename.
 		/// @return Resource archive's filename.
-		static hstr getArchive() { return archive; }
+		static inline String getArchive() { return archive; }
 		/// @brief Sets the resource archive's filename.
 		/// @param[in] value New value.
-		static void setArchive(chstr value);
-		/// @brief Gets the resource archive's filename.
-		/// @return Resource archive's filename.
+		static void setArchive(const String& value);
+		/// @brief Checks if the archive is an actual ZIP archive.
+		/// @return True if the archive is an actual ZIP archive.
+		static inline bool isZipArchive() { return zipArchive; }
+		/// @brief Checks if compiled with ZIP support.
+		/// @return True if compiled with ZIP support.
 		static bool hasZip();
 
 	protected:
@@ -87,9 +92,11 @@ namespace hltypes
 		void* archivefile;
 
 		/// @brief Defines the internal current working directory of a possible resource archive.
-		static hstr cwd;
+		static String cwd;
 		/// @brief Defines the resource archive's filename.
-		static hstr archive;
+		static String archive;
+		/// @brief Defines whether the archive is set to an actual file.
+		static bool zipArchive;
 
 		/// @brief Updates internal data size.
 		void _update_data_size();
