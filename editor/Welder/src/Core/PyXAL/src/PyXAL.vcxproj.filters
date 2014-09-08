@@ -10,10 +10,10 @@
       <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
     </Filter>
     <Filter Include="Header Files\xal">
-      <UniqueIdentifier>{a182a0a2-9b17-4759-be49-ac6a6333e4b5}</UniqueIdentifier>
+      <UniqueIdentifier>{339a73b1-9895-4852-97e7-dd225b90db7e}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\hltypes">
-      <UniqueIdentifier>{808502ee-7ff4-499f-b2a9-aea01b9cc5b6}</UniqueIdentifier>
+      <UniqueIdentifier>{e4c15e2b-98c7-452a-81b9-9d13085c65c6}</UniqueIdentifier>
     </Filter>
     <Filter Include="Resource Files">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
@@ -90,12 +90,6 @@
       <Filter>Header Files\hltypes</Filter>
     </ClInclude>
     <ClInclude Include="include\hltypes\util.h">
-      <Filter>Header Files\hltypes</Filter>
-    </ClInclude>
-    <ClInclude Include="include\hltypes\hdbase.h">
-      <Filter>Header Files\hltypes</Filter>
-    </ClInclude>
-    <ClInclude Include="include\hltypes\hrdir.h">
       <Filter>Header Files\hltypes</Filter>
     </ClInclude>
   </ItemGroup>

@@ -760,7 +760,7 @@ class PyPlayer(object):
         if not self.destroyed:
             if Mgr is not None:
                 if hasattr(Mgr, "_players"):
-                    if Mgr._players.has_key(self.getName()):
+                    if self.getName() in Mgr._players:
                         if self in Mgr._player[self.getName()]:
                             Mgr.players[self.getName()].remove(self)
             if self.isXALInitialized():
@@ -1137,7 +1137,7 @@ class XALManager(object):
         if not isinstance(sound, PySound):
             raise TypeError("Expected argument 1 to be of type PySound got %s" % type(sound))
         sound_name = sound.getName()
-        if not self._players.has_key(sound_name):
+        if not sound_name in self._players:
             self._players[sound_name] = []
         pyplayer = PyPlayer(sound)
         self._players[sound_name].append(pyplayer)
@@ -1155,7 +1155,7 @@ class XALManager(object):
         if not isinstance(player, PyPlayer):
             raise TypeError("Expected argument 1 to be of type PyPlayer got %s" % type(player))
         name = player.getName()
-        if self._players.has_key(name):
+        if name in self._players:
             if player in self._players[name]:
                 self._players[name].remove(player)
         player._destroy()
@@ -1182,7 +1182,7 @@ class XALManager(object):
         '''
         if not self.isXALInitialized():
             raise RuntimeError("XAL is not Initialized")
-        if self._players.has_key(name):
+        if name in self._players:
             if len(self._players[name]) > 0:
                 return self._players[name][0]
         return None
