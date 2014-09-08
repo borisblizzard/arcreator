@@ -1,12 +1,10 @@
 /// @file
-/// @author  Kresimir Spes
-/// @author  Boris Mikic
-/// @version 2.0
+/// @version 2.3
 /// 
 /// @section LICENSE
 /// 
 /// This program is free software; you can redistribute it and/or modify it under
-/// the terms of the BSD license: http://www.opensource.org/licenses/bsd-license.php
+/// the terms of the BSD license: http://opensource.org/licenses/BSD-3-Clause
 /// 
 /// @section DESCRIPTION
 /// 
@@ -29,26 +27,32 @@ namespace hltypes
 		/// @param[in] message Exception message.
 		/// @param[in] source_file Name of the source file.
 		/// @param[in] line_number Number of the line.
-		exception(chstr message, const char* source_file, int line_number);
+		exception(const String& message, const char* source_file, int line_number);
 		/// @brief Destructor.
 		virtual ~exception();
 		/// @brief Gets the exception message.
 		/// @return The exception message.
-		virtual hstr message() { return this->msg; }
+		inline virtual String message() { return this->msg; }
 		/// @brief Same as message.
 		/// @see message
-		hstr getErrorText() { return this->message(); }
+		inline String getErrorText() { return this->message(); }
 		/// @brief Same as message.
 		/// @see message
-		hstr getMessage() { return this->message(); }
+		inline String getMessage() { return this->message(); }
 		/// @brief Same as message.
 		/// @see message
-		hstr getErrorMessage() { return this->message(); }
+		inline String getErrorMessage() { return this->message(); }
 		
 	protected:
 		/// @brief Exception message.
-		hstr msg;
-		
+		String msg;
+		/// @brief Sets internal message.
+		/// @param[in] message Exception message.
+		/// @param[in] source_file Name of the source file.
+		/// @param[in] line_number Number of the line.
+		/// @note Should be used only when setting the error message from within the class.
+		void _setInternalMessage(const String& message, const char* source_file, int line_number);
+
 	};
 	/// @brief Alias for simpler code.
 	#define hl_exception(msg) hltypes::exception(msg, __FILE__, __LINE__)
@@ -61,12 +65,14 @@ namespace hltypes
 		/// @param[in] filename Name of the file.
 		/// @param[in] source_file Name of the source file.
 		/// @param[in] line_number Number of the line.
-		_file_not_found(chstr filename, const char* source_file, int line_number);
+		_file_not_found(const String& filename, bool is_resource, const char* source_file, int line_number);
 		~_file_not_found();
 		
 	};
 	/// @brief Alias for simpler code.
-	#define file_not_found(filename) hltypes::_file_not_found(filename, __FILE__, __LINE__)
+	#define file_not_found(filename) hltypes::_file_not_found(filename, false, __FILE__, __LINE__)
+	/// @brief Alias for simpler code.
+	#define resource_not_found(filename) hltypes::_file_not_found(filename, true, __FILE__, __LINE__)
 	
 	/// @brief Defines a file-not-open exception.
 	class hltypesExport _file_not_open : public exception
@@ -76,7 +82,7 @@ namespace hltypes
 		/// @param[in] filename Name of the file.
 		/// @param[in] source_file Name of the source file.
 		/// @param[in] line_number Number of the line.
-		_file_not_open(chstr filename, const char* source_file, int line_number);
+		_file_not_open(const String& filename, const char* source_file, int line_number);
 		~_file_not_open();
 		
 	};
@@ -91,7 +97,7 @@ namespace hltypes
 		/// @param[in] filename Name of the file.
 		/// @param[in] source_file Name of the source file.
 		/// @param[in] line_number Number of the line.
-		_file_not_writeable(chstr filename, const char* source_file, int line_number);
+		_file_not_writeable(const String& filename, const char* source_file, int line_number);
 		~_file_not_writeable();
 		
 	};
@@ -106,7 +112,7 @@ namespace hltypes
 		/// @param[in] filename Name of the file.
 		/// @param[in] source_file Name of the source file.
 		/// @param[in] line_number Number of the line.
-		_file_long_error(chstr filename, const char* source_file, int line_number);
+		_file_long_error(const String& filename, const char* source_file, int line_number);
 		~_file_long_error();
 		
 	};
@@ -123,7 +129,7 @@ namespace hltypes
 		/// @param[in] container Name of the container.
 		/// @param[in] source_file Name of the source file.
 		/// @param[in] line_number Number of the line.
-		_resource_not_exists(chstr type, chstr name, chstr container, const char* source_file, int line_number);
+		_resource_not_exists(const String& type, const String& name, const String& container, const char* source_file, int line_number);
 		~_resource_not_exists();
 		
 	};
@@ -140,7 +146,7 @@ namespace hltypes
 		/// @param[in] container Name of the container.
 		/// @param[in] source_file Name of the source file.
 		/// @param[in] line_number Number of the line.
-		_resource_already_exists(chstr type, chstr name, chstr container, const char* source_file, int line_number);
+		_resource_already_exists(const String& type, const String& name, const String& container, const char* source_file, int line_number);
 		~_resource_already_exists();
 		
 	};
@@ -170,7 +176,7 @@ namespace hltypes
 		/// @param[in] function_name Name of the function.
 		/// @param[in] source_file Name of the source file.
 		/// @param[in] line_number Number of the line.
-		_container_empty_error(chstr function_name, const char* source_file, int line_number);
+		_container_empty_error(const String& function_name, const char* source_file, int line_number);
 		~_container_empty_error();
 		
 	};
@@ -216,7 +222,7 @@ namespace hltypes
 		/// @param[in] container Name of the container.
 		/// @param[in] source_file Name of the source file.
 		/// @param[in] line_number Number of the line.
-		_container_key_error(chstr key, chstr container, const char* source_file, int line_number);
+		_container_key_error(const String& key, const String& container, const char* source_file, int line_number);
 		~_container_key_error();
 		
 	};

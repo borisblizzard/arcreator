@@ -8,6 +8,7 @@
     },
     "provides": {
         "PygletWXContext": "",
-        "PygletGLPanel": ""
+        "PygletGLPanel": "",
+        "EditorGLPanel": ""
     }
 }

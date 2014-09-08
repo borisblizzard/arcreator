@@ -1,0 +1,22 @@
+{
+    "name": "DatabaseControls",
+    "author": "Ryex",
+    "version": "1.0.0",
+    "file" : "__init__.py",
+    "consumes": {
+        "DatabaseManager": "",
+        "ScriptEditorManger": "",
+        "FindReplace_Dialog": ""
+
+    },
+    "provides": {
+        "ImageCheckList": "",
+        "ParameterGraph": "",
+        "ParameterPanel": "",
+        "ParameterPlotGraphics": "",
+        "WaveFormPanel": "",
+        "ProportionalSplitter": "",
+        "ScriptTextCtrl": ""
+    }
+}
+

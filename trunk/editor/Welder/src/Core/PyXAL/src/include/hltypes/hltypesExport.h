@@ -1,12 +1,10 @@
 /// @file
-/// @author  Kresimir Spes
-/// @author  Boris Mikic
-/// @version 2.0
+/// @version 2.3
 /// 
 /// @section LICENSE
 /// 
 /// This program is free software; you can redistribute it and/or modify it under
-/// the terms of the BSD license: http://www.opensource.org/licenses/bsd-license.php
+/// the terms of the BSD license: http://opensource.org/licenses/BSD-3-Clause
 /// 
 /// @section DESCRIPTION
 /// 
@@ -19,7 +17,7 @@
 	/// @brief Macro for DLL exports/imports.
 	/// @def hltypesFnExport
 	/// @brief Macro for function DLL exports/imports.
-	#ifdef _STATICLIB
+	#ifdef _LIB
 		#define hltypesExport
 		#define hltypesFnExport
 	#else
@@ -31,9 +29,13 @@
 				#define hltypesExport __declspec(dllimport)
 				#define hltypesFnExport __declspec(dllimport)
 			#endif
+			#ifdef _WINRT
+				#define hltypesSpecialExport
+				#define hltypesMemberExport hltypesExport
+			#endif
 		#else
 			#define hltypesExport __attribute__ ((visibility("default")))
-			#define hltypesFnExport
+			#define hltypesFnExport __attribute__ ((visibility("default")))
 		#endif
 	#endif
 	#ifndef DEPRECATED_ATTRIBUTE
@@ -42,6 +44,10 @@
 		#else
 			#define DEPRECATED_ATTRIBUTE __attribute__((deprecated))
 		#endif
+	#endif
+	#ifndef hltypesSpecialExport
+		#define hltypesSpecialExport hltypesExport
+		#define hltypesMemberExport
 	#endif
 
 #endif

@@ -1,0 +1,17 @@
+{
+    "name": "DatabaseManager",
+    "author": "Ryex",
+    "version": "1.0.0",
+    "file" : "Manager.py",
+    "consumes": {
+        "RTPCache": "",
+        "IconManager": "",
+        "PyXAL": "",
+        "RTPFunctions": "",
+        "ChooseGraphic_Dialog": "",
+        "ChooseGraphic_Dialog_NoHue": ""
+    },
+    "provides": {
+        "DatabaseManager": ""
+    }
+}

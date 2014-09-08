@@ -1,13 +1,10 @@
 /// @file
-/// @author  Kresimir Spes
-/// @author  Boris Mikic
-/// @author  Ivan Vucica
-/// @version 2.0
+/// @version 2.3
 /// 
 /// @section LICENSE
 /// 
 /// This program is free software; you can redistribute it and/or modify it under
-/// the terms of the BSD license: http://www.opensource.org/licenses/bsd-license.php
+/// the terms of the BSD license: http://opensource.org/licenses/BSD-3-Clause
 /// 
 /// @section DESCRIPTION
 /// 
@@ -25,6 +22,7 @@ namespace hltypes
 {
 	template <class T> class Array;
 	class StreamBase;
+	extern hstr logTag;
 }
 
 /// @brief Used for optimized and quick calculation from RAD to DEG.
@@ -40,6 +38,10 @@ namespace hltypes
 /// @param[in] degrees Angle in degrees.
 /// @return cos(degrees).
 #define dcos(degrees) cos((degrees) * HL_DEG_TO_RAD_RATIO)
+/// @brief Calculates tan from angle given in degrees.
+/// @param[in] degrees Angle in degrees.
+/// @return tan(degrees).
+#define dtan(degrees) tan((degrees) * HL_DEG_TO_RAD_RATIO)
 /// @brief Calculates asin in degrees.
 /// @param[in] value sin value.
 /// @return asin in degrees.
@@ -48,6 +50,11 @@ namespace hltypes
 /// @param[in] value cos value.
 /// @return acos in degrees.
 #define dacos(value) (acos(value) * HL_RAD_TO_DEG_RATIO)
+/// @brief Calculates atan in degrees.
+/// @param[in] value cos value.
+/// @return atan in degrees.
+/// @note This uses atan2.
+#define datan(value) (atan2(value) * HL_RAD_TO_DEG_RATIO)
 /// @brief hltypes e-tolerance.
 #define HL_E_TOLERANCE 0.01
 
@@ -55,40 +62,63 @@ namespace hltypes
 /// @param[in] type Variable type.
 /// @param[in] name Variable name.
 /// @param[in] capsName Variable name with capital beginning letter.
-#define HL_DEFINE_GET(type, name, capsName) type get ## capsName() { return this->name; }
-/// @brief Utility macro for quick getter (with "is") definition.
-/// @param[in] type Variable type.
+#define HL_DEFINE_GET(type, name, capsName) inline type get ## capsName() { return this->name; }
+/// @brief Utility macro for quick getter definition.
+/// @param[in] classe Template class.
+/// @param[in] type1 First template type argument.
+/// @param[in] type2 Second template type argument.
 /// @param[in] name Variable name.
 /// @param[in] capsName Variable name with capital beginning letter.
-#define HL_DEFINE_IS(type, name, capsName) type is ## capsName() { return this->name; }
+#define HL_DEFINE_GET2(classe, type1, type2, name, capsName) inline classe<type1, type2> get ## capsName() { return this->name; }
+/// @brief Utility macro for quick getter (with "is") definition.
+/// @param[in] name Variable name.
+/// @param[in] capsName Variable name with capital beginning letter.
+/// @note This is meant for use with bool only.
+#define HL_DEFINE_IS(name, capsName) inline bool is ## capsName() { return this->name; }
 /// @brief Utility macro for quick setter definition.
 /// @param[in] type Variable type.
 /// @param[in] name Variable name.
 /// @param[in] capsName Variable name with capital beginning letter.
-#define HL_DEFINE_SET(type, name, capsName) void set ## capsName(type value) { this->name = value; }
+#define HL_DEFINE_SET(type, name, capsName) inline void set ## capsName(type value) { this->name = value; }
+/// @brief Utility macro for quick setter definition.
+/// @param[in] classe Template class.
+/// @param[in] type1 First template type argument.
+/// @param[in] type2 Second template type argument.
+/// @param[in] name Variable name.
+/// @param[in] capsName Variable name with capital beginning letter.
+#define HL_DEFINE_SET2(classe, type1, type2, name, capsName) inline void set ## capsName(classe<type1, type2> value) { this->name = value; }
 /// @brief Utility macro for quick getter and setter definition.
-/// @param[in] type Variable type.
+/// @param[in] classe Template class.
+/// @param[in] type1 First template type argument.
+/// @param[in] type2 Second template type argument.
 /// @param[in] name Variable name.
 /// @param[in] capsName Variable name with capital beginning letter.
 #define HL_DEFINE_GETSET(type, name, capsName) HL_DEFINE_GET(type, name, capsName) HL_DEFINE_SET(type, name, capsName)
-/// @brief Utility macro for quick getter (with "is") and setter definition.
-/// @param[in] type Variable type.
+/// @brief Utility macro for quick getter and setter definition.
+/// @param[in] classe Template class.
+/// @param[in] type1 First template type argument.
+/// @param[in] type2 Second template type argument.
 /// @param[in] name Variable name.
 /// @param[in] capsName Variable name with capital beginning letter.
-#define HL_DEFINE_ISSET(type, name, capsName) HL_DEFINE_IS(type, name, capsName) HL_DEFINE_SET(type, name, capsName)
+#define HL_DEFINE_GETSET2(classe, type1, type2, name, capsName) HL_DEFINE_GET2(classe, type1, type2, name, capsName) HL_DEFINE_SET2(classe, type1, type2, name, capsName)
+/// @brief Utility macro for quick getter (with "is") and setter definition.
+/// @param[in] name Variable name.
+/// @param[in] capsName Variable name with capital beginning letter.
+/// @note This is meant for use with bool only.
+#define HL_DEFINE_ISSET(name, capsName) HL_DEFINE_IS(name, capsName) HL_DEFINE_SET(bool, name, capsName)
 
 /// @brief Provides a simpler syntax for iteration.
 /// @param[in] name Name of the iteration variable.
 /// @param[in] min Start value.
 /// @param[in] max Final value.
 /// @note Iterates from min to max - 1.
-#define for_iter(name, min, max) for (int name = min; name < max; name++)
+#define for_iter(name, min, max) for (int name = min; name < max; ++name)
 /// @brief Provides a simpler syntax for iteration.
 /// @param[in] name Name of the iteration variable.
 /// @param[in] max Start value.
 /// @param[in] min Final value.
 /// @note Iterates from max - 1 to min.
-#define for_iter_r(name, max, min) for (int name = max - 1; name >= min; name--)
+#define for_iter_r(name, max, min) for (int name = max - 1; name >= min; --name)
 /// @brief Provides a simpler syntax for iteration.
 /// @param[in] name Name of the iteration variable.
 /// @param[in] min Start value.
@@ -109,14 +139,14 @@ namespace hltypes
 /// @param[in] max Final value.
 /// @param[in] step Value to increase iterator.
 /// @note Iterates from min to max - 1.
-#define for_itert(type, name, min, max) for (type name = min; name < max; name++)
+#define for_itert(type, name, min, max) for (type name = min; name < max; ++name)
 /// @brief Provides a simpler syntax for iteration.
 /// @param[in] type Type of the iteration variable.
 /// @param[in] name Name of the iteration variable.
 /// @param[in] max Start value.
 /// @param[in] min Final value.
 /// @note Iterates from max - 1 to min.
-#define for_itert_r(type, name, max, min) for (type name = max - 1; name >= min; name--)
+#define for_itert_r(type, name, max, min) for (type name = max - 1; name >= min; --name)
 /// @brief Provides a simpler syntax for iteration.
 /// @param[in] type Type of the iteration variable.
 /// @param[in] name Name of the iteration variable.
@@ -147,7 +177,7 @@ namespace hltypes
 /// @param[in] min Final value.
 /// @note Iterates from max - 1 to min.
 /// @note The iteration variable has to be declared previously.
-#define for_iterx_r(name, max, min) for (name = max - 1; name >= min; name--)
+#define for_iterx_r(name, max, min) for (name = max - 1; name >= min; --name)
 /// @brief Provides a simpler syntax for iteration.
 /// @param[in] name Name of the iteration variable.
 /// @param[in] min Start value.
@@ -289,6 +319,27 @@ hltypesFnExport float hmodf(float f, float m);
 /// @param[in] m Modulo value.
 /// @return The always-positive value of d mod m.
 hltypesFnExport double hmodd(double d, double m);
+/// @brief Calculates the square root.
+/// @param[in] value Value to square root.
+/// @return Square root of a value.
+hltypesFnExport float hsqrt(int value);
+/// @brief Calculates the square root.
+/// @param[in] value Value to square root.
+/// @return Square root of a value.
+hltypesFnExport float hsqrt(float value);
+/// @brief Calculates the square root.
+/// @param[in] value Value to square root.
+/// @return Square root of a value.
+hltypesFnExport double hsqrt(double value);
+/// @brief Calculates the square root.
+/// @param[in] value Value to square root.
+/// @return Square root of a value.
+hltypesFnExport long double hsqrt(long double value);
+/// @brief Calculates the float length of the hypotenuse of a right-angles triangle.
+/// @param[in] a First cathetus.
+/// @param[in] b Second cathetus.
+/// @return The float length of the hypotenuse of a right-angles triangle.
+hltypesFnExport float hhypot(float a, float b);
 /// @brief Calculates the double length of the hypotenuse of a right-angles triangle.
 /// @param[in] a First cathetus.
 /// @param[in] b Second cathetus.
@@ -298,17 +349,37 @@ hltypesFnExport double hhypot(double a, double b);
 /// @param[in] a First cathetus.
 /// @param[in] b Second cathetus.
 /// @return The float length of the hypotenuse of a right-angles triangle.
-hltypesFnExport float hhypot(float a, float b);
-/// @brief Calculates the double squared length of the hypotenuse of a right-angles triangle.
+hltypesFnExport float hhypot(int a, int b);
+/// @brief Calculates the double length of the hypotenuse of a right-angles triangle.
 /// @param[in] a First cathetus.
 /// @param[in] b Second cathetus.
-/// @return The double squared length of the hypotenuse of a right-angles triangle.
-hltypesFnExport double hhypotSquared(double a, double b);
+/// @return The double length of the hypotenuse of a right-angles triangle.
+hltypesFnExport double hhypotd(int a, int b);
 /// @brief Calculates the float squared length of the hypotenuse of a right-angles triangle.
 /// @param[in] a First cathetus.
 /// @param[in] b Second cathetus.
 /// @return The float squared length of the hypotenuse of a right-angles triangle.
 hltypesFnExport float hhypotSquared(float a, float b);
+/// @brief Calculates the double squared length of the hypotenuse of a right-angles triangle.
+/// @param[in] a First cathetus.
+/// @param[in] b Second cathetus.
+/// @return The double squared length of the hypotenuse of a right-angles triangle.
+hltypesFnExport double hhypotSquared(double a, double b);
+/// @brief Calculates the int squared length of the hypotenuse of a right-angles triangle.
+/// @param[in] a First cathetus.
+/// @param[in] b Second cathetus.
+/// @return The int squared length of the hypotenuse of a right-angles triangle.
+hltypesFnExport int hhypotSquared(int a, int b);
+/// @brief Calculates the float squared length of the hypotenuse of a right-angles triangle.
+/// @param[in] a First cathetus.
+/// @param[in] b Second cathetus.
+/// @return The float squared length of the hypotenuse of a right-angles triangle.
+hltypesFnExport float hhypotSquaredf(int a, int b);
+/// @brief Calculates the float squared length of the hypotenuse of a right-angles triangle.
+/// @param[in] a First cathetus.
+/// @param[in] b Second cathetus.
+/// @return The double squared length of the hypotenuse of a right-angles triangle.
+hltypesFnExport double hhypotSquaredd(int a, int b);
 /// @brief Compares 2 float values within using a tolerance factor.
 /// @param[in] a First float value.
 /// @param[in] b Second float value.
@@ -329,98 +400,16 @@ hltypesFnExport int hcmpf(float a, float b, float tolerance = HL_E_TOLERANCE);
 /// @param[in] b Second double value.
 /// @return 1 if a is greater than b, 0 if they are equal within the tolerance limits and -1 if a is less than b.
 hltypesFnExport int hcmpd(double a, double b, double tolerance = HL_E_TOLERANCE);
-/// @brief Changes all platform-specific directory separators to /.
-/// @param[in] path The path.
-/// @return Filepath with all platform-specific directory separators changed to /.
-hltypesFnExport hstr systemize_path(chstr path);
-/// @brief Normalizes a file path by converting all platform-specific directory separators into / and proper removal of "." and ".." where necessary.
-/// @param[in] path The path.
-/// @return Normalized filepath.
-hltypesFnExport hstr normalize_path(chstr path);
-/// @brief Gets the base directory of a filename/directory.
-/// @param[in] filename The path.
-/// @return Base directory of the given filename/directory.
-hltypesFnExport hstr get_basedir(chstr path);
-/// @brief Gets the base filename/directory without the prepended directory path.
-/// @param[in] filename The path.
-/// @return Base filename/directory without the prepended directory path.
-hltypesFnExport hstr get_basename(chstr path);
 /// @brief Gets an environment variable as String.
 /// @param[in] env The environment variable.
 /// @return Environment variable as String.
 hltypesFnExport hstr get_environment_variable(chstr name);
 
-/// @brief Converts a unicode unsigned int to a UTF8 string.
-/// @param[in] value The unsigned int value.
-/// @return UTF8 string.
-hltypesFnExport hstr unicode_to_utf8(unsigned int value);
-#ifndef _ANDROID
-/// @brief Converts a unicode wchar to a UTF8 string.
-/// @param[in] value The wchar value.
-/// @return UTF8 string.
-hltypesFnExport hstr unicode_to_utf8(wchar_t value);
-#endif
-/// @brief Converts a char to a UTF8 string.
-/// @param[in] string The char.
-/// @return UTF8 string.
-hltypesFnExport hstr unicode_to_utf8(char value);
-/// @brief Converts an unsigned char to a UTF8 string.
-/// @param[in] string The unsigned char.
-/// @return UTF8 string.
-hltypesFnExport hstr unicode_to_utf8(unsigned char value);
-/// @brief Converts a unicode unsigned int string to a UTF8 string.
-/// @param[in] string The unsigned int string.
-/// @return UTF8 string.
-hltypesFnExport hstr unicode_to_utf8(const unsigned int* string);
-#ifndef _ANDROID
-/// @brief Converts a unicode wchar string to a UTF8 string.
-/// @param[in] string The wchar string.
-/// @return UTF8 string.
-hltypesFnExport hstr unicode_to_utf8(const wchar_t* string);
-#endif
-/// @brief Converts a char string to a UTF8 string.
-/// @param[in] string The char string.
-/// @return UTF8 string.
-hltypesFnExport hstr unicode_to_utf8(const char* string);
-/// @brief Converts an unsigned char string to a UTF8 string.
-/// @param[in] string The unsigned char string.
-/// @return UTF8 string.
-hltypesFnExport hstr unicode_to_utf8(const unsigned char* string);
-/// @brief Converts a unicode unsigned int Array to a UTF8 string.
-/// @param[in] string The unsigned int characters.
-/// @return UTF8 string.
-hltypesFnExport hstr unicode_to_utf8(hltypes::Array<unsigned int> chars);
-#ifndef _ANDROID
-/// @brief Converts a unicode wchar Array to a UTF8 string.
-/// @param[in] string The wchar characters.
-/// @return UTF8 string.
-hltypesFnExport hstr unicode_to_utf8(hltypes::Array<wchar_t> chars);
-#endif
-/// @brief Converts a char Array to a UTF8 string.
-/// @param[in] string The char characters.
-/// @return UTF8 string.
-hltypesFnExport hstr unicode_to_utf8(hltypes::Array<char> chars);
-/// @brief Converts an unsigned char Array to a UTF8 string.
-/// @param[in] string The unsigned char characters.
-/// @return UTF8 string.
-hltypesFnExport hstr unicode_to_utf8(hltypes::Array<unsigned char> chars);
-/// @brief Converts a UTF8 character into the corresponding character code.
-/// @param[in] input The UTF8 character as C string.
-/// @param[out] character_length Length of character in bytes.
-/// @return Charcter code.
-hltypesFnExport unsigned int utf8_to_uint(chstr input, int* character_length = NULL);
-/// @brief Converts a UTF8 string into a unicode Array.
-/// @param[in] input The UTF8 string.
-/// @param[out] lenght Length of the string.
-/// @return The unsigned int string.
-hltypesFnExport std::basic_string<unsigned int> utf8_to_unicode(chstr input);
-#ifndef _ANDROID
-/// @brief Converts a UTF8 string into a wchar string.
-/// @param[in] input The UTF8 string.
-/// @param[out] lenght Length of the string.
-/// @return The wchar_t string.
-hltypesFnExport std::basic_string<wchar_t> utf8_to_wchars(chstr input);
-#endif
+// DEPRECATED
+DEPRECATED_ATTRIBUTE hltypesFnExport hstr get_basedir(chstr path);
+DEPRECATED_ATTRIBUTE hltypesFnExport hstr get_basename(chstr path);
+DEPRECATED_ATTRIBUTE hltypesFnExport hstr systemize_path(chstr path);
+DEPRECATED_ATTRIBUTE hltypesFnExport hstr normalize_path(chstr path);
 
 /// @brief Calculates CRC32 from a byte stream.
 /// @param[in] data Data stream.
@@ -441,7 +430,8 @@ hltypesFnExport unsigned int calc_crc32(hltypes::StreamBase* stream);
 /// @param[in] a First element.
 /// @param[in] b Second element.
 /// @return The lesser of two elements.
-template <class T> T hmin(T a, T b)
+template <class T>
+inline T hmin(T a, T b)
 {
 	return (a < b ? a : b);
 }
@@ -449,7 +439,8 @@ template <class T> T hmin(T a, T b)
 /// @param[in] a First element.
 /// @param[in] b Second element.
 /// @return The greater of two elements.
-template <class T> T hmax(T a, T b)
+template <class T>
+inline T hmax(T a, T b)
 {
 	return (a > b ? a : b);
 }
@@ -458,14 +449,16 @@ template <class T> T hmax(T a, T b)
 /// @param[in] min Minimum inclusive boundary.
 /// @param[in] max Maximum inclusive boundary.
 /// @return Clamped value.
-template <class T> T hclamp(T value, T min, T max)
+template <class T>
+inline T hclamp(T value, T min, T max)
 {
 	return (value < min ? min : (value > max ? max : value));
 }
 /// @brief Swaps the values of two elements.
 /// @param[in,out] a First element.
 /// @param[in,out] b Second element.
-template <class T> void hswap(T& a, T& b)
+template <class T>
+inline void hswap(T& a, T& b)
 {
 	T temp = a;
 	a = b;
@@ -474,7 +467,8 @@ template <class T> void hswap(T& a, T& b)
 /// @brief Returns Signum of the value.
 /// @param[in] value The value.
 /// @return Signum of the value.
-template <class T> int hsgn(T value)
+template <class T>
+inline int hsgn(T value)
 {
 	return (value == 0 ? 0 : value >= 0 ? 1 : -1);
 }
@@ -483,7 +477,8 @@ template <class T> int hsgn(T value)
 /// @param[in] min Minimum inclusive boundary.
 /// @param[in] max Maximum inclusive boundary.
 /// @return True if element is between minimum and maximum.
-template <class T> bool is_between(T value, T min, T max)
+template <class T>
+inline bool is_between(T value, T min, T max)
 {
 	return (value >= min && value <= max);
 }
@@ -492,7 +487,8 @@ template <class T> bool is_between(T value, T min, T max)
 /// @param[in] min Minimum exclusive boundary.
 /// @param[in] max Maximum exclusive boundary.
 /// @return True if element is between minimum and maximum.
-template <class T> bool is_within(T value, T min, T max)
+template <class T>
+inline bool is_within(T value, T min, T max)
 {
 	return (value > min && value < max);
 }
@@ -501,7 +497,8 @@ template <class T> bool is_within(T value, T min, T max)
 /// @param[in] min Minimum inclusive boundary.
 /// @param[in] max Maximum exclusive boundary.
 /// @return True if element is inside of minimum and maximum.
-template <class T> bool is_in_range(T value, T min, T max)
+template <class T>
+inline bool is_in_range(T value, T min, T max)
 {
 	return (value >= min && value < max);
 }
@@ -510,7 +507,8 @@ template <class T> bool is_in_range(T value, T min, T max)
 /// @param[in] min Minimum exclusive boundary.
 /// @param[in] max Maximum inclusive boundary.
 /// @return True if element is inside of minimum and maximum.
-template <class T> bool is_inside(T value, T min, T max) // I'd like to be inside
+template <class T>
+inline bool is_inside(T value, T min, T max) // I'd like to be inside
 {
 	return (value > min && value <= max);
 }

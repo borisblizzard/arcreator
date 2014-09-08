@@ -1,12 +1,10 @@
 /// @file
-/// @author  Kresimir Spes
-/// @author  Boris Mikic
-/// @version 2.0
+/// @version 2.3
 /// 
 /// @section LICENSE
 /// 
 /// This program is free software; you can redistribute it and/or modify it under
-/// the terms of the BSD license: http://www.opensource.org/licenses/bsd-license.php
+/// the terms of the BSD license: http://opensource.org/licenses/BSD-3-Clause
 /// 
 /// @section DESCRIPTION
 /// 
@@ -24,8 +22,6 @@
 namespace hltypes
 {
 	/// @brief Provides functionality of a Mutex for multithreading.
-	/// @author Kresimir Spes
-	/// @author Boris Mikic
 	/// @todo Finish the class and fix remaining problems.
 	class hltypesExport Mutex
 	{
@@ -43,11 +39,7 @@ namespace hltypes
 		
 	protected:
 		/// @brief Mutex OS handle.
-#ifdef _WIN32
 		void* handle;
-#else
-		pthread_mutex_t handle;
-#endif
 		
 	};
 }

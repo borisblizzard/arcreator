@@ -2,5 +2,5 @@
 
 python setup.py build_ext --inplace
 
-echo Done
+echo ++Done
 pause

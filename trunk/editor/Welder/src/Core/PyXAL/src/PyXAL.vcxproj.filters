@@ -1,0 +1,107 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Header Files\xal">
+      <UniqueIdentifier>{a182a0a2-9b17-4759-be49-ac6a6333e4b5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\hltypes">
+      <UniqueIdentifier>{808502ee-7ff4-499f-b2a9-aea01b9cc5b6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="_PyXAL.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\xal\AudioManager.h">
+      <Filter>Header Files\xal</Filter>
+    </ClInclude>
+    <ClInclude Include="include\xal\Buffer.h">
+      <Filter>Header Files\xal</Filter>
+    </ClInclude>
+    <ClInclude Include="include\xal\Category.h">
+      <Filter>Header Files\xal</Filter>
+    </ClInclude>
+    <ClInclude Include="include\xal\ExternalComponent.h">
+      <Filter>Header Files\xal</Filter>
+    </ClInclude>
+    <ClInclude Include="include\xal\Player.h">
+      <Filter>Header Files\xal</Filter>
+    </ClInclude>
+    <ClInclude Include="include\xal\Sound.h">
+      <Filter>Header Files\xal</Filter>
+    </ClInclude>
+    <ClInclude Include="include\xal\Source.h">
+      <Filter>Header Files\xal</Filter>
+    </ClInclude>
+    <ClInclude Include="include\xal\xal.h">
+      <Filter>Header Files\xal</Filter>
+    </ClInclude>
+    <ClInclude Include="include\xal\xalExport.h">
+      <Filter>Header Files\xal</Filter>
+    </ClInclude>
+    <ClInclude Include="include\hltypes\exception.h">
+      <Filter>Header Files\hltypes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\hltypes\harray.h">
+      <Filter>Header Files\hltypes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\hltypes\hdeque.h">
+      <Filter>Header Files\hltypes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\hltypes\hdir.h">
+      <Filter>Header Files\hltypes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\hltypes\hfile.h">
+      <Filter>Header Files\hltypes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\hltypes\hlist.h">
+      <Filter>Header Files\hltypes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\hltypes\hltypesExport.h">
+      <Filter>Header Files\hltypes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\hltypes\hmap.h">
+      <Filter>Header Files\hltypes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\hltypes\hmutex.h">
+      <Filter>Header Files\hltypes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\hltypes\hstring.h">
+      <Filter>Header Files\hltypes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\hltypes\hthread.h">
+      <Filter>Header Files\hltypes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\hltypes\msvc_dirent.h">
+      <Filter>Header Files\hltypes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\hltypes\util.h">
+      <Filter>Header Files\hltypes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\hltypes\hdbase.h">
+      <Filter>Header Files\hltypes</Filter>
+    </ClInclude>
+    <ClInclude Include="include\hltypes\hrdir.h">
+      <Filter>Header Files\hltypes</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="_PyXAL.pyx" />
+    <None Include="hltypes.pxd" />
+    <None Include="XAL.pxd" />
+  </ItemGroup>
+</Project>

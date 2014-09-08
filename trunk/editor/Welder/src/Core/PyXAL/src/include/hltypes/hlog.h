@@ -1,12 +1,10 @@
 /// @file
-/// @author  Boris Mikic
-/// @author  Kresimir Spes
-/// @version 2.0
+/// @version 2.3
 /// 
 /// @section LICENSE
 /// 
 /// This program is free software; you can redistribute it and/or modify it under
-/// the terms of the BSD license: http://www.opensource.org/licenses/bsd-license.php
+/// the terms of the BSD license: http://opensource.org/licenses/BSD-3-Clause
 /// 
 /// @section DESCRIPTION
 /// 
@@ -22,38 +20,50 @@
 namespace hltypes
 {
 	/// @brief Provides high level logging.
-	/// @author Boris Mikic
 	class hltypesExport Log
 	{
 	public:
+		/// @brief Level Write value.
+		/// @note Usually only used internally.
+		static int LevelWrite;
+		/// @brief Level Error value.
+		/// @note Usually only used internally.
+		static int LevelError;
+		/// @brief Level Warn value.
+		/// @note Usually only used internally.
+		static int LevelWarn;
+		/// @brief Level Debug value.
+		/// @note Usually only used internally.
+		static int LevelDebug;
+
 		/// @brief Checks if log level Write is turned on.
 		/// @return True if log level Write is turned on.
-		static bool isLevelWrite() { return level_write; }
+		static inline bool isLevelWrite() { return level_write; }
 		/// @brief Sets the log level Write.
 		/// @param[in] value Whether to turn it on or off.
-		static void setLevelWrite(bool value) { level_write = value; }
+		static inline void setLevelWrite(bool value) { level_write = value; }
 		/// @brief Checks if log level Error is turned on.
 		/// @return True if log level Error is turned on.
-		static bool isLevelError() { return level_error; }
+		static inline bool isLevelError() { return level_error; }
 		/// @brief Sets the log level Error.
 		/// @param[in] value Whether to turn it on or off.
-		static void setLevelError(bool value) { level_error = value; }
+		static inline void setLevelError(bool value) { level_error = value; }
 		/// @brief Checks if log level Warn is turned on.
 		/// @return True if log level Warn is turned on.
-		static bool isLevelWarn() { return level_warn; }
+		static inline bool isLevelWarn() { return level_warn; }
 		/// @brief Sets the log level Warn.
 		/// @param[in] value Whether to turn it on or off.
-		static void setLevelWarn(bool value) { level_warn = value; }
+		static inline void setLevelWarn(bool value) { level_warn = value; }
 		/// @brief Checks if log level Debug is turned on.
 		/// @return True if log level Debug is turned on.
-		static bool isLevelDebug() { return level_debug; }
+		static inline bool isLevelDebug() { return level_debug; }
 		/// @brief Sets the log level Debug.
 		/// @param[in] value Whether to turn it on or off.
-		static void setLevelDebug(bool value) { level_debug = value; }
+		static inline void setLevelDebug(bool value) { level_debug = value; }
 		/// @brief Sets the current tag filters.
 		/// @param[in] value New tag filters.
 		/// @note If value is an empty Array, the no filtering will be used.
-		static void setTagFilters(harray<hstr> value) { tag_filters = value; }
+		static inline void setTagFilters(Array<String> value) { tag_filters = value; }
 		/// @brief Sets all logging levels at once.
 		/// @param[in] write Value for Log level Write.
 		/// @param[in] write Value for Log level Error.
@@ -64,44 +74,48 @@ namespace hltypes
 		/// @param[in] filename Filename for log dump.
 		/// @param[in] clearFile Set to true if file should be cleared.
 		/// @note If filename is an empty String, the no dumping will be used.
-		static void setFilename(chstr filename, bool clearFile = true);
+		static void setFilename(const String& filename, bool clearFile = true);
 		/// @brief Sets the callback function that is called after logging.
 		/// @param[in] function Callback function.
 		/// @note The callback is called in a thread-safe manner.
-		static void setCallbackFunction(void (*function)(chstr, chstr)) { callback_function = function; }
+		static inline void setCallbackFunction(void (*function)(const String&, const String&)) { callback_function = function; }
 
 		/// @brief Logs a message on the log level Write.
 		/// @param[in] tag The message tag.
 		/// @param[in] message The message to log.
 		/// @return True if level Write and tag allowed.
-		static bool write(chstr tag, chstr message);
+		static bool write(const String& tag, const String& message);
 		/// @brief Logs a message on the log level Error.
 		/// @param[in] tag The message tag.
 		/// @param[in] message The message to log.
 		/// @return True if level Error and tag allowed.
-		static bool error(chstr tag, chstr message);
+		static bool error(const String& tag, const String& message);
 		/// @brief Logs a message on the log level Warn.
 		/// @param[in] tag The message tag.
 		/// @param[in] message The message to log.
 		/// @return True if level Warn and tag allowed.
-		static bool warn(chstr tag, chstr message);
+		static bool warn(const String& tag, const String& message);
 		/// @brief Logs a message on the log level Debug.
 		/// @param[in] tag The message tag.
 		/// @param[in] message The message to log.
 		/// @return True if level Debug and tag allowed.
-		static bool debug(chstr tag, chstr message);
+		static bool debug(const String& tag, const String& message);
 		/// @brief Same as write, except with string formatting.
 		/// @see write
-		static bool writef(chstr tag, const char* format, ...);
+		static bool writef(const String& tag, const char* format, ...);
 		/// @brief Same as error, except with string formatting.
 		/// @see error
-		static bool errorf(chstr tag, const char* format, ...);
+		static bool errorf(const String& tag, const char* format, ...);
 		/// @brief Same as warn, except with string formatting.
 		/// @see warn
-		static bool warnf(chstr tag, const char* format, ...);
+		static bool warnf(const String& tag, const char* format, ...);
 		/// @brief Same as debug, except with string formatting.
 		/// @see debug
-		static bool debugf(chstr tag, const char* format, ...);
+		static bool debugf(const String& tag, const char* format, ...);
+		/// @brief Merges all log files into one.
+		/// @param[in] clearFile Set to true if file should be cleared.
+		/// @note Call this at application exit or before changing logging files.
+		static void finalize(bool clearFile = true);
 
 	protected:
 		/// @brief Flag for Write level logging.
@@ -113,18 +127,25 @@ namespace hltypes
 		/// @brief Flag for Debug level logging.
 		static bool level_debug;
 		/// @brief Filters for tags that should be logged.
-		static harray<hstr> tag_filters;
+		static Array<String> tag_filters;
 		/// @brief Filename for logging to files.
-		static hstr filename;
+		static String filename;
 		/// @brief Callback function for logging.
-		static void (*callback_function)(chstr, chstr);
+		static void (*callback_function)(const String&, const String&);
+
+		/// @brief Basic constructor.
+		/// @note Forces this to be a static class.
+		inline Log() { }
+		/// @brief Basic constructor.
+		/// @note Forces this to be a static class.
+		inline ~Log() { }
 
 		/// @brief Executes the actual message loggging.
 		/// @param[in] tag The message tag.
 		/// @param[in] message The message to log.
 		/// @param[in] level Log level (required for Android).
 		/// @return True if the message could be logged.
-		static bool _system_log(chstr tag, chstr message, int level);
+		static bool _system_log(const String& tag, const String& message, int level);
 
 	};
 }
