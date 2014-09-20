@@ -1,3 +1,5 @@
+#imports all templates from the generated file into this namespace
+
 from Templates import Actors_Panel_Template
 from Templates import Classes_Panel_Template
 from Templates import Skills_Panel_Template
