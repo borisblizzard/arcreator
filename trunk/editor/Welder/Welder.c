@@ -30,7 +30,7 @@ int _CRT_glob = 0;
 // 4 : error gettign exe path
 int main(int argc, char** argv)
 {
-    char *exepath, *pypath, *pypath_sep;
+    char *exepath, *exepathdirname, *pypath, *pypath_sep;
     wchar_t **wargv, *wfileName, *wexepath, *wpypath;
     int i, size, PATHLENMAX;
     int status;
@@ -67,13 +67,13 @@ int main(int argc, char** argv)
         return 2;
     GetModuleFileName(NULL, exepath, PATHLENMAX);
     PathRemoveFileSpec(exepath);
-	size = strlen(exepath);
-	wexepath = (wchar_t *)malloc(sizeof(wchar_t) * (size + 1));
-	if (!wexepath)
-		return 2;
-	status = mbstowcs(wexepath, exepath, size + 1);
-	if (status < 0)
-		return 3;
+    size = strlen(exepath);
+    wexepath = (wchar_t *)malloc(sizeof(wchar_t) * (size + 1));
+    if (!wexepath)
+        return 2;
+    status = mbstowcs(wexepath, exepath, size + 1);
+    if (status < 0)
+        return 3;
 #elif defined(__APPLE__)
     exepath = (char *)malloc(sizeof(char) * PATHLENMAX);
     exepathsize = PATHLENMAX;
@@ -89,7 +89,7 @@ int main(int argc, char** argv)
         return 3;
 #elif defined(__linux__)
     exepath = (char *)malloc(sizeof(char) * PATHLENMAX);
-    linkreadlen = readlink("/proc/self/exe", exepath, sizeof(exepath)-1);
+    linkreadlen = readlink("/proc/self/exe", exepath, PATHLENMAX);
     if (linkreadlen != -1) {
         exepath[linkreadlen] = '\0';
     }
@@ -110,34 +110,49 @@ int main(int argc, char** argv)
 
     wprintf(L"[LOADER] Exe Path:  %ls\n", wexepath);
 
-    Py_SetPythonHome(wexepath);
+    //Py_SetPythonHome(wexepath);
 
+    pypath_sep = (char *)malloc(sizeof(char) * 2);
 #if defined(_WIN32)
-	pypath_sep = ";";
+    strcpy(pypath_sep, ";");
 #else
-	pypath_sep = ":";
+    strcpy(pypath_sep, ":");
 #endif
 
-	pypath = (char *)malloc(sizeof(char) * (PATHLENMAX * 3 + 3));
-	
-	strcpy(pypath, exepath);
-	strcat(pypath, pypath_sep);
-	strcat(pypath, exepath);
-	strcat(pypath, "/python.zip");
-	strcat(pypath, pypath_sep);
-	strcat(pypath, exepath);
-	strcat(pypath, "/lib");
+    pypath = (char *)malloc(sizeof(char) * (PATHLENMAX * 5 + 5));
+    
+    strcpy(pypath, exepath);
+    strcat(pypath, pypath_sep);
+    strcat(pypath, exepath);
+    strcat(pypath, "/python.zip");
+    strcat(pypath, pypath_sep);
+    strcat(pypath, exepath);
+    strcat(pypath, "/lib");
+    strcat(pypath, pypath_sep);
+    strcat(pypath, exepath);
+    strcat(pypath, "/lib/site-packages");
+    strcat(pypath, pypath_sep);
+    strcat(pypath, exepath);
+#if defined(_WIN32)
+    strcat(pypath, "/lib/DLLs");
+#elif defined(__APPLE__)
+    strcat(pypath, "/lib/lib-dynload");
+#elif defined(__linux__)
+    strcat(pypath, "/lib/lib-dynload");
+#else
+    strcat(pypath, "/lib/dyn");
+#endif
 
     // should look somthing like this now
     // "<exepath>:<exepath>/python.zip:<exepath>/lib"
 
-	size = strlen(pypath);
-	wpypath = (wchar_t *)malloc(sizeof(wchar_t)* (size + 1));
-	if (!wpypath)
-		return 2;
-	status = mbstowcs(wpypath, pypath, size + 1);
-	if (status < 0)
-		return 3;
+    size = strlen(pypath);
+    wpypath = (wchar_t *)malloc(sizeof(wchar_t)* (size + 1));
+    if (!wpypath)
+        return 2;
+    status = mbstowcs(wpypath, pypath, size + 1);
+    if (status < 0)
+        return 3;
 
 
     wargv = (wchar_t **)PyMem_Malloc(sizeof(wchar_t*) * argc);
@@ -145,7 +160,7 @@ int main(int argc, char** argv)
         return 2;
     for (i = 0; i < argc; i++) {
         size = strlen(argv[i]);
-		wargv[i] = (wchar_t *)PyMem_Malloc(sizeof(wchar_t)* (size + 1));
+        wargv[i] = (wchar_t *)PyMem_Malloc(sizeof(wchar_t)* (size + 1));
         if (!wargv[i])
             return 2;
         status = mbstowcs(wargv[i], argv[i], size + 1);
@@ -157,7 +172,7 @@ int main(int argc, char** argv)
     wfileName = Py_GetProgramFullPath();
 
     //call SetPath after SetProgramName becasue otherwise the new name is ignored
-	Py_SetPath(wpypath);
+    Py_SetPath(wpypath);
 
     wprintf(L"[LOADER] Search Path:  %ls\n", Py_GetPath());
     wprintf(L"[LOADER] Filename:     %ls\n", wfileName);
@@ -166,7 +181,7 @@ int main(int argc, char** argv)
     //Py_InitializeEx(0);
     
     PySys_SetArgv(argc, wargv);
-	
+    
     status = PyRun_SimpleString(
         "import sys\n"
         "try:\n"
@@ -184,8 +199,8 @@ int main(int argc, char** argv)
     
     Py_Finalize();
 
-	free(wexepath);
-	free(exepath);
-
-	return status;
+    free(wexepath);
+    free(exepath);
+    free(pypath_sep);
+    return status;
 }

@@ -31,17 +31,20 @@ virenv_dir = os.path.join(dirName, ".venv", "Lib")
 if sys.platform == 'win32':
     version_str = str(version.major) + str(version.minor)
     lib_dir = "C:\\Python" + version_str + "\\Lib"
-    compiled_dir = "C:\\Python" + version_str + "\\DLLs"
+    compiled_folder = "DLLs"
+    compiled_dir = "C:\\Python" + version_str + "\\" + compiled_folder
+
 elif sys.platform == 'linux':
     version_str = str(version.major) + "." + str(version.minor)
     lib_dir = "/usr/lib/python" + version_str + "/"
-    compiled_dir = lib_dir + "lib-dynload/"
+    compiled_folder = "lib-dynload"
+    compiled_dir = lib_dir + compiled_folder + "/"
 else:
     lib_dir = ""
 
 
-if os.path.exists(virenv_dir):
-    lib_dir = virenv_dir
+# if os.path.exists(virenv_dir):
+#     lib_dir = virenv_dir
 
 std_exclude_files = [
     "test", 
@@ -56,13 +59,10 @@ std_exclude_files = [
 
 site_needed = [
     'pyitect',
-    'Cython',
     'wx',
     'PIL',
     'numpy',
-    'pyximport',
     'setuptools',
-    'cython.py',
     'pyglet',
     'rabbyt',
     'pkg_resources.py'
@@ -104,6 +104,15 @@ def scan_dep(path, files, prefix=""):
     elif os.path.isfile(path):
         add_dep(path, files, prefix)
 
+def scan_library(folder, files):
+    for fil in os.listdir(folder):
+        path = os.path.join(folder, fil)
+        if fil in std_exclude_files:
+            continue
+        prefix = ""
+        if os.path.isdir(path):
+            prefix = fil
+        scan_dep(path, files, prefix)
 
 def scan_needed_location(folder, files):
     for fil in os.listdir(folder):
@@ -117,7 +126,7 @@ def scan_needed_location(folder, files):
 
 
 def copy_needed_site():
-    dest_folder = os.path.abspath(os.path.join(".", "lib"))
+    dest_folder = os.path.abspath(os.path.join(".", "lib", "site-packages"))
     prefix_mapping = {}
     locations = []
     locations.append(get_python_lib())
@@ -133,19 +142,28 @@ def copy_needed_site():
         print("copying %s ==> %s" % (path, to))
         copy_file(path, to)
 
+def copy_std_lib():
+    dest_folder = os.path.abspath(os.path.join(".", "lib"))
+    files = {}
+    scan_library(lib_dir, files)
+    for fil, path in files.items():
+        to = os.path.join(dest_folder, fil)
+        print("copying %s ==> %s" % (path, to))
+        copy_file(path, to)
+
 def zip_std_lib():
-    f = zipfile.PyZipFile("python.zip", mode="w", compression=zipfile.ZIP_DEFLATED, optimize=1)
-    for fil in os.listdir(lib_dir):
-        if fil not in std_exclude_files:
-            root, ext = os.path.splitext(fil)
-            path = os.path.join(lib_dir, fil)
-            if ext in source_exts:
-                print(path)
-                f.writepy(path)
+    f = zipfile.ZipFile("python.zip", mode="w", compression=zipfile.ZIP_DEFLATED)
+    files = {}
+    scan_library(lib_dir, files)
+    for fil, path in files.items():
+        print(path)
+        f.write(path, fil)
 
     f.close()
 
-    dest_folder = os.path.abspath(os.path.join(".", "lib"))
+def copy_compiled():
+
+    dest_folder = os.path.abspath(os.path.join(".", "lib", compiled_folder))
     print("scanning %s" % compiled_dir)
     for fil in os.listdir(compiled_dir):
         path = os.path.join(compiled_dir, fil)
@@ -191,6 +209,11 @@ print("========================================")
 print("Ziping Python Standard Library")
 print("========================================")
 zip_std_lib()
+
+print("========================================")
+print("Copying Compiled Python Extentions")
+print("========================================")
+copy_compiled()
 
 print("")
 print("========================================")

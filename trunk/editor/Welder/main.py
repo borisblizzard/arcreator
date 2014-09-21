@@ -98,4 +98,5 @@ app = wx.App(redirect=False)   # Error messages go to popup window
 top = Frame("<<project>>")
 top.Show()
 import numpy
+print("System Path:", sys.path)
 app.MainLoop()

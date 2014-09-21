@@ -20,15 +20,12 @@
             "working_dir": "${project_path:${folder}}",
             
             "file_regex": "^[ ]*File \"(...*?)\", line ([0-9]*)",
-            "cmd": ["${project_path:${folder}}/Welder"],
+            "cmd": ["Welder"],
 
             "variants": [
                 { 
                     "name": "Run",
-                    "cmd": ["${project_path:${folder}}/.venv/welder-env/bin/python", "-u", "$file"],
-                    "windows": {
-                        "cmd": ["${project_path:${folder}}/.venv/Scripts/python.exe", "-u", "$file"],
-                    }
+                    "cmd": ["python", "-u", "$file"]
                 }
             ]
         }

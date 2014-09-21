@@ -3,7 +3,7 @@ CFLAGS=$(shell python-config --cflags)
 LDFLAGS=$(shell python-config --libs)
 RUNDIRFLAGS=-Wl,-R,'$$ORIGIN'
 
-all: Welder cython
+all: Welder
 
 Welder: Welder.c
 	$(CC) $(CFLAGS) $(RUNDIRFLAGS) Welder.c -o Welder $(LDFLAGS)
@@ -11,7 +11,7 @@ Welder: Welder.c
 cython:
 	python cythonize.py build_ext --inplace
 
-libary:
+library:
 	python build_lib.py
 
 purge:
