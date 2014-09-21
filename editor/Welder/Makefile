@@ -3,9 +3,9 @@ CFLAGS=$(shell python-config --cflags)
 LDFLAGS=$(shell python-config --libs)
 RUNDIRFLAGS=-Wl,-R,'$$ORIGIN'
 
-all: welder cython
+all: Welder cython
 
-welder: Welder.c
+Welder: Welder.c
 	$(CC) $(CFLAGS) $(RUNDIRFLAGS) Welder.c -o Welder $(LDFLAGS)
 
 cython:
