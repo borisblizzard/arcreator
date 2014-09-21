@@ -13,6 +13,26 @@
             "path": "tests"
         }
     ],
+    "build_systems":[
+        {   
+            "name": "Run Welder Launcher Wrapper",
+            "selector": "source.python",
+            "working_dir": "${project_path:${folder}}",
+            
+            "file_regex": "^[ ]*File \"(...*?)\", line ([0-9]*)",
+            "cmd": ["${project_path:${folder}}/Welder"],
+
+            "variants": [
+                { 
+                    "name": "Run",
+                    "cmd": ["${project_path:${folder}}/.venv/welder-env/bin/python", "-u", "$file"],
+                    "windows": {
+                        "cmd": ["${project_path:${folder}}/.venv/Scripts/python.exe", "-u", "$file"],
+                    }
+                }
+            ]
+        }
+    ],
     "SublimeLinter":
     {
         "linters":

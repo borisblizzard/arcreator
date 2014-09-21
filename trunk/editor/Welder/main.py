@@ -9,7 +9,7 @@ import sys, os
 print("sys.executable", sys.executable)
 
 print("Importing wx")
-import wx, wx.html, numpy
+import wx, wx.html
 
 #TODO add plugin importing
 
@@ -97,4 +97,5 @@ print("Starting WX App")
 app = wx.App(redirect=False)   # Error messages go to popup window
 top = Frame("<<project>>")
 top.Show()
+import numpy
 app.MainLoop()

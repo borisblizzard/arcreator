@@ -1,13 +1,18 @@
 import sys, os
 import shutil
-import site
 import platform
 import sysconfig
 import zipfile
+from distutils.sysconfig import get_python_lib
 
 compiled_dir = None
 
 version = sys.version_info
+
+try:
+    dirName = os.path.dirname(os.path.abspath(__file__))
+except:
+    dirName = os.path.dirname(os.path.abspath(sys.argv[0]))
 
 def RemoveVersionNumbers(libName):
     tweaked = False
@@ -21,6 +26,8 @@ def RemoveVersionNumbers(libName):
         libName = ".".join(parts)
     return libName
 
+virenv_dir = os.path.join(dirName, ".venv", "Lib")
+
 if sys.platform == 'win32':
     version_str = str(version.major) + str(version.minor)
     lib_dir = "C:\\Python" + version_str + "\\Lib"
@@ -31,6 +38,10 @@ elif sys.platform == 'linux':
     compiled_dir = lib_dir + "lib-dynload/"
 else:
     lib_dir = ""
+
+
+if os.path.exists(virenv_dir):
+    lib_dir = virenv_dir
 
 std_exclude_files = [
     "test", 
@@ -51,10 +62,10 @@ site_needed = [
     'numpy',
     'pyximport',
     'setuptools',
-    'sure',
     'cython.py',
-    'rabbyt'
-
+    'pyglet',
+    'rabbyt',
+    'pkg_resources.py'
 ]
 
 dep_exts = [".dll", ".pyd", ".so"]
@@ -108,8 +119,8 @@ def scan_needed_location(folder, files):
 def copy_needed_site():
     dest_folder = os.path.abspath(os.path.join(".", "lib"))
     prefix_mapping = {}
-    locations = site.getsitepackages()
-    locations.append(site.getusersitepackages())
+    locations = []
+    locations.append(get_python_lib())
 
     for path in locations:
         if os.path.exists(path):
@@ -183,12 +194,12 @@ zip_std_lib()
 
 print("")
 print("========================================")
-print("Copying Python site-packages")
+print("Copying Python Needed site-packages")
 print("========================================")
 copy_needed_site()
 
 print("")
 print("========================================")
-print("Copying Python shared libary")
+print("Copying Python Shared libary")
 print("========================================")
 copy_pyhton_lib()
