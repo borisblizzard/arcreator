@@ -38,6 +38,12 @@
                "include_dirs": [
                    "/usr/include/python3.4m/"
                ]
+            },
+            "flake8": {
+                "@python": 3.4,
+                "max-line-length": 120,
+                "max-complexity": 12,
+                "ignore": "E262, E265"
             }
         }
     }
