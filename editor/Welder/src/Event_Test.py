@@ -13,10 +13,10 @@ import rabbyt
 
 import numpy
 
-from Boot import WelderImport
 
-Kernel = WelderImport('Kernel')
-KM = Kernel.Manager
+
+import Kernel
+
 
 if hasattr(sys, 'frozen'):
     dirName = sys.executable
@@ -46,10 +46,10 @@ if __name__ == '__main__':
     print("[BOOT] CONFIG PATH: %s" % Kernel.GetConfigFolder())
 
     import Boot
-    from Boot import WelderImport
+    
     Boot.ConfigManager.LoadConfig()
 
-    Core = WelderImport('Core')
+    
     Core.late_bind()
 
     EventPanel = Core.EventEditor.EventPanel.EventPanel
