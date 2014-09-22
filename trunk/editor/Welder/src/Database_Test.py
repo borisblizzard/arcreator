@@ -12,11 +12,11 @@ import rabbyt
 
 import numpy
 
-from Boot import WelderImport
 
-Kernel = WelderImport('Kernel')
+
+import Kernel
 GlobalObjects = Kernel.GlobalObjects
-KM = Kernel.Manager
+
 
 if hasattr(sys, 'frozen'): 
     dirName = sys.executable
@@ -123,7 +123,7 @@ if __name__ == '__main__':
     import Boot
     Boot.ConfigManager.LoadConfig()
 
-    Core = WelderImport('Core')
+    
     Core.late_bind()
 
     provider = wx.SimpleHelpProvider()
