@@ -1,0 +1,12 @@
+{
+    "name": "ScriptEditorScript",
+    "author": "Ryex",
+    "version": "1.0.0",
+    "file" : "Script.py",
+    "consumes": {
+        
+    },
+    "provides": {
+        "Script": ""
+    }
+}

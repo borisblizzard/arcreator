@@ -1,7 +1,7 @@
 '''
 Created on Sep 9, 2010
 
-a Python implementation of the RGSS1 RPG module 
+a Python implementation of the RGSS1 RPG module
 
 Classes in this module
 ----------------------
