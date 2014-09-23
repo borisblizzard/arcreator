@@ -1,0 +1,17 @@
+{
+    "name": "MapEditorTilemap",
+    "author": "Ryex",
+    "version": "1.0.0",
+    "file" : "Tilemap.py",
+    "consumes": {
+
+    },
+    "provides": {
+        "TilemapEventStruct": "",
+        "TilemapEventGrid": "",
+        "TilemapTileGrid": "",
+        "Tilemap": "",
+        "TilemapMouseSprite": "",
+        "TilemapMouseManager": ""
+    }
+}
