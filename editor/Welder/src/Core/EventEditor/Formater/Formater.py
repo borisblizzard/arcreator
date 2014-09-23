@@ -35,7 +35,7 @@ class EventCommandFormater(object):
     @staticmethod
     def get_event_formater(code):
         name = "Command%03dFormater" % code
-        return Kernel.System.load("name")
+        return Kernel.System.load(name)
 
 
 class EventHTMLFormater(object):
