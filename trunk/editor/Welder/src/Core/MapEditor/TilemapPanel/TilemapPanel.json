@@ -1,0 +1,16 @@
+ {
+    "name": "EventEditorTilemapPanel",
+    "author": "Ryex",
+    "version": "1.0.0",
+    "file" : "__init__.py",
+    "consumes": {
+        "TilemapMouseManager": "",
+        "TilemapEventGrid": "",
+        "TilemapTileGrid": "",
+        "Tilemap": "",
+        "TilemapMouseSprite": ""
+    },
+    "provides": {
+        "TilemapPanel": ""
+    }
+}
