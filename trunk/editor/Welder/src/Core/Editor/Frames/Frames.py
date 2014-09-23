@@ -157,7 +157,7 @@ class EditorMainWindow(wx.Frame):
                 result = dlg.ShowModal()
                 dlg.Destroy()
                 if result == wx.YES:
-                    Kernel.System.load(SaveProjectHandler)()
+                    Kernel.System.load("SaveProjectHandler")()
 
     def ProcessAutoSave(self, event):
         Kernel.System.fire_event("AutoSave")

@@ -154,7 +154,7 @@ class TilemapPanel(PygletGLPanel):
     def create_objects(self):
         '''create opengl objects when opengl is initialized'''
         table = self.map.data
-        self.cache = Kernel.System.load(RTPPygletCache)()
+        self.cache = Kernel.System.load("RTPPygletCache")()
         tileset = self.tilesets[self.map.tileset_id]
         self.tilemap = Tilemap(
             self.cache, table, tileset.tileset_name, tileset.autotile_names)

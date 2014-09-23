@@ -58,7 +58,7 @@ class PanelManager(object):
         '''
         gets the default component panel class form the plugin framework
         '''
-        return Kernel.System.load(component_name)
+        return Kernel.System.load("component_name")
     
     def dispatch_panel(self, type, id, arguments=[], info="", data={}, overwrite=False):
         '''
