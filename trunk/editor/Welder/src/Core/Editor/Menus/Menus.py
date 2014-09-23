@@ -72,25 +72,25 @@ class FileMenu(wx.Menu):
         self.mainwindow.Bind(wx.EVT_UPDATE_UI, self.update, self.saveas)
 
     def NewProject(self, event):
-        newproject = KM.get_component("NewProjectHandler").object
+        newproject = Kernel.System.load(NewProjectHandler)
         newproject(self.mainwindow)
         self.filehistory.Save(Kernel.GlobalObjects.get_value("WX_config"))
         Kernel.GlobalObjects.get_value("WX_config").Flush()
 
     def OpenProject(self, event):
-        openproject = KM.get_component("OpenProjectHandler").object
+        openproject = Kernel.System.load(OpenProjectHandler)
         openproject(self.mainwindow, self.filehistory)
         self.filehistory.Save(Kernel.GlobalObjects.get_value("WX_config"))
         Kernel.GlobalObjects.get_value("WX_config").Flush()
 
     def SaveProject(self, event):
-        saveproject = KM.get_component("SaveProjectHandler").object
+        saveproject = Kernel.System.load(SaveProjectHandler)
         saveproject(self.mainwindow)
         self.filehistory.Save(Kernel.GlobalObjects.get_value("WX_config"))
         Kernel.GlobalObjects.get_value("WX_config").Flush()
 
     def SaveProjectAs(self, event):
-        saveprojectas = KM.get_component("SaveAsProjectHandler").object
+        saveprojectas = Kernel.System.load(SaveAsProjectHandler)
         saveprojectas(self.mainwindow, self.filehistory)
         self.filehistory.Save(Kernel.GlobalObjects.get_value("WX_config"))
         Kernel.GlobalObjects.get_value("WX_config").Flush()
@@ -101,7 +101,7 @@ class FileMenu(wx.Menu):
         self.filehistory.AddFileToHistory(path)
         self.filehistory.Save(Kernel.GlobalObjects.get_value("WX_config"))
         Kernel.GlobalObjects.get_value("WX_config").Flush()
-        openproject = KM.get_component("OpenProjectHandler").object
+        openproject = Kernel.System.load(OpenProjectHandler)
         openproject(self.mainwindow, self.filehistory, path)
 
     def update(self, event):

@@ -7,10 +7,13 @@ import Kernel
 
 
 # Implementing ChooseActor_Dialog
-class ChooseActor_Dialog(Templates.ChooseActor_Dialog):
+from PyitectConsumes import ChooseActor_Dialog_Template
+
+
+class ChooseActor_Dialog(ChooseActor_Dialog_Template):
 
     def __init__(self, parent):
-        Templates.ChooseActor_Dialog.__init__(self, parent)
+        ChooseActor_Dialog_Template.__init__(self, parent)
 
     # Handlers for ChooseActor_Dialog events.
     def buttonOK_Clicked(self, event):

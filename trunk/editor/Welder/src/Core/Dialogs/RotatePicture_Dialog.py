@@ -11,10 +11,13 @@ import Kernel
 # Implementing RotatePicture_Dialog
 
 
-class RotatePicture_Dialog(Templates.RotatePicture_Dialog):
+from PyitectConsumes import RotatePicture_Dialog_Template
+
+
+class RotatePicture_Dialog(RotatePicture_Dialog_Template):
 
     def __init__(self, parent):
-        Templates.RotatePicture_Dialog.__init__(self, parent)
+        RotatePicture_Dialog_Template.__init__(self, parent)
 
     # Handlers for RotatePicture_Dialog events.
     def buttonOK_Clicked(self, event):

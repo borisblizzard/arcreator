@@ -7,10 +7,13 @@ import Kernel
 
 
 # Implementing ShowPicture_Dialog
-class ShowPicture_Dialog(Templates.ShowPicture_Dialog):
+from PyitectConsumes import ShowPicture_Dialog_Template
+
+
+class ShowPicture_Dialog(ShowPicture_Dialog_Template):
 
     def __init__(self, parent):
-        Templates.ShowPicture_Dialog.__init__(self, parent)
+        ShowPicture_Dialog_Template.__init__(self, parent)
 
     # Handlers for ShowPicture_Dialog events.
     def comboBoxPictureGraphic_Clicked(self, event):

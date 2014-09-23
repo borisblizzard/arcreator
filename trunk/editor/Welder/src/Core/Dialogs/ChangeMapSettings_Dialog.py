@@ -7,10 +7,13 @@ import Kernel
 
 
 # Implementing ChangeMapSettings_Dialog
-class ChangeMapSettings_Dialog(Templates.ChangeMapSettings_Dialog):
+from PyitectConsumes import ChangeMapSettings_Dialog_Template
+
+
+class ChangeMapSettings_Dialog(ChangeMapSettings_Dialog_Template):
 
     def __init__(self, parent):
-        Templates.ChangeMapSettings_Dialog.__init__(self, parent)
+        ChangeMapSettings_Dialog_Template.__init__(self, parent)
 
     # Handlers for ChangeMapSettings_Dialog events.
     def radioBoxPanorama_CheckChanged(self, event):

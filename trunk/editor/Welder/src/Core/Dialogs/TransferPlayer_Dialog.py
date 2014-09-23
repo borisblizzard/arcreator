@@ -11,10 +11,13 @@ import Kernel
 # Implementing TransferPlayer_Dialog
 
 
-class TransferPlayer_Dialog(Templates.TransferPlayer_Dialog):
+from PyitectConsumes import TransferPlayer_Dialog_Template
+
+
+class TransferPlayer_Dialog(TransferPlayer_Dialog_Template):
 
     def __init__(self, parent):
-        Templates.TransferPlayer_Dialog.__init__(self, parent)
+        TransferPlayer_Dialog_Template.__init__(self, parent)
 
     # Handlers for TransferPlayer_Dialog events.
     def radioButtonDirect_CheckChanged(self, event):

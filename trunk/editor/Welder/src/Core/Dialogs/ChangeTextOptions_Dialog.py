@@ -7,10 +7,13 @@ import Kernel
 
 
 # Implementing ChangeTextOptions_Dialog
-class ChangeTextOptions_Dialog(Templates.ChangeTextOptions_Dialog):
+from PyitectConsumes import ChangeTextOptions_Dialog_Template
+
+
+class ChangeTextOptions_Dialog(ChangeTextOptions_Dialog_Template):
 
     def __init__(self, parent):
-        Templates.ChangeTextOptions_Dialog.__init__(self, parent)
+        ChangeTextOptions_Dialog_Template.__init__(self, parent)
 
     # Handlers for ChangeTextOptions_Dialog events.
     def buttonOK_Clicked(self, event):

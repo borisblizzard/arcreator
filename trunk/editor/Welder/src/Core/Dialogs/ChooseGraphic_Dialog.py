@@ -11,10 +11,13 @@ RTPFunctions = Core.Cache.RTPFunctions
 PILCache = Core.Cache.PILCache
 
 
-class ChooseGraphic_Dialog(Templates.ChooseGraphic_Dialog):
+from PyitectConsumes import ChooseGraphic_Dialog_Template
+
+
+class ChooseGraphic_Dialog(ChooseGraphic_Dialog_Template):
 
     def __init__(self, parent, folder, current, hue):
-        Templates.ChooseGraphic_Dialog.__init__(self, parent)
+        ChooseGraphic_Dialog_Template.__init__(self, parent)
         self.glCanvasGraphic.canvas.Bind(wx.EVT_LEFT_DOWN,
                                          Kernel.Protect(self.glCanvas_LeftMouse))
         #self.Centre( wx.BOTH )

@@ -204,7 +204,7 @@ class ARCSplashScreen(wx.Frame):
         print("[Pyitect] %s" % message)
 
     def BindPyXAL(self):
-        PyXAL = KM.get_component("PyXAL").object
+        PyXAL = Kernel.System.load(PyXAL)
         if PyXAL is not None:
             PyXAL.Init(self.frame.GetHandle(), True)
         
@@ -246,7 +246,7 @@ def Run(programDir, argv):
     Kernel.GlobalObjects["WX_config"].Flush()
     # we want to clean up PyXAL as much as we can, it's dead now anyway as the window it was bound to is gone
     # try:
-    #     PyXAL = KM.get_component("PyXAL").object
+    #     PyXAL = Kernel.System.load(PyXAL)
     #     if PyXAL is not None:
     #         PyXAL.Destroy()
     # except:

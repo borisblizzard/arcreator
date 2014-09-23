@@ -9,10 +9,13 @@ import Kernel
 # Implementing DealDamage_Dialog
 
 
-class DealDamage_Dialog(Templates.DealDamage_Dialog):
+from PyitectConsumes import DealDamage_Dialog_Template
+
+
+class DealDamage_Dialog(DealDamage_Dialog_Template):
 
     def __init__(self, parent):
-        Templates.DealDamage_Dialog.__init__(self, parent)
+        DealDamage_Dialog_Template.__init__(self, parent)
 
     # Handlers for DealDamage_Dialog events.
     def radioButtonEnemy_CheckChanged(self, event):

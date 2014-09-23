@@ -9,10 +9,13 @@ import Kernel
 # Implementing Label_Dialog
 
 
-class Label_Dialog(Templates.Label_Dialog):
+from PyitectConsumes import Label_Dialog_Template
+
+
+class Label_Dialog(Label_Dialog_Template):
 
     def __init__(self, parent):
-        Templates.Label_Dialog.__init__(self, parent)
+        Label_Dialog_Template.__init__(self, parent)
 
     # Handlers for Label_Dialog events.
     def buttonOK_Clicked(self, event):

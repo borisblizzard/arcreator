@@ -9,10 +9,13 @@ import Kernel
 # Implementing EnemyAction_Dialog
 
 
-class EnemyAction_Dialog(Templates.EnemyAction_Dialog):
+from PyitectConsumes import EnemyAction_Dialog_Template
+
+
+class EnemyAction_Dialog(EnemyAction_Dialog_Template):
 
     def __init__(self, parent):
-        Templates.EnemyAction_Dialog.__init__(self, parent)
+        EnemyAction_Dialog_Template.__init__(self, parent)
 
     # Handlers for EnemyAction_Dialog events.
     def checkBoxTurn_CheckChanged(self, event):

@@ -9,11 +9,14 @@ import Kernel
 DM = Core.Database.Manager
 
 
-class GenerateCurve_Dialog(Templates.GenerateCurve_Dialog):
+from PyitectConsumes import GenerateCurve_Dialog_Template
+
+
+class GenerateCurve_Dialog(GenerateCurve_Dialog_Template):
 
     def __init__(self, parent, vRange, lRange, max):
         """Basic constructor for the GenerateCurve_Dialog"""
-        Templates.GenerateCurve_Dialog.__init__(self, parent)
+        GenerateCurve_Dialog_Template.__init__(self, parent)
         self.spinCtrlInitial.SetRange(0, max)
         self.spinCtrlFinal.SetRange(0, max)
         self.spinCtrlSpeed.SetRange(-10, 10)

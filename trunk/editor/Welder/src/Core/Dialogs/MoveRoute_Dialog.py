@@ -9,10 +9,13 @@ import Kernel
 # Implementing MoveRoute_Dialog
 
 
-class MoveRoute_Dialog(Templates.MoveRoute_Dialog):
+from PyitectConsumes import MoveRoute_Dialog_Template
+
+
+class MoveRoute_Dialog(MoveRoute_Dialog_Template):
 
     def __init__(self, parent):
-        Templates.MoveRoute_Dialog.__init__(self, parent)
+        MoveRoute_Dialog_Template.__init__(self, parent)
 
     # Handlers for MoveRoute_Dialog events.
     def listBoxMoveRoute_OnChar(self, event):

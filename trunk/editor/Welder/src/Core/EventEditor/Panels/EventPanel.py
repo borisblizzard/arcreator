@@ -630,7 +630,7 @@ class EventListCtrl(wx.HtmlListBox):
                 self.list.remove(command)
 
     def OnGetItem(self, n):
-        EventCommandFormater = KM.get_component("EventCommandFormater").object
+        EventCommandFormater = Kernel.System.load(EventCommandFormater)
         html = EventCommandFormater.format(self.list[n])
         return html
 

@@ -7,10 +7,13 @@ import Kernel
 
 
 # Implementing ScreenShake_Dialog
-class ScreenShake_Dialog(Templates.ScreenShake_Dialog):
+from PyitectConsumes import ScreenShake_Dialog_Template
+
+
+class ScreenShake_Dialog(ScreenShake_Dialog_Template):
 
     def __init__(self, parent):
-        Templates.ScreenShake_Dialog.__init__(self, parent)
+        ScreenShake_Dialog_Template.__init__(self, parent)
 
     # Handlers for ScreenShake_Dialog events.
     def sliderPower_ScrollChanged(self, event):

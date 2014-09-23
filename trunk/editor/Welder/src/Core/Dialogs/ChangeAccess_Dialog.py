@@ -7,10 +7,13 @@ import Kernel
 
 
 # Implementing ChangeAccess_Dialog
-class ChangeAccess_Dialog(Templates.ChangeAccess_Dialog):
+from PyitectConsumes import ChangeAccess_Dialog_Template
+
+
+class ChangeAccess_Dialog(ChangeAccess_Dialog_Template):
 
     def __init__(self, parent):
-        Templates.ChangeAccess_Dialog.__init__(self, parent)
+        ChangeAccess_Dialog_Template.__init__(self, parent)
 
     # Handlers for ChangeAccess_Dialog events.
     def buttonOK_Clicked(self, event):

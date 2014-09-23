@@ -9,10 +9,13 @@ import Kernel
 # Implementing Jump_Dialog
 
 
-class Jump_Dialog(Templates.Jump_Dialog):
+from PyitectConsumes import Jump_Dialog_Template
+
+
+class Jump_Dialog(Jump_Dialog_Template):
 
     def __init__(self, parent):
-        Templates.Jump_Dialog.__init__(self, parent)
+        Jump_Dialog_Template.__init__(self, parent)
 
     # Handlers for Jump_Dialog events.
     def buttonOK_Clicked(self, event):

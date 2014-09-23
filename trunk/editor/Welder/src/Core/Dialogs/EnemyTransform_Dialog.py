@@ -9,10 +9,13 @@ import Kernel
 # Implementing EnemyTransform_Dialog
 
 
-class EnemyTransform_Dialog(Templates.EnemyTransform_Dialog):
+from PyitectConsumes import EnemyTransform_Dialog_Template
+
+
+class EnemyTransform_Dialog(EnemyTransform_Dialog_Template):
 
     def __init__(self, parent):
-        Templates.EnemyTransform_Dialog.__init__(self, parent)
+        EnemyTransform_Dialog_Template.__init__(self, parent)
 
     # Handlers for EnemyTransform_Dialog events.
     def comboBoxEnemy_Clicked(self, event):

@@ -11,10 +11,13 @@ import Kernel
 # Implementing ChooseSwitchVariable_Dialog
 
 
-class ChooseSwitchVariable_Dialog(Templates.ChooseSwitchVariable_Dialog):
+from PyitectConsumes import ChooseSwitchVariable_Dialog_Template
+
+
+class ChooseSwitchVariable_Dialog(ChooseSwitchVariable_Dialog_Template):
 
     def __init__(self, parent):
-        Templates.ChooseSwitchVariable_Dialog.__init__(self, parent)
+        ChooseSwitchVariable_Dialog_Template.__init__(self, parent)
 
     # Handlers for ChooseSwitchVariable_Dialog events.
     def listBoxGroup_SelectionChanged(self, event):

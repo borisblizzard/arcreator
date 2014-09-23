@@ -9,10 +9,13 @@ import Kernel
 # Implementing ForceAction_Dialog
 
 
-class ForceAction_Dialog(Templates.ForceAction_Dialog):
+from PyitectConsumes import ForceAction_Dialog_Template
+
+
+class ForceAction_Dialog(ForceAction_Dialog_Template):
 
     def __init__(self, parent):
-        Templates.ForceAction_Dialog.__init__(self, parent)
+        ForceAction_Dialog_Template.__init__(self, parent)
 
     # Handlers for ForceAction_Dialog events.
     def radioButtonEnemy_CheckChanged(self, event):

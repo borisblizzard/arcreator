@@ -7,10 +7,13 @@ import Kernel
 
 
 # Implementing ShowAnimation_Dialog
-class ShowAnimation_Dialog(Templates.ShowAnimation_Dialog):
+from PyitectConsumes import ShowAnimation_Dialog_Template
+
+
+class ShowAnimation_Dialog(ShowAnimation_Dialog_Template):
 
     def __init__(self, parent):
-        Templates.ShowAnimation_Dialog.__init__(self, parent)
+        ShowAnimation_Dialog_Template.__init__(self, parent)
 
     # Handlers for ShowAnimation_Dialog events.
     def buttonOK_Clicked(self, event):

@@ -7,10 +7,13 @@ import Kernel
 
 
 # Implementing BattleTest_Dialog
-class BattleTest_Dialog(Templates.BattleTest_Dialog):
+from PyitectConsumes import BattleTest_Dialog_Template
+
+
+class BattleTest_Dialog(BattleTest_Dialog_Template):
 
     def __init__(self, parent):
-        Templates.BattleTest_Dialog.__init__(self, parent)
+        BattleTest_Dialog_Template.__init__(self, parent)
 
     # Handlers for BattleTest_Dialog events.
     def buttonOK_Clicked(self, event):

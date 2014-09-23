@@ -9,10 +9,13 @@ import Kernel
 # Implementing ControlSelfSwitches_Dialog
 
 
-class ControlSelfSwitches_Dialog(Templates.ControlSelfSwitches_Dialog):
+from PyitectConsumes import ControlSelfSwitches_Dialog_Template
+
+
+class ControlSelfSwitches_Dialog(ControlSelfSwitches_Dialog_Template):
 
     def __init__(self, parent):
-        Templates.ControlSelfSwitches_Dialog.__init__(self, parent)
+        ControlSelfSwitches_Dialog_Template.__init__(self, parent)
 
     # Handlers for ControlSelfSwitches_Dialog events.
     def buttonOK_Clicked(self, event):

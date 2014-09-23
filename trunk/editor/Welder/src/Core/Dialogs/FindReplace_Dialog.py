@@ -9,10 +9,13 @@ import Kernel
 #-------------------------------------------------------------------------
 
 
-class FindReplace_Dialog(Templates.FindReplace_Dialog):
+from PyitectConsumes import FindReplace_Dialog_Template
+
+
+class FindReplace_Dialog(FindReplace_Dialog_Template):
 
     def __init__(self, parent, index, data):
-        Templates.FindReplace_Dialog.__init__(self, parent)
+        FindReplace_Dialog_Template.__init__(self, parent)
         self.Data = data
 
     def RefreshTab(self, index=0):

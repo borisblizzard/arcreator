@@ -10,11 +10,14 @@ DM = Core.Database.Manager
 ARC_FORMAT = False  # TEST
 
 
-class Skill_Dialog(Templates.Skill_Dialog):
+from PyitectConsumes import Skill_Dialog_Template
+
+
+class Skill_Dialog(Skill_Dialog_Template):
 
     def __init__(self, parent, skills, maxlevel, level=1, skill_id=1):
         """.Basic constructor for the skills dialog."""
-        Templates.Skill_Dialog.__init__(self, parent)
+        Skill_Dialog_Template.__init__(self, parent)
         self.spinCtrlLevel.SetRange(1, maxlevel)
         self.spinCtrlLevel.SetValue(level)
 

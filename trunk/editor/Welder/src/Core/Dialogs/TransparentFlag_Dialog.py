@@ -7,10 +7,13 @@ import Kernel
 
 
 # Implementing TransparentFlag_Dialog
-class TransparentFlag_Dialog(Templates.TransparentFlag_Dialog):
+from PyitectConsumes import TransparentFlag_Dialog_Template
+
+
+class TransparentFlag_Dialog(TransparentFlag_Dialog_Template):
 
     def __init__(self, parent):
-        Templates.TransparentFlag_Dialog.__init__(self, parent)
+        TransparentFlag_Dialog_Template.__init__(self, parent)
 
     # Handlers for TransparentFlag_Dialog events.
     def buttonOK_Clicked(self, event):

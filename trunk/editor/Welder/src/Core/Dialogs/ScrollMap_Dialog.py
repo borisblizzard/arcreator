@@ -7,10 +7,13 @@ import Kernel
 
 
 # Implementing ScrollMap_Dialog
-class ScrollMap_Dialog(Templates.ScrollMap_Dialog):
+from PyitectConsumes import ScrollMap_Dialog_Template
+
+
+class ScrollMap_Dialog(ScrollMap_Dialog_Template):
 
     def __init__(self, parent):
-        Templates.ScrollMap_Dialog.__init__(self, parent)
+        ScrollMap_Dialog_Template.__init__(self, parent)
 
     # Handlers for ScrollMap_Dialog events.
     def buttonOK_Clicked(self, event):

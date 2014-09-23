@@ -7,10 +7,13 @@ import Kernel
 
 
 # Implementing ChangeState_Dialog
-class ChangeState_Dialog(Templates.ChangeState_Dialog):
+from PyitectConsumes import ChangeState_Dialog_Template
+
+
+class ChangeState_Dialog(ChangeState_Dialog_Template):
 
     def __init__(self, parent):
-        Templates.ChangeState_Dialog.__init__(self, parent)
+        ChangeState_Dialog_Template.__init__(self, parent)
 
     # Handlers for ChangeState_Dialog events.
     def buttonOK_Clicked(self, event):

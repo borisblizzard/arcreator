@@ -7,10 +7,13 @@ import Kernel
 
 
 # Implementing ShopGoods_Dialog
-class ShopGoods_Dialog(Templates.ShopGoods_Dialog):
+from PyitectConsumes import ShopGoods_Dialog_Template
+
+
+class ShopGoods_Dialog(ShopGoods_Dialog_Template):
 
     def __init__(self, parent):
-        Templates.ShopGoods_Dialog.__init__(self, parent)
+        ShopGoods_Dialog_Template.__init__(self, parent)
 
     # Handlers for ShopGoods_Dialog events.
     def radioButtonItem_CheckChanged(self, event):

@@ -7,10 +7,13 @@ import Kernel
 
 
 # Implementing ChangePictureColorTone_Dialog
-class ChangePictureColorTone_Dialog(Templates.ChangePictureColorTone_Dialog):
+from PyitectConsumes import ChangePictureColorTone_Dialog_Template
+
+
+class ChangePictureColorTone_Dialog(ChangePictureColorTone_Dialog_Template):
 
     def __init__(self, parent):
-        Templates.ChangePictureColorTone_Dialog.__init__(self, parent)
+        ChangePictureColorTone_Dialog_Template.__init__(self, parent)
 
     # Handlers for ChangePictureColorTone_Dialog events.
     def sliderRed_ScrollChanged(self, event):

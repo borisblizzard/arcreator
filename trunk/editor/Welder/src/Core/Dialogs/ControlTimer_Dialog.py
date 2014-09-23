@@ -9,10 +9,13 @@ import Kernel
 # Implementing ControlTimer_Dialog
 
 
-class ControlTimer_Dialog(Templates.ControlTimer_Dialog):
+from PyitectConsumes import ControlTimer_Dialog_Template
+
+
+class ControlTimer_Dialog(ControlTimer_Dialog_Template):
 
     def __init__(self, parent):
-        Templates.ControlTimer_Dialog.__init__(self, parent)
+        ControlTimer_Dialog_Template.__init__(self, parent)
 
     # Handlers for ControlTimer_Dialog events.
     def buttonOK_Clicked(self, event):

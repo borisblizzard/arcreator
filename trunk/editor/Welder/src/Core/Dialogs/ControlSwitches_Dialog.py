@@ -9,10 +9,13 @@ import Kernel
 # Implementing ControlSwitches_Dialog
 
 
-class ControlSwitches_Dialog(Templates.ControlSwitches_Dialog):
+from PyitectConsumes import ControlSwitches_Dialog_Template
+
+
+class ControlSwitches_Dialog(ControlSwitches_Dialog_Template):
 
     def __init__(self, parent):
-        Templates.ControlSwitches_Dialog.__init__(self, parent)
+        ControlSwitches_Dialog_Template.__init__(self, parent)
 
     # Handlers for ControlSwitches_Dialog events.
     def spinCtrlBatchStart_ValueChanged(self, event):

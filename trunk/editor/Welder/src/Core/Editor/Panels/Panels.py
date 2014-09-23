@@ -109,19 +109,19 @@ class MainToolbar(aui.AuiToolBar):
         self.Bind(wx.EVT_TOOL, self.OnPaste, id=self.pasteid)
 
     def OnNew(self, event):
-        newproject = KM.get_component("NewProjectHandler").object
+        newproject = Kernel.System.load(NewProjectHandler)
         newproject(self.parent)
         Kernel.GlobalObjects.get_value("FileHistory").Save(Kernel.GlobalObjects.get_value("WX_config"))
         Kernel.GlobalObjects.get_value("WX_config").Flush()
 
     def OnOpen(self, event):
-        openproject = KM.get_component("OpenProjectHandler").object
+        openproject = Kernel.System.load(OpenProjectHandler)
         openproject(self.parent, Kernel.GlobalObjects.get_value("FileHistory"))
         Kernel.GlobalObjects.get_value("FileHistory").Save(Kernel.GlobalObjects.get_value("WX_config"))
         Kernel.GlobalObjects.get_value("WX_config").Flush()
 
     def OnSave(self, event):
-        saveproject = KM.get_component("SaveProjectHandler").object
+        saveproject = Kernel.System.load(SaveProjectHandler)
         saveproject()
         Kernel.GlobalObjects.get_value("FileHistory").Save(Kernel.GlobalObjects.get_value("WX_config"))
         Kernel.GlobalObjects.get_value("WX_config").Flush()
@@ -293,7 +293,7 @@ class DatabaseToolbar(aui.AuiToolBar):
         broken = [self.troopsid, self.animationsid, self.tilesetsid, self.commoneventsid, self.systemid]
         # TODO: refactor to get rid of the gigantic elif branch
         if event.Id in broken:
-            KM.raise_event("BrokenDatabasePanel")
+            Kernel.System.fire_event("BrokenDatabasePanel")
         if event.Id == self.actorsid:
             if self.actorspanel:
                 self.mgr.RequestUserAttention(self.actorspanel)

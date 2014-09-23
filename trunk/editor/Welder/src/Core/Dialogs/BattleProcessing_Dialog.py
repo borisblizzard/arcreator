@@ -7,10 +7,13 @@ import Kernel
 
 
 # Implementing BattleProcessing_Dialog
-class BattleProcessing_Dialog(Templates.BattleProcessing_Dialog):
+from PyitectConsumes import BattleProcessing_Dialog_Template
+
+
+class BattleProcessing_Dialog(BattleProcessing_Dialog_Template):
 
     def __init__(self, parent):
-        Templates.BattleProcessing_Dialog.__init__(self, parent)
+        BattleProcessing_Dialog_Template.__init__(self, parent)
 
     # Handlers for BattleProcessing_Dialog events.
     def buttonOK_Clicked(self, event):

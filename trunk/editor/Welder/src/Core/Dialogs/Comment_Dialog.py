@@ -9,10 +9,13 @@ import Kernel
 # Implementing Comment_Dialog
 
 
-class Comment_Dialog(Templates.Comment_Dialog):
+from PyitectConsumes import Comment_Dialog_Template
+
+
+class Comment_Dialog(Comment_Dialog_Template):
 
     def __init__(self, parent):
-        Templates.Comment_Dialog.__init__(self, parent)
+        Comment_Dialog_Template.__init__(self, parent)
 
     # Handlers for Comment_Dialog events.
     def buttonOK_Clicked(self, event):
