@@ -9,10 +9,13 @@ import Kernel
 # Implementing MovePicture_Dialog
 
 
-class MovePicture_Dialog(Templates.MovePicture_Dialog):
+from PyitectConsumes import MovePicture_Dialog_Template
+
+
+class MovePicture_Dialog(MovePicture_Dialog_Template):
 
     def __init__(self, parent):
-        Templates.MovePicture_Dialog.__init__(self, parent)
+        MovePicture_Dialog_Template.__init__(self, parent)
 
     # Handlers for MovePicture_Dialog events.
     def radioButtonConstant_CheckChanged(self, event):

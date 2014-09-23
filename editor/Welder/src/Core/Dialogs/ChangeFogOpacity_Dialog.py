@@ -7,10 +7,13 @@ import Kernel
 
 
 # Implementing ChangeFogOpacity_Dialog
-class ChangeFogOpacity_Dialog(Templates.ChangeFogOpacity_Dialog):
+from PyitectConsumes import ChangeFogOpacity_Dialog_Template
+
+
+class ChangeFogOpacity_Dialog(ChangeFogOpacity_Dialog_Template):
 
     def __init__(self, parent):
-        Templates.ChangeFogOpacity_Dialog.__init__(self, parent)
+        ChangeFogOpacity_Dialog_Template.__init__(self, parent)
 
     # Handlers for ChangeFogOpacity_Dialog events.
     def buttonOK_Clicked(self, event):

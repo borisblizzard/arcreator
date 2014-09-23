@@ -7,10 +7,13 @@ import Kernel
 DM = Core.Database.Manager
 
 
-class ChooseTreasure_Dialog(Templates.ChooseTreasure_Dialog):
+from PyitectConsumes import ChooseTreasure_Dialog_Template
+
+
+class ChooseTreasure_Dialog(ChooseTreasure_Dialog_Template):
 
     def __init__(self, parent, current):
-        Templates.ChooseTreasure_Dialog.__init__(self, parent)
+        ChooseTreasure_Dialog_Template.__init__(self, parent)
         proj = Kernel.GlobalObjects.get_value('PROJECT')
         global Config, DataItems, DataWeapons, DataArmors
         Config = Kernel.GlobalObjects.get_value('Welder_config')

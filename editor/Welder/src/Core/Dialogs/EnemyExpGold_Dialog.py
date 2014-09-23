@@ -4,11 +4,14 @@ import wx
 import Kernel
 
 
-class EnemyExpGold_Dialog(Templates.EnemyExpGold_Dialog):
+from PyitectConsumes import EnemyExpGold_Dialog_Template
+
+
+class EnemyExpGold_Dialog(EnemyExpGold_Dialog_Template):
 
     def __init__(self, parent, label, max, current=0, variance=None):
         """Basic constructor for the dialog"""
-        Templates.EnemyExpGold_Dialog.__init__(self, parent)
+        EnemyExpGold_Dialog_Template.__init__(self, parent)
         self.labelType.SetLabel(label)
         self.spinCtrlValue.SetRange(0, max)
         self.spinCtrlVariance.SetRange(0, max)

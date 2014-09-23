@@ -9,10 +9,13 @@ import Kernel
 # Implementing ControlVariables_Dialog
 
 
-class ControlVariables_Dialog(Templates.ControlVariables_Dialog):
+from PyitectConsumes import ControlVariables_Dialog_Template
+
+
+class ControlVariables_Dialog(ControlVariables_Dialog_Template):
 
     def __init__(self, parent):
-        Templates.ControlVariables_Dialog.__init__(self, parent)
+        ControlVariables_Dialog_Template.__init__(self, parent)
 
     # Handlers for ControlVariables_Dialog events.
     def spinCtrlBatchStart_ValueChanged(self, event):

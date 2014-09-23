@@ -7,10 +7,13 @@ import Kernel
 
 
 # Implementing ChangeFrequency_Dialog
-class ChangeFrequency_Dialog(Templates.ChangeFrequency_Dialog):
+from PyitectConsumes import ChangeFrequency_Dialog_Template
+
+
+class ChangeFrequency_Dialog(ChangeFrequency_Dialog_Template):
 
     def __init__(self, parent):
-        Templates.ChangeFrequency_Dialog.__init__(self, parent)
+        ChangeFrequency_Dialog_Template.__init__(self, parent)
 
     # Handlers for ChangeFrequency_Dialog events.
     def buttonOK_Clicked(self, event):

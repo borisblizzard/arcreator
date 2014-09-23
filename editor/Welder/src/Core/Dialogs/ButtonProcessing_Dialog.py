@@ -7,10 +7,13 @@ import Kernel
 
 
 # Implementing ButtonProcessing_Dialog
-class ButtonProcessing_Dialog(Templates.ButtonProcessing_Dialog):
+from PyitectConsumes import ButtonProcessing_Dialog_Template
+
+
+class ButtonProcessing_Dialog(ButtonProcessing_Dialog_Template):
 
     def __init__(self, parent):
-        Templates.ButtonProcessing_Dialog.__init__(self, parent)
+        ButtonProcessing_Dialog_Template.__init__(self, parent)
 
     # Handlers for ButtonProcessing_Dialog events.
     def comboBoxVariable_Clicked(self, event):

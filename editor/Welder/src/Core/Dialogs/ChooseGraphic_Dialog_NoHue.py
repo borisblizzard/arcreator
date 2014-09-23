@@ -11,10 +11,13 @@ RTPFunctions = Core.Cache.RTPFunctions
 PILCache = Core.Cache.PILCache
 
 
-class ChooseGraphic_Dialog_NoHue(Templates.ChooseGraphic_Dialog_NoHue):
+from PyitectConsumes import ChooseGraphic_Dialog_NoHue_Template
+
+
+class ChooseGraphic_Dialog_NoHue(ChooseGraphic_Dialog_NoHue_Template):
 
     def __init__(self, parent, folder, current):
-        Templates.ChooseGraphic_Dialog_NoHue.__init__(self, parent)
+        ChooseGraphic_Dialog_NoHue_Template.__init__(self, parent)
         self.glCanvasGraphic.canvas.Bind(wx.EVT_LEFT_DOWN,
                                          Kernel.Protect(self.glCanvas_LeftMouse))
         #self.Centre( wx.BOTH )

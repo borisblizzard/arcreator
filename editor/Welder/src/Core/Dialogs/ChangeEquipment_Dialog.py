@@ -7,10 +7,13 @@ import Kernel
 
 
 # Implementing ChangeEquipment_Dialog
-class ChangeEquipment_Dialog(Templates.ChangeEquipment_Dialog):
+from PyitectConsumes import ChangeEquipment_Dialog_Template
+
+
+class ChangeEquipment_Dialog(ChangeEquipment_Dialog_Template):
 
     def __init__(self, parent):
-        Templates.ChangeEquipment_Dialog.__init__(self, parent)
+        ChangeEquipment_Dialog_Template.__init__(self, parent)
 
     # Handlers for ChangeEquipment_Dialog events.
     def radioButtonWeapon_CheckChanged(self, event):

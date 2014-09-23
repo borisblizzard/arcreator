@@ -7,10 +7,13 @@ import Kernel
 
 
 # Implementing TransferPlayerTilemap_Dialog
-class TransferPlayerTilemap_Dialog(Templates.TransferPlayerTilemap_Dialog):
+from PyitectConsumes import TransferPlayerTilemap_Dialog_Template
+
+
+class TransferPlayerTilemap_Dialog(TransferPlayerTilemap_Dialog_Template):
 
     def __init__(self, parent):
-        Templates.TransferPlayerTilemap_Dialog.__init__(self, parent)
+        TransferPlayerTilemap_Dialog_Template.__init__(self, parent)
 
     # Handlers for TransferPlayerTilemap_Dialog events.
     def treeCtrlMaps_SelectionChanged(self, event):

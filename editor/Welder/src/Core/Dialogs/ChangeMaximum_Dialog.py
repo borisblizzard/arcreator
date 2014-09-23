@@ -4,12 +4,15 @@ import wx
 import Kernel
 
 
-class ChangeMaximum_Dialog(Templates.ChangeMaximum_Dialog):
+from PyitectConsumes import ChangeMaximum_Dialog_Template
+
+
+class ChangeMaximum_Dialog(ChangeMaximum_Dialog_Template):
 
     """Initialize dialog, setting using pass argument to set the initial value."""
 
     def __init__(self, parent, currentMaximum, minValue, maxValue):
-        Templates.ChangeMaximum_Dialog.__init__(self, parent)
+        ChangeMaximum_Dialog_Template.__init__(self, parent)
         self.spinCtrlMaximum.SetRange(minValue, maxValue)
         self.spinCtrlMaximum.SetValue(currentMaximum)
 

@@ -9,10 +9,13 @@ import Kernel
 # Implementing EnemyAppearance_Dialog
 
 
-class EnemyAppearance_Dialog(Templates.EnemyAppearance_Dialog):
+from PyitectConsumes import EnemyAppearance_Dialog_Template
+
+
+class EnemyAppearance_Dialog(EnemyAppearance_Dialog_Template):
 
     def __init__(self, parent):
-        Templates.EnemyAppearance_Dialog.__init__(self, parent)
+        EnemyAppearance_Dialog_Template.__init__(self, parent)
 
     # Handlers for EnemyAppearance_Dialog events.
     def buttonOK_Clicked(self, event):

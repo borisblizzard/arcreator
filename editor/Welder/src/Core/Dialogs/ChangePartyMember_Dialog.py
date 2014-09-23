@@ -7,10 +7,13 @@ import Kernel
 
 
 # Implementing ChangePartyMember_Dialog
-class ChangePartyMember_Dialog(Templates.ChangePartyMember_Dialog):
+from PyitectConsumes import ChangePartyMember_Dialog_Template
+
+
+class ChangePartyMember_Dialog(ChangePartyMember_Dialog_Template):
 
     def __init__(self, parent):
-        Templates.ChangePartyMember_Dialog.__init__(self, parent)
+        ChangePartyMember_Dialog_Template.__init__(self, parent)
 
     # Handlers for ChangePartyMember_Dialog events.
     def buttonOK_Clicked(self, event):

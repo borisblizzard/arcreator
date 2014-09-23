@@ -7,10 +7,13 @@ import Kernel
 
 
 # Implementing TransferEventTilemap_Dialog
-class TransferEventTilemap_Dialog(Templates.TransferEventTilemap_Dialog):
+from PyitectConsumes import TransferEventTilemap_Dialog_Template
+
+
+class TransferEventTilemap_Dialog(TransferEventTilemap_Dialog_Template):
 
     def __init__(self, parent):
-        Templates.TransferEventTilemap_Dialog.__init__(self, parent)
+        TransferEventTilemap_Dialog_Template.__init__(self, parent)
 
     # Handlers for TransferEventTilemap_Dialog events.
     def buttonFull_Clicked(self, event):

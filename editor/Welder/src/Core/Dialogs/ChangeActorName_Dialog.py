@@ -7,10 +7,13 @@ import Kernel
 
 
 # Implementing ChangeActorName_Dialog
-class ChangeActorName_Dialog(Templates.ChangeActorName_Dialog):
+from PyitectConsumes import ChangeActorName_Dialog_Template
+
+
+class ChangeActorName_Dialog(ChangeActorName_Dialog_Template):
 
     def __init__(self, parent):
-        Templates.ChangeActorName_Dialog.__init__(self, parent)
+        ChangeActorName_Dialog_Template.__init__(self, parent)
 
     # Handlers for ChangeActorName_Dialog events.
     def buttonOK_Clicked(self, event):

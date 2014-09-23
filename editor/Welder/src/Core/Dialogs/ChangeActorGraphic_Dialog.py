@@ -7,10 +7,13 @@ import Kernel
 
 
 # Implementing ChangeActorGraphic_Dialog
-class ChangeActorGraphic_Dialog(Templates.ChangeActorGraphic_Dialog):
+from PyitectConsumes import ChangeActorGraphic_Dialog_Template
+
+
+class ChangeActorGraphic_Dialog(ChangeActorGraphic_Dialog_Template):
 
     def __init__(self, parent):
-        Templates.ChangeActorGraphic_Dialog.__init__(self, parent)
+        ChangeActorGraphic_Dialog_Template.__init__(self, parent)
 
     # Handlers for ChangeActorGraphic_Dialog events.
     def comboBoxCharacter_Clicked(self, event):

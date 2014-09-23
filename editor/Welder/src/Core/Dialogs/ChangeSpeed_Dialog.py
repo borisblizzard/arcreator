@@ -7,10 +7,13 @@ import Kernel
 
 
 # Implementing ChangeSpeed_Dialog
-class ChangeSpeed_Dialog(Templates.ChangeSpeed_Dialog):
+from PyitectConsumes import ChangeSpeed_Dialog_Template
+
+
+class ChangeSpeed_Dialog(ChangeSpeed_Dialog_Template):
 
     def __init__(self, parent):
-        Templates.ChangeSpeed_Dialog.__init__(self, parent)
+        ChangeSpeed_Dialog_Template.__init__(self, parent)
 
     # Handlers for ChangeSpeed_Dialog events.
     def buttonOK_Clicked(self, event):

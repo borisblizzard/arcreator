@@ -9,10 +9,13 @@ import Kernel
 # Implementing EventCondition_Dialog
 
 
-class EventCondition_Dialog(Templates.EventCondition_Dialog):
+from PyitectConsumes import EventCondition_Dialog_Template
+
+
+class EventCondition_Dialog(EventCondition_Dialog_Template):
 
     def __init__(self, parent):
-        Templates.EventCondition_Dialog.__init__(self, parent)
+        EventCondition_Dialog_Template.__init__(self, parent)
 
     # Handlers for EventCondition_Dialog events.
     def checkBoxTurn_CheckChanged(self, event):

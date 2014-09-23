@@ -7,10 +7,13 @@ import Kernel
 
 
 # Implementing Wait_Dialog
-class Wait_Dialog(Templates.Wait_Dialog):
+from PyitectConsumes import Wait_Dialog_Template
+
+
+class Wait_Dialog(Wait_Dialog_Template):
 
     def __init__(self, parent):
-        Templates.Wait_Dialog.__init__(self, parent)
+        Wait_Dialog_Template.__init__(self, parent)
 
     # Handlers for Wait_Dialog events.
     def buttonOK_Clicked(self, event):

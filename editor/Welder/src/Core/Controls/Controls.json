@@ -6,7 +6,11 @@
     "consumes": {
         "DatabaseManager": "",
         "ScriptEditorManger": "",
-        "FindReplace_Dialog": ""
+        "FindReplace_Dialog": "",
+        "PanelBase": "",
+        "AudioPlayer_Panel_Template": "",
+        "RGSS1_RPG": "",
+        "RTPFunctions": ""
 
     },
     "provides": {

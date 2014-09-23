@@ -9,10 +9,13 @@ import Kernel
 # Implementing NameProcessing_Dialog
 
 
-class NameProcessing_Dialog(Templates.NameProcessing_Dialog):
+from PyitectConsumes import NameProcessing_Dialog_Template
+
+
+class NameProcessing_Dialog(NameProcessing_Dialog_Template):
 
     def __init__(self, parent):
-        Templates.NameProcessing_Dialog.__init__(self, parent)
+        NameProcessing_Dialog_Template.__init__(self, parent)
 
     # Handlers for NameProcessing_Dialog events.
     def buttonOK_Clicked(self, event):

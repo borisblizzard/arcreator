@@ -7,10 +7,13 @@ import Kernel
 
 
 # Implementing SetEventLocation_Dialog
-class SetEventLocation_Dialog(Templates.SetEventLocation_Dialog):
+from PyitectConsumes import SetEventLocation_Dialog_Template
+
+
+class SetEventLocation_Dialog(SetEventLocation_Dialog_Template):
 
     def __init__(self, parent):
-        Templates.SetEventLocation_Dialog.__init__(self, parent)
+        SetEventLocation_Dialog_Template.__init__(self, parent)
 
     # Handlers for SetEventLocation_Dialog events.
     def radioButtonDirect_CheckChanged(self, event):

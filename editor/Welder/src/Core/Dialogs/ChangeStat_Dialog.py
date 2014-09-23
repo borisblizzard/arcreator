@@ -7,10 +7,13 @@ import Kernel
 
 
 # Implementing ChangeStat_Dialog
-class ChangeStat_Dialog(Templates.ChangeStat_Dialog):
+from PyitectConsumes import ChangeStat_Dialog_Template
+
+
+class ChangeStat_Dialog(ChangeStat_Dialog_Template):
 
     def __init__(self, parent):
-        Templates.ChangeStat_Dialog.__init__(self, parent)
+        ChangeStat_Dialog_Template.__init__(self, parent)
 
     # Handlers for ChangeStat_Dialog events.
     def radioButtonConstant_CheckChanged(self, event):

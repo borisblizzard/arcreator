@@ -7,10 +7,13 @@ import Kernel
 
 
 # Implementing ChangeParameters_Dialog
-class ChangeParameters_Dialog(Templates.ChangeParameters_Dialog):
+from PyitectConsumes import ChangeParameters_Dialog_Template
+
+
+class ChangeParameters_Dialog(ChangeParameters_Dialog_Template):
 
     def __init__(self, parent):
-        Templates.ChangeParameters_Dialog.__init__(self, parent)
+        ChangeParameters_Dialog_Template.__init__(self, parent)
 
     # Handlers for ChangeParameters_Dialog events.
     def radioButtonConstant_CheckChanged(self, event):

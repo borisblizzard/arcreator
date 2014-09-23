@@ -1,18 +1,18 @@
 import wx
 
-
 import Kernel
 
+from PyitectConsumes import AnimationTweening_Dialog_Template
 
 #-------------------------------------------------------------------------
 # AnimationTweening_Dialog
 #-------------------------------------------------------------------------
 
 # Implementing AnimationTweening_Dialog
-class AnimationTweening_Dialog(Templates.AnimationTweening_Dialog):
+class AnimationTweening_Dialog(AnimationTweening_Dialog_Template):
 
     def __init__(self, parent):
-        Templates.AnimationTweening_Dialog.__init__(self, parent)
+        AnimationTweening_Dialog_Template.__init__(self, parent)
 
     # Handlers for AnimationTweening_Dialog events.
     def spinCtrlFramesStart_ValueChanged(self, event):

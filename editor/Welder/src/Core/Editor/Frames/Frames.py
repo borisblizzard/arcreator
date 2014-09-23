@@ -64,7 +64,7 @@ class EditorMainWindow(wx.Frame):
         
         self.SetMinSize(wx.Size(1000, 500))
 
-        # KM.get_event("RefreshProject").register(self.CallLayout)
+        # Kernel.System.bind_event('RefreshProject', )
 
         self.Bind(wx.EVT_UPDATE_UI, self.UpdateUI)
         self.Bind(wx.EVT_CLOSE, self.OnClose, self)
@@ -146,7 +146,7 @@ class EditorMainWindow(wx.Frame):
 
     def ProcessClose(self):
         #handle an open project
-        KM.raise_event("CoreExitMainWindow")
+        Kernel.System.fire_event("CoreExitMainWindow")
         if "ProjectOpen" in Kernel.GlobalObjects and (Kernel.GlobalObjects.get_value("ProjectOpen") == True) and "PROJECT" in Kernel.GlobalObjects:
             current_project = Kernel.GlobalObjects.get_value("PROJECT")
             if current_project.hasDataChanged() or current_project.hasInfoChanged():
@@ -157,10 +157,10 @@ class EditorMainWindow(wx.Frame):
                 result = dlg.ShowModal()
                 dlg.Destroy()
                 if result == wx.YES:
-                    KM.get_component("SaveProjectHandler").object()
+                    Kernel.System.load(SaveProjectHandler)()
 
     def ProcessAutoSave(self, event):
-        KM.raise_event("AutoSave")
+        Kernel.System.fire_event("AutoSave")
 
     def OnFloating(self, event):
         pass

@@ -9,10 +9,13 @@ import Kernel
 # Implementing RecoverAll_Dialog
 
 
-class RecoverAll_Dialog(Templates.RecoverAll_Dialog):
+from PyitectConsumes import RecoverAll_Dialog_Template
+
+
+class RecoverAll_Dialog(RecoverAll_Dialog_Template):
 
     def __init__(self, parent):
-        Templates.RecoverAll_Dialog.__init__(self, parent)
+        RecoverAll_Dialog_Template.__init__(self, parent)
 
     # Handlers for RecoverAll_Dialog events.
     def buttonOK_Clicked(self, event):

@@ -19,11 +19,14 @@ Boot.ConfigManager.LoadConfig()
 # Implementing ExpGrid_Dialog
 
 
-class ExpGrid_Dialog(Templates.ExpGrid_Dialog):
+from PyitectConsumes import ExpGrid_Dialog_Template
+
+
+class ExpGrid_Dialog(ExpGrid_Dialog_Template):
 
     def __init__(self, parent, actor):
         """Basic constructor for the ExpGrid_Dialog"""
-        Templates.ExpGrid_Dialog.__init__(self, parent)
+        ExpGrid_Dialog_Template.__init__(self, parent)
         # Set the options for the spin float control
         self.spinCtrlSpeed.SetRange(-10, 10)
         self.spinCtrlSpeed.SetIncrement(0.25)
@@ -199,11 +202,14 @@ class ExpGrid_Dialog(Templates.ExpGrid_Dialog):
 
 #-------------------------------------------------------------------------
 
-class ExpGraphEditor_Dialog(Templates.ExpGraph_Dialog):
+from PyitectConsumes import ExpGraph_Dialog_Template
+
+
+class ExpGraphEditor_Dialog(ExpGraph_Dialog_Template):
 
     def __init__(self, parent, *args):
         """Basic constructor for the ExpGraph_Dialog"""
-        Templates.ExpGraph_Dialog.__init__(self, parent)
+        ExpGraph_Dialog_Template.__init__(self, parent)
         self.graphPanel.SetData(*args)
 
     def buttonOK_Clicked(self, event):

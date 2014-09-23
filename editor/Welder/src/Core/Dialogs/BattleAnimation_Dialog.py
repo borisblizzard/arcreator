@@ -9,10 +9,13 @@ import Kernel
 #-------------------------------------------------------------------------
 
 # Implementing BattleAnimation_Dialog
-class BattleAnimation_Dialog(Templates.BattleAnimation_Dialog):
+from PyitectConsumes import BattleAnimation_Dialog_Template
+
+
+class BattleAnimation_Dialog(BattleAnimation_Dialog_Template):
 
     def __init__(self, parent):
-        Templates.BattleAnimation_Dialog.__init__(self, parent)
+        BattleAnimation_Dialog_Template.__init__(self, parent)
 
     # Handlers for BattleAnimation_Dialog events.
     def radioButtonEnemy_CheckChanged(self, event):

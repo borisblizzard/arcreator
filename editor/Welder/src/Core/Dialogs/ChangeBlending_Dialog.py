@@ -7,10 +7,13 @@ import Kernel
 
 
 # Implementing ChangeBlending_Dialog
-class ChangeBlending_Dialog(Templates.ChangeBlending_Dialog):
+from PyitectConsumes import ChangeBlending_Dialog_Template
+
+
+class ChangeBlending_Dialog(ChangeBlending_Dialog_Template):
 
     def __init__(self, parent):
-        Templates.ChangeBlending_Dialog.__init__(self, parent)
+        ChangeBlending_Dialog_Template.__init__(self, parent)
 
     # Handlers for ChangeBlending_Dialog events.
     def buttonOK_Clicked(self, event):

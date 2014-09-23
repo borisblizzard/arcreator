@@ -7,10 +7,13 @@ import Kernel
 
 
 # Implementing ChangeHP_Dialog
-class ChangeHP_Dialog(Templates.ChangeHP_Dialog):
+from PyitectConsumes import ChangeHP_Dialog_Template
+
+
+class ChangeHP_Dialog(ChangeHP_Dialog_Template):
 
     def __init__(self, parent):
-        Templates.ChangeHP_Dialog.__init__(self, parent)
+        ChangeHP_Dialog_Template.__init__(self, parent)
 
     # Handlers for ChangeHP_Dialog events.
     def radioButtonConstant_CheckChanged(self, event):

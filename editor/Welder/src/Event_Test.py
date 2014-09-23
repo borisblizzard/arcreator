@@ -99,7 +99,7 @@ if __name__ == '__main__':
             TEST_PATH = os.path.join(Kernel.normConfigPath(RTP_PATH), "Templates", "EventTest", "EventTest.arcproj")
             print(TEST_PATH)
             #get a project loader
-            projectloader = KM.get_component("ARCProjectLoader").object()
+            projectloader = Kernel.System.load(ARCProjectLoader)()
             projectloader.load(TEST_PATH)
             #place the project in the global namespace
             if "PROJECT" in Kernel.GlobalObjects:

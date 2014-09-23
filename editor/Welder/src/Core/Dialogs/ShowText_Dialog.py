@@ -7,10 +7,13 @@ import Kernel
 
 
 # Implementing ShowText_Dialog
-class ShowText_Dialog(Templates.ShowText_Dialog):
+from PyitectConsumes import ShowText_Dialog_Template
+
+
+class ShowText_Dialog(ShowText_Dialog_Template):
 
     def __init__(self, parent):
-        Templates.ShowText_Dialog.__init__(self, parent)
+        ShowText_Dialog_Template.__init__(self, parent)
 
     # Handlers for ShowText_Dialog events.
     def buttonOK_Clicked(self, event):

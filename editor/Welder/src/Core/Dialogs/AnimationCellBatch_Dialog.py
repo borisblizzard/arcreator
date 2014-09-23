@@ -1,18 +1,18 @@
 import wx
 
-
 import Kernel
 
+from PyitectConsumes import AnimationCellBatch_Dialog_Template
 
-#-------------------------------------------------------------------------
+# -------------------------------------------------------------------------
 # AnimationCellBatch_Dialog
-#-------------------------------------------------------------------------
+# -------------------------------------------------------------------------
 
 # Implementing AnimationCellBatch_Dialog
-class AnimationCellBatch_Dialog(Templates.AnimationCellBatch_Dialog):
+class AnimationCellBatch_Dialog(AnimationCellBatch_Dialog_Template):
 
     def __init__(self, parent):
-        Templates.AnimationCellBatch_Dialog.__init__(self, parent)
+        AnimationCellBatch_Dialog_Template.__init__(self, parent)
 
     # Handlers for AnimationCellBatch_Dialog events.
     def spinCtrlFramesStart_ValueChanged(self, event):

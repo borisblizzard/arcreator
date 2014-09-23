@@ -7,10 +7,13 @@ import Kernel
 
 
 # Implementing ChangeTone_Dialog
-class ChangeTone_Dialog(Templates.ChangeTone_Dialog):
+from PyitectConsumes import ChangeTone_Dialog_Template
+
+
+class ChangeTone_Dialog(ChangeTone_Dialog_Template):
 
     def __init__(self, parent):
-        Templates.ChangeTone_Dialog.__init__(self, parent)
+        ChangeTone_Dialog_Template.__init__(self, parent)
 
     # Handlers for ChangeTone_Dialog events.
     def sliderRed_ScrollChanged(self, event):

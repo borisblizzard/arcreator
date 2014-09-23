@@ -1,18 +1,18 @@
 import wx
 
-
 import Kernel
 
+from PyitectConsumes import AnimationTiming_Dialog_Template
 
-#-------------------------------------------------------------------------
+# -------------------------------------------------------------------------
 # AnimationTiming_Dialog
-#-------------------------------------------------------------------------
+# -------------------------------------------------------------------------
 
 # Implementing AnimationTiming_Dialog
-class AnimationTiming_Dialog(Templates.AnimationTiming_Dialog):
+class AnimationTiming_Dialog(AnimationTiming_Dialog_Template):
 
     def __init__(self, parent):
-        Templates.AnimationTiming_Dialog.__init__(self, parent)
+        AnimationTiming_Dialog_Template.__init__(self, parent)
 
     # Handlers for AnimationTiming_Dialog events.
     def spinCtrlFrame_ValueChanged(self, event):

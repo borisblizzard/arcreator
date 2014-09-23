@@ -10,11 +10,14 @@ import Kernel
 # ScriptSettings_Dialog
 #-------------------------------------------------------------------------
 
-class ScriptSettings_Dialog(Templates.ScriptSettings_Dialog):
+from PyitectConsumes import ScriptSettings_Dialog_Template
+
+
+class ScriptSettings_Dialog(ScriptSettings_Dialog_Template):
 
     def __init__(self, parent, scriptcontrol):
         """Basic constructor for the ScriptSettings_Dialog"""
-        Templates.ScriptSettings_Dialog.__init__(self, parent)
+        ScriptSettings_Dialog_Template.__init__(self, parent)
         global Config
         Config = deepcopy(Kernel.GlobalObjects.get_value(
             'Welder_config').get_section('ScriptEditor'))

@@ -7,10 +7,13 @@ import Kernel
 
 
 # Implementing ChangelGold_Dialog
-class ChangelGold_Dialog(Templates.ChangelGold_Dialog):
+from PyitectConsumes import ChangelGold_Dialog_Template
+
+
+class ChangelGold_Dialog(ChangelGold_Dialog_Template):
 
     def __init__(self, parent):
-        Templates.ChangelGold_Dialog.__init__(self, parent)
+        ChangelGold_Dialog_Template.__init__(self, parent)
 
     # Handlers for ChangelGold_Dialog events.
     def radioButtonConstant_CheckChanged(self, event):

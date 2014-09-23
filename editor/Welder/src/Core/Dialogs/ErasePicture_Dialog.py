@@ -9,10 +9,13 @@ import Kernel
 # Implementing ErasePicture_Dialog
 
 
-class ErasePicture_Dialog(Templates.ErasePicture_Dialog):
+from PyitectConsumes import ErasePicture_Dialog_Template
+
+
+class ErasePicture_Dialog(ErasePicture_Dialog_Template):
 
     def __init__(self, parent):
-        Templates.ErasePicture_Dialog.__init__(self, parent)
+        ErasePicture_Dialog_Template.__init__(self, parent)
 
     # Handlers for ErasePicture_Dialog events.
     def buttonOK_Clicked(self, event):

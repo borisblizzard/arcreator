@@ -7,10 +7,13 @@ import Kernel
 
 
 # Implementing ShopProcessing_Dialog
-class ShopProcessing_Dialog(Templates.ShopProcessing_Dialog):
+from PyitectConsumes import ShopProcessing_Dialog_Template
+
+
+class ShopProcessing_Dialog(ShopProcessing_Dialog_Template):
 
     def __init__(self, parent):
-        Templates.ShopProcessing_Dialog.__init__(self, parent)
+        ShopProcessing_Dialog_Template.__init__(self, parent)
 
     # Handlers for ShopProcessing_Dialog events.
     def listCtrlShopGoods_DoubleClick(self, event):

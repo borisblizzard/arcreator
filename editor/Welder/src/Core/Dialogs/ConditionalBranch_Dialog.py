@@ -9,10 +9,13 @@ import Kernel
 # Implementing ConditionalBranch_Dialog
 
 
-class ConditionalBranch_Dialog(Templates.ConditionalBranch_Dialog):
+from PyitectConsumes import ConditionalBranch_Dialog_Template
+
+
+class ConditionalBranch_Dialog(ConditionalBranch_Dialog_Template):
 
     def __init__(self, parent):
-        Templates.ConditionalBranch_Dialog.__init__(self, parent)
+        ConditionalBranch_Dialog_Template.__init__(self, parent)
 
     # Handlers for ConditionalBranch_Dialog events.
     def radioButtonSwitch_CheckedChanged(self, event):

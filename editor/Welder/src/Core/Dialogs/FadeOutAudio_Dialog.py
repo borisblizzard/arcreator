@@ -9,10 +9,13 @@ import Kernel
 # Implementing FadeOutAudio_Dialog
 
 
-class FadeOutAudio_Dialog(Templates.FadeOutAudio_Dialog):
+from PyitectConsumes import FadeOutAudio_Dialog_Template
+
+
+class FadeOutAudio_Dialog(FadeOutAudio_Dialog_Template):
 
     def __init__(self, parent):
-        Templates.FadeOutAudio_Dialog.__init__(self, parent)
+        FadeOutAudio_Dialog_Template.__init__(self, parent)
 
     # Handlers for FadeOutAudio_Dialog events.
     def buttonOK_Clicked(self, event):

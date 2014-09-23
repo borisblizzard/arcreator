@@ -9,10 +9,13 @@ import Kernel
 # Implementing InputNumber_Dialog
 
 
-class InputNumber_Dialog(Templates.InputNumber_Dialog):
+from PyitectConsumes import InputNumber_Dialog_Template
+
+
+class InputNumber_Dialog(InputNumber_Dialog_Template):
 
     def __init__(self, parent):
-        Templates.InputNumber_Dialog.__init__(self, parent)
+        InputNumber_Dialog_Template.__init__(self, parent)
 
     # Handlers for InputNumber_Dialog events.
     def comboBoxVariable_Clicked(self, event):

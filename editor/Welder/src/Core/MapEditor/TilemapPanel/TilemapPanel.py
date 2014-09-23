@@ -87,7 +87,7 @@ class TilemapPanel(PygletGLPanel):
                 self.SetTopLeftXY(event)
             self.SetBottomRightXY(event)
         if event.LeftDown():
-            KM.raise_event("MapEditorMouseLeftDown", event)
+            Kernel.System.fire_event("MapEditorMouseLeftDown", event)
             self.SetFocus()
             self.canvas.CaptureMouse()
             if self.onEventLayer():
@@ -154,7 +154,7 @@ class TilemapPanel(PygletGLPanel):
     def create_objects(self):
         '''create opengl objects when opengl is initialized'''
         table = self.map.data
-        self.cache = KM.get_component("RTPPygletCache").object()
+        self.cache = Kernel.System.load(RTPPygletCache)()
         tileset = self.tilesets[self.map.tileset_id]
         self.tilemap = Tilemap(
             self.cache, table, tileset.tileset_name, tileset.autotile_names)

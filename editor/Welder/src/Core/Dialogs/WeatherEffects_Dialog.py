@@ -7,10 +7,13 @@ import Kernel
 
 
 # Implementing WeatherEffects_Dialog
-class WeatherEffects_Dialog(Templates.WeatherEffects_Dialog):
+from PyitectConsumes import WeatherEffects_Dialog_Template
+
+
+class WeatherEffects_Dialog(WeatherEffects_Dialog_Template):
 
     def __init__(self, parent):
-        Templates.WeatherEffects_Dialog.__init__(self, parent)
+        WeatherEffects_Dialog_Template.__init__(self, parent)
 
     # Handlers for WeatherEffects_Dialog events.
     def sliderPower_ScrollChanged(self, event):

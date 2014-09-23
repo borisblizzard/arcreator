@@ -1,18 +1,18 @@
 import wx
 
-
 import Kernel
 
+from PyitectConsumes import AnimationCellProperties_Dialog_Template
 
-#-------------------------------------------------------------------------
+# -------------------------------------------------------------------------
 # AnimationCellProperties_Dialog
-#-------------------------------------------------------------------------
+# -------------------------------------------------------------------------
 
 # Implementing AnimationCellProperties_Dialog
-class AnimationCellProperties_Dialog(Templates.AnimationCellProperties_Dialog):
+class AnimationCellProperties_Dialog(AnimationCellProperties_Dialog_Template):
 
     def __init__(self, parent):
-        Templates.AnimationCellProperties_Dialog.__init__(self, parent)
+        AnimationCellProperties_Dialog_Template.__init__(self, parent)
 
     # Handlers for AnimationCellProperties_Dialog events.
     def buttonOK_Clicked(self, event):

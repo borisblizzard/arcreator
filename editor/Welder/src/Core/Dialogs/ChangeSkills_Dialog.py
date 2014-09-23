@@ -7,10 +7,13 @@ import Kernel
 
 
 # Implementing ChangeSkills_Dialog
-class ChangeSkills_Dialog(Templates.ChangeSkills_Dialog):
+from PyitectConsumes import ChangeSkills_Dialog_Template
+
+
+class ChangeSkills_Dialog(ChangeSkills_Dialog_Template):
 
     def __init__(self, parent):
-        Templates.ChangeSkills_Dialog.__init__(self, parent)
+        ChangeSkills_Dialog_Template.__init__(self, parent)
 
     # Handlers for ChangeSkills_Dialog events.
     def buttonOK_Clicked(self, event):

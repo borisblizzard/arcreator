@@ -7,10 +7,13 @@ import Kernel
 
 
 # Implementing ScriptCall_Dialog
-class ScriptCall_Dialog(Templates.ScriptCall_Dialog):
+from PyitectConsumes import ScriptCall_Dialog_Template
+
+
+class ScriptCall_Dialog(ScriptCall_Dialog_Template):
 
     def __init__(self, parent):
-        Templates.ScriptCall_Dialog.__init__(self, parent)
+        ScriptCall_Dialog_Template.__init__(self, parent)
 
     # Handlers for ScriptCall_Dialog events.
     def buttonOK_Clicked(self, event):

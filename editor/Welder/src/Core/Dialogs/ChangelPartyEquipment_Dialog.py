@@ -7,10 +7,13 @@ import Kernel
 
 
 # Implementing ChangelPartyEquipment_Dialog
-class ChangelPartyEquipment_Dialog(Templates.ChangelPartyEquipment_Dialog):
+from PyitectConsumes import ChangelPartyEquipment_Dialog_Template
+
+
+class ChangelPartyEquipment_Dialog(ChangelPartyEquipment_Dialog_Template):
 
     def __init__(self, parent):
-        Templates.ChangelPartyEquipment_Dialog.__init__(self, parent)
+        ChangelPartyEquipment_Dialog_Template.__init__(self, parent)
 
     # Handlers for ChangelPartyEquipment_Dialog events.
     def radioButtonConstant_CheckChanged(self, event):
