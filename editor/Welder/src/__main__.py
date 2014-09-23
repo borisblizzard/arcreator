@@ -3,7 +3,7 @@ import os
 import sys
 
 if __name__ == '__main__':
-    if hasattr(sys, 'frozen'): 
+    if hasattr(sys, 'frozen'):
         dirName = sys.executable
     else:
         try:

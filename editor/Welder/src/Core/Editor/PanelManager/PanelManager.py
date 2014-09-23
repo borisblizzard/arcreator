@@ -12,23 +12,24 @@ import wx.lib.agw.aui as aui
 import Kernel
 
 from PyitectConsumes import IconManager
-    
+
+
 class PanelManager(object):
-    
+
     minmodes = {}
-    #position modes
-    minmodes["POS_SMART"]  = aui.AUI_MINIMIZE_POS_SMART 
-    minmodes["POS_TOP"]    = aui.AUI_MINIMIZE_POS_TOP
-    minmodes["POS_LEFT"]   = aui.AUI_MINIMIZE_POS_LEFT
-    minmodes["POS_RIGHT"]  = aui.AUI_MINIMIZE_POS_RIGHT
+    # position modes
+    minmodes["POS_SMART"] = aui.AUI_MINIMIZE_POS_SMART
+    minmodes["POS_TOP"] = aui.AUI_MINIMIZE_POS_TOP
+    minmodes["POS_LEFT"] = aui.AUI_MINIMIZE_POS_LEFT
+    minmodes["POS_RIGHT"] = aui.AUI_MINIMIZE_POS_RIGHT
     minmodes["POS_BOTTOM"] = aui.AUI_MINIMIZE_POS_BOTTOM
-    minmodes["POS_MASK"]   = aui.AUI_MINIMIZE_POS_MASK
-    #caption modes
-    minmodes["CAPT_HIDE"]  = aui.AUI_MINIMIZE_CAPT_HIDE
+    minmodes["POS_MASK"] = aui.AUI_MINIMIZE_POS_MASK
+    # caption modes
+    minmodes["CAPT_HIDE"] = aui.AUI_MINIMIZE_CAPT_HIDE
     minmodes["CAPT_SMART"] = aui.AUI_MINIMIZE_CAPT_SMART
-    minmodes["CAPT_HORZ"]  = aui.AUI_MINIMIZE_CAPT_HORZ
-    minmodes["CAPT_MASK"]  = aui.AUI_MINIMIZE_CAPT_MASK
-    
+    minmodes["CAPT_HORZ"] = aui.AUI_MINIMIZE_CAPT_HORZ
+    minmodes["CAPT_MASK"] = aui.AUI_MINIMIZE_CAPT_MASK
+
     def __init__(self, parent, manager):
         '''
         sets up the Panel Manager
@@ -53,37 +54,39 @@ class PanelManager(object):
         info = self.getPanelInfo(id)
         if info is not None:
             self.LastActive[info.dock_direction_get()] = id
-    
+
     def get_panel_object(self, component_name):
         '''
         gets the default component panel class form the plugin framework
         '''
         return Kernel.System.load(component_name)
-    
+
     def dispatch_panel(self, type, id, arguments=[], info="", data={}, overwrite=False):
         '''
         gets a panel instance and dispatches it to the window storing it in the dispatched array mapped to id, 
         if id already exists the panel currently mapped to id is removed before the new panel is dispatched
         '''
         panel = self.get_panel_object(type)
-        #generate the AUI info
+        # generate the AUI info
         info_obj = None
         if hasattr(panel, "_arc_panel_info_string"):
             if hasattr(panel, "_arc_panel_info_data"):
-                info_obj = self.generate_info(panel._arc_panel_info_string, panel._arc_panel_info_data, info_obj)
+                info_obj = self.generate_info(
+                    panel._arc_panel_info_string, panel._arc_panel_info_data, info_obj)
             else:
-                info_obj = self.generate_info(panel._arc_panel_info_string, info=info_obj)
+                info_obj = self.generate_info(
+                    panel._arc_panel_info_string, info=info_obj)
         info_obj = self.generate_info(info, data, info_obj)
-        
-        #find were we might be docking this pane
+
+        # find were we might be docking this pane
         docktarget = None
-        #Check to see if we should dock or float this panel
+        # Check to see if we should dock or float this panel
         if not info_obj.IsFloating():
             targetid = self.LastActive[info_obj.dock_direction_get()]
             if (targetid in self.dispached) and (self.dispached[targetid] != None):
                 docktarget = self.getPanelInfo(targetid)
 
-        #check to see if the pane exists already
+        # check to see if the pane exists already
         pane_info = self.manager.GetPane(info_obj.name)
         if pane_info.IsOk() and not overwrite:
             info_obj.Show()
@@ -92,23 +95,23 @@ class PanelManager(object):
             self.manager.AddPane(panel_instance, info_obj, target=docktarget)
             self.manager.RequestUserAttention(panel_instance)
         else:
-            
+
             # prevent duplicates
             if id in self.dispached:
                 self.remove_panel(id)
-            #build the window instance
+            # build the window instance
             panel_instance = panel(self.parent, *arguments)
-            
+
             panel_instance._ARC_Panel_Info = info_obj
-            #store the panel
+            # store the panel
             self.dispached[id] = panel_instance
             self.IDs[panel_instance] = id
-            #add the panel to the AUI interface
+            # add the panel to the AUI interface
 
             self.manager.AddPane(panel_instance, info_obj, target=docktarget)
         self.Update()
-        return panel_instance    
-    
+        return panel_instance
+
     def remove_panel(self, id):
         '''
         removes the panel mapped to id from the AUI manager and destroys it
@@ -124,39 +127,39 @@ class PanelManager(object):
                 self.dispached[id].Destroy()
             del self.IDs[self.dispached[id]]
             del self.dispached[id]
-        
+
     def Update(self):
         '''
         Updates the AUI Manager to reflect changes
         '''
         self.manager.Update()
-    
+
     def generate_info(self, info, data={}, info_obj=None):
         '''
         generates a AuiPaneInfo object from the info string and data dict. 
         if an existing AuiPaneInfo object is provided it is extended with the information in the info string and data dict.
         commands that contradict previous setting in the provided AuiPaneInfo object overwrite old settings.
-        
+
         @param info: a string of words seperated by a simple space
             where each word corresponds to a method that could be called on the AuiPaneInfo object
-            
+
         @param data: a dict with where the keys are the names provided in the info string and the values 
             are a sequence of parameters that could be expanded to provide the arguments for the methods 
             those names would call on the AuiPaneInfo object
-            
+
         @param info_obj: a AuiPaneInfo object to be extended
         '''
-        
+
         if info_obj == None:
             info_obj = aui.AuiPaneInfo()
         words = info.split(" ")
         for word in words:
-            #center
+            # center
             if "CenterP" in word:
                 info_obj.CenterPane()
             elif "Center" in word:
                 info_obj.Center()
-            #caption
+            # caption
             if "CaptionV" in word:
                 if "CaptionV" in data:
                     info_obj.CaptionVisible(data["CaptionV"])
@@ -165,17 +168,17 @@ class PanelManager(object):
             elif "Caption" in word:
                 if "Caption" in data:
                     info_obj.Caption(data["Caption"])
-            #best size
+            # best size
             if "BestS" in word:
                 if "BestS" in data:
                     info_obj.BestSize(data["BestS"])
-            #close button
+            # close button
             if "CloseB" in word:
                 if "CloseB" in data:
                     info_obj.CloseButton(data["CloseB"])
                 else:
                     info_obj.CloseButton(True)
-            #bottom
+            # bottom
             if "BottomD" in word:
                 if "BottomD" in data:
                     info_obj.BottomDockable(data["BottomD"])
@@ -188,16 +191,16 @@ class PanelManager(object):
                     info_obj.BottomSnappable(True)
             elif "Bottom" in word:
                 info_obj.Bottom()
-            #default
+            # default
             if "DefaultP" in word:
                 info_obj.DefaultPane()
-            #destroy on close
+            # destroy on close
             if "DestroyOC" in word:
                 if "DestroyOC" in data:
                     info_obj.DestroyOnClose(data["DestroyOC"])
                 else:
                     info_obj.DestroyOnClose(True)
-            #dock
+            # dock
             if "DockF" in word:
                 if "DockF" in data:
                     info_obj.DockFixed(data["DockF"])
@@ -210,10 +213,10 @@ class PanelManager(object):
                     info_obj.Dockable(True)
             elif "Dock" in word:
                 info_obj.Dock()
-            #fixed
+            # fixed
             if "Fixed" in word:
                 info_obj.Fixed()
-            #float
+            # float
             if "Floatable" in word:
                 if "Floatable" in data:
                     info_obj.Floatable(data["Floatable"])
@@ -227,13 +230,13 @@ class PanelManager(object):
                     info_obj.FloatingSize(data["FloatingS"])
             elif "Float" in word:
                 info_obj.Float()
-            #flyout
+            # flyout
             if "FlyOut" in word:
                 if "FlyOut" in data:
                     info_obj.FlyOut(data["FlyOut"])
                 else:
                     info_obj.FlyOut(True)
-            #gripper
+            # gripper
             if "GripperT" in word:
                 if "GripperT" in data:
                     info_obj.GripperTop(data["GripperT"])
@@ -244,10 +247,10 @@ class PanelManager(object):
                     info_obj.Gripper(data["Gripper"])
                 else:
                     info_obj.Gripper()
-            #hide
+            # hide
             if "Hide" in word:
                 info_obj.Hide()
-            #icon
+            # icon
             if "IconARCM" in word:
                 if "IconARCM" in data:
                     icon = IconManager.getBitmap(data["IconARCM"])
@@ -255,11 +258,11 @@ class PanelManager(object):
             elif "Icon" in word:
                 if "Icon" in data:
                     info_obj.Icon(data["Icon"])
-            #layer
+            # layer
             if "Layer" in word:
                 if "Layer" in data:
                     info_obj.Layer(data["Layer"])
-            #left
+            # left
             if "LeftD" in word:
                 if "LeftD" in data:
                     info_obj.LeftDockable(data["LeftD"])
@@ -272,11 +275,11 @@ class PanelManager(object):
                     info_obj.LeftSnappable(True)
             elif "Left" in word:
                 info_obj.Left()
-            #max size
+            # max size
             if "MaxS" in word:
                 if "MaxS" in data:
                     info_obj.MaxSize(data["MaxS"])
-            #maximize
+            # maximize
             if "MaximizeB" in word:
                 if "MaximizeB" in data:
                     info_obj.MaximizeButton(data["MaximizeB"])
@@ -284,11 +287,11 @@ class PanelManager(object):
                     info_obj.MaximizeButton(True)
             elif "Maximize" in word:
                 info_obj.Maximize()
-            #min size
+            # min size
             if "MinS" in word:
                 if "MinS" in data:
                     info_obj.MinSize(*data["MinS"])
-            #minimize
+            # minimize
             if "MinimizeB" in word:
                 if "MinimizeB" in data:
                     info_obj.MinimizeButton(data["MinimizeB"])
@@ -302,17 +305,17 @@ class PanelManager(object):
                     info_obj.MinimizeMode(mode)
             elif "Minimize" in word:
                 info_obj.Minimize()
-            #movable
+            # movable
             if "Movable" in word:
                 if "Movable" in data:
                     info_obj.Movable(data["Movable"])
                 else:
                     info_obj.Movable(True)
-            #name
+            # name
             if "Name" in word:
                 if "Name" in data:
                     info_obj.Name(data["Name"])
-            #notebook
+            # notebook
             if "NotebookC" in word:
                 if "NotebookC" in data:
                     info_obj.NotebookControl(data["NotebookC"])
@@ -324,25 +327,25 @@ class PanelManager(object):
             elif "NotebookP" in word:
                 if "NotebookP" in data:
                     info_obj.NotebookPage(*data["NotebookP"])
-            #pane border
+            # pane border
             if "PaneB" in word:
                 if "PaneB" in data:
                     info_obj.PaneBorder(data["PaneB"])
                 else:
                     info_obj.PaneBorder(True)
-            #pin
+            # pin
             if "PinB" in word:
                 if "PinB" in data:
                     info_obj.PinButton(data["PinB"])
                 else:
                     info_obj.PinButton(True)
-            #resizeable
+            # resizeable
             if "Resizable" in word:
                 if "Resizable" in data:
                     info_obj.Resizable(data["Resizable"])
                 else:
                     info_obj.Resizable(True)
-            #right
+            # right
             if "RightD" in word:
                 if "RightD" in data:
                     info_obj.RightDockable(data["RightD"])
@@ -355,23 +358,23 @@ class PanelManager(object):
                     info_obj.RightSnappable(True)
             elif "Right" in word:
                 info_obj.Right()
-            #row
+            # row
             if "Row" in word:
                 if "Row" in data:
                     info_obj.Row(data["Row"])
-            #show
+            # show
             if "Show" in word:
                 info_obj.Show(True)
-            #snappable
+            # snappable
             if "Snappable" in word:
                 if "Snappable" in data:
                     info_obj.Snappable(data["Snappable"])
                 else:
                     info_obj.Snappable(True)
-            #toolbar
+            # toolbar
             if "ToolbarP" in word:
                 info_obj.ToolbarPane()
-            #top
+            # top
             if "TopD" in word:
                 if "TopD" in data:
                     info_obj.TopDockable(data["TopD"])
@@ -384,13 +387,13 @@ class PanelManager(object):
                     info_obj.TopSnappable(True)
             elif "Top" in word:
                 info_obj.Top()
-            #Transparent
+            # Transparent
             if "Transparent" in word:
                 if "Transparent" in data:
                     info_obj.Transparent(data["Transparent"])
 
         return info_obj
-    
+
     def getPanel(self, id):
         '''
         retrives the Window object of a panel from the idea it was dispatched with, other wise returns None
