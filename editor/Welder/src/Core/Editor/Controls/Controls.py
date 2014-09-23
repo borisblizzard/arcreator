@@ -111,7 +111,7 @@ class MapTreeCtrl(wx.TreeCtrl):
         wx.TreeCtrl.__init__(self, parent, id, pos, size, style)
         self.parent = parent
         Kernel.System.bind_event('RefreshProject', )
-        IconManager = Kernel.System.load(IconManager)
+        IconManager = Kernel.System.load("IconManager")
         imglist = wx.ImageList(16, 16, True, 2)
         imglist.Add(IconManager.getBitmap("project_icon"))
         imglist.Add(IconManager.getBitmap("map_icon"))

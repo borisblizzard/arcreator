@@ -78,14 +78,14 @@ class Test(wx.App):
             exec('page = Core.Database.' + data[1] + '(nb)')
             nb.AddPage(page, data[0])
         nb.SetSelection(PAGE_INDEX)
-        PyXAL = Kernel.System.load(PyXAL)
+        PyXAL = Kernel.System.load("PyXAL")
         if PyXAL is not None:
             PyXAL.Init(self.frame.GetHandle(), True)
         self.frame.Show()
 
     def load_project(self):
         #get a project loader
-        projectloader = Kernel.System.load(ARCProjectLoader)()
+        projectloader = Kernel.System.load("ARCProjectLoader")()
         projectloader.load(TEST_PATH)
         #place the project in the global namespace
         if "PROJECT" in Kernel.GlobalObjects:

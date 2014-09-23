@@ -90,7 +90,7 @@ if __name__ == '__main__':
             TEST_PATH = os.path.join(RTP_PATH, "Templates", "Chronicles of Sir Lag-A-Lot", "Chronicles of Sir Lag-A-Lot.arcproj")
             print(TEST_PATH)
             #get a project loader
-            projectloader = Kernel.System.load(ARCProjectLoader)()
+            projectloader = Kernel.System.load("ARCProjectLoader")()
             projectloader.load(TEST_PATH)
             #place the project in the global namespace
             if "PROJECT" in Kernel.GlobalObjects:
