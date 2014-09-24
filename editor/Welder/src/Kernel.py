@@ -188,7 +188,7 @@ class StatusBar(object):
         wx.BeginBusyCursor()
         StatusBar._tasks_running += 1
         if StatusBar._status_bar is not None:
-            StatusBar._status_bar.UpdateProgressBarShow()
+            StatusBar._status_bar.updateProgressBarShow()
             if flag:
                 StatusBar._previousRanges.append(
                     StatusBar._status_bar.GetProgressRange())
@@ -197,7 +197,7 @@ class StatusBar(object):
                 StatusBar._previousStatus.append(
                     StatusBar._status_bar.GetExtraStatus())
             StatusBar._status_bar.SetProgressRange(range)
-            StatusBar._status_bar.UpdateProgress(0)
+            StatusBar._status_bar.updateProgress(0)
             StatusBar._status_bar.SetExtraStatus(status)
             if range <= 0:
                 StatusBar._status_bar.PulseProgress()
@@ -210,12 +210,12 @@ class StatusBar(object):
         if StatusBar._tasks_running == 0:
             StatusBar.TaskRunning = False
         if StatusBar._status_bar is not None:
-            StatusBar._status_bar.UpdateProgressBarShow()
+            StatusBar._status_bar.updateProgressBarShow()
             if len(StatusBar._previousRanges) > 0:
                 StatusBar._status_bar.SetProgressRange(
                     StatusBar._previousRanges.pop())
             if len(StatusBar._previousSteps) > 0:
-                StatusBar._status_bar.UpdateProgress(
+                StatusBar._status_bar.updateProgress(
                     StatusBar._previousSteps.pop())
             if len(StatusBar._previousStatus) > 0:
                 StatusBar._status_bar.SetExtraStatus(
@@ -225,10 +225,10 @@ class StatusBar(object):
         wx.SafeYield(onlyIfNeeded=True)
 
     @staticmethod
-    def UpdateTask(step=0, status=""):
+    def updateTask(step=0, status=""):
         if StatusBar._status_bar is not None:
-            StatusBar._status_bar.UpdateProgressBarShow()
-            StatusBar._status_bar.UpdateProgress(step)
+            StatusBar._status_bar.updateProgressBarShow()
+            StatusBar._status_bar.updateProgress(step)
             StatusBar._status_bar.SetExtraStatus(status)
             if step < 0:
                 StatusBar._status_bar.PulseProgress()
@@ -237,7 +237,7 @@ class StatusBar(object):
     @staticmethod
     def SetTaskSteps(steps=10):
         if StatusBar._status_bar is not None:
-            StatusBar._status_bar.UpdateProgressBarShow()
+            StatusBar._status_bar.updateProgressBarShow()
             StatusBar._status_bar.SetProgressRange(steps)
         wx.SafeYield(onlyIfNeeded=True)
 

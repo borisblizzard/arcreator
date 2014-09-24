@@ -49,9 +49,9 @@ class AudioPlayer_Panel(AudioPlayer_Panel_Template, PanelBase):
             self.notebookAudio.AddPage(wx.Panel(self.notebookAudio), dir)
         self.RefreshFileLists()
         # Setup the timer for updating the scroll bar
-        self.UpdateTimer = wx.Timer(self)
-        self.Bind(wx.EVT_TIMER, self.Update)
-        self.UpdateTimer.Start()
+        self.updateTimer = wx.Timer(self)
+        self.Bind(wx.EVT_TIMER, self.update)
+        self.updateTimer.Start()
         # Disable scroll function if pitch changing is not permitted
         self.sliderPitch.Enable(PITCH_ENABLED)
         # Set the passed audio file, if, any, as the current selection"""
@@ -61,14 +61,14 @@ class AudioPlayer_Panel(AudioPlayer_Panel_Template, PanelBase):
         self.RefreshActivePage()
 
         # Bind the panel tot he Panel Manager
-        self.BindPanelManager()
+        self.bindPanelManager()
 
     def GetAudio(self):
         # TODO: Implement
         return RPG.AudioFile()
 
-    def Update(self, event):
-        """Updates the scrolling for the position slide control"""
+    def update(self, event):
+        """updates the scrolling for the position slide control"""
         chan = self.Channels[self.AudioIndex]
         if chan.player is not None and chan.player.isPlaying():
             self.sliderPosition.SetValue(chan.GetOffset())
@@ -120,7 +120,7 @@ class AudioPlayer_Panel(AudioPlayer_Panel_Template, PanelBase):
         self.labelFileDuration.SetLabel(labels[1])
 
     def notebookAudio_PageChanged(self, event):
-        """Updates the controls on the page to display the current file, if any"""
+        """updates the controls on the page to display the current file, if any"""
         self.AudioIndex = event.GetSelection()
         self.RefreshActivePage()
 

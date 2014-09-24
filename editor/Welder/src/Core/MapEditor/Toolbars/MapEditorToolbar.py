@@ -70,12 +70,12 @@ class MapEditorToolbar(wx.ToolBar):
     def BindToolEvents(self):
         # layer choice
         self.Bind(wx.EVT_CHOICE, self.OnLayerChoice, self.layerChoice)
-        self.Bind(wx.EVT_UPDATE_UI, self.UpdateLayerChoices, self.layerChoice)
+        self.Bind(wx.EVT_UPDATE_UI, self.updateLayerChoices, self.layerChoice)
         # dim layers box
         self.Bind(wx.EVT_CHECKBOX, self.OnDimLayersChoice, self.dimLayersCB)
         # zoom choice
         self.Bind(wx.EVT_CHOICE, self.OnZoomChoice, self.zoomChoice)
-        self.Bind(wx.EVT_UPDATE_UI, self.UpdateZoomChoice, self.zoomChoice)
+        self.Bind(wx.EVT_UPDATE_UI, self.updateZoomChoice, self.zoomChoice)
 
     def SetupToolIDs(self):
         self.EventLayerID = 4
@@ -105,7 +105,7 @@ class MapEditorToolbar(wx.ToolBar):
                 self.zoomChoice.GetItems()[self.zoomChoice.GetSelection()]]
             self.mapwin.SetZoom(zoom)
 
-    def UpdateLayerChoices(self, event):
+    def updateLayerChoices(self, event):
         if not(self.layers == self.map.data.getShape()[2]):
             self.layers = self.map.data.getShape()[2]
             choices = self.GenLayerChoices()
@@ -117,7 +117,7 @@ class MapEditorToolbar(wx.ToolBar):
             layer = self.layerChoiceIDs[items[selection]]
             self.mapwin.SetActiveLayer(layer)
 
-    def UpdateZoomChoice(self, event):
+    def updateZoomChoice(self, event):
         if (self.mapwin is not None) and (not self.zoomSet):
             self.zoomSet = True
             selection = self.zoomChoice.GetSelection()

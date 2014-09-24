@@ -21,9 +21,9 @@ class Armors_Panel(Armors_Panel_Template, PanelBase):
         Armors_Panel_Template.__init__(self, parent)
 
         global Config, DataArmors, DataStates, DataElements
-        Config = Kernel.GlobalObjects.get_value('Welder_config')
+        Config = Kernel.GlobalObjects['Welder_config']
         try:
-            proj = Kernel.GlobalObjects.get_value('PROJECT')
+            proj = Kernel.GlobalObjects['PROJECT']
             DataArmors = proj.getData('Armors')
             DataStates = proj.getData('States')
             DataElements = proj.getData('System').elements
@@ -51,7 +51,7 @@ class Armors_Panel(Armors_Panel_Template, PanelBase):
         DM.DrawHeaderBitmap(self.bitmapArmors, 'Armors')
 
         # Bind the panel tot he Panel Manager
-        self.BindPanelManager()
+        self.bindPanelManager()
 
     def setRanges(self):
         """Applies the range of values allowed fir the controls on the panel"""
@@ -85,7 +85,7 @@ class Armors_Panel(Armors_Panel_Template, PanelBase):
         DM.FillControl(self.comboBoxAutoState, DataStates, digits, ['(None)'])
 
     def refreshKinds(self):
-        """Updates the armor kinds"""
+        """updates the armor kinds"""
         if DM.ARC_FORMAT:
             kinds = Config.getlist('GameSetup', 'ArmorSlots')
         else:
@@ -125,7 +125,7 @@ class Armors_Panel(Armors_Panel_Template, PanelBase):
         self.textCtrlNotes.ChangeValue(armor.note)
 
     def spinCtrlParameter_ValueChanged(self, event):
-        """Updates the selected armor's parameter"""
+        """updates the selected armor's parameter"""
         index = self.ParameterControls.index(event.GetEventObject())
         if DM.ARC_FORMAT:
             # TODO: Implement
@@ -163,8 +163,8 @@ class Armors_Panel(Armors_Panel_Template, PanelBase):
         DM.ChangeDataCapacity(self, self.listBoxArmors, DataArmors, max)
 
     def textCtrlName_TextChanged(self, event):
-        """Updates the selected armor's name"""
-        DM.UpdateObjectName(self.SelectedArmor, event.GetString(),
+        """updates the selected armor's name"""
+        DM.updateObjectName(self.SelectedArmor, event.GetString(),
                             self.listBoxArmors, len(Config.get('GameObjects', 'Armors')))
 
     def bitmapButtonIcon_Clicked(self, event):
@@ -194,7 +194,7 @@ class Armors_Panel(Armors_Panel_Template, PanelBase):
         self.SelectedArmor.note = event.GetString()
 
     def checkListElements_Clicked(self, event):
-        """Updates the guard elements for the selected armor"""
+        """updates the guard elements for the selected armor"""
         self.checkListElements.ChangeState(event, 1)
         if DM.ARC_FORMAT:
             # TODO: Implement
@@ -205,7 +205,7 @@ class Armors_Panel(Armors_Panel_Template, PanelBase):
             self.SelectedArmor.guard_element_set = ids
 
     def checkListStates_Clicked(self, event):
-        """Updates the guard states for the selected armor"""
+        """updates the guard states for the selected armor"""
         data = self.checkListStates.ChangeState(event, 1)
         if DM.ARC_FORMAT:
             # TODO: Implement

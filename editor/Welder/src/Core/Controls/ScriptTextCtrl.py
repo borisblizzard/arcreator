@@ -50,18 +50,18 @@ class ScriptTextCtrl(stc.StyledTextCtrl):
         super(ScriptTextCtrl, self).__init__(parent, style=stc.STC_STYLE_LINENUMBER | stc.STC_STYLE_INDENTGUIDE)
 
         global Config
-        Config = Kernel.GlobalObjects.get_value('Welder_config').get_section('ScriptEditor')
+        Config = Kernel.GlobalObjects['Welder_config'].get_section('ScriptEditor')
         self.FindReplaceData = FindReplaceData()
         self.FindDialog = None
         self.ApplySettings()
         self.BindHotKeys()
         self.Bind(wx.EVT_KEY_DOWN, self.KeyPressed)
         self.Bind(wx.EVT_TEXT_PASTE, self.CalculateLineNumberMargin)
-        self.Bind(stc.EVT_STC_UPDATEUI, self.UpdateUI)
+        self.Bind(stc.EVT_STC_UPDATEUI, self.updateUI)
         self.Bind(stc.EVT_STC_MARGINCLICK, self.MarginClicked)
 
-    def UpdateUI(self, event):
-        """Updates brace matching"""
+    def updateUI(self, event):
+        """updates brace matching"""
         if Config.get('brace_match').lower() == 'true':
             pos = self.GetCurrentPos() - 1
             ch = chr(self.GetCharAt(pos))

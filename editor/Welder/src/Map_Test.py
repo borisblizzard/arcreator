@@ -35,7 +35,7 @@ else:
 if __name__ == '__main__':
 
     if "Program_Dir" in Kernel.GlobalObjects:
-        Kernel.GlobalObjects.set_value("Program_Dir", LOCAL_PATH)
+        Kernel.GlobalObjects["Program_Dir"] =  LOCAL_PATH
     else:
         Kernel.GlobalObjects.request_new_key("Program_Dir", "CORE", LOCAL_PATH)
 
@@ -53,7 +53,7 @@ if __name__ == '__main__':
     MapPanel = Core.MapEditor.MapEditorPanel.MapPanel
 
     if "Program_Dir" in Kernel.GlobalObjects:
-        Kernel.GlobalObjects.set_value("Program_Dir", LOCAL_PATH)
+        Kernel.GlobalObjects["Program_Dir"] =  LOCAL_PATH
     else:
         Kernel.GlobalObjects.request_new_key("Program_Dir", "CORE", LOCAL_PATH)
 
@@ -72,7 +72,7 @@ if __name__ == '__main__':
             #self.mainsizer.Add(self.GLPanel2, 1, wx.EXPAND, 5)
             
             self.load_project()
-            project = Kernel.GlobalObjects.get_value("PROJECT")
+            project = Kernel.GlobalObjects["PROJECT"]
             self.map = project.getMapData(8)
             self.tilesets = project.getData("Tilesets")
         
@@ -84,9 +84,9 @@ if __name__ == '__main__':
 
         
         def load_project(self):
-            #config = Kernel.GlobalObjects.get_value("Welder_config")
+            #config = Kernel.GlobalObjects["Welder_config"]
             #path = config.get("RTPs", "core")
-            RTP_PATH = Kernel.GlobalObjects.get_value("Welder_config").get_section("RTPs").get('Standard')
+            RTP_PATH = Kernel.GlobalObjects["Welder_config"].get_section("RTPs").get('Standard')
             TEST_PATH = os.path.join(RTP_PATH, "Templates", "Chronicles of Sir Lag-A-Lot", "Chronicles of Sir Lag-A-Lot.arcproj")
             print(TEST_PATH)
             #get a project loader
@@ -94,22 +94,22 @@ if __name__ == '__main__':
             projectloader.load(TEST_PATH)
             #place the project in the global namespace
             if "PROJECT" in Kernel.GlobalObjects:
-                Kernel.GlobalObjects.set_value("PROJECT", projectloader.getProject())
+                Kernel.GlobalObjects["PROJECT"] =  projectloader.getProject()
             else:
                 Kernel.GlobalObjects.request_new_key("PROJECT", "CORE", projectloader.getProject())
             #set the Project Title
             if "Title" in Kernel.GlobalObjects:
-                Kernel.GlobalObjects.set_value("Title", projectloader.getProject().getInfo("Title"))
+                Kernel.GlobalObjects["Title"] =  projectloader.getProject(.getInfo("Title"))
             else:
                 Kernel.GlobalObjects.request_new_key("Title", "CORE", projectloader.getProject().getInfo("Title"))
             #set the current project directory
             if "CurrentProjectDir" in Kernel.GlobalObjects:
-                Kernel.GlobalObjects.set_value("CurrentProjectDir", os.path.dirname(TEST_PATH))
+                Kernel.GlobalObjects["CurrentProjectDir"] =  os.path.dirname(TEST_PATH)
             else:
                 Kernel.GlobalObjects.request_new_key("CurrentProjectDir", "CORE", os.path.dirname(TEST_PATH))
             #set that there is an open project
             if "ProjectOpen" in Kernel.GlobalObjects:
-                Kernel.GlobalObjects.set_value("ProjectOpen", True)
+                Kernel.GlobalObjects["ProjectOpen"] =  True
             else:
                 Kernel.GlobalObjects.request_new_key("ProjectOpen", "CORE", True)
 

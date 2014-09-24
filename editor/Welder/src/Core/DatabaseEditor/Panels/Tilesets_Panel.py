@@ -27,7 +27,7 @@ class Tilesets_Panel(Tilesets_Panel_Template, PanelBase):
         DM.DrawHeaderBitmap(self.bitmapTilesets, 'Tilesets')
 
         # Bind the panel tot he Panel Manager
-        self.BindPanelManager()
+        self.bindPanelManager()
 
     # Handlers for Tilesets_Panel events.
     def listBoxTilesets_SelectionChanged(self, event):

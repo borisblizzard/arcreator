@@ -23,7 +23,7 @@ class System_Panel(System_Panel_Tempalte, PanelBase):
         System_Panel_Tempalte.__init__(self, parent)
 
         # Bind the panel tot he Panel Manager
-        self.BindPanelManager()
+        self.bindPanelManager()
 
     # Handlers for System_Panel events.
     def listCtrlInitialParty_DoubleClicked(self, event):

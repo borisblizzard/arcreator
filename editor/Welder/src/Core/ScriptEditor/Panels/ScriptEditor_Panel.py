@@ -26,19 +26,19 @@ class ScriptEditor_Panel(ScriptEditor_Panel_Template, PanelBase):
         self.CreateToolBar()
         # self.statusBar = parent.CreateStatusBar()
         # TODO: give teh script editor it's own status bar
-        # self.statusBar = Kernel.GlobalObjects.get_value("MainStatusBar")
+        # self.statusBar = Kernel.GlobalObjects["MainStatusBar"]
         self.statusBar.SetFieldsCount(3)
         self.statusBar.SetStatusWidths([-4, -4, -2])
         # TODO: Get path by using project path + Data/Scripts/
         # path = r"C:\Users\Eric\Desktop\ARC\editor\Welder\src\RTP\Templates\Chonicles of Sir Lag-A-Lot\Data\Scripts"
-        path = os.path.join(Kernel.GlobalObjects.get_value("CurrentProjectDir"), 'Data', 'Scripts')
+        path = os.path.join(Kernel.GlobalObjects["CurrentProjectDir"], 'Data', 'Scripts')
         try:
             SM.LoadScripts()
         except:
             Kernel.Log(
                 'Failed to successfully load all scripts.', '[ScriptEditor]', True, True)
         global Scripts
-        Scripts = Kernel.GlobalObjects.get_value('Scripts')
+        Scripts = Kernel.GlobalObjects['Scripts']
         self.ScriptIndex = -1
         if index >= 0:
             self.OpenScript(index=index)
@@ -50,7 +50,7 @@ class ScriptEditor_Panel(ScriptEditor_Panel_Template, PanelBase):
         self.comboBoxScripts.SetSelection(index)
         self.scriptCtrl.CalculateLineNumberMargin()
         # Bind the panel to the Panel Manager
-        self.BindPanelManager()
+        self.bindPanelManager()
 
     def OpenScript(self, event=None, index=None):
         if self.ScriptIndex >= 0:
@@ -140,7 +140,7 @@ class ScriptEditor_Panel(ScriptEditor_Panel_Template, PanelBase):
             self.statusBar.SetStatusText('', 2)
         if event is not None:
             event.Skip()
-        # Update text
+        # update text
         if self.ScriptIndex > -1:
             Scripts[self.ScriptIndex].SetText(self.scriptCtrl.GetTextUTF8())
 

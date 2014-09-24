@@ -304,7 +304,7 @@ class Tilemap(object):
 
         self.tiles = self.createTilemap()
 
-    def UpdateDimmingSprite(self, width, height, scale):
+    def updateDimmingSprite(self, width, height, scale):
         '''
         updates the diming sprite
         '''

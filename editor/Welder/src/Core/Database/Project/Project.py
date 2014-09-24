@@ -266,7 +266,7 @@ class Project(object):
     
     def Backup(self):
         Kernel.StatusBar.BeginTask(3, "Making Project Backup")
-        Kernel.StatusBar.UpdateTask(0, "Ensure Backup Path")
+        Kernel.StatusBar.updateTask(0, "Ensure Backup Path")
         filename = os.path.splitext(os.path.basename(self.project_path))[0]
         curTime = time.strftime("-%Y_%m_%d-%H_%M")
         filename += curTime
@@ -276,12 +276,12 @@ class Project(object):
             os.makedirs(backupFolder)
         zipFilename = os.path.abspath(os.path.join(backupFolder, filename))
         zip = zipfile.ZipFile(zipFilename, "w", zipfile.ZIP_DEFLATED)
-        Kernel.StatusBar.UpdateTask(1, "Adding Data folder to Backup")
+        Kernel.StatusBar.updateTask(1, "Adding Data folder to Backup")
         self.addFolderToZip(zip, os.path.abspath(os.path.join(os.path.dirname(self.project_path), "Data")), "Data")
         zip.close()
-        Kernel.StatusBar.UpdateTask(2, "Limiting the Number of Backups")
+        Kernel.StatusBar.updateTask(2, "Limiting the Number of Backups")
         self.LimitBackups(backupFolder)
-        Kernel.StatusBar.UpdateTask(3, "Finished Backup")
+        Kernel.StatusBar.updateTask(3, "Finished Backup")
         Kernel.StatusBar.EndTask()
         return zipFilename
 
@@ -299,7 +299,7 @@ class Project(object):
     def LimitBackups(self, path):
         backups = self.FindBackupFiles(path)
         backups.sort(key=lambda backup: backup[1])
-        config = Kernel.GlobalObjects.get_value("Welder_config")
+        config = Kernel.GlobalObjects["Welder_config"]
         try:
             maxBackups = config.getint("Main", "MaxBackups")
         except:

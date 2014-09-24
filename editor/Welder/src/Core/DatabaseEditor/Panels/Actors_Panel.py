@@ -24,9 +24,9 @@ class Actors_Panel(Actors_Panel_Template, PanelBase):
         """Basic constructor for the Actors panel"""
         Actors_Panel_Template.__init__(self, parent)
         # Load the project's game objects into this module's scope
-        project = Kernel.GlobalObjects.get_value('PROJECT')
+        project = Kernel.GlobalObjects['PROJECT']
         global Config, DataActors, DataClasses, DataWeapons, DataArmors
-        Config = Kernel.GlobalObjects.get_value('Welder_config')
+        Config = Kernel.GlobalObjects['Welder_config']
         try:
             DataActors = project.getData('Actors')
             DataClasses = project.getData('Classes')
@@ -69,7 +69,7 @@ class Actors_Panel(Actors_Panel_Template, PanelBase):
         # Set the initial selection of the list control
         self.listBoxActors.SetSelection(actorIndex)
         # Bind the panel to the Panel Manager
-        self.BindPanelManager()
+        self.bindPanelManager()
 
     def AddParameterPage(self, title, activate=False):
         """Creates a page and adds it to the notebook control"""
@@ -299,12 +299,12 @@ class Actors_Panel(Actors_Panel_Template, PanelBase):
         DM.ChangeDataCapacity(self, self.listBoxActors, DataActors, max)
 
     def textBoxName_TextChanged(self, event):
-        """Updates the selected actor's name"""
-        DM.UpdateObjectName(self.SelectedActor, event.GetString(),
+        """updates the selected actor's name"""
+        DM.updateObjectName(self.SelectedActor, event.GetString(),
                             self.listBoxActors, len(Config.get('GameObjects', 'Actors')))
 
     def comboBoxClass_SelectionChanged(self, event):
-        """Updates the actor's class ID and refreshes the equipment allowed by the class"""
+        """updates the actor's class ID and refreshes the equipment allowed by the class"""
         self.SelectedActor.class_id = DM.FixedIndex(
             self.comboBoxClass.GetSelection())
         self.refreshWeapons()
@@ -360,7 +360,7 @@ class Actors_Panel(Actors_Panel_Template, PanelBase):
                 self.refreshGraphics()
 
     def comboBoxEquipment_SelectionChanged(self, event):
-        """Updates the weapon/armor id for the selected type for the actor"""
+        """updates the weapon/armor id for the selected type for the actor"""
         ctrlIndex = self.EquipmentBoxes.index(event.GetEventObject())
         if DM.ARC_FORMAT:
             weaponSlots = len(Config.getlist('GameSetup', 'WeaponSlots'))
@@ -390,7 +390,7 @@ class Actors_Panel(Actors_Panel_Template, PanelBase):
                               str(self.GetArmorIDs(kind)[selection - 1])]))
 
     def checkBoxFixedEquipment_CheckChanged(self, event):
-        """Updates the "fixed" states for the selected actor's equipment"""
+        """updates the "fixed" states for the selected actor's equipment"""
         ctrlIndex = self.FixedCheckBoxes.index(event.GetEventObject())
         if DM.ARC_FORMAT:
             # TODO: Implement
@@ -407,7 +407,7 @@ class Actors_Panel(Actors_Panel_Template, PanelBase):
                               '_fix = event.Checked()']))
 
     def spinCtrlParamLevel_ValueChanged(self, event):
-        """Update the controls on each page when the level is changed"""
+        """update the controls on each page when the level is changed"""
         self.refreshValues(self.spinCtrlLevel.GetValue())
 
     def GetValueMax(self, param_index):
@@ -420,7 +420,7 @@ class Actors_Panel(Actors_Panel_Template, PanelBase):
             return Config.getint('DatabaseLimits', 'ActorParameter')
 
     def spinCtrlValue_ValueChanged(self, event):
-        """Updates the actors parameter table with the value"""
+        """updates the actors parameter table with the value"""
         self.SetParameterValue(
             self.ParamTab, self.spinCtrlLevel.GetValue(), self.spinCtrlValue.GetValue())
         self.refreshGraph()
@@ -544,7 +544,7 @@ class Actors_Panel(Actors_Panel_Template, PanelBase):
         self.noteBookActorParameters.SetSelection(self.ParamTab)
 
     def textCtrlNotes_TextChanged(self, event):
-        """Updates the notes for the selected actor"""
+        """updates the notes for the selected actor"""
         self.SelectedActor.note = event.GetString()
 
     def GetWeaponIDs(self):

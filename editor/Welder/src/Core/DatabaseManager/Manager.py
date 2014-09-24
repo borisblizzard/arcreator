@@ -322,8 +322,8 @@ class DatabaseManager(object):
 
     #----------------------------------------------------------------------------------
     @staticmethod
-    def UpdateObjectName(object, name, listbox, digits):
-        """Updates the selected object's name and updates the associated wxListBox
+    def updateObjectName(object, name, listbox, digits):
+        """updates the selected object's name and updates the associated wxListBox
 
         Arguments:
         object -- Then object. Must respond to ".name".
@@ -419,7 +419,7 @@ class DatabaseManager(object):
         count = 0
         parameters = defaults
         if DatabaseManager.ARC_FORMAT:
-            config = Kernel.GlobalObjects.get_value('Welder_config')
+            config = Kernel.GlobalObjects['Welder_config']
             parameters.extend(config.getlist('GameSetup', 'Parameters'))
         else:
             parameters.extend(['STR', 'DEX', 'AGI', 'INT'])

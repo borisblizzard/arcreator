@@ -24,7 +24,7 @@ class CommonEvents_Panel(CommonEvents_Panel_Template, PanelBase):
         DM.DrawHeaderBitmap(self.bitmapCommonEvents, 'Common Events')
 
         # Bind the panel tot he Panel Manager
-        self.BindPanelManager()
+        self.bindPanelManager()
 
     # Handlers for CommonEvents_Panel events.
     def listBoxCommonEvents_SelectionChanged(self, event):

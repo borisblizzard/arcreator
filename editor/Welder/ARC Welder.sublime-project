@@ -18,6 +18,7 @@
             "name": "Run Welder Launcher Wrapper",
             "selector": "source.python",
             "working_dir": "${project_path:${folder}}",
+            "shell": true,
             
             "file_regex": "^[ ]*File \"(...*?)\", line ([0-9]*)",
             "cmd": ["Welder"],

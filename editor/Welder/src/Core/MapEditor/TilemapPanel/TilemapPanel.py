@@ -62,18 +62,18 @@ class TilemapPanel(PygletGLPanel):
         self.canvas.Bind(wx.EVT_MOTION, self.OnLeftButtonEvent)
         self.canvas.Bind(wx.EVT_LEFT_DCLICK, self.OnLeftButtonDEvent)
         # UI update
-        self.Bind(wx.EVT_UPDATE_UI, self.Update)
+        self.Bind(wx.EVT_UPDATE_UI, self.update)
 
     def OnLeftButtonDEvent(self, event):
         if self.onEventLayer():
-            mgr = Kernel.GlobalObjects.get_value("PanelManager")
+            mgr = Kernel.GlobalObjects["PanelManager"]
             x, y = self.ConvertEventCoords(event)
             event = self.FindEvent(x, y)
             if event:
                 pass
             else:
                 pass
-            #mgr.dispatch_panel("MainActorsPanel", "Main Actors Panel")
+            #mgr.dispatchPanel("MainActorsPanel", "Main Actors Panel")
 
     def FindEvent(self, x, y):
         for event in self.map.events:
@@ -134,7 +134,7 @@ class TilemapPanel(PygletGLPanel):
             size.width = 1
         if size.height <= 0:
             size.height = 1
-        self.tilemap.UpdateDimmingSprite(
+        self.tilemap.updateDimmingSprite(
             int(size.width) + 2, int(size.height) + 2, 1 / self.zoom)
         gl.glViewport(0, 0, size.width, size.height)
         gl.glMatrixMode(gl.GL_PROJECTION)
@@ -197,7 +197,7 @@ class TilemapPanel(PygletGLPanel):
         self.mouseSprite.update()
         self.mouseSprite.Draw()
 
-    def Update(self, event):
+    def update(self, event):
         self.PrepareGL()
         if self.NeedRedraw:
             self.OnDraw()

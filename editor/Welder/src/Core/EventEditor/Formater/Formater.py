@@ -241,7 +241,7 @@ class Command103Formater(object):
 
     @staticmethod
     def formatCommand(params):
-        project = Kernel.GlobalObjects.get_value("PROJECT")
+        project = Kernel.GlobalObjects["PROJECT"]
         system = project.getData('System')
         f = {}
         f['variable_id'] = params[0]
@@ -290,7 +290,7 @@ class Command105Formater(object):
 
     @staticmethod
     def formatCommand(params):
-        project = Kernel.GlobalObjects.get_value("PROJECT")
+        project = Kernel.GlobalObjects["PROJECT"]
         system = project.getData('System')
 
         f = {}
@@ -372,7 +372,7 @@ class Command111Formater(object):
         f['mode'] = mode
         f['mode_name'] = mode_dict[params[0]]
 
-        project = Kernel.GlobalObjects.get_value("PROJECT")
+        project = Kernel.GlobalObjects["PROJECT"]
         system = project.getData('System')
 
         if mode == 0:  # switch
@@ -769,7 +769,7 @@ class Command121Formater(object):
     @staticmethod
     def formatCommand(params):
         f = {}
-        project = Kernel.GlobalObjects.get_value("PROJECT")
+        project = Kernel.GlobalObjects["PROJECT"]
         system = project.getData('System')
         f['params'] = params
         f['switch_1_id'] = params[0]
@@ -835,7 +835,7 @@ class Command122Formater(object):
     @staticmethod
     def template(f):
         template = '%s: ' % (EventHTMLFormater.red('Control Variables'))
-        project = Kernel.GlobalObjects.get_value("PROJECT")
+        project = Kernel.GlobalObjects["PROJECT"]
         system = project.getData('System')
         # Draw variable or batch
         if f['batch_low'] == f['batch_high']:
@@ -1030,7 +1030,7 @@ class Command125Formater(object):
             template += '%s' % (
                 EventHTMLFormater.bold(EventHTMLFormater.red('%(operand)s')))
         else:                           # variable
-            project = Kernel.GlobalObjects.get_value("PROJECT")
+            project = Kernel.GlobalObjects["PROJECT"]
             system = project.getData('System')
             f['var_name'] = system.variables[f['operand']]
             template += 'Variable [%s: %s]' % (
@@ -1054,7 +1054,7 @@ class Command126Formater(object):
 
     @staticmethod
     def template(f):
-        project = Kernel.GlobalObjects.get_value("PROJECT")
+        project = Kernel.GlobalObjects["PROJECT"]
         items = project.getData('Items')
         f['item_name'] = items[f['item_id']].name
         template = '%s: [%s: %s], %s' % (EventHTMLFormater.italic(EventHTMLFormater.green('Change Items')), EventHTMLFormater.blue('%(item_id)04d'),
@@ -1086,7 +1086,7 @@ class Command127Formater(object):
 
     @staticmethod
     def template(f):
-        project = Kernel.GlobalObjects.get_value("PROJECT")
+        project = Kernel.GlobalObjects["PROJECT"]
         weapons = project.getData('Weapons')
         f['weapon_name'] = weapons[f['weapon_id']].name
         template = '%s: [%s: %s], %s' % (EventHTMLFormater.italic(EventHTMLFormater.green('Change Weapons')), EventHTMLFormater.blue('%(weapon_id)04d'),
@@ -1118,7 +1118,7 @@ class Command128Formater(object):
 
     @staticmethod
     def template(f):
-        project = Kernel.GlobalObjects.get_value("PROJECT")
+        project = Kernel.GlobalObjects["PROJECT"]
         armors = project.getData('Armors')
         f['armor_name'] = armors[f['armor_id']].name
         template = '%s: [%s: %s], %s' % (EventHTMLFormater.italic(EventHTMLFormater.green('Change Armors')), EventHTMLFormater.blue('%(armor_id)04d'),
@@ -1142,7 +1142,7 @@ class Command129Formater(object):
     def formatCommand(params):
         f = {}
         f['actor_id'] = params[0]
-        project = Kernel.GlobalObjects.get_value("PROJECT")
+        project = Kernel.GlobalObjects["PROJECT"]
         actors = project.getData('Actors')
         f['actor_name'] = actors[params[0]].name
         operation = {0: 'Add', 1: 'Remove'}
@@ -1789,7 +1789,7 @@ class Command302Formater(object):
         f = {}
         f['params'] = params
         f['shop_item_type'] = params[0]
-        project = Kernel.GlobalObjects.get_value("PROJECT")
+        project = Kernel.GlobalObjects["PROJECT"]
         if params[0] == 0:
             items = project.getData('Items')
             f['shop_item'] = items[params[1]]
@@ -1902,7 +1902,7 @@ class Command314Formater(object):
     @staticmethod
     def formatCommand(params):
         f = {}
-        project = Kernel.GlobalObjects.get_value("PROJECT")
+        project = Kernel.GlobalObjects["PROJECT"]
         actors = project.getData('Actors')
         f['params'] = params
         f['actor_id'] = params[0]
@@ -2284,7 +2284,7 @@ class Command605Formater(object):
         f = {}
         f['params'] = params
         f['shop_item_type'] = params[0]
-        project = Kernel.GlobalObjects.get_value("PROJECT")
+        project = Kernel.GlobalObjects["PROJECT"]
         if params[0] == 0:
             items = project.getData('Items')
             f['shop_item'] = items[params[1]]

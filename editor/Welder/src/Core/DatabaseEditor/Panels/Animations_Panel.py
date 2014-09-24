@@ -27,7 +27,7 @@ class Animations_Panel(Animations_Panel_Template, PanelBase):
         DM.DrawHeaderBitmap(self.bitmapAnimations, 'Animations')
 
         # Bind the panel tot he Panel Manager
-        self.BindPanelManager()
+        self.bindPanelManager()
 
     # Handlers for Animations_Panel events.
     def listBoxAnimations_SelectionChanged(self, event):

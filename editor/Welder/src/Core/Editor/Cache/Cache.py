@@ -146,11 +146,11 @@ class RTPFunctions(object):
     @staticmethod
     def FindImageFile(folder_name, name):
         flag = False
-        flag, testpath = RTPFunctions.TestImageFiles(Kernel.GlobalObjects.get_value("CurrentProjectDir"), folder_name, name)
+        flag, testpath = RTPFunctions.TestImageFiles(Kernel.GlobalObjects["CurrentProjectDir"], folder_name, name)
         if flag:
             return testpath
         else:
-            rtps = Kernel.GlobalObjects.get_value("Welder_config").get_section("RTPs")
+            rtps = Kernel.GlobalObjects["Welder_config"].get_section("RTPs")
             for rtp_name, path in rtps.items():
                 flag, testpath = RTPFunctions.TestImageFiles(path, folder_name, name)
             if flag:
@@ -172,8 +172,8 @@ class RTPFunctions(object):
         if type == 'image': extensions = RTPFunctions._image_ext
         elif type == 'audio': extensions = RTPFunctions._audio_ext
         else: return files
-        directories = [Kernel.GlobalObjects.get_value('CurrentProjectDir')]
-        rtps = Kernel.GlobalObjects.get_value("Welder_config").get_section("RTPs")
+        directories = [Kernel.GlobalObjects['CurrentProjectDir']]
+        rtps = Kernel.GlobalObjects["Welder_config"].get_section("RTPs")
         directories.extend([os.path.expandvars(path[1]) for path in rtps.items()])
         for dir in directories:
             path = os.path.join(dir, folder)
@@ -193,7 +193,7 @@ class RTPFunctions(object):
         extensions = [".arcproj"]
         directories = []
         directories.extend(extra_paths)
-        rtps = Kernel.GlobalObjects.get_value("Welder_config").get_section("RTPs")
+        rtps = Kernel.GlobalObjects["Welder_config"].get_section("RTPs")
         directories.extend([os.path.expandvars(path[1]) for path in rtps.items()])
         for dir in directories:
             target = os.path.join(dir, "Templates")
@@ -212,11 +212,11 @@ class RTPFunctions(object):
     @staticmethod
     def FindAudioFile(folder_name, name):
         flag = False
-        flag, testpath = RTPFunctions.TestAudioFiles(Kernel.GlobalObjects.get_value("CurrentProjectDir"), folder_name, name)
+        flag, testpath = RTPFunctions.TestAudioFiles(Kernel.GlobalObjects["CurrentProjectDir"], folder_name, name)
         if flag:
             return testpath
         else:
-            rtps = Kernel.GlobalObjects.get_value("Welder_config").get_section("RTPs")
+            rtps = Kernel.GlobalObjects["Welder_config"].get_section("RTPs")
             for rtp_name, path in rtps.items():
                 flag, testpath = RTPFunctions.TestAudioFiles(path, folder_name, name)
             if flag:
@@ -245,7 +245,7 @@ class PILCache(object):
     
 
     try:
-        config = Kernel.GlobalObjects.get_value("Welder_config")
+        config = Kernel.GlobalObjects["Welder_config"]
         if config.has_section("Cache"):
             section = config.get_section("Cache")
             if section.has_item("normal_limit"):
@@ -463,7 +463,7 @@ class PygletCache(object):
         self._Cache = collections.OrderedDict()
         self.limit = 200
         try:
-            config = Kernel.GlobalObjects.get_value("Welder_config")
+            config = Kernel.GlobalObjects["Welder_config"]
             if config.has_section("Cache"):
                 section = config.get_section("Cache")
                 if section.has_item("pyglet_limit"):

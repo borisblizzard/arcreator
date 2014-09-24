@@ -98,7 +98,7 @@ namespace hltypes
 		/// @brief Defines whether the archive is set to an actual file.
 		static bool zipArchive;
 
-		/// @brief Updates internal data size.
+		/// @brief updates internal data size.
 		void _update_data_size();
 
 		/// @brief Reads data from the stream.

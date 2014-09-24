@@ -44,7 +44,7 @@ namespace hltypes
 		/// @brief writing position;
 		long stream_position;
 
-		/// @brief Updates internal data size.
+		/// @brief updates internal data size.
 		void _update_data_size();
 
 		/// @brief Reads data from the stream.

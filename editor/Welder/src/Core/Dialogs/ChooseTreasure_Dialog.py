@@ -14,9 +14,9 @@ class ChooseTreasure_Dialog(ChooseTreasure_Dialog_Template):
 
     def __init__(self, parent, current):
         ChooseTreasure_Dialog_Template.__init__(self, parent)
-        proj = Kernel.GlobalObjects.get_value('PROJECT')
+        proj = Kernel.GlobalObjects['PROJECT']
         global Config, DataItems, DataWeapons, DataArmors
-        Config = Kernel.GlobalObjects.get_value('Welder_config')
+        Config = Kernel.GlobalObjects['Welder_config']
         self._treasureIndex = 0
         DataItems = proj.getData('Items')
         DataWeapons = proj.getData('Weapons')
