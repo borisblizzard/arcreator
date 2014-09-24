@@ -56,6 +56,7 @@ class ARCSplashScreen(wx.Frame):
         self.Bind(wx.EVT_MOTION, self.OnMouseMove)
         self.Bind(wx.EVT_PAINT, self.OnPaint)
         self.Bind(wx.EVT_WINDOW_CREATE, self.SetWindowShape)
+        self.Bind(wx.EVT_CLOSE, self.OnClose, self)
 
     def SetWindowShape(self, evt=None):
         r = wx.Region(self.bmp)
@@ -90,9 +91,6 @@ class ARCSplashScreen(wx.Frame):
         text_y = self.bmp.GetHeight() - text_size2[1] - text_size1[2] - 2
 
         dc.DrawText(string1, text_x, text_y)
-
-    def OnExit(self, evt):
-        self.Close()
 
     def OnLeftDown(self, evt):
         self.CaptureMouse()
@@ -163,9 +161,11 @@ class ARCSplashScreen(wx.Frame):
             Kernel.buildSystem(Kernel.PluginCFG.getUnified())
 
             # bind some plugin system informative events
+            # to the Kernel Log
             Kernel.System.bind_event('plugin_found', self.onPluginFound)
             Kernel.System.bind_event('plugin_loaded', self.onPluginLoad)
             Kernel.System.bind_event('component_loaded', self.onComponentLoad)
+
 
             # search the Core for all Core plugins
             Kernel.System.search(
@@ -199,21 +199,25 @@ class ARCSplashScreen(wx.Frame):
         else:
             Kernel.GlobalObjects.request_new_key("EditorMainWindow", "CORE", editor)
 
+    def OnClose(self, event):
+        # unbine events as we dont want them being called with the window destroied
+        Kernel.System.unbind_event('plugin_found', self.onPluginFound)
+        Kernel.System.unbind_event('plugin_loaded', self.onPluginLoad)
+        Kernel.System.unbind_event('component_loaded', self.onComponentLoad)
+        event.Skip()
+
     def onPluginFound(self, path, plugin):
         self.log("Plugin '%s' found at '%s'" % (plugin, path))
 
     def onPluginLoad(self, plugin, plugin_required, component_needed):
-        self.log("Plugin '%s' was loaded by plugin '%s' during a request for the '%s' component" % (
-            plugin, plugin_required, component_needed))
+        self.log("Plugin '%s' was loaded by plugin '%s' during a request for the '%s' component" % (plugin, plugin_required, component_needed))
 
     def onComponentLoad(self, component, plugin_required, plugin_loaded):
-        self.log("Component '%s' loaded, required by plugin '%s', loaded from plugin '%s'" % (
-            component, plugin_required, plugin_loaded))
+        self.log("Component '%s' loaded, required by plugin '%s', loaded from plugin '%s'" % (component, plugin_required, plugin_loaded))
 
     def log(self, message):
         self.logctl.AppendText(message + "\n")
         wx.SafeYield()
-        print("[Pyitect] %s" % message)
 
     def BindPyXAL(self):
         PyXAL = Kernel.System.load("PyXAL")

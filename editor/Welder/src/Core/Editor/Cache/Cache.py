@@ -245,23 +245,26 @@ class PILCache(object):
     
 
     try:
-        config = Kernel.GlobalObjects["Welder_config"]
-        if config.has_section("Cache"):
-            section = config.get_section("Cache")
-            if section.has_item("normal_limit"):
-                _normal_limit = config.getint("Cache", "normal_limit")
-                if _normal_limit <= 1: _normal_limit = 2
-            if section.has_item("tile_limit"):
-                _tile_limit = config.getint("Cache", "tile_limit")
-                if _tile_limit <= 1: _tile_limit = 2
-            if section.has_item("autotile_limit"):
-                _autotile_limit = config.getint("Cache", "autotile_limit")
-                if _autotile_limit <= 1: _autotile_limit = 2
-            if section.has_item("hue_limit"):
-                _hue_limit = config.getint("Cache", "hue_limit")
-                if _hue_limit <= 1: _hue_limit = 2
+        config = Kernel.Config.getUnified()
+        if "Cache" in config:
+            section = config["Cache"]
+            if "normal_limit" in section:
+                _normal_limit = section["normal_limit"]
+                if _normal_limit <= 1:
+                    _normal_limit = 2
+            if "tile_limit" in section:
+                _tile_limit = section["tile_limit"]
+                if _tile_limit <= 1:
+                    _tile_limit = 2
+            if "autotile_limit" in section:
+                _autotile_limit = section["autotile_limit"]
+                if _autotile_limit <= 1:
+                    _autotile_limit = 2
+            if "hue_limit" in section:
+                _hue_limit = section["hue_limit"]
+                if _hue_limit <= 1: 
+                    _hue_limit = 2
             del section
-
         del config
     except:
         Kernel.Log("Error setting PIL Cache Config", "[Cache]", error=True)

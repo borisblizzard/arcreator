@@ -16,7 +16,7 @@ import wx.lib.agw.aui as aui
 import Kernel
 from PyitectConsumes import IconManager, MainWindowLayout, MainStatusBar, MainMenuBar
 
-MinEditorSize = (1024,768)
+MinEditorSize = (1024, 576)
 
 
 class AuiManager_DCP_ARC(aui.AuiManager_DCP):
@@ -141,13 +141,12 @@ class EditorMainWindow(wx.Frame):
     def ProcessClose(self):
         # handle an open project
         Kernel.System.fire_event("CoreExitMainWindow")
-        if "ProjectOpen" in Kernel.GlobalObjects and (Kernel.GlobalObjects["ProjectOpen"] is True) and "PROJECT" in Kernel.GlobalObjects:
+        if "ProjectOpen" in Kernel.GlobalObjects and Kernel.GlobalObjects["ProjectOpen"] and "PROJECT" in Kernel.GlobalObjects:
             current_project = Kernel.GlobalObjects["PROJECT"]
             if current_project.hasDataChanged() or current_project.hasInfoChanged():
-                message = "There are unsaved changes in the currently open project Do you want to save these changes?"
+                message = "There are unsaved changes in the currently open project. Do you want to save these changes?"
                 caption = "There is an open project"
-                dlg = wx.MessageDialog(self, message, caption, style=wx.YES_NO |
-                                       wx.YES_DEFAULT)
+                dlg = wx.MessageDialog(self, message, caption, style=wx.YES_NO | wx.YES_DEFAULT)
                 result = dlg.ShowModal()
                 dlg.Destroy()
                 if result == wx.YES:

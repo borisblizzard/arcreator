@@ -5,7 +5,6 @@
     "file" : "Data.py",
     "consumes": {
         "NewProjectDialog": "",
-        "SaveProjectHandler": "",
         "ARCProjectCreator": "",
         "ARCProjectLoader": "",
         "ARCProjectSaver": ""

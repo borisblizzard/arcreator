@@ -66,7 +66,7 @@ class FileMenu(wx.Menu):
         self.mainwindow.Bind(wx.EVT_MENU, self.SaveProject, self.save)
         self.mainwindow.Bind(wx.EVT_MENU, self.SaveProjectAs, self.saveas)
         self.mainwindow.Bind(wx.EVT_MENU, self.Exit, self.exit)
-        self.mainwindow.Bind(wx.EVT_MENU_RANGE, self.on_file_history,
+        self.mainwindow.Bind(wx.EVT_MENU_RANGE, self.onFileHistory,
                              id=wx.ID_FILE1, id2=wx.ID_FILE9)
         self.mainwindow.Bind(wx.EVT_UPDATE_UI, self.update, self.save)
         self.mainwindow.Bind(wx.EVT_UPDATE_UI, self.update, self.saveas)
@@ -95,7 +95,7 @@ class FileMenu(wx.Menu):
         self.filehistory.Save(Kernel.GlobalObjects["WX_config"])
         Kernel.GlobalObjects["WX_config"].Flush()
 
-    def on_file_history(self, event):
+    def onFileHistory(self, event):
         fileNum = event.GetId() - wx.ID_FILE1
         path = self.filehistory.GetHistoryFile(fileNum)
         self.filehistory.AddFileToHistory(path)
@@ -105,7 +105,7 @@ class FileMenu(wx.Menu):
         openproject(self.mainwindow, self.filehistory, path)
 
     def update(self, event):
-        if "ProjectOpen" in Kernel.GlobalObjects and (Kernel.GlobalObjects["ProjectOpen"] == True):
+        if "ProjectOpen" in Kernel.GlobalObjects and Kernel.GlobalObjects["ProjectOpen"]:
             event.Enable(True)
         else:
             event.Enable(False)
