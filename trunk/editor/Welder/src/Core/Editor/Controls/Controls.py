@@ -42,7 +42,7 @@ class MainStatusBar(wx.StatusBar):
         #create the Progress Bar
         self.progressBar = wx.Gauge(self, -1, 10, pos=(-1, -1), size=(-1, -1), style=wx.GA_HORIZONTAL|wx.GA_SMOOTH)
         self.progressBar.Show(False)
-        self.Bind(wx.EVT_UPDATE_UI, self.UpdateUIProgressBar, self.progressBar)
+        self.Bind(wx.EVT_UPDATE_UI, self.updateUIProgressBar, self.progressBar)
 
         self.sizeChanged = False
         self.Bind(wx.EVT_SIZE, self.OnSize)
@@ -51,10 +51,10 @@ class MainStatusBar(wx.StatusBar):
         #set self as the statusbar
         Kernel.StatusBar.SetStatusBar(self)
 
-    def UpdateUIProgressBar(self, evt):
-        self.UpdateProgressBarShow()
+    def updateUIProgressBar(self, evt):
+        self.updateProgressBarShow()
 
-    def UpdateProgressBarShow(self):
+    def updateProgressBarShow(self):
         if Kernel.StatusBar.TaskRunning:
             self.progressBar.Show(True)
         else:
@@ -66,7 +66,7 @@ class MainStatusBar(wx.StatusBar):
     def SetExtraStatus(self, text):
         self.SetStatusText(text, 2)
 
-    def UpdateProgress(self, step):
+    def updateProgress(self, step):
         self.progressBar.SetValue(step)
 
     def PulseProgress(self):
@@ -127,7 +127,7 @@ class MapTreeCtrl(wx.TreeCtrl):
         self.Bind(wx.EVT_WINDOW_DESTROY, self.onClose, self)
 
     def buildStruct(self):
-        project = Kernel.GlobalObjects.get_value("PROJECT")
+        project = Kernel.GlobalObjects["PROJECT"]
         mapinfos = project.getData("MapInfos")
         self.struct = {0 : []}
         stack = []
@@ -146,7 +146,7 @@ class MapTreeCtrl(wx.TreeCtrl):
         self.sortStruct()
 
     def sortStruct(self):
-        project = Kernel.GlobalObjects.get_value("PROJECT")
+        project = Kernel.GlobalObjects["PROJECT"]
         mapinfos = project.getData("MapInfos")
         def chmp(key):
             return mapinfos[key].order
@@ -155,7 +155,7 @@ class MapTreeCtrl(wx.TreeCtrl):
 
     def Refresh_Map_List(self):
         #get the roject
-        project = Kernel.GlobalObjects.get_value("PROJECT")
+        project = Kernel.GlobalObjects["PROJECT"]
         #get the map infos
         mapinfos = project.getData("MapInfos")
         #clear the list

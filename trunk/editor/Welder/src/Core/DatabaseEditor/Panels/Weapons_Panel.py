@@ -20,9 +20,9 @@ class Weapons_Panel(Weapons_Panel_Template, PanelBase):
         """Basic constructor for the Weapons panel"""
         Weapons_Panel_Template.__init__(self, parent)
         global Config, DataWeapons, DataStates, DataAnimations, DataElements
-        Config = Kernel.GlobalObjects.get_value('Welder_config')
+        Config = Kernel.GlobalObjects['Welder_config']
         try:
-            proj = Kernel.GlobalObjects.get_value('PROJECT')
+            proj = Kernel.GlobalObjects['PROJECT']
             DataWeapons = proj.getData('Weapons')
             DataAnimations = proj.getData('Animations')
             DataStates = proj.getData('States')
@@ -45,7 +45,7 @@ class Weapons_Panel(Weapons_Panel_Template, PanelBase):
         DM.DrawHeaderBitmap(self.bitmapWeapons, 'Weapons')
 
         # Bind the panel tot he Panel Manager
-        self.BindPanelManager()
+        self.bindPanelManager()
 
     def setRanges(self):
         """Applies the range of values allowed fir the controls on the panel"""
@@ -165,8 +165,8 @@ class Weapons_Panel(Weapons_Panel_Template, PanelBase):
         DM.ChangeDataCapacity(self, self.listBoxWeapons, DataWeapons, max)
 
     def textCtrlName_TextChanged(self, event):
-        """Updates the selected weapon's name"""
-        DM.UpdateObjectName(self.SelectedWeapon, event.GetString(),
+        """updates the selected weapon's name"""
+        DM.updateObjectName(self.SelectedWeapon, event.GetString(),
                             self.listBoxWeapons, len(Config.get('GameObjects', 'Weapons')))
 
     def bitmapButtonIcon_Clicked(self, event):
@@ -194,7 +194,7 @@ class Weapons_Panel(Weapons_Panel_Template, PanelBase):
         self.SelectedWeapon.note = event.GetString()
 
     def checkListElements_Clicked(self, event):
-        """Updates the guard elements for the selected weapon"""
+        """updates the guard elements for the selected weapon"""
         self.checkListElements.ChangeState(event, 1)
         if DM.ARC_FORMAT:
             # TODO: Implement
@@ -205,11 +205,11 @@ class Weapons_Panel(Weapons_Panel_Template, PanelBase):
             self.SelectedWeapon.element_set = ids
 
     def checkListStates_LeftClicked(self, event):
-        """Updates the plus/minus state set for the selected weapon"""
+        """updates the plus/minus state set for the selected weapon"""
         data = self.checkListStates.ChangeState(event, 1)
         DM.ChangeSkillStates(self.SelectedWeapon, data[0], data[1])
 
     def checkListStates_RigthClicked(self, event):
-        """Updates the plus/minus state set for the selected weapon"""
+        """updates the plus/minus state set for the selected weapon"""
         data = self.checkListStates.ChangeState(event, -1)
         DM.ChangeSkillStates(self.SelectedWeapon, data[0], data[1])

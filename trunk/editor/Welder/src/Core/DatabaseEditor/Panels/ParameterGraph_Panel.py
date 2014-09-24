@@ -26,7 +26,7 @@ class ParameterGraph_Panel(ParameterGraph_Panel_Template, PanelBase):
         """Basic constructor for the ParameterGraph_Panel"""
         ParameterGraph_Panel_Template.__init__(self, parent)
         global Config
-        Config = Kernel.GlobalObjects.get_value('Welder_config')
+        Config = Kernel.GlobalObjects['Welder_config']
         self.Data = deepcopy(actor.parameters)
         self.Actor = actor
         self.TabNames = ['MaxHP', 'MaxSP']
@@ -51,10 +51,10 @@ class ParameterGraph_Panel(ParameterGraph_Panel_Template, PanelBase):
         self.RefreshGraph()
 
         # Bind the panel tot he Panel Manager
-        self.BindPanelManager()
+        self.bindPanelManager()
 
     def MouseHover(self, event):
-        """Updates the coordinate display and changes values if MouseDown flag is present"""
+        """updates the coordinate display and changes values if MouseDown flag is present"""
         maxValue = self.GetValueMax(self.PageIndex)
         x, y = self.interactiveGraph.GetXY(event)
         x = min(self.Actor.final_level, max(1, x))

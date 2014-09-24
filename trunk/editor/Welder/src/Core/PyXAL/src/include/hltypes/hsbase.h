@@ -204,7 +204,7 @@ namespace hltypes
 		/// @brief Byte value offset while reading/writing that serves as simple binary encryption.
 		unsigned char encryption_offset;
 
-		/// @brief Updates internal data size.
+		/// @brief updates internal data size.
 		virtual void _update_data_size();
 		/// @brief Checks if object can be used.
 		virtual void _check_availability();

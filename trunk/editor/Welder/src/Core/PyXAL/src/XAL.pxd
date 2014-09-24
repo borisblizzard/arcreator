@@ -53,7 +53,7 @@ cdef extern from "<xal/AudioManager.h>" namespace "xal":
         void setIdlePlayerUnloadTime(float value) except +
         hstr getDeviceName() except +
         bool isThreaded() except +
-        float getUpdateTime() except +
+        float getupdateTime() except +
         float getGlobalGain() except +
         void setGlobalGain(float value) except +
         harray[Player*] getPlayers() except +

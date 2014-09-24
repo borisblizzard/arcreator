@@ -23,7 +23,7 @@ class States_Panel(States_Panel_Template, PanelBase):
         DM.DrawHeaderBitmap(self.bitmapStates, 'States')
 
         # Bind the panel tot he Panel Manager
-        self.BindPanelManager()
+        self.bindPanelManager()
 
     # Handlers for States_Panel events.
     def listBoxStates_SelectionChanged(self, event):

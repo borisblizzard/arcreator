@@ -117,7 +117,7 @@ namespace xal
 		/// @note This method is not thread-safe and is for internal usage only.
 		void _setPitch(float value);
 
-		/// @brief Updates the Player.
+		/// @brief updates the Player.
 		/// @param[in] timeDelta Time since the last update.
 		/// @note This method is not thread-safe and is for internal usage only.
 		virtual void _update(float timeDelta);
@@ -151,12 +151,12 @@ namespace xal
 		/// @brief Prepares the underlying Buffer for playback.
 		/// @note This is implemented by the audio-system.
 		inline virtual void _systemPrepareBuffer() { }
-		/// @brief Updates the current gain of the Player in the audio-system.
+		/// @brief updates the current gain of the Player in the audio-system.
 		/// @note This is implemented by the audio-system.
-		inline virtual void _systemUpdateGain() { }
-		/// @brief Updates the current pitch of the Player in the audio-system.
+		inline virtual void _systemupdateGain() { }
+		/// @brief updates the current pitch of the Player in the audio-system.
 		/// @note This is implemented by the audio-system.
-		inline virtual void _systemUpdatePitch() { }
+		inline virtual void _systemupdatePitch() { }
 		/// @brief Starts playback in the audio-system.
 		/// @note This is implemented by the audio-system.
 		inline virtual void _systemPlay() { }
@@ -164,10 +164,10 @@ namespace xal
 		/// @return How many bytes have been played since the last update.
 		/// @note This is implemented by the audio-system.
 		inline virtual int _systemStop() { return 0; }
-		/// @brief Updates streaming processing in streamed Sounds.
+		/// @brief updates streaming processing in streamed Sounds.
 		/// @return How many bytes have been played since the last update.
 		/// @note This is implemented by the audio-system.
-		inline virtual int _systemUpdateStream() { return 0; }
+		inline virtual int _systemupdateStream() { return 0; }
 
 	private:
 		/// @brief Internal implementation for actually stopping the playback.

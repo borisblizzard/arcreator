@@ -92,7 +92,7 @@ namespace xal
 		HL_DEFINE_GETSET(float, idlePlayerUnloadTime, IdlePlayerUnloadTime);
 		HL_DEFINE_GET(hstr, deviceName, DeviceName);
 		inline bool isThreaded() { return (this->thread != NULL); }
-		HL_DEFINE_GET(float, updateTime, UpdateTime);
+		HL_DEFINE_GET(float, updateTime, updateTime);
 		HL_DEFINE_GET(float, globalGain, GlobalGain);
 		void setGlobalGain(float value);
 		harray<Player*> getPlayers();
@@ -101,7 +101,7 @@ namespace xal
 		/// @param[in] thread The Thread instance calling.
 		/// @note This is used for threaded update only and should never be called from the outside.
 		static void update(hthread* thread);
-		/// @brief Updates all audio processing.
+		/// @brief updates all audio processing.
 		/// @param[in] timeDelta Time since the call of this method in seconds.
 		/// @note timeDelta is usually the time since the last frame in games. You don't have to call this if threaded update is enabled.
 		void update(float timeDelta);

@@ -28,10 +28,10 @@ class Classes_Panel(Classes_Panel_Template, PanelBase):
         """Basic constructor for the Classes panel"""
         Classes_Panel_Template.__init__(self, parent)
         global Config
-        Config = Kernel.GlobalObjects.get_value('Welder_config')
+        Config = Kernel.GlobalObjects['Welder_config']
         global DataClasses, DataWeapons, DataArmors, DataStates, DataElements, DataSkills
         try:
-            proj = Kernel.GlobalObjects.get_value('PROJECT')
+            proj = Kernel.GlobalObjects['PROJECT']
             DataClasses = proj.getData('Classes')
             DataWeapons = proj.getData('Weapons')
             DataArmors = proj.getData('Armors')
@@ -63,7 +63,7 @@ class Classes_Panel(Classes_Panel_Template, PanelBase):
         DM.DrawHeaderBitmap(self.bitmapClasses, 'Classes')
 
         # Bind the panel tot he Panel Manager
-        self.BindPanelManager()
+        self.bindPanelManager()
 
     def refreshAll(self):
         """Refreshes all child controls of the panel"""
@@ -121,7 +121,7 @@ class Classes_Panel(Classes_Panel_Template, PanelBase):
             return 0
 
     def refreshValues(self):
-        """Updates the values of all the controls to reflect the selected Class"""
+        """updates the values of all the controls to reflect the selected Class"""
         klass = self.SelectedClass
         self.textCtrlName.ChangeValue(klass.name)
         if klass.position >= self.comboBoxPosition.GetCount():
@@ -165,8 +165,8 @@ class Classes_Panel(Classes_Panel_Template, PanelBase):
         DM.ChangeDataCapacity(self, self.listBoxClasses, DataClasses, max)
 
     def textCtrlName_TextChanged(self, event):
-        """Updates the selected actor's name"""
-        DM.UpdateObjectName(self.SelectedClass, event.GetString(),
+        """updates the selected actor's name"""
+        DM.updateObjectName(self.SelectedClass, event.GetString(),
                             self.listBoxClasses, len(Config.get('GameObjects', 'Classes')))
 
     def checkListWeapons_CheckChanged(self, event):
@@ -277,5 +277,5 @@ class Classes_Panel(Classes_Panel_Template, PanelBase):
             self.StartSkillDialog(-1)
 
     def textCtrlNotes_TextChanged(self, event):
-        """Updates the the value of the selected class's note"""
+        """updates the the value of the selected class's note"""
         self.SelectedClass.note = event.GetString()

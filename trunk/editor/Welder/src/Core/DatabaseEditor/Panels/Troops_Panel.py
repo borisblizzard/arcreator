@@ -28,7 +28,7 @@ class Troops_Panel(Troops_Panel_Template, PanelBase):
         DM.DrawHeaderBitmap(self.bitmapTroops, 'Troops')
 
         # Bind the panel tot he Panel Manager
-        self.BindPanelManager()
+        self.bindPanelManager()
 
     # Handlers for Troops_Panel events.
     def listBoxTroops_SelectionChanged(self, event):

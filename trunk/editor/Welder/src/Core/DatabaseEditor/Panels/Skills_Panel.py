@@ -24,9 +24,9 @@ class Skills_Panel(Skills_Panel_Template, PanelBase):
         Skills_Panel_Template.__init__(self, parent)
         global Config, DataSkills, DataAnimations, DataElements
         global DataStates, DataCommonEvents
-        Config = Kernel.GlobalObjects.get_value('Welder_config')
+        Config = Kernel.GlobalObjects['Welder_config']
         try:
-            proj = Kernel.GlobalObjects.get_value('PROJECT')
+            proj = Kernel.GlobalObjects['PROJECT']
             DataSkills = proj.getData('Skills')
             DataAnimations = proj.getData('Animations')
             DataStates = proj.getData('States')
@@ -55,7 +55,7 @@ class Skills_Panel(Skills_Panel_Template, PanelBase):
         DM.DrawHeaderBitmap(self.bitmapSkills, 'Skills')
 
         # Bind the panel to the Panel Manager
-        self.BindPanelManager()
+        self.bindPanelManager()
 
     def refreshSkillList(self):
         """Refreshes the values in the skill wxListBox control"""
@@ -122,13 +122,13 @@ class Skills_Panel(Skills_Panel_Template, PanelBase):
             self.ParameterControls[9].SetValue(skill.dex_f)
             self.ParameterControls[10].SetValue(skill.agi_f)
             self.ParameterControls[11].SetValue(skill.int_f)
-        # Update elements
+        # update elements
         for i in range(self.checkListElements.GetItemCount()):
             checked = skill.element_set
             if not DM.ARC_FORMAT:
                 checked = [i - 1 for i in checked]
             self.checkListElements.SetChecked(checked)
-        # Update plus/minus states
+        # update plus/minus states
         if DM.ARC_FORMAT:
             addstates = skill.plus_state_set
             minusstates = skill.minus_state_set
@@ -178,8 +178,8 @@ class Skills_Panel(Skills_Panel_Template, PanelBase):
         DM.ChangeDataCapacity(self, self.listBoxSkills, DataSkills, max)
 
     def textCtrlName_TextChanged(self, event):
-        """Updates the selected skill's name"""
-        DM.UpdateObjectName(self.SelectedSkill, event.GetString(),
+        """updates the selected skill's name"""
+        DM.updateObjectName(self.SelectedSkill, event.GetString(),
                             self.listBoxSkills, len(Config.get('GameObjects', 'Skills')))
 
     def bitmapButtonIcon_Clicked(self, event):
@@ -264,7 +264,7 @@ class Skills_Panel(Skills_Panel_Template, PanelBase):
         self.SelectedSkill.note = event.GetString()
 
     def checkListElements_Clicked(self, event):
-        """Updates the element set for the selected skill"""
+        """updates the element set for the selected skill"""
         self.checkListElements.ChangeState(event, 1)
         if DM.ARC_FORMAT:
             # TODO: Implement
@@ -275,11 +275,11 @@ class Skills_Panel(Skills_Panel_Template, PanelBase):
             self.SelectedSkill.element_set = ids
 
     def checkListStates_LeftClicked(self, event):
-        """Updates the plus/minus state set for the selected skill"""
+        """updates the plus/minus state set for the selected skill"""
         data = self.checkListStates.ChangeState(event, 1)
         DM.ChangeSkillStates(self.SelectedSkill, data[0], data[1])
 
     def checkListStates_RigthClicked(self, event):
-        """Updates the plus/minus state set for the selected skill"""
+        """updates the plus/minus state set for the selected skill"""
         data = self.checkListStates.ChangeState(event, -1)
         DM.ChangeSkillStates(self.SelectedSkill, data[0], data[1])

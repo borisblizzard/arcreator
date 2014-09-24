@@ -129,7 +129,7 @@ namespace xal
 		/// @brief How much time has passed since the last access of this buffer (in seconds).
 		float idleTime;
 
-		/// @brief Updates the Buffer.
+		/// @brief updates the Buffer.
 		/// @param[in] timeDelta Time passed since the last update.
 		void _update(float timeDelta);
 		/// @brief Tries to load meta-data from the Source.

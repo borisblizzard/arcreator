@@ -15,7 +15,7 @@ from PyitectConsumes import IconManager
 
 class PanelBase(object):
 
-    def BindPanelManager(self):
+    def bindPanelManager(self):
         self.bindFocus()
         self.SetFocus()
 
@@ -25,15 +25,15 @@ class PanelBase(object):
 
     def OnFocus(self, event):
         if "PanelManager" in Kernel.GlobalObjects:
-            PM = Kernel.GlobalObjects.get_value("PanelManager")
+            PM = Kernel.GlobalObjects["PanelManager"]
             if PM is not None:
                 id = PM.getPanelID(self)
                 info = PM.getPanelInfo(id)
                 if info is not None:
                     if info.IsFloating():
-                        PM.set_last_active("Shadow Panel")
+                        PM.setLastActive("Shadow Panel")
                     else:
-                        PM.set_last_active(id)
+                        PM.setLastActive(id)
 
 
 class MainToolbar(aui.AuiToolBar):
@@ -111,20 +111,20 @@ class MainToolbar(aui.AuiToolBar):
     def OnNew(self, event):
         newproject = Kernel.System.load("NewProjectHandler")
         newproject(self.parent)
-        Kernel.GlobalObjects.get_value("FileHistory").Save(Kernel.GlobalObjects.get_value("WX_config"))
-        Kernel.GlobalObjects.get_value("WX_config").Flush()
+        Kernel.GlobalObjects["FileHistory"].Save(Kernel.GlobalObjects["WX_config"])
+        Kernel.GlobalObjects["WX_config"].Flush()
 
     def OnOpen(self, event):
         openproject = Kernel.System.load("OpenProjectHandler")
-        openproject(self.parent, Kernel.GlobalObjects.get_value("FileHistory"))
-        Kernel.GlobalObjects.get_value("FileHistory").Save(Kernel.GlobalObjects.get_value("WX_config"))
-        Kernel.GlobalObjects.get_value("WX_config").Flush()
+        openproject(self.parent, Kernel.GlobalObjects["FileHistory"])
+        Kernel.GlobalObjects["FileHistory"].Save(Kernel.GlobalObjects["WX_config"])
+        Kernel.GlobalObjects["WX_config"].Flush()
 
     def OnSave(self, event):
         saveproject = Kernel.System.load("SaveProjectHandler")
         saveproject()
-        Kernel.GlobalObjects.get_value("FileHistory").Save(Kernel.GlobalObjects.get_value("WX_config"))
-        Kernel.GlobalObjects.get_value("WX_config").Flush()
+        Kernel.GlobalObjects["FileHistory"].Save(Kernel.GlobalObjects["WX_config"])
+        Kernel.GlobalObjects["WX_config"].Flush()
 
     def OnUndo(self, event):
         pass
@@ -159,7 +159,7 @@ class DatabaseToolbar(aui.AuiToolBar):
 
         self.parent = parent
 
-        self.mgr = Kernel.GlobalObjects.get_value("PanelManager")
+        self.mgr = Kernel.GlobalObjects["PanelManager"]
 
         self.SetToolBitmapSize(wx.Size(16, 16))
 
@@ -298,83 +298,83 @@ class DatabaseToolbar(aui.AuiToolBar):
             if self.actorspanel:
                 self.mgr.RequestUserAttention(self.actorspanel)
             else:
-                self.actorspanel = self.mgr.dispatch_panel("MainActorsPanel", "Main Actors Panel")
+                self.actorspanel = self.mgr.dispatchPanel("MainActorsPanel", "Main Actors Panel")
         elif event.Id == self.classesid:
             if self.classespanel:
                 self.mgr.RequestUserAttention(self.classespanel)
             else:
-                self.classespanel = self.mgr.dispatch_panel("MainClassesPanel", "Main Classes Panel")
+                self.classespanel = self.mgr.dispatchPanel("MainClassesPanel", "Main Classes Panel")
         elif event.Id == self.skillsid:
             if self.skillspanel:
                 self.mgr.RequestUserAttention(self.skillspanel)
             else:
-                self.skillspanel = self.mgr.dispatch_panel("MainSkillsPanel", "Main Skills Panel")
+                self.skillspanel = self.mgr.dispatchPanel("MainSkillsPanel", "Main Skills Panel")
         elif event.Id == self.itemsid:
             if self.itemspanel:
                 self.mgr.RequestUserAttention(self.itemspanel)
             else:
-                self.itemspanel = self.mgr.dispatch_panel("MainItemsPanel", "Main Items Panel")
+                self.itemspanel = self.mgr.dispatchPanel("MainItemsPanel", "Main Items Panel")
         elif event.Id == self.weaponsid:
             if self.weaponspanel:
                 self.mgr.RequestUserAttention(self.weaponspanel)
             else:
-                self.weaponspanel = self.mgr.dispatch_panel("MainWeaponsPanel", "Main Weapons Panel")
+                self.weaponspanel = self.mgr.dispatchPanel("MainWeaponsPanel", "Main Weapons Panel")
         elif event.Id == self.armorsid:
             if self.armorspanel:
                 self.mgr.RequestUserAttention(self.armorspanel)
             else:
-                self.armorspanel = self.mgr.dispatch_panel("MainArmorsPanel", "Main Armors Panel")
+                self.armorspanel = self.mgr.dispatchPanel("MainArmorsPanel", "Main Armors Panel")
         elif event.Id == self.enemiesid:
             if self.enemiespanel:
                 self.mgr.RequestUserAttention(self.enemiespanel)
             else:
-                self.enemiespanel = self.mgr.dispatch_panel("MainEnemiesPanel", "Main Enemies Panel")
+                self.enemiespanel = self.mgr.dispatchPanel("MainEnemiesPanel", "Main Enemies Panel")
         elif event.Id == self.troopsid:
             if self.troopspanel:
                 self.mgr.RequestUserAttention(self.troopspanel)
             else:
-                self.troopspanel = self.mgr.dispatch_panel("MainTroopsPanel", "Main Troops Panel")
+                self.troopspanel = self.mgr.dispatchPanel("MainTroopsPanel", "Main Troops Panel")
         elif event.Id == self.statesid:
             if self.statespanel:
                 self.mgr.RequestUserAttention(self.statespanel)
             else:
-                self.statespanel = self.mgr.dispatch_panel("MainStatesPanel", "Main States Panel")
+                self.statespanel = self.mgr.dispatchPanel("MainStatesPanel", "Main States Panel")
         elif event.Id == self.animationsid:
             if self.animationspanel:
                 self.mgr.RequestUserAttention(self.animationspanel)
             else:
-                self.animationspanel = self.mgr.dispatch_panel("MainAnimationsPanel", "Main Animations Panel")
+                self.animationspanel = self.mgr.dispatchPanel("MainAnimationsPanel", "Main Animations Panel")
         elif event.Id == self.tilesetsid:
             if self.tilesetspanel:
                 self.mgr.RequestUserAttention(self.tilesetspanel)
             else:
-                self.tilesetspanel = self.mgr.dispatch_panel("MainTilesetsPanel", "Main Tilesets Panel")
+                self.tilesetspanel = self.mgr.dispatchPanel("MainTilesetsPanel", "Main Tilesets Panel")
         elif event.Id == self.commoneventsid:
             if self.commoneventspanel:
                 self.mgr.RequestUserAttention(self.commoneventspanel)
             else:
-                self.commoneventspanel = self.mgr.dispatch_panel("MainCommonEventsPanel", "Main Common Events Panel")
+                self.commoneventspanel = self.mgr.dispatchPanel("MainCommonEventsPanel", "Main Common Events Panel")
         elif event.Id == self.systemid:
             if self.systempanel:
                 self.mgr.RequestUserAttention(self.systempanel)
             else:
-                self.systempanel = self.mgr.dispatch_panel("MainSystemPanel", "Main System Panel")
+                self.systempanel = self.mgr.dispatchPanel("MainSystemPanel", "Main System Panel")
         elif event.Id == self.scriptid:
             if self.scriptpanel:
                 self.mgr.RequestUserAttention(self.scriptpanel)
             else:
-                self.scriptpanel = self.mgr.dispatch_panel("MainScriptEditorPanel", "Main Script Editor Panel")
+                self.scriptpanel = self.mgr.dispatchPanel("MainScriptEditorPanel", "Main Script Editor Panel")
 
 
 class StartPanel(wx.Panel, PanelBase):
 
-    _arc_panel_info_string = "Name Caption Center CloseB CaptionV BestS MinimizeM MinimizeB MaximizeB Floatable Resizable Snappable NotebookD Movable DestroyOC"
-    _arc_panel_info_data = {"Name": "Start Panel", "Caption": "Start Panel", "CaptionV": True, "BestS": (32 * 24, 32 * 18), "MinimizeM": ["POS_SMART", "CAPT_SMART",], 
-                            "MinimizeB": True, "CloseB": True}
+    _arc_panel_info_string = "Name Caption CloseB Center Fixed MinimizeB Maximize MaximizeB Resizable NotebookD DestroyOC Floatable Movable"
+    _arc_panel_info_data = {"Name": "Start Panel", "Caption": "Start Panel", "CaptionV": True, "Movable": False,
+                            "MinimizeB": False, "MaximizeB": False, "CloseB": False, "Floatable": False}
 
     def __init__(self, parent):
         wx.Panel.__init__(self, parent)
-        self.BindPanelManager()
+        self.bindPanelManager()
 
 
 # class ShadowPanel(wx.Panel, PanelBase):
@@ -384,4 +384,4 @@ class StartPanel(wx.Panel, PanelBase):
 
 #     def __init__(self, parent):
 #         wx.Panel.__init__(self, parent)
-#         self.BindPanelManager()
+#         self.bindPanelManager()

@@ -33,7 +33,7 @@ class MapEditorPanel(wx.Panel, PanelBase):
         self.SetSizer(self.sizer)
         self.Layout()
 
-        self.Bind(wx.EVT_UPDATE_UI, self.UpdateUI)
+        self.Bind(wx.EVT_UPDATE_UI, self.updateUI)
         self.Show()
 
     def Create_Toolbar(self):
@@ -41,5 +41,5 @@ class MapEditorPanel(wx.Panel, PanelBase):
         self.toolbar = MapEditorToolbar(self, self.map)
         self.sizer.Add(self.toolbar, 0, wx.EXPAND | wx.ALL, 0)
 
-    def UpdateUI(self, event):
+    def updateUI(self, event):
         pass

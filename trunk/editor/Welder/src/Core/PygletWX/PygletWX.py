@@ -292,7 +292,7 @@ class EditorGLPanel(PygletGLPanel):
         self.canvas.PopupMenu(self._contextMenu, event.GetPosition())
 
     def menuItem_SelectionChanged(self, event):
-        """Updates the draw mode"""
+        """updates the draw mode"""
         self.SetDrawMode(event.GetId())
 
     def _createContextMenu(self):

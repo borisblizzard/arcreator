@@ -26,9 +26,9 @@ class Enemies_Panel(Enemies_Panel_Template, PanelBase):
         """Basic constructor for the Enemies panel"""
         Enemies_Panel_Template.__init__(self, parent)
         global Config, DataEnemies, DataStates, DataAnimations, DataElements
-        Config = Kernel.GlobalObjects.get_value('Welder_config')
+        Config = Kernel.GlobalObjects['Welder_config']
         try:
-            proj = Kernel.GlobalObjects.get_value('PROJECT')
+            proj = Kernel.GlobalObjects['PROJECT']
             DataEnemies = proj.getData('Enemies')
             DataAnimations = proj.getData('Animations')
             DataStates = proj.getData('States')
@@ -51,7 +51,7 @@ class Enemies_Panel(Enemies_Panel_Template, PanelBase):
         DM.DrawHeaderBitmap(self.bitmapEnemies, 'Enemies')
 
         # Bind the panel to the Panel Manager
-        self.BindPanelManager()
+        self.bindPanelManager()
 
     def setRanges(self):
         """Sets the ranges of allowed values for the controls"""
@@ -123,7 +123,7 @@ class Enemies_Panel(Enemies_Panel_Template, PanelBase):
             self.comboBoxExp.SetValue(str(enemy.exp))
             self.comboBoxGold.SetValue(str(enemy.gold))
             trsr = None
-            proj = Kernel.GlobalObjects.get_value('PROJECT')
+            proj = Kernel.GlobalObjects['PROJECT']
             if enemy.item_id != 0:
                 trsr = (proj.getData('Items'), enemy.item_id)
             elif enemy.weapon_id != 0:
@@ -166,11 +166,11 @@ class Enemies_Panel(Enemies_Panel_Template, PanelBase):
         DM.ChangeDataCapacity(self, self.listBoxEnemies, DataEnemies, max)
 
     def textCtrlName_ValueChanged(self, event):
-        """Updates the selected enemy's name"""
+        """updates the selected enemy's name"""
         self.SelectedEnemy.name = event.GetString()
 
     def textCtrlDescription_TextChanged(self, event):
-        """Updates the selected enemy's description"""
+        """updates the selected enemy's description"""
         self.SelectedEnemy.description = event.GetString()
 
     def bitmapGraphic_DoubleClick(self, event):
@@ -178,15 +178,15 @@ class Enemies_Panel(Enemies_Panel_Template, PanelBase):
         pass
 
     def comboBoxAttackAnimation_SelectionChanged(self, event):
-        """Updates the selected enemy's user animation"""
+        """updates the selected enemy's user animation"""
         self.SelectedEnemy.animation1_id = event.GetInt()
 
     def comboBoxTargetAnimation_ValueChanged(self, event):
-        """Updates the selected enemy's target animation"""
+        """updates the selected enemy's target animation"""
         self.SelectedEnemy.animation2_id = event.GetInt()
 
     def spinCtrlParameter_ValueChanged(self, event):
-        """Updates the selected enemy's parameter"""
+        """updates the selected enemy's parameter"""
         index = self.ParameterControls.index(event.GetEventObject())
         if DM.ARC_FORMAT:
             # TODO: Implement
@@ -294,5 +294,5 @@ class Enemies_Panel(Enemies_Panel_Template, PanelBase):
         pass
 
     def textCtrlNotes_TextChanged(self, event):
-        """Updates the selected enemy's note"""
+        """updates the selected enemy's note"""
         self.SelectedEnemy.note = event.GetString()

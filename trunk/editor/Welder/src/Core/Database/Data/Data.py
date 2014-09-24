@@ -11,8 +11,8 @@ from PyitectConsumes import NewProjectDialog, SaveProjectHandler, ARCProjectCrea
 
 def NewProject(mainwindow):
     #handle an already open project
-    if "ProjectOpen" in Kernel.GlobalObjects and (Kernel.GlobalObjects.get_value("ProjectOpen") == True) and "PROJECT" in Kernel.GlobalObjects:
-        current_project = Kernel.GlobalObjects.get_value("PROJECT")
+    if "ProjectOpen" in Kernel.GlobalObjects and (Kernel.GlobalObjects["ProjectOpen"] == True) and "PROJECT" in Kernel.GlobalObjects:
+        current_project = Kernel.GlobalObjects["PROJECT"]
         if current_project.hasDataChanged() or current_project.hasInfoChanged():
             message = "There are unsaved changes in the currently open project Do you want to save these chagnes?"
         else:
@@ -33,29 +33,29 @@ def NewProject(mainwindow):
         projectcreator = ARCProjectCreator()
         Kernel.StatusBar.BeginTask(2, "Creating Project")
         projectcreator.Create(path, name, template)
-        Kernel.StatusBar.UpdateTask(1, "Finished Creating Project")
+        Kernel.StatusBar.updateTask(1, "Finished Creating Project")
         #place the project in the global namespace
         if "PROJECT" in Kernel.GlobalObjects:
-            Kernel.GlobalObjects.set_value("PROJECT", projectcreator.getProject())
+            Kernel.GlobalObjects["PROJECT"] =  projectcreator.getProject()
         else:
             Kernel.GlobalObjects.request_new_key("PROJECT", "CORE", projectcreator.getProject())
         #set the project title
         if "Title" in Kernel.GlobalObjects:
-            Kernel.GlobalObjects.set_value("Title", name)
+            Kernel.GlobalObjects["Title"] =  name
         else:
             Kernel.GlobalObjects.request_new_key("Title", "CORE", name)
         #set the current project directory
         if "CurrentProjectDir" in Kernel.GlobalObjects:
-            Kernel.GlobalObjects.set_value("CurrentProjectDir", path)
+            Kernel.GlobalObjects["CurrentProjectDir"] =  path
         else:
             Kernel.GlobalObjects.request_new_key("CurrentProjectDir", "CORE", path)
         #set that there is an open project
         if "ProjectOpen" in Kernel.GlobalObjects:
-            Kernel.GlobalObjects.set_value("ProjectOpen", True)
+            Kernel.GlobalObjects["ProjectOpen"] =  True
         else:
             Kernel.GlobalObjects.request_new_key("ProjectOpen", "CORE", True)
         #refresh the interface on project data change
-        Kernel.StatusBar.UpdateTask(1, "Refreshing Interface")
+        Kernel.StatusBar.updateTask(1, "Refreshing Interface")
         Kernel.System.fire_event("RefreshProject")
         Kernel.StatusBar.EndTask()
     dlg.Destroy()
@@ -63,8 +63,8 @@ def NewProject(mainwindow):
 def OpenProject(mainwindow, filehistory, path=""):
     Kernel.System.fire_event("OpenProject")
     #handle an already open project
-    if "ProjectOpen" in Kernel.GlobalObjects and (Kernel.GlobalObjects.get_value("ProjectOpen") == True) and "PROJECT" in Kernel.GlobalObjects:
-        current_project = Kernel.GlobalObjects.get_value("PROJECT")
+    if "ProjectOpen" in Kernel.GlobalObjects and (Kernel.GlobalObjects["ProjectOpen"] == True) and "PROJECT" in Kernel.GlobalObjects:
+        current_project = Kernel.GlobalObjects["PROJECT"]
         if current_project.hasDataChanged() or current_project.hasInfoChanged():
             message = "There are unsaved changes in the currently open project Do you want to save these changes?"
         else:
@@ -98,45 +98,45 @@ def OpenProject(mainwindow, filehistory, path=""):
             return
          
     if "CurrentProjectDir" in Kernel.GlobalObjects:
-        Kernel.GlobalObjects.set_value("CurrentProjectDir", path)
+        Kernel.GlobalObjects["CurrentProjectDir"] =  path
     #get a project loader
     projectloader = ARCProjectLoader()
     #this might take a while lets say we busy
     Kernel.StatusBar.BeginTask(2, "Loading Project")
     projectloader.load(path)
     #ok done loading, that was the longest part of it
-    Kernel.StatusBar.UpdateTask(1, "Finished Loading Project")
+    Kernel.StatusBar.updateTask(1, "Finished Loading Project")
     #place the project in the global namespace
     if "PROJECT" in Kernel.GlobalObjects:
-        Kernel.GlobalObjects.set_value("PROJECT", projectloader.getProject())
+        Kernel.GlobalObjects["PROJECT"] =  projectloader.getProject()
     else:
         Kernel.GlobalObjects.request_new_key("PROJECT", "CORE", projectloader.getProject())
     #set the Project Title
     if "Title" in Kernel.GlobalObjects:
-        Kernel.GlobalObjects.set_value("Title", projectloader.getProject().getInfo("Title"))
+        Kernel.GlobalObjects["Title"] =  projectloader.getProject(.getInfo("Title"))
     else:
         Kernel.GlobalObjects.request_new_key("Title", "CORE", projectloader.getProject().getInfo("Title"))
     #set the current project directory
     if "CurrentProjectDir" in Kernel.GlobalObjects:
-        Kernel.GlobalObjects.set_value("CurrentProjectDir", os.path.dirname(path))
+        Kernel.GlobalObjects["CurrentProjectDir"] =  os.path.dirname(path)
     else:
         Kernel.GlobalObjects.request_new_key("CurrentProjectDir", "CORE", os.path.dirname(path))
     #set that there is an open project
     if "ProjectOpen" in Kernel.GlobalObjects:
-        Kernel.GlobalObjects.set_value("ProjectOpen", True)
+        Kernel.GlobalObjects["ProjectOpen"] =  True
     else:
         Kernel.GlobalObjects.request_new_key("ProjectOpen", "CORE", True)
     #refresh the interface on project data change
-    Kernel.StatusBar.UpdateTask(1, "Refreshing Interface")
+    Kernel.StatusBar.updateTask(1, "Refreshing Interface")
     Kernel.System.fire_event("RefreshProject")
     Kernel.StatusBar.EndTask()
 
 def SaveProject():
     Kernel.System.fire_event("SaveProject")
-    if "PROJECT" in Kernel.GlobalObjects and (Kernel.GlobalObjects.get_value("PROJECT") != None):
-        project = Kernel.GlobalObjects.get_value("PROJECT")
-        if "CurrentProjectDir" in Kernel.GlobalObjects and not (Kernel.GlobalObjects.get_value("CurrentProjectDir") == ""):
-            path = Kernel.GlobalObjects.get_value("CurrentProjectDir")
+    if "PROJECT" in Kernel.GlobalObjects and (Kernel.GlobalObjects["PROJECT"] != None):
+        project = Kernel.GlobalObjects["PROJECT"]
+        if "CurrentProjectDir" in Kernel.GlobalObjects and not (Kernel.GlobalObjects["CurrentProjectDir"] == ""):
+            path = Kernel.GlobalObjects["CurrentProjectDir"]
         else:
             path = os.path.join(wx.StandardPaths.Get().GetDocumentsDir(),
                                     "ARC", "TEMP_No_project_dirrectory_save")
@@ -144,7 +144,7 @@ def SaveProject():
         #this might take a while lets say we busy
         Kernel.StatusBar.BeginTask(1, "Saving Project")
         projectsaver.save(path)
-        Kernel.StatusBar.UpdateTask(1, "Finished Saving")
+        Kernel.StatusBar.updateTask(1, "Finished Saving")
         #ok done saving, that was the longest part of it
         Kernel.System.fire_event("RefreshProject")
         Kernel.StatusBar.EndTask()
@@ -153,8 +153,8 @@ def SaveProject():
     
 def SaveProjectAS(mainwindow, filehistory):
     Kernel.System.fire_event("SaveProject")
-    if "PROJECT" in Kernel.GlobalObjects and (Kernel.GlobalObjects.get_value("PROJECT") != None):
-        project = Kernel.GlobalObjects.get_value("PROJECT")
+    if "PROJECT" in Kernel.GlobalObjects and (Kernel.GlobalObjects["PROJECT"] != None):
+        project = Kernel.GlobalObjects["PROJECT"]
         defaultpath = (os.path.join(wx.StandardPaths.Get().GetDocumentsDir(),
                                     "ARC"))
         dlg = wx.DirDialog(mainwindow, "Choose a Location:",
@@ -170,10 +170,10 @@ def SaveProjectAS(mainwindow, filehistory):
             Kernel.StatusBar.BeginTask(1, "Saving Project")
             projectsaver.save(path)
             #ok done saving, that was the longest part of it
-            Kernel.StatusBar.UpdateTask(1, "Finished Saving")
+            Kernel.StatusBar.updateTask(1, "Finished Saving")
             #set the current project directory
             if "CurrentProjectDir" in Kernel.GlobalObjects:
-                Kernel.GlobalObjects.set_value("CurrentProjectDir", os.path.dirname(path))
+                Kernel.GlobalObjects["CurrentProjectDir"] =  os.path.dirname(path)
             else:
                 Kernel.GlobalObjects.request_new_key("CurrentProjectDir", "CORE", os.path.dirname(path))
             Kernel.StatusBar.EndTask()

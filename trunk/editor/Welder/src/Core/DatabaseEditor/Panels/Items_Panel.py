@@ -24,9 +24,9 @@ class Items_Panel(Items_Panel_Template, PanelBase):
         Items_Panel_Template.__init__(self, parent)
         global Config
         global DataItems, DataStates, DataElements, DataCommonEvents, DataAnimations
-        Config = Kernel.GlobalObjects.get_value('Welder_config')
+        Config = Kernel.GlobalObjects['Welder_config']
         try:
-            proj = Kernel.GlobalObjects.get_value('PROJECT')
+            proj = Kernel.GlobalObjects['PROJECT']
             DataItems = proj.getData('Items')
             DataStates = proj.getData('States')
             DataElements = proj.getData('System').elements
@@ -48,7 +48,7 @@ class Items_Panel(Items_Panel_Template, PanelBase):
         DM.DrawHeaderBitmap(self.bitmapItems, 'Items')
 
         # Bind the panel tot he Panel Manager
-        self.BindPanelManager()
+        self.bindPanelManager()
 
     def setRange(self):
         pass
@@ -168,8 +168,8 @@ class Items_Panel(Items_Panel_Template, PanelBase):
         DM.ChangeDataCapacity(self, self.listBoxItems, DataItems, max)
 
     def textCtrlName_TextChanged(self, event):
-        """Updates the selected items's name"""
-        DM.UpdateObjectName(self.SelectedItem, event.GetString(),
+        """updates the selected items's name"""
+        DM.updateObjectName(self.SelectedItem, event.GetString(),
                             self.listBoxItems, len(Config.get('GameObjects', 'Items')))
 
     def bitmapButtonIcon_Clicked(self, event):
@@ -184,15 +184,15 @@ class Items_Panel(Items_Panel_Template, PanelBase):
         DM.QuickPlay(self.SelectedItem.menu_se, 'SE')
 
     def textCtrlDescription_TextChange(self, event):
-        """Updates the selected item's description"""
+        """updates the selected item's description"""
         self.SelectedItem.description = event.GetString()
 
     def comboBoxScope_SelectionChanged(self, event):
-        """Updates the selected item's scope"""
+        """updates the selected item's scope"""
         self.SelectedItem.scope = event.GetInt()
 
     def comboBoxUserAnimation_SelectionChanged(self, event):
-        """Updates the selected item's user animation"""
+        """updates the selected item's user animation"""
         self.SelectedItem.animation1_id = DM.FixedIndex(event.GetInt())
 
     def comboBoxMenuSE_Clicked(self, event):
@@ -202,63 +202,63 @@ class Items_Panel(Items_Panel_Template, PanelBase):
             self.comboBoxMenuSE.SetValue(DM.GetAudioLabel(audio))
 
     def comboBoxOccasion_SelectionChanged(self, event):
-        """Updates the selected item's occasion"""
+        """updates the selected item's occasion"""
         self.SelectedItem.occasion = event.GetInt()
 
     def comboBoxTargetAnimation_SelectionChanged(self, event):
-        """Updates the selected item's target animation"""
+        """updates the selected item's target animation"""
         self.SelectedItem.animation2_id = DM.FixedIndex(event.GetInt())
 
     def comboBoxCommonEvent_SelectionChanged(self, event):
-        """Updates the selected item's common event"""
+        """updates the selected item's common event"""
         self.SelectedItem.common_event_id = event.GetInt()
 
     def spinCtrlPrice_ValueChanged(self, event):
-        """Updates the selected item's price"""
+        """updates the selected item's price"""
         self.SelectedItem.price = event.GetInt()
 
     def spinCtrlRecrHPPercent_ValueChanged(self, event):
-        """Updates the selected item's recovery HP percent"""
+        """updates the selected item's recovery HP percent"""
         self.SelectedItem.recover_hp_rate = event.GetInt()
 
     def spinCtrlHitRate_ValueChanged(self, event):
-        """Updates the selected item's hit rate"""
+        """updates the selected item's hit rate"""
         self.SelectedItem.hit = event.GetInt()
 
     def comboBoxConsumable_SelectionChanged(self, event):
-        """Updates the selected item's consumable flag"""
+        """updates the selected item's consumable flag"""
         self.SelectedItem.consumable = (event.GetInt() == 0)
 
     def spinCtrlRecrHP_ValueChanged(self, event):
-        """Updates the selected item's recovery HP"""
+        """updates the selected item's recovery HP"""
         self.SelectedItem.recover_hp = event.GetInt()
 
     def spinCtrlPDEF_ValueChanged(self, event):
-        """Updates the selected item's PDEF"""
+        """updates the selected item's PDEF"""
         self.SelectedItem.pdef_f = event.GetInt()
 
     def comboBoxParameter_SelectionChanged(self, event):
-        """Updates the selected item's parameter type"""
+        """updates the selected item's parameter type"""
         self.SelectedItem.parameter_type = event.GetInt()
 
     def spinCtrlRecrSPPercent_ValueChanged(self, event):
-        """Updates the selected item's recover SP percent"""
+        """updates the selected item's recover SP percent"""
         self.SelectedItem.recover_sp_rate = event.GetInt()
 
     def spinCtrlMDEF_ValueChanged(self, event):
-        """Updates the selected item's MDEF"""
+        """updates the selected item's MDEF"""
         self.SelectedItem.mdef_f = event.GetInt()
 
     def spinCtrlParameterInc_ValueChanged(self, event):
-        """Updates the selected item's parameter points"""
+        """updates the selected item's parameter points"""
         self.SelectedItem.parameter_points = event.GetInt()
 
     def spinCtrlRecrSP_ValueChanged(self, event):
-        """Updates the selected item's recovery SP"""
+        """updates the selected item's recovery SP"""
         self.SelectedItem.recover_sp = event.GetInt()
 
     def spinCtrlVariance_ValueChanged(self, event):
-        """Updates the selected item's variance"""
+        """updates the selected item's variance"""
         self.SelectedItem.variance = event.GetInt()
 
     def textCtrlNotes_TextChanged(self, event):
@@ -266,7 +266,7 @@ class Items_Panel(Items_Panel_Template, PanelBase):
         self.SelectedItem.note = event.GetString()
 
     def checkListElements_Clicked(self, event):
-        """Updates the guard elements for the selected item"""
+        """updates the guard elements for the selected item"""
         self.checkListElements.ChangeState(event, 1)
         if DM.ARC_FORMAT:
             # TODO: Implement
@@ -277,11 +277,11 @@ class Items_Panel(Items_Panel_Template, PanelBase):
             self.SelectedItem.element_set = ids
 
     def checkListStates_LeftClicked(self, event):
-        """Updates the plus/minus state set for the selected item"""
+        """updates the plus/minus state set for the selected item"""
         data = self.checkListStates.ChangeState(event, 1)
         DM.ChangeSkillStates(self.SelectedItem, data[0], data[1])
 
     def checkListStates_RigthClicked(self, event):
-        """Updates the plus/minus state set for the selected item"""
+        """updates the plus/minus state set for the selected item"""
         data = self.checkListStates.ChangeState(event, -1)
         DM.ChangeSkillStates(self.SelectedItem, data[0], data[1])

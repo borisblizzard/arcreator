@@ -14,7 +14,7 @@ class Configuration_Panel (wx.Panel, PanelBase):
         wx.Panel.__init__(self, parent, id=wx.ID_ANY, pos=wx.DefaultPosition, size=wx.Size(
             517, 364), style=wx.TAB_TRAVERSAL)
         global Config
-        Config = Kernel.GlobalObjects.get_value('Welder_config')
+        Config = Kernel.GlobalObjects['Welder_config']
         self.Dictionary = {}
         # Create the fonts
         headerFont = wx.Font(
@@ -81,7 +81,7 @@ class Configuration_Panel (wx.Panel, PanelBase):
         self.Layout()
 
         # Bind the panel tot he Panel Manager
-        self.BindPanelManager()
+        self.bindPanelManager()
 
     def __del__(self):
         pass

@@ -34,10 +34,10 @@ class FileMenu(wx.Menu):
         if filehistory is None:
             filehistory = 5
         self.filehistory = wx.FileHistory(filehistory)
-        self.filehistory.Load(Kernel.GlobalObjects.get_value("WX_config"))
+        self.filehistory.Load(Kernel.GlobalObjects["WX_config"])
 
         if "FileHistory" in Kernel.GlobalObjects:
-            Kernel.GlobalObjects.set_value("FileHistory", self.filehistory)
+            Kernel.GlobalObjects["FileHistory"] =  self.filehistory
         else:
             Kernel.GlobalObjects.request_new_key("FileHistory", "CORE", self.filehistory)
           
@@ -74,38 +74,38 @@ class FileMenu(wx.Menu):
     def NewProject(self, event):
         newproject = Kernel.System.load("NewProjectHandler")
         newproject(self.mainwindow)
-        self.filehistory.Save(Kernel.GlobalObjects.get_value("WX_config"))
-        Kernel.GlobalObjects.get_value("WX_config").Flush()
+        self.filehistory.Save(Kernel.GlobalObjects["WX_config"])
+        Kernel.GlobalObjects["WX_config"].Flush()
 
     def OpenProject(self, event):
         openproject = Kernel.System.load("OpenProjectHandler")
         openproject(self.mainwindow, self.filehistory)
-        self.filehistory.Save(Kernel.GlobalObjects.get_value("WX_config"))
-        Kernel.GlobalObjects.get_value("WX_config").Flush()
+        self.filehistory.Save(Kernel.GlobalObjects["WX_config"])
+        Kernel.GlobalObjects["WX_config"].Flush()
 
     def SaveProject(self, event):
         saveproject = Kernel.System.load("SaveProjectHandler")
         saveproject(self.mainwindow)
-        self.filehistory.Save(Kernel.GlobalObjects.get_value("WX_config"))
-        Kernel.GlobalObjects.get_value("WX_config").Flush()
+        self.filehistory.Save(Kernel.GlobalObjects["WX_config"])
+        Kernel.GlobalObjects["WX_config"].Flush()
 
     def SaveProjectAs(self, event):
         saveprojectas = Kernel.System.load("SaveAsProjectHandler")
         saveprojectas(self.mainwindow, self.filehistory)
-        self.filehistory.Save(Kernel.GlobalObjects.get_value("WX_config"))
-        Kernel.GlobalObjects.get_value("WX_config").Flush()
+        self.filehistory.Save(Kernel.GlobalObjects["WX_config"])
+        Kernel.GlobalObjects["WX_config"].Flush()
 
     def on_file_history(self, event):
         fileNum = event.GetId() - wx.ID_FILE1
         path = self.filehistory.GetHistoryFile(fileNum)
         self.filehistory.AddFileToHistory(path)
-        self.filehistory.Save(Kernel.GlobalObjects.get_value("WX_config"))
-        Kernel.GlobalObjects.get_value("WX_config").Flush()
+        self.filehistory.Save(Kernel.GlobalObjects["WX_config"])
+        Kernel.GlobalObjects["WX_config"].Flush()
         openproject = Kernel.System.load("OpenProjectHandler")
         openproject(self.mainwindow, self.filehistory, path)
 
     def update(self, event):
-        if "ProjectOpen" in Kernel.GlobalObjects and (Kernel.GlobalObjects.get_value("ProjectOpen") == True):
+        if "ProjectOpen" in Kernel.GlobalObjects and (Kernel.GlobalObjects["ProjectOpen"] == True):
             event.Enable(True)
         else:
             event.Enable(False)

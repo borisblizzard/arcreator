@@ -15,7 +15,7 @@ class ScriptEditorManager(object):
     @staticmethod
     def EnsureScriptDirectory():
         """Ensures the project's script directory exists"""
-        projDir = Kernel.GlobalObjects.get_value("CurrentProjectDir")
+        projDir = Kernel.GlobalObjects["CurrentProjectDir"]
         dir = os.path.join(projDir, 'Data', 'Scripts')
         if not os.path.exists(dir) or not os.path.isdir(dir):
             Kernel.Protect(os.makedirs, True)(dir)
@@ -35,7 +35,7 @@ class ScriptEditorManager(object):
         from fnmatch import fnmatch
 
         ScriptManager.EnsureScriptDirectory()
-        projDir = Kernel.GlobalObjects.get_value("CurrentProjectDir")
+        projDir = Kernel.GlobalObjects["CurrentProjectDir"]
         dir = os.path.join(projDir, 'Data', 'Scripts')
         # TODO: Include internal scripts as read-only entries?
         paths = []
@@ -44,7 +44,7 @@ class ScriptEditorManager(object):
                 paths.append(os.path.join(dir, file))
         scripts = [Script(i, path, False) for i, path in enumerate(sorted(paths))]
         if 'Scripts' in Kernel.GlobalObjects:
-            Kernel.GlobalObjects.set_value('Scripts', scripts)
+            Kernel.GlobalObjects['Scripts'] =  scripts
         else:
             Kernel.GlobalObjects.request_new_key('Scripts', 'CORE', scripts)
 
@@ -63,7 +63,7 @@ class ScriptEditorManager(object):
         if 'Scripts' not in Kernel.GlobalObjects:
             return False
         result = True
-        scripts = Kernel.GlobalObjects.get_value('Scripts')
+        scripts = Kernel.GlobalObjects['Scripts']
         ScriptManager.EnsureScriptDirectory()
         for i, script in enumerate(scripts):
             if not script.SaveScript(i):
@@ -87,7 +87,7 @@ class ScriptEditorManager(object):
         if 'Scripts' not in Kernel.GlobalObjects:
             return (0, 0, 0, 0)
         else:
-            scripts = Kernel.GlobalObjects.get_value('Scripts')
+            scripts = Kernel.GlobalObjects['Scripts']
             count = total_lines = total_words = total_characters = 0
             for script in scripts:
                 count += 1
@@ -117,7 +117,7 @@ class ScriptEditorManager(object):
         A list of format strings for the respective styles
         """
         styles = ScriptManager.GetStyles()
-        cfg = Kernel.GlobalObjects.get_value('Welder_config').get_section('ScriptEditor')
+        cfg = Kernel.GlobalObjects['Welder_config'].get_section('ScriptEditor')
         settings = [cfg.get(styles[1]) for style in styles]
         return settings
 
@@ -224,7 +224,7 @@ class ScriptEditorManager(object):
         """
         default = ScriptManager.GetDefaultSettings()
         styles = ScriptManager.GetStyles()
-        cfg = Kernel.GlobalObjects.get_value('Welder_config').get_section('ScriptEditor')
+        cfg = Kernel.GlobalObjects['Welder_config'].get_section('ScriptEditor')
         for i in range(len(styles)):
             style = styles[i]
             try:
@@ -266,7 +266,7 @@ class ScriptEditorManager(object):
         CARET_ALPHA = 255
         default = ScriptManager.GetDefaultSettings()
         styles = ScriptManager.GetStyles()
-        cfg = Kernel.GlobalObjects.get_value('Welder_config').get_section('ScriptEditor')
+        cfg = Kernel.GlobalObjects['Welder_config'].get_section('ScriptEditor')
         for i in range(len(default)):
             scriptcontrol.StyleSetSpec(styles[i][0], default[i])
             cfg.set(styles[i][1], default[i])

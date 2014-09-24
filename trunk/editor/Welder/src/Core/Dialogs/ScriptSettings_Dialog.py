@@ -120,8 +120,8 @@ class ScriptSettings_Dialog(ScriptSettings_Dialog_Template):
         self.panelCaretFore.Refresh()
         self.panelCaretBack.Refresh()
 
-    def UpdateConfig(self, style, index):
-        """Updates the copy of the Configuration section with the new style"""
+    def updateConfig(self, style, index):
+        """updates the copy of the Configuration section with the new style"""
         SM = Core.Database.ScriptEditor.Manager
         keys = SM.GetStyles()
         Config.set(keys[index][1], style.GetFormatString())
@@ -136,22 +136,22 @@ class ScriptSettings_Dialog(ScriptSettings_Dialog_Template):
         self.noteBookSettings.ChangeSelection(index)
 
     def comboBoxFont_SelectionChanged(self, event):
-        """Updates the style for this item with the new font face"""
+        """updates the style for this item with the new font face"""
         index = self.listBoxDisplayItems.GetSelection()
         if index < 0:
             return
         style = self.ParseFormatString(index)
         style.face = event.GetString()
-        self.UpdateConfig(style, index)
+        self.updateConfig(style, index)
 
     def comboBoxSize_SelectionChanged(self, event):
-        """Updates the style for this item with the new size"""
+        """updates the style for this item with the new size"""
         index = self.listBoxDisplayItems.GetSelection()
         if index < 0:
             return
         style = self.ParseFormatString(index)
         style.size = int(event.GetString())
-        self.UpdateConfig(style, index)
+        self.updateConfig(style, index)
 
     def textCtrlForeColor_TextChanged(self, event):
         # TODO: Implement
@@ -182,7 +182,7 @@ class ScriptSettings_Dialog(ScriptSettings_Dialog_Template):
             return
         style = self.ParseFormatString(index)
         style.bold = event.Checked()
-        self.UpdateConfig(style, index)
+        self.updateConfig(style, index)
 
     def checkBoxItalic_CheckChanged(self, event):
         """Changes the italic setting for the selected style and updates the config"""
@@ -191,26 +191,26 @@ class ScriptSettings_Dialog(ScriptSettings_Dialog_Template):
             return
         style = self.ParseFormatString(index)
         style.italic = event.Checked()
-        self.UpdateConfig(style, index)
+        self.updateConfig(style, index)
 
     def spinCtrlTabWidth_ValueChanged(self, event):
-        """Updates the tab width setting in the config"""
+        """updates the tab width setting in the config"""
         Config.set('tab_width', event.GetInt())
 
     def spinCtrlEdgeColumn_ValueChanged(self, event):
-        """Updates the edge column setting in the config"""
+        """updates the edge column setting in the config"""
         Config.set('edge_column', str(event.GetInt()))
 
     def checkBoxIndentGuide_CheckChanged(self, event):
-        """Updates the indent guide setting in the config"""
+        """updates the indent guide setting in the config"""
         Config.set('indent_guides', str(event.Checked()))
 
     def checkBoxCaret_CheckChanged(self, event):
-        """Updates the caret setting in the config"""
+        """updates the caret setting in the config"""
         Config.set('show_caret', str(event.Checked()))
 
     def checkBoxBraceMatch_CheckChanged(self, event):
-        """Updates the brace matching setting in the config"""
+        """updates the brace matching setting in the config"""
         Config.set('brace_match', str(event.Checked()))
 
     def textCtrlCaretFore_TextChanged(self, event):
@@ -234,7 +234,7 @@ class ScriptSettings_Dialog(ScriptSettings_Dialog_Template):
         pass
 
     def spinCtrlCaretAlpha_ValueChanged(self, event):
-        """Updates the caret alpha setting in the config"""
+        """updates the caret alpha setting in the config"""
         Config.set('caret_alpha', str(event.GetInt()))
 
     def buttonOK_Clicked(self, event):

@@ -16,7 +16,7 @@ class BattleTestActor_Panel(BattleTestActor_Panel_Template, PanelBase):
         BattleTestActor_Panel_Template.__init__(self, parent)
 
         # Bind the panel tot he Panel Manager
-        self.BindPanelManager()
+        self.bindPanelManager()
 
     # Handlers for BattleTestActor_Panel events.
     def comboBoxActor_SelectionChanged(self, event):

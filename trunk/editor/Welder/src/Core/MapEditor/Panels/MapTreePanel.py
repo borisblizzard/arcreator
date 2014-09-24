@@ -37,11 +37,11 @@ class MapTreePanel(wx.Panel, PanelBase):
             data = self.treectrl.GetItemData(item).GetData()
             if data:
                 map_id, name = data
-                project = Kernel.GlobalObjects.get_value("PROJECT")
+                project = Kernel.GlobalObjects["PROJECT"]
                 map = project.getMapData(map_id)
                 tilesets = project.getData("Tilesets")
                 if "PanelManager" in Kernel.GlobalObjects:
-                    Kernel.GlobalObjects.get_value("PanelManager").dispatch_panel("MapEditorPanel", "Map Editor Panel " + str(map_id),
+                    Kernel.GlobalObjects["PanelManager"].dispatchPanel("MapEditorPanel", "Map Editor Panel " + str(map_id),
                                                                                   arguments=[
                                                                                       map, tilesets],
                                                                                   info="Name Caption",
