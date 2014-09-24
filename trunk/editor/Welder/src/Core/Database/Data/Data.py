@@ -7,7 +7,7 @@ import wx
 
 import Kernel
 
-from PyitectConsumes import NewProjectDialog, SaveProjectHandler, ARCProjectCreator, ARCProjectLoader, ARCProjectSaver
+from PyitectConsumes import NewProjectDialog, ARCProjectCreator, ARCProjectLoader, ARCProjectSaver
 
 def NewProject(mainwindow):
     #handle an already open project
@@ -22,7 +22,7 @@ def NewProject(mainwindow):
                                wx.YES_DEFAULT)
         result = dlg.ShowModal()
         if result == wx.YES:
-            SaveProjectHandler()
+            Kernel.Syatem.load("SaveProjectHandler")()
     #pull the dialog for the newproject
     dlg = NewProjectDialog(mainwindow)
     result = dlg.ShowModal()
@@ -63,7 +63,7 @@ def NewProject(mainwindow):
 def OpenProject(mainwindow, filehistory, path=""):
     Kernel.System.fire_event("OpenProject")
     #handle an already open project
-    if "ProjectOpen" in Kernel.GlobalObjects and (Kernel.GlobalObjects["ProjectOpen"] == True) and "PROJECT" in Kernel.GlobalObjects:
+    if "ProjectOpen" in Kernel.GlobalObjects and Kernel.GlobalObjects["ProjectOpen"] and "PROJECT" in Kernel.GlobalObjects:
         current_project = Kernel.GlobalObjects["PROJECT"]
         if current_project.hasDataChanged() or current_project.hasInfoChanged():
             message = "There are unsaved changes in the currently open project Do you want to save these changes?"
@@ -86,11 +86,11 @@ def OpenProject(mainwindow, filehistory, path=""):
             defaultDir=defaultpath,
             defaultFile="",
             wildcard=wildcard,
-            style=wx.OPEN | wx.CHANGE_DIR
+            style=wx.FD_OPEN | wx.FD_CHANGE_DIR
             )
         if dlg.ShowModal() == wx.ID_OK:
             #we got a path lets save it
-            path = os.path.normpath(dlg.GetPath())
+            path = str(os.path.normpath(dlg.GetPath()))
             #and add it to the file history
             filehistory.AddFileToHistory(path)
         else:
@@ -113,7 +113,7 @@ def OpenProject(mainwindow, filehistory, path=""):
         Kernel.GlobalObjects.request_new_key("PROJECT", "CORE", projectloader.getProject())
     #set the Project Title
     if "Title" in Kernel.GlobalObjects:
-        Kernel.GlobalObjects["Title"] =  projectloader.getProject(.getInfo("Title"))
+        Kernel.GlobalObjects["Title"] =  projectloader.getProject().getInfo("Title")
     else:
         Kernel.GlobalObjects.request_new_key("Title", "CORE", projectloader.getProject().getInfo("Title"))
     #set the current project directory
@@ -138,8 +138,7 @@ def SaveProject():
         if "CurrentProjectDir" in Kernel.GlobalObjects and not (Kernel.GlobalObjects["CurrentProjectDir"] == ""):
             path = Kernel.GlobalObjects["CurrentProjectDir"]
         else:
-            path = os.path.join(wx.StandardPaths.Get().GetDocumentsDir(),
-                                    "ARC", "TEMP_No_project_dirrectory_save")
+            path = os.path.join(wx.StandardPaths.Get().GetDocumentsDir(), "ARC", "TEMP_No_project_dirrectory_save")
         projectsaver = ARCProjectSaver(project)
         #this might take a while lets say we busy
         Kernel.StatusBar.BeginTask(1, "Saving Project")

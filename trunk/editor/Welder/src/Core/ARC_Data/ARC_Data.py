@@ -3,20 +3,20 @@ import types
 
 class ARC_Dump(object):
     
-    _HEADER = "ARCD"
-    _VERSION = "\x01\x00" # 1.0
+    _HEADER = b"ARCD"
+    _VERSION = b"\x01\x00" # 1.0
     
     _TYPES = {
-        "NoneClass" : chr(0x10),
-        "FalseClass" : chr(0x11),
-        "TrueClass" : chr(0x12),
-        "Fixnum" : chr(0x21),
-        "Bignum" : chr(0x22),
-        "Float" : chr(0x23),
-        "String" : chr(0x30),
-        "Array" : chr(0x40),
-        "Hash" : chr(0x41),
-        "Object" : chr(0x00)
+        "NoneClass" : b"\x10",
+        "FalseClass" : b"\x11",
+        "TrueClass" : b"\x12",
+        "Fixnum" : b"\x21",
+        "Bignum" : b"\x22",
+        "Float" : b"\x23",
+        "String" : b"\x30",
+        "Array" : b"\x40",
+        "Hash" : b"\x41",
+        "Object" : b"\x00"
         }
     
     _io = None
@@ -243,7 +243,7 @@ class ARC_Dump(object):
         if not ARC_Dump.__try_map_equality(ARC_Dump._strings, obj): # abort if object has already been mapped
             return
         ARC_Dump.__dump_int32(len(obj))
-        ARC_Dump._io.write(obj)
+        ARC_Dump._io.write(bytes(obj, encoding='utf-8'))
     
     
     @staticmethod
@@ -349,7 +349,7 @@ class ARC_Dump(object):
         if obj != None:
             return obj
         size = ARC_Dump.__load_int32()
-        obj = ARC_Dump._io.read(size)
+        obj = ARC_Dump._io.read(size).decode('utf-8')
         ARC_Dump.__map(ARC_Dump._strings, obj)
         return obj
     

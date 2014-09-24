@@ -33,8 +33,20 @@ System = None
 
 
 def buildSystem(cfg):
+    def onPluginFound(path, plugin):
+        Log("Plugin '%s' found at '%s'" % (plugin, path))
+
+    def onPluginLoad(plugin, plugin_required, component_needed):
+        Log("Plugin '%s' was loaded by plugin '%s' during a request for the '%s' component" % (plugin, plugin_required, component_needed))
+
+    def onComponentLoad(component, plugin_required, plugin_loaded):
+        Log("Component '%s' loaded, required by plugin '%s', loaded from plugin '%s'" % (component, plugin_required, plugin_loaded))
+
     global System
     System = pyitect.System(cfg)
+    System.bind_event('plugin_found', onPluginFound)
+    System.bind_event('plugin_loaded', onPluginLoad)
+    System.bind_event('component_loaded', onComponentLoad)
 
 # =========================================================================
 # Global Object Storage
@@ -49,8 +61,7 @@ class GlobalObjectsContainer(object):
     '''
 
     def __init__(self):
-        self._objects = {
-        }
+        self._objects = {}
 
     def __iter__(self):
         for item in self._objects:
@@ -340,14 +351,13 @@ def Log(message=None, prefix="[Kernel]", inform=False, error=False):
             error = True
             message = ""
         logdir = GetLogFolder()
-        f = open(os.path.join(logdir, "Welder.log"), "ab")
+        f = open(os.path.join(logdir, "Welder.log"), "wb")
         time_str = time.strftime("%a %d %b %Y %H:%M:%S [%Z] ")
         if error:
             error_text = " [Error] " + traceback.format_exc()
         else:
             error_text = ""
-        f.write(
-            bytes(time_str + prefix + " " + message + error_text + "\n", 'UTF-8'))
+        f.write(bytes(time_str + prefix + " " + message + error_text + "\n", 'UTF-8'))
         print(prefix + " " + message + error_text)
         f.close()
         if inform:
@@ -356,7 +366,7 @@ def Log(message=None, prefix="[Kernel]", inform=False, error=False):
         # if this failed then we have no choice but to print the exception and
         # hope for the best. perhaps wx will cache it and print to it's stdout
         # window
-        print("There has been an error")
+        print("[Kernel] There has been an error")
         print(traceback.format_exc())
 
 

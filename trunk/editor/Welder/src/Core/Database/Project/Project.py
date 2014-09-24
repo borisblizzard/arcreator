@@ -222,13 +222,13 @@ class Project(object):
         config.write(f)
         f.close()
 
-    def saveProject(self, all=False):
+    def saveProject(self, full=False):
         for key in self._data:
-            if all or self.getChangedData(key):
+            if full or self.getChangedData(key):
                 if not self.testAdvancedHandlersSave(key):
                     self.saveData(key)
         for key in self._deferred_data:
-            if all or self.getChangedDeferredData(key):
+            if full or self.getChangedDeferredData(key):
                 if not self.testAdvancedHandlersSave(key):
                     self.saveDeferredData(key)
         self.saveInfo()
@@ -254,15 +254,15 @@ class Project(object):
         else:
             Kernel.Log("Warning: project path %s does not exist. Project not loaded." % self.project_path, "[Project]")
     
-    def addFolderToZip(self, zip, dir, rel_path=""):
-        dir = os.path.abspath(dir)
-        dir = dir.encode('ascii') #convert path to ascii for ZipFile Method
-        for file in os.listdir(dir):
-            target = os.path.join(dir, file)
+    def addToZip(self, z, folder, rel_path=""):
+        folder = os.path.abspath(folder)
+        for fil in os.listdir(folder):
+            target = os.path.join(folder, fil)
             if os.path.isfile(target):
-                zip.write(target, os.path.join(rel_path, file), zipfile.ZIP_DEFLATED)
+                print(rel_path, fil)
+                z.write(target, os.path.join(rel_path, fil), zipfile.ZIP_DEFLATED)
             elif os.path.isdir(target):
-                self.addFolderToZip(zip, target, os.path.join(rel_path, os.path.basename(target)))
+                self.addToZip(z, target, os.path.join(rel_path, os.path.basename(target)))
     
     def Backup(self):
         Kernel.StatusBar.BeginTask(3, "Making Project Backup")
@@ -275,10 +275,10 @@ class Project(object):
         if not os.path.exists(backupFolder) or not os.path.isdir(backupFolder):
             os.makedirs(backupFolder)
         zipFilename = os.path.abspath(os.path.join(backupFolder, filename))
-        zip = zipfile.ZipFile(zipFilename, "w", zipfile.ZIP_DEFLATED)
+        z = zipfile.ZipFile(zipFilename, "w", zipfile.ZIP_DEFLATED)
         Kernel.StatusBar.updateTask(1, "Adding Data folder to Backup")
-        self.addFolderToZip(zip, os.path.abspath(os.path.join(os.path.dirname(self.project_path), "Data")), "Data")
-        zip.close()
+        self.addToZip(z, str(os.path.abspath(os.path.join(os.path.dirname(self.project_path), "Data"))), "Data")
+        z.close()
         Kernel.StatusBar.updateTask(2, "Limiting the Number of Backups")
         self.LimitBackups(backupFolder)
         Kernel.StatusBar.updateTask(3, "Finished Backup")
@@ -289,11 +289,11 @@ class Project(object):
         pattern = "%s-([0-9]+_[0-9]+_[0-9]+-[0-9]+_[0-9]+)" % os.path.splitext(os.path.basename(self.project_path))[0]
         namePattern = re.compile(pattern, re.IGNORECASE)
         files = []
-        for file in os.listdir(path):
-            match = namePattern.search(file)
+        for fil in os.listdir(path):
+            match = namePattern.search(fil)
             if match:
                 filetime = time.mktime(time.strptime(match.group(1), "%Y_%m_%d-%H_%M"))
-                files.append([os.path.join(path, file), filetime])
+                files.append([os.path.join(path, fil), filetime])
         return files
 
     def LimitBackups(self, path):
@@ -307,27 +307,27 @@ class Project(object):
             Kernel.Log("Invalid setting for MaxBackups in configuration", "[Project]", error=True)
         if len(backups) > maxBackups:
             for i in range(len(backups) - maxBackups):
-                file = backups.pop(0)
-                os.remove(file[0])
+                fil = backups.pop(0)
+                os.remove(fil[0])
 
     def RestoreBackup(self, path):
         backup = self.Backup()
         if zipfile.is_zipfile(path):
             try:
-                zip = zipfile.ZipFile(path, "r", zipfile.ZIP_DEFLATED)
+                z = zipfile.ZipFile(path, "r", zipfile.ZIP_DEFLATED)
                 local_path = os.path.abspath(os.path.dirname(self.project_path))
-                for file in zip.namelist():
-                    member = zip.getinfo(file)
+                for fil in z.namelist():
+                    member = z.getinfo(fil)
                     if member.filename[0] == '/':
                         targetpath = os.path.join(local_path, member.filename[1:])
                     else:
                         targetpath = os.path.join(local_path, member.filename)
-                    if os.path.normpath(os.path.join(local_path, file)) == os.path.abspath(targetpath):
+                    if os.path.normpath(os.path.join(local_path, fil)) == os.path.abspath(targetpath):
                         if member.filename[-1] == '/':
                             if not os.path.isdir(targetpath):
                                 os.mkdir(targetpath)
                             continue
-                        zip.extract(file, local_path)
+                        z.extract(fil, local_path)
             except Exception:
                 Kernel.Log("There was an error restoring the backup, your project data may be corrupted. A backup was made before the restore was attempted, this backup can be found at %s" % backup, "[Project]", True, True)
         else:
@@ -404,7 +404,7 @@ class ARCProjectCreator(object):
         #set the project path
         self.project.setProjectPath(path)
         #save the project
-        self.project.saveProject(all=True)
+        self.project.saveProject(full=True)
 
     def getProject(self):
         return self.project
