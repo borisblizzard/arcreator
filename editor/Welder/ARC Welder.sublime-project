@@ -21,7 +21,7 @@
             "shell": true,
             
             "file_regex": "^[ ]*File \"(...*?)\", line ([0-9]*)",
-            "cmd": ["./Welder"],
+            "cmd": ["./src/Welder"],
 
             "variants": [
                 { 

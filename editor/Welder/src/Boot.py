@@ -42,14 +42,22 @@ class ARCSplashScreen(wx.Frame):
 
         self.SetWindowShape()
 
-        self.textctl_size = (
-            self.bmp.GetWidth() / 2 + 32, self.bmp.GetHeight() / 4 - 32)
-        self.textctl_pos = (16, self.bmp.GetHeight() / 4 * 3 + 16)
+        textctl_size = (self.bmp.GetWidth() / 2 + 32, self.bmp.GetHeight() / 4 - 32)
+        textctl_pos = (16, self.bmp.GetHeight() / 4 * 3 + 8)
 
-        self.logctl = wx.TextCtrl(self, wx.ID_ANY, "", self.textctl_pos,
-                                  self.textctl_size, wx.TE_MULTILINE | wx.TE_READONLY | wx.TE_DONTWRAP)
-        self.logctl.SetSize(self.textctl_size)
-        self.logctl.SetPosition(self.textctl_pos)
+        gauge_size = (self.bmp.GetWidth() / 2 + 32, 14)
+        gauge_pos = (16, self.bmp.GetHeight() - 20)
+
+        self.logctl = wx.TextCtrl(self, wx.ID_ANY, "", textctl_pos, textctl_size, 
+            wx.TE_MULTILINE | wx.TE_READONLY | wx.TE_DONTWRAP)
+        self.gaugectl = wx.Gauge(self, wx.ID_ANY, 100, gauge_pos, gauge_size, wx.GA_HORIZONTAL)
+        self.gaugectl.Pulse()
+
+        self.logctl.SetSize(textctl_size)
+        self.logctl.SetPosition(textctl_pos)
+
+        self.gaugectl.SetSize(gauge_size)
+        self.gaugectl.SetPosition(gauge_pos)
 
         self.Bind(wx.EVT_LEFT_DOWN, self.OnLeftDown)
         self.Bind(wx.EVT_LEFT_UP, self.OnLeftUp)
@@ -65,8 +73,6 @@ class ARCSplashScreen(wx.Frame):
     def OnPaint(self, evt):
         dc = wx.PaintDC(self)
         self.Paint(dc)
-        self.logctl.SetSize(self.textctl_size)
-        self.logctl.SetPosition(self.textctl_pos)
 
     def Paint(self, dc):
 
@@ -76,7 +82,7 @@ class ARCSplashScreen(wx.Frame):
         string2 = "\n %s %s (%s)" % (
             Welder.COPYRIGHT, Welder.AUTHOR, Welder.EMAIL)
 
-        dc.SetFont(wx.Font(wx.FontInfo(10)))
+        dc.SetFont(wx.Font(wx.FontInfo(9)))
         dc.SetTextBackground(wx.Colour(0, 0, 0))
         dc.SetTextForeground(wx.Colour(255, 255, 255))
 
@@ -168,8 +174,7 @@ class ARCSplashScreen(wx.Frame):
 
 
             # search the Core for all Core plugins
-            Kernel.System.search(
-                str(Path(Kernel.GlobalObjects["Program_Dir"], "Core")))
+            Kernel.System.search(str(Path(Kernel.GlobalObjects["Program_Dir"], "Core")))
             # Kernel.System.plugins curently contains all plugins found inside
             # the Core, we want to enable all of these
             corePlugs = [Kernel.System.plugins[n][v] for n in Kernel.System.plugins for v in Kernel.System.plugins[n]]
@@ -217,6 +222,7 @@ class ARCSplashScreen(wx.Frame):
 
     def log(self, message):
         self.logctl.AppendText(message + "\n")
+        self.gaugectl.Pulse()
         wx.SafeYield()
 
     def BindPyXAL(self):
