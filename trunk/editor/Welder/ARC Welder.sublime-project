@@ -21,12 +21,12 @@
             "shell": true,
             
             "file_regex": "^[ ]*File \"(...*?)\", line ([0-9]*)",
-            "cmd": ["Welder"],
+            "cmd": ["./Welder"],
 
             "variants": [
                 { 
                     "name": "Run",
-                    "cmd": ["python", "-u", "$file"]
+                    "cmd": ["python3", "-u", "$file"]
                 }
             ]
         }
