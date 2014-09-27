@@ -64,7 +64,7 @@ site_needed = [
     'numpy',
     'setuptools',
     'pyglet',
-    'rabbyt',
+    'rabbyt', 
     'pkg_resources.py'
 ]
 
@@ -128,11 +128,10 @@ def scan_needed_location(folder, files):
 def copy_needed_site():
     dest_folder = os.path.abspath(os.path.join(".", "lib", "site-packages"))
     prefix_mapping = {}
-    locations = []
-    locations.append(get_python_lib())
+    locations = sys.path
 
     for path in locations:
-        if os.path.exists(path):
+        if os.path.exists(path) and os.path.isdir(path):
             files = {}
             scan_needed_location(path, files)
             prefix_mapping.update(files)
@@ -188,10 +187,8 @@ def copy_pyhton_lib():
             files.append(os.path.join(syswow64path, dllname))
     elif sys.platform == 'linux':
         libname = sysconfig.get_config_var("INSTSONAME")
-        linkname = RemoveVersionNumbers(libname)
-        libdir = sysconfig.get_config_var('LIBDIR')
+        libdir = sysconfig.get_config_var('LIBDIR') + sysconfig.get_config_var("multiarchsubdir")
         files.append(os.path.join(libdir, libname))
-        files.append(os.path.join(libdir, linkname))
     else:
         #osx
         pass
