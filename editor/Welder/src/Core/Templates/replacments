@@ -1,0 +1,11 @@
+#add at top
+import .Extras
+
+wx\.combo
+wx.adv
+
+wx\.adv\.BitmapComboBox\((\s?|\s+)self,(\s.+?),(\s.+?),(\s.+?),(\s.+?), "",
+wx.adv.BitmapComboBox(self,$2,$3,$4,$5, [],
+
+self\.textCtrlNotes\.SetMaxLength\(0\)
+#empty
