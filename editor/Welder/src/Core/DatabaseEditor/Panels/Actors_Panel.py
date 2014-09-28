@@ -26,7 +26,7 @@ class Actors_Panel(Actors_Panel_Template, PanelBase):
         # Load the project's game objects into this module's scope
         project = Kernel.GlobalObjects['PROJECT']
         global Config, DataActors, DataClasses, DataWeapons, DataArmors
-        Config = Kernel.GlobalObjects['Welder_config']
+        
         try:
             DataActors = project.getData('Actors')
             DataClasses = project.getData('Classes')
@@ -39,11 +39,11 @@ class Actors_Panel(Actors_Panel_Template, PanelBase):
         # Set font for the note control
         font = wx.Font(
             8, wx.FONTFAMILY_TELETYPE, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL)
-        font.SetFaceName(Config.get('Misc', 'NoteFont'))
+        font.SetFaceName(Kernel.Config.getUnified()['Misc']['NoteFont'])
         self.textCtrlNotes.SetFont(font)
         self.ParamTab = 0
         # Set the ranges for initial and final level spin controls
-        max = Config.getint('DatabaseLimits', 'ActorLevel')
+        max = int(Kernel.Config.getUnified()['DatabaseLimits']['ActorLevel'])
         self.spinCtrlInitialLevel.SetRange(1, max)
         self.spinCtrlFinalLevel.SetRange(1, max)
         self.spinCtrlLevel.SetRange(1, max)
@@ -60,7 +60,7 @@ class Actors_Panel(Actors_Panel_Template, PanelBase):
         # Create the controls for the equipment and set the values for all the
         # controls
         self.CreateEquipmentControls()
-        for param in Config.getlist('GameSetup', 'Parameters'):
+        for param in list(Kernel.Config.getUnified()['GameSetup']['Parameters']):
             self.AddParameterPage(param)
         self.noteBookActorParameters.ChangeSelection(0)
         self.comboBoxExpCurve.SetCursor(wx.STANDARD_CURSOR)
@@ -76,7 +76,7 @@ class Actors_Panel(Actors_Panel_Template, PanelBase):
         page = wx.Panel(self.noteBookActorParameters)
         self.noteBookActorParameters.AddPage(page, title)
         index = self.noteBookActorParameters.GetPageCount() - 1
-        maxlevel = Config.getint('DatabaseLimits', 'ActorLevel')
+        maxlevel = int(Kernel.Config.getUnified()['DatabaseLimits']['ActorLevel'])
         for actor in DataActors:
             if actor is None:
                 actor = RPG.Actor()
@@ -89,8 +89,8 @@ class Actors_Panel(Actors_Panel_Template, PanelBase):
     def CreateEquipmentControls(self):
         """Creates the controls for each equipment type defined in the configuration"""
         if DM.ARC_FORMAT:
-            equipment = Config.getlist('GameSetup', 'WeaponSlots')
-            equipment.extend(Config.getlist('GameSetup', 'ArmorSlots'))
+            equipment = list(Kernel.Config.getUnified()['GameSetup']['WeaponSlots'])
+            equipment.extend(list(Kernel.Config.getUnified()['GameSetup']['ArmorSlots']))
         else:
             equipment = [
                 'Weapon', 'Shield', 'Helmet', 'Body Armor', 'Accessory']
@@ -126,18 +126,18 @@ class Actors_Panel(Actors_Panel_Template, PanelBase):
 
     def refreshActorList(self):
         """Refreshes the values in the actor wxListBox control"""
-        digits = len(Config.get('GameObjects', 'Actors'))
+        digits = len(Kernel.Config.getUnified()['GameObjects']['Actors'])
         DM.FillControl(self.listBoxActors, DataActors, digits, [])
 
     def refreshClasses(self):
         """Refreshes the values in the class wxChoice control"""
-        digits = len(Config.get('GameObjects', 'Classes'))
+        digits = len(Kernel.Config.getUnified()['GameObjects']['Classes'])
         DM.FillControl(self.comboBoxClass, DataClasses, digits, [])
 
     def refreshWeapons(self):
         """Sets the weapon combobox(s) data determined by the actor's class"""
-        weaponSlots = len(Config.getlist('GameSetup', 'WeaponSlots'))
-        digits = len(Config.get('GameObjects', 'Weapons'))
+        weaponSlots = len(list(Kernel.Config.getUnified()['GameSetup']['WeaponSlots']))
+        digits = len(Kernel.Config.getUnified()['GameObjects']['Weapons'])
         for i in range(weaponSlots):
             items = ['(None)']
             ids = self.GetWeaponIDs()
@@ -163,12 +163,12 @@ class Actors_Panel(Actors_Panel_Template, PanelBase):
 
     def refreshArmors(self):
         """Sets the armor combo box data determined by the actor's class"""
-        weaponSlots = len(Config.getlist('GameSetup', 'WeaponSlots'))
-        digits = len(Config.get('GameObjects', 'Armors'))
+        weaponSlots = len(list(Kernel.Config.getUnified()['GameSetup']['WeaponSlots']))
+        digits = len(Kernel.Config.getUnified()['GameObjects']['Armors'])
         kinds = {}
         cypher = [int(k)
-                  for k in Config.getlist('GameSetup', 'ArmorSlotKinds')]
-        for k in Config.getlist('GameSetup', 'ArmorSlotKinds'):
+                  for k in list(Kernel.Config.getUnified()['GameSetup']['ArmorSlotKinds'])]
+        for k in list(Kernel.Config.getUnified()['GameSetup']['ArmorSlotKinds']):
             key = int(k)
             if key not in kinds:
                 values = ['(None)']
@@ -284,7 +284,7 @@ class Actors_Panel(Actors_Panel_Template, PanelBase):
     def GetParameterValue(self, index, level):
         """Retrieves the value of the current actor's selected parameter for the defined level"""
         if self.SelectedActor.parameters.xsize <= index or self.SelectedActor.parameters.ysize < level:
-            maxlevel = Config.getint('DatabaseLimits', 'ActorLevel')
+            maxlevel = int(Kernel.Config.getUnified()['DatabaseLimits']['ActorLevel'])
             for actor in DataActors:
                 if actor is None:
                     actor = RPG.Actor()
@@ -295,13 +295,13 @@ class Actors_Panel(Actors_Panel_Template, PanelBase):
 
     def buttonMaximum_Clicked(self, event):
         """Starts the Change Maximum dialog"""
-        max = Config.getint('GameObjects', 'Actors')
+        max = int(Kernel.Config.getUnified()['GameObjects']['Actors'])
         DM.ChangeDataCapacity(self, self.listBoxActors, DataActors, max)
 
     def textBoxName_TextChanged(self, event):
         """updates the selected actor's name"""
         DM.updateObjectName(self.SelectedActor, event.GetString(),
-                            self.listBoxActors, len(Config.get('GameObjects', 'Actors')))
+                            self.listBoxActors, len(Kernel.Config.getUnified()['GameObjects']['Actors']))
 
     def comboBoxClass_SelectionChanged(self, event):
         """updates the actor's class ID and refreshes the equipment allowed by the class"""
@@ -363,7 +363,7 @@ class Actors_Panel(Actors_Panel_Template, PanelBase):
         """updates the weapon/armor id for the selected type for the actor"""
         ctrlIndex = self.EquipmentBoxes.index(event.GetEventObject())
         if DM.ARC_FORMAT:
-            weaponSlots = len(Config.getlist('GameSetup', 'WeaponSlots'))
+            weaponSlots = len(list(Kernel.Config.getUnified()['GameSetup']['WeaponSlots']))
         else:
             weaponSlots = 1
         selection = event.GetInt()
@@ -384,7 +384,7 @@ class Actors_Panel(Actors_Panel_Template, PanelBase):
                 exec(
                     ''.join(['self.SelectedActor.armor', str(ctrlIndex), '_id = 0']))
             else:
-                kinds = Config.getlist('GameSetup', 'ArmorSlotKinds')
+                kinds = list(Kernel.Config.getUnified()['GameSetup']['ArmorSlotKinds'])
                 kind = int(kinds[ctrlIndex - weaponSlots])
                 exec(''.join(['self.SelectedActor.armor', str(ctrlIndex), '_id = ',
                               str(self.GetArmorIDs(kind)[selection - 1])]))
@@ -394,7 +394,7 @@ class Actors_Panel(Actors_Panel_Template, PanelBase):
         ctrlIndex = self.FixedCheckBoxes.index(event.GetEventObject())
         if DM.ARC_FORMAT:
             # TODO: Implement
-            weaponSlots = len(Config.getlist('GameSetup', 'WeaponSlots'))
+            weaponSlots = len(list(Kernel.Config.getUnified()['GameSetup']['WeaponSlots']))
             if ctrlIndex < weaponSlots:
                 pass
             else:
@@ -413,11 +413,11 @@ class Actors_Panel(Actors_Panel_Template, PanelBase):
     def GetValueMax(self, param_index):
         """Returns the max value for the parameter type"""
         if param_index == 0:
-            return Config.getint('DatabaseLimits', 'ActorHP')
+            return int(Kernel.Config.getUnified()['DatabaseLimits']['ActorHP'])
         elif param_index == 1:
-            return Config.getint('DatabaseLimits', 'ActorSP')
+            return int(Kernel.Config.getUnified()['DatabaseLimits']['ActorSP'])
         else:
-            return Config.getint('DatabaseLimits', 'ActorParameter')
+            return int(Kernel.Config.getUnified()['DatabaseLimits']['ActorParameter'])
 
     def spinCtrlValue_ValueChanged(self, event):
         """updates the actors parameter table with the value"""
@@ -530,7 +530,7 @@ class Actors_Panel(Actors_Panel_Template, PanelBase):
         for i in range(self.ParamTab, params.xsize - 1):
             params[i, :] = params[i + 1, :]
         params.resize(
-            params.xsize - 1, Config.getint('DatabaseLimits', 'ActorLevel') + 1)
+            params.xsize - 1, int(Kernel.Config.getUnified()['DatabaseLimits']['ActorLevel']) + 1)
         try:
             self.noteBookActorParameters.RemovePage(self.ParamTab)
         except wx.PyAssertionError:

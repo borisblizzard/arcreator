@@ -33,8 +33,14 @@ System = None
 
 
 def buildSystem(cfg):
+
+    DeleteLog()
+
     def onPluginFound(path, plugin):
         Log("Plugin '%s' found at '%s'" % (plugin, path))
+
+    def onComponentMap(component, plugin, version):
+        Log("\tComponent '%s' mapped from '%s@%s'" % (component, plugin, version[0]))
 
     def onPluginLoad(plugin, plugin_required, component_needed):
         Log("Plugin '%s' was loaded by plugin '%s' during a request for the '%s' component" % (plugin, plugin_required, component_needed))
@@ -45,6 +51,7 @@ def buildSystem(cfg):
     global System
     System = pyitect.System(cfg)
     System.bind_event('plugin_found', onPluginFound)
+    System.bind_event('component_mapped', onComponentMap)
     System.bind_event('plugin_loaded', onPluginLoad)
     System.bind_event('component_loaded', onComponentLoad)
 
@@ -340,6 +347,14 @@ def GetPluginFolder():
         os.makedirs(path)
     return path
 
+def DeleteLog():
+    try:
+        logpath = os.path.join(GetLogFolder(), "Welder.log")
+        os.remove(logpath) 
+    except Exception:
+        # an error clearing out the log? interesting but not all that important,
+        print("[Kernel] There has been an error")
+        print(traceback.format_exc())
 
 def Log(message=None, prefix="[Kernel]", inform=False, error=False):
     '''
@@ -351,7 +366,7 @@ def Log(message=None, prefix="[Kernel]", inform=False, error=False):
             error = True
             message = ""
         logdir = GetLogFolder()
-        f = open(os.path.join(logdir, "Welder.log"), "wb")
+        f = open(os.path.join(logdir, "Welder.log"), "ab")
         time_str = time.strftime("%a %d %b %Y %H:%M:%S [%Z] ")
         if error:
             error_text = " [Error] " + traceback.format_exc()

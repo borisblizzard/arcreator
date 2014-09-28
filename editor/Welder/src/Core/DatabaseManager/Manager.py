@@ -6,7 +6,6 @@ import os
 import Kernel
 
 from PyitectConsumes import RTPCache, IconManager, PyXAL, RTPFunctions
-from PyitectConsumes import ChooseGraphic_Dialog, ChooseGraphic_Dialog_NoHue
 
 class DatabaseManager(object):
 
@@ -256,10 +255,7 @@ class DatabaseManager(object):
 
         """
         
-        if hue is not None:
-            dlg = ChooseGraphic_Dialog(parent, folder, current, hue)
-        else:
-            dlg = ChooseGraphic_Dialog_NoHue(parent, folder, current)
+        dlg = Kernel.System.load("ChooseGraphic_Dialog")(parent, folder, current, hue)
         if dlg.ShowModal() == wx.ID_OK:
             if hue is not None:
                 filename, hue = dlg.GetSelection()

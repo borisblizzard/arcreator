@@ -6,7 +6,8 @@ import wx.lib.agw.foldpanelbar as fpb
 import wx.lib.agw.flatnotebook as fnb
 import wx.lib.scrolledpanel as scrolled
 
-from PyitectConsumes import PanelBase
+from PyitectConsumes import PanelBase, RTPCache
+from PyitectConsumes import EditorGLPanel
 
 
 class EventPanel(wx.Panel, PanelBase):
@@ -490,15 +491,15 @@ class EventGraphicPanel(wx.Panel):
             rows = 4
             columns = 4
             self.tile = False
-        self.graphic = Core.EditorGLPanel.EditorGLPanel(
+        self.graphic = EditorGLPanel(
             self, id=wx.ID_ANY, rows=rows, columns=columns, drawmode=1)
         sizerGraphic.Add(
             self.graphic, 1, wx.BOTTOM | wx.RIGHT | wx.LEFT | wx.EXPAND | wx.ALL, 5)
         if self.tile:
-            img = PILCache.Tile(
+            img = RTPCache.Tile(
                 self._graphic.character_name, self._graphic.tile_id, self._graphic.character_hue)
         else:
-            img = PILCache.Character(
+            img = RTPCache.Character(
                 self._graphic.character_name, self._graphic.character_hue)
         self.graphic.ChangeImage(img)
 

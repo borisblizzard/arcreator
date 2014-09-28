@@ -150,7 +150,7 @@ class RTPFunctions(object):
         if flag:
             return testpath
         else:
-            rtps = Kernel.GlobalObjects["Welder_config"].get_section("RTPs")
+            rtps = Kernel.Config.getUnified()["RTPs"]
             for rtp_name, path in rtps.items():
                 flag, testpath = RTPFunctions.TestImageFiles(path, folder_name, name)
             if flag:
@@ -173,7 +173,7 @@ class RTPFunctions(object):
         elif type == 'audio': extensions = RTPFunctions._audio_ext
         else: return files
         directories = [Kernel.GlobalObjects['CurrentProjectDir']]
-        rtps = Kernel.GlobalObjects["Welder_config"].get_section("RTPs")
+        rtps = Kernel.Config.getUnified()["RTPs"]
         directories.extend([os.path.expandvars(path[1]) for path in rtps.items()])
         for dir in directories:
             path = os.path.join(dir, folder)
@@ -193,7 +193,7 @@ class RTPFunctions(object):
         extensions = [".arcproj"]
         directories = []
         directories.extend(extra_paths)
-        rtps = Kernel.GlobalObjects["Welder_config"].get_section("RTPs")
+        rtps = Kernel.Config.getUnified()["RTPs"]
         directories.extend([os.path.expandvars(path[1]) for path in rtps.items()])
         for dir in directories:
             target = os.path.join(dir, "Templates")
@@ -216,7 +216,7 @@ class RTPFunctions(object):
         if flag:
             return testpath
         else:
-            rtps = Kernel.GlobalObjects["Welder_config"].get_section("RTPs")
+            rtps = Kernel.Config.getUnified()["RTPs"]
             for rtp_name, path in rtps.items():
                 flag, testpath = RTPFunctions.TestAudioFiles(path, folder_name, name)
             if flag:
@@ -466,11 +466,11 @@ class PygletCache(object):
         self._Cache = collections.OrderedDict()
         self.limit = 200
         try:
-            config = Kernel.GlobalObjects["Welder_config"]
-            if config.has_section("Cache"):
-                section = config.get_section("Cache")
-                if section.has_item("pyglet_limit"):
-                    self.limit = config.getint("Cache", "pyglet_limit")
+            config = Kernel.Config.getUnified()
+            if "Cache" in config:
+                section = config["Cache"]
+                if "pyglet_limit" in section:
+                    self.limit = config["Cache"]["pyglet_limit"]
         except:
             Kernel.Log("Error setting pyglet Cache Config", "[Cache]", error=True)
 

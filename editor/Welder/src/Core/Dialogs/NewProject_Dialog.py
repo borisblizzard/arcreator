@@ -14,7 +14,7 @@ import Kernel
 
 from PyitectConsumes import RTPFunctions
 
-class NewProjectDialog(wx.Dialog):
+class NewProject_Dialog(wx.Dialog):
 
     def __init__(self, parent):
         #pre create

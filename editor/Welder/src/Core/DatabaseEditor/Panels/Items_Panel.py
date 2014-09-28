@@ -24,7 +24,7 @@ class Items_Panel(Items_Panel_Template, PanelBase):
         Items_Panel_Template.__init__(self, parent)
         global Config
         global DataItems, DataStates, DataElements, DataCommonEvents, DataAnimations
-        Config = Kernel.GlobalObjects['Welder_config']
+        
         try:
             proj = Kernel.GlobalObjects['PROJECT']
             DataItems = proj.getData('Items')
@@ -38,7 +38,7 @@ class Items_Panel(Items_Panel_Template, PanelBase):
             self.Destroy()
         font = wx.Font(
             8, wx.FONTFAMILY_TELETYPE, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL)
-        font.SetFaceName(Config.get('Misc', 'NoteFont'))
+        font.SetFaceName(Kernel.Config.getUnified()['Misc']['NoteFont'])
         self.textCtrlNotes.SetFont(font)
         DM.DrawButtonIcon(self.bitmapButtonAudioTest, 'play_button', True)
         self.comboBoxMenuSE.SetCursor(wx.STANDARD_CURSOR)
@@ -55,7 +55,7 @@ class Items_Panel(Items_Panel_Template, PanelBase):
 
     def refreshItems(self):
         """Refreshes the values in the item wxListBox control"""
-        digits = len(Config.get('GameObjects', 'Items'))
+        digits = len(Kernel.Config.getUnified()['GameObjects']['Items'])
         DM.FillControl(self.listBoxItems, DataItems, digits, [])
 
     def refreshElements(self):
@@ -75,14 +75,14 @@ class Items_Panel(Items_Panel_Template, PanelBase):
         self.comboBoxParameter.Clear()
         params = ['(None)', 'MaxHP', 'MaxSP']
         if DM.ARC_FORMAT:
-            params.extend(Config.getlist('GameSetup', 'Parameters'))
+            params.extend(list(Kernel.Config.getUnified()['GameSetup']['Parameters']))
         else:
             params.extend(['STR', 'DEX', 'AGI', 'INT'])
         self.comboBoxParameter.AppendItems(params)
 
     def refreshAnimations(self):
         """Refreshes the choices in the user and target animation controls"""
-        digits = len(Config.get('GameObjects', 'Animations'))
+        digits = len(Kernel.Config.getUnified()['GameObjects']['Animations'])
         DM.FillControl(
             self.comboBoxTargetAnimation, DataAnimations, digits, ['(None)'])
         DM.FillControl(
@@ -90,7 +90,7 @@ class Items_Panel(Items_Panel_Template, PanelBase):
 
     def refreshCommonEvents(self):
         """Refreshes the common events in the combo box"""
-        digits = len(Config.get('GameObjects', 'CommonEvents'))
+        digits = len(Kernel.Config.getUnified()['GameObjects']['CommonEvents'])
         DM.FillControl(
             self.comboBoxCommonEvent, DataCommonEvents, digits, ['(None)'])
 
@@ -164,13 +164,13 @@ class Items_Panel(Items_Panel_Template, PanelBase):
 
     def buttonMaximum_Clicked(self, event):
         """Starts the Change Maximum dialog"""
-        max = Config.getint('GameObjects', 'Items')
+        max = int(Kernel.Config.getUnified()['GameObjects']['Items'])
         DM.ChangeDataCapacity(self, self.listBoxItems, DataItems, max)
 
     def textCtrlName_TextChanged(self, event):
         """updates the selected items's name"""
         DM.updateObjectName(self.SelectedItem, event.GetString(),
-                            self.listBoxItems, len(Config.get('GameObjects', 'Items')))
+                            self.listBoxItems, len(Kernel.Config.getUnified()['GameObjects']['Items']))
 
     def bitmapButtonIcon_Clicked(self, event):
         """Opens dialog to select an icon for the selected skill"""

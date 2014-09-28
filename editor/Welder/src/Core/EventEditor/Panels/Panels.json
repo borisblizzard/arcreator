@@ -4,7 +4,9 @@
     "version": "1.0.0",
     "file" : "__init__.py",
     "consumes": {
-        "PanelBase": ""
+        "PanelBase": "",
+        "RTPCache": "",
+        "EditorGLPanel": ""
     },
     "provides": {
         "EventPanel": ""

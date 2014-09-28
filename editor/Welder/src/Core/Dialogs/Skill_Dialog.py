@@ -4,8 +4,8 @@ import wx
 import Kernel
 
 
-RPG = Core.RMXP.RGSS1_RPG.RPG
-DM = Core.Database.Manager
+from PyitectConsumes import RGSS1_RPG as RPG
+from PyitectConsumes import DatabaseManager as DM
 
 ARC_FORMAT = False  # TEST
 

@@ -28,7 +28,7 @@ class Classes_Panel(Classes_Panel_Template, PanelBase):
         """Basic constructor for the Classes panel"""
         Classes_Panel_Template.__init__(self, parent)
         global Config
-        Config = Kernel.GlobalObjects['Welder_config']
+        
         global DataClasses, DataWeapons, DataArmors, DataStates, DataElements, DataSkills
         try:
             proj = Kernel.GlobalObjects['PROJECT']
@@ -45,17 +45,17 @@ class Classes_Panel(Classes_Panel_Template, PanelBase):
         self.listCtrlSkills.InsertColumn(0, "Level", width=64)
         self.listCtrlSkills.InsertColumn(1, "Skill", width=160)
         if DM.ARC_FORMAT:
-            max = Config.getint('DatabaseLimits', 'ParameterPercent')
+            max = int(Kernel.Config.getUnified()['DatabaseLimits']['ParameterPercent'])
             self.spinCtrlElements.SetRange(-max, max)
             self.spinCtrlStates.SetRange(-max, max)
         else:
             self.spinCtrlElements.SetRange(0, 5)
             self.spinCtrlStates.SetRange(0, 5)
-        positions = Config.getlist('GameSetup', 'Positions')
+        positions = list(Kernel.Config.getUnified()['GameSetup']['Positions'])
         self.comboBoxPosition.AppendItems(positions)
         font = wx.Font(
             8, wx.FONTFAMILY_TELETYPE, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL)
-        font.SetFaceName(Config.get('Misc', 'NoteFont'))
+        font.SetFaceName(Kernel.Config.getUnified()['Misc']['NoteFont'])
         self.textCtrlNotes.SetFont(font)
         self.SelectedClass = DataClasses[DM.FixedIndex(class_index)]
         self.refreshAll()
@@ -77,7 +77,7 @@ class Classes_Panel(Classes_Panel_Template, PanelBase):
 
     def refreshClassList(self):
         """Refreshes the values in the class wxListBox control"""
-        digits = len(Config.get('GameObjects', 'Classes'))
+        digits = len(Kernel.Config.getUnified()['GameObjects']['Classes'])
         DM.FillControl(self.listBoxClasses, DataClasses, digits, [])
 
     def refreshWeapons(self):
@@ -106,7 +106,7 @@ class Classes_Panel(Classes_Panel_Template, PanelBase):
                 pass
             self.listCtrlSkills.InsertStringItem(
                 i, "".join(['Lv. ', str(skill.level)]))
-            digits = len(Config.get('GameObjects', 'Skills'))
+            digits = len(Kernel.Config.getUnified()['GameObjects']['Skills'])
             name = "".join(
                 [str(skill.skill_id).zfill(digits), ': ', DataSkills[skill.skill_id].name])
             self.listCtrlSkills.SetStringItem(i, 1, name)
@@ -161,13 +161,13 @@ class Classes_Panel(Classes_Panel_Template, PanelBase):
 
     def buttonMaximum_Clicked(self, event):
         """Starts the Change Maximum dialog"""
-        max = Config.getint('GameObjects', 'Classes')
+        max = int(Kernel.Config.getUnified()['GameObjects']['Classes'])
         DM.ChangeDataCapacity(self, self.listBoxClasses, DataClasses, max)
 
     def textCtrlName_TextChanged(self, event):
         """updates the selected actor's name"""
         DM.updateObjectName(self.SelectedClass, event.GetString(),
-                            self.listBoxClasses, len(Config.get('GameObjects', 'Classes')))
+                            self.listBoxClasses, len(Kernel.Config.getUnified()['GameObjects']['Classes']))
 
     def checkListWeapons_CheckChanged(self, event):
         """Adds/Removes the weapon from the class weapon set as needed"""
@@ -244,7 +244,7 @@ class Classes_Panel(Classes_Panel_Template, PanelBase):
         if edit:
             lvl = self.SelectedClass.learnings[index].level
             skill_id = self.SelectedClass.learnings[index].skill_id
-        maxlvl = Config.getint('DatabaseLimits', 'ActorLevel')
+        maxlvl = int(Kernel.Config.getUnified()['DatabaseLimits']['ActorLevel'])
         dialog = Skill_Dialog(self, DataSkills, maxlvl, lvl, skill_id)
         if dialog.ShowModal() == wx.ID_OK:
             if edit:

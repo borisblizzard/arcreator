@@ -3,9 +3,7 @@ from wx import stc
 
 import Kernel
 
-from PyitectConsumes import ScriptManager as SM
-from PyitectConsumes import FindReplace_Dialog
-
+from PyitectConsumes import ScriptEditorManager as SM
 
 # TODO:
 #     - Consecutive keywords do not colorize, specifically "def self.WORD"
@@ -50,7 +48,7 @@ class ScriptTextCtrl(stc.StyledTextCtrl):
         super(ScriptTextCtrl, self).__init__(parent, style=stc.STC_STYLE_LINENUMBER | stc.STC_STYLE_INDENTGUIDE)
 
         global Config
-        Config = Kernel.GlobalObjects['Welder_config'].get_section('ScriptEditor')
+        Config = Kernel.Config.getUnified()['ScriptEditor']
         self.FindReplaceData = FindReplaceData()
         self.FindDialog = None
         self.ApplySettings()
@@ -123,7 +121,7 @@ class ScriptTextCtrl(stc.StyledTextCtrl):
         if len(text) > 0:
             self.FindReplaceData.SearchString[index] = text
         if self.FindDialog is None:
-            self.FindDialog = dlg = FindReplace_Dialog(self, index, self.FindReplaceData)
+            self.FindDialog = dlg = Kernel.System.load("FindReplace_Dialog")(self, index, self.FindReplaceData)
         else:
             dlg = self.FindDialog
         dlg.RefreshTab(index)

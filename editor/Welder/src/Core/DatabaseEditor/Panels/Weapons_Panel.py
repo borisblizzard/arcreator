@@ -20,7 +20,7 @@ class Weapons_Panel(Weapons_Panel_Template, PanelBase):
         """Basic constructor for the Weapons panel"""
         Weapons_Panel_Template.__init__(self, parent)
         global Config, DataWeapons, DataStates, DataAnimations, DataElements
-        Config = Kernel.GlobalObjects['Welder_config']
+        
         try:
             proj = Kernel.GlobalObjects['PROJECT']
             DataWeapons = proj.getData('Weapons')
@@ -33,7 +33,7 @@ class Weapons_Panel(Weapons_Panel_Template, PanelBase):
             self.Destroy()
         font = wx.Font(
             8, wx.FONTFAMILY_TELETYPE, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL)
-        font.SetFaceName(Config.get('Misc', 'NoteFont'))
+        font.SetFaceName(Kernel.Config.getUnified()['Misc']['NoteFont'])
         self.textCtrlNotes.SetFont(font)
         default = ['Price:', 'ATK:', 'PDEF:', 'MDEF:']
         self.ParameterControls = DM.CreateParameterControls(self.panelParameters,
@@ -50,8 +50,8 @@ class Weapons_Panel(Weapons_Panel_Template, PanelBase):
     def setRanges(self):
         """Applies the range of values allowed fir the controls on the panel"""
         self.ParameterControls[0].SetRange(
-            0, Config.getint('DatabaseLimits', 'Gold'))
-        max = Config.getint('DatabaseLimits', 'ActorParameter')
+            0, int(Kernel.Config.getUnified()['DatabaseLimits']['Gold']))
+        max = int(Kernel.Config.getUnified()['DatabaseLimits']['ActorParameter'])
         for i in range(1, len(self.ParameterControls)):
             self.ParameterControls[i].SetRange(-max, max)
 
@@ -65,7 +65,7 @@ class Weapons_Panel(Weapons_Panel_Template, PanelBase):
 
     def refreshWeaponList(self):
         """Refreshes the list of weapons"""
-        digits = len(Config.get('GameObjects', 'Weapons'))
+        digits = len(Kernel.Config.getUnified()['GameObjects']['Weapons'])
         DM.FillControl(self.listBoxWeapons, DataWeapons, digits, [])
 
     def refreshElements(self):
@@ -82,7 +82,7 @@ class Weapons_Panel(Weapons_Panel_Template, PanelBase):
 
     def refreshAnimations(self):
         """Refreshes the choices in the user and target animation controls"""
-        digits = len(Config.get('GameObjects', 'Animations'))
+        digits = len(Kernel.Config.getUnified()['GameObjects']['Animations'])
         DM.FillControl(
             self.comboBoxUserAnimation, DataAnimations, digits, ['(None)'])
         DM.FillControl(
@@ -161,13 +161,13 @@ class Weapons_Panel(Weapons_Panel_Template, PanelBase):
 
     def buttonMaximum_Clicked(self, event):
         """Starts the Change Maximum dialog"""
-        max = Config.getint('GameObjects', 'Weapons')
+        max = int(Kernel.Config.getUnified()['GameObjects']['Weapons'])
         DM.ChangeDataCapacity(self, self.listBoxWeapons, DataWeapons, max)
 
     def textCtrlName_TextChanged(self, event):
         """updates the selected weapon's name"""
         DM.updateObjectName(self.SelectedWeapon, event.GetString(),
-                            self.listBoxWeapons, len(Config.get('GameObjects', 'Weapons')))
+                            self.listBoxWeapons, len(Kernel.Config.getUnified()['GameObjects']['Weapons']))
 
     def bitmapButtonIcon_Clicked(self, event):
         """Opens dialog to select an icon for the selected skill"""

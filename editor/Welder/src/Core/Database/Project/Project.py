@@ -299,7 +299,7 @@ class Project(object):
         backups = self.FindBackupFiles(path)
         backups.sort(key=lambda backup: backup[1])
         try:
-            maxBackups = Kernel.Config.getUnified()["Main"]["maxbackups"]
+            maxBackups = Kernel.Config.getUnified()["Main"]["MaxBackups"]
         except:
             maxBackups = 10
             Kernel.Log("Invalid setting for MaxBackups in configuration", "[Project]", error=True)

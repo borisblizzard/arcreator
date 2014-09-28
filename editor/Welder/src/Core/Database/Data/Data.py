@@ -7,7 +7,7 @@ import wx
 
 import Kernel
 
-from PyitectConsumes import NewProjectDialog, ARCProjectCreator, ARCProjectLoader, ARCProjectSaver
+from PyitectConsumes import NewProject_Dialog, ARCProjectCreator, ARCProjectLoader, ARCProjectSaver
 
 def NewProject(mainwindow):
     #handle an already open project
@@ -24,7 +24,7 @@ def NewProject(mainwindow):
         if result == wx.YES:
             Kernel.Syatem.load("SaveProjectHandler")()
     #pull the dialog for the newproject
-    dlg = NewProjectDialog(mainwindow)
+    dlg = NewProject_Dialog(mainwindow)
     result = dlg.ShowModal()
     if result == wx.ID_OK:
         #lets create the project

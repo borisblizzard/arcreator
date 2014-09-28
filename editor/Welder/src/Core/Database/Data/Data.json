@@ -4,7 +4,7 @@
     "version": "1.0.0",
     "file" : "Data.py",
     "consumes": {
-        "NewProjectDialog": "",
+        "NewProject_Dialog": "",
         "ARCProjectCreator": "",
         "ARCProjectLoader": "",
         "ARCProjectSaver": ""

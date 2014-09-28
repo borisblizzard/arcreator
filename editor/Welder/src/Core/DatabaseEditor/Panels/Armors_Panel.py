@@ -21,7 +21,7 @@ class Armors_Panel(Armors_Panel_Template, PanelBase):
         Armors_Panel_Template.__init__(self, parent)
 
         global Config, DataArmors, DataStates, DataElements
-        Config = Kernel.GlobalObjects['Welder_config']
+        
         try:
             proj = Kernel.GlobalObjects['PROJECT']
             DataArmors = proj.getData('Armors')
@@ -38,7 +38,7 @@ class Armors_Panel(Armors_Panel_Template, PanelBase):
                 [False, True], DM.GetNormalCheckImageList())
         font = wx.Font(
             8, wx.FONTFAMILY_TELETYPE, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL)
-        font.SetFaceName(Config.get('Misc', 'NoteFont'))
+        font.SetFaceName(Kernel.Config.getUnified()['Misc']['NoteFont'])
         self.textCtrlNotes.SetFont(font)
 
         default = ['Price:', 'PDEF:', 'MDEF:', 'EVA:']
@@ -55,8 +55,8 @@ class Armors_Panel(Armors_Panel_Template, PanelBase):
 
     def setRanges(self):
         """Applies the range of values allowed fir the controls on the panel"""
-        self.ParameterControls[0].SetRange(0, Config.getint('DatabaseLimits', 'Gold'))
-        max = Config.getint('DatabaseLimits', 'ActorParameter')
+        self.ParameterControls[0].SetRange(0, int(Kernel.Config.getUnified()['DatabaseLimits']['Gold']))
+        max = int(Kernel.Config.getUnified()['DatabaseLimits']['ActorParameter'])
         for i in range(1, len(self.ParameterControls)):
             self.ParameterControls[i].SetRange(-max, max)
 
@@ -70,7 +70,7 @@ class Armors_Panel(Armors_Panel_Template, PanelBase):
 
     def refreshArmorList(self):
         """Refreshes the list of armors"""
-        digits = len(Config.get('GameObjects', 'Armors'))
+        digits = len(Kernel.Config.getUnified()['GameObjects']['Armors'])
         DM.FillControl(self.listBoxArmors, DataArmors, digits, [])
 
     def refreshElements(self):
@@ -80,14 +80,14 @@ class Armors_Panel(Armors_Panel_Template, PanelBase):
 
     def refreshStates(self):
         """Refreshes the list of states in the wxCheckListBox"""
-        digits = len(Config.get('GameObjects', 'States'))
+        digits = len(Kernel.Config.getUnified()['GameObjects']['States'])
         DM.FillWithoutNumber(self.checkListStates, DataStates, [])
         DM.FillControl(self.comboBoxAutoState, DataStates, digits, ['(None)'])
 
     def refreshKinds(self):
         """updates the armor kinds"""
         if DM.ARC_FORMAT:
-            kinds = Config.getlist('GameSetup', 'ArmorSlots')
+            kinds = list(Kernel.Config.getUnified()['GameSetup']['ArmorSlots'])
         else:
             kinds = ['Shield', 'Helmet', 'Body Armor', 'Accessory']
         DM.FillWithoutNumber(self.comboBoxKind, [], kinds)
@@ -159,13 +159,13 @@ class Armors_Panel(Armors_Panel_Template, PanelBase):
 
     def buttonMaximum_Clicked(self, event):
         """Starts the Change Maximum dialog"""
-        max = Config.getint('GameObjects', 'Armors')
+        max = int(Kernel.Config.getUnified()['GameObjects']['Armors'])
         DM.ChangeDataCapacity(self, self.listBoxArmors, DataArmors, max)
 
     def textCtrlName_TextChanged(self, event):
         """updates the selected armor's name"""
         DM.updateObjectName(self.SelectedArmor, event.GetString(),
-                            self.listBoxArmors, len(Config.get('GameObjects', 'Armors')))
+                            self.listBoxArmors, len(Kernel.Config.getUnified()['GameObjects']['Armors']))
 
     def bitmapButtonIcon_Clicked(self, event):
         """Opens dialog to select an icon for the selected skill"""

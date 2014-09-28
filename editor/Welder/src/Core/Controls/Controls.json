@@ -1,17 +1,13 @@
 {
-    "name": "DatabaseControls",
+    "name": "CoreControls",
     "author": "Ryex",
     "version": "1.0.0",
     "file" : "__init__.py",
     "consumes": {
-        "DatabaseManager": "",
-        "ScriptEditorManger": "",
-        "FindReplace_Dialog": "",
+        "ScriptEditorManager": "",
         "PanelBase": "",
-        "AudioPlayer_Panel_Template": "",
         "RGSS1_RPG": "",
         "RTPFunctions": ""
-
     },
     "provides": {
         "ImageCheckList": "",

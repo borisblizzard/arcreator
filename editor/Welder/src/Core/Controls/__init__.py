@@ -6,4 +6,4 @@ from .ParameterPanel import ParameterPanel
 from .ParameterPlotGraphics import ParameterPlotGraphics
 from .WaveForm_Panel import WaveFormPanel
 from .ProportionalSplitter import ProportionalSplitter
-from .ScriptTextCtl import  ScriptTextCtrl
+from .ScriptTextCtrl import  ScriptTextCtrl
