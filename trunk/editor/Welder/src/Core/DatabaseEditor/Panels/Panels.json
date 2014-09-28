@@ -1,15 +1,15 @@
 {
-    "name": "Templates",
+    "name": "DatabasePanels",
     "author": "Ryex",
     "version": "1.0.0",
     "file" : "__init__.py",
     "consumes": {
         "PanelBase": "",
         "RGSS1_RPG": "",
+        "RTPFunctions": "",
         "Table": "",
         "DatabaseManager": "",
         "ParameterPlotGraphics": "",
-        "ParameterGraph": "",
         "ExpGrid_Dialog": "",
         "GenerateCurve_Dialog": "",
         "AddParameter_Dialog": "",
@@ -27,6 +27,7 @@
         "ChooseTreasure_Dialog": "",
         "BattleTest_Dialog": "",
         "EventCondition_Dialog": "",
+        "ChooseFogGraphic_Dialog": "",
         "Actors_Panel_Template": "",
         "Animations_Panel_Template": "",
         "Armors_Panel_Template": "",
@@ -39,7 +40,10 @@
         "System_Panel_Template": "",
         "Tilesets_Panel_Template": "",
         "Troops_Panel_Template": "",
-        "Weapons_Panel_Template": ""
+        "AudioPlayer_Panel_Template": "",
+        "Weapons_Panel_Template": "",
+        "Enemies_Panel_Template": "",
+        "States_Panel_Template": ""
     },
     "provides": {
         "Actors_Panel": "",
@@ -57,6 +61,7 @@
         "System_Panel": "",
         "Tilesets_Panel": "",
         "Troops_Panel": "",
+        "AudioPlayer_Panel": "",
         "Weapons_Panel": ""
     }
 }

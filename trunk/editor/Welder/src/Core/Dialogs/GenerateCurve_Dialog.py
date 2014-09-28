@@ -6,7 +6,7 @@ import numpy as np
 import Kernel
 
 
-DM = Core.Database.Manager
+from PyitectConsumes import DatabaseManager as DM
 
 
 from PyitectConsumes import GenerateCurve_Dialog_Template

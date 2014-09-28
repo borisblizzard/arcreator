@@ -7,9 +7,7 @@
         "RTPCache": "",
         "IconManager": "",
         "PyXAL": "",
-        "RTPFunctions": "",
-        "ChooseGraphic_Dialog": "",
-        "ChooseGraphic_Dialog_NoHue": ""
+        "RTPFunctions": ""
     },
     "provides": {
         "DatabaseManager": ""

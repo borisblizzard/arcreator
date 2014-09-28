@@ -7,8 +7,8 @@ import PIL
 import Kernel
 
 
-RTPFunctions = Core.Cache.RTPFunctions
-PILCache = Core.Cache.PILCache
+from PyitectConsumes import RTPFunctions
+from PyitectConsumes import RTPCache
 
 
 from PyitectConsumes import ChooseGraphic_Dialog_Template
@@ -27,9 +27,9 @@ class ChooseGraphic_Dialog(ChooseGraphic_Dialog_Template):
             RTPFunctions.GetFileList(os.path.join('Graphics', folder)))
         self.ImageIndex = 0
         if folder == 'Characters':
-            self.cache = PILCache.Character
+            self.cache = RTPCache.Character
         elif folder == 'Battlers':
-            self.cache = PILCache.Battler
+            self.cache = RTPCache.Battler
         # TODO: Implement the rest...
         if current in self.ImageList:
             self.ImageIndex = self.ImageList.index(current)
@@ -60,7 +60,7 @@ class ChooseGraphic_Dialog(ChooseGraphic_Dialog_Template):
     def sliderHue_Scrolled(self, event):
         """Refreshes the canvas and redraws with the selected hue rotation"""
         self.RefreshCanvas()
-        PILCache.CacheLimit()
+        RTPCache.CacheLimit()
 
     def GetSelection(self):
         """Returns the filename and hue that was selected by the user"""

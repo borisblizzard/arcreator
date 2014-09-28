@@ -4,7 +4,7 @@ import wx
 import Kernel
 
 
-DM = Core.Database.Manager
+from PyitectConsumes import DatabaseManager as DM
 
 
 from PyitectConsumes import ChooseTreasure_Dialog_Template
@@ -21,11 +21,11 @@ class ChooseTreasure_Dialog(ChooseTreasure_Dialog_Template):
         DataItems = proj.getData('Items')
         DataWeapons = proj.getData('Weapons')
         DataArmors = proj.getData('Armors')
-        digits = len(Config.get('GameObjects', 'Items'))
+        digits = len(Kernel.Config.getUnified()['GameObjects']['Items'])
         DM.FillControl(self.comboBoxItem, DataItems, digits, [])
-        digits = len(Config.get('GameObjects', 'Weapons'))
+        digits = len(Kernel.Config.getUnified()['GameObjects']['Weapons'])
         DM.FillControl(self.comboBoxWeapon, DataWeapons, digits, [])
-        digits = len(Config.get('GameObjects', 'Armors'))
+        digits = len(Kernel.Config.getUnified()['GameObjects']['Armors'])
         DM.FillControl(self.comboBoxArmor, DataArmors, digits, [])
         self.Treasure = current
         self.listCtrlTreasure.InsertColumn(
@@ -38,7 +38,7 @@ class ChooseTreasure_Dialog(ChooseTreasure_Dialog_Template):
         self._combos = [
             self.comboBoxItem, self.comboBoxWeapon, self.comboBoxArmor]
         self.spinCtrlQuantity.SetRange(1,
-                                       Config.getint('GameSetup', 'MaxItemCapacity'))
+                                       int(Kernel.Config.getUnified()['GameSetup']['MaxItemCapacity']))
         self.refreshTreasureList()
 
     def refreshTreasureList(self):

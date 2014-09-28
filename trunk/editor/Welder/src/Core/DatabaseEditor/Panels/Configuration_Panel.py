@@ -14,7 +14,7 @@ class Configuration_Panel (wx.Panel, PanelBase):
         wx.Panel.__init__(self, parent, id=wx.ID_ANY, pos=wx.DefaultPosition, size=wx.Size(
             517, 364), style=wx.TAB_TRAVERSAL)
         global Config
-        Config = Kernel.GlobalObjects['Welder_config']
+        
         self.Dictionary = {}
         # Create the fonts
         headerFont = wx.Font(
@@ -54,7 +54,7 @@ class Configuration_Panel (wx.Panel, PanelBase):
                 optionlabel.Wrap(-1)
                 optionSizer.Add(optionlabel, 0, wx.ALL, 5)
                 # Create text control
-                value = Config.get(section[0], option[0])
+                value = Kernel.Config.getUnified()[section[0]][option[0]]
                 textCtrl = wx.TextCtrl(self.scrolledWindowEquipment, wx.ID_ANY,
                                        value, wx.DefaultPosition, wx.DefaultSize, 0)
                 textCtrl.SetFont(optionFont)

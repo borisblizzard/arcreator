@@ -6,15 +6,14 @@ import numpy as np
 import Kernel
 
 
-RPG = Core.RMXP.RGSS1_RPG.RPG
-DM = Core.Database.Manager
+from PyitectConsumes import RGSS1_RPG as RPG
+from PyitectConsumes import DatabaseManager as DM
 
-PanelBase = Core.Panels.PanelBase
+from PyitectConsumes import PanelBase
 
 # TODO: THIS NEEDS FIXED UP STILL!
 
 import Boot
-Boot.ConfigManager.LoadConfig()
 
 # Implementing ExpGrid_Dialog
 

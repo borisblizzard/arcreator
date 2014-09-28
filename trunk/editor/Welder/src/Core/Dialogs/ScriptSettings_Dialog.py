@@ -31,12 +31,12 @@ class ScriptSettings_Dialog(ScriptSettings_Dialog_Template):
 
     def GetStyle(self, index):
         """Returns the associated style at the passed index"""
-        SM = Core.Database.ScriptEditor.Manager
+        SM = Kernel.System.load("ScriptEditorManager")
         return SM.GetStyles()[index]
 
     def ParseFormatString(self, index):
         """Parses the user defined format string for the style, and returns it"""
-        SM = Core.Database.ScriptEditor.Manager
+        SM = Kernel.System.load("ScriptEditorManager")
         key = self.GetStyle(index)[1]
         fstring = Config.get(key)
         style = ScintillaStyle()
@@ -100,7 +100,7 @@ class ScriptSettings_Dialog(ScriptSettings_Dialog_Template):
 
     def RefreshEditorPage(self):
         """Refreshes the controls to reflect the selected style"""
-        SM = Core.Database.ScriptEditor.Manager
+        SM = Kernel.System.load("ScriptEditorManager")
         self.spinCtrlTabWidth.SetValue(int(Config.get('tab_width')))
         self.spinCtrlEdgeColumn.SetValue(int(Config.get('edge_column')))
         self.checkBoxCaret.SetValue(Config.get('show_caret').lower() == 'true')
@@ -122,7 +122,7 @@ class ScriptSettings_Dialog(ScriptSettings_Dialog_Template):
 
     def updateConfig(self, style, index):
         """updates the copy of the Configuration section with the new style"""
-        SM = Core.Database.ScriptEditor.Manager
+        SM = Kernel.System.load("ScriptEditorManager")
         keys = SM.GetStyles()
         Config.set(keys[index][1], style.GetFormatString())
 
@@ -247,7 +247,7 @@ class ScriptSettings_Dialog(ScriptSettings_Dialog_Template):
 
     def buttonDefault_Clicked(self, event):
         """Sets all the styles to the internal default settings"""
-        SM = Core.Database.ScriptEditor.Manager
+        SM = Kernel.System.load("ScriptEditorManager")
         msg = 'This action is irreversible.\nAre you sure you want to reapply all default styles?'
         if wx.MessageBox(msg, 'Confirm', wx.YES | wx.NO | wx.CENTRE, self) == wx.YES:
 

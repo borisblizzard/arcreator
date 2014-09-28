@@ -4,7 +4,7 @@ global CallCommonEvent_Dialog, ChangeAccess_Dialog, ChangeActorClass_Dialog, Cha
 global ChangeEquipment_Dialog, ChangeFogOpacity_Dialog, ChangeFrequency_Dialog, ChangeHP_Dialog, ChangelGold_Dialog, ChangelPartyEquipment_Dialog
 global ChangeMapSettings_Dialog, ChangeMaximum_Dialog, ChangeParameters_Dialog, ChangePartyMember_Dialog, ChangePictureColorTone_Dialog, ChangeSkills_Dialog
 global ChangeSpeed_Dialog, ChangeState_Dialog, ChangeStat_Dialog, ChangeTextOptions_Dialog, ChangeTone_Dialog, ChooseActor_Dialog, ChooseFogGraphic_Dialog
-global ChooseGraphic_Dialog, ChooseGraphic_Dialog_NoHue, ChooseSwitchVariable_Dialog, ChooseTreasure_Dialog, Comment_Dialog, ConditionalBranch_Dialog
+global ChooseGraphic_Dialog, ChooseSwitchVariable_Dialog, ChooseTreasure_Dialog, Comment_Dialog, ConditionalBranch_Dialog
 global ControlSelfSwitches_Dialog, ControlSwitches_Dialog, ControlTimer_Dialog, ControlVariables_Dialog, DealDamage_Dialog, EnemyAction_Dialog
 global EnemyAppearance_Dialog, EnemyExpGold_Dialog, EnemyTransform_Dialog, ErasePicture_Dialog, EventCondition_Dialog, ExpGrid_Dialog, FadeOutAudio_Dialog
 global FindReplace_Dialog, ForceAction_Dialog, GenerateCurve_Dialog, InputNumber_Dialog, Jump_Dialog, Label_Dialog, MovePicture_Dialog, MoveRoute_Dialog
@@ -50,7 +50,6 @@ from .ChangeTone_Dialog import ChangeTone_Dialog
 from .ChooseActor_Dialog import ChooseActor_Dialog
 from .ChooseFogGraphic_Dialog import ChooseFogGraphic_Dialog
 from .ChooseGraphic_Dialog import ChooseGraphic_Dialog
-from .ChooseGraphic_Dialog_NoHue import ChooseGraphic_Dialog_NoHue
 from .ChooseSwitchVariable_Dialog import ChooseSwitchVariable_Dialog
 from .ChooseTreasure_Dialog import ChooseTreasure_Dialog
 from .Comment_Dialog import Comment_Dialog
@@ -97,3 +96,4 @@ from .TransferPlayer_Dialog import TransferPlayer_Dialog
 from .TransparentFlag_Dialog import TransparentFlag_Dialog
 from .Wait_Dialog import Wait_Dialog
 from .WeatherEffects_Dialog import WeatherEffects_Dialog
+from .NewProject_Dialog import NewProject_Dialog

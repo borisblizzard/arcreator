@@ -9,8 +9,10 @@
 
 import wx
 import wx.xrc
-import wx.combo
+import wx.adv
 import wx.grid
+
+from . import Extras
 
 import gettext
 _ = gettext.gettext
@@ -114,8 +116,8 @@ class Actors_Panel_Template (wx.Panel):
         self.labelExpCurve.Wrap(-1)
         sizer3.Add(self.labelExpCurve, 0, wx.ALL, 5)
 
-        self.comboBoxExpCurve = wx.combo.BitmapComboBox(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, "", wx.CB_READONLY | wx.CLIP_CHILDREN)
+        self.comboBoxExpCurve = wx.adv.BitmapComboBox(
+            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, [], wx.CB_READONLY | wx.CLIP_CHILDREN)
         sizer3.Add(self.comboBoxExpCurve, 0, wx.EXPAND |
                    wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
 
@@ -241,9 +243,8 @@ class Actors_Panel_Template (wx.Panel):
 
         bSizer613 = wx.BoxSizer(wx.HORIZONTAL)
 
-        from Database.Controls import ParameterGraph
-        self.parameterGraph = PyitectConsumes.ParameterGraph(
-            self.pageParameters)
+        from .Extras import ParameterGraph
+        self.parameterGraph = ParameterGraph(self.pageParameters)
         bSizer613.Add(
             self.parameterGraph, 1, wx.EXPAND | wx.RIGHT | wx.LEFT, 0)
 
@@ -314,7 +315,7 @@ class Actors_Panel_Template (wx.Panel):
 
         self.textCtrlNotes = wx.TextCtrl(self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition,
                                          wx.DefaultSize, wx.TE_MULTILINE | wx.TE_PROCESS_ENTER | wx.TE_PROCESS_TAB | wx.CLIP_CHILDREN)
-        self.textCtrlNotes.SetMaxLength(0)
+        
         sizer2.Add(
             self.textCtrlNotes, 20, wx.EXPAND | wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
 
@@ -611,7 +612,7 @@ class Classes_Panel_Template (wx.Panel):
 
         self.textCtrlNotes = wx.TextCtrl(self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition,
                                          wx.DefaultSize, wx.TE_MULTILINE | wx.TE_PROCESS_ENTER | wx.TE_PROCESS_TAB | wx.CLIP_CHILDREN)
-        self.textCtrlNotes.SetMaxLength(0)
+        
         bSizer616.Add(
             self.textCtrlNotes, 25, wx.EXPAND | wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
 
@@ -929,8 +930,7 @@ class Skills_Panel_Template (wx.Panel):
         self.labelMenuSE.Wrap(-1)
         bSizer624.Add(self.labelMenuSE, 0, wx.ALL | wx.EXPAND, 5)
 
-        self.comboBoxMenuSE = wx.combo.BitmapComboBox(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, "", wx.CB_READONLY | wx.CLIP_CHILDREN)
+        self.comboBoxMenuSE = wx.adv.BitmapComboBox(self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, [], wx.CB_READONLY | wx.CLIP_CHILDREN)
         bSizer624.Add(
             self.comboBoxMenuSE, 0, wx.EXPAND | wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
 
@@ -1045,7 +1045,7 @@ class Skills_Panel_Template (wx.Panel):
 
         self.textCtrlNotes = wx.TextCtrl(self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition,
                                          wx.DefaultSize, wx.TE_MULTILINE | wx.TE_PROCESS_ENTER | wx.TE_PROCESS_TAB | wx.CLIP_CHILDREN)
-        self.textCtrlNotes.SetMaxLength(0)
+        
         sizer2.Add(
             self.textCtrlNotes, 40, wx.EXPAND | wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
 
@@ -1282,8 +1282,7 @@ class Items_Panel_Template (wx.Panel):
         self.labelMenuSE.Wrap(-1)
         bSizer624.Add(self.labelMenuSE, 0, wx.ALL | wx.EXPAND, 5)
 
-        self.comboBoxMenuSE = wx.combo.BitmapComboBox(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, "", wx.CB_READONLY | wx.CLIP_CHILDREN)
+        self.comboBoxMenuSE = wx.adv.BitmapComboBox(self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, [], wx.CB_READONLY | wx.CLIP_CHILDREN)
         bSizer624.Add(
             self.comboBoxMenuSE, 0, wx.EXPAND | wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
 
@@ -1535,7 +1534,7 @@ class Items_Panel_Template (wx.Panel):
 
         self.textCtrlNotes = wx.TextCtrl(
             self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.TE_MULTILINE | wx.CLIP_CHILDREN)
-        self.textCtrlNotes.SetMaxLength(0)
+        
         sizer2.Add(
             self.textCtrlNotes, 1, wx.EXPAND | wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
 
@@ -1892,7 +1891,7 @@ class Weapons_Panel_Template (wx.Panel):
 
         self.textCtrlNotes = wx.TextCtrl(
             self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.TE_MULTILINE | wx.CLIP_CHILDREN)
-        self.textCtrlNotes.SetMaxLength(0)
+        
         sizer2.Add(
             self.textCtrlNotes, 1, wx.EXPAND | wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
 
@@ -2151,7 +2150,7 @@ class Armors_Panel_Template (wx.Panel):
 
         self.textCtrlNotes = wx.TextCtrl(
             self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.TE_MULTILINE | wx.CLIP_CHILDREN)
-        self.textCtrlNotes.SetMaxLength(0)
+        
         sizer2.Add(
             self.textCtrlNotes, 1, wx.EXPAND | wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
 
@@ -2364,8 +2363,7 @@ class Enemies_Panel_Template (wx.Panel):
         self.labelExp.Wrap(-1)
         bSizer629.Add(self.labelExp, 0, wx.ALL, 5)
 
-        self.comboBoxExp = wx.combo.BitmapComboBox(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, "", wx.CB_READONLY)
+        self.comboBoxExp = wx.adv.BitmapComboBox(self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, [], wx.CB_READONLY)
         bSizer629.Add(
             self.comboBoxExp, 0, wx.BOTTOM | wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
 
@@ -2378,8 +2376,7 @@ class Enemies_Panel_Template (wx.Panel):
         self.labelGold.Wrap(-1)
         bSizer630.Add(self.labelGold, 0, wx.ALL, 5)
 
-        self.comboBoxGold = wx.combo.BitmapComboBox(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, "", wx.CB_READONLY)
+        self.comboBoxGold = wx.adv.BitmapComboBox(self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, [], wx.CB_READONLY)
         bSizer630.Add(
             self.comboBoxGold, 0, wx.BOTTOM | wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
 
@@ -2392,8 +2389,7 @@ class Enemies_Panel_Template (wx.Panel):
         self.labelTreasure.Wrap(-1)
         sizer3.Add(self.labelTreasure, 0, wx.ALL | wx.EXPAND, 5)
 
-        self.comboBoxTreasure = wx.combo.BitmapComboBox(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, "", wx.CB_READONLY)
+        self.comboBoxTreasure = wx.adv.BitmapComboBox(self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, [], wx.CB_READONLY)
         sizer3.Add(self.comboBoxTreasure, 0, wx.EXPAND |
                    wx.BOTTOM | wx.RIGHT | wx.LEFT, 5)
 
@@ -2454,7 +2450,7 @@ class Enemies_Panel_Template (wx.Panel):
 
         self.textCtrlNotes = wx.TextCtrl(
             self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.TE_MULTILINE | wx.CLIP_CHILDREN)
-        self.textCtrlNotes.SetMaxLength(0)
+        
         self.textCtrlNotes.SetToolTipString(
             _("Any user notes for this item. These notes can also be referenced via scripts."))
 
@@ -3195,7 +3191,7 @@ class States_Panel_Template (wx.Panel):
 
         self.textCtrlNotes = wx.TextCtrl(
             self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, wx.TE_MULTILINE | wx.CLIP_CHILDREN)
-        self.textCtrlNotes.SetMaxLength(0)
+        
         sizer.Add(self.textCtrlNotes, 1, wx.ALL | wx.EXPAND, 5)
 
         staticSizerStates.Add(sizer, 30, wx.EXPAND, 5)
@@ -3746,8 +3742,7 @@ class Tilesets_Panel_Template (wx.Panel):
         self.labelTileset.Wrap(-1)
         sizer1.Add(self.labelTileset, 0, wx.ALL | wx.EXPAND, 5)
 
-        self.comboBoxTileset = wx.combo.BitmapComboBox(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, "", 0)
+        self.comboBoxTileset = wx.adv.BitmapComboBox(self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, [], 0)
         sizer1.Add(self.comboBoxTileset, 0, wx.BOTTOM |
                    wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
 
@@ -3756,38 +3751,31 @@ class Tilesets_Panel_Template (wx.Panel):
         self.labelAutotiles.Wrap(-1)
         sizer1.Add(self.labelAutotiles, 0, wx.ALL | wx.EXPAND, 5)
 
-        self.comboBoxAutotiles1 = wx.combo.BitmapComboBox(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, "", 0)
+        self.comboBoxAutotiles1 = wx.adv.BitmapComboBox(self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, [], 0)
         sizer1.Add(self.comboBoxAutotiles1, 0, wx.BOTTOM |
                    wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
 
-        self.comboBoxAutotiles2 = wx.combo.BitmapComboBox(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, "", 0)
+        self.comboBoxAutotiles2 = wx.adv.BitmapComboBox(self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, [], 0)
         sizer1.Add(self.comboBoxAutotiles2, 0, wx.BOTTOM |
                    wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
 
-        self.comboBoxAutotiles3 = wx.combo.BitmapComboBox(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, "", 0)
+        self.comboBoxAutotiles3 = wx.adv.BitmapComboBox(self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, [], 0)
         sizer1.Add(self.comboBoxAutotiles3, 0, wx.BOTTOM |
                    wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
 
-        self.comboBoxAutotiles4 = wx.combo.BitmapComboBox(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, "", 0)
+        self.comboBoxAutotiles4 = wx.adv.BitmapComboBox(self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, [], 0)
         sizer1.Add(self.comboBoxAutotiles4, 0, wx.BOTTOM |
                    wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
 
-        self.comboBoxAutotiles5 = wx.combo.BitmapComboBox(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, "", 0)
+        self.comboBoxAutotiles5 = wx.adv.BitmapComboBox(self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, [], 0)
         sizer1.Add(self.comboBoxAutotiles5, 0, wx.BOTTOM |
                    wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
 
-        self.comboBoxAutotiles6 = wx.combo.BitmapComboBox(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, "", 0)
+        self.comboBoxAutotiles6 = wx.adv.BitmapComboBox(self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, [], 0)
         sizer1.Add(self.comboBoxAutotiles6, 0, wx.BOTTOM |
                    wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
 
-        self.comboBoxAutotiles7 = wx.combo.BitmapComboBox(
-            self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, "", 0)
+        self.comboBoxAutotiles7 = wx.adv.BitmapComboBox(self, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, [], 0)
         sizer1.Add(self.comboBoxAutotiles7, 0, wx.BOTTOM |
                    wx.RIGHT | wx.LEFT | wx.EXPAND, 5)
 

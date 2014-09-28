@@ -24,7 +24,7 @@ class Skills_Panel(Skills_Panel_Template, PanelBase):
         Skills_Panel_Template.__init__(self, parent)
         global Config, DataSkills, DataAnimations, DataElements
         global DataStates, DataCommonEvents
-        Config = Kernel.GlobalObjects['Welder_config']
+        
         try:
             proj = Kernel.GlobalObjects['PROJECT']
             DataSkills = proj.getData('Skills')
@@ -38,7 +38,7 @@ class Skills_Panel(Skills_Panel_Template, PanelBase):
             self.Destroy()
         font = wx.Font(
             8, wx.FONTFAMILY_TELETYPE, wx.FONTSTYLE_NORMAL, wx.FONTWEIGHT_NORMAL)
-        font.SetFaceName(Config.get('Misc', 'NoteFont'))
+        font.SetFaceName(Kernel.Config.getUnified()['Misc']['NoteFont'])
         self.textCtrlNotes.SetFont(font)
         DM.DrawButtonIcon(self.bitmapButtonAudioTest, 'play_button', True)
         self.comboBoxMenuSE.SetCursor(wx.STANDARD_CURSOR)
@@ -59,12 +59,12 @@ class Skills_Panel(Skills_Panel_Template, PanelBase):
 
     def refreshSkillList(self):
         """Refreshes the values in the skill wxListBox control"""
-        digits = len(Config.get('GameObjects', 'Skills'))
+        digits = len(Kernel.Config.getUnified()['GameObjects']['Skills'])
         DM.FillControl(self.listBoxSkills, DataSkills, digits, [])
 
     def refreshAnimations(self):
         """Refreshes the choices in the user and target animation controls"""
-        digits = len(Config.get('GameObjects', 'Animations'))
+        digits = len(Kernel.Config.getUnified()['GameObjects']['Animations'])
         DM.FillControl(
             self.comboBoxTargetAnimation, DataAnimations, digits, ['(None)'])
         DM.FillControl(
@@ -84,7 +84,7 @@ class Skills_Panel(Skills_Panel_Template, PanelBase):
 
     def refreshCommonEvents(self):
         """Refreshes the common events in the combo box"""
-        digits = len(Config.get('GameObjects', 'CommonEvents'))
+        digits = len(Kernel.Config.getUnified()['GameObjects']['CommonEvents'])
         DM.FillControl(
             self.comboBoxCommonEvent, DataCommonEvents, digits, ['(None)'])
 
@@ -158,8 +158,8 @@ class Skills_Panel(Skills_Panel_Template, PanelBase):
 
     def setRanges(self):
         self.ParameterControls[0].SetRange(
-            0, Config.getint('DatabaseLimits', 'ActorSP'))
-        max = Config.getint('DatabaseLimits', 'ActorParameter')
+            0, int(Kernel.Config.getUnified()['DatabaseLimits']['ActorSP']))
+        max = int(Kernel.Config.getUnified()['DatabaseLimits']['ActorParameter'])
         self.ParameterControls[1].SetRange(-max, max)
         for i in range(2, len(self.ParameterControls)):
             self.ParameterControls[i].SetRange(0, max)
@@ -174,13 +174,13 @@ class Skills_Panel(Skills_Panel_Template, PanelBase):
 
     def buttonMaximum_Clicked(self, event):
         """Starts the Change Maximum dialog"""
-        max = Config.getint('GameObjects', 'Skills')
+        max = int(Kernel.Config.getUnified()['GameObjects']['Skills'])
         DM.ChangeDataCapacity(self, self.listBoxSkills, DataSkills, max)
 
     def textCtrlName_TextChanged(self, event):
         """updates the selected skill's name"""
         DM.updateObjectName(self.SelectedSkill, event.GetString(),
-                            self.listBoxSkills, len(Config.get('GameObjects', 'Skills')))
+                            self.listBoxSkills, len(Kernel.Config.getUnified()['GameObjects']['Skills']))
 
     def bitmapButtonIcon_Clicked(self, event):
         """Opens dialog to select an icon for the selected skill"""

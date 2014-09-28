@@ -1,4 +1,4 @@
-pimport wx
+import wx
 
 
 import Kernel

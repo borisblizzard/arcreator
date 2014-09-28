@@ -354,8 +354,8 @@ class EditorGLPanel(PygletGLPanel):
         data = self._image.tostring()
         srcImage.set_data('RGBA', pitch, data)
         # Clear the canvas and calculate the region to draw
-        tile_width = srcImage.width / self._rows
-        tile_height = srcImage.height / self._columns
+        tile_width = srcImage.width // self._rows
+        tile_height = srcImage.height // self._columns
         x = self._coord[0] * tile_width
         y = self._coord[1] * tile_height
         y = srcImage.height - y - tile_height
@@ -383,11 +383,11 @@ class EditorGLPanel(PygletGLPanel):
         """Images will be both scaled down and cropped to fit"""
         width, height = self.GetClientSize()
         w, h = pygletimage.width, pygletimage.height
-        x, y, = (width - w) / 2, (height - h) / 2
+        x, y, = (width - w) // 2, (height - h) // 2
         if width < w or height < h:
-            diff_w = (w - width) / 2
-            diff_h = (h - height) / 2
-            pygletimage.blit(x / 2, y / 2, 0, w - diff_w, h - diff_h)
+            diff_w = (w - width) // 2
+            diff_h = (h - height) // 2
+            pygletimage.blit(x // 2, y // 2, 0, w - diff_w, h - diff_h)
         else:
             pygletimage.blit(x, y, 0, w, h)
         del (pygletimage)
@@ -396,7 +396,7 @@ class EditorGLPanel(PygletGLPanel):
         """Scales image down if too large, else the image is simply centered"""
         width, height = self.GetClientSize()
         w, h = pygletimage.width, pygletimage.height
-        x, y, = (width - w) / 2, (height - h) / 2
+        x, y, = (width - w) // 2, (height - h) // 2
         if width < w or height < h:
             self.StretchAspect(pygletimage)
         else:
@@ -411,21 +411,21 @@ class EditorGLPanel(PygletGLPanel):
         y_ratio = float(height) / h
         if y_ratio > x_ratio:
             ch = h * x_ratio
-            pygletimage.blit(0, (height - ch) / 2, 0, width, ch)
+            pygletimage.blit(0, (height - ch) // 2, 0, width, ch)
         else:
             cw = w * y_ratio
-            pygletimage.blit((width - cw) / 2, 0, 0, cw, height)
+            pygletimage.blit((width - cw) // 2, 0, 0, cw, height)
         del (pygletimage)
 
     def Cropped(self, pygletimage):
         """Oversized images too large for the panel will simply be cropped"""
         width, height = self.GetClientSize()
         w, h = pygletimage.width, pygletimage.height
-        x, y = (width - w) / 2, (height - h) / 2
+        x, y = (width - w) // 2, (height - h) // 2
         if w > width:
-            x = (width - w) / 2
+            x = (width - w) // 2
         if h > height:
-            y = (height - h) / 2
+            y = (height - h) // 2
         pygletimage.blit(x, y, 0, w, h)
         del (pygletimage)
 

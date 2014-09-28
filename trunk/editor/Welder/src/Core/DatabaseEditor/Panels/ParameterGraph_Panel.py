@@ -9,8 +9,6 @@ import Kernel
 
 from PyitectConsumes import DatabaseManager as DM
 
-from PyitectConsumes import ParameterPlotGraphics
-from PyitectConsumes import ParameterGraph
 from PyitectConsumes import GenerateCurve_Dialog
 
 from PyitectConsumes import PanelBase, ParameterGraph_Panel_Template
@@ -26,7 +24,7 @@ class ParameterGraph_Panel(ParameterGraph_Panel_Template, PanelBase):
         """Basic constructor for the ParameterGraph_Panel"""
         ParameterGraph_Panel_Template.__init__(self, parent)
         global Config
-        Config = Kernel.GlobalObjects['Welder_config']
+        
         self.Data = deepcopy(actor.parameters)
         self.Actor = actor
         self.TabNames = ['MaxHP', 'MaxSP']
@@ -76,11 +74,11 @@ class ParameterGraph_Panel(ParameterGraph_Panel_Template, PanelBase):
     def GetValueMax(self, param_index):
         """Returns the max value for the parameter type"""
         if param_index == 0:
-            return Config.getint('DatabaseLimits', 'ActorHP')
+            return int(Kernel.Config.getUnified()['DatabaseLimits']['ActorHP'])
         elif param_index == 1:
-            return Config.getint('DatabaseLimits', 'ActorSP')
+            return int(Kernel.Config.getUnified()['DatabaseLimits']['ActorSP'])
         else:
-            return Config.getint('DatabaseLimits', 'ActorParameter')
+            return int(Kernel.Config.getUnified()['DatabaseLimits']['ActorParameter'])
 
     def GetData(self):
         """Returns the parameter data in a format fit to graph"""

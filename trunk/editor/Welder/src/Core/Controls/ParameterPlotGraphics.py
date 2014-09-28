@@ -1,4 +1,5 @@
-import wx.lib.plot as plot		
+import wx.lib.plot as plot
+import numpy as np
 
 #--------------------------------------------------------------------------------------
 # ParameterPlotGraphics
@@ -20,4 +21,4 @@ class ParameterPlotGraphics(plot.PlotGraphics):
 			Min[1], Max[1] = self._yLim[0], self._yLim[1]
 		if self._xLim is not None:
 			Min[0], Max[0] = self._xLim[0], self._xLim[1]
-		return plot._Numeric.array(Min), plot._Numeric.array(Max)
+		return np.array(Min), np.array(Max)

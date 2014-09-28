@@ -1,9 +1,10 @@
-from PyitectConsumes import EditorGLPanel
-from PyitectConsumes import WaveFormPanel
-from PyitectConsumes import EditorGLPanel
-from PyitectConsumes import ProportionalSplitter
-from PyitectConsumes import ParameterGraph
-from PyitectConsumes import ParameterPanel
-from PyitectConsumes import ImageCheckList
-from PyitectConsumes import DM
-from PyitectConsumes import ScriptTextCtrl
+import PyitectConsumes
+EditorGLPanel = PyitectConsumes.EditorGLPanel
+WaveFormPanel = PyitectConsumes.WaveFormPanel
+EditorGLPanel = PyitectConsumes.EditorGLPanel
+ProportionalSplitter = PyitectConsumes.ProportionalSplitter
+ParameterGraph = PyitectConsumes.ParameterGraph
+ParameterPanel = PyitectConsumes.ParameterPanel
+ImageCheckList = PyitectConsumes.ImageCheckList
+DatabaseManager = PyitectConsumes.DatabaseManager
+ScriptTextCtrl = PyitectConsumes.ScriptTextCtrl

@@ -1,7 +1,7 @@
 import wx
 
 import Kernel
-from PyitectConsumes import PanelBase, System_Panel_Tempalte
+from PyitectConsumes import PanelBase, System_Panel_Template
 from PyitectConsumes import DatabaseManager as DM
 
 from PyitectConsumes import ChooseGraphic_Dialog
@@ -13,14 +13,14 @@ from PyitectConsumes import ChooseGraphic_Dialog
 # Implementing System_Panel
 
 
-class System_Panel(System_Panel_Tempalte, PanelBase):
+class System_Panel(System_Panel_Template, PanelBase):
 
     _arc_panel_info_string = "Name Caption Center CloseB CaptionV DestroyOC Floatable Float IconARCM MaximizeB MinimizeM MinimizeB Movable NotebookD Resizable Snappable"
     _arc_panel_info_data = {"Name": "System Panel", "Caption": "System Panel", "CaptionV": True, "MinimizeM": ["POS_SMART", "CAPT_SMART", ],
                             "MinimizeB": True, "CloseB": True, 'IconARCM': 'systemicon'}
 
     def __init__(self, parent):
-        System_Panel_Tempalte.__init__(self, parent)
+        System_Panel_Template.__init__(self, parent)
 
         # Bind the panel tot he Panel Manager
         self.bindPanelManager()
