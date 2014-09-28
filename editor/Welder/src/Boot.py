@@ -122,8 +122,7 @@ class ARCSplashScreen(wx.Frame):
         if "WX_config" in Kernel.GlobalObjects:
             Kernel.GlobalObjects["WX_config"] = wx_config
         else:
-            Kernel.GlobalObjects.request_new_key(
-                "WX_config", "CORE", wx_config)
+            Kernel.GlobalObjects.request_new_key("WX_config", "CORE", wx_config)
 
         # load the plugin configuration
         try:
