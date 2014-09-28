@@ -1,11 +1,20 @@
 #!/usr/bin/env python
 """
 The main Boot code,
-shows a splash screen during load 
+shows a splash screen during load
 loads genral and plugin configuration
 builds the plugin system
 loads the main window
 """
+import site
+import sys
+import os
+
+# process .pth files
+for path in sys.path:
+    if os.path.isdir(path):
+        site.addsitedir(path)
+
 import os
 import json
 import warnings
@@ -28,6 +37,10 @@ class ARCSplashScreen(wx.Frame):
 
         self.hasShape = False
         self.delta = wx.Point(0, 0)
+
+        icon = Path(Kernel.GlobalObjects["Program_Dir"], 'icon.ico')
+        ico = wx.Icon(str(icon), wx.BITMAP_TYPE_ICO)
+        self.SetIcon(ico)
 
         # Load the image
         splash = Path(Kernel.GlobalObjects["Program_Dir"], 'splash.png')

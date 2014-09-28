@@ -34,7 +34,7 @@ class ScriptEditorManager(object):
         """
         from fnmatch import fnmatch
 
-        ScriptManager.EnsureScriptDirectory()
+        ScriptEditorManager.EnsureScriptDirectory()
         projDir = Kernel.GlobalObjects["CurrentProjectDir"]
         dir = os.path.join(projDir, 'Data', 'Scripts')
         # TODO: Include internal scripts as read-only entries?
@@ -64,7 +64,7 @@ class ScriptEditorManager(object):
             return False
         result = True
         scripts = Kernel.GlobalObjects['Scripts']
-        ScriptManager.EnsureScriptDirectory()
+        ScriptEditorManager.EnsureScriptDirectory()
         for i, script in enumerate(scripts):
             if not script.SaveScript(i):
                 result = False
@@ -116,7 +116,7 @@ class ScriptEditorManager(object):
         Returns:
         A list of format strings for the respective styles
         """
-        styles = ScriptManager.GetStyles()
+        styles = ScriptEditorManager.GetStyles()
         cfg = Kernel.GlobalObjects['Welder_config'].get_section('ScriptEditor')
         settings = [cfg.get(styles[1]) for style in styles]
         return settings
@@ -222,8 +222,8 @@ class ScriptEditorManager(object):
         Returns:
         None
         """
-        default = ScriptManager.GetDefaultSettings()
-        styles = ScriptManager.GetStyles()
+        default = ScriptEditorManager.GetDefaultSettings()
+        styles = ScriptEditorManager.GetStyles()
         cfg = Kernel.GlobalObjects['Welder_config'].get_section('ScriptEditor')
         for i in range(len(styles)):
             style = styles[i]
@@ -236,8 +236,8 @@ class ScriptEditorManager(object):
         scriptcontrol.SetTabWidth(int(cfg.get('tab_width')))
         scriptcontrol.SetEdgeColumn(int(cfg.get('edge_column')))
         scriptcontrol.SetCaretLineVisible(cfg.get('show_caret').lower() == 'true')
-        scriptcontrol.SetCaretForeground(ScriptManager.ParseColor(cfg.get('caret_fore')))
-        scriptcontrol.SetCaretLineBack(ScriptManager.ParseColor(cfg.get('caret_back')))
+        scriptcontrol.SetCaretForeground(ScriptEditorManager.ParseColor(cfg.get('caret_fore')))
+        scriptcontrol.SetCaretLineBack(ScriptEditorManager.ParseColor(cfg.get('caret_back')))
         scriptcontrol.SetCaretLineBackAlpha(int(cfg.get('caret_alpha')))
         scriptcontrol.SetIndentationGuides(cfg.get('indent_guides').lower() == 'true')
 
@@ -264,8 +264,8 @@ class ScriptEditorManager(object):
         None
         """
         CARET_ALPHA = 255
-        default = ScriptManager.GetDefaultSettings()
-        styles = ScriptManager.GetStyles()
+        default = ScriptEditorManager.GetDefaultSettings()
+        styles = ScriptEditorManager.GetStyles()
         cfg = Kernel.GlobalObjects['Welder_config'].get_section('ScriptEditor')
         for i in range(len(default)):
             scriptcontrol.StyleSetSpec(styles[i][0], default[i])

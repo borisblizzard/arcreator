@@ -15,20 +15,15 @@
     ],
     "build_systems":[
         {   
-            "name": "Run Welder Launcher Wrapper",
-            "selector": "source.python",
-            "working_dir": "${project_path:${folder}}",
-            "shell": true,
+            "name": "Run Welder",
+            "working_dir": "${project_path:${folder}/src}",
             
             "file_regex": "^[ ]*File \"(...*?)\", line ([0-9]*)",
             "cmd": ["./src/Welder"],
 
-            "variants": [
-                { 
-                    "name": "Run",
-                    "cmd": ["python3", "-u", "$file"]
-                }
-            ]
+            "windows": {
+                "cmd": ["src/Welder.exe"]
+            }
         }
     ],
     "SublimeLinter":
