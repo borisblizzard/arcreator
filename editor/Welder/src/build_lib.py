@@ -1,4 +1,5 @@
-import sys, os
+import sys
+import os
 import shutil
 import platform
 import sysconfig
@@ -13,6 +14,7 @@ try:
     dirName = os.path.dirname(os.path.abspath(__file__))
 except:
     dirName = os.path.dirname(os.path.abspath(sys.argv[0]))
+
 
 def RemoveVersionNumbers(libName):
     tweaked = False
@@ -47,13 +49,13 @@ else:
 #     lib_dir = virenv_dir
 
 std_exclude_files = [
-    "test", 
-    "__pycache__", 
-    "idlelib", 
-    "tkinter", 
-    "turtledemo", 
+    "test",
+    "__pycache__",
+    "idlelib",
+    "tkinter",
+    "turtledemo",
     "antigravity.py",
-    "turtle.py", 
+    "turtle.py",
     "site-packages"
 ]
 
@@ -64,8 +66,10 @@ site_needed = [
     'numpy',
     'setuptools',
     'pyglet',
-    'rabbyt', 
-    'pkg_resources.py'
+    'rabbyt',
+    'pkg_resources.py',
+    'win32',
+    'pywin32.pth'
 ]
 
 dep_exts = [".dll", ".pyd", ".so"]

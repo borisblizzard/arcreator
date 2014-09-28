@@ -753,7 +753,7 @@ class RPG(object):
     CommonEvent.__repr__ = instance_repr
     Class.__repr__ = instance_repr
     Class.Learning.__repr__ = instance_repr
-    
+
 
 def extend_namespace(namespace):
     import sys
