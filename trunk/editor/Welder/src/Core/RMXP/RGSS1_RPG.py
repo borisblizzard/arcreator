@@ -755,5 +755,7 @@ class RPG(object):
     Class.Learning.__repr__ = instance_repr
     
 
-def extend_namespace(self, namespace):
-    namespace.update(self.__dict__)
+def extend_namespace(namespace):
+    import sys
+    module = sys.modules[__name__]
+    namespace.update(module.__dict__)

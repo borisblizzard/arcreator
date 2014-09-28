@@ -259,7 +259,6 @@ class Project(object):
         for fil in os.listdir(folder):
             target = os.path.join(folder, fil)
             if os.path.isfile(target):
-                print(rel_path, fil)
                 z.write(target, os.path.join(rel_path, fil), zipfile.ZIP_DEFLATED)
             elif os.path.isdir(target):
                 self.addToZip(z, target, os.path.join(rel_path, os.path.basename(target)))
@@ -299,9 +298,8 @@ class Project(object):
     def LimitBackups(self, path):
         backups = self.FindBackupFiles(path)
         backups.sort(key=lambda backup: backup[1])
-        config = Kernel.GlobalObjects["Welder_config"]
         try:
-            maxBackups = config.getint("Main", "MaxBackups")
+            maxBackups = Kernel.Config.getUnified()["Main"]["maxbackups"]
         except:
             maxBackups = 10
             Kernel.Log("Invalid setting for MaxBackups in configuration", "[Project]", error=True)

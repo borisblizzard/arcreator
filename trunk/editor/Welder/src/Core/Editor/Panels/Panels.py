@@ -298,72 +298,72 @@ class DatabaseToolbar(aui.AuiToolBar):
             if self.actorspanel:
                 self.mgr.RequestUserAttention(self.actorspanel)
             else:
-                self.actorspanel = self.mgr.dispatchPanel("MainActorsPanel", "Main Actors Panel")
+                self.actorspanel = self.mgr.dispatchPanel("Actors_Panel", "Actors")
         elif event.Id == self.classesid:
             if self.classespanel:
                 self.mgr.RequestUserAttention(self.classespanel)
             else:
-                self.classespanel = self.mgr.dispatchPanel("MainClassesPanel", "Main Classes Panel")
+                self.classespanel = self.mgr.dispatchPanel("Classes_Panel", "Classes")
         elif event.Id == self.skillsid:
             if self.skillspanel:
                 self.mgr.RequestUserAttention(self.skillspanel)
             else:
-                self.skillspanel = self.mgr.dispatchPanel("MainSkillsPanel", "Main Skills Panel")
+                self.skillspanel = self.mgr.dispatchPanel("Skills_Panel", "Skills")
         elif event.Id == self.itemsid:
             if self.itemspanel:
                 self.mgr.RequestUserAttention(self.itemspanel)
             else:
-                self.itemspanel = self.mgr.dispatchPanel("MainItemsPanel", "Main Items Panel")
+                self.itemspanel = self.mgr.dispatchPanel("Items_Panel", "Items")
         elif event.Id == self.weaponsid:
             if self.weaponspanel:
                 self.mgr.RequestUserAttention(self.weaponspanel)
             else:
-                self.weaponspanel = self.mgr.dispatchPanel("MainWeaponsPanel", "Main Weapons Panel")
+                self.weaponspanel = self.mgr.dispatchPanel("Weapons_Panel", "Weapons")
         elif event.Id == self.armorsid:
             if self.armorspanel:
                 self.mgr.RequestUserAttention(self.armorspanel)
             else:
-                self.armorspanel = self.mgr.dispatchPanel("MainArmorsPanel", "Main Armors Panel")
+                self.armorspanel = self.mgr.dispatchPanel("Armors_Panel", "Armors")
         elif event.Id == self.enemiesid:
             if self.enemiespanel:
                 self.mgr.RequestUserAttention(self.enemiespanel)
             else:
-                self.enemiespanel = self.mgr.dispatchPanel("MainEnemiesPanel", "Main Enemies Panel")
+                self.enemiespanel = self.mgr.dispatchPanel("Enemies_Panel", "Enemies")
         elif event.Id == self.troopsid:
             if self.troopspanel:
                 self.mgr.RequestUserAttention(self.troopspanel)
             else:
-                self.troopspanel = self.mgr.dispatchPanel("MainTroopsPanel", "Main Troops Panel")
+                self.troopspanel = self.mgr.dispatchPanel("Troops_Panel", "Troops")
         elif event.Id == self.statesid:
             if self.statespanel:
                 self.mgr.RequestUserAttention(self.statespanel)
             else:
-                self.statespanel = self.mgr.dispatchPanel("MainStatesPanel", "Main States Panel")
+                self.statespanel = self.mgr.dispatchPanel("States_Panel", "States")
         elif event.Id == self.animationsid:
             if self.animationspanel:
                 self.mgr.RequestUserAttention(self.animationspanel)
             else:
-                self.animationspanel = self.mgr.dispatchPanel("MainAnimationsPanel", "Main Animations Panel")
+                self.animationspanel = self.mgr.dispatchPanel("Animations_Panel", "Animations")
         elif event.Id == self.tilesetsid:
             if self.tilesetspanel:
                 self.mgr.RequestUserAttention(self.tilesetspanel)
             else:
-                self.tilesetspanel = self.mgr.dispatchPanel("MainTilesetsPanel", "Main Tilesets Panel")
+                self.tilesetspanel = self.mgr.dispatchPanel("Tilesets_Panel", "Tilesets")
         elif event.Id == self.commoneventsid:
             if self.commoneventspanel:
                 self.mgr.RequestUserAttention(self.commoneventspanel)
             else:
-                self.commoneventspanel = self.mgr.dispatchPanel("MainCommonEventsPanel", "Main Common Events Panel")
+                self.commoneventspanel = self.mgr.dispatchPanel("CommonEvents_Panel", "Common Events")
         elif event.Id == self.systemid:
             if self.systempanel:
                 self.mgr.RequestUserAttention(self.systempanel)
             else:
-                self.systempanel = self.mgr.dispatchPanel("MainSystemPanel", "Main System Panel")
+                self.systempanel = self.mgr.dispatchPanel("System_Panel", "System")
         elif event.Id == self.scriptid:
             if self.scriptpanel:
                 self.mgr.RequestUserAttention(self.scriptpanel)
             else:
-                self.scriptpanel = self.mgr.dispatchPanel("MainScriptEditorPanel", "Main Script Editor Panel")
+                self.scriptpanel = self.mgr.dispatchPanel("ScriptEditor_Panel", "Script Editor")
 
 
 class StartPanel(wx.Panel, PanelBase):

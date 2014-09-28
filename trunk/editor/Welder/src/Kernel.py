@@ -397,8 +397,8 @@ class ErrorDialog (wx.Dialog):
 
         mainsizer.Add(message_sizer, 0, wx.EXPAND, 5)
 
-        self.details_tb = wx.TextCtrl(self.cp.GetPane(), wx.ID_ANY, str(
-            error_text), wx.DefaultPosition, wx.DefaultSize, wx.TE_MULTILINE | wx.TE_READONLY | wx.TE_WORDWRAP)
+        self.details_tb = wx.TextCtrl(self.cp.GetPane(), wx.ID_ANY, str(error_text), 
+            wx.DefaultPosition, wx.DefaultSize, wx.TE_MULTILINE | wx.TE_READONLY | wx.TE_WORDWRAP)
 
         details_sizer = wx.BoxSizer(wx.VERTICAL)
         details_sizer.Add(self.details_tb, 1, wx.EXPAND | wx.ALL, 2)
@@ -407,8 +407,9 @@ class ErrorDialog (wx.Dialog):
         mainsizer.Add(self.cp, 1, wx.ALL | wx.EXPAND, 5)
 
         dilg_btn_sizer = wx.StdDialogButtonSizer()
-        self.dilg_btn_sizerOK = wx.Button(self, wx.ID_OK)
-        dilg_btn_sizer.AddButton(self.dilg_btn_sizerOK)
+        self.dilg_btn_OK = wx.Button(self, wx.ID_OK)
+        dilg_btn_sizer.AddButton(self.dilg_btn_OK)
+        self.dilg_btn_OK.SetDefault()
         dilg_btn_sizer.Realize()
         mainsizer.Add(dilg_btn_sizer, 0, wx.EXPAND, 5)
 
