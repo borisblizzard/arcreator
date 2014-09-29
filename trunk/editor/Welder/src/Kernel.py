@@ -156,14 +156,27 @@ class ConfigContainer(object):
     '''
 
     def __init__(self):
-        self.user = {}
         self.program = {}
+        self.user = {}
+        self.project = {}
 
     def updateUser(self, cfg):
         self.user.update(cfg)
 
     def updateProgram(self, cfg):
         self.program.update(cfg)
+
+    def updateProject(self, cfg):
+        self.project.update(cfg)
+
+    def setUser(self, cfg):
+        self.user = cfg
+
+    def setProgram(self, cfg):
+        self.program = cfg
+
+    def setProject(self, cfg):
+        self.project = cfg
 
     def getUser(self):
         return self.user
@@ -176,6 +189,7 @@ class ConfigContainer(object):
         unif = {}
         unif.update(self.program)
         unif.update(self.user)
+        unif.update(self.project)
         return unif
 
 global Config, PluginCFG

@@ -9,6 +9,7 @@ import time
 import configparser
 import zipfile
 import re
+import copy
 
 import collections
 
@@ -16,8 +17,9 @@ import Kernel
 
 from PyitectConsumes import ARCDataDumpFunction, ARCDataLoadFunction
 
+
 class Project(object):
-    
+
     def __init__(self):
         self._data = {}
         self._deferred_data = {}
@@ -32,7 +34,7 @@ class Project(object):
 
     def removeAdvancedHandler(self, name):
         del self.advanced_handlers[name]
-        
+
     def testAdvancedHandlersLoad(self, key):
         for handler in self.advanced_handlers.values():
             if handler.test():
@@ -53,23 +55,23 @@ class Project(object):
 
     def setLoadFunc(self, func):
         self.load_func = func
-    
+
     def setSaveFunc(self, func):
         self.save_func = func
-        
+
     def setProjectPath(self, path):
         self.project_path = path
 
     def getProjectPath(self):
         return self.project_path
-        
+
     def setData(self, key, value, changed=True):
         if key in self._data:
             self._data[key][0] = changed
             self._data[key][1] = value
         else:
             self._data[key] = [changed, value]
-    
+
     def getData(self, key):
         if key in self._data:
             return self._data[key][1]
@@ -77,16 +79,30 @@ class Project(object):
             Kernel.Log("Warning: data key %s does not exist. Returned None" % key, "[Project]")
             return None
 
+    def getDataCopy(self, key):
+        if key in self._data:
+            return copy.copy(self._data[key][1])
+        else:
+            Kernel.Log("Warning: data key %s does not exist. Returned None" % key, "[Project]")
+            return None
+
+    def getDataDeepcopy(self, key):
+        if key in self._data:
+            return copy.deepcopy(self._data[key][1])
+        else:
+            Kernel.Log("Warning: data key %s does not exist. Returned None" % key, "[Project]")
+            return None
+
     def hasData(self, key):
         return key in self._data
-        
+
     def setDeferredData(self, key, value, changed=True):
         if key in self._deferred_data:
             self._deferred_data[key][0] = changed
             self._deferred_data[key][1] = value
         else:
             self._deferred_data[key] = [changed, value]
-            
+
     def getDeferredData(self, key):
         if key in self._deferred_data:
             return self._deferred_data[key][1]
@@ -98,14 +114,14 @@ class Project(object):
             except Exception:
                 Kernel.Log("Warning: Deferred data '%s' does not exist. Returned None" % key, "[Project]")
                 return None
-    
+
     def setInfo(self, key, value, changed=True):
         if key.lower() in self._info:
             self._info[key.lower()][0] = changed
             self._info[key.lower()][1] = value
         else:
             self._info[key.lower()] = [changed, value]
-        
+
     def getInfo(self, key):
         if key.lower() in self._info:
             return self._info[key.lower()][1]
@@ -115,52 +131,52 @@ class Project(object):
 
     def hasInfo(self, key):
         return key.lower() in self._info
-        
+
     def setChangedInfo(self, key, value):
         if key.lower() in self._info:
             self._info[key.lower()][0] = value
         else:
             Kernel.Log("Info key %s does not exist. change flag not set" % key, "[Project]")
-    
+
     def getChangedInfo(self, key):
         if key.lower() in self._info:
             return self._info[key.lower()][0]
         else:
             return False
-        
+
     def setChangedData(self, key, value):
         if key in self._data:
             self._data[key][0] = value
         else:
             Kernel.Log("Data key %s does not exist. changed flag not set" % key, "[Project]")
-        
+
     def getChangedData(self, key):
         if key in self._data:
             return self._data[key][0]
         else:
             return False
-        
+
     def setChangedDeferredData(self, key, value):
         if key in self._deferred_data:
             self._deferred_data[key][0] = value
         else:
             Kernel.Log("Deferred data key %s does not exist. changed flag not set" % key, "[Project]")
-            
+
     def getChangedDeferredData(self, key):
         if key in self._deferred_data:
             return self._deferred_data[key][0]
         else:
             return False
-        
+
     def getMapData(self, id_num):
         return self.getDeferredData("Map%03d" % id_num)
-    
+
     def setMapData(self, id_num, value, changed=True):
         self.setDeferredData("Map%03d" % id_num, value, changed)
-        
+
     def getChangedMapData(self, id_num):
         self.getChangedDeferredData("Map%03d" % id_num)
-        
+
     def setChangedMapData(self, id_num, value):
         self.setChangedDeferredData("Map%03d" % id_num, value)
 
@@ -187,7 +203,7 @@ class Project(object):
             self.setChangedData(key, False)
         else:
             Kernel.Log("Warning: no save function set for project. Data files NOT saved", "[Project]")
-                
+       
     def saveDeferredData(self, key):
         if (self.save_func != None) and isinstance(self.save_func, collections.Callable):
             Kernel.Protect(self.save_func)(os.path.dirname(self.project_path), key, self.getDeferredData(key))
@@ -232,7 +248,7 @@ class Project(object):
                 if not self.testAdvancedHandlersSave(key):
                     self.saveDeferredData(key)
         self.saveInfo()
-               
+
     def loadProject(self, backup=True):
         if os.path.exists(self.project_path):
             if backup: self.Backup()
@@ -253,7 +269,7 @@ class Project(object):
                             Kernel.Log("Warning: no load function set for project. Data for %s set to None" % file_name, "[Project]")
         else:
             Kernel.Log("Warning: project path %s does not exist. Project not loaded." % self.project_path, "[Project]")
-    
+
     def addToZip(self, z, folder, rel_path=""):
         folder = os.path.abspath(folder)
         for fil in os.listdir(folder):
@@ -262,7 +278,7 @@ class Project(object):
                 z.write(target, os.path.join(rel_path, fil), zipfile.ZIP_DEFLATED)
             elif os.path.isdir(target):
                 self.addToZip(z, target, os.path.join(rel_path, os.path.basename(target)))
-    
+
     def Backup(self):
         Kernel.StatusBar.BeginTask(3, "Making Project Backup")
         Kernel.StatusBar.updateTask(0, "Ensure Backup Path")
@@ -360,9 +376,10 @@ class AdvancedDataHandler(object):
     def getDir(self, name):
         dir_name = os.path.join(self.project.getProjectPath(), "Data")
         return dir_name
-                
+
+
 class ARCProjectCreator(object):
-    
+
     def __init__(self):
         self.project = None
         
